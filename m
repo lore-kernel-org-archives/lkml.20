@@ -1,62 +1,64 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C519A3806CC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753604BD352
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052417; cv=none; b=g4UzxnE9Ws+JEZ/CyY0p47d0AAmUtyL7oZfenXhXWN5iiVHc6RIqG1dJjzWic2uv1kfG53Jq3hagXm6HY2fqAmSm3vE6a9KlDSdLG1itpqQw1be+bOqyALcwjoOYaxDtV7L98FHmW8XHvRvA76WtjXqlSzWkA9nfvZoIC1PuYsk=
+	t=1792052419; cv=none; b=peW50hQ2rgXM+B9vSm+5ibXDikctwXoz/gL/ZkG+wtaGrrvUTPTRD2whLCTk43qu/QBdSpqA9IpLAwh+EQ3+bF3JYpbilSqgB82Mx/UKoEJ7HBGe9FTc1xgVgzD+MVR3dMMAss3sTbCzBBzrRl6zo6GZNCG14oUOa0QBEsjAyH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052417; c=relaxed/simple;
-	bh=H63zxjWp1jLDvdHp4Krl+dOy/FAVseUmuLwFmUPXyfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NRLveHo2u3nbuiH0sJk0sxJK68H6EoNtGJYx6P/g1uK0cm5GOykaep+oKAc/FD1ece2OqAjKtA6ZjVpe1F/8qdwqvMrDzj/fJY4M8K7P3QsJAXUwGN4xIsvbt0Q4G7fOhJdHhzkpod2wyUAA11602CbAlnDF/RAQU4OVzUX60Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNO5wKWU; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1792052419; c=relaxed/simple;
+	bh=qDKOJFD5O0yGfj6OQWmcK5ZqqsZPXy8lBN3o3xrmKik=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cb3xjRVlJr/EmV/e3XHaenE54kB8FdOZ1FP4IN4wrQkQcQcN8Rx+tfd5e3+NQE/rwxbkfH+IQUGMos7DJQA2DhUoxBu7+zpBeXqP7LOU3NUVku1LAi04CpXgJWtLXqdDvoSxr0IUCouE79RRbR4bf9xRStacYlxxVLXBH+HJzuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OHNVcfLa; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNO5wKWU"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso46830375e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:20:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OHNVcfLa"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso7978825e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792052414; x=1792657214; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H5Vd8qfuBft/Q+5AUgWTrpKu6Zh/Rd4i1LR0LLBN6fE=;
-        b=gNO5wKWUwsngt3KmuEMRTtXlJL4SAvEd/CF+nBwCWdL1L9O0ZnMJvhZocXnK/GY9Tj
-         aJw87xgCCQpDGwuGryIMAB188ETAK2x6CiixfryatHHj9jtHUJkhhxmc0kmWuZGBJIJo
-         1rB+0anfQHnsvqwXZCl6azBaLmj6mmQnXJmn5cTtvBUigoVHPzUcMyg13jU0CNmxWKI0
-         YTuAmgUf7BgoIUyvQlj3snbC6s3ANIx5/v71cv7ZeCALizWjAsl9E/iyXbcGsk/chT4G
-         Srxj8rkLvWWICi/7fdPKr9/uQFdwWkGgVP/D+UuuA0Wr8B90KlkxpRjQn83HZDBt3HrL
-         xHNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052414; x=1792657214;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792052416; x=1792657216; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H5Vd8qfuBft/Q+5AUgWTrpKu6Zh/Rd4i1LR0LLBN6fE=;
-        b=VOt8uWXP8kaPGOdjlKQCnFNtJLFAXp5+c1EASLxGYH7nOuO1lGmTyY6eomEsjzhp7G
-         Wnbm4OfAMTz0bLwYAZgk598OoGVquR470rNH4usnXUkkjfo/I/CuxV2T3frIYhZsWfP6
-         SGUD3/BRbHvSw3v7zYL0B/apqPgefzFXQ07QEdsB64p1qd1hj9njEZKA7dmh/HCE72Oo
-         cOqJtCRe7v6Mgu3RdQMJfC7NfGMdgRFEDUrJghSu5BsQDFCLfDG9Cey46mHa2GlzOGUW
-         Q+jlfXLsnPUxLSUKHGMzXRCVHKlMQP0yzd6dV7Rx4Unv1xt8pRIOZvHUF8QHqj1/EVTF
-         PJ2A==
-X-Forwarded-Encrypted: i=1; AKwUvByTiNxs18Ugkdyxlk+0gpR/rDcEBiHBQpQpRDnI6lHkr1uQOUa/4X3ZObwXHdPzvs1VnQ/DTOmeLAa0868=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlVAp8reCkS5kqH5uA/PFjUe4UrtiRtlko8UvVhG/cosbgugPO
-	NN0fKWdl4gqfFtj9WySCrjCZZsCVZZepTFDL3+0j8T82EFcCkmwCp/Vm
-X-Gm-Gg: AYBFou3gTqgfNgUtDyKyH/H5xkVhBWpZDePq5Zw3nfqlv3vID5Tb65xqQiZRudtHPUc
-	N3+duZnfCGj2qbmytmk+3flc0mX1YKoNODuG/JiJDQYchdu19sv+y/hw6OgfRIUm6fNFi/k/DER
-	qVRvD5K+C0RLc7J6Hp3m96tBdohzHHM2CL1xbTf6ctVt7lLMlJXE4CgcaYdZO5PNCRMGLeDTWIn
-	SqYXZtUSUurRlxtmfIWOeN/a9cX/9ABSJksEjYd+bm5akCLE0wA2S4v3LYEp1NdkNrM9T7glXRn
-	lm7RPASZTKLsfa36TEpZrgvt6SOT3O1jLp0r5l/dqx9pvvcgdv3GrixVVmYNbFDh59HXGMxmdaE
-	Dtc0R0zZzNKtUBUB70EIbQ/2ySuXk83EXefJXsnE68fQG1KUJ0y2j9jNnnAwSoncGaiJO78XloD
-	U/DIvQKv0F5qDR2g6u9iiPHMX6/QyBFlXkMXuLE1IbNuqCzx50er0jHacBGfRTeCeE+eVVTe+bX
-	8UyXfPKgUqQmuGpEwBUse2Cia64qgQxRSj9GMLo2mp7FQ==
-X-Received: by 2002:a05:600c:8a09:20b0:4a1:9687:bbd4 with SMTP id 5b1f17b1804b1-4a19687bdcamr221742185e9.31.1792052412468;
-        Thu, 15 Oct 2026 01:20:12 -0700 (PDT)
+        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
+        b=OHNVcfLaAVjhBuAKxImvGRz7bXzRjbBTEZmit33wcYkt1Y84wv3HSljjlSGXvaQ30d
+         VyVkMryOKZ8sFumKqs0P+7d+7+A8ijLGekWQ4ck+TDN5pPeD5duDcPvYFAH+cs8VcpO4
+         oMWz7ahdNQon9Tn7N6Fjt/BjvLlZ6KDFJilNRjlIfE435lnOuCBrwjDrfkT1qN/5mfNN
+         j/Uesg/f4xzFVfmo3UHAR34gzlKEWI1sYnlH7a0myeYn3jpEVkL9t4yf7OePgX8kDQwL
+         dVBu19z4taI/jVQLaKdXNeuc1kAsRrFMz4Ns0gDC1JQbr4lMInq+WPDnMkEY70StB7S6
+         gZ1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052416; x=1792657216;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
+        b=hc2m358w/UB5WhRVGwKOof20M+rNcxXJzUJw71H6EnmXTBDADl4oJtISTTUJGStkqG
+         CnNJcJQ4T1p3OKQ8jrGCH3XZTG1JX3E3qZRFDZanpqRVfiGzhK/esCP1uuHOtnKPI8/Z
+         7mfWbLgZnLh49jmH3mIWl2IqoYzKNoN6MHORH7f0uMwpeO5CNORRz7hv+RXkFJJkvZgu
+         D2Ium34r46L9uAgCk4wwbduEB8e647iNP9abmjZJBz/rlPMvO+fYHl/CHjV7SYWDThX1
+         OCNbHaS2MVRaMrqOEvKUQmjX5KTXOPlKzwXcrbxteNKO4MlXk05XZ121ilWSwdYf1tTw
+         WOKA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6P3xdL9OeNmxCjEcouFx2Z4k3fjf9PCkEy3rE8nfXm3YS7nHWzW3+IwxoD2ZKYmb7ez3t0lU7VgTlEWA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFEoCCJ5TlaTE+fre4TX5ACSXerOgl29Q/u2fYFvECUd1dF+Qs
+	xyAmoydYKmGxmpmgOOXM7oJ8V6Ery3G3AlS9OsPS/ok4BLlVUNfHLUU9
+X-Gm-Gg: AYBFou3GkgRHQNXNGxcK5QqV2Dd5fev2zLepFC4ppMdZgnxCYq1S09uZVdHz0U57uuL
+	xWUUy20YtMAx93lzhNH9pITXhD4UG3OTgZfAztQx4xJ6ssVILqwu5U+EzepJ8eOzoBMi7nTzmka
+	QEjF4OVjkyl+ZW8ndTO0iOwN/IWVlhjySLos+KJd4HNQxV6IJWaRGZ14CPJ0YaURLWy3YwQ6X8G
+	BuHx5UqmLzBN3+9hGwjWEv5rXdR4SawqzXYfx/AY4dXHGh/tlKFhmlK13DGecz2+9ZDP4ovHVDi
+	EM35LrPPIEKqWkxABmYuPn6BHr07EQ3q1rX0r4nkcmxOvYrYePTKymDaY+xrW2yXRddGrGDicfn
+	3YBOIVfua8YRQylbXKNKuozzNZJl6lu7ms1tSWvs5D/7Vw4lspxHSQbZegIwrlUJMU2O2I2hI5z
+	cxttbahML9+EWeFEEqXDt9867VNL43ieiKCopI9D7Mkx+qeZsofrrdhGYRaGCKgxF+MCpwcbXE+
+	e/jWqI1YipEBMhLM8fH5Cb0CLDpHjqL7cek9R690rCuQw==
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:6517:ccf1 with SMTP id 5b1f17b1804b1-4a18e47a844mr384308475e9.9.1792052415154;
+        Thu, 15 Oct 2026 01:20:15 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm49003545e9.6.2026.10.15.01.20.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm49003545e9.6.2026.10.15.01.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:20:12 -0700 (PDT)
+        Thu, 15 Oct 2026 01:20:14 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Alex Williamson <alex@shazbot.org>,
 	Ankit Agrawal <ankita@nvidia.com>
@@ -67,11 +69,14 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	Jiaqi Yan <jiaqiyan@google.com>,
 	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] vfio/nvgrace-gpu: Separate the fallback-mode open_device
-Date: Thu, 15 Oct 2026 10:19:33 +0200
-Message-ID: <20261015081937.405320-1-parri.andrea@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
+Date: Thu, 15 Oct 2026 10:19:34 +0200
+Message-ID: <20261015081937.405320-2-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015081937.405320-1-parri.andrea@gmail.com>
+References: <20261015081937.405320-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,45 +85,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In fallback mode, where the ACPI memory properties are missing or the
-C2C link is down, nvgrace-gpu opens a device through
-nvgrace_gpu_open_device() but closes it through
-vfio_pci_core_close_device().  The open registers an empty usemem range
-for poison handling that nothing unregisters, so a second open fails
-with -EBUSY, and the first open after an unbind hits a KASAN
-slab-use-after-free in register_pfn_address_space().
+When the ACPI memory properties are missing or the C2C link is down, the
+device is exposed through nvgrace_gpu_pci_core_ops.  That table opens
+through nvgrace_gpu_open_device() but closes through
+vfio_pci_core_close_device(), so open and close are not symmetric.
 
-Patch 1 gives the fallback table its own open_device, as Alex suggested
-on v1, and is marked for stable.  Patch 2 drops a usemem length check
-in nvgrace_gpu_open_device() that only existed for fallback mode.
+nvgrace_gpu_open_device() registers nvdev->usemem for poison handling
+unconditionally.  In fallback mode usemem.memlength is zero, and
+register_pfn_address_space() inserts a node covering [0, ULONG_MAX].
+Nothing removes it: a second open fails with -EBUSY, and once the device
+is unbound the node outlives the nvdev that contains it.  The next open
+after a rebind reports:
 
-Tested on x86-64 under virtme-ng with KASAN, not on Grace hardware.  A
-QEMU cxl-type3 function, bound through driver_override, takes the
-fallback path and is opened through a noiommu VFIO cdev.  On v7.3-rc7
-the second open fails with -EBUSY and the open after unbind and rebind
-reports the use-after-free.  With patch 1, and with the whole series,
-neither happens.  Patch 2 only affects full mode, which this setup
-cannot reach.
+  BUG: KASAN: slab-use-after-free in interval_tree_iter_first+0x209/0x310
+  Read of size 8 at addr ffff88800894aa30 by task nvgrace_repro/203
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5d/0x80
+   print_report+0x153/0x4c6
+   kasan_report+0xe4/0x1a0
+   interval_tree_iter_first+0x209/0x310
+   register_pfn_address_space+0x97/0x100
+   nvgrace_gpu_open_device+0x21c/0x730
+   vfio_df_open+0x213/0x520
+   vfio_df_ioctl_bind_iommufd+0x3e8/0x6e0
+   vfio_device_fops_unl_ioctl+0x782/0x1570
+   __x64_sys_ioctl+0x13c/0x1c0
+   do_syscall_64+0x106/0x630
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-Changes in v2:
-- Replace the usemem.memlength guards with a core-only open_device for
-  the fallback table (Alex)
-- Add patch 2
-- Fallback open no longer fails when BAR0 cannot be mapped; Ankit
-  confirmed fallback mode does not need that check
-- Rebase on v7.3-rc7
+  Allocated by task 188:
+   ...
+   _vfio_alloc_device+0x3a/0x500
+   nvgrace_gpu_probe+0xcb/0x660
+   local_pci_probe+0xcf/0x170
+   ...
 
+  Freed by task 188:
+   ...
+   kfree+0x20d/0x600
+   device_release+0xcf/0x250
+   kobject_put+0x152/0x2f0
+   pci_device_remove+0xb0/0x1c0
+   device_release_driver_internal+0x38d/0x540
+   unbind_store+0xde/0x100
+   ...
+
+Give the fallback table its own open_device that only calls
+vfio_pci_core_enable() and vfio_pci_core_finish_enable(), the
+counterpart of vfio_pci_core_close_device().  Fallback mode then never
+touches the nvgrace memory regions, as Alex suggested.
+
+This should be safe because the fallback table uses the vfio-pci core
+read, write and mmap handlers, so nothing there uses the state
+nvgrace_gpu_open_device() sets up.  The one visible difference is that a
+fallback open no longer fails when BAR0 cannot be mapped, which matches
+vfio-pci.
+
+Fixes: e5f19b619fa0 ("vfio/nvgrace-gpu: register device memory for poison handling")
+Cc: stable@vger.kernel.org
+Suggested-by: Alex Williamson <alex@shazbot.org>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+v2: Replace the usemem.memlength guards with a core-only open_device
+    for the fallback table (Alex)
+    Ankit confirmed fallback mode does not need the BAR0 check:
+    https://lore.kernel.org/r/SAWPR12MB99926787B53C4FF469A6F3BE7AB09D2@SAWPR12MB999267.namprd12.prod.outlook.com/
 v1: https://lore.kernel.org/r/20260925161024.189771-1-parri.andrea@gmail.com/
 
-Andrea Parri (2):
-  vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
-  vfio/nvgrace-gpu: Drop the usemem length check in open_device
+ drivers/vfio/pci/nvgrace-gpu/main.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
- drivers/vfio/pci/nvgrace-gpu/main.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
+index 963fd8ded20d1..208463c218088 100644
+--- a/drivers/vfio/pci/nvgrace-gpu/main.c
++++ b/drivers/vfio/pci/nvgrace-gpu/main.c
+@@ -1083,6 +1083,21 @@ static const struct vfio_device_ops nvgrace_gpu_pci_ops = {
+ 	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
+ };
+ 
++static int nvgrace_gpu_core_open_device(struct vfio_device *core_vdev)
++{
++	struct vfio_pci_core_device *vdev =
++		container_of(core_vdev, struct vfio_pci_core_device, vdev);
++	int ret;
++
++	ret = vfio_pci_core_enable(vdev);
++	if (ret)
++		return ret;
++
++	vfio_pci_core_finish_enable(vdev);
++
++	return 0;
++}
++
+ static const struct vfio_pci_device_ops nvgrace_gpu_pci_dev_core_ops = {
+ 	.get_dmabuf_phys = vfio_pci_core_get_dmabuf_phys,
+ };
+@@ -1091,7 +1106,7 @@ static const struct vfio_device_ops nvgrace_gpu_pci_core_ops = {
+ 	.name		= "nvgrace-gpu-vfio-pci-core",
+ 	.init		= vfio_pci_core_init_dev,
+ 	.release	= vfio_pci_core_release_dev,
+-	.open_device	= nvgrace_gpu_open_device,
++	.open_device	= nvgrace_gpu_core_open_device,
+ 	.close_device	= vfio_pci_core_close_device,
+ 	.ioctl		= vfio_pci_core_ioctl,
+ 	.get_region_info_caps = vfio_pci_ioctl_get_region_info,
 -- 
 2.53.0
 
