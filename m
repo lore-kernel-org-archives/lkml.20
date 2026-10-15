@@ -1,244 +1,683 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-66.mta0.migadu.com [91.218.175.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC79D1DF248;
-	Thu, 15 Oct 2026 01:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027776; cv=pass; b=IhIxFQwKrmHqxCC5OU+cFdsR96FFik+c3dShVB141BO32DcatV3VoMClbpA7F6VpdyVoR+CjEADzkg42k0fH3u/03VRyRqn/lu2X521AUsj8I5nx60pvHiNrpiruO3U9IjA6EKfrH2MTKEFGGhw+hX8LkTi7fd0PuqvlXXtSXrI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027776; c=relaxed/simple;
-	bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=DOItbdJRW6HT/3/mPFZ11SXPsQSa/OcXcyL20TWJfp4kMNKOFh8uqJQpdYYOheNzf7fR2OdQfYZF6vBwpoRVT86CuvJYCI7mKYOZVFoykI/Lh9I9hIk3l+ecoBIvFMf19cMW+z1PppVTzaOw/Gu70FPgAEj5djXRd94fSrqsLWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Lno3Y3c/; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4247A272E6D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792027984; cv=none; b=u0WbXQYT/8ecnkARtl5I9EydEn9CvG/BPglWYNTGZPlAmYEoJNQg15sOSddK7tun2ispK+uK2DRSA+Le3cnjCSP/UAjDGmDk97t5yCVaR3LhJ0otklam0g2Xiro7opAP1nFJPajOGWxwyO/4uNo/4sfHxnGWx/HkEDDzu+q7HjM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792027984; c=relaxed/simple;
+	bh=aW+P9ILvvwCYvBPUVsnfAHf8hxxKF2YQhD2wzjI4WXo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ND5EavwFkDgMnfCQjwJxcliyNGjJ6Z8xgYje5eQvbqhUtdLyfec0O4oU4nRZ2UxIhfvt5+JVidjIZgEKqglUSLXNIX8kALnJ3Yq9vfVixA3kioJRIf4GvryFsfStaZfATnpopSASqcieF4aswbLSIDxNE4h+z2fQXckZrODxysg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cJ3Pb5tu; arc=none smtp.client-ip=91.218.175.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Lno3Y3c/"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CEE8C201B55;
-	Thu, 15 Oct 2026 03:29:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792027770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
-	b=Lno3Y3c/1Ivp6H/nX9HlrMQzxK4EKGyJpbAQ7dk2EabpZu9Shakv0ndWL+QEuZ8rqgUI89
-	k7LeZYM2JdEik2yWmknZcM//yP4fx4h1x6LPl1xNuwZijdKCXuG3y+g60bgs860R3FTj+a
-	ANHrgHPItYH1hqZwrckuSX2T6stanPmYsNQWUgmLQcRNST5LQMGXs1TRwGlbTYLaLIQlmm
-	ZVGFd0n+r0twF/XWGis/yPCQWPTrpMUivs3RzTYciA0EuX1an71dfDU0QbpLV2xmfUeSR6
-	4CKZ8BNzo4wzXq2FkPedjqYp+/+XIpuDR8sKipScHuL+CCSEg/vRqB9mJB/1OA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792027770; a=rsa-sha256;
-	cv=none;
-	b=bCwN6CdqQUboLW0ucYmIIiO5C1bbYp3mUa7AcIdmblREWY6sGlpI9pHb4lgqO+Fmp1hARY
-	Mx3W2F28mQJuVIypP5u2LfMzp2QZJMJidFmvpZYFcdnKedtJhqaxoZ3xk5udKwKOa5ix2i
-	5H97fAXfxCNVXLsibCe1/UOaJUQ4wDZX/cxJWbiz3wJ4FufHTC6YqjIkHA3wDvgHWuMNIl
-	rmNVynkc3EUQ3ZBxcrWsZhO8xZkdOrIS6zGVql7PW5hwT8rcrzKKgY2Th0Fop/IMQtWirU
-	N7NawvBWfmilt3638AluNDXwLY9giGeL4ix1lB9A5xZpqOfgPYAvw9e/l4I+mw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792027770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
-	b=OAy9BJoY5807CGWmtlzrRngP60EIGZ6rCRWcV19aGGFEnxZTjMoxT7yTnt2RUWp13GSfV9
-	JvN7Dr+TjSjyuFXHXKLyGZheQP/S/K/ZXvhLqKaos9HqA26vg1SpE43fFrEPYejYnqSV2k
-	0AeQW2OZBVQTiRp+/DatheSPRlL79BqbntkmY5HtIJhxuizweG/EhRct/JYxIU5u/IbF5E
-	/YwRIwMRZCqYWCv9lMP4QjNoQfFc7cRNqtlb2tQnsxJAILJMMILBX2P6+SBCdUk3yHcr6o
-	TfzKG2Sa0zs4sGKHeRawHwPwnPKCvo5uc4hd+mpfybtjFcCQSLUKs6IoT4hB1g==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xHAHi-005wje-2O;
-	Thu, 15 Oct 2026 03:29:30 +0200
-Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 752545C4705;
-	Thu, 15 Oct 2026 01:29:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cJ3Pb5tu"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aW+P9ILvvwCYvBPUVsnfAHf8hxxKF2YQhD2wzjI4WXo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792027978; v=1; x=1792632778;
+ b=cJ3Pb5tu41CIIhRAY13mF6/INV/hL3Wj0neqjAYUEubQVdIh1Mwm5kIbhcpyr8ofHeGLIcT2
+ khBEvI/v9g/1tXZ04usB+fqOQ2ECFEupMpaEG8EcfIPpQMzQt5D0ts2a0mYTlZpY1lEji4UkuIZ
+ crCfBEpxnb+1hj2tsWAuP3SM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c569dc00d61bffa;
+	Thu, 15 Oct 2026 01:32:58 +0000
+X-Mizu-Trace-ID: 1c569dc00d61bffa
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e51c14e9-5559-4ff7-8a38-de815a8f8230@linux.dev>
+Date: Thu, 15 Oct 2026 09:32:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] proc: Move OOM-related procfs code to fs/proc/oom.c
+To: Michal Hocko <mhocko@suse.com>
+Cc: David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, Ye Liu <liuye@kylinos.cn>
+References: <20261014-oom_procfs-v1-1-f2d75e73571e@linux.dev>
+ <as9MG_BtepLV6DsC@tiehlicka>
+Content-Language: en-US
+From: Ye Liu <ye.liu@linux.dev>
+In-Reply-To: <as9MG_BtepLV6DsC@tiehlicka>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] can: hi311x: drop hi3110_lock before free_irq() on
- open failure
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jianhao Xu <jianhao.xu@seu.edu.cn>
-In-Reply-To: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
-References: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
-Date: Thu, 15 Oct 2026 03:29:23 +0200
-Message-Id: <179202776309.806124.17660228547499507194.b4-review@b4>
-X-Mailer: b4 0.17-dev-6be7c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5908; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6oFMuFsoRXS5Tp/lS9d+eBkPbj0wKEjffMnpKJt6IV
- 5RX6rnaUcrCIMbFICumyLL0xwlFgUCH0t6XCZNg5rAygQxh4OIUgInEbGT4p/+IaUfy9e7Zamc/
- 9Fvt7+S2U687/upH0w/mycH7ZM+dSmBkOPL0jsRkZwPFs5w+TG/Vot/eXBsyiTubI3D64Yj+Tz/
- 28AIA
-X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
- fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-> hi3110_open() requests a threaded IRQ and then performs hardware
-> setup while holding priv->hi3110_lock. If reset, setup, or
-> normal-mode entry fails, the error path calls free_irq() while still
-> holding that mutex.
->
-> The threaded handler takes priv->hi3110_lock before checking
-> force_quit, while free_irq() waits for the threaded handler to finish.
-> That can deadlock the open() rollback path against a pending IRQ
-> thread.
->
-> Set force_quit, drop hi3110_lock before free_irq(), and take the
-> mutex again for the remaining hardware cleanup.
->
-> Fixes: 57e83fb9b746 ("can: hi311x: Add Holt HI-311x CAN driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-The netdev LLM bot has found some new issues with this patch, can you
-take care of them?
 
-regards,
-Marc
+在 2026/10/14 17:32, Michal Hocko 写道:
+> On Wed 14-10-26 16:54:12, Ye Liu wrote:
+>> From: Ye Liu <liuye@kylinos.cn>
+>>
+>> fs/proc/base.c is a large file (~3700 lines) handling all per-process
+>> procfs entries. The OOM score, oom_adj, and oom_score_adj interface
+>> code is self-contained and has no dependencies on other parts of
+>> base.c, so move it into a dedicated fs/proc/oom.c following the same
+>> pattern as fs/proc/fd.c and fs/proc/task_mmu.c.
+>>
+>> This makes both files easier to read and keeps OOM-related procfs
+>> entries together in one place.
+> 
+> Are there plans to separate other functionality or is this one off
+> thing?
+> In general I am not against of moving stuff to more specialized files.
+> An obvious downside is a review as it is quite easy to overlook a subtle
+> change when moving so much code. Something worth undertaking if there
+> is a bigger goal. Not so sure if this is just a one of and fs/proc/base.c
+> still keeps other random stuff in.
+> 
 
---- Patch [30]: [PATCH net-next 30/37] can: hi311x: drop hi3110_lock before free_irq() on open failure ---
-commit 67dd4c372c8d870201d8692df57226dc8aab950d
-Author: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Hi Michal,
 
-can: hi311x: drop hi3110_lock before free_irq() on open failure
+This is a one-off move specifically for the OOM-related procfs code.
+I don't have a broader plan to split up fs/proc/base.c at this time.
 
-This patch changes the hi3110_open() error path. It now sets force_quit
-and drops hi3110_lock before calling free_irq(), then takes the mutex
-again for the remaining hardware cleanup. This avoids a deadlock against
-the threaded IRQ handler, which takes hi3110_lock before it checks
-force_quit.
+I understand the concern about subtle changes during code moves.
+To address that, the patch is a pure relocation with no functional
+modifications — all function bodies are moved verbatim. The only
+non-mechanical changes are:
 
-Link: https://patch.msgid.link/20260820020631.316418-1-runyu.xiao@seu.edu.cn
+  - Three symbols (proc_oom_score, proc_oom_adj_operations,
+    proc_oom_score_adj_operations) are made non-static and declared
+    in fs/proc/internal.h, since base.c still references them via
+    the proc_dir_entry table.
 
-> diff --git a/drivers/net/can/spi/hi311x.c b/drivers/net/can/spi/hi311x.c
-> index 076a3efa1bfff..927555b5d581e 100644
-> --- a/drivers/net/can/spi/hi311x.c
-> +++ b/drivers/net/can/spi/hi311x.c
-> @@ -787,7 +787,10 @@ static int hi3110_open(struct net_device *net)
->  	return 0;
->
->   out_free_irq:
-> +	priv->force_quit = 1;
-> +	mutex_unlock(&priv->hi3110_lock);
->  	free_irq(spi->irq, priv);
+  - The oom_adj_mutex static local is moved along with its users.
 
-Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Ranked High by: gpt-6-astra
-Can this rollback turn the old deadlock into an IRQ storm when
-hi3110_set_normal_mode() fails?
+I have tested the patch and observed no functional issues.
 
-The IRQ is requested with IRQF_ONESHOT | IRQF_TRIGGER_HIGH. Before
-hi3110_set_normal_mode() returns -EBUSY, it has already armed the chip:
-
-drivers/net/can/spi/hi311x.c:hi3110_set_normal_mode() {
-    hi3110_write(spi, HI3110_WRITE_INTE, HI3110_INT_BUSERR |
-                 HI3110_INT_RXFIFO | HI3110_INT_TXCPLT);
-    hi3110_write(spi, HI3110_WRITE_CTRL1, HI3110_CTRL1_TXEN);
-    ...
-    hi3110_write(spi, HI3110_WRITE_CTRL0, reg);
-    mdelay(HI3110_OST_DELAY_MS);
-    reg = hi3110_read(spi, HI3110_READ_CTRL0);
-    if ((reg & HI3110_CTRL0_MODE_MASK) != reg)
-        return -EBUSY;
-    ...
-}
-
-A received frame or a bus error during the mdelay() window can assert
-INT. Once force_quit is set, hi3110_can_ist() skips the whole
-while (!priv->force_quit) loop. It never reads STATF, the FIFO or INTF,
-but it still returns IRQ_HANDLED.
-
-irq_finalize_oneshot() then unmasks the line, which is still asserted.
-The interrupt fires again right away, so the SCHED_FIFO IRQ thread spins
-until free_irq() finally shuts the line down.
-
-If the IRQ thread was blocked on hi3110_lock, the new mutex_unlock()
-wakes it. On the same CPU (always the case on UP), it can preempt the
-opener, which holds RTNL, before the opener reaches free_irq().
-
-The opener then only runs again through RT throttling or the fair
-dl_server. That bounds the stall to about one RT period by default, but
-the stall can be indefinite if those safeguards are disabled.
-
-Would it be better to quiet the chip while still holding the mutex,
-before force_quit is set and the lock is dropped? That could mirror
-what hi3110_stop() does:
-
-    hi3110_write(spi, HI3110_WRITE_CTRL1, 0x0);
-    hi3110_write(spi, HI3110_WRITE_INTE, 0x0);
-    hi3110_read(spi, HI3110_READ_INTF);
-
-Another option is calling disable_irq_nosync() before mutex_unlock().
-
-hi3110_stop() already uses the same force_quit then free_irq() ordering
-while INTE is still enabled, so the same hazard exists there. In the
-open() rollback path, though, it is new with this patch.
-
-> +	mutex_lock(&priv->hi3110_lock);
->  	hi3110_hw_sleep(spi);
->   out_close:
->  	hi3110_power_enable(priv->transceiver, 0);
-
-Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Called a false positive by: gpt-6-astra
-This is a pre-existing issue that this patch did not introduce, but is
-priv->restart_work ever cancelled or flushed on shutdown?
-
-hi3110_do_set_mode() queues it for CAN_MODE_START:
-
-drivers/net/can/spi/hi311x.c:hi3110_do_set_mode() {
-    ...
-    priv->restart_tx = 1;
-    if (priv->can.restart_ms == 0)
-        priv->after_suspend = HI3110_AFTER_SUSPEND_RESTART;
-    queue_work(priv->wq, &priv->restart_work);
-    ...
-}
-
-hi3110_stop() calls close_candev(), which only cancels the CAN core's
-delayed restart_work. It never calls
-cancel_work_sync(&priv->restart_work), and neither does the hi3110_open()
-rollback.
-
-If the work is still pending at ifdown or during a failed open(),
-hi3110_restart_work_handler() can run after cleanup. It takes
-hi3110_lock and calls hi3110_hw_reset(), hi3110_setup() and
-hi3110_set_normal_mode(), which re-arms INTE, TXEN and normal mode. It
-then clears force_quit and calls netif_wake_queue() on the downed
-interface.
-
-The controller would then be back on the bus while the interface is
-administratively down.
-
-The new unlocked window around free_irq() in hi3110_open() gives the
-worker one more place to run. It does not seem to make things worse than
-the existing post-stop case, because free_irq() still completes and the
-rollback then calls hi3110_hw_sleep().
-
-There is no use-after-free here, because hi3110_can_remove() runs
-destroy_workqueue() before free_candev().
+>> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+>> ---
+>>  MAINTAINERS        |   1 +
+>>  fs/proc/Makefile   |   1 +
+>>  fs/proc/base.c     | 232 -------------------------------------------------
+>>  fs/proc/internal.h |   8 ++
+>>  fs/proc/oom.c      | 249 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>>  5 files changed, 259 insertions(+), 232 deletions(-)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 1da3623e77ce..4b1c13a65136 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -17676,6 +17676,7 @@ R:	David Rientjes <rientjes@google.com>
+>>  R:	Shakeel Butt <shakeel.butt@linux.dev>
+>>  L:	linux-mm@kvack.org
+>>  S:	Maintained
+>> +F:	fs/proc/oom.c
+>>  F:	include/linux/oom.h
+>>  F:	include/trace/events/oom.h
+>>  F:	include/uapi/linux/oom.h
+>> diff --git a/fs/proc/Makefile b/fs/proc/Makefile
+>> index 27e2b26b2d42..68e65866b5df 100644
+>> --- a/fs/proc/Makefile
+>> +++ b/fs/proc/Makefile
+>> @@ -21,6 +21,7 @@ proc-y += interrupts.o
+>>  endif
+>>  proc-y	+= loadavg.o
+>>  proc-y	+= meminfo.o
+>> +proc-y	+= oom.o
+>>  proc-y	+= stat.o
+>>  proc-y	+= uptime.o
+>>  proc-y	+= util.o
+>> diff --git a/fs/proc/base.c b/fs/proc/base.c
+>> index 8c04fcd436d2..26ccc05a50ff 100644
+>> --- a/fs/proc/base.c
+>> +++ b/fs/proc/base.c
+>> @@ -80,7 +80,6 @@
+>>  #include <linux/audit.h>
+>>  #include <linux/poll.h>
+>>  #include <linux/nsproxy.h>
+>> -#include <linux/oom.h>
+>>  #include <linux/elf.h>
+>>  #include <linux/pid_namespace.h>
+>>  #include <linux/user_namespace.h>
+>> @@ -99,7 +98,6 @@
+>>  #include <linux/cn_proc.h>
+>>  #include <linux/ksm.h>
+>>  #include <uapi/linux/lsm.h>
+>> -#include <trace/events/oom.h>
+>>  #include "internal.h"
+>>  #include "fd.h"
+>>  
+>> @@ -580,28 +578,6 @@ static const struct file_operations proc_lstats_operations = {
+>>  
+>>  #endif
+>>  
+>> -static int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
+>> -			  struct pid *pid, struct task_struct *task)
+>> -{
+>> -	unsigned long totalpages = totalram_pages() + total_swap_pages;
+>> -	unsigned long points = 0;
+>> -	long badness;
+>> -
+>> -	badness = oom_badness(task, totalpages);
+>> -	/*
+>> -	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
+>> -	 * badness value into [0, 2000] range which we have been
+>> -	 * exporting for a long time so userspace might depend on it.
+>> -	 */
+>> -	if (badness != LONG_MIN)
+>> -		points = (OOM_SCORE_ADJ_MAX +
+>> -			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
+>> -
+>> -	seq_printf(m, "%lu\n", points);
+>> -
+>> -	return 0;
+>> -}
+>> -
+>>  struct limit_names {
+>>  	const char *name;
+>>  	const char *unit;
+>> @@ -1115,214 +1091,6 @@ static const struct file_operations proc_auxv_operations = {
+>>  	.release	= mem_release,
+>>  };
+>>  
+>> -static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
+>> -			    loff_t *ppos)
+>> -{
+>> -	struct task_struct *task = get_proc_task(file_inode(file));
+>> -	char buffer[PROC_NUMBUF];
+>> -	int oom_adj = OOM_ADJUST_MIN;
+>> -	size_t len;
+>> -
+>> -	if (!task)
+>> -		return -ESRCH;
+>> -	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
+>> -		oom_adj = OOM_ADJUST_MAX;
+>> -	else
+>> -		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
+>> -			  OOM_SCORE_ADJ_MAX;
+>> -	put_task_struct(task);
+>> -	if (oom_adj > OOM_ADJUST_MAX)
+>> -		oom_adj = OOM_ADJUST_MAX;
+>> -	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
+>> -	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+>> -}
+>> -
+>> -static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
+>> -{
+>> -	struct mm_struct *mm = NULL;
+>> -	struct task_struct *task;
+>> -	int err = 0;
+>> -
+>> -	task = get_proc_task(file_inode(file));
+>> -	if (!task)
+>> -		return -ESRCH;
+>> -
+>> -	mutex_lock(&oom_adj_mutex);
+>> -	if (legacy) {
+>> -		if (oom_adj < task->signal->oom_score_adj &&
+>> -				!capable(CAP_SYS_RESOURCE)) {
+>> -			err = -EACCES;
+>> -			goto err_unlock;
+>> -		}
+>> -		/*
+>> -		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
+>> -		 * /proc/pid/oom_score_adj instead.
+>> -		 */
+>> -		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
+>> -			  current->comm, task_pid_nr(current), task_pid_nr(task),
+>> -			  task_pid_nr(task));
+>> -	} else {
+>> -		if ((short)oom_adj < task->signal->oom_score_adj_min &&
+>> -				!capable(CAP_SYS_RESOURCE)) {
+>> -			err = -EACCES;
+>> -			goto err_unlock;
+>> -		}
+>> -	}
+>> -
+>> -	/*
+>> -	 * Make sure we will check other processes sharing the mm if this is
+>> -	 * not vfrok which wants its own oom_score_adj.
+>> -	 * pin the mm so it doesn't go away and get reused after task_unlock
+>> -	 */
+>> -	if (!task->vfork_done) {
+>> -		struct task_struct *p = find_lock_task_mm(task);
+>> -
+>> -		if (p) {
+>> -			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
+>> -				mm = p->mm;
+>> -				mmgrab(mm);
+>> -			}
+>> -			task_unlock(p);
+>> -		}
+>> -	}
+>> -
+>> -	task->signal->oom_score_adj = oom_adj;
+>> -	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+>> -		task->signal->oom_score_adj_min = (short)oom_adj;
+>> -	trace_oom_score_adj_update(task);
+>> -
+>> -	if (mm) {
+>> -		struct task_struct *p;
+>> -
+>> -		rcu_read_lock();
+>> -		for_each_process(p) {
+>> -			if (same_thread_group(task, p))
+>> -				continue;
+>> -
+>> -			/* do not touch kernel threads or the global init */
+>> -			if (p->flags & PF_KTHREAD || is_global_init(p))
+>> -				continue;
+>> -
+>> -			task_lock(p);
+>> -			if (!p->vfork_done && process_shares_mm(p, mm)) {
+>> -				p->signal->oom_score_adj = oom_adj;
+>> -				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+>> -					p->signal->oom_score_adj_min = (short)oom_adj;
+>> -			}
+>> -			task_unlock(p);
+>> -		}
+>> -		rcu_read_unlock();
+>> -		mmdrop(mm);
+>> -	}
+>> -err_unlock:
+>> -	mutex_unlock(&oom_adj_mutex);
+>> -	put_task_struct(task);
+>> -	return err;
+>> -}
+>> -
+>> -/*
+>> - * /proc/pid/oom_adj exists solely for backwards compatibility with previous
+>> - * kernels.  The effective policy is defined by oom_score_adj, which has a
+>> - * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
+>> - * Values written to oom_adj are simply mapped linearly to oom_score_adj.
+>> - * Processes that become oom disabled via oom_adj will still be oom disabled
+>> - * with this implementation.
+>> - *
+>> - * oom_adj cannot be removed since existing userspace binaries use it.
+>> - */
+>> -static ssize_t oom_adj_write(struct file *file, const char __user *buf,
+>> -			     size_t count, loff_t *ppos)
+>> -{
+>> -	char buffer[PROC_NUMBUF] = {};
+>> -	int oom_adj;
+>> -	int err;
+>> -
+>> -	if (count > sizeof(buffer) - 1)
+>> -		count = sizeof(buffer) - 1;
+>> -	if (copy_from_user(buffer, buf, count)) {
+>> -		err = -EFAULT;
+>> -		goto out;
+>> -	}
+>> -
+>> -	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
+>> -	if (err)
+>> -		goto out;
+>> -	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
+>> -	     oom_adj != OOM_DISABLE) {
+>> -		err = -EINVAL;
+>> -		goto out;
+>> -	}
+>> -
+>> -	/*
+>> -	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
+>> -	 * value is always attainable.
+>> -	 */
+>> -	if (oom_adj == OOM_ADJUST_MAX)
+>> -		oom_adj = OOM_SCORE_ADJ_MAX;
+>> -	else
+>> -		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
+>> -
+>> -	err = __set_oom_adj(file, oom_adj, true);
+>> -out:
+>> -	return err < 0 ? err : count;
+>> -}
+>> -
+>> -static const struct file_operations proc_oom_adj_operations = {
+>> -	.read		= oom_adj_read,
+>> -	.write		= oom_adj_write,
+>> -	.llseek		= generic_file_llseek,
+>> -};
+>> -
+>> -static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
+>> -					size_t count, loff_t *ppos)
+>> -{
+>> -	struct task_struct *task = get_proc_task(file_inode(file));
+>> -	char buffer[PROC_NUMBUF];
+>> -	short oom_score_adj = OOM_SCORE_ADJ_MIN;
+>> -	size_t len;
+>> -
+>> -	if (!task)
+>> -		return -ESRCH;
+>> -	oom_score_adj = task->signal->oom_score_adj;
+>> -	put_task_struct(task);
+>> -	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
+>> -	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+>> -}
+>> -
+>> -static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
+>> -					size_t count, loff_t *ppos)
+>> -{
+>> -	char buffer[PROC_NUMBUF] = {};
+>> -	int oom_score_adj;
+>> -	int err;
+>> -
+>> -	if (count > sizeof(buffer) - 1)
+>> -		count = sizeof(buffer) - 1;
+>> -	if (copy_from_user(buffer, buf, count)) {
+>> -		err = -EFAULT;
+>> -		goto out;
+>> -	}
+>> -
+>> -	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
+>> -	if (err)
+>> -		goto out;
+>> -	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
+>> -			oom_score_adj > OOM_SCORE_ADJ_MAX) {
+>> -		err = -EINVAL;
+>> -		goto out;
+>> -	}
+>> -
+>> -	err = __set_oom_adj(file, oom_score_adj, false);
+>> -out:
+>> -	return err < 0 ? err : count;
+>> -}
+>> -
+>> -static const struct file_operations proc_oom_score_adj_operations = {
+>> -	.read		= oom_score_adj_read,
+>> -	.write		= oom_score_adj_write,
+>> -	.llseek		= default_llseek,
+>> -};
+>> -
+>>  #ifdef CONFIG_AUDIT
+>>  #define TMPBUFLEN 11
+>>  static ssize_t proc_loginuid_read(struct file * file, char __user * buf,
+>> diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+>> index df873df9afc5..b72a2bd604ed 100644
+>> --- a/fs/proc/internal.h
+>> +++ b/fs/proc/internal.h
+>> @@ -238,6 +238,14 @@ static inline int folio_average_page_mapcount(struct folio *folio)
+>>  	/* ... but return at least 1. */
+>>  	return max_t(int, avg + entire_mapcount, 1);
+>>  }
+>> +/*
+>> + * oom.c
+>> + */
+>> +int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
+>> +		   struct pid *pid, struct task_struct *task);
+>> +extern const struct file_operations proc_oom_adj_operations;
+>> +extern const struct file_operations proc_oom_score_adj_operations;
+>> +
+>>  /*
+>>   * array.c
+>>   */
+>> diff --git a/fs/proc/oom.c b/fs/proc/oom.c
+>> new file mode 100644
+>> index 000000000000..5f22ec4a4a6e
+>> --- /dev/null
+>> +++ b/fs/proc/oom.c
+>> @@ -0,0 +1,249 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * OOM-related procfs entries
+>> + *
+>> + * This file handles the OOM score, oom_adj, and oom_score_adj interfaces
+>> + * in /proc/<pid>/.
+>> + */
+>> +
+>> +#include <linux/proc_fs.h>
+>> +#include <linux/oom.h>
+>> +#include <linux/seq_file.h>
+>> +#include <linux/capability.h>
+>> +#include <linux/mm.h>
+>> +#include <linux/swap.h>
+>> +#include <linux/sched/signal.h>
+>> +#include <linux/pid_namespace.h>
+>> +#include <trace/events/oom.h>
+>> +
+>> +#include "internal.h"
+>> +
+>> +int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
+>> +		   struct pid *pid, struct task_struct *task)
+>> +{
+>> +	unsigned long totalpages = totalram_pages() + total_swap_pages;
+>> +	unsigned long points = 0;
+>> +	long badness;
+>> +
+>> +	badness = oom_badness(task, totalpages);
+>> +	/*
+>> +	 * Special case OOM_SCORE_ADJ_MIN for all others scale the
+>> +	 * badness value into [0, 2000] range which we have been
+>> +	 * exporting for a long time so userspace might depend on it.
+>> +	 */
+>> +	if (badness != LONG_MIN)
+>> +		points = (OOM_SCORE_ADJ_MAX +
+>> +			  badness * OOM_SCORE_ADJ_MAX / (long)totalpages) * 2 / 3;
+>> +
+>> +	seq_printf(m, "%lu\n", points);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static ssize_t oom_adj_read(struct file *file, char __user *buf, size_t count,
+>> +			    loff_t *ppos)
+>> +{
+>> +	struct task_struct *task = get_proc_task(file_inode(file));
+>> +	char buffer[PROC_NUMBUF];
+>> +	int oom_adj = OOM_ADJUST_MIN;
+>> +	size_t len;
+>> +
+>> +	if (!task)
+>> +		return -ESRCH;
+>> +	if (task->signal->oom_score_adj == OOM_SCORE_ADJ_MAX)
+>> +		oom_adj = OOM_ADJUST_MAX;
+>> +	else
+>> +		oom_adj = (task->signal->oom_score_adj * -OOM_DISABLE) /
+>> +			  OOM_SCORE_ADJ_MAX;
+>> +	put_task_struct(task);
+>> +	if (oom_adj > OOM_ADJUST_MAX)
+>> +		oom_adj = OOM_ADJUST_MAX;
+>> +	len = snprintf(buffer, sizeof(buffer), "%d\n", oom_adj);
+>> +	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+>> +}
+>> +
+>> +static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
+>> +{
+>> +	struct mm_struct *mm = NULL;
+>> +	struct task_struct *task;
+>> +	int err = 0;
+>> +
+>> +	task = get_proc_task(file_inode(file));
+>> +	if (!task)
+>> +		return -ESRCH;
+>> +
+>> +	mutex_lock(&oom_adj_mutex);
+>> +	if (legacy) {
+>> +		if (oom_adj < task->signal->oom_score_adj &&
+>> +				!capable(CAP_SYS_RESOURCE)) {
+>> +			err = -EACCES;
+>> +			goto err_unlock;
+>> +		}
+>> +		/*
+>> +		 * /proc/pid/oom_adj is provided for legacy purposes, ask users to use
+>> +		 * /proc/pid/oom_score_adj instead.
+>> +		 */
+>> +		pr_warn_once("%s (%d): /proc/%d/oom_adj is deprecated, please use /proc/%d/oom_score_adj instead.\n",
+>> +			  current->comm, task_pid_nr(current), task_pid_nr(task),
+>> +			  task_pid_nr(task));
+>> +	} else {
+>> +		if ((short)oom_adj < task->signal->oom_score_adj_min &&
+>> +				!capable(CAP_SYS_RESOURCE)) {
+>> +			err = -EACCES;
+>> +			goto err_unlock;
+>> +		}
+>> +	}
+>> +
+>> +	/*
+>> +	 * Make sure we will check other processes sharing the mm if this is
+>> +	 * not vfrok which wants its own oom_score_adj.
+>> +	 * pin the mm so it doesn't go away and get reused after task_unlock
+>> +	 */
+>> +	if (!task->vfork_done) {
+>> +		struct task_struct *p = find_lock_task_mm(task);
+>> +
+>> +		if (p) {
+>> +			if (mm_flags_test(MMF_MULTIPROCESS, p->mm)) {
+>> +				mm = p->mm;
+>> +				mmgrab(mm);
+>> +			}
+>> +			task_unlock(p);
+>> +		}
+>> +	}
+>> +
+>> +	task->signal->oom_score_adj = oom_adj;
+>> +	if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+>> +		task->signal->oom_score_adj_min = (short)oom_adj;
+>> +	trace_oom_score_adj_update(task);
+>> +
+>> +	if (mm) {
+>> +		struct task_struct *p;
+>> +
+>> +		rcu_read_lock();
+>> +		for_each_process(p) {
+>> +			if (same_thread_group(task, p))
+>> +				continue;
+>> +
+>> +			/* do not touch kernel threads or the global init */
+>> +			if (p->flags & PF_KTHREAD || is_global_init(p))
+>> +				continue;
+>> +
+>> +			task_lock(p);
+>> +			if (!p->vfork_done && process_shares_mm(p, mm)) {
+>> +				p->signal->oom_score_adj = oom_adj;
+>> +				if (!legacy && has_capability_noaudit(current, CAP_SYS_RESOURCE))
+>> +					p->signal->oom_score_adj_min = (short)oom_adj;
+>> +			}
+>> +			task_unlock(p);
+>> +		}
+>> +		rcu_read_unlock();
+>> +		mmdrop(mm);
+>> +	}
+>> +err_unlock:
+>> +	mutex_unlock(&oom_adj_mutex);
+>> +	put_task_struct(task);
+>> +	return err;
+>> +}
+>> +
+>> +/*
+>> + * /proc/pid/oom_adj exists solely for backwards compatibility with previous
+>> + * kernels.  The effective policy is defined by oom_score_adj, which has a
+>> + * different scale: oom_adj grew exponentially and oom_score_adj grows linearly.
+>> + * Values written to oom_adj are simply mapped linearly to oom_score_adj.
+>> + * Processes that become oom disabled via oom_adj will still be oom disabled
+>> + * with this implementation.
+>> + *
+>> + * oom_adj cannot be removed since existing userspace binaries use it.
+>> + */
+>> +static ssize_t oom_adj_write(struct file *file, const char __user *buf,
+>> +			     size_t count, loff_t *ppos)
+>> +{
+>> +	char buffer[PROC_NUMBUF] = {};
+>> +	int oom_adj;
+>> +	int err;
+>> +
+>> +	if (count > sizeof(buffer) - 1)
+>> +		count = sizeof(buffer) - 1;
+>> +	if (copy_from_user(buffer, buf, count)) {
+>> +		err = -EFAULT;
+>> +		goto out;
+>> +	}
+>> +
+>> +	err = kstrtoint(strstrip(buffer), 0, &oom_adj);
+>> +	if (err)
+>> +		goto out;
+>> +	if ((oom_adj < OOM_ADJUST_MIN || oom_adj > OOM_ADJUST_MAX) &&
+>> +	     oom_adj != OOM_DISABLE) {
+>> +		err = -EINVAL;
+>> +		goto out;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Scale /proc/pid/oom_score_adj appropriately ensuring that a maximum
+>> +	 * value is always attainable.
+>> +	 */
+>> +	if (oom_adj == OOM_ADJUST_MAX)
+>> +		oom_adj = OOM_SCORE_ADJ_MAX;
+>> +	else
+>> +		oom_adj = (oom_adj * OOM_SCORE_ADJ_MAX) / -OOM_DISABLE;
+>> +
+>> +	err = __set_oom_adj(file, oom_adj, true);
+>> +out:
+>> +	return err < 0 ? err : count;
+>> +}
+>> +
+>> +const struct file_operations proc_oom_adj_operations = {
+>> +	.read		= oom_adj_read,
+>> +	.write		= oom_adj_write,
+>> +	.llseek		= generic_file_llseek,
+>> +};
+>> +
+>> +static ssize_t oom_score_adj_read(struct file *file, char __user *buf,
+>> +					size_t count, loff_t *ppos)
+>> +{
+>> +	struct task_struct *task = get_proc_task(file_inode(file));
+>> +	char buffer[PROC_NUMBUF];
+>> +	short oom_score_adj = OOM_SCORE_ADJ_MIN;
+>> +	size_t len;
+>> +
+>> +	if (!task)
+>> +		return -ESRCH;
+>> +	oom_score_adj = task->signal->oom_score_adj;
+>> +	put_task_struct(task);
+>> +	len = snprintf(buffer, sizeof(buffer), "%hd\n", oom_score_adj);
+>> +	return simple_read_from_buffer(buf, count, ppos, buffer, len);
+>> +}
+>> +
+>> +static ssize_t oom_score_adj_write(struct file *file, const char __user *buf,
+>> +					size_t count, loff_t *ppos)
+>> +{
+>> +	char buffer[PROC_NUMBUF] = {};
+>> +	int oom_score_adj;
+>> +	int err;
+>> +
+>> +	if (count > sizeof(buffer) - 1)
+>> +		count = sizeof(buffer) - 1;
+>> +	if (copy_from_user(buffer, buf, count)) {
+>> +		err = -EFAULT;
+>> +		goto out;
+>> +	}
+>> +
+>> +	err = kstrtoint(strstrip(buffer), 0, &oom_score_adj);
+>> +	if (err)
+>> +		goto out;
+>> +	if (oom_score_adj < OOM_SCORE_ADJ_MIN ||
+>> +			oom_score_adj > OOM_SCORE_ADJ_MAX) {
+>> +		err = -EINVAL;
+>> +		goto out;
+>> +	}
+>> +
+>> +	err = __set_oom_adj(file, oom_score_adj, false);
+>> +out:
+>> +	return err < 0 ? err : count;
+>> +}
+>> +
+>> +const struct file_operations proc_oom_score_adj_operations = {
+>> +	.read		= oom_score_adj_read,
+>> +	.write		= oom_score_adj_write,
+>> +	.llseek		= default_llseek,
+>> +};
+>>
+>> ---
+>> base-commit: 1fffefb00cc0b0da1f2ae24e3d33364530ea6515
+>> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+>> change-id: 20261014-oom_procfs-f74a922f73f1
+>>
+>> Best regards,
+>> --  
+>> Ye Liu <ye.liu@linux.dev>
+> 
 
 -- 
-Marc Kleine-Budde <mkl@pengutronix.de>
+Thanks,
+Ye Liu
+
