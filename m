@@ -1,244 +1,80 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C21A1FCF41
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A673DF002;
+	Thu, 15 Oct 2026 18:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087242; cv=none; b=Dd+gEeYKm/NElc6XTzquvbTX8VL1DilivYIKG6L/ziy9TBpZj7xTKWJqFFhCjUzVFjffsgm0Y1fxtkIlcFxokzkCEXEnF8x34MemqZciQ8QqJV3Pec1HpE8Ko21CfNP4YY2V93LH+F18ma+PIyypV5+5iauAHnwNC8AC6geobJs=
+	t=1792087250; cv=none; b=YHrfkdA2EPDUEKhTbEpKq/VLwcqpRClawp1v4fJHMn/AtXmOe0CTnviELGDLV2CsW2t3obxszbQln1gzfyiCq4k0gxqfQRD8/0XG2mPLKmZiFG9H+7MdwQ0Y2KRyud0XQVMf02NYLyQ2ba0mZWo250LZv1/VEzlQ8VPK8l2YmHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087242; c=relaxed/simple;
-	bh=U6PpWk46mEeXKnyaHQSE9sGanlQTQSblyiO/JAeoMwQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=OvsYtXs8oVXjG5b32t1ubtK88oYGxdlOtJ/+JP3Jn6ymjSHyUKrtDMyfdzXOiTVYm1+kcco7lcysj9UmWtNdE9IBcla0UcB+59VWjbZZSItqmoAyxItY5LkjYsZonGmkd+XbVP6vio4SU5e9TCpgHyjT7djIsLnFTGat7ToKlxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0oAYOUY; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792087250; c=relaxed/simple;
+	bh=HGRhgs0YTRt2Egqbh5D7928fazb2gNLd1N7x8T6paVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BdCdnHKMtbhYo3T+LNADM3MeCsQPCOcNTdMsKyRoAM1STyZm5XadE17eOvghpdt3IS16hsACL26WGUnGkmW8ONkjSljQ7dlojV8HiZ8etu59M4Ac4ydBtJrOyGZPcaVoTgheAgeTK4PUR5k90reSA9aChOK9oGIbAgmU8BJaa0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUd/YYIx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0oAYOUY"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5e948e56b8eso694459e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:00:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792087229; x=1792692029; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=YEKhz/ZK03jGlV3S7VR78poz8/WFBC4txQautcq3ygk=;
-        b=j0oAYOUYAJmf5jHFTjHuds9S6AfGgQWbjMu9EOtM3sqNkC34LjFASkdBp2Qq4KCLuK
-         NBychnVGQfIqoFkFABDt2k4egjojNnGjFn7A9PCemyd2FLGdZL2/Y4VjDM/PA6074Tgv
-         4a4jK+1r7pdXQ8gNgugfkx9OJ7HMDy6kDsB6sYq+jRsboo+XKVba7XIfBctEV4tYAV+8
-         GzfnQ3BepTM1XzWK7SP/irjtF1ZlmeWi6eT0LdCUzLfV/HcV9DCooPseKP7bctEnsYXY
-         vmYfL7l7JACMHvfMyT8CLjmQXKMNNYOIOMkmeK9tnyfQ7lcK8RvlgMLiX7ntVYutdmB7
-         2cKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792087229; x=1792692029;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YEKhz/ZK03jGlV3S7VR78poz8/WFBC4txQautcq3ygk=;
-        b=GgWpXA8KUqe8MgCUSXOvwd1CfQwa9YygS3P+WR5UdRH9bT93axpZ6CF0SUctKDg+s6
-         CHvEFSp1YcNbNXYbNTQUKNCKDb7THgV2whFXxZ1OwU8KKix/qS3l6Mp6hKEn88aUBlRN
-         5LTOmi0CQqlkqr6VPy2ZY4WNsxtXTPJSDjzL877fJf7joFJ+Qjqz49Dp6aPhtiSFIK6x
-         Y0n9HKsh8Elj6A9NcHJrql87JnYFG6HGHgBtt4zi0sRJYS++An2DTlkuGwZtPPC/zBpr
-         h5U+LiCA6O+DpqkrkyvVWJYof/nkHXxbSJrlO2GIMgMW0aeoBB2pHHazcFRfPgO7XXje
-         Zrtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJU+L0K1h9sss4J1Tj0//fAg7z1pq82PEI7keN+RE61zHAlWJf2A5t209PeCK/SCQei95eHFVRY2CWyVc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI28UVjtHEtHo5IumMEHKtBOj6Q0SVkBbzx4VxafZYt/dGfihjA
-	/rJnxlsHllk41/DXoZYDdeqKDbyn1Ol5uUWmw/AeHA+akObPSAuaRxwd
-X-Gm-Gg: AYBFou1zLc8MD71daQNM2oTRNscFRep5MdEv1p3bbn628NExvCxlysdzYT1msDqG5UG
-	9BcyEXqW4/OBH+5/4Opb2ZNgLWvpT7S0ZicPlmEBQfd86ywW+Jxpt+9MATTx/jTqx4xLkAPCm5v
-	J8r8wJBa/KOVrb8ZJW4zkhAzPOhqrgKuFUcqVezx4asGp9J7EfeOYPkYHDiLKARV8H17Chr+xt6
-	ydcohwfzC7dXepoL4TwyUC37H2I/KpuFfVTfuE0XrP2Nw3k9I5VeST4hdSgZkLwfGULEDnyVsGI
-	qEQ4J7fHxpcxd0M9ejkgjSbZIyOlQOckOk+WWYEtLLmKWQqVOwjZG823R7ioVsFNEMFUf6PgE23
-	Y18dxSiJu6d3+gCzs0PnhemP/HgIW8B7iKWq+x8JB9YGF4lsFEy08E7hq5cpOK1t+Q4mevbvtzT
-	LaaT+EBdzl+lm7FbQQnZ5fmLRtpY7xvcqsufTnaIT9HstzIBEhiMoB7cW3AlPFyXLui6tNybRZo
-	Jdano6yaGyUV7s=
-X-Received: by 2002:a05:6122:3295:b0:5dc:d0cb:7d80 with SMTP id 71dfb90a1353d-5e91f4934b5mr7341757e0c.11.1792087228643;
-        Thu, 15 Oct 2026 11:00:28 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2804:388:90c2:72bb:18de:b9f8:b3f7:6f13])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9947b81asm260312e0c.8.2026.10.15.11.00.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 11:00:27 -0700 (PDT)
-Date: Thu, 15 Oct 2026 15:00:21 -0300
-From: Arnaldo Melo <arnaldo.melo@gmail.com>
-To: Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-CC: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v5 07/11] perf tools: Factor out dso__find_binary_type()
-User-Agent: Thunderbird for Android
-In-Reply-To: <atEI2Ja4xpCnV7yI@google.com>
-References: <20261013172155.160869-1-namhyung@kernel.org> <20261013172155.160869-8-namhyung@kernel.org> <atDSmfwd4v_oLg4m@x2> <atEI2Ja4xpCnV7yI@google.com>
-Message-ID: <5514C8F1-3331-4E74-B6AE-607B3A632F0A@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUd/YYIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697DC1F000C8;
+	Thu, 15 Oct 2026 18:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792087239;
+	bh=HGRhgs0YTRt2Egqbh5D7928fazb2gNLd1N7x8T6paVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gUd/YYIxeYk7OF2DxSicuxLDZGuS8V0VOPR6C5ZP/0Qyza86uy7DWiISMClLxUe+D
+	 LTqPptJoNGkCBmWTGip/q6CDgzyLHL6frWY0h2YpIXUpDl1jeis82USIEjTnWG9+aq
+	 uY6GSJ396GXNnUiy09HBjSKCF7X+ciUHQ5Kt+YjSrniBJivb0iZ49HVEQfh+v8U7AY
+	 hRb2k7fEmsoy6TXZl3dcFxmY0Av4WE4t1tiZsw974UxmqFHEq0DpWVORFuRl2zjKns
+	 zpFUgZfWFRmPuOJF16RtrySdLXRcZCyBvuWiAnR5OiI/JTW820y6WU6MunICvpEdHG
+	 H/V1s3xUazZpw==
+Date: Thu, 15 Oct 2026 19:00:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Ricardo =?iso-8859-1?Q?B=2E_Marli=E8re?= <rbm@suse.com>,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/7] selftests: keep the build status from wrapping to
+ success
+Message-ID: <f64e8221-cedb-4b4e-aed4-a87ac23c26cf@sirena.org.uk>
+References: <20261014200115.1363363-1-sashal@kernel.org>
+ <20261014200115.1363363-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1ZgetmzRbUVnSdeg"
+Content-Disposition: inline
+In-Reply-To: <20261014200115.1363363-2-sashal@kernel.org>
+X-Cookie: Tax and title extra.
 
 
+--1ZgetmzRbUVnSdeg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On October 15, 2026 2:09:44 PM GMT-03:00, Namhyung Kim <namhyung@kernel=2E=
-org> wrote:
->On Thu, Oct 15, 2026 at 10:18:17AM -0300, Arnaldo Carvalho de Melo wrote:
->> On Tue, Oct 13, 2026 at 10:21:51AM -0700, Namhyung Kim wrote:
->> > Separate out the logic to detect binary type of a DSO=2E  It checks i=
-f
->> > the candidate file contains "=2Etext" section=2E  There could be data=
--only
->> > DSOs but as our use cases focus on the code (perf annotate or intel
->> > PT), we can ignore them for now=2E
->> =20
->> > But it also can fail due to open file limit=2E  Handle the case by
->> > retrying with _dso__data_open_lock=2E
->> =20
->> > Introduce bintype_searched flag and it accessors to prevent repeated
->> > (failed) search=2E
->>=20
->> This one, when compiled with clang, catch this in all my build
->> containers:
->>=20
->>   LD      /tmp/build/perf-tools-next/tests/perf-test-in=2Eo
->> util/dso=2Ec:942:7: error: mutex '_dso__data_open_lock' is not held on =
-every path through here [-Werror,-Wthread-safety-analysis]
->>   942 |                 if (dso__data_open_cnt) {
->>       |                     ^
->> util/dso=2Ec:940:4: note: mutex acquired here
->>   940 |                         mutex_lock(dso__data_open_lock());
->>       |                         ^
->> util/dso=2Ec:942:7: error: reading variable 'dso__data_open_cnt' requir=
-es holding mutex '_dso__data_open_lock'   CC      /tmp/build/perf-tools-nex=
-t/util/maps=2Eo
->> [-Werror,-Wthread-safety-analysis]
->>   942 |                 if (dso__data_open_cnt) {
->>       |                     ^
->> util/dso=2Ec:943:4: error: calling function 'close_first_dso' requires =
-holding mutex '_dso__data_open_lock' exclusively [-Werror,-Wthread-safety-a=
-nalysis]
->>   943 |                         close_first_dso();
->>       |                         ^
->> util/dso=2Ec:949:3: error: releasing mutex '_dso__data_open_lock' that =
-was not held [-Werror,-Wthread-safety-analysis]
->>   949 |                 mutex_unlock(dso__data_open_lock());
->>       |                 ^
->> 4 errors generated=2E
->> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile=2Ebui=
-ld:95: /tmp/build/perf-tools-next/util/dso=2Eo] Error 1
->>   CC	  /tmp/build/perf-tools-next/util/thread=2Eo
->>=20
->> perf adds -Wthread-safety for clang builds (tools/perf/Makefile=2Econfi=
-g),
->> so it is -Werror there=2E
->>=20
->> This is because __dso__find_binary_type() takes _dso__data_open_lock on=
-ly
->> on the first retry, under needs_open_lock, and then reads
->> dso__data_open_cnt and calls close_first_dso(); with the lock taken
->> conditionally the analyzer can't see it held on every path=2E  And for =
-the
->> try_to_open_dso() caller, which already holds it, the requirement was
->> only implicit, the helper had no annotation for clang to check=2E
->>=20
->> I've folded the following into the patch, see if it is acceptable:
->>=20
->> diff --git a/tools/perf/util/dso=2Ec b/tools/perf/util/dso=2Ec
->> index 47241077ad26=2E=2E8f274b8b1030 100644
->> --- a/tools/perf/util/dso=2Ec
->> +++ b/tools/perf/util/dso=2Ec
->> @@ -925,7 +925,8 @@ static int dso__find_binary_type_locked(struct dso =
-*dso)
->>  }
->> =20
->>  #define FIND_MAX_RETRY  3
->> -static int __dso__find_binary_type(struct dso *dso, bool needs_open_lo=
-ck)
->> +static int __dso__find_binary_type(struct dso *dso)
->> +	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
->>  {
->>  	int ret;
->>  	int retry =3D 0;
->> @@ -936,18 +937,12 @@ static int __dso__find_binary_type(struct dso *ds=
-o, bool needs_open_lock)
->>  	mutex_unlock(dso__lock(dso));
->> =20
->>  	if (ret =3D=3D -1 && retry++ < FIND_MAX_RETRY) {
->> -		if (needs_open_lock && retry =3D=3D 1)
->> -			mutex_lock(dso__data_open_lock());
->> -
->>  		if (dso__data_open_cnt) {
->>  			close_first_dso();
->>  			goto again;
->>  		}
->>  	}
->> =20
->> -	if (retry > 0 && needs_open_lock)
->> -		mutex_unlock(dso__data_open_lock());
->> -
->>  	if (ret =3D=3D -1) {
->>  		mutex_lock(dso__lock(dso));
->>  		ret =3D dso__binary_type(dso);
->> @@ -961,7 +956,13 @@ static int __dso__find_binary_type(struct dso *dso=
-, bool needs_open_lock)
->> =20
->>  enum dso_binary_type dso__find_binary_type(struct dso *dso)
->>  {
->> -	return __dso__find_binary_type(dso, /*needs_open_lock=3D*/true);
->> +	int ret;
->> +
->> +	mutex_lock(dso__data_open_lock());
->> +	ret =3D __dso__find_binary_type(dso);
->> +	mutex_unlock(dso__data_open_lock());
->> +
->> +	return ret;
->>  }
->> =20
->>  static void try_to_open_dso(struct dso *dso, struct machine *machine)
->> @@ -972,7 +973,7 @@ static void try_to_open_dso(struct dso *dso, struct=
- machine *machine)
->>  	if (dso_data->fd >=3D 0)
->>  		return;
->> =20
->> -	__dso__find_binary_type(dso, /*needs_open_lock=3D*/false);
->> +	__dso__find_binary_type(dso);
->>  	dso_data->fd =3D open_dso(dso, machine);
->> =20
->>  	if (dso_data->fd >=3D 0)
->>=20
->> __dso__find_binary_type() now requires _dso__data_open_lock, the public
->> dso__find_binary_type() takes it around the call, and the needs_open_lo=
-ck
->> parameter goes away=2E  try_to_open_dso() stays as is: it is annotated
->> EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock), its four call sites tak=
-e
->> the lock first, and now clang checks the whole chain=2E
->>=20
->> The patches I took (v5 07/11 onward) build with clang 22=2E1=2E8 here a=
-nd
->> 'perf test dso' passes (read, cache, reopen), so please fold something
->> like this if you respin, or let me know if you'd rather have it done
->> differently=2E
->
->I think it'd grab the dso open lock unnecessarily, but it'd be simpler=2E
->So I'm fine with the patch and thanks for the fix!
->
->Do you want me to send the whole series again?  Or can you apply the fix
->on top?
+On Wed, Oct 14, 2026 at 04:01:09PM -0400, Sasha Levin wrote:
 
+> Record a successful target instead of multiplying statuses. The rules
+> still fail only when no target succeeds, and FORCE_TARGETS still stops
+> at the first failure.
 
-No need, I'll apply them fix myself=2E=20
-=20
-- Arnaldo
->
->Thanks,
->Namhyung
->
+Reviewed-by: Mark Brown <broonie@kernel.org>
 
-- Arnaldo 
+--1ZgetmzRbUVnSdeg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRFMMACgkQJNaLcl1U
+h9BQdQf+OliQ0dUqua4MpWOPO5fKMFhEJCXpeQdceH0WCwGi4jQwqxXCkBlt2Vk3
+7f/QOuJkOROv9paHpIz3I0HpkYQmT4w3F5ch5svvfena89MJLb8xA+AI/81P1f7S
+1SFazw/y8PiQwjJi2nd/F/EHXubZYi7JAclG9mT20CH+h4wkBNbdhCPt46Xil5r5
+r6gaTWpanUrcuyT5nRbnomb1j96ns+cwO8xjPg2XaMquFLOT7F9JFpUgmxMytQAu
+6LnMPn6eO9QFKHbO0eoP3d2UTO6lhpg59+Lh0PTJwTViiQRzfbxYFy8qjFlhkUMj
+r38c3LLRmCQ9mxUZMUSOcIft5L0Wgg==
+=OKGF
+-----END PGP SIGNATURE-----
+
+--1ZgetmzRbUVnSdeg--
