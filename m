@@ -1,103 +1,161 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBC13D9665
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261973DAADD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:26:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031205; cv=none; b=lnD5QDA1TYKzXiHYgjNhkOh1kGgTaSoZwM5LvVmlD1O6V5ZuluAYsosVA4Avst78dvbtV901IaN0jb3afx3eohj8Ws5y/NE/C9lGOKb81JGYQMfDA/VuCIyrw81frDiH9JOX4xnaMFzNlPtzU/4m+ATSW/g4S5pCyFJPWI3LUwo=
+	t=1792031205; cv=none; b=tnbVJIdVoKUzjSPDfalC+5icLD46uteTXSoxKyfEfUt6eUljjZ9GCm+n57GnnntO8vLaOVmAqypa5vkrrfAWlXpaCmkY7rr19KgfdxMFN9abZOBzNrz43vdRzMNwF1BQwyDF/itL/vtmUZUPcNizLWsNzpG57kM3IsmGjfniBQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792031205; c=relaxed/simple;
-	bh=pB0CzFh1OxIhoI/N6npvw572wNyV+5zApH4ssHS6nMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=W6ZsiQ685mxh8A42JWJWhNX5N/hiFHscJNbiEYdY4YLu+hwk1qRtfG9GefoDP70wdUiLxHi7YJ2SqrEiBwIlakkACUFMfhsUpd4vDvgoU3RK0cOSm34WsYiVtTl6tOmP5pWG71pGckDm5lA119tnYNCXLGumUJOpzMnuWb26360=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lWpKJ1PT; arc=none smtp.client-ip=74.125.82.170
+	bh=FZStNsMs2iriGK7e9KujuhmKPVMrb/FMjjGfoQ39NjI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=EQh3vNyBo2R7Hh/e04Gag6qnu4vsBqVaz46wmi1THBYfVkRlX/0cW5zYfS8aqAida4cVV+ZeSd0/5g7rW06+1wmMGp+3uPYfXOElg6xpqNcdNfWN8/d4OF6I+7T/rS/fg6XfZISFxxI6GG2O50c7+YPdvGYrC55LzptBC/wWVSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WAzxYuyd; arc=none smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lWpKJ1PT"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-30b6dad2382so11115455eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:26:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WAzxYuyd"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e441e14a1so76932785a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:26:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792031203; x=1792636003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NejG+5JyG9OO9DJ+h8rryWQnudULVYDC/K2dIN4KJ7I=;
-        b=lWpKJ1PToJvRJ/Zm7EsPaYzc6H5Nr817+sT7c/vKhNvdZKHIbh1Fc4ZW0/7+5eXH2d
-         RVihvRdY6RPZ0kSIbDjSEntbCzPHSzV+1Wj6mo1KAeV6xQM3H5clmImETyh8IH5FcPXl
-         6fdLadaDh3faqasX4g6CUVsjavKcAMyYQpsIf5lbRnlkPupYGaFuovlFj/1tSJMu+qk7
-         dJmiKixPTDYtgY1NPXlv/i9TW8lY92P4foxQ9uPpgyLXprlj3EiuemD97KvgSmQe7LR3
-         6GbbqOcvpYZRD1mJBV7DgApzyFlMcpzkyO3cCa4sbWzdxgjWyJDhdR3HjRww1uvD73no
-         3EAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792031203; x=1792636003;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792031201; x=1792636001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NejG+5JyG9OO9DJ+h8rryWQnudULVYDC/K2dIN4KJ7I=;
-        b=c13ITH9zITvliLlJtkSR2eNI/05gMzCwohvks9V55sdfJdR8wLRjjshlbJ9ka4JoL8
-         d8wNvjd+JpUNIpQN94Li/e2vpgtl/ZJD+6j8kw+gP7ptFhQG6SSmlrD4FH/H3+MPJvQC
-         nwBA//0Vbd9fjI6nqTMKwQbnJmZIncVvaV/SWPY6YWfzFP5vZhsrBsmfFikIeAo1CPhH
-         C+STlbhMqoHmrFLu3tjyp68L+VGpGBuaiGaqD3yXBXE12gj90llNJpdwxiLJ3qM+s48i
-         rHOLsTQNoIfO9/Sry1tLGwsld+48/eYBp8ZDPYCQw+cHGtUZL91tSdnVw0IrdoZwohxN
-         N2CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxF/kZTi13zIK0KEPHTcv2mzI6eG6KRPLgRIb/8C6N1WnZjA/6YtRc79a6aj4nL94Us4MZSpLqSjYfsxJs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYht7Cs1i4BgjFFN3czEDvkXEG/sfXeTvKM1d3voPMT62zmxv7
-	r2K8jl96EU3qDw+NDswvzE1o15PC+vuO/zJ/aHXUutfqUe57vdL3fXjW
-X-Gm-Gg: AYBFou1qCSC3vUDiQnDdrOL1TD36Q+eqxQ4R0uvnJr5XKBm1qOXUVsxl5cpSV6Vo2oV
-	s3gDFwQuHd6EkcHZN5t7uhM3QqrCNWEp4oOoskTtShkVzcIx8FDIohHtqYJHRo/2goVxtoAe9Gj
-	Yeew5dEL7o4WeFfA6+YmfrdaaCLoxUGRxe15H8H8CUip2OXcEn5MaZuUqDNdy3OtpYuUicXNGfp
-	YgtE8eMuC7S7jEUZ1suh+lPovSCNEmsPwmUPlT6w+HboU128y0GjQu4HeRDwDrVNbUpvTiFGBqG
-	ZMZTbCIiuoLL4uIz5TbwQ90jgwg5z5++TKeZTCKQZkbm0n0vQboa2HhmMH6PtkkQCNrlvqxWL2N
-	7hsqI2Ikz5Rvqt83FXMmSRzETNMaQmWBoRk9pjYeFH0BmmrAi0obDtRR0YRmjpVSRucg27xarmB
-	DszI52diLsOY4/uGdJfU3FutEsBoR7b0iAVaRx+SoEDcMiQrN8NZdmW1USjx0KHg==
-X-Received: by 2002:a05:693c:41cf:20b0:353:5d0a:dba4 with SMTP id 5a478bee46e88-35bcb7aef5cmr11890595eec.36.1792031203347;
-        Wed, 14 Oct 2026 19:26:43 -0700 (PDT)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35c89429484sm21186597eec.23.2026.10.14.19.26.40
+        bh=DFplvxZRSsha+wXsqtuuqXSDkXUdJ1l1AD0B2sqIS80=;
+        b=WAzxYuydGkUkcyg6QI6kBVCZQE5Bz8pgSio209WYOxISag5wvirMNuP0M/zGeOgJD1
+         mne9DWK71ftn9xFWpC8ZSjufHDU1STWbPJjGpDdvLfY9+gxeww7VtL2o+ULW7Q7jiyAy
+         oLAeFgq6juTk0FlqGJlAzO0/IrcE0ANQVTieDc+HKbjKWRkYAThMjB8HlrJhPkl5n969
+         pvLqZ7zjG8d+/6fnpNH/5Zjlr6RxJyujKyRrXjIn8X9Gmly9N0SHEz8mBoiEaEit/TD1
+         /sQBLlGV0fuJ+1GtHYIkwAw7ToprffuAqzlW1hU7NCuHV3oxVBOOpUcGUHYR/3Tedcfz
+         sGZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792031201; x=1792636001;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DFplvxZRSsha+wXsqtuuqXSDkXUdJ1l1AD0B2sqIS80=;
+        b=DjNsUt2NHG/4A9LxorMBmC+27LvkiAorhn3Nmn+sGuPM2UvVTnFMqgX4HeTuwa+p3s
+         LGbkbOn+m4t9W0gFlPS7pLhKxDbMRh122n/f/H8nCitxLtu1J8XGPpgRGme/DrEeEc0+
+         b+QShaqASDerNW1mghpsxNAldq88T48MNQBF2N0XQk43oWyi3uDautPQJ6LL+2qOHOMO
+         xYrRaAtuUlCEj/fEu0FuO8Ijpy+flQP1sLsMhgvZlveM8dhKZOObQQyp5r0AHm5ORUss
+         mj4XXxl1TEkKP/602OVlZxOZQ2DUGdQWB5cXx4fAZe+/ylqjOSufYeHhkGX51mjB0/iS
+         ofTA==
+X-Forwarded-Encrypted: i=1; AKwUvByTZ08ymjzYys20DeBhGPwvaTH6g5lSGbJNxA1YqpEo9NLGqtkm/IofoEnBqsfbFDsZ7bD57NDrdnVNf6w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfVVNyT1opOPuCeWg2AA0gyQpM6SlPENy3J978o8HAK205z0oT
+	upQMZaUaDSsITtABDlWOznYAneavwEimVxQKoGMjdeuoYnqHm7Jz/yxsn9wjvlI=
+X-Gm-Gg: AYBFou2rQjky6BtZlLcx9uSw7kqf5fJcnQMNWwYwC+5ag1eWMdEx4926xP6AXfc2LCq
+	57JKiQtjWl+e3VHlctvEm5GSQc73kuGtVplgmhC9kgLW2dugj/ahTexK98KVQUZiXKwWOQTCB/3
+	35YtOM9ZSqXW1ZDCM3aF70OxPvZ8FxMQe2I6xQKT7RsAppt5XVnekZWOBGrmKKZXDkqQ/33V8C6
+	2VEf/xNVsY7naO9Op6JnbrR/ldxF7QMPQzazWNk6JBqPMIbNBDIbVjBl2MQ5MEc7Lh6C1Te4fDy
+	XqYTI7Ce6AOEU1QAAwduNYdmrb2yu7BvIJFQksD/4ZSTSYoGnNDcNRkE+EEiI8awMrVnUiGmtNw
+	7b/Ey4hEu3RYsZ0Tveq/8fuO2lgwKJ0Ef1neZUvpWfcghuP/T9ffKuHBJZecgNFkhETu8gHzU2P
+	DUGAWRZwcjeA6U9bGysZcBKz6ZtfXh6l6J7qzcKrQAroIyCd+byIvSChX7HnVytnoJqlhlzDT90
+	JxRr14u5hmWqIOplhUvO5dDqdoVhMT0x8CUuahaHGQA+4FapUzqbJNyc4u7xm7vDfXNVG+fSnwB
+	OGivQUUM3AM3AbfbHZp7Y1sPOKxO
+X-Received: by 2002:a05:620a:270d:b0:93e:7939:43f0 with SMTP id af79cd13be357-93ebd247f8dmr2978360585a.32.1792031200865;
+        Wed, 14 Oct 2026 19:26:40 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef502608bsm652354085a.25.2026.10.14.19.26.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:26:42 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Ming Lei <tom.leiming@gmail.com>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Hannes Reinecke <hare@suse.de>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] blk-mq: stop waiting for an SRCU grace period when freeing a tag set
-Date: Thu, 15 Oct 2026 10:26:37 +0800
-Message-ID: <20261015022637.2973447-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
-References: <20261001-bug-blk-mq-global-tags-srcu-v1-0-e8415da10d1b@gmail.com>
+        Wed, 14 Oct 2026 19:26:39 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH net] net: hix5hd2: serialize timeout recovery with interface teardown
+Date: Wed, 14 Oct 2026 22:26:35 -0400
+Message-ID: <179203116093.2621539.3718842986255459438.G202@gmail.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Jens, Ming,
+The timeout worker calls the driver's close and open methods without
+RTNL or a running-state check. A timeout queued before an interface is
+closed can call close again after ndo_stop has disabled NAPI. The second
+napi_disable() can then wait indefinitely. The worker can also race with
+an ongoing close.
 
-Gentle ping on this series. Paul acked it from the RCU side, and it
-still needs a look from the block side.
+Take RTNL and skip recovery when the interface is no longer running.
+Use the netdev core close and open helpers so a failed reopen leaves the
+interface down, rather than leaving it marked running with NAPI disabled.
 
-Since I sent it, "ublk: drop the device reference outside
-ublk_ctl_mutex in DEL_DEV" has been applied to for-7.4/block, so ublk
-no longer frees tag sets under a global lock and the 19 s figure in
-the cover letter is out of date. The SRCU grace period that every
-blk_mq_free_tag_set() waits for is still there. With 4000 single-queue
-ublk devices on 7.3-rc5 plus that commit, median of 3 runs:
+After unregister_netdev() has stopped the watchdog, drain the worker
+before releasing its MDIO and descriptor resources. This wait is outside
+RTNL, allowing an already queued worker to take RTNL, observe the down
+state, and finish.
 
-                                 without      with this series
-  DEL_DEV p50, serial             3.41ms           0.17ms
-  deletion with 16 threads         4.17s            2.87s
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-Thanks,
-Qiliang
+Fixes: 57c5bc9ad7d7 ("net: hisilicon: add hix5hd2 mac driver")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Compile-tested with GCC, W=1 (arm64). No runtime testing.
+
+Related remove-path change (devres-managed netdev lifetime):
+https://lkml.iu.edu/2610.0/05627.html
+
+ drivers/net/ethernet/hisilicon/hix5hd2_gmac.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+index 02282dc..12a5657 100644
+--- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
++++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+@@ -12,6 +12,7 @@
+ #include <linux/of_net.h>
+ #include <linux/of_mdio.h>
+ #include <linux/reset.h>
++#include <linux/rtnetlink.h>
+ #include <linux/clk.h>
+ #include <linux/circ_buf.h>
+ 
+@@ -890,8 +891,13 @@ static void hix5hd2_tx_timeout_task(struct work_struct *work)
+ 	struct hix5hd2_priv *priv;
+ 
+ 	priv = container_of(work, struct hix5hd2_priv, tx_timeout_task);
+-	hix5hd2_net_close(priv->netdev);
+-	hix5hd2_net_open(priv->netdev);
++
++	rtnl_lock();
++	if (netif_running(priv->netdev)) {
++		dev_close(priv->netdev);
++		dev_open(priv->netdev, NULL);
++	}
++	rtnl_unlock();
+ }
+ 
+ static void hix5hd2_net_timeout(struct net_device *dev, unsigned int txqueue)
+@@ -1283,6 +1289,7 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
+ 	struct hix5hd2_priv *priv = netdev_priv(ndev);
+ 
+ 	unregister_netdev(ndev);
++	cancel_work_sync(&priv->tx_timeout_task);
+ 	mdiobus_unregister(priv->bus);
+ 	mdiobus_free(priv->bus);
+ 
+@@ -1290,7 +1297,6 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
+ 		hix5hd2_destroy_sg_desc_queue(priv);
+ 	hix5hd2_destroy_hw_desc_queue(priv);
+ 	of_node_put(priv->phy_node);
+-	cancel_work_sync(&priv->tx_timeout_task);
+ 	free_netdev(ndev);
+ }
+ 
