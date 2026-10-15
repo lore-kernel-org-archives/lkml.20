@@ -1,114 +1,147 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8DA4E06EA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062917; cv=pass; b=Q8i5orBsqHQd/yhJr1mRFUT1x7XwTG2aVf5rsUyjdHHBuHLfaneSV8q5Vqpsj0Ak/4CUblypufwoQokLMi3kRQCGVJJz1EVm6nao85URdUJyV25vrlM8pfVgz7rKDhMWHotvHs1REEB81k4xhkfEThmgDOJz5xSWhaU7SKvzJcg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062917; c=relaxed/simple;
-	bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tuYpBNor4JacAHGnqFjovOno3isvuwY4GWObIP0Uzf1DLpPg4GqIRLoZv3inrUvFUFNVPkReTe6ZjQbavpAQGRxLRzxV2DxmxGBEJXPmBn2XE2v6O2lqERRQ9lvYkyVNbgYqhkPogPlS3rACF5XwPPKDV8fWMUqKj0Ga2GguaiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=tFsok8Gu; arc=pass smtp.client-ip=209.85.128.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415194ED18A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792062993; cv=none; b=EzdDIhc8vFegKJdQrJhedFHg8NJdO5J9VEyauz3e6SwaywYgc5yLvMlX6NmUEPHg8UA5jOGrpTw0IkiLNQJLKlKU62Q4xU+x+Tp+qqUWaeopaoAvmOOmnQGaRw78lvckrNwzvW9OEU8LW1Jf+eLYaUYVypynoB501c5B/T5UtxA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792062993; c=relaxed/simple;
+	bh=hcEs1EESDACSG5FDi0QNjOuOs0/cXvky+phx60RikVg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tTjaMr7aRR2VoG4qQLgMqP0MS9oFTYubBfTQDwttGHPYTQlaLDaT4UhX0ZF6lfFXp1Hlio9HiyJzE6WMKgtpvH62/Ehb2dPWJ7NIHS/tPwi2icUQcz1o9BnIFb7TpocNe0iUffdNdipcOtFcnepJjEhmK5+Rpm5ycZpF63BgywI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XsVovh7f; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="tFsok8Gu"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0cf2c0785so11703607b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:15:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792062915; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aG6sfFKE2AdIATvl0faBvplTpqUeJ4waqU46rSEBWMftm4oTpJLetFctsdzZLuiHpm
-         kzK2Ge1AVmwsaCgbjRi623ww7aF9KJjjFpHqML95ZjlOKOM5K+z16CM1cUHJVLrA/r7A
-         wasyCr7IjPMQX9nrNaeh+0qoRYNtNqbBVFLTYRg3bjW5ROdpHoMdNG3re1oAh7cc6pAk
-         SceCo9FiIG6hklTW0eo/ZcDqsWeFm48qaPyZE6idvPi+ywilWLebgfLude9j8cb/CIIY
-         zE/7mVicbpKwNQxuhyuJzLHtBM74kQxeUHzH8cgXdKnYz7BvlfSdIZBo4PZYOcushnmp
-         vkkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
-        fh=QfQq9mE7nY53kgmFj166msT/qIEeilJPMKJfQCl4i9o=;
-        b=BnsPZ08A6SFvrmXlvME1hdozknlrEsPGkx6wj59VQJ5F8qI1AvYXpULkIuywQ4sdHr
-         LU5egKezOlqIHIhXybkkkgCrGvBkkqDV13uf/tfiltca8bVn5aD79qessz6iEG358oEp
-         TxlK0I1IBIxYkx79wT8WOOJPulvctNRXTt4aTF9IWzc91epke4Sm6G5YsvAmuJhxbIF5
-         7kg35As4847+SAXJYgWoH9ZeKbZ4DbNDp7J9PSD7R+i+/vqKhW7mmMpAsMdgovg250S4
-         0pqKQKvn0+gBuPUb3s4nSxMiomwqwesJYDBGW9T177pqbQoZ38gni2/thXclW8sVL6Rx
-         banQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792062915; x=1792667715; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
-        b=tFsok8Gu7pL10k+toUtA9U1xyWr1fKGTQGuD6siZNufYDmTlx5iGEacoYxtaO/9xuZ
-         royzZQvQ6BThJfyJOQm1cjOvW32PR3hZrFJznN27ptUm1mghkbkPzgXvj2a6XHJP47TB
-         bbih8OPOOMxnSjvYa3885JLpMvx+GgzIpy01s33Pr+h1OnjbITbetlHEid5It9BuxJdj
-         +jtrJxAEb7mGxUwzI9gbGyCk7bauz2wHkzrmnfBsZ71s8dxlipqI21+C75FkHWcs/1y6
-         QR+IKe4BLpXExBmfQlhIMoF33/KjpN4sl9hVB1ojQGf4RCv8Q7kgUbMcMuO8dLhZMhMI
-         Fxdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792062915; x=1792667715;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
-        b=PHqqgOx/98YzhX/bhAYK+xUGQ9JdNWl+GQYvGZKlHbY3+TQSTPLysD4RNc6X/jN/C4
-         sQ3i42PJFk36MSlc8eMmWPUDIA3RAP09d0y07ykMHHDXBzBFgPoR/OmI78cOROSRmRha
-         /vxeHKMpBlVsZz/RB4Hygi6TgnNQLKE36QvDRehwTWKARoKb+VmaWX7lv2m0zIEMktxO
-         Hko7RpSZUxF2HHMhslDESa+KlmlcBCAj7a2WDHPzdsUqzo6lnBX7ZM3azt6WIfNQ4x97
-         pDCoYv80STFGzkMYy94ARfIAdCO/J1yq8SFUR50CmBtNltj4i9rMi38dxlfc0BMLHgDH
-         OlyA==
-X-Forwarded-Encrypted: i=1; AKwUvByjjAQ7iDmGt2pIb+uuTYMak6LyEFUdC2HEWqCNtNBr7DeTiZUnTT9sWagC9y+3IUBUILMQKgq0ydGauDI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvk8uUuNw/+e94UYT7ldEtgiokZRv7kNG92dTxFPU24e4vcjdH
-	akvTsQsm4JeZfjDFIXDC3ASd7goh0kh/lxv0OEcZDdNTm+X3hDP+2CXNZ+s0qgS1CADOLkIKLH3
-	R0yNTEiN2Y4mhfwfE2kiahMjjtB/ftHwBvV2Q3YdY
-X-Gm-Gg: AYBFou3O+yVH41LpOnutsB3dgrJe+OQFbKSeKcFgtXGbTJHHV8sa/nlESim7yDtXLHZ
-	cEc/q+nn8EaKNgrEwbYYschnSpjZQzEf8KtA2rF1xU0uGg97yTufLbWyobf5UjymkAcQ+bc1vP5
-	cSqmXL+jZHgSzbf9TNfPtpodkvaOxPrHlBaQqCEnFAPDl1F+wpoLu/Xe8EKiZhkUMPRrO3jg0hy
-	oS7WDI89sL1XpFrehK2ON0/crJUGdvKu5O09k2nT9ITdsJGsAMEEMv+yNP9DNGYkeSX2qlO01oB
-	Eqel99/ow+cAeguF9GgVJ/SzpO7O6rqqPAdqXOCW5C3XSt9qkHY21p2MMjMo+U9RoISdA6vxtMt
-	F2x6dFAwJv5XClYSmGvwucStEahZndGQbkpeDiV/TIY6bp2W7ZruFHNLk1mlD/B7gY5sLuSyPwY
-	9+QPBYj4qy1D4qNODknBzVzOIG+TpP543hya5vnlOpr6Acq9DQECpFxHPm7NtihJt0GiBujD141
-	9slgp+HtrxxDtMons35G8kwkf6piI7++df2S7dSWxUWwxvUuKbXYBOzIFWs0UBu3f720oyruN/7
-	v6mW+AE0fDV6UQ==
-X-Received: by 2002:a05:690c:7012:b0:8b0:cf3d:7b35 with SMTP id
- 00721157ae682-8b0cf3d7ea6mr10078397b3.15.1792062915195; Thu, 15 Oct 2026
- 04:15:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XsVovh7f"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 297C92F8;
+	Thu, 15 Oct 2026 13:14:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792062865;
+	bh=hcEs1EESDACSG5FDi0QNjOuOs0/cXvky+phx60RikVg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=XsVovh7fQHvjw45Ls2tbeRsulV4sYjocwfUZcPjLFbV47udYL4Fe3+IyyNsKAZiPt
+	 E24YPIr28ONbb641NaJZqna0wM42wRVbEYnePI48+lwUj/tAZCdexWYXzSZwLJE3rp
+	 qf5ihr4l7r5dBGj7Xai8EAkVIpsZ7//vpB5fpqFA=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 15 Oct 2026 14:15:52 +0300
+Subject: [PATCH v5 01/13] drm/bridge: tc358762: Clean up register defines
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014235628.197976-1-julius@bairaktaris.de>
- <20261014235628.197976-2-julius@bairaktaris.de> <atCsGx2IRecQNK3r@chamomile> <atCs-U_AXIyvvpKd@chamomile>
-In-Reply-To: <atCs-U_AXIyvvpKd@chamomile>
-From: Julius Bairaktaris <julius@bairaktaris.de>
-Date: Thu, 15 Oct 2026 11:14:38 +0000
-X-Gm-Features: AclHuK-GCm2OH3Jid7zEvImtoqSM3gq7UTcC3JLFEhmei75CLrzAl8zOZjCyOVw
-Message-ID: <CAC1t37+g_5q2NbKmCkxhZthdHYabypyDZSoshwgAUVjbGm0NsQ@mail.gmail.com>
-Subject: Re: [PATCH nf-next v7 1/2] netfilter: flowtable: tear down direct
- xmit flows when the fdb entry moves
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: netfilter-devel@vger.kernel.org, fw@strlen.de, kadlec@netfilter.org, 
-	phil@nwl.cc, horms@kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org, razor@blackwall.org, 
-	idosch@nvidia.com, ericwouds@gmail.com, dqfext@gmail.com, 
-	netdev@vger.kernel.org, coreteam@netfilter.org, 
-	linux-kselftest@vger.kernel.org, bridge@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-tc358762-fixes-v5-1-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2518;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=hcEs1EESDACSG5FDi0QNjOuOs0/cXvky+phx60RikVg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYEzsJro3jK1pHnpUI7oQrZtK0pXvQS//8e8
+ M2itL9bkE+JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BAAKCRD6PaqMvJYe
+ 9dgiEACx1EvHIDxdoaPYpELqLC3J0fExWHWzdwCHcb0iw4Y5OHM8kInbnNXJzqkktJ3V1GSr4jW
+ cEy/dl3Sx7bfu2Uu7h9VC0gN4FYFuZDOt4Jws71cUQqaCB+sXMO9Y9CjLZ6aF4Qqgm9hhFU/sw9
+ UjOP/3dlT5NpP7kB/k3okYDoONWOppF6tdUp8ZBT3dY3kZtcZGXk+ygbDGLeT7PMXz9WoxmionN
+ 4cnjm9lwq1mOOpBg0gxs6bX3GDFG178lx8cNaHs7Ybfu1LPjRp/SSqlq3o8BxpV2XAO0ezffkXF
+ T9BVb6IBdtsKdf4YCeaHFAW+3is49WWbqSLjGkIM4MnNJxy1JBegIXTmBIvzaE2eL97pgkjT5nm
+ w5D8Zy5QngPOhXKXnuiRlstCcXPwhcY8OZX5pfgPSO9n2mp/gvgCKZx+wp9M0dsXjCNiaJeS9ZQ
+ +lO/ftbEVOPT8OssiGs/ZdQT6oTCZTPTyKVgtOU8N1vpPzgq6fu96ZAOEgQwC1aRtMYjUAuDSlH
+ 26t0/fqV3p2RZBIdwpKQ192xgCoxIxyJIZtSdsCWdo99sPhD+DHJn226l1Z9FNTbuDZ8ExWt4GI
+ oueOAVPp6/ak6c8eCUYgve7Hq5KOKw9d+wWXD7KTrg+jWr1bF65YuvAHa8ReTHtva2KvMn5kcUE
+ BTxM2BSPjNtqeiw==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Hi Pablo,
+Move the defines around and rename for clarity and consistency. No
+functional change.
 
-Thanks for looking over this.
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ drivers/gpu/drm/bridge/tc358762.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-I will incorporate your feedback and send out v8 + explanations for
-the questions Saturday.
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 76564d5e4f69..097d2f331a16 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -28,17 +28,22 @@
+ 
+ /* PPI layer registers */
+ #define PPI_STARTPPI		0x0104 /* START control bit */
++#define PPI_STARTPPI_STARTPPI	BIT(0)
++
+ #define PPI_LPTXTIMECNT		0x0114 /* LPTX timing signal */
+ #define PPI_D0S_ATMR		0x0144
+ #define PPI_D1S_ATMR		0x0148
+ #define PPI_D0S_CLRSIPOCOUNT	0x0164 /* Assertion timer for Lane 0 */
+ #define PPI_D1S_CLRSIPOCOUNT	0x0168 /* Assertion timer for Lane 1 */
+-#define PPI_START_FUNCTION	1
+ 
+ /* DSI layer registers */
+ #define DSI_STARTDSI		0x0204 /* START control bit of DSI-TX */
++#define DSI_STARTDSI_STARTDSI	BIT(0)
++
+ #define DSI_LANEENABLE		0x0210 /* Enables each lane */
+-#define DSI_RX_START		1
++#define DSI_LANEENABLE_CLEN	BIT(0)
++#define DSI_LANEENABLE_L0EN	BIT(1)
++#define DSI_LANEENABLE_L1EN	BIT(2)
+ 
+ /* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
+ #define LCDCTRL			0x0420 /* Video Path Control */
+@@ -59,14 +64,8 @@
+ /* System Controller Registers */
+ #define SYSCTRL			0x0464
+ 
+-/* System registers */
+ #define LPX_PERIOD		3
+ 
+-/* Lane enable PPI and DSI register bits */
+-#define LANEENABLE_CLEN		BIT(0)
+-#define LANEENABLE_L0EN		BIT(1)
+-#define LANEENABLE_L1EN		BIT(2)
+-
+ struct tc358762 {
+ 	struct device *dev;
+ 	struct drm_bridge bridge;
+@@ -117,7 +116,7 @@ static int tc358762_init(struct tc358762 *ctx)
+ 	u32 lcdctrl;
+ 
+ 	tc358762_write(ctx, DSI_LANEENABLE,
+-		       LANEENABLE_L0EN | LANEENABLE_CLEN);
++		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
+ 	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
+ 	tc358762_write(ctx, PPI_D1S_CLRSIPOCOUNT, 5);
+ 	tc358762_write(ctx, PPI_D0S_ATMR, 0);
+@@ -140,8 +139,8 @@ static int tc358762_init(struct tc358762 *ctx)
+ 	tc358762_write(ctx, SYSCTRL, 0x040f);
+ 	msleep(100);
+ 
+-	tc358762_write(ctx, PPI_STARTPPI, PPI_START_FUNCTION);
+-	tc358762_write(ctx, DSI_STARTDSI, DSI_RX_START);
++	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
++	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
+ 
+ 	msleep(100);
+ 
 
-Julius
+-- 
+2.43.0
+
