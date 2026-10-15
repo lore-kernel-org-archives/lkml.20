@@ -1,81 +1,86 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E153D52B1EC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:41:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685B752941C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082525; cv=none; b=qeRypWoFj8lhgzqsjyV5vSIFe52jwlLohSgQ9ogLL+GT7gu+tpP+gb9JGnmTEg/kIvVyWVSdTrIcQSaWrhNyavYb/xgdswCOXkou0XHT6fW+vBPzL92cpYjq/+t5TO7yBYF5+QfeKW6V9Q1oV72oYtBR9ZOec6iEv0tgAiuHNgY=
+	t=1792082573; cv=none; b=TAEdLtX/igvxtoTzIW6N+9iFgOARJRhuXW5xVmAtnwDJNVLK/xmpAdMLs03PdzsWpgnTpAeQ9Dvp8b1UjX+UL45SSnC4jZyLXLvjkrSOYp3uwdL1/5hTJOIiKD4EBrH+07lmRd7jLLemzHQKFqhxuiGUuGU01PteU7sW6lyQez0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082525; c=relaxed/simple;
-	bh=odYsqb6qlvwr9ql2stmc54Jy9XrBQEgexBY+u0gq+rY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=PqTV7XF8r9vT/KVr9CKCz34PX81FxlOfYkhMZyNerO0LaIoLUVTG6fqtsjf8EKFEeT5O6EuNf/L7DOnmWkHzbBmdAJV6HhLW3fEjVuzb7iHBGvChW1oDLW0DOqZYy3M5kq/0NtjZHI+9hCQMq6uCaNkuzms493SfZaSjV6Omsds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1kOCeiW; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1792082573; c=relaxed/simple;
+	bh=OTU5FPXRS7SrHUOlR2OvN6NsypIYjQfFMY0pipFB/Qg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=msDuicqiLWbKHWz2Wji0kjulNuOqSPYMZHQZudPmBV+QQwulNaAPb8LIMZU6kPa+AvRt82QDx1t74poPmNs0grvmksK0ij8dGXQirGkXzhscmu1rBG87c+4b50cnl41w/fpgoRVdmleFF86v16XpE6zatIamMua1PR0OVFpOArA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gujh/Loy; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1kOCeiW"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e5fb79ce82so31803255ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:41:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gujh/Loy"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso24382065ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:42:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792082514; x=1792687314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y81tg7aS+OL7WL9uwzHmpXBtWhblGVNn9iU+ZHCLidI=;
-        b=U1kOCeiWGVEsi5XJcXB/HbizsgiaS5Fe307yt7SYCR63orXCfuaGf9JnLbMsJhUHtC
-         0jbMVfEl1TLP14QqVDB0OMjT4TytPOFAK4VEMh+3/D78j9xE4oev6zaB0xHtEVuoSXz7
-         VM92aINRuZ4t/JV0l+txt3/+t41/pUynFIadugzXG7sxCzaLWiZNsUWMKrfzaSz9vvlr
-         bAUnOpNQgcm6oksYf4iXRFUFan7wtnaF22GZHgdgVXchYtTt3nVp2UgMmrPRegODVcqp
-         JpbC38xlgIQKGM5NKHDYM3+6/GnOS75shvalz+a9rR5Mtf2f3ATZ6BlxtxW8EnyVoMUf
-         h5/A==
+        d=gmail.com; s=20251104; t=1792082560; x=1792687360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rhNH0BW2XAjBueCKdT6wW0Wg3sEZITNbVSl2Bvf6yOk=;
+        b=gujh/LoyM66VVx/qeGDpQouiW/cGmSJF0dWre1VwgHUEO57ARDoIFg8vGHwPcN89qx
+         5f17cczXf7Y5Ee/3a6S2JbqmtpTI0XUwXW00IgjTwePAbz1Yy6scug/n13PDp+0Wo/AA
+         j7RDrA4AFEzLs10mThdWXoZUeKqtv/IjjTJxWxbOgR4Gc3cXoIdRf0j2kGJe8UJhwjhz
+         jn2Ec9mYkQSX1YgGTfDkFk4+rhHk5P8NoVLfzGgK8SpB8mCz5kmgcjfnNZy6UOu3kCGT
+         PdFKOt2R6i59k2i99BXDF7i3GG5fdSg5E31Qntsyx5YmrEf962JzG5CWIRg/dxsx2UpZ
+         ovWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792082514; x=1792687314;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y81tg7aS+OL7WL9uwzHmpXBtWhblGVNn9iU+ZHCLidI=;
-        b=xoP23Um1WDebricRjFXiMmnzta22WjtWZOv4I5QHAV8n6HTkZow2a90BDjTpdEfvjR
-         +zCPoOQjR95u6YjwWSh50GZQnyR3o0YZtbsgBfdEG5cDRp9dRY+f9WmmzRrKgX5X9O++
-         OTAINq21RpRKHdPXXVIbHws8U0/g6tTzWVBBvy2nxDPvHyjbk8QHX6tMEQapGbRzGdHK
-         KAT4rwNGKuUNsqpKYvdSBjw7mukATdbTTqbpNDB3ii4DNuWb1cZoKhjlJnKtrZSMesSj
-         Xs5anfCTCeLRztxAj6JdQQo6rDFd84suyLP/iMSNYAU8shToIxmPdmDFvx/5aa3x6+Qp
-         p3dw==
-X-Forwarded-Encrypted: i=1; AKwUvBxIlD8cGJ4g+PPdhgeTesRV2rncxQBPWMsti39/fqR3n23hxHTW5Tw/KbeSk0y53a4iN/7qnyd8bKjNPE4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4uw8XHlHtmuBc+0JhmzaxXROVVCAZwiJbdP07TsGV4DH47fhZ
-	seABXiZVcUe27ZVk/t/fokxPnczTuSK4XTt2gI2anhDzmk9paquo45zD
-X-Gm-Gg: AYBFou0knhqI0AMv7mWrktwyaZIHwbX6cB0DWCxi1f1zULMA5beFzDkZDnlYuoTeybB
-	b1RSye41/4ZztaUjivBIn/XGMcLqW7lF2XbByQ8Y6yiT3PlGAult87Di4i2IfLtq2iWEhyizYQN
-	2BOI84812ErLbUR14ha9rQ/ujqhQOKjEOeD9To4xtEa8/CU6kHnU+UXSgDrtfRcKJUHczxKko/P
-	jVjEsNeTPr2Nyq94H4arfEJKNIcakPPObBSPtX5nz+IaHZW5x1tBB61Lmkllm48roEM0HW7F42H
-	cKFe/BwnpkQbKH5sfdUwvSi6nTDITWebG65050MxjfkD0FM/+3+TLM7s96caGEaQtHuQ7vynuCa
-	+G9hwonrzsNhKAPzBPPbXRLBFTml6ylNplI9JsEZ7rewJ9bNxx0TYWaWvWdK9fox4DFV8lCoUob
-	KegmxAmFXHigqGjaxTXZDwgwUHJBn9UzPMQprH7d1nuNIBlw5Y7g0/Q5ruLDzZ3kbkJww=
-X-Received: by 2002:a17:903:38cd:b0:2e9:660a:793a with SMTP id d9443c01a7336-2e9660a7b0bmr21795855ad.36.1792082514044;
-        Thu, 15 Oct 2026 09:41:54 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792082560; x=1792687360;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rhNH0BW2XAjBueCKdT6wW0Wg3sEZITNbVSl2Bvf6yOk=;
+        b=BdW1qDiP6ADDoRwueM0NQoAjwfpnceDBKo0KHjP/OiBe9DuXkv1VQMJskPPsLhB1Jy
+         ZffTlYWHvw8c/NsFvjXBsvBlFbsLT4bvOJakYTsWtGP9UkQUyDggxtHP18yp3k3yvmiR
+         fLr8XtD5tyTBPk5oeoKceq3fc6UUsErHnbedZox7Ug8+sA+jcuTMAXNnGfw9ZcPAb0VI
+         kJCqhVVb6aRXmM6t2SZy8nJT0mSR2RJVpUEMYey7Fd0NazlkP9TBtEa/LtFGg8IUFGGY
+         Q4JoQ1d7HNTjDmEyBzSMo1R5k3HT8jZ78D9o4gbsv60hdlS6BhtJB/6bsfuwP4OXs18a
+         0aRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzR4BObKOy2fwWUQWf9ludHhUzL3jhCSA+UM3iqPWz3y122dancINfXnRQsjr8JSO2KGKAnVW3oghMS/jo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2mW/usp+QBnlQSqqC/Kp9nYYBmve43H/C5OzJRiDRMyTik2+J
+	8T8lloGx59/z2Yi+2yqsJc/69416gdBNBMbyrs2U9YJOavsBMBvZ7ygA
+X-Gm-Gg: AYBFou2Q/LZE7u4Hv7+XgD0neUCApTbBWDK50L9I0UhIiUzy7PhEK2F5YXW4tRAcoP0
+	6ZL4gdhwkjRqM1W7JtaBBC1CE2Gvf6O7cF7IhqDmlAbsxZ8PvaFswcB2gAbGr9xfvBxFSQSZGqd
+	UC3DOMutFMxOrmRsr98U+qny4ybgypLj4QiDVlhoJb8fY3M0tAiSTkBGKC8Fxr0s8kJNcdj687y
+	hmHuQ2IhC6csSbDrVG0pU6LCGv0nGxPmMa43XH1jUQ1xp4A6gfO9aD2DtMkWcS7wy5fV3LUsTye
+	nob1PKQ+4jLAHjy2vTvcpilPwxICXMp2I1q36lrjM161XdBmSu0jWNber9NutbxMFhuw8Pt4GiJ
+	26j98wPO1T618HAfmcW7AQWNM4vZzVwsYVUqzZ8tiki3dHprwqwn3abKMDpy3gsC2pUsNN3j/+Z
+	7M51nIJIXhSN6JhMPsZhomDAFP/vJYYPiygWtEui+3cUZoWjttZwWPcEC83KMP+LQhdA==
+X-Received: by 2002:a17:903:32cd:b0:2e2:d7d6:6563 with SMTP id d9443c01a7336-2e842ce162fmr161624375ad.43.1792082560456;
+        Thu, 15 Oct 2026 09:42:40 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e95cf92dfesm11245915ad.11.2026.10.15.09.41.49
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4eb2sm85667535ad.74.2026.10.15.09.42.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:41:53 -0700 (PDT)
+        Thu, 15 Oct 2026 09:42:40 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	nathan@kernel.org,
-	ndesaulniers@google.com,
-	morbo@google.com,
-	justinstitt@google.com,
-	johan.hedberg@nokia.com,
-	padovan@profusion.mobi
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	akpm@linux-foundation.org,
 	zzzccc427@gmail.com,
-	lkp@intel.com
-Subject: [PATCH v2] Bluetooth: MGMT: Serialize power-on with power-off completion
-Date: Fri, 16 Oct 2026 00:41:46 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0063-v11-a70581b6877e5fe118a3@gmail.com>
+	kees@kernel.org,
+	kmehltretter@gmail.com,
+	christophe.jaillet@wanadoo.fr,
+	ericterminal@gmail.com,
+	rppt@kernel.org,
+	rollkingzzc@gmail.com,
+	brauner@kernel.org,
+	sunil.mushran@oracle.com,
+	kurt.hackel@oracle.com,
+	jack@suse.cz
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: [PATCH v2] ocfs2: Pin owning modules for open debugfs files
+Date: Fri, 16 Oct 2026 00:42:32 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0089-v5-076c780eeaf45afb2a53@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,188 +88,196 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-mgmt_set_powered_complete() must only consume the pending command for
-its own request. However, __mgmt_power_off() removes and frees the
-SET_POWERED command before the request's destroy callback runs, and
-mgmt_pending_valid() identifies outstanding commands only by address.
+The OCFS2 debugfs file operation tables do not set owner. The
+full debugfs proxy obtains real_fops with fops_get() at open and
+keeps it until final release. Without an owner, this does not acquire
+a reference to the module containing the table and its callbacks.
+Removing the debugfs entries does not drain retained open files.
 
-When a powered controller is switched off and another management socket
-requests power-on, the allocator can reuse the old command's address:
+An open connected_nodes file can therefore outlive ocfs2_nodemanager
+and make full_proxy_release() read real_fops->release from freed
+module memory. Heming also reproduced the issue with fs_state and
+asked for the other OCFS2 debugfs operation tables to be checked.
 
-  Power-off request worker          Power-on management handler
-  ------------------------          ---------------------------
-  __mgmt_power_off(): free cmd
-  hci_dev_close_sync(): unlock
-  set_powered_sync(): return
-                                    set_powered(): lock hdev
-                                    allocate and link replacement
-  mgmt_pending_valid(): unlink
-    replacement at old address
-  read replacement's cp->val = 1
-  wait for hdev->lock
-                                    submit fails: remove/free cmd
-                                    unlock hdev
-  acquire hdev->lock
-  read freed cmd->opcode
+Set owner to THIS_MODULE in all eleven explicit debugfs operation
+tables: five in ocfs2_nodemanager, four in ocfs2_dlm, and two in
+ocfs2. The existing debugfs get/put pair then holds the appropriate
+module until final release. Leave the open, read and release callbacks
+unchanged. The blockcheck table already sets owner through
+DEFINE_DEBUGFS_ATTRIBUTE(), so it needs no change.
 
-The old callback can respond through and free the new command instead of
-completing its own request. If hci_cmd_sync_submit() fails to allocate
-its work entry after the callback has unlinked the replacement,
-set_powered() removes and frees it again while still holding hdev->lock.
-The old callback then acquires that lock and reads the freed command.
+The original controlled test used an unloadable OCFS2 module and
+case-local probe filters without changing the candidate open, unload
+or release logic. Closing a retained connected_nodes file after
+normal unload produced:
 
-Serialize power-on publication with the existing request mutex, which
-hci_cmd_sync_work() holds across the request function and its destroy
-callback. Hold it through submission and error cleanup so the
-replacement cannot be published before the old callback finishes.
-Acquire it before hdev->lock to preserve the worker's lock order.
-Power-off retains its existing cancellation path.
+  BUG: unable to handle page fault for address: fffffbfff804cfef
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0xbf/0x190
+  Call Trace:
+   <TASK>
+   __fput+0x39a/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Modules linked in: [last unloaded: ocfs2_nodemanager]
 
-Put the shared command path in a helper and acquire the request mutex
-unconditionally around the power-on call. Keeping acquisition and
-release in the same control-flow path also allows Clang context analysis
-to verify balanced locking.
-
-KASAN report as below:
-
-        BUG: KASAN: slab-use-after-free in
-    mgmt_set_powered_complete+0x450/0x4d0
-    Read of size 2 at addr ffff88810921ab10 by task kworker/u17:0/500
-
-    Workqueue: hci0 hci_cmd_sync_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     kasan_report+0xe0/0x110
-     ? mgmt_set_powered_complete+0x450/0x4d0
-     mgmt_set_powered_complete+0x450/0x4d0
-     ? __pfx_mgmt_set_powered_complete+0x10/0x10
-     hci_cmd_sync_work+0x207/0x450
-     ? __pfx_mgmt_set_powered_complete+0x10/0x10
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 531:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     mgmt_pending_new+0x60/0x230
-     mgmt_pending_add+0x3b/0x180
-     set_powered+0x2a8/0x7e0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 531:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     set_powered+0x336/0x7e0
-     hci_sock_sendmsg+0x128b/0x22e0
-     __sys_sendto+0x425/0x470
-     __x64_sys_sendto+0xe5/0x1c0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    ==================================================================
-
-Fixes: eec8d2bcc841 ("Bluetooth: Add support for set_powered management command")
+Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+Fixes: 87d3d3f3931f ("ocfs2/hb: Expose the list of heartbeating nodes via debugfs")
+Fixes: 3ba169ccec1c ("ocfs2/cluster: Add new function o2net_fill_node_map()")
+Fixes: 50397507e856 ("ocfs2: Expose the file system state via debugfs")
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Fixes: 7209300a9b98 ("ocfs2/dlm: Dumps the purgelist into a debugfs file")
+Fixes: d0129aceaecc ("ocfs2/dlm: Dumps the mles into a debugfs file")
+Fixes: 4e3d24ed1a12 ("ocfs2/dlm: Dumps the lockres' into a debugfs file")
+Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
 Assisted-by: LLM
+Cc: <stable@vger.kernel.org>
+Suggested-by: Heming Zhao <heming.zhao@suse.com>
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
 ---
 Changes in v2:
-- Move the common set_powered command path into a helper and acquire
-  req_lock in the explicit power-on branch, fixing Clang context-analysis
-  errors.
-- Preserve req_lock -> hdev->lock ordering and keep power-off cancellation
-  outside req_lock.
-- Rebase onto current bluetooth-next.
+- Cover fs_state and locking_state in the OCFS2 filesystem module.
+- Cover all four OCFS2 DLM debugfs operation tables.
+- Keep the five node manager fixes and the original diagnostic.
+- Add explicit module headers and Fixes tags for the added tables.
+- Add Cc: stable@vger.kernel.org.
 
-Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0089-v2-4c67f48d4e2d0fc85990@gmail.com
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3b9c82bd2f027..90686ebec2399 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -1395,19 +1395,13 @@ static int set_powered_sync(struct hci_dev *hdev, void *data)
- 	return hci_set_powered_sync(hdev, cp.val);
+ fs/ocfs2/cluster/heartbeat.c | 1 +
+ fs/ocfs2/cluster/netdebug.c  | 4 ++++
+ fs/ocfs2/dlm/dlmdebug.c      | 5 +++++
+ fs/ocfs2/dlmglue.c           | 2 ++
+ fs/ocfs2/super.c             | 1 +
+ 5 files changed, 13 insertions(+)
+
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 8e6ead433228e7419bfbbe5c7cdde65c654a24f4..1d4f71190d27b2b7fcf7db7b39fefcad5cc669cc 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -1447,6 +1447,7 @@ static ssize_t o2hb_debug_read(struct file *file, char __user *buf,
+ #endif  /* CONFIG_DEBUG_FS */
+ 
+ static const struct file_operations o2hb_debug_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		o2hb_debug_open,
+ 	.release =	o2hb_debug_release,
+ 	.read =		o2hb_debug_read,
+diff --git a/fs/ocfs2/cluster/netdebug.c b/fs/ocfs2/cluster/netdebug.c
+index f7ab66e70799302f3ed4e70ab6a8fb057dd0bfa9..9b8e2cdd05ed452f98f95d45bfb7f5865db434f7 100644
+--- a/fs/ocfs2/cluster/netdebug.c
++++ b/fs/ocfs2/cluster/netdebug.c
+@@ -183,6 +183,7 @@ static int nst_fop_release(struct inode *inode, struct file *file)
  }
  
--static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
--		       u16 len)
-+static int __set_powered(struct sock *sk, struct hci_dev *hdev,
-+			 void *data, u16 len)
- {
- 	struct mgmt_mode *cp = data;
- 	struct mgmt_pending_cmd *cmd;
- 	int err;
- 
--	bt_dev_dbg(hdev, "sock %p", sk);
--
--	if (cp->val != 0x00 && cp->val != 0x01)
--		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
--				       MGMT_STATUS_INVALID_PARAMS);
--
- 	hci_dev_lock(hdev);
- 
- 	if (!cp->val) {
-@@ -1454,6 +1448,32 @@ static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
- 	return err;
+ static const struct file_operations nst_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = nst_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -415,6 +416,7 @@ static int stats_fop_open(struct inode *inode, struct file *file)
  }
  
-+static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
-+		       u16 len)
-+{
-+	struct mgmt_mode *cp = data;
-+	int err;
-+
-+	bt_dev_dbg(hdev, "sock %p", sk);
-+
-+	if (cp->val != 0x00 && cp->val != 0x01)
-+		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
-+				       MGMT_STATUS_INVALID_PARAMS);
-+
-+	if (!cp->val)
-+		return __set_powered(sk, hdev, data, len);
-+
-+	/*
-+	 * Wait for the previous power-off completion before publishing a
-+	 * new command that could reuse its freed pending-command address.
-+	 */
-+	hci_req_sync_lock(hdev);
-+	err = __set_powered(sk, hdev, data, len);
-+	hci_req_sync_unlock(hdev);
-+
-+	return err;
-+}
-+
- int mgmt_new_settings(struct hci_dev *hdev)
- {
- 	return new_settings(hdev, NULL);
+ static const struct file_operations stats_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = stats_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -427,6 +429,7 @@ static int sc_fop_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations sc_seq_fops = {
++	.owner = THIS_MODULE,
+ 	.open = sc_fop_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+@@ -476,6 +479,7 @@ static ssize_t o2net_debug_read(struct file *file, char __user *buf,
+ }
+ 
+ static const struct file_operations nodes_fops = {
++	.owner = THIS_MODULE,
+ 	.open		= nodes_fop_open,
+ 	.release	= o2net_debug_release,
+ 	.read		= o2net_debug_read,
+diff --git a/fs/ocfs2/dlm/dlmdebug.c b/fs/ocfs2/dlm/dlmdebug.c
+index ce6d301cb9420385211d20d59637069154a89993..4face0bea236748b679571e6ade068658d33bd12 100644
+--- a/fs/ocfs2/dlm/dlmdebug.c
++++ b/fs/ocfs2/dlm/dlmdebug.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2004, 2008 Oracle.  All rights reserved.
+  */
+ 
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+ #include <linux/highmem.h>
+@@ -339,6 +340,7 @@ static int debug_purgelist_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_purgelist_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		debug_purgelist_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+@@ -394,6 +396,7 @@ static int debug_mle_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_mle_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		debug_mle_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+@@ -601,6 +604,7 @@ static int debug_lockres_release(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_lockres_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		debug_lockres_open,
+ 	.release =	debug_lockres_release,
+ 	.read =		seq_read,
+@@ -791,6 +795,7 @@ static int debug_state_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations debug_state_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		debug_state_open,
+ 	.release =	debug_release,
+ 	.read =		debug_read,
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index 6bc4a21cf5f02f04a6b54100925084aed239ae62..b332938fe57f87c3d9a81e3800eed1a25e49de1b 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2003, 2004 Oracle.  All rights reserved.
+  */
+ 
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+ #include <linux/highmem.h>
+@@ -3332,6 +3333,7 @@ static int ocfs2_dlm_debug_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations ocfs2_dlm_debug_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		ocfs2_dlm_debug_open,
+ 	.release =	ocfs2_dlm_debug_release,
+ 	.read =		seq_read,
+diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
+index 1e76b1d9fe0af4b3cf503e91e1dd077762fef88a..1f6d828a470fb28ccde2e6ed9a82a4ed7c294201 100644
+--- a/fs/ocfs2/super.c
++++ b/fs/ocfs2/super.c
+@@ -387,6 +387,7 @@ static ssize_t ocfs2_debug_read(struct file *file, char __user *buf,
+ #endif	/* CONFIG_DEBUG_FS */
+ 
+ static const struct file_operations ocfs2_osb_debug_fops = {
++	.owner = THIS_MODULE,
+ 	.open =		ocfs2_osb_debug_open,
+ 	.release =	ocfs2_debug_release,
+ 	.read =		ocfs2_debug_read,
