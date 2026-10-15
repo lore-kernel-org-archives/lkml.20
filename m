@@ -1,274 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84CE3E3170;
-	Thu, 15 Oct 2026 15:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174DB3F926F;
+	Thu, 15 Oct 2026 15:48:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079288; cv=none; b=eHLSLtUqQW7RXmLrHlyms/Ob2cEKG03Sn9Py2qlJztTM4AiFC+W5/uuo6HGIice4HB6s+VkZDVs6Ou3rLEpZDMA1yixwBhpdKtfiNiCOBF25gLeHl8UL/9s/p74l1mbiF13cMnx1/XxjQUz/11JMn+nvnk3Xb908h4kSrFRBkuc=
+	t=1792079317; cv=none; b=fshUkshs3ZLAjbPzuyebgSh0Vl0Zn2JMvkazy9u5TV8au0e15L5dNXECI33r5EXk3posJjOvB/DGYJ+1UXoxiH3OyCszMBhDN6n1kyCFA/GyktIv0nFRdTmqSXOE6M5iUop6unXeT3LjFlb5pMvbFxzPDKua45OadhVRjXjrY4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079288; c=relaxed/simple;
-	bh=KLUY8dL35IhdVIH3PWjrPrVUXD/a//dX3Jxp0VsU3Nc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VfuYzj6aSUiTPqDogx2eZodTY3qzpJG0GM3RqFmkNRN2nCz8XIMHOJcy99VRzysPPuMJy3i/n6bIJyBBJFwiiMMGrb7zU1VbM0Ukr940jdEStgboALjFJN7loy6Z07Te+na665MindN2GlwqroVIgHhwDkHncqO7ZvCw3N7N+DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrPMHN6N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792079317; c=relaxed/simple;
+	bh=bnse//IfN9AFrQ0nl1qQiqrWgFN4uFypsLZ/htuIvqA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q0qsclu6SrOkqXMjzCPoiNvuahDW+wBqLvJAMvFekV2HF6lRKeexlBCEUEvI+slMstd/+Wo8BGJZ5FHRaanFOOT8RTksalc0/8vHAAGcEWe4v0RSAQFff6GAw274tt/KmAl/kVlUZNH3fp/o2R7b1B6kfZtD3gbcOOc39E0eSLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbmIPg3M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrPMHN6N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1B91F000C4;
-	Thu, 15 Oct 2026 15:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbmIPg3M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACC11F000C4;
+	Thu, 15 Oct 2026 15:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792079274;
-	bh=dP0qdNl6DzZgA1oCybzgMWhUKBRrzwDH62fU+ZHZ8l0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hrPMHN6NLyW6KL1LfSNx3K68LHINsN5poboQB6X7sFr/icDLbJPBAMJCFajCIi3Gl
-	 J1jGCCyqs0aTs5RdMRn6nrmVeNPsUYMU9Nto14emHPG03Da3XFGBt+HKsgZVK0WLdP
-	 g3l4GhXRAz8aEXItl9na9cvrKQMigMMwj4pMt0bNZy/l05+cV2cvTohda95yEA8TwC
-	 +07Uxg6M0VQB9OLVUX1o917P5csdmFv+khfdnXlQk4rf7zM6ndknOllNI82/7s8AId
-	 wdI/bcY/FcQlG0JxW8IxCtC6jOfP1OCZoYV02u2S05D1gEiEZQzdPXMi4WbzUrlsha
-	 N5n0NGNQJ++sg==
-Date: Thu, 15 Oct 2026 16:47:48 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 09/11] leds: pca995x: Add sysfs files for error
- reporting
-Message-ID: <179198432570.839288.16507714780245784283@kernel.org>
-References: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
- <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
+	s=k20260515; t=1792079304;
+	bh=KKYxbZUwVotNEVMIbNl0nivjJJ0OoZD4nTbemWC4y4M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NbmIPg3M1nE3t0SveamnjAch6hz4YUVyRo3Lmxk6mjby6t9kleTRe7gTyNUZe12ha
+	 BjmbVMW7+w4ZZvddeg1U7zVqRhplVFB9wY/dJAqnr+R2ILmqliDeTcA3Ybs2idt/lV
+	 OE89VnTiuroc9R8SkifPKah08UeOe2N0P2KB0Fn8gGFDdK5HfbExVOqzUwRgogXy6E
+	 8QyG2sd+NB4s/CQZ6vfBb58ay703XtCQikPZg26WCfpxVlz3HYRClHZMYZhpiZkjOR
+	 vPDpyuTg1N1+kr0dBXwFTuGczz3D1mza4v6BO2/XjwW7RkDNe2ii8ejQsMC3Dg0xHo
+	 XshQYVliATdCw==
+Message-ID: <79b299ac-a588-43e1-af46-e69d8b3e7aca@kernel.org>
+Date: Thu, 15 Oct 2026 16:15:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
-X-AI-Review-Draft: <5ec0d621cc430d730e51845d4aafb1c2be166fbc.1791207391.git.nora.schiffer@ew.tq-group.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
+ PMD copied by fork
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 05 Oct 2026, Nora Schiffer wrote:
-
-> The PCA9955B/PCA9956B have builtin failure detection. Provide sysfs files
-> for individual LED status (reporting "okay", "short-circuit" or
-> "open-circuit") as well as a global "has_errors" flag. has_errors is
-> sticky and must be cleared by writing "clear" to the sysfs file.
->
-> Failure detection on the PCA9952/PCA9955 (without "B") works differently
-> and is currently unsupported.
->
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+On 10/14/26 17:46, Konstantin Khorenko wrote:
+> Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
+> deposited page table. ppc64 in hash mode keeps the hash slot array of
+> the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
+> special PMD it maps.
+> 
+> copy_huge_pmd() copies a special PMD into the child without a table.
+> The child then dereferences a NULL table:
+> 
+> - on the first hash fault on the PMD, in __hash_page_thp();
+> - on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
+> 
+> Allocate a table before taking the page table locks and deposit it
+> with the copy, as insert_pmd() does.
+> 
+> Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 > ---
->  drivers/leds/leds-pca995x.c | 112 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 108 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> index 3d6053625b1c9..359803d0030fb 100644
-> --- a/drivers/leds/leds-pca995x.c
-> +++ b/drivers/leds/leds-pca995x.c
-> @@ -8,6 +8,7 @@
->   * Copyright 2023 Marek Vasut
->   */
->
-> +#include <linux/bits.h>
->  #include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
-> @@ -24,6 +25,9 @@
->  /* Auto-increment disabled. Normal mode */
->  #define PCA995X_MODE1_CFG		0x00
->
-> +#define PCA995X_MODE2_CLRERR		BIT(4)
-> +#define PCA995X_MODE2_ERROR		BIT(6)
-> +
->  /* LED select registers determine the source that drives LED outputs */
->  #define PCA995X_LED_OFF			0x0
->  #define PCA995X_LED_ON			0x1
-> @@ -37,19 +41,37 @@
->  #define PCA995X_IREFALL_FULL_CFG	0xFF
->  #define PCA995X_IREFALL_HALF_CFG	(PCA995X_IREFALL_FULL_CFG / 2)
->
-> +#define PCA995X_EFLAG_UNSUPPORTED	U8_MAX
-> +
-> +#define PCA995X_EFLAG_BITS		2
-> +#define PCA995X_EFLAG_MASK		GENMASK(1, 0)
-> +
->  #define ldev_to_led(c)	container_of(c, struct pca995x_led, ldev)
->
->  struct pca995x_chipdef {
->  	unsigned int num_leds;
->  	u8 pwm_base;
->  	u8 irefall;
-> +	u8 eflag_base;
->  	u8 mode2_cfg;
-> +	const struct attribute_group **attr_groups;
->  };
->
-> +static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf);
+>  mm/huge_memory.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index bf788bb231691..2380e4e877f82 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	pmd = pmdp_get_lockless(src_pmd);
+>  	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+>  		     !is_huge_zero_pmd(pmd))) {
+> +		if (arch_needs_pgtable_deposit()) {
+> +			pgtable = pte_alloc_one(dst_mm);
+> +			if (unlikely(!pgtable))
+> +				goto out;
+> +		}
+>  		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+>  		src_ptl = pmd_lockptr(src_mm, src_pmd);
+>  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> @@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		if (unlikely(pmd_none(pmd))) {
+>  			spin_unlock(src_ptl);
+>  			spin_unlock(dst_ptl);
+> +			if (pgtable)
+> +				pte_free(dst_mm, pgtable);
+>  			return -EAGAIN;
+>  		}
+>  		/*
+> @@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		 * wrongly write to the backend MMIO.
+>  		 */
+>  		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+> +		if (pgtable) {
+> +			mm_inc_nr_ptes(dst_mm);
+> +			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
+> +		}
+>  		goto set_pmd;
 
-Please avoid forward declaring functions.
+It's another sign that the pmd_special() is just entirely misplaced.
 
-Shuffle things around so that it is not required.
-
-> +
-> +static DEVICE_ATTR_RO(status);
-> +
-> +static struct attribute *pca995x_led_error_attrs[] = {
-> +	&dev_attr_status.attr,
-> +	NULL,
-> +};
-> +ATTRIBUTE_GROUPS(pca995x_led_error);
-
-Are these documented as per the guidance?
-
-> +
->  static const struct pca995x_chipdef pca9952_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x0a,
->  	.irefall	= 0x43,
-> +	.eflag_base	= PCA995X_EFLAG_UNSUPPORTED,
->  	/* Reset default */
->  	.mode2_cfg	= 0x05,
->  };
-> @@ -58,16 +80,20 @@ static const struct pca995x_chipdef pca9955b_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x08,
->  	.irefall	= 0x45,
-> -	/* Reset default */
-> -	.mode2_cfg	= 0x01,
-> +	.eflag_base	= 0x46,
-> +	/* Reset default + clear errors on probe */
-> +	.mode2_cfg	= 0x01 | PCA995X_MODE2_CLRERR,
-> +	.attr_groups	= pca995x_led_error_groups,
->  };
->
->  static const struct pca995x_chipdef pca9956b_chipdef = {
->  	.num_leds	= 24,
->  	.pwm_base	= 0x0a,
->  	.irefall	= 0x40,
-> -	/* Reset default */
-> -	.mode2_cfg	= 0x05,
-> +	.eflag_base	= 0x41,
-> +	/* Reset default + clear errors on probe */
-> +	.mode2_cfg	= 0x05 | PCA995X_MODE2_CLRERR,
-> +	.attr_groups	= pca995x_led_error_groups,
->  };
->
->  struct pca995x_led {
-> @@ -119,6 +145,77 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
->  	}
->  }
->
-> +static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct led_classdev *led_cdev = dev_get_drvdata(dev);
-> +	struct pca995x_led *led = ldev_to_led(led_cdev);
-> +	struct pca995x_chip *chip = led->chip;
-> +	const struct pca995x_chipdef *chipdef = chip->chipdef;
-> +	const char *status = "unknown";
-> +	unsigned int val;
-> +	int shift, ret;
-> +	u8 reg;
-> +
-> +	reg = chipdef->eflag_base + (led->led_no / PCA995X_OUTPUTS_PER_REG);
-> +	shift = PCA995X_EFLAG_BITS * (led->led_no % PCA995X_OUTPUTS_PER_REG);
-> +
-> +	ret = regmap_read(chip->regmap, reg, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch ((val >> shift) & PCA995X_EFLAG_MASK) {
-> +	case 0:
-> +		status = "okay";
-> +		break;
-> +	case 1:
-> +		status = "short-circuit";
-> +		break;
-> +	case 2:
-> +		status = "open-circuit";
-> +	}
-> +
-> +	return sysfs_emit(buf, "%s\n", status);
-> +}
-> +
-> +static ssize_t has_errors_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct pca995x_chip *chip = dev_get_drvdata(dev);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(chip->regmap, PCA995X_MODE2, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return sysfs_emit(buf, "%d\n", !!(val & PCA995X_MODE2_ERROR));
-> +}
-> +
-> +static ssize_t has_errors_store(struct device *dev, struct device_attribute *attr,
-> +				const char *buf, size_t count)
-> +{
-> +	struct pca995x_chip *chip = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (!sysfs_streq(buf, "clear"))
-> +		return -EINVAL;
-> +
-> +	ret = regmap_update_bits(chip->regmap, PCA995X_MODE2,
-> +				 PCA995X_MODE2_CLRERR, PCA995X_MODE2_CLRERR);
-> +
-> +	return ret ?: count;
-> +}
-> +
-> +static DEVICE_ATTR_RW(has_errors);
-> +
-> +static struct attribute *pca995x_error_attrs[] = {
-> +	&dev_attr_has_errors.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group pca995x_error_group = {
-> +	.attrs = pca995x_error_attrs,
-> +};
-> +
->  static const struct regmap_config pca995x_regmap = {
->  	.reg_bits = 8,
->  	.val_bits = 8,
-> @@ -185,6 +282,7 @@ static int pca995x_probe(struct i2c_client *client)
->  		led->led_no = reg;
->  		led->ldev.brightness_set_blocking = pca995x_brightness_set;
->  		led->ldev.max_brightness = 255;
-> +		led->ldev.groups = chipdef->attr_groups;
->  	}
->
->  	/* Disable LED all-call address and set normal mode */
-> @@ -202,6 +300,12 @@ static int pca995x_probe(struct i2c_client *client)
->  	if (ret)
->  		goto err_put_nodes;
->
-> +	if (chipdef->eflag_base != PCA995X_EFLAG_UNSUPPORTED) {
-> +		ret = devm_device_add_group(dev, &pca995x_error_group);
-> +		if (ret)
-> +			goto err_put_nodes;
-> +	}
-> +
->  	for (i = 0; i < chipdef->num_leds; i++) {
->  		struct led_init_data init_data = {};
->
-> -- 
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> https://www.tq-group.com/
->
->
+Let's get that sorted and it will just naturally fix the other case.
 
 -- 
-Lee Jones
+Cheers,
+
+David
