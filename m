@@ -1,106 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57B03E3D9E;
-	Thu, 15 Oct 2026 19:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF84A2062;
+	Thu, 15 Oct 2026 19:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792091253; cv=none; b=eNwSsb9dYIosiob2ql83Z8/FXt+ieqUfF1vE1Lo1C9fTquTQ+UCSup0vQJ0oAscqwiVdrBylqakZEpf/aFzRLQurFNjDI1o0mGGMBpFkRYDNpoPAzr8yNZuxxOvhpXsHVnTeLQXEOaXD7+brzWp6lHVsyE5Dt6kO8jty2k6XGWE=
+	t=1792091286; cv=none; b=iv+aDbBDxqidjrsPzR/vNq13Pbjhf2ayS483jkT7t4NCBRXqSeXm/x2kLE8KRhygu7U4SaO73HUBigGsHg7S9fy77eRQ0M4L4cBmft0gcHbrh4wAOtKfEXTUVvvmtbmpIEY6qKs4ks3QDGOrW94jf1CjJO3Tp/8CJ9Sv23XhOUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792091253; c=relaxed/simple;
-	bh=/hB2yFo72mINFrziF0khq8oQoZAxWzMryyi7T0djCas=;
+	s=arc-20240116; t=1792091286; c=relaxed/simple;
+	bh=cyU3X4JdKoxg9kUry1GAjfUWGDLRoQEz8UieWr1cxb4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MtkwjInfCMRpaSVJW6wpMhGQmSBbaxzC+nzDsB4kEspaGiA/pg94Y1T02zNw60mdWMfGKxzWzUUQeGg4YqLNmoPiS0PXwyny3AMI+des6FcrMx5dLI9r7UWm1O68hsEqCmd8S4pyFjz8yHElVBM4Jm9iiXPgPmonfQUe7meEoKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kyerSYqK; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=og+DV+rh4r56yZw7t4AXgqm8BJ/HMvlwDNSRuBJJGCsD/aFiz8isrVqDB08NM8ByEuZFxpG7P8SFtFBGOE3oUj/z3AIWGWt6ZL4XqQRryCxvXgeB2Ncb5j0jB6l4y3N8OTJodD5h2brzheJNelVjNrlXHJe+gJ3VbieUcCnV1cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=et8klXTX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kyerSYqK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792091252; x=1823627252;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=/hB2yFo72mINFrziF0khq8oQoZAxWzMryyi7T0djCas=;
-  b=kyerSYqKsFPxtqRjR7YJXX7mov8SysxrcG2aE6G54I7h0TaRl2F/d5Rp
-   azxr9Hy5e1NcMS9CWj4GuVGuX5LOrPRpOdmU6DY7ALGypvGqVGAB5boFt
-   4xtR/PBVgdsocEfcxOyQWdUrkILAMkG8EZ92tLCKqaaPQGgHHDarJCn7t
-   nV8twCBcDNdfnHlcFRay+jozQ5FRjcm7vYiXBkp3SX0EBYCjfacy15aPN
-   po3t8LUworYwEKKexlNRVpaL1G4gmTjs6IKiyOgO4fa+up2mHA6P68YXf
-   aIcYGAVoIWrDHtSOTVuW4qRhlhbklPmHKFmxVhiacutV8rV9gSD+vd4Tx
-   g==;
-X-CSE-ConnectionGUID: 3sA5HHTvThCHRav1NFY4og==
-X-CSE-MsgGUID: T1n+WgYtTV61VJ0JA45I0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="883244"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="883244"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:07:32 -0700
-X-CSE-ConnectionGUID: BdlBH7qKRWm3gk2OiuTV4Q==
-X-CSE-MsgGUID: JfEAlRDkQnSmQmRakWnzxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="3548324"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:07:28 -0700
-Date: Thu, 15 Oct 2026 22:07:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: John Singleton <johnsingleton@google.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] staging: media: atomisp: Fix parameter indentation
- and block comments
-Message-ID: <atEkbryDswpLe-iT@ashevche-desk.local>
-References: <20261012161322.930099-1-johnsingleton@google.com>
- <20261012161322.930099-3-johnsingleton@google.com>
- <CAHp75VdjeG2kNzfRRAmHZp=++gOz48ifnKMCu0oPK=nZBewHPA@mail.gmail.com>
- <CAJEVk_GXoHRr-dEZZu2xz8Jk-vVyowJfmqbuGk3fcdQ05TWjag@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="et8klXTX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994EF1F000C4;
+	Thu, 15 Oct 2026 19:08:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792091284;
+	bh=uOLB46dfm0aerWqo4MfS0HfL8CCeDthLlQvQVMVFuVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=et8klXTXLJglDd5uZg1slra9e0Xq9rIEh8OqusA0qBEtB7+kUpPInQx9jvMMELUxA
+	 8N/G9s1ZGbpj+o6gL6Rm07lZSnHAvSCyuivYwCFXfAciV7gK6taEcrAcF8H3Ibkbsn
+	 0quw91+s/Xnqx/qI7+vjtx9Fi14T1hCJ38qcJgb9AJadMNIP0UZXpqk0NQCTRWu+AJ
+	 IBrMbjo9D0idyoexyyHmGfM9ReHS+W5TOrUVPCt75SmPckAFapJVPlv+d2asXEnPIz
+	 ZglE5gCNhNokb4svGKVj9o7r94NRHo6aXaMcYBuDq9L7Ti3Wqy89+H/FIcVZSfGsOa
+	 nOeT6nuuxJuVw==
+Date: Thu, 15 Oct 2026 14:08:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v8 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+Message-ID: <20261015190802.GA5059-robh@kernel.org>
+References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
+ <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+ <20261006141620.GA1950759-robh@kernel.org>
+ <CAC-tS8DzW88Lu_k-yKQtyfYc8u5-rh9WKTSanJ6dq6Xo3wp+kQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJEVk_GXoHRr-dEZZu2xz8Jk-vVyowJfmqbuGk3fcdQ05TWjag@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAC-tS8DzW88Lu_k-yKQtyfYc8u5-rh9WKTSanJ6dq6Xo3wp+kQ@mail.gmail.com>
 
-On Wed, Oct 14, 2026 at 09:20:59AM -0500, John Singleton wrote:
-> Thank you, Andy. Just to confirm from my examination, I think the key
-> issues are:
-> 1) There should be separate patches for the comment-cleanup and the
-> function-header cleanup and
-> 2) The preference is to do this for all files in a directory, rather than a
-> subset.
-> 
-> Is that a fair summary of the concerns?
+On Mon, Oct 12, 2026 at 12:15:52PM +0530, Harendra Gautam wrote:
+> > > +
 
-Do not top-post!
+[...]
 
-Not only, the similar patches were sent many times, you need to collect
-preliminary work and come up with the best solution out of all.
-
-> On Mon, Oct 12, 2026 at 2:05 PM Andy Shevchenko <andy.shevchenko@gmail.com>
-> wrote:
-> 
-> > On Mon, Oct 12, 2026 at 7:13 PM John Singleton <johnsingleton@google.com>
-> > wrote:
-> > >
-> > > Replace leading spaces with tabs in function parameter lists and
-> > > format multi-line comments according to kernel coding style.
+> > > +
+> > > +      qcom,qaif-aif-lane-map:
+> > > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > +        description:
+> > > +          Per-lane direction map, one entry per lane starting from lane 0.
+> > > +          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
+> > > +        minItems: 1
+> > > +        maxItems: 8
+> > > +        items:
+> > > +          enum: [0, 1]
 > >
-> > Please, read the mail archive to understand why this patch is no-go.
+> > Can't you use a single uint32 bit mask for this?
+> Here intention to keep this consistent with the other tdm mask array properties.
 
--- 
-With Best Regards,
-Andy Shevchenko
+What I mean is use 1-bit per lane/slot. That *is* aligned to the 
+existing properties:
 
+  '^dai-tdm-slot-[rt]x-idle-mask$':
+    $ref: /schemas/types.yaml#/definitions/uint32
+    description: Idle slot mask. Optional. A bit being set to 1 indicates
+      that the corresponding TDM slot is inactive/idle.
 
+It can be extended to an array if you someday have more than 32 lanes, 
+but it seems you only have 8 ATM.
+
+Rob
