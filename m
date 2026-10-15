@@ -1,76 +1,191 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B6924E4C6;
-	Thu, 15 Oct 2026 17:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FCC3B2D0D;
+	Thu, 15 Oct 2026 17:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086826; cv=none; b=b6rXUsCZ/5IJveX5tyPhTy2hGewo1tjFUKf1ooDFD3l7n4Uk/l6F9Y+snYXQ57VoQbfuezaa+xjeHQ5a3ktEe22TPIiB8OCJyWJQAP01lhP2TLk2qyaiRh358COOqMC1wHqwJnrVQaqIb3bRmkNnmdhwJFL933EqsOL3941Qa4o=
+	t=1792086884; cv=none; b=HRBkTvswg15PtVZ4OiyGqTkF8es/Wx7ozxrYgX2IghdLXKBhMZSnJ/hoSrDevxh6c18QrdJcAdR3oqkGNs4fs9udjEz//hrXMURVNbp3QRWmjIv5Km4i7rGeJDcvNKDZJWGLds2DcWKD/J9s8w3spe5L9rvFYwIWggA7Hfwiht0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086826; c=relaxed/simple;
-	bh=6ouyzi+6xfKJ6vTTHo8bMZVzVa3a2wXe8A2g8j92zS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RHex7/ik3r9PvWqNQw67AEk2D00BwxNRa+dQscV8yoEpcCQ07qKSPrMijBWc6f2sj9VZwTwc7OEagykM16FaBIr4Zd4zaoAdgbTEIPSmvjsQRlo9VtPkA7T6dpGs0ERStlR7TTuzCzjpUgIspmrySMsIeCxuU8TWoVswjT4prHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=ZFJEFDm+; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1792086884; c=relaxed/simple;
+	bh=ZjXSCzqksHcLTG5oc1+4fUUYcNegUbxI3yrjKqdg17I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U1M7VnQjswa6mf5xieCm/7r//u6q4TJfxcI+IzzVByxVkchDNmTRP8dZfZyfjjKbscX2CNZJepH43rI7luav/cPsVHWgfTE5g6J3FCCVBLk9YuyH0MqSbQq905uT4gFgOAk8Pf3IHJpH71OBnNurnN/fBWCjdfNO/fAlEGa1gsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eXpwTksI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iTxD0LdA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eXpwTksI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iTxD0LdA; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="ZFJEFDm+"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j5G030ZMtz1XM5kD;
-	Thu, 15 Oct 2026 17:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792086815; x=1794678816; bh=6ouyzi+6xfKJ6vTTHo8bMZVz
-	Va3a2wXe8A2g8j92zS8=; b=ZFJEFDm+vWJC73f/Ayw/TKnlIkRruVEjZgK3jmjn
-	CdQYF+seW9WrF/RpDPt+bMdgkJ4K8awra9k11J0yFMfkA6dsh+yFikCbbPkrTfU8
-	jnkmRbvX+ZRR9IVBtcGBECVNLzMScwy6hO6lyyXnT7TXV25FShaFGBJF5gGexxLG
-	LphVUMZzupUSF/H6rvZv0go6QCL3kWlHUlgYcnG1wG6lSGIVKAdXURDqgiqfic3i
-	H844fCZcxw/Ee60rh544JBi5vjDWdntrdC9hmj2KSO/Wv+EIjU/C8X92r9aIjrQD
-	dc15oT3dhtr+wrQPms710hDg9LPm+nDhuQOZ/Od/R/cYzw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id qxIIrw2SzjBH; Thu, 15 Oct 2026 17:53:35 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eXpwTksI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iTxD0LdA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eXpwTksI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iTxD0LdA"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j5Fzz0Jj9z1XM4Tl;
-	Thu, 15 Oct 2026 17:53:34 +0000 (UTC)
-Message-ID: <7ec5c2b3-daba-4a85-9c37-65edc79c0cd5@acm.org>
-Date: Thu, 15 Oct 2026 10:53:32 -0700
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 02F50223AB;
+	Thu, 15 Oct 2026 17:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792086876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
+	b=eXpwTksIT9/Go1ofbOmdU0GZvbkw5AyX5pLHwi+2EKjRB6sOz9eGvgakUD8O5a7D5/19ut
+	4nm4lk/n01AwoZscIQIgq0wHxQNi5kf0X7qhAhpzIZHgiY2Hw2yiLHg2d/EG4MV5CfmS46
+	FvzsWCQrEs3nPP7g/iIOz1rWsSk8mo4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792086876;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
+	b=iTxD0LdA1j7nQ1dEwmMrePAU7KHf4w37NgNPespccr/3SWDTWNo2jSNk71iguUOzjHCTXZ
+	2jnCQ36Nk+Cbh1Dg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eXpwTksI;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=iTxD0LdA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792086876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
+	b=eXpwTksIT9/Go1ofbOmdU0GZvbkw5AyX5pLHwi+2EKjRB6sOz9eGvgakUD8O5a7D5/19ut
+	4nm4lk/n01AwoZscIQIgq0wHxQNi5kf0X7qhAhpzIZHgiY2Hw2yiLHg2d/EG4MV5CfmS46
+	FvzsWCQrEs3nPP7g/iIOz1rWsSk8mo4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792086876;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
+	b=iTxD0LdA1j7nQ1dEwmMrePAU7KHf4w37NgNPespccr/3SWDTWNo2jSNk71iguUOzjHCTXZ
+	2jnCQ36Nk+Cbh1Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29F6413223;
+	Thu, 15 Oct 2026 17:54:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id p1Q4L1kT0WqZYQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 15 Oct 2026 17:54:33 +0000
+Date: Thu, 15 Oct 2026 18:54:32 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
+	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/10] mm/vma: don't leak the commit charge on mmap
+ failure
+Message-ID: <atERwRzzAdCSXaPM@pedro-suse.lan>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-1-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix UIC result byte and BSG request
- handling
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
- Peter Wang <peter.wang@mediatek.com>, Brian Kao <powenkao@google.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015001855.3450573-1-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261015001855.3450573-1-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-urgent_fixes-v1-1-42796911043b@kernel.org>
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,linux.dev,suse.de,huawei.com,gmail.com,us.ibm.com,csn.ul.ie,surriel.com,redhat.com,toxicpanda.com,kvack.org,vger.kernel.org];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,toxicpanda.com:email]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 02F50223AB
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 10/14/26 5:18 PM, Stanley Jhu wrote:
-> ufs-bsg fixes for issues found by fuzzing /dev/bsg/ufs-bsg* with
-> syzkaller on QEMU's emulated UFS host controller and in review of v1,
-> plus a fix for peer DME retries.
+On Thu, Oct 15, 2026 at 06:07:07PM +0200, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> When an accountable mapping replaces existing mappings (MAP_FIXED),
+> __mmap_setup() only charges the difference between the size of the new
+> mapping and the VM_ACCOUNT pages it replaces. It then zeroes
+> vms->nr_accounted so that unmapping the old VMAs does not return their
+> charge, which now backs the new mapping.
+> 
+> If the operation fails after that point, the error path returns
+> map->charged, i.e. only the difference. By then vms_clean_up_area() has
+> zapped the page tables and closed the old VMAs, so
+> vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
+> finishes the unmap with vms_complete_munmap_vmas(), which uncharges
+> vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
+> never created, and the charge of the old ones is never returned, not
+> even when the process exits.
+> 
+> No privilege is needed to hit this, only a file whose mmap hook fails,
+> for example a socket (sock_no_mmap() returns -ENODEV):
+> 
+> 	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
+> 		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> 	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
+> 	     socket_fd, 0);
+> 
+> Every iteration adds len to Committed_AS for good. With
+> vm.overcommit_memory=2 this lets any user make all further accountable
+> allocations in the system fail with -ENOMEM.
 
-For the series:
+I don't think is urgent nor does it have security implications. You can
+already broadly screw up the system from any user when overcommit_memory=2.
+This just goes around the single-process user_reserve_kbytes AFAICT.
+Am I missing something?
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Just looks like a good old bug to me.
 
+> 
+> Once the new mapping has taken over the charge of the mappings it
+> replaces, it owns the charge for all of its pages. Record that in
+> map->charged, so that the error path returns all of it.
+> 
+> A failure in __mmap_setup() itself is not affected: it happens before
+> the charge is taken over and the old VMAs are reattached with their
+> charge intact.
+> 
+> Original fix generated by an LLM and sent in private by Josef.
+> 
+> Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: call variable "uncharged" and make it const, adjust/simplify comments ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+
+-- 
+Pedro
