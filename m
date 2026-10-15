@@ -1,103 +1,83 @@
-Received: from mail-m1973173.qiye.163.com (mail-m1973173.qiye.163.com [220.197.31.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E9433D6FD;
-	Thu, 15 Oct 2026 04:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B48307AC7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792038303; cv=none; b=YP6NzPSo6JcKuJ1uoVN7vTrqRRY+Nyka2elqFYQ+ZN46Z/s0MB/CQvwrN2FSmiFwlSNu2Y4VnSr/1ACLtdFSAIarNV9pMrv4RNLXmqaLRFUMeVreMhPqQonQ/LHXs4LdPZ+Qzc92vdWUv3NzhLLIDAgnd3S6lUEoHNHmgWRxfJY=
+	t=1792038817; cv=none; b=YZPUa10lGtLa/Ta0lK6Db8Af1EAM93N8MLi2/TdtMovMIm0LoLM3vGKEANFMQzLd8fFW68Et6z7stVyu6O/xIgJfJWmbXoQwzpIlTeCp3WAJ0BLerADwiLqOxDGKP2YXsXqk37eg/QaHFV9aKSFcBgTpO/YcMhfyBiFhNXiYEEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792038303; c=relaxed/simple;
-	bh=yeoHncb0U/QHilw6zkzXv7cAxlL2rrUjdw5x+EfEiCc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CX9CBcKO0kLXVqWtCk2K9oPk9baFydnLzWqeGy9iooZ/j/ADgp8YHs9WxnbFUj0gkW9o1TtAAZVj8UfehW6SX8A94M6EFTTIdRasunLpTWYvSHaSXQpOL4PrF+xiMhfA3HUPIBRhOQEsZc2SqO75o58QtkQ7Vufh/YDF6E/qufI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fY9EWEXy; arc=none smtp.client-ip=220.197.31.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fY9EWEXy"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 511c23ef5;
-	Thu, 15 Oct 2026 11:49:20 +0800 (GMT+08:00)
-Message-ID: <966431ec-8884-48da-804a-4dfa5404698e@rock-chips.com>
-Date: Thu, 15 Oct 2026 11:49:19 +0800
+	s=arc-20240116; t=1792038817; c=relaxed/simple;
+	bh=dbz8GcIMQo2TU0DTtg3ZhR29u+Arpzub7JDmPn3cF+0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=K7vm/C+ERgCDZ9dvCjvNw8j6WiCm7MyakgAkbVLnlfJ1a9cvJcgWOIHHEk7CqS4gqeMO20fTRb2wQDynIevRdEXzsIEEEam8kIKqiwspqXjrDYmq/DggLlzfpRxKZnkKGKS1CSybN/RlkYtTk/430rKxm8zpNWkTuiQZmLoyNcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46ac13882ccso1175689fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:33:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792038815; x=1792643615;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+srlzv5MQp1oOFkNoyekUF78d8Gu+n8al2OV7eZXNGw=;
+        b=gr4/oxXoYAITckLf+a214ejdK4e9MOr8l2l7PtktUDdxoLbceXXTBFJeJAwdGZhgYA
+         h58dW17af6fU+huFvK8CBoJqm8f20w6Qu/R15n/ckUlbz8VR5/gv9l1fBIT4zlzMbRZK
+         sfdqczwnElTnFv/xbV2c4cN7dXAqeeTw6nNdmPxV0dPqAG7t29fyKGTg6TOTjGrswDN3
+         6g8DY3mGHO4sNv0SY1y/Y/zPAjEUdgDb4ANPzEl1p+0iAw8MpmSujbp3HzlUZD7yuT4r
+         2P7Z9bXApcwXoTMh5wnPmwxCDDQGazPxjujDFF4/rtwpanXJXOxx4mETssDyjtL+ZDCD
+         cwLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqK2P+JjZNIoQIoLAbUvE66uPYA8s8WFWnjm9HsRtO+o3sI0XA1ebuXMHJj5WPq2ax+jMGT6c/NIN8viw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPwvZj9rHAkN4Omw6TZx7g2+Xjy8t9Ctb11W8SYGm4mXhuWlJ8
+	2vXASPnRCKQqLMqsgeUsEhLSAK7cLHHOL/4YlLHjMk79skrtZdfMbPKqgf+0Leyf7cIHvrUpNL8
+	X7yigdQ0IAOHZdZvFbh3IWBVIlqIKVgdIw0/qCvVZ9fGvv0Gq1twBzx14VKE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Philipp Zabel <p.zabel@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
- Wilfred Mallawa <wilfred.mallawa@wdc.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/18] PCI: dwc: Export dw_handle_msi_irq()
-To: Koichiro Den <den@valinux.co.jp>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-6-den@valinux.co.jp>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261015033103.3076869-6-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13dadc35f03a4kunm71c664033af72b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkoaVk0dSxkeGR9JTUsYTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=fY9EWEXyJs0g6PdDOqVjM8/xy5GDqaD+vAphBUQLagrFzQ65EGmrwLftLhWrtxXN103+hBT7ch8YbJ41r4IyGyfUg5jEjQS+gVEYEjH1acLlzerAFXfw9H9WIlhLZoHjnvVSqQXjBNW5ZgKTd3wAhHDZ+EihMXYbw9+dbJFlOz4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=axOCnllCkdHGRMZLnzuS/aVArcjeXE6XBW2eAHUgPSE=;
-	h=date:mime-version:subject:message-id:from;
+X-Received: by 2002:a05:6808:5148:b0:4f1:a873:6ee6 with SMTP id
+ 5614622812f47-50c51bc5823mr14456864b6e.17.1792038815440; Wed, 14 Oct 2026
+ 21:33:35 -0700 (PDT)
+Date: Wed, 14 Oct 2026 21:33:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad0579f.5f317f00.247b6.005d.GAE@google.com>
+Subject: [syzbot] Monthly kvm-x86 report (Oct 2026)
+From: syzbot <syzbot+liste3ce2f4a0356808c7c72@syzkaller.appspotmail.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
+	seanjc@google.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-在 2026/10/15 星期四 11:30, Koichiro Den 写道:
-> Not every platform brings the iMSI-RX interrupt out as a dedicated
-> line. On spear13xx and keembay it is a status bit in the SoC wrapper's
-> interrupt register that the glue driver has to check and clear, and on
-> dra7xx it shares the line with other sources the glue driver has to
-> demultiplex. These drivers set msi_irq[0] to -ENODEV so the core does
-> not install its chained handler, and service the MSIs from a handler of
-> their own. spear13xx and keembay call dw_handle_msi_irq() for that.
-> Both are built-in, so the function was never exported. dra7xx can be a
-> module and has an MSI loop of its own.
-> 
+Hello kvm-x86 maintainers/developers,
 
-Reviewed-by: Shawn Lin <Shawn.lin@rock-chips.com>
+This is a 31-day syzbot report for the kvm-x86 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/kvm-x86
 
-> Export the function so that modular glue drivers can use it as well.
-> The pcie-rcar-gen4 driver, where both situations apply, is the first user.
-> 
-> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes since v3:
->    - No changes.
-> 
->   drivers/pci/controller/dwc/pcie-designware-host.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-> index 77aa79ef0ccf..63b38532d069 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-> @@ -85,6 +85,7 @@ void dw_handle_msi_irq(struct dw_pcie_rp *pp)
->   			generic_handle_demux_domain_irq(pp->irq_domain, irq_off + pos);
->   	}
->   }
-> +EXPORT_SYMBOL_GPL(dw_handle_msi_irq);
->   
->   /* Chained MSI interrupt service routine */
->   static void dw_chained_msi_isr(struct irq_desc *desc)
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 4 issues are still open and 81 have already been fixed.
 
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 927     Yes   WARNING: locking bug in kvm_xen_set_evtchn_fast
+                  https://syzkaller.appspot.com/bug?extid=919877893c9d28162dc2
+<2> 357     Yes   WARNING in handle_exception_nmi (2)
+                  https://syzkaller.appspot.com/bug?extid=4688c50a9c8e68e7aaa1
+<3> 3       Yes   WARNING in x86_emulate_insn (2)
+                  https://syzkaller.appspot.com/bug?extid=fa52a184ebce1b30ad49
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
