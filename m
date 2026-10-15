@@ -1,110 +1,77 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AF34DD3B7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4364A441F;
+	Thu, 15 Oct 2026 09:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055287; cv=none; b=LTI408xYcv2MI6Kim3lCtXzpDkoqGEclEgSUdbpW14d/eXqD02vtOkxaxeaXJXeHpqnIc5tzsUFFiUFxhYaDos7YAdk60lhRJqeQ6GL8o61SfHjOiksJjTa8FSRc0xJc55BVfrgJP47mnCgNhf4lVTeyx9hjtMYN2c4P5iQ1TN4=
+	t=1792055291; cv=none; b=JJeIC5RZ/y48Bomomxdccp3OWQW/b+X3IWHWehqEJASRynrHejLKvx1C5R7PfYHU+XNzI6kBEzPn0wkTm6WzA67AwQLDrY5wvNMOL1C9+QoApJ4n9/keqdxM7QUUTIjZ4mp081n+sT1q7bkApDd0CpjkEZ84lWn2px5ZgvS9wRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055287; c=relaxed/simple;
-	bh=UmmPnWITwwuejqvLNFKB87tCxE8Nz/bViqOo4tLzpFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SxQvhiy7ifHryfyClQIeIbw1JQwJkTIv8JDxcmBvQghWRPJRcg0h0xje+H/S9a0JC8+01mYhG2Lvd7tLs2ZezqjQ66uLuK5LRADioigsCbg8FkhP8oHfkIIPx1YBNIlKAvoDnd/DtfGl5oOt9AMMuaybWCFk8zSFVC7sKgfArW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pK4ofho4; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792055291; c=relaxed/simple;
+	bh=zuaM+VGru1m/6y7TFr9PaijXH9jqx4LvM/Kzy9qrWuU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KIVTgnbm6W25JXb2EAnd8F3+Qokfy9Cc2HkHr4RwRQ8SgmVa/OZ0r3svnk1EzWOmFUFLxme879y2dDfs/0GFuPvNs3XaA1GdX/UNIUviQbisKaToe5KOodDXO0PZXkzZ1bETkw6gfMIbnDXA+NJWzPZlXNR1vT6p2eVQDZqc2/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=i6jkBeWL; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pK4ofho4"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49e73611928so43878655e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:08:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792055282; x=1792660082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dWuTpLIpZhuW1BW/fT7Wvm1TL1EsBWcKdEk29mnqjRw=;
-        b=pK4ofho46P4msiRi/9IXCc+n/FoTtM8TupKGpNUsJRhOc/Y4ApHZJZqewVyOeN+m70
-         z8bTsxCsrygkDMKS3UY9LTdxI1CgTfY0yu6ytUcQ3XXMVVvex0CjGYCEGZ6mjptryW8t
-         aJznWkifTpiS/OV68duMk/AeYLOw25+woyyhE+lr6jHr6yP3gRLc+O5QXUmkBTUctwHi
-         nhUmG0uGI0mxWjeOgMlW9G1OKpvKBwvNbFG2v1pJ/wFBYd7XMhqMP9K2GvOgb4md/xwJ
-         KdsFsXTRD6n2BsDv9X88eJoHUKvMdmLJ9cosKZza+ovfaRuUIAREyMTRnaC68i4oGowR
-         hT0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792055282; x=1792660082;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dWuTpLIpZhuW1BW/fT7Wvm1TL1EsBWcKdEk29mnqjRw=;
-        b=uILAVUEeVqd10Coh2/De2mYLF/xognGiNWYeOBfH7l0Hj2OnJTJY4JNG7bQ/IFgq7F
-         vHR/8IqERasjJL+Jh/BYxT4otU/5dvMS8BLAcyklWGF4pqBGbkwA79xTW2vQi0JqQLMb
-         W7Tr09MKEZE9kNjj9Wk4u6LWAIYZVbbs1nL/bVvIRGXInzADju+9SfiMp6gRhP3M6/xE
-         p93vPe9WiP8uQ3zwoUVlTzLb+XY+jO39xsMUeiP81yrmDgq0xk//oJmgdGJfuB58o6NE
-         284pgaQQIYWoz0ORvxgo6sUXkFXKrsyfBGzphDFmhfhKY/ZTncQtSNDA8GY5XrlA4aVm
-         CgGg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8SW38cLMbQ61HM0ObQRscM+8VsAz050N3SNRJV6R7iedCgZjFq7I9eCQvE+hh9YYx53B+Tg3nCLiOp3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLo7g4evrS0RqOSUIlKvyKo+ZQCaDXmZAhjECN5gWL3xRszB7Vx
-	wCksrAQib33LxPenzU4nJJtwSZbw+oY5QTa6xJ9fe7RAgq1qN/JTlyJk
-X-Gm-Gg: AYBFou31k/Rn/y7yEXEJRxrSZ9v3hVHyCJp2W4UD5nhPWZeNol2sV7gUhvXL9cAzxyh
-	GSZ2/XT6EtL6QA5j7m7b4TBkGldkYqD8Bc0rWBIQMSrveSZwxXQR5ZH5EVT0+cYOmw8SEVcgsWI
-	Rm1L28HxWOs1n2caKD/PQBT9iGr2qdAuZAQPoiMJSqZ31H+tkA3bV56bjeRh3kK0/V+Ms5Efenz
-	8bBNh6jZprvx2jlEM0defaS83UfNjP4k3x30W7Fc3pb6Yoc5y5SKoUh0WtjPeO+YGNSwze8kGNU
-	4L8SUf6k+cW4IrfbCuDMpQ86qWIv+xVarV8V9yFYPjtiaJIBeeVvVvT6LKtheD9auYgEjEDGddO
-	LMRwdCA64wHjKHnmFcZpqhtv+cFZr5alP+dS0jd6hpDt4c6+d3F05nBCkcIVWdFmUZkkJHHNWfM
-	hh1JVzzRWbmgufQSwqYauU620TjXbfZdkcA96lYLQkyCieqoDsgh0mSgItkN7K9zjJEom6rdbY5
-	ABI4054dzsDJ9n6yOn9/WMow/q9Lc/VcDfeweadlPGAyyOjtyICDowywW3xUpAVCTJVKIxYN4Kn
-	cWvA8SK8WaspGB+SFAC+syoGF/nlA5O/VEv0miYnNXLk2/w5zcZv0QEqWD2NawzeN0W89rReE42
-	8bCLn9IDCm+rzrWyjNgatTYKZVXiztNSIbOjBFwo52xgv+YG8G/6wHt+2ZYCK0Syqv34k0+IvVJ
-	NVYbaLtw==
-X-Received: by 2002:a05:600c:16ca:b0:4a1:877b:d4e0 with SMTP id 5b1f17b1804b1-4a18dcc911fmr255389955e9.12.1792055281754;
-        Thu, 15 Oct 2026 02:08:01 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm17292841f8f.43.2026.10.15.02.08.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:08:01 -0700 (PDT)
-Date: Thu, 15 Oct 2026 11:07:58 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Viral Patel <viral8854@gmail.com>
-Cc: Dixit Parmar <dixitparmar19@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: magnetometer: tlv493d: fix magnetic field scale
-Message-ID: <20261015110758.00002539@gmail.com>
-In-Reply-To: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
-References: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="i6jkBeWL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=I++fZM7lxU4jwwgJIKIJhzt0UB3NLsFnGz+ZkO6eDWM=; b=i6jkBeWLXEjeEBhbrRx3iPtjTR
+	a1Xx7VCs0wjMB5AySVTdo55qNeIdl5LlA3hKbu4n31iVn0pBuw5UbqubLdcFyPQG2zmZLCy4oCS47
+	m0RxCYM5jy6M+fSiLH9U+cYDpSv1Ik9IXROU5wFJ6YmvtKcjca4lrczHL+GRRYQ4fFp1uiVjsqSuD
+	gFJUQQeccaNbetodZOuHtjgwhFjsznTyZ8dl5eZzXw4DTaKBJXYED4F6wKbVVA89QwiRJeIc4n3Nq
+	QoFSw12wfGPAfJ+jgX5GRva0O4X32zGyMf8WRfSJF3llJhMDmouCb2+9EmcnRqsw4RmdzyeMNOnR5
+	fswpbE6g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHHRD-00557i-2M;
+	Thu, 15 Oct 2026 09:07:47 +0000
+Date: Thu, 15 Oct 2026 02:07:40 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, John Fastabend <john.fastabend@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, david.laight.linux@gmail.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH net-next v2 0/7] ipv4,ipv6: convert the getsockopt
+ switches to sockopt_t
+Message-ID: <atCXY4Net2pzxecg@gmail.com>
+References: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
+ <as_EIAJpsA1nWKU4@devvm7509.cco0.facebook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as_EIAJpsA1nWKU4@devvm7509.cco0.facebook.com>
+X-Debian-User: leitao
 
-On Wed, 14 Oct 2026 23:07:36 +0530
-Viral Patel <viral8854@gmail.com> wrote:
+On Wed, Oct 14, 2026 at 11:04:24AM -0700, Stanislav Fomichev wrote:
 
-> The TLV493D-A1B6 datasheet specifies a magnetic resolution of
-> 98 uT/LSB (0.098 mT/LSB). IIO reports magnetic field in Gauss
-> (1 mT = 10 G), so the scale should be 0.98 G/LSB.
-> 
-> The driver currently reports 98/1000 = 0.098 G/LSB, which
-> under-reports the magnetic field by a factor of 10. The comment
-> also gives the resolution as 0.0098 mT (9.8 uT), mixing up units.
-> 
-> Correct the scale value and the comment.
-> 
-> Fixes: 106511d280c7 ("iio: magnetometer: add support for Infineon TLV493D 3D Magentic sensor")
-> Signed-off-by: Viral Patel <viral8854@gmail.com>
-> ---
+> Acked-by: Stanislav Fomichev <sdf@fomichev.me>
 
-Good find.
+Thanks! I will respin a v3 with the fixes for sashiko, basically doing
+the follow to try to keep sashiko clean.
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+	1) restore the -EINVAL for MRT6_* when optlen is negative
+	2) Fix the commit messages issues.
 
--- 
-Kind regards,
-Joshua Crofts
+--breno
