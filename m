@@ -1,107 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5477B3AB27B;
-	Thu, 15 Oct 2026 16:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 978483769E6;
+	Thu, 15 Oct 2026 16:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080715; cv=none; b=B3MhDQqiXMq31aarESQBmTxRK9uXzMPcp98TRS9e7fzdJJWI3Ss/FWGUr8K3hR4gj9Q9+6IPd0K3UdEieZMOHm/fGwnzK62b55OD9k0mSPWffV9jdlZ44jd5v2X4PtvvWb/rFRzU9MhBDfni5DVnYha2ZB2C6iAjeRRQstB6+A4=
+	t=1792080715; cv=none; b=UI1wtDnsjjnL1D02hrHX3Lx2pCGPJgj6RZaTKlDacfG7AjZS//tBspWw4oJYm2y4YkUNbsbktNivZnDYEvLp09bZd53+CjpyPRt3y7Cwv/Yk7B/4CXKLdksN3GIiYz61S8Sdo7ZkHOuimJfg4AzdiFuBnI87SyyJPjahSEfF3SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792080715; c=relaxed/simple;
-	bh=SAXqArEKNIwn4SpiJD1Tvi8fx9gMwRSxuDcz94KjoiU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=YG7hu72UIBDkWgq5P2PBcsoEoXlcIpffFWSx3k35VbdtD65diAj9e4P/kfNLk4HSjaxIQldDIgp7ZjDEO2R0HgNhENLGcTXCcpa6SqsSFBSxSz0WDOH3gt/mQJr3N9rGCczlDRqGfqxSQEgvHNFzQj6XTtMe9vbfedsUVI3iXUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpsT6wAR; arc=none smtp.client-ip=100.103.45.18
+	bh=xq2XewVoVjf6bVhh4Tsu6QYfbKWhfGOAXIcFU6Yn0XA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=aJ0yY94JmJnxmkV2fVw+d92xxUP3OVjVp7mJAISDaN9rhOsgiRQk9dWNGfqyd/12U8dLKi9uDGB5yXw6CdoofpE/J538KbCFFz3OXEtn5wIPWr0P3TlGGnWkzbA2nWJvUXgMeebA3ztqDj80OKRFo5r3GESMfRSlKMwP22/JPGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=E6EnWHhM reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpsT6wAR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3F81F000C8;
-	Thu, 15 Oct 2026 16:11:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792080704;
-	bh=IQdbaoSFRXekS2+4DLUGE6FHzrR2CGuPVAwdUkAu3YQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=UpsT6wARceG13wnq0H7X9ChGl1BOrF8IHp8eLtETtcIBgpsBcnnSz629dxAaDE7DR
-	 h++uWbxieyBAQ+bsTZvr5th92BnUf+g9jlALyrQL8Rg8uzhsVzDFr4gOH87j1Gf2aK
-	 Ltte609X2BGeKajTqPVAjLiRoanSvhcj9qHYps9/UoPSzBPuMipPjeH+xQX96pLwmc
-	 li4uVUkziHXYTAXaV/lq7g77+lRE+tnpkzYM1vi7haoJSytEBwEtJX2BLPvXFUi9GK
-	 ODleAqm8HMfGSUC6nWYbeEMuCr2gvU4vLX17mrilfkLr4bxrViD8nWQzYrpQm8y2OF
-	 Xb1dvh+Yfcz+Q==
-Date: Thu, 15 Oct 2026 11:11:43 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alexander Gruhlke <gruhlke@mailbox.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Hui Wang <hui.wang@canonical.com>, Linux-Fan <info@masysma.net>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v3 0/2] PCI: Wait after FLR for devices that don't honor
- Immediate Readiness
-Message-ID: <20261015161143.GA1772020@bhelgaas>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="E6EnWHhM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
+	IJfpuzKtI=; b=E6EnWHhMkZXLtBmfUlj6zr8ZieAHyCdQjc2mmgKCLs16BPnxzO
+	D8Rc6WbH6inddQGHR8sO5tafnr1+1+stPbcmdSuiagj75AQfxmj2MSH6Z1CXe4Ro
+	dW6D2wHn0zT6sGOPZ15+0WTA/UO7zXxy6Ssm7qYXgi3/tlsW/rr4pQtmw=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.59])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkAWOwE3+9BqqQmlAA--.58379S4;
+	Fri, 16 Oct 2026 00:11:37 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v2 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
+Date: Fri, 16 Oct 2026 00:11:33 +0800
+Message-Id: <20261015161134.10425-3-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261015161134.10425-1-25031212351@stu.xidian.edu.cn>
+References: <20261015161134.10425-1-25031212351@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012222331.GA1411603@bhelgaas>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkAWOwE3+9BqqQmlAA--.58379S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
+	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
+	qwnrGay8C3y7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmv14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vY
+	z4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7Mx
+	kF7I0En4kS14v26r126r1DMxkIecxEwVAFwVWUMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
+	cSsGvfC2KfnxnUUI43ZEXa7sR_BMKtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2rPmtGsigACsG
 
-On Mon, Oct 12, 2026 at 05:23:31PM -0500, Bjorn Helgaas wrote:
-> On Sun, Oct 11, 2026 at 09:01:43PM +0200, Alexander Gruhlke wrote:
-> > Since v7.2, VFIO passthrough of a Samsung 990 PRO NVMe [144d:a80c] fails
-> > on the second VM start, and the device is inaccessible until reboot.  The
-> > drive advertises Immediate Readiness but returns ~0 for up to 7 ms after
-> > FLR, so since 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring
-> > BARs") the config restore after FLR is lost.
-> > 
-> > Patch 1 ignores Immediate Readiness on that drive.  Firmware 8B2QJXD7
-> > fixes it, but the Revision ID and Subsystem ID don't change, so the
-> > quirk can't tell firmware versions apart.  A 990 EVO Plus [144d:a80d]
-> > reports the same errors [1], but it isn't confirmed to advertise
-> > Immediate Readiness, so it's not included.
-> > 
-> > Patch 2 is independent and keeps pci_dev_wait() from treating ~0 as
-> > ready with RRS Software Visibility, which also affects the Intel
-> > [8086:0a54] in the open d591f6804e7e regression.  Hui, Linux-Fan: testing
-> > patch 2 on that drive would be appreciated.
-> > 
-> > Tested on v7.2.9 (Ryzen 9 7950X, X670E): with patch 1 and drive firmware
-> > 1B2QJXD7, three VM starts in a row work, and every FLR reports "ready
-> > 0ms after FLR".  With firmware 8B2QJXD7, plain v7.2.9 works.
-> > 
-> > Patch 2 is only tested for regressions, as the drive no longer shows the
-> > problem: below a Root Port with RRS SV, three VM starts work and every
-> > FLR reports "ready 0ms after FLR".  The VF path is untested with the
-> > patch, but on another machine, an X550 VF below a Root Port with RRS SV
-> > reads ~0 from the Vendor ID and valid data from the Command register
-> > 100 ms after FLR.  v1's variant, which read the Command register, was
-> > tested against the old firmware, and the drive's Vendor ID read ~0
-> > while it wasn't ready.  Applies to pci/next.
-> > 
-> > Changes since v2:
-> > - Patch 1: add Lukas's Reviewed-by
-> > - Patch 2: read the Command register on VFs whose Vendor ID reads ~0
-> >   instead of treating them as ready (Lukas, sashiko)
-> > 
-> > v2: https://lore.kernel.org/r/20261011163249.18479-1-gruhlke@mailbox.org
-> > v1: https://lore.kernel.org/r/20261010160529.27974-1-gruhlke@mailbox.org
-> > 
-> > [1] https://bbs.archlinux.org/viewtopic.php?id=314833
-> > 
-> > Alexander Gruhlke (2):
-> >   PCI: Ignore Immediate Readiness on Samsung 990 PRO NVMe
-> >   PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV
-> > 
-> >  drivers/pci/pci.c    | 14 ++++++++++----
-> >  drivers/pci/quirks.c | 11 +++++++++++
-> >  2 files changed, 21 insertions(+), 4 deletions(-)
-> 
-> Applied to pci/reset for v7.4, thank you!
+Both dvb_frontend_release() and the __dvb_frontend_open() error path
+inspect dvbdev->users after calling dvb_generic_release(), which ends
+with dvb_device_put().  If that put() drops the last reference - e.g.
+the device was unregistered during USB disconnect while this was the
+last open() file - "dvbdev" is freed before ->users is read:
 
-On second thought, I think at least the first should be in v7.3
-because it fixes a v7.2 regression.  The other regression dates to
-v6.12, but it seems worth keeping the fixes together.
+	BUG: KASAN: slab-use-after-free Read of size 8
+	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
 
-I moved them both to pci/for-linus for v7.3.
+The same pattern exists at err1: after dvb_generic_release() in
+__dvb_frontend_open(), the ->users check runs on an object that may
+already be gone.
+
+Take the extra reference *before* dvb_generic_release(): the file
+still holds its own reference at that point, so the get is guaranteed
+to be valid, while a get after the put() could itself touch freed
+memory.  Drop the reference again after the ->users check.
+
+On the __dvb_frontend_open() error path the reference is deliberately
+not put() back inside the function.  fops->release() does not run for
+an erroring open(), so dvb_device_open() calls dvb_device_put()
+itself; that put() drops the reference taken here.  This also keeps
+the accounting balanced: dvb_generic_release() already dropped the
+file's original reference, and the extra get hands dvb_device_open()
+one to drop in its place.
+
+In dvb_frontend_release() the reference is balanced explicitly, before
+dvb_frontend_put(fe).
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..00c29cf7ddf0 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+ err2:
+ #endif
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object.
++	 * dvb_device_open() drops it again when ->open() fails.
++	 */
++	dvb_device_get(dvbdev);
+ 	dvb_generic_release(inode, file);
+ err1:
+ 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
+@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 		mb();
+ 	}
+ 
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object, and drop it
++	 * again right after.
++	 */
++	dvb_device_get(dvbdev);
++
+ 	ret = dvb_generic_release(inode, file);
+ 
+ 	if (dvbdev->users == -1) {
+@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 			fe->ops.ts_bus_ctrl(fe, 0);
+ 	}
+ 
++	dvb_device_put(dvbdev);
++
+ 	dvb_frontend_put(fe);
+ 
+ 	return ret;
+-- 
+2.34.1
+
