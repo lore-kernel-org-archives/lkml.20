@@ -1,63 +1,64 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906C22D5932
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B8C53A8B2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075882; cv=none; b=F7QaQ2EvsIcs11fuvWJbpDMJ8K5pPwQza7gwC2P81/ePHa/MaoDZc4BG6sO0acQrNL3UvD6+aldVuapZyK3lhEQGRBzaxWx4dHU/T+POlGOTVPytsHOrDvF4BRBVA5fwLRVr8k97w6yIsvqsW61Kn1/r87uHrVvBHle9sHyUFkM=
+	t=1792075918; cv=none; b=HYNeHG3/WG8Gr+7oNXWV3jbfIBuCXvAgB7JZw6XrbRN99eAAd4tUNvJrdrnOFOHx0JW89TaTaTqjKT4wQWBSUKupOtDsVeXl/DfGtRLZpweXOkl9Kty0Tf85Zaa25tp/q5RPUofutyL5hVibKXkaAN6ZvnGWRucFVC+O5HB3/aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075882; c=relaxed/simple;
-	bh=y9liHMvE4Wxy3+uiwEb7Z6kqbfQMgOyfLpCIbRxd8mg=;
+	s=arc-20240116; t=1792075918; c=relaxed/simple;
+	bh=0Zy4dF39rsa+1CAzIh/3HwrmQV2SqyDegEw2kj+YKwM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GFwsxLc9pIqSi6TcBtoBj62WXjOxEG8Nh5HL8/hg8+5CWQcg5jT3elY4uXN/N/weFIR7w2kIe8UKtAGpx85it5GNhhA1RbULQHBo5Ss4/f5ifns1lGrjeM6x8k+jaX5y4MCumVmMqFMt4Gv0i/G6UX9hp6WYOi89CSfkeyrxvqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=q9rJarPN; arc=none smtp.client-ip=209.85.218.42
+	 MIME-Version; b=nuCLQcjGXtwf4thB4U4V9vBcyrq6HJbKIRKZxWCrdvBxW1EcnVxutyar/mahnyG/3lgmCuuRmohypLO48NexSVGBlqlohkUIYYJEO1pHynhhpxPtFQhNGkyXiNdfgBwdt3WFXIK3WLelAHTCu82yDYJKVz6VDHCa57Zwll9y+xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=iVfXblPm; arc=none smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="q9rJarPN"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so959677766b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="iVfXblPm"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c31745ad205so9999966b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075868; x=1792680668; darn=vger.kernel.org;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075910; x=1792680710; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2sgkXnf3bIO24dORfiP5mfR5btEfK51omop7XkZ48t0=;
-        b=q9rJarPNRWt+cdSmPOAw6y3vIQS8zQmEjotdgPdipbUzmMr8S6KXeEKj7ZaN7rWHVZ
-         ukbpTJhOAeDBhvpgjthmmAXazfm7PO7XZ/VtSRvzQtxA2SavWZKP/AUxJZh5VL61fAwF
-         mUlQWjGxy8ugQnIpzNqUSQzDFoeeFH2WWh5jGFVjB45PytWiENaXdkyqi8QmGTcEf+9K
-         tXnsb1ufhn0DziQc/tGx70Px7LjnUiuGFpllQdnohnSy4aoTivOUqchQNM5qSRMzfLas
-         3Camhe0eGF9ggq3PooEMpD3g/+tW+VkyiIkDMrxarpM4bRxQ8ZgNY2kGPADf+9v6FfPX
-         MsfA==
+        bh=vw654clIlCqBt3sWjYFCnWG2hFnQ8aqV86q+K/B6cvY=;
+        b=iVfXblPm5Mx0s9IP/Q7xUTr+S4T2ILC1eTTt49lnZURWC6kSkMf/YdSnz12wFIXufT
+         AULr5XmFyk56Zgz8xSqECszFTU71UB5nCK31s9Umz1iUZlZK+3+OKn9fzzLYnZEsMbn0
+         HGgPEXtYyJw3zZDKZZukKzhvuS1EZ4MKdJUHtJqZiN4K0lBviUaGogLbgSGdh/4S6l7c
+         0NzJGBEvsXh1Ks7fLrfIdmHDT3cQCHywr3qltKIGfBDdAOOREr3YtaxvBv9wszeQSN84
+         6N8//IBGHpB7ReOHgZYdhac20z8Hp9hlqzyKOaL5+sGpMwVonny3+Jvuaz6UCOs8tsEz
+         OCew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075868; x=1792680668;
+        d=1e100.net; s=20260707; t=1792075910; x=1792680710;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2sgkXnf3bIO24dORfiP5mfR5btEfK51omop7XkZ48t0=;
-        b=OIf6SGqn615hcz+ItbRxntfMeLfs6XCPs2EpBNHYTWYZijo5w/V1KL3EGzEXSCa7ay
-         rm017VBI7lPP0GnjAwEiLwa8Ssa+kNXIm8wVYyjy3sUJReQ4ZB9PbkU2yZ4S95TVUcC4
-         lXp7gEz+ETOKByLT/v5aJiSZD5ANV/4cZSQ0uwS+SNS727i5y0D23rfd3y/rYvQ4Nrc7
-         hUHnXnb17UAcYUOQLO8xQc7rpi7Z6XmSPlTyeBjB47Jlkmrk1tq2KDG6rdkRVOxGvALE
-         z4IqDQ0Z7qwDEbUboLbrgYeovsjgOfIadCzYa2+G9B9H5CmgwLB3W/4V+uqUF4Q86Nf+
-         2uIA==
-X-Gm-Message-State: AFq9FYKp+QJ4RH7QCFlZBmR+D63XU1eZlcuqAAUMdH9DYDtdtp+So5DD
-	vLLGqIhtDYdD1yMIAw/6rqREM5CXf0tRzURhOXRiJ8zdddDoTGgNWsIdUjFCPX2JJqI=
-X-Gm-Gg: AYBFou2D0G7ztNnOlOZH6i+6upGpzgVxJOyaT9xAJDCOsjOUxwFp0wCsP8oXE9JTLEY
-	Ctxb3dI+QWQUGdY8ZqBPPojfpx11Ft8z2BnbyV4XuH6bNhsIjTHh/CQ+yHQOkdhucJAkPAdYK0V
-	Oqsj9CT6sKUjXti5F0Tu87nM+mUruMPz6yAyB1I8vPTPGmGREFY6TN65QEq40Y2PgSgeyQy0P3m
-	/lJ/ekggWTgRm+Y2W7gwqoOuzdQVCx/FeZ72/3K5HJwuTcXJ9omV62axJakusmrIQKyoh8kObOo
-	yja4NepFQ337r4Je0q0Km1GdrKG/XsZjyORKA2Y0as7c+DqTQOVOZt2NZupp6g0hlrRxuiK55hi
-	JAJllehDQzTEQsLvKzJRofqVZ5gQML2KwSrXbxI+tSnKuE5uUT0YAacbMvKV0ej25gtTaRRs+Ta
-	wkr3FO5OFeZ+aRvUgBXmvQ47ulqVtJrCSTx76v7R5u/i3CAPkxnKU8rm8OjzAlJevNFxu6ndYc1
-	zD7I9eXpLE=
-X-Received: by 2002:a17:907:6c12:b0:c2a:fdb5:31f0 with SMTP id a640c23a62f3a-c31a9a074c3mr1770456866b.1.1792075864885;
-        Thu, 15 Oct 2026 07:51:04 -0700 (PDT)
+        bh=vw654clIlCqBt3sWjYFCnWG2hFnQ8aqV86q+K/B6cvY=;
+        b=t4Ho2wfMzmFLBlDWn/PThGYP4kq298j+0RMdtBj1KqTg9Pt7y4Z9foSuzTMQYTRoM+
+         Qrrc2M536NjWL3cTJcdGs5hKpPnByUYh/AI9myXvVBAln7dxPsAl0kek0FIjJo6E2zYm
+         YXC21uruI0GbqbgREu8d1vzBqcwMYZKGZnQqUPgA96PCM6fF4jj3d7kGIgF8aaHqSO2Z
+         dS8wFEEEkxao2/InywBgDG7YbEqUGCQfsJJf4lj8LIWe4YuXMYiv789QKuvTZyJ8oSwh
+         rdF+6ev/1/Iyw9V9HWfy+I2cea/NxmAKZINV5ARZHa9krB7QugSdd3/+0Gpm/uEzpGGy
+         NU4Q==
+X-Gm-Message-State: AFq9FYJf41M5QezkaNjHcQtFO5xumq/YZ9b8/+/8EAkC4AX6gdnhu3rh
+	1gGncgieMfLjPHb0HtAbr/jF9BNNjMKwISKWlI+foqPxUxyp5J0MB5C9ZVtelWrURm8BCMKFsuO
+	sHvcB
+X-Gm-Gg: AYBFou3p02zn9slaD/WhbZwop/I3txve7OUJLxqd4w/JSIZUpTI4cANmFZQch3RFZIt
+	1IYoCK+QjM/MYJabFSLUe9X8qPDJNKJaYpQqDuNvPTPyWn6hotfn37tX5/8MoVmb+TLWC9789bp
+	XrtFOSPxdsAi7qAaguQGeQTA3cK7KVoc96EyEiGE5VX5S+8Alm6s2haqCTMlP1CQqEe/0K1HKHs
+	nhe3vcV6E/O4fxcISlXIAcIOKfakJSpL94fbCi6LB/VYw2pz1OwBA+b4+Y2DRcmcriW3q4yr7Ww
+	reRvKka66hblyeupoAjg7nGrBuQ4Dc8oixyHiZVGTF66CLfM5IYYBilfapQsi59FXwWBcfTYUuh
+	MH1K66IEggk6toshy4lfriDpQF44bBSp3WQNjtyRznzghwJcRDtSfK4cuecQbr5M6hhH/vJyh+O
+	yyr1sAoJ7RJ0Tsh76mbtgekHAsJb8FxCP1rfcc0QsmUUGzSXZ5/zleC17BCZDtzoM8KdYA0l0sS
+	QSfKU/xcw==
+X-Received: by 2002:a17:907:a0c9:b0:c2d:da64:9200 with SMTP id a640c23a62f3a-c40206f9f58mr32163666b.8.1792075909257;
+        Thu, 15 Oct 2026 07:51:49 -0700 (PDT)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b203762b3esm2706362a12.2.2026.10.15.07.51.02
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed6beaf65sm136761866b.3.2026.10.15.07.51.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:51:04 -0700 (PDT)
+        Thu, 15 Oct 2026 07:51:48 -0700 (PDT)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -88,9 +89,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.hansen@linux.intel.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	peter.fang@intel.com
-Subject: [PATCH RFC 01/20] ctlv: Add the schema language and generator
-Date: Thu, 15 Oct 2026 16:50:34 +0200
-Message-ID: <20261015145053.3664509-2-jiri@resnulli.us>
+Subject: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
+Date: Thu, 15 Oct 2026 16:50:45 +0200
+Message-ID: <20261015145053.3664509-13-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
@@ -104,5927 +105,1742 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Define the YAML schema and append-only family registry. Add ctlvgen to
-validate specifications and emit kernel and UAPI outputs.
+Register CTLV devices, resolve family chains and dispatch operations
+through validated messages. Wire CONFIG_CTLV and the generated root family
+after all module objects are present.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
- Documentation/ctlv/ctlv-registry-schema.yaml  |  38 +
- Documentation/ctlv/ctlv-schema.yaml           | 359 +++++++
- .../ctlv/generated-files-schema.yaml          |  64 ++
- MAINTAINERS                                   |   7 +
- tools/ctlv/Makefile                           |  59 ++
- tools/ctlv/ctlv-regen.sh                      |  55 ++
- tools/ctlv/ctlvgen/__init__.py                |   1 +
- tools/ctlv/ctlvgen/cli.py                     | 172 ++++
- tools/ctlv/ctlvgen/lib/__init__.py            |   1 +
- tools/ctlv/ctlvgen/lib/cgen.py                | 825 ++++++++++++++++
- tools/ctlv/ctlvgen/lib/compat.py              | 821 ++++++++++++++++
- tools/ctlv/ctlvgen/lib/errors.py              |  14 +
- tools/ctlv/ctlvgen/lib/gen_family.py          | 347 +++++++
- tools/ctlv/ctlvgen/lib/gen_kernel.py          | 517 ++++++++++
- tools/ctlv/ctlvgen/lib/gen_uapi.py            | 223 +++++
- tools/ctlv/ctlvgen/lib/outputs.py             | 329 +++++++
- tools/ctlv/ctlvgen/lib/semantics.py           | 893 ++++++++++++++++++
- tools/ctlv/ctlvgen/lib/sizes.py               | 238 +++++
- tools/ctlv/ctlvgen/lib/spec.py                | 583 ++++++++++++
- tools/ctlv/ctlvgen/lib/tree.py                |  71 ++
- tools/ctlv/ctlvgen/lib/yamlload.py            |  83 ++
- tools/ctlv/pyproject.toml                     |  22 +
- tools/ctlv/requirements.txt                   |   2 +
- 23 files changed, 5724 insertions(+)
- create mode 100644 Documentation/ctlv/ctlv-registry-schema.yaml
- create mode 100644 Documentation/ctlv/ctlv-schema.yaml
- create mode 100644 Documentation/ctlv/generated-files-schema.yaml
- create mode 100644 tools/ctlv/Makefile
- create mode 100755 tools/ctlv/ctlv-regen.sh
- create mode 100644 tools/ctlv/ctlvgen/__init__.py
- create mode 100755 tools/ctlv/ctlvgen/cli.py
- create mode 100644 tools/ctlv/ctlvgen/lib/__init__.py
- create mode 100644 tools/ctlv/ctlvgen/lib/cgen.py
- create mode 100644 tools/ctlv/ctlvgen/lib/compat.py
- create mode 100644 tools/ctlv/ctlvgen/lib/errors.py
- create mode 100644 tools/ctlv/ctlvgen/lib/gen_family.py
- create mode 100644 tools/ctlv/ctlvgen/lib/gen_kernel.py
- create mode 100644 tools/ctlv/ctlvgen/lib/gen_uapi.py
- create mode 100644 tools/ctlv/ctlvgen/lib/outputs.py
- create mode 100644 tools/ctlv/ctlvgen/lib/semantics.py
- create mode 100644 tools/ctlv/ctlvgen/lib/sizes.py
- create mode 100644 tools/ctlv/ctlvgen/lib/spec.py
- create mode 100644 tools/ctlv/ctlvgen/lib/tree.py
- create mode 100644 tools/ctlv/ctlvgen/lib/yamlload.py
- create mode 100644 tools/ctlv/pyproject.toml
- create mode 100644 tools/ctlv/requirements.txt
+ drivers/Kconfig             |    2 +
+ drivers/Makefile            |    1 +
+ drivers/ctlv/Makefile       |    4 +-
+ drivers/ctlv/core.c         | 1517 +++++++++++++++++++++++++++++++++++
+ drivers/ctlv/device.h       |   17 +
+ include/linux/ctlv.h        |   55 ++
+ include/linux/ctlv_family.h |   22 +
+ 7 files changed, 1616 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/ctlv/core.c
 
-diff --git a/Documentation/ctlv/ctlv-registry-schema.yaml b/Documentation/ctlv/ctlv-registry-schema.yaml
-new file mode 100644
-index 000000000000..d9a2840fc230
---- /dev/null
-+++ b/Documentation/ctlv/ctlv-registry-schema.yaml
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+$id: http://kernel.org/schemas/ctlv/ctlv-registry-schema.yaml#
-+$schema: https://json-schema.org/draft-07/schema
-+
-+$defs:
-+  name:
-+    type: string
-+    maxLength: 63
-+    pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
-+
-+title: CTLV family registry
-+description: Append-only list of CTLV family names, indexed by family ID
-+type: object
-+required: [ families ]
-+additionalProperties: false
-+properties:
-+  families:
-+    description: |
-+      Family names in family ID order: the entry at index N has family ID N.
-+      The root family owns ID 0 and so is the first entry, and cannot be
-+      deprecated. Every other entry comes after the entry of the family it
-+      inherits. A deprecated entry keeps its ID reserved.
-+    type: array
-+    minItems: 1
-+    maxItems: 65536
-+    items:
-+      oneOf:
-+        - $ref: '#/$defs/name'
-+        - type: object
-+          required: [ name, deprecated ]
-+          additionalProperties: false
-+          properties:
-+            name:
-+              $ref: '#/$defs/name'
-+            deprecated:
-+              const: true
-diff --git a/Documentation/ctlv/ctlv-schema.yaml b/Documentation/ctlv/ctlv-schema.yaml
-new file mode 100644
-index 000000000000..38fd56e6627c
---- /dev/null
-+++ b/Documentation/ctlv/ctlv-schema.yaml
-@@ -0,0 +1,359 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+$id: http://kernel.org/schemas/ctlv/ctlv-schema.yaml#
-+$schema: https://json-schema.org/draft-07/schema
-+
-+# The syntax gate for a CTLV family specification: permitted keys, their shapes
-+# and the closed sets of keywords. Anything needing more than one declaration at
-+# a time is checked by tools/ctlv/ctlvgen/lib/semantics.py.
-+
-+$defs:
-+  name:
-+    description: Kebab-case identifier. A dot is reserved for selectors.
-+    type: string
-+    pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
-+
-+  family-name:
-+    description: Name carried by family discovery.
-+    allOf:
-+      - $ref: '#/$defs/name'
-+      - maxLength: 63
-+
-+  selector:
-+    description: |
-+      A named attr set, a whole attr group, or one exact attr as
-+      "group.attr". There are no tuple selectors and no cross-family
-+      qualification.
-+    type: string
-+    pattern: ^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)?$
-+
-+  selectors:
-+    oneOf:
-+      - $ref: '#/$defs/selector'
-+      - type: array
-+        minItems: 1
-+        items:
-+          $ref: '#/$defs/selector'
-+
-+  uint:
-+    type: integer
-+    minimum: 0
-+    maximum: 4294967295
-+
-+  integer-bound:
-+    type: integer
-+    minimum: -9223372036854775808
-+    maximum: 18446744073709551615
-+
-+  max-occurrences:
-+    description: |
-+      A finite positive count, or unlimited, which is reachable only from
-+      query replies.
-+    oneOf:
-+      - type: integer
-+        minimum: 1
-+        maximum: 4294967295
-+      - const: unlimited
-+
-+  unit:
-+    description: CTLV-owned unit, matching enum ctlv_unit.
-+    enum: [ seconds, hertz, bytes, celsius ]
-+
-+  value-list:
-+    description: An enum or a flags definition.
-+    type: object
-+    required: [ name, values ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        $ref: '#/$defs/name'
-+      values:
-+        description: |
-+          Value names in declaration order. Enum values are numbered from 1
-+          because 0 is reserved; flag bits are numbered from bit 0. Both are
-+          append-only.
-+        type: array
-+        minItems: 1
-+        items:
-+          $ref: '#/$defs/name'
-+
-+  enum-list:
-+    allOf:
-+      - $ref: '#/$defs/value-list'
-+      - properties:
-+          values:
-+            maxItems: 4294967295
-+
-+  flags-list:
-+    allOf:
-+      - $ref: '#/$defs/value-list'
-+      - properties:
-+          values:
-+            maxItems: 64
-+
-+  blob:
-+    type: object
-+    required: [ direction, allowed-backings, max-length ]
-+    additionalProperties: false
-+    properties:
-+      direction:
-+        description: How the family may use the described memory.
-+        enum: [ input, output, inout ]
-+      allowed-backings:
-+        type: array
-+        minItems: 1
-+        uniqueItems: true
-+        items:
-+          enum: [ va ]
-+      max-length:
-+        description: |
-+          Authoritative maximum external payload length for this placement,
-+          independent of the inline message limit.
-+        type: integer
-+        minimum: 1
-+        maximum: 18446744073709551615
-+      alignment:
-+        description: Required alignment of the described address or offset.
-+        type: integer
-+        minimum: 1
-+        maximum: 4294967295
-+
-+  attr:
-+    description: |
-+      One attr declaration. Exactly one primary form out of type, enum,
-+      flags, attrs and blob must be present. optional-attrs and recursive
-+      may only accompany attrs.
-+    type: object
-+    required: [ name ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        $ref: '#/$defs/name'
-+      type:
-+        description: |
-+          Primitive payload. Integers are always 64-bit, and a bool is one
-+          byte holding zero or one.
-+        enum: [ uint, sint, bool, string, binary ]
-+      enum:
-+        description: Name of an enum definition; implies an unsigned payload.
-+        $ref: '#/$defs/name'
-+      flags:
-+        description: Name of a flags definition; implies an unsigned payload.
-+        $ref: '#/$defs/name'
-+      attrs:
-+        description: Nested payload, given as selectors.
-+        $ref: '#/$defs/selectors'
-+      optional-attrs:
-+        description: Further nested payload whose placements are optional.
-+        $ref: '#/$defs/selectors'
-+      recursive:
-+        description: |
-+          The nested payload is one attr set that may contain this attr
-+          again, describing a structure of any depth. Only a query reply can
-+          hold one, since such a nest has no maximum length.
-+        const: true
-+      blob:
-+        $ref: '#/$defs/blob'
-+      min:
-+        description: Inclusive minimum of an integer payload.
-+        $ref: '#/$defs/integer-bound'
-+      max:
-+        description: Inclusive maximum of an integer payload.
-+        $ref: '#/$defs/integer-bound'
-+      length:
-+        description: Exact payload length of a binary attr.
-+        $ref: '#/$defs/uint'
-+      min-length:
-+        description: |
-+          Minimum payload length, excluding the terminator of a string.
-+        $ref: '#/$defs/uint'
-+      max-length:
-+        description: |
-+          Maximum payload length, excluding the terminator of a string.
-+        $ref: '#/$defs/uint'
-+      unit:
-+        $ref: '#/$defs/unit'
-+      scale:
-+        description: Decimal exponent applied to the payload.
-+        type: integer
-+        minimum: -128
-+        maximum: 127
-+      max-occurrences:
-+        $ref: '#/$defs/max-occurrences'
-+
-+  attr-group:
-+    description: |
-+      A namespace of attr declarations. The group name is also the generated
-+      symbol prefix of its attrs.
-+    type: object
-+    required: [ name, attrs ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        $ref: '#/$defs/name'
-+      attrs:
-+        type: array
-+        minItems: 1
-+        maxItems: 4294967295
-+        items:
-+          $ref: '#/$defs/attr'
-+
-+  attr-set:
-+    description: |
-+      A compositional schema unit. Either a stub, which may be filled once
-+      by one descendant family, or a set of members. After fills are composed,
-+      every attr ID at one nesting level must still have one placement.
-+    type: object
-+    required: [ name ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        $ref: '#/$defs/name'
-+      stub:
-+        const: true
-+      attrs:
-+        $ref: '#/$defs/selectors'
-+      optional-attrs:
-+        $ref: '#/$defs/selectors'
-+
-+  placements:
-+    description: The required and optional attr placements at one level.
-+    type: object
-+    additionalProperties: false
-+    minProperties: 1
-+    properties:
-+      attrs:
-+        $ref: '#/$defs/selectors'
-+      optional-attrs:
-+        $ref: '#/$defs/selectors'
-+
-+  op:
-+    type: object
-+    required: [ name, type ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        $ref: '#/$defs/name'
-+      type:
-+        description: |
-+          action is invoked once and never fragments, query may fragment its
-+          reply, and event is an unsolicited reply-only schema.
-+        enum: [ action, query, event ]
-+      fd-access:
-+        description: |
-+          Authority needed to execute an action or query. read permits an
-+          observation fd; read-write, the default, requires a full-control fd.
-+          Events are always readable and cannot declare this property.
-+        enum: [ read, read-write ]
-+      availability:
-+        description: |
-+          Whether a family may enable and disable this op per device. fixed,
-+          the default, is always enabled. dynamic is action and query only,
-+          and is a permission rather than a state: every device starts with
-+          the op enabled.
-+        enum: [ fixed, dynamic ]
-+      optional:
-+        description: |
-+          Whether family initialization must opt in before publication for
-+          this op to exist on the device. Action and query only, and false by
-+          default. An op not opted into is absent from introspection.
-+        type: boolean
-+      pre-post:
-+        description: |
-+          Whether this op gets a generated pre/post hook pair of its own,
-+          which its declaring family implements. It runs inside the pair of
-+          the device family, or the core family for a core op.
-+          Action and query only, and false by default. Kernel implementation
-+          metadata: it reaches neither UAPI nor op-schema introspection.
-+        type: boolean
-+      request:
-+        description: |
-+          Omitted means a request root with no children. An event has no
-+          request.
-+        $ref: '#/$defs/placements'
-+      reply:
-+        description: |
-+          Required on a query. Omitted on an action means ACK-only, while an
-+          event always has a reply root, so omitting it there means a root
-+          with no children.
-+        $ref: '#/$defs/placements'
-+      suggested-reply-length:
-+        description: |
-+          Query only. An omitted value is CTLV_DEFAULT_QUERY_REPLY_LEN raised
-+          to the computed minimum. A declared value must be between that
-+          minimum and CTLV_MAX_INLINE_MESSAGE_LEN.
-+        type: integer
-+        minimum: 1
-+        maximum: 1048576
-+
-+title: CTLV family
-+description: Specification of one CTLV family schema
-+type: object
-+required: [ family ]
-+additionalProperties: false
-+properties:
-+  family:
-+    type: object
-+    required: [ name ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        description: |
-+          Registered family name. It carries no numeric ID; the ID comes
-+          from the position in Documentation/ctlv/families.yaml.
-+        $ref: '#/$defs/family-name'
-+      inherits:
-+        description: |
-+          Name of the single direct parent family, which every family but
-+          the root one names. The complete parent schema is inherited and
-+          its definitions keep the parent's IDs. The name above must be
-+          this name, one dash, and a local suffix.
-+        $ref: '#/$defs/family-name'
-+      pre-init:
-+        description: |
-+          Whether this family implements the generated pre-init callback
-+          which translates its init info for its parent. False by default;
-+          without one, the parent receives NULL.
-+        type: boolean
-+      post-init:
-+        description: |
-+          Whether this family implements the generated post-init callback
-+          after every family priv has been initialized. False by default.
-+        type: boolean
-+      pre-fini:
-+        description: |
-+          Whether this family implements the generated pre-fini callback
-+          before any family priv is finalized. False by default.
-+        type: boolean
-+  enums:
-+    type: array
-+    minItems: 1
-+    items:
-+      $ref: '#/$defs/enum-list'
-+
-+  flags:
-+    type: array
-+    minItems: 1
-+    items:
-+      $ref: '#/$defs/flags-list'
-+
-+  attr-groups:
-+    type: array
-+    minItems: 1
-+    maxItems: 65535
-+    items:
-+      $ref: '#/$defs/attr-group'
-+
-+  attr-sets:
-+    type: array
-+    minItems: 1
-+    items:
-+      $ref: '#/$defs/attr-set'
-+
-+  ops:
-+    type: array
-+    minItems: 1
-+    maxItems: 4294967295
-+    items:
-+      $ref: '#/$defs/op'
-diff --git a/Documentation/ctlv/generated-files-schema.yaml b/Documentation/ctlv/generated-files-schema.yaml
-new file mode 100644
-index 000000000000..d3529ce6e8e7
---- /dev/null
-+++ b/Documentation/ctlv/generated-files-schema.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+$schema: https://json-schema.org/draft-07/schema
-+
-+$defs:
-+  path:
-+    type: string
-+    minLength: 1
-+    pattern: ^[^/].*$
-+
-+  outputs:
-+    type: object
-+    minProperties: 1
-+    additionalProperties: false
-+    properties:
-+      uapi-header:
-+        $ref: '#/$defs/path'
-+      kernel-header:
-+        $ref: '#/$defs/path'
-+      kernel-source:
-+        $ref: '#/$defs/path'
-+
-+  registry:
-+    type: object
-+    required: [ source, outputs ]
-+    additionalProperties: false
-+    properties:
-+      source:
-+        $ref: '#/$defs/path'
-+      outputs:
-+        type: object
-+        required: [ uapi-header ]
-+        additionalProperties: false
-+        properties:
-+          uapi-header:
-+            $ref: '#/$defs/path'
-+
-+  family:
-+    type: object
-+    required: [ name, source, outputs ]
-+    additionalProperties: false
-+    properties:
-+      name:
-+        type: string
-+      source:
-+        $ref: '#/$defs/path'
-+      outputs:
-+        $ref: '#/$defs/outputs'
-+
-+title: CTLV generated-file manifest
-+type: object
-+required: [ version, registry, families ]
-+additionalProperties: false
-+properties:
-+  version:
-+    const: 1
-+  registry:
-+    $ref: '#/$defs/registry'
-+  families:
-+    type: array
-+    minItems: 1
-+    items:
-+      $ref: '#/$defs/family'
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 31699b112d3e..a8508fbae37d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7001,6 +7001,13 @@ M:	Jaya Kumar <jayakumar.alsa@gmail.com>
- S:	Maintained
- F:	sound/pci/cs5535audio/
+diff --git a/drivers/Kconfig b/drivers/Kconfig
+index f2bed2ddeb66..9acc7f74c5c8 100644
+--- a/drivers/Kconfig
++++ b/drivers/Kconfig
+@@ -25,6 +25,8 @@ source "drivers/cache/Kconfig"
  
-+CTLV SUBSYSTEM
-+M:	Jiri Pirko <jiri@resnulli.us>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/ctlv/
-+F:	tools/ctlv/
+ source "drivers/connector/Kconfig"
+ 
++source "drivers/ctlv/Kconfig"
 +
- CTU CAN FD DRIVER
- M:	Pavel Pisa <pisa@cmp.felk.cvut.cz>
- M:	Ondrej Ille <ondrej.ille@gmail.com>
-diff --git a/tools/ctlv/Makefile b/tools/ctlv/Makefile
+ source "drivers/firmware/Kconfig"
+ 
+ source "drivers/fwctl/Kconfig"
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 0841ea851847..f2c0c3a367ea 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -135,6 +135,7 @@ obj-$(CONFIG_MEMSTICK)		+= memstick/
+ obj-$(CONFIG_INFINIBAND)	+= infiniband/
+ obj-y				+= firmware/
+ obj-$(CONFIG_FWCTL)		+= fwctl/
++obj-$(CONFIG_CTLV)		+= ctlv/
+ obj-$(CONFIG_CRYPTO)		+= crypto/
+ obj-$(CONFIG_SUPERH)		+= sh/
+ obj-y				+= clocksource/
+diff --git a/drivers/ctlv/Makefile b/drivers/ctlv/Makefile
+index 4d09fe26c1d0..2f6fe8d2db73 100644
+--- a/drivers/ctlv/Makefile
++++ b/drivers/ctlv/Makefile
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_CTLV) += ctlv.o
+ 
+-ctlv-y += blob.o blob_desc.o builder.o event.o introspection.o message.o \
+-	  schema.o
++ctlv-y += blob.o blob_desc.o builder.o core.o event.o introspection.o \
++	  message.o schema.o ctlv_gen.o
+diff --git a/drivers/ctlv/core.c b/drivers/ctlv/core.c
 new file mode 100644
-index 000000000000..bb3129405fb5
+index 000000000000..aeab29fe2fdd
 --- /dev/null
-+++ b/tools/ctlv/Makefile
-@@ -0,0 +1,59 @@
-+# SPDX-License-Identifier: GPL-2.0
++++ b/drivers/ctlv/core.c
+@@ -0,0 +1,1517 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
++ */
++#define pr_fmt(fmt) "ctlv: " fmt
++#include <linux/align.h>
++#include <linux/bitmap.h>
++#include <linux/bitops.h>
++#include <linux/build_bug.h>
++#include <linux/cache.h>
++#include <linux/cleanup.h>
++#include <linux/container_of.h>
++#include <linux/ctlv.h>
++#include <linux/ctlv_gen.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/fs.h>
++#include <linux/idr.h>
++#include <linux/kdev_t.h>
++#include <linux/kobject.h>
++#include <linux/list.h>
++#include <linux/lockdep.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/overflow.h>
++#include <linux/poll.h>
++#include <linux/slab.h>
++#include <linux/stddef.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
 +
-+KDIR = ../..
-+DOCDIR = $(KDIR)/Documentation/ctlv
-+SPECDIR = $(DOCDIR)/specs
-+SPECS = $(wildcard $(SPECDIR)/*.yaml)
-+TOOL = ./ctlvgen/cli.py
++#include <uapi/linux/ctlv.h>
 +
-+all: validate abi-check
++#include "blob.h"
++#include "builder.h"
++#include "device.h"
++#include "event.h"
++#include "internal.h"
++#include "schema.h"
 +
-+validate:
-+	@for spec in $(SPECS) ; do \
-+		echo -e "\tVALIDATE $$(basename $$spec)" ; \
-+		$(TOOL) --spec $$spec --validate || exit 1 ; \
-+	done
++enum {
++	CTLV_MAX_DEVICES = 4096,
++};
 +
-+# Fails when a specification no longer matches its checked-in ABI snapshot.
-+abi-check:
-+	@for spec in $(SPECS) ; do \
-+		echo -e "\tABICHECK $$(basename $$spec)" ; \
-+		$(TOOL) --spec $$spec --abi-check || exit 1 ; \
-+	done
++/*
++ * One layout on every ABI, including compat. Alignment is asserted too because
++ * a 32-bit ABI aligns a plain __u64 to four bytes.
++ */
++static_assert(sizeof(struct ctlv_attr) == 16);
++static_assert(__alignof__(struct ctlv_attr) == CTLV_ALIGNTO);
 +
-+# Deliberate: an updated snapshot is how a UAPI change gets reviewed.
-+abi-update:
-+	@for spec in $(SPECS) ; do \
-+		$(TOOL) --spec $$spec --abi-update || exit 1 ; \
-+	done
++static_assert(sizeof(struct ctlv_op_exec) == 64);
++static_assert(__alignof__(struct ctlv_op_exec) == CTLV_ALIGNTO);
 +
-+# Style checks, needing yamllint, pycodestyle and pyflakes, which the tool
-+# itself does not use.
-+#
-+# A flow sequence is written "[ one, two ]" here, as in the tree's other
-+# meta-schemas, which stock yamllint rejects; the same relaxation is in
-+# Documentation/devicetree/bindings/.yamllint.
-+YAMLLINT_CONF = {extends: default, rules: {brackets: {max-spaces-inside: 1}}}
++static_assert(sizeof(struct ctlv_event_hdr) == 24);
++static_assert(__alignof__(struct ctlv_event_hdr) == CTLV_ALIGNTO);
 +
-+PYSRC = ctlvgen
++static dev_t ctlv_device_number;
++static DEFINE_IDA(ctlv_device_ids);
 +
-+lint:
-+	yamllint -d "$(YAMLLINT_CONF)" $(DOCDIR)
-+	python3 -m pycodestyle $(PYSRC)
-+	python3 -m pyflakes $(PYSRC)
++/* Every family priv has core-owned links immediately before it. */
++#define CTLV_PRIV_ALIGN SMP_CACHE_BYTES
 +
-+regen:
-+	@./ctlv-regen.sh
++struct ctlv_priv_container {
++	struct ctlv_priv_container *parent;
++	struct ctlv_priv_container *child;
++	u8 priv[] __aligned(CTLV_PRIV_ALIGN);
++};
 +
-+# Fails when a checked-in generated file does not match what the generator
-+# produces from the current specifications. Writes nothing.
-+check-regen:
-+	@./ctlv-regen.sh -c
-+
-+clean:
-+	rm -rf ctlvgen/__pycache__
-+	rm -rf ctlvgen/lib/__pycache__
-+	rm -rf ctlvgen.egg-info
-+	rm -rf build
-+
-+.PHONY: all validate abi-check abi-update lint regen check-regen clean
-diff --git a/tools/ctlv/ctlv-regen.sh b/tools/ctlv/ctlv-regen.sh
-new file mode 100755
-index 000000000000..575114ba93e7
---- /dev/null
-+++ b/tools/ctlv/ctlv-regen.sh
-@@ -0,0 +1,55 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+#
-+# Reconcile the checked-in files against the independent output manifests.
-+#
-+#   -f  accepted for compatibility; reconciliation always renders everything
-+#   -c  do not write anything, fail if any output differs from what the
-+#       generator produces now
-+#   -p  search the given directory instead of the kernel tree
-+
-+TOOL=$(dirname "$(realpath "$0")")/ctlvgen/cli.py
-+check=
-+search=
-+
-+while getopts ':fcp:' option; do
-+	case "$option" in
-+	f)
-+		;;
-+	c)
-+		check=yes
-+		;;
-+	p)
-+		if [ -z "$OPTARG" ]; then
-+			echo "Option -p needs a nonempty directory" >&2
-+			exit 1
-+		fi
-+		search=$OPTARG
-+		;;
-+	:)
-+		echo "Option -$OPTARG needs an argument" >&2
-+		exit 1
-+		;;
-+	?)
-+		echo "Unrecognized option '-$OPTARG'" >&2
-+		exit 1
-+		;;
-+	esac
-+done
-+shift $((OPTIND - 1))
-+if [ "$#" -ne 0 ]; then
-+	echo "Unexpected argument '$1'" >&2
-+	exit 1
-+fi
-+
-+KDIR=$(realpath "$(dirname "$0")/../..")
-+args=(--spec "$KDIR/Documentation/ctlv/specs/ctlv.yaml")
-+if [ -n "$search" ]; then
-+	args+=(--output-root "$search")
-+fi
-+if [ -n "$check" ]; then
-+	args+=(--outputs-check)
-+else
-+	args+=(--outputs-update)
-+fi
-+exec "$TOOL" "${args[@]}"
-diff --git a/tools/ctlv/ctlvgen/__init__.py b/tools/ctlv/ctlvgen/__init__.py
-new file mode 100644
-index 000000000000..f84069cb2c3d
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/__init__.py
-@@ -0,0 +1 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-diff --git a/tools/ctlv/ctlvgen/cli.py b/tools/ctlv/ctlvgen/cli.py
-new file mode 100755
-index 000000000000..c6bfafeb2852
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/cli.py
-@@ -0,0 +1,172 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""Command line front end of the CTLV schema tool."""
-+
-+import argparse
-+import pathlib
-+import sys
-+
-+# So that this file works both as a module of the ctlvgen package and as the
-+# script the Makefile and ctlv-regen.sh run. The imports below have to follow.
-+sys.path.append(pathlib.Path(__file__).resolve().parent.as_posix())
-+
-+from lib import cgen  # noqa: E402
-+from lib import compat  # noqa: E402
-+from lib import gen_kernel  # noqa: E402
-+from lib import gen_uapi  # noqa: E402
-+from lib import outputs  # noqa: E402
-+from lib import semantics  # noqa: E402
-+from lib import spec  # noqa: E402
-+from lib import tree  # noqa: E402
-+from lib.errors import CtlvError  # noqa: E402
-+
-+
-+# What each non-kernel --mode and file kind generates.
-+GENERATORS = {
-+    ('uapi', 'header'): gen_uapi.render,
++static inline const struct ctlv_priv_container *ctlv_priv_container(const void *priv)
++{
++	return container_of_const(priv, struct ctlv_priv_container, priv);
 +}
 +
++struct ctlv_family_priv {
++	const struct ctlv_family *family;
++	void *priv;
++	size_t priv_offset;
++	const void *init_info;
++	bool initialized;
++};
 +
-+def main():
-+    parser = argparse.ArgumentParser(description='CTLV schema tool')
-+    parser.add_argument('--spec', type=str, required=True,
-+                        help='path to a CTLV family specification')
-+    parser.add_argument('--schema', type=str,
-+                        help='path to the meta-schema, derived from --spec '
-+                             'when not given')
-+    parser.add_argument('--registry', type=str,
-+                        help='path to the family registry, derived from '
-+                             '--spec when not given')
-+    parser.add_argument('--abi', type=str,
-+                        help='directory of the ABI snapshots, derived from '
-+                             '--spec when not given')
-+    action = parser.add_mutually_exclusive_group(required=True)
-+    action.add_argument('--validate', action='store_true',
-+                        help='validate the specification and exit')
-+    action.add_argument('--abi-check', action='store_true',
-+                        help='check the specification against its ABI '
-+                             'snapshot')
-+    action.add_argument('--abi-update', action='store_true',
-+                        help='rewrite the ABI snapshot from the '
-+                             'specification')
-+    action.add_argument('--tree-check', action='store_true',
-+                        help='check registry, spec, snapshot and output '
-+                             'coverage')
-+    action.add_argument('--tree-check-update', action='store_true',
-+                        help='check whole-tree inputs before an ABI update')
-+    action.add_argument('--registry-abi-update', action='store_true',
-+                        help='update the ordered family registry baseline')
-+    action.add_argument('--outputs-check', action='store_true',
-+                        help='check every file in the output manifests')
-+    action.add_argument('--outputs-update', action='store_true',
-+                        help='regenerate every file in the output manifests')
-+    action.add_argument('--mode',
-+                        choices=('uapi', 'kernel'),
-+                        help='generate the files of this mode')
-+    parser.add_argument('--schema-only', action='store_true',
-+                        help='omit the family API from kernel output')
-+    kind = parser.add_mutually_exclusive_group()
-+    kind.add_argument('--header', action='store_true',
-+                      help='generate the header of --mode')
-+    kind.add_argument('--source', action='store_true',
-+                      help='generate the source of --mode')
-+    parser.add_argument('-o', '--output', type=str,
-+                        help='write to this file instead of standard output')
-+    parser.add_argument('--cmp-out', action='store_true',
-+                        help='leave the output file alone when its contents '
-+                             'would not change')
-+    parser.add_argument('--output-root', type=str,
-+                        help='alternate destination root for generated files')
-+    args = parser.parse_args()
++/* Claims persist across unload so one ID cannot later name another family. */
++struct ctlv_family_claim {
++	struct list_head entry;
++	char *name;
++	u16 family_id;
++};
 +
-+    kinds = (args.header, args.source)
-+    if args.mode and not any(kinds):
-+        parser.error('--mode needs --header or --source')
-+    if any(kinds) and not args.mode:
-+        parser.error('--header and --source need --mode')
-+    if args.schema_only and args.mode != 'kernel':
-+        parser.error('--schema-only needs --mode kernel')
-+    output_action = args.outputs_check or args.outputs_update
-+    if args.output is not None and not args.mode:
-+        parser.error('-o/--output needs --mode')
-+    if args.cmp_out and (not args.mode or args.output is None):
-+        parser.error('--cmp-out needs --mode and --output')
-+    if args.output_root is not None:
-+        if not output_action:
-+            parser.error('--output-root needs an outputs action')
-+        if not args.output_root:
-+            parser.error('--output-root cannot be empty')
++static LIST_HEAD(ctlv_family_claims);
++static DEFINE_MUTEX(ctlv_family_claims_lock);
 +
-+    paths = spec.Paths(args.spec, schema=args.schema, registry=args.registry,
-+                       abi=args.abi)
-+    try:
-+        if args.tree_check:
-+            tree.check(paths)
-+            return 0
-+        elif args.tree_check_update:
-+            tree.check_for_update(paths)
-+            return 0
-+        elif args.registry_abi_update:
-+            registry = tree.finish_update(paths)
-+            paths.registry_abi.write_text(
-+                compat.registry_render(registry), encoding='utf-8')
-+            print(f'ctlvgen: wrote {paths.registry_abi}', file=sys.stderr)
-+            return 0
-+        elif args.outputs_check:
-+            tree.check(paths)
-+            outputs.reconcile(paths, args.output_root, check=True)
-+            return 0
-+        elif args.outputs_update:
-+            tree.check_for_update(paths)
-+            changed = outputs.reconcile(paths, args.output_root)
-+            for item in changed:
-+                print(f'ctlvgen: {item}', file=sys.stderr)
-+            return 0
-+        family = semantics.load(paths)
-+        if args.validate:
-+            cgen.symbols(family)
-+        elif args.abi_check:
-+            compat.registry_check(paths, spec.load_registry(paths))
-+            compat.check(family, paths.abi(family.name))
-+        elif args.abi_update:
-+            _abi_update(paths, family)
-+        else:
-+            _generate(args, family)
-+    except CtlvError as exc:
-+        print(f'ctlvgen: {exc}', file=sys.stderr)
-+        return 1
-+    return 0
++static int ctlv_family_claim_add(const struct ctlv_family_schema *schema)
++{
++	struct ctlv_family_claim *claim;
 +
++	guard(mutex)
++		(&ctlv_family_claims_lock);
++	list_for_each_entry(claim, &ctlv_family_claims, entry) {
++		bool same_id = claim->family_id == schema->family_id;
++		bool same_name = !strcmp(claim->name, schema->name);
 +
-+def _abi_update(paths, family):
-+    path = paths.abi(family.name)
-+    path.parent.mkdir(parents=True, exist_ok=True)
-+    path.write_text(compat.render(family), encoding='utf-8')
-+    print(f'ctlvgen: wrote {path}', file=sys.stderr)
++		if (same_id && same_name)
++			return 0;
++		if (same_id || same_name) {
++			pr_err("family %s wants ID %u, which belongs to %s\n", schema->name,
++			       schema->family_id, claim->name);
++			return -EEXIST;
++		}
++	}
 +
-+
-+def _generate(args, family):
-+    if args.header:
-+        kind = 'header'
-+    else:
-+        kind = 'source'
-+    if args.mode == 'kernel':
-+        renderer = (gen_kernel.render_header if args.header
-+                    else gen_kernel.render_source)
-+        text = renderer(family, family_api=not args.schema_only)
-+    else:
-+        text = GENERATORS[(args.mode, kind)](family)
-+    if args.output is None:
-+        sys.stdout.write(text)
-+        return
-+    path = pathlib.Path(args.output)
-+    # Leaving an unchanged file untouched keeps its timestamp, which is what
-+    # ctlv-regen.sh compares against the specification.
-+    if args.cmp_out and path.exists() and \
-+            path.read_text(encoding='utf-8') == text:
-+        return
-+    path.write_text(text, encoding='utf-8')
-+
-+
-+if __name__ == '__main__':
-+    sys.exit(main())
-diff --git a/tools/ctlv/ctlvgen/lib/__init__.py b/tools/ctlv/ctlvgen/lib/__init__.py
-new file mode 100644
-index 000000000000..f84069cb2c3d
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/__init__.py
-@@ -0,0 +1 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-diff --git a/tools/ctlv/ctlvgen/lib/cgen.py b/tools/ctlv/ctlvgen/lib/cgen.py
-new file mode 100644
-index 000000000000..2cb754b42106
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/cgen.py
-@@ -0,0 +1,825 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""C output scaffolding shared by the CTLV generators.
-+
-+The preamble ctlv-regen.sh recovers a file's specification and mode from, which
-+is why the specification stays directly above the marker.
-+"""
-+
-+from __future__ import annotations
-+
-+import os
-+
-+from . import semantics
-+from . import spec
-+from .errors import CtlvError
-+
-+REGEN = 'tools/ctlv/ctlv-regen.sh'
-+
-+LINE_LIMIT = 100
-+HARD_LINE_LIMIT = 100
-+TAB_WIDTH = 8
-+
-+# C spelling of each primary form. A test checks these against
-+# enum ctlv_schema_kind.
-+KINDS = {
-+    'uint': 'CTLV_SCHEMA_UINT',
-+    'sint': 'CTLV_SCHEMA_SINT',
-+    'bool': 'CTLV_SCHEMA_BOOL',
-+    'string': 'CTLV_SCHEMA_STRING',
-+    'binary': 'CTLV_SCHEMA_BINARY',
-+    'enum': 'CTLV_SCHEMA_ENUM',
-+    'flags': 'CTLV_SCHEMA_FLAGS',
-+    'nested': 'CTLV_SCHEMA_NEST',
-+    'blob': 'CTLV_SCHEMA_BLOB',
++	claim = kzalloc_obj(*claim, GFP_KERNEL);
++	if (!claim)
++		return -ENOMEM;
++	claim->name = kstrdup(schema->name, GFP_KERNEL);
++	if (!claim->name) {
++		kfree(claim);
++		return -ENOMEM;
++	}
++	claim->family_id = schema->family_id;
++	list_add_tail(&claim->entry, &ctlv_family_claims);
++	return 0;
 +}
 +
-+LIFECYCLE_API_SYMBOLS = (
-+    'ctlv_create',
-+    'ctlv_destroy',
-+    'ctlv_family_priv_size_fn',
-+    'ctlv_family_pre_init_fn',
-+    'ctlv_family_init_fn',
-+    'ctlv_family_post_init_fn',
-+    'ctlv_family_pre_fini_fn',
-+    'ctlv_family_fini_fn',
-+    'ctlv_priv_parent',
-+    'ctlv_priv_child',
-+)
-+
-+
-+def width(line):
-+    """Return the display width of one line, a tab being eight columns."""
-+    return len(line.expandtabs(TAB_WIDTH))
-+
-+
-+def ident(*names):
-+    """Return the lower case C spelling of one or more schema names."""
-+    return '_'.join(name.replace('-', '_') for name in names)
-+
-+
-+def macro(*names):
-+    """Return the upper case C spelling of one or more schema names."""
-+    return ident(*names).upper()
-+
-+
-+def enum_tag(*names):
-+    return f'_{ident(*names)}'
-+
-+
-+def family_suffix(family_name):
-+    suffix = family_name
-+    if family_name.startswith('ctlv-'):
-+        suffix = family_name.removeprefix('ctlv-')
-+    return macro(suffix)
-+
-+
-+def family_const(family_name):
-+    if family_name == 'ctlv':
-+        return 'CTLV_FAMILY_ROOT'
-+    return f'CTLV_FAMILY_{family_suffix(family_name)}'
-+
-+
-+def uapi_header(family_name, in_kernel=False):
-+    """Return the include of the generated UAPI header of family_name."""
-+    prefix = 'uapi/' if in_kernel else ''
-+    return f'<{prefix}linux/{ident(family_name)}_gen.h>'
-+
-+
-+def families_uapi_header(in_kernel=False):
-+    prefix = 'uapi/' if in_kernel else ''
-+    return f'<{prefix}linux/ctlv_families_gen.h>'
-+
-+
-+def kernel_header(family_name):
-+    """Return the include of the generated kernel header of family_name.
-+
-+    The root family's interface is installed beside <linux/ctlv.h>; any other
-+    family's is private to the family implementation compiling it.
-+    """
-+    name = f'{ident(family_name)}_gen.h'
-+    if family_name == spec.CORE_FAMILY_NAME:
-+        return f'<linux/{name}>'
-+    return f'"{name}"'
-+
-+
-+def spec_path(path):
-+    """Return path relative to the kernel tree that holds it.
-+
-+    ctlv-regen.sh resolves it from the tree root, so it must not depend on how
-+    the generator was invoked. Outside a kernel tree it is recorded as given.
-+    """
-+    full = os.path.abspath(path)
-+    relative = ''
-+    while True:
-+        relative = os.path.join(os.path.basename(full), relative)
-+        parent = os.path.dirname(full)
-+        if os.path.exists(os.path.join(parent, 'MAINTAINERS')):
-+            return relative[:-1]
-+        if parent == full:
-+            return str(path)
-+        full = parent
-+
-+
-+def wrapped(opening, items, closing, trailer='', adaptive=False):
-+    """Return the lines of one parenthesized list, wrapped at the limit.
-+
-+    trailer is what a continued line ends with beyond the item: a backslash
-+    inside a macro definition, nothing elsewhere.
-+    """
-+    parts = [f'{item}, ' for item in items[:-1]] + [items[-1] + closing]
-+    column = width(opening)
-+    part_width = max(width(part.rstrip() + trailer) for part in parts)
-+    indent_column = column
-+    if adaptive:
-+        indent_column = min(column, max(0, LINE_LIMIT - part_width))
-+    indent = '\t' * (indent_column // TAB_WIDTH) + \
-+        ' ' * (indent_column % TAB_WIDTH)
-+    lines = []
-+    line = opening
-+    for part in parts:
-+        if width(line + part.rstrip() + trailer) > LINE_LIMIT:
-+            if line != opening:
-+                lines.append(line.rstrip())
-+            elif adaptive and opening.rstrip():
-+                lines.append(opening.rstrip())
-+            else:
-+                line += part
-+                continue
-+            line = indent
-+        line += part
-+    lines.append(line.rstrip())
-+    return lines
-+
-+
-+class Writer:
-+    """The lines of one generated file."""
-+
-+    def __init__(self):
-+        self._lines = []
-+
-+    def line(self, text=''):
-+        self._lines.append(text)
-+
-+    def comment(self, *lines):
-+        """One comment block, one input line per output line."""
-+        if len(lines) == 1:
-+            self.line(f'/* {lines[0]} */')
-+            return
-+        self.line('/*')
-+        for text in lines:
-+            self.line(f' * {text}'.rstrip())
-+        self.line(' */')
-+
-+    def define_block(self, name, *lines):
-+        """One #define whose value takes more than the one line."""
-+        header = f'#define {name} \\'
-+        if width(header) > LINE_LIMIT and '(' in name:
-+            macro, params = name.removesuffix(')').split('(', 1)
-+            for text in wrapped(f'#define {macro}(',
-+                                tuple(params.split(', ')), ')', ' \\',
-+                                adaptive=True):
-+                self.line(f'{text} \\')
-+        else:
-+            self.line(header)
-+        for text in lines[:-1]:
-+            self.line(f'{text} \\')
-+        self.line(lines[-1])
-+
-+    def define(self, name, value):
-+        """One #define, continued when it would run past the line limit."""
-+        text = f'#define {name} {value}'
-+        if width(text) <= LINE_LIMIT:
-+            self.line(text)
-+            return
-+        self.define_block(name, f'\t{value}')
-+
-+    def define_call(self, name, function, *args):
-+        """One #define whose value is a call, wrapped where it has to be."""
-+        call = f'{function}({", ".join(args)})'
-+        if width(f'#define {name} {call}') <= LINE_LIMIT:
-+            self.line(f'#define {name} {call}')
-+            return
-+        if width(f'\t{call}') <= LINE_LIMIT:
-+            self.define_block(name, f'\t{call}')
-+            return
-+        self.define_block(
-+            name, *wrapped(f'\t{function}(', args, ')', ' \\',
-+                           adaptive=True))
-+
-+    def declaration(self, prefix, declarator):
-+        """One declaration, continued when it would run past the limit."""
-+        text = f'{prefix} {declarator}'
-+        if width(text) <= LINE_LIMIT:
-+            self.line(text)
-+            return
-+        indent = prefix[:len(prefix) - len(prefix.lstrip('\t'))]
-+        self.line(prefix)
-+        continuation = f'{indent}\t'
-+        if width(f'{continuation}{declarator}') > LINE_LIMIT:
-+            continuation = '\t'
-+        self.line(f'{continuation}{declarator}')
-+
-+    def parenthesized(self, opening, items, closing):
-+        """One parenthesized list, wrapped at the line limit."""
-+        for text in wrapped(opening, items, closing, adaptive=True):
-+            self.line(text)
-+
-+    def assertion(self, left, operator, right):
-+        """One static_assert, broken after its operator when it must be."""
-+        opening = 'static_assert('
-+        text = f'{opening}{left} {operator} {right});'
-+        if width(text) <= LINE_LIMIT:
-+            self.line(text)
-+            return
-+        column = width(opening)
-+        indent = '\t' * (column // TAB_WIDTH) + ' ' * (column % TAB_WIDTH)
-+        self.line(f'{opening}{left} {operator}')
-+        self.line(f'{indent}{right});')
-+
-+    def signature(self, prefix, name, params, closing=');'):
-+        """One function signature, wrapped at the line limit."""
-+        lines = wrapped(f'{prefix} {name}(', params, closing)
-+        one_line = f'{prefix} {name}({", ".join(params)}{closing}'
-+        if lines[0].endswith('(') and width(one_line) <= HARD_LINE_LIMIT:
-+            self.line(one_line)
-+            return
-+        if max(width(line) for line in lines) <= LINE_LIMIT:
-+            for text in lines:
-+                self.line(text)
-+            return
-+        if name.startswith('*'):
-+            self.line(f'{prefix} *')
-+            name = name.removeprefix('*')
-+        else:
-+            self.line(prefix)
-+        declarator = f'{name}({", ".join(params)}{closing}'
-+        if width(declarator) <= HARD_LINE_LIMIT:
-+            self.line(declarator)
-+            return
-+        opening = f'{name}('
-+        lines = wrapped(opening, params, closing)
-+        if max(width(line) for line in lines) > LINE_LIMIT:
-+            self.line(opening)
-+            self.parenthesized('\t', params, closing)
-+        else:
-+            for text in lines:
-+                self.line(text)
-+
-+    def open_guard(self, guard):
-+        self.line(f'#ifndef {guard}')
-+        self.line(f'#define {guard}')
-+        self.line()
-+
-+    def close_guard(self, guard):
-+        self.line(f'#endif /* {guard} */')
-+
-+    def includes(self, *headers):
-+        """One include block, an empty entry separating two groups."""
-+        for header in headers:
-+            self.line(f'#include {header}' if header else '')
-+        self.line()
-+
-+    def text(self):
-+        while self._lines and not self._lines[-1]:
-+            self._lines.pop()
-+        return '\n'.join(self._lines) + '\n'
-+
-+
-+def preamble(origin, mode, kind, source=None):
-+    """Return a Writer holding the preamble of one generated file."""
-+    writer = Writer()
-+    if kind == 'source':
-+        writer.line(f'// SPDX-License-Identifier: {origin.license}')
-+    else:
-+        writer.line(f'/* SPDX-License-Identifier: {origin.license} */')
-+    writer.line(f'/* Do not edit, regenerate with {REGEN}, from: */')
-+    writer.line(f'/*\t{spec_path(source or origin.path)} */')
-+    writer.line(f'/* CTLV-GEN {mode} {kind} */')
-+    writer.line()
-+    return writer
-+
-+
-+class Names:
-+    """The C names of one effective family's declarations.
-+
-+    A declaration is named after the family that owns it, so an inherited attr
-+    keeps the name its own family's header gives it.
-+    """
-+
-+    def __init__(self, family):
-+        self.family = family
-+        self.prefix = macro(family.name)
-+        self.ident = ident(family.name)
-+
-+    def owner_prefix(self, family_id):
-+        return macro(self.family.owners[family_id])
-+
-+    def owner_ident(self, family_id):
-+        return ident(self.family.owners[family_id])
-+
-+    # Names that a family's UAPI header defines.
-+
-+    def family_const(self):
-+        return family_const(self.family.name)
-+
-+    def group(self, group):
-+        return f'{self.owner_prefix(group.family_id)}_GROUP_' \
-+               f'{macro(group.name)}'
-+
-+    def group_enum(self, group):
-+        return enum_tag(self.family.owners[group.family_id], 'group')
-+
-+    def group_attr_enum(self, group):
-+        return enum_tag(self.family.owners[group.family_id],
-+                        'attr', group.name)
-+
-+    def group_metadata_enum(self, group):
-+        return enum_tag(self.family.owners[group.family_id],
-+                        'attr', group.name, 'metadata')
-+
-+    def group_attr(self, group):
-+        return f'_{self.owner_prefix(group.family_id)}_ATTR_' \
-+               f'{macro(group.name)}'
-+
-+    def family_attr(self, group):
-+        return f'_{self.owner_prefix(group.family_id)}_ATTR'
-+
-+    def local_attr_prefix(self, group):
-+        return f'_{self.owner_prefix(group.family_id)}_ATTR_' \
-+               f'{macro(group.name)}_'
-+
-+    def local_attr(self, attr):
-+        group = self.family.groups[attr.group]
-+        return f'{self.local_attr_prefix(group)}{macro(attr.name)}'
-+
-+    def attr(self, attr):
-+        return f'{self.owner_prefix(attr.family_id)}_ATTR_' \
-+               f'{macro(attr.group, attr.name)}'
-+
-+    def attr_unit(self, attr):
-+        return f'{self.attr(attr)}_UNIT'
-+
-+    def attr_scale(self, attr):
-+        return f'{self.attr(attr)}_SCALE'
-+
-+    def attr_set(self, attr_set):
-+        return f'{self.owner_prefix(attr_set.family_id)}_SET_' \
-+               f'{macro(attr_set.name)}'
-+
-+    def set_enum(self, attr_set):
-+        return enum_tag(self.family.owners[attr_set.family_id], 'set')
-+
-+    def op_prefix(self, op):
-+        return f'_{self.owner_prefix(op.family_id)}_OP_'
-+
-+    def op(self, op):
-+        return f'{self.op_prefix(op)}{macro(op.name)}'
-+
-+    def operation(self, op):
-+        return f'_{self.owner_prefix(op.family_id)}_OP'
-+
-+    def op_enum(self, op):
-+        return enum_tag(self.family.owners[op.family_id], 'op')
-+
-+    def op_id(self, op):
-+        return f'{self.owner_prefix(op.family_id)}_OP_{macro(op.name)}'
-+
-+    def definition(self, definition):
-+        """The C type name of an enum definition."""
-+        return enum_tag(self.family.owners[definition.family_id],
-+                        definition.name)
-+
-+    def value(self, definition, value_name):
-+        """One enum value or flag bit."""
-+        return f'{self.owner_prefix(definition.family_id)}_' \
-+               f'{macro(definition.name, value_name)}'
-+
-+    def value_bit(self, definition, value_name):
-+        return f'{self.value(definition, value_name)}_BIT'
-+
-+    def bit_enum(self, definition):
-+        return enum_tag(self.family.owners[definition.family_id],
-+                        definition.name, 'bit')
-+
-+    def value_mask(self, definition):
-+        """The mask of every bit a flags definition declares."""
-+        return f'{self.owner_prefix(definition.family_id)}_' \
-+               f'{macro(definition.name)}_MASK'
-+
-+    # Names that a family's kernel metadata defines: its own ops and the
-+    # stubs it fills.
-+
-+    def op_schemas(self):
-+        return f'{self.ident}_op_schemas'
-+
-+    def schema(self):
-+        return f'{self.ident}_schema'
-+
-+    def stub_fill_schemas(self):
-+        return f'{self.ident}_stub_fill_schemas'
-+
-+    def node_schemas(self, op, which):
-+        # File scope, so no family prefix: an op name is unique within its
-+        # effective family.
-+        return f'{ident(op.name)}_{which}_node_schemas'
-+
-+    def stub_schemas(self, op, which):
-+        return f'{ident(op.name)}_{which}_stub_schemas'
-+
-+    def fill_node_schemas(self, fill):
-+        return f'{ident(fill.name)}_fill_node_schemas'
-+
-+    def message_node_schemas(self, message):
-+        return f'{ident(message.name)}_node_schemas'
-+
-+    def message_schema(self, message):
-+        """The tree the core builds one of its own messages against."""
-+        return f'{self.ident}_{ident(message.name)}_schema'
-+
-+    def message_max_len(self, message):
-+        return f'{self.prefix}_{macro(message.name)}_MAX_LEN'
-+
-+    # Names that a family's device descriptor defines. Named after the family
-+    # that declared what they answer: an inherited op is answered by that
-+    # family implementation, on whatever device it arrived at.
-+
-+    def descriptor(self):
-+        return f'{self.ident}_family'
-+
-+    def ops(self):
-+        return f'{self.ident}_ops'
-+
-+    def stub_ops(self):
-+        return f'{self.ident}_stub_ops'
-+
-+    def stub_ident(self, fill):
-+        return f'{self.ident}_{ident(fill.name)}'
-+
-+    def stub_callback(self, fill, which):
-+        """One half of what this family does with an extension point."""
-+        return f'{self.stub_ident(fill)}_{which}'
-+
-+    def lifecycle_hook(self, which):
-+        """One operation in the lifecycle of this family's priv."""
-+        return f'{self.ident}_{which}'
-+
-+    def op_ident(self, op):
-+        return f'{self.owner_ident(op.family_id)}_{ident(op.name)}'
-+
-+    def callback(self, op):
-+        return f'{self.op_ident(op)}_{op.type}'
-+
-+    def op_helper(self, op, what):
-+        """What one device decides about one op."""
-+        return f'{self.op_ident(op)}_{what}'
-+
-+    def attr_helper(self, attr, what):
-+        """One helper for one attr: reading it, or appending it.
-+
-+        Named after the family that declares the attr, like the constant that
-+        names it on the wire.
-+        """
-+        return f'{self.owner_ident(attr.family_id)}_' \
-+               f'{ident(attr.group, attr.name)}_{what}'
-+
-+    def attr_iterator(self, attr):
-+        """What walks every occurrence of one repeated attr."""
-+        return f'{self.owner_ident(attr.family_id)}_{ident(attr.group)}_' \
-+               f'for_each_{ident(attr.name)}'
-+
-+    def input_name(self, scope, attr):
-+        """The stem of one request-placement-specific reader."""
-+        owner_parts = self.family.name.split('-')
-+        group = ()
-+        if attr.group not in (*scope.name, *owner_parts):
-+            group = (attr.group,)
-+        parts = (*scope.name, *group, attr.name)
-+        parts = tuple(part for index, part in enumerate(parts)
-+                      if not index or part != parts[index - 1])
-+        return f'{self.ident}_{ident(*parts)}'
-+
-+    def input_helper(self, scope, attr, what):
-+        return f'{self.input_name(scope, attr)}_{what}'
-+
-+    def input_iterator(self, scope, attr):
-+        return self.input_helper(scope, attr, 'for_each')
-+
-+    def input_ref(self, scope, attr):
-+        return self.input_helper(scope, attr, 'ref')
-+
-+    def family_hook(self, which):
-+        """One half of the pair that wraps every op of this family."""
-+        return f'{self.ident}_op_{which}'
-+
-+    def op_hook(self, op, which):
-+        """One half of the pair that wraps this op alone."""
-+        return f'{self.op_ident(op)}_{which}'
-+
-+    # Where a generated file lives: the installed constants, the schema
-+    # metadata a family compiles, and the descriptor it registers.
-+
-+    def uapi_guard(self):
-+        return f'_UAPI_LINUX_{self.prefix}_GEN_H'
-+
-+    def uapi_header(self, in_kernel=False):
-+        return uapi_header(self.family.name, in_kernel)
-+
-+    def kernel_guard(self):
-+        return f'_LINUX_{self.prefix}_GEN_H'
-+
-+    def kernel_header(self):
-+        return kernel_header(self.family.name)
-+
-+    def user_guard(self):
-+        return f'_CTLV_{self.prefix}_USER_GEN_H'
-+
-+    def user_header(self):
-+        return f'"{self.ident}_user_gen.h"'
-+
-+    # Names that a family's userspace binding defines, after the family that
-+    # declared the op, as a per-op helper is in the kernel.
-+
-+    def user_op(self, op):
-+        return f'{self.owner_ident(op.family_id)}_{ident(op.name)}'
-+
-+    def user_op_helper(self, op, what):
-+        return f'{self.user_op(op)}_{what}'
-+
-+    def user_op_len(self, op, what):
-+        """One length of one op, as its specification computed it."""
-+        return f'{self.op_id(op)}_{macro(what)}'
-+
-+    def user_node_schema(self, op, which):
-+        # File scope, so no family prefix, as on the kernel side.
-+        return f'{ident(op.name)}_{which}_node_schema'
-+
-+    def user_spec(self):
-+        """What this family's specification says, to compare a device to."""
-+        return f'{self.ident}_spec'
-+
-+    def user_op_specs(self):
-+        return f'{self.ident}_op_specs'
-+
-+
-+def attr_getter_value(attr):
-+    """Whether an attr has a getter beside the reader that locates it."""
-+    return attr.decl.kind != 'blob' and \
-+        not (attr.decl.kind == 'nested' and attr.decl.max_occurrences != 1)
-+
-+
-+def input_readers(names, scope, attr):
-+    readers = [names.input_ref(scope, attr)]
-+    readers.append(names.input_iterator(scope, attr)
-+                   if attr.decl.max_occurrences != 1
-+                   else names.input_helper(scope, attr, 'present'))
-+    if attr.decl.kind == 'blob':
-+        readers.append(names.input_helper(scope, attr, 'resolve'))
-+    elif attr_getter_value(attr):
-+        readers.append(names.input_helper(scope, attr, 'get'))
-+    return tuple(readers)
-+
-+
-+def attr_writers(names, attr):
-+    """The names of what appends one attr, as the family API declares them.
-+
-+    A blob has none: a request carries one and a reply never does.
-+    """
-+    if attr.decl.kind == 'blob':
-+        return ()
-+    what = 'start' if attr.decl.kind == 'nested' else 'put'
-+    return (names.attr_helper(attr, what),)
-+
-+
-+# What a blob attr may be backed by, and the libctlv call describing one. A
-+# putter exists per backing the placement permits, so what a caller may
-+# describe is decided by the specification.
-+BLOB_PUTTERS = {
-+    'va': ('va', ('const void *address', '__u64 length')),
++static void ctlv_family_claims_free(void)
++{
++	struct ctlv_family_claim *claim, *next;
++
++	list_for_each_entry_safe(claim, next, &ctlv_family_claims, entry) {
++		list_del(&claim->entry);
++		kfree(claim->name);
++		kfree(claim);
++	}
 +}
 +
-+# What an event gets in the place of a wrapper.
-+EVENT_HELPERS = ('is', 'subscribe', 'unsubscribe')
++/*
++ * Everything resolved below is generated, so a failure here is a bug, checked
++ * anyway because an out-of-tree family comes from another generator.
++ */
 +
-+# The lengths a user-mode header states for one op, by sizes.OpSizes member.
-+USER_LENGTHS = {
-+    'request_max_len': 'request-max-len',
-+    'action_reply_max_len': 'action-reply-max-len',
-+    'query_reply_min_len': 'query-reply-min-len',
-+    'query_reply_suggested_len': 'query-reply-suggested-len',
-+    'event_record_max_len': 'event-record-max-len',
++static const char *ctlv_family_name(const struct ctlv_family *family)
++{
++	if (!family->schema || !family->schema->name)
++		return "(unnamed)";
++	return family->schema->name;
 +}
 +
-+
-+def user_attr_readers(names, attr):
-+    """The names of what reads one attr in the userspace binding."""
-+    if attr.decl.kind == 'blob':
-+        return ()
-+    readers = [names.attr_iterator(attr) if attr.decl.max_occurrences != 1
-+               else names.attr_helper(attr, 'present')]
-+    if attr_getter_value(attr):
-+        readers.append(names.attr_helper(attr, 'get'))
-+    return tuple(readers)
-+
-+
-+def user_attr_writers(names, attr):
-+    """The names of what appends one attr in the userspace binding.
-+
-+    A blob has one putter per backing the placement allows, where the kernel
-+    side has none.
-+    """
-+    if attr.decl.kind == 'blob':
-+        return tuple(names.attr_helper(attr, f'put_{BLOB_PUTTERS[backing][0]}')
-+                     for backing in attr.decl.blob.backings)
-+    what = 'start' if attr.decl.kind == 'nested' else 'put'
-+    return (names.attr_helper(attr, what),)
-+
-+
-+def user_symbols(family):
-+    """Return every C name of family's binding, mapped to its origin.
-+
-+    The binding covers this family's own attrs and ops, reaching the rest
-+    through the parent's header.
-+    """
-+    names = Names(family)
-+    table = {}
-+
-+    def add(name, origin):
-+        previous = table.get(name)
-+        if previous is not None:
-+            raise CtlvError(f'{family.path}: {origin}',
-+                            f'generated name {name} is already used by '
-+                            f'{previous}')
-+        table[name] = origin
-+
-+    for group in family.local_groups:
-+        for attr in group.attrs:
-+            what = f'attr {attr.full_name}'
-+            for helper in user_attr_readers(names, attr) + \
-+                    user_attr_writers(names, attr):
-+                add(helper, what)
-+    for op in family.local_ops:
-+        what = f'op {op.name}'
-+        # An event has those helpers and no wrapper of its own name.
-+        if op.type == 'event':
-+            for helper in EVENT_HELPERS:
-+                add(names.user_op_helper(op, helper), what)
-+        else:
-+            add(names.user_op(op), what)
-+            if op.request is not None:
-+                add(names.user_op_helper(op, 'request_new'), what)
-+        for field, what_len in USER_LENGTHS.items():
-+            if getattr(op.sizes, field):
-+                add(names.user_op_len(op, what_len), what)
-+    return table
-+
-+
-+def _stubs_anywhere(node):
-+    return bool(node.stubs) or any(_stubs_anywhere(child)
-+                                   for child in node.children())
-+
-+
-+def symbols(family):
-+    """Return every generated C name of family, mapped to its declaration.
-+
-+    Dashes become underscores, so two YAML names can spell one C name. That
-+    has to be an error: one of the two constants would silently not exist.
-+    """
-+    names = Names(family)
-+    table = {}
-+
-+    def add(name, origin):
-+        previous = table.get(name)
-+        if previous is not None:
-+            raise CtlvError(f'{family.path}: {origin}',
-+                            f'generated name {name} is already used by '
-+                            f'{previous}')
-+        table[name] = origin
-+
-+    for name in LIFECYCLE_API_SYMBOLS:
-+        add(name, 'the CTLV lifecycle API')
-+    add(names.family_const(), f'family {family.name}')
-+    # A child header may include every ancestor's family API, and built-in
-+    # families also share one linker namespace with the root.
-+    for family_id, owner in family.owners.items():
-+        owner_ident = ident(owner)
-+        if any(op.family_id == family_id for op in family.ops):
-+            add(f'{owner_ident}_op_schemas', f'family {owner}')
-+        add(f'{owner_ident}_schema', f'family {owner}')
-+        add(f'{owner_ident}_family', f'family {owner}')
-+        for which in ('pre', 'post'):
-+            add(f'{owner_ident}_op_{which}', f'family {owner}')
-+        for which in ('priv_size', 'pre_init', 'init', 'post_init',
-+                      'pre_fini', 'fini'):
-+            add(f'{owner_ident}_device_{which}', f'family {owner}')
-+    for fill in family.fills:
-+        for which in ('fill', 'read'):
-+            add(names.stub_callback(fill, which), f'attr set {fill.name}')
-+    for definition in family.definitions.values():
-+        what = f'{definition.kind} {definition.name}'
-+        if definition.kind == 'enum':
-+            add(f'enum {names.definition(definition)}', what)
-+        else:
-+            add(f'enum {names.bit_enum(definition)}', what)
-+            add(names.value_mask(definition), what)
-+        for value_name, _ in definition.values:
-+            if definition.kind == 'flags':
-+                add(names.value_bit(definition, value_name), what)
-+            add(names.value(definition, value_name), what)
-+    group_enums = set()
-+    family_attrs = set()
-+    for group in family.groups.values():
-+        group_enum = f'enum {names.group_enum(group)}'
-+        if group_enum not in group_enums:
-+            add(group_enum, f'family {family.owners[group.family_id]} groups')
-+            group_enums.add(group_enum)
-+        family_attr = names.family_attr(group)
-+        if family_attr not in family_attrs:
-+            add(family_attr, f'family {family.owners[group.family_id]} attrs')
-+            family_attrs.add(family_attr)
-+        add(names.group(group), f'attr group {group.name}')
-+        add(f'enum {names.group_attr_enum(group)}',
-+            f'attr group {group.name}')
-+        if any(attr.decl.unit is not None for attr in group.attrs):
-+            add(f'enum {names.group_metadata_enum(group)}',
-+                f'attr group {group.name} metadata')
-+        add(names.group_attr(group), f'attr group {group.name}')
-+        for attr in group.attrs:
-+            what = f'attr {attr.full_name}'
-+            add(names.local_attr(attr), what)
-+            add(names.attr(attr), what)
-+            if attr.decl.unit is not None:
-+                add(names.attr_unit(attr), what)
-+                add(names.attr_scale(attr), what)
-+            for helper in attr_writers(names, attr):
-+                add(helper, what)
-+    for ancestor in family.chain[:-1]:
-+        ancestor_names = Names(ancestor)
-+        owner_family_id = next(
-+            family_id for family_id, owner in family.owners.items()
-+            if owner == ancestor.name)
-+
-+        for scope in semantics.input_scopes(family, owner_family_id):
-+            for child in scope.node.children():
-+                what = f'attr {child.attr.full_name} in ancestor ' \
-+                       f'{ancestor.name}'
-+                for helper in input_readers(ancestor_names, scope,
-+                                            child.attr):
-+                    add(helper, what)
-+    for scope in semantics.input_scopes(family):
-+        for child in scope.node.children():
-+            what = f'attr {child.attr.full_name} in {".".join(scope.name)}'
-+            for helper in input_readers(names, scope, child.attr):
-+                add(helper, what)
-+    set_enums = set()
-+    for attr_set in family.sets.values():
-+        set_enum = f'enum {names.set_enum(attr_set)}'
-+        if set_enum not in set_enums:
-+            add(set_enum, f'family {family.owners[attr_set.family_id]} sets')
-+            set_enums.add(set_enum)
-+        add(names.attr_set(attr_set), f'attr set {attr_set.name}')
-+    operation_enums = set()
-+    for op in family.ops:
-+        what = f'op {op.name}'
-+        operation_enum = f'enum {names.op_enum(op)}'
-+        if operation_enum not in operation_enums:
-+            add(operation_enum,
-+                f'family {family.owners[op.family_id]} operations')
-+            add(names.operation(op),
-+                f'family {family.owners[op.family_id]} operations')
-+            operation_enums.add(operation_enum)
-+        add(names.op(op), what)
-+        add(names.op_id(op), what)
-+        if op.type == 'event':
-+            add(names.op_helper(op, 'create'), what)
-+            continue
-+        add(names.callback(op), what)
-+        if op.optional:
-+            add(names.op_helper(op, 'provide'), what)
-+        if op.availability == 'dynamic':
-+            add(names.op_helper(op, 'enable'), what)
-+            add(names.op_helper(op, 'disable'), what)
-+        if op.pre_post:
-+            add(names.op_hook(op, 'pre'), what)
-+            add(names.op_hook(op, 'post'), what)
-+    for message in family.messages:
-+        what = f'attr set {message.name}'
-+        add(names.message_node_schemas(message), what)
-+        add(names.message_schema(message), what)
-+        add(names.message_max_len(message), what)
-+    if family.fills:
-+        add(names.stub_fill_schemas(), f'family {family.name}')
-+        add(names.stub_ops(), f'family {family.name}')
-+    if any(op.type != 'event' for op in family.local_ops):
-+        add(names.ops(), f'family {family.name}')
-+    for op in family.local_ops:
-+        what = f'op {op.name}'
-+        for which in ('request', 'reply'):
-+            root = getattr(op, which)
-+            if root is None:
-+                continue
-+            add(names.node_schemas(op, which), what)
-+            if _stubs_anywhere(root):
-+                add(names.stub_schemas(op, which), what)
-+    for fill in family.fills:
-+        add(names.fill_node_schemas(fill), f'attr set {fill.name}')
-+    return table
-diff --git a/tools/ctlv/ctlvgen/lib/compat.py b/tools/ctlv/ctlvgen/lib/compat.py
-new file mode 100644
-index 000000000000..4cf93af06ea9
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/compat.py
-@@ -0,0 +1,821 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""ABI snapshots and the compatibility checker.
-+
-+A change is compatible only if the new schema still contains everything the
-+checked-in snapshot describes, with the same IDs, no narrowed bound and no
-+placement that became required. A new placement has to be optional. Updating a
-+snapshot is deliberate: it is how the change gets reviewed.
-+"""
-+
-+from __future__ import annotations
-+
-+import yaml
-+
-+from . import spec
-+from . import yamlload
-+from .errors import CtlvError
-+
-+HEADER = '''\
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Checked-in ABI snapshot of the {name} family, written by
-+# "make -C tools/ctlv abi-update".
-+#
-+# The checker compares this family's declarations and inherited stub fills
-+# against this file. Updating it is how a UAPI change gets reviewed; an update
-+# that removes or renumbers anything, narrows a bound, or makes a placement
-+# required is an ABI break, whatever this file says afterwards.
-+'''
-+
-+REGISTRY_HEADER = '''\
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Checked-in ABI baseline of the ordered CTLV family registry.
-+# Updated deliberately by "make -C tools/ctlv abi-update".
-+'''
-+
-+
-+class _Dumper(yaml.SafeDumper):
-+    """Dumper that never emits anchors, which the strict loader rejects."""
-+
-+    def ignore_aliases(self, data):
-+        return True
-+
-+    def increase_indent(self, flow=False, indentless=False):
-+        # Indent a sequence under its key, not flush left as pyyaml does.
-+        return super().increase_indent(flow, False)
-+
-+
-+class _FlowMap(dict):
-+    pass
-+
-+
-+class _FlowSeq(list):
-+    pass
-+
-+
-+_Dumper.add_representer(
-+    _FlowMap,
-+    lambda dumper, value: dumper.represent_mapping(
-+        'tag:yaml.org,2002:map', value, flow_style=True))
-+_Dumper.add_representer(
-+    _FlowSeq,
-+    lambda dumper, value: dumper.represent_sequence(
-+        'tag:yaml.org,2002:seq', value, flow_style=True))
-+
-+
-+def build(family):
-+    """Return one family's ABI in the comparison form."""
-+    return {
-+        'family': family.name,
-+        'family-id': family.family_id,
-+        'parent': family.parent,
-+        'pre-init': family.pre_init,
-+        'post-init': family.post_init,
-+        'pre-fini': family.pre_fini,
-+        'definitions': _definitions(family.local_definitions),
-+        'groups': _groups(family.local_groups),
-+        'sets': _sets(family.local_sets),
-+        'fills': _fills(family.fills),
-+        'ops': _ops(family.local_ops),
-+    }
-+
-+
-+def render(family):
-+    """Return one family's compact snapshot as YAML text."""
-+    return render_data(build(family))
-+
-+
-+def render_data(data):
-+    """Render comparison-form data as a compact snapshot."""
-+    body = yaml.dump(_compact(data), Dumper=_Dumper, sort_keys=False,
-+                     default_flow_style=False, width=1000000)
-+    body = '\n'.join(line for source in body.splitlines()
-+                     for line in _wrap_flow(source)) + '\n'
-+    return HEADER.format(name=data['family']) + body
-+
-+
-+def _wrap_flow(line, width=80):
-+    """Wrap one flow collection with continuations aligned after its opener."""
-+    if len(line) <= width:
-+        return (line,)
-+    starts = [index for index in (line.find('{'), line.find('['))
-+              if index >= 0]
-+    if not starts:
-+        return (line,)
-+    start = min(starts)
-+    end, items = _flow_items(line, start)
-+    if end is None:
-+        return (line,)
-+
-+    prefix = line[:start + 1]
-+    suffix = line[end:]
-+    indent = ' ' * (start + 1)
-+    wrapped = []
-+    current = prefix
-+    for index, item in enumerate(items):
-+        last = index + 1 == len(items)
-+        token = item + ('' if last else ',')
-+        separator = '' if current.endswith(('{', '[')) else ' '
-+        closing = len(suffix) if last else 0
-+        if len(current) + len(separator) + len(token) + closing > width:
-+            wrapped.append(current)
-+            current = indent + token
-+        else:
-+            current += separator + token
-+    current += suffix
-+    wrapped.append(current)
-+    return tuple(wrapped)
-+
-+
-+def _flow_items(line, start):
-+    pairs = {'{': '}', '[': ']'}
-+    stack = [line[start]]
-+    quote = None
-+    escape = False
-+    item_start = start + 1
-+    items = []
-+    for index in range(start + 1, len(line)):
-+        char = line[index]
-+        if quote is not None:
-+            if escape:
-+                escape = False
-+            elif char == '\\':
-+                escape = True
-+            elif char == quote:
-+                quote = None
-+            continue
-+        if char in ('"', "'"):
-+            quote = char
-+        elif char in pairs:
-+            stack.append(char)
-+        elif char in pairs.values():
-+            if pairs[stack[-1]] != char:
-+                return None, ()
-+            stack.pop()
-+            if not stack:
-+                items.append(line[item_start:index].strip())
-+                return index, tuple(item for item in items if item)
-+        elif char == ',' and len(stack) == 1:
-+            items.append(line[item_start:index].strip())
-+            item_start = index + 1
-+    return None, ()
-+
-+
-+def check(family, path):
-+    """Compare a family against its snapshot, or raise with every problem."""
-+    snapshot = _expand(yamlload.load(path))
-+    problems = _compare(snapshot, build(family))
-+    if problems:
-+        raise CtlvError(f'{family.name} against {path}',
-+                        'the schema is not compatible with its snapshot\n' +
-+                        '\n'.join(f'  {problem}' for problem in problems))
-+
-+
-+def _compact(data):
-+    family = _FlowMap({
-+        'name': data['family'],
-+        'id': data['family-id'],
-+    })
-+    if data['parent'] is not None:
-+        family['inherits'] = data['parent']
-+    for name in ('pre-init', 'post-init', 'pre-fini'):
-+        if data[name]:
-+            family[name] = True
-+
-+    compact = {'family': family}
-+    for kind, section in (('enum', 'enums'), ('flags', 'flags')):
-+        definitions = {
-+            name: _FlowMap(entry['values'])
-+            for name, entry in data['definitions'].items()
-+            if entry['kind'] == kind
-+        }
-+        if definitions:
-+            compact[section] = definitions
-+    if data['groups']:
-+        compact['attr-groups'] = _compact_groups(data['groups'])
-+    if data['sets']:
-+        compact['attr-sets'] = {
-+            name: _FlowMap({
-+                'id': entry['set-id'],
-+                **({'stub': True} if entry.get('stub') else {}),
-+            })
-+            for name, entry in data['sets'].items()
-+        }
-+    if data['fills']:
-+        compact['fills'] = {
-+            name: _compact_tree(nodes)
-+            for name, nodes in data['fills'].items()
-+        }
-+    if data['ops']:
-+        compact['ops'] = {
-+            name: _compact_op(entry)
-+            for name, entry in data['ops'].items()
-+        }
-+    return compact
-+
-+
-+def _compact_groups(groups):
-+    compact = {}
-+    for name, group in groups.items():
-+        compact[name] = {
-+            'id': group['group-id'],
-+            'attrs': {
-+                attr_name: _compact_attr(attr)
-+                for attr_name, attr in group['attrs'].items()
-+            },
-+        }
-+    return compact
-+
-+
-+def _compact_attr(attr):
-+    kind = attr['kind']
-+    compact = _FlowMap({'id': attr['local-id']})
-+    if kind in ('enum', 'flags'):
-+        compact[kind] = attr['definition']
-+    elif kind == 'blob':
-+        blob = attr['blob']
-+        compact['blob'] = blob['direction']
-+        compact['backings'] = _FlowSeq(blob['backings'])
-+        compact['max-length'] = blob['max-length']
-+        if blob['alignment'] != 1:
-+            compact['alignment'] = blob['alignment']
-+    else:
-+        compact['type'] = kind
-+
-+    if kind in ('uint', 'sint'):
-+        low, high = ((0, spec.U64_MAX) if kind == 'uint'
-+                     else (spec.S64_MIN, spec.S64_MAX))
-+        minimum = attr.get('min', low)
-+        maximum = attr.get('max', high)
-+        if minimum != low:
-+            compact['min'] = minimum
-+        if maximum != high:
-+            compact['max'] = maximum
-+        if 'unit' in attr:
-+            compact['unit'] = attr['unit']
-+            if attr['scale']:
-+                compact['scale'] = attr['scale']
-+    elif kind in ('string', 'binary'):
-+        minimum = attr.get('min-length', 0)
-+        maximum = attr['max-length']
-+        if kind == 'binary' and minimum == maximum:
-+            compact['length'] = maximum
-+        else:
-+            if minimum:
-+                compact['min-length'] = minimum
-+            compact['max-length'] = maximum
-+
-+    maximum = attr['max-occurrences']
-+    if maximum != 1:
-+        compact['max-occurrences'] = (
-+            'unlimited' if maximum == spec.UNLIMITED else maximum)
-+    return compact
-+
-+
-+def _compact_op(op):
-+    abi = _FlowMap({
-+        'id': op['op-id'],
-+        'type': op['type'],
-+    })
-+    if (op['type'] != 'event' and
-+            op.get('fd-access') != spec.DEFAULT_FD_ACCESS):
-+        abi['fd-access'] = op.get('fd-access')
-+    availability = op.get('availability', spec.DEFAULT_AVAILABILITY)
-+    if availability != spec.DEFAULT_AVAILABILITY:
-+        abi['availability'] = availability
-+    if op.get('optional', False):
-+        abi['optional'] = True
-+    if op.get('pre-post', False):
-+        abi['pre-post'] = True
-+    compact = {'abi': abi}
-+    if op.get('request'):
-+        compact['request'] = _compact_tree(op['request'])
-+    if op.get('reply') is not None:
-+        compact['reply'] = _compact_tree(op['reply'])
-+    return compact
-+
-+
-+def _compact_tree(nodes):
-+    required = []
-+    optional = []
-+    for node in nodes:
-+        destination = required if node['required'] else optional
-+        destination.append(_compact_node(node))
-+    compact = {}
-+    if required:
-+        compact['attrs'] = _compact_nodes(required)
-+    if optional:
-+        compact['optional-attrs'] = _compact_nodes(optional)
-+    if compact and _simple_tree_length(compact) <= 54:
-+        return _FlowMap(compact)
-+    return compact
-+
-+
-+def _simple_tree_length(tree):
-+    length = 2
-+    for index, (name, selectors) in enumerate(tree.items()):
-+        if not isinstance(selectors, _FlowSeq):
-+            return 55
-+        if index:
-+            length += 2
-+        length += len(name) + 4
-+        length += sum(len(selector) + 2 for selector in selectors)
-+    return length
-+
-+
-+def _compact_nodes(nodes):
-+    if all(isinstance(node, str) for node in nodes):
-+        return _FlowSeq(nodes)
-+    return nodes
-+
-+
-+def _compact_node(node):
-+    name = node.get('attr', node.get('stub'))
-+    children = _compact_tree(node.get('children', []))
-+    if 'reenters' in node:
-+        children['reenters'] = node['reenters']
-+    if not children:
-+        return name
-+    return {name: children}
-+
-+
-+def _expand(compact):
-+    family = compact['family']
-+    family_id = family['id']
-+    definitions = {}
-+    for kind, section in (('enum', 'enums'), ('flags', 'flags')):
-+        for name, values in compact.get(section, {}).items():
-+            definitions[name] = {
-+                'kind': kind,
-+                'values': values,
-+            }
-+    return {
-+        'family': family['name'],
-+        'family-id': family_id,
-+        'parent': family.get('inherits'),
-+        'pre-init': family.get('pre-init', False),
-+        'post-init': family.get('post-init', False),
-+        'pre-fini': family.get('pre-fini', False),
-+        'definitions': definitions,
-+        'groups': _expand_groups(compact.get('attr-groups', {})),
-+        'sets': _expand_sets(compact.get('attr-sets', {})),
-+        'fills': {
-+            name: _expand_tree(tree)
-+            for name, tree in compact.get('fills', {}).items()
-+        },
-+        'ops': _expand_ops(compact.get('ops', {})),
-+    }
-+
-+
-+def _expand_groups(groups):
-+    expanded = {}
-+    for name, group in groups.items():
-+        expanded[name] = {
-+            'group-id': group['id'],
-+            'attrs': {
-+                attr_name: _expand_attr(attr)
-+                for attr_name, attr in group['attrs'].items()
-+            },
-+        }
-+    return expanded
-+
-+
-+def _expand_attr(compact):
-+    primary = [name for name in ('type', 'enum', 'flags', 'blob')
-+               if name in compact]
-+    if len(primary) != 1:
-+        raise CtlvError('ABI snapshot attr',
-+                        'expected one of type, enum, flags or blob')
-+    kind = compact[primary[0]] if primary[0] == 'type' else primary[0]
-+    attr = {
-+        'local-id': compact['id'],
-+        'kind': kind,
-+        'max-occurrences': compact.get('max-occurrences', 1),
-+    }
-+    if attr['max-occurrences'] == 'unlimited':
-+        attr['max-occurrences'] = spec.UNLIMITED
-+    if kind in ('enum', 'flags'):
-+        attr['definition'] = compact[kind]
-+    elif kind in ('uint', 'sint'):
-+        low, high = ((0, spec.U64_MAX) if kind == 'uint'
-+                     else (spec.S64_MIN, spec.S64_MAX))
-+        attr['min'] = compact.get('min', low)
-+        attr['max'] = compact.get('max', high)
-+        if 'unit' in compact:
-+            attr['unit'] = compact['unit']
-+            attr['scale'] = compact.get('scale', 0)
-+    elif kind in ('string', 'binary'):
-+        if 'length' in compact:
-+            attr['min-length'] = compact['length']
-+            attr['max-length'] = compact['length']
-+        else:
-+            attr['min-length'] = compact.get('min-length', 0)
-+            attr['max-length'] = compact['max-length']
-+    elif kind == 'blob':
-+        attr['blob'] = {
-+            'direction': compact['blob'],
-+            'backings': list(compact['backings']),
-+            'max-length': compact['max-length'],
-+            'alignment': compact.get('alignment', 1),
-+        }
-+    return attr
-+
-+
-+def _expand_sets(attr_sets):
-+    return {
-+        name: {
-+            'set-id': entry['id'],
-+            **({'stub': True} if entry.get('stub') else {}),
-+        }
-+        for name, entry in attr_sets.items()
-+    }
-+
-+
-+def _expand_ops(ops):
-+    expanded = {}
-+    for name, op in ops.items():
-+        abi = op['abi']
-+        op_type = abi['type']
-+        entry = {
-+            'op-id': abi['id'],
-+            'type': op_type,
-+            'availability': abi.get(
-+                'availability', spec.DEFAULT_AVAILABILITY),
-+            'optional': abi.get('optional', False),
-+            'pre-post': abi.get('pre-post', False),
-+            'request': (None if op_type == 'event'
-+                        else _expand_tree(op.get('request', {}))),
-+            'reply': (None if 'reply' not in op
-+                      else _expand_tree(op['reply'])),
-+        }
-+        if op_type != 'event':
-+            entry['fd-access'] = abi.get(
-+                'fd-access', spec.DEFAULT_FD_ACCESS)
-+        expanded[name] = entry
-+    return expanded
-+
-+
-+def _expand_tree(tree):
-+    nodes = []
-+    for required, key in ((True, 'attrs'), (False, 'optional-attrs')):
-+        for selector in tree.get(key, []):
-+            nodes.append(_expand_node(selector, required))
-+    return nodes
-+
-+
-+def _expand_node(selector, required):
-+    if isinstance(selector, str):
-+        name = selector
-+        nested = {}
-+    else:
-+        if not isinstance(selector, dict) or len(selector) != 1:
-+            raise CtlvError('ABI snapshot tree',
-+                            'expected an attr name or one nested attr')
-+        name, nested = next(iter(selector.items()))
-+    if '.' not in name:
-+        return {'stub': name, 'required': required}
-+    node = {'attr': name, 'required': required}
-+    children = _expand_tree(nested)
-+    if children:
-+        node['children'] = children
-+    if 'reenters' in nested:
-+        node['reenters'] = nested['reenters']
-+    return node
-+
-+
-+def registry_build(registry):
-+    """Return the registry in the same normalized form as its source."""
-+    families = []
-+    for entry in registry.entries:
-+        if entry.deprecated:
-+            families.append({'name': entry.name, 'deprecated': True})
-+        else:
-+            families.append(entry.name)
-+    return {'families': families}
-+
-+
-+def registry_render(registry):
-+    body = yaml.dump(registry_build(registry), Dumper=_Dumper,
-+                     sort_keys=False, default_flow_style=False, width=76)
-+    return REGISTRY_HEADER + body
-+
-+
-+def registry_problems(old, current, exact):
-+    problems = []
-+    for family_id, was in enumerate(old.entries):
-+        if family_id >= len(current.entries):
-+            problems.append(f'family ID {family_id} ({was.name}) was removed')
-+            continue
-+        now = current.entries[family_id]
-+        if now.name != was.name:
-+            problems.append(f'family ID {family_id} was {was.name}, now '
-+                            f'{now.name}')
-+        elif was.deprecated and not now.deprecated:
-+            problems.append(f'family ID {family_id} ({was.name}) was reused '
-+                            'after deprecation')
-+    if exact and not problems and old.entries != current.entries:
-+        problems.append('the registry ABI baseline needs updating')
-+    return problems
-+
-+
-+def registry_check(paths, registry, exact=True):
-+    baseline = spec.load_registry(paths, paths.registry_abi)
-+    problems = registry_problems(baseline, registry, exact)
-+    if problems:
-+        raise CtlvError(f'{paths.registry} against {paths.registry_abi}',
-+                        'the family registry is not compatible with its '
-+                        'baseline\n' +
-+                        '\n'.join(f'  {problem}' for problem in problems))
-+
-+
-+def _definitions(items):
-+    definitions = {}
-+    for definition in items:
-+        definitions[definition.name] = {
-+            'kind': definition.kind,
-+            'values': dict(definition.values),
-+        }
-+    return definitions
-+
-+
-+def _groups(items):
-+    groups = {}
-+    for group in items:
-+        groups[group.name] = {
-+            'group-id': group.group_id,
-+            'attrs': {attr.name: _attr(attr) for attr in group.attrs},
-+        }
-+    return groups
-+
-+
-+def _attr(attr):
-+    decl = attr.decl
-+    entry = {'local-id': attr.local_id, 'kind': decl.kind}
-+    if decl.ref is not None:
-+        entry['definition'] = decl.ref
-+    for name, value in (('min', decl.min), ('max', decl.max),
-+                        ('min-length', decl.min_length),
-+                        ('max-length', decl.max_length),
-+                        ('unit', decl.unit), ('scale', decl.scale)):
-+        if value is not None:
-+            entry[name] = value
-+    if decl.blob is not None:
-+        entry['blob'] = {
-+            'direction': decl.blob.direction,
-+            'backings': list(decl.blob.backings),
-+            'max-length': decl.blob.max_length,
-+            'alignment': decl.blob.alignment,
-+        }
-+    entry['max-occurrences'] = decl.max_occurrences
-+    return entry
-+
-+
-+def _sets(attr_sets):
-+    sets = {}
-+    for attr_set in attr_sets:
-+        entry = {
-+            'set-id': attr_set.set_id,
-+        }
-+        if attr_set.stub:
-+            entry['stub'] = True
-+        sets[attr_set.name] = entry
-+    return sets
-+
-+
-+def _fills(fills):
-+    return {fill.name: _tree(fill.root) for fill in fills}
-+
-+
-+def _ops(items):
-+    ops = {}
-+    for op in items:
-+        entry = {
-+            'op-id': op.local_id,
-+            'type': op.type,
-+            'availability': op.availability,
-+            'optional': op.optional,
-+            'pre-post': op.pre_post,
-+            'request': _tree(op.request),
-+            'reply': _tree(op.reply),
-+        }
-+        if op.type != 'event':
-+            entry['fd-access'] = op.fd_access
-+        ops[op.name] = entry
-+    return ops
-+
-+
-+def _tree(root):
-+    if root is None:
-+        return None
-+    children = [_node(child) for child in root.children()]
-+    children += [_stub(stub) for stub in root.stubs]
-+    return children
-+
-+
-+def _node(node):
-+    entry = {'attr': node.attr.full_name, 'required': node.required}
-+    if node.reenters is not None:
-+        # The members are recorded above, so record where they come from.
-+        entry['reenters'] = node.reenters
-+        return entry
-+    children = _tree(node)
-+    if children:
-+        entry['children'] = children
-+    return entry
-+
-+
-+def _stub(stub):
-+    return {'stub': stub.name, 'required': not stub.optional}
-+
-+
-+def _compare(old, new):
-+    problems = []
-+    if old['family'] != new['family']:
-+        problems.append(f'family was renamed from {old["family"]} to '
-+                        f'{new["family"]}')
-+    if old['family-id'] != new['family-id']:
-+        problems.append(f'family-id was {old["family-id"]}, now '
-+                        f'{new["family-id"]}')
-+    # A name carries its ancestry, so reparenting renames every symbol.
-+    if old['parent'] != new['parent']:
-+        problems.append(f'the inherited family was {old["parent"]}, now '
-+                        f'{new["parent"]}')
-+    for key in ('pre-init', 'post-init', 'pre-fini'):
-+        if old.get(key, False) != new[key]:
-+            problems.append(f'family: {key} was {old.get(key, False)}, now '
-+                            f'{new[key]}')
-+    _compare_definitions(problems, old['definitions'], new['definitions'])
-+    _compare_groups(problems, old['groups'], new['groups'])
-+    _compare_sets(problems, old['sets'], new['sets'])
-+    _compare_fills(problems, old['fills'], new['fills'])
-+    _compare_ops(problems, old['ops'], new['ops'])
-+    return problems
-+
-+
-+def _compare_definitions(problems, old, new):
-+    for name, was in old.items():
-+        now = new.get(name)
-+        if now is None:
-+            problems.append(f'{was["kind"]} {name} was removed')
-+            continue
-+        where = f'{was["kind"]} {name}'
-+        if now['kind'] != was['kind']:
-+            problems.append(f'{where} is now a {now["kind"]} definition')
-+        for value, number in was['values'].items():
-+            if value not in now['values']:
-+                problems.append(f'{where}: value {value} was removed')
-+            elif now['values'][value] != number:
-+                problems.append(f'{where}: value {value} was {number}, now '
-+                                f'{now["values"][value]}')
-+
-+
-+def _compare_groups(problems, old, new):
-+    for name, was in old.items():
-+        now = new.get(name)
-+        if now is None:
-+            problems.append(f'attr group {name} was removed')
-+            continue
-+        where = f'attr group {name}'
-+        if was['group-id'] != now['group-id']:
-+            problems.append(f'{where}: group-id was {was["group-id"]}, now '
-+                            f'{now["group-id"]}')
-+        for attr, attr_was in was['attrs'].items():
-+            attr_now = now['attrs'].get(attr)
-+            if attr_now is None:
-+                problems.append(f'attr {name}.{attr} was removed')
-+                continue
-+            _compare_attr(problems, f'attr {name}.{attr}', attr_was, attr_now)
-+
-+
-+def _compare_attr(problems, where, was, now):
-+    for key in ('local-id', 'kind', 'definition', 'unit', 'scale'):
-+        if was.get(key) != now.get(key):
-+            problems.append(f'{where}: {key} was {was.get(key)}, now '
-+                            f'{now.get(key)}')
-+    for key in ('min', 'min-length'):
-+        if key in was and now.get(key, 0) > was[key]:
-+            problems.append(f'{where}: {key} was narrowed from {was[key]} to '
-+                            f'{now[key]}')
-+    for key in ('max', 'max-length'):
-+        if key in was and now.get(key, 0) < was[key]:
-+            problems.append(f'{where}: {key} was narrowed from {was[key]} to '
-+                            f'{now[key]}')
-+    _compare_occurrences(problems, where, was, now)
-+    if 'blob' in was:
-+        _compare_blob(problems, where, was['blob'], now.get('blob', {}))
-+
-+
-+def _compare_occurrences(problems, where, was, now):
-+    old_max = was['max-occurrences']
-+    new_max = now['max-occurrences']
-+    if old_max == new_max:
-+        return
-+    if old_max == spec.UNLIMITED or new_max < old_max:
-+        problems.append(f'{where}: max-occurrences was narrowed from '
-+                        f'{_occurrences(old_max)} to {_occurrences(new_max)}')
-+
-+
-+def _compare_blob(problems, where, was, now):
-+    for key in ('direction', 'alignment'):
-+        if was.get(key) != now.get(key):
-+            problems.append(f'{where}: blob {key} was {was.get(key)}, now '
-+                            f'{now.get(key)}')
-+    for backing in was.get('backings', []):
-+        if backing not in now.get('backings', []):
-+            problems.append(f'{where}: blob backing {backing} was removed')
-+    if now.get('max-length', 0) < was.get('max-length', 0):
-+        problems.append(f'{where}: blob max-length was narrowed from '
-+                        f'{was["max-length"]} to {now["max-length"]}')
-+
-+
-+def _compare_sets(problems, old, new):
-+    for name, was in old.items():
-+        now = new.get(name)
-+        if now is None:
-+            problems.append(f'attr set {name} was removed')
-+            continue
-+        for key in ('set-id', 'stub'):
-+            was_value = was.get(key, False)
-+            now_value = now.get(key, False)
-+            if was_value != now_value:
-+                problems.append(f'attr set {name}: {key} was {was_value}, '
-+                                f'now {now_value}')
-+
-+
-+def _compare_fills(problems, old, new):
-+    for name, was in old.items():
-+        now = new.get(name)
-+        if now is None:
-+            problems.append(f'stub fill {name} was removed')
-+            continue
-+        _compare_nodes(problems, f'stub fill {name}', was, now)
-+
-+
-+def _compare_ops(problems, old, new):
-+    for name, was in old.items():
-+        now = new.get(name)
-+        if now is None:
-+            problems.append(f'op {name} was removed')
-+            continue
-+        where = f'op {name}'
-+        # Whether an op may be disabled or withheld is what userspace compiles
-+        # against; whether it is either right now is per device.
-+        for key in ('op-id', 'type', 'fd-access',
-+                    'availability', 'optional', 'pre-post'):
-+            if was.get(key) != now.get(key):
-+                problems.append(f'{where}: {key} was {was.get(key)}, now '
-+                                f'{now.get(key)}')
-+        for what in ('request', 'reply'):
-+            if (what == 'reply' and was['type'] == 'action' and
-+                    was[what] is None and now[what] is not None):
-+                problems.append(f'{where}: an ACK-only action gained a '
-+                                'reply schema')
-+            elif was[what] is not None and now[what] is None:
-+                problems.append(f'{where}: the {what} schema was removed')
-+            elif was[what] is not None:
-+                _compare_nodes(problems, f'{where} {what}', was[what],
-+                               now[what])
-+
-+
-+def _compare_nodes(problems, where, old, new):
-+    by_name = {_node_key(node): node for node in new}
-+    for was in old:
-+        key = _node_key(was)
-+        name = _node_name(was)
-+        now = by_name.pop(key, None)
-+        if now is None:
-+            problems.append(f'{where}: {name} was removed')
-+            continue
-+        if now['required'] and not was['required']:
-+            problems.append(f'{where}: {name} became required')
-+        if was.get('reenters') != now.get('reenters'):
-+            problems.append(f'{where}: {name} re-entered '
-+                            f'{was.get("reenters")}, now '
-+                            f'{now.get("reenters")}')
-+        _compare_nodes(problems, f'{where} {name}',
-+                       was.get('children', []), now.get('children', []))
-+    for node in by_name.values():
-+        if node['required']:
-+            problems.append(
-+                f'{where}: new {_node_name(node)} must be optional')
-+
-+
-+def _node_key(node):
-+    if 'attr' in node:
-+        return 'attr', node['attr']
-+    return 'stub', node['stub']
-+
-+
-+def _node_name(node):
-+    if 'attr' in node:
-+        return node['attr']
-+    return f'stub {node["stub"]}'
-+
-+
-+def _occurrences(max_occurrences):
-+    if max_occurrences == spec.UNLIMITED:
-+        return 'unlimited'
-+    return str(max_occurrences)
-diff --git a/tools/ctlv/ctlvgen/lib/errors.py b/tools/ctlv/ctlvgen/lib/errors.py
-new file mode 100644
-index 000000000000..a165218a381e
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/errors.py
-@@ -0,0 +1,14 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The single error type reported by the CTLV schema tool."""
-+
-+
-+class CtlvError(Exception):
-+    """A specification, registry or ABI snapshot is not acceptable.
-+
-+    The test suite matches diagnostics, so a message's wording is contract.
-+    """
-+
-+    def __init__(self, where, what):
-+        self.where = where
-+        self.what = what
-+        super().__init__(f'{where}: {what}' if where else what)
-diff --git a/tools/ctlv/ctlvgen/lib/gen_family.py b/tools/ctlv/ctlvgen/lib/gen_family.py
-new file mode 100644
-index 000000000000..92309334f979
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/gen_family.py
-@@ -0,0 +1,347 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The descriptor of one family: who answers the wire.
-+
-+One struct ctlv_family and one struct ctlv_op per action or query
-+this family declares, plus the helpers a device uses to decide them. A family
-+answers what it declared: an inherited op is answered through the descriptor
-+of the family that declared it, by that family implementation.
-+"""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+
-+from . import cgen
-+from . import spec
-+
-+# The family's priv, the request/reply, and a context for core helpers.
-+CALLBACK_PARAMS = ('void *priv', 'struct ctlv_op_ctx *ctx',
-+                   'const struct ctlv_cursor *request',
-+                   'struct ctlv_cursor *reply')
-+
-+# What a hook takes, and what each half returns: a pre may refuse the op.
-+HOOK_PARAMS = ('void *priv', 'struct ctlv_op_ctx *ctx')
-+HOOK_RETURNS = (('pre', 'int'), ('post', 'void'))
-+
-+# How every family prepares, initializes and finalizes its priv.
-+LIFECYCLE_HOOKS = (
-+    ('priv_size', 'size_t', ('void',)),
-+    ('pre_init', 'const void', ('const void *init_info',)),
-+    ('init', 'int', ('struct ctlv_device *ctlvdev',
-+                     'const void *init_info', 'void *priv')),
-+    ('post_init', 'int', ('struct ctlv_device *ctlvdev', 'void *priv')),
-+    ('pre_fini', 'void', ('struct ctlv_device *ctlvdev', 'void *priv')),
-+    ('fini', 'void', ('struct ctlv_device *ctlvdev', 'void *priv')),
-+)
-+OPTIONAL_LIFECYCLE_HOOKS = ('pre_init', 'post_init', 'pre_fini')
-+
-+# The reply-side callback for an extension point.
-+STUB_HOOKS = (
-+    ('fill', 'int', ('void *priv', 'struct ctlv_op_ctx *ctx',
-+                     'const struct ctlv_cursor *request',
-+                     'struct ctlv_cursor *nest')),
-+)
-+
-+# The state helpers of a dynamically available op.
-+STATES = ('enable', 'disable')
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class ReaderScope:
-+    name: tuple
-+    node: object
-+    tree: str
-+    node_index: int
-+
-+
-+INPUT_MACROS = {
-+    'uint': 'U64',
-+    'sint': 'S64',
-+    'bool': 'BOOL',
-+    'string': 'STRING',
-+    'binary': 'BINARY',
-+    'enum': 'U64',
-+    'flags': 'U64',
-+    'nested': 'NEST',
-+    'blob': 'BLOB',
++static int ctlv_family_bad(const struct ctlv_family *family, const char *what)
++{
++	pr_err("family %s: %s\n", ctlv_family_name(family), what);
++	return -EINVAL;
 +}
 +
-+PUT_MACROS = {
-+    'uint': 'U64',
-+    'sint': 'S64',
-+    'bool': 'BOOL',
-+    'string': 'STRING',
-+    'binary': 'BINARY',
-+    'enum': 'U64',
-+    'flags': 'U64',
++static int ctlv_op_bad(const struct ctlv_family *family, u64 op_id, const char *what)
++{
++	pr_err("family %s: op %#018llx %s\n", ctlv_family_name(family), op_id, what);
++	return -EINVAL;
 +}
 +
++/*
++ * A family is named its parent's whole name plus a suffix, so one name states
++ * the chain it belongs to and every family of this core is ctlv-something.
++ */
++static int ctlv_family_chain_check(const struct ctlv_family *family)
++{
++	const struct ctlv_family *child;
 +
-+def bindings(family):
-+    """The ops family binds, in the order it binds them.
++	for (child = family; child != &ctlv_family; child = child->parent) {
++		const struct ctlv_family *parent;
++		size_t len;
 +
-+    Its own actions and queries, in declaration order. An op it inherited is
-+    answered by the family that declared it, and an event by nobody.
-+    """
-+    return tuple(op for op in family.local_ops if op.type != 'event')
-+
-+
-+def _implementer(family):
-+    """Who writes the callbacks of a family."""
-+    if family.name == spec.CORE_FAMILY_NAME:
-+        return 'the CTLV core'
-+    return 'this family'
-+
-+
-+def _macro(writer, name, args):
-+    writer.parenthesized(f'{name}(', args, ')')
-+
-+
-+def emit_header(writer, names, family, reader_scopes):
-+    """Append the family API to a generated kernel header."""
-+    bound = bindings(family)
-+    if bound:
-+        writer.comment(f'Implemented by {_implementer(family)}, one per '
-+                       'action and query it declares.')
-+    for op in bound:
-+        writer.signature('int', names.callback(op), CALLBACK_PARAMS)
-+    if bound:
-+        writer.line()
-+    _hooks(writer, names, family)
-+    _lifecycle_hooks(writer, names, family)
-+    _stub_hooks(writer, names, family)
-+    writer.line()
-+    writer.declaration('extern const struct ctlv_family',
-+                       f'{names.descriptor()};')
-+    writer.line()
-+    writer.line('#ifndef _CTLV_GENERATED_METADATA_ONLY')
-+    _helpers(writer, names, family)
-+    _readers(writer, names, reader_scopes)
-+    _writers(writer, names, family)
-+    _creators(writer, names, family)
-+    writer.line('#endif /* _CTLV_GENERATED_METADATA_ONLY */')
-+    writer.line()
-+
-+
-+def _hooks(writer, names, family):
-+    """The pair around every op, and the pair around one op."""
-+    if family.name == spec.CORE_FAMILY_NAME:
-+        writer.comment('Root-family hooks around every core action or query.')
-+    else:
-+        writer.comment('Family-wide hooks around every effective non-core op.')
-+    for which, returns in HOOK_RETURNS:
-+        writer.signature(returns, names.family_hook(which), HOOK_PARAMS)
-+
-+    marked = [op for op in bindings(family) if op.pre_post]
-+    if not marked:
-+        return
-+    writer.line()
-+    writer.comment('Per-op hooks nested inside the family-wide pair.')
-+    for first, op in enumerate(marked):
-+        if first:
-+            writer.line()
-+        for which, returns in HOOK_RETURNS:
-+            writer.signature(returns, names.op_hook(op, which), HOOK_PARAMS)
-+
-+
-+def _declared_lifecycle_hooks(family):
-+    return tuple(hook for hook in LIFECYCLE_HOOKS
-+                 if hook[0] not in OPTIONAL_LIFECYCLE_HOOKS or
-+                 getattr(family, hook[0]))
-+
-+
-+def _lifecycle_hooks(writer, names, family):
-+    """The generated lifecycle of this family's priv."""
-+    writer.line()
-+    writer.comment('Core-allocated family priv lifecycle.')
-+    for which, returns, params in _declared_lifecycle_hooks(family):
-+        name = names.lifecycle_hook(which)
-+
-+        writer.signature(returns, f'*{name}' if which == 'pre_init' else name,
-+                         params)
-+
-+
-+def _stub_hooks(writer, names, family):
-+    """What this family puts into each stub it fills."""
-+    if not family.fills:
-+        return
-+    for fill in family.fills:
-+        owner = family.owners[fill.family_id]
-+        writer.line()
-+        writer.comment(f'{fill.name} of {owner}: fill callback.')
-+        for which, returns, params in STUB_HOOKS:
-+            writer.signature(returns, names.stub_callback(fill, which),
-+                             params)
-+
-+
-+def _helpers(writer, names, family):
-+    """What one device may decide about each op this family declares."""
-+    ops = [op for op in family.local_ops if op.type != 'event' and
-+           (op.optional or op.availability == 'dynamic')]
-+    if not ops:
-+        return
-+    writer.line()
-+    writer.comment('Optional publication and dynamic availability helpers.')
-+    for op in ops:
-+        if op.optional:
-+            _macro(writer, 'CTLV_OP_PROVIDE',
-+                   (names.op_ident(op), names.op_id(op)))
-+        if op.availability == 'dynamic':
-+            for state in STATES:
-+                _macro(writer, f'CTLV_OP_{state.upper()}',
-+                       (names.op_ident(op), names.op_id(op)))
-+
-+
-+def _readers(writer, names, scopes):
-+    """Placement-specific indexed access to callback requests."""
-+    if not any(scope.node.children() for scope in scopes):
-+        return
-+    writer.line()
-+    writer.comment('Reading a validated message. A blob has a resolver '
-+                   'instead of a getter.')
-+    for scope in scopes:
-+        for slot, child in enumerate(scope.node.children()):
-+            attr = child.attr
-+            repeated = attr.decl.max_occurrences != 1
-+            name = _input_name(names, scope, attr)
-+            _macro(writer, 'CTLV_IN_REF',
-+                   _input_args(names, scope, slot, attr))
-+            if repeated:
-+                _iterator(writer, names, scope, attr)
-+            else:
-+                _macro(writer, 'CTLV_IN_HAS', (name,))
-+            if attr.decl.kind == 'blob':
-+                macro = 'CTLV_IN_' + ('EACH_' if repeated else '') + 'BLOB'
-+                _macro(writer, macro, (name,))
-+            elif cgen.attr_getter_value(attr):
-+                macro = 'CTLV_IN_' + ('EACH_' if repeated else '') + \
-+                        INPUT_MACROS[attr.decl.kind]
-+                _macro(writer, macro, (name,))
-+
-+
-+def _writers(writer, names, family):
-+    """What a callback appends to the reply it was handed.
-+
-+    One helper per attr, returning whether the attr made it into the message.
-+    """
-+    attrs = [attr for group in family.local_groups for attr in group.attrs
-+             if cgen.attr_writers(names, attr)]
-+    if not attrs:
-+        return
-+    writer.line()
-+    writer.comment('Writing a reply. An append is atomic; a nest ends with '
-+                   'ctlv_nest_end().')
-+    for attr in attrs:
-+        if attr.decl.kind == 'nested':
-+            macro = 'CTLV_NEST_START'
-+        else:
-+            macro = f'CTLV_PUT_{PUT_MACROS[attr.decl.kind]}'
-+        what = 'start' if attr.decl.kind == 'nested' else 'put'
-+        name = names.attr_helper(attr, what).removesuffix(f'_{what}')
-+        _macro(writer, macro,
-+               (name,
-+                names.attr(attr), cgen.KINDS[attr.decl.kind]))
-+
-+
-+def _creators(writer, names, family):
-+    """What begins one event of each kind this family declares.
-+
-+    A creator hands back a context and the cursor of its root.
-+    """
-+    events = [op for op in family.local_ops if op.type == 'event']
-+    if not events:
-+        return
-+    writer.line()
-+    writer.comment('Building one event, passed to ctlv_event_emit() or '
-+                   'ctlv_event_abort() once.')
-+    for op in events:
-+        _macro(writer, 'CTLV_EVENT_CREATE',
-+               (names.op_ident(op), names.op_id(op)))
-+
-+
-+def _input_name(names, scope, attr):
-+    return names.input_ref(scope, attr).removesuffix('_ref')
-+
-+
-+def _input_args(names, scope, slot, attr):
-+    return (_input_name(names, scope, attr), scope.tree, names.attr(attr),
-+            str(scope.node_index), str(slot), cgen.KINDS[attr.decl.kind])
-+
-+
-+def _iterator(writer, names, scope, attr):
-+    """Every occurrence of a repeated attr, in wire order."""
-+    writer.define_call(
-+        f'{names.input_iterator(scope, attr)}(_attr, _nest)',
-+        'CTLV_IN_FOR_EACH', names.input_name(scope, attr), '_attr', '_nest')
-+
-+
-+def emit_source(writer, names, family):
-+    """Append the family bindings to a generated kernel source."""
-+    _bindings(writer, names, family)
-+    _stub_ops(writer, names, family)
-+    _descriptor(writer, names, family)
-+
-+
-+def _bindings(writer, names, family):
-+    bound = bindings(family)
-+    if not bound:
-+        return
-+    writer.comment('Local action and query bindings in declaration order.')
-+    writer.declaration('static const struct ctlv_op',
-+                       f'{names.ops()}[] = {{')
-+    for op in bound:
-+        suffix = '_PRE_POST' if op.pre_post else ''
-+        writer.line(f'\tCTLV_OP_{op.type.upper()}{suffix}('
-+                    f'{names.op_ident(op)}),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _stub_ops(writer, names, family):
-+    """One entry per extension point this family fills, in the same order."""
-+    if not family.fills:
-+        return
-+    writer.comment('Extension-point callbacks.')
-+    writer.declaration('static const struct ctlv_stub_ops',
-+                       f'{names.stub_ops()}[] = {{')
-+    for fill in family.fills:
-+        attr_set = family.sets[fill.name]
-+        args = (cgen.family_const(family.owners[fill.family_id]),
-+                names.attr_set(attr_set), names.stub_ident(fill))
-+        writer.parenthesized('\tCTLV_STUB_OPS(', args, '),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _descriptor(writer, names, family):
-+    if family.name == spec.CORE_FAMILY_NAME:
-+        writer.comment('Root-family descriptor used by the CTLV core.')
-+    else:
-+        writer.comment('Family descriptor used by ctlv_create().')
-+    writer.declaration('const struct ctlv_family',
-+                       f'{names.descriptor()} = {{')
-+    writer.line(f'\t.schema = &{names.schema()},')
-+    parent = _parent_descriptor(family)
-+    if parent:
-+        writer.line(f'\t.parent = &{parent},')
-+    if bindings(family):
-+        writer.line(f'\t.ops = {names.ops()},')
-+        writer.line(f'\t.ops_count = ARRAY_SIZE({names.ops()}),')
-+    for which, _ in HOOK_RETURNS:
-+        writer.line(f'\t.{which} = {names.family_hook(which)},')
-+    for which, _, _ in _declared_lifecycle_hooks(family):
-+        writer.line(f'\t.{which} = {names.lifecycle_hook(which)},')
-+    if family.fills:
-+        stub_ops = names.stub_ops()
-+        writer.line(f'\t.stub_ops = {stub_ops},')
-+        writer.line(f'\t.stub_ops_count = ARRAY_SIZE({stub_ops}),')
-+    writer.line('};')
-+    # The one symbol an inheriting family's module needs of this one.
-+    writer.line(f'EXPORT_SYMBOL_NS_GPL({names.descriptor()}, "CTLV");')
-+
-+
-+def _parent_descriptor(family):
-+    """The direct parent descriptor, none only for the root family."""
-+    if family.parent is None:
-+        return None
-+    return cgen.Names(family.chain[-2]).descriptor()
-diff --git a/tools/ctlv/ctlvgen/lib/gen_kernel.py b/tools/ctlv/ctlvgen/lib/gen_kernel.py
-new file mode 100644
-index 000000000000..1854bd004f36
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/gen_kernel.py
-@@ -0,0 +1,517 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The kernel metadata of one family.
-+
-+Each family describes only what it declares. Each op request and reply becomes
-+one flat, breadth-first array of struct ctlv_node_schema the core walks by
-+index.
-+"""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+
-+from . import cgen
-+from . import gen_family
-+from . import semantics
-+from . import spec
-+
-+
-+def root_macro(*names):
-+    """Return a constant of the root family's generated UAPI header."""
-+    return cgen.macro(spec.CORE_FAMILY_NAME, *names)
-+
-+
-+FD_ACCESSES = {access: root_macro('op-fd-access', access)
-+               for access in spec.FD_ACCESSES}
-+
-+AVAILABILITIES = {availability: root_macro('op-availability', availability)
-+                  for availability in spec.AVAILABILITIES}
-+
-+# Lengths that have to fit the inline message limit. An event record is checked
-+# against the event queue instead.
-+INLINE_FIELDS = ('request_max_len', 'action_reply_max_len',
-+                 'query_reply_min_len', 'query_reply_suggested_len')
-+
-+# A bound written as its symbolic extreme stays readable.
-+U64_MAX = (1 << 64) - 1
-+S64_MIN = -(1 << 63)
-+S64_MAX = (1 << 63) - 1
-+EXTREMES = {
-+    ('uint', spec.U32_MAX): 'U32_MAX',
-+    ('uint', U64_MAX): 'U64_MAX',
-+    ('sint', S64_MIN): 'S64_MIN',
-+    ('sint', S64_MAX): 'S64_MAX',
++		if (!child)
++			return ctlv_family_bad(family, "heads no chain of the core's");
++		parent = child->parent;
++		if (!child->schema || !parent || !parent->schema)
++			return ctlv_family_bad(child, "does not name a complete parent descriptor");
++		if (!child->schema->name || !parent->schema->name)
++			return ctlv_family_bad(family, "inherits a family with no name");
++		if (parent->schema->family_id >= child->schema->family_id)
++			return ctlv_family_bad(child, "does not follow its parent in the registry");
++		len = strlen(parent->schema->name);
++		if (!len || strncmp(child->schema->name, parent->schema->name, len) ||
++		    child->schema->name[len] != '-')
++			return ctlv_family_bad(family, "is not named after the family it inherits");
++	}
++	return 0;
 +}
 +
-+
-+@dataclasses.dataclass(frozen=True)
-+class FlatNode:
-+    """One node of a flattened tree, with its children as an index range."""
-+
-+    node: object
-+    first_child: int
-+    children_count: int
-+    required_children_count: int
-+
-+
-+def flatten(root):
-+    """Return the nodes of one tree breadth first, the root first.
-+
-+    A re-entering node points back at nodes already laid out, which is what
-+    keeps the array finite.
-+    """
-+    flat = []
-+    queue = [(root, {})]
-+    next_index = 1
-+    while queue:
-+        node, levels = queue.pop(0)
-+        if node.reenters is not None:
-+            first_child, children_count, required_count = levels[node.reenters]
-+            flat.append(FlatNode(node=node, first_child=first_child,
-+                                 children_count=children_count,
-+                                 required_children_count=required_count))
-+            continue
-+        children = node.children()
-+        level = (next_index if children else 0, len(children),
-+                 len(node.required_children))
-+        flat.append(FlatNode(node=node, first_child=level[0],
-+                             children_count=level[1],
-+                             required_children_count=level[2]))
-+        next_index += len(children)
-+        if node.expands:
-+            levels = levels | {node.expands: level}
-+        queue += [(child, levels) for child in children]
-+    return tuple(flat)
-+
-+
-+def stub_schemas(root):
-+    """Return each stub schema with the node index it joins."""
-+    schemas = []
-+    for index, flat in enumerate(flatten(root)):
-+        for stub in flat.node.stubs:
-+            schemas.append((index, stub))
-+    return tuple(schemas)
-+
-+
-+def render_header(family, *, family_api):
-+    """Return one family's generated kernel header."""
-+    names = cgen.Names(family)
-+    cgen.symbols(family)
-+    guard = names.kernel_guard()
-+    local = family.local_ops
-+
-+    writer = cgen.preamble(family, 'kernel', 'header')
-+    what = 'Kernel metadata and family API' if family_api else \
-+           'Schema metadata'
-+    writer.comment(f'{what} of the {family.name} CTLV family.')
-+    writer.line()
-+    writer.open_guard(guard)
-+    writer.includes(*_header_includes(family, names, family_api))
-+
-+    if local:
-+        writer.comment('Ops this family declares, in declaration order.')
-+        writer.declaration('extern const struct ctlv_op_schema',
-+                           f'{names.op_schemas()}[];')
-+        writer.line()
-+    writer.declaration('extern const struct ctlv_family_schema',
-+                       f'{names.schema()};')
-+    writer.line()
-+    _message_decls(writer, names, family)
-+    if family_api:
-+        gen_family.emit_header(writer, names, family,
-+                               _reader_scopes(family, names))
-+    writer.close_guard(guard)
-+    return writer.text()
-+
-+
-+def _reader_scopes(family, names):
-+    scopes = []
-+    indexes = {}
-+    for scope in semantics.input_scopes(family):
-+        if scope.kind == 'op':
-+            root = family.local_ops[scope.index].request
-+            tree = f'&{names.op_schemas()}[{scope.index}].request'
-+        else:
-+            root = family.fills[scope.index].root
-+            tree = f'&{names.schema()}.stub_fill_schemas[' \
-+                   f'{scope.index}].members'
-+        key = (scope.kind, scope.index)
-+        if key not in indexes:
-+            indexes[key] = {id(flat.node): index
-+                            for index, flat in enumerate(flatten(root))}
-+        scopes.append(gen_family.ReaderScope(
-+            name=scope.name, node=scope.node, tree=tree,
-+            node_index=indexes[key][id(scope.node)]))
-+    return tuple(scopes)
-+
-+
-+def _message_decls(writer, names, family):
-+    """The messages the core builds itself, and the room each one needs."""
-+    for message in family.messages:
-+        writer.comment(f'The {message.name} message, built by the core.')
-+        writer.define(names.message_max_len(message), str(message.max_len))
-+        writer.line()
-+        writer.declaration('extern const struct ctlv_schema_tree',
-+                           f'{names.message_schema(message)};')
-+        writer.line()
-+
-+
-+def _header_includes(family, names, family_api):
-+    """The generated types, constants and direct parent API."""
-+    headers = ['<linux/ctlv_family.h>']
-+    if not family_api:
-+        return tuple(headers)
-+    headers += ['<linux/err.h>', '<linux/errno.h>', '',
-+                names.uapi_header(in_kernel=True)]
-+    if family.parent not in (None, spec.CORE_FAMILY_NAME):
-+        headers += ['', cgen.Names(family.chain[-2]).kernel_header()]
-+    return tuple(headers)
-+
-+
-+def render_source(family, *, family_api):
-+    """Return one family's generated kernel source."""
-+    names = cgen.Names(family)
-+    cgen.symbols(family)
-+    trees = _trees(family)
-+
-+    writer = cgen.preamble(family, 'kernel', 'source')
-+    if family_api:
-+        writer.line('#define _CTLV_GENERATED_METADATA_ONLY')
-+    writer.includes(*_includes(names, family, trees, family_api))
-+    for op, which, root in trees:
-+        _node_schemas(writer, family, names,
-+                      names.node_schemas(op, which), root)
-+        _stub_schemas(writer, family, names, op, which, root)
-+    _stub_fill_schemas(writer, family, names)
-+    _messages(writer, family, names)
-+    _table(writer, names, family)
-+    _descriptor(writer, names, family)
-+    _uevent(writer, family)
-+    _limits(writer, family, trees)
-+    if family_api:
-+        if family.local_ops:
-+            writer.line()
-+        gen_family.emit_source(writer, names, family)
-+    return writer.text()
-+
-+
-+def _trees(family):
-+    """Every tree of every local op, in the order they are emitted."""
-+    trees = []
-+    for op in family.local_ops:
-+        if op.request is not None:
-+            trees.append((op, 'request', op.request))
-+        if op.reply is not None:
-+            trees.append((op, 'reply', op.reply))
-+    return trees
-+
-+
-+def _roots(family, trees):
-+    """Every emitted tree root: an op's, a fill's and a core message's."""
-+    return [root for _, _, root in trees] + \
-+           [fill.root for fill in family.fills] + \
-+           [message.root for message in family.messages]
-+
-+
-+def _kinds(roots):
-+    return {flat.node.attr.decl.kind
-+            for root in roots for flat in flatten(root)
-+            if not flat.node.is_root}
-+
-+
-+def _includes(names, family, trees, family_api):
-+    headers = ['<linux/array_size.h>', '<linux/build_bug.h>',
-+               '<linux/ctlv_family.h>']
-+    if family_api:
-+        headers.append('<linux/export.h>')
-+    # The root family's enums name op types, availabilities and blob backings.
-+    uapi = [cgen.uapi_header(spec.CORE_FAMILY_NAME, in_kernel=True)]
-+    if family.name != spec.CORE_FAMILY_NAME:
-+        uapi.append(names.uapi_header(in_kernel=family_api))
-+    kinds = _kinds(_roots(family, trees))
-+    if 'blob' in kinds:
-+        # BIT(), for the mask of permitted blob backings.
-+        headers.append('<linux/bits.h>')
-+    if kinds & {'uint', 'sint'}:
-+        # The symbolic extremes of an unbounded integer bound.
-+        headers.append('<linux/limits.h>')
-+    groups = [sorted(headers), uapi, [names.kernel_header()]]
-+    lines = []
-+    for group in groups:
-+        if not group:
-+            continue
-+        if lines:
-+            lines.append('')
-+        lines += group
-+    return lines
-+
-+
-+def _has_event(family):
-+    return any(op.type == 'event' for op in family.local_ops)
-+
-+
-+def _node_schemas(writer, family, names, symbol, root):
-+    writer.declaration('static const struct ctlv_node_schema',
-+                       f'{symbol}[] = {{')
-+    for flat in flatten(root):
-+        _node(writer, family, names, flat)
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _node(writer, family, names, flat):
-+    macro, args = _node_initializer(family, names, flat)
-+    if macro == 'CTLV_NODE_SCHEMA_BLOB':
-+        _blob_node(writer, macro, args)
-+    else:
-+        writer.parenthesized(f'\t{macro}(', args, '),')
-+
-+
-+def _blob_node(writer, macro, args):
-+    opening = f'\t{macro}('
-+
-+    for line in cgen.wrapped(opening, args[:4], ','):
-+        writer.line(line)
-+    column = cgen.width(opening)
-+    indent = '\t' * (column // cgen.TAB_WIDTH) + \
-+        ' ' * (column % cgen.TAB_WIDTH)
-+    backings = args[4].split(' | ')
-+    for backing in backings[:-1]:
-+        writer.line(f'{indent}{backing} |')
-+    writer.line(f'{indent}{backings[-1]},')
-+    writer.line(f'{indent}{args[5]}),')
-+
-+
-+def _node_initializer(family, names, flat):
-+    node = flat.node
-+
-+    if node.is_root:
-+        return 'CTLV_NODE_SCHEMA_ROOT', (
-+            str(flat.first_child),
-+            str(flat.children_count),
-+            str(flat.required_children_count),
-+        )
-+
-+    decl = node.attr.decl
-+    kind = cgen.KINDS[decl.kind].removeprefix('CTLV_SCHEMA_')
-+    macro = f'CTLV_NODE_SCHEMA_{kind}'
-+    occurrences = str(node.max_occurrences) if node.max_occurrences else \
-+        'CTLV_NODE_SCHEMA_UNLIMITED'
-+    args = [names.attr(node.attr), occurrences]
-+    if decl.kind == 'nested':
-+        if node.reenters is not None:
-+            macro += '_REENTERS'
-+        args += [str(flat.first_child), str(flat.children_count),
-+                 str(flat.required_children_count)]
-+    else:
-+        if decl.kind in ('uint', 'sint') and decl.unit is not None:
-+            macro += '_UNIT'
-+        args += _constraint_args(family, names, decl)
-+    return macro, tuple(args)
-+
-+
-+def _stub_schemas(writer, family, names, op, which, root):
-+    """The extension points of one tree, by the node they widen."""
-+    schemas = stub_schemas(root)
-+    if not schemas:
-+        return
-+    writer.comment('Extension points selected by this tree.')
-+    writer.declaration('static const struct ctlv_stub_schema',
-+                       f'{names.stub_schemas(op, which)}[] = {{')
-+    for index, stub in schemas:
-+        macro = 'CTLV_STUB_SCHEMA_OPTIONAL' if stub.optional else \
-+            'CTLV_STUB_SCHEMA'
-+        attr_set = family.sets[stub.name]
-+        args = (cgen.family_const(family.owners[stub.family_id]),
-+                names.attr_set(attr_set), str(index))
-+        writer.parenthesized(f'\t{macro}(', args, '),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _stub_fill_schemas(writer, family, names):
-+    """The members this family puts into the stubs it inherited."""
-+    if not family.fills:
-+        return
-+    for fill in family.fills:
-+        _node_schemas(writer, family, names,
-+                      names.fill_node_schemas(fill), fill.root)
-+    writer.comment('The extension points this family fills.')
-+    writer.declaration('static const struct ctlv_stub_fill_schema',
-+                       f'{names.stub_fill_schemas()}[] = {{')
-+    for fill in family.fills:
-+        attr_set = family.sets[fill.name]
-+        args = (cgen.family_const(family.owners[fill.family_id]),
-+                names.attr_set(attr_set), cgen.ident(fill.name))
-+        writer.parenthesized('\tCTLV_STUB_FILL_SCHEMA(', args, '),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _messages(writer, family, names):
-+    """The messages the core builds where no op declared one."""
-+    for message in family.messages:
-+        _node_schemas(writer, family, names,
-+                      names.message_node_schemas(message), message.root)
-+        writer.declaration('const struct ctlv_schema_tree',
-+                           f'{names.message_schema(message)} = {{')
-+        node_schemas = names.message_node_schemas(message)
-+        writer.line(f'\t.node_schemas = {node_schemas},')
-+        writer.line('\t.node_schemas_count =')
-+        writer.line(f'\t\tARRAY_SIZE({node_schemas}),')
-+        writer.line('};')
-+        writer.line()
-+        writer.assertion(names.message_max_len(message), '<=', message.limit)
-+        writer.line()
-+
-+
-+def _constraint_args(family, names, decl):
-+    """The kind-specific arguments of one node-schema macro."""
-+    if decl.kind in ('uint', 'sint'):
-+        low = _bound(decl.kind, decl.min)
-+        high = _bound(decl.kind, decl.max)
-+        args = [low, high]
-+        if decl.unit is not None:
-+            args += [f'CTLV_UNIT_{cgen.macro(decl.unit)}', str(decl.scale)]
-+        return args
-+    if decl.kind == 'enum':
-+        highest = max(family.definitions[decl.ref].numbers())
-+        return [str(highest)]
-+    if decl.kind == 'flags':
-+        return [names.value_mask(family.definitions[decl.ref])]
-+    if decl.kind in ('string', 'binary'):
-+        return [str(decl.min_length), str(decl.max_length)]
-+    if decl.kind == 'blob':
-+        return _blob_args(decl.blob)
-+    return []
-+
-+
-+def _bound(kind, value):
-+    extreme = EXTREMES.get((kind, value))
-+
-+    if extreme:
-+        return extreme
-+    if kind == 'uint' and value > spec.S64_MAX:
-+        return f'{value}ULL'
-+    return str(value)
-+
-+
-+def _blob_args(blob):
-+    direction = root_macro('blob-direction', blob.direction)
-+    return [_bound('uint', blob.max_length), str(blob.alignment),
-+            _backings(blob.backings), direction]
-+
-+
-+def _backings(backings):
-+    terms = [f'BIT({root_macro("blob-type", backing)})'
-+             for backing in backings]
-+    return ' | '.join(terms)
-+
-+
-+def _table(writer, names, family):
-+    local = family.local_ops
-+    if not local:
-+        return
-+    writer.comment('The ops this family declares, in declaration order.')
-+    writer.declaration('const struct ctlv_op_schema',
-+                       f'{names.op_schemas()}[] = {{')
-+    for op in local:
-+        macro, args = _op_schema_initializer(names, op)
-+        writer.parenthesized(f'\t{macro}(', args, '),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _op_schema_initializer(names, op):
-+    sizes = op.sizes
-+    if op.type == 'action':
-+        macro = 'CTLV_OP_SCHEMA_ACTION'
-+        args = [names.op_id(op), FD_ACCESSES[op.fd_access],
-+                AVAILABILITIES[op.availability],
-+                str(sizes.request_max_len),
-+                str(sizes.action_reply_max_len),
-+                _op_tree(op, 'request'), _op_tree(op, 'reply')]
-+    elif op.type == 'query':
-+        macro = 'CTLV_OP_SCHEMA_QUERY'
-+        args = [names.op_id(op), FD_ACCESSES[op.fd_access],
-+                AVAILABILITIES[op.availability],
-+                str(sizes.request_max_len),
-+                str(sizes.query_reply_min_len),
-+                str(sizes.query_reply_suggested_len),
-+                _op_tree(op, 'request'), _op_tree(op, 'reply')]
-+    else:
-+        macro = 'CTLV_OP_SCHEMA_EVENT'
-+        args = [names.op_id(op), str(sizes.event_record_max_len),
-+                _op_tree(op, 'reply')]
-+    if op.optional:
-+        args.append('.optional = true')
-+    if op.pre_post:
-+        args.append('.pre_post = true')
-+    return macro, tuple(args)
-+
-+
-+def _op_tree(op, which):
-+    root = getattr(op, which)
-+    if root is None:
-+        return 'CTLV_SCHEMA_TREE_NONE()'
-+    macro = 'CTLV_SCHEMA_TREE_STUBS' if stub_schemas(root) else \
-+        'CTLV_SCHEMA_TREE'
-+    return f'{macro}({cgen.ident(op.name, which)})'
-+
-+
-+def _descriptor(writer, names, family):
-+    """This family's node of the schema graph."""
-+    writer.comment('The family ID is its position in the central registry.')
-+    writer.declaration('const struct ctlv_family_schema',
-+                       f'{names.schema()} = {{')
-+    writer.line(f'\t.name = "{family.name}",')
-+    writer.line(f'\t.family_id = {family.family_id},')
-+    if family.local_ops:
-+        writer.line(f'\t.ops = {names.op_schemas()},')
-+        writer.line(f'\t.ops_count = ARRAY_SIZE({names.op_schemas()}),')
-+    if family.fills:
-+        stub_fill_schemas = names.stub_fill_schemas()
-+        writer.line(f'\t.stub_fill_schemas = {stub_fill_schemas},')
-+        writer.line(f'\t.stub_fill_schemas_count = '
-+                    f'ARRAY_SIZE({stub_fill_schemas}),')
-+    writer.line('};')
-+    writer.line()
-+
-+
-+def _uevent(writer, family):
-+    """What this chain's names cost a device's uevent environment."""
-+    names = [item.name for item in family.chain]
-+    variables = [f'CTLV_FAMILY={names[-1]}']
-+    variables += [f'CTLV_COMPATIBLE_{index}={name}'
-+                  for index, name in enumerate(names)]
-+    variables.append(f'CTLV_COMPATIBLE_N={len(names)}')
-+    # "KEY=value" plus the NUL, as add_uevent_var() charges it.
-+    writer.comment('Maximum uevent cost for this family chain.')
-+    writer.line(f'static_assert({sum(len(item) + 1 for item in variables)} <= '
-+                'CTLV_UEVENT_MAX_LEN);')
-+    writer.line(f'static_assert({len(variables)} <= CTLV_UEVENT_MAX_VARS);')
-+    writer.line()
-+
-+
-+def _limits(writer, family, trees):
-+    local = family.local_ops
-+    if not local:
-+        return
-+    writer.comment('Guards for generated maxima.')
-+    inline = max(getattr(op.sizes, field)
-+                 for op in local for field in INLINE_FIELDS)
-+    writer.line(f'static_assert({inline} <= CTLV_MAX_INLINE_MESSAGE_LEN);')
-+    if _has_event(family):
-+        record = max(op.sizes.event_record_max_len for op in local)
-+        writer.line(f'static_assert({record} <= CTLV_MAX_EVENT_QUEUE_LEN);')
-+    depth = max(_nest_depth(root) for root in _roots(family, trees))
-+    if depth:
-+        writer.line(f'static_assert({depth} <= '
-+                    'CTLV_MAX_DECLARED_NEST_DEPTH);')
-+
-+
-+def _nest_depth(node):
-+    """Deepest nest below node, which is itself at depth zero."""
-+    depths = [1 + _nest_depth(child) for child in node.children()
-+              if child.attr.decl.kind == 'nested']
-+    return max(depths, default=0)
-diff --git a/tools/ctlv/ctlvgen/lib/gen_uapi.py b/tools/ctlv/ctlvgen/lib/gen_uapi.py
-new file mode 100644
-index 000000000000..14330248f144
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/gen_uapi.py
-@@ -0,0 +1,223 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The UAPI header of one family.
-+
-+Names for numbers: complete attr and op IDs, group and attr-set IDs, enum
-+values, flag bits and units. The wire format is the transport
-+header's. An inherited declaration is not repeated, already having a name in
-+the header of the family that owns it.
-+"""
-+
-+from __future__ import annotations
-+
-+import textwrap
-+
-+from . import cgen
-+
-+# " * " plus the text has to stay inside the line limit.
-+COMMENT_WIDTH = cgen.LINE_LIMIT - 3
-+
-+
-+def render(family):
-+    """Return the UAPI header of family as text."""
-+    names = cgen.Names(family)
-+    cgen.symbols(family)
-+    guard = names.uapi_guard()
-+
-+    writer = cgen.preamble(family, 'uapi', 'header')
-+    _file_comment(writer, family)
-+    writer.line()
-+    writer.open_guard(guard)
-+    writer.includes(*_includes(family))
-+
-+    _definitions(writer, family, names)
-+    _groups(writer, family, names)
-+    _sets(writer, family, names)
-+    _ops(writer, family, names)
-+
-+    writer.close_guard(guard)
-+    return writer.text()
-+
-+
-+def render_families(registry):
-+    """Return the family-number header of one registry."""
-+    guard = '_UAPI_LINUX_CTLV_FAMILIES_GEN_H'
-+    values = [(cgen.family_const(entry.name), family_id)
-+              for family_id, entry in enumerate(registry.entries)]
-+    writer = cgen.preamble(registry, 'uapi', 'header', registry.path)
-+
-+    writer.comment('CTLV family numbers.')
-+    writer.line()
-+    writer.open_guard(guard)
-+    _sequential_enum(writer, '_ctlv_family', values)
-+    writer.line()
-+    writer.close_guard(guard)
-+    return writer.text()
-+
-+
-+def _includes(family):
-+    headers = ['<linux/ctlv.h>', cgen.families_uapi_header()]
-+    if family.parent:
-+        # Inherited constants live in the parent's header, so one include is
-+        # enough for the whole effective schema.
-+        headers.append(cgen.uapi_header(family.parent))
-+    if any(definition.kind == 'flags'
-+           for definition in _own(family, family.definitions.values())):
-+        # _BITULL(), which is the form of BIT_ULL() that userspace has.
-+        headers.append('<linux/const.h>')
-+    return sorted(headers)
-+
-+
-+def _file_comment(writer, family):
-+    paragraphs = [
-+        f'Constants of the {family.name} CTLV family. Attr and op IDs are '
-+        'complete; the wire format carrying them is in <linux/ctlv.h>.',
-+    ]
-+    if family.parent:
-+        paragraphs.append(
-+            f'The inherited {family.parent} header is included here, so one '
-+            'include covers the whole effective schema.')
-+    lines = []
-+    for paragraph in paragraphs:
-+        if lines:
-+            lines.append('')
-+        lines += textwrap.wrap(paragraph, COMMENT_WIDTH)
-+    writer.comment(*lines)
-+
-+
-+def _own(family, declarations):
-+    """Only what this family declares itself, in declaration order."""
-+    return [item for item in declarations
-+            if item.family_id == family.family_id]
-+
-+
-+def _definitions(writer, family, names):
-+    for definition in _own(family, family.definitions.values()):
-+        if definition.kind == 'enum':
-+            _enum(writer, names, definition)
-+        else:
-+            _flags(writer, names, definition)
-+        writer.line()
-+
-+
-+def _enum(writer, names, definition):
-+    writer.comment(f'enum {definition.name}')
-+    values = [(names.value(definition, value_name), number)
-+              for value_name, number in definition.values]
-+    _sequential_enum(writer, names.definition(definition), values)
-+
-+
-+def _flags(writer, names, definition):
-+    writer.comment(f'flags {definition.name}')
-+    bits = [(names.value_bit(definition, value_name), bit)
-+            for value_name, bit in definition.values]
-+    _sequential_enum(writer, names.bit_enum(definition), bits)
-+    writer.line()
-+    values = []
-+    for value_name, _bit in definition.values:
-+        value = names.value(definition, value_name)
-+        writer.define(value,
-+                      f'_BITULL({names.value_bit(definition, value_name)})')
-+        values.append(value)
-+    _flags_mask(writer, names.value_mask(definition), values)
-+
-+
-+def _groups(writer, family, names):
-+    groups = _own(family, family.groups.values())
-+    if not groups:
-+        return
-+    writer.comment('attr groups')
-+    _sequential_enum(writer, names.group_enum(groups[0]),
-+                     [(names.group(group), group.group_id)
-+                      for group in groups])
-+    writer.line()
-+    writer.define_call(
-+        f'{names.family_attr(groups[0])}(_group, _attr)', 'CTLV_ATTR',
-+        names.family_const(), '(_group)', '(_attr)')
-+    writer.line()
-+    for group in groups:
-+        if not group.attrs:
-+            continue
-+        writer.comment(f'attrs of group {group.name}')
-+        writer.define_call(f'{names.group_attr(group)}(_attr)',
-+                           names.family_attr(group),
-+                           names.group(group),
-+                           f'{names.local_attr_prefix(group)}##_attr')
-+        writer.line()
-+        _sequential_enum(writer, names.group_attr_enum(group),
-+                         [(names.local_attr(attr), attr.local_id)
-+                          for attr in group.attrs])
-+        writer.line()
-+        for attr in group.attrs:
-+            _attr(writer, names, group, attr)
-+        _attr_metadata(writer, names, group)
-+        writer.line()
-+
-+
-+def _attr(writer, names, group, attr):
-+    writer.define_call(names.attr(attr), names.group_attr(group),
-+                       cgen.macro(attr.name))
-+
-+
-+def _attr_metadata(writer, names, group):
-+    attrs = [attr for attr in group.attrs if attr.decl.unit is not None]
-+    if not attrs:
-+        return
-+    writer.line()
-+    writer.comment(f'metadata of group {group.name}')
-+    writer.line(f'enum {names.group_metadata_enum(group)} {{')
-+    for attr in attrs:
-+        writer.line(f'\t{names.attr_unit(attr)} = '
-+                    f'CTLV_UNIT_{cgen.macro(attr.decl.unit)},')
-+        writer.line(f'\t{names.attr_scale(attr)} = {attr.decl.scale},')
-+    writer.line('};')
-+
-+
-+def _sequential_enum(writer, name, values):
-+    first = values[0][1]
-+
-+    assert all(number == first + index
-+               for index, (_value, number) in enumerate(values))
-+    writer.line(f'enum {name} {{')
-+    for index, (value, number) in enumerate(values):
-+        assignment = f' = {number}' if not index and number else ''
-+        writer.line(f'\t{value}{assignment},')
-+    writer.line('};')
-+
-+
-+def _flags_mask(writer, name, values):
-+    if len(values) == 1:
-+        writer.define(name, values[0])
-+        return
-+    lines = [f'\t({values[0]} |']
-+    lines += [f'\t {value} |' for value in values[1:-1]]
-+    lines.append(f'\t {values[-1]})')
-+    writer.define_block(name, *lines)
-+
-+
-+def _sets(writer, family, names):
-+    own = _own(family, family.sets.values())
-+    if not own:
-+        return
-+    writer.comment('attr sets')
-+    _sequential_enum(writer, names.set_enum(own[0]),
-+                     [(names.attr_set(attr_set), attr_set.set_id)
-+                      for attr_set in own])
-+    writer.line()
-+
-+
-+def _ops(writer, family, names):
-+    own = _own(family, family.ops)
-+    if not own:
-+        return
-+    writer.comment('ops')
-+    _sequential_enum(writer, names.op_enum(own[0]),
-+                     [(names.op(op), op.local_id)
-+                      for op in own])
-+    writer.line()
-+    writer.define_call(f'{names.operation(own[0])}(_op)',
-+                       'CTLV_OP', names.family_const(),
-+                       f'{names.op_prefix(own[0])}##_op')
-+    for op in own:
-+        writer.define_call(names.op_id(op), names.operation(op),
-+                           cgen.macro(op.name))
-+    writer.line()
-diff --git a/tools/ctlv/ctlvgen/lib/outputs.py b/tools/ctlv/ctlvgen/lib/outputs.py
-new file mode 100644
-index 000000000000..4df7ae60c1c1
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/outputs.py
-@@ -0,0 +1,329 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The complete set of generated files and its reconciliation."""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+import os
-+import pathlib
-+import subprocess
-+import tempfile
-+
-+from . import gen_kernel
-+from . import gen_uapi
-+from . import semantics
-+from . import spec
-+from . import yamlload
-+from .errors import CtlvError
-+
-+
-+FLAVOURS = {
-+    'uapi-header': gen_uapi.render,
-+    'kernel-header': gen_kernel.render_header,
-+    'kernel-source': gen_kernel.render_source,
++/* One descriptor of a chain: what it answers with, and what it fills. */
++static int ctlv_family_descriptor_check(const struct ctlv_family *family)
++{
++	const struct ctlv_family_schema *schema = family->schema;
++	u32 index;
++
++	/*
++	 * A family that declares no op of its own binds nothing: what it
++	 * inherited is answered where it was declared.
++	 */
++	if (!schema || !schema->name || !*schema->name || (family->ops_count && !family->ops))
++		return ctlv_family_bad(family, "descriptor is incomplete");
++	/* Nothing in common means an empty pair, not an absent one. */
++	if (!family->pre || !family->post)
++		return ctlv_family_bad(family, "has no hook pair");
++	if (!family->priv_size || !family->init || !family->fini)
++		return ctlv_family_bad(family, "has no priv lifecycle");
++	/* Every device answers the root family already, as the core. */
++	if (schema->family_id == CTLV_FAMILY_ROOT && family != &ctlv_family)
++		return ctlv_family_bad(family, "claims the root family ID");
++	/* An extension point is answered by whichever family filled it. */
++	if (family->stub_ops_count != schema->stub_fill_schemas_count)
++		return ctlv_family_bad(family, "answers other extension points than it fills");
++	for (index = 0; index < family->stub_ops_count; index++) {
++		const struct ctlv_stub_fill_schema *fill_schema = &schema->stub_fill_schemas[index];
++		const struct ctlv_stub_ops *stub_ops = &family->stub_ops[index];
++
++		if (stub_ops->family_id == fill_schema->family_id &&
++		    stub_ops->set_id == fill_schema->set_id)
++			continue;
++		return ctlv_family_bad(family, "answers an extension point it does not fill");
++	}
++	return 0;
 +}
 +
-+IDENTITIES = {
-+    'uapi-header': ('uapi', 'header', '.h'),
-+    'kernel-header': ('kernel', 'header', '.h'),
-+    'kernel-source': ('kernel', 'source', '.c'),
++/* Every descriptor binds its local schema and supplies a complete lifecycle. */
++static int ctlv_family_descriptors_check(const struct ctlv_family *family)
++{
++	const struct ctlv_family *descriptor;
++
++	for (descriptor = family; descriptor; descriptor = descriptor->parent) {
++		int ret;
++
++		ret = ctlv_family_descriptor_check(descriptor);
++		if (ret)
++			return ret;
++	}
++	return 0;
 +}
 +
-+ROOT_FLAVOURS = frozenset(FLAVOURS)
-+FAMILY_FLAVOURS = frozenset(FLAVOURS)
-+FIXTURE_FLAVOURS = frozenset({
-+    'uapi-header', 'kernel-header', 'kernel-source',
-+})
++/* The graph a device answers over, and the descriptors standing on it. */
++static int ctlv_family_check(const struct ctlv_family *family)
++{
++	int ret;
 +
-+
-+@dataclasses.dataclass(frozen=True)
-+class Output:
-+    family: str
-+    source: pathlib.PurePosixPath
-+    registry: pathlib.PurePosixPath
-+    flavour: str
-+    path: pathlib.PurePosixPath
-+
-+
-+def _spec_paths(paths, source, registry):
-+    return spec.Paths(paths.kernel_dir / source, schema=paths.schema,
-+                      registry=paths.kernel_dir / registry)
-+
-+
-+def _relative(where, value):
-+    path = pathlib.PurePosixPath(value)
-+    if path.is_absolute() or '..' in path.parts or \
-+            any(part.startswith('.') for part in path.parts) or \
-+            str(path) != value:
-+        raise CtlvError(where, f'"{value}" is not a normalized relative path')
-+    return path
-+
-+
-+def _repository_path(paths, path):
-+    return pathlib.PurePosixPath(
-+        pathlib.Path(path).relative_to(paths.kernel_dir).as_posix())
-+
-+
-+def _manifest_contexts(paths):
-+    fixtures_dir = paths.kernel_dir / 'tools/ctlv/tests/specs'
-+    contexts = [
-+        (paths.generated, _repository_path(paths, paths.registry),
-+         _repository_path(paths, paths.spec_dir), None, False),
-+    ]
-+    manifest = fixtures_dir.parent / 'generated-files.yaml'
-+    if manifest.exists():
-+        fixtures = sorted(path.stem for path in fixtures_dir.glob('*.yaml'))
-+        contexts.append((
-+            manifest,
-+            _repository_path(paths, fixtures_dir.parent / 'families.yaml'),
-+            _repository_path(paths, fixtures_dir), fixtures, True))
-+    return tuple(contexts)
-+
-+
-+def load(paths):
-+    """Load and validate every generated-file manifest."""
-+    outputs = []
-+    families = set()
-+    destinations = set()
-+    for manifest, expected_registry, source_dir, expected_names, fixture in \
-+            _manifest_contexts(paths):
-+        data = yamlload.load(manifest)
-+        spec._validate_syntax(manifest, data, paths.generated_schema)
-+        registry_record = data['registry']
-+        where = f'{manifest}: registry'
-+        registry_source = _relative(where, registry_record['source'])
-+        if registry_source != expected_registry:
-+            raise CtlvError(where, f'source is {registry_source}, expected '
-+                                   f'{expected_registry}')
-+        registry = spec.load_registry(
-+            paths, paths.kernel_dir / registry_source)
-+        if expected_names is None:
-+            expected_names = [entry.name for entry in registry.entries]
-+        records = data['families']
-+        if [record['name'] for record in records] != expected_names:
-+            raise CtlvError(str(manifest),
-+                            'manifest families do not match their sources')
-+
-+        for flavour, value in registry_record['outputs'].items():
-+            destination = _relative(f'{where} {flavour}', value)
-+            suffix = IDENTITIES[flavour][2]
-+            if destination.suffix != suffix:
-+                raise CtlvError(f'{where} {flavour}',
-+                                f'output must end in {suffix}')
-+            if destination in destinations:
-+                raise CtlvError(f'{where} {flavour}',
-+                                f'duplicate output path {destination}')
-+            destinations.add(destination)
-+            outputs.append(Output(None, registry_source, registry_source,
-+                                  flavour, destination))
-+
-+        for record in records:
-+            name = record['name']
-+            where = f'{manifest}: family {name}'
-+            if name in families:
-+                raise CtlvError(where, 'duplicate family')
-+            families.add(name)
-+
-+            expected_source = source_dir / f'{name}.yaml'
-+            source = _relative(where, record['source'])
-+            if source != expected_source:
-+                raise CtlvError(where, f'source is {source}, expected '
-+                                       f'{expected_source}')
-+
-+            required = FIXTURE_FLAVOURS if fixture else FAMILY_FLAVOURS
-+            if not fixture and name == spec.CORE_FAMILY_NAME:
-+                required = ROOT_FLAVOURS
-+            flavours = frozenset(record['outputs'])
-+            if flavours != required:
-+                missing = sorted(required - flavours)
-+                extra = sorted(flavours - required)
-+                detail = []
-+                if missing:
-+                    detail.append(f'missing {", ".join(missing)}')
-+                if extra:
-+                    detail.append(f'unexpected {", ".join(extra)}')
-+                raise CtlvError(where, '; '.join(detail))
-+
-+            family = semantics.load(
-+                _spec_paths(paths, source, registry_source))
-+            if family.name != name:
-+                raise CtlvError(where, f'source declares family '
-+                                       f'{family.name}')
-+            for flavour, value in record['outputs'].items():
-+                destination = _relative(f'{where} {flavour}', value)
-+                suffix = IDENTITIES[flavour][2]
-+                if destination.suffix != suffix:
-+                    raise CtlvError(f'{where} {flavour}',
-+                                    f'output must end in {suffix}')
-+                if destination in destinations:
-+                    raise CtlvError(f'{where} {flavour}',
-+                                    f'duplicate output path {destination}')
-+                destinations.add(destination)
-+                outputs.append(Output(name, source, registry_source, flavour,
-+                                      destination))
-+    return tuple(outputs)
-+
-+
-+def render(paths, plan):
-+    """Render every planned output before any destination is changed."""
-+    families = {}
-+    rendered = {}
-+    registered_registry = _repository_path(paths, paths.registry)
-+    for output in plan:
-+        source = _output_source(output)
-+        if output.family is None:
-+            registry = spec.load_registry(
-+                paths, paths.kernel_dir / output.registry)
-+            text = gen_uapi.render_families(registry)
-+        else:
-+            key = (output.source, output.registry)
-+            family = families.get(key)
-+            if family is None:
-+                family = semantics.load(
-+                    _spec_paths(paths, output.source, output.registry))
-+                families[key] = family
-+            renderer = FLAVOURS[output.flavour]
-+            if output.flavour in ('kernel-header', 'kernel-source'):
-+                text = renderer(
-+                    family, family_api=output.registry == registered_registry)
-+            else:
-+                text = renderer(family)
-+        mode, kind, _ = IDENTITIES[output.flavour]
-+        if _identity(text) != (source, mode, kind):
-+            raise CtlvError(str(output.path),
-+                            'generator emitted the wrong output marker')
-+        rendered[output.path] = text
-+    return rendered
-+
-+
-+def _output_source(output):
-+    return output.source.as_posix()
-+
-+
-+def _marked_files(root):
-+    if (root / '.git').exists():
-+        result = subprocess.run(
-+            ['git', 'grep', '--untracked', '--files-with-matches',
-+             'CTLV-GEN', '--', '*.c', '*.h', '*.rst'],
-+            cwd=root, capture_output=True, text=True, check=False)
-+        if result.returncode not in (0, 1):
-+            raise CtlvError(str(root), result.stderr.strip())
-+        candidates = (root / line for line in result.stdout.splitlines())
-+    else:
-+        candidates = (path for suffix in ('*.c', '*.h', '*.rst')
-+                      for path in root.rglob(suffix))
-+
-+    marked = set()
-+    for path in candidates:
-+        if path.is_symlink() or not path.is_file():
-+            continue
-+        text = path.read_text(encoding='utf-8', errors='replace')
-+        if _identity(text) is not None:
-+            marked.add(path.relative_to(root).as_posix())
-+    return marked
-+
-+
-+def _destination(root, relative):
-+    destination = root.joinpath(*relative.parts)
-+    if destination.is_symlink():
-+        raise CtlvError(str(destination),
-+                        'generated output cannot be a symlink')
-+    parent = destination.parent
-+    while parent != root and not parent.exists():
-+        parent = parent.parent
-+    if parent.is_symlink() or root.resolve() not in (
-+            parent.resolve(), *parent.resolve().parents):
-+        raise CtlvError(str(destination),
-+                        'generated output escapes its output root')
-+    return destination
-+
-+
-+def _replace(destination, text):
-+    destination.parent.mkdir(parents=True, exist_ok=True)
-+    fd, temporary = tempfile.mkstemp(dir=destination.parent,
-+                                     prefix=f'.{destination.name}.')
-+    try:
-+        with os.fdopen(fd, 'w', encoding='utf-8') as stream:
-+            stream.write(text)
-+        os.chmod(temporary, 0o644)
-+        os.replace(temporary, destination)
-+    finally:
-+        if os.path.exists(temporary):
-+            os.unlink(temporary)
-+
-+
-+def _identity(text):
-+    lines = text.splitlines()
-+    if len(lines) < 4:
-+        return None
-+    c_spdx = (lines[0].startswith('// SPDX-License-Identifier: ') or
-+              (lines[0].startswith('/* SPDX-License-Identifier: ') and
-+               lines[0].endswith(' */')))
-+    if c_spdx and \
-+            lines[1] == ('/* Do not edit, regenerate with '
-+                         'tools/ctlv/ctlv-regen.sh, from: */') and \
-+            lines[2].startswith('/*\t') and lines[2].endswith(' */') and \
-+            lines[3].startswith('/* CTLV-GEN ') and lines[3].endswith(' */'):
-+        source = lines[2][3:-3]
-+        fields = lines[3][3:-3].split()
-+    elif lines[0].startswith('.. SPDX-License-Identifier: ') and \
-+            lines[1] == ('.. Do not edit, regenerate with '
-+                         'tools/ctlv/ctlv-regen.sh, from:') and \
-+            lines[2].startswith('..\t') and \
-+            lines[3].startswith('.. CTLV-GEN '):
-+        source = lines[2][3:]
-+        fields = lines[3][3:].split()
-+    else:
-+        return None
-+    if len(fields) == 3 and fields[0] == 'CTLV-GEN':
-+        return source, fields[1], fields[2]
-+    return None
-+
-+
-+def reconcile(paths, output_root=None, check=False):
-+    """Check or atomically update every generated output."""
-+    plan = load(paths)
-+    rendered = render(paths, plan)
-+    root = pathlib.Path(paths.kernel_dir if output_root is None
-+                        else output_root)
-+    if not root.is_dir():
-+        raise CtlvError(str(root), 'output root is not a directory')
-+    expected = {output.path.as_posix() for output in plan}
-+    unexpected = sorted(_marked_files(root) - expected)
-+    if unexpected:
-+        raise CtlvError('generated outputs',
-+                        'unexpected files\n' +
-+                        '\n'.join(f'  {path}' for path in unexpected))
-+
-+    states = {}
-+    problems = []
-+    unsafe = []
-+    by_path = {output.path: output for output in plan}
-+    for relative, text in rendered.items():
-+        destination = _destination(root, relative)
-+        if not destination.exists():
-+            problems.append(f'missing {relative}')
-+            states[relative] = (destination, text)
-+            continue
-+        if not destination.is_file():
-+            raise CtlvError(str(destination),
-+                            'generated output is not a regular file')
-+        current = destination.read_text(encoding='utf-8')
-+        if current == text:
-+            continue
-+        problems.append(f'stale {relative}')
-+        output = by_path[relative]
-+        mode, kind, _ = IDENTITIES[output.flavour]
-+        if not check and _identity(current) != (
-+                _output_source(output), mode, kind):
-+            unsafe.append(f'{relative} is not the planned generated file')
-+        states[relative] = (destination, text)
-+    if unsafe:
-+        raise CtlvError('generated outputs',
-+                        'refusing to overwrite files\n' +
-+                        '\n'.join(f'  {problem}' for problem in unsafe))
-+    if check and problems:
-+        raise CtlvError('generated outputs', '\n'.join(problems))
-+    for destination, text in states.values():
-+        _replace(destination, text)
-+    return tuple(problems)
-diff --git a/tools/ctlv/ctlvgen/lib/semantics.py b/tools/ctlv/ctlvgen/lib/semantics.py
-new file mode 100644
-index 000000000000..83290bfb2f46
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/semantics.py
-@@ -0,0 +1,893 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The effective form of a CTLV family.
-+
-+The specifications of one inheritance chain resolved into one schema: numeric
-+IDs from declaration positions, selectors expanded into placements, and one
-+tree per op request and reply. A rule enforced here is not re-enforced
-+downstream.
-+"""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+
-+from . import sizes
-+from . import spec
-+from .errors import CtlvError
-+
-+MAX_FLAG_BITS = 64
-+
-+# These root enums are stored more narrowly than a generic enum range.
-+ROOT_ENUM_VALUES_MAX = {
-+    'op-type': spec.U8_MAX,
-+    'op-availability': spec.U8_MAX,
-+    'op-fd-access': spec.U8_MAX,
-+    'blob-direction': spec.U8_MAX,
-+    # BIT(value) is stored in struct ctlv_node_schema.blob.backings.
-+    'blob-type': 15,
++	if (!family->schema)
++		return ctlv_family_bad(family, "descriptor is incomplete");
++	ret = ctlv_family_chain_check(family);
++	if (ret)
++		return ret;
++	return ctlv_family_descriptors_check(family);
 +}
 +
-+
-+def _check_count(where, what, count, maximum):
-+    if count > maximum:
-+        raise CtlvError(where, f'{count} {what} exceed the {maximum} maximum')
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Definition:
-+    """An effective enum or flags definition."""
-+
-+    name: str
-+    kind: str
-+    family_id: int
-+    values: tuple
-+
-+    def numbers(self):
-+        return tuple(number for _, number in self.values)
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Attr:
-+    """An effective attr, with its complete wire ID."""
-+
-+    group: str
-+    name: str
-+    family_id: int
-+    group_id: int
-+    local_id: int
-+    attr_id: int
-+    decl: spec.AttrDecl
-+
-+    @property
-+    def full_name(self):
-+        return f'{self.group}.{self.name}'
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Group:
-+    name: str
-+    family_id: int
-+    group_id: int
-+    attrs: tuple
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class AttrSet:
-+    """An effective attr set. A stub that nobody filled stays a stub."""
-+
-+    name: str
-+    family_id: int
-+    set_id: int
-+    stub: bool
-+    attrs: tuple
-+    optional_attrs: tuple
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Stub:
-+    """One place where a descendant's fill of a stub splices in.
-+
-+    The declaring family's metadata carries this in place of those members.
-+    """
-+
-+    name: str
-+    family_id: int
-+    set_id: int
-+    optional: bool
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Fill:
-+    """The members one family puts into a stub it inherited.
-+
-+    root stands for the stub itself, so its children are what splices in.
-+    """
-+
-+    name: str
-+    owner_family_id: int
-+    family_id: int
-+    set_id: int
-+    root: Node
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Node:
-+    """One node of an expanded op tree. The root has no attr.
-+
-+    stubs are the extension points selected here and still unfilled. A
-+    recursive nest becomes a node naming the set in expands and childless
-+    nodes below it naming it in reenters, so walking children terminates.
-+    """
-+
-+    attr: Attr
-+    required: bool
-+    max_occurrences: int
-+    required_children: tuple
-+    optional_children: tuple
-+    stubs: tuple = ()
-+    expands: str = None
-+    reenters: str = None
-+
-+    @property
-+    def is_root(self):
-+        return self.attr is None
-+
-+    def children(self):
-+        return self.required_children + self.optional_children
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Message:
-+    """One message root that no op declares, built by the core unasked.
-+
-+    Only the root family declares one.
-+    """
-+
-+    name: str
-+    family_id: int
-+    set_id: int
-+    root: Node
-+    max_len: int
-+    limit: str
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Op:
-+    """An effective op.
-+
-+    availability is the permission to enable and disable the op per device,
-+    not a state. optional means a device has the op only once its family opts
-+    in. pre_post asks for a pair of this op's own, on top of the family-wide
-+    one.
-+    """
-+
-+    name: str
-+    type: str
-+    fd_access: str
-+    availability: str
-+    optional: bool
-+    pre_post: bool
-+    family_id: int
-+    local_id: int
-+    op_id: int
-+    request: Node
-+    reply: Node
-+    sizes: sizes.OpSizes
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Family:
-+    """One effective family: itself plus everything it inherits.
-+
-+    owners maps a family ID to its name for every family in the chain. fills
-+    is what a generator emits, chain_fills what a device answers with.
-+    """
-+
-+    name: str
-+    family_id: int
-+    path: str
-+    chain: tuple
-+    owners: dict
-+    definitions: dict
-+    groups: dict
-+    attrs: dict
-+    sets: dict
-+    ops: tuple
-+    fills: tuple
-+    chain_fills: tuple
-+    messages: tuple
-+
-+    @property
-+    def parent(self):
-+        return self.chain[-1].inherits
-+
-+    @property
-+    def license(self):
-+        return self.chain[-1].license
-+
-+    @property
-+    def pre_init(self):
-+        return self.chain[-1].pre_init
-+
-+    @property
-+    def post_init(self):
-+        return self.chain[-1].post_init
-+
-+    @property
-+    def pre_fini(self):
-+        return self.chain[-1].pre_fini
-+
-+    def _local(self, items):
-+        return tuple(item for item in items
-+                     if item.family_id == self.family_id)
-+
-+    @property
-+    def local_definitions(self):
-+        return self._local(self.definitions.values())
-+
-+    @property
-+    def local_groups(self):
-+        return self._local(self.groups.values())
-+
-+    @property
-+    def local_sets(self):
-+        """Sets this family declares, a stub it inherited excluded."""
-+        return self._local(self.sets.values())
-+
-+    @property
-+    def local_ops(self):
-+        return self._local(self.ops)
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class InputScope:
-+    kind: str
-+    index: int
-+    name: tuple
-+    node: Node
-+
-+
-+def input_scopes(family, owner_family_id=None):
-+    """Every schema scope family code may read, with a unique name."""
-+    def walk(kind, index, name, node):
-+        yield InputScope(kind, index, name, node)
-+        for child in node.children():
-+            if child.attr.decl.kind != 'nested':
-+                continue
-+            child_name = name + (child.attr.name,)
-+            yield from walk(kind, index, child_name, child)
-+
-+    if owner_family_id is None:
-+        ops = family.local_ops
-+        fills = family.fills
-+    else:
-+        ops = tuple(op for op in family.ops
-+                    if op.family_id == owner_family_id)
-+        fills = tuple(fill for fill in family.chain_fills
-+                      if fill.owner_family_id == owner_family_id)
-+
-+    for index, op in enumerate(ops):
-+        if op.request is not None:
-+            yield from walk('op', index, (op.name,), op.request)
-+    for index, fill in enumerate(fills):
-+        yield from walk('fill', index, (fill.name,), fill.root)
-+
-+
-+def load(paths):
-+    """Load the family at paths.spec, resolved against its whole chain."""
-+    registry = spec.load_registry(paths)
-+    return _Resolver(paths, registry).resolve()
-+
-+
-+class _Resolver:
-+    def __init__(self, paths, registry):
-+        self.paths = paths
-+        self.registry = registry
-+        self.definitions = {}
-+        self.groups = {}
-+        self.attrs = {}
-+        self.sets = {}
-+        self.ops = []
-+        # Which family filled each stub, to name it if a second one tries.
-+        self.stub_fillers = {}
-+        # Where each set was declared, for diagnostics.
-+        self.set_paths = {}
-+
-+    def resolve(self):
-+        chain = self._load_chain()
-+        self._check_names(chain)
-+        self._check_order(chain)
-+        target = chain[-1]
-+        for family in chain:
-+            self._add_family(family)
-+        self._check_sets()
-+        for family in chain:
-+            self._add_ops(family)
-+        fills = self._fills(target)
-+        chain_fills = self._fills(None)
-+        _check_count(f'{target.path}: family {target.name}', 'stub fills',
-+                     len(fills), spec.U32_MAX)
-+        resolved = Family(
-+            name=target.name,
-+            family_id=self._family_id(target),
-+            path=target.path,
-+            chain=chain,
-+            owners={self._family_id(item): item.name for item in chain},
-+            definitions=self.definitions,
-+            groups=self.groups,
-+            attrs=self.attrs,
-+            sets=self.sets,
-+            ops=tuple(self.ops),
-+            fills=fills,
-+            chain_fills=chain_fills,
-+            messages=self._messages(target),
-+        )
-+        _check_composed(resolved)
-+        return resolved
-+
-+    def _messages(self, family):
-+        """The message roots this family declares that no op selects.
-+
-+        The root family alone has them, and has to have them.
-+        """
-+        messages = []
-+        for name in sizes.CORE_MESSAGES:
-+            attr_set = self.sets.get(name)
-+            if attr_set is None:
-+                if family.name != spec.CORE_FAMILY_NAME:
-+                    continue
-+                raise CtlvError(f'{family.path}: family {family.name}',
-+                                f'the root family has to declare the "{name}" '
-+                                'attr set, which the core builds a message of')
-+            if attr_set.family_id != self._family_id(family):
-+                continue
-+            where = f'{self.set_paths[name]}: attr set {name}'
-+            nodes, stubs = self._expand_placements(
-+                spec.Placements(attr_set.attrs, attr_set.optional_attrs),
-+                where, (), 0, (name,))
-+            if stubs:
-+                raise CtlvError(where, 'a message the core builds cannot '
-+                                       'select an extension point')
-+            root = _root(nodes)
-+            _check_tree_size(where, root)
-+            messages.append(Message(
-+                name=name,
-+                family_id=attr_set.family_id,
-+                set_id=attr_set.set_id,
-+                root=root,
-+                max_len=sizes.message_max_len(where, name, root),
-+                limit=sizes.CORE_MESSAGES[name][0],
-+            ))
-+        return tuple(messages)
-+
-+    def _fills(self, family):
-+        """The stubs one family fills, with the members it puts in each.
-+
-+        Passing None asks for the fills of the whole chain.
-+        """
-+        fills = []
-+        for name, filler in self.stub_fillers.items():
-+            if family is not None and filler != family.name:
-+                continue
-+            attr_set = self.sets[name]
-+            nodes, stubs = self._expand_placements(
-+                spec.Placements(attr_set.attrs, attr_set.optional_attrs),
-+                f'{self.set_paths[name]}: attr set {name}', (), 0, (name,))
-+            root = _root(nodes, stubs)
-+            where = f'{self.set_paths[name]}: attr set {name}'
-+            _check_tree_size(where, root)
-+            if _reenters_anywhere(root):
-+                raise CtlvError(
-+                    where, 'a stub fill cannot contain a recursive attr')
-+            fills.append(Fill(
-+                name=name,
-+                owner_family_id=self.registry.family_id(filler),
-+                family_id=attr_set.family_id,
-+                set_id=attr_set.set_id,
-+                root=root,
-+            ))
-+        return tuple(fills)
-+
-+    # Loading and identity
-+
-+    def _load_chain(self):
-+        family = spec.load(self.paths.spec, self.paths.schema)
-+        if self.paths.spec.stem != family.name:
-+            raise CtlvError(f'{family.path}: family {family.name}',
-+                            'a specification must be named after its family, '
-+                            f'so this file must be {family.name}.yaml')
-+        chain = [family]
-+        seen = [family.name]
-+        self._check_root(family)
-+        while chain[0].inherits:
-+            parent_name = chain[0].inherits
-+            child = chain[0]
-+            if parent_name in seen:
-+                # seen runs from the selected family to its ancestors.
-+                raise CtlvError(f'{child.path}: family {child.name}',
-+                                'inheritance cycle: ' +
-+                                ' -> '.join(seen + [parent_name]))
-+            parent_path = self.paths.sibling_spec(parent_name)
-+            parent = spec.load(parent_path, self.paths.schema)
-+            if parent.name != parent_name:
-+                raise CtlvError(f'{parent_path}: family {parent.name}',
-+                                f'expected family {parent_name}')
-+            self._check_root(parent)
-+            seen.append(parent_name)
-+            chain.insert(0, parent)
-+        return tuple(chain)
-+
-+    def _check_root(self, family):
-+        """Require every family but the root one to name what it inherits."""
-+        if family.name == spec.CORE_FAMILY_NAME:
-+            if family.inherits:
-+                raise CtlvError(f'{family.path}: family {family.name}',
-+                                'the root family heads every chain, so it '
-+                                'inherits nothing')
-+        elif not family.inherits:
-+            raise CtlvError(f'{family.path}: family {family.name}',
-+                            'must name the family it inherits, which is the '
-+                            f'root {spec.CORE_FAMILY_NAME} for a family '
-+                            'directly below it')
-+
-+    def _check_names(self, chain):
-+        """Require every child family name to carry its whole ancestry.
-+
-+        A dash is the only separator; a dot selects group.attr.
-+        """
-+        for parent, child in zip(chain, chain[1:]):
-+            suffix = child.name.removeprefix(f'{parent.name}-')
-+            if not suffix or suffix == child.name:
-+                raise CtlvError(f'{child.path}: family {child.name}',
-+                                f'a family that inherits {parent.name} must '
-+                                f'be named {parent.name}-<suffix>')
-+
-+    def _check_order(self, chain):
-+        """Require a parent to be registered before what inherits it.
-+
-+        Ascending positions let the core walk a chain once and index it.
-+        """
-+        for parent, child in zip(chain, chain[1:]):
-+            if self._family_id(parent) >= self._family_id(child):
-+                raise CtlvError(f'{child.path}: family {child.name}',
-+                                f'is registered before {parent.name}, the '
-+                                'family it inherits')
-+
-+    def _family_id(self, family):
-+        family_id = self.registry.family_id(family.name)
-+        if family_id is None:
-+            raise CtlvError(f'{family.path}: family {family.name}',
-+                            f'not registered in {self.registry.path}')
-+        return family_id
-+
-+    # Declarations
-+
-+    def _add_family(self, family):
-+        family_id = self._family_id(family)
-+        self._add_definitions(family, family_id, family.enums, 'enum')
-+        self._add_definitions(family, family_id, family.flags, 'flags')
-+        self._add_groups(family, family_id)
-+        self._add_sets(family, family_id)
-+
-+    def _add_definitions(self, family, family_id, definitions, kind):
-+        for definition in definitions:
-+            where = f'{family.path}: {kind} {definition.name}'
-+            self._reject_redeclaration(where, self.definitions,
-+                                       definition.name, 'enum or flags')
-+            if kind == 'flags' and len(definition.values) > MAX_FLAG_BITS:
-+                raise CtlvError(where, f'more than {MAX_FLAG_BITS} flag bits')
-+            if kind == 'enum':
-+                _check_count(where, 'enum values', len(definition.values),
-+                             spec.U32_MAX)
-+                if family_id == spec.CORE_FAMILY_ID:
-+                    maximum = ROOT_ENUM_VALUES_MAX.get(definition.name)
-+                    if maximum is not None:
-+                        _check_count(where, 'enum values',
-+                                     len(definition.values), maximum)
-+            # Enum values from one, zero being reserved; flag bits from zero.
-+            first = 1 if kind == 'enum' else 0
-+            values = tuple((name, first + index)
-+                           for index, name in enumerate(definition.values))
-+            self.definitions[definition.name] = Definition(
-+                definition.name, kind, family_id, values)
-+
-+    def _add_groups(self, family, family_id):
-+        _check_count(f'{family.path}: family {family.name}', 'attr groups',
-+                     len(family.groups), spec.U16_MAX)
-+        for group_id, group in enumerate(family.groups, start=1):
-+            where = f'{family.path}: attr group {group.name}'
-+            self._reject_redeclaration(where, self.groups, group.name,
-+                                       'attr group')
-+            self._reject_redeclaration(where, self.sets, group.name,
-+                                       'attr set')
-+            attrs = []
-+            names = set()
-+            _check_count(where, 'attrs', len(group.attrs), spec.U32_MAX)
-+            for local_id, decl in enumerate(group.attrs, start=1):
-+                attr_where = f'{family.path}: attr {group.name}.{decl.name}'
-+                if decl.name in names:
-+                    raise CtlvError(attr_where, 'duplicate attr')
-+                names.add(decl.name)
-+                self._check_reference(attr_where, decl)
-+                attrs.append(Attr(
-+                    group=group.name,
-+                    name=decl.name,
-+                    family_id=family_id,
-+                    group_id=group_id,
-+                    local_id=local_id,
-+                    attr_id=(family_id << 48) | (group_id << 32) | local_id,
-+                    decl=decl,
-+                ))
-+            effective = Group(group.name, family_id, group_id, tuple(attrs))
-+            self.groups[group.name] = effective
-+            for attr in attrs:
-+                self.attrs[attr.full_name] = attr
-+
-+    def _check_reference(self, where, decl):
-+        if decl.kind not in ('enum', 'flags'):
-+            return
-+        definition = self.definitions.get(decl.ref)
-+        if definition is None:
-+            raise CtlvError(where, f'unknown {decl.kind} "{decl.ref}"')
-+        if definition.kind != decl.kind:
-+            raise CtlvError(where, f'"{decl.ref}" is a {definition.kind} '
-+                                   f'definition, not {decl.kind}')
-+
-+    def _add_sets(self, family, family_id):
-+        set_id = 0
-+        for attr_set in family.sets:
-+            where = f'{family.path}: attr set {attr_set.name}'
-+            existing = self.sets.get(attr_set.name)
-+            if existing is not None:
-+                self._fill_stub(where, family, existing, attr_set)
-+                continue
-+            self._reject_redeclaration(where, self.groups, attr_set.name,
-+                                       'attr group')
-+            _check_count(where, 'new attr sets', set_id + 1,
-+                         spec.U32_MAX)
-+            set_id += 1
-+            self.set_paths[attr_set.name] = family.path
-+            self.sets[attr_set.name] = AttrSet(
-+                name=attr_set.name,
-+                family_id=family_id,
-+                set_id=set_id,
-+                stub=attr_set.stub,
-+                attrs=attr_set.attrs,
-+                optional_attrs=attr_set.optional_attrs,
-+            )
-+
-+    def _fill_stub(self, where, family, existing, filler):
-+        """Replace an inherited empty stub with a descendant's members."""
-+        filled_by = self.stub_fillers.get(existing.name)
-+        if filled_by is not None:
-+            raise CtlvError(where, f'stub was already filled by family '
-+                                   f'{filled_by}')
-+        if not existing.stub:
-+            raise CtlvError(where, 'attr set is already declared by an '
-+                                   'inherited family')
-+        if filler.stub:
-+            raise CtlvError(where, 'a stub cannot be redeclared; a further '
-+                                   'extension point needs a new name')
-+        self.stub_fillers[existing.name] = family.name
-+        self.set_paths[existing.name] = family.path
-+        # A fill completes an inherited set, so the IDs are the declarer's.
-+        self.sets[existing.name] = dataclasses.replace(
-+            existing, stub=False, attrs=filler.attrs,
-+            optional_attrs=filler.optional_attrs)
-+
-+    def _check_sets(self):
-+        """Expand every set, so one that no op selects is still checked."""
-+        for name, attr_set in self.sets.items():
-+            where = f'{self.set_paths[name]}: attr set {name}'
-+            # Seeding the stack makes a cycle read from the set expanded.
-+            _nodes, _stubs = self._expand_placements(
-+                spec.Placements(attr_set.attrs, attr_set.optional_attrs),
-+                where, (), 0, set_stack=(attr_set.name,),
-+                opened=(attr_set.name,))
-+
-+    def _reject_redeclaration(self, where, namespace, name, what):
-+        if name in namespace:
-+            raise CtlvError(where, f'{what} "{name}" is already declared')
-+
-+    # Ops
-+
-+    def _add_ops(self, family):
-+        family_id = self._family_id(family)
-+        _check_count(f'{family.path}: family {family.name}', 'ops',
-+                     len(family.ops), spec.U32_MAX)
-+        _check_count(f'{family.path}: family {family.name}', 'effective ops',
-+                     len(self.ops) + len(family.ops), spec.U32_MAX)
-+        for local_id, op in enumerate(family.ops, start=1):
-+            where = f'{family.path}: op {op.name}'
-+            if any(existing.name == op.name for existing in self.ops):
-+                raise CtlvError(where, f'op "{op.name}" is already declared')
-+            request = None
-+            if op.request is not None:
-+                request = self._tree(op.request, where + ' request')
-+            reply = None
-+            if op.reply is not None:
-+                reply = self._tree(op.reply, where + ' reply')
-+            self._check_context(where, op, request, reply)
-+            self.ops.append(Op(
-+                name=op.name,
-+                type=op.type,
-+                fd_access=op.fd_access,
-+                availability=op.availability,
-+                optional=op.optional,
-+                pre_post=op.pre_post,
-+                family_id=family_id,
-+                local_id=local_id,
-+                op_id=(family_id << 48) | local_id,
-+                request=request,
-+                reply=reply,
-+                sizes=sizes.compute(where, op, request, reply),
-+            ))
-+
-+    def _tree(self, placements, where):
-+        children, stubs = self._expand_placements(placements, where, (), 0)
-+        root = _root(children, stubs)
-+        _check_tree_size(where, root)
-+        return root
-+
-+    def _expand_placements(self, placements, where, stack, depth,
-+                           set_stack=(), opened=()):
-+        """Return the child nodes of one level and the stubs selected there."""
-+        merged = {}
-+        expanded, stubs = self._expand(placements.attrs, False, where,
-+                                       set_stack)
-+        optional, more = self._expand(placements.optional_attrs, True, where,
-+                                      set_stack)
-+        expanded += optional
-+        stubs += more
-+        for attr, required, fill in expanded:
-+            entry = merged.get(attr.attr_id)
-+            if entry is None:
-+                merged[attr.attr_id] = [attr, required, fill]
-+            elif entry[2] != fill and (entry[2] is not None or
-+                                       fill is not None):
-+                raise CtlvError(
-+                    where, f'attr {attr.full_name} is selected more than '
-+                           'once in one composed nest')
-+            elif required:
-+                # A required selection at this level beats an optional one.
-+                entry[1] = True
-+        nodes = tuple(self._node(attr, required, where, stack, depth, opened)
-+                      for attr, required, _fill in merged.values())
-+        return nodes, _merge_stubs(stubs)
-+
-+    def _expand(self, selectors, force_optional, where, stack):
-+        expanded = []
-+        stubs = ()
-+        for selector in selectors:
-+            attrs, found = self._expand_one(selector, force_optional, where,
-+                                            stack)
-+            expanded += attrs
-+            stubs += found
-+        return expanded, stubs
-+
-+    def _expand_one(self, selector, force_optional, where, stack):
-+        if '.' in selector:
-+            attr = self.attrs.get(selector)
-+            if attr is None:
-+                raise CtlvError(where, f'unknown attr "{selector}"')
-+            return [(attr, not force_optional, None)], ()
-+        group = self.groups.get(selector)
-+        if group is not None:
-+            return [(attr, not force_optional, None)
-+                    for attr in group.attrs], ()
-+        attr_set = self.sets.get(selector)
-+        if attr_set is None:
-+            raise CtlvError(where, f'unknown selector "{selector}"')
-+        if attr_set.stub:
-+            # Nothing to expand until a descendant fills it.
-+            return [], (Stub(attr_set.name, attr_set.family_id,
-+                             attr_set.set_id, force_optional),)
-+        if selector in stack:
-+            raise CtlvError(where, 'attr set cycle: ' +
-+                                   ' -> '.join(stack + (selector,)))
-+        stack += (selector,)
-+        # Under an optional selection every member becomes optional.
-+        expanded, stubs = self._expand(attr_set.attrs, force_optional, where,
-+                                       stack)
-+        optional, more = self._expand(attr_set.optional_attrs, True, where,
-+                                      stack)
-+        expanded += optional
-+        if selector in self.stub_fillers:
-+            expanded = [(attr, required, selector)
-+                        for attr, required, _fill in expanded]
-+        return expanded, stubs + more
-+
-+    def _node(self, attr, required, where, stack, depth, opened=()):
-+        decl = attr.decl
-+        if decl.kind != 'nested':
-+            return Node(attr, required, decl.max_occurrences, (), ())
-+        holds = self._nested_set(where, attr)
-+        if decl.recursive and holds in opened:
-+            # Open above, so one level further down rather than a new one.
-+            return Node(attr, required, decl.max_occurrences, (), (),
-+                        reenters=holds)
-+        if attr.attr_id in stack:
-+            names = [self._attr_by_id(i).full_name for i in stack]
-+            raise CtlvError(where, 'nesting cycle: ' +
-+                                   ' -> '.join(names + [attr.full_name]))
-+        if depth + 1 > sizes.MAX_DECLARED_NEST_DEPTH:
-+            raise CtlvError(where, f'{attr.full_name} nests deeper than the '
-+                                   f'{sizes.MAX_DECLARED_NEST_DEPTH} level '
-+                                   'limit')
-+        children, stubs = self._expand_placements(
-+            spec.Placements(decl.attrs, decl.optional_attrs), where,
-+            stack + (attr.attr_id,), depth + 1,
-+            opened=opened + ((holds,) if holds else ()))
-+        node = Node(attr, required, decl.max_occurrences,
-+                    tuple(child for child in children if child.required),
-+                    tuple(child for child in children if not child.required),
-+                    stubs, expands=holds)
-+        if decl.recursive and not _reenters(node, holds):
-+            raise CtlvError(where, f'{attr.full_name} is recursive, but attr '
-+                                   f'set "{holds}" never selects it again')
-+        return node
-+
-+    def _nested_set(self, where, attr):
-+        """The one attr set a nest holds, when that is all it holds.
-+
-+        Only such a nest can be re-entered, a re-entry meaning the members
-+        open above.
-+        """
-+        decl = attr.decl
-+        if not decl.recursive:
-+            if decl.optional_attrs or len(decl.attrs) != 1:
-+                return None
-+            return decl.attrs[0] if decl.attrs[0] in self.sets else None
-+        target = decl.attrs[0]
-+        if target in self.groups:
-+            raise CtlvError(where, f'{attr.full_name} is recursive, so it '
-+                                   f'nests an attr set, and "{target}" is an '
-+                                   'attr group')
-+        if target not in self.sets:
-+            raise CtlvError(where, f'unknown selector "{target}"')
-+        return target
-+
-+    def _attr_by_id(self, attr_id):
-+        for attr in self.attrs.values():
-+            if attr.attr_id == attr_id:
-+                return attr
-+        raise AssertionError(f'no attr with ID {attr_id:#x}')
-+
-+    def _check_context(self, where, op, request, reply):
-+        if request is not None:
-+            self._check_subtree(where, request, 'request')
-+        if reply is None:
-+            return
-+        if op.type == 'query':
-+            self._check_subtree(where, reply, 'query reply')
-+            self._check_reentry(where, reply)
-+        elif op.type == 'event':
-+            self._check_subtree(where, reply, 'event')
-+        else:
-+            self._check_subtree(where, reply, 'action reply')
-+
-+    def _check_reentry(self, where, root):
-+        """A repeating level cannot also be widened by a descendant."""
-+        if not _reenters_anywhere(root) or not _stubs_anywhere(root):
-+            return
-+        raise CtlvError(f'{where} query reply',
-+                        're-enters a level and selects an extension point, '
-+                        'and a descendant cannot widen a level that repeats')
-+
-+    def _check_subtree(self, where, node, context):
-+        if node.attr is not None:
-+            name = node.attr.full_name
-+            if (node.max_occurrences == spec.UNLIMITED and
-+                    context != 'query reply'):
-+                raise CtlvError(f'{where} {context}',
-+                                f'{name} has unlimited occurrences, which '
-+                                'only a query reply may contain')
-+            if node.reenters is not None and context != 'query reply':
-+                raise CtlvError(f'{where} {context}',
-+                                f'{name} re-enters "{node.reenters}", so it '
-+                                'has no maximum length, which only a query '
-+                                'reply may contain')
-+            if node.attr.decl.kind == 'blob' and context != 'request':
-+                raise CtlvError(f'{where} {context}',
-+                                f'{name} is a blob attr, which only a '
-+                                'request may contain')
-+        for child in node.children():
-+            self._check_subtree(where, child, context)
-+
-+
-+def _reenters(node, name):
-+    """Whether anything below node re-enters name."""
-+    return any(child.reenters == name or _reenters(child, name)
-+               for child in node.children())
-+
-+
-+def _reenters_anywhere(node):
-+    return any(child.reenters is not None or _reenters_anywhere(child)
-+               for child in node.children())
-+
-+
-+def _stubs_anywhere(node):
-+    return bool(node.stubs) or any(_stubs_anywhere(child)
-+                                   for child in node.children())
-+
-+
-+def _composed_members(fills, node, force_optional=False):
-+    members = [(child, force_optional)
-+               for child in node.required_children]
-+    members += [(child, True) for child in node.optional_children]
-+    for stub in node.stubs:
-+        fill = fills.get((stub.family_id, stub.set_id))
-+        if fill is not None:
-+            members += _composed_members(
-+                fills, fill.root, force_optional or stub.optional)
-+    return members
-+
-+
-+def _check_composed(family):
-+    fills = {(fill.family_id, fill.set_id): fill
-+             for fill in family.chain_fills}
-+
-+    def walk(where, node):
-+        members = _composed_members(fills, node)
-+        required = sum(not optional for _child, optional in members)
-+        optional = len(members) - required
-+        seen = set()
-+
-+        _check_count(where, 'composed required attrs', required,
-+                     spec.U32_MAX)
-+        _check_count(where, 'composed optional attrs', optional,
-+                     spec.U32_MAX)
-+        count = 1
-+        for child, _optional in members:
-+            if child.attr.attr_id in seen:
-+                raise CtlvError(
-+                    where, f'attr {child.attr.full_name} is selected more '
-+                           'than once in one composed nest')
-+            seen.add(child.attr.attr_id)
-+            count += walk(where, child)
-+        return count
-+
-+    for op in family.ops:
-+        total = 0
-+        for which, root in (('request', op.request), ('reply', op.reply)):
-+            if root is None:
-+                continue
-+            where = f'{family.path}: op {op.name} {which}'
-+            count = walk(where, root)
-+            _check_count(where, 'composed schema nodes', count,
-+                         spec.U32_MAX)
-+            total += count
-+        _check_count(f'{family.path}: op {op.name}',
-+                     'composed request and reply nodes', total,
-+                     spec.U32_MAX)
-+
-+
-+def _node_count(node):
-+    return 1 + sum(_node_count(child) for child in node.children())
-+
-+
-+def _stub_count(node):
-+    return len(node.stubs) + sum(_stub_count(child)
-+                                 for child in node.children())
-+
-+
-+def _check_tree_size(where, root):
-+    _check_count(where, 'schema nodes', _node_count(root), spec.U32_MAX)
-+    _check_count(where, 'schema stubs', _stub_count(root), spec.U32_MAX)
-+
-+
-+def _root(children, stubs=()):
-+    return Node(None, True, 1,
-+                tuple(node for node in children if node.required),
-+                tuple(node for node in children if not node.required),
-+                stubs)
-+
-+
-+def _merge_stubs(stubs):
-+    """One reference per stub selected at a level, required winning."""
-+    merged = {}
-+    for stub in stubs:
-+        previous = merged.get(stub.name)
-+        if previous is None or not stub.optional:
-+            merged[stub.name] = stub
-+    return tuple(merged.values())
-diff --git a/tools/ctlv/ctlvgen/lib/sizes.py b/tools/ctlv/ctlvgen/lib/sizes.py
-new file mode 100644
-index 000000000000..864e3b6873e7
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/sizes.py
-@@ -0,0 +1,238 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""Length arithmetic over an expanded op tree.
-+
-+These numbers decide whether an op can run at all, so they are kept apart from
-+the rest of resolution and tested against independently calculated lengths.
-+The constants mirror include/uapi/linux/ctlv.h, and a test checks that.
-+"""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+
-+from . import spec
-+from .errors import CtlvError
-+
-+ALIGNTO = 8
-+ATTR_HDR_LEN = 16
-+EVENT_HDR_LEN = 24
-+
-+MAX_INLINE_MESSAGE_LEN = 0x100000
-+MAX_ERROR_LEN = 0x4000
-+MAX_NEST_DEPTH = 32
-+DEFAULT_QUERY_REPLY_LEN = 0x10000
-+MAX_EVENT_QUEUE_LEN = 0x1000000
-+
-+# One level short of what the transport carries: op-schema-get describes a
-+# message, and a description nests one level deeper than what it describes.
-+MAX_DECLARED_NEST_DEPTH = MAX_NEST_DEPTH - 1
-+
-+# Every integer, enum and flags payload is 64-bit.
-+SCALAR_PAYLOAD_LEN = 8
-+
-+# A bool payload is one byte, padded to eight only as a placement.
-+BOOL_PAYLOAD_LEN = 1
-+
-+# How many core scalar descriptor attrs each blob backing carries. A test
-+# checks these against the blob group of the core family.
-+BLOB_DESCRIPTOR_ATTRS = {
-+    'va': 3,
++static struct ctlv_family_priv *ctlv_family_priv_find(const struct ctlv_device *ctlvdev,
++						      const struct ctlv_family *family)
++{
++	u32 index;
++
++	for (index = 0; index < ctlvdev->privs_count; index++)
++		if (ctlvdev->privs[index].family == family)
++			return &ctlvdev->privs[index];
++	return NULL;
 +}
 +
-+# Attr sets of the root family that are message roots in their own right, each
-+# with the transport header's limit and the name the header gives it.
-+CORE_MESSAGES = {
-+    'error-info': ('CTLV_MAX_ERROR_LEN', MAX_ERROR_LEN),
++static void ctlv_family_privs_free(struct ctlv_device *ctlvdev)
++{
++	kvfree(ctlvdev->priv_block);
++	ctlvdev->priv_block = NULL;
++	kfree(ctlvdev->privs);
++	ctlvdev->privs = NULL;
++	ctlvdev->privs_count = 0;
 +}
 +
++static int ctlv_family_privs_alloc(struct ctlv_device *ctlvdev, const struct ctlv_family *family)
++{
++	struct ctlv_priv_container *parent = NULL;
++	void *aligned;
++	size_t alloc_len;
++	size_t len = 0;
++	u32 index;
 +
-+@dataclasses.dataclass(frozen=True)
-+class OpSizes:
-+    """Generated lengths of one op. Zero means "does not apply"."""
++	ctlvdev->privs_count = ctlv_family_levels(family);
++	ctlvdev->privs = kcalloc(ctlvdev->privs_count, sizeof(*ctlvdev->privs), GFP_KERNEL);
++	if (!ctlvdev->privs)
++		return -ENOMEM;
 +
-+    request_max_len: int
-+    action_reply_max_len: int
-+    query_reply_min_len: int
-+    query_reply_suggested_len: int
-+    event_record_max_len: int
++	for (index = 0; index < ctlvdev->privs_count; index++) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index];
++		size_t size, aligned_len;
 +
++		family_priv->family =
++			ctlv_family_ancestor(family, ctlvdev->privs_count - index - 1);
++		size = max_t(size_t, family_priv->family->priv_size(), 1);
++		if (check_add_overflow(len, offsetof(struct ctlv_priv_container, priv),
++				       &aligned_len) ||
++		    check_add_overflow(aligned_len, CTLV_PRIV_ALIGN - 1, &aligned_len))
++			goto overflow;
++		aligned_len = ALIGN_DOWN(aligned_len, CTLV_PRIV_ALIGN);
++		family_priv->priv_offset = aligned_len;
++		if (check_add_overflow(aligned_len, size, &len))
++			goto overflow;
++	}
++	if (check_add_overflow(len, CTLV_PRIV_ALIGN - 1, &alloc_len))
++		goto overflow;
++	ctlvdev->priv_block = kvzalloc(alloc_len, GFP_KERNEL);
++	if (!ctlvdev->priv_block) {
++		ctlv_family_privs_free(ctlvdev);
++		return -ENOMEM;
++	}
++	aligned = PTR_ALIGN(ctlvdev->priv_block, CTLV_PRIV_ALIGN);
 +
-+def align(length):
-+    return (length + ALIGNTO - 1) & ~(ALIGNTO - 1)
++	for (index = 0; index < ctlvdev->privs_count; index++) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index];
++		struct ctlv_priv_container *container;
++		void *priv;
 +
++		priv = (u8 *)aligned + family_priv->priv_offset;
++		family_priv->priv = priv;
++		container = container_of_const(priv, struct ctlv_priv_container, priv);
++		container->parent = parent;
++		container->child = NULL;
++		if (parent)
++			parent->child = container;
++		parent = container;
++	}
++	return 0;
 +
-+def attr_max_len(node):
-+    """Maximum length of one occurrence of node, excluding its own padding."""
-+    return ATTR_HDR_LEN + _payload_max_len(node)
-+
-+
-+def root_max_len(root):
-+    """Maximum length of a complete message root."""
-+    return ATTR_HDR_LEN + _payload_max_len(root)
-+
-+
-+def min_reply_len(root):
-+    """Buffer length needed for the largest indivisible leaf and its path.
-+
-+    A leaf below a re-entered level sits as deep as the transport allows.
-+    """
-+    if _reenters(root):
-+        return (MAX_NEST_DEPTH + 1) * ATTR_HDR_LEN + _largest_leaf(root)
-+    return _min_walk(root, 0)
-+
-+
-+def compute(where, op, request, reply):
-+    """Return the generated lengths of one op."""
-+    request_max_len = 0
-+    if request is not None:
-+        request_max_len = root_max_len(request)
-+        _check_inline(where, 'request', request_max_len)
-+
-+    action_reply_max_len = 0
-+    query_reply_min_len = 0
-+    query_reply_suggested_len = 0
-+    event_record_max_len = 0
-+
-+    if op.type == 'action' and reply is not None:
-+        action_reply_max_len = root_max_len(reply)
-+        _check_inline(where, 'action reply', action_reply_max_len)
-+    elif op.type == 'query':
-+        query_reply_min_len = min_reply_len(reply)
-+        _check_inline(where, 'largest query reply leaf and its path',
-+                      query_reply_min_len)
-+        query_reply_suggested_len = _suggested_len(
-+            where, op.suggested_reply_length, query_reply_min_len)
-+    elif op.type == 'event':
-+        payload_max_len = root_max_len(reply)
-+        _check_inline(where, 'event payload', payload_max_len)
-+        event_record_max_len = EVENT_HDR_LEN + align(payload_max_len)
-+
-+    return OpSizes(request_max_len=request_max_len,
-+                   action_reply_max_len=action_reply_max_len,
-+                   query_reply_min_len=query_reply_min_len,
-+                   query_reply_suggested_len=query_reply_suggested_len,
-+                   event_record_max_len=event_record_max_len)
-+
-+
-+def composed(where, op, request, reply):
-+    """Return the lengths one op needs for one family.
-+
-+    compute()'s numbers over the composed tree, fills spliced in. A suggestion
-+    is raised here rather than refused.
-+    """
-+    sizes = OpSizes(request_max_len=root_max_len(request) if request else 0,
-+                    action_reply_max_len=0, query_reply_min_len=0,
-+                    query_reply_suggested_len=0, event_record_max_len=0)
-+    _check_inline(where, 'request', sizes.request_max_len)
-+
-+    if op.type == 'action' and reply is not None:
-+        sizes = dataclasses.replace(sizes,
-+                                    action_reply_max_len=root_max_len(reply))
-+        _check_inline(where, 'action reply', sizes.action_reply_max_len)
-+    elif op.type == 'query':
-+        minimum = min_reply_len(reply)
-+        _check_inline(where, 'largest query reply leaf and its path', minimum)
-+        sizes = dataclasses.replace(
-+            sizes, query_reply_min_len=minimum,
-+            query_reply_suggested_len=max(op.sizes.query_reply_suggested_len,
-+                                          minimum))
-+    elif op.type == 'event':
-+        payload_max_len = root_max_len(reply)
-+        _check_inline(where, 'event payload', payload_max_len)
-+        record = EVENT_HDR_LEN + align(payload_max_len)
-+        if record > MAX_EVENT_QUEUE_LEN:
-+            raise CtlvError(where, f'event record needs {record} bytes, more '
-+                                   f'than the {MAX_EVENT_QUEUE_LEN} byte '
-+                                   'event queue limit')
-+        sizes = dataclasses.replace(sizes, event_record_max_len=record)
-+    return sizes
-+
-+
-+def message_max_len(where, name, root):
-+    """Return the maximum length of one core message, against its limit."""
-+    limit_name, limit = CORE_MESSAGES[name]
-+    length = root_max_len(root)
-+    if length > limit:
-+        raise CtlvError(where, f'needs {length} bytes, more than the {limit} '
-+                               f'of {limit_name}')
-+    return length
-+
-+
-+def _payload_max_len(node):
-+    if node.is_root:
-+        return _children_max_len(node)
-+
-+    decl = node.attr.decl
-+    if decl.kind in ('uint', 'sint', 'enum', 'flags'):
-+        return SCALAR_PAYLOAD_LEN
-+    if decl.kind == 'bool':
-+        return BOOL_PAYLOAD_LEN
-+    if decl.kind == 'string':
-+        # One terminating NUL, which max-length excludes.
-+        return decl.max_length + 1
-+    if decl.kind == 'binary':
-+        return decl.max_length
-+    if decl.kind == 'blob':
-+        widest = max(BLOB_DESCRIPTOR_ATTRS[backing]
-+                     for backing in decl.blob.backings)
-+        return widest * align(ATTR_HDR_LEN + SCALAR_PAYLOAD_LEN)
-+    return _children_max_len(node)
-+
-+
-+def _children_max_len(node):
-+    total = 0
-+    for child in node.children():
-+        if child.max_occurrences == spec.UNLIMITED:
-+            raise AssertionError(
-+                f'{child.attr.full_name} has unlimited occurrences, so it has '
-+                'no maximum length')
-+        if child.reenters is not None:
-+            raise AssertionError(
-+                f'{child.attr.full_name} re-enters {child.reenters}, so it '
-+                'has no maximum length')
-+        total += child.max_occurrences * align(attr_max_len(child))
-+    return total
-+
-+
-+def _min_walk(node, ancestors_len):
-+    children = node.children()
-+    if children:
-+        return max(_min_walk(child, ancestors_len + ATTR_HDR_LEN)
-+                   for child in children)
-+    if node.is_root:
-+        return ancestors_len + ATTR_HDR_LEN
-+    return ancestors_len + align(attr_max_len(node))
-+
-+
-+def _reenters(node):
-+    return any(child.reenters is not None or _reenters(child)
-+               for child in node.children())
-+
-+
-+def _largest_leaf(node):
-+    """The longest placement of the tree that a fragment cannot split."""
-+    lengths = [align(attr_max_len(child))
-+               for child in node.children()
-+               if child.attr.decl.kind != 'nested']
-+    lengths += [_largest_leaf(child) for child in node.children()]
-+    return max(lengths, default=0)
-+
-+
-+def _check_inline(where, what, length):
-+    if length > MAX_INLINE_MESSAGE_LEN:
-+        raise CtlvError(where, f'{what} needs {length} bytes, more than the '
-+                               f'{MAX_INLINE_MESSAGE_LEN} byte inline '
-+                               'message limit')
-+
-+
-+def _suggested_len(where, declared, minimum):
-+    if declared is None:
-+        return max(DEFAULT_QUERY_REPLY_LEN, minimum)
-+    if declared < minimum:
-+        raise CtlvError(where, f'suggested-reply-length {declared} is below '
-+                               f'the computed minimum of {minimum}')
-+    if declared > MAX_INLINE_MESSAGE_LEN:
-+        raise CtlvError(where, f'suggested-reply-length {declared} exceeds '
-+                               f'the {MAX_INLINE_MESSAGE_LEN} byte inline '
-+                               'message limit')
-+    return declared
-diff --git a/tools/ctlv/ctlvgen/lib/spec.py b/tools/ctlv/ctlvgen/lib/spec.py
-new file mode 100644
-index 000000000000..8942664d88a7
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/spec.py
-@@ -0,0 +1,583 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""The as-written form of a CTLV family specification.
-+
-+The strict YAML subset, the meta-schema, and every rule that one declaration
-+decides on its own. Comparing declarations and walking a chain are
-+semantics.py's. Omitted values are normalized here, once.
-+"""
-+
-+from __future__ import annotations
-+
-+import dataclasses
-+import pathlib
-+import re
-+
-+import jsonschema
-+
-+from . import yamlload
-+from .errors import CtlvError
-+
-+# A generated file carries the license of its specification's first line.
-+LICENSE = re.compile(r'#\s*SPDX-License-Identifier:\s*(\S.*?)\s*$')
-+
-+# The registry is indexed by family ID, so the root family is its first entry.
-+CORE_FAMILY_NAME = 'ctlv'
-+CORE_FAMILY_ID = 0
-+
-+MAX_FAMILY_NAME_LEN = 63
-+U8_MAX = (1 << 8) - 1
-+U16_MAX = (1 << 16) - 1
-+U32_MAX = (1 << 32) - 1
-+MAX_FAMILY_ID = U16_MAX
-+
-+# Zero means unlimited, as the introspection wire form has it.
-+UNLIMITED = 0
-+
-+U64_MAX = (1 << 64) - 1
-+S64_MIN = -(1 << 63)
-+S64_MAX = (1 << 63) - 1
-+S8_MIN = -(1 << 7)
-+S8_MAX = (1 << 7) - 1
-+
-+PRIMARY_KEYS = ('type', 'enum', 'flags', 'attrs', 'blob')
-+
-+INTEGER_KINDS = ('uint', 'sint')
-+SCALAR_KINDS = ('uint', 'sint', 'bool', 'string', 'binary', 'enum', 'flags')
-+
-+FD_ACCESSES = ('read', 'read-write')
-+DEFAULT_FD_ACCESS = 'read-write'
-+
-+# Every op has one of these, and only an action or a query may be dynamic.
-+AVAILABILITIES = ('fixed', 'dynamic')
-+DEFAULT_AVAILABILITY = 'fixed'
-+
-+# Keys each primary form may add, beyond its own, name and max-occurrences.
-+_ACCESSORY_KEYS = {
-+    'uint': {'min', 'max', 'unit', 'scale'},
-+    'sint': {'min', 'max', 'unit', 'scale'},
-+    'bool': set(),
-+    'string': {'min-length', 'max-length'},
-+    'binary': {'length', 'min-length', 'max-length'},
-+    'enum': set(),
-+    'flags': set(),
-+    'nested': {'optional-attrs', 'recursive'},
-+    'blob': set(),
++overflow:
++	ctlv_family_privs_free(ctlvdev);
++	return -EOVERFLOW;
 +}
-+_COMMON_KEYS = {'name', 'max-occurrences'}
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class ValueList:
-+    """An enum or a flags definition."""
-+
-+    name: str
-+    values: tuple
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class BlobDecl:
-+    """The blob properties of one blob attr declaration."""
-+
-+    direction: str
-+    backings: tuple
-+    max_length: int
-+    alignment: int
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class AttrDecl:
-+    """One attr declaration inside an attr group.
 +
-+    kind is the resolved primary form, and a field that does not apply stays
-+    None. recursive marks a nest whose attr set may select this attr again.
-+    """
-+
-+    name: str
-+    kind: str
-+    ref: str = None
-+    attrs: tuple = ()
-+    optional_attrs: tuple = ()
-+    recursive: bool = False
-+    blob: BlobDecl = None
-+    min: int = None
-+    max: int = None
-+    min_length: int = None
-+    max_length: int = None
-+    unit: str = None
-+    scale: int = None
-+    max_occurrences: int = 1
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class AttrGroupSpec:
-+    name: str
-+    attrs: tuple
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class AttrSetSpec:
-+    name: str
-+    stub: bool
-+    attrs: tuple
-+    optional_attrs: tuple
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Placements:
-+    """The required and optional selectors declared at one level."""
-+
-+    attrs: tuple = ()
-+    optional_attrs: tuple = ()
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class OpSpec:
-+    name: str
-+    type: str
-+    request: Placements
-+    reply: Placements = None
-+    fd_access: str = DEFAULT_FD_ACCESS
-+    availability: str = DEFAULT_AVAILABILITY
-+    optional: bool = False
-+    pre_post: bool = False
-+    suggested_reply_length: int = None
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class FamilySpec:
-+    """One specification file, syntax-checked and normalized."""
-+
-+    path: str
-+    name: str
-+    license: str
-+    inherits: str
-+    enums: tuple
-+    flags: tuple
-+    groups: tuple
-+    sets: tuple
-+    ops: tuple
-+    pre_init: bool = False
-+    post_init: bool = False
-+    pre_fini: bool = False
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class RegistryEntry:
-+    name: str
-+    deprecated: bool
-+
-+
-+@dataclasses.dataclass(frozen=True)
-+class Registry:
-+    """The append-only family registry, indexed by family ID."""
-+
-+    path: str
-+    entries: tuple
-+
-+    @property
-+    def license(self):
-+        return _license(self.path)
-+
-+    def family_id(self, name):
-+        """Return the registered family ID of name, or None if unregistered."""
-+        for family_id, entry in enumerate(self.entries):
-+            if entry.name == name:
-+                return family_id
-+        return None
-+
-+
-+class Paths:
-+    """Where the specs, the registry and the meta-schemas are."""
-+
-+    def __init__(self, spec, schema=None, registry=None, abi=None):
-+        self.spec = pathlib.Path(spec)
-+        self.spec_dir = self.spec.parent
-+        self.doc_dir = self.spec_dir.parent
-+        self.schema = pathlib.Path(schema or self.doc_dir / 'ctlv-schema.yaml')
-+        self.registry = pathlib.Path(registry or
-+                                     self.doc_dir / 'families.yaml')
-+        # The two meta-schemas ship together, so overriding one locates both.
-+        self.registry_schema = (self.schema.parent /
-+                                'ctlv-registry-schema.yaml')
-+        self.abi_dir = pathlib.Path(abi or self.doc_dir / 'abi')
-+        self.registry_abi = self.abi_dir / 'families.registry.yaml'
-+        self.generated = self.doc_dir / 'generated-files.yaml'
-+        self.generated_schema = self.doc_dir / 'generated-files-schema.yaml'
-+        self.kernel_dir = self.schema.parent.parent.parent
-+
-+    def sibling_spec(self, name):
-+        """Return the path of another family's specification.
-+
-+        The one root family lives where the meta-schema does, so a corpus of
-+        fixtures inherits it rather than a copy.
-+        """
-+        if name == CORE_FAMILY_NAME:
-+            return self.schema.parent / 'specs' / f'{name}.yaml'
-+        return self.spec_dir / f'{name}.yaml'
-+
-+    def abi(self, name):
-+        """Return the path of one family's checked-in ABI snapshot."""
-+        return self.abi_dir / f'{name}.yaml'
-+
-+
-+def load_registry(paths, path=None):
-+    """Load and check the family registry."""
-+    path = pathlib.Path(path or paths.registry)
-+    data = yamlload.load(path)
-+    _validate_syntax(path, data, paths.registry_schema)
-+
-+    entries = []
-+    seen = set()
-+    for item in data['families']:
-+        if isinstance(item, dict):
-+            entry = RegistryEntry(item['name'], item['deprecated'])
-+        else:
-+            entry = RegistryEntry(item, False)
-+        _family_name(f'{path}: family {entry.name}', entry.name)
-+        if entry.name in seen:
-+            raise CtlvError(f'{path}: {entry.name}', 'duplicate family')
-+        seen.add(entry.name)
-+        entries.append(entry)
-+
-+    core = entries[CORE_FAMILY_ID]
-+    if core.name != CORE_FAMILY_NAME:
-+        raise CtlvError(f'{path}: {core.name}',
-+                        f'family ID {CORE_FAMILY_ID} belongs to '
-+                        f'{CORE_FAMILY_NAME}, so it must be the first entry')
-+    if core.deprecated:
-+        raise CtlvError(f'{path}: {core.name}',
-+                        'the core family cannot be deprecated')
-+    if len(entries) - 1 > MAX_FAMILY_ID:
-+        raise CtlvError(str(path),
-+                        f'{len(entries)} entries need a family ID past the '
-+                        f'{MAX_FAMILY_ID} maximum')
-+    return Registry(str(path), tuple(entries))
-+
-+
-+def load(path, schema=None):
-+    """Load, syntax-check and normalize one family specification."""
-+    path = pathlib.Path(path)
-+    data = yamlload.load(path)
-+    _validate_syntax(path, data, schema)
-+
-+    family = data['family']
-+    name = _family_name(f'{path}: family {family["name"]}', family['name'])
-+    inherits = family.get('inherits')
-+    if inherits is not None:
-+        inherits = _family_name(f'{path}: family {name} parent', inherits)
-+    return FamilySpec(
-+        path=str(path),
-+        name=name,
-+        license=_license(path),
-+        inherits=inherits,
-+        enums=_value_lists(path, data.get('enums', []), 'enum'),
-+        flags=_value_lists(path, data.get('flags', []), 'flags'),
-+        groups=_groups(path, data.get('attr-groups', [])),
-+        sets=_sets(path, data.get('attr-sets', [])),
-+        ops=_ops(path, data.get('ops', [])),
-+        pre_init=family.get('pre-init', False),
-+        post_init=family.get('post-init', False),
-+        pre_fini=family.get('pre-fini', False),
-+    )
-+
-+
-+def _license(path):
-+    """Return the SPDX identifier the specification's first line carries."""
-+    with open(path, 'r', encoding='utf-8') as stream:
-+        found = LICENSE.match(stream.readline())
-+    if found is None:
-+        raise CtlvError(str(path),
-+                        'the first line must be an SPDX-License-Identifier '
-+                        'comment, which every generated file inherits')
-+    return found.group(1)
-+
-+
-+def _validate_syntax(path, data, schema_path):
-+    schema = yamlload.load(schema_path)
-+    validator = jsonschema.Draft7Validator(schema)
-+    error = jsonschema.exceptions.best_match(validator.iter_errors(data))
-+    if error is None:
-+        return
-+    where = f'{path}: {error.json_path}' if error.absolute_path else str(path)
-+    raise CtlvError(where, error.message)
-+
-+
-+def _family_name(where, name):
-+    if len(name) > MAX_FAMILY_NAME_LEN:
-+        raise CtlvError(where, f'name is {len(name)} characters, more than '
-+                               f'the {MAX_FAMILY_NAME_LEN} maximum')
-+    return name
-+
-+
-+def _value_lists(path, raw_lists, what):
-+    lists = []
-+    for raw in raw_lists:
-+        name = raw['name']
-+        where = f'{path}: {what} {name}'
-+        values = []
-+        seen = set()
-+        for raw_value in raw['values']:
-+            value = raw_value
-+            if value in seen:
-+                raise CtlvError(where, f'duplicate value "{value}"')
-+            seen.add(value)
-+            values.append(value)
-+        lists.append(ValueList(name, tuple(values)))
-+    return tuple(lists)
-+
-+
-+def _groups(path, raw_groups):
-+    groups = []
-+    for raw in raw_groups:
-+        name = raw['name']
-+        attrs = tuple(_attr(f'{path}: attr {name}.{a["name"]}', a)
-+                      for a in raw['attrs'])
-+        groups.append(AttrGroupSpec(name, attrs))
-+    return tuple(groups)
-+
-+
-+def _attr(where, raw):
-+    primary = _primary_key(where, raw)
-+    kind = _kind(primary, raw)
-+    _reject_unusable_keys(where, raw, primary, kind)
-+
-+    attr = {
-+        'name': raw['name'],
-+        'kind': kind,
-+        'max_occurrences': _max_occurrences(where, raw),
-+    }
-+    if kind in INTEGER_KINDS:
-+        attr.update(_integer_bounds(where, raw, kind))
-+    elif kind == 'string':
-+        attr.update(_string_lengths(where, raw))
-+    elif kind == 'binary':
-+        attr.update(_binary_lengths(where, raw))
-+    elif kind in ('enum', 'flags'):
-+        attr['ref'] = raw[kind]
-+    elif kind == 'nested':
-+        attr['attrs'] = _selectors(raw['attrs'])
-+        attr['optional_attrs'] = _selectors(raw.get('optional-attrs'))
-+        attr['recursive'] = raw.get('recursive', False)
-+        if attr['recursive']:
-+            _check_recursive(where, attr)
-+    elif kind == 'blob':
-+        attr['blob'] = _blob(where, raw['blob'])
-+    # A bool has nothing to normalize.
-+    return AttrDecl(**attr)
-+
-+
-+def _check_recursive(where, attr):
-+    """A recursive nest is one named set, which is what it re-enters."""
-+    if attr['optional_attrs']:
-+        raise CtlvError(where, 'a recursive attr cannot declare '
-+                               'optional-attrs; the attr set it names says '
-+                               'which of its own members are optional')
-+    if len(attr['attrs']) != 1:
-+        raise CtlvError(where, 'a recursive attr nests exactly one attr set')
-+    if '.' in attr['attrs'][0]:
-+        raise CtlvError(where, f'"{attr["attrs"][0]}" is one attr, and a '
-+                               'recursive attr nests an attr set')
-+
-+
-+def _primary_key(where, raw):
-+    present = [key for key in PRIMARY_KEYS if key in raw]
-+    if not present:
-+        raise CtlvError(where, 'no primary declaration; expected one of '
-+                               'type, enum, flags, attrs or blob')
-+    if len(present) > 1:
-+        raise CtlvError(where, 'conflicting primary declarations: ' +
-+                               ', '.join(present))
-+    return present[0]
-+
-+
-+def _kind(primary, raw):
-+    if primary == 'type':
-+        return raw['type']
-+    if primary == 'attrs':
-+        return 'nested'
-+    return primary
-+
-+
-+def _reject_unusable_keys(where, raw, primary, kind):
-+    allowed = _COMMON_KEYS | {primary} | _ACCESSORY_KEYS[kind]
-+    unusable = sorted(set(raw) - allowed)
-+    if unusable:
-+        raise CtlvError(where, f'a {kind} attr cannot declare ' +
-+                               ', '.join(unusable))
-+
-+
-+def _max_occurrences(where, raw):
-+    value = raw.get('max-occurrences', 1)
-+    if value == 'unlimited':
-+        return UNLIMITED
-+    if value < 1 or value > U32_MAX:
-+        raise CtlvError(where, f'max-occurrences {value} is outside the '
-+                               'u32 range')
-+    return value
-+
-+
-+def _integer_bounds(where, raw, kind):
-+    low, high = (0, U64_MAX) if kind == 'uint' else (S64_MIN, S64_MAX)
-+    minimum = raw.get('min', low)
-+    maximum = raw.get('max', high)
-+    if minimum < low or minimum > high:
-+        raise CtlvError(where, f'min {minimum} is outside the {kind} range')
-+    if maximum < low or maximum > high:
-+        raise CtlvError(where, f'max {maximum} is outside the {kind} range')
-+    if minimum > maximum:
-+        raise CtlvError(where, f'min {minimum} is greater than max {maximum}')
-+    if 'scale' in raw and 'unit' not in raw:
-+        raise CtlvError(where, 'scale requires unit')
-+    scale = raw.get('scale', 0) if 'unit' in raw else None
-+    if scale is not None and (scale < S8_MIN or scale > S8_MAX):
-+        raise CtlvError(where, f'scale {scale} is outside the s8 range')
-+    return {
-+        'min': minimum,
-+        'max': maximum,
-+        'unit': raw.get('unit'),
-+        'scale': scale,
-+    }
-+
-+
-+def _u32_value(where, what, value):
-+    if value < 0 or value > U32_MAX:
-+        raise CtlvError(where, f'{what} {value} is outside the u32 range')
-+    return value
-+
-+
-+def _string_lengths(where, raw):
-+    if 'max-length' not in raw:
-+        raise CtlvError(where, 'a string attr requires max-length')
-+    minimum = _u32_value(where, 'min-length', raw.get('min-length', 0))
-+    maximum = _u32_value(where, 'max-length', raw['max-length'])
-+    if minimum > maximum:
-+        raise CtlvError(where, f'min-length {minimum} is greater than '
-+                               f'max-length {maximum}')
-+    return {'min_length': minimum, 'max_length': maximum}
-+
-+
-+def _binary_lengths(where, raw):
-+    if 'length' in raw:
-+        if 'min-length' in raw or 'max-length' in raw:
-+            raise CtlvError(where, 'length cannot be combined with '
-+                                   'min-length or max-length')
-+        length = _u32_value(where, 'length', raw['length'])
-+        return {'min_length': length, 'max_length': length}
-+    if 'max-length' not in raw:
-+        raise CtlvError(where, 'a binary attr requires length or max-length')
-+    minimum = _u32_value(where, 'min-length', raw.get('min-length', 0))
-+    maximum = _u32_value(where, 'max-length', raw['max-length'])
-+    if minimum > maximum:
-+        raise CtlvError(where, f'min-length {minimum} is greater than '
-+                               f'max-length {maximum}')
-+    return {'min_length': minimum, 'max_length': maximum}
-+
-+
-+def _blob(where, raw):
-+    alignment = raw.get('alignment', 1)
-+    maximum = raw['max-length']
-+    if maximum < 1 or maximum > U64_MAX:
-+        raise CtlvError(where, f'blob max-length {maximum} is outside the '
-+                               'u64 range')
-+    if alignment < 1 or alignment > U32_MAX:
-+        raise CtlvError(where, f'blob alignment {alignment} is outside the '
-+                               'u32 range')
-+    if alignment & (alignment - 1):
-+        raise CtlvError(where, f'blob alignment {alignment} is not a power '
-+                               'of two')
-+    if maximum % alignment:
-+        raise CtlvError(where, f'blob max-length {maximum} is not '
-+                               f'a multiple of alignment {alignment}')
-+    return BlobDecl(direction=raw['direction'],
-+                    backings=tuple(raw['allowed-backings']),
-+                    max_length=maximum,
-+                    alignment=alignment)
-+
-+
-+def _sets(path, raw_sets):
-+    sets = []
-+    for raw in raw_sets:
-+        name = raw['name']
-+        where = f'{path}: attr set {name}'
-+        stub = raw.get('stub', False)
-+        attrs = _selectors(raw.get('attrs'))
-+        optional = _selectors(raw.get('optional-attrs'))
-+        if stub and (attrs or optional):
-+            raise CtlvError(where, 'a stub attr set cannot declare members')
-+        if not stub and not attrs and not optional:
-+            raise CtlvError(where, 'attr set has no members; declare '
-+                                   'stub: true for an extension point')
-+        sets.append(AttrSetSpec(name, stub, attrs, optional))
-+    return tuple(sets)
-+
-+
-+def _ops(path, raw_ops):
-+    ops = []
-+    for raw in raw_ops:
-+        name = raw['name']
-+        where = f'{path}: op {name}'
-+        op_type = raw['type']
-+        suggested = raw.get('suggested-reply-length')
-+        if suggested is not None:
-+            suggested = _u32_value(where, 'suggested-reply-length',
-+                                   suggested)
-+        if op_type == 'event' and 'request' in raw:
-+            raise CtlvError(where, 'an event op cannot declare a request')
-+        if op_type == 'query' and 'reply' not in raw:
-+            raise CtlvError(where, 'a query op must declare a reply')
-+        if 'suggested-reply-length' in raw and op_type != 'query':
-+            raise CtlvError(where, 'suggested-reply-length is only valid on '
-+                                   'a query op')
-+        if 'fd-access' in raw and op_type == 'event':
-+            raise CtlvError(where, 'fd-access is only valid on an action or '
-+                                   'a query op')
-+        # An event is not executed, so there is nothing to enable or disable.
-+        if 'availability' in raw and op_type == 'event':
-+            raise CtlvError(where, 'availability is only valid on an action '
-+                                   'or a query op')
-+        # An event is produced rather than answered, so there is nothing for a
-+        # device to opt in to.
-+        if 'optional' in raw and op_type == 'event':
-+            raise CtlvError(where, 'optional is only valid on an action or a '
-+                                   'query op')
-+        # A hook pair wraps the execution of an op, and an event has none.
-+        if 'pre-post' in raw and op_type == 'event':
-+            raise CtlvError(where, 'pre-post is only valid on an action or a '
-+                                   'query op')
-+        # An omitted action or query request means a root with no children.
-+        request = None
-+        if op_type != 'event':
-+            request = _placements(raw.get('request'))
-+        # Omitted: an action reply is ACK-only, an event reply payload-free.
-+        reply = None
-+        if 'reply' in raw:
-+            reply = _placements(raw['reply'])
-+        elif op_type == 'event':
-+            reply = Placements()
-+        ops.append(OpSpec(
-+            name=name,
-+            type=op_type,
-+            request=request,
-+            reply=reply,
-+            fd_access=raw.get('fd-access', DEFAULT_FD_ACCESS),
-+            availability=raw.get('availability', DEFAULT_AVAILABILITY),
-+            optional=raw.get('optional', False),
-+            pre_post=raw.get('pre-post', False),
-+            suggested_reply_length=suggested,
-+        ))
-+    return tuple(ops)
-+
-+
-+def _placements(raw):
-+    if raw is None:
-+        return Placements()
-+    return Placements(_selectors(raw.get('attrs')),
-+                      _selectors(raw.get('optional-attrs')))
-+
-+
-+def _selectors(raw):
-+    if raw is None:
-+        return ()
-+    if isinstance(raw, str):
-+        return (raw,)
-+    return tuple(raw)
-diff --git a/tools/ctlv/ctlvgen/lib/tree.py b/tools/ctlv/ctlvgen/lib/tree.py
-new file mode 100644
-index 000000000000..62f4fb363469
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/tree.py
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""Whole-tree registry, specification and ABI coverage checks."""
-+
-+from __future__ import annotations
-+
-+from . import compat
-+from . import outputs
-+from . import spec
-+from .errors import CtlvError
-+
-+
-+def _stems(directory, exclude=()):
-+    return {path.stem for path in directory.glob('*.yaml')
-+            if path.name not in exclude}
-+
-+
-+def coverage_problems(paths, registry, snapshots=True,
-+                      allowed_missing_snapshots=()):
-+    expected = {entry.name for entry in registry.entries}
-+    problems = []
-+
-+    actual_specs = _stems(paths.spec_dir)
-+    for name in sorted(expected - actual_specs):
-+        problems.append(f'missing specification {name}.yaml')
-+    for name in sorted(actual_specs - expected):
-+        problems.append(f'unexpected specification {name}.yaml')
-+
-+    if snapshots:
-+        actual_abi = _stems(paths.abi_dir,
-+                            exclude=(paths.registry_abi.name,))
-+        missing = expected - actual_abi - set(allowed_missing_snapshots)
-+        for name in sorted(missing):
-+            problems.append(f'missing ABI snapshot {name}.yaml')
-+        for name in sorted(actual_abi - expected):
-+            problems.append(f'unexpected ABI snapshot {name}.yaml')
-+    return problems
-+
-+
-+def check(paths):
-+    """Check all inputs whose expected set comes from the registry."""
-+    registry = spec.load_registry(paths)
-+    compat.registry_check(paths, registry)
-+    problems = coverage_problems(paths, registry)
-+    if problems:
-+        raise CtlvError('CTLV tree', '\n'.join(problems))
-+    outputs.load(paths)
-+    return registry
-+
-+
-+def check_for_update(paths):
-+    """Validate a registry update without requiring new snapshots yet."""
-+    registry = spec.load_registry(paths)
-+    compat.registry_check(paths, registry, exact=False)
-+    baseline = spec.load_registry(paths, paths.registry_abi)
-+    appended = {entry.name
-+                for entry in registry.entries[len(baseline.entries):]}
-+    problems = coverage_problems(paths, registry,
-+                                 allowed_missing_snapshots=appended)
-+    if problems:
-+        raise CtlvError('CTLV tree', '\n'.join(problems))
-+    outputs.load(paths)
-+    return registry
-+
-+
-+def finish_update(paths):
-+    """Require complete snapshots before advancing the registry baseline."""
-+    registry = check_for_update(paths)
-+    problems = coverage_problems(paths, registry)
-+    if problems:
-+        raise CtlvError('CTLV tree', '\n'.join(problems))
-+    return registry
-diff --git a/tools/ctlv/ctlvgen/lib/yamlload.py b/tools/ctlv/ctlvgen/lib/yamlload.py
-new file mode 100644
-index 000000000000..f043d87c9818
---- /dev/null
-+++ b/tools/ctlv/ctlvgen/lib/yamlload.py
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+"""Strict YAML subset loader.
-+
-+Anchors, aliases, merge keys, explicit tags, duplicate mapping keys and
-+multiple documents per file are all rejected: they let two readers of a file
-+that defines an ABI disagree about what it says.
-+"""
-+
-+import yaml
-+
-+from .errors import CtlvError
-+
-+
-+def _mark(path, mark):
-+    if mark is None:
-+        return str(path)
-+    return f'{path}:{mark.line + 1}'
-+
-+
-+class _StrictLoader(yaml.SafeLoader):
-+    """SafeLoader without the features that make a document ambiguous."""
-+
-+    def __init__(self, stream, path):
-+        super().__init__(stream)
-+        self.ctlv_path = path
-+
-+    def _reject(self, mark, what):
-+        raise CtlvError(_mark(self.ctlv_path, mark), what)
-+
-+    def compose_node(self, parent, index):
-+        event = self.peek_event()
-+        if isinstance(event, yaml.events.AliasEvent):
-+            self._reject(event.start_mark, 'YAML aliases are not allowed')
-+        if getattr(event, 'anchor', None) is not None:
-+            self._reject(event.start_mark, 'YAML anchors are not allowed')
-+        if _has_explicit_tag(event):
-+            self._reject(event.start_mark,
-+                         f'explicit YAML tag "{event.tag}" is not allowed')
-+        return super().compose_node(parent, index)
-+
-+    def construct_mapping(self, node, deep=False):
-+        seen = set()
-+        for key_node, _ in node.value:
-+            if key_node.tag == 'tag:yaml.org,2002:merge':
-+                self._reject(key_node.start_mark,
-+                             'YAML merge keys are not allowed')
-+            key = self.construct_object(key_node, deep=deep)
-+            if key in seen:
-+                self._reject(key_node.start_mark, f'duplicate key "{key}"')
-+            seen.add(key)
-+        return super().construct_mapping(node, deep=deep)
-+
-+
-+def _has_explicit_tag(event):
-+    if event.tag is None:
-+        return False
-+    implicit = getattr(event, 'implicit', False)
-+    if isinstance(implicit, tuple):
-+        return not (implicit[0] or implicit[1])
-+    return not implicit
-+
-+
-+def load(path):
-+    """Return the single YAML document in path as plain Python objects."""
-+    try:
-+        with open(path, 'r', encoding='utf-8') as stream:
-+            loader = _StrictLoader(stream, path)
-+            try:
-+                data = loader.get_single_data()
-+            finally:
-+                loader.dispose()
-+    except OSError as exc:
-+        raise CtlvError(str(path), f'cannot read: {exc.strerror}') from exc
-+    except yaml.YAMLError as exc:
-+        mark = getattr(exc, 'problem_mark', None)
-+        described = [getattr(exc, 'context', None),
-+                     getattr(exc, 'problem', None)]
-+        problem = ', '.join(part for part in described if part) or str(exc)
-+        raise CtlvError(_mark(path, mark), problem) from exc
-+
-+    if not isinstance(data, dict):
-+        raise CtlvError(str(path), 'expected a YAML mapping at the top level')
-+    return data
-diff --git a/tools/ctlv/pyproject.toml b/tools/ctlv/pyproject.toml
-new file mode 100644
-index 000000000000..7ecae2de3065
---- /dev/null
-+++ b/tools/ctlv/pyproject.toml
-@@ -0,0 +1,22 @@
-+[build-system]
-+requires = ["setuptools>=61.0"]
-+build-backend = "setuptools.build_meta"
-+
-+[project]
-+name = "ctlvgen"
-+authors = [
-+    {name = "Jiri Pirko", email = "jiri@resnulli.us"},
-+]
-+description = "CTLV schema tool"
-+version = "0.0.1"
-+requires-python = ">=3.9"
-+dependencies = [
-+    "pyyaml==6.*",
-+    "jsonschema==4.*"
-+]
-+
-+[tool.setuptools.packages.find]
-+include = ["ctlvgen", "ctlvgen.lib"]
-+
-+[project.scripts]
-+ctlvgen = "ctlvgen.cli:main"
-diff --git a/tools/ctlv/requirements.txt b/tools/ctlv/requirements.txt
-new file mode 100644
-index 000000000000..2a73e762f9b9
---- /dev/null
-+++ b/tools/ctlv/requirements.txt
-@@ -0,0 +1,2 @@
-+pyyaml==6.*
-+jsonschema==4.*
++static int ctlv_family_privs_pre_init(struct ctlv_device *ctlvdev, const void *init_info)
++{
++	u32 index;
++
++	for (index = ctlvdev->privs_count; index; index--) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index - 1];
++
++		family_priv->init_info = init_info;
++		if (!family_priv->family->pre_init) {
++			init_info = NULL;
++			continue;
++		}
++		init_info = family_priv->family->pre_init(init_info);
++		if (IS_ERR(init_info))
++			return PTR_ERR(init_info);
++	}
++	if (WARN_ON_ONCE(init_info))
++		return -EINVAL;
++	return 0;
++}
++
++static void ctlv_family_privs_pre_fini(struct ctlv_device *ctlvdev)
++{
++	u32 index;
++
++	lockdep_assert_not_held(&ctlvdev->registration_lock);
++	lockdep_assert_not_held(&ctlvdev->transition_lock);
++	lockdep_assert_not_held(&ctlvdev->events_lock);
++
++	for (index = 0; index < ctlvdev->privs_count; index++) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index];
++
++		if (!family_priv->initialized || !family_priv->family->pre_fini)
++			continue;
++		family_priv->family->pre_fini(ctlvdev, family_priv->priv);
++	}
++}
++
++static void ctlv_family_privs_fini_only(struct ctlv_device *ctlvdev)
++{
++	u32 index;
++
++	for (index = ctlvdev->privs_count; index; index--) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index - 1];
++
++		if (!family_priv->initialized)
++			continue;
++		family_priv->family->fini(ctlvdev, family_priv->priv);
++		family_priv->initialized = false;
++	}
++}
++
++static int ctlv_family_privs_init(struct ctlv_device *ctlvdev)
++{
++	u32 index;
++	int ret;
++
++	for (index = 0; index < ctlvdev->privs_count; index++) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index];
++
++		ret = family_priv->family->init(ctlvdev, family_priv->init_info, family_priv->priv);
++		family_priv->init_info = NULL;
++		if (ret) {
++			ctlv_family_privs_fini_only(ctlvdev);
++			return ret;
++		}
++		family_priv->initialized = true;
++	}
++	return 0;
++}
++
++static int ctlv_family_privs_post_init(struct ctlv_device *ctlvdev)
++{
++	u32 index;
++	int ret;
++
++	for (index = ctlvdev->privs_count; index; index--) {
++		struct ctlv_family_priv *family_priv = &ctlvdev->privs[index - 1];
++
++		if (!family_priv->family->post_init)
++			continue;
++		ret = family_priv->family->post_init(ctlvdev, family_priv->priv);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++
++static void ctlv_device_fini(struct ctlv_device *ctlvdev)
++{
++	ctlv_family_privs_pre_fini(ctlvdev);
++
++	/* No provider can remain after pre_fini has drained its consumers. */
++	scoped_guard(spinlock, &ctlvdev->transition_lock) {
++		ctlvdev->destroying = true;
++		ctlv_event_contexts_stop(ctlvdev);
++	}
++	ctlv_event_contexts_wait(ctlvdev);
++	ctlv_event_device_dead(ctlvdev);
++
++	ctlv_family_privs_fini_only(ctlvdev);
++}
++
++/* What one walk of the chain has accounted for so far. */
++struct ctlv_op_resolution {
++	struct ctlv_device *ctlvdev;
++	const struct ctlv_family *target;
++	const struct ctlv_family *family;
++	u32 bound;
++	u32 dynamic;
++	u32 events;
++	u64 previous;
++};
++
++/* Every binding of one family answers an op, so a spare one answers nothing. */
++static int ctlv_op_resolution_family_bound(const struct ctlv_op_resolution *state)
++{
++	const struct ctlv_family *family = state->family;
++
++	if (!family || state->bound == family->ops_count)
++		return 0;
++	/* The core's own table is this core's bug, not a family's. */
++	if (WARN_ON_ONCE(family == &ctlv_family))
++		return -EINVAL;
++	return ctlv_family_bad(family, "binds more than its schema asks for");
++}
++
++/*
++ * The ops of one family are contiguous in the walk, so the family before this
++ * one is complete as soon as another family's op arrives.
++ */
++static int ctlv_op_resolution_family_enter(struct ctlv_op_resolution *state,
++					   const struct ctlv_family *family)
++{
++	int ret;
++
++	if (state->family == family)
++		return 0;
++	ret = ctlv_op_resolution_family_bound(state);
++	if (ret)
++		return ret;
++	state->family = family;
++	state->bound = 0;
++	return 0;
++}
++
++static int ctlv_op_resolution_add(struct ctlv_op_resolution *state, const struct ctlv_family *owner,
++				  const struct ctlv_op_schema *op, struct ctlv_op_entry *entry)
++{
++	const struct ctlv_family *target = state->target;
++	const struct ctlv_family *family = state->family;
++	struct ctlv_family_priv *family_priv;
++	int ret;
++
++	family_priv = ctlv_family_priv_find(state->ctlvdev, family);
++	if (WARN_ON_ONCE(!family_priv))
++		return -EINVAL;
++	entry->schema = op;
++	entry->priv = family_priv->priv;
++	entry->state_index = CTLV_OP_STATE_NONE;
++
++	/*
++	 * An op ID is its family's ID and a number within it, so a walk from
++	 * the oldest ancestor down ascends, which covers uniqueness too.
++	 */
++	if (!CTLV_OP_NUMBER(op->op_id) || CTLV_OP_FAMILY(op->op_id) != owner->schema->family_id)
++		return ctlv_op_bad(target, op->op_id, "belongs to another family");
++	if (op->op_id <= state->previous)
++		return ctlv_op_bad(target, op->op_id, "is out of order");
++	state->previous = op->op_id;
++
++	switch (op->type) {
++	case CTLV_OP_TYPE_ACTION:
++	case CTLV_OP_TYPE_QUERY:
++		if (op->fd_access != CTLV_OP_FD_ACCESS_READ &&
++		    op->fd_access != CTLV_OP_FD_ACCESS_READ_WRITE)
++			return ctlv_op_bad(family, op->op_id, "has an unknown fd access");
++		/* The family that declared the op is the one that answers it. */
++		if (state->bound >= family->ops_count)
++			return ctlv_op_bad(family, op->op_id, "has nothing bound to it");
++		entry->binding = &family->ops[state->bound++];
++		/* Required even for an op this device disables or withholds. */
++		if (!entry->binding->action)
++			return ctlv_op_bad(family, op->op_id, "has no callback");
++		/* An optional op arrives absent, for the opt-in to clear. */
++		entry->absent = op->optional;
++		/* An op has a whole pair of hooks of its own, or none. */
++		if (!entry->binding->pre != !entry->binding->post)
++			return ctlv_op_bad(family, op->op_id, "has half a hook pair");
++		/* A pair is on no wire, so this is the only check of it. */
++		if (!entry->binding->pre != !op->pre_post)
++			return ctlv_op_bad(family, op->op_id, "disagrees about its hook pair");
++		break;
++	case CTLV_OP_TYPE_EVENT:
++		if (op->fd_access)
++			return ctlv_op_bad(target, op->op_id, "is an event with fd access");
++		if (op->optional)
++			return ctlv_op_bad(target, op->op_id, "is an event a device could omit");
++		/*
++		 * Produced rather than answered, so nothing to bind: an event
++		 * gets a subscription bit, numbered as the walk meets it.
++		 */
++		entry->event_index = state->events++;
++		break;
++	default:
++		return ctlv_op_bad(target, op->op_id, "has an unknown type");
++	}
++
++	switch (op->availability) {
++	case CTLV_OP_AVAILABILITY_FIXED:
++		break;
++	case CTLV_OP_AVAILABILITY_DYNAMIC:
++		if (op->type == CTLV_OP_TYPE_EVENT)
++			return ctlv_op_bad(target, op->op_id, "is an event a device could disable");
++		/*
++		 * Numbered from zero as the walk meets them, per device: two
++		 * families of one chain need not have the same ops.
++		 */
++		entry->state_index = state->dynamic++;
++		break;
++	default:
++		return ctlv_op_bad(target, op->op_id, "has an unknown availability");
++	}
++
++	/*
++	 * Once per device: what an inherited op may carry depends on the
++	 * extension points this family filled and on nothing that changes later.
++	 */
++	ret = ctlv_schema_op_sizes(target, op, &entry->sizes);
++	if (ret)
++		return ctlv_op_bad(target, op->op_id, "needs messages this core cannot carry");
++	return 0;
++}
++
++static int ctlv_op_resolution_init(struct ctlv_device *ctlvdev, const struct ctlv_family *family)
++{
++	struct ctlv_op_resolution state = {
++		.ctlvdev = ctlvdev,
++		.target = family,
++	};
++	const struct ctlv_family *owner;
++	const struct ctlv_op_schema *op;
++	struct ctlv_schema_cursor cursor;
++	u32 ops_count = 0;
++	int ret;
++
++	ret = ctlv_family_check(family);
++	if (ret)
++		return ret;
++	ret = ctlv_family_privs_alloc(ctlvdev, family);
++	if (ret)
++		return ret;
++
++	ctlv_schema_cursor_init(&cursor, family);
++	while (ctlv_schema_next_op(&cursor, &owner))
++		ops_count++;
++	if (!ops_count)
++		return ctlv_family_bad(family, "has an effective schema with no op");
++
++	ctlvdev->ops = kcalloc(ops_count, sizeof(*ctlvdev->ops), GFP_KERNEL);
++	if (!ctlvdev->ops)
++		return -ENOMEM;
++	ctlvdev->ops_count = ops_count;
++
++	ops_count = 0;
++	ctlv_schema_cursor_init(&cursor, family);
++	while ((op = ctlv_schema_next_op(&cursor, &owner))) {
++		ret = ctlv_op_resolution_family_enter(&state, owner);
++		if (ret)
++			return ret;
++		ret = ctlv_op_resolution_add(&state, owner, op, &ctlvdev->ops[ops_count++]);
++		if (ret)
++			return ret;
++	}
++	/* The device family, no op of another having ended its table. */
++	ret = ctlv_op_resolution_family_bound(&state);
++	if (ret)
++		return ret;
++	ctlvdev->dynamic_ops_count = state.dynamic;
++	ctlvdev->events_count = state.events;
++	return 0;
++}
++
++void *ctlv_priv_parent(const void *priv)
++{
++	const struct ctlv_priv_container *container = ctlv_priv_container(priv);
++
++	return container->parent ? container->parent->priv : NULL;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_priv_parent, "CTLV");
++
++void *ctlv_priv_child(const void *priv)
++{
++	const struct ctlv_priv_container *container = ctlv_priv_container(priv);
++
++	return container->child ? container->child->priv : NULL;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_priv_child, "CTLV");
++
++struct device *ctlv_device_parent(const struct ctlv_device *ctlvdev)
++{
++	return ctlvdev->dev.parent;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_device_parent, "CTLV");
++
++/*
++ * Dispatch reads the availability bit under no lock, so an op already admitted
++ * is neither cancelled nor waited for by a disable.
++ */
++
++struct ctlv_op_entry *ctlv_op_find(struct ctlv_device *ctlvdev, u64 op_id)
++{
++	u32 index;
++
++	/* The index ascends by op ID, so a miss stops early. */
++	for (index = 0; index < ctlvdev->ops_count; index++) {
++		if (ctlvdev->ops[index].schema->op_id == op_id)
++			return &ctlvdev->ops[index];
++		if (ctlvdev->ops[index].schema->op_id > op_id)
++			break;
++	}
++	return NULL;
++}
++
++static bool ctlv_op_disabled(struct ctlv_device *ctlvdev, const struct ctlv_op_entry *op)
++{
++	if (op->state_index == CTLV_OP_STATE_NONE)
++		return false;
++	/* Acquire, so what the family prepared before enabling is visible. */
++	return test_bit_acquire(op->state_index, ctlvdev->disabled);
++}
++
++static void ctlv_op_publish_all(struct ctlv_device *ctlvdev)
++{
++	u32 published = 0;
++	u32 index;
++
++	/* Against a family still opting in as this is called. */
++	guard(spinlock)
++		(&ctlvdev->transition_lock);
++	for (index = 0; index < ctlvdev->ops_count; index++) {
++		if (ctlvdev->ops[index].absent)
++			continue;
++		ctlvdev->ops[published++] = ctlvdev->ops[index];
++	}
++	ctlvdev->ops_count = published;
++	ctlvdev->published = true;
++}
++
++void ctlv_device_op_provide(struct ctlv_device *ctlvdev, u64 op_id)
++{
++	struct ctlv_op_entry *op;
++
++	guard(spinlock)
++		(&ctlvdev->transition_lock);
++	if (WARN_ON_ONCE(ctlvdev->published || ctlvdev->destroying))
++		return;
++	op = ctlv_op_find(ctlvdev, op_id);
++	/* An event is produced rather than answered, so there is none. */
++	if (WARN_ON_ONCE(!op) || WARN_ON_ONCE(!op->binding))
++		return;
++	op->absent = false;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_device_op_provide, "CTLV");
++
++void ctlv_device_op_state_set(struct ctlv_device *ctlvdev, u64 op_id, bool disabled)
++{
++	const struct ctlv_op_entry *op;
++
++	/*
++	 * Also serializes lookup against publication, which compacts the
++	 * array, and against teardown stopping state changes.
++	 */
++	guard(spinlock)
++		(&ctlvdev->transition_lock);
++	if (ctlvdev->destroying)
++		return;
++	op = ctlv_op_find(ctlvdev, op_id);
++	if (WARN_ON_ONCE(!op) || WARN_ON_ONCE(op->state_index == CTLV_OP_STATE_NONE))
++		return;
++	/* An op this device never took on has no state to change. */
++	if (WARN_ON_ONCE(op->absent))
++		return;
++	/*
++	 * Fully ordered, releasing what the family prepared to the acquire in
++	 * ctlv_op_disabled(). The old state makes a repeat change nothing.
++	 */
++	if (disabled ? test_and_set_bit(op->state_index, ctlvdev->disabled) :
++		       !test_and_clear_bit(op->state_index, ctlvdev->disabled))
++		return;
++	if (!ctlvdev->published)
++		return;
++	ctlvdev->state_generation++;
++	/* Still holding the serializer, so records reach queues in order. */
++	ctlv_event_op_changed(ctlvdev, op, disabled, ctlvdev->state_generation);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_device_op_state_set, "CTLV");
++
++static int ctlv_op_check_mode(const struct file *filp, const struct ctlv_op_entry *op)
++{
++	if (op->schema->type == CTLV_OP_TYPE_EVENT)
++		return -EOPNOTSUPP;
++
++	switch (op->schema->fd_access) {
++	case CTLV_OP_FD_ACCESS_READ:
++		return filp->f_mode & FMODE_READ ? 0 : -EACCES;
++	case CTLV_OP_FD_ACCESS_READ_WRITE:
++		return (filp->f_mode & (FMODE_READ | FMODE_WRITE)) == (FMODE_READ | FMODE_WRITE) ?
++			       0 :
++			       -EACCES;
++	default:
++		/* Registration rejects this before the device is visible. */
++		return -EACCES;
++	}
++}
++
++static u32 ctlv_reply_needed(const struct ctlv_op_entry *op)
++{
++	if (op->schema->type == CTLV_OP_TYPE_QUERY)
++		return op->sizes.query_reply_min_len;
++	return op->sizes.action_reply_max_len;
++}
++
++/*
++ * request_len is the copy boundary; root length frames the message. Ignored
++ * unknown attrs may exceed the schema maximum up to the transport limit.
++ */
++static int ctlv_request_frame(struct ctlv_op_ctx *ctx, const struct ctlv_op_exec *exec,
++			      const struct ctlv_attr *root)
++{
++	if (root->len < sizeof(*root) || root->len > exec->request_len ||
++	    root->attr_id != CTLV_ATTR_ROOT || root->flags != CTLV_ATTR_F_NESTED) {
++		ctx->error.reason = CTLV_VALIDATION_REASON_MALFORMED_MESSAGE;
++		return -EINVAL;
++	}
++	return 0;
++}
++
++static int ctlv_request_validate(struct ctlv_op_ctx *ctx, const struct ctlv_op_exec *exec,
++				 struct ctlv_attr *root)
++{
++	int ret;
++
++	ret = ctlv_request_frame(ctx, exec, root);
++	if (ret)
++		return ret;
++	if (!ctx->op->schema->request.node_schemas)
++		return 0;
++
++	ctx->request = (struct ctlv_msg){
++		.root = root,
++		.len = exec->request_len,
++		.tree = &ctx->op->schema->request,
++		.family = ctx->family,
++		.request = true,
++	};
++	return ctlv_schema_validate(&ctx->request, &ctx->error);
++}
++
++/*
++ * An action is given exactly the maximum its schema allows, so running out of
++ * room is this kernel's mistake. A query is given whatever the caller offered.
++ */
++static u32 ctlv_reply_capacity(const struct ctlv_op_entry *op, const struct ctlv_op_exec *exec)
++{
++	if (!op->schema->reply.node_schemas)
++		return 0;
++	if (op->schema->type == CTLV_OP_TYPE_QUERY)
++		return exec->reply_len;
++	return op->sizes.action_reply_max_len;
++}
++
++/* Actions and final query fragments must be complete schema-valid replies. */
++static int ctlv_reply_finish(struct ctlv_op_ctx *ctx)
++{
++	struct ctlv_error refused = {};
++
++	if (!ctx->output.root)
++		return 0;
++	/* Whatever poisoned it has warned about it already. */
++	if (ctx->output.poison)
++		return ctx->output.poison;
++	/* A query was held to its open nests by the ending it came to. */
++	if (ctx->op->schema->type == CTLV_OP_TYPE_QUERY) {
++		if (ctx->frag.cursor || ctx->frag.next_cursor)
++			return 0;
++	} else if (WARN_ON_ONCE(ctx->deepest != &ctx->output_root)) {
++		/* A cursor of a returned frame is reset, never followed. */
++		ctx->deepest = &ctx->output_root;
++		return -EINVAL;
++	}
++	if (WARN_ON_ONCE(ctlv_schema_validate(&ctx->output, &refused)))
++		return -EINVAL;
++	return 0;
++}
++
++/* A successful query callback must end exactly one fragment. */
++static int ctlv_query_fragment_result(struct ctlv_op_ctx *ctx)
++{
++	if (WARN_ON_ONCE(!ctx->frag.answered))
++		return -EINVAL;
++	return ctx->frag.result;
++}
++
++static int ctlv_op_call(struct ctlv_op_ctx *ctx)
++{
++	const struct ctlv_op_entry *op = ctx->op;
++	struct ctlv_cursor *request = NULL;
++	struct ctlv_cursor *reply = NULL;
++	int blob_ret;
++	int ret;
++
++	if (ctx->request.root) {
++		ctlv_message_root(&ctx->request_root, &ctx->request);
++		request = &ctx->request_root;
++	}
++	if (ctx->output.root)
++		reply = &ctx->output_root;
++
++	ctlv_blob_context_init(ctx);
++	if (op->schema->type == CTLV_OP_TYPE_ACTION) {
++		ret = op->binding->action(op->priv, ctx, request, reply);
++	} else {
++		ret = op->binding->query(op->priv, ctx, request, reply);
++		if (!ret)
++			ret = ctlv_query_fragment_result(ctx);
++	}
++	blob_ret = ctlv_blob_context_finish(ctx);
++	if (!ret)
++		ret = blob_ret;
++	if (ret)
++		return ret;
++	return ctlv_reply_finish(ctx);
++}
++
++/*
++ * The device family's hooks around the declaring op's, except that a core op
++ * uses the core family. The availability check is innermost.
++ */
++static int ctlv_op_dispatch(struct ctlv_op_ctx *ctx)
++{
++	const struct ctlv_op *op = ctx->op->binding;
++	const struct ctlv_family *family;
++	void *family_priv;
++	int ret;
++
++	if (CTLV_OP_FAMILY(ctx->op->schema->op_id) == CTLV_FAMILY_ROOT) {
++		family = &ctlv_family;
++		family_priv = ctx->ctlvdev->privs[0].priv;
++	} else {
++		family = ctx->ctlvdev->family;
++		family_priv = ctx->ctlvdev->privs[ctx->ctlvdev->privs_count - 1].priv;
++	}
++	ret = family->pre(family_priv, ctx);
++	if (ret)
++		return ret;
++
++	if (op->pre) {
++		ret = op->pre(ctx->op->priv, ctx);
++		if (ret)
++			goto out;
++	}
++
++	/* The only authoritative check: introspection is advisory. */
++	if (ctlv_op_disabled(ctx->ctlvdev, ctx->op))
++		ret = -EOPNOTSUPP;
++	else
++		ret = ctlv_op_call(ctx);
++
++	if (op->post)
++		op->post(ctx->op->priv, ctx);
++out:
++	family->post(family_priv, ctx);
++	return ret;
++}
++
++/* Error information replaces the reply atomically; errno remains authoritative. */
++static void ctlv_error_info(struct ctlv_op_ctx *ctx, u32 room, void **reply, u32 *reply_len)
++{
++	const struct ctlv_error *error = &ctx->error;
++	struct ctlv_cursor *root = &ctx->output_root;
++	void *buf;
++
++	if ((!error->reason && !error->message[0]) || !room)
++		return;
++	buf = kvmalloc(CTLV_ERROR_INFO_MAX_LEN, GFP_KERNEL_ACCOUNT);
++	if (!buf)
++		return;
++
++	/* The same builder over another schema, and a buffer of its own. */
++	ctlv_message_output_init(&ctx->output, ctx, buf, CTLV_ERROR_INFO_MAX_LEN,
++				 &ctlv_error_info_schema);
++	ctlv_message_root(root, &ctx->output);
++	ctx->deepest = root;
++
++	if (error->reason)
++		ctlv_put_u64(root, CTLV_ATTR_ERROR_REASON, CTLV_SCHEMA_ENUM, error->reason);
++	if (error->message[0])
++		ctlv_error_message_put(root, error->message);
++	if (error->reason == CTLV_VALIDATION_REASON_STALE_GENERATION) {
++		/* The one failure that is about no part of any message. */
++		ctlv_put_u64(root, CTLV_ATTR_ERROR_EXPECTED_GENERATION, CTLV_SCHEMA_UINT,
++			     error->expected_generation);
++		ctlv_put_u64(root, CTLV_ATTR_ERROR_CURRENT_GENERATION, CTLV_SCHEMA_UINT,
++			     error->current_generation);
++	} else if (error->reason) {
++		ctlv_put_u64(root, CTLV_ATTR_ERROR_BAD_ATTR_OFFSET, CTLV_SCHEMA_UINT,
++			     error->bad_attr_offset);
++		ctlv_put_u64(root, CTLV_ATTR_ERROR_NEST_OFFSET, CTLV_SCHEMA_UINT,
++			     error->nest_offset);
++		/* No attr is numbered zero, so a zero names nothing. */
++		if (error->missing_attr_id)
++			ctlv_put_u64(root, CTLV_ATTR_ERROR_MISSING_ATTR_ID, CTLV_SCHEMA_UINT,
++				     error->missing_attr_id);
++	}
++
++	if (ctx->output.poison || ctx->output.root->len > room) {
++		kvfree(buf);
++		return;
++	}
++	*reply = buf;
++	*reply_len = ctx->output.root->len;
++}
++
++/*
++ * Everything that needs the device to still have a family. @reply is built
++ * here and becomes the caller's to free, to copy out once the family is gone.
++ */
++static int ctlv_op_exec(struct ctlv_file *cfile, struct file *filp, struct ctlv_op_exec *exec,
++			void **reply, u32 *reply_len)
++{
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	const struct ctlv_op_entry *op;
++	struct ctlv_op_ctx ctx = {};
++	u32 capacity;
++	int ret;
++
++	/* No family numbers an op zero, so a zero here is an unset field. */
++	if (!exec->op_id)
++		return -EINVAL;
++	op = ctlv_op_find(ctlvdev, exec->op_id);
++	if (!op)
++		return -EOPNOTSUPP;
++	ret = ctlv_op_check_mode(filp, op);
++	if (ret)
++		return ret;
++	/*
++	 * Only a query resumes. A cursor says which fragment this is, so a
++	 * generation without one continues what was never started.
++	 */
++	if (op->schema->type == CTLV_OP_TYPE_QUERY) {
++		if (!exec->cursor && exec->generation)
++			return -EINVAL;
++		ctx.frag.generation = exec->generation;
++		ctx.frag.cursor = exec->cursor;
++	} else if (exec->generation || exec->cursor) {
++		return -EINVAL;
++	}
++
++	/* Before the callback, so a buffer too small mutates nothing. */
++	if (exec->reply_len < ctlv_reply_needed(op))
++		return -EMSGSIZE;
++	/* And no longer than a message of this core may be. */
++	if (exec->reply_len > CTLV_MAX_INLINE_MESSAGE_LEN)
++		return -EINVAL;
++
++	ctx.ctlvdev = ctlvdev;
++	ctx.family = ctlvdev->family;
++	ctx.file = cfile;
++	/* Whose memory a blob descriptor of this request describes. */
++	ctx.submitter = current;
++	ctx.op = op;
++
++	void *snapshot __free(kvfree) = NULL;
++	void *out __free(kvfree) = NULL;
++
++	if (exec->request_len < sizeof(struct ctlv_attr) ||
++	    exec->request_len > CTLV_MAX_INLINE_MESSAGE_LEN)
++		return -EINVAL;
++	/* Everything after this reads the snapshot, never userspace. */
++	snapshot = kvmalloc(exec->request_len, GFP_KERNEL_ACCOUNT);
++	if (!snapshot)
++		return -ENOMEM;
++	if (copy_from_user(snapshot, u64_to_user_ptr(exec->request), exec->request_len))
++		return -EFAULT;
++	/* Before any hook, so that no family code sees an unchecked attr. */
++	ret = ctlv_request_validate(&ctx, exec, snapshot);
++	if (ret)
++		goto out_error_info;
++
++	capacity = ctlv_reply_capacity(op, exec);
++	if (capacity) {
++		/*
++		 * Not zeroed: a byte is copied out only once the root's
++		 * length covers it, padding included.
++		 */
++		out = kvmalloc(capacity, GFP_KERNEL_ACCOUNT);
++		if (!out) {
++			ret = -ENOMEM;
++			goto out_request;
++		}
++		ctlv_message_output_init(&ctx.output, &ctx, out, capacity, &op->schema->reply);
++		ctlv_message_root(&ctx.output_root, &ctx.output);
++		ctx.deepest = &ctx.output_root;
++	}
++
++	ret = ctlv_op_dispatch(&ctx);
++	if (ret)
++		goto out_error_info;
++
++	/* Where the caller carries on from, zero for anything but a query. */
++	exec->generation = ctx.frag.reported;
++	exec->cursor = ctx.frag.next_cursor;
++	*reply_len = ctx.output.root ? ctx.output.root->len : 0;
++	*reply = no_free_ptr(out);
++	ret = 0;
++	goto out_request;
++
++out_error_info:
++	ctlv_error_info(&ctx, exec->reply_len, reply, reply_len);
++out_request:
++	ctlv_message_index_free(&ctx.request);
++	return ret;
++}
++
++/* What one family of this device's chain does with one extension point. */
++static const struct ctlv_stub_ops *ctlv_stub_ops_find(const struct ctlv_device *ctlvdev,
++						      const struct ctlv_stub_schema *stub_schema,
++						      void **priv)
++{
++	const struct ctlv_family *family;
++	u32 index;
++
++	/* From the device family towards the core, where the fill was found. */
++	for (family = ctlvdev->family; family; family = family->parent)
++		for (index = 0; index < family->stub_ops_count; index++)
++			if (family->stub_ops[index].family_id == stub_schema->family_id &&
++			    family->stub_ops[index].set_id == stub_schema->set_id) {
++				struct ctlv_family_priv *family_priv;
++
++				family_priv = ctlv_family_priv_find(ctlvdev, family);
++				if (WARN_ON_ONCE(!family_priv))
++					return NULL;
++				*priv = family_priv->priv;
++				return &family->stub_ops[index];
++			}
++	return NULL;
++}
++
++int ctlv_stub_fill(struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
++		   struct ctlv_cursor *nest)
++{
++	const struct ctlv_schema_tree *tree;
++	u32 index;
++
++	if (WARN_ON_ONCE(!nest->tree))
++		return -EINVAL;
++	tree = nest->tree;
++	for (index = 0; index < tree->stub_schemas_count; index++) {
++		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[index];
++		const struct ctlv_cursor *filled_request = request;
++		const struct ctlv_stub_fill_schema *fill_schema;
++		const struct ctlv_stub_ops *stub_ops;
++		struct ctlv_cursor filled;
++		void *priv;
++		int ret;
++
++		if (stub_schema->node != nest->node)
++			continue;
++		stub_ops = ctlv_stub_ops_find(ctx->ctlvdev, stub_schema, &priv);
++		if (!stub_ops || !stub_ops->fill)
++			continue;
++		if (request) {
++			fill_schema = ctlv_schema_fill(ctx->family, stub_schema->family_id,
++						       stub_schema->set_id);
++			if (WARN_ON_ONCE(!fill_schema))
++				return -EINVAL;
++			filled = *request;
++			if (ctlv_message_input_rebind(&filled, &fill_schema->members, 0))
++				filled_request = &filled;
++			else
++				filled_request = NULL;
++		}
++		ret = stub_ops->fill(priv, ctx, filled_request, nest);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_stub_fill, "CTLV");
++
++/*
++ * The core answers the root family through the same generated descriptor a
++ * family creates with, so it needs the same callbacks.
++ */
++int ctlv_op_pre(void *priv, struct ctlv_op_ctx *ctx)
++{
++	return 0;
++}
++
++void ctlv_op_post(void *priv, struct ctlv_op_ctx *ctx)
++{
++}
++
++size_t ctlv_priv_size(void)
++{
++	return 0;
++}
++
++int ctlv_init(struct ctlv_device *ctlvdev, const void *init_info, void *priv)
++{
++	if (WARN_ON_ONCE(init_info) || WARN_ON_ONCE(ctlv_priv_parent(priv)))
++		return -EINVAL;
++	return 0;
++}
++
++void ctlv_fini(struct ctlv_device *ctlvdev, void *priv)
++{
++}
++
++static long ctlv_file_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
++{
++	struct ctlv_op_exec __user *uexec = (struct ctlv_op_exec __user *)arg;
++	struct ctlv_file *cfile = filp->private_data;
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	struct ctlv_op_exec exec;
++	u32 reply_len = 0;
++	int ret;
++
++	if (cmd != CTLV_IOC_OP_EXEC)
++		return -ENOIOCTLCMD;
++	if (copy_from_user(&exec, uexec, sizeof(exec)))
++		return -EFAULT;
++	/* Reserved fields are what a compatible growth of this ioctl uses. */
++	if (exec.reserved[0] || exec.reserved[1])
++		return -EINVAL;
++
++	void *reply __free(kvfree) = NULL;
++
++	scoped_guard(rwsem_read, &ctlvdev->registration_lock) {
++		if (!ctlvdev->registered || !ctlvdev->family)
++			return -ENODEV;
++		ret = ctlv_op_exec(cfile, filp, &exec, &reply, &reply_len);
++	}
++	/* Do not make destruction wait for a faulting userspace copy. */
++	if (reply_len && copy_to_user(u64_to_user_ptr(exec.reply), reply, reply_len))
++		return ret ?: -EFAULT;
++	/*
++	 * The only fields the kernel writes back, a field at a time so that
++	 * what the caller stated about its own buffers stays the caller's.
++	 */
++	if (!ret && (put_user(exec.generation, &uexec->generation) ||
++		     put_user(exec.cursor, &uexec->cursor)))
++		return -EFAULT;
++	return ret;
++}
++
++/*
++ * One record per read, so a reader never gets a partial event. The offset says
++ * nothing about a queue and is neither read nor advanced.
++ */
++static ssize_t ctlv_file_read(struct file *filp, char __user *buf, size_t len, loff_t *ppos)
++{
++	struct ctlv_file *cfile = filp->private_data;
++
++	return ctlv_event_file_read(cfile, buf, len, !(filp->f_flags & O_NONBLOCK));
++}
++
++static __poll_t ctlv_file_poll(struct file *filp, struct poll_table_struct *wait)
++{
++	struct ctlv_file *cfile = filp->private_data;
++
++	return ctlv_event_file_poll(cfile, filp, wait);
++}
++
++static bool ctlv_file_open_allowed(struct ctlv_device *ctlvdev)
++{
++	lockdep_assert_held_read(&ctlvdev->registration_lock);
++	return ctlvdev->registered && ctlvdev->family;
++}
++
++static void ctlv_file_open_pinned(struct ctlv_device *ctlvdev)
++{
++}
++
++static int ctlv_file_open(struct inode *inode, struct file *filp)
++{
++	struct ctlv_device *ctlvdev = container_of(inode->i_cdev, struct ctlv_device, cdev);
++	struct ctlv_file *cfile;
++	int ret;
++
++	/*
++	 * A failed create can withdraw the cdev while an open is waiting for
++	 * the lifecycle lock, so admission itself first pins core storage.
++	 */
++	get_device(&ctlvdev->dev);
++	ctlv_file_open_pinned(ctlvdev);
++	scoped_guard(rwsem_read, &ctlvdev->registration_lock) {
++		if (!ctlv_file_open_allowed(ctlvdev)) {
++			ret = -ENODEV;
++			break;
++		}
++		if (!(filp->f_mode & FMODE_READ)) {
++			ret = -EACCES;
++			break;
++		}
++
++		cfile = kzalloc_obj(*cfile, GFP_KERNEL_ACCOUNT);
++		if (!cfile) {
++			ret = -ENOMEM;
++			break;
++		}
++		cfile->ctlvdev = ctlvdev;
++		/*
++		 * Commits this description to the device. An open that failed
++		 * after this would have to take it back.
++		 */
++		ret = ctlv_event_file_init(cfile);
++		if (ret) {
++			kfree(cfile);
++			break;
++		}
++		/* This description keeps the reference taken on entry. */
++		filp->private_data = cfile;
++		return 0;
++	}
++
++	put_device(&ctlvdev->dev);
++	return ret;
++}
++
++static int ctlv_file_release(struct inode *inode, struct file *filp)
++{
++	struct ctlv_file *cfile = filp->private_data;
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++
++	ctlv_event_file_exit(cfile);
++	kfree(cfile);
++	put_device(&ctlvdev->dev);
++	return 0;
++}
++
++static const struct file_operations ctlv_file_operations = {
++	.owner = THIS_MODULE,
++	.open = ctlv_file_open,
++	.release = ctlv_file_release,
++	.read = ctlv_file_read,
++	.poll = ctlv_file_poll,
++	.unlocked_ioctl = ctlv_file_ioctl,
++	/* Every ioctl field is fixed width, so one entry point serves both. */
++	.compat_ioctl = compat_ptr_ioctl,
++};
++
++/* Uevent identity is available to rules before the device can be opened. */
++static int ctlv_device_uevent_families(struct kobj_uevent_env *env,
++				       const struct ctlv_family *family)
++{
++	u32 levels = ctlv_family_levels(family);
++	u32 level;
++	int ret;
++
++	ret = add_uevent_var(env, "CTLV_FAMILY=%s", family->schema->name);
++	if (ret)
++		return ret;
++	for (level = 0; level < levels; level++) {
++		const struct ctlv_family *ancestor =
++			ctlv_family_ancestor(family, levels - 1 - level);
++
++		ret = add_uevent_var(env, "CTLV_COMPATIBLE_%u=%s", level, ancestor->schema->name);
++		if (ret)
++			return ret;
++	}
++	return add_uevent_var(env, "CTLV_COMPATIBLE_N=%u", levels);
++}
++
++static int ctlv_device_uevent_check(const struct ctlv_family *family)
++{
++	struct kobj_uevent_env *env;
++	int ret;
++
++	env = kzalloc_obj(*env, GFP_KERNEL);
++	if (!env)
++		return -ENOMEM;
++	ret = ctlv_device_uevent_families(env, family);
++	if (!ret && (env->buflen > CTLV_UEVENT_MAX_LEN || env->envp_idx > CTLV_UEVENT_MAX_VARS)) {
++		pr_err("family %s: its chain of names needs %d bytes in %d properties of a uevent, more than the %d in %d it may take\n",
++		       family->schema->name, env->buflen, env->envp_idx, CTLV_UEVENT_MAX_LEN,
++		       CTLV_UEVENT_MAX_VARS);
++		ret = -E2BIG;
++	}
++	kfree(env);
++	return ret;
++}
++
++/* Read unlocked: a uevent may be asked for under the registration lock. */
++static int ctlv_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
++{
++	const struct ctlv_device *ctlvdev = container_of_const(dev, struct ctlv_device, dev);
++	const struct ctlv_family *family = READ_ONCE(ctlvdev->family);
++
++	if (!family)
++		return 0;
++	return ctlv_device_uevent_families(env, family);
++}
++
++static void ctlv_device_release(struct device *dev)
++{
++	struct ctlv_device *ctlvdev = container_of(dev, struct ctlv_device, dev);
++
++	ida_free(&ctlv_device_ids, ctlvdev->dev.devt - ctlv_device_number);
++	bitmap_free(ctlvdev->disabled);
++	ctlv_family_privs_free(ctlvdev);
++	kfree(ctlvdev->ops);
++	kfree(ctlvdev);
++}
++
++static struct class ctlv_device_class = {
++	.name = "ctlv",
++	.dev_release = ctlv_device_release,
++	.dev_uevent = ctlv_device_uevent,
++};
++
++static int ctlv_device_add(struct ctlv_device *ctlvdev)
++{
++	lockdep_assert_held_write(&ctlvdev->registration_lock);
++
++	return cdev_device_add(&ctlvdev->cdev, &ctlvdev->dev);
++}
++
++static void ctlv_device_del(struct ctlv_device *ctlvdev)
++{
++	cdev_device_del(&ctlvdev->cdev, &ctlvdev->dev);
++}
++
++struct ctlv_device *ctlv_create(struct device *parent_dev, const struct ctlv_family *family,
++				const void *init_info)
++{
++	struct ctlv_device *ctlvdev;
++	int devnum, ret;
++
++	if (!parent_dev || !family)
++		return ERR_PTR(-EINVAL);
++
++	ctlvdev = kzalloc_obj(*ctlvdev, GFP_KERNEL);
++	if (!ctlvdev)
++		return ERR_PTR(-ENOMEM);
++	ctlvdev->family = family;
++	init_rwsem(&ctlvdev->registration_lock);
++	spin_lock_init(&ctlvdev->transition_lock);
++	ctlv_event_device_init(ctlvdev);
++
++	/* Before anything reads the schema through this device. */
++	ret = ctlv_op_resolution_init(ctlvdev, family);
++	if (ret)
++		goto err_free;
++	/* What this family's events need of every queue opened on it. */
++	ret = ctlv_event_sizes(ctlvdev);
++	if (ret)
++		goto err_free;
++	/* Before a minor is spent on a device that could not be announced. */
++	ret = ctlv_device_uevent_check(family);
++	if (ret)
++		goto err_free;
++	if (ctlvdev->dynamic_ops_count) {
++		ctlvdev->disabled = bitmap_zalloc(ctlvdev->dynamic_ops_count, GFP_KERNEL);
++		if (!ctlvdev->disabled) {
++			ret = -ENOMEM;
++			goto err_free;
++		}
++	}
++	devnum = ida_alloc_max(&ctlv_device_ids, CTLV_MAX_DEVICES - 1, GFP_KERNEL);
++	if (devnum < 0) {
++		ret = devnum;
++		goto err_free;
++	}
++
++	ctlvdev->dev.devt = ctlv_device_number + devnum;
++	ctlvdev->dev.class = &ctlv_device_class;
++	ctlvdev->dev.parent = parent_dev;
++	device_initialize(&ctlvdev->dev);
++	/*
++	 * The core owns the file operations, so an open holds the core module
++	 * and not the family's, which may unload while readers remain.
++	 */
++	cdev_init(&ctlvdev->cdev, &ctlv_file_operations);
++	ctlvdev->cdev.owner = THIS_MODULE;
++
++	ret = dev_set_name(&ctlvdev->dev, "ctlv%d", devnum);
++	if (ret)
++		goto err_put;
++	ret = ctlv_family_claim_add(family->schema);
++	if (ret)
++		goto err_put;
++	ret = ctlv_family_privs_pre_init(ctlvdev, init_info);
++	if (ret)
++		goto err_put;
++	ret = ctlv_family_privs_init(ctlvdev);
++	if (ret)
++		goto err_put;
++	ctlv_op_publish_all(ctlvdev);
++	ctlv_event_contexts_start(ctlvdev);
++	ret = ctlv_family_privs_post_init(ctlvdev);
++	if (ret)
++		goto err_fini;
++	scoped_guard(rwsem_write, &ctlvdev->registration_lock) {
++		ret = ctlv_device_add(ctlvdev);
++		if (!ret)
++			ctlvdev->registered = true;
++	}
++	if (ret)
++		goto err_fini;
++	return ctlvdev;
++
++err_fini:
++	ctlv_device_fini(ctlvdev);
++err_put:
++	put_device(&ctlvdev->dev);
++	return ERR_PTR(ret);
++err_free:
++	bitmap_free(ctlvdev->disabled);
++	ctlv_family_privs_free(ctlvdev);
++	kfree(ctlvdev->ops);
++	kfree(ctlvdev);
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_create, "CTLV");
++
++void ctlv_destroy(struct ctlv_device *ctlvdev)
++{
++	u32 index;
++
++	/* No new opens, no discovery entry, and no node to open. */
++	ctlv_device_del(ctlvdev);
++
++	/*
++	 * The write side waits for admitted callbacks while their events still
++	 * work. Once held, registration state keeps every later ioctl out.
++	 */
++	scoped_guard(rwsem_write, &ctlvdev->registration_lock)
++		ctlvdev->registered = false;
++
++	ctlv_device_fini(ctlvdev);
++
++	/* No callback can reach what the family owns after finalization. */
++	scoped_guard(rwsem_write, &ctlvdev->registration_lock)
++		WRITE_ONCE(ctlvdev->family, NULL);
++	for (index = 0; index < ctlvdev->ops_count; index++) {
++		ctlvdev->ops[index].binding = NULL;
++		ctlvdev->ops[index].priv = NULL;
++	}
++	ctlv_family_privs_free(ctlvdev);
++	put_device(&ctlvdev->dev);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_destroy, "CTLV");
++
++static int __init ctlv_module_init(void)
++{
++	int ret;
++
++	ret = alloc_chrdev_region(&ctlv_device_number, 0, CTLV_MAX_DEVICES, "ctlv");
++	if (ret)
++		return ret;
++
++	ret = class_register(&ctlv_device_class);
++	if (ret)
++		goto err_unregister_chrdev_region;
++
++	return 0;
++
++err_unregister_chrdev_region:
++	unregister_chrdev_region(ctlv_device_number, CTLV_MAX_DEVICES);
++	return ret;
++}
++
++static void __exit ctlv_module_exit(void)
++{
++	class_unregister(&ctlv_device_class);
++	unregister_chrdev_region(ctlv_device_number, CTLV_MAX_DEVICES);
++	ctlv_family_claims_free();
++	ida_destroy(&ctlv_device_ids);
++}
++
++subsys_initcall(ctlv_module_init);
++module_exit(ctlv_module_exit);
++MODULE_DESCRIPTION("CTLV character device TLV UAPI core");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/ctlv/device.h b/drivers/ctlv/device.h
+index 916a346c30ed..e51366d3fca1 100644
+--- a/drivers/ctlv/device.h
++++ b/drivers/ctlv/device.h
+@@ -2,24 +2,41 @@
+ #ifndef _CTLV_DEVICE_H
+ #define _CTLV_DEVICE_H
+ 
++#include <linux/cdev.h>
+ #include <linux/device.h>
+ #include <linux/list.h>
++#include <linux/rwsem.h>
+ #include <linux/spinlock.h>
+ #include <linux/types.h>
+ #include <linux/wait.h>
+ 
+ struct ctlv_event_record;
+ struct ctlv_family;
++struct ctlv_family_priv;
+ struct ctlv_op_entry;
+ 
+ struct ctlv_device {
+ 	struct device dev;
++	struct cdev cdev;
+ 
++	struct rw_semaphore registration_lock;
++	bool registered;
+ 	const struct ctlv_family *family;
++	struct ctlv_family_priv *privs;
++	u32 privs_count;
++	void *priv_block;
+ 
+ 	struct ctlv_op_entry *ops;
+ 	u32 ops_count;
+ 
++	/* Op publication and state writers, never the dispatch path. */
++	spinlock_t transition_lock;
++	bool published;
++	bool destroying;
++	u64 state_generation;
++	u32 dynamic_ops_count;
++	unsigned long *disabled;
++
+ 	/* Everything about the queues, and nothing family code runs under. */
+ 	spinlock_t events_lock;
+ 	struct list_head files;
+diff --git a/include/linux/ctlv.h b/include/linux/ctlv.h
+index cdfe3e8e930d..5f59acac7dc4 100644
+--- a/include/linux/ctlv.h
++++ b/include/linux/ctlv.h
+@@ -52,12 +52,67 @@ struct ctlv_cursor {
+ 	u32 index_scope;
+ };
+ 
++/**
++ * ctlv_priv_parent - Get the direct parent family private data.
++ * @priv: core-allocated private data passed to a family callback
++ *
++ * Return: parent private data, or NULL for the root family.
++ */
++void *ctlv_priv_parent(const void *priv);
++
++/**
++ * ctlv_priv_child - Get the direct child family private data.
++ * @priv: core-allocated private data passed to a family callback
++ *
++ * Return: child private data, or NULL for the device family.
++ */
++void *ctlv_priv_child(const void *priv);
++
++struct device;
++
++/**
++ * ctlv_device_parent - Get the backing device.
++ * @ctlvdev: CTLV device
++ *
++ * Return: backing device passed to ctlv_create().
++ */
++struct device *ctlv_device_parent(const struct ctlv_device *ctlvdev);
++
++/**
++ * ctlv_create - Create and register a CTLV device.
++ * @parent_dev: backing device
++ * @family: device family
++ * @init_info: family initialization data
++ *
++ * Return: CTLV device, or an error pointer.
++ */
++struct ctlv_device *ctlv_create(struct device *parent_dev,
++				const struct ctlv_family *family,
++				const void *init_info);
++
++/**
++ * ctlv_destroy - Unregister and destroy a CTLV device.
++ * @ctlvdev: CTLV device
++ */
++void ctlv_destroy(struct ctlv_device *ctlvdev);
++
+ /**
+  * ctlv_nest_end - Finish an output nest.
+  * @child: nest cursor returned by a generated start helper
+  */
+ void ctlv_nest_end(struct ctlv_cursor *child);
+ 
++/**
++ * ctlv_stub_fill - Delegate an extension-point output nest.
++ * @ctx: operation context
++ * @request: validated request root
++ * @nest: output nest selected by the generated helper
++ *
++ * Return: filling callback result, or 0 for an unfilled point.
++ */
++int ctlv_stub_fill(struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
++		   struct ctlv_cursor *nest);
++
+ /**
+  * ctlv_op_error - Record an operation error message.
+  * @ctx: operation context
+diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
+index 4f5141fc7ccf..66e62733f905 100644
+--- a/include/linux/ctlv_family.h
++++ b/include/linux/ctlv_family.h
+@@ -313,6 +313,10 @@ struct ctlv_family {
+ 
+ extern const struct ctlv_family ctlv_family;
+ 
++void ctlv_device_op_provide(struct ctlv_device *ctlvdev, u64 op_id);
++void ctlv_device_op_state_set(struct ctlv_device *ctlvdev, u64 op_id,
++			      bool disabled);
++
+ struct ctlv_cursor *
+ ctlv_input_attr(struct ctlv_cursor *cursor, const struct ctlv_cursor *nest,
+ 		struct ctlv_input_ref ref);
+@@ -341,6 +345,24 @@ struct ctlv_blob *ctlv_blob_resolve(struct ctlv_op_ctx *ctx,
+ struct ctlv_op_ctx *ctlv_event_create(struct ctlv_device *ctlvdev, u64 op_id,
+ 				      struct ctlv_cursor **event, gfp_t gfp);
+ 
++#define CTLV_OP_PROVIDE(_name, _op_id)				\
++static inline void _name##_provide(struct ctlv_device *ctlvdev)	\
++{								\
++	ctlv_device_op_provide(ctlvdev, (_op_id));		\
++}
++
++#define CTLV_OP_ENABLE(_name, _op_id)				\
++static inline void _name##_enable(struct ctlv_device *ctlvdev)	\
++{								\
++	ctlv_device_op_state_set(ctlvdev, (_op_id), false);	\
++}
++
++#define CTLV_OP_DISABLE(_name, _op_id)				\
++static inline void _name##_disable(struct ctlv_device *ctlvdev)	\
++{								\
++	ctlv_device_op_state_set(ctlvdev, (_op_id), true);	\
++}
++
+ #define CTLV_EVENT_CREATE(_name, _op_id)			\
+ static inline struct ctlv_op_ctx *				\
+ _name##_create(struct ctlv_device *ctlvdev,			\
 -- 
 2.56.0
 
