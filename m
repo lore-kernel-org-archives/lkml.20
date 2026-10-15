@@ -1,92 +1,74 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D292EC090;
-	Thu, 15 Oct 2026 00:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB302DCF46
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:58:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025884; cv=none; b=JJ26Pn+xMnCPxDcqLmfU+ZP1EyZkxlyJ+zEXQMvcrLnVtlwYOLopWa+6cuKfvkBAOaY3XufzVUnVU1+OtMrdw3Ka8Tg2lii7rqqCvo+pMlKMP1Pw6ipkWEDen1+E6GmPqygf5fQ/nq1E2Ms7ZHTrYT8FhKbkKkEoVfDU1BuOdpg=
+	t=1792025884; cv=none; b=XTvIhiie2J3Asi8D8qv1+zuVUtxo6GdnOTOjBrNcMTCjzFMJxxzx+iW00ZLXhFTg1pmFOSlYOrtw95OWSRLsH4eRs7gPfKOUJrHUAu2twX+6Rxyt/JTxTIfg3Ngv3iQjJR/TvDPmFwuyh1EpwKPcQ2lCkqiG1ly79aMPzC+eq8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792025884; c=relaxed/simple;
-	bh=BOUiJpFDSD9/2JBzgiFuKETS6BD5hFqNsWrC6W8j3GI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CJ1bGcQ8rKCUyptgP5PD6L29tQhizzSWlXgfv+zp1CjMNfSgrIX5KWNs+Nnw30QDqKDK4v+YqRLijMkMFBJuWB00XVdfsXHYkJZeLN249oYjevF/xc7BcJLp25RLzr8Clf/seMTnIri41rhTmWFyOOEcuoZMoWoP9+XjYhn4Th8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 235AB422D2;
-	Thu, 15 Oct 2026 02:58:00 +0200 (CEST)
-From: Lubos Rendek <l.rendek@proxmox.com>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
-Subject: [PATCH 6.18.y] nfsd: fix all-zero stateid in CB_OFFLOAD for async COPY
-Date: Thu, 15 Oct 2026 11:57:25 +1100
-Message-ID: <20261015005725.550511-1-l.rendek@proxmox.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
-References: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
+	bh=+bIo9cJqounn5tFWO+AlXDj10n+Ru2lW6w5VCXCaQQk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=dnWGXU8iSGVBg0yhahJ/0OlQ6yjXgsfFE64WcZ6H7w5ZLJurMsOrCnGzvudY67I2vmhg68/GmlpURXidT69w0AL3V1IkA5Yr9Kdnio8GQYr6wbI+PypVKJUjBzQuK/SySxss1DbSfdxdPp5Xt8A25EimFBB7GC+m+tDBpjIvlnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a41f46d629so1779304b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:58:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792025882; x=1792630682;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cc7DalWNCMk8aoTJaj4heqsGM0iGv+AJvAgY3BsSA4w=;
+        b=bjarjWLxcu8Jx3laXd9u4+Tzlc6sinODUSsUhceSIqKt/UK6RFpndT1xcMrM5eoRxA
+         RjUu8/pL4sReHBTRtSbh7vrjp6f3/whS5N5VF/PJz00F2BbNzEbef6V52y0GTBWAqZLi
+         AhOwB60RezHBXQ28Zvo5YR8bEqaq4KhAIx0WDmO8U9VFnlCbxb84zz07UdpEj5gbQViR
+         ujfm+9IP58vEx6TbV+LPrPzQvFs04OS6kO+Q4EIaJ+jtGW5czIPgU77BnufMZ8dnsb8f
+         MRQ1EqQ9bPFP8TZHH22xjPiwC7YI79Mhzux/gkeryxbMshnruwHx0BAFGZenI3IXDLIw
+         M0qA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5x0Z1xPzrzkb+YeorGeCD0VMuKcCw1ufW3COMjVIdyWi9AJtouCN+dt3+rROHTZ/jtpJOZ+44XeUGC9A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8a23+v5MVzqJek8RQ6wJpgbKxNkLVlIPg2lNljtjGZnbxrexY
+	RB4MbxXww94EOxJ8pSQeQflgzZDIxaoRBt5PZZqVOWeThj8MiO8BbCn7aksf9VZsiIkriPUXnVe
+	aEGfKkgMjQwL4Tt9q33SGcXvlAVY9h9ZQ5g0Q0yc+6gmrEUikyBw+KmPpdO8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1792025879200
+X-Received: by 2002:a05:6808:338a:b0:4f7:1e2:e79d with SMTP id
+ 5614622812f47-50c56354c5bmr15028368b6e.40.1792025882366; Wed, 14 Oct 2026
+ 17:58:02 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:58:02 -0700
+In-Reply-To: <20261015003852.532-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad0251a.5f317f00.247b6.005c.GAE@google.com>
+Subject: Re: [syzbot] [bluetooth?] KASAN: slab-use-after-free Read in mesh_send_sync
+From: syzbot <syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com>
+To: hdanton@sina.com, igorpetindev@gmail.com, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-[ There is no upstream commit: this fixes the 6.18.y backport of
-  d0beaee498e1. Mainline fixed the problem as part of the async COPY
-  rework in commit f307b4f7ed17 ("nfsd: split nfsd4_copy into transient
-  and durable async copy objects"), which is too risky to backport. ]
+Hello,
 
-Since commit 9b4e5e9ba5ae ("nfsd: fix stale s2s_cp_stateids IDR entry
-for async COPY"), nfsd4_copy() calls dup_copy_fields() before the copy
-stateid is created and then writes the new stateid only into the COPY
-result. The async copy's own cp_res.cb_stateid stays zero, so
-nfsd4_send_cb_offload() sends CB_OFFLOAD with an all-zero stateid. The
-client cannot match it to its pending COPY and waits forever in
-nfs42_proc_copy().
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Also copy the new stateid into async_copy->cp_res.cb_stateid. Calling
-dup_copy_fields() after nfs4_init_copy_state() instead is not an
-option, because dup_copy_fields() also copies cp_stateid and would
-overwrite the stateid that the backport moved to the async copy.
+Reported-by: syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com
+Tested-by: syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com
 
-Tested on 6.18.56 with an NFSv4.2 server-side COPY between two
-exports: with this change the copy completes and CB_OFFLOAD carries
-the same stateid as the COPY reply. Without it, cp(1) hangs on
-6.18.55; the affected code in nfsd4_copy() is the same in 6.18.56.
+Tested on:
 
-Fixes: 9b4e5e9ba5ae ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
-Closes: https://lore.kernel.org/stable/7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Lubos Rendek <l.rendek@proxmox.com>
----
- fs/nfsd/nfs4proc.c | 2 ++
- 1 file changed, 2 insertions(+)
+commit:         0fcb05b7 Merge tag 'libcrypto-fixes-for-linus' of git:..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16034599580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fc812281b37d1115
+dashboard link: https://syzkaller.appspot.com/bug?extid=f20755f37da70df33a16
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=173b329c580000
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index bc14c3939..aeab09dde 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2084,6 +2084,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out_dec_async_copy_err;
- 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
- 			sizeof(result->cb_stateid));
-+		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
-+		       sizeof(async_copy->cp_res.cb_stateid));
- 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
- 			       FMODE_NOCMTIME) != 0)
- 			async_copy->attr_update = true;
--- 
-2.47.3
-
-
+Note: testing is done by a robot and is best-effort only.
