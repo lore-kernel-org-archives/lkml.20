@@ -1,112 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A0753F6BB;
-	Thu, 15 Oct 2026 17:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792084368; cv=none; b=Zk8XJexiaYrmMgto0ZRYmlTROqKeD4KC0glcZsKtGnUTp+1V1NcaLpYcGpaKN4rmPaXZhPBTHI9mvaIlrLMtYlNulXWdJ5SiAJok3RHg/+1RtrVq1cmUxaEO7icf30uD8pMqPmMMaZ+hEhzufbqBxym2HMKiupmC8aLXABQcdOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792084368; c=relaxed/simple;
-	bh=DnnHiNAiW95Nj48NkwkHpodyvcASUuC5OMZdQ+b9tVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MPls3gEdQs2MiYCjkN+M6vGb48Gf98ZEnzjGOK6NmS9rMQXLvLbiiqyKeSdqinbbmnbPk3m5p4AgmORbPPKDfVFnbsmKcAFf3vOvOWsG8X/bsCQQDeF/7FnS5ESNw9d8FsWpPf6v7wU0KPCKPZ5PzRB+eZChkIWvX5t4/ygY9+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcjbF0FI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8D353D0B8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792084370; cv=pass; b=tB8wFNVecDINSw/6vm+oLFFoFFxp0z/p8CeVVNIIWy4VzTVQgZcOCKctUC4zSyCbXerDOqdCorAGhZzM4ulzVkhcGhHh9hGvq4sMKYcOTDoZcxRUUxYRcxR7fLKV07FHxFeQKyBHUMAdQPOvP4lPPPvwRt6BMKfj+AFoCxxI8e8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792084370; c=relaxed/simple;
+	bh=nD4KsEaXnEP1yIinbRyVG2yxCHKl9vThb6+0s0ZuEkc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IazZtu0Wu/S6XM/qGvZg3JUmhDPUwhqUmE0Dwq0ftExkxxBWC5HBkWi0+Xnu1cqJJKOaTFqgvRFK47BgbdPSyAzguQIZ4C4BcU8pWLVw6UsbZc4LZtzkS7m/gWnvMxfkxRr8JQGj+ZwKEIWsRpRZ/zJ2AclFPR54lRMdSZFduoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFv6TUBv; arc=pass smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcjbF0FI"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 29EA31F000C4;
-	Thu, 15 Oct 2026 17:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792084355;
-	bh=DnnHiNAiW95Nj48NkwkHpodyvcASUuC5OMZdQ+b9tVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RcjbF0FIpvsaiXOIOFm5HjelbDLthaGxlgh1MkRd9B9iydwN7cX3DoP/00A2gsdYu
-	 KTwt1IJHLTERBSYcC4jBXRpSt1hJYFJxzGrFs1+3LDd9vDV1sEL93ZCKXq53LOjTxe
-	 RBQ/CBuDkDuQMPYG3ber+DjhfvcOx8ELzKfXplGkHSM05TZD4k2udjhmPz3fjYaP/d
-	 ywMVIWcBbzxUeRy/KG+ad8JmqrXemuQzzSs+dIKh3Agsc2afNmhDP4I77XwMov5bFF
-	 X68/GXa+mMpxMA51CMJGjCViJAgGOvkpa5yRyOSaGvx19c9AyrEuJBlvS3eB8XtyWf
-	 aK+AjYOweSmPg==
-Date: Thu, 15 Oct 2026 19:12:33 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Alexandre Mergnat <amergnat@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-pwm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pwm: meson: Convert to waveform API
-Message-ID: <atEJA3Tf_-AJL75W@monoceros>
-References: <20260717-pwm_meson_convert_to_waveform_api-v1-1-d7dbdae1318d@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFv6TUBv"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bb7acc6fa0so413598e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:12:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792084354; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c/DshvK9iwVRaestGMovtDAuyLngdlEJ4b6YyfMEM0YsZuUJUV0zgmWKM+LcPfUY9e
+         /nCDckaMl6fcaP58BZ8E596Np9r36/wG1NLrRm6uT8qVVR0VTKT4jLYxwmZ/8oJ2Jb6s
+         BZiVKlZJKKDWGOuLcJaX1YTR6XGlpPopFi8ciqxN4DmZKN9gEorKrQ54QMavrPoeCKay
+         GCVPy4qNJgu1uWuO1qcADW1jsjAZCTzFGqeXna3rh32VhZ0bRqmTBlJ+jve8PjnMKx9e
+         r9xIepnky6uY5Hs6KMLdz6UzkznS1vzpWeYYbwRiX+OxgJ4pVLFrjQ2LDW5Q0jXVrL4u
+         9tGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nD4KsEaXnEP1yIinbRyVG2yxCHKl9vThb6+0s0ZuEkc=;
+        fh=l5qJkaPEIKsVXyIF+JlOlydr6BcNdes5GT0O4rFhAKU=;
+        b=MvwfEwp1jGrIvTAjRYgUKhjqVhRzkxZKgOEmkGbFtsGJhXwbTSwSKByuT8Ke8bPbaD
+         Sc+ekLIYqDcXtasD4W3ctwfxaiBXbsiIgiI6ceJ90n280Al6z+y3HbWvHDtzoISPIMMD
+         DnOTO4BOhaiOCgSnIijq7wF66f6f+EpmEv0K1YdxsCjKA47A9bCR2TSj1cXPcVNb+djm
+         6oN+/S6tzyJ0JZePInmLeFqaWa5D+s5cfR0iPExnGEJPnsV5+z0aqoaN+MoxzWhWrALH
+         NJD+KIK+7ReESabKG3i3QReOVWOgzBn8IDFkGLJL2BIGbmNZ5HV4WG00dC2jsj7JEVG7
+         THFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792084354; x=1792689154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nD4KsEaXnEP1yIinbRyVG2yxCHKl9vThb6+0s0ZuEkc=;
+        b=iFv6TUBv8mOfDTmD3pDNboDied+jblDVX8E1mJBZdetQUA4Fcw9tjZGcD/q92VuJ2F
+         +EUWfORQ2EnCGZjWiNt/oKw/PLEPWBcynUEt4lKV9v7mrIehbsvge89MhSBrusxKt5cH
+         4sLRmo8R7OP4EjvMSpTbIOWqseI431olO8VqjHOuO8z+rT+wAr9LmIvIrOpNbikns3EX
+         MoA7Uk4DM6/AlrC2Yqx9bd4QnB14q1tQunu10Qs1B1avpykCRCPkbYUMm7L1bFNRYjdV
+         o05vZElQLgcZhm32/vRG1vhRc7gcKPJRLZnTjPhSmnn0MImacUrbt2++Zh5jnAgmin9L
+         i6XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792084354; x=1792689154;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nD4KsEaXnEP1yIinbRyVG2yxCHKl9vThb6+0s0ZuEkc=;
+        b=a6BaTGjdSq6Zlh7AGir2fyaWPwj+JsVbbS+JMwRdMh1V+iDBjFPhrKpKH9cZoNdAhH
+         8PYgEhqdMHb1YTyrSAD3jvDvHHc2WMpbDeRuLP6cIzvC+gdNHR7STwCXQWf1dTO6IaIV
+         qbNk3Rv5GCpq3/hjUW6pSqxEb/V5Sb4FzvcYBUHFM5QYRJvh4LJfO4NI12S6aRbwJ3PZ
+         k12lNVvfzEg81PZR/nNaSKRx5dAmfNShI28vuefYsuDNbk4qQcf6hwLUBI5Ru31Rxg6K
+         5bX4jVIfhz+KEDhyvay+W55o/eAWR3x7YNb8sXkRACoMmBAGPON8uBdNfLeD9ikqliF6
+         nTFA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3EnUaCph+kzNHR7kHtKjIkJFs5JBAfqrjUneSDOgMzZYCyp1Yby5ql8T7Sm5FSIAbpvDCbg/08inB6Pk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCXrxZXXSP5HBxiMSLsD7ryLe8nnrYR4HtUPzPoFlWtfk+xMT3
+	eChNgNXlY8KmvZ5w0gJcB0yPhsy+nTll6xIY17xwk9k3wzIrMezCRd7sEYHlei1sfCJmI+4ztru
+	f2I8P9Iy9IFCx7UWYGs5hQrfpUzAmiGI=
+X-Gm-Gg: AYBFou1WeI+CiQkhXZF7iESKB6BLktS7iaJpuNEbYaR3Zmlcj20YCEHxKlYo2cBejru
+	OhjGeRaTpm92ujeK4K2uViKBOvz8EfvpSOC3ya+RczCqhtEuD2AhdGFXzG/Bg/mwtqttbHHPt2q
+	amstn7USuSZMyi1jlTOd7nX72OF58Z2CPFERh0rTZ9h+7jXas5WkAjaXXNXaejiH2VzF363OcgU
+	uMEGSwaS/DYJbMrNdtqLvOlJMlCVKKhPgC4x0ZPXUI75uvewvyzP1pB6voM1eQlpi2APWcUvsR8
+	NcEDjNUSDcysB//XznLT85XIudFBHn4KtB/Lal4FsE3MJ6Fl1pOqsT3sIaluBasPb3+ynHT/B44
+	pNfzYl23ZmNxLN53mdPawBKihipO74AfpCHHbSUEMy533pi/eRjmnJ8NlRxM9Qt5jAW/B9581W0
+	12fY7jdiU7Z3K0PR3xucE9jtozYJKbskHBjH6+P9Vm/8LcN5nHE3c=
+X-Received: by 2002:a05:6512:6882:10b0:5bc:e27a:5f91 with SMTP id
+ 2adb3069b0e04-5bce27a618amr4033303e87.5.1792084354377; Thu, 15 Oct 2026
+ 10:12:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2xg6pvfu72f3g5cg"
-Content-Disposition: inline
-In-Reply-To: <20260717-pwm_meson_convert_to_waveform_api-v1-1-d7dbdae1318d@baylibre.com>
-
-
---2xg6pvfu72f3g5cg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <20261014232030.GA3382959@ax162>
+In-Reply-To: <20261014232030.GA3382959@ax162>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 15 Oct 2026 19:12:19 +0200
+X-Gm-Features: AclHuK-rFLQqM9_y82j8Ip7FLTl4UEhuh7F41F3OQw90CnQLbJzYm_7TdNUyycs
+Message-ID: <CANiq72m14wLrcr5rfN2SADH+D6oQDp1o6R=d_NNkPkarS--ZGw@mail.gmail.com>
+Subject: Re: Prebuilt LLVM 23.1.2 and 23.1.3 uploaded
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kernel@vger.kernel.org, ojeda@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] pwm: meson: Convert to waveform API
-MIME-Version: 1.0
 
-Hello Alexandre,
+On Thu, Oct 15, 2026 at 1:20=E2=80=AFAM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> I have built and uploaded LLVM 23.1.2 and 23.1.3 to
+> https://mirrors.edge.kernel.org/pub/tools/llvm/.
+>
+> If there are any issues found, please let us know via email or
+> https://github.com/ClangBuiltLinux/linux/issues/new, so that we have an
+> opportunity to get them fixed in main and backported before the 23.x
+> series is no longer supported.
 
-On Fri, Jul 17, 2026 at 09:18:17PM +0200, Alexandre Mergnat wrote:
-> The PWM subsystem introduced a new waveform abstraction that
-> describes a PWM signal by period length, duty length and duty offset
-> instead of period, duty cycle and polarity. The meson driver still
-> uses the legacy .apply() and .get_state() callbacks and does not
-> implement the waveform callbacks, so consumers cannot use the
-> pwm_*_waveform() helper functions with it.
->=20
-> Adopt the new API by implementing .round_waveform_tohw(),
-> .round_waveform_fromhw(), .read_waveform() and .write_waveform()
-> with a private meson_pwm_waveform struct holding the hardware
-> representation. The cached channel state fields (rate, hi, lo,
-> constant, inverted) are removed; counter values are now computed in
-> .round_waveform_tohw() via clk_round_rate() without register writes,
-> then committed in .write_waveform().
->=20
-> The hardware invert bit places the duty active phase at the end of the
-> period on revisions that have it. Input clock rates are kept at or
-> below 1 GHz so each counter cycle remains representable in nanoseconds
-> by .round_waveform_fromhw(). Requests for which clk_round_rate() cannot
-> provide such a rate are rejected. Otherwise, period counts above the
-> 16-bit range are clamped, while a zero count is rounded up to one and
-> signalled by .round_waveform_tohw() returning 1.
->=20
-> Signed-off-by: Alexandre Mergnat <amergnat@baylibre.com>
+It seems to work in my usual test:
 
-I applied your patch now to
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
-nexxt
+By the way, the `rust/` folder is fixed on Rust 1.97 which uses LLVM
+22 -- not sure if we discussed it.
 
-as v7.5-rc1 material (sorry, I was to slow for the upcoming merge
-window, I want that patch cook in next for some time).
+Thanks!
 
-Thanks for your patience
-Uwe
-
---2xg6pvfu72f3g5cg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrRCX4ACgkQj4D7WH0S
-/k6TQQf/efb5VXK9xmAkdKGOSO1kf3kZYIB42Ug6bMGMo6wgaCUCsH7FfLY/qvO/
-Ltg49fEHW9Ub2pBPnhpSdqb1nPNrF0EvFCyiYxYVS0g4i4CjxnXVCmvaG/PsGzew
-ld4gXMse/qsncxe2lpFVGwDmWgx7eAVE1cOv5wN1wLn3l3MBBvWV0MarrqH2FEdC
-41AMdjDsXUgNsn8VezVhU5RgUcCp1NU6KPahjVIc51RGlVXmz6qPZLp6k4IQyJIp
-84s2qnpgbTx3xa7qvMGNzwVU/OaoIW3jawCFsocyPMM/n5NDpLP7Kz7edGO0wYFA
-kzvSf9bTVcWoZibsVu5ZgX3bejw2AA==
-=4Kmq
------END PGP SIGNATURE-----
-
---2xg6pvfu72f3g5cg--
+Cheers,
+Miguel
