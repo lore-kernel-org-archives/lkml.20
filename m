@@ -1,63 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93135208CB;
-	Thu, 15 Oct 2026 12:32:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0C1521890;
+	Thu, 15 Oct 2026 12:32:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067550; cv=none; b=LnpaOAku3HbRbxX/n8lgP1BqV+TDqf++5uiI48FVXdjw7thHhWirC+NlIwCdTtKXN8Cr3Zmg05qWPUh+BT9tgI253fmPe3Dh3QLDxAYPBwAPE2hlc03SM7nAoDZFGRzwjSG2rIBNCoNLTZZGU0AJqZpJcZwdsywK6KgsU68ByQA=
+	t=1792067552; cv=none; b=kLNSQKm9XDPevDvMpYbyvRm6WvtHsD6GypLxKkD0vuJpIAqrfW+03qTFRI4Baxif/lYC19BT+a+61mKmeWOXDLqa8HEKE+peDB6Tm00FMObbLUC35QO2nNGkTG4mn12WKBJZdKQSbal0o7lO7afNTdZj4Lsmhj8/7N8JLJDyKdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067550; c=relaxed/simple;
-	bh=rFPVi4EOEXxOsbNDVWQ3y9/46UUFL4G9T6zdHHNFgrw=;
+	s=arc-20240116; t=1792067552; c=relaxed/simple;
+	bh=IubCBrjCgMwfqXhTazNmTrwkGFM8nOBgKwAHbEXPlYo=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=DgCCYBkzZwDUEUeAE/cE78ZUxjD8mEpXwhqCmSotmLU+E/XDQlpVWX4e2VJlu3615IfgJSUOTbO1pwDnGMhyHtfGhscIudCvikmncyF6zai74S3DXqkxmMQvGOXH25Pd+cEKfPcwC8wkpB7Jc/ixAluxsRz4sPs4eJaiiZKWEqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3si+jiRT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=m1RX/Yp5; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=NibIZRVDDoMpW8OPjwTZm5mHU1dIkf1cTNTULXvbsOUhHR7AgVta8SDatmioxcfEsGfsoX8tiSpEeym5PE/oOpTmmEssZZDa1/vqAB5HnNBhk3koaf74HrRvStA43O1RkD72fBn/8c6Wya/OurTqBy86IFQachnU6HiIfbaZm48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AlonxMZU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wXfqVqdM; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3si+jiRT";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="m1RX/Yp5"
-Date: Thu, 15 Oct 2026 12:32:25 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AlonxMZU";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wXfqVqdM"
+Date: Thu, 15 Oct 2026 12:32:27 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792067547;
+	s=2020; t=1792067548;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4mp1A6eeebhTW2VRNauhmOz5hDaI3gcXzhZzn6K+2FY=;
-	b=3si+jiRTppe64KE5HPjIWOkYqLh5S9yR/8cnFUrBExNEAmv8k6Vh8v4xi4VO/jQHoKwUu+
-	wqDfQbEl+UgJy4LwRcNcJVYJxkBiMkz1xFKQyBSS8PI8iBvXOFmkBmZbd6tmf3s3OrVPj2
-	eyiQYX8HYtj6NFfWvpjq4GcSp8V4B5vR8UR9V+9rrVDcoo1nFt5O9/OBaPxkoIo/TFpKoF
-	2BlHW3migKfHeoo/vJpv0CPii3b4pwQRnlPdGNmHLv9gib366cenFB3qtf4KwtY3jZouSm
-	vjj/XapPyP3+kAvmaVxZT+2Rslh3KSZtHDNbPwK2EPqpb2jiOxO1lcI6ZZThUw==
+	bh=aMTG6RP6i5fmcZGML/KiBVNeHKsFv833LjFteAgVARc=;
+	b=AlonxMZUM6tdBe5vLRsmwdUYMBSSiDL7SmXIGqjLTkRWI+vjdlFfo+rz4oOK0s/NzM7VHi
+	7xf4BeW6IAxpMwFSv5GqGJeABMokR3GERut9UYbof2XxQYiCjVaR5rbQ9sWl5YZbeAvuTV
+	POJmz7r/2bNlHClNTwaIRH+Ca9b+/8WNGPn9k7crtAY9goIgnCLT2ATkUEpsWU+FLXNRLT
+	MAaWgsz0Oz4NSYn19NSI2XOY3pGmdLMiCsHUy2UOjD0VxTYinZtfa3Ci5XNt66ycSrTFq2
+	sNc2N9Tpe+8Sb4n5OHvQhAi2vf+4ojJnVibMdCF4uFWNGTztjVSipQV23HdxNg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792067547;
+	s=2020e; t=1792067548;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4mp1A6eeebhTW2VRNauhmOz5hDaI3gcXzhZzn6K+2FY=;
-	b=m1RX/Yp5cJ0wqqEZvIcHli+rVZd1OZyGsVHJ56cYeeYTlIbNMngc642iRwLs0Jq8DjE+LB
-	cwbY1bIaLiNfP5Dw==
+	bh=aMTG6RP6i5fmcZGML/KiBVNeHKsFv833LjFteAgVARc=;
+	b=wXfqVqdMoezGaYNvaVRAJaPqKPasf3yGJJQOpNPWjkXnFxgek/T1pTy6Pb453rBcvrykHb
+	HkidWf8iJM7LGSBQ==
 From: "tip-bot2 for Eliav Farber" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/al-fic: Switch to shared parent interrupt
-Cc: Talel Shenhar <talel@amazon.com>, Eliav Farber <farbere@amazon.com>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261011050449.41903-6-farbere@amazon.com>
-References: <20261011050449.41903-6-farbere@amazon.com>
+Subject: [tip: irq/drivers] irqchip/al-fic: Keep the device_node instead of a
+ cached name string
+Cc: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261011050449.41903-5-farbere@amazon.com>
+References: <20261011050449.41903-5-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179206754558.2666988.7125314153372781286.tip-bot2@tip-bot2>
+Message-ID: <179206754710.2666988.11556087581597630591.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,149 +67,128 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/drivers branch of tip:
 
-Commit-ID:     8db4c1dede9b7adb53e2ff3e448718d5e924ec35
-Gitweb:        https://git.kernel.org/tip/8db4c1dede9b7adb53e2ff3e448718d5e92=
-4ec35
+Commit-ID:     455c9664aa6940b44a4d0e92f6a5850afb1d8435
+Gitweb:        https://git.kernel.org/tip/455c9664aa6940b44a4d0e92f6a5850afb1=
+d8435
 Author:        Eliav Farber <farbere@amazon.com>
-AuthorDate:    Sun, 11 Oct 2026 05:04:44=20
+AuthorDate:    Sun, 11 Oct 2026 05:04:43=20
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Thu, 15 Oct 2026 14:25:06 +02:00
 
-irqchip/al-fic: Switch to shared parent interrupt
+irqchip/al-fic: Keep the device_node instead of a cached name string
 
-Until now the driver requested its parent interrupt using the chained IRQ
-API (irq_set_chained_handler_and_data()), which only works when each
-parent interrupt is wired to a single FIC instance.
+struct al_fic cached a const char *name that al_fic_wire_init() set
+from node->name. That string pointed into the device_node, so the
+driver already depended on the node outliving init, but nothing in the
+struct said so.
 
-A FIC controller is built from groups, each described by its own DT node,
-and the groups of one controller share that controller's output line
-toward the parent. So a real devicetree has several FIC nodes on one
-parent GIC SPI, and a chained handler can only be installed once per
-parent. Cascading compounds this: an aggregating group collects several
-peripherals' outputs onto the line above it.
+Keep the device_node itself and derive the name where it is needed. The
+dependency does not go away: of_node_full_name() also returns a pointer
+into the node, and irq_alloc_domain_generic_chips() keeps the string it
+is given.
 
-To support that, request the parent interrupt as a shared interrupt
-(IRQF_SHARED) instead of installing a chained handler. The handler now has
-the standard irqreturn_t prototype and reports whether this instance had
-anything pending, so the shared-IRQ core can tell which instance on the
-line raised the interrupt. IRQF_NO_THREAD is set because the handler only
-demultiplexes to the child domain and must not be forced-threaded; all
-instances sharing a parent line agree on this flag, as the shared-IRQ core
-requires.
+The driver therefore needs its own reference. of_irq_init() holds one
+across the init callback, but since commit 30724547b221 ("of/irq: Fix
+remaining refcount leaks in of_irq_init()") it drops that reference
+again when it drains its parent list. Take a reference where the
+pointer is stored and drop it on the error path. The driver is
+__init-only with no teardown, so on success it is held for the life of
+the system.
 
-The handler reads the group's cause register and returns IRQ_HANDLED when
-any unmasked cause bit is set, IRQ_NONE otherwise. That is the signal the
-shared-IRQ core needs - "did this instance's hardware raise the line" -
-rather than the result of dispatching to the child domain.
+Deriving the name this way also changes the generic chip name from the
+bare node name (e.g. "interrupt-controller") to the full name including
+the unit address (e.g. "interrupt-controller@fd8a8500"), which keeps
+instances that share a bare name distinguishable.
 
-For that filter to be right, gc->mask_cache must be valid before the parent
-is requested. IRQ_GC_INIT_MASK_CACHE seeds it from the mask register only
-on the first child mapping, and never at all for a group with no consumer
-in the devicetree; until then the cache reads 0 and every latched cause bit
-passes the filter. Seed it from the value al_fic_wire_init() programmed and
-drop the flag; nothing can change the register in between, so the read
-could only have returned that same value.
-
-request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-an error path for it. Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain after
-creating it, so irq_domain_remove() tears the generic chips down too and
-the single call suffices for both the chip-allocation and request_irq()
-failure paths.
-
-Co-developed-by: Talel Shenhar <talel@amazon.com>
-Signed-off-by: Talel Shenhar <talel@amazon.com>
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20261011050449.41903-6-farbere@amazon.com
+Link: https://patch.msgid.link/20261011050449.41903-5-farbere@amazon.com
 ---
- drivers/irqchip/irq-al-fic.c | 35 ++++++++++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 9 deletions(-)
+ drivers/irqchip/irq-al-fic.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-index 30740d7..e664c33 100644
+index ac979c3..30740d7 100644
 --- a/drivers/irqchip/irq-al-fic.c
 +++ b/drivers/irqchip/irq-al-fic.c
-@@ -4,9 +4,9 @@
-  */
-=20
- #include <linux/bitfield.h>
-+#include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
- #include <linux/irqdomain.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -94,24 +94,21 @@ static int al_fic_irq_set_type(struct irq_data *data, uns=
-igned int flow_type)
+@@ -36,7 +36,7 @@ enum al_fic_state {
+ struct al_fic {
+ 	void __iomem		*base;
+ 	struct irq_domain	*domain;
+-	const char		*name;
++	struct device_node	*node;
+ 	unsigned int		parent_irq;
+ 	enum al_fic_state	state;
+ };
+@@ -88,7 +88,7 @@ static int al_fic_irq_set_type(struct irq_data *data, unsig=
+ned int flow_type)
+ 	if (fic->state =3D=3D AL_FIC_UNCONFIGURED) {
+ 		al_fic_set_trigger(fic, gc, new_state);
+ 	} else if (fic->state !=3D new_state) {
+-		pr_debug("fic %s state already configured to %d\n", fic->name, fic->state);
++		pr_debug("fic %pOF state already configured to %d\n", fic->node, fic->stat=
+e);
+ 		return -EINVAL;
+ 	}
  	return 0;
- }
-=20
--static void al_fic_irq_handler(struct irq_desc *desc)
-+static irqreturn_t al_fic_irq_handler(int irq, void *data)
- {
--	struct al_fic *fic =3D irq_desc_get_handler_data(desc);
--	struct irq_chip *irqchip =3D irq_desc_get_chip(desc);
-+	struct al_fic *fic =3D data;
- 	struct irq_domain *domain =3D fic->domain;
- 	struct irq_chip_generic *gc =3D irq_get_domain_generic_chip(domain, 0);
- 	unsigned long pending;
- 	u32 hwirq;
-=20
--	chained_irq_enter(irqchip, desc);
--
- 	pending =3D readl_relaxed(fic->base + AL_FIC_CAUSE);
- 	pending &=3D ~gc->mask_cache;
-=20
- 	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
- 		generic_handle_domain_irq(domain, hwirq);
-=20
--	chained_irq_exit(irqchip, desc);
-+	return pending ? IRQ_HANDLED : IRQ_NONE;
- }
-=20
- static int al_fic_irq_retrigger(struct irq_data *data)
-@@ -136,9 +133,15 @@ static int al_fic_register(struct device_node *node, str=
-uct al_fic *fic)
- 		return -ENOMEM;
+@@ -137,7 +137,7 @@ static int al_fic_register(struct device_node *node, stru=
+ct al_fic *fic)
  	}
 =20
-+	/*
-+	 * Let irq_domain_remove() free the generic chips on either error path
-+	 * below, instead of calling irq_domain_remove_generic_chips() by hand.
-+	 */
-+	fic->domain->flags |=3D IRQ_DOMAIN_FLAG_DESTROY_GC;
-+
  	ret =3D irq_alloc_domain_generic_chips(fic->domain, NR_FIC_IRQS,
- 					     1, of_node_full_name(fic->node), handle_level_irq,
--					     0, 0, IRQ_GC_INIT_MASK_CACHE);
-+					     0, 0, 0);
+-					     1, fic->name, handle_level_irq,
++					     1, of_node_full_name(fic->node), handle_level_irq,
+ 					     0, 0, IRQ_GC_INIT_MASK_CACHE);
  	if (ret) {
  		pr_err("fail to allocate generic chip (%d)\n", ret);
- 		goto err_domain_remove;
-@@ -156,7 +159,21 @@ static int al_fic_register(struct device_node *node, str=
-uct al_fic *fic)
- 	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
- 	gc->private =3D fic;
+@@ -166,9 +166,8 @@ err_domain_remove:
 =20
--	irq_set_chained_handler_and_data(fic->parent_irq, al_fic_irq_handler, fic);
-+	/*
-+	 * Seed the mask cache with the value al_fic_wire_init() programmed,
-+	 * rather than having the generic chip read the register back on the
-+	 * first child mapping: that is later than the parent is requested, and
-+	 * never happens at all for a group with no consumer in the devicetree.
-+	 */
-+	gc->mask_cache =3D ~0U;
-+
-+	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler, IRQF_NO_THREAD | I=
-RQF_SHARED,
-+			  of_node_full_name(fic->node), fic);
-+	if (ret) {
-+		pr_err("fail to request irq (%d)\n", ret);
-+		goto err_domain_remove;
-+	}
-+
- 	return 0;
+ /*
+  * al_fic_wire_init() - initialize and configure fic in wire mode
+- * @of_node: optional pointer to interrupt controller's device tree node.
++ * @node: pointer to the interrupt controller's device tree node
+  * @base: mmio to fic register
+- * @name: name of the fic
+  * @parent_irq: interrupt of parent
+  *
+  * This API will configure the fic hardware to work in wire mode.
+@@ -177,7 +176,7 @@ err_domain_remove:
+  * to be determined based on connected hardware to this fic.
+  */
+ static struct al_fic *al_fic_wire_init(struct device_node *node, void __iome=
+m *base,
+-				       const char *name, unsigned int parent_irq)
++				       unsigned int parent_irq)
+ {
+ 	u32 control =3D CONTROL_MASK_MSI_X;
+ 	struct al_fic *fic;
+@@ -189,7 +188,7 @@ static struct al_fic *al_fic_wire_init(struct device_node=
+ *node, void __iomem *b
 =20
- err_domain_remove:
+ 	fic->base =3D base;
+ 	fic->parent_irq =3D parent_irq;
+-	fic->name =3D name;
++	fic->node =3D of_node_get(node);
+=20
+ 	/* mask out all interrupts */
+ 	writel_relaxed(0xFFFFFFFF, fic->base + AL_FIC_MASK);
+@@ -211,6 +210,7 @@ static struct al_fic *al_fic_wire_init(struct device_node=
+ *node, void __iomem *b
+ 	return fic;
+=20
+ err_free:
++	of_node_put(fic->node);
+ 	kfree(fic);
+ 	return ERR_PTR(ret);
+ }
+@@ -240,7 +240,7 @@ static int __init al_fic_init_dt(struct device_node *node=
+, struct device_node *p
+ 		goto err_unmap;
+ 	}
+=20
+-	fic =3D al_fic_wire_init(node, base, node->name, parent_irq);
++	fic =3D al_fic_wire_init(node, base, parent_irq);
+=20
+ 	if (IS_ERR(fic)) {
+ 		pr_err("%pOF: fail to initialize irqchip (%pe)\n", node, fic);
