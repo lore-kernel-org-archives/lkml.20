@@ -1,131 +1,96 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0644749EC68
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B350B48665F;
+	Thu, 15 Oct 2026 09:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057921; cv=none; b=QBuSEt0JPjGRVo9AsxWUDtTeuEPeJbykMg6koW9zzke/78AeePNT3/pi+bVdL7umZ1lJUuKD0h0viSdo8Eg/5Kx+qL0YlkSYcKsB5oDFR6txGKmHgSjC4/RZqyvVwVENshGdFFcx6dfrQq9k4+IZngMjUQsTQ6zBhZmi5A7Vy2c=
+	t=1792058006; cv=none; b=i/aQJcPIFrgpC0vJYgLcHidcWTTECfwGPgn/xEURy+6zTX3FfAidDwx7G2LqXBdRsiLNnXTGCEPkpVT41S0YtLKRa/kICoQBKyq86IvdhavSGMlnJ0Nojufz8x5wx6ef4plTmCQWcU7WWLxAlmNW+TrHLyJL+LTRopJc+QTHje8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057921; c=relaxed/simple;
-	bh=h1WMbnMbzIi253lfdQ+u9FLPEFTOIsOzHEUUkwnXNqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KpjSUeFgjAc9ygD1xkr43rjNO54wkp32KJ8XoiKf4+s9N3zWbG5I6GnvfUgTVoQ70sraj2ugCTiHLqmqAZpqlsKIyxTZ0q0hYpTLTs4JBq1lnZhscXERyaMa/z+FO6HYTHpktKB5xwG2V0XlGTGy53WkGPO4qZBMyuv12tmnp+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UnSBobRf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=sr6Ugn4v; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792058006; c=relaxed/simple;
+	bh=pwEm4/2RBhku51g18W4c5ncfp9iaO/+W3jklu4v+Va8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GHnBzys5E4IWZ8QEVoKesyQ/xEQQSKcTUKMw/NLw0S/srUSBLOZpUL9YRoyos3oRJNYIA/x8NWn8OLu6VRdSlwvZrPwJ/b7Pyg/+KyDrNOqmnxTY98Hu1ZcjaUBKzycXk8Xwuzr5+fMf3EapwMsfJZ16rufv0orp6TecpdEytDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfSjs0NV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UnSBobRf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="sr6Ugn4v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792057918;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
-	b=UnSBobRfaksXNjQa+TVWwdBcULpIeIQ3sEbxV3ORoLMo5FXo+w8Rle/GHp3ZB25AdNiNt5
-	b4EQxxfiv5hgx+EUn4D9UXXHsVHt5Aw5S1rhzFontIVFMwvfxbovQlbC/TYudqbfYRXjLj
-	x0lECdlC/I+kOLbiE9tuRjkZaQh1+wY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-385-U1PLL9xqPyyZk_pG0T1J4g-1; Thu, 15 Oct 2026 09:51:57 +0000
-X-MC-Unique: U1PLL9xqPyyZk_pG0T1J4g-1
-X-Mimecast-MFC-AGG-ID: U1PLL9xqPyyZk_pG0T1J4g_1792057916
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c4445512dso1193872f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:51:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792057916; x=1792662716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
-        b=sr6Ugn4vNJa+IKRRChLBwLXfQkii45jqcBGTJ3J4qk30iby/CmXcIaakXlAet63fVC
-         3yjN0o9+5HoiCIO1nJONS3Egv1y4lG1CBZiwW81GS/DzIY9fTmTpwMV7pdREAa/8BhEq
-         i0O1MVI4CWRTgxygHJizlZezi9aZF6WVqKkOxAsgZ1CdBlus9wmHNb6iIjL9hI+XZRc/
-         N/ghLbapsrOnjkEmaLkYraGc3XmZSWF3AfbPA3VNE2rsovCfD1KwvBZcwC5jjipeJTNV
-         4J4KmK0Jp3e5aM2xnnCvjWGFaT+bPI0RfH9r3K/uLKi2Sul92lHgnvzaJCahGJLDkAG4
-         ViGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057916; x=1792662716;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
-        b=aZ2Ynjlbl7GX69uwQb3VfT0fdSRpm5rFsB9NRZwMc4xPijKvxCepx1r2pXJ0rZX+lZ
-         xCaOj45g84urKSmGvhBKAGoCKgzML6vJdFymHAGQ2rTEnjXubTUtmbb2xY1Ffr9aFL0b
-         ziIhjQM0nF//5zVNUDLblNdocPdKEtNvrMnmrVSA+QbvcnO1tCjMk1lRhM/svaIaiqzY
-         9K2HmYB90Dv2xp/y6YkUAwvP6v3a0DyH0rJ8WIiXYcCzGIxnfLjF4kphJALivMaq8X9+
-         hC06/Z9CzA4jU+i/Ig0XvclPB7yUURhvSCbrncrf0cBRB8TRZwnl8qfocoe5q4GvWgZq
-         zonA==
-X-Gm-Message-State: AFq9FYJEWIhw/oC5hn7ksyQBs4Bj2+0NOFO+JWmsjG4juPE4Av70qbTN
-	s7yxTpZ71Ats2QlPGBrXt/R8gR3PjmbpXmreUKQdHdQaeDg3uCLgRU5SIDlAy1mI1RwHz70pOqT
-	tYLgRASxYSdF7Dm7TQh5bnYekm/O+X6OumAWcXej+vgN2Tiv9PDsYE6sdnmjqnHItPpHDRJgqOg
-	==
-X-Gm-Gg: AYBFou1f1KAsXKsSpdjfeYlOUZUZxSOmRq51beG+PQpwzLS++7e3qRcUYtFUk9YiBCJ
-	pe8u1Xij3xCnAcaJFc+XqsMDZIZ4SD2zhuwDFTFtXpgQzl4NHKb+F5OAnA0zHLWox2YhD0wh4xA
-	7aHTaOPPN0na2HrorJ+erl88fstByDHZBaENoYEEPSYAi3xqfgfpOGKqrJmyTT2hPi3d3egFRwF
-	CrBRD8lbni/cKufBUBqIPTzG5UK6etcNZqY946a7oJ6KD3ma85NeRSGvuNjj8yoK2Qz4LX1naRf
-	KY71v78qcdPae694vDVtNwdwyJbJ/tkLaELtgOMpCEacXHWMCZ2KSyuRdJvcAOXmVVg6jFreb/a
-	K9LZOoBAMlotUxgd0qtPM4xFS9nFrAKvUY8AiLTm+1tgMbTuGd2JybMyB5a5kTeQpqK/UZD1o82
-	sjgfxM
-X-Received: by 2002:a05:6000:2407:b0:487:1ddc:aaff with SMTP id ffacd0b85a97d-48dbace40cfmr33733787f8f.44.1792057916413;
-        Thu, 15 Oct 2026 02:51:56 -0700 (PDT)
-X-Received: by 2002:a05:6000:2407:b0:487:1ddc:aaff with SMTP id ffacd0b85a97d-48dbace40cfmr33733768f8f.44.1792057916074;
-        Thu, 15 Oct 2026 02:51:56 -0700 (PDT)
-Received: from [192.168.10.48] ([176.206.82.153])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm18207703f8f.51.2026.10.15.02.51.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:51:54 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [GIT PULL] More KVM fixes for Linux 7.3-rc8 or final
-Date: Thu, 15 Oct 2026 11:51:54 +0200
-Message-ID: <20261015095154.815793-1-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfSjs0NV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439281F000C4;
+	Thu, 15 Oct 2026 09:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792058004;
+	bh=pWSv0HLiAJoTWLt7uJPRQqYR8RlGcCvdzB2n4hsLLBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lfSjs0NVa2Q7Yoce0HBjO6gAq4xiMOnf48jazkWzuNHu9mMe451E88M/arH5Jf5ZT
+	 EBiLaH31kt4glfCU96mV+sdGqiYwFU+FoR+YVVcdoHCTzcOu6uKuVdaAEQMmXLd3BM
+	 wUA/4VtkCA8pm7unwTtXb4NedmPqxs6bTVA9n8SGjV6H6GlBGHbWUPYpFu/L7hPIZh
+	 j8DwNvXcq2TSgmdSOwKXC1PyC2XA6TdTn3DKC3gh83HxOD3rzRrB5TCrfFJbno9MFt
+	 4thOVS3Dp3ETLiKJm2JJYyWKPm3o4/RjhiJirzG/eYY2kMmuKr0F/kPbZDziOJmT29
+	 Dytk8Ghkv3WCA==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xHI9K-00000006EBG-0xAz;
+	Thu, 15 Oct 2026 11:53:22 +0200
+Date: Thu, 15 Oct 2026 11:53:22 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com,
+	EddieSY.Lin@moxa.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/6] USB: serial: add generic write control callbacks
+Message-ID: <atCikmW89iycQzTp@hovoldconsulting.com>
+References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
+ <20260811060501.2307836-5-crescentcy.hsieh@moxa.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811060501.2307836-5-crescentcy.hsieh@moxa.com>
 
-Linus,
+On Tue, Aug 11, 2026 at 02:04:59PM +0800, Crescent Hsieh wrote:
+> Some USB serial devices use device-specific flow control to determine
+> whether write submission may proceed. The generic write path currently
+> provides no way to pause submission based on driver-specific state. It
+> also provides no way for a driver to restore its state if URB submission
+> fails.
+> 
+> Add an optional write_ready() callback to struct usb_serial_driver. Call
+> it with port->lock held after confirming that data is queued and a write
+> URB is available. If the callback returns false, stop write processing
+> and leave the data in the FIFO. The driver must call
+> usb_serial_generic_write_start() when writes may proceed again.
+> 
+> Add an optional write_rollback() callback for restoring driver-specific
+> state after usb_submit_urb() fails. Call it with port->lock held after
+> restoring the generic transmit accounting, and pass it the length of the
+> prepared transfer.
+> 
+> Drivers which do not provide these callbacks retain the existing generic
+> write behaviour.
+> 
+> Signed-off-by: Crescent Hsieh <crescentcy.hsieh@moxa.com>
 
-The following changes since commit 4056b3c9d3c92ea45955641dbafeb9b960e146ef:
+> @@ -171,9 +173,7 @@ int usb_serial_generic_write_start(struct usb_serial_port *port,
+>  	spin_unlock_irqrestore(&port->lock, flags);
+>  
+>  	urb = port->write_urbs[i];
+> -	count = port->serial->type->prepare_write_buffer(port,
+> -						urb->transfer_buffer,
+> -						port->bulk_out_size);
+> +	count = type->prepare_write_buffer(port, urb->transfer_buffer, port->bulk_out_size);
 
-  Merge tag 'nios2_update_for_v7.4' of git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux (2026-10-13 18:06:58 -0700)
+I kept the last line break here to keep the line under 80 chars.
 
-are available in the Git repository at:
+> @@ -436,4 +444,3 @@ module_exit(usb_serial_module_exit);
+>  	usb_serial_module_driver(KBUILD_MODNAME, __serial_drivers, __ids)
+>  
+>  #endif /* __LINUX_USB_SERIAL_H */
+> -
 
-  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
+And dropped this unrelated change.
 
-for you to fetch changes up to c8f4cfe1cf93bce924e27f2abead7a4c4a487505:
-
-  KVM: nVMX: Reset MMU back to the root MMU if loading L2 state fails for !VM-Entry (2026-10-14 16:42:40 +0200)
-
-----------------------------------------------------------------
-Even more x86 fixes:
-
-- Avoid a false positive panic in the #PF handler, if the kernel triggers
-  a page fault within the asynchronous page fault handler before the flags
-  are reset.  This can happen for example because of a perf NMI.
-
-- Always reset a vCPU's MMU pointer back to the root MMU when loading
-  nested guest state fails during RSM or KVM_SET_NESTED_STATE.  Otherwise,
-  KVM tries to run a non-nested guest with a nested MMU, which can result
-  in a NULL pointer dereference attempting to get the nested MMU's pgd
-  (EPTP or nested CR3).
-
-----------------------------------------------------------------
-Amirmohammad Eftekhar (1):
-      KVM: nVMX: Reset MMU back to the root MMU if loading L2 state fails for !VM-Entry
-
-EJ Campbell (1):
-      x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context
-
- arch/x86/kernel/kvm.c     | 32 +++++++++++++++++++++++++++++---
- arch/x86/kvm/vmx/nested.c |  4 +++-
- 2 files changed, 32 insertions(+), 4 deletions(-)
-
+Johan
