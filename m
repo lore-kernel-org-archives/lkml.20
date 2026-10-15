@@ -1,76 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69F2565119;
-	Thu, 15 Oct 2026 17:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF475632B9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087113; cv=none; b=LhZ+oqlt7Hww9xK/o9SUVWHt0kYxKaZ1V8FW4dk2LxtDks/lvxjKu5ML4zLhFChCgH9oU7Rxgss/+HqP1RWV0nr2+/4j6zNKfj55Nw6W6EwDA1PKTNI4WKWTDyKNrYKDQWq0StncjPGFiAEM+sZzIMmKcqreHI00I3NV4FM4puU=
+	t=1792087177; cv=none; b=SNZtIY0IxvMCYGHDWENmqsNCoU/9JBo9DLaW7KPWZbeA6Nfnz6Mu7JksVOqh124UhaSmtDMyAw0Hsdib9P+fC33kcRl7CPhJayjlsKD1mWJZf9qN+cC1PNMbdZT5R2saV9YyEgMmlzHtFAV545PAAmGaUMvSlodCcNylKbx5Nlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087113; c=relaxed/simple;
-	bh=qvPGO9pAyxBSZn4aaNFYkrTQgYwhVRcpnLkRfV0YLzs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOs6iCXC0TiW5bOJmw1+T90057SamrhXhKw4mAsNq3hmnYqd5Jw9lbciz5dQRo5r4b+WZo15t6r7lvDEjX3IaENEyp722qbAIodza7PnyWcCKlSUjRM5xuQLLfmchwnSQ6DPGdoT8yQp1B7PO77CQ+QMdW/pfoa+2tW55GSW9RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+BYtSrj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792087177; c=relaxed/simple;
+	bh=CGAkxIf5rvcgYx1NepWWxjZaDr+izSAUpecBFVIruvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lk3gFRQEQadb1aXk4GDDuNzpGpKGv8H0j7zfnb8byxkUtKxCLpEVG86cMSW61IokfGP1N6FQJba1UArbsXpwyjpm7KRq+PatqTEEvkp6WoxIMge8RWBH+OmEPlxI0wxL7z8chsRe20bec9wYT2Wmp4PXvHMB69We4VeJjwM1/4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EbbTDhZH; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+BYtSrj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178CF1F000C4;
-	Thu, 15 Oct 2026 17:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792087107;
-	bh=sw5Vs35NHiaOZ7dr1okYjwaIOYOwhFc/brSVUiHaWv8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M+BYtSrjlClM7TXreyMdxE+xstViocEmiak/TbwCFFCvktQOhci+9Gywo+ijccSnB
-	 6OTF3Ps/9DioxA0L6HeYBSDO3NntO2HyAR8DbFoZXbeSrNyLlRAQ2HilkaTB++WF7K
-	 6aM329sP3dqdyj/vqZDuQzoImAfaMSBK+/UA6zckbvIhaZNzsOnyb7vllQ/qmjkROU
-	 X6atAnnSx4s2bmmuiSrPDQCFJbDf5KbCkfmevi621I/rS2zRJvpl4GTjYWOKmYqkcB
-	 hhpZY22kfVWKgNe2YMuveV7/ZQzxrqWU7jG35aaRuasr90tcohMG0KrcTN2DTwKIHz
-	 E7h1P+/zBl5qA==
-Date: Thu, 15 Oct 2026 10:58:26 -0700
-From: Kees Cook <kees@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Qingfang Deng <qingfang.deng@linux.dev>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Brad Spengler <spender@grsecurity.net>,
-	PaX Team <pageexec@gmail.com>, Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-hardening@vger.kernel.org,
-	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next net] netdev: Hide the netdev_priv() origin from
- GCC in netdev_from_priv()
-Message-ID: <202610151056.DB82177C@keescook>
-References: <20261015165959.i.798-kees@kernel.org>
- <202610151006.E2F587A60@keescook>
- <20261015103410.15ae1b8e@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EbbTDhZH"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so4599809a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792087170; x=1792691970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8tNWr37CC42Ka+uvECNVbGDgTVEoQtysQmgz0bCFrXs=;
+        b=EbbTDhZH1lDai6A07DcAjcsjcao7CxlizyqLp1+7drUd3La6yz6zb1I1cwfyknp6ID
+         Yi/grkjb1tYw5xihLM0pOdcTj/kiew2Ucv1/Y0NQHWdUpzxEJLrsSpFH6sJ55Z36RjjZ
+         JPVKO8QZd/h4jWL/OUFx/4tfr9FbMSOoyDf0rPV9FiQCd/F6BEM3c0jicPheV5P8iys3
+         Qe/L64CjRCLcyD94Wbe9n9WhPP16KCXswDKZKlCz4mNZRW5MO+c3ivYpqCsMQDUgrmxe
+         OiEw4ykAYl8hjdfCZY46udIJGbmFHwwtPpZbxlVfSOdxPnPCXW88WPSEglbO1BTpqxgF
+         zV/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792087170; x=1792691970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8tNWr37CC42Ka+uvECNVbGDgTVEoQtysQmgz0bCFrXs=;
+        b=2hv9cH8BZo3/PeCpzjK2i6MhzHf+rl5+oXI7sxb2wIeXtLnXPWc3Rp6i9GsTcqa9lf
+         BMBKQu6XnjtX3oQzgHE9ZQ+uLr6dtGE/eg5oM3ZszpVhGC0YsG2f2xAkDzZ3SR8N9oNH
+         rmtPuGi90SYFYGZNZHOUkxZ5VMvkmSjcvMlkyI7lJWJh4+mW/0MWThMTTQotdfzKhpq7
+         7SdZr6q6fYUXPBqmy7qmBbuZVIWjn40KAlMBsZGiOyZqbx35k50Nj+JsDTnWhPgv5OKo
+         oGHwVNZ6LcD78xiPKoR/1gAYtsMZz4qa59P0l62NvMQU50lbLturG0zsakSNYDD6Boxq
+         +qRg==
+X-Gm-Message-State: AFq9FYJul75D476RL3bzK01o2esGsZiquxG0MZ+2jhEg1+cpQJ8kDhip
+	fDr45JOfuFduehA+zmmWxrzIQAZ7knzOHxviPgrRHnH5PZuKLgVOPex6Iea9vg==
+X-Gm-Gg: AYBFou0cPxejvhKK+fuDubPZcpWzZa7Ielwh1p/E57/pNiJyrq7cNI2pmPjWATwbXVz
+	4MV99Kg7uXfZhfdkiTTFslAmGUd+tqyve6Gy7Hpnlf7zloSw7xMuL/KrPFXrtpmoxbfAfp4pRUS
+	xrubcNsZYan07QXVOTL2ytbY7Du2rkyb0cRbh8DH+RuU6WY62q35VY72lyJAJJvRfeVOwj3ERXB
+	VPE/dz7j3lOc1nrIW/mfky78S7t486QG8KMi9Q+UGZRYEORXnlQHXECACX2BLM9FZ6YAqqgLm9f
+	DuMJPHrDumtu6HHjkfWwv4lYIhH16jtGWKaaNQgc0CeNTqo4sO43GX315k17vAeJBM7puCSNJkj
+	jnzwYQzGmt7r/c+CfrfWW/EC0m2BOjzdc58+BLUDtAXWkAplBtaCX/inarQbuO0b5VakVEz0gsy
+	2nfg7kXQiVPbjgWu0enaWQA+OB5FPCwFjfIIylV2aAlRr2ri48zUDTkli/HAQQAn7O+qE7fRGVW
+	i6faVZ4xTyjD4RiA1iOHnMfJHhsmkC3EcajyIwpujHuSMkOmGDRZKH45XSWE975PGiWQiscaJVo
+	4MesDkoWLgQaEEVqi84oXiOnW0oD57GoqJ8zfmm+lgusickZ
+X-Received: by 2002:a17:90b:1a87:b0:3ac:a6a5:5743 with SMTP id 98e67ed59e1d1-3aca6a55a10mr2003749a91.32.1792087170220;
+        Thu, 15 Oct 2026 10:59:30 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e36])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm5075835a91.11.2026.10.15.10.59.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:59:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	linux-wireless@vger.kernel.org (open list:B43 WIRELESS DRIVER),
+	b43-dev@lists.infradead.org (open list:B43 WIRELESS DRIVER)
+Subject: [PATCH wireless] wifi: b43: back off the N-PHY TX power per rate
+Date: Thu, 15 Oct 2026 10:59:28 -0700
+Message-ID: <20261015175928.3558057-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015103410.15ae1b8e@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 10:34:10AM -0700, Jakub Kicinski wrote:
-> On Thu, 15 Oct 2026 10:07:06 -0700 Kees Cook wrote:
-> > geh, for the subject "net" and "net-next" glitch: I've poked my 
-> > subject-building tooling again, this should be for "net", not
-> > "net-next"... 
-> 
-> :) Ack. Just missed today's PR but looks like this is 2 releases 
-> old so not _extremely_ urgent. If you think it is we can also ask
-> Linus to take it direct
+On N-PHY rev 3+ the hardware TX power control aims at the highest
+per-rate target, and an adjusted power table backs each rate group off
+from it. b43 fills that table from nphy->tx_power_offset[], but never
+sets the offsets, so they stay zero and every rate is sent at the power
+allowed for CCK.
 
-This is only hitting one place (currently), but as it went unnoticed for
-a while (GCC has been bugged for a few releases, it seems), I think the
-urgency isn't high.
+The SPROM power offsets exist to avoid this: on boards with external
+PAs, OFDM and MCS rates have to be sent a few dB lower than CCK to
+keep the PA linear. Sent at full power, 16-QAM and 64-QAM frames are
+too distorted to decode. On an ASUS RT-N16 (BCM4718, N-PHY rev 5,
+radio 2056, ofdm2gpo 0x66666666) the router could only send at 6-18
+Mbit/s and MCS 0-2, even at -50 dBm, and 24 Mbit/s and up or MCS 3 and
+up delivered nothing.
 
+Set the offsets from the per-rate targets b43 already computes from
+the SPROM, as brcmsmac does, before the table is built.
+
+With this, the RT-N16 sends at 54 Mbit/s, and at MCS 7 with HT
+enabled, and TCP from the router to a client goes from 9 to 17-18
+Mbit/s.
+
+Fixes: 8615eb2870f1 ("b43: N-PHY: support setting custom TX power")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/wireless/broadcom/b43/phy_n.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/b43/phy_n.c b/drivers/net/wireless/broadcom/b43/phy_n.c
+index 22359bd9db47..c9b2b7496983 100644
+--- a/drivers/net/wireless/broadcom/b43/phy_n.c
++++ b/drivers/net/wireless/broadcom/b43/phy_n.c
+@@ -5834,6 +5834,7 @@ static enum b43_txpwr_result b43_nphy_op_recalc_txpower(struct b43_wldev *dev,
+ 	struct ieee80211_channel *channel = dev->wl->hw->conf.chandef.chan;
+ 	struct b43_ppr *ppr = &nphy->tx_pwr_max_ppr;
+ 	u8 max; /* qdBm */
++	int i;
+ 
+ 	if (nphy->tx_pwr_last_recalc_freq == channel->center_freq &&
+ 	    nphy->tx_pwr_last_recalc_limit == phy->desired_txpower)
+@@ -5868,6 +5869,16 @@ static enum b43_txpwr_result b43_nphy_op_recalc_txpower(struct b43_wldev *dev,
+ 	/* Make sure we didn't go too low */
+ 	b43_ppr_apply_min(dev, ppr, INT_TO_Q52(8));
+ 
++	/*
++	 * The hardware power control aims at the highest per-rate target.
++	 * The adjusted power table backs other rates off from it, so that
++	 * e.g. 64-QAM isn't sent at the power allowed for CCK.
++	 */
++	max = b43_ppr_get_max(dev, ppr);
++	memset(nphy->tx_power_offset, 0, sizeof(nphy->tx_power_offset));
++	for (i = 0; i < B43_PPR_RATES_NUM; i++)
++		nphy->tx_power_offset[i] = max - ppr->__all_rates[i];
++
+ 	/* Apply */
+ 	b43_mac_suspend(dev);
+ 	b43_nphy_tx_power_ctl_setup(dev);
 -- 
-Kees Cook
+2.56.0
+
