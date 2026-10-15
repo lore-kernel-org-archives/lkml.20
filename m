@@ -1,160 +1,130 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013038.outbound.protection.outlook.com [52.101.83.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A890B261B8D;
-	Thu, 15 Oct 2026 13:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071122; cv=fail; b=Qpbrti04wPrUUPgNthZ4hDlfGR09S5wj0mCrqxxpDunZkkySdo6v8kfvzn5uLUfZnNdWmeExOtL3uGASJRGp7jBgppoY8XXP6QIapdwecsm8KWhrM3I/CamIOxIpjy7e5Xn40nhT8zGun+Ccf5dK7KsswkjHtkSR/s2/O3C4QqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071122; c=relaxed/simple;
-	bh=T7nBmQ7lFLv9+J0Cua5K8JiPSLYRbqstXQD8PcDX4us=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PCsi95FJ97aB8xvx6Y0JUcYRawFgcYs/9T+W3d0JVHQKzOriIcdLFwvQxaSr+10JFeyy/0kWo9sYPJEaRlW1/7o5zUueErhSNuj4+FDolMHzJlX2XaKMmz1ccRJXPO6gBHum0hn0yGUWtfRfsenWM01vI3hd10KLHF7NOtEmBH8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BRndIQDY; arc=fail smtp.client-ip=52.101.83.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA151D63E4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792071123; cv=none; b=ZNEu6OQ0ZsQiD72xxa1RUaQ5Mt++XtqfTcumg/Taetda78H3dYCLosKa1lfCziPNTsf13poRVqL6xN+OrKO0y4kGjXDL7S086F3tMi795dF/SsLEeUUkL8QEvKBlv19FxoNu+d2WA3I5Vo6y+++LWEYR4H23kBxIxdy9qaaq9OQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792071123; c=relaxed/simple;
+	bh=DM+/4dpobs60R7WsyZ1su1V+Wmh+fgDiyg9humHU08o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZNPdqpzAJiW/F1ssQH6pgHFE6AL6+kTHzdDgdWlewwUsH5FZpfYSpkOCiBK6yEqbF4WjzeAaUXc3AY9r6bs7uwEyE9A33jZ5nieDzzV8P5qE5i2WQflEcV2d2kIojvmN5CVMjeaZOvJPvu0RB5PJOY67XIgA4EjUokX9TE2jWFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kLNih6th; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BRndIQDY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ecQw/2kJgiQ3vW+vNMoaLZS5moJ7l/UZuTxFxyHDk+EMKVkeKre5jDbVaEyZYY2dSEUpzdGKLjbcy3NtuRgHsB7wnJ9gnFoRQ7NV2uFdcwrARc7vYlyL3A3htwItoVYvgoYBcpXNdzWd7BxqRrSmp7NmbI9Hjns1hTuZpi9lowxlw4blVwlvjzbyohmbi6WnTtBfO7STFci+E7isUcqueWyjIMewxusMHv64dIA1uVIjcmnbujf060hl03mM/0C5M4add9M4d2TowGyXJ10CCcHplJxKdbLFNCKJ6gqoFCDI3L22TV5vaseOq+3XeYiJs/GBZzaCgep/gOX5RKj6jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7nBmQ7lFLv9+J0Cua5K8JiPSLYRbqstXQD8PcDX4us=;
- b=GMjeeUERmblAFNEDdVoXF1R3f/V4jf/SyFFBVxCeOJSe+2p6zZML5ywxpMaM7HfTJfLt6Znfqzo2KR6Zs7t9eVqYIZZOOMy7DTDmRZ7tPlhQ5EKNSBjOS2kHfKeRrBVcvouc391WsuriNWq0s/azXHfBpN8MLgJgyBPOxAt75OphVNvnKqAxvCXI22TEDQsErycLI6Czz6kS9iVqZKm3rD1MJq8EMePHRS9gw6y6dJSvaE7xm/hp8rVpW/TYp7q3+23UPBQXnaATyvyeJKI2Ss9alaOlZZ3zXGH6j9qHp4Px1mbXDwsGa8/f8CIY7oene57PAYjFjdJC3jQE0X+jAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7nBmQ7lFLv9+J0Cua5K8JiPSLYRbqstXQD8PcDX4us=;
- b=BRndIQDYD4LDMxFaYEYPeYFBq0FCDdy2ZUcUUxzsjPixg1UdMcpQmNrBJxDSYH4YqT6g3ElYK9oAOSSJHK4TgNBJnP4FlXSRL48ig5b/uVAaewhZOTLY23ySCP1DWPE26tqbM0pWDRYOUaItXIwbTu0aP3na3E6J9N1DrFrcaeI1Jg8KYvMDoJSd3cADtRwzSmgL0BA9EW1ZRvIIFkMC/TmsremL6cLMkLr4nJ4AI5hlREY22fmcy0IUVgZ0jwpl4j5PSQp1YTelE8PF9As1nboCfAZdVxE398e/FD+hTTLbKG8EPZbqeFG4ASXyjpnIhhOdjWkR8daNhcjIzZWVtA==
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- (2603:10a6:150:2cd::13) by VI0PR04MB11023.eurprd04.prod.outlook.com
- (2603:10a6:800:25c::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 13:31:56 +0000
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490%4]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 13:31:55 +0000
-From: Claudiu Manoil <claudiu.manoil@nxp.com>
-To: Wei Fang <wei.fang@nxp.com>
-CC: dl-S32 <S32@nxp.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Clark Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-Subject: RE: [PATCH net-next v2 2/5] net: enetc: Enable probing of version 4.4
- devices
-Thread-Topic: [PATCH net-next v2 2/5] net: enetc: Enable probing of version
- 4.4 devices
-Thread-Index: AQHdWzYXCtJ+sMv5kEu9OLNZfqRlRrb91myAgADE4eA=
-Date: Thu, 15 Oct 2026 13:31:55 +0000
-Message-ID:
- <GV2PR04MB11740EA88D41475BADA25F116969C2@GV2PR04MB11740.eurprd04.prod.outlook.com>
-References: <cover.1791908694.git.claudiu.manoil@nxp.com>
- <537a977b10b3d76c30b1f879f423bde4fd6f42f8.1791908694.git.claudiu.manoil@nxp.com>
- <AS4PR04MB9338EE95020485A9C5C45BCD889C2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-In-Reply-To:
- <AS4PR04MB9338EE95020485A9C5C45BCD889C2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Enabled=True;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_SetDate=2026-10-15T13:27:01.0000000Z;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Name=NXP
- Confidential;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_ContentBits=3;MSIP_Label_0d9c909a-577b-4ba2-96de-69ada94b137a_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|VI0PR04MB11023:EE_
-x-ms-office365-filtering-correlation-id: 85bbd6a1-f132-4793-8b46-08df2ac0ae00
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|19092799006|376014|1800799024|366016|22082099003|18002099003|10067099003|11063799006|4143699003|38070700021|56012099006;
-x-microsoft-antispam-message-info:
- ggZca/CrvFdnh7zWCmE74ylsLDjqG5lUdux6ARnsGVZLsnEQMZ1smrcKfH1O6UoEHqQ0bqumCxVNq7T85VE7nFLp/ej0uy8D57R2DpOKDO4hWw5UVRaWqWyFa9L9QnaO91MHup4Yikf8Mux04oIF75mOF5C2a5dty+dVmwQjMs7B1uHzosmW5X/VBMkZT6ajVG7EjwPxLVlEjCuVDpspNyRAE74/N1AZMdNY31C7/K/pYpBxY/9xxYBmbGi4OSTKgHF6vEnyYAACxNH60jKxhnlfGdmxLwTLO0ewriTzIQ5sRfO1TpjyEovJm89XvbfJ+gvLxssrLOlG7J4aQa4kFrDgUeiYrCY+hFjjmArSFUZd78bwGJtqmTI2Dx+rxxgANJcVmJM2nQzWIHAjJEUFDnEwM1bVMyUkMgW5+IBtVuh238B86IvBsrB4tKQbX8PDgWq8GtFG8Nm45zaEAlFvEaVsj2lOA+Pqs3wTYlX8QLMIW/H90URGE46ALHBpc3lRNj2g1Rdy3I1lVGdjGYUXHs3aWyGX/kPKx12ppivnOEMQIP3hLWOZSkHu6JOXZEmyIaVXeFsrIJkZdHCFLDP8NgLa/3EkHYZsZiqcGoL/4a+nVZAbZYdmy4fIWrjop/Ir7aIMxDdLC/DqI4puNoLoliiUizZt1bFCnlKUxRbSilMrdmeJ+/p/bIxH1qURuI8xXsWHFfhJGl2hjc1o0PuKBSLRwr1LPy/qLcnnY1CGST0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(1800799024)(366016)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(38070700021)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?R2VUS0NaY2QvZExlYWZubFhKSmd6RDJ1aXlTU0ZyWk9YS0Z1ZGp2dkFuLzZu?=
- =?utf-8?B?YVM4dVBYemQzU3VlM3hTRS9ZQlU3Y1JzeGIvNlV6Y0pTRExZV0lHOHJOMUpZ?=
- =?utf-8?B?NUFNS2JJbW5RUGU3a01DM0xrbzN4c3pwR2w2YktXOXl0RlhHVkZhOEg2QkJW?=
- =?utf-8?B?RkpPdCs5cWp0bWlrcmJKclBHOVpNOWJJbUZrU0FMUGJDaG9zVFFiRWc1Qm1v?=
- =?utf-8?B?L1FPeXB2cXpPdTg0aFFzUXhFT1NPcG4wZzB1TEtES28rZFFkdS9kZWR3Yzdu?=
- =?utf-8?B?SklKWHpKU0Q2TDR0TUVyR3NMYk5JWnc3ZWFMUG9icVdTYWJJTG5GOEk2Q1Fw?=
- =?utf-8?B?R08wVmpGUVRlcVhGM25nNWZESE13NHVYQktoWXFZRXZmM0x4STlzNE5vR1lK?=
- =?utf-8?B?THZTRTZpaXFHSzUrTkxmcEh1VCtZcVVlK0lRdWdaRndjRUkwamMzR3hDSWVI?=
- =?utf-8?B?bnIwVzFPcjJhbnJYKy9OWFNSdUhRWkpONXRXdG9tQ3ZWYitqMVNyRXpnZHlT?=
- =?utf-8?B?TEdWUmJaQmFPZnlCOWliYWpFelFPa0ozUGx5K21LbVNUMHh0UVV5S2Q1aUcz?=
- =?utf-8?B?QWlKYmJleW9BNFZRNVZPY1Bmck9NMG51TkRYNEJneDVnVGFZdld6NzNMS1JP?=
- =?utf-8?B?WjJxVE91NnpoOWllbm9qZVhuZS94bXVXcmpoWm9lUWFEdkpTZEowcktaNU1p?=
- =?utf-8?B?cXZzemhZL0EvQTUxY2lVUlRkeXVBZHhFcitiRlRUNFJFWXY4OWd6S1FuT3gx?=
- =?utf-8?B?N3E0ODk4d0dvTWx4YjNZZ3Jka0pBRGc3UEdaSVd2djZFMG9oREpvdmxwaGlD?=
- =?utf-8?B?UFZwSGxsRml5YTZkOEJxMkhLZWx3eWpqQUpSYzNsTUlTd1AvbWVTVSt3MFll?=
- =?utf-8?B?cjZQMGRxajBCWFo3T1ExdnZtVlQydDIwUUR4a1FXdmcxRXd4OFp2VDZ5SHpZ?=
- =?utf-8?B?Zis2M1NuZFJKSkRraWpIdEpxUjNKMjNYb2JzSWhGR1dxbzArR1EwOUFwM2dp?=
- =?utf-8?B?VSsxY3d5dVdNd2NGNWZ3a3FiWXdwY1VQdWYwaDE0LzJhZk0zNGZsODNxQ1dy?=
- =?utf-8?B?MjVsS2o3KzZNdkZsUVFiS2J3N3dHWjVQZHdHNnVEUXFTUFFsNG56ayszM2Rx?=
- =?utf-8?B?VllqMFRtMjZ5dzlVSzVFb2V1WkExKzhHQ1BmdjB4U2EzZjdpcUFOMEVXUHRt?=
- =?utf-8?B?OUFpaWh5Sk4yaXdKaTBXd2tQblhHdlJBczRiWURZUW4zZWVkOHgydkRlYStH?=
- =?utf-8?B?MEE5THZGeCswbVh5WTNScWgvdGc0Z2xtcVdyK203ZHVQVmtaTTRhQkFndElH?=
- =?utf-8?B?SUovZDhQM2wwWnJlRHRLZjcwbU5DN3J1OTg4dGRFNUZ3TGNpcXduaW9zaHBy?=
- =?utf-8?B?OFJGL0VzdkJJS1pma2Ura082eGowRVEranNEZjlDVHRjaFZOQWdoS1hpajBU?=
- =?utf-8?B?VDRUVGZNUFlnTnNjOEJtY3dvSmluL0xEQlF5ZCtEemQ5QUEwYWdWWXRSTlND?=
- =?utf-8?B?SWZ4QzZjdG1DZzc5cE9BbU5FU1BzRlpPNUM5WkNmaUg0K25IM054T1UrVjha?=
- =?utf-8?B?SUZKYXRSQStsbjE0dmRiY2Q0a0VBS2dReHRmNmlYUmdFaUk0L2szd0pPQmtp?=
- =?utf-8?B?WW1DMWliL2REWmw4eDZVWkFPWk9wTldQUTZmNGZJSldKcXpnbVFabmxwUThQ?=
- =?utf-8?B?SzE5bWxVUjZ6U1hZK2h5SHNnL0pqWHF3bCtHQ2xIL1ppYW9oVU13eHN1Y0R0?=
- =?utf-8?B?d3lkcjgzbW15SXg3eldjaUZBVlNRY1Y5Z25kZTJtV3hpdzdWeEw3d1pvWDJF?=
- =?utf-8?B?YTBUUENjTHJ6VkZuZzJiUlo1N2tJSlBwbU9CUlZud3FEaDhidkxHeFliSlRR?=
- =?utf-8?B?L3FQQXZqaGtENkw0ZS8zUTBJV0lDRHdHcFRpalhXcm9NR21oMWVrNFo4VmpE?=
- =?utf-8?B?VExDSGt3elFaMmFNN1B0ZzUxWFFyOEx3a2piTEZHUG8vMWw3dUVwRmRvM0NY?=
- =?utf-8?B?ZkUvNndOQmtZenNIQ1Y2eHFOZ1k0Z21BMDBhdDdkcENlTjBYaUg4SSthaEpD?=
- =?utf-8?B?NkR0aE82aks3VVNBVW1lVS9XWmFaQTRTK05LMGYrSGNjT0wxNXhwSnpKbDdQ?=
- =?utf-8?B?L0lFdm1iL0hJOENyUlRxOU1qa1pZWnBoTVpwS0JtUDQwQXgvbTBZSlZxYmoy?=
- =?utf-8?B?UWduWTVKRkdBT2FKbE02NnhqcHJCN3BCQUxuckJzVExLL3RUZ0xDZjNlVWc1?=
- =?utf-8?B?eGJER1JIUjNyZkNhQWRlWnlrOVQ2KzNQOW5QT2dUTmxsTVVNSk5VL1lhUWVj?=
- =?utf-8?B?OFhJTnZYL2VUS2JXVzl0WFlvWXZqSFZPbCtZWUx3SVFhWTFSUnVOUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kLNih6th"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so2546666a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792071122; x=1792675922; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XKlAjlVXQ4jJGW7uqpZqIO3+PQyX2/sjL4lY5mEwx8s=;
+        b=kLNih6th6UOXndaxNipIjJ5ebSJuJklYNYwjTob0MxaTRmqMrcVh95VM+iiBaya0dS
+         rGkZStZ4ZAY19GneUWp1BfWR6t530EgBUu9WpH4pdshKQmPKm6z7qRo1FzSMOtwvGijs
+         wMRr5VAnPK3U7PlwA4M98XZtXLOJvR5Dtfo6lH/7/7DsE7zVUiFymrqtuMAFHceDBtok
+         qdT2jahJtS7PdMgmN7h5grWubJVVSy3hMBTpatOpSp8/sDEnrEwkYTrTYyyUqDOoHJD3
+         R8IhR6bee9ZPQUhUNdothgyyTd+3cz/smzYE2UZb3zdxqwNxXkf5WDcAeinmLvNkRbvY
+         KWMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792071122; x=1792675922;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XKlAjlVXQ4jJGW7uqpZqIO3+PQyX2/sjL4lY5mEwx8s=;
+        b=hG/KQmjs0EoDPkXF6z+X17K224TdY1238aQMvULuvRpTTxjAfrky4AIEyk3fOyqLCG
+         gSLSNHVdai1e4/yo0czpovKHTHAcKVoAR/vN31tWSkMquphRXQz1dtoE792/QrBXQOdb
+         XFF+WuhcfijiZn/I3r76RatvXhJ0TO55kD+d1ElrnXxQWgRnLT+h5le6+kKpGlC/nBHf
+         kHdFvyNOuxa2Pv2uBOBrji/0i86BTT3srYJbZhYHOmt4d1Fz3o1geEJM3LMFYoEznu4A
+         qTrFzBMr5WAnO6X/pt7SlLVaoim3JTuQhYRSRxyyYv32qhqwwbOm/oNCkYPySOphZqxq
+         I6jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxztgsG98jHMgbcH0VR4VdCd+MIfckC5o2ge8xn/UONYfuf5vXmXoQLXmRy1V9SZkR8N2TuV6NEeMjz0Y4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUg7gKgUbJ/FsWbBnlDmeFOXBntdKk6ARJOL75WvIzYEc0NYKd
+	s7AWF5mDuI7Ai5CTTxlNr8odgwu2ORWOsx00+4BMv2HSWJPexBSFOsBwFBPSk4JSy+ih/G5qaDa
+	UogZkrA==
+X-Received: from pgdo18-n1.prod.google.com ([2002:a05:6a02:6212:10b0:cc4:aa77:305b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:46c5:b0:3e1:1689:1eb8
+ with SMTP id adf61e73a8af0-3e16baddb4amr18528802637.2.1792071121607; Thu, 15
+ Oct 2026 06:32:01 -0700 (PDT)
+Date: Thu, 15 Oct 2026 06:31:53 -0700
+In-Reply-To: <asXlwARv1cE1RREu@blrnaveerao1>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85bbd6a1-f132-4793-8b46-08df2ac0ae00
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 13:31:55.0867
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zFCu/7vPbRIfPcUtXhC9TNLY1poV7dZ29lMb4YfCiMJFSrBt7SdbKdw09BQmlZG57TY4x3pLUJFczZtBO2fnUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11023
+Mime-Version: 1.0
+References: <cover.1783490022.git.naveen@kernel.org> <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
+ <5f6bcceb-1c48-43e5-bafc-8f86676c4092@amd.com> <alX59ewiXXSx7J3R@blrnaveerao1>
+ <asSSU2huZDlusYdG@google.com> <asXlwARv1cE1RREu@blrnaveerao1>
+Message-ID: <atDVyVCeUFafWPHm@google.com>
+Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
+ native_apic_msr_eoi() for Secure AVIC
+From: Sean Christopherson <seanjc@google.com>
+To: Naveen N Rao <naveen@kernel.org>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>, Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-DQpOWFAgQ29uZmlkZW50aWFsDQo+IEZyb206IFdlaSBGYW5nIDx3ZWkuZmFuZ0BueHAuY29tPg0K
-PiBTZW50OiBUaHVyc2RheSwgT2N0b2JlciAxNSwgMjAyNiA0OjQyIEFNDQpbLi4uXQ0KPiBTdWJq
-ZWN0OiBSRTogW1BBVENIIG5ldC1uZXh0IHYyIDIvNV0gbmV0OiBlbmV0YzogRW5hYmxlIHByb2Jp
-bmcgb2YgdmVyc2lvbiA0LjQNCj4gZGV2aWNlcw0KPg0KPiA+ICsgICB7IC5yZXZpc2lvbiA9IEVO
-RVRDX1JFVl80XzQsDQo+ID4gKyAgICAgLmRldl9pZCA9IE5YUF9FTkVUQ19QUE1fREVWX0lELA0K
-PiA+ICsgICAgIC5kYXRhID0gJmVuZXRjNF9wcG1fZGF0YSwNCj4gPiArICAgfSwNCj4NCj4gWW91
-IGhhdmUgcmV1c2VkIGRyaXZlciBkYXRhIG9mIHRoZSBpLk1YOTQsIHdoaWNoIGhhcyBhIHN5c3Rl
-bSBjbG9jaw0KPiBmcmVxdWVuY3kgb2YgMzMzIE1Iei4gSG93ZXZlciwgZm9yIHRoZSBTMzJONywg
-SSB0aGluayBpdHMgc3lzdGVtDQo+IGNsb2NrIGZyZXF1ZW5jeSB0byBiZSA1MDAgTUh6LiBBbmQg
-dGhlIHN5c3RlbSBjbG9jayBmcmVxdWVuY3kgaXMNCj4gdXNlZCBmb3IgRElNLiBUaGVyZWZvcmUs
-IHlvdSdkIGJldHRlciB0byBhZGQgdGhlIG5ldyBkcml2ZXIgZGF0YQ0KPiBmb3IgUzMyTjcuDQo+
-DQoNCk9rLCB3YW50ZWQgdG8gZGVhbCB3aXRoIHRoZSBORVRDIGZyZXF1ZW5jeSBvZiBTMzJONzkg
-bGF0ZXIsIGJ1dCBJJ2xsDQpsb29rIGludG8gYWRkaW5nIHRoaXMgaW5mbyBpbiB2My4gIFRoaXMg
-aXMgbm90IGEgZnVuY3Rpb25hbCBpc3N1ZSwgdGhlIGRyaXZlcg0Kc3RpbGwgd29ya3Mgd2l0aCB0
-aGUgJ29sZCcgZnJlcXVlbmN5LCBidXQgaXQgbWF5IGFmZmVjdCBpbmRlZWQgdGhlIHBlcmZvcm1h
-bmNlDQpvZiBpbnRlcnJ1cHQgY29hbGVzY2luZy4NCg==
+On Thu, Oct 08, 2026, Naveen N Rao wrote:
+> On Mon, Oct 05, 2026 at 11:16:51PM -0700, Sean Christopherson wrote:
+> > On Tue, Jul 14, 2026, Naveen N Rao wrote:
+> > > On Mon, Jul 13, 2026 at 12:43:45PM -0500, Tom Lendacky wrote:
+> > > > On 7/8/26 01:32, Naveen N Rao (AMD) wrote:
+> > > > > Drop savic_eoi() in favor of using the native helper that writes to the
+> > > > > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
+> > > > > level-triggered interrupts. However, it relies on APIC_TMR indicating a
+> > > > > vector to be level-triggered, but APIC_TMR can never have a bit set
+> > > > > since it is only updated when the LAPIC accepts a level-triggered
+> > > > > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
+> > > > > level-triggered interrupt sources are in the VMM (emulated IOAPIC
+> > > > > primarily) and KVM accepts them on behalf of the guest resulting in the
+> > > > > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
+> > > > > by the guest, which has its own private APIC backing page. As such, the
+> > > > > savic_eoi() handler is dead code. Remove it.
+> > > > > 
+> > > > > Fixes: 43b6687ac877 ("x86/apic: Handle EOI writes for Secure AVIC guests")
+> > > > > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
+> > > > 
+> > > > Another guest change which should be separate from this series.
+> > > 
+> > > Yes, I have called this out in the cover letter. I see now that I should 
+> > > have used a better subject for the cover letter though.
+> > > 
+> > > > 
+> > > > Is this causing issues with this hypervisor support or is just code that
+> > > > is never invoked? Do other hypervisors behave the same way and will
+> > > > removing this break them?
+> > > 
+> > > This is code that is never invoked and is independent of the hypervisor.  
+> > > No impact to hypervisor code.
+> > 
+> > Doesn't that mean level-triggered interrupts are fundamentally incompatible with
+> > Secure AVIC?
+> 
+> I think so, at least from the hypervisor front. Secure AVIC uses a 
+> guest-private, encrypted APIC backing page. KVM's APIC_TMR is not 
+> visible to the guest and the only injection mechanism is via 
+> VMCB->Requested_IRR field, which can only carry vectors. This means 
+> APIC_TMR in the guest backing page will never be set. So, all guest 
+> writes to APIC_EOI are accelerated and do not cause an exit.
+> 
+> The guest could track level-triggered interrupts and notify the 
+> hypervisor though. But, it isn't clear to me that is necessarily better.  
+> Linux already seems to have a fallback which works for I/O APIC (see 
+> below).
+> 
+> I believe TDX has similar restrictions?
+
+No.  VMX lets the hypervisor select exactly which vectors will trigger a VM-Exit
+on EOI, via a dedicated bitmap.  Only SVM's approach of keying off the TMR is
+problematic.  FWIW, SVM's approach is flawed in general because it makes assumptions
+about hypervisor behavior that don't hold true, e.g. see the games that have to
+be played to deal with RTC tick stuffing when it's wired up as an edge-triggered
+interrupt.
