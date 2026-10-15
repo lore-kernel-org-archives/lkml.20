@@ -1,75 +1,81 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013065.outbound.protection.outlook.com [40.93.201.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823F4384CDF;
-	Thu, 15 Oct 2026 16:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081296; cv=fail; b=iWfinIRDZBcI4R2iXXVMQE3Rlx+eHJ4lfd7wux75WI/MOlmlVdhOakLZhnObaCMhsIw5AOPAZ3hlbXYlVc7E5tSkYFhcjk9xW+TMDhkX7Plba+r6/bhyuYCCuem6FU1qW542WSWq7s51p1ggQkRdUcg67xrNK+ljsJIOY0ZvvlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081296; c=relaxed/simple;
-	bh=1xcQmRqSjbX7EgrsJc/f6dQOI51EuRRYYRtcQcslfeE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fiWVZ4H931LRXLPRMKRupFFZHkCt4Z7yGcXgb+n/hN5w2DjTbtlF2JUh7fS73vOf76/tYKve+3NYBDaBS2w4YfiAN/CNy7V+49/1CpD6I+vm6lVuvSzGvDpY1gDeMUX+Szbv+Gp3TREfgnPNtW8iXuUpgtqiOHoYMyXJPcxGnGE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NmVojH3U; arc=fail smtp.client-ip=40.93.201.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D914D3B42D1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792081358; cv=none; b=nvW7eN245Ab4taAFYG3spO1KwnsbTIYSVe6TG0L9qiYjqORc46bsiMVrkQAtzGIecG0nmXMd/iBMm8g6XyjR2BqVAGaCDrxLEZ7Us3owox8N4wFvEKQ4RYEtMivIlE8KBxn6qj4JSmZ1jjtv6yHvJ7sMEgvl9czeFYU739HcMKc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792081358; c=relaxed/simple;
+	bh=pBy1f4VSb3pvW4clcyc1Qy/2nViC1kPB548ufIhq5H0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CZEPlaRmqTmC0aqSCbDVb1Pp2s77V1Sidf1beJJeLXY4YKLVx2XU2Z6kCqi3IJ/OswJg5rg6sXAvdvcxEyI1Z/MYhnM74qhu2vUTF8EFUVOIy/frW2a1bJd52kmFYjoKsbKpvdladdqxnnhekdavMBFRHNRMY4Ty0kI/l91zPK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai; spf=pass smtp.mailfrom=nuro.ai; dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b=QGgQamKW; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NmVojH3U"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EzrYQNI5SSoW2M5xQIYxGFLaJPqeU25C95TPsADTUbj5nx4CkY8bjjJfgUfNP1rZgh2lspWndNULOJTYoXgSl1zxt8s6lcQtQvDVd4rIA7e/ANj2iEJBzy4Mjm3CAzKMteSL6EdbZU4rkxqlF9jVF7PBOh067qZdXBFQuLtO+A1dSd6u3NhW4YTGtgajb66vznK+k7Avv/Ya//MKF7uiC6iCorSJr9xspPImPshjy6/VaTQcdrcJTvbCl3DEuSVbYkD9RVKlhr0H8kXlz0PG/f4v3YAogVX9mwdJNGk6izSmWzawjGOb7k1s6L+aFfN5PTlSZS1fu4yA0ufpKKDl7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1xcQmRqSjbX7EgrsJc/f6dQOI51EuRRYYRtcQcslfeE=;
- b=GahTgSlMJ3RbnW/U1i1Nw2b6GdgUuiCNt1eIBbKOIYjKn6V8iXjSzpzCmizNK35DUC02ITqsKWugMxV6R4r3sIWBIyuoEjQ2H4KIltf0OxgnY+f+TKGxQXvs1CqL/Cc0gJvpGafllRP3ZV9/xHeLv76ndOo7h65H4tdQuwzb2E7+kaMnAEkburgQO3drlWMi4QhEWmUrAtvDKStYVL/xdeM6UqrYt0gfS6JpGPKLbXqCRKp5rglDjvaNPPltAKe+jN3Xz+siTkDZaLlG+itBdNwRYPIg0TbLtmM4CypLOyf3oMcJFbXC6kQH6v4La7quEKBWL00J6+DycwMOyVE8Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1xcQmRqSjbX7EgrsJc/f6dQOI51EuRRYYRtcQcslfeE=;
- b=NmVojH3UuekE2J/3XJG0mmRKhzg4b1kec0JI5gSUpV9MpbcqIxBxYNDFKvW2IVQQQmyM8m9ZTM7D6FSkAkzMBF57szOh5IT5XPDJwra2MUDT43niSFfwNsASYm61oJKrv0Bl8tXlg4Vmd+/6CRm7HbAs7po4udRCJApmu93EN25rh5gB4yJIZ/cBId7pEP7HEgTXLMHvOmCDWxDh2JinOUD8uq1p9tRVA/1e7YuohOv+UuuBFbVImQLnvAfM1/lmyU0xbfnkpWafIV3lQAgPSOS7rQ4aF9NzzDaFHcvQnPtiR1eqIfteztBEOyTiO1jvjTSp1LeUHAhu1lgOEJVjMw==
-Received: from CH2PR11CA0029.namprd11.prod.outlook.com (2603:10b6:610:54::39)
- by SJ2PR12MB9189.namprd12.prod.outlook.com (2603:10b6:a03:55b::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 16:21:20 +0000
-Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
- (2603:10b6:610:54:cafe::9e) by CH2PR11CA0029.outlook.office365.com
- (2603:10b6:610:54::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
- Oct 2026 16:21:19 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 16:21:19 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 09:20:51 -0700
-Received: from vdi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 09:20:50 -0700
-From: Chris Babroski <cbabroski@nvidia.com>
-To: <andi.shyti@kernel.org>
-CC: <cbabroski@nvidia.com>, <davthompson@nvidia.com>,
-	<linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 0/3] i2c: mlxbf: Fix master GW corruption
-Date: Thu, 15 Oct 2026 12:19:38 -0400
-Message-ID: <20261015161938.143879-1-cbabroski@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903192001.114263-1-cbabroski@nvidia.com>
-References: <20260903192001.114263-1-cbabroski@nvidia.com>
+	dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b="QGgQamKW"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35829219da8so189308eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nuro.ai; s=google; t=1792081345; x=1792686145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VxoANqrdqE06En2I4F3G1u8hzDyBoOsiup8bgRwGeec=;
+        b=QGgQamKWwwM/ZiXBSkgkpkjaTBlTzkAq+SB1NpFz93iMzrlxEv2rPtXdZTJdoytSiz
+         DjykKW2YRVd9iQhoGXpGyMCq1IvaTpysuRlkYd4/o43C0NvkQmcsYgmeZIOxMfB1nhbO
+         9cdmbekh8oikZetA7Muzhsf0RXBC616gTIzaqpqdcXESFrFxfH5bkTmx8okK2YYOBp15
+         AL5y2ORia4p5iu8U6Re8XgAnPm19fJMBCjSnf9N5a/pkdB5I7S9Y8B/RE2fdSRGk6DUg
+         46AWuAD7QKyZUgapN/J2fbIM2ibmDRwMsBvUA1S6UmdwWWzSPlxUTwjdkAccFlUvyMCU
+         3wPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792081345; x=1792686145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VxoANqrdqE06En2I4F3G1u8hzDyBoOsiup8bgRwGeec=;
+        b=AqnhnByp82F+WQWoglRTYmvitTko3GoArNnvxCksbFeb/4nWI0H18NrAq/vmt4gXEe
+         gVtBTOSugHQa/6nhBjZyDhLBTorD/JWertVztENtTO0iwe4fej54N2ygmAyC0SffB0w/
+         mA/SlMy77TV026nu4fd6mc119X+CEU8JBNrZZrBlFPaQe5oWi2E247E9KuxarBCUXTcg
+         ShNaAd57BEViojcCtVsVhN0zcFPv4NXcG42ykdtOfL6/LRN2AUhwlmpGcmO0uR1xUJgj
+         6fq3LzwU0WneIO8NrZHMr8SQ7U/KK/bsqfF/abnoGKl0Sne5sjd94YDPPEM9yJ1bY8MF
+         PBWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzA/x1n6udqV06nt6sz/LKg9twW0gc+qA+8uh5WKLZp+Sov2Uzbkjo6yEbzFLOAJlYxFTUTL1xzgFPxxZQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9tfmqcKtm+SIBGZONe31pKtIF3tRSfrx4ugiD4O1vnEJC45VA
+	ZqsJOg4nmE2ma2RKne621b+rs9d4HYwPYdY7kcaxS9IhhG3ijt42B4rovMUAz+q+UvM=
+X-Gm-Gg: AYBFou3/hZm1O2/kcqLy+b2YLTU7pAEt50T4GcccRPrVFgaHazBPaPnhaWBh6cZvwVL
+	VVcGPqE7t3CkQRQlXDUMC3LVIGFSMe3CHT3xMv1CqWWu9Alv31cG8/UBtma5I5sfHa505GziDtP
+	L/9rPTUIFBEONvhDcrP5rHc+ygwo7EucfR1YSinsSYYoE6IJ1r/Q37tSzCLEEunabWZwT9JSzq3
+	uIHf5aBSgSESeeCcNbGy5D/3l2gXVTiNhJduBJsOcMyou1cn054w0XQB5mF1MGjtY/h1hG3BgFw
+	G8XdmS6ctQKivhqtUkmR2slcGbQT+qTRPxqeW0qze64Z429ozUXVWOaDyVnl0AJtORjr4Rncj1X
+	yUHdUoSIW0s42rIAOEqvOM1Clk5CMlxymu7yA3GU2od0fyXsNTKEM1PwKwZad67fNiXinTeuXdA
+	WQv9PfMMP37OeGL1zwZjQhY2Wh2V96dr+gdHnv4NStNyoQcUYr3oazs5/C9ytqKthvpQ+9CHC5Y
+	7a5ankDRbM=
+X-Received: by 2002:a05:7022:b882:b0:13c:d071:f97c with SMTP id a92af1059eb24-18251e3f05bmr523257c88.11.1792081344438;
+        Thu, 15 Oct 2026 09:22:24 -0700 (PDT)
+Received: from jkain-desktop.corp.nuro.team ([64.124.43.154])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a6d6969asm23010c88.12.2026.10.15.09.22.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:22:23 -0700 (PDT)
+From: Joseph Kain <jkain@nuro.ai>
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kuniyu@google.com,
+	kerneljasonxing@gmail.com,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	rostedt@goodmis.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Joseph Kain <jkain@nuro.ai>
+Subject: [PATCH net v4] net: do not let defer_count outlive an empty defer_list
+Date: Thu, 15 Oct 2026 09:22:09 -0700
+Message-ID: <20261015162209.485940-1-jkain@nuro.ai>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,41 +83,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|SJ2PR12MB9189:EE_
-X-MS-Office365-Filtering-Correlation-Id: afcbe087-c69f-4e71-5127-08df2ad85890
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|30052699003|376014|1800799024|23010399003|82310400026|36860700016|56012099006|11063799006|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	drlGlazHrKARPjWWPk+yYl3h+8wbHWOJIQMjcyUBHYAeWcgVW/lM4bCnhxFmQ9MO8reMub0nDWKWq8E5FT+OWPnCqsGrdqtBFil9/fWvCe9dHAi4lbQFn4QDzLqXwGCmeT3m47o6fRfrkvpSnuLOgcqOSNOgvn3GSqs5C6bPVqHkTvJP2mDIygRPnQqqjMWRnmAul5jVITKcGh47OmmkvcMlL3F8gfTyZTW+Kijhvnc3hsdpXMjIiUiO63bRhcxdSnySsxPKWq4C2jQ+9rKWgteD4+ptUK4Lq6en/AeZiG2+TMyDyY1OTgflc8/oUL8AJLC5t41FuFy1dvuGvceBTFgpRa/nyWegz2SPHQb/h0ZoJpICQG2RFdjBI8AhPVlAlDouuIY5H0eGrJWt4AWiSBvW7p8tuD2xhpg/Ug15cHBXMTissS0UKgcFyJpUkHUrBEQ/Pc3M+nqziWLlFdJI4fzECFwswJsPgZc849dyjK/ezdME4elDCKIql+rv9h+uOqVFYmG+yyHXbTDGB6jThzQGwILoHkd0OcWvHJrugQqaRHexbtuOAqw3BgF/yOvY3aFBd3ZkSNsIsyA3NJ4BmI9NsBBYkVTeJ3R1tVxVptcy3nztmUNKr89uxbzGe++QXC3wu+USTZQuuyhXrTQ/APFmzc+Robis4LtMaST4fslLhcdyWy7fuEmH6XgRGlLN5sky7Rw9mFFIbBrRGoR0gw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(30052699003)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Tf4TrscjC7kj1QGXWmY9FYg4iw0m5Z1k6nyE/kjS+Hwji75nc/ZmhF7h/7sLmeFjtLNpwcEaQETImzI0LGNzq97LSCMTEGvPildsd1r5yZcFeLPGC0G5048+gjym9ma1RUoc52lOOeprlVzJFrXHo5xQSgixJTYbjHgISNjag1riN4XV8CiDX8eTHN0HvPdCeYJO8P+GK8NBBYOlI3hXiT5cYcNY6usaBpdqiw3WRO1PucprIemBaykhU5GP6/0XsYr3E0e+WWtl9l55Y7wIj7BEAQDbCj1u1IhuJRx0ixpdoj/35gN1gbOT6xGUP48J3eiCFYvwDGG4fNhkwYWFX+HPgY1lSzUQZcC0osqKTF9UFa8UYOm09NWtzT86WrZKu5Z+JDa6w7eXvNVcr1kCQxXSlqusRV+R4T7Ecro+9+EmXif8nkN/aozZeTsXz3LW
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 16:21:19.4172
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: afcbe087-c69f-4e71-5127-08df2ad85890
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A801.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9189
 
-Hi Andi,
+__skb_defer_free_flush() can leave defer_count at or above skb_defer_max
+with an empty defer_list. That state is absorbing: every producer then
+takes the nodefer path without queueing, so the list never refills.
+Deferred freeing stays off for that (cpu, node) until reboot, and
+cross-CPU frees fall back to the page allocator, which is the contention
+deferral exists to avoid.
 
-Have you had a chance to look at these patches? It's been a few weeks
-with no reply so I just want to make sure that they were sent to the
-right place.
+skb_attempt_defer_free() increments before testing the limit and does not
+undo the increment when it rejects, so a rejected free leaves the counter
+raised with nothing queued.
 
-Thanks,
-Chris
+Nothing brings it back down. The reject path returns before
+kick_defer_list_purge(), so once the counter is stuck no producer
+schedules a flush on the owner CPU. A CPU that never raises NET_RX itself
+-- an application CPU doing TX while NIC IRQs are pinned elsewhere and
+RPS is off -- then never runs the flush at all, so clearing the counter
+inside the flush cannot help it either. proc_do_skb_defer_max() neither
+resets the counters nor schedules a flush when the limit changes.
+
+It is reachable with no race at all:
+
+  sysctl -w net.core.skb_defer_max=1    # frees increment, then reject
+  sysctl -w net.core.skb_defer_max=128  # does not recover
+
+skb_defer_max has .extra1 = SYSCTL_ZERO and no .extra2, so 1 is settable.
+From v7.1 on, 0 is safe because proc_do_skb_defer_max() flips
+skb_defer_disable_key and the producer returns before incrementing. On
+6.18 through 7.0, which carry the llist conversion but not commit
+08dc30de1a40 ("net: add skb_defer_disable_key static key"), setting 0 and
+restoring the previous value strands the counter the same way -- and 0 is
+the documented way to turn the feature off.
+
+Test the limit before incrementing, so the counter is only ever raised by
+a producer that goes on to queue. It then cannot outlive the skbs it
+counts, and the absorbing state is unreachable without depending on a
+flush ever running on the owner CPU.
+
+This makes the limit advisory. The test no longer reserves the slot it
+checks, and the recvmsg callers run in preemptible context, so the
+overshoot is bounded by the number of producers in flight rather than by
+skb_defer_max; the post-increment test reserved the slot and bounded the
+queue exactly. The counter is already approximate -- the flush zeroes it
+without regard for producers in flight -- and the next flush erases the
+overshoot, where the latch it replaces never recovered at all.
+
+Undoing the increment on the reject path instead would be wrong: a flush
+that zeroes the counter between a producer's increment and its undo
+leaves the counter negative, and the producer's local is an unsigned
+long, so every later test reads it as enormous and rejects. That is the
+same dead end, reached more easily.
+
+While here, drain before clearing in the flush. A producer that queues
+between the clear and the drain currently has its skb drained but its
+increment kept, which over-counts and costs deferral until the next
+flush. Draining first matches the ordering __dev_xmit_skb() already uses
+for the qdisc defer_list.
+
+Found by manual code inspection, LLM-assisted, while backporting the
+llist conversion to 6.1 after hitting the sd->defer_lock contention it
+removes. The latch itself was not hit in production; it was reproduced by
+lowering net.core.skb_defer_max.
+
+Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Joseph Kain <jkain@nuro.ai>
+---
+v4:
+ - v3's "undo the increment on reject" was wrong: a flush that zeroes the
+   counter between a producer's increment and its undo leaves the counter
+   negative, and the producer's local is an unsigned long, so every later
+   test reads it as enormous and rejects forever. Test the limit before
+   incrementing instead, so there is no decrement to underflow
+   (netdev-bot sashiko).
+
+Note this changes the effective limit from skb_defer_max - 1 to
+skb_defer_max, because the test now runs before the increment rather than
+after it. That matches what Documentation/admin-guide/sysctl/net.rst
+describes. It also means the half-capacity kick can now fire at
+skb_defer_max = 1, which commit c09b0cd2cc6c ("net: avoid strange
+behavior with skb_defer_max == 1") set out to make possible.
+
+Built for x86_64 and arm64, with and without CONFIG_PREEMPT_RT. On
+v7.3-rc6 with skb_defer_max=1 and a cross-CPU TCP load, defer_count
+reached 1918118 unpatched and did not recover when the default was
+restored; with this patch it stays within the limit.
+
+v3: https://lore.kernel.org/all/20261013205416.3417296-1-jkain@nuro.ai/
+v2: https://lore.kernel.org/all/20261008220256.1844072-1-jkain@nuro.ai/
+v1: https://lore.kernel.org/all/20261007180056.1394868-1-jkain@nuro.ai/
+ net/core/dev.c    | 5 ++++-
+ net/core/skbuff.c | 9 ++++++---
+ 2 files changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 18dc88990510..60d86bc21632 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+ 
+ 	if (llist_empty(&sdn->defer_list))
+ 		return;
+-	atomic_long_set(&sdn->defer_count, 0);
+ 	free_list = llist_del_all(&sdn->defer_list);
++	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
++	 * the del_all and this store stays queued but uncounted.
++	 */
++	atomic_long_set(&sdn->defer_count, 0);
+ 
+ 	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
+ 		prefetch(next);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 4aea06d5167d..25f82b7dcf01 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -7386,11 +7386,14 @@ nodefer:	kfree_skb_napi_cache(skb);
+ 	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
+ 
+ 	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+-	defer_count = atomic_long_inc_return(&sdn->defer_count);
+-
+-	if (defer_count >= defer_max)
++	/* Test before incrementing: the reject path returns below without
++	 * reaching kick_defer_list_purge(), so a kept increment never flushes.
++	 */
++	if (atomic_long_read(&sdn->defer_count) >= defer_max)
+ 		goto nodefer;
+ 
++	defer_count = atomic_long_inc_return(&sdn->defer_count);
++
+ 	llist_add(&skb->ll_node, &sdn->defer_list);
+ 
+ 	if (unlikely(!cpu_online(cpu) || my_cpu != raw_smp_processor_id())) {
+-- 
+2.55.0
+
