@@ -1,86 +1,116 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599B03822B1;
-	Thu, 15 Oct 2026 16:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9D75625E3
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080169; cv=none; b=gqejkL2BPoDVW+DTkz62quZUQaMSbINQFfHrbadUjqoEr9cEsnp6bLrUcz1yNk6Snka9tkFipAHsPKw1eRU6JnU3ebOwdKlCu7IyROZRxSZjMpUgXl7MRaf5g0r/4KoYVRprXBJrAy2pK8ilSbhHpkwziF01tqPubUr50mNG8p0=
+	t=1792080177; cv=none; b=QNhxJ0vGZ7xMscOIxUmSkD7Tc/HQwjoLJNFFDLNtEazpUuj/KVc+DZF5VRL1jC6vVrqpsdeQsN2OuIndDcWVymOKt5Ux4Auk90nZodlV1gl2i36CvT/xL/wV9gDvr72PHWQPiCuUOGklWvisl837HbXrwE58w5aGnp36OlQfpd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080169; c=relaxed/simple;
-	bh=8gdjOKgrDih0wkVOs8l2QbHcmeS5J7v2+strT1QWPxw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kk3WUQ9HEgEnv6vJ0ZPBisK5Re0TORyDfOOPVmgpI9OtqinBd6JhvUzAfn3UDQuVyVTuAaUZbs6ErBDKT99lDh9jnFdms2r0on1ZJLlRyX9n7qm0H+oM8IyoTl+OqPtSBOgEzSoQB2DVhWCZjF5kIfvIy3Unm/6g6faKnh0yJIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=urG0wmvp; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792080177; c=relaxed/simple;
+	bh=mUHMTVPD8VErgL9cNoJhVICpP2cuq1gdAZMTARUlWbY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cqJzDndFr5e8K2g7kdQKIjT/G8xBTtS2kHPmm5e/tjHI8vwruyVXa7sjokzoB6QQlvz99zn9lNWQmvlKLGg3qNTpL9AQeqy4K9GqognxrLF/zZNGhCwZWuzZZR89s+Gq847j6vFUgiMLT6WPsbJixRAzRcuyLanvGn9WDE8jwjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WX+PHVm+; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="urG0wmvp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=K0u57/z8jtSUOgsIRuljVakGxstUfqikfUalLZjBTY4=; b=urG0wmvpASIEplabHTn8fnH2tf
-	LwA1v85gsX6Og87OkQNwv5R8X9InuloBr/V2JnJpasGCslxKxAg1XoS8cuwkj+X+RnH0UxlgdxAKn
-	NeyfTWK5qJ4TunqAhJK50yqx4R3j2RVRd0bbiDSDNMeIE09WAQ1Za8UbYE38NsuKctMk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHNuJ-00Aysf-LV; Thu, 15 Oct 2026 18:02:15 +0200
-Date: Thu, 15 Oct 2026 18:02:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
-Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
-	Russell King <linux@armlinux.org.uk>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>
-Subject: Re: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
-Message-ID: <5afc446b-bd20-4f9c-a330-71615a71d244@lunn.ch>
-References: <20261009143506.2507607-1-jjc@jclark.com>
- <20261009143506.2507607-5-jjc@jclark.com>
- <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
- <CANz3_EamUFhoQJ54g9pxdrxGK9EYxu_KeqRTdAdxWzV15k4_9w@mail.gmail.com>
- <DM5J6J74NCTY.1IDZXHZM276JS@bootlin.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WX+PHVm+"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B5B824E4124F;
+	Thu, 15 Oct 2026 16:02:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 890F36075C;
+	Thu, 15 Oct 2026 16:02:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 703BB10328B42;
+	Thu, 15 Oct 2026 18:02:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792080155; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dkEV3NU/xjxq6SJuLLAVWiQsTCv0N4E8zuSVpty49hU=;
+	b=WX+PHVm+NUlQ1Ip641v/NskvAApUPXyftYa6uAZQMl+jqNOTkVd7dCLcuzpVkToOZnzBqK
+	sEf8H5j9hJP1hu6AczeZxd6k+H4Y2LP2+zsGPyMK9OgK1zX/OVQPVW049W+jD09pL/zCzT
+	vON8v+O1zGNKMeJqlSjtJluCO0vZ4XcNXtqwn+XePIictvYDgU9I3QvCb3yP9x37i2p6+r
+	Ugz0YG0PPI7Ga39jBHMna5ydbCp3pRnxRo3z3GK6nSkktIbHbhXoylYnNpmgOTnC05cm1w
+	WTryKVX7rKpyrDoUc0VU9XQ6zILZ311BH7TkdBS4oULZk2KQ6XR3+GkWokhyvg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Thu, 15 Oct 2026 18:01:22 +0200
+Subject: [PATCH v10 09/10] arm64: dts: nuvoton: ma35d1: Drop HXT clock
+ output name
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM5J6J74NCTY.1IDZXHZM276JS@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-9-47c97b54a809@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-> I've not checked what is in tree. I care most about EyeQ platforms.
-> The EyeQ dev boards use a Marvell PHY which could benefit from the
-> feature if/when Marvell PHY PTP support lands in tree. I've tested it
-> briefly (more accurately, I tasked an LLM with running a few tests) and
-> something times out but I stopped there.
-> 
-> An RFC has been sent two years ago by rmk, and I guess it will be
-> iterated upon because there is interest!
+The clock-output-names property is not useful since there is only one
+output clock, and the naming of that clock would already be clock-hxt
+after the node name if we were not providing that property (so very
+similar). Just drop it.
 
-That seems to be self contradictory. If nothing has happened in two
-years, nobody is interested enough to actually finish the work.
+I want to clean this name before introducing another very similar fixed
+clock in the DT: LXT
 
-From what i remember, it is not easy, because Marvell switches contain
-the same PHY, but also have PTP at the MAC level. We need to ensure
-that when the PHY PTP is introduced, it is not used in preference to
-the MAC PTP, which i think is more accurate. Otherwise there are going
-to be regressions.
+Another solution could have been to rename it "hxt", which would have
+been more aligned with the other clock names. Sashiko complained that
+this could break DT compatibility with an -EEXIST error because of
+the colliding names.
 
-	Andrew
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 1 -
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 78534d613486..d7670afb0a63 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -35,7 +35,6 @@ clk_hxt: clock-hxt {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+-		clock-output-names = "clk_hxt";
+ 	};
+ };
+ 
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index a029b660e8dc..8f3cb18d39b6 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -35,7 +35,6 @@ clk_hxt: clock-hxt {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+-		clock-output-names = "clk_hxt";
+ 	};
+ };
+ 
+
+-- 
+2.55.0
+
