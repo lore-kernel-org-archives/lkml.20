@@ -1,190 +1,144 @@
-Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7A31F12FB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792023612; cv=pass; b=V4yszPSorypu6JRZsttiyPsFzvQdiLC46XQrS1ei3LqXbAt0l7MYvYUJgP63D/e1siiI8WiIkd0b6QE55QJpS0GP0fjy3ObRpnXU7qlfJU9gUjGwN4M277CkZlYH+CNx4Az7CIkIlvIMQlJbIGYXr5U5LDbkfGN2a9YSVeYyaj0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792023612; c=relaxed/simple;
-	bh=ZfGhT2Jr+2O8ROlVSInvFbbLTE0fR8G5uMhgAbwj5M8=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=s8TBPziWhYgeO64XPsHrJ2WATXWRApc7S1w34Vrx+xyz6KCmWGxDBtQrfak/5t188T+iECpQXp+nsvGsnQL4YIkHFJ3Guwa76pr2sGlrlmNUmvR7OqjTfnX+Xv2iQgq3QxU3lheE4wkaAiIc4YzRexsTS6pH0Ag8CQvWAS67gAs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=WlZs6pVA reason="key not found in DNS"; arc=pass smtp.client-ip=74.125.231.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trukhin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C041A1922FD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792023695; cv=none; b=aMA4p4Jn659kwWGrcT0JuaxC+vUhMxPK0hMuiyNnfjQ8x6M8AS7i/6A2jBNl/Ts1YOegyAvRXOSIPkhVHV1DzLgE7rnwAiwjXcYv7hgd1HJLj6ICq5q4YnDM/zYNdL4hvDFgT2Oz5l094APtkSZTUNefzqVA0PPnvttBhLrPAYM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792023695; c=relaxed/simple;
+	bh=gi48cupS9h7XgwY6WPv+vOA1JVj5jws7mmQ9ojMZxPA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E2ONVgYPj5Cd5rWHY8m3iRKmqQa7YdXoLOBuWeCpJMJX+s4/QlPq40ZjyHlKlS9TA5FRlB/Z3sM0EB64k8nRKSKeghzxfMWHcKHEWI7KSDq+UkGq9h+GSTj4MR2H53eo0DBHYLIkmieJVl8+ePKWWCr/ABOMWhEpYoj2DOXkAEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jUPkFvBK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e3Ucbvk6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="WlZs6pVA"
-Received: by mail-oo2-f9.google.com with SMTP id 46e09a7af769-821a4a69647so2048014a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:20:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792023609; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zu/DrKaq1yvziK0tgFOWkWTao0WCgDWFKY/49OQvotaASa7Rjv/+M97M0X7U32Vys5
-         +HRG7LvImM2XMgTdwlJbsfzo2ExNTviOZczcHTWwGM7oGe8pBAjfvrR2GkdwYbyDI/+G
-         WTkDknzp4CCDYen9elQox3y5kWToCMB/8Ztkr/oIgSbjybSTEn95hsxzU1pe9F3yUwuS
-         Deu7v+dAfWdzUykEuwNDO/A6dKeuUA9mNn3YZcb+izoJzuo/70z/mS55CQY74Mqv+9xO
-         o3VmIYfJJDiuVl2vrPV5nNdf3yD4u3TWvdhJkvwgt2PSjQlyYyAbcFXudNDmeI8rSNu4
-         se6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=JaQsBngKHxTZEacWBZCQKm7YBXuRdNkKZ2aKH9fBHn8=;
-        fh=sgSf5FlklXWxcQRP4wkMxjAWfg0Bz95LLe68W8kKras=;
-        b=m0rOkduxSDO6DtCIlkVgIRLuFk0vyms0VCn4xk8OJkcP3kkVwfst9GbdB1rHjlmVOh
-         944LvI5XwmL0t9cgDOC4LtEtnX63o6DNYewiETpgclvRYZtYnwrICWb/Wj1riqNp7twB
-         ru88JVr7ORYCpji+bnOkucZ6re/4Em8fzcYNQrz7t1pUzWumdq62D9vskDif/yJYcJjL
-         b6vfC3/nwrHXOmydIKaBeAVq16F2CZWh+In/tcgW9qOS5h83wnXtJb6S3SWhxPegoXQt
-         fR/ME8KjsKLj0bX+sLlvoVBb6EbuLI3yt9/XvrlpAk1qzkHs3RXmYIZwvenTGfAwQL4C
-         6yzw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jUPkFvBK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e3Ucbvk6"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EFq2c91672812
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:21:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yaR/N3Tfnkuz4eGTVgBjs3mV
+	pu7leTe1gRB71C/CEt4=; b=jUPkFvBK8Bam0QI2S0E5fz7hd/W/N6wZ8bCVnR7/
+	awYjOYzdM9FpkunS4kPxLOXogbp5CIpClvu7+7XlbeR4hguUzz2h80W4lpE6RH4q
+	s7aRLQZ9miMd6/KDpxUkB4Pd6zTcXCnID2VvZWeRYp2GdIYmG7ekI6SuXRaWJENt
+	+f+aXzLW9kK6070UItNSO+5CgsLUjLjW9ffe3yB+0+34CFjzZMZoNMTWLTxkKiYE
+	ElZeVX+Rqf8LwknyMqsgiHLvYLsyuHsC94egr8H99NzyIuHtKVa0FK+ME38Hr1HN
+	em4bHhw/fvXcfhrLsGLI0vnv6cr3j8H7JUUjisV5aISgJA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacrh9pqj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:21:30 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-357e2bc3b1bso7512101eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:21:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trukhin.com; s=google; t=1792023609; x=1792628409; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JaQsBngKHxTZEacWBZCQKm7YBXuRdNkKZ2aKH9fBHn8=;
-        b=WlZs6pVARRm6awarvri0q53sMi9oDggMqafs8zD4xJmZOllBKr22motDWK82LidmRB
-         bIS+REnn6T35uQyDiDb9skkfwp+Lx3lZpWErEF1iz5etshtdgWI80bzt0ee5AgJFyjgJ
-         L2P1XVP2uAWjiNzyf5WEq+SKxC3m2N9CB6gMU0EcYmOMzunx/Sh0KOMIIOnnya9RlX3j
-         V46ghNboqcxD0NS9zQa6iXnPUlZ40yu+WT+Y2qynMwQZYP3uskTmrG0J6rpizTsN2W0D
-         5Td3lkh8RDIOWYNsOziKUofXRhirz0AeJTrcFyyGBb2YQc27ex3E0O4OB8pY22Hn1KPC
-         m37w==
+        d=oss.qualcomm.com; s=google; t=1792023690; x=1792628490; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yaR/N3Tfnkuz4eGTVgBjs3mVpu7leTe1gRB71C/CEt4=;
+        b=e3Ucbvk6YebkuI3xSJzkF1JAhvFrjdS3lRofY+jCEiyOT26XHTRE+7ubzgS+OMgcZm
+         rr1VupNsqlK9hq1B8PciFUbg4ZLBmp532kG0f0vauOG52+h8Bm0tfJKmXE0mj9KRLfRL
+         AjVaOsz3x3yukWn7vwr+7Oz/G5xcvSLqU7lLefrRm++zMurbAE/n/1qQuOwA8IAezXCT
+         TtaIM4Ycur5syVKgUXOYamd2kVGAJvdE7pciana/5h4imIyVj37eOhEn6C+53/A6opCU
+         G7xpZiBUPY13xZ5gvE5TFLHCSbYxN2FYSi7ecAY+ddOSTiw9lECQlWtgema0Mj2ZQ1bd
+         /jIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792023609; x=1792628409;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JaQsBngKHxTZEacWBZCQKm7YBXuRdNkKZ2aKH9fBHn8=;
-        b=L0iKSmiARsyx2y18JgA8tEe4Ln06eLwkLvZLlI3pxpjHiHoMbqi+dhV3sm6PI6uo11
-         08VqiZpsa4cF+w2UvnuW8fTTVuzmXgLKdum4n79u33qPUPoNI/4N195Q9GmVspBBEWSv
-         fUz+y80vt9UlDkuHd5AwTMhflJ2qOQ1lgbj0aTjWro6IFn1k9Ciz2Rc8Povr1wWyByYD
-         F0goKZi7Q35H4FL3SxojcmWnBL1UIMTqc78JLof/kI9SjWFZHozZe/NEAnYx0/Q2DAfH
-         jR/vOlOG/1o9fw8kfZbwDh1rn7C6YJWNAbyq39ux429cAy9Hc1wWfE+83IgVGZfdg8i+
-         xArA==
-X-Forwarded-Encrypted: i=1; AKwUvBydwLiKaYLITSmJ7QA37HxKiYgu10KtrnFwlNiVyNtxtM+ZJA0l5apYwpUWWb8vYkAIvq2PNp6GMbRKh+E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQ3DBUilKFtcTaWQzm/aHwjCy/cWTejKLjM1YS0X9ELR/aVPv+
-	hQyaBICBoXyDnTWo8480q3OuvvXNyhgB/pMoHFWALuwcEIjBM+dsvlxOM8iEVtQnuj84ucxm9XY
-	EvVsg3U7CdExfMQIJbeFlXCpBUbHTsaSN9PrzRNeZwEHuDz65RavAjWyNhbwriwEjpQ==
-X-Gm-Gg: AYBFou0R4Zdo8tqwqbBEONUOUwOo1q4YSihIXlfzsAYdZoHXvGpbn7lbqghi9i2ktY9
-	HC/xDM4sAPowT8QIhplAquqcFZX6jtPc9xKbAa3mbs9fKhG+3vDdy5XsafgrqEmK5x3KHZO4wUE
-	bVXQKeWgWiEze3bDdv1sGtyfvRB8qRWyh8S5WKcOBIhi2lfNsYP7XRz4NuNoCEh+0Os+c+8Cfru
-	TD8sS7ZmGpwN2SuELCr66oqtZ5L7rKFO1GaIkdOhYNpVkNaueSE2cAHXKzgv6OBlVmJ+sOfQJL1
-	f+UwEer//vhXXf7MEdPkiDKtV5BmeY85AMtE4a6YFmAqsWHh8qE9fLPbHM/I7vc5sk8Pjln2h1e
-	xYIWlf6AZnTOtTr6YnaT5lHQ=
-X-Received: by 2002:a05:6808:f88:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-50c40a3e034mr15534514b6e.9.1792023609360; Wed, 14 Oct 2026
- 17:20:09 -0700 (PDT)
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 20:20:06 -0400
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 20:20:06 -0400
-From: Iurii Trukhin <yuri@trukhin.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792023690; x=1792628490;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yaR/N3Tfnkuz4eGTVgBjs3mVpu7leTe1gRB71C/CEt4=;
+        b=A+eQVTfOECFrBpgQkMtkPdiIiqJxZ9JeE9hFmGqv+m3IS8f2hVQ6sBk9Si/NBHg5RI
+         HUI6rrhfML+fQ0E059vjFtI0rUo2WUIdblRilF8PwUImDB5SHMRnwhkbYL3m/WAmWfcQ
+         tK9XROFjnlqrMlfk5DZ0L6rE4kljSOi0tVOwWTj7gcu9JWlXfw/HtJdQcRZkn0PLaOxc
+         mVHI7GxKtEgbbGlv0KP5jQx5wqCScerWlCOo6Gzvmw0qVJjpSMiQjT13pHOoc3qsNeca
+         +5l/+Pj9XB9Ny1wwZYCRIkPZeIrtxJ/pJ1g95DY9zUmMStLgDXm3Xf/YnieVBr0MZ9AQ
+         AlYA==
+X-Forwarded-Encrypted: i=1; AKwUvByIooApysS/RlgtXW/u69T56SAyqvcohi7luzTwIAHFnRRkr5DYEUB3VYw669Z5aRtfozpXJAg0lzfCGG0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5RH5Io2XijLxDPl5207wqqBgvPBzemoSapZ12/JTTJA8HnKIe
+	cc5hTH8cZkoa6jl6H428NWL3jWQH+1Pk2BKLnAWO/IpckzBg4cpveuvf+OfanLp7Jns80dPVzd3
+	QHS8l5nvax7dg3Uf9uPWuKjhH0tddRJkGf2b870ZlXHs3xJ63VWyWL1v/uOfVHJgWeOA=
+X-Gm-Gg: AYBFou0aqXDyJbllIDAqqvYM36OgnH16T6G24kHS+kzwyZ7OpTcQE98CIjV85HKUIZr
+	LK+GXzmFivzvpgGeIOp9Tl3+T4ZE86zVbNcIvMZQI2L51hYu2q7cCjmXtobSk9gejgbFXU0YLfS
+	pQcPhvp6SDfEoh6+KZR5tRmXk6Aq/rxnCxRUfmQdJfBpPOGL1xZO8tYYDv4nliagl6dE7aM9sGE
+	uU/KuRaTUQiMeTK4rAoQIOHwj7GMfUH0Lp24UcdZPf0nyIrPTxP2igUDoOtlR21L2ujPACteBh4
+	FLFuax1FQF4Y0vsoQ7YggHoyi8FJl5D5+IYa6FgaZnM+dsgyi2DrMPqc7v6iHiHZRDauypDMF4e
+	V9NWC7VuTKMeia7+f3H454huCRSQXFsQR14HmRe0ZAQ==
+X-Received: by 2002:a05:693c:409a:b0:33e:a173:4aab with SMTP id 5a478bee46e88-3537df8cd39mr23615302eec.14.1792023689859;
+        Wed, 14 Oct 2026 17:21:29 -0700 (PDT)
+X-Received: by 2002:a05:693c:409a:b0:33e:a173:4aab with SMTP id 5a478bee46e88-3537df8cd39mr23615268eec.14.1792023689239;
+        Wed, 14 Oct 2026 17:21:29 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-359789fde97sm41347836eec.20.2026.10.14.17.21.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 17:21:28 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:21:22 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] remoteproc: qcom_q6v5_pas: Add remoteproc support
+ for SOCCP on Nord
+Message-ID: <atAcgjjlin21jUHa@QCOM-aGQu4IUr3Y>
+References: <20261014-soccp_driver_dtbinding-v2-0-09d9c1378e9e@oss.qualcomm.com>
+ <20261014-soccp_driver_dtbinding-v2-2-09d9c1378e9e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 20:20:06 -0400
-X-Gm-Features: AclHuK-R2VI3EMAmxypOk8j1RNgr0sS8TKkXhCdHLAm5TtP6ChLUvq5ggexLBu4
-Message-ID: <CAOx7e9K707oLMN94TC=FBBZYKnwACsN-8mDVjsL+N+BBCmWTOA@mail.gmail.com>
-Subject: [PATCH] checkpatch: add vmalloc() and vzalloc() to alloc with
- multiplies check
-To: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-hardening@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Iurii Trukhin <yuri@trukhin.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-soccp_driver_dtbinding-v2-2-09d9c1378e9e@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: YLnYSph-LxUoecxYlWQqq6PhkpC98pDE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAwMSBTYWx0ZWRfX9EKVfQS6Mnpn
+ ONWnq/9CLYENRQxJLJhdsmCedTZKaldcqoiaGUoV8eX2y4gLwZrSE+8q7dnJQ8Eei2zJGM/gzuY
+ i/ri6z7cCIDSAzSW7hJoWDo+Ydzm7pw=
+X-Proofpoint-GUID: YLnYSph-LxUoecxYlWQqq6PhkpC98pDE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAwMSBTYWx0ZWRfX1yNhrDv7FszQ
+ tYopPVnVyAQAPX1ft6fuz4YYGIHP7izFRub77OZT4VlS8lVKfLvFT2Aeht8OdgARt4sqfOhdrgG
+ m+FTK2JkC1cpV3q34dVp418OAayi0JNB21PnYls2qp3YLehtHBG0DpAidB16XAzL+xYfeNulH2C
+ BRzz5GzjTK8/JBsq2rQkBU3oy9WsnhHFsFwROhTr9Qv9wFjqZza5D6e6+O8W+bzVMIIBCw9RwSy
+ Cz9ym0GHl2rDc6Lr8765oRwwm42/pKojkKskoUsnSkwbCmig86NkAYkdNJD98oHrub4y8Yyiurc
+ 4GMkbRN1kYOzOy0XHsL8JFQeQxjBhBQov7aGgrae5TH+uLhgx6bvtWm1vOQOVatiBY+UqXx95LA
+ 7+YuKXjCN3ftFxbbi5aqSaMfVRg58deCjZ1jBVfDG5xXrvpAXMdQldGcYYqpXomakpt5fZcon0t
+ b5OGOLR2WM46EyarRkA==
+X-Authority-Analysis: v=2.4 cv=SYZi5fRu c=1 sm=1 tr=0 ts=6ad01c8a cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=RuunLgntBIPE6M88tmEA:9 a=CjuIK1q_8ugA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150001
 
-vmalloc() and vzalloc() have 2-factor multiplication argument forms
-vmalloc_array() and vcalloc() in <linux/vmalloc.h> that protect against
-integer overflow during size calculation.
+On Wed, Oct 14, 2026 at 05:16:10PM +0530, Anurag Pateriya wrote:
+> The SoC Control Processor (SoCCP) is a dedicated control processor
+> that handles hardware fencing for display and other use cases on
+> Nord based devices. For Nord, SoCCP firmware ships without a
+> separate SoCCP devicetree image. Therefore, it takes a single
+> firmware-name and memory-region.
+> Add support for SoCCP PAS loader on Nord platform.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
 
-Commit 070580b0b174 ("checkpatch: Suggest kmalloc_obj family for sizeof
-allocations") updated ALLOC_WITH_MULTIPLY for the (kv|k)[mz]alloc()
-family to suggest kmalloc_objs(type, count, gfp), while vmalloc_array()
-and vcalloc() retain the (count, size) signature.
-
-Extend ALLOC_WITH_MULTIPLY to warn when vmalloc() or vzalloc() is called
-with a 2-factor sizeof() multiplication and suggest vmalloc_array() or
-vcalloc() respectively, including --fix support. Also include the 'v'
-prefix in ALLOC_ARRAY_ARGS so swapped sizeof() first arguments to
-vmalloc_array() and vcalloc() are flagged.
-
-Link: https://github.com/KSPP/linux/issues/342
-Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
----
- scripts/checkpatch.pl | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
-
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 8a7787d228a6..651a46f1fc40 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -7355,10 +7355,11 @@ sub process {
- 		}
-
-
--# check for (kv|k)[mz]alloc with multiplies that could be
-kmalloc_objs/kvmalloc_objs/kzalloc_objs/kvzalloc_objs
-+# check for (kv|k|v)[mz]alloc with multiplies that could be
-+# kmalloc_objs/kvmalloc_objs/kzalloc_objs/kvzalloc_objs/vmalloc_array/vcalloc
- 		if ($perl_version_ok &&
- 		    defined $stat &&
--		    $stat =~
-/^\+\s*($Lval)\s*\=\s*(?:$balanced_parens)?\s*((?:kv|k)[mz]alloc)\s*\(\s*($FuncArg)\s*\*\s*($FuncArg)\s*,/)
-{
-+		    $stat =~
-/^\+\s*($Lval)\s*\=\s*(?:$balanced_parens)?\s*((?:kv|k|v)[mz]alloc)\s*\(\s*($FuncArg)\s*\*\s*($FuncArg)\s*(?:,|\))/)
-{
- 			my $oldfunc = $3;
- 			my $a1 = $4;
- 			my $a2 = $10;
-@@ -7366,6 +7367,8 @@ sub process {
- 			$newfunc = "kvmalloc_objs" if ($oldfunc eq "kvmalloc");
- 			$newfunc = "kvzalloc_objs" if ($oldfunc eq "kvzalloc");
- 			$newfunc = "kzalloc_objs" if ($oldfunc eq "kzalloc");
-+			$newfunc = "vmalloc_array" if ($oldfunc eq "vmalloc");
-+			$newfunc = "vcalloc" if ($oldfunc eq "vzalloc");
- 			my $r1 = $a1;
- 			my $r2 = $a2;
- 			if ($a1 =~ /^sizeof\s*\S/) {
-@@ -7381,9 +7384,13 @@ sub process {
- 					 "Prefer $newfunc over $oldfunc with multiply\n" . $herectx) &&
- 				    $cnt == 1 &&
- 				    $fix) {
--					my $sized = trim($r2);
--					$sized =~ s/^sizeof\s*\S\(?([^\)]*)\)?$/$1/;
--					$fixed[$fixlinenr] =~
-s/\b($Lval)\s*\=\s*(?:$balanced_parens)?\s*((?:kv|k)[mz]alloc)\s*\(\s*($FuncArg)\s*\*\s*($FuncArg)/$1
-. ' = ' . "$newfunc(" . $sized . ', ' . trim($r1)/e;
-+					if ($oldfunc =~ /^v/) {
-+						$fixed[$fixlinenr] =~
-s/\b($Lval)\s*\=\s*(?:$balanced_parens)?\s*(v[mz]alloc)\s*\(\s*($FuncArg)\s*\*\s*($FuncArg)/$1
-. ' = ' . "$newfunc(" . trim($r1) . ', ' . trim($r2)/e;
-+					} else {
-+						my $sized = trim($r2);
-+						$sized =~ s/^sizeof\s*\S\(?([^\)]*)\)?$/$1/;
-+						$fixed[$fixlinenr] =~
-s/\b($Lval)\s*\=\s*(?:$balanced_parens)?\s*((?:kv|k)[mz]alloc)\s*\(\s*($FuncArg)\s*\*\s*($FuncArg)/$1
-. ' = ' . "$newfunc(" . $sized . ', ' . trim($r1)/e;
-+					}
- 				}
- 			}
- 		}
-@@ -7397,7 +7404,7 @@ sub process {
- 		}
-
- # check for alloc argument mismatch
--		if ($line =~
-/\b((?:devm_)?((?:k|kv)?(calloc|malloc_array)(?:_node)?))\s*\(\s*sizeof\b/)
-{
-+		if ($line =~
-/\b((?:devm_)?((?:k|kv|v)?(calloc|malloc_array)(?:_node)?))\s*\(\s*sizeof\b/)
-{
- 			WARN("ALLOC_ARRAY_ARGS",
- 			     "$1 uses number as first arg, sizeof is generally wrong\n" .
-$herecurr);
- 		}
--- 
-2.56.0
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
