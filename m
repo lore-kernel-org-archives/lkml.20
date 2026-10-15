@@ -1,65 +1,63 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5436E48C405
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DC5483831
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053403; cv=none; b=VOoeiGRuBeycN9xt7FiPLIK/s+ZjhRIBQTFPS67ONedQ5AhJRssg7MPo5w+PNOnvgYG6uf0xqAn2FhD3r2LO/qGcRTLmKkx7OFh2xuHCNeFFrht+hRtFEXLgE1cSv7zVwk7i0HR+An9fsTj1f7b87ZDQfqhDVfHUy+/dOruc0H0=
+	t=1792053404; cv=none; b=RnGgsnt7rHCzctcGBgFiBg+Kf57Y4wwSAkMUQrWHkhwQzkuuu5U3MmBUlMuMQOOWInNW+ZY+kUPBDAbGpEZG1WwSk5DT1aRz6nOogHZ/Rv0D4ZIiYqlbDsPWSee7teks5a/EcYwJgQLvaSI3tCvjj/n5XuON8JtbhtIjq6P4f0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053403; c=relaxed/simple;
-	bh=pzrGaXr2vc7AK2dHic6Dxs3t4dtTkJgIvsCv45uqoO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e9mdngB2Vk5Zq2CVNN7rtKPyDu+z+DyIfh+vZniYMRcjlA5MR+g5VYtQuo0FzhgmzqKtt5hRd1B1cCCUMPbtHwFjWyKEpK1dPDFsDYpYKq8xLIXoFaIS9Z40BjbvC5Zw5uch+T8m2wP1u0pTq3DxfsCfdHdeA8SNaeYl6I5d9rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lOJY+fIX; arc=none smtp.client-ip=209.85.222.173
+	s=arc-20240116; t=1792053404; c=relaxed/simple;
+	bh=rQRacz5lb3GSBMv12F+Cy9fZi1P8KakT2Zgv0K0Uumo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=adpiyVMPykaN7ykqxnLm05+UCrQNzybEH+8bulvQ/mzOY+1NyPpcl6hAu2dh1/rHW4UJ2GqztuIlhEVLVC7s2BXV4eKX9Cbach8Vce8VPfTjySYOwlrlC6vhNunT9ju05bgkVN4pgaVCxa7ho53OHOao4U1NcqMuDSJPhvn1bAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BMontasP; arc=none smtp.client-ip=209.85.219.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lOJY+fIX"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93cb9e9405fso69876585a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BMontasP"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-917b78dfe30so80691546d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053400; x=1792658200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
-        b=lOJY+fIX7fKTPd5JoHrz///6LH8QPt7T+9J2luCNr8/+KfEmBcpIVYWIyq05ANTSio
-         GhthWLK93vM2BFCfb2XEeMTiFc3xYnWbuSfQ6AqNOYPXB0PbY72jM2bL1nrMOiSWDnv8
-         +HhVDF9uabAePRl15s8iO1zlH0UFZpT25DoS3qeOjWQBIJoiUESbK4pKXXxMBzBBeZc0
-         Fz9b3QPYmXz6ewoHTiX7zzcAeAa90o5RW60lDa5FxpP0U8L+E/01ZdHRR5MIfsqvCWvP
-         25fk3q6Fgb5E1Xy+CT4QOcFuY55qQSI+NMsONEfk4mAMaoU5ha0JL5/2oQHLMkxggo8h
-         Hlcg==
+        d=gmail.com; s=20251104; t=1792053399; x=1792658199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=csLZTWFJZwVmJjPK2j5B/Fm6zSWB8VBpn8JFPtRRzfA=;
+        b=BMontasPnj/q/KCbkTQAjA2cXNDjjA7rQa0powvrrsXZY1JWW2eN3l9VZXRuyWTqXo
+         Wpdv1Q/3LWvn2Cz6QuimQBg4y6G7CQ5PFLgH0to0zNbZttyvBTIQ+wYWxWv4DM7ZfL7z
+         gp43A4A6nRW7PSBEWZEq4s2yys5A3OJmI6gtAb8CnD0jQ6xx8lVgolGALi8CWVrqbIcn
+         AQ12///6JpZcyrhPkph7ef1dnjT8Din3plLarXFI1iMdnU+IV2edkyLMD/xKF2897qe+
+         cRL1saPxmHAvfIF3/u6EL/XsvogfpEFKmnF1dZl82ziEaKP12F3XBeNWIdb/0FQq60kO
+         jgUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053400; x=1792658200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
-        b=04aXVU39b71ldkt9PoKIHispsDVDtNO7AOwNFaTMSibcGl/ZEcI2qSV6jKN5cVRfmF
-         D8ICT6eDuyqy0rRaE3VPC9tXtZTa0lxPT+1Ra+dGPqQ+Zj5kJzTR2bFaC4O1VAm805C5
-         my5pS76HMrchylyZ+jWW7OXJT3u5MbHPewfz9wjNf8FeNzMlA+s/qer2zxHz48P03Rll
-         8r/7WQuOk4PyVUGxjWo7cIe67qkMCNeLN9ixWSBVUOJjpNgNm31jdX07qM8FdWQflQwy
-         kdxj6Eb7hHYTNVU7GbJpC0/zInZkSNR3GyjnwM9+FlE5DKOaMa2KRD1vmEb0aVBoOq7M
-         MzuQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqGxPu3J+t1ZeXVn1YoJoF/ipuZYDuZcCgKLVblFbrlRAT8WNPhpiopio4RYs/wrOUg/TArcy82ICPntw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4Px05Mv0R2RdQ08I8QZR4AiQjTYJiAVeSfOEv5WcHXjG7xkWs
-	VmTsgbU+hb/MkgakZzX3JNYewk+GDvhcId8YwoaEH5foi86JPxHKz/jR
-X-Gm-Gg: AYBFou0SLYnxwaXk6y+yG427Y5SWXehE4Qlba2OqK5TPzxEyPy4JEJB+UTTwGwyadYI
-	z/9M/7OfF6DluNt1x52aryXkSw9zMtijifFSHPfLHQK747PU0EJIxJ37n1yHMlQAXqA8skeYTGd
-	sA83StxuPALaIYnPd02/kqx+39t1f0aeq0ZEVue5uwwUTglhHmJwP1O2/ongQmwanuM5qv+d4lM
-	2ZPi9fkoNl856C5CoRt9zycAp6UFZURbynZOJMHEnvvoLSKWTy7zO6iMDTcGRKowHH1oBAGFFNA
-	sYDx+yvvtBcI0TKH06wiOmnjUXItZ5XdBUPVVmhaEooYv2YrkH8j4nNTA0pnzBkqRj9U+zfPqgl
-	jcmanhir09DsHGKYc5de4hafJcVUu1bFVkT4r61W3sNX+S/l1ODb8GhsXFT0gc1NzjRwcG/4W5N
-	Ho04uu30yaW2vx4AVDc1JJVQB0mY2Wee1D5tcxdhs9YDMLtUmcUaAIOkiT/F+/EekBwTwMclFAo
-	dJtg0vCFgKMtW2DsPmXypR4Uxr78fnM2/kRGUkOD5MACwTxvFHyXUNllzBv7HgQOy995xBj7Bqx
-	jZWBfEWU8R4jquRI1OU+1Xw=
-X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr2908976185a.42.1792053400267;
-        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
-Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1792053399; x=1792658199;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=csLZTWFJZwVmJjPK2j5B/Fm6zSWB8VBpn8JFPtRRzfA=;
+        b=nouEtoAyAYkWcup6ZHA4qTm/iSo9sXuK6rYeOriMcgahmDWJNauJraasNsY+KZRj1/
+         nryQe2URErlSMBFmWLzuhHXZ9iPZUM55BGT00+jcoi/XDEpnWZvenSayD4RZB59alhVp
+         mGgQiPbRK6izyAKZFDhKtDw8TgSuaNSXh8aDraAZ7d2dmbhI22emQvealyCVy/O8qyuf
+         QBBUBbGfX+pr3ivEF3DSfx5E+UsmBeOUfcBHpgOr4U4Fc1PZyQVMnDltAeJHon4lkbQT
+         4YnAQhlqWrFm9NNV4iF+ncC+oBgEgv6EU1JfB1WgyWecHPsGpPouYaBH8JhLaf8lwYwx
+         XeXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz6WY1HThNbPvNavf1hDVG3OWD42VzpPSNEO/EDEzyRLx2nEzpyyIStIK/4wYrxYCHmZwPxxS5K7mUJ9EY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtSYNT9xqgSzngb0S1dUg7P0ADzlsNUNERl1pTdU+j22B+hU6L
+	i21EGHFV9laZLDZwSSSLjTNbM+yTYYL36n0UnLO/Jk3iuVJsZYYj9c57
+X-Gm-Gg: AYBFou0Bv3GlBF/AVy/mmH4/OCysYvPKUHGsJVmUQKhFqo7pDb0Z699TEi57JMef+xc
+	choNGFV39iFW3vlRN+CcGZMi73C2dja19B2rpFjAHUIcfYVFypVNgK2YiV2a/fQTJJWesUywYde
+	pSZ32A7PUBIN4NOlLt/KiIvudyxp7awNlAO71ThplcoKbCXb1t4dgM7HkVkcwkIFQ+Uxn2DmlhL
+	WEHjCwwrfWSVE+BDLa0CBb3p6jKc1MDxIDDhrJ5HgAhH3bIPoH/0vswxFCUCoiM/kPwmA+56BDr
+	Cy3JeMJ2fj8Hq3Dl/tBsPopxzpRzKXJ+PvUaWl2ZBC75w3yJP+XKKKKta65/iccXOLjCf/FiGsK
+	/dLbyoEEMXV+DRew034I4tr+E6xdHxr4abCI9NjKUhgkgwieRHvHU4Za7HkJ9J4KbS1htyjeubc
+	oGZGamlwhZ1IB65CjqZHDchQE7uSjPVC2pMf4lk+eTO0EUCZuNmHjDDtp/y/A6ZoY1FU73+Eg0z
+	DNzwKv5LoxqasZ2suDJLkCgNNKvx9Dy9EYfcBLbocKWUcodEIOPixx67Z1uadwKMCLZzdlOIF74
+	GiQiTZ9n5tpwan5Jx0OkJQoXflimyi/zFw==
+X-Received: by 2002:a05:620a:4552:b0:93e:5821:2c57 with SMTP id af79cd13be357-93ebd2244d7mr3256091585a.22.1792053399383;
         Thu, 15 Oct 2026 01:36:39 -0700 (PDT)
+Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:36:38 -0700 (PDT)
 From: Deep Shah <deepshah146@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>,
 	Leon Romanovsky <leon@kernel.org>
@@ -72,14 +70,11 @@ Cc: linux-rdma@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
-	Deep Shah <deepshah146@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH rdma-rc 1/2] RDMA/uverbs: Fix uobject leak in DMABUF release
-Date: Thu, 15 Oct 2026 08:36:36 +0000
-Message-ID: <20261015083637.200958-2-deepshah146@gmail.com>
+	Deep Shah <deepshah146@gmail.com>
+Subject: [PATCH rdma-rc 0/2] RDMA/uverbs: Fix DMABUF lifetime bugs
+Date: Thu, 15 Oct 2026 08:36:35 +0000
+Message-ID: <20261015083637.200958-1-deepshah146@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
-References: <20261015083637.200958-1-deepshah146@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,47 +83,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uverbs_dmabuf_release() treats a NULL uobj->context as an aborted
-allocation, but normal ufile cleanup also clears it. Closing the uverbs
-FD before the dma-buf FD therefore skips uverbs_uobject_release() and
-leaks the uobject and ufile references.
+Fix two lifetime bugs in the uverbs DMABUF export path. Patch 1 fixes
+leaked uobject and ufile references when the uverbs FD is closed first.
+Patch 2 fixes a use-after-free when dma-buf release races with ufile
+cleanup.
 
-Clear dmabuf->priv before dma_buf_put() on allocation failure and use
-that NULL pointer to identify an abort. Otherwise, always call
-uverbs_uobject_release(). This also avoids reading a freed uobject if
-release is deferred until after the allocation has been aborted.
+Tested on mainline 4056b3c9d3c9 in x86_64 QEMU with KASAN and lockdep,
+using test-only siw export hooks. The unpatched kernel reproduces both
+bugs. Patch 1 fixes the leak, confirmed by tracing ufile release. With
+both patches, the same tests complete without KASAN or lockdep reports.
 
-Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Deep Shah <deepshah146@gmail.com>
----
- drivers/infiniband/core/uverbs_std_types_dmabuf.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+The tests cover core export and teardown, not real mlx5 hardware,
+importer DMA mappings, device removal, or allocation abort. The abort
+issue in patch 1 is based on source review. Testing on mlx5 would be
+helpful.
 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index 2411ebee69e2..d88d30f1e42f 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -68,9 +68,10 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
- 
- 	/*
--	 * This can only happen if the fput came from alloc_abort_fd_uobject()
-+	 * This can only happen if the fput came from the error unwind of
-+	 * UVERBS_METHOD_DMABUF_ALLOC. The abort cleans up the uobject.
- 	 */
--	if (!priv->uobj.context)
-+	if (!priv)
- 		return;
- 
- 	uverbs_uobject_release(&priv->uobj);
-@@ -141,6 +142,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
- 	return 0;
- 
- err_revoked:
-+	/* Tell uverbs_dmabuf_release() that the uobject is being aborted */
-+	uverbs_dmabuf->dmabuf->priv = NULL;
- 	dma_buf_put(uverbs_dmabuf->dmabuf);
- err:
- 	rdma_user_mmap_entry_put(mmap_entry);
+Deep Shah (2):
+  RDMA/uverbs: Fix uobject leak in DMABUF release
+  RDMA/uverbs: Fix DMABUF use-after-free during ufile cleanup
+
+ drivers/infiniband/core/ib_core_uverbs.c      | 10 +---
+ drivers/infiniband/core/uverbs.h              | 37 +++++++++++++++
+ .../infiniband/core/uverbs_std_types_dmabuf.c | 46 +++++++++++--------
+ 3 files changed, 66 insertions(+), 27 deletions(-)
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
