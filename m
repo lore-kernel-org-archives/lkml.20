@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEED57266F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881E1572680;
 	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088156; cv=none; b=jJJ2ENssQkeYoFRKq6T20UH7gyMhfyYQ34Y2IPXEB2hzKQbo8PzU8+GnfruUHRYcMYnuHem84xwnhm9XVeyqMtooaZDWFWem47bKnoigSJ7KftSfZpGgO3dvsW1cW9O5UpaG+grGZR7mv+yXhilEMPr5spoDxO6+O/zPiZCnJH4=
+	t=1792088156; cv=none; b=Dy+WWBxVvkfKXX1ocVdQX8mEyfjGo9XVLvqk32S26XOYer0YtJ84YJ6bn9YaxCSRcI9EbYdvxbUVbr15f/2WdJV4sJd8C1V6lbQi96didtZRwARjnlgdYuJUJn5Ur7P+QBoxXdLzvDHVicwtVsh43k/ER4mQfJSLOrGGCuhLPkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792088156; c=relaxed/simple;
-	bh=8gf9AogalgklAj0/E1KhlEb73BycuhAZd+4aVQS/8LM=;
+	bh=8cyXuXR2bejdM1i48YPVGkhrLP7RRhUB+l6kEr3xsS4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I4XF+I3wXeS/NMskI/IL5TKigEIaO2j0Kwz3EdmFAx8Ua3PrkhIrqUms8iLPsfLGrZOD64Zn5r0UJNKwlWMOn4ek0iMvEmQwE06hX8jprFTwBAAhW3pnRq2yjsHzI7pcVNHWV7tDbHpcPk7RWBT9p+ig4gaGly0nrtaYYjvD+O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtTPvZb5; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=TjdFZ4BZFOd5KE1xbr2qexaoa6DzulmcQoylB+WGG3LNkp0wbGcX2ZOr/Txl/wpmDAigT0Cmeds467e8mSSOZZpO56uIf941Zj+qvQeIHZbrv7RstBTD4nW8D2sUVp1qnVvBPXfCRAWZtjIPj3aVdVZ74fn/ngZoUM38jtiHc/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ht2xkvIU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtTPvZb5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 139CBC2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ht2xkvIU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 64E3DC2BD00;
 	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792088156;
-	bh=8gf9AogalgklAj0/E1KhlEb73BycuhAZd+4aVQS/8LM=;
+	bh=8cyXuXR2bejdM1i48YPVGkhrLP7RRhUB+l6kEr3xsS4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LtTPvZb5LrYzAssllzS3Ch2E/QhQz420yqJQQM0/Ig1AgLUFSa3chI23kZX56qAAP
-	 xPEwiLeQ2QE83C5dCJoX8QPI2ey/Rzh4F/kqhqcNkrX7LIC6vRaCcThX3Z87/I/uRE
-	 gP5cm1giv6cHCGVKKou/Q8zp5D8TzUTceyQQW3zoEf8/R/UZzRV4tRv3iAW2wm3lZ0
-	 tqfDiuipkbfdetdfs74lNUhUWuWglgoeIBihKuC3zNdxe5p1kcvUL4bWlQFmwPJz48
-	 kwEYTmNsg1yHg5HM6mo4yHdv05LEDQWG+lXMcfLNcFTN4tE9grLuqNH2DHuec8sVpm
-	 fE6gPDkAPcsMw==
+	b=ht2xkvIU+2pFwdRFiiZT67dWqOOU2NbdtsTsO+mcr6ItXLYKkzOHivvV4uEEy75Wc
+	 UGi5DH10Vmf9Y/Afs/L9gQVbTE8gTNbNOnd1Bkkpt1KCwc/vTD/Fze9lf15isUhPkl
+	 prNZng0dfw7jqdCaH/oxyB2rYWijJLoB0vZaxRnc5j8eaO4KoVDajiz4bFa3V1F+ek
+	 6OEOTh1cfSXp8RkWl4DUYSFThxsJp0J/tMcac42qQWNGliC8y4ZgCJFLQkuef+tGR7
+	 tMneffwZpHlQ3yWFGnuqGEhOWv3BUdRM/p4ZZPjie1XvTF8+Ed4Xk7epcisS4lmUXL
+	 CFteevLki/ZeA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2004CCA465;
-	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50D3DCCA465;
+	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Fri, 16 Oct 2026 02:16:01 +0800
-Subject: [PATCH v4 12/17] mm/huge_memory: mark folio as accessed more
- accurately on split
+Date: Fri, 16 Oct 2026 02:16:05 +0800
+Subject: [PATCH v4 16/17] mm/mglru: make folio_test_workingset() work based
+ on folio LRU refs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mglru-fg-v4-12-2106750c0bfa@tencent.com>
+Message-Id: <20261016-mglru-fg-v4-16-2106750c0bfa@tencent.com>
 References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 In-Reply-To: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 To: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, 
@@ -74,11 +74,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  damon@lists.linux.dev, Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=1882;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=5718;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=8/kB3jYF2xvs54AjVF+kE6j3TkOpVQe7AYkhnz+HMSw=;
- b=tTKBt4tbGQ0fIDmdylFSAA5Og3kRUgAZK47NTX2iPzoR13ZjAG9OT3t0oZSGVCwoL/JJCEZn8
- zftXgBIT5FsAod03/bFjXDDElj8FzkBq+ectBNqBwZPDK7UQEawF90Y
+ bh=NZRuMZ9DHJqarWmmM6IMbKyXzp6luS4trNdMObpwCLI=;
+ b=J/5V4RHF/wLROW7MgcSEu29RNBNNJPH06zH+vQfEGTpFxED4h+RDJibV/v5icelk6NMtSB6tg
+ iCohZpXYNmiD81Dr07ISj0ys5x5+g+FdQy/Z62fe2TRmx53BTT8gB4+
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -88,49 +88,158 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-The behavior of updating the folio's access info isn't consistent for
-huge mapping splitting or ordinary unmapping. The page table's young
-flag has to be translated into folio's access info.
+folio_test_workingset() currently tests the PG_workingset bit, which
+is only the second lowest access bit of the folio LRU refs count now.
+Folios with a higher refs count carry it in the LRU_REFS_MASK field
+and no longer have PG_workingset set, so the bit test misses them.
 
-Right now it only check and set folio's referenced flag, which isn't
-enough since folio flags update on access have its rules. Ordinary
-unmapping (zapping) calls folio_mark_accessed(), and it also checks
-if the VMA has recency to avoid false updates.
+folio_set_workingset() currently sets the PG_workingset bit with a
+plain set_bit(), which also over-promotes folios at a higher refs
+count: e.g. a folio at refs 4 is bumped to refs 6, advancing it
+toward LRU_REFS_MAX and an unintended generation promotion on the
+next access.
 
-So first just use the right helper here to be more consistent.
+Move the test into mm_inline.h as an inline helper based on
+folio_lru_refs(), checking refs >= LRU_REFS_WORKINGSET.  The set
+stays a plain PG_workingset bit operation reserved for the
+classical LRU: under MGLRU the refs count is maintained by
+folio_inc_lru_refs(), and now triggers a debug WARN when called
+while MGLRU is fully on (the switching window is exempt, as the
+classical paths legitimately run alongside MGLRU then).  The one
+PageWorkingset() user in erofs is converted to the folio helper.
+
+Under the classical LRU the refs count is not maintained, so the
+test falls back to the PG_workingset bit test, which is the old
+behavior.
 
 Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/btrfs/compression.c     |  1 +
+ fs/erofs/zdata.c           |  3 ++-
+ include/linux/mm_inline.h  | 29 +++++++++++++++++++++++++++++
+ include/linux/page-flags.h |  2 --
+ mm/filemap.c               |  1 +
+ mm/page_io.c               |  1 +
+ 6 files changed, 34 insertions(+), 3 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bd44d58e8684..1e2b6448c010 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3093,8 +3093,8 @@ static void __split_huge_pud_locked(struct vm_area_struct *vma, pud_t *pud,
+diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+index c62b5148d5ac..57d24413265e 100644
+--- a/fs/btrfs/compression.c
++++ b/fs/btrfs/compression.c
+@@ -8,6 +8,7 @@
+ #include <linux/file.h>
+ #include <linux/fs.h>
+ #include <linux/pagemap.h>
++#include <linux/mm_inline.h>
+ #include <linux/folio_batch.h>
+ #include <linux/highmem.h>
+ #include <linux/kthread.h>
+diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
+index e981e371d6c2..34ee41e1ccdc 100644
+--- a/fs/erofs/zdata.c
++++ b/fs/erofs/zdata.c
+@@ -6,6 +6,7 @@
+  */
+ #include "compress.h"
+ #include <linux/psi.h>
++#include <linux/mm_inline.h>
+ #include <linux/cpuhotplug.h>
+ #include <trace/events/erofs.h>
  
- 	if (!folio_test_dirty(folio) && pud_dirty(old_pud))
- 		folio_mark_dirty(folio);
--	if (!folio_test_referenced(folio) && pud_young(old_pud))
--		folio_set_referenced(folio);
-+	if (pud_young(old_pud) && vma_has_recency(vma))
-+		folio_mark_accessed(folio);
- 	folio_remove_rmap_pud(folio, page, vma);
- 	add_mm_counter(vma->vm_mm, mm_counter_file(folio),
- 		-HPAGE_PUD_NR);
-@@ -3216,8 +3216,8 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 			folio = page_folio(page);
- 			if (!folio_test_dirty(folio) && pmd_dirty(old_pmd))
- 				folio_mark_dirty(folio);
--			if (!folio_test_referenced(folio) && pmd_young(old_pmd))
--				folio_set_referenced(folio);
-+			if (pmd_young(old_pmd) && vma_has_recency(vma))
-+				folio_mark_accessed(folio);
- 			folio_remove_rmap_pmd(folio, page, vma);
- 			add_mm_counter(mm, mm_counter_file(folio), -HPAGE_PMD_NR);
- 			folio_put(folio);
+@@ -1713,7 +1714,7 @@ static void z_erofs_submit_queue(struct z_erofs_frontend *f,
+ 				DBG_BUGON(bvec.bv_len < sb->s_blocksize);
+ 			}
+ 
+-			if (unlikely(PageWorkingset(bvec.bv_page)) &&
++			if (unlikely(folio_test_workingset(page_folio(bvec.bv_page))) &&
+ 			    !memstall) {
+ 				psi_memstall_enter(&pflags);
+ 				memstall = 1;
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index fd77dbfdaf70..ae50f9880da8 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -288,6 +288,23 @@ static inline void folio_migrate_lru_refs(struct folio *new, const struct folio
+ 	__folio_set_lru_refs(new, folio_lru_refs(old));
+ }
+ 
++/**
++ * folio_test_workingset - Test if a folio is in the workingset.
++ * @folio: the folio
++ *
++ * A folio is workingset when its LRU refs count reaches
++ * LRU_REFS_WORKINGSET.  Under the classical LRU the extra refs counter
++ * are always zero so this is just testing the PG_workingset bit.
++ * NOTE: folio_set_workingset() must not be used under MGLRU, as the
++ * folio refs are tracked by folio_inc_lru_refs() with rules.
++ *
++ * Return: true if the folio is workingset.
++ */
++static __always_inline bool folio_test_workingset(const struct folio *folio)
++{
++	return folio_lru_refs(folio) >= LRU_REFS_WORKINGSET;
++}
++
+ #ifdef CONFIG_LRU_GEN
+ static inline bool lru_refs_is_active(unsigned int refs)
+ {
+@@ -519,6 +536,18 @@ static inline void folio_clear_lru_refs(struct folio *folio)
+ 		folio_clear_referenced(folio);
+ }
+ 
++/*
++ * For the classical LRU only: with MGLRU the PG_workingset bit is
++ * part of the folio refs count maintained by folio_inc_lru_refs(),
++ * and a raw set would corrupt it.  The switching window is exempt
++ * because the classical paths legitimately run alongside MGLRU then.
++ */
++static __always_inline void folio_set_workingset(struct folio *folio)
++{
++	VM_WARN_ON_ONCE(lru_gen_enabled() && !lru_gen_switching());
++	set_bit(PG_workingset, folio_flags(folio, FOLIO_HEAD_PAGE));
++}
++
+ static __always_inline
+ void lruvec_add_folio(struct lruvec *lruvec, struct folio *folio)
+ {
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index b0ddc652e76c..f6625dc042da 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -549,8 +549,6 @@ PAGEFLAG(LRU, lru, PF_HEAD) __CLEARPAGEFLAG(LRU, lru, PF_HEAD)
+ FOLIO_FLAG(active, FOLIO_HEAD_PAGE)
+ 	__FOLIO_CLEAR_FLAG(active, FOLIO_HEAD_PAGE)
+ 	FOLIO_TEST_CLEAR_FLAG(active, FOLIO_HEAD_PAGE)
+-PAGEFLAG(Workingset, workingset, PF_HEAD)
+-	TESTCLEARFLAG(Workingset, workingset, PF_HEAD)
+ PAGEFLAG(Checked, checked, PF_NO_COMPOUND)	   /* Used by some filesystems */
+ 
+ /* Xen */
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c..49e827058e14 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -21,6 +21,7 @@
+ #include <linux/gfp.h>
+ #include <linux/mm.h>
+ #include <linux/swap.h>
++#include <linux/mm_inline.h>
+ #include <linux/leafops.h>
+ #include <linux/syscalls.h>
+ #include <linux/mman.h>
+diff --git a/mm/page_io.c b/mm/page_io.c
+index c6824fcd483e..540ae8caa932 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -16,6 +16,7 @@
+ #include <linux/gfp.h>
+ #include <linux/pagemap.h>
+ #include <linux/swap.h>
++#include <linux/mm_inline.h>
+ #include <linux/bio.h>
+ #include <linux/swapops.h>
+ #include <linux/writeback.h>
 
 -- 
 2.56.0
