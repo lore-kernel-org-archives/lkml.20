@@ -1,38 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666A750AC20;
-	Thu, 15 Oct 2026 11:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ACC5038ED;
+	Thu, 15 Oct 2026 11:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063796; cv=none; b=NDt6LcpKyV4d0ACdV7cSWH1B4/MX/5u7MbjEeQYz1gtv39Nu2blNUXCmnZqqftbXUXF6EvSvyhOUvonV7Mnk9Q+5DYfalout2RjGSNFnAL2NiywaXgfpWT4LQVDYPApGOwrrBRjeRq0edL9l7Lm0KFnn19CiVlEresiFoQv8gjQ=
+	t=1792063804; cv=none; b=kKuwmGTX5xUD6bYYq+ic7Xx0yTXvnKQtQeVPYQEEKkwpLoIJPyziJR7T/Bhx3RoEAQBIEerVYu5J7Tx7Kz9rDJ8/vANqYO12f2EygjZnrmwJUDnxxDFoailjxwU03gMmyqDfjFhMCx/KJqw0lXVHD3BsM9X/4bDK3k2sbE4FNik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063796; c=relaxed/simple;
-	bh=PuDraPxveObNw6YF0fJcKPhT+63JNYVYv2xDl3xx/YM=;
+	s=arc-20240116; t=1792063804; c=relaxed/simple;
+	bh=HMaYFO72Ds9CYZXbf+wTftDXYra/c5EFO5/hs+Aszqw=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KcsCCT73BNyHXvVkX+cdTQi9h2RwHU9hqiHtpEEXlhRuanu3Aou9vacMCfJsaf4MQmtEElY2cjpdbu4Qu0KBEnDjh/Eyf9WmP0Uff0HFYoiIYB5GYs0JBGlr+NPijgU/eQcMOR5A2aT/B/7XlfV1s+zOiPXHHUUj73Li0mmrTCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE4E45fg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=s26/aB/zLo5Qk22ThxO3l5LXIWw9P4M1g/BAbeHqgzH0LH5FdOUjmI2v8DWRPdnPNpc8lmCOqPYuQHyF2whH1+rBSPU4p8KMQ/ZcjiPYYUee+I6AUmp5ckpzwStQJkcB74gP53f/s2beGHJKvTCKXU8u4CW1aiak7nfkYZSepUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQLMp1k1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE4E45fg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B27C1F000C4;
-	Thu, 15 Oct 2026 11:29:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQLMp1k1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33EB81F000C4;
+	Thu, 15 Oct 2026 11:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792063792;
-	bh=2DwhX/3ce5TK5tWLd+Z7vb78AEHTFNPlbKXOzjGXpMo=;
+	s=k20260515; t=1792063802;
+	bh=dqRNo4LCVXXpbG5ZKjfaqRpdf/8c4vdQVojtmFkWAbo=;
 	h=Date:From:To:Cc:Subject;
-	b=TE4E45fgXlUji/yy8nvsc/9y70QQLG6CO6WdJ0lL3+3TwhM7fa5rTLehFrV8aw5LV
-	 6SmGRt3a2pIxTnlWTEHlVvUfpdL5Xu+0HQwaPr8UlDTImhrCdmWirKNLTKGiCMnXCi
-	 GRLoo+47xyyIXoCh1HC2YmUNgRo+0XQs4S8BYgmtvlo/2zYb8/4sMuDWW0P+O8YP26
-	 FkQOHSXZ1o5qGsUP8lv0mKgsjWbhP0LKHNZ5KZ4kktSb/sD/WKcES9lKZ43nKfJ9kX
-	 cbDuzCG1dgZfVozZdsRsEIMRr/kSg9zcGIcBxRmG0OA1ZFZAh3KUohVIIIEvAnLkZS
-	 fQy9iS04iS+Kw==
-Date: Thu, 15 Oct 2026 12:29:49 +0100
+	b=OQLMp1k1NT9ywmaJzTVLDyKPk2r78BQAWz9sH2Si41+IV6lZuv4Dj7k6/VTME5Af+
+	 dMZDi3t7JFGUwjQLtQMAd7hIOGfk4qa5vcxpxeblrQVDL4uZbZ2qRoG+wxtGM12iQu
+	 7zFqe1tylwPXPQ/miAZNbMHEfbNHvuHJWx9OP+tLDV2o+bhuzaAOwOSz/Dwr3gSS4e
+	 clViIMC7XOldrcWgJ8hG3TwXXu2dPs7+7NjIHllo39WBz8YyCsjucb2zlOiY4nH3+p
+	 KdAE/D7qrzCVXT4pbfxdOs5xYF3/nYRwiSbKcWfkvNmB5P7h9lqhyxhHx2o9gc7Npm
+	 r61k+vMWOsbCg==
+Date: Thu, 15 Oct 2026 12:29:58 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Christian Borntraeger <borntraeger@de.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Missing signoff in the kvms390 tree
-Message-ID: <atC5LZemJJUievn6@sirena.org.uk>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Christian Brauner <brauner@kernel.org>, Jimmy Zuber <jamz@amazon.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Miklos Szeredi <mszeredi@redhat.com>
+Subject: linux-next: manual merge of the fuse tree with the vfs-brauner-fixes
+ tree
+Message-ID: <atC5NhpLac79NEpU@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,39 +43,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AWBEMmhd0o2wyiJM"
+	protocol="application/pgp-signature"; boundary="cibiqodwXguocxKB"
 Content-Disposition: inline
 
 
---AWBEMmhd0o2wyiJM
+--cibiqodwXguocxKB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Commits
+Hi all,
 
-  2da555e616089 ("KVM: s390: Kick PV cpus at the right time for service irqs")
-  9d2c7de8ee14d ("KVM: s390: Improve floating IRQ injection behavior")
-  c07c9e91ebb33 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STHYI buffer")
-  7e4702e32be06 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STSI buffer")
-  399ddb20fa708 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the GIB")
-  1d42d02f443d0 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for sie_page2 and CMMA")
-  ec95708cbb07b ("KVM: s390: selftests: Add IRQ injection selftests")
+Today's linux-next merge of the fuse tree got a conflict in:
 
-are missing a Signed-off-by from their committers
+  tools/testing/selftests/filesystems/fuse/.gitignore
 
---AWBEMmhd0o2wyiJM
+between commit:
+
+  ea1302e285ed7 ("selftests/filesystems: test walks racing the unlink of co=
+vered names")
+
+=66rom the vfs-brauner-fixes tree and commit:
+
+  a6ca1a573e1fd ("selftests/fuse: add test for FUSE_HAS_SYNCFS privilege ga=
+ting")
+
+=66rom the fuse tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc tools/testing/selftests/filesystems/fuse/.gitignore
+index 59739a6e5b99b,b5b03db1118ce..0000000000000
+--- a/tools/testing/selftests/filesystems/fuse/.gitignore
++++ b/tools/testing/selftests/filesystems/fuse/.gitignore
+@@@ -1,5 -1,5 +1,6 @@@
+  # SPDX-License-Identifier: GPL-2.0-only
+  fuse_mnt
+  fusectl_test
++ test_syncfs
+ +unlink_reval_test
+  write_extend_eof_test
+
+--cibiqodwXguocxKB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQuSwACgkQJNaLcl1U
-h9BYGQf7Bw5onf3w00DaTu7xuGcN/6ANB34NArBTAYQ2QQ4p1sjNe/+e9kbeKcgh
-UL5rJtqeLzzsRBiNHuLVfTCFtvGM4v2pmMJeSChRd30YllTnrIyW5j9AvmbtDNit
-YbWYAe4Yqkk3E12/MMKTBK7JC7ASXwjpR2bO2A9TNOWmu3u1E4ceKS9J45VxBY/D
-HVRy+cfvZT/K0XhqxI8dK9ZUnxca2DU2ubcSYG21Nw8FWvP/FAzCSA++ilrFUZBI
-Jaapy4K3MlEgIT2be3oBdJJ3lZNOVcryKPuTI7fZb4cjGaUm/5OYdC0PV9KYfrie
-cQcTyMcORTV9peokXWSLCq9N3wShZA==
-=5T7r
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQuTUACgkQJNaLcl1U
+h9CUuwf9ET/VjMbnBjDbMH1DgYpRm51DpgvpXbxLjLEoWJJi4tfk6rwcZoGoP+kZ
+0AR1WCdl+H6pzjPFZHfjWH8XxP68V8bTWfynFr59TxyKVWhD4m9Vw2i7NK/Pwge+
+AhtZgIC/80tB22X7R8LPMniVFxbyuW3Bqlp78NmjyhY21IME2n9pBToZjVaCwTx2
+U+ZaQJhkWoPuNxPanuQi8YIOkLpPv+E/Iy8ScTHcB2E4dGg8fjxga4b+f+85TJIp
+RuwWhUnTXmF6EljPc6noFJhFJNpioKFssXGKr2hmHZQDL5drrM5K+sAotfrwMul4
+mqeorEPAWNcrudHF0Vyj8xrqGVFVyw==
+=U1RY
 -----END PGP SIGNATURE-----
 
---AWBEMmhd0o2wyiJM--
+--cibiqodwXguocxKB--
