@@ -1,121 +1,275 @@
-Received: from sonic305-3.consmr.mail.bf2.yahoo.com (sonic305-3.consmr.mail.bf2.yahoo.com [74.6.133.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDFD31ED93
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.133.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC6138C406
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030872; cv=none; b=Ec4dqoSsiC6WrtsCP3QsFbPQbAqifm/MB4JJLQnCIGA0tXKuA53rgSnJI8iAoLfPm4KRDy3mODC0H5QJuXjYgZe/QZGxNjtB9xgvoSzVj7rgdYv6GSzRwlHM2zP56uP1aYDovTHepCuc7PKodLGiKPDQG2HRl9iLqJrA9T0cGyQ=
+	t=1792030889; cv=none; b=EDXuKvfCN3/le2WsUb3ou4TYetgaaAnjEsc+F6vgESAmqKHGcGeDK/8hRblmkY6DSKcRHLX6zrd7+wxoST5hxV+jrSVCk18DpJWBMsDM/vWvHU3Mhil1AflOIZJJSOdBJH9Jpq9ZmzHhbzCxhHePBNij6LY8Oe4MTy97ia7XMXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030872; c=relaxed/simple;
-	bh=6iCNyIYIVE1txCcTSBFFp94PtgI/sJl9EiKwOEh1bss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b8PDgrR3gGhuG1Noa3cFSfpDMeE50XavQm28OJM4W3PkgiGTYX5RASy7YbXtRF02W+xQzBx2hqJUij0wbn/gW3kGSU9b4D6O2fHG+Jfj+iBaDzaiwbvAmRXtGLO+W6U/lX+4UyPzkZU00CXy8YWcECHOYF5ag53rm7Hydfp61uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=q7Karaiq; arc=none smtp.client-ip=74.6.133.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1792030889; c=relaxed/simple;
+	bh=LWMhfmN0h1/ORMip9RaDPmUcGXvCLGQbdN2F4Uk60L0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=kpohtYmX5GecCOxJKb27DoC8y08AONnHu5zwkjExXStz1pASUIf+SDSZSwy0YnRhdOFLXmeXuZ0w+OXq7Vo4UauhiOpT6YOgp1n/XIC4k05MgpEXOfHzBt4P5JlmzLuRF6yGECF5MKwwuFRsGRJngt02ILB2B1y6Fmlxi6OlBE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=MvT09+qd; arc=none smtp.client-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="q7Karaiq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792030870; bh=/mXmejL8yTKKnZA63ElBBljQ/vMiEe97CA820DaIQpE=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=q7KaraiqI59JGRNBnG+kSSffIIgNVXBjA3iRcSSfqG8dgCDa001ajW30qiGxU98OeHf7HWlUS8W0lHeaNoomx9QCRd+0aVCZY5/nQXXObazOCbqqI8UnQHkmUhHO1ZlbT05oh1PuYuMUyHTFoemIgLy/CpJxaXS/oa99XDJM4SqbXLmePa6EXC/TlFg/TmnI5ylleEyM9ICrqW9iOAlNoHIjvvymrtuXxjJw5bwDKYe3kk7tIiGnHtqpUbzdoE5rMgSTBg/QyVHhKvGOdtRKB+tX+s11GWNNp5uRvNgEyI+/kQqYu6IvLQ25hxvW+8+eDKSfVBbzcKQLVi3KoBMyLQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792030870; bh=FZIAGktlYMCz3h5LTp1ojVtYBAN0MzyaEQksavrNDyE=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=ZM5w4HW8DEcrWpIAr/KIWrM8ePSf38o9uno3cRZtM8jEmErT0eRjVuT7VrzDvTMT9Fey8rvwmpwCW25ahEdMtMMjvKO2krJqLEZpaI0eOcEbcP6zpNnNv9ciJIwb0b0DsRRNAg1bpwk2qhmrkSlWBgijUUC+x0/p0xRFns0GjIM+HjLIl9ejSR6Nl84cl67d4E0IhN5BkF7Z32MfH3jf0PHXHOWOm8hejrKUp5ew7MAzHOhTY6DqhmW9cJcCt2IY4zzfqoXsOi++2S4dj84E5vRRtHDS6yE543NbJ7hhILN774nWnzZZ39zXEIJWbyAgi2Lswh9V3DbsICeUaGC5Lw==
-X-YMail-OSG: XGWBACcVM1n0skbHV0a4WR8D8eHe8xirFJLp16jXthxuw2GEWL1wRg33KMn6let
- 9iZzo8kUEeOB3P6ccoRuu9MwL58oo3b.SM.nbyuVqnB_maUQJyAoqLGI3rsljlHIZcAItNv_O0nJ
- hHuUr0a1YWqm59qe41SNqOO388J8H3xKDpKA3mtD9FtetSV0mTlkaRscNSHAancIIwBgMNALNFFh
- IAaCsk36VkbbesdUgkzlXYU.V0s0OdUaJC278Yg6JIcG27PqwZ9VQ08nb4GsEPiz6IMWm1yNH_eu
- qRd_583WasTZ6TmbcJa_JIVgi1PixBhV1Sn5Cl2aUBtB33UfxAI0GGmcnnSl1uhamTY5pKwZ0u.6
- tni6tnCpgl9la4UNNoOTuwGst0VYLMgRWtyqxIZZBED7NAeJavrPgt2WLqLnTUUGAeTVt2j2Zfox
- yuBSkzKVPzTaX0ARuSsW5RHC1HApBkGuLZQArXD1iJ759njV9nW3.RfxWv3lKXDxV2Ozp6zSKaf2
- 9tGJWo2p.XfydC5hXXA3sLqEiy0Ok3h6C_VReoyFg9dCWZRadUiH_KrlHfQiCr4o8TRrBPBQfM9y
- tx6F7AKsfef_gpGgkKJtGR0KMGoM2AZ.9lgd_Xm88VplrXnplaNG9UGOQVD7SWIOva786LpGbgUt
- fpre8kSWoENcKUZqpyDuVWjX.Ac.URAHNp7oOEo1ivROadUKSkptIvLlcHJtgI6i_T3wiV1czXUB
- fsD8.1xaxXDpZxbFYhX7cSuXyC.tiUXPXXMyB76IyhPn7mEVhZRw3OnBKLI_f2l16mjKFG2dNsG1
- RK.c0kumv1r2ezRHoNgmI_Ab3gdq2nDEblSovxnNKy1MA5qm7TU8slMt17ap58ZciiY7nTdI4nGt
- qarT9cIsOndv3oy.3_PzBJLvy_fTCngolJ2nXfYhaDwQU_otSz1i2vEMwuwW24H7lPaFCr9v5grT
- mBVqDAMcaF99chHZoAG2BllM2l55TPy1AbdPjts0oWuqIREI0svafh7Y5Q2eQON9Kh9Sd.gW65QE
- ME1C80zfOa3N2AgucFtBaqc2qeZ__F2Nwzf_bvESqAAnaEv0Uih9FDznhXRFHyua77m0bmUEhY0A
- oL1nBqhD1t00Rtmzqdlam8EsFjDR4.QmHvb4e3wTxviqL4CZqN7aXpZHCxwgHtn054rCawYD1Hyi
- HfBnlzr3z6E3rT1EvPImS1yd9pmZZUGt3uF1avO8jH935Zb6qAx0VC7R7aM6XM75vdNqKBtsnr3z
- f9q9lih1j0Qwu0fAMJhfpX2zXlSIDcN8WdThfRbMa4v5U_auUIq7EnF4ufb6am1gZDyQ3XUNNoXF
- Uf3P8obPLOliMKXzJ67QfY18pnQB6KnsEu6T_ZtEGtv7UJRKoGq_v9P34oqJH4oDazzxg5.PGBWr
- KhPhhCxUgk5nP5j9C34e0pvtGmcuzd3Wf4RjMOiYABCZlUpUOMMzRqbZJzkiCD_sYAazn_eRKoxO
- dAFpM.URTcAn9pz0HKALJrrnBzyK3DK6EkjBZnakt4.nCmJVZ.SpW4dyOX8wtSJBXRXj.NFMMpFz
- XWyTHL.byYbuV04iMUhhkYMByDjQdMQ4kHwQvVFnbgVMT0NwxmTp_sp4PRtHF5PGW2vVzY1FEIz5
- ODYPQlOJyIMpiQ9IR.Uuhq.OxEUw815hHlSNPbC7f7vLBNIyQuNZhuoSV20hZ8..Yl7.vG7tJuJJ
- flXG6D49XG7hvMTj_9480e2PlxW8awEGcVOfoRq3CFk1r6U4gGbZaKHqc1vhdBGKKzN41CL3FJAp
- Aidvn1UliTKiUaJNw5Mc2D6lUPHkyBtfWPjSbmNiQdqzheig49K7jDOMDLYVkI3YW6mytLCBP8kS
- a6pCi46NSK.tUmuFD7TKnVB_8Godao9HM9lM0FctD3Enju1xaK1sFALcJBZJSAaKr9gMTp7u8Dci
- fHRSTpnXMBZcWEmT_H6HsoQCF._3C9darfdxowdNdaJsfYETJk_Snxa0leI.23SwUBm9uJEGDCQY
- OZqYfwTbm6Z5S.g9uKulzZfyZcUnBAU2MGaP5CXbDJxBZgK1i9UiNFQSKoJ_Q6eDt.Xj46iH6lEc
- S6UB0SjnubLJUlssD3wBvMdzjLvRnEDQfFREuHQR3JOyca3aWSBgcaM3zG9IRM_lIYdd3hnQm7OT
- 7IpkOhjBMC00F5K6vfs2_rZq4R3oVnXADGkjiwigFIFJnZSk7zdT.2A9yBnlXdfya.La8ODWXxRl
- UwkJ0T5JqimeZ9.5yvWysajiNAkWGNdzSub6EnEuf
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 8fac883a-483c-4b84-b963-3c23456837dc
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.bf2.yahoo.com with HTTP; Thu, 15 Oct 2026 02:21:10 +0000
-Received: by hermes--production-bf1-6d6877594b-4bzzg (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c701c841d9d059b8a0836afa4f7a7bcc;
-          Thu, 15 Oct 2026 02:10:54 +0000 (UTC)
-Message-ID: <b19b8058-bfe9-4800-95c8-d2db889b43e6@yahoo.com>
-Date: Wed, 14 Oct 2026 20:10:49 -0600
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="MvT09+qd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=RnXTNwerBgQqWgqQhL4zziJKRpc/uU5pPZ7H4xoQWBc=;
+  b=MvT09+qdydLKRaQ8UsktmQpJjLryHfDrdg9vs/nDlWAcqRR1V2PARJpk
+   LW4UiPTlXm9pkMC6RAnrwWdNOeKYrQxFmvPe9Sw+mcy87BNn2MTBQUnjO
+   wmvctXp/xL4L3D/n1jn4r8QnpgiSP4iqh51E0Ry6GEiOkju+kejyhD2cI
+   0=;
+X-CSE-ConnectionGUID: mrZtPcrRTyGUzdxrrkI08A==
+X-CSE-MsgGUID: RCHKlq7FRROo8vW7T9vBCA==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,158,1787004000"; 
+   d="scan'208";a="300261299"
+Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 04:21:24 +0200
+Date: Wed, 14 Oct 2026 22:21:22 -0400 (EDT)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+cc: johan@kernel.org, gregkh@linuxfoundation.org, vireshk@kernel.org, 
+    elder@kernel.org, greybus-dev@lists.linaro.org, 
+    linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+    outreachy@lists.linux.dev
+Subject: Re: [PATCH v3] staging: greybus: replace PTR_ERR() with %pe in error
+ messages
+In-Reply-To: <20261015015624.22031-1-pavankumaryalagada@gmail.com>
+Message-ID: <c42bf562-913d-c449-4c7a-5f67bd08f9d@inria.fr>
+References: <20261015015624.22031-1-pavankumaryalagada@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] staging: greybus: Remove unused header declaration
- to_fw_mgmt_connection
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, outreachy@lists.linux.dev,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261014174248.97561-1-deaner92.ref@yahoo.com>
- <20261014174248.97561-1-deaner92@yahoo.com>
- <2d2106c-a2d2-2bec-b368-c03850cba9a7@inria.fr>
-Content-Language: en-US
-From: Jeremy Clifton <deaner92@yahoo.com>
-In-Reply-To: <2d2106c-a2d2-2bec-b368-c03850cba9a7@inria.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=US-ASCII
 
-On 10/14/26 7:46 PM, Julia Lawall wrote:
- >
- >
- > On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
- >
- >> Previous commit removing a function definition did not remove the
- >> function prototype.
- >
- > Please use proper English.
- >
- > The commit 3228900f80c2 ("staging: greybus: Remove unused function
- > 'to_fw_mgmt_connection'") removing a function definition did not remove
- > the function prototype.
- >
- >>
- >> commit 3228900f80c2 ("staging: greybus: Remove unused function
- >> 'to_fw_mgmt_connection'")
- >>
- >> Function header declaration needs to be removed after definition
- >> removal.
- >
- > This is saying what you did.  It should be in the imperative:
- >
- > Remove the prototype.
- >
 
-"Remove the prototype." in the imperative has been changed.
 
- >> There is no definition of this function nor is there any place where it
- >> is called.
- >
- > Not sure this is needed, since the definition was removed previously.
+On Thu, 15 Oct 2026, pavankumaryalagada@gmail.com wrote:
 
-It's been removed.
+> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+>
+> Use %pe to print error pointers directly and display their
+> error names.
+>
+> Keep PTR_ERR() calls when the numeric error value is needed
+> for returning the error code.
+>
+> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> ---
+> v3:
+> - Extend the %pe conversion throughout Greybus, as suggested by Alex Elder.
+>
+> v2:
+> - Use %pe in the firmware management case, as suggested by Jeremy Clifton,
+>   to match the other cases.
+>
+> v1: https://lore.kernel.org/outreachy/as0nhVbagZa8Birm@user/T/#t
+> ---
+>  drivers/staging/greybus/arche-apb-ctrl.c | 18 +++++++++---------
+>  drivers/staging/greybus/arche-platform.c |  8 ++++----
+>  drivers/staging/greybus/fw-core.c        | 16 ++++++++--------
+>  drivers/staging/greybus/uart.c           |  2 +-
+>  4 files changed, 22 insertions(+), 22 deletions(-)
+>
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index 4302c2226126..fa4d2d88dc3f 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -145,8 +145,8 @@ static int fw_flashing_seq(struct platform_device *pdev)
+>  		apb->spi_en = devm_gpiod_get(dev, "spi-en", flags);
+>  		if (IS_ERR(apb->spi_en)) {
+>  			ret = PTR_ERR(apb->spi_en);
+> -			dev_err(dev, "Failed requesting SPI bus en GPIO: %d\n",
+> -				ret);
+> +			dev_err(dev, "Failed requesting SPI bus en GPIO: %pe\n",
+> +				apb->spi_en);
+>  			return ret;
 
-The next revision is sent.
+Maybe it's for after this series gets accepted, but you don't really need
+to initialize ret here.  You can just return PTR_ERR(apb->spi_en).
 
-Jeremy
+You can also check whether the ret variable is needed at all in this
+function (I don't know).
+
+>  		}
+>  	}
+> @@ -323,14 +323,14 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>  	apb->resetn = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+>  	if (IS_ERR(apb->resetn)) {
+>  		ret = PTR_ERR(apb->resetn);
+> -		dev_err(dev, "Failed requesting reset GPIO: %d\n", ret);
+> +		dev_err(dev, "Failed requesting reset GPIO: %pe\n", apb->resetn);
+>  		return ret;
+>  	}
+>
+>  	apb->boot_ret = devm_gpiod_get(dev, "boot-ret", GPIOD_OUT_LOW);
+>  	if (IS_ERR(apb->boot_ret)) {
+>  		ret = PTR_ERR(apb->boot_ret);
+> -		dev_err(dev, "Failed requesting bootret GPIO: %d\n", ret);
+> +		dev_err(dev, "Failed requesting bootret GPIO: %pe\n", apb->boot_ret);
+>  		return ret;
+>  	}
+
+Same here and in the subsequent ones.
+
+> @@ -338,7 +338,7 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>  	apb->pwroff = devm_gpiod_get_optional(dev, "pwr-off", GPIOD_IN);
+>  	if (IS_ERR(apb->pwroff)) {
+>  		ret = PTR_ERR(apb->pwroff);
+> -		dev_err(dev, "Failed requesting pwroff_n GPIO: %d\n", ret);
+> +		dev_err(dev, "Failed requesting pwroff_n GPIO: %pe\n", apb->pwroff);
+>  		return ret;
+>  	}
+>
+> @@ -346,14 +346,14 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>  	apb->clk_en = devm_gpiod_get_optional(dev, "clock-en", GPIOD_OUT_LOW);
+>  	if (IS_ERR(apb->clk_en)) {
+>  		ret = PTR_ERR(apb->clk_en);
+> -		dev_err(dev, "Failed requesting APB clock en GPIO: %d\n", ret);
+> +		dev_err(dev, "Failed requesting APB clock en GPIO: %pe\n", apb->clk_en);
+>  		return ret;
+>  	}
+>
+>  	apb->pwrdn = devm_gpiod_get(dev, "pwr-down", GPIOD_OUT_LOW);
+>  	if (IS_ERR(apb->pwrdn)) {
+>  		ret = PTR_ERR(apb->pwrdn);
+> -		dev_warn(dev, "Failed requesting power down GPIO: %d\n", ret);
+> +		dev_warn(dev, "Failed requesting power down GPIO: %pe\n", apb->pwrdn);
+>  		return ret;
+>  	}
+>
+> @@ -368,12 +368,12 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>
+>  	apb->pinctrl = devm_pinctrl_get(&pdev->dev);
+>  	if (IS_ERR(apb->pinctrl)) {
+> -		dev_err(&pdev->dev, "could not get pinctrl handle\n");
+> +		dev_err(&pdev->dev, "could not get pinctrl handle: %pe\n", apb->pinctrl);
+>  		return PTR_ERR(apb->pinctrl);
+>  	}
+>  	apb->pin_default = pinctrl_lookup_state(apb->pinctrl, "default");
+>  	if (IS_ERR(apb->pin_default)) {
+> -		dev_err(&pdev->dev, "could not get default pin state\n");
+> +		dev_err(&pdev->dev, "could not get default pin state: %pe\n", apb->pin_default);
+>  		return PTR_ERR(apb->pin_default);
+>  	}
+
+These two are different from the others.
+
+julia
+
+> diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+> index de5de59ea8ab..a97ac59c6f01 100644
+> --- a/drivers/staging/greybus/arche-platform.c
+> +++ b/drivers/staging/greybus/arche-platform.c
+> @@ -445,7 +445,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+>  	arche_pdata->svc_reset = devm_gpiod_get(dev, "svc,reset", flags);
+>  	if (IS_ERR(arche_pdata->svc_reset)) {
+>  		ret = PTR_ERR(arche_pdata->svc_reset);
+> -		dev_err(dev, "failed to request svc-reset GPIO: %d\n", ret);
+> +		dev_err(dev, "failed to request svc-reset GPIO: %pe\n", arche_pdata->svc_reset);
+>  		return ret;
+>  	}
+>  	arche_platform_set_state(arche_pdata, ARCHE_PLATFORM_STATE_OFF);
+> @@ -454,7 +454,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+>  						  GPIOD_OUT_LOW);
+>  	if (IS_ERR(arche_pdata->svc_sysboot)) {
+>  		ret = PTR_ERR(arche_pdata->svc_sysboot);
+> -		dev_err(dev, "failed to request sysboot0 GPIO: %d\n", ret);
+> +		dev_err(dev, "failed to request sysboot0 GPIO: %pe\n", arche_pdata->svc_sysboot);
+>  		return ret;
+>  	}
+>
+> @@ -471,7 +471,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+>  	arche_pdata->svc_ref_clk = devm_clk_get(dev, "svc_ref_clk");
+>  	if (IS_ERR(arche_pdata->svc_ref_clk)) {
+>  		ret = PTR_ERR(arche_pdata->svc_ref_clk);
+> -		dev_err(dev, "failed to get svc_ref_clk: %d\n", ret);
+> +		dev_err(dev, "failed to get svc_ref_clk: %pe\n", arche_pdata->svc_ref_clk);
+>  		return ret;
+>  	}
+>
+> @@ -484,7 +484,7 @@ static int arche_platform_probe(struct platform_device *pdev)
+>  						  GPIOD_IN);
+>  	if (IS_ERR(arche_pdata->wake_detect)) {
+>  		ret = PTR_ERR(arche_pdata->wake_detect);
+> -		dev_err(dev, "Failed requesting wake_detect GPIO: %d\n", ret);
+> +		dev_err(dev, "Failed requesting wake_detect GPIO: %pe\n", arche_pdata->wake_detect);
+>  		return ret;
+>  	}
+>
+> diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
+> index 2016a74f137f..78321be80013 100644
+> --- a/drivers/staging/greybus/fw-core.c
+> +++ b/drivers/staging/greybus/fw-core.c
+> @@ -93,8 +93,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>  			if (IS_ERR(connection)) {
+>  				ret = PTR_ERR(connection);
+>  				dev_err(&bundle->dev,
+> -					"failed to create management connection (%d)\n",
+> -					ret);
+> +					"failed to create management connection (%pe)\n",
+> +					connection);
+>  				goto err_destroy_connections;
+>  			}
+>
+> @@ -112,8 +112,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>  			connection = gb_connection_create(bundle, cport_id,
+>  							  gb_fw_download_request_handler);
+>  			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create download connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create download connection (%pe)\n",
+> +					connection);
+>  			} else {
+>  				fw_core->download_connection = connection;
+>  			}
+> @@ -131,8 +131,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>  			connection = gb_connection_create(bundle, cport_id,
+>  							  NULL);
+>  			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create SPI connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create SPI connection (%pe)\n",
+> +					connection);
+>  			} else {
+>  				fw_core->spi_connection = connection;
+>  			}
+> @@ -149,8 +149,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>  			connection = gb_connection_create(bundle, cport_id,
+>  							  NULL);
+>  			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create Authentication connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create Authentication connection (%pe)\n",
+> +					connection);
+>  			} else {
+>  				fw_core->cap_connection = connection;
+>  			}
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index 172cf900eaf0..59a112cf47a0 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -951,7 +951,7 @@ static int gb_tty_init(void)
+>  					 TTY_DRIVER_DYNAMIC_DEV |
+>  					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+>  	if (IS_ERR(gb_tty_driver)) {
+> -		pr_err("Can not allocate tty driver\n");
+> +		pr_err("Can not allocate tty driver: %pe\n", gb_tty_driver);
+>  		retval = PTR_ERR(gb_tty_driver);
+>  		goto fail_unregister_dev;
+>  	}
+> --
+> 2.43.0
+>
+>
+>
