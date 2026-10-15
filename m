@@ -1,495 +1,217 @@
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C20241A4FB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83233EDE4A;
+	Thu, 15 Oct 2026 15:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079695; cv=none; b=jQxJBPbqO1J91S8bONw6Nyug3l0qCSXxFjKGHZ2RxN3EjJsnx9M7N7BDElwhYn3btaV5NMnZ9rrk9unOKvRqO7+SS7Bt3ZB39R00fWTwCNpZJ/1oaW7JpZJp3mlIyPa+iXxHoJRahIbqnS8qCGySS1yVzklbFeCo+22kAKI/DEY=
+	t=1792079709; cv=none; b=lRMQdF7Nj/LTjzt8R7FnzQEIs94G1hB56nFMI3hSouo5u5+Ef81si0MSeVL62hARKhlwGHPJrF+OiE6D++qgriJb7CzDT/6fiaXPUTMzbzHAFFbQtqcTVpFuTV1Q/v1iwRTNpuYEcVMsxf1irfU1eMbL7RJJ2nHuwKgZk5gE/rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079695; c=relaxed/simple;
-	bh=F4BL6prpDs4P3AMEv7COrlTrX/5VuaG/mHNu7VE0hkw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ut6FlqBX+lupkaQEByLqi2URqCvmCT+fkiWZD5RS81gydTWhg76j0eMFGrplGD1awrEdCOv/KfIYtikX0IYJEXAKWllAuOi5KSytuzTXdtVgNFHuHjYgtmhXVLccp9Pbl3C+L0g5U43XTgIFIAJI/mUI+HJV3U7JAEMAU1+bj7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HcJcRhMP; arc=none smtp.client-ip=91.218.175.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792079709; c=relaxed/simple;
+	bh=Mm9HzRKkk4tW4bCOUykqIKx1brIaNF3LG0gwTprIRwg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JO2zfea8JZSPilRiSZLwBZh6CB+4Og8cop8zpTmNjDhgsJdgCS9rbO/p8vApbXKuoCLCl+Ag5JNoVpJ6WnGhrZSjDyCJ9bB1/FHzOAJ7o39vYU61bEJUUKfes+BenuWHj7sYRzhmznQH4CeEnH+HqYlem4EKtzPg95bcFlMFPss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ewotnY1m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uv5YXZfD; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ewotnY1m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uv5YXZfD; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HcJcRhMP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=F4BL6prpDs4P3AMEv7COrlTrX/5VuaG/mHNu7VE0hkw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792079675; v=1; x=1792684475;
- b=HcJcRhMP6VMQnT9hf21UN9mUc+u7XBgrmbV2Sf/nZbLZkOHGu/MRCtMBKbXON9zXWpuXSwux
- NF2u6ZrOTr//BzIliiX52QHjiMfyjC73gPuZN849lDj3z98QTmfT8F7jjNcKuoWHj04r9Tv6pqr
- 8Cy6T4Pb4pa7RlH0uuCRS8n0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bf7eafac065a704f;
-	Thu, 15 Oct 2026 15:54:35 +0000
-X-Mizu-Trace-ID: bf7eafac065a704f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7473d6e6-cbcd-40f5-9b48-e2cac9c926f1@linux.dev>
-Date: Thu, 15 Oct 2026 23:54:29 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ewotnY1m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uv5YXZfD";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ewotnY1m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uv5YXZfD"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9EBC621E0E;
+	Thu, 15 Oct 2026 15:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792079692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
+	b=ewotnY1mU8zx7Z0gq0t2a8JhqjHduXj3w2OHg37JySnuvGESu871nf0GoKF8lVl6aTP30W
+	ZcquN2qaLrkCsn5AGm3U/iWjiz8BCns9VucCGL1cmx/0+aonh2ohMTpX7IFtLlFHn0Cqss
+	pwB9k48SeaKyRjiWrj+3osZFryJtFFw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792079692;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
+	b=Uv5YXZfDrKp+1scruZxbgbymg86Pe/aHf49gpTMDKD9juL5Z6ekAF51M7iRpFAKZnpEHWv
+	eiKI/G6CvsKL27Bg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792079692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
+	b=ewotnY1mU8zx7Z0gq0t2a8JhqjHduXj3w2OHg37JySnuvGESu871nf0GoKF8lVl6aTP30W
+	ZcquN2qaLrkCsn5AGm3U/iWjiz8BCns9VucCGL1cmx/0+aonh2ohMTpX7IFtLlFHn0Cqss
+	pwB9k48SeaKyRjiWrj+3osZFryJtFFw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792079692;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
+	b=Uv5YXZfDrKp+1scruZxbgbymg86Pe/aHf49gpTMDKD9juL5Z6ekAF51M7iRpFAKZnpEHWv
+	eiKI/G6CvsKL27Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 44E4013223;
+	Thu, 15 Oct 2026 15:54:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sqjXA0z30GoXawAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 15:54:52 +0000
+Date: Thu, 15 Oct 2026 17:54:51 +0200
+Message-ID: <87ld7z6jsk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joonho Lee <mynameisjune111@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: Re: [RFC PATCH v4 0/2] ALSA: pcm: preserve capture tail during drain
+In-Reply-To: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
+References: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] alloc_tag: Introduce IOCTLs to toggle allocation
- tracepoints
-To: Abhishek Bapat <abhishekbapat@google.com>
-Cc: Suren Baghdasaryan <surenb@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org
-References: <cover.1791410885.git.abhishekbapat@google.com>
- <1f77364a04d0ae20cf07efaca779756f92ec39f6.1791410886.git.abhishekbapat@google.com>
- <ed833aa7-90fa-4c44-a423-c5b689ede379@linux.dev>
- <CAL41Mv6Kp9qLtPum36WaMpOtrmTG3LZoEXyD=s78DH+9ruKO7g@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAL41Mv6Kp9qLtPum36WaMpOtrmTG3LZoEXyD=s78DH+9ruKO7g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi Abhishek
+On Thu, 15 Oct 2026 02:35:59 +0200,
+Joonho Lee wrote:
+> 
+> This v4 replaces both patches in the core capture-drain v3 series. It
+> follows Takashi Iwai's suggestion to refresh linked pointers in a helper
+> before drain-init and fixes three tail-handling problems in patch 1.
+> 
+> Patch 1 allows buffered capture reads in DRAINING. When drain wakes a
+> reader waiting for data, wait_for_avail() returns the remaining frame
+> count. Capture EOF uses snd_pcm_drain_done(), so a linked playback stream
+> can continue draining. DELAY and SYNC_PTR(HWSYNC) use the cached final
+> capture pointer without calling the driver again after capture stops.
+> Sashiko's review identified these three problems in the earlier patch.
+> 
+> Patch 2 takes snd_pcm_link_rwsem for reading and updates each running
+> member under its own stream lock. It calls snd_pcm_update_hw_ptr() for
+> both playback and capture. The helper runs after the existing pause-resume
+> step, allowing a paused capture stream to receive its final update.
+> The pause and drain-init actions remain outside the link rwsem.
+> 
+> A pointer error follows the ordinary XRUN path and returns -EPIPE before
+> drain-init. This restores v2's group-wide error handling. V3 instead put
+> the failing member in SETUP and could return success from blocking drain
+> while another member retained its tail. V4 removes v3's notify argument
+> and the conditional notifications in the pointer update code.
+> 
+> Previous core v3:
+> https://lore.kernel.org/all/rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com/
+> Takashi's latest suggestion:
+> https://lore.kernel.org/all/87jynkcn60.wl-tiwai@suse.de/
+> My implementation and test report:
+> https://lore.kernel.org/all/core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com/
+> 
+> The separate five-patch virtio-snd lifetime v3 series is unchanged:
+> https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
+> Apply those five patches to the public base below, then these two patches.
+> Remove both old core patches before applying v4. Core has no dependency
+> on the generic control-wait or VZ compatibility RFC. The lifetime stack
+> is pinned here to reproduce the tested integration. Neither companion
+> RFC is revised by this series. A future VZ revision will need the new
+> core prerequisite IDs.
+> 
+> Validation used ARM64 QEMU with KASAN and lockdep:
+> - 26 linked-stream checks passed across atomic and nonatomic modes,
+>   including paused drain, first/later member pointer errors, normal XRUN
+>   handling, tail reads, and unlink/prepare/reopen recovery.
+> - The three patch-1 failures were reproduced with the helper and the old
+>   first patch in both locking modes. All six corresponding fixed cases
+>   passed: a blocked reader received all 64 final frames, capture EOF
+>   left linked playback in DRAINING, and both position queries succeeded
+>   without another pointer callback.
+> - Four additional blocked-reader runs compared baseline and fixed modules
+>   in both modes with a stronger gate: thread sleep and a pointer callback
+>   after START. They confirmed the baseline loss and fixed 64-frame read.
+> - The 10 existing lifecycle and timeout/reset scenarios passed, including
+>   held STOP/RELEASE, SIGKILL, reset, and subsequent I/O recovery.
+> - No KASAN, lockdep, or panic diagnostics appeared in the 54 selected
+>   logs, which include the baseline behavioral-failure comparisons.
+> 
+> The full Image and modules were first built with the new helper and the
+> old first patch. After fixing the three tail issues, sound/core was
+> rebuilt with W=1 against that same configuration and symbol versions,
+> and the corrected PCM module was used for the runs above. The module
+> build had no warnings or errors. The full build had 517 existing
+> -Woverride-init warnings in arch/arm64 outside sound/. The exported v4
+> core source matches the tested source byte for byte.
+> 
+> These tests use synthetic drivers and modified fault/reset backends.
+> Physical-device and Virtualization.framework microphone testing of this
+> core revision is still pending. Concurrent LINK, wraparound, and
+> forward/rewind behavior have not been exercised by this test set.
+> The updated reproducer and logs are local; the earlier public package
+> contains an older core revision. There is no new reproducer upload for
+> this candidate.
+> 
+> One design question remains: the helper releases the link rwsem before
+> drain-init, and snd_pcm_link() permits another RUNNING stream to join in
+> that interval. That member could enter drain-init without a refresh by
+> the helper. Should this change protect the membership across both steps,
+> or should concurrent linking be handled separately? I have reviewed this
+> interval in the source but have not reproduced it with a stress test.
+> 
+> Do the restored group-wide XRUN/-EPIPE behavior and cached capture hwsync
+> semantics look appropriate? Which physical-driver coverage would you
+> want before this can move beyond RFC?
+> 
+> LLM assistance was used for implementation, reproducer development,
+> analysis, and documentation. I reviewed the changes and test evidence.
+> Assisted-by: LLM
+> 
+> Joonho Lee (2):
+>   ALSA: pcm: allow capture reads while draining
+>   ALSA: pcm: refresh linked pointers before draining
 
-
-On 10/15/26 01:18, Abhishek Bapat wrote:
-> On Tue, Oct 13, 2026 at 12:41 AM Hao Ge <hao.ge@linux.dev> wrote:
->> Hi Abhishek
->>
->>
->> On 2026/10/8 06:40, Abhishek Bapat wrote:
->>> Introduce a new IOCTL (`ALLOCINFO_IOC_TOGGLE_TRACE`) to selectively
->>> toggle tracing on allocation call sites. Userspace tools can use the
->>> existing filtering mechanism to specify the set of tags to toggle
->>> tracing for.
->>>
->>> To facilitate low overhead execution for non-targeted call sites, add a
->>> new `CODETAG_FLAG_TRACE_ON` flag to `struct codetag` to track per-site
->>> activation. Protect these conditional branch evaluations using the global
->>> `alloc_tag_trace_key` static branch and an inline static key check
->>> pattern in the allocator hooks (`alloc_tag_add`, `alloc_tag_sub`, etc).
->>> This ensures that the trace events are entirely skipped when no
->>> allocation call sites are being actively traced, leaving only a NOP on
->>> the allocation fast path.
->>>
->>> Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
->>> ---
->>>   Documentation/mm/allocation-profiling.rst |  20 ++++
->>>   include/linux/alloc_tag.h                 |  47 +++++---
->>>   include/linux/codetag.h                   |   5 +-
->>>   include/uapi/linux/alloc_tag.h            |  13 +++
->>>   mm/alloc_tag.c                            | 128 ++++++++++++++++++++--
->>>   5 files changed, 187 insertions(+), 26 deletions(-)
->>>
->>> diff --git a/Documentation/mm/allocation-profiling.rst b/Documentation/mm/allocation-profiling.rst
->>> index b241450394df..63b668466342 100644
->>> --- a/Documentation/mm/allocation-profiling.rst
->>> +++ b/Documentation/mm/allocation-profiling.rst
->>> @@ -149,6 +149,26 @@ expose the full call stack and the lifetime of individual allocations:
->>>   - slab and percpu: the address of the object's `codetag_ref`
->>>   - page allocator: the `struct page` pointer of the head page
->>>
->>> +Events are only emitted for tags that have tracing turned on and while profiling
->>> +is enabled. When no tag is traced, the hooks are behind a static branch.
->>> +
->>> +Enabling Tracing
->>> +----------------
->>> +
->>> +Tracing is toggled on and off per tag with the `ALLOCINFO_IOC_TOGGLE_TRACE`
->>> +ioctl on `/proc/allocinfo`. It takes the same filter as used by
->>> +`ALLOCINFO_IOC_GET_AT`; an empty mask selects all tags. Size limits in the
->>> +filter are checked once, against the tag's size at the time of the call. Tags
->>> +already in the requested state are skipped and a -ENOENT is returned if no
->>> +tag matched.
->>> +
->>> +Tracing is turned off for a module's tags when the module is unloaded.
->>> +
->>> +Memory allocated before a tag was enabled has no alloc event but will still
->>> +produce a free event. Likewise, memory alive when tag is disabled will not
->>> +produce a free event. Tools should expect unmatched frees after enabling and
->>> +missing frees after disabling.
->>> +
->>>   Correlating the events
->>>   ----------------------
->>>
->>> diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
->>> index 49825177d8c8..94697b28053a 100644
->>> --- a/include/linux/alloc_tag.h
->>> +++ b/include/linux/alloc_tag.h
->>> @@ -136,9 +136,36 @@ static inline bool mem_alloc_profiling_enabled(void)
->>>                                   &mem_alloc_profiling_key);
->>>   }
->>>
->>> -static inline bool alloc_tag_trace_enabled(void)
->>> +static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
->>>   {
->>> -     return static_branch_unlikely(&alloc_tag_trace_key);
->>> +     atomic_or(CODETAG_FLAG_INACCURATE, &tag->ct.flags);
->>> +}
->>> +
->>> +static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
->>> +{
->>> +     return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_INACCURATE);
->>> +}
->>> +
->>> +static inline void alloc_tag_set_traced(struct alloc_tag *tag)
->>> +{
->>> +     atomic_or(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
->>> +}
->>> +
->>> +static inline void alloc_tag_clear_traced(struct alloc_tag *tag)
->>> +{
->>> +     atomic_andnot(CODETAG_FLAG_TRACE_ON, &tag->ct.flags);
->>> +}
->>> +
->>> +static inline bool alloc_tag_is_traced(const struct alloc_tag *tag)
->>> +{
->>> +     return !!(atomic_read(&tag->ct.flags) & CODETAG_FLAG_TRACE_ON);
->>> +}
->>> +
->>> +static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag)
->>> +{
->>> +     if (static_branch_unlikely(&alloc_tag_trace_key))
->>> +             return tag && alloc_tag_is_traced(tag);
->>> +     return false;
->>>   }
->>>
->>>   void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
->>> @@ -151,7 +178,7 @@ void __alloc_tag_trace_hit(struct alloc_tag *tag);
->>>
->>>   static __always_inline void alloc_tag_trace_hit(struct alloc_tag *tag)
->>>   {
->>> -     if (alloc_tag_trace_enabled())
->>> +     if (alloc_tag_trace_enabled(tag))
->>>                __alloc_tag_trace_hit(tag);
->>>   }
->>>
->>> @@ -225,7 +252,7 @@ static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag,
->>>        if (likely(alloc_tag_ref_set(ref, tag))) {
->>>                this_cpu_add(tag->counters->bytes, bytes);
->>>
->>> -             if (alloc_tag_trace_enabled())
->>> +             if (alloc_tag_trace_enabled(tag))
->>>                        /* Trace successful allocs with their unique ptr */
->>>                        alloc_tag_trace_mem_alloc(ptr, tag, bytes);
->>>        }
->>> @@ -249,23 +276,13 @@ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes, const voi
->>>        this_cpu_sub(tag->counters->bytes, bytes);
->>>        this_cpu_dec(tag->counters->calls);
->>>
->>> -     if (alloc_tag_trace_enabled())
->>> +     if (alloc_tag_trace_enabled(tag))
->>>                /* Trace frees with their unique ptr */
->>>                alloc_tag_trace_mem_free(ptr, tag, bytes);
->>>
->>>        ref->ct = NULL;
->>>   }
->>>
->>> -static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
->>> -{
->>> -     tag->ct.flags |= CODETAG_FLAG_INACCURATE;
->>> -}
->>> -
->>> -static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
->>> -{
->>> -     return !!(tag->ct.flags & CODETAG_FLAG_INACCURATE);
->>> -}
->>> -
->>>   #define alloc_tag_record(p)  ((p) = current->alloc_tag)
->>>
->>>   #else /* CONFIG_MEM_ALLOC_PROFILING */
->>> diff --git a/include/linux/codetag.h b/include/linux/codetag.h
->>> index a25a085c2df1..f728295d50c0 100644
->>> --- a/include/linux/codetag.h
->>> +++ b/include/linux/codetag.h
->>> @@ -18,6 +18,7 @@ struct module;
->>>
->>>   /* codetag flags */
->>>   #define CODETAG_FLAG_INACCURATE      (1 << 0)
->>> +#define CODETAG_FLAG_TRACE_ON        (1 << 1)
->>>
->>>   /*
->>>    * An instance of this structure is created in a special ELF section at every
->>> @@ -25,7 +26,7 @@ struct module;
->>>    * an array of these.
->>>    */
->>>   struct codetag {
->>> -     unsigned int flags;
->>> +     atomic_t flags;
->>>        unsigned int lineno;
->>>        const char *modname;
->>>        const char *function;
->>> @@ -71,7 +72,7 @@ struct codetag_iterator {
->>>        .function       = __func__,                     \
->>>        .filename       = __FILE__,                     \
->>>        .lineno         = __LINE__,                     \
->>> -     .flags          = 0,                            \
->>> +     .flags          = ATOMIC_INIT(0),               \
->>>   }
->>>
->>>   void codetag_lock_module_list(struct codetag_type *cttype);
->>> diff --git a/include/uapi/linux/alloc_tag.h b/include/uapi/linux/alloc_tag.h
->>> index 7d4618bea043..dafcba2f7e2c 100644
->>> --- a/include/uapi/linux/alloc_tag.h
->>> +++ b/include/uapi/linux/alloc_tag.h
->>> @@ -85,9 +85,20 @@ struct allocinfo_get_at {
->>>        struct allocinfo_tag_data data;
->>>   };
->>>
->>> +struct allocinfo_toggle_traces {
->>> +     /* inputs */
->>> +     /*
->>> +      * Tags matching the filter are toggled; an empty mask selects all tags.
->>> +      * Size criteria are checked once, against the tag's size at call time.
->>> +      */
->>> +     struct allocinfo_filter filter;
->>> +     __u64 enable;
->>> +};
->>> +
->>>   #define _ALLOCINFO_IOC_CONTENT_ID    0
->>>   #define _ALLOCINFO_IOC_GET_AT                1
->>>   #define _ALLOCINFO_IOC_GET_NEXT              2
->>> +#define _ALLOCINFO_IOC_TOGGLE_TRACE  3
->>>
->>>   #define ALLOCINFO_IOC_BASE           0xA6
->>>   #define ALLOCINFO_IOC_CONTENT_ID     _IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_CONTENT_ID,     \
->>> @@ -96,5 +107,7 @@ struct allocinfo_get_at {
->>>                                              struct allocinfo_get_at)
->>>   #define ALLOCINFO_IOC_GET_NEXT               _IOR(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_GET_NEXT,       \
->>>                                             struct allocinfo_tag_data)
->>> +#define ALLOCINFO_IOC_TOGGLE_TRACE   _IOW(ALLOCINFO_IOC_BASE, _ALLOCINFO_IOC_TOGGLE_TRACE,   \
->>> +                                         struct allocinfo_toggle_traces)
->>>
->>>   #endif /* _UAPI_ALLOC_TAG_H */
->>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->>> index ca2412a67312..262f00f2bba9 100644
->>> --- a/mm/alloc_tag.c
->>> +++ b/mm/alloc_tag.c
->>> @@ -60,6 +60,15 @@ DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
->>>   DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
->>>   EXPORT_SYMBOL(alloc_tag_trace_key);
->>>
->>> +static atomic_t alloc_tag_trace_cnt = ATOMIC_INIT(0);
->>> +
->>> +/*
->>> + * As `codetag_lock_module_list` is a read lock, we need an additional mutex
->>> + * to protect against the race conditions involved in the alloc tag trace
->>> + * toggle path.
->>> + */
->>> +static DEFINE_MUTEX(alloc_tag_trace_mutex);
->>> +
->>>   struct alloc_tag_kernel_section kernel_tags = { NULL, 0 };
->>>   unsigned long alloc_tag_ref_mask;
->>>   int alloc_tag_ref_offs;
->>> @@ -296,7 +305,7 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
->>>                return false;
->>>
->>>        if (filter->mask & ALLOCINFO_FILTER_MASK_INACCURATE) {
->>> -             inaccurate = !!(ct->flags & CODETAG_FLAG_INACCURATE);
->>> +             inaccurate = alloc_tag_is_inaccurate(ct_to_alloc_tag(ct));
->>>                if (inaccurate != !!(filter->inaccurate))
->>>                        return false;
->>>        }
->>> @@ -317,6 +326,23 @@ static bool matches_filter(struct codetag *ct, struct allocinfo_filter *filter,
->>>        return true;
->>>   }
->>>
->>> +/*
->>> + * Checks that a user supplied filter only uses known fields and that its size
->>> + * range, if any, is not inverted.
->>> + */
->>> +static bool allocinfo_filter_valid(const struct allocinfo_filter *filter)
->>> +{
->>> +     if (filter->mask & ~ALLOCINFO_FILTER_MASKS)
->>> +             return false;
->>> +
->>> +     if ((filter->mask & ALLOCINFO_FILTER_MASK_MIN_SIZE) &&
->>> +         (filter->mask & ALLOCINFO_FILTER_MASK_MAX_SIZE) &&
->>> +         filter->min_size > filter->max_size)
->>> +             return false;
->>> +
->>> +     return true;
->>> +}
->>> +
->>>   /*
->>>    * Seeks the ioctl iterator to the specified 0-indexed tag position, reads its
->>>    * profiling data and returns it to userspace.
->>> @@ -333,12 +359,7 @@ static int allocinfo_ioctl_get_at(struct seq_file *m, void __user *arg)
->>>        if (copy_from_user(&params, arg, sizeof(params)))
->>>                return -EFAULT;
->>>
->>> -     if (params.filter.mask & ~ALLOCINFO_FILTER_MASKS)
->>> -             return -EINVAL;
->>> -
->>> -     if ((params.filter.mask & ALLOCINFO_FILTER_MASK_MIN_SIZE) &&
->>> -         (params.filter.mask & ALLOCINFO_FILTER_MASK_MAX_SIZE) &&
->>> -         params.filter.min_size > params.filter.max_size)
->>> +     if (!allocinfo_filter_valid(&params.filter))
->>>                return -EINVAL;
->>>
->>>        priv = m->private;
->>> @@ -443,6 +464,75 @@ static int allocinfo_ioctl_get_next(struct seq_file *m, void __user *arg)
->>>        return ret;
->>>   }
->>>
->>> +static void alloc_tag_trace_toggle(struct alloc_tag *tag, bool enable)
->>> +{
->>> +     if (enable) {
->>> +             if (alloc_tag_is_traced(tag))
->>> +                     return;
->>> +
->>> +             alloc_tag_set_traced(tag);
->>> +             if (atomic_fetch_inc(&alloc_tag_trace_cnt) == 0)
->>> +                     static_branch_enable(&alloc_tag_trace_key);
->>> +     } else {
->>> +             if (!alloc_tag_is_traced(tag))
->>> +                     return;
->>> +
->>> +             alloc_tag_clear_traced(tag);
->>> +             if (atomic_dec_and_test(&alloc_tag_trace_cnt))
->>> +                     static_branch_disable(&alloc_tag_trace_key);
->>> +     }
->>> +}
->>> +
->>> +/*
->>> + * Toggles tracing on every allocation tag that matches the user supplied
->>> + * filter. An empty filter mask selects all tags, same as for
->>> + * ALLOCINFO_IOC_GET_AT. Tags already in the requested state are not an error.
->>> + */
->>> +static int allocinfo_ioctl_toggle_trace(struct seq_file *m, void __user *arg)
->>> +{
->>> +     struct allocinfo_toggle_traces params;
->>> +     struct codetag_iterator iter;
->>> +     struct codetag *ct;
->>> +     struct alloc_tag_counters counters;
->>> +     bool fetched_counters;
->>> +     int matches = 0, ret;
->>> +
->>> +     if (!capable(CAP_SYS_ADMIN))
->>> +             return -EPERM;
->>> +
->>> +     if (copy_from_user(&params, arg, sizeof(params)))
->>> +             return -EFAULT;
->>> +
->>> +     if (!allocinfo_filter_valid(&params.filter))
->>> +             return -EINVAL;
->>> +
->>> +     codetag_lock_module_list(alloc_tag_cttype);
->>> +
->>> +     iter = codetag_get_ct_iter(alloc_tag_cttype);
->>> +
->>> +     /* Toggle tracing on all codetags that match */
->>> +     while ((ct = codetag_next_ct(&iter))) {
->>> +             fetched_counters = false;
->>> +             if (matches_filter(ct, &params.filter, &counters, &fetched_counters)) {
->>> +                     matches++;
->>> +
->>> +                     mutex_lock(&alloc_tag_trace_mutex);
->> Could we grab and drop alloc_tag_trace_mutex outside the loop?
-> Well, that is possible. But I did it this way to minimize the critical section.
->
-> Since this mutex is specific to the trace ioctl, I'm comfortable doing
-> what you recommended too. It would just mean that one thread would be
-> blocked until another thread fully finishes its loop, which is not too
-> bad. I'll let Suren comment on this as well.
+Both patches look OK.  Once when you submit a non-RFC patch set, I can
+try merging.
 
 
-Hmm, sorry, I misread this part of the code. (sorry for this) . Putting 
-|mutex_lock| outside the loop is not a good idea.
+thanks,
 
-It greatly increases the critical section.
-
-My original concern was that we need to mutex_lock and mutex_unlock 
-every time we get a match.
-
-As the function comment states, An empty filter mask selects all tags, 
-that means we need a
-
-mutex_lock / mutex_unlock for every alloc_tag.
-
-Let's see what Suren thinks.
-
-
-Thanks
-
-Best Regards
-
-Hao
-
->>
->>> +                     alloc_tag_trace_toggle(ct_to_alloc_tag(ct), !!params.enable);
->>> +                     mutex_unlock(&alloc_tag_trace_mutex);
->>> +             }
->>> +     }
->>> +
->>> +     if (matches == 0)
->>> +             /* Nothing matched the filter */
->>> +             ret = -ENOENT;
->>> +     else
->>> +             ret = 0;
->>> +
->>> +     codetag_unlock_module_list(alloc_tag_cttype);
->>> +
->>> +     return ret;
->>> +}
->>> +
->>>   /*
->>>    * Entry point ioctl function for /proc/allocinfo routing requests to fetch the
->>>    * layout content ID, seek to a specific tag, or read sequential tags.
->>> @@ -463,6 +553,9 @@ static long allocinfo_ioctl(struct file *file, unsigned int cmd,
->>>        case ALLOCINFO_IOC_GET_NEXT:
->>>                ret = allocinfo_ioctl_get_next(file->private_data, arg);
->>>                break;
->>> +     case ALLOCINFO_IOC_TOGGLE_TRACE:
->>> +             ret = allocinfo_ioctl_toggle_trace(file->private_data, arg);
->>> +             break;
->>>        default:
->>>                ret = -ENOIOCTLCMD;
->>>                break;
->>> @@ -492,8 +585,6 @@ static const struct proc_ops allocinfo_proc_ops = {
->>>
->>>   void __alloc_tag_trace_hit(struct alloc_tag *tag)
->>>   {
->>> -     if (unlikely(!tag))
->>> -             return;
->>>        trace_alloc_tag_hit(tag);
->>>   }
->>>   EXPORT_SYMBOL(__alloc_tag_trace_hit);
->>> @@ -1031,6 +1122,24 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
->>>        return 0;
->>>   }
->>>
->>> +static void unload_module(struct module *mod, struct codetag *start, struct codetag *stop)
->>> +{
->>> +     struct alloc_tag *start_tag = ct_to_alloc_tag(start);
->>> +     struct alloc_tag *stop_tag = ct_to_alloc_tag(stop);
->>> +     struct alloc_tag *tag;
->>> +
->>> +     /*
->>> +      * Turn tracing off for the tags of the module being unloaded. Without
->>> +      * this, `alloc_tag_trace_cnt` would never reach zero and tracing would
->>> +      * stay enabled forever.
->>> +      *
->>> +      * `alloc_tag_trace_mutex` is not needed here as this code path is
->>> +      * protected by a `down_write(&cttype->mod_lock)`.
->>> +      */
->>> +     for (tag = start_tag; tag < stop_tag; tag++)
->>> +             alloc_tag_trace_toggle(tag, false);
->>> +}
->>> +
->>>   static void replace_module(struct module *mod, struct module *new_mod)
->>>   {
->>>        MA_STATE(mas, &mod_area_mt, 0, module_tags.size);
->>> @@ -1357,6 +1466,7 @@ static int __init alloc_tag_init(void)
->>>                .alloc_section_mem      = reserve_module_tags,
->>>                .free_section_mem       = release_module_tags,
->>>                .module_load            = load_module,
->>> +             .module_unload          = unload_module,
->>>                .module_replaced        = replace_module,
->>>   #endif
->>>        };
+Takashi
