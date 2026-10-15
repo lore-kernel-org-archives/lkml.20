@@ -1,126 +1,117 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F674E9C1A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103071; cv=pass; b=dmCHR19luaSYnye4F3bjpAM7UURVb0YYCasdOiigVpUo6DovGj3vI6VNrucXtbc0Ki2+dbtOvMOyrjdvsxPoBLjhdEsuOfJlapSKrnRxqXkO9bTzhKYHACcrBQUqDFnPFcf5DQkM/chwsvuyj3VTGbcfqbidLHdnHbzuT8NsDho=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103071; c=relaxed/simple;
-	bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a5/U597DCcxDfai2ZZFtzPdWcW04CC3MyeI/VEAKAHhsFwp97iAcCt67j0H24oKZoJQRbupUFtCN0vb0IbeaZVP6J+qr6XkLTqlR/57sOqAVpMMZOJuonfHC1G4D08Oq4DvyoYbEvz3d0oxuOPSyiG1Xv5tchX5BQ33ii0PJS9w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eatGLZ1A; arc=pass smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16339374721
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792103272; cv=none; b=FByp9ZFtOEnSffthIFe1t+Jwary2bkAcL//EokGtrKxJdVlukhoH3BAsULoAJyXQDw2rfutowJdweRXas19si98IPTAgzkBjNw5diBzK31YpH5YtWg59Ek8/bzAC7awd9wZithUrLvSJW4Jhmi5ifcWjRwJNpwlCce1CITTcJKU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792103272; c=relaxed/simple;
+	bh=rJMZO0VgIuzF0WSOhbe5gXe0SOTu6iu5Wck6NzeudBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YqeW0bDQ8cljIRy29nEc/VPTMsRZH4/bWpKKVUHS/ALXm/fDoWi2H+BRlcCyCJWa39TbBRTFJ59kmSg54OuuYVTjJZf4I9s+fatk8Ruwdh4KIo+u9275/JYVOTW16pcctJpLLOB8WQ6rqLsIi6Nihrb0tQ1vEgiByawmKFnf3JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OiZYd55l; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eatGLZ1A"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-535f598d126so52731cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:24:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792103066; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kpvqIlyjS4fh0IlTR+Q4/DYE0dZyYbRKWwRJuJd+Y6oQxg0azm63WSq+NnG+hTpGHP
-         nrThYtPk0u2jKw7IZW5JZhifxGX2JlyOpB3j/NOEw0arTp+1BUbQU1KXp9oIoHNYo4F4
-         EPnc2ZyTulyNu8I6+3JxfUpSK4dR2ucqCXn5dBQm3zitLd22PyidR/GwRaWrUDfOcDHC
-         Ll7xsTApShjPw3SCyMTAN4W99u3/CpeH4EyLhb4zygeM7v+t+Wz15h7vH/D3fLxNdwLv
-         7So8aAA0smbLNtETCdJZj0wUJJCFEpoi3oVlFiL8LlGtHCC8Qb7mzlhHkkp93I8wd+Gs
-         7NLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
-        fh=qmvJEDcAy1G94NL3rvl3Ot/18gX92wkRUz85lSIrLLM=;
-        b=VS9UWwYtwRQMjLtQtGgxPxpOiLjyzavOgTa+WHM/2jr/r6wyXWyJx6JyIYL5P1HR66
-         FCxrxRZ4d4f1O5kogdZT+RyPUpiO99H64nR6SnV2SKSIByohWSUX9vTzhUnEEHqItJvc
-         5+7uySZbWejBMOTeu4LyRki0nqr+8qcBlGnRy95uExe3WT5JHJLngZkpVymRI/6mA897
-         BZvXh/HRNkVtqAnAwLyCInErYKGijjeVm49WYi6YRkdxXwfZO3z5rTnmc7T4bApUl4+A
-         gUhQ4vYoQdqDXazUXHMJKmirphqDZUxmlLaD6bmKOC5FmF7+IGpO+YGAIjlUaAeyMqza
-         sciw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OiZYd55l"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so41136085e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:27:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792103066; x=1792707866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
-        b=eatGLZ1AkoVbXnXQdacqidMYMM+AnC7mrJ5iXHKfFHuP3kt0ZVez1ReUPOVVqoyTxZ
-         A9hu8eVjCkWd7XJz0u+NOhDTAU12AvKItrHAPxM0z6TOVzIpZg9+JK6JZR/4XSMoF+gp
-         Q2A4Lg9Fu2u4SG8gP5WHgZm2ndXNfl+N9m6EZFwFTG4H4iio5BS6mkDCe8biTV6NVm4j
-         uONFOtVH+RUPj45EdPEz0OMAMyPjYbZRrCBO8CjfSPKjtbIQKodEGnXFeUeAs9RnN2y0
-         Xpt50h6a5hByIiXAkFi5QumsS+HxCakADE6ev1yZTbdOwyVfzigz1cOlMSClL60fnnCN
-         1Yjg==
+        d=gmail.com; s=20251104; t=1792103269; x=1792708069; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vTeoZs89HS3SYDzrwek7OhSrNhRzVN8YqVYgGwhyqS8=;
+        b=OiZYd55lnatYBbBgD1Z9zGlbHLfRJ5u7tp9fELOlmpoV1cDEI0t88/3FNNX/Q7ZVXc
+         cYtS9Q7+WSjFKFHoZNXOQKyTBrKPBigPMULVGvU2WoKaNuWfw+UWeaMBV83nnB29cuJ3
+         mIN7S70N5SlHNet1HId28dt2M4XxS0yzk8m/BABuJzAim249Sy6+pwqA0pf1xA5yZyvR
+         P6/YZhzlthbjrrDDIRBwBrTYiCxLAsm2LBf5LjjjPPCZY7DsuXvmrACkWugN8jXcTFH0
+         UBartaDyIJFIe/Jt2DHjPxSklG2Rrci5yepNkShDqvjUjxEzVKdCU8x5J1Fp65RWvSiS
+         FdbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792103066; x=1792707866;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
-        b=NaZWN6cIiU+lwk1q3zldvmaIAkfDiknfgKEJzFbPQHJTX38QUVctIeGmZF4xuInICn
-         3tYmKYiULKz0FAn/Di8vhTAq2DkBQS7suQ9Hdhmgr9nDoulcSxaFiCiC759ieRpKx8pv
-         86cplZmsbo7KOgMadGjlkQFeDrNDFOCh72KWZD/pYdsCpLfwAfkctxqLHgIYT7zfqYvf
-         xpG0m7WDRwIR1lu7JGqj+j2me2Jh/Xq5mQJrRygDkMjftbeko46C+Isq1ZSfdmh5CmiS
-         il8C5Hll/2tqHdOqZ26DpPBMRprfHHyyYpnoAjYsbtR3JkuILOTGi9wrv45Q6cwEBEYF
-         Qj/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzuX2fELVogJIFcB6vI5jqlhZVHvgxhDDphkxYJtL1h//7KWjljYuuw/ZlBitFUC0phxBlej7IqQHiCkrw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIshR3h2yyEmMfvol61O2WVqjKy82OSd6PZ+AQLjuy6KfYI2bmS
-	a3PNSVPWJQAu8UGbSpEmnCxqCIyISTm9awz+pvNheD3kzRPGhHpWlsLvPaqqZILPjKoQZ0egV+J
-	5tgvj7D20ilIQyhp83EDnz82BkS3qVWqOs6Rk3kNh
-X-Gm-Gg: AYBFou2TYBy9dcoAbS2yMIx2Fgszp9/pL58Y+YEfvUFT0uC2iZuBquvQV43DynKR7Ny
-	HMqsDyWOqtN0o1Kba+iK6pMQKsdAoe+RWPOwtoKpiK138U44yi9qBaPgwyArS5WIaxFoQJXth6M
-	ywOSW37lLC2RNTRdcBoYXbTkwh/NSruqgMS4jP+nQ2Ibu07LstvdMEMJL7sv0yr6gyokU5H8121
-	xKClnFdicjM5BKBjHHOXYcaj/8snfJtO+4WNf6vbPDAMLB2VkX3Jv2nBnWAeMlmOdQf6cJSSlLr
-	ne2mpIKNp9uVOx/wPRqx+YoZ7pciTBpvVP5SyY8AhIJqFhXPp/B2ogY=
-X-Received: by 2002:a05:622a:1648:b0:530:2f98:cebb with SMTP id
- d75a77b69052e-5362b40cdc6mr3161581cf.11.1792103065023; Thu, 15 Oct 2026
- 15:24:25 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792103269; x=1792708069;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vTeoZs89HS3SYDzrwek7OhSrNhRzVN8YqVYgGwhyqS8=;
+        b=GXdxOxTWTs4up1wEPtyU3VjXiR+F0GDvmV1J9YVXU1CP+OzTPlFquyXBb5jMQ3IaIF
+         jZ0R6Q9LMPXWaIozDiTLz/2mP8vxX7A048DMPwdaieNDZoRAokSeKCWuyFqG0sYcGpqu
+         dc5mAIBP2kBsvZ6ISy8h/RpFmFsauZGpOjwgX9JIs5+pTUqpyozLpEijIwpd4jmhT771
+         B0NhniASwqWT6C/M2n6H7crloyEIT96CiiSgUXhZeDX4dJHjV1nCRQT+oSR5HPO6P0h9
+         hPQ6vYigbo5IlvUHiUDpcRjVDlYsuprwhtBaWw6SCiKLnfWx2lA7yZPyc//Nio6dAwFU
+         Weug==
+X-Forwarded-Encrypted: i=1; AKwUvByOrGbXgV1Szyt95v79DD1C/wXuGhciH91GqlEogKr118OhVmqtiqorEPuN6sFeu2lKQhLJ5zXQl2ikXEA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBg/EPZoRapRQhIAJ2S9XVcMQ3sWBqxvAXvbURaBuPgoFP2BL9
+	6neJLLMkAfD1Ft/CNDQ1uTtAzuUAP0OxtOxLS6OWfyIIGrAicjVXBlBS
+X-Gm-Gg: AYBFou12Aot3LvT6+faVuj/xRW+2HrHEDld9XmJGXX7P+A1PTCSergh0N0TcZma0fbT
+	/aISL3fsDAS0/6/y1i3dMCfr/VZjcbf954dmuwxYPUMFBCDY/5lOHMlzWl3IIHHyzzLl1C//99k
+	81Hy5BgyE7wybPLx/wX8QArT3VgYZt2m8sVP44MMt/IhPKz07a+it4mwwaZ7NHKrXegFD3SeTMH
+	iJyftZObU82PGpJ2OcKjDfuUFB7v4dF2Nftl31H5UV5QEWziW0bxCm0OS87rkYVm5Xd4kHDnuGy
+	9DqoB6lIrNigw8fnHCjpejIf3p2+YNjlYocISNEr3fLsIYhO+Fy8Nff5wQpfgNgzXUaq2o/W2VH
+	KPWzy0giEgFx7+wB+/7XsI9YxUGsg5XjpNvlOT6HEy56YZ/blX/eaIsFZMh0UcFWJPvQNJs7ICz
+	uAvOito0mWuTUVO1vuCIKqocEYD9XK1o+JyDNNh2VEcEUbA8ddmH4/9Lahd2v1ORpKG7972ijeA
+	wv+a//6WkG8tegQTwscg9Yu6bvT6nvN+ebZ+NBnHBDF33mbTHgn0uiH+6WuTxT4zdVF2qq6Qvfu
+	6ZFfO80tjUuk7mnTnotfxtIxla6VKgGvGaynirSzmoq0aZgZrnr+x6JnhXvQdrU/8vtcuiZiIQ=
+	=
+X-Received: by 2002:a05:600c:3f06:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-4a18e4a3bfbmr435955355e9.8.1792103269119;
+        Thu, 15 Oct 2026 15:27:49 -0700 (PDT)
+Received: from localhost.localdomain ([102.88.166.12])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ac19c9sm5917375e9.0.2026.10.15.15.27.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 15:27:48 -0700 (PDT)
+From: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+To: outreachy@lists.linux.dev
+Cc: Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+Subject: [PATCH] staging: greybus: add blank lines after struct definitions in gbphy.h
+Date: Thu, 15 Oct 2026 23:27:35 +0100
+Message-ID: <20261015222735.89251-1-okhuomonajayi54@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-21-yosry@kernel.org>
-In-Reply-To: <20261012233638.2546339-21-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 15 Oct 2026 15:24:10 -0700
-X-Gm-Features: AclHuK8DXmxx-rfYkJXFdOtH4DbmnHj5hrHQbPjPUCKI-95-Z3_uO0rgyPy3uHg
-Message-ID: <CALMp9eTF2NBYafgbRCfo=aEcTyC1DLB4gVpPM=rZd_zhqSuzQQ@mail.gmail.com>
-Subject: Re: [PATCH v3 20/27] KVM: x86: Add KVM_REQ_MMU_SYNC_ALL_ROOTS
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Lai Jiangshan <jiangshanlai@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> Add a new x86 request to sync all roots, current and previous. This will
-> be used when syncing the shadow NPTs on nested VMRUN when an ASID flush
-> (or new ASID) is requested by L1, as all physical translations in all
-> roots should be sync'd (since shadow mappings are not tagged with an
-> ASID).
->
-> Refactor syncing all roots (currently only done by
-> kvm_vcpu_flush_tlb_guest()) to a helper, and use it to handle the
-> request.
->
-> Clear KVM_REQ_MMU_SYNC when handling KVM_REQ_MMU_SYNC_ALL_ROOTS as the
-> latter is a superset. Do not do so inside kvm_mmu_sync_all_roots(), to
-> avoid any subtle behavioral changes from kvm_vcpu_flush_tlb_guest()
-> clearing KVM_REQ_MMU_SYNC. It makes sense to always clear it when
-> syncing the MMU, but there might be weird dependencies on the sync only
-> happening before the actual vCPU run, and kvm_vcpu_flush_tlb_guest() is
-> called in other code paths than handling KVM_REQ_TLB_FLUSH_GUEST before
-> vCPU run.
->
-> No functional change intended.
->
-> Reviewed-by: Lai Jiangshan <jiangshanlai@gmail.com>
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+Add blank lines between the structure definitions and the
+to_gbphy_dev() and to_gbphy_driver() macros to improve
+readability. This fixes the following checkpatch warning:
+
+CHECK: Please use a blank line after function/struct/union/enum
+declarations
+
+Signed-off-by: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+---
+ drivers/staging/greybus/gbphy.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/staging/greybus/gbphy.h b/drivers/staging/greybus/gbphy.h
+index d4a225b76338..1de510499480 100644
+--- a/drivers/staging/greybus/gbphy.h
++++ b/drivers/staging/greybus/gbphy.h
+@@ -15,6 +15,7 @@ struct gbphy_device {
+ 	struct list_head list;
+ 	struct device dev;
+ };
++
+ #define to_gbphy_dev(d) container_of(d, struct gbphy_device, dev)
+ 
+ static inline void *gb_gbphy_get_data(struct gbphy_device *gdev)
+@@ -43,6 +44,7 @@ struct gbphy_driver {
+ 
+ 	struct device_driver driver;
+ };
++
+ #define to_gbphy_driver(d) container_of(d, struct gbphy_driver, driver)
+ 
+ int gb_gbphy_register_driver(struct gbphy_driver *driver,
+-- 
+2.43.0
+
