@@ -1,65 +1,65 @@
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896653E1696
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38853E1732
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078438; cv=none; b=jUn4zIKoG4H/3Sq4IgDZwiBr9MNajkn/g//LV3WYLvPV+lG0ErEfmIekntt/QU9pbYvZHfXrVBhwuPzXfoIRfE5vmMM10lGl/vPf6wz6NQpn2SkQrj8pm5GvmiVEKo0ea7MCAYuDqOB9tJ7nzY7Ry6ulaMijdm+MBpVCzaxETqk=
+	t=1792078439; cv=none; b=sOPMMzQYQryMLYI7oSXkZDQeoqTnUlvrLTd6eDQAifg8MJvGO2My+bgSoXmOpIl/D5s/Xs4agTcrHVgGpRtl9AAr2Kv9MgoEK4/Xrs4W/bJ0JpjWJKjNP2rDaJe21WP0k0w36XIOa2ZowtQNmY0DGCLHc4tbZLzqz2OMWu78gy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078438; c=relaxed/simple;
-	bh=81o7s3CUvlSCXr3p0MxpjLPpSp0FVkEo/IZ61TiLCvo=;
+	s=arc-20240116; t=1792078439; c=relaxed/simple;
+	bh=xIsKSaZ15J6nRnEfuzzXZSdo/Z37NoDAuoNVv8bXw50=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r5tK73Ji3maZF2DC1Y9S+hFL0QIMkg331ByWTnWCwquvND5IwRZvHsM6paOUZyXzH7valDwtvT6WMan+TTSpx2WDxlwKTYip7uTQ4ookstMlllcq7GmBCJKD4eVzQNPvjv4ij9XPZg973mYn6bZoTcEacoBVPRep1uvVmoiCYPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=YpDIp1L2; arc=none smtp.client-ip=209.85.217.49
+	 MIME-Version; b=qfrjYsmT02tW5yLruYUWsNgz3QwdCXt+HZeVLIpi1A5as5U8F6ypnk1mJ5uOYcPGLbTjuByjuai9AlJZ8LXUYVUheYHPV9wNILQKZy7WgLoBNtlGnNLH0wF1R9gQXtS0e/Ac5MJ4bo+mpMvMROKfzbeRN6wZn6kVK8kVKxtXUPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=hpop1ysz; arc=none smtp.client-ip=209.85.217.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="YpDIp1L2"
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7cb3388613fso1009802137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="hpop1ysz"
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cb3388613fso1009766137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792078423; x=1792683223; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1792078420; x=1792683220; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=VRVjYPIptXeZue/0tQ2bv1jjJkRW9EshCpZbkUsbSi8=;
-        b=YpDIp1L2J2PuIF8czyfFdCPl2VjF+BXIkZE1r3RFgK6YXxABxwPTaSDkkRxegqUSFv
-         aFHfv/8yeZqOPDi8K/GIaoyML7Laq5UvClwfOoDFacDWWpkPEn9G50Nyv04LtjL7nxFB
-         HPCZRocDNyZVhqDfPsBkNYHaUR9qKsdcdfd2gQwN4a55aqxCG+aUIC8Us2vgKak/zUPq
-         WRVUidU6MC8yurOWpCxfCrZ0CM/rRxNn5SyxMtKUC5blFKQk65aUESIXZWfRFcbZlwi9
-         uKpi3ZkPyikOhycN1HsAZ+2orqu2231lyqtvSwXKoIXPm4U5aYix5XFkE96UW3TiiIdi
-         dxVA==
+        bh=IofewvjhR0Ae8pfrPVVge9u/2aO2fEHS91BGZ9RvoVo=;
+        b=hpop1yszrAQaeSTB0MZVTOzYTkVZrx3j9OjOGRY3TmG9Cl9j4KFfz/jRcajzYK56qR
+         d5QxHIkMohTZ1xGq/Ru3nToRSU2gdfTL2NVA/RXP8oQZGo0Ec2Hnj3xOaG9HXaRdbc0p
+         YlBr/cLku4oBzI7INa4Bp7Aj1d+XXTHAFl6HZVm6Yus12Vv4XKB8/u3oeCWFr1amTQkZ
+         xNas1Nyy4FNp/zwoxSc9ZaIpLpxwMyH94dfUg9RYYik+uYlCNRUfov0xxQxABu/txv3j
+         i2KjWMjMIG+TpLOzEeb0oOUclfp7p+2pZmZGrG1zWAUE5qRmzBXHHNtq4Dj4jkZBYhsY
+         JdUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078423; x=1792683223;
+        d=1e100.net; s=20260707; t=1792078420; x=1792683220;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=VRVjYPIptXeZue/0tQ2bv1jjJkRW9EshCpZbkUsbSi8=;
-        b=u9Imo65uUMW8Frkla0yzhcsG5g8wwc7GcS+xGnmfEZrixXBwX8DrbxmwxeEPJmQeWv
-         HIHykt6gS7Dk6XcuhwkHPvyz6GATaOhPk42zQNHKeZ7M0vNBNFC4EC8ITB1vM8E6/fF6
-         zUbEqB/6CJURq1fB8c+ZMjdoa1nL0I36ToX6zBin6Oi5syeBnFuKlyM1W6/VFET0Tja5
-         6mWPjUgEABTVhFHAVzRrI+UsfT+dGV+uQBGQq9b8N9EZVc/OFwhnVRbbU/4sEnbSj3Cw
-         hiPS/45xH9od07WObr1Z8mpfpUpAzymC3Cc045AdzR/2GCYaRqYjqrnHtG8G9Y+y1RdA
-         zz1A==
-X-Forwarded-Encrypted: i=1; AKwUvBwejK73e7nfihCbH7C3/RpY9Xbb6KacqSHVSvlQfU7w8oWKYuMsfpWdQIFP4TRt67vjR2vW3XK3gOqXb2I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsJkbGm0UU3mP4QahiOuGFmXgF7cK3WLfZU9SnvULUkd0mdxfe
-	0jjRH0/QdnxwyTTrkN+/IbE2Oz0fxkCcGo0fvXC59kISf79xVUiag8dDElE6dw8Vy6E=
-X-Gm-Gg: AYBFou1931r1Fhfq2/4Y4phVAIDJb/gd3bg94SVqAicuA3UWBIWO1b3pKj3lACZlW0q
-	hPh9sd3a40vlmAELcbSDb5Eb/zkJDslrShyTOeg2OW/EWeh91kZOR/5i6xYf+9f/B08Qoc/AiJY
-	QRGP9uMUAiN07Qi1MibAmvPfL617r6i9OarGvwUW57c4uk7iX0Fyikg8gch+dOrqj+Rra3DIvpb
-	nH9dzob+kngIWjBs8NVm0Hj94SI/N/g3avKbW6eEW+E8sWSzzT6SIpqC1kcA3KBkSiwrfE9heMX
-	6L1W5WrskCw7vCefcNtDs15kEfI8IvEEzA62yS+raeTFmwUlDk9QZM02eBsldZegnjDOZ+Lii1f
-	jt3YfDIFML3kSaXaa8b6xIH+FrTOxuJDypZSop0G4TGJFAHsPYbTut7dD3go4LfWb8WPbHIep4/
-	czuMnlUwN4mZdoILBpq+1yR3AxPyVLAAlPWOAK4hFNRS6zP11Ocvg6wtebq2/VTzqfGlLOeITxr
-	An9KcJnbJHhWAYHTfxMWGbiikZVvbRc14V9lkbXy3u26qwqVfHOpo3UkaLkcGgresCTorMmrwP+
-	c2oramAtnM/kLBfX6UI=
-X-Received: by 2002:a05:6102:4427:b0:7a7:19aa:8a88 with SMTP id ada2fe7eead31-7cb3750190amr5949566137.35.1792078423308;
-        Thu, 15 Oct 2026 08:33:43 -0700 (PDT)
+        bh=IofewvjhR0Ae8pfrPVVge9u/2aO2fEHS91BGZ9RvoVo=;
+        b=qKNZyAfRsxPm1yhjLfi7UvWUis5J3o7OuH8KPjLhbLbZa1DF5eNMGmUp/7RyITSkjZ
+         HmvrrL5PADQ8QcM1C/qxC79dvKVZ9Mrx+YXvxMKqIwknXtbsRcY2624Swd/ZWPXQCgiB
+         Wl6DR4vHpre3YHNVFObLXUno2mkF3jbR2x9synikx9TFnPktHba0mqfMMZVaQJ6bpGPa
+         /YKTUKh9DHYq+9K9l4kuTS3zNi04DcNGXRQSEGFdxFgqihrrSR0x0dtvpp1xz/WUVqGk
+         LgR2XdWfwzWV9s3CXVwmM1/m3FsaHDF5fXApu7M8GicE4NbhKkl+at3eG8e0pvlEEzqF
+         WmKw==
+X-Forwarded-Encrypted: i=1; AKwUvByzzrVrLFKCTTrnWtxS3IwDiLXiy2Pv4URURNdY296WqnhrsYKPzM5cGQknb4JdQdo/BE/iVwYKKAuzKsU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINt2ck5NpTjrbqGfMXDtl4bQlha+ztHLBwSAIv3oeVH3Hn9NN9
+	dqgnK/5YwgKvF2WLLEIT2aHy5WeR6+tZazzqwLj43WXaKcQTruuFFHj5Z07N7O03SX0=
+X-Gm-Gg: AYBFou0Fez5rjmsdIRgIxTFAd/Fxdp70pM4LQ2YxptMurJJ0l0EVZ4Gi5zwyBOiRs3R
+	/TyQ6qbmS5vmT64T5nmKIx3WDo4rdL41KG+jG6BzjJSnaxE/FABCFD0KQerwzL+DVooxxCcw1as
+	1Uxo1OR6AEnVOObEseb7oAKyAhPOEdNsNk1Zrg+gP/ZhYUMDzZK90sYh+IazPEEdi2rkZdOh0X7
+	hPp3xvaiGuptAf9WhDOS14MZt28eMxuEyC62+r6V7qOTgVCcdenuFihZ+ZVzbvmRCutu9LC+4+6
+	YCbcr//NTiL/URWi1D3tIOthqzrfZD9MQFIw+fSW7G2aCR65EscV78kokekMNUlxoFVNq3QOyPt
+	OafJx455UUKOoKvO3L/f9rc0wla58cxuyuUP3IMVIDL1v+Kn0JaT0rk+NBmK3hxJJWsuByOc3//
+	cHjnSDrAIkBqwVs3zlLQ2p6JNUgERvf8hVG8wMLB12dcHp75Kpn4bSE2Ar49ic2EUC33DEKm1Va
+	0nd3GP5y3YMIxw79//Rjq02vNPZXu7gMhbYgxpPZPPCGi3kbNHstgYTW7dwnWDLW04qSU6Jmbtg
+	kANoUGnOCwK9i/CaTLo=
+X-Received: by 2002:a05:6102:8088:b0:7c1:62d2:e18a with SMTP id ada2fe7eead31-7cb372f3a68mr6949040137.16.1792078420419;
+        Thu, 15 Oct 2026 08:33:40 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.42
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:33:42 -0700 (PDT)
+        Thu, 15 Oct 2026 08:33:39 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: kees@kernel.org,
 	rppt@kernel.org,
@@ -106,9 +106,9 @@ To: kees@kernel.org,
 	ridong.chen@linux.dev,
 	longman@redhat.com,
 	bsegall@google.com
-Subject: [PATCH v1 5/8] sched/topology: Avoid redundant O(N^3) group capacity walks and unused allocations in build_sched_domains()
-Date: Thu, 15 Oct 2026 11:33:28 -0400
-Message-ID: <20261015153331.1872641-6-pasha.tatashin@soleen.com>
+Subject: [PATCH v1 3/8] x86/mce/intel: Bound cmci_rediscover() to a single topology peer
+Date: Thu, 15 Oct 2026 11:33:26 -0400
+Message-ID: <20261015153331.1872641-4-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
 References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
@@ -120,411 +120,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-During sequential CPU hotplug on large systems, build_sched_domains() is
-invoked for every CPU offline and online step. Two bottlenecks in the
-domain construction path scale poorly with CPU count:
+When a CPU goes offline, cmci_clear() disables CMCI on any MCA banks
+owned by that CPU, and mce_cpu_dead() calls cmci_rediscover(). Currently
+cmci_rediscover() invokes on_each_cpu(cmci_rediscover_work_func, NULL, 1),
+sending a synchronous broadcast IPI to every online CPU in the system,
+all of which contend on the global cmci_discover_lock while reading up
+to 32 MSR_IA32_MCx_CTL2 MSRs.
 
-1. On non-overlapping topology levels, all CPUs sharing a domain span
-   share the same circular ring of sched_group instances, and on
-   overlapping NUMA levels, groups with identical spans share
-   sched_group_capacity (sgc). However, init_sched_groups_capacity()
-   walks the entire group ring for every CPU in the domain and repeatedly
-   recomputes group_weight, cores (walking the group cpumask and clearing
-   cpu_smt_mask), and asym_prefer_cpu (O(N^3) bitmap operations per
-   hotplug step). Similarly, init_overlap_sched_group() recomputes
-   build_balance_mask() and cpumask_weight(sg_span) even when the shared
-   sgc was already initialized.
+Any bank disabled by cmci_clear() is either thread-private, core-scoped
+(shared between SMT threads of the same physical core), L2-cluster-scoped,
+die-scoped, or package-scoped:
+1. Any bank index that is already owned by the target peer in its own
+   mce_banks_owned bitmap is private to a narrower scope than the shared
+   level and will be skipped by cmci_skip_bank() on the target anyway.
+2. Core- or cluster-shared MCA banks can only be claimed by an online
+   SMT sibling or L2 cluster peer.
+3. Shared die-scoped or package-scoped uncore banks can be claimed in a
+   single pass by one online peer on the same die or package.
 
-2. __sdt_alloc() and __sds_alloc() upfront-allocate a sched_group,
-   sched_group_capacity, and sched_domain_shared for every CPU in cpu_map
-   at every topology level, even though get_group() only uses the entry
-   for the first CPU of each child domain and d.sds is only used once per
-   LLC (plus at most once per SD_ASYM_CPUCAPACITY_FULL domain). All other
-   per-CPU allocations are immediately freed unused by
-   __free_domain_allocs().
-
-Cache group_weight, cores, and asym_prefer_cpu on struct
-sched_group_capacity so init_sched_groups_capacity() computes them once
-per shared group capacity, reuse already-initialized sgc instances in
-init_overlap_sched_group(), and allocate sdd->sg, sdd->sgc, and d->sds
-lazily on demand.
+Record the bitmap of banks disabled by __cmci_disable_bank() in
+cmci_orphaned_banks, select a single online topology peer
+cmci_orphaned_target (SMT sibling, L2 cluster peer, die peer, or package
+peer) in cmci_clear(), and mask out any bank indices already owned by
+that target peer. In cmci_rediscover(), return immediately when
+cmci_orphaned_banks is empty; otherwise probe only cmci_orphaned_target
+via a single smp_call_function_single() call.
 
 2-socket, 480-CPU Intel Xeon 6985P-C (N=479, mean of 10 runs):
-  Offline:   9.85 s ->  5.15 s (-47.7%)
-  Online:    8.69 s ->  4.05 s (-53.4%)
-  Total:    18.54 s ->  9.20 s (-50.4%)
-  build_sched_domains() (cpu479 offline / online):
-    35.65 ms -> 10.39 ms (-70.9%) / 35.68 ms -> 9.58 ms (-73.2%)
-
-2-socket, 512-CPU AMD EPYC 9B45 (N=511, mean of 10 runs):
-  Offline:   4.51 s ->  3.26 s (-27.7%)
-  Online:    3.15 s ->  2.03 s (-35.6%)
-  Total:     7.66 s ->  5.29 s (-30.9%)
-  build_sched_domains() (cpu511 offline / online):
-    11.69 ms -> 5.61 ms (-52.0%) / 12.24 ms -> 5.84 ms (-52.3%)
+  Offline:  11.42 s ->  9.63 s (-15.7%)
+  Online:   11.08 s -> 11.11 s
+  Total:    22.50 s -> 20.74 s (-7.8%)
+  cmci_rediscover() (cpu479 offline):
+    7,720.6 us -> 0.6 us (-99.99%)
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- kernel/sched/sched.h    |   9 ++
- kernel/sched/topology.c | 183 ++++++++++++++++++++++++----------------
- 2 files changed, 117 insertions(+), 75 deletions(-)
+ arch/x86/kernel/cpu/mce/intel.c | 57 +++++++++++++++++++++++++++++++--
+ 1 file changed, 55 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf86..b76e2cd695025 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2261,6 +2261,15 @@ struct sched_group_capacity {
+diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
+index 4655223ba5606..f57718b097d9b 100644
+--- a/arch/x86/kernel/cpu/mce/intel.c
++++ b/arch/x86/kernel/cpu/mce/intel.c
+@@ -11,6 +11,7 @@
+ #include <linux/percpu.h>
+ #include <linux/sched.h>
+ #include <linux/cpumask.h>
++#include <linux/topology.h>
+ #include <asm/apic.h>
+ #include <asm/cpufeature.h>
+ #include <asm/cpu_device_id.h>
+@@ -40,6 +41,8 @@
+  * owned by the offlined cpu.
+  */
+ static DEFINE_PER_CPU(mce_banks_t, mce_banks_owned);
++static mce_banks_t cmci_orphaned_banks;
++static unsigned int cmci_orphaned_target;
  
- 	int			id;
+ /*
+  * cmci_discover_lock protects against parallel discovery attempts
+@@ -244,6 +247,7 @@ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_w
  
+ 	/* This CPU successfully set the enable bit. */
+ 	set_bit(bank, (void *)this_cpu_ptr(&mce_banks_owned));
++	__clear_bit(bank, cmci_orphaned_banks);
+ 
+ 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD) {
+ 		pr_notice("CPU%d BANK%d CMCI inherited storm\n", smp_processor_id(), bank);
+@@ -328,6 +332,7 @@ static void __cmci_disable_bank(int bank)
+ 	val &= ~MCI_CTL2_CMCI_EN;
+ 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
+ 	__clear_bit(bank, this_cpu_ptr(mce_banks_owned));
++	__set_bit(bank, cmci_orphaned_banks);
+ 
+ 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD)
+ 		cmci_storm_end(bank);
+@@ -339,6 +344,8 @@ static void __cmci_disable_bank(int bank)
+  */
+ void cmci_clear(void)
+ {
++	unsigned int cpu = smp_processor_id();
++	unsigned int target;
+ 	unsigned long flags;
+ 	int i;
+ 	int banks;
+@@ -346,8 +353,31 @@ void cmci_clear(void)
+ 	if (!cmci_supported(&banks))
+ 		return;
+ 	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
 +	/*
-+	 * Build-time cache shared by all groups using this sgc while
-+	 * build_sched_domains() runs; not maintained afterwards (e.g. by
-+	 * sched_update_asym_prefer_cpu()). Use the sched_group copies.
++	 * A bank is shared by the CPUs of one SMT core, L2 cluster, die or
++	 * package, and these scopes nest. The first online peer found from
++	 * the innermost scope outwards is therefore part of every sharing
++	 * scope that still has an online CPU, so it alone can claim every
++	 * orphaned bank that is still claimable. If it already owns an index,
++	 * the instance released here is not shared with it, hence not with
++	 * any online CPU, and that index can be dropped from the rediscovery.
 +	 */
-+	unsigned int		group_weight;
-+	unsigned int		cores;
-+	int			asym_prefer_cpu;
-+
- 	unsigned long		cpumask[];		/* Balance mask */
- };
- 
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 0248227d983a7..02c38089a80c9 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -1259,32 +1259,49 @@ build_group_from_child_sched_domain(struct sched_domain *sd, int cpu)
- 	return sg;
++	target = cpumask_any_but(topology_sibling_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_cluster_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_die_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_core_cpumask(cpu), cpu);
++	cmci_orphaned_target = target;
+ 	for (i = 0; i < banks; i++)
+ 		__cmci_disable_bank(i);
++	if (target < nr_cpu_ids)
++		bitmap_andnot(cmci_orphaned_banks, cmci_orphaned_banks,
++			      per_cpu(mce_banks_owned, target), MAX_NR_BANKS);
++	else
++		bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
+ 	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
  }
  
--static void init_overlap_sched_group(struct sched_domain *sd,
--				     struct sched_group *sg)
-+static int init_overlap_sched_group(struct sched_domain *sd,
-+				    struct sched_group *sg)
+@@ -360,15 +390,38 @@ static void cmci_rediscover_work_func(void *arg)
+ 		cmci_discover(banks);
+ }
+ 
+-/* After a CPU went down cycle through all the others and rediscover */
++/*
++ * After a CPU went down, rediscover orphaned shared banks on a single
++ * topology peer (SMT sibling, L2 cluster peer, die peer, or package peer)
++ * selected in cmci_clear(). Core-private banks whose core is now completely
++ * offline cannot be claimed by any other core, so probing more than one
++ * peer is redundant.
++ */
+ void cmci_rediscover(void)
  {
- 	struct cpumask *mask = sched_domains_tmpmask2;
- 	struct sd_data *sdd = sd->private;
--	struct cpumask *sg_span;
--	int cpu;
-+	struct cpumask *sg_span = sched_group_span(sg);
-+	struct sched_group_capacity *sgc;
-+	int cpu = cpumask_first(sg_span);
-+	struct sched_domain *first_sd = *per_cpu_ptr(sdd->sd, cpu);
++	unsigned int target;
++	unsigned long flags;
++	bool orphaned;
+ 	int banks;
+ 
+ 	if (!cmci_supported(&banks))
+ 		return;
+ 
+-	on_each_cpu(cmci_rediscover_work_func, NULL, 1);
++	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	orphaned = !bitmap_empty(cmci_orphaned_banks, MAX_NR_BANKS);
++	target = cmci_orphaned_target;
++	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
 +
-+	sgc = *per_cpu_ptr(sdd->sgc, cpu);
-+	if (sgc && atomic_read(&sgc->ref) > 0 &&
-+	    first_sd && first_sd->child &&
-+	    cpumask_equal(sg_span, sched_domain_span(first_sd->child))) {
-+		atomic_inc(&sgc->ref);
-+		sg->sgc = sgc;
-+		return 0;
-+	}
- 
- 	build_balance_mask(sd, sg, mask);
- 	cpu = cpumask_first(mask);
- 
--	sg->sgc = *per_cpu_ptr(sdd->sgc, cpu);
--	if (atomic_inc_return(&sg->sgc->ref) == 1)
-+	sgc = *per_cpu_ptr(sdd->sgc, cpu);
-+	if (!sgc) {
-+		sgc = kzalloc_node(sizeof(*sgc) + cpumask_size(),
-+				   GFP_KERNEL, cpu_to_node(cpu));
-+		if (!sgc)
-+			return -ENOMEM;
-+		sgc->id = cpu;
-+		*per_cpu_ptr(sdd->sgc, cpu) = sgc;
-+	}
++	if (!orphaned)
++		return;
 +
-+	sg->sgc = sgc;
-+	if (atomic_inc_return(&sg->sgc->ref) == 1) {
- 		cpumask_copy(group_balance_mask(sg), mask);
--	else
-+		sg->sgc->capacity = SCHED_CAPACITY_SCALE * cpumask_weight(sg_span);
-+		sg->sgc->min_capacity = SCHED_CAPACITY_SCALE;
-+		sg->sgc->max_capacity = SCHED_CAPACITY_SCALE;
-+	} else {
- 		WARN_ON_ONCE(!cpumask_equal(group_balance_mask(sg), mask));
-+	}
- 
--	/*
--	 * Initialize sgc->capacity such that even if we mess up the
--	 * domains and no possible iteration will get us here, we won't
--	 * die on a /0 trap.
--	 */
--	sg_span = sched_group_span(sg);
--	sg->sgc->capacity = SCHED_CAPACITY_SCALE * cpumask_weight(sg_span);
--	sg->sgc->min_capacity = SCHED_CAPACITY_SCALE;
--	sg->sgc->max_capacity = SCHED_CAPACITY_SCALE;
-+	return 0;
- }
- 
- static struct sched_domain *
-@@ -1387,7 +1404,10 @@ build_overlap_sched_groups(struct sched_domain *sd, int cpu)
- 		sg_span = sched_group_span(sg);
- 		cpumask_or(covered, covered, sg_span);
- 
--		init_overlap_sched_group(sibling, sg);
-+		if (init_overlap_sched_group(sibling, sg)) {
-+			kfree(sg);
-+			goto fail;
-+		}
- 
- 		if (!first)
- 			first = sg;
-@@ -1489,6 +1509,25 @@ static struct sched_group *get_group(int cpu, struct sd_data *sdd)
- 		cpu = cpumask_first(sched_domain_span(child));
- 
- 	sg = *per_cpu_ptr(sdd->sg, cpu);
-+	if (!sg) {
-+		sg = kzalloc_node(sizeof(*sg) + cpumask_size(),
-+				  GFP_KERNEL, cpu_to_node(cpu));
-+		if (!sg)
-+			return NULL;
-+		sg->next = sg;
-+		*per_cpu_ptr(sdd->sg, cpu) = sg;
-+	}
++	if (target < nr_cpu_ids && cpu_online(target))
++		smp_call_function_single(target, cmci_rediscover_work_func,
++					 NULL, 1);
 +
-+	if (!*per_cpu_ptr(sdd->sgc, cpu)) {
-+		struct sched_group_capacity *sgc;
-+
-+		sgc = kzalloc_node(sizeof(*sgc) + cpumask_size(),
-+				   GFP_KERNEL, cpu_to_node(cpu));
-+		if (!sgc)
-+			return NULL;
-+		sgc->id = cpu;
-+		*per_cpu_ptr(sdd->sgc, cpu) = sgc;
-+	}
- 	sg->sgc = *per_cpu_ptr(sdd->sgc, cpu);
- 
- 	/* Increase refcounts for claim_allocations: */
-@@ -1544,6 +1583,8 @@ build_sched_groups(struct sched_domain *sd, int cpu)
- 			continue;
- 
- 		sg = get_group(i, sdd);
-+		if (!sg)
-+			return -ENOMEM;
- 
- 		cpumask_or(covered, covered, sched_group_span(sg));
- 
-@@ -1577,27 +1618,40 @@ static void init_sched_groups_capacity(int cpu, struct sched_domain *sd)
- 	WARN_ON(!sg);
- 
- 	do {
--		int cpu, cores = 0, max_cpu = -1;
-+		int i, cores = 0, max_cpu = -1;
-+
-+		if (sg->group_weight)
-+			goto next;
-+
-+		if (sg->sgc->group_weight) {
-+			sg->group_weight = sg->sgc->group_weight;
-+			sg->cores = sg->sgc->cores;
-+			sg->asym_prefer_cpu = sg->sgc->asym_prefer_cpu;
-+			goto next;
-+		}
- 
- 		sg->group_weight = cpumask_weight(sched_group_span(sg));
- 
- 		cpumask_copy(mask, sched_group_span(sg));
--		for_each_cpu(cpu, mask) {
-+		for_each_cpu(i, mask) {
- 			cores++;
--			cpumask_andnot(mask, mask, cpu_smt_mask(cpu));
-+			cpumask_andnot(mask, mask, cpu_smt_mask(i));
- 		}
- 		sg->cores = cores;
- 
--		if (!(sd->flags & SD_ASYM_PACKING))
--			goto next;
--
--		for_each_cpu(cpu, sched_group_span(sg)) {
--			if (max_cpu < 0)
--				max_cpu = cpu;
--			else if (sched_asym_prefer(cpu, max_cpu))
--				max_cpu = cpu;
-+		if (sd->flags & SD_ASYM_PACKING) {
-+			for_each_cpu(i, sched_group_span(sg)) {
-+				if (max_cpu < 0)
-+					max_cpu = i;
-+				else if (sched_asym_prefer(i, max_cpu))
-+					max_cpu = i;
-+			}
-+			sg->asym_prefer_cpu = max_cpu;
- 		}
--		sg->asym_prefer_cpu = max_cpu;
-+
-+		sg->sgc->group_weight = sg->group_weight;
-+		sg->sgc->cores = sg->cores;
-+		sg->sgc->asym_prefer_cpu = sg->asym_prefer_cpu;
- 
- next:
- 		sg = sg->next;
-@@ -1871,7 +1925,8 @@ static void claim_allocations(int cpu, struct s_data *d)
- {
- 	struct sched_domain *sd;
- 
--	if (atomic_read(&(*per_cpu_ptr(d->sds, cpu))->ref))
-+	if (*per_cpu_ptr(d->sds, cpu) &&
-+	    atomic_read(&(*per_cpu_ptr(d->sds, cpu))->ref))
- 		*per_cpu_ptr(d->sds, cpu) = NULL;
- 
- 	for (sd = *per_cpu_ptr(d->sd, cpu); sd; sd = sd->parent) {
-@@ -1880,10 +1935,12 @@ static void claim_allocations(int cpu, struct s_data *d)
- 		WARN_ON_ONCE(*per_cpu_ptr(sdd->sd, cpu) != sd);
- 		*per_cpu_ptr(sdd->sd, cpu) = NULL;
- 
--		if (atomic_read(&(*per_cpu_ptr(sdd->sg, cpu))->ref))
-+		if (*per_cpu_ptr(sdd->sg, cpu) &&
-+		    atomic_read(&(*per_cpu_ptr(sdd->sg, cpu))->ref))
- 			*per_cpu_ptr(sdd->sg, cpu) = NULL;
- 
--		if (atomic_read(&(*per_cpu_ptr(sdd->sgc, cpu))->ref))
-+		if (*per_cpu_ptr(sdd->sgc, cpu) &&
-+		    atomic_read(&(*per_cpu_ptr(sdd->sgc, cpu))->ref))
- 			*per_cpu_ptr(sdd->sgc, cpu) = NULL;
- 	}
- }
-@@ -2678,8 +2735,6 @@ static int __sdt_alloc(const struct cpumask *cpu_map)
- 
- 		for_each_cpu(j, cpu_map) {
- 			struct sched_domain *sd;
--			struct sched_group *sg;
--			struct sched_group_capacity *sgc;
- 
- 			sd = kzalloc_node(sizeof(struct sched_domain) + cpumask_size(),
- 					GFP_KERNEL, cpu_to_node(j));
-@@ -2687,24 +2742,6 @@ static int __sdt_alloc(const struct cpumask *cpu_map)
- 				return -ENOMEM;
- 
- 			*per_cpu_ptr(sdd->sd, j) = sd;
--
--			sg = kzalloc_node(sizeof(struct sched_group) + cpumask_size(),
--					GFP_KERNEL, cpu_to_node(j));
--			if (!sg)
--				return -ENOMEM;
--
--			sg->next = sg;
--
--			*per_cpu_ptr(sdd->sg, j) = sg;
--
--			sgc = kzalloc_node(sizeof(struct sched_group_capacity) + cpumask_size(),
--					GFP_KERNEL, cpu_to_node(j));
--			if (!sgc)
--				return -ENOMEM;
--
--			sgc->id = j;
--
--			*per_cpu_ptr(sdd->sgc, j) = sgc;
- 		}
- 	}
- 
-@@ -2745,23 +2782,10 @@ static void __sdt_free(const struct cpumask *cpu_map)
- 
- static int __sds_alloc(struct s_data *d, const struct cpumask *cpu_map)
- {
--	int j;
--
- 	d->sds = alloc_percpu(struct sched_domain_shared *);
- 	if (!d->sds)
- 		return -ENOMEM;
- 
--	for_each_cpu(j, cpu_map) {
--		struct sched_domain_shared *sds;
--
--		sds = kzalloc_node(sizeof(struct sched_domain_shared),
--				GFP_KERNEL, cpu_to_node(j));
--		if (!sds)
--			return -ENOMEM;
--
--		*per_cpu_ptr(d->sds, j) = sds;
--	}
--
- 	return 0;
- }
- 
-@@ -2932,7 +2956,7 @@ static void adjust_numa_imbalance(struct sched_domain *sd_llc)
- 	}
- }
- 
--static void
-+static int
- init_sched_domain_shared(struct s_data *d, struct sched_domain *sd, int flags)
- {
- 	struct sched_domain_shared *sds = NULL;
-@@ -2954,6 +2978,13 @@ init_sched_domain_shared(struct s_data *d, struct sched_domain *sd, int flags)
- 	 */
- 	for_each_cpu(cpu, sched_domain_span(sd)) {
- 		sds = *per_cpu_ptr(d->sds, cpu);
-+		if (!sds) {
-+			sds = kzalloc_node(sizeof(*sds),
-+					   GFP_KERNEL, cpu_to_node(cpu));
-+			if (!sds)
-+				return -ENOMEM;
-+			*per_cpu_ptr(d->sds, cpu) = sds;
-+		}
- 
- 		if (!sds->alloc_flags ||
- 		    sd->span_weight == 1 ||
-@@ -2978,6 +3009,8 @@ init_sched_domain_shared(struct s_data *d, struct sched_domain *sd, int flags)
- 	 */
- 	atomic_set(&sd->shared->nr_busy_cpus, sd->span_weight);
- 	atomic_inc(&sd->shared->ref);
-+
-+	return 0;
++	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
++	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
  }
  
  /*
-@@ -2993,25 +3026,24 @@ init_sched_domain_shared(struct s_data *d, struct sched_domain *sd, int flags)
-  * degenerate into a single-capacity group. The relevant edge cases are instead
-  * covered by the caveats above.
-  *
-- * Return true if this CPU's asym path claimed sd->shared, false otherwise.
-+ * Return 0 on success or if not claimed, -ENOMEM on allocation failure.
-  */
--static bool claim_asym_sched_domain_shared(struct s_data *d, int cpu)
-+static int claim_asym_sched_domain_shared(struct s_data *d, int cpu)
- {
- 	struct sched_domain *sd = *per_cpu_ptr(d->sd, cpu);
- 	struct sched_domain *sd_asym;
- 
- 	if (!sd)
--		return false;
-+		return 0;
- 
- 	sd_asym = sd;
- 	while (sd_asym && !(sd_asym->flags & SD_ASYM_CPUCAPACITY_FULL))
- 		sd_asym = sd_asym->parent;
- 
- 	if (!sd_asym || (sd_asym->flags & SD_NUMA))
--		return false;
-+		return 0;
- 
--	init_sched_domain_shared(d, sd_asym, SD_ASYM_CPUCAPACITY);
--	return true;
-+	return init_sched_domain_shared(d, sd_asym, SD_ASYM_CPUCAPACITY);
- }
- 
- static int __sched_domains_alloc_llc_id(void)
-@@ -3157,15 +3189,16 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
- 		if (!sd)
- 			continue;
- 
--		if (has_asym)
--			claim_asym_sched_domain_shared(&d, i);
-+		if (has_asym && claim_asym_sched_domain_shared(&d, i))
-+			goto error;
- 
- 		/* First, find the topmost SD_SHARE_LLC domain */
- 		while (sd->parent && (sd->parent->flags & SD_SHARE_LLC))
- 			sd = sd->parent;
- 
- 		if (sd->flags & SD_SHARE_LLC) {
--			init_sched_domain_shared(&d, sd, SD_SHARE_LLC);
-+			if (init_sched_domain_shared(&d, sd, SD_SHARE_LLC))
-+				goto error;
- 
- 			/*
- 			 * In presence of higher domains, adjust the
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
