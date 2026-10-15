@@ -1,240 +1,182 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6D830D3FE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E0E3EE1EE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100945; cv=pass; b=LTuVNv9PsE170Fz2ml8skigK9wkQ0XoC/Oo+9jcUNm2fqqJ+mowl7d7vKKjuOdhJFw7Pn+SQeYP7NUadcXfr+U2d2teG36heR+SSbJTQXz+glcltM7cQYHy4611FdX0K8tBvbNB5ai8KxLT0Je7PrV7+ru6reRtYAsZQHgeJ0uw=
+	t=1792101055; cv=pass; b=Zfd9pyXTAbaRJYLhJ9aBc2SqoMK+4eU0VDPz+InAC0iv3hw+I+NymrFDIY3SkvPo7y18seQja9wXgWgbFlP0ybfUCRkKoLoYAHQb4VpNzccfVOUwhgeEDFYIMI6x8Z9P3jIOWdLgrDcsUHUU9tDpTJOH+UDLS5j3HkPLtwFFOD4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100945; c=relaxed/simple;
-	bh=x3Z7gjnUSjhUxdXxOj+8VMf1kpKkUIZM8oPBYAHKrD8=;
+	s=arc-20240116; t=1792101055; c=relaxed/simple;
+	bh=LHqqK0s3MhegjL5dQ8ANXh55c6tzTb9R7AdWVmwpF9w=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UDzIhcCUuHEbYQuOS7UxvGy2ugykzsrcEAINC/h5HP2M9/yk/F8SZ8+WTSLmkKLWmNvkTChb4d8qmcPwfUMTke+1KpEDdPbyIRy8Fx6DjP8DqMNeOUT/2moQDtfA71703vxCM3gHshb67w8wHDLC6XGCTVDzuTadPdKEyRcuJPg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crgG9fJ1; arc=pass smtp.client-ip=209.85.208.181
+	 To:Cc:Content-Type; b=ALpijdVRl+8khKnR4GQHNYWGbhpfM3aVdqzYlC8D2sU1o8lbAGWDVgM+PxxJ+KcmD5mJjOUT547Y23ma1TDOEFx48iS3V2ByOYGdNgpieio12ktff7kGok+LEe88HeLGfAakKJmDomoLhQ+afPcfolF5eNqIapi28ly4uwrrFng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKhr8o7f; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crgG9fJ1"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3aaf078704fso3585601fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:49:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792100942; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKhr8o7f"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so7760372a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:50:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792101052; cv=none;
         d=google.com; s=arc-20260327;
-        b=VDaOF9e2yIUVISjd7sfqehilZ5wJiu5EOdiKwIC0v+zDvsoZCgBcWzwc7cqB99y9qp
-         YscfTwr3G8XK3hlqmUyZozS5FYSaVFJAn4RD2t0BeV1+qwjJPTnPog4++wtTV5YTbHgi
-         uYJTmKFhOo7NMPWOpwKk3pGM3od76I3v/Cm+0cOUvoFzYjDITeo2vTXVKiW7qvF7IpNT
-         LVyW9c28CrJvX6fW4+Scc0JoGtiLeUhM7Jq2iyB12EJRx7Lng2g79TXnBSuVDf/ZyMbW
-         OAmKF8bisCFLC0l5aYgubeskjAT+aUpGGizpXa4EZtVnrYf6m/4ms/G0WYj0D7CtkMLB
-         D+rw==
+        b=QpAaP0hdUmf/Q+fDc4MTW6So5FveXXgRT+k/3Rb1HczNlqZbsuhBlE89JNIZ24lUv/
+         khUyuEv+9WkCVPb5fYBYCA83ZlJAG7uz3gp5XXHxHkusCYAz/p9JTg4lt66TkUMTXUr6
+         oQyIiJjC9h7fO8R5VHfqVqO1YtKuB4euMhMZLCt9W5H/hayHHDLOwH1T5XXbotljFe7v
+         f5ri4tvSsU0vkUE0cJIarkiZ0y7kMTkIl+Ty6Z88UaVakAYsFlmWuZkRF/y4PuSUqlci
+         jlW4rj9x0t4ChCDc0X2E6Hnom06TYd4wmAWovqhVHy4fkvqb5w54UNzSagIFz5myhODP
+         PRUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=HVp7UPgTWIGd6YIMzy9YpX0cl7irx8Lhee7jk1JUl1I=;
-        fh=fmTMN+w1rieCRMUStN50klxNaFAH2xXu8MfjF0HXHmo=;
-        b=oZogPZAGeZfaRtroC2+7ExbAN4CTLC4J/dJZ0fRkWNZb4MohpZ08D9/Ghie899Dqr4
-         VpgS2rs5qwF7Wc7SG0/tOht6G+e0wl89++BjrxvTvKxuhyi3cBrDAu4YawNuHjSKCCRf
-         bF3s3Mah4ukXLu1owP1Z/ZMEQnmtAkVCbtJsZSP8m4NpVVAIE4sbbfG2UPtMy0yirtk9
-         jUPFR/hizso+C4C91pqjhTpoTZKY+647aqq8eVie4+FVzuObrdBVuqTLK74CkUtP3JKd
-         5RFy7qT2X1o4mp5sJFd+2DJf4gYz86eHTGGb02KZrDB8LATHcPvI2FyBVjFKln1TfPF3
-         hfEA==;
+        bh=z3l/JvkYfEQXOwbbGLlrfyh3SUMFiLYxwMbPJvYgs3E=;
+        fh=CmoN2HGRgMkzwmLnovWTYPD/sgZDlAlLoTPYzpPtfKo=;
+        b=BZ7gHmGQEGeZ2+lKooJTFgBRdjTwsC+F4XubvlroCLgiQSjgNIw3HL3G2dZAnNZTQ0
+         FsASLdYJrgQ69neYJrl7kMKwKYR5kEr7UAaVtID0NjHuQBSXo/Idt3mDtqbhKh/k3/6L
+         /aeJL09oRG2ggdg8oOOIAJ2laB/Y+TrIjZ6FZqAWmZNDX/+uy3X70ExJ9/nRCaa+Hr6E
+         I22HAthBsNk2MWT2c5nt3CU+bRvInTa6apfRkukDBVTJWj4gnOMIZ5qBDVphBKUaSsWi
+         LUro8/OepDqLh4RJRpRDk0Ki6H9aF5i/WToUyYZlXxslwxylKFCWXCff60zUbWDjlCq6
+         WLQg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792100942; x=1792705742; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792101052; x=1792705852; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HVp7UPgTWIGd6YIMzy9YpX0cl7irx8Lhee7jk1JUl1I=;
-        b=crgG9fJ1u+tkPMxeYmGsNJPmVcbrEk4+cM+QbN5iyitPiD2EqQcMJ1r5iF4aLXoGWz
-         10k+3Fc+0gfCelgckba3eaaqu7AW/phwpyz4WYYh/poYC+VsAdOMqnbHPlpk4DE6jDCQ
-         QF2IUdwgRG7FGhuZvhJ9tbylD9UjwWv8muJiL0CVqDYuox6VFQgVBbJ6aYH783GcMqdA
-         p2ALU/INn50zHCxC8kZMjgAEYbeb2AS8hXxWhTHYRLsrSfJp7LPbOAEUb59+6o/dhsiI
-         u06rgYUiLaFnRRdHta5sBPRfcdJ1b42ayUirapLRvRW7LKWo8G9oGG1gt+he8SBBRvSd
-         K6mQ==
+        bh=z3l/JvkYfEQXOwbbGLlrfyh3SUMFiLYxwMbPJvYgs3E=;
+        b=QKhr8o7fQo6wYd5ci1beGIXQNsk8sdnVf6Vqv6wG5BmhXhKixt2nZGjC0H5tZ5Wi75
+         IIz3mlAWF50foHK0lzwdsI0qkNVwm+v9Qqz0ajEelZSxEXhA5Hxgx48jbWGkmmai7/tU
+         zlJ7pw2BRXNdhCz20FNc9NYRYql5jwqfbGCOamdGbH1mVYOD61LTPUgvv1y5xPYh0M7Z
+         xmspDm3PdcN7FWr+ucN8A8/9KJ3chiBtySVC5fILgdncTflOOLiRg4wZCL99bz0qT+0b
+         WJHPNPrBBnWSHIoOIp76qBDE3CaCPLTNdReUJAqJYvcmkxPI0g23lOqf8opYKZdLtY5u
+         lTBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100942; x=1792705742;
+        d=1e100.net; s=20260707; t=1792101052; x=1792705852;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HVp7UPgTWIGd6YIMzy9YpX0cl7irx8Lhee7jk1JUl1I=;
-        b=bNGQknrcLi8ZehPtQb3SVBHsa5fPJaWcNRG+GBXyLyYWFzDu/ORwmxVFWdiXew2amG
-         9p/64dm0Oe+Vt11F8LkUjhwvx4WwD3cW8FhRPofhZcM+upMI6pCTzNoXpvp+VYABZlB5
-         Ku2bqRW2orEhIdaSrFMHGnWW+qZ8wvI2KnV/1foLmdkWoqydYF7zc5Pn+lIomuAaD4EP
-         kdRuOFwdAS+VjEoJEug8W1pVDMXsNwCtvytDxBUWd0x2GmhA0b91McnGYC2NWGubygQy
-         Is2GMCjU6pQ5+qLEhNMQRM/vAxIpkjYmlujiFYcqhk14FK7Dt74cj4Iv+VmcFw6xo02Y
-         BbKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHUBtzG2PSKL0HBar7bLrUhYCepttZJ7N2pUlkM2uyRIKGdj0bFlgYyIHJmi4KrK7jhcBsQpHubOOEBsA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrvzUqwjqm3HiRbiH2eiSFXI9Of92c3mERoptcWVWPhP1mt+/r
-	7pUdeB/qIqSpKhCoEdVjCsSbc1lcExphmXUx8xk3zkx6efWtv7cPHgnWswPyAY46bfkIpgMClh5
-	VyoFkBEUmp01FKfMqSiRe2P2jCQXFuMM=
-X-Gm-Gg: AYBFou3/vp3me0xr2yWbIZpTPebguOApG+ZckUdic8uM/URiu1f6/+EPyu3mYydnV2x
-	7oDAnJO+Txd+dE8ps+6GFp8hR8HMzR0f7QdQHp0D9nhrYGneaXMR7tkpM+1eMVM6T1mDrYdqBZy
-	5dP7KY4L6NfXKCdN30jxIDVEyCtNanO1GFdlrYZbHfusrT+Kgt0EzUGYhI6OhTyXw3BiqqyoBBs
-	HG8ucFOAZORFLINSICXbVwKjkXA3Q56puVPN3rNJ2q8M74fceSd+VKXw3AoHBe6IMqr3bOZcBOq
-	c6aV1GJDiplKVHrjdtVozkMNvGN6mZ/4L3ynvMM88Dc7cJTszyq3dsw=
-X-Received: by 2002:a05:6512:6c3:b0:5b6:10bc:dc44 with SMTP id
- 2adb3069b0e04-5be47919a66mr371981e87.27.1792100941493; Thu, 15 Oct 2026
- 14:49:01 -0700 (PDT)
+        bh=z3l/JvkYfEQXOwbbGLlrfyh3SUMFiLYxwMbPJvYgs3E=;
+        b=1Z8xmg7Z07E11E//OVFuBAR4unYvqx3xlsSILtI9hkT5QE/5qk2w+EzujQSGS6ZMD4
+         erJ4lJX/m2lEFGNpOpkhslfUYB5RE29RX/5aNrJ10czof+qg8hAZeAkqvdlgVDu2QmAa
+         v6RFcuR12BSDSamdzrM1m5PmhOVteSxccw/H3uDBtJduF8IxQt1xFFHCf3SAIMfKeYkU
+         IyXsin6kr3UEaLLFV3n1QN03qLgG4SWZTAJ1nN/iHz+Yx82GcPVl+ml4UtckGPg0rh4n
+         iK1S6NFKFmQc/hEDAM0/WgZHzXn1QcaYOE8jUdPjTCwXCkQc57trI8t9O5+lHDT00DF7
+         Xorg==
+X-Gm-Message-State: AFq9FYJuc9Y7IhKre5ajwuRONDm6Bwr6o0nJ3OfC5wOG2L//FaCv+mwI
+	69NFMusrormBAOhi38YsLhTpWXMBa7QxM+F1DANdzuy3wOfKKxUbnGIUcDyOuHvR4JFpGwIsUgm
+	aUi1CbjvtE75D+iHqvQRMA44fRb9O46Ysqwd6
+X-Gm-Gg: AYBFou2p12euiTTc6el1OuoC4xAPLmWge0u5+7xE2c+98VhJNfHCFt5clTSNfsH/z4d
+	+SD7a+ZFCV9lUKkmlup9Gn7QXKu5xALXi9Ht6doBSjmrjr+hrJjwppMyFeR4d+Gd28ssxvYM3FY
+	oqFrxuzD/6JQWqQ+rcdTQjsumE7w/YRfSJ0VuqlgDRm1iErEucWsVHbHwREADIZbtP/gn6pm0dH
+	PzRePom7nVqkGVNPDXzW746DFCxaIPhs9beT7QAAy1xi+JpMsTY68Zq6Kw3EQX5BO6g7jxPPfkf
+	ys+isWzNiEBiaG6XBhQ2sYq2jMFhbDTsthQXRDqKVKALrTWqfrrFTQDumVgQkQNE90Q/XyJHFne
+	3XB41Zf/7qmZ22uKa/BywdV8V6t15VIdqarfLgENO9YGS3GAnZdINvKpuq//AqUb0a/X5O2/RMW
+	PEcuGPd6W6N4ja/KYw74BZMN+FrlhMvIFVRkyWTSBM1xfnarS2WQhKJ9W0vMqpALaUiHtPJBPhl
+	P0s
+X-Received: by 2002:a05:6402:46c4:b0:6b1:b16d:acaf with SMTP id
+ 4fb4d7f45d1cf-6b1b16dae69mr11532575a12.42.1792101051502; Thu, 15 Oct 2026
+ 14:50:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <20261008182814.27450-8-kanchanapsridhar2026@gmail.com> <as-izeIj5bP01bna@google.com>
-In-Reply-To: <as-izeIj5bP01bna@google.com>
-From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Date: Thu, 15 Oct 2026 14:48:49 -0700
-X-Gm-Features: AclHuK9kJdMeQIt5SjytQ3uY2AY9vgRZt5bGu_tW5kkaC9v8cX-axyE2p_KzZ08
-Message-ID: <CACpmpof++tM9MUYgqgenwEBfaaJ60VsDwptK7Ne_-b+-DKMRZg@mail.gmail.com>
-Subject: Re: [PATCH v1 7/8] mm: zswap: Optimally place members of struct
- zswap_pool, struct zswap_entry.
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org, 
-	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+References: <20261015175928.3558057-1-rosenp@gmail.com> <20261015221110.000078b3@mythread.it>
+In-Reply-To: <20261015221110.000078b3@mythread.it>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 15 Oct 2026 14:50:40 -0700
+X-Gm-Features: AclHuK8liOXgbxfojrksuCyNWz7nnSVwi1wLqz12WnOn5wyiTfwv03gx2MILWks
+Message-ID: <CAKxU2N_J0Rkj1k+EutCRZGui0YKMAxeq5KhOH94e8_x0apY1Ng@mail.gmail.com>
+Subject: Re: [PATCH wireless] wifi: b43: back off the N-PHY TX power per rate
+To: Alessio Ferri <alessio.ferri@mythread.it>
+Cc: linux-kernel@vger.kernel.org, 
+	"open list:B43 WIRELESS DRIVER" <linux-wireless@vger.kernel.org>, 
+	"John W. Linville" <linville@tuxdriver.com>, 
+	"open list:B43 WIRELESS DRIVER" <b43-dev@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 8:43=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
+On Thu, Oct 15, 2026 at 1:11=E2=80=AFPM Alessio Ferri <alessio.ferri@mythre=
+ad.it> wrote:
 >
-> On Thu, Oct 08, 2026 at 11:28:13AM -0700, Kanchana P. Sridhar wrote:
-> > Place and align the members of struct zswap_pool and struct zswap_entry
-> > such that members used together in compress/decompress hot paths are
-> > able to share the same cacheline. Minimize holes within these structs
-> > while doing so.
+> Il giorno Thu, 15 Oct 2026 10:59:28 -0700
+> Rosen Penev <rosenp@gmail.com> ha scritto:
+>
+> > On N-PHY rev 3+ the hardware TX power control aims at the highest
+> > per-rate target, and an adjusted power table backs each rate group off
+> > from it. b43 fills that table from nphy->tx_power_offset[], but never
+> > sets the offsets, so they stay zero and every rate is sent at the
+> > power allowed for CCK.
 > >
-> > Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
+> > The SPROM power offsets exist to avoid this: on boards with external
+> > PAs, OFDM and MCS rates have to be sent a few dB lower than CCK to
+> > keep the PA linear. Sent at full power, 16-QAM and 64-QAM frames are
+> > too distorted to decode. On an ASUS RT-N16 (BCM4718, N-PHY rev 5,
+> > radio 2056, ofdm2gpo 0x66666666) the router could only send at 6-18
+> > Mbit/s and MCS 0-2, even at -50 dBm, and 24 Mbit/s and up or MCS 3 and
+> > up delivered nothing.
+> >
+> > Set the offsets from the per-rate targets b43 already computes from
+> > the SPROM, as brcmsmac does, before the table is built.
+> >
+> > With this, the RT-N16 sends at 54 Mbit/s, and at MCS 7 with HT
+> > enabled, and TCP from the router to a client goes from 9 to 17-18
+> > Mbit/s.
+> >
+> > Fixes: 8615eb2870f1 ("b43: N-PHY: support setting custom TX power")
+> > Assisted-by: LLM
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > > ---
-> >  mm/zswap.c | 10 +++++-----
-> >  1 file changed, 5 insertions(+), 5 deletions(-)
+> >  drivers/net/wireless/broadcom/b43/phy_n.c | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
 > >
-> > diff --git a/mm/zswap.c b/mm/zswap.c
-> > index 8ae67fd10522..ade84ac4076e 100644
-> > --- a/mm/zswap.c
-> > +++ b/mm/zswap.c
-> > @@ -160,11 +160,11 @@ struct crypto_acomp_ctx {
-> >  struct zswap_pool {
-> >       struct zs_pool *zs_pool;
-> >       struct crypto_acomp_ctx __percpu *acomp_ctx;
-> > -     u8 compr_batch_size;
-> >       struct percpu_ref ref;
-> > -     struct rcu_work release_rwork;
-> > -     struct hlist_node node;
-> >       u8 idx;
-> > +     u8 compr_batch_size;
-> > +     struct hlist_node node;
-> > +     struct rcu_work release_rwork;
->
-> compr_batch_size is added by this series, why not just add it before idx
-> to begin with?
-
-In patch 0006, where compr_batch_size is introduced, I was attempting
-to place it in the same cacheline as the acomp_ctx. This increased the
-size of struct zswap_pool to 248 bytes. I later optimized this in
-patch 0007, bringing back the size to 240 with the addition of
-compr_batch_size.
-
-As things stand:
-
-Baseline mm-unstable:
-
-struct zswap_pool {
-        struct zs_pool *           zs_pool;              /*     0     8 */
-        struct crypto_acomp_ctx *  acomp_ctx;            /*     8     8 */
-        struct percpu_ref          ref;                  /*    16    16 */
-        struct rcu_work            release_rwork
-__attribute__((__aligned__(8))); /*    32    56 */
-        /* --- cacheline 1 boundary (64 bytes) was 24 bytes ago --- */
-        struct hlist_node          node;                 /*    88    16 */
-        u8                         idx;                  /*   104     1 */
-        char                       tfm_name[128];        /*   105   128 */
-
-        /* size: 240, cachelines: 4, members: 7 */
-        /* padding: 7 */
-        /* forced alignments: 1 */
-        /* last cacheline: 48 bytes */
-} __attribute__((__aligned__(8)));
-
-My latest version makes changes to struct zswap_pool in 2 separate
-patches: the first introduces compr_batch_size without changing the
-size, the second optimizes for hot-path members' co-location on the
-same cacheline:
-
-struct zswap_pool {
-  struct zs_pool *zs_pool;
-  struct crypto_acomp_ctx __percpu *acomp_ctx;
-  struct percpu_ref ref;
-  u8 idx;
-  u8 compr_batch_size;
-  struct hlist_node node;
-  struct rcu_work release_rwork;
-  char tfm_name[CRYPTO_MAX_ALG_NAME];
-};
-
-struct zswap_pool {
-        struct zs_pool *           zs_pool;              /*     0     8 */
-        struct crypto_acomp_ctx *  acomp_ctx;            /*     8     8 */
-        struct percpu_ref          ref;                  /*    16    16 */
-        u8                         idx;                  /*    32     1 */
-        u8                         compr_batch_size;     /*    33     1 */
-
-        /* XXX 6 bytes hole, try to pack */
-
-        struct hlist_node          node;                 /*    40    16 */
-        struct rcu_work            release_rwork
-__attribute__((__aligned__(8))); /*    56    56 */
-        /* --- cacheline 1 boundary (64 bytes) was 48 bytes ago --- */
-        char                       tfm_name[128];        /*   112   128 */
-
-        /* size: 240, cachelines: 4, members: 8 */
-        /* sum members: 234, holes: 1, sum holes: 6 */
-        /* forced alignments: 1 */
-        /* last cacheline: 48 bytes */
-} __attribute__((__aligned__(8)));
-
->
-> >       char tfm_name[CRYPTO_MAX_ALG_NAME];
-> >  };
+> > diff --git a/drivers/net/wireless/broadcom/b43/phy_n.c
+> > b/drivers/net/wireless/broadcom/b43/phy_n.c index
+> > 22359bd9db47..c9b2b7496983 100644 ---
+> > a/drivers/net/wireless/broadcom/b43/phy_n.c +++
+> > b/drivers/net/wireless/broadcom/b43/phy_n.c @@ -5834,6 +5834,7 @@
+> > static enum b43_txpwr_result b43_nphy_op_recalc_txpower(struct
+> > b43_wldev *dev, struct ieee80211_channel *channel =3D
+> > dev->wl->hw->conf.chandef.chan; struct b43_ppr *ppr =3D
+> > &nphy->tx_pwr_max_ppr; u8 max; /* qdBm */
+> > +     int i;
 > >
-> > @@ -202,10 +202,10 @@ static struct shrinker *zswap_shrinker;
-> >   *              logic if referenced is unset. See comments in the shri=
-nker
-> >   *              section for context.
-> >   * nid - NUMA node id of the page for which this is the zswap entry.
-> > - * pool_idx - id of the zswap_pool that the entry's data is in.
-> >   * handle - zsmalloc allocation handle that stores the compressed page=
- data
-> >   * objcg - the obj_cgroup that the compressed memory is charged to
-> >   * lru - handle to the pool's lru used to evict pages.
-> > + * pool_idx - id of the zswap_pool that the entry's data is in.
-> >   */
-> >  struct zswap_entry {
-> >       swp_entry_t swpentry;
-> > @@ -214,10 +214,10 @@ struct zswap_entry {
-> >               bool referenced:1;
-> >       };
-> >       int nid;
-> > -     u8 pool_idx;
-> >       unsigned long handle;
-> >       struct obj_cgroup *objcg;
-> >       struct list_head lru;
-> > +     u8 pool_idx;
->
-> As mentioned previously, this needs to be packed with the length.
-
-Done.
-
->
-> >  };
+> >       if (nphy->tx_pwr_last_recalc_freq =3D=3D channel->center_freq &&
+> >           nphy->tx_pwr_last_recalc_limit =3D=3D phy->desired_txpower)
+> > @@ -5868,6 +5869,16 @@ static enum b43_txpwr_result
+> > b43_nphy_op_recalc_txpower(struct b43_wldev *dev, /* Make sure we
+> > didn't go too low */ b43_ppr_apply_min(dev, ppr, INT_TO_Q52(8));
 > >
-> >  /*
-> > --
-> > 2.39.5
-> >
+> > +     /*
+> > +      * The hardware power control aims at the highest per-rate
+> > target.
+> > +      * The adjusted power table backs other rates off from it,
+> > so that
+> > +      * e.g. 64-QAM isn't sent at the power allowed for CCK.
+> > +      */
+> > +     max =3D b43_ppr_get_max(dev, ppr);
+> > +     memset(nphy->tx_power_offset, 0,
+> > sizeof(nphy->tx_power_offset));
+> > +     for (i =3D 0; i < B43_PPR_RATES_NUM; i++)
+> > +             nphy->tx_power_offset[i] =3D max - ppr->__all_rates[i];
+> > +
+> >       /* Apply */
+> >       b43_mac_suspend(dev);
+> >       b43_nphy_tx_power_ctl_setup(dev);
+>
+> I'm not the maintainer, and i also have the same exact patch in my repo
+> https://github.com/aleferri/b43-6362-wip/tree/main/patches/mainline, so
+> i'm all for it, but isn't the ppr currently populated with 2Ghz sprom
+> params for all bands?
+This patch comes from work on an RT-N16, which is 2ghz only, hence why
+5ghz is not touched. I submitted this since there's a Fixes: tag
+that's appropriate here. The actual fixes I'll submit in the next
+merge window. It's quite late in the cycle.
+
+There's no maintainer here. It's an orphaned driver. I wanted to focus
+on brcmsmac but that driver is really slow.
+>
+> Alessio
