@@ -1,137 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEAC4AA402;
-	Thu, 15 Oct 2026 10:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059584; cv=none; b=rUoaoMuo4k7FaHPHvVud2ft8hZ01kc71dPAaJ/jz1zT0FqkKvaojcMKWQdw7Sev37BRi2lhyXeGYmMVzJu/yx9q5wJk8VMUJ4Yu610eK2wu/daqUNLB3CCF9HrwI+xJsS5a2fgBf5i/us7Nrmtuqio/khFMvf9eaXvb+cEuvm9w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059584; c=relaxed/simple;
-	bh=X1ZF0LLFhol9KjZa8UOMA49zTXjSj4IBB1MItfhLxY0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WmaEG6uiz080RI0NBLwWvvOANXV74JwmPV7eZ9SXUk0miRK9QmFXoGrbh/3YNSXPtgwPBDHEzk9EbCe0Nkix6WX2U5RgWSK/2a5X8ODuS9s7TOk3FuSv4gGiPWm7CFSgTXRolGson3tDS8UgBUquK6wmwZEiK/TldoxP7s06Tog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnddUJuq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755E050C2B7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792059592; cv=pass; b=FJkZU4EMRilZH/SApEerhZqYa/fFdnLGbUwH4Hlo9GDUqo4NcL1LBf9EXnQK1uoOten4ow6aPifn0oXaS/QEY+2I4AHu96uxV+VLfzn86/ecrLsSHmg3y7msjJbOUtc12a9nigvaL+NXYp5LgQK6l0/vOP6PN5aOYoE1d08uMtk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792059592; c=relaxed/simple;
+	bh=aLnGdcn8SVT+l8zY1DVp9E1OXpgrWCKYi41UBV9MLZ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B24jK7wiiVFtx4EM7vKjtIgrQB0CsjDXLYft9IdbxRF1q1XbuLWXeNTnY0UlA6LI64fOPOWO/n9+7Yl8gysVFvo8J+1qYvB/0Wdx5ptnD1nbKxlMTfUnUacyW4smsQm1C0jCaUT8nz+AkXZIyGBVcdMl7DYkVWErZZw+P++FkUM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=f4IMwvUu; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnddUJuq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14E71F000C4;
-	Thu, 15 Oct 2026 10:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792059583;
-	bh=qbAnPY0k2WYMu3kZPxGLJ3wr9dUW8E/gwCbxpaea4sE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SnddUJuqX5+NBkZhnXsn7mc4ngH6wAlCu9wJUk57h0U/UWcuFIjimHtQ/q4kRKRNR
-	 InvOJWrqeZUlSt3DmbV6HZAsbRWoITw2ZX8iR4uOv52jdzP6sJhNaiPhR8GO00UHjQ
-	 37AckAchSny9X0Dte5svmuh5TMJiF02buCPU2wQui06n8/mrYGyQnVwYnWlBVLWepR
-	 FrtUZM/kyaL3wYQJMqa4iHtYuiE800GbsZOP3+Mog4FaIgzXOcvBulYmrnEJYTKZ0x
-	 Noc+Atdme6XfPWktBhl9KbRNxzhfvJbzNYUPPjdSHDC8YOAG7hCIsvJQSFJIG4Xyqy
-	 yPCjdCQZ4ELPA==
-Date: Thu, 15 Oct 2026 11:19:39 +0100
-From: Lee Jones <lee@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Fengguang Wu <fengguang.wu@intel.com>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing/histograms: Verify event_call identity when
- updating synth_event refcount
-Message-ID: <20261015101939.GF1182143@google.com>
-References: <20261014103012.744589-1-lee@kernel.org>
- <20261014141000.6091c0c5@gandalf.local.home>
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="f4IMwvUu"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2055573c8cso649148466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:19:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792059587; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eNEqYr53wrMjLLy4l+Xx9OCZC2RUptygAkRyZI7NFVtCz4C+WL9AiV730SbQD8Rwx4
+         sbQTxrlxbJ8OFBmsaZekn0306YMmKrBEn4+cJa5XzYTurJDlKTyZk9cNeLj6cZw7gpt6
+         5s+XkDB6cf89eczipLSX+GAD7i/hGsjmNEYeMt6f+YYaZlcsm8pXGOic13ei2RwoL+Xg
+         Pvy9YJqLsAkelQC260M/B9BPqTc6Uz8AeIT8z1p9mqSmmVzNzMnez5cDk7cohKMewGMh
+         m4T3q8p9XKP1Efc51ioYiogKRH9vM0RLqNj0WrI5eA2CFxXOfaDidJjUCoR5yvYjS/js
+         B+Zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        fh=En9ITgaoId5Wsyq5DlSNDCO1qJui6zVe+cEuAi76F78=;
+        b=APaBNmakYCU6VUS0NSAEbLx2RtN9BbsmfAxdjtytj/JQyoLfaX64TIprN5p8PfmRgX
+         +nkfrAjnloyG7IWNlUZckEDb5xwsRpMbfkUi7FsO2dRnS7WhoqCbV2ROqVQV3Wnp+Gn6
+         9eJ+sAfIRakZWIQrsTA5o0pLp5AOPebS5v2Tw/CfLnsama1HfjJZB6ym6nv8fphihJ3o
+         GPZqP+asNEYNlhtRIEjS3zTyu56adaoWWtY6o50XQFnOynTcMmVmlO1qvAbu3EjdBOIn
+         IKW5YfUqD3IA36IkEattVaV6AccfVZkaeYFOcRyRsiAzeSXI49UoRz4QfYS8hfS+JKV8
+         xy8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1792059587; x=1792664387; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        b=f4IMwvUuf/8qCqVgUvUO1o57ngZBTyEPVRoL94xwTW9f96mUx6Q9VZtUZj3H/ZAHoC
+         cXPas5PR0DEoWZq+GQijbWj0orPNsLWRKV+h81m9R646aEBJ/KN6J+nu39mDe0TwQwmr
+         RPSdUX3hAj876bcOeAhOWw9PBszBCzxP+pfHU5OwZ8sgrcs06nQl5F+y8m7sIB//ERxO
+         az0VP3iweJ5Q1gclS3StAikiOjq4YvrR75JmrsYk26qWE16uf2+VlNl98R7y5kgvsCCK
+         /rOorpEJHhL3I7kPTIvJdPONVdGkWywt1eaM2UbxVWO/AkzZY2YTqrlNbrpP71uBpl2c
+         re0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792059587; x=1792664387;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        b=UkIKBbxFs/W6qXNvzOAnwBw+xclpyMXilNypZD+WihSh+oLgPlFm9xBQJdSQYSE+Fa
+         oVdEWS6qwGXGU14TUlzPwUXPQTfMK7BL9Jvi0OBs68iRzd/ATk9ukigLHu90WPV00//F
+         Ww7XrjMKf6TWwDOdNbLwqfRubLnpyAsR3TAW7GzyhYT4tqtUF5Xwz8yGdOY/+N+3INQ+
+         Jk3E0ldDY+KVdhhrQ0E77vHF1as6Bf48rsuP3hZQJ2Mb3ukRwv9Y9FjvdDRAk5aKYCBJ
+         Ywb51unu+K5KDoQXC0km/+EVe35Bf04p4aTBTXGDrLreBKGXKyekEszGamHTePsviznx
+         VLsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBSXBqhKk4p/7HRvokg8Cw0fktemCq0QLLgiyWZpLAUm67Z/B6KpFbDkddU8FsVIpZQ3AW3uRUXU8FJM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBjFbNgs/Sijs92pO9+deXN5DAxg1hXEE3HhUo8TQDPeGtfDvI
+	kYUxn5OeXxy1nu2w638rnaRHtMIz5rZNqB6vlQHFx0kI2Wx7/qxplUu84Yk3K8UKWA7JHq3Vi7D
+	Zbqt/vCM/DY17PL0ym7CaGzx3O84HS66GBgn/5A640w==
+X-Gm-Gg: AYBFou0/aSbvIeAHrUiLWPGWajyfM1ZSyw5Zs0Eb+2pVddt/G8bxOM8Hc3A/s1ISGeb
+	9uJ0MEMWdRf6MxdNy4lh/AVuBvDLrBBYvCxpRIMCw01qqITAU4txSRG0joAVj3iKoppTh1pIKtp
+	94f3L8bMkYnUY0RKV+xYETIzgpk2J411F33Hnfhb7qnjbN7dtPtb45ysaV3rTr6bgBgYv6qYGJe
+	EvuvCeglPOrrUv6QmAhl3RJo/AtluA46TVjysZ976D4TiWL/Lsb2Jfbtzi3T3T05qSXWwrBsgYA
+	0C6JSIbN+PjoP4T16zkAXgTqaUaewefp9DsW65eDjxb6AyQwML/8iwoyubqp1bFPZQ==
+X-Received: by 2002:a17:907:7fa0:b0:c29:4490:50d6 with SMTP id
+ a640c23a62f3a-c31aa022de1mr1644018966b.47.1792059587420; Thu, 15 Oct 2026
+ 03:19:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014141000.6091c0c5@gandalf.local.home>
+References: <20261014123758.782265692@linuxfoundation.org>
+In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Thu, 15 Oct 2026 19:19:29 +0900
+X-Gm-Features: AclHuK_fNn4KLGlruklVpvCw979MIpATa3NA0dr2zzs2gEVM47exlU8CVc0L7T4
+Message-ID: <CAKL4bV4yy39e_UswA068F9favpRSmVbEUMqe0cQrFNPJ8EB2=A@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026, Steven Rostedt wrote:
+Hi Greg
 
-> On Wed, 14 Oct 2026 10:30:12 +0000
-> Lee Jones <lee@kernel.org> wrote:
-> 
-> > In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-> > registration and unregistration paths look up find_synth_event() using
-> > trace_event_name(file->event_call) and adjust se->ref if a match is
-> > found.
-> > 
-> > Because find_synth_event() only compares the event basename, registering
-> > or removing a histogram on a non-synthetic trace event whose basename
-> > matches a synthetic event erroneously modifies the synthetic event's
-> > reference count.  If a histogram is registered on the non-synthetic
-> > event before the synthetic event is created and removed afterwards,
-> > se->ref is decremented without a matching increment, allowing the
-> > synthetic event to be freed while an active histogram action still holds
-> > a pointer to it.
-> > 
-> > Verify that &se->call matches file->event_call before adjusting se->ref.
-> > 
-> > Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> 
-> Hi,
-> 
-> Thanks for the patch...
-> 
-> > ---
-> >  kernel/trace/trace_events_hist.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-> > index 00a1d8522036..71b240b609ea 100644
-> > --- a/kernel/trace/trace_events_hist.c
-> > +++ b/kernel/trace/trace_events_hist.c
-> > @@ -6807,7 +6807,7 @@ static void hist_unreg_all(struct trace_event_file *file)
-> >  
-> >  			se_name = trace_event_name(file->event_call);
-> >  			se = find_synth_event(se_name);
-> > -			if (se)
-> > +			if (se && &se->call == file->event_call)
-> >  				se->ref--;
-> >  
-> >  			update_cond_flag(file);
-> > @@ -6926,7 +6926,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
-> >  		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
-> >  		se_name = trace_event_name(file->event_call);
-> >  		se = find_synth_event(se_name);
-> > -		if (se)
-> > +		if (se && &se->call == file->event_call)
-> >  			se->ref--;
-> >  		ret = 0;
-> >  		goto out_free;
-> > @@ -6962,7 +6962,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
-> >  
-> >  	se_name = trace_event_name(file->event_call);
-> >  	se = find_synth_event(se_name);
-> > -	if (se)
-> > +	if (se && &se->call == file->event_call)
-> >  		se->ref++;
-> >   out:
-> >  	if (ret == 0 && glob[0])
-> 
-> Instead of open coding each of these, can we add a new helper function:
-> 
-> struct synth_event *find_synth_event_call(struct trace_event_call *call)
-> {
-> 	struct synth_event *se;
-> 	const char *name;
-> 
-> 	name = trace_event_name(call);
-> 	se = find_synth_event(name);
-> 	return se && se->call == call ? se : NULL;
-> }
-> 
-> The above can be defined in trace_events_synth.c and exported like
-> find_synth_event() is.
-> 
-> Then we can remove the se_name from each of these functions.
+On Wed, Oct 14, 2026 at 9:58=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 284 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 16 Oct 2026 12:37:26 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.11-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Thanks for the pointer.  I'll look into it.
+Linux version 7.2.11-rc2 tested.
 
--- 
-Lee Jones
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
+
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.2.11-rc2rv-g62eb344d00f7
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Oct 15 18:54:27 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
