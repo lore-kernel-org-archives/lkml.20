@@ -1,174 +1,67 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA10530DE2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F9039F168;
+	Thu, 15 Oct 2026 14:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075622; cv=none; b=Aehv0BgweSUX9kPy6/DFVersD4ChsvREPoNcbMCOFrvwplHMQ4RCWu5nV7miFAgJiqB7npySASYJ65FEuxl5Wm1zlCJHQuKgq0u1UMsTvuvV+DbK1oelBsmvbhwBP8hP49cJ+saqwErWNwlvv1C23JLHSSCbXNIrVhF/EuubEiE=
+	t=1792075645; cv=none; b=gagUGMMArOfSOX0msZUjWG4mufFFdIQP08AFCBeXRPmnayV+p+saw8GX2UbyQE1o61bnX++WCse5HJk9WBTJ/qdr9aY5+0i65uE7TPEPUFajH6Jdrvpgdrl7MfACWYsGc+vCMPLChsmzsM8XRYB/tjxKe+sGX6I7slgLjOJ+F5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075622; c=relaxed/simple;
-	bh=iC9DN0Sjs9ijrGYXSch8NNYrtcI4yW7Tfh/t6BjbqPs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BJyEeyXF2BIpOvBAbzYTThYZUjdZZBqTVbU4N6d2cr1n/u6V+wvTOUYENTWDzR+3HjvAvYnQo8klOuIGnNMV910RDo6O3leHYoSIPzErKeWy18AEgW/9qHDH+hvCM8lKXkJ2HhVYe1tc1ykrsrq8yCNjPhRIu0SLNv0MEa76qWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=ossystems.com.br; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=ossystems.com.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6dd4f3f696aso2730555eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:47:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075620; x=1792680420;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m1Sj8rSdmb/pbigDyObZpWX/JDYcZPR3uB5iI75Xx8c=;
-        b=rgLNeA1XhU7ZKMrJ4ic/dDCvmfmCiYTbiVAiztVA39Y3/5cYY7DGG6Ac/30QEpiz4F
-         8qgg6/ixQ3wbc4jNX6S19si7f95iU1/6HQwefOi+YWYRTK6l8mdzgXmaZnzLMQL4Qk3r
-         Nyk9IwjWSH9CS3/7GJRbtVINC7IRjVsa7rAtNLYD+eoWuzcJncxIUPUQ8C+44YqUNnRl
-         lxD8RP/VsrE1HYSif1gwlwtDvwHwi2sgadzU6iyHosPdwsy2Z48ps9IozIJ9OTe8II1/
-         WnWcrdFwWyZUMpGtY+0WZpDYTTCohdirHOME7q+Rgwd62GUM6swnKI8nb5v6DEVw6QB5
-         9NwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjBgQ64pWU9qzaxCdQBXk3OtVlA2m1JyUOogWL5OSdH7vVEqTg5QcEDeFZCRP9EaGzSDk45W9SMDg/f9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkMepOJM8Jm+o8Dwv1YyQWJ4zMyrCpRmTCNNxAXBeoA222v3bh
-	qXgWUocl3+0hsm2bdo18ttaB+jaVazVdaBTPBG6WguG33sD32bRnsojR
-X-Gm-Gg: AYBFou0xrc2s7dGv88ADwsT8YiobrB8WPl8ie8OB3O3O2VX33Z0BNg//N7bfExGIDSg
-	7qGCA3p3XseyPtl1c+6jFXoS0igDpxZn/m/5gux0QsNqysWmIyPs+/nlf6Ag0x8vm35peXYzVh+
-	aHBln4I+Sw5rRS++9B5kE3eJpktOY75Sn3P8PLFTI9b9jByix7ozIE+8FE43Fg2jJDhG6OEA3Pk
-	53rI+PJSzNTO3HxVkoSH/bwhh6gejbawIOqCZkYEXNBwfJjrv1gT3xyFweAZhvlCeQKEARPtu+k
-	CYwE61HdrmBEpdHzzEF4007ay9ND81R1wxJBYmtm6/lhBRFP69OxF8zqJ09W03OkVMccFOl0dDL
-	331iZNFZz9umHmKarxCDMrQJw1xNgaa7mx5BRhLSoM7wE7uihcWsa0LtrkxnQUyr5SYxHpVbwpR
-	WFkfod/YoIacxaRCTucBU4NJaiEv9+U5Fe6ardWAOOrRr6sWWA85g93FYMiLADy2qsEu4v61+q/
-	gT64ic5gPheWPBzb1rG92Lgxe17618F2D7Gjl/TSciiI6URwTwuZ5UWPYYIULfTsMj68DaadaTz
-	uQtH3FWoYNQGJB7peePgalEP8E8Ak7SSkij/45dIhzk3uZtGZ+rBH8nFowR7oYh0LcNm06eI03W
-	P+sZfTIse6G4=
-X-Received: by 2002:a05:6820:162b:b0:6f7:6416:a34 with SMTP id 006d021491bc7-6f764161ae2mr8416735eaf.41.1792075620353;
-        Thu, 15 Oct 2026 07:47:00 -0700 (PDT)
-Received: from localhost ([201.89.183.74])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfc982a4sm4664115fac.14.2026.10.15.07.46.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:46:59 -0700 (PDT)
-From: Otavio Salvador <otavio@ossystems.com.br>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	linux-serial@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Otavio Salvador <otavio@ossystems.com.br>,
-	"Rodrigo M. Duarte" <rodrigo.duarte@ossystems.com.br>
-Subject: [PATCH] serial: imx: keep the CPU out of deep idle while an RS485 port is open
-Date: Thu, 15 Oct 2026 11:46:27 -0300
-Message-ID: <20261015144627.2461915-1-otavio@ossystems.com.br>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1792075645; c=relaxed/simple;
+	bh=qzUog2qSXZnMUJEUuR+qpJkdUa7WNVb4uTklWJ/pYWM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qeGwp6dnv6eMbGVeCoSQYMHlPKsdrMWUpH4o+fjATHraYaxqQNNZLdfMVd7LQ5L/8oGGj1yrw2Nk7HJgDT5AcKx+rmdA7Td+yuVFWft9Q69tTxC+fvT625fpP/7jqlqzs6pf0a1fOfpxN28H8ksulgq7L3OTFVh+EwkwpKzHf7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Swsj4a0P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Swsj4a0P"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 40AFE1F000C4;
+	Thu, 15 Oct 2026 14:47:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075644;
+	bh=gKBQU5V4BqAbKuNOO8JV9l7sDD5YaW8MSjzPP0vqr0s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Swsj4a0PbXdLUw7gOwb3Aya9xU9CUOViBH7hlG0mu43Pwgm/gGxcP8/BQrseZPvW8
+	 baiKqvhFOaiGk6eN6AlHlmBklMTQh6m0TQMjSjWVdftJGXq46HEtY3cR0vo4Y0zY+E
+	 9TT4dv6dPA/kNpAyMmcfZ8JKQ7qMIQq7hiyMPmoDvGlAkqRCXokm6JI6W1SU7gYIWM
+	 3k0vjosgBdDj672lmGc/m1DQOg9UyVxP+q9Ayz8b7073s95pvoGzPh3XqMKTD3ITnc
+	 Ng/ibGZr9S1MXMvhLqiks/gQUBDg5E+uKg3ArrTYYq6UCYM9iHoL2XgzThy+yrmzXh
+	 yO+uZGUZWFPJA==
+Date: Thu, 15 Oct 2026 07:47:23 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
+	Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
+	Mark Tinguely <mark.tinguely@oracle.com>,
+	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
+	Catherine Hoang <catherine.hoang@oracle.com>,
+	Chandan Babu R <chandan.babu@oracle.com>
+Subject: Re: [PATCH RESEND 6.6 v2 0/5] Backport of XFS umount hang fixes
+Message-ID: <20261015144723.GQ2705364@frogsfrogsfrogs>
+References: <cover.1791883285.git.siddh.raman.pant@oracle.com>
+ <2026-10-14-1-daily-reply-0009-xfs-umount-hang-6-6-needs-ack@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026-10-14-1-daily-reply-0009-xfs-umount-hang-6-6-needs-ack@kernel.org>
 
-In RS485 mode the driver releases the transmitter (RTS/DE) from the TX
-complete interrupt. On i.MX6UL/ULL the imx6sx cpuidle driver offers an
-"ARM power off" state with a declared exit latency of 300us, measured at
-up to 2ms. When the CPU enters it while the last character is shifted
-out, DE is released that much later. Modbus RTU slaves may answer after
-3.5 character times (1.75ms at >=19200 baud), so the head of their reply
-collides with our still-driven transmitter and is lost.
+On Wed, Oct 14, 2026 at 12:53:12PM -0400, Sasha Levin wrote:
+> > Backport of this series:
+> > https://lore.kernel.org/all/20250625224957.1436116-1-david@fromorbit.com/
+> 
+> I saw Darrick's ack on the 6.12 series. Still waiting for one on this.
 
-Add a CPU latency QoS request of 100us while an RS485 port is open. It
-excludes the power-off state but keeps WFI and WAIT (50us) available, so
-cpuidle can stay enabled and the constraint only applies while the port
-is in use.
+This also looks good to me,
+Acked-by: "Darrick J. Wong" <djwong@kernel.org>
 
-The request is added on startup and removed on shutdown, and its value
-follows the RS485 state in imx_uart_rs485_config(), so RS485 enabled
-through TIOCSRS485 after the port is opened, as libmodbus does, is
-covered as well.
+--D
 
-Tested-by: Rodrigo M. Duarte <rodrigo.duarte@ossystems.com.br>
-Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
----
- drivers/tty/serial/imx.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
-index 986fefb45c632..be05ed94bf0c4 100644
---- a/drivers/tty/serial/imx.c
-+++ b/drivers/tty/serial/imx.c
-@@ -24,6 +24,7 @@
- #include <linux/ktime.h>
- #include <linux/mutex.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/pm_qos.h>
- #include <linux/rational.h>
- #include <linux/slab.h>
- #include <linux/of.h>
-@@ -237,6 +238,7 @@ struct imx_port {
- 	struct hrtimer		trigger_start_tx;
- 	struct hrtimer		trigger_stop_tx;
- 	unsigned int		rxtl;
-+	struct pm_qos_request	rs485_pm_qos;
- };
- 
- struct imx_port_ucrs {
-@@ -339,6 +341,22 @@ static void start_hrtimer_ms(struct hrtimer *hrt, unsigned long msec)
-        hrtimer_start(hrt, ms_to_ktime(msec), HRTIMER_MODE_REL);
- }
- 
-+/*
-+ * In RS485 mode the transmitter is only released from the TX complete
-+ * interrupt. If the CPU sits in a deep idle state at that point, the wakeup
-+ * delays the release long enough to collide with fast responders on the
-+ * bus. The i.MX6UL/SX "ARM power off" state has a 300us exit latency and was
-+ * measured at up to 2ms, so keep the CPU out of states slower than this while
-+ * an RS485 port is open.
-+ */
-+#define IMX_UART_RS485_CPU_LATENCY_US	100
-+
-+static s32 imx_uart_rs485_cpu_latency(u32 rs485_flags)
-+{
-+	return rs485_flags & SER_RS485_ENABLED ?
-+		IMX_UART_RS485_CPU_LATENCY_US : PM_QOS_DEFAULT_VALUE;
-+}
-+
- /* called with port.lock taken and irqs off */
- static void imx_uart_soft_reset(struct imx_port *sport)
- {
-@@ -1585,6 +1603,9 @@ static int imx_uart_startup(struct uart_port *port)
- 
- 	uart_port_unlock_irqrestore(&sport->port, flags);
- 
-+	cpu_latency_qos_add_request(&sport->rs485_pm_qos,
-+				    imx_uart_rs485_cpu_latency(port->rs485.flags));
-+
- 	return 0;
- }
- 
-@@ -1710,6 +1731,8 @@ static void imx_uart_shutdown(struct uart_port *port)
- 
- 	clk_disable_unprepare(sport->clk_per);
- 	clk_disable_unprepare(sport->clk_ipg);
-+
-+	cpu_latency_qos_remove_request(&sport->rs485_pm_qos);
- }
- 
- /* called with port.lock taken and irqs off */
-@@ -2053,6 +2076,11 @@ static int imx_uart_rs485_config(struct uart_port *port, struct ktermios *termio
- 		imx_uart_start_rx(port);
- 	}
- 
-+	/* The request only exists while the port is open */
-+	if (cpu_latency_qos_request_active(&sport->rs485_pm_qos))
-+		cpu_latency_qos_update_request(&sport->rs485_pm_qos,
-+					       imx_uart_rs485_cpu_latency(rs485conf->flags));
-+
- 	return 0;
- }
- 
--- 
-2.55.0
-
+> 
+> -- 
+> Thanks,
+> Sasha
+> 
