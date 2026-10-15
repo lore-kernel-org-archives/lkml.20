@@ -1,78 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCF048665F;
-	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F245502576
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059007; cv=none; b=ApdMcS1ehelK5xO8yNwSUM2UY8TvOO/tt5P6EodWYiFjI6RkAHrcKPzJD07qsuF+dxJGGL57PaJLXfkUw2P0E9ZqmxNmZLiJFxX2ipQnQEqt1g4yVeg0fR332yE9ex48Iog2sc/uolfLpnPf/ll0mqR9dhwX4g0d9Z6oTFohV3I=
+	t=1792059025; cv=none; b=U9oPPw/5jpevQN9eAUqQWiBT49ado/K1t7OSMQMxYKQQVAFLmivbx4TCcP8sgIpiMQ1MpCkIW+dwp6jgD75DB0ot/oPTM+Kh7j9WzF0PgBhx/zzcTb1SNQn6OIIB3KwhEBbjbkz3BsmImBUNlZjPAVrGQ/zW20MWFuw0+BjW0ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059007; c=relaxed/simple;
-	bh=WRgzYFOArbXaTYEeFNrGeUiCrAn4QQqyStUy/+BzAZY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=qloPcncIG6V+HlwZgvMajtbBKtQOS4cj7NOmqauQ53OOgd1yjjIZ/s3+uIeKS1crOyKDCGxMLOT20pakmSZpqJydE7P9M2NQxbJXre5tbZxcqfu/7XbWtoMZr+rWvLOeJm9Wglsf8QxTXT1zo5AlxvsaYmEWCo20a/uP9v4glYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hpGQE/J4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792059025; c=relaxed/simple;
+	bh=9R6PmOOy2pJcDsKeh20BUb0EVH2cQVGkzfzBC35nZCQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J0vY1+DB1it+yVjcymEPJdI52rSyp8A0obqEPKx1WKxA9mc3qTz1XfVYXWvRCEsqaj9JTlQ8/3kyPWL9L4r9lxERGT1Adk7Kit6JAQRyWfFg4af8qaby3yF5KYI6IjKcCiL9XlD9mSpjQ93+HBP/xe3jpoHCHamPYgqVNTUF8ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STR8H/kf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hpGQE/J4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E1D1F000C4;
-	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STR8H/kf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168EC1F000C5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792059006;
-	bh=NCYNP9Fi9prxm0OJnfd1ciz/HhBuDQoqjbyYk3JuOoE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=hpGQE/J4BlXWTO779nvAX1pRfX1xrCbDwDz9tSMxOxX2vp8Me50MBvYneOpCkVx6A
-	 i7tkPvte/MTyO4TS9FkZaFZStyvD/5nAn6nQDBMsTEblXOcbmOwxOzWk6H+Be++sJJ
-	 4uUHNcsrbGFc9I5IfjPzSC41r5oImsMBy5qkCOvBZc61psIZ8xyjtui5uE09y5mCsS
-	 TSyILHdXUz6RMeTXF/zSUCRp2oeUOe2txmKXXRu3JjWcqDmZciQ3yuqi6tvhrduwsp
-	 vRGHjvxxTLCnlH1hVWDcqP95d/ufVekaz63SwJi88LyQbldxZGoC2vXW0ufRkcDcay
-	 xDBIpaQkA6Skw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A288392EA50;
-	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792059023;
+	bh=iVD6DVgrrmWtPCKZuLRYBe58wCwR82Aw5cFa3tQXsTU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=STR8H/kfDMSr+DWDoq48sXSduiYpF29cDZUyK7Fdcw20EHdZ/VWLhPjfrERXtda0k
+	 PXafGPzINOa8Y9a3SPaTqAQWZjdj/31fGC8BnkqNY8TW5IF+P9Wk8dvXTHeedTbeO8
+	 yi5/06I9GkPZ5BjXXSOuLBA0DHupRYFnp2OSgc9Gubb7Vc/yzoNmN0esApKdN1oOFN
+	 qNp/XG0tWLx2SidhXAU/bdihsyyYtM5v+m4cO6i4TmYMF5qQ6gn6meXwLlmZQeIlLL
+	 6QSLQ9iCMlf1isA7F9rVgEurWYpX1rc4MNYPwcasw1Z62JIE8VwDxb7Jj+YRelA+S3
+	 c1Mdl2MNORU8g==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so38304871fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:10:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxfjsI3WhJAidoMm4+7nVITTYYtw5eZEqMTEY1JU/Q4W+gTy4FzUdFJR5uEchFNORDRniHLK1kddUA6mNI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkKK3L7zQIzv22sGGwMUOrgQnh6c5MDFsQtrjOtm6HZE3NXSDr
+	/zG0ElubWByJBK/wyg24G9xOHQgfLP9F1l5iJXfSxZU91L518eOtOOrW/B9WD4H2B3ythuTMABj
+	hc545JUiGKZ1D6mklpVx6vNTji6UtuawcHzjCltnv8w==
+X-Received: by 2002:a05:6512:3e24:b0:5bc:b091:ea4f with SMTP id
+ 2adb3069b0e04-5bcde8c154cmr6665182e87.38.1792059021797; Thu, 15 Oct 2026
+ 03:10:21 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 06:10:20 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 06:10:20 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261014204331.15383-1-jayarajdmit@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: bcmgenet: unshare the skb before writing the
- control block
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179205900502.3330315.1943709997032683206.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 10:10:05 +0000
-References: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
-In-Reply-To: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261014204331.15383-1-jayarajdmit@gmail.com>
+Date: Thu, 15 Oct 2026 06:10:20 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mfir4zVZENbq8zJuvo8Acq3ZxUTy5E74ZzqHYVmPH8fog@mail.gmail.com>
+X-Gm-Features: AclHuK-iPK_M1R-OIfN-ytjpEWR5PdRs3K3ZQbAWqipplmC2--vh1bUa1mLFQ3o
+Message-ID: <CAMRc=Mfir4zVZENbq8zJuvo8Acq3ZxUTy5E74ZzqHYVmPH8fog@mail.gmail.com>
+Subject: Re: [PATCH] gpio: lpc32xx: check devm_gpiochip_add_data() return value
+To: Jayaraj Devaraj <jayarajdmit@gmail.com>
+Cc: Vladimir Zapolskiy <vz@mleia.com>, Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+On Wed, 14 Oct 2026 22:43:31 +0200, Jayaraj Devaraj
+<jayarajdmit@gmail.com> said:
+> lpc32xx_gpio_probe() registers each gpio chip with
+> devm_gpiochip_add_data() but ignores the return value. If registering
+> a chip fails, probe still returns 0, so the driver binds with a chip
+> missing and no error is reported.
+>
+> Check the return value, print an error naming the failing chip and
+> return the error code. Chips registered earlier in the loop are devm
+> managed and are removed automatically on failure.
+>
+> Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
+> ---
+>  drivers/gpio/gpio-lpc32xx.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
+> index 37fc54fc7385..014eb8bc70da 100644
+> --- a/drivers/gpio/gpio-lpc32xx.c
+> +++ b/drivers/gpio/gpio-lpc32xx.c
+> @@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
+>
+>  static int lpc32xx_gpio_probe(struct platform_device *pdev)
+>  {
+> -	int i;
+> +	int i, ret;
+>  	void __iomem *reg_base;
+>
+>  	reg_base = devm_platform_ioremap_resource(pdev, 0);
+> @@ -524,8 +524,12 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
+>  			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
+>  			lpc32xx_gpiochip[i].reg_base = reg_base;
+>  		}
+> -		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
+> -				  &lpc32xx_gpiochip[i]);
+> +		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
+> +					     &lpc32xx_gpiochip[i]);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "failed to register gpio chip %d: %d\n", i, ret);
+> +			return ret;
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Please use return dev_err_probe().
 
-On Fri, 09 Oct 2026 12:10:41 +0200 you wrote:
-> bcmgenet stores first_cb, last_cb and bytes_sent in the skb control
-> block and reads them back on completion to free the skb and credit BQL.
-> ether_setup() leaves IFF_TX_SKB_SHARING set, so the stack can resubmit
-> a shared skb that is still in the ring. The next transmit overwrites
-> last_cb, so the earlier slots complete without crediting their bytes
-> and BQL stalls the queue until the watchdog resets it.
-> 
-> [...]
+Bart
 
-Here is the summary with links:
-  - [net] net: bcmgenet: unshare the skb before writing the control block
-    https://git.kernel.org/netdev/net/c/89771ce4f8f6
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+> +		}
+>  	}
+>
+>  	return 0;
+> --
+> 2.34.1
+>
+>
