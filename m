@@ -1,147 +1,159 @@
-Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17999489FAB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EAA499F00
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054049; cv=none; b=qzhAIMiJoX4k7gZQz8zIpBZ1hbLFSg+9Umgf5txJhXieqoqsnDyjYJNCxKFHFhrpK+evb+D0VrEjRl4ORxVxVMqq3lFq5bbOUal0tefz9s0WgeREpRMfOllj0uOJ6BbfIyOAARoQ+CVXOv8HUJaz3Y7wXXM+1oWpPV7AHmcmixM=
+	t=1792054071; cv=none; b=r0fPb36NNxJeSQIGekMzgarOqDCIrdzalssS12G3Uy2hTQQiopTGRMaPXsYtlt0uXcWTnfNnSmdMb2p5/WuJFk+EThhcn5NbgtnYEo9fEjmiF1eRKDgcC0XOCg3lba+UQPN6227skNkBmjSVWVGVB52hFb6LipJt/Wp2EciRV8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054049; c=relaxed/simple;
-	bh=3DzHIzJFG/LKDyQ+ooB2t4Kz1ibLoewNe1K4ZAt8fTE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FGftrezN8RBVvkOX1+fkIZ3Z4CS46ee1IwVDHOrlxrCQ3o8ttLrtNc1uRxIO+EBvEeirRj5XaHVHOcXIWs1rHPlV2r4ORtR7/bBdYDtKFuSllTgEx41IcjJp8VTSXn86OSOXIfVbz0s4tig7+ghNt9L4AQiDa46Ee4Fa6/OxvbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=nlLDeU3R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RO/mq21G; arc=none smtp.client-ip=202.12.124.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1792054071; c=relaxed/simple;
+	bh=UGKBj/h6sbvEgkDPV05IVG/HSnc4PBVKluLbWb7zkDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cXy9vSx7zAasa4EdMy+FHLyE6+IkPEVC9uLdzcl19YxBiMutNdg2UGQixyaQ+Sdy03EU/nznGn2YnYAYoNtKVkd+gfxe6gMuPF3ho4VSE6NMnkpGkUHYJILN1TanqB0t+aKFttyKRgZh6y9Xfl2/DtlEeFazPVh31Qj9Ywufaiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IqPDEyxa; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="nlLDeU3R";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RO/mq21G"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 74C6A1300D09
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:47:27 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 15 Oct 2026 04:47:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1792054045;
-	 x=1792061245; bh=Xf58ua4FdgrM9Nf7kURSBCDP5FY876Tka1oD3hKlBSY=; b=
-	nlLDeU3R88x+C+XcDEWj6mCG0aacaM47ieOCjV6jMsvXWKNAeSJn+jRphkHQxjVa
-	/Hcjt9Nx4sADAacO6ezlkEaLIS5p4hJ2nixWUDZ1Lm8B0EEjEE15yo0BIGNLvjDY
-	R991/veHVfTvIocmLZ32JaWgZxRp0WizOklplKlPNcisyLB7HArCStpbK6K2j7+6
-	p0Kpl5uBFgjLpqGovCBnso3ajW9/JbFYwbBhyyzHPPXPoRw7R2ygxKpRTEMyurzM
-	bT8deJsY+xxm8SAz+/ckQW0vqTXxnN8pHwY+oxMwU96rdnNPjHomm/fxYYK0HdzP
-	cNDSQIJeLpEZIH1BjHHXcw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792054045; x=
-	1792061245; bh=Xf58ua4FdgrM9Nf7kURSBCDP5FY876Tka1oD3hKlBSY=; b=R
-	O/mq21G6S1V/MDGK5O2JeW3wnBdTY/cNMxw3hkbAvnOh0i2Fw3DgYAgqqYw6megl
-	GAwWvJzMwEFuSvaZXLlodkQR4ZDzcg6xmSqWZqEXFEYTlU6j74AQz9rO3wB2um1p
-	kxzB8+h0dQGWUXPL/HimmVcTZ6omcUui/xsFAS9r0DqxgZ9l7wdJGHUfeDjZImKm
-	EKeYPF6HRAizWckAvJBB8ptYOc1nK8i9v+XJJu3gXKlyZuTKqF2iUsgE6Qs516lr
-	R/0YG34DScYNDLs8ExutwwSCKI3+hnnSUfjFfJxdqFZDh0UsBdt0WMlY824aOg5l
-	wGj4iLYqb4t14GhGOTq4A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792054045; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:MOA3NrvtEHoYgxkRKjRAGPMvVdX8e4s0a6b+xCkr+C0EFGu
-	/1vI9tWxDEsVuTHuIcpz3AAvNunfEWnXge8HtpGKTzCCNdQsOp5pLQ1unD63QlKb
-	T1tad7JC+k9nsgRA6OexatmMRz/MS7UKraANhWEJQUy6A+RGmyIScyg+FLbm2qke
-	yAKh5/WkNF+qp+IGWsNaJvDo2SuarlARUJc+L0pRWXA0W0vI9FsunjOVxBgscr07
-	Bh9yPPqVHehsFAAaWe6zTEF4GXfdvGDibQGWm8yZgz7SHU1iWhI7hCfgUYB9xQ1F
-	ucQPAnQsJfcvHUG+XWkIarByoWH3gke2oe//kpA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:4z7b+kvGW4W1BUFE+mDvvDnNuAnYVdcCWZXSNWUhwmM=:3DzHIzJFG/LKDyQ+ooB2t4Kz1ibLoewNe1K4ZAt8fTE=;
-X-ME-Sender: <xms:HZPQavoazQGlCC_srZHMX3zRWqrThV6il8fnwG4GbOBfpTAz3_1guQ>
-    <xme:HZPQaqYhfPYR573HAZvMLwDDb7DjT7H9Twd7O97X6q11dQFkwFUgAn7R176AlGKtf
-    vazLFYgW12RMxr9HjC6waKMZhjPhqj9t_D3b0CRP9IX8JdhKg>
-X-ME-Received: <xmr:HZPQalGn4p8xkMKahMV0zzyK9EX2oMyvSaut_hdndJkOJJWw-jzX_7zpcGwBcGb_rQBTXmnG8WcIRpw-0gd6H0xJYFxSkR_3_IiIAkQBTgI>
-X-ME-Proxy-Cause: dmFkZTGdnHDF2BEuJTGH/rfkQEccsg/HRvyWcJAAXBDVUhsoha6DEHd535yO0ryVPimrP0
-    PJs1iev2ttBqSBMTRYqueUudaunYx/fk6khoDVVdL4E+Bxie2LBiACKezmG9jkopFmFqM+
-    KpeBMecM9r5dOdrWk1DwUx8Bzl0yJMnB/2CTC4TwatOmi3P4gQQ1bKQKuhEwTP5//JuQpR
-    DQVVVxzMh9qpzkQy/Faf3dZA/NOyhhP7NMYJkgeeHxgYHy17ui7Ye8SM6OkN57eWqn4RJR
-    hDMQRlhBpytg5bOpfLAXtNKmnu53objtZUDw/OdYr8irRcK6yiAqsMP/Nyo7S5yxz2/rNR
-    LU0WwSuOL+V3NSd0jTcX1dXBGdrCJWwNnE9cF18dOEhVXpixk+d9jhpY66gYCLvWcBtSvj
-    fDe1zQn7OOZ+Unk3EYstRqXQP73r7XhNTeaXbQd0cSZnEptou4XGtK0+Jep0cTcRvBc2Zc
-    NFdIdlMnJ+0Wm44JxC3Fqv9eDXoQhLWHsoygzqsak6+/i5fNUBt/EdsGxCOUvZpvMjMU9e
-    tNWjCvUuDc0d5L4/iiDzJAuq4CmaPfJ/juDmzaw4sr5NBYYn5DzakDdAUmmJTQ6Tci8VBP
-    d6QuajwptKO0izbH6dPfA56pGr/IBZHmPMKs3ulz8YPlp6jVFh89bLSNRbkw
-X-ME-Proxy: <xmx:HZPQaqyZHngyoXjPcGRE03S0wgl1A0YUUZtn5DPbk9SWYKS6tuEzDw>
-    <xmx:HZPQauA4elDgV_z4Uti6KqGx9uSggAW1zonoLEeIVHr63eYLxnVdBg>
-    <xmx:HZPQahXnthiPhLqMqBbMbMmTmZ-jyc9En74IoVuAQBlGWVRMCN1c3g>
-    <xmx:HZPQaoj8rRh2nVnUKW8U2hcP6UunGYIoo9oywsDH2naGWHMfBiQG-A>
-    <xmx:HZPQaq74FgGVpFzFiB6G3lvvVM_1UdCzVTsn49sjIv_dJy4KI2Fuld5l>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 04:47:24 -0400 (EDT)
-Date: Thu, 15 Oct 2026 10:47:29 +0200
-From: Greg KH <greg@kroah.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-fsdevel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 2/2] seq_file: Require explicit initialization of struct
- seq_operations
-Message-ID: <2026101515-oversleep-related-e4dd@gregkh>
-References: <20261014225811.i.852-kees@kernel.org>
- <20261014225818.3457479-2-kees@kernel.org>
- <2026101517-profane-opponent-4523@gregkh>
- <CANiq72m_iyquf4Lc8AWvbsBp++ASz4+C_MQ5iYQW-fHd_MNDxA@mail.gmail.com>
- <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org>
- <2026101532-fantastic-deafness-e04c@gregkh>
- <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IqPDEyxa"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso3169841f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:47:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792054068; x=1792658868; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+LoAM7/O56qtCbczKVBsmCZ8BcqH8pl/3PC+hZvCjxc=;
+        b=IqPDEyxanP3NJpe4pMcmtZNKXzn67Wa+0NE0HrRCc0dgoO7dw/3k+PC0gXzTQNjkIb
+         MAKFqIypdSPkhHsHP9B100v+LVznxhW9g34uMYJ49zovMNrCUTD5AWkhR8fo4OdXzTlf
+         WMNSnc+41kpJjh+83FaDI78U/bfIPR7rbV4MHGlU8A39cR4KYUwz/kI+ErUb0C4nzOCv
+         cv7bKN3YtNO48c8x4TuYa/mLHMt3mIUGuwtGTsrtSMhqUVBORCDPhaA6tnr4KXFH3lwD
+         L6HNV26VAmJ/eQf6t5TwktMgefc1pffFEn6CqsRved7Zh2gk1Nqn7CgGscNmy280asPp
+         rkDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792054068; x=1792658868;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+LoAM7/O56qtCbczKVBsmCZ8BcqH8pl/3PC+hZvCjxc=;
+        b=zSPwCYjSboeMSysre+qaYAVr9sxKqqu4f4GvAjRGLTwUqBO3EvuQgOiUhmoZ33Y+w0
+         Aym01gHahfb+peMXYH7iC5EnYsDyNiTNM0ghQj6yV2v6ZVb8wfHKGgCkmeHChk1IqVSe
+         qM/i3kL0XknU3wu2KSm7HvE7JMsKrWpXBvrUKt+OfG682HWNUx4pN5MhnEkbgTKIOROq
+         G+0CUNM3T4UxI2gna8oGGRBdmU5RPZ6DResnH7IG8IRbgrQ5+mwtTYkCDOjGgbgDI8ZV
+         eDSiOtIfG+ZbWj2xs+hPSmMji13sk9vkI11FTNf3Y9bj59r5pZ8SW2yPLJ77ZGyU6chA
+         sseQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx99Wvpwwz2kdbB0irTbAIuEtxocCF/0Efp+l5yOuKG9yaJhyTs+sr35mQFqeEQ2ST9HCx+0/DuKLSTcCc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0iWpcs3340HUPzRJHq/28MwMLQK/pB4dtJFb6HFDKWo2YF2XG
+	bcZChUu26tyP0UIBDuU66s0t8zbl3DTcXfaRCDyrFXmEGfcJ3AdZVhIQ
+X-Gm-Gg: AYBFou3qMeOlZKY1/Vg8IT0iNm0VYm+vm12Zez5t7Y+Li22wFsy+mxYTfle4nb9UuYx
+	Z2EXN6aueSxrNg6RDpb0uHybu/WyYY53rOdi0CsYqix7FH5ZM6JyjNC52yz7q+SZkjQSKWRUaEW
+	WK7/Dby1nTgB3QBT9VYGRdPeCzH7kP3Y/gLVu50OtyPu8j62GAJqfI3sAOEA7OhNJahusT1NqsM
+	uf3yK3FXrQIAqArmlVM0+GVyzn69zyWxLy1GOrSKMG7AFzcy7qSSg30meLdIoYzLRr5kb2/Lsl5
+	AA3MrMewscn/j0fKqDHE4wNHSu/ukzWtur8bvD8aAtr6ABRG5K3N3SIBYVewofLMxflD8uWHNXT
+	A2ftlzZmEQOB3d/WqLzGwd1gaoWXHZy1THrg3+Pfl1rku8zq3FrWKz33c7psbFVy+LCbbgAibIo
+	zE8gb3ZR904xoX/cLz9WkfE3vSjgumXe5TzUshkaTP9P6+2XAtENIMl6NqaqdAdZ0lOdsBmL5SU
+	tsQsLLPtOZERf+OIDLn/ZldOgGPx+tUVeAfzx9ZBFJ7Ug67HyPkajwJZ1qDM8yZ3BkYx+7W
+X-Received: by 2002:a05:600c:4e12:b0:4a1:7f8e:6e5d with SMTP id 5b1f17b1804b1-4a18e4a393amr399094215e9.6.1792054067874;
+        Thu, 15 Oct 2026 01:47:47 -0700 (PDT)
+Received: from fedora-tap.advaoptical.com ([82.166.23.19])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bf63567esm76383725e9.10.2026.10.15.01.47.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:47:47 -0700 (PDT)
+From: Sagi Maimon <maimon.sagi@gmail.com>
+To: netdev@vger.kernel.org
+Cc: radhey.shyam.pandey@amd.com,
+	michal.simek@amd.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	andre.przywara@arm.com,
+	robert.hancock@calian.com,
+	horms@kernel.org,
+	joe@dama.to,
+	suraj.gupta2@amd.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Sagi Maimon <maimon.sagi@gmail.com>
+Subject: [PATCH net-next] net: axienet: release every RX buffer in axienet_dma_bd_release()
+Date: Thu, 15 Oct 2026 11:47:43 +0300
+Message-ID: <20261015084743.1798326-1-maimon.sagi@gmail.com>
+X-Mailer: git-send-email 2.47.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com>
 
-On Thu, Oct 15, 2026 at 09:47:34AM +0200, Miguel Ojeda wrote:
-> On Thu, Oct 15, 2026 at 9:11 AM Greg KH <greg@kroah.com> wrote:
-> >
-> > __must_init might be smaller?
-> 
-> That sounds fine too. I like that it says that something *has* to be
-> done (like the original name did). Hmm... On the other hand, I guess
-> "must" could sound like one has to initialize the field "somehow",
-> i.e. writing:
-> 
->   struct S s = {};
-> 
-> definitely initializes it, yet the compiler would warn. Would
-> "explicit" hint a bit more at the fact that one has to actually
-> "write" the field, even if it may have been initialized anyway?
+The RX walk in axienet_dma_bd_release() stops at the first descriptor
+without an skb, assuming that such a slot and all after it were never
+filled.  That holds on the axienet_dma_bd_init() error path, but not once
+the ring has been running: when axienet_rx_poll() fails to allocate or
+map a replacement buffer it leaves the slot it emptied with a NULL skb,
+in the middle of a populated ring, until a later poll refills it.
+Closing the interface before then leaks the skb and the streaming DMA
+mapping of every descriptor after that slot, which can be most of the
+ring, and is most likely under memory pressure.
 
-"explicit" is a description, "must" is an action that tells the reader
-what they have to do, so maybe "must" is better?
+The walk also frees each skb before unmapping it.  With swiotlb, the
+DMA_FROM_DEVICE unmap copies the bounce buffer back into the skb data
+that was just freed, and on non-coherent platforms it invalidates cache
+lines that may already belong to a new owner.
 
-Anyway, I don't care, naming is hard, either is fine with me, I'll let
-the authors of the patch here pick what they want :)
+Skip empty slots instead of stopping at the first one.  An emptied slot
+still has a non-zero cntrl but its buffer is already unmapped, so the
+skip has to cover the unmap too, which it does by coming before it.
+Then unmap before freeing, as axienet_rx_poll() does.
 
-thanks,
+This was reported by the Sashiko AI review bot.
 
-greg k-h
+Tested on the AXI Ethernet MAC of an ADVA TimeCard X2 (PCIe card, with
+the built-in AXI DMA): traffic passes after each of ten down/up cycles,
+each running axienet_dma_bd_release(), so the unmap-then-free order is
+exercised on every buffer.  A failed RX refill was not reproduced, so
+the skip over an empty slot was not exercised.
+
+Fixes: f26667a373f3 ("net: axienet: Fix DMA descriptor cleanup path")
+Fixes: 7a7d340ba4d9 ("net: axienet: fix RX ring refill allocation failure handling")
+Assisted-by: LLM sparse
+Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+---
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 919e644d9158..a8b8c0efa21f 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -247,13 +247,13 @@ static void axienet_dma_bd_release(struct net_device *ndev)
+ 	for (i = 0; i < lp->rx_bd_num; i++) {
+ 		dma_addr_t phys;
+ 
+-		/* A NULL skb means this descriptor has not been initialised
+-		 * at all.
++		/* A NULL skb means the descriptor holds no buffer: it was
++		 * never filled, or axienet_rx_poll() took its skb and could
++		 * not refill it, having already unmapped the old buffer.
++		 * Such slots can sit anywhere in a ring that has been running.
+ 		 */
+ 		if (!lp->rx_bd_v[i].skb)
+-			break;
+-
+-		dev_kfree_skb(lp->rx_bd_v[i].skb);
++			continue;
+ 
+ 		/* For each descriptor, we programmed cntrl with the (non-zero)
+ 		 * descriptor size, after it had been successfully allocated.
+@@ -264,6 +264,8 @@ static void axienet_dma_bd_release(struct net_device *ndev)
+ 			dma_unmap_single(lp->dev, phys,
+ 					 lp->max_frm_size, DMA_FROM_DEVICE);
+ 		}
++
++		dev_kfree_skb(lp->rx_bd_v[i].skb);
+ 	}
+ 
+ 	dma_free_coherent(lp->dev,
+-- 
+2.47.0
+
