@@ -1,80 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F77E30274D;
-	Thu, 15 Oct 2026 14:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074007; cv=none; b=jegOaMVW+dXrIL8+cKN3DPjCxP5fofw/ZUB6gOOkiXfkC0XQK1rK3bXPvknFgh1k8YfLYtNmvocVJ1HbCpOP5suDW5fOWRvUyAa4rOQncrYriUQd5/RZlrSo+KqsRD28AULyUd1LdbQ/PK4m/mqHXLR3d1i+i7Xq60G6RwDKQJM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074007; c=relaxed/simple;
-	bh=ZSuBiEONYE8OFhTAqWlSrgfR5n0f8OQWALvFpXlZZ9M=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=QAIrZVDb2tBvi7oHYIvvhEwg6TTb5niUnxs6sL926S8tfk9LpH4+KssyXrwXasTfIHD7dzvya2k3tjYP6ydUP4+mzJwx+7MoRKpfKAxZ8UTOul7wdblqPqOTJn6mtrMlNk4UYikZ518r8HYBPRODhMiRMmgAFWEWqJU2sybqQ4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXlvSxQK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C010D51C040
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792074015; cv=pass; b=UdsVbfvflw/ibY0bgvYZlnbbwU1SU68QBKgC8whFtXSEb4ss6So7xs3r23RL1D1j3mkRTQEWRjlT6x+9vgfVoYUpOCSdA77LZs7nKx1IEHehTF0/avL62NI+eKXqhpe7REG99PHiiQxwxr02XvAZLQIBdHemAr8bZ9aJf5HXTzM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792074015; c=relaxed/simple;
+	bh=5q68nD75mUwwpPx78vqnUM4U6C+IpjBmz1+55T3EIzs=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=QsNJeP3gOYHvLPT6JdWdUmEcbQFUDNt5bHEf0xi+zifYz4Tn0aC3f8cc5r56jCfuH+BhDVYwMX9vNXHIf6kAW6tHf47d1OXI6svS7NqFpfrdq1RKYrCDQ1xHM39gft689Vy63AMmElUZHnETOoYcc4QSwt7prm00u6ZW3IWhvhk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=laaQnh7n; arc=pass smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXlvSxQK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091951F000C4;
-	Thu, 15 Oct 2026 14:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792074006;
-	bh=VJS6hZuydnx4DmRBaO53y3BGLT926GazDCKb7odCu5g=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LXlvSxQKZooo4K9CIbwcAOur3SlzZFlRa1gTtp1/iTlOWTL0dpX6F+juqS0CcBIQJ
-	 2icI/sSj3oRhWjFOosIRFK7nuDOiQVrgIlIASjGW5zFaVx7mf0nFKf/1GEgVcRnurV
-	 13vuXxBjy9U6CovS7Ti/W9Y3HRubBvFToWnZNkQezcAAhE0cndHyCcF2BO02ciweIl
-	 GOf8xuK5BligIN4FPcYEeC1goSWYqxGD23XiiG2PG53U2pH19Jjb6UcU1cycV1JbeT
-	 5hxIjl0N6WTstuYeRexC3PLsJfvFUIL5xXnqayAZBxBM587XSWXLAT+q8xF6sbFEJq
-	 TgJmv8P+jXr3g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F15A4392EB0C;
-	Thu, 15 Oct 2026 14:20:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="laaQnh7n"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso731130666b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:20:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792074012; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mel3W/1OEsE3PjDs0niPA5m6ExyeIYadEnzsg6CltYqajgwvqqPVgGMg97bjtXpvw3
+         OIHbJmHGofmt4UEsL6GLKQF+iYpJtzP0iua0AUJSUVZ6b1yL50FJJ2D547qPibHYXq34
+         HUZaqys9tIODkrFkg1oJPfJ0/L3JmdM70ATlFQR9JGiAuoXEzL3C97MjiRz7B5oOW8eq
+         mbuj8GmIdITn1HZJclwM7S4AbVZ4nfOfZWbG686m/2YNEK+W9Mn4+U6w7kHSJpo0JnLB
+         9yUwCt4xSHAYHGQo7G1gw2asxOcDiSfwtTbgbAl/uYItnilzCE9SEt35YVu8wGj1grOg
+         Rq1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
+        fh=mVnai6uUHgyISzngmynaKikAhZd8OC2HBUFkPbxNRtc=;
+        b=LjBkHQ1IbmcKAksaohi96GVYgfva0/dDkDPHC7jHQOQcHvU6VqblranftYeI7j3YaE
+         77W7DF4hpHfOV8WUbfYnZdAWE121YDEyhl2AuMPcED23wUm7A98djKpcZIT0Y0oyfmhY
+         DSg7XKxDNCFXz7hCq9BwnUSIn7SPaP9sqr2KZ3jjRb123V7Cf5u5oIaA4nLVf1tq7ZrU
+         uaDTL5SM0K0mPKM6Ix5hXrQQsE4Z2NBifer/yyN9r/nWCZwjrZZ9wcI5y1tdRUQIp5SW
+         0I121u6l7ZJ5iZTyKOz2OzANajJNek8vLd2UoHprlZIOdRxll3ZdR6AJiXlGq/NMKszo
+         X6QA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792074012; x=1792678812; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
+        b=laaQnh7nTNWpMFIBc80//BLk8ULI2f6I0rfyIoxrOgLD513CQUkfrnL+kRQFslWzx/
+         3cfYyiB5jOHModn6xBco+AJ5rRiIVzJbqBHL5fDGHi7yFoJWMljCXu3meGJy5+eDSfP7
+         C/CIshaXtjHVQP5KVJguAN0gKqb1ie5rWr4AZrhUvEp+26mQpir1I5mIG62NIaDp3w3Q
+         gP3v0jlmEsQ3UqQE6YfVScJlpeuGAELUk+P2vCw+jjFT44tklQzFWAfZNOBUh48Aqmrl
+         LwFgMqVyxtkN2fCktjAxLNinETTq6ux3AM3keJTNzzb0f0AUu+t33A8pGePpt6hvdGAX
+         GugA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792074012; x=1792678812;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
+        b=aS6rEBfM8gP/XZRSkZkn+fWR9B4IgVBLVEGgOnCBPekbPzcx9uVX2qDLHjgi374vcc
+         w9hjMRCz+Eh0xkqHOGi0SWoTOrDd84+Oogk5qNJQ11PlXOtnkADs17J/hu21RgDuqu/Z
+         jU5Qe2IJw7ybPIvtLznMYqMWrcyLQ8eauykGN13V3bUuSvnGOeUem0RnUy7l72Kj8oM+
+         56e8Wem48gVuoLPp0mtSD8Xw6I2rr3PBDzn+Uo3C1Y0w/wLfmeMhWptAXx880TJJRDCL
+         v04FwbypoxyOzvgx67QKfIYuu2idNMnQUWJ/ZtaoO2wW08cBmdvI1zrISRD7pp8SES19
+         o1Og==
+X-Forwarded-Encrypted: i=1; AKwUvByDaJx28AH4obMCvgGZZIaUhMd/C86yAzsO/gg4N/z3n41xXfTP6I7Gck0nM0nSo8mEsOj8yRn/UDI6nd4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7iJ/iV8xLOdZklLyel3VKXEGPRkDB7GYzb5o1DhzOXpsNUPJc
+	7YJJgKZ605smnE0DTpQUllaBwRfj/BESYVAFJviR17vObQffWkfWhf4eiCIEr4hZEWg+2ca05W2
+	HDgBNao5ndMZuP7YsT1k9YiUoF4gH5NI=
+X-Gm-Gg: AYBFou2Yva7JHidEuBOyCpkT5XKWzxzxP5D5IAilsgIS8awA4aM7BgW/Wh2mODy3YO+
+	bjPFjN1/bSX2UFc+NKN7Fm/L0+EpR7ycg5HZBNTGuIfQ2KM5R/9A+Gf7kTm6VYxfBXvRaPLJpuf
+	wC5hraztjFnMsryuJ7KM89bGADrRh1U1ayqduotnA9x4V5+P2oudUUiP3lkJwt/clqQQLsIGF9p
+	IXjn1VWFqnHbN7QHr9ck7GpdXJZ9XqB6ELu558Fh61Q/lXW/klG3iiQYQLGu7Jfj0oZ7XZOIUhv
+	SvZ8SSTrPmqlK9CHyD+peBh75EKLDNDK3S5W35F0uIlJ2YrurBaWbWLPa8vWIP8tyR8=
+X-Received: by 2002:a17:907:3ea0:b0:c3f:98d4:dfd0 with SMTP id
+ a640c23a62f3a-c3f98d4e648mr142302166b.45.1792074011520; Thu, 15 Oct 2026
+ 07:20:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2 0/2] bnxt_en: Fix SW USO padding
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179207400477.3459929.16206928663915388110.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 14:20:04 +0000
-References: <20261009215426.2377946-1-joe@dama.to>
-In-Reply-To: <20261009215426.2377946-1-joe@dama.to>
-To: Joe Damato <joe@dama.to>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- linux-kernel@vger.kernel.org
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Thu, 15 Oct 2026 22:19:32 +0800
+X-Gm-Features: AclHuK8Eopw4NagnovXsrD2YLqs4Ei_fvd0nEsjlE6_Wb7YAbvsTTDxRBggZkrU
+Message-ID: <CANypQFbjcxXjiigMCCyErN=DSEh3ZG3NMWRpq=Hic8KJ76cwew@mail.gmail.com>
+Subject: [Linux Kernel Bug] KASAN: use-after-free Write in olq_alloc_dquot
+To: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	ocfs2-devel@lists.linux.dev
+Cc: heming.zhao@suse.com, linux-kernel@vger.kernel.org, 
+	syzkaller@googlegroups.com, r772577952@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Dear Linux kernel developers and maintainers,
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+We are writing to report an issue discovered in the OCFS2 subsystem.  The
+issue is reproducible on the latest version of linux (v7.3-rc7, commit
+24a19b953e2a3d0ea5a8c4951a0ab8f32720c907).  It is triggered by mounting a
+crafted ocfs2 image that has quotas enabled (which needs CAP_SYS_ADMIN)
+and then creating a file on it.  Below is the kernel report:
 
-On Fri,  9 Oct 2026 14:54:22 -0700 you wrote:
-> Greetings:
-> 
-> As a followup to Eric's fix a51d233ccd48 ("bnxt_en: fix DMA mapping length
-> for padded small packets") which fixes padding for normal TX, this series
-> fixes padding for SW USO.
-> 
-> There are two cases I try to address:
-> 
-> [...]
+==================================================================
+BUG: KASAN: use-after-free in instrument_write
+include/linux/instrumented.h:41 [inline]
+BUG: KASAN: use-after-free in ___set_bit
+include/asm-generic/bitops/instrumented-non-atomic.h:28 [inline]
+BUG: KASAN: use-after-free in __set_bit_le
+include/asm-generic/bitops/le.h:36 [inline]
+BUG: KASAN: use-after-free in _ocfs2_set_bit fs/ocfs2/ocfs2.h:930 [inline]
+BUG: KASAN: use-after-free in ocfs2_set_bit_unaligned
+fs/ocfs2/ocfs2.h:961 [inline]
+BUG: KASAN: use-after-free in olq_alloc_dquot+0x7a/0xd0
+fs/ocfs2/quota_local.c:1211
+Write of size 8 at addr ffff88806b34fda0 by task syz.0.17/12574
 
-Here is the summary with links:
-  - [net-next,v2,1/2] bnxt_en: Add helper to fill SW USO payload BDs
-    https://git.kernel.org/netdev/net-next/c/70f63dc60872
-  - [net-next,v2,2/2] bnxt_en: Pad short SW USO segments to BNXT_MIN_PKT_SIZE
-    https://git.kernel.org/netdev/net-next/c/b0f7f9c87817
+CPU: 0 UID: 0 PID: 12574 Comm: syz.0.17 Not tainted 7.3.0-rc7 #56 PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x153/0x7e0 mm/kasan/report.c:482
+ kasan_report+0x147/0x180 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x2b0/0x2c0 mm/kasan/generic.c:200
+ instrument_write include/linux/instrumented.h:41 [inline]
+ ___set_bit include/asm-generic/bitops/instrumented-non-atomic.h:28 [inline]
+ __set_bit_le include/asm-generic/bitops/le.h:36 [inline]
+ _ocfs2_set_bit fs/ocfs2/ocfs2.h:930 [inline]
+ ocfs2_set_bit_unaligned fs/ocfs2/ocfs2.h:961 [inline]
+ olq_alloc_dquot+0x7a/0xd0 fs/ocfs2/quota_local.c:1211
+ ocfs2_modify_bh+0x240/0x470 fs/ocfs2/quota_local.c:116
+ ocfs2_create_local_dquot+0x1511/0x1a90 fs/ocfs2/quota_local.c:1261
+ ocfs2_acquire_dquot+0x7dc/0xb20 fs/ocfs2/quota_global.c:897
+ dqget+0x73c/0xc50 fs/quota/dquot.c:1002
+ __dquot_initialize+0x3b3/0xcb0 fs/quota/dquot.c:1462
+ ocfs2_get_init_inode+0x13b/0x1b0 fs/ocfs2/namei.c:206
+ ocfs2_mknod+0x88d/0x2000 fs/ocfs2/namei.c:315
+ ocfs2_create+0x195/0x450 fs/ocfs2/namei.c:678
+ lookup_open+0xf95/0x18e0 fs/namei.c:4596
+ open_last_lookups fs/namei.c:4796 [inline]
+ path_openat+0x6b1/0x1f20 fs/namei.c:5026
+ do_file_open+0x203/0x440 fs/namei.c:5058
+ do_sys_openat2+0x107/0x200 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f3ad6ba778d
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48
+89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
+01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f3ad7b32018 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f3ad6e35fa0 RCX: 00007f3ad6ba778d
+RDX: 0000000000000042 RSI: 0000200000000040 RDI: ffffffffffffff9c
+RBP: 00007f3ad6c4eb3d R08: 0000000000000000 R09: 0000000000000000
+R10: 00000000000001ff R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3ad6e36038 R14: 00007f3ad6e35fa0 R15: 00007ffe36ca1410
+ </TASK>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x7f0af21c8
+pfn:0x6b34f
+flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
+raw: 04fff00000000000 ffffea0001acd7c8 ffffea0001d459c8 0000000000000000
+raw: 00000007f0af21c8 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as freed
+page last allocated via order 0, migratetype Movable, gfp_mask
+0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), pid 12556, tgid 12556 (9),
+ts 160210821197
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x205/0x260 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x235b/0x23e0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x209/0x5a0 mm/page_alloc.c:5436
+ alloc_pages_mpol+0x241/0x4a0 mm/mempolicy.c:2486
+ folio_alloc_mpol_noprof+0x39/0x160 mm/mempolicy.c:2505
+ vma_alloc_folio_noprof+0xdb/0x1e0 mm/mempolicy.c:2540
+ folio_prealloc+0x30/0x180 mm/memory.c:-1
+ do_cow_fault mm/memory.c:6024 [inline]
+ do_fault mm/memory.c:6136 [inline]
+ do_pte_missing+0x519/0x3350 mm/memory.c:4700
+ handle_pte_fault mm/memory.c:6558 [inline]
+ __handle_mm_fault mm/memory.c:6707 [inline]
+ handle_mm_fault+0x19bb/0x36d0 mm/memory.c:6876
+ do_user_addr_fault+0xa7e/0x1360 arch/x86/mm/fault.c:1343
+ handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+ exc_page_fault+0x71/0xd0 arch/x86/mm/fault.c:1536
+ asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+page last free pid 12556 tgid 12556 ts 160322719585 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ free_unref_folios+0xd80/0x14c0 mm/page_alloc.c:3022
+ folios_put_refs+0x7b4/0x8a0 mm/folio.c:1036
+ free_pages_and_swap_cache+0x25e/0x440 mm/swap_state.c:592
+ __tlb_batch_free_encoded_pages mm/mmu_gather.c:138 [inline]
+ tlb_batch_pages_flush mm/mmu_gather.c:151 [inline]
+ tlb_flush_mmu_free mm/mmu_gather.c:417 [inline]
+ tlb_flush_mmu+0x3a2/0x680 mm/mmu_gather.c:424
+ tlb_finish_mmu+0xf9/0x230 mm/mmu_gather.c:549
+ exit_mmap+0x473/0x9c0 mm/mmap.c:1328
+ __mmput+0x118/0x430 kernel/fork.c:1193
+ exec_mm_put_old fs/exec.c:920 [inline]
+ setup_new_exec+0x30e/0x360 fs/exec.c:1400
+ load_elf_binary+0xbd1/0x2860 fs/binfmt_elf.c:1024
+ search_binary_handler fs/exec.c:1779 [inline]
+ exec_binprm fs/exec.c:1811 [inline]
+ bprm_execve+0x933/0x15c0 fs/exec.c:1867
+ do_execveat_common+0x522/0x6b0 fs/exec.c:1965
+ __do_sys_execve fs/exec.c:2038 [inline]
+ __se_sys_execve fs/exec.c:2032 [inline]
+ __x64_sys_execve+0x97/0xc0 fs/exec.c:2032
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+Memory state around the buggy address:
+ ffff88806b34fc80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff88806b34fd00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff88806b34fd80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                               ^
+ ffff88806b34fe00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff88806b34fe80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
 
+Following is the root cause analysis for this issue, note that the analysis
+is performed with the assistance of LLM, but we try our best to ensure the
+accuracy.
+
+Every ocfs2 node keeps a local quota file, divided into chunks.  Each chunk
+starts with a header block whose bitmap records which quota entries of that
+chunk are in use.  When ocfs2 hands out a new entry, olq_alloc_dquot() sets
+the entry's bit in that bitmap.  The issue occurs because the bit it is
+asked to set lies far past the end of the bitmap, which fits in a single
+block.
+
+The bad bit position comes from dqi_blocks, the number of blocks the local
+quota file says it uses.  ocfs2_local_read_info() reads it from disk at
+mount time and never checks that it agrees with dqi_chunks, the number of
+chunks.  Later, when no chunk has a free entry,
+ocfs2_extend_local_quota_file() works out how many entry blocks the last
+chunk already has from dqi_blocks, and places the new entry right after
+them:
+
+    chunk_blocks = oinfo->dqi_blocks - ol_quota_chunk_block(sb,
+            chunk->qc_num) - 1; ... *offset = chunk_blocks * epb;
+
+A chunk can hold at most ol_chunk_blocks() entry blocks, so for a valid
+file this number is small.  On a crafted image whose dqi_blocks is much
+larger than the chunks can account for, the last chunk appears to hold
+thousands of entry blocks.  The resulting bit position then points
+kilobytes past the header block, and setting it corrupts unrelated memory.
+
+To fix this issue, we can check the local quota file header in
+ocfs2_local_read_info(), right after dqi_chunks and dqi_blocks are read
+from disk.  The two values agree when:
+- the last chunk has its header block and at most ol_chunk_blocks() entry
+  blocks, or
+- there are no chunks, and the file consists of the info block only.
+
+A file that fails the check should be rejected with ocfs2_error(), the same
+way ocfs2_read_quota_block() handles a corrupted quota file.
+
+If this solution is acceptable, we will submit a formal patch.
+
+The kernel console output, kernel config, syzkaller reproducer, and C
+reproducer are available at google drive:
+https://drive.google.com/drive/folders/1apOZQcX2fl3fQYSipzCoQy9HI1PYDwwf?usp=sharing
+
+Please let us know if any further information is required.
+
+Best Regards, Jiaming Zhang
