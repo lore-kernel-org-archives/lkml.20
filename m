@@ -1,131 +1,168 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A90A556BBC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5633F1A682C;
+	Thu, 15 Oct 2026 17:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083981; cv=none; b=Id8MC0DjiepoijbKqtGc3E6Ylb48Tj0EJIi/IBvCXxZWCvmfbfB7E2E20227/9gzwbrOJzy9FErHwkLXMGIG5ZeU0fX/UVqsN0Uu38GBxxLdj/0B/BG+QJGVxYCHHZnQbY/gQnjcthNxIfDYUsZT8xSctKUk3Fc/yaUz+UM3A4E=
+	t=1792084019; cv=none; b=g7yxjCiPad6z4D8koVmciMHelqXMEnURdUqNZikEjmBz8S9oXEd8md0msByVM7CIsTeCWJ4F29WIJh0WIuo8jtFA5UZVLOXQ9CYam/P3q7EwmOYnVdJr609U1jdFQmYGfcQZOomxVJiAO96sGTNNqRZEqd0UtnzEc3ffoEDG2y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083981; c=relaxed/simple;
-	bh=qHNvC7JKMWk3d9f+xJFA0sUxTFWs5f73eVLdOqvT9Ck=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CoWcumDYkKQtuRihNObVTjsP41AARtBHxvnonfBpz7QOFDDtuxsMGs+i2upt5Ox5ULhFX/lsOUR6rQ0ach/0ukhoi6XpVnJxXmhB7lGyMp8kiAR7deiLiTU9EMXwfZBVsnFyphbAo7r6skJnJmxMDLo6MALjIKertPxONrtEFxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ywww01NV; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792084019; c=relaxed/simple;
+	bh=iT2B5mF8h/diXDhOTTXMHv6YR9hN1Osy2q0hy279a9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JLaxZRLtPFrfDs3IfozHNJ5tm7DLf9Er5kuX+zv9sN/fNN+VoViKgBPr5Z4nl5xyA22+yUZR1nlHZEJt7DlJv4BlhilEuILusRrF93tfi89fEtuAjkh6lmsdnCaDbLZfpq5NmzQ1D9xnnZ5/X13ipVnV9Fm0LdAv/ekLKSjDhj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gy190T5n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ywww01NV"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89f0a21880aso230731b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:06:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792083959; x=1792688759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F6mWt9wIVZrB4sjNqoUTGMgCNXO6bXLWh2pklh5yhSU=;
-        b=Ywww01NVKzNPXXUWyYYvR8BtpX8FfujIdPTEjv07FAm6OnO24UOTCpdtN6XNL55Dg1
-         n9sSEZUaOkGqKyCvE1pW0ELZK/iWJeB1BL/4Qv+o093PssU2Pn5kuZLmNZJFf73dFbic
-         c8z2cXvREOZr4Lb+uqi6svwqoh6UClhweT5UsF26rWI8D/5HQ7dhYFIDRRitumq42nCd
-         bLp3RItpNR7KG/TmegPcath/JM24HgsbleReSmThGK4tbMhpIw5Z2wM6F18uJ93UqgNA
-         nmr6aoUz5U917otcLDAted0ZBRs1QP9Bvwg4EGlZxKF9kLAzYn0UAVrEhm8haYBaSKGR
-         BLGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083959; x=1792688759;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F6mWt9wIVZrB4sjNqoUTGMgCNXO6bXLWh2pklh5yhSU=;
-        b=ngSeP3H3yr+t+r7wysNAWmKOJsSXO1PY+TwhriNbuGsewztuF+QQAzbsojbi7X4HkE
-         i/uE6zYW7YABOUJryozc6q9XcLWNGXOE4Gn5QxMD8BP8WFKnTj+fqduzT1e/Z7QFxDeH
-         /tHYEVcISRh8aKWQwBJ4HAxk6DIZJ9OctvBbjVzoZRJjtAFpvKy2xE72/mkbrX3eV3bt
-         AK5Q80LCtB4xjmDeeiW2JAAjC0aUnttUBoJxhRJVSzc40lWnIMKrkWOONgyy0jiSp1MQ
-         zKZqGzXTniGnTg6ha0aMVVOQNnAMerf3XylCZMhIYqpbM/W6576+1DbiPmTwE1lZwOGm
-         zb8g==
-X-Forwarded-Encrypted: i=1; AKwUvBySMmfgWd4riOChadw/cALYkbF9s2aOhaSWTK3qPkpW1Hlsgeah1dG4bJ16hwDaEvxuBlszhw6d4NdkWDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8aBVLGwcQj/wHdDlNL0gPNShnerGDRxSQd4kvSSvJCgWJOZdb
-	ZPKKbtILlpzMZu6BKoW3H+gc9smIbcmw7PqNLpdKvfAAjkzcHzTPAN2tK/wxxxD6
-X-Gm-Gg: AYBFou1/49t9EeoVFxeDFbvvCCHNlC/TOdLQba1wSt8JUbtnXZ+xkr5rSiHGivkN+Mr
-	S34p1tMjMg8CFhK0gvmtCq3mlLCw9/ZsGDN+xQGgqwqrzag9tNa0FeWmB12Y20Zv3GRgwzbgM7t
-	PF48Jd6mDlieU76LJqD7jlwU+C5d1eNkIweNWfrc/qro8zQ745nFStkN5/H+RgnZVPjE1m1nnSP
-	ip3Ycc3MB2tfDtnz75nN2JsvPQ5VK/QcG7YtbfUI8zWhQEzMmlZxcylBTNhpvrs8sTEIPq2Q2S1
-	7Wx87uvEZBSN21GTGl01H90r4BKeFRQbyg4yvze5wJMNW+nXM6ADywKrxcH8Xci8RgdQxVphxIJ
-	/NO/WEnzcyxLhfzNNDIpX1qxTtBC34dcAwuHzOAoHsvgn1Nz5Y8L/Btd57+G8WP2BC7InZ5+2Tk
-	J+hw1MAmJiJ2s2QALe6IE7BKzmibHz4o+xx2ZVkpf9AEt2BG7uWUBYhkdqkHGwXh09S+2utWzTH
-	Ra0xds7qys=
-X-Received: by 2002:a05:6a20:431e:b0:3e0:bb59:7fc0 with SMTP id adf61e73a8af0-3e16beb6bf1mr16704479637.52.1792083959380;
-        Thu, 15 Oct 2026 10:05:59 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c57edbsm1575938a12.15.2026.10.15.10.05.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:05:58 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hugetlb: retry private VMA locking when unmapping folios
-Date: Fri, 16 Oct 2026 02:05:51 +0900
-Message-ID: <20261015170551.2656546-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gy190T5n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E795C1F000C4;
+	Thu, 15 Oct 2026 17:06:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792084004;
+	bh=7LXdRQVlo+IatrPNbHoxpTkbcPjG0UJKxCqYwZdOL7A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Gy190T5n7j/eSNsWvMCBMXgvO43SgReR9YRJtON05MQRmA7z5KngeBn2QTdzCW5up
+	 7FhTQbVkxI9hMVCYHkszjKH39uH+k7AdESi60gzWvZUQAgLlfztYt1ccUM37W5y57J
+	 5HfZVhoslyJetRVNrB2zYbDbr/KNGv1Pd3HDQEIR5zVl/aNkWwhaeSQ1EIvWbI9Yd+
+	 59BoHtMqjlfbMTP9YF3s2IAdegRe+8hLJigkUSo0qbUM1uPPzi9It5pJ9EocphO9UJ
+	 4G84mfqYr1oVDUj4YwtJ1dR7mq+HALdBybfsKuW6bExYCtbHIMxdlgIW1gFgouPCLZ
+	 Mvl6rlkzUg6Fw==
+Date: Thu, 15 Oct 2026 19:06:39 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, mchehab@kernel.org, paulmck@kernel.org,
+ linusw@kernel.org, Julia.Lawall@inria.fr, gary@garyguo.net,
+ rmk+kernel@armlinux.org.uk, hemanth.selam@gmail.com
+Subject: Re: [PATCH v3 1/2] docs: kdoc: handle TRACE_EVENT_FN() family in
+ tracepoint parser
+Message-ID: <20261015190639.7b722dd7@foz.lan>
+In-Reply-To: <20261015164524.14066-2-emmaonana18@gmail.com>
+References: <8733u7t8xq.fsf@trenco.lwn.net>
+	<20261015164524.14066-1-emmaonana18@gmail.com>
+	<20261015164524.14066-2-emmaonana18@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-hugetlb_unmap_file_folio() takes a reference to the hugetlb_vma_lock in
-vm_private_data when its VMA trylock fails. It then drops i_mmap_rwsem and
-waits for the lock in the established order.
+On Thu, 15 Oct 2026 17:44:47 +0100
+Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> wrote:
 
-That fallback is only valid for VM_MAYSHARE VMAs. Since commit
-bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs"), the
-trylock can also fail for a private owner VMA. Its vm_private_data contains
-resv_map | HPAGE_RESV_OWNER, not a hugetlb_vma_lock. The fallback then
-performs a misaligned refcount operation and treats reservation-map list
-fields as an rwsem.
+> kernel-doc fails to parse tracepoint declarations that use
+> TRACE_EVENT_FN(), e.g. gpu_power_status:
+> 
+>   drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
+>   tracepoint format ...
+>   ... expecting prototype for gpu_power_status(). Prototype was for
+>   TRACE_EVENT_FN() instead
+> 
+> tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
+> kept as the prototype and the TP_PROTO() arguments leak into the
+> parameter list as garbage.
+> 
+> Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
+> TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
+> TRACE_EVENT() and list them explicitly at the call site in
+> process_proto_function().
+> 
+> Add a regression test for the gpu_power_status declaration.
+> 
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> ---
+>  tools/lib/python/kdoc/kdoc_parser.py | 18 +++++++++++++++++-
+>  tools/unittests/test_kdoc_parser.py  | 28 ++++++++++++++++++++++++++++
+>  2 files changed, 45 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+> index 80d4245acd17..a65bda3e81b9 100644
+> --- a/tools/lib/python/kdoc/kdoc_parser.py
+> +++ b/tools/lib/python/kdoc/kdoc_parser.py
+> @@ -1545,6 +1545,22 @@ class KernelDoc:
+>          if r.search(proto):
+>              tracepointname = r.group(1)
+>  
+> +        r = KernRe(r'TRACE_EVENT_FN\((.*?),')
+> +        if r.search(proto):
+> +            tracepointname = r.group(1)
+> +
+> +        r = KernRe(r'TRACE_EVENT_FN_COND\((.*?),')
+> +        if r.search(proto):
+> +            tracepointname = r.group(1)
+> +
+> +        r = KernRe(r'TRACE_EVENT_CONDITION\((.*?),')
+> +        if r.search(proto):
+> +            tracepointname = r.group(1)
+> +
+> +        r = KernRe(r'TRACE_EVENT_SYSCALL\((.*?),')
+> +        if r.search(proto):
+> +            tracepointname = r.group(1)
+> +
+>          r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
+>          if r.search(proto):
+>              tracepointname = r.group(1)
+> @@ -1604,7 +1620,7 @@ class KernelDoc:
+>                  self.entry.prototype = self.syscall_munge(ln,
+>                                                            self.entry.prototype)
+>              else:
+> -                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
+> +                r = KernRe(r'TRACE_EVENT|TRACE_EVENT_FN|TRACE_EVENT_FN_COND|TRACE_EVENT_CONDITION|TRACE_EVENT_SYSCALL|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
 
-Private reservation maps have no stable VMA backpointer. Drop i_mmap_rwsem
-and restart the interval-tree walk when their trylock fails. Keep the
-referenced fallback for shareable VMAs.
+The best would be instead to move all of them to xforms_lists,
+together with SYSCALL_DEFINE.
 
-On a system with a pre-provisioned hugepage pool, an unprivileged
-reproducer racing mprotect() with hole punching triggered the refcount
-warning followed by a general protection fault in rwsem_down_write_slowpath
-on v7.3-rc5 and 6.12.111. With this change, a v7.3-rc5 KASAN+LOCKDEP build
-completed 1,000 rounds and 64,000 hole punches without a warning, lockdep
-report, oops, or panic. The reproducer is available privately on request.
+Regards,
+Mauro
 
-Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- fs/hugetlbfs/inode.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+>                  if r.search(self.entry.prototype):
+>                      self.entry.prototype = self.tracepoint_munge(ln,
+>                                                                   self.entry.prototype)
+> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+> index 4baa78ca02b3..04dafae412e4 100755
+> --- a/tools/unittests/test_kdoc_parser.py
+> +++ b/tools/unittests/test_kdoc_parser.py
+> @@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
+>          self.assertEqual(entries[0].name, "debugfs_cancellation")
+>          self.assertEqual(entries[0].warnings, [])
+>  
+> +class TestTraceEventFn(GenerateKdocItem):
+> +    def test_trace_event_fn_declaration(self):
+> +        source = """
+> +            /**
+> +             * gpu_power_status - called when hardware turns on or off
+> +             * @dev: pointer to device
+> +             * @shader_bitmap: bitmap
+> +             */
+> +            TRACE_EVENT_FN(gpu_power_status,
+> +                TP_PROTO(const struct device *dev, u64 shader_bitmap),
+> +                TP_ARGS(dev, shader_bitmap),
+> +                TP_STRUCT__entry(__field(u64, shader_bitmap)),
+> +                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
+> +                TP_printk("%s", __get_str(dev_name)),
+> +                my_register, my_unregister
+> +            );
+> +        """
+> +
+> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
+> +        patcher = patch('builtins.open', new_callable=mock_open,
+> +                        read_data=dedent(source))
+> +        with patcher:
+> +            _, entries = kernel_doc.parse_kdoc()
+> +
+> +        self.assertEqual(len(entries), 1)
+> +        self.assertEqual(entries[0].name, "trace_gpu_power_status")
+> +        self.assertEqual(entries[0].warnings, [])
+> +
+>  #
+>  # Class and logic to create dynamic tests from YAML
+>  #
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a8470ea265..9a676228e2070a 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -402,6 +402,17 @@ static void hugetlb_unmap_file_folio(struct hstate *h,
- 			continue;
- 
- 		if (!hugetlb_vma_trylock_write(vma)) {
-+			/*
-+			 * The referenced fallback below is specific to the
-+			 * hugetlb_vma_lock stored by shareable VMAs.  A private
-+			 * owner VMA stores a tagged resv_map pointer here instead.
-+			 */
-+			if (!(vma->vm_flags & VM_MAYSHARE)) {
-+				i_mmap_unlock_write(mapping);
-+				cond_resched();
-+				i_mmap_lock_write(mapping);
-+				goto retry;
-+			}
- 			vma_lock = vma->vm_private_data;
- 			/*
- 			 * If we can not get vma lock, we need to drop
 
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+
+Thanks,
+Mauro
