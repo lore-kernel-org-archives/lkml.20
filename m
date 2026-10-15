@@ -1,64 +1,86 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB585293ED
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49947528452;
+	Thu, 15 Oct 2026 13:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072639; cv=none; b=XDQRMXTyNc/N/tR8UQmDUUKeCLIUAP+l/UU9eiHMFtRHdh9Q7jFeJkA6JtoDLAGyXxTMPMTiCBXBme9gnZjJDRvIGUETiuNiL49VMGHLeLw1UOHNHqzqUteRqBh4xzgdOMZ5E3f1mRVIy7EHnLoCw1sTwp8hDnLwhjxa21NZILE=
+	t=1792072658; cv=none; b=ey6OTSAas1sjUyq27CwGO5slPjrWcFyYvhzP4gki35z380o9GeWcliR4L2Au4WVRWfnw4iMPvXBJUTumkNa6EOOgdLR8QpPUMW6GtdC8/Yau1ChA0nBP7ih8taC8GP59fMDVeyHVtAYhxEcCtdAEKok6FlEDzQuk5w271Jx+Jis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072639; c=relaxed/simple;
-	bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=Pz3k71lOC2jyfzx1/OHRPfNSjo95LdfQsLtD04t1MbwfM4LtwN/AjyYH9FeB2RtUWzO+LEXXeToYC9ceteTPLrWwQlPq0aah4bjhmbLf5pOBohNPcMTnzHM67mMuDxLcB3fBZaSkuYh/4ndRknut27r9ZRSa2oRKE8TZn5wZqSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me; spf=pass smtp.mailfrom=rcpassos.me; dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b=DBUAR6WU; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=B1SMUW5b; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rcpassos.me
+	s=arc-20240116; t=1792072658; c=relaxed/simple;
+	bh=tR+B+P4H5laV3j7zzZU07VqSUEtfICzqGov3sJhZoEU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Spqa/OfZ+1Ns2fj/lsrJlegpvKoQakaJWXTnsi94LRDpg2keQTn78O1zC0uQSkKk73Y4CXanjYhEEaPrPpZO0R9a6XzcuBKyMnEx8AIbP6g1/RrnC1DKJXayST7hLbZ6S20f7GazJERRTN9BRV6rKLp/xyqJ+MUoCS4h1thao9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=fb+ScPOv; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b="DBUAR6WU";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="B1SMUW5b"
-DKIM-Signature: a=rsa-sha256; b=DBUAR6WUtGCJIDLmDkTw/YNGCZfLM+o2BzaEHe81C7uetRQVqJm7PoNbpt2//lNqWz8Eer3Mh6fSDd+Yk6oFZiekuxTzZX+Z66QYv8OvFnEbJEJ5CBfVuHBuUx+nLHz2Ysqs2e3YkQRUFAejwOIRa8mD4dlLExHJUQdMd+ddIJCZ6ybkQOd73RJwjHdwPd/dQhxX315Zui+IE2Ec7K13NuC+D4mKv61fL1qeUgEzHUd/S8kAbP8qIkZnL+hQBunugEOEPpAak/LMWwk1pwRbE4lNbSpU0OTY1xpATlq5gAr/1DPwKswJoc2zfsSbOGLEUVek9LXV0ydG5eQnexutew==; s=purelymail3; d=rcpassos.me; v=1; bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=; h=Received:Date:Subject:From:To;
-DKIM-Signature: a=rsa-sha256; b=B1SMUW5bm8TJO1aMihwKHaPgNu4RxDeyhVlh1H1q84XLNyUzsp6UrQpo3in4EV5SFkwGnyOq6XvEUpLIeWcZBIK+lrtxterLxvNi2Kn6dWKDw0DlBN3IfTaTM3vO0is4D/HR8d4dPjxy6uFeccqH6ynoo4yy/02KzJq6GcP7TARXfa2tkwlYprk4O352GzG+0T3GfZFtxRMUX/Q5+EUX5gxy1lL0WIqSewXVmAYfV6sLRDtiwMjhK2Q+OIjtQiTroq/1NgiOH8/Xh2GgId4t4+9cx8PTYjxkvYliADE/+VvtvxVzMj/hYBwRXP6sHtePXO4qFveFzGWcdwe1GXtmyA==; s=purelymail3; d=purelymail.com; v=1; bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=; h=Feedback-ID:Received:Date:Subject:From:To;
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -957297502;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Thu, 15 Oct 2026 13:56:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="fb+ScPOv"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6A7E74091F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1792072656; bh=AKSKxWPs7gQhreA/cSauuNkxef50fLag1JXhVoL4XXo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=fb+ScPOvonBUlpQ4VypD14R29RRIU8up9w9NubtFF/dZHNr14VzeH+4PPLcFwrtHd
+	 2pEzAsVYtqojH8ceBvXU7pseR/aFl3w0YHv5VbwhdUjUx/ZHD44kEND9EkZegRIEMb
+	 RvqsUHNYu18pGWMI0zosFR/+8cIBBuLKzHbh2okB3GGojoj0CgK5fWyxHPd/U1zReV
+	 du6PDL5T0HoVtWGh8ffzGF3ldizED52PvmPMP8WrJPqSC90Msgghk7i084FYi9K1QS
+	 dSmmgEWunFpPAEP8QbtHQZFbBxDt4/hxqU2AG9E0soppky5XxDqTIsnW4XHOHdDu0V
+	 yInvmB0mxVYTA==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 6A7E74091F;
+	Thu, 15 Oct 2026 13:57:36 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Sasha Levin
+ <sashal@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, broonie@kernel.org,
+ ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rdunlap@infradead.org,
+ skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
+Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
+ attribution
+In-Reply-To: <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
+References: <cover.1791499378.git.sashal@kernel.org>
+ <20261014174838.114990-1-ojeda@kernel.org> <as_Cr4FhzyAh-kC4@laps>
+ <CANiq72m6okeCHuR8BCGENTw=wJhfXXZbXZtJq8xtoeVfvfo3TQ@mail.gmail.com>
+ <atDYWe9L0tv90Xjk@laps>
+ <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
+Date: Thu, 15 Oct 2026 07:57:35 -0600
+Message-ID: <87jynjrrqo.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 10:56:51 -0300
-Message-Id: <DM5GQ0LS1ZRY.U1YDYGY80PEZ@rcpassos.me>
-Subject: Re: [PATCH] rust_binder: avoid overflow in get_node_debug_info()
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>,
- <syzbot+d39ca51f29c6b944a4f0@syzkaller.appspotmail.com>
-From: "Rafael Passos" <rafael@rcpassos.me>
-To: "Alice Ryhl" <aliceryhl@google.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Carlos Llamas" <cmllamas@google.com>,
- "Rafael Passos" <rafael@rcpassos.me>
-X-Mailer: aerc 0.22.0
-References: <20261015-binder-debug-info-overflow-v1-1-81fffb74d288@google.com>
-In-Reply-To: <20261015-binder-debug-info-overflow-v1-1-81fffb74d288@google.com>
 
-I wish I had though of that when making the previous change.
-A very elegant check, as returning "out"" with the default value is safe
-:)
+Miguel Ojeda <miguel.ojeda.sandonis@gmail.com> writes:
 
-Reviewed-by: Rafael Passos <rafael@rcpassos.me>
+> On Thu, Oct 15, 2026 at 3:42=E2=80=AFPM Sasha Levin <sashal@kernel.org> w=
+rote:
+>>
+>> Sorry, what I meant to say is that the spec seems to require markdown as=
+ it's
+>> preferred format. We can experiment with other options, but then the ris=
+k is
+>> that we'll break some tools.
+>
+> Ah, got it, thanks! Yeah, at the very least the `SKILL.md` main file
+> should most likely be all Markdown inside (and of course the
+> filename).
+>
+> Now, if we go with `agents/` instead of `Documentation/`, then I would
+> personally prefer Markdown for the other files in the same folder like
+> the `guide.rst`, but that is just my bias, and it has a small
+> disadvantage: if we happen to move things between `Doc/` and
+> `agents/`, then it is a bit painful to reformat.
 
-Thanks (and sorry),
-Rafael Passos
+For all that we hear about how smart these tools are, are they really
+incapable of dealing with two only slightly different markup formats?  I
+would really hate to bring in a separate format for this stuff...
+
+jon
