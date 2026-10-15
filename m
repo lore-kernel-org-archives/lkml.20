@@ -1,181 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4345D58B6D7;
-	Thu, 15 Oct 2026 20:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6C544CF40
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096672; cv=none; b=uqswaTsj0xKvf1ESkq3dE7z2w+cl6QkVNBbw7muifbAtNxJNMjquvS4PBUnShkxG6twJxEVepNIEKlWtyeqf7wFf2P/g/PvfiRrg/pCnbgEh8mv/7krVEoG6BWAQw4MKKl5tRabbzWsIgiIGz2oFJ0uVnJMMeevjgAV2LXsaWY8=
+	t=1792096741; cv=none; b=aKwPgQmKC6nqTGs9rNbiIZX24X3BznIWMwipfeaLuUnR4AssS/EgJJK94bom16/dGBDb6oeG+iC+rk0eA6VF+lgySVFjUCTjEnTM8o4uiiuckcY5XkAu7cMAhZhQeyymrXVhZQwj8rUYVc0/mvo3QV/DuqcpW5M7MXN/t9Rxbp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096672; c=relaxed/simple;
-	bh=g8tiiAW5MHg4PJW6ZTdkPSj3y7sW7tn9a/3HGjXUjhI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UID0hpImBoCxbtxdAvmY7mVG8KbY2MkNRAaJCO9QN6jy9TyYrxBxCCc654dZ5nQXGTzYKn/jqrg11O+Mxc9BBczOedc6v4tc86nUzt+tF6Z/qjzv89tFiVgWKTrgS7hk+EfCdHdC/MyiRqj5Kw2iOBED2jcGn1bCVTlq1i71qE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U00eo/dr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792096741; c=relaxed/simple;
+	bh=3rrG+Q92Q455fMWmbzRwbTSpWrHcmO5zPh/eLYNKU/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HW5rmE70OxzKYlKZjSHaZ8imz4UQNktbV/7FgZSghOXoDdpEuB4WG3pQ98idBTTNHGLedmD8Vl7pVqkMY0W2y5bO3mPjxmU2GRMCS7mYfSsE0VKQm5c3GK0kXMWygcEapHvuiedJCJP6V4eTKAMUY2bmF/uvuUSAN1kdtQyKpu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=RkFwjWyy; arc=none smtp.client-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U00eo/dr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0338B1F000C7;
-	Thu, 15 Oct 2026 20:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096664;
-	bh=IPcKGbXXpZt96HRSZUitEgyU01sKJ5kUO6vq6O/gjKY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=U00eo/drPeLtQSkFhXxvwj5+RVFaYPRfFc3gp9HqYjd5806izmcG5bWI6a/Pm7que
-	 Edfc/+7lwe6wEtY4it6T5y5rhzRZemQUAfnBrPWHQTLGRGGLelZRdPzp8AxsoOW/pT
-	 UO60ITIv6cvqrRT8UTii2pnqoFK+0jxLibB5eFEdh7jIpojNhh4LuqU1u7N/+roSOv
-	 sE/oshJLlMWMubBd9zGlzn5EpNns/ZUXvky4Zi/Tu5maOLo9MQzjDqX0sVQP5xZTo5
-	 Z9YcQ22L8tyHIaNYvl/WVOMB8pMzWMPMvLJSt+VfiMiyx5eI0O7kPM9KsG+FjJwr5I
-	 +mCZoC3TiLN8w==
-Subject: Re: [PATCH net-next v3 4/6] net: skbuff: replace __skb_frag_ref()
- with symmetric skb_netmem_ref()
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, tariqt@nvidia.com, horms@kernel.org,
- steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com,
- sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org,
- aleksandr.loktionov@intel.com, petrm@nvidia.com, u.kleine-koenig@baylibre.com,
- j.raczynski@samsung.com, wang.zhan@smartx.com, willemb@google.com
-Date: Thu, 15 Oct 2026 20:37:42 +0000
-Message-ID: <179209666252.434549.1850964039919625643@kernel.org>
-In-Reply-To: <20261014173945.373295-5-almasrymina@google.com>
-References: <20261014173945.373295-5-almasrymina@google.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="RkFwjWyy"
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-98c7353395fso1674515241.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:38:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1792096736; x=1792701536; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RTVoFwqUnsU0sdHOYobwPK++xcK+Lshjclao26R+uqM=;
+        b=RkFwjWyyGGcOoY6DouOyXHC3LNAtJ8dAeNru7LBtn4t16baJleVFyl4E89XgHf28jJ
+         Hp7aTVVp7yAlQfdo32JfpRfutievpd/1OSG5nrI4vf+Gmszt/4M67uu0KGjToTCNVRnu
+         epZm+WhdCbet8iAHu9uF0DBWrdnQZlg6BIUbMSBjUpn0qmR/FngloZHre3WNle+Y0iur
+         OOS3xNvUjhh1Vrpy8yBU5M3V5iH1gx6JMGaLdWQ5VEG9NCfV0gKMMBhGJ09p8bSL9XqV
+         mkO8XDg3m8ATyXytg5JsYyVjaF0MAWT4ycgH6kPpZ+ZysJV5ZUFrVcjkJjtvulCAJEtF
+         PHpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792096736; x=1792701536;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RTVoFwqUnsU0sdHOYobwPK++xcK+Lshjclao26R+uqM=;
+        b=iyM3j0GErcLwHDH/CEIkmVl0j0PYq7lk6nHobnjJ2VV4ThR18YyD5oJimqmYfgyq2H
+         Q5OupE34DH6sVwqmPx8GZ0QgL9LBcic7ktXTXPLyX8UCU4uyWfI7RDlN7aZC7xg9kcdC
+         WUhbSi0kW6msn+QzfXpeu9HsIs1MJXagL4Uzu4eF/MzOxXk/KNCt7rrUbIcMAWy3rmky
+         lJSXldw9njSCGh/ioE4qqoOL/mUypKTuKrQOLSI8t50rkKTJmq+EU/r8Kt++6VrqCaTd
+         ZOww5/Z71drar7XsEqbOMaGZuj0ZAjkYTUlXRqgqcvZOATeplXaQLIZ7Q38xZ9WlqeU1
+         tjGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwm3Gx7hAxaV5cf8p3peV9CWj401jv7DoOJh1jfM3dLd702NSkoyboFw/5zEKba17JKLEFCR//m7L4Skw4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8vBFOsH2n52sa/qjbQqWLF1WJcm0v7gia5BtoVNAIagpFaEuy
+	lcgvIy9e5or7aSuJeLDRHbGcFoe1vlE1W2Rd5eDJr7JrlB4uf8sJMJ419eGhXQUWB+g=
+X-Gm-Gg: AYBFou21mD3AYWDgLTdfMoSkD1jKsc6K/xB9whvu4eTLLMIJedcCNawHEuWHo0tdZC0
+	STKXO05V98GC5xLxqFk7KxDEKn+hTRHWRx69W6o8TVI7tj27ybKF/yv0pYKX8in3WgpNmeirIH0
+	VsiuXGedtgV7JlQZOvwLf/Drw9wEMTHRjFKvd2CUafYkDngQf5VpvUDPrz/eUk8EvNG1oBpAScL
+	LubquNtF/WuBbAEOmcNaEFzdxoSS+Ho1GEfLEHXYx/X5OFci21tABDccYySLOddewKiY5lN8sOB
+	rTXearuzenyP4K2amdcMgHbqiGfrQ+0PuRs5rAgosPBZrupHKmsvSrhIL8jAslnM3NjJtNaFPqb
+	MT3flwmYJ7ZksaDAWsbFSOqdHRUx6x3Fo1KmLfayoGZPoJbcWHbfRS+zSbLw9/uNOm9tPzLp+Q3
+	HiCDN/RJInFWDxJxUEix1+SuNDrQVHxtsbE6TLoBnNEYsK1mfZCyzpYk5jRKo70uALlLPsFewiw
+	/oLutcr5sLoIH4Fnnre7IAhczBYWtx+PzWJFXwuJKbzU+2KgJpymfr6xX3aSzVmcImyHU9Kync=
+X-Received: by 2002:a05:6102:a49:b0:7c3:83a9:edca with SMTP id ada2fe7eead31-7cb36886005mr5673629137.3.1792096735597;
+        Thu, 15 Oct 2026 13:38:55 -0700 (PDT)
+Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b4ae2e2sm114784e0c.7.2026.10.15.13.38.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 13:38:55 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:38:54 -0400
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
+	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+	pratyush@kernel.org, graf@amazon.com
+Subject: Re: [PATCH v1 0/7] liveupdate: tmpfs preservation and early freeze
+Message-ID: <atE53vmlDeA4cWD2@google.com>
+References: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
+ <atESAwf17pJ11S9U@google.com>
+ <atEaPuWNOm5VLc7A@google.com>
+ <atEhc20Zawj4D62x@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atEhc20Zawj4D62x@google.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+> > >  - memfd_pin_folios() doesn't require the inode lock, so iommufd can
+> > >    pin folios of the target while they're being added or truncated
+> > >    away. v1 starts with two patches that make iommufd take the lock
+> > >    and make memfd_pin_folios() assert it.
+> > 
+> > Hm, isn't this mostly orthogonal to the change we're making here?
+> 
+> Kind of. Today .retrieve() fills a brand-new memfd that nobody else can
+> reach until the ioctl returns. Retrieve-into fills a file that other
+> processes can already open by path and pass to iommufd, so pinning can
+> now race with the folios being added, or truncated away on failure.
+> 
+> In the failure case a folio can stay pinned (and mapped for DMA) after
+> it's been removed from the file. Retrieve-into introduces the race, and
+> the fix is two small prep patches.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Medium] The commit fixes reachable page_pool refcount imbalances but
-  has no Fixes: tag, so the fix will not be picked up for stable.
-- [Low] In the new skb_segment() linearize branch, the bytes being
-  linearized are counted twice in nskb->truesize: 1) The code does…
+> > We originally agreed that if retrieve() fails, we fail permanently and
+> > leak resources until reboot to avoid memory corruption from ongoing DMA
+> > activity. However, now that we have the retryable option, we can start
+> > relaxing what is considered a permanent failure vs. a recoverable/early
+> > failure that .finish() can clean up.
+> 
+> Ok I think we are ligned that we need to keep the preserved folios
+> around until finish(). I think this point was saying there are bugs in
+> the existing memfd_luo code and in this series that leak the folios even
+> after finish(). Either way I'll fix them up.
 
---
+I think we are solving this problem incorrectly, LUO should still always
+re-create files, even the tmpfs files.
 
-net: skbuff: replace __skb_frag_ref() with symmetric skb_netmem_ref()
+What if instead of retrieve-into an existing file FD, userspace passes
+a dir_fd on the target tmpfs mount where the file should be restored?
 
-This patch replaces __skb_frag_ref() with skb_netmem_ref(netmem, recycle).
-The new helper takes a pp_ref_count reference when recycle is set and the
-netmem is page_pool backed, so it mirrors skb_netmem_unref(). The patch
-also stops clearing skb->pp_recycle in skb_release_data() and propagates
-pp_recycle to the destination skb in the copy, split, shift and segment
-paths. It also linearizes skb_segment() output segments when frag_list
-skbs have different pp_recycle bits.
+During preserve we can record the file's basename if the file was linked
+(or mark that it was unlinked). On retrieve, creates a brand-new file in
+dir_fd (e.g. starts as an unlinked O_TMPFILE on that tmpfs superblock),
+populates all the folios and metadata while the file is still unreachable
+by anyone else, links it into dir_fd under the preserved name at the end
+(or leaves it unlinked if the original file was unlinked), and returns
+the FD of the new file to userspace.
 
-Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/
+That way:
+1. Just like memfd today, .retrieve() always populates a brand-new
+   file that no other process can open by path or pass to iommufd until
+   retrieve succeeds, so the memfd_pin_folios() / truncate race goes
+   away completely.
+2. Userspace gets back a single new FD from RETRIEVE_FD instead of
+   ending up with two FDs (the pre-created one and the retrieved one)
+   referencing the same struct file.
+3. Unlinked tmpfs files are also supported on the target tmpfs mount
+   (preserving mount options and size/inode accounting) instead of
+   silently falling back to the internal shm_mnt.
 
-> Previously, __skb_frag_ref() and skb_frag_ref() unconditionally
-> incremented the non-pp backing refcount via get_netmem(), while
-> skb_frag_unref() decremented pp_ref_count whenever skb->pp_recycle was
-> set. Ref-ing a page_pool fragment into a pp_recycle=1 SKB (or clearing
-> pp_recycle=0 on an uncloned SKB while clones still held pp_recycle=1)
-> leaked the backing non-pp refcount and underflowed pp_ref_count across
-> IP-TFS, skb_split(), skb_shift(), and cloned unclone paths.
+We can even postpone linking the file into dir_fd until finish(), so
+that it only appears in the filesystem once it is fully populated.
 
-[Severity: Medium]
-Should this patch have a Fixes: tag so stable picks it up?
+Actually, I think, this is the right way to do tmpfs preservation,
+instead of relying on user to provide the FD of an open file to us.
 
-In the base tree, iptfs_skb_add_frags() takes a raw page reference on
-each frag it adds. The destination skb only needs to have the same
-pp_recycle as the walk, so it can be a pp_recycle=1 skb:
+> > I do not want LUO to change the type of a preserved file across live
+> > update. Take seals, for example: a memfd can be sealed with the
+> > guarantee that it will never be modified, whereas a regular tmpfs file
+> > does not support sealing. Allowing a preserved memfd to be retrieved
+> > into a tmpfs file would create a loophole to strip seals (or bypass
+> > mount/superblock boundaries). I strongly prefer keeping the file type
+> > strictly the same across preserve and retrieve.
+> 
+> I agree that seals must not be strippable. I am not proposing to allow
+> that. Regular tmpfs files are created with F_SEAL_SEAL, and v1 refuses
+> to retrieve into a target that has F_SEAL_SEAL if the preserved file has
+> any seals the target doesn't have. So a sealed memfd can only be
+> retrieved into a memfd that allows sealing, and gets its seals back
+> there the same way F_ADD_SEALS would add them. Only unsealed memfds can
+> be retrieved into regular tmpfs files.
+> 
+> On mount boundaries, retrieving into a tmpfs file charges the blocks
+> to that mount, so its size limit and quota apply. That's stricter than
+> the unlimited internal shm mount that memfds live on, not looser.
+> 
+> This is what I mean about enforcing the fundamental requirements, rather
+> than enforcing something artifical like MEMFD_LUO_FLAG_TMPFS.
+> 
+> BTW, MEMFD_LUO_FLAG_TMPFS is set based on i_nlink, so it doesn't really
+> track the file type. An O_TMPFILE or unlinked tmpfs file gets preserved
+> without the flag and comes back as an anonymous memfd on the internal
+> shm mount. That changes its type and drops its mount's size limit and
+> quota, which is the boundary crossing you're worried about.
+> 
+> If you still want the type to stay the same, we can define it by
+> superblock instead of i_nlink:
+> 
+>  - memfds (on the internal shm mount): plain retrieve only, as today.
+>  - files on a tmpfs mount, linked or not: retrieve-into only, into any
+>    empty tmpfs file, including O_TMPFILE files.
 
-    __skb_frag_ref(tofrag);  ->  get_netmem()  ->  get_page()
-
-Those references are later dropped through napi_pp_put_page(), which
-underflows pp_ref_count. The page can then go back to the pool while the
-source skb still points at it. That code came from:
-
-Fixes: 5f2b6a909574 ("xfrm: iptfs: add skb-fragment sharing code")
-
-The commit message also covers only one direction of the imbalance.
-The reverse case is reachable through skb_split() from batman-adv:
-
-batadv_frag_create()
-    skb_fragment allocated with dev_alloc_skb()   /* pp_recycle = 0 */
-    skb_split(skb, skb_fragment, skb->len - fragment_size)
-        skb_split_inside_header()    /* moves frags, takes no refs */
-
-If the forwarded RX skb has pp_recycle=1, its page_pool frags end up in a
-pp_recycle=0 skb. When skb_fragment is freed, put_page() runs on them and
-drops a page reference that page_pool owns.
-
-Both directions look like they can cause a use-after-free of the page,
-not just a refcount leak. Could the commit message describe the
-skb_split() case and its consequence more precisely?
-
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 980bbe9166393..96088289c234d 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-
-[ ... ]
-
-> @@ -5057,6 +5049,16 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
->  
->  		while (pos < offset + len) {
->  			if (i >= nfrags) {
-> +				if (skb_shinfo(nskb)->nr_frags &&
-> +				    nskb->pp_recycle != list_skb->pp_recycle) {
-> +					nskb->data_len = pos - offset - hsize;
-> +					nskb->len += nskb->data_len;
-> +					nskb->truesize += nskb->data_len;
-                                        ^^^^
-
-[Severity: Low]
-Are the linearized bytes counted twice in nskb->truesize here?
-
-nskb was allocated with only hsize + doffset + headroom, so
-__skb_linearize() will usually need to grow the head:
-
-__skb_linearize()
-    __pskb_pull_tail()
-        pskb_expand_head(skb, 0, eat + 128, ...)
-
-nskb->sk is NULL during segmentation, so pskb_expand_head() also adds the
-head growth to truesize:
-
-	if (!skb->sk || skb->destructor == sock_edemux)
-		skb->truesize += size - osize;
-
-If tailroom was already enough, the head was accounted at allocation time,
-so the explicit add over-counts in that case too.
-
-hsize is reset after linearizing, so skip_fraglist only adds the remaining
-frag bytes. The final truesize then looks inflated by about the
-linearized byte count for each straddling segment.
-
-Is the truesize update needed here? Would adjusting data_len and len be
-enough to keep the skb consistent for __pskb_pull_tail()?
-
-> +					if (__skb_linearize(nskb))
-> +						goto err;
-> +					hsize = pos - offset;
-> +					nskb_frag = skb_shinfo(nskb)->frags;
-> +				}
->  				if (skb_orphan_frags(list_skb, GFP_ATOMIC) ||
->  				    skb_zerocopy_clone(nskb, list_skb,
->  						       GFP_ATOMIC))
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014173945.373295-1-almasrymina%40google.com
+I would like file type to stay exactly the same, I really don't want to 
+play the game where LUO can magically change file from one type to 
+another even if from Linux internal implementation they share a lot of 
+code, they are still a different file types from the user perspective.
