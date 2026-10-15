@@ -1,120 +1,101 @@
-Received: from sender6-pp-e105.zoho.com (sender6-pp-e105.zoho.com [165.173.180.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B4C26D4CA;
-	Thu, 15 Oct 2026 11:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.105
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065420; cv=pass; b=JdEchkBczBrH0T5RHIjxE++IMKTWdAfcKI1H3bVf2lZ3ceLbaH3WDYtjwZDBmorLQq0WD6UDPZiBs9rQQRQ4U/x0pLafjy4T8MrkXkfIAVCFH4Fpto3Vrmur6BEwynTGX9528FuBfPt7DCVH0ryYx6Ez8tMSuQzdciFUYreDAh0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065420; c=relaxed/simple;
-	bh=nH1zuQYv0sdFhBLZ5TSfcr6XbMKn5plJMTMStrVWRck=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=hym4K6+TtgvJsKdrKiz3mpUZstIcZLKTaL8Omaw62f6CygSz+wysmE33raiT4mi+u4xS6tERztpzQvGL+DrrKyAEs8lSAS6Uc2NZntigKzkW+EIN68kXPz2VmmP5fz9/UvlfeJ+NWeYKppo9ez0Umgrd7lFDUDZBgRayPOhFxAU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=TeISHmWX; arc=pass smtp.client-ip=165.173.180.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87F0519E10
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065437; cv=none; b=YtK+m1sbV+ppGY+Z8R+3uSKLpI3MM2wGblrih/L+nPnd5XXriS2fDRPEGRj0vySmsW7YFdOUEd/aD4c3FY9U+dofWuXBu2PEd/k0lchUC9eVed3o5cPMYb70rmX60pDq69LiP8ZapvNo0fB/SxOEuVhGlS+Hh3rTq/sQqBM3wo0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065437; c=relaxed/simple;
+	bh=3XCuBw38kpgO4xOaIKCKr5QjgzDN5P/inh/IbOiOiyI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gvFqehWS9cyr6D0YUqZhUdAety3pf7ilN6foY72ZwgZ8+sVAOMeLjGB71CQX63Tem0EZGesAnOls6DvQJOnZGIL6PhsT2/hYCDnmL+299h0OkiwZYDFMv33/8ElOmXKvgodlt9XvaWmDFmrYjgf26sGFTkdBafK3Ja5DgL7Ncf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M+HUaCs7; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="TeISHmWX"
-ARC-Seal: i=1; a=rsa-sha256; t=1792065406; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ClRzXoMDmA9rDFLoxjtvi97wGM/sZJCJF5somzzUM7vX39f1BRUbQW8Gb+fRvaFTIBQ8cVaQ2nUxdRPyT6MTVo2ASbfcYm1Mm5rj4XeJesSAq9M4+0RPDYUlELAQJg6J0LEhuwLxEms3CrgsoXBTaJD+VkQShwVGuKDTEBPj6KE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792065406; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KneaYbwkKEGo5OfTF6SYMTOYdOAjlXr9BJxUu8zh+1I=; 
-	b=hF6UF+hk6f4FkIHLomVRIyJBl2hsfkv+Mb6QrqQHnwCfqpmZbXfWkffXKSlM8DogG3SifsQTgiX1Kf7ZolIcDkNMacYY9Bj9Ycmyc5sjKENR+ik5fEPfonPio2/Bzust/Aeq/kc/9mcgmbRp8SAG7bNfR8QB21uPeRDnR7X9hPs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792065405;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=KneaYbwkKEGo5OfTF6SYMTOYdOAjlXr9BJxUu8zh+1I=;
-	b=TeISHmWXocqvLrZi0P9+81J7Z2Ztujxb6IPHJ9PcJvYLT/BqQ+2acT4s2MpMp2q5
-	CoONWuALlbVWiqFaMOm/nuCM1GwLZKqCToxIf9jDgZFB0Yl81ZGP94BaJXq4brKSnx2
-	9TbFHCeL2YzK7PG2GEgojr+57Wsqa6q37i1sKCbhIf2rKnViiFzIVs0N9knEbNfvsh0
-	E+ASRyrXBVbgJ67sDgczX+CsnGmyiBqmJn0qtL1PfIDnAA1HjpgpIQao7WmGZCwsN2q
-	CTLlXg9nQaHNsicYuXwRJoYGNLMm2WPGXL49iMcjU1iPDqfvvuXevOPk2sZksqLxdnm
-	MU/ALGrwwA==
-Received: by smtp.zohomail.com with SMTPS id 1792065403261929.124589646763;
-	Thu, 15 Oct 2026 04:56:43 -0700 (PDT)
-Message-ID: <08b6196a955faef9968224d7946ea5b1150f2ae3.camel@rong.moe>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-From: Rong Zhang <i@rong.moe>
-To: Ali Ahmet =?gb2312?Q?Memi=810=946?= <aliamemis@disroot.org>, Hans de
- Goede <johannes.goede@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui
- <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,  Armin Wolf
- <W_Armin@gmx.de>, Charis Stratakis <c.stratakis@proton.me>,
- linux-acpi@vger.kernel.org, 	linux-pm@vger.kernel.org,
- acpica-devel@lists.linux.dev, 	linux-kernel@vger.kernel.org
-In-Reply-To: <20261014150537.121547-1-aliamemis@disroot.org>
-References: <20261014132703.93355-1-aliamemis@disroot.org>
-	 <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
-	 <20261014150537.121547-1-aliamemis@disroot.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 19:51:22 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M+HUaCs7"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1317340a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792065435; x=1792670235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=906FzucSaczRxmafxCH5c+olZhTAIC+89/t5khd2vjw=;
+        b=M+HUaCs72f6tElHxCdWNVdWBOhVndCI5gils0aPtGoK/9wquhSRIqrhtE85g46GMDA
+         /QuZGBvpfRLOrH7t3LVel5jkdlrupxkwiBcDzJMU4utT/m09USo+bYq4ZIjnrZyLTmkz
+         oUtPWxhDxOT/X/9LNTo2T+Wb2R1IxwCuKlUGVaP5+TiXRorgvhnySUPyoQiFmKOAu0dn
+         FHmPd9BHtxCtEG5dbhQ1KrOau9jSVfnWbr7PcJ8WZvNlpLT1xN1h15nBZ5QtIQh7z905
+         +tkWpFfdAEKKgyCqPLZDPNkmIulDmqgMQNqiA/b8pEQdfYsjGkM5zXWre7p7237hdB5D
+         UfEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792065435; x=1792670235;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=906FzucSaczRxmafxCH5c+olZhTAIC+89/t5khd2vjw=;
+        b=sHnXFyElkvTF6z7yhymCxG8t3TxZ+niHgzgCDf8PZ2l91bXR7zDrNqnuve91CZcrCy
+         vcTVQDmfsQdHrCO2aUTgLjZ4WbnXc/PwMUxItAGQ6nCVLy8vSvmhpRGQ0uJRmqUeudXH
+         lHIF0sg7GGwonE97fweVYg4QnSdYt0KfzOg2ku/vt++K7mvnJcV0OtkiSehkvcyDtg9t
+         9AD6YvadyilozeXigESkxa8Azx5mdnvJEOcUl1JFySxqg3SMJtBfAhI6BmWxJK6CYvXt
+         5Z/hI4jMoSiGwCPfgnrS1RfgQFVCj3H7YZJYZLTXGYFHSHqfBeOpDTWYB67i3GexuMb0
+         2OOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoN4iHQIufBRlNx+pjzjgLYhaNozFTSJRTO8zuaFAmOHsmOTQiWU4pW0NrM99mQL+kLSmcpM0h+FOM5u0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQmvFQ6811YU5+9I5QXznSz60jWD5uv7CGt5qVcdfZSok6d5ly
+	KqYN9K7k5r3N8koPZBJATnjUhnDJq23h2EYWaYCc+mfL1sKBfAaM6chx
+X-Gm-Gg: AYBFou3mNcFYuTB1kM18U/F6TAxxJSdwqnjLjjOyUR/CLyWwBlhgl+Y3uARt1l4VstP
+	Al8l7QKkJtUHHT7E511BPm5xBmNY6zM+G0d6Cw1VywosNa1yixSeKv9N23q9EtoHoTlrl8ikbAk
+	0YvMD8T1XFuRIjj35WOJB3+1bVQrqKH8lTy4qm/QAQlOdNEYyOLEOci1yRJdP+UlS1z9tfksn64
+	KssdRxcom4JMJ5JTzR8AvEu/Qmrsm/CuM7AMvkKkc2M+D6k1V+0oPK/N+ZejyrPukxDd6jQyp7O
+	59Hg086qwlcYhEyJFvyVZDXMEJE3FJn91BTtYKOhFYiiVa2UG+7OmdaTwZcbbdXCSGFjO9kGjmc
+	ZAGQkZ4GrIDwFVQEW5C6HqvO0bwKmv3hNtCit1HLZPDs9Y3xQEH0D1GqXtI+UrcWkCqw0+Oc2AE
+	cqNlzgg9FacNJVtdfcY3Nqm7bU+3JKMRaKiQAsEH36clZrn8GI4hS5mRIXE3suxMWvdcnGnfAog
+	RDHSp86MAZj6zi1sMqM+8gkMeQ=
+X-Received: by 2002:a17:90b:2ec4:b0:39e:574d:3d2f with SMTP id 98e67ed59e1d1-3ab3a39ee2fmr16098050a91.7.1792065434854;
+        Thu, 15 Oct 2026 04:57:14 -0700 (PDT)
+Received: from localhost.localdomain ([183.250.189.231])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e74bcsm4236919a91.3.2026.10.15.04.57.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 04:57:14 -0700 (PDT)
+From: Ye Linfei <yelinfei66@gmail.com>
+X-Google-Original-From: Ye Linfei <yelinfei@ruijie.com.cn>
+To: chengzhihao1@huawei.com
+Cc: linux-mtd@lists.infradead.org,
+	richard@nod.at,
+	miquel.raynal@bootlin.com,
+	vigneshr@ti.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mtd: ubi: use GFP_NOIO for lock tree entry allocation
+Date: Thu, 15 Oct 2026 19:56:53 +0800
+Message-Id: <reply-zhihao-patch2.1792046946.git.yelinfei@ruijie.com.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <f89c80cb-d879-ede2-9459-1778ff2f71c2@huawei.com>
+References: <cover.1792046946.git.yelinfei@ruijie.com.cn> <8b4e0b970271095df8321b1662aa464c5b9002dc.1792046946.git.yelinfei@ruijie.com.cn> <f89c80cb-d879-ede2-9459-1778ff2f71c2@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Ali,
+On Thu, 2026-10-15 at 19:03 +0800, Zhihao Cheng wrote:
+> The ltree_add_entry() has many callers that not need GFP_NOIO, I think
+> 'mtd: ubi: block: forbid direct reclaim I/O during synchronous read'
+> is enough.
 
-On Wed, 2026-10-14 at 18:05 +0300, Ali Ahmet Memi=C5=9F wrote:
-> On Wed, Oct 14, 2026 at 03:45:10PM +0200, Hans de Goede wrote:
-> > Hmm, I wonder if we should export the lock added in patch 1/3 and
-> > then also take that in the ACPI EC interrupt handler ?
-> >=20
-> > The ACPI code already uses a threaded IRQ handler for both EC GPIO
-> > IRQs and GPEs so sleeping in the handler should be ok.
->=20
-> Sleeping is fine, but the interrupt handler completes the EC
-> transactions, so taking the lock there would deadlock an exclusive
-> _BST.  Doing it in acpi_ec_event_processor() where the _Qxx methods
-> are evaluated, works though.  With the brightness key queries also
-> running the \GTST copy, 283 of 891 _BST reads were broken without it
-> and 0 of 804 with it.
->=20
-> > I'm just thinking that if we're going to do this it would be nice to
-> > cover the bko221065 UCSI case too.
->=20
-> UCSI and _Qxx alone aren't enough there.  I emulated the ECMT users
-> from the 83DR tables and the EC helpers kept waiting up to ~680 ms of
-> their 1 s timeout behind GBMD/SBMC until the ideapad methods were
-> exclusive too.
+Agreed, and thanks for catching this.
 
-Nah. Emulation doesn't count at all.
+With memalloc_noio_save() in place, the ltree allocation inside
+ubiblock_read() already drops __GFP_IO implicitly, so the explicit
+GFP_NOIO there adds nothing.  The remaining ltree_add_entry() callers
+(ubi_eba_write_leb() and friends from cdev/update/wear-leveling paths)
+run in process or kthread context rather than a blk-mq synchronous
+dispatch loop, where swap I/O triggered by direct reclaim can complete
+normally; forcing GFP_NOIO on them is unnecessary.
 
-Without a real EC, any call to ECCC or RDER (called by GBMD and SBMC)
-times out because CMDB is never reset to 0:
+I will drop this patch and send a v2 with the block driver change only.
 
-        CMDB =3D Arg0
-        Local0 =3D 0x0100
-        While ((Local0 && CMDB))
-        {
-            Sleep (0x02)
-            Local0--
-        }
-
-Thus, any call to ECCC or RDER consumes at least 200ms in emulation, but
-in reality it doesn't.
-
-If the EC is really stuck for such a long time in reality, the platform
-will shut down or reset itself.
-
-Thanks,
-Rong
-
->=20
-> > Note this is something which can be done on top of this set.
->=20
-> I can send a series on top of this one for the EC queries, UCSI and
-> ideapad if that sounds good.
+Ye Linfei
