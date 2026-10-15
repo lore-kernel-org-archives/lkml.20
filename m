@@ -1,162 +1,212 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDF849E128
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D249E12B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050270; cv=none; b=mrcj12Okw0+cSOdCVlQsfCchIT+p7js/88+2bKNqKRzDtUGdstLOgJJAV9U/J74s80RlEbj2cRQFmZIcM/FxQZwKtCQ8aYKKC8wzuhY/ipnEIOk7wpC+zaDrGjjuUXT5QGgKme0VuwaAbOscw1TER6Ank1KqbeEaiWhjNJotfvA=
+	t=1792050289; cv=none; b=iljbMykb9pNSw1AQrYK9xGfogZGG5XJl1Pp8DsBOS2yYbpFV7WH25Jpm83MvrPiwJQhBBfPYzNKasp7dlKLNZv/CxbDbUwkdoveKM+42HyGncDtfVOO0Ooga1fdzT0fz3NwUqjqZsHRak9WTW6/MBYRGUw1k5zoELA7P6xQwZGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050270; c=relaxed/simple;
-	bh=7y+yRF81iZ5p6JHx/r1efbfLA9EYlv8GHW0hYZ1HWxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jr42DKAxYNOrD2NsZ/tPSh83lQ6BN+voZwnMAb/aA4sJMVPO0J9IPL8KIJfRvxj/kabC/dgpz7kVM/lsMgF7lXwknSmWsKXe2o2+18/vLzysQeJU4ujAlgaoPDK7APD6ScwOYkNtJ+7+w2zgU2iijxQ2DA91ZhHwuLdR5981fU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btJke9aI; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792050289; c=relaxed/simple;
+	bh=0UA8dSV6qvMA9myM9p5q2eyTL3r5zJtR3t1wLT4sjBw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=HVyjdFsIMSaLLy0IgmBQxr9pZHZLCxB3RhG4ahOFdYVq6UXORHzviGtMdVljp6JVki9rB/O0p279rHN5bXy1KI1ieJhccG5NV+uaUvYRH0ivxk+fOp97OGlM+TXFu/x4fJrNopRfMRTFFt9sMLVLAKJgsDVtExE7ESjhPD9DX8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nxMHOxUY; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btJke9aI"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc502d509c0so824750a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:44:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nxMHOxUY"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso35771345e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:44:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792050266; x=1792655066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1792050284; x=1792655084; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t8GsylX4a4lqmTRbuX4pJqRcRdmdE+d0tyzRFMMnoIk=;
-        b=btJke9aIqxkQtjWT7vRYpxNwGweO8aEBks1u2n5nU8nX2AzvP9zw5ULWV6vTPfA93N
-         nvn/IF3fl/omzAq2qvXFR4ixN79uY+ccjAikjx3qd1FqjU6JGZUPV+ElrNz/nuLQHPmk
-         JUx2XQntvvQTMxBFIs4KbiDvFh9ztKlImvRTpeRt+urYKJjxsRB/F5WDVcQjH8hk8lN3
-         memFz2HF3/MmeKlkZ3AcG/S2e+KRw94LITXbFYDfhtptrYsbSaH28WtekPXbr9a/54zl
-         dtLcZ+Ri6LypLFA/6LXxAVAAeUE0WOaJzhVVn7egkYIcjqpa89EwEieJZzKX9sbz7MNX
-         zKlg==
+        bh=+dvMNnzmsfKlXaQReE9W1eWaATaq+JUXJSwSZca7lFE=;
+        b=nxMHOxUYUs4JuNmbTThb0A720WUFU0SU5BVZmFT9/N7xvL8d1lixLvPj73zDpLVz8F
+         pHBuBYG+uMVShWpjkoX6s6sN4kZoXoALeiHRuZkN+mKBkWj0tuDvIsJCQ9SpzjYAt3yU
+         KfOzJiupBHhOTxNZen6ceQE/nGb18BuiFwmZUSUg0eIz8LwhrusxyqsAljfmVndWFjak
+         EfcHUN4Ku6sefLSBjoaZWvc++u16wyTVaOvxw4pToXzAEShK4HeOtGTihuz4vxtDJFKY
+         IUrUYNVBFQ6G7ojcasVA/xyKn+zF1Lh4zrkYXyEIo7y2N30yvAO8kUKn0LplsOOW0WTP
+         Tocw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050266; x=1792655066;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t8GsylX4a4lqmTRbuX4pJqRcRdmdE+d0tyzRFMMnoIk=;
-        b=Crz7xoBuvgRqtXorTol0MjBDPpMDW1fHlsyVsj3b5NpBOxos+v2VHTOTAeCEJih77G
-         Ix6hj8gTSl8CaJuMknNRBs2/Ee6jGR/FB2uAmqR24enkevYU0mNHJejeYgQ9LC4LG/ua
-         pua5yC9eFDD4/kyuydUp9VLPJKMvDHO84kwsE8J1JqgwF78PCPy2VGvvPDzpHACts8jG
-         L7vsCdMkh52/FEzkE+svxugPvQiEgITDXfE1RdLj1Vyo3+66EswG4b9BQX5IC8ATC1sa
-         7dPzpCUV3zljUEpdXiSzh+sip0RwqFp/fyIeUs6SCZpIBx/0OUX8/OIhyeSQ4jyV2hm5
-         kx2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByJa3kIvVEJ6BNSgvzHo5lvZa4/FHpmUj7T+Nz58rCcXyaBhJeJWNwFe9XhVgZHvE8ACHY2WsKaeLQAyS4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJagIDUJAAh308ZfKB5Ze5cpGgtzAG0fGf8yWYn4roN8PAi6MuU
-	P06LuuS6u/2fzRCSdN/WfNA6C9FCbwSulxFwNlNwjiP29zChKnScsOsb
-X-Gm-Gg: AYBFou3IOhuJc+Dyfq//WrTHEwALRpRLThb3BHuFjhjGZ7+i/YG92JAlQFAv7RAtjC+
-	xDvzh1UlZSk0yfFvwZgt5tCgARLmSPUaazI75t2rVf/TLkj9EEFez7NUNIKg7/Wf2hau6B9CbTi
-	+qU6B+KVKHSPezREeY42iOOloRGKmtuEj6YkXP1hWXkKvvMcEtkjr6d451inLcEKCOzKA5yYWT+
-	0kdGXgrWbYZN5Tk5JLIg5VYhrm/nmx4ZsDdYkB3qfV7r93KFsqy5uYSVU3t86cOWli9Arn/7Gck
-	atzOe6lxX4TJ8ou/xys9u0QsXUZdDHCNmf47rJudQ/ZABTsYR+osmHib0ZNBF321y5Tg+awRad1
-	bea5wQITaG89ZT24dhmNfQzD2mdpaRiZzZSARNKtdH1Ckqiagdca74TetwRd+JGfM13plcIiTvs
-	Iz13EHPyZYTMVyqIH7VndAlWaRREzOhS2Gxuy3/AKrf1VSBxAlYCl8D7WgqfjVq0jJW5wMp2fz2
-	dcHKBrdvnZvnZg38F9tFEIkU/zZjRPYsCtC
-X-Received: by 2002:a17:90b:2d0b:b0:3a7:e11c:4e6e with SMTP id 98e67ed59e1d1-3ab3a97a71dmr15876690a91.59.1792050265773;
-        Thu, 15 Oct 2026 00:44:25 -0700 (PDT)
-Received: from chitransh.. ([106.202.101.59])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94627250sm3007423a91.8.2026.10.15.00.44.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:44:25 -0700 (PDT)
-From: chitranshmandhaniya@gmail.com
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chitransh_Mandhaniya@dell.com
-Subject: [PATCH v2 2/2] platform/x86: dell-uart-backlight: recover from stray EC response byte
-Date: Thu, 15 Oct 2026 13:13:39 +0530
-Message-ID: <20261015074339.27388-3-chitranshmandhaniya@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015074339.27388-1-chitranshmandhaniya@gmail.com>
-References: <20261004110333.5790-1-chitranshmandhaniya@gmail.com>
- <20261015074339.27388-1-chitranshmandhaniya@gmail.com>
+        d=1e100.net; s=20260707; t=1792050284; x=1792655084;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+dvMNnzmsfKlXaQReE9W1eWaATaq+JUXJSwSZca7lFE=;
+        b=SIhrKM98KLw7UT8iXzF5Gh1cNWTGaQd35iGG6RRmWYq78tuB5FBleOOv5drzk+K550
+         CRURSVxufkbLEUu42Mf6mFZHM5g/gbEhrDagkJU92wCE2n5u1ugWpi+87dasVZX2hGpZ
+         dzCf8czbX++8+asG6MyMviGRRofISj7stwoBGQVNpzBX08Nt3EzXWHcmd7LIwp30LvWU
+         jKmmAtBD2NdTtpv/45P3ZCFtL9we3J2EgJMbdNW9j5GFqYaJemLwzYZzChRayaj45reV
+         touAULUHV0ygVXmDVAxYj2uC4VQP7HTGeW0QdPESuB8i0Bc7UCgkDfw1r27rnBcN5KLi
+         fF6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzcTCdTKYZ3RCT5XIMVavqTfNMIbkDsrKPafe1J3+RUmOzPSQEgYWDcaNMO9HASVxppR/ViJBpD2pVqFAs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUorr50TZtH3HWEAlWftO4XmWqHmiBezmFfjXzfi9FtBw2RkPX
+	GwDUzWEGPDBBIfooZ46h2m8h5mbfIJbdKjdFN/midJE4l9oNrkvH4WqM6HWLTQD8814=
+X-Gm-Gg: AYBFou2LShmjXqSu7qp6secq0BgQ676r4phPFrx7MiQi/vgNsYn+vqJucfgZIw5Utau
+	gSj4ubZNb8/4e2SOYheJc+14GEpamdJP6M31wqgkIKeW11WA0ZbZ5e2D2bOFrzevB640vrNWh0P
+	TEA8vleRY/sbRCzf4Ymw8gNqTdzsFHOlhZpoSbbOSsw7Skt+B256CFFg+FVCtdO1CjoNNa1MWB1
+	xuPj7XVEKKRmgTQY4hW6TQ+H4p5p7oj71P5XVpwXdTPoOImOYLB7yDkx3hHbtCtyFk85dUchK8e
+	5WK9RCtffu8z10OLuXS9+mfYj8QTv4qVF3RPzpHI87pnx+2VlasoUGHekMSF2ImihaBrvWBEA8X
+	W0YCnKcaghN8PdnTj+acVPs5Wjy7ATYEcRpST1QYXac5lUXoRu6yjjsh+WLqfC00ERW9cNXf1lM
+	Ce2Q3rPCY0o5oAdqMiJKkfgUJhqaUpeQWaZRbzfUkBbj2hudRNq+AwscFrEeXl/3jphn871Ouwf
+	OaygZcDa9evdqsokXVw6CqdABqOrqKgGJMbzGSfih2GHIwAvE6Bq+k=
+X-Received: by 2002:a05:600c:4685:b0:4a0:27eb:49b with SMTP id 5b1f17b1804b1-4a18e4ae6fcmr385008175e9.30.1792050282515;
+        Thu, 15 Oct 2026 00:44:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4? ([2a01:e0a:106d:1080:fdbf:f373:6d5b:93e4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm8548506f8f.31.2026.10.15.00.44.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 00:44:42 -0700 (PDT)
+Message-ID: <8d4d3ec2-3c97-4a46-97f8-048fdf81b853@linaro.org>
+Date: Thu, 15 Oct 2026 09:44:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] dt-bindings: usb: snps,dwc3: Fix downstream port
+ numbering
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Felipe Balbi <balbi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+ <billy_tsai@aspeedtech.com>, Michal Simek <michal.simek@amd.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Peter Griffin
+ <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Minda Chen <minda.chen@starfivetech.com>,
+ Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Wei Yang <yangwei1@eswincomputing.com>,
+ Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+ Hang Cao <caohang@eswincomputing.com>, Li Jun <jun.li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Roy Luo <royluo@google.com>,
+ Yang Xiwen <forbidden405@foxmail.com>,
+ Ahmad Zainie <wan.ahmad.zainie.wan.mohamad@intel.com>,
+ Robert Marko <robert.marko@sartura.hr>, Xu Yang <xu.yang_2@nxp.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Stanley Chang <stanley_chang@realtek.com>, Ze Huang <huang.ze@linux.dev>,
+ Aswath Govindraju <a-govindraju@ti.com>, Roger Quadros <rogerq@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, imx@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20261014082037.1774672-1-wenst@chromium.org>
+ <20261014082037.1774672-3-wenst@chromium.org>
+ <7020a7a6-332e-4fd0-a659-d82eb768614c@linaro.org>
+ <CAGXv+5G1kgyumbj7wGf6rPFbg3spSO0zYmEkn-hZT4qUdJbytA@mail.gmail.com>
+ <03375a31-0ac6-47a4-b0dc-6327080e1622@linaro.org>
+ <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <b4c0761b-34f2-42ad-97e7-ab34ae776281@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+On 10/14/26 18:36, Konrad Dybcio wrote:
+> On 10/14/26 11:44 AM, Neil Armstrong wrote:
+>> On 10/14/26 11:29, Chen-Yu Tsai wrote:
+>>> On Wed, Oct 14, 2026 at 5:28 PM Neil Armstrong
+>>> <neil.armstrong@linaro.org> wrote:
+>>>>
+>>>> On 10/14/26 10:20, Chen-Yu Tsai wrote:
+>>>>> The DWC3 controller can operate in host mode. It does so with a XHCI
+>>>>> compliant host controller. The XHCI has two downstream ports, one for
+>>>>> HS and one for SS. USB downstream ports start from 1, not 0.
+> 
+> [...]
+> 
+> 
+>>> IMHO having consistent numbering across controller types would be
+>>> better. This avoids making the USB core and hub code deal with more
+>>> exceptions, and also easier to understand and write device trees.
+>>
+>> I was in the impression the port number not necessarily reflects
+>> an actual physical numbering, and can be a logical number we would
+>> then map in the kernel.
+>>
+>> I don't see any issue here having base 0 for the bindings and then
+>> converting it to base 1 for the XHCI port numbering.
+> 
+> I thought base1 comes from the USB spec and not just XHCI?
 
-On some Dell AIO machines the EC occasionally inserts a spurious byte
-after the cmd-echo in UART backlight response frames.  A get-brightness
-reply "04 0c 0a e5" arrives as "04 0c 0d 0a e5". The length field still
-reflects the original frame size, so the parser consumes the stray byte
-as payload and mistakes the real payload for the checksum, returning
--EIO.
+This is my question, is the spec says: each USB Host Controller root
+port shall be considered as a port of a Hub and numbered the same way,
+then fine, let's use the base1 numbering.
 
-On the first checksum failure for a frame longer than the minimum size,
-drop the byte at the first payload offset, shift the remaining data down
-by one, and call dell_uart_bl_receive_data() again to re-fetch the
-checksum byte from the wire and re-validate.
+As I understand how USB is architectured, all downstream ports of Hubs
+are numbered in base1, and the whole topology is based on that.
 
-Limit this single-byte resync to once per command via a resync_used flag
-cleared at the start of each transaction. A second mismatch is still a
-hard error.  Well-formed replies pass on the first check and never enter
-the recovery path.
+But here, we are speaking of physically separate USB busses, one
+USB2.0 and one USB3.0, a controller could also have 10 USB2.0 ports
+and 5 USB3.0 ports, who knows. The way those will be numbered is not
+part of the specification because the specification only the defines
+the topology of an USB bus, like PCI(e) defines the topology on a PCI(e) bus.
 
-Tested on Dell OptiPlex AIO 7410 65W (0TKWC4) where the EC inserts a
-stray byte on every get-brightness response -- resync fixes it
-transparently.
+How we aggregate all those busses to abstract them to software is not
+part of the spec, we chose to declare a fake root Hub with a physical
+downstream port as a virtual port of the root Hub, fine but this is
+purely software abstraction.
 
-Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
----
- .../platform/x86/dell/dell-uart-backlight.c   | 23 ++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+We may only use the hardware IP port numbering in the bindings, not
+the software abstraction.
 
-diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-index b61499d7b3f8..085dcc055554 100644
---- a/drivers/platform/x86/dell/dell-uart-backlight.c
-+++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-@@ -60,6 +60,7 @@ struct dell_uart_backlight {
- 	u8 resp_len;
- 	u8 resp_max_len;
- 	u8 pending_cmd;
-+	bool resync_used;
- 	int status;
- 	int power;
- };
-@@ -91,6 +92,7 @@ static int dell_uart_bl_command(struct dell_uart_backlight *dell_bl,
- 	dell_bl->resp_len = -1; /* Invalid / unset */
- 	dell_bl->resp_max_len = resp_max_len;
- 	dell_bl->pending_cmd = cmd[1];
-+	dell_bl->resync_used = false;
- 
- 	/* The TTY buffer should be big enough to take the entire cmd in one go */
- 	ret = serdev_device_write_buf(to_serdev_device(dell_bl->dev), cmd, cmd_len);
-@@ -270,8 +272,27 @@ static size_t dell_uart_bl_receive(struct serdev_device *serdev, const u8 *data,
- 	if (ret < 0)
- 		return len; /* Response not complete yet */
- 
-+	/* Stray byte after cmd-echo? Drop it, shift data down, re-fetch checksum. */
-+	if (dell_bl->status == -EIO &&
-+	    !dell_bl->resync_used && dell_bl->resp_len > MIN_RESP_LEN) {
-+		dell_bl->resync_used = true;
-+		dell_bl->status = -EBUSY;
-+
-+		dev_dbg(dell_bl->dev, "Resync: dropping stray byte 0x%02x at offset %d\n",
-+			dell_bl->resp[RESP_DATA], RESP_DATA);
-+
-+		memmove(&dell_bl->resp[RESP_DATA], &dell_bl->resp[RESP_DATA + 1],
-+			dell_bl->resp_len - RESP_DATA - 1);
-+		dell_bl->resp_idx = dell_bl->resp_len - 1;
-+
-+		/* Re-fetch checksum byte from remaining data */
-+		ret = dell_uart_bl_receive_data(dell_bl, data + ret, len - ret);
-+		if (ret < 0)
-+			return len; /* Need more data for checksum byte */
-+	}
-+
- 	wake_up(&dell_bl->wait_queue);
--	return ret;
-+	return len;
- }
- 
- static const struct serdev_device_ops dell_uart_bl_serdev_ops = {
--- 
-2.43.0
+We could use the base1 to describe the DWC3 ports, but how to describe
+all the physical USB busses a controller can expose ? We may not limit
+the bindings to USB2.0 and USB3.0 ports only.
+
+How about the USB4, does it use the USB3.0 port ?
+
+Neil
+
+> 
+> Konrad
 
