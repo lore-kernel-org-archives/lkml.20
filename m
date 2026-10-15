@@ -1,401 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B281211A09
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3092C325C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031865; cv=none; b=BOw3Hh1OQLEJTD+uytvSFCpx0zW40lzq5Goi2wR/nmgCWpZ4A2nztWucXX4JkCEboZ3VgRUKQtuz/d7TNaD9lTNQNUIAjSlz31PFIOzzOCq4MD3buoP6c0CxTJFHMOJuivyXuUopwPS1G9xu8ddDMiYlzR98KZCYWOZAIaIskr4=
+	t=1792031878; cv=none; b=bLimYs/QTGPNgkXiBTTcuecq6i4fbBzDMy1uM3tIBd5xTLV5LcxOCIWWchE8Rp4kMPZnCP6hJwDP3vsUUSmdMz6Ra6/mW6ugS6xn8s9vPhZ1G8cKEVpI+tzW3NHtG23BDnJUNe8CW8y7hgL9k74hiQNG8Tq0Til72U1kaGW19Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031865; c=relaxed/simple;
-	bh=8SF6g/8C5xsWL9rO1JXLH8IoYxYDKHFbU49M0DHHuIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NxD5d+9LmF6Do4ymJ03XzG2nKRvltBcVy08k8OeBD8q3U+GBGvrde4J8LDMIqbS0N8W4i8OCWJvOGF5ml7w3SagY1G2eFOI1exlNeSxatJkqgSCAjSEKQb4fB5Se98HU8fwrC35vETCLgW0c0SXyCKZgsFDVEN9gpxRuTY9/vOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdOTYlF3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792031878; c=relaxed/simple;
+	bh=HF5x4rJslkS5ldbX3PSmiGKP+XEfOEund3ixdEvBtYs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ipFAQwGXEkVK2lnMiqNlUhN4HGuw+jPfDXnbC+9SGFzLZwL/p0KLCmsP+M1tYRSHWMxGts9muX9+sYLK59E1bT4EfPBJPElfZou2j6c0W24AJ4GOidXwhQdxYxKtonbXwO7+4Q4yIoCyZRNEBjMkdh1E2qCOF+vDkDhF2RiQBEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HR1c0gDE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GnlI8BDf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdOTYlF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38A31F000C4;
-	Thu, 15 Oct 2026 02:37:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792031864;
-	bh=Sr0u6wVPt1hjNUcUWLk504EZuBlXvMBHDZSeAxC33qE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MdOTYlF3Kd34N9xur0Y0XSPY5stHG1Okt7AFE8iRE3uLi5lYvwZDnYKBnW+aLs385
-	 6WSK6+yFjevEkA7wpdLR1jZtIY+3X4anq+/9i48MvkAaFy0MTvdRRXQDMOxKXNZRdw
-	 /xFflZOQauAXksAiXgHZgx7Sewv5y05jpjuIGTBq0LwN0KIwVzqdaPgph2EVXGEtxn
-	 l/MN+uwA3U7cKYsu5o/VrIBzgBSAvOED/3JTILBE3mGzmXWW+LJQmkhbPYmJAgv3BT
-	 /dxml3IZPHogavL52N1xE1USW2LQTTKhkA3PFInRMuGQUho4obp9feaqBPDRElMxeQ
-	 H0XQJn+Jyc4SA==
-Date: Thu, 15 Oct 2026 02:37:42 +0000
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v5 02/16] f2fs: carry subpage offset and count
- in write IO
-Message-ID: <atA8dsZ35E6wTMD6@google.com>
-References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
- <20261014064445.2835813-3-zhaonanzhe@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HR1c0gDE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GnlI8BDf"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F1A2qd3468940
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:37:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=a+lIi8L5u6cYgFfD+/wiX79z9tYf081N8YU
+	cub8/ZAI=; b=HR1c0gDE0KPepD9EONzg1bPHpv48jiQlihUIUqe8XqJ4k7SZ+ym
+	dj/vlyeZjqjGj8QqFUI2W3w9zY5pKqOTv6k2rYlBaa8JKtmOtRFC5WPUfVCVY4kO
+	UEcCCAezJocl8tlqtvH0624x7xTTzigzLSzj2z2tVmxRhuc+IBycJ95kGSRoJelq
+	DPJiQWI8ZV+mJA2VeV5DGQQDsXCl7W9jI3hNc3L5suTQqVYKs7vaQPpwd9KozK1h
+	M4LwaS6LwfPkGUOKc3jq/XD0nuZRlS44PDltJwZ/s6NBjOFX8xp/QS76Uc4mON9W
+	fxXNsou5J7G8RbfrXCXBN3iIxajhGQcvYbA==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hadd79y91-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:37:56 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-152d1363a29so17353941c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:37:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792031876; x=1792636676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a+lIi8L5u6cYgFfD+/wiX79z9tYf081N8YUcub8/ZAI=;
+        b=GnlI8BDfutMn+OH82oKDUwPanfQMqeIAkTWxrR40+uL1ADzise9MZi14dXNdwsVwLM
+         F6nLJsywvQCQBjc9caRE08ld9kg/1KTNMZt6Lc0Qq8y44ybH5StzcinPwcDhjip1H/fS
+         M/pr2yzEMZlEJ/6H8MQ3Kh473wKUpswnxJ++aP8l4ZvbqBjLpg2p1bqmV730UhQjjzIH
+         NYFkSI7I+34f/k/x5YaHdFbzqn/MJ3zFGdtJ5WupvHcgw8/U9JJ/0Cgs3lYNHmzFZfDd
+         SdcArGYXgxJEbDY2NgsdsjtP2NhQBQ0GKgsFj1TtyG9yjn9eV+lJNd3iwad1RnzOpTrb
+         k3Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792031876; x=1792636676;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a+lIi8L5u6cYgFfD+/wiX79z9tYf081N8YUcub8/ZAI=;
+        b=DAAyj4ey5gSOYleuyq1BYGNnw55oBhXuIm5ZHtcErPzwlgJVPzskSCPgoPxqMCVLiS
+         uXZRyJdiYEdt46ad0X2r4k/+5T1glJ1277OV0QHqBchrSF5ZezgHkxJoWDmKBq5jx5KI
+         k4vq4SjpDhU7DC9iy1K9Pxx1cbidn5LIg1DbrBeiJJL7nUqur5Xz57u9EYhKtZJTabB9
+         b4Yhbe6jiphKmmfFGUa0XVP7RuBDVNdpFoRm+RmhTRNLC0sU83nV3rgEJywT4kZxQhNX
+         vKwcic0O9H2ZN2YSsxY4YS+P/lUVj8/K0gfPrbv1fjNsy17E4yohgtyDV7vPSltN0jBf
+         49JA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4FmiJPXjt/2w27kPaG7HJEtPd0cpsThvFGRgjntO5bvini97ttzE2qoLh8X3OEar3QX1v1/32jYYUH+8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDf0GEimmyaU/62QJCDERvj1eufJGBoz/NFX3xbuXHYI9GftWD
+	zQMFZ+EDArKWL+IUHQExFRgL738jIAbupraPVZtlQ1Xivd7VrqUlbeHP48CeGEnj18ceyvD75JE
+	V69ooHwHpmtD0cq1cflKhz54y+FYfFpWcqXAzm9jeed8AXI5tfUXrz/QQdoYcTTWSO4M=
+X-Gm-Gg: AYBFou3sXGPi1qx4+1OtOuDz4j//OsFa1tw5CTzclN3cTDmSejysinC3LuTnllJjDC/
+	Dbo0LN7gVLtH0aG8OmGoSyURu121f4kp0KmnPUP/gfWZ28+1QJ/uuBQUUQkzLwS3+OUUOoTTAgK
+	JajslbDrBMTw3oASXgDyK4ptM8SYcJ7SsHhEf6DouKK0DP6OFgqdTmm5JnTjYdgjjjGUnfn43Gj
+	mkf7mSeofIcKTv6hDPH/hiJEzjjJaGCj9AWfFa/7MuPoKA7hY4Kuw7gU43yZg38e4ydXd2t5cA8
+	0fwfc+8iZgPgzwNGD2zNd1M369uSYYrf8mj3pAsx0FOjk5t2mS8KAsxYTjECKNA6aP1GPWPknzF
+	gNBCJg7A/h54MIAkfKsQjQpEvGp/gUv+zMrWbNtYy1ZKooG+D8Prw54jh+fo=
+X-Received: by 2002:a05:7022:290:b0:151:2e62:fe5b with SMTP id a92af1059eb24-16a5dbfd567mr27218525c88.22.1792031875494;
+        Wed, 14 Oct 2026 19:37:55 -0700 (PDT)
+X-Received: by 2002:a05:7022:290:b0:151:2e62:fe5b with SMTP id a92af1059eb24-16a5dbfd567mr27218492c88.22.1792031874927;
+        Wed, 14 Oct 2026 19:37:54 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm51217017c88.15.2026.10.14.19.37.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:37:54 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 0/7] arm64: dts: qcom: Introduce SA8255P as Lemans family SoC
+Date: Thu, 15 Oct 2026 10:37:04 +0800
+Message-ID: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014064445.2835813-3-zhaonanzhe@xiaomi.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=BaVNQbt2 c=1 sm=1 tr=0 ts=6ad03c84 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=KDW8FNEomtbSJeOC770A:9 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-GUID: 6DN0ZRHd1F_j_O-rr4EHqpeCVOWxkTxL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAxMCBTYWx0ZWRfX0d+E6ay6Qqbg
+ UoRUoZg+HUjriKKv4ZFn3q30EibXbGWBrKIIKZmDcUbgTdjT8FWuiROukfXUWjoOWdRVySqv0wA
+ UKqz/quvEvjlUirT0oElCf7ABx5PV1tft0IEwQvG+uaElOqrzPdrqOq6utMYmSH65LIX97kFxCE
+ PqDziHlNVEFf8kRMrh4rZ6sOExozPB/xbt1cKQMgMirSsMJplpNlDFkLZG1onyfYjYzpdMS/r6Q
+ Z0hCP8vb4lAxA9eg+UjfWHbQUwudIANd+emwI1aQTR914PACC/eK5jCe9zeRDUYl04rbAWr5oF4
+ hj7sidCAsfFVkZ4oaHwDdW10qlHy8dmVP2AlUKgxeXQznPX6iXBiaKXI7FDjlmktWBlvVw3ynF3
+ WxNnaSlS7+8dh6MQWEzZpzx8SvDtl2gXhDSCmk/kIhsCtnvd5KQmXpEZV5kOqS07nn+O3YjNqec
+ muY+VYX89tx/nv4BUbQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAxMCBTYWx0ZWRfX1TQ9KC7H6RsZ
+ QZXD/UW55HShX1wvEUUploWupncvPL3nwla3yTBQwjSHNF9uKv9z/kVpwjlxnk+Umk9Q5qDNH4/
+ frJyCL4JJ3Uy6gCHcVWtmPgOuEZJ1Yo=
+X-Proofpoint-ORIG-GUID: 6DN0ZRHd1F_j_O-rr4EHqpeCVOWxkTxL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150010
 
-On 10/14, Nanzhe Zhao wrote:
-> Large folio write paths need to submit I/O for a range inside a
-> folio instead of always submitting the whole folio from offset zero.
-> Add folio_offset and folio_blkcnt to f2fs_io_info to describe the
-> block offset inside the folio and the number of contiguous blocks
-> covered by the I/O.
-> 
-> Apply the new fields to the bio submit paths that need the subpage
-> offset or contiguous block count.
-> 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-> ---
->  fs/f2fs/checkpoint.c |  2 ++
->  fs/f2fs/compress.c   |  1 +
->  fs/f2fs/data.c       | 65 ++++++++++++++++++++++++++++++--------------
->  fs/f2fs/f2fs.h       | 11 ++++++++
->  fs/f2fs/gc.c         |  2 ++
->  fs/f2fs/inline.c     |  1 +
->  fs/f2fs/segment.c    |  3 +-
->  7 files changed, 64 insertions(+), 21 deletions(-)
-> 
-> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-> index 5c5b45d3c67b..3ad709f69893 100644
-> --- a/fs/f2fs/checkpoint.c
-> +++ b/fs/f2fs/checkpoint.c
-> @@ -264,6 +264,7 @@ static struct f2fs_cached_block *__get_meta_cache(struct f2fs_sb_info *sbi,
->  		.op_flags = REQ_META | REQ_PRIO,
->  		.old_blkaddr = index,
->  		.new_blkaddr = index,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.is_por = !is_meta ? 1 : 0,
->  		.is_cache = 1,
-> @@ -462,6 +463,7 @@ int f2fs_ra_meta_caches(struct f2fs_sb_info *sbi, block_t start,
->  		.type = META,
->  		.op = REQ_OP_READ,
->  		.op_flags = sync ? (REQ_META | REQ_PRIO) : REQ_RAHEAD,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.in_list = 0,
->  		.is_por = (type == META_POR) ? 1 : 0,
-> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-> index 747141c79900..c0e39f580993 100644
-> --- a/fs/f2fs/compress.c
-> +++ b/fs/f2fs/compress.c
-> @@ -1282,6 +1282,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
->  		.op_flags = wbc_to_write_flags(wbc),
->  		.old_blkaddr = NEW_ADDR,
->  		.page = NULL,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.compressed_page = NULL,
->  		.io_type = io_type,
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 95212e60f09d..429fe8998ca3 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -849,6 +849,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
->  	struct folio *fio_folio = fio->folio;
->  	struct folio *data_folio = fio->encrypted_page ?
->  			page_folio(fio->encrypted_page) : fio_folio;
-> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
-> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
-> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
->  
->  	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
->  			fio->is_por ? META_POR : (__is_meta_io(fio) ?
-> @@ -861,11 +864,11 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
->  	bio = __bio_alloc(fio, 1);
->  
->  	f2fs_set_bio_crypt_ctx(bio, fio_folio->mapping->host,
-> -			fio_folio->index, fio, GFP_NOIO);
-> -	bio_add_folio_nofail(bio, data_folio, folio_size(data_folio), 0);
-> +			fio_lblk, fio, GFP_NOIO);
-> +	bio_add_folio_nofail(bio, data_folio, bio_len, bio_offset);
+While the patchset [1] supports SA8255P as a standalone SoC, this series
+offers an alternative by introducing SA8255P as a Lemans family SoC.
 
-	bio_len is coming from fio->folio. But, we need to get from data_folio?
+Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
+platform resources like clocks, regulators, interconnects etc. are
+managed by HLOS, and GearVM variant (SA8255P) where they are managed by
+a VM acting as SCMI server.  All Lemans family SoCs actually share the
+same hardware configurations like memory maps, interrupts, DMAs, etc.
 
->  
->  	if (fio->io_wbc && !is_read_io(fio->op))
-> -		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, PAGE_SIZE);
-> +		wbc_account_cgroup_owner(fio->io_wbc, fio_folio, bio_len);
->  
->  	inc_cache_count(fio->sbi, is_read_io(fio->op) ?
->  			F2FS_RD_DATA : WB_DATA_TYPE(fio->folio, false));
-> @@ -924,7 +927,8 @@ static bool io_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
->  }
->  
->  static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
-> -				struct folio *folio, enum temp_type temp)
-> +				struct folio *folio, size_t len, size_t offset,
-> +				enum temp_type temp)
->  {
->  	struct f2fs_bio_info *io = sbi->write_io[DATA] + temp;
->  	struct bio_entry *be;
-> @@ -933,7 +937,7 @@ static void add_bio_entry(struct f2fs_sb_info *sbi, struct bio *bio,
->  	be->bio = bio;
->  	bio_get(bio);
->  
-> -	bio_add_folio_nofail(bio, folio, folio_size(folio), 0);
-> +	bio_add_folio_nofail(bio, folio, len, offset);
->  
->  	f2fs_down_write(&io->bio_list_lock);
->  	list_add_tail(&be->list, &io->bio_list);
-> @@ -950,6 +954,9 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
->  							struct folio *folio)
->  {
->  	struct folio *fio_folio = fio->folio;
-> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
-> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
-> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
->  	struct f2fs_sb_info *sbi = fio->sbi;
->  	enum temp_type temp;
->  	bool found = false;
-> @@ -972,8 +979,8 @@ static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
->  							    fio->new_blkaddr));
->  			if (f2fs_crypt_mergeable_bio(*bio,
->  					fio_folio->mapping->host,
-> -					fio_folio->index, fio) &&
-> -			    bio_add_folio(*bio, folio, folio_size(folio), 0)) {
-> +					fio_lblk, fio) &&
-> +			    bio_add_folio(*bio, folio, bio_len, bio_offset)) {
->  				ret = 0;
->  				break;
->  			}
-> @@ -1087,6 +1094,10 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
->  	struct folio *data_folio = fio->encrypted_page ?
->  			page_folio(fio->encrypted_page) : fio->folio;
->  	struct folio *folio = fio->folio;
-> +	pgoff_t fio_lblk = F2FS_FIO_LBLK(fio);
-> +	unsigned int fio_cnt = F2FS_FIO_BLKCNT(fio);
-> +	size_t bio_offset = F2FS_FIO_BIO_OFFSET(fio);
-> +	size_t bio_len = F2FS_FIO_BIO_SIZE(fio);
->  
->  	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
->  			__is_meta_io(fio) ? META_GENERIC : DATA_GENERIC))
-> @@ -1101,20 +1112,21 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
->  	if (!bio) {
->  		bio = __bio_alloc(fio, BIO_MAX_VECS);
->  		f2fs_set_bio_crypt_ctx(bio, folio->mapping->host,
-> -				folio->index, fio, GFP_NOIO);
-> +				fio_lblk, fio, GFP_NOIO);
->  
-> -		add_bio_entry(fio->sbi, bio, data_folio, fio->temp);
-> +		add_bio_entry(fio->sbi, bio, data_folio, bio_len,
-> +			     bio_offset, fio->temp);
+This patchset moves those platform resources out of lemans.dtsi and gets
+them accommodated in lemans-embedded.dtsi, so that lemans.dtsi can cover
+GearVM variant as well, i.e. lemans-gearvm.dtsi includes lemans.dtsi and
+overrides/adds properties as needed.
 
-This needs to be from data_folio?
+Changes for v2:
+- Rebase on next-20261009
+- Drop patch "arm64: dts: qcom: lemans: Move PCIe devices into soc node"
+  which has been applied
+- Drop patch "arm64: dts: qcom: Rename lemans-auto.dtsi to
+  lemans-sa8775p.dtsi", as lemans-auto.dtsi has been removed along with
+  sa8775p-ride boards
+- Follow Nord naming to rename lemans-iq9.dtsi to lemans-embedded.dtsi,
+  lemans-sa8255p.dtsi to lemans-gearvm.dtsi and sa8255p-ride.dts to
+  lemans-sa8255p-ride.dts
+- Move linux,pci-domain of PCIe RC/EP into lemans-embedded.dtsi, so that
+  lemans-gearvm.dtsi no longer needs /delete-property/
+- New patch "arm64: dts: qcom: lemans: Add label for firmware and
+  reserved-memory", so that lemans-gearvm.dtsi can override them by
+  label instead of duplicating the node hierarchy
+- Add SCMI power/perf domains for QUP I2C and SPI controllers in
+  lemans-gearvm.dtsi
+- Link to v1: https://lore.kernel.org/all/20260409091100.474358-1-shengchao.guo@oss.qualcomm.com/
 
->  	} else {
->  		if (add_ipu_page(fio, &bio, data_folio))
->  			goto alloc_new;
->  	}
->  
->  	if (fio->io_wbc)
-> -		wbc_account_cgroup_owner(fio->io_wbc, folio, folio_size(folio));
-> +		wbc_account_cgroup_owner(fio->io_wbc, folio, bio_len);
->  
->  	inc_cache_count(fio->sbi, WB_DATA_TYPE(folio, false));
->  
-> -	*fio->last_block = fio->new_blkaddr;
-> +	*fio->last_block = fio->new_blkaddr + fio_cnt - 1;
->  	*fio->bio = bio;
->  
->  	return 0;
-> @@ -1177,6 +1189,10 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
->  	struct folio *bio_folio;
->  	struct f2fs_lock_context lc;
->  	enum count_type type;
-> +	pgoff_t fio_lblk;
-> +	unsigned int fio_cnt;
-> +	size_t bio_offset;
-> +	size_t bio_len;
->  
->  	f2fs_bug_on(sbi, is_read_io(fio->op));
->  
-> @@ -1209,24 +1225,31 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
->  	/* set submitted = true as a return value */
->  	fio->submitted = 1;
->  
-> +	fio_lblk = F2FS_FIO_LBLK(fio);
-> +	fio_cnt = F2FS_FIO_BLKCNT(fio);
-> +
->  	type = WB_DATA_TYPE(bio_folio, fio->compressed_page);
-> -	inc_cache_count(sbi, type);
-> +	for (unsigned int i = 0; i < fio_cnt; i++)
-> +		inc_cache_count(sbi, type);
->  
->  	if (io->bio &&
->  	    (!io_is_mergeable(sbi, io->bio, io, fio, io->last_block_in_bio,
->  			      fio->new_blkaddr) ||
->  	     !f2fs_crypt_mergeable_bio(io->bio, fio_inode(fio),
-> -				bio_folio->index, fio)))
-> +				fio_lblk, fio)))
+[1] https://lore.kernel.org/all/20260304-b4-scmi-upstream-v5-0-f8fc763d8da0@oss.qualcomm.com/
 
-From bio_folio?
+Nikunj Kela (2):
+  dt-bindings: arm: qcom: add SA8255p Ride board
+  arm64: dts: qcom: lemans: Enable lemans-sa8255p-ride board support
 
->  		__submit_merged_bio(io);
->  alloc_new:
->  	if (io->bio == NULL) {
->  		io->bio = __bio_alloc(fio, BIO_MAX_VECS);
->  		f2fs_set_bio_crypt_ctx(io->bio, fio_inode(fio),
-> -				bio_folio->index, fio, GFP_NOIO);
-> +				fio_lblk, fio, GFP_NOIO);
+Shawn Guo (5):
+  arm64: dts: qcom: Introduce lemans-embedded.dtsi as a placeholder
+  arm64: dts: qcom: lemans: Move pinctrl states into
+    lemans-embedded.dtsi
+  arm64: dts: qcom: lemans: Move platform resources into
+    lemans-embedded.dtsi
+  arm64: dts: qcom: lemans: Add label for firmware and reserved-memory
+  arm64: dts: qcom: Add device tree for Lemans GearVM variant
 
-From bio_folio?
+ .../devicetree/bindings/arm/qcom.yaml         |    5 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ arch/arm64/boot/dts/qcom/lemans-embedded.dtsi | 3685 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/lemans-evk.dts       |    2 +-
+ arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi   | 3232 +++++++++++++++
+ .../boot/dts/qcom/lemans-sa8255p-ride.dts     |  222 +
+ arch/arm64/boot/dts/qcom/lemans.dtsi          | 3369 +--------------
+ arch/arm64/boot/dts/qcom/qcs9100-ride-r3.dts  |    2 +-
+ arch/arm64/boot/dts/qcom/qcs9100-ride.dts     |    2 +-
+ 9 files changed, 7154 insertions(+), 3366 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-embedded.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-sa8255p-ride.dts
 
->  		io->fio = *fio;
->  	}
->  
-> -	if (!bio_add_folio(io->bio, bio_folio, folio_size(bio_folio), 0)) {
-> +	bio_offset = F2FS_FIO_BIO_OFFSET(fio);
-> +	bio_len = F2FS_FIO_BIO_SIZE(fio);
-> +
-> +	if (!bio_add_folio(io->bio, bio_folio, bio_len, bio_offset)) {
+-- 
+2.43.0
 
-bio_len/bio_offset need to be from bio_folio?
-
->  		__submit_merged_bio(io);
->  		goto alloc_new;
->  	}
-> @@ -1234,10 +1257,9 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
->  	F2FS_BIO(io->bio)->entry_cnt++;
->  
->  	if (fio->io_wbc)
-> -		wbc_account_cgroup_owner(fio->io_wbc, fio->folio,
-> -				folio_size(fio->folio));
-> +		wbc_account_cgroup_owner(fio->io_wbc, fio->folio, bio_len);
->  
-> -	io->last_block_in_bio = fio->new_blkaddr;
-> +	io->last_block_in_bio = fio->new_blkaddr + fio_cnt - 1;
->  
->  	trace_f2fs_submit_folio_write(fio->folio, fio);
->  #ifdef CONFIG_BLK_DEV_ZONED
-> @@ -3213,7 +3235,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
->  		set_new_dnode(&dn, inode, NULL, NULL, 0);
->  
->  	if (need_inplace_update(fio) &&
-> -	    f2fs_lookup_read_extent_cache_block(inode, folio->index,
-> +	    f2fs_lookup_read_extent_cache_block(inode,
-> +						F2FS_FIO_LBLK(fio),
->  						&fio->old_blkaddr)) {
->  		if (!f2fs_is_valid_blkaddr(fio->sbi, fio->old_blkaddr,
->  						DATA_GENERIC_ENHANCE))
-> @@ -3232,7 +3255,8 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
->  	if (fio->need_lock == LOCK_REQ && !f2fs_trylock_op(fio->sbi, &lc))
->  		return -EAGAIN;
->  
-> -	err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
-> +	err = f2fs_get_dnode_of_data(&dn, F2FS_FIO_LBLK(fio),
-> +				     LOOKUP_NODE);
->  	if (err)
->  		goto out;
->  
-> @@ -3335,6 +3359,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
->  		.op_flags = wbc_to_write_flags(wbc),
->  		.old_blkaddr = NULL_ADDR,
->  		.folio = folio,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.submitted = 0,
->  		.compr_blocks = compr_blocks,
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 2fb8ebfa1303..963cd2cdf7ba 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -1350,6 +1350,8 @@ struct f2fs_io_info {
->  	blk_opf_t op_flags;	/* req_flag_bits */
->  	block_t new_blkaddr;	/* new block address to be written */
->  	block_t old_blkaddr;	/* old block address before Cow */
-> +	pgoff_t folio_offset;	/* offset in large folio */
-> +	unsigned int folio_blkcnt;	/* block count in large folio */
->  	union {
->  		struct page *page;	/* page to be written */
->  		struct folio *folio;
-> @@ -1372,6 +1374,15 @@ struct f2fs_io_info {
->  	sector_t *last_block;		/* last block number in bio */
->  };
->  
-> +#define F2FS_FIO_LBLK(fio)						\
-> +	(((fio)->folio)->index + (fio)->folio_offset)
-> +#define F2FS_FIO_BLKCNT(fio)						\
-> +	((fio)->folio_blkcnt)
-> +#define F2FS_FIO_BIO_OFFSET(fio)					\
-> +	((fio)->folio_offset << PAGE_SHIFT)
-> +#define F2FS_FIO_BIO_SIZE(fio)					\
-> +	F2FS_BLK_TO_BYTES((fio)->sbi, F2FS_FIO_BLKCNT(fio))
-> +
->  struct bio_entry {
->  	struct bio *bio;
->  	struct list_head list;
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index 926e6976bc22..89e50f871b75 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -1228,6 +1228,7 @@ static int ra_data_block(struct inode *inode, pgoff_t index)
->  		.temp = COLD,
->  		.op = REQ_OP_READ,
->  		.op_flags = 0,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.in_list = 0,
->  		.is_cache = 1,
-> @@ -1338,6 +1339,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
->  		.temp = COLD,
->  		.op = REQ_OP_READ,
->  		.op_flags = 0,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.in_list = 0,
->  		.is_cache = 1,
-> diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
-> index 273b6428c9f9..ab7537ff7ebd 100644
-> --- a/fs/f2fs/inline.c
-> +++ b/fs/f2fs/inline.c
-> @@ -151,6 +151,7 @@ int f2fs_convert_inline_folio(struct dnode_of_data *dn, struct folio *folio)
->  		.op = REQ_OP_WRITE,
->  		.op_flags = REQ_SYNC | REQ_PRIO,
->  		.folio = folio,
-> +		.folio_blkcnt = 1,
->  		.encrypted_page = NULL,
->  		.io_type = FS_DATA_IO,
->  	};
-> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-> index 25785b7626bb..96bfb7d63692 100644
-> --- a/fs/f2fs/segment.c
-> +++ b/fs/f2fs/segment.c
-> @@ -3876,7 +3876,8 @@ static int __get_segment_type_6(struct f2fs_io_info *fio)
->  		if (file_is_cold(inode) || f2fs_need_compress_data(inode))
->  			return CURSEG_COLD_DATA;
->  
-> -		type = __get_age_segment_type(inode, fio->folio->index);
-> +		type = __get_age_segment_type(inode,
-> +					     F2FS_FIO_LBLK(fio));
->  		if (type != NO_CHECK_TYPE)
->  			return type;
->  
-> -- 
-> 2.43.0
-> 
-> 
-> 
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
