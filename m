@@ -1,65 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B091D63E4;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2725241695;
 	Thu, 15 Oct 2026 13:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071165; cv=none; b=rbDqN7sCmk5gyMjQDdEtALRcyXHHK0ytNZb+1/pwlx2LBOZqLtWRyES8hSiTYp5pBKq5oOILtSN0ginejwm+ndzdwHHAk9kLfuZXgsrjtJeG22+4Oqmon1KxcdIih4Yz02gwKtYHzW5MpTgNDg2UZ7pbdByV4zX3ip8xHsBF+Do=
+	t=1792071165; cv=none; b=blGdxNdMZxbPttduC0gGNHROAQI3kAlllzRCXp3TnuUxcv8SKbX3td0rUSUkqq2spiCVjzQpaKJxBgJUKoCsKTmImwb+R+hE4KOgClq5H/BqPZ39Z2XotqEyCWc83LpFBiRLh/bZ5d4mLZES2uTuN2fiteHNesJecfBjSjt8GS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792071165; c=relaxed/simple;
-	bh=GaY9nTD7rjLfIDii8ybCKnP1cAKGM1jIg8m7FGox+4A=;
+	bh=dNFE+0UDneyWKTtD7qawy+9dH5R8+C4LBXacelJmlhw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mP4HQtW5lEtZ83WcaWoWGloNJUUZSZ0nfq5THE0pOk8/vS9rTzuqoohMeiu1midhiDqy1bmAPWKv3HCayy1+3Em2Hmpd73caC0yYoaKn63RUOw5u3wIxXKu03euzwNECmyg5RWarp1f6bdbS0DROC3fqJ5KVRfmlDNCsOiOat4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HfJaZ1Yv; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tA1+i7p3zRjYELJrCkuu1F74W1cSkU1hKDc1lv1+Ig/+DlX3JyUyxqL2AishcpEy/Jz498IRWP9Zah1bI6dSmH3imGUUSaOThEzHNhuKzBedZbwFF9TO9BmU79Xy1URCSaBxYsVuvCnKS9nFbsF8ekJ+GLgb2tVWKhlo6AkC7Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nemcdfNg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HfJaZ1Yv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792071164; x=1823607164;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GaY9nTD7rjLfIDii8ybCKnP1cAKGM1jIg8m7FGox+4A=;
-  b=HfJaZ1YvijJx4FQ3Q8b94JWXvP5eoV0sxCAgYsumY86LXuM7DEXfDUjt
-   xUWk8wcRC903UUHJoO+sgJGISYEZwiqOn6oDWhFFltydKBfugRhSWEUjp
-   x8Kny8Gbwevq5HuUV7wRtEoFmeVea9gnsEwqB8yNAnnTCedn1k38In2A/
-   xKAMUy4AuGcHcj2yRfALwPi9/CwFga1raK7X08fqJXOi2XpRf03YAzFgN
-   iWtD3LU10WyiizN/o9hfNQOoSwxEKHIFhbdSJt/wKesjTYhv2HZRhvfTW
-   An+2+3jzVg+yN1Z6RvH/ZIum5wO/g8iRrHjHfSuKT+ptfcjCs1woEuat7
-   A==;
-X-CSE-ConnectionGUID: PPfcF+rPSMq/0jrAN9v17g==
-X-CSE-MsgGUID: lBNDvtZRSZGyUZiicW3vEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="738886"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="738886"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:32:43 -0700
-X-CSE-ConnectionGUID: Jjg7omm2R2+jiRA787xeQw==
-X-CSE-MsgGUID: yMc6SDX2Q9uqTyijbyKgmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1789320"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:32:40 -0700
-Date: Thu, 15 Oct 2026 16:32:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/5] iio: pressure: dps310: add Zilltek ZTS8032
-Message-ID: <atDV9RvEocWjlicZ@ashevche-desk.local>
-References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nemcdfNg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D5DC314BF;
+	Thu, 15 Oct 2026 06:32:39 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 662AC3F673;
+	Thu, 15 Oct 2026 06:32:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792071163; bh=dNFE+0UDneyWKTtD7qawy+9dH5R8+C4LBXacelJmlhw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nemcdfNgayRdTS7dR6UHOCG6RHTna9KQ09c/ba9/UpVtCNPlJphTfBHxFzjRAMwy9
+	 IeU+DhZBB2R0ziP+dGNvqL0TeNJTXEjortCfszilYnJWLdndRZ5858afl2F4n98XnO
+	 ytj1ASrI0QH2FXiA5240qgBrZ+MzJ8vjaeZz6OOk=
+Date: Thu, 15 Oct 2026 19:02:39 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Iurii Trukhin <yuri@trukhin.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit
+ and 52-bit VA
+Message-ID: <mcnimghb5b3h2h73c3uhrlmnc5azi3quzuq5owtsfw5zo7iw7t@t6j5xbd6zss5>
+References: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,46 +46,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
 
-On Thu, Oct 15, 2026 at 01:49:40PM +0300, Paulius Zaleckas wrote:
-> The Zilltek ZTS8032 is a register compatible DPS310 with two more
-> pressure calibration coefficients (c31, c40) and a different TMP_CFG
-> layout.
+On Wed, Oct 14, 2026 at 10:23:35PM -0700, Iurii Trukhin wrote:
+> Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
+> setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
+> bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
+> for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
+> still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
+> was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
+> when 39-bit VA was the 4K default.
 > 
-> 1-2: Vendor prefix and the zilltek,zts8032 compatible.
-> 3: Per-chip data in the I2C and ACPI match data, no functional change.
-> 4: OF match table.
-> 5: ZTS8032 chip data: the coefficient count, the TMP_CFG startup value,
->    and a Horner step each for c40 and c31.
+> Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
+> pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
+> randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
+> ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
 > 
-> Based on iio/testing, on top of a22dc7ebb21a ("iio: pressure: dps310:
-> fix overflow in pressure compensation"). That fix replaces v2's patch 1,
-> and patch 5 extends its Horner evaluation.
-> 
-> There is no public ZTS8032 datasheet.
-> 
-> Testing: ZTS8032 on an arm64 (MT7987) board, the series and a22dc7ebb21a
-> backported to 6.12. in_pressure_input matches the datasheet formula
-> evaluated from the raw and coefficient registers to within 1 Pa at every
-> oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after probe.
-> Every patch builds without warnings with W=1 on x86_64 and i386,
-> dt_binding_check passes. I have no DPS310, so patches 3-4 are untested
-> on one.
-> 
-> An LLM coding assistant (Claude Code) was used for this series: it
-> ported the ZTS8032 support from the vendor driver, wrote the code and
-> changelogs and the hardware test scripts, under my direction. I
-> reviewed and tested the result.
+> Closes: https://github.com/KSPP/linux/issues/371
+> Reviewed-by: Kees Cook <kees@kernel.org>
+> Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
 
-I have a single nit-pick (but two patches might be updated), otherwise
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-for the whole series.
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> ---
+> Changes in v2:
+> - Add a comment above ARCH_MMAP_RND_BITS explaining the 1 TiB default
+>   for 48/52-bit VA and the fallback to ARCH_MMAP_RND_BITS_MIN in
+>   arch/Kconfig for smaller VA sizes (Anshuman Khandual).
+> - Collect Reviewed-by from Kees Cook.
+> - Link to v1: https://lore.kernel.org/r/CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com
+>  arch/arm64/Kconfig | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index cab741a695f5..7bca47269dd5 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -313,6 +313,14 @@ config ARCH_MMAP_RND_BITS_MAX
+>  	default 16 if ARM64_16K_PAGES
+>  	default 18
+> 
+> +# default to 1 TiB (5 bits below ARCH_MMAP_RND_BITS_MAX) on 48-bit and
+> +# 52-bit VA; smaller VA sizes fall back to ARCH_MMAP_RND_BITS_MIN in
+> +# arch/Kconfig
+> +config ARCH_MMAP_RND_BITS
+> +	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
+> +	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
+> +	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
+> +
+>  config ARCH_MMAP_RND_COMPAT_BITS_MIN
+>  	default 7 if ARM64_64K_PAGES
+>  	default 9 if ARM64_16K_PAGES
+> -- 
+> 2.56.0
