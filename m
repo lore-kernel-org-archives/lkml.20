@@ -1,221 +1,179 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013035.outbound.protection.outlook.com [40.107.159.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D914D3B42D1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081358; cv=none; b=nvW7eN245Ab4taAFYG3spO1KwnsbTIYSVe6TG0L9qiYjqORc46bsiMVrkQAtzGIecG0nmXMd/iBMm8g6XyjR2BqVAGaCDrxLEZ7Us3owox8N4wFvEKQ4RYEtMivIlE8KBxn6qj4JSmZ1jjtv6yHvJ7sMEgvl9czeFYU739HcMKc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081358; c=relaxed/simple;
-	bh=pBy1f4VSb3pvW4clcyc1Qy/2nViC1kPB548ufIhq5H0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CZEPlaRmqTmC0aqSCbDVb1Pp2s77V1Sidf1beJJeLXY4YKLVx2XU2Z6kCqi3IJ/OswJg5rg6sXAvdvcxEyI1Z/MYhnM74qhu2vUTF8EFUVOIy/frW2a1bJd52kmFYjoKsbKpvdladdqxnnhekdavMBFRHNRMY4Ty0kI/l91zPK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai; spf=pass smtp.mailfrom=nuro.ai; dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b=QGgQamKW; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FCA4F85D4;
+	Thu, 15 Oct 2026 16:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792081380; cv=fail; b=kllma9ZrNoaEwq2INaW5Bki6UZUobdmEjDQ4LEhLBBgyqXGqdPbfhIA8Tr5G7HjrG6DPgIe8puxlZYvtAHEaOSRm4COyEv+Cg2a9hCjOV6RlzoR5Cw9laA4tCl5qg56ZS3gO5WxiFarPCqIePM/arKoS/fRwNAY9y66YsGQ+K8Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792081380; c=relaxed/simple;
+	bh=11VGpVKsd1pjySXvyP2aApcWIryqbg0G73YyKzLLHsc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=OzO+PaDNCI9/Py1ejnr9gxYBTDQdR4QnRBlOx4l/wdjDbPcnzksD5I3VSqvWwO52D70olhrHRAxbA+XLZNRgcUFKRZTSyZljnEu2ibl3irGnTITtxOhdKSDH/FUlN/xk3w3nnoKaKJRq9xVNdRA281uvMzHiGOQwsOc0LCZhVQY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tL4R1NiN; arc=fail smtp.client-ip=40.107.159.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nuro.ai header.i=@nuro.ai header.b="QGgQamKW"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35829219da8so189308eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:22:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nuro.ai; s=google; t=1792081345; x=1792686145; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VxoANqrdqE06En2I4F3G1u8hzDyBoOsiup8bgRwGeec=;
-        b=QGgQamKWwwM/ZiXBSkgkpkjaTBlTzkAq+SB1NpFz93iMzrlxEv2rPtXdZTJdoytSiz
-         DjykKW2YRVd9iQhoGXpGyMCq1IvaTpysuRlkYd4/o43C0NvkQmcsYgmeZIOxMfB1nhbO
-         9cdmbekh8oikZetA7Muzhsf0RXBC616gTIzaqpqdcXESFrFxfH5bkTmx8okK2YYOBp15
-         AL5y2ORia4p5iu8U6Re8XgAnPm19fJMBCjSnf9N5a/pkdB5I7S9Y8B/RE2fdSRGk6DUg
-         46AWuAD7QKyZUgapN/J2fbIM2ibmDRwMsBvUA1S6UmdwWWzSPlxUTwjdkAccFlUvyMCU
-         3wPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792081345; x=1792686145;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VxoANqrdqE06En2I4F3G1u8hzDyBoOsiup8bgRwGeec=;
-        b=AqnhnByp82F+WQWoglRTYmvitTko3GoArNnvxCksbFeb/4nWI0H18NrAq/vmt4gXEe
-         gVtBTOSugHQa/6nhBjZyDhLBTorD/JWertVztENtTO0iwe4fej54N2ygmAyC0SffB0w/
-         mA/SlMy77TV026nu4fd6mc119X+CEU8JBNrZZrBlFPaQe5oWi2E247E9KuxarBCUXTcg
-         ShNaAd57BEViojcCtVsVhN0zcFPv4NXcG42ykdtOfL6/LRN2AUhwlmpGcmO0uR1xUJgj
-         6fq3LzwU0WneIO8NrZHMr8SQ7U/KK/bsqfF/abnoGKl0Sne5sjd94YDPPEM9yJ1bY8MF
-         PBWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzA/x1n6udqV06nt6sz/LKg9twW0gc+qA+8uh5WKLZp+Sov2Uzbkjo6yEbzFLOAJlYxFTUTL1xzgFPxxZQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9tfmqcKtm+SIBGZONe31pKtIF3tRSfrx4ugiD4O1vnEJC45VA
-	ZqsJOg4nmE2ma2RKne621b+rs9d4HYwPYdY7kcaxS9IhhG3ijt42B4rovMUAz+q+UvM=
-X-Gm-Gg: AYBFou3/hZm1O2/kcqLy+b2YLTU7pAEt50T4GcccRPrVFgaHazBPaPnhaWBh6cZvwVL
-	VVcGPqE7t3CkQRQlXDUMC3LVIGFSMe3CHT3xMv1CqWWu9Alv31cG8/UBtma5I5sfHa505GziDtP
-	L/9rPTUIFBEONvhDcrP5rHc+ygwo7EucfR1YSinsSYYoE6IJ1r/Q37tSzCLEEunabWZwT9JSzq3
-	uIHf5aBSgSESeeCcNbGy5D/3l2gXVTiNhJduBJsOcMyou1cn054w0XQB5mF1MGjtY/h1hG3BgFw
-	G8XdmS6ctQKivhqtUkmR2slcGbQT+qTRPxqeW0qze64Z429ozUXVWOaDyVnl0AJtORjr4Rncj1X
-	yUHdUoSIW0s42rIAOEqvOM1Clk5CMlxymu7yA3GU2od0fyXsNTKEM1PwKwZad67fNiXinTeuXdA
-	WQv9PfMMP37OeGL1zwZjQhY2Wh2V96dr+gdHnv4NStNyoQcUYr3oazs5/C9ytqKthvpQ+9CHC5Y
-	7a5ankDRbM=
-X-Received: by 2002:a05:7022:b882:b0:13c:d071:f97c with SMTP id a92af1059eb24-18251e3f05bmr523257c88.11.1792081344438;
-        Thu, 15 Oct 2026 09:22:24 -0700 (PDT)
-Received: from jkain-desktop.corp.nuro.team ([64.124.43.154])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a6d6969asm23010c88.12.2026.10.15.09.22.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:22:23 -0700 (PDT)
-From: Joseph Kain <jkain@nuro.ai>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kuniyu@google.com,
-	kerneljasonxing@gmail.com,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	rostedt@goodmis.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joseph Kain <jkain@nuro.ai>
-Subject: [PATCH net v4] net: do not let defer_count outlive an empty defer_list
-Date: Thu, 15 Oct 2026 09:22:09 -0700
-Message-ID: <20261015162209.485940-1-jkain@nuro.ai>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tL4R1NiN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C8AWK18lQ/O7d8Wy+aIYIeFNK1FwhZTErNau7DGPzliXEi2wELH03aYk8umAH5inIJ7n+Bdwt7OIGCBxNoK/olSDo0+cJNRuO1KxRq8x7bLDq+zImGKR+vK4J27JxZDowMEJHVlKPA57NgNin96TlkDjvK7t1BfLhq/urym1CuI1DqxsEG6eFM/DFYKacl/za5SWfVrDReubtIACN26vKrznQZVxto3OlwiyHyKY3zA6Cm7cxjaf1Ivh93ccgQEOuuBrdewNfnQ5dvDpiufYhqYY5rLrWGmo8gGIFZgr00th4o/Av9BSx4hh9KBKUnbFzuoWhoG44rmw4cwLd+5gdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s2GQtuAM+4BXTK2kBAwAFBC5IJiYjAytN5LyZ54PkXw=;
+ b=RdUiEtiPVoiTrVMBh85Z8uOHL5pHFSFRt6uf5NBlltrRT25dyIJ+XlJWBONatvJV/G7Gb+pX8iA5egHe59xM8wy2vQGlDfZp93Kpr+NNw9tw5/+DCDuEbVzQyupN0CgANTLxv5RMZSDNNOu3x378nacMCxssn5gAhARvQZeGCuIeiRHe2tXDoMyF2c831xx3OeCCjHlq9bfhpV8/SVexstT5hD2Kye/Cuu6zR9IT5S6ikmO0cSYNMLYq8Ty436sgJT/8ig6AXZv/qiqL0K5yFl0DKHa/GWSWqVt5Lw0Gt2qmFgSikQ/e5/nk/x01wBLMQ/yDbRT0sHtXO5S+YBYxpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s2GQtuAM+4BXTK2kBAwAFBC5IJiYjAytN5LyZ54PkXw=;
+ b=tL4R1NiNs3Uu+K/lgZj946rR1COAL4EqL/4uPjlF343rZyKKtB0Fo/uoris+gymjMLPDGGQcI3tQA4fI+ONcHT9mKlpLtC/zNLR0CA0XeiHSVk4MU9qY+HLihjYZyyg+qN62NVyPxs//Vzg5YMW8CEhLkF1ZqH1fP3LQhvfuEp/p+yWo4fC4++dJvLRRWa1J3Rr149Z7Cg+oBa2A+WhNekT8fqkdD7jVg29z1GIc8DF1ePkTPDEpg5C5DKeXWkcoRyQ1gEZFi6dY/muBDrn9hOaQ9O7InzMoyitbUdLLxHooM2/HaKoRsZAB6/zugBh2S6aDaNC9TolBWqY8Twe7eQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS1PR04MB9238.eurprd04.prod.outlook.com (2603:10a6:20b:4c6::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 16:22:45 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 16:22:44 +0000
+Date: Thu, 15 Oct 2026 11:22:33 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com
+Subject: Re: [PATCH v2 2/5] arm64: dts: imx8qxp: Add display controller
+ subsystem
+Message-ID: <atD9yeOeHZiKzhZD@SMW015318>
+References: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
+ <20261014071657.118378-3-alexander.stein@ew.tq-group.com>
+ <atBLglf0gSLS7XkW@raspi>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atBLglf0gSLS7XkW@raspi>
+X-ClientProxiedBy: SJ0PR03CA0264.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS1PR04MB9238:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49cfd447-0005-43f5-556b-08df2ad88ad9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|19092799006|56012099006|11063799006|4143699003|261009223027099003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qGZe0e3IwkDC6BLmbE9k72stuHMZ5wLi1qzhMfBrEUO9YXLVbh75gt+V/s/0pqoolDOuDHGWGK8P5yzZU/rv5gKmW1g6xZ8dMzSkqYzO84Kzh4NRu9rT7nGpMt9LGkqaIxe/nXkI+cv8COlY1RnLIRCaCNA8SbaBW6EnlqTikCYLCEp/O3VsBzMO+N2K1v5OWBOgZrWWwnle+e1JRJ/mJCM6112Zh+dKHPPwxTjFyrpm7QyU9SzjdJs51REaSY1FxAUOOoEbrdHRF2276G60mGM5pSQmXUrFc2ue+akS9F4VTpKvZuR/Vtd6tVrbuzfd7O2o9pK3vAGKBQ1qNzXtcYHW6gVLHw2SogZ2QotakQEstdnVst8I6AJQm552O8V8sNlrB1kiAQQLFYe6tAfvrtmEJWLWoOc0Akz1OE5K22PqYyJaDoFtKbMeyuYCFvm4Wrv/9JwM2mh+XON37L9gXzJfnFUtZfEARv6eYDS4ELleT8qIF0MPxnKoORI7kNLwkxsWBkQ2+dDSdmZLrba64/OEB7ornMUjCP5v8pTlYmbOw9eoM6Wxju0zy7BoiwFIopnRKZcT12dN8nv7SndCh9SI2VXNnq47So1xM4GixZj9JyZmruWmR63jpT9wZ57D3e0JthACfSV/unbHqhzOasBt0ZoynypQlP3OBd5DO2A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(19092799006)(56012099006)(11063799006)(4143699003)(261009223027099003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DvrRG4AWHgUDm+3l8qHemANhq2FbJjIUP2YFYmPzwI+t5sN3MI/GHnxFouZb?=
+ =?us-ascii?Q?rj348uQzuyIuKUTJ962BVSsLkcAk2UgwMmxIyY/oEsKKga3VUl4YuXa/N9fb?=
+ =?us-ascii?Q?yJ4EqM2GIgkaeBx/ESbjg8xD+4xcevKIvrBINTAWO4bq94icEAy5AcYgen2L?=
+ =?us-ascii?Q?WAa4mIVsZ7G+2rUf7BKaDNMsaL1QawKDgQSRCVjY6CXDL3owKbZDgNItI44L?=
+ =?us-ascii?Q?lbCcg7QlzerRGwgtGDtZJP79RiESeK578NykyI/2cm3YHrt0fa2gLYBo6Bqe?=
+ =?us-ascii?Q?aIWzwBzCfSeKfvw2730Mh/oyRBwMzYaL8MXC//7acr6bVJFVy2N8Bau8bQQH?=
+ =?us-ascii?Q?RGQSXZ2teW3t3zcwYgS9Cm6P4zB/ow47WEwpTSOki+j3Z1L/pMlbJMoMukJb?=
+ =?us-ascii?Q?ur717mOjQD5hUQRbns9j+g+pyVoSi52eEaxYzz8tTCsjif4GVcZ3kAMc4Jlt?=
+ =?us-ascii?Q?f2xLb9ziIRUgx5Z7i0Z9PKt3RLFmC8Q5oAuqkHw3g7sl4O0y9oq2pnDSv2Tq?=
+ =?us-ascii?Q?EzvDQnNhsz7rtX7FyVfVGaP3GHn/qKFG+93ReChji6JX6B9mkooBBsQVNXOX?=
+ =?us-ascii?Q?J0zsJXiDzmqZnnMDpEAicKxLkmgmcNWp9HEdVS0HTk5rjW0dLgsaCRLQXqYM?=
+ =?us-ascii?Q?hluiMKGcHnVLleTLzOp2yt7Svf0V7GECF2rOt2teZpjHh1WwD7F8UpbGN+wy?=
+ =?us-ascii?Q?7V0ERa+/IN429NIZv1vedqpNVR+3BLigeqQydIto4hoRMMNAL5rt6uF0GD9C?=
+ =?us-ascii?Q?TQOWhuiJUiaSMnGqFWIHQGPsYoXS/XZTt0LDL07n5ZdcUo6ClR1bDDycWN5F?=
+ =?us-ascii?Q?g4AC/mK/WbB8CWkhedRJPgUkG7/iiHG41UhJ3wg5/JrQhE89+FoA27AKlJQC?=
+ =?us-ascii?Q?VESpOW8jXStwlhy/qm73nDbLg4JHhIg9Tv+oO9uyApnqUmKgwVozB1Cg9z1b?=
+ =?us-ascii?Q?yvB2BlhJgDaovUqyttSmcPrUIcVEj5Sit8BXFNyvmn8Mw6YtY5Bw7sHJXDJu?=
+ =?us-ascii?Q?r67NhgEXb4/QZdgUquDkIq76impe1Ny3AAevlBmEUGA6+i4jAYjOEEL1giXh?=
+ =?us-ascii?Q?HpSagv6g6R/z1LqjEjUcqPVNu4/m6Pzz8eebMalFe9o7Ba3rOBBo08pg6G7N?=
+ =?us-ascii?Q?7cK9e+az4cIFanxoxqEQ1B03tm9WKTU9XmydwNpLa0mKnLciOEdX2PzFINOZ?=
+ =?us-ascii?Q?JX9QC4A+C4z69DT+vG3QNndYYmKSuSXgdcNBXHawLyY+Bc8H3aaZd1w2vrCM?=
+ =?us-ascii?Q?VJTeaUPuvu7/N+HSfZzEP5Bp70x3Ny87LG0d31m5WeDwpXkRVoa3Vqwgy4C7?=
+ =?us-ascii?Q?uJg9IYipJd7EFrizEwdDulAOtn/iZZrO0tfy9XcSDBEPv4L8jMf9MAs2hlW/?=
+ =?us-ascii?Q?2umtFGKXmT9Ze6Loa/2jIG5h1wnFeH5pEg9Qu/nkKNGdibbxPPek4bQ7cXfv?=
+ =?us-ascii?Q?PHP8PcVF3kXNUZp8s6ZwN1fq+jze8LpZQMMnFqy9LBImvmxnqu52if0CUft1?=
+ =?us-ascii?Q?vw7njfRSj/+OOVEf11W6OvjOVwoUQpQ+52OuNdA8pw3hg3MgUPcZOVnxGIk1?=
+ =?us-ascii?Q?n3uk9E2mWSqagxpFVe4r4DF/7ptRYrY1NSPECOuFYl8/w9dChCaxINuRgtfc?=
+ =?us-ascii?Q?O8oR72MBC3mw6be1xydVW4GTR2bovkqUXQ0k+rsaQNDY/PkeCLCYAxGvBElQ?=
+ =?us-ascii?Q?gZ+9bq96WqrnhzzxddD75whpdKhtbejv+WZ6k1tjcJlh8HTIQEPmRjyNcAgw?=
+ =?us-ascii?Q?GvCGHTVgQbVTPRWGkhADMVE0r5H6Wm2+dbF93wbFyZv0UHPG0AYO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49cfd447-0005-43f5-556b-08df2ad88ad9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 16:22:44.4384
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jEjlCJclL7mfnm+Hbag7+9ol8P1lItEyrv+9fm+62m0OWEIj47HJbK1sBzITtud1baluXHrZ/YxtnUBze12pNlX68hC4rkqV6hdPcdW7JprQO1WlCX0kANDtYN84Y8S1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9238
 
-__skb_defer_free_flush() can leave defer_count at or above skb_defer_max
-with an empty defer_list. That state is absorbing: every producer then
-takes the nodefer path without queueing, so the list never refills.
-Deferred freeing stays off for that (cpu, node) until reboot, and
-cross-CPU frees fall back to the page allocator, which is the contention
-deferral exists to avoid.
+On Thu, Oct 15, 2026 at 11:41:54AM +0800, Liu Ying wrote:
+> Hi Alexander,
+>
+> On Wed, Oct 14, 2026 at 09:16:46AM +0200, Alexander Stein wrote:
+>
+> [...]
+>
+...
+> > +
+> > +			dc0_framegen1: framegen@5618d400 {
+> > +				reg = <0x5618d400 0x98>;
+> > +				clocks = <&dc0_disp_lpcg IMX_LPCG_CLK_1>;
+> > +				interrupt-parent = <&dc0_intc>;
+> > +				interrupts = <28>, <29>, <30>, <31>,
+> > +					     <45>, <46>, <47>, <48>;
+> > +				interrupt-names = "int0", "int1", "int2", "int3",
+> > +						  "primsync_on", "primsync_off",
+> > +						  "secsync_on", "secsync_off";
+> > +			};
+> > +
+> > +			dc0_tcon1: tcon@5618e400 {
+> > +				reg = <0x5618e400 0x588>;
+> > +
+> > +				port {
+> > +					dc0_disp1_dc0_pixel_combiner_ch1: endpoint {
+> > +						remote-endpoint = <&dc0_pixel_combiner_ch1_dc0_disp1>;
+> > +					};
+> > +				};
+> > +			};
+> > +		};
+> > +	};
+>
+> I'm thinking that it would be good to have a complete display controller
+> DT node in the first place, including those prefetch engines attached to
+> fetchunits through the fsl,prg property.
 
-skb_attempt_defer_free() increments before testing the limit and does not
-undo the increment when it rejects, so a rejected free leaves the counter
-raised with nothing queued.
+what's current prefetch engines status? Is it possible merge at v7.5 ?
 
-Nothing brings it back down. The reject path returns before
-kick_defer_list_purge(), so once the counter is stuck no producer
-schedules a flush on the owner CPU. A CPU that never raises NET_RX itself
--- an application CPU doing TX while NIC IRQs are pinned elsewhere and
-RPS is off -- then never runs the flush at all, so clearing the counter
-inside the flush cannot help it either. proc_do_skb_defer_max() neither
-resets the counters nor schedules a flush when the limit changes.
+Frank
 
-It is reachable with no race at all:
-
-  sysctl -w net.core.skb_defer_max=1    # frees increment, then reject
-  sysctl -w net.core.skb_defer_max=128  # does not recover
-
-skb_defer_max has .extra1 = SYSCTL_ZERO and no .extra2, so 1 is settable.
-From v7.1 on, 0 is safe because proc_do_skb_defer_max() flips
-skb_defer_disable_key and the producer returns before incrementing. On
-6.18 through 7.0, which carry the llist conversion but not commit
-08dc30de1a40 ("net: add skb_defer_disable_key static key"), setting 0 and
-restoring the previous value strands the counter the same way -- and 0 is
-the documented way to turn the feature off.
-
-Test the limit before incrementing, so the counter is only ever raised by
-a producer that goes on to queue. It then cannot outlive the skbs it
-counts, and the absorbing state is unreachable without depending on a
-flush ever running on the owner CPU.
-
-This makes the limit advisory. The test no longer reserves the slot it
-checks, and the recvmsg callers run in preemptible context, so the
-overshoot is bounded by the number of producers in flight rather than by
-skb_defer_max; the post-increment test reserved the slot and bounded the
-queue exactly. The counter is already approximate -- the flush zeroes it
-without regard for producers in flight -- and the next flush erases the
-overshoot, where the latch it replaces never recovered at all.
-
-Undoing the increment on the reject path instead would be wrong: a flush
-that zeroes the counter between a producer's increment and its undo
-leaves the counter negative, and the producer's local is an unsigned
-long, so every later test reads it as enormous and rejects. That is the
-same dead end, reached more easily.
-
-While here, drain before clearing in the flush. A producer that queues
-between the clear and the drain currently has its skb drained but its
-increment kept, which over-counts and costs deferral until the next
-flush. Draining first matches the ordering __dev_xmit_skb() already uses
-for the qdisc defer_list.
-
-Found by manual code inspection, LLM-assisted, while backporting the
-llist conversion to 6.1 after hitting the sd->defer_lock contention it
-removes. The latch itself was not hit in production; it was reproduced by
-lowering net.core.skb_defer_max.
-
-Fixes: 844c9db7f7f5 ("net: use llist for sd->defer_list")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Joseph Kain <jkain@nuro.ai>
----
-v4:
- - v3's "undo the increment on reject" was wrong: a flush that zeroes the
-   counter between a producer's increment and its undo leaves the counter
-   negative, and the producer's local is an unsigned long, so every later
-   test reads it as enormous and rejects forever. Test the limit before
-   incrementing instead, so there is no decrement to underflow
-   (netdev-bot sashiko).
-
-Note this changes the effective limit from skb_defer_max - 1 to
-skb_defer_max, because the test now runs before the increment rather than
-after it. That matches what Documentation/admin-guide/sysctl/net.rst
-describes. It also means the half-capacity kick can now fire at
-skb_defer_max = 1, which commit c09b0cd2cc6c ("net: avoid strange
-behavior with skb_defer_max == 1") set out to make possible.
-
-Built for x86_64 and arm64, with and without CONFIG_PREEMPT_RT. On
-v7.3-rc6 with skb_defer_max=1 and a cross-CPU TCP load, defer_count
-reached 1918118 unpatched and did not recover when the default was
-restored; with this patch it stays within the limit.
-
-v3: https://lore.kernel.org/all/20261013205416.3417296-1-jkain@nuro.ai/
-v2: https://lore.kernel.org/all/20261008220256.1844072-1-jkain@nuro.ai/
-v1: https://lore.kernel.org/all/20261007180056.1394868-1-jkain@nuro.ai/
- net/core/dev.c    | 5 ++++-
- net/core/skbuff.c | 9 ++++++---
- 2 files changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 18dc88990510..60d86bc21632 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6940,8 +6940,11 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
- 
- 	if (llist_empty(&sdn->defer_list))
- 		return;
--	atomic_long_set(&sdn->defer_count, 0);
- 	free_list = llist_del_all(&sdn->defer_list);
-+	/* Racy on purpose, as in __dev_xmit_skb(): a producer landing between
-+	 * the del_all and this store stays queued but uncounted.
-+	 */
-+	atomic_long_set(&sdn->defer_count, 0);
- 
- 	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
- 		prefetch(next);
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 4aea06d5167d..25f82b7dcf01 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -7386,11 +7386,14 @@ nodefer:	kfree_skb_napi_cache(skb);
- 	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
- 
- 	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
--	defer_count = atomic_long_inc_return(&sdn->defer_count);
--
--	if (defer_count >= defer_max)
-+	/* Test before incrementing: the reject path returns below without
-+	 * reaching kick_defer_list_purge(), so a kept increment never flushes.
-+	 */
-+	if (atomic_long_read(&sdn->defer_count) >= defer_max)
- 		goto nodefer;
- 
-+	defer_count = atomic_long_inc_return(&sdn->defer_count);
-+
- 	llist_add(&skb->ll_node, &sdn->defer_list);
- 
- 	if (unlikely(!cpu_online(cpu) || my_cpu != raw_smp_processor_id())) {
--- 
-2.55.0
-
+>  In this way, display controller
+> driver's life would be easier - all child/grandchild devices are always
+> available.  I'm considering to adding a check to the Linux display controller
+> driver to ensure the availability(at least for critical child/grandchild
+> devices).
+>
+> --
+> Regards,
+> Liu Ying
+>
