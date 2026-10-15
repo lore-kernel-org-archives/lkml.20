@@ -1,450 +1,456 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A129C4BF93C;
-	Thu, 15 Oct 2026 08:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6BD4AB1AF;
+	Thu, 15 Oct 2026 08:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051540; cv=none; b=Da8GplxT+41mnbOin0x/KHSgBLFX5TvjDEh2eU4M8VL7Mq+PxQt0XeuR9yJn+JYehAlnyoWJH5X67NugwgQhd/jNpri7WvYH+ZynG4WJG9/brZ1lW+abmQcv9m2zsuxCql6umKW8uwF2HAJPJXDIjT/L4j4TFm9Le830394g0mM=
+	t=1792051568; cv=none; b=ZKCgo1EUpksZdkdStUU6PPjyib0QNoz9QCy8gMtjb6ee/nmyaT2038Io2aHkHZ4RYrDuqtGfVFkDNxjvSWFvZ6OLPXcFH3PhjpxEf/NOie+etgDU9k8+CPbvnhRGkJzUKmiAqC5kZYnAf++yBuPkQ8TsLmd8OCZGKWaB+U1NByk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051540; c=relaxed/simple;
-	bh=chp9HjTPPvDLezaZs2qx/T/Kk9db71jYUbU3CTzejGo=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=htoyD/7G71syB9tXXGdmuhd5KVlzaTdux/yvEVekXQDYq0QLg3xamOLzMb2M6VzaPbDs4vquf8UsPpxRid6qHwdkfHFOnBQ0lqXTVcuqKBCf3RzfOEM5F56Lj4BQf+rQgKwjqVvFbE1lLhHCBoSpc58H/aomGPltqiD4J3+EJ+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kQMMWyjT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=9z6HHjUQ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792051568; c=relaxed/simple;
+	bh=oJYs7+FOwLb/dKXfajd3vQUQya8Guws/380sm2/4hfw=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=CmRsHYrwRAyIiLY1i+UU8CnnrsS7bqTrxUYgVrH15xLd1P07lco7PgjzEeaZUB8YTrCxE3wnj82vfiAG4nQVfxldti2Sp5+88/iRYw7ZsiWo/l9OnJuJ/MDB0JbjJQKo1KexsumK9WlgT5FNg6E7KFnX4oaiZJyhFEgzzI78KTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=FQGpeK5y; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kQMMWyjT";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="9z6HHjUQ"
-Date: Thu, 15 Oct 2026 08:05:34 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792051536;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FEDm4RgiD4on636zSoIXE3Lj0HTqXt0kLknbfPMzmGg=;
-	b=kQMMWyjTLbCFcn1rN3YeG5iF8X1s16SsZDFyGvkbIE1Vd1WZ+IkcU2+6X/8VbjnNME/fHk
-	vxWaUwClbBUuLh16UzGrs8bzYLs1eVsBOuMcYIm5csrIRz3vvGzW19n043GgTrynQbbrEn
-	aX09vO8jeAAzjeIsW/BkWYit8/EjmyW/achx15MzVhXXuuxPSllS09lNWolM3SLz+nBKHe
-	zs7rocqFhOZq1N/3b84oXfM9Okud6VIUUkIifVqZeqpTtj7PzqHvMArKporE0OJWYndzwo
-	oiFY/pJeQLu/JWVS2BphQAD0OJekXX41z2XMCmScSTkfV9KwvUBZPiGhxGxnJg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792051536;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FEDm4RgiD4on636zSoIXE3Lj0HTqXt0kLknbfPMzmGg=;
-	b=9z6HHjUQmaOV1E62EMJ05Cpe7XFZUAOcB5I1fSuRcoGCSrBV+HKsuEUI/itxr2oAgba/XR
-	2aIxkloXoXSfbRBA==
-From: "tip-bot2 for Peter Zijlstra (Intel)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: sched/core] rbtree: Declare augmented callbacks per field with RB_AUG()
-Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Yiwei Lin <s921975628@gmail.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261005093236.62702-3-s921975628@gmail.com>
-References: <20261005093236.62702-3-s921975628@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="FQGpeK5y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792051572; x=1823587572;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=oJYs7+FOwLb/dKXfajd3vQUQya8Guws/380sm2/4hfw=;
+  b=FQGpeK5y/bhWuq2a8kbU/5HczskMA0pxPFWiGsXVJeyKHPvcFMXCD1jC
+   HF7qFGTcUSGK51LHmq8DQDh9gJ2g3lK+MWpR61JUDDIahrtd6rlR9ox9G
+   VmBRpb6dWvXmSLGQxwlx6kqzUrGh18W1nqJgkfMx8f+cmu1AcUUzz87Dp
+   TD6nqZSfHk+raj/1xQLIJV26aQcKfbOqKJPxvO5sUMhX3qU4lrjoRxQ/K
+   K00t9eTWzuOo6b5e356pdXP1R9XuqqX1nTh1qVnWuImvS/bL5msbl+3Ds
+   IfUd+/kRC4vFr/0ND8HTGVw2Bx/9cm5mXdxCyaEZ0KP9EikCifu6HjXC9
+   g==;
+X-CSE-ConnectionGUID: QDn73zA7SG6a8htV0XFwXw==
+X-CSE-MsgGUID: R06jeVEcQReB2wyymeBBrg==
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="296490670"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:06:11 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Thu, 15 Oct 2026 01:06:04 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Thu, 15 Oct 2026 01:05:58 -0700
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+Subject: [PATCH net-next v15 0/9] net: dsa: add DSA support for the
+ LAN9645x switch chip family
+Date: Thu, 15 Oct 2026 10:05:54 +0200
+Message-ID: <20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205153497.2666988.15880770949613368283.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGOJ0GoC/43TzWrkMAwH8FcpOTeLJNuy3VPfY1kGf+4Y2kxJh
+ uwsZd59nVwSWENyTAw/2ZL+392UxpKm7u3luxvTXKZyG+oHqteXLlzd8Dv1JdYfHQExEEIfJ3f
+ 5cINlqR6X6U+5h+sljmVO48W7KfUCyfschE7Rd1X5GlMuj7XEz25I935Ij3v3q55cy3S/jX/X2
+ jOu52sVAeKwyow99D5nExwKy1m9f5Yw3sK1fP0It8/Vn2lnkjw2qZpZK5BJeGCDLVNspjzRjVl
+ U07kYjLJKAMeWKXemOGHK5Z7oGUBlZ7xumWozFZpjU1XTssk+C5mzEy2TdybpY5OrKaME6xLLL
+ ELL1JvJZ+aul7lTtpBYs4bm281maqBj0yxvByITjfdOmZZp9+aJftpqQkSF5ARxbN4TYYfimaW
+ HZZukMeygjgqbW4+7KBlQJ9QlSwA6+WCNcOCa6i5M9kwDcEkTRXZOWaEgNDcfd3GyZE+oS54M6
+ UBRMOpMTXULFMKpuy6JEpGcJmYk/G/7n8/nP3+WzwIrBQAA
+To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
+ Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung Huh
+	<woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Eric Dumazet <edumazet@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>, Eric Dumazet
+	<edumazet@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.15-dev
 
-The following commit has been merged into the sched/core branch of tip:
+This series provides the Microchip LAN9645X Switch driver.
 
-Commit-ID:     c2c620f4345c50006af90c37fd104fed8e9dea14
-Gitweb:        https://git.kernel.org/tip/c2c620f4345c50006af90c37fd104fed8e9=
-dea14
-Author:        Peter Zijlstra (Intel) <peterz@infradead.org>
-AuthorDate:    Mon, 05 Oct 2026 17:32:34 +08:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Tue, 13 Oct 2026 13:51:27 +02:00
+The LAN9645x is a family of chips with ethernet switch functionality and
+multiple peripheral functions. The switch delivers up to 9 ethernet
+ports and 12 Gbps switching bandwidth.
 
-rbtree: Declare augmented callbacks per field with RB_AUG()
+The switch chip has 5 integrated copper PHYs, support for 2x RGMII
+interfaces, 2x SGMII and one QSGMII interface.
 
-RB_DECLARE_CALLBACKS_MULTI() asks its user for a function that copies
-the augmented fields and one that recomputes them from the children,
-with the early-exit protocol of ->propagate() hand-coded in the latter.
-sched/eevdf, its only user, needs five helpers for three fields.
+The switch chip is from the same design architecture family as ocelot
+and lan966x, and the driver reflects this similarity. However, LAN9645x
+does not have an internal CPU in any package, and must be driven
+externally. For register IO it supports interfaces such as SPI, I2C and
+MDIO.
 
-Describe each augmented field instead: RB_AUG(val, aug, fold) names the
-per-node value, the member holding the subtree aggregate and how two
-aggregates combine (min, max, a sum, ...).  RB_AUG_FUNC() takes a
-function for the per-node value.  The template then generates, per
-field, a recompute that works on a local and stores once, and a copy,
-and combines them into the callbacks; the early exit is the AND of the
-per-field results.
+The chip supports a variety of network features such as
 
-RB_DECLARE_CALLBACKS() is the only template left.
-RB_DECLARE_CALLBACKS_MAX() becomes RB_AUG_FUNC(RBVALUE, RBAUGMENTED,
-max) in a wrapper, with its RBCOMPUTE argument renamed to RBVALUE,
-since it returns the per-node scalar and is a different thing from the
-RBCOMPUTE of the generic template it used to build on.
-RB_DECLARE_CALLBACKS_MULTI() goes away.
+* Mactable for MDB/FDB functionality
+* Bridge forwarding offload
+* VLAN-aware bridging
+* IGMP/MLD snooping
+* Link aggregation
+* PTP timestamping
+* FRER (802.1CB)
+* Media Redundancy Protocol
+* Parallel Redundancy and High-Availability Seamless Redundancy
+  (HSR/PRP) in DANH/DANP mode
+* Per stream filtering and policing
+* Shapers such as Credit Based Shaping and Time Aware Shaing
+* Frame preemption
+* A TCAM (VCAP) for line-rate frame processing
 
-sched/eevdf shrinks to a wrapping-safe min() for min_vruntime and
-three RB_AUG() lines.
+The LAN9645x family consists of the following SKUs:
 
-No functional change intended.
+LAN96455F
+LAN96457F
+LAN96459F
+LAN96455S
+LAN96457S
+LAN96459S
 
-[yiwei: take a fold(a, b) instead of a "replace?" compare so that sums
- and counts can be expressed too, which also lets min()/max() replace
- RB_MIN()/RB_MAX(); wrapped the lines over 100 columns]
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Yiwei Lin <s921975628@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://lore.kernel.org/r/20260928213736.GA2947991@noisy.programming.ki=
-cks-ass.net
-Link: https://patch.msgid.link/20261005093236.62702-3-s921975628@gmail.com
+The difference between the SKUs is the number of supported ports (5, 7
+or 9) and features supported. The F subfamily supports HSR/PRP and TSN,
+while the S subfamily does not.
+
+The intended way to bind this driver is using a parent MFD driver,
+responsible for the register IO protocol, and distributing regmaps to
+child devices. The goal is to use the same approach as the MFD driver in
+drivers/mfd/ocelot-spi.c, which also resets the chip before it
+instantiates its children.
+
+This driver expects to request named regmaps from a parent device. This
+approach is similar to the DSA driver
+
+drivers/net/dsa/ocelot/ocelot_ext.c
+
+which supports being driven by an external CPU via SPI with parent
+device drivers/mfd/ocelot-spi.c.
+
+The MFD driver will come in a later series, because there are
+requirements on the number of child devices before a driver qualifies as
+a MFD device.
+
+Development is done using the LAN966x as a host CPU, running the lan966x
+swichdev driver, using the EVB-LAN9668 EDS2 board.
+
+The datasheet is available here:
+https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN9645xF-Data-Sheet-DS00006065.pdf
+
+This series will deliver the following features:
+
+* Standalone ports
+* Bridge forwarding and FDB offloading
+* Multicast forwarding and MDB offloading
+* VLAN-aware bridge
+* Stats integration
+
+More support will be added at a later stage. Here is a tentative plan of
+future patches for this DSA driver:
+
+* Add LAG support.
+* Add TC matchall mirror support.
+* Add TC matchall police support.
+* Add DCB/qos support.
+* Add simple TC support: mqprio, cbs, tbf, ebf.
+* Add TC flower filter support.
+* Add HSR/PRP offloading support.
+* Add PTP support.
+* Add TC taprio support.
+
+For completeness I include tentative plan of planned patches for
+LAN9645x peripherals:
+
+* Extend pinctrl-ocelot for LAN9645x:
+  https://lore.kernel.org/linux-gpio/20260119-pinctrl_ocelot_extend_support_for_lan9645x-v1-0-1228155ed0ee@microchip.com/
+* Add driver for internal PHY:
+  https://lore.kernel.org/netdev/20260123-phy_micrel_add_support_for_lan9645x_internal_phy-v1-1-8484b1a5a7fd@microchip.com/
+* MFD driver for managing register IO protocol and child device
+  initialization.
+* Extend pinctrl-microchip-sgpio for LAN9645x support.
+* Extend i2c_designware for LAN9645x support.
+* Add driver for outbound interrupt controller.
+* Add serdes driver for lan9645x.
+
+Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 ---
- include/linux/rbtree_augmented.h | 174 ++++++++++++++++++++----------
- kernel/sched/fair.c              |  70 +-----------
- 2 files changed, 126 insertions(+), 118 deletions(-)
+Changes in v15:
+- Individual patches mention specific v15 changes
+- basic: on link down, assert MAC_TX_RST and MAC_RX_RST instead of
+  flushing the queues and asserting PORT_RST, which can hang the port
+  when the MAC cannot transmit the frames still queued.
+- vlan: refuse VLAN filtering on bridges with a vlan_protocol other than
+  802.1Q, and only apply VLAN awareness while a port is bridged, so a
+  join after a failed one is configured correctly.
+- Link to v14: https://lore.kernel.org/r/20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213@microchip.com
 
-diff --git a/include/linux/rbtree_augmented.h b/include/linux/rbtree_augmente=
-d.h
-index d2fa1c4..5a336ac 100644
---- a/include/linux/rbtree_augmented.h
-+++ b/include/linux/rbtree_augmented.h
-@@ -15,6 +15,8 @@
- #include <linux/compiler.h>
- #include <linux/rbtree.h>
- #include <linux/rcupdate.h>
-+#include <linux/args.h>
-+#include <linux/minmax.h>
-=20
- /*
-  * Please note - only struct rb_augment_callbacks and the prototypes for
-@@ -86,6 +88,95 @@ rb_add_augmented_cached(struct rb_node *node, struct rb_ro=
-ot_cached *tree,
- 	return leftmost ? node : NULL;
- }
-=20
-+#define RB_FOR_EACH_1(what, RBNAME, RBSTRUCT, RBFIELD, x)		\
-+	what(1, RBNAME, RBSTRUCT, RBFIELD, x)
-+
-+#define RB_FOR_EACH_2(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(2, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_1(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_3(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(3, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_2(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_4(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(4, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_3(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_5(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(5, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_4(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_6(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(6, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_5(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_7(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(7, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_6(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH_8(what, RBNAME, RBSTRUCT, RBFIELD, x, ...)		\
-+	what(8, RBNAME, RBSTRUCT, RBFIELD, x)				\
-+	RB_FOR_EACH_7(what, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+#define RB_FOR_EACH(action, RBNAME, RBSTRUCT, RBFIELD, ...)		\
-+	CONCATENATE(RB_FOR_EACH_, COUNT_ARGS(__VA_ARGS__))		\
-+		(action, RBNAME, RBSTRUCT, RBFIELD, __VA_ARGS__)
-+
-+/*
-+ * One augmented field: @val is the node's own contribution (a member for
-+ * RB_AUG(), a function of the node for RB_AUG_FUNC()), @aug the member
-+ * holding the aggregate over the subtree, and @fold(a, b) combines two
-+ * aggregates: min, max, a sum, ...  It must be commutative and associative.
-+ */
-+#define RB_AUG_FUNC(val, aug, fold) (val(s), aug, fold)
-+#define RB_AUG(val, aug, fold) (s->val, aug, fold)
-+#define RB_UNPACK(...) __VA_ARGS__
-+
-+#define __RB_INST(n, RBNAME, RBSTRUCT, RBFIELD, val, aug, fold)		\
-+static inline void							\
-+RBNAME ## _copy_ ## n(RBSTRUCT *old, RBSTRUCT *new)			\
-+{									\
-+	new->aug =3D old->aug;						\
-+}									\
-+static inline bool							\
-+RBNAME ## _compute_ ## n(RBSTRUCT *s, bool exit)			\
-+{									\
-+	TYPEOF_UNQUAL(s->aug) _old_aug =3D s->aug;			\
-+	TYPEOF_UNQUAL(s->aug) _val =3D val;				\
-+	struct rb_node *_node =3D &s->RBFIELD;				\
-+	if (_node->rb_right) {						\
-+		RBSTRUCT *_c =3D container_of(_node->rb_right, typeof(*s), RBFIELD); \
-+		_val =3D fold(_val, _c->aug);				\
-+	}								\
-+	if (_node->rb_left) {						\
-+		RBSTRUCT *_c =3D container_of(_node->rb_left, typeof(*s), RBFIELD); \
-+		_val =3D fold(_val, _c->aug);				\
-+	}								\
-+	if (exit && _old_aug =3D=3D _val)					\
-+		return true;						\
-+	s->aug =3D _val;							\
-+	return false;							\
-+}
-+#define _RB_INST(n, RBNAME, RBSTRUCT, RBFIELD, args)			\
-+	__RB_INST(n, RBNAME, RBSTRUCT, RBFIELD, args)
-+#define RB_INST(n, RBNAME, RBSTRUCT, RBFIELD, x)			\
-+	_RB_INST(n, RBNAME, RBSTRUCT, RBFIELD, RB_UNPACK x)
-+
-+#define __RB_COPY(n, RBNAME, RBSTRUCT, RBFIELD, val, aug, fold)		\
-+	RBNAME ## _copy_ ## n(old, new);
-+#define _RB_COPY(n, RBNAME, RBSTRUCT, RBFIELD, args)			\
-+	__RB_COPY(n, RBNAME, RBSTRUCT, RBFIELD, args)
-+#define RB_COPY(n, RBNAME, RBSTRUCT, RBFIELD, x)			\
-+	_RB_COPY(n, RBNAME, RBSTRUCT, RBFIELD, RB_UNPACK x)
-+
-+#define __RB_COMPUTE(n, RBNAME, RBSTRUCT, RBFIELD, val, aug, fold)	\
-+	ret &=3D RBNAME ## _compute_ ## n(node, exit);
-+#define _RB_COMPUTE(n, RBNAME, RBSTRUCT, RBFIELD, args)			\
-+	__RB_COMPUTE(n, RBNAME, RBSTRUCT, RBFIELD, args)
-+#define RB_COMPUTE(n, RBNAME, RBSTRUCT, RBFIELD, x)			\
-+	_RB_COMPUTE(n, RBNAME, RBSTRUCT, RBFIELD, RB_UNPACK x)
-+
- /*
-  * Template for declaring augmented rbtree callbacks (generic multi fields)
-  *
-@@ -93,18 +184,29 @@ rb_add_augmented_cached(struct rb_node *node, struct rb_=
-root_cached *tree,
-  * RBNAME:      name of the rb_augment_callbacks structure
-  * RBSTRUCT:    struct type of the tree nodes
-  * RBFIELD:     name of struct rb_node field within RBSTRUCT
-- * RBCOPY:	name of function that copies the RBAUGMENTED datas
-- * RBCOMPUTE:   name of function that recomputes the RBAUGMENTED datas
-+ * RBAUG...:	list of RB_AUG() describing the augmented data
-  */
--
--#define RB_DECLARE_CALLBACKS_MULTI(RBSTATIC, RBNAME,			\
--			     RBSTRUCT, RBFIELD, RBCOPY, RBCOMPUTE)	\
-+#define RB_DECLARE_CALLBACKS(RBSTATIC, RBNAME,				\
-+			     RBSTRUCT, RBFIELD, RBAUG...)		\
-+RB_FOR_EACH(RB_INST, RBNAME, RBSTRUCT, RBFIELD, RBAUG)			\
-+static inline void							\
-+RBNAME ## __copy(RBSTRUCT *old, RBSTRUCT *new)				\
-+{									\
-+	RB_FOR_EACH(RB_COPY, RBNAME, RBSTRUCT, RBFIELD, RBAUG);		\
-+}									\
-+static inline bool							\
-+RBNAME ## __compute(RBSTRUCT *node, bool exit)				\
-+{									\
-+	bool ret =3D true;						\
-+	RB_FOR_EACH(RB_COMPUTE, RBNAME, RBSTRUCT, RBFIELD, RBAUG);	\
-+	return ret;							\
-+}									\
- static inline void							\
- RBNAME ## _propagate(struct rb_node *rb, struct rb_node *stop)		\
- {									\
- 	while (rb !=3D stop) {						\
- 		RBSTRUCT *node =3D rb_entry(rb, RBSTRUCT, RBFIELD);	\
--		if (RBCOMPUTE(node, true))				\
-+		if (RBNAME ## __compute(node, true))			\
- 			break;						\
- 		rb =3D rb_parent(&node->RBFIELD);				\
- 	}								\
-@@ -114,15 +216,15 @@ RBNAME ## _copy(struct rb_node *rb_old, struct rb_node =
-*rb_new)		\
- {									\
- 	RBSTRUCT *old =3D rb_entry(rb_old, RBSTRUCT, RBFIELD);		\
- 	RBSTRUCT *new =3D rb_entry(rb_new, RBSTRUCT, RBFIELD);		\
--	RBCOPY(new, old);						\
-+	RBNAME ## __copy(old, new);					\
- }									\
- static void								\
- RBNAME ## _rotate(struct rb_node *rb_old, struct rb_node *rb_new)	\
- {									\
- 	RBSTRUCT *old =3D rb_entry(rb_old, RBSTRUCT, RBFIELD);		\
- 	RBSTRUCT *new =3D rb_entry(rb_new, RBSTRUCT, RBFIELD);		\
--	RBCOPY(new, old);						\
--	RBCOMPUTE(old, false);						\
-+	RBNAME ## __copy(old, new);					\
-+	RBNAME ## __compute(old, false);				\
- }									\
- RBSTATIC const struct rb_augment_callbacks RBNAME =3D {			\
- 	.propagate =3D RBNAME ## _propagate,				\
-@@ -131,27 +233,6 @@ RBSTATIC const struct rb_augment_callbacks RBNAME =3D {	=
-		\
- };
-=20
- /*
-- * Template for declaring augmented rbtree callbacks (generic single field)
-- *
-- * RBSTATIC:    'static' or empty
-- * RBNAME:      name of the rb_augment_callbacks structure
-- * RBSTRUCT:    struct type of the tree nodes
-- * RBFIELD:     name of struct rb_node field within RBSTRUCT
-- * RBAUGMENTED: name of field within RBSTRUCT holding data for subtree
-- * RBCOMPUTE:   name of function that recomputes the RBAUGMENTED data
-- */
--
--#define RB_DECLARE_CALLBACKS(RBSTATIC, RBNAME,				\
--			     RBSTRUCT, RBFIELD, RBAUGMENTED, RBCOMPUTE)	\
--static inline void							\
--RBNAME ## _copy_single(RBSTRUCT *new, RBSTRUCT *old)			\
--{									\
--	new->RBAUGMENTED =3D old->RBAUGMENTED;				\
--}									\
--RB_DECLARE_CALLBACKS_MULTI(RBSTATIC, RBNAME,				\
--		     RBSTRUCT, RBFIELD, RBNAME ## _copy_single, RBCOMPUTE)
--
--/*
-  * Template for declaring augmented rbtree callbacks,
-  * computing RBAUGMENTED scalar as max(RBCOMPUTE(node)) for all subtree node=
-s.
-  *
-@@ -159,34 +240,15 @@ RB_DECLARE_CALLBACKS_MULTI(RBSTATIC, RBNAME,				\
-  * RBNAME:      name of the rb_augment_callbacks structure
-  * RBSTRUCT:    struct type of the tree nodes
-  * RBFIELD:     name of struct rb_node field within RBSTRUCT
-- * RBTYPE:      type of the RBAUGMENTED field
-- * RBAUGMENTED: name of RBTYPE field within RBSTRUCT holding data for subtree
-- * RBCOMPUTE:   name of function that returns the per-node RBTYPE scalar
-+ * RBTYPE:      type of the RBAUGMENTED field -- unused, assumed typeof(RBAU=
-GMENTED)
-+ * RBAUGMENTED: name of field within RBSTRUCT holding data for subtree
-+ * RBVALUE:     name of function that returns the per-node RBTYPE scalar
-  */
-=20
--#define RB_DECLARE_CALLBACKS_MAX(RBSTATIC, RBNAME, RBSTRUCT, RBFIELD,	      \
--				 RBTYPE, RBAUGMENTED, RBCOMPUTE)	      \
--static inline bool RBNAME ## _compute_max(RBSTRUCT *node, bool exit)	      \
--{									      \
--	RBSTRUCT *child;						      \
--	RBTYPE max =3D RBCOMPUTE(node);					      \
--	if (node->RBFIELD.rb_left) {					      \
--		child =3D rb_entry(node->RBFIELD.rb_left, RBSTRUCT, RBFIELD);   \
--		if (child->RBAUGMENTED > max)				      \
--			max =3D child->RBAUGMENTED;			      \
--	}								      \
--	if (node->RBFIELD.rb_right) {					      \
--		child =3D rb_entry(node->RBFIELD.rb_right, RBSTRUCT, RBFIELD);  \
--		if (child->RBAUGMENTED > max)				      \
--			max =3D child->RBAUGMENTED;			      \
--	}								      \
--	if (exit && node->RBAUGMENTED =3D=3D max)				      \
--		return true;						      \
--	node->RBAUGMENTED =3D max;					      \
--	return false;							      \
--}									      \
--RB_DECLARE_CALLBACKS(RBSTATIC, RBNAME,					      \
--		     RBSTRUCT, RBFIELD, RBAUGMENTED, RBNAME ## _compute_max)
-+#define RB_DECLARE_CALLBACKS_MAX(RBSTATIC, RBNAME, RBSTRUCT, RBFIELD,		\
-+				 RBTYPE, RBAUGMENTED, RBVALUE)			\
-+RB_DECLARE_CALLBACKS(RBSTATIC, RBNAME, RBSTRUCT, RBFIELD,			\
-+		     RB_AUG_FUNC(RBVALUE, RBAUGMENTED, max))
-=20
-=20
- #define	RB_RED		0
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 5c98d8d..a58d513 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -999,71 +999,17 @@ static inline bool __entity_less(struct rb_node *a, con=
-st struct rb_node *b)
- 	return entity_before(__node_2_se(a), __node_2_se(b));
- }
-=20
--static inline void __min_vruntime_update(struct sched_entity *se, struct rb_=
-node *node)
-+/* min() for wrapping vruntimes */
-+static inline u64 __min_vruntime(u64 a, u64 b)
- {
--	if (node) {
--		struct sched_entity *rse =3D __node_2_se(node);
--
--		if (vruntime_cmp(se->min_vruntime, ">", rse->min_vruntime))
--			se->min_vruntime =3D rse->min_vruntime;
--	}
--}
--
--static inline void __min_slice_update(struct sched_entity *se, struct rb_nod=
-e *node)
--{
--	if (node) {
--		struct sched_entity *rse =3D __node_2_se(node);
--		if (rse->min_slice < se->min_slice)
--			se->min_slice =3D rse->min_slice;
--	}
--}
--
--static inline void __max_slice_update(struct sched_entity *se, struct rb_nod=
-e *node)
--{
--	if (node) {
--		struct sched_entity *rse =3D __node_2_se(node);
--		if (rse->max_slice > se->max_slice)
--			se->max_slice =3D rse->max_slice;
--	}
--}
--
--static inline void min_vruntime_copy(struct sched_entity *new, struct sched_=
-entity *old)
--{
--	new->min_vruntime =3D old->min_vruntime;
--	new->min_slice =3D old->min_slice;
--	new->max_slice =3D old->max_slice;
-+	return vruntime_cmp(a, "<", b) ? a : b;
- }
-=20
--/*
-- * se->min_vruntime =3D min(se->vruntime, {left,right}->min_vruntime)
-- */
--static inline bool min_vruntime_update(struct sched_entity *se, bool exit)
--{
--	u64 old_min_vruntime =3D se->min_vruntime;
--	u64 old_min_slice =3D se->min_slice;
--	u64 old_max_slice =3D se->max_slice;
--	struct rb_node *node =3D &se->run_node;
--
--	se->min_vruntime =3D se->vruntime;
--	__min_vruntime_update(se, node->rb_right);
--	__min_vruntime_update(se, node->rb_left);
--
--	se->min_slice =3D se->slice;
--	__min_slice_update(se, node->rb_right);
--	__min_slice_update(se, node->rb_left);
--
--	se->max_slice =3D se->slice;
--	__max_slice_update(se, node->rb_right);
--	__max_slice_update(se, node->rb_left);
--
--	return se->min_vruntime =3D=3D old_min_vruntime &&
--	       se->min_slice =3D=3D old_min_slice &&
--	       se->max_slice =3D=3D old_max_slice;
--}
--
--
--RB_DECLARE_CALLBACKS_MULTI(static, min_vruntime_cb, struct sched_entity,
--		     run_node, min_vruntime_copy, min_vruntime_update);
-+RB_DECLARE_CALLBACKS(static, min_vruntime_cb,
-+		     struct sched_entity, run_node,
-+		     RB_AUG(vruntime, min_vruntime, __min_vruntime),
-+		     RB_AUG(slice, min_slice, min),
-+		     RB_AUG(slice, max_slice, max));
-=20
- /*
-  * Enqueue an entity into the rb-tree:
+Changes in v14:
+- Individual patches mention specific v14 changes
+- tag: classify untagged and priority tagged frames to VID 0 on xmit,
+  pull the VLAN header before reading it, restore the VLAN tag on rcv
+  whenever one was popped, and add a .flow_dissect callback that
+  accounts for popped VLAN tags.
+- bindings: use the dt-bindings: net: dsa: subject prefix, and describe
+  all switch register targets and the analyzer and PTP interrupts.
+- vlan: use TAG_NO_UNAWARE on ports with only tagged VLANs.
+- mac table: keep a CPU port host entry while another database uses the
+  same MAC table key.
+- mdb: keep the PGID reference when a mac table write fails while
+  widening a group, drop it on a failed narrow that keeps the same PGID,
+  and keep a CPU port host entry while another database uses the same
+  mac table key.
+- bridge: only enable learning on bridged ports, start a joining port
+  disabled so it does not learn before its STP state is applied, and
+  honour host flood requests from bridged ports.
+- stats: return 0 from get_sset_count() for other string sets, leave
+  RMON fragments unset, and describe the pMAC counters correctly.
+- Link to v13: https://lore.kernel.org/r/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2@microchip.com
+
+Changes in v13:
+- Individual patches mention specific v13 changes
+- bindings: Drop the commit message paragraph citing
+  Documentation/networking/phy.rst.
+- basic: only redirect the CPU extraction queues to the NPI port while
+  its link is up, and flush the CPU port module on NPI link up.
+- Rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 37
+- Link to v12: https://lore.kernel.org/r/20260908-dsa_lan9645x_switch_driver_base-v12-0-2d6aa59350cd@microchip.com
+
+Changes in v12:
+- reorder the series so bridge support lands after vlan, mac table and
+  mdb support. port_fast_age() now exists before the STP state handling
+  that needs it, and host address filtering is in place before bridging.
+- include the CPU port module in the flood masks from the start, and
+  remove it again in the bridge patch where port_set_host_flood() takes
+  over on demand host flooding. Previously the host could not receive
+  unicast until the mac table patch.
+- vlan: serialize the VLAN table with fwd_domain_lock, and describe the
+  untagged VLAN, TPID and C-component conformance limitations.
+- tag driver: move an out-of-band VLAN tag into the payload before
+  reading it, instead of relying on the conduit never advertising a VLAN
+  TX offload.
+- tag driver: restore the classified VLAN as a C-tag rather than following
+  the IFH tag type, so a terminated frame lands on the VID the hardware
+  forwarded it on.
+- basic: drop the tail drop watermark setup, which programmed a
+  condition that could not trigger.
+- mdb: handle PGID exhaustion on both the add and delete paths, rather
+  than leaving a departed port in the group.
+- mdb: classify IPv4 multicast on the 01:00:5E prefix alone. Hardware does
+  not apply the 23-bit rule, so some groups were programmed as entries it
+  never matches.
+- stats: give the hardware counters and the software shadow a common
+  baseline, fix some rtnl_link_stats64 fields, and stop reporting the
+  three eth-mac fields the hardware cannot measure.
+- stats: stop the counter poller in .shutdown, which kept reading
+  registers after the parent had been shut down.
+- Link to v11: https://lore.kernel.org/r/20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com
+
+Changes in v11:
+- Update comment about vlan tag hwaccel use in tag driver.
+- Bump DSA_TAG_PROTO value in include/net/dsa.h.
+- stats: add comment about calling contexts of sw_lock in
+  lan9645x_stats_get_stats64
+- Link to v10: https://lore.kernel.org/r/20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com
+
+Changes in v10:
+- Individual patches mention specific v10 changes
+- Update tag driver after skb ownership model change in DSA taggers.
+- Link to v9: https://lore.kernel.org/r/20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com
+
+Changes in v9:
+- Individual patches mention specific v9 changes
+- Drop RGMII muxing to port 4.
+- Link to v8: https://lore.kernel.org/r/20260702-dsa_lan9645x_switch_driver_base-v8-0-90228d8bba58@microchip.com
+
+Changes in v8:
+- Individual patches mention specific v8 changes
+- Do not use the name CPU_PORT for the chips internal CPU port module,
+  as it collides with the DSA CPU port (the NPI front port). Drop the
+  CPU_PORT macro and reference the module as lan9645x->num_phys_ports,
+  mirroring ocelot/felix.
+- Reword the port map and related comments to distinguish the chip CPU
+  port modules (indices 9-10) from the DSA CPU port.
+- Add a port_mux_lock mutex to serialize port mux arbitration in
+  the phylink mac_prepare path.
+- Link to v7: https://lore.kernel.org/r/20260603-dsa_lan9645x_switch_driver_base-v7-0-b2f90e676707@microchip.com
+
+Changes in v7:
+- Individual patches mention specific v7 changes
+- Do not mark the BPDU range 01:80:C2:00:00:0X as offloaded in the tag driver.
+- Refactor cpu queue based frame classification to use categories default, trap
+  and copy, which mirrors usage instead of being based on frame types.
+- Add registers ANA:COMMON:CPUQ_8021_CFG for bpdu cpu queue configuration.
+- Use cpu queue LAN9645X_CPUQ_TRAP for bpdu frames.
+- Refactor IGMP/MLD/IPMC_CTRL to use new LAN9645X_CPUQ_DEF,
+  LAN9645X_CPUQ_TRAP and LAN9645X_CPUQ_COPY queues.
+- Add __aligned(2) to mac variable in lan9645x_mdb_update_dest.
+- Link to v6: https://lore.kernel.org/r/20260527-dsa_lan9645x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com
+
+Changes in v6:
+- Individual patches mention specific v6 changes
+- Rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 34
+- Link to v5: https://lore.kernel.org/r/20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com
+
+Changes in v5:
+- Individual patches mention specific v5 changes
+- Undo offset fix in postpull_rcsum. The original logic was correct for
+  CHECKSUM_COMPLETE host NICs
+- Use __always_inline in lan9645x_ifh_{get,set}
+- remove double space after = in set_merge_mask
+- remove unused fields dd_dis and tsn_dis, and add SKU supported port validation
+  during setup
+- phylink: remove MAC_2500FD
+- phylink: add comment about empty supported_interfaces for port 5-6.
+- phylink: fix 2:1 rgmii port muxing for port module 4 and 7 to be fully
+  dynamic and validate requested mux settings.
+- phylink: add comment about 2:1 rgmii port muxing for port module 4
+  and 7.
+- rx/tx-internal-delay-ps checked against supported 2ns value
+- init lan9645x->npi = -1 at probe and check port < 0 in npi_deinit
+- use ds->ageing_time_max
+- use packed p->host_flood_req for atomic r/w
+- fix typo in set_ageing_time comment
+- include lan9645x->bridge deref under lock in brige_join
+- switch -EBUSY to -EINVAL for vlan add/del in the reserved range.
+- remove reserved HSR vlan
+- lan9645x_mac_init returns error on table init timeout
+- add comment about skipping LOCKED entries on fdb dump
+- skip igmp/mld redir for npi port
+- make lan9645x_stats_init void
+- add SCNT_TX_BUFDROP to tx_dropped
+- change rmon range {0,64} -> {64, 64}. Runt frames counted elsewhere.
+- remove rx_crc, rx_symbol_err from rx_packets, as they are already
+  counted in SZ_* buckets.
+- add defensive cancel_delayed_work_sync in stats_free
+- Link to v4: https://lore.kernel.org/r/20260430-dsa_lan9645x_switch_driver_base-v4-0-f1b6005fa8b7@microchip.com
+
+Changes in v4:
+- v3 was deferred, but I made some changes based on the Sashiko review
+- Individual patches mention specific v4 changes
+- Fix offset in postpull_rcsum so prefix eth header is cleared, not
+  actual eth header, so tag driver works with CHECKSUM_COMPLETE host
+  NICs
+- Fix untagged rx on vlan aware port with pvid
+- Add comment to QSYS_RES_CFG configuration
+- Phylink_mac_prepare: fix to make sure we can dynamically change rgmii
+  on port 4
+- Move ports allocation to probe
+- tag_npi_setup: reject cascaded setups
+- Skip WARN_ON in lan9645x_to_port
+- set_host_flood changed to per port work to coalesce values and skip
+  atomic allocations
+- Fix clear HOST_PVID vlan membership when a port joins a bridge.
+- Explicit default value write to tag type register for untagged frames
+- Use lan_rmw for ANA_DROP_CFG
+- Add comment for error path in lan9645x_vlan_hw_wr
+- Remove mac_entries list and just do direct IO to mac table from
+  fdb_add/fdb_del.
+- Clean up fresh mdb when hw mac table write fails.
+- Remove rx_uc and tx_uc from ethtool stats list, as they are derivable
+  from the eth-mac group
+- Split stats_init into stats_alloc and stats_init, use alloc in probe
+  and init in dsa_setup
+- Link to v3: https://lore.kernel.org/r/20260410-dsa_lan9645x_switch_driver_base-v3-0-aadc8595306d@microchip.com
+
+Changes in v3:
+- Individual patches mention specific v3 changes.
+- Add guard before vlan_remove_tag on xmit
+- Add pskb_may_pull checks on rx
+- Remove additionalProperties: true in bindings
+- Remove unnecessary | from description in bindings
+- Change top level $ref to dsa.yaml#/$defs/ethernet-ports
+- Use ethernet-ports and ethernet-port
+- Move ethernet-ports under properties instead of patternProperties
+- Move unevaluatedProperties: false after $ref
+- Update bindings example to use ethernet-ports and ethernet-port
+- Move DEV_MAC_TAGS_CFG to port setup, instead of vlan config, so vlan
+  overhead is always included in port frame maxlen calculation.
+- Remove code disabling ipv6 on conduit
+- Use of_property_read_u32 for {rx,tx}-internal-delay-ps
+- Use dsa_user_ports(ds) instead of
+  GENMASK(lan9645x->num_phys_ports - 1, 0) as base flood mask.
+- Add comment explaining obey vlan
+- Allow disabling aging with explicit zero parameters.
+- Fix non-forwarding STP states in bridge fwd calculation.
+- Restore host flood state on bridge leave.
+- Avoid mac_entry dealloc when mac table writes fail.
+- Avoid mdb_entry dealloc when mac table writes fail.
+- Dealloc mac_entries on deinit.
+- Dealloc mdb_entries on deinit.
+- Link to v2: https://lore.kernel.org/r/20260324-dsa_lan9645x_switch_driver_base-v2-0-f7504e3b0681@microchip.com
+
+Changes in v2:
+- Individual patches have specific v2 changes.
+- Ran DSA, and std counters, selftests, which prompted several changes.
+  The following selftests pass, except for some expected failures:
+    - bridge_vlan_aware.sh
+    - bridge_vlan_unaware.sh
+    - bridge_vlan_mcast.sh
+    - no_forwarding.sh
+    - bridge_mdb.sh
+    - bridge_mld.sh
+    - test_fdb_stress_test.sh
+    - .../drivers/net/hw/ethtool_rmon.sh
+    - .../drivers/net/hw/ethtool_std_stats.sh (from Ioana's series)
+- Added new patch for MDB management, as this was required for selftests.
+- Added port_set_host_flood to enable unknown traffic to standalone during
+  promisc/ALL_MULTI (selftests).
+- Remove the dubugfs.
+- Link to v1: https://lore.kernel.org/r/20260303-dsa_lan9645x_switch_driver_base-v1-0-bff8ca1396f5@microchip.com
+
+---
+Jens Emil Schulz Østergaard (9):
+      net: dsa: add tag driver for LAN9645X
+      dt-bindings: net: dsa: add Microchip LAN9645x switch
+      net: dsa: lan9645x: add autogenerated register macros
+      net: dsa: lan9645x: add basic dsa driver for LAN9645X
+      net: dsa: lan9645x: add vlan support
+      net: dsa: lan9645x: add mac table integration
+      net: dsa: lan9645x: add mdb management
+      net: dsa: lan9645x: add bridge support
+      net: dsa: lan9645x: add port statistics
+
+ .../net/dsa/microchip,lan96455s-switch.yaml        |  208 +++
+ MAINTAINERS                                        |   10 +
+ drivers/net/dsa/Kconfig                            |    2 +
+ drivers/net/dsa/microchip/Makefile                 |    1 +
+ drivers/net/dsa/microchip/lan9645x/Kconfig         |   12 +
+ drivers/net/dsa/microchip/lan9645x/Makefile        |   12 +
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c  |  268 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.c | 1073 +++++++++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.h |  443 +++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c  |  582 ++++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c  |  116 ++
+ .../net/dsa/microchip/lan9645x/lan9645x_phylink.c  |  316 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_port.c |  180 ++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_regs.h | 1932 ++++++++++++++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.c    |  854 +++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.h    |  229 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c |  411 +++++
+ include/linux/dsa/lan9645x.h                       |   54 +
+ include/net/dsa.h                                  |    2 +
+ net/dsa/Kconfig                                    |   11 +
+ net/dsa/Makefile                                   |    1 +
+ net/dsa/tag_lan9645x.c                             |  514 ++++++
+ 22 files changed, 7231 insertions(+)
+---
+base-commit: 518bf436318e8d1162391cd77d69d65198a4a25b
+change-id: 20260210-dsa_lan9645x_switch_driver_base-312bbfc37edb
+
+Best regards,
+-- 
+Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+
