@@ -1,72 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8380C4A206F;
-	Thu, 15 Oct 2026 13:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410E4511208
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071843; cv=none; b=XZ2PFWQcPm5lyK26M873t0Frmy+vy4dLvdwP0MNPfCA+aS62pGCFQgwoar/2goZW+PmHPHYsXNC1bbZDuPbd0mymAnNVSaRcJVWkqKYcK9E2vIVBdPwc2IV0QmNq+eNDAcM3E7epqIjbD4xQnaE6TfZeXju3XdCrj32P/REN0vw=
+	t=1792071850; cv=none; b=YAzvYFDnh3xL97j6/dwzxO1hcgxAKX9AVueM7MN20yLgoUdU3yKEPHGCo9oZyodfADMZ3fX99ogDg9NeI7OBGppTSOv5Vyh8hbRqYjAzo3gF/KNFxPRLTITUpnE40jeBGrXkgT2/1vlEEtD9LeHDAi964PwktZZALmncIM/KIDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071843; c=relaxed/simple;
-	bh=p6ELrmae6qI9vb1c7UWuKd4wsKeLvtU/xgInuHBF/dE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UlqY5XdgsIzkB3J82UOR3yH1yMAqAxJmQhCoUVKlV3kbHWvPGVxtaZ6ZTDHnifipiOYGiU2pV7DkxEfnTfP4IBFj/ebJYzChbm/r/HylP2g9xsd+4m1s9hycMbUssMqO0JeaV3bVBYBfUS2/CYJGDUws7JMEf7nvfjwetJ1t9T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exGXaKVB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792071850; c=relaxed/simple;
+	bh=GeYIrwEr5LIVkJZNbjjYKIyA0l3cb3yOCAu+wvW5dWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WvEQFw1WELDOEnVSJhDTdpxUYh+rbnczXEkgmYE525vMAaisUJEXdBdVX7Xtv6JVzYoTd+/DQu+YcTGggMRkWCiN5j1usXtX8RzXrmkdelbAPzRsfqSa4K5/DByND5B6GV/j7X36OZ8EOMw4QnaKMN7h5uG47Kb+lIEZly/wJME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vv+4V30y; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exGXaKVB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F3F21F000C4;
-	Thu, 15 Oct 2026 13:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071842;
-	bh=I2p+U5+wUh22N+M/aKWINw3olgc5ack8LcssI64gIEc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=exGXaKVBAvRgexBQ/j+3luClBUh4HWab4IeJnWLhL/T0H+Y1azArlmYT+dpTn4lu8
-	 x+gr/9z6swgjBRgc2ZY6nZVGn7nr21uwebXV6z+VmSrm04Jd067qww7PMGdlSGoTLx
-	 irTR4HKsIsL+XVyyKNxid4eLp1e84A5390GXxUHkLg60TcDtTmL/39K0SO2F7ISkaZ
-	 R8jfq1pLLCks+r4+ALybXiFI+jgoDY/ra8xlMwgoirXb1or+0i6xQfKptTDXeXDE+q
-	 Sq/MGy+5TuTK6m5YAxzwc9C8taRfAlUKxZ3W3GRpwzuw17G4lKjIhkUahwu8eme6Ea
-	 EbwptDdkNvzHg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, Andy
- Lutomirski
- <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Shuah
- Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, Thomas
- =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Subject: Re: [PATCH v2 2/3] vdso/gettimeofday: Add support for
- CLOCK_BOOTTIME_ALARM
-In-Reply-To: <20260929-vdso-alarm-clocks-v2-2-a7af4089a698@weissschuh.net>
-References: <20260929-vdso-alarm-clocks-v2-0-a7af4089a698@weissschuh.net>
- <20260929-vdso-alarm-clocks-v2-2-a7af4089a698@weissschuh.net>
-Date: Thu, 15 Oct 2026 15:43:59 +0200
-Message-ID: <87ld7zdqow.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vv+4V30y"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 665711A123F;
+	Thu, 15 Oct 2026 13:44:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 317D160360;
+	Thu, 15 Oct 2026 13:44:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 38C1210328C52;
+	Thu, 15 Oct 2026 15:43:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792071840; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=ZGLegN9PwLLCHoWQeOO/R0S13KTF7tB79ZezrC+Umig=;
+	b=vv+4V30yOTk7QwajkRtZbYp3wgF3lnOeZJ0V2lA7sEeUdM5EJQQvCKP34NJ4/G6RAdi5HZ
+	JdKrp5FI5fdriQKYeKKtYgURBe/aovVp2TRDgEKjN5G0hSCy+mvNxTv/GQiCrUjrLLupHa
+	84j0fYviVGqYvRMxYZPCvKOnnwRJNOkMY57fn84S0PrTn7T2S2BrA2xQFMqLyVWU2Jl8nO
+	mA/kNzmT3kWnOLXcnkw0k2fbBxg3UUJKHOU72Q/GtW4XfWwgfHJ8O5vLebasyuzqR21T5I
+	9JuuMFpbcO7m/JK8lr9kg7o9Vt3jznqbJ3RrtBuqk0xktbPpyoJnTZdO2Cq4tg==
+From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	thomas.petazzoni@bootlin.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH net-next v3 0/3] selftests: drv-net: Introduce flow-control selftest
+Date: Thu, 15 Oct 2026 15:43:45 +0200
+Message-ID: <20261015134350.629593-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 29 2026 at 22:24, Thomas Wei=C3=9Fschuh wrote:
+Hi everyone,
 
-> CLOCK_BOOTTIME_ALARM behaves exactly as CLOCK_BOOTTIME as far as the
-> vDSO is concerned. The vDSO library can handle it automatically
-> correctly. Only the basetime needs to be maintained during the tick.
->
-> The namespace offset is already set correctly, although it was not
-> used before.
->
-> Reuse the CLOCK_BOOTTIME basetime for CLOCK_BOOTTIME_ALARM and update
-> the userspace hres clock mask to include CLOCK_BOOTTIME_ALARM.
+This is V3 for the ethtool flow control test.
 
-It behaves the same way, but ALARM clock IDs require a RTC device. See
-alarm_clock_get_timespec().
+This test aims at validating the flow control implementation in drivers,
+using the ethtool API.
 
-So the VDSO and the syscall will disagree when there is no RTC
-available...
+The test can run in various conditions :
 
-Thanks,
+DUT <-----> Anything that has link up (not controllable)
+DUT <-----> A directly connected device
 
-        tglx
+It enumerates the local and remote device's capabilities, to test as
+much as possibly testable. I've run it on 17 different boards connected
+to other boards through various means : Usb to Eth dongles, direct
+connection to the board, connection through a switch. Some of the ports
+tested were user ports of DSA switches too.
+
+Contrary to V2, on V3 we really only have a collection of actual
+failures that show during tests, as one of the peer's I'm running these
+on has a v6.18 kernel that pre-dates the realtek phylink port and show
+actual bugs in the driver.
+
+Thanks to the Netdev Foundation for funding this work :)
+
+Maxime
+
+Changes in V3:
+ - Use Jakub's loop on carrier state when waiting for the interface to
+   be up
+ - Following discussions with Andrew, we now detect the link partner
+   using ethtool -r to trigger an autoneg, instead of assuming the link
+   will drop when the interface is brought down
+ - Numerous typo fixes and comment reworks
+ - wait_for_link and wait_for_aneg have been reworked
+ - We no longer expect that pause advertising is empty when pause
+   autoneg is off, as documented in uAPI.
+
+Changes in V2:
+V2: https://lore.kernel.org/r/20260925182628.214667-1-maxime.chevallier@bootlin.com
+ - Don't add stuff to the lib
+ - Fix most pylink errors (module's too long for pylint ...)
+ - Ditch the fail=False from the defer()
+ - Remove duplicate patches
+ - Clean the comments
+ - Drop the return type annotations, most were wrong...
+
+V1 : https://lore.kernel.org/netdev/20260920164732.349744-1-maxime.chevallier@bootlin.com/
+
+Maxime Chevallier (Netdev Foundation) (3):
+  selftests: drv-net: Introduce a selftest for ethtool flow control
+  selftests: drv-net: pause: Validate the pause autonegotiation with a
+    partner
+  selftests: drv-net: pause: Validate pause autoneg interactions with
+    link autoneg
+
+ .../testing/selftests/drivers/net/hw/Makefile |   1 +
+ .../testing/selftests/drivers/net/hw/pause.py | 944 ++++++++++++++++++
+ 2 files changed, 945 insertions(+)
+ create mode 100755 tools/testing/selftests/drivers/net/hw/pause.py
+
+-- 
+2.55.0
+
