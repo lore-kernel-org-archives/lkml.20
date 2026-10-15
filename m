@@ -1,103 +1,77 @@
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B7D52CCD1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A5151D525
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072709; cv=none; b=kIuKDnx4BY+90SU90kU05w7CqApPbSUgAzciQQzeaKjUFIKNQ0O1A/ro4KxyIv8XFLafDD2wmOM5M7eU5nJEvXa6qiZvjclJJaraA4oBt0RDSq+q8IB8E6SV6yu82Pu5L3RMOBKybFn5Xt4djlFpF1Ama0qaAQSUFueI1SM9qfU=
+	t=1792072721; cv=none; b=PHR1DUXCAKicclXaNC4Rf7oqPWvEy6+uIwa0Fk29CLOVpOrzF+Itj4BHosdhf36jK7IPZeOt+v93gLSry8heszh4juZNRuNQDdOp0+LZgO6yXMzoUiW9L1rOJ9WuGc+G5S8LnNeWFqEkCwCFYHKktopiHlvUcQmuee+V3REwsns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072709; c=relaxed/simple;
-	bh=OCv0J4F0+cKT1MGHRq/Orj+bkEruIA6kgjMbhaQyAzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WctQXBEgCvSgV6KYEXt4Na16fgGw0Bms9uPTylQrr1NYDX0X6A+bpxlss0QQRYbI01Bhmar+75xmIG0HJQijp2K5M7oMgBU+tnVPnY7n3SitBI1RwmCbP1Q/e5YFeQaX54kMXuUlYJBk1VZ6gXBE44uhbg9b63hsgWWEVvPKtGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=iawvqngN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xr6tPNFl; arc=none smtp.client-ip=103.168.172.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	s=arc-20240116; t=1792072721; c=relaxed/simple;
+	bh=GkuhSG1E3xOY9+vYRNXA1NQsKM+K3EJmy2CQjqLyy7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaJ3bgcMbmEh8ZsaRu5af9IIBwKi+FF4LGiHhlZvFryIAK7Fu/CI7pEcB2Wfn/xbSGDLPKYPt7QxebsN3eUS9/tVqMySxs7CBUlQkEVF+oAMrEfzuPAywdTJrmovvQymfe50Y3OS9EZdHxGCKnSU7TJ2kIHaY3iRuMNJUR6y4qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6UC1bfW; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="iawvqngN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xr6tPNFl"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id E3D111380286
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:26 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 09:58:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1792072706; x=
-	1792076306; bh=3/Q6wychZRDpWguDGY6+VUJKrf/+wIfeSmHd7gFbPr0=; b=i
-	awvqngNARpAE/TLK4RtHxMeNE3TZygqK/rDPNeHvb2w+9/B0ZsnG10SGIOCK8KV3
-	78hz2SGOf6aSAD+ZagL+V3DbOpKNdXhC+dkb2zDfYN3u9pRYRHPzeOt9T3U5MvHm
-	VmFJrCtvFv0VBkOQBDGu6+7Oqg+6NI4yTGSU8GDxS8R7lJtVeVXm4XkcEk4Rfa46
-	/H3DpJgFGymOCdqsudGR9/Dhge9r2rAnXGwrFA7MO4pcb66OgXZchCNxXbvqlHSe
-	pxt3Ydi42Et74t4rftWk7IFi621XYlv7iC4WMr+32vSQiQ6BhPMaD7Lt51aW3zTo
-	ohW+iNDsPNHrkZPK1qRjw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1792072706; x=1792076306; bh=3
-	/Q6wychZRDpWguDGY6+VUJKrf/+wIfeSmHd7gFbPr0=; b=xr6tPNFlrzoYZIQIk
-	B3mECbrwebsOLGPcdeZaAZoSuOdGKb+axz3V3yLZuLXLdukoy7JLkeKCkYkxV1xA
-	tgkKpfmIqgP4/UQmw71eNHvpqE3H/oKd3h4ua4Fwdu8LCxRTieuAAo/HKyNwYGYv
-	vbMM/v+1KESlaSzBU0c3kOmB5a3nbKaSdeM5hiT+HGvEHRuSTZrLiYa5wf+pfujB
-	yUZ7qjIHVTMH131ZqZZGYD4qg108g44862CBFPQLJQyYfNPv2vl8uF/1pymlagBB
-	tSJBOuZeluHmLBhtRIhmmwnHBVEmGF0ObbxcArQtTgfnvxYz40rzjOv6wACRoX3f
-	FZOmg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792072706; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:FxWAdiapLz8yaT+6x+GPGOf7aVJsaYuX/ARU5RK1+AcmAVf
-	uZG/Sfry9CT/O9spD/O34O2PGavaesRYC4MmlzRkMLoZx4/6Yym4SDrIK/L9khxs
-	oMhJyjwCk7UpJiitglc5DS9qw3REG+sV2vqJlieZCwuDENuIhdr3eUNGwZWzjMe7
-	PGuDU2HuIvxH+TxMweR4oRT5dFImX/UqWtZs3spMO1SY3drdP4rvkPbMJMLIfDhn
-	EcrYyhgSaQ23TygImZ2ppppj5Exe10jhb/XuPMob2mq7wgGmZ3itymjac1757/+R
-	9+Gcc2J2o4anwj/d4UzRJ80DmNh6Ra1VBq1S3iw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:J1qIQ0oheCSSO4Oo6x7gs3ST57Fjww9Za6MZ8s3CE0w=:OCv0J4F0+cKT1MGHRq/Orj+bkEruIA6kgjMbhaQyAzo=;
-X-ME-Sender: <xms:AtzQaiHMIfxUGI_NYffml3NcyLRi2ddZDFRLNuQrRbzD4Cm7GJ-quw>
-    <xme:AtzQasr_ImjUphF0IcsbcidZJFLyfkLB2sWvtOoNuertM5OPaWpgKPw_T4yrVekfO
-    GQtLNtHvMUOEUdgyKraW8GU45gxHGxvq0ngIrPGSVg8_smK6HW5iJ3J>
-X-ME-Received: <xmr:AtzQajY0ZClSuwhhsJjS2NCxhYQnDd1OdL0MB9lV4aFJWUHpYEB-XMy9bA>
-X-ME-Proxy-Cause: dmFkZTGmFAKykKSAVqFKtPUpA7z4HQxXGeWq8/WsVMtzile6xT4qlc2iJUMvU5uto9J+tl
-    6xiHAOs1vo9mJEQbj1wOR5tng2NlvDB6a5Z09lC8JabfXEHTsrLDRNS8fsGwBbVTP+reZe
-    OPwjXNfp4gnxt9qvz6/K/kr69tIFsz1HP6WSz8b9cBQ+1gKTJaE7P9pHmuAiAUKfuzJtVh
-    0WZBQIH5ePTnc6MO1Zq7Pn6fWiuTviDKYiSaak1txos9SONMiUdZzxGnVOrmnxkHNtSoO2
-    Fu9ajJhlc/cETsT+/iB2rFW91QAMj4/zaA/p3GMz4isfOE2rvE5e4ENNuPhiQt/3u/qnlR
-    Az/eWamD4w7ZWn3s3oi1ZC1CvEq3+Pr08RHUB3PC2Buzgyd5F2QaN2Z1PENyluqqqARYjs
-    eYBoh4TDwak9q9r6p+v/4tocQFhLQ6IyEF3/6RAyMH8YwLBwSOHcTXToVmm9X3qP7aMiAH
-    j8xRyrZtqQBdwlwr2igbvaPie95KNsNc3Om/hbrqOpfifKkLBsN/c7pfYR4yyVRWLfYRBj
-    PTLsItgD7CdO4NC7V3CMjfZ0/DLL/s/Mb3IxG6iKqJ1/nmMsnwsdwYCN1UR8Q84dHIjGQ4
-    edIlgJce22Wh9J6st+yroGrUWZsXgdD656Bs7xV2dJHJrEkiiy7hQQfifZQw
-X-ME-Proxy: <xmx:AtzQatXdiiu6WNVqMybFRZy1Kyt7bbM-pwjcxZ9FbgF69RWKkZeSOw>
-    <xmx:AtzQak9I0pFmxS6ijUWRpPGmXyTQtdzUVxHUs7hVmq_JJUf12XDr6Q>
-    <xmx:AtzQau_HIS3cvVs867xVTt5U5wMfhPFuP_8hJxEZkvKX5HgnhwG8Ng>
-    <xmx:AtzQasS2mg4QcHnSvj_17JCnbuRE6pP9E3Cqs4kwxqi4qA-ps4gpwQ>
-    <xmx:AtzQaoNC-FL-TmUGxuaO6wrESJr9EwD6iqs51ppVpbCeU_dl6_6FH_Sy>
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 09:58:25 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
-Date: Thu, 15 Oct 2026 19:27:54 +0530
-Message-ID: <20261015135801.19326-2-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015135533.18761-1-suhaas@s-joshi.in>
-References: <20261015135533.18761-1-suhaas@s-joshi.in>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6UC1bfW"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso2389834a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792072720; x=1792677520; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
+        b=U6UC1bfWuN2XIx6irIBe2LDP4a4MgF+m7/RzfHgEJzU7d2y/HQP+QeqvwZ9rWHo1tk
+         wsG8rmF09Rhs6u0Ajby22pT3pfUzX0+8lctDfRQvQsnDTZXS0pCfIR8vMRnUZ2QV5d5J
+         sdjfmjY2KtaZYuIOLBfUQ78KjzMpaX8qRhjlY6t/NAlMIqgO26oefJqhEOaj5v0xGNF+
+         +o7h7xiCeoDsUf6tK6jpwoMhalmLIqwhzEYJ0L9CHKMDHKaSkqersLA5X6QK5zyAz2er
+         3Jpd28+q89/0gLJeyXgQ8GHOdFKHeDI0WmUvjEgGiPT8TkqR2QVwSfbWMbRpnMrISE1n
+         aMDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072720; x=1792677520;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
+        b=cRs8BMWTAlwP+nMS49cmk9jntAVS5VaPmBTSGjfjIDx64G1oNlgvWcxnocMCXK/y03
+         XevCLgDns581FnZz1s5xPmFAY99Qv9uwa20f3gSJXBouXwKNCLLGozkzNxhTsLMp9qT9
+         Zn/VOKa9bIy5de5WsqSYewLeh8Rp3VUPaSu0PBos9gFaFvwFsehaIWkLfnwbbFLgAsg5
+         Vv1Z1dXEN1YcXXiA0oq5YMrEtuJyYqw23cXkoL66mYMz7uRQd84Gi5X84rvcER5m0sky
+         Myz38gTXHET37QzPNmQ4jHSnp+eglfcmDVsLW5seh7EmALN0un/S71DxCW90grejPd81
+         5e7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzf59LQVU08wZ85cZzsu0wvyYq8PLypubpyeiSYOdX0qm/2HY72eXWZq/cTHJAfiDaHt3ZCZ42FIDTq+k4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ31AKHTz9PRobPiFEy9q3XuklAaXFU3YeBYdK04L4Znlxjo1VV
+	MOiEUA1eqfpFDh3egGIatTjv5Uj/sGbjEQ+wpIN66JtUOGZzheuQPhNJ
+X-Gm-Gg: AYBFou3gz1jdFi3Fyv4OxETA5x/KEl2SsR8rV6wReuAzP4v3BdkG6XeWvwjg279mSko
+	uokXpHCLp23MUxPyx8FAiiIcFYN/NTJI5ip1cvyBKnnas1inI4SJmtep130aoDe10fsH4/lySuI
+	RfjAmMCbPnsfMJTOQr6B69h56v4h6B34JMOoKryuOhuLkTYi+qqK0Q3RukhJRqVYKJKezUUpogg
+	SZZp7eobd7Rm5Fn+LUz6qF4nZ7mMydBoagp/O+iMqq9GDEPNktdNmW4tPUcH2vWu7edY1c7wVNM
+	zpwbo805AbkRumu+IK6HmkKXRKG4VaiAs51sIWgYRWuv7sT3daUPRAcgFz/alCX5Mi51bGeGj2Z
+	jU44hNWFi4JUdI1nEJ+hhs3EazyK/j59EQTZkCu9nRWCnnl6tWwcdUWlFdfnpn1/H6Gy3/68jJ+
+	KYeOCXwnDsxTAh7wNvECzOSQbBT7EtizmncMm4hYXAzS1M+qiX9hMH53eQQZ/DwyeAEdDZHKCwx
+	SAoCnfgik0v5rlRMS+aaeg=
+X-Received: by 2002:a17:90b:54d0:b0:3ab:4e4:e979 with SMTP id 98e67ed59e1d1-3ab3ac90725mr14115192a91.36.1792072719701;
+        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
+Received: from localhost.localdomain ([123.215.20.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac944a9365sm4848219a91.14.2026.10.15.06.58.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
+From: Jiwoong Wi <dwdnlzj@gmail.com>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bobtobabz@gmail.com
+Subject: [PATCH] svcrdma: account for inline bytes in Read chunk page budget
+Date: Thu, 15 Oct 2026 22:58:32 +0900
+Message-ID: <20261015135832.67889-1-dwdnlzj@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,328 +80,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In damon_split_region_at(), we copy the entire probe_hits[] and
-last_probe_hits[] arrays of DAMON_MAX_PROBES size. However it is possible
-that the number of probes installed is less than DAMON_MAX_PROBES, in which
-case one or more iterations is/are redundant. To remedy this, iterate over
-only as many times as the number of installed probes. To do so, accept a
-struct damon_ctx pointer in damon_split_region_at(), and update all
-invocations of the function to pass the new argument.
+The Read-list check limits Read bytes to the request page budget. With
+multiple data item Read chunks, svc_rdma_read_multiple_chunks() copies
+the inline RPC body into those same pages. The reconstructed message
+can overflow the budget even when its Read bytes alone fit.
 
-Also update damon_test_split_at() and damos_test_filter_out() in
-core-kunit.h to supply a context to function paths that call
-damon_split_region_at().
+A short final Read segment escapes the existing page-overrun check
+because that check runs only if len remains nonzero. The inflated
+rc_page_count then makes svc_rdma_clear_rqst_pages() write past
+rc_pages, followed by an out-of-bounds read during cleanup.
 
-Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+Include inline bytes in the budget only when multiple data item Read
+chunks share the page array. Count the final Read chunk, and replace
+the late, len-conditional page check with checks of both page-array
+capacities before using each destination page. Single Read chunks and
+Position Zero Call chunks use different reconstruction paths.
+
+Validation used nfsd-testing 78c334bc5ae61d23ca1cc2e43079c620f1d40866.
+The unmodified Generic KASAN kernel reproduced an out-of-bounds write
+in svc_rdma_process_read_list(), followed by an oops during cleanup.
+
+With this patch, the full kernel and modules built and booted. In an
+isolated run, all 61 instances of the same frame were rejected during
+RPC/RDMA header parsing. A two-Read-chunk NFSv4 NULL request completed:
+the server issued two RDMA Reads and returned a successful RPC reply
+with the matching XID. Concurrent NFSv4.2/RDMA direct I/O completed 20
+repeated 8 MiB write/read transfers; the final readback matched the source
+SHA-256. No KASAN report or oops occurred in the direct I/O run, and
+kernel taint remained zero. The reproducer and baseline KASAN log are
+available privately on request.
+
+The vulnerability research and validation were conducted by members of
+the Tobabz team as part of the Best of the Best 15th program.
+
+Fixes: d7cc73972661 ("svcrdma: support multiple Read chunks per RPC")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jiwoong Wi <dwdnlzj@gmail.com>
 ---
- mm/damon/core.c             | 42 +++++++++++++-----------
- mm/damon/tests/core-kunit.h | 64 +++++++++++++++++++++++++++++++------
- 2 files changed, 78 insertions(+), 28 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_pcl.c | 12 ++++++++----
+ net/sunrpc/xprtrdma/svc_rdma_rw.c  | 10 ++++++----
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index bebd2889c2c8..2677fabc9c29 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2051,8 +2051,8 @@ static unsigned long damon_region_sz_limit(struct damon_ctx *ctx)
- 	return sz;
- }
- 
--static int damon_split_region_at(struct damon_target *t,
--				  struct damon_region *r, unsigned long sz_r);
-+static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
-+		struct damon_region *r, unsigned long sz_r);
- 
- /*
-  * damon_apply_min_nr_regions() - Make effect of min_nr_regions parameter.
-@@ -2077,7 +2077,7 @@ static unsigned long damon_apply_min_nr_regions(struct damon_ctx *ctx)
- 	damon_for_each_target(t, ctx) {
- 		damon_for_each_region_safe(r, next, t) {
- 			while (damon_sz_region(r) > max_region_sz) {
--				if (damon_split_region_at(t, r, max_region_sz))
-+				if (damon_split_region_at(ctx, t, r, max_region_sz))
- 					goto out;
- 				r = damon_next_region(r);
- 			}
-@@ -2474,6 +2474,7 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
- /*
-  * damos_skip_charged_region() - Check if the given region or starting part of
-  * it is already charged for the DAMOS quota.
-+ * @ctx: The pointer to the context.
-  * @t:	The target of the region.
-  * @rp:	The pointer to the region.
-  * @s:	The scheme to be applied.
-@@ -2496,8 +2497,8 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+index 862372279..8da0f0dc7 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+@@ -238,8 +238,8 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+  * before comparing against @inline_len or the Call chunk length.
   *
-  * Return: true if the region should be skipped, false otherwise.
-  */
--static bool damos_skip_charged_region(struct damon_target *t,
--		struct damon_region *r, struct damos *s,
-+static bool damos_skip_charged_region(struct damon_ctx *ctx,
-+		struct damon_target *t, struct damon_region *r, struct damos *s,
- 		unsigned long min_region_sz)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -2525,7 +2526,7 @@ static bool damos_skip_charged_region(struct damon_target *t,
- 				}
- 				sz_to_skip = min_region_sz;
- 			}
--			damon_split_region_at(t, r, sz_to_skip);
-+			damon_split_region_at(ctx, t, r, sz_to_skip);
- 			skip = true;
- 		}
- 	}
-@@ -2583,12 +2584,12 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			damon_split_region_at(ctx, t, r, start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		damon_split_region_at(ctx, t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2781,7 +2782,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 					c->min_region_sz);
- 			if (!sz)
- 				goto update_stat;
--			if (damon_split_region_at(t, r, sz))
-+			if (damon_split_region_at(c, t, r, sz))
- 				goto update_stat;
- 		}
- 		if (damos_core_filter_out(c, t, r, s))
-@@ -2828,7 +2829,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		if (damos_quota_is_full(quota, c->min_region_sz))
- 			continue;
- 
--		if (damos_skip_charged_region(t, r, s, c->min_region_sz))
-+		if (damos_skip_charged_region(c, t, r, s, c->min_region_sz))
- 			continue;
- 
- 		if (s->max_nr_snapshots &&
-@@ -3665,15 +3666,18 @@ static void damon_verify_split_region_at(struct damon_region *r,
- /*
-  * Split a region in two
+  * Rejects frames where a Read chunk's inline-body offset exceeds
+- * the bound, where adjacent Read chunks overlap, or where any
+- * single chunk length exceeds the page budget.
++ * the bound, where adjacent Read chunks overlap, or where Read bytes,
++ * plus inline bytes when they share the page array, exceed its budget.
   *
-+ * ctx		pointer to the region's context
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-  *
-  * Return: 0 on success, negative error code otherwise.
-  */
--static int damon_split_region_at(struct damon_target *t,
--				  struct damon_region *r, unsigned long sz_r)
-+static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
-+		struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
-+	struct damon_probe *p;
-+	int i;
+  * Return values:
+  *       %true: Read chunk positions and lengths are valid
+@@ -269,8 +269,9 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
+ 	pcl_for_each_chunk(chunk, &rctxt->rc_read_pcl) {
+ 		if (chunk->ch_position - total_read > bound)
+ 			return false;
+-		if (chunk->ch_length > max_len)
++		if (chunk->ch_length > max_len - total_read)
+ 			return false;
++		total_read += chunk->ch_length;
  
- 	damon_verify_split_region_at(r, sz_r);
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
-@@ -3685,11 +3689,13 @@ static int damon_split_region_at(struct damon_target *t,
- 	new->age = r->age;
- 	new->last_nr_accesses = r->last_nr_accesses;
- 	new->nr_accesses = r->nr_accesses;
--	/* todo: do this for only installed probes */
--	memcpy(new->probe_hits, r->probe_hits, sizeof(r->probe_hits));
--	memcpy(new->last_probe_hits, r->last_probe_hits,
--			sizeof(r->last_probe_hits));
+ 		next = pcl_next_chunk(&rctxt->rc_read_pcl, chunk);
+ 		if (!next)
+@@ -278,8 +279,11 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
  
-+	i = 0;
-+	damon_for_each_probe(p, ctx) {
-+		new->probe_hits[i] = r->probe_hits[i];
-+		new->last_probe_hits[i] = r->last_probe_hits[i];
-+		++i;
-+	}
- 	damon_insert_region(new, r, damon_next_region(r), t);
- 	return 0;
+ 		if (chunk->ch_position + chunk->ch_length > next->ch_position)
+ 			return false;
+-		total_read += chunk->ch_length;
+ 	}
++	if (pcl_is_empty(&rctxt->rc_call_pcl) &&
++	    rctxt->rc_read_pcl.cl_count > 1 &&
++	    inline_len > max_len - total_read)
++		return false;
+ 
+ 	return true;
  }
-@@ -3718,7 +3724,7 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
- 			if (sz_sub == 0 || sz_sub >= sz_region)
- 				continue;
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index 63d00f0cc..1f1ccf80a 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -794,6 +794,10 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
+ 	ctxt->rw_nents = nr_bvec;
  
--			damon_split_region_at(t, r, sz_sub);
-+			damon_split_region_at(ctx, t, r, sz_sub);
- 			sz_region = sz_sub;
+ 	for (bvec_idx = 0; bvec_idx < ctxt->rw_nents; bvec_idx++) {
++		if (head->rc_curpage >= head->rc_maxpages ||
++		    head->rc_curpage >= rqstp->rq_maxpages)
++			goto out_put;
++
+ 		seg_len = min_t(unsigned int, len,
+ 				PAGE_SIZE - head->rc_pageoff);
+ 
+@@ -810,9 +814,6 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
+ 			head->rc_pageoff = 0;
  		}
+ 		len -= seg_len;
+-
+-		if (len && ((head->rc_curpage + 1) > rqstp->rq_maxpages))
+-			goto out_put;
  	}
-@@ -3750,7 +3756,7 @@ static void damon_split_some_regions(struct damon_ctx *ctx,
- 			if (sz_sub == 0 || sz_sub >= sz_region)
- 				continue;
  
--			damon_split_region_at(t, r, sz_sub);
-+			damon_split_region_at(ctx, t, r, sz_sub);
- 		}
- 	}
- }
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 849cf61cb828..0a442f1e6a42 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -141,6 +141,8 @@ static void damon_test_split_at(struct kunit *test)
- {
- 	struct damon_target *t;
- 	struct damon_region *r, *r_new;
-+	struct damon_ctx *ctx;
-+	struct damon_probe *p;
+ 	ret = svc_rdma_rw_ctx_init(rdma, ctxt, segment->rs_offset,
+@@ -893,7 +894,8 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
+ 	for (page_no = 0; page_no < numpages; page_no++) {
+ 		unsigned int page_len;
  
- 	t = damon_new_target();
- 	if (!t)
-@@ -150,13 +152,29 @@ static void damon_test_split_at(struct kunit *test)
- 		damon_free_target(t);
- 		kunit_skip(test, "region alloc fail");
- 	}
-+	p = damon_new_probe();
-+	if (!p) {
-+		damon_free_region(r);
-+		damon_free_target(t);
-+		kunit_skip(test, "probe alloc fail");
-+	}
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		damon_free_region(r);
-+		damon_free_target(t);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
-+	damon_add_target(ctx, t);
-+
- 	r->nr_accesses = 42;
- 	r->last_nr_accesses = 15;
- 	r->probe_hits[0] = 7;
- 	r->last_probe_hits[0] = 3;
- 	r->age = 10;
- 	damon_add_region(r, t);
--	damon_split_region_at(t, r, 25);
-+	damon_split_region_at(ctx, t, r, 25);
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
- 	if (damon_nr_regions(t) != 2)
- 		goto out;
-@@ -175,7 +193,7 @@ static void damon_test_split_at(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, r->age, r_new->age);
+-		if (head->rc_curpage >= rqstp->rq_maxpages)
++		if (head->rc_curpage >= head->rc_maxpages ||
++		    head->rc_curpage >= rqstp->rq_maxpages)
+ 			return -EINVAL;
  
- out:
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
- 
- static void damon_test_merge_two(struct kunit *test)
-@@ -1799,6 +1817,8 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	struct damon_ctx *ctx;
-+	struct damon_probe *p;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1818,28 +1838,44 @@ static void damos_test_filter_out(struct kunit *test)
- 	}
- 	damon_add_region(r, t);
- 
-+	p = damon_new_probe();
-+	if (!p) {
-+		damon_free_target(t);
-+		damos_destroy_filter(f);
-+		kunit_skip(test, "probe alloc fail");
-+	}
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		damon_free_target(t);
-+		damos_destroy_filter(f);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
-+	damon_add_target(ctx, t);
-+
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, f, 1));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1855,7 +1891,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(ctx, t, r, f, 1));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
-@@ -1868,7 +1904,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_destroy_region(r2, t);
- 
- out:
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- 	damos_free_filter(f);
- }
- 
-@@ -2458,6 +2494,7 @@ static void damos_test_esz_goal_temporal(struct kunit *test)
- static void damon_test_last_region_quota_reset(struct kunit *test)
- {
- 	struct damos s = {0};
-+	struct damon_ctx *ctx;
- 	struct damon_target *t;
- 	struct damon_region *r1, *r2;
- 	unsigned long min_region_sz = 1;
-@@ -2484,7 +2521,14 @@ static void damon_test_last_region_quota_reset(struct kunit *test)
- 	s.quota.charge_target_from = t;
- 	s.quota.charge_addr_from = r1->ar.end;
- 
--	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_free_target(t);
-+		kunit_skip(test, "ctx alloc failed");
-+	}
-+	damon_add_target(ctx, t);
-+
-+	skipped = damos_skip_charged_region(ctx, t, r2, &s, min_region_sz);
- 
- 	/* 'r2' is not processed, it should not skip */
- 	KUNIT_EXPECT_EQ(test, skipped, false);
-@@ -2493,7 +2537,7 @@ static void damon_test_last_region_quota_reset(struct kunit *test)
- 	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
- 	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
- 
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
- 
- static struct kunit_case damon_test_cases[] = {
+ 		page_len = min_t(unsigned int, remaining,
+
+base-commit: 78c334bc5ae61d23ca1cc2e43079c620f1d40866
 -- 
-2.55.0
+2.39.5
 
