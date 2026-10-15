@@ -1,229 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521053EAC75;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D0D3EFFA6;
 	Thu, 15 Oct 2026 13:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069533; cv=none; b=fzTvipbfVQ4P2yADkk6XCNdPEz0TXCNikosvCWA5fUyGb2Rznk8IeL5WlrCgbIq8d79l+2bhw0Bl/MNZsGIfX3BAGYLHYG5eNNmxAjb3RNfUvSq2EimqsdjV0hb+ALJcwq8yH5SC0a5otGIQPPkuWOQs9AnqKFeKwnk9n63FyqM=
+	t=1792069534; cv=none; b=ZZ9H9bqB5wBtfFabNky/E2l/GGIsM3OLNEHThA2ias0uWlqHzXLEy9tAJLZ40sJU4zU40qe2VoknOKlXeVpoJ4SYL5k8aSefkqvrc8f2HP4DQDUjUGNTbE8MNYVH16AOAnRyMlxF2h6/BcJ7RBl0qPL74UQdgAAYIo9uRizx7Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069533; c=relaxed/simple;
-	bh=Vs3LFdV2PpweX6VZWrUSchH4IhCedvPobeYdP8Ez3/k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=i0Z7xMhbV4s+jMctpLcbMlfMOHYiZCX/K5gep9DDW0kyIhW4kewRWcNlDnN8RoV9D+lL7Y5mMyd5+4ZKPinVvrEEpCM+jmebOns2ADFPjH3BD0kzXrQvywvtUXWmMds9Irepl+lWJ+p38SUvikN7BF1tbBKS57REv5By0rz6wws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X11q/hux; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792069534; c=relaxed/simple;
+	bh=2fvPEbrksXUYBX4/5rBDlqNIqOnAiK7F/60abEAhyJ4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R+Gx2xu2jZsdA0CoCbpz1dqlaknY2qsXCeM0dIuosK2v7ulB7ltjIf2svlBigA1Vh+GFTJS5tv2Sgv1gwKTPRB0xewSv79HbPxM/sglO1fgKrFaetCOXcybRXY9moCbbVvPhJQOJHqqj7P9i3AgPGxRbf3I7+i0L1dLlo0Z721E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=rJFNl0Z0; arc=none smtp.client-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X11q/hux"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916351F000C4;
-	Thu, 15 Oct 2026 13:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792069532;
-	bh=Noy49yD8e/Ob4wG2MgzxDSK75qjmJvYApwzUtIvu0QU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=X11q/huxrkAqwJCmxammjG0KJNkKW/HeV7vwW/AZE/pVPt4r02Y8MELs228K0/yCY
-	 /+HUXERfLkTuOSjrnt/oZ0WlpjAWRdzH/0AyNkiysGhZWcD+btWG0ZGi3IgB8Y3a1s
-	 +S1i6BhGLSMoxQxdZCVvgZ2iwCxrkEk9yxuIKESop73gfhNF9Y0LiK2JkwxnLmx5nm
-	 e6NeKBeY8eX4MVKjA912aq4LlTWdCrk3zgICGY5v5V/GbQlkSUvYxVAe/0iq4cy/MR
-	 nBu9T2bXCvWVziYbkRCLhinBob0P6L5+NrhuTkinqc1qqIkdjaEqwbttACABcjlvBN
-	 w0EuAS2t5oUAw==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Logan Odell <loganodell@google.com>
-Cc: arnd@arndb.de,  pasha.tatashin@soleen.com,  rppt@kernel.org,
-  pratyush@kernel.org,  graf@amazon.com,  akpm@linux-foundation.org,
-  pbonzini@redhat.com,  maz@kernel.org,  oupton@kernel.org,
-  seanjc@google.com,  bhelgaas@google.com,  alex@shazbot.org,
-  jgg@nvidia.com,  kevin.tian@intel.com,  dwmw2@infradead.org,
-  baolu.lu@linux.intel.com,  joro@8bytes.org,  will@kernel.org,
-  robin.murphy@arm.com,  linux-arch@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  kexec@lists.infradead.org,
-  linux-mm@kvack.org,  kvm@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  kvmarm@lists.linux.dev,
-  linux-pci@vger.kernel.org,  iommu@lists.linux.dev
-Subject: Re: [RFC PATCH 2/3] luo: Export feature support to vmlinux section
-In-Reply-To: <20260903023452.721732-3-loganodell@google.com> (Logan Odell's
-	message of "Wed, 2 Sep 2026 19:34:51 -0700")
-References: <20260903023452.721732-1-loganodell@google.com>
-	<20260903023452.721732-3-loganodell@google.com>
-Date: Thu, 15 Oct 2026 15:05:26 +0200
-Message-ID: <2vxzv773glm1.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="rJFNl0Z0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1792069531;
+	bh=2fvPEbrksXUYBX4/5rBDlqNIqOnAiK7F/60abEAhyJ4=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=rJFNl0Z0lYR/zOH3BlCoKDQD4dzZt7OdD5lj3OddME8xbByRTNIEgcFX5y6Qxc8lK
+	 TbF6MgtePv3SO/G5fXkUhOQPPXaSQAwrlBPhHd7qZf0yVPlCU1/TZ3XmFH9ji5BqS/
+	 aQyeST2vFYWiyKCIu2jydxF5p+n3P5c8ihOaQWNg=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 3AEFC1C046A;
+	Thu, 15 Oct 2026 09:05:31 -0400 (EDT)
+Message-ID: <06bbaf40d9188e478c4b58eaaffb58139839d217.camel@HansenPartnership.com>
+Subject: Re: [PATCH v3 2/5] scsi: aic94xx: validate the EDB index in
+ asd_get_response_tasklet()
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, "Martin K . Petersen"
+	 <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 15 Oct 2026 09:05:30 -0400
+In-Reply-To: <20261015091747.4184349-3-yhlee@isslab.korea.ac.kr>
+References: <20261015091747.4184349-1-yhlee@isslab.korea.ac.kr>
+	 <20261015091747.4184349-3-yhlee@isslab.korea.ac.kr>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
 
-Hi Logan,
+First a meta question: the aic94xx is about 20 years old today ... have
+you actually tested this on real hardware?
 
-On Wed, Sep 02 2026, Logan Odell wrote:
+On Thu, 2026-10-15 at 18:17 +0900, Yehyeong Lee wrote:
+> asd_get_response_tasklet() takes the empty data buffer index out of
+> the done list status block the sequencer wrote, with the same
+> arithmetic
+> escb_tasklet_complete() uses on its own copy:
+>=20
+> 	int=C2=A0 edb_id =3D ((resp_sb->flags & 0x70) >> 4)-1;
+>=20
+> The extracted field is three bits, so the subtraction yields -1
+> through 6, and the function indexes seq->edb_arr[] with it without
+> looking:
 
-> Create a liveupdate_features section that contains the feature
-> information for a given liveupdate component. Add the LUO component
-> first. These can be compared between two kernels to determine live
-> update compatibility. Features marked as required in the running kernel
-> will need to have that feature marked as supported in the next kernel to
-> be eligible for compatibility.
->
-> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-> Signed-off-by: Logan Odell <loganodell@google.com>
+These are the sequencer response flags ... is there any evidence of the
+sequencer ever setting these three bits to a zero value?
 
-I was thinking about this a bit more. We don't really ship the vmlinux
-directly. On x86 it is a PE/COFF image, on arm64 the Image format strips
-ELF information and is a raw binary file.
+[...]
+> +	if (edb_id < 0 || edb_id >=3D ASD_EDBS_PER_SCB) {
 
-So this information would not be accessible to the kexec loader/luod. So
-perhaps as part of the build we parse the section and output a file with
-the versions? And then it can be packaged with the likes of System.map
-for example?
+Why the second comparison?  As you say the value could only be -1..6
+and ASD_EDBS_PER_SCB is defined to 7.
 
-> ---
->  include/asm-generic/vmlinux.lds.h | 12 +++++++++++
->  include/linux/kho/abi/luo.h       | 34 +++++++++++++++++++++++++++++++
->  include/linux/liveupdate.h        | 12 +++++++++++
->  kernel/liveupdate/luo_core.c      | 16 +++++++++++++++
->  4 files changed, 74 insertions(+)
->
-> diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-> index 5659f4b5a125..aed4e282a78c 100644
-> --- a/include/asm-generic/vmlinux.lds.h
-> +++ b/include/asm-generic/vmlinux.lds.h
-> @@ -359,6 +359,17 @@
->  #define THERMAL_TABLE(name)
->  #endif
->  
-> +#ifdef CONFIG_LIVEUPDATE
-> +#define LIVEUPDATE_FEATURES						\
-> +	. = ALIGN(8);							\
-> +	.liveupdate_features : AT(ADDR(.liveupdate_features) - LOAD_OFFSET) {	\
-> +		KEEP(*(.liveupdate_sec_hdr))				\
-> +		KEEP(*(.liveupdate_features))				\
-> +	}
-> +#else
-> +#define LIVEUPDATE_FEATURES
-> +#endif
-> +
->  #define KERNEL_DTB()							\
->  	STRUCT_ALIGN();							\
->  	__dtb_start = .;						\
-> @@ -554,6 +565,7 @@
->  	RO_EXCEPTION_TABLE						\
->  	NOTES								\
->  	BTF								\
-> +	LIVEUPDATE_FEATURES						\
->  									\
->  	. = ALIGN((align));						\
->  	__end_rodata = .;
-> diff --git a/include/linux/kho/abi/luo.h b/include/linux/kho/abi/luo.h
-> index 0a7662a0cf9a..5b25e1b48cf5 100644
-> --- a/include/linux/kho/abi/luo.h
-> +++ b/include/linux/kho/abi/luo.h
-> @@ -230,4 +230,38 @@ struct luo_flb_ser {
->  #define LIVEUPDATE_TEST_FLB_COMPATIBLE(i)	"liveupdate-test-flb-v" #i
->  #endif
->  
-> +#define LIVEUPDATE_VER_HDR_MAGIC	0x4c565550 /* 'LVUP' */
-> +#define LIVEUPDATE_VER_HDR_VER		1
-> +
-> +/**
-> + * struct liveupdate_ver_hdr - Header of vmlinux section with version lists
-> + * @magic:     Magic number ('LVUP').
-> + * @version:   Version of the header format.
-> + *
-> + * This struct is the header for the vmlinux section ".liveupdate_features". The
-> + * section contains the list of feature/version entries that the kernel supports.
-> + */
-> +struct liveupdate_ver_hdr {
-> +	u32 magic;
-> +	u32 version;
-
-Should we do feature flags along with the version to extend in
-backwards-compatible way?
-
-> +} __packed;
-> +
-> +/**
-> + * struct liveupdate_feature_entry - Live update feature/version entry
-> + * @name:       Name of the subsystem or feature ("luo" for core).
-> + * @feat_bytes: Number of bytes covered by supp, req, and active bitmaps (e.g. 8).
-> + * @reserved:   Reserved / padding for alignment.
-> + * @supp:       Bitmask of supported features.
-> + * @req:        Bitmask of required features.
-> + * @active:     Bitmask of active features.
-> + */
-
-How should we model FLB dependencies here? And how do we export FLB
-capabilities?
-
-> +struct liveupdate_feature_entry {
-> +	char name[LIVEUPDATE_HNDL_COMPAT_LENGTH];
-> +	u32 feat_bytes;
-> +	u32 reserved;
-> +	u64 supp;
-> +	u64 req;
-> +	u64 active;
-> +} __packed;
-> +
->  #endif /* _LINUX_KHO_ABI_LUO_H */
-> diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
-> index 6051abc0612c..e058df23fed1 100644
-> --- a/include/linux/liveupdate.h
-> +++ b/include/linux/liveupdate.h
-> @@ -229,6 +229,16 @@ struct liveupdate_flb {
->  
->  #ifdef CONFIG_LIVEUPDATE
->  
-> +#define LIVEUPDATE_FEATURE_ENTRY(_id, _name, _supp, _req, _active)	\
-> +	static const struct liveupdate_feature_entry __lu_feat_##_id	\
-> +	__used __section(".liveupdate_features") __aligned(8) = {	\
-> +		.name       = _name,					\
-> +		.feat_bytes = sizeof(u64),				\
-> +		.supp       = (_supp),					\
-> +		.req        = (_req),					\
-> +		.active     = (_active),				\
-> +	}
-> +
->  /* Return true if live update orchestrator is enabled */
->  bool liveupdate_enabled(void);
->  
-> @@ -259,6 +269,8 @@ int liveupdate_get_token_outgoing(struct liveupdate_session *s,
->  
->  #else /* CONFIG_LIVEUPDATE */
->  
-> +#define LIVEUPDATE_FEATURE_ENTRY(_id, _name, _supp, _req, _active)
-> +
->  static inline bool liveupdate_enabled(void)
->  {
->  	return false;
-> diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
-> index 6add1ecc463f..27413f895174 100644
-> --- a/kernel/liveupdate/luo_core.c
-> +++ b/kernel/liveupdate/luo_core.c
-> @@ -64,6 +64,22 @@
->  #include "kexec_handover_internal.h"
->  #include "luo_internal.h"
->  
-> +/*
-> + * This is the header for the ".liveupdate_features" section in vmlinux.
-> + * The linker makes sure that this header precedes the entries.
-> + */
-> +static const struct liveupdate_ver_hdr ver_hdr
-> +	__used __section(".liveupdate_sec_hdr") __aligned(8) = {
-> +	.magic   = LIVEUPDATE_VER_HDR_MAGIC,
-> +	.version = LIVEUPDATE_VER_HDR_VER,
-> +};
-> +
-> +/* Core LUO features */
-> +LIVEUPDATE_FEATURE_ENTRY(luo_core, "luo",
-> +			 LUO_CORE_FEATURES_SUPP,
-> +			 LUO_CORE_FEATURES_REQ,
-> +			 LUO_CORE_FEATURES_ACTIVE);
-> +
->  static struct {
->  	bool enabled;
->  	struct luo_ser *luo_ser_out;
-
--- 
 Regards,
-Pratyush Yadav
+
+James
