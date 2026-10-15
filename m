@@ -1,113 +1,86 @@
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49550456DED
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC99548AE1B;
+	Thu, 15 Oct 2026 10:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059962; cv=none; b=HzH1SkEayKZUDsRfusRAOSNJYzj/sRMD7Ukk08ZfndPPf9KHiXgClPN0Y8FvdNAAIoXsbYSHzGR+Vsw1EgbHSHMMnfc9xBdb9Cm80mYrZWJoVeINcceySQ9lXCIeEQ/Qt+z03F7VL+MZG1Mp9xXkQodCGjG6dQroVFR6474f/xk=
+	t=1792060044; cv=none; b=uP+AqTfNPpmZ+GNN7CkBde2CNUT/Wt8w4s0Sc66u/uDZUqS67R7OMUv9FGTktMXKPYf2fJmeRNq0Ep95Rk3Gb+72sfI4bYE8v5pZIFQ6rHDw8QngoCtjWAlYW52IwDcoSFcWaUnnVuLZljEaXIIOd8diAKJZpZbymD8i40NClXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059962; c=relaxed/simple;
-	bh=joXwYCLDFBRvtST9liA7y5l07Dl0QlRsfc0qKdtSK8Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UTa1Ud2SjzlroJ/b8QWEWP1cbNjR0Zgn/N2+Rvzq1qGMfRZeTcfxhbpYJQ8mZ2czXcNH1Yhk/qgF+XWDjM82J9R0Xwe0s3HQ36urspYOnTJDAAjm/sKFcasQs5tiEw69y4k7qQCLv0u0xVAEL575t4JouejyoGIXxhAcuGSblE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+dWSwe2; arc=none smtp.client-ip=74.125.225.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792060044; c=relaxed/simple;
+	bh=/pmYFn6zvtg65n/LRagsFD1DUQ/dRzO+djamzOQldVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ujwo6DzEEvkAbku/y7lYSNMPjuoX2ek+gtcPD/i/f7O+/HhTEif6b28KbTUevQujKw/CUzp0+/VnLP6C+VP8P7EWUnmaUXYSWUODzxOzqPA08IrVDl0+qV4GG6KqWS6Mnrbxg3j7HOBIv+ibnGi22rK/ZAPHMVV4GRjJU+tonUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=StbseA9x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+dWSwe2"
-Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48c688a7cd9so1517773f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792059958; x=1792664758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AAVLJelNLtLTgKVSCHdzfg2BmtJf7plaW7j80dNRMSk=;
-        b=q+dWSwe2eO1L87Rr1awwzL8Q5/9hthKyIigVLWdyMXPkIC7Ca7Sw+GqthB7x6p6FjJ
-         a6mezH7+4DTzWUmADw/r+Jp/xh4a/hDfN1TFGrUCLDxYag08Td1kiZnfIEXFgmastFXQ
-         YfcVe6Ptpp3JOTqBb7wsGC+oJj/WE+DGFZ0u7/uxdc53WAivHcXg4gUDH8+8cESCtliR
-         8wREf7tY6vbQ+VL/haVpP8TbE6wYBa+kXuc5+Mt13WaLfoHbIIBoTByEm6H84n57TV5X
-         Wi/phZm9V9p3YuhQS5YFatX6tb3M5zmHCNdkwi3X1LqbVtl0RpmqiQzbyBXzASKIU7sQ
-         E8Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792059958; x=1792664758;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AAVLJelNLtLTgKVSCHdzfg2BmtJf7plaW7j80dNRMSk=;
-        b=cqjtHONk/r6dbaXUpXD/69vBdUgSS3VcmmcSLk450pOkff/OG9jwy15u4bNSwtMmK5
-         3Vyq5L3AqoV+Sz8+3ZKnuwGqSvfMLBjEKObqHjrJgSmUQPFBPzvOlDvCm8DdZqarDuMJ
-         K5KzV4fQ/vt67ccLBTDbxfv+Y/MdB62750vsGwz+aRdNMAWtg/EiBZgIba6hMXYMqnxB
-         JZ16WCiaJ19UQb32c066KivczZfp18WL/x4AmWLqVY4MahTBjUWt7bSqP9rSd981sOic
-         BVFVyHD1drjvopnBWf/HA1uYt6Y47dt+Gw7pbplg9m1SmLFKSVAWhszlsiYBx1jaFdcu
-         SQiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxslcghgXtmIUorZnm6lLqi+CfJvQ779G1/MC+yBQ/0oKiS0mSGu2w4I/LHvRcQbb+504VuD4LtMBO9vk0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8pCWooIuMjtC+gMMJGIBZNInnugg7Qsei20f+jj+SE8wxzING
-	Ih156nXrdSm4KwYjQYorRgb/PaTxw8ap+7ThrY2z5+6d73SZS4KBDcHH
-X-Gm-Gg: AYBFou1jF5UctV1yRLw8Ld7gf51Hny53NWv9vbra3cLSYht+8zHZyK9Afw4XQyLpNdj
-	3nFsLE5TPgobM+GCTj/19kaGdtZBg2S5IhzJzrBlWVaECbj0s2agkjfDZ4/yieMcGyu9gI22wCQ
-	8xzSMOKED/nIyGnmm/U5MvoXDSWgIkzMC2u77QnukodWYEPrFILAcADm77eSh7aTMNy6OSQX1Od
-	O/biWDt1tFZS/GD147m8eEp0oaDUrhf1DykASL2VD7aGLcGNmzgIpNItTfxkIfit2y9z86A+yei
-	rzIxUXRK+ltY1d4v0XPdAouOUpLFgqCLa8NstLdnLJgY2x2hLpns1m0pz8gJehw1pOfEk9+Fw5O
-	6o9/sYcQdQvWDgbv7jKBlBkL9gYWdkEiuNJt5EAY+eFtMk/nduOxXwVDTwrtDzrfpXIEI/XQSL8
-	4E4xKOW186Ee5O3W7qKM3AqOvT4RVP+GMoXRCbgeA0b32NTUNla3wty+UlzF1p7hlBYQ7kH5rcc
-	Fattjop2/mJgg==
-X-Received: by 2002:a05:6000:298d:20b0:48c:43e1:a332 with SMTP id ffacd0b85a97d-48dba7828c9mr28324592f8f.7.1792059958315;
-        Thu, 15 Oct 2026 03:25:58 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.205.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm18387264f8f.51.2026.10.15.03.25.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:25:57 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org
-Cc: Kaike Wan <kaike.wan@intel.com>,
-	Mike Marciniszyn <mike.marciniszyn@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH] IB/rdmavt: Fix error unwind path for qp_priv_init() in rvt_create_qp()
-Date: Thu, 15 Oct 2026 13:25:18 +0300
-Message-ID: <20261015102518.15780-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="StbseA9x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A510F1F000C4;
+	Thu, 15 Oct 2026 10:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792060043;
+	bh=/pmYFn6zvtg65n/LRagsFD1DUQ/dRzO+djamzOQldVo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=StbseA9xux3foYF5yPtH9XAZidusm8q96oX4WaO31F+gaODduDrdf4zzGf0YF4UCe
+	 mM4m0o4t0Jc7ES+hWA9VxKtv0L0nx4MeHX8irb/+I7MsCysbWJlfN0oVT10s9FC9+T
+	 QDxC1b/rcKXsprpZC4pVjJPanTRFc0/ABG5e7FHPhJBvY4NOGx/+ciHfzOPlTWQSbX
+	 /UlBoq+MDEdewJne66Gb9qq9i9vgg4YmwT7R+oFjKpapKtZSdtP4Zj4yK7K8J7MKXu
+	 X9ReuCpt4zeeBSnReATh7Cw/cn8Q53jjcATRbyB5h0l3HSzIAV6S08qsvHrjT/05mm
+	 RpI1ZbBTFLZKA==
+Date: Thu, 15 Oct 2026 12:27:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Hal Feng <hal.feng@starfivetech.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>, 
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
+ examples and maintainers
+Message-ID: <20261015-poised-modest-leech-4decf5@quoll>
+References: <20261014110429.52762-1-hal.feng@starfivetech.com>
+ <20261014110429.52762-2-hal.feng@starfivetech.com>
+ <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
+ <atCos9UIaZoRs4N8@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <atCos9UIaZoRs4N8@monoceros>
 
-If driver_f.qp_priv_init() fails, execution jumps to bail_rq_wq, which
-bypasses bail_qpn. Because alloc_qpn() has already succeeded at this point,
-the allocated QP number is left unreleased.
+On Thu, Oct 15, 2026 at 12:20:54PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Hello Krzysztof,
+>=20
+> On Thu, Oct 15, 2026 at 11:01:29AM +0200, Krzysztof Kozlowski wrote:
+> > On 14/10/2026 13:04, Hal Feng wrote:
+> > > Remove the jh8100 compatible since the JH8100 SoC has been canceled a=
+nd
+> > > will not be released.
+> > >=20
+> > > Change the register size in examples to 0x10, since an OpenCores PTC =
+IP
+> > > has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+> > >=20
+> > > I will maintain this pwm module in place of William.
+> > >=20
+> > > Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+> >=20
+> > Drop, did not happen. Is it so tricky to respond to the one patch here,
+> > where the tag would be applicable, instead of replying to cover letter?
+>=20
+> I don't know what Maud did, but if they checked that the various dt
+> linters are still happy, that doesn't deserve a Tested-by:?
+>=20
 
-Jump to bail_qpn instead to ensure the QPN is properly freed via
-rvt_free_qpn().
+No. Why would compilation be called testing? Since when? I also compiled
+driver and the other code, just like every other boot did, but no tags
+for us...
 
-Fixes: 5190f052a3654 ("IB/hfi1: Allow the driver to initialize QP priv struct")
-Assisted-by: LLM
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
----
-found while investigating smatch warning:
-- drivers/infiniband/sw/rdmavt/qp.c:1182 rvt_create_qp() warn: missing unwind goto? 
-
- drivers/infiniband/sw/rdmavt/qp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/sw/rdmavt/qp.c b/drivers/infiniband/sw/rdmavt/qp.c
-index d8ee485c49a6..3602b9ff2196 100644
---- a/drivers/infiniband/sw/rdmavt/qp.c
-+++ b/drivers/infiniband/sw/rdmavt/qp.c
-@@ -1173,7 +1173,7 @@ int rvt_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *init_attr,
- 		if (rdi->driver_f.qp_priv_init) {
- 			ret = rdi->driver_f.qp_priv_init(rdi, qp, init_attr);
- 			if (ret)
--				goto bail_rq_wq;
-+				goto bail_qpn;
- 		}
- 		break;
- 
--- 
-2.53.0
+Best regards,
+Krzysztof
 
