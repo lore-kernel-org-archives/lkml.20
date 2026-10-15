@@ -1,60 +1,61 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B583B5310
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981933B5314
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792076295; cv=none; b=lfU/hS53WPqoWkBy5JW8gV91qgU67ZoYDHr6HMQNF3ArsFG2TU0/ys4mELCSGwnWAaLLya8WGlKgSqjU4jN/5m8AdBxuRDluh8bTYjO3+o4BHtyCfwyJeIdrwu+Hpinmz3INRNGULmEvC9ovhuSvMr/DteM5HW2p2TB+ULXfwLU=
+	t=1792076296; cv=none; b=VIkJ1x/VfCnLSRN+ZoYEFNz2eOUN2AXpMJmSQemDejF3/9WjMIv+m9gFqociWvfzznuuid3WW7mhczhHWoQyeDbyxzzCq9/k/5DrhHJunOW8dMLJcJzT8kKNRpA0f2ggKTNzME1u9E+GlrMFWrzZQuoqIfOGNRF3rzavXBNipzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792076295; c=relaxed/simple;
-	bh=EPq/03fdA7jHQZTI5Tv/jx3i5dZSK2Mbttbhsp2Ilcc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Eud7KjTikW0TEQcYw761OYjR7aJ7Unzk7jGBN55wKH9H+/XCovwUECMNBOrot3U1EYwYFl7VJUpM4g5vE7/9XZF/HcReii/ZeW/YCXElzGsqvS1tUQSY22HDgGUG+sP/8Q9iI/5w5/x+zVphBzItkcDqkAJY2mky0uhPX2/AtgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=CABNLYiG; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1792076296; c=relaxed/simple;
+	bh=618lZEj4J6PxaEmGpFoPKRIGN5uod/rBxdxIH2fNG/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uoFuHFggI/WtK+8m6tI2d+f9m2VtIXZgOFcU1V1LcSQUaptrJte8x3ujbpnsGe3xbD0PpE1eOQ0fCFjCAfEUPw944YpNEg4l5IvYfbueBaSZ6q0EMJj/xkyny7pNjWjwwbnQcTtyxGt8tFrd4wbPj+kRtsCEcXj/YYtOIXemCgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=RZOFHwxc; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="CABNLYiG"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so47858055e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:58:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="RZOFHwxc"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so47858655e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:58:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1792076291; x=1792681091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g79lxdI+JwJ9lYZtMApsuAitGX7WOKQsF0SW8/j4ox0=;
-        b=CABNLYiGyurbiiCEnNXgBxHw9QeAZ6QsOCJwu9TzyAR9F2noH/QJ17g5SC/Fh0dS/S
-         G8OYPItLZpFZ+DeCPaiIZ/AeJrErvtZkl8GspRuALlFgMhkkExzFSU+NRCsfyXQhVGTs
-         vJKiruL6t5G0Jbd+Bkzp2SXYb9gusrlAY3LLc=
+        d=konsulko.com; s=google; t=1792076293; x=1792681093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j6Xglxzig/oF1VgPKgOC631Csxaxo7kJhuv3JvcuV7I=;
+        b=RZOFHwxcl5wivM/frhSzzW/LCl6azaP3euEsLTahtSLEjCnQKr9G4DeKls4BOScV9k
+         DFix4BBh1yA8U+AM2T7mwPEvTFho8HdqZ7nwfA1d3k4GwNHfEWt9nnzoqZsn99iVxSXZ
+         XBK4t1+Fkz8xMYTXmM3Ukt1hwERx5dHtGi1+8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792076291; x=1792681091;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g79lxdI+JwJ9lYZtMApsuAitGX7WOKQsF0SW8/j4ox0=;
-        b=Yh+E5bzGAG4aLhLi23LFOsnBfCnJlAr/SQfc/cEx4OZbif59i9BBQCphopnWRsAKsg
-         eYsccOUxVHlqwM0caym/T/Nc5ljy6GcBLNO/TpX1OSOmYynUjN1IY85Q9BCsc1/Gh1iP
-         tpQvOjlfJKYAm7thcLGbOzLsNqH9imiYtB45deAAGGb0JKv1bMaCwS8ITaP/R+qkfc1y
-         rdIn6u0rfMA6r27BHukON0LSZcDPgCUvh2QwfWOi//ekP6a/SVpmRbqEfSyfOVp8gpHp
-         I6EOjANrQTF9/sRHhiknlGlpAQr8xsKgtxFnCJDsfbirD4wV+FhA04fvAvY4Zndooc3U
-         uB1g==
-X-Gm-Message-State: AFq9FYICxIK+VUS148thwhRE0FKMa9waYzJYZV7kIVuC/filAQ+J9/3e
-	0U2Yp622bCD27ck/pVUjK11OnZMoxR+i/a2+977WtMcTcirH9Xemxkylg2IF/lT/4rZBXSCs5V0
-	SKVGI
-X-Gm-Gg: AYBFou3Ou3SYNP9Ib8uz9PVpcBPUbk7hOGEFw9hcXG3Va3A/t1HvVQpOI+z1q+E06ol
-	IStXOyvyxCNOhF2biWJbZtZw8JHbEqoPsOZg3hK3PMKYBp/UrNP4MFncCuvByg2c3zkl5G9CoqX
-	q7EIL3Z1/fN4URJyEcCHMQdAIuVSXCfPgizYb5YjcAbE35r5dN0edOH7RYBkyKlsa7qqeLSO3e2
-	JnIiYt8Zs/p0ICpSiEENRZU45Tgx1SR4PNohTmtBebsJEXBcT6l8DzpJs2aPAnr9rtXuXDjV3cT
-	rU0yF9+JepQ08o10NEmqFqVvC2GtrdFWZNeKtTgZ5bvWHQnTBtHz2VKmhuQLQjCLFMY/R1R5OOz
-	iRCjKq3Kgr1p44m7wIFKHp6LYtLEvLTf54/oKKBMijHpGm789z2nIV2UVS+5V1mdQGb/KDPVrJ2
-	cEoueQAPNqoHtcShjAYJdYxHsyz6bqpnZnPYL0f5EZKRzIX3YAXwLN5BMN54WLbCexvDotDrn+S
-	CKyodEeWGOnmoM=
-X-Received: by 2002:a05:600c:3e83:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a18e446880mr356608145e9.3.1792076290783;
-        Thu, 15 Oct 2026 07:58:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792076293; x=1792681093;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j6Xglxzig/oF1VgPKgOC631Csxaxo7kJhuv3JvcuV7I=;
+        b=F+zw6QyVonJ7qoZtNN4zCQHk6U2Jue1jlnx8TjBcCjj0rHvveeqZX8zGBk04zpKNSo
+         WSRd506SqAf/PfWFbIVvrFcVyGqZX1Br9xQBZ5bPS3uz4IbUEyNL3Bc6c4AW+R/Kx1+e
+         rZu0y6jDb1d1OWuYxJjAPrdjJXx4YAWs/KRjzejC3OvkC5J+tjsPP8vs1hmKZDeJYiIj
+         jOXtwUfKrldVolFZx81NjhVtvfcviXEgsfB7N4EZ1NEQsk0TZPM55nim5ncwkXfGzlqB
+         HTqCrAOdz/9P3y677nbQwobwKsgf62E3AGA8PcViJPM9sTVKSbgDo60Oi5P7+oanhKOA
+         cPYw==
+X-Gm-Message-State: AFq9FYINIWwKFdWN9ienCmfdS5wzds0ghirmMlCghvk4PK1mg/bzTUmv
+	DwG2sN0R2CdY7MkzFjy36B6qwy4/Y7BAKwY/VzQchgOyhnP4OWzkICcX3ko70lF3cZuXikNWkX+
+	EHQHe
+X-Gm-Gg: AYBFou373oGdNarRthgY5Xh+8IlhNZpKq8lT7qXEj9vO4fLpg6Rd1zNvNqsOQqz+ps2
+	JlIejmqGVlVfWPGUpHweatDuQizGU/yy5TJpxPDQhPl97wZlfk+MRu2n9hgE27kEb5lxZiWiqb0
+	8MA/L7lLM8V9Zlnc2bvzbGbNAPMbJ5xVonT5kyWKeSn9zqVYrlwHjBd2Mjpz7nefyKoMDL91JZr
+	PX5/YwVADQrF+xbflIn2S25KsCDdJmaKFnOdUZ0HG0L9cNEo1hPw1nRuiqh7V6v91lGpOIq7Ag9
+	8lgKEcabQSN8QQdELN3psi0LQnjh9KsuoOd1bYM3V083CAq8hsI2gIpGBPa73DgscUm0plBXpVn
+	luex1SQd+LnYSzpiMNuc0ukljBpqjQlsbufnpZXYaebbfLnjb4xRKcsXwzrRvj6Ef2CXfCL9VUT
+	2WuIbTWghUhJj2hwDWRFwemvMR21rHsA/HtznApN66sZCMWNtFx/BL0uvvv05q8Z8eqWITAs/rr
+	KerIHS7Atfmf9c=
+X-Received: by 2002:a05:600c:19cd:b0:4a1:80d8:aedb with SMTP id 5b1f17b1804b1-4a18e49d9eamr395054165e9.11.1792076292071;
+        Thu, 15 Oct 2026 07:58:12 -0700 (PDT)
 Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ed33sm88053985e9.5.2026.10.15.07.58.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ed33sm88053985e9.5.2026.10.15.07.58.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:58:10 -0700 (PDT)
+        Thu, 15 Oct 2026 07:58:11 -0700 (PDT)
 From: Petko Manolov <petko.manolov@konsulko.com>
 To: linux-kernel@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -64,66 +65,44 @@ Cc: devicetree@vger.kernel.org,
 	dinguyen@kernel.org,
 	arnemaximilian.richter@draeger.com,
 	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v11 0/3] arm: dts: altera: add Draeger M48 CPU board
-Date: Thu, 15 Oct 2026 17:58:00 +0300
-Message-ID: <20261015145804.3632839-1-petko.manolov@konsulko.com>
+	Petko Manolov <petko.manolov@konsulko.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v11 1/3] dt-bindings: vendor-prefixes: add Draeger AG
+Date: Thu, 15 Oct 2026 17:58:01 +0300
+Message-ID: <20261015145804.3632839-2-petko.manolov@konsulko.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261015145804.3632839-1-petko.manolov@konsulko.com>
+References: <20261015145804.3632839-1-petko.manolov@konsulko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
-SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
-same carrier and they are cross-monitoring each other.  The SoCFPGA boots
-independently off qspi flash.
+Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co. KGaA
+Link: https://www.draeger.com/de_de/Home
 
-This is the SoCFPGA devicetree part.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-in v11:
-
-  - replace the ethphy compatible string;
-
-and in v10:
-
-  - add device_type back to the memory node;
-  - move the compatible string under the phy node;
-
-news for v9:
-
-  - remove the name property from the memory node;
-  - fix a typo in a comment;
-  - attached phy-specific skew properties to dedicated mdio phy sub-node;
-  - add Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-now in v8:
-
-  - modified draeger,m48 to draeger,socfpga-48 because it is more consistent;
-    with its other imx counterparts imx6q-m48 and imx6dl-m48;
-  - dropped gpio3 and gpio4 bindings;
-
-new in v7:
-
-  - replaced module with board as this seems to be confusing to some;
-  - add Acked-by: Conor Dooley <conor.dooley@microchip.com> tag;
-
-Petko Manolov (3):
-  dt-bindings: vendor-prefixes: add Draeger AG
-  dt-bindings: arm: altera: add Draeger M48 dual-cpu board
-  arm: dts: altera: add Draeger M48 CPU Module
-
- .../devicetree/bindings/arm/altera.yaml       |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 101 ++++++++++++++++++
- 4 files changed, 105 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..276d62b848d5 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -467,6 +467,8 @@ patternProperties:
+     description: DPTechnics
+   "^dptel,.*":
+     description: Guangdong Dapu Telecom Co., Ltd.
++  "^draeger,.*":
++    description: Draegerwerk AG & Co. KGaA
+   "^dragino,.*":
+     description: Dragino Technology Co., Limited
+   "^dream,.*":
 -- 
 2.47.3
 
