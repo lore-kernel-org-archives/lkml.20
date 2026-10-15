@@ -1,68 +1,37 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99393E49D2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90B9572668;
+	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090601; cv=none; b=ZzOx+nJRAKCOgTMdL5WPhzgPUxCnpZjEsfHHoahqW2FgT6sIalqTXssRWgaWhuOUt2IYX6BDetVM7Y/ktOHQSY6oplfKLgUq5HQz4TgfxB1xL5GWKnE63piPAJKsK7xpmunSzWJ+HYNsXBnqNOhKNonmFOjtzpiOw/IUiCjAWUY=
+	t=1792090612; cv=none; b=r+p43H5kNo7ldFtQ8v6MTiNS+HVuAMyUA7MJp3S1bu4O0p1tR4ccVo33Oi6qvqsZm909rs/iaSuf6inF+KW67X7V1bbcGrqfVRU251UQEAlJpq3udEXmUjlTaQZodVgLz/rEJ/XcNzk1O2MkrDlRbVKOQXLOSuSWR7RmmzGnTwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090601; c=relaxed/simple;
-	bh=F1nPu9wpy2HTwHGav8g9uO8FI0WZgezRY+zItOCC26M=;
+	s=arc-20240116; t=1792090612; c=relaxed/simple;
+	bh=n05Pbba4Xpt7Ey81EOVXMb+ALcpuVJ9xzrHGeZiU1YE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dezwLYuOseETos+7Ccy7SQfV8RAgbIVdkgyljXns/WtNpvjXYARL8gigEKixLUe+DzKrUnfw+7sZWE14JlBZ8OH0E7dwgBy3VLegJSfLO34fPztxO577ElrLPkbXgyTST0XbQjIKVLreLVPqnsjqeIgOHJR3zIavP4drTTkKLSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxUcDARx; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=co/K66+M/LuKSZw+BoMtRHHMSqLzFBdoMUZoO8jPkEJ2SMNod/UsVoSC4JUQjvbCJiFB5+PPcCAUSvb2/oaNs/MUrxU89nnzvkOLez3++ywSmQEzXCTLJSLTJdawMj3zhjR5SkhiiRVAviMTkovhRKxIEudQj0oQslXaKxHoVkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKwGDe8u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxUcDARx"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso21764385e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:56:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792090596; x=1792695396; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ni61b90g9iD83/OZasQVP93JejUptEHkbkJ81F72Nc=;
-        b=mxUcDARxmwAdwf/DN1CGDrEyUZ2vHXbz5Wixbot7RiY9SBqbjnY+D6V/LMDtn2vdon
-         f4SpfdqOhBRYf/OV2XAue3OdLm4opyz51hC0Ms7Et2b5jpRHu4BU3H1owFYmuZv6SuOS
-         jF0X0xQfLYM9Ddi743WQkkRA/4Vvq1cKEagSw52SHyzGMB7qnP++oILjGisPPNxOEVVi
-         OGSmTDomjEX/vXj7/QBGRtJ1Op4GVvNKYIUiKtERnZc5G7YOKnqmB0tWBDFq5Z6fmecR
-         8TwsJotRi4Ydt3WOruVb/ontxNL2lfAVV8qQq9TPcjNKFH1aYRkDY+aDbiZ1/xXNLWek
-         NyqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792090596; x=1792695396;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7ni61b90g9iD83/OZasQVP93JejUptEHkbkJ81F72Nc=;
-        b=GjVuoeKw0oODjXOugTuGMeJveX7X7JjEi+IVbe7H3VuZ+0P3vBw7+F2zR4QP4G5b63
-         riUloAe/Evbr/jSLCI1X4xqxKrnNhVlrkxqHjp0mPXxTOxRDoUnDaUrfIr6tESA3lXUj
-         588l0ccW9uA+tzBBZAIqdiwy0iuEI91JVVhJ0iDXTpPJDLGc/9FyHh8yL00tDm4VuYuy
-         A2S9N1SGl74tX+MvQ6OQ/Hid4brYCTBckhuGbCQGrE1/YREPPYqNZMyZVeyifCiqjX90
-         AFKsaYv+VqbtBYPSKWhryDSvx02TwMhdhgJlXpebtdo3+5Oa5Zv6LZdjKY5/YVszguL8
-         OHxA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTI5eYg4Oo07slkebQAnHrbrI3zkiwZ4VyGZTAgVpJruIcvB3jb6m+mC8KkjfLVpEBL1KkYnSTnO9JVX4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1mo3dMDjRWFlJPy60x6edFSTJgnOCrbgtapSS8bpdaf1w3ASa
-	IW9cO0ets3STcPzxpdHiN4IBTW4MNCMPRrk2wjD1QvhZH96YUdtl5qRM
-X-Gm-Gg: AYBFou3H98FCJyvbJzcJz2wnN7tWQ/CM0IWIeHwT66+JpVrNQZKjnYMfGSKg3tNrqPl
-	LxiVqE65Hnty7sbZbQ+t9/r5rM4YN7iu36MJmghAUosM3d6Ok2K7pDjpdnelgmF7q+0to60Uevi
-	0ItHGZrwtjpOoJg9yzW1kZ0PGH8RFsB62a17RMZeWqS1/Hm6oJjcn3xYO8N6kpFYe9W6WUAvCx4
-	wDZskT0tbNw8laDd8u+WbqMi4rEmd+6Up4NPtartg40V6dfJYAfuaNg+5gnrQSqxSkK9FVR3+l7
-	F+hz16T6J1q8UKABx9i/yPlU4/4CcaSYlq0HDRcLr9SmgPigphyeNci2OV9lZwgZJhkVVqdOkUj
-	O+LvcMDPC+FcpGLueJ4nEWNQgJbVMMArmNZHSjJCEfz7bT4m94/zEcpmjYJmxwhDjTK0X3CVPOP
-	vfEl12lP+YKx2NyinTCWHXM7GxvXWhJTbT5TwxVuTcEBm/t1pkdAuTek2BmAjauUhltj23SCfVa
-	t0/JWYc8GXM2VzxG1QvKIAEF5tff8q7ChAXRHT3Fw==
-X-Received: by 2002:a05:600c:3f16:b0:4a0:2150:55fb with SMTP id 5b1f17b1804b1-4a18e44395bmr399234465e9.4.1792090595555;
-        Thu, 15 Oct 2026 11:56:35 -0700 (PDT)
-Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.239.213])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdc036a4sm106148295e9.11.2026.10.15.11.56.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 11:56:32 -0700 (PDT)
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Thu, 15 Oct 2026 20:56:06 +0200
-Subject: [PATCH RFC 2/2] riscv: dts: spacemit: k1-orangepi-rv2: enable GPU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKwGDe8u"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 41BDFC2BCF4;
+	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792090612;
+	bh=n05Pbba4Xpt7Ey81EOVXMb+ALcpuVJ9xzrHGeZiU1YE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PKwGDe8u6Sxge9NQnOBQD3FZ28cEeNiYgFeABBIHMjkrpdLxQIsk1gQ4xKEo1G8IY
+	 6GG73x2a9+mVk/eYdgKw1qoyjda2TEV3qEerRuQohaV+lAfQjem+0TnZI8nOsKzwJm
+	 15MBc483z2FziMyFpvjQCk/mWvBa6pZC+ythpcPMpIKuqzvEE1KVxILq/o8mkfzf8v
+	 DWhSHaRJ0riULPIfJ1XGgfk0wYcrjGKjIWMMyWC129ptBNNAFn/f7UTf4ldh6dimh9
+	 9CA73srCVSZFqW5CTpXIq03OWiVXuS6DrDfSNslomnuHtMIYFloKaghRH+i9J5umvV
+	 fyT7P5ULZhrug==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F0EECCA467;
+	Thu, 15 Oct 2026 18:56:52 +0000 (UTC)
+From: Nikolay Plastinin via B4 Relay <devnull+plaztininikolai.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 02:56:49 +0800
+Subject: [PATCH v3 1/2] leds: triggers: Add led_trigger_for_each_led()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,48 +40,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-orangepi-gpu-v1-2-03566a615660@gmail.com>
-References: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
-In-Reply-To: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- Iker Pedrosa <ikerpedrosam@gmail.com>
+Message-Id: <20261016-leds-input-events-brightness-v3-1-2c462cafe020@gmail.com>
+References: <20261016-leds-input-events-brightness-v3-0-2c462cafe020@gmail.com>
+In-Reply-To: <20261016-leds-input-events-brightness-v3-0-2c462cafe020@gmail.com>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>, linux-leds@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nikolay Plastinin <plaztininikolai@gmail.com>
 X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792090610; l=1697;
+ i=plaztininikolai@gmail.com; s=20260924; h=from:subject:message-id;
+ bh=XB1M/17vbfVXqMrEZDyY+zPssA2UXsnOCNxpwiGlg0U=;
+ b=eDbZX3Z5sFT4M5rdzV+XaimOpxy7iGL9NtUg4YPuhcqOrF9k9/BDeynLETlfn61wHRpTUfCT/
+ czA/abO5EY6Dt64dBye/z1xdPP1gomZ+Ux3wv+u41SZs5in4ZZ8hr6W
+X-Developer-Key: i=plaztininikolai@gmail.com; a=ed25519;
+ pk=bmHrETa14IbiLNkJSoiLqUMni+IeSFwhOSDM4vVFN4s=
+X-Endpoint-Received: by B4 Relay for plaztininikolai@gmail.com/20260924
+ with auth_id=1052
+X-Original-From: Nikolay Plastinin <plaztininikolai@gmail.com>
+Reply-To: plaztininikolai@gmail.com
 
-Enable the PowerVR Rogue GPU on the OrangePi RV2 board by setting the
-GPU device node status to "okay".
+From: Nikolay Plastinin <plaztininikolai@gmail.com>
 
-The GPU will use the clock, reset, and power management resources
-defined in the k1.dtsi SoC device tree.
+led_trigger_event() sets one brightness for all LEDs using a trigger.
+A trigger which restores a different brightness per LED needs to iterate
+over the attached LEDs instead.
 
-Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+Add led_trigger_for_each_led(), a wrapper around list_for_each_entry_rcu(),
+so triggers can perform this iteration without spelling out the list
+members. Document that callers must hold the RCU read lock throughout
+the iteration and must not sleep while accessing the LEDs.
+
+Assisted-by: LLM
+Signed-off-by: Nikolay Plastinin <plaztininikolai@gmail.com>
 ---
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/leds.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index b907a1396b21..cc375dd1a77d 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -384,3 +384,7 @@ &sdhci0 {
- 	sd-uhs-sdr104;
- 	status = "okay";
+diff --git a/include/linux/leds.h b/include/linux/leds.h
+index a515f075c..675c58661 100644
+--- a/include/linux/leds.h
++++ b/include/linux/leds.h
+@@ -11,6 +11,7 @@
+ #include <dt-bindings/leds/common.h>
+ #include <linux/device.h>
+ #include <linux/mutex.h>
++#include <linux/rculist.h>
+ #include <linux/rwsem.h>
+ #include <linux/spinlock.h>
+ #include <linux/timer.h>
+@@ -502,6 +503,17 @@ struct led_trigger {
+ 	const struct attribute_group **groups;
  };
+ 
++/**
++ * led_trigger_for_each_led - iterate over the LEDs attached to a trigger
++ * @pos: struct led_classdev pointer used as the loop cursor
++ * @trig: trigger whose LEDs are iterated
++ *
++ * The caller must hold the RCU read lock throughout the iteration and must
++ * not sleep while accessing the LEDs.
++ */
++#define led_trigger_for_each_led(pos, trig) \
++	list_for_each_entry_rcu(pos, &(trig)->led_cdevs, trig_list)
 +
-+&gpu {
-+	status = "okay";
-+};
+ /*
+  * Currently the attributes in struct led_trigger::groups are added directly to
+  * the LED device. As this might change in the future, the following
 
 -- 
 2.56.0
+
 
