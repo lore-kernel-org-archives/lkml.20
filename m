@@ -1,203 +1,148 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A5151D525
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B9F46C4C5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072721; cv=none; b=PHR1DUXCAKicclXaNC4Rf7oqPWvEy6+uIwa0Fk29CLOVpOrzF+Itj4BHosdhf36jK7IPZeOt+v93gLSry8heszh4juZNRuNQDdOp0+LZgO6yXMzoUiW9L1rOJ9WuGc+G5S8LnNeWFqEkCwCFYHKktopiHlvUcQmuee+V3REwsns=
+	t=1792072735; cv=none; b=dTtHeV6G4xj5y2kUglMSsCS035TOtbEeIp1zgItiCKBpP1LzEpQdYRGUz1rEsOBJ8B0iQ8VOVCax12yhgMaxTm6xmwZkANiPbpRvfNz2T6wL5kKaqBQY2gao8YPY+dbIFNymG6LxQH6cjiAmJIO28n6Efm1CeKK49+Pf2tTIb7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072721; c=relaxed/simple;
-	bh=GkuhSG1E3xOY9+vYRNXA1NQsKM+K3EJmy2CQjqLyy7o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaJ3bgcMbmEh8ZsaRu5af9IIBwKi+FF4LGiHhlZvFryIAK7Fu/CI7pEcB2Wfn/xbSGDLPKYPt7QxebsN3eUS9/tVqMySxs7CBUlQkEVF+oAMrEfzuPAywdTJrmovvQymfe50Y3OS9EZdHxGCKnSU7TJ2kIHaY3iRuMNJUR6y4qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6UC1bfW; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792072735; c=relaxed/simple;
+	bh=Fmr8PvRAaAoeaJUzhHvHl4m0oLOfVqb5pwowBeNSOdg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZJ9pntcm8a9RXPYpMeuEjYz4k2S2hJuFOsQg/y7yTHiJKzUyQ9PNkwVddW2VxTOvfu5VOC4Zz7C9VpStNxnr7X4Wah9UPzKLYB2IlKN+4Kh1r/rr0i18ZnXFEkNX//Ib3FRIfNqZhFRW1OrKME48GbcE6QaP3V1ioUWg147C3P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tN65rP8J; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6UC1bfW"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso2389834a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tN65rP8J"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd0b795aa8cso3308a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792072720; x=1792677520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
-        b=U6UC1bfWuN2XIx6irIBe2LDP4a4MgF+m7/RzfHgEJzU7d2y/HQP+QeqvwZ9rWHo1tk
-         wsG8rmF09Rhs6u0Ajby22pT3pfUzX0+8lctDfRQvQsnDTZXS0pCfIR8vMRnUZ2QV5d5J
-         sdjfmjY2KtaZYuIOLBfUQ78KjzMpaX8qRhjlY6t/NAlMIqgO26oefJqhEOaj5v0xGNF+
-         +o7h7xiCeoDsUf6tK6jpwoMhalmLIqwhzEYJ0L9CHKMDHKaSkqersLA5X6QK5zyAz2er
-         3Jpd28+q89/0gLJeyXgQ8GHOdFKHeDI0WmUvjEgGiPT8TkqR2QVwSfbWMbRpnMrISE1n
-         aMDw==
+        d=google.com; s=20251104; t=1792072733; x=1792677533; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uMSSECwkd6GBn6Q0rd3u20QgElhwSrNALm0yFALuhrI=;
+        b=tN65rP8JSCBhl7JyekGO7FwQrm/5VwUqYlidc5dzNg2U+zSOqnKWC8q2BTe0mZV2g0
+         Ya5kl+QNjqQXp2jhHnSXhdOBLthe+RfldxI3/0eXYMczq6dJS5l4OMJSLCYsuYkrQ10U
+         9mduyXt7ddqlDei2qn8jP550fgupkDMEyhpOVRrB/mLHey1KzU/BC7Jx9AWQzrsWUX2T
+         sCwAx6TYpmJfg8QLzdwNYEQDoJGSDojUAMmS6QRA8fXZaxvpiP5uuaEuFtWWSzCjXyjK
+         tdyhCjdlksH7pXxNabCTl1Ubm4kXgv2fOU3KZXHHqMtAL6it0J6Phdf5b1ItUquijtKM
+         WVvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072720; x=1792677520;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792072733; x=1792677533;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
-        b=cRs8BMWTAlwP+nMS49cmk9jntAVS5VaPmBTSGjfjIDx64G1oNlgvWcxnocMCXK/y03
-         XevCLgDns581FnZz1s5xPmFAY99Qv9uwa20f3gSJXBouXwKNCLLGozkzNxhTsLMp9qT9
-         Zn/VOKa9bIy5de5WsqSYewLeh8Rp3VUPaSu0PBos9gFaFvwFsehaIWkLfnwbbFLgAsg5
-         Vv1Z1dXEN1YcXXiA0oq5YMrEtuJyYqw23cXkoL66mYMz7uRQd84Gi5X84rvcER5m0sky
-         Myz38gTXHET37QzPNmQ4jHSnp+eglfcmDVsLW5seh7EmALN0un/S71DxCW90grejPd81
-         5e7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzf59LQVU08wZ85cZzsu0wvyYq8PLypubpyeiSYOdX0qm/2HY72eXWZq/cTHJAfiDaHt3ZCZ42FIDTq+k4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ31AKHTz9PRobPiFEy9q3XuklAaXFU3YeBYdK04L4Znlxjo1VV
-	MOiEUA1eqfpFDh3egGIatTjv5Uj/sGbjEQ+wpIN66JtUOGZzheuQPhNJ
-X-Gm-Gg: AYBFou3gz1jdFi3Fyv4OxETA5x/KEl2SsR8rV6wReuAzP4v3BdkG6XeWvwjg279mSko
-	uokXpHCLp23MUxPyx8FAiiIcFYN/NTJI5ip1cvyBKnnas1inI4SJmtep130aoDe10fsH4/lySuI
-	RfjAmMCbPnsfMJTOQr6B69h56v4h6B34JMOoKryuOhuLkTYi+qqK0Q3RukhJRqVYKJKezUUpogg
-	SZZp7eobd7Rm5Fn+LUz6qF4nZ7mMydBoagp/O+iMqq9GDEPNktdNmW4tPUcH2vWu7edY1c7wVNM
-	zpwbo805AbkRumu+IK6HmkKXRKG4VaiAs51sIWgYRWuv7sT3daUPRAcgFz/alCX5Mi51bGeGj2Z
-	jU44hNWFi4JUdI1nEJ+hhs3EazyK/j59EQTZkCu9nRWCnnl6tWwcdUWlFdfnpn1/H6Gy3/68jJ+
-	KYeOCXwnDsxTAh7wNvECzOSQbBT7EtizmncMm4hYXAzS1M+qiX9hMH53eQQZ/DwyeAEdDZHKCwx
-	SAoCnfgik0v5rlRMS+aaeg=
-X-Received: by 2002:a17:90b:54d0:b0:3ab:4e4:e979 with SMTP id 98e67ed59e1d1-3ab3ac90725mr14115192a91.36.1792072719701;
-        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
-Received: from localhost.localdomain ([123.215.20.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac944a9365sm4848219a91.14.2026.10.15.06.58.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
-From: Jiwoong Wi <dwdnlzj@gmail.com>
-To: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bobtobabz@gmail.com
-Subject: [PATCH] svcrdma: account for inline bytes in Read chunk page budget
-Date: Thu, 15 Oct 2026 22:58:32 +0900
-Message-ID: <20261015135832.67889-1-dwdnlzj@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=uMSSECwkd6GBn6Q0rd3u20QgElhwSrNALm0yFALuhrI=;
+        b=V+c4tsDTzwnJ7uiTebGf3dJlRkgG+KR9DuIotCUBegUcNmVNp/wHRAq/VUKeo6BlSo
+         p2dVk5omtsv1U+bDWTWqrHqqQY3VttBwfgfwAlyqLcGDRV7gsiJoRIL48fIEXFEoWGa0
+         AAtwnnCGSszpjR50byuA8811EcDhNIgm30MPvy8UOM939eoRDRjPD9qF2puVPxU4XLIj
+         2AFjMPKlhgqKLgVy09CuatFocWiwnf8jRS45ZpISHLshd5/t3vSlnaAU90o3sNleuSys
+         YRE5l2EDe2I46qfuWsqsiznlxRzLcGByVwYo9Y2hZ3+dUwGGUSKqNzk8IGKDh3W7F2lo
+         kXVw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/CQFA9f88Rw5tJfZ9YraPRdN4uLu8qWd7ZM3mZD7ht6m7PXDkwFFF9HymNYzOQTFeA/74OfEwGSwmDXY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYId/pXL/5j/DlBr6NoEFoPM17taAaLywoqBs6Zyytp2aDzdlAy5
+	aWJblCB63pdwgOTT3CItg2pL5DtPB4h3sZXzKvsGciUrjGkncKCwhzHmxpW0QoWt+oy7vYkfA3r
+	W+7NB1A==
+X-Received: from pllq21.prod.google.com ([2002:a17:902:7895:b0:2e2:c8c0:e8eb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2348:b0:2e9:3295:11d1
+ with SMTP id d9443c01a7336-2e97758f920mr460105ad.39.1792072733289; Thu, 15
+ Oct 2026 06:58:53 -0700 (PDT)
+Date: Thu, 15 Oct 2026 06:58:52 -0700
+In-Reply-To: <asmwyCYDyaLwfmCV@yzhao56-desk.sh.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260930001127.3170009-1-seanjc@google.com> <20260930001127.3170009-3-seanjc@google.com>
+ <asmwyCYDyaLwfmCV@yzhao56-desk.sh.intel.com>
+Message-ID: <atDcHCtdPNAJGHeI@google.com>
+Subject: Re: [PATCH v2 2/3] KVM: TDX: Synthesize SHUTDOWN instead of returning
+ -EIO on unhandled EPT violation
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	kvm@vger.kernel.org, x86@kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>, 
+	Xiaoyao Li <xiaoyao.li@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Ackerley Tng <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-The Read-list check limits Read bytes to the request page budget. With
-multiple data item Read chunks, svc_rdma_read_multiple_chunks() copies
-the inline RPC body into those same pages. The reconstructed message
-can overflow the budget even when its Read bytes alone fit.
+On Sat, Oct 10, 2026, Yan Zhao wrote:
+> On Tue, Sep 29, 2026 at 05:11:26PM -0700, Sean Christopherson wrote:
+> > Exit to userspace with KVM_EXIT_SHUTDOWN instead of returning -EIO from
+> > KVM_RUN if KVM encounters an EPT Violation due to a guest access to a
+> > pending page.  Returning -EIO implies KVM is buggy, and most VMMs will
+> > respond by completely terminating the VM, versus rebooting the VM in
+> > response to KVM_EXIT_SHUTDOWN.  I.e. give the VMM the option of trying to
+> > keep the VM (from the end user's perspective) alive.
+> > 
+> > Ideally, KVM would probably exit with KVM_EXIT_MEMORY_FAULT, but KVM would
+> > need to extend run->memory_fault so that userspace knows the fault can't be
+> > handled.  This scenario specifically occurs when the guest has deliberately
+> > disabled #VEs on unaccepted memory for security purposes, i.e. the guest
+> > literally disabled the mechanism that tells it it screwed up.  But, because
+> > this is fatal, and the whole point is to NOT try to fixup the fault,
+> > jumping through hoops to return MEMORY_FAULT instead of SHUTDOWN doesn't
+> > make a whole lot of sense.
+> > 
+> > Don't bother bouncing through KVM_REQ_TRIPLE_FAULT as
+> > tdx_handle_ept_violation() is a top-level exit handler, i.e. there is no
+> > need to worry about failing to actually exit to userspace.
+> > 
+> > Fixes: e6a85781f783 ("KVM: TDX: Detect unexpected SEPT violations due to pending SPTEs")
+> > Cc: stable@vger.kernel.org
+> > Cc: James Houghton <jthoughton@google.com>
+> > Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> > Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> > Cc: Yan Zhao <yan.y.zhao@intel.com>
+> > Cc: Binbin Wu <binbin.wu@linux.intel.com>
+> > Cc: Ackerley Tng <ackerleytng@google.com>
+> > Cc: Vishal Annapurve <vannapurve@google.com>
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  arch/x86/kvm/vmx/tdx.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> > index 29d4751f37fb..e3723f1222fc 100644
+> > --- a/arch/x86/kvm/vmx/tdx.c
+> > +++ b/arch/x86/kvm/vmx/tdx.c
+> > @@ -1939,8 +1939,8 @@ static int tdx_handle_ept_violation(struct kvm_vcpu *vcpu)
+> >  		if (tdx_is_sept_violation_unexpected_pending(vcpu)) {
+> >  			pr_warn("Guest access before accepting 0x%llx on vCPU %d\n",
+> >  				gpa, vcpu->vcpu_id);
+> > -			kvm_vm_dead(vcpu->kvm);
+> > -			return -EIO;
+> > +			kvm_prepare_shutdown_exit(vcpu);
+> Would it be better to exit with the reason KVM_EXIT_SYSTEM_EVENT and type
+> KVM_SYSTEM_EVENT_SHUTDOWN or KVM_SYSTEM_EVENT_TDX_FATAL?
 
-A short final Read segment escapes the existing page-overrun check
-because that check runs only if len remains nonzero. The inflated
-rc_page_count then makes svc_rdma_clear_rqst_pages() write past
-rc_pages, followed by an out-of-bounds read during cleanup.
+No.  KVM_SYSTEM_EVENT_SHUTDOWN is an explicit call from the guest to do a clean
+shutdown (used by arm64 and RISC-V).  KVM_SYSTEM_EVENT_TDX_FATAL similarly exists
+to relay explicit calls from the guest.  Ditto for KVM_SYSTEM_EVENT_CRASH and
+KVM_SYSTEM_EVENT_SEV_TERM (which obviously is a poor fit for TDX, just pointing
+out that it's another guest-initiated event).
 
-Include inline bytes in the budget only when multiple data item Read
-chunks share the page array. Count the final Read chunk, and replace
-the late, len-conditional page check with checks of both page-array
-capacities before using each destination page. Single Read chunks and
-Position Zero Call chunks use different reconstruction paths.
+KVM_EXIT_SHUTDOWN isn't a perfect fit, but IMO it's the closest approximation,
+e.g. it's a rough equivalent of what happens if a #VE couldn't be handled because
+the stack is invalid.  And more importantly, because we're retroactively fixing
+code, KVM_EXIT_SHUTDOWN has the best chance of being handled appropriately by all
+VMMs.
 
-Validation used nfsd-testing 78c334bc5ae61d23ca1cc2e43079c620f1d40866.
-The unmodified Generic KASAN kernel reproduced an out-of-bounds write
-in svc_rdma_process_read_list(), followed by an oops during cleanup.
+> By defining a specific flag (e.g., KVM_SYSTEM_EVENT_FLAG_TDX_UNEXPECTED_PENDING),
+> we can stuff necessary info like gpa, vcpu->vcpu_id into data, so both pr_warn()
+> and pr_warn_ratelimited() can be dropped.
 
-With this patch, the full kernel and modules built and booted. In an
-isolated run, all 61 instances of the same frame were rejected during
-RPC/RDMA header parsing. A two-Read-chunk NFSv4 NULL request completed:
-the server issued two RDMA Reads and returned a successful RPC reply
-with the matching XID. Concurrent NFSv4.2/RDMA direct I/O completed 20
-repeated 8 MiB write/read transfers; the final readback matched the source
-SHA-256. No KASAN report or oops occurred in the direct I/O run, and
-kernel taint remained zero. The reproducer and baseline KASAN log are
-available privately on request.
+Well, IMO, the printk can be dropped no matter what. :-)  But I don't care _that_
+much so I'm ok keeping the ratelimited version.
 
-The vulnerability research and validation were conducted by members of
-the Tobabz team as part of the Best of the Best 15th program.
-
-Fixes: d7cc73972661 ("svcrdma: support multiple Read chunks per RPC")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jiwoong Wi <dwdnlzj@gmail.com>
----
- net/sunrpc/xprtrdma/svc_rdma_pcl.c | 12 ++++++++----
- net/sunrpc/xprtrdma/svc_rdma_rw.c  | 10 ++++++----
- 2 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-index 862372279..8da0f0dc7 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-@@ -238,8 +238,8 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
-  * before comparing against @inline_len or the Call chunk length.
-  *
-  * Rejects frames where a Read chunk's inline-body offset exceeds
-- * the bound, where adjacent Read chunks overlap, or where any
-- * single chunk length exceeds the page budget.
-+ * the bound, where adjacent Read chunks overlap, or where Read bytes,
-+ * plus inline bytes when they share the page array, exceed its budget.
-  *
-  * Return values:
-  *       %true: Read chunk positions and lengths are valid
-@@ -269,8 +269,9 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
- 	pcl_for_each_chunk(chunk, &rctxt->rc_read_pcl) {
- 		if (chunk->ch_position - total_read > bound)
- 			return false;
--		if (chunk->ch_length > max_len)
-+		if (chunk->ch_length > max_len - total_read)
- 			return false;
-+		total_read += chunk->ch_length;
- 
- 		next = pcl_next_chunk(&rctxt->rc_read_pcl, chunk);
- 		if (!next)
-@@ -278,8 +279,11 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
- 
- 		if (chunk->ch_position + chunk->ch_length > next->ch_position)
- 			return false;
--		total_read += chunk->ch_length;
- 	}
-+	if (pcl_is_empty(&rctxt->rc_call_pcl) &&
-+	    rctxt->rc_read_pcl.cl_count > 1 &&
-+	    inline_len > max_len - total_read)
-+		return false;
- 
- 	return true;
- }
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-index 63d00f0cc..1f1ccf80a 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -794,6 +794,10 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
- 	ctxt->rw_nents = nr_bvec;
- 
- 	for (bvec_idx = 0; bvec_idx < ctxt->rw_nents; bvec_idx++) {
-+		if (head->rc_curpage >= head->rc_maxpages ||
-+		    head->rc_curpage >= rqstp->rq_maxpages)
-+			goto out_put;
-+
- 		seg_len = min_t(unsigned int, len,
- 				PAGE_SIZE - head->rc_pageoff);
- 
-@@ -810,9 +814,6 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
- 			head->rc_pageoff = 0;
- 		}
- 		len -= seg_len;
--
--		if (len && ((head->rc_curpage + 1) > rqstp->rq_maxpages))
--			goto out_put;
- 	}
- 
- 	ret = svc_rdma_rw_ctx_init(rdma, ctxt, segment->rs_offset,
-@@ -893,7 +894,8 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
- 	for (page_no = 0; page_no < numpages; page_no++) {
- 		unsigned int page_len;
- 
--		if (head->rc_curpage >= rqstp->rq_maxpages)
-+		if (head->rc_curpage >= head->rc_maxpages ||
-+		    head->rc_curpage >= rqstp->rq_maxpages)
- 			return -EINVAL;
- 
- 		page_len = min_t(unsigned int, remaining,
-
-base-commit: 78c334bc5ae61d23ca1cc2e43079c620f1d40866
--- 
-2.39.5
-
+vcpu_id is redundant, the exit is tied to a specific vCPU.  And as I said elsewhere,
+practically speaking the GPA is all but guaranteed to be useless outside of
+interactive debug sessions.
