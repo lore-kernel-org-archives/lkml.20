@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B4A542EEE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C14548554;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082995; cv=none; b=qEHMLerQU2Pb90/or/ACtqSMTmeAt6N6/L+3SYmEyXYNy1EkHTJXvkpeaOKTrZEGZgYABAu3mhPzxlYGmhiJZEh9X/iank78etnkvGrmivIoeyk80eMMHCWxPIkF0GwAyauX4xzVUj+PmyaoCIUH9wtUq9u7E2rKeKCZFOS3jQg=
+	t=1792082996; cv=none; b=cBsB4KsviuvTy+AUsAUa5Ez0Hj1QA4G9L9TZ05Wf4Pz5nylK6fz3pEjXBWMzPvnx7Yx3nrfqu/iI3ELhw1DtbxEYvkKj+LHLZqvMDBAilZ0wMJNALE+nBIWnggj8im0oBX3KihTXZGlHQ0W5Je9xlfv/5YQBdVq2OOeLFq2H3E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082995; c=relaxed/simple;
-	bh=twxHn1Sa2xtmpgYIMApvVRr7bkrFmQmOYjsco0YLF+Y=;
+	s=arc-20240116; t=1792082996; c=relaxed/simple;
+	bh=UELqeIQMLribOGV8awN5nOAA+BGfrVwbtmkojR88hVg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e1mHc5OZfdJECHLrFaaL0gsxM9c8W4M4oBZcJa/esRGU+cdpm/vQ7Unq/fopHwqLuEhZ0KooajKMKlRMuz28C9zaV978nm4O4svZF/0K0KfkI4h+r1nzVJRD4Yg1HrJKnA4k+ml3CErgHobHt9m6QeDvCWhQrYWmlLJIyM+eGGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVVKYwRS; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=DokMXHAy3UGLycNejRy9EAZgw4FFSj/XJAabQFyAjSuYs9WInEpBFygfuWuddvrQuxDk6R1stlrED/JODI57dGVmFYfFLKXaXlSRPqZ7QUb0A4htt4y/R7TbmsAD/H1okCz4HMaQEuTxr96qp4WNmANdIhr4T+tyBh+xC5rrqos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wtajyma8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVVKYwRS"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1F2E3C4AF17;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wtajyma8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5CBF4C2BCF4;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792082995;
-	bh=twxHn1Sa2xtmpgYIMApvVRr7bkrFmQmOYjsco0YLF+Y=;
+	bh=UELqeIQMLribOGV8awN5nOAA+BGfrVwbtmkojR88hVg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dVVKYwRSqXDRqcoqyNt5gsIroaPvqFgtoL0jtauOHjE9ghnYOPtM4iotTwrwgHcld
-	 mtYBPycU7BQG6mbVVpTAHj0o3w3EgpbznRQN8x3vQkbk4UYCPeudG2T7Fh/uZ0xTv8
-	 1/1tqGUitPMNvHiBx+Wb5nMApvrTNsaa5kP4JMM/lo5COR0U4vdUjiSE4Fa+W1/J3g
-	 tUaZnggeDVto82UNYZl8a9V7TWtBUJ6azzBdkBew10dluKBLSjlpDy+SctxDojPPxh
-	 kY3gKWbZsecXp1nmZaRxzOcJyeoND0lFyma8nLuK0DEb3UhuvRXjZHH159+WswfQzn
-	 UTZaNMo4wftyw==
+	b=Wtajyma8TMGo9W5vs/e5qSE7bBmoFhyHR51f8akR+z3Jx52pcY42YYTa7nAM7115z
+	 Xyjg7ibqA1hZvhgpHCZO1LCVV/khOH2D74TfMtRretAZboZ0k+9QYMRUoYG06cPixp
+	 m70udQNaOPd9z1NyFO9/3imxnJB1M9PyTnxxEUq84rZ8ybtk94y61o2i4R9Y1MJ3jE
+	 ekPNUfxNWl8h+Yk5UfqYUxYfo7MUlUkG9AlQFTsg4XOBMqoTWwouN4Wi/h2PcA4MSU
+	 C9zxcZl/jWJiuctchSRUG8NABqopAIGSsc0369oz0fNavAEyH6Xpgo2O9kOrE5Bqma
+	 E7J2Ihtfw0rUw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A51FCC6B33;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A81FCC6B39;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Thu, 15 Oct 2026 13:49:46 -0300
-Subject: [PATCH 06/10] iio: frequency: ad9910: add axi backend driver
+Date: Thu, 15 Oct 2026 13:49:50 -0300
+Subject: [PATCH 10/10] docs: iio: ad9910: document DRCTL pin control
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ad9910-backend-support-v1-6-3c21648c8e26@analog.com>
+Message-Id: <20261015-ad9910-backend-support-v1-10-3c21648c8e26@analog.com>
 References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 In-Reply-To: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -58,11 +58,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=14888;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=6219;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=XfuzLOIG3CdJGmC6H/5fgpP60BtJ7Wf2VfwhRUiUfLs=;
- b=fIG+RWV5bxDXN3EUqyZ1FH8LFA02it77jhtrWxp+l8zV6Ok6EPsyq/rIfrcXyd9mH+8nLqRdp
- /mycUUAqNEYAQWICiA9ylhUmYbZcBicA6Kvsf52l4fIzBBxst4puZwE
+ bh=9AdEqIZ+bYqk9Lw6P7OuqM0LPTI0z5xHBJLcZX+ImKY=;
+ b=iEB0Y0PLticdgwYdAAxIokYTL7YY0uahxuWGbnuUTbq7d067PpbmhYNaQYCaEVqF2iBpSxjO4
+ fr0brdPY/RZBnmGlAv1b0geUbVjekTb1BEcpQ6kE81EU8ieL+j0zvgz
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -72,481 +72,161 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Add the driver for the AD9910 AXI backend IP core, which interfaces with
-the data and control pins of the AD9910 DDS. It registers as an IIO
-backend that provides:
-
-- a DMA output buffer that streams data into the parallel data port;
-- the parallel data destination (F[1:0] pins) and data rate, derived
-  from the PDCLK frequency;
-- the PROFILE[2:0] pins control, through profile channel enables.
-
-It also registers a PWM chip with a single output driving the DRCTL
-pin, which the AD9910 driver uses to control the digital ramp generator
-direction. PWM period and duty cycle are programmed in PDCLK cycles.
+Document the integration_time attribute of the digital ramp generator
+(DRG) rising and falling channels, and describe how the DRCTL pin
+waveform is generated from those values according to the dwell_en
+configuration. Add usage examples for triangular and sawtooth sweeps
+driven through the DRCTL pin.
 
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- MAINTAINERS                                |   1 +
- drivers/iio/frequency/Kconfig              |  17 ++
- drivers/iio/frequency/Makefile             |   1 +
- drivers/iio/frequency/ad9910-axi-backend.c | 396 +++++++++++++++++++++++++++++
- 4 files changed, 415 insertions(+)
+ Documentation/iio/ad9910.rst | 90 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 84 insertions(+), 6 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a9cb4396b3e1..c3cda855dabb 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1734,6 +1734,7 @@ F:	Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
- F:	Documentation/iio/ad9910.rst
-+F:	drivers/iio/frequency/ad9910-axi-backend.c
- F:	drivers/iio/frequency/ad9910.c
- F:	drivers/iio/frequency/ad9910.h
+diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+index aab569f561db..bff55cca8c82 100644
+--- a/Documentation/iio/ad9910.rst
++++ b/Documentation/iio/ad9910.rst
+@@ -85,13 +85,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_frequency``
+      - ``drg_frequency``
+      - DRG frequency rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
  
-diff --git a/drivers/iio/frequency/Kconfig b/drivers/iio/frequency/Kconfig
-index 994d199080eb..f7f5c3cce005 100644
---- a/drivers/iio/frequency/Kconfig
-+++ b/drivers/iio/frequency/Kconfig
-@@ -42,6 +42,23 @@ config AD9910
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ad9910.
+    * - ``out_frequency132``
+      - ``drg_falling_frequency``
+      - ``drg_frequency``
+      - DRG frequency falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
  
-+config AD9910_AXI_BACKEND
-+	tristate "Analog Devices AD9910 AXI Backend driver"
-+	depends on AD9910
-+	depends on HAS_IOMEM && PWM
-+	select IIO_BACKEND
-+	select IIO_BUFFER
-+	select IIO_BUFFER_DMAENGINE
-+	select REGMAP_MMIO
-+	help
-+	  Say yes here to build support for the AXI Backend Driver for the
-+	  Analog Devices AD9910 DDS. The IP core is used to drive digital ramp
-+	  control pins and interface with the parallel data port of the AD9910
-+	  device.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ad9910-axi-backend.
-+
- endmenu
+    * - ``out_phase130``
+      - ``drg_phase``
+@@ -104,13 +104,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_phase``
+      - ``drg_phase``
+      - DRG phase rising-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
  
- #
-diff --git a/drivers/iio/frequency/Makefile b/drivers/iio/frequency/Makefile
-index e3b1d36ed620..bfac9e205e81 100644
---- a/drivers/iio/frequency/Makefile
-+++ b/drivers/iio/frequency/Makefile
-@@ -6,6 +6,7 @@
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD9523) += ad9523.o
- obj-$(CONFIG_AD9910) += ad9910.o
-+obj-$(CONFIG_AD9910_AXI_BACKEND) += ad9910-axi-backend.o
- obj-$(CONFIG_ADF41513) += adf41513.o
- obj-$(CONFIG_ADF4350) += adf4350.o
- obj-$(CONFIG_ADF4371) += adf4371.o
-diff --git a/drivers/iio/frequency/ad9910-axi-backend.c b/drivers/iio/frequency/ad9910-axi-backend.c
-new file mode 100644
-index 000000000000..f94cb54af517
---- /dev/null
-+++ b/drivers/iio/frequency/ad9910-axi-backend.c
-@@ -0,0 +1,396 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * AD9910 AXI Backend driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/kstrtox.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/pwm.h>
-+#include <linux/regmap.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/backend.h>
-+#include <linux/iio/buffer-dmaengine.h>
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/iio.h>
-+
-+#include "ad9910.h"
-+
-+/* Register addresses */
-+#define AD9910_AXI_REG_RESET		0x040
-+#define AD9910_AXI_REG_DRG		0x084
-+#define AD9910_AXI_REG_PROFILE		0x088
-+#define AD9910_AXI_REG_DRCTL_PERIOD	0x08C
-+#define AD9910_AXI_REG_DRCTL_WIDTH	0x090
-+#define AD9910_AXI_REG_RAMP_DELAY_BST	0x094
-+#define AD9910_AXI_REG_BURST_COUNT	0x098
-+#define AD9910_AXI_REG_BURST_DELAY	0x09C
-+#define AD9910_AXI_REG_RAMP_CFG		0x0A0
-+
-+#define AD9910_AXI_REG_UPDATE_CTRL	0x104
-+#define AD9910_AXI_REG_PAR_RATE		0x108
-+#define AD9910_AXI_REG_F_CFG		0x10C
-+
-+#define AD9910_AXI_REG_RESET_CORE_MSK		BIT(0)
-+
-+#define AD9910_AXI_REG_DRG_DRCTL_MSK		BIT(2)
-+#define AD9910_AXI_REG_DRG_TOGGLE_EN_MSK	BIT(3)
-+
-+#define AD9910_AXI_REG_RAMP_CFG_ONE_SHOT_MSK	GENMASK(1, 0)
-+#define AD9910_AXI_REG_BURST_COUNT_MSK		GENMASK(19, 0)
-+
-+#define AD9910_AXI_REG_UPDATE_RATE_MSK		BIT(0)
-+#define AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK	BIT(1)
-+#define AD9910_AXI_REG_UPDATE_EXT_TRIG_MSK	BIT(2)
-+
-+#define AD9910_AXI_REG_PROFILE_MSK		GENMASK(2, 0)
-+#define AD9910_AXI_REG_IO_UPDATE_MSK		BIT(0)
-+#define AD9910_AXI_REG_F_CFG_MSK		GENMASK(1, 0)
-+
-+#define AD9910_AXI_PD_CLK_MAX_FREQ_HZ		(250ULL * HZ_PER_MHZ)
-+#define AD9910_AXI_PAR_RATE_MAX			U16_MAX
-+#define AD9910_AXI_ONE_SHOT_BURST		1
-+
-+struct ad9910_axi_state {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	/*
-+	 * lock to protect multiple accesses to the device registers and global
-+	 * data/variables.
-+	 */
-+	struct mutex lock;
-+	u64 pd_clk_freq_uhz;
-+	enum pwm_polarity pwm_polarity;
-+};
-+
-+static int ad9910_axi_chan_enable(struct iio_backend *back, unsigned int chan)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (chan) {
-+	/*
-+	 * Profiles are mutually exclusive, as the PROFILE[2:0] pins always
-+	 * select one of them. Enabling a profile channel selects it, which
-+	 * implicitly disables the previously selected one, hence there is
-+	 * nothing to do when disabling a profile channel.
-+	 */
-+	case AD9910_CHAN_IDX_PROFILE_0 ... AD9910_CHAN_IDX_PROFILE_7:
-+		chan -= AD9910_CHAN_IDX_PROFILE_0;
-+		return regmap_update_bits(st->regmap, AD9910_AXI_REG_PROFILE,
-+					  AD9910_AXI_REG_PROFILE_MSK,
-+					  FIELD_PREP(AD9910_AXI_REG_PROFILE_MSK, chan));
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		chan = min(chan - AD9910_CHAN_IDX_PARALLEL_AMP, AD9910_DEST_POLAR);
-+		ret = regmap_update_bits(st->regmap, AD9910_AXI_REG_F_CFG,
-+					 AD9910_AXI_REG_F_CFG_MSK, chan);
-+		if (ret)
-+			return ret;
-+
-+		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+				       AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_chan_disable(struct iio_backend *back, unsigned int chan)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+
-+	switch (chan) {
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		return regmap_clear_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+					 AD9910_AXI_REG_UPDATE_PAR_IF_EN_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static struct iio_buffer *ad9910_axi_request_buffer(struct iio_backend *back,
-+						    struct iio_dev *indio_dev)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	const char *dma_name;
-+
-+	if (device_property_read_string(st->dev, "dma-names", &dma_name))
-+		dma_name = "tx";
-+
-+	return iio_dmaengine_buffer_setup_ext(st->dev, indio_dev, dma_name,
-+					      IIO_BUFFER_DIRECTION_OUT);
-+}
-+
-+static void ad9910_axi_free_buffer(struct iio_backend *back,
-+				   struct iio_buffer *buffer)
-+{
-+	iio_dmaengine_buffer_teardown(buffer);
-+}
-+
-+static int ad9910_axi_set_sample_rate(struct iio_backend *back,
-+				      unsigned int chan, u64 sample_rate)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	u64 div;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	switch (chan) {
-+	case AD9910_CHAN_IDX_PHY:
-+		if (!sample_rate || sample_rate > 4 * AD9910_AXI_PD_CLK_MAX_FREQ_HZ)
-+			return -EINVAL;
-+
-+		st->pd_clk_freq_uhz = sample_rate * MICROHZ_PER_HZ >> 2;
-+		return 0;
-+	case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
-+		if (!sample_rate || sample_rate > AD9910_AXI_PD_CLK_MAX_FREQ_HZ)
-+			return -EINVAL;
-+
-+		sample_rate *= MICROHZ_PER_HZ;
-+		div = DIV64_U64_ROUND_CLOSEST(st->pd_clk_freq_uhz, sample_rate);
-+		div = clamp(div, 1U, AD9910_AXI_PAR_RATE_MAX);
-+		ret = regmap_write(st->regmap, AD9910_AXI_REG_PAR_RATE, div - 1);
-+		if (ret)
-+			return ret;
-+
-+		return regmap_set_bits(st->regmap, AD9910_AXI_REG_UPDATE_CTRL,
-+				       AD9910_AXI_REG_UPDATE_RATE_MSK);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_read_raw(struct iio_backend *back,
-+			       struct iio_chan_spec const *chan, int *val,
-+			       int *val2, long mask)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+	u32 div;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		switch (chan->address) {
-+		case AD9910_CHAN_IDX_PARALLEL_AMP ... AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE: {
-+			guard(mutex)(&st->lock);
-+
-+			ret = regmap_read(st->regmap, AD9910_AXI_REG_PAR_RATE,
-+					  &div);
-+			if (ret)
-+				return ret;
-+
-+			iio_val_s64_decompose(div_s64(st->pd_clk_freq_uhz, div + 1),
-+					      val, val2);
-+			return IIO_VAL_DECIMAL64_MICRO;
-+		}
-+		default:
-+			return -EINVAL;
-+		}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad9910_axi_reg_access(struct iio_backend *back, unsigned int reg,
-+				 unsigned int writeval, unsigned int *readval)
-+{
-+	struct ad9910_axi_state *st = iio_backend_get_priv(back);
-+
-+	if (readval)
-+		return regmap_read(st->regmap, reg, readval);
-+
-+	return regmap_write(st->regmap, reg, writeval);
-+}
-+
-+static const struct iio_backend_ops ad9910_axi_iio_back_ops = {
-+	.chan_enable = ad9910_axi_chan_enable,
-+	.chan_disable = ad9910_axi_chan_disable,
-+	.request_buffer = ad9910_axi_request_buffer,
-+	.free_buffer = ad9910_axi_free_buffer,
-+	.set_sample_rate = ad9910_axi_set_sample_rate,
-+	.read_raw = ad9910_axi_read_raw,
-+	.debugfs_reg_access = iio_backend_debugfs_ptr(ad9910_axi_reg_access),
-+};
-+
-+static const struct iio_backend_info ad9910_axi_back_info = {
-+	.name = "ad9910-axi",
-+	.ops = &ad9910_axi_iio_back_ops,
-+};
-+
-+static const struct regmap_config ad9910_axi_regmap_config = {
-+	.val_bits = 32,
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = 0x0800,
-+};
-+
-+static int ad9910_axi_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-+				const struct pwm_state *state)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+	u64 period, duty;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	period = mul_u64_u64_div_u64(state->period, st->pd_clk_freq_uhz,
-+				     1ULL * NANO * MICROHZ_PER_HZ);
-+	period = min(period, U32_MAX);
-+	duty = mul_u64_u64_div_u64(state->duty_cycle, st->pd_clk_freq_uhz,
-+				   1ULL * NANO * MICROHZ_PER_HZ);
-+	duty = min(duty, period);
-+
-+	if (state->polarity == PWM_POLARITY_INVERSED)
-+		duty = period - duty;
-+
-+	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, period);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, duty);
-+	if (ret)
-+		return ret;
-+
-+	st->pwm_polarity = state->polarity;
-+
-+	if (state->enabled)
-+		return regmap_set_bits(st->regmap, AD9910_AXI_REG_DRG,
-+				       AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-+
-+	return regmap_clear_bits(st->regmap, AD9910_AXI_REG_DRG,
-+				 AD9910_AXI_REG_DRG_TOGGLE_EN_MSK);
-+}
-+
-+static int ad9910_axi_pwm_get_state(struct pwm_chip *chip,
-+				    struct pwm_device *pwm,
-+				    struct pwm_state *state)
-+{
-+	struct ad9910_axi_state *st = pwmchip_get_drvdata(chip);
-+	u32 period, width, drg;
-+	int ret;
-+
-+	guard(mutex)(&st->lock);
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRCTL_PERIOD, &period);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRCTL_WIDTH, &width);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(st->regmap, AD9910_AXI_REG_DRG, &drg);
-+	if (ret)
-+		return ret;
-+
-+	state->period = mul_u64_u64_div_u64_roundup((u64)period * NANO,
-+						    MICROHZ_PER_HZ,
-+						    st->pd_clk_freq_uhz);
-+	if (st->pwm_polarity == PWM_POLARITY_INVERSED)
-+		width = period - width;
-+	state->duty_cycle = mul_u64_u64_div_u64_roundup((u64)width * NANO,
-+							MICROHZ_PER_HZ,
-+							st->pd_clk_freq_uhz);
-+	state->polarity = st->pwm_polarity;
-+	state->enabled = FIELD_GET(AD9910_AXI_REG_DRG_TOGGLE_EN_MSK, drg);
-+
-+	return 0;
-+}
-+
-+static const struct pwm_ops ad9910_axi_pwm_ops = {
-+	.apply = ad9910_axi_pwm_apply,
-+	.get_state = ad9910_axi_pwm_get_state,
-+};
-+
-+static int ad9910_axi_setup(struct ad9910_axi_state *st)
-+{
-+	int ret;
-+
-+	st->pd_clk_freq_uhz = AD9910_AXI_PD_CLK_MAX_FREQ_HZ * MICROHZ_PER_HZ;
-+
-+	ret = regmap_set_bits(st->regmap, AD9910_AXI_REG_RESET,
-+			      AD9910_AXI_REG_RESET_CORE_MSK);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_clear_bits(st->regmap, AD9910_AXI_REG_RESET,
-+				 AD9910_AXI_REG_RESET_CORE_MSK);
-+}
-+
-+static int ad9910_axi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct ad9910_axi_state *st;
-+	struct pwm_chip *pwm;
-+	void __iomem *base;
-+	struct clk *clk;
-+	int ret;
-+
-+	pwm = devm_pwmchip_alloc(&pdev->dev, 1, sizeof(*st));
-+	if (IS_ERR(pwm))
-+		return PTR_ERR(pwm);
-+
-+	st = pwmchip_get_drvdata(pwm);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
-+
-+	st->dev = dev;
-+	st->regmap = devm_regmap_init_mmio(dev, base,
-+					   &ad9910_axi_regmap_config);
-+	if (IS_ERR(st->regmap))
-+		return dev_err_probe(dev, PTR_ERR(st->regmap),
-+				     "failed to init register map\n");
-+
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = ad9910_axi_setup(st);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to setup device\n");
-+
-+	pwm->ops = &ad9910_axi_pwm_ops;
-+
-+	ret = devm_pwmchip_add(dev, pwm);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Could not register PWM chip\n");
-+
-+	return devm_iio_backend_register(dev, &ad9910_axi_back_info, st);
-+}
-+
-+static const struct of_device_id ad9910_axi_of_match[] = {
-+	{ .compatible = "adi,ad9910-axi-backend" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ad9910_axi_of_match);
-+
-+static struct platform_driver ad9910_axi_driver = {
-+	.driver = {
-+		.name = "ad9910-axi-backend",
-+		.of_match_table = ad9910_axi_of_match,
-+	},
-+	.probe = ad9910_axi_probe,
-+};
-+module_platform_driver(ad9910_axi_driver);
-+
-+MODULE_AUTHOR("Rodrigo Alencar <rodrigo.alencar@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices AD9910 AXI Backend driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("IIO_DMAENGINE_BUFFER");
-+MODULE_IMPORT_NS("IIO_BACKEND");
+    * - ``out_phase132``
+      - ``drg_falling_phase``
+      - ``drg_phase``
+      - DRG phase falling-ramp parameters: limit code, dwell enable, ramp clock,
+-       rate of change.
++       rate of change, integration time.
+ 
+    * - ``out_altcurrent130``
+      - ``drg_amplitude``
+@@ -123,13 +123,13 @@ system clock (SYSCLK) which affects all other channels.
+      - ``drg_rising_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude rising-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent132``
+      - ``drg_falling_amplitude``
+      - ``drg_amplitude``
+      - DRG amplitude falling-ramp parameters: limit code, dwell enable,
+-       ramp clock, rate of change.
++       ramp clock, rate of change, integration time.
+ 
+    * - ``out_altcurrent140``
+      - ``ram``
+@@ -493,6 +493,60 @@ Ramp channel attributes
+        from the hardware step size and the current ramp clock. Writing
+        requires ``sampling_frequency`` to be configured first.
+ 
++   * - ``integration_time``
++     - s
++     - Time interval assigned to the ramp direction, which is used to generate
++       the DRCTL pin waveform. See `DRCTL pin control`_. Rising and falling
++       ramp channels of all destinations share the same underlying value for
++       their respective directions. The written value is adjusted to the
++       resolution supported by the PWM provider.
++
++DRCTL pin control
++^^^^^^^^^^^^^^^^^
++
++The DRCTL pin selects the DRG slope direction: a logic high drives the ramp
++towards the upper limit and a logic low drives it towards the lower limit.
++When a PWM is assigned to the DRCTL pin (via the ``pwms`` and ``pwm-names``
++devicetree properties), the driver generates the DRCTL waveform from the
++``integration_time`` of the rising and falling ramp channels, according to the
++``dwell_en`` configuration:
++
++.. flat-table::
++   :header-rows: 1
++
++   * - Rising ``dwell_en``
++     - Falling ``dwell_en``
++     - DRCTL waveform
++
++   * - 1
++     - 1
++     - DRCTL is held high for the rising ``integration_time`` and then held
++       low for the falling ``integration_time``. The PWM period is the sum of
++       both intervals. If a ramp reaches its limit before its interval
++       elapses, the output dwells at that limit.
++
++   * - 0
++     - 1
++     - Sawtooth rising ramp: a new ramp starts at every DRCTL rising edge,
++       which happens periodically at the rising ``integration_time``. The
++       falling ``integration_time`` is not used.
++
++   * - 1
++     - 0
++     - Sawtooth falling ramp: a new ramp starts at every DRCTL falling edge,
++       which happens periodically at the falling ``integration_time``. The
++       rising ``integration_time`` is not used.
++
++   * - 0
++     - 0
++     - Bidirectional continuous ramp. DRCTL is not relevant and it is held
++       low.
++
++The DRCTL output is disabled when the resulting PWM period is zero, e.g., when
++the relevant ``integration_time`` attributes are set to ``0``. Without a PWM
++assigned to the DRCTL pin, writing to ``integration_time`` fails with
++``-EOPNOTSUPP``.
++
+ Usage examples
+ ^^^^^^^^^^^^^^
+ 
+@@ -525,6 +579,30 @@ Configure a frequency sweep from 40 MHz to 60 MHz with a rate of change of
+   # Enable the DRG with frequency as the destination
+   echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency130_en
+ 
++With the same limits and rate of change, each ramp takes 0.8 ms to complete.
++Configure a PWM-driven triangular sweep that dwells 0.2 ms at each limit:
++
++.. code-block:: bash
++
++  # Enable dwell on both limits, so DRCTL controls the ramp direction
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # DRCTL high for 1 ms (rising ramp) and low for 1 ms (falling ramp)
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency132_integration_time
++
++Configure a rising sawtooth sweep that restarts every 1 ms:
++
++.. code-block:: bash
++
++  # No dwell at the upper limit: the ramp returns to the lower limit
++  echo 0 > /sys/bus/iio/devices/iio\:device0/out_frequency131_dwell_en
++  echo 1 > /sys/bus/iio/devices/iio\:device0/out_frequency132_dwell_en
++
++  # A new rising ramp starts every 1 ms
++  echo 0.001 > /sys/bus/iio/devices/iio\:device0/out_frequency131_integration_time
++
+ RAM mode
+ --------
+ 
 
 -- 
 2.43.0
