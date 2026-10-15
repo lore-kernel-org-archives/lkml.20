@@ -1,179 +1,154 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B550130F7EA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792102387; cv=none; b=fQrzJdjskUyZd+a9hER8h/eEuUbohAIU+woiaJQhSqV5R2VHJ+qhAu6Wqh50i5wW4va73etG4aHLQ3soKVyBNq1mArKZrO/peY1h7EZfOtWBR1yMm9vLbspI3wRVEXxm/mgwvZNZghqktwSlFl7snZH5bNVdlDKYoOTlT0GVArA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792102387; c=relaxed/simple;
-	bh=40gmtCymycQFHbFXfgKDqLipoiytU518gUFzifom2sI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rrx3PMzQtmKvDFyaUnInPiJ8jFuK4PaaQ6A/x1VGvUxUbkVrYrUufshNronIc4eK4k9Ex78IUmseHEa8RTrFNYu3o2NULWwVgyEnku/sLEQYUY9wXpVsHoXvUNsvQoEexCtNQoAh7nOP3KykPN07P/ZHW8Y5VV+BBFLDBfZZzgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=cpYzY6Nq; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376A145A2B2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:13:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792102418; cv=pass; b=GGKS96NsC8G+NyIJZx2NVp55IyRbEqK8v7nwzIW8NLiDdHQ3QQvcef/nq0/gX0pR8J3DC8mSPhGsnwayr0/AxL+qHDpJ00pt1cWQl9HYuzWZRoESlXVGdWC8uDAUHVRc2zBFDX/bCpJbnZgDdC7OVZczkpbrW37dE3xZtgr5d+k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792102418; c=relaxed/simple;
+	bh=4nrscWDYrCIe6LptEZSYFJFZoOIWJEK4Zczba4H353s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SykGf1gYwIPMk2JN8UcBQdpos8uoabfPs/iHUgjb5EWu3Kpn75yVKBcxxg/8FWkDGqcqRmIWbM5xeKB+uorznPYXp8KPtLPEqg+HblZBEasUHugVaCCz36mAmxFbrurKpw2KgfYgPuBeueCOjFlVo2seCQP27peSRFDQ+KhxjrE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tototo.si; spf=pass smtp.mailfrom=markina.si; dkim=pass (2048-bit key) header.d=tototo.si header.i=@tototo.si header.b=B4EjO+F3; arc=pass smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tototo.si
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=markina.si
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="cpYzY6Nq"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1385379a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792102385; x=1792707185;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=KAMNNIjaffC8G5IgYh2OMegewZGeZrERfs6YCxgtum8=;
-        b=tkFCrOKpZu1Lk5LxXrcDouWDDjhOW7lCnhlQA4lJ0XmDU7u1qSxoqCsdXgRzbFiRwL
-         A83g90dcPdpbkETdtCbNxE6WwePDv9vaUdLsZU3Lnx3EDySsGMpcu5YFJg/MlF+jHkYr
-         S+zSIKYZl16ngc9YypdAFwjtVzGdK9WqWmglWF9lLWaECMAlCOZSWEOjMPc+xUrGc43D
-         ya7NYiRSgo7v7pOhecabJkyU+clix3oZblnwxbdgUr+ONm/rktanbLJ15kOzI14/hQne
-         m+x7tvvfjUvwemSVHfH2x2jC52qNNJmvlnDxBoxXPq6qZJ6mJktWzEOGJwuld77pVWR/
-         YBpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFhzqsN9d/eViB4sv2ntEJV7a8tLLCnu2JnEWnLtD1WPXi6F/4aDUYmqNXl07k82eJPX7MqUMhDgV5qus=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIO2jWYPneQKJAj8bh0tLXRLSHUrHvi5vgs9VpuL9UQDqowLc6b
-	c+sXfYbcHNInno0id/YaE8dvWL7vsgoaJ0xp8y9WemY/4koprvPbj2DVypPjeJGHYtj/RZqS8La
-	gW7P4qH2dGnEa355+Ne3bmuiRT4gwZ8Mas/+2cUZOQWDvzA+xQLGJ4FC3JSUiD+tYkl3o82TymO
-	belw6kklKFbe+SASEurqLL9Sd3qbx+GSPN6HLKptuwkmINvAF7h8vWm8D/NNGDiJ78jB8vWBsMH
-	OMwRepgHjMt97wfpXxK52oV
-X-Gm-Gg: AYBFou3gGOiofpVni3zhT1c3rW5BHRYoAufXxBv5pNZG1Wbi30W2Tqzp/REq73b88Rl
-	CtQTmugQZEO+lmAZkPGobBgfF6C1so9ydBDxQShsfplT8/XheUN0KC5/xGgnqRWXCUM0yeUotc/
-	yE9lLQCCs9oFW2Si6H9qyPBAg4KsHghQcDr31y8opFIJCa+qIB1D6t2M8omXpL5EA/6+chbiwRd
-	o4uj85OO4PEPvzm3OiL1wgKHOyC6Xl69Bq6b0I+26BD36LIrGLbCCiwdxarClnUNOqfc0I2LkFF
-	KvmXxYSNSkBJMxBw3QjFsRX0Gb7VYb5XVDlTB7DlXdMwvjAX43mcgl3p6mr9Jb+FbeF60i7wyFl
-	KAhiYeJafZI+0BClvlSheoArLnL2Ol3YjVjHTBo02ngTeIyv0NGc3Q2yxlQJongkeGm4J7RtGt+
-	gUGshnkJIL36exi4a0Y8L0yyagaYNG/2dmGKiY+yvD+Ns=
-X-Received: by 2002:a17:90b:590e:b0:3ac:bc3d:6fe5 with SMTP id 98e67ed59e1d1-3acbc3d72edmr1477299a91.7.1792102384843;
-        Thu, 15 Oct 2026 15:13:04 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3acc963d427sm81042a91.0.2026.10.15.15.13.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 15:13:04 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso2793675a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tototo.si header.i=@tototo.si header.b="B4EjO+F3"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e635220b9so405724585a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792102409; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qwj27cIpocIvw+7PT8dWa0obxml+1WaGqrpBD5YT7d6yAtm5tuuUtDAN81bvW8VYhn
+         TlD3DBM+Jn1l+jO1+XOGKHnDKiolle8StCTDHNBReOaY1HAclz1sjtzBmlBKylh1qC1t
+         jP+U7P90v/cizeSnsUQXAyRpWfWhqrOULRC9czVPrHdjR2hbCBR/xaNOvaIBP4dpars+
+         +cgq/m63CfjYoVdPaUNV62BM98wesE+H4L8AUQAb8qFqlGOuCvYSLyZC/Co7iwn3lUSp
+         nqgcJ8jfkj8ubJgDWS7VkW0rOiNlBmVZImDhSk+nu8EThKYDrKqDGRvMQiyJ+ymR0GiM
+         uqrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+        fh=FpWk/DLqYHLaNleV0/0ZR4rV7ykXykcHlZs7eZWFtoI=;
+        b=rhH9Rk/APywKBi23CC6si/8UB7A9sZAIdo5QEeRABf4WK6TusgGIniT9urIl5+/M5J
+         kDX9eR1QpFIFQbrg4EE9SoYF7YulmpM9gFswKqjIhUpc23z6y/6DlKxYTWfXGEK4/Sj1
+         819f2tIQfNcXzBjLWnor4rFlnLlV8qh7q2TsMrsPXAQueKVPCkG8STgsksMd3HeykBZv
+         6VZhTXDFxLkwuNOd4HnVvGWAer1QWIQD1XFBY3j+xw0JX7mJEc4RfCSGcp6m/9rBqgvi
+         BPdpOYHBig1qjj9DFQJLW9315Og1R2SV5T6kPNlbLbWVabEZimNCkbC/aM9Pbg2dkpTm
+         X0Lw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792102383; x=1792707183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=tototo.si; s=acc; t=1792102409; x=1792707209; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KAMNNIjaffC8G5IgYh2OMegewZGeZrERfs6YCxgtum8=;
-        b=cpYzY6NqjdtF4W2IViWyd0UP8nzrsDcgBlFd99Cff8LrLc2OIP8ABzyk3gUZpwIXYm
-         257T1/Bdp9m422zegBDgQ+d1tl0DPmrlQnnlxNVEhVoOAFbruxEpikNyPcx8RzOSWalV
-         ifrhR/oIWa2Ad34kMCzegt8u0suz6gKaW5hcg=
-X-Forwarded-Encrypted: i=1; AKwUvByF2Js/WzEQ1ySHe+DmbpRZjwMdKal2/iCItRp0vQZp88mcP36ao8Z7pW5cIyBVjpTz5Kh12K+Qt4fqkUA=@vger.kernel.org
-X-Received: by 2002:a17:90b:5345:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3ac9df36ea5mr3322560a91.24.1792102382660;
-        Thu, 15 Oct 2026 15:13:02 -0700 (PDT)
-X-Received: by 2002:a17:90b:5345:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3ac9df36ea5mr3322538a91.24.1792102382175;
-        Thu, 15 Oct 2026 15:13:02 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94748c6csm6168418a91.10.2026.10.15.15.12.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 15:13:01 -0700 (PDT)
-Message-ID: <2279ba71-009f-429b-a27e-dc72ab11cfbc@broadcom.com>
-Date: Thu, 15 Oct 2026 15:12:56 -0700
+        bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+        b=B4EjO+F3RrP/pnjC5tDhSRkPmvw8xi1L3Erf3Vc3YJaIEybXP4tGJQfPBjhibd3kvh
+         jYMYf3rg51NlX0z7MtbkoRehchGj30VEbPz1lF64q6xk7MAy4InaqvoUXfHp00VZDS5U
+         NAVDeSfV9M2MU3a9dkA07B3naRVF3vHVGJYW1RALp8sb+QiqTTIS2QSZvt5m4Fj+7yt9
+         d0SYIHseTKTyRetgJOQmhOHk1ZuKDCswAfRg0/S3Y18W9uuI/azujM3o1Dab+whgfYX9
+         MMmBqqKnry73vLTJmGuHwgBNPpCvR4uq6jgLaiJTqCw8ZupNtWGEAEQSIOZ6ZfsAm8ac
+         18bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792102409; x=1792707209;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JqYDkfoISzLBDwQQXR6LTyNMTE+33UYdnZftkKh0VAI=;
+        b=yS6DTYIg++9vxwzPD9jlhJIdp4YixFuUJ4GGKxjRWMPRAmqEvPXuCttGhqi/A8yj4k
+         eg7dFiF62VLk/aPU0/ErOfIrESXRPiDcaVixDk3J172lNyB0Q+G5Z7FaMHIDjjQz2kav
+         5eR7yTxoCFN8Flb3P5/pmdC9s1+pZjblBFiuSvZUHozH9atsi3d7zl4BWFRWbib+QQvt
+         mIkVJsG78qAkzLVYrWfTSZVsT9ZcHWOYJZdoygAW4owGXK18KqwnouXgFs9AsKkoJ6Ps
+         6ZhMwUi5dUutVzXs1TBCXRjUMaPWFL4gQJtAHLVXWCr6d5FusJ2COMkRxnUig+ircg5c
+         TZ5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzp25VjLdLaz+5MYozs32l8xxCcNuXdSd5YXtpFwT5YbURSraS74W6az0h6A0bLrDYvvYr6HAkebiUBXFs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgqerS3frn1PP/ilkb5IAfuLsknh2Mv1bWlRZEWegbSyVZiGBb
+	P12qG4+LHf3RcLl4PNnuY7dSsqV1QWOO2wVYIuhz5hx9BO/jqWRvfF49dMwXu5CWVSSzufYJzL/
+	SfM5GVw7a/vMdpLfYgxQuhxpHCDetxRYCCKcs6cMcKQ==
+X-Gm-Gg: AYBFou00wTy2KLQIJYvrUmY+vzV8WU4cru/v/Irj7T1SrYR6BbV235vhjlCAdbmUtmw
+	J+feXFev+RjV8yt3Az27u2apP9wFQf88I2H+CNzJuQGaaOuFV+IUCwcZRqMEiH/E6Jv9Tcnncl8
+	O15fcBo0ketNcMDOP/y0QQF8hAcEctRuCi4MBxGG4eK3YfZf4UK00DXp2yF+/exX93J+HT1I5Lf
+	gP2Vd0hOWTMHo+vDKXzJIXRJjfi0Rj7mhR6NqQWJmRM0CESso5cdB8dpJcGObhGKS/U5QrEVpTI
+	mN6a1CDYlYMt7r+ltL/VqwSQqY6eul9rOkRhRt2lRdJUW4DE2ifJ6omJy30OiVrAOs3VmuPK+/p
+	4J0lkf+lu1Od/eaN9kiCvd9JFKcUoCDYet4iuwNhHdsfp
+X-Received: by 2002:a05:620a:6301:20b0:93e:c12c:f123 with SMTP id
+ af79cd13be357-93ec12d0765mr2319680685a.79.1792102409418; Thu, 15 Oct 2026
+ 15:13:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement timestamped
- MDIO writes
-To: Nicolai Buchwitz <nb@tipi-net.de>, Andrew Lunn <andrew@lunn.ch>
-Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>, Doug Berger <opendmb@gmail.com>,
- =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
- Russell King <linux@armlinux.org.uk>,
- Conor Dooley <conor.dooley@microchip.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>,
- Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009143506.2507607-1-jjc@jclark.com>
- <20261009143506.2507607-6-jjc@jclark.com>
- <3b1a2994-5251-4800-8c61-b63d7a435b21@broadcom.com>
- <60accbd89cfaf0d4be1da5ec2fafd975@tipi-net.de>
- <CANz3_EYfcBopo=HgRioXkhoT6P+4WWpfFT7UeWkXd5eM_RNpSA@mail.gmail.com>
- <41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de>
- <68eeee64-7f62-459c-b53d-61ec04b4d8e3@lunn.ch>
- <6b5ff0aee5db9bba10828d2f949c9d67@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <6b5ff0aee5db9bba10828d2f949c9d67@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+ <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev> <atE25_ZrIQct41wt@wunner.de>
+In-Reply-To: <atE25_ZrIQct41wt@wunner.de>
+From: Vasilij <vasilij.kernel@tototo.si>
+Date: Fri, 16 Oct 2026 00:13:18 +0200
+X-Gm-Features: AclHuK9I0yDPNPLitjPqdTfv5HCtW4bWJD7j6t3Cj0jJn68j6aocr7GGsKF-5Uw
+Message-ID: <CAC=+NRGqTxz33PZL9dLPfbFbQDNvxyp3PXBSEQEmkh_Vbave5A@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Aditya Garg <aditya.garg@linux.dev>, Aun-Ali Zaidi <admin@kodeit.net>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Kerem Karabay <kekrby@gmail.com>, Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/12/26 06:21, Nicolai Buchwitz wrote:
-> Hi Andrew
-> 
-> On 12.10.2026 13:51, Andrew Lunn wrote:
-> 
->> [...]
-> 
->>> I've put together 3 patches, which do the clock plumbing:
->>> https://github.com/nbuchwitz/linux/commits/devel/bcm2711-gisb-clk/
->>
->> It would be nice to extend this and set the divider based on this to
->> give 2.5Mhz, as required by 802.3, as the default. Allow boards to
->> override this using the clock-frequency property.
+On Thu, Oct 15, 2026 at 10:26:15PM +0200, Lukas Wunner wrote:
+> I'd love to, but both v1 and v2 have sashiko findings that nobody bothered
+> to debunk or fix.  (The fix for v1 consisted of removing a callback, which
+> triggered other sashiko findings.)  I'm neither an expert on this driver
+> nor the tiny drm library, but I'd like to help improve Linux Mac support.
+> Please help me understand whether the sashiko findings are valid.
 
-Regarding the choice of the GISB clock to feed it into the MDIO clock 
-input, that's something for Raspberry Pi to comment on because I vividly 
-remember we did something different for 7211 and used a 250MHz clock in 
-the interest of being identical to the other STB chips. Your changes do 
-look correct however.
+Thanks for looking at it, and sorry for leaving the findings
+unanswered. I went through all of them; in short, the v1 finding and
+the first two v2 findings are valid. v3 brings back reset_resume with
+the error path fixed:
+https://lore.kernel.org/all/20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si/
 
-> 
-> Sure, as a net-next follow-up once James's clock lookup is in, plus a
-> binding tweak since it currently promises hardware defaults?
-> 
-> Only BCM2711 would notice for now, 10 MHz down to 2.5. Both Pi PHYs do
-> 12.5 MHz and the slower bus mainly hurts the PTP path, so I'd set
-> clock-frequency = <10000000> in bcm2711-rpi.dtsi to keep what the
-> boards do today. Florian, ok?
+v1, "memory leak of suspend_state on reset_resume error": valid. If
+appletbdrm_get_information() or appletbdrm_signal_readiness() fails,
+reset_resume returns before drm_mode_config_helper_resume(), so the
+state saved by drm_mode_config_helper_suspend() is never put, and
+fbdev/polling stay suspended. The USB core only logs a reset_resume
+error and keeps the driver bound, so nothing else cleans it up. v3
+logs the handshake error and still calls
+drm_mode_config_helper_resume(), the same way udl and gm12u320 do it.
 
-Works for me if it gets us what James want as well, thanks Nicolai!
--- 
-Florian
+v2, "missing reset_resume breaks reset recovery": valid, and not only
+in theory. v2 dropped reset_resume because the device was not reset
+on resume, but with the current t2linux 7.2.11 kernel (which carries
+v2) the Touch Bar is reset on every resume here (MacBookPro16,2, S3):
+
+  usb 5-6: reset high-speed USB device number 7 using t2bce_core
+  [drm] Initialized appletbdrm 1.0.0 for 5-6:2.1 on minor 2
+
+Without reset_resume the USB core unbinds and probes the driver
+again, tiny-dfr loses its device and the Touch Bar stays dark, which
+is the bug the patch is meant to fix. With v1 (reset_resume doing the
+probe handshake) on the same kernel the reset still happens, but the
+driver is not probed again and the Touch Bar works after resume.
+
+v2, "suspend_state leaked on unbind while suspended": with
+reset_resume back, a reset no longer unbinds the driver, which was
+the scenario sashiko described. What is left is the device going
+away while the system sleeps: then disconnect runs without a resume
+and the saved state is not freed. As far as I can see udl and
+gm12u320 have the same gap, and drm_mode_config_cleanup() does not
+free suspend_state either. v3 leaves it out; I can drop the saved
+state in appletbdrm_disconnect() in a follow-up, or it could be fixed
+once in the helpers if the DRM maintainers prefer that.
+
+v3 is tested on the t2linux 7.2.11 kernel: 7 suspend/resume cycles,
+the Touch Bar was reset on each resume, the driver was not probed
+again, tiny-dfr kept running and the Touch Bar worked every time.
+(I went through the findings with the help of an AI assistant,
+Claude; the logs and tests are from my machine.)
+
+Thanks,
+Vasilij
