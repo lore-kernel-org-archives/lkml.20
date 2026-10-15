@@ -1,188 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com [209.85.167.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C88113CF82;
-	Thu, 15 Oct 2026 00:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792023904; cv=none; b=LfJBPN/kDCBwinV5QQF1FNg7HlpT9+UOP0wFshi3fbOnGFxGdfv5pr7UtOrT1sS/qqtKXCMOmVNAn4GlC1dyglZTLLkXXTX66TgsJIyiLgd7m/k7td6wWzVw1a9rXLl4shyXQAiiPD/0Pymi6P4wIkzbvJ5WUXjeUrBsNNCE88Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792023904; c=relaxed/simple;
-	bh=Z74CIpFqSRRc46W6Aogy0/axOIHTqt2eqDMEYrxKQQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rAIH2F070abBAh95aKjuTPhs5qdDTtusbqCVaYJx/zmoqawkVuHExEHMmKAXzhQ85ESLq19tU4Dw5lZoPXttp8vHaXl9AMy8iRvQCTTpFs9EL8t5zb2tsHtX4ejaWkQtcz2H+MMImwxVPDrBNvJFjh2ApmCniEytnXEdr1VZCu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CCYALGhr; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3FC241695
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.194
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792024012; cv=pass; b=odfVQ4jawFr3ldablTs3OJHPAUBMfOLWCHJgxLVGOe7ZDWSUbOZPOk34XteXoorAXSN60ct9CJYyzmrmboaMCKySR84CCvdS381Jnl4V8Jd0WLM+4nmCvfal7Vx+XAVBfb+KdH6gzC/a900OPVz/bXaXJQohbF9AyRhuIbNx3cg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792024012; c=relaxed/simple;
+	bh=H++n+6X9C5VvpyroWHO6KdmIePZMRt4kP7lXJi1S608=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=BgKA3yPUIik7D+cZew7N3ZIXolFIUNMUh9FFN4vmgwQEADOKlDmi4sX210RF90A6bsSZWPTMjuaGU3jEVYLSqlY3pg2YXB0vKGX4Gj0+52pTm8iM6LunTYFdKknOWRkupGbNWcfNnHOMjOyRBibTQ9Chjn9+u13KIghziZL+DkE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=QJ4eocK4 reason="key not found in DNS"; arc=pass smtp.client-ip=209.85.167.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trukhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CCYALGhr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792023903; x=1823559903;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z74CIpFqSRRc46W6Aogy0/axOIHTqt2eqDMEYrxKQQ4=;
-  b=CCYALGhr0rrgoC0w/iru2zpOLNtdI86bHaGLTS+Pc4vgZSOttCf5iNva
-   b/HZOVvC5jD8iC+JIWZACLUAkkxW9s5vFj527hrvlWYWS1gkA6vd4VJvR
-   R0GvV1OPFhinSXZ2556Y/+qurgS1aoJIYMWVsAbOlT1cEFqM4cqvS+ESr
-   YrRlixwgLcyBRtiHfMsNi7VgNkuuThfu3o+RcP43G5xE3gSgeYQQW1a1N
-   pmHN9EbOtgmXWEQheE7qS5SQe0pbaEMv/eFMwGuMPu/ALpCGBZIjnMNhP
-   tKjxQXDH+8KDT9bLyZlZOgDsEEE456n8P0uxHUnHyvltH3v4OZQ+x1oZg
-   g==;
-X-CSE-ConnectionGUID: wyQFS8k/SNyQQJ2Y+ODIkA==
-X-CSE-MsgGUID: HeUbZsHVRzOvi4hqxiuVxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="673871"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="673871"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:25:02 -0700
-X-CSE-ConnectionGUID: Urepl0S1QyKgdE9VSTATJA==
-X-CSE-MsgGUID: 9mJuBg9mRCCL3pq9CP7fJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1584506"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 14 Oct 2026 17:24:55 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH9H9-00000000FQl-2kEh;
-	Thu, 15 Oct 2026 00:24:51 +0000
-Date: Thu, 15 Oct 2026 08:24:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Avinash Duduskar <avinash.duduskar@gmail.com>,
-	Anton Protopopov <a.s.protopopov@gmail.com>,
-	Amery Hung <ameryhung@gmail.com>, Jordan Rife <jordan@jrife.io>,
-	Rong Tao <rongtao@cestc.cn>, Eyal Birger <eyal.birger@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>, Jingguo Tan <tanjingguo@huawei.com>,
-	Lin Ma <malin89@huawei.com>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2 14/21] bpf: Add tracing_multi link info
- support for bpf progs
-Message-ID: <202610151004.s3b0Ih11-lkp@intel.com>
-References: <20261012154024.29423-15-leon.hwang@linux.dev>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="QJ4eocK4"
+Received: by mail-oi1-f194.google.com with SMTP id 5614622812f47-4f6dcc0e8ccso4078290b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:26:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792024010; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hyQsW9NgX8r3U+QODHEpkZCjmV94k+1e42tEPYFgejHEoJi1QzLQWyTTYIZCDY4PFd
+         4+2g6VmjNfAxMyntY4h5kA6csVdYKHplr8WVYGJqVzN5LavIz4FMSdQGAoWekp47vAc2
+         i3nVHdUpNDH1PrJGPc9xdXp413CWf5QXjyCntezFP8peerWYB/dem3NkwSPqJoAu5IMy
+         9h7Gnx00A/JdBBVejLhYa4pnpPG90G98krF4qOa5NgfmP3kQhTiAAaTkTYLxpy3P8PBH
+         u1olHTyUfKohO5gfucryJ3Qa0M/OdPkRTckqx1qeQ9j/RBxtow6NO2rC3jy8zzt6PWWi
+         5TfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=EYnWTiTFyQXGC6BI11nfHmwSHAXOSjJcKpSLcmRA1K0=;
+        fh=Kr6M4ad6Cy7trtXCb0dOjoUktr93IwQ/Xmm+pOb5vAA=;
+        b=VCAm6b6DESPspGRIeMxdGA30hV37Ma4xBu8PuJKxm16PO2ppOJUML1xrfC+2LCZf43
+         9W0YPZIQ4+iln0H839PGqNVhGkz9MsQHXUkiCeyqOQoSZViEJYG+RdnL6bqP6o2vSLXx
+         NO/tOiX9kZEDEFKvimB8XV0c4jWumEq2L7rRS9rUXc/C9t19Iq+97Gy89iNRFPyoeX5L
+         1MjfU86Lem7ET71UEw1MtKKmTzKRCYfGqDAOo+0lQf0xe127wHGPtCA3Ge4h82+mTwie
+         ifbHQo6K5wYq0z8C35NFiFa0NPq5cMjbshXrnNzOOnWkyQL3cnW0PBB/JSjAbJWHVo5M
+         oJiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trukhin.com; s=google; t=1792024010; x=1792628810; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EYnWTiTFyQXGC6BI11nfHmwSHAXOSjJcKpSLcmRA1K0=;
+        b=QJ4eocK4Pzb2wyrib5eyQts6umMjbZh1ZqjObUkiEukyt9mfkRpewqgSxHuhenDdpi
+         XLsWT47x8TpRHgaIQNQwvxMiMHHvkfj9W3q088qCGugSuR7DBHquV0CSADy3hzL1wfPz
+         +88EeySq7wdi2/vSarAdvxwrZk2yTxoN7A29A1YsQjoOozIXQAckI60VfjV4jYcUn7qS
+         kHMe/aEvln/qxJ2jKIJ5kGrfZkR4v+bPoEvqc2TVF/kj8jpxjbHfU9ve/T1eGW7v+5gr
+         F2CPvlVXIsy3rRAhsQSz9VlWkJfQGgB75w4mBEcT+4qnuwyCn0GCRx/zEbwuTDvoAf7u
+         YCaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792024010; x=1792628810;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EYnWTiTFyQXGC6BI11nfHmwSHAXOSjJcKpSLcmRA1K0=;
+        b=ttdFfJkzo0C0GPwdZEzeq+ThoN1Xpj5c1G/PVzlsdbiUz3uzn6bUx2K2zjM4zCfUH6
+         1n3XZqGr6nMDP3iDwYYuAUtruxDUG5Q+kDNWGwFNID2CHDeTfi35ZG1cbxQ3PthyouM/
+         hNGY4Cq1Bdzw/BE7yqEd2BXkW2zd2qn1T4wiEaH8HZojYylM4E0apyDiDmLGDUxSOoLD
+         x9qd7SuDTDudl2sj0UF+khw2LD7C/jSZ17FUqlX5QSyb98M1bYdprDpA3g1TPbYXAMzt
+         YHmTkWf2XeIs4QMRyrmoYQDlvE5vLZ48x4oOAukkJb78ZVM2BK6W91143orysDrzjKW/
+         qqTA==
+X-Forwarded-Encrypted: i=1; AKwUvByDHxQq152fwW9tEtOuQkIT4PoYwHxWs8q4tT1QWNx1Glk2NeoNR3Ce6sHP4tKUIT4OKMqtw6rg/VoEz68=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLg8VVxvwjCuxIrl8v9vcUJDjs0RG3T5yit3SI8mjipT5gTnNLx
+	yqf5xP36efekTBHRaCbu9txSA19rFrU6y7DZ5hF4c5Ep3gicTvXXgC3zhpRuE6NK5bUWhMi3THI
+	BeOgZ1mmL0tG3oIBLj9veKGb9NUGgUyiXpClbHUfCxg==
+X-Gm-Gg: AYBFou015VO2Du9lQmcv4MyBhqrEJHtj4bkzvImUUeXZL+HsZtyca2cEIL+irueP2YD
+	xQB6dqVletNH4jXsPa5K8/jMUcX1/WVq83uSWFTSJN9MUFO0LKdhq4Y/MOpx68ngRZivg8jt8S3
+	UiJpOook3hzIYOflvSiDy83wYufUkEO/Y2C4u255+Hq9fooVgbY11xLMAGFpS50ROABCieoCubg
+	VQjroOvlfyiN3HT9u6xYHHqCk8BFJ8JtwbwUWGgNSzIrCIZV9p3YUphaL6YSzOrnMPKHUvHVlwO
+	5Rd/3NYpB4Rtq7gY6b5z5A2KBA0UX4WVP+xvVRm5N/Wn+xExuFtzHLipdivoxCwynBD0ARGug1V
+	0XQhoq2h7YE1q0zIQWsd1SOfQEoUG/PIChw==
+X-Received: by 2002:a05:6808:221f:b0:4b2:8e26:bdd2 with SMTP id
+ 5614622812f47-50b5c4ecebemr13933676b6e.16.1792024009676; Wed, 14 Oct 2026
+ 17:26:49 -0700 (PDT)
+Received: from 121308794542 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 19:26:48 -0500
+Received: from 121308794542 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 14 Oct 2026 19:26:48 -0500
+From: Iurii Trukhin <yuri@trukhin.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012154024.29423-15-leon.hwang@linux.dev>
+Date: Wed, 14 Oct 2026 19:26:48 -0500
+X-Gm-Features: AclHuK91BdsMHJVbU4wd9iqYKa580uSZ-OhEQncSjljqKAdBVeh9GoyP5sy8tOU
+Message-ID: <CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com>
+Subject: [PATCH] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Kees Cook <kees@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Iurii Trukhin <yuri@trukhin.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Leon,
+Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
+setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
+bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
+for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
+still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
+was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
+when 39-bit VA was the 4K default.
 
-kernel test robot noticed the following build warnings:
+Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
+pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
+randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
+ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
 
-[auto build test WARNING on bpf-next/master]
+Closes: https://github.com/KSPP/linux/issues/371
+Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
+---
+ arch/arm64/Kconfig | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Leon-Hwang/bpf-Initialize-ftrace_managed-in-bpf_trampoline_get/20261012-234003
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git master
-patch link:    https://lore.kernel.org/r/20261012154024.29423-15-leon.hwang%40linux.dev
-patch subject: [PATCH bpf-next v2 14/21] bpf: Add tracing_multi link info support for bpf progs
-config: i386-randconfig-1011-20261013 (https://download.01.org/0day-ci/archive/20261015/202610151004.s3b0Ih11-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151004.s3b0Ih11-lkp@intel.com/reproduce)
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a695f5..59a53d7a75c5 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -313,6 +313,11 @@ config ARCH_MMAP_RND_BITS_MAX
+ 	default 16 if ARM64_16K_PAGES
+ 	default 18
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610151004.s3b0Ih11-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   kernel/trace/bpf_trace.c: In function 'bpf_tracing_multi_link_fill_link_info':
->> kernel/trace/bpf_trace.c:3755:32: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-    3755 |                         addr = (u64) mnode->trampoline->func.addr;
-         |                                ^
-
-
-vim +3755 kernel/trace/bpf_trace.c
-
-  3708	
-  3709	static int bpf_tracing_multi_link_fill_link_info(const struct bpf_link *link,
-  3710							 struct bpf_link_info *info)
-  3711	{
-  3712		u32 __user *fids = u64_to_user_ptr(info->tracing_multi.func_btf_ids);
-  3713		u64 __user *ucookies = u64_to_user_ptr(info->tracing_multi.cookies);
-  3714		u64 __user *uaddrs = u64_to_user_ptr(info->tracing_multi.addrs);
-  3715		u32 __user *uids = u64_to_user_ptr(info->tracing_multi.ids);
-  3716		struct bpf_tracing_multi_link *tr_link;
-  3717		u32 ucount = info->tracing_multi.count;
-  3718		bool has_cookies, show_addrs, has_progs;
-  3719		int err = 0;
-  3720	
-  3721		if ((uids || ucookies || uaddrs || fids) && !ucount)
-  3722			return -EINVAL;
-  3723	
-  3724		tr_link = container_of(link, struct bpf_tracing_multi_link, link);
-  3725	
-  3726		info->tracing_multi.attach_type = tr_link->link.attach_type;
-  3727		info->tracing_multi.count = tr_link->nodes_cnt;
-  3728		info->tracing_multi.btf_obj_id = btf_obj_id(tr_link->link.prog->aux->attach_btf);
-  3729		has_progs = !!tr_link->tgt_progs;
-  3730		info->tracing_multi.flags = has_progs ? BPF_F_TRACING_MULTI_TGT_PROGS : 0;
-  3731	
-  3732		if (!uids && !ucookies && !uaddrs && !fids)
-  3733			return 0;
-  3734		if (has_progs != !!fids)
-  3735			return -EINVAL;
-  3736	
-  3737		if (ucount < tr_link->nodes_cnt)
-  3738			err = -ENOSPC;
-  3739		else
-  3740			ucount = tr_link->nodes_cnt;
-  3741	
-  3742		has_cookies = !!tr_link->cookies;
-  3743		show_addrs = kallsyms_show_value(current_cred());
-  3744	
-  3745		for (int i = 0; i < ucount; i++) {
-  3746			struct bpf_tracing_multi_node *mnode = &tr_link->nodes[i];
-  3747			u32 prog_id, btf_id;
-  3748			u64 addr, cookie;
-  3749	
-  3750			bpf_trampoline_unpack_key(mnode->trampoline->key, &prog_id, &btf_id);
-  3751	
-  3752			if (!show_addrs)
-  3753				addr = 0;
-  3754			else if (has_progs)
-> 3755				addr = (u64) mnode->trampoline->func.addr;
-  3756			else
-  3757				addr = mnode->trampoline->ip;
-  3758			cookie = has_cookies ? tr_link->cookies[i] : 0;
-  3759	
-  3760			if (uids && put_user(has_progs ? prog_id : btf_id, uids + i))
-  3761				return -EFAULT;
-  3762			if (uaddrs && put_user(addr, uaddrs + i))
-  3763				return -EFAULT;
-  3764			if (ucookies && put_user(cookie, ucookies + i))
-  3765				return -EFAULT;
-  3766			if (has_progs && put_user((u32) mnode->trampoline->key, fids + i))
-  3767				return -EFAULT;
-  3768	
-  3769			cond_resched();
-  3770		}
-  3771	
-  3772		return err;
-  3773	}
-  3774	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
++config ARCH_MMAP_RND_BITS
++	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
++	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
++	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
++
+ config ARCH_MMAP_RND_COMPAT_BITS_MIN
+ 	default 7 if ARM64_64K_PAGES
+ 	default 9 if ARM64_16K_PAGES
+-- 
+2.56.0
