@@ -1,67 +1,36 @@
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E95F5226B6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A95C4BD360
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069368; cv=none; b=XqIJeBt8oMfSr1gQjiUtkpu9R4FxZCQ4OHrvs+dSCbx5GVH7vgu5LWB5n/kenL6vOZqinnNsoAaFfFj5Q6p8qXuDwZUDNF93pxH8G2XngvgA4aZ3LpAzwDxmiU3++CnUWoXsEtETMqaNElCeUBWKroAAjhnW/WUbKhw9dSBrtC4=
+	t=1792069384; cv=none; b=OXAe6KKKUQ9Rk7Oixhy3SHOEUNFgmjyo0MhEWl4vPTnzFDRS2BbUrfQ8j+N6EhWMku76KNZt9iWsorqZ6cP1n551cAejSICwobcp/0FgnKrIplrt/J4TWt4G3NeaMjPlZ8H+O3NzvA0xWSGLJtKX+aUV9HRqOaNCSN/poE/waAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069368; c=relaxed/simple;
-	bh=sNHkM2NSJVz1FH0SzB8TgpwxSIcu6W92qD2xJF5gKMI=;
+	s=arc-20240116; t=1792069384; c=relaxed/simple;
+	bh=VdVodvPg3p6dDjQ9jUKaUEb04QaunJ71hLYZPi/ddKE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q8yorY2Cn5ooub0pp+ciJiGvWquw5aJ3+xXynmtvCMaIrY58vdgkZJ9XapGr3Yj5pzHEISWzBUwz/rwQ6Q8aqrnva9h7b9fFX+2ed5CN8hA/rPngZMqJxj7CHGICDObJTz2LNeMbj2loRooH+yck46iI1JmHZTlTikO4k3Nsy90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pvlGVDHB; arc=none smtp.client-ip=209.85.167.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 In-Reply-To:Content-Type; b=VhNXDSIA14211AoOJft306Eowzvw7OpJ6Qgwj41Kmqu2LeRasBVJnkNDiuCIRRLjuLWbxSicrUCtO9raomRHbbQpkYIt7tt9IlOsHQYMA82sT9fITm7Qj/lcVLkvZ/8Wiq/bu6OfkzWG1G58p8YCGKLsCwFGSEcyh6JGp8TIYxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RZmlHshl; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pvlGVDHB"
-Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so3328837b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:02:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792069366; x=1792674166; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=at9NDBQGEaYtN0ifydUv/WOhJYVf5LHHhPf50pPTXz8=;
-        b=pvlGVDHBZX0vieQEbBCSmfO+0tX7LhcWO1Ck/yHebhBhSLj+M1w/MYwdCZYaZTw1dY
-         F+L4U+qA7O5uRbSeXSPof15nopieIrkDdSwjLA3NwyiYLPceH0Xwrke72Muue2rfnNnB
-         flggkYggYa8tZqFFXL6atV4qYewvDqRCX13mDfFRMdYoWsZA+tXY6J9egHEfnq7zSkvV
-         0G3uGCNC3hHZGisB7ApD7ax37NgJJ9oeLZOtVSRhZW2Qn1eG6ZAwsls0O4bT3RC3sOE4
-         8dOjaibkNGBUEZ9p4fkegE4aqLzdhuU1nTxP1ZbUiG7F9Bd7eDgkvV1xT1ysJywP/DK4
-         qHJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069366; x=1792674166;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=at9NDBQGEaYtN0ifydUv/WOhJYVf5LHHhPf50pPTXz8=;
-        b=bLRIwdN8ma5qGC2x/m/yY+26BemyaEOHbCgfyS6pRvq4/XNNJ8GlDNe0Ceo34/PUla
-         bjol4I/e+2a1GhXNj7ae5RrhgkO10HYZbrYM7VsT386hfElG54iw2FdArgGkJ/yYQFdL
-         alWftFbVfSu3vxc26YRsqco3w9sagqzLTbwz2B64ZSysChhKz82BJBaWkioUdv6IQ38o
-         jvphAZxpZh4NvPZM1efYBVV7ZhwExS0xpFFc+/+hSCpuCvsGSwIfqKB/ipcgw/hoRpbT
-         kgFYazxpahzaWM/TAHprUdTi6p/cIHBG1E6q0XmhUM3e9bmrFajfwsUR+UxMYUq7VgZ9
-         4SsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkSOsypgfZVqC5ptzWMdeRUoNpN+vJ7DFwGUf6YFMaqZbCKm/hGKH5QLSeGgrIBi/ev1SnX+1zs0GHVWo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5Hl1KTG1ru5JImmghukUTqkl56FbAK9kpLFA2U9atDITtXxJE
-	L/A76vdNNmCJ9Kr8SGj2Oaz9uyUNt1Akh5t9D0AB9jbZfsCauEo52cyhMFDWkVGLBsw=
-X-Gm-Gg: AYBFou31lHdH4h6DZWgKJfbhJXBPROit6CsJ4IRapU8Rmb5Rd+hxxNdg3I2oDTi6tPR
-	I6utcll1BXZox+tJZQxJMminT07gDZrQ+si5EscKPPWOZAOJA4Nwj+bODhN0naq202GtP7OsBkb
-	4OiMaXdSxLVGIkCcqYQ2rsxDKsvXBSxQfUThP8k/k8SF0Sqt/+qfZz7pCuWN/PDsGTklfN6xCD7
-	Embeb0ps1CaSgh6zqkUdSH0Rjei+O0CLZ8ef3BZtV/eD5RJzIFe01g4Ha2rTTNaFmcf81xQng2T
-	ll0+Q94zX3LGHDcsvNd8ysmOBVWl5FmZvx6UEmWJMvxnqYQQ1U0RQfUH93HIpw13uTKRC+uYV7e
-	WjtGjp6RnOoULzh265mdD2BOs+TiiVbl5jMOhByol5BOLLaTqGa9qWp11czU1yej2vYDZD/rAl8
-	oPuEXz4/mHbqfIdvmzp5U6Ju5ATggoGOkuviZulnukdBW4hnD5Cab9Ja43paU47cebfzGEuxB/n
-	lN/EqIJCCnc8hLa8fqHZjSfilT9Fu8VPa/hqOtrCISF0VQb
-X-Received: by 2002:a05:6808:15a9:b0:4f1:7cd5:8e0b with SMTP id 5614622812f47-50c4dfb9a1cmr17338045b6e.22.1792069366316;
-        Thu, 15 Oct 2026 06:02:46 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:7a64:39ea:e5ac:f974? ([2600:8803:e7e4:500:7a64:39ea:e5ac:f974])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1a325a38sm19891522b6e.12.2026.10.15.06.02.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:02:44 -0700 (PDT)
-Message-ID: <92a8384e-17d1-47e6-bebd-406941f349f1@baylibre.com>
-Date: Thu, 15 Oct 2026 08:02:42 -0500
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RZmlHshl"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VdVodvPg3p6dDjQ9jUKaUEb04QaunJ71hLYZPi/ddKE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792069380; v=1; x=1792674180;
+ b=RZmlHshlVdI7h8o4NDOlXIVeAXJzSXphNENBO7VVV0Kyx9uAzGB4mOQhyteuaTZO+7QdRJuK
+ MAt451h2Z/8ZWRWfOTnZiMFKDqHyMwdRP3RpI729GlgbNQAxucqjE81kdRQ3u8AJXxLZFaTVgo2
+ e6r1rhRXL4eKm0pTUhnAkw+4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5f4e01ac4f981c2e;
+	Thu, 15 Oct 2026 13:03:00 +0000
+X-Mizu-Trace-ID: 5f4e01ac4f981c2e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0bd7f6ff-3675-4447-a62a-a2047241e3e6@linux.dev>
+Date: Thu, 15 Oct 2026 21:02:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,46 +38,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
- <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
- <as47IMM9rtBCAH0-@ashevche-desk.local>
-From: David Lechner <dlechner@baylibre.com>
+Subject: Re: [PATCH-next v3 1/9] cgroup/cpuset: Fix a missing isolated_cpus
+ update in update_cpumasks_hier()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hui Peng <benquike@gmail.com>
+References: <20261014140548.575122-1-longman@redhat.com>
+ <20261014140548.575122-2-longman@redhat.com>
 Content-Language: en-US
-In-Reply-To: <as47IMM9rtBCAH0-@ashevche-desk.local>
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261014140548.575122-2-longman@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 9:07 AM, Andy Shevchenko wrote:
-> On Fri, Oct 09, 2026 at 06:25:52PM -0500, David Lechner (TI) wrote:
->> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
->> the gpio-controller property is present.
->>
->> Pins that are already used for something else according to the
->> devicetree are excluded from the valid GPIO mask. This includes analog
->> inputs and excitation current outputs used by channels, REFP/REFN when
->> an external reference is used, the /FAULT and /DRDY interrupts and the
->> external clock input.
-> 
-> ...
-> 
->> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
->> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
->> +						     dev_name(&indio_dev->dev), i);
->> +		if (!data->gpio_names[i])
->> +			return -ENOMEM;
->> +	}
-> 
-> I am sorry, I still didn't get what's wrong with the dash (technically
-> speaking)? So, this may use devm_kasprintf_strarray().
-> 
 
-Nothing technical per say. I just want it to match the datasheet pin name
-without the extra character in the middle of it.
+
+在 2026/10/14 22:05, Waiman Long 写道:
+> It is found that when a local isolated partition is being invalidated
+> because its root partition parent is no longer valid, the isolated_cpus
+> cpumask may not be properly updated. If the parent was previously
+> an isolated partition, its invalidation should have properly updated
+> isolated_cpus before and no action will be needed.
+> 
+> Fix that by calling isolated_cpus_update() in this invalidation case
+> to update isolated_cpus. A test case in test_cpuset_prs.sh is modified
+> to test that.
+> 
+> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c                        | 19 ++++++++++++++-----
+>  .../selftests/cgroup/test_cpuset_prs.sh       |  4 ++--
+>  2 files changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 0ebba2d646c3..6b5c870e5607 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2229,7 +2229,9 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  		 * cpuset if the parent's effective_cpus changes.
+>  		 */
+>  		if ((cp != cs) && old_prs) {
+> -			switch (parent->partition_root_state) {
+> +			int parent_prs = parent->partition_root_state;
+> +
+> +			switch (parent_prs) {
+>  			case PRS_ROOT:
+>  			case PRS_ISOLATED:
+>  				update_parent = true;
+> @@ -2238,11 +2240,18 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  			default:
+>  				/*
+>  				 * When parent is not a partition root or is
+> -				 * invalid, child partition roots become
+> -				 * invalid too.
+> +				 * invalid, child partition roots become invalid
+> +				 * too. For an isolated partition with root
+> +				 * partition parent, isolated_cpus_updated()
+> +				 * is called to update isolated_cpus.
+>  				 */
+> -				if (is_partition_valid(cp))
+> -					new_prs = -cp->partition_root_state;
+> +				if (is_partition_valid(cp)) {
+> +					new_prs = -old_prs;
+> +					if ((old_prs == PRS_ISOLATED) &&
+> +					    (parent_prs == -PRS_ROOT))
+> +						isolated_cpus_update(old_prs, new_prs,
+> +								     cp->effective_xcpus);
+> +				}
+
+I tested switching a parent partition from root to member and found that
+CPUs can remain listed in cpuset.cpus.isolated. CPUs 0-15 are online, with
+nohz_full=2-15 and no isolcpus:
+
+    # cd /sys/fs/cgroup
+    # echo +cpuset > cgroup.subtree_control
+    # mkdir A
+    # echo 1-2 > A/cpuset.cpus
+    # echo root > A/cpuset.cpus.partition
+    # echo +cpuset > A/cgroup.subtree_control
+    # mkdir A/C
+    # echo 2 > A/C/cpuset.cpus
+    # echo isolated > A/C/cpuset.cpus.partition
+    # cat cpuset.cpus.isolated
+    2
+    # echo member > A/cpuset.cpus.partition
+    # cat A/C/cpuset.cpus.partition
+    isolated invalid (Parent is not a partition root)
+    # cat cpuset.cpus.isolated
+    2
+
+A is now a member and C is invalid, so cpuset.cpus.isolated should be
+empty here, but CPU 2 remains.
+
+Thanks,
+Guopeng>  				WRITE_ONCE(cp->prs_err,
+>  					   is_partition_invalid(parent)
+>  					   ? PERR_INVPARENT : PERR_NOTPART);
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 7efd5e645767..874a8a161236 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -292,9 +292,9 @@ TEST_MATRIX=(
+>  								       A1:P0|A2:P2|A3:P1 2-4|2-3"
+>  	"   C0-4    C1-4  C2-4     .    X2-4  X2-4:P2 X3-4:P1   .    0 A1:0-1|A2:2|A3:3-4 \
+>  								       A1:P0|A2:P2|A3:P1 2"
+> -	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
+> +	" C0-4:X2-4 C1-4:X2-4:P1 C2-4:X4:P2 \
+>  				   .      .      X5      .      .    0 A1:0-4|A2:1-4|A3:2-4 \
+> -								       A1:P0|A2:P-2|A3:P-1 ."
+> +								       A1:P0|A2:P-1|A3:P-2 ."
+>  	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
+>  				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
+>  								       A1:P0|A2:P2|A3:P-1 2-4"
+
