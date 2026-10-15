@@ -1,126 +1,161 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752CA372661
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3B843B49D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792093659; cv=none; b=ux7ttXAfBmdP8lbtRd9cBP+qju/Vs0cxpZcPE8HgWSJLRHqfzWFEz/Pzrz4bR24QAJjHZ9cEvJhOfrxLDiNg3xPFW7pxEqOYjqGmZKrmCX9EktDWhjBDxZWCR5OULIzOPmJQvG5mkcWt9FDW3OKTnsLF2LZG5cANBus4MOocIZ8=
+	t=1792093667; cv=none; b=i1sJUfP061B8ToR9AkWJKTcZSrw8tYUv1UgG21Fdxqa+KXdPj4O5IyR4w3l4UhZ4Kf+c3ov7BTUUkEbUsosJtnA3Z8ozpT/AFX522Q0XgyEK8LOMXAf3raIKjHBGkpI3nGyCZ1kaC91caeL4lkeAGHS4BI7uMZE8MKhNo1vXKL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792093659; c=relaxed/simple;
-	bh=rEzZFF3roU9aTVZ9/CO59TibiUooKjnCPKswifSLXUo=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=XXyLK0htswj4yGoPRi4vEfkwtgBTYc2zx9fr3ZGvetXmnpTQn/SmeGB+WK/sonklsuE/V/XC3Z8Jc+kkUjj5F37lehfPivJ1AadXJtEmpB1qBsNPha5IV4H28UCALOK8nlcxveAkDGmqpzwISK8ZZMi/5p92uNfiK1fq7HygueQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=j/xQ8388; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1792093667; c=relaxed/simple;
+	bh=Lvu8bhCvl4Gx6QrlBiKWXsLgcVGs4226pEjWm6a8HHQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GXlQwkNbIgIJkKGiqWZ3FI8OXtoMwCsiGIdsn5rVpGcS7gqCPZxtVBvGSx81woC9Zbza849Hm3EqjzD8GAQso5QkZNmYHFkM55qJvmMCSHUdkTkdNwnq8hurxNgDL3Xc8wgB6uediFKIXytfu4Pi2b9/KLVZ2Idc757dQ1EqWMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XyNNeGor; arc=none smtp.client-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="j/xQ8388"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 87A6A81043;
-	Thu, 15 Oct 2026 21:47:34 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 9Diwc9Re1lGn; Thu, 15 Oct 2026 21:47:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792093653; bh=rEzZFF3roU9aTVZ9/CO59TibiUooKjnCPKswifSLXUo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=j/xQ8388pn3sZMK4saWSF55ZYjCUe16chydMwkSrSE2RGaeI3LK0MkCqwFisOYAJG
-	 BAfGhY0c+b29/Zj/Tz6AoErq2ZHYH1Zsb68FWk+w/Zl83M5fAzxMpsd1YdF0SQvQJM
-	 eE8LZO+IN80wShucwt+NZFAlJLDshvwqBIP/BeO7gWl8wkwsz8pYzVwuFVJDOsc2Yk
-	 ZZxeMpsA8j40Xznf4KRnh+TASBiLBN/wqc1yy2CdO3aABm1D2sbcNsauBIS9ij0Yri
-	 xf7jfjJf5q0q2Ou42AjodD6ewb+SGdOBePRZcUum2UNf85EXOO5HcTS3nG0QTWchSg
-	 8Cac7cSXGKugw==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XyNNeGor"
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-8253bc5a613so1810782a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1792093663; x=1792698463; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YLyXpqOX1Wq1Gtt7ggrKXwSvKZc+5L4zCwwVoXGTvF0=;
+        b=XyNNeGorFjM9Q41WaNkCf0rWHRsAGsFzOT6/Nuc0b1BACAt8GDi4T8EkQAjaao+Vt1
+         BbqRbGH62my38643lBz7aGIjZj50drVFyiqzqPcrCF9bGRTdB6Uy/EieRWAZ/li/BJ5x
+         lM0E/Q0i3ncSSB//1PU1xoHloUIvdkmsFobtM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792093663; x=1792698463;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YLyXpqOX1Wq1Gtt7ggrKXwSvKZc+5L4zCwwVoXGTvF0=;
+        b=I0vXbckcyL7TDhs59HInCMyOIUTqgypoasd3ImDebas/KIuSp4gIWKlvtIuujxjJdK
+         EgzrneRr8mmEeygsMKeo/qBn2DOdCp6MNxszkGvwWloGzewJQchvxbOzOQKQrfx9nkaA
+         VZ9E5Zudi85KnMfLXdronGDkqhDnjSOJSUJuyBYzuLKYRuldrTB8gDMF2d78od8FLol5
+         G2qqWPiKz6LcjmXr2gHJkV0fxh7gYm+KyYKHZo2ESRCJF688UvTAKmNxUS4hPauizExc
+         /5TRIACWhKJG9rfZt4Q/LNKSR4PfNkk3he35jZ3pSopU9u2du/g67FzVLMLRATkYY5Kg
+         V3iw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvDXzmVsdQ9/9lWwhcYSNzxWrWzWGJDBr/qLvED1jHOFi1aebTNv2nxDp9CsLx+Abt5LUYdlEumrlHXJc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKWFudbNh8llI9h5n4o6nDTnP7/tUtJaEDdJMegTLGkV2fHohT
+	5vVxrL/3psy3Hw5Y0IMKUuZdiwGcWru4BMPabFlsznGsnIYKi92lrvNAShwkLQU7sTY=
+X-Gm-Gg: AYBFou2bP8KZ3/3DDYeGdAnjL+iK19FH63spa5Up7db5W1WkC+WN3yw2XEVJsWoFp/x
+	y583LNl6v4a8lu4LyrN9pVN128veQWmtlimnZmkONW6wX9ppxr0aZ2ECS0Evks4Uxtf5lAFOemp
+	al5jHnT4Uvux39LTB5H1ia9DKYE96gs6IvCUK3YWS03ZZrXZe9gP49bt0grmYDD1J1jUTUUGfus
+	ybZuEbXrmK7UrPXK4QTnEXbWg7fzIgpTy0GNgVvLCBJKvVjiBsvDkSqVl1WxGXwqWq2UYB2sz10
+	3H8Y8YZMO+rTY4BIBxvO9Gn7xJmzMQn7k3oKxg4ZbIXTbQQ+vmick4mfjXHVkNgp9pBYYJA4s9I
+	QZU5z+JTKuk14s/9HHuZoU1kA+k+RAVbESbGLwkBpbRIQoCun1EmiyXrnjjV2bn/sksKmg9RxQo
+	9+fvIgZy3cBAYf24Nv0G5TMzukqjUhBTssMBprqrnbb+tOD7dqL+Ea3NMDtHOo0ADoyoa/P2rTi
+	CB4qn8=
+X-Received: by 2002:a05:6830:43a1:b0:7f6:96ad:36a8 with SMTP id 46e09a7af769-83094798f74mr18262866a34.8.1792093662804;
+        Thu, 15 Oct 2026 12:47:42 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a7003d35sm36481a34.26.2026.10.15.12.47.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 12:47:42 -0700 (PDT)
+Message-ID: <2fcf2983-0972-427b-ad05-b403e325ce40@linuxfoundation.org>
+Date: Thu, 15 Oct 2026 13:47:37 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 19:47:33 +0000
-From: Rustam Adilov <adilov@disroot.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Stanley Chang <stanley_chang@realtek.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>, Manivannan Sadhasivam
- <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v8 3/6] dt-bindings: phy: realtek,usb2phy.yaml: extend for
- resets and RTL9607C support
-In-Reply-To: <1106b5dd-5453-46e4-90a4-7c7673cd4dd3@kernel.org>
-References: <20261012173739.36377-1-adilov@disroot.org>
- <20261012173739.36377-4-adilov@disroot.org>
- <1106b5dd-5453-46e4-90a4-7c7673cd4dd3@kernel.org>
-Message-ID: <d71a544ad34c34ac4db7dc8fd8004245@disroot.org>
-X-Sender: adilov@disroot.org
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] Start removing X86_X32_ABI
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>, "Maciej W. Rozycki"
+ <macro@orcam.me.uk>, Bill Wendling <morbo@google.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Jonathan Corbet <corbet@lwn.net>, Justin Stitt <justinstitt@google.com>,
+ Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Richard Purdie <richard.purdie@linuxfoundation.org>,
+ Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>, Tomas Glozar <tglozar@kernel.org>,
+ Willy Tarreau <w@1wt.eu>, x86@kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-13 06:05, Krzysztof Kozlowski wrote:
-> On 12/10/2026 19:37, Rustam Adilov wrote:
->> Add the "realtek,rtl9607-usb2phy" compatible for USB2 PHY on the RTL9607C
->> SoC series.
->> 
->> Add a resets property to properties to describe the usb2phy reset line.
->> 
->> In RTL9607C, USB2 PHY reset line is from "IP Enable controller" which is
->> multipurpose and handle activating various SoC peripherals.
->> 
->> It is unclear whether RTD SoCs have something similar to that so set
->> the resets to false for these devices.
->> 
->> RTL9607C requires the "resets" to be specified so add the corresponding
->> if check for the "realtek,rtl9607-usb2phy" compatible.
->> 
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+On 10/15/26 12:47, Sebastian Andrzej Siewior wrote:
+> Patch #2 prepares the removal of the X32 ABI and has the broader
+> reasoning. Patch #1 removes x32 from the selftests because it does not
+> have a depends on and assumes x32 to be always available on x64 and so
+> it breaks.
 > 
-> Please use scripts/get_maintainers.pl to get a list of necessary people
-> and lists to CC. It might happen, that command when run on an older
-> kernel, gives you outdated entries. Therefore please be sure you base
-> your patches on recent Linux kernel.
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> ---
+> v4…v5: https://patch.msgid.link/20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc
+>    - reword commit message for #2 as requested by hpa to state that this
+>      is the last warning.
 > 
-> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-> people, so fix your workflow. Tools might also fail if you work on some
-> ancient tree (don't, instead use mainline) or work on fork of kernel
-> (don't, instead use mainline). Just use b4 and everything should be
-> fine, although remember about `b4 prep --auto-to-cc` if you added new
-> patches to the patchset.
+> v3…v4: https://patch.msgid.link/20260813-x32_removal-v3-0-e8f96cd15478@linutronix.de
+>    - Depend on BROKEN instead of removing it.
 > 
-> You missed at least devicetree list (maybe more), so this won't be
-> tested by automated tooling. Performing review on untested code might be
-> a waste of time.
+> v2…v3: https://patch.msgid.link/20260707212252.bYk3-AlU@linutronix.de
+>    - added a nolibc-selftests patch to not break it in their setup since
+>      it does not depend on the symbol.
 > 
-> Please kindly resend and include all necessary To/Cc entries.
+> v1…v2: https://lore.kernel.org/r/20260523093734.A3AR7reJ@linutronix.de
+>    - reworded commit message
 > 
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>
+> Cc: Bill Wendling <morbo@google.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Cc: Jonathan Corbet <corbet@lwn.net>,
+> Cc: Justin Stitt <justinstitt@google.com>
+> Cc: Nathan Chancellor <nathan@kernel.org>
+> Cc: Neal Gompa <neal@gompa.dev>
+> Cc: Nick Desaulniers <ndesaulniers@google.com>
+> Cc: Richard Purdie <richard.purdie@linuxfoundation.org>
+> Cc: Sam James <sam@gentoo.org>
+> Cc: Shuah Khan <shuah@kernel.org>
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Thomas Weißschuh <linux@weissschuh.net>
+> Cc: Tomas Glozar <tglozar@kernel.org>
+> Cc: Willy Tarreau <w@1wt.eu>
+> Cc: x86@kernel.org
+> To: linux-kernel@vger.kernel.org
+> To: linux-kselftest@vger.kernel.org
 > 
-> Please use subject prefixes matching the subsystem. You can get them for
-> example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-> your patch is touching. For bindings, the preferred subjects are
-> explained here:
-> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+> ---
+> Sebastian Andrzej Siewior (1):
+>        x86: Start removing X86_X32_ABI
 > 
-> There is never "yaml" in any prefix. Don't come up with own style.
+> Thomas Weißschuh (1):
+>        selftests/nolibc: remove the x32 testcase
 > 
-> 
-> Best regards,
-> Krzysztof
+>   arch/x86/Kconfig                               | 2 +-
+>   tools/testing/selftests/nolibc/Makefile.nolibc | 6 ------
+>   tools/testing/selftests/nolibc/run-tests.sh    | 7 +------
+>   3 files changed, 2 insertions(+), 13 deletions(-)
+> ---
 
-Oi, i am very sorry about that. I am using the scripts/get_maintainers.pl
-command from [1] and it only covers the last commit which was not the one
-touching the realtek,usb2phy.yaml so it didn't get any of the device tree
-people. I don't exactly know if i can get it to output full maintainer list
-in the context of patch series in one swoop without running it across every 
-single commit and then manually combining all. I think that is what i did in
-v7 and prior versions and forgot to do it here.
+For selftests:
 
-As for the yaml prefix, will remove it.
+Acked-by: Shuah Khan <skhan@linuxfoundation.org>
 
-[1] https://kernelnewbies.org/FirstKernelPatch#SubmitPatch
+Do you plan to cleanup x32 checks from selftests/x86 Makefiles?
 
-Best,
-Rustam
+thanks,
+-- Shuah
+
+
