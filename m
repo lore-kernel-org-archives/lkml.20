@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7231F27057D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6112533993
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100501; cv=none; b=bteNU7iSFAC87OXg5wG00ku0EeqV1Q4niyfboTPkB1QkYWPZ4Pcc0aCewS3MNEk/zr3OHNFHQ9ZNa6LhgGyk91XgqIHXVYp1AxIGlWOxRFXdqiBPFomhdUKMw/l7hXrpKPN3bODUY0BKbl6Dvt9cJBtzy1iiVsQBWhDacnXyg6s=
+	t=1792100502; cv=none; b=mj031xgFZp88UevKEnxAk0YMlPrpGHFgJel0KNn9PfMFS79m3f1vkIacI0nYAFJieytbZ/fThMTF42RrrcKyIscegcxY+AKW8N8XyEUhYxyKuSHEE5gDuxpgE8gP0IUN+vLggkTieuppqUAGmzsUqan1Kwnuyn23OBvMDCoV2J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100501; c=relaxed/simple;
-	bh=EH+YW4yVUGVC7Gm8MWPew6OlYDNDHDM/sWd0yCJvsWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QReN3sOLHiGjRHdJc/yjyxCBiUGLShpw20AQFu2Y+S8ZBsyWxP3FhNmVxY7xh/6rcqjci4wXkGMSH1O05DMeSAqvyKVIEkCto8e87/s7oeVhEpBlge9iKgskHVM3lggK606agA/JpYEnjoiiJeFZ/3RelA9bWFL3h/tWpzr7L7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k3yLaJnr; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1792100502; c=relaxed/simple;
+	bh=jqh4GAjuZHvXurWqwsVOxX/o/cXPCWNBhJ0glYD7zSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jg6cY6ypiNfOtg/hofVBqRG8RplaoVLfDkFh5A5z9k7KKHjQJZBjYgPnfSRad+OKaN7n38Xl+cAxRw2aWN5iRjiJCQ6tVApNaaXVcm9f9nlrFaL/H/n6owt77owTDijiqfC+H/avLgdnoB5G6WbNrhpHzSkzuIxNL+X5eP4rdmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gMc+xYBQ; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k3yLaJnr"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gMc+xYBQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792100500; x=1823636500;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=EH+YW4yVUGVC7Gm8MWPew6OlYDNDHDM/sWd0yCJvsWY=;
-  b=k3yLaJnrIfFYtB19lbm5RkG0ZHOyTRXF7Cg7l9rSZKdlNvm0N2kzsAmC
-   o91dUnREAMkSL5x+/1pW4jP+7rwVVkACUlppXF98Q3tAKPr7ss2Jx0Mj0
-   7bvVQuGWbLViJDiL6RlcfF14sxfjyZ3CpLshiCkV7tM6xbp8CylXHGtGz
-   rKXAGiEfKMvR5EDOuR5y7uetrI4BePwprZrtpZHCGYmGd75s0Yaaj7E0e
-   92ofY345dDapJmwmnq7QAnJUlpHHx3YGASHpydlFDme2/Tg+VYigBy07m
-   N2r+BYAy6mdCw6GK622eMnRMEjh4PpiPhVM3myGeYJL2SPpaMLdkdq5y3
-   w==;
-X-CSE-ConnectionGUID: noM3aiBvRAe6JaukwqBt9A==
-X-CSE-MsgGUID: IW4z9YeiSB6/jxEj462X5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="902103"
+  t=1792100501; x=1823636501;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=jqh4GAjuZHvXurWqwsVOxX/o/cXPCWNBhJ0glYD7zSA=;
+  b=gMc+xYBQxa08qpLzeDUuZXDUgfzhdnnpQKVw+OXye6CoQ87xS6b5TI5y
+   ymQkD7Z6g2aTZu6q19BshndJV/ePb3M4ZhKF5/wz7hyVcGoPdw0ow15wd
+   F57L5OOufoua/qEW5uvlab/5tmBB/6Cs7aLFZSAZy8NbLbXkCvb4fkarF
+   3ew94qxK6Yi66lInmlPHhHeCgZ39cjHyVPvzSi3hlxojU4TTY3Sga7sBw
+   Fl6lOCWzj53kyPEHd6rWxGeNgqKH35c+lx6iiQcle/E5tRIcQkdG/4dDq
+   jvG8oW4RJKDfadwh2ohDuKRthrYETX8kypdv6fomN29PiWmBZtGssBTCn
+   g==;
+X-CSE-ConnectionGUID: jYcEnbgTSdqCxgvGEW2yTQ==
+X-CSE-MsgGUID: XDmONze+RK+rOFDlJI52WA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="902114"
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="902103"
+   d="scan'208";a="902114"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:41:36 -0700
-X-CSE-ConnectionGUID: WP52e7nMSZ2etsU4cbC6Gg==
-X-CSE-MsgGUID: 5dlsOqAfTgSWoHzhbFynDg==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:41:37 -0700
+X-CSE-ConnectionGUID: ipnsH4xWQN2AuXTcvEd3Ow==
+X-CSE-MsgGUID: 7/oGKf1BT52LSYw8ow9y2A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="2104357"
+   d="scan'208";a="2104365"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by fmviesa008.fm.intel.com with ESMTP; 15 Oct 2026 14:41:36 -0700
+  by fmviesa008.fm.intel.com with ESMTP; 15 Oct 2026 14:41:38 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -52,10 +53,12 @@ Cc: x86@kernel.org,
 	peterz@infradead.org,
 	david.kaplan@amd.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH v3 0/9] x86/microcode: Refactor NMI-based rendezvous mechanism to stop-machine
-Date: Thu, 15 Oct 2026 21:14:17 +0000
-Message-ID: <20261015211426.49114-1-chang.seok.bae@intel.com>
+Subject: [PATCH v3 1/9] stop_machine: Refactor multi-CPU stop glue code
+Date: Thu, 15 Oct 2026 21:14:18 +0000
+Message-ID: <20261015211426.49114-2-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015211426.49114-1-chang.seok.bae@intel.com>
+References: <20261015211426.49114-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,61 +67,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+stop_machine_cpuslocked() currently configures struct multi_stop_data and
+invokes the multi-stop operation. An upcoming stop_machine() variant will
+have different configurations but the latter part will be shareable.
 
-First of all, apologies for such a long delay in posting the revision.
-This series has almost fallen through the cracks unless Boris chimed in.
-Even then, it took me a bit to revisit the series and post this.
+Extract the common part into stop_multi_cpus() to highlight each unique
+front-end.
 
-Let me summarize the change since V2 [1]. Most of the changes are in the
-stop-machine facility itself, addressing feedback from Sashiko, both from
-the public [2] and from internal runs:
+No functional change.
 
- * Simplify NMI handling to avoid false handling (patch2).
- * Use internal functions to avoid instrumentable functions (patch2).
- * Prevent use during boot (patch3).
- * Tighten to online CPUs only (patch3).
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+---
+ kernel/stop_machine.c | 35 ++++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-Each patch includes more detail (patch2-5). I've also noted some thoughts
-on the Sashiko feedback where the concern looks less practical (patch5).
-
-The patch set is available in this repository:
- git://github.com/intel-staging/microcode.git nmi-stop-machine_v3
-
-Note this cover highlights a summary of changes only. Instead, V2 [1] has
-lengthy cover letter that provides more background and design summary.
-
-Thanks,
-Chang
-
-[1] V2: https://lore.kernel.org/20260331014251.86353-12-chang.seok.bae@intel.com
-[2] https://sashiko.dev/#/patchset/20260331014251.86353-1-chang.seok.bae%40intel.com
-
-Chang S. Bae (7):
-  stop_machine: Refactor multi-CPU stop glue code
-  stop_machine: Add NMI-based execution path
-  stop_machine: Introduce stop_machine_nmi_cpuslocked()
-  x86/microcode: Distinguish NMI control path on stop-machine callback
-  x86/microcode: Use stop-machine NMI facility
-  x86/nmi: Simplify offline microcode handler invocation
-  x86/microcode: Remove microcode_nmi_handler_enable
-
-David Kaplan (2):
-  x86/apic: Implement self-NMI support
-  x86/nmi: Support NMI stop-machine handler
-
- arch/Kconfig                         |   3 +
- arch/x86/Kconfig                     |   1 +
- arch/x86/include/asm/microcode.h     |  11 --
- arch/x86/kernel/apic/ipi.c           |  10 ++
- arch/x86/kernel/cpu/microcode/core.c |  35 ++----
- arch/x86/kernel/nmi.c                |   7 +-
- include/linux/stop_machine.h         |  43 +++++++
- kernel/stop_machine.c                | 180 ++++++++++++++++++++++++---
- 8 files changed, 232 insertions(+), 58 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/kernel/stop_machine.c b/kernel/stop_machine.c
+index d085ba1f4b44..8dcd5be67b85 100644
+--- a/kernel/stop_machine.c
++++ b/kernel/stop_machine.c
+@@ -582,18 +582,8 @@ static int __init cpu_stop_init(void)
+ }
+ early_initcall(cpu_stop_init);
+ 
+-int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
+-			    const struct cpumask *cpus)
++static int stop_multi_cpus(struct multi_stop_data *msdata)
+ {
+-	struct multi_stop_data msdata = {
+-		.fn = fn,
+-		.data = data,
+-		.num_threads = num_online_cpus(),
+-		.active_cpus = cpus,
+-	};
+-
+-	lockdep_assert_cpus_held();
+-
+ 	if (!stop_machine_initialized) {
+ 		/*
+ 		 * Handle the case where stop_machine() is called
+@@ -603,19 +593,34 @@ int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
+ 		unsigned long flags;
+ 		int ret;
+ 
+-		WARN_ON_ONCE(msdata.num_threads != 1);
++		WARN_ON_ONCE(msdata->num_threads != 1);
+ 
+ 		local_irq_save(flags);
+ 		hard_irq_disable();
+-		ret = (*fn)(data);
++		ret = msdata->fn(msdata->data);
+ 		local_irq_restore(flags);
+ 
+ 		return ret;
+ 	}
+ 
+ 	/* Set the initial state and stop all online cpus. */
+-	set_state(&msdata, MULTI_STOP_PREPARE);
+-	return stop_cpus(cpu_online_mask, multi_cpu_stop, &msdata);
++	set_state(msdata, MULTI_STOP_PREPARE);
++	return stop_cpus(cpu_online_mask, multi_cpu_stop, msdata);
++}
++
++int stop_machine_cpuslocked(cpu_stop_fn_t fn, void *data,
++			    const struct cpumask *cpus)
++{
++	struct multi_stop_data msdata = {
++		.fn		= fn,
++		.data		= data,
++		.num_threads	= num_online_cpus(),
++		.active_cpus	= cpus,
++	};
++
++	lockdep_assert_cpus_held();
++
++	return stop_multi_cpus(&msdata);
+ }
+ 
+ int stop_machine(cpu_stop_fn_t fn, void *data, const struct cpumask *cpus)
 -- 
 2.53.0
 
