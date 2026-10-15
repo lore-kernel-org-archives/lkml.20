@@ -1,163 +1,136 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108D252759B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072080; cv=pass; b=VnOG1z0AtswAXKnF8nf9Hxfe+Kjudoy787h+/d6Gykec2UP98gqMVwGVVkFrdk/0jOtprI1qr3rGmsd82Obssdj+SgR0sthuhXBB6TWrwxsj8TzgCSAuGVemOrzFmfDPHZ2hld7XpmO8a10eSmjvQcmai8GuUHFyMqb9AWGb8VQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072080; c=relaxed/simple;
-	bh=aL+AafHZvOsGulzkqz3m9w2wFzipIqROE5U/Y/fmCXQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PIK1WSFYynxSCrRHGh/VxJmyzHY4cUoD2BOa4xEo8oEDVS6w+TpbekxhHkLBZQUccMdwwDPaOwthRyavhY4LP6GwgNmPpPu/q/dwLCk1MLGBl3wDFbZP73YRo27U6tI2wFQEPDLBrQK6zT2XOrzLLFrvsuGoWf3hvzrEAHztVws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K86JKnVc; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084894E36D6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072095; cv=none; b=NxdSf1r7l1gDYoasD4bPYsq4kWY1qZ7Jqinn9ZBp12Ld4SHuCVDWnRPlVFBV0L23gPK5hgc6/ygmlmBBv8oUlC5A8wS1Jgi4gJl5n44F0W9k268fIx9SCjlcjXuQ6x13ErQhn206pRF8YmhmdifhiCjaKN6MhhebiMooEAGPL24=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072095; c=relaxed/simple;
+	bh=/nk+BfkEgTJrPJRefeazVKcxt5H1TBsjREb4AnG69FY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ppwn5P8Sik3uGDmB94m0MeJ8D8qt8TqUdk2GyGiZPrJuu8MSIptNv9EtiHjwbagBWqGSbMhL5PvEjRFmuB6XT9htfZWFLfar2DRww5A3UL4Fia3rnfH5FgeruehIs8sfpx4tZo4w7YArDq95VirTGY7GmrzFPN74LuNg3nK7+g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=EgRpUvEa; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K86JKnVc"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0c5a64de8so15950427b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:47:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792072078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VfMbz8esZzjJ7NDrZ5cEWCtbMWRjNO/v+eNpxNTTl+pO1l1EYomJUOuU39BrKaSRId
-         AIGnObw5TkvSId2xq1J/zy+2V1E0XCTxpg6HnnXnMBnrZ055dgWsDcaIQszrkR2MPoFG
-         L++OKN33dZ/miwjHpdBPwUJwlUkA//cP/4IrHZouxyYqYlxQxB21Xg1FD3eXgrB26nP9
-         OnNpEApZU5SMFd1kis5rajQXSGXaWKxzGMHC/BTu4d1OEIshz9NVdb40ZjhScVacrhqE
-         pzLFiyWurERfwrwTizNgZU9gT2SYdaq2EvCYF+P8jzZUXbuOjx4qtSmRRHm1OTLVAqM9
-         +erw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
-        fh=NoQw8PhP+kqxzW35lN4vJ9b3pFGO4ywagtJ4GXpgqEk=;
-        b=O6P12KmjsrpII8arOaw5R7rpjQGhac9DeDTIKiwnd1TG69bh7hSDCWIfdH/a/JtmUx
-         PUR3SZRD1FBa65WsUU6nCM1PQwa/EDAFR6DnW76Re3ecR0zb0UulBs/1BjN0Hp7Wlnys
-         aeX3IoQi67g7hNtU/pzWafFg11gDDRbtGlyWD7wGm0dXr8vcikNKzlaF8kHBGBAl+ljN
-         ORkGQUa7NuMb9HpTEQX21xrjKeFoIo1YgHfwyAbKa3xlzOJ5KSnoC8+mhGlGsOvmLKl/
-         UbYIr9OXIuFC0WdmBbhBVrvfvjwGN6LmqFOzLMbFOnXFcM9/E0oc3QD9KxaQIS9i10Hj
-         v3Hw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="EgRpUvEa"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93e027da22eso357858585a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:48:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792072078; x=1792676878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gourry.net; s=google; t=1792072093; x=1792676893; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
-        b=K86JKnVcKkvc0AUD+XGRgVBywteXrq+WYmAOxLAfDYXBdMW8wQCq7NKByeOHbyA59O
-         +vm083tQFTT5+FYahRArW0TeWshzd7+9WRjhH93yjJY4YtorPu4KOOczTywWSZZk8xe9
-         OdMOjR5/GucqTZSDi/I9sWNb6Kh67NPxWDu4qTyl3Life3n1PhpuYS0Ke9wWfBBXIvv7
-         /P8NWQMsGlUliMrD8cVBpz5SVlvXaMS4wgRcSgogkdoG5byrDGV+TgNRQYvxCiSngIgF
-         glp9oAxM0dGT2JjtRoq9Z/XjTQtuUejosiW7wI6sodPmzCLmf+Bh1kUZvS7S0/PTBWfd
-         R5og==
+        bh=TxnvmrOxX1kKFV6pDOanox6haeqxL61LHWivdGG7JgE=;
+        b=EgRpUvEaHVBa7pUx/Qu4/VTWlGU+KEBl8VcNDwr26ZDQS2y0jr4htlBD1JemjBfd9f
+         TbEFCTJ0nTnaxcIm05gMRWwYjRjfvUABdnfXCdd0x691HU4hsMc9+eM3VaVq2/xccBtO
+         ndRsaYuipLtnwsuaV6nYBtv8Cmiq14WqfqohXsR6W9RSTO1GgDIXAb6XuEsmY9aTTArc
+         ohOCEboLVTx5NRrLNYXillrRCTYqDUA64aizGO4KyJ2UAbv0euHWeDKJ+wcwlyogHBdB
+         QI3yNBOqbwqEf3DOFVfU9SHIQIv8QzokbiFmZizRT2gjJOvi6cJ95jGEM33i+7HNfu/h
+         EvBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072078; x=1792676878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792072093; x=1792676893;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
-        b=igek8CzQCYRKyfU8Bqehxn9M1Px9z9JcxglOTlu61Ty5RAsIBoram4M0eDezRshztB
-         mXH5CL/8w6YzZikCM0YF4q3KLDMjkjNBEneG8aAf8aNMivO5fX2BCA2x47I5xPZgF9vd
-         v1rIZhgmGn1QDgjZXsjkXvXP7zYrBp1v0d2hDxFuIppujpUTuGqIKfgqXZOapCJMDmeC
-         o8FjkTaCsDnw4P/L7yKhTUbfz/sKfvc1iX9jOlUOxDc69WmtVCO9D17NfmlrqAeKU3Qe
-         xN2qOulYs0hT+Hm1a7Elf/6cDO8SCP7do1kM3/KGmIhWXjjN9HdzCpH4qHKcyirkTZXB
-         cfdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxcfpdD/FOmiGi5/bwYB5cHngl5Sz/a9L3vALuZr1Zz8xURrff0Gx+r4ykQ/qC+xWTwEBdToEugsE9TNyU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz44EQjvD4iaoWzekIxaD44EH9/aqOTkFwj1jtyN1AVXd67HNT
-	GX5p1sPRUqdD8cWpNx1ou4s+/rzoE+5aJrexwMO9mNio6R2a/lRUyaX5MD7tiEv3hZotO0Dq+bb
-	mOwWaXToLYNK1TQHgnWDWID3hlJXWqgU=
-X-Gm-Gg: AYBFou24+LglNJntiedoCxLjC7wn6SBOhAuePWzMs5DxuAc0X+dstCdkO0iEWaU28B1
-	f0BcANOf005DPhHdz7/7RRiDAqrN/qiESBqF10mxzknz+w1l3kxF4DKY+VSwG2DyIuWa6xj868S
-	FwC9RCK19Bd3xeZ7NgAEPX9opUmnRrUbHf27vyRZDNbT0dAl8fT3NL+if3lO2+MhP3LEzzsXYaB
-	IoDzwwea5vp4cncWNbstUWbtSUGbv9sqsi+vsHHFYG+VETteqY21pe6UyDoFrURzow7XhN6cahY
-	GmHxBIJmBzzXcNdhuA81W4tbRqqk4eHq4v52ngGW9PkuBFPFxNJczBq9jJ5c3sVRvm7+jta2MKu
-	iOl+6cSs+HP2xnPP6CHLB9EknzwsLLCumsfQDIKU=
-X-Received: by 2002:a05:690c:e694:10b0:8ae:b617:712d with SMTP id
- 00721157ae682-8b0e2c154cemr221067b3.13.1792072077811; Thu, 15 Oct 2026
- 06:47:57 -0700 (PDT)
+        bh=TxnvmrOxX1kKFV6pDOanox6haeqxL61LHWivdGG7JgE=;
+        b=RLAS+gBQNvC0iCVoRoz8FHja3j/C0XLTQVv7Lc7Hb+hyI/NI4TX6Tptqsb+o1p+mOK
+         GfibFgUbUZ6febAypJ9Bw7iJX193Pgl2QotkKlm6a2tf2xxXNNtLAbFz66q8ORr2EmPf
+         6WUSulrhQB1g5Me3PyS8qgrubYVe1KOPeRmNN2s5fn4BS5zLUdXsqjds5VkpT/XorE3E
+         yprIOX5hyhJkqFxGKsO0bEQStoXOas/hF0zyow5vFAXeSR30zb4mUM4mWIpZjOeoWOnk
+         DVp1UiYg+QdK3L6Re/20OeIAL5isG9IUSogXY7NPW0FOR2RkkXmyjUns2dsRAxBYV+BF
+         TpPw==
+X-Forwarded-Encrypted: i=1; AKwUvBwY8WL7f0EE6DlTOSOBPe1PWuywYod4TQ+I31KqZp5iIAv2SoM0SRqyLQ0HbMBlUZbxgzKLa+etJVLSKSI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRl9wiSCwCDjZWq3C6N0YT/kqdtLj0sOBOEAEFaELI60k9UTu3
+	yUIS5XhGOx2VYGjrzAS+CuS2HX7GEDUrHC+JSd6jz1fw04l9gPs0KuNcxtPJXc3CwTQ=
+X-Gm-Gg: AYBFou32Ta5ZSKzj/MnexqyJJuEJHTEogbqAJviEt9lwyq2sy9aSgGlAXwckGOJpjmn
+	YKWzjmfNeYr66fUfYCWK7vyT14LRI3l9UR9uy7CMT+kRLWxvxZVdGtjH/IEd0P5+HQks0+72yeR
+	UNNUquKQm9Z6/ucguYlInB6LOdCpD+PQcSqj7xn1VcLe4YuThDE6nEwdZlNC3XmAbLtSk3DxRFP
+	O9jYRboFc1D9VSuijfw8HNfzozJRnVGPgBu7Rg3ySAhkw08yAZA/s5oeK/4faQo3Jjzz5mdhoIy
+	yciye/tMddcuuo+bPAxP/KiL07pP+ojfZyV2lFxCMtf1sgmWW/1S88GYC6hx4IRc2Z8TRn/UZTQ
+	m0XoROXPhV0Rihexov10J++xDvMBxUHE+n5wk/7mXSj7K44/Gs+m0Zlbszc/1KS+iF/cG6QY/t+
+	ics7SOp7LtkzqpzpyG2JFHK3XRu5ref6KL4Jbg3guO6os0Fe5O5sWFnvD4KqZsL1jbvYPDpo3aY
+	v78+eEz//g/f5pd++Zg4kikol38vnAvEarcVK9k1/iQMtqe0YUbeWw=
+X-Received: by 2002:a05:620a:4606:b0:93e:c12c:f12d with SMTP id af79cd13be357-93ec12d0608mr3020561585a.72.1792072092737;
+        Thu, 15 Oct 2026 06:48:12 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50b6c4fsm760019685a.47.2026.10.15.06.48.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 06:48:12 -0700 (PDT)
+Date: Thu, 15 Oct 2026 09:48:10 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
+	willy@infradead.org, brendan.jackman@linux.dev, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org, 
+	ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org
+Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
+ bulk allocators
+Message-ID: <atDYiLYjF_Phxy-h@gourry-fedora-PF4VCD3F>
+References: <20260923211041.3127588-1-gourry@gourry.net>
+ <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
+ <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
+ <asloWFM96BATH8SB@gourry-fedora-PF4VCD3F>
+ <1f36992d-00c1-4f74-9947-b543ed794cf0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015081450.1241194-1-chris.lu@mediatek.com>
-In-Reply-To: <20261015081450.1241194-1-chris.lu@mediatek.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Thu, 15 Oct 2026 09:47:44 -0400
-X-Gm-Features: AclHuK-9IwK4gtIgFJ0IOoJ2ujxMQ8YcnWXIl-i3b10cUaiVlWQ4WrWnE6daL6c
-Message-ID: <CABBYNZKaRo1SLa33mWwxE0Vp+3Wd=tJpvTFru-q8uraysdw4Qw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] Bluetooth: btmtk: fix ISO data reception
-To: Chris Lu <chris.lu@mediatek.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>, 
-	Hao Qin <hao.qin@mediatek.com>, Wenlong Tian <ot_wenlong.tian@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>, 
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth <linux-bluetooth@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	linux-mediatek <linux-mediatek@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1f36992d-00c1-4f74-9947-b543ed794cf0@kernel.org>
 
-Hi Chris,
+On Thu, Oct 15, 2026 at 12:02:06PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 10/10/26 01:28, Gregory Price wrote:
+> > On Fri, Oct 09, 2026 at 10:55:05PM +0200, David Hildenbrand (Arm) wrote:
+> >> I do agree that two sets of flags is suboptimal, but likely more flexible. I
+> >> guess an alloc_flags only interface is not easily possible ...
+> 
+> Agree with the alloc_flags option of all the other options.
+> 
+> >> I do wonder whether it should be:
+> >> 
+> >> 	typedef int __bitwise alloc_flags_t;
+> >> 
+> >> instead of "unsigned int alloc_flags".
+> >> 
+> >> ... while at it
+> 
+> Can't hurt, but given how it's internal only it didn't seem that urgent as
+> for gfp.
+> 
+> > Does it make sense to leave alloc_flags to internal-only state
+> > and just implement a new flag field?
+> > 
+> > gfp_t       -> describe the page (fully public)
+> > req_t       -> describe the allocator behavior (mm-internal only)
+> > alloc_flags -> internal allocator state only
+> 
+> Maybe in that case the remaining alloc_flags should just become 1-bit fields
+> directly in struct alloc_context so we don't manage 3 separate bitwise
+> types. Or more bits in case of ALLOC_WMARK?
+> 
 
-On Thu, Oct 15, 2026 at 4:15=E2=80=AFAM Chris Lu <chris.lu@mediatek.com> wr=
-ote:
->
-> Three fixes for ISO data handling in btmtk, found while debugging LE Audi=
-o
-> on MT7925. The code is shared by every MediaTek USB controller that
-> supports ISO data, so none of this is specific to that part.
->
-> Patch 1 drops the zero padding that the ISO interrupt IN endpoint appends
-> to each transfer instead of parsing it as ISO packets. The driver turns
-> that padding into handle 0 packets with a Data_Total_Length of zero and
-> hands them to the stack, which is what fills the HCI log with malformed
-> ISO frames, and a valid SDU is lost whenever handle 0 belongs to a live
-> CIS/BIS.
->
-> Patch 2 bounds Data_Total_Length by hdev->iso_mtu. The existing
-> skb_tailroom() test enforces no protocol limit, because the skb head
-> allocation is rounded up to a kmalloc bucket and skb_tailroom() reports
-> the bucket size rather than what was requested.
->
-> Patch 3 updates the mt79xx ISO data transmission setting.
->
-> The three hunks do not overlap, so any prefix of the series applies on it=
-s
-> own.
->
-> Changes in v2:
-> - Patch 2 reworked and retitled. v1 only enlarged the receive skb, which
->   turned out to be a no-op, and added no bound at all. v2 bounds
->   Data_Total_Length by hdev->iso_mtu and sizes the skb from the same
->   value.
-> - Patch 3 added.
-> - Patch 1 unchanged.
->
-> Based on bluetooth-next.
->
-> Chris Lu (3):
->   Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
->   Bluetooth: btmtk: bound the ISO payload length by the controller's MTU
->   Bluetooth: btmtk: derive the firmware ISO setting from
->     MTK_ISO_THRESHOLD
->
->  drivers/bluetooth/btmtk.c | 37 ++++++++++++++++++++++++++++++++-----
->  1 file changed, 32 insertions(+), 5 deletions(-)
->
-> --
-> 2.45.2
->
+I think that would be much less disruptive.
 
-In case you haven't seen it sashiko flagged a problem with this set:
+> Depends on how much work this would be (and if you want to do it) and how
+> the result would like.
 
-https://sashiko.dev/#/patchset/20261015081450.1241194-1-chris.lu%40mediatek=
-.com
+I took a short look at converting __GFP_SKIP_ZERO and the change has
+bigger than i thought it would be.
 
-Unsuccessful packets shall still be delivered to the host, this is
-used, for example, to implement Packet Loss Concealment (PLC) logic.
+Yosry recently said ALLOC_UNMAPPED was being put on hold, and for my
+base private node series it seems I will only need to extend folio_alloc
+with with alloc flags - so i will probably try to split these efforts up
+and carry the minimal folio_alloc patch separately.
 
---=20
-Luiz Augusto von Dentz
+Otherwise i'll look at whether we can move some alloc_flags into
+alloc_context bit fields somewhat cleanly as a first step.
+
+~Gregory
