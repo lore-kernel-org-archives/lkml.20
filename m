@@ -1,525 +1,199 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012051.outbound.protection.outlook.com [40.107.209.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22AC3E6DCF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042148; cv=none; b=uWvhiDdZ1Hg2KwDqJybqzHX3nLqUcT2DKJ2gB/0LWGNrHV02aIkUC1w22s5iT9G8Wg1eVdQDX5vG38KysKUgZjyd4u0x390u2KLJqk5Y/opidK6LnXdem9hnMH2fQ0MBbdEIWYXUjAAKBt6kzmUzDXmjJ5zvGm1c/JdSfOmeBJw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042148; c=relaxed/simple;
-	bh=4JgmsYLuC9dKoY24oMuXxqfPTWS+2zR+1u5u6jYlr+o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nQBWDNEqFRadwSjA9WtBivpySWZUERG/Q5045ctNfQe7vaBMhwP1CnenXTUve1E720ulVNcjlVqzdCtpwYSKw1kfmOBRfMAnE2QtC2bJX8Whi4mK3K+PQZKpgoCzyNiKxeBLv9/6qaGTMOvtmF2+hIpXBNtjoRuNeZ3QlbzS8po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZyUdWufj; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845683E16A5;
+	Thu, 15 Oct 2026 05:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792042163; cv=fail; b=IWUNam4mQF4iYlqvWGCnajzqNq2HpuKngWKCgkkfjAs65jw8abY4sbtB1KWzV6VOx03GOU9NylXwZN74X3r/FhDSRthiKM3Iqlj9fzljTl2s8GgHTkaRaYlQ0tgDex4zL8/RTh/cPv2lI+k95KygeCCwXWZ0V+XdIi/yK31csj4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792042163; c=relaxed/simple;
+	bh=f7OfNqDpxj2PA/YcEbIQHcWZPxHS+ADlAHleV94bGno=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NhNM0PebUHvL+c+nRnSjhSEAJI4g35ooQHU+++SHG6OeXdL9fkLWCLT8JUJd036zLesLWoyM6+1KBouO49ASRj+BizmrBFWE9HrFtq9nxZsCD+wCILELjPfU4mjKvoDdCctMsq52brovRQi+TmytkaxrtNDOh9qVxdfC/5Xd5/s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=SiaZ71ao; arc=fail smtp.client-ip=40.107.209.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZyUdWufj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792042146; x=1823578146;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=4JgmsYLuC9dKoY24oMuXxqfPTWS+2zR+1u5u6jYlr+o=;
-  b=ZyUdWufjNZo5q4JTjVlX+X1VnsDMj91+68ImPh7hbWZnFnBNkncdEEIK
-   xBG8kmvQe1aIDjvHb6t7bc7zjKbEnoB/weAJ1bdgOqa9vz/Wqk4hHIs5w
-   zdxaOpfaGUkFpJ8Qcq6M2eNDfBGT1GFOpOYrRg1ekg5nfYX19TKJG65M1
-   mDGxbuSrqNPpsrmCtS2zdY4HIAUk7ASoo0Gnz3K+U+ujKDwg5+w9TIa92
-   7kAxjzNkZj4jFGrQKinrOYmBb3r4hMFVM/iWxke5Ao1jTNx1kUdAeqpRK
-   iCmsrEcuDd1N8YTWSPjmapndHgatuOMYk2feR4xqeryibWx4F1SbYfTL0
-   w==;
-X-CSE-ConnectionGUID: +Qs+2nhRRSSThV7dP6nD2w==
-X-CSE-MsgGUID: 7UCPTnihSNyEuAOEqH0H+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="813108"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="813108"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:29:06 -0700
-X-CSE-ConnectionGUID: Ld4omi2aTR6xnhCz9BqeEg==
-X-CSE-MsgGUID: VGW/DAbXRQO1COGsqpGY/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1928861"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:29:04 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Thu, 15 Oct 2026 08:28:44 +0300
-Subject: [PATCH char-misc-next 4/4] issei: add driver to driver interface
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="SiaZ71ao"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mWX/tpoeadRBzknCcXZNHQLD1yYl6d9Ds9UEnLS1hEju1LaShZFFJ6aOQtaMPAvBM8PrKlE+odwmL/4RdZ/uLQ4d8mCpB9UCbJOwo2PsBteEU3TFmbsVvWBuvS4ORF0YxTWKbfFL5XwKMZjHBnx/SYa3E5bRIBRaQBZZ64ZgU5frBA4VpNJgq0DI+gC26Gu6r+S0BFLO7QCo4zzZ9nV4ydY16Zruw+q1vhT9X0yjuwf8OcVo+RrsU9ttiHWUyc5OPqh2vuFvuMBfmY38Px6MVaBQeaTDCEBCbf73m0/FPPPrbiFvShkfyA2Q35eoI5nrI9GMDtAl4Wv90fr9gtI/oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8BmoaUM7WDYLl1xcd443m3LRkqosX8jFkFJjPmchwBI=;
+ b=cENUr9X8iWHodwKywKsMUmDTtRBHEIKOpibp76XzRJVt8pXW36AkF+PeZeh3vD7d1EI4jSQRGVyHeRoUv+1P9SwOSRfB6a4xn98qIcXxQqQN5XDRBarnXXm1OmO7A2utWNZXolvhYjxqstbGsBzqAKEC7WeJ+yDymwhnpRgkZ4bJczJNuCnH/13GKCWntU6mQuct2i78uRT9yWzk5+7gIUmr6L+ujDGrYuO/jXB0S8rH57LnQ+tHIDGqFLNnuK6iI3hnnu6rqZFjX0QtPw2uejZh9/8/FrBetvH4nhkqesUEcnGpSMyOtm2FylXWuvyQx/ZD0N98u44CYzfDeIOwJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8BmoaUM7WDYLl1xcd443m3LRkqosX8jFkFJjPmchwBI=;
+ b=SiaZ71aoUqcTU7kNpsonIcPIuN4hvC44OYMQ8rDVsui5kr+JgXgtRxvpfs51ZE6cHn+/aXyp98GLMWcFtAETojYD16hff9g7BSJAPJe50Uwq6R/+MtuO3aCtePk7GLp04Uh+sZ9JpxK4UJj3mnRprKZYLRmdb8U1RktR603tedDYeL2+wJN2BcQqRUUtDiEg6G6IK8CcytGNGAHdHPQtll7vR11pxglmh9kLkzB/oIpayuNLzjAOJ2wWEPXfsoop4WVjU/3ihWIjc9kF4QMXxxJRDCCzXCh+A4dOAZoZw0/bVRXKD1Ow9By/LfhZs4MT0DQDIAAlQAdjl6xDIdVgUA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DS3PR03MB097838.namprd03.prod.outlook.com (2603:10b6:8:546::7)
+ by BLAPR03MB5602.namprd03.prod.outlook.com (2603:10b6:208:284::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 05:29:18 +0000
+Received: from DS3PR03MB097838.namprd03.prod.outlook.com
+ ([fe80::fa39:2c18:c265:1d59]) by DS3PR03MB097838.namprd03.prod.outlook.com
+ ([fe80::fa39:2c18:c265:1d59%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 05:29:18 +0000
+From: hang.suan.wang@altera.com
+To: Dinh Nguyen <dinguyen@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Ahsan Atta <ahsan.atta@intel.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Gabriel Whigham <gabewhigham@gmail.com>,
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-doc@vger.kernel.org
+Cc: muhammad.nazim.amirul.nazle.asmade@altera.com,
+	tze.yee.ng@altera.com,
+	chee.nouk.phoon@altera.com,
+	genevieve.chan@altera.com,
+	adrian.ho.yin.ng@altera.com
+Subject: [PATCH v7 1/3] firmware: stratix10-svc: increase args array
+Date: Wed, 14 Oct 2026 22:29:11 -0700
+Message-ID: <6452080968943b212fa2398a14c16377d3a14b04.1792034130.git.hang.suan.wang@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1792034130.git.hang.suan.wang@altera.com>
+References: <cover.1792034130.git.hang.suan.wang@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY3PR03CA0029.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a::34) To DS3PR03MB097838.namprd03.prod.outlook.com
+ (2603:10b6:8:546::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-issei_pm_and_itf-v1-4-8212238a57a4@intel.com>
-References: <20261015-issei_pm_and_itf-v1-0-8212238a57a4@intel.com>
-In-Reply-To: <20261015-issei_pm_and_itf-v1-0-8212238a57a4@intel.com>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>, 
- Reuven Abliyev <reuvenab@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792042134; l=12895;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=4JgmsYLuC9dKoY24oMuXxqfPTWS+2zR+1u5u6jYlr+o=;
- b=WM4uqpKFfqJdIe/7jgpZYV9lFvdl2qljvhQDpR8HJO8rD3XVgGhiZFXYm4iT36EWy580q+mKh
- 8iAlNTYcHu3DlGY8nq2Gj3b4E6Cx8hmY+tHEkO5Vs8UjBIZIWbsN/qc
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PR03MB097838:EE_|BLAPR03MB5602:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb1a2911-43f2-4c98-1f48-08df2a7d4257
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|22082099003|55112099003|10067099003|3023799007|18002099003|921020|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	1XuhhcZ7AFthHQKFT+s7APVn5mS+DTFPegI0alQE3kfkz1XGCqKDePBjA3hAg3a9lfnrgC5N/ltUqBQimq+Q+xtrYIlBMsH7B5GcnD3MFimTlacj44/OCqF7qTeoemcgymKzRwyWBZ2le2AQI2/wWlkCvesh8ekcW5zU+N+T/06NkzhmO9UilcLkTI5MpNA2p0FStjnkbcMA7xXPzcoUlyiDDZ4k2xn1s2X7fLhvaHCVGF+BXYD0ztPSNKwrvBlnMc/R1rd+IZoOFkQviXCJf+CWGwDJNfyxwmp7eDVTzLOSnk9ptafuiwNM55n13YJNRhTErBJpbg/Y2+Cxc3h91gHHEsRf+yADQ/8opGwXjyQZOj2gj52HX9uJrDGtXyyFhvDl0RPzCxuZu49h9p6c4de1iv+M8I3nj2NfuSs63VOwSxLHSvSDop/gVZEDkZ8BeBqW8nbidhWU9uYmT+iaDsfq6ZmJsKjVI28vYVSHNzFRhQUxFk73m2BY+fx05M7lCYw04xZKjGoHZf3DX5ck/FXl+AmtvwVlrscAbYxt/0pfeV5lNHIMLLGnVxFqhA8EsSPJTfsOcnnGdHPPrshmA/FYUT6pGGfBpS6+skTsyh/ufxrg4Mg4IzMMuJHwPOGvM3GN1X/as/1qaCfc6sKbh9eKiAGIsvXw7NNEz7WLElhrgEZXx5Vd5AQ1fveIS9tmg8RWzKYvcDZ13HtRnhqx9Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR03MB097838.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(22082099003)(55112099003)(10067099003)(3023799007)(18002099003)(921020)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6ZMd8WsqEyThz3byGuoPMIHdmTmzC2FyB+4RK20JSNtXoBNADpKkIIm/pamX?=
+ =?us-ascii?Q?gAvJ5trVcVZZ8F/VMwYQOicPD35tpub5HG+WpmNWp9ZmH8VWbsp4lZqlk7ti?=
+ =?us-ascii?Q?LaMd8WxL/joP5gznk9EO/eCZa1hVCjRVxW6sWUcR9N6gyexpk/G/UcH/p4z+?=
+ =?us-ascii?Q?PQZ3aucQw0+GVd1ADhIiw8XCeC9Ht7fdOfv1PSi6EVCDcUdVLOtpy4nD3i6u?=
+ =?us-ascii?Q?Zgp40EczW+tJcPWCHatkAybMSccuuw9TG/uaKi6zRXpOxIk3kyfVWpPPxc16?=
+ =?us-ascii?Q?xo6mFucSXcSOPjvAtAHpNeHvJETl7dNspTJ8U3Gudeg+pWwzxkV5LeZXmkCS?=
+ =?us-ascii?Q?aI+13UQI7qp60xKC85Vh5n8uX4U77BvEffnCx766ltuJOXAcvAO11+6Kwwdn?=
+ =?us-ascii?Q?Y4K1LwmGS96JKQEyS302ijfmb6QXUOBfT/OI1NgCJLTBtMOGA9grC9PxDpce?=
+ =?us-ascii?Q?PzfIK9kUZS+/+SDp0ik5onKqxGnj2cldltIcYgwG9Uj0uXcwpX3EeDHq275Q?=
+ =?us-ascii?Q?6bXg7lIVDpIi0iLomIkWlW9Jdr/9YZhwgs7YQeLylOgY33fXkupzJe2D1NKW?=
+ =?us-ascii?Q?gItuAV/Ou10bohVwuCas1DWbxLaKSOwIwHG2DVGAf+yXikzwmyp8cBJlTtkM?=
+ =?us-ascii?Q?MID6eD5nxtbBo9a9rOKl7Sbow09eh8aBrL+k0SQbMBCaHOsge/wodTAj9pQx?=
+ =?us-ascii?Q?kwOJVUA5pR5gQZDKO2r3hu5kpgcQsxH+g+LjbPvmr2t9tmHQt+PZYuGof3M2?=
+ =?us-ascii?Q?CJ4O5mKwihISCwiwG9YIlAXecsRXORTaGiwlG+6vPE70O3l3CwQS5quZkmLB?=
+ =?us-ascii?Q?nVyB7m51le2rQwBaue1Be0F6ubnT0yQvEodXi2zZLF9SxL4luLNB5kEd3LDk?=
+ =?us-ascii?Q?4/XnotQGQohbDca4SaK6JzwqH9N4hxLIlvDjnBU1FvUK8NuI8NgtC+DcO32+?=
+ =?us-ascii?Q?8rYSyBv3ZeHS5PCZJs9x76QL9PpRkjMzYSljEGVZStdMAPhjIFssQ6LAS1na?=
+ =?us-ascii?Q?+d8ppdkvocfEoh3CLu8pOAk0KP95u8DXmg30wnDRlq+PNbAH9HsIx8JiimTs?=
+ =?us-ascii?Q?bYumRHz9/uCX7Deflm/3snOYyM3PRSjcSpfQ6z6nzZYp9Oa2tkXFjzFNPAFe?=
+ =?us-ascii?Q?sqIOp1GaxIKxpmk90aKZbiM9GJtoiVIGNnC2AI6IQe9HGFI7uZIMy3pXuaZ5?=
+ =?us-ascii?Q?Ql/Aki4QDhcjVYsmcWLdhrV81eKV2R7e6H4+UJh4g7hvFEX/yo89gAOsodSm?=
+ =?us-ascii?Q?hsCNa/BTYxs3x3PPsVqHhhsqoWUxLhdA/Gdkr2PfTqW+G4bU4fQvRbhde775?=
+ =?us-ascii?Q?AFJIpensgc2h515phfggcQlGJmk+i5pdlCqNzIX/oE0ZYVcBhZpBwX0E7SuF?=
+ =?us-ascii?Q?6y6giLG6JTjnwaOZHUJwYlia0VCNq/0Se94okmMYJNEP+JnSIjAFxtqluZZs?=
+ =?us-ascii?Q?vnbijUSKB7SyIqMtxWiD5v9/AkRKLlGz2/I8UoEouAp5t/T4bKGIrjET+5/K?=
+ =?us-ascii?Q?PtUW7inKtcoVuyYqM63Sgl7pQPiWe7LStKvuwj97ef6ZfTCO5CeF4beAYEHs?=
+ =?us-ascii?Q?lv6xmO/07Vieua7FvCuVEJckpjCtXxmOhFMZgQxE2lDfAdtzH9LUkOYkhHpZ?=
+ =?us-ascii?Q?lNGAKpy11wqDMyKSayQFMqtVzkjoO0GVQBheIwWKJnK2xQq1mzdfnbW3qszO?=
+ =?us-ascii?Q?OPl+BqJRjVtOc9eFPHyxTHgkvR/eByWSiEWJVThfAJx3ckj02PCKZvwkeB6g?=
+ =?us-ascii?Q?oHT3+wWTRg=3D=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb1a2911-43f2-4c98-1f48-08df2a7d4257
+X-MS-Exchange-CrossTenant-AuthSource: DS3PR03MB097838.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 05:29:18.3093
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JpxPbakh/6ohLKlF9kVlQ9WmyyIadXt17C5hBjZ7Dga9bW0f/qskN7d6WSiLBHz7E7XHiiAAlTSo6qBRjJdchUK1XMQtHJL3MTAF0qBBMmA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5602
 
-Add new interface that enables communication with ISSEI device
-from the kernel modules.
-First intended consumer is an NPU (NPU7+) driver.
+From: Hang Suan Wang <hang.suan.wang@altera.com>
 
-Co-developed-by: Reuven Abliyev <reuvenab@gmail.com>
-Signed-off-by: Reuven Abliyev <reuvenab@gmail.com>
-Co-developed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Increase args array from 3 to 6, for the SDOS encryption to call smc
+call which is used for args to be passed via registers and not
+physically mapped buffer.
+
+Signed-off-by: Hang Suan Wang <hang.suan.wang@altera.com>
 ---
- MAINTAINERS                       |   1 +
- drivers/misc/issei/Makefile       |   1 +
- drivers/misc/issei/cdev.c         |  12 +-
- drivers/misc/issei/issei_device.c | 268 ++++++++++++++++++++++++++++++++++++++
- include/linux/issei_device.h      |  84 ++++++++++++
- 5 files changed, 360 insertions(+), 6 deletions(-)
+ drivers/firmware/stratix10-svc.c                    | 6 ++++--
+ include/linux/firmware/intel/stratix10-svc-client.h | 2 +-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c548092c6a78..e16f6a0bc186 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13506,6 +13506,7 @@ S:	Supported
- F:	Documentation/ABI/testing/sysfs-class-issei
- F:	Documentation/driver-api/issei/issei.rst
- F:	drivers/misc/issei/
-+F:	include/linux/issei_device.h
- F:	include/uapi/linux/issei.h
- 
- INTEL SGX
-diff --git a/drivers/misc/issei/Makefile b/drivers/misc/issei/Makefile
-index 8fac360c3342..b689784357f4 100644
---- a/drivers/misc/issei/Makefile
-+++ b/drivers/misc/issei/Makefile
-@@ -8,6 +8,7 @@ issei-objs += dma.o
- issei-objs += fw_client.o
- issei-objs += host_client.o
- issei-objs += ham.o
-+issei-objs += issei_device.o
- issei-objs += main.o
- 
- obj-$(CONFIG_INTEL_SSEI_HW_HECI) += issei-heci.o
-diff --git a/drivers/misc/issei/cdev.c b/drivers/misc/issei/cdev.c
-index b7d65e2d0813..f5a3ebbf8740 100644
---- a/drivers/misc/issei/cdev.c
-+++ b/drivers/misc/issei/cdev.c
-@@ -272,14 +272,14 @@ static const struct file_operations issei_fops = {
- 	.poll = issei_poll,
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index f7928ef6b6db..8f07b945392a 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -219,7 +219,7 @@ struct stratix10_svc_data {
+ 	size_t size_output;
+ 	u32 command;
+ 	u32 flag;
+-	u64 arg[3];
++	u64 arg[6];
  };
  
--static void issei_device_release(struct device *dev)
-+static void issei_dev_release(struct device *dev)
- {
- 	kfree(dev_get_drvdata(dev));
- }
+ /**
+@@ -2088,7 +2088,9 @@ int stratix10_svc_send(struct stratix10_svc_chan *chan, void *msg)
+ 	p_data->arg[0] = p_msg->arg[0];
+ 	p_data->arg[1] = p_msg->arg[1];
+ 	p_data->arg[2] = p_msg->arg[2];
+-	p_data->size = p_msg->payload_length;
++	p_data->arg[3] = p_msg->arg[3];
++	p_data->arg[4] = p_msg->arg[4];
++	p_data->arg[5] = p_msg->arg[5];
+ 	p_data->chan = chan;
+ 	pr_debug("%s: %s: put to FIFO pa=0x%016x, cmd=%x, size=%u\n",
+ 		 __func__,
+diff --git a/include/linux/firmware/intel/stratix10-svc-client.h b/include/linux/firmware/intel/stratix10-svc-client.h
+index af13dacdf5ac..9bb46c3cb0f8 100644
+--- a/include/linux/firmware/intel/stratix10-svc-client.h
++++ b/include/linux/firmware/intel/stratix10-svc-client.h
+@@ -215,7 +215,7 @@ struct stratix10_svc_client_msg {
+ 	void *payload_output;
+ 	size_t payload_length_output;
+ 	enum stratix10_svc_command_code command;
+-	u64 arg[3];
++	u64 arg[6];
+ };
  
--static void issei_device_init(struct issei_device *idev, struct device *parent,
--			      const struct issei_dma_length *dma_length,
--			      const struct issei_hw_ops *ops)
-+static void issei_dev_init(struct issei_device *idev, struct device *parent,
-+			   const struct issei_dma_length *dma_length,
-+			   const struct issei_hw_ops *ops)
- {
- 	idev->parent = parent;
- 	idev->power_down = false;
-@@ -322,7 +322,7 @@ struct issei_device *issei_register(size_t hw_size, struct device *parent,
- 	if (!idev)
- 		return ERR_PTR(-ENOMEM);
- 
--	issei_device_init(idev, parent, dma_length, ops);
-+	issei_dev_init(idev, parent, dma_length, ops);
- 
- 	ret = xa_alloc(&issei_minor_xa, &minor, idev, XA_LIMIT(0, ISSEI_MAX_DEVS), GFP_KERNEL);
- 	if (ret < 0) {
-@@ -339,7 +339,7 @@ struct issei_device *issei_register(size_t hw_size, struct device *parent,
- 	idev->dev.class = issei_class;
- 	idev->dev.parent = parent;
- 	idev->dev.groups = issei_groups;
--	idev->dev.release = issei_device_release;
-+	idev->dev.release = issei_dev_release;
- 	dev_set_drvdata(&idev->dev, idev);
- 
- 	idev->cdev = cdev_alloc();
-diff --git a/drivers/misc/issei/issei_device.c b/drivers/misc/issei/issei_device.c
-new file mode 100644
-index 000000000000..a28f2adef9d2
---- /dev/null
-+++ b/drivers/misc/issei/issei_device.c
-@@ -0,0 +1,268 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (C) 2025-2026 Intel Corporation */
-+#include <linux/cleanup.h>
-+#include <linux/device.h>
-+#include <linux/jiffies.h>
-+#include <linux/err.h>
-+#include <linux/export.h>
-+#include <linux/sched/signal.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
-+#include <linux/uuid.h>
-+#include <linux/wait.h>
-+
-+#include <linux/issei.h>
-+#include <linux/issei_device.h>
-+
-+#include "issei_dev.h"
-+#include "host_client.h"
-+
-+#define ISSEI_DEVICE_CONNECT_TO_MS 200
-+
-+/**
-+ * issei_device_open - open issei device context.
-+ * @match: pointer to callback that should return non-zero when matching device is found
-+ * @data: user data to pass to match callback
-+ *
-+ * Return: pointer to opaque context on success, ERR_PTR on error
-+ */
-+void *issei_device_open(int (*match)(struct device *, const void *), const void *data)
-+{
-+	struct issei_host_client *cl;
-+	struct issei_device *idev;
-+	struct device *dev;
-+
-+	dev = class_find_device(issei_class, NULL, data, match);
-+	if (!dev)
-+		return ERR_PTR(-ENODEV);
-+
-+	idev = dev_get_drvdata(dev);
-+
-+	cl = issei_cl_create(idev, NULL);
-+	if (IS_ERR(cl))
-+		put_device(dev);
-+
-+	return cl;
-+}
-+EXPORT_SYMBOL_GPL(issei_device_open);
-+
-+/**
-+ * issei_device_release - release issei device context.
-+ * @ctx: opaque context
-+ */
-+void issei_device_release(void *ctx)
-+{
-+	struct issei_host_client *cl = ctx;
-+	struct issei_device *idev = cl->idev;
-+
-+	issei_cl_remove(cl);
-+	put_device(&idev->dev);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_release);
-+
-+/**
-+ * issei_device_connect - connect to the firmware client.
-+ * @ctx: opaque context
-+ * @client_uuid: UUID of firmware client to connect
-+ * @conn: pointer for client data to fill on successful connection
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+int issei_device_connect(void *ctx, const uuid_t *client_uuid, struct issei_client *conn)
-+{
-+	struct issei_host_client *cl = ctx;
-+	struct issei_device *idev = cl->idev;
-+
-+	if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-+		wait_event_interruptible_timeout(idev->wait_rst_state,
-+						 idev->rst_state == ISSEI_RST_STATE_DONE,
-+						 msecs_to_jiffies(ISSEI_DEVICE_CONNECT_TO_MS));
-+		if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-+			dev_dbg(&idev->dev, "Device is in transition\n");
-+			return -ENODEV;
-+		}
-+	}
-+	return issei_cl_connect(cl, client_uuid, &conn->max_msg_length,
-+				&conn->protocol_version, &conn->flags);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_connect);
-+
-+/**
-+ * issei_device_disconnect - disconnect from the firmware client.
-+ * @ctx: opaque context
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+int issei_device_disconnect(void *ctx)
-+{
-+	struct issei_host_client *cl = ctx;
-+	struct issei_device *idev = cl->idev;
-+
-+	if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-+		dev_dbg(&idev->dev, "Device is in transition\n");
-+		return -ENODEV;
-+	}
-+
-+	return issei_cl_disconnect(cl);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_disconnect);
-+
-+/**
-+ * issei_device_write - send data to the firmware client.
-+ * @ctx: opaque context
-+ * @ubuf: data to send
-+ * @length: data length
-+ * @timeout: operation timeout in milliseconds
-+ *
-+ * Return: >=0 data length on success, <0 on error
-+ */
-+ssize_t issei_device_write(void *ctx, const u8 *ubuf, size_t length, unsigned long timeout)
-+{
-+	struct issei_host_client *cl = ctx;
-+	struct issei_device *idev = cl->idev;
-+	ssize_t ret;
-+	long wret;
-+
-+	if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-+		dev_dbg(&idev->dev, "Device is in transition\n");
-+		return -EBUSY;
-+	}
-+
-+	if (!length)
-+		return 0;
-+
-+	/* sanity check */
-+	if (length > idev->dma.length.h2f) {
-+		dev_dbg(&idev->dev, "Write is too big %zu > %zu\n", length,
-+			idev->dma.length.h2f);
-+		return -EFBIG;
-+	}
-+
-+	u8 *buf __free(kfree) = kmemdup(ubuf, length, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	do {
-+		ret = issei_cl_write(cl, buf, length);
-+		if (ret < 0 && ret != -EAGAIN)
-+			return ret;
-+		/* buf is consumed by issei_cl_write on success */
-+		if (ret >= 0)
-+			retain_and_null_ptr(buf);
-+		wret = wait_event_interruptible_timeout(cl->write_wait,
-+							issei_cl_check_write(cl) != 1,
-+							msecs_to_jiffies(timeout));
-+		if (wret <= 0) {
-+			issei_cl_clean_all_wbuf(cl);
-+			if (wret == 0) /* timed out */
-+				return -ETIMEDOUT;
-+			if (signal_pending(current))
-+				return -EINTR;
-+			return -ERESTARTSYS;
-+		}
-+	} while (ret == -EAGAIN);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(issei_device_write);
-+
-+/**
-+ * issei_device_read - receive data from the firmware client.
-+ * @ctx: opaque context
-+ * @ubuf: buffer for data
-+ * @length: buffer length
-+ * @timeout: operation timeout in milliseconds
-+ *
-+ * Return: >=0 data length on success, <0 on error
-+ */
-+ssize_t issei_device_read(void *ctx, u8 *ubuf, size_t length, unsigned long timeout)
-+{
-+	struct issei_host_client *cl = ctx;
-+	struct issei_device *idev = cl->idev;
-+	u8 *data = NULL;
-+	ssize_t ret;
-+
-+	if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-+		dev_dbg(&idev->dev, "Device is in transition\n");
-+		return -EBUSY;
-+	}
-+
-+	if (!length)
-+		return 0;
-+
-+	/* sanity check */
-+	if (length > idev->dma.length.f2h) {
-+		dev_dbg(&idev->dev, "Read is too big %zu > %zu\n", length,
-+			idev->dma.length.f2h);
-+		return -EFBIG;
-+	}
-+
-+	ret = issei_cl_read(cl, &data, length);
-+	if (ret < 0) {
-+		if (ret != -ENOENT)
-+			return ret;
-+
-+		ret = wait_event_interruptible_timeout(cl->read_wait,
-+						       issei_cl_check_read(cl) != 0,
-+						       timeout);
-+		if (ret <= 0) {
-+			if (ret == 0) /* timeout */
-+				return -ETIMEDOUT;
-+			if (signal_pending(current))
-+				return -EINTR;
-+			return -ERESTARTSYS;
-+		}
-+		ret = issei_cl_read(cl, &data, length);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	memcpy(ubuf, data, ret);
-+	kfree(data);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(issei_device_read);
-+
-+/**
-+ * issei_device_dma_map - allocate DMA buffer on parent device.
-+ * @ctx: opaque context
-+ * @size: buffer size
-+ * @daddr: pointer for buffer DMA address
-+ * @vaddr: pointer for buffer virtual address
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+int issei_device_dma_map(void *ctx, size_t size, dma_addr_t *daddr, void **vaddr)
-+{
-+	struct issei_host_client *cl = ctx;
-+
-+	return issei_cl_dma_map(cl, size, daddr, vaddr);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_dma_map);
-+
-+/**
-+ * issei_device_dma_unmap - deallocate DMA buffer.
-+ * @ctx: opaque context
-+ */
-+void issei_device_dma_unmap(void *ctx)
-+{
-+	struct issei_host_client *cl = ctx;
-+
-+	issei_cl_dma_unmap(cl);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_dma_unmap);
-+
-+/**
-+ * issei_device_register_interface - register class interface for issei class.
-+ * @intf: interface structure
-+ *
-+ * Return: 0 on success, <0 on error
-+ */
-+int issei_device_register_interface(struct class_interface *intf)
-+{
-+	intf->class = issei_class;
-+
-+	return class_interface_register(intf);
-+}
-+EXPORT_SYMBOL_GPL(issei_device_register_interface);
-diff --git a/include/linux/issei_device.h b/include/linux/issei_device.h
-new file mode 100644
-index 000000000000..a177b7ebdf11
---- /dev/null
-+++ b/include/linux/issei_device.h
-@@ -0,0 +1,84 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (C) 2025-2026 Intel Corporation */
-+#ifndef _ISSEI_DEVICE_H_
-+#define _ISSEI_DEVICE_H_
-+
-+#include <linux/issei.h>
-+#include <linux/types.h>
-+#include <linux/uuid.h>
-+
-+/* add MODULE_IMPORT_NS("INTEL_SSEI") to use these APIs */
-+
-+struct class_interface;
-+struct device;
-+
-+#if IS_ENABLED(CONFIG_INTEL_SSEI)
-+
-+void *issei_device_open(int (*match)(struct device *, const void *), const void *data);
-+void issei_device_release(void *ctx);
-+
-+int issei_device_connect(void *ctx, const uuid_t *client_uuid, struct issei_client *conn);
-+int issei_device_disconnect(void *ctx);
-+
-+ssize_t issei_device_write(void *ctx, const u8 *ubuf, size_t length, unsigned long timeout);
-+ssize_t issei_device_read(void *ctx, u8 *ubuf, size_t length, unsigned long timeout);
-+
-+int issei_device_dma_map(void *ctx, size_t size, dma_addr_t *daddr, void **vaddr);
-+void issei_device_dma_unmap(void *ctx);
-+
-+int issei_device_register_interface(struct class_interface *intf);
-+#define issei_device_unregister_interface(intf) \
-+	class_interface_unregister(intf)
-+
-+#else
-+
-+void *issei_device_open(int (*match)(struct device *, const void *), const void *data)
-+{
-+	return ERR_PTR(-EOPNOTSUPP);
-+}
-+
-+void issei_device_release(void *ctx)
-+{
-+}
-+
-+int issei_device_connect(void *ctx, const uuid_t *client_uuid, struct issei_client *conn)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+int issei_device_disconnect(void *ctx)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+ssize_t issei_device_write(void *ctx, const u8 *ubuf, size_t length, unsigned long timeout)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+ssize_t issei_device_read(void *ctx, u8 *ubuf, size_t length, unsigned long timeout);
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+int issei_device_dma_map(void *ctx, size_t size, dma_addr_t *daddr, void **vaddr);
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+void issei_device_dma_unmap(void *ctx);
-+{
-+}
-+
-+int issei_device_register_interface(struct class_interface *intf)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+void issei_device_unregister_interface(struct class_interface *intf)
-+{
-+}
-+
-+#endif /* CONFIG_INTEL_SSEI */
-+
-+#endif /* _ISSEI_DEVICE_H_ */
-
+ /**
 -- 
-2.53.0
+2.43.7
 
