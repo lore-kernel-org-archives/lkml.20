@@ -1,80 +1,81 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359E14AEBD2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:17:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4674BF93A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052238; cv=none; b=Sl/aPSyLVnihHPC/KAhNGhzwrz4hVe1OKfj4qjp+UTl0WNeJWFTZORLwhUw0+bj4tuo7ow98vRivF9teUfqcjtp1ssbxeShpBO6kiqspQIKs0NrfkVADby7zTSkmeWhE9tYc1dnd1gv8JtkfWpNNiwq0yLkeD/ou2reD9/D43c4=
+	t=1792052241; cv=none; b=kCMRwYVCAiGGEG3weW5jmQFWO6V+rXnRCldrHTc/3ZVzTLJGL0WNrho5Xpe5IfGJmaTHJjKV5gpWcV8HzMx3SUo7g9Wy5A8XS3GTTc5JLtDy2879o6CQe6ru3dByR3JcDKdQIaQI/mbuEwRfHL7QCZM1pnT9NHNpJ2NP1gBWpAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052238; c=relaxed/simple;
-	bh=E7PZ6N0FszxLMMdaYgjXFBu8QGf6U3lNuUd7q+Uemus=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=uujeUgLb2NEUsbfnkOMabofPYdQ8GhGG5TsHGNFqzCfity3FWcKhu+NJocqvlwKbUMgOqNl+v63VuPPHjyqmZzS1tRY5MPKGavDEGKj+Gt1ZqSCmcR56Qc9WfXhOViopRow9bJhsr4874ZX3+TfVhYMqtR8l5z3aSFyOJYeba+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EmTSgeQc; arc=none smtp.client-ip=209.85.221.71
+	s=arc-20240116; t=1792052241; c=relaxed/simple;
+	bh=aHFmT3y6Nn1rDrMIF/pHxFvBoyUQ6LXdwrnFCsyc19s=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=jXUUn5lsJgOLLyrIh83ThGI867PNGiV3sMW/mmzX9WGu5KN7aGwJWS2TZklh5i1XLl6AaBFyA6k7l/DzcBpdxHdfPWYNde5WBC7SPoBPchY3BkwpWTC5wyxZPaw1dq4dYmRrqpfCCdTneLhURAVJO8pnm7sY12eV6tXAkCrvOfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XoqhS59x; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EmTSgeQc"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c437ae81eso921602f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:17:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XoqhS59x"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0761224e1so16127885e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:17:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792052235; x=1792657035; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qX7Lg8nlPzyAAsaFZtEahUdsTQmoqhdq+zOHN21G2HM=;
-        b=EmTSgeQcmOPgZbudvDM5YK601HW2rXW5xDB0m8AXDOTxntsugs2csqxdLrlgiwhe/3
-         n4cZg2o8EQnO86ojJPs/YXnK21XbtYU7q1JBUGycMhA0cFz5KkRfHlEAlL/sN26qCxLX
-         ayRyW6v1tVXTWXatTwvQDU2iYYufNLHU3BneJZ+jcDDlNtojmeYXtsqOaWihcnyNbALc
-         1FWHCZD5WviZ07ttCNN09UBPcf3mhE/va3ddG7Mb5h/xslD52ecdYqU2us1qoM7Lifkb
-         Zf5qM5nLvwW60WOVL9PWfI1mg4TsldjdZ3lwHrbh4wQmbT9F9ZOsTApAktzuzQdr+Kie
-         Cbfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052235; x=1792657035;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792052238; x=1792657038; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qX7Lg8nlPzyAAsaFZtEahUdsTQmoqhdq+zOHN21G2HM=;
-        b=d/550N72Ft6YFzgvo7wkap3bJ03iO21QfioMRPcW2reVemwmtfk61CwR7eBDvjKpJH
-         NmGVDFolljCw4Mxe9p/CKekMhzsCQb25qiZiuKxBsMZzIW1vHZuBElX/6xgUtmtvW9Mw
-         fSt++I7GAikaMyCSu8rG3ld2IBTAJmsmbSEebqserqstx8iNmNQ4grtxBp5fEDY2ViMQ
-         qRF2vjwNvnmz1X/Dwanq0RWiR4AFfyXz2zqUOSrOO/4M90YOXiwuW17XxWWF7/Q5IcY3
-         azf+wCdD5ubJpc+O0de36eIZCzUDg8vfF8MVFZfn1/UTZi3No1rOABExYRJ5vNHGmfZ0
-         eYUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBd1EWCstUvf3k3G5HDWvMgPrb4zssm0rQalOh76B8YB0A04cONaQEDd5dR7G33GpKSiKlO5Xf2vMUPyY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILsoC1YiOVwR6PbwsD75SVX1bek6zh8nGXeS1AmVBuPov4y3j5
-	TPrH6XfKk64uCprl1ob1nCRoQ9ZtV2ptuSHD1E7WeahhM07xeTzG41FXNhR2BNmSqWh1Xvwv+oL
-	wQE8N4EuVVhOl+WYSCA==
-X-Received: from wroy15.prod.google.com ([2002:adf:f14f:0:b0:48d:f52d:93ac])
+        bh=7qcABzzji+bihcE8z5CZtBejGLs7WH+bh5VllZSZyQE=;
+        b=XoqhS59xfqiAQ/iNoKnHwBccRKXgvEDM0ZzJ2/0oK/FcCke7M+I+UcekeWTrSOEl1v
+         1cZG5ojw0w+hQSm+PvdS1ZDxe1PN2OZ/sWCK9hMpIJIPI864731Z0w1Przk87WtHe5hz
+         sU3rbeiEWMGEfv3PhA2jgGki5ZAqa8248s3alkpDES0EAysNt+n4/zQeT4ySkSXwnxUL
+         QokOoFOBgykG8kAolus+yvPWVQ+OIJBkAQMYsPTxI7AcQp1ql7hyeuzEWVarpAdOe/oY
+         42hYgYEuFim9vH9Tf6gzcpI+hA6Kg03ulq/hUDzIZKGcV+uJg/m2NpqKekwyjNJgte9c
+         GWZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052238; x=1792657038;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7qcABzzji+bihcE8z5CZtBejGLs7WH+bh5VllZSZyQE=;
+        b=XU4QXWFK93EOvXYzGcIh+iEGLdXxMzMLghDn5ufzRNTxwDp8R0OI+1tDWDA6Cqpqn+
+         oBz3B38c0qA+jhX5CpOwjQSAjp5hnzPcjwDiRAzYeM6an1WLvVMu7LjYdhDKuKwZcvOd
+         eeEa0+oB7DI9QC/Pxf22bMU/ovYCjU1g36NS7AXeP6DoMA7lvvpEfo5K3QA6z5iyVrcR
+         7I8yDJs0Qy1Q38CvePlb4WumoJJnGXar/ctLjn/LeXAFurmRZkvzAflMPUoz21salLSS
+         nKoMuZxS08IzptKcV1A235w1QbsyRctZQndGlHXit7TJrv00qYsA7qvj8Ree7xLYJUfZ
+         yo+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxj8WTyKoNyrjpQ6GANmsHQadfC6KVzG4Wz8MPreOr2HiUpmdTTQAlcu/4yuQn0nx4gTqjaU/l30Ns9Gc8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKn+ceZf3wlzam66wUGo+CwM5S7DH3U9k/+0achGmTPs4ufIdu0
+	quynxSqyItvqDua7HXAE1tcrYyq1NskGu/zW3ktj+38AIsOFMCpOpXGFhzDkA0+LGbp2pZug4V4
+	xuN5q1bneYoS+h0779Q==
+X-Received: from wmop14.prod.google.com ([2002:a05:600c:468e:b0:4a1:8ab4:b338])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:46ca:b0:48d:f14a:9188 with SMTP id ffacd0b85a97d-48df14a92b1mr4100690f8f.17.1792052235100;
- Thu, 15 Oct 2026 01:17:15 -0700 (PDT)
-Date: Thu, 15 Oct 2026 08:16:26 +0000
+ 2002:a05:600c:4e89:b0:4a0:22d5:908c with SMTP id 5b1f17b1804b1-4a18e4a4976mr397363895e9.12.1792052237245;
+ Thu, 15 Oct 2026 01:17:17 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:16:27 +0000
+In-Reply-To: <20261015-spinlock-irq-6-18-v1-0-72c58975994e@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIANqL0GoC/x3MQQrDIBBA0auEWXfEscXaXiVkUXWaDC0mUQgJk
- rtXunyL/ysUzsIFnl2FzJsUmVMDXToI0yuNjBKbwWhjSdMVyyLpO4cPSl7RIjl83I0O0dPNs4X WLZnfsv+fPVhFTh0wnOcPRFahxWsAAAA=
-X-Change-Id: 20261013-spinlock-irq-6-18-9720cdb14be6
+References: <20261015-spinlock-irq-6-18-v1-0-72c58975994e@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2178; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=E7PZ6N0FszxLMMdaYgjXFBu8QGf6U3lNuUd7q+Uemus=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0IwERFzAhp1VNXrBknz/Gt2WAq3AYCiFa2d8Q
- rh8yHyRBHCJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatCMBAAKCRAEWL7uWMY5
- RvYfD/41o14648yaQad597iJTkzJ9ic6n9ykRuUWrHM5caQsBVoLm6StqOROvoTMoPXnxoDwVt8
- k+D6HHmT/Wfp5hXMBLBh8cBcPN91UDml/04cVLMsEAr4Gnt/zqgdj9pVJQOiD/y2oB2SmfDGV1B
- uIZxlPed2k8dFNl6c//nCBihgeX4Sv8cUkdSNBIdb7vOjhJB+ow5dZ2KOZX/kdeh2OBdPWK3yeN
- grJYZcTDmPA+CYyBJ8ayGWC2DfYIDtZ9IAoh+cMFVPAUopLkk/fQRcBNw/A8sZv8Rb1i6MTDHEp
- xNpnYnjPt+dKy3/xrqrdwDptf5s8eZBI9OoA2A1ft7e+2nkssL9RsYVeLAFykln2kcE6U6vIEKA
- TdmDXspxrEvizz0/x6B5TVhlP0z193iwzxTkAPIM9qZIsDdgVrDqRkD+3gTMSVwqnkplynWTVh5
- cfn2ofzRe6Vf4r5nGF1lr5Hhc/cy9UTZ8asPTITVssTbSBmSCSiUe8vVGPmqn6tJaEl6VY4DIgp
- 3kFj70It4GLkTW0tbmTDLRkXFKmHqAZEXWpe5JAmREWwYYuldOQ/qXV5Wskz16N+oOocFPOBWhK
- FXJN7R3/IMuW0HEz0s2iThER18f+0JnhewIDaEbuZI/FGy9meYTtSZeg0d8inU+N6EM9przq8Kj 61sj3bwXiV9QOCg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7044; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=aHFmT3y6Nn1rDrMIF/pHxFvBoyUQ6LXdwrnFCsyc19s=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq0IwJlFA2hjbpArhzZQU/Lpz79MNJ0CXSwlCQA
+ PqosOipJJ2JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCatCMCQAKCRAEWL7uWMY5
+ RhtWEACGn3M1Rn6T8pFyzYDcAXbdQmXGuj/uqnO/X2z+QFC3lLU2Epx/mypu9wpXoq5o6j0clu1
+ /frKp68tYZRQ1O+IA4zzIkMZmphJSnGBC7PGD3rl9vG6SrelECyyUw33ftWLYJmWpIujJ7Vdbjr
+ Kc0qe6nAJrSmfkEBDBeMhuSeUJbej9BvQ8Fo37numIdgQ1pmNtchmmF9F0dFt4yI+kdDaJA1MC6
+ 9XWfGQqsU93iWsc+uu3oXLYKvP9IG+FNfzcLUik7zW2QFumEGs2Dp4+Az59ZdOqpPvbjgjsUjU7
+ 9Cq8LX1LSZDYs5Xyb1Zfv0JSqIc44UCwzyjSdqFA31RUElGctfP8MMxl4v+eO/+hWd+8cAa+bYn
+ 0Sc+9F4y4At2sHHjeQ+ypEsxXYnzi6fVxtoYj7fQ9i8kpfKNy6aghUWM3nGt5Dj3T7mhvKBCSJb
+ VAlOHmgkxvCsErCdnEin7d/gSOSdmUSJEe5yyLSx1hW5xAfAmFQZ7tuSE5sPH0yqmEf1WEZaLuZ
+ M+Df/Z8zEscgW0zpcQw6lFnHvCTBj86yfRcKS+gbyqDiXSNI1Bjf8mVu5PmbhmEDXHM4dBhRoQH
+ C2wtEKm0Q4ZaeU3kqzaUW6e/BLpT79WmDawSCiRxnaByqyJyVJgHVMCixHm2qjAePz1FKYD/rWR dhDl152J9Gt8IYA==
 X-Mailer: b4 0.14.3
-Message-ID: <20261015-spinlock-irq-6-18-v1-0-72c58975994e@google.com>
-Subject: [PATCH 6.18.y 0/6] Backport spin_lock_irq_disable() to 6.18.y
+Message-ID: <20261015-spinlock-irq-6-18-v1-1-72c58975994e@google.com>
+Subject: [PATCH 6.18.y 1/6] irq: Add refcounted local interrupt disabling
 From: Alice Ryhl <aliceryhl@google.com>
 To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Sasha Levin <sashal@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
@@ -91,54 +92,214 @@ Cc: Boqun Feng <boqun@kernel.org>, Lyude Paul <lyude@redhat.com>, Ingo Molnar <m
 	Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-This series backports the new spin_lock_irq_disable() API, as well as
-the new SpinLockIrq API for Rust to 6.18.y. This means that any upstream
-code using these APIs can be backported cleanly to 6.18.y without
-needing adjustment to work using the old APIs.
-
-The first commit uses a different implementation than upstream commit
-e901c1510e24 ("irq,spin_lock: Add counted interrupt
-disabling/enabling"). In mainline, `local_interrupt_enable()` works by
-carving `HARDIRQ_DISABLE_BITS` out of `preempt_count`, which requires
-reworking the `preempt_count` layout and arch-specific accessors across
-x86, arm64, and s390. Instead of backporting those invasive changes to
-6.18.y, patch 1 implements the same refcounted interrupt disabling API
-using a dedicated per-CPU nesting counter and saved irqflags word. This
-is slightly less efficient, but is much less invasive. Patches 2-6 are
-clean cherry-picks of the upstream patches.
+Rust's SpinLockIrq abstraction requires refcounted local interrupt
+disabling so that nested critical sections can be released in any order.
+Upstream commit e901c1510e24 ("irq,spin_lock: Add counted interrupt
+disabling/enabling") implements this by carving HARDIRQ_DISABLE_BITS out
+of preempt_count, which requires invasive architecture-specific changes
+across x86, arm64, and s390. Thus, for 6.18, implement the same API
+using a dedicated per-CPU nesting count and saved irqflags word instead.
 
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Alice Ryhl (1):
-      irq: Add refcounted local interrupt disabling
+ include/linux/interrupt_rc.h | 26 ++++++++++++++++++
+ include/linux/spinlock.h     | 61 ++++++++++++++++++++++++++++++++++++++++++
+ kernel/softirq.c             | 63 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 150 insertions(+)
 
-Boqun Feng (1):
-      rust: helper: Add spin_{un,}lock_irq_{enable,disable}() helpers
+diff --git a/include/linux/interrupt_rc.h b/include/linux/interrupt_rc.h
+new file mode 100644
+index 000000000000..64564bfd715a
+--- /dev/null
++++ b/include/linux/interrupt_rc.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __LINUX_INTERRUPT_RC_H
++#define __LINUX_INTERRUPT_RC_H
++
++/*
++ * Refcounted local processor interrupt management.
++ *
++ * local_interrupt_disable() disables interrupts on the local CPU and may be
++ * nested; interrupts are only restored once the outermost
++ * local_interrupt_enable() runs.
++ *
++ * Unlike local_irq_save()/local_irq_restore(), the saved interrupt state is
++ * held in per-CPU state rather than by the caller, so the regions do not have
++ * to be released in acquisition order. That property is what allows Rust's
++ * SpinLockIrq guards - which are ordinary values and may be dropped in any
++ * order - to be built on top of this.
++ *
++ * Since the implementation depends on local_irq_save()/local_irq_restore(),
++ * this lives in its own header to make it easier to include without hitting
++ * circular header dependencies.
++ */
++
++void local_interrupt_disable(void);
++void local_interrupt_enable(void);
++
++#endif /* !__LINUX_INTERRUPT_RC_H */
+diff --git a/include/linux/spinlock.h b/include/linux/spinlock.h
+index d3561c4a080e..bb067c652fbd 100644
+--- a/include/linux/spinlock.h
++++ b/include/linux/spinlock.h
+@@ -57,6 +57,7 @@
+ #include <linux/linkage.h>
+ #include <linux/compiler.h>
+ #include <linux/irqflags.h>
++#include <linux/interrupt_rc.h>
+ #include <linux/thread_info.h>
+ #include <linux/stringify.h>
+ #include <linux/bottom_half.h>
+@@ -455,6 +456,66 @@ static __always_inline int spin_is_contended(spinlock_t *lock)
+ # include <linux/spinlock_rt.h>
+ #endif /* CONFIG_PREEMPT_RT */
+ 
++/*
++ * spin_lock_irq_disable() and friends behave like spin_lock_irq(), except that
++ * the interrupt disabling is refcounted (see <linux/interrupt_rc.h>).
++ *
++ * Two differences from spin_lock_irq() follow from that:
++ *
++ *  - Nesting works: an inner critical section does not re-enable interrupts on
++ *    exit while an outer one is still held.
++ *  - If interrupts were already disabled on entry to the outermost section,
++ *    they stay disabled on exit, as with spin_lock_irqsave().
++ *
++ * Unlike spin_lock_irqsave() the saved state lives in per-CPU state rather
++ * than in a caller-provided variable, so sections need not be released in
++ * acquisition order. These exist for Rust's SpinLockIrq, whose guards are
++ * ordinary values and may be dropped in any order.
++ */
++#ifndef CONFIG_PREEMPT_RT
++static __always_inline void spin_lock_irq_disable(spinlock_t *lock)
++{
++	local_interrupt_disable();
++	spin_lock(lock);
++}
++
++static __always_inline void spin_unlock_irq_enable(spinlock_t *lock)
++{
++	spin_unlock(lock);
++	local_interrupt_enable();
++}
++
++static __always_inline int spin_trylock_irq_disable(spinlock_t *lock)
++{
++	local_interrupt_disable();
++
++	if (spin_trylock(lock))
++		return 1;
++
++	local_interrupt_enable();
++	return 0;
++}
++#else /* CONFIG_PREEMPT_RT */
++/*
++ * On PREEMPT_RT spinlock_t is a sleeping lock and spin_lock_irq() does not
++ * disable interrupts at all; mirror that behaviour here.
++ */
++static __always_inline void spin_lock_irq_disable(spinlock_t *lock)
++{
++	spin_lock(lock);
++}
++
++static __always_inline void spin_unlock_irq_enable(spinlock_t *lock)
++{
++	spin_unlock(lock);
++}
++
++static __always_inline int spin_trylock_irq_disable(spinlock_t *lock)
++{
++	return spin_trylock(lock);
++}
++#endif /* CONFIG_PREEMPT_RT */
++
+ /*
+  * Does a critical section need to be broken due to another
+  * task waiting?: (technically does not depend on CONFIG_PREEMPTION,
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 77198911b8dd..3d17cf5ff790 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -12,6 +12,7 @@
+ #include <linux/export.h>
+ #include <linux/kernel_stat.h>
+ #include <linux/interrupt.h>
++#include <linux/interrupt_rc.h>
+ #include <linux/init.h>
+ #include <linux/local_lock.h>
+ #include <linux/mm.h>
+@@ -88,6 +89,68 @@ EXPORT_PER_CPU_SYMBOL_GPL(hardirqs_enabled);
+ EXPORT_PER_CPU_SYMBOL_GPL(hardirq_context);
+ #endif
+ 
++/*
++ * Refcounted local interrupt disabling; see <linux/interrupt_rc.h>.
++ *
++ * @local_interrupt_disable_count is the nesting depth on this CPU and
++ * @local_interrupt_disable_flags holds the irqflags captured by the outermost
++ * local_interrupt_disable().
++ *
++ * Both are only ever accessed by the owning CPU with interrupts disabled, so
++ * no atomics are needed: local_interrupt_disable() disables interrupts before
++ * touching the count, and a non-zero count implies interrupts are disabled.
++ */
++static DEFINE_PER_CPU(unsigned int, local_interrupt_disable_count);
++static DEFINE_PER_CPU(unsigned long, local_interrupt_disable_flags);
++
++void local_interrupt_disable(void)
++{
++	unsigned int count;
++	unsigned long flags;
++
++	WARN_ON_ONCE(in_nmi());
++
++	/*
++	 * Disable interrupts before touching the count, so that an interrupt
++	 * handler on this CPU cannot observe or modify a half-updated state.
++	 */
++	local_irq_save(flags);
++
++	count = raw_cpu_read(local_interrupt_disable_count);
++	if (count == 0) {
++		preempt_disable();
++		raw_cpu_write(local_interrupt_disable_flags, flags);
++	}
++
++	raw_cpu_write(local_interrupt_disable_count, count + 1);
++}
++EXPORT_SYMBOL_GPL(local_interrupt_disable);
++
++void local_interrupt_enable(void)
++{
++	unsigned int count = raw_cpu_read(local_interrupt_disable_count);
++
++	if (WARN_ON_ONCE(count == 0))
++		return;
++
++	count--;
++	raw_cpu_write(local_interrupt_disable_count, count);
++
++	if (count == 0) {
++		unsigned long flags = raw_cpu_read(local_interrupt_disable_flags);
++
++		/*
++		 * Restore rather than unconditionally enable: the outermost
++		 * local_interrupt_disable() may itself have run with
++		 * interrupts already disabled, in which case they must stay
++		 * disabled here.
++		 */
++		local_irq_restore(flags);
++		preempt_enable();
++	}
++}
++EXPORT_SYMBOL_GPL(local_interrupt_enable);
++
+ /*
+  * SOFTIRQ_OFFSET usage:
+  *
 
-Lyude Paul (4):
-      rust: Introduce interrupt module
-      rust: sync: Use super::* in spinlock.rs
-      rust: sync: Add SpinLockIrq
-      rust: sync: Introduce SpinLockIrq::lock_with() and friends
-
- include/linux/interrupt_rc.h      |  26 +++
- include/linux/spinlock.h          |  61 +++++++
- kernel/softirq.c                  |  63 ++++++++
- rust/helpers/helpers.c            |   1 +
- rust/helpers/interrupt.c          |  13 ++
- rust/helpers/spinlock.c           |  15 ++
- rust/helpers/sync.c               |   5 +
- rust/kernel/interrupt.rs          |  89 +++++++++++
- rust/kernel/lib.rs                |   1 +
- rust/kernel/sync.rs               |   9 +-
- rust/kernel/sync/lock/global.rs   |   3 +
- rust/kernel/sync/lock/spinlock.rs | 329 +++++++++++++++++++++++++++++++++++++-
- 12 files changed, 609 insertions(+), 6 deletions(-)
----
-base-commit: 17ad2612c11a748b50d32eefc681344b26fea946
-change-id: 20261013-spinlock-irq-6-18-9720cdb14be6
-
-Best regards,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.56.0.385.gd3acb90ef8-goog
 
