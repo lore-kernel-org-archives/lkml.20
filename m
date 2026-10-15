@@ -1,86 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAA04DA9B1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5090430CDD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062544; cv=none; b=AHUsHk6e+D5uvPs+V1qH6Z3bGFATcA+PhkhkBEKJhrWV64Qxf33689v9FIs8IjkQLdGEh9FtRuRVdxVOAlkkOMhOilR4lL2bXp4SutSIY242DEtpDdf4RdTtK5sH3mcFkFcXu0GVrh/dpxfWJ/SwqphONEwR4LenZjF1SMpuvwM=
+	t=1792062561; cv=none; b=s+OoVG7VE3mEnufFIFKdtrUyQXX8mqR5hB+xB7f+BZPee2iQ5SiwMS7tr9B9uhaI99wwmGs1zMFNITTE1HDUSptIlya67Q59bs5T2PGitOQjDsqF41VIm+IjvN/y9MbNiMzwq92y4YiEdkr8EuFgXR8teXOsVEHptX+8kjqMzRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062544; c=relaxed/simple;
-	bh=Yy1yxhSUVWU2+uolQRV7bI9vT9WCcyZySLCh7NYfJTA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DkzJHlBqUBfIcdvFvLrKb3DDka0W5QRxg/wHB590KG7k4wQ87xoqe6Y9Fv67zHL1CDw8lPxpYQxlBYh6AAseZliGC+4JQyMzUjClQ9kmyc0jWndPft0igXIC6+P44BSkaYJLTzuu3CgxllNlfWWkKC4jcCODYhpUOXhswOpS9xE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2jp9z9R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792062561; c=relaxed/simple;
+	bh=ojpgcjY1pwWuuRpPbKmm8hQFRw/Oh6diiheiXbsQrJg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dgQi7i6qtQlHL9SppeX47PNntDD4t7stbDe1kvWE1iMJxWO14JOrqEqsvPQf4/+4EBFFCL8tlzAVoilQfCpOiIEz6tCN551VQ0Fj+u53KrjwgMNQtuoPqqG3VQa9tD+YzMLdMfUKVdyYRSFYeUlT5mJ2j12PFrwbbagNouKGtoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0ri22xv; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2jp9z9R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6491F000C4;
-	Thu, 15 Oct 2026 11:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792062542;
-	bh=bIfes0VmGz93Q/D7qKVAipk4bYqd8Rm8ZLiZKuFMUfw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=i2jp9z9RcjWmzfTFdI2o0RKgNd5lHBSExqJbfVUWMOO3Hqtg8Ocr3XnH8AjA1rE+8
-	 4JOg3mOL71xU17oyCOVQS5D3nzPIUBu7SzLxVt96CbTNjdvz6IUMxyGYg8frUbyE62
-	 Ms9bTFfLVQPNoq4JbZ9vTDdpJB8/5/biHLFU9tXDLucmpQc5I05+e4jZru9aTEpCn4
-	 DjPR2z/M8mfvz1R/8ekpZy+0etF37VzorR8WK8iwKd0M7AftHzPSuvsJHmIJ0WEj3F
-	 5AqSWH/YNaidOXVDE7d+knZY7phLDP9/OtWpltqn9ir8Xnwjns3+7I71a2hISoySxd
-	 SICGxvBZK0p1g==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Pasha Tatashin
- <pasha.tatashin@soleen.com>,  Alexander Graf <graf@amazon.com>,
-  kexec@lists.infradead.org,  linux-mm@kvack.org,
-  linux-kernel@vger.kernel.org,  Bing Jiao <bingjiao@google.com>
-Subject: Re: [PATCH] kho: do not reserve empty per-node bootmem areas
-In-Reply-To: <atCQqghin0KOyx63@kernel.org> (Mike Rapoport's message of "Thu,
-	15 Oct 2026 11:36:58 +0300")
-References: <20261014131547.259138-1-pratyush@kernel.org>
-	<atCQqghin0KOyx63@kernel.org>
-Date: Thu, 15 Oct 2026 13:08:59 +0200
-Message-ID: <2vxz8q3zi5kk.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0ri22xv"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e608cd460eso27925265ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792062560; x=1792667360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AKpSXWXA/x7f6eIFfKd0wtNKvpm5sMl+0hhmJlcgovQ=;
+        b=m0ri22xv3oEFZdWtyKRs5cmI/s9ixbUeSlIbxQaVJT8+qb2C68T6zS29QU2ovh3SQ0
+         +gKi9mIf9y+q8pHeOAirVJUTYcJwBy+BuIFD3LO/2GFxU7I/quD9XE0h28eD53KPPJsB
+         x/Xl5Mun18ngpQt/TwEMI3w/++3m11CQfkLB33+GSA2fW/3P6UDtl3R/LIEUatS5MJOs
+         xQKAQ89PdivUEVrkyNMYU2FqeP8QlX8GDhDnvgw0fwczMChxLFrJGZBjjeaPo5a5p8AE
+         4ToVwYo1B6MRCObK3hHg8SMvRkyh3s62oSjeLiCrCBsp0JOCY1WPBXNrO6Zxgnmkrsm6
+         WVUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792062560; x=1792667360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AKpSXWXA/x7f6eIFfKd0wtNKvpm5sMl+0hhmJlcgovQ=;
+        b=GQmbdYn/m8JkIwcuMPj5ggoq4TtPlANIgGRwBTaCiBc9qAEYTccKvrHX1Ki0QaMVAt
+         5kA2g+YuY/lHVarKdsGGwqj6vfq2E9+h85oNljMFhcVfA32I59lRzT40q+2AMQH2BghY
+         Plj7LmHoWQ6Pl1YjCwoJsZjlcymmuaZFDZOfY/ntB3Qx5TLTabKmqUO+r8eBkjDqtc+S
+         R831Am8QbcaYvp2JL9PiPdIfZ8DM4S48fsWOWsrKF9sVcHvvTCI5EovLry4BQX8l3MrZ
+         ha9t5UaUzCpgp9SSH+Q0wwXQgt76kNCGbiq4pZo+c/77NdSpT7pUV21YjlJWB8tWTYvU
+         fVhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRjCc/Zgt7Wxr3qIk6dc4FAAWybppARASxkgUAnk2/hNwd8dI4QCw/KwAbBa7BCn+T5tyRiYdm0R0hLV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHTO2cvn56q2fhXC9uIl7gIcm4k+6YZQ3RZS2aPGdmPAbxl9D+
+	6QsFvja5RjM0uiVdW25LQ9g2drn0O0jCEcG8E6aE4N5zrdidqM6SS2rL
+X-Gm-Gg: AYBFou1RGHxDARlOFm9htJn3LV1OYz5un0fHMmrtJAV2zc0qQnxRmESxmqoVkV9hpm2
+	LrvlzLcSbISaiisPisMLB+wQJhgcnJaNr5oYtV1jvNzdSJwzGoWd7+CynU7VxsQUEaaFF3U+nwA
+	meOqjfHWJGPHtLaNI7WTZvnMy3TjqHHunQ4i6o6I4hRf9C7iVIkXRTQggBsBvWajNHX4KAVxD+1
+	3fnIcRMT+jo6AQbWmhUF8+Q8eskb+8Q0eWRhtdQYm3Zy59kEJl+meL9skNdSp7EAvczTzSQyh+D
+	74HmPERLLlFJmIpq19QoiAQG0VOcy4wsYJBiwQneEUtDnOrZX8DMkMnqhQljiMq83R0MMkk7Wbd
+	Y5agXTOjzZSpr8GFVYAbtRN6IB+/AGGEfFklfPQd3RGpgvvwVIclFqKjCpySmyKWrlmMndc2FV7
+	HK973M+XWhvJo19o9K4aaWFOeAZVn3veEUXEd8qvGdGTq992a6qQ+kp1495j3aKKmIOBtYmV63a
+	LGREA==
+X-Received: by 2002:a17:902:f786:b0:2e1:2439:57c3 with SMTP id d9443c01a7336-2e842ab7910mr155601255ad.44.1792062559998;
+        Thu, 15 Oct 2026 04:09:19 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e93f1d1ea6sm17881585ad.8.2026.10.15.04.09.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 04:09:19 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>
+Subject: [PATCH v4 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
+Date: Thu, 15 Oct 2026 06:08:57 -0500
+Message-ID: <20261015110859.203989-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014135251.11234-1-wyibo6109@gmail.com>
+References: <20261014135251.11234-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15 2026, Mike Rapoport wrote:
+From: Yibo Wang <wyibo6109@gmail.com>
 
-> On Wed, Oct 14, 2026 at 03:15:44PM +0200, Pratyush Yadav wrote:
->> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
->> 
->> Some nodes do not allocate any early boot memory. An example is
->> hotpluggable nodes with movable_node enabled. So the scratch size for
->
->                           Let's use the new naming please ^ ;-)
+This series adds support for the magnetic pogo-pin smart keyboards of
+the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
+built around a Tinno MCU attached to a tablet UART.  Both sides share a
+single data wire, so the host gates its transmission onto the bus with a
+PMIC GPIO for the duration of a frame, and every host frame is echoed
+back on RX.
 
-Argh, muscle memory...
+The MCU speaks a framed "one wire bus" protocol over the half-duplex
+921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
+length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
+The protocol was reverse engineered from the vendor kernel driver; this
+is a clean-room serdev reimplementation that replaces the downstream
+platform driver, which depends on a private msm_geni_serial callback and
+a user-space held tty fd.
 
->
-> I'll fix it up when applying.
+The core protocol (framing, keys, touchpad, sync/heartbeat) has been
+carried unchanged across four SoC generations of these keyboards, from
+the sm8550 era to the sm8850 ones covered here; only the 0x3A general
+sub-commands grew over time.  Patch 1 adds the DT binding, patch 2 the
+driver.
 
-Thanks!
+Changes in v4, after Krzysztof Kozlowski's comment that the binding
+describes the keyboard rather than the MCU (wording only, no functional
+change):
 
->
->> them ends up being zero. Zero size allocations normally don't play well
->> with memblock. Memblock returns an address, but then doesn't actually
->> reserve anything. This address ends up being recorded in kho_bootmem
->> with a size of 0. In case of hotpluggable nodes with movable_nodes, the
->> allocation on the node actually fails because memblock refuses to
->> allocate there, and so KHO fails to initialize.
->> 
->> Skip bootmem reservation for such nodes entirely.
->> 
->> To keep the code more robust, avoid overloading kho_bootmem_cnt. use
->> max_nr_bootmem to store the size of kho_bootmem array. This ensures that
->> the location of kho_bootmem_cnt assignment does not affect the cleanup
->> paths.
-[...]
+- the binding description and the commit messages now describe the
+  keyboard (built around the Tinno MCU) instead of the MCU itself, and
+  spell out that a keyboard is a fixed physical device, so the touchpad
+  geometry and the product names are per-compatible constants in the
+  driver.
+
+Changes in v3:
+
+- the compatible names the tablet project the pogo port belongs to
+  (oneplus,caihong- / erhai- / iceland-pogo-keyboard, the codenames
+  used by the vendor trees), and the driver carries a per-project
+  description in the OF match data: feature flags gate each 0x3A
+  general sub-command (caihong, sm8650 era, has no wake notification
+  and no backlight; erhai, sm8750 era, adds the wake notification;
+  iceland, sm8850 era, adds the keyboard backlight), while the touchpad
+  geometry and the per-brand product names are per-project constants -
+  the wake notification is skipped and the backlight LED only
+  registered where supported;
+
+- the touchpad geometry and product names are no longer DT properties:
+  they are fixed per project and live in the driver; the common
+  touchscreen properties (touchscreen-size-x/y, touchscreen-x-mm/y-mm)
+  remain as an optional override, parsed with
+  touchscreen_parse_properties(), for the unlikely case of a variant.
+
+Changes in v2:
+
+- dropped the redundant "binding" from the dt-bindings subject;
+
+- replaced the custom oneplus,touchpad-xy-max/-resolution properties
+  with the common touchscreen properties;
+
+- dropped the serial wrapper node from the binding example;
+
+- the MAINTAINERS entry added with the binding references only the
+  binding file; the driver F: line is added together with the driver
+  patch.
+
+Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
+(v7.2-based iceland tree).
+
+Yibo Wang (2):
+  dt-bindings: input: add OnePlus pogo-pin keyboard
+  Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+
+ MAINTAINERS                                   |    7 +
+ .../bindings/input/oneplus,pogo-keyboard.yaml |   73 +
+ drivers/input/keyboard/Kconfig                |   13 +
+ drivers/input/keyboard/Makefile               |    1 +
+ drivers/input/keyboard/oneplus-pogo-kbd.c     | 1263 +++++++++++++++++
+ 5 files changed, 1357 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+ create mode 100644 drivers/input/keyboard/oneplus-pogo-kbd.c
 
 -- 
-Regards,
-Pratyush Yadav
+2.53.0
+
