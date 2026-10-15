@@ -1,129 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E82051C077
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD9E51DDEE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067430; cv=none; b=LV0DjnZAZ8xJU8WkBnnXxz1QXGTnA0XGVhMlF5FDKw8KdJUzsCIGabezeUQjeajXDkAEBAu491SVVGfQCx48VyZ8sDw137sl5E9K0eobvQMFQ+uVpaWFLgQ8fl3v+Oppp/zBgHX7y3R3WNo3SBo7clnr+0p3qVbyeynIk3cPh/o=
+	t=1792067433; cv=none; b=kNU7PeKKjNkpB7d25lmhHUhxAy5EX8P14FWRefsJ1DEmBLEe2xWxm+TpbQnUiPV3gzU6aWRE+/4a6Bt1NsWTPDKgUtje1WJoCSx5ozkqs7Z/Pf62dMBXXP5cmQygdlVTX8PeJgvJvo7qY25haLi2SBeaXN0QGySxIwC3qU2L8Ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067430; c=relaxed/simple;
-	bh=7xp5FaQsIIC3pv9y2INkZKrDNbfRB0vB60u/6QFeOc4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q7YRo266TuDCIVVXWCIIgNO7GH6nxOnSXajsFM//+hg76y/CeSiNMP0JQvKqusg3GJfjO417fG3pVJd4Ee6y7z5sbxWusJiroVpmAkkbw/S6x+4sCrxXCsUdJtUbhs+LdtsOFB6g0O6xbYyrU/InzuNP9rknZim1nkKBNzYZvGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHUq3C5S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067433; c=relaxed/simple;
+	bh=X7fyX3jJFj6nyXssYOE1hLP8LJ2xvGZ+VCHua7U8v/o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dHa7oOh6UaoPzQbo+eR9T7DVR2MInKmpRQtfjJIAMPzxTLvp2yTLzNwrAmDLGveBkJzr1FEU9N7pHlIEZ0Kj2BOgEH8fnhe1LDfkRas904qI07ywlHJu5AIb9CUb1aWDdRdMEcxswpSY2bjYLhBsBYA+4mulQZg7Yf0ySrm4qZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eY+lf0fO; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHUq3C5S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 017781F000C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067429;
-	bh=0Hrr6m57SxPTnWIbx/gib9CZ2mA67LGZI8LQGZp5kb0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=EHUq3C5SlN2p/vApuLOW400yPE+gOhqlx8PjGcoCu3KU9aFjNKGZZQXHylkLcO5SL
-	 1zlFxrskiG+j5+yjkFOvZFHIsEFy+zT4MjGhary8lVrZVLgjrJIEVuXGVMU3WBGxVx
-	 qLglji5kahswtHOIyWAKUsIyeGMU2y9aLNF0OPOU/8E7OeRrf0k4v7H1qAgXUaqIOy
-	 sudncVr7TFI2Fq1Y3DSzEJpQl0G7mPArQcwEshcBxs/Bz8u+8Pf8H9ZNg/swmUVG0g
-	 ZFr2BaNqYZq1pyPCFZp42RQ7pc3qqTeEXwk1iC3pKB/h5X5vP0zdF/I1X0FUpfDQls
-	 H0qybqiQ+0IhQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2028777e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:30:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCp8MBAKv2bBmp6MUUScT2KTw6lI0Jfofgje96Lks9um4z6XBfvVqBo5PiIUvQgYgvwaJONcwL70QptZc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGGhdMcf01MV6Xd175p8g+bW4ZmkfHneOEWJ0kq+uj3/vVf+Io
-	g6CsT+syyWnXRDA2/lNC6BBnoviE8+xBjA7iWTcrOL0MkHCv70u7Q4vYxmC1DWv2q27ZOFb09FH
-	Sz1fAQncoOgVrUdBf+ZKqtlKx91GKLzdyDF5DCHvmMA==
-X-Received: by 2002:a05:6512:438d:b0:5bc:ec2d:15ac with SMTP id
- 2adb3069b0e04-5bcec2d192fmr5464537e87.63.1792067427716; Thu, 15 Oct 2026
- 05:30:27 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:30:26 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:30:26 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CA+V-a8toBu8SkOft-LHxgR0OEy0pz8sMGMze3GCG5z6n-YuZgQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eY+lf0fO"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so1130210a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:30:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792067432; x=1792672232; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PTnyON18qZ+0nprhOL1KqtGo8K5Ak/y2VZfqrlx6jv4=;
+        b=eY+lf0fOMAVDvkQGpB6KJUPbNY+csVBQ9bKIdKFIGaNFt1QEOWU/rgsnRvw6zvq258
+         tQzxnsvJSIv3mNd0/EiHg9hOI0bLs5n/d4fBzOmCXXcA+8onSUdOaFYdglhkc/jnDk7h
+         n6QHBJ8advfx4aFJGq3TRO/OUp2Q0MPKdYrYGPl8cczZIpakAyLU2/tzOjw2Z3P/MUBV
+         n9q1Wx7KfhvI5DslK2thnElaKKqEHVDf+lWdITScPyAqR4x39fZ7+IqkmUq5WdMEJyaY
+         IOPSezPeiUu2V/U+PDdqaUTv79ArK81h/If0sUyYM5aLPyr9t/CJIjl9LLeX1ZXaPOxQ
+         6U6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792067432; x=1792672232;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PTnyON18qZ+0nprhOL1KqtGo8K5Ak/y2VZfqrlx6jv4=;
+        b=b9RUnM5rhdNMo5celKI4+JktFPHd7A0Cl8ApqSn3gfY3DKKaYcFn8tQYAvCJYmCKye
+         Pr8GDeEEzUpLhfhg0AYQcbaZlpwi84yYC4duWxlhlx/+QNHSAcQ6kt6M/e9QDLjfzdTn
+         /9mJ3EFlHbL0K4aAhAOIoUNRoI17bdsdYLi+TGK7MMsu3HT5PpICNS7jNAdfeUfu55Jx
+         V+tDjjsaLVinUKGjntI3rD1d3h3hflVetJp/mQpeenA+wuSQXRvUIojHHzFaasQJlclS
+         nT2IeY9SbO6EY1rK5MAJG84eKcsKxUjc/2HPBtVTzmrKu8STRSGWyVa04ER8J434sFka
+         8Hzg==
+X-Gm-Message-State: AFq9FYJWW2lWE8DktyOZzROwgRCLS1vYmZVPm3UYOzRhM89Igisx6NQi
+	Vtw+udQro4ogv8r3Du0Lu0jurW8/jbaOpgoVaR31/1Skwmz9b5H+d6U=
+X-Gm-Gg: AYBFou2lknPEQ7DJtxxuF+VgqgBMcDMzaqI/iREtm21qLzbBndlCQMzZv3WGC3SCVrH
+	mB8ivQiVYPOPsCRek3acDCIipDvLYLMPKgzcPNLUAlixLVjCvz5YSXRSLYj4lKMx6RgYfzuHVH2
+	g4DttbEfP307JOmd6kqwu+rfKW7mQpZqybC2oQBxyAkK2ndnaN+utFCds16DPdTccJ+DIgnrz1G
+	ztVwUekPnrgt30VVre8q0HQ7Cen34gUhttqvs8crM/jrQC1Rhf1dJ4NiE2IavtNjv55lk0lCgc4
+	6qIHJkX/nzogfY/1Sh41bZBX3EX6pO9Z6nuR+xRtaRsLy086+7R+jZHyUOX7dqH7gNyNGOI6b0l
+	djARGU8Xv1KlVxlceXeN4EfV8B0SGR/lFToLsXsH7Xp2wB7/p5/Wd2gb+Qte1FaKagBbNkQWrY7
+	X9ecNKt/dIP3SIV5mhmE+CH7K4StS9BHNUwcIXYiRhTjTfOijTipbxTqVJgeSocSG91Nv55Ldf5
+	XDWouL9Y+BQC8BpGpVFFZEO9eTDRfUTU9JSLw==
+X-Received: by 2002:a17:90a:c88b:b0:3a4:8c41:fab6 with SMTP id 98e67ed59e1d1-3ab3ab32a3amr15057215a91.46.1792067431830;
+        Thu, 15 Oct 2026 05:30:31 -0700 (PDT)
+Received: from localhost.localdomain ([45.127.46.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1699718c547sm53460746c88.3.2026.10.15.05.30.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:30:30 -0700 (PDT)
+From: Nikhil Gautam <nikhilgtr@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	Nikhil Gautam <nikhilgtr@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH v2] iio: ccs811: Deassert WAKE GPIO on error paths
+Date: Thu, 15 Oct 2026 18:00:23 +0530
+Message-Id: <20261015123023.3417-1-nikhilgtr@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com> <CA+V-a8toBu8SkOft-LHxgR0OEy0pz8sMGMze3GCG5z6n-YuZgQ@mail.gmail.com>
-Date: Thu, 15 Oct 2026 05:30:26 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdiy6uj_m_fDOO9x2xXeS7hthMW5OARSOCZzJK1itPnpw@mail.gmail.com>
-X-Gm-Features: AclHuK8kyjgILBxHt4nWraWJn0B_VsgRqbvk_2gFUR2tJYG-2UYXBRYX5DWMtO8
-Message-ID: <CAMRc=Mdiy6uj_m_fDOO9x2xXeS7hthMW5OARSOCZzJK1itPnpw@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] soc: renesas: Kconfig: Select POWER_SEQUENCING_RENESAS_PWRRDY
- for RZ/V2H and RZ/V2N
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 12:48:21 +0200, "Lad, Prabhakar"
-<prabhakar.csengg@gmail.com> said:
-> Hi Bartosz,
->
-> Thank you for the review.
->
-> On Thu, Oct 15, 2026 at 10:45=E2=80=AFAM Bartosz Golaszewski <brgl@kernel=
-.org> wrote:
->>
->> On Fri, 9 Oct 2026 18:57:10 +0200, Prabhakar <prabhakar.csengg@gmail.com=
-> said:
->> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->> >
->> > The RZ/V2H and RZ/V2N SYSC drivers register auxiliary devices for
->> > power sequencing, which require the pwrseq-renesas-pwrrdy driver to bi=
-nd
->> > to them.
->> >
->> > Select POWER_SEQUENCING and POWER_SEQUENCING_RENESAS_PWRRDY from the
->> > RZ/V2H and RZ/V2N SYSC configurations so the power sequencer driver is
->> > built whenever SYSC support for these SoCs is enabled.
->> >
->> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->> > ---
->> > v1->v2:
->> > - No change
->> > ---
->> >  drivers/soc/renesas/Kconfig | 4 ++++
->> >  1 file changed, 4 insertions(+)
->> >
->> > diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
->> > index b7abca4559df..32cd0d9c8758 100644
->> > --- a/drivers/soc/renesas/Kconfig
->> > +++ b/drivers/soc/renesas/Kconfig
->> > @@ -517,9 +517,13 @@ config SYS_R9A09G047
->> >  config SYS_R9A09G056
->> >       bool "Renesas System controller support for R9A09G056 (RZ/V2N)" =
-if COMPILE_TEST
->> >       select SYSC_RZ
->> > +     select POWER_SEQUENCING
->>
->> That's implied by the symbol below though?
->>
-> POWER_SEQUENCING_RENESAS_PWRRDY will only be visible when
-> POWER_SEQUENCING is enabled. If dropped, randconfig might generate the
-> following warning:
->
-> $ make menuconfig
->
-> WARNING: unmet direct dependencies detected for POWER_SEQUENCING_RENESAS_=
-PWRRDY
->   Depends on [n]: POWER_SEQUENCING [=3Dn] && (SYSC_RZ [=3Dy] || COMPILE_T=
-EST [=3Dy])
->   Selected by [y]:
->   - SYS_R9A09G056 [=3Dy] && SOC_RENESAS [=3Dy]
->
+Ensure the WAKE GPIO is deasserted when status polling fails or
+the data-ready timeout expires. Early returns could leave WAKE asserted,
+preventing the sensor from returning to its low-power state and
+potentially disrupting subsequent I2C transactions.
 
-Makes sense.
+Route error paths through a common cleanup label to ensure WAKE is
+deasserted before returning.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: c6644f7201f3 ("iio: chemical: Add support for external Reset and Wakeup in CCS811")
+Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/iio/chemical/ccs811.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/chemical/ccs811.c b/drivers/iio/chemical/ccs811.c
+index 998c9239c4c7..dad54f66ebb3 100644
+--- a/drivers/iio/chemical/ccs811.c
++++ b/drivers/iio/chemical/ccs811.c
+@@ -198,18 +198,21 @@ static int ccs811_get_measurement(struct ccs811_data *data)
+ 	while (tries-- > 0) {
+ 		ret = i2c_smbus_read_byte_data(data->client, CCS811_STATUS);
+ 		if (ret < 0)
+-			return ret;
++			goto out;
+ 
+ 		if ((ret & CCS811_STATUS_DATA_READY) || tries == 0)
+ 			break;
+ 		msleep(100);
+ 	}
+-	if (!(ret & CCS811_STATUS_DATA_READY))
+-		return -EIO;
++	if (!(ret & CCS811_STATUS_DATA_READY)) {
++		ret = -EIO;
++		goto out;
++	}
+ 
+ 	ret = i2c_smbus_read_i2c_block_data(data->client,
+ 					    CCS811_ALG_RESULT_DATA, 8,
+ 					    (char *)&data->buffer);
++out:
+ 	ccs811_set_wakeup(data, false);
+ 
+ 	return ret;
+-- 
+2.39.5
+
