@@ -1,152 +1,337 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEEC5540A7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764F8560AAB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086171; cv=none; b=MtmhlGoepZyUL9d3VBUH2Fa7vX6KspYGoNi6K80hxMD4BL5e3mn7N39OVNL6RTJjWKEFTdV5uAhNgNtizLi+S4Ff+H5MPU2tz5TH9I3EqaF9q0RtaWEGAw9udkbHmYZnlvZHUgoBxVjVnHCAl+or9TrP5oeWjpCyeu7QYG4YPwk=
+	t=1792086246; cv=none; b=H9p826Xo4F/r0YtXyu0e2298whdWkHAWATSfYCwC9byExlP0PimOHqrQcmJs5LSGzzw7BQbrM3unMnAcbXxvghXDRggJh/0OWYfG2QZl1CHlLEpHVgX30LpMWIMbIT24Rj7XvxPrn+cJF3RTt4UXljvEcqKwXoUUrpojV5nYdio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086171; c=relaxed/simple;
-	bh=NbD8A+LTa8evpXL6/fu3DIrID9xBqKnToFLhfhv7WUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DeRnEtSeeZO7AoHwffrOmIHYqmky/IObBmZRsjAMk3YtJ57Q/0iQST90PG+yaB3RL0KBTV6mcr4ntEGLYBOQ9UBBENEBwszu8ogW3JuNM3vPzAyEvD7BMiSs8+j0Ig2Ha5/EJlV/eOVfWTF7W1ua8a9EFsfIwqxjbMKd2i+uUkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=kMfUd8JL; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1792086246; c=relaxed/simple;
+	bh=sytodgxjAh9gySpG8zzgLLjbT7aoWMjZhihhU7wYyrM=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=GTJOWOqNTtocWPvxcdJwVwN0Ly0kieFtRz8ZYlmnLmaX9ug65RnKHTcOIYQ8XeVh3yt05ttCVfNNZVWlkv6BZxNq+8CiaNfcDV9AbJMv38+xkdQAbJY2K4C+dhyXwnJJv9hcxcQA+Q73U5r1pYFnXfIHAjXK6qqeUrWLgmQnhbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l8ttlYZz; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="kMfUd8JL"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533972e0cccso62825501cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:42:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l8ttlYZz"
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5ea97b74acaso85473e0c.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792086162; x=1792690962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
-        b=kMfUd8JLS+aSLkvjG0Y4ZbDYnQQWqiZTZdUQUCpEc60+885nmpDQykgXoe/gJmmYUx
-         dh6pMSkEbWX4E6y0MXzUyFEv/jsFrekR/Y1pyRthMuyyxRkdwrDTloFomaE+NnsPBS5V
-         HgPlUs+kbPH1VRFMGMLGxjVoGeCr/cjHZDWXm75mE+84SgW/N9gW09FkZGCYGOJdLM7m
-         wVsOSEKYxiLa06SO44XlJ+Ooni1B1CIutfJN5x2Qe1gOk2VivWJ4ZVl2UFXlfH6czj9q
-         uP/Q2/gPQ+S6EkLP4z1+9XRGPZcUtCNyEL7teG+fq/cLTOLTOGW7+qr0rz//agxQ1s8x
-         R0cA==
+        d=gmail.com; s=20251104; t=1792086237; x=1792691037; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zXqTw5mwMKBm9G0IR9t3lLlhBekv/xFtuJz7QLQvz30=;
+        b=l8ttlYZzKYcUZkqRfokCjXVinAuYp+WNekoSNIxi9QNa4s3idn0NyRsR4wziDh0cVA
+         9y0XYpm+hHmiFJ2xnLkMNAgLE3ASz9Uzt8BM/Gno+WIgYJtLx4QPK2Db7amT4DNwD5zi
+         BrqN470AHU3ztl4fQH1/pyNfSKxULpGcz8tf/UkEwu1+COJiQG6hnKSxAjWlqyPGNdkF
+         6EvpxOutbRfIvaHoROcwojBoOOAdwZBKayuspb9RYszxNearaff2hZuISXXNCvangyRM
+         myn240SrB8RijD335B+3us06S0jQMrLXKhYNLv6WiIetPWOxlLIvIp3LEkRIcgKJzLzp
+         54FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792086162; x=1792690962;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792086237; x=1792691037;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
-        b=TSi6jPrWsVwzuJm/NqYns7t9BbQ65vIMMvtiIppCD1VcqhGoas0JrD5X5av8X94Eo+
-         0i0gcjj2NG3TOg++gNcGQZUnv3XS4n8kSusdXBDx0iSb67pVoU+MjMaaRFjUltHVttqM
-         dw1Zy0YtJsitNTBNsT1yFmQcyZKl2XCPomPm578yqA835aVSEhPuBfD+aVVYt9e43IbE
-         XVETrhTjCfzUz+QxvqtnjtJmJhtUpVrw4FNpcde6sE2Op2H6cgYKSCrrFH17jtYeosom
-         NVRHIYO9ACLtam6Kt3aJQH08Q9GN7J+VZdzxc2qyqxP6cjbCM/wrr1PVQ9z/39aDHYsh
-         FCYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgHdSH1aQ0tOjF1ZX0NmrUDXNG9SL299sIL9n2bjD6SUyUxeuwQtwPEtWVqW0dvH0bShF0SyllmMCsrD8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKR+p6vrZ2y08KfMHydaUByL3skXAiC4jyNjD6R0xpQKv6y6YSf
-	256KnHexfDrClIX8iaNCq/BVJSpZ4NtDBY3GuCJxUvNhVXEcKEIfQAlUUK0E+Bn0ITk=
-X-Gm-Gg: AYBFou3rpq4rmymAioUzRLMLoptLl0xi9M9Aqiuj6u9wq8h74Mny0W/qMxr0D5y6lGE
-	B0ivM9nxvC8klAn49aGZN+7BLdpH88PSpgO+B6H8e0u0DnAsowdrlicOWpWXsnFCejT4CTPEt/Y
-	56bf1qNRCO8FItQpAcijmV9plkGtbDZNQ2vT7TOhh4sP5XRTUQ9AEnt+P+r8VSuefLQuHnPyUA9
-	0EFNgL47ODViIfftnFC05fvYJc13QSqBNJ6rDO70QF1CgkLNmHoDOA/ddeTb2erhDtkIcg4LUsX
-	MIpgGFCu3IGB8yKLpmp6BCZD5jMZ7v/IFIoIM8zZufWkdwoE9NUJ9AAGlWAxJSY6fPKSSerh/TZ
-	jqGBUlWzHcs/EUYZgJuLleepr8iiO+IBxjqw/qEfNS+IPgcG1AcH//0pQMyU0cT94ePnEL1w5Cp
-	sYQfdAA1LcpxAKE9Rp08JWxot4Un8CtFZd7kbA5mNlrJnfUMaK9WdyKfZ0p0Z/sL+PaCA1KhWym
-	1Eyof5UVqnuIDV0aLHkFrRJkKPQK+b8EVvlBGz3z7IppVMC+rP6mv99
-X-Received: by 2002:a05:622a:144a:b0:533:3bf7:49e5 with SMTP id d75a77b69052e-5359facf0e9mr295381921cf.23.1792086162563;
-        Thu, 15 Oct 2026 10:42:42 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba45dffsm1165226d6.12.2026.10.15.10.42.41
+        bh=zXqTw5mwMKBm9G0IR9t3lLlhBekv/xFtuJz7QLQvz30=;
+        b=GLW+oRQHc2VHTRinnJMrx/V1EEhljWVTvDY1BhB682sxnbJqGfRJXkC3cwHIpJHw8R
+         4dgTz8Pfx8d4BeKKuYmxMO1xcPtsemlAmY6gDzQZr3u7wSueDNj93WsxtDlJWklH62av
+         tqMOEhnZn8ucG5p0tUnJ7mmNqKgSi95toLqqOV4nNOPM/HVxKo9Mwm9PTrGV+EUW9xsU
+         DH+PFyJamVdFq6JjrsMRmeDvZlunRn32jHJOpTo5tyVbVX8c/2cU45ZAxTkhgH8RXei+
+         cYnqU0Y1Zea/UgEH9dl1agipT8Dohc3G80N9lRt0XPKVo4AbimpswXe9WYAYqFB+daEu
+         aCkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwF9oFXV2xTRqeJ8zAn+n//Y++MxJIHiH5XsPRlEksE8yiXnHqgGKIXUZAqn26HwkqaH31MtYpdlcsUasU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYcwRZa7+4LTG/t9ACI1FYQBa0Tgz4wnNwb15agmwpOc74sArz
+	QzeyGBZnnkCnKnZDcSyEw0+CQSYGEo0aYET8MHsAq3a+gREbvrh0RQ9C
+X-Gm-Gg: AYBFou3s7yeVETqy2TabFuBCPYAoBWbF5+oseRn2vqHgX/h2YVpLmxTmsdjCtULQ4lB
+	BECB7OKCA+kCiNf/w1IdAP5F7kP2WS75oKwRi96T8PPgCOceziRmF3zIkRU2ijitLjZeiyIHT0O
+	P3GN+W36rIkmnz1+z9WxXSG4FRIMPWHCz3ajg0nGq7zOSkppcq2ZXlWvsoOAZoM8T1e1jcmzhzM
+	lFCY2Us4jb/RJNHmrh7Q9U26le1/vRFy1Mo20hZpgq0uV/eT0F1IAZTWULDS82xLGUts4bf+gIV
+	OQA0UOXaknhNDP/9U8QV3ZTC9T97uFgrpcVUNf9ggKz9NbAjgUgGLnXPNFrHIRc+oNYNkz8z6Ln
+	XlBo6XZK4OKtThs4JE83MZuuACQxR4bo5VmvIhjK0C+HZBJxmt1J8nrCPzDUov72XsDmZ0p+So4
+	0sGPL41J3x+t2uEm0v7mgMyfcjIXYJyKZkIiV/FuPwSi92SL+4wAD09LjW73oe/wFyxaLIP3BUg
+	PNlXlgAkP1xAvBDB5rQm6emvNgZ6UcOpUROTO33OYgI85IOg4HKbBIewwlp54U8VU3C7u1m4crT
+	+LwK/QRQT9bPmJN//az8P8NmrLYmN2Mtud4AUw==
+X-Received: by 2002:a05:6122:3906:b0:5c9:c60a:e9b6 with SMTP id 71dfb90a1353d-5e91f568fe2mr5786944e0c.22.1792086237269;
+        Thu, 15 Oct 2026 10:43:57 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9909f364sm286539e0c.0.2026.10.15.10.43.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:42:41 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xHPTV-0000000H6tQ-0dMP;
-	Thu, 15 Oct 2026 14:42:41 -0300
-Date: Thu, 15 Oct 2026 14:42:41 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Kevin Mitchell <kevmitch@arista.com>
-Cc: Vasant Hegde <vasant.hegde@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
-	stable@vger.kernel.org, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	"open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] iommu/amd: remove obsolete domain pointer warning on
- release
-Message-ID: <20261015174241.GW14213@ziepe.ca>
-References: <20261013222402.673852-2-kevmitch@arista.com>
+        Thu, 15 Oct 2026 10:43:56 -0700 (PDT)
+Date: Thu, 15 Oct 2026 13:43:56 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Rusty Russell <rusty@rustcorp.com.au>, 
+ Max Krasnyansky <maxk@qualcomm.com>, 
+ Paulos Yibelo <habte.yibelo@gmail.com>, 
+ Chris Arges <carges@cloudflare.com>
+Message-ID: <willemdebruijn.kernel.11ecc15463d9@gmail.com>
+In-Reply-To: <e66f7984fdeb8168e07fd7d0dad3deb8c30ead0a.1792067836.git.mst@redhat.com>
+References: <cover.1792067836.git.mst@redhat.com>
+ <e66f7984fdeb8168e07fd7d0dad3deb8c30ead0a.1792067836.git.mst@redhat.com>
+Subject: Re: [PATCH net-next v2 4/7] net: resolve uncommon partial checksums
+ at ingress
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013222402.673852-2-kevmitch@arista.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 03:23:56PM -0700, Kevin Mitchell wrote:
-> A warning is triggered in amd_iommu_release_device() on removal of a
-> device with an IOMMU_RESV_DIRECT region. The warning is based on the
-> false assumption that correct attachment to the release_domain will
-> always result in a NULL dev_data->domain pointer. For devices with
-> IOMMU_RESV_DIRECT (and consequently dev->iommu->require_direct), the
-> release domain is the permanent identity_domain which sets
-> itself to dev_data->domain on attach.
+Michael S. Tsirkin wrote:
+> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+> others, credited below, found more ways the bug can affect users) a
+> virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
+> If that state is retained, later checksum completion can modify the
+> packet after protocol processing has made decisions from it.
 > 
-> This behaviour was added in commit e94160488e65 ("iommu: Generic support
-> for RMRs during device release"). Commit c21b34762e2f ("iommu/amd: Set
-> release_domain to blocked_domain") caused it to take effect for AMD
-> IOMMU.
+> Let's fix that: let's validate csum_start and csum_offset and only keep
+> CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
+> UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
+> headers.  Complete other non-GSO checksums immediately, before any
+> protocol processing runs.
 > 
-> Remove the warning as it is no longer strictly an error to have a non-NULL
-> domain pointer. As this leaves amd_iommu_release_device() empty, remove it.
+> We can't easily "complete the checksum" for GSO we don't recognize - GSO
+> assumes knowledge of the protocol. We could segment ignoring the
+> checksum then do whatever csum_start and csum_offset say, but that
+> seems like an overkill for something that shouldn't happen.
 > 
-> The warning was observed for a device with direct mapped region:
+> There's some risk here:
+> - non-gso packets which can't be parsed get checksum calculated in
+>   software, adding performance overhead
+> - gso packets which can't be parsed get dropped
 > 
-> /sys/bus/pci/devices/0000:04:00.0/iommu_group/reserved_regions:
+> To mitigate the risks, the following patch will add a sysctl knob to
+> bypass the resolution. This is reasonable if the setup is such that
+> there is no protocol processing at all.
 > 
->   0x00000000fee00000 0x00000000feefffff msi
->   0x000000fd00000000 0x000000ffffffffff reserved
->   0x0000fffd00000000 0x0000ffffffffffff direct
+> UDP tunnel headers get the same handling on the inner header.
 > 
-> Upon hotunplug:
+> Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
 > 
-> [   28.715475] pcieport 0000:00:03.1: pciehp: Slot(0-3): Link Down
-> [   28.715482] pcieport 0000:00:03.1: pciehp: Slot(0-3): Card not present
-> [   28.715601] ------------[ cut here ]------------
-> [   28.715603] WARNING: drivers/iommu/amd/iommu.c:2521 at amd_iommu_release_device+0x5d/0x70, CPU#4: irq/29-pciehp/99
-> [   28.715657] RIP: 0010:amd_iommu_release_device+0x5d/0x70
-> [   28.715687] Call Trace:
-> [   28.715689]  <TASK>
-> [   28.715694]  iommu_deinit_device+0x84/0x110
-> [   28.715699]  __iommu_group_remove_device+0xa8/0xd0
-> [   28.715703]  iommu_bus_notifier+0x48/0x70
-> [   28.715707]  notifier_call_chain+0x48/0xe0
-> [   28.715712]  blocking_notifier_call_chain+0x45/0x60
-> [   28.715716]  bus_notify+0x3b/0x60
-> [   28.715720]  device_del+0x259/0x3b0
-> [   28.715730]  pci_remove_bus_device+0x85/0x100
-> [   28.715735]  pciehp_unconfigure_device+0x9d/0x180
-> [   28.715743]  __pciehp_disable_slot+0x47/0xe0
-> [   28.715747]  pciehp_handle_presence_or_link_change+0x80/0x5e0
-> [   28.715753]  pciehp_ist+0x162/0x290
-> 
-> Fixes: c21b34762e2f ("iommu/amd: Set release_domain to blocked_domain")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kevin Mitchell <kevmitch@arista.com>
+> Assisted-by: LLM
+> Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> Reported-by: Chris Arges <carges@cloudflare.com>
+> Tested-by: Chris Arges <carges@cloudflare.com>
+> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 > ---
-> Changes in v2:
-> - Remove the warning alltogether as well as the now-empty
->   amd_iommu_release_device()
-> - Link to v1: https://lore.kernel.org/r/20261008202530.14501-2-kevmitch@arista.com
+>  include/linux/virtio_net.h | 251 +++++++++++++++++++++++++++++++++++--
+>  1 file changed, 241 insertions(+), 10 deletions(-)
 > 
->  drivers/iommu/amd/iommu.c | 17 ++++-------------
->  1 file changed, 4 insertions(+), 13 deletions(-)
+> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+> index d6466f96cdd0..357115ff0ec2 100644
+> --- a/include/linux/virtio_net.h
+> +++ b/include/linux/virtio_net.h
+> @@ -5,7 +5,11 @@
+>  #include <linux/if_vlan.h>
+>  #include <linux/ip.h>
+>  #include <linux/ipv6.h>
+> +#include <linux/netdevice.h>
+>  #include <linux/udp.h>
+> +#include <net/gso.h>
+> +#include <net/ip.h>
+> +#include <net/ipv6.h>
+>  #include <net/tcp.h>
+>  #include <uapi/linux/tcp.h>
+>  #include <uapi/linux/virtio_net.h>
+> @@ -48,6 +52,171 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+>  	return 0;
+>  }
+>  
+> +/* TODO: nothing virtio specific here, move to ip.h */
+> +
+> +/*
+> + * Pull and minimally validate the IPv4 header at @nhoff.
+> + * Returns the header and stores the transport header offset in
+> + * @thoff, or NULL if truncated or malformed.  Only the fixed header
+> + * is guaranteed linear; callers that need the options or the
+> + * transport header must pull further.
+> + */
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+nit: comment basically describes the code (what), which is quite
+self explanatory. I'd drop. Or else consider converting to kdoc fmt.
 
-Jason
+> +static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
+> +						  unsigned int nhoff,
+> +						  unsigned int *thoff)
+> +{
+> +	struct iphdr *iph;
+> +
+> +	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
+> +		return NULL;
+> +
+> +	iph = (struct iphdr *)(skb->data + nhoff);
+> +	if (iph->version != 4 ||
+> +	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
+> +		return NULL;
+> +
+> +	*thoff = nhoff + iph->ihl * sizeof(u32);
+> +	return iph;
+> +}
+> +
+> +/* Where does the L3 header start, and what protocol is it?
+> + * Handles Ethernet and VLAN headers; other devices use the
+> + * network header offset the caller set up.
+> + */
+> +static inline bool
+> +virtio_net_l3_start(struct sk_buff *skb, int *nhoff, __be16 *proto)
+> +{
+> +	if (skb->dev->type == ARPHRD_ETHER) {
+
+Only since recent commit 44378d02c5aa ("net: always dissect GSO
+packets in __virtio_net_hdr_to_skb()") can skb->dev be relied on to be
+non-zero.
+
+We'll have to be careful that this does not get backported to stable
+without that.
+
+Perhaps an explicit precondition test and error return (and
+DEBUG_NET_WARN_ON_ONCE) if a NULL skb->dev is encountered.
+
+OTOH, it results in a hard crash so will be discoverd fast without
+that too.
+
+
+> +		if (!pskb_may_pull(skb, ETH_HLEN))
+> +			return false;
+> +		*nhoff = ETH_HLEN;
+> +		*proto = eth_hdr(skb)->h_proto;
+
+When called from virtio_net_hdr_tnl_to_skb, according to my LLM mac
+header may not be set yet. Have not verified yet.
+
+skb_reset_mac_header(skb) is called inside __virtio_net_hdr_to_skb,
+which is then not called yet.
+
+> +		if (eth_type_vlan(*proto)) {
+> +			*proto = __vlan_get_protocol(skb, *proto, nhoff);
+> +			if (!*proto)
+> +				return false;
+> +		}
+> +	} else {
+> +		*nhoff = skb_network_offset(skb);
+
+The same is true for skb->network_header. Since an uninitialized/zero
+value there causes more subtle issues, here an explicit check may be
+more valuable (even) than for skb->dev.
+
+> +		*proto = skb->protocol;
+> +	}
+> +	return true;
+> +}
+> +
+
+>  
+>  /* This function must be called after virtio_net_hdr_from_skb(). */
+> @@ -282,6 +470,35 @@ static inline unsigned int virtio_l3min(bool is_ipv6)
+>  	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
+>  }
+>  
+> +/* Do the tunnel offsets match the outer headers in the frame?
+> + * The L3 header the tunnel claims must be the one the frame
+> + * carries, with UDP following it at @outer_th.
+> + */
+> +static inline bool
+> +virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
+> +			  unsigned int outer_th)
+> +{
+> +	int nhoff;
+> +	__be16 proto;
+> +	unsigned int thoff;
+> +	int ip_proto;
+> +
+> +	if (!virtio_net_l3_start(skb, &nhoff, &proto))
+> +		return false;
+> +	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
+> +		return false;
+> +	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
+> +		return false;
+> +
+> +	return ip_proto == IPPROTO_UDP && outer_th == thoff;
+> +}
+> +
+> +/*
+> + * Return value:
+> + * 0 - success
+> + * >0 - checksum was completed in software (slow path)
+> + * <0 - failure
+> + */
+>  static inline int
+>  virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
+> @@ -293,6 +510,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  	unsigned int inner_nh, outer_th, inner_th;
+>  	unsigned int inner_l3min, outer_l3min;
+>  	u8 gso_inner_type, gso_tunnel_type;
+> +	__be16 inner_proto;
+>  	bool outer_isv6, inner_isv6;
+>  	int ret;
+>  
+> @@ -332,10 +550,13 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  	    inner_th < inner_nh + inner_l3min)
+>  		return -EINVAL;
+>  
+> +	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
+> +		return -EINVAL;
+> +
+>  	/* Let the basic parsing deal with plain GSO features. */
+>  	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+>  				      hdr->gso_type & ~gso_tunnel_type);
+> -	if (ret)
+> +	if (ret < 0)
+>  		return ret;
+>  
+>  	/* In case of USO, the inner protocol is still unknown and
+> @@ -353,7 +574,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  	}
+>  
+>  	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
+> -						 htons(ETH_P_IP));
+> +			    htons(ETH_P_IP));
+>  	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
+>  		if (!tnl_csum_negotiated)
+>  			return -EINVAL;
+> @@ -368,7 +589,17 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+>  	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+>  	skb->transport_header = outer_th + skb_headroom(skb);
+>  	skb->encapsulation = 1;
+> -	return 0;
+> +
+> +	/*
+> +	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
+> +	 * set CHECKSUM_PARTIAL.
+> +	 */
+> +	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
+> +	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
+> +						 inner_proto))
+> +		return 0;
+> +
+> +	return virtio_net_resolve_csum_partial_mismatch(skb);
+>  }
+>  
+>  /* Checksum-related fields validation for the driver */
+> -- 
+> MST
+> 
+
+
