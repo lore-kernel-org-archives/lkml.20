@@ -1,87 +1,218 @@
-Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D5828FFF6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.187.169.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D4E2931FC;
+	Thu, 15 Oct 2026 02:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031397; cv=none; b=oyRxi0d47+PB+DxBKlhw81PBUUD7DJ64SnsTR8v4K3rmAQcTs3d3t8+s40uTk8zf9csKrXh/eivu4X3FYyu+bL5T7Lz0IOKZ9hfcVqD69n4YjlwyKVDqKuu/u8eczVgU7ENQFxZMhGGNS6qlzeOHjzuR/+pLv12p2HrDs99Rp4I=
+	t=1792031417; cv=none; b=Y7f6/mDMwG6amz1ynX/BgUIlWrXJ2WkEVjfKg8FbkzgN2hNpAnREmi2LvJypbFPAmkeDqUbSZ/xN9qSHqtKKcqUbbCNGob5xA/8OZth0Bc8Bn2b78zu9Rwml6hL2t84c65tGcSW4WZ9ZJOvs/d7QRKKGG7NjKgxzivZ/HTt+KhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031397; c=relaxed/simple;
-	bh=Ilv2Tt9xHa24xWUrxEOL+cOkzDbd5bIScNOreiU7HlA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DUu7HJ49XHRWO0JZEt1VPzT1tfpNAXPPP8apXOOJcJBjS99mDHAs0IDSu/4nJiWGU/EdTlBUSAHht4sI8UnbmXYA+fgxmxmuuFKHy6iRzAt2Y/0QOiLrasQJaEmfM/ItAEkcKIzCpdFGFJlxArMdkv1eiEChYry/XUC5svNQvbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hogyros.de; spf=pass smtp.mailfrom=hogyros.de; arc=none smtp.client-ip=185.187.169.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hogyros.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hogyros.de
-Received: from [10.70.30.207] (222-230-65-153.east.xps.vectant.ne.jp [222.230.65.153])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by psionic.psi5.com (Postfix) with ESMTPSA id 9C4AB3F1DF;
-	Thu, 15 Oct 2026 04:29:41 +0200 (CEST)
-Message-ID: <55cba965-208a-44cd-a644-e664410af8a5@hogyros.de>
-Date: Thu, 15 Oct 2026 11:29:37 +0900
+	s=arc-20240116; t=1792031417; c=relaxed/simple;
+	bh=aPsgyrQgx8lbs9k9uRvgZDnBadMZRc9D5zlTGNgqTsU=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=LWCK6XIIfeXYy2LSamFUNUjD77n3sZui5pIagsvSHnl+au0UsGkFDU3/tfn+3m9RtgDEotF8Ss7tm0P5TYUVJntpLsTOw5Q4apB4bd1wr7qC1vTBKxGfv1cdTI1iqBv9kyslvb470iSNgHNh3tt7HCAr89XwX7Lmfh/YPUKMvsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=hnG+ZI6H; arc=none smtp.client-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="hnG+ZI6H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792031409; bh=aPsgyrQgx8lbs9k9uRvgZDnBadMZRc9D5zlTGNgqTsU=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=hnG+ZI6HYKmSjYANcbmm1gnhnPuz7XjuK+fZAHkUa4GGbkCQTvOR66fQpmYawH+Eo
+	 Jm6uz3bvjCjWyfo357IikDe6oxY0ldYRYwcea0PNFkX0ysUult/0uc5b13VRVFFc2K
+	 lGVE1Oe6sOp1HNOGu3nRbN/6icbgGC+In/jWnjVA=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: MMU9gXtwVdiIw/1k8HFKmeOjfSdaAydiopn0+iCFB9xDQGQH0TlgxfJbrdTz52
+	 Ybms/ln5E+UXzKhWjR2PWiLZarXg8GvUH8XX6zkXNOfeeulGmF080VXXKmFfbegb4Q22RDQpOjRjM
+	 UBGhIKCwYdAX6TDJ3u5HQidfc4YXwONk9dIVuR8r7BpkMKmAYPfMY9E1B56zPGIrChqe22Jk+AoHQ
+	 B9yWgdcWj6wJWZrqPKsoujFkFeqW6p5jk1C5SAtvKvAPMICab1y/zTnm5f8VEIITj/aC7i7v+df+L
+	 dkRhtYm/EIkPOt9I2XaVlT6teKH7PlN1rF8RdAOcQ58a34V1u4eAosRxyqEtueuwrPdQUu+5LjJGU
+	 Hy0FWULfPvv010kOUGg1UPoSfFtmNYl9c6M2dqwkX87llVns76NejuU56NYeMZuaj9nQ5xJezNcP6
+	 K1HsAmKnj3V7NRvoy/4P0VVhyk6gj6t3zQKsHtVSMT1E+irNe4A0RS1wwaIehmjqvcpXjjwkb7MWR
+	 b2c35iJBOvs0JOCxU1RVHVh05ZYfc1MYij2g1RKvVqNFWPevps/9vJxfDjx3x4mzHmDqXSPnOnMXx
+	 YM1T3aGTF+yFDervRL1rXWE4774NytZR47K020AMlk3SrOPreTe6BrqBGZ4HS65XHGGs/oQfSf0Zt
+	 JqdtavdTM4ByaXKUre3ewl7nsffMAm+qhnMSuOTbXog+y94gzZf8lyHOb+JdMuSpyVeiBRGUorbnn
+	 bH33rLumilvwn687PmgYXLp/kA+dxEzHepN/vSDGGtDzpGIQbXr558hntmkmix1NaoZjr5aho9bLL
+	 GtpKxNSQ7fyQxKGIedHDTcFLDvyacszK99YVJHazS57rNsuMg/d0tqg13KclIsah/xZGTqfOVaqam
+	 S++z9tcFZck2DpHc6hmbMHlEsbeNUR06knjEAlSoV17iKKMUwG1jVbncO4tI0tSVq+NhCS5sb7Ckn
+	 OKoi+DVVbaqpH5fL/8zAAzseJ803BVuNB1lhfa9/qAHL2VHL+xlDL+t+/HXxp+zzFCA/gSElqydD6
+	 8YeWMgU16uS1fWJ/51hwhPuam2EpPoagWXHO136I7nGhvfgFH8tc5U717kf3a1U0rWUCbaF4BoNF3
+	 qj/2x3gCPNhMRT0QJ0pEpl9f6UvK1LxVn9BNJDEpBZnkwjgJ5mUraXvRDVPncfLl5S2pq3OizsaIl
+	 OcHRr9dOXPv
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?MTU3OTU2NzU0MA==?=" <1579567540@qq.com>, "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?V29sZmdhbmcgR3JhbmRlZ2dlcg==?=" <wg@grandegger.com>, "=?utf-8?B?T2xpdmVyIEhhcnRrb3Bw?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>
+Cc: "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+Subject: Re: [PATCH net v3 0/5] can: fix bus-off restart and device close races
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
- force-wake
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Constantinos Chalkias <cch@e-psn.eu>,
- =?UTF-8?Q?Bata_Roland_Kriszti=C3=A1n?= <batarolandkrisztian@gmail.com>
-Cc: intel-xe@lists.freedesktop.org, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261012104245.2108030-1-cch@e-psn.eu>
- <as_iOd6A_Yncj8Gt@intel.com>
-Content-Language: en-US
-From: Simon Richter <Simon.Richter@hogyros.de>
-In-Reply-To: <as_iOd6A_Yncj8Gt@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Thu, 15 Oct 2026 10:30:06 +0800
+X-Priority: 3
+Message-ID: <tencent_AB4427E00731CD6FA3698FE64D063A016F05@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261014-rockchip-canfd-restart-close-v3-0-f0eb41090242@qq.com>
+In-Reply-To: <20261014-rockchip-canfd-restart-close-v3-0-f0eb41090242@qq.com>
+X-QQ-mid: xmsezb41-0t1792031406trk87hwn2
 
-Hi,
+PiBUaGlzwqB3b3JrwqBzdGFydGVkwqBmcm9twqBhwqByZWFswqBmYWlsdXJlwqBvbsKgYcKg
+cHJvZHVjdGlvbsKgcm9ib3TCoHVzaW5nwqBhCj4gTHViYW5DYXQtNUlPwqB3aXRowqBhbsKg
+UkszNTg4LsKgUljCoGNvbnRpbnVlZCzCoGJ1dMKgdGhlwqBUWMKgcXVldWXCoHJlbWFpbmVk
+Cj4gc3RvcHBlZMKgYW5kwqBzdWJzZXF1ZW50wqBzZW5kc8KgcmV0dXJuZWTCoEVOT0JVRlMu
+wqBUaGXCoGludGVyZmFjZcKgc3RpbGwKPiByZXBvcnRlZMKgRVJST1ItQUNUSVZFLMKgYW5k
+wqB0aGXCoGhhcmR3YXJlwqBpbmRpY2F0ZWTCoG5laXRoZXLCoGHCoGJ1cy1vZmYKPiBjb25k
+aXRpb27CoG5vcsKgYcKgcGVuZGluZ8KgVFjCoHJlcXVlc3QuCj4gCj4gV2hpbGXCoHRlc3Rp
+bmfCoHRoZcKgZWNoby1sb3NzwqBmaXjCoHdpdGjCoGZhdWx0wqBpbmplY3Rpb24swqBJwqBk
+aXNjb3ZlcmVkwqBhCj4gc2VwYXJhdGXCoHJhY2XCoGJldHdlZW7CoGJ1cy1vZmbCoHJlc3Rh
+cnTCoGFuZMKgZGV2aWNlwqBjbG9zZS7CoFRoaXPCoHNlcmllc8KgZml4ZXMKPiB0aGF0wqBy
+YWNlO8KgdGhlwqBmaXjCoGZvcsKgdGhlwqBvcmlnaW5hbMKgVFjCoHN0YWxswqB3aWxswqBm
+b2xsb3fCoHNlcGFyYXRlbHkuCj4gCj4gV2hlbsKgYXV0b21hdGljwqBidXMtb2ZmwqByZWNv
+dmVyecKgaXPCoGVuYWJsZWQswqBicmluZ2luZ8KgdGhlwqBpbnRlcmZhY2XCoGRvd24KPiBj
+YW7CoHJhY2XCoHdpdGjCoGHCoHBlbmRpbmfCoG9ywqBydW5uaW5nwqByZXN0YXJ0LsKgVGhl
+wqBSb2NrY2hpcMKgZHJpdmVywqBjdXJyZW50bHkKPiByZWxpZXPCoG9uwqBjbG9zZV9jYW5k
+ZXYoKcKgdG/CoGNhbmNlbMKgcmVzdGFydF93b3JrLMKgYnV0wqBjYWxsc8KgaXTCoG9ubHnC
+oGFmdGVyCj4gZnJlZWluZ8KgdGhlwqBJUlEswqBkaXNhYmxpbmfCoFJYwqBvZmZsb2FkLMKg
+YW5kwqBzdG9wcGluZ8KgdGhlwqBjb250cm9sbGVyLsKgQQo+IHJlc3RhcnTCoGluwqB0aGF0
+wqBpbnRlcnZhbMKgY2FuwqByZS1lbmFibGXCoHRoZcKgY29udHJvbGxlcsKgYW5kwqBpdHPC
+oGludGVycnVwdHMKPiBhZnRlcsKgSVJRwqB0ZWFyZG93bizCoGFuZMKgcmVxdWV1ZcKgdGlt
+ZXN0YW1wwqB3b3JrwqBhZnRlcsKgaXTCoGhhc8KgYmVlbsKgc3RvcHBlZC4KPiBUaGF0wqB3
+b3JrwqBjYW7CoHN1YnNlcXVlbnRsecKgYWNjZXNzwqByZWdpc3RlcnPCoGFmdGVywqBydW50
+aW1lwqBzdXNwZW5kCj4gZGlzYWJsZXPCoHRoZcKgY29udHJvbGxlcsKgY2xvY2tzLgo+IAo+
+IFRoZcKgbmV0d29ya2luZ8KgY29yZcKgY2xlYXJzwqB0aGXCoHJ1bm5pbmfCoGZsYWfCoGJl
+Zm9yZcKgY2FsbGluZ8KgbmRvX3N0b3AoKS4KPiBUaGlzwqBzZXJpZXPCoHVzZXPCoHRoYXTC
+oGZsYWfCoHRvwqBhdm9pZMKgc2NoZWR1bGluZ8Kgb3LCoHN0YXJ0aW5nwqBidXMtb2ZmCj4g
+cmVjb3ZlcnnCoG9uY2XCoHRoZcKgaW50ZXJmYWNlwqBpc8Kgb2JzZXJ2ZWTCoHRvwqBiZcKg
+bm/CoGxvbmdlcsKgcnVubmluZy7CoEl0wqBhbHNvCj4gYWRkc8KgY2xvc2VfY2FuZGV2X2Nh
+bmNlbF9yZXN0YXJ0X3N5bmMoKcKgc2/CoGRyaXZlcnPCoGNhbsKgd2FpdMKgZm9ywqByZWNv
+dmVyeQo+IHNlcGFyYXRlbHnCoGZyb23CoHRoZcKgZWNob8KgY2xlYW51cMKgaW7CoGNsb3Nl
+X2NhbmRldigpLsKgUm9ja2NoaXDCoGNhbGxzwqB0aGlzCj4gaGVscGVywqBhdMKgdGhlwqBz
+dGFydMKgb2bCoGl0c8KgY2xvc2XCoHBhdGguCj4gCj4gVGhlwqBydW5uaW5nLXN0YXRlwqBj
+aGVja3PCoGRvwqBub3TCoHJlcGxhY2XCoHN5bmNocm9uaXphdGlvbsKgd2l0aMKgYcKgcmVz
+dGFydAo+IHRoYXTCoGhhc8KgYWxyZWFkecKgcGFzc2VkwqB0aGXCoGNoZWNrLsKgUm9ja2No
+aXDCoHdhaXRzwqBmb3LCoHRoYXTCoHdvcmvCoGJlZm9yZQo+IHRlYXJpbmfCoGRvd27CoGl0
+c8KgcmVzb3VyY2VzLMKgYW5kwqBrZWVwc8KgY2xvc2VfY2FuZGV2KCnCoGF0wqB0aGXCoGVu
+ZMKgZm9ywqB0aGUKPiBmaW5hbMKgY2FuY2VsbGF0aW9uwqBhbmTCoGVjaG/CoGNsZWFudXAu
+Cj4gCj4gRHVyaW5nwqByZXN0YXJ0LMKgUm9ja2NoaXDCoG1hc2tzwqBvbmx5wqBpdHPCoG93
+bsKgaW50ZXJydXB0wqBzb3VyY2VzwqBhbmTCoHJlYWRzCj4gYmFja8KgdGhlwqBtYXNrLsKg
+QcKgc29mdHdhcmXCoGZsYWfCoHByZXZlbnRzwqBhwqBzaGFyZWTCoElSUcKgaW52b2NhdGlv
+bsKgZnJvbQo+IGFjY2Vzc2luZ8KgdGhlwqBjb250cm9sbGVywqB3aGlsZcKgc3luY2hyb25p
+emVfaXJxKCnCoGRyYWluc8KgaGFuZGxlcnPCoHRoYXQKPiBoYXZlwqBhbHJlYWR5wqBlbnRl
+cmVkLsKgVGhlwqBzaGFyZWTCoGludGVycnVwdMKgbGluZcKgcmVtYWluc8KgZW5hYmxlZC7C
+oFRoZQo+IHJlc3RhcnTCoHBhdGjCoGFsc2/CoHN5bmNocm9ub3VzbHnCoGRyYWluc8KgdGlt
+ZXN0YW1wwqB3b3JrwqBiZWZvcmXCoHJlYnVpbGRpbmcKPiB0aGXCoHRpbWVjb3VudGVyLMKg
+YW5kwqBwdWJsaXNoZXPCoHRoZcKgaW5pdGlhbGl6ZWTCoHN0YXRlwqBiZWZvcmXCoGFsbG93
+aW5nwqBJUlEKPiBoYW5kbGluZ8KgYWdhaW4uCj4gCj4gVGltZXN0YW1wwqBkZWxheWVkwqB3
+b3JrwqBpc8KgaW5pdGlhbGl6ZWTCoG9uY2XCoGF0wqBwcm9iZS7CoFRoZcKgb3BlbsKgZXJy
+b3LCoHBhdGgKPiBhbHNvwqBkaXNhYmxlc8KgUljCoG9mZmxvYWTCoGlmwqByZXF1ZXN0X2ly
+cSgpwqBmYWlscy4KPiAKPiBTdG9wcGluZ8KgdGltZXN0YW1wwqB3b3JrwqBub3fCoHByZXZl
+bnRzwqBhwqBydW5uaW5nwqB3b3JrZXLCoGZyb23CoHJlYXJtaW5nCj4gaXRzZWxmwqBhZnRl
+csKgYnVzLW9mZi7CoEHCoGxvY2vCoHNlcmlhbGl6ZXPCoGRlYWN0aXZhdGlvbsKgd2l0aMKg
+dGhlwqB3b3JrZXIncwo+IGFjdGl2ZcKgY2hlY2sswqBjb3VudGVywqByZWFkwqBhbmTCoHNl
+bGYtcmVxdWV1ZS7CoEJvdGjCoGFzeW5jaHJvbm91c8KgYW5kCj4gc3luY2hyb25vdXPCoGNh
+bmNlbGxhdGlvbsKgcmVtYWluwqBvdXRzaWRlwqB0aGXCoGxvY2suCj4gCj4gVGhlwqBidXMt
+b2ZmwqBwYXRowqBub3fCoGRyYWluc8KgVFjCoHN1Ym1pc3Npb27CoGFuZMKgUlgtc2lkZcKg
+ZWNob8KgdXNlcnPCoGJlZm9yZQo+IHB1Ymxpc2hpbmfCoEJVU19PRkYuwqBUaGlzwqBhbHNv
+wqBwcm90ZWN0c8KgbWFudWFswqByZWNvdmVyeTrCoHRoZcKgQ0FOwqBjb3JlCj4gZmx1c2hl
+c8KgZWNob8KgU0tCc8KgYmVmb3JlwqBjYWxsaW5nwqB0aGXCoGRyaXZlcidzwqByZXN0YXJ0
+wqBjYWxsYmFjay7CoEHCoHByaXZhdGUKPiBUWMKgbG9ja8KgYW5kwqBlbmFibGVkwqBmbGFn
+wqBjb3ZlcsKgc3VibWlzc2lvbizCoGNvbXBsZXRpb24swqByZXRyecKgYW5kwqBxdWV1ZQo+
+IHdha2UswqBrZWVwaW5nwqB0aGVzZcKgcGF0aHPCoG91dMKgb2bCoHRoZcKgZWNob8Kgcmlu
+Z8Kgd2hpbGXCoHJlY292ZXJ5wqBvd25zwqBpdC4KPiAKPiBBZnRlcsKgZHJhaW5pbmfCoHRo
+ZcKgb2xkwqBJUlHCoGFuZMKgcmVpbml0aWFsaXppbmfCoHRoZcKgY29udHJvbGxlcizCoHN0
+YXJ0dXAKPiByZXN0b3Jlc8KgY2FycmllcizCoHJlc3VtZXPCoElSUcKgaGFuZGxpbmfCoGFu
+ZMKgd2FrZXPCoHRoZcKgcXVldWXCoHVuZGVywqB0aGXCoFRYCj4gbG9jay7CoFRoaXPCoGNv
+dmVyc8KgbWFudWFswqByZWNvdmVyecKgcmFjaW5nwqB3aXRowqB0aGXCoG9sZMKgYnVzLW9m
+ZsKgSVJRJ3MKPiBjYXJyaWVywqB1cGRhdGXCoGFuZMKgcHJldmVudHPCoHN0YXJ0dXDCoGZy
+b23CoG92ZXJyaWRpbmfCoGHCoG5ld8KgYnVzLW9mZi7CoE9wZW4KPiBhbHNvwqBzdXNwZW5k
+c8Kgc2hhcmVkwqBJUlHCoGhhbmRsaW5nwqB1bnRpbMKgaW5pdGlhbGl6YXRpb27CoGlzwqBj
+b21wbGV0ZS4KPiAKPiBJwqB0ZXN0ZWTCoHYzwqBvbsKgaGFyZHdhcmXCoHdpdGjCoDE4MMKg
+cmVhbMKgcmFuZ2luZ8KgcmVxdWVzdC9yZXNwb25zZcKgZXhjaGFuZ2VzCj4gYW5kwqAyMMKg
+Q0FOwqBpbnRlcmZhY2XCoGRvd24vdXDCoGN5Y2xlcy7CoFRoZXNlwqBjaGVja3PCoHBhc3Nl
+ZCzCoHdpdGjCoHRyYW5zbWl0Cj4gYW5kwqByZWNlaXZlwqB3b3JraW5nwqBhZnRlcsKgZXZl
+cnnCoHJlb3Blbi4KPiAKPiBUaGXCoHJlY292ZXJ5wqBhbmTCoHJhY2XCoHRlc3TCoGNhbXBh
+aWduwqBhbHNvwqBwYXNzZWTCoGFsbMKgNDAwwqBzeW50aGV0aWPCoGJ1cy1vZmYKPiBpdGVy
+YXRpb25zwqBhbmTCoDEwwqBjbGVhbnVwwqB0ZXN0c8KgYWZ0ZXLCoGFjdHVhbMKgcmVxdWVz
+dF9pcnEoKcKgZmFpbHVyZXMuCj4gVHJhY2luZ8KgY2FwdHVyZWTCoDXCoG92ZXJsYXDCoHdp
+bmRvd3PCoGludm9sdmluZ8Kgb2xkwqBJUlHCoGhhbmRsZXJzL3RpbWVzdGFtcAo+IHdvcmvC
+oGFuZMKgMsKgd2luZG93c8Kgd2hlcmXCoHJlY292ZXJ5wqBvdmVybGFwcGVkwqB3aXRowqBk
+ZXZpY2XCoGNsb3NlLgo+IAo+IC0tLQo+IENoYW5nZXPCoGluwqB2MzoKPiAtwqBSZXBsYWNl
+wqBkaXNhYmxlX2lycSgpL2VuYWJsZV9pcnEoKcKgaW7CoFJvY2tjaGlwwqByZXN0YXJ0wqB3
+aXRowqBkZXZpY2UKPiDCoMKgaW50ZXJydXB0wqBtYXNraW5nLMKgbWFza8KgcmVhZGJhY2ss
+wqBpcnFfc3VzcGVuZGVkwqBhbmTCoHN5bmNocm9uaXplX2lycSgpLgo+IC3CoFVzZcKgcmVs
+ZWFzZS9hY3F1aXJlwqBvcmRlcmluZ8Kgd2hlbsKgcmVzdW1pbmfCoHRoZcKgSVJRwqBoYW5k
+bGVyLgo+IC3CoEluaXRpYWxpemXCoHRpbWVzdGFtcMKgZGVsYXllZMKgd29ya8Kgb25jZcKg
+YXTCoHByb2JlwqBhbmTCoHN5bmNocm9ub3VzbHkKPiDCoMKgY2FuY2VswqBpdMKgYmVmb3Jl
+wqByZXN0YXJ0wqByZWluaXRpYWxpemVzwqB0aGXCoHRpbWVjb3VudGVyLgo+IC3CoEJhbGFu
+Y2XCoFJYwqBvZmZsb2FkwqBlbmFibGVtZW50wqB3aGVuwqByZXF1ZXN0X2lycSgpwqBmYWls
+c8KgZHVyaW5nwqBvcGVuLgo+IC3CoFByZXZlbnTCoHRpbWVzdGFtcMKgd29ya8KgZnJvbcKg
+cmVhZGluZ8KgdGhlwqBjb3VudGVywqBvcsKgcmVhcm1pbmfCoGFmdGVyCj4gwqDCoGRlYWN0
+aXZhdGlvbizCoHdpdGjCoGNhbmNlbGxhdGlvbsKgb3V0c2lkZcKgdGhlwqBsb2NrLgo+IC3C
+oERyYWluwqBUWMKgc3VibWlzc2lvbsKgYW5kwqBSWC1zaWRlwqBlY2hvwqB1c2Vyc8KgYmVm
+b3JlwqBwdWJsaXNoaW5nwqBCVVNfT0ZGLAo+IMKgwqBwcm90ZWN0aW5nwqB0aGXCoGNvcmUn
+c8KgcHJlLXJlc3RhcnTCoGVjaG/CoGZsdXNoLgo+IC3CoFNlcmlhbGl6ZcKgY2FycmllcsKg
+cmVzdG9yYXRpb24swqBJUlHCoGVuYWJsZW1lbnTCoGFuZMKgcXVldWXCoHdha2XCoHdpdGjC
+oGHCoG5ldwo+IMKgwqBidXMtb2ZmO8Kgc3VzcGVuZMKgc2hhcmVkwqBJUlHCoGhhbmRsaW5n
+wqBkdXJpbmfCoG9wZW7CoHVudGlswqBzdGFydHVwwqBmaW5pc2hlcy4KPiAtwqBMaW5rwqB0
+b8KgdjI6Cj4gwqDCoGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWNhbi90ZW5jZW50
+XzgyQzkzNTYxRDIwMEM4NEMyNDYwOEM4MDA0OUMyM0VFRjgwQUBxcS5jb20vCj4gCj4gQ2hh
+bmdlc8KgaW7CoHYyOgo+IC3CoFNwbGl0wqB0aGXCoHNlcmllc8KgaW50b8KgdGhlwqBjb21t
+b27CoGNoZWNrcyzCoHRoZcKgY2FuY2VsbGF0aW9uwqBoZWxwZXIswqBhbmQKPiDCoMKgaXRz
+wqB1c2XCoGluwqBSb2NrY2hpcC4KPiAtwqBDaGVja8KgbmV0aWZfcnVubmluZygpwqBhZnRl
+csKgdGhlwqBkb19zZXRfbW9kZcKgY2FwYWJpbGl0ecKgY2hlY2vCoGFuZMKgYmVmb3JlCj4g
+wqDCoHRoZcKgcmVzdGFydMKgbm90aWZpY2F0aW9uLMKgZWNob8KgY2xlYW51cCzCoGFuZMKg
+Y2FycmllcsKgdXBkYXRlLgo+IC3CoE9ubHnCoHF1ZXVlwqBhdXRvbWF0aWPCoHJlY292ZXJ5
+wqBmb3LCoGHCoHJ1bm5pbmfCoGludGVyZmFjZTvCoGtlZXDCoHJlcG9ydGluZwo+IMKgwqBi
+dXMtb2ZmwqBhbmTCoG1ha2XCoHRoZcKgbG9nwqBtZXNzYWdlwqBtYXRjaMKgdGhlwqBzY2hl
+ZHVsaW5nwqBkZWNpc2lvbi4KPiAtwqBBZGTCoGNsb3NlX2NhbmRldl9jYW5jZWxfcmVzdGFy
+dF9zeW5jKCnCoGluwqBsaW51eC9jYW4vZGV2LmjCoGFuZMKgdXNlwqBpdMKgaW4KPiDCoMKg
+Y2xvc2VfY2FuZGV2KCnCoHdpdGhvdXTCoGNoYW5naW5nwqB0aGXCoGV4aXN0aW5nwqBjbGVh
+bnVwwqBvcmRlci4KPiAtwqBSZXBsYWNlwqB0aGXCoFJvY2tjaGlwwqBtdXRleMKgYW5kwqBj
+bG9zaW5nwqBmbGFnwqB3aXRowqBhbsKgZWFybHnCoGNhbGzCoHRvwqB0aGUKPiDCoMKgaGVs
+cGVyLsKgRHJvcMKgdGhlwqBleHRyYcKgY2xvc2UtcGF0aMKgSVJRwqBzeW5jaHJvbml6YXRp
+b27CoGFuZMKgbWFza8KgcmVhZGJhY2suCj4gLcKgUmV0YWluwqBJUlHCoGV4Y2x1c2lvbsKg
+YXJvdW5kwqBoYXJkd2FyZcKgcmVpbml0aWFsaXphdGlvbsKgaW7CoHRoZcKgcmVzdGFydAo+
+IMKgwqBjYWxsYmFjay4KPiAtwqBMaW5rwqB0b8KgdjE6Cj4gwqDCoGh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2xpbnV4LWNhbi90ZW5jZW50XzU4MDJFRTg4NDM0MDEwMjI5RURGN0E1MzA4
+NEQ5OTRDNjEwNkBxcS5jb20vCj4gCj4gVG86wqBNYXJjwqBLbGVpbmUtQnVkZGXCoDxta2xA
+cGVuZ3V0cm9uaXguZGU+Cj4gVG86wqBWaW5jZW50wqBNYWlsaG9swqA8bWFpbGhvbEBrZXJu
+ZWwub3JnPgo+IFRvOsKgSGVpa2/CoFN0dWVibmVywqA8aGVpa29Ac250ZWNoLmRlPgo+IFRv
+OsKgIkRhdmlkwqBTLsKgTWlsbGVyIsKgPGRhdmVtQGRhdmVtbG9mdC5uZXQ+Cj4gVG86wqBX
+b2xmZ2FuZ8KgR3JhbmRlZ2dlcsKgPHdnQGdyYW5kZWdnZXIuY29tPgo+IFRvOsKgT2xpdmVy
+wqBIYXJ0a29wcMKgPHNvY2tldGNhbkBoYXJ0a29wcC5uZXQ+Cj4gVG86wqBrZXJuZWxAcGVu
+Z3V0cm9uaXguZGUKPiBDYzrCoGxpbnV4LWNhbkB2Z2VyLmtlcm5lbC5vcmcKPiBDYzrCoGxp
+bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKPiBDYzrCoGxpbnV4LWFybS1rZXJuZWxAbGlz
+dHMuaW5mcmFkZWFkLm9yZwo+IENjOsKgbGludXgtcm9ja2NoaXBAbGlzdHMuaW5mcmFkZWFk
+Lm9yZwo+IAo+IC0tLQo+IEN1bmhhb8KgTHXCoCg1KToKPiDCoMKgwqDCoMKgwqBjYW46wqBk
+ZXY6wqBwcmV2ZW50wqBidXMtb2ZmwqByZWNvdmVyecKgd2hlbsKgdGhlwqBpbnRlcmZhY2XC
+oGlzwqBub3TCoHJ1bm5pbmcKPiDCoMKgwqDCoMKgwqBjYW46wqBkZXY6wqBhZGTCoGNsb3Nl
+X2NhbmRldl9jYW5jZWxfcmVzdGFydF9zeW5jKCkKPiDCoMKgwqDCoMKgwqBjYW46wqByb2Nr
+Y2hpcF9jYW5mZDrCoGNhbmNlbMKgYnVzLW9mZsKgcmVzdGFydMKgYmVmb3JlwqBjbG9zaW5n
+wqB0aGXCoGRldmljZQo+IMKgwqDCoMKgwqDCoGNhbjrCoHJvY2tjaGlwX2NhbmZkOsKgcHJl
+dmVudMKgdGltZXN0YW1wwqB3b3JrwqBmcm9twqByZWFybWluZ8KgYWZ0ZXLCoGJ1cy1vZmYK
+PiDCoMKgwqDCoMKgwqBjYW46wqByb2NrY2hpcF9jYW5mZDrCoHNlcmlhbGl6ZcKgVFjCoHdp
+dGjCoGJ1cy1vZmbCoGFuZMKgcmVzdGFydAo+IAo+IMKgZHJpdmVycy9uZXQvY2FuL2Rldi9k
+ZXYuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqB8wqAxMsKgKystLQo+IMKgZHJpdmVycy9uZXQvY2FuL3JvY2tjaGlwL3JvY2tjaGlwX2Nh
+bmZkLWNvcmUuY8KgwqDCoMKgwqB8wqA2N8KgKysrKysrKysrKysrKysrKysrKystLQo+IMKg
+ZHJpdmVycy9uZXQvY2FuL3JvY2tjaGlwL3JvY2tjaGlwX2NhbmZkLXJ4LmPCoMKgwqDCoMKg
+wqDCoHzCoDIywqArKysrLS0tCj4gwqAuLi4vbmV0L2Nhbi9yb2NrY2hpcC9yb2NrY2hpcF9j
+YW5mZC10aW1lc3RhbXAuY8KgwqDCoMKgfMKgMzjCoCsrKysrKysrKystLQo+IMKgZHJpdmVy
+cy9uZXQvY2FuL3JvY2tjaGlwL3JvY2tjaGlwX2NhbmZkLXR4LmPCoMKgwqDCoMKgwqDCoHzC
+oDE2wqArKysrKy0KPiDCoGRyaXZlcnMvbmV0L2Nhbi9yb2NrY2hpcC9yb2NrY2hpcF9jYW5m
+ZC5owqDCoMKgwqDCoMKgwqDCoMKgwqB8wqDCoDnCoCsrKwo+IMKgaW5jbHVkZS9saW51eC9j
+YW4vZGV2LmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoHzCoDEywqArKysrCj4gwqA3wqBmaWxlc8KgY2hhbmdlZCzCoDE1MsKgaW5z
+ZXJ0aW9ucygrKSzCoDI0wqBkZWxldGlvbnMoLSkKPiAtLS0KPiBiYXNlLWNvbW1pdDrCoDI0
+YTE5Yjk1M2UyYTNkMGVhNWE4YzQ5NTFhMGFiOGYzMjcyMGM5MDcKPiBjaGFuZ2UtaWQ6wqAy
+MDI2MTAxMy1yb2NrY2hpcC1jYW5mZC1yZXN0YXJ0LWNsb3NlLWViZGU1OTU0ZjFiZgo+IAo+
+IEJlc3TCoHJlZ2FyZHMsCj4gLS3CoMKgCj4gQ3VuaGFvwqBMdcKgPDE1Nzk1Njc1NDBAcXEu
+Y29tPgoKcHctYm90OsKgY3IK
 
-On 10/15/26 5:12 AM, Rodrigo Vivi wrote:
-
-> If the consensus is that we need this forcewake, let's do it.
-It feels like we haven't really understood the problem yet, we just know 
-something that appears to work.
-
-If I run
-
-     while true; do sleep 5 >forcewake_all; sleep 5; done & watch sensors
-
-then the temperature sensors *do* update, but several of the VRAM 
-channels take over a minute, so the long forcewake does not solve the 
-problem. If shorter ones do, then I'd really like to understand why; my 
-theory is that it's not the forcewake itself that does the job, but the 
-fact that it's toggling, and possibly generating some events in some 
-microcontroller. It may be sufficient to send some no-op commands 
-instead of playing with the power rails.
-
-Starting the loop above with pretty much everything at a nice toasty 
-equilibrium temperature of 82 degrees (which is way too much IMO for a 
-card that has no client connected and is just displaying a console 
-login), the fans immediately come on, and apparently every ten seconds 
-one of the VRAM channels updates to a lower temperature, so one 
-forcewake event pretty much exactly corresponds to one sensor update.
-
-That would explain why the patch works -- it generates the same number 
-of forcewake events as sensor reads, and the delay makes sure they are 
-registered as separate events. However, there is no correspondence 
-between the event and the sensor, so if I do my normal telemetry 
-recording (every sensor once every ten seconds) I can still get data 
-that is ten seconds old, and I also wake up the GPU once every ten 
-seconds even if there is nothing to do.
-
-That is an improvement over the status quo, but my concern is that it 
-will push us over into "good enough" territory where the actual problem 
-is never addressed.
-
-    Simon
