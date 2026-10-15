@@ -1,160 +1,153 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012045.outbound.protection.outlook.com [40.107.200.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA149E139;
-	Thu, 15 Oct 2026 14:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074916; cv=fail; b=vC8LTMl5MdqGDJ9y0/XP3VN5KFHPqA9GqciXjkf6bcvpfO/FyT4Y4GClOzbk2TnwGfGxuCWuXnIG7htrGkV4tKKeQMWi2LebORLSr99196cTTmfToOIP7gbul8IxCZHG87KLU2lNvrlwE6TvzD9RTwGnuOLHeFx8mg/Er9m3uKE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074916; c=relaxed/simple;
-	bh=Z64kWoQ/h8lZmGsh3c7ShyejSyDo7ngqowWXtqDiCkM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=KaDkuJfmpDTxZ34rOrIgzjr0a20bc7fd2HmFd3XPcCJIrTjRm7c05cpt1svt1JuXlZEpXRmbKQNvriWcVd97ufLp+S3w2lmPjNsqKCDAUCuWXEWrBsA8Uh6ktVsTgNdUv0tc+v/+H7a9JLJONUlq1POea18NLAN8XePlmu0r2oE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=smrYSaxR; arc=fail smtp.client-ip=40.107.200.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA7735E922;
+	Thu, 15 Oct 2026 14:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792074993; cv=none; b=FfsvB17xsTc9UlhSc1+qrnTXloApuGf2fqycGZRbBmT341FggonaTlF+1t+J4zQrNba/7iJ1MqKxTQL9pmihui2cSXPMHO1WwTCQKXNEbtGfGDGxVW6mvodrKYaOEsvQie3oT7S96WB132uvyNIuKK20/4F0/zngWzsbZ72sIUg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792074993; c=relaxed/simple;
+	bh=+339iin8YDxu73cdixQ40mGObU5uUHzWLVz9chThbYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PoJ4oPL8KWBiZQ+v+jIg1AWMtfjvh35GVReDpQk8wG5Dl/0LAwy9VOTZEpGQ5cGstuCXMpmvfM9Gi9g17nES6GGKUz9epBksh5SECiBXPebiR0i2NsfexThR0Vq++VkUx7+pgUcNqJadiV/+YwPR1YbfNa4njHIuQ3/OZfMXcKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBddTCH+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="smrYSaxR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IuHGJR/ZfUSpFp6XX8IEtixsP38Lm32cUWDMqiV7fCuSRE8Wm816RbxbYpoKiTtq/zjHIuw7kOiHuF3oZh4Th0uEtA/r8zdhw1WjJR+CgzL40YsDY1bszZMTEfihFbvc9JAEzeE3ytBLOUtWNAFI4vGCJJwwQ0eKNcQhhKcywatDvlxt4udtQGemUDiV5/c55uRVDaZSlkwQMlg1VctNV70FdW4tjeoIL042UYp5hY8a9scJatVBQGPV5Fcqng6SpvyS5FUMv2va4vbm2uFQvT5cVtuGNjcDxKVTRLuPNljBZOPy/6T5AkKrHnbtKQS4LAsN+8ptGArLGcdhNj5bfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z64kWoQ/h8lZmGsh3c7ShyejSyDo7ngqowWXtqDiCkM=;
- b=G/FCiOkliGm6KgMycCW/yqqgC7MBZDMc/Z/YPk6X/duSRBWLsl7m53Ixgv3PO80nF3X06D7pS4AplzF1WAsE0SAjWTP69Hn+SrbPc/RFxIoL2HtmnJbocPeqU0KJuXwDlQ0mEsZq5CvXMX7b0y8ZVqwgCKVo6e6P0G9MIY0OTLvZrksoLZnp9Xq26c4Q3Q7Uf7MC3HVjCwoMnaqv/ROnx3Gse/2FCdtw15ktOHTPIy1pTmq9VVtRIeOn6D7pNUkQZ0TJ5L/n8oGs93W1sokfO1pyYJgogQOMUcFqLu+7X9qGqfNDwksRygSpHKQH6w0Boziuey7mCQd0Qp0Bhq7rSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z64kWoQ/h8lZmGsh3c7ShyejSyDo7ngqowWXtqDiCkM=;
- b=smrYSaxRxUyRz9IECH6fTC5hFv25SxGKJkOvtt+JKsh6XEUhIUKwtrHQBb8v296AhIJsVrrE0c2WSs+kc1IcpMzDmoOt6jf0hj0n/zs8E3vH7+fK8O0JeN1wNuNGl6eFPX++cvmzy7a8+kpcitVhE3+oyh/vmUvw9E5Z9xbZp6AtSkD/NhXFAIkMU06l3WuHYFiLdGZvAqAkQ7jecCfGYzeXrX5V58Tx/e2dMrW8GdsV9gXZzTYRe1RDvezcu0Mr9brzbHBSm4ANDpzFsxyvbDAScWpihgSU0u3pvNOqHKgmkiT1iwFwMQ7+Lwh5swSWgZIyJvnmwk7e0rKt0m5QzQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by LY0PR12MB461782.namprd12.prod.outlook.com (2603:10b6:404:233::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:35:12 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0522.011; Thu, 15 Oct 2026
- 14:35:12 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 23:35:08 +0900
-Message-Id: <DM5HJBMA4G8R.373NEPOZPLTD6@nvidia.com>
-Cc: "Gary Guo" <gary@garyguo.net>, "Lorenzo Delgado" <lnsdev@proton.me>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Thorsten
- Blum" <blum@kernel.org>, "Francis Laniel" <laniel_francis@npnm.eu>
-Subject: Re: [PATCH v3 0/2] rust: add NonEmpty
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
-References: <20261013-nonempty-slice-v3-0-4463cc0338f8@proton.me>
- <DM5FG6VMG3U7.1XMZW8RJI2KLM@nvidia.com>
- <DM5GYU1H0Q9I.308S84Y1RV33P@garyguo.net>
- <CANiq72mBAAQaJkL1Yji9hbPjWd9Nm48j6i1G1uE7+KP1kKSHrQ@mail.gmail.com>
-In-Reply-To: <CANiq72mBAAQaJkL1Yji9hbPjWd9Nm48j6i1G1uE7+KP1kKSHrQ@mail.gmail.com>
-X-ClientProxiedBy: OS3P301CA0049.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:604:21c::10) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBddTCH+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C034C1F000C4;
+	Thu, 15 Oct 2026 14:36:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792074991;
+	bh=G4HYCNRwmOYnsIzSHtwPTUn70uM/iwo6cRsidIC2HRU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HBddTCH+RlOLLfTmDAd5bx/qgStnKOV+WzhlxvxE41Vt1wYD6orgPcMI4GPNbVSV2
+	 6DdYDYoC0UQIaIZNTkyTF+smva8QJIHZx1TndYymgxxqWlvnOy61mE3kzN7WU2563w
+	 uOOoGJNpHxEBPIXm5UWk/tov81SM2gc0BXhLNP9XfPZNL0jZhQocj1mFAO1hypHkDg
+	 nY+Q30UEM9QYQfUMZX9cGbSXEkcwrIf1k1CoBf74EGU7Me2PcG4S096gQt4ajy7D1h
+	 7GPbKLOS6duFcK51M+1YLjxq1pD8zhadvlyAzLDCGmVfhszCyrkEBvyCoL4EhyE59R
+	 FjJ7YJPuWjGQg==
+Date: Thu, 15 Oct 2026 11:36:28 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v5 07/11] perf tools: Factor out dso__find_binary_type()
+Message-ID: <atDk7JqIrWIfPq18@x2>
+References: <20261013172155.160869-1-namhyung@kernel.org>
+ <20261013172155.160869-8-namhyung@kernel.org>
+ <atDSmfwd4v_oLg4m@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|LY0PR12MB461782:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01d529ff-6615-4a96-37b4-08df2ac984fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|10070799003|376014|366016|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	M4/htS8YvuTHTtlTDmoDPIQqFqAJXj0iM5yZt8nUdEcElNuKPhMXA8iPTAHuhap1mDqvxUSR6VmUeCTT6w6rm92JkEam4PSx3iDWZJNxLjkVOCZHjjaE5FOFGFvcSAaRkiYbisn2FRjexqdvG0LKSsb29/Ikmx7/Qq5ZD51a+Nln7NT9rfQWHKrHiYXD9NQQ+IeWvFba26QOoQWG5o4EFyZW6rMnedWhOF5e/VX+lOrLBGNj7soHVDyRIAM4riUJHA8e/dEaoBEF9pHTkZoEXT6QkM9HWQ1z8PcUVRbxNH+5bsUxYxtHQRpH8pNQJtREI1DjRy8zDMb4fzcQ/4z6Q+EsVaeOKZNEblvHhdT3kUqrpNKUo4mu/fdxlDFbtGiabwS3A7350e0HeNmszXala9Rvh0tkWId+dJbQiJ/AbdVJXGPAhbmtgqvahE2b6IJGYAM7JEmqtHsoCo89AfOSmHkfzrwiZDt5UiTH7y2Rmn8SZig/AxwD+wPpQsRXyEfra37zY5Dby+1nqp241E7J/U+1ijp3/6edzEz+DMryLgsEFQskKQH1XfGtGabludjwxGYmytM5fP3loyBRbu6cLyUDn/i19EWJkfw8UOS4iE1XZJ/hkX0e+oeObIl+mobOgtUedi9ZlXnhx73VzIqS+/RmII3jBRk+gqdipDY7qH0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(10070799003)(376014)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VnJsWjEzY0hOQ1R5dlN3TWFKbVN5L3RNSDQyV0NiazNSWEN5eEdHR1ErT3lh?=
- =?utf-8?B?N3Ryb0lMbUJ6K1pKS1Y4WHFieGovdmh1Mm1vZDdMTEQ1VUxPeTRQU2ZxL1Fi?=
- =?utf-8?B?K0FwcURKUmN4RitpSEk5SlowU2lqcmdEaExiWmUycXgyalRMTytnaUdUeEJ4?=
- =?utf-8?B?RW9WcmRLWGttbXRuejhCYkJxZ3pJN3gzQXI5NThQNm1UVDlzOEhqbDYybmtj?=
- =?utf-8?B?aUVBK1FLVkRwM3F2d09zYTlUc1VRbmh6ekZBR1lrcFpzSys3YWtSRm85Y0Rz?=
- =?utf-8?B?V0JMSHp6bzBOMzBtS3B2UjB6VGdzU1AwM1ZORGxSRFJOVkgyREtidlR4VzNM?=
- =?utf-8?B?VXdZWGpRU1htRlRzaGFDamFrRjN4VlRDY0J2Z2VHZjVFVWY5RnYyaXgzSGFE?=
- =?utf-8?B?ZDVMWGlLeFZBajlHMkdacUl4SDhlSnl0SHJVZVBiNUdZT3I3WlN2eDgxWFY4?=
- =?utf-8?B?RXZGSTdVZnAwcEJSOFBIS1NNa1N6bldLZzdYRFBOdllMbG9EOS9KeUE4M1Uw?=
- =?utf-8?B?YWtvNWl6bjlJSjJWbXUvSXlYbjlQQmJobkZyMkl3dllhSVQ5NkV0SlY0cnFr?=
- =?utf-8?B?Tm5PaUJSTU8vMnJ0SUQ3T2ZWZDh2QW1jcHJCbEIzQ1V1Y2hKZVhPamk0Rjdm?=
- =?utf-8?B?dUM2ZWFoL3lPZHAxZkRnM0Zycnh0T0F5TCtsUUVMM1d6bC9kblpsa3RMMWZS?=
- =?utf-8?B?WFFud2ZRTE1DRS9DWTcrVndoSnB0S1dpRnl6RVgvOFY3cThENHUvRlpEcS9T?=
- =?utf-8?B?azhrOE1hZFJkckNGdmUxczE4bnpjZnJGenN2OUpFYjlPMGFPcENSV0h2Ykwx?=
- =?utf-8?B?M2Jod3RGRkE5RFJpVjRhSWU4bUY2ek12ckRmeHJNOS90UytEdVVRYURIV1lj?=
- =?utf-8?B?RmFIS2lYQ2hIdkVQTlpSejVubWQ4dkVER1FwSmxYc2M5RkZ6a0JuczFjc1Nz?=
- =?utf-8?B?NHk4bWpCU0pSMHg3TGlNRUtnTy9xdzZ1cUFUN0Rvdmh0cHVCMWhNcGk3dmVz?=
- =?utf-8?B?TE5OMjdZTHp2S1d2VlBUUzdobjh4d2w0UjhWd2dZMFB0NFZTS1NNVnlhUS9K?=
- =?utf-8?B?Vm15YWh3bHphSFNMalJqekdmamlMemNjY3dQMm9rQkJLN2JtUm9QZVBnajg4?=
- =?utf-8?B?OFdDZEkyMVNONkhVM3JnY1lmT2hzazlGdlhHZElFMmhVUHAzMUxVUjNFaHI4?=
- =?utf-8?B?Wnkrd2JZMEJQUnNSRGJqZWlsYnUxdFJzQ0JYZTM4MEpySGQzV2FpRUhqVFY4?=
- =?utf-8?B?NjExbGFGUHFxR1dHOEx4cUk5Z05QSVlGakUzV2xTTkgrZUx5YmJJT29oRFRk?=
- =?utf-8?B?ZjVDQkVaQVVLbDFibkQvUTI2Y1FnOG1wbnpPdlVUQ1dQRERDSlJXb0U2Nk9h?=
- =?utf-8?B?NlpaOUxpMHU3Y01NTHM1VVNzVzB3dkw3UjV0NUtjMk5MNUVGT3lNN0E5ZzE3?=
- =?utf-8?B?eWZHVFNJTnVUM2xYMTdoa1VBODlHajJvRitDeDhUUDB3OUlGNjI1SXUzallj?=
- =?utf-8?B?QXRxRnVRSm5qckMya25KMTg2YUMwVTlCWHpZMDNBMFNXRXFnRFBEZ3FuS2dr?=
- =?utf-8?B?T3BBcnFHR0JGbERpWU4xL2FCRVpVR0xIZnU4aUlyalErN09mcWM4eTNTWWJ5?=
- =?utf-8?B?Y2pBMjJsN3YwOVd5ekxpdDh4QmFuVTZzUDRvUGxNMDM2Lzh1N3QvVU8ybm0v?=
- =?utf-8?B?UmlEaE1mUWJxc05GcEp5VGpTZnZmemNuZTB6OEs5RU1PNkJuQVhKWFYvU2R3?=
- =?utf-8?B?dFZyMTIwOUllbklja0hmWnFjZm90TlhidjRvUGRxL0RvMnRJVmxzTFNaM0JO?=
- =?utf-8?B?bTBtTEpNejRFaU56aGxOeUhrVVIyT0tyY2VVZFdwWWk1eUtCZHRyK1lrQUlZ?=
- =?utf-8?B?SXFxVllsRGdVckg3Tk9OT2ViVi9TZGh2TC9DRDA0Y1lPcEk3QzI3YitYS0lq?=
- =?utf-8?B?RExhc0VaZjVGNVZpRU5Na3JrVXNvb1VqTTIrMU5UOEdpa0piNEtEMi8wbXo5?=
- =?utf-8?B?YzJSK3pFN3I5bFFOVUxhdGdkQi96aDJMQzAwLzhEUm5ucFU2WStBVWFuK25X?=
- =?utf-8?B?bjJXb1VUMzJ5U1pidERFR0dpYXMrNzIxYzZMZnJnTlQ4TjNHZkxCOHE5ZWQr?=
- =?utf-8?B?Yy9OSHkyZlRMZmlQUWViWFVzcCtxS3N5SmdXTng2WmhkcnJ0cjMwMnlrVjJM?=
- =?utf-8?B?NUs0a0cxR1JwT0w3b1BPbXZEV1M5ZGh2VnB1Qkx1bDFGOFh3STk4MSt1dXRv?=
- =?utf-8?B?dHVZcnpCZUtlQXA3RmJNam4xRlB0ZDVzVUN3UjlWRXR2TzlKclZ2MFZxdVRX?=
- =?utf-8?B?a0crMHQxSExiNi9SZ3laR0tVMWx6RklSYno4ZnNQdkgwMFFPb3l5RzBWTkt5?=
- =?utf-8?Q?tksuzLu+5xr1tVFL0D+qmKYVVOey9eBHho5+BPgd3g7FT?=
-X-MS-Exchange-AntiSpam-MessageData-1: /EM15mP78EryJg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01d529ff-6615-4a96-37b4-08df2ac984fa
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:35:12.2383
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 32escHO9FnFOKDOemOykhpPk0JmUFjWiULqX70gNd1ARKGikvNRXWg9wAJST9Cu4mH2TpOrmKghZYkkf2b3qkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB461782
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atDSmfwd4v_oLg4m@x2>
 
-On Thu Oct 15, 2026 at 11:11 PM JST, Miguel Ojeda wrote:
-> On Thu, Oct 15, 2026 at 4:08=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote=
-:
->>
->> `kernel::types` is too generic and becomes a dumping ground of things. I=
- wonder
->> if we should group things that are new types with just range restriction=
-s
->> (together things like NonZero, Bounded, and perhaps eventually Range, No=
-nNeg and
->> others).
->
-> Yeah, we indeed had that problem, which is why nowadays as you say we
-> prefer things to be more split than less, because going into the
-> "grouping" direction is usually easier (i.e. it is easier to comer up
-> with better hierarchies when we have more types around, but it is
-> annoying to have a big file growing with no boundaries meanwhile).
+On Thu, Oct 15, 2026 at 10:18:21AM -0300, Arnaldo Carvalho de Melo wrote:
+> On Tue, Oct 13, 2026 at 10:21:51AM -0700, Namhyung Kim wrote:
+> > Separate out the logic to detect binary type of a DSO.  It checks if
+> > the candidate file contains ".text" section.  There could be data-only
+> > DSOs but as our use cases focus on the code (perf annotate or intel
+> > PT), we can ignore them for now.
+>  
+> > But it also can fail due to open file limit.  Handle the case by
+> > retrying with _dso__data_open_lock.
+>  
+> > Introduce bintype_searched flag and it accessors to prevent repeated
+> > (failed) search.
+> 
+> This one, when compiled with clang, catch this in all my build
+> containers:
+> 
+>   LD      /tmp/build/perf-tools-next/tests/perf-test-in.o
+> util/dso.c:942:7: error: mutex '_dso__data_open_lock' is not held on every path through here [-Werror,-Wthread-safety-analysis]
+>   942 |                 if (dso__data_open_cnt) {
+>       |                     ^
+> util/dso.c:940:4: note: mutex acquired here
+>   940 |                         mutex_lock(dso__data_open_lock());
+>       |                         ^
+> util/dso.c:942:7: error: reading variable 'dso__data_open_cnt' requires holding mutex '_dso__data_open_lock'   CC      /tmp/build/perf-tools-next/util/maps.o
+> [-Werror,-Wthread-safety-analysis]
+>   942 |                 if (dso__data_open_cnt) {
+>       |                     ^
+> util/dso.c:943:4: error: calling function 'close_first_dso' requires holding mutex '_dso__data_open_lock' exclusively [-Werror,-Wthread-safety-analysis]
+>   943 |                         close_first_dso();
+>       |                         ^
+> util/dso.c:949:3: error: releasing mutex '_dso__data_open_lock' that was not held [-Werror,-Wthread-safety-analysis]
+>   949 |                 mutex_unlock(dso__data_open_lock());
+>       |                 ^
+> 4 errors generated.
+> make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:95: /tmp/build/perf-tools-next/util/dso.o] Error 1
+>   CC	  /tmp/build/perf-tools-next/util/thread.o
+> 
+> perf adds -Wthread-safety for clang builds (tools/perf/Makefile.config),
+> so it is -Werror there.
+> 
+> This is because __dso__find_binary_type() takes _dso__data_open_lock only
+> on the first retry, under needs_open_lock, and then reads
+> dso__data_open_cnt and calls close_first_dso(); with the lock taken
+> conditionally the analyzer can't see it held on every path.  And for the
+> try_to_open_dso() caller, which already holds it, the requirement was
+> only implicit, the helper had no annotation for clang to check.
+> 
+> I've folded the following into the patch, see if it is acceptable:
 
-In this case maybe we can resurrect the `kernel::slice` module for this?
+With it only some cross builds are failing but that is unrelated, I
+still need to fix those:
+
+toolsbuilder@five:~$ cat dm.log/summary
+Subject: tools build test for http://192.168.86.5/perf/perf-7.3.0-rc2.tar.xz
+
+   1    71.83 almalinux:8                   : Ok   gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-28) , clang version 21.1.8 ( 21.1.8-1.module_el8.10.0+4172+b6b13d75) flex 2.6.1
+   2    80.63 almalinux:9                   : Ok   gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14) , clang version 21.1.8 (AlmaLinux OS Foundation 21.1.8-2.el9) flex 2.6.4
+   3   100.09 almalinux:9-i386              : Ok   gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14) , clang version 21.1.8 (AlmaLinux OS Foundation 21.1.8-2.el9) flex 2.6.4
+   4    77.04 almalinux:10                  : Ok   gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4) , clang version 21.1.8 (AlmaLinux OS Foundation 21.1.8-1.el10.alma.1) flex 2.6.4
+   5   108.48 alpine:3.22                   : Ok   gcc (Alpine 14.2.0) 14.2.0 , Alpine clang version 20.1.8 flex 2.6.4
+   6    99.85 alpine:3.23                   : Ok   gcc (Alpine 15.2.0) 15.2.0 , Alpine clang version 21.1.2 flex 2.6.4
+   7   108.80 alpine:3.24                   : Ok   gcc (Alpine 15.2.0) 15.2.0 , Alpine clang version 22.1.3 flex 2.6.4
+   8   124.65 alpine:edge                   : Ok   gcc (Alpine 15.2.0) 15.2.0 , Alpine clang version 23.1.2 flex 2.6.4
+   9    90.47 amazonlinux:2023              : Ok   gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-5) , clang version 15.0.7 (AWS 15.0.7-3.amzn2023.0.4) flex 2.6.4
+  10    91.24 amazonlinux:devel             : Ok   gcc (GCC) 11.3.1 20221121 (Red Hat 11.3.1-4) , clang version 15.0.6 (Amazon Linux 15.0.6-3.amzn2023.0.2) flex 2.6.4
+  11   105.40 archlinux:base                : Ok   gcc (GCC) 16.2.1 20260810 , clang version 22.1.8 flex 2.6.4
+  12    73.00 centos:stream                 : Ok   gcc (GCC) 14.4.1 20260724 (Red Hat 14.4.1-3) , clang version 22.1.8 (CentOS 22.1.8-1.el10) flex 2.6.4
+  13    76.29 debian:11                     : Ok   gcc (Debian 10.2.1-6) 10.2.1 20210110 , Debian clang version 13.0.1-6~deb11u1 flex 2.6.4
+  14    88.71 debian:12                     : Ok   gcc (Debian 12.2.0-14+deb12u1) 12.2.0 , Debian clang version 14.0.6 flex 2.6.4
+  15    77.93 debian:13                     : Ok   gcc (Debian 14.2.0-19) 14.2.0 , Debian clang version 19.1.7 (3+b1) flex 2.6.4
+  16    90.35 debian:experimental           : Ok   gcc (Debian 16.2.0-3) 16.2.0 , Debian clang version 21.1.8 (13) flex 2.6.4
+  17     0.76 debian:experimental-x-arm64   : FAIL gcc version 16.2.0 (Debian 16.2.0-3)
+  18     0.73 debian:experimental-x-mips    : FAIL gcc version 14.2.0 (Debian 14.2.0-13)
+  19     0.73 debian:experimental-x-mips64  : FAIL gcc version 14.2.0 (Debian 14.2.0-13)
+  20     0.73 debian:experimental-x-mipsel  : FAIL gcc version 14.2.0 (Debian 14.2.0-13)
+  21    87.11 fedora:40                     : Ok   gcc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3) , clang version 18.1.8 (Fedora 18.1.8-2.fc40) flex 2.6.4
+  22    85.68 fedora:41                     : Ok   gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4) , clang version 19.1.7 (Fedora 19.1.7-5.fc41) flex 2.6.4
+  23    87.42 fedora:42                     : Ok   gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7) , clang version 20.1.8 (Fedora 20.1.8-4.fc42) flex 2.6.4
+  24    84.77 fedora:43                     : Ok   gcc (GCC) 15.3.1 20260722 (Red Hat 15.3.1-1) , clang version 21.1.8 (Fedora 21.1.8-6.fc43) flex 2.6.4
+  25    92.43 fedora:44                     : Ok   gcc (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2) , clang version 22.1.8 (Fedora 22.1.8-4.fc44) flex 2.6.4
+  26    86.94 fedora:45                     : Ok   gcc (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2) , clang version 23.1.2 (Fedora 23.1.2-2.fc45) flex 2.6.4
+  27    78.37 fedora:rawhide                : Ok   gcc (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2) , clang version 23.1.3 (Fedora 23.1.3-1.fc46) flex 2.6.4
+  28    38.57 gentoo:stage3                 : Ok   gcc (Gentoo 15.3.0 p8) 15.3.0  flex 2.6.4
+  29   100.14 manjaro:base                  : Ok   gcc (GCC) 16.1.1 20260625 , clang version 22.1.6 flex 2.6.4
+  30    93.15 opensuse:16.0                 : Ok   gcc (SUSE Linux) 15.3.0 , clang version 19.1.7 flex 2.6.4
+  31    89.04 opensuse:tumbleweed           : Ok   gcc (SUSE Linux) 15.3.0 , clang version 22.1.8 flex 2.6.4
+  32    74.08 oraclelinux:8                 : Ok   gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-28.0.1) , clang version 21.1.8 ( 21.1.8-1.module+el8.10.0+90887+a5269809) flex 2.6.1
+  33    77.72 oraclelinux:9                 : Ok   gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14.0.1) , clang version 21.1.8 ( 21.1.8-2.el9) flex 2.6.4
+  34    79.23 oraclelinux:10                : Ok   gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4.0.1) , clang version 21.1.8 (Oracle America 21.1.8-1.el10) flex 2.6.4
+  35    75.95 rockylinux:8                  : Ok   gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-28) , clang version 21.1.8 (RESF 21.1.8-1.module+el8.10.0+40180+8e26bdb3) flex 2.6.1
+  36    81.29 rockylinux:9                  : Ok   gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14) , clang version 21.1.8 (RESF 21.1.8-2.el9) flex 2.6.4
+  37    77.09 rockylinux:10                 : Ok   gcc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4) , clang version 21.1.8 (RESF 21.1.8-1.el10) flex 2.6.4
+  38    90.96 ubuntu:22.04                  : Ok   gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0 , Ubuntu clang version 14.0.0-1ubuntu1.1 flex 2.6.4
+  39     0.89 ubuntu:22.04-x-riscv64        : FAIL gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04)
+  40    83.45 ubuntu:24.04                  : Ok   gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0 , Ubuntu clang version 18.1.3 (1ubuntu1) flex 2.6.4
+  41    86.09 ubuntu:25.04                  : Ok   gcc (Ubuntu 14.2.0-19ubuntu2) 14.2.0 , Ubuntu clang version 20.1.2 (0ubuntu1) flex 2.6.4
+  42    88.82 ubuntu:25.10                  : Ok   gcc (Ubuntu 15.2.0-4ubuntu4) 15.2.0 , Ubuntu clang version 20.1.8 (0ubuntu4) flex 2.6.4
+  43    89.49 ubuntu:26.04                  : Ok   gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0 , Ubuntu clang version 21.1.8 (6ubuntu1) flex 2.6.4
+BUILD_TARBALL_HEAD=cb9dba6f4764fc68ab75c36e332887332339f9c3
+44 3296.37
+toolsbuilder@five:~$
