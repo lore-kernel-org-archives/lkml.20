@@ -1,217 +1,151 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011049.outbound.protection.outlook.com [52.101.70.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83233EDE4A;
-	Thu, 15 Oct 2026 15:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079709; cv=none; b=lRMQdF7Nj/LTjzt8R7FnzQEIs94G1hB56nFMI3hSouo5u5+Ef81si0MSeVL62hARKhlwGHPJrF+OiE6D++qgriJb7CzDT/6fiaXPUTMzbzHAFFbQtqcTVpFuTV1Q/v1iwRTNpuYEcVMsxf1irfU1eMbL7RJJ2nHuwKgZk5gE/rQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079709; c=relaxed/simple;
-	bh=Mm9HzRKkk4tW4bCOUykqIKx1brIaNF3LG0gwTprIRwg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JO2zfea8JZSPilRiSZLwBZh6CB+4Og8cop8zpTmNjDhgsJdgCS9rbO/p8vApbXKuoCLCl+Ag5JNoVpJ6WnGhrZSjDyCJ9bB1/FHzOAJ7o39vYU61bEJUUKfes+BenuWHj7sYRzhmznQH4CeEnH+HqYlem4EKtzPg95bcFlMFPss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ewotnY1m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uv5YXZfD; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ewotnY1m; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uv5YXZfD; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD803C4B79;
+	Thu, 15 Oct 2026 15:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792079804; cv=fail; b=DSSDxGhwrH+Qz8PDcn6jbLrh7+XhVu2cLTgkssYhHyC0UDjpWr8GPMEfX+oO55gaFs2PhnNSJUazBOPr7aG0VU3UO65w+XpdSCtjxJysYtIP3hBdYGqFn2m8mYqCiZjziDoMsk9Q9XCspan+oFUsRr8ScaGMhyGM+MFE6hv+Dcw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792079804; c=relaxed/simple;
+	bh=HidCZMX3OGHzaATKCU6p3JdFpG4OKteB/e4QVOgwXns=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XQYHD8oGKbs6bjQH6sWuuCtXZXD9EtrU6iUoLmCORRlH8hi7igKCUiopkW4QPLnmp+TwHJzfISEMwoZ8+TQlBCJQ7z6HQr57EtwatrFvsprkY2htBqz17Kok/4YUe83TIkZtE3BAZgAJDvdhaEet7o7T35XfwJIlFC7NS8fSGpM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b2RZ988q; arc=fail smtp.client-ip=52.101.70.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ewotnY1m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uv5YXZfD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ewotnY1m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uv5YXZfD"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9EBC621E0E;
-	Thu, 15 Oct 2026 15:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792079692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
-	b=ewotnY1mU8zx7Z0gq0t2a8JhqjHduXj3w2OHg37JySnuvGESu871nf0GoKF8lVl6aTP30W
-	ZcquN2qaLrkCsn5AGm3U/iWjiz8BCns9VucCGL1cmx/0+aonh2ohMTpX7IFtLlFHn0Cqss
-	pwB9k48SeaKyRjiWrj+3osZFryJtFFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792079692;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
-	b=Uv5YXZfDrKp+1scruZxbgbymg86Pe/aHf49gpTMDKD9juL5Z6ekAF51M7iRpFAKZnpEHWv
-	eiKI/G6CvsKL27Bg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792079692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
-	b=ewotnY1mU8zx7Z0gq0t2a8JhqjHduXj3w2OHg37JySnuvGESu871nf0GoKF8lVl6aTP30W
-	ZcquN2qaLrkCsn5AGm3U/iWjiz8BCns9VucCGL1cmx/0+aonh2ohMTpX7IFtLlFHn0Cqss
-	pwB9k48SeaKyRjiWrj+3osZFryJtFFw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792079692;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5tCCVRhXkN+55GQ3Vfya2stH/YrirP9KhGruijeWctM=;
-	b=Uv5YXZfDrKp+1scruZxbgbymg86Pe/aHf49gpTMDKD9juL5Z6ekAF51M7iRpFAKZnpEHWv
-	eiKI/G6CvsKL27Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 44E4013223;
-	Thu, 15 Oct 2026 15:54:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sqjXA0z30GoXawAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 15:54:52 +0000
-Date: Thu, 15 Oct 2026 17:54:51 +0200
-Message-ID: <87ld7z6jsk.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joonho Lee <mynameisjune111@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: Re: [RFC PATCH v4 0/2] ALSA: pcm: preserve capture tail during drain
-In-Reply-To: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
-References: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b2RZ988q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=quulgFABB6t2akmLvTCsVmItGyVRQdoY/Z2TG4t9mKQkNtwOP17I5czgrdhyCvIBQ7p+iUVN4wUApBqg7rysrYJKO57rw4U58H9KN/B+c7nvkZqlEoRpX2T5ME5v19VQustaR+AZzYhvsxR15vsiYhj293u6ghjnnwvyztoKgR08878hBJe6kaWoXt5TwjIBb7lHvMTrD/+elfk8FEUNdcSgV3kkq+U/xjzCyfBDtDgadSsBUlDFOVocLdt6BKxqJygkO27nDO6wyOAbn+AzUaRElauwIDoaprec7fUx7xi/b44KYJWCw1CFA5+4dKHT/gamPpktHrc5pzpVYFWBzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cnl1jNJA399D/8IOhVP+kGy4nwuRI/u9I0Krmk72sao=;
+ b=ZR+cE8SZ8MRuaUlg/cIGAOWhxBL7RtrMXmmloXkF6Xhl03H3Af6ZlNP+PIQBVTd/CDwSB17nCF3Br7lCxPBe8vjGRqipGvOLTeZSgwfNtCf8sajUTO3vSP+cWB3vgT8xyMmqI1NaHMvbcq6tfGjkH+31RKEHJZ3h1R+Gt32L8iH84FHa7JDi8x1d4YptF0BSvWw8TDAHqIsMcGn3cQj7fzGnGx3brj7cjG9yrhxa6MP4S63ZQ13gGlKZr6ZnPczTrXOwk3oAzINVibFrQCV5vaDGJo1JxpNY/DY2/2xHmZGxmOJVPNg/HJissHGXZiv9QSgvwfHw6c3VWAnNrfYcFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cnl1jNJA399D/8IOhVP+kGy4nwuRI/u9I0Krmk72sao=;
+ b=b2RZ988qkDFNss0TCerm7nVVNGfxlhQygcQC/cHkkkdvmfmrPICj9r3NHip9ZeHIlmB3dZ4TZnVk4sEHLjlcnxUNviWO560r9DTkxuM72PiEElja5TcTdsdhhRNbTy/qkAC3z9Mdn8gwdbkRGNzhu3kpk3z4+wCwmnyEWZmZb7UDoK3HQ8jG+goAcfm/X90TTbPWGe8tjTzIkUwo32ZnnW0mzHmLClsh0qB3A4w/6tHraHG+Cit18KAFULxabbCjNzTDkqeehq/ki1pZj0xQm1wv4rbrNzRjbVTGunXFiQ17h5N65+eh0LmILPZDHCvrmwQBUzh3AQu3tMLHJiTW/w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AMDPR04MB11652.eurprd04.prod.outlook.com (2603:10a6:20b:718::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 15:56:29 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 15:56:29 +0000
+From: Frank.Li@oss.nxp.com
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	dmaengine@vger.kernel.org (open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH v2 1/1] dmaengine: ppc4xx: adma: remove unused async_tx.h include
+Date: Thu, 15 Oct 2026 11:56:14 -0400
+Message-ID: <20261015155616.3068503-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY8PR10CA0030.namprd10.prod.outlook.com
+ (2603:10b6:930:4b::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMDPR04MB11652:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ac8def0-a4a8-490f-b499-08df2ad4e052
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Ol1FM+l7T9pynVN5p9F9wR+dRWRq8NBrK2qX/xzn11eafDoy45Uh3AtBbDcP11q6zuOxhB8uKlPGIHb1Rgi9hjWs39r2rrOTU716RzJQ2fPuHlhsf206LXoeI6BXa8VvqieE9DMDVVZ9T3l56Q7ZCe4RWJb6rMRj6ghd2ke1ls/0/MXc4ka+oBR+s2WqVpoC/8EjIBgHP9gM7iIAMZ2pzqeuOEw7wtVLXqDTyD4a7xQe8wsb6nTz0G2eFKP3uaM5CeMg0kRgr6+UE+PpPvMznN4CVXX/1YsAqqlxvJaFabkmXwOwCPa+0cH8c4NHK0gFKkqRbguw62E2u0T1ouRTzEFIenOD9lJTHrUMYEmyRxF5JmF0JOAbmoz+IfWc+pnz0BQ1GfCBdP6sQivl94XFImxYFXIZCu7Ne6YTmHKIPkIjhnpKgTaQU0aR2tH/MfnD3f2SMq1eopJuB4j1zmU7+IgnVFXR8GJkiYejmGV3bEk8nVnbVePj4JanZ1kYzNWT8voNRGLNoxqw6QJ6K8R8aoOIRmSw4KTQMFo0xg2p+Y9tiDgHuG1W7qS2FLQs9pBGhTiEl4+nvxlkDxwlkv+2S/XX4Yp92Eu3kHKZ/HRpQS33292fqjAmtGiTKwXvON4pesKHrQ7nWOZrOMaU35Fxh2RgVpFtgfLjK+Xj9fqfmtY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BXzX8+Jzem3+KFfo+RuUi1EwAlfRIffTugiiU5IsvHghdBpPVXVcKRMLyjdL?=
+ =?us-ascii?Q?kaFrF0NMe7LqJNrHuGGjg5wKplu3vVzzl3gunXtuAkbzGhIRkaU4ApEQ4O+I?=
+ =?us-ascii?Q?lYXdU3J666soNlWBcMGiXVZpTmbLZwtCqaCgA6Fh1upPDllFSBSLXfolntkC?=
+ =?us-ascii?Q?2gnz9yi40Z2zRNueoU+f59MFy1eAWufZmp7m0puCBZaaOi1X+tAhSwNFIXcg?=
+ =?us-ascii?Q?kGPFOWLNSOB37ph9p2kxW2t11Ng5swdb7VsdUGaHwVF/so6tI0FOwNqihLID?=
+ =?us-ascii?Q?SPegRGm6nDYFDgnOv/SjB3bibEhMFXhuM6/7lGzogKuJJzryUX3PKXc0I3oE?=
+ =?us-ascii?Q?s3IsFv7HZ7lDv/pxAZv29ME3L7c1fvTRm01nKWbOzxuRP5erhAk0ucrGx9PY?=
+ =?us-ascii?Q?QypRCFA5yG9pZz59L5Tio/NDEIMygr0Ob54nr7l1Zo6Erx8nyxRDuB4i9bg/?=
+ =?us-ascii?Q?unkJCMWkMhlikfU5sVsABBLeUj9chQQz4UkWpPeiMFHEn/OzOJreQCv34iZl?=
+ =?us-ascii?Q?221Mp1ni0qgq6DwU3mm66tbG+PJIr5zVvJZSvay4xK+Jv5XYRckj4oiAyKJ0?=
+ =?us-ascii?Q?xMeVlkrUJK+jqQxmGbncOBkQ4/xghVqve/Yt0qi9drYTs7aE+dNOFwi+wGm8?=
+ =?us-ascii?Q?GEjltpKhInoYNJIS0FhVZ4DFnTRXyCaTAISEYy4ZNNwhozW7ulN0LAa6lAZH?=
+ =?us-ascii?Q?+s5XNts/PnPfTp3DwCTf+xSP5jL4X+Sa5pQeay4KOBwHT+35vE3OupjNoIP/?=
+ =?us-ascii?Q?Mrt3xTUpTR1LYBzrZCb5FR4iKu21x9tjRjR99Uo19YtNyHHe+t8brBXv+LXM?=
+ =?us-ascii?Q?5ixF72is0DbJXnvE0K9BPH7r3Hy9R+CdsPpVRSubpUkwA+ImcBAinXsZge8g?=
+ =?us-ascii?Q?awUtV9M26L55wf9LzEemN9nG5e0Tn5C97C9JoQm9bwtKlq3qzS/feaM6wcCy?=
+ =?us-ascii?Q?x02yi3vG3jBDXR9z0HZzRdkbGMg5GpIeu6kY2Pw51fQgbz6i5ikY5c9gInik?=
+ =?us-ascii?Q?baBv+CFP66A6Zin8qBz2bYILczJXRR3GJHzzaSXwe+A1lSAFljcLVKlz0Taz?=
+ =?us-ascii?Q?8GKj3x+fbL/37w3ZcOGRHGIv/tPUBcMyXgLhV5oSdSLiPw9QJILXsjPLEbr3?=
+ =?us-ascii?Q?EW5ks5YL+H82J3dDoxrofmaCHDzJbfRHnJHdf8yiBDbp+iyjsfC9SjN7H1yq?=
+ =?us-ascii?Q?eyvdnCkOewk/aiwG6HUcjyltDTWlz9Osk5CSuH0lYA8eh5k3NhAOwfziTtjp?=
+ =?us-ascii?Q?GB/CLE7kPKRE/Fy531orTFqQtcd6qYzgdUP9/ACurul0ExiQwGCVlO+zb5dn?=
+ =?us-ascii?Q?RBnZQ+5E7HU3dkM47BHYtFv7jqP8uNexw3daMh5BnVAEBxlNFIvxL6/QwvtP?=
+ =?us-ascii?Q?StOefVXszYs20c09Y70N21/2z83L/81ol6O6a4gJuE/lLsEHrilr25J7odFA?=
+ =?us-ascii?Q?av2RnPBz/OmvxVjJMT27cz7b/n1Cq1Ddalh+DIZT+bgCEThPbJG2+Y0BFT9G?=
+ =?us-ascii?Q?aUCIXrfVexsEzXe6US6qB56mXv3YzczUEYDyP6Cf45S5FLIdNUNWeL2s9JPJ?=
+ =?us-ascii?Q?mgUumYykU/zK2p9AUOiNk17GfknzeBwBSqNkNRu1+GQzPlG74LUyBmIjOsNu?=
+ =?us-ascii?Q?iaBJTvBnKoI9rR/qCWEFz9ZLuB10pFyMnODjhwUQCZ52kBjUCGBy7khEFu5W?=
+ =?us-ascii?Q?aqYILRuprTQTZCS1GX+DbfRizPE5+XbGHSwfRbarYItXx8mW8BE9c5lifRHw?=
+ =?us-ascii?Q?Sxd/FVOqpCt4QKlauyEuuf/CElM0HgnU9aYMHskY3u8TRBvVEy1E?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ac8def0-a4a8-490f-b499-08df2ad4e052
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:56:29.6491
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sI+UYQM2/K8FLhypjdsNpfVpyGt6DhhiVSQXTTuy7u1Z7eFjY05FBObS/iv/Bk6igqXtrZHDtbh9pmTion3LjcB0CpG2SW3HMCHA7RgUskV2nKQuWT7b/C+lrIx3vCbb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11652
 
-On Thu, 15 Oct 2026 02:35:59 +0200,
-Joonho Lee wrote:
-> 
-> This v4 replaces both patches in the core capture-drain v3 series. It
-> follows Takashi Iwai's suggestion to refresh linked pointers in a helper
-> before drain-init and fixes three tail-handling problems in patch 1.
-> 
-> Patch 1 allows buffered capture reads in DRAINING. When drain wakes a
-> reader waiting for data, wait_for_avail() returns the remaining frame
-> count. Capture EOF uses snd_pcm_drain_done(), so a linked playback stream
-> can continue draining. DELAY and SYNC_PTR(HWSYNC) use the cached final
-> capture pointer without calling the driver again after capture stops.
-> Sashiko's review identified these three problems in the earlier patch.
-> 
-> Patch 2 takes snd_pcm_link_rwsem for reading and updates each running
-> member under its own stream lock. It calls snd_pcm_update_hw_ptr() for
-> both playback and capture. The helper runs after the existing pause-resume
-> step, allowing a paused capture stream to receive its final update.
-> The pause and drain-init actions remain outside the link rwsem.
-> 
-> A pointer error follows the ordinary XRUN path and returns -EPIPE before
-> drain-init. This restores v2's group-wide error handling. V3 instead put
-> the failing member in SETUP and could return success from blocking drain
-> while another member retained its tail. V4 removes v3's notify argument
-> and the conditional notifications in the pointer update code.
-> 
-> Previous core v3:
-> https://lore.kernel.org/all/rfc-v3-core-capture-drain-0.cf2e307fcac34b6a@gmail.com/
-> Takashi's latest suggestion:
-> https://lore.kernel.org/all/87jynkcn60.wl-tiwai@suse.de/
-> My implementation and test report:
-> https://lore.kernel.org/all/core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com/
-> 
-> The separate five-patch virtio-snd lifetime v3 series is unchanged:
-> https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
-> Apply those five patches to the public base below, then these two patches.
-> Remove both old core patches before applying v4. Core has no dependency
-> on the generic control-wait or VZ compatibility RFC. The lifetime stack
-> is pinned here to reproduce the tested integration. Neither companion
-> RFC is revised by this series. A future VZ revision will need the new
-> core prerequisite IDs.
-> 
-> Validation used ARM64 QEMU with KASAN and lockdep:
-> - 26 linked-stream checks passed across atomic and nonatomic modes,
->   including paused drain, first/later member pointer errors, normal XRUN
->   handling, tail reads, and unlink/prepare/reopen recovery.
-> - The three patch-1 failures were reproduced with the helper and the old
->   first patch in both locking modes. All six corresponding fixed cases
->   passed: a blocked reader received all 64 final frames, capture EOF
->   left linked playback in DRAINING, and both position queries succeeded
->   without another pointer callback.
-> - Four additional blocked-reader runs compared baseline and fixed modules
->   in both modes with a stronger gate: thread sleep and a pointer callback
->   after START. They confirmed the baseline loss and fixed 64-frame read.
-> - The 10 existing lifecycle and timeout/reset scenarios passed, including
->   held STOP/RELEASE, SIGKILL, reset, and subsequent I/O recovery.
-> - No KASAN, lockdep, or panic diagnostics appeared in the 54 selected
->   logs, which include the baseline behavioral-failure comparisons.
-> 
-> The full Image and modules were first built with the new helper and the
-> old first patch. After fixing the three tail issues, sound/core was
-> rebuilt with W=1 against that same configuration and symbol versions,
-> and the corrected PCM module was used for the runs above. The module
-> build had no warnings or errors. The full build had 517 existing
-> -Woverride-init warnings in arch/arm64 outside sound/. The exported v4
-> core source matches the tested source byte for byte.
-> 
-> These tests use synthetic drivers and modified fault/reset backends.
-> Physical-device and Virtualization.framework microphone testing of this
-> core revision is still pending. Concurrent LINK, wraparound, and
-> forward/rewind behavior have not been exercised by this test set.
-> The updated reproducer and logs are local; the earlier public package
-> contains an older core revision. There is no new reproducer upload for
-> this candidate.
-> 
-> One design question remains: the helper releases the link rwsem before
-> drain-init, and snd_pcm_link() permits another RUNNING stream to join in
-> that interval. That member could enter drain-init without a refresh by
-> the helper. Should this change protect the membership across both steps,
-> or should concurrent linking be handled separately? I have reviewed this
-> interval in the source but have not reproduced it with a stress test.
-> 
-> Do the restored group-wide XRUN/-EPIPE behavior and cached capture hwsync
-> semantics look appropriate? Which physical-driver coverage would you
-> want before this can move beyond RFC?
-> 
-> LLM assistance was used for implementation, reproducer development,
-> analysis, and documentation. I reviewed the changes and test evidence.
-> Assisted-by: LLM
-> 
-> Joonho Lee (2):
->   ALSA: pcm: allow capture reads while draining
->   ALSA: pcm: refresh linked pointers before draining
+From: Frank Li <Frank.Li@nxp.com>
 
-Both patches look OK.  Once when you submit a non-RFC patch set, I can
-try merging.
+The async_tx.h header is not directly used in adma.c; all required
+types and functions come from dmaengine.h which is already included.
+Remove the redundant include.
 
+Reduce async_tx.h user to prepare deprecate aysnc_tx framework.
 
-thanks,
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+v2: change subject tags to dmaengine
+---
+ drivers/dma/ppc4xx/adma.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Takashi
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index bcc54d584e2bf..05041b99581a1 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -17,7 +17,6 @@
+ 
+ #include <linux/init.h>
+ #include <linux/module.h>
+-#include <linux/async_tx.h>
+ #include <linux/delay.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/spinlock.h>
+-- 
+2.43.0
+
