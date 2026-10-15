@@ -1,210 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206C44EBAE2;
-	Thu, 15 Oct 2026 19:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4C053D0BC;
+	Thu, 15 Oct 2026 19:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092331; cv=none; b=TW1GzRSCsbMbA4tPoFeq/+oOkWWlLOFYaWf3WeCHTc5g03ckwf61U60qd6jr+P2wjoXtSqVHaVNvK/13RNWKYJv3BEnaP5SumNF2lvriSK3zb9O2UCTyzGtEenWec29fOrxFEPJyB37cXPx2eqPMbeNKmZ1jWXMZzt3Gf+05YUM=
+	t=1792092397; cv=none; b=r0O6dipMxjZ1vS8ENcXJwqzcpKgKewDKvhAeoJlvz2ZgINe1yqkbIxnuFSLBJdygbAACmrntNRJeIEYZarwKwbZE8XnpGhFPWMvoaW3maY6My5WRI8QfSkvRvQJPqTf0ztqf8GYqsn9GAND13yi00egYYPqBjNmue1XCV6fFZ0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092331; c=relaxed/simple;
-	bh=/aDY3QvLbw7FPeyVbaZ96dHdAV8CciGipjzLko3iKMw=;
+	s=arc-20240116; t=1792092397; c=relaxed/simple;
+	bh=8HYIL/IUK42wSidmex5/uML5d5tY8SMbkm5WL+eMHUM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mNOvIu/qZTZrgFEoSQO3Qy0F/6yjw0xsUBef4IpjOIF6zVYmFy8GHJpMjA2FB8L9XUXT+K7K3YJ6KK5X1QMyXqJwRy79Usk4/KOdFY5+LD/cQiyVJHQtfczn7CgbzPZSojW9x0RP0nnhaN4+azRFM4s4o8Vwj9AWZX89ez5O5D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Flf7EuEf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=R6FXevJoNQtmny/VtzRDrpEzVOCvHKSkkQurIY+YfAV11yVzhRGTcfA2V8LaPGCOme/2jH6Vc1uTp574XqKviGzhJEoIyKKVVYKxCtY4yasOu/zr65lSe6aD98WYO33oSuv7gazYRqRqN5ZQpmkDgVvCeWQGFdalb5BDcb85k9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frUfgCqF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Flf7EuEf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA001F000C4;
-	Thu, 15 Oct 2026 19:25:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frUfgCqF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8ACD1F000C4;
+	Thu, 15 Oct 2026 19:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092329;
-	bh=5q3n8w8RnVYCDNZKQP3BeaNF8Rao1383kmsL5LXStQM=;
+	s=k20260515; t=1792092395;
+	bh=SOc68ACcIqGT3CwiXHdBNKfARKvPAMW6ciWSIUg+luY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Flf7EuEfYgvY4keiTrAp+xNx3tUwEpqFEwDW6GAPGyZ6cBbZINgy/tfoFbMw6sNh1
-	 Xa0ANkL0yNPDfZXsxbm4H0Wib5fcDkzue7cTUmSFDSi64SxxXt+YGna2jRQZ9y8yIX
-	 Sxt8twxiuPtgUp3AdXcegOr1rwh/zC0neNCyAY8bYW+JHGNAYgE1BDosVNiDJeAPg8
-	 Svm8rAeNgEcAdqE2wlodlqiILF4pSRkvC1y43UV7/f84kOAttQS9AOzYpqD32aWpwg
-	 wtgA/KF1nV8P0KY3eVjezfeFKGAUITtTlOeM6AvoF9puo1Z3qTTXRtjHqDmQTHWE8R
-	 cT0bSSyJzgeHA==
-Date: Thu, 15 Oct 2026 14:25:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Kyle Swenson <kyle.swenson@est.tech>
-Cc: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
-	"kory.maincent@bootlin.com" <kory.maincent@bootlin.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Roland =?iso-8859-1?Q?Kov=E1cs?= <roland.kovacs@est.tech>,
-	David =?iso-8859-1?Q?Nystr=F6m?= <david.nystrom@est.tech>
-Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
- for LTC4266 PSE Controller
-Message-ID: <20261015192527.GC5059-robh@kernel.org>
-References: <20260927212929.593366-1-kyle.swenson@est.tech>
- <20260927212929.593366-2-kyle.swenson@est.tech>
- <20261007210454.GA281943-robh@kernel.org>
- <asnpHkvHsFy2dX-9@est-xps15>
+	b=frUfgCqFfjAk9pQBN+YJLvbjKmzq+XwUPuhYsVL1oQ7zsudvM9JUNwYsTRF8SBOlR
+	 IDj6kgoNeHOk7zoR8IDgwrh8IV9D9lrlpnS0hdb9BxRQupsRztLrozATDMaHbfX9OX
+	 OpOQlTRH3dZ7Zrxfrkk+GxEYEZXkeWIE/6J+5S9nrEPcxPbxZku4cGcNj2A4Fp/M5u
+	 KpPDgLv7HZcZ6reEbinI7u/ql+uT1s0zzOISob3ubFC3HDcL7EGJmRwDMc3Vb3kwX7
+	 t/6deHJLEGJbzDe4fy41E0sH6+s+1Q9Bzkh0v7NGhqQboQnTIMRDZG3Up+QdWRltC9
+	 SIoZFWGljolEg==
+Date: Thu, 15 Oct 2026 15:26:33 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, linux-perf-users@vger.kernel.org,
+	Namhyung Kim <namhyung@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 3/6] tools: build perf in tools_build
+Message-ID: <atEo6aIQbgww4G0y@laps>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-4-sashal@kernel.org>
+ <CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com>
+ <20261013170854.647305-1-sashal@kernel.org>
+ <as6SxXELnoIJenIX@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <asnpHkvHsFy2dX-9@est-xps15>
+In-Reply-To: <as6SxXELnoIJenIX@x2>
 
-On Sat, Oct 10, 2026 at 07:30:50AM +0000, Kyle Swenson wrote:
-> Hello Rob,
-> 
-> On Wed, Oct 07, 2026 at 04:04:54PM -0500, Rob Herring wrote:
-> > On Sun, Sep 27, 2026 at 09:29:48PM +0000, Kyle Swenson wrote:
-> > > Add the LTC4266 Power Sourcing Equipment controller device tree bindings
-> > > documentation.
-> > > 
-> > > Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
-> > > ---
-> > >  .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
-> > >  1 file changed, 180 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > new file mode 100644
-> > > index 000000000000..e11c9d601eee
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
-> > > @@ -0,0 +1,180 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Linear Technology LTC4266 Power Sourcing Equipment controller
-> > > +
-> > > +maintainers:
-> > > +  - Kyle Swenson <kyle.swenson@est.tech>
-> > > +
-> > > +allOf:
-> > > +  - $ref: pse-controller.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - lltc,ltc4266
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  channels:
-> > > +    type: object
-> > > +    additionalProperties: false
-> > > +    description:
-> > > +      Defines the 4 physical delivery channels on the controller that can be
-> > > +      referenced by PSE PIs through their "pairsets" property. The actual port
-> > > +      matrix mapping is created when PSE PIs reference these channels in their
-> > > +      pairsets.
-> > > +
-> > > +    properties:
-> > > +      '#address-cells':
-> > > +        const: 1
-> > > +
-> > > +      '#size-cells':
-> > > +        const: 0
-> > > +
-> > > +    patternProperties:
-> > > +      '^channel@[0-3]$':
-> > > +        type: object
-> > > +        additionalProperties: false
-> > > +
-> > > +        properties:
-> > > +          reg:
-> > > +            maxItems: 1
-> > > +
-> > > +          sense-resistor-micro-ohms:
-> > > +            description: Sense resistor connected to the channel's MOSFET, used
-> > > +              for current measurement and for overcurrent detection. The I_CUT
-> > > +              and I_LIM register encodings depend on which value is fitted, so
-> > > +              a wrong value programs the wrong thresholds.
-> > > +            enum: [250000, 500000]
-> > > +
-> > > +        required:
-> > > +          - reg
-> > > +          - sense-resistor-micro-ohms
-> > > +
-> > > +    required:
-> > > +      - '#address-cells'
-> > > +      - '#size-cells'
-> > > +
-> > > +  pse-pis:
-> > > +    type: object
-> > > +    additionalProperties: false
-> > > +
-> > > +    properties:
-> > > +      '#address-cells':
-> > > +        const: 1
-> > > +
-> > > +      '#size-cells':
-> > > +        const: 0
-> > > +
-> > > +    patternProperties:
-> > > +      '^pse-pi@[0-3]$':
-> > > +        type: object
-> > > +        additionalProperties: true
-> > 
-> > This cannot be true. That allows adding any property.
-> > 
-> 
-> So my intent with the additionalProperties: true was to avoid
-> replicating the entire pse-pis node from pse-controller.yaml.
-> Conceptually, my goal was to inherit everything from the
-> pse-controller.yaml binding, except limit the maxItems to 1 (since the
-> LTC4266 only supports power over a single PI).
+On Tue, Oct 13, 2026 at 05:21:25PM -0300, Arnaldo Carvalho de Melo wrote:
+>Why is that difficult to run:
+>
+>make -C tools/perf install-build-deps
+>
+>To do a recommended perf build deps install?
+>
+>That would be useful as it is what we expect users to do.
 
-pse-controller.yaml doesn't have the constraint there either. It is fine 
-if the constraint is there. However, that means custom properties are not 
-allowed in pse-pi nodes. Maybe that's fine and is certainly easier for 
-the schema. If you do forsee a need for device specific properties in 
-this node, then you need a $ref in this node with all the common 
-properties. IOW, similar to how the graph schema is structured.
+That's what users do, but it wants to install packages.
 
+We need a path for unprivileged builds on bots and CI machines that can't
+install packages, and many of those builds are cross builds, where perf needs
+the target's libelf and libtraceevent rather than the host's.
 
-> > > +        properties:
-> > > +          pairsets:
-> > > +            description: The LTC4266 delivers power to a PI over a single
-> > > +              pairset, driven by one of the controller's four channels. There
-> > > +              is no 4-pair mode spreading a PI over two channels, so exactly
-> > > +              one channel phandle is expected.
-> > > +            maxItems: 1
-> > > +          pairset-names:
-> > > +            maxItems: 1
-> > 
-> > An empty node is valid? Needs 'required'.
-> 
-> I thought the 'required' comes from the pse-controller.yaml binding.
-> If I adjust the example dts in the binding with something like
+>If that is too difficult, for some reason, there is a minimal build in
+>tools/perf/tests/make, that is tested since forever:
+>
+># all the NO_* variable combined
+>make_minimal        := NO_PYTHON_MODULE=1
+>make_minimal        += NO_DEMANGLE=1 NO_LIBELF=1 NO_BACKTRACE=1
+>make_minimal        += NO_LIBNUMA=1 NO_LIBBIONIC=1 NO_LIBDW=1
+>make_minimal        += NO_LIBBPF=1
+>make_minimal        += NO_SDT=1 NO_JVMTI=1 NO_LIBZSTD=1
+>make_minimal        += NO_CAPSTONE=1
 
-Indeed. My mistake.
+I tried make_minimal on perf-tools-next. It still requires libtraceevent, so an
+arm64 cross build without the arm64 libtraceevent installed stops at that
+check. With NO_LIBTRACEEVENT=1 added, it then fails building the Rust test
+workload. Natively it still enables aio, libLLVM, libslang, libtraceevent,
+lzma, zlib and Rust when they are installed, so the result depends on the
+machine.
+  
+I'd like to go with Ian's suggestion then: a MINIMAL=1 knob in perf that turns
+off every optional feature, which tests/make can use for make_minimal as well.
 
-> 
->            pse_pi2: pse-pi@2 {
-> -            reg = <2>;
-> -            #pse-cells = <0>;
-> -            pairset-names = "alternative-a";
-> -            pairsets = <&phys2>;
-> -            polarity-supported = "MDI";
-> -            vpwr-supply = <&vreg_pse>;
-
-If instead, you add 'foo-bar' property, you won't see any failure. 
-That's the 1st issue.
-
-Rob
+-- 
+Thanks,
+Sasha
