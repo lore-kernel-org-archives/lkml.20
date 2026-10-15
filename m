@@ -1,149 +1,162 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C9C3C1D66
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634543C09F2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792041916; cv=none; b=uKr7jqwadZoo31Kt2Xr/+RMvYVePZ6ltuPwOzGh1rHCBIZd1pFGiyZ4nxh7+jE3YVJ2iiVK9jeyFMDGZ/2/VeZy+OznMO666Fw3XuAoBPRcNgLnFRNHQ0SYh6RfbZM5kKfQvUvJ81nG9JNCAM6XphRX9gHk97odtJIYEt9+2plM=
+	t=1792042105; cv=none; b=MmoDXaPXxO7P5qByAMsN9UD+aFPHDn6hbn3DOqtDwxdSURvx0tgulSf59q+n8AEEd/DnC9VWAdSddayifPazke5o7md66lX3oF0VpI7a19cb7US+v29P16gF1KwQPSpdwIq/iLKQBHsnFCP9Jq+kx5maxG+pPRWZzGFEI4eB3wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792041916; c=relaxed/simple;
-	bh=Dh+C1CEpDvzrLhBURpSG+mXOgu6jlIQl2Pl47TDrIBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W7iJRNP/k0GsNU8gpC1vkqF8Hz3yoSdj41L9TmJxasuOd9vbMpoaikvD0Qp1F/JGSN0v/9StZ5Yw2i4KIDT+audFzURiV2wZDM9mMyKgkT5yR4J8g+V94kwhwm4cgDh1sSeJs/rBhAloj4fUJXQy4hmN4OmxvXfcmGIJa8sTar4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNjaEXfP; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792042105; c=relaxed/simple;
+	bh=U2gj/vaV65VNsUL7fPUVQ/1hnFH4ZW5FqtRa+wjwJM0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R8v35k0sAaqwFxQXtfqPeAHI2zytOcsc6FQAD74wGIG58Wvud6Haa9UnyXvVAMGo9mC5d47VSHwzVQv5rolIBx+LdeX6BKPpKrRnKp12d5T7ntD2QLNTRij/r/2jw8ZvvhmN33te7oej4aSX5pCKnGB0RVPvgW2W6wpVChNYBZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=QPvLQWl+; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNjaEXfP"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2db710396ffso37450155ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:25:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792041915; x=1792646715; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x3DSX4Qza6d2uuaZQntx7y2v2J0oEf5jt6hMhwGI1ew=;
-        b=gNjaEXfPgH2TtLh1WD84eyKJlPcV4BduhjuAud9Tm9t6OA87jvM5jgDXH7Lchjc2qB
-         pFdNFFbQtffBmsASZ0XGexkBA/h4o7MYI0sX+GtSPw7rHPwXoKYMBydUrkMy3bnBzvQb
-         yZFrfSMlrbXNRhfKnBp08jrudbPgvaBaCkNLDaLTpCeLs4MF6IcUbNDI5GiWji6REVu9
-         rlI+b4eUdymLv7un2OS39TVyBQVm136y8RY8f87Wac0HFEQxOSQImOmysAQxQ7P52kg9
-         HurdIeYfNnZQPsr9f6rPg3cLT+FNS7jIb1hfBWnEmQUkcnWp1A4jPXXSpeTWESVpZvRX
-         9O9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792041915; x=1792646715;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x3DSX4Qza6d2uuaZQntx7y2v2J0oEf5jt6hMhwGI1ew=;
-        b=oFMXE5+K3VrS5xJ6f1wMBQqfBaJfUqVTsmWDAvEvkhVa4TMvpkZ0LvF8Kx9WH7I5SL
-         NAFEGeb5z/B6J/E1nxBEL3D0E8pUqE4zalRm0ID3H+1COvAXI9TwJwZsXtMNwU4cvqFC
-         tMYhoax4XEN984V8GPhmQBeMQUti/nY9PkD1dhmp+4pmB36LzUo01vTVlWLMDdHFYuho
-         gqqsi6leD+sySVRX76QR/m5GewH8zPnnPCDdcYJF9AyOND2R3q8roEEbilcZMIQYvmvu
-         SpEyHIi2YXJMcRN+oHGYQY+n4V/QkhPLDJ9RV41yF/ePu2j5C1sWrY1/0fKDJRg3BVMl
-         e+yA==
-X-Forwarded-Encrypted: i=1; AKwUvBwg2rQjBPdIB3NpPiytQIfKadnjq89fUpib6z2DZffFT2E9vp+WkyZO7Wak4lzL4gUM0Vq+9SdDnumESMY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5CyHEoUYRarKkzX2GASqHaN4MyJS23eb2k7Ov12oquxSQQqma
-	XWJ33EC2okLp6qJZ+cEbexXBE5GqojUx3RZGLD/9IhnEKoKNFKcoRvJ7
-X-Gm-Gg: AYBFou1Cqr/U4VJphrQJOPss204u7QdgmcOtm69L66O0m6NmJUuV70ysmLUYCvGAnw4
-	N/t+iOlI/jnYQqxgXM1MXx2FJ9yVwHK4IiV3+jo6vY1vw2b/P4IMUiwgblM7v7NBO8VvVZifEfI
-	31N+Aj8zdD9lpj15fjccthX/dmBPm0IgICUSfnbzeQLAMbJbanINbbSu6NmyLP3WQsvtWcWgCUg
-	CXVVUYMLP9uwyTcQO+5+Yx7TcW7g6mOBn5lkmpZZWSgu8fyGNJK0+3P1nm57YiPNygRyRwGrTG7
-	U4lmLLlHYEi72meYlpVBDXr6dmlKS1ItEAOkJlcmXjFsA1N2KzZLTOSisM9N2TbhAcBXj8ctqNh
-	g645fWu1qvbISfoqbFeYM4hVUvd909d5gbBgXBk0DhY2FYb35FmvtlnalXn5PE/Bh3BVK5ysmIS
-	RgrKn2MMAV1owqGUkepFtpdZS/6qpe+c+IowrPe5kfwf9KYLE/nHQek5J1J/xyoWIfZYzjFqb3K
-	mb2VPblXewWI9DxSjHUcN6GYjrguwa2LGSw8Bf2JYyi
-X-Received: by 2002:a17:90a:d44d:b0:3a2:bb9f:f87d with SMTP id 98e67ed59e1d1-3ab3a9f2d87mr10362341a91.21.1792041914556;
-        Wed, 14 Oct 2026 22:25:14 -0700 (PDT)
-Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e74bcsm2625793a91.3.2026.10.14.22.25.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:25:13 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:25:10 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Zhi Wang <zhi.wang.linux@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, Alex Mastro <amastro@fb.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] drm/i915/gvt: Read dmabuf->file only while valid
-Message-ID: <atBjtqQTCxLuomi2@dell-wzy>
-References: <20261013120211.135807-1-matt@ozlabs.org>
- <20261013120211.135807-3-matt@ozlabs.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="QPvLQWl+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1792042102; x=1792301302;
+	bh=cK+uFW9olimdOfTgCS7tswFXLY5ZJbA4nN3Y6M4+Al8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=QPvLQWl+JYE3NDjbfKXEBhqhLFae9WISTCmsq3HnhVBUuw26bapNuDMP1i8vuLU7s
+	 Jc7Hhclpm2/4WU862FqZefGlJXgYfYGPBqoA2q+1tBLTK7jZwpplvpU6xXbBuVjTGx
+	 nzZZEURQzd5Gg8/FjTgZeFU9IQb7L0BucfXqmKIJb++SeZWN/Xzlg2U9n0y6QIPn93
+	 vkV6el9jbhjARJnHcENwvQosBQFIJ/y1SiOwMIq01eUnH/z1BGfzqP/eK/STw+CnbY
+	 3gf8gvb+Uhxdq7QLGTJqLtpfA+ujBYTC3GzKti3cMGSrdEdjq9KhAsQ2Y/DzeY47yn
+	 LY+JG9slNrpGA==
+Date: Thu, 15 Oct 2026 05:28:18 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2] Bluetooth: L2CAP: tolerate zero-ident LE credit indications
+Message-ID: <20261015052751.137705-1-cochcoder@proton.me>
+In-Reply-To: <20261013031943.489829-1-cochcoder@proton.me>
+References: <20261013031943.489829-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: 0a035fcb2513a39e20eb97b1810c65016d85ce26
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013120211.135807-3-matt@ozlabs.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 01:02:05PM +0100, Matt Evans wrote:
-> After 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), dmabuf->file can close prior to the .release callback
-> being invoked.
-> 
-> intel_vgpu_get_dmabuf() exports the dmabuf, then dma_buf_fd()
-> effectively transfers its file's reference to the fd.  A debug print
-> dereferences dmabuf->file after the dma_buf_fd(); however, the fd
-> could be closed by another thread, making dmabuf->file stale.
-> 
-> Read file_count() while the reference to dmabuf->file is still held,
-> for later debug printing.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/gpu/drm/i915/gvt/dmabuf.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
-> index 8a1d6c5636c2..b6f50f2b912d 100644
-> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
-> @@ -503,6 +503,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
->  	struct drm_device *dev = &vgpu->gvt->gt->i915->drm;
->  	struct intel_vgpu_dmabuf_obj *dmabuf_obj;
->  	struct drm_i915_gem_object *obj;
-> +	unsigned long db_fcount;
->  	struct dma_buf *dmabuf;
->  	int dmabuf_fd;
->  	int ret = 0;
-> @@ -531,6 +532,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
->  		ret = PTR_ERR(dmabuf);
->  		goto out_free_gem;
->  	}
-> +	db_fcount = file_count(dmabuf->file);
->  
->  	ret = dma_buf_fd(dmabuf, DRM_CLOEXEC | DRM_RDWR);
->  	if (ret < 0) {
-> @@ -552,8 +554,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
->  		    "        file count: %ld, GEM ref: %d\n",
->  		    vgpu->id, dmabuf_obj->dmabuf_id,
->  		    kref_read(&dmabuf_obj->kref),
-> -		    dmabuf_fd,
-> -		    file_count(dmabuf->file),
-> +		    dmabuf_fd, db_fcount,
->  		    kref_read(&obj->base.refcount));
->  
->  	i915_gem_object_put(obj);
-> -- 
-> 2.47.3
+Tolerate exact-size, nonzero credit grants with identifier zero only
+for connected LE credit-based channels. Keep the target and pending
+security checks shared with ordinary identifiers. Do not send a
+response with identifier zero or relax other signaling commands.
 
-Acked-by: Zhenyu Wang <zhenyuw.linux@gmail.com>
+This is an interoperability exception to Core Vol 3 Part A section 4,
+not a conformance fix.
+
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+---
+Changes since v1:
+- Depend on the separately submitted target/state and pending-security fix.
+- Require a connected ordinary LE CoC, an exact-size indication and a nonze=
+ro
+  grant. Keep fixed/unready targets and ECRED identifier-zero grants exclud=
+ed.
+- Preserve shared target/security checks for normal and zero identifiers.
+- Do not generate any response with identifier zero or relax other commands=
+.
+
+REQUIRED security dependency, submitted separately and not resent here:
+https://lore.kernel.org/linux-bluetooth/20261015052018.129971-1-cochcoder@p=
+roton.me/
+Signed dependency commit: 61a7ca610078ddf616873e7d4914cb6ac9eae7a3.
+Apply it first. This mail includes its prerequisite patch-id against upstre=
+am
+397464709a20. The resulting source tree matches the validated refreshed pai=
+r.
+
+The Core specification still forbids identifier zero. This remains an
+interoperability RFC requiring maintainer policy agreement, not a conforman=
+ce
+fix. The separate security patch is independently useful without this excep=
+tion.
+
+Fresh current-base controls: all nine focused security cases pass with eith=
+er
+security-only or combined kernels. Public credit controls pass 13/14 with
+security-only (expected positive zero-ID failure), and 14/14 with this revi=
+sion
+added. No skips or captured KASAN/lockdep alerts occurred in these focused =
+runs.
+GCC W=3D1 changed objects and source-extracted security/target/zero-ID fixt=
+ures pass.
+
+The refreshed full suite is NOT claimed passing: SCI Fast Mode encounters a=
+n
+invalid response length for HCI opcode 0x20a3 and times out without a compl=
+ete
+summary. The same SCI failure reproduces on unpatched current upstream and =
+both
+revised guests. Initial spaced VM selectors selected broader tests; correct=
+ed
+space-free credit runs are the focused results above. Earlier 134/134 combi=
+ned
+results belong to the older reference base, not this fresh full-suite attem=
+pt.
+
+The combined Arch integration is reported working on hardware, not isolated
+attribution or exhaustive device/security/teardown coverage. No remote CI p=
+ass
+or severity claim is made. Private security reproducer/logs are not include=
+d.
+Confirm archive rendering of the dependency link before sending.
+
+ net/bluetooth/l2cap_core.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 7a7f30531..d805b1c62 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -5396,6 +5396,10 @@ static inline int l2cap_le_credits(struct l2cap_conn=
+ *conn,
+ =09     chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL))
+ =09=09goto unlock;
+=20
++=09/* Tolerate identifier-zero credits only for a live LE CoC. */
++=09if (!cmd->ident && (!credits || chan->mode !=3D L2CAP_MODE_LE_FLOWCTL))
++=09=09goto unlock;
++
+ =09max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
+ =09if (credits > max_credits) {
+ =09=09BT_ERR("LE credits overflow");
+@@ -5994,11 +5998,21 @@ static inline void l2cap_le_sig_channel(struct l2ca=
+p_conn *conn,
+=20
+ =09BT_DBG("code 0x%2.2x len %d id 0x%2.2x", cmd->code, len, cmd->ident);
+=20
+-=09if (len !=3D skb->len || !cmd->ident) {
++=09if (len !=3D skb->len) {
+ =09=09BT_DBG("corrupted command");
+ =09=09goto drop;
+ =09}
+=20
++=09if (!cmd->ident) {
++=09=09if (cmd->code !=3D L2CAP_LE_CREDITS ||
++=09=09    len !=3D sizeof(struct l2cap_le_credits))
++=09=09=09goto drop;
++
++=09=09/* Credits have no response or identifier-matched transaction. */
++=09=09l2cap_le_credits(conn, cmd, len, skb->data);
++=09=09goto drop;
++=09}
++
+ =09err =3D l2cap_le_sig_cmd(conn, cmd, len, skb->data);
+ =09if (err) {
+ =09=09struct l2cap_cmd_rej_unk rej;
+
+base-commit: 397464709a204da9b8dc3b01d6ea42539d951cd2
+prerequisite-patch-id: 658bb8f3b3e38bbbb21f2619434affc641582b7f
+
