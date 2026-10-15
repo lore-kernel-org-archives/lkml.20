@@ -1,231 +1,189 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EDF3AEF5A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA2D3AC0DD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075023; cv=none; b=El9ojCoNnU32d3uFNbIsDVU8VSPxPCzsco8l8dAJbnh+BtbwDjKXZyvw7X06lHumlBY8UwZ2mBGqzfuHtvEeYot+ohvH6ryNqO5cryO8p0e+TKL8skI53fNQHKpmy69dgIdv00wF4Ssx3gCAcFIZNf0z2gi/RP56noxeHcdet9M=
+	t=1792075063; cv=none; b=nikPksp3pDi4xM1rNquEPzUV4XU+ulNc/ghB01wSLXm3l3Z0Wi0+1rNPr3+AftPD6xV5YuXjRn8Xv+FkBVM8nChW2jJt1mNA/zC9WMfKoT60uxOrd7Hf322Jol9bCydvcB6JI45ROaJCrzsUZVqxVQvqGix9c/6Z4xv19M8oxK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075023; c=relaxed/simple;
-	bh=T6MDdKbko84Uwd9MzLgywE7OFmPahDIumYMkMRmd5nA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PXEWBGUhdFjBnnpHO6lvQ47cvlHv5jTngMtUrqyqybzWB0Dt/ZH47dbyTd4u4sBy+uU8YBRZKzSBQKcwZHqOD2jKmpYnuqU81Q6od7PKuzUvxZ1UJiQYG76fw1Sk9BGlzo6qryLKJm0iLxILTlS7kRUHOk6hImopIdypzcSb3PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JEzJ2GXx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KRptOCDc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792075063; c=relaxed/simple;
+	bh=LGCKOHPpAZ51siEENAnNufkjdxmacpkF2dJvRyRRcQs=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=dHcWenqjLeROg2nXNhGvZSQMSfIL4VMCDNfF19pcPGf9yZ1p2cEyTS57kazSVakS6tPJTyA3Yy0LLtcrYmFan+8TJM1qbbM+OftzWhDPDnU0gaCYEacmL65xOsB3Rnw4Ho6bHLiLlrxX/S78kMIIaPvrN+GyMxCJczkK+aWF4Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FbEZYQ6Y; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JEzJ2GXx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KRptOCDc"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9joGL3408864
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	F5JVHKyejEtUCLdAn6R1F3s7ZWDsoImMLIjCIUZY0aQ=; b=JEzJ2GXxaDIbnVOH
-	D5BOy58/27ugfft59gQE0PEBW8p1AFDkphK4E7mjLPruMtvw46T+ite2x1XJYUx0
-	rPp6+xFsEY5TflSms1pZMhC4l5umMJDIjNOYoRBgThmvfQHx475zDeS9oHb1sS6F
-	vpvch4HwqJfCfGHapXneYsLZyyglqimX5a3I8CNNvh7/+74AjCsDyLOAMsIj9SCY
-	QxI2pCKGra9bSunaj64LHxt/9ITXhAfxrg6ho86/WwYmi3q3h80vsSwDhGyB/orF
-	MOxzZvxZWXPyELto2qcKyPcob/Jjnk9LHBaMs9WioJOyfsupmQoqFbVDfb0Jm3Kx
-	ewd1Sw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn384w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:01 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so19946950c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:37:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792075020; x=1792679820; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F5JVHKyejEtUCLdAn6R1F3s7ZWDsoImMLIjCIUZY0aQ=;
-        b=KRptOCDc8qnfJqBrQcR1BkwZtj4G+slxQNtvwsMYN7ipQ9xSj3WcOZbgwxJTrXBWFD
-         ZMJqHTQQRuecenrOxAWUL96ZsrlFczBoZkGjoSmzhBUgEuNOk9ui/1QIH7ybgGWobjIu
-         3lC3PslXLYxF580TgUzIimFAlAnjnASuwoMohHw7MBVeznFaIfsUmUVY7Ppb7HoubxLZ
-         UPCbh4fY1z0liGIQZehJ3Kef+E+TsQZDQoz5Dkh/ULsypK8Aiv9bXWiDWwfRqmyPoq7K
-         gWRR0wnCXQJROq7Z8iDPoztIf1DS2Y14OvqM8l2mzFdhUFHTbPBegHmxbsYHKX89pP98
-         WIfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075020; x=1792679820;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F5JVHKyejEtUCLdAn6R1F3s7ZWDsoImMLIjCIUZY0aQ=;
-        b=nViTmzOOvcR/RZA+vLiRs+fxSXhjmt310xIGoRFT6T/daFFtLmUQnNTru9HEYm3iV1
-         L3mdJS7xUs+t8EGEda6PGM9ognkMhJ9xww8rPMKy+c0ATVUvO8Z/PJ0cMrLDgCTA2qUj
-         52c5mDnhgb2glk6ApEvFU11pGekPnKOtFYnpH5nG3SWfcxjUsn9gE0lgLX+uZZAmxvYq
-         GuiKc1p+e9sHaGX4w7uH0m2pgx2qTNtOrK4ZhEUm57nqpOD9xUlQDgNuaiERP0AoU1Zz
-         5n7FfNje+zAkvi4KTpR6WXgzG/g9jpygbLIiQOgNqPtyI04m9pz06FPyhYqjBI7xPqyI
-         FpHg==
-X-Forwarded-Encrypted: i=1; AKwUvBwB4AQ90hPIjmReiwXPYQjDLa7FmQBpynf7RB7X7jR2Jnw595abPmYKqri82cqVRzC/BsTlsKN8pq/aT6M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIJbgTB/k2i2pzsItpcILmAWoH1cgic1uHQwcmoydalJ3Qkdbo
-	9K0SG7hoqDc2gRnZXz3jd8Gyrp1KM/X2Ve2azofPJI+buu/4j+Gpgs4D2Sn9dbKNEIkoTXS7ygB
-	uzilG1O2VkUtNkS0OxZLyyVKQ1aRvm+lOzGwh8PdkNC+Uxn490HeuclzHVDsBxXQs1vo=
-X-Gm-Gg: AYBFou1MAC5kINXwNRgzhULxgpj7aNHYELGMpV3GhPmhUSyhj4MrusWyA7mLwAyGI2J
-	bxzR8C5iCqMzCR9/eT6xyfi4yz42noWgSo4VbL/ZP/DvNFBEDgfRpNAEOBAen4rTC27FaDfZRl9
-	wsfIviny8X7FK58MQaUtKaC+x8salHRy2q/wTXav2ZhJrsad4s0fwVznSvyoyeJ8bh36Q0uvc/n
-	+yeayEs4c4p5e+83jOfs7N6Q9ncBwxVRXqsYgldsj2SkvEZiur5dYjZ7ioZodt+E32SPX3dRxFd
-	aMwj4oyE3ij1DRRxy5JkJn5wjJ1TajFlxio9SZ1DYA7blUj8Vo8TgckcqA5og/Zmzf9z8na3GhD
-	uVFEYCDj12SEVxS2ezsxkysqcpLkiWSRFQKw8UnzlEaY4OJVJZF23ogeV0gv+BdKSDckk/UC67S
-	fu50t1V08DAr5UjlJLQBqMzJgRa7A=
-X-Received: by 2002:a05:701b:240a:b0:160:8d8e:7e3b with SMTP id a92af1059eb24-16a6169584amr30994583c88.10.1792075019699;
-        Thu, 15 Oct 2026 07:36:59 -0700 (PDT)
-X-Received: by 2002:a05:701b:240a:b0:160:8d8e:7e3b with SMTP id a92af1059eb24-16a6169584amr30994552c88.10.1792075018910;
-        Thu, 15 Oct 2026 07:36:58 -0700 (PDT)
-Received: from [10.149.127.220] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358ee8a3387sm54782930eec.15.2026.10.15.07.36.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 07:36:58 -0700 (PDT)
-Message-ID: <67d8e88a-eff0-4c8d-a030-b29b5d86f450@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 20:06:53 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FbEZYQ6Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792075060; x=1823611060;
+  h=date:from:to:cc:subject:message-id;
+  bh=LGCKOHPpAZ51siEENAnNufkjdxmacpkF2dJvRyRRcQs=;
+  b=FbEZYQ6YsK/3hLVO3DNvv5GVZjdEIrmoo1a0c4eb52/Ve3DG+CQxe0gJ
+   IRcegPZsak/AJnDzKs5FUXO1+GtNs0MuL8NXWJcO8DoWrEqLwUwxmVFeX
+   90uAf3Mdoc4BGbGnCsHxjrTTUNd+jZfyllKG4uQ8I1a3Eye+PIv6F7umd
+   VqMo3G2t2OyfC1xSfjfBCTzY0rbjyXlRFHxbCtxixQwZG4Zp3h150WQMm
+   6cvIeZI8BkUqSiaRJAMTvLkwXwqHstVSx2UTYoNmNtsykHJF4lBaJGaoh
+   l5W4wHTvjL4P5D+L4c7aLsdSjnka3SF5sQaTasXb3T26C758uPux/RyT+
+   g==;
+X-CSE-ConnectionGUID: 8dre1eOnTXS1s0F5UO+LEQ==
+X-CSE-MsgGUID: I9imrg1VTc6rOnoHnD515g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="950914"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="950914"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 07:37:40 -0700
+X-CSE-ConnectionGUID: mvbjDYGLRW+lI46OOyKE2A==
+X-CSE-MsgGUID: mfY/4lrZT1CKFim1mskFlA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1676050"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by orviesa003.jf.intel.com with ESMTP; 15 Oct 2026 07:37:39 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHMaN-00000000Bih-49WZ;
+	Thu, 15 Oct 2026 14:37:35 +0000
+Date: Thu, 15 Oct 2026 16:37:27 +0200
+From: kernel test robot <lkp@intel.com>
+To: Orgad Shaneh <orgads@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Warning: drivers/usb/host/octeon-hcd.c:381 struct member
+ 'sof_timer' not described in 'octeon_hcd'
+Message-ID: <202610151637.5srThc2q-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH net-next] netfilter: nf_conntrack: add ct expression
- support for netdev egress chains
-To: Florian Westphal <fw@strlen.de>
-Cc: pablo@netfilter.org, phil@nwl.cc, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261006085844.2694120-1-hari.chandrakanthan@oss.qualcomm.com>
- <asTd69Buuk6PisMl@strlen.de>
- <fe6fe48c-df09-41be-acff-bbae33454bd9@oss.qualcomm.com>
- <as0HMjsgUvKd7dAo@strlen.de>
-Content-Language: en-US
-From: Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com>
-In-Reply-To: <as0HMjsgUvKd7dAo@strlen.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX9sLEO00+gDYa
- wt8wpbFBJRLq6v8q5UApFMkD8PWLMQAs41kWYYN4y9WoZT9rahLoIkE0AsJxX3bBiNL8Z1vD4lz
- H24ZrEIH3tinYMRCjh65WlJxCl6aIQ6izLQTN1YMKI3GJjgDN4AYn+VoiWhl+wBeFARrobezdIW
- SXAfKgmJmbNgoj8oOZ04H2hN23zMX4FdsL9AoRWr1wa3zfPTuFR/5mebkNZEMzJt7RStpm+AW5n
- 0XPqIjHMyY7W/uVovHNyHpX4gmNa4JKIjiCcJUdKZTrphTuaEuNQ2Kul6trRIoKa5/Ui1ZNB7FI
- eq7nYifvzwSbGGQFnILrYfiBglvwTYjpM7mG8c+O8Kkesc5ZOfT91aokr1YynMk/aZGXsac4BmE
- N7V/KLzIrUjutv6PF6fKGB58b2UpDzhTGQSAAtKnq44iKzot7cOunc9K6oaC0RJaJ5C+9+DsyY/
- jdAT6D6xbr0qRmMuXMg==
-X-Proofpoint-GUID: pp061q0gFnLv54j1LVV0tSEgPjzyNHR3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX5h0eWJcjLLZw
- e/IFGOTKU4ma9N4WsbB94p2IGL4iXQ+kufDIx02Qr9uwG8zzdRQB6Qfftjk3K73g+cSTbT6/ECi
- FN6GFyfSNtHib/vBvGLal6FTTsHGlRo=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad0e50d cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=bFJ6oBsKsIU-QafAo2gA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-ORIG-GUID: pp061q0gFnLv54j1LVV0tSEgPjzyNHR3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150058
 
+Hi Orgad,
 
-On 10/12/2026 9:43 PM, Florian Westphal wrote:
-> Hari Chandrakanthan <hari.chandrakanthan@oss.qualcomm.com> wrote:
->> I agree that enabling inet/bridge conntrack solely for netdev/egress
->> would be unnecessary overhead.
-> Not following.  What is 'netdev egress only'?
+FYI, the error/warning still remains.
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   0fcb05b72344f40806cbe810de8872f1698bf053
+commit: aebbc7d63407f843a1c74806041792db65d69a51 usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers
+date:   5 weeks ago
+config: mips-randconfig-r2105-20261015 (https://download.01.org/0day-ci/archive/20261015/202610151637.5srThc2q-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8a679464f19c426ef76aad9f4587b703dd3e584d)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151637.5srThc2q-lkp@intel.com/reproduce)
 
-By netdev/egress only, I mean that the nft rule with a ct expression
-(e.g., ct mark set) is present only in the egress chain for a netdev,
-with no other nft conntrack rules in inet or bridge chains.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: aebbc7d63407 ("usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610151637.5srThc2q-lkp@intel.com/
 
-For example, it may be possible that only rules similar to the below
-nft rules are added at the netdev egress chain, with no other ct rule
-in inet or bridge hooks.
+All warnings (new ones prefixed by >>):
 
-nft add table netdev qos_table
+   Warning: drivers/usb/host/octeon-hcd.c:159 struct member 'reserved' not described in 'cvmx_usb_port_status'
+   Warning: drivers/usb/host/octeon-hcd.c:235 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Logical transactions may take numerous low level
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'xfersize' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'pktcnt' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'retries' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 Excess struct member 'flags' description in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:335 Excess struct member 'next' description in 'cvmx_usb_pipe' (did you mean one of: 'next_tx_frame')
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'lock' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'init_flags' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'index' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'idle_hardware_channels' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'usbcx_hprt' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'pipe_for_channel' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'indent' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'port_status' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'idle_pipes' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'active_pipes' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'frame_number' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'active_split' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'periodic' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'nonperiodic' not described in 'octeon_hcd'
+>> Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'sof_timer' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:528 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Read a USB 32bit CSR. It performs the necessary address swizzle
+   Warning: drivers/usb/host/octeon-hcd.c:543 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Write a USB 32bit CSR. It performs the necessary address
+   Warning: drivers/usb/host/octeon-hcd.c:559 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Return non zero if this pipe connects to a non HIGH speed
+   Warning: drivers/usb/host/octeon-hcd.c:575 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Trivial utility function to return the correct PID for a pipe
+   Warning: drivers/usb/host/octeon-hcd.c:663 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Shutdown a USB port after a call to cvmx_usb_initialize().
+   Warning: drivers/usb/host/octeon-hcd.c:695 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Initialize a USB port for use. This must be called before any
+   Warning: drivers/usb/host/octeon-hcd.c:974 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Reset a USB port. After this call succeeds, the USB port is
+   Warning: drivers/usb/host/octeon-hcd.c:1007 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Disable a USB port. After this call the USB port will not
+   Warning: drivers/usb/host/octeon-hcd.c:1025 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Get the current state of the USB port. Use this call to
+   Warning: drivers/usb/host/octeon-hcd.c:1055 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Open a virtual pipe between the host and a USB device. A pipe
+   Warning: drivers/usb/host/octeon-hcd.c:1168 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Poll the RX FIFOs and remove data as needed. This function is only used
+   Warning: drivers/usb/host/octeon-hcd.c:1214 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Fill the TX hardware fifo with data out of the software
+   Warning: drivers/usb/host/octeon-hcd.c:1274 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Check the hardware FIFOs and fill them as needed
+   Warning: drivers/usb/host/octeon-hcd.c:1310 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Fill the TX FIFO with an outgoing packet
+   Warning: drivers/usb/host/octeon-hcd.c:1362 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Perform channel specific setup for Control transactions. All
+   Warning: drivers/usb/host/octeon-hcd.c:1511 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Start a channel to perform the pipe's head transaction
+   Warning: drivers/usb/host/octeon-hcd.c:1855 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Find a pipe that is ready to be scheduled to hardware.
+   Warning: drivers/usb/host/octeon-hcd.c:1913 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Called whenever a pipe might need to be scheduled to the
+   Warning: drivers/usb/host/octeon-hcd.c:2086 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Signal the completion of a transaction and free it. The
+   Warning: drivers/usb/host/octeon-hcd.c:2143 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Submit a usb transaction to a pipe. Called for all types
+   Warning: drivers/usb/host/octeon-hcd.c:2217 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Call to submit a USB Bulk transfer to a pipe.
+   Warning: drivers/usb/host/octeon-hcd.c:2241 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Call to submit a USB Interrupt transfer to a pipe.
+   Warning: drivers/usb/host/octeon-hcd.c:2266 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Call to submit a USB Control transfer to a pipe.
+   Warning: drivers/usb/host/octeon-hcd.c:2297 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Call to submit a USB Isochronous transfer to a pipe.
+   Warning: drivers/usb/host/octeon-hcd.c:2324 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Cancel one outstanding request in a pipe. Canceling a request
+   Warning: drivers/usb/host/octeon-hcd.c:2373 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Cancel all outstanding requests in a pipe. Logically all this
+   Warning: drivers/usb/host/octeon-hcd.c:2397 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Close a pipe created with cvmx_usb_open_pipe().
+   Warning: drivers/usb/host/octeon-hcd.c:2419 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Get the current USB protocol level frame number. The frame
+   Warning: drivers/usb/host/octeon-hcd.c:2628 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Poll a channel for status
+   Warning: drivers/usb/host/octeon-hcd.c:2970 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+    * Poll the USB block for status and call all needed callback
+   Warning: drivers/usb/host/octeon-hcd.c:159 struct member 'reserved' not described in 'cvmx_usb_port_status'
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'xfersize' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'pktcnt' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 struct member 'retries' not described in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:288 Excess struct member 'flags' description in 'cvmx_usb_transaction'
+   Warning: drivers/usb/host/octeon-hcd.c:335 Excess struct member 'next' description in 'cvmx_usb_pipe' (did you mean one of: 'next_tx_frame')
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'lock' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'init_flags' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'index' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'idle_hardware_channels' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'usbcx_hprt' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'pipe_for_channel' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'indent' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'port_status' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'idle_pipes' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'active_pipes' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'frame_number' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'active_split' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'periodic' not described in 'octeon_hcd'
+   Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'nonperiodic' not described in 'octeon_hcd'
+>> Warning: drivers/usb/host/octeon-hcd.c:381 struct member 'sof_timer' not described in 'octeon_hcd'
 
-nft add chain netdev qos_table wlan0_qos \
-     { type filter hook egress device "wlan0" priority 0\; }
-
-nft add rule netdev qos_table wlan0_qos \
-     ether daddr 00:03:7f:01:50:65 \
-     ip saddr 192.168.1.10 \
-     ip daddr 192.168.1.20 \
-     ip protocol tcp \
-     tcp sport 12345 \
-     tcp dport 443 \
-     ct mark set 0x10
-
-> Where are the skbs coming from, i.e. though what pipeline?
->
-> Bridge?
-> Routing?
-
-In the use case that we are trying to address, the device is a Wi-Fi 
-access point router. It receives the classification rules from a Wi-Fi 
-client device for QoS prioritization of down-link traffic to the client 
-(n-tuple to Wi-Fi TID mappings) via SCS. We would like to apply these 
-classification rules on the access point router using nft rules
-(ct/skb mark set rules) at the WLAN netdev's egress chain.
-The skbs of interest that are processed by these rules at the netdev
-egress hook are primarily expected to be forwarded traffic (bridged or
-routed), before they reach the netdev egress hook. However, it is
-possible that the traffic can also be originated from the device.
-
->> To address this, as suggested by Pablo, we are considering enabling
->> conntrack lookup/creation at
->> netdev/ingress. This would allow netdev chains to access conntrack state
->> without requiring conntrack
->> to be enabled for the inet or bridge families, avoiding unnecessary
->> overhead for netdev-only use cases.
-> FWIW bridge conntrack is already problematic (see recent RFC patch
-> to refag in INPUT, conntrack is pretty much routing-only.
->
->> Kindly share your thoughts on this approach.
-> I think you'd have to explain your use case.
->
-> I thought you only want
->
-> skb-> mark = ct->mark
->
-> from egress. That would imply something else already enabled conntrack
-> anyway, else you'd have no conntrack marks set that you could read.
-
-As mentioned in the previous comment, in the use case that we are
-trying to address, the device is a Wi-Fi access point router. It 
-receives classification rules from a Wi-Fi client device for
-prioritizing downlink traffic to the client (n-tuple to Wi-Fi TID
-mappings) via SCS. We would like to apply these rules on the access
-point router using nft rules (ct/skb mark set rules) at the WLAN
-netdev egress chain.
-The nft rules at netdev egress chain achieve the below functionality:
-1. If connmark is not set on the first skb seen by the rule,
-    perform flow classification (based on dmac addr and n-tuple) and 
-store the result in the ct's mark via ct mark set. Typically, this rule 
-will be skipped when the connmark is already set for the flow.
-2. If connmark is already set (for subsequent packets), copy it to
-    skb->mark. Ideally, only this rule should be processed by the vast
-    majority of packets for the flow.
-There are three advantages we see in this solution for this use case:
-1. We wanted to avoid incurring the cost of n-tuple match for every
-    single packet at the netdev egress hook, by applying the
-    classification rule (tuple match and connmark set) only for the 
-first packets until connmark is set.
-2. Adding the rules at the egress hook of the netdev restricts the
-    scope of these rules only to packets egressing the netdev of
-    interest, without incurring the cost of processing these rules for
-    traffic egressing on other netdevs in the system or other hooks.
-Hence, we preferred adding the connmark set rule in the netdev egress
-chain itself, instead of the other hooks (such as
-forward/post-routing).
-3. The destination MAC address (Wi-Fi client) should also be available 
-in the skb for rule matching, which is available at the netdev egress hook.
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
