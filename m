@@ -1,169 +1,120 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D0849D590;
-	Thu, 15 Oct 2026 06:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFE253D9025;
+	Thu, 15 Oct 2026 06:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046836; cv=none; b=iFLf0wNoDPGsK3xnN7bhfBnm+llokneEXzcGHEJP/++u/XP5IYgfwt0bPO0M4M0eO6lo7ElvMP/e+S26AByp93DBx2wK/KcZmBcPNr5XPM4pbo4Nf294H+63b+AtJds4fvq67CTkEHnXOXd2bmKAUbW+vSMYcuyTyBZ213ox/dg=
+	t=1792046836; cv=none; b=Cp/LSN6pfacgWtz31AEiDXbz2wbY1pznRskC70Zkw7gHWh5WzsaYpM3M0rc7Xe7uesImfjprtYPLLQcWFOHX3aipt1GVWmMNagD3xaCKtPifoRVM2++ANJ111H2NuGoIpHIU0hq+vRna3ZTWzbG6xmTyqFbD+ibzGBmNFcMNPaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792046836; c=relaxed/simple;
-	bh=QOof8Ln5197tONi246cNMG5Jj+NA5lrKsaTcXlkqcQ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=mmRHbIk4vj4++4EZuESkvjIueg8qwwF7Ne/XhJMYL9GzkrMWhewbilO6ODF9Az2CZmS/MzZPjJZs2jkiEw7wu2UeyuCKW80/WuvjiUp6ajOzIvtjcDvqaKl+XqSXwIDQDNdju3cZW69MSCzWbS5msQHtLOYSDk797jmichopkPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 15 Oct
- 2026 14:46:59 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 15 Oct 2026 14:46:59 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Thu, 15 Oct 2026 14:46:55 +0800
-Subject: [PATCH net-next v3 3/6] net: ftgmac100: Enable AST2700 RMII
- support
+	bh=HzhBr8+hGnC8+QpQfpW4tkxgtK9VVNSpeBW+/1bD83Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tngmHCFwnwAR/oE/tVrKfCiIAwvy69qVKZlaBnC+EwDhkG5g7nR0clGMiIjNkAqgqU2NNc9zaIfctsQvwa4jBdLvdYFkp/ecMb/Xut2FJdQfabWLFUQXQovRqvDCX3jlfeMy9M9NngAt68zfhNgQkgVaTPM+FxldiOG7iTBm5K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.109])
+	by gateway (Coremail) with SMTP id _____8DxTNLwdtBqKgUWAA--.63793S3;
+	Thu, 15 Oct 2026 14:47:12 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.109])
+	by front1 (Coremail) with SMTP id qMiowJAx3c7sdtBqKI4sAA--.28417S2;
+	Thu, 15 Oct 2026 14:47:11 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>
+Cc: kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuerui Wang <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [GIT PULL] LoongArch KVM changes for v7.4
+Date: Thu, 15 Oct 2026 14:46:56 +0800
+Message-ID: <20261015064656.1525830-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261015-support_ast2700-v3-3-8d7999171ac4@aspeedtech.com>
-References: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
-In-Reply-To: <20261015-support_ast2700-v3-0-8d7999171ac4@aspeedtech.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
-	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792046819; l=4258;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=QOof8Ln5197tONi246cNMG5Jj+NA5lrKsaTcXlkqcQ8=;
- b=zK6uT5CDsdmg1dKIf7YlttfeuYT7+5pCIfAqisvgl4kmLHPGt7ZjmXkgIM852aZN5hpNVq8W1
- inNMR7NFhK+B/lmfuFmXUSNs/j2azVvDwwOK5dexyIzEztQ29Y3a0D/
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx3c7sdtBqKI4sAA--.28417S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXF4fAF1kGr1DCw47GrWDZFc_yoW5JFWkpF
+	y3urnxJr4rGr93Ar9Fg34kur1DJr1xGr1aqa4akFyxCr43Zr1UXry8Gr1kXFy5J3yrJry0
+	qr1fGw1agF1UJacCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU90b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
+	6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_
+	Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
+	AY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
+	cVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVj
+	vjDU0xZFpf9x07jepB-UUUUU=
 
-Set the RMII enable bit when an AST2700 port uses RMII so the MAC is
-programmed for the selected interface mode. Describe the requirement as
-a match-data quirk instead of checking the MAC generation in the data
-path, allowing later compatible controllers to opt into the behavior.
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
 
-phydev is always populated by the time this runs: ftgmac100_start_hw()
-is only reached once the device has been opened, and
-ftgmac100_probe_dt() always attaches a phy_device before
-register_netdev() can succeed -- via a discrete PHY ("phy-handle"), a
-"fixed-link" node, or NC-SI's internal fixed 100Mbit PHY
-(ftgmac100_probe_ncsi()). Any failure in that setup aborts probe before
-register_netdev(), so an opened AST2700 netdev always has phydev set.
-This mirrors the same assumption ftgmac100_reset_and_config_mac()
-already makes for every Aspeed SoC earlier in the open path.
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
 
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- drivers/net/ethernet/faraday/ftgmac100.c | 21 +++++++++++++++++++--
- drivers/net/ethernet/faraday/ftgmac100.h |  1 +
- 2 files changed, 20 insertions(+), 2 deletions(-)
+are available in the Git repository at:
 
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-index 67b1fa464a42..9b7becb01726 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.c
-+++ b/drivers/net/ethernet/faraday/ftgmac100.c
-@@ -41,8 +41,11 @@ enum ftgmac100_mac_id {
- 	FTGMAC100_AST2700
- };
- 
-+#define FTGMAC100_QUIRK_RMII_ENABLE	BIT(0)
-+
- struct ftgmac100_match_data {
- 	enum ftgmac100_mac_id mac_id;
-+	u32 quirks;
- };
- 
- /* Arbitrary values, I am not sure the HW has limits */
-@@ -79,6 +82,7 @@ struct ftgmac100 {
- 	void __iomem *base;
- 
- 	enum ftgmac100_mac_id mac_id;
-+	u32 quirks;
- 
- 	/* Rx ring */
- 	unsigned int rx_q_entries;
-@@ -355,6 +359,12 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
- static void ftgmac100_start_hw(struct ftgmac100 *priv)
- {
- 	u32 maccr = ioread32(priv->base + FTGMAC100_OFFSET_MACCR);
-+	/*
-+	 * Only reached once the device is open, so a phy_device is already
-+	 * attached: a discrete PHY via "phy-handle", a "fixed-link" node, or
-+	 * NC-SI's internal fixed 100M PHY.
-+	 */
-+	struct phy_device *phydev = priv->netdev->phydev;
- 
- 	/* Keep the original GMAC and FAST bits */
- 	maccr &= (FTGMAC100_MACCR_FAST_MODE | FTGMAC100_MACCR_GIGA_MODE);
-@@ -383,6 +393,11 @@ static void ftgmac100_start_hw(struct ftgmac100 *priv)
- 	if (priv->netdev->features & NETIF_F_HW_VLAN_CTAG_RX)
- 		maccr |= FTGMAC100_MACCR_RM_VLAN;
- 
-+	if ((priv->quirks & FTGMAC100_QUIRK_RMII_ENABLE) &&
-+	    phydev->interface == PHY_INTERFACE_MODE_RMII) {
-+		maccr |= FTGMAC100_MACCR_RMII_ENABLE;
-+	}
-+
- 	/* Hit the HW */
- 	iowrite32(maccr, priv->base + FTGMAC100_OFFSET_MACCR);
- }
-@@ -1942,7 +1957,7 @@ static int ftgmac100_probe_dt(struct net_device *netdev,
- 
- static int ftgmac100_probe(struct platform_device *pdev)
- {
--	const struct ftgmac100_match_data *match_data;
-+	const struct ftgmac100_match_data *match_data = NULL;
- 	enum ftgmac100_mac_id mac_id;
- 	struct resource *res;
- 	int irq;
-@@ -1987,6 +2002,7 @@ static int ftgmac100_probe(struct platform_device *pdev)
- 	priv->netdev = netdev;
- 	priv->dev = &pdev->dev;
- 	priv->mac_id = mac_id;
-+	priv->quirks = match_data ? match_data->quirks : 0;
- 	INIT_WORK(&priv->reset_task, ftgmac100_reset_task);
- 
- 	/* map io memory */
-@@ -2134,7 +2150,8 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
- };
- 
- static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
--	.mac_id = FTGMAC100_AST2700
-+	.mac_id = FTGMAC100_AST2700,
-+	.quirks = FTGMAC100_QUIRK_RMII_ENABLE,
- };
- 
- static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-index 4968f6f0bdbc..8c35c895b146 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.h
-+++ b/drivers/net/ethernet/faraday/ftgmac100.h
-@@ -167,6 +167,7 @@
- #define FTGMAC100_MACCR_RX_BROADPKT	(1 << 17)
- #define FTGMAC100_MACCR_DISCARD_CRCERR	(1 << 18)
- #define FTGMAC100_MACCR_FAST_MODE	(1 << 19)
-+#define FTGMAC100_MACCR_RMII_ENABLE	BIT(20)
- #define FTGMAC100_MACCR_SW_RST		(1 << 31)
- 
- /*
+  git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git tags/loongarch-kvm-7.4
 
--- 
-2.34.1
+for you to fetch changes up to 34f4ce22cf25802d8026c60c13c2db81f8c8e3a0:
+
+  KVM: LoongArch: selftests: Enable HW PTW by auto detection method (2026-10-13 16:49:05 +0800)
+
+----------------------------------------------------------------
+LoongArch KVM changes for v7.4
+
+1. Add separate vmid support.
+2. Simplify MSI intterupt injection.
+3. Add hypercall crash support.
+4. Allow to set pv_feature until vCPU run.
+5. Enable HW PTW automatically in selftests.
+
+----------------------------------------------------------------
+Bibo Mao (8):
+      LoongArch: KVM: Add vmid support for stage2 MMU
+      LoongArch: KVM: Implement vmid updating logic
+      LoongArch: KVM: Probe & enable separate vmid feature
+      LoongArch: KVM: Remove parameter "level" when injecting MSI
+      LoongArch: KVM: Remove duplicated checking with DMSI irq injection
+      LoongArch: KVM: Add hypercall crash support
+      LoongArch: KVM: Allow to set pv_feature until vCPU run
+      KVM: LoongArch: selftests: Enable HW PTW by auto detection method
+
+Chaithanya Lagisetty (1):
+      LoongArch: KVM: Return the actual error code in kvm_ipi_create()
+
+ arch/loongarch/include/asm/kvm_dmsintc.h           |  3 +-
+ arch/loongarch/include/asm/kvm_host.h              | 15 ++++-
+ arch/loongarch/include/asm/kvm_para.h              |  3 +
+ arch/loongarch/include/asm/kvm_pch_pic.h           |  2 +-
+ arch/loongarch/include/asm/loongarch.h             |  5 ++
+ arch/loongarch/include/uapi/asm/kvm.h              |  1 +
+ arch/loongarch/include/uapi/asm/kvm_para.h         |  1 +
+ arch/loongarch/kernel/asm-offsets.c                |  1 +
+ arch/loongarch/kernel/cpu-probe.c                  |  4 ++
+ arch/loongarch/kvm/exit.c                          | 11 ++++
+ arch/loongarch/kvm/intc/dmsintc.c                  | 36 +++--------
+ arch/loongarch/kvm/intc/ipi.c                      |  7 +--
+ arch/loongarch/kvm/intc/pch_pic.c                  |  6 +-
+ arch/loongarch/kvm/irqfd.c                         |  4 +-
+ arch/loongarch/kvm/main.c                          | 71 ++++++++++++++++++++--
+ arch/loongarch/kvm/mmu.c                           | 25 +++++++-
+ arch/loongarch/kvm/switch.S                        |  5 +-
+ arch/loongarch/kvm/tlb.c                           | 19 +++++-
+ arch/loongarch/kvm/vcpu.c                          | 15 ++++-
+ arch/loongarch/kvm/vm.c                            |  2 +
+ .../selftests/kvm/include/loongarch/processor.h    |  3 +
+ .../selftests/kvm/lib/loongarch/processor.c        | 16 ++++-
+ 22 files changed, 194 insertions(+), 61 deletions(-)
 
