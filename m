@@ -1,240 +1,92 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F078347DD77;
-	Thu, 15 Oct 2026 07:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475C4474267;
+	Thu, 15 Oct 2026 07:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049668; cv=none; b=YvZNnymj5DrYM1BpQYJaqB26NbN+GEGqiUR9B7W58vrhbQ+DIqZjvPNuIWZUFp72IiWWzLxmkXPtNqFqa4BHCJjcdy0UAlB1XmN9ldD+42GnY/oTOM8vAcXGVzmF+Z81GE3cxNZRX1eU93ykgxvmu4aNlcf5fRFX3pXaRKuSga0=
+	t=1792049725; cv=none; b=eLCIGbEkwizzs5YZ9WJRA5L3l/8g7C15D53aFexkwcE1+LCYraC4fav8mZqRBPd1a7+I37oiDS+CPgYcSS5oqnpKSYIxk/eCR4QOO5o1AnSCYCoVmaLDg8Hgr7reVE565dh9P9YQs/uP5zejOtp6W+qcEEpeEQyUhS7/OAyZzng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049668; c=relaxed/simple;
-	bh=LrBrSJmD/UxphG9gvZu2dp5jVZSeM0Sig/nKKcgBgTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RBoIda2Dzh5W9cfjw3qUm9jrjdYF/ZC9ZN/IZ32WNomI/u0IeQzhDm3XQUYjOyUnD61St8NBm+I4K5/Hctj5Vq8ijDg19kkX3VbHtT7Uxgps+SdooPstU7sxh36prunAEp5PJa/4tg7WWFXkVmqTWhX9majuOp760iD2+cYcrsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=WJ0cVWt0; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792049725; c=relaxed/simple;
+	bh=c++F9Vf3fUz0CQyruYpb7PPYSc/ojoTaqlIFyYHysRw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aDD3giUckWlMybfYirtebM4+uRWJEkAJzKiCg3JgROYizy8cqK3dHSh3r3lkUaW8PwIfB95qGxBDTUEvTnl+iCl7VLDL4C5aNuX5trXQQTHvLKPeBAf8eeSMkNqQ/m4FjdMfsqfLVvltdfIot/k8MgLD9CZE+7+uuUwbHq83mwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SBOg7fFc; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="WJ0cVWt0"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j50FP0Y2WzKnNf;
-	Thu, 15 Oct 2026 09:34:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792049657;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=5BbSMtY+9Kbz5WrucAlpB74oey3pZ7xFI2/f3PZfg8I=;
-	b=WJ0cVWt0CO90YoIk8WOSdU9JWWqR/gk+s+jOZKKuzmyqLpiPgHHEqZ6T0iecGzqaJSnhvR
-	DopRTNElY6VV6Ad0nF4dK1C/hd7A5GHPZrWTCT8AhnzLPEGPa2AJf9j2vMW+LhmSQiY27s
-	3OHQabVF4eNuGaaMUbvFxNTjhZR+zg8S1iXpnQ0aAzTQVu++CVXTkNX/LCXQ/InygRbAe1
-	A9Bvou1y1Erdo7j7tTSXaY5pc15GPe3UE86RYEv3kC4EcvLL47m94tlG6UUkrBR6qK9uK0
-	jQM7WQ/cgJJKOSQ6zs0oh4OVnESTwS+H4PtZf1354rmuji+E6HyvrxFnpze7SQ==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SBOg7fFc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+rP+cxw4LyZbHAKQcyd3+FwqG+SpVmgCRVwzAc0KSwU=; b=SBOg7fFck2+GpCGyXASSABg2Dm
+	aRZSbunqoDkWHxbnj8y7Zb8kYIg2eEYkRc8o0SsRPzIu99/5dPkO0QvEAZ32kIlubTZv2akAbwP2g
+	4paSmpRcOEBT01JuozPVR0pQE9maLSOgDBxa2AQjsx4A61GTB7l+NO1yF/mC8LovHbHOwmb5Jnc6U
+	GrTKFqOUG/1eyGBntAN+gVuHR+sd16SaTD1GmmXulE7/ZuP6qzPXZEC3n71YxfRQ7gnD/cSjsgOaM
+	JoASmdxoG5lXIxoedyJXD7OVZTIX4xbi8rivtHP14kSEgX/pTF2bV5bcFDh5J3fOeAMUHV0mD/awI
+	MInLGoYg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xHFza-0000000Ha8b-1FmW;
+	Thu, 15 Oct 2026 07:35:10 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F39FA3006DD; Thu, 15 Oct 2026 09:35:08 +0200 (CEST)
+Date: Thu, 15 Oct 2026 09:35:08 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Wei Gao <wegao@suse.com>, Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mm/damon/lru_sort: fix grammar and stlye
-Date: Thu, 15 Oct 2026 09:29:47 +0200
-Message-ID: <20261015072947.802821-2-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH v1] sched/cputime: Preserve iowait accounting across
+ waking interrupts in dyntick-idle
+Message-ID: <20261015073508.GH4121339@noisy.programming.kicks-ass.net>
+References: <20261014015258.13967-1-wegao@suse.com>
+ <20261014124934.GE4121339@noisy.programming.kicks-ass.net>
+ <002a3200-81ae-43b3-860f-64135c28438c@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: idn3gxtcdjt6emcbahy53p5jocy9zney
-X-MBO-RS-ID: 344519cfb3155f51206
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <002a3200-81ae-43b3-860f-64135c28438c@arm.com>
 
-Fix tenses. Split long sentences thereby imporove readability.
-Replace 'set as' with 'set to'. Replace [] with () to make the file uniform.
+On Wed, Oct 14, 2026 at 02:17:52PM +0100, Christian Loehle wrote:
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- .../admin-guide/mm/damon/lru_sort.rst         | 61 +++++++++----------
- 1 file changed, 30 insertions(+), 31 deletions(-)
+> > Using nr_iowait_cpu() is fundamentally never a fix. It is rolling a dice
+> > and liking random numbers. See the comment that goes with that function.
+> > 
+> Speaking of, that comment is stale, menu doesn't use that heuristic anymore.
 
-diff --git a/Documentation/admin-guide/mm/damon/lru_sort.rst b/Documentation/admin-guide/mm/damon/lru_sort.rst
-index 0c04d238ed..aa4cc90ca5 100644
---- a/Documentation/admin-guide/mm/damon/lru_sort.rst
-+++ b/Documentation/admin-guide/mm/damon/lru_sort.rst
-@@ -5,20 +5,19 @@ DAMON-based LRU-lists Sorting
- =============================
- 
- DAMON-based LRU-lists Sorting (DAMON_LRU_SORT) is a static kernel module that
--aimed to be used for proactive and lightweight data access pattern based
-+aims to be used for proactive and lightweight data access pattern based
- (de)prioritization of pages on their LRU-lists for making LRU-lists a more
- trustworthy data access pattern source.
- 
- Where Proactive LRU-lists Sorting is Required?
- ==============================================
- 
--As page-granularity access checking overhead could be significant on huge
--systems, LRU lists are normally not proactively sorted but partially and
--reactively sorted for special events including specific user requests, system
--calls and memory pressure.  As a result, LRU lists are sometimes not so
--perfectly prepared to be used as a trustworthy access pattern source for some
--situations including reclamation target pages selection under sudden memory
--pressure.
-+As page-granularity access checking overhead could be significant on huge systems,
-+LRU lists are normally not fully nor proactively sorted but rather partially
-+and reactively sorted for special events.  These events include specific user requests,
-+system calls and memory pressure.  As a result, LRU lists are sometimes not
-+suitable to be used as a trustworthy access pattern source.  These situations
-+including reclamation target page selection under sudden memory pressure.
- 
- Because DAMON can identify access patterns of best-effort accuracy while
- inducing only user-specified range of overhead, proactively running
-@@ -28,9 +27,9 @@ pattern source with low and controlled overhead.
- How It Works?
- =============
- 
--DAMON_LRU_SORT finds hot pages (pages of memory regions that showing access
--rates that higher than a user-specified threshold) and cold pages (pages of
--memory regions that showing no access for a time that longer than a
-+DAMON_LRU_SORT finds hot pages (pages of memory regions that show access
-+rates that are higher than a user-specified threshold) and cold pages (pages of
-+memory regions that show no access for a duration that is longer than a
- user-specified threshold) using DAMON, and prioritizes hot pages while
- deprioritizing cold pages on their LRU-lists.  To avoid it consuming too much
- CPU for the prioritizations, a CPU time usage limit can be configured.  Under
-@@ -63,10 +62,10 @@ enabled
- 
- Enable or disable DAMON_LRU_SORT.
- 
--You can enable DAMON_LRU_SORT by setting the value of this parameter as ``Y``.
--Setting it as ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
-+You can enable DAMON_LRU_SORT by setting the value of this parameter to ``Y``.
-+Setting it to ``N`` disables DAMON_LRU_SORT.  Note that DAMON_LRU_SORT could do
- no real monitoring and LRU-lists sorting due to the watermarks-based activation
--condition.  Refer to below descriptions for the watermarks parameter for this.
-+condition.  Refer to below descriptions of the watermarks parameter for this.
- 
- commit_inputs
- -------------
-@@ -74,9 +73,9 @@ commit_inputs
- Make DAMON_LRU_SORT reads the input parameters again, except ``enabled``.
- 
- Input parameters that updated while DAMON_LRU_SORT is running are not applied
--by default.  Once this parameter is set as ``Y``, DAMON_LRU_SORT reads values
-+by default.  Once this parameter is set to ``Y``, DAMON_LRU_SORT reads values
- of parameters except ``enabled`` again.  Once the re-reading is done, this
--parameter is set as ``N``.  If invalid parameters are found while the
-+parameter is set to ``N``.  If invalid parameters are found while the
- re-reading, DAMON_LRU_SORT will be disabled.
- 
- Once ``Y`` is written to this parameter, the user must not write to any
-@@ -86,37 +85,37 @@ violate this rule, the kernel may exhibit undefined behavior.
- active_mem_bp
- -------------
- 
--Desired active to [in]active memory ratio in bp (1/10,000).
-+Desired active to (in)active memory ratio in bp (1/10,000).
- 
- While keeping the caps that set by other quotas, DAMON_LRU_SORT automatically
- increases and decreases the effective level of the quota aiming the LRU
--[de]prioritizations of the hot and cold memory resulting in this active to
--[in]active memory ratio.  Value zero means disabling this auto-tuning feature.
-+(de)prioritizations of the hot and cold memory resulting in this active to
-+(in)active memory ratio.  Value zero means disabling this auto-tuning feature.
- 
- Disabled by default.
- 
- autotune_monitoring_intervals
- -----------------------------
- 
--If this parameter is set as ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
-+If this parameter is set to ``Y``, DAMON_LRU_SORT automatically tunes DAMON's
- sampling and aggregation intervals.  The auto-tuning aims to capture meaningful
- amount of access events in each DAMON-snapshot, while keeping the sampling
--interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this as
--``N`` disables the auto-tuning.
-+interval to 5 milliseconds in minimum, and to 10 seconds in maximum.  Setting this
-+to ``N`` disables the auto-tuning.
- 
- Disabled by default.
- 
- filter_young_pages
- ------------------
- 
--Filter [non-]young pages accordingly for LRU [de]prioritizations.
-+Filter (non-)young pages accordingly for LRU (de)prioritizations.
- 
- If this is set, check page level access (youngness) once again before each
--LRU [de]prioritization operation.  LRU prioritization operation is skipped
-+LRU (de)prioritization operation.  LRU prioritization operation is skipped
- if the page has not accessed since the last check (not young).  LRU
- deprioritization operation is skipped if the page has accessed since the
- last check (young).  The feature is enabled or disabled if this parameter is
--set as ``Y`` or ``N``, respectively.
-+set to ``Y`` or ``N``, respectively.
- 
- Disabled by default.
- 
-@@ -235,7 +234,7 @@ max_nr_regions
- Maximum number of monitoring regions.
- 
- The maximum number of monitoring regions of DAMON for the cold memory
--monitoring.  This can be used to set upper-bound of the monitoring overhead.
-+monitoring.  This can be used to set the upper-bound of the monitoring overhead.
- However, setting this too low could result in bad monitoring quality.  Please
- refer to the DAMON documentation (:doc:`usage`) for more detail.  1000 by
- defaults.
-@@ -268,7 +267,7 @@ This parameter is for setting and getting the :ref:`address unit
- 
- ``monitor_region_start`` and ``monitor_region_end`` should be provided in this
- unit.  For example, let's suppose ``addr_unit``, ``monitor_region_start`` and
--``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respectively.
-+``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respectively.
- Then DAMON_LRU_SORT will work for 10 KiB length of physical address range that
- starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
- 
-@@ -291,22 +290,22 @@ If DAMON_LRU_SORT is enabled, this becomes the PID of the worker thread.  Else,
- nr_lru_sort_tried_hot_regions
- -----------------------------
- 
--Number of hot memory regions that tried to be LRU-sorted.
-+Number of hot memory regions that were tried to be LRU-sorted.
- 
- bytes_lru_sort_tried_hot_regions
- --------------------------------
- 
--Total bytes of hot memory regions that tried to be LRU-sorted.
-+Total bytes of hot memory regions that were tried to be LRU-sorted.
- 
- nr_lru_sorted_hot_regions
- -------------------------
- 
--Number of hot memory regions that successfully be LRU-sorted.
-+Number of hot memory regions that were successfully LRU-sorted.
- 
- bytes_lru_sorted_hot_regions
- ----------------------------
- 
--Total bytes of hot memory regions that successfully be LRU-sorted.
-+Total bytes of hot memory regions that were successfully LRU-sorted.
- 
- nr_hot_quota_exceeds
- --------------------
--- 
-2.55.0
+\o/
 
+> FWIW the remaining aggregated nr_iowait users seem to be accounting/reporting.
+> (cpufreq still uses it, but it comes directly from p->in_iowait).
+
+I see: get_cpu_iowait_time_us() using nr_cpuwait_cpu(), which in turn is
+used for both thermal and cpufreq.
+
+> Given they are exported (/proc/stat procs_blocked and something in s390) I don't
+> see how we can remove this entirely but at least nr_iowait_cpu() as opposed
+> to cpu_has_iowait() could be refactored. The issues are obviously the same still.
+> I'll send a patch.
+
+Right.
+
+> Peter, if you see a path to ever retire iowait (or at least the CPU iowait for now),
+> I'm more than happy to sink some time into it...
+
+Given the exposure in /proc I'm not sure we can *ever* fully get rid of
+the per-cpu usage of iowait, but yeah, reducing in-kernel consumers of
+this number might be somewhat feasible.
