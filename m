@@ -1,76 +1,106 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2C450EBFE;
-	Thu, 15 Oct 2026 09:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605304AA402;
+	Thu, 15 Oct 2026 09:59:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058356; cv=none; b=RKxHAKDkELCK9ZeUcaZfvcH+CDcI6PdJObHqbo6HdH/HyU9MQ602OOjfKe2FGhNmqEtY6v42tjjVK5caRnz6mbwumNi9SPBMwPCs1VIBRpmfjaRUcDHwZbuPhwsbY17DnY0ytON22mkEEnXsPDBYA7Tgx9OBete/72w5TyySuVE=
+	t=1792058361; cv=none; b=SniFI5f3yVpXc5EgzFqwZ//LVqTw+4PzWUt5JZKiCYyE2i1DyP9PdAnaahDmT7hpao/5LkHeHURidG1do18xTmyGJ3O5FOCwOwzeX+M5SiH2e/l4jYzgYDWUhIdPs0KWNnNwPf1hITllbXQHZNJI89ll9WE1ZKAdlp/vW23+KnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058356; c=relaxed/simple;
-	bh=NVOia/N7LIk8muVKWJmeQ6PHy+eo+cQ9zaVjQs9I690=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eTGjzG/tU8bP2celyKl12TbnCHbnhzL5tNABedSRkOSai2vmoWBtGWLgNw8yZD/7FPvITNwpGduz2JGkG7tN333UsRakY5U/c9uJiNcoFClCL2mbryqywhkvsofsGVqODgTel7LRogYEzJPNxOeM8WXKXIbf7Pb8y1p2ImzcQW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=ukyERuE4; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1792058361; c=relaxed/simple;
+	bh=krQsggzCqEG/D6oeKhnaepZTcpTlj/qt+kPm2FfA4m4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mNwO9evQ4TD5L5L9h/o4tAM+LPgyLXhx2JWox0ftYp1Pl1o9hkQWFCWopg9cMl783OqtRiEVD6shxaj7eJo8Ah+PeNFSRfcgG/ShFyeFh/5qCftCHbzutjDAAR6QV6LOuwTByQsxGhf/xmELEqfiMzuxzauT+Kf4cDcVTTZsCWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=fbE7U33U; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="ukyERuE4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=uAHo67pn/12jxJum+3WSXwcW7pfgqgyfx97rw9oiqW8=; b=ukyERuE4dLZMVahRFReNWVx0gi
-	qEQqcN+leoQIn50ENP2cPXNGKIMmgNnDAA/vG+i/dkWamyUm9HRf5duku3Vz1FQrVVuQpqJM9bhsz
-	/V58VQLOrBLx91zm5gddj6smw9rnOKVlZQ8xC3q62Z+WGNMYnbhIwXFXxcsAA1R6MuDfIiWI5z3fI
-	kyum1w1dD9HMe5T436aYRj3qzYiQHczQEgLonJX0zIdFih3YIl4rV9HB0ZvgjxxSyz8QxmcQrYB5y
-	L9Wt0lfzO+eMsp+g9ABkEOwPPuPj0K+XgSYrjMKxoYosAvfb4hRr0FTcOjT4xdN5hZfyEb8GTtwhC
-	4V4rTIvQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHIEt-0056yl-1s;
-	Thu, 15 Oct 2026 09:59:08 +0000
-Date: Thu, 15 Oct 2026 02:59:03 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sashiko <netdev-bot+sashiko@kernel.org>
-Subject: Re: [PATCH net-next v2 1/2] netconsole: avoid printing partially
- updated target attributes
-Message-ID: <atCj2rOpqy83s5bC@gmail.com>
-References: <20261012-netcons-fixes-next-v2-0-ac8ec4c62edb@gmail.com>
- <20261012-netcons-fixes-next-v2-1-ac8ec4c62edb@gmail.com>
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="fbE7U33U"
+Received: from localhost (gyproxy-mailtls0-entmail-virt215.gy.ntes [IPV6:2409:8d28:39:f54:403e:4083:f623:91af])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 512956982;
+	Thu, 15 Oct 2026 17:59:05 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: Qu Wenruo <wqu@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Boris Burkov <boris@bur.io>
+Cc: linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guolingxing <guolingxing@tju.edu.cn>
+Subject: [PATCH v2] btrfs: verity: propagate orphan insertion errors when enabling verity
+Date: Thu, 15 Oct 2026 09:59:01 +0000
+Message-Id: <20261015095901.4140409-1-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <e3321d2d-d8dc-43e5-8501-31b2d5ae1146@suse.com>
+References: <e3321d2d-d8dc-43e5-8501-31b2d5ae1146@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-netcons-fixes-next-v2-1-ac8ec4c62edb@gmail.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa13f00466803a2kunm61a746776ecc6
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQh4YVh9PGUtNTkNOT0JDS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQUJKGh
+	1ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=fbE7U33UG3qnYh05GnJ3x+LODC8ESQQcNfeqemOerQ0tbcPqDqV9fpDj2FnwC0KgptTF+0PRiVsZ4278jhMz0ZD8c51FVlJkUBIyf6DBgLyoRyQUfoKF+pDP34rH38a8LAQIbhGqpiPLmFdktKVFBC8kulUCTpipvS3WvEzofTA=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=BcfeZSTk49w+VaockmmkNFOszvZxZBrEsLCMNT0iovg=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Oct 12, 2026 at 06:03:43PM +0100, Gustavo Luiz Duarte wrote:
-> The configfs store callbacks all serialize on dynamic_netconsole_mutex
-> but not on the read side, so reading an attribute while it is being
-> written returns a partially updated value.
-> 
-> Hold dynamic_netconsole_mutex on *_show() callbacks to avoid racing with
-> writers.
-> 
-> The dev_name_show() callback can also race with
-> netconsole_netdev_event() writing to np.dev_name due to
-> NETDEV_CHANGENAME. So it needs to hold target_list_lock in addition to
-> dynamic_netconsole_mutex.
-> 
-> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260928-netcons-fixes-v1-0-bb5ffe5e698a%40gmail.com
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+btrfs_begin_enable_verity() ignores the return value of
+btrfs_orphan_add() and unconditionally returns 0. If orphan insertion
+fails, btrfs_orphan_add() aborts the transaction, but the generic
+fs-verity code still proceeds with Merkle tree construction because
+the begin_enable_verity callback reported success.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Return the error so that fs-verity stops immediately instead of
+continuing after the initialization failure.
+
+The transaction is already aborted by btrfs_orphan_add() and the
+handle is released by btrfs_end_transaction(), so no additional
+cleanup is needed.
+
+Fixes: 705242538ff3 ("btrfs: verity metadata orphan items")
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+---
+Hi Qu, you are right. The claim about leaving the on-disk state
+inconsistent was incorrect.
+
+btrfs_orphan_add() aborts the transaction on failure, so I do not
+have evidence that ignoring its return value can cause on-disk
+inconsistency. The real issue is that btrfs_begin_enable_verity()
+reports success despite the initialization failure, letting the
+generic fs-verity code proceed with Merkle tree construction only to
+encounter an error later, instead of returning the original error
+immediately. This revision removes the on-disk inconsistency claim and
+describes the error propagation issue instead.
+
+Thanks for pointing this out.
+
+Changes in v2:
+- Remove the incorrect claim about on-disk inconsistency.
+- Clarify that the fix propagates the initialization error immediately.
+
+ fs/btrfs/verity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+index 600337a84fbe..d92c9dab0293 100644
+--- a/fs/btrfs/verity.c
++++ b/fs/btrfs/verity.c
+@@ -615,7 +615,7 @@ static int btrfs_begin_enable_verity(struct file *filp)
+ 		set_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
+ 	btrfs_end_transaction(trans);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /*
+-- 
+2.34.1
+
