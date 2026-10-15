@@ -1,65 +1,65 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38853E1732
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6633EB0E3
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078439; cv=none; b=sOPMMzQYQryMLYI7oSXkZDQeoqTnUlvrLTd6eDQAifg8MJvGO2My+bgSoXmOpIl/D5s/Xs4agTcrHVgGpRtl9AAr2Kv9MgoEK4/Xrs4W/bJ0JpjWJKjNP2rDaJe21WP0k0w36XIOa2ZowtQNmY0DGCLHc4tbZLzqz2OMWu78gy0=
+	t=1792078440; cv=none; b=qf9BKJ5bkaYcM68c6FAYujZW2WmSS2jdnyuaV7pUcL1077nKrsR2T62k9bN6qEDHSOlgEuCAE1dIAVfWxdd3h8kNOwcWJcvSIQe1mMMsVLO3BJM2SOrQLSehgeEsJGmO1d6hK0naCtzscQnXXQ/OLbkKXSrMwgtXB7gVGbzzRSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078439; c=relaxed/simple;
-	bh=xIsKSaZ15J6nRnEfuzzXZSdo/Z37NoDAuoNVv8bXw50=;
+	s=arc-20240116; t=1792078440; c=relaxed/simple;
+	bh=Xg75wWV0Wkn1lUCmua4HAOXKJp5fSZzYvpL+GKbl8+M=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qfrjYsmT02tW5yLruYUWsNgz3QwdCXt+HZeVLIpi1A5as5U8F6ypnk1mJ5uOYcPGLbTjuByjuai9AlJZ8LXUYVUheYHPV9wNILQKZy7WgLoBNtlGnNLH0wF1R9gQXtS0e/Ac5MJ4bo+mpMvMROKfzbeRN6wZn6kVK8kVKxtXUPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=hpop1ysz; arc=none smtp.client-ip=209.85.217.43
+	 MIME-Version; b=cSNj3bsOUPrZWfmqc211+/q8NC+zn9CNboI1Jp+oF1KwVYASX6KgN7KvxIq5JTFKM0zewpdo1egf0LOXB+xhfgz4vB0wS5tWLfIO2zWDmxm78rNejq7B/717kJcOHyRwh+9+vkphixY0toXlMpPpSMq1sqT43ZZ2/ZIOpoTH3is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=fwrZ6KHA; arc=none smtp.client-ip=209.85.222.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="hpop1ysz"
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cb3388613fso1009766137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="fwrZ6KHA"
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9902a746546so65741241.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792078420; x=1792683220; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1792078425; x=1792683225; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=IofewvjhR0Ae8pfrPVVge9u/2aO2fEHS91BGZ9RvoVo=;
-        b=hpop1yszrAQaeSTB0MZVTOzYTkVZrx3j9OjOGRY3TmG9Cl9j4KFfz/jRcajzYK56qR
-         d5QxHIkMohTZ1xGq/Ru3nToRSU2gdfTL2NVA/RXP8oQZGo0Ec2Hnj3xOaG9HXaRdbc0p
-         YlBr/cLku4oBzI7INa4Bp7Aj1d+XXTHAFl6HZVm6Yus12Vv4XKB8/u3oeCWFr1amTQkZ
-         xNas1Nyy4FNp/zwoxSc9ZaIpLpxwMyH94dfUg9RYYik+uYlCNRUfov0xxQxABu/txv3j
-         i2KjWMjMIG+TpLOzEeb0oOUclfp7p+2pZmZGrG1zWAUE5qRmzBXHHNtq4Dj4jkZBYhsY
-         JdUA==
+        bh=9R9JGD2gfMVINW++iTiT+sdv1KZ9FYj5h4fZmBgfwsA=;
+        b=fwrZ6KHAbXqBJXGKxzlx1KsnXLhJ6sJpXSMBnPa2hb7Ai8WFEcHEptexvd87J+cAZV
+         TxpAi6Y5VK+SVLPHYr1smwgEwWYawu2jtaehKCEUrq/Zozmv0n1pBxrJVcHNWNNKG75c
+         bIt3FGNvlCrYvQMoBtINogkcTjdjFWWLeEfVNCmIVpU8Q5gx5aYQivwvqG+F3OEAwyan
+         cmKBSbcDnKTX7fSWm9Ol/iKu2cWnoU3SWSzh3uacms0uamocgd9DBUjBkjcFnmWcecxQ
+         UihwRtPeO9bFXyJKpDDrVJJaPu7ZjBpPQdDxX4FE5rMCQNMq1j7CWLEnD2eB2i+Kola7
+         Le5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078420; x=1792683220;
+        d=1e100.net; s=20260707; t=1792078425; x=1792683225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=IofewvjhR0Ae8pfrPVVge9u/2aO2fEHS91BGZ9RvoVo=;
-        b=qKNZyAfRsxPm1yhjLfi7UvWUis5J3o7OuH8KPjLhbLbZa1DF5eNMGmUp/7RyITSkjZ
-         HmvrrL5PADQ8QcM1C/qxC79dvKVZ9Mrx+YXvxMKqIwknXtbsRcY2624Swd/ZWPXQCgiB
-         Wl6DR4vHpre3YHNVFObLXUno2mkF3jbR2x9synikx9TFnPktHba0mqfMMZVaQJ6bpGPa
-         /YKTUKh9DHYq+9K9l4kuTS3zNi04DcNGXRQSEGFdxFgqihrrSR0x0dtvpp1xz/WUVqGk
-         LgR2XdWfwzWV9s3CXVwmM1/m3FsaHDF5fXApu7M8GicE4NbhKkl+at3eG8e0pvlEEzqF
-         WmKw==
-X-Forwarded-Encrypted: i=1; AKwUvByzzrVrLFKCTTrnWtxS3IwDiLXiy2Pv4URURNdY296WqnhrsYKPzM5cGQknb4JdQdo/BE/iVwYKKAuzKsU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINt2ck5NpTjrbqGfMXDtl4bQlha+ztHLBwSAIv3oeVH3Hn9NN9
-	dqgnK/5YwgKvF2WLLEIT2aHy5WeR6+tZazzqwLj43WXaKcQTruuFFHj5Z07N7O03SX0=
-X-Gm-Gg: AYBFou0Fez5rjmsdIRgIxTFAd/Fxdp70pM4LQ2YxptMurJJ0l0EVZ4Gi5zwyBOiRs3R
-	/TyQ6qbmS5vmT64T5nmKIx3WDo4rdL41KG+jG6BzjJSnaxE/FABCFD0KQerwzL+DVooxxCcw1as
-	1Uxo1OR6AEnVOObEseb7oAKyAhPOEdNsNk1Zrg+gP/ZhYUMDzZK90sYh+IazPEEdi2rkZdOh0X7
-	hPp3xvaiGuptAf9WhDOS14MZt28eMxuEyC62+r6V7qOTgVCcdenuFihZ+ZVzbvmRCutu9LC+4+6
-	YCbcr//NTiL/URWi1D3tIOthqzrfZD9MQFIw+fSW7G2aCR65EscV78kokekMNUlxoFVNq3QOyPt
-	OafJx455UUKOoKvO3L/f9rc0wla58cxuyuUP3IMVIDL1v+Kn0JaT0rk+NBmK3hxJJWsuByOc3//
-	cHjnSDrAIkBqwVs3zlLQ2p6JNUgERvf8hVG8wMLB12dcHp75Kpn4bSE2Ar49ic2EUC33DEKm1Va
-	0nd3GP5y3YMIxw79//Rjq02vNPZXu7gMhbYgxpPZPPCGi3kbNHstgYTW7dwnWDLW04qSU6Jmbtg
-	kANoUGnOCwK9i/CaTLo=
-X-Received: by 2002:a05:6102:8088:b0:7c1:62d2:e18a with SMTP id ada2fe7eead31-7cb372f3a68mr6949040137.16.1792078420419;
-        Thu, 15 Oct 2026 08:33:40 -0700 (PDT)
+        bh=9R9JGD2gfMVINW++iTiT+sdv1KZ9FYj5h4fZmBgfwsA=;
+        b=GuCpMKPxBSGbSmGW81yqb5A/cwxcuhJx0MUrP1Ap3rdpMDofkn7/hLjEB69T2LaBPg
+         V8lixS8ACkLyNY25C7Sl2T6Hm2wLDLji1ufSLfR/I+qy7gyGMPGvxKeyqLOfj//iYdBm
+         pxQoFFsNqboEhHO+B50W8+HEtBQxj8SJT4yE/q8yYxQY4b4aphPaNqJpXyNRTkXBHe87
+         wLEkhQFqfMuKqPg3bJrfY25eeEmYuRTJfB87guXIQn0n47M28cZjJI3TZDTVLtMfGV4Y
+         DcFUCRsOFP6mawvu1bZAGcrQ5KmrhUuXjLAAWZUi701dBlJjXmyDE+5rVmqNZlaVBnBQ
+         RUtA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0sRruDA6tq6xiUrnujljzy2H/bWXjNNseggyr4465DJdqPYOUb+A9KL36R1cBLalWl9mabsMlEKbfhzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInB7xAaF+q3iZaNF8wwPcTBzN3ETDeHSQ8IykVw/i8kTd/NitF
+	vB6PtxXXX9ok3k6ETcbq3rK2NuJxwYzl8nEmrgEv6aNDHgcx3BBoqO/jCu7JggOIy6Y=
+X-Gm-Gg: AYBFou04nNkVDczosdVEDkmy2bTLZCIe3bdkGRKUUMAl7z+WN0j2gwLf3373nl0i9qh
+	ZEKsROh9jILjjN1ZdkWQ+IlAjiPjS3HrU9GaewP2YyUXi1PwUFw6EmEuppN8lsUKMJPLw8e2/o2
+	c4MUREwTLHpi4myyUffg1IcbtuKMw2FgYFPFhWDCJOTLuJ4Z+bu+X2pxOoOaqXlH0HdlBg2fY6v
+	/ZGE+47Lm+QI9QGevtAKo0UC+O//MGti2yHVNaE4mGg6HsqBy/nYsvHwtixBEAs/eNGNgvHPd9c
+	ZM8uVB4KUDv0t4XJQBQoMxW6fTCBYdVsGscl5884YGJtf/FitJuPu51TOE3lq9iUdx23zsFWTSr
+	oNRpa+r1PGaw5+8GeZf+l4moMWL1nEkxgBRTRtWA10ySF0OEc1HhrTB0AVEvbHIV6NqCpobLddP
+	uH+TC9YHpxR9crHOiVurIX2SygPJAI1kEpTvwyKDNQoaPzI1s6xZx7kJQqKuS3ITrPSYCzmVByf
+	AxB3RkhuyC0KgqBJFVbZwA3t2AsG3D6lIS+b5qq2/j0XKXVlqtGkp2mMa9bQl857I5VF9/rjNn7
+	dnGgYDPOSBWiqlXyFjo=
+X-Received: by 2002:a05:6102:292b:b0:7bd:ce85:b00f with SMTP id ada2fe7eead31-7cc18271943mr139071137.40.1792078424660;
+        Thu, 15 Oct 2026 08:33:44 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.38
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:33:39 -0700 (PDT)
+        Thu, 15 Oct 2026 08:33:44 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: kees@kernel.org,
 	rppt@kernel.org,
@@ -106,9 +106,9 @@ To: kees@kernel.org,
 	ridong.chen@linux.dev,
 	longman@redhat.com,
 	bsegall@google.com
-Subject: [PATCH v1 3/8] x86/mce/intel: Bound cmci_rediscover() to a single topology peer
-Date: Thu, 15 Oct 2026 11:33:26 -0400
-Message-ID: <20261015153331.1872641-4-pasha.tatashin@soleen.com>
+Subject: [PATCH v1 6/8] sched/deadline, topology: Avoid O(N^2) dl_server bandwidth walks during root_domain rebuilds
+Date: Thu, 15 Oct 2026 11:33:29 -0400
+Message-ID: <20261015153331.1872641-7-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
 References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
@@ -120,163 +120,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a CPU goes offline, cmci_clear() disables CMCI on any MCA banks
-owned by that CPU, and mce_cpu_dead() calls cmci_rediscover(). Currently
-cmci_rediscover() invokes on_each_cpu(cmci_rediscover_work_func, NULL, 1),
-sending a synchronous broadcast IPI to every online CPU in the system,
-all of which contend on the global cmci_discover_lock while reading up
-to 32 MSR_IA32_MCx_CTL2 MSRs.
+Every CPU runqueue has a fair_server (and optionally an ext_server)
+deadline entity enabled by default. Whenever a root_domain is rebuilt on
+CPU hotplug or cpuset changes, partition_sched_domains_locked() currently
+performs three O(N^2) remote runqueue bandwidth updates across all N
+active CPUs (O(N^3) across sequential hotplug of N CPUs):
 
-Any bank disabled by cmci_clear() is either thread-private, core-scoped
-(shared between SMT threads of the same physical core), L2-cluster-scoped,
-die-scoped, or package-scoped:
-1. Any bank index that is already owned by the target peer in its own
-   mce_banks_owned bitmap is private to a narrower scope than the shared
-   level and will be skipped by cmci_skip_bank() on the target anyway.
-2. Core- or cluster-shared MCA banks can only be claimed by an online
-   SMT sibling or L2 cluster peer.
-3. Shared die-scoped or package-scoped uncore banks can be claimed in a
-   single pass by one online peer on the same die or package.
+1. detach_destroy_domains() calls
+   cpu_attach_domain(NULL, &def_root_domain, i) -> rq_attach_root() ->
+   __dl_server_attach_root() for each of the N CPUs. Each call recomputes
+   cpumask_weight_and(rd->span, cpu_active_mask) twice and calls
+   __dl_add() -> __dl_update(), walking all active CPUs attached to
+   def_root_domain so far to update rq->dl.extra_bw, only for
+   def_root_domain to be detached milliseconds later.
 
-Record the bitmap of banks disabled by __cmci_disable_bank() in
-cmci_orphaned_banks, select a single online topology peer
-cmci_orphaned_target (SMT sibling, L2 cluster peer, die peer, or package
-peer) in cmci_clear(), and mask out any bank indices already owned by
-that target peer. In cmci_rediscover(), return immediately when
-cmci_orphaned_banks is empty; otherwise probe only cmci_orphaned_target
-via a single smp_call_function_single() call.
+2. build_sched_domains() calls cpu_attach_domain(sd, d.rd, i) ->
+   rq_attach_root() -> __dl_server_attach_root() for each of the N CPUs,
+   performing another N*(N+1)/2 remote rq->dl.extra_bw updates using
+   intermediate partial span weights (1..N) that are immediately
+   discarded at the end of partition_sched_domains_locked().
+
+3. dl_rebuild_rd_accounting() -> dl_clear_root_domain() resets
+   rd->dl_bw.total_bw = 0 and cpu_rq(i)->dl.extra_bw = max_bw, and then
+   calls dl_server_add_bw(rd, i) -> __dl_add() -> __dl_update() in a
+   nested O(N^2) loop over rd->span with interrupts disabled.
+
+Remove the redundant __dl_server_attach_root() calls from rq_attach_root()
+(since partition_sched_domains_locked() always rebuilds root_domain
+accounting via dl_rebuild_rd_accounting() once domain attachment is
+complete), and replace the nested O(N^2) loop in dl_clear_root_domain()
+with a single O(N) accumulation pass and a single O(N) extra_bw update
+pass.
+
+Also provide a !CONFIG_CPUSETS implementation of
+dl_rebuild_rd_accounting() (using a lockless dl_prio(READ_ONCE(p->prio))
+pre-check before dl_add_task_root_domain(p)). Previously,
+dl_rebuild_rd_accounting() was a no-op stub when CONFIG_CPUSETS=n, which
+left root_domain rebuilds without SCHED_DEADLINE task bandwidth
+accounting and left inconsistent per-CPU extra_bw values computed from
+partial active CPU counts in rq_attach_root().
 
 2-socket, 480-CPU Intel Xeon 6985P-C (N=479, mean of 10 runs):
-  Offline:  11.42 s ->  9.63 s (-15.7%)
-  Online:   11.08 s -> 11.11 s
-  Total:    22.50 s -> 20.74 s (-7.8%)
-  cmci_rediscover() (cpu479 offline):
-    7,720.6 us -> 0.6 us (-99.99%)
+  Offline:   5.15 s ->  3.88 s (-24.7%)
+  Online:    4.05 s ->  2.51 s (-38.0%)
+  Total:     9.20 s ->  6.39 s (-30.5%)
+  dl_clear_root_domain() / dl_rebuild_rd_accounting() (cpu479):
+    5,537.0 us -> 58.1 us (-99.0%) / 5,176.2 us -> 61.9 us (-98.8%)
+
+2-socket, 512-CPU AMD EPYC 9B45 (N=511, mean of 10 runs):
+  Offline:   3.26 s ->  2.77 s (-15.0%)
+  Online:    2.03 s ->  1.53 s (-24.6%)
+  Total:     5.29 s ->  4.30 s (-18.7%)
+  dl_clear_root_domain() / dl_rebuild_rd_accounting() (cpu511):
+    1,880.5 us -> 27.5 us (-98.5%) / 1,762.3 us -> 22.6 us (-98.7%)
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- arch/x86/kernel/cpu/mce/intel.c | 57 +++++++++++++++++++++++++++++++--
- 1 file changed, 55 insertions(+), 2 deletions(-)
+ include/linux/cpuset.h         |  6 +--
+ include/linux/sched/deadline.h |  1 -
+ kernel/sched/deadline.c        | 89 +++++++++++++++++++++-------------
+ kernel/sched/sched.h           |  1 -
+ kernel/sched/topology.c        | 13 -----
+ 5 files changed, 56 insertions(+), 54 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
-index 4655223ba5606..f57718b097d9b 100644
---- a/arch/x86/kernel/cpu/mce/intel.c
-+++ b/arch/x86/kernel/cpu/mce/intel.c
-@@ -11,6 +11,7 @@
- #include <linux/percpu.h>
- #include <linux/sched.h>
- #include <linux/cpumask.h>
-+#include <linux/topology.h>
- #include <asm/apic.h>
- #include <asm/cpufeature.h>
- #include <asm/cpu_device_id.h>
-@@ -40,6 +41,8 @@
-  * owned by the offlined cpu.
-  */
- static DEFINE_PER_CPU(mce_banks_t, mce_banks_owned);
-+static mce_banks_t cmci_orphaned_banks;
-+static unsigned int cmci_orphaned_target;
+diff --git a/include/linux/cpuset.h b/include/linux/cpuset.h
+index 914983387e955..8baa99308f49e 100644
+--- a/include/linux/cpuset.h
++++ b/include/linux/cpuset.h
+@@ -129,7 +129,7 @@ static inline int cpuset_do_page_mem_spread(void)
  
- /*
-  * cmci_discover_lock protects against parallel discovery attempts
-@@ -244,6 +247,7 @@ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_w
+ extern bool current_cpuset_is_being_rebound(void);
  
- 	/* This CPU successfully set the enable bit. */
- 	set_bit(bank, (void *)this_cpu_ptr(&mce_banks_owned));
-+	__clear_bit(bank, cmci_orphaned_banks);
+-extern void dl_rebuild_rd_accounting(void);
++void dl_rebuild_rd_accounting(void);
+ extern void rebuild_sched_domains(void);
  
- 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD) {
- 		pr_notice("CPU%d BANK%d CMCI inherited storm\n", smp_processor_id(), bank);
-@@ -328,6 +332,7 @@ static void __cmci_disable_bank(int bank)
- 	val &= ~MCI_CTL2_CMCI_EN;
- 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
- 	__clear_bit(bank, this_cpu_ptr(mce_banks_owned));
-+	__set_bit(bank, cmci_orphaned_banks);
+ extern void cpuset_print_current_mems_allowed(void);
+@@ -273,9 +273,7 @@ static inline bool current_cpuset_is_being_rebound(void)
+ 	return false;
+ }
  
- 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD)
- 		cmci_storm_end(bank);
-@@ -339,6 +344,8 @@ static void __cmci_disable_bank(int bank)
-  */
- void cmci_clear(void)
+-static inline void dl_rebuild_rd_accounting(void)
+-{
+-}
++void dl_rebuild_rd_accounting(void);
+ 
+ static inline void rebuild_sched_domains(void)
  {
-+	unsigned int cpu = smp_processor_id();
-+	unsigned int target;
- 	unsigned long flags;
- 	int i;
- 	int banks;
-@@ -346,8 +353,31 @@ void cmci_clear(void)
- 	if (!cmci_supported(&banks))
- 		return;
- 	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
-+	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
-+	/*
-+	 * A bank is shared by the CPUs of one SMT core, L2 cluster, die or
-+	 * package, and these scopes nest. The first online peer found from
-+	 * the innermost scope outwards is therefore part of every sharing
-+	 * scope that still has an online CPU, so it alone can claim every
-+	 * orphaned bank that is still claimable. If it already owns an index,
-+	 * the instance released here is not shared with it, hence not with
-+	 * any online CPU, and that index can be dropped from the rediscovery.
-+	 */
-+	target = cpumask_any_but(topology_sibling_cpumask(cpu), cpu);
-+	if (target >= nr_cpu_ids)
-+		target = cpumask_any_but(topology_cluster_cpumask(cpu), cpu);
-+	if (target >= nr_cpu_ids)
-+		target = cpumask_any_but(topology_die_cpumask(cpu), cpu);
-+	if (target >= nr_cpu_ids)
-+		target = cpumask_any_but(topology_core_cpumask(cpu), cpu);
-+	cmci_orphaned_target = target;
- 	for (i = 0; i < banks; i++)
- 		__cmci_disable_bank(i);
-+	if (target < nr_cpu_ids)
-+		bitmap_andnot(cmci_orphaned_banks, cmci_orphaned_banks,
-+			      per_cpu(mce_banks_owned, target), MAX_NR_BANKS);
-+	else
-+		bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
- 	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
- }
+diff --git a/include/linux/sched/deadline.h b/include/linux/sched/deadline.h
+index 273538200a445..6f03357f05c76 100644
+--- a/include/linux/sched/deadline.h
++++ b/include/linux/sched/deadline.h
+@@ -31,7 +31,6 @@ static inline bool dl_time_before(u64 a, u64 b)
  
-@@ -360,15 +390,38 @@ static void cmci_rediscover_work_func(void *arg)
- 		cmci_discover(banks);
- }
- 
--/* After a CPU went down cycle through all the others and rediscover */
-+/*
-+ * After a CPU went down, rediscover orphaned shared banks on a single
-+ * topology peer (SMT sibling, L2 cluster peer, die peer, or package peer)
-+ * selected in cmci_clear(). Core-private banks whose core is now completely
-+ * offline cannot be claimed by any other core, so probing more than one
-+ * peer is redundant.
-+ */
- void cmci_rediscover(void)
- {
-+	unsigned int target;
-+	unsigned long flags;
-+	bool orphaned;
- 	int banks;
- 
- 	if (!cmci_supported(&banks))
- 		return;
- 
--	on_each_cpu(cmci_rediscover_work_func, NULL, 1);
-+	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
-+	orphaned = !bitmap_empty(cmci_orphaned_banks, MAX_NR_BANKS);
-+	target = cmci_orphaned_target;
-+	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
-+
-+	if (!orphaned)
-+		return;
-+
-+	if (target < nr_cpu_ids && cpu_online(target))
-+		smp_call_function_single(target, cmci_rediscover_work_func,
-+					 NULL, 1);
-+
-+	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
-+	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
-+	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
- }
- 
+ struct root_domain;
+ extern void dl_add_task_root_domain(struct task_struct *p);
+-extern void dl_clear_root_domain(struct root_domain *rd);
+ extern void dl_clear_root_domain_cpu(int cpu);
  /*
+  * Return whether moving DL task @p to @new_mask requires moving DL
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 857dbe3519a86..01f2f24e3b814 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -1885,24 +1885,6 @@ void sched_init_dl_servers(void)
+ 	}
+ }
+ 
+-void __dl_server_attach_root(struct sched_dl_entity *dl_se, struct rq *rq)
+-{
+-	u64 new_bw = dl_se->dl_bw;
+-	int cpu = cpu_of(rq);
+-	struct dl_bw *dl_b;
+-
+-	if (!dl_se->dl_bw_attached)
+-		return;
+-
+-	dl_b = dl_bw_of(cpu_of(rq));
+-	guard(raw_spinlock)(&dl_b->lock);
+-
+-	if (!dl_bw_cpus(cpu))
+-		return;
+-
+-	__dl_add(dl_b, new_bw, dl_bw_cpus(cpu));
+-}
+-
+ int dl_server_apply_params(struct sched_dl_entity *dl_se, u64 runtime, u64 period, bool init)
+ {
+ 	u64 old_bw = (init || !dl_se->dl_bw_attached) ? 0 :
+@@ -3448,18 +3430,22 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 	raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+ }
+ 
+-static void dl_server_add_bw(struct root_domain *rd, int cpu)
++static void dl_server_sum_bw(int cpu, int cpus, u64 *total_bw, s64 *extra_bw)
+ {
+ 	struct sched_dl_entity *dl_se;
+ 
+ 	dl_se = &cpu_rq(cpu)->fair_server;
+-	if (dl_server(dl_se) && dl_se->dl_bw_attached && cpu_active(cpu))
+-		__dl_add(&rd->dl_bw, dl_se->dl_bw, dl_bw_cpus(cpu));
++	if (dl_server(dl_se) && dl_se->dl_bw_attached) {
++		*total_bw += dl_se->dl_bw;
++		*extra_bw -= (s32)dl_se->dl_bw / cpus;
++	}
+ 
+ #ifdef CONFIG_SCHED_CLASS_EXT
+ 	dl_se = &cpu_rq(cpu)->ext_server;
+-	if (dl_server(dl_se) && dl_se->dl_bw_attached && cpu_active(cpu))
+-		__dl_add(&rd->dl_bw, dl_se->dl_bw, dl_bw_cpus(cpu));
++	if (dl_server(dl_se) && dl_se->dl_bw_attached) {
++		*total_bw += dl_se->dl_bw;
++		*extra_bw -= (s32)dl_se->dl_bw / cpus;
++	}
+ #endif
+ }
+ 
+@@ -3480,26 +3466,32 @@ static u64 dl_server_read_bw(int cpu)
+ 	return dl_bw;
+ }
+ 
+-void dl_clear_root_domain(struct root_domain *rd)
++static void dl_clear_root_domain(struct root_domain *rd)
+ {
+-	int i;
++	u64 total_bw = 0;
++	s64 extra_bw = 0;
++	int i, cpus;
+ 
+ 	guard(raw_spinlock_irqsave)(&rd->dl_bw.lock);
+ 
+-	/*
+-	 * Reset total_bw to zero and extra_bw to max_bw so that next
+-	 * loop will add dl-servers contributions back properly,
+-	 */
+-	rd->dl_bw.total_bw = 0;
+-	for_each_cpu(i, rd->span)
+-		cpu_rq(i)->dl.extra_bw = cpu_rq(i)->dl.max_bw;
+-
+ 	/*
+ 	 * dl_servers are not tasks. Since dl_add_task_root_domain ignores
+ 	 * them, we need to account for them here explicitly.
+ 	 */
+-	for_each_cpu(i, rd->span)
+-		dl_server_add_bw(rd, i);
++	cpus = cpumask_weight_and(rd->span, cpu_active_mask);
++	if (cpus) {
++		for_each_cpu_and(i, rd->span, cpu_active_mask)
++			dl_server_sum_bw(i, cpus, &total_bw, &extra_bw);
++	}
++
++	rd->dl_bw.total_bw = total_bw;
++	for_each_cpu(i, rd->span) {
++		struct rq *rq = cpu_rq(i);
++
++		rq->dl.extra_bw = rq->dl.max_bw;
++		if (cpu_active(i))
++			rq->dl.extra_bw += extra_bw;
++	}
+ }
+ 
+ void dl_clear_root_domain_cpu(int cpu)
+@@ -3507,6 +3499,33 @@ void dl_clear_root_domain_cpu(int cpu)
+ 	dl_clear_root_domain(cpu_rq(cpu)->rd);
+ }
+ 
++#ifndef CONFIG_CPUSETS
++void dl_rebuild_rd_accounting(void)
++{
++	struct task_struct *g, *p;
++	u64 cookie = ++dl_cookie;
++	int cpu;
++
++	lockdep_assert_cpus_held();
++	lockdep_assert_held(&sched_domains_mutex);
++
++	rcu_read_lock();
++	for_each_possible_cpu(cpu) {
++		if (dl_bw_visited(cpu, cookie))
++			continue;
++
++		dl_clear_root_domain_cpu(cpu);
++	}
++	for_each_process_thread(g, p) {
++		/* Racy pre-check; dl_add_task_root_domain() rechecks under pi_lock. */
++		if (!dl_prio(READ_ONCE(p->prio)))
++			continue;
++		dl_add_task_root_domain(p);
++	}
++	rcu_read_unlock();
++}
++#endif
++
+ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ {
+ 	/*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index b76e2cd695025..e76a6876ac4e8 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -418,7 +418,6 @@ extern void sched_init_dl_servers(void);
+ 
+ extern void fair_server_init(struct rq *rq);
+ extern void ext_server_init(struct rq *rq);
+-extern void __dl_server_attach_root(struct sched_dl_entity *dl_se, struct rq *rq);
+ extern int dl_server_apply_params(struct sched_dl_entity *dl_se,
+ 		    u64 runtime, u64 period, bool init);
+ extern int dl_server_attach_bw(struct sched_dl_entity *dl_se);
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 02c38089a80c9..fe7ecee041f5b 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -502,19 +502,6 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+ 	if (cpumask_test_cpu(rq->cpu, cpu_active_mask))
+ 		set_rq_online(rq);
+ 
+-	/*
+-	 * Because the rq is not a task, dl_add_task_root_domain() did not
+-	 * move the fair server bw to the rd if it already started.
+-	 * Add it now.
+-	 */
+-	if (rq->fair_server.dl_server)
+-		__dl_server_attach_root(&rq->fair_server, rq);
+-
+-#ifdef CONFIG_SCHED_CLASS_EXT
+-	if (rq->ext_server.dl_server)
+-		__dl_server_attach_root(&rq->ext_server, rq);
+-#endif
+-
+ 	rq_unlock_irqrestore(rq, &rf);
+ 
+ 	if (old_rd)
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
