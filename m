@@ -1,152 +1,115 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4249C3E4118
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461093002AB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040848; cv=none; b=I72QBbFBW0IHCFS7J8XXPhmPwPNwtwuZZdUMHRuAUau1j7VVHZdxSSZsGN4tj+WyvMqliy8K++wJTf8OsHARp2saANgDLpQqTaGC9EzEQI1uIOD8M8E2nUQtMyFkI9xsJ3McNksrfCwwUKy9OA77i2314fnNXRlUS51ZaxsWKzE=
+	t=1792040859; cv=none; b=Ut4iOlecjGxYwbkfiWYow5EZlZZcF1JXN6lx2JrpojNCzBFp4cpbPmjGwdUbjp5n+qfhkarw/4Q4QYS78tgipx/hCvvwQakrdDCk77WlAmCa0lxGlD8GfgBx+KMk1LCDZIHhCmufS+MeVhwPuLL8DqRTK9laWkBc+OENuKj5rvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040848; c=relaxed/simple;
-	bh=Dpf1OL8eEQDvT3Yz4oFpKfSPnZF5935fgwHaPMTq0Ug=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U00+nOXs0VvPJSecRSgi2X6gMsawaww4Fc9TDb+UFX7T/PsVBWowKy59nGCgXISgxGEL4nThUvgXuSSaYuYMnqbFX/xdp5Cc1+/CKEcVR7YOQ7ud4Pr5Gn9W8agXlc4I/nwOvmR701kkPntTYKuL95QRC9ElR2e7RSx5gix6SiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffO99sDZ; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792040859; c=relaxed/simple;
+	bh=L9GyfJKy0i+PWVDjSiUZqoSjdLwaf4lg66ej/kIviis=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WfSQsp5Y+s3MMVbMKyVS3HiVXgdGvEKOoGhxqXUEsrYg8pUuWvtJPiDDpObPnIGkJ6IPx5YRfsFaWjxNn9zVda3kVIZWoUGyDejhvWczdHC8Pk5X5gBhPiOIFTDuuclM94LMOtu2xcFGCAwrVCvW3pkGHs+Tk7rjlEFtyfW3XoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=k/p60Hsw; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffO99sDZ"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso2766148a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792040845; x=1792645645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sciRHkHVn7be+OO9D5ChqaCTElZLHKxLZIrTSsDdMj0=;
-        b=ffO99sDZ0GWIwEs9Ei73VNGOg4bxluVPx+CGsWJt4r5uHCIhPMXMQvZuq7MjU2jyJm
-         ArH6vku6/HpiSLd18ihElD42ZQRKZPphK6uyntLjvv7KDSuXGDthfX+SZMFK7menUEWQ
-         ETWgAm9TMtWFqn5zpwnIMdACDBXzr44mTDLWOta6GPijRDxGsITs/4WNwaYG7kkVk6FB
-         zvY89EuLwVeNdN8k3GZeR6Kp6RavR4Rra+JbTCshf/bKzYkFTorn8FdDSfHwkyX0MxOM
-         F0RRh3PmdxvVzjKRqGNJRU437ZDM2dvNNFFuV0fV3vJLGlw1BRTRWKdRW/UVA7iXF6s1
-         PlXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792040845; x=1792645645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sciRHkHVn7be+OO9D5ChqaCTElZLHKxLZIrTSsDdMj0=;
-        b=l1510Md2nxHZzR9qM8YulO/5mS6VPwvz8qtpzpgG5tp3f0YSH1HTgVNiDUQDya1Hcz
-         b69VHF1GkrKd7Dw/IqsgNPcE9fUy3eafvz/z6Jt8Gbnil28Uxe23vfDC0dof25RNsgfc
-         8xVRih4CRowFZT3PX25krAKIpOvWi7WFq15Jz0E2sptypFGDWug0r+8boYGMixAM0Mx8
-         OET6fNV85PCGEIhGDdEFSwl/M+rH0Nx2yfFN7hQADmowEUAi1Z1NMxeu5oEqr7AI5h0J
-         unX/nH0RE7PkZLmzI4rD7W5zdiYDb6lfDxim4IbmnJHX9/VdA8n9bp4vMc8ZJGEMiuXG
-         ylgA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9SRdBRnahSYe0yInxYIFF0M6wcatSLs+HPnhN7MKyxKknkAHcS2hXQuZkv350Yy+hEj6uGhaPrFCZUsY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwAYkSVlJtEPSu6eQc3Dnc8o6vK4+Avs1aL5oW4oc43nWJU595
-	/0UFJ8S8j2ejKnauoFA/JjV4gcRhwNPzlDdovQVXhJkcJoXLEuKIXwB8A6/DR8Jo
-X-Gm-Gg: AYBFou0SeZWmyBrERM5XmbZF00nSTlc1Sj/5j4mHdlqyqRvpVMfZQnmfC6jLlai+y1l
-	CoQ8+BcjIgr5wqtQSrmIQya5PXYTzPGNZLf3aq1QvFO9OhsXwURC6tih+mFpNRbcqF1A85GxCu9
-	l6G0RJZ1TSFdTziTKuJFpB63wPXgfhHPJ2af8WjneMv1mVGPAPVW6qV2/FXQG/vDGRVQUF9hrao
-	/mTKiB+MU88QOINLQvgmXIJkuyGVbnIymJp5v5zTi9fZSlR9yMSuxTFBfU3e64K2YXelZM9PL2M
-	MD+/VeDYcNimh+gf8SnzyOp9Jcp1i9WjbB2RKG5voF6xQP2oLnc0DJ2mMFUT3ZgbdLEsctvdQ3p
-	5aNuSxfhG77BNJbFkquNAzXJspk2ja0V0s5GiYPzF0nL4WU9v65JsIac+xF+FJsHPPCIXYP2n3H
-	s9s0uv2ahRLdHczkWWg295coAq4QzD6H92zdDGeM/tyqBUvrQizrurOhETk3YOjhOZJfav7EPla
-	WZqHtbDL9I=
-X-Received: by 2002:a17:90b:4d85:b0:3a4:c946:9f4e with SMTP id 98e67ed59e1d1-3ab3acdc386mr14227232a91.58.1792040845490;
-        Wed, 14 Oct 2026 22:07:25 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm2548033a91.13.2026.10.14.22.07.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:07:24 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net v4 4/4] ipv6: do not restart DAD for a dead ifaddr
-Date: Thu, 15 Oct 2026 14:06:51 +0900
-Message-ID: <20261015050651.1841557-5-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015050651.1841557-1-4ncienth@gmail.com>
-References: <20261015050651.1841557-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="k/p60Hsw"
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id H1OdxN7iHc3XsHDfGx4HPh; Thu, 15 Oct 2026 05:06:02 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id HDfFxGZRhFB8dHDfFxqCpQ; Thu, 15 Oct 2026 05:06:01 +0000
+X-Authority-Analysis: v=2.4 cv=HcoUTjE8 c=1 sm=1 tr=0 ts=6ad05f39
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=_kS_R5bZiuQTXeyLJeIA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=oYtDAAFS9VXuY5pzBUjRbvYRT9tsUMZkbpbrrRzoG4Q=; b=k/p60Hsw79fac2nCaViLGWB9Vt
+	SryZ0TqpGKdz92O7ItMGSbWLZ4PPz7qvi9sqstX+HqX2yUeXSmFvL2dnC3CXTf2R5K685ab9lypxM
+	LMuxBPIS6IeAXUe1DQIIblGOztgRjKnpSxdEgBJu+oimNjCWxbpX6Y3nGwGFJ3B/oop2vPjL0UxQm
+	tQrEsI6+gqBNd/9HecqwTctCq8D/+b1SPk2vqUdvjMILeXdFLaV/sQXBQwIza6DkJeB1Q+QVEHyBZ
+	3sY2Ide1/eBwMl81ElxmCvTe8ic44ewx5vnzqc+54xzEqvdubzBHxeEjVUmiSyFZplNYgJnyoDWzM
+	9lqdMAmA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37564 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xHDfE-000000016Sq-1Scs;
+	Wed, 14 Oct 2026 23:06:00 -0600
+Message-ID: <ce03e9d5-a41f-411e-8ad0-d3dabcf7f393@w6rz.net>
+Date: Wed, 14 Oct 2026 22:05:58 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261014123820.008483134@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261014123820.008483134@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xHDfE-000000016Sq-1Scs
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37564
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNaL3iJod/fbQYLtdCBpsLxfCLR9q8Y+9VaBBCsKRc631Eojmzr9qs13k3P6ICClJ8uXD+DN0etcjy9UAC5LWJi+WaJuDe2sugzZkIo/wHA9BDMUmHzS
+ yDt9jO9lHZb1R9otHIVV1VapVvjD+J5h+xSlJNDGNL7ckUBmvD2ztb5Qwx8WxtfiVwCIogcgzr4W6Ml7BE3OFIfOga4Da7Rvonk=
 
-addrconf_dad_failure() can create a stable-privacy replacement without
-RTNL. After ipv6_add_addr() publishes it, addrconf_ifdown() can mark the
-new ifaddr DEAD, clear its route, and unlink it before the recovery path
-takes ifp2->lock.
+On 10/14/26 05:50, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.57 release.
+> There are 632 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-The recovery path then unconditionally changes the state back to PREDAD
-and queues delayed DAD work. The MTU teardown path can leave IF_READY
-set. For an optimistic address, addrconf_dad_begin() can consequently
-pass the cleared NULL route to ip6_ins_rt().
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-This follow-on was found by source review and was not separately
-triggered at runtime.
-
-The new ifaddr is already initialized in PREDAD. Under ifp2->lock, record
-the retry and queue DAD only if teardown has not changed the state to
-DEAD. If teardown wins after this check, the work observes DEAD and exits
-without reviving the address.
-
-This complements the existing lock_errdad check that preserves the original
-ifaddr's DEAD state after the same function reacquires its lock.
-
-Fixes: 5f40ef77adb2 ("ipv6: do retries on stable privacy addresses")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://lore.kernel.org/r/179161099408.434549.14449036924552933828@kernel.org
-Link: https://lore.kernel.org/r/20260513025509.3776405-1-lilinmao@kylinos.cn
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- net/ipv6/addrconf.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index df566681226195..a2d3fb187f7684 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -2198,6 +2198,7 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
- 			     ifp->idev->dev->name, &ifp->addr, eth_hdr(skb)->h_source);
- 
- 	if (ifp->flags & IFA_F_STABLE_PRIVACY) {
-+		bool start_dad = false;
- 		struct in6_addr new_addr;
- 		struct inet6_ifaddr *ifp2;
- 		int retries = ifp->stable_privacy_retry + 1;
-@@ -2236,11 +2237,14 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
- 			goto lock_errdad;
- 
- 		spin_lock_bh(&ifp2->lock);
--		ifp2->stable_privacy_retry = retries;
--		ifp2->state = INET6_IFADDR_STATE_PREDAD;
-+		if (ifp2->state != INET6_IFADDR_STATE_DEAD) {
-+			ifp2->stable_privacy_retry = retries;
-+			start_dad = true;
-+		}
- 		spin_unlock_bh(&ifp2->lock);
- 
--		addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
-+		if (start_dad)
-+			addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
- 		in6_ifa_put(ifp2);
- lock_errdad:
- 		spin_lock_bh(&ifp->lock);
--- 
-2.55.0
+Tested-by: Ron Economos <re@w6rz.net>
 
