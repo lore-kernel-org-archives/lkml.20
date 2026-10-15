@@ -1,127 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CFD4EC648;
-	Thu, 15 Oct 2026 12:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C43D518144
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066521; cv=none; b=t8cZqJRPxqmOT40Bci8+WHzY3LI+W97W5j2F9BVR4udsYVWHKHy5VPEqR2JnKitR1z/TOSPMs/C+xb+nKR2PvdtjNsORcuqHIRKnQEpgOmrMxZwtvec4fiv46+iLff/D5FlbnEeI4uxZ9IMn3qqXDNYQw8VhimnN3LZj0GHoRnY=
+	t=1792066557; cv=none; b=odw4gkpMtXcUe0ZE6fYnBsFg9HIktIuV30U8WCIUFZ6+jWMZOLNmcxKxUT2uUZgGaYzeuLHN3dhVDmucUExFSj3zM5n+OjtKRHUjRkNQfHCymc/7gopI0tWj20U65JdstSabvHPNGgPrj79YyUe+Jf1vBYwGrLxiAuNLHuqzygc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066521; c=relaxed/simple;
-	bh=e3zwtlUcU1rH59SkIp3e5S+rQQeZdA/m0g9/lILqkek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VlFQsyPJffjXaf9z4hDvitD1Vzko76Cksm1xOgCWigByh9fkNWAZsz93Bmo/Nw5ddVL5yaIBBAe+uJuHMerGclubp3pm5aZ1B9gERthEEg2I5wL8dSQqkavHGbEdzSw1QFNutdMXomc8hu0Py6c8GRfGybiF3GYbIasuECNieFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRJa7nmD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792066557; c=relaxed/simple;
+	bh=6oVcdzmMK85KNvYQY8vkwxZflX80T2BxPJ9HHlrFwhA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KOpaugMkqhW/HMMy/w+4kVzdNoRjHbeDqzoY/kBjy3dA3wJCkIYBq1atT3fq06mc7H9AQAkSu5SlwKIMMnFcIvmkqG4q2XvzvMtwsZ0SI1V+7+jOT9u2MezEf8sauAFEiWXUByoomNQHLQHNlPLxGixzXiToyUReghx3tYVh7Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C0fqI17P; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRJa7nmD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279371F000C4;
-	Thu, 15 Oct 2026 12:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792066520;
-	bh=vPpt4fQvcgT1ZyswqvuqO6QWS+d1ip3iJohS7kPIumE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iRJa7nmD62jJ330OWPgWqTv1juyVwXkFN17U5kH4SQNBnFHwDxR1BmcNNlOWbal2O
-	 2QvqIZgQJoq5Jno5aNVLlnalBTO3WlSYemXlwrXABk9K8YmYnMCgdgMEr4yBH4d2tQ
-	 O1tt+D6CBn7w64BnmRqpU2R3hLklxLEWEvO4wEQePXs8YEdSY3Xe8BmtP7nTG8MkCd
-	 Zvzlz8HRuUvKlZEvueB/vlN50XxyGEYR+JsroFG4XCuRvmIKcm5j7IwgBdkcjGIGOU
-	 XojilYX/dYEZy1LraEYKcqZ0s3xgCY0f0iWxh8LrLoU7R2+R5aggnDSoaBPS99r9lp
-	 47JyIYWtGEqMA==
-Date: Thu, 15 Oct 2026 12:15:17 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Jameson Thies <jthies@google.com>, Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] platform/chrome: cros_ec_typec: Enforce
- priority-based mode selection
-Message-ID: <atDD1RHZylPRZtP8@google.com>
-References: <20261008134056.3816556-1-akuchynski@chromium.org>
- <20261008134056.3816556-2-akuchynski@chromium.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C0fqI17P"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2db710396ffso39012325ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:15:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792066556; x=1792671356; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SN6vSgMsnnJYN+HFBZesKCHrB6GOW3IUndONKHtHc6k=;
+        b=C0fqI17PEw1Nreamv0VY+6rVmQEuJzI37WV1dX3mXFIjW+S0m3TzXpOIvfDRnT8dGO
+         l2cQW2aw5UXXFgENemBpyuydEvLCSI1j1FICSLl4sCltMeZD/uT7PshszGJAp8C8WJvw
+         mhy5xXnxrqt0kk12jz4Kt2dRhp6vznneJZ+y3aTxOyHKo4+E6eqwrxm4j7i2F8vwQRu2
+         Bsd7IGX73slQCjXN4kkujBJhWNOW1QOsWesx3ukgIZ5SLa2WIg6na3otSxAz5Fv1OD2Y
+         A9u41B6Pq6xXJZDt4Ha1Pj3nqw9gtrqYCf0XkbMGK1QgJqb2RpwlYoVOu3iBtyaI0s44
+         XzAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792066556; x=1792671356;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SN6vSgMsnnJYN+HFBZesKCHrB6GOW3IUndONKHtHc6k=;
+        b=2n785ueHYtKwjfjE8gvgyRLHCzPTrOg0rxTlajZbgSI2PYpgGBSmbQhoLOh/pUrFBZ
+         T5ISga53W1mqAS2Ovosgsx8HyZ+mH/VqfP4GJWH4ko2RKmloKBa3WnSESsxqKa5TlgD7
+         tZMu5G7IlmWlt7JgHu+0jtuQ/5KOC1aZAbswW3nqd1BMfUQ1p+OLr2cS026imbVsPAVA
+         mZVZSMRny4ieNfeaTY3rbAR8ldqpiYGDuatUejaASCWkrPY5Pw3qU7Q5Kf52MGfnSyjw
+         oD27YjDdHrKNrUUd9z3uhC2V5TjD2740CZBIbGj6C97vHR1mRuBW+hpM+GLGPvU/3axc
+         A1Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBzd7Tjf/yeXE6DCBO/JmBmqtykNqH8cUdes/7D2Je4rKtMPjT6aXvVqfq6F+eeGtE7KZWeegGOW3Dq4Axs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPzIZVpKVvBe/UlG6vOQA8dcaSYhtEm1p9PiRfqkAFM2EKDJYJ
+	wiuOLJFxmtEKU5xFJm4SY07WW8iceZhFCKvsaTJccmsr6mpss5K7ZzQK
+X-Gm-Gg: AYBFou2N7W4GoSbaNDduxx+I9YnAW9LbF3GsikF3wSM1n6SipCt6x2FIGzlc7cl8M0U
+	vjvpKPV1jv6piQ0nUIw1FmOQH4pvS9UFMQ13SXWNkRBuA3csz2ubsawY/zpeG/XXq/Ad8VvvPWb
+	31Yzr1UTl90aocb6MkoEgmsOx5+atnptLKEse5KnUc54OB6EEsfR7RyS/hvahA6yCMCR3VbQpFA
+	85vjgVPX4j38ZaBfTvai9SDP4gqKftEcnxXMbGpJYf2GSboamgw6bl66QvKNwXZVYQ1H55Bgwwe
+	1bXBW4LmBQPN/jP4pdAfj+y7YklqPVPOq9ufqrxt/cT88k9yhs6SsuAKWq5EvWNspI/xZ5ZSWDK
+	m/5tUz0De6hzXH0Kdp7kMMCyRK+aFtGU3RNYhRkmZXBCZ8V19mzFpc9SIkBcTx8jSkpoFA4q5Nj
+	OVJrxHbOUGRidanw2gndr/9Nbg5qY+81S3NLpPS/eUHPUOK9B1dbIsZMmiXyu4SqZoNMnZ/wCa8
+	t1/1o/FZtN2MHBguKyIxIZ6nVvYrk7PeRj0HexpZn3H5hb2Q1pV5f2G53WjJqEmagp8h7VOj89T
+	seL4l5IBrCAz513ZUNfjmt7Q38qXxoE9OMv+lZ9R0yQVnea8G7klHw==
+X-Received: by 2002:a17:90b:5825:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3ac9ed8f5eemr1065524a91.30.1792066555611;
+        Thu, 15 Oct 2026 05:15:55 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9437aa5fsm4273307a91.3.2026.10.15.05.15.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:15:54 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	E Shattow <e@freeshell.de>,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
+Date: Thu, 15 Oct 2026 20:15:49 +0800
+Message-ID: <20261015121549.3809199-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015074621-GKN26088@kernel.org>
+References: <20261012235624.77993-1-alan.tseng.cs@gmail.com> <20261012235624.77993-3-alan.tseng.cs@gmail.com> <20261015074621-GKN26088@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008134056.3816556-2-akuchynski@chromium.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 01:40:55PM +0000, Andrei Kuchynski wrote:
-> diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
-...
-> +/* Delay between mode entry/exit attempts, ms */
-> +static const unsigned int mode_selection_delay = 1000;
-> +/* Timeout for a mode entry attempt, ms */
-> +static const unsigned int mode_selection_timeout = 4000;
+Hi Yixun,
 
-Couldn't they be macros?
+Thanks for the review.
 
-> @@ -421,7 +427,6 @@ static int cros_typec_register_port_altmodes(struct cros_typec_data *typec,
->  		memset(&desc, 0, sizeof(desc));
->  		desc.svid = USB_TYPEC_TBT_SID;
->  		desc.mode = TBT_MODE;
-> -		desc.inactive = true;
+On Thu, Oct 15, 2026 at 07:46:21AM +0000, Yixun Lan wrote:
+> > &i2c8 {
+> > +	bootph-pre-ram;
+> We could move this to dtsi file, since all board share
+> same design which use i2c8 for connecting to pmic, the
+> reward would be that we no longer need to carry this
+> property all over board dts file.. similar we could do
+> for "i2c2", but I noticed k1-orangepi-rv2/r2s have no
+> eeprom enabled..
 
-Why this is removed?  Per 1aede0698167 ("platform/chrome: cros_ec_typec:
-Disable tbt on port"), it disables entering TBT mode automatically.
+Agreed, v2 will tag i2c8 in k1.dtsi. I'll keep i2c2 in the board
+files, as the OrangePi RV2 and R2S have no EEPROM.
 
-> @@ -940,6 +952,31 @@ static int cros_typec_register_altmodes(struct cros_typec_data *typec, int port_
->  		goto err_cleanup;
->  	}
->  
-> +	/* Once all partner alt-modes are added, we should also trigger
-> +	 * mode selection.
-> +	 */
+> > 			buck1 {
+> > +				bootph-pre-ram;
+> U-Boot also carry "regulator-name" for this node, we
+> probably could also merge it here, but could do it in
+> another patch if want to limit this patch to "pre-ram"
+> change only
 
-For multiple line comments:
+I'd prefer a separate patch for that, to keep this one about the
+bootph tags. The U-Boot K1 SPL looks the rails up by name ("vdd_core",
+"vdd_1v8", "vdd_1v8_mmc"), so once the names are upstream, U-Boot can
+drop the overrides in its -u-boot.dtsi files.
 
-    /*
-     * Once ...
-
-> +	if (is_partner && typec->ap_driven_altmode) {
-> +		bool usb4_mode = (port->caps.usb_capability & USB_CAPABILITY_USB4) &&
-> +			(PD_VDO_UFP_DEVCAP(port->p_identity.vdo[0]) & DEV_USB4_CAPABLE);
-> +
-> +		if (usb4_mode) {
-> +			ret = cros_typec_enter_usb_mode(port->port, USB_MODE_USB4);
-> +			if (ret < 0) {
-> +				usb4_mode = false;
-> +				dev_err(typec->dev,
-> +					"Unable to activate USB4 mode, port: %d\n", port_num);
-> +			}
-> +		}
-> +		if (!usb4_mode) {
-> +			ret = typec_mode_selection_start(port->partner,
-> +							 mode_selection_delay,
-> +							 mode_selection_timeout);
-> +			if (ret < 0)
-> +				dev_err(typec->dev,
-> +					"Unable to run mode selection, port: %d\n", port_num);
-
-Wouldn't it need to go to err_cleanup and return the ret?  Or, if they
-aren't considered as errors, dev_warn().
-
-> diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
-> index 66c546bf89b53..116329dd113f8 100644
-> --- a/drivers/platform/chrome/cros_typec_altmode.c
-> +++ b/drivers/platform/chrome/cros_typec_altmode.c
-> @@ -41,12 +41,16 @@ static void cros_typec_altmode_work(struct work_struct *work)
->  {
->  	struct cros_typec_altmode_data *data =
->  		container_of(work, struct cros_typec_altmode_data, work);
-> +	int ret;
->  
->  	mutex_lock(&data->lock);
->  
-> -	if (typec_altmode_vdm(data->alt, data->header, data->vdo_data,
-> -			      data->vdo_size))
-> +	ret = typec_altmode_vdm(data->alt, data->header, data->vdo_data,
-> +				data->vdo_size);
-> +	if (ret) {
->  		dev_err(&data->alt->dev, "VDM 0x%x failed\n", data->header);
-> +		typec_altmode_state_update(data->port->partner, data->sid, ret);
-> +	}
-
-Wouldn't it need to update the state even if !ret?
+Thanks,
+Hung-Chun
