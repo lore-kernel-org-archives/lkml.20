@@ -1,154 +1,202 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4556D30EF6C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B837106E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100713; cv=none; b=HPFShIdcQpJAkDj1e3csLPsfN0Ire/aiURe2Lz6GO0RsZPWD4btO/zrlIZQDoD+e+E+2MSgPNXuuqVE6E4g4zh/oztkEvGgJFDiJtQinfOW8w4BXNAJWaJ3J03wPweWl3uqJb8IqAVrr9LWIRX+Ksy1Gft2uBI651QFLbfSOqSA=
+	t=1792100877; cv=none; b=o6TAJfCBKPZAY5/ro98eNNi+pCdzSKyMm2GrnK6yxmcCfgT6UJt+3cosVAaLBykeHZ9H4Cl0EBfJDV0bhIsqYXRqA73jY8cnqLWtKfUkC6t42YepwWxs0fEIdyO0eZa5g/hKmqAwaP5aDAMWyRYmeutrGHItxyZrAejav0Kaxrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100713; c=relaxed/simple;
-	bh=GPNQqOJAOgBKAauyZt2tdDWFLSk/zJ+iARLWqBubi6s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sqI3qyGSTVo3gb0CmouTSZ+x0g8notlekK0+/t4MdGbN6kitNLiRoRIGXiU9zyHBbk5G2Ffi6FFNmvaPCC3ZMcDnoBMzNTkgLSgiKTVRMbyAIUMQxFExcsIF0HJQE9yR9taYqTIEGSlivIfQfYI6XxdhseXIi9dz/jbGoEzWgrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBlUIjX8; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792100877; c=relaxed/simple;
+	bh=1ru8MmwZuLDEM2zqYTrOIBmWMjMMd1tXdR6Knu7aVEg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OT+ae8LiMx7Q+KG3A4iHHqx6F/+z/BhyEBgEAld6RZwysl0lHG+IrrQmDadBb5FBKgqZCpo3ebfJruLY3HpRdZ7JKuladP6X5qzLY4hunHMWMpW5mhEGmYyNt6Sdag+HKj7clRcu6nGBGd6YS/6D3lb8EOmjO529Af9UBRztwT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgTwpqqA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBlUIjX8"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1746530a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792100712; x=1792705512; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9Utj4RJBz9ZzU3Tg03m75VH5qFdGTJER42ZgUXj5+s8=;
-        b=oBlUIjX8H3L398YNTVFnWmj6VlVLiUIO2KPqjEG+Hk+0hL5At01p59XcFXwn2UrRS6
-         R2km8R5+QiphW4mpagyNunPEzS+jCMVjutxs6LL0c8d1fEvKSL2wVPueeBejArZHzjxM
-         eNjekzxVSW377t4jJhFU0tancVP7abd6IrBVjOe8CM5wTEp6s1WOX5t2xyh1nbeUwW3f
-         +iI80VEwLE2jbjI9NHITmArOqsZAmbA+JorYD9sPmp/vO9OjrsEUAPUyDLbLGyjbkFQp
-         KCX8N0URjeYkAZrG7ZVBvPEMH6ddB0zzLebV6AQuRxdke2l6/HnP7yfmaHCGePSNDkIy
-         snSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100712; x=1792705512;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Utj4RJBz9ZzU3Tg03m75VH5qFdGTJER42ZgUXj5+s8=;
-        b=BPXVFEHZVQLIAmmGJtwopp+U9os10fJKwBQLFpPULe5YnnAHpRsehqmHQzfkHq2psU
-         RSFfKwVLWXlNL/NposQ+3m6P17O1PW4cVgKG5dt0PtlDMtK5dbGArSVQaM5BlECRGX6Q
-         T3NM/XFgoI05VfQ1KnwXEPV60q/Qn3zRZeYyMVszGjWTG1QEE7H/RN3dLOU2lhB9MUtK
-         wrtaE1AK61zgqKt+4FWGpKLGjiHkacg2TDXTGHX6rvHKmkaW4ZQkRxG0ZYWB7emd0b4f
-         /qzXZKAgvmgaYCkLHJIwVi8ZsYKfH0m3CFiHXFHch6UgP9gBjdyrcw4VDMChEWaoiqJz
-         Z4Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjlkUFwn29fGAOgVsTvtZPPtL57nua8gKhb5AvywnkVjrVYXT6CsqTU45euiW3Pd7QH4Gd3dpsOXWr5JA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzoYl/Ye8oaAVjQ5xCyzcdPQefgGgmfGqvlxyCmGK+hGhLMBWh
-	JVnarizvaTxA72iLfXcRjZoncYMxL5bnIFi3YxBkkx+t5nGSfr4y39An
-X-Gm-Gg: AYBFou18Puj/YPKhC/CuUJv3VzYwY66ezdI+JIdzubphq2QEuGl4VjdiOOMDfmP2vIS
-	h6BRkoOID9idEUvJm+dooplQVvItiiE80zQH/BhmQl908+PgeAQGt+LEucRV+IhTi9FtxCZe3zv
-	t3bPO5Fa7zuP3WgVnt7PYPZD60Xo2OQQcmKiUxgAX8A2H1fRvRC4k2YbvcfBP6Ti5vTo+JBsyvv
-	tC1xhRPRyt5IE33gJTzlahzjZpRtrABB0m0QuGN40m/M3Cd6IRMBV0ySEm/5JoiUvPbgJg4MxkK
-	0iTpXh43wi8i/ZNUsekZeCbTF5EEoT+52F4cFy5/luaUVq/FYlbgxd5pb0GBDeq4F6ezOv4n8AJ
-	An4yBvnqaPuJ/Wv+wq0hdnbB+U6xwOih4nP44QV6TFhkZ35NfishEaWxlgSsjqMmz5QGbxYRYQ+
-	Opf8z/k+d1PcJmpvplJKRSSYeTfjapIPJo0opdBJBY+AfWNXRNmAbKdpJmamejjjPh
-X-Received: by 2002:a17:90b:4b09:b0:3a2:b16d:928b with SMTP id 98e67ed59e1d1-3ab3a79dd3emr16515826a91.46.1792100711675;
-        Thu, 15 Oct 2026 14:45:11 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:52::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc963f36asm239567a91.0.2026.10.15.14.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:45:11 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:45:02 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Willem Ferguson <wferguson@cloudflare.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, ncardwell@google.com, bpf@vger.kernel.org, 
-	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
-	memxor@gmail.com, linux-doc@vger.kernel.org, corbet@lwn.net, 
-	linux-kselftest@vger.kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@cloudflare.com
-Subject: Re: [RFC PATCH net-next 0/4] tcp: carry a BPF-chosen identifier in
- TSval low bits
-Message-ID: <atFI9vl5hy09Dc0t@devvm7509.cco0.facebook.com>
-References: <20261013103906.2660384-1-wferguson@cloudflare.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgTwpqqA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7975C2BCC7;
+	Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792100876;
+	bh=1ru8MmwZuLDEM2zqYTrOIBmWMjMMd1tXdR6Knu7aVEg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=dgTwpqqAD9y9mx1dFv5b9vixaypfZE9qTQeWi9a0Pkg5pvoO28sI0DwODltLLBQGM
+	 WSLwr9JYO8NgO4mFfwlnFhL8x3daBNDyr76zLuzs/AG3NwJTF9qIWBab37u5W7znn7
+	 LG8bLN0/tTf5aKwpi240bB1j4tFhHpHjS9V2GTZtQMwwg4VCj+BcbmDQKisyHyoL96
+	 /dKB4Dq1L0i0iDfIshz4b3o3OvDqiyeQ1mLFRg+17LdAhUbTquwl7o5c2Ch4235tC2
+	 N58yzLbWBaoqs8yost/zuwh3MNLnImY3dPJulwYb/Wf3p6Yc5u/kMuh3UM6XeE8Oqn
+	 HAbraT3N/j03g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 830F0CCA464;
+	Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
+From: Vasilij Markin via B4 Relay <devnull+vasilij.kernel.tototo.si@kernel.org>
+Date: Thu, 15 Oct 2026 23:47:36 +0200
+Subject: [PATCH v3] drm/appletbdrm: Add suspend and resume support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013103906.2660384-1-wferguson@cloudflare.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMwQrCMBBEf6Xs2UiyaYN66n9ID41Z7YJtQxKCU
+ vLvpr3LzOUNzNsgUmCKcGs2CJQ58rpU0KcGHtO4vEiwqwwo0cgrtmL0/k3JujALPwtjHaLUl86
+ ShfrxgZ78OXz3ofLEMa3he+iz2td/pqyEEpK6VqOqNapP655zZBhKKT8aGqKFqgAAAA==
+X-Change-ID: 20260924-appletbdrm-pm-6bd220385beb
+To: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Lukas Wunner <lukas@wunner.de>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Kerem Karabay <kekrby@gmail.com>, 
+ Atharva Tiwari <evepolonium@gmail.com>, 
+ Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
+ Vasilij Markin <vasilij.kernel@tototo.si>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100875; l=5223;
+ i=vasilij.kernel@tototo.si; s=20260924; h=from:subject:message-id;
+ bh=5WU2l1yPzf1T2QcmJPYERBCb+bsgaXl69kOpDB1ET3A=;
+ b=L8RuW0f7e5ePRHSayGYmLP0GmLimZrmKkQo03AWEkmKWav4xyzZw5ClUTpdEQy8NwefW8Xkk6
+ ILAawydc6GHDHWmpMcpzAQqCV6wJBQ10HkOEaYlnoRffLUWIi0pYoaI
+X-Developer-Key: i=vasilij.kernel@tototo.si; a=ed25519;
+ pk=GBDozjDEYjDf6fxRiVINxMYHaGbpq/11fq4B6pdR7Gs=
+X-Endpoint-Received: by B4 Relay for vasilij.kernel@tototo.si/20260924 with
+ auth_id=1057
+X-Original-From: Vasilij Markin <vasilij.kernel@tototo.si>
+Reply-To: vasilij.kernel@tototo.si
 
-On 10/13, Willem Ferguson wrote:
-> This series lets a listener encode a small per-connection identifier in
-> the low bits of the TCP timestamp values it sends. The peer echoes TSval
-> back in TSecr, so every segment the peer sends after the handshake
-> carries the identifier in its TSecr.
-> 
-> In Anycast networks, mid-stream path changes caused by BGP route flapping
-> or ECMP shifts frequently deliver active TCP packets to an ingress Point
-> of Presence (PoP) that lacks the flow's socket state, resulting in abrupt
-> connection resets (RST). While protocols like QUIC avoid this using explicit
-> Connection IDs, TCP lacks an in-band routing token to help ingress
-> nodes identify where a flow actually lives. To address this problem,
-> we propose embedding an N-bit data center ID into the lower-order bits
-> of the TCP Timestamp option (TSval, RFC 7323), allowing edge load balancers
-> to recognize misdirected packets and steer them to the correct origin data
-> center holding the active session.
-> 
-> How it works:
-> 
->  - tcp_ts_id_bits (per netns, 0..8, default 0) sets how many low TSval
->    bits are reserved. The millisecond clock is shifted up by that many
->    bits.
->  - A sock_ops program opts a listener in with
->    BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG and is called with
->    BPF_SOCK_OPS_TCP_TS_ID_CB for each SYN, before the SYN-ACK is sent.
->    It sees the SYN and optionally returns the identifier
->  - The identifier and width are stored in the request socket, then in
->    the full and timewait sockets. Incoming TSecr values are decoded
->    before RTT estimation and PAWS use them.
->  - TCP_TS_ID reads back the identifier, and /proc/net/netstat gains
->    TCPTSIdAssigned, TCPTSIdDeclined, TCPTSIdSkipped and
->    TCPTSIdEchoMismatch.
-> 
-> RTT estimation on the encoding host sees the same decoded timestamps
-> as before, so they are unchanged. On the peer, PAWS keeps working too;
-> the only effects are a shorter idle limit and a narrower tolerance for
-> reordered segments, both described below.
-> 
-> Scope and limitations:
-> 
->  - Passive opens only. SYN cookies, microsecond timestamps and peers
->    without timestamps are left unencoded.
->  - The peer sees a clock running 2^bits times faster. That narrows the
->    real-time span of its PAWS window, so the width should be no larger
->    than the identifiers need.
->  - Peers that keep ts_recent for the RFC 7323 24 days (e.g. FreeBSD,
->    macOS) stall connections that stay idle longer than 24.8/2^bits days
->    (about 37 hours at 4 bits). Linux peers stop enforcing PAWS after
->    TCP_PAWS_WRAP and are unaffected.
->  - TCP_REPAIR cannot restore the identifier, so hosts that migrate
->    established connections should leave the feature off.
-> 
-> All of this is documented under tcp_ts_id_bits in ip-sysctl.rst. With
-> the sysctl at 0 (the default) the only new cost on the established fast
-> path is one likely() branch when parsing TSecr.
-> 
-> Questions for reviewers:
-> 
->  1. Is encoding an identifier in the low bits of TSval acceptable in
->     principle, given the trade-offs above?
->  2. If so, what feedback do you have on the implementation?
+From: Vasilij Markin <vasilij.kernel@tototo.si>
 
-Don't see any feedback yet, so from the top of my head: looks like you
-control two sides of the communication, so why not a custom (bpf) tcp option?
-Would you need that on every packet and it makes it expensive?
+The driver has no USB power management callbacks, so the USB core
+unbinds it before system suspend and binds it again on resume. The DRM
+device is unregistered and registered again on every suspend and resume
+cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+loses its device, and the Touch Bar stays dark after resume.
 
-Or any other field you can abuse maybe? IPv6 Flow label?
+Implement suspend and resume with drm_mode_config_helper_suspend() and
+drm_mode_config_helper_resume(), so the device stays registered and the
+last committed state is restored on resume. If the device was reset
+while suspended, repeat the probe-time handshake first.
 
-Implementation-wise, the sock_ops is going away in favor of bpf_tcp_ops,
-so BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG is a no go.
+Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+---
+Tested on a MacBookPro16,2 with this change backported to the t2linux
+7.2.11 kernel, deep (S3) suspend by closing the lid, tiny-dfr 0.3.7, 7
+suspend/resume cycles. On this kernel the Touch Bar display is reset on
+every resume ("usb 5-6: reset high-speed USB device number 7 using
+t2bce_core"), so reset_resume runs each time: the driver is not probed
+again, tiny-dfr keeps running and the Touch Bar shows its content right
+after resume. Without reset_resume (v2) the same reset makes the USB core
+unbind and probe the driver again, and the Touch Bar stays dark. The error
+path in reset_resume is untested: the handshake never failed.
+
+Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
+also need the plane reset hook to free the existing state, otherwise
+drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
+appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
+kernel; the tested backport carries that change as a separate patch.
+
+Built on drm-misc-next (1c01801c3) with W=1 without warnings.
+---
+Changes in v3:
+- Bring back reset_resume: v2 dropped it because the device was not reset
+  on resume, but with the t2bce driver of the t2linux 7.2.11 kernel it is
+  reset on every resume, and without reset_resume the driver is probed
+  again (Sashiko review of v2).
+- In reset_resume, call drm_mode_config_helper_resume() even if the probe
+  handshake fails, so that the state saved on suspend is released
+  (Sashiko review of v1).
+- Rebase on current drm-misc-next.
+- Link to v2: https://lore.kernel.org/all/586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev/
+
+Changes in v2 (sent by Aditya Garg):
+- Remove reset_resume.
+- Link to v1: https://lore.kernel.org/r/20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si
+---
+ drivers/gpu/drm/tiny/appletbdrm.c | 46 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+
+diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+index 4297d9c11..350dc598c 100644
+--- a/drivers/gpu/drm/tiny/appletbdrm.c
++++ b/drivers/gpu/drm/tiny/appletbdrm.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_modeset_helper.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+@@ -821,6 +822,48 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
+ 	drm_atomic_helper_shutdown(&adev->drm);
+ }
+ 
++static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_suspend(&adev->drm);
++}
++
++static int appletbdrm_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_resume(&adev->drm);
++}
++
++static int appletbdrm_reset_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++	struct drm_device *drm = &adev->drm;
++	int ret, resume_ret;
++
++	/*
++	 * A reset puts the device back into its initial state, where it
++	 * expects the same handshake as during probe. Resume the DRM side
++	 * even if the handshake fails, so that the state saved on suspend
++	 * is released.
++	 */
++	ret = appletbdrm_get_information(adev);
++	if (ret) {
++		drm_err(drm, "Failed to get display information\n");
++		goto resume;
++	}
++
++	ret = appletbdrm_signal_readiness(adev);
++	if (ret)
++		drm_err(drm, "Failed to signal readiness\n");
++
++resume:
++	resume_ret = drm_mode_config_helper_resume(drm);
++
++	return ret ? ret : resume_ret;
++}
++
+ static const struct usb_device_id appletbdrm_usb_id_table[] = {
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+ 	{}
+@@ -832,6 +875,9 @@ static struct usb_driver appletbdrm_usb_driver = {
+ 	.probe		= appletbdrm_probe,
+ 	.disconnect	= appletbdrm_disconnect,
+ 	.shutdown	= appletbdrm_shutdown,
++	.suspend	= appletbdrm_suspend,
++	.resume		= appletbdrm_resume,
++	.reset_resume	= appletbdrm_reset_resume,
+ 	.id_table	= appletbdrm_usb_id_table,
+ };
+ module_usb_driver(appletbdrm_usb_driver);
+
+---
+base-commit: 1c01801c393ef934286e19f03374999c858e6a20
+change-id: 20260924-appletbdrm-pm-6bd220385beb
+
+Best regards,
+-- 
+Vasilij Markin <vasilij.kernel@tototo.si>
+
+
