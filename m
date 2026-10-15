@@ -1,111 +1,97 @@
-Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D803537E5EB;
-	Thu, 15 Oct 2026 02:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378DF3A1A22
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030225; cv=none; b=iw9j1eLNAYe+qnRgl1kDsbJbXBnxSaFcARsikOjDM43UmDjC+SlA+cn3WQeOSCryan26QltKHR90gtgmeJ84DF47WUcwv1Ih+vKokfcnEPtUw/W3cUxpCY4CQ3xBZKprgVOreGw6RFPMz2iBaQsEpFy5Pa/lclbkAK7AyNY2rDA=
+	t=1792030310; cv=none; b=fdElT9qEW9wuoMLCRpb4tr37s5VByCJHJ0h+OOfTz7Vt8NWIQPGTV8yWncZJ5quBKTpvbHnzO2V5luYIzZxF4TrtICsTu2DaKpX9rsD14Nbh125meB/rtEuzB7edrhEdfqdh9RxS/vzG7dh6Gk/XUa7D7PWAcM3w3L9C0GXM44M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030225; c=relaxed/simple;
-	bh=UciLElILb4MREYhywIGPFVAqEkpc2MfPy8vmCW9C5xY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sxwdWBJ6abSpWqBgTBzCqo+Y3Z6RIFYE00zNK9fqVf4ZmBiUPYZ4XzlgCsEA+Tw9F6+7mEuz3Kon/t/avOG2leYpfjJBFj/efjq8dL8TUPBE8ei5K1llwgXCkyKuqJ/zB+E/ZWDQ+Txc4fEuIxzFJH3a073NLJH8FTTyQLtSr18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=YEMbG3jv; arc=none smtp.client-ip=115.124.28.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1792030310; c=relaxed/simple;
+	bh=Do0iA8uNsiwH96pQFdYvdEdXnoS+GP1Eort9RjA8HUs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A+gPR3N83Hzt+B5nzQX5woRYkNeb3FFLknuNve0ineDswDOntN3BFHJ++xuDrts5tVnoMXlB8jT20OopKCFCvwJnFLRD2aUe3OOoS0Fhyq+0HqVMjO2WG5XXENLYohsbqVYVVlMEXMQQxWnLskSfuH4oqLJ5v17kJDbDgK412yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=k/antPzB; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="YEMbG3jv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792030214; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To;
-	bh=wHwAcuqNgX1w8cGpzkrIWY0kOgSy8n/NTCpBn8jlIEg=;
-	b=YEMbG3jv2lnJ1S90yl08yUFEzWZFpaxC9B6k1XmQ7m9Or+bsIw6R+g45NpyJ4tPlN7ySQSttVK9lOL1dK+6MkzsoXFHKqxjv1LE9kleaoan2lPvE6G5UeigMMhNCcfarv1YpnuA9SniBz8kr9TPsDBe0nd5yua5abtMErHrwT0Y=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07574709|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00277256-0.000464609-0.996763;FP=9667071803597065642|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jdzWobX_1792030212;
-Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jdzWobX_1792030212 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 10:10:13 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Thu, 15 Oct 2026 10:10:12 +0800
-Subject: [PATCH] spi: npcm-fiu: limit UMA data_size to the 16-byte staging
- buffer
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="k/antPzB"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so1197926a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:11:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792030307; x=1792635107; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LvIiWBHgt9RJ8Lp49q+d6DWrLq7WNl23wUdd8hsh/fk=;
+        b=k/antPzBLeg485CCGqKBqHAUS2UL6GXz3uUQgsiwaj3tiJhn+Hhl59X3NpX7mYIBcV
+         ENBHJCi7xe6nZGtLgVaPiyaWjWqBUrrXfs1pjZAD5NqUdH26TpWtFW8Ku5OVnoT2jKX+
+         N8HbKOaQsZGbOvdRIvqr9/4dgcpSMDQjy912w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792030307; x=1792635107;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LvIiWBHgt9RJ8Lp49q+d6DWrLq7WNl23wUdd8hsh/fk=;
+        b=cJnkko6RTyk81cVkfi2oAB7IctslBruVHIvJYCOXQUqWGj0pSzYnF6dtLTfrJ3Ml8h
+         4UhoZyTKDMCvvK3qORwK/3VWfncCig/2dg0gU4FsNbF1sABoHQ89rdiKZo/r3gY6Keoq
+         WdhPUzeUgp1PEKIZgjgu92Xgjwo7PYnEcLMooBJKUUwzfeaDd5A9rmGb/Yxiuju/GpnP
+         3kRuoM5yYa1SWjZS0n3IRNftrwsm/N3pHRAaw1APIRzOaDpodg33i9N7wfeWTTV0bkKo
+         uXKZRSeIQSzK8vlYMujyrdhloP+yzViZSIcnK0zK6ZYpSfdUjGEdPB2hVYmqFSlCQiLF
+         Wlew==
+X-Forwarded-Encrypted: i=1; AKwUvByr1brwYvffzzY0wSnE65FgH3O9bkClteD+vmT0rVS/wVNmLIKa2qJFikXq3ft+tpNEbYMvYvTg2PtQqvU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2CKo7ziiKLZigseLXfzMcfL0ORzZY+mhf5VFrI8fdxAxThxDu
+	sgRdM8D9AWeafe2G9vMRidOgsrqJwsnS2DkRSOdXlJR0U283GeMXL1tfosM0ctfIUQ==
+X-Gm-Gg: AYBFou16QI1ci4kXxmz3ZkHBdidKOQMKMObta/T1eW+nyoolYO/e3eb08CBY7iBOENo
+	t9SLQP9PbE8CAp9itohloPzFj5hZSd0+KxXtkXx9W7hyTUGaaDkNyBDkvSa2pvsKwcfmCCXC4IG
+	1Lq1cwom1XmZw3qZ+6uEf6MhqoFlOkgYS3cEuSddzXIx2HCDP7zeEyhalAOgDX+xu7gCs+5QHba
+	L7HLV8vZX/j/v2mw/Zy4faOF3SjNZ0SuUTj6ucL7JrcjEgTot8gsAle5IOgI0L9Li/e4I3ERmg8
+	qo2HJPqYfGI3eAUrUtBjZG4gydoVOfsKOuIagVZasBlLGoqKgfPP02nHIY85hWZOGalODg3XK/4
+	rjzPXjf8fZVJI3tWlHaO5o44juayiEn60MmDadf0qhO95Eeb7KPRv9YFHQN2df89yt3mYbwE1fu
+	Wj3H3xWBv7bU5zGm3WikszRew2f9esGJ46rNVO85Qfyy68oe0yZ59X4vDPK2MnzPPPjMdeDlYv/
+	9sF30APnGkq+ZH7YWThNyfBFV3chTTf1171Muw=
+X-Received: by 2002:a17:90a:e7ca:b0:3ab:36c4:b500 with SMTP id 98e67ed59e1d1-3ab3a39f232mr15295954a91.5.1792030307388;
+        Wed, 14 Oct 2026 19:11:47 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:8455:7899:5a2e:26f8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac937f2d3bsm1227191a91.4.2026.10.14.19.11.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:11:46 -0700 (PDT)
+Date: Thu, 15 Oct 2026 11:11:42 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Bo Zhang <zhangbo0325@gmail.com>, akpm@linux-foundation.org, 
+	bgeffon@google.com, minchan@kernel.org, richardycc@google.com, baohua@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
+Message-ID: <atA2JznFm8zLIMIb@google.com>
+References: <20261013035201.2809924-11-senozhatsky@chromium.org>
+ <20261014153603.1365617-1-zhangbo56@xiaomi.com>
+ <atAj9o5IgrAeiGiW@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-npcm-fiu-uma-datasize-v1-1-7dee91cadee6@xiaopeng.com>
-X-B4-Tracking: v=1; b=H4sIAAQ20GoC/x3MQQ5AMBBA0avIrE3SimriKmIxajALJS0ipHfXW
- L7F/y9EDsIR2uKFwJdE2XyGLgtwC/mZUcZsqFTVaKUN+t2tOMmJ50o40kFRHsZhYEPGOGtrC7n
- dA09y/9+uT+kD723namcAAAA=
-X-Change-ID: 20261015-npcm-fiu-uma-datasize-bbe5a55c7747
-To: linux-spi@vger.kernel.org, tmaimon77@gmail.com, broonie@kernel.org
-Cc: venture@google.com, andrew@codeconstruct.com.au, yuenn@google.com, 
- tali.perry1@gmail.com, benjaminfair@google.com, avifishman70@gmail.com, 
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
- stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>, 
- Weibin Liu <liuwb@xiaopeng.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atAj9o5IgrAeiGiW@google.com>
 
-npcm_fiu_uma_read() and npcm_fiu_uma_write() use a 16-byte on-stack
-staging buffer (u32 data_reg[4]) and move data_size bytes to or from
-it. data_size comes straight from op->data.nbytes, which is supplied
-by the SPI MEM operation and is not bounded by the driver:
-npcm_fiu_exec_op() only validates op->addr.nbytes, and no
-adjust_op_size callback truncates the transfer to the controller FIFO
-size.
+On (26/10/15 10:41), Sergey Senozhatsky wrote:
+[..]
+> +	if (zcomp_shared_decomp(comp)) {
+> +		struct page *pages[2];
+> +		unsigned int flags;
+> +
+> +		pages[0] = sg_page(sg);
+> +		pages[1] = sg_page(sg_next(sg));
+> +
+> +		flags = memalloc_noreclaim_save();
+			^^^
+			memalloc noio
 
-A SPI MEM operation with addr.nbytes == 0 and data.nbytes > 16
-therefore overflows data_reg[] on the kernel stack (write path) or
-reads past it (read path), corrupting the stack.
-
-Reject data_size larger than the staging buffer in both UMA helpers
-by returning -EOPNOTSUPP, so spi_mem falls back to the generic SPI
-message path. The chunked path in npcm_fiu_manualwrite() always passes
-at most CHUNK_SIZE bytes, so it is unaffected.
-
-Fixes: ace55c411b11 ("spi: npcm-fiu: add NPCM FIU controller driver")
-Cc: stable@vger.kernel.org # 5.4+
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
- drivers/spi/spi-npcm-fiu.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/spi/spi-npcm-fiu.c b/drivers/spi/spi-npcm-fiu.c
-index 96dfef4d9067..9c0a655a54b3 100644
---- a/drivers/spi/spi-npcm-fiu.c
-+++ b/drivers/spi/spi-npcm-fiu.c
-@@ -343,6 +343,10 @@ static int npcm_fiu_uma_read(struct spi_mem *mem,
- 	u32 val;
- 	u32 i;
- 
-+	/* data_reg holds at most 16 bytes */
-+	if (data_size > sizeof(data_reg))
-+		return -EOPNOTSUPP;
-+
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
- 			   (spi_get_chipselect(mem->spi, 0) <<
-@@ -398,6 +402,10 @@ static int npcm_fiu_uma_write(struct spi_mem *mem,
- 	u32 val;
- 	u32 i;
- 
-+	/* data_reg holds at most 16 bytes */
-+	if (data_size > sizeof(data_reg))
-+		return -EOPNOTSUPP;
-+
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
- 			   (spi_get_chipselect(mem->spi, 0) <<
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261015-npcm-fiu-uma-datasize-bbe5a55c7747
-
-Best regards,
--- 
-Weibin Liu <liuwb@xiaopeng.com>
-
+> +		src = vm_map_ram(pages, 2, NUMA_NO_NODE);
+> +		memalloc_noreclaim_restore(flags);
+		^^^
+		memalloc noio
