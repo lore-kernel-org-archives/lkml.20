@@ -1,111 +1,87 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410A43B42CB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792102254; cv=pass; b=q+/+8ygL+9nn6tOdJOtoogQ5poSEZU9jhgNQXOHe2ws77HSHYMa0WDurmGg0gicHdUjU4Xm7BwdM5aIFcHkPLSh4YvX+sJgitRGQM+b+jg9Xyp8+taIrzvXbvBh8FEGpSSoj8FN+t6R+UfdOK9EBL9bZJcb+SxW7BdNFI6MA0Z4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792102254; c=relaxed/simple;
-	bh=HrOPWKV9uRiqcVmFgZretdSmBgeyb74MAmTnswv+yAs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vwz8nBl6jeXp2vra1EPFfiwslmQpesxxvXaxMaVbNh0VsqPiHGNubELMd0F48a265ZOzKbvaO47Q98OXz4z86CwNG7INftfbtlF3SuUmLaluRXeVH8DbKAatINDLTncSS3pis2MCV3cwpJAw+xgU1fKFzpAOnR41HdwOnOxdLC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Yx5dJdWg; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653AB31F99C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792102279; cv=none; b=NmLwRAJzEDVw3xgPcmXjhFpiTFznFpn0oR4oRrDSJAd6Q3bcH1JLOWiV3EWnww4MxTpMPSvc+MFj9XZ5eiyWYJrju4npX1LQTx84Mz1EXUH/6QHv/6mBgsO8FSh6HcUUkCfU+5NWW2NIemYYMBOAzK36zncOyEnLWxBrlGBqwbo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792102279; c=relaxed/simple;
+	bh=R1tfR9/yrN5LRHZgZviBQJwBqmbhhvpv5YyAbXgiRDo=;
+	h=Message-ID:From:Date:Subject:To:Cc; b=F4CEySKCLuzn1DhqqwZkbyV62mpdyE0txWuS7OuXDsD0qCMWjsxQrJhTRh8tk+GI5Q1guHmLuy36uJmpsZV57e5tDWj/Ku2V5iyl7lYF5+jQgba9643ultWUjTkkZC7vl/A2m4eHTOnIgzPM9CMAr7tO3diOD7OmLEXvb5pGpjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smmh.dev; spf=pass smtp.mailfrom=smmh.dev; dkim=pass (2048-bit key) header.d=smmh.dev header.i=@smmh.dev header.b=ZNGyJQFY; arc=none smtp.client-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=smmh.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smmh.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Yx5dJdWg"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5337c7b9937so98411cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:10:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792102252; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IOKt6mkYgAu5f97i3S9O7ru5umC2kDGFKRFuNf9lVdwd/K8NOL9DTGZU3YBgcUIsNs
-         EzoE/2rpKr0U3s1ZX2WUijuZCuRLGzCC4oUB8CqW9HPX4VSNVddX+SlTH9z3p7HqvY8U
-         TL2yBic5XcFhcLuvRvG4XuwKomhidr5iPe9mGMKeF/11QaaLFgoFlJHWoLBg6l4DcMZO
-         G+IGiTndDMXe52uzuxuNjIeBtsjzBUyJaNzBCoDVa6J0DOxt2ZVKzicynsm1ONUlJcJL
-         mYB/PMGuZolmZdiNqyrTtPbTm42JsE6B9bhXBt8vrv3Zg3BMGml4hR1P+GKqaOAH0Qq8
-         HZNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HrOPWKV9uRiqcVmFgZretdSmBgeyb74MAmTnswv+yAs=;
-        fh=uF5A5OQS3Kx185gX3u7lrH9px1T3SqSLfr2+wkeeC84=;
-        b=iuoHX2FIatKgD4z2gzX8pG+HJNdF0EsD10gcZykEG+qEKm8YBrzk6//dcENlNlnSld
-         DDXI6qtQpwQiQes6saCA+snS0HnKhYFOl4ebXz37AI/5nb4CNFLNp8Xwyc8beUl+vd8z
-         Dr/2Gx/n7De/W8wR0+gsm3WfuXw3Rloabrze8Hndg84nnuNNASbh5hgJbU+0RqEyCshP
-         L9l6ZJQpppcR2DnrPAkL8dJ65Z6jA4XMf65/Kc5A4IdL+HIFLOOKigPFnCnumX9cqQPe
-         wdKPPp7+XbFUr19aZ0qP50nmjBF+QbkdfrcZA5Rah+CPohz7/8CpA/KEyGMD2Qa1NiND
-         9KTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792102252; x=1792707052; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HrOPWKV9uRiqcVmFgZretdSmBgeyb74MAmTnswv+yAs=;
-        b=Yx5dJdWg6GGbAiaUF1wuXAqfwP1RIS7hZUEF44jPJDjtSDMMO1KUX7jOqlvWlGZ727
-         dbuyRXAizRzeepUh+w8T7jf1YX8is6THGCTcgR6K2ZN9nLawUghDx3pcGp9L1IhEwcjx
-         m4P3YmDCOpA8ziaqQNooG7ifyRyAnSeP9FY+v6pK4/pD/bWGPt198S/5bxHG1gnMMstE
-         psy1p8hCOK1/6jpSKM0znszmlw4+LbhVp6Nc3NXwklLgbPlhL+d687QujHBjbvM24BJ6
-         pm3qbkqPgxRtNcnF26Wjshs5jY9WfZGMH+5z/KBbdowo7mKujKRD8ULxdOhcbUhxaeCD
-         iHog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792102252; x=1792707052;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HrOPWKV9uRiqcVmFgZretdSmBgeyb74MAmTnswv+yAs=;
-        b=YaTvgrXHciIqIYLRC4IjVn+p2B2ihdFi7enXvDmZ8zoqF7pfpoSjGjp1ThhyQv/7JL
-         KU7QYeQQw/9oaTnPgnAyzIcA66rRyfUPiTXpHz7YDbBXRmmkLqCTvpbeYOLb/IKJyM4D
-         WoYWuRFt7SPXVQomz4KkINFP3amgvKRKqdpP/DnT37deqACarNX0lcCCBJ1igv/4Y0sw
-         4xgI+VI682N11uhnJbeJs6IbUhmza7i3UukcMEUBt2/eX0SSaIvEgs/8t0i/7+m/juko
-         2ubOPkor9Ry8CPzcv8y+qI1256InluVxh56hAyVdo2YCv7e9cXJSa4mXdoSTpBwzLo3x
-         kS8w==
-X-Forwarded-Encrypted: i=1; AKwUvBz5tD9HJMEExklWSh2jLwfB2yoUi84gwOBwkxoaR82jc/HhqnsR9AfA3oCBNEUIh6Opyuux93GFkVzYiFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpu94nQ3M9JQK6z9ZtJzBg/sE1pFxfo3A2HEmrbZg9twAF40Vj
-	011RHHl+tP/9MumZUUr1XQwJMo4x1eAHoc0yaW2GIjNo1uj/RGWfmiILGxvC9/Gb15R9cUm8ELK
-	ErIWkxpXF59gA152MyqPNulFsuUc9H1WM1x8nIg6QwlVib7JP0Cu8hE8x
-X-Gm-Gg: AYBFou0KciLbVe/8HFK0JhfgunvHkxc1Hgy/FxUwhu6NgnLZqT4WbhfpgPyidNk5iIn
-	FbXMDZZZQgolXZ8wMmIJdVps1eUtzGOhyEV2dz+ESfrpWH3gN8kwWRUJ0+MOBaZI3xPyC8CV5Hd
-	YvogEKz+5dHNPe0eLnqnwzq8Nvyp9/lr+Uh0Rm1Vqb9PeP91jMjDOEK990xfwwM840LX9Tnann6
-	M+jURVoqqvdpXMTyH62VIFflqNYerioyBxW2wv5IR2uhUtlqahRNi38yJBAHOuvW+N5mkMn6G4b
-	KkBRsAfusm7JAPMI3tCq+y4T4noJOhLtFtFVKE/XTEUKK/gVdOyUt8o=
-X-Received: by 2002:ac8:5a0f:0:b0:532:9220:a9ae with SMTP id
- d75a77b69052e-53629ac8fcbmr4055361cf.6.1792102251473; Thu, 15 Oct 2026
- 15:10:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=smmh.dev header.i=@smmh.dev header.b="ZNGyJQFY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=R1tfR9/yrN5LRHZgZviBQJwBqmbhhvpv5YyAbXgiRDo=;
+ c=simple/simple; d=smmh.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792102274; v=1; x=1792707074;
+ b=ZNGyJQFYOjRy9oKXPTj1sezbOuFOLSY7ZigNiLeyGpONwD+q4TaM9o+wxpVOLSg83SRtFDwI
+ mKJwyZQpSe3p2s0liK2ezfXKt1ZyC5TBcVd9dRwpMSHCcT0qRzPGWByAsVx9nHm2YsdauHsxRAc
+ XMF9QpI2enhHYgt8+GMGiK2EDN3bI2wn9De9dRgF4Yr0IKMG/X7QL31YM8v01YWjVmIjYuJNmuh
+ xOaqvDAb18yAdm/PZBHGOlnmzIHD88RAxsXTcUhA7uZzxf7ZsoLeIkOzoIE+6bJgpmBRWCc+Mz7
+ aWaBE5UjjgY1JoOX4IfgWAqAn+GUZuTy4eO1h2zIWKwJQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 782b3f0c7a015416;
+	Thu, 15 Oct 2026 22:11:13 +0000
+X-Mizu-Trace-ID: 782b3f0c7a015416
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cover.1791672579.git.i@smmh.dev>
+From: Seyed Mohammad Mahdi Hosseini <i@smmh.dev>
+Date: Fri, 16 Oct 2026 00:10:53 +0200
+Subject: [PATCH 0/2] platform/x86: asus-nb-wmi: Ignore events 0xE5 and 0x4F
+To: Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>,
+ Denis Benato <denis.benato@linux.dev>,
+ platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-19-yosry@kernel.org>
-In-Reply-To: <20261012233638.2546339-19-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 15 Oct 2026 15:10:35 -0700
-X-Gm-Features: AclHuK-0h5rHSnqyAiLfJHcCVzzx_T8eixjFxdrxOULNj_D687GEFjRgA8p0a3Q
-Message-ID: <CALMp9eSeDzKxf===96Wv7enq9-tO0EZhJoXTYvcCgZxuBS1pRA@mail.gmail.com>
-Subject: Re: [PATCH v3 18/27] KVM: nSVM: Split nested_svm_transition_tlb_flush()
- into entry/exit fns
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> The handling for the entry and exit TLB flushes will diverge
-> significantly in the following changes. Instead of adding an 'is_vmenter'
-> argument like nested_vmx_transition_tlb_flush(), just split the function
-> into two variants for 'entry' and 'exit'.
->
-> No functional change intended.
->
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+On the ASUS TUF Gaming A15 FA507RF (BIOS FA507RF.306), two WMI events
+reach asus-nb-wmi without a keymap entry, so asus-wmi logs
+"Unknown key code" for each and reports KEY_UNKNOWN on the "Asus WMI
+hotkeys" input device:
+
+- 0xE5 arrives about every 10 seconds, for many hours at a time, while
+  the laptop is on AC power, with nobody touching the keyboard. Desktops
+  take each KEY_UNKNOWN as user activity, so the lock screen keeps
+  waking up. Patch 1 ignores it.
+
+- 0x4F arrives when Fn+Windows is pressed. The firmware toggles the
+  Windows key lock by itself; the event only notifies, and nothing in
+  the kernel needs to act on it. Patch 2 ignores it.
+
+Both follow the existing KE_IGNORE entries (0xC6, 0xCF, 0x7B).
+
+Patch 1 overlaps with "platform/x86: asus-nb-wmi: Ignore spurious 0xe5
+events on GU605MY" by Evgeny Volferts
+(https://patchwork.kernel.org/project/platform-driver-x86/patch/20261015163029.107250-1-eugene.wolferz@gmail.com/),
+which ignores 0xE5 through a DMI quirk for the ROG Zephyrus G16 GU605MY
+only. The same event, at the same period, also shows up on this TUF
+FA507RF, and users report it on the TUF F15 FX506HE and the TUF A17
+(https://bbs.archlinux.org/viewtopic.php?id=305063) and on a Zenbook
+(https://forum.manjaro.org/t/kernel-error-message-0xe5/157745). No ASUS
+model maps 0xE5 to a key, so patch 1 ignores it in the shared keymap
+for every model, the way 0xCF was handled. If a per-model quirk is
+preferred, I can send a version adding the FA507RF to that patch's
+quirk instead.
+
+Seyed Mohammad Mahdi Hosseini (2):
+  platform/x86: asus-nb-wmi: Ignore unknown event 0xE5
+  platform/x86: asus-nb-wmi: Ignore Windows key lock event 0x4F
+
+ drivers/platform/x86/asus-nb-wmi.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+-- 
+2.55.0
