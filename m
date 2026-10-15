@@ -1,178 +1,496 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013003.outbound.protection.outlook.com [40.107.201.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD841322C73;
-	Thu, 15 Oct 2026 01:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.3
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027998; cv=fail; b=BISQ0GhoWDebrFxEQk7y0BJNQd9vpc7/nHfGmnQSgDF8bd/zVvtF8mbm7RJqmHfUavHgfNArybTXH23NXI9I0sUDc3tXKF6+Cly3ml2QrTPXAz8gytABWaq05ToPcNq6NOqqhQbP2anon7QNDwa2GGNO0vREgFKxo9YnLi5xUz8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027998; c=relaxed/simple;
-	bh=vfrwwN3OP8R4lyjy65cew9aMEpoD5KejD9PiZUTNlIo=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=ONFb7dZ48iJhlZ8G47XwsoHzHpbDLsjittRUeIcKxQ8ROOMXKjtwdZSwal9zqhvjgOSXl1n/RPLSQr+RsSO3Rp2/+lyG9i78KYjTXlqV5pVTsDerkjPk0yr5kCZJDLoXxDJo4oqPW0hNebRrilSmHZFrgnZUF8EYaQd3cFt2QrU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DhveExgt; arc=fail smtp.client-ip=40.107.201.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A097726C385
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792028029; cv=none; b=M/C7C2ou7Of2yV3u9VCt4VP48GB1gQqz7tdWVkydVzCXO//ZVeGrKhPmju+KosuqeEfgH7l1GBr68j59+uEh5I2LPUfj7wD6KJuUYauuF3d/3em6bUDY6WWhKi3QQezlVcSGd5+mJo/phTkC3JzxmCxdCgyaVKsAc1CaIyUzARE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792028029; c=relaxed/simple;
+	bh=QjuTZ8BY3jSQtaj/+uZlNIYsACk3NrKTMY9pmgjw+fk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=lQszcEta6sbVF+qpbn3qTvv5Vy2/WU292T/khXIGKnyy8tFdxi4lzExGNB9Ac93qdKw99Odd4Z9bOIapOFAGiWHPdZxt9YZGJCkHjPKTtocGUDanRmjIluZxQhgTj+ZNH7v3kA2MKp4lvsN+HjSE0DJy2gcDcqWTypeonEDHqto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iY4MxJO2; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DhveExgt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=agTpnnZgoNiLLTbqsRrs94BRwzqTz4kQB6XVKOMIxAJegqZ/3WJvmWAaYWBoaqWc3ptwaokXKl1Ev9vYJaiyUT70danSGQ+5+ADfUmClFTHav8L1d28eqZGFvZ9bW0iPU4JMYMHGRedRMCAS51yPUibFnYgRIRpiMDHiw8aHTCJInso/IjQi8tbHAUmqKXmWASplB+aNQ3CiQj4d+o4VJZB20ubrGcAR2v+Q5WDtnLcBZ45ai1PILASaUl3+ujfyI55Eo+9uy0Lt99LSxFlo38GXCaXxYyedlHkcEVO4JUO3YynYWyCt9M/yfW5cGtraVhT8UDd6EtTACh1FxlNihA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
- b=uuPbRYcdZy/fZ6YrlkpE16uBYA0QhhfShlXx2NYeXKFd0boW5C1PDt+dZm8uKQ3GUYi9476lOZoyBGsML5ged/s8PyQlt0TlvEw9u9nWerVtzXPcmwccxVekraIKa/IxXCPHioefaYx2+LC26c/f5DDu2qpjWBVQ3uOT5NBPMsSDkHaVjI/9ZjSGGlF8h0Tqlbz1YqZWMsPuXK+Q8UVyIWlsotFr9yQ5x/BeKWqkSVlTSqpNRAQ3ImZbXU8TqK6rNWaFxvhj5tURnLAOy2dVjc0FDCnioS/caBGREaLTjRDsc8IYe/R/mfz5pNTHGUr7F8e9lniW+UNsgNUj/W/Crg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0py5ZYysNLER5TCYw/drBkHoJiFxfW5uxO7/toLiW/Q=;
- b=DhveExgtO+uYtC3Ii+vB/1vtTvfIB7XaQkZJEY3aFtdiAsy94O3ECFUN2KqZO+md+1ZyIzg6/jt0pHrIm3ABztWxHZKuCHChNOXiVV7PJGOpejhZQNENern2mb4QCniOQGdm9JKce8TxO7qmCp/Pe/WBe82SHVVfbmCCqqulTCeIzSW3S8SsO7piXXsvJX71XLPFOU4fYWvr7oWVnnv74kt/rVBLpzb8IB5qN/a1xsqfUCCAVOafUIxcz5wVch2TSMn+Nk7/Gv3BxEtU6gikri1RvwnDZn3FB+UmeRMy0BdpZvFOo7PKpGbkzvysHOmgtnkJ3WqEEFVpxNvdxmNx7w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CH2PR12MB9542.namprd12.prod.outlook.com (2603:10b6:610:27d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 01:33:10 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 01:33:10 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 10:33:06 +0900
-Message-Id: <DM50WK54LKD7.1YGZ0JEZ9KMG6@nvidia.com>
-Subject: Re: [PATCH v3 6/8] gpu: nova-core: add NVKV typed encoding
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20260928-b4-nvkv-v3-0-f04504c262c2@nvidia.com>
- <20260928-b4-nvkv-v3-6-f04504c262c2@nvidia.com>
- <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
-In-Reply-To: <DLYE7KKATCU6.CUH7GIJJJ9PW@nvidia.com>
-X-ClientProxiedBy: TYWPR01CA0028.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::15) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iY4MxJO2"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-154e9d2d979so1614595c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:33:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792028027; x=1792632827; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P3A85n49ZvBdAIlkr9UzU20XswPVap5evBDCbmAFGIU=;
+        b=iY4MxJO2xRV50/+lImp0sdro9UmFjA4CrI0NLyWyW+m3E6yLAPIOwE585BCR3nEj3q
+         nKMGkzkyR5fw9ZHEqZfgPvZrilX5JjC1IX8S4CuaaM4bx3M5E2sMgNtpaq3+aw6ynu1S
+         pmUFgNsSOYplVkGWJcaRXsHgS6rJRLJ79quT3Z3VN2X2f1+h6vdtUryXG6KLzwoo8g1J
+         8xG2JhKcB3QQ429g4L2iRBdZhNAs9UOL7qFkfcqd25/xX0okAhyu0SZjibKlyQ0oo2Ax
+         qfuaVUyDb0vFb9clIuedpm5vtCUz5K525q8BX185edsG+8JkB+vha/RPqxbMKe0gQkOU
+         UIUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792028027; x=1792632827;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=P3A85n49ZvBdAIlkr9UzU20XswPVap5evBDCbmAFGIU=;
+        b=l1jQk2uuM5e/bAJJh67HZ+9AHu9w8JytZWWiVzyxZg2Ovfsc9jmG+41mFSraDTFPoT
+         DoMy64TaXdgwef7f3Cgg37Q5qHTHj2qN/ShTf/b/ssVpB0wOMvQAmWKPqCRxN9LCouMo
+         1I+Y/0xmoqa1pJSPk2XG/8Gkx9S9sHUatMJ7LoSwdntrttCdC2IuYe3Ye/Zgbd4RcQNo
+         e2cGcz0KbECRjsLjDto1M67iUX0iHFZId+xkpFhpnvdLDTMNiVY43E9UHNNXbdJyrorx
+         nAaBf2v8hV6QBnvKl3hIGpEXNQE0x9Q+wVtTXGOrn1pL/FWYLXwAJaW8/y+TGMQVVQgm
+         OPdg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEda2jsqZVYFIfq+J5Owxmekia89dFUJns5QIs0NlkGSe8Nn9Z1/OKic7Hp+1VTGvSCS7l9fJavHECNeA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKC241HrN4RE1BcH0c8G+bmtR+k4ZQgdpz1nMzMqILsnlGHi0rM
+	3Zar06lxBaCcyL6UX+lQkIE2qtLdvpHaq0T5HtgtQxM3JJMR+7iBbaTF
+X-Gm-Gg: AYBFou3TKJlrhUwyd6m2eRVj8xaSn8RIxywVDRFttyddwP59wXYYmi7Rvv28r3Kasg/
+	EQBAHq2B3HksQVhkFkkrUcKemFPWxH7azGUXez6cytjJ3vpNkvuGY1z9eHHx/yP0SlfFx6X5yJp
+	dVK2bV4ENX7dIYThgw4R/hW9OFbII86W5/78RPQAC0neLJo7qlpFk49YJTQndn4hShl+FMZe0yQ
+	3ygrsJ/9ECsmM09IiOxQOFuXWPzNXV9a5ngDvHIawIJGuozT8L9CyPGb+32LhqoG1wKyiOX6XL4
+	F+WuGkhUT/vPBPmENYb5tFHsbnL4SoBjzVSim6CsYgbI4fVUF9rRpMPF7aGCGUrRfRRTrcaIOiA
+	0X9V0fwcTUa77aPsuctbB4p77f+O/xRFvEYNgXdxAKdoqp6ACJ04XUko59ZnexVOKZOIMRwbTFh
+	k9SNVywfGLK6wEJzNV5bPf5ljjECo04FG8eO5Nv0YinMaPuIHyxWPsNxCJLNGd0hcqhZIVSx7Wy
+	9/awfUz0rYDwQpO7Vb4biTDX8eDaIC3rpf4LA==
+X-Received: by 2002:a05:7022:b048:20b0:158:b944:b15 with SMTP id a92af1059eb24-16a5ec48b20mr24858590c88.22.1792028026492;
+        Wed, 14 Oct 2026 18:33:46 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2ebe:8:821:261c:74c2:4177])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a4429603sm48146848c88.17.2026.10.14.18.33.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 18:33:45 -0700 (PDT)
+Date: Wed, 14 Oct 2026 18:33:44 -0700
+Message-ID: <4c7d0796862cb8258ec5357efb10db99@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Ion Agorria <ion@agorria.com>,
+	=?utf-8?b?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Florian Krischer <florian.krischer@fkr.dev>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v11 4/7] input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+In-Reply-To: <20261013173504.451391-5-clamor95@gmail.com>
+References: <20261013173504.451391-1-clamor95@gmail.com> <20261013173504.451391-5-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH2PR12MB9542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|10070799003|7416014|1800799024|23010399003|56012099006|11063799006|4143699003|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4J+nQlEfqKROK/2YPlGDKRDeqFIQgizy9qUHF1S88tSzdp9fwR62oWYLTBwjhwNVr7DgkkbN4ZMFjhfvqPuGT2shRna0oFeC7bdiAUoy4yKjbm4CGFWhf1gM5RDBV7Of2w2vIB6Nd3+ArY3NsCCT5c7x8bTkY2pqs3aFtaqH8k5kqtgVY7gF0YS6tUJgEObuXAf+eq2jVlyJ1qmndmIT3L7cqDrxVi/13IfnCwryVpABz7POec39lv6XrR+ajs3Oy9ZCEfJeSlh70KqbVySGmf3z39roEHKJ+zZCikMzevgyIq4t5hAIyDNQvmUKUSXq5BU21fUbyIJI5qWhc4/tYNkRJUEIbgj8A4nudumir+IGYmMK1nB90akY7VvLj9lcceJvsVfmXJZ87te3ge608NO9vzTFVBzuLgUlrRpSAKhtqLrD8Rn1/vOJUhS/zz3s2rsG5Okk7Wwkj6rWFOnSvWCTfz9b8KnvycYa7KANfLLM13J3l5UD6NwhZLvLNNo4XaCm+UUvJkvWxBaPpKmP+yhogvHUCJcvblaR1Z9GglownkxEVVd9hqU8iZWT7ZE6501tCFaLcTVwzJkZKK25BHPqRnDM/Z2zHfAy2rQ900qBu8F0igilVP9Lu+i38SpO9KVX0JENgIaHSnCWTiI99+BpDY8qirYGkymeOuuv+tU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWREcGMyNURoRE9xQnBuR3dvRVVJNUZCVUZuY3RYamRFcDJjQUxZVjRZaUtJ?=
- =?utf-8?B?RFJxamZVV2ZYM2VyQlkvM3E1VkpIYTNGYmxCNHJManR3RW0weTNYbTg2NlhD?=
- =?utf-8?B?RE92OUdxUXZ4TUdQdytQdVErTkJQWk43VjAzdExaK0xIckJYdnBwMHUwQ00z?=
- =?utf-8?B?K21VWncrTTNGREZlTzZaWTAvbmpTNzMvSGtIRkNOVG1DcGpGTkltRGFocG04?=
- =?utf-8?B?NkJLeHc3UnNCUHpNRFk4T3h1Zm01MGp5WHdWVUdSVUdGMU11Vzc4OVIwR0lv?=
- =?utf-8?B?eU1Sa3FNeTcvZ3JMeDZ2QWQvak5ENzlqdmpmQzB0V09JR0pieWVxbFowWVl6?=
- =?utf-8?B?dFNtYXByTzhOTzZxQTcxMitQdGY0UUcwRndmdXF5SWR2Y0NnN3dUUEJmNTRZ?=
- =?utf-8?B?aW52Nit0MWpuY1h5eEwydC9NTjd0NG9DQUdMWFBCTjIrOHRyUTFvMm9pYWh5?=
- =?utf-8?B?LytWZTZRKzJJTGhxS0V3ZmZ3eVlCUnIvVzE0QW81TThjTXQwbFBQYnNsNlNn?=
- =?utf-8?B?cWRza1JmM20reWZtS1hUcXM2WDlrRjhjOGw0dEZIaGdKaC9kNm1LQWY0SXVI?=
- =?utf-8?B?TUtkN3laM1Vta05JVTNZOGdsSnBoMmRnR0k5WHRXdGc5OUR5OXlmQ1VGcFBq?=
- =?utf-8?B?OGxYbnRDejJEVWhpRGJueUZ2VnI0VmlsMFpFaTUyUFkrN1Rtdkx5UnRwZWFY?=
- =?utf-8?B?bytGU1paYTFIbVEzYitJRGVMMEtLeGc5UWx3dno3emR0NGVJWGpGU0VUZ0Uv?=
- =?utf-8?B?UG9IY2VKOGEzN3lIMjRSNi9pd0ZxTjcyTHd4RC9yTTBMYklGa3RSKzg3Y09K?=
- =?utf-8?B?VUdXSkNaUWQwZmZZOFVteURTT0JEbk9WQURqTkdmaEQ2VlEyQ3dSMC9vSDhF?=
- =?utf-8?B?aktRSGF2ajEvNjcvWVg4azlBL0JiUkJtcndLSFlmcG8zRWs4RUIzeTVGTDFI?=
- =?utf-8?B?TzVRM0tORi95ZWRFNHltZVN6dTUxUkJVOWJ1UGFrOVlhTG8vYjlmTlMxYVY3?=
- =?utf-8?B?Y1IyVStUb0Y3SUdBVWdzUVFOL2lRbjc0N1ovYlM1K042TU53WEdqLzdaLzFl?=
- =?utf-8?B?MW5DS1dtZ1NQQ2tPMHFlenE0VnVjWFB2ZlRSS0NYMWNjbVZDcUVRNzl1ZGNm?=
- =?utf-8?B?bUhraEdNcWphclJ5MjVvT2RHcTRtYm1UZUdJdWh1RG1SWXVlYytuRXcraTVt?=
- =?utf-8?B?V2x1TDRLNlNyT01LcEw5V3BWSXphQlB1VFJtaDRmOU95WHdIZ1JzZU1ab0xC?=
- =?utf-8?B?cmovSTNQOEgralpycm9OcWZPaXFoVDBRRDkwdEs3YW5VMEpMMTNwQmhCemor?=
- =?utf-8?B?bkJnYlkzbVFWZGNrcGF3VHRHenlLby9zZ2RSK1dUaDZYcjB0aDVQREI3YVBB?=
- =?utf-8?B?MForbGoxTGx5a3lwdzBidi9DZEs5SGF2czMrNU1DakN2Ky9YbUpIQTBwdVFN?=
- =?utf-8?B?YmI2Q1BRemhScUFsUjh4WWp1QUVUb2p1UGRGYTlCcWdkT2twMFVsaldBSjcx?=
- =?utf-8?B?TDRHaHptcG0ydGd1Ym8wYUpxekdabUZGbFkvbU1KeEErUUZqZ01Fc290enFB?=
- =?utf-8?B?Q3dwUGhONHdCWXpTUDJ6ZFNDVnlxa3BlUERWazZDdTdFQnBad3IrODh6Nmsw?=
- =?utf-8?B?SStTY2RKS3RiTDduZ0NGdE9EOEtyRVQreEJyVjdLWnZrek1CUGpUd2RuaUs3?=
- =?utf-8?B?OERjSmNuWkExOG95YnprTFhjM1d5cERoMW5zam9uSERJejM1SlFaeHhIcEs5?=
- =?utf-8?B?aUR2TjlKVWdUM0FDNEdCdHJMcE14QXBwZTZvYk1rM3c4MElkZjMzWjNKa0l0?=
- =?utf-8?B?VkdxYm9GRnR0UmxDOU1RZXc1M1JqOG1hSkNBVWYyYS9nR2N3VWFRc3lZWXA5?=
- =?utf-8?B?MVYrbWJxTWNRN3NiaDBzQURBZVFtVjFKVzdxVWIxZWJyMjdSYk03Nzl6Ry9p?=
- =?utf-8?B?VllFaDRWNzlVckRaVUp6ZStnV2cvMkUzaHBGOS9Lc3RmQk9CM2NQZlhPYnRi?=
- =?utf-8?B?bjBkOE9Cb1hzeFV6M2dFcytRMVkrNjgyQmNEMC9IQmM4NWcwNHQyb1dzbDZs?=
- =?utf-8?B?VThwcU1tamVUU0JkZERjV3I5UWgrZDJIVHBKWEJnZ3Rua3l2VnMxTDRWWjYw?=
- =?utf-8?B?dnBabDh6Q1ptTndGbDVxOUFTZTV6MFNKeHhZUCtNa2t3b1pGUWcvQ1NkUWlT?=
- =?utf-8?B?bVZPLys4ZGtZY2tad3hXRUN2UnlpVzBNdmVFeFdGZVJSUERYekJNSGRNb3Ny?=
- =?utf-8?B?YkxsY203cTkzMGJLcVNyUU9BVEpRcHVYUWFGa1dRQnJmcXVjaEFZc3FxdmJJ?=
- =?utf-8?B?SUdoQjBCVXNld1VaYTljT2tvLzRqSERMZzAxbXY5K0pzUE4rc0MvT3RpMUpq?=
- =?utf-8?Q?g6+92rXH+ZIppZGNNy6Eh3TlV6ZDxHjs1e788BzJekpp0?=
-X-MS-Exchange-AntiSpam-MessageData-1: FxO3gMRTnsluRg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 315038e9-41fd-4126-cff1-08df2a5c459c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 01:33:10.5180
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OSkPWYYmDArAS+1+Aa0wfWNAbTKxQ789wuz1OYFvWhygrCW6uhSwEgvV35kwo/AOAjjfR7IQjjeifp28GFjDDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9542
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Wed Oct 7, 2026 at 3:30 PM JST, Alexandre Courbot wrote:
-> On Mon Sep 28, 2026 at 5:42 PM JST, Eliot Courtney wrote:
-> <...>
->> +    // Tests that encoding via the `nvkv_encode!` macro works correctly=
-.
->> +    #[test]
->> +    fn encode_typed_struct() -> Result {
->> +        const U32_KEY: KeyId =3D 0x0001;
->> +        const U64_KEY: KeyId =3D 0x0002;
->> +        const NAME_KEY: KeyId =3D 0x0003;
->> +        const FIXED_KEY: KeyId =3D 0x0004;
->> +        const OPT_KEY: KeyId =3D 0x0005;
->> +        const INDEXED_KEY: KeyId =3D 0x0006;
->> +
->> +        nvkv_encode! {
->> +            struct TypedRequest {
->> +                a: Key<u32, U32_KEY>,
->> +                b: Key<u64, U64_KEY>,
->> +                name: Key<&'static [u8], NAME_KEY>,
->> +                fixed: Key<[u8; 4], FIXED_KEY>,
->> +                opt: Option<Key<u32, OPT_KEY>>,
->> +                indexed: IndexedKey<u32, INDEXED_KEY>,
->
-> API question: `IndexedKey` is module-private, but this use of
-> `nvkv_encode` looks like something that driver code could very well do.
-> Should it be crate-visible? If so, why not move it next to `Key` in
-> `nvkv.rs`?
+Hi Svyatoslav,
 
-It's not used immediately, but I think it's fine for it to be crate
-visible since it is fair game to use it.
+On Tue, Oct 13, 2026 at 08:35:00PM +0300, Svyatoslav Ryhel wrote:
+> Add support for multimedia top button row of ASUS Transformer's Mobile
+> Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> default which suits average Linux use better and with pressing
+> ScreenLock + AltGr function keys layout is switched to multimedia keys.
+> Only Dock keyboard input events are tracked for AltGr pressing.
+
+I still think registering a global input_handler just to observe Right Alt
+state on the dock keyboard is heavier than necessary, and because the
+handler is a passive observer rather than a filter, pressing AltGr+ScreenLock
+or AltGr+F1..F12 still leaks the KEY_RIGHTALT press and release events from
+atkbd to userspace alongside the mode switch or media key event.
+
+Since asus-transformer-ec-kbc already inspects and remaps 0xe0-prefixed
+scancodes on the keyboard port before passing them to serio, we can track
+and delay AltGr (0xe0 0x11) there when the extension keys driver is active,
+and coordinate with asus-transformer-ec-keys via struct asusec_core:
+
+- When AltGr is pressed on the dock keyboard, asus-transformer-ec-kbc
+  delays emitting the 0xe0 0x11 make sequence and sets
+  ec->right_alt_pressed.
+- If an extension key is pressed while right_alt_pressed is set,
+  asus-transformer-ec-keys sets ec->special_combo_triggered (either
+  toggling special_key_mode on ScreenLock or reporting the shifted key for
+  other top-row keys), and asus-transformer-ec-kbc suppresses both the
+  delayed AltGr make and the subsequent AltGr break (0xe0 0xf0 0x11).
+- If any regular key make event arrives on the primary keyboard port first,
+  or if AltGr is released without triggering an extension key combo,
+  asus-transformer-ec-kbc flushes the delayed 0xe0 0x11 make sequence
+  before forwarding the event.
+
+This avoids registering an input_handler altogether and drops about 100
+lines of boilerplate from asus-transformer-ec-keys.c.
+
+What do you think about folding the change below into patches 2, 3, and 4?
+
+(Also, a minor typo in patch 3/7 in drivers/input/serio/Kconfig:
+"Asus Transformed's Mobile Dock" -> "Asus Transformer's Mobile Dock".)
+
+diff --git a/drivers/input/keyboard/asus-transformer-ec-keys.c b/drivers/input/keyboard/asus-transformer-ec-keys.c
+index 8e83b27ce60e..ec72c38d7653 100644
+--- a/drivers/input/keyboard/asus-transformer-ec-keys.c
++++ b/drivers/input/keyboard/asus-transformer-ec-keys.c
+@@ -7,7 +7,6 @@
+ #include <linux/mfd/asus-transformer-ec.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/slab.h>
+ 
+ #define ASUSEC_EXT_KEY_CODES		0x20
+ 
+@@ -15,74 +14,8 @@ struct asus_ec_keys_data {
+ 	struct notifier_block nb;
+ 	struct asusec_core *ec;
+ 	struct input_dev *xidev;
+-	struct input_handler input_handler;
+-	unsigned short keymap[ASUSEC_EXT_KEY_CODES * 2];
+-	const char *kbc_phys;
+-	bool special_key_pressed;
+ 	bool special_key_mode;
+-};
+-
+-static void asus_ec_input_event(struct input_handle *handle,
+-				unsigned int event_type,
+-				unsigned int event_code, int value)
+-{
+-	struct asus_ec_keys_data *priv = handle->handler->private;
+-
+-	/* Store special key state */
+-	if (event_type == EV_KEY && event_code == KEY_RIGHTALT)
+-		WRITE_ONCE(priv->special_key_pressed, !!value);
+-}
+-
+-static int asus_ec_input_connect(struct input_handler *handler,
+-				 struct input_dev *dev,
+-				 const struct input_device_id *id)
+-{
+-	struct asus_ec_keys_data *priv = handler->private;
+-	struct input_handle *handle;
+-	int error;
+-
+-	if (!dev->phys || !strstr(dev->phys, priv->kbc_phys))
+-		return -ENODEV;
+-
+-	handle = kzalloc_obj(*handle);
+-	if (!handle)
+-		return -ENOMEM;
+-
+-	handle->dev = dev;
+-	handle->handler = handler;
+-	handle->name = handler->name;
+-
+-	error = input_register_handle(handle);
+-	if (error)
+-		goto err_free_handle;
+-
+-	error = input_open_device(handle);
+-	if (error)
+-		goto err_unregister_handle;
+-
+-	return 0;
+-
+- err_unregister_handle:
+-	input_unregister_handle(handle);
+- err_free_handle:
+-	kfree(handle);
+-
+-	return error;
+-}
+-
+-static void asus_ec_input_disconnect(struct input_handle *handle)
+-{
+-	input_close_device(handle);
+-	input_unregister_handle(handle);
+-	kfree(handle);
+-}
+-
+-static const struct input_device_id asus_ec_input_ids[] = {
+-	{
+-		.flags = INPUT_DEVICE_ID_MATCH_EVBIT,
+-		.evbit = { BIT_MASK(EV_KEY) },
+-	},
+-	{ }
++	unsigned short keymap[ASUSEC_EXT_KEY_CODES * 2];
+ };
+ 
+ static const unsigned short asus_ec_dock_ext_keys[] = {
+@@ -138,17 +71,21 @@ static int asus_ec_keys_process_key(struct input_dev *dev, u8 code)
+ 	if (code == 0)
+ 		return NOTIFY_DONE;
+ 
+-	/* Flip special key mode state when pressing SCREEN LOCK + R ALT */
+-	if (READ_ONCE(priv->special_key_pressed) && code == 1) {
+-		priv->special_key_mode = !priv->special_key_mode;
+-		return NOTIFY_DONE;
++	if (priv->ec->right_alt_pressed) {
++		priv->ec->special_combo_triggered = true;
++
++		/* Flip special key mode state when pressing SCREEN LOCK + R ALT */
++		if (code == 1) {
++			priv->special_key_mode = !priv->special_key_mode;
++			return NOTIFY_OK;
++		}
+ 	}
+ 
+ 	/*
+ 	 * Relocate code to second "page" if pressed state XOR's mode state
+ 	 * This way special key will invert the current mode
+ 	 */
+-	if (priv->special_key_mode ^ READ_ONCE(priv->special_key_pressed))
++	if (priv->special_key_mode ^ priv->ec->right_alt_pressed)
+ 		code += ASUSEC_EXT_KEY_CODES;
+ 
+ 	if (code < dev->keycodemax) {
+@@ -207,37 +144,6 @@ static void asus_ec_keys_setup_keymap(struct asus_ec_keys_data *priv)
+ 	}
+ }
+ 
+-static int asus_ec_keys_register_handler(struct device *dev,
+-					 struct asus_ec_keys_data *priv)
+-{
+-	struct i2c_client *parent = to_i2c_client(dev->parent);
+-	int error;
+-
+-	priv->input_handler.event = asus_ec_input_event;
+-	priv->input_handler.connect = asus_ec_input_connect;
+-	priv->input_handler.disconnect = asus_ec_input_disconnect;
+-	priv->input_handler.id_table = asus_ec_input_ids;
+-	priv->input_handler.passive_observer = true;
+-	priv->input_handler.private = priv;
+-	priv->input_handler.name = devm_kasprintf(dev, GFP_KERNEL,
+-						  "%s-media-handler",
+-						  priv->ec->name);
+-	if (!priv->input_handler.name)
+-		return -ENOMEM;
+-
+-	priv->kbc_phys = devm_kasprintf(dev, GFP_KERNEL, "i2c-%u-%04x/serio0",
+-					i2c_adapter_id(parent->adapter),
+-					parent->addr);
+-	if (!priv->kbc_phys)
+-		return -ENOMEM;
+-
+-	error = input_register_handler(&priv->input_handler);
+-	if (error)
+-		return error;
+-
+-	return 0;
+-}
+-
+ static int asus_ec_keys_probe(struct platform_device *pdev)
+ {
+ 	struct i2c_client *parent = to_i2c_client(pdev->dev.parent);
+@@ -273,17 +179,13 @@ static int asus_ec_keys_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, error,
+ 				     "failed to register extension keys\n");
+ 
+-	error = asus_ec_keys_register_handler(dev, priv);
+-	if (error)
+-		return error;
+-
+ 	priv->nb.notifier_call = asus_ec_keys_notify;
+ 
+ 	error = blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
+-	if (error) {
+-		input_unregister_handler(&priv->input_handler);
++	if (error)
+ 		return error;
+-	}
++
++	ec->ext_keys_enabled = true;
+ 
+ 	return 0;
+ }
+@@ -293,8 +195,8 @@ static void asus_ec_keys_remove(struct platform_device *pdev)
+ 	struct asus_ec_keys_data *priv = platform_get_drvdata(pdev);
+ 	struct asusec_core *ec = priv->ec;
+ 
++	ec->ext_keys_enabled = false;
+ 	blocking_notifier_chain_unregister(&ec->notify_list, &priv->nb);
+-	input_unregister_handler(&priv->input_handler);
+ }
+ 
+ static struct platform_driver asus_ec_keys_driver = {
+diff --git a/drivers/input/serio/asus-transformer-ec-kbc.c b/drivers/input/serio/asus-transformer-ec-kbc.c
+index 62ffaf4d4371..0842158f13da 100644
+--- a/drivers/input/serio/asus-transformer-ec-kbc.c
++++ b/drivers/input/serio/asus-transformer-ec-kbc.c
+@@ -13,8 +13,85 @@ struct asus_ec_kbc_data {
+ 	struct asusec_core *ec;
+ 	struct i2c_client *parent;
+ 	struct serio *sdev[2];
++	bool altgr_delayed;
++	bool altgr_suppressed;
+ };
+ 
++static bool asus_ec_kbc_altgr_active(struct asus_ec_kbc_data *priv)
++{
++	return IS_ENABLED(CONFIG_KEYBOARD_ASUS_TRANSFORMER_EC) &&
++	       (priv->ec->ext_keys_enabled ||
++		priv->altgr_delayed || priv->altgr_suppressed);
++}
++
++static void asus_ec_kbc_reset_altgr(struct asus_ec_kbc_data *priv)
++{
++	if (!IS_ENABLED(CONFIG_KEYBOARD_ASUS_TRANSFORMER_EC))
++		return;
++
++	priv->ec->right_alt_pressed = false;
++	priv->ec->special_combo_triggered = false;
++	priv->altgr_delayed = false;
++	priv->altgr_suppressed = false;
++}
++
++static void asus_ec_kbc_sync_altgr_combo(struct asus_ec_kbc_data *priv)
++{
++	if (priv->ec->special_combo_triggered) {
++		priv->ec->special_combo_triggered = false;
++		if (priv->altgr_delayed) {
++			priv->altgr_delayed = false;
++			priv->altgr_suppressed = true;
++		}
++	}
++}
++
++static void asus_ec_kbc_flush_altgr(struct asus_ec_kbc_data *priv)
++{
++	if (!asus_ec_kbc_altgr_active(priv))
++		return;
++
++	asus_ec_kbc_sync_altgr_combo(priv);
++
++	if (!priv->altgr_delayed)
++		return;
++
++	serio_interrupt(priv->sdev[0], 0xe0, 0);
++	serio_interrupt(priv->sdev[0], 0x11, 0);
++
++	priv->altgr_delayed = false;
++}
++
++static bool asus_ec_kbc_handle_altgr(struct asus_ec_kbc_data *priv, bool is_release)
++{
++	bool suppressed;
++
++	if (!asus_ec_kbc_altgr_active(priv)) {
++		asus_ec_kbc_reset_altgr(priv);
++		return false;
++	}
++
++	asus_ec_kbc_sync_altgr_combo(priv);
++
++	if (!is_release) {
++		if (!priv->ec->right_alt_pressed) {
++			asus_ec_kbc_reset_altgr(priv);
++			priv->ec->right_alt_pressed = true;
++			priv->altgr_delayed = true;
++			return true;
++		}
++
++		return priv->altgr_delayed || priv->altgr_suppressed;
++	}
++
++	suppressed = priv->altgr_suppressed;
++	if (!suppressed)
++		asus_ec_kbc_flush_altgr(priv);
++
++	asus_ec_kbc_reset_altgr(priv);
++	return suppressed;
++}
++
+ static int asus_ec_kbc_notify(struct notifier_block *nb,
+ 			      unsigned long action, void *data_)
+ {
+@@ -22,14 +99,18 @@ static int asus_ec_kbc_notify(struct notifier_block *nb,
+ 	unsigned int port_idx, n;
+ 	u8 *data = data_;
+ 
+-	if (action & (ASUSEC_SMI_MASK | ASUSEC_SCI_MASK))
++	if (action & (ASUSEC_SMI_MASK | ASUSEC_SCI_MASK)) {
++		if (action == ASUSEC_SMI_ACTION(HANDSHAKE) ||
++		    action == ASUSEC_SMI_ACTION(RESET))
++			asus_ec_kbc_reset_altgr(priv);
+ 		return NOTIFY_DONE;
+-	else if (action & ASUSEC_AUX_MASK)
++	} else if (action & ASUSEC_AUX_MASK) {
+ 		port_idx = 1;
+-	else if (action & priv->ec->keyboard_mask)
++	} else if (action & priv->ec->keyboard_mask) {
+ 		port_idx = 0;
+-	else
++	} else {
+ 		return NOTIFY_DONE;
++	}
+ 
+ 	/*
+ 	 * The data[0] is the number of bytes following the count byte: one
+@@ -46,6 +127,7 @@ static int asus_ec_kbc_notify(struct notifier_block *nb,
+ 	if (port_idx == 0) {
+ 		/*
+ 		 * Remap keyboard key codes to match AT layout:
++		 * ALTGR:  RIGHT-ALT  [E0 11] -> delayed / suppressed
+ 		 * SEARCH: RIGHT-META [E0 27] -> LEFT-ALT   [11]
+ 		 * MENU:   COMPOSE    [E0 2F] -> RIGHT-META [E0 27]
+ 		 */
+@@ -53,6 +135,10 @@ static int asus_ec_kbc_notify(struct notifier_block *nb,
+ 			u8 *keycode = &data[n - 1];
+ 
+ 			switch (*keycode) {
++			case 0x11:
++				if (asus_ec_kbc_handle_altgr(priv, n == 3))
++					return NOTIFY_OK;
++				break;
+ 			case 0x27:
+ 				*keycode = 0x11;
+ 				++data;
+@@ -63,6 +149,15 @@ static int asus_ec_kbc_notify(struct notifier_block *nb,
+ 				break;
+ 			}
+ 		}
++
++		/*
++		 * Only flush delayed AltGr on key make events, ignoring
++		 * key break codes and PS/2 command responses (ACK, BAT, etc.).
++		 */
++		if ((n == 2 && data[0] == 0xe0) ||
++		    (n == 1 && data[0] > 0 && data[0] < 0x84) ||
++		    data[0] == 0xe1)
++			asus_ec_kbc_flush_altgr(priv);
+ 	}
+ 
+ 	while (n--)
+diff --git a/include/linux/mfd/asus-transformer-ec.h b/include/linux/mfd/asus-transformer-ec.h
+index d09d3b70171e..fda6fb08cc41 100644
+--- a/include/linux/mfd/asus-transformer-ec.h
++++ b/include/linux/mfd/asus-transformer-ec.h
+@@ -19,6 +19,9 @@ struct i2c_client;
+  * @dockram: pointer to Dockram's i2c_client
+  * @notify_list: notify list used by cells
+  * @keyboard_mask: mask of keyboard packets
++ * @ext_keys_enabled: true if extension keys driver is active
++ * @right_alt_pressed: state of Right Alt (AltGr) key
++ * @special_combo_triggered: true if AltGr + extension key combo was triggered
+  */
+ struct asusec_core {
+ 	const char *model;
+@@ -26,6 +29,9 @@ struct asusec_core {
+ 	struct i2c_client *dockram;
+ 	struct blocking_notifier_head notify_list;
+ 	u8 keyboard_mask;
++	bool ext_keys_enabled;
++	bool right_alt_pressed;
++	bool special_combo_triggered;
+ };
+ 
+ /* interrupt sources */
+
+Thanks.
+
+-- 
+Dmitry
