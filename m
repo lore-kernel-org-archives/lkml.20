@@ -1,102 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45548322B8F;
-	Thu, 15 Oct 2026 09:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AE871A0BF3;
+	Thu, 15 Oct 2026 09:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057875; cv=none; b=FZ7MlFsrhG2mgVU6dzztm0lP5vxpFQTgFzTuftMAS5dYJ13+rms9NjdEBWxzwxnwpoogd8cGhX+nW4LYM4FfT9NmERBTqPAFF/riISs6LERd6vj+U4NFkk2c+GqNSEa9BFtNqCXKEZh3NgB/Xb6lJVIfmJnKhSnTBJkW1wazawo=
+	t=1792057910; cv=none; b=ude/mrN5PcNQYBETneAwixRXHdHt/FwwRHk3gSfcBi6je4jewDc8SzmOTvluchUjRrJ8D5YN6iBCsECha7VqsTLZiMFT3J2sLdorMXw4HjIwKwSPbbelQfOSsEUVnuWF0m5hZ1TlKR8xbMWLEqi6MxHMEIzAg/Ffx1nSXubKt2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057875; c=relaxed/simple;
-	bh=muwCLVxPr3lu2PYo+nyQS5gG+tKhi8xOCj4xL309a+w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hs1+Ow3KlmSyhAjHFkDiGOsW4qgUOw0QnhAOM69GgwIMYYaF/nD+NzFqOCdVW9pGg0W25sfbQ6k7HXSsp9tNb9jHEIgiLRvu92jRLXYsedTcxwqYyTRwdeEE7Zvs6MFIfjICqzy4Y2HuGPhzImpugwCX6Jc15MlCiBE/1j1KjcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGuNGhUX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792057910; c=relaxed/simple;
+	bh=RQlu94IndRkINK239J0mO/jxEWIhrsUmM+Ly4qV5KTI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PkHNlY2xBEq3reziMWWuIesd4Pv89kpFV4mPE+B8yzuXutnBM05KuftMA/PYrdHTIZGpv/wXcda6nMR6UfN13Sj/BhaTtW67peSTY+T+gZ6VQdMGGKeyndtacJtwrN5euRk80WmPPIlCqP3Qw7NhihQYmmg9h3cYlOhb63E48WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=R0LCZU8B; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGuNGhUX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66E81F000C4;
-	Thu, 15 Oct 2026 09:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792057872;
-	bh=6EimAlhipM/QvHYdXcrEyjUEVG6Xm+Hd234W5MqbFJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lGuNGhUXYGNT8rfxdEATidMUz1+wRE211/U6+2f0Q9FCk+UCGR13IPaYdSsl8BWpv
-	 cSjSfzJKyZ59LL8/iE7bOy5AqaM6KhZTh/mXaT/SSmlmDxRbLw4JiipeApqd9TMJDp
-	 7G9SqO/ZoEzo7S79VSNKl3G3hUi9h4fawiLMq6LLatpSI2paosVTNxBlSF4PDfKoWh
-	 v1bl0851TyWRlJj7SY6kOHwmRl2f0qTmBrC0jGR4NN9XcrBsyTtRvCZIYjss1x5lI0
-	 kw/gUbq8PmoOvMOlOq4UpBhrp6XIudByLSKTOFIg1nPbou/Z6WYnTgJh98tmLT8gJi
-	 cQeUB2jvMFSEg==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xHI7C-00000006E9X-2a5D;
-	Thu, 15 Oct 2026 11:51:10 +0200
-Date: Thu, 15 Oct 2026 11:51:10 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com,
-	EddieSY.Lin@moxa.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/6] USB: serial: mxuport: add MUX50U support and
- updates
-Message-ID: <atCiDvHBI7F3SCoZ@hovoldconsulting.com>
-References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="R0LCZU8B"
+Received: from [10.94.176.134] (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id D205E20B7167;
+	Thu, 15 Oct 2026 02:51:40 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D205E20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792057904;
+	bh=q6NX91n8sg0b4V5XyUBL6pTMXOsCEZRCIKDjR1HCVko=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=R0LCZU8Bm4A7wctc9j6aHEiOhMnlKfeMxoDNSSPJRlcLlgmBiviXbSymwpu6KDHw9
+	 KMSVMGaQm+1ITiFkMVxzW96Sr032KoY3DyGmcWCNjEcDp3i+LAHvT5BQznwAnRlf5y
+	 n1zf89Ms4AaJ7d+9AkocphWw2rMy2ICCrQOBRcKY=
+Message-ID: <4f9398a0-d303-4b7f-9967-9a5f3077cc1a@linux.microsoft.com>
+Date: Thu, 15 Oct 2026 15:21:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: xilinx: versal-net: Remove CPU idle states
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+To: Jay Buddhabhatti <jay.buddhabhatti@amd.com>, git@amd.com,
+ ptsm@microsoft.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, michal.simek@amd.com, sven@kernel.org
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
+ <b9213a36eb1d28f3e7b8610592c085f627f5c7cf.1791374721.git.jay.buddhabhatti@amd.com>
+ <20175a31-2ef8-4c12-b329-616cb07d3d0b@linux.microsoft.com>
+Content-Language: en-US
+In-Reply-To: <20175a31-2ef8-4c12-b329-616cb07d3d0b@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 11, 2026 at 02:04:55PM +0800, Crescent Hsieh wrote:
-> This series updates the mxuport driver to support MUX50U-based devices
-> and fixes device-specific runtime behaviours.
-> 
-> The first three patches clean up the USB device ID table and firmware
-> version handling, and add support for UPort G2 and Platform UART
-> devices. The device family is encoded in the USB device ID table so
-> that the table provides both the port count and the information needed
-> for firmware handling.
-> 
-> The fourth patch adds optional callbacks to the generic USB-serial
-> write path so that drivers can stop write submission based on
-> device-specific state and restore that state if URB submission fails.
-> 
-> The fifth patch uses these callbacks to implement the per-port
-> SEND_NEXT transmit flow-control protocol without duplicating the
-> generic write implementation.
-> 
-> The sixth patch adds RS485 mode configuration through the standard
-> TIOCSRS485/TIOCGRS485 interface.
-> 
-> ---
-> Changes in v3:
->   - [PATCH v3 1/6]:
->     Rename the existing PID definitions after their corresponding
->     products and introduce a helper to keep each USB device ID table
->     entry on one line.
->   - [PATCH v3 2/6]:
->     Rename the firmware-version composition helper and retain the
->     existing firmware image-size validation.
->   - [PATCH v3 3/6]:
->     Name the new PID definitions after their corresponding products,
->     list all supported products by device family, rename the family
->     definitions to describe device rather than firmware families, and
->     use BIT() for the nonzero family values.
->   - [PATCH v3 4/6] and [PATCH v3 5/6]:
->     Replace the mxuport-specific copies of the generic write path with
->     optional write_ready() and write_rollback() callbacks. Use the
->     callbacks to pause SEND_NEXT writes and restore the per-port state
->     if URB submission fails. Expand the SEND_NEXT commit message to
->     describe the per-port protocol.
 
-Again, sorry about the late feedback on this one.
 
-Now applied for 7.4 with two whitespace amendments.
+On 15-10-2026 15:01, Prasanna Kumar T S M wrote:
+> 
+> 
+> On 07-10-2026 17:49, Jay Buddhabhatti wrote:
+>> The sleep state powers down the CPU core, and the wake-up time cannot be
+>> guaranteed because the firmware may be busy handling other tasks at the
+>> time of the wake-up request. This leads to unpredictable and potentially
+>> high wake-up latency during CPU idle.
+>>
+>> Remove the sleep state to avoid this dependency on firmware. The default
+>> backend CPU idle state simply puts core in WFI and retains its context
+>> without being powered off. Since wake-up from WFI is handled entirely in
+>> hardware, it is effectively immediate (a few cycles) and does not depend
+>> on firmware availability.
+>>
+>> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+>> ---
+>> Changes in v2:
+>> - Remove the idle state instead of replacing it with a retention state.
+>> - Update the subject and commit description.
+>>
+>> Link to v1: https://lore.kernel.org/all/20260727121842.3410495-1- 
+>> jay.buddhabhatti@amd.com/
+>> ---
+>>   arch/arm64/boot/dts/xilinx/versal-net.dtsi | 29 ----------------------
+>>   1 file changed, 29 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/ 
+>> boot/dts/xilinx/versal-net.dtsi
+>> index 21bb917bcba1..9b74e59fd64a 100644
+>> --- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
+>> +++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
+>> @@ -103,7 +103,6 @@ cpu0: cpu@0 {
+>>               enable-method = "psci";
+>>               reg = <0>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -133,7 +132,6 @@ cpu100: cpu@100 {
+>>               enable-method = "psci";
+>>               reg = <0x100>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -163,7 +161,6 @@ cpu200: cpu@200 {
+>>               enable-method = "psci";
+>>               reg = <0x200>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -193,7 +190,6 @@ cpu300: cpu@300 {
+>>               enable-method = "psci";
+>>               reg = <0x300>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -223,7 +219,6 @@ cpu10000: cpu@10000 {
+>>               enable-method = "psci";
+>>               reg = <0x10000>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -253,7 +248,6 @@ cpu10100: cpu@10100 {
+>>               enable-method = "psci";
+>>               reg = <0x10100>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -283,7 +277,6 @@ cpu10200: cpu@10200 {
+>>               enable-method = "psci";
+>>               reg = <0x10200>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -313,7 +306,6 @@ cpu10300: cpu@10300 {
+>>               enable-method = "psci";
+>>               reg = <0x10300>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -343,7 +335,6 @@ cpu20000: cpu@20000 {
+>>               enable-method = "psci";
+>>               reg = <0x20000>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -373,7 +364,6 @@ cpu20100: cpu@20100 {
+>>               enable-method = "psci";
+>>               reg = <0x20100>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -403,7 +393,6 @@ cpu20200: cpu@20200 {
+>>               enable-method = "psci";
+>>               reg = <0x20200>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -433,7 +422,6 @@ cpu20300: cpu@20300 {
+>>               enable-method = "psci";
+>>               reg = <0x20300>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -463,7 +451,6 @@ cpu30000: cpu@30000 {
+>>               enable-method = "psci";
+>>               reg = <0x30000>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -493,7 +480,6 @@ cpu30100: cpu@30100 {
+>>               enable-method = "psci";
+>>               reg = <0x30100>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -523,7 +509,6 @@ cpu30200: cpu@30200 {
+>>               enable-method = "psci";
+>>               reg = <0x30200>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -553,7 +538,6 @@ cpu30300: cpu@30300 {
+>>               enable-method = "psci";
+>>               reg = <0x30300>;
+>>               operating-points-v2 = <&cpu_opp_table>;
+>> -            cpu-idle-states = <&CPU_SLEEP_0>;
+>>               d-cache-size = <0x10000>; /* 64kB */
+>>               d-cache-line-size = <64>;
+>>               /* 4 ways set associativity */
+>> @@ -632,19 +616,6 @@ llc: l4-cache { /* LLC inside CMN */
+>>               cache-size = <0x1000000>; /* 16MB */
+>>               cache-unified;
+>>           };
+>> -
+>> -        idle-states {
+>> -            entry-method = "psci";
+>> -
+>> -            CPU_SLEEP_0: cpu-sleep-0 {
+>> -                compatible = "arm,idle-state";
+>> -                arm,psci-suspend-param = <0x40000000>;
+>> -                local-timer-stop;
+>> -                entry-latency-us = <300>;
+>> -                exit-latency-us = <600>;
+>> -                min-residency-us = <10000>;
+>> -            };
+>> -        };
+>>       };
+>>       cpu_opp_table: opp-table {
+> 
+> This change works fine.
+> 
+> Tested-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+> 
 
-It was a joy to review, excellent work.
+Change looks good to me.
 
-Johan
+Feel free to add:
+Reviewed-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+
+Regards,
+Prasanna Kumar
