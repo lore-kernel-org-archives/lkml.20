@@ -1,93 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E224F4753;
-	Thu, 15 Oct 2026 13:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D3151EDF2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070399; cv=none; b=nfURmz8yCzsuv0/dXtCQ/i1ux7bF3SCegox49muh1sMq7foJ7gx6jxWiVgP1sUPBFubyy2aJqI4WfC10CUsaLOlid/tfKlyxsl4WSJ2x9XlGySKFWphtOpQ1lFb/pSyOBxfcufxw5A6qqu8TEEHEv8QHsRQ4nFdPve+O+oH01n8=
+	t=1792070445; cv=none; b=GELjwGJGCrrqvQQltJblhwm4xFKfig1mU0Dfh70xn3DVzt2uebkvDIE6BxXc9zyPtbK9PMcHsNQntpt277nlY8MLfBYxyL/HPmKQjM4GYUPXqJQ4mzBBAtwKI9YA3lJwETRzbTkqK4d92noO04eO57M0bk6oGP5QQxo1ZwNrFTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070399; c=relaxed/simple;
-	bh=thlshmYiShdhzTv87rwDm5joF28hsjtCtYse7dFqCn0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=D1gitOCZFLnMwnwzUWv+HrvACMCBlTSG4md2KX6yHVA7e/jnuesTgZ26N/AuueXQJcW4G5IkM6TAk3fgAS2DHs9t4TcPfAFa+9zb6FC/aQ843VRD3pG4uC6wAakR5zDEUVOv9E1urouviIXcjPpU6bxdvN5lvHtxzGs5mkShWbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g2+OvKqt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792070445; c=relaxed/simple;
+	bh=p7maNFUFZ8AqbEu28V2pBJOxhMBuQWHTODXj03fzBeE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YcjAuKYnd2p/VhwhtyePSBtT8HTW3EfL14GtIas1mahvf0zPcaGQw9rZTIKMmgwsTTn+Dd6tABr7ZLQNJvVW8iPajScN4gOq571BCilPyI0msr02Rm24RHpUOyH+0UOiCkPR5i/CNobfcFXkOWTlP3Nw/J9jQrP+BByKbqgRYnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fUnivaV+; arc=none smtp.client-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g2+OvKqt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183661F000C4;
-	Thu, 15 Oct 2026 13:19:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792070398;
-	bh=XmTFPFQKWNQCbwKOGMyIvwptcs1NVuc7umRcO5tIaEk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g2+OvKqtQbt4MeL45W1VNDsC8TbMWIM6miExxgO6+CoHN2bvfRNW455gOXdFAgA5u
-	 jBaaj8CITkLsB6ZmIGx26zvKIjThAV+sL8Vpuzb/+lupc0/ktQBAOTchax63Ku7U6J
-	 QXQY3rcDX0oBW9ib/tTHERY7WSHWa3RLNpIq/YtBEmEvqqiIOkKp8GqwZOOzSh/fHd
-	 WhP5PQJm6+B3at7BH07/upxc/fPk6A+n5UpzDy19iEo8WgB4pwRbnjeVLr581GSN9I
-	 x/RzGYMpedzPMAGzrm1Xy6FwPdKBUEbLDKseX9HkuRA3stx/YU62HYrZXrV4XvgJ4W
-	 wais4Bak8XRVw==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Nam Cao <namcao@linutronix.de>, Naveen N Rao <naveen@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v5 1/2] riscv: kprobes: reject probes inside LR/SC sequences
-Date: Thu, 15 Oct 2026 22:19:54 +0900
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261014094415.374-2-yuanxiaofeng@eswincomputing.com>
-References: 20260828091202.1124-1-yuanxiaofeng@eswincomputing.com
- <20261014094415.374-2-yuanxiaofeng@eswincomputing.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fUnivaV+"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792070433; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=vsIpB7vSSkRwIpK0lyI7cC1L86RAh24gU6u1hVeflGQ=;
+	b=fUnivaV+tHjWqDp1Ju3QhOHL6nM1yz03n6M5wqtIE6vPV2AxiNhbCt8gxDnPdAgbbJav3+juM06uKhTKZanuH3IqNnrtcuelL2rF7Ietswyl6ll7e/U0k1oM6xki+7DJIq2AG3VI4ZIIYzsHSA44T/zoMhpBTTSgAJipFwqMreg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R621e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XCrq9fv_1792070431;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCrq9fv_1792070431 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 21:20:32 +0800
+From: fangyu.yu@linux.alibaba.com
+To: jgg@nvidia.com,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	joerg.roedel@amd.com,
+	jgg@ziepe.ca,
+	vasant.hegde@amd.com,
+	kevin.tian@intel.com,
+	Ankit.Soni@amd.com
+Cc: guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Subject: [PATCH] iommupt/kunit: Read an exact NR_SECONDARY_PAGETABLE snapshot for the leak check
+Date: Thu, 15 Oct 2026 21:20:24 +0800
+Message-Id: <20261015132024.43998-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261015131956.183661F000C4@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 17:44:14 +0800, Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com> wrote:
-> A trap taken in the middle of an LR/SC sequence clears the load
-> reservation, so an SC following the probed instruction always fails and
-> the enclosing retry loop re-enters the breakpoint, livelocking the CPU.
-> Reject probes of the LR/SC instructions themselves and of any address
-> between them.
->
-> arm64's kprobes rejects its equivalent exclusive load/store instructions
-> and, in arm_kprobe_decode_insn(), walks backward from the probe address
-> (bounded by the enclosing symbol) to reject any address inside an
-> exclusive sequence.  RISC-V cannot walk backward because
-> variable-length instructions make instruction boundaries ambiguous, so
-> walk forward from the enclosing symbol, a known instruction boundary, up
-> to the probe address and track whether an LR is still outstanding.
->
-> A Zalrsc-constrained LR/SC retry loop holds at most 16 instructions, so
-> an LR more than MAX_LRSC_GAP instructions ahead of the probe cannot
-> start a sequence containing it.  Count instructions, not bytes:
-> compressed instructions would make a byte window ambiguous.
->
-> The LR/SC instructions themselves are rejected in
-> riscv_probe_decode_insn(), and an address inside a sequence is rejected
-> in arch_check_kprobe().
->
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Looks good to me from kprobes maintainer's viewpoint.
+NR_SECONDARY_PAGETABLE is per-CPU batched and only folded into the global
+counter about once per second. The tests complete within a few seconds, so
+the init/exit checks can read stale values and randomly fail when a fold
+lands mid-test, even though no page table is leaked:
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+    # test_map_simple: ASSERTION FAILED at .../kunit_iommu_pt.h:473
+    Expected priv->orig_nr_secondary_pagetable ==
+    global_node_page_state(NR_SECONDARY_PAGETABLE), but
+        priv->orig_nr_secondary_pagetable == 68 (0x44)
+        global_node_page_state(NR_SECONDARY_PAGETABLE) == 70 (0x46)
 
-Thanks!
+Sum the per-CPU batches together with the global counter to get an exact
+snapshot before and after each test case, which makes the check
+deterministic without any settling delay.
 
-> Signed-off-by: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-> ---
->  arch/riscv/include/asm/insn.h          | 33 ++++++++++++++
->  arch/riscv/kernel/probes/decode-insn.c |  2 +
->  arch/riscv/kernel/probes/kprobes.c     | 63 +++++++++++++++++++++-----
->  3 files changed, 86 insertions(+), 12 deletions(-)
->
+Fixes: bc5233c0904e ("iommupt: Add a kunit test for the IOMMU implementation")
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+---
+ drivers/iommu/generic_pt/kunit_iommu_pt.h | 40 ++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+index ece1c9b8c55d..d20728b196be 100644
+--- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
++++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+@@ -4,6 +4,7 @@
+  */
+ #include "kunit_iommu.h"
+ #include "pt_iter.h"
++#include <linux/cpu.h>
+ #include <linux/generic_pt/iommu.h>
+ #include <linux/iommu.h>
+ 
+@@ -438,6 +439,36 @@ static struct kunit_case iommu_test_cases[] = {
+ 	{},
+ };
+ 
++/*
++ * The global NR_SECONDARY_PAGETABLE counter is batched per-CPU and folded
++ * into the global value asynchronously, sum the global value and the per-CPU
++ * deltas to get an exact snapshot.
++ *
++ * The global value must be read without the clamp of global_node_page_state():
++ * the raw counter is transiently negative whenever a folded free batch
++ * outweighs allocation deltas still pending on other CPUs, and clamping
++ * before adding the deltas back would overestimate and report phantom leaks.
++ * global_node_page_state_monotonic() is normally reserved for monotonic
++ * counters because a raw negative read is garbage as a page count, but the
++ * sum with the pending deltas always restores the exact non-negative value.
++ */
++static unsigned long pt_kunit_nr_secondary_pagetable(void)
++{
++	unsigned long nr = global_node_page_state_monotonic(NR_SECONDARY_PAGETABLE);
++
++#ifdef CONFIG_SMP
++	int nid, cpu;
++
++	cpus_read_lock();
++	for_each_online_cpu(cpu)
++		for_each_online_node(nid)
++			nr += per_cpu_ptr(NODE_DATA(nid)->per_cpu_nodestats,
++					  cpu)->vm_node_stat_diff[NR_SECONDARY_PAGETABLE];
++	cpus_read_unlock();
++#endif
++	return nr;
++}
++
+ static int pt_kunit_iommu_init(struct kunit *test)
+ {
+ 	struct kunit_iommu_priv *priv;
+@@ -447,8 +478,7 @@ static int pt_kunit_iommu_init(struct kunit *test)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	priv->orig_nr_secondary_pagetable =
+-		global_node_page_state(NR_SECONDARY_PAGETABLE);
++	priv->orig_nr_secondary_pagetable = pt_kunit_nr_secondary_pagetable();
+ 	ret = pt_kunit_priv_init(test, priv);
+ 	if (ret) {
+ 		kunit_kfree(test, priv);
+@@ -461,17 +491,19 @@ static int pt_kunit_iommu_init(struct kunit *test)
+ static void pt_kunit_iommu_exit(struct kunit *test)
+ {
+ 	struct kunit_iommu_priv *priv = test->priv;
++	unsigned long nr;
+ 
+ 	if (!test->priv)
+ 		return;
+ 
+ 	pt_iommu_deinit(priv->iommu);
++	nr = pt_kunit_nr_secondary_pagetable();
++
+ 	/*
+ 	 * Look for memory leaks, assumes kunit is running isolated and nothing
+ 	 * else is using secondary page tables.
+ 	 */
+-	KUNIT_ASSERT_EQ(test, priv->orig_nr_secondary_pagetable,
+-			global_node_page_state(NR_SECONDARY_PAGETABLE));
++	KUNIT_ASSERT_EQ(test, priv->orig_nr_secondary_pagetable, nr);
+ 	kunit_kfree(test, test->priv);
+ }
+ 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.50.1
+
