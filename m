@@ -1,368 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA53A517BA7;
-	Thu, 15 Oct 2026 12:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757E623A99F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067651; cv=none; b=Xre0KEH1fftRaLtPBZSx7zUVpRZDeLjwWb+hbRxpuJLai5lTlsjmFCqd0+kyKWgRsNYbiLbqtiejYZ7JT3oK6NELEvZgUVGOUklxf/fHwEvlVGxntBdjdbwqtH7sg8IT/ULamHpmva5V8oCTYQW80ZMCwAYxAVnSylSB4KGeu9w=
+	t=1792067670; cv=none; b=VFYTy3AWrzPjEuSO/PtnEfhgRgXRtYx3I13LUvRlZVsImC1ccIAFT6NxIdzM0Tp6IdUrVOEi/zY3q/snpuZ3vpNooVnWq3aHOLiJ2V8M2rRuwUz6kV1IwuO54iGrnsnFtGKr7+Kc7rPPNO6Ee9R3s3Fsk655QLKoq8MOYDzmOaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067651; c=relaxed/simple;
-	bh=p27s2VWFrHAqilqGBoUIdsBBRaEGbHxwMz3zCfccEzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dd/SuMC60SoBNgOdaoV8isAaFuRTJW29fPdv0WcEEyiVMxYngoBvH6MrGkEyG1QdHrDOO+yHuoc4QijvnkQ04dgIIBXgMSp/6zRPYrMrgPW9wMDjedxj0k0xS7IsH8qeAugllEQyfBs1wqKNVakoIeGS9l2amQuaqasf2AJBP6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7BZb1fx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067670; c=relaxed/simple;
+	bh=6RYCJTgmZtkhTJF0IB6+IuC6pGbjy5IhOnHcNqjkuBo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ulm5g/ViKdddCtFrvIf9PV90z0+f1AJS8YiBFuTZF1UJ9leHhFIiEZa/YNztCjTivgPNoDe5a28DSL+L4JRJFpJ8FzwqqthdmjnLuScLH/zPqUBnCe7oSWTXW9CDxjNDF9Zqw5hl5QFzUH702dW45bUrNsBnkNXi49uNvXlV3zU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bes+hyL9; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7BZb1fx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3D01F000C4;
-	Thu, 15 Oct 2026 12:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067649;
-	bh=Ea9IWsCeD09j98ilJsUEEHsq1UpfLk0qemcn5duHRIw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J7BZb1fxR0O7goAxUfGpjxhAU08AxKj+AOfsHnwVLKlkGnyA4153xUiHLRauTv+Uz
-	 DaTVkp0j+6yXVeiu2JVXVd94I+KxEhLlm1YhYu4iuDza5ccCAtIujijTdrzd82c/UY
-	 3cXfeaq9Qmx3j+upU5o6lkryTkcrju69Fx1o09kILj+3VWlTC3beaBTqSy5A4JMXgP
-	 4CeK3sXPwLrVgWsfL4U4Po22PJ9papa8VdLY3Ye97o6UukjPRFhogehGomXagBOfP5
-	 i/1S5ufBPJ8VZ+9IDI3sDTmmmp6zKNu9j5nC/p9nKG2p7YDc3jPJT74ntPNMZ/v+JV
-	 FdhzOdOp8wfwA==
-Date: Thu, 15 Oct 2026 13:34:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
- filter
-Message-ID: <20261015-attentive-conflict-1a1f538de77d@spud>
-References: <20261001-tribesman-gauze-862e1ef0cdd8@spud>
- <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
- <20261008-9e2a48675c1a4c28f2dfa73b@squawk>
- <950f2801-a613-4f5a-a5a7-cb30101cf293@foss.st.com>
- <20261009-8db882a9fa159f8759aa7327@squawk>
- <2ba9235f-182e-4906-92e2-e35cf831d289@foss.st.com>
- <20261014-untrimmed-partly-81a4a21db49c@spud>
- <48e528a5-0c54-4778-bd29-b6f44ae95be7@foss.st.com>
- <20261014-unmade-sphinx-71cb25110d58@spud>
- <436ef0bf-4146-435d-8252-acec68e64b9e@foss.st.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bes+hyL9"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so1318380a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:34:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792067669; x=1792672469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MuIQxTwfSJeHtZkn09gsG33Ccv5vPWVkF/kC4waNbbY=;
+        b=Bes+hyL9Gkg2QnWiLjSO7paxXpTj8q8o+7xp0hD4eT5TyitpciP5VjBUkruqGr8qnd
+         AUp7tKX0/tQmzet2x+L5+1nejaeSgltV9+JQGzrZt8hM60yGd8woKFFoByYE3+R6T+jg
+         c3CQJD30XJZkFlMoxBSVzRrtkBznVTgE3M9AU7g7MI8LEUcpKMS5WQ/jq2/Gfaj8s7Uy
+         kIKua/ipYWIPcc/AqFO4iQsM1Sdz6Qdz42z2bXMl2mk7eKP7zWIa/LNY8+xkdkPboy8Y
+         6NfaDYgA79uzWwRLExul81/0dLyM9lYnSv5+ZhWOA2jGyj8JsS+RoJ9PhsuUj4AKk7oM
+         k0gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792067669; x=1792672469;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MuIQxTwfSJeHtZkn09gsG33Ccv5vPWVkF/kC4waNbbY=;
+        b=1rEVG8wDLL0idVUdBr2utmcIFwrWlYGSPqT3OTxy8bRP9o/y4GBKutQdsGNQwDog7d
+         uyRTguAOMH0ml7YUaQWTjg9q224dpl4m69P35sBChHJqSphftImLY4fsrTiY+oj4aDOC
+         y14mgDD78AoS5atX7RaxUCh0TE+TkL9unXSMM+4LBBLdjRl3ZOJjSX5dLg1kFcAinskh
+         CsKZPNmxFCVUOypiNeX+0GCkDCe9CaSOE3bLHZqK7EnjQpp82q/U4lrrAFZ/TAxbFckx
+         N5q1hKUgMXWvgZMPlwvuqji7FOkX046/mY9Y6WdGAbLyZp3XTeZJZcZRowv2BQARfpor
+         HHbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgivwc9LJyDjSzgLqO4jYe7xzbyA8zrUcRiy0ay4LuvPEvqDzK3iScnVGLBb8nW8JpZOARaL+42+S0als=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8qBkvGvlo8tBib5a+iFqBQEceiluIAsqDOEruY7+CBuKCZjWG
+	xN9NAlqKUsrpJnzt3i38VyWbR47XUXiobtR21bPtiyOUFsSSBMUuJg2v
+X-Gm-Gg: AYBFou2Hu/gkCcoslSRsLFh72fKyKCpXQc4SdldYSucmwzDOYAW5j45dxtlB/mP/PWg
+	baQCReQ34WGZbD8HW4S+MjrLgaflUX0aXZ/83qgMFqXjhui6fk9WNwKlnE4KcfQz7OXCV3qmMXv
+	dC81OXq6qJewdP/pkfLeFfdzk8v72kRwhQs2xvPoNvXy5PyjXUcdwFbR8+2LIEOAEyDPT/+jPXN
+	RlIhc+8QrL/z9IHLai8zDi8ECk/S7ghayPwGEr0qnbLCTfSsFSETMpCBjpHukkhQhzwxtJ8AucV
+	CU3Od54bgFddJyJQGHOlRHz3sGJXQ0SAXyts/y72YHOoc6+ns1tmuyu7BRZcgUoTewpgtxn7JRV
+	iSEBy7evRHLybovisj8ThFk45OZyfFL7COqGC9txjIoFtUTggHPLjLn6bf1fHeMBrzEnSsyB3vv
+	3p4wLcqCDoR8aNDww5o+vZrMSy00MZBlTb7JtO97CG++WLKO7uy0tA/QFKUgPirrro7mXVGcOxc
+	dQmbbwCA3Y=
+X-Received: by 2002:a17:90b:314d:b0:3ac:7556:8eed with SMTP id 98e67ed59e1d1-3ac7556a42cmr3796079a91.44.1792067668726;
+        Thu, 15 Oct 2026 05:34:28 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9444a0c6sm4714146a91.11.2026.10.15.05.34.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:34:28 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	elver@google.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] perf/core: Close owner-list publication race with remove-on-exec
+Date: Thu, 15 Oct 2026 21:34:16 +0900
+Message-ID: <20261015123416.795008-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FGGwO6lNFVG+3aVf"
-Content-Disposition: inline
-In-Reply-To: <436ef0bf-4146-435d-8252-acec68e64b9e@foss.st.com>
+Content-Transfer-Encoding: 8bit
 
---FGGwO6lNFVG+3aVf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+perf_event_open() makes a user event visible in the target context before
+adding owner_entry to the opener's perf_event_list.  For a remote task, it
+also releases exec_update_lock before adding the list node.
 
-On Thu, Oct 15, 2026 at 11:19:19AM +0200, Olivier MOYSAN wrote:
-> Hi Conor,
->=20
-> On 10/15/26 00:49, Conor Dooley wrote:
-> > On Wed, Oct 14, 2026 at 06:51:45PM +0200, Olivier MOYSAN wrote:
-> > > On 10/14/26 17:15, Conor Dooley wrote:
-> > > > On Mon, Oct 12, 2026 at 02:56:04PM +0200, Olivier MOYSAN wrote:
-> > > > > On 10/9/26 21:12, Conor Dooley wrote:
-> > > > > > On Thu, Oct 08, 2026 at 06:37:26PM +0200, Olivier MOYSAN wrote:
-> > > > > > > On 10/8/26 12:11, Conor Dooley wrote:
-> > > > > > > > On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wr=
-ote:
-> > > > > > > > > On 10/1/26 20:32, Conor Dooley wrote:
-> > > > > > > > > >=20
-> > > > > > > > > > > +
-> > > > > > > > > > > +required:
-> > > > > > > > > > > +  - compatible
-> > > > > > > > > > > +  - reg
-> > > > > > > > > > > +  - ranges
-> > > > > > > > > > > +  - clocks
-> > > > > > > > > > > +  - clock-names
-> > > > > > > > > > > +  - clock-ranges
-> > > > > > > > > > > +  - "#address-cells"
-> > > > > > > > > > > +  - "#size-cells"
-> > > > > > > > > > > +
-> > > > > > > > > > > +additionalProperties: false
-> > > > > > > > > > > +
-> > > > > > > > > > > +patternProperties:
-> > > > > > > > > > > +  "^sitf@[0-9]+$":
-> > > > > > > > > > > +    type: object
-> > > > > > > > > > > +    description: Serial interface child node
-> > > > > > > > > >=20
-> > > > > > > > > > Why is this a child node at all?
-> > > > > > > > > > Probably not worth reviewing more without a link to the=
- docs for this
-> > > > > > > > > > device so I can figure out what on earth is going on!
-> > > > > > > > > >=20
-> > > > > > > > >=20
-> > > > > > > > > The MDF is a digital filter for sigma-delta bitstreams, r=
-ather than the
-> > > > > > > > > analog-to-digital converter itself.
-> > > > > > > > >=20
-> > > > > > > > > Here is the link to STM32MP25 reference manuel
-> > > > > > > > > https://www.st.com/resource/en/reference_manual/rm0457-st=
-m32mp2325xx-advanced-armbased-3264bit-mpus-stmicroelectronics.pdf
-> > > > > > > > > Chapter 45: Multi-function digital filter (MDF)
-> > > > > > > > >=20
-> > > > > > > > > On STMP32MP25 SoC, the MDF provides 8 serial interfaces (=
-SITF) and 8 digital
-> > > > > > > > > filters (DFLT) which can be connected through a multiplex=
-er.
-> > > > > > > > >=20
-> > > > > > > > > Below is a schematic view of typical applications targete=
-d by this
-> > > > > > > > > peripheral
-> > > > > > > > >=20
-> > > > > > > > >=20
-> > > > > > > > > Audio use case:
-> > > > > > > > >=20
-> > > > > > > > > 		mdf
-> > > > > > > > >                 +-------------------------------------+
-> > > > > > > > > +------+    | +------+    +------+    +------+    |
-> > > > > > > > > | dmic | -> | | sitf | -> | mux  | -> | dflt | -- | -> au=
-dio device
-> > > > > > > > > +------+    | +------+    +------+    +------+    |
-> > > > > > > > >                 +-------------------------------------+
-> > > > > > > > >=20
-> > > > > > > > > For instance, in an audio use case the serial interface c=
-an be configured to
-> > > > > > > > > provide the clock to the digital microphone (cck0, cck1 o=
-r both) at a common
-> > > > > > > > > predefined rate, and to retrieve the PDM samples.
-> > > > > > > > > The serial interface provides this samples to a digital f=
-ilter, which
-> > > > > > > > > delivers PCM samples on its output.
-> > > > > > > > >=20
-> > > > > > > > >=20
-> > > > > > > > > Analog use case:
-> > > > > > > > >=20
-> > > > > > > > > 		mdf
-> > > > > > > > >                   +-------------------------------------+
-> > > > > > > > > +--------+    | +------+    +------+    +------+    |
-> > > > > > > > > | sd adc | -> | | sitf | -> | mux  | -> | dflt | -- | -> =
-iio device
-> > > > > > > > > +--------+    | +------+    +------+    +------+    |
-> > > > > > > > >                   +-------------------------------------+
-> > > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > So, looking at the docs and a brief chat with Jonathan abou=
-t this
-> > > > > > > > device, I believe you've got things backwards and this is a=
-ctually the backend,
-> > > > > > > > and the adc should be the one populating the io-backends pr=
-operty
-> > > > > > > > pointing to this device. You should have io-backend-cells, =
-and I assume
-> > > > > > > > that there should be a cell for the adc to select which dlf=
-t it is connected
-> > > > > > > > to.
-> > > > > > > >=20
-> > > > > > >=20
-> > > > > > > There have already been lengthy discussions in the past about=
- a DFSDM
-> > > > > > > peripheral on STM32MP1, which has features similar to those o=
-f the MDF and
-> > > > > > > similar implementation constraints. For the DFSDM, a solution=
- based on an
-> > > > > > > IIO backend had been upstreamed. The MDF follows the same arc=
-hitecture. I
-> > > > > > > need to take a little time to dive back into this issue.
-> > > > > >=20
-> > > > > > One thing to note there is that you retrofitted the backends on=
-to that
-> > > > > > device, and the original design here is much older (it's a text
-> > > > > > binding).
-> > > > > >=20
-> > > > > >=20
-> > > > > > >=20
-> > > > > > > DFSDM sources:
-> > > > > > > drivers/iio/adc/stm32-dfsdm-adc.c
-> > > > > > > drivers/iio/adc/stm32-dfsdm-core.c
-> > > > > > >=20
-> > > > > > > Here is a sample of DFSDM DT
-> > > > > > >=20
-> > > > > > > sd_adc0: simple-sd-adc0 {
-> > > > > > > 	compatible =3D "sd-modulator";
-> > > > > > > 	#io-backend-cells =3D <0>;
-> > > > > > > 	vref-supply =3D <&v3v3>;
-> > > > > >=20
-> > > > > > Yeah, pretty sure this is wrong (backwards). The backend is the=
- thing
-> > > > > > that gets data from an ADC not the ADC.
-> > > > > >=20
-> > > > >=20
-> > > > > The backend framework was introduced to implement complex IIO agg=
-regate
-> > > > > devices. The hardwares that were driving this need were analog de=
-vice ad9467
-> > > > > and ST DFSDM.
-> > > > >=20
-> > > > > https://lore.kernel.org/linux-iio/20231204144925.4fe9922f@jic23-h=
-uawei/T/#m222f5175273b81dbfe40b7f0daffcdc67d6cb8ff
-> > > > >=20
-> > > > >   From drivers/iio/industrialio-backend.c:
-> > > > >=20
-> > > > > "The typical architecture is to have one device as the frontend d=
-evice which
-> > > > > can be "linked" against one or multiple backend devices. All the =
-IIO and
-> > > > > userspace interface is expected to be registers/managed by the fr=
-ontend
-> > > > > device which will callback into the backends when needed (to get/=
-set some
-> > > > > configuration that it does not directly control)."
-> > > > >=20
-> > > > >    *                                    ---------------------
-> > > > >    * ------------------                 | ------------
-> > > > >    * |     ADC        |-----------------| | ADC CORE |
-> > > > >    * | (Frontend/IIO) | Serial Data (eg | |(backend) |-------
-> > > > >    * |                |-----------------| ------------
-> > > > >    * ------------------                 ---------------------
-> > > > >=20
-> > > > > The MDF (or DFSDM) use case, follows this topology:
-> > > > > - The SD modulator (ADC core) registers in backend framework
-> > > > > - The MDF registers in IIO framework and exposes the IIO devices
-> > > > >     It also get configuration (ref voltage) from SD modulator, to=
- compute
-> > > > > scaling.
-> > > > >=20
-> > > > > I agree that if we consider the terms frontend and backend, the e=
-lements in
-> > > > > the data flow do not have the roles that we would naturally expec=
-t. However,
-> > > > > if we consider the expected role of the elements using the iio-ba=
-ckend
-> > > > > framework, the usage seems coherent to me.
-> > > >=20
-> > > > I didn't even get as far as sd modulators or whatever, if I underst=
-and
-> > > > correctly the ADC inputs on this device are fed by the onboard ADC?
-> > > > (https://lore.kernel.org/linux-iio/20261006-adc-stm32mp25-v1-v4-0-d=
-31ec75aecf3@foss.st.com/)
-> > > > In that case, I can't really see how it makes sense for the primary=
- iio
-> > > > device to change when data is fed back through the mdf or taken
-> > > > directly from the ADC itself, particularly given how that would aff=
-ect
-> > > > the userspace interface.
-> > > >=20
-> > > > The "serial" side of this seems in a similar vein to the adi,axi-adc
-> > > > stuff, which when considered with the ADC inputs, really does give =
-me
-> > > > the impression this is backwards.
-> > >=20
-> > > Some clarifications about the STM32MP25. This SoC does indeed provide=
- ADCs,
-> > > and these can be connected to the MDF via a dedicated interface. (but=
- not
-> > > the serial interface).
-> > >=20
-> > > However, this use case is not supported by the driver. Only sigma-del=
-ta
-> > > modulators, external to the SoC and connected via the serial interfac=
-e, are
-> > > supported. On ST boards, the only available SD modulators are digital
-> > > microphones.
-> >=20
-> > Quite frankly, I don't care what you are choosing to implement in the
-> > driver or what your first-party boards support. The binding must
-> > represent the capabilities of the device, not what subset you deem
-> > relevant at this point in time. I'm not going to ack anything that does
-> > not consider all use cases for the device, especially since I the more I
-> > look the more I am convinced that this is the wrong way to model the
-> > relationship between devices and therefore intentionally ignoring a use=
- case
-> > is likely to be problematic when someone does decide that they want to =
-use
-> > that feature.
-> >=20
-> > > Anyway, if the internal ADC to MDF use case was supported, the issue =
-would
-> > > be the same. The whole ADC + MDF set would be presented at the interf=
-ace as
-> > > an aggregated device, and the ADC data would not be directly accessib=
-le to
-> > > the user.
-> >=20
-> > Of course, that's what I was talking about when I said:
-> > | In that case, I can't really see how it makes sense for the primary i=
-io
-> > | device to change when data is fed back through the mdf or taken
-> > | directly from the ADC itself, particularly given how that would affect
-> > | the userspace interface.
-> >=20
-> > To me, in that ADC to MDF use case, the frontend portion of the aggrega=
-te
-> > device presented to userspace needs to be the ADC and the MDF needs to =
-be
-> > the backend, since otherwise the ADC will simultaneously be frontend and
-> > backend, depending on which channel is considered. That makes no sense =
-to me
-> > when the MDF can always be the backend, for all use cases and avoid that
-> > sort of problem entirely.
-> > I've heard no argument as to why the MDF cannot be a backend, just that=
- you
-> > don't want to because the previous device didn't, but copying what was
-> > done before isn't a justification that bears weight if how it was done
-> > before isn't the way it should be done.
-> >=20
->=20
-> These topology problems were discussed at length in the case of DFSDM.
-> The main blocking point being support for interleaved channels (scan mode=
-),
-> a problematic issue that is still found with MDF.
+A concurrent target exec can therefore process a remove_on_exec event in
+this interval.  perf_remove_from_owner() sees the published non-NULL owner
+and calls list_del_init() on the zero-allocated, but not initialized,
+owner_entry.  DEBUG_LIST reports a NULL-link list corruption and can panic
+the kernel.
 
-If I am not mistaken, you're talking about what's described in the
-section labelled "Interleaved-transfer mode" of the document you
-provided previously?
+If list corruption reporting is non-fatal, list_del_init() initializes the
+node and clears the owner.  The open path then adds the ownerless event to
+the opener's list.  Closing the returned file descriptor frees the event
+while it remains linked, and the next owner-list insertion accesses the
+freed object.
 
-> The constraints that led to this approach are in the following thread:
-> https://lore.kernel.org/all/20210919191414.09270f4e@jic23-huawei/
+Initialize owner_entry when the event is allocated.  After taking the
+opener's perf_event_mutex, add the node only if the exec side has not
+cleared the owner.  The existing mutex then makes both orders safe: the
+open side either publishes the list node before exec removes it, or skips
+the late add after exec clears the owner.
 
-That to me seemed like a discussion about why the MDF/interleaver needs
-to be represented as a separate device, I don't see anything that
-explains why the MDF cannot be a backend.
+An unprivileged remote-task reproducer triggered the NULL-link panic on an
+unmodified hardened kernel.  With corruption reporting made non-fatal, the
+same reproducer triggered a KASAN use-after-free in the next owner-list
+insertion.  The patched hardened kernel completed 1,264,540 remote opens
+during 60 seconds of concurrent exec without a list diagnostic or panic.
 
-Reading the document, "Interleaved-transfer mode" doesn't trash the
-association between data and which fifo, and thereby which sensor or
-ADC, it came from. Using #io-backend-cells =3D <1> in the MDF, the
-sensor/ADC can provide the channel to which it is linked, and the data
-association restored. You already know what the set of interleaved channels
-is from the st,interleave property so there's no extra properties required
-for this I think.
+Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+ kernel/events/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-The problem here must be that you want to access the interleaved data? That
-could be handled by having a cell value that represents the interleaved
-data (e.g. -1), rather than a channel (1-N)? That'd support systems that
-want interleaved data (like an array of identical sensors?) and systems
-using the mode for the stated aim of it in documentation of optimising
-DMA request resources who have disparate devices where interleaved data
-itself is not useful?
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 7846d70be57f6c..5e191757a08ccc 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -13382,6 +13382,7 @@ perf_event_alloc(struct perf_event_attr *attr, int cpu,
+ 	INIT_LIST_HEAD(&event->rb_entry);
+ 	INIT_LIST_HEAD(&event->active_entry);
+ 	INIT_LIST_HEAD(&event->addr_filters.list);
++	INIT_LIST_HEAD(&event->owner_entry);
+ 	INIT_HLIST_NODE(&event->hlist_entry);
+ 	INIT_LIST_HEAD(&event->pmu_list);
+ 
+@@ -14252,7 +14253,8 @@ SYSCALL_DEFINE5(perf_event_open,
+ 	}
+ 
+ 	mutex_lock(&current->perf_event_mutex);
+-	list_add_tail(&event->owner_entry, &current->perf_event_list);
++	if (event->owner)
++		list_add_tail(&event->owner_entry, &current->perf_event_list);
+ 	mutex_unlock(&current->perf_event_mutex);
+ 
+ 	/*
 
-Thanks,
-Conor.
-
---FGGwO6lNFVG+3aVf
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatDIPAAKCRB4tDGHoIJi
-0lSLAP4+83dGmyYNV8OdycrYzvbbmgn56o9ZFI7sRbVCNVHMAQD/eQxpY2Ywsgh3
-eVcR9wfNHtbq0BalljDqp9VRLdn8YAU=
-=Da9G
------END PGP SIGNATURE-----
-
---FGGwO6lNFVG+3aVf--
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
