@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EE957266A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD76521207;
 	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088156; cv=none; b=LNahHw4rVpvG0uij5wj4M7cVfPqh5PZ/ShNuF40vUnuhkpu1xpAp9zwQ3xYJAxz6/36QKESqs8pFR6QLnit8ICfoskAS7Ki24R+W3OxZsAU0yRdHJ1f6NuaJVOFF0WjYYuoS5kowWjsxeztxDW9icbUANxrH7PMWJ9xiJuHhWk8=
+	t=1792088156; cv=none; b=JbosNwTh33CTXO2DNf7gu3CWDQZueddt4GjRdfmhSrfuOdXJqXZzt1KqzTthORUz+2IkaxozSy5DlUeTKMs+5cZ5QbEWC7MNJgatOudp3N9rq3TCN364+/DRPXJIZ2lPGKyFuxREOR53UlewHhtDb2PSzANquCMxALU3HmieGJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792088156; c=relaxed/simple;
-	bh=pughgVfMKfCJ9xqikMGkfv2NRbdXiHsr3Sk79GCYkoc=;
+	bh=bRT9KZu8UqdKr2cNHa1Z0K3O61FAuTcx+Pq/huomZeM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yu3OL5LHS8j50fz7JxQn3s+SDLvflFRD7CaraYxDTixAvD3S3JEUlorE2J9SpmeN0/+rrDGUoCYepqQ3WxJ+PxxkZmiGIglskRUbnYBscuaC3ZHwTZHjZaC6w5Ip6aE45v7xxnZsW/i+fEGDe13vsNYfVnKWINwodEgnvLJyOIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDkFtyu1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=fUZFB5iQUsFYNT184uZmNfUHKOYPkxXirVW9GuPn9v9a5x1+FkhaDbWB8fKeygO/NdN9oEKJKAl6OINlqm1WOGlCrYFjeRqMUD7ta9MpmmcjM4Ik8qXw3R/D1QXJIGw5q0/cOJmWT7H8t1Z8pJmkBBuUVUvHwEPUqmxYipLrY0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tJzwFHOT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDkFtyu1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CCB8BC2BCFC;
-	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tJzwFHOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3A1F9C2BCF5;
+	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792088155;
-	bh=pughgVfMKfCJ9xqikMGkfv2NRbdXiHsr3Sk79GCYkoc=;
+	s=k20201202; t=1792088156;
+	bh=bRT9KZu8UqdKr2cNHa1Z0K3O61FAuTcx+Pq/huomZeM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IDkFtyu1xmRn8a+O3+PAEm1hPF3AY2R9tbhZz/tbxKpWee4tzPOpaOKYd9CyLv3pv
-	 dAJ16sivZg0xheEOy90bFy2b2CLFYtsxU6VCBTF8ktVIIuVID+rJDdiDFRGoXHnZcS
-	 BSa+Na119f0ljoLX6pZ727OF7GqJOA67yeTIx9GBlqbqlZ1PkP8L8QIeH71PxsOjPJ
-	 KE2Q2tkKZVKFXFBQBKya07eZiD1BW6p5HJhvhkIIkqTY/RqfboB9gIxOHrdEVViV85
-	 yCKjkYtSyJZSolpQSlgh9yaRyXVLdgq3pCaNUAlpdq2iJS/3d3fLjaAD+86rscCFwX
-	 7nHY323fXrmZQ==
+	b=tJzwFHOT8zBTg8zoFzjOk6Du5AKu/DQQxp4Xq+H0Z9puNGp3isAAG1RYSWsxSZ1Ka
+	 /dzmlU8W6x0kQrq5VkrdB/5ZOzEJTPU8LrKOpLVDZ80ZQI+UeYvFDxtswRKxF3SuX6
+	 0d0E8ljHQrZvSZPs+dvXnPDjpoEgm+c1x4R43Tb1ayi/6CDnEf2ZGRKRIJ+wXj0eAt
+	 D5JvB38Epn6iRspp61XpShT8/Fh1DpOiMDD5+I0kHXi3t+wwuginwYrsGAW6sFOR8b
+	 YrejTtStE6doR81Nln2DNTr5WRlqzO8kgl4I7+75inzfeg5/etYlvNlqfawOk6GUqg
+	 MD6brIBrPFJqA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6EDCCCA464;
-	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28BB7CCA467;
+	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Fri, 16 Oct 2026 02:15:58 +0800
-Subject: [PATCH v4 09/17] mm/damon: convert to LRU refs based operations
- for MGLRU
+Date: Fri, 16 Oct 2026 02:16:03 +0800
+Subject: [PATCH v4 14/17] mm/mglru: reparent folios from all generations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mglru-fg-v4-9-2106750c0bfa@tencent.com>
+Message-Id: <20261016-mglru-fg-v4-14-2106750c0bfa@tencent.com>
 References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 In-Reply-To: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 To: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, 
@@ -74,11 +73,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  damon@lists.linux.dev, Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=935;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=1313;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=IdCP7RuDv2hWzX1uoW+WX1Go69TBrhltD7BGki0ofGQ=;
- b=Jvnw/LzNfAwF0Q6VT7GjTKg2XPpgBmn8d8tPZH6NZUS89sJE3igFX1rLRNxA0eR1bno0GkTug
- trWX/+m9nCICP1Y2k3Z/SKOS/64rdqmsq80XiuX9nKzQcQXYdDvvbls
+ bh=pdKvbjCwV47KGicri13lBUDrCkRk2q0xdMVXETA4zbM=;
+ b=k/ubaRAqYgu0d5sqic7HAzaAbUulfQUwwP8R/2btRLVmVV9Nfb3namLyzH80c0wrc7heLL/QW
+ ogSO2eylyVUAj7poqU5bzgEc3/spqODjrIxSkgSteeV3MFWumHGgPBC
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -88,32 +87,36 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-damon_pa_pageout() cleared PG_referenced directly, which under MGLRU
-may corrupts the folio's refs count in later commits. That flag is now
-bit 0 of the count (LRU_REFS_FLAGS).
+A lockless promotion racing with aging can reuse a generation index,
+see folio_inc_lru_refs().  The retry repairs the folio flags, but
+sort_folio() may have already moved the folio to the list of a
+generation outside the [min_seq, max_seq] window.
 
-Reset the count instead under MGLRU.
+__lru_gen_reparent_memcg() only splices the lists inside the child's
+window, so such a folio would be left on a list of the dying memcg.
+Splice the lists and move the counters of all MAX_NR_GENS generations
+instead.  Those outside the window are empty in the common case.
 
-Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+Assisted-by: LLM
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/damon/paddr.c | 3 ++-
+ mm/vmscan.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 2cfdc356b415..6412ff2396b3 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -279,7 +279,8 @@ static unsigned long damon_pa_pageout(struct damon_region *r,
- 		else
- 			*sz_filter_passed += folio_size(folio) / addr_unit;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 617f69c1d9f9..a9c224377234 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4936,7 +4936,8 @@ static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct lruvec
+ 	child_lrugen = &child_lruvec->lrugen;
+ 	parent_lrugen = &parent_lruvec->lrugen;
  
--		folio_clear_referenced(folio);
-+		/* The regions is cold, better drop the hotness info */
-+		folio_clear_lru_refs(folio);
- 		folio_test_clear_young(folio);
- 		if (!folio_isolate_lru(folio))
- 			goto put_folio;
+-	for (i = 0; i < get_nr_gens(child_lruvec, type); i++) {
++	/* Lockless promotion may leave folios outside the child's window */
++	for (i = 0; i < MAX_NR_GENS; i++) {
+ 		int gen = lru_gen_from_seq(child_lrugen->max_seq - i);
+ 		long nr_pages = atomic_long_read(&child_lrugen->nr_pages[gen][type][zone]);
+ 
 
 -- 
 2.56.0
