@@ -1,107 +1,92 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656FC46AA6E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF3E46F48D;
+	Thu, 15 Oct 2026 06:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044928; cv=none; b=XKIEJawBSGknUPUqex03sUMlteEtsjZvO6LJsi8tkMOEKV3FxVSuAf65z97qwIb95WaqSo1O0tDYgPqUgzwjKzejlbCx/8qj8Dfq++rvkEgw7ehb8xJFdP6o9c4Ne1CPNd8gsoBBiDxi3i4pblGl2e3tq9oGQAkSC1xxB6XLSLk=
+	t=1792045003; cv=none; b=aionydSfusbJyfvjpVCtvsxVyW64UVPkj5z+mwWJgQoEg/A597BdzAPM1HzIYIT5VqF6lliUvJuMtktArh/s3FuHudlztdx3mG/KbolABHclg4Ur8X9mHqNZX97hy03BI2wiPFYWTfjPdI8WxRk+rXVuJ4BxrLhiLn97D0gwE0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044928; c=relaxed/simple;
-	bh=smY6yBPbHEvgEFgKewvO2VX1mQwpxkybfqc6pFJnwSQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gyjlUqVs81LU3lZJ7TYTt2H/sKrpv9Ue+xL2xxe9/vk1xcqsZZuJJ7tJ81L9FbqI3QTYdhkx8R9KCVhF6Z62XjrcTVhcDC43ynhYIdiVKSC7e4vduLYO1EYHPEmsa3uhQ0A0pC4gIUlXBFSrHEVmMOX0JQ+fobthJ4vWQ+KRQ5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rQqMXMPD; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792045003; c=relaxed/simple;
+	bh=UDmT28w5sjMUp1dlb/J6oP9RvrRei6J/9rQpulyJuJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pcxo19r1JARdUOAE84NUBYk+eyxXEe//V19aATGjLMtxAH3ztFVk0klz69NQ9p5plPYNWCI1gln6Y0C5n3Tv2Cp3wnZJAyEyiOeGbhUht/2eo9J4Cpa2JGbcmln0BskzxET34kHYQhz59XK6oIrq0ic0Xn/yJY/ohHmHWCf0rxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUkcO89H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rQqMXMPD"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso3072074f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:15:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792044919; x=1792649719; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ar2lIaXGZYKNwi8B1Llnt5LR3QyG4oiCO9BSq6FLNgc=;
-        b=rQqMXMPD+ndLFK7DAlWSIS3ZNoAKO4xigZr6Bcsh1bZh7MJ2vl/5ax6QV+n9ez56AQ
-         NQv/A+mq2ci1ZpzJvGnQQChiHw2lJNMBN7H9CnHrJ4ghDI6he57GK55W4uzmTxi6lvo8
-         HOHR6Nt5PmWwwzeR90qu17Q05pWWzJSWDNLYoxjE76OcfXZ5IQ06VP3tAsRbTp/9hfqs
-         ktsUhxRgqbLM9DLEtks91U9BQw9qzHa2EqBiXCthAfjy4jQlyMaPCtG879elpPIN8vUj
-         GHdKXEhK/V/CMpdaxHBaXgXrREQ4bUHgoY4fyeL3XAmeqMEuGuoEj/n4y0wV2i/ISKcd
-         QEFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792044919; x=1792649719;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ar2lIaXGZYKNwi8B1Llnt5LR3QyG4oiCO9BSq6FLNgc=;
-        b=amh7pFUDC7kz2Mp2JcJlNG/nBW4hE0pkDJ4VTk1wx8rvz1wGq5nuJjEz/K/aeEN2IV
-         Fzm4uQikmgqFtPIOSiqhN2OPGCatHK7TwwOcXVXYrxAhdMKJhUtwhVjW4DlQgN0u6rJG
-         rJJp5TYNN8OtD0hoz2ZOzvS8sdQNO3IZTuhnQ/W8Q3OiU/rAPgwP71MOP683C1IYFoqn
-         fFJfS6z/La0M+6qbct8bmOgDKG/MNTo7AMauLnM2/5XmyYtH9ICcilQ/OUSBePLZO9dm
-         CMI7UUdOj3pCimf7DKFkfoVBHzpzzcbmWbd4ZhbCljEZduALwgeeaStp8CaEK01q4P5P
-         JsUg==
-X-Forwarded-Encrypted: i=1; AKwUvBynXTdXa6O6FHEIx7C+oaB+wv+zUQxTtzOVUjIOeFXnS4XHYvhLZyH7GDc6esJHyg5zdqUB0b9YS+KK2+E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4htgQJbBJRHtKGjbke29SwK8XDK6eGE4jRuT2chdKJRX5rCBo
-	IKW7vJv9aRPBWRF/I3G49MQn1nbV8xZ454242L7TE2YQ91a00mNn99Yy
-X-Gm-Gg: AYBFou0Eq+PEz9wsxElsgassBYeTQ/Gr1CPpLT6RyACggh13fOM8YeUGYSLjVVZRq2S
-	kw5UnHCOxKae9CRT33RXPLuZwuNEMav4t+mIwjloZh1Qw+NZgDHjQ3g0746+WqjRk1l0/Pvppe+
-	35l/84z3l4XTCDmjSX+1ml+eL+kzyhx1Ebrz3Y7yVxHoEENPyT5kXRbiEQ4g2bAFRQQswAeRXPm
-	CO0WP/a+EMEh7oEbUo/35/YTY8FplfwyF5DI/VWuMH8Tk+VxVZQnIVcx7+FoNqiMwkPI/l5k5H/
-	Z7f4/am8CrkR7jY6F7OQJZAimUCqyefBDx56f6AxmkaO2u+QCFFkI3GIsNa+36U9KMSYecA1Idg
-	KQepfa85+AurMlRtCAA64G2GNfq2CVQ6uabB0WiFvTgSF1FyCkVzHo9pqtNtbnEdpiqOOZvlhMV
-	o54MB1Ago5fjGfA89Jtb8DKbUvBGoMOKcGO6QAdRj2rR/2KwnMtQjgUCd5/xCNtNx8izY+xZhOF
-	8Wnbcz3GusC07BSOBdlEFor/aAk+BdbD3roKgtJ5VHbr172VRiO3enbX1akrHIBtqiU0esvNAAx
-	cHL7QgJ7kdw8C90e8bewP4P7jsAUamhhm/XwJK6cMbspmUWiVUH0/rhVFRa23FspJb0Lzcp8820
-	=
-X-Received: by 2002:a5d:6f1c:0:b0:48d:f855:d1e0 with SMTP id ffacd0b85a97d-48df855d30emr211551f8f.57.1792044918908;
-        Wed, 14 Oct 2026 23:15:18 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aeb3-cd01-f139-812c-65df-b930.310.pool.telefonica.de. [2a02:3100:aeb3:cd01:f139:812c:65df:b930])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bd733fsm16578043f8f.58.2026.10.14.23.15.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 23:15:17 -0700 (PDT)
-Date: Thu, 15 Oct 2026 08:15:15 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>, 
-	Christian Brauner <brauner@kernel.org>, netfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] netfs: Restore selective debug mask handling
-Message-ID: <atBvT7c8ZF4szPae@gmail.com>
-References: <20260905051738.11317-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUkcO89H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEE301F000C4;
+	Thu, 15 Oct 2026 06:16:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792044998;
+	bh=iSHYUE5unVP+n7dvBXJOWTzSXZrMWKnkHolt3ScGT18=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KUkcO89HSFHjhgGkmJ4v0xxtwwOf60/r+xM/LyUL/7grK0Uqm3bWOoRwSRnTiPKdy
+	 2WbTWAKI1aTaRUjv3VPLPPSg/MMDFFx5lNfPhDYk4noIXv3Vy7xR41LWmJTh7l1nxZ
+	 Huz+gL8hbC0GWlD/YX7rEV/JUMo18lccGTFZJIvmj/mQ7vsjTxDE40bdvE6Jj0oryV
+	 F6B/JImvd7oRF1LVc6x8OPj+QfsitDgbU97sbFyddVLHLBR89Efnd8HF3sO8P8FGBG
+	 0y41UPtNJ1Bw1bAOA+Ca9K3nf8t2RgdSoj7oKZXewKgRbwwgIgsXnk3XRJhwlxW7Eq
+	 yYgQ8qp5XtJxA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
+Date: Thu, 15 Oct 2026 08:16:27 +0200
+Message-ID: <20261015061627.35336-1-ojeda@kernel.org>
+In-Reply-To: <20261014123820.008483134@linuxfoundation.org>
+References: <20261014123820.008483134@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905051738.11317-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05, 2026 at 07:17:38AM +0100, Karl Mehltretter wrote:
-> The netfs debug macros test only whether netfs_debug is nonzero.
-> Consequently, selecting one debug point enables every entry, exit and
-> general debug message.
-> 
-> Documentation/filesystems/caching/fscache.rst and the NETFS_DEBUG
-> Kconfig help still describe /sys/module/netfs/parameters/debug as a
-> bitmask of per-stream function entry, exit and general debugging
-> points, and the fscache_*.c files still define FSCACHE_DEBUG_LEVEL,
-> but nothing has decoded either since the mask handling was dropped
-> when FS-Cache was folded into netfs.
-> 
-> Restore the per-level and per-point mask decoding.  Files that do not
-> define FSCACHE_DEBUG_LEVEL, which includes the netfs core, fall under
-> the cache management stream, the same default the FS-Cache macros had.
-> 
-> Fixes: 915cd30cdea8 ("netfs, fscache: Combine fscache with netfs")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On Wed, 14 Oct 2026 14:50:40 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.18.57 release.
+> There are 632 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
+> Anything received after that time might be too late.
 
-A friendly ping on this debug-mask fix.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-Thanks,
-Karl
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
+
+For UML (x86_64) I am still seeing:
+
+    ./include/linux/srcutiny.h:14:10: fatal error: 'linux/irq_work_types.h' file not found
+       14 | #include <linux/irq_work_types.h>
+          |          ^~~~~~~~~~~~~~~~~~~~~~~~
+
+The patch is in the queue but not in -rc2:
+
+  https://lore.kernel.org/stable/20261015061400.35195-1-ojeda@kernel.org/
+
+Thanks!
+
+Cheers,
+Miguel
