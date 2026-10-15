@@ -1,122 +1,74 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA4D53C3AD
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077353; cv=pass; b=oHrEam+pbwE2RfHd+nDii1DL2capTyNjcz1K3hbSV9FW9LZnF48jtAfSb2CHqrFMKx20SXQnlhk7W4OxWj8kRWHusbwwQKWsjrcKmBZEr65dZeNlJ4QCm+Fw8GzqdxhjiL/zGmB+sk/tx9VkwYXR27EG62KZ4LDNQegrgyhSrxI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077353; c=relaxed/simple;
-	bh=IH6C2ITjynYuyHLytAInZHJ667Lrpx57dguMaAwX600=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=W8Zca7jGSp9DUx+/1aY/wH/OxwsROUySMEIzKCn/THVgo85ucVniQ9TpAX0NppAOmqL8VS/Zb7CIElm5AmYFpAzRPFytKLiVZTrNGPqlPzp84Gw9Lrw2udwXP+SiUJCRi25iGmmBqYFLQ6ta4oz41GhzdEfVGoqZTw+joQQqpvU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nKnu4UbX; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6108B53C3AD;
+	Thu, 15 Oct 2026 15:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792077360; cv=none; b=TK5l6JZuzWu6Y7QElv/FdKwKJGTYvJAB3/hgGZA2Vfsl2GGuO8KpyJj04IZsLzmsjZZMZUFPSe4ByjFPwJaoYV/QkmdaX+Y+VXSFb4E1VniOedoyKCq2D8qbpAUu2iqGqFkogwxxm0eF36YcWFZUM2nL3hitGd8CNUwEqARyJmM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792077360; c=relaxed/simple;
+	bh=YaFXb9WrWUM6jpC/C36tcWGukIgbzgS4MZDG5mC7HXU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=GCmpcZocFSHsCCfiA5BY/FR11HgyHSZGNh9RQHwFGRzMfdWOSV2sOBHej7bKDSqWPvHdVKNitsRf4u3x9czfAuR0+EPc29r1OG0Fmh5q66uBnwYwiihDXQuDfISfe16NxPZ7346ZXTQbxrCx+y+rLPwaOEWQI/+HA6LxTgzJSR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gS5dvHAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nKnu4UbX"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso2788720a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:15:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792077349; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g37zpoNVmW7osqduroWwdxFm9qHS+F1kwC5cHUJ2b8txqEOmxXnLf1bHx/eaBGxZPK
-         9JEwbpO8FGzl0Y3+sbIaeHGMmQOzrPfb9WVPCLgJkRUcx/pRcSDdZeQ1Jf6C/F2Z5sWt
-         hwg6J0hKyeXfuH7MMvJ8hOL9Wqlsy3ksG3ZftTgOGpa24lA+J59nIkeqQsepYDokaBOU
-         z1r0fEmgcjGcopARuIrNoCLQr2nOSHizc8dSR83qhRAErf/V5rj/CRfE7QVnS+4C8YmJ
-         DnjETFu1XoxaZIfACikPMP02YSH1PdK1u5EePeUbk+WAZQfjt7Q3tPJFHTl9cvy5eAXH
-         UlHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
-        fh=T9VkBnQC5OgFutSQkUxCsbd32vzORmg7Dy2ToQYGMMc=;
-        b=kcf6Qqv0JDgIp3hp/IHEpgUoMGGhG7TyIKA4N2ICjYOZFi1vLIhyHA0v9UGaoWJsHz
-         qqHrgcEHY/6RowDF+XoaM0DdfMDkQkizswpPShfMRHNWv+KtPWBrdE//LeKawSJMYAhJ
-         NDSBBkdyUTQmMLwsihesTaWnt63LgPTFddFQgTEgyfR8GyjQFlD24tbn1GyzM8sngOMF
-         YQeGC62aIizd+S5bvAaoTeUEA4ubXRXJHNTJ/gR0Wz3NyPgD7wjsDa7tHnwOKCZzNXfA
-         r7TPd23oa++0ZlJ3EMrZAvDK+EowWfOr9H+9twc4ATeiGXD1bpkTq9aijq+A8PK4JXSr
-         JxNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077349; x=1792682149; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
-        b=nKnu4UbXM55FqTwsXsL5rqRbhxYX57pXWxdWa1UIfw/Csfnu/EABonwqCW41UjrO/S
-         PBC8cak+s77RlztOUXxE0XyKjCDRZBaDuFgLcfuMpFXYXH6X3LnIUoZK/S/dsCQMGDTt
-         DJ1nkmmtzlF+s72190lS6CJoMmrXM+kP6VhRyIKVmF1eaSf7HuoksALVwaHXZag9tbIc
-         4NaavsXfG1fqgEbIqqPfjb/Txg6crHj+1zmHr2zHrt1s8mntv1AFLb5IBO/6kXlElJea
-         QJnZyePcN4+yaZ2edvoUtAbu3NHu7uZbbDNTAs8Mh1AU2piH0hpBAZVpLGvA0CIN0rEL
-         udJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077349; x=1792682149;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
-        b=dWJhpK8DuCQpwvUb6xBFyMOOOX/Rd7D+qBMGy9sIn15SRzw/xOqieB/hV4kPSFzlT2
-         95v3g47F8V1kKzWifmVXNKc09l1iQfqF1CsVMmXZ71ltwykgDnxngK+rGnPVAPzeC410
-         T5dG4DJcvGgcKD3rRrgl7QfmDJDBodgQvwIWI6DAAUeLrGkSf/37VbCrKc+4ziKonGX+
-         56U+jFT/C8aNotHugUzPMIyBhS64DVQksdRLRXZXHtq1k30XHiQn/Xqk+Hl8I/ZC0wxo
-         fBWHbJRx6DrNEHT05Ya+XFprE7nWzVT49FtHrPVvXHVbT5Etimpwykf+vc0vLXupMVWO
-         t3WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXdXJ4nWR+BbHzK34bO5AepAMgBzDpwy2XW9kkBgcs6cbTifeQxMr3URTlaQc3vSc0Jybn6wIYrdUBQ8Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZOP8B3EXFOl6fJNmgT7pn+0fbU4MYOp3+17e9bcJas4wGB6bg
-	mm2z/WbY8K916AAr7lj6T3PKq+PQy/2+/zh4uNpcJz/eVm8UG0fb/wX4jKZBvKXVJLAsOomn7/C
-	uMkHhGIGZ2M5odT973mxUJw9DmBMhAZw=
-X-Gm-Gg: AYBFou1gf3vXBH5p3C0huHZ2T1oDUsa53Rn5f8ePyc0G1DzivLOU6BPi+woVGNKOjR9
-	QCuaygqa85rYccKOnxJSmN7mHhjoScnfi4E7h7OBWFllfr+r+H9XSQLFXaduT3V+7mvR3B5FLeE
-	55/AYH+aqEDC9QMNzRPJggBvo78ZCvVUypGXGgX9KNu/e0y5AKXDgp87RGzFQ6LL20Faqfbx/0I
-	aoj30UI7PpYf7ssg6pb/U+6yOdPoZ9/cKked/spGT4NVHBaEtEEXHAMDljO+DOwMi/dThPXgzNE
-	WdKbkjkCPDPCAFgDRmsL4bbbIO3Tudmgx/FKBhmNw4acEaBKHQcF1xETSnogFO9glq41diQEUjx
-	aKdUY5aT06Kg4Fic311hMl12B3fl3a79cQ7gv7ysDQ4Y=
-X-Received: by 2002:a17:906:c155:b0:c2a:d65c:c194 with SMTP id
- a640c23a62f3a-c31a9d56761mr1838328566b.29.1792077349343; Thu, 15 Oct 2026
- 08:15:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gS5dvHAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637081F000C4;
+	Thu, 15 Oct 2026 15:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792077359;
+	bh=DmM0pT0QFpRuYUC1TYORapqWQiN3iK4gHA1id/5dZ4M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gS5dvHAvNQDgx+zBUiUX3AQfqSc5MSjoyXtmCTBcchTRTYhP75XQD1sNKt/yu0Ze/
+	 YxRD9lhZHZ2I+DhiWjYxrO/0ULk+vUbTAla5xFc4z7O02at5UBedCKKhn/mhUgVEKy
+	 tvhorsGHsnbCtw84Lk/uzhOGPh1GH88ioqGaOESrG6+tMEQCxHxPwlQC4KzUCdCtz6
+	 8Rqk1uHW3SLBmzARoiO6gz4aOPQserqFWaGKVBnYYItQJ1rx+Aq6VvBAsdnFbPfZuB
+	 DpqKu5NtBsNkmgULx8Y7Atk9c2Ryy9UTzKeGeIoBRD23nRpfEjMttIjHWJHtzLTb5q
+	 UNTPlzj8jrGNQ==
+From: Lee Jones <lee@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Alexey Klimov <alexey.klimov@linaro.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260930124607.1109167-2-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260930124607.1109167-2-srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 1/4] dt-bindings: mfd: qcom,spmi-pmic: add
+ compatibles for pm4125-codec
+Message-Id: <179207735616.2048081.9070663764163723294.b4-ty@b4>
+Date: Thu, 15 Oct 2026 16:15:56 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015051926.13752-1-sreeshankar0910@gmail.com>
- <20261015051926.13752-5-sreeshankar0910@gmail.com> <179207236622.28934.8455006218721757519.robh@kernel.org>
-In-Reply-To: <179207236622.28934.8455006218721757519.robh@kernel.org>
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-Date: Thu, 15 Oct 2026 20:45:36 +0530
-X-Gm-Features: AclHuK8CtOHEeDeQkZ6GhBte8PNJPOJgXaJdB95NIQjYT2X3-p2J5_V6n9AGVI0
-Message-ID: <CAA-+uk+iNj0TxAkUgGSHhvBjDf7_EO_q9Zv6N1f+eoHBJf=q7A@mail.gmail.com>
-Subject: Re: [PATCH v10 4/6] dt-bindings: interrupt-controller: qcom,pdc:
- Document SM7250 PDC
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: conor+dt@kernel.org, davidwronek@gmail.com, devicetree@vger.kernel.org, 
-	krzk+dt@kernel.org, viresh.kumar@linaro.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, danila@mainlining.org, 
-	jbrunet+clk@baylibre.com, linux-clk@vger.kernel.org, sboyd@kernel.org, 
-	konradybcio@kernel.org, andersson@kernel.org, radu@rendec.net, 
-	robimarko@gmail.com, bmasney+clk@redhat.com, rafael@kernel.org, 
-	tglx@kernel.org, mani@kernel.org, linux@gurudas.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Thu, 15 Oct 2026 at 19:22, Rob Herring (Arm) <robh@kernel.org> wrote:
->
->
-> On Thu, 15 Oct 2026 05:19:24 +0000, Sreeshankar K wrote:
-> > Document the PDC block on the SM7250 SoC.
-> >
-> > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
->
-> Applied, thanks!
->
-Thanks,
-Sreeshankar K
+On Wed, 30 Sep 2026 13:46:03 +0100, Srinivas Kandagatla wrote:
+> Qualcomm Agatti SoC has PM4125 PMIC, which includes audio codec.
+> Audio codec has TX and RX soundwire slave devices to connect to on-chip
+> soundwire master.
+> 
+> Add missing qcom,pm4125-codec compatible to pattern of audio-codec node
+> properties in mfd qcom,spmi-pmic schema to complete the audio codec
+> support.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/4] dt-bindings: mfd: qcom,spmi-pmic: add compatibles for pm4125-codec
+      commit: 4c06f3659671be3c95e18519bf40e32ecde21382
+
+--
+Lee Jones [李琼斯]
+
