@@ -1,176 +1,254 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EBE3D813A;
-	Thu, 15 Oct 2026 02:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C35372058
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030723; cv=none; b=eabCl1+4Dk2iIRD/cHwn/smYZbmTBLHpTgktlhy1ueWyF5xnPRp9zaiT10sf1DQ7Enjeap+RbYnojjU0T87Px9Xht/eIgDj3UXWlSTLyR/kOIiXA5DHF3KPPYDV3eHxDYoJ/V/Zpvs+SQ2X7uqYc7zNpDb++r7T893RUBro432o=
+	t=1792030835; cv=none; b=sJpziET/CrqkRVy8qEqbDxojrtjGazh92LmkK66tvfIhmzRhSMZZu5EZVKbYI3dQw8+P0BaOxA42/uTUAiCNhf5pZOYiie9woYJDh4p4U/HPl/0KvJhMi7AGaOK+HJ4qPNtdJUeR8gE1ehVmyCJ0uEAQ4m7PgxzmvgB3AlDg9TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030723; c=relaxed/simple;
-	bh=M/hfzFRfXZT5gtMPfkmHt1JKyF/bg+pj/In18m1zA24=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BQCSUaItaPbtjyVo9On//k4qZVx2y9u8chDR3CSejAii1Pq/2zzxTCMftQ2JUEkjc4ddrTqUKcQMf7NM3YdP3o2k03MMvyUgmTa5oFDFEcMpbtk36mbljotvQJyyWcktf1SwmFLbBRECuf/ePE6hO7ABhfFmBScBsGk1UJVLuqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j4sCt6yJ8zYQtmx;
-	Thu, 15 Oct 2026 10:17:30 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id DE07F405AD;
-	Thu, 15 Oct 2026 10:18:24 +0800 (CST)
-Received: from [10.174.179.19] (unknown [10.174.179.19])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAXTu3uN9BquGHxAQ--.50203S3;
-	Thu, 15 Oct 2026 10:18:24 +0800 (CST)
-Message-ID: <ab472a6d-0435-447e-82de-cf1ac2566797@huaweicloud.com>
-Date: Thu, 15 Oct 2026 10:18:22 +0800
+	s=arc-20240116; t=1792030835; c=relaxed/simple;
+	bh=Vb/5KnsTKRxWRLFIdSk/2toupC2rnKLLIO8HXG2On2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DOPS8guGeZymMtd2RayG4cO06wKztE/hxMrl3Kr//9Y72saeKh19eeRtcTOAs2unCG0DnmpcCHEd2D1oWyBLiyQlCLhb+4EqXUHvHh3sbXxHFVoDa/aTcvR2FEEhEONynBYgTsiGuelrK36MHsfkBigCNYtvAxNWyxBHfeYSSWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q4/HOuZA; arc=none smtp.client-ip=74.125.231.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q4/HOuZA"
+Received: by mail-oo2-f10.google.com with SMTP id 006d021491bc7-6f9b24c99b6so539550eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:20:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792030833; x=1792635633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Kg27R3pkV7krXMuhfJV/qZMSUa2AeQivhHxVAjt+Tw=;
+        b=Q4/HOuZAvJnu5uhOKkNmh3N8u3MfClupsJha1gDqN0H6OO2H6rMomv2lzMuNdQSv7R
+         PAm2yovva8R/KtAs25rrE+71JfG/8zre8rCl6Oj8/4b+7V/kcb0qCftaNbtp7iapQ5ju
+         GI+ID8HimsAP64KUZaVEJ+JefiCm1uVE1ORguT2LY3sqM6aZUk01ujVNG5eeFsRtHDkE
+         fH+UzVBNXlooaW8FCZjeTIssp2E72kDIOtkoejf6mOpCKpwIgdlirc/SsbSQYp0FcdX1
+         b7IFppVXrA6AzAq1gwZncR30g0n4JqAEk0bM7JrXAYBapaLbiesVCua5iMA5r8Wp//Nd
+         47LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792030833; x=1792635633;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Kg27R3pkV7krXMuhfJV/qZMSUa2AeQivhHxVAjt+Tw=;
+        b=l2AyD+a1aGfxYM/u/SqFBRiBB1IaPqKrBaaSNOC/xNSWVH9IKLyicWrz7EBCKOS30g
+         jvJKhRMDDDSdA8yoZ41zovq91mgbCvRjB2yUqz977MX9BKyAqXYGCQ4imqA/ztbcfo9W
+         Iqkg9yqkc6XExd3z1F2YdM+YVGazAJ6vGsjEp3KjP95SiBj5Huiu6pKi6GsEdo8mx6Ku
+         wxdGtdNyX5jTUdVt7h66xiYR5jvLWqryzkAFUc2UyMB/RuSxd10drKP81IwuxtcstnKV
+         AeAS2YvBpCRKHC8GooPRpTe/3YCj3jKo+LPWkhYq/myCBFv89o5iAJuJu06bcatyaD7M
+         rPpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwziRxU/v+iNSjt0WykqY1b0lMQdSVLWEhJ6ops6eJDziiZAviwvJwR98poq2rQKEjQApuiq3Xb8BlmQjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9Qmku3jAFk7MW3JJWLlc8nvndJ4RbeqDAY5JxlvJY2tv0tq5K
+	7xCvOHh+26vefLeQy+mNPLKQJtKh2yzgagXl0jSmaJmct3p0x6nI4hxn
+X-Gm-Gg: AYBFou3+DLvUJq1Sn6lpEhzTEhIpnmBxx6jzss2d0ktIVO43xXE4HnFUf0CaqLuosfW
+	NcyrG8+lAEiRMsYG2eD9kUR5CW4C3cEn47cxrG/8RKRn8i6ky31oNe3Nn65U44z1peNXItSvusf
+	58UknUn+9H2bHfif+/TbZtsGJW/2Uqp6joe0tuEHEdPNVhyb3K8GDIYKzrasluczbaoXXO+Tc+P
+	h32CePFoipIKJSTDnNBRdDRmTEP57Zce55ys2NwPq0lhG4Lm/75hquCQCr4GC+TJwZuJUiuwOW4
+	4yQ1MOYwwanipaKSnxCXyhRcfC0jY4KuV2bkJgFH6V0x2Cc5MssSzjx5607w+lqBoUNzg+kiDVR
+	eG5R6AHoxU0VHGyeVL/yZDoCI2Nk/m/r9bmMCPwvCrpIQgusPCOMLyD9eFckzK1p95BD4/tnh3V
+	2GmGWA5quxBeMQLChcvaGOUCKquNKv4g3MSdpBcvI1sG6aiTjLRjhIPplUI77dH5sLBVJDhvAiY
+	xCp4lJAzl8JKVs9NI6nGdgQQAwtSEsLkiYPfw==
+X-Received: by 2002:a05:6820:c8d:b0:6cd:3fbd:1d61 with SMTP id 006d021491bc7-6ef12be060emr13390714eaf.75.1792030832637;
+        Wed, 14 Oct 2026 19:20:32 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.34])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6f56b25672bsm9561764eaf.11.2026.10.14.19.20.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:20:32 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	Jon Maloy <jmaloy@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ying Xue <ying.xue@windriver.com>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] tipc: fix broadcast sender hang on last acker departure
+Date: Thu, 15 Oct 2026 10:20:23 +0800
+Message-ID: <20261015022023.1894729-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <AM7P189MB11376F05ED2439EDBC2AEE65C69D2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+References: <AM7P189MB11376F05ED2439EDBC2AEE65C69D2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: fix extent status cache clearing when truncating
- inline data
-To: Jan Kara <jack@suse.cz>
-Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
- libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- enwlinux@gmail.com, yi.zhang@huawei.com, yizhang089@gmail.com,
- chengzhihao1@huawei.com, yangerkun@huawei.com, yukuai@fnnas.com
-References: <20261014021714.2382353-1-yi.zhang@huaweicloud.com>
- <sohkizuoexeuwreaxw463pyktxbrafyvtscklv5qyanhaehn4d@sx2bgp2s6e4u>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <sohkizuoexeuwreaxw463pyktxbrafyvtscklv5qyanhaehn4d@sx2bgp2s6e4u>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgAXTu3uN9BquGHxAQ--.50203S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxXry5uw47WFyxJF1rAr4xJFb_yoW7JrWDpF
-	ZIkF4UKr4kW34UGa97Z3WjqF1Fga1rCr47GryagrnrWF15CF1IgF90krWFvasrKrWvyayj
-	qFWFq3Z7Gan8trJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7
-	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
-	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
-	IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kK
-	e7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_
-	GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	UAwIDUUUUU=
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+Content-Transfer-Encoding: 8bit
 
-On 10/15/2026 12:27 AM, Jan Kara wrote:
-> On Wed 14-10-26 10:17:14, Zhang Yi wrote:
->> From: Zhang Yi <yi.zhang@huawei.com>
->>
->> ext4_inline_data_truncate() clears the whole extent status tree of the
->> inode when it truncates the inline data, with
->>
->> 	ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
->>
->> It does that when the inode still carries inline data while the
->> EXT4_STATE_MAY_INLINE_DATA state bit is already cleared, which is the
->> case once an inline to extent conversion has been initiated, for
->> example a delalloc buffered write larger than the inline space.
->>
->> The clear is meant to drop stale extent status entries of such an inode
->> to prevent stale extents and stale reserved space after the conversion,
->> but the range is too wide.  It also drops the entries of the blocks
->> below the new end of file, that is the blocks that stay in the file.
->>
->> When writeback of these blocks starts later, the lookup of such a block
->> misses the extent status tree, falls back to the extent tree and caches
->> a hole entry for it.  Those blocks then have dirty, mapped and delayed
->> buffers together with a hole extent status entry.  This is an
->> unexpected inconsistency.
->>
->> This problem has been hidden so far because we allocate blocks and new
->> extents for them during writeback.  But once [1] is merged during the
->> iomap conversion, the writeback behavior will be normalized, and it will
->> no longer allocate blocks for holes, thus exposing this problem.
-> 
-> Hum, I don't understand. So we have inode with inline data. We truncate it
-> (i.e. further reduce i_size). At this point we hold i_rwsem,
-> invalidate_lock, i_data_sem. So how can race with inline data
-> conversion?
-> 
+TIPC group broadcast senders are blocked while a replicast still has
+outstanding member acks: tipc_group_bc_cong() returns true as long as
+grp->bc_ackers is non-zero, and clears *grp->open, which is what
+tipc_poll() uses to report EPOLLOUT (via tsk->group_is_open).
 
-Hi Jan,
+When the last outstanding acker departs before acking,
+tipc_group_delete_member() decrements grp->bc_ackers to zero but
+never restores *grp->open.  As a result poll(EPOLLOUT) never fires
+again.  A writer blocked in sendmsg() is only released if some other
+wakeup happens after the deletion: with TIPC_GROUP_MEMBER_EVTS the
+leave event delivery calls sk_data_ready() and wakes it, but without
+member events nothing does and it sleeps indefinitely, since the
+default send timeout is MAX_SCHEDULE_TIMEOUT.
 
-It is not a race, the state is left behind by an ordinary delalloc
-buffered write that ran before the truncate started.  Please take a look
-at ext4_da_convert_inline_data_to_extent().
+Commit 99cc2a62e07a ("tipc: reject invalid and unexpected
+GRP_ACK_MSG to prevent bc_ackers underflow") already calls this out
+in its changelog as a pre-existing issue.
 
-A buffered write into an inline file that does not fit the inline space
-goes there.  It copies the inline data into the page cache, creates
-delayed allocation mappings for it, marks the folio dirty and clears
-EXT4_STATE_MAY_INLINE_DATA.  The non-delalloc variant
-ext4_convert_inline_data_to_extent() destroys the inline data with
-ext4_destroy_inline_data_nolock() right there, but it can do that
-because it allocates the blocks in the same transaction.  The delalloc
-path deliberately keeps the inline data, it is the only copy of the data
-until the blocks are created.  It is destroyed later by
-ext4_do_writepages() during writeback, which calls
-ext4_destroy_inline_data() when the inode still has inline data and it
-is about to create the blocks, see the "we will soon create the block
-for the 1st page, so we'd better clear the inline data here" comment.
+Restore the open state exactly on the 1->0 transition in the delete
+path, mirroring the GRP_ACK_MSG completion path, and invoke
+sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
+became writable again.
 
-So until that writeback runs, the inode has inline data, the
-EXT4_STATE_MAY_INLINE_DATA bit cleared, and a dirty page whose blocks
-are mapped as delayed allocations in the extent status tree.  A truncate
-that comes later is fully serialized and still sees
-ext4_has_inline_data() true, which is why it enters
-ext4_inline_data_truncate().
+Also make the ack accounting precise.  The delete path used to test
+less(m->bc_acked, grp->bc_snd_nxt - 1), which also matches members
+that were never counted for the current replicast (JOINING/LEAVING
+members keep a stale bc_acked), and the GRP_ACK_MSG handler accepted
+an ack from any member whose bc_acked differed from the expected
+value.  Either could zero bc_ackers on behalf of a member that owes
+nothing and silently void an ack still owed by a real acker.  Track
+whether a member owes an ack for the current replicast in a new
+per-member bc_pending flag, set when the member is counted and
+cleared when its ack arrives, and use it both to accept an ack and
+to decide on deletion.  bc_acked has no remaining user and is
+removed.  Suggested by Tung Quang Nguyen.
 
-Those delayed allocation entries below the new end of file are what the
-unconditional ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS) drops,
-even though their dirty buffers are still in the page cache.
+This issue was discovered by Tencent CodeBuddy Security.
 
-Cheers,
-Yi.
+Cc: stable@vger.kernel.org
+Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
 
-> 
->>
->> Therefore, restrict the range to the blocks that are actually truncated
->> away, and pass EXT_MAX_BLOCKS minus lblk as the length.
->>
->> [1] https://lore.kernel.org/linux-ext4/20261009103033.2920530-9-yi.zhang@huaweicloud.com/
->>
->> Reported-by: syzbot ci <syzbot+ci46f64f7b6a2a188e@syzkaller.appspotmail.com>
->> Closes: https://lore.kernel.org/linux-ext4/6ac92a4c.70ed5d86.2ac85.0072.GAE@google.com/
->> Fixes: 0add491df4e5 ("ext4: remove extent cache entries when truncating inline data")
->> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
->> ---
->>  fs/ext4/inline.c | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
->> index ceee69a66482b..b630e56815bb5 100644
->> --- a/fs/ext4/inline.c
->> +++ b/fs/ext4/inline.c
->> @@ -1905,8 +1905,12 @@ int ext4_inline_data_truncate(struct inode *inode, int *has_inline)
->>  		 * the extent status cache must be cleared to avoid leaving
->>  		 * behind stale delayed allocated extent entries
->>  		 */
->> -		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA))
->> -			ext4_es_remove_extent(inode, 0, EXT_MAX_BLOCKS);
->> +		if (!ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
->> +			ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, i_size);
->> +
->> +			ext4_es_remove_extent(inode, lblk,
->> +					      EXT_MAX_BLOCKS - lblk);
->> +		}
->>  
->>  		/* Clear the content in the xattr space. */
->>  		if (inline_size > EXT4_MIN_INLINE_DATA_SIZE) {
->> -- 
->> 2.52.0
->>
+v3: Correct the changelog: tipc_group_bc_cong() only writes *grp->open,
+    and a blocked sendmsg() hangs only when nothing wakes it after the
+    deletion (e.g. member events disabled); also require bc_pending
+    in the GRP_ACK_MSG handler so an uncounted member cannot decrement
+    bc_ackers, and drop the now unused bc_acked field.
 
+v2: Subject no longer claims a leak; add the reproduction; the delete
+    path now discriminates members that were actually counted for the
+    current replicast via a new per-member bc_pending flag instead
+    of comparing a possibly stale bc_acked (Tung Quang Nguyen).
+
+Reproduction (two QEMU guests, TIPC over UDP bearer, groups joined
+without member events; the acking peer withheld GRP_ACK_MSG via a
+test-only knob to emulate the lossy peer, the sender's kernel ran
+unmodified TIPC):
+
+    UNPATCHED (#88/#90, fix absent):
+      sender:  NO POLLOUT for 30s after member departed -> STALL
+      sender2: R2 NEVER returned in 32s (blocked writer not woken)
+    PATCHED (#89, v1 of this patch):
+      sender:  POLLOUT at t=18.5s, when the leave event was delivered
+      sender2: R2 returned at t=18.6s, EHOSTUNREACH on now-empty group
+
+ net/tipc/group.c  | 20 +++++++++++---------
+ net/tipc/socket.c | 12 +++++++++++-
+ 2 files changed, 22 insertions(+), 10 deletions(-)
+
+diff --git a/net/tipc/group.c b/net/tipc/group.c
+index 74f6d3dac0784..b76edd5001ffa 100644
+--- a/net/tipc/group.c
++++ b/net/tipc/group.c
+@@ -74,7 +74,7 @@ struct tipc_member {
+ 	u16 window;
+ 	u16 bc_rcv_nxt;
+ 	u16 bc_syncpt;
+-	u16 bc_acked;
++	bool bc_pending;
+ };
+ 
+ struct tipc_group {
+@@ -316,7 +316,6 @@ static struct tipc_member *tipc_group_create_member(struct tipc_group *grp,
+ 	m->node = node;
+ 	m->port = port;
+ 	m->instance = instance;
+-	m->bc_acked = grp->bc_snd_nxt - 1;
+ 	ret = tipc_group_add_to_tree(grp, m);
+ 	if (ret < 0) {
+ 		kfree(m);
+@@ -340,9 +339,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
+ 	rb_erase(&m->tree_node, &grp->members);
+ 	grp->member_cnt--;
+ 
+-	/* Check if we were waiting for replicast ack from this member */
+-	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
+-		grp->bc_ackers--;
++	/* If this member owed an ack for the current replicast and it
++	 * was the last one, restore the open state so blocked broadcast
++	 * senders can proceed.
++	 */
++	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
++		*grp->open = true;
+ 
+ 	list_del_init(&m->list);
+ 	list_del_init(&m->small_win);
+@@ -394,7 +396,6 @@ void tipc_group_update_member(struct tipc_member *m, int len)
+ 
+ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
+ {
+-	u16 prev = grp->bc_snd_nxt - 1;
+ 	struct tipc_member *m;
+ 	struct rb_node *n;
+ 	u16 ackers = 0;
+@@ -403,9 +404,10 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
+ 		m = container_of(n, struct tipc_member, tree_node);
+ 		if (tipc_group_is_receiver(m)) {
+ 			tipc_group_update_member(m, len);
+-			m->bc_acked = prev;
+ 			ackers++;
+ 		}
++		if (ack)
++			m->bc_pending = tipc_group_is_receiver(m);
+ 	}
+ 
+ 	/* Mark number of acknowledges to expect, if any */
+@@ -800,9 +802,9 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
+ 		if (!m || !grp->bc_ackers)
+ 			return;
+ 		acked = msg_grp_bc_acked(hdr);
+-		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
++		if (acked != grp->bc_snd_nxt || !m->bc_pending)
+ 			return;
+-		m->bc_acked = acked;
++		m->bc_pending = false;
+ 		if (--grp->bc_ackers)
+ 			return;
+ 		list_del_init(&m->small_win);
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index d5d70eb230b56..65cc0c4964b31 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
+ 	if (unlikely(!msg_isdata(hdr)))
+ 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
+ 
+-	if (unlikely(grp))
++	if (unlikely(grp)) {
++		bool was_open = tsk->group_is_open;
++
+ 		tipc_group_filter_msg(grp, &inputq, xmitq);
++		/* A departing member may have held the last outstanding
++		 * replicast ack, which can restore the open state inside
++		 * tipc_group_filter_msg(); wake up senders blocked in
++		 * poll()/write() if the group just became writable.
++		 */
++		if (!was_open && tsk->group_is_open)
++			sk->sk_write_space(sk);
++	}
+ 
+ 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
+ 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
+-- 
+2.43.7
