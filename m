@@ -1,243 +1,223 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B805349CA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BA6524B14;
+	Thu, 15 Oct 2026 16:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080223; cv=none; b=E82FiseOpCJ/sOIIuGIVN7tlejml0qEWqm0okXW6kYlfzZe8tEjriBrg3/TBDuc8+P2TMUx1torTo5kHgmtlC9w+bkbpW2voPhecYUg7gI63faUyTiU6VdQYDOyMCW0ZjMjZEHulj+/40Aqr1C3Zjho7JKZR+E3/IMTiItApIqg=
+	t=1792080348; cv=none; b=PuKYx5xo7VVTaEKUjvyycIGnaB3+F6SW4GIne+iSwUHG+QQOtwbjghw/QtBqwMSmoEX5NEURe9WABJ7MYAyX7DoHXepa9EA+1sl5TidA4ZzGpqfvT6DDVvGbzBf6RCHLU0XAfcBzeuQi2/0XtK2+ctP0cvsTMe0n4VzO4nYhQDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080223; c=relaxed/simple;
-	bh=go7u6IBJLBRk40wJNkJnyMxkUOKsGfKDNJNyCKClnZU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=mgBXFQ803b08OhoEiCR5UzRJpPaYXMU5as3XfVGvWAv832bhwZVdu3xdXdgyxp9BWIXj3K8ASi0r1Otn89+Yb6FIk7kqHahMrwTC8hlMFTuZOSlLxorzotQrg70+GpMgmYqrHPQFcZlobFDpHbWNARTAYEEuDBw0c8RgLR815bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOZCvqZ/; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792080348; c=relaxed/simple;
+	bh=pii2WeTzEcDB5GIk4OSjp/CmMbtefKP6NirjtPvEHpM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EIQQrnugqyjdrHm6NnkINz77AjZZMtrvlxRByhKRZSRxyuiAxyER2+wLjrAfdWU7cTwK1OcI4+WnLM2WvWP7KwtyV2LAJwpqrNAmn13o+qp36pSDfYRtjghCUZk1hWP86shXqArMDbrnlcuA4rQ0SuKrf+auSvzlgMx9jcrpDHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLhnR2Af; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOZCvqZ/"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e7e742a2c7so1701235ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792080210; x=1792685010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PsDHGrwyCQ98HtyGLf4J6qUbdlCfaJF9N0Ol2bbzSUY=;
-        b=XOZCvqZ/EVsgDsbEa/RfTYshAxAaK7qsvTaCgT3m6OPDbywiXHdnuVWh5e+X+gg4IX
-         EhU+gV2U7RvyUxILRqYdtCIPt+z5oSmP6cVa1g9pwa7LsWRPQfGuw6P8BEpZApKVTzs7
-         +0+ySn8kzc8gFJMnaPNqo7BHPYwQWBundHiwoyDOcsczMu01QLnbMc45xxNkYucqqko3
-         A6c6yg55GtaJxMdaG5k9mGMdZvKHsFAFkfm1PX+IIedsOwKIIhqQOLYlmsZ8qY3E6PJQ
-         2ZsfpB8OmlKFq0n9td97GkOsO6k57Re2YWI2wrFeVSUgOSVoJMDr+/OmMGmUlsOfD/gz
-         30sA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080210; x=1792685010;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PsDHGrwyCQ98HtyGLf4J6qUbdlCfaJF9N0Ol2bbzSUY=;
-        b=gNQ/sMifJrLi/OpFhDwoTUpSVR3At/9QDGdLuawhh7ApT5oXVJrNGxxzSNN4QTYsms
-         M4zvsgMGEgvS7wXWeoaBwV0yQBecNmKJ851NungIiS7wx4d2jgeiP9xVzPtQc4BPdCGs
-         n3vnrv5T/93aFCak7niFCx99FzIRPRdXkhidaxSEb55WgOayYvpRuMSsBMGdCTW3Fb2o
-         bzUZi7ZjwTWhDY20pOrMWgDH3ClG8RquNT8aPGF910qUqbDWx+d5fg7MVPe9MJEjf1/0
-         EuXYMmYF0/eUlRoXvIjRma6I9zIHg/HOVAOpxC50b9GAzegoknYPe1dYKKsjyVUnAVM2
-         6hhA==
-X-Forwarded-Encrypted: i=1; AKwUvByN4b0S6QxyJwXW2otNOWpmpaYCiiaFZ2GBdUXX+KjHwFRa2XyVKt1mROym97jkw457F+a83iFpY70VPx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8alINL2HZukZbm77hi52CdkMdfDeSPBXR/1qzW644iv7bWEEA
-	1j2bt7t4uO9GX0LHaKv8v4CGEaSSYXhkdEefqXBtoCEJkC7zv0f2DW+X
-X-Gm-Gg: AYBFou15EJyxfOREwB4oPJ/lbyk9+TN2T/QcFvyBACzmJNZoRIvLBlhKnxvjBbAUW5m
-	LGzUo9PJFS/RG1hE7FovpfYzc9I3ctDUr/X1lAKnLvPBrKH6ZmLFzFI/FQE1LuRr2vnCA2wv3z8
-	dtqbIhr8Zd22/rRGxEQHwW89PFBiZfuj+wwSQs2Yp+VPFyq6GaA/YhYeVGB0mfjCp4AneoC93sP
-	oSkGUOyRPdEBXtgAkwC8Q7tftYlpVg4aUy7X0P2JL2Q5lNOq96aJm44NaQWe5XvFiRNQolnsmKu
-	E3Nz5tde9T3nGp05cT0kvmbzy7GqNq+gqqhSwLrvg9g8L6awxKx76phE1kKMllBsaDH00aGHR5Q
-	6kkNS4s9L3Bx//yJVIzGL+GKgCqIpYgbJBaIqfAUpIle82mTrHBP24FTCjHlS7oGVWF2sYCb/br
-	c+hObvkX7YT5rMpAIRmd/z8ea7ERm2h5v6ffRXoBm4SBzIKOjy36cFsBJ/CPmgfJj8PA==
-X-Received: by 2002:a17:903:234e:b0:2e9:4ecb:24a5 with SMTP id d9443c01a7336-2e977140ea9mr3372775ad.2.1792080210118;
-        Thu, 15 Oct 2026 09:03:30 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8419fe0a2sm83631725ad.6.2026.10.15.09.03.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:03:27 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	jack@suse.cz,
-	akpm@linux-foundation.org,
-	srinivas.eeda@oracle.com,
-	rgoldwyn@suse.de
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: Keep the dentry lock inode alive until callbacks drain
-Date: Fri, 16 Oct 2026 00:03:20 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLhnR2Af"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1C81F000C4;
+	Thu, 15 Oct 2026 16:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792080337;
+	bh=XUlxJX0sV23/Ido8B7tNQRar/Q/7R1Ur3G2zGashXqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FLhnR2AfZhflczK40jQhPPw29WpdvtrvOSbc2el5nLQsqGswIdF0OQR5RSK3UGWCa
+	 LrLsg3GWHTRRUto6FyZ+z5Axha2LFZ9jHPuQLbaC154MKU74c9JFW+Q10JyZUxsj5e
+	 bNlgWK7sEstlwoiJRHeH7Em03FUDGSqyevJ08+gnd25NtGPBCSCXACrDPYJawS5KWf
+	 B+HSotdUeFoziHM5Ld3PGwqZoFOzIs316GLxc8vdYPU+n1AeWd+1/X6mBi8djfRjQg
+	 N5DHTAJ2TneiIHankNL8494wzf5BQ/SelAgsZYERR/Mnh3MVk3+WmG4pJ+QV784bzH
+	 ml0bxzwAtLI9g==
+Date: Thu, 15 Oct 2026 17:05:33 +0100
+From: Lee Jones <lee@kernel.org>
+To: Marcus Flyckt <marcus.flyckt@kvaser.com>
+Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jimmy Assarsson <extja@kvaser.com>
+Subject: Re: [PATCH v2] leds: trigger: netdev: Support devices in other
+ network namespaces
+Message-ID: <179198415957.839288.9912294144956773410@kernel.org>
+References: <20261006064603.1081262-1-marcus.flyckt@kvaser.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006064603.1081262-1-marcus.flyckt@kvaser.com>
+X-AI-Review-Draft: <20261006064603.1081262-1-marcus.flyckt@kvaser.com>
 
-The inode reference held by a DENTRY lock must outlive callbacks on
-that lock. ocfs2_drop_dentry_lock() drops dl_inode before marking the
-lock freeing and waiting for DLM unlock completion, although the BAST
-path still reads dl_inode->i_sb in ocfs2_get_dentry_osb().
+On Tue, 06 Oct 2026, Marcus Flyckt wrote:
 
-An EX request, such as a remote unlink or rename, can make the
-downconvert worker delete all matching aliases. If no other inode
-reference remains, its post_unlock callback performs the final iput().
-The O2CB DLM can deliver another BAST while the request is still
-blocked, for example when another holder releases the same resource:
+> The netdev LED trigger currently cannot resolve a network device that
+> has been moved into another network namespace.
+>
+> For example:
+>
+>   ip link add vm1 type veth peer vm2
+>   tools/leds/uledmon test:green:netdev &
+>
+>   echo netdev > /sys/class/leds/test:green:netdev/trigger
+>   echo 1 > /sys/class/leds/test:green:netdev/link
+>
+>   ip netns add ledns
+>   ip link set vm2 netns ledns
+>   ip netns exec ledns \
+>           sh -c 'echo vm2 > /sys/class/leds/test:green:netdev/device_name'
+>
+> Before this change, the lookup fails because it is always performed in
+> the initial network namespace.
+>
+> Resolve the device name in the network namespace of the task writing
+> device_name. Once resolved, follow the device through renames and
+> network namespace moves.
+>
+> With the example above, bringing both ends up makes the LED reflect the
+> link state of vm2:
+>
+>   ip link set vm1 up
+>   ip netns exec ledns ip link set vm2 up
+>
+> A possibly confusing aspect of this change is that the feature uses the
+> global LED sysfs interface, which is not network namespace aware. The
+> namespace is therefore effectively selected by the task that last wrote
+> device_name.
+>
+> Signed-off-by: Marcus Flyckt <marcus.flyckt@kvaser.com>
+> Reviewed-by: Jimmy Assarsson <extja@kvaser.com>
+> Tested-by: Jimmy Assarsson <extja@kvaser.com>
+> ---
+> Changes in v2:
+> - Instead of taking a reference to a network namespace, use net_cookie
+> - Include used headers explicitly
+> - Use C-style comments
+>
+>  drivers/leds/trigger/ledtrig-netdev.c | 50 +++++++++++++++++++--------
+>  1 file changed, 36 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+> index 5b0132484594..16357d45b3cd 100644
+> --- a/drivers/leds/trigger/ledtrig-netdev.c
+> +++ b/drivers/leds/trigger/ledtrig-netdev.c
+> @@ -22,10 +22,13 @@
+>  #include <linux/list.h>
+>  #include <linux/module.h>
+>  #include <linux/netdevice.h>
+> +#include <linux/nsproxy.h>
+>  #include <linux/mutex.h>
+>  #include <linux/phy.h>
+>  #include <linux/rtnetlink.h>
+> +#include <linux/string.h>
+>  #include <linux/timer.h>
+> +#include <net/net_namespace.h>
+>  #include <net/netdev_lock.h>
+>  #include "../leds.h"
+>
+> @@ -64,6 +67,8 @@ struct led_netdev_data {
+>  	struct led_classdev *led_cdev;
+>  	struct net_device *net_dev;
+>
+> +	/* net namespace cookie associated with device_name */
+> +	u64 net_cookie;
+>  	char device_name[IFNAMSIZ];
+>  	atomic_t interval;
+>  	unsigned int last_activity;
+> @@ -274,7 +279,7 @@ static ssize_t device_name_show(struct device *dev,
+>  }
+>
+>  static int set_device_name(struct led_netdev_data *trigger_data,
+> -			   const char *name, size_t size)
+> +			   struct net *net, const char *name, size_t size)
+>  {
+>  	struct net_device *new_dev = NULL;
+>  	char device_name[IFNAMSIZ];
+> @@ -294,9 +299,12 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+>  	 */
+>  	rtnl_lock();
+>  	if (device_name[0]) {
+> -		new_dev = dev_get_by_name(&init_net, device_name);
+> +		trigger_data->net_cookie = net->net_cookie;
+> +		new_dev = dev_get_by_name(net, device_name);
+>  		if (new_dev)
+>  			netdev_lock_ops(new_dev);
+> +	} else {
+> +		trigger_data->net_cookie = 0;
+>  	}
 
-  Downconvert worker                 DLM callback
-  ------------------                 ------------
-  Remove dentry aliases
-  Clear QUEUED; post_unlock()
-  ocfs2_drop_dentry_lock()
-    iput(dl->dl_inode)
-    [inode reclaimed after RCU]
-                                     Duplicate BAST
-                                     ocfs2_blocking_ast()
-                                       ocfs2_get_dentry_osb()
-                                         Read freed dl_inode->i_sb
-  ocfs2_simple_drop_lockres()
+Should this be done under a lock?
 
-Call ocfs2_simple_drop_lockres() before iput() so the existing inode
-reference remains held while queued work and DLM callbacks are drained.
-The inode can only be evicted after the DENTRY lock has been unlocked.
+>  	mutex_lock(&trigger_data->lock);
+>
+> @@ -331,7 +339,8 @@ static ssize_t device_name_store(struct device *dev,
+>  	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+>  	int ret;
+>
+> -	ret = set_device_name(trigger_data, buf, size);
+> +	ret = set_device_name(trigger_data, current->nsproxy->net_ns, buf,
+> +			      size);
+>
+>  	if (ret < 0)
+>  		return ret;
+> @@ -616,15 +625,24 @@ static int netdev_trig_notify(struct notifier_block *nb,
+>  		container_of(nb, struct led_netdev_data, notifier);
+>  	struct led_classdev *led_cdev = trigger_data->led_cdev;
+>
+> -	if (evt != NETDEV_UP && evt != NETDEV_DOWN && evt != NETDEV_CHANGE
+> -	    && evt != NETDEV_REGISTER && evt != NETDEV_UNREGISTER
+> -	    && evt != NETDEV_CHANGENAME)
+> +	if (evt != NETDEV_UP && evt != NETDEV_DOWN && evt != NETDEV_CHANGE &&
+> +	    evt != NETDEV_REGISTER && evt != NETDEV_UNREGISTER &&
+> +	    evt != NETDEV_CHANGENAME)
+>  		return NOTIFY_DONE;
+>
+> -	if (!(dev == trigger_data->net_dev ||
+> -	      (evt == NETDEV_CHANGENAME && !strcmp(dev->name, trigger_data->device_name)) ||
+> -	      (evt == NETDEV_REGISTER && !strcmp(dev->name, trigger_data->device_name))))
+> -		return NOTIFY_DONE;
+> +	if (trigger_data->net_dev) {
+> +		if (dev != trigger_data->net_dev)
+> +			return NOTIFY_DONE;
+> +		/* Ignore namespace transfers */
+> +		if (evt == NETDEV_UNREGISTER &&
+> +		    dev->reg_state != NETREG_UNREGISTERING)
+> +			return NOTIFY_DONE;
+> +	} else {
+> +		if ((evt != NETDEV_REGISTER && evt != NETDEV_CHANGENAME) ||
+> +		    dev_net(dev)->net_cookie != trigger_data->net_cookie ||
+> +		    strcmp(dev->name, trigger_data->device_name) != 0)
+> +			return NOTIFY_DONE;
+> +	}
+>
+>  	cancel_delayed_work_sync(&trigger_data->work);
+>
+> @@ -636,9 +654,12 @@ static int netdev_trig_notify(struct notifier_block *nb,
+>  	switch (evt) {
+>  	case NETDEV_CHANGENAME:
+>  	case NETDEV_REGISTER:
+> -		dev_put(trigger_data->net_dev);
+> -		dev_hold(dev);
+> -		trigger_data->net_dev = dev;
+> +		if (!trigger_data->net_dev) {
+> +			dev_hold(dev);
+> +			trigger_data->net_dev = dev;
+> +		}
+> +		trigger_data->net_cookie = dev_net(dev)->net_cookie;
+> +		strscpy(trigger_data->device_name, dev->name, IFNAMSIZ);
+>  		if (evt == NETDEV_CHANGENAME)
+>  			get_device_state(trigger_data);
+>  		break;
+> @@ -765,7 +786,8 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+>  			const char *name = dev_name(dev);
+>
+>  			trigger_data->hw_control = true;
+> -			set_device_name(trigger_data, name, strlen(name));
+> +			set_device_name(trigger_data, dev_net(to_net_dev(dev)),
+> +					name, strlen(name));
+>
+>  			rc = led_cdev->hw_control_get(led_cdev, &mode);
+>  			if (!rc)
+> -- 
+> 2.43.0
+>
 
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in ocfs2_get_dentry_osb+0x155/0x170
-    Read of size 8 at addr ffff8881100ff888 by task dlm-5B530197BEF/575
-
-    CPU: 0 UID: 0 PID: 575 Comm: dlm-5B530197BEF Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     kasan_report+0xe0/0x110
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     ? __pfx_ocfs2_get_dentry_osb+0x10/0x10
-     ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
-     ocfs2_get_dentry_osb+0x155/0x170
-     ocfs2_blocking_ast+0xd3/0x6d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x5a3/0x2140
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mlog_printk+0x212/0x2a0
-     ? __pfx_ocfs2_blocking_ast+0x10/0x10
-     ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
-     dlm_do_local_bast+0x20c/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_dlm_do_local_bast+0x10/0x10
-     ? dlm_thread+0x2e36/0x4480
-     dlm_thread+0x32b8/0x4480
-     ? __pfx_dlm_thread+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0xc1/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? __pfx_dlm_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 584:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_lru_noprof+0x205/0x5c0
-     ocfs2_alloc_inode+0x2b/0x100
-     alloc_inode+0x69/0x230
-     new_inode+0x23/0x1a0
-     ocfs2_get_init_inode+0x84/0x190
-     ocfs2_mknod+0x8a3/0x2150
-     ocfs2_create+0x14f/0x3c0
-     lookup_open+0x88f/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     i_callback+0x4b/0x80
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x80/0x280
-     destroy_inode+0x131/0x1b0
-     evict+0x543/0x9f0
-     iput+0x680/0xb80
-     ocfs2_dentry_lock_put+0xca/0x230
-     ocfs2_process_blocked_lock+0x1fb/0x420
-     ocfs2_downconvert_thread+0x327/0x730
-     kthread+0x351/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    The buggy address belongs to the object at ffff8881100ff000
-     which belongs to the cache ocfs2_inode_cache of size 3400
-    The buggy address is located 2184 bytes inside of
-     freed 3400-byte region [ffff8881100ff000, ffff8881100ffd48)
-
-    [page and shadow-memory details omitted]
-
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
-
----
-diff --git a/fs/ocfs2/dcache.c b/fs/ocfs2/dcache.c
-index e06774fd89d8..e2b560797f17 100644
---- a/fs/ocfs2/dcache.c
-+++ b/fs/ocfs2/dcache.c
-@@ -354,8 +354,9 @@ out_attach:
- static void ocfs2_drop_dentry_lock(struct ocfs2_super *osb,
- 				   struct ocfs2_dentry_lock *dl)
- {
--	iput(dl->dl_inode);
-+	/* Keep the inode alive until DENTRY callbacks have completed. */
- 	ocfs2_simple_drop_lockres(osb, &dl->dl_lockres);
-+	iput(dl->dl_inode);
- 	ocfs2_lock_res_free(&dl->dl_lockres);
- 	kfree(dl);
- }
+-- 
+Lee Jones
