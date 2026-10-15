@@ -1,112 +1,116 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260D347F3BD
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065805; cv=pass; b=dpr0WohudVP/KfwAKg0wFdQV0CfycOPN4itSmTmMLsG0HkjMJ4b26mCEGBZdufWCQO3FgA3yoZXvWkoXZ6tsMrLRxhWPDno5h5fkDxeVuK/AUccX66TERhLlt9lPYvyeV2qF53i7/jBO9iZcTafbGk+JDOVqqoXtnj1UjJJK2kY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065805; c=relaxed/simple;
-	bh=bk0KTXDILaFMtgyu9ZO/AO83ewyYbxEO8u97WNp+eHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ILErJVfDHw42kD/Xxib9JOvK4XGOhaDGf/Ag6CTS/yUjbKXYg8VZizS1cACcUMvZvWD/Yq6jp3JTSypHLEddFyS7DCg4B10VtMbWllCVnv/qhobW34BCywWuatNclH5Pm6RyucsCOhygr6x7jLo4pknzyRl58w9nUVId/Eeeh28=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=FyRKiJo/; arc=pass smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6BBCD4E36CB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065883; cv=none; b=E8o2uGDUrmWyKmoEfOFC2ru6JYTm+Ogpl171ScMDHxNlwPgXsFI9iw3wiIEkKEhe9DSV/yAZnxjFPApE96oVnC+fMF9fw8uU6Ya4cqX1zq3wvcjYSm2If/vW8fahBOewyeM2NHSvujoUq0Z1yOVblrsLtngR9vRshtJVyX0IWDM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065883; c=relaxed/simple;
+	bh=9hD0gbQLuZhAtA/2D6ZAId/8XxZyvrMdTlj7LEroJC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tHwAu1M0fasD/aMCZ+CJNLxnviUhvcg39MckhNvXmO/Ul+GA3KsAqR6wNwdBwCkjnOEeifofI+xKiQXWmadbLDW3oDoZegdpJ3hjXaDRPOe5sxfgksMfbGjuTuI0lylDQEzPd8y2VRR+2Kfjytsrcc8BrbsM2InWfrif9VmWxeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jWuo7fwf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="FyRKiJo/"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-533861a59b8so15009501cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:03:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792065803; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DKZcXiKWufRJiEajmN6tnqe21vl4v8VWXMFPatbUpTlWWqJ04krfKN8T4qoqfkrrvN
-         rwpa20+DzMaXX/iILA7LcquUcdffRa77KCdVixgGiX8Lr/U6UjfSLv9yBDCC688ts1wL
-         46zwHUmHRUygueh3CF30kEWXaorv9OQ+MagpGAftmqHKlFoCRhnwacGyfu7UyAD8CBtE
-         2pbt1N6MYm+WHi6KFTY4U1ce273rqVrw/O1gyP8FzOa23NNSJRMIGx8EXEMspfy0cLP7
-         6ddg6z23C0dobJK+e6SJMhQ/4fyjD18t7TV4i5WJrxlXl1EU/CEFV16gDKFtmaHq8cfZ
-         4Qbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=n1yRlh7klOUJCF7fQuz+rO+3biKuZOtnrUH4G/KpQVU=;
-        fh=nvCVtdC9OM4BxpyFHMzE+x5wwiwWGpdxseXqL1bEtCc=;
-        b=hMR+ZiZP3xoLhZvulbIEvFrX33D6t6tP7moc3cPOYQxQ97kOx5XlLXodDqGG1BO1Oe
-         tZ6InnOoPsPW2U7zXMiuLUWxbjfIJanBetY5bi21wCWzYol02MN7zjkAvWjsKojVrwhq
-         LM8L6JmBmTcEwWfOK4crLm97ZL79gKK7ytow201MsLeNV83DII0P7BEVh/BkufKoV9/R
-         rJBH0hAQsIOMLWDhOGrYlxTAl9UZA287m8AA969bXDVxl6QnXS7VbG06bXEFnLdDN1wX
-         pxbAR6x6Ot+94mzhXj22vO1FBWifNTFsFzterKYaa/iiZJpoGuA2AfsWyhlDRRgIQlNp
-         MyBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1792065803; x=1792670603; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n1yRlh7klOUJCF7fQuz+rO+3biKuZOtnrUH4G/KpQVU=;
-        b=FyRKiJo/6HgY1WnXQHyxNYU34hvVe+93V/LEAI/d8WyfEOxVUWv+LBBNAtTIslQ3xT
-         t/fKXJAS8L9f6xDB8hN8n5AK8Ha3XEGZ5VkoeSs/2tS+o06ehVscqg6oJUagI55j5PUv
-         eEEilaE++zMctiG7nbCMq5S+mM86a7oeHIguI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792065803; x=1792670603;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=n1yRlh7klOUJCF7fQuz+rO+3biKuZOtnrUH4G/KpQVU=;
-        b=MAHRD6GRBbuQGSPjVrEbJqAFf4T1QCLqMp26lhzoUorBH2fvkTJ4/I/03znPAs3rNQ
-         4rARDiI7Ph3yLq5/jowXGsAFF+7ndKtz0MQ9Cg9kcKVIY1//phNFAQ43o8rM4PZ4p9gi
-         199CYHEoLVTIIV9kOKQSFmm0FrmZPotTqYgSXaJtIv0yBB834UP1TrGwIW8FzMI4k8mI
-         PIV8a7pZ8Fmak7n2TVRAlDmCyaX+RUOW67fa8OjLlCMQh8iKKVdgVHhrbn/0WDp12dYV
-         LyBcu8BmcFQQDejMgQPlOyJ4GLOPTk5wVEe3plK6Ljq8kgmq3zOUjqs9Z+h5eEuMMdSb
-         uGIg==
-X-Forwarded-Encrypted: i=1; AKwUvBy44GLcjnMU78FzDWP7rirjSNZpCpNuAw1EjSJmFqbeut/vdPYqMdERuVOFTb8STG0v6zYL+N/G8MHNhuY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItr5Hoy5ImtHil2wms3mlatubzIH0gm+ngmIafgTcr7gqx3w1X
-	UbPo1NQ+V+dr4FNxnGB/YDEpDP30TmXzeuQVa/YMruYjpBXw4hcOE+e1kIlwBNIZ7NwkLY9Jl92
-	KQ3dOzPZRziHsP08+bfv6KliqJHuUEJaAh9Zwwwp78w==
-X-Gm-Gg: AYBFou1zWAaWonvPD+9I196QRLlVfngNKg7Bf/QXTQzgYSa97IWWpA5NqOnl8tnHR9c
-	EFXEmFknIumpzvgDAC9VV5gTvvop0wQDmwGB8Lpqze/LiwttddHjptx9r7vt9YG/T4UGvjhzvtg
-	RL4rc52DJnp7H2EDG8Ujo61YKPno0zMApyOBjTzVbo33hqrxspJhYi34Jq/b2bPEgMAc8KrhW5j
-	e4ciSU8pb8/sxkrhXKPeuTZvR7OEUKx3mw4bN+FpKWK8zP3knJn8MSPa1qQJlP/yD3Rg/eo36/k
-	BDNV7vd0tDDx9/6IFlfgeTnHg+nvqJfK+7agk4sc5XDg/tFBeSHgiZ2Wh/QRyggvRuRakG1U/yn
-	N2LS1ETi2a9Tn//u3Zw==
-X-Received: by 2002:a05:622a:48e:b0:535:a5fb:67fa with SMTP id
- d75a77b69052e-535a5fb84aamr281517071cf.70.1792065802884; Thu, 15 Oct 2026
- 05:03:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jWuo7fwf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FEA514BF;
+	Thu, 15 Oct 2026 05:04:36 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D528E3F871;
+	Thu, 15 Oct 2026 05:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792065879; bh=9hD0gbQLuZhAtA/2D6ZAId/8XxZyvrMdTlj7LEroJC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jWuo7fwfRMkLuTfqYVBJpBe4G9ihPMuBmC9+Rd8NFryOfIE1Nn8l9gnmM+U3VNoST
+	 UQe6IbmfqqwbrsdbIi70juGwH6B/T180+9Qi2aWGX3erhCqE9qmc6kr66HcCwKEubQ
+	 +ebgCSucVqtXL8lVUw4S2++i9oj0Q5g6fR1HNlzk=
+Date: Thu, 15 Oct 2026 13:04:36 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] arm64: gcs: Store GCSCRE0_EL1 values instead of
+ userspace mode
+Message-ID: <atDBVHvDQ3Pwr2Uq@arm.com>
+References: <20260917-arm64-gcs-store-gcscre0-v1-0-3c9fa9213bac@kernel.org>
+ <20260917-arm64-gcs-store-gcscre0-v1-2-3c9fa9213bac@kernel.org>
+ <as-8IqsbMbOBo5Oq@arm.com>
+ <c39b2cc4-832f-49cb-8a59-e5b7a8bd9317@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001164916.15311-1-luis@igalia.com>
-In-Reply-To: <20261001164916.15311-1-luis@igalia.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Thu, 15 Oct 2026 14:03:10 +0200
-X-Gm-Features: AclHuK8MiHyjueHnKnwHtYPGKuj_TddwwVafZUys_JcMsu0_shaAG05CNojzKZI
-Message-ID: <CAJfpegsFZ=K09Kzr9Eec0sQR9gzxVHi=PDyQJs_bOKvfwGiU6g@mail.gmail.com>
-Subject: Re: [RFC PATCH v5 0/8] fuse: caches documentation and testing
-To: Luis Henriques <luis@igalia.com>
-Cc: Amir Goldstein <amir73il@gmail.com>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c39b2cc4-832f-49cb-8a59-e5b7a8bd9317@sirena.org.uk>
 
-On Thu, 1 Oct 2026 at 18:48, Luis Henriques <luis@igalia.com> wrote:
->
-> Hi!
->
-> Following this email, I'm sending v5 of this patchset.  Here's what changed
-> since v4 (mostly from Amir's review):
->
-> - Included suggested changes to the document
-> - Moved back 'struct fuse_common_ctx' into tests FIXTURE
-> - Fixed a few typos in the tests comments
-> - Added missing SPDX-License-Identifier tag to fuse_common.h
-> - Added an initial stab on the dentries cache (hence not adding Amir's
->   'Reviewed-by' tag in the first patch)
+On Wed, Oct 14, 2026 at 07:28:08PM +0100, Mark Brown wrote:
+> On Wed, Oct 14, 2026 at 06:30:10PM +0100, Catalin Marinas wrote:
+> > On Thu, Sep 17, 2026 at 11:14:17PM +0100, Mark Brown wrote:
+> 
+> > >  	u64			por_el0;
+> > >  #ifdef CONFIG_ARM64_GCS
+> > > -	unsigned int		gcs_el0_mode;
+> > > +	unsigned int		gcscre0_el1;
+> 
+> > u64?
+> 
+> Sure, I always find the decision about which to use in a given situation
+> confusing.
 
-Applied, thanks.
+gcs_el0_mode was a software view. gcscre0_el1 is a raw sysreg value,
+described in the Arm ARM as 64-bit (though the top bits are RES0).
 
-Miklos
+> > > -	current->thread.gcs_el0_mode = enabled;
+> > > +	gcs_set_el0_mode(current, enabled);
+> > 
+> > I think we have an existing bug here and it's more serious without this
+> > patch. restore_gcs_context() does not update the actual register and,
+> > with current mainline, we may even skip the hardware write in
+> > gcs_thread_switch(). Basically one task can disable GCS for another
+> 
+> Right, that's an existing bug.
+> 
+> > task. Can we get gcs_set_el0_mode() to actually update the register as
+> > well?
+> 
+> We also set the mode from ptrace at which point it's being set for a
+> different thread.
+
+Could we do like in arch_set_shadow_stack_status() for gcspr_el0 and
+only set it if task == current?
+
+> > On the sigreturn bug, do you recall why we thought we needed to update
+> > the gcs_el0_mode in the signal handler (or even expose it)? Wouldn't it
+> > be better if the signal handler did a prctl() directly if it needed to
+> > change the mode for the current thread?
+> 
+> In theory you could have tasks with a mix of GCS and non-GCS threads
+> doing green thread stuff, especially if the clone3() stuff had gone in
+> so that the GCS wasn't so tied to the thread.  You could also have mixed
+> push or write permissions in that case.  I am not sure that any of this
+> is a realistic use case though, I'm certainly not aware of any current
+> users. 
+> 
+> The case where a signal handler tries to handle a GCS fault by disabling
+> GCS could be handled using prctl() if someone wants it.  I'm not aware
+> of anyone doing that yet, there was some talk about implementing it in
+> glibc at LPC but it's not been implemented.
+
+Just thinking, if we fault on a modified field, a handler using prctl()
+would also have to update features_enabled in the sigcontext, otherwise
+sigreturn fails. I think that is already the case today for disabling
+(the frame still has ENABLE, so sigreturn returns -EINVAL). prctl()
+changes to WRITE/PUSH are silently reverted.
+
+Another option is to ignore the field on sigreturn and keep it for
+information only. I favour the latter, but it needs to be a separate
+patch for discussion and a change to the sigreturn text in
+Documentation/arch/arm64/gcs.rst.
+
+-- 
+Catalin
