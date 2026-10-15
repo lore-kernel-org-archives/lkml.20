@@ -1,94 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C276C4457B4;
-	Thu, 15 Oct 2026 18:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089577; cv=none; b=JkYV3Q2CEsgVomZUh27kfc9MFYaCImIdJuh1XpNV0cZEhoyRndUGkIpAxcy+E2PnXu6BZjbSzWvACPi5eWw3ea2w/N0h8NAkftby/vxdIOZpndNq8JgwGqoylmDfaCJczgvzOS6pdRey+LUGSQXzWLRjs/MCksB5i5H1kgkmWbM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089577; c=relaxed/simple;
-	bh=0TMliFj79vUjQOar0oTZ6/IIkqx7PD6OLi0ypU8KDYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B8WbDwly2R5K3q7s7To1vvEqXJwoP0s7rMg1j3BPtjRejrfPIejsERjNurVgETV+qIBeVvBiJqkGpYiKVAZQVwHRs787faAIieZRK3PRJE1JdCS8LmNRx/4Gxv/IlZu3BAevxBZ67fakkBiVQ35EhMGQ1vZ+6JrB6AfHA4Yo4mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lv1sNf8I; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DBF30EF91
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792089707; cv=pass; b=Xtu6Jqvd4xT4MUZ2sTmBdIBdc3QqA/6ejDyub6X5kzBo1nf/oX52PLUB3BY9bUNCsxFpruaa4/UlwUT+pOAZ+aU6TAA6ReWChJMlSqfVwyDlQQjdau1n0enqhTrGi5r0obe7cbp8JrwqZ2BsW4DJvmYjZ5ZwFJVC9lrRQ0Adjb8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792089707; c=relaxed/simple;
+	bh=xauoRU92rayWXBiUnhY4lqEI/RzVYWTkJ5X0x3hjblE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kQW1gZbISfsF+zlNuqZec9P57ZpOdUSIoJRA7SbmHsK2Z/z3SIKkzh8UP0P5bxBAlDo/4yn8oRlpilNGUUR6H1O/P6Vcc3eZcotm4HPcnDjU8Q8zKVEF2pFv/K5ljrcPxqwJOuhutzK2He3/Ic/YdfWWq/G/O1q/I0HhhLfRdj4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D+x9goKG; arc=pass smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lv1sNf8I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E2C1F000C4;
-	Thu, 15 Oct 2026 18:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792089575;
-	bh=0TMliFj79vUjQOar0oTZ6/IIkqx7PD6OLi0ypU8KDYI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lv1sNf8ITEjifdupJdaiv+/BVBH+ewGV1epAFWwRyrK4PZTwoUHY068GnoDWI1i85
-	 z9pCjG/CfiX49ACr3D/CsYlqypdEoX4uLkwRRs0O7mfBRRpllt9IqtaifoTlYwl/vS
-	 Pov0k0t6qrQSCSbWXorqP6JpMLjmRVdGY3VUTIprFNPSHNSM418cn/vcne86Wdu0p0
-	 oRxzR9kiroesdPwdEVQ7b2fHkP3pwfWYt+TWBtQmCwlwKtGSrWBkzj75go/SrRq4Vh
-	 KTJzERCpm9GF4Jcv749kCdvUONd5ylmaeTAHbzaIlk+Hyfv+kAv5dya4PHAhXqkqSp
-	 H5Bj3VkPb1IJA==
-Date: Thu, 15 Oct 2026 19:39:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
-	Kiran Gunda <quic_kgunda@quicinc.com>,
-	Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH 3/9] dt-bindings: regulator: add Qualcomm LCDB regulator
-Message-ID: <d5a4c692-0995-43b8-bd47-323f9da5a654@sirena.org.uk>
-References: <20261015-sm8150-display-card-v1-0-5c14928cef29@oss.qualcomm.com>
- <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D+x9goKG"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35ef6b49813so2522409eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:41:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792089704; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p6PLRSPZfaGDdORU7Wc8TreuIordH6nYpKIQCWmbI5f8E4eqaOZOFNVxbVy9AwqDat
+         LX4UOeZDWhpA45Ek1oI3/jadWos4n3GzhtdumJhgw+Gn9CcctrjEOJynXLfZZF9OLPFt
+         4UXDwKD6YGMaoVlGM+MWD7W1hEDD1mwMB43HxH+7lR2vM70YMJJOTtFrh/Vvj5ZQa7X8
+         +GL0U2/9wG1J6i/e0cZbb5JnPqiw4RxaSmhF6/J7VexMqJ61LZqZYSUbjD4U9Fl5sybG
+         XXMooICL3+bobFZ4Mx/5F+NyaCEXRue/Pd0WbpvAh7VYv989lHgD9poEIiYvqpDxWwHR
+         jy4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rsIPZgYgrzIClGBhGTKauA1e1WQnsO82rJ+gDiB7nEg=;
+        fh=kR0V/ufxCovv0x9jujWmG8lVEIAldMx6z6yr35F2tdQ=;
+        b=AByJYvUqs3sigtxGqpJrvnobxUvMdXGVgGDYvsnf5CRIuKu9cAZ079DZc2ZPjEvkQj
+         ZeLzVvco4LNPEChl46Wj3ynNHGEEo6Qb0fgF4+I7E9p3HsGFYHy4hiCdM7bBwN7Q6cJW
+         Yfv+Z0+ASgbvzLBFETy9LtpDB0cfgDU3k4TVaMOPjJcDZnwRUXjDVA7js+ckiElB80S9
+         krRtLOqMAxWfZnGXmfHJVo0fLbt2BwizxST4/3BkSF9Y0UeLOpmD7XxwE+VG0p+9o7yK
+         rjEoh0cCwOg9Ac2Iust6ShdUxfWbl0lNwgiszJ0TGs2zvcoLT9Tqe0iyPRzf2aYBstZ9
+         B/2w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792089704; x=1792694504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rsIPZgYgrzIClGBhGTKauA1e1WQnsO82rJ+gDiB7nEg=;
+        b=D+x9goKGpfvnl9hCynIoU/Y+0NFqZ7WirIuX6nMhBfHcDA2HUKIJVwq665QzT/6/Ap
+         A/+Lm1PdYvR37sHqfiRmmbNUORvFIIqxOzbKh1NPcc9zHysO1RKfLlxwVDQoPLblq2BS
+         oYRsCOP/iKDu9u7N4MRx1K2zgUKTkrr7oj0dHgtC76Dp+qycvi7ewwrGSe6r7RAsgwh4
+         x15HDivoawBFaFdgcmvz5+L5fOTcV6n6Rxuq+wPN+O7o+0UuIiw5PyKLfWrUtlb0G9O8
+         wIyrudOcUFKeZNt1XX0/P4qWEJm4QmV1xnN0lPQVDNi56AwZamHh+5OL5h8eaUxEhO/K
+         EytA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792089704; x=1792694504;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rsIPZgYgrzIClGBhGTKauA1e1WQnsO82rJ+gDiB7nEg=;
+        b=QAoKRVbbgUP0H8LYnPthX0mm+rW2jvkF8DviXVZvvUjd3JDDEP9CvhyuqkYbqwziku
+         wHkVthBqNSR7dpC6GDxV8XDR2wzwQEmMCtCfLQhgHN+CIEaVTnylczOZTpdeIGZVTne2
+         ENeojp1UTIPGh5j9dNOZs16f/jj16yTjVcht5PqqAbfix2RzOtPsv3ltMioEaNGpD59i
+         5kTNLrDuAtAmtW9A2AHKdnR5S9HQJmeS5JdqeRpoxPwebDpbkj5TX0E1x1gMdl3XidkB
+         7+8yh/9lxVl2e5lmZMVttfcFFwpWlyTXm4DmoB/RfZvX606kFQKQ1uQrzWWKX4v/711L
+         pdRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgigE+VdLQb4PyJjIbATGAuA0AHDNQ8PTMrhxdcAvnrsnFzsgOE2knxIRsJ0gCe10Un5XTqH9+BS9wMuI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTtuDwvnNo1NiN7SgGtfBnP5bqFt5HeQHWM4SNwbk/CzxLIuWe
+	3MMhcM4Ye6RjAXemcOOKIHeyLyiHRBLD2eG3yzVuZb6fCnd0kZ4oYpjZ37R4aihh5Srmy9XVl+F
+	R2iGiKAEfxrMjTySfpQFpz6LTVQJ6CV0=
+X-Gm-Gg: AYBFou0GpJ+OKko4f9bC10+ys9+2P4aBfJQVkk5Ovds9ffMo06JQiTuUt4WREh+kHCU
+	ivRuPYwRkpJKMdXQu+DN7v5VdVk+bAcIgYtmUTghIZqJcwiBFtxhlLGNHFY3odvUoy6x0ZayGO2
+	ALC4gXUnJl2apqC102YdwyUaGWR1+EN6SDcMKV1Tqa+Beo+8mv8DQiO1ucEO/YFdHtSNWlTSkwP
+	DxtJW/JZ0fgMaRKaTozGE9dqmQI+KE1QhgVLRhoTLN3TurC2WJL5BjSkg7xx9ZiIKOSQCovdM2g
+	XcdHUBA7FS1Kg/F5YB4TNnoqDJwdvg/f040eJFwjcDqRSWxp8fv2gI1sfH2blNW1fff6LUnZpRK
+	eCTJHr8ISQWoO
+X-Received: by 2002:a05:693c:2a12:b0:35d:2c2b:215a with SMTP id
+ 5a478bee46e88-35d2c2b2220mr10102451eec.35.1792089703889; Thu, 15 Oct 2026
+ 11:41:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CNEKc9Hb6b/6hsIC"
-Content-Disposition: inline
-In-Reply-To: <20261015-sm8150-display-card-v1-3-5c14928cef29@oss.qualcomm.com>
-X-Cookie: Tax and title extra.
+References: <20261013173504.451391-7-clamor95@gmail.com> <f26b6bba-2c2e-46b3-9350-0ba0785cf3ba@web.de>
+In-Reply-To: <f26b6bba-2c2e-46b3-9350-0ba0785cf3ba@web.de>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 15 Oct 2026 21:41:31 +0300
+X-Gm-Features: AclHuK-9dwgzuV_rOZ05ZsN-0-b2YgDg6QoraK02oNxRoGvJeYL0q4NRa-SbCE4
+Message-ID: <CAPVz0n2ubBgOGO5q4ZBYkw-eDSuNh-MpdBk7uoWW69m2QduSgQ@mail.gmail.com>
+Subject: Re: [PATCH v11 6/7] power: supply: Add driver for ASUS Transformer battery
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Florian Krischer <florian.krischer@fkr.dev>, Ion Agorria <ion@agorria.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Sebastian Reichel <sre@kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+=D1=87=D1=82, 15 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 21:0=
+6 Markus Elfring <Markus.Elfring@web.de> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> =E2=80=A6
+> > +++ b/drivers/power/supply/asus-transformer-ec-battery.c
+> > @@ -0,0 +1,289 @@
+> =E2=80=A6
+> > +static const unsigned int asus_ec_battery_prop_offs[] =3D {
+> > +     [POWER_SUPPLY_PROP_STATUS] =3D 1,
+> =E2=80=A6
+> > +};
+> > +
+> > +static int asus_ec_battery_get_value(struct asus_ec_battery_data *priv=
+,
+> > +                                  enum power_supply_property psp)
+> > +{
+> > +     int ret, offs;
+> =E2=80=A6
+>
+> The referenced array provides unsigned integers.
+> Would you like to specify a more appropriate data type for the correspond=
+ing variable?
+>
 
---CNEKc9Hb6b/6hsIC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This is a nitpick, it does not affect anything.
 
-On Thu, Oct 15, 2026 at 11:58:40AM +0300, Dmitry Baryshkov wrote:
-> Several Qualcomm PMICs have an LCDB block providing the positive and
-> negative bias rails for LCD panels. It is not supported by Linux, so
-> boards using it either model the rails as dummy fixed regulators and
-> depend on the state left by the bootloader.
-
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
-
---CNEKc9Hb6b/6hsIC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRHd4ACgkQJNaLcl1U
-h9DTtwf+MKwL6GiC/Pony46O5/oHLasnxzugndmBEekM6q+aYIODirqMzGKygiMT
-BEPBGGLXlfumpW5Uy173xgd1zflK1NDJH/jomQGrWwOKquGw1qOXBC/BUb+9brM0
-KsIObIy6tWNQ7grpC7cDv8Stre9fz1d+aga0tkjZvGLJpOcpFUC5LAsky6gjnLVK
-xWMWOwaDJ7USQ/zRQyqLhvaK6m+daft37p58rrGOFgPAmfv59fliaSE+kaLhknbW
-M+oTbkLhV4nhAZRkDv4OVpU9p9TgrVk5XL6/j8OIfbZxFFijc+OIyTCvRhX4Lgjq
-H4AgVXQNsXhvFdiSXD2uesqffgHUkw==
-=BJGF
------END PGP SIGNATURE-----
-
---CNEKc9Hb6b/6hsIC--
+> Regards,
+> Markus
