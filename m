@@ -1,205 +1,456 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5333EFFA6;
-	Thu, 15 Oct 2026 13:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1965237B7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070531; cv=none; b=XP567MxPYf8X4OYn/8cOzTLh9LAshjv1dfKvsBx7QtyHK1n/vMfyl/RqrJmJf6rGq/FZ4cqSs8Xr5ZS2fO03aRM6QIDcI6Gu1OgcFedIqUQ1F6KwViShPyIdHqiWX3ahraKdmalLCCEbp4tOV8pWKyCsv9qhm7HElnhnjfh6BAc=
+	t=1792070538; cv=none; b=KrE75InavaPTyLoKWPZ8+817qar3NAKZtGSZWdOkAhEADYse3yD1rnIUg2i8xoAnUKap1RqEztnB8lrnwWpSKF34iHSN+lLQUFlSEkNvQLDFYE+WQPvL3Ogy3vXBW+T45LaJq+CzkoPRTLXJU7pYPhg9TOBd+MNLZdDY4h4DRvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070531; c=relaxed/simple;
-	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q8ezpqtqJQm40cqFAkurBpmwVFDQPL5OV5D4ybszyuHVSE8gzaQGuHMFnWJHZndrNh4xOLJYZQTk/4JWHD05ZFTMsP5LNjClhfdkdwoith7mn+BQGCKeZ4ITPvogDmZbiVwyy5NebRY7CbF7ZWlyCa+8MvE6EbfAoP1RbSoOyyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lOLIQy30; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792070538; c=relaxed/simple;
+	bh=Bvd3KlAPV/LoSwyVaQKOlcSewMN0hb53j3YhEQur7lI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OS9kGBqQA1isuFaboiB7rHkx76pCSwICV/+i6GX/hBEGtW+Jdgrqm4e+i1Tf2W3FXXLZqZn66fRNxwHDdczw4SLmYa09cg6fW+mnknZoDaAGRbAa9tHt+Krb8FeqXso2NycIW1pNoGHVukk21GIf5G2PXVUwY5dLu7xB78gwfck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvGKIciE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lOLIQy30"
-Received: from [192.168.1.215] (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 938CA4F1;
-	Thu, 15 Oct 2026 15:20:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792070404;
-	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=lOLIQy302uR+9l/zojpwx1bdU6tq3JWHwjg/PUqwhTA/pgeICQgMjcJG06mkZ189c
-	 cAdSMHvSCDf+PMRKdR+wwBRUKUYFsnVntqgo1tT2wuM4PngXDfi6A6FlmulSl/Eyfm
-	 9BAhiVcNgZtWLz8C1JzxQZWDJ03PEYbqe+y/QK4I=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Thu, 15 Oct 2026 15:21:49 +0200
-Subject: [PATCH v7 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvGKIciE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6637E1F000D2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792070535;
+	bh=PtakM2rq+ivjR0e7DosmM9joh8D3XX6lnOGvhtqu8Yc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=jvGKIciEueQGGCVpxvxDNWq25lUom4brJTJxQKGaWt2s0mCC0H2VC8KvrJ6CHU05Y
+	 Y3i0DSCcNUIZpSmWx+dA9MiIg2dzpM+h81xrqYLNkdALJqiEI59r55mnBGCUDOn1Fc
+	 SAFzZFw+g2kaH/4ZS1MuhVhcW+hcX5aArcf3ojFAIQwGMkw+13A3IBJmzTXL2PYBOz
+	 I5a8f+AMrdlQERHcbAn5hQDZ12SX4+76MvLwPCQJoa+XHefU0m0QF4ebwvWVerb+B8
+	 Wi0i8LRRd+4fGEo3oWIk2R7d44rbs8J+V71pNNtxGT627RD02Apb80dF/VPlSAej28
+	 mYbBq2bCoT4eg==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ab01c46697so5058801fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:22:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxj9Xb6PEx7Zlu26EBcHwiY8qBCrnHqxbtPRnPMUhr6wKOR7DFxpLdO6BB+bXNzGLP8kfcqQj++FCS3kac=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvfcNehPtRkcWdVq8yxWITpbDTd2sufVVhEc+L67sSprbr9jPN
+	EU/s7ncwhTEcgA4+ORg5rZUHVw+ugaarJkDlBgetMT8k+vPbd9mOpx/Tby0BIcnY5Z6dDKONVNv
+	u9iy3qXZXDeyEGyR5OwdwAP2FtKWQqB9Rd3w2DfuJVw==
+X-Received: by 2002:a2e:b888:0:b0:3a9:82c2:ec1e with SMTP id
+ 38308e7fff4ca-3a9c537ed07mr41696771fa.15.1792070533876; Thu, 15 Oct 2026
+ 06:22:13 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 13:22:12 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 13:22:12 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-2-187c85f65018@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-mira016-v7-1-828c931c5550@ideasonboard.com>
-References: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
-In-Reply-To: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
-To: Philippe Baetens <philippebaetens@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3613;
- i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq0NN8VbGvPJjLaXBrc1mQlaepPppVht7HPuger
- ANfj2AKpMOJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatDTfAAKCRByNAaPFqFW
- PO1WD/956Zxg17b8RhEot6sr8dOXN/BNjWjF8wmAnVxDLvakb3R2WnsrLL0UUgf0si1OsiHPEvc
- X/ZO6WgizLoMS9dtnsJK1gNdH8RD5jPKIb3QGaAiVxW3Mbdla6cS+aTWFkbRjwEUqBkriCypI25
- pxGfAz/Amqo+Wic6LR/yI1UQYivBEMsxu+85ankhN16u+Hfuk9RxuJezwkkm/MgeYxzIhDL6Uoa
- wGEMqUPlHtvNm4JZsTVwC3CFLoaDSjSlKc8DKbREE78vxQ9BQYc8Li4SnHTq0ZnoqU8yjotbjXM
- SB2O1xXsE8OeyOf3xS1DJR74A5GL4lpnm2LEZE8oBkuls4JoRsAWj1FWroeHKSPrBB3bEBD2UYD
- NNXHQgXGnYvO1Y0gcy6RUxHul1aHoY9IHCMpPzTACyet4vn9y5TP9iMeMolNQkNZC8DQqNYOg+s
- +h6dY6d6eQWpUO/Syjqvd3Wziwk5ZBYqGatwpS40NEYs/x/8CI+FYyDVdM7dMJl9bNP3/3+nutC
- 2v3BFKLCSO4IhwkAz8n/d5IEIY49iTcMgXh9EZyH2bvY1aAJew7DiWCXWsizQQXTfrdFAHyoavt
- GikxYpFhxk0AS8wLK6WvKp0E2D4egUIM/VJYUN/WCNApgNw0Lw8xwa2GNcpfTSVDgrJt2TOXRrO
- HCYhqgJ5jEqZF+w==
-X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
- fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com> <20261014-b4-nvmem-efivar-v1-2-187c85f65018@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 13:22:12 +0000
+X-Gmail-Original-Message-ID: <CAMRc=McDsv0k0bD2LoaXfOh7uyFo=HRyO098H=N=QeMFDXsLKQ@mail.gmail.com>
+X-Gm-Features: AclHuK_mQfEq7d5o6k5CJtNKj-nIhBiWJK67TxDvSr-imzKrws_f6xRwLeLZhi8
+Message-ID: <CAMRc=McDsv0k0bD2LoaXfOh7uyFo=HRyO098H=N=QeMFDXsLKQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/5] nvmem: Add UEFI variable NVMEM provider
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath12k@lists.infradead.org, Srinivas Kandagatla <srini@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Jeff Johnson <jjohnson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Add bindings for the ams OSRAM Mira016 image sensor.
+On Wed, 14 Oct 2026 15:02:40 +0200, Abel Vesa <abel.vesa@oss.qualcomm.com> said:
+> Add a provider that reads a UEFI variable via the EFI runtime
+> GetVariable service and publishes its bytes as a read-only NVMEM device.
+> NVMEM cells are described as device-tree child nodes and can be
+> referenced by consumers through nvmem-cells / nvmem-cell-names.
+>
+> The vendor GUID is optional: when it is not provided, the variable is
+> located by name by enumerating the variable store. This keeps working
+> on platforms where GetVariable is emulated by firmware (e.g. the
+> Qualcomm uefisecapp backend) and where direct flash access is
+> unavailable to the non-secure world, in particular when Linux boots at
+> EL2.
+>
+> If the variable has not been provisioned yet, the device is still
+> registered, sized to cover the described cells and filled with zeroes,
+> the same way an erased EEPROM would read. This keeps consumers probing
+> and falling back to their default addresses.
+>
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  drivers/nvmem/Kconfig  |  12 +++
+>  drivers/nvmem/Makefile |   2 +
+>  drivers/nvmem/efivar.c | 273 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 287 insertions(+)
+>
+> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+> index 083a5e528960..3f619dfa1cf7 100644
+> --- a/drivers/nvmem/Kconfig
+> +++ b/drivers/nvmem/Kconfig
+> @@ -185,6 +185,18 @@ config NVMEM_BRCM_NVRAM
+>  	  This driver provides support for Broadcom's NVRAM that can be accessed
+>  	  using I/O mapping.
+>
+> +config NVMEM_EFIVAR
+> +	tristate "UEFI variable NVMEM provider"
+> +	depends on EFI || COMPILE_TEST
+> +	help
+> +	  Say y here to expose the contents of a UEFI variable as an NVMEM
+> +	  device. This allows the kernel to consume data provisioned in a UEFI
+> +	  variable, referenced from consumers via the standard nvmem-cells
+> +	  bindings.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called nvmem-efivar.
+> +
+>  config NVMEM_IMX_IIM
+>  	tristate "i.MX IC Identification Module support"
+>  	depends on ARCH_MXC || COMPILE_TEST
+> diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
+> index 5e70bad9f0f9..038d3d9ee95c 100644
+> --- a/drivers/nvmem/Makefile
+> +++ b/drivers/nvmem/Makefile
+> @@ -27,6 +27,8 @@ obj-$(CONFIG_NVMEM_BCM_OCOTP)		+= nvmem-bcm-ocotp.o
+>  nvmem-bcm-ocotp-y			:= bcm-ocotp.o
+>  obj-$(CONFIG_NVMEM_BRCM_NVRAM)		+= nvmem_brcm_nvram.o
+>  nvmem_brcm_nvram-y			:= brcm_nvram.o
+> +obj-$(CONFIG_NVMEM_EFIVAR)		+= nvmem-efivar.o
+> +nvmem-efivar-y			:= efivar.o
+>  obj-$(CONFIG_NVMEM_IMX_IIM)		+= nvmem-imx-iim.o
+>  nvmem-imx-iim-y				:= imx-iim.o
+>  obj-$(CONFIG_NVMEM_IMX_OCOTP)		+= nvmem-imx-ocotp.o
+> diff --git a/drivers/nvmem/efivar.c b/drivers/nvmem/efivar.c
+> new file mode 100644
+> index 000000000000..699b1d67aea4
+> --- /dev/null
+> +++ b/drivers/nvmem/efivar.c
+> @@ -0,0 +1,273 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * nvmem-efivar - expose the contents of a UEFI variable as an NVMEM device
+> + *
+> + * Lets the kernel consume data provisioned in a UEFI variable through the
+> + * standard NVMEM cell bindings.  The variable is read at probe time through
+> + * the EFI runtime GetVariable service, which also works on platforms where
+> + * the variable store is emulated by firmware (for example the Qualcomm
+> + * uefisecapp backend) and where direct flash access is not available to the
+> + * non-secure world.  The variable contents are published as a read-only
+> + * NVMEM device, with cells described as child nodes in the device tree and
+> + * referenced by consumers through the standard "nvmem-cells" /
+> + * "nvmem-cell-names" properties.
+> + *
+> + * If the variable has not been provisioned yet, the device is still
+> + * registered, sized to cover the described cells and filled with zeroes,
+> + * the same way an erased EEPROM would read.  Consumers are expected to
+> + * validate the data they read so such systems keep working with their
+> + * defaults.
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
- .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 104 insertions(+)
+This should immediately follow the SPFX header I think.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-new file mode 100644
-index 000000000000..49a606fca6cb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-@@ -0,0 +1,97 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 0.16 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-+  and 3D consumer and industrial machine vision applications. The sensor is
-+  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-+  physical layer specifications to transmit the image data to the host
-+  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira016
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdd28-supply:
-+    description:
-+      I/O voltage supply, 2.8 volts
-+
-+  vdd11-supply:
-+    description:
-+      I/O voltage supply, 1.1 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (RST_N) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdd28-supply
-+  - vdd11-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@36 {
-+            compatible = "ams,mira016";
-+            reg = <0x36>;
-+            clocks = <&cam1_clk>;
-+
-+            vdd28-supply = <&cam1_reg>;
-+            vdd11-supply = <&cam_dummy_reg>;
-+
-+            port {
-+                endpoint {
-+                    data-lanes = <1>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 760791e3635f..2e01f389f057 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1454,6 +1454,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
- 
-+AMS MIRA016 DRIVER
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
+> + */
+> +
+> +#include <linux/efi.h>
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/nvmem-provider.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/slab.h>
+> +#include <linux/ucs2_string.h>
+> +#include <linux/uuid.h>
+> +
+> +struct efivar_nvmem {
+> +	void	*data;
+> +	size_t	size;
+> +};
 
--- 
-2.55.0
+I would have preferred it without tabs but whatever.
 
+> +
+> +static int efivar_nvmem_reg_read(void *priv, unsigned int offset,
+> +				 void *val, size_t bytes)
+> +{
+> +	struct efivar_nvmem *p = priv;
+> +
+> +	if (offset >= p->size || offset + bytes > p->size)
+> +		return -EINVAL;
+> +
+> +	memcpy(val, p->data + offset, bytes);
+> +	return 0;
+> +}
+> +
+> +/* Size needed to cover all cells described as child nodes. */
+> +static size_t efivar_nvmem_cells_extent(struct device *dev)
+> +{
+> +	struct device_node *child;
+> +	size_t extent = 0;
+> +	u32 reg[2];
+> +
+> +	for_each_child_of_node(dev->of_node, child) {
+
+You're leaking the reference to the child node. You also probably don't need
+the OF variant, use device_for_each_child_node_scoped() instead.
+
+> +		if (of_property_read_u32_array(child, "reg", reg, 2))
+> +			continue;
+> +		extent = max_t(size_t, extent, (size_t)reg[0] + reg[1]);
+> +	}
+> +
+> +	return extent;
+> +}
+> +
+> +/*
+> + * Find the vendor GUID of a variable given only its (UCS-2) name, by
+> + * enumerating the variable store.  Used when no 'efivar-guid' is provided.
+> + */
+> +static int efivar_nvmem_find_guid(const efi_char16_t *want, efi_guid_t *out)
+> +{
+> +	unsigned long max = 512; /* in UCS-2 chars; variable names are short */
+> +	efi_char16_t *name;
+> +	efi_guid_t vendor = {};
+> +	efi_status_t status;
+> +	int ret = -ENODEV;
+> +
+> +	name = kcalloc(max, sizeof(*name), GFP_KERNEL);
+
+efi_char_16t *name __free(kfree) = kcalloc(...);
+
+> +	if (!name)
+> +		return -ENOMEM;
+> +	name[0] = 0;
+
+Doesn't kcalloc() imply it?
+
+> +
+> +	for (;;) {
+> +		unsigned long name_size = max * sizeof(*name);
+> +
+> +		status = efivar_get_next_variable(&name_size, name, &vendor);
+> +		if (status == EFI_BUFFER_TOO_SMALL) {
+> +			efi_char16_t *tmp;
+> +
+> +			max = name_size / sizeof(*name) + 1;
+> +			tmp = krealloc_array(name, max, sizeof(*name), GFP_KERNEL);
+> +			if (!tmp) {
+> +				ret = -ENOMEM;
+> +				break;
+> +			}
+> +			name = tmp;
+> +			continue;
+> +		}
+> +		if (status != EFI_SUCCESS) /* EFI_NOT_FOUND ends the walk */
+> +			break;
+> +
+> +		if (!ucs2_strncmp(name, want, ucs2_strlen(want) + 1)) {
+> +			*out = vendor;
+> +			ret = 0;
+> +			break;
+> +		}
+> +	}
+> +
+> +	kfree(name);
+> +	return ret;
+> +}
+> +
+> +static int efivar_nvmem_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	const char *name, *guid_str;
+> +	struct nvmem_config cfg = {};
+> +	struct efivar_nvmem *priv;
+> +	struct nvmem_device *nvmem;
+> +	efi_char16_t *name16;
+> +	efi_guid_t guid;
+> +	guid_t g;
+> +	unsigned long size;
+> +	efi_status_t status;
+> +	u32 attr;
+> +	int i, len, ret;
+> +	void *buf;
+> +
+> +	/*
+> +	 * The EFI variable service may not be a native EFI runtime service;
+> +	 * backends such as the Qualcomm uefisecapp driver register the
+> +	 * efivars operations asynchronously.  Wait for them.
+> +	 */
+> +	if (!efivar_is_available())
+> +		return -EPROBE_DEFER;
+> +
+> +	ret = device_property_read_string(dev, "efivar-name", &name);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "missing 'efivar-name'\n");
+> +
+> +	/* ASCII variable name -> UCS-2 as expected by the EFI service */
+> +	len = strlen(name);
+> +	name16 = kcalloc(len + 1, sizeof(*name16), GFP_KERNEL);
+
+efi_char_16t name16 __free(kfree) = kcalloc(...);
+
+> +	if (!name16)
+> +		return -ENOMEM;
+> +	for (i = 0; i < len; i++)
+> +		name16[i] = name[i];
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv) {
+> +		kfree(name16);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	/*
+> +	 * The vendor GUID is optional: if it is not provided, look the
+> +	 * variable up by name across the whole store.  A variable that has
+> +	 * not been provisioned yet is reported as not found and handled
+> +	 * below like an erased EEPROM.
+> +	 */
+> +	if (!device_property_read_string(dev, "efivar-guid", &guid_str)) {
+> +		ret = guid_parse(guid_str, &g);
+> +		if (ret) {
+> +			kfree(name16);
+> +			return dev_err_probe(dev, ret, "invalid 'efivar-guid'\n");
+> +		}
+> +		memcpy(&guid, &g, sizeof(guid));
+> +		status = EFI_SUCCESS;
+> +	} else {
+> +		ret = efivar_nvmem_find_guid(name16, &guid);
+> +		if (ret && ret != -ENODEV) {
+> +			kfree(name16);
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to look up variable '%s'\n",
+> +					     name);
+> +		}
+> +		status = ret ? EFI_NOT_FOUND : EFI_SUCCESS;
+> +	}
+> +
+> +	/* First attempt with a modest buffer; grow if the firmware asks. */
+> +	size = 512;
+> +	buf = kzalloc(size, GFP_KERNEL);
+
+void *buf __free(kfree) = kzalloc(size, GFP_KERNEL);	
+
+> +	if (!buf) {
+> +		kfree(name16);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	if (status == EFI_SUCCESS) {
+> +		status = efivar_get_variable(name16, &guid, &attr, &size, buf);
+> +		if (status == EFI_BUFFER_TOO_SMALL) {
+> +			kfree(buf);
+> +			buf = kzalloc(size, GFP_KERNEL);
+
+krealloc()?
+
+> +			if (!buf) {
+> +				kfree(name16);
+> +				return -ENOMEM;
+> +			}
+> +			status = efivar_get_variable(name16, &guid, &attr,
+> +						     &size, buf);
+> +		}
+> +	}
+> +	kfree(name16);
+> +
+> +	if (status == EFI_NOT_FOUND) {
+> +		/*
+> +		 * Variable not provisioned yet: behave like an erased
+> +		 * EEPROM so that consumers still probe and fall back to
+> +		 * their defaults.
+> +		 */
+> +		kfree(buf);
+> +		size = efivar_nvmem_cells_extent(dev);
+> +		if (!size)
+> +			return dev_err_probe(dev, -ENODEV,
+> +					     "variable '%s' not found and no cells described\n",
+> +					     name);
+> +		buf = kzalloc(size, GFP_KERNEL);
+> +		if (!buf)
+> +			return -ENOMEM;
+
+Sprinkle in some newlines after return for better readability here and
+elsewhere.
+
+> +		dev_info(dev, "variable '%s' not provisioned, reading as zeroes\n",
+> +			 name);
+> +	} else if (status != EFI_SUCCESS) {
+> +		kfree(buf);
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "GetVariable('%s') failed: 0x%lx\n",
+> +				     name, status);
+> +	} else {
+> +		dev_dbg(dev, "variable '%s' attr=0x%x size=%lu\n",
+> +			name, attr, size);
+> +	}
+> +
+> +	priv->data = devm_kmemdup(dev, buf, size, GFP_KERNEL);
+> +	kfree(buf);
+> +	if (!priv->data)
+> +		return -ENOMEM;
+> +	priv->size = size;
+> +
+> +	cfg.dev			= dev;
+> +	cfg.name		= "efivar";
+> +	cfg.id			= NVMEM_DEVID_AUTO;
+> +	cfg.owner		= THIS_MODULE;
+> +	cfg.type		= NVMEM_TYPE_OTP;
+> +	cfg.read_only		= true;
+> +	cfg.word_size		= 1;
+> +	cfg.stride		= 1;
+> +	cfg.size		= priv->size;
+> +	cfg.reg_read		= efivar_nvmem_reg_read;
+> +	cfg.priv		= priv;
+> +	cfg.of_node		= dev->of_node;
+> +	cfg.add_legacy_fixed_of_cells = true;
+
+I think it looks better without tabs. Better yet, use compound literal:
+
+	cfg = (struct nvmem_config){
+		.dev = dev,
+		...
+	};
+
+> +
+> +	nvmem = devm_nvmem_register(dev, &cfg);
+> +	return PTR_ERR_OR_ZERO(nvmem);
+
+return PTR_ERR_OR_ZERO(devm_nvmem_register(dev, &cfg)); ?
+
+> +}
+> +
+> +static const struct of_device_id efivar_nvmem_of_match[] = {
+> +	{ .compatible = "nvmem-efivar" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, efivar_nvmem_of_match);
+> +
+> +static struct platform_driver efivar_nvmem_driver = {
+> +	.probe = efivar_nvmem_probe,
+> +	.driver = {
+> +		.name = "nvmem-efivar",
+> +		.of_match_table = efivar_nvmem_of_match,
+> +	},
+> +};
+> +module_platform_driver(efivar_nvmem_driver);
+> +
+> +MODULE_DESCRIPTION("NVMEM provider backed by a UEFI variable");
+> +MODULE_IMPORT_NS("EFIVAR");
+> +MODULE_LICENSE("GPL");
+>
+> --
+> 2.54.0
+>
+>
+
+Bart
