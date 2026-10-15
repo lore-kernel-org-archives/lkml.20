@@ -1,281 +1,103 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+Received: from mail-m1973173.qiye.163.com (mail-m1973173.qiye.163.com [220.197.31.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488D23A8736
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E9433D6FD;
+	Thu, 15 Oct 2026 04:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792038252; cv=none; b=FU+zaWyu8BtO3AKK+v1albSNJLPZTgFHXQx2HWX8la2MwyCtuUwPaOF++33KzlJPKr5tA9g1pWzt8aI9s+8n8BCSEzLn+Qy6iaaBNeZKvYuoqPiaabGFzj2cg4N+pvVv3Xhlt+op95qL/7qqDtX1jbZ56XWzATpwPbfO1Y0m9og=
+	t=1792038303; cv=none; b=YP6NzPSo6JcKuJ1uoVN7vTrqRRY+Nyka2elqFYQ+ZN46Z/s0MB/CQvwrN2FSmiFwlSNu2Y4VnSr/1ACLtdFSAIarNV9pMrv4RNLXmqaLRFUMeVreMhPqQonQ/LHXs4LdPZ+Qzc92vdWUv3NzhLLIDAgnd3S6lUEoHNHmgWRxfJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792038252; c=relaxed/simple;
-	bh=HBsRSDytGP1ixAALMZ5BxVYMOlkdn2lfW2SfQbXtfR4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=quj6oIPGMCooy0RNVrJ91Kt/ToPO06De5HUC4wi7adp0MgoklwCqG7ToDHXT4/v5+xjprWdxIpB2I920h/EiwHO0hzdZH6T5mLAzySK/m2z8EKFBE/f3NpeHNJq2b8UhZdUPsNGOoRRGmJ6QztWh0+02EtvbXTeQMKOg69ZiRh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=v/CsGVII; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792038303; c=relaxed/simple;
+	bh=yeoHncb0U/QHilw6zkzXv7cAxlL2rrUjdw5x+EfEiCc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=CX9CBcKO0kLXVqWtCk2K9oPk9baFydnLzWqeGy9iooZ/j/ADgp8YHs9WxnbFUj0gkW9o1TtAAZVj8UfehW6SX8A94M6EFTTIdRasunLpTWYvSHaSXQpOL4PrF+xiMhfA3HUPIBRhOQEsZc2SqO75o58QtkQ7Vufh/YDF6E/qufI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fY9EWEXy; arc=none smtp.client-ip=220.197.31.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="v/CsGVII"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792038245; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=uSfhX7WAmylRzrNtrWoK1R7H9Xh+c4oQUQrMJZhdohI=;
-	b=v/CsGVIIAKTvJxJsbcqCNWh0B+ixzMfa7D+ClhzryHhyhH7mL6Oq4eDyoXKahYE0RwHNYcTe8V9QIUYzEzxgzMXvACgezDQQoVUQ9c5kiKYUE57efmwXb6cEKangKLEL3EyRlkBLj1/ZbmJaKBw1NCpxmF32nh29Q9b4enFiPiE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCqWEQv_1792038228;
-Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XCqWEQv_1792038228 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 12:24:05 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: joro@8bytes.org,
-	suravee.suthikulpanit@amd.com,
-	vasant.hegde@amd.com,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] iommu/amd: Restore three-stage vector cleanup for IR affinity migration
-Date: Thu, 15 Oct 2026 12:23:47 +0800
-Message-ID: <20261015042347.1823813-1-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fY9EWEXy"
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 511c23ef5;
+	Thu, 15 Oct 2026 11:49:20 +0800 (GMT+08:00)
+Message-ID: <966431ec-8884-48da-804a-4dfa5404698e@rock-chips.com>
+Date: Thu, 15 Oct 2026 11:49:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Philipp Zabel <p.zabel@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+ Wilfred Mallawa <wilfred.mallawa@wdc.com>,
+ Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 05/18] PCI: dwc: Export dw_handle_msi_irq()
+To: Koichiro Den <den@valinux.co.jp>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+References: <20261015033103.3076869-1-den@valinux.co.jp>
+ <20261015033103.3076869-6-den@valinux.co.jp>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261015033103.3076869-6-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa13dadc35f03a4kunm71c664033af72b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSkoaVk0dSxkeGR9JTUsYTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=fY9EWEXyJs0g6PdDOqVjM8/xy5GDqaD+vAphBUQLagrFzQ65EGmrwLftLhWrtxXN103+hBT7ch8YbJ41r4IyGyfUg5jEjQS+gVEYEjH1acLlzerAFXfw9H9WIlhLZoHjnvVSqQXjBNW5ZgKTd3wAhHDZ+EihMXYbw9+dbJFlOz4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=axOCnllCkdHGRMZLnzuS/aVArcjeXE6XBW2eAHUgPSE=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
+在 2026/10/15 星期四 11:30, Koichiro Den 写道:
+> Not every platform brings the iMSI-RX interrupt out as a dedicated
+> line. On spear13xx and keembay it is a status bit in the SoC wrapper's
+> interrupt register that the glue driver has to check and clear, and on
+> dra7xx it shares the line with other sources the glue driver has to
+> demultiplex. These drivers set msi_irq[0] to -ENODEV so the core does
+> not install its chained handler, and service the MSIs from a handler of
+> their own. spear13xx and keembay call dw_handle_msi_irq() for that.
+> Both are built-in, so the function was never exported. dra7xx can be a
+> module and has an MSI loop of its own.
+> 
 
-AMD IOMMU specification (Rev 3.10) does not define interrupt message
-draining semantics for INVALIDATE_INTERRUPT_TABLE + COMPLETION_WAIT.
-This creates a race between vector_schedule_cleanup() and in-flight MSI
-messages still transiting the Data Fabric after IRTE modification.
+Reviewed-by: Shawn Lin <Shawn.lin@rock-chips.com>
 
-Intel VT-d is architecturally safe due to explicit interrupt draining
-guarantees.  VT-d spec Section 6.5.5 states:
-
-  "An interrupt request is considered drained when the interrupt is
-   accepted by the processor Local xAPIC (for fixed and lowest priority
-   delivery mode interrupts this means the interrupt is at least
-   recorded in the Local xAPIC Interrupt Request Register (IRR))."
-
-  "Interrupt draining is performed by remapping hardware after Interrupt
-   Entry Cache (IEC) invalidation requests.  For IEC invalidations
-   submitted through the queued invalidation interface, interrupt
-   draining must be completed before the next Invalidation Wait
-   Descriptor is completed by hardware."
-
-  "For index-selective IEC invalidation requests, hardware only
-   guarantees draining of non-committed interrupt requests referencing
-   interrupt indexes specified in the invalidation request."
-
-Additionally, Section 6.5.2.8 (IEC Invalidate Descriptor) mandates:
-
-  "As part of IEC invalidation, hardware must drain interrupt requests
-   that are already processed by the remapping hardware, but queued
-   within the Root-Complex to be delivered to the processor."
-
-Therefore when qi_flush_iec() + qi_submit_sync() returns (Wait Descriptor
-reports QI_DONE), all non-committed interrupt messages referencing the
-invalidated IRTE index are guaranteed to have been delivered to the
-target LAPIC IRR.  The subsequent vector_schedule_cleanup() is safe
-because is_vector_pending(prev_vector) will always observe the drained
-message in IRR, causing the cleanup timer to rearm until the interrupt
-is properly serviced.
-
-In contrast, AMD IOMMU spec Section 2.4.5 defines
-INVALIDATE_INTERRUPT_TABLE only as:
-
-  "instructs the IOMMU to invalidate all cached interrupt information
-   for the device"
-
-with no completion condition, no drain semantics, and no ordering
-guarantee for previously-remapped interrupt messages.  Section 2.4.11.2
-("Invalidation Commands Interaction Requirements") limits the completion
-guarantee exclusively to DMA transactions:
-
-  "Invalidation commands are considered complete only when the IOMMU can
-   ensure there are no DMA transactions in flight anywhere in the system
-   fabric that relied on translation cache contents prior to
-   invalidation."
-
-The words "drain", "drained", or "draining" appear zero times in the
-entire AMD IOMMU specification (Rev 3.10, 48882-PUB, Feb 2025) in
-connection with interrupt messages.
-
-Consequently, iommu_flush_irt_and_complete() returning does NOT guarantee
-that old (vector, destination) interrupt messages have been delivered to
-the previous CPU's LAPIC IRR.  The immediate vector_schedule_cleanup()
-after IRTE modification races with in-flight messages on the Data Fabric:
-the cleanup timer reads IRR clear (message still in transit), calls
-free_moved_vector(), then the message arrives at the old CPU hitting
-VECTOR_UNUSED -- producing "No irq handler for vector" and permanently
-losing an edge-triggered MSI.
-
-Fix by restoring three-stage cleanup semantics for the normal
-(guest_mode=0) path:
-
- 1. Change amd_ir_chip.irq_ack from apic_ack_irq to apic_ack_edge,
-    which calls irq_complete_move().  This ensures cleanup is only
-    scheduled when the new vector first arrives at the new CPU --
-    providing a natural delay (device interrupt period + PCIe transit +
-    IOMMU translation + Data Fabric delivery) that far exceeds any
-    residual in-flight message transit time.
-
- 2. Remove the unconditional vector_schedule_cleanup() from
-    amd_ir_set_affinity() for the IRTE-modified path.
-
- 3. For guest_mode=1 (AVIC/guest interrupt virtualization), the IRTE
-    is not modified and no host-vector interrupt will arrive (interrupts
-    are delivered to the vAPIC backing page instead).  Retain direct
-    vector_schedule_cleanup() in this case to prevent move_in_progress
-    from permanently blocking future affinity changes.
-
-The combination of stage-2 natural delay and stage-3 IRR gating
-(is_vector_pending + timer rearm) provides robust protection against
-the AMD-specific lack of interrupt drain guarantee.
-
-Intel VT-d, Hyper-V, and UV platforms are not modified as Intel is
-architecturally safe per the spec guarantees cited above.
-
-Fixes: 5478844b12d3 ("iommu/amd: Move interrupt remapping to its own file")
-Signed-off-by: Guanghui Feng <guanghui.fgh@linux.alibaba.com>
----
- drivers/iommu/amd/amd_iommu_types.h |  2 +-
- drivers/iommu/amd/iommu.c           | 46 +++++++++++++++++++++--------
- 2 files changed, 34 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-index 8241ef922519..35024e3f5b90 100644
---- a/drivers/iommu/amd/amd_iommu_types.h
-+++ b/drivers/iommu/amd/amd_iommu_types.h
-@@ -1037,7 +1037,7 @@ struct amd_irte_ops {
- 	void (*prepare)(void *, u32, bool, u8, u32, int);
- 	void (*activate)(struct amd_iommu *iommu, void *, u16, u16);
- 	void (*deactivate)(struct amd_iommu *iommu, void *, u16, u16);
--	void (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
-+	bool (*set_affinity)(struct amd_iommu *iommu, void *, u16, u16, u8, u32);
- 	void *(*get)(struct irq_remap_table *, int);
- 	void (*set_allocated)(struct irq_remap_table *, int);
- 	bool (*is_allocated)(struct irq_remap_table *, int);
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 56262f6b1f70..60e769384e8b 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3634,7 +3634,7 @@ static void irte_ga_deactivate(struct amd_iommu *iommu, void *entry, u16 devid,
- 	modify_irte_ga(iommu, devid, index, irte);
- }
- 
--static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
-+static bool irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
- 			      u8 vector, u32 dest_apicid)
- {
- 	union irte *irte = (union irte *) entry;
-@@ -3642,9 +3642,11 @@ static void irte_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u
- 	irte->fields.vector = vector;
- 	irte->fields.destination = dest_apicid;
- 	modify_irte(iommu, devid, index, irte);
-+
-+	return true;
- }
- 
--static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
-+static bool irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid, u16 index,
- 				 u8 vector, u32 dest_apicid)
- {
- 	struct irte_ga *irte = (struct irte_ga *) entry;
-@@ -3656,7 +3658,11 @@ static void irte_ga_set_affinity(struct amd_iommu *iommu, void *entry, u16 devid
- 		irte->hi.fields.destination =
- 					APICID_TO_IRTE_DEST_HI(dest_apicid);
- 		modify_irte_ga(iommu, devid, index, irte);
-+
-+		return true;
- 	}
-+
-+	return false;
- }
- 
- #define IRTE_ALLOCATED (~1U)
-@@ -3933,7 +3939,7 @@ static void irq_remapping_free(struct irq_domain *domain, unsigned int virq,
- 	irq_domain_free_irqs_common(domain, virq, nr_irqs);
- }
- 
--static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
-+static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
- 			       struct amd_ir_data *ir_data,
- 			       struct irq_2_irte *irte_info,
- 			       struct irq_cfg *cfg);
-@@ -4153,7 +4159,7 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
- }
- 
- 
--static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
-+static bool amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
- 			       struct amd_ir_data *ir_data,
- 			       struct irq_2_irte *irte_info,
- 			       struct irq_cfg *cfg)
-@@ -4163,9 +4169,9 @@ static void amd_ir_update_irte(struct irq_data *irqd, struct amd_iommu *iommu,
- 	 * Atomically updates the IRTE with the new destination, vector
- 	 * and flushes the interrupt entry cache.
- 	 */
--	iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
--				      irte_info->index, cfg->vector,
--				      cfg->dest_apicid);
-+	return iommu->irte_ops->set_affinity(iommu, ir_data->entry, irte_info->devid,
-+					     irte_info->index, cfg->vector,
-+					     cfg->dest_apicid);
- }
- 
- static int amd_ir_set_affinity(struct irq_data *data,
-@@ -4176,6 +4182,7 @@ static int amd_ir_set_affinity(struct irq_data *data,
- 	struct irq_cfg *cfg = irqd_cfg(data);
- 	struct irq_data *parent = data->parent_data;
- 	struct amd_iommu *iommu = ir_data->iommu;
-+	bool irte_modified;
- 	int ret;
- 
- 	if (!iommu)
-@@ -4185,13 +4192,26 @@ static int amd_ir_set_affinity(struct irq_data *data,
- 	if (ret < 0 || ret == IRQ_SET_MASK_OK_DONE)
- 		return ret;
- 
--	amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
-+	irte_modified = amd_ir_update_irte(data, iommu, ir_data, irte_info, cfg);
-+
- 	/*
--	 * After this point, all the interrupts will start arriving
--	 * at the new destination. So, time to cleanup the previous
--	 * vector allocation.
-+	 * If the IRTE was actually modified (guest_mode == 0), rely on the
-+	 * three-stage cleanup: apic_ack_edge() calls irq_complete_move() when
-+	 * the new vector first arrives at the new CPU, which then schedules
-+	 * the cleanup of the previous vector allocation.  This avoids a race
-+	 * where in-flight MSI messages, still on the Data Fabric after the
-+	 * IRT invalidation because the AMD-Vi specification provides no
-+	 * interrupt drain guarantee, arrive after the old vector has been
-+	 * freed.
-+	 *
-+	 * If the IRTE was NOT modified (guest_mode == 1), no in-flight
-+	 * messages exist for the host vector and the new host vector will
-+	 * never receive an interrupt (those go to the vAPIC backing page
-+	 * instead).  Schedule the cleanup directly to prevent
-+	 * move_in_progress from getting permanently stuck.
- 	 */
--	vector_schedule_cleanup(cfg);
-+	if (!irte_modified)
-+		vector_schedule_cleanup(cfg);
- 
- 	return IRQ_SET_MASK_OK_DONE;
- }
-@@ -4205,7 +4225,7 @@ static void ir_compose_msi_msg(struct irq_data *irq_data, struct msi_msg *msg)
- 
- static struct irq_chip amd_ir_chip = {
- 	.name			= "AMD-IR",
--	.irq_ack		= apic_ack_irq,
-+	.irq_ack		= apic_ack_edge,
- 	.irq_set_affinity	= amd_ir_set_affinity,
- 	.irq_set_vcpu_affinity	= amd_ir_set_vcpu_affinity,
- 	.irq_compose_msi_msg	= ir_compose_msi_msg,
--- 
-2.43.7
+> Export the function so that modular glue drivers can use it as well.
+> The pcie-rcar-gen4 driver, where both situations apply, is the first user.
+> 
+> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+> Changes since v3:
+>    - No changes.
+> 
+>   drivers/pci/controller/dwc/pcie-designware-host.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+> index 77aa79ef0ccf..63b38532d069 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware-host.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+> @@ -85,6 +85,7 @@ void dw_handle_msi_irq(struct dw_pcie_rp *pp)
+>   			generic_handle_demux_domain_irq(pp->irq_domain, irq_off + pos);
+>   	}
+>   }
+> +EXPORT_SYMBOL_GPL(dw_handle_msi_irq);
+>   
+>   /* Chained MSI interrupt service routine */
+>   static void dw_chained_msi_isr(struct irq_desc *desc)
 
