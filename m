@@ -1,205 +1,244 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8182C325C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC79D1DF248;
+	Thu, 15 Oct 2026 01:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027736; cv=pass; b=ACDG29XVPO9/y8N1C/9t8hX80p1qfuSGptJSclpQfewaigXW40OKNppLhebzliSCvJ1SU1UH8ge95d6k6mpwJv4Vbynb5dv+g1nnGHfMVMJq/HfA2ZSMN4vEkhwrmEF7dcL0ucpTN8RsT4hBhn6jpOZQrqlVqKLqihonVvCabBg=
+	t=1792027776; cv=pass; b=IhIxFQwKrmHqxCC5OU+cFdsR96FFik+c3dShVB141BO32DcatV3VoMClbpA7F6VpdyVoR+CjEADzkg42k0fH3u/03VRyRqn/lu2X521AUsj8I5nx60pvHiNrpiruO3U9IjA6EKfrH2MTKEFGGhw+hX8LkTi7fd0PuqvlXXtSXrI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027736; c=relaxed/simple;
-	bh=dnx6g/9ixM5NFJDISuWjAeW3ycDShCzXPusFIgWOxcs=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=hXAEDAyDECnWnjdcDo9/fyj4hhKiCkNHuuksFKGMFGdWw5lryE7u4RTM+HyQzaHhs7Ox5YoPgQdQCy6NOYo/qYPEao1yTtWmIbjQW+iq+cZ+p8bugB4+lEaAAgeddcEjUx1TE4Qtp/AgLVWhvGx48TJ0T3g3anc5/oPKl9YRROo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=FZPzoDiu reason="key not found in DNS"; arc=pass smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trukhin.com
+	s=arc-20240116; t=1792027776; c=relaxed/simple;
+	bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=DOItbdJRW6HT/3/mPFZ11SXPsQSa/OcXcyL20TWJfp4kMNKOFh8uqJQpdYYOheNzf7fR2OdQfYZF6vBwpoRVT86CuvJYCI7mKYOZVFoykI/Lh9I9hIk3l+ecoBIvFMf19cMW+z1PppVTzaOw/Gu70FPgAEj5djXRd94fSrqsLWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Lno3Y3c/; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="FZPzoDiu"
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-82389e65a09so851992a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:28:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792027734; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ODqkxn2qML14VNiIe503VAHGPJtLowqPhL2HfPM38FLCa+lvW++4WQaS/p7fEh3Tku
-         PJZbYD+7nJekqAlSiWO+xZl0TUhqFyr/mQPi84gZ7mB5MqH+7eGt4VXkChkPN47dRChg
-         z+AbnoqjW0JvjsTii9he6Ezc/IJjk1C/9LAn29yjoWppawCx5lh4IdPOIc7INqICgPzR
-         bD0rllGgKEOxf2D/+7WLHp6ww+XydENFRjh8LBTyeOgCdGS99d190ADXRiiy3BnmgVeY
-         TQAFOmfvb1r7DB9zsvpORzQiPjKl9UNVfuLLu5tbjHwyHNvEb6KPQ8lWjl4udWoIegVG
-         vEUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=Q5uVuvTWXajEdN6wZPxpoBw0tWfNu44FcU1kEUeI9h8=;
-        fh=K5xR3RDerYHkLs4V+A+tVn8xwMB8glaF/JiRhgRQvq0=;
-        b=qUKyIsJjWz98GG8UezjE3A6o54vvBQMfogotuzXIMIg/0YVjjnPfcBa1DHuyxbde5l
-         BQjRCJDttW24gMbPO95FlJ+w3PIHufFFWxmCm6ftvgdPTH1zn5V0rPEWFtKyS/RCTWGE
-         SukXE/WFvOoz1vdKX+6d86OisBIsI//YAWctskqeqG+eRPXznh6i/ay710lBNnu08gcs
-         Pm0Arif8fKNu9P9NdEm1IsZPnTPRk75YYM3U1CEr8evbVsiwvnTA6IV5vRq1SKRZUlnS
-         j7bZdT7GihBcLguKw5XqLTskJ0uEZGdeCZ7vkM9cGXxhYCeVAPXW0ADjg+2NmX7MOycu
-         woRQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trukhin.com; s=google; t=1792027734; x=1792632534; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q5uVuvTWXajEdN6wZPxpoBw0tWfNu44FcU1kEUeI9h8=;
-        b=FZPzoDiu9EX4STMlOxNWrgBC9SatwDBCt9Dp4/GpKTjFzcZEcHNKXw9fMjw7qAsy6z
-         2BJ7FWjCTun1Q8G2Kz7ZL2LqNAttLi9sInSh3+9trBmGRTPD8oWiQ3Fh84nTM9Jj5miT
-         naBrMDWLeV0vAmyPyL3kDKvPA07RwJTPVfFr3AzMu8p2MW9AA1RkfYqMvaJuRfTBzmLK
-         VhE76s1+65jOobQ9nNMR9yxHSURlPK793NbfIvF47841gIyg6TFjVXrzXBHdO+flk27q
-         TcpLKKuvN3EbJ82cG8CXnK4l5sveiwN7VHoConqtQnQQpe3GU76UufmSumwabuAJPD12
-         v8/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792027734; x=1792632534;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Q5uVuvTWXajEdN6wZPxpoBw0tWfNu44FcU1kEUeI9h8=;
-        b=TzHof1I9DXMrhaKBLuZUZ4KHP67BCgMw/lgf/tMKipC2hpnECU6MUoBz0uvASOTfZr
-         24kSPqd5kAKbBzcxp4JySYA8hhJzstptPXWPbiFl4PZLyAK3HpgcLYKp1gOvFkOen8I0
-         DCiJiDMg8K9RcFEOqWeGeY7UBTuRX2QPr6GUuFNxs9L3YEUud1sFL0tyxDpaka3gyi/x
-         4MFe5rB1icZ3z+S8qAGnXf5if4p854Il7ldql273yMEUEnDanYbSuLzmX3nAyiPu5e2l
-         pPZQbu4wJJzO/22ktgKFav1UZgjl5YZWwS2SQfvJVp1y1myUtytOzveZb9udltA1V6ma
-         z43w==
-X-Forwarded-Encrypted: i=1; AKwUvBwY+TuW1OCkAVZftPzliJTKinmQBYynqtAI/Ce69frWwenUM8+bw6pAnJek3+Li3PWBw2yTQreY/2oPd/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKze89nBSd17KaiuU/7W30+M70Bd83ldLzkd5yPa3bJRhFfdrE1
-	HkKg4hXMBfhRkqpAN4PZibJjXeNVOckoelYFbfuUky3BkLnOpuz2ETXmYbol6/yTGO7jvW4Js4h
-	JtKKFKW89rruRopo4h8u7+d0htkAaKEvZNZly0TraPw==
-X-Gm-Gg: AYBFou2YU3jgBmuF73Th0eb8TBd6z9iPCVkHYqUI7bdHoQyYIHUHwjLBlrMuaBMShaz
-	z41UOxMABWGVHgzgQkjS6TkKYXdnfsjJMk7fIb0tMX/c9DAIMAEZgN2SOT29jndUOr9X0DPmWKx
-	0OrwDq2ssDsQK4VYZJEs5zQruy+DWYgFyPhTtgFg5Ilvi4lek0sxADVG9S+hbNo32tCUSUtgeKc
-	7P5SAHRKM+SSErBgw6IT3OGvdjlMmYgGzgZQzm5xreowsFrJIYBWKuySM+R8p0sMpicAI3Xlfsk
-	OVCzk875+7mZ3VuFTJX7Nx5eRkb6RR2kWK2n3A5ddaxg3/fHZR6ttON0zgdmL1+ZWO6E74zAlTP
-	jh7QIze6esDHMFZpuhdkyxrw=
-X-Received: by 2002:a05:6808:148f:b0:4d5:27da:a494 with SMTP id
- 5614622812f47-50c54d0702fmr16047927b6e.46.1792027733598; Wed, 14 Oct 2026
- 18:28:53 -0700 (PDT)
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 21:28:53 -0400
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 21:28:53 -0400
-From: Iurii Trukhin <yuri@trukhin.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Lno3Y3c/"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CEE8C201B55;
+	Thu, 15 Oct 2026 03:29:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792027770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
+	b=Lno3Y3c/1Ivp6H/nX9HlrMQzxK4EKGyJpbAQ7dk2EabpZu9Shakv0ndWL+QEuZ8rqgUI89
+	k7LeZYM2JdEik2yWmknZcM//yP4fx4h1x6LPl1xNuwZijdKCXuG3y+g60bgs860R3FTj+a
+	ANHrgHPItYH1hqZwrckuSX2T6stanPmYsNQWUgmLQcRNST5LQMGXs1TRwGlbTYLaLIQlmm
+	ZVGFd0n+r0twF/XWGis/yPCQWPTrpMUivs3RzTYciA0EuX1an71dfDU0QbpLV2xmfUeSR6
+	4CKZ8BNzo4wzXq2FkPedjqYp+/+XIpuDR8sKipScHuL+CCSEg/vRqB9mJB/1OA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792027770; a=rsa-sha256;
+	cv=none;
+	b=bCwN6CdqQUboLW0ucYmIIiO5C1bbYp3mUa7AcIdmblREWY6sGlpI9pHb4lgqO+Fmp1hARY
+	Mx3W2F28mQJuVIypP5u2LfMzp2QZJMJidFmvpZYFcdnKedtJhqaxoZ3xk5udKwKOa5ix2i
+	5H97fAXfxCNVXLsibCe1/UOaJUQ4wDZX/cxJWbiz3wJ4FufHTC6YqjIkHA3wDvgHWuMNIl
+	rmNVynkc3EUQ3ZBxcrWsZhO8xZkdOrIS6zGVql7PW5hwT8rcrzKKgY2Th0Fop/IMQtWirU
+	N7NawvBWfmilt3638AluNDXwLY9giGeL4ix1lB9A5xZpqOfgPYAvw9e/l4I+mw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792027770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
+	b=OAy9BJoY5807CGWmtlzrRngP60EIGZ6rCRWcV19aGGFEnxZTjMoxT7yTnt2RUWp13GSfV9
+	JvN7Dr+TjSjyuFXHXKLyGZheQP/S/K/ZXvhLqKaos9HqA26vg1SpE43fFrEPYejYnqSV2k
+	0AeQW2OZBVQTiRp+/DatheSPRlL79BqbntkmY5HtIJhxuizweG/EhRct/JYxIU5u/IbF5E
+	/YwRIwMRZCqYWCv9lMP4QjNoQfFc7cRNqtlb2tQnsxJAILJMMILBX2P6+SBCdUk3yHcr6o
+	TfzKG2Sa0zs4sGKHeRawHwPwnPKCvo5uc4hd+mpfybtjFcCQSLUKs6IoT4hB1g==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHAHi-005wje-2O;
+	Thu, 15 Oct 2026 03:29:30 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 752545C4705;
+	Thu, 15 Oct 2026 01:29:30 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 21:28:53 -0400
-X-Gm-Features: AclHuK-P7Ehq46s_2_6B_7t-fPVdAN2KoxDEtkusBHHCqXfchF4D5I86ViwzGGU
-Message-ID: <CAOx7e9+Vv8Pdyks=AbE5XG0ZyDgtKToKyBLTnt+H5RPn6VymVg@mail.gmail.com>
-Subject: [PATCH] ACPICA: Fix parse tree memory leak on AML execution error unwind
-To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>
-Cc: Robert Moore <robert.moore@intel.com>, Erik Kaneda <erik.kaneda@intel.com>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-	Pawel Chmielewski <pawel.chmielewski@intel.com>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Iurii Trukhin <yuri@trukhin.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] can: hi311x: drop hi3110_lock before free_irq() on
+ open failure
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+In-Reply-To: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
+References: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
+Date: Thu, 15 Oct 2026 03:29:23 +0200
+Message-Id: <179202776309.806124.17660228547499507194.b4-review@b4>
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5908; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6oFMuFsoRXS5Tp/lS9d+eBkPbj0wKEjffMnpKJt6IV
+ 5RX6rnaUcrCIMbFICumyLL0xwlFgUCH0t6XCZNg5rAygQxh4OIUgInEbGT4p/+IaUfy9e7Zamc/
+ 9Fvt7+S2U687/upH0w/mycH7ZM+dSmBkOPL0jsRkZwPFs5w+TG/Vot/eXBsyiTubI3D64Yj+Tz/
+ 28AIA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-acpi_ps_complete_this_op() decides whether to defer deletion of an
-AML_CLASS_ARGUMENT parse object to its enclosing parent by checking
-walk_state->op_info->class instead of the opcode class of the op being
-completed.
+> hi3110_open() requests a threaded IRQ and then performs hardware
+> setup while holding priv->hi3110_lock. If reset, setup, or
+> normal-mode entry fails, the error path calls free_irq() while still
+> holding that mutex.
+>
+> The threaded handler takes priv->hi3110_lock before checking
+> force_quit, while free_irq() waits for the threaded handler to finish.
+> That can deadlock the open() rollback path against a pending IRQ
+> thread.
+>
+> Set force_quit, drop hi3110_lock before free_irq(), and take the
+> mutex again for the remaining hardware cleanup.
+>
+> Fixes: 57e83fb9b746 ("can: hi311x: Add Holt HI-311x CAN driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-When acpi_ps_complete_op() or acpi_ps_complete_final_op() unwinds open
-parser scopes on AE_CTRL_TERMINATE or an execution error (such as
-AE_NOT_FOUND when resolving a missing symbol inside a control method),
-it pops each enclosing parent op and passes it to
-acpi_ps_complete_this_op() while walk_state->op_info still points to the
-last child op that failed. If that failing child op was of class
-AML_CLASS_ARGUMENT (for example, AML_INT_NAMEPATH_OP when
-acpi_ps_get_arguments() fails to resolve a method call or predicate
-operand), acpi_ps_complete_this_op() sees AML_CLASS_ARGUMENT for every
-popped parent op and returns AE_OK early without deleting any of the
-enclosing parent subtrees.
+The netdev LLM bot has found some new issues with this patch, can you
+take care of them?
 
-For nested control methods invoked via acpi_ds_call_control_method(),
-the walk state is initialized with root_op = NULL, so top-level ops in
-the called method (such as AML_IF_OP) have op->common.parent == NULL
-and are never attached to a root scope op. Skipping
-acpi_ps_delete_parse_tree() during error unwind leaks the entire parse
-subtree (both Acpi-ParseExt and Acpi-Parse objects, the latter merged
-by SLUB into the 80-byte Acpi-State kmem_cache on 64-bit kernels) on
-every failed GPE or method evaluation.
+regards,
+Marc
 
-Look up the opcode info of op->common.aml_opcode directly in
-acpi_ps_complete_this_op() and only defer deletion of
-AML_CLASS_ARGUMENT ops when op->common.parent is non-NULL, without
-mutating walk_state->opcode during error unwind (which acpi_ps_parse_loop()
-still inspects when skipping failed module-level scopes). Remove the
-now-redundant acpi_ps_delete_parse_tree(*op) inside the AML_REGION_OP /
-AML_DATA_REGION_OP error block in acpi_ps_complete_op(), which previously
-worked around this bug only for region ops and caused a double-free when
-region creation failed on a non-argument child op. Also use
-acpi_ut_delete_generic_state() instead of ACPI_FREE() when draining
-walk_state->control_state in acpi_ps_parse_loop().
+--- Patch [30]: [PATCH net-next 30/37] can: hi311x: drop hi3110_lock before free_irq() on open failure ---
+commit 67dd4c372c8d870201d8692df57226dc8aab950d
+Author: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Fixes: 5088814a6e93 ("ACPICA: AML parser: attempt to continue loading
-table after error")
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221241
-Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
----
- drivers/acpi/acpica/psloop.c   | 5 +++--
- drivers/acpi/acpica/psobject.c | 1 -
- drivers/acpi/acpica/psparse.c  | 7 +++++--
- 3 files changed, 8 insertions(+), 5 deletions(-)
+can: hi311x: drop hi3110_lock before free_irq() on open failure
 
-diff --git a/drivers/acpi/acpica/psloop.c b/drivers/acpi/acpica/psloop.c
-index 24a57f971c96..0b672a531907 100644
---- a/drivers/acpi/acpica/psloop.c
-+++ b/drivers/acpi/acpica/psloop.c
-@@ -464,8 +464,9 @@ acpi_status acpi_ps_parse_loop(struct
-acpi_walk_state *walk_state)
- 						walk_state->aml =
- 						    parser_state->aml;
- 					}
--					ACPI_FREE(acpi_ut_pop_generic_state
--						  (&walk_state->control_state));
-+					acpi_ut_delete_generic_state
-+					    (acpi_ut_pop_generic_state
-+					     (&walk_state->control_state));
- 				}
- 				op = NULL;
- 				continue;
-diff --git a/drivers/acpi/acpica/psobject.c b/drivers/acpi/acpica/psobject.c
-index 629cafab1930..f1425b98087b 100644
---- a/drivers/acpi/acpica/psobject.c
-+++ b/drivers/acpi/acpica/psobject.c
-@@ -559,7 +559,6 @@ acpi_ps_complete_op(struct acpi_walk_state *walk_state,
- 								node);
- 					acpi_ns_remove_node((*op)->common.node);
- 					(*op)->common.node = NULL;
--					acpi_ps_delete_parse_tree(*op);
- 				}
+This patch changes the hi3110_open() error path. It now sets force_quit
+and drops hi3110_lock before calling free_irq(), then takes the mutex
+again for the remaining hardware cleanup. This avoids a deadlock against
+the threaded IRQ handler, which takes hi3110_lock before it checks
+force_quit.
 
- 				status2 =
-diff --git a/drivers/acpi/acpica/psparse.c b/drivers/acpi/acpica/psparse.c
-index 42ec8abef626..b5110d43ab7a 100644
---- a/drivers/acpi/acpica/psparse.c
-+++ b/drivers/acpi/acpica/psparse.c
-@@ -108,6 +108,7 @@ acpi_ps_complete_this_op(struct acpi_walk_state *walk_state,
- {
- 	union acpi_parse_object *prev;
- 	union acpi_parse_object *next;
-+	const struct acpi_opcode_info *op_info;
- 	const struct acpi_opcode_info *parent_info;
- 	union acpi_parse_object *replacement_op = NULL;
- 	acpi_status status = AE_OK;
-@@ -124,9 +125,11 @@ acpi_ps_complete_this_op(struct acpi_walk_state
-*walk_state,
+Link: https://patch.msgid.link/20260820020631.316418-1-runyu.xiao@seu.edu.cn
 
- 	/* Delete this op and the subtree below it if asked to */
+> diff --git a/drivers/net/can/spi/hi311x.c b/drivers/net/can/spi/hi311x.c
+> index 076a3efa1bfff..927555b5d581e 100644
+> --- a/drivers/net/can/spi/hi311x.c
+> +++ b/drivers/net/can/spi/hi311x.c
+> @@ -787,7 +787,10 @@ static int hi3110_open(struct net_device *net)
+>  	return 0;
+>
+>   out_free_irq:
+> +	priv->force_quit = 1;
+> +	mutex_unlock(&priv->hi3110_lock);
+>  	free_irq(spi->irq, priv);
 
-+	op_info = acpi_ps_get_opcode_info(op->common.aml_opcode);
- 	if (((walk_state->parse_flags & ACPI_PARSE_TREE_MASK) !=
--	     ACPI_PARSE_DELETE_TREE)
--	    || (walk_state->op_info->class == AML_CLASS_ARGUMENT)) {
-+	     ACPI_PARSE_DELETE_TREE) ||
-+	    ((op_info->class == AML_CLASS_ARGUMENT) &&
-+	     op->common.parent)) {
- 		return_ACPI_STATUS(AE_OK);
- 	}
+Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Ranked High by: gpt-6-astra
+Can this rollback turn the old deadlock into an IRQ storm when
+hi3110_set_normal_mode() fails?
+
+The IRQ is requested with IRQF_ONESHOT | IRQF_TRIGGER_HIGH. Before
+hi3110_set_normal_mode() returns -EBUSY, it has already armed the chip:
+
+drivers/net/can/spi/hi311x.c:hi3110_set_normal_mode() {
+    hi3110_write(spi, HI3110_WRITE_INTE, HI3110_INT_BUSERR |
+                 HI3110_INT_RXFIFO | HI3110_INT_TXCPLT);
+    hi3110_write(spi, HI3110_WRITE_CTRL1, HI3110_CTRL1_TXEN);
+    ...
+    hi3110_write(spi, HI3110_WRITE_CTRL0, reg);
+    mdelay(HI3110_OST_DELAY_MS);
+    reg = hi3110_read(spi, HI3110_READ_CTRL0);
+    if ((reg & HI3110_CTRL0_MODE_MASK) != reg)
+        return -EBUSY;
+    ...
+}
+
+A received frame or a bus error during the mdelay() window can assert
+INT. Once force_quit is set, hi3110_can_ist() skips the whole
+while (!priv->force_quit) loop. It never reads STATF, the FIFO or INTF,
+but it still returns IRQ_HANDLED.
+
+irq_finalize_oneshot() then unmasks the line, which is still asserted.
+The interrupt fires again right away, so the SCHED_FIFO IRQ thread spins
+until free_irq() finally shuts the line down.
+
+If the IRQ thread was blocked on hi3110_lock, the new mutex_unlock()
+wakes it. On the same CPU (always the case on UP), it can preempt the
+opener, which holds RTNL, before the opener reaches free_irq().
+
+The opener then only runs again through RT throttling or the fair
+dl_server. That bounds the stall to about one RT period by default, but
+the stall can be indefinite if those safeguards are disabled.
+
+Would it be better to quiet the chip while still holding the mutex,
+before force_quit is set and the lock is dropped? That could mirror
+what hi3110_stop() does:
+
+    hi3110_write(spi, HI3110_WRITE_CTRL1, 0x0);
+    hi3110_write(spi, HI3110_WRITE_INTE, 0x0);
+    hi3110_read(spi, HI3110_READ_INTF);
+
+Another option is calling disable_irq_nosync() before mutex_unlock().
+
+hi3110_stop() already uses the same force_quit then free_irq() ordering
+while INTE is still enabled, so the same hazard exists there. In the
+open() rollback path, though, it is new with this patch.
+
+> +	mutex_lock(&priv->hi3110_lock);
+>  	hi3110_hw_sleep(spi);
+>   out_close:
+>  	hi3110_power_enable(priv->transceiver, 0);
+
+Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Called a false positive by: gpt-6-astra
+This is a pre-existing issue that this patch did not introduce, but is
+priv->restart_work ever cancelled or flushed on shutdown?
+
+hi3110_do_set_mode() queues it for CAN_MODE_START:
+
+drivers/net/can/spi/hi311x.c:hi3110_do_set_mode() {
+    ...
+    priv->restart_tx = 1;
+    if (priv->can.restart_ms == 0)
+        priv->after_suspend = HI3110_AFTER_SUSPEND_RESTART;
+    queue_work(priv->wq, &priv->restart_work);
+    ...
+}
+
+hi3110_stop() calls close_candev(), which only cancels the CAN core's
+delayed restart_work. It never calls
+cancel_work_sync(&priv->restart_work), and neither does the hi3110_open()
+rollback.
+
+If the work is still pending at ifdown or during a failed open(),
+hi3110_restart_work_handler() can run after cleanup. It takes
+hi3110_lock and calls hi3110_hw_reset(), hi3110_setup() and
+hi3110_set_normal_mode(), which re-arms INTE, TXEN and normal mode. It
+then clears force_quit and calls netif_wake_queue() on the downed
+interface.
+
+The controller would then be back on the bus while the interface is
+administratively down.
+
+The new unlocked window around free_irq() in hi3110_open() gives the
+worker one more place to run. It does not seem to make things worse than
+the existing post-stop case, because free_irq() still completes and the
+rollback then calls hi3110_hw_sleep().
+
+There is no use-after-free here, because hi3110_can_remove() runs
+destroy_workqueue() before free_candev().
 
 -- 
-2.56.0
+Marc Kleine-Budde <mkl@pengutronix.de>
