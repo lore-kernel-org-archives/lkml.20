@@ -1,73 +1,65 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11021129.outbound.protection.outlook.com [40.93.194.129])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B2748A8AC;
-	Thu, 15 Oct 2026 08:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E80C3A1686
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053258; cv=fail; b=Q2LGqO6TKnHpdasK+2x7a/F4ECloMlAmpyWtxE1CeUup0/aYh3Wcw24LpqLeb+iMxtlYJ0jMpKIFTOkXTUlQqkK5fjjeDE/rMFk1hQ9Q1DUufdcpAdCIaC0UJvkBf3i9+nTzgJ6xrRh8nNGW61lK4Mk/rg/RuKO7ZIbYhefm8ts=
+	t=1792053266; cv=fail; b=fRJDTefpWskja+GY9Xj8GWjBAmav/Oh5X9lMGG2o8jO+WthoCXJ1pJZFwGf8jUkx35zFah+QE2Z6z5w5wEX2Mrse7RzCnZ9Ho7lG2z+pTDJBioL5PNtsaDTgB45twVuTpdsGnxqUAq8NO/cEmpjxRK0oCArneVpmB+AMsVR9kjg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053258; c=relaxed/simple;
-	bh=Ozc23atUqN6Uw0eVXJCRsckd3yGXgRi7em6nm0a7Nvg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Z/WcBMfCpzXL8zGO2ySxmV6UVSsA0VBCu1y2jiKl2zIh2GR0Bert31nIveys/tDYNh1LzUXT0iYylZ6K+R6G/TZ81vbMICgM2L+1P3oiS1EPKElfX00rvTgq+if52qH0sr11JVqBf6RQ7pbD+X08AfPUjgeoUpoqKYgupISLNmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=pr01/fsH; arc=fail smtp.client-ip=40.93.194.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	s=arc-20240116; t=1792053266; c=relaxed/simple;
+	bh=IifIHba5oIts06acrICBBI8BvUKWRK88IxVjGpepD2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=IT5eGzS2QPMWGvo0yTZ91fzJrt3gFWnejWT1sJ8izc2c0AoB25kc0XUGkRr8YFkiKIIV/3temIe/cop/YQYrAYzMNK7eYfS3yCRZWXOZZA4CdUNuWruRT6ILt0oY01+HaN+3FgupKSxLssd2I25X3obJ6QCfgqsBL65sLxJ7Stw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=r3lnKhEw; arc=fail smtp.client-ip=52.101.201.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="pr01/fsH"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="r3lnKhEw"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qv0ouWJ5kyvoYzwEM6u5eb8kE75XfLpgCVPmp+mSKBF8dbdKEt9J1UctfvDizTEGCjCFMDEM1Zz+07P6zOt1EKJeGYC4puWbbkVZcmdzvgYUi5JOYvE1B+HuYItcm/QUZ6FC8s8iXc3EJvky1XMQdjjRqxFWbakTyzMDzIE+Ri8vwFIYtBu8FvTK99XsEfuBd7RyXh6gIg3DnKTE3vOl9kWeqrQnfJKUyBWiRzdd5hO0QCsE9H1a/Ry5U5ftSsyT3tDVLLCfY1JIwBFqv0WBRr6DiOlTIjpiNpeeZrWkYaHHjoVYm6r0umJzIyR7PcsU9di6WqZy3DPExh/L/9EBnw==
+ b=GYexFD/cmGfr+hwhXsWGgRwRSLtFpey83GS4Ikw5nH1eeb3qOzyslH9eDUPDsl568ngh6qo2YUSxCqNVfHglGstBERAlH/3Ip6IsLFpSYSmMy5DaQYXrXEygSutdCfSSK6eoXs/eZRq8Nc+aVLoTl9sRBRD9qNsGSXnqH3Lnz2p5RMVTBHXikUejgfHKn3EiMOLurIWGBnuEIj2cHAB1dHN1NuT7pHZIXzRyIiT2+TEmIGwz7KUdZNN4yxuue0AeaSkgWYbF/7JzZkHQSdFgUeZDKdBzjDvAlEP9/n+gc7RXZeKwciaRRWn3vvJZQU+sbg0xNNeax3wA+80NZuXHzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fXcvMnzQCYlVmxI9hRbPeoI/VE/Zr+PUoIsjt9tKQQ0=;
- b=XwZK/hdABE4KeEch0MPL6oQa0mQ1fAbE+q54DAJGO/joPcNJsSO72x68HDG/dtyArpUTxhXAwng59/OG3gScTJ10xL9F36BiJ+OdIRBhGm9gwJ7Ql+v7ZARyteCVNhh99JEWPEdjvxMH+iDpoeSzYgBCwOlZ2U1AwqIKgtUDNZtjR24g+4OGad/29H5Er5pG0vCZGZSlflNu5Y0hiFgkbSqpxf8qU992FV8j19P37L2jmJ/s8w2bsbgpzUS4zh405tsO3H+6/pphiPGGal/T82/0Y3tRq6gKN4YoR5tc5q00bgc/kpGVoY44HNL66bBega4vEtnUNdO96GAhb0HRcw==
+ bh=UqK4JNRQO1qVY/F84VBw33tEE7h5eWHJP1iXSmVEJLU=;
+ b=vr34qknSetfGlXD3Wh7vmqbpdjcQOQQWBqX7utBX2vaCJdYmhKvKeqAgE9kf3RIZxz+amxdUltOY/1WmfU725uNA57LlSDWHP+xXO+KvN/62YsMI/HfpLatzEpSwATO4kG0JGzxf4gVOroOwrMYYzaphVnAxPlM01vo+pr9OuufoODaApUAtW58SwyiP7LvJtApz192RxpjdcB61p0a6zQ2aA0/O4MhhBOQUkQhk39XTv1th+/lIByYAS74w+0kPv6tLou3oSz2Q6y6jVkOVhKuCTmi7kxNb067VUVmXZlVZCcixC7vc1WJditZg3Xe1Y/MPN8s08tA/azIbKOBvVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fXcvMnzQCYlVmxI9hRbPeoI/VE/Zr+PUoIsjt9tKQQ0=;
- b=pr01/fsHgv1MQRlt2T/yYo8GM1MMQdt9L9As7M2Cp3PDk+qhUQ6HXhZ3G2G7p50Ii6AXtm5c5EHRt+dYlLXfK7lcpfqwZE8tmG8g+vx24jMo2AjDnVjTyt7vYDW3jSjjxZ6outnlokRMJhj2HaTngDFeasu88iaSHt8h2Q8v+cGjH75ZXpIrMU+lLO4TXlPk+CndLZObSySeHyD6AEx3nQWb3ZxvlFjlXimziwv1X5m3NM7fLUvjr4Y85dBIKfaC90G064e/tfBEGe/c5ghXhSwIMQ1lpV2+whPYfWLJ9NDd9iSorzr0XqrDrrJqA0anjEC+Wpsls+VNAmnXJhzTVQ==
+ bh=UqK4JNRQO1qVY/F84VBw33tEE7h5eWHJP1iXSmVEJLU=;
+ b=r3lnKhEwctvKYWj2GZ+SJRWjh1YtBIMxjIK+Axd2Ve4OW+Xov00RmUhYW/llEFJduFaJ/P5ajU3sGFEOXHgsX9+a+acGzaR+f436Zf5XbaqX+PHkEE2P+nL0ilJCoLLV7lsLv+naLSz2Gs/kZDNXe2fMxwazb3w55MK/0H1jLXEw85dC6dIBuwctz3x2bxzc4QHw1XOWsGiKcqE/oI6fiW7FTVCgUj4n2lir+oYIG5YeA+cKrdSyER6YRdXG60jERbDmquvYaTeGHNCn+Etp+iKwAwwkL2DxaMAcqkAJCzdwShyQxl0I/LH1f04oxL9nVcgrvLsyxg42OQSxFOeqqQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- LY0PR18MB897198.namprd18.prod.outlook.com (2603:10b6:404:207::12) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DSVPR12MB999193.namprd12.prod.outlook.com (2603:10b6:8:496::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 08:34:14 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
- 08:34:14 +0000
-Message-ID: <17eed43f-3fc9-47af-83f5-de7058830adf@axiado.com>
-Date: Thu, 15 Oct 2026 10:34:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] usb: gadget: udc: add Axiado AX3000 and AX3005 UDC
- driver
-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>,
- Krutik Shah <krutikshah@axiado.com>, Prasad Bolisetty
- <pbolisetty@axiado.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
- Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
- <20260817-axiado-ax3000-usb-device-controller-v2-2-0ef033dd0a68@axiado.com>
- <699de61dc2bfebdf18cdb0e377d1ba63886b4e12.camel@pengutronix.de>
-Content-Language: en-GB
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <699de61dc2bfebdf18cdb0e377d1ba63886b4e12.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0182.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ca::12) To DM4PR18MB4144.namprd18.prod.outlook.com
- (2603:10b6:5:38b::8)
+ 2026 08:34:22 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 08:34:22 +0000
+Date: Thu, 15 Oct 2026 10:34:15 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 sched_ext/for-7.4] sched_ext: Keep proxy donors with
+ slice left on the local DSQ
+Message-ID: <atCQB_nF5di8pgUN@gpd4>
+References: <20261010090621.184717-1-arighi@nvidia.com>
+ <5b3d2c576222c62738b7006d85f96a23@kernel.org>
+ <1548cc9309a6e0894e358262e0b3d4ee@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1548cc9309a6e0894e358262e0b3d4ee@kernel.org>
+X-ClientProxiedBy: ZR0P278CA0136.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:40::15) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,138 +67,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|LY0PR18MB897198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07c2a780-b093-4708-9e0e-08df2a9717f3
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DSVPR12MB999193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21c7933f-594a-4eb2-e712-08df2a971c96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|56012099006|921020|4143699003|261009223027099003|10067099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|56012099006|11063799006|4143699003|22082099003|18002099003|6133799003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	4rbIgU/2imXXNcLx60RuGpmBt7Qk0Ig5QEq1WxGQJrRIG9cjWE1bk01U9nSQl9adkgWulvGtuaXezElbpzl6hf+lfBdTkITJ0GHa8jdV7Wfiv5ccc4631tDoAmrPE5KcCZSkfGaZl3siRKU/k5sTuKbgnyFMoABdMD7X/LEKBAa4cIzSPm57bAct378QEivvKkwU23dtL1YJbu1ERd8U0Fp57wCYxSqblKc7jF6Gcyq+D9Hnrinzasbbcz4D00OLi9jPEmO148cyAqBPJF1zl/KcGxDc+9GlrXSGvhekyM/hBL0+X59y63P9LlSLuczZq9N4pYyixmKyinzxyXL1iaLb0QXf3HKwTqhDYYdMNY/MVqGbXLPGPSBzfiL8gRDAdjm/b7TGz3US651gPIq7tr/WLBGF+g9C9hw5hJLS4vAfKwz36FvVVCCAW1e6oBOSb7CRZW7bFBhL8vkSpbttkoE7PdcJEHJVzm9S8illfPjLfTSTLjcbqZqYOGjl1DiaxCTAY/GbVHjVmqh/wfiF8F6gruowhtM0/QOSEnjM/sN9940LAThOgTgZW+jukcD7t/ewnjoXVoktQ77czzFPhU0tRMNsJVCa5gNDSpXZh/XB7boI52MlcQA5QRuACwStgFMrpcndCDfX2uJ0l5VsC8YhyVpPrQm6SsU5LGLTSuS15FTZdtzwZIFtq0JRsxOg4RtfLdvPylcgQ4EPUOGV3g==
+	bp5qSkA4+39onpk6a9Fq1OVsoOmHP7vEu6TIQ2OfZhuws82raaMcuHeRpdHVXC+M5aSfhJv42D7pT+pkRwmu4nisXIlbWo70cZd0aXdjlkhsvf24OogUxrqZ3Ys/VQb7NFKz1Gyr7uSwraWySdzaVItvnp7pa/wdA+WjrJE7Tkgcyj4yrF8tP7StMDb90X2nz/JDB4U7DNPiZ3wsroSQ5LgT3sKHwEdGJHuE5Xiyg/oJXyHpTEFm0guT5Y2LWeOAUzcQUKXgta520eLM5ZUl68uUe9cQ7WK2BTenB2J8lR2wN/NgEGJNKYGEhEw9QAD6ulXfgTeTiHpK+T93h2j6oiDzX05OqjO2uo15Hy6RyOoeu4Uv/D+Qjk3eHj1Q0ckDnUiqqH1NBVlYOTQYbOoNEyj5FzuhNrtOv3SyAlPhuY9UxB4nfX0TKck2xEcLqpagaQOFGFVsPIL0SwYEpz+EsU4hWckyvTw8f7ouskX9oGoulLZu35yNuCuERJD1dMy3IEbCDqIVHmcUmCPmRcM5fa7bqxOmwso3143HD2hbBqkIbbXugWTXIiUzphw692vulAGm5+wY/tOLKl/g5bzV5Cg95GoHUu/N1JElSYHv+k+W8JWc/HxZDIhup34Y2j7rQgzkaCWirqXPXiOpIlXUGnSUj9GUqB1dUBKdAZgT/Vo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(56012099006)(921020)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZFBGc28vNUcvb0lVdXZkK1dwd2wxU3VBRDBSdE43S2cyOGFyV0Q0V0ZiVDAw?=
- =?utf-8?B?ejkvbThjMnpGQThEZUtGUjRZbXZUTUZxZmUvUmRoaDNiRVk0eVpkV2ozM1Fl?=
- =?utf-8?B?eHhwOVB4VDRwT2VTK0lFYXZZZThQUlkzNU5JWktzaEdyZEVmc1pRN0Y3TTB5?=
- =?utf-8?B?U0lDeVU3Y2RVSkJkT0ZZK0RQLzdIVFJsMm9xaFlGY0U5MHhNbXNYYVRnY0dN?=
- =?utf-8?B?a3NnVzhoeXg4K1JKaXJ6ZGVqL0VPQ1ZuSzd2NS9sMjR6Vm5PTzVoVFF4ZzJw?=
- =?utf-8?B?aExnNTRsaHV0cFI4emt0Rlhobm4wd3AyTmVpcEpUMFFRZFpPVXdNN1V1Qjhq?=
- =?utf-8?B?RmdNTUV1RHRyVUFVUWVML2dQb1NEb3ZRRzNyR0NSYTdLbjdDcHVSdTAwZkx5?=
- =?utf-8?B?S2tzdzMyT0pKYjVYb1l3V2s0czk5bXpha256MXFoekNCeUc3YWxZbksxb0F2?=
- =?utf-8?B?OGNUZjhtSE5NNk5ocGZIajRjWWZVWGl4bVBLZFY0eHFqTzk0SUJVVCtHV05m?=
- =?utf-8?B?M2p1azJuRlZHb3VZY01MNFFqSE5UMXo2OEs5Wms1OUhBUWxweG5xRlQrV2Zm?=
- =?utf-8?B?YitEZ1hPWnBYdFpFa3pNNlFPYzNwMStjR3RuOHRvREJaeDBIUXNUWkp5VFh1?=
- =?utf-8?B?L3FqaHEwTUllMm9zRDBtM3hhN1M3Vm01NGIySlNtak5Ibkhydy9RTVNzOGN5?=
- =?utf-8?B?TEtENDF6bUQxcXY4MkM2Uk1YbVU0OFBjMUc4OUdPQmZJWjNFZ2U2U2RINXNs?=
- =?utf-8?B?WEZrc280REN1SFlQRFh3NU9kSG16VHVadWdxNHVvTUl6S0kyTWZobXpvT2hw?=
- =?utf-8?B?Z2VLYldNcE5tajc3WjV2S0N5MnRpUnNYcUxUNXlPa0hlSG83bTA3dTd5OUhD?=
- =?utf-8?B?dmhqSXZ5dFFkeE45RVlGcjlOM1VKZFhTc3ZwREVlLzhqSHpIbDErY0k5K3lQ?=
- =?utf-8?B?R0c4UlBDN1ZLMHZZZlFtTVpIOWtwa09La3JyemF1RUxVRnA2VUVRaXNXRUdj?=
- =?utf-8?B?KzNmWm5EY2ZNZHdUNXZ1ZkVEZE1ENDZjMFkzK0VhaFFVdEdGamZKdmREN3Vm?=
- =?utf-8?B?azVuVFVEQ3dvUkZ6VjRRaWpiR0MvTVBZVG10WktML3NMSTQvU3Q1WG5Tc08r?=
- =?utf-8?B?bENIb1NESTVuRTE1QTBGeGpOZWFCU0dmRktCNFIxNDR5eDkwRWJLUkJDdmsx?=
- =?utf-8?B?dVV6MnJyOTR1TjE0NnM3VmNKV2txVjhxMEZyWFVlV1dNWkVIQlFDM0tITVQr?=
- =?utf-8?B?WHNaQXovMTlYZ09NcUVaUnNpYU95MktNaHg4NTFuSGdqOHNPNWpFM2lmUTBX?=
- =?utf-8?B?ZHNKUVVQdFRXRS9QK00zVThjMldGNGxOeXkrdStGTnQzQVVXZFhDaUlrWTRj?=
- =?utf-8?B?b1FEU3J3b3J0dXlpM0dOc01QcXR1ZHJKemtxQnFnaG5YdlRGWDRjaXE2M25j?=
- =?utf-8?B?MEx1YkFXd3RCSWNDd0J5d3pyWDF4eTBpbTVhd1d4QTFybmZVa2RYK0Z1MjVZ?=
- =?utf-8?B?Q21DVVNzbFhqRGh2cFNzeS9DWU9lS29PR2hWZG41MUxMblpGVkgxUnJKbk1G?=
- =?utf-8?B?NVJUSENjUXgrelJ5c1dPdHl4cHJKc1lxTHJDUE1tNVNIK2N0dFo0TVd1cTZY?=
- =?utf-8?B?WnFFZGdjN0tlRkNEMmJWbjViUHN1MzFqQ1k5Um5ad1ZocSsvK1MrakVzcHln?=
- =?utf-8?B?M3JvbkNQT0NzbmJpWmNXcDVXb0NOY2xFQ2FnV29QVHdnSGxmRDl0dTE5TEpX?=
- =?utf-8?B?U0pYc1JuaUJCcDdDM3p3L3hWVElBdUlUeHJmeUZnSVNFN05XOXV0K1k4TmZs?=
- =?utf-8?B?ZitnZ09KM0ZLdjA1NDFLSjBWZC9sK0ZiZE5IbFRyWDQwajNrUW5VbXJVZVhk?=
- =?utf-8?B?eGhKbmZLTVdCUWF0OWxzOUZhWTdqakljM2RPeEdITFFMc2VjcVlNekJ4ZER5?=
- =?utf-8?B?ZkNTQlpDQm4veE1maVkvdWdVV2cvNG90S1J3bFBrWlNRSlYzcHI5K2ZlUnNu?=
- =?utf-8?B?Tmgzc2Zwd00wTlRXNVBTVVpHRHdPeGlTcE1kVHpLc01ocHQweVlET29NM3dy?=
- =?utf-8?B?Um5FdjNVRW8rSG1RYS9hdmdpUzJBRWNQWDVYM3FBbUNMNytkc2xwU1BJNGlq?=
- =?utf-8?B?ZTBxbnpWRmk2Qk92THRZLzdVMjAzL2QzdGpsSXl1dXErdzYzZ1NjNFBzRUNo?=
- =?utf-8?B?REFSZTVBekJ5Mm9MM3hlcjZCNzZyM1l1a2FZNDh2ZVdqSTdKRjFIVUpJNDUr?=
- =?utf-8?B?U3pEdHREM3ZwVTZnYkhpMHMzdWIrdG84dllGWklxWG5WaTd2bVBXQ0VuVWo1?=
- =?utf-8?B?SHdjY3FwcG1OcUdTY0QyYlFUaVhaT0lXQVgrYnVjc2lUSjhURWt3QT09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07c2a780-b093-4708-9e0e-08df2a9717f3
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+	=?us-ascii?Q?02b4/i9B6r0m1s1Vka6n63oK8TZvI/cTAi/AONRkQsTW4xW3+lKHSahUIucu?=
+ =?us-ascii?Q?p6Lv9gAIVoVerVuR+kCrGHPGSxjWw/3xF6SirT1y2Ik3kCQPKZ8uaQ62tiZb?=
+ =?us-ascii?Q?2TKNE6U6pNWTLUUPoo4bb5CN2z9bdyb38f1uSlFTobY5tCf0S7EvAFChNfKq?=
+ =?us-ascii?Q?v/FdIOKcoQnYpklc9rSMkQcsnV1G/WxxIGWQ5gQBQsZ3LavS3/8ZqaE2iWEB?=
+ =?us-ascii?Q?cILn4R+lQn/hjYvavuOl0pCORPULMD9LFZ3lK0ji0Gsj4UnzOPVUu3Ub69vs?=
+ =?us-ascii?Q?YhbIRtRrQQmchDGSxFJCUbxZZwWX+6lr6NfmXMTFpTSy8pBXvEmtTpPLZ28a?=
+ =?us-ascii?Q?u2X+Utt+zd9LAvt3aVSedf9qfyfdTa+9PxZktfkngq5San0oPVKMHUCj8ZUW?=
+ =?us-ascii?Q?3GRPzAx8H+EnEznO8yVmaUrxZLWCLM2zijAf+1X8LBTHZWBD+oHGOtnorwup?=
+ =?us-ascii?Q?MykfDQls7ZOWo+cukPwZhbN3EiyD19S4/S8rvvK47PMzSvrTkoF65WqCwMcg?=
+ =?us-ascii?Q?bObl+p/8tg7+ZnRNP3TQ9O9BLg4PbXioRjWCInXMiq/ySX4jGvznmeurhKWL?=
+ =?us-ascii?Q?+HgqgQ2/p/Z6laXFoJJIPyshv3mIcXQmqfaoX0ljvnpyCxfyxh1XnBTl4+wr?=
+ =?us-ascii?Q?Hk/T8Dq9rdhvlVcxqU/s7A07zjVfrv000ZQvHqLiDCBBdzHIinBPDpi9F1AA?=
+ =?us-ascii?Q?ftQpNk6ZIUVPLrvitBciBVuNemsdFVzFeQ8x0sW7l2p/qeRm1HEkhSX+g0GJ?=
+ =?us-ascii?Q?cr4438RBeZIj1A5cNBsVYL+69mxJomYzstZFu3GoMXSyWkwrqak9Oux+KKiQ?=
+ =?us-ascii?Q?hbgNxIYN/dmmQCTD7H0y6grRv9ZL3l17H2VCOmUnOL2PObnamNqzi9mIfckf?=
+ =?us-ascii?Q?t1URwShG2cwaU/DgDXhbt6VCgUMM6NuI2bbCYiRmmncH3zI0UvhDCl1s8EWO?=
+ =?us-ascii?Q?MqsugDPLQKe85xQ05CoFXXZbza3axXKGkiQPE9dPfn/64FgsALx1TQGDJXtP?=
+ =?us-ascii?Q?n7j5GgqesmJvc4yqrpaXgOYSQbxh3uOq6KRxewEnFcxBdUJiOHJp5lCELVWT?=
+ =?us-ascii?Q?lrlVMZHIkKCB9fIPh1sMIdvidIjKmvz8Ijb7wGUMAVR/UDSjRGV/YDEGo/Cq?=
+ =?us-ascii?Q?qpxfAnDfAIUApNvCZOzs8TZLYOP0Z3IH6ePFfPn1rXUT7kdCQbgC2kJJBFOW?=
+ =?us-ascii?Q?JQWUSp0T5lTFoowXE48dLzWAtfYKAprP3pND0YEjwesWSxldo7GvZw1vZanr?=
+ =?us-ascii?Q?VxUANRQRyxKhl2DIvK1oruKppWLqRBBPLvsRm9iLLfCkcsA+zIHxmTbixCQS?=
+ =?us-ascii?Q?SudIIq0wxl1/yhDyotnoP7Gi6sAnuXnzBsRBD7ZpqTS/SoU8uW6vtSu44Azh?=
+ =?us-ascii?Q?BvoIg+l4e4RDEztTdyK2xcPR94qYNpCbEff4X2iqVfNrELTegn4+TGjDC+XA?=
+ =?us-ascii?Q?9qxci6yTlk0ueC9ggY/Pe5JMluK+wOsm3gbNLLqj9suI80fRmegbnVEW2uaX?=
+ =?us-ascii?Q?SahrJOiNKQCsJ0w6TnewX+ajBXZPePW8wqtE2Cj4USPdw7S2xHWUOy7s7M9F?=
+ =?us-ascii?Q?vD+5s2/OCoeGKelDFZbQiZUjgHMxGbf65tUILzPdeLtc2NBqO1F/aFddlRzN?=
+ =?us-ascii?Q?MpUoHJM4p51d1jdyoD18sJ106MLSHQ/oKILlziOjqEEeb7oN9s7x4VnAgMja?=
+ =?us-ascii?Q?jt95/Immspo1pexBRHTYOvUVW8aHxjjPwdre9OlfG92rITUI?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21c7933f-594a-4eb2-e712-08df2a971c96
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:34:14.2360
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:34:22.0239
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oc3cr7G8JNW9VFQo/vPWyhpAJ5umSfuWwmMqr7E0+8n40wRiYBVDxj+6bOvhKsUIfu+g0VPJstjq0+5AfMriLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR18MB897198
+X-MS-Exchange-CrossTenant-UserPrincipalName: iSzSE4M6lfcI1g+mivL6ft3aPDRy/0s3iNbb5kNKOh7fr2FYNwSzj2XelhH2/6FFyJDveEAqYNvaniYtkgubLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999193
 
+Hi Tejun,
 
-On 8/24/2026 5:33 PM, Philipp Zabel wrote:
-> On Mo, 2026-08-17 at 22:57 -0700, Naveen Kumar Rajgiri Bassappa wrote:
->> Add a driver for the USB device controller integrated into the Axiado
->> AX3000 and AX3005 SoCs.
->>
->> The controller is based on the Corigine USB 3.1 device IP core and uses an
->> xHCI-like programming model with a command ring, an event ring, and
->> per-endpoint transfer rings composed of Transfer Request Blocks (TRBs).
->>
->> The driver implements the USB gadget and endpoint operations, including
->> endpoint enable and disable, request queue and dequeue, halt and wedge
->> handling, and standard endpoint 0 control requests.
->>
->> It supports High-Speed and SuperSpeed operation, control, bulk,
->> interrupt, and isochronous transfers, and scatter-gather requests.
->>
->> Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
->> ---
->>  MAINTAINERS                      |    2 +
->>  drivers/usb/gadget/udc/Kconfig   |   14 +
->>  drivers/usb/gadget/udc/Makefile  |    1 +
->>  drivers/usb/gadget/udc/crg_udc.c | 4491 ++++++++++++++++++++++++++++++++++++++
->>  drivers/usb/gadget/udc/crg_udc.h |  355 +++
->>  5 files changed, 4863 insertions(+)
->>
-> [...]
->> diff --git a/drivers/usb/gadget/udc/crg_udc.c b/drivers/usb/gadget/udc/crg_udc.c
->> new file mode 100644
->> index 000000000000..bb3ed394d984
->> --- /dev/null
->> +++ b/drivers/usb/gadget/udc/crg_udc.c
->> @@ -0,0 +1,4491 @@
-> [...]
->> +static int crg_udc_init_hw(struct crg_gadget_dev *crg_udc)
->> +{
->> +	struct device *dev = crg_udc->dev;
->> +	int ret;
->> +
->> +	crg_udc->clk = devm_clk_get_optional(dev, NULL);
->> +	if (IS_ERR(crg_udc->clk))
->> +		return dev_err_probe(dev, PTR_ERR(crg_udc->clk),
->> +				     "failed to get clock\n");
->> +
->> +	ret = clk_prepare_enable(crg_udc->clk);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to enable clock\n");
->> +
->> +	ret = devm_add_action_or_reset(dev, crg_udc_clk_disable, crg_udc->clk);
->> +	if (ret)
->> +		return ret;
->> +
->> +	crg_udc->rst = devm_reset_control_get_optional_exclusive(dev, NULL);
->> +	if (IS_ERR(crg_udc->rst))
->> +		return dev_err_probe(dev, PTR_ERR(crg_udc->rst),
->> +				     "failed to get reset\n");
->> +
->> +	ret = reset_control_deassert(crg_udc->rst);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to deassert reset\n");
->> +
->> +	ret = devm_add_action_or_reset(dev, crg_udc_reset_assert, crg_udc->rst);
->> +	if (ret)
->> +		return ret;
-> This looks like it could be simplified with
-> devm_reset_control_get_optional_exclusive_deasserted()
->
-Agreed. We'll use devm_reset_control_get_optional_exclusive_deasserted() in the next revision.
+thanks for taking a look at this! I investigated both cases with a reproducer in
+virtme-ng. Your second finding is reproducible, the first remains a plausible
+path, but I haven't reproduced it yet.
 
-Best regards,
-Petar Stepanovic
+On Wed, Oct 14, 2026 at 12:10:44PM -1000, Tejun Heo wrote:
+> Hello, Andrea.
+> 
+> The following is a Claude-generated review.
+> 
+> Two issues found while going through the patch. Both are from reading
+> the code and neither has been reproduced.
+> 
+> SCX_RQ_PROXY_PENDING can stay set into a core-sched forced idle:
+> 
+> 1. A blocked donor is picked and set_next_task_scx() sets the flag.
+> 
+> 2. find_proxy_task() returns NULL without putting the donor because
+>    blocked_on changed or the owner moved, and __schedule() goes to
+>    pick_again.
+> 
+> 3. On the core-sched path, a fair or RT task wins pick_task() on this
+>    rq, so pick_task_scx() does not run and the flag is not cleared.
+> 
+> 4. The cookie does not match and the CPU is forced idle.
+>    put_prev_set_next_task(rq, donor, idle) sees the flag and
+>    put_prev_task_scx() takes it as a bookkeeping put.
 
+I was able to force the abandoned-pick path, but I haven't observed it continue
+into the false bookkeeping put. Looking at the code it seems legit and the flag
+can be stale on that path.
+
+I think we can safeguard put_prev_task_scx() by treating the put as a proxy put
+only if the donor's cookie also matches the CPU and a cookie mismatch takes the
+ordinary forced-idle path.
+
+> 
+> An IMMED donor then stays on the local DSQ through the forced idle, and
+> a donor without slice goes to ops.enqueue() without SCX_ENQ_LAST. Maybe
+> clear the flag when find_proxy_task() abandons the pick?
+> 
+> On an IMMED bookkeeping put, the local DSQ insert always queues a reenq
+> scan from dsq_inc_nr(). rq->next_class is still ext there, as
+> proxy_resched_idle() lowers it to idle only after the put, so
+> rq_is_open() is false. The scan is a no-op once the CPU is in idle.
+> 
+> However, if an SCX task wakes up on the CPU before the scan runs, the
+> wakeup raises rq->next_class back to ext and task_woken_scx() runs the
+> pending scan, which sees the rq closed and sends the donor back to BPF.
+> That is the ops.enqueue() round trip the patch is meant to remove. Can
+> you take a look?
+
+I was able to reproduce this one. In a baseline run, I counted 174 across 2000
+measured mutex trials.
+
+I have a local prototype that sets a flag (SCX_TASK_DSQ_PROXY_IDLE) in
+p->scx.dsq_flags for the donor, when a proxy put parks it on the local DSQ and
+clears the flag when the task leaves the DSQ. When the rq donor is idle,
+rq_is_open() checks for that flag on the task at the DSQ head and also checks
+its core-scheduling cookie. This prevents the pending scan from sending that
+donor back to BPF. It's yet another flag, I know..., but in this way everything
+is self contained in ext.c.
+
+The prototype passed the reproducer in virtme-ng with zero blocked IMMED
+reenqueues across the 2000 measured trials in all configurations: same-CPU and
+cross-CPU owners, with/without SCX_OPS_ENQ_BLOCKED.
+
+I'll do more testing and send a follow-up fix.
+
+Thanks,
+-Andrea
