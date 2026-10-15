@@ -1,112 +1,248 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A59953D0CB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3C63CAA59
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078953; cv=none; b=hJL65U41bmd/UVGlBQR5DqwvtDQsnVCHOj8CsiZWiiK+BtVoBd22NvKkh99pqXSBNzaNexLrSPd5Sgh4k4QRCg2Y/cAJdBAn6XkgiZ8Bh5MZaZ2j4+vEEuFW99I2XC63xzj9ffEU4yPFr34NOSKfp9RgqdM69aE2iOHAqXzs6XE=
+	t=1792078982; cv=none; b=ICoalYJlLAXCqMZo6JeO/kj8sXMt2VKagQS4OVpg/sTVY/CDRnoXWrL3wIR88p0k8BGyIJZkJ+g6S6OH0UjilchWsXCzXYWxan8gviZZi2lXl1oZyS3tcS5zYciS6f3/8V0F3ehucDAshwFdoCLQYt4Ul1Uf/4N366dE9+5OE2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078953; c=relaxed/simple;
-	bh=/PrbupM46ccToCRLv+o5mLwJEPyXOMp2KRQjTagiWmI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=KT1DBX+kP9KCjJMbUJH7hQOAjNsgWvB64HK87MYeqfLpaVTxya5rtSoTgcQQytBCnEy6e4Hy4/0z8K0BrPiURmU/+BxyZRISsK9fCHd6AWHp/JWaqGYzsUBzhqr7Ulhq2b+oPwunbr9SnCyBhXYzWhw0bWhSErdXirYjdv9Boqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HiCZ6Gpl; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792078982; c=relaxed/simple;
+	bh=1fUOi+Usxn2LQcFzjoDicMxQvfperVSbtfIS6t3a0mM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gpBzFTeqHQ+85wOmg3iSv4FePW8PwYZ+L+COgFewECgnWOWQqBBjiY6qsgTWRF+0fuV1xBlWS8UMzVYOTVlfyX0KadJxzOzoNj0/ML4/9SnWtghZG3DtqScZbrcNNOMY4u42ppcCLP3VY/wFVdpGWtX+mEsEXy7RWupzZncDN6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R0UR9SXf; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HiCZ6Gpl"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-679a420b5afso843090d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:42:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R0UR9SXf"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a01933b584so47021775e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792078943; x=1792683743; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/PrbupM46ccToCRLv+o5mLwJEPyXOMp2KRQjTagiWmI=;
-        b=HiCZ6GplMAfXLNukGage5AHcSR5Gx13oQl+Xi6NoI/5LK8ICuwtTV4H0srxDoh1mZ7
-         AjoOpI9fJUwJ9bs4HpNnOyX2eGbDQzW4Fd3EXJwsYmvy2DSXlq+/Cm2mWa3qJ1ba0T6+
-         nc/uDZwBXEbx+Pze/JL2nrBDfMgsYJPVeUC7GB6xPCPsYlI0EvLxCvMfC70osQwn9vPZ
-         zpDgpZswKhg0DW2sJEie5Te0DtvNXREP3Y2f42bJtCntsU7UWWeOYNEuBkx2H6zmx5yA
-         edDuR+BR2M+oQ2OR8OnuqxVCW8GbXQUxoICwDP/Q0CXH4sWVANrSNyulOXBIEBjaXQas
-         XStQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078943; x=1792683743;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1792078967; x=1792683767; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/PrbupM46ccToCRLv+o5mLwJEPyXOMp2KRQjTagiWmI=;
-        b=f24zeD7c+GtBWIBja+TWKx+ps6qsC8c8jHeXm0Hr98HxRBaE9nEVZlvVTxlQ9JE0NU
-         qUmESKu0AWok8CH/QPzpNxTLhdR2NNkr56JY9JrWvyrzK3kCPYYxaMAwGaQPyuaF9v7d
-         wUbSINIVbzmBsg/w385mzijh16ERFgxl3CV9cI/K6J9XzZPD/v7rKy4Kd96a5gxZvd0q
-         dothA6R2rsO4Od20Ot14UUsYy57TNj3onyPMMeQLh6+W6GHJSYZgWkTv/dvPKWXQFYUS
-         bKW+UbBiWKY1GoXN/d8eXK1D25KRueDsNd3/xughwNzHcqeNB9Gwq7bC6rmObrkuXMIV
-         W9bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlXOnkSSlFY059oQ83kdnxvydY0JB7XMhfWoD58wclvx7aqzaok+EDnpy0GA6DqAPWCUhRNJ1k48SR93g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwX+dGbqGduLrqwF73/ld/pcq90eDWi3wfBw0sz4rXN1JaFFZl
-	mTVX/Cu/Ms24ElsxciIrSEMqlWTDcrm/+EBV0otVZMQ+jniA947MfO0O
-X-Gm-Gg: AYBFou1hUbBlUExqKgACHkfAeFlodMzrCZDcHk3P3bc6PJ9MYPAv/4m/xgJ++lyV4qo
-	2VvI/nnGYzFZlZvS+346ZrCbva1Qof8uuJ5QIr4lxBUyA43kUMpZbvmE5qduddg1+PHkLSR23Ik
-	j2oRv/4C8T0t1NanuO2q6Oxf0A47DTbWP5ps332rieTFczzEyPmt655V4kknO02lxVv7yV5x0EQ
-	Lc9OJXkxjFdsnB7wCgCr4CwQgy9gtmQ50jktf2AQP+LmKC1oWZmqAXkwRg/1vOfmP5Gnjjs7oC3
-	6lbGQWL/LeG2Krh1TO0B/xEDOpobe4q/TPCgUvIjTATExHXLyf6dC+xIg2jWm+TJgCTgHY+DDrl
-	LdeerJWdkhbNcwrZn3n003/os74NWxsTgkl/ElCPzxtUXphANvYUxHM71sMVUw1hL1S+xeCbUDH
-	GD6NOA2k5iHJE61rdMDY92KO8qybrisrxqL7E3VG4fQ2YMRG819fc84ORdXDalref5UAZFW+KzK
-	wRdznqZGMCRzZ5w/t0/dKwfzaNu2FQgS39lTzIFVlFUy6r7yV9gebeXxgfNl6A7eAoF5zvJUGQU
-	whc=
-X-Received: by 2002:a05:690e:1304:b0:678:151:5218 with SMTP id 956f58d0204a3-679362f1c23mr5974469d50.110.1792078942713;
-        Thu, 15 Oct 2026 08:42:22 -0700 (PDT)
-Received: from localhost ([2601:7c0:c37c:135::8803])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1e11207sm162433d50.8.2026.10.15.08.42.22
+        bh=8EVUVXTF9B/pmjVEVo0zfJaBGiZoNVg7V5lse2RyO7M=;
+        b=R0UR9SXfSdLRKN8vgsjzhyd81oaEz7tHTwslAVD4uu2yocB8iyTzeaX91HJfAF2HSZ
+         zfyNFy9tY2rveIy5HSk4kHu6cou98Mmm65Nw/ib9mtV2wnXWSnap0yORcKiRn9+bhNLb
+         /HvkgPwk8c21B4vfdeFwnATqt/tKh7V1N6JFjc1GswxG79FMaIisTlhabNQRTkYz/AAi
+         A1KK2BSF7pJOfDu8sLbpi305mh4DqIdXIenAOtLPi3roSTwyU1GWiEULVpymwqlkfLkZ
+         ApWTy1oTpVVOcfy57kt0RsQYUZoCNCDNc0yb16GC0j95gqwCT6HKnJMFBD1/29NWON5y
+         v/Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792078967; x=1792683767;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8EVUVXTF9B/pmjVEVo0zfJaBGiZoNVg7V5lse2RyO7M=;
+        b=EniYDRyJh6GSSnurWKHWoT+TN8YTm5FBz0cfE9L5fm0of/PCboRTFutHzBOylXD2Y7
+         vxv9n6NUIWvN98GuBlwIVdZ4pYIya/c4CsPK6xyjn9VOMSQhOd8M+C0PYWSDtP0+bJHv
+         Wk54y++e6UH62oz9WbMGpKTr56OhqHqJ5F4XM9zUdndU2rxDmUX3I7yfUVzuQAYJmOxT
+         MvMiweCQ4rMVKAqv5qxHkj7ul6B3+eUSkDew614CuavkCs3dk7xQ1lH72jxEdVR65Gg4
+         yFgNu7htArKYVfc5eW5cT40+KfaE1nlEdOM8HD+F4wGtwaftb57iOXouoeC5o2PDRF3N
+         nhOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwngtwALYkaFiIq4RrkhN6auJDH/5w+v2fFIaXzxoa8XNR9WQdjf8UbEKsu20qvC81Cb6alDRNnFu/+l48=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIu+JX9duAJd/t3JwHQHKIiV4wbEgDcJTgOinpAFHpWpscDDGX7
+	ciT8HVHqHSOkHzSm+punqa99qJ2lVErs1hQlJtkzh8sPSh/g/BarQeLPk/Cr/kFsHBI=
+X-Gm-Gg: AYBFou08PauyUQyjlhex5AgpNe9tdxIUrd1vIOiD9mZG+btYLWdNgSr2uYGBzFFEz3M
+	sf7Xpdfpd0lhtpygTfDVzgwwVg3Z8b/ok8PKdd5cpGejLX1LZ3qLGdumN7Lc94jBRYKNqYQzmrd
+	nM/NRs82IKwPPVbjYNy1sbjLJYWauPecAmlECOncUjFNno0AX6PbZnjy399SGjCC3LyIb+I1PzH
+	5eZ2FEdv1tCanv8w0ZU5viArIQ07qPxat2LjXQmn8YKYfLu6KBOJDjEp1I2Zwm3k/uVGGjHZPMV
+	X25SxsMbKzhMdQ00n4GC6NXyi2qUxEoa09+gDMTIaT8aPP8LZPxMO5R6sqFm/q8fFGnYOwVZjrN
+	xDbrhabyrnOm6jfnSyYcSJFu/VIuI1XLWOiox/j2F1m25ZapdhTfGnMrM5qdoE9Zda16cL9PkC+
+	4ZWTyggM9rrV/TOBhiwV39kSO75bQWOOVh+Vmxlim+YKRY6RdfHD7OzExX+ERYg4rHtoemtzHQv
+	qz7XvBBtrXq7iX8FNLcwRrMeiIxShMQnKO08Y/l5Z6p8w==
+X-Received: by 2002:a05:600c:8b82:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a18e4b887amr354993855e9.27.1792078967287;
+        Thu, 15 Oct 2026 08:42:47 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd66c5e6sm52172585e9.2.2026.10.15.08.42.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 08:42:22 -0700 (PDT)
+        Thu, 15 Oct 2026 08:42:46 -0700 (PDT)
+Message-ID: <d17b00f9-2a6c-425f-9697-6bc8f31f7a7a@suse.com>
+Date: Thu, 15 Oct 2026 17:42:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 13/22] modpost: cache section relocation mismatch state
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ linux-hardening@vger.kernel.org
+References: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
+ <20260923-build-speedup-v4-13-73128809a4a4@kernel.org>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260923-build-speedup-v4-13-73128809a4a4@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 10:41:53 -0500
-Message-Id: <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
-Cc: <error27@gmail.com>, <ethantidmore06@gmail.com>,
- <dennylin0707@gmail.com>, <linux-staging@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
-From: "Ethan Tidmore" <ethantidmore06@gmail.com>
-To: "Luka Gejak" <luka.gejak@linux.dev>, <pavankumaryalagada@gmail.com>,
- <gregkh@linuxfoundation.org>, <outreachy@lists.linux.dev>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
- <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
-In-Reply-To: <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
+Content-Transfer-Encoding: 7bit
 
-On Thu Oct 15, 2026 at 9:11 AM CDT, Luka Gejak wrote:
-> October 15, 2026 at 2:06 PM, pavankumaryalagada@gmail.com wrote:
->
->
->>=20
->> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->>=20
->> Remove redundant parentheses around the address-of operator to
->> follow kernel coding style.
->>=20
->> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->> ---
->
-> Hi Yalagada,
->
-> I'm just letting you know that this change is no longer needed as the
-> entire staging/rtl8723bs driver is being deprecated and removed.
-> Support for RTL8723BS has been ported to rtw88 subsystem.
+On 9/23/26 7:18 PM, Lorenzo Stoakes (ARM) wrote:
+> For every relocation modpost invokes check_section_mismatch() to determine
+> whether there is any kind of mismatch between the source and destination,
+> and if so which classification applies.
+> 
+> Each time it does this it invokes section_mismatch() which iterates
+> through the sectioncheck[] array every time it's called.
+> 
+> When walked a relocation section the source is fixed and there aren't many
+> targets, so the same names are looked up over and over again.
+> 
+> Therefore cache not only mismatch categorisation but also whether a
+> mismatch even exists for a given section and look up the sections in the
+> cache.
+> 
+> Special indices (undefined, absolute, common) take the uncached path as
+> before.
+> 
+> This results in very significant speed ups for allmodconfig incremental
+> builds.
+> 
+> modpost is on the serial tail of every build that links vmlinux.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                          before   after     delta
+>                                          -------------------------------
+>   x86 defconfig, touch mm/vma.c, gcc        8.5s     8.3s    -0.14s (-2%)
+>   x86 defconfig, touch mm/vma.c, clang      7.7s     7.6s    -0.13s (-2%)
+>   x86 allmodconfig, touch mm/vma.c, gcc    33.9s    29.4s     -4.5s (-13%)
+>   x86 allmodconfig, touch mm/vma.c, clang  31.9s    27.9s     -4.0s (-13%)
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-So rtl8723bs patches aren't being accepted anymore? I saw Dan reviewing
-one earlier, just wondering.
+This looks mostly ok to me. Below are some nits you might want to
+consider addressing.
 
->
-> Best regards,
-> Luka Gejak
+> ---
+>  scripts/mod/modpost.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 64 insertions(+), 2 deletions(-)
+> 
+> diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
+> index 75374c64b8cc..0fd43c8a89ea 100644
+> --- a/scripts/mod/modpost.c
+> +++ b/scripts/mod/modpost.c
+> @@ -1155,12 +1155,67 @@ static void check_export_symbol(struct module *mod, struct elf_info *elf,
+>  			 name);
+>  }
+>  
+> +/*
+> + * mismatch_cache[section index] ->
+> + *   0 - uncached.
+> + *  -1 - no mismatch.
+> + *  >0 - mismatch index + 1.
+> + */
+> +static int *mismatch_cache;
 
+It might be cleaner to maintain this cache per elf_info, since it
+logically belongs to the processing of an individual ELF file. This
+would also be consistent with the existing symsearch cache, which uses
+elf::symsearch.
 
+The description could use 'to_secndx' instead of 'section index' to
+clarify whether it refers to the source or destination section of
+a relocation.
+
+> +
+> +static void init_mismatch_cache(unsigned int num_sections)
+> +{
+> +	mismatch_cache = xcalloc(num_sections, sizeof(*mismatch_cache));
+> +}
+> +
+> +static void reset_mismatch_cache(unsigned int num_sections)
+> +{
+> +	memset(mismatch_cache, 0, num_sections * sizeof(*mismatch_cache));
+> +}
+> +
+> +static void free_mismatch_cache(void)
+> +{
+> +	free(mismatch_cache);
+> +	mismatch_cache = NULL;
+> +}
+> +
+> +static const struct sectioncheck
+> +*cache_mismatch(unsigned int secndx, const struct sectioncheck *mismatch)
+
+Similarly here, s/secndx/to_secndx/.
+
+> +{
+> +	if (!mismatch) {
+> +		mismatch_cache[secndx] = -1;
+> +		return NULL;
+> +	}
+> +
+> +	mismatch_cache[secndx] = (mismatch - sectioncheck) + 1;
+> +	return mismatch;
+> +}
+> +
+> +static const struct sectioncheck *get_section_mismatch(const char *fromsec,
+> +		const struct elf_info *elf, unsigned int secndx)
+
+s/secndx/to_secndx/, and the fromsec and elf arguments could be swapped
+for consistency with the rest of the code.
+
+> +{
+> +	int cached;
+> +
+> +	if (secndx >= elf->num_sections)
+> +		return section_mismatch(fromsec, sec_name(elf, secndx));
+> +
+> +	cached = mismatch_cache[secndx];
+> +	if (cached < 0)
+> +		return NULL;
+> +	if (cached > 0)
+> +		return &sectioncheck[cached - 1];
+> +
+> +	return cache_mismatch(secndx,
+> +			      section_mismatch(fromsec, sec_name(elf, secndx)));
+> +}
+> +
+>  static void check_section_mismatch(struct module *mod, struct elf_info *elf,
+>  				   Elf_Sym *sym,
+>  				   unsigned int fsecndx, const char *fromsec,
+>  				   Elf_Addr faddr, Elf_Addr taddr)
+>  {
+> -	const char *tosec = sec_name(elf, get_secindex(elf, sym));
+> +	const unsigned int to_secndx = get_secindex(elf, sym);
+
+The const qualifier can be dropped from the to_secndx definition to
+match the usual kernel style.
+
+-- 
+Thanks,
+Petr
