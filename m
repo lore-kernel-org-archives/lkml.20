@@ -1,95 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAF53ABD90;
-	Thu, 15 Oct 2026 08:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75F53C09F8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052911; cv=none; b=SctlcUvpFiYmgxwaPIGeSrkei0XBNb3goZM/08eH0919hELNP+tSpzGlV0kAsFBfTQcqJkZn/dIqS3/Fu3HU9jDNakZ88lJ4rl+vkhvon1WBMwWP1KlSfBviv32qvPnEJM2KkomR6z5io7JEAAJvG3A9O19e4rWX/ggpymT2OqI=
+	t=1792052946; cv=none; b=CLMdFFQFFJz7iMjrS/0ir314m5dh4LxLwaQbtJGGS5DKq1cLrNjdaLCGhzIYOd8WveMfrlIY7gT5WowuO8zoCLSQKg1apqJg2OxnHTp5gt0Jv7Rh/Wrtbq5n6bHVqnPZg2x4TaFnb7Ic4oF4tq9UyDZM0IN+auA70gmGMHhDjMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052911; c=relaxed/simple;
-	bh=74/xrUjBmhy/hBYGQNVx7rE7cCVNyFMGw8kk5FZHCgE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gj9axwbfNqHqd75MLghaG3us7Q4aBP8Q35M1gA+cFFERNV9EyHVTnHykg65A82/wy9HNcOhwEheqAftblsQZawHrfoJ00AzjtcJncGyTYcwMs7jmn1aF8fEQnOUHtREI0FrhrAXC8IujHKNlBBXFGaOv4JeQotFCkhE8kcH46pI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3Ysde+z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792052946; c=relaxed/simple;
+	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F2+tq3j6V6eqJzt8LiK/WNICibKM6bdxKLNG/kU5W+YIwsPJdVAhUezQn5DTwZeE9G5pjdpKMgT43CGHxuyNXGaAuiiWVThg51CVGfbVKYaFOBVZSJo1A57R+1e5gFsjMUzDySzK7g0nk4Ko+xLrtKxJ7UG3aIxNayogekwplWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TY/rY+h7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3Ysde+z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ACD11F000C4;
-	Thu, 15 Oct 2026 08:28:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TY/rY+h7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDB81F000C6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792052910;
-	bh=Syv2U7qOHInP7OCx7Iw4cZz4BGPR69oUDoJy54aqFf8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d3Ysde+zzfc1ttiANHu5w7bbYCc7Jz9EyabJCzufWXNC2c6VOpx6x02mi8MuqA2Z3
-	 29EljYGKLcXS1B1ZI0KsCrTfn85CLoeuTCKO+aKFD4vnhg1EydWoGALOVjH7/x4Bu/
-	 S3lE4fF5VzQq+E73RZkjPplnM5wvVGG6hvEqnbF96TI/A1v1gRtJ7FsSwSpQju+Zwm
-	 RUK7jbeKBVA7J6PQ/xI59kvsoUsl/1TsfxvOC2wYC0o9/dYuBfGz17Th6qv86IEBJV
-	 mYuOUHaw+G+EM6bl/2AQh0H4cVURVbmBiKK9A3ga9hh89rwos7UFDKeNTJnUfkk435
-	 QvB4MCzo1e2aw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xHGp9-00000005xZf-4AQ8;
-	Thu, 15 Oct 2026 10:28:28 +0200
-Date: Thu, 15 Oct 2026 10:28:27 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] USB: core: document purpose of interface parent reference
-Message-ID: <atCOq_kAAoUzKGRw@hovoldconsulting.com>
-References: <20261015074831.1418677-1-johan@kernel.org>
- <DM59BD7BDUHZ.2BON4KMXDR086@kernel.org>
+	s=k20260515; t=1792052945;
+	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TY/rY+h7wanHSplyQ+Tnf4ZmmiL9+9t1MktcHS2ZZd7G7RWv76+z/hfd0CSY72vwO
+	 Au/kiOm73Q08zNZzMK6Lg1fm7pvzSVyi/8r5pVoDrQNYOjjI+jubM7ju0PuCbbiPiW
+	 vR++g1RQOAU7m94BIZ0c0xN4ykHod5RYdq1a9/D0OtgP9s5NMEkPI6jLMRI7Rr1gjk
+	 JmHdx6tJ5WynTscSrTkZtIeZSwqBvBzyEB4SGd+A6ONpLD93/keqrd7seepJG6/6d7
+	 gk8/v0mFNFsyfkPB18h2upZlBC/l2cDOLreae37JwZ2bSEAEj+jBf6YO8+Q2VRol8q
+	 hisffRmRt3T0Q==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a9787a14ecso12688291fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:29:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByI0NMkHP3ikucjcq90NYqUL7/fFZMjfzgRdEbC3MVbM44eCBZkB1PAQqC3hBYp4E+FWY+w2ILqp4OHU84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7GQE84oYY5oIHfuR+2r5gmZIGNpBEnhpRpG3lySTdeQnpJzBX
+	6c7Z8w/92aJkkeiTXBuQde021AF43TLRl5MDzx+RjkvQznqHAe2X190CMWfzpVoHTvJGRiMdqmK
+	6LvEzeaXfPYMKzgNJC37ICTEMkG0YQPg=
+X-Received: by 2002:a05:651c:502:b0:3a6:6efb:a0e3 with SMTP id
+ 38308e7fff4ca-3a9c52544femr47372571fa.5.1792052943186; Thu, 15 Oct 2026
+ 01:29:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM59BD7BDUHZ.2BON4KMXDR086@kernel.org>
+References: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com>
+ <20260602-pdm_clk_gp_mnd_v1-v1-3-1522662b6c53@oss.qualcomm.com>
+ <CAD++jLnqCipTxkOhiwQhKFymOxu1HOTbHzLbNrGTOkCO33y8Vg@mail.gmail.com> <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
+In-Reply-To: <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 15 Oct 2026 10:28:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
+X-Gm-Features: AclHuK8sF_Rp3sPUvkXokg3OYjbIVxL6iVSLlt_kf3aFbP7rWfJnEWwj0w4dISM
+Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
+Subject: Re: [PATCH 3/5] pinctrl: qcom: Add gp_mn mux function for QCS8300,
+ SA8775P and SC7280
+To: Taniya Das <taniya.das@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 10:08:36AM +0200, Danilo Krummrich wrote:
-> On Thu Oct 15, 2026 at 9:48 AM CEST, Johan Hovold wrote:
-> > USB interfaces hold a reference to their parent USB device to make sure
-> > they do not outlive the parent.
+On Thu, Oct 15, 2026 at 9:14=E2=80=AFAM Taniya Das <taniya.das@oss.qualcomm=
+.com> wrote:
+
+> > This looks all right and no-one is saying anything about it, should
+> > I just apply this one patch to the pin control tree? It doesn't seem
+> > to have any dependencies.
 > >
-> > Add a comment explaining that this reference is specifically needed for
-> > asynchronous device resets and the device type need_parent_lock feature
-> > (to allow driver core to lock the parent when only holding a reference
-> > to the interface).
-> >
-> > See commits:
-> >
-> >   524134d42231 ("USB: don't cancel queued resets when unbinding drivers")
-> >   af61396a992b ("driver core: fix parent lock use-after-free on USB disconnect")
-> >
-> > for further details.
-> >
-> > Signed-off-by: Johan Hovold <johan@kernel.org>
-> 
-> NIT: Maybe add that the reference count must be held until release().
+> Linus Walleij, sorry for the late response. I will split the patches as
+> per comments from Konrad.
 
-I think that's implied as the comment refers to the lifetime of these
-objects.
+In the meantime Bartosz has taken responsibility of
+Qualcomm pin control patch collection and integration, so
+check with him how he want to merge this, I think just some
+separate patches for pin control would work fine.
 
-> In any case,
-> 
-> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-
-Thanks for reviewing.
-
-> > @@ -2209,6 +2209,11 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
-> >  		pm_runtime_no_callbacks(&intf->dev);
-> >  		dev_set_name(&intf->dev, "%d-%s:%d.%d", dev->bus->busnum,
-> >  				dev->devpath, configuration, ifnum);
-> > +		/*
-> > +		 * Make sure the interface does not outlive its parent (e.g.
-> > +		 * as needed for usb_queue_reset_device() and
-> > +		 * usb_if_device_type->need_parent_lock).
-> > +		 */
-> >  		usb_get_dev(dev);
-> >  	}
-
-Johan
+Yours,
+Linus Walleij
