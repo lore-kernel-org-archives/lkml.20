@@ -1,170 +1,398 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5391556BAC;
-	Thu, 15 Oct 2026 15:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C1E53E305
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079934; cv=none; b=O5iTNKevbXwdioswavc7trDwSfrfGP72yAlq4YI2bCMYtOGADh4bSrP5nj90MXj8swXQyYZZsGnpvwAccREYkb5gABQ+F8DlzeFVfiN0pnypZsNHs8hjIZXSSdRfmsDErbgit45dEI50t0ldHADlt5Slpgi0ojOXrGG1NbEs7Jk=
+	t=1792079940; cv=none; b=DekCE40B2AIQARCtKFWVHstx2b9KdPoe6VALRMsUF6iJLmtKFhLjENPNYTFm/BA0ty27V4XlN1K8dwBrtdKFgIFtDio/PiXOokrrScaTGW114c+d7bUnRQ80HIES0RUzDCkCIQABQuCf8ypXVMdfi8vW//3ttkAsL35/Q7lilsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079934; c=relaxed/simple;
-	bh=45VSe3nRbT/NfoQSQGgs+uoKL+bfGe7PkGT2oRQpJ4Y=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=PB4uNhBrQ6c+URSE2hT509EXRP772WC+Tk29BD3jltqdCmX2unyNMrI1UcSo2g+qX4fPsnccgJs1PG9NWXRV9QPLuIKKtNuYLoSCI4vbqre/aQaWWKWOeJA+NpMZyVRUYys5QKZk6AFVOXggyF/lXanqkxJZv4ElMCpEdnaFHZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=tuxEiVzG; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1792079940; c=relaxed/simple;
+	bh=3zrdiBVO8QEvU40IAOdAn6GJVKexilG9cm9Byy0q79Q=;
+	h=Date:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=pK//BZlGufnKUXV7J28RguNEwVOrpjw05YYxn2LfZi1YIo63ZTW+mDiojaBVporA7AvVGTRHNoQRgH/tCQAARBDKxAho+pd7cpoeIhRlDtem4VMv1Yxws0d3B90X0r9mB2LTLTBsEh8h1izLgeQXUpGRP7k+ajjdwYaOpGxk1Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eBfyEp1w; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="tuxEiVzG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1792079894; x=1792684694; i=markus.elfring@web.de;
-	bh=45VSe3nRbT/NfoQSQGgs+uoKL+bfGe7PkGT2oRQpJ4Y=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=tuxEiVzGUvzjGxdlWWIAm0i7k49HBy1+vCgVa0rUcPWR3u+aArZcyH0skyz4oFhw
-	 7pWT806q4VnFWlbNmYevnAPOm2rmfYP5b2xZWWrVeUskvQwGM03qWuvM0wXN85LLk
-	 58O6vLYXio0z1i0MwI1g7XYNDDC7XKBwAL3lWn5oAdN3WtwEaWGk7CzmsuHGaIT4O
-	 W0hdewNqPDJUro+/euNzMJyZ8+KkDFztg7lVWEi1kIRQK2rT7keBGvLlKgVkbYQGl
-	 UQcvPfw/WkF74LDnesPMyahS9SZ14oRjoiZ8U9FofzKEczvCw3u8x1zPcOt/bDkyb
-	 W47bO6Z4OEp7UfpTwQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MD5jv-1xQQP10hIP-0097iu; Thu, 15
- Oct 2026 17:58:14 +0200
-Message-ID: <ac7a622e-d8b8-4c89-a091-16bbf070344b@web.de>
-Date: Thu, 15 Oct 2026 17:58:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eBfyEp1w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792079927; x=1823615927;
+  h=date:from:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=3zrdiBVO8QEvU40IAOdAn6GJVKexilG9cm9Byy0q79Q=;
+  b=eBfyEp1wKIvVyqlrwqYSDgReTdgRy+8qyVJp+GnVlvErVyHORqWayUi4
+   /GkDaRPv1AF8pTxkMC4o72oLLmt/gQIhHfcqoeUM7/6PGHOyEvMdna4Wq
+   nUCZkrvnaDiqxRufg7fQrUArgbynw+MbZWbdVXQFcE8bwrB4Dsk4jOpk3
+   EnC7OYuiOtW92uG3/shSbXM5OlgkGIlKjC1pl8KWv6aFEZPEY8aeDmCTZ
+   Xk+dKO7Y/wvfmSuEikv552SErCjLnNbED27Yr24KFK/70UAlQpI2yMgXC
+   TQiUcL4AXV8wgt2rkbiL8z77esthZ7T488rCDD6OTmndJwT81V1yoEccz
+   w==;
+X-CSE-ConnectionGUID: CJLVimVRSnW+BeKEnOikUg==
+X-CSE-MsgGUID: g4/FUDVVSMOMKcYYdZ7Awg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="736848"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="736848"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 08:58:47 -0700
+X-CSE-ConnectionGUID: HmwuunfwSquz8MQW8QoiCQ==
+X-CSE-MsgGUID: mWCltxHwRfG+GucZC0kzMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="2083877"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa009.fm.intel.com with ESMTP; 15 Oct 2026 08:58:45 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHNqs-00000000Bk3-3za2;
+	Thu, 15 Oct 2026 15:58:42 +0000
+Date: Thu, 15 Oct 2026 17:58:34 +0200
+From: kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Subject: drivers/gpu/drm/xe/xe_pci.c:814:undefined reference to
+ `xe_configfs_check_device'
+Message-ID: <202610151759.yHT7IcE8-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Iurii Trukhin <yuri@trukhin.com>, acpica-devel@lists.linux.dev,
- linux-acpi@vger.kernel.org, Len Brown <lenb@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Erik Kaneda <erik.kaneda@intel.com>,
- Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
- Pawel Chmielewski <pawel.chmielewski@intel.com>,
- Robert Moore <robert.moore@intel.com>
-References: <CAOx7e9+Vv8Pdyks=AbE5XG0ZyDgtKToKyBLTnt+H5RPn6VymVg@mail.gmail.com>
-Subject: Re: [PATCH] ACPICA: Fix parse tree memory leak on AML execution error
- unwind
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CAOx7e9+Vv8Pdyks=AbE5XG0ZyDgtKToKyBLTnt+H5RPn6VymVg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:nTAi03Sa+tSdOGQipQ77LLueaId2JdnpSFHkCn8FuigQkLzuVqy
- kk6iSmU1fFVrgj1RFmyjyxnpJdNwVGbHhrjwj0b3QaGp+j9iuGVyFfgK8KA/TxJ9DQtjeK0
- pUuHkI1u2n9F+wUSk3rHkCcDNOCa4eYvTFx/py+rPMIqSfNzpzpv2JM6inGERa6SPpbWToV
- 3Zzl1WL7gWQyKUyHeXRmg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Hjie2duiw0E=;MA0ZZn8Bz8Dtb7z98/DWQc4qkTu
- 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
 
-=E2=80=A6
-> Fixes: 5088814a6e93 ("ACPICA: AML parser: attempt to continue loading
-> table after error")
-=E2=80=A6
+Hi Lucas,
 
-See also once more:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv7.3-rc7#n145
+FYI, the error/warning still remains.
 
-Regards,
-Markus
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git =
+master
+head:   0fcb05b72344f40806cbe810de8872f1698bf053
+commit: 13dda74a164b570d93d412e812dc80549506410f drm/xe/configfs: Dump cust=
+om settings when binding
+date:   1 year, 2 months ago
+config: xtensa-randconfig-r2305-20261014 (https://download.01.org/0day-ci/a=
+rchive/20261015/202610151759.yHT7IcE8-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 15.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
+/20261015/202610151759.yHT7IcE8-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
+the same patch/commit), kindly add following tags
+| Fixes: 13dda74a164b ("drm/xe/configfs: Dump custom settings when binding")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610151759.yHT7IcE8-lkp@i=
+ntel.com/
+
+All errors (new ones prefixed by >>):
+
+   xtensa-linux-ld: section .text VMA [00003000,0193c6fb] overlaps section =
+.data VMA [00000000,0032a2ff]
+   xtensa-linux-ld: section .init.data VMA [0032a300,0033362b] overlaps sec=
+tion .text VMA [00003000,0193c6fb]
+   arch/xtensa/kernel/entry.o: in function `fast_syscall_spill_registers':
+   arch/xtensa/kernel/entry.S:1424:(.exception.text+0x1e7): dangerous reloc=
+ation: windowed longcall crosses 1GB boundary; return may fail: make_task_d=
+ead
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_guc.o: in function `xe_guc_init':
+   drivers/gpu/drm/xe/xe_guc.c:840:(.text+0x1b98): undefined reference to `=
+xe_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_guc.o: in function `xe_guc_init_p=
+ost_hwconfig':
+   drivers/gpu/drm/xe/xe_guc.c:91:(.text+0x1e43): undefined reference to `x=
+e_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_hw_engine.o: in function `xe_hw_e=
+ngine_setup_default_lrc_state':
+   drivers/gpu/drm/xe/xe_hw_engine.c:828:(.text+0x10cc): undefined referenc=
+e to `xe_configfs_get_engines_allowed'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_hw_engine.o: in function `xe_hw_e=
+ngines_init_early':
+   drivers/gpu/drm/xe/xe_hw_engine.c:812:(.text+0x1606): undefined referenc=
+e to `xe_configfs_get_engines_allowed'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_module.o:(.rodata+0x8): undefined=
+ reference to `xe_configfs_init'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_module.o:(.rodata+0xc): undefined=
+ reference to `xe_configfs_exit'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_pci.o: in function `xe_info_init':
+>> drivers/gpu/drm/xe/xe_pci.c:814:(.text+0x1084): undefined reference to `=
+xe_configfs_check_device'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_pci.o: in function `xe_pci_probe':
+   drivers/gpu/drm/xe/xe_pci.c:820:(.text+0x11f6): undefined reference to `=
+xe_configfs_check_device'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_psmi.o: in function `psmi_debugfs=
+_capture_addr_show':
+   drivers/gpu/drm/xe/xe_psmi.c:272:(.text+0x944): undefined reference to `=
+xe_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_psmi.o: in function `xe_psmi_debu=
+gfs_register':
+   drivers/gpu/drm/xe/xe_psmi.c:36:(.text+0x972): undefined reference to `x=
+e_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_psmi.c:301:(.text+0xa04): undefin=
+ed reference to `xe_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_psmi.o: in function `xe_psmi_init=
+':
+   drivers/gpu/drm/xe/xe_psmi.c:36:(.text+0xa28): undefined reference to `x=
+e_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_rtp.o: in function `xe_rtp_match_=
+not_sriov_vf':
+   drivers/gpu/drm/xe/xe_rtp.c:370:(.text+0x1404): undefined reference to `=
+xe_configfs_get_psmi_enabled'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_rtp.o:drivers/gpu/drm/xe/xe_rtp.c=
+:371: more undefined references to `xe_configfs_get_psmi_enabled' follow
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.o:drivers/gpu/=
+drm/xe/xe_survivability_mode.c:145:(.text+0x44): undefined reference to `xe=
+_configfs_clear_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.o: in function=
+ `xe_survivability_mode_fini':
+   drivers/gpu/drm/xe/xe_survivability_mode.c:150:(.text+0x5a): undefined r=
+eference to `xe_configfs_clear_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.o: in function=
+ `xe_survivability_mode_is_enabled':
+   drivers/gpu/drm/xe/xe_survivability_mode.c:217:(.text+0x3d4): undefined =
+reference to `xe_configfs_get_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.c:217:(.text+0=
+x3ec): undefined reference to `xe_configfs_clear_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.o: in function=
+ `xe_survivability_mode_is_requested':
+   drivers/gpu/drm/xe/xe_survivability_mode.c:227:(.text+0x453): undefined =
+reference to `xe_configfs_get_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.c:232:(.text+0=
+x496): undefined reference to `xe_configfs_clear_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.c:258:(.text+0=
+x5a8): undefined reference to `xe_configfs_clear_survivability_mode'
+   xtensa-linux-ld: drivers/gpu/drm/xe/xe_survivability_mode.o: in function=
+ `xe_survivability_mode_enable':
+   drivers/gpu/drm/xe/xe_survivability_mode.c:150:(.text+0x73f): undefined =
+reference to `xe_configfs_clear_survivability_mode'
+
+
+vim +814 drivers/gpu/drm/xe/xe_pci.c
+
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  793 =20
+91b2c42c214f570 Francois Dugast       2024-09-27  794  /*
+91b2c42c214f570 Francois Dugast       2024-09-27  795   * Probe the PCI dev=
+ice, initialize various parts of the driver.
+91b2c42c214f570 Francois Dugast       2024-09-27  796   *
+91b2c42c214f570 Francois Dugast       2024-09-27  797   * Fault injection i=
+s used to test the error paths of some initialization
+91b2c42c214f570 Francois Dugast       2024-09-27  798   * functions called =
+either directly from xe_pci_probe() or indirectly for
+91b2c42c214f570 Francois Dugast       2024-09-27  799   * example through x=
+e_device_probe(). Those functions use the kernel fault
+91b2c42c214f570 Francois Dugast       2024-09-27  800   * injection capabil=
+ities infrastructure, see
+91b2c42c214f570 Francois Dugast       2024-09-27  801   * Documentation/fau=
+lt-injection/fault-injection.rst for details. The macro
+91b2c42c214f570 Francois Dugast       2024-09-27  802   * ALLOW_ERROR_INJEC=
+TION() is used to conditionally skip function execution
+91b2c42c214f570 Francois Dugast       2024-09-27  803   * at runtime and us=
+e a provided return value. The first requirement for
+91b2c42c214f570 Francois Dugast       2024-09-27  804   * error injectable =
+functions is proper handling of the error code by the
+91b2c42c214f570 Francois Dugast       2024-09-27  805   * caller for recove=
+ry, which is always the case here. The second
+91b2c42c214f570 Francois Dugast       2024-09-27  806   * requirement is th=
+at no state is changed before the first error return.
+75fd04f276de31c Nitin Gote            2025-01-06  807   * It is not strictl=
+y fulfilled for all initialization functions using the
+91b2c42c214f570 Francois Dugast       2024-09-27  808   * ALLOW_ERROR_INJEC=
+TION() macro but this is acceptable because for those
+91b2c42c214f570 Francois Dugast       2024-09-27  809   * error cases at pr=
+obe time, the error code is simply propagated up by the
+91b2c42c214f570 Francois Dugast       2024-09-27  810   * caller. Therefore=
+ there is no consequence on those specific callers when
+91b2c42c214f570 Francois Dugast       2024-09-27  811   * function error in=
+jection skips the whole function.
+91b2c42c214f570 Francois Dugast       2024-09-27  812   */
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  813  static int xe_pci_pr=
+obe(struct pci_dev *pdev, const struct pci_device_id *ent)
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01 @814  {
+e460410023d95b0 Lucas De Marchi       2023-04-01  815  	const struct xe_dev=
+ice_desc *desc =3D (const void *)ent->driver_data;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  816  	const struct xe_sub=
+platform_desc *subplatform_desc;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  817  	struct xe_device *x=
+e;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  818  	int err;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  819 =20
+13dda74a164b570 Lucas De Marchi       2025-08-21  820  	xe_configfs_check_d=
+evice(pdev);
+13dda74a164b570 Lucas De Marchi       2025-08-21  821 =20
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  822  	if (desc->require_f=
+orce_probe && !id_forced(pdev->device)) {
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  823  		dev_info(&pdev->de=
+v,
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  824  			 "Your graphics d=
+evice %04x is not officially supported\n"
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  825  			 "by xe driver in=
+ this kernel version. To force Xe probe,\n"
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  826  			 "use xe.force_pr=
+obe=3D'%04x' and i915.force_probe=3D'!%04x'\n"
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  827  			 "module paramete=
+rs or CONFIG_DRM_XE_FORCE_PROBE=3D'%04x' and\n"
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  828  			 "CONFIG_DRM_I915=
+_FORCE_PROBE=3D'!%04x' configuration options.\n",
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  829  			 pdev->device, pd=
+ev->device, pdev->device,
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  830  			 pdev->device, pd=
+ev->device);
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  831  		return -ENODEV;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  832  	}
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  833 =20
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  834  	if (id_blocked(pdev=
+->device)) {
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  835  		dev_info(&pdev->de=
+v, "Probe blocked for device [%04x:%04x].\n",
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  836  			 pdev->vendor, pd=
+ev->device);
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  837  		return -ENODEV;
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  838  	}
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  839 =20
+44e694958b95395 Maarten Lankhorst     2023-08-17  840  	if (xe_display_driv=
+er_probe_defer(pdev))
+44e694958b95395 Maarten Lankhorst     2023-08-17  841  		return -EPROBE_DEF=
+ER;
+44e694958b95395 Maarten Lankhorst     2023-08-17  842 =20
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  843  	err =3D pcim_e=
+nable_device(pdev);
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  844  	if (err)
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  845  		return err;
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  846 =20
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  847  	xe =3D xe_device_cr=
+eate(pdev, ent);
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  848  	if (IS_ERR(xe))
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  849  		return PTR_ERR(xe);
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  850 =20
+83e5af599755411 Jani Nikula           2024-08-29  851  	pci_set_drvdata(pde=
+v, &xe->drm);
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  852 =20
+c8a740775dfff44 Anshuman Gupta        2023-05-24  853  	xe_pm_assert_unboun=
+ded_bridge(xe);
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  854  	subplatform_desc =
+=3D find_subplatform(xe, desc);
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  855 =20
+c0ab10ee2ee6a2c Matt Roper            2023-06-14  856  	pci_set_master(pdev=
+);
+c0ab10ee2ee6a2c Matt Roper            2023-06-14  857 =20
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  858  	err =3D xe_inf=
+o_init_early(xe, desc, subplatform_desc);
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  859  	if (err)
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  860  		return err;
+4f5ee007f62a182 Micha=C5=82 Winiarski      2023-12-05  861 =20
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  862  	err =3D xe_dev=
+ice_probe_early(xe);
+256daa32c9e0dcf Riana Tauro           2025-01-28  863  	/*
+86b5e0dbba07438 Lucas De Marchi       2025-03-14  864  	 * In Boot Survivab=
+ility mode, no drm card is exposed and driver
+86b5e0dbba07438 Lucas De Marchi       2025-03-14  865  	 * is loaded with b=
+are minimum to allow for firmware to be
+bc417e54e24bc9c Riana Tauro           2025-04-07  866  	 * flashed through =
+mei. Return success, if survivability mode
+bc417e54e24bc9c Riana Tauro           2025-04-07  867  	 * is enabled due t=
+o pcode failure or configfs being set
+256daa32c9e0dcf Riana Tauro           2025-01-28  868  	 */
+86b5e0dbba07438 Lucas De Marchi       2025-03-14  869  	if (xe_survivabilit=
+y_mode_is_enabled(xe))
+256daa32c9e0dcf Riana Tauro           2025-01-28  870  		return 0;
+256daa32c9e0dcf Riana Tauro           2025-01-28  871 =20
+bc417e54e24bc9c Riana Tauro           2025-04-07  872  	if (err)
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  873  		return err;
+4f122766f9043c3 Micha=C5=82 Winiarski      2023-12-05  874 =20
+f25e698d43fb279 Gustavo Sousa         2025-02-21  875  	err =3D xe_info_ini=
+t(xe, desc);
+c0ab10ee2ee6a2c Matt Roper            2023-06-14  876  	if (err)
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  877  		return err;
+c0ab10ee2ee6a2c Matt Roper            2023-06-14  878 =20
+dc51c682ddb0104 Matthew Auld          2024-05-22  879  	err =3D xe_display_=
+probe(xe);
+dc51c682ddb0104 Matthew Auld          2024-05-22  880  	if (err)
+dc51c682ddb0104 Matthew Auld          2024-05-22  881  		return err;
+44e694958b95395 Maarten Lankhorst     2023-08-17  882 =20
+e02cea83d32d3a6 Alexander Usyskin     2024-07-08  883  	drm_dbg(&xe->drm, "=
+%s %s %04x:%04x dgfx:%d gfx:%s (%d.%02d) media:%s (%d.%02d) display:%s dma_=
+m_s:%d tc:%d gscfi:%d cscfi:%d",
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  884  		desc->platform_nam=
+e,
+d19ad0e80ebe3da Lucas De Marchi       2023-04-01  885  		subplatform_desc ?=
+ subplatform_desc->name : "",
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  886  		xe->info.devid, xe=
+->info.revid,
+9a08b2b935cedec Matt Roper            2023-04-06  887  		xe->info.is_dgfx,
+9a08b2b935cedec Matt Roper            2023-04-06  888  		xe->info.graphics_=
+name,
+9a08b2b935cedec Matt Roper            2023-04-06  889  		xe->info.graphics_=
+verx100 / 100,
+9a08b2b935cedec Matt Roper            2023-04-06  890  		xe->info.graphics_=
+verx100 % 100,
+9a08b2b935cedec Matt Roper            2023-04-06  891  		xe->info.media_nam=
+e,
+9a08b2b935cedec Matt Roper            2023-04-06  892  		xe->info.media_ver=
+x100 / 100,
+9a08b2b935cedec Matt Roper            2023-04-06  893  		xe->info.media_ver=
+x100 % 100,
+1eda95cba9df35f Lucas De Marchi       2024-08-13  894  		str_yes_no(xe->inf=
+o.probe_display),
+437d7a84ada7a4c Vitaly Lubart         2023-08-30  895  		xe->info.dma_mask_=
+size, xe->info.tile_count,
+e02cea83d32d3a6 Alexander Usyskin     2024-07-08  896  		xe->info.has_heci_=
+gscfi, xe->info.has_heci_cscfi);
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  897 =20
+168448111279e63 Jani Nikula           2024-08-20  898  	drm_dbg(&xe->drm, "=
+Stepping =3D (G:%s, M:%s, B:%s)\n",
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  899  		xe_step_name(xe->i=
+nfo.step.graphics),
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  900  		xe_step_name(xe->i=
+nfo.step.media),
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  901  		xe_step_name(xe->i=
+nfo.step.basedie));
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  902 =20
+2475ac27df59767 Michal Wajdeczko      2023-11-15  903  	drm_dbg(&xe->drm, "=
+SR-IOV support: %s (mode: %s)\n",
+2475ac27df59767 Michal Wajdeczko      2023-11-15  904  		str_yes_no(xe_devi=
+ce_has_sriov(xe)),
+2475ac27df59767 Michal Wajdeczko      2023-11-15  905  		xe_sriov_mode_to_s=
+tring(xe_device_sriov_mode(xe)));
+2475ac27df59767 Michal Wajdeczko      2023-11-15  906 =20
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  907  	err =3D xe_pm_init_=
+early(xe);
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  908  	if (err)
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  909  		return err;
+fa78e188d8d1df8 Badal Nilawar         2024-01-04  910 =20
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  911  	err =3D xe_device_p=
+robe(xe);
+d01bdc00254c2d1 Lucas De Marchi       2025-02-21  912  	if (err)
+f321ef042e69859 Micha=C5=82 Winiarski      2023-11-29  913  		return err;
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  914 =20
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  915  	err =3D xe_pm_init(=
+xe);
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  916  	if (err)
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  917  		goto err_driver_cl=
+eanup;
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  918 =20
+ff765b7771d874e Matthew Auld          2023-12-04  919  	drm_dbg(&xe->drm, "=
+d3cold: capable=3D%s\n",
+ff765b7771d874e Matthew Auld          2023-12-04  920  		str_yes_no(xe->d3c=
+old.capable));
+ff765b7771d874e Matthew Auld          2023-12-04  921 =20
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  922  	return 0;
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  923 =20
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  924  err_driver_cleanup:
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  925  	xe_pci_remove(pdev);
+c086bfc6ff4db73 Himal Prasad Ghimiray 2024-04-12  926  	return err;
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  927  }
+dd08ebf6c3525a7 Matthew Brost         2023-03-30  928 =20
+
+:::::: The code at line 814 was first introduced by commit
+:::::: d19ad0e80ebe3da48dc8122d6beca9d3d35df454 drm/xe: Extract function to=
+ initialize xe->info
+
+:::::: TO: Lucas De Marchi <lucas.demarchi@intel.com>
+:::::: CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
