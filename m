@@ -1,84 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75F53C09F8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4043ABD90
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052946; cv=none; b=CLMdFFQFFJz7iMjrS/0ir314m5dh4LxLwaQbtJGGS5DKq1cLrNjdaLCGhzIYOd8WveMfrlIY7gT5WowuO8zoCLSQKg1apqJg2OxnHTp5gt0Jv7Rh/Wrtbq5n6bHVqnPZg2x4TaFnb7Ic4oF4tq9UyDZM0IN+auA70gmGMHhDjMo=
+	t=1792052958; cv=none; b=kOcsW4HZB9lqi7tVX5C167SBCLs98o1MtPfSTdEc16Cs64ys25+5D0I77YcNt4EL2ZBcMN3KiKZCRL8W9/BBTeNXTJTZq05ozuf+fQOz4OqD60tg8rVyOiLQTGXy3eb4aafixKjqfPwjNawuyfohJ4wNL6vreJ7UmZRFpFUBC94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052946; c=relaxed/simple;
-	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F2+tq3j6V6eqJzt8LiK/WNICibKM6bdxKLNG/kU5W+YIwsPJdVAhUezQn5DTwZeE9G5pjdpKMgT43CGHxuyNXGaAuiiWVThg51CVGfbVKYaFOBVZSJo1A57R+1e5gFsjMUzDySzK7g0nk4Ko+xLrtKxJ7UG3aIxNayogekwplWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TY/rY+h7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792052958; c=relaxed/simple;
+	bh=4yHo0jxkxzwvqa4dyNy+s98uCpIdE0kge3qev5EKwt4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=pA/Lwg3liYVBsMtfnEg1nkx606vXZY6VelQjN/m2P19HbpziGV0WSf1zjlSbUF/6adb4l8hsrjn3RZKY+uU0jDu/+vlYDBgF7v38C/t9/ClgVhUsyv2XlrNV02x5S8cibO1JdRQIfQ7LwTOF2SaEbptxtFbfouDPoXwTDI2jzZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=R1QFZbqu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oyDkiZUO; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TY/rY+h7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDB81F000C6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:29:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792052945;
-	bh=UclMXT5dgaXzi8d+Et2aQmWDjkQGmYQfEWHeAsuzHAI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TY/rY+h7wanHSplyQ+Tnf4ZmmiL9+9t1MktcHS2ZZd7G7RWv76+z/hfd0CSY72vwO
-	 Au/kiOm73Q08zNZzMK6Lg1fm7pvzSVyi/8r5pVoDrQNYOjjI+jubM7ju0PuCbbiPiW
-	 vR++g1RQOAU7m94BIZ0c0xN4ykHod5RYdq1a9/D0OtgP9s5NMEkPI6jLMRI7Rr1gjk
-	 JmHdx6tJ5WynTscSrTkZtIeZSwqBvBzyEB4SGd+A6ONpLD93/keqrd7seepJG6/6d7
-	 gk8/v0mFNFsyfkPB18h2upZlBC/l2cDOLreae37JwZ2bSEAEj+jBf6YO8+Q2VRol8q
-	 hisffRmRt3T0Q==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a9787a14ecso12688291fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:29:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByI0NMkHP3ikucjcq90NYqUL7/fFZMjfzgRdEbC3MVbM44eCBZkB1PAQqC3hBYp4E+FWY+w2ILqp4OHU84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7GQE84oYY5oIHfuR+2r5gmZIGNpBEnhpRpG3lySTdeQnpJzBX
-	6c7Z8w/92aJkkeiTXBuQde021AF43TLRl5MDzx+RjkvQznqHAe2X190CMWfzpVoHTvJGRiMdqmK
-	6LvEzeaXfPYMKzgNJC37ICTEMkG0YQPg=
-X-Received: by 2002:a05:651c:502:b0:3a6:6efb:a0e3 with SMTP id
- 38308e7fff4ca-3a9c52544femr47372571fa.5.1792052943186; Thu, 15 Oct 2026
- 01:29:03 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="R1QFZbqu";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oyDkiZUO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792052955;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
+	b=R1QFZbquFr6i9kTkoKJpTtlGy6CmbWagFX4PTb7KPo0AtpxN39KYH0w0GlaOhzFyln9Wiw
+	2xmsfcD2GKy3iuY/tiLJJl6YPfJifh2RjtODe4g/H16lGm6IrT1e8fhP+C7xN4Z7QVc07b
+	ddggdyQWLDtGglTcIMhvXYbqwTEKeM4=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-685-fmKrL3gWPyWBYhrqw3q4iA-1; Thu, 15 Oct 2026 08:29:14 +0000
+X-MC-Unique: fmKrL3gWPyWBYhrqw3q4iA-1
+X-Mimecast-MFC-AGG-ID: fmKrL3gWPyWBYhrqw3q4iA_1792052953
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b01a74792so3287021f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:29:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792052953; x=1792657753; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
+        b=oyDkiZUO/YdQ+lKh732baFDWkKs6LOrywHSmsceGA/m0CbXrB5eJ1IepNsrthH6KRf
+         nqJwQ6Rr0Y0JVBr8e1blprrIzJ3tJkELcUCItMju58Cbqc+HOEjrD4szaaiNKNSPVxRv
+         3GgS4NBFTQsoYTt3cPQV2gSB6SNpGi8zNbtA1FRLT4fh4Ve1nQC+3OABjg71IsizdEuw
+         HviCJZRvOrBVDzE9ezZpKQmhbr1cvf3KFVI7Bof875+9wjIJZJcQf9i23wh2snZFXYim
+         vkBOoPEi7H4FOXE3ELN4fhX6fju+RhVWHivDhPXH086uMSfrNBNPo6BLgygpNTvCT8QG
+         yE5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052953; x=1792657753;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
+        b=VsfHSDxfWwH3TwIFAhkPTp//17VgrFypSHvlDRs2iSmwU7xPHTIB9WN5vHkh1FAd6O
+         4oo9f/csDp/U+Og9ZRQ9LhRClbwLEJGOplKwI3TDppDv2A89fXTnLHrtWlwQ1YdEDuGQ
+         63t0/R28VhPoTcSvqLL9C5D0xoCnzQSqoWoZHPT4P0F3EDEx6xzNVIdd+2dM3etB5Imw
+         L3mTTUQC+aMPMX7ZYr4h7kjR79nCIbh7VWwaySvHk4ZNIWpCNPSFdtgXSs1mGrCphtju
+         495t4TX90XIpAWgjAYCczunxFYj7MtPWyyOJn8b2iM6De+w+axfSqsATM/64LR+0ted7
+         KYBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzckDOwLajMQ4z373dn/SNmuI0wlzNbWKjXN9vAnOcXAeYumsB4Vp3wIVF/BrBpBi0zKe7dpZw+aQlc9j0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlTkuzfPTFhvCoEMSmglhgjQaneTCq0UbewsKmw1f6tv7ZiKuH
+	XrzwKgw8jZyTC+mowSVS79BZwxNS6J1KcaU55AS/hOWkHsaP25FKARjk/rhw6iMnn3DNhzLb3Wf
+	lAk1OBHmhksBbhgCYEo1MfLZ2YROlQfAKOZ4ufDFgc2R4WtEzTsU3DBvXKvD3yGrm8g==
+X-Gm-Gg: AYBFou2FAAgZdHWKEdvoJNRFr79NdjeKnWv7rp2aoa8o2wiSX+7XaleTB4ezacZSyLZ
+	4Y2bDxreOxgSS6Xr2FDfXw9R0XSUB7H1uwqCyAZKoCr1Jpp9bfWwRHwljKZU3ufgW9VjXEexAN4
+	VaXe5x25+G2GfqzXPCNLbt97XDFGOsovz0Ndiq2/OucfQCz1GbnwQVX7ujRGt98Z5y7QmjEDPJd
+	hw4SVYgs4E6pLcVAArb/Uy9PbiahAMpgZ0mf51aeifl8bVR9LZh0V5xpsQqLfhzD5c+EUlC2JBi
+	rJx2o18BD65pKBjzKOzLX5cFYMMaKjLRbV/5s1zqDK33b9fBGKXGwUZ/NBGzgjkMeDJuuOS0lRJ
+	Sw/F2AwbLBD/liVtbUCjre61p4NQiZuVwKrw=
+X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48dbacf126amr34728396f8f.47.1792052952397;
+        Thu, 15 Oct 2026 01:29:12 -0700 (PDT)
+X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48dbacf126amr34728336f8f.47.1792052951831;
+        Thu, 15 Oct 2026 01:29:11 -0700 (PDT)
+Received: from localhost ([62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df758258fsm1459412f8f.17.2026.10.15.01.29.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:29:11 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Julien
+ Chauveau <chauveau.julien@gmail.com>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH] drm/bridge: ite-it66121: fix silent probe regression
+ due to reset timing
+In-Reply-To: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
+References: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
+Date: Thu, 15 Oct 2026 10:28:59 +0200
+Message-ID: <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com>
- <20260602-pdm_clk_gp_mnd_v1-v1-3-1522662b6c53@oss.qualcomm.com>
- <CAD++jLnqCipTxkOhiwQhKFymOxu1HOTbHzLbNrGTOkCO33y8Vg@mail.gmail.com> <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
-In-Reply-To: <0cb8005e-964c-43e2-8e9d-4e955cf2ff90@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 15 Oct 2026 10:28:50 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
-X-Gm-Features: AclHuK8sF_Rp3sPUvkXokg3OYjbIVxL6iVSLlt_kf3aFbP7rWfJnEWwj0w4dISM
-Message-ID: <CAD++jLmA65GL4xxFNSHr-j=Xo2o3dNmEcKjpNEkECXb5bOX8TA@mail.gmail.com>
-Subject: Re: [PATCH 3/5] pinctrl: qcom: Add gp_mn mux function for QCS8300,
- SA8775P and SC7280
-To: Taniya Das <taniya.das@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, Oct 15, 2026 at 9:14=E2=80=AFAM Taniya Das <taniya.das@oss.qualcomm=
-.com> wrote:
+Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
 
-> > This looks all right and no-one is saying anything about it, should
-> > I just apply this one patch to the pin control tree? It doesn't seem
-> > to have any dependencies.
-> >
-> Linus Walleij, sorry for the late response. I will split the patches as
-> per comments from Konrad.
+Hello Luca,
 
-In the meantime Bartosz has taken responsibility of
-Qualcomm pin control patch collection and integration, so
-check with him how he want to merge this, I think just some
-separate patches for pin control would work fine.
+> Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+> rightfully added code to make the reset pin really work instead of being a
+> no-op, but that change introduced a regression making probe fail most of
+> the times, at least on some hardware.
+>
+> On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of the
+> times. This is because:
+>
+>  1. the regmap_read() calls just after it66121_hw_reset() to read the ID
+>     registers fail
+>  2. there is no error checking for these regmap_read(), execution
+>     continues silently
+>  3. this results in not matching any of the IDs from it66xx_chip_info
+>  4. and this results in silently returning -ENODEV
+>
+> Empirical tests showed a small delay after de-asserting reset fixes
+> probing. Likely the device needs some ramp-up time after reset. No such
+> requirement is mentioned in the docs I could find, so the amount of delay
+> was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting a
+> 20 ms delay should provide a safe margin.
+>
+> Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> FYI For items 2 and 4 above, I'm sending separate patches to make those
+> errors not silent. Those aren't fixes, so they would be for drm-misc-next,
+> while this patch is for drm-misc-fixes.
+> ---
+>  drivers/gpu/drm/bridge/ite-it66121.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+> index 51fc68ffdf8f..692a85e1e2e8 100644
+> --- a/drivers/gpu/drm/bridge/ite-it66121.c
+> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
+> @@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx)
+>  	gpiod_set_value(ctx->gpio_reset, 1);
+>  	msleep(20);
+>  	gpiod_set_value(ctx->gpio_reset, 0);
+> +	msleep(20);
 
-Yours,
-Linus Walleij
+Maybe adding a comment here mentioning that this value was found by
+testing and is not mentioned in the IT66122 documentation ?
+
+In any case, the patch makes sense to me:
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
