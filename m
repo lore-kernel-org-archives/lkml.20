@@ -1,245 +1,331 @@
-Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011068.outbound.protection.outlook.com [52.101.52.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19BE45C70B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044312; cv=none; b=ck+/NFqSFY5ut50bP3JDCt+YNl6ftbK7YUKjqMJVZCXC3WUE9czHmCUhg0+DgqEFO31ze6SXEMl3+FLWB1DOPc+YCOS3iYeD75wjAHP80ipasNwyOjF/9QXgdUZsGXYGGIDAYKU17f+DXc2Qf6gKUzDAWW4YYbbT2LJ8Laof62w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044312; c=relaxed/simple;
-	bh=2UKZZEqwm+PGOqM3elFIPAy+Pfwujs+x/P/q927mlmc=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=rnjlbRRO7c+bgy+Qf6VdTiaV2RlmbKinqsW5OAd92pEkDyJDpPzL+S6//9pyRCdGjdwAbcxEZtl09plxjz3KzmegMxTwpnrm8leJZ9Z37oENL96Frv8zm2ZlJTBUPKyaGpq5r7ME/J9WnO8WxXqA4vvzHEPVtHZZL5ViCLBIBWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VXkTfzLa; arc=none smtp.client-ip=91.218.175.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C55469850;
+	Thu, 15 Oct 2026 06:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792044319; cv=fail; b=bi4z6GbuZLBYSgm2hedRh4mUu57fm1hVBV+zVwW17uVGyGDFBMw0DrA2tXENo6gNmm51wj0QlTeQcNfdOA6Yg2Jwdd7LVh2P3L9r1tyH54mWVdTwaVFsDGbGycIdByKtM7qGoKoMs4x0xHCPf/ETrVQVlD8bw/cIeeEwh/CR8y4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792044319; c=relaxed/simple;
+	bh=CnjPj9UsU6lqp7uBC643qUycCsSzd1ai8DA53VJ866g=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IO/k/O7Py/E1dvlGvEmyzyFrDTY7duUfOJ1wXEfgfF2GHLvhNk3T7msLCtyvFFru5DpwxmL6dCsFOHQoLeUCJf3ylPaxu0cm4J/6ZEMIV8w4NqNeafpDCMOYBoByNwloDnei7lvjpfdUSkA3IV4aa0ugvzWlyZV8D/QHM/QCpKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dyTV3aWo; arc=fail smtp.client-ip=52.101.52.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VXkTfzLa"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2UKZZEqwm+PGOqM3elFIPAy+Pfwujs+x/P/q927mlmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792044305; v=1; x=1792649105;
- b=VXkTfzLa3mZ5Y+36GumixpOIzQ2j+eGQc6z+YJs5cKaL9CL5N4Dpx78TI2LukFTdjncdeVce
- 2AINNXpRvTt6Tg0sgwa3nqTrsW7sfArBcjkqxlTmu+SwKIcopTWsjp94gLeozaee2wz1RdYsjaQ
- GKRwa0B/Ibw3L4UIcz9KVzs8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2c47d87e372fc303;
-	Thu, 15 Oct 2026 06:05:04 +0000
-X-Mizu-Trace-ID: 2c47d87e372fc303
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dyTV3aWo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xXkOGZvAjsbdo7wUfrC3AaTC07FifdakD1HH3aP4YNEkReVi7T/m6e1e+Sxmu15kGRcYXAXW6pEXiXO7eyOBlI320tKGc9WHBKzYEqsmk5CwGd3I0ufsrAb2+X5Y6TGjR3uvK99QbmZLjV3qPs/QHHIvJzGQTmcr54nDpthOImdUPBLpd6sA8u2bbrNdTLspR7vKKHd0sEtBCcf691mkiLwM1bYmAKkU81ly6vXE79Ql6BGDxzpY3F6JgjMvmxsCz81EfRiY1Bev+qeqUmWc5M40UK1TM0jm2ffcWeH0uuozj3X5jf5XpGg8dU3bFGnWCIodpni8OltmxxbKKfC8Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=emmwFZ0FN06tMHV27qd2qjR0FFJXpcTcxRmWZEqri7k=;
+ b=ERkuESIaqkyvsQW1sTBAD4ILpHmIhincJklger0Onvzhq2IroMbrDC5BoF0ZaVIM66i3cwwGPShmDQ6RLVyjyhG0ecz7vTxZkCK+LejsBrsXMd6jaT+gxBD8QMPm2omIlrRlBfdVdz4YzQa4InOoNZdUyjYbRztlnOvoM9nDxBiN5m+UXaiwSeS/h2i3la0nGIquOKZUd9AP+EviXgQ/MRwfjwVtS4IwTsEfm0x7wxl7ZY/xfl+oCKShA03r7XIoDJDyXjguNCNIEGLkpQJiMB9V5GdmU1U4ThriHwqoM+5RJbbXc8jPb8C/IqaMja9hJeACDSlWY38iHApW+ZZ3wA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=emmwFZ0FN06tMHV27qd2qjR0FFJXpcTcxRmWZEqri7k=;
+ b=dyTV3aWo3s2mfqHoLcb+jSRhFwHJoGI/WKHM/ZV718eAndF+k6bo1UrkIs2mLEmWCydHYFo+nwnbebH/q72wuvqQ5LgzRtyJ66n4dDP2NUcPCadLXV5tSZYaKqTx+nXOTJK5ZDi68SVrxHdRwqXElZDjavR1m1T4YfplYtRjvYc=
+Received: from DM6PR08CA0049.namprd08.prod.outlook.com (2603:10b6:5:1e0::23)
+ by SN7PR12MB6957.namprd12.prod.outlook.com (2603:10b6:806:263::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 15 Oct
+ 2026 06:05:04 +0000
+Received: from DS8PEPF000000E3.namprd05.prod.outlook.com
+ (2603:10b6:5:1e0:cafe::91) by DM6PR08CA0049.outlook.office365.com
+ (2603:10b6:5:1e0::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 06:05:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS8PEPF000000E3.mail.protection.outlook.com (10.167.23.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 06:05:04 +0000
+Received: from BLR-L-RBANGORI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
+ 2026 01:04:53 -0500
+From: Ravi Bangoria <ravi.bangoria@amd.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	"Jim Mattson" <jmattson@google.com>
+CC: Ravi Bangoria <ravi.bangoria@amd.com>, Jayapal Ashwin Nair
+	<janair@amd.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Ian Rogers <irogers@google.com>, <x86@kernel.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Santosh
+ Shukla" <santosh.shukla@amd.com>, Ananth Narayan <ananth.narayan@amd.com>,
+	Sandipan Das <sandipan.das@amd.com>, Manali Shukla <manali.shukla@amd.com>
+Subject: [PATCH 3/3] perf/amd/ibs: Simplify event state handling with IBS_CAPS_DIS
+Date: Thu, 15 Oct 2026 06:04:30 +0000
+Message-ID: <20261015060430.5877-4-ravi.bangoria@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015060430.5877-1-ravi.bangoria@amd.com>
+References: <20261015060430.5877-1-ravi.bangoria@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 06:05:04 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: dongsheng.yang@linux.dev
-Message-ID: <66ade47f4080e47ab82bad177f69ef1e1627b2be@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] dm-pcache: do not advance dirty_tail after backing flush
- failure
-To: "=?utf-8?B?6YOt546y5YW0?=" <guolingxing@tju.edu.cn>
-Cc: cengku@gmail.com, dm-devel@lists.linux.dev, mpatocka@redhat.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <AIAAVACtLN6RcesfKovGLKrx.2.1792044142752.Hmail.2017202219@tju.edu.cn>
-References: <20261014031150.3913245-1-guolingxing@tju.edu.cn>
- <fba60fb2a8c7261c54ca866bc235c1553cacc6a5@linux.dev>
- <AIAAVACtLN6RcesfKovGLKrx.2.1792044142752.Hmail.2017202219@tju.edu.cn>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS8PEPF000000E3:EE_|SN7PR12MB6957:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2059b49e-17bb-4db6-197e-08df2a824186
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|82310400026|11063799006|56012099006|18002099003|22082099003|10067099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	l3B3VZf05PQ3eIJc8XuqFhEwXRXhrDUcEZgLnNXexgiibHYYwu/IB14gUM2dcWmoiOFz9/ClQ/zrBZ1mnxZKQNTi9+ZrGMIkWl3YXnibbsMScRg6AAIx138XtqatgsrUfoPUHpx6PAvROe67XDFFGI0MCNd88rO9b/lxPU5glki8EpcRoQx50hzpBsAPidbQnhMlYj2dWUGb++Cpw8Cep20nMsOiFlvELmhQVTRIH2EWL67Dy6ncciPkeemDzXTm3hoYB4wBL7IJ1/xjxAZ4Fp1Y6jAW2zGOQFnGw4hGLapPR4+z/Xkh+M0/IqlUFl9X80cQnJDLAMbiXcAHsKD61T8TBr47fk128/Qk4WJ9JORNqjcQSf37/k5efcU7GUnXTI+9nM9eLmNQRPKh5pUR4q/Aa20Pp6SchNUmy1/1DPM4Kc4O88NJrE/oVRslreH42bOyWTAoeog92s9DoETvqyfDVh4rlgM7W/tWunF9We3tfPb869LBZVRqSqzc152fLH/UzBKyaTxMr8KgHd+g4OaTFMSuCAMR7lFjkpQ5/EJ6wQZuWVSCmhcJEGpilweQ8ydgzjxSZNeCFaifqhceXVpVTZvdSR7FJep0RRzKDCgdZHhEsJ86d7TKnKVcK4IHvFkHCLXiGIkElV3PzksyktGlyUOG11pqnLzybx+QFXo=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(82310400026)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pYmIPxxxpAzpPi86b5+t43z1mCE5hCs+2NIt5uS6n5fCEn0Jdq/H2AM5YF+ptvlGct0CWkfaNesEJutZNoyzZ3uz2Iwb/EOINKWbp86CkNqWv0QGZeX8JYM4E4p5ba00fi/nd7j184HRVDmFhPxxTO7MZLFMuB3+/DXVPTA91dOc1se8mZDSRpwjdecJ6yfT+b7sBi3/5b4qJy4vRRQVsJDZ8qgzh5Y320EJL6LqKird+CVc1Cym1wP5ARuWT3nr61/H4nW7LGfr/r+y/lhe8SxAfORIvPzr4o4LWRsBGMD5ptr9mBf+TWqNT8jGumXshkatB7l2Qx4D4SacGChodeN9RWJmEOqPC8pJic+J/jYh5tCJOEU3GXmv4xl5yqT4DyQ1GuL9iS836EKBWCXlPorNs5yR4m8/x3jQFiR2In7+cv6TTAA27gMhTHzcMdtC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 06:05:04.2916
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2059b49e-17bb-4db6-197e-08df2a824186
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS8PEPF000000E3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6957
 
-Thanks for the explanation and the link. That addresses my question
-about JBD2.
+The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped without
+a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
+require the IBS_STARTED and IBS_STOPPED states used to coordinate control
+MSR updates with late NMIs.
 
-Reviewed-by: Dongsheng Yang <dongsheng.yang@linux.dev>
+Add a separate stop path for these systems. Preserve Val while disabling
+the event so that a delayed NMI can be identified and consumed, and wait
+briefly for such an NMI before restarting the event.
 
+Leave the existing handling unchanged on systems without IBS_CAPS_DIS.
 
+Reported-by: Jim Mattson <jmattson@google.com>
+Closes: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
+Fixes: efa5700ec0da ("perf/amd/ibs: Support IBS_{FETCH|OP}_CTL2[Dis] to eliminate RMW race")
+Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
+---
+ arch/x86/events/amd/ibs.c | 145 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 122 insertions(+), 23 deletions(-)
 
-2026=E5=B9=B410=E6=9C=8815=E6=97=A5 14:02, "=E9=83=AD=E7=8E=B2=E5=85=B4" =
-<guolingxing@tju.edu.cn mailto:guolingxing@tju.edu.cn?to=3D%22%E9%83%AD%E=
-7%8E%B2%E5%85%B4%22%20%3Cguolingxing%40tju.edu.cn%3E > =E5=86=99=E5=88=B0=
-:
+diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
+index 3cb46c775eaa..f49f30f53399 100644
+--- a/arch/x86/events/amd/ibs.c
++++ b/arch/x86/events/amd/ibs.c
+@@ -28,6 +28,7 @@ static u32 ibs_caps;
+ #include <linux/hardirq.h>
+ 
+ #include <asm/nmi.h>
++#include <asm/delay.h>
+ #include <asm/amd/ibs.h>
+ 
+ /* attr.config2 */
+@@ -73,7 +74,12 @@ static u32 ibs_caps;
+  *
+  * XXX: we could probably be using !atomic bitops for all this.
+  */
+-
++/*
++ * NOTE: IBS_CAPS_DIS eliminates the RMW race on the IBS_{FETCH|OP}_CTL, making
++ * IBS_STARTED and IBS_STOPPED states unnecessary. We use only IBS_ENABLED and
++ * IBS_STOPPING states when IBS_CAPS_DIS is present. Semantics of IBS_STOPPING
++ * changes a bit as well.
++ */
+ enum ibs_states {
+ 	IBS_ENABLED	= 0,
+ 	IBS_STARTED	= 1,
+@@ -557,7 +563,9 @@ static void perf_ibs_start(struct perf_event *event, int flags)
+ 	struct hw_perf_event *hwc = &event->hw;
+ 	struct perf_ibs *perf_ibs = container_of(event->pmu, struct perf_ibs, pmu);
+ 	struct cpu_perf_ibs *pcpu = this_cpu_ptr(perf_ibs->pcpu);
++	unsigned int delay = 50;
+ 	u64 period, config = 0;
++	u64 ctl;
+ 
+ 	if (WARN_ON_ONCE(!(hwc->state & PERF_HES_STOPPED)))
+ 		return;
+@@ -575,23 +583,87 @@ static void perf_ibs_start(struct perf_event *event, int flags)
+ 	}
+ 	config |= period >> 4;
+ 
+-	/*
+-	 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
+-	 * Doing so prevents a race condition in which an NMI due to other
+-	 * source might accidentally activate the event before we enable
+-	 * it ourselves.
+-	 */
+-	perf_ibs_disable_event(perf_ibs, hwc, 0);
++	if (ibs_caps & IBS_CAPS_DIS) {
++		/*
++		 *      IBS HW                     SW
++		 *
++		 *  o Capture sample       o ->stop()
++		 *  o Set VAL bit            CTL2[Dis] = 1
++		 *  o Raise NMI --.        o ...
++		 *                 \       o ->start()
++		 *                  \        wrmsr(IBS_{FETCH|OP}_CTL, new value);
++		 *                   \       (wrmsr clears the VAL bit)
++		 *                    `--> o Receives delayed NMI
++		 *                           (Unknown NMI since VAL bit is cleared)
++		 *
++		 * Handle this with induced delay.
++		 */
++		rdmsrq(hwc->config_base, ctl);
++		while ((ctl & perf_ibs->valid_mask) && delay--) {
++			udelay(1);
++			rdmsrq(hwc->config_base, ctl);
++		}
++	} else {
++		/*
++		 * Reset the IBS_{FETCH|OP}_CTL MSR before updating pcpu->state.
++		 * Doing so prevents a race condition in which an NMI due to
++		 * other source might accidentally activate the event before we
++		 * enable it ourselves.
++		 */
++		perf_ibs_disable_event(perf_ibs, hwc, 0);
++		/*
++		 * Set STARTED before enabling the hardware, such that a
++		 * subsequent NMI must observe it.
++		 */
++		set_bit(IBS_STARTED,    pcpu->state);
++		clear_bit(IBS_STOPPING, pcpu->state);
++	}
++	perf_ibs_enable_event(perf_ibs, hwc, config);
++
++	perf_event_update_userpage(event);
++}
++
++/* ->stop() for platforms with additional CTL2[Dis] bit. */
++static void perf_ibs_stop_dis(struct perf_event *event, int flags)
++{
++	struct hw_perf_event *hwc = &event->hw;
++	struct perf_ibs *perf_ibs = container_of(event->pmu, struct perf_ibs, pmu);
++	struct cpu_perf_ibs *pcpu = this_cpu_ptr(perf_ibs->pcpu);
++	u64 config;
++	u64 ctl2;
++
++	WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
++
++	set_bit(IBS_STOPPING, pcpu->state);
++
++	rdmsrq(hwc->extra_reg.reg, ctl2);
++	if (ctl2 & perf_ibs->disable_mask)
++		goto reset_state;
++
++	wrmsrq(hwc->extra_reg.reg, perf_ibs->disable_mask);
++
++	WARN_ON_ONCE(hwc->state & PERF_HES_STOPPED);
++	hwc->state |= PERF_HES_STOPPED;
++
++	if (hwc->state & PERF_HES_UPTODATE)
++		goto reset_state;
++
++	rdmsrq(hwc->config_base, config);
++
++	config &= ~perf_ibs->valid_mask;
+ 
+ 	/*
+-	 * Set STARTED before enabling the hardware, such that a subsequent NMI
+-	 * must observe it.
++	 * Clear the Val bit otherwise ->start() will unnecessarily
++	 * wait for 50us.
+ 	 */
+-	set_bit(IBS_STARTED,    pcpu->state);
+-	clear_bit(IBS_STOPPING, pcpu->state);
+-	perf_ibs_enable_event(perf_ibs, hwc, config);
++	if (in_nmi())
++		wrmsrq(hwc->config_base, config);
+ 
+-	perf_event_update_userpage(event);
++	perf_ibs_event_update(perf_ibs, event, &config);
++	hwc->state |= PERF_HES_UPTODATE;
++
++reset_state:
++	clear_bit(IBS_STOPPING, pcpu->state);
+ }
+ 
+ static void perf_ibs_stop(struct perf_event *event, int flags)
+@@ -602,6 +674,9 @@ static void perf_ibs_stop(struct perf_event *event, int flags)
+ 	u64 config;
+ 	int stopping;
+ 
++	if (ibs_caps & IBS_CAPS_DIS)
++		return perf_ibs_stop_dis(event, flags);
++
+ 	if (test_and_set_bit(IBS_STOPPING, pcpu->state))
+ 		return;
+ 
+@@ -1419,19 +1494,43 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_ibs, struct pt_regs *iregs)
+ 	unsigned int msr;
+ 	u64 *buf, *config, period, new_config = 0;
+ 	int br_target_idx = -1;
++	u64 ctl2, ctl;
+ 
+-	if (!test_bit(IBS_STARTED, pcpu->state)) {
+-fail:
++	if (ibs_caps & IBS_CAPS_DIS) {
+ 		/*
+-		 * Catch spurious interrupts after stopping IBS: After
+-		 * disabling IBS there could be still incoming NMIs
+-		 * with samples that even have the valid bit cleared.
+-		 * Mark all this NMIs as handled.
++		 * ->stop() {
++		 *     set_bit(IBS_STOPPING);
++		 *                               <-- NMI (race 1)
++		 *     CTL2[Dis]=1;
++		 *     ...                       <-- NMI (race 2)
++		 * }
+ 		 */
+-		if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
+-			return 1;
++		rdmsrq(perf_ibs->msr2, ctl2);
++		if (test_bit(IBS_STOPPING, pcpu->state) /* race 1 */ ||
++		    (ctl2 & perf_ibs->disable_mask) /* race 2 */) {
++			rdmsrq(perf_ibs->msr, ctl);
++			if (ctl & perf_ibs->valid_mask) {
++				ctl &= ~(perf_ibs->enable_mask |
++					 perf_ibs->valid_mask);
++				wrmsrq(perf_ibs->msr, ctl);
++				return 1;
++			}
++			return 0;
++		}
++	} else {
++		if (!test_bit(IBS_STARTED, pcpu->state)) {
++fail:
++			/*
++			 * Catch spurious interrupts after stopping IBS: After
++			 * disabling IBS there could be still incoming NMIs
++			 * with samples that even have the valid bit cleared.
++			 * Mark all this NMIs as handled.
++			 */
++			if (test_and_clear_bit(IBS_STOPPED, pcpu->state))
++				return 1;
+ 
+-		return 0;
++			return 0;
++		}
+ 	}
+ 
+ 	if (WARN_ON_ONCE(!event))
+-- 
+2.55.0
 
-
->=20
->=20Hi,
->=20
->=20Thanks for reviewing the fix.
->=20
->=20Yes, JBD2 has a similar error-handling gap. I submitted a patch for t=
-hat exact issue earlier, and it has already received a Reviewed-by from t=
-he maintainer:
->=20
->=20https://lore.kernel.org/all/20261012114713.4049391-1-guolingxing@tju.=
-edu.cn/
->=20
->=20The subsequent journal superblock write uses REQ_FUA, but that does n=
-ot guarantee that the preceding checkpoint writes are durable, particular=
-ly when the journal is on a separate device.
->=20
->=20It was while working on the JBD2 fix that I checked other blkdev_issu=
-e_flush() call sites and found similar omissions in dm-pcache and ext4. T=
-his dm-pcache patch came out of that investigation.
->=20
->=20Thanks,
-> lingxing
->=20
->=20=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9Adongsheng.yang@linux.dev
-> =E5=8F=91=E9=80=81=E6=97=A5=E6=9C=9F=EF=BC=9A2026-10-15 13:51:23
-> =E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9Aguolingxing <guolingxing@tju.edu.cn=
->,Zheng Gu <cengku@gmail.com>,dm-devel@lists.linux.dev
-> =E6=8A=84=E9=80=81=E4=BA=BA=EF=BC=9AMikulas Patocka <mpatocka@redhat.co=
-m>,linux-kernel@vger.kernel.org,guolingxing <guolingxing@tju.edu.cn>,stab=
-le@vger.kernel.org
-> =E4=B8=BB=E9=A2=98=EF=BC=9ARe: [PATCH] dm-pcache: do not advance dirty_=
-tail after backing flush failure
->=20
->=20>=20
->=20> Hi lingxing,
-> > Thanks for the fix. Keeping dirty_tail unchanged when the backing-dev=
-ice
-> > flush fails looks correct to me.
-> >=20
->=20> One related question: jbd2_cleanup_journal_tail() also ignores the =
-return
-> > value of blkdev_issue_flush() before calling __jbd2_update_log_tail()=
-.
-> > Do you know whether JBD2 has another mechanism that makes this safe, =
-or
-> > whether it has a similar error-handling gap?
-> >=20
->=20> This does not invalidate the dm-pcache fix, but understanding the
-> > difference would be useful.
-> >=20
->=20> 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 11:11, "guolingxing" <guolingxi=
-ng@tju.edu.cn mailto:guolingxing@tju.edu.cn?to=3D%22guolingxing%22%20%3Cg=
-uolingxing%40tju.edu.cn%3E > =E5=86=99=E5=88=B0:
-> >=20
->=20> >=20
->=20> > After all writeback bios for a kset complete, writeback_ctx_end()
-> > > flushes the backing device and then advances the persistent dirty_t=
-ail.
-> > > However, backing_dev_flush() discards the error returned by
-> > > blkdev_issue_flush(), so dirty_tail is advanced even when the writt=
-en
-> > > data is not known to be durable.
-> > >=20
->=20> > dirty_tail points to the first kset that still requires writeback=
-.
-> > > Advancing it causes recovery to treat the preceding kset as clean a=
-nd
-> > > allows its cache copy to eventually be reclaimed by garbage collect=
-ion.
-> > > If the backing device flush failed, a subsequent power failure may
-> > > therefore result in data loss.
-> > >=20
->=20> > Make backing_dev_flush() return the flush status and handle a flu=
-sh
-> > > failure like a writeback I/O failure. Leave dirty_tail unchanged so
-> > > that the same kset will be retried.
-> > >=20
->=20> > Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in d=
-evice-mapper")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-> > > ---
-> > >  drivers/md/dm-pcache/backing_dev.c | 4 ++--
-> > >  drivers/md/dm-pcache/backing_dev.h | 2 +-
-> > >  drivers/md/dm-pcache/cache_writeback.c | 28 +++++++++++++++++++---=
-----
-> > >  3 files changed, 24 insertions(+), 10 deletions(-)
-> > >=20
->=20> > diff --git a/drivers/md/dm-pcache/backing_dev.c b/drivers/md/dm-p=
-cache/backing_dev.c
-> > > index 7165fc0364bb..0c15bb01068e 100644
-> > > --- a/drivers/md/dm-pcache/backing_dev.c
-> > > +++ b/drivers/md/dm-pcache/backing_dev.c
-> > > @@ -336,9 +336,9 @@ struct pcache_backing_dev_req *backing_dev_req_=
-create(struct pcache_backing_dev
-> > >  return backing_req;
-> > >  }
-> > >=20=20
->=20> > -void backing_dev_flush(struct pcache_backing_dev *backing_dev)
-> > > +int backing_dev_flush(struct pcache_backing_dev *backing_dev)
-> > >  {
-> > > - blkdev_issue_flush(backing_dev->dm_dev->bdev);
-> > > + return blkdev_issue_flush(backing_dev->dm_dev->bdev);
-> > >  }
-> > >=20=20
->=20> >  int pcache_backing_init(void)
-> > > diff --git a/drivers/md/dm-pcache/backing_dev.h b/drivers/md/dm-pca=
-che/backing_dev.h
-> > > index b371cba483b9..8422e5e76e29 100644
-> > > --- a/drivers/md/dm-pcache/backing_dev.h
-> > > +++ b/drivers/md/dm-pcache/backing_dev.h
-> > > @@ -120,7 +120,7 @@ struct pcache_backing_dev_req *backing_dev_req_=
-alloc(struct pcache_backing_dev *
-> > >  struct pcache_backing_dev_req_opts *opts);
-> > >  void backing_dev_req_init(struct pcache_backing_dev_req *backing_r=
-eq,
-> > >  struct pcache_backing_dev_req_opts *opts);
-> > > -void backing_dev_flush(struct pcache_backing_dev *backing_dev);
-> > > +int backing_dev_flush(struct pcache_backing_dev *backing_dev);
-> > >=20=20
->=20> >  int pcache_backing_init(void);
-> > >  void pcache_backing_exit(void);
-> > > diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm=
--pcache/cache_writeback.c
-> > > index c8a4c8110a58..e09560f172dd 100644
-> > > --- a/drivers/md/dm-pcache/cache_writeback.c
-> > > +++ b/drivers/md/dm-pcache/cache_writeback.c
-> > > @@ -18,12 +18,18 @@ static void writeback_ctx_end(struct pcache_cac=
-he *cache, int ret)
-> > >  return;
-> > >=20=20
->=20> >  if (!cache->writeback_ctx.ret) {
-> > > - backing_dev_flush(cache->backing_dev);
-> > > -
-> > > - mutex_lock(&cache->dirty_tail_lock);
-> > > - cache_pos_advance(&cache->dirty_tail, cache->writeback_ctx.advanc=
-e);
-> > > - cache_encode_dirty_tail(cache);
-> > > - mutex_unlock(&cache->dirty_tail_lock);
-> > > + ret =3D backing_dev_flush(cache->backing_dev);
-> > > + if (ret) {
-> > > + pcache_dev_err(CACHE_TO_PCACHE(cache),
-> > > + "failed to flush backing device: %d", ret);
-> > > + cache->writeback_ctx.ret =3D ret;
-> > > + } else {
-> > > + mutex_lock(&cache->dirty_tail_lock);
-> > > + cache_pos_advance(&cache->dirty_tail,
-> > > + cache->writeback_ctx.advance);
-> > > + cache_encode_dirty_tail(cache);
-> > > + mutex_unlock(&cache->dirty_tail_lock);
-> > > + }
-> > >  }
-> > >  queue_delayed_work(cache_get_wq(cache), &cache->writeback_work, 0)=
-;
-> > >  }
-> > > @@ -76,8 +82,16 @@ static inline bool is_cache_clean(struct pcache_=
-cache *cache, struct pcache_cach
-> > >=20=20
->=20> >  void cache_writeback_exit(struct pcache_cache *cache)
-> > >  {
-> > > + int ret;
-> > > +
-> > >  cancel_delayed_work_sync(&cache->writeback_work);
-> > > - backing_dev_flush(cache->backing_dev);
-> > > +
-> > > + ret =3D backing_dev_flush(cache->backing_dev);
-> > > + if (ret)
-> > > + pcache_dev_err(CACHE_TO_PCACHE(cache),
-> > > + "failed to flush backing device during exit: %d",
-> > > + ret);
-> > > +
-> > >  cache_tree_exit(&cache->writeback_key_tree);
-> > >  }
-> > >=20=20
->=20> > --=20
->=20> > 2.34.1
-> > >
-> >
->
