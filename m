@@ -1,63 +1,65 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A2350B42F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C32050AC30;
 	Thu, 15 Oct 2026 09:54:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058092; cv=none; b=OhIDslMhzDYAFvkPSW5kUk6128eNAB/kiq9oKMIijwa7bIc8ziuF4WKFtkdAsxRITwlFtHgEJTgLWZiIWeO6nrxtsas5fV8oSR1EMUu8HmuUNFjOaSaNjOzyaMfA0abIXvPDfYzUy5cXcH3K8HsK1YB++WYltqXh4tXYQZZs7UQ=
+	t=1792058092; cv=none; b=T9hl/4nFbixBX2LssHfW9w2UAKZYCgjhjB1aYD4LHk2TOOGoyICmvrHs1XaXw81q3ihG1aDKhCjD1Xg9vn1HKTIOAwTmpph/W9/PR+X0wmyeFvcfSbLHffhp+hExOlliYFnX8C/vngbk4Mkyxjla/cULmr7XcFWgi5YdLWIY1wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792058092; c=relaxed/simple;
-	bh=XIWfeBNbb5OZlKDo53fkgEABBDT/VgVTqvYShxZ3ySk=;
+	bh=x6/aeCyQgZwjy6fxaw2+9HJypG4J3n8yM7Dp7SL3cEo=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=i/OqLy6TDdSXwYacs/JMaguUfwtibvxPc2Bsw3v0Sn1t+sSWLLex5sUht0/mCip+3E8nhKRHl+LhOAz38bhk+teyFXYmvZz8uAOOYwnBHKjZvy4Sxc+O6SHyQqfq7FY8L8FYYo0gn6PhwOPiQptXok+wIwfzWHOdC7mP0IeDNkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=I39IfSoP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=7qR4DmUn; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=pI5oY7uwX/4+vDDHZg139gfZKVy4uISA8Alo2DEooEAKHfNhWpNkjnq0BSBptBcnZklQNM7M2AowwaJ76nOLlUEl6iH+znjlZTohaf3BuAr1DxNLZiEm21PTvbzy8LB5boKnD1AjA149TKQ5k3ILoH6J2K1UnTKnxu8cnqyJjyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MKsGIrgE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lyuXILNX; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="I39IfSoP";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7qR4DmUn"
-Date: Thu, 15 Oct 2026 09:54:47 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MKsGIrgE";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lyuXILNX"
+Date: Thu, 15 Oct 2026 09:54:44 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792058089;
+	s=2020; t=1792058086;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xTEugNyEmUhy8oq2Q1q9JaRQgUTV37P4QcmvrLxk3Zc=;
-	b=I39IfSoPyUD0VHly6WKvlnwGBfezJ6swyaIhmxmsG3V1pFjM8hJk+c/D57gHZislDJnxbx
-	b5k+Wz018KPfRVw25pelaf1OQYnFadxOFYfvOsGs4P4rdaWqHwQlh3mgLe9+a/NEXhBEgP
-	uTQ/r8cxwowoAtsaxRjPhVPJGyThY3Yr7XoBIVV2Od+dHAIglV2ad5nlCVP+b1tAIDH2oV
-	mGqkUSeWrXgNT9B407UmQmw+Do7UsCUYCjEvMVD2vcncM2ywZh07ffB3e1Sh2+8n4co6dB
-	K4NgPKwiF77/l6gzKx0FzxCIvWLhx8oEsO8t3CbTUlkVkUaWkNKz2Nrhkexo1Q==
+	bh=3FXOaNfRqEGUaluPVGp/2LrFxmMlslGTBmj4nLWk+eU=;
+	b=MKsGIrgE9hCQHFoUmz263iuL5f4YbQq/I7bwTR7QPj5O3PmxDhKg6yU1fWxL6pQ5TDsYQe
+	LsOC+T4vW+c+Ypqo+6U9Sa4oUVqgnp/GLRVfMIr9WC+RP3MbykAWBOhFvVf85ec4NITwiX
+	5hzzdq/AJ5AqTuYTj0hNKKe1fMsJo2iszX0eXd2nhKOBkEwC+UgD3/XCTRrxv0zJQaoHus
+	VC5e6TJcaxMZnoUOeDXdzOINhsUaY6orE/bjKHSFnpltDdv7AHv8k5xB4Cp00ayy4J6C5m
+	nk7sphw/otN/8aC/uy0/3NclF3P7LO6Ka/cRXY/7kbsH7kgOEljIiIhuJkUNww==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792058089;
+	s=2020e; t=1792058086;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xTEugNyEmUhy8oq2Q1q9JaRQgUTV37P4QcmvrLxk3Zc=;
-	b=7qR4DmUnA8QKKYqUkzuwr0PM/d7Yf9WQ/aq3eOvnoPnhZed+sqWizpeojafaMfGGyKY+xd
-	RLYRyalyM3a51pCg==
-From: "tip-bot2 for Pengpeng Hou" <tip-bot2@linutronix.de>
+	bh=3FXOaNfRqEGUaluPVGp/2LrFxmMlslGTBmj4nLWk+eU=;
+	b=lyuXILNX9k9GSjGYpSjVMv2f7YDv5qel3CynEHJucYh5HdP8WpLnwyAfQFUEPUuLlYbYDk
+	aFY9q84IUNCgbiBw==
+From: "tip-bot2 for Anirudha Sarangi" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/sifive-plic: Avoid signed shift in
- interrupt enable mask
-Cc: Pengpeng Hou <hppiscas@163.com>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <caplitmus-rv.v2.plic.87a8fc444de44e109889ba28703c76f3@163.com>
-References: <caplitmus-rv.v2.plic.87a8fc444de44e109889ba28703c76f3@163.com>
+Subject: [tip: irq/drivers] dt-bindings: interrupt-controller: Add Xilinx
+ Versal NET SMMU CSR
+Cc: Anirudha Sarangi <anirudha.sarangi@amd.com>,
+ Tushar Nimkar <tushar.nimkar@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+ Conor Dooley <conor.dooley@microchip.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd.com>
+References: <20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205808757.2666988.6656456554670191586.tip-bot2@tip-bot2>
+Message-ID: <179205808439.2666988.1610246184739026452.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,48 +69,122 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/drivers branch of tip:
 
-Commit-ID:     0f214e5bbee59d5952d3c061fd65ed9a1e175981
-Gitweb:        https://git.kernel.org/tip/0f214e5bbee59d5952d3c061fd65ed9a1e1=
-75981
-Author:        Pengpeng Hou <hppiscas@163.com>
-AuthorDate:    Sun, 20 Sep 2026 21:06:53 +08:00
+Commit-ID:     ffc1ebaef0c7e62b355a94e88cb8b63a79eec5d5
+Gitweb:        https://git.kernel.org/tip/ffc1ebaef0c7e62b355a94e88cb8b63a79e=
+ec5d5
+Author:        Anirudha Sarangi <anirudha.sarangi@amd.com>
+AuthorDate:    Wed, 23 Sep 2026 12:46:31 +05:30
 Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 15 Oct 2026 11:50:47 +02:00
+CommitterDate: Thu, 15 Oct 2026 11:50:48 +02:00
 
-irqchip/sifive-plic: Avoid signed shift in interrupt enable mask
+dt-bindings: interrupt-controller: Add Xilinx Versal NET SMMU CSR
 
-__plic_toggle() builds a 32-bit interrupt enable mask using a signed
-integer literal. A valid interrupt selecting bit 31 evaluates 1 << 31,
-which shifts a signed int into its sign bit.
+Add a device tree binding schema for the Xilinx Versal NET SMMU CSR
+(Control and Status Register) interrupt controller.
 
-Use BIT(), matching the equivalent mask construction in plic_irq_eoi().
-The resulting mask remains representable in u32 on both RV32 and RV64.
+The SMMU CSR block acts as a vendor-specific interrupt controller
+in front of the ARM SMMUv3, providing registers to enable and clear
+standard SMMU interrupts such as EVENTQ, CMDQ_SYNC, GERROR and PRIQ.
+Interrupts must be acknowledged in this block before being forwarded
+to the parent interrupt controller (e.g. GIC).
 
-The issue was found by our static-analysis tool.
-
-Fixes: 8237f8bc4f6e ("irqchip: add a SiFive PLIC driver")
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+Co-developed-by: Tushar Nimkar <tushar.nimkar@amd.com>
+Signed-off-by: Anirudha Sarangi <anirudha.sarangi@amd.com>
+Signed-off-by: Tushar Nimkar <tushar.nimkar@amd.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: gpt 5
-Link: https://patch.msgid.link/caplitmus-rv.v2.plic.87a8fc444de44e109889ba287=
-03c76f3@163.com
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Link: https://patch.msgid.link/20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd=
+.com
 ---
- drivers/irqchip/irq-sifive-plic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-=
+csr.yaml | 75 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
++++++++-
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controller/xl=
+nx,versal-net-smmu-csr.yaml
 
-diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifive-p=
-lic.c
-index 70a7478..4156493 100644
---- a/drivers/irqchip/irq-sifive-plic.c
-+++ b/drivers/irqchip/irq-sifive-plic.c
-@@ -108,7 +108,7 @@ static int plic_irq_set_type(struct irq_data *d, unsigned=
- int type);
- static void __plic_toggle(struct plic_handler *handler, int hwirq, int enabl=
-e)
- {
- 	u32 __iomem *base =3D handler->enable_base;
--	u32 hwirq_mask =3D 1 << (hwirq % 32);
-+	u32 hwirq_mask =3D BIT(hwirq % 32);
- 	int group =3D hwirq / 32;
- 	u32 value;
-=20
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/xlnx,vers=
+al-net-smmu-csr.yaml b/Documentation/devicetree/bindings/interrupt-controller=
+/xlnx,versal-net-smmu-csr.yaml
+new file mode 100644
+index 0000000..38b63e5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-=
+smmu-csr.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/interrupt-controller/xlnx,versal-net-smmu=
+-csr.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx Versal NET SMMU CSR Interrupt Controller
++
++maintainers:
++  - Anirudha Sarangi <anirudha.sarangi@amd.com>
++  - Tushar Nimkar <tushar.nimkar@amd.com>
++
++description: |
++  The Versal NET platform includes a Xilinx-specific SMMU CSR (Control and
++  Status Register) block that acts as an intermediate interrupt controller
++  for ARM SMMUv3.
++
++  The block provides registers to enable, disable and clear the
++  standard SMMUv3 interrupt sources (EVENTQ, CMDQ_SYNC, GERROR and PRIQ)
++  before forwarding them to the parent interrupt controller,
++  typically a GIC.
++
++  The controller receives one parent interrupt and demultiplexes CSR
++  status bits into the following child interrupt identifiers
++    0 - EVENTQ
++    1 - CMDQ_SYNC
++    2 - GERROR (GLOBAL)
++    3 - PRIQ
++
++allOf:
++  - $ref: /schemas/interrupt-controller.yaml#
++
++properties:
++  compatible:
++    const: xlnx,versal-net-smmu-csr
++
++  reg:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  "#interrupt-cells":
++    const: 1
++    description: |
++     Single cell containing the child interrupt identifier
++      0 - EVENTQ
++      1 - CMDQ_SYNC
++      2 - GERROR (GLOBAL)
++      3 - PRIQ
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupt-controller
++  - "#interrupt-cells"
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    interrupt-controller@eca10000 {
++        compatible =3D "xlnx,versal-net-smmu-csr";
++        reg =3D <0xeca10000 0x1000>;
++        interrupt-controller;
++        #interrupt-cells =3D <1>;
++        interrupt-parent =3D <&gic>;
++        interrupts =3D <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
++    };
