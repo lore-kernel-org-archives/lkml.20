@@ -1,123 +1,82 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77541374E5B;
-	Thu, 15 Oct 2026 08:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DAC3DAADA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053740; cv=none; b=Lh4WKaLDA9A3DlNWZ+20xx3jMg+u550wkrfv41gcjV2NpDKRqGJeEddZak9Rp3x4MX4RKpS9yW/F0MVXKZfShVH6EHr8iC5RilcE3HZIn7fMwaCzOqPv58l5az6yJrSDaYhqqeJ4/whbvZ+iR8d+Mv/3gTGfiRvG+chXVoTRVNk=
+	t=1792053746; cv=none; b=fMRjLKJvU8ix3mDmlKsDqw6MCx8iGOWCiN1MeOPGqzFd9E2aGyI57yOJ99RuPzj0vkF9J7rCjcpGdWfNz3SvN6Q5ZxYIScl78YU+c7F2pZ4Uayf89jSsgo8foBOUdT8Sodz06IHd+kvwZk4AA2sn+53RYl2mfFro2KYlp/vWKTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053740; c=relaxed/simple;
-	bh=9GBPsf2TYrF1WKkd14vDla3aDWEmCnmg+Xy1qG/ihJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S+z72PwKSkJcwlSqRWr8iZRErop0TI4QpqyAu6J0Tz6nsHovvMLByZpwR3SU9m93ess7KMoWrTIwFL1sEj3iwIjJs2P3tHnsx9emDMhjRCs0Sit8PVSwx6TxBvbch+8RuqiPpZaP3Us4sopMuCLKvLmDQD/OXRD3BT+1VmZzy14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Nee64o6N; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792053746; c=relaxed/simple;
+	bh=3/exXtAS0wTcuZo/jQLMxhfQp9TH0oipgL7Utw4qJqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LMdYUdS/Go+V9b+J6l9HKyauxiderlkVHnFhibg8sjOilAdlfo16THqpJh7tpK+VwtxeUd7qTyuQWVxBfyuPsBaKvHJ2GUxW2iB3iEp0zC9PH/gRXgSMdljVrSoNGip29IuIg3rNAN/s8xyTFZrGz8rx2mI1owrm/OYoja0/w1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmT/vhXP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Nee64o6N"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 691432F;
-	Thu, 15 Oct 2026 01:42:15 -0700 (PDT)
-Received: from [10.57.88.29] (unknown [10.57.88.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3608B3F871;
-	Thu, 15 Oct 2026 01:42:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792053738; bh=9GBPsf2TYrF1WKkd14vDla3aDWEmCnmg+Xy1qG/ihJQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Nee64o6NbJ/uOFSeeVA7kSe5s+Rslj3Fawt0GxsjC3aYuRDql59/I3ZOhep54Upvm
-	 AkbejZrCHgOTPbMcTNaIWnSIRCH1dDdAblo9mQoAK0b27atXdJqwulE0e4L9EpxlDx
-	 ymWwg/89SaKjaVGpQEtBR/UqYc6Vq6yrZMINtXlM=
-Message-ID: <0d05f4b5-b7f3-4fb5-b5cb-8b4d75ab78b3@arm.com>
-Date: Thu, 15 Oct 2026 09:42:12 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmT/vhXP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1558F1F000C4;
+	Thu, 15 Oct 2026 08:42:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792053744;
+	bh=3T+BBYG9njKm84IFi+JsC2GV6JdjgiVsPr6ozUNOJ5I=;
+	h=From:To:Cc:Subject:Date;
+	b=FmT/vhXPIM4BkJdjoZ3nFFJNW/Gki9HL86MTaMeiu496SaTyn2OHTSB9mp4tmUAaa
+	 /8yANjuaRZiAmXRrWUhwy++zaQuXm2GIXH5vK8bMXRTHqsvkX4+1+LZGxcBh3Y2DfR
+	 P9hIjkob44kZu7oGrepfQlIwFFSst7gg9lJNHhGtzCnEOUh3xL/ub5LE7I8x1ceHlq
+	 FSnG+cz8kQibfEeqpWXZFgqpj8N0oMH7a0D/AS3Hf57z2tGvypoWIsYu2pJyATwLoW
+	 Hiha86xyEQfwqaxHRSKvp3IMeg9PFgkX0yw0kLhisyFuk8csstQ+VBgRZcomKrV0Tw
+	 tZxW6Otv5ooMg==
+From: Michael Walle <mwalle@kernel.org>
+To: Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] mtd: spi-nor: sfdp: fix missing kernel-doc
+Date: Thu, 15 Oct 2026 10:42:14 +0200
+Message-ID: <20261015084219.887963-1-mwalle@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: cppc: Enable boost by default when supported
-To: Pengjie Zhang <zhangpengjie2@huawei.com>, rafael@kernel.org,
- viresh.kumar@linaro.org, Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: linuxarm@huawei.com, zhanjie9@hisilicon.com, prime.zeng@hisilicon.com,
- wanghuiqiang@huawei.com, xuwei5@huawei.com, zhenglifeng1@huawei.com,
- yubowen8@huawei.com, pierre.gondois@arm.com, sumitg@nvidia.com,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, mojunjun4@huawei.com
-References: <20261015015812.867988-1-zhangpengjie2@huawei.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261015015812.867988-1-zhangpengjie2@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 02:58, Pengjie Zhang wrote:
-> The CPPC driver leaves boost disabled by default, even when Highest
+Commit 69d9d7dabbeb ("mtd: spi-nor: move spi_nor_post_bfpt_fixups() into
+sfdp") added the kernel-doc but missed one description for bfpt. Fix it.
 
-"even"? That's the only case where disabling it even means something?
+While at it, also add documentation for the return value.
 
-> Performance exceeds Nominal Performance. Userspace must explicitly
-> enable boost before governors can use the full advertised performance
-> range.
-> 
-> For user convenience, enable boost by default when at least one possible
-> CPU reports support. Check the performance capabilities before registering
-> the driver so that the cpufreq core enables boost for each policy that
-> supports it.
-> 
-> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610040802.yD5XKM5i-lkp@intel.com/
+Fixes: 69d9d7dabbeb ("mtd: spi-nor: move spi_nor_post_bfpt_fixups() into sfdp")
+Signed-off-by: Michael Walle <mwalle@kernel.org>
+---
+ drivers/mtd/spi-nor/sfdp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I often wonder if we should keep boost altogether, the power and
-thermal envelope on silicon nowadays is complex enough for this to have
-little meaning, it in no way guarantees no throttling or that you receive
-the requested performance.
-The (silicon-aware) user can always individually set the ceilings s.t.
-it 'works' for their platform/workload/environment combination via
-scaling_max_freq.
-
-Since commit 54e74df5d76d
-was also introduced by Huawei I'd be curious about the usage there,
-AFAICS having a platform with NOMINAL_PERF != HIGHEST_PERF is just
-additional headache on linux for now?
-
-> ---
->  drivers/cpufreq/cppc_cpufreq.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-> index 80893844353c..0a4255a36f60 100644
-> --- a/drivers/cpufreq/cppc_cpufreq.c
-> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> @@ -1052,6 +1052,25 @@ static struct cpufreq_driver cppc_cpufreq_driver = {
->  	.name = "cppc_cpufreq",
->  };
->  
-> +static void __init cppc_cpufreq_default_boost_init(void)
-> +{
-> +	struct cppc_perf_caps caps;
-> +	bool enable = false;
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu) {
-> +		if (cppc_get_perf_caps(cpu, &caps))
-> +			continue;
-> +
-> +		if (caps.highest_perf > caps.nominal_perf) {
-> +			enable = true;
-> +			break;
-> +		}
-> +	}
-> +
-> +	cppc_cpufreq_driver.boost_enabled = enable;
-> +}
-> +
->  static int __init cppc_cpufreq_init(void)
->  {
->  	int ret;
-> @@ -1061,6 +1080,7 @@ static int __init cppc_cpufreq_init(void)
->  
->  	cppc_freq_invariance_init();
->  	populate_efficiency_class();
-> +	cppc_cpufreq_default_boost_init();
->  
->  	ret = cpufreq_register_driver(&cppc_cpufreq_driver);
->  	if (ret)
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index beb0f5c66212..818c7d4d69d4 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -403,9 +403,12 @@ static void spi_nor_regions_sort_erase_types(struct spi_nor_erase_map *map)
+  * @nor:	pointer to a 'struct spi_nor'
+  * @bfpt_header:	pointer to the 'struct sfdp_parameter_header' describing
+  *			the Basic Flash Parameter Table length and version
++ * @bfpt:	pointer to the 'struct sfdp_bfpt' to be fixed up
+  *
+  * Used to tweak various flash parameters when information provided by the SFDP
+  * tables are wrong.
++ *
++ * Return: 0 on success, -errno otherwise.
+  */
+ static int spi_nor_post_bfpt_fixups(struct spi_nor *nor,
+ 				    const struct sfdp_parameter_header *bfpt_header,
+-- 
+2.47.3
 
