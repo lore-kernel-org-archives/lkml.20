@@ -1,121 +1,215 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C43D518144
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2937A3A9612
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066557; cv=none; b=odw4gkpMtXcUe0ZE6fYnBsFg9HIktIuV30U8WCIUFZ6+jWMZOLNmcxKxUT2uUZgGaYzeuLHN3dhVDmucUExFSj3zM5n+OjtKRHUjRkNQfHCymc/7gopI0tWj20U65JdstSabvHPNGgPrj79YyUe+Jf1vBYwGrLxiAuNLHuqzygc=
+	t=1792066568; cv=none; b=SZ4j6Uw9AvNID4mcbezfiHpqrpd/AXfFr4EcMo84yfoxsyUr/j9YFq35G4lf46y/XNyTx53D63GF66Lqlhp+atd395/CbYf9Xqsm6HXCllmY5bsJrShI5n5P29SxyI6hRprh2Y+cAzocPkJ4gjgqZTxBNzR0bfrxpXH8IML9nfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066557; c=relaxed/simple;
-	bh=6oVcdzmMK85KNvYQY8vkwxZflX80T2BxPJ9HHlrFwhA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KOpaugMkqhW/HMMy/w+4kVzdNoRjHbeDqzoY/kBjy3dA3wJCkIYBq1atT3fq06mc7H9AQAkSu5SlwKIMMnFcIvmkqG4q2XvzvMtwsZ0SI1V+7+jOT9u2MezEf8sauAFEiWXUByoomNQHLQHNlPLxGixzXiToyUReghx3tYVh7Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C0fqI17P; arc=none smtp.client-ip=209.85.214.181
+	s=arc-20240116; t=1792066568; c=relaxed/simple;
+	bh=+Xw7XvPFFLa+61sXaRz3NyxnoeK2ADfUg+o7UpVqF3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=duNE0etCx5eNE3GL8ryo1Efcx7SXONEWKhZhyl+wlsyfk9Yvzw6014gpAKia6Kzk7L8osPnbBZxmHknN2ziITTlNVbFtaOUw7PuGTcNc2a5TA/zNL8lzcjVwsKi2FbN1jKcC2wwPrdIfflmP2vEzidB7H9SMGT6Ca4xR9Ct/QjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cQZYUp+B; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C0fqI17P"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2db710396ffso39012325ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:15:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cQZYUp+B"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499dd4900dfso5920575e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:16:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792066556; x=1792671356; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SN6vSgMsnnJYN+HFBZesKCHrB6GOW3IUndONKHtHc6k=;
-        b=C0fqI17PEw1Nreamv0VY+6rVmQEuJzI37WV1dX3mXFIjW+S0m3TzXpOIvfDRnT8dGO
-         l2cQW2aw5UXXFgENemBpyuydEvLCSI1j1FICSLl4sCltMeZD/uT7PshszGJAp8C8WJvw
-         mhy5xXnxrqt0kk12jz4Kt2dRhp6vznneJZ+y3aTxOyHKo4+E6eqwrxm4j7i2F8vwQRu2
-         Bsd7IGX73slQCjXN4kkujBJhWNOW1QOsWesx3ukgIZ5SLa2WIg6na3otSxAz5Fv1OD2Y
-         A9u41B6Pq6xXJZDt4Ha1Pj3nqw9gtrqYCf0XkbMGK1QgJqb2RpwlYoVOu3iBtyaI0s44
-         XzAw==
+        d=gmail.com; s=20251104; t=1792066565; x=1792671365; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V0H43nxYDJzvxsp3b2BgYqePwAV4z2ggg9D2f8rMBoQ=;
+        b=cQZYUp+Bdkqr9fRTFgCsVJuVKhdBUvLmcg9fFdxlWPLmAcYO5jj+ZtPCIYq1zkTr9g
+         0Aiw01PpcgQgbm4908KG5IcrCd7i1/hgtRLShiEYi8YGvB0g+gZ5JUR5velIrmKXIKEY
+         /Ehw7VJCzhemKjTU2kTbqk1BdJxsv2U3ubIuwLAlIb81PJIB5hQuZ2pCQMcFaebEW4Cs
+         tR6lnLIrXU60SB0fKJxBLJdz8i5GmpW+vk1dEUF03Qev1Y2sTQY5YX3xsew7PkPCYKrn
+         IosQbzHs1aeGjCduWeVN2YomhdTJiBlFQ9sMubCJTufOKQP580VpCNxwzgvTWA4WsBQN
+         BC6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792066556; x=1792671356;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SN6vSgMsnnJYN+HFBZesKCHrB6GOW3IUndONKHtHc6k=;
-        b=2n785ueHYtKwjfjE8gvgyRLHCzPTrOg0rxTlajZbgSI2PYpgGBSmbQhoLOh/pUrFBZ
-         T5ISga53W1mqAS2Ovosgsx8HyZ+mH/VqfP4GJWH4ko2RKmloKBa3WnSESsxqKa5TlgD7
-         tZMu5G7IlmWlt7JgHu+0jtuQ/5KOC1aZAbswW3nqd1BMfUQ1p+OLr2cS026imbVsPAVA
-         mZVZSMRny4ieNfeaTY3rbAR8ldqpiYGDuatUejaASCWkrPY5Pw3qU7Q5Kf52MGfnSyjw
-         oD27YjDdHrKNrUUd9z3uhC2V5TjD2740CZBIbGj6C97vHR1mRuBW+hpM+GLGPvU/3axc
-         A1Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzd7Tjf/yeXE6DCBO/JmBmqtykNqH8cUdes/7D2Je4rKtMPjT6aXvVqfq6F+eeGtE7KZWeegGOW3Dq4Axs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPzIZVpKVvBe/UlG6vOQA8dcaSYhtEm1p9PiRfqkAFM2EKDJYJ
-	wiuOLJFxmtEKU5xFJm4SY07WW8iceZhFCKvsaTJccmsr6mpss5K7ZzQK
-X-Gm-Gg: AYBFou2N7W4GoSbaNDduxx+I9YnAW9LbF3GsikF3wSM1n6SipCt6x2FIGzlc7cl8M0U
-	vjvpKPV1jv6piQ0nUIw1FmOQH4pvS9UFMQ13SXWNkRBuA3csz2ubsawY/zpeG/XXq/Ad8VvvPWb
-	31Yzr1UTl90aocb6MkoEgmsOx5+atnptLKEse5KnUc54OB6EEsfR7RyS/hvahA6yCMCR3VbQpFA
-	85vjgVPX4j38ZaBfTvai9SDP4gqKftEcnxXMbGpJYf2GSboamgw6bl66QvKNwXZVYQ1H55Bgwwe
-	1bXBW4LmBQPN/jP4pdAfj+y7YklqPVPOq9ufqrxt/cT88k9yhs6SsuAKWq5EvWNspI/xZ5ZSWDK
-	m/5tUz0De6hzXH0Kdp7kMMCyRK+aFtGU3RNYhRkmZXBCZ8V19mzFpc9SIkBcTx8jSkpoFA4q5Nj
-	OVJrxHbOUGRidanw2gndr/9Nbg5qY+81S3NLpPS/eUHPUOK9B1dbIsZMmiXyu4SqZoNMnZ/wCa8
-	t1/1o/FZtN2MHBguKyIxIZ6nVvYrk7PeRj0HexpZn3H5hb2Q1pV5f2G53WjJqEmagp8h7VOj89T
-	seL4l5IBrCAz513ZUNfjmt7Q38qXxoE9OMv+lZ9R0yQVnea8G7klHw==
-X-Received: by 2002:a17:90b:5825:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3ac9ed8f5eemr1065524a91.30.1792066555611;
-        Thu, 15 Oct 2026 05:15:55 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9437aa5fsm4273307a91.3.2026.10.15.05.15.52
+        d=1e100.net; s=20260707; t=1792066565; x=1792671365;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V0H43nxYDJzvxsp3b2BgYqePwAV4z2ggg9D2f8rMBoQ=;
+        b=pXgXIiMG4dFmEKFbENNR7O6G0+Zt5FbG/JWbKPrrrV8nVy8fA/7kV/jEHWM756Mum3
+         2tFnC/D8S0oj9C5fFv1OqEQ0vKcdGA8znNvdquHEcpsKxnZygJgtuUKFGw5wSKZgrPi5
+         D9KQ0dzCtz58LvAo2fhMdd7nCp9jdd2fx1kbMCfPxNJu1Jeh9/aS0CChGTll3g+F5Ulh
+         R0BjzWMZWNFthkTP+aWERLl/E5yM3G5EsTOQt0FguyDWUe8LZPe/ozF2V5fvp7b2rKh8
+         jAEeK24xNzSJHeCR4budKA4hVaRDEW866ETbDwbfPLrIM4Nqof9NGM0a71ZDXtIjKHTz
+         cFEA==
+X-Forwarded-Encrypted: i=1; AKwUvBynuPkK1SSAX+0YSmPD4YYtzUfTvxszMszL19u23sL+IMvnxw2xUdcQvkjts50Fb3keGHH5RGasHDFvJ7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEWNwc8cWEIzlKxMbm4Pr/4n3xvB0Y5PxiSKbEocd8RwIAahzu
+	v3lw+z0E/ZCBKM/TBSKmIqMJCJhxJJkWvySVAdccFh7DY1j372jReCcM
+X-Gm-Gg: AYBFou0RDoZ6VpT6X4pkJvOwJV2Io8/R4dgA0365ezzSZsmJ77zYM7Zyd1qMaEF8JiM
+	1tj+RBgmjRQ6NzLCekFC+osziv43G4fuamU+btXI6RZEsvqGQryAYpXucvvksLoU8UM8/BswaMP
+	eaOdqky6BjuIkFJoQyTU9DuEHXhROl1eJtcs4UeAeJYx5wISypVNO9dI1p5RkZjxMz3G1cB8sCA
+	SdEdnJi24bFCKUsn5gIcIAaRHzzz49xeIXfkBPU+1qkHnP1EK8i4qD7zPMzNX+E5NLflmh2xust
+	3/NdJRf8SdKuTk2HwH6Mz90qrZ+61Pv3Xb8rM7PDg2lWga/OG9xVbvvvQUVktlLXPDMRD5AjmFo
+	+h956O19mX/48yLgHlXjme1PF9wiUw02Uu9smr9pm8zwtW6URCFQh4SQMb/FWH0zLmcYEymmabR
+	M0chuMF6dRdr64bp9R+jAfSu08RGiNFFWicrj5rNpUeHc8MwqQsMkW5F+plrEyqYYrxRMtwHWrg
+	Oh1NliCqIXrJU1AsPgZ
+X-Received: by 2002:a05:600c:1912:b0:4a0:73b:a222 with SMTP id 5b1f17b1804b1-4a18e3ee97dmr324453885e9.0.1792066565159;
+        Thu, 15 Oct 2026 05:16:05 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd99febesm77642535e9.15.2026.10.15.05.16.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 05:15:54 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	E Shattow <e@freeshell.de>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Thu, 15 Oct 2026 20:15:49 +0800
-Message-ID: <20261015121549.3809199-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015074621-GKN26088@kernel.org>
-References: <20261012235624.77993-1-alan.tseng.cs@gmail.com> <20261012235624.77993-3-alan.tseng.cs@gmail.com> <20261015074621-GKN26088@kernel.org>
+        Thu, 15 Oct 2026 05:16:04 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:16:02 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Christian Loehle <christian.loehle@arm.com>
+Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
+	Ingo Molnar <mingo@redhat.com>, Balbir Singh <bsingharora@gmail.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Valentin Schneider <vschneid@redhat.com>, 
+	Josh Snyder <joshs@netflix.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHv2] sched: Account I/O waits independently of delayed
+ dequeue
+Message-ID: <atC76vtYA12_jTar@lima-kdev.local>
+References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
+ <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
+ <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
+ <20261015025912.1541134-1-zhanxusheng@xiaomi.com>
+ <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
+ <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
 
-Hi Yixun,
+On Thu, Oct 15, 2026 at 12:37:54PM +0100, Christian Loehle wrote:
+Normally I wouldn't add these. But I changed my setup. It adds
+these itself. Not a big fan of changes but this is way more easier...
 
-Thanks for the review.
+> ---
+>  include/linux/sched.h |  2 ++
+>  kernel/sched/core.c   | 33 ++++++++++++++++++++-------------
+>  kernel/sched/sched.h  |  5 -----
+>  3 files changed, 22 insertions(+), 18 deletions(-)
+> 
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index d35ae49a991f..d558816cc05a 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -880,6 +880,8 @@ struct task_struct {
+>  	 */
+>  	int				recent_used_cpu;
+>  	int				wake_cpu;
+> +	/* CPU charged while is_blocked && in_iowait. */
+> +	int				iowait_cpu;
+>  
+>  	int				prio;
+>  	int				static_prio;
 
-On Thu, Oct 15, 2026 at 07:46:21AM +0000, Yixun Lan wrote:
-> > &i2c8 {
-> > +	bootph-pre-ram;
-> We could move this to dtsi file, since all board share
-> same design which use i2c8 for connecting to pmic, the
-> reward would be that we no longer need to carry this
-> property all over board dts file.. similar we could do
-> for "i2c2", but I noticed k1-orangepi-rv2/r2s have no
-> eeprom enabled..
+I wondered if the charge could follow the task while it changes CPUs,
+but I think that it would break down more easily than this.
 
-Agreed, v2 will tag i2c8 in k1.dtsi. I'll keep i2c2 in the board
-files, as the OrangePi RV2 and R2S have no EEPROM.
+Still, there could be a better approach but right now, I can't find
+any. Maybe there's a section that we could reuse? But IDK.
 
-> > 			buck1 {
-> > +				bootph-pre-ram;
-> U-Boot also carry "regulator-name" for this node, we
-> probably could also merge it here, but could do it in
-> another patch if want to limit this patch to "pre-ram"
-> change only
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 1fe40de6ebe3..85eba26f00d6 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
+>   *
+>   * p->is_blocked <- { 0, 1 }:
+>   *
+> - *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
+> + *   is set by try_to_block_task() and cleared by unblock_task() and tracks
+>   *   if the task is blocked. Traditionally this would mirror p->on_rq, however
+>   *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
+>   *
+> @@ -3737,12 +3737,22 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
+>  		__schedstat_inc(p->stats.nr_wakeups_sync);
+>  }
+>  
+> +static inline void unblock_task(struct task_struct *p)
+> +{
+> +	if (p->is_blocked && p->in_iowait) {
+> +		delayacct_blkio_end(p);
+> +		atomic_dec(&cpu_rq(p->iowait_cpu)->nr_iowait);
+> +	}
+> +
+> +	p->is_blocked = 0;
+> +}
+> +
+>  /*
+>   * Mark the task runnable.
+>   */
+>  static inline void ttwu_do_wakeup(struct task_struct *p)
+>  {
+> -	p->is_blocked = 0;
+> +	unblock_task(p);
+>  	WRITE_ONCE(p->__state, TASK_RUNNING);
+>  	trace_sched_wakeup(p);
+>  }
+> @@ -3839,10 +3849,6 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p, int wake_flags,
+>  		en_flags |= ENQUEUE_RQ_SELECTED;
+>  	if (wake_flags & WF_MIGRATED)
+>  		en_flags |= ENQUEUE_MIGRATED;
+> -	else if (p->in_iowait) {
+> -		delayacct_blkio_end(p);
+> -		atomic_dec(&task_rq(p)->nr_iowait);
+> -	}
+>  
+>  	activate_task(rq, p, en_flags);
+>  	wakeup_preempt(rq, p, wake_flags);
+> @@ -4415,11 +4421,6 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+>  
+>  		cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
+>  		if (task_cpu(p) != cpu) {
+> -			if (p->in_iowait) {
+> -				delayacct_blkio_end(p);
+> -				atomic_dec(&task_rq(p)->nr_iowait);
+> -			}
+> -
+>  			wake_flags |= WF_MIGRATED;
+>  			psi_ttwu_dequeue(p);
+>  			set_task_cpu(p, cpu);
+> @@ -6762,6 +6763,12 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
+>  
+>  	p->is_blocked = 1;
+>  
+> +	if (p->in_iowait) {
+> +		p->iowait_cpu = cpu_of(rq);
+> +		atomic_inc(&rq->nr_iowait);
+> +		delayacct_blkio_start();
+> +	}
+> +
 
-I'd prefer a separate patch for that, to keep this one about the
-bootph tags. The U-Boot K1 SPL looks the rails up by name ("vdd_core",
-"vdd_1v8", "vdd_1v8_mmc"), so once the names are upstream, U-Boot can
-drop the overrides in its -u-boot.dtsi files.
+So now we increase this nr_iowait on try_to_block_task(), and decrease it on unblock_task().
 
-Thanks,
-Hung-Chun
+Also, there's a wrong comment about this in here:
+
+ /*
+  * This task is about to go to sleep on IO. Increment rq->nr_iowait so 
+  * that process accounting knows that this is a task in IO wait state.
+  */
+ long __sched io_schedule_timeout(long timeout)
+ {
+ 	int token;
+ 	long ret;
+ 
+ 	token = io_schedule_prepare();
+ 	ret = schedule_timeout(timeout);
+ 	io_schedule_finish(token);
+ 
+ 	return ret;
+ }
+
+This doesn't even touch nr_iowait, so this is stale.
+Maybe remove this comment or just correct this while in this?
+
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
