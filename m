@@ -1,82 +1,82 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58BE525A66
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B645352759D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068086; cv=none; b=oIu7Z8w9RHsso8GKHeT+nwOiI/cmgRjUG8uOeg4LdAWlPyE4blu6V/+2jDiBFelofKXqNVfD1/ijZaUpWysSz7D89dknkRDynh8F4MSrk+rVVjQxbyFCta7+pgSkB+AtgQNB9hvNR9XKMytmrjgx+7dZ8GKdfOQ0jgbuxtZIJ9A=
+	t=1792068090; cv=none; b=pAv+u6FhMYASalR0UUJG4NU3zAkDLgJKh2c981CMLYLNSpoHcc3b9cvU1AqtQOdd/QW0wReNaH4Qsfc90SYioz3cf0BecLxDzSj5SKQ2U8MrTDfB8Z/8L536nu9hYmF5IjrU/C+F7UQAmItyTXD1GXW9bm+cIQOsy3SZSYDnJec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068086; c=relaxed/simple;
-	bh=Yq8ewY/bypfk6WYMo5O6jE96KUzAFsHbBJPrqOn2/CY=;
+	s=arc-20240116; t=1792068090; c=relaxed/simple;
+	bh=B9H+Ad0yi56qqX3Wrqd3mE/6pQkLakPw4j1ZK3PT0YM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X1UxZ5tenIkfqccljNz2OJ5RFzK+L1TGWpVrzRy5iLRpB00O3BxkkOPLHin8kGJQdXjOPHFZMnFC0P7MW/O8LmvKKqiiTtauEw8tjIGXun8AXc+9sF1iAS5ULclVkL+cFAJRUMfqh1OUJ+DjRywCxHqir5ETockY31umNYqnarA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bwBaeIiO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=j1MfkxqS; arc=none smtp.client-ip=170.10.129.124
+	 Content-Type:Content-Disposition:In-Reply-To; b=t0tQC4lgJJka5Uc27NuorFhbY5HrCrlY3zEKcMMnjdaNSGHi9q6pI373/YPbB2/IrsarMMhcV0UTaLNDjQqcya/XAiuUDTlabph7H5w/qaJLb5Kt2CqjBBALErniS3iNFGLGYw8n8eAl4tVLGSiWJsg6+rFnbXlVdeOFjUIwthg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=atd7Eoj1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AbGvYkZ4; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bwBaeIiO";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="j1MfkxqS"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="atd7Eoj1";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AbGvYkZ4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792068083;
+	s=mimecast20190719; t=1792068087;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NfjAXgzIJDVH07KDf3KR4Ni0NTeFXvYShemAw+4OhqQ=;
-	b=bwBaeIiOxWy+UtTVddvDfhhYdOGixMTBeR11fYF397WrKo1dt9QhB0Cs/X1k4iAR+QUEhK
-	0lIlbCH/Dc0kxI5LX5q0uHMFzWqD6VrDmRQRjhwhnFq23kyE1uf/qJQWX/6WRlhwXCwUcL
-	dhATN9x0pcOdY79ZY4NpiJJsghf+IeM=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=pEV7NzYtQRgE9IRDA9odxEpqlMO8W0BmhwXqYIjgqPM=;
+	b=atd7Eoj1VotY7VRlNhYFkqOO9LK2uU8r1j9U3V+Zxzwr2ETnh6EbfOPbkKY4TMH9Ayi0uL
+	ZSD07x47EM4BQPmVoHOmJ26J3ShrECB1A/AyiCRrFzQndkHrZwtm4MQsyvPHxwhRWIEOaO
+	yDSdhQU7hqyU0agN4vYBBrmzeWKiNlo=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-621-8bTfCLeCN06mXqpYO6KX6g-1; Thu, 15 Oct 2026 12:41:22 +0000
-X-MC-Unique: 8bTfCLeCN06mXqpYO6KX6g-1
-X-Mimecast-MFC-AGG-ID: 8bTfCLeCN06mXqpYO6KX6g_1792068081
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b0a199b20so4330684f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:41:22 -0700 (PDT)
+ us-mta-675-_mhPB82LMtOk8P9-DvcJWA-1; Thu, 15 Oct 2026 12:41:26 +0000
+X-MC-Unique: _mhPB82LMtOk8P9-DvcJWA-1
+X-Mimecast-MFC-AGG-ID: _mhPB82LMtOk8P9-DvcJWA_1792068085
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4887e5afd67so4019372f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:41:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792068081; x=1792672881; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792068085; x=1792672885; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NfjAXgzIJDVH07KDf3KR4Ni0NTeFXvYShemAw+4OhqQ=;
-        b=j1MfkxqSUQ4RWCr+48BD9chXELMZ94fCC9Jykm+Wd7bo/Qs8CwVts08oe0pBPv1N/y
-         yxZu8Mg5p+B26UJuhXSm6AsiiCrchNY2oC3UiX41Asu24LsjwInopl5eoQVHIs/Eav1T
-         /YEAXDXAaDFryZX0qdJ9Os3TdxU5uVL8IRwkjIGOKD2gx65DnFloBPgdQU45zPvwPhOw
-         nt4wEogmBgK2usbNbHeWpxE/sEukka7k9MvrM4FoIEpZXoeXTyU+ZMMRS5vsbopb3/w1
-         C9Y/KZua7A2W0rv2sOeyCvBRmq9NE39UyWQwoq6+tys1E16ASsgyBI9lDZ4JlGwnjUcX
-         ABww==
+        bh=pEV7NzYtQRgE9IRDA9odxEpqlMO8W0BmhwXqYIjgqPM=;
+        b=AbGvYkZ4TxllfD2DAaTPBCOB5VVDgXqZCK6bJvUrFgWuCRB2MtWe2UKeNmJmFaoR3Z
+         GmPytInp9yfZz2pEftYFF3CMZRN+UKCsliNoq9Bt0nIFk0j4HzJiYSNnqRnQzYpxsBdA
+         cvSvqIigwC1gEado1848+6X+LHnbvrUp04+vcZR3b+S8ffYGNuik/vIIvH9hmXwRLTGV
+         aOdIQxPCzjRKvvsYEjbjgZ+Ioi/vpEs0qEwRj7qXNTeyNrlDmawIYMdd1ogvX6s+uYYk
+         5MIKSqvCaSHjy7eq+4wc6SPhRNgppDxdQMAcSvJjlDduG8rzyQiLjBrAm84kPzCJnaJ6
+         Ub6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792068081; x=1792672881;
+        d=1e100.net; s=20260707; t=1792068085; x=1792672885;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NfjAXgzIJDVH07KDf3KR4Ni0NTeFXvYShemAw+4OhqQ=;
-        b=DVqzTrK3MuT6Xn4WqvxQ5PUgik8ynwX1cr3RNgF88m2nJgGbfG6hUDT3uSzzu2nMTj
-         yDMtZBP95fNbqebBrCU/XWCNNiiq+dhw9AIh6jJa1/Au1/uwYClczjK7PGnmbRX908Xm
-         S7FW/RUYak+gpUyqXB4+yGuVFWAfWLDjFNs/1j0MyoVCF2iaq/j1FLpZFuUiqtcYVvaI
-         hE6tgTkPa3VlqxO1jYOzlrS2k4924Kv1ITzPmb2UXj2NfdBU/HHtNJ35Ok4Moo8RawG0
-         P1AUCaDF/nffvj4r94I61tYblgbnTbARTUIQHgoPCc4lvc73pUtS3v4yLFfpE8YIACpr
-         SNig==
-X-Gm-Message-State: AFq9FYJS077XY9Jl6hsj0ecRF5JbonM+wLkTemfB6Xg8zyV6jC4A2/JC
-	Z3uTfS2QafbMggAXPOyN6aKlgWoVz4oE1jIfsGtBlyit1H2mZjawB2pCdGwLTETJBO93Rmxu4Uz
-	3sa9LNaASJYYVmYpiMTcjHLPUypvK5F0wgXlp0IcYWK8sVmGRw4nM5P3DAUgohaYYkW/kgQ4Vm/
-	ijJCCQ83ZaseQvskDxh5YM2ubSJwgIedWTVPGRK1hfxmw=
-X-Gm-Gg: AYBFou2GWL84kcY9t3ZvWhi65ej297Ka4GKviCFOlOojI1F0yyjz8PecFfI+sxYgrIl
-	ymdfZDYoU3kvtOj/f3tnukqLlGLXf5uYM8belrNJ3YxMqNEPlj43iREbRotyx+pmkqw5HHrki2S
-	JlV30Q4cTYFn7AIGgAOBeHklAUqu6kCvQy4IiviViId4CI3+oE/p+TcdFOfLN31b5WX5YIoOQX8
-	FGwAobAZPrjtBgLhT/usEg/vauEH5Hm0MGuXnc4nKJle7dqT5dOQR1k8aHHvlIahk5ocTMkW0BC
-	T9zrbB/b0L+veRTyK8yydXleIn2+qxHrlHtUPeS6NuA6RhpKm+5IuTKTIpJKG/lmxKGUTA==
-X-Received: by 2002:a05:6000:4816:b0:48a:f3c6:7bfa with SMTP id ffacd0b85a97d-48dbace50d8mr38390919f8f.52.1792068080860;
-        Thu, 15 Oct 2026 05:41:20 -0700 (PDT)
-X-Received: by 2002:a05:6000:4816:b0:48a:f3c6:7bfa with SMTP id ffacd0b85a97d-48dbace50d8mr38390842f8f.52.1792068080125;
-        Thu, 15 Oct 2026 05:41:20 -0700 (PDT)
+        bh=pEV7NzYtQRgE9IRDA9odxEpqlMO8W0BmhwXqYIjgqPM=;
+        b=v3CuRBqk/FY9KwpHKZXWtZkoaZxbniOPX4Wt9JxHQxQFEQz/nwBJF3DoIqiRwy0KpV
+         0+U/NueJDCoVQGoPy3c134mhSPEvj8MWqVqNEeARdgQ9ndv/STQBrXY6jwF+kEFz6caJ
+         DLMUW9YJnlbY0nmWgL+2x9+EUuM2Z8JIcbYKo+1sf4m/IaQuu5FV23twSvTINwrD5dLC
+         A7ynMonPbC3OwBMkEDXP9aEWRKvMRZOWO3I+ez8R4Fy5yS90qxxDral4DFerkzWzKw1Z
+         tk2hd9HfcK2ViprBP9Cg6lMpJiAFhTLjxzVlenPZZKR6QZem+Q+uhBHqddSibEKhlqVb
+         dYuw==
+X-Gm-Message-State: AFq9FYKDy0Ix3Jlc6zebNOLCNIMp1h91/r6p7SS4IlradmXdJX1voY2M
+	MCEe+p/DzEqir5ZqgGWFils4GVWZbi4ESsbedck6+3KaKzuNESk3JGRXq4Btv51SU3cPbLQ9afn
+	ZnJigtHQI/aCPuKjowLKiiLcp2PaiI5mmSPRJzHrAtrz3tHUH3r5S91mb4VEJwtnB2mIptFZeXo
+	SDlagGqK5b6WckBTSkYYGYfjJ/7rkApFZY0hr86z7m9uY=
+X-Gm-Gg: AYBFou2+yjC5x2LCOwTKWrCiBwzSGtc5et2Ggw6z2nU/m2HiwOMMy0CQpIpYj2luFIu
+	ygjqOo+advawWr6E1qORuPzVoyt8AtZAJxGdCUW+Eu+M9MvSd5PRMABKFRpA/OvHBWf6WXaUG81
+	CXNinpYk9YVt0E6EWKYeBy14eopumDeyLVnmL3Pyx/SQSmbg5JMJKoWENi7ZyUSN9qzh5LuB9rl
+	vGed9CtVWnzD3TNfuyXqcz4OkS0FI6YI1+MojDQIcvQVfrJTSmSeU/okgqDWkJCLbpPEKLFRf+R
+	7BOsQ/cBBkZvmHcl+czfkMqZeLa2Wof9+I0OJyLQ9SpchGzSsR/UrllAnST7q7TCFD8+OA==
+X-Received: by 2002:a05:6000:1868:b0:48d:db43:9187 with SMTP id ffacd0b85a97d-48dece6d67amr10912260f8f.16.1792068085166;
+        Thu, 15 Oct 2026 05:41:25 -0700 (PDT)
+X-Received: by 2002:a05:6000:1868:b0:48d:db43:9187 with SMTP id ffacd0b85a97d-48dece6d67amr10912175f8f.16.1792068084547;
+        Thu, 15 Oct 2026 05:41:24 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7773d02sm12897491f8f.13.2026.10.15.05.41.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de09693c7sm23198836f8f.4.2026.10.15.05.41.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 05:41:18 -0700 (PDT)
-Date: Thu, 15 Oct 2026 08:41:16 -0400
+        Thu, 15 Oct 2026 05:41:22 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:41:20 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
@@ -90,10 +90,13 @@ Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	netdev@vger.kernel.org, virtualization@lists.linux.dev,
 	Rusty Russell <rusty@rustcorp.com.au>,
 	Max Krasnyansky <maxk@qualcomm.com>,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH net-next v2 1/7] net: account for ingress-resolved virtio net
- hdr state
-Message-ID: <885c413aa895291c0b404e639aa85d1e33353e81.1792067836.git.mst@redhat.com>
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-um@lists.infradead.org
+Subject: [PATCH net-next v2 2/7] um: vector: honor virtio net hdr conversion
+ failures
+Message-ID: <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
 References: <cover.1792067836.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -107,168 +110,34 @@ In-Reply-To: <cover.1792067836.git.mst@redhat.com>
 X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
 X-Mutt-Fcc: =sent
 
-The following patch will add ingress resolution of uncommon virtio net
-hdr checksum metadata (software checksum completion at ingress) which
-adds performance overhead to the packet processing.
+virtio_net_hdr_to_skb() refuses packets whose checksum metadata
+it cannot make sense of, but the vector raw transport ignored
+its return value: rejected packets went on into the stack with
+their metadata unvalidated.
 
-We should make it visible, so a hypothetical workload relying on
-uncommon metadata can be distinguished from none at all. This way issues
-in the parsing will be reported and not quietly pay the host-CPU
-checksum overhead instead of offload.
-
-Flip every call to virtio_net_hdr_to_skb to test for negative errno
-only, and have tun count these events per device as rx_csum_sw, exposed
-via ethtool -S.
+Propagate the failure.
 
 Assisted-by: LLM
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- drivers/net/tap.c        |  4 ++--
- drivers/net/tun.c        | 41 ++++++++++++++++++++++++++++++++++++++--
- drivers/net/virtio_net.c |  2 +-
- net/packet/af_packet.c   |  4 ++--
- 4 files changed, 44 insertions(+), 7 deletions(-)
+ arch/um/drivers/vector_transports.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/tap.c b/drivers/net/tap.c
-index ff67d99deb39..73e883394446 100644
---- a/drivers/net/tap.c
-+++ b/drivers/net/tap.c
-@@ -649,7 +649,7 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/vector_transports.c
+index e1fb2a76fdff..8b7548458663 100644
+--- a/arch/um/drivers/vector_transports.c
++++ b/arch/um/drivers/vector_transports.c
+@@ -210,7 +210,9 @@ static int raw_verify_header(
+ 		return 1;
  
- 	if (vnet_hdr_len) {
- 		err = tun_vnet_hdr_to_skb(q->flags, skb, &vnet_hdr);
--		if (err) {
-+		if (err < 0) {
- 			rcu_read_unlock();
- 			drop_reason = SKB_DROP_REASON_DEV_HDR;
- 			goto err_kfree;
-@@ -1084,7 +1084,7 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
- 
- 	if (vnet_hdr_len) {
- 		err = tun_vnet_hdr_to_skb(q->flags, skb, gso);
--		if (err) {
-+		if (err < 0) {
- 			rcu_read_unlock();
- 			goto err_kfree;
- 		}
-diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-index 242899f7fd07..44d95a8c75a8 100644
---- a/drivers/net/tun.c
-+++ b/drivers/net/tun.c
-@@ -210,6 +210,7 @@ struct tun_struct {
- 	u32 flow_count;
- 	u32 rx_batched;
- 	atomic_long_t rx_frame_errors;
-+	atomic_long_t rx_csum_sw;
- 	struct bpf_prog __rcu *xdp_prog;
- 	struct tun_prog __rcu *steering_prog;
- 	struct tun_prog __rcu *filter_prog;
-@@ -1935,11 +1936,16 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
- 		break;
- 	}
- 
--	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr)) {
-+	err = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, &hdr);
-+	if (err < 0) {
- 		atomic_long_inc(&tun->rx_frame_errors);
- 		err = -EINVAL;
- 		goto free_skb;
- 	}
-+	if (err > 0) {
-+		atomic_long_inc(&tun->rx_csum_sw);
-+		err = 0;
-+	}
- 
- 	if ((tun->flags & TUN_TYPE_MASK) == IFF_TAP)
- 		skb->protocol = eth_type_trans(skb, tun->dev);
-@@ -2605,12 +2611,15 @@ static int tun_xdp_one(struct tun_struct *tun,
- 	tnl_hdr = (struct virtio_net_hdr_v1_hash_tunnel *)gso;
- 	skb->dev = tun->dev;
  	skb_set_network_header(skb, ETH_HLEN);
--	if (tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr)) {
-+	ret = tun_vnet_hdr_tnl_to_skb(tun->flags, features, skb, tnl_hdr);
-+	if (ret < 0) {
- 		atomic_long_inc(&tun->rx_frame_errors);
- 		kfree_skb(skb);
- 		ret = -EINVAL;
- 		goto out;
- 	}
-+	if (ret > 0)
-+		atomic_long_inc(&tun->rx_csum_sw);
- 
- 	skb->protocol = eth_type_trans(skb, tun->dev);
- 	skb_reset_network_header(skb);
-@@ -3739,7 +3748,35 @@ static void tun_get_channels(struct net_device *dev,
- 	channels->max_combined = tun->flags & IFF_MULTI_QUEUE ? MAX_TAP_QUEUES : 1;
+-	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
++	if (virtio_net_hdr_to_skb(skb, vheader,
++			virtio_legacy_is_little_endian()) < 0)
++		return -1;
+ 	return 0;
  }
  
-+#define TUN_STATS_LEN	1
-+static const char tun_ethtool_strings[TUN_STATS_LEN][ETH_GSTRING_LEN] = {
-+	"rx_csum_sw",
-+};
-+
-+static int tun_get_sset_count(struct net_device *dev, int sset)
-+{
-+	return sset == ETH_SS_STATS ? TUN_STATS_LEN : -EOPNOTSUPP;
-+}
-+
-+static void tun_get_strings(struct net_device *dev, u32 stringset, u8 *data)
-+{
-+	if (stringset == ETH_SS_STATS)
-+		memcpy(data, tun_ethtool_strings,
-+		       sizeof(tun_ethtool_strings));
-+}
-+
-+static void tun_get_ethtool_stats(struct net_device *dev,
-+				  struct ethtool_stats *stats, u64 *data)
-+{
-+	struct tun_struct *tun = netdev_priv(dev);
-+
-+	data[0] = (unsigned long)atomic_long_read(&tun->rx_csum_sw);
-+}
-+
- static const struct ethtool_ops tun_ethtool_ops = {
-+	.get_sset_count		= tun_get_sset_count,
-+	.get_strings		= tun_get_strings,
-+	.get_ethtool_stats	= tun_get_ethtool_stats,
- 	.supported_coalesce_params = ETHTOOL_COALESCE_RX_MAX_FRAMES,
- 	.get_drvinfo	= tun_get_drvinfo,
- 	.get_msglevel	= tun_get_msglevel,
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index daab43ac92ce..2e6fd81df9c4 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -2519,7 +2519,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
- 	skb_set_network_header(skb, ETH_HLEN);
- 	if (virtio_net_hdr_tnl_to_skb(skb, &hdr->tnl_hdr, vi->rx_tnl,
- 				      vi->rx_tnl_csum,
--				      virtio_is_little_endian(vi->vdev))) {
-+				      virtio_is_little_endian(vi->vdev)) < 0) {
- 		net_warn_ratelimited("%s: bad gso: type: %x, size: %u, flags %x tunnel %d tnl csum %d\n",
- 				     dev->name, hdr->hdr.gso_type,
- 				     hdr->hdr.gso_size, hdr->hdr.flags,
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 52ae3d875e97..e6aec9ecfa99 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2913,7 +2913,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
- 		}
- 
- 		if (has_vnet_hdr) {
--			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le())) {
-+			if (virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le()) < 0) {
- 				tp_len = -EINVAL;
- 				goto tpacket_error;
- 			}
-@@ -3136,7 +3136,7 @@ static int packet_snd(struct socket *sock, struct msghdr *msg, size_t len)
- 
- 	if (vnet_hdr_sz) {
- 		err = virtio_net_hdr_to_skb(skb, &vnet_hdr, vio_le());
--		if (err)
-+		if (err < 0)
- 			goto out_free;
- 		len += vnet_hdr_sz;
- 	}
 -- 
 MST
 
