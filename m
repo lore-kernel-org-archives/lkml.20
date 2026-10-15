@@ -1,60 +1,34 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A8E3E3C4D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857A53ED04;
+	Thu, 15 Oct 2026 16:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080431; cv=none; b=XIlpnGT8Z7iu59qbC3zYlJFvxAnLriE7o3pKGIMAXKfa/owJ01nATwIINxCFe9LgA4sXow1yRTlAb0SnmVn898PxXNfOWI4JeA6JlJ6q4asD/gv1erDT3erymBKTyER2PaaoiYwfpUBD4Ndg77C8QAei0RkbRuEmgzHMeUS26Fs=
+	t=1792080459; cv=none; b=UP8VhURG3VbHBXk3sKkx5fA0ZzfhcBN18K4sUl8LiKUSuihhUEwoVGwh+PZ1cf7Wt/034apZnVtZUxJ5WSw+xHqEUAKhVLmMiOmFSkc7owaIUWd2aah2C7QvSvrOSaQ73jMo3sOysXPKVZHUP2B9FShGliAPdaAJb4Wg6+XhZpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080431; c=relaxed/simple;
-	bh=SEqczM4pJ+1/ye+hzegRM/+xLr6kSYJntK+gQ1rULx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MqrPYUs29VME3VaUFnZXhMRzbQ6PerAWg4rHfqDFaGRdwfx5fZ8bPli18yxwqx9I9tbYlLM6IIpnsEZjVxGnGXY5v0iGjuSy+rNkNA4zI5U32D3d9O+eYt5bARUuQckt/tpfW9TxEFNW3Kx8A+/AH8ZLqEYllxnrAHczJwg+kVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pXDXqKoJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6S7YERxv; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792080459; c=relaxed/simple;
+	bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZmAxtQ/fsDXv8gmrPwa33E9oqz09bO/ASlWyqD32yG10/lwuP2243h/JP0l0/Di3pmyCClKe4zUIpWTm8eC69EVtmQBso6R4iJA75S/3iP8aZE8fdF87w/0L7WZssZgvXEQslDKTsAtR099+xbm7lOpMiYLMpkr+uhoLjb73cko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9KrD+0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pXDXqKoJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6S7YERxv"
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792080414;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9PQP1mYunQx6NbWcHRvGb9K1lU9br7DqHrvremR2Kg4=;
-	b=pXDXqKoJkNh6yqjLk0NdWGQlhC3dzcbyekJVzMG7unbbGT5m7nA5NEBkUzTFS2IW4CmtuR
-	k1bDsZ/z7Lo06koD9BUOcuHz3xwALk/aKcuOIdX2cJ1JbTpe8QmdQCqpgxHlF+/r92IGa4
-	IsrTN/Pctm4POvFUqkGVpjtWYrr3lQjNdqkaCQLxdddYZSxHz/nAXgIJymERZGKqkPP7+i
-	vEysaVCCBR9vh/q0FcVJIhB3vMq/9gg9zmvaMNXPuZqCf8ftmRcyl+SRlHw978wVAme2Ix
-	Zj++V95JmlYsAOWlqpqhRaNf2r35DNUGPJX4TEbk+dR93Fn8pCuKFGFs7N4J/A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792080414;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9PQP1mYunQx6NbWcHRvGb9K1lU9br7DqHrvremR2Kg4=;
-	b=6S7YERxvIg/xGqIPSWcSGKWGT+RUyKLqVOTZ67EuWQc1Ky+PKpZ/BInXAKHGic+Buvj5y/
-	HVDzTGKbslBjmoDQ==
-To: linux-kernel@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: [PATCH v3 2/2] kallsyms: Don't leak pointers for unresolved symbols
-Date: Thu, 15 Oct 2026 18:06:49 +0200
-Message-ID: <20261015-vsprintf_kallsym-v3-2-c175c27f38b7@linutronix.de>
-In-Reply-To: <20261015-vsprintf_kallsym-v3-0-c175c27f38b7@linutronix.de>
-References: <20261015-vsprintf_kallsym-v3-0-c175c27f38b7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9KrD+0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82751F000C4;
+	Thu, 15 Oct 2026 16:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792080443;
+	bh=CWGMfzP4w3Zs0Y7JyHkmxA4Ab0jJqfsVdlDpuxARv00=;
+	h=From:Subject:Date:To:Cc;
+	b=Q9KrD+0QatR2fO6wXqm1uuSgDXYAHIcUEZ1gLROc6UsF07iyL4xlAvO8d7IKEBeqo
+	 L0U8huXAcNPaswmMqa/GsAqk/R0RP85ebMSNdU53+QgGfw6qR5cfS+5z5hCW5EBIoI
+	 je8vP4WhScOHpnCpssgJLAST+x1VvNuRoc9l4Hr8dD2o+DfAZXOAhhovfRypbfCixh
+	 oTTwiLcBxLNcyelXdvHdbeYwv1Mb+ryUXOm0qjmUB0oUucxCjQj3eSETvLEysMy/xx
+	 L4pJHMi5C/w+B47GFhmhaZQev3xvsg6Ev8ta8OoH3f7UIdAQkSI6wcQosYKiyCr2lR
+	 2xpaPIp8tIs0A==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 00/10] mm: various (urgent?) fixes
+Date: Thu, 15 Oct 2026 18:07:06 +0200
+Message-Id: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,95 +36,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACr60GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0NT3dKi9NS8kvi0zIrUYl1zQ0MjMyNLYxOz1CQloJaColSwBFBHdCy
+ EX1yalJWaXAIyQ6m2FgC8oPgdcAAAAA==
+X-Change-ID: 20261015-urgent_fixes-7112629346eb
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Adam Litke <agl@us.ibm.com>, 
+ Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
+ Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Josef Bacik <josef@toxicpanda.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2238; i=david@kernel.org;
+ h=from:subject:message-id; bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIu/DKUPn5d4HXm1P47+z4f2JMwW3+pwclIvoeCrPYHd
+ aqnsc3731HKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEkjwY/qlb6KbN95oowTDp
+ k3uS6kVTO4H13evfCZiZ33u6yilI4ggjw2NDyYNK4kfD7jnXxL79onjyrfschgRBO/ZI6bsrp6W
+ tYQUA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-__sprint_symbol() is supposed to resolve the passed address to a symbol
-name. If the symbol can not be resolved it will print the actual pointer
-that was passed. The pointer policy is to not reveal actual pointer
-values.
-For post-mortem analysis the pointer in the backtrace shouldn't be
-relevant. In BUG(), WARN() and panic() related backtraces the PC
-register will contain the actual value.
+Hi,
 
-Add snprintf_default_pointer() as a wrapper around default_pointer() and
-use it __sprint_symbol() if the pointer has not been resolved.
+here are various MM fixes. The majority was reported by Josef at
+Anthrophic, the remainder was found while reviewing/overhauling them.
 
-Cc: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Two issues/fixes reported are not included, as we are discussing
+(better) alternatives on the list already.
+
+I left most of the original commit messages as schloppy as they are: I
+don't particularly care as long as the code is in good shape and as long as
+they are not actively wrong. But I (and Mike) could not be stopped from
+overhauling at least some of them.
+
+While I don't think there is anything too critical in here, I think this
+is a good opportunity to see how fast we can get pre-screened/pre-reviewed
+fixes upstream that might be security-related.
+
+The majority are hugetlb + uffd issues, that are not actually that
+relevant for most installations. But all things that should just get
+fixed. Some uffd fixes need proper follow ups to fix some more of the
+root causes of leftover UFFD PTE bits (or proof that there are none
+remaining).
+
+I ran some MM selftests and nothing popped up.
+
+So let's try to get these upstream in a timely fashion.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/sprintf.h |  1 +
- kernel/kallsyms.c       |  3 ++-
- lib/vsprintf.c          | 25 +++++++++++++++++++++++++
- 3 files changed, 28 insertions(+), 1 deletion(-)
+David Hildenbrand (Arm) (4):
+      mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
+      mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
+      mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
+      mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
 
-diff --git a/include/linux/sprintf.h b/include/linux/sprintf.h
-index f06f7b7850911..596c73a57371e 100644
---- a/include/linux/sprintf.h
-+++ b/include/linux/sprintf.h
-@@ -24,6 +24,7 @@ __scanf(2, 0) int vsscanf(const char *, const char *, va_=
-list);
- /* These are for specific cases, do not use without real need */
- extern bool no_hash_pointers;
- void hash_pointers_finalize(bool slub_debug);
-+int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr);
-=20
- /* Used for Rust formatting ('%pA') */
- char *rust_fmt_argument(char *buf, char *end, const void *ptr);
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index aec2f06858afd..5d51c825c1e71 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -483,7 +483,8 @@ static int __sprint_symbol(char *buffer, unsigned long =
-address,
- 	len =3D kallsyms_lookup_buildid(address, &size, &offset, &modname, &build=
-id,
- 				       buffer);
- 	if (!len)
--		return sprintf(buffer, "0x%lx", address - symbol_offset);
-+		return snprintf_default_pointer(buffer, KSYM_SYMBOL_LEN,
-+						(void *)(address - symbol_offset));
-=20
- 	offset -=3D symbol_offset;
-=20
-diff --git a/lib/vsprintf.c b/lib/vsprintf.c
-index a3db25cc1e567..0ed7134ad2f41 100644
---- a/lib/vsprintf.c
-+++ b/lib/vsprintf.c
-@@ -849,6 +849,31 @@ static char *default_pointer(char *buf, char *end, con=
-st void *ptr,
- 	return ptr_to_id(buf, end, ptr, spec);
- }
-=20
-+/**
-+ * snprintf_default_pointer - Format a pointer and place it in a buffer
-+ * @buf: The buffer to place the result into
-+ * @size: The size of the buffer, including the trailing null space
-+ * @ptr: The pointer to format
-+ *
-+ * Formats the passed pointer the same way as the %p modifier. Does not wr=
-ite
-+ * more than len bytes to buf including the NULL terminator.
-+ *
-+ * Returns the number of written bytes.
-+ */
-+int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr)
-+{
-+	struct printf_spec spec =3D {
-+		.base =3D 10,
-+		.precision =3D -1,
-+		.field_width =3D -1,
-+	};
-+	char *endp;
-+
-+	endp =3D default_pointer(buf, buf + len, ptr, spec);
-+	*endp =3D '\0';
-+	return endp - buf;
-+}
-+
- int kptr_restrict __read_mostly;
- EXPORT_SYMBOL_FOR_MODULES(kptr_restrict, "printf_kunit");
-=20
+Josef Bacik (6):
+      mm/vma: don't leak the commit charge on mmap failure
+      mm/hugetlb: fix use-after-free of a new anon folio
+      mm/hugetlb: unmap the page where the other VMA maps it
+      mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
+      mm/hugetlb: fix endless write fault on a leftover uffd bit
+      mm/hugetlb: don't leave a uffd-wp marker when zapping an RWP entry
 
---=20
-2.55.0
+ mm/hugetlb.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++--------------
+ mm/mremap.c  |  2 +-
+ mm/vma.c     | 11 ++++++----
+ 3 files changed, 62 insertions(+), 21 deletions(-)
+
+---
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+
+change-id: 20261015-urgent_fixes-7112629346eb
+
+--
+
+Cheers,
+
+David
 
