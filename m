@@ -1,265 +1,264 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191C03BBFAC;
-	Thu, 15 Oct 2026 14:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075069; cv=fail; b=R1hnjGXC1OEVamfUPqruUVBM69p6bwVoXvmtgnb0O19X1PQt3ovaMpSloLOMOp8uaVDNrhYAtYAQxzTBLth2tcvaF9QtrndAge5Ev29xrQHwK0bIU2B5jVhYYd8IEFSC7x5OnAjxU2wUlcyqLpwI+MzGSlGovlU6m4K8KvvHqSY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075069; c=relaxed/simple;
-	bh=CChz0+LnTbHTnEHpLc2YAtSPEdr0dMbGrFMzV+wUD18=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=tCX+LiqXQAY7cvpUjpGiC773PxK79V4oowp9CfahJDUF0tHRU3cyLKXIrAv2ZQpfsGprgBMSWn6vNMxeuuCNb5bZjCYwsmiulnmnkxyhc9NP0j1bqxTSZcSmBwMIgSlMvuaQE4JJFknGXORNgt63yfUExtvGpsAUvpaNO2Ijydw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HCr9FDl9; arc=fail smtp.client-ip=52.101.57.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A0E3BC68D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075071; cv=none; b=nYv80yTOzdhNgQZYfABAHJDzOZndY/HcL4ryFA2hfetd/ikrWPC1w9/PEKCe07DaDZy07DJouZM4VTRcAEd9gJnzf491wyJLYAY8oQgV82bDI8gg/cSmA/WAXfupaWOIIwv76RUC+kacxuYJsUnPi9Ln4KBm8vV8RgJtddGGND0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075071; c=relaxed/simple;
+	bh=fE7ZEs+HZw7jAzhbN1V6IHtbB/2B+h2P9T7DsacF7zw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g2vB/AbVFhYXdNB/hFrXea3S46JaTsXe0ty1hP2EUWlBZvHKOhr+9mAVe09ktz5lHUtbGNjp9/mPykxVZtYKFgxX2IwZvQOBhRRIqr7ptI+XJfydt3Qy0EQ1xjHJhkPaLW1uZQFQ1/7/BVCZNwcpDrWd3RoGaavBbqNcPx4hkqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZmaCHChh; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HCr9FDl9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gyS4DqjOIn/tefA90xVewdqpOuIk2NKNcSp3DzSyvLHG2MmEr2WzWZ3sq6OA7uf8aRvYU9s27CNFG9sV35d9Q+Bw8dFt2Kn8XmxFpX5BQLZfS8E8yjGYy0sSzCyUs3j1cmAa/1tSUWf0SDAiE/Fd0adyT1QfMxM/30xM1ZTeMOepGr3QEAABSmjFln9pUlubctx6H5JW6PsvAVE6m1miIX09oBWkIIKU//BlLxrTt3zl0SNlVHDiS8tR/mEGgiAs0qp58lLLrN99qeyYfrs1LhpkrRqGZny5mswyrhRke0sHQCMwff6e1Vx+Vd7TCTVgMz++D/cVZMiPonc9NlWYUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e/F5woJq3XGIRQSJiqQTdmB/rgeOYpI12yo7kGOE4wQ=;
- b=pXeFQ1ZgEOAfo7CisNhLkRr8uvztwSOAlZoja9u7pqPgjom6ASE+oGBz4dC0qzSRna8wVrn9z0BWhnUMj+5GDNu1CzUSJJbTQXP8rkCPk444oz46Cxw02pcVju+0hvihOdKDuVpmZ5BS6dfdfd+aR8CKYr2P8ohvDEtvCgEXpA27K/JnbG2hgUcGrxgSiMgg8/v2JbJefCT68Eyijnrk9QFtjtuNcyK3CZJ9Hl6bVATkZ0YLB1YTE5Kp/b7lhSN2yqp4Y3fbz4FLj78HmK8EYkzWrmuBAC2XweparAR4ubUcAwCZc0TSLGYS9h6ekHa/AKZhTyU0zLJuvRQcUz68Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e/F5woJq3XGIRQSJiqQTdmB/rgeOYpI12yo7kGOE4wQ=;
- b=HCr9FDl9BIuQAlQscodFTtUpva7TxBec3xThjCiFiA1Jyti8sQBEWU74E+L7qzkRXH3fcTxCWHscrz1Wekn3Lz22Umi+MGUv0gcmf7aSqy2DFz8c8ABXDpR03JPZVcqKMe9hWupwsosbX+CM/inbLrZvhyb2ZO7WDv4U0PC+7cc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH4PR12MB489481.namprd12.prod.outlook.com (2603:10b6:610:509::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:37:44 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 14:37:44 +0000
-Message-ID: <f47b3c8e-74ce-4aa5-8a64-a4c9ef12a4a5@amd.com>
-Date: Thu, 15 Oct 2026 09:37:40 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v4 0/4] platform/x86/amd: Add AMD DPTCi driver for TDP
- control in devices without vendor-specific controls
-To: Antheas Kapenekakis <lkml@antheas.dev>
-Cc: W_Armin@gmx.de, sashal@kernel.org, Shyam-Sundar.S-k@amd.com,
- derekjohn.clark@gmail.com, denis.benato@linux.dev, i@rong.moe,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260309205125.293148-1-lkml@antheas.dev>
- <42275140-ecef-4878-b256-1061060d4958@amd.com>
- <CAGwozwEmENx98qB51D89h59rb2qw66f_TJENd+W41onb5GYhfw@mail.gmail.com>
- <CAGwozwGD7JNuWz2D0AetacX=H95sB=mz0nnssQHs=pvmsEiKaA@mail.gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <CAGwozwGD7JNuWz2D0AetacX=H95sB=mz0nnssQHs=pvmsEiKaA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR18CA0013.namprd18.prod.outlook.com
- (2603:10b6:610:4f::23) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZmaCHChh"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so177238a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:37:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792075069; x=1792679869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wzlE60HTAGr+gfmDoDFGpsVbnSFEzyvSpQks7NPwYvU=;
+        b=ZmaCHChhTw6wSMSsIMDWySPOV0orVN+x8Y3ukm38V7ekeo9zo3oxXpRpKhYzbLy2Qy
+         fAkszD5PYN730NDb1XiOcniKQPNnhRhjqiOHUWbq52fidvHZbU74eefS6A6dyle7rCZG
+         EZO3eTvo2IwGFH4kv/daU/PdStZC/LIdss0zZEit5Db8AJW1L6EJPVvzHj3Th4P5hAjo
+         6ZHq7HSNElea2ywcwRHsktSnWYxmLciUZEOxsMygEt8J6vagXU5N3S51AvudFlzEl8xx
+         mgAFtYpfCgcDSapirqQS7HbrOU7OL09JGijZnuNlY7w/ufmcVD2eGcV8HEDtJJzVTbwL
+         V34Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075069; x=1792679869;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wzlE60HTAGr+gfmDoDFGpsVbnSFEzyvSpQks7NPwYvU=;
+        b=Kuac/EQNy+49Ie+BCq0tbanwy4/9kmneOQMq2Xl1+2ojKwxPHCd+8KAxo6HCFRNuiQ
+         Tg2xo+/a5772DvJArzk/hn8K3p0F0FChqiOKJc1lGA/0gyFElkgr/VIx65EZSLYHn/ed
+         7alfcCfp0+6TwMtJdcddWw3ExlIp4rhFxgUy0IC7pKj+s7vje6+EHvYA/vDerLRs9gme
+         XuwrlaAgmrpQ87UPcaZXHaIUoFl/DiBK0PWdpmN8ToiPUjf0mQY1/SfGkBo4usoVKtUx
+         MS8WqoQhN7vBEZnDQLCKnUDPleE5CWD2alxZPVs7tkfceEtOB+j4IfbJicQSL/r0TLMQ
+         6yIg==
+X-Forwarded-Encrypted: i=1; AKwUvBweoAcq+v1U1hRbRlqx3Bp0QDjtHqhXc0yo+MxLnNHOM9oNuerw6mVkV4zoHGiigmDYeRrzt1gd4C3+f1s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAQ7mYWQhCQ725uvAsNFBzF/7er/S3w2TExVNQOW4MfhA+3+nD
+	QSttU+K2yCR7g6V8bOCUGQvOb55VAOBp+3kELawiwBU+O4XkFaUxQRhF
+X-Gm-Gg: AYBFou0xAvJAQ6uZUivTN+xDMHYikXft0tVFH/4Ji4fISQNPZ/U+EO9Upnt//q1uhv8
+	FN9LlzlorCL+pdZpAelPJskrHogPfDLqLy23qQFOgSGNTuiwVCsDvlHDFnEXor+u3KhJ9y1bOLU
+	n1URKEgK9wQQwdyC+dRSkqoIt5SMaA+qWv28DKD3F2uH7+nSj6ITanlFHNdGSHYOMiv7ZgrmESN
+	OeK51wOuJyhYwXWavLOvN3psp23TK3u9UVrCm6p8jvdjIGPdtcoIU266xO8ibr7v+o7x0nCI1Oj
+	q6QBtJZOtucEUZ64X8wFtGhpotlyKb0bBsTZ7iMsYBSI+S9bZwJWVFtFT09LxX1CxJxwk1S2FUX
+	9C2kgmp3I1zzlxOuEa4gNk+f0nYTIRKuSBwaTvHG/YEf7D67a95oZ9lUCB7HJULtXGKTZcejU39
+	rPCsD5RDB815BW6nh0Y4nCpY6DL4cfkuxI+Ksq6xNPUFTWnq2ioKr+jFev89lW054q/t+lv36HX
+	vRi/QFmP5E=
+X-Received: by 2002:a17:90b:4acc:b0:3a0:e1f7:9b04 with SMTP id 98e67ed59e1d1-3ab3a60ac9amr17946112a91.12.1792075069046;
+        Thu, 15 Oct 2026 07:37:49 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac936f89d1sm2729799a91.2.2026.10.15.07.37.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:37:48 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Pedro Falcato <pfalcato@suse.de>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Daehyeon Ko <4ncienth@gmail.com>
+Subject: [PATCH] mm: prevent VMA generation reuse from skipping readers
+Date: Thu, 15 Oct 2026 23:37:35 +0900
+Message-ID: <20261015143735.1630957-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH4PR12MB489481:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4905c5c-f73d-4be6-fae8-08df2ac9df26
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|6133799003|8126099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	EFqpLrQ2RqSi3oQX4USOe3w05laB/DtPCtBZxxge4xM2qeI68Mn0dpGT94V4k4VgVVhiNaDAe6w+UMtWmvSj4FHe7jM61s0RBUZLiEtcm8lzB0srBMLtoRqFxZ2fEXJXpEmR8AZNMh8WpAb6ERi1Ck4r0U5p5NR/fy8yMzSzDRy8GUJY541XWQL+Oxp1YPvabD3lKH9ernCiFOvHDRTrJr5MMzLgpefWZ7AeQagS5rMspW8JiXZeMhp/xbR5vf4ccZ/9ZAL18ILIbxCEwu4t9+qM0FscKvz/zgL5O4gtWfz0pJvfKGVLLONJvAQWyU0QFPokY4Y7CBBVeQaC/Z8Od62KheYtP4eDmvNI8xlUSLhg6BxzWzmb66ImKxeY3z4krOeWLfi1FES3IEfT47CcqcqTDJ6bLjX/81iIVuLK9n3oYJXhHoaZtK8Fzz/VyJ6gyOpAL3rquiCGzO8ciSk4NPx7k4j8nlyIGq8V7wJeQvc000h0lSjIsfVo5G24U4kvD4Ahd5HjeTrUDb0KW4gT4rl9ts0263i/DNwIVnIoZ2G8g1fNLNAAnOVXkQ/AR7ueJ6M1F2R3LM7HJy0kQyiH9NpDOBa8zW3Ks4oQhBUOc0TEbAMIzmQAwpm46tcYy/ON
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(8126099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UitJNmc0Q21JZ2g2NnRibHE4WVJmRFNwdUpZQ2owTS93Qk9Uc240M2VyN1VT?=
- =?utf-8?B?OTl0VHFzWFd3VDZqTm5tREhEbHNROTNkZURQVDRRUVM3NmtjUjU4SG5zZGFy?=
- =?utf-8?B?bUhxS2h1RnpRMElqbGp1dnBtZ0wzZFBpRStrOVY2eWVjR0pKeWpRd3gwNFFz?=
- =?utf-8?B?amlIQUozOC9TbWorczJxQTlvUWZZdXZRWjV5ZWhFRXoyN285cnBmTDNYZnNC?=
- =?utf-8?B?RFIwSEhxTFRTMGR6bTN4V0RBQWkvR01LMmdGbVlhNkR1NUFDcEpXM0F3M2ZX?=
- =?utf-8?B?QmZrdVJ2eWNJZ2Y1ZjV5MVhtQXovYjJGU1ZNTkFwWXJXUHFVWnRueCtYbzVK?=
- =?utf-8?B?ZkdodUkrL0Y2dkY3UC9RZncyVDFyZlI3Zzd1L3E5RitpQXpxY3RBVnBac3c5?=
- =?utf-8?B?Vjk4MWJjWUs5MXRrRmhncCtCOHlJdVZSNHIvbEY2blVJRW1LdTB5ZE8rNSt2?=
- =?utf-8?B?czNUNnlBUW40S0V6cC9vb29ZWTZuNmM2VWZvMm5vbmo2NW5pWlRjNlRFWjMy?=
- =?utf-8?B?RkNBZklBYTRrdE5IekU3bE9nemkzSy92NklZSEJ1SlUzSHdObGowOUhVSDhT?=
- =?utf-8?B?Uk4wZG9xcnoxblRCcGJWVmFBekR2SXBpT1BheXRlUlJJZVZlR1llWkhGN04x?=
- =?utf-8?B?NjF6b2dJcGRobkFqUmN0bXg4d1dzbGRxVGZ3bW0zeVM2ZmhHbDRNTmtldnBT?=
- =?utf-8?B?SERmMFphaVIyTUtCQ2VwYzAwekZHMVBkQWYzamI1SVpEMEYwZ2NLc3RPb2M5?=
- =?utf-8?B?dFgvWS9HV0pZNk9YeHBDQmZHSGNRZjZ0T05sMzNqbHdJeTk5amt6K2ZWaUg0?=
- =?utf-8?B?b3BoR3g5S3ErRjVVS3RGR3dTTmRXZ2M3Zk5aVnFYR0NoU2g3WjBVaWcvZ21R?=
- =?utf-8?B?bVZQK3oxa1B3YjhIdW02ZE41dlN4VjdQNU9SbktVeXpzeVNGUjQ4L212Qzht?=
- =?utf-8?B?enJ6amJDK2xUSDN6aUlITklkTEtGd2txejFUSGdZNE5WYkpDRFJnNWNZNGlG?=
- =?utf-8?B?THRlOFdqd0ZFdEpDb1VYOG9iM3J1cGFNVkRpMzYxZ2I2bGxBRmx6RFVqYm5U?=
- =?utf-8?B?VktOMFUxeHpsQTJ4OFpHallrTVhMVzE2cjA0N24zRFhORGIxUDdQUU5TMnJO?=
- =?utf-8?B?ZjJVcStrQis3NWJJU1FIOGpxbG5xUG1VNkhpN1hnWEFVWFV0QnYrQ1BNc3gy?=
- =?utf-8?B?cFFYc25ZQkNYdDI3N00wYnVmMEw1UkRKVUsrYlhQdTJsbjlKY3VrWlVXWGtZ?=
- =?utf-8?B?WlFPWHBrM1VTZk1XT29hQXJieXhxbVRoZnhmVlpwMXRadzhFaUZDc3oxQjdl?=
- =?utf-8?B?NGsxYXdRWHNwQkkyU2lGQlcvN3ZSQjB3ZzhlWWJGTXU4NTNmSXBNWjhwM0x6?=
- =?utf-8?B?Q3pJTWErR09JTmpqaWhkQ0FqM0Y5WDR5QzI0Qzk2Q2NZQllwRzZLUmozOXJO?=
- =?utf-8?B?TGY2eDdEVXRxMnNMZWJOMHVXUTFIWGlndURpTHVWVzJ6cU9FZnc1SDUyUUFy?=
- =?utf-8?B?ZkFQVlRmZmNub3VMYlQvcFYvbTJCczEvWUtxMlYzQ0NPU2pnSjFlZVhtaEZI?=
- =?utf-8?B?M0UwZXBlZElKNHloUXRydnhkbVNTTG5EY1ZObmNPVC9Fdk0zNzlGRHUxQXRm?=
- =?utf-8?B?ay9KOXRSZDJzL2lPWjhPQVcyK1JEYWJMcWhTTFUvRVlvbXdGVEJnYjhVZHh5?=
- =?utf-8?B?NitlczIwenF1OGV2aUtFeXJQeTFMUDFqMDZvbTFtRFZEa1hCSTU4bHZzZ0ZI?=
- =?utf-8?B?ci9waGhwLzJ6N053VEpPSnZIZVpXUHJ2UW02bmRDU05hK1VlSmtZSW90aE1H?=
- =?utf-8?B?dXlMR0ZjMjB1SllKQlBCUUdKNEZ1aCt1VmR6U2N1RFRRcGcydVBRblhZdFhu?=
- =?utf-8?B?dVFJbUZwamxlMm5MZVY3b2lSRWFtZzcvOEpCdTlqc3dkNHpLY0ZzNDR4bDhl?=
- =?utf-8?B?djVsTFhrUDFDam11d1ExYWFlNjJLYTZRTW1yOHM1dUN3aDV6THNlTWFQZUxB?=
- =?utf-8?B?K3E3L080YldrVyt6OEJxdE4yQ2FPd1F2eEN0c3YyV3NWU3B3RXpKYjY2TEQ5?=
- =?utf-8?B?OVRBcUJaRG4ybFEzSXFwRnBsYk5PMWRBbE1VbnZPZXdvSkdOQ2lRR1FQNEVa?=
- =?utf-8?B?N3k0OFNYb2NWM3V0L2kvT04rQzJib3lUZkhkSk5hbktUYjhMQ0k3amNjdXV4?=
- =?utf-8?B?QkN1T2FxVG9ON3NjTkY4YTFueVMrcm5qSjZSNkNpY1R0VlM4anFLeGphVGFw?=
- =?utf-8?B?WU9TQk9Hem5KdzFNYjVZbDZWbTBxakZwN3A4eVF5S1Q0SHExNm5KTjRlZmZv?=
- =?utf-8?Q?QqwgOL3vkqxZEa2HiL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4905c5c-f73d-4be6-fae8-08df2ac9df26
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:37:43.2258
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3ZZEFCTUL3jmRwjg0/xYKWlwKNy4v8g1/j3rz22ob3+IEuKr9prKxuct/LED79Co2VtU3RrcnW6G1VkUoHk76g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB489481
+Content-Transfer-Encoding: 8bit
 
+Per-VMA write locking treats equality between vm_lock_seq and the current
+mm_lock_seq as proof that the active mmap writer already excluded readers.
 
+Both values are 32-bit. After 2^31 complete mmap write-lock acquisitions,
+an old VMA stamp can alias the live odd generation. vma_start_write() then
+returns without waiting for an existing reader.
 
-On 10/15/26 04:35, Antheas Kapenekakis wrote:
-> On Tue, 10 Mar 2026 at 08:59, Antheas Kapenekakis <lkml@antheas.dev> wrote:
->>
->> On Tue, 10 Mar 2026 at 03:43, Mario Limonciello
->> <mario.limonciello@amd.com> wrote:
->>>
->>>
->>>
->>> On 3/9/2026 3:51 PM, Antheas Kapenekakis wrote:
->>>> Many AMD-based handheld PCs (GPD, AYANEO, OneXPlayer, AOKZOE, OrangePi)
->>>> ship with the AGESA ALIB method at \_SB.ALIB, which accepts Function 0x0C
->>>> (the Dynamic Power and Thermal Configuration Interface, DPTCi). This
->>>> allows software to adjust APU power and thermal parameters at runtime:
->>>> sustained power limit (SPL/STAPM + skin), slow PPT, fast PPT, and the
->>>> thermal control target.
->>>>
->>>> Unlike mainstream AMD laptops, these devices do not implement vendor-
->>>> specific WMI or EC hooks for TDP control. The ones that do, use DPTCi
->>>> under the hood. For these devices, ALIB is the only viable mechanism for
->>>> the OS to adjust power limits, making a dedicated kernel driver the
->>>> correct approach rather than relying on the out-of-tree acpi_call module
->>>> or ryzenadj.
->>>>
->>>> The driver provides two layers of control:
->>>>
->>>>     * Platform profile integration (low-power / balanced / performance /
->>>>       custom), with per-device preset tunings derived from thermal envelope
->>>>       data. Selecting a non-custom profile applies values immediately and
->>>>       locks the individual tunables to read-only. The default profile is
->>>>       "custom", leaving the device at firmware defaults until userspace
->>>>       explicitly selects a profile.
->>>>
->>>>     * Four firmware-attributes tunables (ppt_pl1_spl, ppt_pl2_sppt,
->>>>       ppt_pl3_fppt, cpu_temp) that become writable in "custom" mode.
->>>>       Values are enforced against per-device limits (smin..smax), with an
->>>>       "expanded_limits" toggle that widens the range to the full hardware-
->>>>       validated envelope (min..max). A save_settings attribute controls
->>>>       whether writes commit immediately ("single") or are staged for an
->>>>       explicit bulk "save".
->>>>
->>>> On resume, the active profile or staged values are re-applied so that
->>>> suspend/resume cycles do not silently revert to firmware defaults unless
->>>> in custom and in bulk mode. In that case, defer to userspace.
->>>>
->>>> Device limits are supplied for GPD Win Mini / Win 4 / Win 5 / Win Max 2 /
->>>> Duo / Pocket 4, OrangePi NEO-01, AOKZOE A1/A2, OneXPlayer F1/2/X1/G1,
->>>> and numerous AYANEO models. The SoC table covers Ryzen 5000, 6000, 7040,
->>>> 8000, AI 9 HX 370, and the Ryzen AI MAX series.
->>>>
->>>> Tested on a GPD Win 5 (Ryzen AI MAX+ 395). Confirmed with ryzenadj -i
->>>> that committed values are applied to hardware, and that fast/slow PPT
->>>> limits are honoured under a full-CPU stress load.
->>>>
->>>> Responsible disclosure: The development of this driver is AI assisted.
->>>> This includes its writing, testing, reviewing, and readmes. The driver was
->>>> manually reviewed line by line, but there may still be small leftover
->>>> quirks. This is an RFC, not a final version. Let's push these tools to
->>>> their limits and see where it takes us.
->>>>
->>>
->>> I'll tell you where the most immediate limit is.  Humans can't review
->>> RFC changes that go in daily.
->>>
->>> Over my weekend I see multiple copies of the series in my inbox.  To me
->>> they must have obviously been garbage because you sent them so quickly
->>> instead of waiting for feedback.  So I'll delete those from my inbox and
->>> review the most recent one.
->>>
->>> That's somewhat tongue in cheek.  I know you're excited for this series,
->>> but please make sure you take time to gather and take feedback into
->>> account before posting another series.
->>
->> It's true, I've been having a bit of fun. But the series is stabilized
->> now, I don't plan to send another version soon unless I messed up
->> something.
->>
->> V3 incorporated your feedback/derek's and V4 incorporated rong's
->> feedback. V4 is minor, it is just nits.
->>
->>> Maybe you can pass this to a robot and it
->>> can give you actionable feedback, but a human sitting down and reviewing
->>> a patch series in a serious way takes time.
->>
->> I'm using this series as a testbed to make some tooling for this,
->> maybe I will post it soon.
-> 
-> Opus 4.6 was something. Anyway. @Mario v4 of this driver as it stands
-> is pretty good for prod. Since then, I kept adding devices and
-> adjusting devices based on user feedback but I did not have to touch
-> the driver otherwise. It has been tested on most APUs and around 30
-> device models now.
-> 
-> One thing this driver does not do is AC/DC limits and it would be good
-> if it did. That way presets could be pushed higher for AC but that is
-> only mildly necessary for AI Max platforms. 45W is more than enough
-> for all of them anyway, but we could go to 55W e.g. (after that they
-> saturate so it is unnecessary strain). But the updated limits I have
-> are conservative enough where it is not an issue. I also found myself
-> not using the commit option, so I think it can be removed.
-> 
-> The only issue with this driver is that steam maxes out TDP when you
-> disable the TDP slider and as the custom limit is generic for both
-> AC/DC it can strain the battery. This is an architectural issue with
-> steamos manager as before steam used the _default tdp value in AMD
-> sysfs but dropped the notion of default when transitioning to steamos
-> manager. But this is a downstream problem unrelated to the driver
-> where special DC limits could help a bit.
-> 
-> This is because I heard you might be working on something similar. So
-> let's prevent some duplicative work. Should I repost a cleaned up V5?
-> 
-> Best,
-> Antheas
-By "something similar" do you mean the AMD overclocking driver posted 
-recently [1]?
+A capability-free reproducer uses brk(0) to recycle the generation, then
+races an anonymous fault with MREMAP_DONTUNMAP. The stale equality lets
+mremap move and tear down a PMD table while the fault retains vmf->pmd.
+Unmodified kernels panic in folio_add_new_anon_rmap(), while diagnostic
+runs show a freed PMD access and a writable mapping created in another
+PROT_NONE VMA.
 
-Does that happen to work on any of this hardware?
+Add an epoch that advances whenever mm_lock_seq wraps. Stamp it with the
+sequence after excluding readers, and require both fields to match before a
+writer takes the already-locked fast path. Reader checks remain unchanged;
+reused sequence values only cause a pessimistic fallback there.
 
-If it doesn't; sure please post your v5 that has incorporated feedback 
-from this thread after the merge window at the start of the next kernel 
-cycle and we can review it again.
+The fixed KASAN kernel completed the real-wrap THP schedule on three fresh
+boots without KASAN, warnings, oopses or panics. Kernels before v6.15 use
+the older rwsem-based per-VMA locking and need an adapted backport.
 
-BTW I think this version was last posted before Sashiko started 
-reviewing patches too.  If you can; please run a local Sashiko review 
-cycle on it before posting your v5.
+Fixes: 5e31275cc997 ("mm: add per-VMA lock and helper functions to control it")
+Link: https://lore.kernel.org/r/20241010205644.3831427-3-andrii@kernel.org
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+ include/linux/mm_types.h        | 10 +++++++---
+ include/linux/mmap_lock.h       | 14 +++++++++++---
+ mm/mmap_lock.c                  |  2 ++
+ tools/testing/vma/include/dup.h | 10 ++++++----
+ 4 files changed, 26 insertions(+), 10 deletions(-)
 
-https://lore.kernel.org/all/20261010190543.563161-1-Shyam-sundar.S-k@amd.com/ 
-[1]
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index f3e5a2fadbe5b7..309a278e552451 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -961,9 +961,9 @@ struct vm_area_struct {
+ 	 * Can be read unreliably (using READ_ONCE()) for pessimistic bailout
+ 	 * while holding nothing (except RCU to keep the VMA struct allocated).
+ 	 *
+-	 * This sequence counter is explicitly allowed to overflow; sequence
+-	 * counter reuse can only lead to occasional unnecessary use of the
+-	 * slowpath.
++	 * This sequence counter is explicitly allowed to overflow. Readers can
++	 * treat a reused value as a pessimistic false positive. Writers also
++	 * compare vm_lock_seq_epoch so reuse cannot skip reader exclusion.
+ 	 */
+ 	unsigned int vm_lock_seq;
+ #endif
+@@ -1004,6 +1004,8 @@ struct vm_area_struct {
+ 	struct vma_numab_state *numab_state;	/* NUMA Balancing state */
+ #endif
+ #ifdef CONFIG_PER_VMA_LOCK
++	/* Extends vm_lock_seq without moving the hot VMA header fields. */
++	unsigned int vm_lock_seq_epoch;
+ 	/*
+ 	 * Used to keep track of firstly, whether the VMA is attached, secondly,
+ 	 * if attached, how many read locks are taken, and thirdly, if the
+@@ -1274,6 +1276,8 @@ struct mm_struct {
+ 		 * mmap_lock.
+ 		 */
+ 		seqcount_t mm_lock_seq;
++		/* Extends the VMA writer generation across sequence wrap. */
++		unsigned int mm_lock_seq_epoch;
+ #endif
+ 		struct futex_mm_data	futex;
+ 
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index b8a13b8d36a45b..27caf8818e0b75 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -118,6 +118,7 @@ static inline void mmap_assert_write_locked(const struct mm_struct *mm)
+ static inline void mm_lock_seqcount_init(struct mm_struct *mm)
+ {
+ 	seqcount_init(&mm->mm_lock_seq);
++	mm->mm_lock_seq_epoch = 0;
+ }
+ 
+ static inline void mm_lock_seqcount_begin(struct mm_struct *mm)
+@@ -128,6 +129,8 @@ static inline void mm_lock_seqcount_begin(struct mm_struct *mm)
+ static inline void mm_lock_seqcount_end(struct mm_struct *mm)
+ {
+ 	ASSERT_EXCLUSIVE_WRITER(mm->mm_lock_seq);
++	if (unlikely(mm->mm_lock_seq.sequence == UINT_MAX))
++		mm->mm_lock_seq_epoch++;
+ 	do_raw_write_seqcount_end(&mm->mm_lock_seq);
+ }
+ 
+@@ -157,6 +160,7 @@ static inline void vma_lock_init(struct vm_area_struct *vma, bool reset_refcnt)
+ 	if (reset_refcnt)
+ 		refcount_set(&vma->vm_refcnt, 0);
+ 	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq_epoch = UINT_MAX;
+ }
+ 
+ /*
+@@ -281,11 +285,15 @@ static inline unsigned int __vma_raw_mm_seqnum(struct vm_area_struct *vma)
+  */
+ static inline bool __is_vma_write_locked(struct vm_area_struct *vma)
+ {
++	const struct mm_struct *mm = vma->vm_mm;
++
+ 	/*
+-	 * current task is holding mmap_write_lock, both vma->vm_lock_seq and
+-	 * mm->mm_lock_seq can't be concurrently modified.
++	 * The current task holds mmap_write_lock, so neither generation can be
++	 * concurrently modified. The epoch prevents a wrapped sequence from
++	 * making an old VMA stamp look current to a writer.
+ 	 */
+-	return vma->vm_lock_seq == __vma_raw_mm_seqnum(vma);
++	return vma->vm_lock_seq == __vma_raw_mm_seqnum(vma) &&
++		vma->vm_lock_seq_epoch == mm->mm_lock_seq_epoch;
+ }
+ 
+ int __vma_start_write(struct vm_area_struct *vma, int state);
+diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+index 898c2ef1e95803..281659225b1dbb 100644
+--- a/mm/mmap_lock.c
++++ b/mm/mmap_lock.c
+@@ -139,6 +139,7 @@ static int __vma_start_exclude_readers(struct vma_exclude_readers_state *ves)
+ int __vma_start_write(struct vm_area_struct *vma, int state)
+ {
+ 	const unsigned int mm_lock_seq = __vma_raw_mm_seqnum(vma);
++	const unsigned int mm_lock_seq_epoch = vma->vm_mm->mm_lock_seq_epoch;
+ 	struct vma_exclude_readers_state ves = {
+ 		.vma = vma,
+ 		.state = state,
+@@ -158,6 +159,7 @@ int __vma_start_write(struct vm_area_struct *vma, int state)
+ 	 * we should use WRITE_ONCE() for cleanliness and to keep KCSAN happy.
+ 	 */
+ 	WRITE_ONCE(vma->vm_lock_seq, mm_lock_seq);
++	WRITE_ONCE(vma->vm_lock_seq_epoch, mm_lock_seq_epoch);
+ 
+ 	if (ves.exclusive) {
+ 		__vma_end_exclude_readers(&ves);
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 4c58487b764e9d..211ffbf5850057 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -571,9 +571,9 @@ struct vm_area_struct {
+ 	 * Can be read unreliably (using READ_ONCE()) for pessimistic bailout
+ 	 * while holding nothing (except RCU to keep the VMA struct allocated).
+ 	 *
+-	 * This sequence counter is explicitly allowed to overflow; sequence
+-	 * counter reuse can only lead to occasional unnecessary use of the
+-	 * slowpath.
++	 * This sequence counter is explicitly allowed to overflow. Readers can
++	 * treat a reused value as a pessimistic false positive. Writers also
++	 * compare vm_lock_seq_epoch so reuse cannot skip reader exclusion.
+ 	 */
+ 	unsigned int vm_lock_seq;
+ #endif
+@@ -611,7 +611,8 @@ struct vm_area_struct {
+ 	struct vma_numab_state *numab_state;	/* NUMA Balancing state */
+ #endif
+ #ifdef CONFIG_PER_VMA_LOCK
+-	/* Unstable RCU readers are allowed to read this. */
++	/* Extends vm_lock_seq without moving the hot VMA header fields. */
++	unsigned int vm_lock_seq_epoch;
+ 	refcount_t vm_refcnt;
+ #endif
+ #ifdef CONFIG_64BIT
+@@ -1230,6 +1231,7 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
+ 	vma->vm_ops = &vma_dummy_vm_ops;
+ 	INIT_LIST_HEAD(&vma->anon_vma_chain);
+ 	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq_epoch = UINT_MAX;
+ }
+ 
+ /*
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.55.0
 
