@@ -1,150 +1,122 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164AC3CE4BE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2871F449EB2;
+	Thu, 15 Oct 2026 09:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056133; cv=none; b=QLVwk9LCJqAMr7bdbb4ohDHTOTHnBvaV6EwPQjKu8m7zbfzedfH544pYIS7Rj93161yYd/zrvbcCpYMejJLPcvEz/mtYoaCBzlFCup5GxSmHIeHsfo/4sy1jaZyx21XY1864nGz7z2ZPZWyf8smJYd5njZk1ZeNR4oR5PdOpd9U=
+	t=1792056160; cv=none; b=e+danrODgvwgzYEMGByXP68/FlUY2D7j2j/W67df7iS/cunTMIrdXU1DpXgd3eOzoUOLAP/ZC/XHl4ZgV1ZKFqjNBaxFsylqS5U8Xc/zAbf+33iZw+5cvgbcePXRM1oC8RdBjjYwfGAEGykZ3BbpWoXsDSt/uwLf/ZjIiJdfXiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056133; c=relaxed/simple;
-	bh=jy/Pjbi02wz7ArJryz+o6kKuOwg+ED2RqJ07aUl5AGo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Wk7/CLVLBFIroqn5Xax1TmIaj4b2knvWXlWRGJrNjprnpQs+44/RS/PHb7u8QH+bqajoJqGJ0+pSS+j7sD/p9Q2mQ5Q+WtVL5cQ0FdhBIwYdQOnY0rmkZoNrT6JaJIZFN8RQikD3D6T1rAP405AYU/x6L35xTNgX1fGva4U3NY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=e8H4uCkR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lVHD5jLM; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792056160; c=relaxed/simple;
+	bh=oucbtbcr4iEIb+cMBggN+RvFK40jXdjFHJQUWMgXYGg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Pd/YJUFA41fzPukTbSjR+/nrFeswMxETqjyiO/Mryn/LjK4Kx50pw4OJ/A9oOwgJFKWhQRP8YbWbDCPsJ9qbAAP0GMOy6XgzBDWAiWh0Hecj7kj45mOLQ6ymNfKtwqxtDbhyvLJiA+kJgT4PxxbWRJuu6vl0ZjL5bWyFIG1AQBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cKz+1RaP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="e8H4uCkR";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lVHD5jLM"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1D42E7A0179
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:22:11 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:22:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792056127;
-	 x=1792142527; bh=UJw67Cs+GGD+XvNA13jOJdaU98z3SpAw+sGf1WWAOBM=; b=
-	e8H4uCkRrgj+D3HXGRxtApd0b6+RmzkbvyXiXpprfPvTdrxwnDH4bvKEFpFWKC9Q
-	SX8BndZrupxfjq2osDFrdv1xmEz7GcLUd3uK86V3vHxV1QCbVCT1w+PFLAHruFtn
-	uoN4+cx6Tf5507aprfGCuVno274zOa0AyWQn3nDfSixEzblvKKrZEYdMDd7j9lSh
-	Wihs48Bhg3+sLHytLVrTK7HgJPhEUAhRMi9O6wMp6fRhhlkk7EBldOt7w+Eb7Zds
-	eAVGRSppU2Ajk/913m4OtO5/+IhRt5qZlLvG05zy1UbTVF3MnG0uQLEVJtfJrZhK
-	+dyuKm6F0iWggYAdEFpLBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792056127; x=
-	1792142527; bh=UJw67Cs+GGD+XvNA13jOJdaU98z3SpAw+sGf1WWAOBM=; b=l
-	VHD5jLMGfJWKE/TKWkusMnPwnw4MCU4UzB/mHD182aig3mNsF9spxkMKMxi2NrEF
-	8EG8GKSK1N+kXf9vTN8RMQ3cv5QHukJvMmKKoiJUdux8T7/9iq2MQeTrkEZpgas6
-	oiMGh6+jQ4X+spgjaPQNXVANhOBlSinKv52mcKPYI23j5M5gmJcN6WJKmDLCycq2
-	Z1FKeEyVApuvfW6gOQtRWPk7E0G9fYzLt6XcqXqrX6gtrF5rkosuonJ/lmpT2x73
-	QNWwoG3C5cXES4Q/bb2n4rd6DTYzQDNyHp/REXLNGGUEfQB/tYITuTK9QmFiX7gm
-	+70ROaJkj8UiauJ2Rf/wQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792056127; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:OEjhOEl8+fSh9zd4Jt3AShGhWjhB2GDkpCho6ImY3/FN4Tr
-	YvHM3Oy6oXp3f5TrdOEGCFJqq2PnOWVf5bDPBzuyL34HWi4NCfwXumhrLuS/F6YY
-	5EDavern/ccch6HG+QER4p/6RUKodqu0CBI60Zr5GSQs11vMJ3mfn5eKQNb07G/Z
-	Wo9dNqHcPPC16GIMNzCXJWbQQur3EGChRLW3zHa3GV64wIBNzKieCmDhbdXdvvkj
-	dEZe33vshBNtg5YXrIAapJsriKWGPPcHma2dSy/+1MMiAxalbAtDXD3AcopSIIhk
-	Mdi7fWoI8uer5U1W+g8+BQQRkPVvfvSP/KcMuGg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:N6DrRUvbfsCYHv5+ONQSza1zW2wWCovUYgLhASy71ek=:jy/Pjbi02wz7ArJryz+o6kKuOwg+ED2RqJ07aUl5AGo=;
-X-ME-Sender: <xms:O5vQasLdJo3TUw1w0qfW3UQ1hDPcXg62NKylnCPcDdEnAzdK0zxj9w>
-    <xme:O5vQam-LL4u9pZXgzKBpUjwC7rC51mxD9AsRlthqVMpg0gVvbQj8D62G0TDr6fOBA
-    dBKVEqTID9oapzsHE3lVaK0Y7Ii9Gc1-7WM49l9Zdfb5W_fyTjtP10>
-X-ME-Proxy-Cause: dmFkZTEQ7tL+B0cmzPWmlgl0t++8TW1ShCWzPJnHiO/VhQBdk7F9qwt1ajSxMo5o1EE6FZ
-    c6ZytwrSuz2sbC7x17i5y+tf7a7sKwtGTF38zSByiOWFeV/oN0qyHnrsTKa/RJIEs//Ik1
-    CsUNAGVG+xVVAuoOc2ABA0X6BKJzYJl52ZjWbsvSi0fQjdSTbNI1cA3OghEKD1p+43AYJ3
-    OxTqr0ulnZfc6/NjgEV8qrLN/Eb3IdCSFIh1mVujbhlDiK+SWdXvx9h2yT9kGBRYESPgrg
-    ICzD/MXD5lAQy8hqcGgITwMt9mT6ZTG66cw9BaLCVoXVAmcc44nBGm8xjf302WXX8dkRXe
-    P5mEkvnQD9yF3IbyPJhNooHFxsQfiTTqOUudk+zjIoCwI/VZm0KFR4TZOM0g+Z6kGe8thZ
-    WNisi8ZahG/+QK/wrMK+McN93E/1iDJqJIqU55IMWx73bX35uDZiZdFMFBVc4+/Yqg92Aq
-    H8+ZpixK9TBPh/pRy96+lp4ZaJJlmvX9rwyzr7S/zqx0fHKpIFbSUXvCFOyrTcAhWAfjeF
-    NmXgG2sh7XXTRF3xc1iPMS2VYGfad2hB4e2x42+dKnOEY/LMt3gHcnjkPn94rTTYwDziiM
-    E39EidKrgA7XTU9Zh2etkbGJFygw3PD8jnH/PbPu3Wu1F3o+jQRFRCC8IhmA
-X-ME-Proxy: <xmx:PJvQagJBrMGekYTKSYoZ7H_RrSEgExG8-jRVg0IGWAgm7hRHtCAlgA>
-    <xmx:PJvQasJ3T8OOm1Q9-8-dSr4oS01bW1LeiCLy3JpP003beNSl9DDmmA>
-    <xmx:PJvQai6aCbS0uO3Lcd8qN86BHlL_Vw-GOR7psnlXInfA31lpDoM3FA>
-    <xmx:PJvQaufZt4HDIOz6wuKNs9ztJBsyYiU3jAClOycRsHZHfniqJ5MgYA>
-    <xmx:P5vQapCNeGiPWKx6M90CT50mk4urtOlaGeOB-lWDYl3ek_hMBinTzQGq>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E912B32A008E; Thu, 15 Oct 2026 05:22:02 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cKz+1RaP"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6GWJO644589;
+	Thu, 15 Oct 2026 09:22:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=PrU8BcvrJbzacnUrQ1KVIFlTydi9uIP4FJ9
+	xA+uRW6Q=; b=cKz+1RaPCs1AQQmJWwvJ+p1Ma2E4EIQzsCFOjQrAFLtqMBn4Cb9
+	iFPVpvoHFZq9z5SPVb1wSSzdgC1Ls8BSZucbkJsTOyNhm1aZn9T//Idmf5wTTvaA
+	KdC+UJsXSnLntW//w7c86xuSiTu/wvl0F/gbztiGofzDf0gKtiwo0kml0QvB9L1u
+	R/k8wKJvt/SNRmfn8pACciR9IHBPL7NHYdzDPRyUrsiPT3hedUWFvpJcTVW7USrJ
+	CvGLACJmjF18QWOpw0kvWizLro+HITIHEgW4nwTcXElrtR00v05daGhrfSaZn4NV
+	d0X6H7bqAJg5+pPuY1J1PbuOvjboKFKdHsQ==
+Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmya8jj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 09:22:34 +0000 (GMT)
+Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9MWSm1443452;
+	Thu, 15 Oct 2026 09:22:32 GMT
+Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 69F9MWTd1443442
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 09:22:32 +0000 (GMT)
+Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
+	id 63D45679; Thu, 15 Oct 2026 17:22:31 +0800 (CST)
+From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com,
+        quic_chezhou@quicinc.com, wei.deng@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com,
+        Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+Subject: [PATCH] Bluetooth: hci_qca: Reopen port after power on for QCA2066
+Date: Thu, 15 Oct 2026 17:22:24 +0800
+Message-Id: <20261015092224.262158-1-shuai.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A6clDngWoEfo
-Date: Thu, 15 Oct 2026 11:21:32 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "David S . Miller" <davem@davemloft.net>
-Cc: "Thomas Gleixner" <tglx@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <026b6108-f25b-47a1-a4e0-fa7717d926d4@app.fastmail.com>
-In-Reply-To: <20261015085545.3246951-5-ramin.moussavi@yacoub.de>
-References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
- <20261015085545.3246951-5-ramin.moussavi@yacoub.de>
-Subject: Re: [PATCH 4/4] sparc32: add the sparc_atomic_cmpxchg_32 system call
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: 1DwFKj0_eoE9VK5Vyg4P5zezUsbc_n7C
+X-Proofpoint-ORIG-GUID: 1DwFKj0_eoE9VK5Vyg4P5zezUsbc_n7C
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNyBTYWx0ZWRfXxTrdM8SVYrCa
+ SDofGwRodX4uy0x4amt7hyThPewV0KXIMj11YQPIwWw/LfAYhZTxctSctThkNw4BrFHaLt4XEbv
+ dnPfeR+lzjFn1RAqhLRt+pggZ62UrR4=
+X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad09b5a cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=yBvomlNPn9_oKlKuI4sA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNyBTYWx0ZWRfXwnwl9V4qJaLB
+ NRf5dm3pC6aVTty6eVPOfYU66/nLWn27M9xO6xTM8j40xZDyJ4VYNMwZtB/FLFY91tbbvn1xTbb
+ LxTh+kUf2J7D42a/dS+FaH318Ys0Pv2bbBSPAVcdr0RYukSIlv52zdOfhE3ycxT7Eiww0Q0xNre
+ y3QEV4sRMvRgmaNw34BoXKygV3ktTGwn+9ijqq62jyt/inq7yJtsgDO6ZbLB9rTlQs+XK357FuF
+ Fn1Vt4vp9pUyyEm4IVqgAg4GH4Ho8kY/VaWH3TAqxI/AR4Dk40Uus/MM4Hx0YHuoP1voEOrAp/s
+ OjKqh5uLom2LJSckD2TB1R7VfZ8UaVSteJrnUD1xBIzmYC3ED5q1PzusUcZP9acTr9nJkUAFjFE
+ lzzQh8PHzJ/Jkm9dWRJJPAVA3LNemOqZX58nm810Si3vGrZlZPnyGhpi1RKR0/c2jsE035slG/K
+ EkoKn5nfLIALFVOvkBQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1011 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150037
 
-On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
-> User space built for v8 has no compare-and-swap. C libraries emulate it
-> with ldstub locks of their own, and those have two problems the kernel
-> cannot see. They are not async-signal-safe: a handler that reaches an
-> atomic while the code it interrupted holds the lock spins forever. And
-> the kernel does not know them: FUTEX_WAKE_OP and robust futexes write
-> the same words without taking those locks.
+QCA2066 requires the serial port to be reopened after the controller
+is powered on, otherwise the host and the device run into RTS/CTS
+synchronization issues. Call the existing qca_port_reopen() helper
+for QCA_QCA2066 in the default power-on path, leaving the behaviour
+for other default-path controllers unchanged.
 
-As far as I know, the baseline in sparc32 glibc has been leon3 or
-sparcv9 for a long time, so CASA should always be available.
+Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+---
+ drivers/bluetooth/hci_qca.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Any remaining sun4m users are on an ancient userspace with a
-pre-futex glibc.
+diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+index 7089e9b63..c24f4e6c9 100644
+--- a/drivers/bluetooth/hci_qca.c
++++ b/drivers/bluetooth/hci_qca.c
+@@ -1873,6 +1873,12 @@ static int qca_power_on(struct hci_dev *hdev)
+ 			gpiod_set_value_cansleep(qcadev->bt_en, 1);
+ 			/* Controller needs time to bootup. */
+ 			msleep(150);
++
++			if (soc_type == QCA_QCA2066) {
++				ret = qca_port_reopen(hu);
++				if (ret)
++					break;
++			}
+ 		}
+ 	}
+ 
+-- 
+2.34.1
 
-> Let user space ask the kernel instead. The call goes through
-> futex_atomic_cmpxchg_inatomic(), so it agrees with whatever the futex
-> code does to the same word, casa on LEON or the hashed lock otherwise,
-> and a single system call cannot be interrupted by a signal halfway.
-> m68k solved the same problem the same way with atomic_cmpxchg_32.
-
-This sounds like actively regressing performance on LEON compared
-to just using CASA and futex. What are you actually trying to
-achieve?
-
-> diff --git a/arch/sparc/kernel/syscalls/syscall.tbl 
-> b/arch/sparc/kernel/syscalls/syscall.tbl
-> index 5b9fe0e8140f..939e0130b7e2 100644
-> --- a/arch/sparc/kernel/syscalls/syscall.tbl
-> +++ b/arch/sparc/kernel/syscalls/syscall.tbl
-> @@ -518,3 +518,4 @@
->  470	common	listns				sys_listns
->  471	common	rseq_slice_yield		sys_rseq_slice_yield
->  472	common	fchroot				sys_fchroot
-> +473	32	sparc_atomic_cmpxchg_32		sys_sparc_atomic_cmpxchg_32	sys_ni_syscall
-
-Wrong syscall number.
-
-     Arnd
