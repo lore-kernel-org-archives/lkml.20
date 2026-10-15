@@ -1,167 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3486A3655D1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792101881; cv=none; b=GqqgtZUtxRp5mDIe7D6uDMy68tI7VO/kyg5JeYk+fmWSq2G4N2idCNy0vKskgHWnm7uf1Ekun8NckMsFDBv5C+YNu2L8ai/aY4WtmFSkBdRTznGgBueQK3B4YuKvMboOlLyzBW8FpxaVAKC4RZ8aPO7vk+SuW6N1W+M5DH8tEPM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792101881; c=relaxed/simple;
-	bh=TBX5A67YSsWuxAB/4TO7PVxB29M1xxONXuyWhIREFeI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D1A352037
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792101925; cv=pass; b=netTI/hVab5ymy1VlDldfYxijVrCgOVeaNelFGAoP+tX0x6Sx6vxtDznovINWWEbtkgopn4OQ7gugUFAzDEWiAhMVx/DrbpBewrXioPQoAJAscM7ysKfLPilnhON8R648X3lqNKOu2cG4WBnRvNoczg/MNQE7RkPYIqhIFT5r9w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792101925; c=relaxed/simple;
+	bh=yMcZrh624HxVdcx0+mbpO4kZXBb94MKHsaPeyPDSENw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z5DElFujAGIZGOCtkcLKaZnr02Uc0s9CBCs8XIaHeTwSyI1losJAi/RiDNdtWHfPT1V+FfdQRClRTJHGdsDLOMrHiNjaBgaIPLDYBeQCbXraoUrt+aYmNiRoRn4g+4XZkQaaAtc12nPtSHj2Swu92HwdLJNUsX9RfE69WwZSaLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJT0+jrL; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=r/hVrBneAOSckgUMphOCYnDgDeDwpt1aIFkdPv7Pzh8nCqmTccGWcIahdgVOGTWkBeTHocuCn56QUP9pFXKW3jwP3fC7tvEAjgoyWA9j64kryEiIITGLYJXXQPT3xkg7oktXXrd4L7E6/P0XQHpfyJ6gb9SHw/wkwZMER7mOrOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SnWzXkGA; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJT0+jrL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE841F000C4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792101878;
-	bh=RlYzd0USpwg3JvbStBZnQdUC/IjyPKMmb+JkSAhgO4c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DJT0+jrLOGQd88lrqJAj8DabydJnd2u7QOrmT2Txk0viriqWFku9s8wrt5PECKnOs
-	 69hEyT85EXJ/EQiNhU1aPp6e0XCy+NQg9bdIIQabSSQRQqJ5ECf1WVPDG21nIIe+Ki
-	 rPnh5lg+hS5i6/uhd1UrMHRRrCZVxgoaVM9VnLYUZ85lOaZ6ONWn5D1HMoUkvcHtLp
-	 H6lPS6nxQIzY1ff3xdtZyF6VKoRRL/DTJdw8Te1P7VfQ2WGaXaDjASwxx+9nd0HuUO
-	 20Zyxjs8ZGUymprw0fADj/AXo+540TeHGZH7gkZ9zK83hFvc9YTivBuHzKKVRfnTt2
-	 HYXFjlBE91Zow==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c263415982eso753745766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:04:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwz7a6d6SvaQspwghR/JRbYl9T/VM8wqv9itr8U7okgPcuF5hpxyPu/E2j1U7wu/avR2pIfOatGIXxyZQ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFf0noXGcxhszOfnGpt1z7OlwOOcLroIKmQqG3PnVeqOacVLN0
-	9oMHCa8/HqrL7LMM+LrA0SP0FWvbh1Bp2zDbIR9sorlGd3cYzkQRS6fvkog7xNYgD7dV/j8B3it
-	MG++GiJVSwqJuAhJvCMP2M9o0GqcBIe0=
-X-Received: by 2002:a17:907:dab:b0:c2d:fade:e089 with SMTP id
- a640c23a62f3a-c31a96de49dmr1933015666b.0.1792101877742; Thu, 15 Oct 2026
- 15:04:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SnWzXkGA"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so4222a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:05:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792101922; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ua+FOPkdgGSpm2Lq5bCKYNVEI7oaZIUchTpkXDEFzIB2JtHNnmLEyr41u1hcP9yNHs
+         uJVyBFT4X5StV2fBxSpQBhYxXhJkHbWzCCXDNMvkXuvEDqzEz44eYywZBGgzBXCaj9ZN
+         3yc5/PMlZ/Y/EzhxQrg1XWtOuxqfqnVzQ80/6D3ztayhTiI7/gtl1ziRsh2zcY/j5tDQ
+         lwTMLmDV0+3hE65p5CYHThDZpjhtC6fpXCBZIfN5GaUoZvl0jZzxoUS/aHtHL6DSOkHC
+         ZdLGlX/mSo0qe5jJyQHoECZQKr+oogYVS5pTDItvjXDTtgloW1ogGmxWBynKRTnwMfFk
+         9hjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yMcZrh624HxVdcx0+mbpO4kZXBb94MKHsaPeyPDSENw=;
+        fh=Pj5ewhx7TeQZzYlS4zYBaRIf7OjJgBDcgCA09b9lOi0=;
+        b=Q9nY96D5rZ5vy75pnyR6p6KN5jboXSTdfVEAIizQfrmzPQ8caVrgMO8jxyLB9yce9u
+         KcseCIHD9F9FtACOpK9zt9ABgWQJB3PxZh16IRcwiOiHuB4uzAnKv2wECxUlbzkiVVKV
+         xqwP5Ss0MSxoTsgsmQidBwR0/5ZFiCIwi/p8EyqIOCm048k3va57ue9IPKushVmzrvUW
+         1rOVEMtBy8JyaHMJ5VEhdnrBiDpADoFZIY3LqG4ehuQJ5dt9jC+/YZtH16gKqA8I0Svr
+         dTurqp6/S0SLKGuHZaW49DuXwNi8lXgj+JvuqChIuKJR1fMbPmfLXdcDMCLJbUA4WW1+
+         i+6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792101922; x=1792706722; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yMcZrh624HxVdcx0+mbpO4kZXBb94MKHsaPeyPDSENw=;
+        b=SnWzXkGARnOGv12rVr12vkIxseRkR9wKB8p6IuBBsrL4qvKH6vGg4vnLHPrBQySYSQ
+         agVgt+EuGiXegzWaWSYiLwwq534MQtkdsf6Mb/c2DYedquWKCitxGZ1TfRQri5gwzFV7
+         wzwsWFp2Pf/bbyzuYd3S3VdxL2jr1sk4Leh0pcq/sUVBHzJ5JrnMOJhQhMqgU8ckyn4H
+         lEHRY1PapSTxnIAIEj/wgvFEx//z0H2/VHi8v/9VGbISLL3KXmePjSo//CnIK4APQP/n
+         QppeHDE3F+z1MjGl4L/UvoKbqnL5Mmm63D8CB6sLw3HrG8sPrfdvpc9+KCNjaIiSJyGA
+         qzJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792101922; x=1792706722;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yMcZrh624HxVdcx0+mbpO4kZXBb94MKHsaPeyPDSENw=;
+        b=Lpu5jbxrt8RsrLSSPmWqa9m+r44dbqp1SPVoifLBbTRfjQ1YPiw2uVbPzbrdn7A3vQ
+         XZuC6WRm4C2+f5D/7wXxr9O6wwk4pJ7kunwKSH6ugNTJqD7kRSkKiZmV0kJQV4UaOND5
+         uH8gzdZlXvo9NvVNvazs9sDObsUvCUomsdpgmJOlW8ZtmSLYMzejhTC9JmPqJQhXLONT
+         aO/OTxh6YIomWsS+VslU8kdUdW9IN8X8KUN95s8gdrxbGGA6yYAnBz8/hXi9nzglQUzi
+         vYW8Bfmg1eeafBWQMXNXLw3dfXs8QEhLQqtAVuc7vmmLwiWbVU4YXK6u+CkGEUbfVFIr
+         Kw0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByzzfDXwg07VCPNZZQRO41JoLcD+l5BzXK8fQZhcjapoCXwZyGilGyu1pWvSuhx0Ial/DglHWu3tYtZpzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlRm/l8QIkGwCsDb7z1iy0QdMLxCJpfiEHo01rRR50SaPggmEW
+	pxkdWe8KYGCLkEttd9c2siqBf0m9fU/8VQQZmoKBrKiZANzWhd7W1T8uMWa3dh6i+IEMt5xzEpf
+	HwY4rgkPYoGyjEdvpDqbRCviBBRfryHr/q8gGkEpd
+X-Gm-Gg: AYBFou288s5YdAx7dzG5hKVjCA9WvkWnryviBfVXql/YCgVMuI0CLTSvnnRSOJI5bBy
+	y2v1LFJJ0BJ/45xDAFCyK+P1MZnSKh3CrMuuQbwsHBMIBQnse5CAcUy8SZkVZmLTVnNxUhjveJ2
+	ETSznQUrTPp1NLK1bZZ96HvryuuCr3DBuYwhly2EARsFt/41VHL5lR7aCzkZFqT72W90rljs9c1
+	SJ0Rc/hwkVuEeRgF8MEX6IThT9GBYbzw9iW9feDAiqhPzn4ga6/JI7T40KVqd0e5gYdCdKqpgkz
+	LJ2vZy0/5DCYYO7W8BA5VjWqvgElzrin2zFLejuIsDdVnEPE6z1jolE=
+X-Received: by 2002:aa7:c2c3:0:b0:6aa:128c:36ad with SMTP id
+ 4fb4d7f45d1cf-6b38c1d2c27mr8512a12.10.1792101921872; Thu, 15 Oct 2026
+ 15:05:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <as-jZopKRfuYAiTE@google.com> <CACpmpoeS_cvXRWJXqiYZV9oykk=91efv8KtZgK2Pi-QwHnQH3A@mail.gmail.com>
-In-Reply-To: <CACpmpoeS_cvXRWJXqiYZV9oykk=91efv8KtZgK2Pi-QwHnQH3A@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 15 Oct 2026 15:04:26 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
-X-Gm-Features: AclHuK9As4WppohD6ZJZNrzjy04-7wgYHo0FQv2W3Z0D8lo9pnmEnN3DgsfpTfg
-Message-ID: <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-17-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-17-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 15:05:09 -0700
+X-Gm-Features: AclHuK-L1bJQOeiBybz_HSG7H8fNC-dGTKSw_e8PKvf95DAN0dcFDflyFkrefZ0
+Message-ID: <CALMp9eQGyPC8oU_cKjYeJkUhrhvxZR1NASD22bauOb4xhBDgyw@mail.gmail.com>
+Subject: Re: [PATCH v3 16/27] KVM: nSVM: Flush both L1 and L2 ASIDs on KVM_REQ_TLB_FLUSH
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 3:00=E2=80=AFPM Kanchana P. Sridhar
-<kanchanapsridhar2026@gmail.com> wrote:
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
 >
-> On Wed, Oct 14, 2026 at 8:45=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Thu, Oct 08, 2026 at 11:28:06AM -0700, Kanchana P. Sridhar wrote:
-> > > v1: Batched zswap_store() with compression batching
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> > >
-> > > This series is a spin-off of "v14: zswap compression batching with op=
-timized
-> > > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and z=
-swap
-> > > compression batching enablers. Resuming work on this series following=
- a gap
-> > > since v14 (January 2026). Please note that my email address and affil=
-iation have
-> > > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gma=
-il.com. I
-> > > have retained the original Intel sign-offs on prior patches for histo=
-rical
-> > > attribution while signing off v1 of this series with my current addre=
-ss.
-> > >
-> > > To summarize the main contribution of this patch series: Batching is =
-introduced
-> > > in zswap_store() of large folios: we carve out a large folio into bat=
-ches of
-> > > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store ea=
-ch
-> > > batch. Moving the fundamental operations that need to be happen to st=
-ore a page
-> > > to now work at the granularity of a batch offers opportunities to opt=
-imize them
-> > > from these perspectives:
-> > >
-> > > 1) Utilize existing kernel API that minimize obtaining locks for bulk
-> > >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
-> > >
-> > > 2) We keep the working set for each of the core store functionalities=
- (alloc
-> > >    entries, compress pages, store pages in zsmalloc) to be focused on=
- a
-> > >    batch, thereby minimizing cache evictions and benefiting from cach=
-e
-> > >    locality.
-> > >
-> > > 3) Along the lines of (1), the main zswap_compress() batching routine=
- obtains
-> > >    the acomp_ctx mutex lock once per batch, and releases it after it =
-has
-> > >    processed all pages in that batch.
-> > >
-> > > 4) Any zswap store functionality that works on a batch can potentiall=
-y be
-> > >    parallelized as a next step, to further improve performance.
-> > >
-> > > Performance data: usemem with 60% over-commit:
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> > How much of the performance benefits come from patch 6 vs patch 8?
+> Flush both L1 and L2 ASIDs in svm_flush_tlb_all() to appropriately
+> handle KVM_REQ_TLB_FLUSH by flushing all TLB entries in all contexts
+> (e.g. for kvm_flush_remote_tlbs()). Since both L1 and L2 currently share
+> an ASID, this is effectively a noop, but it won't be once L2 has a
+> separate ASID.
 >
-> This is how the performance changes: Average throughput is averaged
-> from 10 iterations of usemem.
+> Purge all Hyper-V TLB FIFOs (for both L1 and L2), since both ASIDs are
+> flushed, and an ASID flush is a superset of Hyper-V's fine-grained
+> flushing (see comment in svm_flush_tlb_asid()).
 >
-> patch 6: 19,119 KB/s
-> patch 8: 17,593 KB/s
+> Note that if one TLB flush FIFO is purged (e.g. as a result of
+> KVM_REQ_TLB_FLUSH_CURRENT), it will consume KVM_REQ_HV_TLB_FLUSH, and a
+> subsequent KVM_REQ_TLB_FLUSH will not flush the other FIFO. This is
+> alright as flushing both FIFOs is a (newly introduced) optimization
+> anyway. The other FIFO will be checked after a nested transition, as
+> KVM_REQ_HV_TLB_FLUSH is always set on nested transitions.
 >
-> So the acomp_do_req_chain() path that ZSTD goes through with patch 8
-> causes a regression, even though it provides a generic batching
-> framework in acomp.
->
-> I was able to retrieve performance with the following change in acompress=
-.c:
-
-Why add it to begin with in this case?
-
->
-> patch 3 with this change in acompress.c: 19,578 KB/s
->
-> diff --git a/crypto/acompress.c b/crypto/acompress.c
-> index 192ea996e779..dc609bd7d927 100644
-> --- a/crypto/acompress.c
-> +++ b/crypto/acompress.c
-> @@ -293,8 +293,12 @@ int crypto_acomp_compress(struct acomp_req *req)
->                 return -EAGAIN;
->
->         if (likely(req->unit_size && acomp_request_issg(req))) {
-> -               if (!crypto_acomp_req_seg(tfm))
-> -                       return acomp_do_req_chain(req, true);
-> +               if (!crypto_acomp_req_seg(tfm)) {
-> +                       int err =3D tfm->compress(req);
-> +
-> +                       req->dst->length =3D unlikely(err) ? err : req->d=
-len;
-> +                       return err;
-> +               }
->
->                 return tfm->compress(req);
->         }
->
-> Herbert, would you be Ok with this change in patch 3?
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
