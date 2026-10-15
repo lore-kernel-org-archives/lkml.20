@@ -1,89 +1,163 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF1F30498E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D22F39B5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792034656; cv=none; b=KmbkjJMiXXcAuOPPAh1mt/yoUn5JHOLPlz/MMG80C3N43WNy1gjWnVzN6m6tqueyM81jzLLUehpoLEb8GzciL7Kts59iagk4nG17cXLQg7BlLRHeCdCRL06OiHqCE4X9t9k4WH+jr0c76AIFRjsP8e+CoddsjeOyXue/It1ScmA=
+	t=1792034718; cv=none; b=ibL0lizKaCwIXd3MIipvlCrfuKnGi4lB1467xpOxbDw2MHcq14ZtTjqIFptTYrWzGZk1PJwCpU/SY47yK8c+mjWCuQ1yObXwKrZAl9jvR1JhnUif38X8HVobJh9At19FaCrPdRK6CTl50qca+uaSMWhG+oTQuOXctZV1viEGLP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792034656; c=relaxed/simple;
-	bh=JOwG0J0Pxa0giw+pSldljXOspqL7h3Tsw0YcmIbRJks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MWQXcLd7tac7Xhh13CEtdxiXADAsWbxL4kw8bNEHOBlqcqflycKdy34+j0rx0YzOf7+JlncOWW16NcbxEQChNKs9ksV9nMhh6NmwtgUITKqaFDtlXn6/MZvYiiXCGOg/TUxmSAKWw4E7BfmdYGIp1LLSkI+V5Sv1rEI22vPLxXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oSJF5zfZ; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1792034718; c=relaxed/simple;
+	bh=mCX7cB8PIi2qoYnlIpRswvtRTocND5Vrde2KwI39tKs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T/ctJ4hxnbTFO8741vPzgpH2y5ik+qVYiQm3jQXLlQCDabWBg+9b8+HAi2IbuK4XawcE29uG9uEdAfgKLhgELf3AS7/DDqCDpofgL5v3JiTkOfwpB74K+E8y6qb2+qL5Y3tzJ3oTnr+5XaBR/QuazN9qFx7l+YwT0vrNmzqKBqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=BUUdKgyV; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=sL79yRDp; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oSJF5zfZ"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-88b7d853b11so583542b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:24:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="BUUdKgyV";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="sL79yRDp"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F2aKs7466500
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:25:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=lPkP1qL/sgYi5P1+hcjzd3Wr99
+	AUsW3QdnQ2mlsImRo=; b=BUUdKgyV0+T/4nz9jx4mWFWRrPXfvoWXRisdK0qh1n
+	cXEzFtx1tY6Ba+X+gdO2jZ0Uqi0OA1Oh5wHeUQgPVHrBYrtnJP2FZrC6YuRgy43Z
+	eZSFKuAnjMr3vTM/BGP882GQuMJTL19UIPgZxacXtrg5etd9Qkx9O7e0HnfMpr0u
+	Vpvfzg9cEpmElQLLghQ8izVLuz2ccsCJDWsbTr1yacpLg3gaKWZzqvouO8FdeYAO
+	TfOTZzKXZb/icndxlMV2MXcHdgmo3BHW/BchNhHQtTtkl/KzYU/Tu3i+aAeil5cg
+	YwN0LzPGVQlEpfoUMcfAdZQXR8z7lYreSR2Yuz7VUUOg==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hafnsjse6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:25:15 -0400 (EDT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917a7fffbe0so109954186d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792034654; x=1792639454; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8RAKj7MN73RI8tJkT02x1VHOxQPPjvpRldJHyl+Kj5I=;
-        b=oSJF5zfZgi2K3+RYrUEVBu77Tzi2qD0UMYeTr/6vugevVzr/lH9Oud7UIOmI5Fgovm
-         dxGLdzsf21ZICkmTFyfiEDK5NKtl5aC/IfDN+PexYvfDkDBNdjPKsIQH/7vwPnfqpdeN
-         WlKn9PX8hW7cUw8EdpW65GwCMc7ixVfsnZbbM=
+        d=columbia.edu; s=lionmail; t=1792034714; x=1792639514; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lPkP1qL/sgYi5P1+hcjzd3Wr99AUsW3QdnQ2mlsImRo=;
+        b=sL79yRDpkxTWGe9gbE3ZPZMw8AX4U2l0YGSqJECb+6FFqFMrQaWYcjPoGZUyLEW6jB
+         JX6IbRWDtyD4UxkAO+MHhdzSvzP2jr4CO6Dd3riIagSKa6E1ZAzN0gVbJwm5au7lDPHB
+         gldCbCDRQDy1Rbaxwa1rJO6Maypu3lIAtKU6rucedGl6yiqjT2yR6Qr/FDIgWsE9oYrS
+         nsnv7E/8T7E+M/TtefyVmf/YhSBHxbqsW/smgQAWFvr5a4ozYK6I1N7PagmxyMxtuSOI
+         zfJJJPpTOHdPkfgBzmm4YvJKER+yFx9SgP34w8tcnLzOsNbdFlg/QUfxxdsxlbnwYSMC
+         v2HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792034654; x=1792639454;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8RAKj7MN73RI8tJkT02x1VHOxQPPjvpRldJHyl+Kj5I=;
-        b=sop5PrZ3xRDBOCo6AGBazU5czSOLwhU41oDDu+kmpPv0qFIexP5vx7Nb3R6/kaSNf2
-         pwDiIb9PPw0BFW16gIz2hFziExC5a1y0CWobgay+ndOnR/8VQJCVTlUOqb1ale6DbPnX
-         haHxnheQnd45hcGT42syAjontGzpHKntLS1l8+ITtHsxDSEVK10+Nyjk0oQZqQhiTbKc
-         vJspfjW7HN+sraDnd75+Hnkxjh9kQQxDi4Ki4VTnmGE93EJXrG5Y4CI2J2tXfCsdpchr
-         mE3y+Jt0IWx/4NRYOYDnLcfwY6rA2gp6ApP7oLD9G5VYJabiDDhlOLNUAFolySbGU+gj
-         hUvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxR81NDGDM6cXuiJpt5qbd+QlqpHnLBeIiGY0fRPEPMgXBfaknc1KB0K/Z0PAp4JoFHND0Jr73r147uyGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJ/b1WqAGAo/P1lIjjdv1buz+b2OB2hNZuQYuU/GAYGLtfkAD8
-	WB+RKKL573jwv9yrovZ8jWBtg5sMbkCiatWP4Sti4AtumUUyjWtMcwenu407ktLSMg==
-X-Gm-Gg: AYBFou0bOhT+RfyXgC1swOg4a539gotRihMi/Bjzhk70iBaiReIyh0piey492ayO/oD
-	cG0x/vcsoWoIZhuf/1duGChtEzu3kxQf1cx2M9E+f0IilXRsbjAMNV0GcsmoMLgcmB8LeklCNaG
-	FN3BVtN6hnjKzSxLxpRZRVdE6rstdu5nmw4Ek17sLb5WN3dntACTGiWgSa51ykaPlAVTFd+yEOn
-	JFALs7xJnOS3OEf5nuwAK9e7qiaJOD6tfEqzDzStztbVpU5aAufWhzyEQp+3uYTMhYm1sKsKGkk
-	S/l3zPv+dB/ngUuPO7BmX2N7T2gzNabFAw4UDJHhAcdeLadalP+nTaBQbvkW2DPNltTZhiy7uZq
-	XdAzrJCF6Lj7qP6IJ0/gDUW7SecEuno/NfzXNV1pVEZjYBVKGxs29RkcrFqLyJmudbMdY4/VfxX
-	sXlT/Xkp1KXz7stTqIHEkEBN3o3VBdE1Ae9zMcg6Qd5JD1B3AraeXvvgTxTmOORbnSRPSEbpdCg
-	u+o47ZGuBo509ujrsgKRKD52zAa2MPEJ5Z8ju6t
-X-Received: by 2002:a05:6a00:7615:b0:897:dda6:ad35 with SMTP id d2e1a72fcca58-897dda6b684mr11707767b3a.41.1792034653406;
-        Wed, 14 Oct 2026 20:24:13 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:8455:7899:5a2e:26f8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f51ff63sm1700395b3a.5.2026.10.14.20.24.11
+        d=1e100.net; s=20260707; t=1792034714; x=1792639514;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lPkP1qL/sgYi5P1+hcjzd3Wr99AUsW3QdnQ2mlsImRo=;
+        b=O9DVJ3Y3Di+w17GOX8emwHZPXz2fRrKi3D3kIK3HrE5xKysLKNbbvRDxobB0w2FdG5
+         kISK9j5+1zbREglJSIGllYcEZ+NVJzvw+eq0XeIhURuhGh/lSFJzZojkmSwbTZF49SJn
+         ukIX1ApJxfRzh0YmGfBtm7YZD6CcfXaEjFHs8HEH/1+2XIy17XLxRHrCteGacQxJ4d2X
+         k1hPBMwEgj4Mq6oZJDLU4X9qcE8fmrN+udSw8IPo3EtzTrBiT/Akc5mUadOgQ860TpF6
+         IdhrGgXcCV18O+RGbgfYD3vCpB+GzXd5ZbSyUUhyRfZOxALWStDh8ImJP2kZhdX4NY3C
+         qd9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxnVfoybtwst/KyWWPDhdD9gDYjlKC0SMEcgOIhHDTPj0HKenPymoCNZlywGCbujyYDatRSborobZmXBT0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWGTr29ShrUVKNsT1LojbnlFgO3e+I/Xlf9JslV30ljg3vJuJG
+	8BH8JDNJcHmwwKtRlukZLPOoLXYWgsl51njqyjvEGGKfsBGyn0xDyYBmHoo8eGCtIrjf7AssFXP
+	vpJdaCwTmn9qGbuf0vjz/3190OvvmXtlySEVoP0Fm9GgcLyYoWeaTF9qbiFyK7KEJHoSHOg==
+X-Gm-Gg: AYBFou1aiyf6nGBmcRFL0of2PoS0zjzN8wbSP8k4jQrVCYJOxZet/E/SK+PtuF6li7y
+	CUa/aCi0mkOSggxqg/KWHxO49IGpKwTcijQgNBtNQHEOy0bCCigwxhObHAhZXctR82wlE5ILl0K
+	6gWw9xCFMEhEBLF1xej2z/bWrn08T5hrm+me9vhxnqtWy3JUljYLwIBsXF8IVVuglJY88quFh5b
+	lLn4UVumYBdD6hETn/nZqwbyyaeGjuqmYlrq2nTrpXraC8IVtrELsI/ysg5i+2gtSjRie7UerMb
+	8vfcEiGRVXwMDBLV4yJRLGQym0MmoCDBTtT2Wskt2je5Dtfmrx/ulrJ2Y+cZDRPCmZM8c/230qx
+	YK17Ki39zYv7eOj7BrERnwWBVC4ufYxkJrfj77kdQ+bwG
+X-Received: by 2002:a05:622a:38a:b0:535:872a:a0a5 with SMTP id d75a77b69052e-5359f498f34mr299181651cf.2.1792034714133;
+        Wed, 14 Oct 2026 20:25:14 -0700 (PDT)
+X-Received: by 2002:a05:622a:38a:b0:535:872a:a0a5 with SMTP id d75a77b69052e-5359f498f34mr299181421cf.2.1792034713757;
+        Wed, 14 Oct 2026 20:25:13 -0700 (PDT)
+Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536127bac07sm15022721cf.14.2026.10.14.20.25.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:24:12 -0700 (PDT)
-Date: Thu, 15 Oct 2026 12:24:08 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Bo Zhang <zhangbo0325@gmail.com>
-Cc: baohua@kernel.org, senozhatsky@chromium.org, akpm@linux-foundation.org, 
-	bgeffon@google.com, minchan@kernel.org, richardycc@google.com, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
-Message-ID: <atBHDEBCVL6Ae0hT@google.com>
-References: <CAGsJ_4wuPCPR0DnbrLp7ebdO=Oih6K_yP4XxwETKQ+3U+THVjg@mail.gmail.com>
- <20261015031940.1410875-1-zhangbo56@xiaomi.com>
+        Wed, 14 Oct 2026 20:25:13 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH 0/2] mtd: rawnand: nandsim: stop pre-populating the cache
+ file's page cache
+Date: Wed, 14 Oct 2026 23:24:57 -0400
+Message-Id: <20261014-nandsim-nofs-v1-0-47e49f37e387@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015031940.1410875-1-zhangbo56@xiaomi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIlH0GoC/yXMQQqEMAxA0atI1hZMB4bqVcRF1VQjGKVRGRDvb
+ nWWb/H/CUqRSaHKToh0sPIiCZhn0I1eBjLcJ4Mt7BcLtEa89MqzkSWoceHjqXQWHRKkZI0U+Pf
+ u6uZv3duJuu15wHXddrGCSHAAAAA=
+X-Change-ID: 20261012-nandsim-nofs-8f3ae982181e
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+        Richard Weinberger <richard@nod.at>,
+        Vignesh Raghavendra <vigneshr@ti.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792034707; l=1013;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=mCX7cB8PIi2qoYnlIpRswvtRTocND5Vrde2KwI39tKs=;
+ b=a5U9wLXoay/mnQWMpScbE2Jn+l88Sha1NKRIcmO62pPqgbTwuTWwYg6trXqfOMp9+bp/RRVLH
+ sREi3yJPFitAGb6CuY5p95XMwNjup5y2g6v0KgwduxwctJ6dnQYAhs1
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAxMyBTYWx0ZWRfXw/JRyBku+2VU
+ VfBJaGDevHPvIaUcEMof/Ah/AYtTpWTifr0pLc5aH5gpV7nA3zx4T0KBsqfIj78Iou50SWWARfp
+ CJUFOpZyX0NMsCLLSG4mPTfnT8vQ5ITgX/VU88RWkxbtLJ+sGaxrzBr3YbTRQcynfgn94uqQu2H
+ JwrqzgW4Wn1VN9Ey6QS+51zkuefw12Yb9gXN8O25DTaUnIJZWzh6bJAmPcbafQpzDL0uY4ZgBjH
+ DyfUGNwXOoF9z0gV1A6ZVHQpimvs3m7oHQy4etHbnDgN8y3NMTnUu1FgOgKuuDPE+qfmurLaYX2
+ Ei9zFdWERWhgpdPYAIvSqt/Vw99pBrk+mURaQN6pS5q19ev2U3a1Xfmaw1DGAcPxBiV/W4ALwha
+ Hl1mTAlvWbYkDZ67skqHgjqqeiGlYo8khKxZN5LgB2yFXPLDyU61qzium1SqARuqCika8zoY9TS
+ kd3yomDISBtuziQ2coA==
+X-Authority-Analysis: v=2.4 cv=Mr3HeGae c=1 sm=1 tr=0 ts=6ad0479b cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=fsQuAqkoyy6rfPB4ug8A:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAxMyBTYWx0ZWRfXzRlBajVJtANC
+ WbQKyJcLtMsJbE8KVm6X8MzjWfXIhX4Ih2iVBgS+sPcsWzlhaycfayCyhlMjmht65liWohvWb8Q
+ JZP6R/eq0Owf2WBJBl+qUGz0secdJjclXoUv3JSy4u3FKHBjFkLj
+X-Proofpoint-ORIG-GUID: pSquNP9qwlnJVeF892noOqOcPul9Tq1k
+X-Proofpoint-GUID: pSquNP9qwlnJVeF892noOqOcPul9Tq1k
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11935
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 phishscore=0 suspectscore=0
+ impostorscore=10 lowpriorityscore=10 spamscore=0 bulkscore=10 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150013
 
-On (26/10/15 11:19), Bo Zhang wrote:
-> I'll also apply Sergey's vm_map_ram() patch (with the memalloc_noio
-> fixup) and re-run on-device. Note this only helps the cross-page part
-> of our exclusive reads on a stateless backend like lzo-rle; it won't
-> change zstd/deflate, which stay exclusive regardless because of
-> create_dctx. Will report the numbers separately.
+nandsim runs its cache file I/O under PF_MEMALLOC and pre-populates
+the page cache before each access, both to get NOFS allocation out of
+kernel_read() and kernel_write(). Use memalloc_nofs_save() for that
+instead and remove the pre-population. The pre-population is the
+driver's only struct page usage and one of the last users of
+find_get_page() and find_or_create_page().
 
-Thanks.  I just sent another patch.  vm_map_ram() is a little of a
-hard sell, I guess, because of TLBs.  kmalloc() patch doesn't seem
-to be much worse (if worse at all).
+Tested on KVM using the MTD test modules, nandtest, and fsx/fsstress on
+UBIFS over a nandsim cache file, with no errors and a 6-13% speedup in
+mtd_speedtest.
+
+---
+Tal Zussman (2):
+      mtd: rawnand: nandsim: use a NOFS scope for cache file I/O
+      mtd: rawnand: nandsim: stop pre-populating the cache file's page cache
+
+ drivers/mtd/nand/raw/nandsim.c | 85 +++++++-----------------------------------
+ 1 file changed, 14 insertions(+), 71 deletions(-)
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261012-nandsim-nofs-8f3ae982181e
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
