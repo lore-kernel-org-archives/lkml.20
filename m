@@ -1,175 +1,313 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C47E524B14;
-	Thu, 15 Oct 2026 12:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39508518136
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067197; cv=none; b=Xi8bBmX8ZAmO+O6nForI1oLebBrvClapErWOsCdZp5NTsV55D7BVejj1iDdz4HvJob3qrGBE1r5fNZQePgYgXdInnAP9b/IImqa174C0Petv8HAKN8RlhRTHNpmqV50uWaHDZBYrrwKifMwGhdpenraw/DZ3lMzG1A2LfHZXftk=
+	t=1792067285; cv=none; b=gqLzht2tXFuCK1cSbNrjunNEYuKYiITx74xC4xFORiOchzn2rj6AfZsCjr9LpuOpOGLfxEupXk3kmrutiIs/R6SF1LGzRjWVAE35t7LBkaysYsfFLVLP6EikcxXaqkYTORmz0SbOtMdXGcXU7P+j971entGLtSO9JqdtndCgz3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067197; c=relaxed/simple;
-	bh=D7KdNg2MMfhD5sMDX3xwj/9lj9eY5WF8rJQlMq2NmEE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iPRjvvkaUw9ctvvWVBU16VmxDqqHjgknD0h2HbNssnk3ZqC3O45SbqRoYNqAlpFa1s10+LedXHUQYsbWn4CZWt1b4ZpCMCZH+9G3v5zs0r+fPtUYI3tIy/HNgnabjS/S1zMGgYqnC8HaQ+6/yVY3bDEyutf+lGwiU208U9n2RvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVqNRxNl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067285; c=relaxed/simple;
+	bh=vran+OpfJM2PZIrnH54mmVpNHHTv4PfUqJT7y9SsR8c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aIJdBJTr0od1MW4xucZBO5mhs+1hur9KfOEfMgF88wu1dZHMnhOTLm0SxQPssfpYnT1f0772298HI3MmWi3aKUb4hZXhUTycwywifj95jnjtPSqGSsF45ljHVFuH/z/Cc4FlQq+4pmRlxuVJEUwJTK9frZ1DNNXzyCIoyC/UGJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TGh3iqJE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kwa2iARv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVqNRxNl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602E71F000C5;
-	Thu, 15 Oct 2026 12:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067196;
-	bh=j3bR7xBLXc/8ycpWmz1YxvgT1RUOKYrmerO8LO5zBrY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TVqNRxNlHxwiUuwM2JpxdvpiC+4J2NEPYJGDcEDMz4BcF2rir49h/ag+P2a4oHFyH
-	 IyseDmHswT20uayeYjQYNwv6QEKQuq+X1rYJBNVv+w3523zmcSTu5k/5EfPqYOTUJb
-	 D9tI65m7WcIaJmU8fmrwMjUkBu6kqGu90IMFrLG2N3D7JNA9bNZEhZlX4wQB8SG6OF
-	 mXmPphjP4EtUsx9MMUrbkEb/iUP+QZkBUbEE3djIuz6cwXelFZM3rriDic3wp8AWn5
-	 oqzt/OvGXutYSI6mvCddgBXNOZuhj+eE853rAqYwKWjt1u20VR+p+Ui8Hm2excc93W
-	 Gq/+tKTRxkNGg==
-Message-ID: <1fe4027a-6ad8-42a1-9943-cb3b8aad3fb6@kernel.org>
-Date: Thu, 15 Oct 2026 14:26:28 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TGh3iqJE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kwa2iARv"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jT0R2809323
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:28:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=H86NpSzFpRGKvjCwaNyeNi/MQuD7SkAcaC0
+	WhWl0CdQ=; b=TGh3iqJE7cELOXn3ZNoA6LyOV9S9Np9XSr0Gw+u9ecq7EQxiv5Y
+	q4RCRd7V7P4dR9+zOrEtJ4z75+v1ZiRvKR+THq5pBI1i5Afzx3xa3hh2UDtjGs7N
+	KbRekCKV916o0EzHvzZHskX+1iwjGOL3oJVoK2rOja13BR+mGVBMz2g5sdhjQhI8
+	VkRjEt6Jjd+QcXktQ0hlIW5WZBVTE5hEDHiZMCPlGVnuZL+9zJnNBcDLsTyxeWpE
+	xiNaVHcCW8Qa3yQ6uf42B758cLvkWjO1fBilspbYOBv1ke1X2utAOvUvxDfrpGpr
+	qLEdv28d2TfB+29SW8CEmdUTSd5Y/3sB7uw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4han54thsu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:28:01 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so4914018a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:28:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792067281; x=1792672081; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H86NpSzFpRGKvjCwaNyeNi/MQuD7SkAcaC0WhWl0CdQ=;
+        b=kwa2iARvFggKWEv/e03sWJVNnmGkSKrljsSvuXlkgvXbzEHoMPAB7zawES3m4r26KZ
+         5/GztdbFqc2X4CKdxZf/dsYPxZeuPSLiOFHWe5S9/O2vlnT6rtMTleLWsSTJCas/dmE8
+         JPr//O0D01HOImdbdnJyRib976XffMAheVZxAjUP5AwVPaQjc2huLBiumlpQpNvbZSY5
+         fRl8dppkTuFcetMslx73DDD15u3zA50jUk4e6GBc0QTJ5LDm/B9SsKn9/pRO/bUonvRQ
+         +JD3EbpndCBMk1FQHT0wJh9ai7Wy07j50cuy/+LzArzK+4l0wKRNWLhOdGbiNHxM3az/
+         VZfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792067281; x=1792672081;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H86NpSzFpRGKvjCwaNyeNi/MQuD7SkAcaC0WhWl0CdQ=;
+        b=DflnFMmWUHFiAmwJOw9gIvpYR/KUReEqgbyYSVhtFYZyaMHAmmkxKFCzS9vFeHELFy
+         iP4wpLThuFMv7ETYuPBZ6ZP6X/t9wRLpxlNf03T4ejkyi2RNJ1aGcpfQ9X0X0Gv+uDCM
+         rex99eHFjRt+J5pS6aYBKhPtwKHQsNhrJGM2hJP0B9Tq3fqd140tEAZIrr6Cbh2UA9L2
+         S17tm79b3lVrmVNWky0BLOY3lY43MeqpANMudDJ9RWvapEI5ZrtZ7KoZBy7YkC00NiaZ
+         z+wfy1T7hPt7Nyz6PMkLuNXoNnq0Xjj0L37T94gWXAuILVbZbrC6i/8cJtzk7nLL7lfx
+         SNCg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5bDE2u/cM7JuaJY95ep4vPCCIIgFA7QD72UN+VB1BrrHP5hJPAflgQWuyrxqGy5ncdwvU3U0dTheBuoE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgQcvFWKfuSnR7D0ZLaQcCOBzNV3McENBRwy9E4lz/CLm5zrLS
+	wRbupZeN1fWvx4uPRGvh6T1Zo1YxmvFbtyGksX8fZjUbVD2TTRrrepDUHrgxIJRGbHm85XdgEsZ
+	jXiBWNVV/lV+J6+NebarJjRSBzScC/XVpI056QiGaqmKGebJF/3dVdQDDy7pjl2lGtrA=
+X-Gm-Gg: AYBFou0I7OOu/osK8jyCRlolHk624C3NQ9yVYhhW/ooMQjKOBLTG6zFoEOMZWEggD3X
+	707hzomwsFAm5oMn7AvPZwf2V4feDtH99n42K13f8UrSZyKgt5aq1Rd0X9OygrbEls5fwWnIXgP
+	9wdmgK9VfVlPAAwD67dBPP7Et1l34E/5FNBnSgbDSO2UDLrYVAdfaGIWbo/lrPI4+WZXCiTIDkV
+	7EfNT4wGnPRhrRvMGRI7EYQAfSzjvOHiCkfQPVVyKrYjNYmOwiiZ0ZEVg39YY/qiPWM714s1NeV
+	lhlgZuoU/0Cw9QJCZo6JsSs0eK+vY5wNdNXQxLGfoKcnybQQqO9Cq+2ZPdf7mGlla/Lqhb4E2OQ
+	6xBUmreoyCGyMTFRCVxvK6YDSRjIB9aDkfL0hbFjWJLbMY5UAr7yZbm4NBto=
+X-Received: by 2002:a17:90b:1806:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3ac9a03275cmr2169481a91.47.1792067280849;
+        Thu, 15 Oct 2026 05:28:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:1806:b0:3ac:9a03:20bc with SMTP id 98e67ed59e1d1-3ac9a03275cmr2169452a91.47.1792067280289;
+        Thu, 15 Oct 2026 05:28:00 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c937adsm1202315a12.19.2026.10.15.05.27.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:27:59 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] gpio: shared-proxy: Fix race between concurrent first users
+Date: Thu, 15 Oct 2026 20:27:40 +0800
+Message-ID: <20261015122740.971792-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] khugepaged: hold invalidate_lock across
- collapse_file() readahead
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, Zi Yan
- <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Matthew Wilcox <willy@infradead.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>
-References: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
- <20260913163644.122133-1-ngocthang2710.1999@gmail.com>
- <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
- <aqbvFtlXd3Jdnfbm@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqbvFtlXd3Jdnfbm@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=RYQFmFtv c=1 sm=1 tr=0 ts=6ad0c6d1 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=Sp4Y3lbv4_CS8mIV0RQA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0OSBTYWx0ZWRfX2/YD7+0F4yRQ
+ nI3aGtP6wpf8uOUOtq7P1Xwee9Uug4DMNve+2gXMFVe0GsFe9BddOc2uuCmdLx2gkN8T9VAuumN
+ vbLSEcCbOs++PzorkMKbpkP8XCdA+Rp59HiZDSnEzdORITxsaqK+aY76AtkGPtbzj0h2GZDG/LS
+ +sscHWevCdgpRY6R3t3WKCcuXEsa012S51Ee3xWk8oXwBWpguZHknsIqDVDN3xAp1aUG+6J3Hyi
+ geR5nUN6sKsHJwCifgFUbvdkX1g8sELrqYODRDT2eVUYps8r1bDp1tVzE80XAY1a+IAHr2YYPSq
+ ltSPbIkKuiXPpBz9w+MqCTfUWbkZempr0/3/efOgRhD1Y6XCY+MBW6gctIhCz69e5uwbaNXI56P
+ emulxBUJsNpTjLBKj8q+I1v4TE+NlLOKroOAFEdvkXVoSdSubKgZOxBW0oH1MRkcALKVhRbknNI
+ 2ZRg0Bri3SCU9XM35Dw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0OSBTYWx0ZWRfX79Ledv7QxH0k
+ DhTXJgIF/Hq0UHYfiDGtpiAYPlU3q+tNtI1EQCmvKXFPNI7S8FYoB3CphhOxkw3CxR9HT9vAlVm
+ YEKAYNfdziuHKqaKlyjQD8a6r0zhjk0=
+X-Proofpoint-GUID: d1MyKIPDPqeuVrfkrBQ-PY-7ojBYxnsW
+X-Proofpoint-ORIG-GUID: d1MyKIPDPqeuVrfkrBQ-PY-7ojBYxnsW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150049
 
-On 9/13/26 20:48, Lorenzo Stoakes (ARM) wrote:
-> (Nguyen - do not send v2 in reply to v1, look across mm and see how things are
-> done here).
-> 
-> somebody who has a
-> 
-> On Sun, Sep 13, 2026 at 11:17:00AM -0700, Andrew Morton wrote:
->> On Sun, 13 Sep 2026 23:36:44 +0700 Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com> wrote:
->>
->>> collapse_file() calls page_cache_sync_readahead() to fault in missing
->>> pages before collapsing them into a THP. That helper takes
->>> mapping->invalidate_lock itself for the duration of the call, then
->>> drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
->>> takes invalidate_lock and then waits on each page's folio lock while
->>> holding it. If collapse_file() has already locked one of those folios
->>> by the time truncate reaches it, and then tries to acquire
->>> invalidate_lock again (e.g. on the first readahead call, since
->>> invalidate_lock is not yet held at that point), the two paths can
->>> deadlock/hang on each other's lock: truncate blocked on the folio lock
->>> collapse holds, and collapse blocked waiting for invalidate_lock that
->>> truncate holds.
->>>
->>> Reproducing this over ~150,000 collapse iterations with truncate
->>> racing concurrently reliably hits hung_task: blocked tasks within
->>> about 20 seconds on an unpatched kernel.
->>>
->>> Fix it by taking invalidate_lock_shared once for the whole scan, after
->>> alloc_charge_folio() succeeds and before locking any folio, and using
->>> page_cache_ra_unbounded() directly in the readahead call site instead
->>> of page_cache_sync_readahead(), since the latter would try to retake
->>> the lock we already hold. page_cache_ra_unbounded() does not clamp to
->>> EOF like the helper it replaces, so clamp the requested range
->>> explicitly.
->>>
->>> 730633f0b7f9 added invalidate_lock acquisition around readahead but
->>> missed collapse_file(), which already locks pages while calling
->>> readahead; later filesystem conversions made the deadlock reachable by
->>> taking invalidate_lock before waiting on page locks during truncate.
->>>
->>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
->>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
->>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->>
->> (You forgot to cc the original author)
-> 
-> Also a change log, and that mm doesn't like sending a respin in-reply-to a
-> previous version. Which is all consistent with somebody using e.g. openclaw to
-> pepper generated patches across the kernel...
-> 
->>
->> Five years.
->>
->> I wonder why this hasn't been discovered by lockdep, AI, syzbot or any
->> other of the tools we've been using for so long.
->>
->> Thanks for doing all this.
-> 
-> See https://lore.kernel.org/linux-mm/aqbtfms0_2ULBIT7@gremlin/
-> 
-> I am not really entirely happy with somebody who has sent a flurry of patches
-> across disparate subsystems with no previous track record being in charge of a
-> potentially backported fix.
-> 
-> It's David's decision but I think this fix should be taken over by somebody
-> else.
+The proxy lets a consumer set the line direction and reset the
+default value and vote tally only when usecnt == 1, i.e. when it is
+the sole requester. But request() and direction_output() take the
+descriptor mutex separately. When two consumers probe concurrently,
+both request the line before either configures it, both see
+usecnt == 2, both fall into the shared path, read back the still
+unconfigured direction (input) and fail with -EPERM.
 
-So what's the status of this? Any volunteers? Otherwise I'll polish this up.
+On Nord RRD the two DAC supplies are reg-fixed-voltage regulators
+sharing tlmm GPIO 41. They probe asynchronously and intermittently
+both fail, leaving the codecs without supplies:
 
+  reg-fixed-voltage regulator-3p3-dac: setup of GPIO (default) failed: -1
+  reg-fixed-voltage regulator-5p0-dac: setup of GPIO (default) failed: -1
+
+Requesting the line is not evidence that a consumer has claimed it.
+Instead, count proxies that have actually configured the line (set its
+direction or voted for a value) in a new cfgcnt, with a per-proxy
+configured flag, and allow (re)initialization only while no other
+proxy has done so. A consumer obtained with GPIOD_ASIS that votes via
+gpiod_set_value() without ever setting the direction counts as
+configured, so a later user can never reset def_val/votecnt behind its
+vote. The count is dropped when the proxy frees the line.
+
+Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+Assisted-by: LLM
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ drivers/gpio/gpio-shared-proxy.c | 72 ++++++++++++++++++++++++++++----
+ drivers/gpio/gpiolib-shared.h    |  1 +
+ 2 files changed, 65 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
+index bc69b8729d19..0d9ef98a4229 100644
+--- a/drivers/gpio/gpio-shared-proxy.c
++++ b/drivers/gpio/gpio-shared-proxy.c
+@@ -21,9 +21,33 @@ struct gpio_shared_proxy_data {
+ 	struct gpio_chip gc;
+ 	struct gpio_shared_desc *shared_desc;
+ 	struct device *dev;
++	bool configured;
+ 	bool voted_change;
+ };
+ 
++/*
++ * A proxy may (re)initialize the line - set its direction and reset the
++ * default value and the vote tally - only while no other proxy has set the
++ * direction or voted for a value. Requesting the line is not enough: consumers
++ * may request concurrently, so counting requests lets every one of them
++ * conclude that it is not first.
++ */
++static bool gpio_shared_proxy_may_init(struct gpio_shared_proxy_data *proxy)
++{
++	unsigned int cfgcnt = proxy->shared_desc->cfgcnt;
++
++	return !cfgcnt || (cfgcnt == 1 && proxy->configured);
++}
++
++static void gpio_shared_proxy_mark_configured(struct gpio_shared_proxy_data *proxy)
++{
++	if (proxy->configured)
++		return;
++
++	proxy->configured = true;
++	proxy->shared_desc->cfgcnt++;
++}
++
+ static int
+ gpio_shared_proxy_set_unlocked(struct gpio_shared_proxy_data *proxy, int value)
+ {
+@@ -117,6 +141,11 @@ static void gpio_shared_proxy_free(struct gpio_chip *gc, unsigned int offset)
+ 
+ 	proxy->shared_desc->usecnt--;
+ 
++	if (proxy->configured) {
++		proxy->configured = false;
++		shared_desc->cfgcnt--;
++	}
++
+ 	dev_dbg(proxy->dev, "Shared GPIO freed, number of users: %u\n",
+ 		proxy->shared_desc->usecnt);
+ }
+@@ -155,15 +184,21 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
+ 	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
+ 	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
+ 	struct gpio_desc *desc = shared_desc->desc;
+-	int dir;
++	int ret, dir;
+ 
+ 	guard(mutex)(&shared_desc->mutex);
+ 
+-	if (shared_desc->usecnt == 1) {
++	if (gpio_shared_proxy_may_init(proxy)) {
+ 		dev_dbg(proxy->dev,
+-			"Only one user of this shared GPIO, allowing to set direction to input\n");
++			"No other user configured this shared GPIO, allowing to set direction to input\n");
+ 
+-		return gpiod_direction_input(desc);
++		ret = gpiod_direction_input(desc);
++		if (ret)
++			return ret;
++
++		gpio_shared_proxy_mark_configured(proxy);
++
++		return 0;
+ 	}
+ 
+ 	dir = gpiod_get_direction(desc);
+@@ -176,6 +211,8 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
+ 		return -EPERM;
+ 	}
+ 
++	gpio_shared_proxy_mark_configured(proxy);
++
+ 	return 0;
+ }
+ 
+@@ -189,18 +226,20 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
+ 
+ 	guard(mutex)(&shared_desc->mutex);
+ 
+-	if (shared_desc->usecnt == 1) {
++	if (gpio_shared_proxy_may_init(proxy)) {
+ 		dev_dbg(proxy->dev,
+-			"Only one user of this shared GPIO, allowing to set direction to output with value '%s'\n",
++			"No other user configured this shared GPIO, allowing to set direction to output with value '%s'\n",
+ 			str_high_low(value));
+ 
+ 		ret = gpiod_direction_output(desc, value);
+ 		if (ret)
+ 			return ret;
+ 
++		/* Only this proxy can have voted, so the tally is ours to reset */
+ 		shared_desc->def_val = value;
+ 		shared_desc->votecnt = 0;
+ 		proxy->voted_change = false;
++		gpio_shared_proxy_mark_configured(proxy);
+ 
+ 		return 0;
+ 	}
+@@ -215,7 +254,13 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
+ 		return -EPERM;
+ 	}
+ 
+-	return gpio_shared_proxy_set_unlocked(proxy, value);
++	ret = gpio_shared_proxy_set_unlocked(proxy, value);
++	if (ret)
++		return ret;
++
++	gpio_shared_proxy_mark_configured(proxy);
++
++	return 0;
+ }
+ 
+ static int gpio_shared_proxy_get_cansleep(struct gpio_chip *gc,
+@@ -230,10 +275,21 @@ static int gpio_shared_proxy_set_cansleep(struct gpio_chip *gc,
+ 					  unsigned int offset, int value)
+ {
+ 	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
++	int ret;
+ 
+ 	guard(mutex)(&proxy->shared_desc->mutex);
+ 
+-	return gpio_shared_proxy_set_unlocked(proxy, value);
++	/*
++	 * A GPIOD_ASIS consumer may vote without ever setting the direction;
++	 * count it as configured so a later user can't reset its vote.
++	 */
++	ret = gpio_shared_proxy_set_unlocked(proxy, value);
++	if (ret)
++		return ret;
++
++	gpio_shared_proxy_mark_configured(proxy);
++
++	return 0;
+ }
+ 
+ static int gpio_shared_proxy_get_direction(struct gpio_chip *gc,
+diff --git a/drivers/gpio/gpiolib-shared.h b/drivers/gpio/gpiolib-shared.h
+index 618756f6c6aa..ae10506b7029 100644
+--- a/drivers/gpio/gpiolib-shared.h
++++ b/drivers/gpio/gpiolib-shared.h
+@@ -41,6 +41,7 @@ struct gpio_shared_desc {
+ 	struct gpio_desc *desc;
+ 	unsigned long cfg;
+ 	unsigned int usecnt;
++	unsigned int cfgcnt;
+ 	unsigned int votecnt;
+ 	int def_val;
+ 	struct mutex mutex; /* serializes all proxy operations on this descriptor */
 -- 
-Cheers,
+2.43.0
 
-David
