@@ -1,217 +1,129 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EFB5372C9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B583B5310
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792076258; cv=none; b=iphoAkGtq+QXLg45u/fU2FT2OeYN/sEtwnmdw/5iXb6Fv6MsqVHkKWwfAREA3/8M8z67WTV6lFOe5wXRIapHXo8eqic7e6r1S9VZKRwvVquAB6hNFbhLU2agAkiT/NfMhcyb6FDIiU6/vKwIYeI168j20XOaLL7duCQGFVTpmWY=
+	t=1792076295; cv=none; b=lfU/hS53WPqoWkBy5JW8gV91qgU67ZoYDHr6HMQNF3ArsFG2TU0/ys4mELCSGwnWAaLLya8WGlKgSqjU4jN/5m8AdBxuRDluh8bTYjO3+o4BHtyCfwyJeIdrwu+Hpinmz3INRNGULmEvC9ovhuSvMr/DteM5HW2p2TB+ULXfwLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792076258; c=relaxed/simple;
-	bh=nbtf2aJFUaL/4iH/qLfpXzTeoJ6Tlhbj6DaOj27+188=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CeEF/UQZgZcAl/0GLTIWroBg2GIGvNaJURqu05ZPcSp8cisHymEDKfsWs/5F7vifeGmij/rMgRJs5AjMK1e/vwC+La8yOOb4lIK+0F5XaDWdhhFidKho02/J4FZ9QTSXvXTvzm/YQaA2T4exc8dwPbjzmnK4r4FZrZSLSsSEnRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hHIb6Qv0; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
+	s=arc-20240116; t=1792076295; c=relaxed/simple;
+	bh=EPq/03fdA7jHQZTI5Tv/jx3i5dZSK2Mbttbhsp2Ilcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Eud7KjTikW0TEQcYw761OYjR7aJ7Unzk7jGBN55wKH9H+/XCovwUECMNBOrot3U1EYwYFl7VJUpM4g5vE7/9XZF/HcReii/ZeW/YCXElzGsqvS1tUQSY22HDgGUG+sP/8Q9iI/5w5/x+zVphBzItkcDqkAJY2mky0uhPX2/AtgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=CABNLYiG; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hHIb6Qv0"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so15441855e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:57:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="CABNLYiG"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so47858055e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:58:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792076252; x=1792681052; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gOPLD1Nk0xD9uDIf10OzE40FWH2sqAvdDlcLSS3lQok=;
-        b=hHIb6Qv0n4wHdT0+rIYpg9rH9BhqH5eKOaxgHTQkoYUzQn3ynzUqD3oQ50EOpwTRdc
-         WOZW80ZclA5LQuTtcg7SPEjYjDs3hlrKIYShNM2n7WjMZJ3IUyUrCEK997E9EX7rmQN7
-         YxOkWcNWS6nVponITujeyzSlrQd27ZGl8nPeKVjXAuGbjKk6t1l88NmsIVptcK8cZHIA
-         sgJa+T5919h7xhi40BWpsm50lvbYc6nTfbW0daYlO82stBzNO9YfgUx5zJWn8WK7kASk
-         w+orAzdWpQsdnPwpLLsqM4cDrK3K8QrWUwjTvUVL27c7kRo3PsDmnDAkQa/mVnWU5tnx
-         EfhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792076252; x=1792681052;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=konsulko.com; s=google; t=1792076291; x=1792681091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gOPLD1Nk0xD9uDIf10OzE40FWH2sqAvdDlcLSS3lQok=;
-        b=TesKCL0bTu+BiSbN64m+Hs0GZmXUwH8ZKGoXBDQR9QFDpjg8K0S1L8byD3Nt5jGn6B
-         uJJxiFyT6L6a0Nc2HZS+7dAHpu7L3yrxarc8Bv3r5n211fJzzB05xiac04P6/OG9qsas
-         wX1Lcjjz4upfkSfmghFKQqBansVnCqpq1gyCyLD2dS4Lm4UEPCu62hWLzPHaE8k9jbA+
-         7U/b1nJ7/UPjLK3pxKNZLf3AGZwq+IZqJ0ePXb9dKVoTaXkcem9Tn94CoFTP3JzbPJlW
-         h6H/H+st3Nybfcps6gcIFmUZ8dGak1c3cfFe9f7OBen6ntbIj2HdktdD3YIg9anH0/AJ
-         Huhw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvU3Dwe/5OeOZJ/mZy2hBsAYhMnJLfPRxzdxXxd+bB7Bu/zfoOXw67PLkf1p4GUxKfvY1HBXYj9xya2ns=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtUfkClWYPLfQF3RQUHECCzVixzrsblSePm94TdbXCp6FQy8Ws
-	svD2d26Y5R+Y0XyofYkMd/hR5k9a4NcrjCv1uqR8G57eeaSJLJB0/QTHkvI40l7t5L080WlaO5F
-	LTw==
-X-Received: from wmbgx18.prod.google.com ([2002:a05:600c:8592:b0:4a1:7fbd:344d])
- (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:3f16:b0:4a0:2150:55fb
- with SMTP id 5b1f17b1804b1-4a18e44395bmr382529505e9.4.1792076250083; Thu, 15
- Oct 2026 07:57:30 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:56:14 +0000
+        bh=g79lxdI+JwJ9lYZtMApsuAitGX7WOKQsF0SW8/j4ox0=;
+        b=CABNLYiGyurbiiCEnNXgBxHw9QeAZ6QsOCJwu9TzyAR9F2noH/QJ17g5SC/Fh0dS/S
+         G8OYPItLZpFZ+DeCPaiIZ/AeJrErvtZkl8GspRuALlFgMhkkExzFSU+NRCsfyXQhVGTs
+         vJKiruL6t5G0Jbd+Bkzp2SXYb9gusrlAY3LLc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792076291; x=1792681091;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g79lxdI+JwJ9lYZtMApsuAitGX7WOKQsF0SW8/j4ox0=;
+        b=Yh+E5bzGAG4aLhLi23LFOsnBfCnJlAr/SQfc/cEx4OZbif59i9BBQCphopnWRsAKsg
+         eYsccOUxVHlqwM0caym/T/Nc5ljy6GcBLNO/TpX1OSOmYynUjN1IY85Q9BCsc1/Gh1iP
+         tpQvOjlfJKYAm7thcLGbOzLsNqH9imiYtB45deAAGGb0JKv1bMaCwS8ITaP/R+qkfc1y
+         rdIn6u0rfMA6r27BHukON0LSZcDPgCUvh2QwfWOi//ekP6a/SVpmRbqEfSyfOVp8gpHp
+         I6EOjANrQTF9/sRHhiknlGlpAQr8xsKgtxFnCJDsfbirD4wV+FhA04fvAvY4Zndooc3U
+         uB1g==
+X-Gm-Message-State: AFq9FYICxIK+VUS148thwhRE0FKMa9waYzJYZV7kIVuC/filAQ+J9/3e
+	0U2Yp622bCD27ck/pVUjK11OnZMoxR+i/a2+977WtMcTcirH9Xemxkylg2IF/lT/4rZBXSCs5V0
+	SKVGI
+X-Gm-Gg: AYBFou3Ou3SYNP9Ib8uz9PVpcBPUbk7hOGEFw9hcXG3Va3A/t1HvVQpOI+z1q+E06ol
+	IStXOyvyxCNOhF2biWJbZtZw8JHbEqoPsOZg3hK3PMKYBp/UrNP4MFncCuvByg2c3zkl5G9CoqX
+	q7EIL3Z1/fN4URJyEcCHMQdAIuVSXCfPgizYb5YjcAbE35r5dN0edOH7RYBkyKlsa7qqeLSO3e2
+	JnIiYt8Zs/p0ICpSiEENRZU45Tgx1SR4PNohTmtBebsJEXBcT6l8DzpJs2aPAnr9rtXuXDjV3cT
+	rU0yF9+JepQ08o10NEmqFqVvC2GtrdFWZNeKtTgZ5bvWHQnTBtHz2VKmhuQLQjCLFMY/R1R5OOz
+	iRCjKq3Kgr1p44m7wIFKHp6LYtLEvLTf54/oKKBMijHpGm789z2nIV2UVS+5V1mdQGb/KDPVrJ2
+	cEoueQAPNqoHtcShjAYJdYxHsyz6bqpnZnPYL0f5EZKRzIX3YAXwLN5BMN54WLbCexvDotDrn+S
+	CKyodEeWGOnmoM=
+X-Received: by 2002:a05:600c:3e83:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a18e446880mr356608145e9.3.1792076290783;
+        Thu, 15 Oct 2026 07:58:10 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ed33sm88053985e9.5.2026.10.15.07.58.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:58:10 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v11 0/3] arm: dts: altera: add Draeger M48 CPU board
+Date: Thu, 15 Oct 2026 17:58:00 +0300
+Message-ID: <20261015145804.3632839-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261015145714.3327543-1-elver@google.com>
-Subject: [PATCH v2 1/2] kbuild: rust: enable KCSAN support
-From: Marco Elver <elver@google.com>
-To: elver@google.com
-Cc: Alexander Potapenko <glider@google.com>, Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Asahi Lina <lina+kernel@asahilina.net>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Yury Norov <ynorov@nvidia.com>, David Gow <david@davidgow.net>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Alvin Sun <alvin.sun@linux.dev>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Petr Mladek <pmladek@suse.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Rust supports ThreadSanitizer instrumentation via LLVM, which is what
-KCSAN relies on; however, Rust code is not currently instrumented.
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-Pass -Zsanitizer=thread and the same TSan backend options used for C
-code to rustc. Wire up KCSAN_SANITIZE in scripts/Makefile.lib for parity
-with C (though rustc currently rejects linking crates with mismatched
-instrumentation).
+This is the SoCFPGA devicetree part.
 
-rustc only accepts -Zsanitizer=thread for targets that declare support
-for it. Of the targets used by the kernel, this is only possible for the
-generated x86_64 target specification, so restrict instrumentation of
-Rust code to x86_64 for now via HAVE_KCSAN_RUSTC. On other architectures
-Rust code remains uninstrumented as before.
+in v11:
 
-All TSan options used are supported by the LLVM versions of the minimum
-supported rustc, so no rustc-option checks are needed (they would also
-fail, because x86_64-unknown-none used for option checks does not
-support -Zsanitizer=thread).
+  - replace the ethphy compatible string;
 
-Unlike Clang and GCC, an equivalent to -fno-optimize-sibling-calls is
-omitted for Rust because rustc provides no corresponding option. While
-disabling tail-call optimizations helps preserve complete stacks traces
-in reports, it is optional and not required for KCSAN to function.
+and in v10:
 
-With this enabled we can detect data races in kernel Rust code and
-between Rust and C code.
+  - add device_type back to the memory node;
+  - move the compatible string under the phy node;
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-Acked-by: Boqun Feng <boqun@kernel.org>
-Signed-off-by: Marco Elver <elver@google.com>
----
-v2:
-* Add note on -fno-optimize-sibling-calls to commit message.
----
- Documentation/dev-tools/kcsan.rst |  7 +++++++
- lib/Kconfig.kcsan                 |  7 +++++++
- scripts/Makefile.kcsan            | 13 +++++++++++++
- scripts/Makefile.lib              |  3 +++
- scripts/generate_rust_target.rs   |  2 +-
- 5 files changed, 31 insertions(+), 1 deletion(-)
+news for v9:
 
-diff --git a/Documentation/dev-tools/kcsan.rst b/Documentation/dev-tools/kcsan.rst
-index 8575178aa87f..3bb8754f844b 100644
---- a/Documentation/dev-tools/kcsan.rst
-+++ b/Documentation/dev-tools/kcsan.rst
-@@ -14,6 +14,9 @@ Usage
- KCSAN is supported by both GCC and Clang. With GCC we require version 11 or
- later, and with Clang also require version 11 or later.
- 
-+Rust code is instrumented as well on architectures whose Rust target supports
-+it (currently only x86_64; see ``CONFIG_HAVE_KCSAN_RUSTC``).
-+
- To enable KCSAN configure the kernel with::
- 
-     CONFIG_KCSAN = y
-@@ -121,6 +124,10 @@ the below options are available:
- 
-     KCSAN_SANITIZE := n
- 
-+  Note that ``rustc`` rejects linking crates built with and without KCSAN
-+  instrumentation, so ``KCSAN_SANITIZE`` and ``KCSAN_SANITIZE_<target>.o``
-+  cannot currently be used for Rust code.
-+
- .. _"Marking Shared-Memory Accesses" in the LKMM: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/memory-model/Documentation/access-marking.txt
- 
- Furthermore, it is possible to tell KCSAN to show or hide entire classes of
-diff --git a/lib/Kconfig.kcsan b/lib/Kconfig.kcsan
-index 4ce4b0c0109c..f0096e1c8b61 100644
---- a/lib/Kconfig.kcsan
-+++ b/lib/Kconfig.kcsan
-@@ -10,6 +10,13 @@ config HAVE_KCSAN_COMPILER
- 	  For the list of compilers that support KCSAN, please see
- 	  <file:Documentation/dev-tools/kcsan.rst>.
- 
-+config HAVE_KCSAN_RUSTC
-+	def_bool RUST && X86_64
-+	help
-+	  rustc only accepts -Zsanitizer=thread for targets that declare
-+	  support for it; of the kernel's Rust targets, only x86_64 does.
-+	  Elsewhere, Rust code is not instrumented.
-+
- menuconfig KCSAN
- 	bool "KCSAN: dynamic data race detector"
- 	depends on HAVE_ARCH_KCSAN && HAVE_KCSAN_COMPILER
-diff --git a/scripts/Makefile.kcsan b/scripts/Makefile.kcsan
-index 19f693b68a96..01af6fd71006 100644
---- a/scripts/Makefile.kcsan
-+++ b/scripts/Makefile.kcsan
-@@ -24,3 +24,16 @@ kcsan-cflags += $(call cc-option,$(call cc-param,tsan-instrument-func-entry-exit
- endif
- 
- export CFLAGS_KCSAN := $(kcsan-cflags)
-+
-+ifdef CONFIG_HAVE_KCSAN_RUSTC
-+# The minimum supported rustc's LLVM supports all of these options.
-+rustc-param = -Cllvm-args=-$(1)
-+kcsan-rustflags := -Zsanitizer=thread \
-+	$(call rustc-param,tsan-compound-read-before-write=1) \
-+	$(call rustc-param,tsan-distinguish-volatile=1)
-+ifndef CONFIG_KCSAN_WEAK_MEMORY
-+kcsan-rustflags += $(call rustc-param,tsan-instrument-func-entry-exit=0)
-+endif
-+endif
-+
-+export RUSTFLAGS_KCSAN := $(kcsan-rustflags)
-diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index 0a4fdd8bd975..78f1c23e54be 100644
---- a/scripts/Makefile.lib
-+++ b/scripts/Makefile.lib
-@@ -98,6 +98,9 @@ ifeq ($(CONFIG_KCSAN),y)
- _c_flags += $(if $(patsubst n%,, \
- 	$(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-object)), \
- 	$(CFLAGS_KCSAN))
-+_rust_flags += $(if $(patsubst n%,, \
-+	$(KCSAN_SANITIZE_$(target-stem).o)$(KCSAN_SANITIZE)$(is-kernel-object)), \
-+	$(RUSTFLAGS_KCSAN))
- # Some uninstrumented files provide implied barriers required to avoid false
- # positives: set KCSAN_INSTRUMENT_BARRIERS for barrier instrumentation only.
- _c_flags += $(if $(patsubst n%,, \
-diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
-index 7687b0dd5474..4b02bffa6b46 100644
---- a/scripts/generate_rust_target.rs
-+++ b/scripts/generate_rust_target.rs
-@@ -231,7 +231,7 @@ fn main() {
-         }
-         ts.push("features", features);
-         ts.push("llvm-target", "x86_64-linux-gnu");
--        ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
-+        ts.push("supported-sanitizers", ["kcfi", "kernel-address", "thread"]);
-         if cfg.rustc_version_atleast(1, 91, 0) {
-             ts.push("target-pointer-width", 64);
-         } else {
+  - remove the name property from the memory node;
+  - fix a typo in a comment;
+  - attached phy-specific skew properties to dedicated mdio phy sub-node;
+  - add Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+now in v8:
+
+  - modified draeger,m48 to draeger,socfpga-48 because it is more consistent;
+    with its other imx counterparts imx6q-m48 and imx6dl-m48;
+  - dropped gpio3 and gpio4 bindings;
+
+new in v7:
+
+  - replaced module with board as this seems to be confusing to some;
+  - add Acked-by: Conor Dooley <conor.dooley@microchip.com> tag;
+
+Petko Manolov (3):
+  dt-bindings: vendor-prefixes: add Draeger AG
+  dt-bindings: arm: altera: add Draeger M48 dual-cpu board
+  arm: dts: altera: add Draeger M48 CPU Module
+
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 101 ++++++++++++++++++
+ 4 files changed, 105 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.47.3
 
