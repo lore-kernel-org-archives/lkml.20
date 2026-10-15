@@ -1,63 +1,63 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BC03C2B95
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65C55372C4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075895; cv=none; b=mddLHc+QxQThDWiTRGkfv1fQrMg+r0lpOAXsBVdJ5gnR603b/7SMjJ/RQpwPBHDgQkcZ0dk97lgpobun0vU7WVurbj0CFPDqFkbQqrgQ1M5rvVosQzBiAU+jZ1j1GzMf4k+B8sSvMDPgTeMLcjlAGDnt8NNCXYj+UU4cFOkGX64=
+	t=1792075906; cv=none; b=O6wYe7BlREa90kL2DfpE5PUvb+5KeTR2u+yx1AHrxCXvCkXNzoVOqBdg84ahH3GipA8YstLs0y9DxcIeX+dpnGC5hE69m7U3wVmw/Hq2D0ju2kE+6jh2gBWGY9oY+9BpIBntOzBs8rdxANySa8rBf8e6sbsAYr9vaocioIoMIUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075895; c=relaxed/simple;
-	bh=mehlOZmaqq0h8mzfaJmc7b2AR6vCtks3Xf954k8lz8U=;
+	s=arc-20240116; t=1792075906; c=relaxed/simple;
+	bh=B9jHo5U4PNobvOUN7YCBE44hahJY+g/2cYxayD5Z4A4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G27Qb3ivRUKjI1UgmK6a4wCh18ZXjvqR8tNPMaTPw2DgLPugLh+aE3otp2PJFhzS/zQJkR6MeOHs7t/xRAh8vaX6hDFsiWjE2yJyDQE1uoNGxeZIyBO4ykkOzIhAGwDLUIpD2s0t1eccx/+AGm7hXeLfQvgtIce3+0xxLZWuH2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=is0n0Cau; arc=none smtp.client-ip=209.85.218.43
+	 MIME-Version; b=fas+EAe8vNQPVMU5PseEcn9+FlHzUSHOaW5VAuMN0Bg6Yy/BFKepNxgkmMHbg/34dXPQtWcu3ClXQVCLPx29gu9nd3i4UQ8Up+6RrceGr2afRy4SBMbK/T+5cKQrU9TlVachoOH8tWX6k8/oFwoty2GqBUn61w+l1N/oqBoUv8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=pb5aa6s6; arc=none smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="is0n0Cau"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3f5e5e4c1dso83384966b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="pb5aa6s6"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2dcbcc546fso666704166b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075887; x=1792680687; darn=vger.kernel.org;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075900; x=1792680700; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6pe7LDpNJuEUoivLodylGp4Rzz+V7jP+F1BZq+EGWnc=;
-        b=is0n0Cauk3JuZaoAxKGMXTHGCZ+PFWq53G00a9gw+Ycp7XjgRllxVPFUZ46CBPFYdE
-         qFxmwpxm3uBOCgjIyS2ZHB5rFJkKYRRxVjSD0cqW/71T2SbPyhF80te+DRYQDzu0ILeG
-         KKv5AxvI/Ki+C3Om2Y1y8trqQuogZ4y6wbV+OO6Gd7fGMOGfSxnFaBb7gmRBWcA+I9ys
-         pGpNfpQiBSlZkjAttlyq/gNuRWDmCw9KLYyrPcXXdPFrM/oWlhr17yyVCvap/DoDVNQb
-         Kgx+rdM9mZyCN6J5W2u7alRnxgmxRpU9Cz8CJXD1VacM/CX1TbsumuGVkbktPBZV99CL
-         rC3g==
+        bh=YPC2Jcbcaqf9XJGk0jTHq3PvGkavq3LRWDoW0PM2bwU=;
+        b=pb5aa6s6EncTZ1rKbRW8ry3Tvq98FNH4me1waH7XRHawMqmpJn0N97eNO10v8S8Be5
+         KXFLHHKroPHf/gpWwMIdmyppwW1KHGLeWjkFzot1tUck+N8HNFMwF+/K/rChHtpvQd/F
+         mForHU4R1mPb4GWq3f8wL2Z20oEIYqmVUsZBSQjL/eXnKoCROZHgZQoAJ4YfGYklxh98
+         tWu0EYZ3ogL7aeg4ppMPoGyrbc03b3D+KufBQaJqPvOu6fBfvsWfZal3n/2mWNAAoBV7
+         bf72X8f+dVqquoWH6/6N3Q3oSvVMfXnqU8uYG8Dv6DLd5QoYAVKUIgvb0ByyI/+okNXO
+         z5hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075887; x=1792680687;
+        d=1e100.net; s=20260707; t=1792075900; x=1792680700;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6pe7LDpNJuEUoivLodylGp4Rzz+V7jP+F1BZq+EGWnc=;
-        b=LLivpuNIFcPQ92g+SK6m3C/X08FRBIXpGYxq3tUzEEpoe8mCsEh1reY6JFSkVkzRhq
-         mF8rKYePB6RcO+16gjFZR5egb0HY8iT8383/33jCoHbpPJ0FNLw0QG+qxxMM/D61cwXB
-         Xqrl7Go6DHUfTZFqthrLAb4ba3KMhF16GXuXBx0Agumw8Bx/SwjENg7PbA0kTzCkZQ1R
-         mphhPvD6WcYaxQpaBp/jCYn9+nkFJH+kT9j9gRGOYOX6GAgZ/1xd3OlnqWzqCqDa67WA
-         AVGyggNVwSaxRMjHj9FXD5tSA7Ac7Zz8ijDVOxtgSjjIvQnjFN+KUlTntYtpZ+S5mKca
-         ntBw==
-X-Gm-Message-State: AFq9FYKKl2c+CARMAS5y5dcQJIZJpatnZPi1qQmF0vC0iN8uA+3WZFtQ
-	9MwD99DvvORH/VIAPfujLgXETS9CsEfhGokYmnmePHOiVLDVHN2zgkaD1Lda1C4IKXQ=
-X-Gm-Gg: AYBFou3io13SvcqHUwk/chA8tbbIq42FaOlwWxLRe4DjYfzm/NCW07m3BaH5EG6W42U
-	GEX8rSqCZieua0XKH5ixjcTlShTBf75tr2SerqLztDXnKap+4MicRqCIAAo233mA/zPulhS5CTz
-	LUfoHaModj+7/FhuLfL+aPAqmG2bDtuA+ybtRe+jUI8O5lbrKq7AohaGh7o/bXy/pEcq9FhSTJU
-	CKjqSluJsb7lCxwSswyQAqO7XhIGRnK8n8MXtZX7YoNqsGpY5+ob8q5EdPWRqq9YpQbOPUmXgTj
-	ErWu020lfoRrZe22oTLsFHXjIOQU+ok6J5JdYQIFIi0Wrracy3vF1WuIy03xqUkHZ/sjSHj1hI5
-	0gGl4llp0Hu24PAU6Ww6JTa9gbPyEaI1qu61Q/0/EMioIDcx2jkZLxIq+bqyr7IbUivhtiXmMbt
-	0bVkZgJqTWDgoP3zWA+eLN2qKzTLwrz4K/gXh1+zTB8r7BLyQTo3e15316ixfB0IfzXPOvRNq35
-	0datKcjRL9nZCvT1BK7
-X-Received: by 2002:a17:906:d54f:b0:c2e:7fe7:289f with SMTP id a640c23a62f3a-c31a9d31c9dmr1769117866b.25.1792075887050;
-        Thu, 15 Oct 2026 07:51:27 -0700 (PDT)
+        bh=YPC2Jcbcaqf9XJGk0jTHq3PvGkavq3LRWDoW0PM2bwU=;
+        b=KGFjScJGWw2PUEENxsr4A/YMCASvlM+Hmil1O6YUA5qjm4pQDa0lXUb9SaQG0xGNyO
+         6FiLCMeuvkbg2Tm5jSN/p7Oyr4neqW/vD91wT5Jdm4hSJ7wGB0TODR1FE5Lpn0L5o+r3
+         a255vFUJ8DLA5pX0Tdtvf8sArs13W/OlCj5CrRWIt2o8hfA0XYwzwCdYHWRM3Hjz+bR8
+         U1op9POhodrPigvEsB2T4xY0dPOUEfV/W55N1QMYtMfyYAySOmDjoO2a7kkQXmGNHsX/
+         5js2FSgjS5Pn5sth1biIhTrMztGLd2LLEGj371pLxwOtY1q/4bCEubBZJMQCupq3HIIU
+         cc1g==
+X-Gm-Message-State: AFq9FYIm/zuoz9c2eucL5vrswHeiTnvibMlCTeMVZj+n67CV6Tvwx+Nn
+	6LqZnqkEmJzzB7vNiIV1sXUiI/fEi2FqL/9c5JINhU5ktzXUkAvkwuKVhbxZsywOi/s=
+X-Gm-Gg: AYBFou0Sk6AaMala3Fzz82KMiMp4fPRQNFDImFEfQRVtwaHBfqExM2KwThJbiy+EEYy
+	WtV7pUNXnuMlyzZmnX7PyjQKBGI1rgfdK6lZzT8u3lWOFWF1iDrcgFsoBr18+pGWKKbDFmRtuXJ
+	5NCY30tdEpewPv1mQM6OSmVrJgeR6vf1ZtlI43XstIgcwDv9OzSXqprM9WLIKg18sCX/VxZN8XL
+	F8892jN7grCF794cb1aZcKlsVQUkHgfSCc8ky6NAdcgiO3EOhOgtH+UFZORSl4eqHe4jH2+F545
+	hU49ycwgrb5ZyrucX/xiFI0EdN47WW5kdTmaS80Ngl5E7KsJ4LjSTCcxh68PpIe9AfW344JCa9q
+	CpUJr9gEgGz/FPJrcXXtjXzYb9J8lsqTXBLSgppXsB25+Mf9qELjUxUYkylxpxVwNrsJIjX8DpK
+	5UyFHhWFcR1aw3jUMts3dcBAtHQjNnoaJyj1bWYwSwsEnNeqOSVofKs69dnvWZj8wdQEBdnumLC
+	0L/In8jKg==
+X-Received: by 2002:a17:907:3e1d:b0:c31:70a5:4c3b with SMTP id a640c23a62f3a-c31a9a2fcccmr1904815366b.3.1792075897931;
+        Thu, 15 Oct 2026 07:51:37 -0700 (PDT)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3edab13f4esm138778366b.87.2026.10.15.07.51.26
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9640497sm137715566b.22.2026.10.15.07.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:51:26 -0700 (PDT)
+        Thu, 15 Oct 2026 07:51:37 -0700 (PDT)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.hansen@linux.intel.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	peter.fang@intel.com
-Subject: [PATCH RFC 07/20] ctlv: Prepare schema validation
-Date: Thu, 15 Oct 2026 16:50:40 +0200
-Message-ID: <20261015145053.3664509-8-jiri@resnulli.us>
+Subject: [PATCH RFC 10/20] ctlv: Prepare event queue support
+Date: Thu, 15 Oct 2026 16:50:43 +0200
+Message-ID: <20261015145053.3664509-11-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
@@ -104,1141 +104,975 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Add generated-schema walking, message validation and request indexing.
-Use the descriptor layer for blob placement checks.
+Add per-open subscriptions, bounded event queues and event creation for
+CTLV families. Add the generated root family kernel bindings now that their
+message and event helpers are available.
 
-Keep CONFIG_CTLV unwired until dispatch completes the module.
+The event and generated root objects can be compile-checked here.
+CONFIG_CTLV remains unwired until device dispatch completes the module.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
- drivers/ctlv/Makefile |    2 +-
- drivers/ctlv/schema.c | 1047 +++++++++++++++++++++++++++++++++++++++++
- drivers/ctlv/schema.h |   50 ++
- 3 files changed, 1098 insertions(+), 1 deletion(-)
- create mode 100644 drivers/ctlv/schema.c
- create mode 100644 drivers/ctlv/schema.h
+ drivers/ctlv/Makefile       |   2 +-
+ drivers/ctlv/device.h       |  38 ++
+ drivers/ctlv/event.c        | 713 ++++++++++++++++++++++++++++++++++++
+ drivers/ctlv/event.h        |  69 ++++
+ drivers/ctlv/internal.h     |   7 +
+ include/linux/ctlv.h        |  27 ++
+ include/linux/ctlv_family.h |  11 +
+ 7 files changed, 866 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/ctlv/device.h
+ create mode 100644 drivers/ctlv/event.c
+ create mode 100644 drivers/ctlv/event.h
 
 diff --git a/drivers/ctlv/Makefile b/drivers/ctlv/Makefile
-index 5edc0b4b973f..3fd656835b8a 100644
+index 4455062f83d7..e631ccd68994 100644
 --- a/drivers/ctlv/Makefile
 +++ b/drivers/ctlv/Makefile
 @@ -1,4 +1,4 @@
  # SPDX-License-Identifier: GPL-2.0
  obj-$(CONFIG_CTLV) += ctlv.o
  
--ctlv-y += blob_desc.o message.o
-+ctlv-y += blob_desc.o message.o schema.o
-diff --git a/drivers/ctlv/schema.c b/drivers/ctlv/schema.c
+-ctlv-y += blob.o blob_desc.o builder.o message.o schema.o
++ctlv-y += blob.o blob_desc.o builder.o event.o message.o schema.o
+diff --git a/drivers/ctlv/device.h b/drivers/ctlv/device.h
 new file mode 100644
-index 000000000000..b74f9a358bc3
+index 000000000000..916a346c30ed
 --- /dev/null
-+++ b/drivers/ctlv/schema.c
-@@ -0,0 +1,1047 @@
++++ b/drivers/ctlv/device.h
+@@ -0,0 +1,38 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _CTLV_DEVICE_H
++#define _CTLV_DEVICE_H
++
++#include <linux/device.h>
++#include <linux/list.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++#include <linux/wait.h>
++
++struct ctlv_event_record;
++struct ctlv_family;
++struct ctlv_op_entry;
++
++struct ctlv_device {
++	struct device dev;
++
++	const struct ctlv_family *family;
++
++	struct ctlv_op_entry *ops;
++	u32 ops_count;
++
++	/* Everything about the queues, and nothing family code runs under. */
++	spinlock_t events_lock;
++	struct list_head files;
++	bool dead_announced;
++	wait_queue_head_t event_context_wait;
++	u32 active_event_contexts;
++	bool events_live;
++	u32 events_count;
++	const struct ctlv_op_entry *overflow_op;
++	const struct ctlv_op_entry *removed_op;
++	u32 queue_min;
++	u32 queue_reserved;
++	u32 queue_default;
++};
++
++#endif /* _CTLV_DEVICE_H */
+diff --git a/drivers/ctlv/event.c b/drivers/ctlv/event.c
+new file mode 100644
+index 000000000000..0f68d33e031c
+--- /dev/null
++++ b/drivers/ctlv/event.c
+@@ -0,0 +1,713 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
 + *
-+ * Generated metadata remains owner-local; effective schemas walk the chain.
++ * Per-open event queues and loss reporting.
 + */
-+#include <linux/align.h>
-+#include <linux/bits.h>
++
++#include <linux/bitmap.h>
++#include <linux/build_bug.h>
 +#include <linux/ctlv.h>
++#include <linux/ctlv_gen.h>
 +#include <linux/err.h>
 +#include <linux/errno.h>
-+#include <linux/limits.h>
++#include <linux/list.h>
 +#include <linux/minmax.h>
 +#include <linux/overflow.h>
++#include <linux/poll.h>
++#include <linux/sizes.h>
 +#include <linux/slab.h>
++#include <linux/spinlock.h>
 +#include <linux/string.h>
-+#include <linux/types.h>
++#include <linux/uaccess.h>
++#include <linux/wait.h>
 +
-+#include <uapi/linux/ctlv.h>
-+#include <uapi/linux/ctlv_gen.h>
-+
-+#include "blob_desc.h"
++#include "builder.h"
++#include "device.h"
++#include "event.h"
 +#include "internal.h"
 +#include "message.h"
 +#include "schema.h"
 +
-+/* Every 64-bit payload, and every blob descriptor member, is this long. */
-+#define CTLV_SCHEMA_SCALAR_ATTR_LEN (sizeof(struct ctlv_attr) + sizeof(u64))
++/* Header and root form one naturally aligned copy range. */
++static_assert(offsetof(struct ctlv_event_record, root) ==
++	      offsetof(struct ctlv_event_record, hdr) + sizeof(struct ctlv_event_hdr));
++static_assert(sizeof(struct ctlv_event_hdr) % CTLV_ALIGNTO == 0);
 +
-+/*
-+ * Where composing a tree's maximum length gives up, which keeps the check on a
-+ * composed length from being passed by a total that wrapped.
-+ */
-+#define CTLV_SCHEMA_MAX_COMPOSED_LEN CTLV_MAX_EVENT_QUEUE_LEN
-+
-+const struct ctlv_family *ctlv_family_ancestor(const struct ctlv_family *family, u32 up)
++static u32 ctlv_event_len(const struct ctlv_op_entry *op)
 +{
-+	while (up-- && family)
-+		family = family->parent;
-+	return family;
++	return op->sizes.event_record_max_len;
 +}
 +
-+u32 ctlv_family_levels(const struct ctlv_family *family)
++int ctlv_event_sizes(struct ctlv_device *ctlvdev)
 +{
-+	const struct ctlv_family *ancestor;
-+	u32 levels = 0;
-+
-+	for (ancestor = family; ancestor; ancestor = ancestor->parent)
-+		levels++;
-+	return levels;
-+}
-+
-+void ctlv_schema_cursor_init(struct ctlv_schema_cursor *cursor, const struct ctlv_family *family)
-+{
-+	cursor->target = family;
-+	cursor->level = ctlv_family_levels(family);
-+	cursor->family = NULL;
-+	cursor->index = 0;
-+}
-+
-+const struct ctlv_op_schema *ctlv_schema_next_op(struct ctlv_schema_cursor *cursor,
-+						 const struct ctlv_family **family)
-+{
-+	while (cursor->level) {
-+		const struct ctlv_family_schema *schema;
-+
-+		if (!cursor->family)
-+			cursor->family = ctlv_family_ancestor(cursor->target, cursor->level - 1);
-+		schema = cursor->family->schema;
-+		if (cursor->index < schema->ops_count) {
-+			*family = cursor->family;
-+			return &schema->ops[cursor->index++];
-+		}
-+		cursor->level--;
-+		cursor->family = NULL;
-+		cursor->index = 0;
-+	}
-+	return NULL;
-+}
-+
-+bool ctlv_schema_member(const struct ctlv_family *family, const struct ctlv_schema_tree *tree,
-+			u32 node, u64 attr_id, struct ctlv_schema_pos *member)
-+{
-+	const struct ctlv_node_schema *nest;
++	u32 largest = 0;
 +	u32 index;
 +
-+	if (!tree->node_schemas || node >= tree->node_schemas_count)
-+		return false;
-+	nest = &tree->node_schemas[node];
++	for (index = 0; index < ctlvdev->ops_count; index++) {
++		const struct ctlv_op_entry *op = &ctlvdev->ops[index];
 +
-+	for (index = 0; index < nest->children_count; index++) {
-+		u32 child = nest->first_child + index;
-+
-+		if (tree->node_schemas[child].attr_id == attr_id) {
-+			*member = (struct ctlv_schema_pos){
-+				.tree = tree,
-+				.node = child,
-+			};
-+			return true;
-+		}
-+	}
-+	for (index = 0; index < tree->stub_schemas_count; index++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[index];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+
-+		if (stub_schema->node != node)
++		if (op->schema->type != CTLV_OP_TYPE_EVENT)
 +			continue;
-+		fill_schema = ctlv_schema_fill(family, stub_schema->family_id, stub_schema->set_id);
-+		/* Filled-stub members are children of the fill schema's root. */
-+		if (fill_schema &&
-+		    ctlv_schema_member(family, &fill_schema->members, 0, attr_id, member))
-+			return true;
++		largest = max(largest, ctlv_event_len(op));
++		if (op->schema->op_id == CTLV_OP_EVENT_OVERFLOW)
++			ctlvdev->overflow_op = op;
++		else if (op->schema->op_id == CTLV_OP_DEVICE_REMOVED)
++			ctlvdev->removed_op = op;
 +	}
-+	return false;
-+}
-+
-+const struct ctlv_stub_fill_schema *ctlv_schema_fill(const struct ctlv_family *family,
-+						     u16 family_id, u32 set_id)
-+{
-+	const struct ctlv_family *owner;
-+	u32 index;
-+
-+	for (owner = family; owner; owner = owner->parent) {
-+		const struct ctlv_family_schema *schema = owner->schema;
-+
-+		for (index = 0; index < schema->stub_fill_schemas_count; index++)
-+			if (schema->stub_fill_schemas[index].family_id == family_id &&
-+			    schema->stub_fill_schemas[index].set_id == set_id)
-+				return &schema->stub_fill_schemas[index];
-+	}
-+	return NULL;
-+}
-+
-+/*
-+ * The same arithmetic the generator did, over the tree it emitted plus this
-+ * family's stub fill schemas, since a fill makes an extension point longer.
-+ */
-+
-+struct ctlv_schema_length_walk {
-+	const struct ctlv_family *family;
-+	bool bad;
-+};
-+
-+static u64 ctlv_schema_children_max_len(struct ctlv_schema_length_walk *walk,
-+					const struct ctlv_schema_tree *tree, u32 index, u32 depth);
-+
-+static u64 ctlv_schema_payload_max_len(struct ctlv_schema_length_walk *walk,
-+				       const struct ctlv_schema_tree *tree, u32 index, u32 depth)
-+{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
-+
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_UINT:
-+	case CTLV_SCHEMA_SINT:
-+	case CTLV_SCHEMA_ENUM:
-+	case CTLV_SCHEMA_FLAGS:
-+		return sizeof(u64);
-+	case CTLV_SCHEMA_BOOL:
-+		return 1;
-+	case CTLV_SCHEMA_STRING:
-+		/*
-+		 * One terminating NUL, which the declared maximum excludes.
-+		 * Widened first so that a maximum at U32_MAX cannot wrap.
-+		 */
-+		return (u64)node->length.max_len + 1;
-+	case CTLV_SCHEMA_BINARY:
-+		return node->length.max_len;
-+	case CTLV_SCHEMA_BLOB:
-+		/*
-+		 * Type, length and an address; anything but a bare VA is one
-+		 * member wider, an fd with an optional offset.
-+		 */
-+		return (node->blob.backings == BIT(CTLV_BLOB_TYPE_VA) ? 3 : 4) *
-+		       ALIGN(CTLV_SCHEMA_SCALAR_ATTR_LEN, CTLV_ALIGNTO);
-+	default:
-+		return ctlv_schema_children_max_len(walk, tree, index, depth);
-+	}
-+}
-+
-+static u64 ctlv_schema_attr_max_len(struct ctlv_schema_length_walk *walk,
-+				    const struct ctlv_schema_tree *tree, u32 index, u32 depth)
-+{
-+	return sizeof(struct ctlv_attr) + ctlv_schema_payload_max_len(walk, tree, index, depth);
-+}
-+
-+static u64 ctlv_schema_children_max_len(struct ctlv_schema_length_walk *walk,
-+					const struct ctlv_schema_tree *tree, u32 index, u32 depth)
-+{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
-+	u64 total = 0;
-+	u32 i;
-+
-+	if (depth > CTLV_MAX_DECLARED_NEST_DEPTH) {
-+		walk->bad = true;
-+		return 0;
-+	}
-+	for (i = 0; i < node->children_count; i++) {
-+		u32 child = node->first_child + i;
-+		u64 each, all;
-+
-+		/*
-+		 * Neither an unlimited placement nor one that re-enters has a
-+		 * maximum, and only a query reply may hold either.
-+		 */
-+		if (tree->node_schemas[child].reenters ||
-+		    !tree->node_schemas[child].max_occurrences) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+		each = ALIGN(ctlv_schema_attr_max_len(walk, tree, child, depth + 1), CTLV_ALIGNTO);
-+		if (check_mul_overflow((u64)tree->node_schemas[child].max_occurrences, each,
-+				       &all) ||
-+		    check_add_overflow(total, all, &total) ||
-+		    total > CTLV_SCHEMA_MAX_COMPOSED_LEN) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+	}
-+	for (i = 0; i < tree->stub_schemas_count; i++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[i];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+
-+		if (stub_schema->node != index)
-+			continue;
-+		fill_schema =
-+			ctlv_schema_fill(walk->family, stub_schema->family_id, stub_schema->set_id);
-+		if (!fill_schema)
-+			continue;
-+		if (check_add_overflow(total,
-+				       ctlv_schema_children_max_len(walk, &fill_schema->members, 0,
-+								    depth),
-+				       &total) ||
-+		    total > CTLV_SCHEMA_MAX_COMPOSED_LEN) {
-+			walk->bad = true;
-+			return 0;
-+		}
-+	}
-+	return total;
-+}
-+
-+/* Buffer length that the largest indivisible leaf and its nests need. */
-+static u64 ctlv_schema_min_len(struct ctlv_schema_length_walk *walk,
-+			       const struct ctlv_schema_tree *tree, u32 index, u32 above, u32 depth)
-+{
-+	const struct ctlv_node_schema *node = &tree->node_schemas[index];
-+	bool has_children = false;
-+	u64 deepest = 0;
-+	u32 i;
-+
-+	if (depth > CTLV_MAX_DECLARED_NEST_DEPTH) {
-+		walk->bad = true;
-+		return 0;
-+	}
-+	for (i = 0; i < node->children_count; i++) {
-+		u32 child = node->first_child + i;
-+
-+		has_children = true;
-+		deepest = max(deepest,
-+			      ctlv_schema_min_len(walk, tree, child,
-+						  above + sizeof(struct ctlv_attr), depth + 1));
-+	}
-+	for (i = 0; i < tree->stub_schemas_count; i++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[i];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+		const struct ctlv_node_schema *root;
-+		u32 member;
-+
-+		if (stub_schema->node != index)
-+			continue;
-+		fill_schema =
-+			ctlv_schema_fill(walk->family, stub_schema->family_id, stub_schema->set_id);
-+		if (!fill_schema)
-+			continue;
-+		root = &fill_schema->members.node_schemas[0];
-+		for (member = 0; member < root->children_count; member++) {
-+			has_children = true;
-+			deepest = max(deepest, ctlv_schema_min_len(walk, &fill_schema->members,
-+								   root->first_child + member,
-+								   above + sizeof(struct ctlv_attr),
-+								   depth + 1));
-+		}
-+	}
-+	if (has_children)
-+		return deepest;
-+	/* An empty root is a message of its own header alone. */
-+	if (!index)
-+		return above + sizeof(struct ctlv_attr);
-+	return above + ALIGN(ctlv_schema_attr_max_len(walk, tree, index, depth), CTLV_ALIGNTO);
-+}
-+
-+static u64 ctlv_schema_root_max_len(struct ctlv_schema_length_walk *walk,
-+				    const struct ctlv_schema_tree *tree)
-+{
-+	return sizeof(struct ctlv_attr) + ctlv_schema_children_max_len(walk, tree, 0, 0);
-+}
-+
-+/* Size one deepest legal leaf and every nest above it. */
-+static u64 ctlv_schema_reentering_min_len(struct ctlv_schema_length_walk *walk,
-+					  const struct ctlv_schema_tree *tree)
-+{
-+	u64 leaf = 0;
-+	u32 index;
-+
-+	for (index = 1; index < tree->node_schemas_count; index++) {
-+		if (tree->node_schemas[index].kind == CTLV_SCHEMA_NEST)
-+			continue;
-+		leaf = max(leaf,
-+			   ALIGN(ctlv_schema_attr_max_len(walk, tree, index, 0), CTLV_ALIGNTO));
-+	}
-+	return (CTLV_MAX_NEST_DEPTH + 1) * sizeof(struct ctlv_attr) + leaf;
-+}
-+
-+static bool ctlv_schema_tree_reenters(const struct ctlv_schema_tree *tree)
-+{
-+	u32 index;
-+
-+	for (index = 0; index < tree->node_schemas_count; index++)
-+		if (tree->node_schemas[index].reenters)
-+			return true;
-+	return false;
-+}
-+
-+int ctlv_schema_op_sizes(const struct ctlv_family *family, const struct ctlv_op_schema *op,
-+			 struct ctlv_op_sizes *sizes)
-+{
-+	struct ctlv_schema_length_walk walk = { .family = family };
-+	u64 request = 0, reply = 0, record = 0;
-+
-+	if (op->request.node_schemas)
-+		request = ctlv_schema_root_max_len(&walk, &op->request);
-+
-+	switch (op->type) {
-+	case CTLV_OP_TYPE_ACTION:
-+		if (op->reply.node_schemas)
-+			reply = ctlv_schema_root_max_len(&walk, &op->reply);
-+		break;
-+	case CTLV_OP_TYPE_QUERY:
-+		if (ctlv_schema_tree_reenters(&op->reply))
-+			reply = ctlv_schema_reentering_min_len(&walk, &op->reply);
-+		else
-+			reply = ctlv_schema_min_len(&walk, &op->reply, 0, 0, 0);
-+		break;
-+	case CTLV_OP_TYPE_EVENT:
-+		record = sizeof(struct ctlv_event_hdr) +
-+			 ALIGN(ctlv_schema_root_max_len(&walk, &op->reply), CTLV_ALIGNTO);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (walk.bad || request > CTLV_MAX_INLINE_MESSAGE_LEN ||
-+	    reply > CTLV_MAX_INLINE_MESSAGE_LEN || record > CTLV_MAX_EVENT_QUEUE_LEN)
++	/* Every chain inherits the root, so every device has both of them. */
++	if (WARN_ON_ONCE(!ctlvdev->overflow_op || !ctlvdev->removed_op))
 +		return -EINVAL;
 +
-+	*sizes = (struct ctlv_op_sizes){ .request_max_len = request };
-+	switch (op->type) {
-+	case CTLV_OP_TYPE_ACTION:
-+		sizes->action_reply_max_len = reply;
-+		break;
-+	case CTLV_OP_TYPE_QUERY:
-+		sizes->query_reply_min_len = reply;
-+		/*
-+		 * What the specification asked for, unless a filled extension
-+		 * point made one fragment longer than that.
-+		 */
-+		sizes->query_reply_suggested_len =
-+			max_t(u32, op->sizes.query_reply_suggested_len, reply);
-+		break;
-+	default:
-+		sizes->event_record_max_len = record;
-+		break;
-+	}
++	ctlvdev->queue_reserved =
++		ctlv_event_len(ctlvdev->overflow_op) + ctlv_event_len(ctlvdev->removed_op);
++	ctlvdev->queue_min = largest + ctlvdev->queue_reserved;
++	if (ctlvdev->queue_min > CTLV_MAX_EVENT_QUEUE_LEN)
++		return -EMSGSIZE;
++	ctlvdev->queue_default =
++		clamp(max(SZ_256K, 4 * largest), ctlvdev->queue_min, CTLV_MAX_EVENT_QUEUE_LEN);
 +	return 0;
 +}
 +
-+/*
-+ * Only a completely valid request reaches family code; nothing is repaired or
-+ * normalized. The first failure is the one recorded, and the walk stops there.
-+ */
-+
-+struct ctlv_schema_validation {
-+	struct ctlv_msg *msg;
-+	struct ctlv_error *error;
-+};
-+
-+void ctlv_message_index_free(struct ctlv_msg *msg)
++void ctlv_event_device_init(struct ctlv_device *ctlvdev)
 +{
-+	struct ctlv_message_input_index *index;
++	spin_lock_init(&ctlvdev->events_lock);
++	INIT_LIST_HEAD(&ctlvdev->files);
++	init_waitqueue_head(&ctlvdev->event_context_wait);
++}
 +
-+	if (!msg || !msg->index)
++void ctlv_event_contexts_start(struct ctlv_device *ctlvdev)
++{
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (WARN_ON_ONCE(ctlvdev->events_live || ctlvdev->active_event_contexts))
 +		return;
-+	index = msg->index;
-+	kvfree(index->slots);
-+	kvfree(index->scopes);
-+	kvfree(index->nests);
-+	kfree(index);
-+	msg->index = NULL;
++	ctlvdev->events_live = true;
 +}
 +
-+static void *ctlv_schema_index_grow(void *items, u32 *capacity, u32 needed, size_t item_size)
++void ctlv_event_contexts_stop(struct ctlv_device *ctlvdev)
 +{
-+	u32 grown = max_t(u32, *capacity, 16);
-+	size_t bytes;
-+	void *new;
-+
-+	if (needed <= *capacity)
-+		return items;
-+	while (grown < needed) {
-+		if (grown > U32_MAX / 2)
-+			return ERR_PTR(-EOVERFLOW);
-+		grown *= 2;
-+	}
-+	if (check_mul_overflow((size_t)grown, item_size, &bytes))
-+		return ERR_PTR(-EOVERFLOW);
-+	new = kvrealloc(items, bytes, GFP_KERNEL_ACCOUNT);
-+	if (!new)
-+		return ERR_PTR(-ENOMEM);
-+	*capacity = grown;
-+	return new;
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	ctlvdev->events_live = false;
 +}
 +
-+static int ctlv_schema_index_slots_add(struct ctlv_message_input_index *index, u32 count,
-+				       u32 *first)
++static bool ctlv_event_contexts_idle(struct ctlv_device *ctlvdev)
 +{
-+	struct ctlv_message_input_slot *slots;
-+	u32 needed;
-+	u32 i;
-+
-+	if (check_add_overflow(index->slots_count, count, &needed))
-+		return -EOVERFLOW;
-+	slots = ctlv_schema_index_grow(index->slots, &index->slots_capacity, needed,
-+				       sizeof(*slots));
-+	if (IS_ERR(slots))
-+		return PTR_ERR(slots);
-+	index->slots = slots;
-+	*first = index->slots_count;
-+	for (i = index->slots_count; i < needed; i++)
-+		index->slots[i] = (struct ctlv_message_input_slot){
-+			.excess_offset = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+			.first_nest = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+			.last_nest = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+		};
-+	index->slots_count = needed;
-+	return 0;
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	return !ctlvdev->active_event_contexts;
 +}
 +
-+static int ctlv_schema_index_scope_add(struct ctlv_schema_validation *v, u32 nest_index,
-+				       const struct ctlv_schema_tree *tree, u32 node, bool optional)
++void ctlv_event_contexts_wait(struct ctlv_device *ctlvdev)
 +{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_node_schema *parent = &tree->node_schemas[node];
-+	struct ctlv_message_input_scope *scopes;
-+	u32 needed;
-+	u32 first_slot;
-+	u32 scope_index;
-+	u32 i;
-+	int ret;
-+
-+	if (check_add_overflow(index->scopes_count, 1U, &needed))
-+		return -EOVERFLOW;
-+	scopes = ctlv_schema_index_grow(index->scopes, &index->scopes_capacity, needed,
-+					sizeof(*scopes));
-+	if (IS_ERR(scopes))
-+		return PTR_ERR(scopes);
-+	index->scopes = scopes;
-+	ret = ctlv_schema_index_slots_add(index, parent->children_count, &first_slot);
-+	if (ret)
-+		return ret;
-+	scope_index = index->scopes_count++;
-+	index->scopes[scope_index] = (struct ctlv_message_input_scope){
-+		.tree = tree,
-+		.nest = nest_index,
-+		.node = node,
-+		.first_slot = first_slot,
-+		.slots_count = parent->children_count,
-+		.optional = optional,
-+	};
-+	index->nests[nest_index].scopes_count++;
-+
-+	for (i = 0; i < tree->stub_schemas_count; i++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[i];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+
-+		if (stub_schema->node != node)
-+			continue;
-+		fill_schema = ctlv_schema_fill(v->msg->family, stub_schema->family_id,
-+					       stub_schema->set_id);
-+		if (!fill_schema)
-+			continue;
-+		ret = ctlv_schema_index_scope_add(v, nest_index, &fill_schema->members, 0,
-+						  optional || stub_schema->optional);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
++	wait_event(ctlvdev->event_context_wait, ctlv_event_contexts_idle(ctlvdev));
 +}
 +
-+static int ctlv_schema_index_nest_add(struct ctlv_schema_validation *v,
-+				      const struct ctlv_schema_tree *tree, u32 node,
-+				      const struct ctlv_attr *nest_attr, u32 *nest_index)
++/* @room bounds storage from the header through the root. */
++static struct ctlv_event_record *ctlv_event_record_alloc(u32 room, gfp_t gfp)
 +{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	struct ctlv_message_input_nest *nests;
-+	u32 needed;
-+	u32 added;
-+	int ret;
++	struct ctlv_event_record *rec;
 +
-+	if (check_add_overflow(index->nests_count, 1U, &needed))
-+		return -EOVERFLOW;
-+	nests = ctlv_schema_index_grow(index->nests, &index->nests_capacity, needed,
-+				       sizeof(*nests));
-+	if (IS_ERR(nests))
-+		return PTR_ERR(nests);
-+	index->nests = nests;
-+	added = index->nests_count++;
-+	index->nests[added] = (struct ctlv_message_input_nest){
-+		.offset = ctlv_message_offset(v->msg, nest_attr),
-+		.first_scope = index->scopes_count,
-+		.next = CTLV_MESSAGE_INPUT_INDEX_NONE,
-+	};
-+	ret = ctlv_schema_index_scope_add(v, added, tree, node, false);
-+	if (ret)
-+		return ret;
-+	*nest_index = added;
-+	return 0;
-+}
-+
-+/* A request is never a fragment: only a reply of a query is ever incomplete. */
-+#define CTLV_SCHEMA_ATTR_F_REQUEST (CTLV_ATTR_F_NESTED | CTLV_ATTR_F_IGNORE_IF_UNKNOWN)
-+#define CTLV_SCHEMA_ATTR_F_REPLY CTLV_ATTR_F_NESTED
-+
-+/*
-+ * Record the first failure and refuse the message. @attr is NULL when what is
-+ * wrong with the nest is something it does not carry.
-+ */
-+static int ctlv_schema_bad(struct ctlv_schema_validation *v, u32 reason,
-+			   const struct ctlv_attr *nest, const struct ctlv_attr *attr)
-+{
-+	*v->error = (struct ctlv_error){
-+		.reason = reason,
-+		.bad_attr_offset = ctlv_message_offset(v->msg, attr ?: nest),
-+		.nest_offset = ctlv_message_offset(v->msg, nest),
-+	};
-+	return -EINVAL;
-+}
-+
-+/* The one failure that names an attr the message does not contain. */
-+static int ctlv_schema_bad_missing(struct ctlv_schema_validation *v, const struct ctlv_attr *nest,
-+				   u64 attr_id)
-+{
-+	ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MISSING_ATTR, nest, NULL);
-+	v->error->missing_attr_id = attr_id;
-+	return -EINVAL;
-+}
-+
-+static struct ctlv_message_input_slot *ctlv_schema_index_slot(struct ctlv_schema_validation *v,
-+							      u32 nest_index,
-+							      const struct ctlv_schema_pos *pos)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_message_input_nest *nest;
-+	u32 i;
-+
-+	if (WARN_ON_ONCE(nest_index >= index->nests_count))
++	rec = kmalloc(struct_size(rec, root, room - sizeof(rec->hdr)), gfp);
++	if (!rec)
 +		return NULL;
-+	nest = &index->nests[nest_index];
-+	for (i = 0; i < nest->scopes_count; i++) {
-+		const struct ctlv_message_input_scope *scope =
-+			&index->scopes[nest->first_scope + i];
-+		const struct ctlv_node_schema *parent;
-+		u32 slot;
-+
-+		if (scope->tree != pos->tree)
-+			continue;
-+		parent = &scope->tree->node_schemas[scope->node];
-+		if (pos->node < parent->first_child ||
-+		    pos->node >= parent->first_child + scope->slots_count)
-+			continue;
-+		slot = pos->node - parent->first_child;
-+		return &index->slots[scope->first_slot + slot];
-+	}
-+	WARN_ON_ONCE(1);
-+	return NULL;
++	INIT_LIST_HEAD(&rec->node);
++	rec->len = 0;
++	rec->room = room;
++	rec->reserved = false;
++	return rec;
 +}
 +
-+static int ctlv_schema_index_record(struct ctlv_schema_validation *v, u32 nest_index,
-+				    const struct ctlv_schema_pos *pos, const struct ctlv_attr *attr,
-+				    bool *seen)
++/* Core events use root schemas and may outlive the device family. */
++static void ctlv_event_record_build(struct ctlv_op_ctx *ctx, struct ctlv_event_record *rec,
++				    const struct ctlv_op_entry *op)
 +{
-+	struct ctlv_message_input_slot *slot = ctlv_schema_index_slot(v, nest_index, pos);
-+	const struct ctlv_node_schema *schema = &pos->tree->node_schemas[pos->node];
-+	u32 offset = ctlv_message_offset(v->msg, attr);
-+
-+	if (!slot)
-+		return -EINVAL;
-+	*seen = slot->count;
-+	if (!slot->count)
-+		slot->first_offset = offset;
-+	slot->count++;
-+	if (schema->max_occurrences && slot->count > schema->max_occurrences &&
-+	    slot->excess_offset == CTLV_MESSAGE_INPUT_INDEX_NONE)
-+		slot->excess_offset = offset;
-+	slot->end_offset = offset + ALIGN((size_t)attr->len, CTLV_ALIGNTO);
-+	return 0;
++	ctx->family = &ctlv_family;
++	ctx->op = op;
++	ctlv_message_output_init(&ctx->output, ctx, rec->root, rec->room - sizeof(rec->hdr),
++				 &op->schema->reply);
++	ctlv_message_root(&ctx->output_root, &ctx->output);
++	ctx->deepest = &ctx->output_root;
 +}
 +
-+static void ctlv_schema_index_nest_link(struct ctlv_message_input_index *index,
-+					struct ctlv_message_input_slot *slot, u32 nest_index)
++/* The padding is written rather than left as the allocation found it. */
++static void ctlv_event_record_done(struct ctlv_op_ctx *ctx, struct ctlv_event_record *rec)
 +{
-+	if (slot->first_nest == CTLV_MESSAGE_INPUT_INDEX_NONE)
-+		slot->first_nest = nest_index;
-+	else
-+		index->nests[slot->last_nest].next = nest_index;
-+	slot->last_nest = nest_index;
++	u32 root_len = ctx->output.root->len;
++
++	rec->len = sizeof(rec->hdr) + CTLV_ALIGN(root_len);
++	rec->hdr.length = rec->len;
++	memset(rec->root + root_len, 0, rec->len - sizeof(rec->hdr) - root_len);
 +}
 +
-+static int ctlv_schema_index_required(struct ctlv_schema_validation *v, u32 nest_index,
-+				      const struct ctlv_attr *nest_attr)
++static struct ctlv_event_record *ctlv_event_record_reserve(struct ctlv_device *ctlvdev,
++							   const struct ctlv_op_entry *op)
 +{
-+	const struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_message_input_nest *nest = &index->nests[nest_index];
-+	u32 i;
++	struct ctlv_event_record *rec;
 +
-+	for (i = 0; i < nest->scopes_count; i++) {
-+		const struct ctlv_message_input_scope *scope =
-+			&index->scopes[nest->first_scope + i];
-+		const struct ctlv_node_schema *parent = &scope->tree->node_schemas[scope->node];
-+		u32 slot;
-+
-+		for (slot = 0; slot < scope->slots_count; slot++) {
-+			const struct ctlv_message_input_slot *indexed;
-+			const struct ctlv_node_schema *child =
-+				&scope->tree->node_schemas[parent->first_child + slot];
-+			const struct ctlv_attr *excess;
-+
-+			indexed = &index->slots[scope->first_slot + slot];
-+			if (!indexed->count && slot < parent->required_children_count &&
-+			    !scope->optional)
-+				return ctlv_schema_bad_missing(v, nest_attr, child->attr_id);
-+			if (!child->max_occurrences || indexed->count <= child->max_occurrences)
-+				continue;
-+			if (WARN_ON_ONCE(indexed->excess_offset == CTLV_MESSAGE_INPUT_INDEX_NONE))
-+				return -EINVAL;
-+			excess = (const void *)((const u8 *)v->msg->root + indexed->excess_offset);
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_TOO_MANY_OCCURRENCES,
-+					       nest_attr, excess);
-+		}
-+	}
-+	return 0;
++	rec = ctlv_event_record_alloc(ctlv_event_len(op), GFP_KERNEL_ACCOUNT);
++	if (!rec)
++		return NULL;
++	rec->hdr.flags = 0;
++	rec->hdr.op_id = op->schema->op_id;
++	rec->reserved = true;
++	return rec;
 +}
 +
-+/* The bits an attr of this message may carry, whichever way it travelled. */
-+static u32 ctlv_schema_flags_allowed(const struct ctlv_schema_validation *v)
++int ctlv_event_file_init(struct ctlv_file *cfile)
 +{
-+	return v->msg->request ? CTLV_SCHEMA_ATTR_F_REQUEST : CTLV_SCHEMA_ATTR_F_REPLY;
-+}
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	struct ctlv_op_ctx ctx = { .ctlvdev = ctlvdev };
 +
-+static u64 ctlv_schema_scalar_value(const struct ctlv_attr *attr)
-+{
-+	/* Aligned by the wire format: the root began an allocation. */
-+	return *(const u64 *)ctlv_message_attr_payload(attr);
-+}
++	INIT_LIST_HEAD(&cfile->node);
++	INIT_LIST_HEAD(&cfile->records);
++	init_waitqueue_head(&cfile->readers);
++	mutex_init(&cfile->reading);
++	cfile->queue_len = ctlvdev->queue_default;
++	cfile->queue_used = ctlvdev->queue_reserved;
 +
-+bool ctlv_schema_value_ok(const struct ctlv_node_schema *node, u64 value)
-+{
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_SINT:
-+		return (s64)value >= (s64)node->range.min && (s64)value <= (s64)node->range.max;
-+	case CTLV_SCHEMA_FLAGS:
-+		/* A bit no family declared is one nothing can be told about. */
-+		return !(value & ~node->flags_mask);
-+	case CTLV_SCHEMA_BOOL:
-+		return value <= 1;
-+	default:
-+		/*
-+		 * An enum's values are numbered from one in declaration order
-+		 * and never skipped, so its range bounds it like an integer.
-+		 */
-+		return value >= node->range.min && value <= node->range.max;
-+	}
-+}
-+
-+bool ctlv_schema_length_ok(const struct ctlv_node_schema *node, u32 len)
-+{
-+	return len >= node->length.min_len && len <= node->length.max_len;
-+}
-+
-+static int ctlv_schema_check_integer(struct ctlv_schema_validation *v,
-+				     const struct ctlv_node_schema *node,
-+				     const struct ctlv_attr *nest, const struct ctlv_attr *attr)
-+{
-+	u64 value;
-+
-+	if (ctlv_message_attr_payload_len(attr) != sizeof(value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, nest, attr);
-+	value = ctlv_schema_scalar_value(attr);
-+	if (ctlv_schema_value_ok(node, value))
-+		return 0;
-+	if (node->kind == CTLV_SCHEMA_FLAGS)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, nest, attr);
-+	return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_VALUE_OUT_OF_RANGE, nest, attr);
-+}
-+
-+static int ctlv_schema_check_bool(struct ctlv_schema_validation *v,
-+				  const struct ctlv_node_schema *node, const struct ctlv_attr *nest,
-+				  const struct ctlv_attr *attr)
-+{
-+	const u8 *value = ctlv_message_attr_payload(attr);
-+
-+	if (ctlv_message_attr_payload_len(attr) != sizeof(*value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, nest, attr);
-+	if (!ctlv_schema_value_ok(node, *value))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_VALUE_OUT_OF_RANGE, nest, attr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_string(struct ctlv_schema_validation *v,
-+				    const struct ctlv_node_schema *node,
-+				    const struct ctlv_attr *nest, const struct ctlv_attr *attr)
-+{
-+	u32 len = ctlv_message_attr_payload_len(attr);
-+	const char *value = ctlv_message_attr_payload(attr);
-+
-+	/*
-+	 * One terminating NUL and no other, so a family may hand the payload
-+	 * to anything that takes a C string.
-+	 */
-+	if (!len || value[len - 1] || strnlen(value, len) != len - 1)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_STRING, nest, attr);
-+	if (!ctlv_schema_length_ok(node, len - 1))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, nest, attr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_binary(struct ctlv_schema_validation *v,
-+				    const struct ctlv_node_schema *node,
-+				    const struct ctlv_attr *nest, const struct ctlv_attr *attr)
-+{
-+	if (!ctlv_schema_length_ok(node, ctlv_message_attr_payload_len(attr)))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_BAD_LENGTH, nest, attr);
-+	return 0;
-+}
-+
-+/*
-+ * The one shape the tree cannot describe: a nest of core-owned attrs
-+ * whose members depend on its type. Nothing here acquires anything.
-+ */
-+static int ctlv_schema_check_blob(struct ctlv_schema_validation *v,
-+				  const struct ctlv_node_schema *node, const struct ctlv_attr *blob)
-+{
-+	const struct ctlv_attr *bad = NULL;
-+	struct ctlv_blob_desc desc;
-+	u32 reason;
-+
-+	reason = ctlv_blob_desc_read(blob, &desc, &bad);
-+	if (!reason)
-+		reason = ctlv_blob_desc_check(&desc, node);
-+	if (reason)
-+		return ctlv_schema_bad(v, reason, blob, bad);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_nest(struct ctlv_schema_validation *v,
-+				  const struct ctlv_schema_tree *tree, u32 node,
-+				  const struct ctlv_attr *nest, u32 depth);
-+static int ctlv_schema_check_indexed_nest(struct ctlv_schema_validation *v,
-+					  const struct ctlv_schema_tree *tree, u32 node,
-+					  const struct ctlv_attr *nest, u32 depth, u32 *nest_index);
-+
-+static int ctlv_schema_check_attr(struct ctlv_schema_validation *v,
-+				  const struct ctlv_schema_pos *pos, const struct ctlv_attr *nest,
-+				  const struct ctlv_attr *attr, u32 depth, u32 *nest_index)
-+{
-+	const struct ctlv_node_schema *node = &pos->tree->node_schemas[pos->node];
-+	bool nested = node->kind == CTLV_SCHEMA_NEST || node->kind == CTLV_SCHEMA_BLOB;
-+
-+	if (attr->flags & ~ctlv_schema_flags_allowed(v))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, nest, attr);
-+	/* Whether an attr is a nest is the schema's to say, not the sender's. */
-+	if (!(attr->flags & CTLV_ATTR_F_NESTED) != !nested)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, nest, attr);
-+
-+	switch (node->kind) {
-+	case CTLV_SCHEMA_BOOL:
-+		return ctlv_schema_check_bool(v, node, nest, attr);
-+	case CTLV_SCHEMA_STRING:
-+		return ctlv_schema_check_string(v, node, nest, attr);
-+	case CTLV_SCHEMA_BINARY:
-+		return ctlv_schema_check_binary(v, node, nest, attr);
-+	case CTLV_SCHEMA_BLOB:
-+		return ctlv_schema_check_blob(v, node, attr);
-+	case CTLV_SCHEMA_NEST:
-+		if (v->msg->request)
-+			return ctlv_schema_check_indexed_nest(v, pos->tree, pos->node, attr,
-+							      depth + 1, nest_index);
-+		return ctlv_schema_check_nest(v, pos->tree, pos->node, attr, depth + 1);
-+	default:
-+		return ctlv_schema_check_integer(v, node, nest, attr);
-+	}
-+}
-+
-+/* How many times one member occurs, and where the one too many is. */
-+static u32 ctlv_schema_occurrences(const struct ctlv_attr *nest, u64 attr_id, u32 max,
-+				   const struct ctlv_attr **excess)
-+{
-+	const struct ctlv_attr *child = NULL;
-+	u32 count = 0;
-+
-+	while (ctlv_message_next(nest, &child) == CTLV_MESSAGE_STEP_ATTR) {
-+		if (child->attr_id != attr_id)
-+			continue;
-+		count++;
-+		if (max && count == max + 1)
-+			*excess = child;
-+	}
-+	return count;
-+}
-+
-+/*
-+ * An optional stub makes everything it was filled with optional too: what a
-+ * descendant added cannot be something an ancestor's caller had to send.
-+ */
-+static int ctlv_schema_check_members(struct ctlv_schema_validation *v,
-+				     const struct ctlv_schema_tree *tree, u32 node,
-+				     const struct ctlv_attr *nest, bool optional)
-+{
-+	const struct ctlv_node_schema *parent = &tree->node_schemas[node];
-+	u32 index;
-+
-+	for (index = 0; index < parent->children_count; index++) {
-+		const struct ctlv_attr *excess = NULL;
-+		const struct ctlv_node_schema *child;
-+		u32 count;
-+
-+		child = &tree->node_schemas[parent->first_child + index];
-+		count = ctlv_schema_occurrences(nest, child->attr_id, child->max_occurrences,
-+						&excess);
-+		if (!count) {
-+			if (index < parent->required_children_count && !optional)
-+				return ctlv_schema_bad_missing(v, nest, child->attr_id);
-+			continue;
-+		}
-+		/* An unlimited placement, which only a reply may hold. */
-+		if (child->max_occurrences && count > child->max_occurrences)
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_TOO_MANY_OCCURRENCES, nest,
-+					       excess);
-+	}
-+
-+	for (index = 0; index < tree->stub_schemas_count; index++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[index];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+		int ret;
-+
-+		if (stub_schema->node != node)
-+			continue;
-+		fill_schema = ctlv_schema_fill(v->msg->family, stub_schema->family_id,
-+					       stub_schema->set_id);
-+		if (!fill_schema)
-+			continue;
-+		ret = ctlv_schema_check_members(v, &fill_schema->members, 0, nest,
-+						optional || stub_schema->optional);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+/* Whether one tree places one attr ID anywhere, filled stubs included. */
-+static bool ctlv_schema_tree_declares(const struct ctlv_family *family,
-+				      const struct ctlv_schema_tree *tree, u64 attr_id)
-+{
-+	u32 index;
-+
-+	for (index = 0; index < tree->node_schemas_count; index++)
-+		if (tree->node_schemas[index].attr_id == attr_id)
-+			return true;
-+	for (index = 0; index < tree->stub_schemas_count; index++) {
-+		const struct ctlv_stub_schema *stub_schema = &tree->stub_schemas[index];
-+		const struct ctlv_stub_fill_schema *fill_schema;
-+
-+		fill_schema = ctlv_schema_fill(family, stub_schema->family_id, stub_schema->set_id);
-+		if (fill_schema &&
-+		    ctlv_schema_tree_declares(family, &fill_schema->members, attr_id))
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/* Search every attr ID known anywhere in the effective schema. */
-+static bool ctlv_schema_declares(const struct ctlv_family *family, u64 attr_id)
-+{
-+	const struct ctlv_family *owner;
-+	struct ctlv_schema_cursor cursor;
-+	const struct ctlv_op_schema *op;
-+
-+	ctlv_schema_cursor_init(&cursor, family);
-+	while ((op = ctlv_schema_next_op(&cursor, &owner)))
-+		if (ctlv_schema_tree_declares(family, &op->request, attr_id) ||
-+		    ctlv_schema_tree_declares(family, &op->reply, attr_id))
-+			return true;
-+	return false;
-+}
-+
-+/*
-+ * Unknown IDs remain reserved unless explicitly ignorable; ignored unknown
-+ * nests are opaque.
-+ */
-+static int ctlv_schema_check_unknown(struct ctlv_schema_validation *v, const struct ctlv_attr *nest,
-+				     const struct ctlv_attr *attr)
-+{
-+	/* Which refuses the bit itself on a reply, where it means nothing. */
-+	if (attr->flags & ~ctlv_schema_flags_allowed(v))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_FLAG, nest, attr);
-+	if (!(attr->flags & CTLV_ATTR_F_IGNORE_IF_UNKNOWN) ||
-+	    ctlv_schema_declares(v->msg->family, attr->attr_id))
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_UNKNOWN_ATTR, nest, attr);
-+	return 0;
-+}
-+
-+static int ctlv_schema_check_indexed_nest(struct ctlv_schema_validation *v,
-+					  const struct ctlv_schema_tree *tree, u32 node,
-+					  const struct ctlv_attr *nest, u32 depth, u32 *nest_index)
-+{
-+	struct ctlv_message_input_index *index = v->msg->index;
-+	const struct ctlv_attr *child = NULL;
-+	const struct ctlv_attr *split = NULL;
-+	u64 previous = 0;
-+	bool previous_valid = false;
-+	u32 added;
-+	enum ctlv_message_step step;
-+	int ret;
-+
-+	if (depth > CTLV_MAX_NEST_DEPTH)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_NESTING_TOO_DEEP, nest, NULL);
-+	ret = ctlv_schema_index_nest_add(v, tree, node, nest, &added);
-+	if (ret)
-+		return ret;
-+
-+	while ((step = ctlv_message_next(nest, &child)) == CTLV_MESSAGE_STEP_ATTR) {
-+		struct ctlv_schema_pos pos;
-+		bool seen;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->attr_id, &pos)) {
-+			previous_valid = false;
-+			continue;
-+		}
-+		ret = ctlv_schema_index_record(v, added, &pos, child, &seen);
-+		if (ret)
-+			return ret;
-+		if (seen && (!previous_valid || previous != child->attr_id) && !split)
-+			split = child;
-+		previous = child->attr_id;
-+		previous_valid = true;
-+	}
-+	ret = ctlv_schema_index_required(v, added, nest);
-+	if (ret)
-+		return ret;
-+	if (step == CTLV_MESSAGE_STEP_BAD)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, nest, NULL);
-+
-+	child = NULL;
-+	while (ctlv_message_next(nest, &child) == CTLV_MESSAGE_STEP_ATTR) {
-+		struct ctlv_schema_pos pos;
-+		struct ctlv_message_input_slot *slot;
-+		u32 child_nest = CTLV_MESSAGE_INPUT_INDEX_NONE;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->attr_id, &pos)) {
-+			ret = ctlv_schema_check_unknown(v, nest, child);
-+			if (ret)
-+				return ret;
-+			continue;
-+		}
-+		if (child == split)
-+			return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_NONCONTIGUOUS_ATTR, nest,
-+					       child);
-+		ret = ctlv_schema_check_attr(v, &pos, nest, child, depth, &child_nest);
-+		if (ret)
-+			return ret;
-+		if (child_nest != CTLV_MESSAGE_INPUT_INDEX_NONE) {
-+			slot = ctlv_schema_index_slot(v, added, &pos);
-+			if (!slot)
-+				return -EINVAL;
-+			ctlv_schema_index_nest_link(index, slot, child_nest);
-+		}
-+	}
-+	*nest_index = added;
-+	return 0;
-+}
-+
-+/*
-+ * Required members first, then every attr in the order the nest carries them,
-+ * so that what is reported is the first thing a caller has to fix.
-+ */
-+static int ctlv_schema_check_nest(struct ctlv_schema_validation *v,
-+				  const struct ctlv_schema_tree *tree, u32 node,
-+				  const struct ctlv_attr *nest, u32 depth)
-+{
-+	const struct ctlv_attr *child = NULL;
-+	enum ctlv_message_step step;
-+	int ret;
-+
-+	if (depth > CTLV_MAX_NEST_DEPTH)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_NESTING_TOO_DEEP, nest, NULL);
-+
-+	ret = ctlv_schema_check_members(v, tree, node, nest, false);
-+	if (ret)
-+		return ret;
-+
-+	while ((step = ctlv_message_next(nest, &child)) == CTLV_MESSAGE_STEP_ATTR) {
-+		struct ctlv_schema_pos pos;
-+
-+		if (!ctlv_schema_member(v->msg->family, tree, node, child->attr_id, &pos)) {
-+			ret = ctlv_schema_check_unknown(v, nest, child);
-+			if (ret)
-+				return ret;
-+			/* Skipped whole: the step past it checked its length. */
-+			continue;
-+		}
-+		ret = ctlv_schema_check_attr(v, &pos, nest, child, depth, NULL);
-+		if (ret)
-+			return ret;
-+	}
-+	if (step == CTLV_MESSAGE_STEP_BAD)
-+		return ctlv_schema_bad(v, CTLV_VALIDATION_REASON_MALFORMED_MESSAGE, nest, NULL);
-+	return 0;
-+}
-+
-+int ctlv_schema_validate(struct ctlv_msg *msg, struct ctlv_error *error)
-+{
-+	struct ctlv_schema_validation validate = { .msg = msg, .error = error };
-+	u32 root_index;
-+	int ret;
-+
-+	if (!msg->request)
-+		return ctlv_schema_check_nest(&validate, msg->tree, 0, msg->root, 0);
-+	if (WARN_ON_ONCE(msg->index))
-+		return -EINVAL;
-+	msg->index = kzalloc_obj(*msg->index, GFP_KERNEL_ACCOUNT);
-+	if (!msg->index)
++	cfile->subscribed = bitmap_zalloc(ctlvdev->events_count, GFP_KERNEL_ACCOUNT);
++	cfile->overflow = ctlv_event_record_reserve(ctlvdev, ctlvdev->overflow_op);
++	cfile->removed = ctlv_event_record_reserve(ctlvdev, ctlvdev->removed_op);
++	if (!cfile->subscribed || !cfile->overflow || !cfile->removed) {
++		ctlv_event_file_exit(cfile);
 +		return -ENOMEM;
-+	ret = ctlv_schema_check_indexed_nest(&validate, msg->tree, 0, msg->root, 0, &root_index);
-+	if (ret || WARN_ON_ONCE(root_index)) {
-+		ctlv_message_index_free(msg);
-+		return ret ?: -EINVAL;
++	}
++	ctlv_event_record_build(&ctx, cfile->removed, ctlvdev->removed_op);
++	ctlv_event_record_done(&ctx, cfile->removed);
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	list_add_tail(&cfile->node, &ctlvdev->files);
++	return 0;
++}
++
++void ctlv_event_file_exit(struct ctlv_file *cfile)
++{
++	struct ctlv_event_record *rec, *next;
++
++	scoped_guard(spinlock, &cfile->ctlvdev->events_lock)
++		list_del_init(&cfile->node);
++
++	/* Unreachable records are ours; reserved records free by identity. */
++	list_for_each_entry_safe(rec, next, &cfile->records, node)
++		if (!rec->reserved)
++			kfree(rec);
++	kfree(cfile->overflow);
++	kfree(cfile->removed);
++	bitmap_free(cfile->subscribed);
++	mutex_destroy(&cfile->reading);
++}
++
++static void ctlv_event_queue_add(struct ctlv_file *cfile, struct ctlv_event_record *rec)
++{
++	list_add_tail(&rec->node, &cfile->records);
++	wake_up_interruptible(&cfile->readers);
++}
++
++static void ctlv_event_queue_link(struct ctlv_file *cfile, struct ctlv_event_record *rec)
++{
++	rec->hdr.sequence = ++cfile->sequence;
++	ctlv_event_queue_add(cfile, rec);
++}
++
++/* One reserved marker aggregates each contiguous drop epoch. */
++static void ctlv_event_queue_dropped(struct ctlv_file *cfile, u64 sequence)
++{
++	if (!cfile->overflowing) {
++		cfile->overflowing = true;
++		cfile->first_dropped = sequence;
++		cfile->dropped = 0;
++		if (!cfile->reading_overflow)
++			ctlv_event_queue_add(cfile, cfile->overflow);
++	}
++	cfile->last_dropped = sequence;
++	cfile->dropped++;
++}
++
++/* Delivered and dropped subscribed events both consume a sequence number. */
++static void ctlv_event_queue_event(struct ctlv_file *cfile, const struct ctlv_op_entry *op,
++				   struct ctlv_event_record *rec)
++{
++	u64 sequence;
++
++	lockdep_assert_held(&cfile->ctlvdev->events_lock);
++	if (!test_bit(op->event_index, cfile->subscribed))
++		return;
++	sequence = ++cfile->sequence;
++	if (cfile->overflowing || !rec || cfile->queue_used + rec->len > cfile->queue_len) {
++		ctlv_event_queue_dropped(cfile, sequence);
++		return;
++	}
++	cfile->queue_used += rec->len;
++	rec->hdr.sequence = sequence;
++	list_move_tail(&rec->node, &cfile->records);
++	wake_up_interruptible(&cfile->readers);
++}
++
++static void ctlv_event_free(struct ctlv_op_ctx *ctx);
++
++struct ctlv_op_ctx *ctlv_event_create(struct ctlv_device *ctlvdev, u64 op_id,
++				      struct ctlv_cursor **reply, gfp_t gfp)
++{
++	const struct ctlv_op_entry *op;
++	struct ctlv_op_ctx *ctx;
++	void *out;
++	u32 room;
++	int ret;
++
++	ctx = kzalloc_obj(*ctx, gfp);
++	if (!ctx)
++		return ERR_PTR(-ENOMEM);
++	scoped_guard(spinlock, &ctlvdev->events_lock) {
++		const struct ctlv_family *family;
++
++		if (!ctlvdev->events_live) {
++			ret = -ENODEV;
++			goto err_free_ctx;
++		}
++		if (WARN_ON_ONCE(ctlvdev->active_event_contexts == U32_MAX)) {
++			ret = -EOVERFLOW;
++			goto err_free_ctx;
++		}
++		/* Admission pins the op until emit or abort. */
++		family = READ_ONCE(ctlvdev->family);
++		if (!family) {
++			ret = -ENODEV;
++			goto err_free_ctx;
++		}
++		get_device(&ctlvdev->dev);
++		ctlvdev->active_event_contexts++;
++		ctx->ctlvdev = ctlvdev;
++		ctx->family = family;
++	}
++
++	op = ctlv_op_find(ctlvdev, op_id);
++	if (WARN_ON_ONCE(!op) || WARN_ON_ONCE(op->schema->type != CTLV_OP_TYPE_EVENT)) {
++		ret = -EINVAL;
++		goto err_put_ctx;
++	}
++	room = ctlv_event_len(op) - sizeof(struct ctlv_event_hdr);
++	out = kmalloc(room, gfp);
++	if (!out) {
++		ret = -ENOMEM;
++		goto err_put_ctx;
++	}
++
++	ctx->gfp = gfp;
++	ctx->op = op;
++	ctlv_message_output_init(&ctx->output, ctx, out, room, &op->schema->reply);
++	ctlv_message_root(&ctx->output_root, &ctx->output);
++	ctx->deepest = &ctx->output_root;
++	*reply = &ctx->output_root;
++	return ctx;
++
++err_put_ctx:
++	ctlv_event_free(ctx);
++	return ERR_PTR(ret);
++err_free_ctx:
++	kfree(ctx);
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_event_create, "CTLV");
++
++static void ctlv_event_free(struct ctlv_op_ctx *ctx)
++{
++	struct ctlv_device *ctlvdev = ctx->ctlvdev;
++	bool wake;
++
++	kfree(ctx->output.root);
++	kfree(ctx);
++
++	scoped_guard(spinlock, &ctlvdev->events_lock) {
++		if (WARN_ON_ONCE(!ctlvdev->active_event_contexts))
++			wake = true;
++		else
++			wake = !--ctlvdev->active_event_contexts;
++	}
++	if (wake)
++		wake_up_all(&ctlvdev->event_context_wait);
++	put_device(&ctlvdev->dev);
++}
++
++/* Reject an incomplete or schema-invalid family event before queueing. */
++static int ctlv_event_finish(struct ctlv_op_ctx *ctx)
++{
++	struct ctlv_error refused = {};
++
++	/* Whatever poisoned it has warned about it already. */
++	if (ctx->output.poison)
++		return ctx->output.poison;
++	if (WARN_ON_ONCE(ctx->deepest != &ctx->output_root)) {
++		/* A cursor of a frame that has returned is not followed. */
++		ctx->deepest = &ctx->output_root;
++		return -EINVAL;
++	}
++	if (WARN_ON_ONCE(ctlv_schema_validate(&ctx->output, &refused)))
++		return -EINVAL;
++	return 0;
++}
++
++/* Allocate subscriber records before taking queue spinlocks. */
++static void ctlv_event_copies(struct ctlv_op_ctx *ctx, u32 len, struct list_head *spare, u32 wanted)
++{
++	const struct ctlv_attr *root = ctx->output.root;
++	struct ctlv_event_record *rec;
++
++	while (wanted--) {
++		rec = ctlv_event_record_alloc(len, ctx->gfp);
++		if (!rec)
++			return;
++		rec->len = len;
++		rec->hdr.length = len;
++		rec->hdr.flags = 0;
++		rec->hdr.op_id = ctx->op->schema->op_id;
++		/* Padded, since what is copied out is the whole record. */
++		memcpy_and_pad(rec->root, len - sizeof(rec->hdr), root, root->len, 0);
++		list_add_tail(&rec->node, spare);
++	}
++}
++
++static void ctlv_event_deliver(struct ctlv_op_ctx *ctx, struct list_head *spare)
++{
++	struct ctlv_device *ctlvdev = ctx->ctlvdev;
++	struct ctlv_event_record *rec;
++	struct ctlv_file *cfile;
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (ctlvdev->dead_announced)
++		return;
++	list_for_each_entry(cfile, &ctlvdev->files, node) {
++		rec = list_first_entry_or_null(spare, struct ctlv_event_record, node);
++		ctlv_event_queue_event(cfile, ctx->op, rec);
++	}
++}
++
++int ctlv_event_emit(struct ctlv_op_ctx *ctx)
++{
++	struct ctlv_device *ctlvdev = ctx->ctlvdev;
++	struct ctlv_event_record *rec, *next;
++	struct ctlv_file *cfile;
++	u32 len, wanted = 0;
++	LIST_HEAD(spare);
++	int ret;
++
++	if (WARN_ON_ONCE(ctx->file))
++		return -EINVAL;
++	ret = ctlv_event_finish(ctx);
++	if (ret)
++		goto out_free;
++
++	len = sizeof(struct ctlv_event_hdr) + CTLV_ALIGN(ctx->output.root->len);
++	scoped_guard(spinlock, &ctlvdev->events_lock) {
++		if (ctlvdev->dead_announced)
++			goto out_free;
++		list_for_each_entry(cfile, &ctlvdev->files, node)
++			if (test_bit(ctx->op->event_index, cfile->subscribed))
++				wanted++;
++	}
++	if (wanted) {
++		ctlv_event_copies(ctx, len, &spare, wanted);
++		ctlv_event_deliver(ctx, &spare);
++		list_for_each_entry_safe(rec, next, &spare, node)
++			kfree(rec);
++	}
++
++out_free:
++	ctlv_event_free(ctx);
++	return ret;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_event_emit, "CTLV");
++
++void ctlv_event_abort(struct ctlv_op_ctx *ctx)
++{
++	if (WARN_ON_ONCE(ctx->file))
++		return;
++	ctlv_event_free(ctx);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_event_abort, "CTLV");
++
++void ctlv_event_lost(struct ctlv_device *ctlvdev, u64 op_id)
++{
++	const struct ctlv_op_entry *op;
++	struct ctlv_file *cfile;
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (!ctlvdev->events_live || ctlvdev->dead_announced)
++		return;
++	op = ctlv_op_find(ctlvdev, op_id);
++	if (WARN_ON_ONCE(!op) || WARN_ON_ONCE(op->schema->type != CTLV_OP_TYPE_EVENT))
++		return;
++	list_for_each_entry(cfile, &ctlvdev->files, node)
++		ctlv_event_queue_event(cfile, op, NULL);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_event_lost, "CTLV");
++
++void ctlv_event_op_changed(struct ctlv_device *ctlvdev, const struct ctlv_op_entry *op,
++			   bool disabled, u64 generation)
++{
++	struct ctlv_cursor *reply;
++	struct ctlv_op_ctx *ctx;
++
++	ctx = ctlv_op_changed_create(ctlvdev, &reply, GFP_NOWAIT);
++	if (IS_ERR(ctx)) {
++		ctlv_event_lost(ctlvdev, CTLV_OP_OP_CHANGED);
++		return;
++	}
++	ctlv_op_id_put(reply, op->schema->op_id);
++	ctlv_op_disabled_put(reply, disabled);
++	ctlv_op_state_generation_put(reply, generation);
++	ctlv_event_emit(ctx);
++}
++
++void ctlv_event_device_dead(struct ctlv_device *ctlvdev)
++{
++	struct ctlv_file *cfile;
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (WARN_ON_ONCE(ctlvdev->dead_announced))
++		return;
++	list_for_each_entry(cfile, &ctlvdev->files, node)
++		ctlv_event_queue_link(cfile, cfile->removed);
++	/* Publish dead only after terminal records are queued. */
++	ctlvdev->dead_announced = true;
++	list_for_each_entry(cfile, &ctlvdev->files, node)
++		wake_up_interruptible(&cfile->readers);
++}
++
++/* Materialize the final loss count when taking the marker. */
++static void ctlv_event_overflow_fill(struct ctlv_file *cfile)
++{
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	struct ctlv_op_ctx ctx = { .ctlvdev = ctlvdev };
++	struct ctlv_cursor *root;
++
++	ctlv_event_record_build(&ctx, cfile->overflow, ctlvdev->overflow_op);
++	cfile->overflow->hdr.sequence = cfile->first_dropped;
++	root = &ctx.output_root;
++	ctlv_event_first_sequence_put(root, cfile->first_dropped);
++	ctlv_event_last_sequence_put(root, cfile->last_dropped);
++	ctlv_event_dropped_count_put(root, cfile->dropped);
++	/* Reserved storage is the most this event can be, so it all fits. */
++	WARN_ON_ONCE(ctx.output.poison);
++	ctlv_event_record_done(&ctx, cfile->overflow);
++
++	cfile->reading_overflow = true;
++	cfile->overflowing = false;
++	cfile->first_reported = cfile->first_dropped;
++	cfile->last_reported = cfile->last_dropped;
++	cfile->dropped_reported = cfile->dropped;
++	cfile->dropped = 0;
++}
++
++static struct ctlv_event_record *ctlv_event_queue_take(struct ctlv_file *cfile)
++{
++	struct ctlv_event_record *rec;
++
++	guard(spinlock)
++		(&cfile->ctlvdev->events_lock);
++	rec = list_first_entry_or_null(&cfile->records, struct ctlv_event_record, node);
++	if (!rec)
++		return NULL;
++	list_del_init(&rec->node);
++	if (rec == cfile->overflow)
++		ctlv_event_overflow_fill(cfile);
++	else if (!rec->reserved)
++		cfile->queue_used -= rec->len;
++	return rec;
++}
++
++/* Restore an undelivered record, merging an overflow marker's epoch. */
++static void ctlv_event_queue_untake(struct ctlv_file *cfile, struct ctlv_event_record *rec)
++{
++	guard(spinlock)
++		(&cfile->ctlvdev->events_lock);
++	if (rec == cfile->overflow) {
++		cfile->reading_overflow = false;
++		cfile->first_dropped = cfile->first_reported;
++		if (!cfile->overflowing)
++			cfile->last_dropped = cfile->last_reported;
++		cfile->dropped += cfile->dropped_reported;
++		cfile->overflowing = true;
++	} else if (!rec->reserved) {
++		cfile->queue_used += rec->len;
++	}
++	list_add(&rec->node, &cfile->records);
++}
++
++/* Requeue a marker if another loss epoch opened while it was out. */
++static void ctlv_event_queue_consumed(struct ctlv_file *cfile, struct ctlv_event_record *rec)
++{
++	if (rec == cfile->overflow) {
++		guard(spinlock)
++			(&cfile->ctlvdev->events_lock);
++		cfile->reading_overflow = false;
++		if (cfile->overflowing)
++			ctlv_event_queue_add(cfile, rec);
++		return;
++	}
++	if (!rec->reserved)
++		kfree(rec);
++}
++
++static bool ctlv_event_waiting(struct ctlv_file *cfile)
++{
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	return !list_empty(&cfile->records) || ctlvdev->dead_announced;
++}
++
++ssize_t ctlv_event_file_read(struct ctlv_file *cfile, char __user *buf, size_t len, bool blocking)
++{
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	struct ctlv_event_record *rec;
++	ssize_t ret;
++
++	/* dup() and SCM_RIGHTS share one serialized queue. */
++	if (mutex_lock_interruptible(&cfile->reading))
++		return -ERESTARTSYS;
++
++	while (!(rec = ctlv_event_queue_take(cfile))) {
++		/* Drained, and the device is gone. */
++		if (READ_ONCE(ctlvdev->dead_announced)) {
++			ret = -ENODEV;
++			goto out_unlock;
++		}
++		if (!blocking) {
++			ret = -EAGAIN;
++			goto out_unlock;
++		}
++		ret = wait_event_interruptible(cfile->readers, ctlv_event_waiting(cfile));
++		if (ret) {
++			ret = -ERESTARTSYS;
++			goto out_unlock;
++		}
++	}
++
++	if (rec->len > len) {
++		ctlv_event_queue_untake(cfile, rec);
++		ret = -EMSGSIZE;
++		goto out_unlock;
++	}
++	if (copy_to_user(buf, &rec->hdr, rec->len)) {
++		ctlv_event_queue_untake(cfile, rec);
++		ret = -EFAULT;
++		goto out_unlock;
++	}
++	ret = rec->len;
++	ctlv_event_queue_consumed(cfile, rec);
++
++out_unlock:
++	mutex_unlock(&cfile->reading);
++	return ret;
++}
++
++__poll_t ctlv_event_file_poll(struct ctlv_file *cfile, struct file *filp,
++			      struct poll_table_struct *wait)
++{
++	struct ctlv_device *ctlvdev = cfile->ctlvdev;
++	__poll_t mask = 0;
++
++	poll_wait(filp, &cfile->readers, wait);
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (!list_empty(&cfile->records))
++		mask |= EPOLLIN | EPOLLRDNORM;
++	/* Which a reader sees beside what it has not drained yet. */
++	if (ctlvdev->dead_announced)
++		mask |= EPOLLHUP;
++	return mask;
++}
++
++/* Validate every ID before changing any subscription. */
++static const struct ctlv_op_entry *ctlv_event_subscription_find(struct ctlv_device *ctlvdev,
++								u64 op_id)
++{
++	const struct ctlv_op_entry *op = ctlv_op_find(ctlvdev, op_id);
++
++	return op && op->schema->type == CTLV_OP_TYPE_EVENT ? op : NULL;
++}
++
++static int ctlv_event_subscriptions_set(struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
++					struct ctlv_input_ref ref, bool subscribe)
++{
++	struct ctlv_device *ctlvdev = ctx->ctlvdev;
++	struct ctlv_cursor attr;
++
++	for (ctlv_input_attr(&attr, request, ref); ctlv_attr_ok(&attr); ctlv_attr_next(&attr)) {
++		u64 op_id = ctlv_attr_u64(&attr);
++
++		if (!ctlv_event_subscription_find(ctlvdev, op_id))
++			return ctlv_op_errorf(ctx, -EOPNOTSUPP,
++					      "op %#llx is not an event this device emits",
++					      (unsigned long long)op_id);
++	}
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	for (ctlv_input_attr(&attr, request, ref); ctlv_attr_ok(&attr); ctlv_attr_next(&attr)) {
++		u64 op_id = ctlv_attr_u64(&attr);
++		const struct ctlv_op_entry *op = ctlv_event_subscription_find(ctlvdev, op_id);
++
++		if (subscribe)
++			set_bit(op->event_index, ctx->file->subscribed);
++		else
++			clear_bit(op->event_index, ctx->file->subscribed);
 +	}
 +	return 0;
 +}
-diff --git a/drivers/ctlv/schema.h b/drivers/ctlv/schema.h
++
++int ctlv_subscriptions_add_action(void *priv, struct ctlv_op_ctx *ctx,
++				  const struct ctlv_cursor *request, struct ctlv_cursor *reply)
++{
++	return ctlv_event_subscriptions_set(ctx, request, ctlv_subscriptions_add_event_op_id_ref(),
++					    true);
++}
++
++int ctlv_subscriptions_remove_action(void *priv, struct ctlv_op_ctx *ctx,
++				     const struct ctlv_cursor *request, struct ctlv_cursor *reply)
++{
++	return ctlv_event_subscriptions_set(ctx, request,
++					    ctlv_subscriptions_remove_event_op_id_ref(), false);
++}
++
++int ctlv_event_queue_get_query(void *priv, struct ctlv_op_ctx *ctx,
++			       const struct ctlv_cursor *request, struct ctlv_cursor *reply)
++{
++	struct ctlv_file *cfile = ctx->file;
++
++	scoped_guard(spinlock, &ctx->ctlvdev->events_lock) {
++		ctlv_event_queue_len_put(reply, cfile->queue_len);
++		ctlv_event_queue_used_put(reply, cfile->queue_used);
++	}
++	/* One state, whole, so there is never a second fragment of it. */
++	return ctlv_op_query_done(ctx, 0);
++}
++
++/* Resizing never discards queued records or reserved capacity. */
++int ctlv_event_queue_set_action(void *priv, struct ctlv_op_ctx *ctx,
++				const struct ctlv_cursor *request, struct ctlv_cursor *reply)
++{
++	struct ctlv_device *ctlvdev = ctx->ctlvdev;
++	u64 len = ctlv_event_queue_set_event_queue_len_get(request);
++
++	if (len < ctlvdev->queue_min || len > CTLV_MAX_EVENT_QUEUE_LEN)
++		return ctlv_op_errorf(ctx, -EINVAL, "event queue length %llu is outside %u..%u",
++				      (unsigned long long)len, ctlvdev->queue_min,
++				      CTLV_MAX_EVENT_QUEUE_LEN);
++
++	guard(spinlock)
++		(&ctlvdev->events_lock);
++	if (len < ctx->file->queue_used)
++		return ctlv_op_error(ctx, -EBUSY,
++				     "event queue contains more data than the requested limit");
++	ctx->file->queue_len = len;
++	return 0;
++}
+diff --git a/drivers/ctlv/event.h b/drivers/ctlv/event.h
 new file mode 100644
-index 000000000000..4552a392da60
+index 000000000000..80898c770034
 --- /dev/null
-+++ b/drivers/ctlv/schema.h
-@@ -0,0 +1,50 @@
++++ b/drivers/ctlv/event.h
+@@ -0,0 +1,69 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-+ *
-+ * Private generated-schema walkers.
-+ */
-+#ifndef _CTLV_SCHEMA_H
-+#define _CTLV_SCHEMA_H
++#ifndef _CTLV_EVENT_H
++#define _CTLV_EVENT_H
 +
-+#include <linux/ctlv_family.h>
++#include <linux/gfp_types.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/poll.h>
 +#include <linux/types.h>
++#include <linux/wait.h>
 +
-+struct ctlv_schema_cursor {
-+	const struct ctlv_family *target;
-+	const struct ctlv_family *family;
-+	u32 level;
-+	u32 index;
++#include <uapi/linux/ctlv.h>
++
++struct ctlv_device;
++struct ctlv_op_entry;
++struct file;
++struct poll_table_struct;
++
++struct ctlv_event_record {
++	struct list_head node;
++	u32 len;
++	u32 room;
++	bool reserved;
++	struct ctlv_event_hdr hdr;
++	u8 root[] __aligned(8);
 +};
 +
-+struct ctlv_schema_pos {
-+	const struct ctlv_schema_tree *tree;
-+	u32 node;
++struct ctlv_file {
++	struct ctlv_device *ctlvdev;
++	struct list_head node;
++
++	struct list_head records;
++	u32 queue_len;
++	u32 queue_used;
++	u64 sequence;
++	unsigned long *subscribed;
++	struct ctlv_event_record *overflow;
++	struct ctlv_event_record *removed;
++	bool overflowing;
++	u64 first_dropped;
++	u64 last_dropped;
++	u64 dropped;
++	bool reading_overflow;
++	u64 first_reported;
++	u64 last_reported;
++	u64 dropped_reported;
++
++	wait_queue_head_t readers;
++	/* One reader of this description at a time, however many hold it. */
++	struct mutex reading;
 +};
 +
-+const struct ctlv_family *
-+ctlv_family_ancestor(const struct ctlv_family *family, u32 up);
-+u32 ctlv_family_levels(const struct ctlv_family *family);
-+void ctlv_schema_cursor_init(struct ctlv_schema_cursor *cursor,
-+			     const struct ctlv_family *family);
-+const struct ctlv_op_schema *
-+ctlv_schema_next_op(struct ctlv_schema_cursor *cursor,
-+		    const struct ctlv_family **family);
-+const struct ctlv_stub_fill_schema *
-+ctlv_schema_fill(const struct ctlv_family *family, u16 family_id,
-+		 u32 set_id);
-+int ctlv_schema_op_sizes(const struct ctlv_family *family,
-+			 const struct ctlv_op_schema *op,
-+			 struct ctlv_op_sizes *sizes);
-+bool ctlv_schema_member(const struct ctlv_family *family,
-+			const struct ctlv_schema_tree *tree, u32 node,
-+			u64 attr_id, struct ctlv_schema_pos *member);
-+bool ctlv_schema_value_ok(const struct ctlv_node_schema *node, u64 value);
-+bool ctlv_schema_length_ok(const struct ctlv_node_schema *node, u32 len);
++int ctlv_event_sizes(struct ctlv_device *ctlvdev);
++void ctlv_event_device_init(struct ctlv_device *ctlvdev);
++void ctlv_event_contexts_start(struct ctlv_device *ctlvdev);
++void ctlv_event_contexts_stop(struct ctlv_device *ctlvdev);
++void ctlv_event_contexts_wait(struct ctlv_device *ctlvdev);
++void ctlv_event_device_dead(struct ctlv_device *ctlvdev);
++int ctlv_event_file_init(struct ctlv_file *cfile);
++void ctlv_event_file_exit(struct ctlv_file *cfile);
++ssize_t ctlv_event_file_read(struct ctlv_file *cfile, char __user *buf,
++			     size_t len, bool blocking);
++__poll_t ctlv_event_file_poll(struct ctlv_file *cfile, struct file *filp,
++			      struct poll_table_struct *wait);
++void ctlv_event_op_changed(struct ctlv_device *ctlvdev,
++			   const struct ctlv_op_entry *op, bool disabled,
++			   u64 generation);
 +
-+struct ctlv_error;
-+struct ctlv_msg;
++#endif /* _CTLV_EVENT_H */
+diff --git a/drivers/ctlv/internal.h b/drivers/ctlv/internal.h
+index f74724269628..7e6ec9d1f73e 100644
+--- a/drivers/ctlv/internal.h
++++ b/drivers/ctlv/internal.h
+@@ -16,6 +16,7 @@
+ #include "message.h"
+ 
+ struct task_struct;
++struct ctlv_file;
+ 
+ #define CTLV_ERROR_MESSAGE_LEN 256
+ 
+@@ -29,6 +30,7 @@ struct ctlv_op_entry {
+ 	struct ctlv_op_sizes sizes;
+ 	u32 state_index;
+ 	bool absent;
++	u32 event_index;
+ };
+ 
+ struct ctlv_error {
+@@ -52,9 +54,12 @@ struct ctlv_query_fragment {
+ };
+ 
+ struct ctlv_op_ctx {
++	struct ctlv_device *ctlvdev;
+ 	const struct ctlv_family *family;
++	struct ctlv_file *file;
+ 	/* Compared against current and never followed: identity, not a hold. */
+ 	const struct task_struct *submitter;
++	gfp_t gfp;
+ 	const struct ctlv_op_entry *op;
+ 
+ 	struct ctlv_msg request;
+@@ -71,4 +76,6 @@ struct ctlv_op_ctx {
+ 	struct ctlv_error error;
+ };
+ 
++struct ctlv_op_entry *ctlv_op_find(struct ctlv_device *ctlvdev, u64 op_id);
 +
-+int ctlv_schema_validate(struct ctlv_msg *msg, struct ctlv_error *error);
+ #endif /* _CTLV_INTERNAL_H */
+diff --git a/include/linux/ctlv.h b/include/linux/ctlv.h
+index dd2206cccfb5..cdfe3e8e930d 100644
+--- a/include/linux/ctlv.h
++++ b/include/linux/ctlv.h
+@@ -164,4 +164,31 @@ int ctlv_blob_read(struct ctlv_blob *blob, u64 offset, void *dst, size_t len);
+ int ctlv_blob_write(struct ctlv_blob *blob, u64 offset, const void *src,
+ 		    size_t len);
+ 
++/**
++ * ctlv_event_lost - Report an event that could not be created.
++ * @ctlvdev: CTLV device
++ * @op_id: event operation ID
++ *
++ * This does not allocate or sleep. It is not for interrupt context.
++ */
++void ctlv_event_lost(struct ctlv_device *ctlvdev, u64 op_id);
 +
-+#endif /* _CTLV_SCHEMA_H */
++/**
++ * ctlv_event_emit - Validate and publish a completed event.
++ * @ctx: context returned by a generated event create helper
++ *
++ * This consumes @ctx. It is not for interrupt context.
++ *
++ * Return: 0, or a negative error.
++ */
++int ctlv_event_emit(struct ctlv_op_ctx *ctx);
++
++/**
++ * ctlv_event_abort - Discard an event under construction.
++ * @ctx: context returned by a generated event create helper
++ *
++ * This consumes @ctx. It is not for interrupt context.
++ */
++void ctlv_event_abort(struct ctlv_op_ctx *ctx);
++
+ #endif /* _LINUX_CTLV_H */
+diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
+index 5cdcdfeec651..4f5141fc7ccf 100644
+--- a/include/linux/ctlv_family.h
++++ b/include/linux/ctlv_family.h
+@@ -338,6 +338,17 @@ bool ctlv_nest_start(struct ctlv_cursor *nest, struct ctlv_cursor *child,
+ 
+ struct ctlv_blob *ctlv_blob_resolve(struct ctlv_op_ctx *ctx,
+ 				    const struct ctlv_cursor *blob);
++struct ctlv_op_ctx *ctlv_event_create(struct ctlv_device *ctlvdev, u64 op_id,
++				      struct ctlv_cursor **event, gfp_t gfp);
++
++#define CTLV_EVENT_CREATE(_name, _op_id)			\
++static inline struct ctlv_op_ctx *				\
++_name##_create(struct ctlv_device *ctlvdev,			\
++	       struct ctlv_cursor **reply, gfp_t gfp)		\
++{								\
++	return ctlv_event_create(ctlvdev, (_op_id), reply, gfp);	\
++}
++
+ #define __CTLV_DEFINE_PUT(_name, _type, _put_fn, _attr_id, _kind) \
+ static inline bool _name##_put(struct ctlv_cursor *nest,		\
+ 			       _type value)			\
 -- 
 2.56.0
 
