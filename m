@@ -1,339 +1,303 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022129.outbound.protection.outlook.com [40.107.75.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B3F1632E7;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045617; cv=none; b=KVt13bNpOe56cyUjVcg9IBlNqb4LE6mT+DqGAUQdLz9CqrAjbP0pZmwQRqHZVczzYlLpGNM6MG/MIo8jjdAYWbYd795sQxBgwJcRaHFMaIeZstHO17xFx/u+2wpFzOnTvRE5xZiXxxAU+pBaIuVaeF/MSaeLZmzzaOdPdRsdYek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045617; c=relaxed/simple;
-	bh=zZwQ3/SDjjcxJkwiESIZvGfW2lNW2QHYJFWC2VcwGSU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jR7xw3l97pCa08WDMf5iZc93chsmH2lPG4n13XBs5LRIRAXyILb4OP7FZviTfXYMC5Fsvt2Mc6oBkKmzrl2fX/IB+Mcw97jR3CGJySJJzfI6scEbKbfMvY/k8JGL+ruarYhvzIesq4ise1tFV6VNXMJgIePk2F3vBDLFzbqdknY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/Jt1Cdc; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/Jt1Cdc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9ED8AC2BCC7;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792045616;
-	bh=zZwQ3/SDjjcxJkwiESIZvGfW2lNW2QHYJFWC2VcwGSU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=c/Jt1CdcLYStxr30xFlFqUJjqKGEGMLOI9MvivzShOC2dCIUybKW51AgA2BX+4iYq
-	 5IdsJAG374xEJHE0ZSU6w2BExN1NqYlgcQlz24miHVfbq3PVjnwyL0Un24IeatUNvf
-	 irVsjTsQbBKEAjw7q0sIkJf0vcAAoxzIWZ1qr8Eclo2BhptW5MivgjBjZPS+efjLM4
-	 AGVGrZ6GPpNblkdiMh4WBSYR3af6MrUYjqjmhIrWPP9FhLfexFgqFxh+YFLKR5c0J8
-	 yYjTcxtsYD+JIIYwHjM/YJDAtARSh2Jcw/0BpYuIkEQGFQrkaV4/RHCIaC6gDMRyKr
-	 mTP1YwTq6j8BQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A076CC6B2F;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-From: Patrick Dahlke via B4 Relay <devnull+me.patrickdahlke.com@kernel.org>
-Date: Thu, 15 Oct 2026 06:26:45 +0000
-Subject: [PATCH can] can: j1939: don't drop the last ECU reference without
- priv->lock
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A865E201278;
+	Thu, 15 Oct 2026 06:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792045758; cv=fail; b=RTi4xwD+pbZkB6jCgcV9AEsppEytmsPbqypdviQrvke+/jpIKf838r4UmBSpVFF0I8MHJSWvyW7ogx4ySAjYzX3EXFAUGIssNNPemQArJfI1BRhwJ9jShKXxL/hkUeKliydvYoy5dGUehRlBzg4xsNxVCehD8QRL55fMPdY9ydI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792045758; c=relaxed/simple;
+	bh=dGmZcxfHraam8sCz5Psd2NA01g3ma44ix7TSkPoBrQ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m4AZPo+Wls7gqBs2fij5XfqvLynEhNGDjH8azLNLJaa1ZCDIIYCYemzhvv2CgOWF1hn8ecVA3BnCpgO+zdKco0++FBFOQ7bLoWc0QnvEhxEMq70MQcxJsd8gKibz8lZdVso+2iEBa7xwe5sfe27PkpfHO5tknDnv4qVmhRYGqe0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e9a3RnK0k6eivYGJM6TP5cj2qvOWkH+N4ikkK9d9mAaFm9QX+IG09qVdmBGP7qlTDvChxcn8eXZ+suGkj0XVkAtaEErvF3mn1Fj4QECUKuynm3il+PD+7NQLR2pc8vExA9dytHT9e7x+gQqK0SRf2wIvDsi/5iqj4+5O2WqiIbFpbpgg6zvx1af26IEYJPVBXvapkvpX4ZjyXJJJr91JQ7iHTq1HF1urDcG8GKa6rcd5g2IcJMujpRvzd56LCSc26HWgqs2QYG4NVH3gRVdHY7eUo/jlMS1r8BXicwwFaxrM8sRhddhU3fKwI8EhWO0d1bm0Ouc8QSbM/ldO09Rr+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o5eykm7AJczkLx3JRr5ccH14HSao65jq+HP4JcWtens=;
+ b=W1mb9HNEA/PX5Q8G4OsS8NlhFgMWJzgVsS+v74UWm+K4Hso71cGob0S515EAlBqP/HcnTTWNzRPuRz8Dty5xCAKfe0ObToUNB+o2Zj8EMDyw1KKMiokjFn8GzO3B6aAub1AcAQa+PDuvc7RfJkAO3qosaOiRckwW8ifHCMYRr76wB2dy5/uPFslwei6kVbsmt21Nf1AKuQPkq3/nekswC/UmmPrwnhy31Z15rwrBf0KqcnuDylT+vFTjFjURzv1ryVl+aa+oCM4/erDiyn0eQkoaKwzIBLaWrFwSJgpD0U+3IQwhZS91mSzke/Od1hlugpJgiKU05j1T0aS+e7nupA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR04CA0012.apcprd04.prod.outlook.com (2603:1096:990:4::15)
+ by SI3PR06MB8537.apcprd06.prod.outlook.com (2603:1096:4:2aa::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 06:29:11 +0000
+Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
+ (2603:1096:990:4:cafe::26) by JH0PR04CA0012.outlook.office365.com
+ (2603:1096:990:4::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu,
+ 15 Oct 2026 06:29:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 06:29:09 +0000
+Received: from JohnnyFan (unknown [172.21.64.24])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 8D4D542C6440;
+	Thu, 15 Oct 2026 14:29:08 +0800 (CST)
+From: "Johnny.Fan" <johnny.fan@cixtech.com>
+To: will@kernel.org,
+	mark.rutland@arm.com
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	maz@kernel.org,
+	james.clark@linaro.org,
+	leo.yan@arm.com,
+	jeremy.linton@arm.com,
+	cix-kernel-upstream@cixtech.com,
+	bob.zhang@cixtech.com,
+	jie.fu@cixtech.com,
+	"Johnny.Fan" <Johnny.Fan@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Subject: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
+Date: Thu, 15 Oct 2026 14:29:08 +0800
+Message-ID: <20261015062908.3565761-1-johnny.fan@cixtech.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-j1939-ecu-release-lock-v1-1-39dcb8a0f2f9@patrickdahlke.com>
-X-B4-Tracking: v=1; b=H4sIACRy0GoC/22MywrCMBBFf6XM2oEmPjD+iriYjLc2WlKZoBRK/
- 72pa5fncs+ZqcASCl2amQzfVNKYK7hdQ9pLfoDTvTL51p9c6478dGEfGPphwwAp4GHUF3cHD3c
- OGiGeqvw2dGn6ha+kkulWx7jdo0nWfmv+T9GyrD3vCKKWAAAA
-X-Change-ID: 20261015-j1939-ecu-release-lock-f42e189cbea2
-To: Robin van der Gracht <robin@protonic.nl>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Patrick Dahlke <me@patrickdahlke.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792045615; l=10600;
- i=me@patrickdahlke.com; s=20261015; h=from:subject:message-id;
- bh=rIm4qsiF6lwK/DC0sVTHNeX/QSG5Yicgzko5BW1kjmM=;
- b=hH3VYirwmkeS8eyOai2s/5tB2ALcykf0ASSpDFq2KqJlwBzXsjqELL+BHq5FVSY/NtZUeOqtQ
- aSvw4w0jttJAEgmjxP5ilvPMqmjAB2c7MwONZ8JhzYYnm+enVmhuYSo
-X-Developer-Key: i=me@patrickdahlke.com; a=ed25519;
- pk=x8W424q5IZ8w2J9xyeOSiBmEMGsxLCt5IRXLXt/V/Gc=
-X-Endpoint-Received: by B4 Relay for me@patrickdahlke.com/20261015 with
- auth_id=1190
-X-Original-From: Patrick Dahlke <me@patrickdahlke.com>
-Reply-To: me@patrickdahlke.com
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|SI3PR06MB8537:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: f7bdc515-4b16-4ab5-220e-08df2a859ef7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|56012099006|261009223027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	f6CJ/a7bXz3tRIOopDHn7b6Yc7AZSGMyCeI1eKs07GIhEAPAqpCisMF8bsqINdgDVnGZue1sAsrvjSndWMjGKQlBPl9aDadM6sH/0LQA8GndezuasuQMI3dV1yqsGix8G+MUufzCMlrx80xBLte78gv8FJAbkpUUetb7iwPZu/VNIFShru57E7i0a3DlJ4/3Wl1e9YjvfUleAA4mDq4V9VtAPz88p+axUt/EfkfmHrXIRFljiaUbq0Jc3zHI6JDCIG7fRJXDcTZMscCz4/stN83V52MAPpwo/qrBzHFkBXLez6fIdCUcUJabRbIx91v90ldEitsetDEwIEWcjHHH+7mKUa5zF7SaVawDWVmg5ecOScGXmrwVwZi0eteyp9xr1LzFbQIA7n8TNB/TnMcsSggHoMQ5WhgOmYTEQJLykDdRqQGreHBQUMTsUZHScPldWNjNuSFg7LRSapo4iYF3oIFS6ND7utbuWZE+NCtT65yBziPiDdOKOylg/9HyotK2D1aIkrDhAYFyabRjTveQNWWA+a7w+oXgfnmvODKw2FUsa9vLyF/sHXqTtCFrJJP0T3WUqZVTHIyT/WrALeIShOSVAJlLuAPFVm22ci5VzuWQhHmpr7FkzpbtdXrM6WzmPDJ26MGV8msHiU024iGV3hGKk71jFQx/nyzWh5ZwYzosu1u4WKrfv6M60rCFljVJlfoLrrawtbQayXHnAS9Flg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cWtlzhNK1/Lg30XsUnwSzRlsLREg+l2KXTFin+kjVPB8A3MUrQHC1OF68cKGG6CXfn4V4NM/BTIUrqB/JdttR3DSfyg2VQl814aMgSAwf66PfcS/EiB3g0OpmBpqLoPoDYH8iTUnB4sHRLH+hmD2ErMylIAkP/PesXMTDts34aWWRoCm8poZ3PeuGWDwWUaTTrLqsrpcY6j5wNInKzSIDqmq4ZXvaztCoxsEsUzqiGDeVN76eVScW8gIbA8PnvUkFmk/KS0mbJquwPiobVc/lcCp7LjTSZFcU3a6WvHZ0OiFiRPMRMmLwgvkz2GnedODTDDnlhDN5EpEK5ZWfKrqXoxYTZmIP4YB4bKNVl//GVRt+VTeadRQWzo2K77rHW3qldRu8hlyx65Y1PnRHg1bjOglIX91Cig6s83K1vYDRemFcyswc/vRXUfe5Csvxc72
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 06:29:09.3108
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7bdc515-4b16-4ab5-220e-08df2a859ef7
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66C9.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8537
 
-From: Patrick Dahlke <me@patrickdahlke.com>
+From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
 
-struct j1939_ecu objects are linked into priv->ecus, which is protected
-by priv->lock. __j1939_ecu_release() unlinks the ECU with list_del(), so
-the final j1939_ecu_put() must happen with priv->lock held for writing.
+The ACPI MADT describes the SPE overflow interrupt on a per-CPU basis
+in the GICC structure, where a CPU that does not implement SPE simply
+reports 0. Heterogeneous systems therefore only report the interrupt
+on the CPUs that implement SPE, but arm_pmu_acpi.c rejects this as a
+non-homogeneous mapping and never creates the SPE platform device.
 
-j1939_ac_recv() and j1939_ac_fixup() violate this. They look up an ECU
-with j1939_ecu_get_by_addr() or j1939_ecu_get_by_name(), which take a
-reference under the read lock and return with the lock released, and
-then drop that reference with j1939_ecu_put() without holding the lock.
-If the ECU is unmapped concurrently, e.g. by an address claim processed
-on another CPU, the transient reference becomes the last one and the
-ECU is unlinked from priv->ecus while other CPUs may be walking or
-modifying the list under priv->lock, which can corrupt the list.
+Treat the SPE interrupt as optional when walking the MADT: skip the
+GICCs that report 0 and only require that the CPUs which do report it
+agree on the number.
 
-This can be shown on vcan with two threads on different CPUs: one sends
-frames from SA 0x20, so that j1939_ac_recv() resolves the source name
-for each of them, while the other repeatedly claims SA 0x20 and then
-releases it with an idle address claim (SA 0xfe) for the same NAME.
-With an mdelay() between the lookup and j1939_ecu_put() in
-j1939_ac_recv() to widen the window, a lockdep_assert_held_write() in
-__j1939_ecu_release() fires on every release cycle:
+Note that the CPUs reporting the interrupt must still share a single
+GSI, as the platform device only exposes one IRQ resource. A system
+that assigns a different PPI per cluster cannot be described by this
+single-device model.
 
-  WARNING: net/can/j1939/bus.c:22 at __j1939_ecu_release+0x254/0x2e8
-  Call trace:
-   __j1939_ecu_release+0x254/0x2e8 (P)
-   j1939_ecu_put+0x80/0xac
-   j1939_ac_recv+0x17c/0x5c0
-   j1939_can_recv+0x5a4/0x848
-   can_rcv_filter+0x1ec/0x760
-   can_receive+0x160/0x360
-   can_rcv+0x1c8/0x2c0
+The CPUs without SPE are trimmed from the PMU supported CPUs by
+probing PMSVer on each CPU, both at probe time (for online CPUs) and
+from the hotplug callback (for CPUs that were offline at probe), as
+ACPI conveys no affinity information and the PPI otherwise defaults
+to all possible CPUs.
 
-Neither caller needs a reference that outlives the lock.
-j1939_ac_recv() only needs the NAME of the ECU mapped at an address, so
-add j1939_addr_to_name(), the counterpart of j1939_name_to_addr(), which
-copies it under the read lock. This also drops two atomic reference
-count updates per received frame. j1939_ac_fixup() unmaps the ECU, so
-do the lookup, unmap and put under the write lock.
+Tested on a CIX sky1 SoC with heterogeneous SPE support.
 
-Remove the now unused j1939_ecu_get_by_addr(), j1939_ecu_get_by_name()
-and j1939_ecu_unmap(), and document the locking rule with
-lockdep_assert_held_write() in __j1939_ecu_release().
+Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
 
-The unlocked list_del() was pointed out by the sashiko AI review bot in
-its reviews of several j1939 patches on the linux-can list.
-
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260803101503.21023-1-f3lix.dev@gmx.de
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Patrick Dahlke <me@patrickdahlke.com>
+Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
 ---
-Testing (arm64 QEMU, 4 vCPUs, KASAN + DEBUG_LIST + PROVE_LOCKING + kmemleak):
-- Unpatched linux-can main with the lockdep_assert_held_write() and an
-  mdelay(20) in j1939_ac_recv(): the assertion fires on every
-  claim/idle-claim cycle of the reproducer described above, from
-  j1939_ac_recv() in softirq context.
-- Patched, on linux-can/main (a7bfaba4823e) and on
-  linux-can-next-for-7.4-20261009: no lockdep, KASAN or DEBUG_LIST reports
-  while running the reproducer, address claims sent from two j1939
-  sockets sharing one NAME (exercising the j1939_ac_fixup() unmap path),
-  and the C reproducer of syzbot bug 489e907b2a026a6f5fa0 for 60s.
-  Function profiling confirmed ~1.1M j1939_addr_to_name() calls and
-  20-30 ECU releases per run.
-- Without an injected delay: KCSAN kernel (lockdep + DEBUG_LIST, booted
-  with kcsan.skip_watch=40 kcsan.udelay_interrupt=200, so watchpoint
-  stalls widen the window between the lookup and the put), running a
-  stress test that claims and idle-releases 96 addresses while three
-  CPUs send frames from and to them. Unpatched can-next with only the
-  lockdep_assert_held_write() added: the assertion fired 6 and 8 times
-  in two 180s runs (~5.5k ECU releases each), always from
-  j1939_ac_recv(). Patched: no hits in 180s (~5.8k ECU releases) and no
-  KCSAN reports in net/can/j1939/.
-- The J1939 kselftests posted to linux-can ("selftests: can: add J1939
-  socket and transport tests" v1) pass (35/35) on patched can-next.
-- allmodconfig W=1 build of net/can/ on arm64 and x86_64, sparse and
-  checkpatch --strict: no new warnings.
+ drivers/perf/arm_pmu_acpi.c | 34 +++++++++++++++++++++++-------
+ drivers/perf/arm_spe_pmu.c  | 41 ++++++++++++++++++++++++++++++++++---
+ 2 files changed, 65 insertions(+), 10 deletions(-)
 
-Without KCSAN or an injected delay, I was not able to hit the race or
-observe actual list corruption; the race window is the few instructions
-between read_unlock_bh() and the final j1939_ecu_put().
----
- net/can/j1939/address-claim.c | 40 +++++++++++++++------------------
- net/can/j1939/bus.c           | 51 +++++++++++++++++++------------------------
- net/can/j1939/j1939-priv.h    |  4 +---
- 3 files changed, 41 insertions(+), 54 deletions(-)
-
-diff --git a/net/can/j1939/address-claim.c b/net/can/j1939/address-claim.c
-index ca4ad6cdd5cbfd323bbdf49ad8cf413cb39ad083..bcc9e7728557a39a0056b334a5b186ea96e1f75e 100644
---- a/net/can/j1939/address-claim.c
-+++ b/net/can/j1939/address-claim.c
-@@ -90,14 +90,20 @@ int j1939_ac_fixup(struct j1939_priv *priv, struct sk_buff *skb)
- 		/* return both when failure & when successful */
- 		if (ret < 0)
- 			return ret;
--		ecu = j1939_ecu_get_by_name(priv, skcb->addr.src_name);
--		if (!ecu)
--			return -ENODEV;
--
--		if (ecu->addr != skcb->addr.sa)
--			/* hold further traffic for ecu, remove from parent */
--			j1939_ecu_unmap(ecu);
--		j1939_ecu_put(ecu);
+diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/perf/arm_pmu_acpi.c
+index ca6bf8f86cfe..4ece1070827b 100644
+--- a/drivers/perf/arm_pmu_acpi.c
++++ b/drivers/perf/arm_pmu_acpi.c
+@@ -70,7 +70,8 @@ static void arm_pmu_acpi_unregister_irq(int cpu)
+ 
+ static int __maybe_unused
+ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+-			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
++			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *),
++			     bool optional)
+ {
+ 	int cpu, this_hetid, hetid, irq, ret;
+ 	u16 this_gsi = 0, gsi = 0;
+@@ -87,7 +88,9 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+ 
+ 	/*
+ 	 * Sanity check all the GICC tables for the same interrupt
+-	 * number. For now, only support homogeneous ACPI machines.
++	 * number. For now, only support homogeneous ACPI machines,
++	 * unless the interrupt is optional, in which case a CPU that
++	 * does not implement the feature simply reports 0.
+ 	 */
+ 	for_each_possible_cpu(cpu) {
+ 		struct acpi_madt_generic_interrupt *gicc;
+@@ -97,6 +100,20 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+ 			return gsi ? -ENXIO : 0;
+ 
+ 		this_gsi = parse_gsi(gicc);
 +
-+		ret = -ENODEV;
-+		write_lock_bh(&priv->lock);
-+		ecu = j1939_ecu_get_by_name_locked(priv, skcb->addr.src_name);
-+		if (ecu) {
-+			if (ecu->addr != skcb->addr.sa)
-+				/* hold further traffic for ecu, remove from parent */
-+				j1939_ecu_unmap_locked(ecu);
-+			j1939_ecu_put(ecu);
-+			ret = 0;
++		if (optional) {
++			if (!this_gsi)
++				continue;
++
++			if (gsi && gsi != this_gsi) {
++				pr_warn("ACPI: %s: CPU%d: inconsistent interrupt %u/%u\n",
++					pdev->name, cpu, gsi, this_gsi);
++				return -ENXIO;
++			}
++			gsi = this_gsi;
++			continue;
 +		}
-+		write_unlock_bh(&priv->lock);
-+		if (ret)
-+			return ret;
- 	} else if (skcb->addr.src_name) {
- 		/* assign source address */
- 		addr = j1939_name_to_addr(priv, skcb->addr.src_name);
-@@ -247,24 +253,14 @@ static void j1939_ac_process(struct j1939_priv *priv, struct sk_buff *skb)
- void j1939_ac_recv(struct j1939_priv *priv, struct sk_buff *skb)
- {
- 	struct j1939_sk_buff_cb *skcb = j1939_skb_to_cb(skb);
--	struct j1939_ecu *ecu;
- 
- 	/* network mgmt */
--	if (skcb->addr.pgn == J1939_PGN_ADDRESS_CLAIMED) {
-+	if (skcb->addr.pgn == J1939_PGN_ADDRESS_CLAIMED)
- 		j1939_ac_process(priv, skb);
--	} else if (j1939_address_is_unicast(skcb->addr.sa)) {
-+	else
- 		/* assign source name */
--		ecu = j1939_ecu_get_by_addr(priv, skcb->addr.sa);
--		if (ecu) {
--			skcb->addr.src_name = ecu->name;
--			j1939_ecu_put(ecu);
--		}
--	}
-+		skcb->addr.src_name = j1939_addr_to_name(priv, skcb->addr.sa);
- 
- 	/* assign destination name */
--	ecu = j1939_ecu_get_by_addr(priv, skcb->addr.da);
--	if (ecu) {
--		skcb->addr.dst_name = ecu->name;
--		j1939_ecu_put(ecu);
--	}
-+	skcb->addr.dst_name = j1939_addr_to_name(priv, skcb->addr.da);
- }
-diff --git a/net/can/j1939/bus.c b/net/can/j1939/bus.c
-index cdc3c0a71937935eacfcfbf2f8350a7987ee6790..ec8ee0f980fb464fa9d1455fd4aa340e0aed4c69 100644
---- a/net/can/j1939/bus.c
-+++ b/net/can/j1939/bus.c
-@@ -19,6 +19,11 @@ static void __j1939_ecu_release(struct kref *kref)
- 	struct j1939_ecu *ecu = container_of(kref, struct j1939_ecu, kref);
- 	struct j1939_priv *priv = ecu->priv;
- 
-+	/* priv->ecus is protected by priv->lock, so the last reference
-+	 * must only be dropped with priv->lock held for writing.
-+	 */
-+	lockdep_assert_held_write(&priv->lock);
 +
- 	list_del(&ecu->list);
- 	netdev_put(priv->ndev, &ecu->priv_dev_tracker);
- 	kfree(ecu);
-@@ -89,13 +94,6 @@ void j1939_ecu_unmap_locked(struct j1939_ecu *ecu)
- 	j1939_ecu_put(ecu);
- }
+ 		this_hetid = find_acpi_cpu_topology_hetero_id(cpu);
+ 		if (!gsi) {
+ 			hetid = this_hetid;
+@@ -107,7 +124,7 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+ 		}
+ 	}
  
--void j1939_ecu_unmap(struct j1939_ecu *ecu)
--{
--	write_lock_bh(&ecu->priv->lock);
--	j1939_ecu_unmap_locked(ecu);
--	write_unlock_bh(&ecu->priv->lock);
--}
--
- void j1939_ecu_unmap_all(struct j1939_priv *priv)
+-	if (!this_gsi)
++	if (!gsi)
+ 		return 0;
+ 
+ 	irq = acpi_register_gsi(NULL, gsi, ACPI_LEVEL_SENSITIVE, ACPI_ACTIVE_HIGH);
+@@ -146,13 +163,16 @@ static u16 arm_spe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
+ 
+ /*
+  * For lack of a better place, hook the normal PMU MADT walk
+- * and create a SPE device if we detect a recent MADT with
+- * a homogeneous PPI mapping.
++ * and create a SPE device if we detect a recent MADT with a PPI
++ * mapping. The SPE overflow interrupt is described per CPU, so a
++ * GICC reporting 0 simply means that the CPU does not implement
++ * SPE; the arm_spe_pmu driver trims such CPUs from its supported
++ * CPUs using PMSVer.
+  */
+ static void arm_spe_acpi_register_device(void)
  {
- 	int i;
-@@ -195,17 +193,6 @@ struct j1939_ecu *j1939_ecu_get_by_addr_locked(struct j1939_priv *priv, u8 addr)
- 	return ecu;
+ 	int ret = arm_acpi_register_pmu_device(&spe_dev, ACPI_MADT_GICC_SPE,
+-					       arm_spe_parse_gsi);
++					       arm_spe_parse_gsi, true);
+ 	if (ret)
+ 		pr_warn("ACPI: SPE: Unable to register device\n");
  }
- 
--struct j1939_ecu *j1939_ecu_get_by_addr(struct j1939_priv *priv, u8 addr)
--{
--	struct j1939_ecu *ecu;
--
--	read_lock_bh(&priv->lock);
--	ecu = j1939_ecu_get_by_addr_locked(priv, addr);
--	read_unlock_bh(&priv->lock);
--
--	return ecu;
--}
--
- /* get pointer to ecu without increasing ref counter */
- static struct j1939_ecu *j1939_ecu_find_by_name_locked(struct j1939_priv *priv,
- 						       name_t name)
-@@ -239,17 +226,6 @@ struct j1939_ecu *j1939_ecu_get_by_name_locked(struct j1939_priv *priv,
- 	return ecu;
- }
- 
--struct j1939_ecu *j1939_ecu_get_by_name(struct j1939_priv *priv, name_t name)
--{
--	struct j1939_ecu *ecu;
--
--	read_lock_bh(&priv->lock);
--	ecu = j1939_ecu_get_by_name_locked(priv, name);
--	read_unlock_bh(&priv->lock);
--
--	return ecu;
--}
--
- u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name)
+@@ -185,7 +205,7 @@ static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
+ static void arm_trbe_acpi_register_device(void)
  {
- 	struct j1939_ecu *ecu;
-@@ -269,6 +245,23 @@ u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name)
- 	return addr;
+ 	int ret = arm_acpi_register_pmu_device(&trbe_dev, ACPI_MADT_GICC_TRBE,
+-					       arm_trbe_parse_gsi);
++					       arm_trbe_parse_gsi, false);
+ 	if (ret)
+ 		pr_warn("ACPI: TRBE: Unable to register device\n");
+ }
+diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
+index b70f3fedf028..6f1bacc78b1c 100644
+--- a/drivers/perf/arm_spe_pmu.c
++++ b/drivers/perf/arm_spe_pmu.c
+@@ -1102,6 +1102,21 @@ static void arm_spe_pmu_perf_destroy(struct arm_spe_pmu *spe_pmu)
+ 	perf_pmu_unregister(&spe_pmu->pmu);
  }
  
-+name_t j1939_addr_to_name(struct j1939_priv *priv, u8 addr)
++static unsigned int arm_spe_pmu_pmsver(void)
 +{
-+	struct j1939_ecu *ecu;
-+	name_t name = 0;
-+
-+	if (!j1939_address_is_unicast(addr))
-+		return 0;
-+
-+	read_lock_bh(&priv->lock);
-+	ecu = j1939_ecu_find_by_addr_locked(priv, addr);
-+	if (ecu)
-+		name = ecu->name;
-+	read_unlock_bh(&priv->lock);
-+
-+	return name;
++	return cpuid_feature_extract_unsigned_field(read_cpuid(ID_AA64DFR0_EL1),
++						    ID_AA64DFR0_EL1_PMSVer_SHIFT);
 +}
 +
- /* TX addr/name accounting
-  * Transport protocol needs to know if a SA is local or not
-  * These functions originate from userspace manipulating sockets,
-diff --git a/net/can/j1939/j1939-priv.h b/net/can/j1939/j1939-priv.h
-index cf26352d1d8ce6cba0ec1231ca9b321e898d71c3..40b3a61e6743f314e2fd24e5196a1dc387bee506 100644
---- a/net/can/j1939/j1939-priv.h
-+++ b/net/can/j1939/j1939-priv.h
-@@ -124,15 +124,13 @@ static inline bool j1939_pgn_is_pdu1(pgn_t pgn)
++static void __arm_spe_pmu_trim_supported_cpus(void *info)
++{
++	struct arm_spe_pmu *spe_pmu = info;
++
++	if (!arm_spe_pmu_pmsver())
++		cpumask_clear_cpu(smp_processor_id(),
++				  &spe_pmu->supported_cpus);
++}
++
+ static void __arm_spe_pmu_dev_probe(void *info)
+ {
+ 	int fld;
+@@ -1109,8 +1124,7 @@ static void __arm_spe_pmu_dev_probe(void *info)
+ 	struct arm_spe_pmu *spe_pmu = info;
+ 	struct device *dev = &spe_pmu->pdev->dev;
  
- /* utility to correctly unmap an ECU */
- void j1939_ecu_unmap_locked(struct j1939_ecu *ecu);
--void j1939_ecu_unmap(struct j1939_ecu *ecu);
+-	fld = cpuid_feature_extract_unsigned_field(read_cpuid(ID_AA64DFR0_EL1),
+-						   ID_AA64DFR0_EL1_PMSVer_SHIFT);
++	fld = arm_spe_pmu_pmsver();
+ 	if (!fld) {
+ 		dev_err(dev,
+ 			"unsupported ID_AA64DFR0_EL1.PMSVer [%d] on CPU %d\n",
+@@ -1275,6 +1289,12 @@ static int arm_spe_pmu_cpu_startup(unsigned int cpu, struct hlist_node *node)
+ 	if (!cpumask_test_cpu(cpu, &spe_pmu->supported_cpus))
+ 		return 0;
  
- u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name);
-+name_t j1939_addr_to_name(struct j1939_priv *priv, u8 addr);
- struct j1939_ecu *j1939_ecu_find_by_addr_locked(struct j1939_priv *priv,
- 						u8 addr);
--struct j1939_ecu *j1939_ecu_get_by_addr(struct j1939_priv *priv, u8 addr);
- struct j1939_ecu *j1939_ecu_get_by_addr_locked(struct j1939_priv *priv,
- 					       u8 addr);
--struct j1939_ecu *j1939_ecu_get_by_name(struct j1939_priv *priv, name_t name);
- struct j1939_ecu *j1939_ecu_get_by_name_locked(struct j1939_priv *priv,
- 					       name_t name);
++	/* The CPU was offline during probe; trim it if it lacks SPE */
++	if (!arm_spe_pmu_pmsver()) {
++		cpumask_clear_cpu(cpu, &spe_pmu->supported_cpus);
++		return 0;
++	}
++
+ 	__arm_spe_pmu_setup_one(spe_pmu);
+ 	return 0;
+ }
+@@ -1331,7 +1351,7 @@ static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
+ {
+ 	struct platform_device *pdev = spe_pmu->pdev;
+ 	const struct cpumask *affinity;
+-	int irq;
++	int cpu, irq;
  
-
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261015-j1939-ecu-release-lock-f42e189cbea2
-
-Best regards,
+ 	irq = platform_get_irq_affinity(pdev, 0, &affinity);
+ 	if (irq < 0)
+@@ -1344,6 +1364,21 @@ static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
+ 
+ 	cpumask_copy(&spe_pmu->supported_cpus, affinity);
+ 
++	/*
++	 * Heterogeneous systems may only implement SPE on a subset of the
++	 * CPUs covered by the interrupt affinity (ACPI in particular has
++	 * no affinity information and falls back to cpu_possible_mask).
++	 * SPE is self-describing through PMSVer, so drop the online CPUs
++	 * that do not implement it. CPUs that are offline at probe time
++	 * are checked when they come up.
++	 */
++	for_each_cpu(cpu, &spe_pmu->supported_cpus) {
++		if (cpu_online(cpu))
++			smp_call_function_single(cpu,
++						 __arm_spe_pmu_trim_supported_cpus,
++						 spe_pmu, 1);
++	}
++
+ 	spe_pmu->irq = irq;
+ 	return 0;
+ }
 -- 
-Patrick Dahlke <me@patrickdahlke.com>
-
+2.55.0
 
