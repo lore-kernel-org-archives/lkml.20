@@ -1,200 +1,342 @@
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22ABD57EDAD
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35F653F6AB;
+	Thu, 15 Oct 2026 18:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088236; cv=none; b=MXAE5iZYSdHw7b8jgNWBPgsMWurbFz+juBBqpGqaoIex2wkCrIBVrwjgQkyCxx6QqARXQYhoVdEraTPmZCNYPfkvG/X/vTm3luvVqbgKRmUXjCxh2TJ0rBU7Ns8pVbQqpBFDAlcHD916Ml2Q281yDA9S0vFeS+0PelHaxCQUWTY=
+	t=1792088246; cv=none; b=iHRT6dN+bF6UkMdLkW6NR2wLz0oIRSoABVVVpQCEFmL+nKsxrPUaQ237hZWY0t3jODO3yATfruX1uq7P0nw06FEmqnxU0hZTI0KnGDh8LHCj4Rjh5toYDOmWItE1srcPOuCfsU9y3X4d8Xvzw456sC8/kJR/mYFyJT+W8pgpZ6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792088236; c=relaxed/simple;
-	bh=YgEFANz5IReS6bL+UFnhRJl7X/aBjTgO68sstXUm6R8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f3TnZwvLXGz1r0f8at9GK4Vd6gXM0RUMf4AuvqymHz/8MX33Huyfb7u9kBWy3V7LTmTQB/Zqh3G87eq/G2U/MLGHwk8Lu1OqcYzd6pJoRyDnyfdZO5E+WFt4Blrw0NWjwV3eIwk707oeHQeg8b1ml0Sp2prxqHSQ7dHJxROhwWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ACO58B/h; arc=none smtp.client-ip=185.70.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1792088246; c=relaxed/simple;
+	bh=94SFc2frJuu5i6d3yDnz3QPDROVTJfLGJVj9IL65e50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aFscnjPKXtpkTS0kTkKiOzZZFa2TGtIKVUHmPhHGv1LMNgZvC4x/yhQib3esOWjAWOd4KFgg3JbbZiKyDgZbVePkTGwUb0OMwTNmTak2G5SQNr3zmUo8UunPHf0K+IfR1PQKhO0HVTxt/GY2WnjOsx1XwwmVXUrbTWqj/MTqMOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQVI2esR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ACO58B/h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=j3uzmkyuwzavpddxldaplsgq64.protonmail2; t=1792088218;
-	x=1792347418; bh=N9LMtZOebjYHWPKZQzw9MIx6tc/amNCTAQJOVpCbxmU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ACO58B/h45qE7EwgNT16jtGPmas2n7fDEtaQA/n6Oj+89lftWGdwxg+xA0FwuU9b9
-	 8dE0CJ1VJ5XZ0PHDico/YgK6yIgtbDspS+zkefsgScEw5ZyZCcriBqyWtSnd3vX+2E
-	 2UZ/lf6aiZ1PjKICvztFrQjeD1IU9t7jfgYoIxJzInniDOks7kGCrAKoWVpBsS7dSv
-	 qBWcaK6k7iyzHp0cv0Fbkf/7uSA6AGC8oruFVXQU6F4gwG6OKsq2ZQeIP1W939UYWa
-	 ViRP/JiOQvI4RtqM9eXebkAzvZ6Eo9PpYVhFu3EjvTCLWVn3VCV4r3kLDZmyt3431S
-	 0fGhAp46Qw+aQ==
-Date: Thu, 15 Oct 2026 18:16:53 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Johan Hedberg <johan.hedberg@intel.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3 1/2] Bluetooth: L2CAP: Keep credits from completing security upgrades
-Message-ID: <20261015181624.48318-1-cochcoder@proton.me>
-In-Reply-To: <20261015052751.137705-1-cochcoder@proton.me>
-References: <20261013031943.489829-1-cochcoder@proton.me> <20261015052751.137705-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 492e499b2c59de9e6b06c55f45052ce3529a9ff6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQVI2esR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092DB1F000C6;
+	Thu, 15 Oct 2026 18:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792088237;
+	bh=k67o3OR1qMtQp5c2QUj18xunQff2y1QX0dForzdNANY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NQVI2esRyplxegh7w+U/D07TXZY2j6qnYXn69NbdAFUsy239xoCHHhk851VjnBouq
+	 5IwoTBraI20cuJmgUDklTmwcPBA6SD47bPkDvwHdO/FAPkQJYkRCk/pjW2NEApZce4
+	 gLp2yc/RG7Yyt5YXdNHyS3JhSyxnBQpr7dVmDC3tgfT9e5sRvOvjT9rkK9/BGkyxIW
+	 HJkVsUVPQBbkR8LTTqr69bTrYipE85fx16BVcsr7m3Iw7dKF/eek8llC4iO3Qaop7j
+	 RecAYTD/3h553Bci0OEDOUN1YVRpO+57fkBO3hKDdim+JCKzZBmsHAipUhpYu4pcd6
+	 qK7GJtm9QsfQA==
+Date: Thu, 15 Oct 2026 21:17:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: David Hu <dhu@x6u.co>
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jmoroni@google.com,
+	eagleshaw@google.com, xuehaohu@google.com
+Subject: Re: [PATCH rdma-next v2 4/6] RDMA/irdma: Split CQ setup to umode and
+ kmode
+Message-ID: <20261015181713.GB219304@unreal>
+References: <20261015011940.4122452-1-dhu@x6u.co>
+ <20261015011940.4122452-5-dhu@x6u.co>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015011940.4122452-5-dhu@x6u.co>
 
-Credit indications can invoke resume on fixed or unready channels.
-Connected LE credit-based sockets can also resume during a security
-upgrade because credits and security share the socket suspend flag.
+On Thu, Oct 15, 2026 at 01:19:38AM +0000, David Hu wrote:
+> From: David Hu <xuehaohu@google.com>
+> 
+> This split is similar to QP, and SRQ that is already present in existing
+> irdma driver. Only variable plumbing was done, while umode and kmode setup
+> logic is identical as before.
+> 
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  drivers/infiniband/hw/irdma/verbs.c | 232 +++++++++++++++-------------
+>  1 file changed, 126 insertions(+), 106 deletions(-)
+> 
+> diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
+> index ab25445f3828..7162b37fa6ff 100644
+> --- a/drivers/infiniband/hw/irdma/verbs.c
+> +++ b/drivers/infiniband/hw/irdma/verbs.c
+> @@ -2624,6 +2624,126 @@ static inline int cq_validate_flags(u32 flags, u8 hw_rev)
+>  	return flags & ~IB_UVERBS_CQ_FLAGS_TIMESTAMP_COMPLETION ? -EOPNOTSUPP : 0;
+>  }
+>  
+> +static int irdma_setup_kmode_cq(struct irdma_device *iwdev,
+> +				struct irdma_cq *iwcq,
+> +				struct irdma_cq_init_info *info,
+> +				const struct ib_cq_init_attr *attr)
+> +{
+> +	struct irdma_cq_uk_init_info *ukinfo = &info->cq_uk_init_info;
+> +	struct irdma_pci_f *rf = iwdev->rf;
+> +	struct irdma_sc_dev *dev = &rf->sc_dev;
+> +	int entries = attr->cqe;
+> +	bool cqe_64byte_ena;
+> +	u8 cqe_size;
+> +	int rsize;
+> +
+> +	if (entries < 1 || entries > rf->max_cqe)
+> +		return -EINVAL;
 
-Validate the target mode and state for every identifier. Track pending
-LE/ECRED security upgrades and retain credits without sending queued
-data or resuming the socket until encryption meets the requested level.
-Drain queued data after security completes and keep credit-starved
-sockets suspended.
+This if() is impossible.
 
-Fixes: fad5fc89594d ("Bluetooth: Add LE flow control discipline")
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
----
-Changes since the standalone security submission:
-- Wrap test notes to fix the GitLint B1 failures in series 1186119.
-- Refresh onto bluetooth-next ff8b09806b7b without a source delta.
-- Include this prerequisite as patch 1/2 of the credit RFC v3 series.
+> +
+> +	cqe_64byte_ena = dev->hw_attrs.uk_attrs.feature_flags & IRDMA_FEATURE_64_BYTE_CQE ?
+> +			 true : false;
+> +	cqe_size = cqe_64byte_ena ? 64 : 32;
+> +
+> +	entries += 2;
+> +	if (!cqe_64byte_ena && dev->hw_attrs.uk_attrs.hw_rev >= IRDMA_GEN_2)
+> +		entries *= 2;
+> +
+> +	if (entries & 1)
+> +		entries += 1; /* cq size must be an even number */
+> +
+> +	if (entries * cqe_size == IRDMA_HW_PAGE_SIZE)
+> +		entries += 2;
+> +
+> +	ukinfo->cq_size = entries;
+> +
+> +	if (cqe_64byte_ena)
+> +		rsize = ukinfo->cq_size * sizeof(struct irdma_extended_cqe);
+> +	else
+> +		rsize = ukinfo->cq_size * sizeof(struct irdma_cqe);
+> +	iwcq->kmem.size = ALIGN(round_up(rsize, 256), 256);
+> +	iwcq->kmem.va = dma_alloc_coherent(dev->hw->device,
+> +					   iwcq->kmem.size,
+> +					   &iwcq->kmem.pa, GFP_KERNEL);
+> +	if (!iwcq->kmem.va)
+> +		return -ENOMEM;
+> +
+> +	iwcq->kmem_shadow.size = ALIGN(IRDMA_SHADOW_AREA_SIZE << 3, 64);
+> +	iwcq->kmem_shadow.va = dma_alloc_coherent(dev->hw->device,
+> +						  iwcq->kmem_shadow.size,
+> +						  &iwcq->kmem_shadow.pa,
+> +						  GFP_KERNEL);
+> +	if (!iwcq->kmem_shadow.va)
+> +		return -ENOMEM;
+> +
+> +	info->shadow_area_pa = iwcq->kmem_shadow.pa;
+> +	ukinfo->shadow_area = iwcq->kmem_shadow.va;
+> +	ukinfo->cq_base = iwcq->kmem.va;
+> +	info->cq_base_pa = iwcq->kmem.pa;
+> +
+> +	return 0;
+> +}
+> +
+> +static int irdma_setup_umode_cq(struct irdma_device *iwdev,
+> +				struct irdma_cq *iwcq,
+> +				struct irdma_cq_init_info *info,
+> +				struct ib_udata *udata)
+> +{
+> +	struct irdma_create_cq_req req = {};
+> +	struct irdma_pci_f *rf = iwdev->rf;
+> +	struct irdma_ucontext *ucontext;
+> +	struct irdma_cq_mr *cqmr_shadow;
+> +	struct irdma_cq_mr *cqmr;
+> +	unsigned long flags;
+> +	int err_code;
+> +
+> +	iwcq->user_mode = true;
+> +	ucontext = rdma_udata_to_drv_context(udata, struct irdma_ucontext,
+> +					     ibucontext);
+> +	/* Even though the last member of struct irdma_create_cq_req
+> +	 * was always user_shadow_area, we need backwards compat with
+> +	 * the legacy i40iw struct i40iw_ucreate_cq which stopped
+> +	 * at user_cq_buffer.
+> +	 */
+> +	err_code = ib_copy_validate_udata_in(udata, req, user_cq_buf);
+> +	if (err_code)
+> +		return err_code;
+> +
+> +	spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
+> +	iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
+> +				    &ucontext->cq_reg_mem_list);
+> +	spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
+> +	if (!iwcq->iwpbl)
+> +		return -EPROTO;
+> +
+> +	cqmr = &iwcq->iwpbl->cq_mr;
+> +
+> +	if (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
+> +	    IRDMA_FEATURE_CQ_RESIZE) {
+> +		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
+> +		iwcq->iwpbl_shadow =
+> +			irdma_get_pbl((unsigned long)req.user_shadow_area,
+> +				      &ucontext->cq_reg_mem_list);
+> +		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
+> +
+> +		if (!iwcq->iwpbl_shadow)
+> +			return -EPROTO;
+> +
+> +		cqmr_shadow = &iwcq->iwpbl_shadow->cq_mr;
+> +		info->shadow_area_pa = cqmr_shadow->cq_pbl.addr;
+> +	} else {
+> +		info->shadow_area_pa = cqmr->shadow;
+> +	}
+> +	if (iwcq->iwpbl->pbl_allocated) {
+> +		info->virtual_map = true;
+> +		info->pbl_chunk_size = 1;
+> +		info->first_pm_pbl_idx = cqmr->cq_pbl.idx;
+> +	} else {
+> +		info->cq_base_pa = cqmr->cq_pbl.addr;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * irdma_create_cq - create cq
+>   * @ibcq: CQ allocated
+> @@ -2647,11 +2767,9 @@ static int irdma_create_cq(struct ib_cq *ibcq,
+>  	struct irdma_cqp_request *cqp_request;
+>  	struct cqp_cmds_info *cqp_info;
+>  	struct irdma_cq_uk_init_info *ukinfo = &info.cq_uk_init_info;
+> -	unsigned long flags;
+>  	int err_code;
+>  	int entries = attr->cqe;
+>  	bool cqe_64byte_ena;
+> -	u8 cqe_size;
+>  
+>  	err_code = cq_validate_flags(attr->flags, dev->hw_attrs.uk_attrs.hw_rev);
+>  	if (err_code)
+> @@ -2679,7 +2797,6 @@ static int irdma_create_cq(struct ib_cq *ibcq,
+>  	ukinfo->cq_id = cq_num;
+>  	cqe_64byte_ena = dev->hw_attrs.uk_attrs.feature_flags & IRDMA_FEATURE_64_BYTE_CQE ?
+>  			 true : false;
+> -	cqe_size = cqe_64byte_ena ? 64 : 32;
+>  	ukinfo->avoid_mem_cflct = cqe_64byte_ena;
+>  	iwcq->ibcq.cqe = info.cq_uk_init_info.cq_size;
+>  	if (attr->comp_vector < rf->ceqs_count)
+> @@ -2689,109 +2806,12 @@ static int irdma_create_cq(struct ib_cq *ibcq,
+>  	info.type = IRDMA_CQ_TYPE_IWARP;
+>  	info.vsi = &iwdev->vsi;
+>  
+> -	if (udata) {
+> -		struct irdma_ucontext *ucontext;
+> -		struct irdma_create_cq_req req = {};
+> -		struct irdma_cq_mr *cqmr;
+> -		struct irdma_cq_mr *cqmr_shadow;
+> -
+> -		iwcq->user_mode = true;
+> -		ucontext =
+> -			rdma_udata_to_drv_context(udata, struct irdma_ucontext,
+> -						  ibucontext);
+> -		/* Even though the last member of struct irdma_create_cq_req
+> -		 * was always user_shadow_area, we need backwards compat with
+> -		 * the legacy i40iw struct i40iw_ucreate_cq which stopped
+> -		 * at user_cq_buffer.
+> -		 */
+> -		err_code = ib_copy_validate_udata_in(udata, req, user_cq_buf);
+> -		if (err_code)
+> -			goto cq_free_rsrc;
+> -
+> -		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
+> -		iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
+> -					    &ucontext->cq_reg_mem_list);
+> -		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
+> -		if (!iwcq->iwpbl) {
+> -			err_code = -EPROTO;
+> -			goto cq_free_rsrc;
+> -		}
+> -
+> -		cqmr = &iwcq->iwpbl->cq_mr;
+> -
+> -		if (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
+> -		    IRDMA_FEATURE_CQ_RESIZE) {
+> -			spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
+> -			iwcq->iwpbl_shadow = irdma_get_pbl(
+> -					(unsigned long)req.user_shadow_area,
+> -					&ucontext->cq_reg_mem_list);
+> -			spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
+> -
+> -			if (!iwcq->iwpbl_shadow) {
+> -				err_code = -EPROTO;
+> -				goto cq_free_rsrc;
+> -			}
+> -			cqmr_shadow = &iwcq->iwpbl_shadow->cq_mr;
+> -			info.shadow_area_pa = cqmr_shadow->cq_pbl.addr;
+> -		} else {
+> -			info.shadow_area_pa = cqmr->shadow;
+> -		}
+> -		if (iwcq->iwpbl->pbl_allocated) {
+> -			info.virtual_map = true;
+> -			info.pbl_chunk_size = 1;
+> -			info.first_pm_pbl_idx = cqmr->cq_pbl.idx;
+> -		} else {
+> -			info.cq_base_pa = cqmr->cq_pbl.addr;
+> -		}
+> -	} else {
+> -		/* Kmode allocations */
+> -		int rsize;
+> -
+> -		if (entries < 1 || entries > rf->max_cqe) {
+> -			err_code = -EINVAL;
+> -			goto cq_free_rsrc;
+> -		}
+> -
+> -		entries += 2;
+> -		if (!cqe_64byte_ena && dev->hw_attrs.uk_attrs.hw_rev >= IRDMA_GEN_2)
+> -			entries *= 2;
+> -
+> -		if (entries & 1)
+> -			entries += 1; /* cq size must be an even number */
+> -
+> -		if (entries * cqe_size == IRDMA_HW_PAGE_SIZE)
+> -			entries += 2;
+> -
+> -		ukinfo->cq_size = entries;
+> -
+> -		if (cqe_64byte_ena)
+> -			rsize = info.cq_uk_init_info.cq_size * sizeof(struct irdma_extended_cqe);
+> -		else
+> -			rsize = info.cq_uk_init_info.cq_size * sizeof(struct irdma_cqe);
+> -		iwcq->kmem.size = ALIGN(round_up(rsize, 256), 256);
+> -		iwcq->kmem.va = dma_alloc_coherent(dev->hw->device,
+> -						   iwcq->kmem.size,
+> -						   &iwcq->kmem.pa, GFP_KERNEL);
+> -		if (!iwcq->kmem.va) {
+> -			err_code = -ENOMEM;
+> -			goto cq_free_rsrc;
+> -		}
+> -
+> -		iwcq->kmem_shadow.size = ALIGN(IRDMA_SHADOW_AREA_SIZE << 3,
+> -					       64);
+> -		iwcq->kmem_shadow.va = dma_alloc_coherent(dev->hw->device,
+> -							  iwcq->kmem_shadow.size,
+> -							  &iwcq->kmem_shadow.pa,
+> -							  GFP_KERNEL);
+> -		if (!iwcq->kmem_shadow.va) {
+> -			err_code = -ENOMEM;
+> -			goto cq_free_rsrc;
+> -		}
+> -		info.shadow_area_pa = iwcq->kmem_shadow.pa;
+> -		ukinfo->shadow_area = iwcq->kmem_shadow.va;
+> -		ukinfo->cq_base = iwcq->kmem.va;
+> -		info.cq_base_pa = iwcq->kmem.pa;
+> -	}
+> +	if (udata)
+> +		err_code = irdma_setup_umode_cq(iwdev, iwcq, &info, udata);
+> +	else
+> +		err_code = irdma_setup_kmode_cq(iwdev, iwcq, &info, attr);
 
-This security fix is independently useful. It does not accept identifier
-zero and can be considered without patch 2. The series uses an RFC prefix
-because patch 2 still requires agreement on a specification exception.
-Do not queue the dependent patch alone before this prerequisite lands.
+No, the idea was to actually implement and set ,crate_user_cq() callback
+and clean as much as possible from existing .create_cq() callback.
 
-The saved standalone CI report lists every job except GitLint passing,
-including the native L2CAP tester. This is not a CI result for this series.
+Thanks
 
-Earlier local runs on 397464709a20: nine focused security controls pass
-on security-only and combined guests. The 14 public credit controls pass
-13/14 security-only (expected positive zero-ID failure), 14/14 combined.
-There were no skips or captured kernel alerts in these focused runs.
-GCC W=3D1 changed objects and source-extracted fixtures also passed there.
-
-That base's full local attempt was incomplete: SCI Fast Mode timed out
-after an invalid HCI response length for opcode 0x20a3. The same failure
-reproduced unpatched; this patch does not claim to fix it. Initial spaced
-VM filters selected broader tests; corrected space-free focused runs are
-the results above. Historical older-base results of 133/134 and 134/134
-are not fresh full-suite results for this series.
-
-The combined Arch trial is reported working, not isolated security or
-exhaustive lifetime coverage. No severity/CVE claim is made. The private
-reproducer and detailed private regression logs remain excluded.
-
- net/bluetooth/l2cap_core.c | 33 +++++++++++++++++++++++++++++++--
- net/bluetooth/l2cap_sock.c |  9 +++++++--
- 2 files changed, 38 insertions(+), 4 deletions(-)
-
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 4dd56e007..7a7f30531 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -5391,6 +5391,11 @@ static inline int l2cap_le_credits(struct l2cap_conn=
- *conn,
-=20
- =09l2cap_chan_lock(chan);
-=20
-+=09if (chan->state !=3D BT_CONNECTED ||
-+=09    (chan->mode !=3D L2CAP_MODE_LE_FLOWCTL &&
-+=09     chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL))
-+=09=09goto unlock;
-+
- =09max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
- =09if (credits > max_credits) {
- =09=09BT_ERR("LE credits overflow");
-@@ -5404,6 +5409,9 @@ static inline int l2cap_le_credits(struct l2cap_conn =
-*conn,
-=20
- =09chan->tx_credits +=3D credits;
-=20
-+=09if (test_bit(FLAG_PENDING_SECURITY, &chan->flags))
-+=09=09goto unlock;
-+
- =09/* Resume sending */
- =09l2cap_le_flowctl_send(chan);
-=20
-@@ -7967,6 +7975,8 @@ static void l2cap_security_cfm(struct hci_conn *hcon,=
- u8 status, u8 encrypt)
- =09mutex_lock(&conn->lock);
-=20
- =09list_for_each_entry(chan, &conn->chan_l, list) {
-+=09=09bool pending_le;
-+
- =09=09l2cap_chan_lock(chan);
-=20
- =09=09lockdep_assert_held(&chan->conn->lock);
-@@ -7974,7 +7984,12 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
-, u8 status, u8 encrypt)
- =09=09BT_DBG("chan %p scid 0x%4.4x state %s", chan, chan->scid,
- =09=09       state_to_string(chan->state));
-=20
--=09=09if (!status && encrypt)
-+=09=09pending_le =3D hcon->type =3D=3D LE_LINK &&
-+=09=09=09     (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
-+=09=09=09      chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL) &&
-+=09=09=09     test_bit(FLAG_PENDING_SECURITY, &chan->flags);
-+
-+=09=09if (!status && encrypt && !pending_le)
- =09=09=09chan->sec_level =3D hcon->sec_level;
-=20
- =09=09if (!__l2cap_no_conn_pending(chan)) {
-@@ -7984,7 +7999,21 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
-, u8 status, u8 encrypt)
-=20
- =09=09if (!status && (chan->state =3D=3D BT_CONNECTED ||
- =09=09=09=09chan->state =3D=3D BT_CONFIG)) {
--=09=09=09chan->ops->resume(chan);
-+=09=09=09if (pending_le) {
-+=09=09=09=09if (!encrypt ||
-+=09=09=09=09    !smp_sufficient_security(hcon, chan->sec_level,
-+=09=09=09=09=09=09=09    SMP_ALLOW_STK)) {
-+=09=09=09=09=09l2cap_chan_unlock(chan);
-+=09=09=09=09=09continue;
-+=09=09=09=09}
-+
-+=09=09=09=09clear_bit(FLAG_PENDING_SECURITY, &chan->flags);
-+=09=09=09=09chan->sec_level =3D hcon->sec_level;
-+=09=09=09=09l2cap_le_flowctl_send(chan);
-+=09=09=09}
-+
-+=09=09=09if (!pending_le || chan->tx_credits)
-+=09=09=09=09chan->ops->resume(chan);
- =09=09=09l2cap_check_encryption(chan, encrypt);
- =09=09=09l2cap_chan_unlock(chan);
- =09=09=09continue;
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index c396987c5..2d7f2935c 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -993,10 +993,15 @@ static int l2cap_sock_setsockopt(struct socket *sock,=
- int level, int optname,
- =09=09} else if ((sk->sk_state =3D=3D BT_CONNECT2 &&
- =09=09=09    test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) ||
- =09=09=09   sk->sk_state =3D=3D BT_CONNECTED) {
--=09=09=09if (!l2cap_chan_check_security(chan, true))
-+=09=09=09if (!l2cap_chan_check_security(chan, true)) {
-+=09=09=09=09if (conn->hcon->type =3D=3D LE_LINK &&
-+=09=09=09=09    (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
-+=09=09=09=09     chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL))
-+=09=09=09=09=09set_bit(FLAG_PENDING_SECURITY, &chan->flags);
- =09=09=09=09set_bit(BT_SK_SUSPEND, &bt_sk(sk)->flags);
--=09=09=09else
-+=09=09=09} else {
- =09=09=09=09sk->sk_state_change(sk);
-+=09=09=09}
- =09=09} else {
- =09=09=09err =3D -EINVAL;
- =09=09}
-
-base-commit: ff8b09806b7b18884ad8d3a2b3d702da534a4e21
-
+> +	if (err_code)
+> +		goto cq_free_rsrc;
+>  
+>  	info.shadow_read_threshold = min(info.cq_uk_init_info.cq_size / 2,
+>  					 (u32)IRDMA_MAX_CQ_READ_THRESH);
+> -- 
+> 2.56.0.385.gd3acb90ef8-goog
+> 
+> 
