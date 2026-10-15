@@ -1,168 +1,95 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120AD5304D6;
-	Thu, 15 Oct 2026 15:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B53525A75;
+	Thu, 15 Oct 2026 15:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079637; cv=none; b=snrQwPJWy82fTHxgJmUgTPum6Tl4VmycmDZquv5nF4ZAhZOb+wDfHBfnDrkmnY1/njjUl138NCbRKW3VNsvEIEgtNY26dT7Ll3Q7bwFAq37KifQNJQ3G3Z5RGkoZ6nfcVUwp6jMEGxRMeKnrWR21N7ipB3fWXWd8CLT9zlhgJDk=
+	t=1792079652; cv=none; b=d0IEekeVySTJ4NCHD5wjJkrKjUqRl1HogsOsgArl5uhnVHCJfoAJkn+r9+jm+kaTEOa8DIPjR4RQ5XC848Dq/+yaaUPx50xOuI2FV9vvpBw5WW7B1OJeWAeW7T2/XQGIseYZurklVPG02fPaxBKIFbMDVVlmMo6o6ySHbNhpaPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079637; c=relaxed/simple;
-	bh=szSOKTZI6sPBIesZEFAIAV8wA9jmkwFvA+0UNSqxtPM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G7tHYyFallRFQA4UmxtJ81B04um3JWG0H9Y34QbmqDXmxu2LHc92l1Pmr4zoSDipk3uzOV3is1rYl7zwN2HcxvN2cooafT3tkGC76BmOjloGuB5R+a0F3OEQs4mET1sa/DVxKV+sxkvXfh6pLAZXTJ9+kq5d3xnA0BUcbOpsLHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kLaIm0l0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ur9re3NL; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kLaIm0l0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ur9re3NL; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792079652; c=relaxed/simple;
+	bh=AuKl68slSTHCay3XLy7K8cqAub4wQ9bplBmAjw7s75A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZQ5s7yc0OrzmJFqKGAXpz0LsGXZywNhnGqyKnRfljw7L+XCFQ2HHpBEwgHM4IYKzRxObJ4FDYXk0nTww5c785VDRrvbMK9+lnjKtYLiiobbZ0i/16fv/Yu6OTXqM7YbA9FaOPjclRhJYfy0xEb1kLZH2uDGRemDIKcZ5J/TulN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eX1mxa9P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kLaIm0l0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ur9re3NL";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kLaIm0l0";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ur9re3NL"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E858321C4D;
-	Thu, 15 Oct 2026 15:53:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792079622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e1A3uNezMjXsi2mMTrHEb5G0ghAb2qLCa/VAfDFRMpM=;
-	b=kLaIm0l0/KjCx9M+uVIFBnJazqoQEI13+g/qQ2vSgFu1AHpv0L6l8Xc2YFzBsmwsgaj8us
-	RmLa+MWsM5wp8eXVHOTnHvIQlbMra2xF98C44B31U757sU2cbS+H4y0Eu2QMQucSVM/JnE
-	fkrbYNMWIqcGsRHLWYRbEfUZAtwdG4c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792079622;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e1A3uNezMjXsi2mMTrHEb5G0ghAb2qLCa/VAfDFRMpM=;
-	b=Ur9re3NLhrKwqgpcIOut1rLlJIVsTPAKwBCTxq1l9WXyAgWQ8vmltBLIxE6jb/zMv6tCPf
-	7GkisXT/m087gMDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792079622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e1A3uNezMjXsi2mMTrHEb5G0ghAb2qLCa/VAfDFRMpM=;
-	b=kLaIm0l0/KjCx9M+uVIFBnJazqoQEI13+g/qQ2vSgFu1AHpv0L6l8Xc2YFzBsmwsgaj8us
-	RmLa+MWsM5wp8eXVHOTnHvIQlbMra2xF98C44B31U757sU2cbS+H4y0Eu2QMQucSVM/JnE
-	fkrbYNMWIqcGsRHLWYRbEfUZAtwdG4c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792079622;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e1A3uNezMjXsi2mMTrHEb5G0ghAb2qLCa/VAfDFRMpM=;
-	b=Ur9re3NLhrKwqgpcIOut1rLlJIVsTPAKwBCTxq1l9WXyAgWQ8vmltBLIxE6jb/zMv6tCPf
-	7GkisXT/m087gMDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93CD813223;
-	Thu, 15 Oct 2026 15:53:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id E52GGgb30GrQaQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 15:53:42 +0000
-Date: Thu, 15 Oct 2026 17:53:42 +0200
-Message-ID: <87mrsf6juh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joonho Lee <mynameisjune111@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: Re: [RFC PATCH 2/2] ALSA: pcm: refresh capture pointers before drain
-In-Reply-To: <core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com>
-References: <rfc-core-capture-drain-0.112c40f0e9284eaa@gmail.com>
-	<rfc-core-capture-drain-2.112c40f0e9284eaa@gmail.com>
-	<8733u8g0kh.wl-tiwai@suse.de>
-	<87y0c0el29.wl-tiwai@suse.de>
-	<core-drain-linked-lock-reply.cf2e307fcac34b6a@gmail.com>
-	<87jynkcn60.wl-tiwai@suse.de>
-	<core-drain-helper-reply.0c1099dbd0ca4a37@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eX1mxa9P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906221F000C4;
+	Thu, 15 Oct 2026 15:53:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792079640;
+	bh=a7qtDwdTKhZ5mPi1y5aENkA+rudTV40TeKlnUV0OgqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eX1mxa9PDHZEJZPwhRSJKUgJwx10m2GOwb1gU3AqWEdmWFNxSZx6oUuJhJXm5VKsn
+	 k7e14JgrFlc1N2zWUv2IwDHMgwgSBQ1k6DYqn+LVJZhv3KWtuABebhkkTalZ89Ppmy
+	 Et0fuQfVMu+LFG7NpnQ5Q0Qol64Txg7xNRXKVh3S8RldUD7NRRk7VF2BGofBN7H9Qz
+	 ujopAVnWKj6Zd2rW+psoz+CRr04LrIkC4R5gKxd2uFNF2E0kndvkUEr8o8tBPa9WnT
+	 O1hUtYkMlTsUT5JyYkwNmSZPImFSpqphb2y3D+lxyHyDLACAOp2++bTXPZH8FmwQYN
+	 ZIzveV4+DLVRw==
+Date: Thu, 15 Oct 2026 16:53:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hyunuk Son <hyunuk.son@irondevice.com>, lgirdwood@gmail.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	perex@perex.cz, tiwai@suse.com, kiseok.jo@irondevice.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Add Iron Device MA5311
+Message-ID: <25b0ba6e-2366-44b0-bb79-a8d2fccd1dd9@sirena.org.uk>
+References: <20261015060408.128711-1-hyunuk.son@irondevice.com>
+ <20261015060408.128711-2-hyunuk.son@irondevice.com>
+ <20261015-gregarious-flawless-cuttlefish-145cab@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
-
-On Thu, 15 Oct 2026 01:52:03 +0200,
-Joonho Lee wrote:
-> 
-> Hi Takashi,
-> 
-> Thanks, I've reworked the local version along those lines.
-> 
-> The helper takes snd_pcm_link_rwsem for reading and updates each running
-> member under its own stream lock. It uses snd_pcm_update_hw_ptr() for both
-> playback and capture. I call it after the existing pause-resume step so a
-> paused capture stream gets its final pointer update too. The pause and
-> drain-init actions remain outside the link rwsem.
-> 
-> A pointer error now follows the usual XRUN path and returns -EPIPE before
-> drain-init. This restores the group-wide error handling from v2 and removes
-> the "notify" boolean argument introduced in v3 proposal.
-> 
-> While checking this version, I also confirmed three problems in the first
-> patch: 
-> 1) a reader already waiting for data could lose the capture tail
-> 2) finishing a capture read could stop a linked playback stream
-> 3) DELAYand SYNC_PTR(HWSYNC) rejected capture DRAINING. The local fixes preserve
-> the unread count when waking the reader, finish capture with
-> snd_pcm_drain_done(), and use the cached pointer for capture hwsync.
-> 
-> I reproduced all three failures with the helper plus the old first patch,
-> then checked the fixes in both atomic and nonatomic modes. The blocked
-> reader now receives all 64 final frames, capture EOF leaves linked playback
-> in DRAINING, and both position queries succeed without another pointer
-> callback. The 26 linked-stream checks, including paused drain and pointer
-> errors, and the 10 existing lifecycle/reset cases also passed under ARM64
-> QEMU with KASAN and lockdep, but physical real-world device testing is still pending in this time.
-> 
-> There is one concurrency point I'd like to check. The helper releases the
-> link rwsem before drain-init, and snd_pcm_link() allows another RUNNING
-> stream to join in that interval. The new member could enter drain-init
-> without being visited by the refresh loop.
-> My question is, should we handle concurrent linking across these two steps, or leave that outside this change's scope?
-
-I guess we can leave this for now.  The invalid state like OPEN or
-SUSPENDED is checked at snd_pcm_pre_drain_init().
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WaCnTytimciikIgz"
+Content-Disposition: inline
+In-Reply-To: <20261015-gregarious-flawless-cuttlefish-145cab@quoll>
+X-Cookie: Tax and title extra.
 
 
-thanks,
+--WaCnTytimciikIgz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Takashi
+On Thu, Oct 15, 2026 at 12:36:38PM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Oct 15, 2026 at 03:04:06PM +0900, Hyunuk Son wrote:
+
+> > +  compatible:
+> > +    enum:
+> > +      - irondevice,ma5311
+> > +    description:
+> > +      Requires two I2C Channel.
+>=20
+> Not sure what is I2C channel... like two SDA/SCL lines? Anyway, this
+> goes to description.
+>=20
+> > +
+> > +  reg:
+> > +    items:
+> > +      - description: I2C address for control registers
+> > +      - description: I2C address for ADC registers
+
+Based on the binding it looks like it's two distinct I2C addresses.
+
+--WaCnTytimciikIgz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ9xIACgkQJNaLcl1U
+h9D1eQf+NrEk55AZCavXDyO7+8ORQQvcpOLEl0nujHZnPAPgVWX/3+YnAzp/zK95
+kl+Ade6eSrQuaA58ArAc6nGac1LyfsbHnFskCaBcnR238ViwbICimNnB9V5nAEJm
+3JNqRFzVrJDJ8/drvxpbvN20aEkWzYZVcxoXH7CGzfTadEcqEpEhL/UPtEnvl98v
+eYW97c8mCeFHwMYaSbkBw2vddifZavYD4J6t4RkPMZrl/amKNkq6p7lo1BujB4do
+Ly3QfYcK2x/8fuVmNNt2kg3mMYKc6LZ5r6G0RL5XmsMYFmDrubKKkx07boobjZPY
+kICxqEYKU7mmgL9cMO4OMyf7oi239w==
+=/Mtm
+-----END PGP SIGNATURE-----
+
+--WaCnTytimciikIgz--
