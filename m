@@ -1,165 +1,271 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F12A52E046
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072853; cv=none; b=cg4rQwei01vfq3zrQCvS7Ioy0skiOhghay6HbNTulQUDDg5AvRk7ZNAI5C/FZWPidrKQewCD580eeNl8aP4uJF4nEUf0SzJ21r2gfJYoCrVWFjoTbNGYktFV7KtvGK0Wc6WtE7jtcuLPqdsDu1emA0Ap4IhAyg/cU5YboBdhuJs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072853; c=relaxed/simple;
-	bh=AX1weSWRV9L7p95o0pE/jdekN3jEDZy7K6K5FfoK1Lw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JKKxC02UT2TGL0EtmJ1UaauevTx0Sc2Os/LUx/Rb2GPuRtYLUC55lxD/Hgsc3Ck8Hn/HzLM+aNqQJwxOMXOcMOKSEq5uGwTHIO13Gno6+QoC9n5pvxP2Q2mPThss8nbGTOrxFxbngLoXFNqmE2bxQmmtjc58ZIxdH2wXgeVfyc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zp217iie; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kpUrm60L; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE6E52CCED;
+	Thu, 15 Oct 2026 14:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072862; cv=fail; b=Ko5d6az2qNpo86rQuusbe2on9yZf980WH00FldzEhdpIWGBT/z/v509cp3/qgu1SFGFqTk+3NHl3cF1fW6lU9KDDPkF683HA5tJ/PQqPkdO7fg/EPmsh4HAwsGW2pp4yvnCTOWBqw0OSSeMkMKMLoLCE7mf4A5W4ejPvXlqTupY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072862; c=relaxed/simple;
+	bh=nZK/F6agMBufspa812ZVgtrpA47x0cfN3hLKRPWprBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ImNMjOYjeo75TIg4nNll5gzzgW9W4rLxPoihkQmgCD6UKobiXaSwknft0ucjyf7rxKQPYz+vTkfwkWd69w/aINJ3+Iv+mtQzqG48g7NCpiMHbVH1pK8eoUIuKS3xNsuApJWYIetFWm+FxZvetQBMh6j5zDXqacLuiCx6dh1hjJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Sz3yAe9h; arc=fail smtp.client-ip=52.101.52.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zp217iie";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kpUrm60L"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FDYOJR3462799
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:00:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GyhG3f6yky5p2xQIB9m8xigN3IiQFU+DTNcZd6h+JBo=; b=Zp217iiexVdzugFQ
-	6uGpP7ZvYbwSQKIsaCJ7mubpI3FYKoj9UqbWJ43LZ6TSBOjV/MnaSvMBVmAvs4UC
-	igBPFB7ZpxFTmml2sNiRUOm1p+11/YPqmH/pShFw1/yk4s7ODSdMa48WRiZWiQpb
-	63Umd8cudmniKleaJIdoNL5guTH1lh+7QdQDUvlw5Xn2Fs4lqM4GpHF4Ty6Xn79n
-	uiuOmZVAKADF6H2wztyVGTkX8SroHaLlXsj+HvcfvtTUabthHoPVoOwODj/ymNPR
-	CSl/VWyLnjvWktfb25QEmI6F4CXvpvh+Bx1CeY7wv69EIPTZ820DY0CiWJJjxm3a
-	Z50fMQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hayu683hw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:00:51 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91bb074ed1aso46679166d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792072846; x=1792677646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GyhG3f6yky5p2xQIB9m8xigN3IiQFU+DTNcZd6h+JBo=;
-        b=kpUrm60LnqjN878d68/nKg1VelqQ3TZ1jZrCfR2kJV5FG4DTlUuFb3axXEzuf3q1/4
-         u8eszwSGkCDy9mGb3anI7/w56tL4y8FOdGQStkiBX51KyQ7c+rVKc2/qzZ7B6w2HQNlN
-         98gq3JCWLI8Z+XAoDgbevGVyvqdhA+2ZerIsAnTRmdpyAP68GbMyfP1AulCSrESZNqg2
-         NsiEEiFlqUb5EB4ghaYmCqLqECQh1s/GmCs6ekez8xEHjWTqZKe4ojkXCu25OODp88rt
-         /A7Q1eHIgDMHy7R9qmkdWjQo6E1uHx6g4V0g0UTI/MaIj+FzsWKanyWVUQ5ylTCdfge1
-         EJwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072846; x=1792677646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GyhG3f6yky5p2xQIB9m8xigN3IiQFU+DTNcZd6h+JBo=;
-        b=GGmeX3cCE8sPcBh78s+M5W5hiF/FGP1EiEDIPkuZzcapwPA3uMbuP1ej9oj/Ve0Ysq
-         tQJB6A88enUV9gYXx15rXBK+2FYHlRfePFnDN0G3RntmYBUoIFPanppkEyn921Xv6OLX
-         ud5z8IuT03B1QzkGSal6hb/izG5Qr6ddjp9RPz+0khOjJX/aS1JRBPlTSrCqaQXjS6uu
-         FVZG0fOBglV1BT02xcCBjMA5Y0ND5mAETaIBrADowcihewz+rrFg39JVGcM+bHYG8i5d
-         hk2c1waXEEaVB0kEaZ4O5T3hd9aerCq8O1Ci4Vc7tzkUMQq0WRjLjyTLFLk+6JqTLtXo
-         IFdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzWYlg0+rUbi4PrPKt/0gedJIcMRXmHtfSB8f4sWH7rHrml2q8BMsXUVAjouurvkpArLlgOO3twUFXEE0A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvRE6nLqZX8mCBXOAR+ZOCXc3G4hc87K2iAiYU5NqoHmFH5gEi
-	3RjT4FZEKlGf3/F9wSaCBgNOIjW5HcKrSg5n8Sn23LeWMH+rIaGuIslk9QNLAd1jCQyjRBvudyL
-	UIGBzRQFec+JTIp2xYLS+v6nXSj44YryYUro57LkeUFzQ1C8Wpi+wWZX0LyKhVkQtHNk=
-X-Gm-Gg: AYBFou3ifxc9wQ99sETBWcdGZG8BljBRSsHWo+8PWqm6OJT9wcxxuDusovZGHGTqWW5
-	Ow+sMWfixy5KmQWdsuHgkccZY9BSd9kvYiU4WebbLxelXfOH/ITUE5nECXU24wOpqBkYQsCX1Qg
-	RBPeSvzyqOcsuqEqOfQB8mBVDdUl+UVEczetvVBr1zNaUNZOU57cDBwsrJElBEv1rCBmHi5BGOE
-	RQfqE8WO3b91U7tLiac1Vw/fY/RvPDG99f8o8U/V/OHn7cJRKIe2K0sEDuUJooKi8HsJSExuc9A
-	GiiFKfGUar3gNUt0YlkdpCqt8vHOpUbmwDdMYqTTRPh69VVT1nb/QexkMqbvivutD9hqM12L8ya
-	2uVkdiDaUZVoCMazN5LeazpbniH/Iiw==
-X-Received: by 2002:a05:620a:438a:b0:93e:a8c5:1340 with SMTP id af79cd13be357-93ebd25394emr3089513685a.34.1792072845397;
-        Thu, 15 Oct 2026 07:00:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:438a:b0:93e:a8c5:1340 with SMTP id af79cd13be357-93ebd25394emr3089496785a.34.1792072844394;
-        Thu, 15 Oct 2026 07:00:44 -0700 (PDT)
-Received: from [192.168.0.195] ([124.123.197.202])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b32ffbsm129953566b.34.2026.10.15.07.00.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 07:00:42 -0700 (PDT)
-Message-ID: <1a3f3b8a-fe88-46be-ad23-38c4da650183@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 19:30:26 +0530
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sz3yAe9h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XMlAC4d3t7b/xPpJYk6yvUz8YA5TH0W3217I0CGc0+TyGqS+J7Tpgm1X1kGTplGCcyMVfLMU+y3Z5BBRp86HXjKKhjgTlcEGm5VajeZ0F9MIZdrnhw7q5z5W10ol9pz6g6+vwxNXhwiAZ2N3nEE7LGQ95X0CNsU8EFFkmoVLrAU/Bjrl2Tcr0jQaaC7mW3h+g8JCL8I/4mR/Ws0copWd/B+NYef/zzlZeCBgEeYv0csHLzaYCL7aRTndRQl7AUs14UFzS+KiSbijYIQ2qVHnYaU9BODhAPhflh4gC4e/DL9mQBqNohMvw1i/g1U6T4aRU20UduPfoMBtp+S5RSwj1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
+ b=NbkJoErdkcYtSGtpq34ESGTG1q69wiMFMt9KYsJq9vGgVTMEIsWVYOXL/PnFc/lJVmfYYSbbzhEdUFnJxmn/EyjwBW0pmqcjVK+rBjeOIwGaTN3wkhWchiTWGL2IFbVdRLelAFico0G+gUhwOxXEjpTbksT77hAVA68CFOMA8uZrbfiOym9v7a0MVlvjM63I2VNzuX30Z8bLH9byqhvLDK94ZD4oR7gMyxrnGQYFpRjuiG5LAXsrsGl3CnzcjMvfIuHrZ3dlii9eYVeeXsnO39hHza2bxltBoeYaciWsWEzfzFvTQIrNsWacJQkLiXIkoUHxoRk3A5HKwbYdexQROA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
+ b=Sz3yAe9hyg9SY4rTV+WPMsZWehczHG1G1BuqkNwV/YT6gAn2IrXufR/t8+ujyJq8auJY5ewhfIIB+p8is+dCxww37kKP96BaZvcKghQp//bmtWgFOr1/kV9zYdgvZKy1v9yLwG/86qnQpxFBsvjcnVvDQ122Hk1x+jqchjKrOsTKv4dvTulIbyodOhOlhKFkUweN7lZoE9Bh7XPAaRTJFg/9mAmEJnCQxHibQ6/cKrXEvyrPV9fNwidArbVmpTLakgPW9eoC0P0DAPjHpU4vAeAdohuhHq5PKY2WOgHCPPMEnydx6JNvhmacZpeqfjeJ4hh0hFJZ2l3DnKCaGvBFJQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 14:00:56 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Thu, 15 Oct 2026
+ 14:00:55 +0000
+Date: Thu, 15 Oct 2026 10:00:53 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Eliot Courtney <ecourtney@nvidia.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Burak Emir <burak.emir@gmail.com>,
+	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+Message-ID: <atDclcwHGykChUim@yury>
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
+ <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
+ <aryYkkB9j14xnWo3@yury>
+ <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
+ <ase7IBtZjQsPVWSN@yury>
+ <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
+X-ClientProxiedBy: SA0PR11CA0165.namprd11.prod.outlook.com
+ (2603:10b6:806:1bb::20) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] clk: qcom: gcc-glymur: Mark GCC AV1E AHB and XO
- clocks as critical
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jagadeesh Kona <quic_jkona@quicinc.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261015-glymur-av1ecc-v1-0-448a476d54af@oss.qualcomm.com>
- <20261015-glymur-av1ecc-v1-1-448a476d54af@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20261015-glymur-av1ecc-v1-1-448a476d54af@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: hcWzqzWIfuUMjbm1iwkJRdQLJ3cSBzeC
-X-Authority-Analysis: v=2.4 cv=ff04WEQF c=1 sm=1 tr=0 ts=6ad0dc93 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=/y/JNeyFYS62MWjl30sOOw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=erN5cKggTshIPlD3kWUA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-GUID: hcWzqzWIfuUMjbm1iwkJRdQLJ3cSBzeC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NSBTYWx0ZWRfX/ztqzImTKpVM
- lHc3WYLfYsPXNcXKsomDxlZEsvw7V5RhFxmaDqMjPjglj5BFMI3FDjQLYxM9C4QTqRF7A9mXxze
- U4ha3BuWhRa0ohHc6+xeZCneSrsSrqRIcilTpEeqZINB+KhNKiBzsYXR0dmaz8JiXXvMRUg/r2w
- L9Gdisd7AOAUcilBEnjpzb88ApULZ38xv9fFIJpFecYBmLc04GfTR0ilJBph9ZO8We5YF/EKDM2
- lt/J2XiWkhMhec89mbJR7Ei5Y6EXp+fUAxyUiLo1xiU8+oGHqA+v5HtWfDZ3t+z+SqFniZBJr/t
- mp7Rd9lP6TIlFKhKT1gXQlcs6TSp3l8AWsWzLrwZDOg3kmw6btRLOkISApKVETUZdHXiaN3yvoz
- WT9qAOxfvcdv8SgTFiw6CYSvXrMAWgzWgoJl1yicDa1HEruiQqm6ofMME6sWhwEgF8T+7NwZMl+
- 8UA9Mj5tIWvuLB4ByGw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NSBTYWx0ZWRfX/jFxFqsUJcVl
- l6beftWYWpGg4UZnRrecvhpQwlGvxxNp+DnsKNpgPiL495ZfvHWIYH+ohlUQdx4fNI60NoqDrag
- FDHbf9nKQUU4neB76eLawcknrLCCkeM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150055
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY8PR12MB8065:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|56012099006|5023799004|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	8qfUURNJd5Dq8BRtCWBRqf/kl7v+lKs0kSFdECMUu15whFtjuq4G2ET5/hsl81e22iSrqr/kaU+8JUdF69WUiMUj2pz4SBGZ9sfgB/+3OmTKzJfB4mHsUYdTTRoz5vuo3pQhsesTPjFbUyZCYTXT9fgtKvJ3L3lozq2PeQa8oQiudyBySoOq5jVf4YQRdMSww4MTPDjQkFwt0MrJDXWkpL4atI2yAl8+1qNiZCjPnlI/KQI24m36Z9/BRvURu2JyX4yvG27nUfV/tyfV2+ttCcYvuGKpMKeQtYJgakAGKeeSdUQFLtaSm/OHczIxllBhKfvj09GtMr16jlvBa9dCxNgEu1jI9K1O2Mc5hVMR4nI7f6UmGD7OypTKTTHTgzMU2WRjYjmZqorp30a2dcJsAlyWgRNDeLhS3qprQ4AJff+KI8epkeGKLI2c2fH/9U9z01fIBrYvwVJex+MhBNK5tl4N/Iy1Z+a1Eqc95EJeCQM5grPxt5l8iCH0hHCNu/7T7TmLPJ3OIIm0MlU8Kgsp6xfzWBaikzVNnjPVxyQVNixtl2Nfl0sehGMavP4OtEmpMRy3E2Rg55ft9P3/RxvcoBur1SgblsuESpsdVfE0uZw/kjBPFbxJkytl9V6jtxztDODMsi/AATn6VWhHyQMfXFmeNA7gbboI6mfB4WefXg4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(56012099006)(5023799004)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?bhcroKCIf0y79Rfa8WKd8Hnb5HMoNkErNtmZSOtC3Mc8aBEP4CJ6ApzMyCfh?=
+ =?us-ascii?Q?jhayvJ8tYyDREA5O1zXROS+8cfMCrr/WAeVZihZ3L6B0GsH/vVJ5lxSoNbhX?=
+ =?us-ascii?Q?xu1FZab0IF7FBazut1s1FUvYWyem0KdCxN5ZcYxJ/AY9Dm3MFIgJHduUm7GU?=
+ =?us-ascii?Q?jn/tPqdoehAFPIBUHdYVcl0vIUogrXwZHaGefibFTnmDhHGQvVvP5uKH/U9i?=
+ =?us-ascii?Q?TgD1gspcUis/hd39jdcjF1ZZ4fJOlDaE9ARhzpHgXkpAoWTLlMc2L4Z6zYDO?=
+ =?us-ascii?Q?ld9nGJ+9tmWBeOuQQitBCN9NEypZluZn9XuiRtbs4pnoa9ZQweR5QzR0MDlj?=
+ =?us-ascii?Q?PLhoMCdbIt2uTl/VusxKYZ6Da8TmlLNB/KYzgsT8iyx8tx33ph1sX+3atPaq?=
+ =?us-ascii?Q?xHVq79zFVKRsAH14VnN4GhXyiYpwj0tQ5hpdqzoCi9XiYvdj0kYB4+e5fXf9?=
+ =?us-ascii?Q?3imLRYtSDroNFZ8FG9uqdevPjWu9VCIK7jDIHk8AXc7yXijtksHTuJWFZZfk?=
+ =?us-ascii?Q?e//COQUToImjswofIZoBYiLbs871AMb2JOBVveJImY4RXNbDnKwPa5wpbECe?=
+ =?us-ascii?Q?XF4HyLEVhH7JqHPoXL1JYTiS9DbFXrF4xek9XL3JJkAZvG6a901ZS/YOxY7G?=
+ =?us-ascii?Q?ZMjPMyFnIBmbEQOL3qQRweweYjeDuXEDG6LqgZPrk2s8WidMpjOCKvbRmBUd?=
+ =?us-ascii?Q?t8eLRRpYjw/OayGdA0p/OgTlhYg9qo3i1CRs1yntQlhyxNiyhunRzFszDitG?=
+ =?us-ascii?Q?eP4QJ/uYC+DprWdvY25//1AbjfNcRV6iEFUOlrquhy+w+UwDRXkcYST+KQe3?=
+ =?us-ascii?Q?qUFhCSFER1VBw90NrOzwIYmEcQJN5aNsPb3Qq5p6DL/WtMk25I/H5cjItly5?=
+ =?us-ascii?Q?boUbromFLwj/N0XgqIsDJj1g+rDzFHMTImgvLJgKcbbm0zFYJcbopHvBsG1U?=
+ =?us-ascii?Q?7j2E9SrQLxhBhBceSxKq3YUQ7sLJaOiaF7DnF1sJDem7pI0kpkGcm+p96FG+?=
+ =?us-ascii?Q?DXZl09muvr80OHdM2pD7nSgxSky+VpO59Poc0JYwE61CfBbkf5ji/YFc6xhL?=
+ =?us-ascii?Q?ey51CxILNO1R/BGbAtL9hwE0V9PcJ7jJMrS3/CygyqnyKqSr2CWSGgK0HU/f?=
+ =?us-ascii?Q?zrTqYxytRxG5Oc9yxMM//ddbwz3J4zcU9aE+VSj2iQ8k2jkGUMdWE4vnyD6Z?=
+ =?us-ascii?Q?VP04GWjoFv4QFHnHZBPJ3qa0Rs6KG+7hA1shV6jdy2kw4Jy6W8YxFYxbpOy0?=
+ =?us-ascii?Q?rBiVSt+SttkHIN7sgzH97U1MytVGO/bdpoacfKdPRqGL88X9+zyEloMI0Gu8?=
+ =?us-ascii?Q?SXUH6ylTHoz/KArXauWo4/8jV8KfiiwSqWhrMaYXbaYb/r/Rnmp76hJJvFfV?=
+ =?us-ascii?Q?82K1Ej9NKnbRodx+XqbqNUv9U1D9pC5DfKgooB0TfSLCFMEuj0NT2q5GdhQd?=
+ =?us-ascii?Q?B9TqS3NQgMADc5GTVYNsqHwpg6I24iG2te6lgyyiPaI93gAHWNGD6kJvmCzc?=
+ =?us-ascii?Q?iUrMqSUkVZDLtkTvkNBZZBS31v6M+Mzn8dc3mJo8huS4buIx02KMqlNELguw?=
+ =?us-ascii?Q?iFEHJz+o0BX550alaRMzTEMUcrXoILjtAGdIoDRoWfmYvTpIGbBDg1uPSPvT?=
+ =?us-ascii?Q?2qXFOJq11OVght2KXJS6QinDf5kFLruVVUPInP3Jr/pZxU/aymWViddMxCmm?=
+ =?us-ascii?Q?TEKy9Qd/rmCk2+/DdTh2k71/dY+W6esCrQLjtGmkHVlkNSQrEsjQmUFEQEuO?=
+ =?us-ascii?Q?wNsCvIxLauiNYGvnT80TttkuzVFPUjsvf+4itEIKcKNH+KCXwbSe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:00:55.7538
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3hr5bJ0JEKTNXcV/GcR0lXAFGQaciq+isH2cTOK/olaOW1nqu2Nw9dRfQHtomj4fJdIK57LFgVFXlTDEISp2/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
 
-
-
-On 10/15/2026 7:05 PM, Jagadeesh Kona wrote:
-> The GCC AV1E AHB and XO clocks are required for AV1ECC register access.
-> Hence remove their clock modelling and add them to the GCC critical
-> clock list.
+On Fri, Oct 09, 2026 at 11:07:51PM +0900, Alexandre Courbot wrote:
+> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
+> > On Thu, Oct 01, 2026 at 03:20:40PM +0900, Alexandre Courbot wrote:
+> >> On Wed Sep 30, 2026 at 2:05 PM JST, Yury Norov wrote:
+> >
+> > ...
+> >
+> >> > Allocating a pool with 0-bit capacity is wrong. Please don't put it
+> >> > in the examples. I recall I pointed that this object would panic the
+> >> > kernel if, for example, you call pool.next_zero_bit(0) immediately
+> >> > after this. Sorry, but NAK.
+> >> >
+> >> > This .with_capacity() should take num_ids: NonZero, after all...
+> >> 
+> >> This panic is not specific to the size zero, any size triggers the same
+> >> behavior when accessed out of bounds.
+> >
+> > In C, malloc(0) is implementation defined behavior, i.e. it can return
+> > a pointer valid for free(), or NULL (which is also valid for free).
+> >
+> > This is a very old legacy coming from K&R implementation, then rejected
+> > in C89, and later this all became an impl-def, mostly for compatibility
+> > reasons. See 7.20.3 in
+> >
+> > https://www.open-std.org/jtc1/sc22/wg14/www/docs/n937.pdf
+> >
+> > Rust adopted C bitmaps, thus creating 0-bit bitmap may go through, and
+> > hit that questionable behavior. You add this example without any
+> > discussion about all that possible complications, and with no
+> > protection for users.
+> >
+> > Interestingly, you're doing it for the reason that has been considered
+> > a bad practice for over 30 years ago - malloc(0) with the immediate
+> > realloc(). See the above link for details.
+> >
+> > To me it looks like pulling legacy with a potential of undefined behavior
+> > into Rust.
+> >
+> > Bitmaps is a way more simple case than the generic malloc(). There's the
+> > only user of bitmaps - the Linux kernel, so we know exactly all users and
+> > their user patterns. I'm not aware of any in-tree user allocating 0-length
+> > bitmap for whatever reason, and such a coding style is highly unwelcome
+> > nowadays (30+ years).
+> >
+> > When it comes to rust, things are even simpler. Rust has much stricter
+> > memory policy - no undefined behavior, no implementation-defined behavior
+> > is allowed, no 50-years old legacy has to be considered.
+> >
+> > Rust community decided to take the existing in-kernel implementation of
+> > bitmaps written in C, for a reason. But with that it pulls all undefined
+> > and poorly defined behavior associate to C language. We did quite well
+> > spotting such places and fencing them with safety checks.
+> >
+> > The 0-length bitmaps is just another case that should be resolved.
 > 
-> Fixes: efe504300a17 ("clk: qcom: gcc: Add support for Global Clock Controller")
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/gcc-glymur.c | 32 ++------------------------------
->  1 file changed, 2 insertions(+), 30 deletions(-)
+> As it turns out we would never perform a zero-sized malloc, even for a
+> zero-sized bitmap. `IdPool` is backed by a `BitmapVec`, which up to
+> `usize::BITS` uses an inline member as backing storage. So we would
+> never call `bitmap_zalloc` with a value of 0, making the safety concern
+> moot.
+ 
+OK. Then please remove the 0-length alloc with the following re-alloc
+example from the patch. use 1-bit allocation, as an extreme value, if
+needed.
 
+> > If you still think that you need 0-length bitmaps in Rust, can you please
+> > give the clear and thorough explanation why rust needs those 0-length
+> > bitmaps. Are there any in-kernel examples? Any language concepts requiring
+> > it? If not, it's still a NAK.
+> 
+> I don't know of an in-kernel example, but please look at the
+> `bitmap_vec_new` test which has been here since the API was initially
+> merged last year: the first thing it does is create a zero-sized bitmap.
+> 
+> It is also easy to imagine a user starting with an empty pool and
+> growing it on-demand. Having the ability to create a zero-sized pool is
+> convenient to avoid special-casing user code, and in this case I'd say
+> expected, just like you can create a zero-sized vector. Again a size of
+> zero does not trigger anything that a larger capacity cannot trigger, so
+> I don't see a reason to forbid it.
+ 
+That's a weak argument. We can imagine pretty much everything, it
+doesn't mean we should support every idea in the code.
 
-Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+Supporting 0-sized bitmaps would simply move maintenance burden from
+end user of likely a poorly written logic to the core kernel
+subsystem.
 
--- 
+> >> A size of zero has nothing special
+> >> in that respect, so why make an exception and forbid it? We had this
+> >> discussion some time ago [1][2], and I'd recommend instead making e.g.
+> >> `next_zero_bit` return `None` on out-of-bounds accesses, which is
+> >> semantically correct.
+> >
+> > No. out-of-bound access should panic because every caller of bitmap
+> > API knows the length of that bitmap.
+> 
+> Right now out-of-bound accesses are allowed if
+> `CONFIG_RUST_BITMAP_HARDENED` is not set. The Kconfig documentation for
+> that option even says "if unsure, say N", which suggests that not
+> panicking (and thus the behavior I described above for `next_zero_bit`)
+> is the default. If out-of-bound accesses should panic, then the Kconfig
+> does not reflect that.
+
+Whoa? The panic is under config because it has non-zero performance
+impact. If it was completely free, it would be unconditional, like
+some compile-time checks out there. The "N" suggestion is for admins
+and users who build their own kernels. If you're a developer, and
+actively use bitmaps in your rust driver, you'd say "YES PLEASE".
+
+> > But if you make that 0-length bitmap a valid case, we need to revisit
+> > every function and make sure it returns ENOENT or something instead of
+> > panicking. That, again, must be very well explained and justified, and
+> > all this has to be done before adding 0-length bitmap support in code
+> > and examples.
+> 
+> With hardening off, every function already behaves in that way, and
+> existing user code is already written to not trigger that condition
+> anyway (because of the possibility of a panic), so that would be a
+> pretty innocuous change.
+
+The rule of thumb is to enable all the hardening you can during
+development phase to ensure integrity, then disable it in production
+build to maximize performance. For the matter of this discussion, we'd
+consider the hardening enabled, of course.
+
 Thanks,
-Taniya Das
-
+Yury
