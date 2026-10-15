@@ -1,93 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD333F58E8;
-	Thu, 15 Oct 2026 18:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2273E8C77;
+	Thu, 15 Oct 2026 18:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089150; cv=none; b=G2X/TW8GkHOP1aYjU+pdyOUpZFIZ0WyG9UXClUKY9f75BEjuegZZZPU1Yc2h2msaudGFaZd6VOAi4p8JbrBxExlFMrvkBX+6Ogp84nYD7NHvC8XCsYyeXBWlDjb4xl0hbAes5y/Vf5id44Q2CdhCFdMUqw5cL4sbYG79Eo874iY=
+	t=1792089161; cv=none; b=fIRaO9vRiNoNr5nnB0rhPYtEPjtrX8sUPDmlCC/Jy5GdV7X/jqpUyvZWlrHxrmG5qGFRLIvwhlMviisW+wG6lkyD/TkFLEplgtWB9rq4u2nTIr86Xf5fa7zSzX7e8V8Fpg42vToUNaJmIwm7IAY1+U1jMC22ANmC8OMtCkB2NoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089150; c=relaxed/simple;
-	bh=4Htp05Yu6WKm/2IcPJJ+TCWaRgP4kwiFqBvKWAwgdzw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ciEZeIOBvktAraMwmEIZJphc2fxuW4hj8DsNK8K9jQ8tjrunhTAfXp0IbVbfbBDaY1ri1Yp0ZOi/Xcf2qM2cw/uEip6LNLJpARnzdap+4K3nAKDEXFfXPzuliqmeHtFBpu/HbgkjgjAbu4D5QQHV3Bh5pW87lNMiOykufeSIkHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnPFzpFa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792089161; c=relaxed/simple;
+	bh=ujF9Q6zrry5NePZqJr3akVR/yhaeDorGSQ5rXJWAedM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HqDJWGSVyV3/g+nnN7/aoc6tXMwst8o4TymtKBNtJgP/Zu8s6vIn+DQRTvh6tdTC6M73ghOnQC624XvCUPevro60uC7KXISIY6vpHBny3fQMto8CjDbPgNWRes6kxgMErognOKnJQ4UhKe7E9lHQkOOBLpHZOqkGKM63fnM+MMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ECDRud1g; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnPFzpFa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984041F000C4;
-	Thu, 15 Oct 2026 18:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792089148;
-	bh=3/ZhwJXDAIhjRzxk9QyR5oQU0tHsJ0x+/pfjWyCI3iY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=DnPFzpFaptJ0bOVBAltZYO4in70ZAna2pAqSQcqL6Hjq21Uo3iyAbj9LJQ1GCkpKU
-	 wFuuDv1iA+i2NnlpOMVABUgBw0WyWBNZW2QoDsz94JIUmrz1ZIYZStkvzVP34uaKLA
-	 ujTt5A4vUBdbAgWY9hbNNyyZoOmcMMkMkuY4DLNyQhHC0l6V3x0S+RHW/tABestSV8
-	 pRNVrtJ2I3mKITo9Wp/12o6XOKBs2UNBrLR3JEvMo2Q+sOhCDC2dq1MZF4URjexMlC
-	 U2WO5WjsbK7D2c2LjiQjxP4Jtnvrr6Y2a1y4xSRUX5iw9V6kfGlm+IdQ2A/E4k/Hg9
-	 wgzKaES/vUYQw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>, John Stultz
- <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Miroslav Lichvar
- <mlichvar@redhat.com>, Jiri Wiesner <jwiesner@suse.de>, Daniel J Blueman
- <daniel@quora.org>, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [REGRESSION] clocksource: delayed watchdog can mark TSC unstable
-In-Reply-To: <20261010065509.72916-1-kmehltretter@gmail.com>
-References: <20261010065509.72916-1-kmehltretter@gmail.com>
-Date: Thu, 15 Oct 2026 20:32:25 +0200
-Message-ID: <87a4oeerwm.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ECDRud1g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792089159; x=1823625159;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ujF9Q6zrry5NePZqJr3akVR/yhaeDorGSQ5rXJWAedM=;
+  b=ECDRud1gWFlLd497ri8dPTJFAS7jgpK0lN84HDnNUZwSHmpWGCa0looN
+   hpSLIXW29MrvGZ4cmVVjQIu43bxgPGWiYtFX/2bVK4hGtRxXgG4wBaBPn
+   x7pkoQ15RYPptOCGucZ2Sr4gPAz2C7CB5I/SRSA/CYt51gWZxeWN/4/it
+   TPscatgIRX+j18972MHxaMjExHtoc+IIYjiVfAokUB2dJUMzxA7IO3PiJ
+   knlxtpeGJt09rutTw+E1chj4mWAyTsnXviBQUyfUt+J8JY7qbWu3lW6p1
+   JLvtg+bwpFXpdHaKOzWkJ95MNQnfd+JzOlt4PF6yNe9ycNwW6dcmGIIAh
+   g==;
+X-CSE-ConnectionGUID: H2jrFuhYSEK/fQ9c+PHZEg==
+X-CSE-MsgGUID: 1CnKM1DaQ6qGUiKXsodXhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="767555"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="767555"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:32:39 -0700
+X-CSE-ConnectionGUID: qTYmpu1pSGeY6h+U+yHHOA==
+X-CSE-MsgGUID: UHoqdt0mR1+ShZ/MC238vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1649557"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:32:37 -0700
+Date: Thu, 15 Oct 2026 21:32:35 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Nikodem Sanecki <nikodemsanecki@gmail.com>
+Cc: westeri@kernel.org, linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Hello, I'm reporting a Caps Lock LED issue on my Lenovo ThinkPad
+ L13 Gen 2 AMD running Arch Linux. I found a workaround that completely fixes
+ it, and I hope the findings might help implement a permanent kernel fix. **A
+ quick note:** This is my first time using Linux, and I'm a complete beginner
+ when it comes to kernel development. I used ChatGPT (GPT-6) to guide the
+ troubleshooting process, analyse my laptop's ACPI firmware, and interpret
+ the results. I personally ran the diagnostic commands and verified the
+ observed behaviour, but the technical explanation below is AI-assisted.
+ Please correct me if any of the analysis is inaccurate. ## Problem Under
+ Linux, the physical Caps Lock indicator LED never illuminates, even though
+ the Caps Lock key itself works normally. The LED works correctly under
+ Windows and during certain stages of boot, so the hardware itself is
+ functional. After investigating, GPT-6 identified what appears to be a
+ conflict involving GPIO 11 on the AMD AMDI0...
+Message-ID: <atEcQ-qjIXt5eNJp@ashevche-desk.local>
+References: <CAAUQFROUNCJo7EUn4eiDxSTd6pfPcQDP1_ma0G2k73DJtMnNVw@mail.gmail.com>
+ <atEY_4U7Z-xZ6QpB@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atEY_4U7Z-xZ6QpB@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 10 2026 at 08:55, Karl Mehltretter wrote:
-> Since the watchdog rewrite in v7.1, the TSC can be marked unstable
-> after a delayed watchdog run under QEMU TCG. Without injected stalls,
-> this happened on 5 of 12 boots on a loaded host and 0 of 6 on an idle
-> host.
->
-> The delayed run re-arms the timer with an expiry already in the past.
-> The watchdog then runs again almost immediately and rejects the TSC
-> based on a roughly 75 us measurement interval.
->
-> #regzbot introduced: 763aacf86f1b
->
-> v7.3-rc5, 4 vCPUs, after vCPU 0 was stopped for 0.8 s:
->
->   clocksource: Marking clocksource tsc unstable due to frequency skew
->   clocksource: Watchdog                    hpet interval:            74940ns
->   clocksource: Clocksource                  tsc interval:            74251ns
->   clocksource: Switched to clocksource hpet
->
-> The intervals are 75 us, not the 500 ms watchdog period. A function
-> trace of clocksource_watchdog() from the same boot:
->
->   busybox-79 [000] ..s1. 15.168486: clocksource_watchdog <-call_timer_fn
->   busybox-79 [000] .Ns.. 16.269726: clocksource_watchdog <-call_timer_fn
->   busybox-79 [000] .Ns.. 16.269820: clocksource_watchdog <-call_timer_fn
+On Thu, Oct 15, 2026 at 09:18:42PM +0300, Andy Shevchenko wrote:
+> On Thu, Oct 15, 2026 at 03:21:11PM +0100, Nikodem Sanecki wrote:
+> > Resending this report in plain text because my original email was
+> > rejected by the linux-gpio and linux-kernel mailing lists for
+> > containing HTML formatting. Apologies if you received the original
+> > message twice.
+> 
+> And now the $Subject is well messed up! :(
 
-I did not think about that scenario obvioulsy. The code is resilient
-against long intervals between two measurements, so the easy and
-straight forward fix is indeed what you (or the LLM) suggested.
+Note, let's continue thread in your HTML start, I replied with text only there
+and cited the whole message, so formally the content is public via my reply.
+Let's not continue _this_ thread (with badly formed Subject).
 
-Thanks,
+-- 
+With Best Regards,
+Andy Shevchenko
 
-        tglx
----
---- a/kernel/time/clocksource.c
-+++ b/kernel/time/clocksource.c
-@@ -673,7 +673,7 @@ static void clocksource_watchdog(struct
- 
- 	/* Could have been rearmed by a stop/start cycle */
- 	if (!timer_pending(&watchdog_timer)) {
--		watchdog_timer.expires += WATCHDOG_INTERVAL;
-+		watchdog_timer.expires = jiffies + WATCHDOG_INTERVAL;
- 		add_timer_local(&watchdog_timer);
- 	}
- }
+
