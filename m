@@ -1,106 +1,129 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AE04FDE7C;
-	Thu, 15 Oct 2026 12:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E82051C077
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067379; cv=none; b=UhEtwloSKVkne/+WDyIvmr+/1JDmp8Jp3aog+VrWoTuULQOT9mK4t+mZOzeM6MTlOxpWuJbYHJltV3OEQ57MmG+6V1pPW5cHKAAPEISAvwqR3OyTyYTc5ZB9UP/MjIwJD6jp4LpZ52jfYp0tEXR/oZ0flo9IgfCSNjHO6L41B3s=
+	t=1792067430; cv=none; b=LV0DjnZAZ8xJU8WkBnnXxz1QXGTnA0XGVhMlF5FDKw8KdJUzsCIGabezeUQjeajXDkAEBAu491SVVGfQCx48VyZ8sDw137sl5E9K0eobvQMFQ+uVpaWFLgQ8fl3v+Oppp/zBgHX7y3R3WNo3SBo7clnr+0p3qVbyeynIk3cPh/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067379; c=relaxed/simple;
-	bh=EdkoGLcjTyLAvjh/5BwakDPBCwlzJa0pxxqLHTIhYzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RRj/4J28//Ibrl0AFqYjb52Z4O6fyn0bCa1K3BXnftw/Z2wXwQz9W5mmG/Mm3DFhp2wtbiUfzlH9yNphyED+WS3o5eSvhO264CJ6Nw8EU6B654twTCmDn8pLeJihWf3UQ3KrPCNj4Zi8BEfEBMYS/Mmp5zD14x+ej3DPsuLSkIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NDQaJqA1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Diqi3L5P; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792067430; c=relaxed/simple;
+	bh=7xp5FaQsIIC3pv9y2INkZKrDNbfRB0vB60u/6QFeOc4=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q7YRo266TuDCIVVXWCIIgNO7GH6nxOnSXajsFM//+hg76y/CeSiNMP0JQvKqusg3GJfjO417fG3pVJd4Ee6y7z5sbxWusJiroVpmAkkbw/S6x+4sCrxXCsUdJtUbhs+LdtsOFB6g0O6xbYyrU/InzuNP9rknZim1nkKBNzYZvGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHUq3C5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NDQaJqA1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Diqi3L5P"
-Date: Thu, 15 Oct 2026 14:29:34 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792067375;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SiJnkX+uFAvEbBRKpsYNT584aijBABjRduz0e55KArA=;
-	b=NDQaJqA1XcisH3IazYB8/nWljI3F8weUNXOJLgfRscMyCTkuWSzsOJJkt0uwDzduEoBNNF
-	nEvVe7jMpMH0LOXP8UBg7jjT04JglRlk73NiKd5JCpEyD6prTvdfi6BRyB2VWw/6K5VJ+y
-	9JsSuM4qwR+0dJBHIxYLmM6oAo5w2qH4OmH48V3E2ZoLpoedS0QeOPmgWYa+G1gvQGny5u
-	NxJAR5l4TIzo0AnMf+WPmLWAraxfHhPGU/YUvtEm4cMsYw9/UTrEgpm/KTra+xsc9QfrWT
-	iIoIxIsajla/iGTyBGYjC2n4VML86fDIeKEWrePXA4tMpGWUMd9gb4CaWCSGAw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792067375;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SiJnkX+uFAvEbBRKpsYNT584aijBABjRduz0e55KArA=;
-	b=Diqi3L5PlE5sEU6DgUxl0lbiUUozIpHXpQKeV58bDnIvh2Ko9ik1GhSZQOZxl+A8vv5Jln
-	jizG5+8pAa0WvvDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Aaron Tomlin <atomlin@atomlin.com>, axboe@kernel.dk, tglx@kernel.org,
-	aacraid@microsemi.com, James.Bottomley@hansenpartnership.com,
-	mkp@kernel.org, frederic@kernel.org, ionut.nechita@windriver.com,
-	corbet@lwn.net, vincent.guittot@linaro.org, mingo@redhat.com,
-	peterz@infradead.org, radu@rendec.net, akpm@linux-foundation.org,
-	steve@abita.co, sean@ashe.io, chjohnst@gmail.com, neelx@suse.com,
-	mproche@gmail.com, nick.lange@gmail.com, marco.crivellari@suse.com,
-	rishil1999@outlook.com, linux-doc@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v16 0/9] blk: honor isolcpus configuration
-Message-ID: <20261015122934.5itxaJ3l@linutronix.de>
-References: <20260910164237.500196-1-atomlin@atomlin.com>
- <2f32ffb6-d889-4281-a612-d4185311ca0d@flourine.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHUq3C5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 017781F000C5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:30:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792067429;
+	bh=0Hrr6m57SxPTnWIbx/gib9CZ2mA67LGZI8LQGZp5kb0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=EHUq3C5SlN2p/vApuLOW400yPE+gOhqlx8PjGcoCu3KU9aFjNKGZZQXHylkLcO5SL
+	 1zlFxrskiG+j5+yjkFOvZFHIsEFy+zT4MjGhary8lVrZVLgjrJIEVuXGVMU3WBGxVx
+	 qLglji5kahswtHOIyWAKUsIyeGMU2y9aLNF0OPOU/8E7OeRrf0k4v7H1qAgXUaqIOy
+	 sudncVr7TFI2Fq1Y3DSzEJpQl0G7mPArQcwEshcBxs/Bz8u+8Pf8H9ZNg/swmUVG0g
+	 ZFr2BaNqYZq1pyPCFZp42RQ7pc3qqTeEXwk1iC3pKB/h5X5vP0zdF/I1X0FUpfDQls
+	 H0qybqiQ+0IhQ==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2028777e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:30:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwCp8MBAKv2bBmp6MUUScT2KTw6lI0Jfofgje96Lks9um4z6XBfvVqBo5PiIUvQgYgvwaJONcwL70QptZc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGGhdMcf01MV6Xd175p8g+bW4ZmkfHneOEWJ0kq+uj3/vVf+Io
+	g6CsT+syyWnXRDA2/lNC6BBnoviE8+xBjA7iWTcrOL0MkHCv70u7Q4vYxmC1DWv2q27ZOFb09FH
+	Sz1fAQncoOgVrUdBf+ZKqtlKx91GKLzdyDF5DCHvmMA==
+X-Received: by 2002:a05:6512:438d:b0:5bc:ec2d:15ac with SMTP id
+ 2adb3069b0e04-5bcec2d192fmr5464537e87.63.1792067427716; Thu, 15 Oct 2026
+ 05:30:27 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 05:30:26 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 05:30:26 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CA+V-a8toBu8SkOft-LHxgR0OEy0pz8sMGMze3GCG5z6n-YuZgQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2f32ffb6-d889-4281-a612-d4185311ca0d@flourine.local>
+References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com> <CA+V-a8toBu8SkOft-LHxgR0OEy0pz8sMGMze3GCG5z6n-YuZgQ@mail.gmail.com>
+Date: Thu, 15 Oct 2026 05:30:26 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdiy6uj_m_fDOO9x2xXeS7hthMW5OARSOCZzJK1itPnpw@mail.gmail.com>
+X-Gm-Features: AclHuK8kyjgILBxHt4nWraWJn0B_VsgRqbvk_2gFUR2tJYG-2UYXBRYX5DWMtO8
+Message-ID: <CAMRc=Mdiy6uj_m_fDOO9x2xXeS7hthMW5OARSOCZzJK1itPnpw@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] soc: renesas: Kconfig: Select POWER_SEQUENCING_RENESAS_PWRRDY
+ for RZ/V2H and RZ/V2N
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-15 13:22:35 [+0200], Daniel Wagner wrote:
-> During Plumbers we had several discussions on this series. This is what I
-> remember we discussed and decided:
-> 
->   - The current managed_irq behavior doesn't match the other flags of isolcpus.
-> 
->   - Instead of introducing managed_irq_strict, it's better to change the
->     existing managed_irq to follow the strict interpretation.
-> 
->   - The main existing user of the current managed_irq mapping is
->     RH with OpenShift. After discussing with Juri, it doesn't look like
->     it is a real blocker to change to the strict interpretation.
+On Thu, 15 Oct 2026 12:48:21 +0200, "Lad, Prabhakar"
+<prabhakar.csengg@gmail.com> said:
+> Hi Bartosz,
+>
+> Thank you for the review.
+>
+> On Thu, Oct 15, 2026 at 10:45=E2=80=AFAM Bartosz Golaszewski <brgl@kernel=
+.org> wrote:
+>>
+>> On Fri, 9 Oct 2026 18:57:10 +0200, Prabhakar <prabhakar.csengg@gmail.com=
+> said:
+>> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>> >
+>> > The RZ/V2H and RZ/V2N SYSC drivers register auxiliary devices for
+>> > power sequencing, which require the pwrseq-renesas-pwrrdy driver to bi=
+nd
+>> > to them.
+>> >
+>> > Select POWER_SEQUENCING and POWER_SEQUENCING_RENESAS_PWRRDY from the
+>> > RZ/V2H and RZ/V2N SYSC configurations so the power sequencer driver is
+>> > built whenever SYSC support for these SoCs is enabled.
+>> >
+>> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>> > ---
+>> > v1->v2:
+>> > - No change
+>> > ---
+>> >  drivers/soc/renesas/Kconfig | 4 ++++
+>> >  1 file changed, 4 insertions(+)
+>> >
+>> > diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
+>> > index b7abca4559df..32cd0d9c8758 100644
+>> > --- a/drivers/soc/renesas/Kconfig
+>> > +++ b/drivers/soc/renesas/Kconfig
+>> > @@ -517,9 +517,13 @@ config SYS_R9A09G047
+>> >  config SYS_R9A09G056
+>> >       bool "Renesas System controller support for R9A09G056 (RZ/V2N)" =
+if COMPILE_TEST
+>> >       select SYSC_RZ
+>> > +     select POWER_SEQUENCING
+>>
+>> That's implied by the symbol below though?
+>>
+> POWER_SEQUENCING_RENESAS_PWRRDY will only be visible when
+> POWER_SEQUENCING is enabled. If dropped, randconfig might generate the
+> following warning:
+>
+> $ make menuconfig
+>
+> WARNING: unmet direct dependencies detected for POWER_SEQUENCING_RENESAS_=
+PWRRDY
+>   Depends on [n]: POWER_SEQUENCING [=3Dn] && (SYSC_RZ [=3Dy] || COMPILE_T=
+EST [=3Dy])
+>   Selected by [y]:
+>   - SYS_R9A09G056 [=3Dy] && SOC_RENESAS [=3Dy]
+>
 
-This is what I remember, too.
+Makes sense.
 
->   - If there are complaints about the managed irq behavior change, it's
->     better to introduce a different flag for this. Though there have been
->     many discussions and proposals on how to deal with isolation during the
->     conference, and the general mood was that the placement of resources
->     should be done during runtime. Thus it is likely that the old behaviour
->     is not necessary at all if runtime configuration is possible.
-
-The main argument/ problem is that managed_irq does not work as expected
-for the vast majority of users and should be fixed. This has only been
-"recently" documented.
-
-The whole isolcpus= was meant to be static and there was no argument why
-it needs to vanish. A dynamic interface for dynamic workloads is what
-you want especially if you have 80+ CPUs and workloads can change. But
-on <16 CPUs system the partition probably do not change. It is also not
-obvious if your driver(s) use managed_irqs or not.
-To get a runtime interface for this you would need to be able to
-reconfigure the managed_irq interrupt if "interrupts < CPUS". Otherwise
-it is just enable and disable like during CPU-hotplug but without it. If
-I remember it correctly, the device itself does not handle this at all
-but the block layers drains and starts queues during a hotplug event.
-
-> Hope this helps to move forward with this series,
-> Daniel
-
-Sebastian
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
