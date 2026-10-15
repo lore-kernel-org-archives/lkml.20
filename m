@@ -1,99 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353E5495AEA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E074852759B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072023; cv=none; b=iSf1UettBVpbG+qebRGTJ0TrwvN91/773mRUbdMv8+R/NtO4njlCwiVsGuyuqQajjvmqS88rwaizJz0HXvUP3OwyIU4JGjFhDpjQ81sNb1nIlWRmBdukFqtUNCWBlCslnB//6naE2uf6s8+RaMaAdav/BJJPwbs5a5zQ7Oe+NOQ=
+	t=1792072074; cv=none; b=Y2Cjo6crNZKLer7uo6Y5IptShEZ5eOzkiVsIjyMEqxX9l0Hic/dA6PJIZ0kl8V8lNBHlfmxQ17/HjenujH2qL8Idph8+waOk0w8Ak7KWT++K2Jwegfr09+2eAgio16FtcKyZF8mtzisf+2oCT9rASBNSWebyuZ3tgy/+IWCRw+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072023; c=relaxed/simple;
-	bh=MlgDolm+PjZn9ICMc1uArJE74lf/vWV2uq+Y9/jZ/Tw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A5USzZdpvASSPkNX0Z+NFsRqtTFAJS3wygDyBQ+vAgzUsHpBLDrlRISOuFQX/nd9MnTe77wGF9sUO9jrxbzluiO7QQuy572KcVuDC50LTWHZeptu1PL+k5iIXntAmKzhwlMNBWxrmJgNWww8g3IrwkCZwU13b7bnFORI2tYlLwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=exHgMk2P; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792072074; c=relaxed/simple;
+	bh=j55zw5viGxZp1pXxSJj+AkBUOD4ghpetwBiAyan2hnE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dZGjx9P4XSuWFzzAERPoX5YiaeVSPXStsZ0TYS4Q4AeD5aGRUH398ZcxadKy0Lr8jUv3I/ZLQi6QYmC/uhFyTp9L/sXdq0iODgFmYJAtGlB1gT1ne45hLbYYCuBwiX/VXPapKZLB4uVXGirVZo77jeyIUSha4wvc9JSXI+lvRfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUbuH08q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="exHgMk2P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792072022; x=1823608022;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MlgDolm+PjZn9ICMc1uArJE74lf/vWV2uq+Y9/jZ/Tw=;
-  b=exHgMk2P8i8tOUJSItPNLw9iGPmkHpqyGfEADBubpVflfo9pWlRdkxHp
-   rxJzkUtQHPZvC22HqkTiYA9Lhc2ksgVUxeqSByq/2OciGeR15iMvY4djO
-   CAaLPaxTVvjQdWWEznZ+u4TJ3dmWo/fiMR9OeJ8+YGwmS+wwTiwv/k11t
-   JrODUZjjTbiQ+qLv1tTWRWi6LedcpOWm+7UU9kXk97w3YiPSgsCrFC2WG
-   JTDCzQPrYqprNe10HNL4bc78KlfrveRRjyg+wjJv15njSBW0KI/p/bDTn
-   Dina4O7LEh/vyR68Nhvn7mM4RauA+BQgFTuzBNLyPMOihdNEVh6/16/zq
-   Q==;
-X-CSE-ConnectionGUID: VQ/gJOccTbCZ+/bATYJ2Qg==
-X-CSE-MsgGUID: lAghCgHIR9ukb+dVmEe4RQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="841850"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="841850"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:47:01 -0700
-X-CSE-ConnectionGUID: jpak3QI9QCaxoS/+Fi3fAQ==
-X-CSE-MsgGUID: xJggO6zRTgKtxKMXZ6jpxQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1665926"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa003.jf.intel.com with ESMTP; 15 Oct 2026 06:46:57 -0700
-Date: Thu, 15 Oct 2026 21:42:46 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Zhenzhong Duan <zhenzhong.duan@intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, dave.hansen@linux.intel.com,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
-	dave.hansen@intel.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	jgg@nvidia.com, nicolinc@nvidia.com, aik@amd.com,
-	aneesh.kumar@kernel.org, seanjc@google.com, pbonzini@redhat.com,
-	chao.gao@intel.com, vishal.l.verma@intel.com, xiaoyao.li@intel.com,
-	kevin.tian@intel.com, chao.p.peng@intel.com
-Subject: Re: [RFC PATCH 04/15] virt: tdx-guest: Support devsec TSM for secure
- devices
-Message-ID: <atDYVoLFgxyncF3c@yilunxu-OptiPlex-7050>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-5-zhenzhong.duan@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUbuH08q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC87C1F000CA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792072073;
+	bh=g0/qpdrfy/Oj2jhQu3d7Pibrb4+olgpm2ZjNSrruXrQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eUbuH08qiYvnc9cxPyONkuoJAtkQS6uILm2e4x6d1oj49SsGu154MK4GTGWhxXSHJ
+	 3cxsQhdmtYEzaLwr/2EmYruyEXlyTgZ0zDjxOWWxlJSLVHXT/GlnUCNuk7m49W8Lxs
+	 AQnh9JvmJwpWPyVbrcv6QGiYI7ql3Sno+MMdVpzP+Rqe1NEtr3YzkVKTvj5ZFtjalK
+	 wTNHZqZd+ZZzxk/skEATbuTZ1+msLxAjcqYFEoX6lLgQxvleU3yfhvrvC1FYO/dqUO
+	 s/veGeEciRoH1VpmVJ2t7OFXHh+5GWlL56g20mxsyHGgGgOpz5JtekQ/P4K2FxgVR2
+	 3X+2O5tBagVpw==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be47159f2bso96107e87.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:47:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxQXGnu/AEStzDYBOwYchO74TsAKP/vqRQlvaHNItLNOkfG/Vt05auBqo46wks81Oni8GQPPIeF4QCPbPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ4vhDrcHeokXhuswoAMH46PJpUEFnsZcezzdkTL+zS0OxsQ65
+	myzvnhOfJ9vDCB9BwxN/0yXG755a+CDPnJXFNdBQyXVvdCKbyOvkmARlJVHImBdubWn5d5w4QK6
+	cqp7Ztyc/BcKKnBQPsSIIWIp7NPNoFPg=
+X-Received: by 2002:a05:6512:3091:b0:5bc:cb78:b884 with SMTP id
+ 2adb3069b0e04-5bcde8c1270mr5845776e87.41.1792072072088; Thu, 15 Oct 2026
+ 06:47:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924041032.1096569-5-zhenzhong.duan@intel.com>
+References: <20261014132703.93355-1-aliamemis@disroot.org> <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
+ <20261014150537.121547-1-aliamemis@disroot.org> <08b6196a955faef9968224d7946ea5b1150f2ae3.camel@rong.moe>
+ <20261015120902.15337-1-aliamemis@disroot.org>
+In-Reply-To: <20261015120902.15337-1-aliamemis@disroot.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 15 Oct 2026 15:45:42 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hEA_Pna=So-jd77OhaUEO1-Y6bEVFVMJ-bGNeziNj1kw@mail.gmail.com>
+X-Gm-Features: AclHuK-LWYktE4aThDeFgwzeVaOyAWCAYG2t8e1kKUTnt2HN-pzsBDgg_CDv3q4
+Message-ID: <CAJZ5v0hEA_Pna=So-jd77OhaUEO1-Y6bEVFVMJ-bGNeziNj1kw@mail.gmail.com>
+Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
+Cc: Rong Zhang <i@rong.moe>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/drivers/virt/coco/tdx-guest/Kconfig b/drivers/virt/coco/tdx-guest/Kconfig
-> index dbbdc14383b1..2e9407f8bc70 100644
-> --- a/drivers/virt/coco/tdx-guest/Kconfig
-> +++ b/drivers/virt/coco/tdx-guest/Kconfig
-> @@ -10,3 +10,18 @@ config TDX_GUEST_DRIVER
->  
->  	  To compile this driver as module, choose M here. The module will
->  	  be called tdx-guest.
-> +
-> +config TDX_CONNECT_GUEST
+On Thu, Oct 15, 2026 at 2:09=E2=80=AFPM Ali Ahmet Memi=C5=9F <aliamemis@dis=
+root.org> wrote:
+>
+> On Thu, Oct 15, 2026 at 07:51:22PM +0800, Rong Zhang wrote:
+> > Thus, any call to ECCC or RDER consumes at least 200ms in emulation, bu=
+t
+> > in reality it doesn't.
+>
+> Thanks for finding the actual deadlock!  The 680 ms came from assuming
+> "slow" EC commands.
+>
+> I'll wait a few days for Hans, Rafael or anyone else to comment on
+> dropping the EC query and UCSI patches, then send a v2 that merges
+> both series.
 
-I asked the similar question on host side series On host, we enable all
-tdx-module-supported features regardless. Then why should we make the
-driver support configurable, any good reason to switch the driver off?
-
-> +	bool "Intel TDX Connect Guest Support"
-> +	depends on TDX_GUEST_DRIVER
-> +	depends on PCI_TSM
-> +	default y
-> +	help
-> +	  Support Trust Device Interface (TDI) feature enumeration,
-> +	  validation, and activation within an Intel TDX guest.
-> +
-> +	  This option enables the guest kernel to establish secure,
-> +	  isolated connections with trusted devices assigned to the TD,
-> +	  validating MMIO maps and authorizing DMA remapping tables.
-> +
-> +	  If unsure, say Y.
+I would prefer to drop the EC query and UCSI patches for the time
+being until it is confirmed that they actually help.
