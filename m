@@ -1,122 +1,247 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7582252F27F;
-	Thu, 15 Oct 2026 14:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB0F2641FC;
+	Thu, 15 Oct 2026 14:19:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073945; cv=none; b=BsKqVciDV6Les3ng89047469ALi3sZEb2EVmrnLN1vKg5PdcQepgBcGGz1uXZEIarBDq0vX+ume6zSGTA7+zp8iHvANl2rSop4Dh/rASOOuvvE2e8KHE5zvEFH8fXw579oDx9OX1pu04M+lqm1RM09Ubaj5gc/O5MZaQEfOk0FM=
+	t=1792073957; cv=none; b=jIywPpPDCjDD7dbqM2vbRjnj2J8hZngwQirDvk3pQBsFFap0F5z3Gp3rHQ5+/sRRyosspNIm7BtvhZy2kdjaIarJqXcVb4y4wlQjIJJ/gOLvQX/5mhAItf0HBnxBlWu87gwrezBqswT5Sok88DrQeSomIaMEVMHqoFyE8fdwRAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073945; c=relaxed/simple;
-	bh=t/8aSVlAGQ560xeeaccXGG8QWrLWFsQnsWSaDbTyVP8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a4kCFw/+XC1ssNIdRgKR2CnYJeR4j4Hwi+Cq+eSEUdlYJXLlep/bmb3xsNawrSpXcj/DeuXk+9vG+YaPbUB6+ok0Nbi3lRfaXYeyAPtuMJ5Sr7XK4U43MTn9HL4tWX/mhq/qNksUfOJuNqZF3ch1Gr84ctDQ3mdgNn3en5Y1XZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofmvxIX5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792073957; c=relaxed/simple;
+	bh=3Nxy/R8Y0k/xk4cCiD0GJc6tc8FDoDdAEjPzb8f3Bso=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bhY9ezTbfnZ9q/9UCcfAWy5bKWzta00nW7VTrfTA/cj7t+lz/tpJv/qht3HqDTQFuAWzMSfoP3j9nQxLRA9fBDC7kGaC0PiKoW/3pve4rYdJBqz69OIl0yEhUO7SGZbr5+sil8zNiEfoDP5EtDp7AGuQjqgjssEZU9KPGRs0CdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JrWS3WxJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofmvxIX5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821511F000C5;
-	Thu, 15 Oct 2026 14:19:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JrWS3WxJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA3A1F000C4;
+	Thu, 15 Oct 2026 14:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792073944;
-	bh=CeSzBwDNP1bLe2YHsb8NqKTNfjCsvy23Eg0OzCMcErs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ofmvxIX5sFpS2nZjQ3emTsjKbeA08Ybf3LomWAMA3CsTaar+cmLX3XueVahpMtYcH
-	 WMCw/oQF7fS1Sb0U4FyUO+HAhNdMddq8U8mAjH0avlpGkBb56o+0JoxcDwfPw9Hi8w
-	 /z9I2IrSb9hYzftzMkXcGbx9rqa+RV2p5NQDVFs+KbO5xA/KcNOVIUwVkGrs1nl+qb
-	 nwQl79/n9lPdozVJSpDHav3zP9i+CydbsJDi43lhAwIxWVS5kQy/j91BdLtkG67epg
-	 35MlKf91qFXiOfPqcUYVfkSGcK3lcwdmORnho8mZtZtcZzbSmrDd5/HZ7RhIRexmwd
-	 qREot1TN3cJHQ==
-Date: Thu, 15 Oct 2026 16:19:01 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Thomas Fourier <fourier.thomas@gmail.com>
-Cc: Felix Fietkau <nbd@nbd.name>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sujuan Chen <sujuan.chen@mediatek.com>,
-	"open list:MEDIATEK ETHERNET DRIVER" <netdev@vger.kernel.org>,
-	"open list:ARM/Mediatek SoC support" <linux-kernel@vger.kernel.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>
-Subject: Re: [PATCH net-next] net: ethernet: mtk_wed: Fix dma_unmap_single()
- size
-Message-ID: <atDg1UFw9CJpvsxF@lore-desk>
-References: <20261015140110.41988-2-fourier.thomas@gmail.com>
+	s=k20260515; t=1792073955;
+	bh=OMbcusVFFCQHBChDr+K/gnTypIJ5iHka3+90bcArCZY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JrWS3WxJqu7YYtY8eNtGGyzPuES0zzNGeYqXBK+Dzml6NT4kA14py9NBuhtBlLiYk
+	 2+J7olVslfx1F9geVbOkwRIROSHTrTgH64noqdrhQ3djy8dQ+7drNLpZjNKXREuaJV
+	 FOBTu33f8CqvOoqzEri+R/m8paDhdqRmSp/TYJwsJYyQPzpbSZCKoFspSm3RUStmmI
+	 ninOFQPa2wTA+/6Z4BhEV/joib2tMAg7RZOv6c366ZX7BtzLSZ3hKePBn1UAKYGZTk
+	 +AB3cKopFGM6pU27bUMbHXilb+Y/rY4gBvGSa2rk35MSw8cKuCzoBO86Qb69FuN/uj
+	 7o0rgYReatWGA==
+Message-ID: <9f75b5d1-c8f9-4e74-a857-ca2a1fb096d9@kernel.org>
+Date: Thu, 15 Oct 2026 15:19:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bf2LvNtCjkzeEFGh"
-Content-Disposition: inline
-In-Reply-To: <20261015140110.41988-2-fourier.thomas@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 14/14] arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5:
+ Add DT overlay
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+ <yiDHbPcdxx4FNvCqU35drQaTjUFm6D6-6QEw1IlQjiF1MKicjyTasDPEGBTspeMPoNMkHrBCLgyaGM5ALeC0NA==@protonmail.internalid>
+ <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---bf2LvNtCjkzeEFGh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> In mtk_wed_wo_queue_refill(), the entry->buf is DMA mapped with length
-> q->buf_size which saved in entry->len. However, in mtk_wed_wo_dequeue(),
-> the same buffer is DMA unmapped with length buf_len which is set to
-> SKB_WITH_OVERHEAD(q->buf_size).
->=20
-> Change the size to q->buf_size.
->=20
-> This was discovered with static analysis and was only compile-tested.
->=20
-> Fixes: 799684448e3e ("net: ethernet: mtk_wed: introduce wed wo support")
-> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+On 12/10/2026 07:45, Hangxiang Ma wrote:
+> Enable the S5KJN5 image sensor via CCI on Kaanapali MTP board.
+> 
+> The Kaanapali MTP board connect S5KJN5 with QUP I2C bus by default. This
+> DTBO enables S5KJN5 on CCI-0 interface connected to the CSIPHY2 in four
+> lane mode on a rework camera module.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/mediatek/mtk_wed_wo.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/mediatek/mtk_wed_wo.c b/drivers/net/eth=
-ernet/mediatek/mtk_wed_wo.c
-> index 7063c78bd35f..4f720ec53e20 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_wed_wo.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_wed_wo.c
-> @@ -99,7 +99,6 @@ static void *
->  mtk_wed_wo_dequeue(struct mtk_wed_wo *wo, struct mtk_wed_wo_queue *q, u3=
-2 *len,
->  		   bool flush)
->  {
-> -	int buf_len =3D SKB_WITH_OVERHEAD(q->buf_size);
->  	int index =3D (q->tail + 1) % q->n_desc;
->  	struct mtk_wed_wo_queue_entry *entry;
->  	struct mtk_wed_wo_queue_desc *desc;
-> @@ -123,7 +122,7 @@ mtk_wed_wo_dequeue(struct mtk_wed_wo *wo, struct mtk_=
-wed_wo_queue *q, u32 *len,
->  		*len =3D FIELD_GET(MTK_WED_WO_CTL_SD_LEN0,
->  				 le32_to_cpu(READ_ONCE(desc->ctrl)));
->  	if (buf)
-> -		dma_unmap_single(wo->hw->dev, entry->addr, buf_len,
-> +		dma_unmap_single(wo->hw->dev, entry->addr, q->buf_size,
+>   arch/arm64/boot/dts/qcom/Makefile                  |  5 ++
+>   .../boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso | 81 ++++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/kaanapali-mtp.dts         |  7 ++
+>   3 files changed, 93 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 88230c4e00ea..84b244d43e9e 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -48,6 +48,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp449.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp453.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp454.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9650-rdp488.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp-camera-s5kjn5.dtbo
+> +
+> +kaanapali-mtp-camera-s5kjn5-dtbs	:= kaanapali-mtp.dtb kaanapali-mtp-camera-s5kjn5.dtbo
+> +
+> +dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp-camera-s5kjn5.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-qrd.dtb
+>   dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
+> new file mode 100644
+> index 000000000000..d0e39855e0e6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
+> @@ -0,0 +1,81 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +#include <dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h>
+> +#include <dt-bindings/clock/qcom,kaanapali-camcc.h>
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +
+> +&camss {
+> +	status = "okay";
+> +};
+> +
+> +&camss_csiphy2_in_port {
+> +	camss_csiphy2_inep: endpoint {
+> +		data-lanes = <1 2 3 4>;
+> +		remote-endpoint = <&csiphy2_out_ep>;
+> +	};
+> +};
+> +
+> +&cci0 {
+> +	status = "okay";
+> +};
+> +
+> +&cci0_i2c1 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
+> +	camera@10 {
+> +		compatible = "samsung,s5kjn5";
+> +		reg = <0x10>;
+> +
+> +		reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&cam_mclk2_default &cam_reset2_default>;
+> +
+> +		clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clock-rates = <19200000>;
+> +
+> +		vddio-supply = <&vreg_l4n_1p8>;
+> +		vddd-supply = <&vreg_l1m_1p0>;
+> +		vdda-supply = <&vreg_l4m_2p2>;
+> +		vddio1p2-supply = <&vreg_l2n_1p2>;
+> +		afvdd-supply = <&vreg_l7m_2p8>;
+> +
+> +		port {
+> +			s5kjn5_out_ep: endpoint {
+> +				data-lanes = <1 2 3 4>;
+> +				link-frequencies = /bits/ 64 <1248000000>;
+> +				remote-endpoint = <&csiphy2_in_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&csiphy2 {
+> +	vdda-0p9-supply = <&vreg_l3d_0p8>;
+> +	vdda-1p2-supply = <&vreg_l1d_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&csiphy2_in_port {
+> +	csiphy2_in_ep: endpoint {
+> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +		clock-lanes = <0>;
+> +		data-lanes = <1 2 3 4>;
+> +		remote-endpoint = <&s5kjn5_out_ep>;
+> +	};
+> +};
+> +
+> +&csiphy2_out_port {
+> +	csiphy2_out_ep: endpoint {
+> +		remote-endpoint = <&camss_csiphy2_inep>;
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> index 9eb02fd09dab..c70cd39bcb75 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
+> @@ -1243,6 +1243,13 @@ &tlmm {
+>   			       <119 2>, /* SoCCP */
+>   			       <144 4>; /* CXM UART */
+> 
+> +	cam_reset2_default: cam-reset2-default-state {
+> +		pins = "gpio3";
+> +		function = "gpio";
+> +		drive-strength = <16>;
+> +		bias-disable;
+> +	};
+> +
+>   	wlan_en: wlan-en-state {
+>   		pins = "gpio16";
+>   		function = "gpio";
+> 
+> --
+> 2.34.1
 
-I guess you can use entry->len here to align with the tx side. Anyway:
+Really nice to see sensor stuff in this series.
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-
->  				 DMA_FROM_DEVICE);
->  	entry->buf =3D NULL;
-> =20
-> --=20
-> 2.53.0
->=20
-
---bf2LvNtCjkzeEFGh
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCatDg1QAKCRA6cBh0uS2t
-rAHDAQCBk2/JP1GlWzVrZmGmNrnZUmPT6fHOUTTZRcN+7YPm+gD9GGJ0a5/HxB8d
-rhhirUOm4xPSbbOd9R0UefDOqX6KUwQ=
-=PNQo
------END PGP SIGNATURE-----
-
---bf2LvNtCjkzeEFGh--
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
