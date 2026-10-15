@@ -1,131 +1,203 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A854355C335
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E38255D86E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792084594; cv=none; b=JvHrpKQ1Go3fN7duiHE0H6/o0jDSlKDjZ7DT2TwfJoLmuk35pg5+cLSGpXJORxKvV0NHTkuarr6FrSb9NL9p7fy4zX/bi/tkDlxKh371wloR3MZdAUQfuYQu6QRqwQZQeDEEj6suukNmxmwdkhfBoTfsYVsvVazlb/drFLtwvMY=
+	t=1792084680; cv=none; b=nOmKLRZOdlE/ekJLpbNkiJXERZjw53K+kn6k4mTjfBW8WJ0s0dVKUvMca6lYflT/ottmXC54kFnyxe8oQNm7O3gj/GkBLI/6O18YwfOLqs7CS8rCTBgKW/5vyKVVWo3lGmDdV0kGzZhglLIBeoHn09inwEDveMdhKtBaGNCJ/5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792084594; c=relaxed/simple;
-	bh=zk3J/AL6+Z3Ly59Klf2ISnugpy+IF3qjEzcB3g2kr28=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PG0tnYy5tU9Vyq3hDKZcNYO+MRk5Jqe4kIRY5Ad3uDbbF5AxQz6srhEckhAtLnX2+17JQYGv6jQhmgwbcIEgVoh/IAKS8R13pb0xUHVNNHil9JhoXgjrlCJwg/gIGTnFmGPP9vKm6F5O+10a/kxVJNIAkKpuSsIY/n5UiWpWcHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TSeJt7rz; arc=none smtp.client-ip=74.125.82.52
+	s=arc-20240116; t=1792084680; c=relaxed/simple;
+	bh=97nz3x4cCT7jJVkf7khGZ92jWq9O4MzPPIoGZFfCE3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uie5HSTGYTaZw9HMrdwwTcmGgGfQxWS2T95hJCyX//CpTSGgp0I9HNj1HFNvFmn8i/ACYUbabQs52BFgoCBHl1MXZyJTtAV4jZkuh1nN5Wt5KNALyhBX/z3WWA+5scAQzSTYQQaYGdG2FdtGAMUDx7vPoSzySnZoYXEcvk63VC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LGHjnZQ2; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TSeJt7rz"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-157fe9d771bso2672029c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:16:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LGHjnZQ2"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1130748f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792084581; x=1792689381; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o2folU0O4bOJirQCG1bT84vwZiHZNPZr+tDe4ocPaDM=;
-        b=TSeJt7rzFR92DV1DLvzwoY2HZDo5GWoBwWjLVR3tXvnFecyZ2ANC6ZNB5opXaJcuh0
-         uAIqo61oIu8rRuY9b550TyEFk14hnlP2bRfQNp7vl5Q7IcwFmT0LXm5G1r/BzMlDI8m8
-         Fa5YVkoI3qwWmSBplig33vR98+OnqPCJ61tVdujNljEoSRk2y1FaV2/nWB8iRfQhn850
-         EYMR6WdhqPgeVrzsEkNmmLc9UcEW5VV1DzGH+cQxx/Jk8up73omt39lk6GqPm6biH/KG
-         rP2EMHHP1PMbre3jFMjAaAKCfDzFkKQvagtytyEAMMQK+hKCy32ZpjGJzA04c5M6PCRx
-         zgnQ==
+        d=gmail.com; s=20251104; t=1792084669; x=1792689469; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nUb4cagls44kE5et9qrliHAU76p7w/thb7bKXpN7Lxs=;
+        b=LGHjnZQ2i3mxf4ZTcid18hLmSzPCcPavgFPgZXktiYaRW1loWCVGAx9MKQnl/QcRCf
+         ehi71GtHRfcunwNyEobfohUWmkeA9mNpHK4FLA4407u/3wMFSFhlWGMhG5S2neNoRtEJ
+         zbkFGb+xPzgYcG8N/dR2fxLkkuMk7YYGP73vQni7JEphDT8lsWRDGrTYwq7CHBDrCojT
+         GASpge4oiIj0VCC1VtwWK2UYDpvGJzquN+0TjRWAufqxK1f4pkXz2DlI5Y4bHumxbJ/u
+         Vu9hHXOCPX9rWAqEaf2aAporaEoq3Dq13KZi0t2lBQOo7uWkK1mx2b7X/TcgLYg3LcCj
+         I20A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792084581; x=1792689381;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o2folU0O4bOJirQCG1bT84vwZiHZNPZr+tDe4ocPaDM=;
-        b=MEVUGDpBK0EbD7NN10J/ryNbOA4DfZ/pOIOD/kjGAqqRRoRq77fpkxroZKAiwAAl2f
-         sKRzHleZCSxaX+fKKB+jpwpxHwIWjCisxdXGXOVPzTXXsDBJv/s/c0mK6Uj4EEZk/uKH
-         qyiRIJYPZwZBt7Gu74IJXnLbRKZtClszKgUKMtgk/aZxANvV6ab8vMUgchIauUKwlJNa
-         +JKf3LQRIwzrfg5huJHAdGnGNKgfKXN3kA2+qjX6KTmzZU0thh93N00HrhV5niBhCHLM
-         F7Kv5d2dwWDOMMA9zNLgQ1tsTMKL3ES2xO1dNsc9rA8529VnTQEi/4lIGztAnoPAJsTg
-         BLrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHzVBVNVQUYmfbVg7q3U/J9mWSg8Lqp0xCQdmEcu7V6mKnhVCJpxcQkxXd012D/qXWfKp0ZWrq4piXPDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvCjmbIUnaLadNSHkrB7cb2sZXqzYWhKhQ2T80BVUVioD/5bjP
-	Fzjq58jCSbRy/V56gvhCWpSG0TdcSR+Ay0nfXujhw1oz1p1BitIdrIz4
-X-Gm-Gg: AYBFou2beI+p72cpyNWNXxtKlOqeFoOdo91sDGYqth4XApgeDlwwWLrkEXCspDmqv1+
-	vliZq/QI5Zn9sKQTa6+DmAb9y3JFhkaOG4mLoamUXCwthTRVsZRIIJWgIi1wUpszT8a/cuhOHL6
-	c2f53dFcdHJK3ds5WT2D35nRfoFvLn457vMspxM0eQVI7Wl0zNLl2jCOncJRMPKoAXp8a4mqxQK
-	vgJb+g1ADneq09uvC2HW87E6XVrUjTBjGvsU6WfiYAz25aRDMqxqdpANwyrolreklgKlTGRhfNB
-	80aZJqbhOAe/Rj+fCpvxXxx7yuRA+LLfRNPBZgPphnnYdeBYyUnTXUFRNrwy4bW5cPdKSwcFRhY
-	hl0KEkIM8YoV0WJ2TKJbY5fuA5pCjYWvbrHNjoOD3RmElUhPq3ennKAfu8mktDcPHK+aUod+W+4
-	qsbaqLtbZ7z65bIXBXFz7kOu3KMYtS25DQ5qzKmeilGKPjUr7YMQfL8j1702uXyri9dsdPJM/I5
-	tAqx4N7Ova+2VYmZws=
-X-Received: by 2002:a05:7022:1608:b0:143:3da5:cada with SMTP id a92af1059eb24-16a610ca97amr21923438c88.37.1792084581384;
-        Thu, 15 Oct 2026 10:16:21 -0700 (PDT)
-Received: from hp-OMEN-Laptop-15-en0xxx.. ([122.172.84.237])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a66aea30sm318532c88.9.2026.10.15.10.16.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:16:20 -0700 (PDT)
-From: Jayaraj Devaraj <jayarajdmit@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        d=1e100.net; s=20260707; t=1792084669; x=1792689469;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nUb4cagls44kE5et9qrliHAU76p7w/thb7bKXpN7Lxs=;
+        b=1Wxbgexa1JlxfVt+VGwS42wwXQ9NdnRi3Yr78kuqxPJ2z8GvuF17XKEvccks4d/Cw4
+         gWXwywxhOMP8NKDXEY3cCrv813CosanKOjRWNGP3A+5qwJSgyUom5qNCupSzAwtE0fTW
+         yM5eTKEJ+NvCGzbHJQZ+Q2phn6/yvEpB7QFMgyavYvOM8OPu8OLVS/J/IczYRZlRxPl2
+         AOg+m1BsOsT7ixa3v9LB/O5HMKhWtlN4pWmgM/pa/SyIarCRDwFgJ6Zh9t3KAvGlpK0B
+         Vihu4I6bai6Q79KxuKJeEzjmphDthYXu3HXJKDWXDToQN3uyXkp1qgt5zFR34xzxkcyr
+         d5Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7dNjALgJAdEqDv35EHs+Lsz9FcMEdLYTU+kQH8J2ujcSZNuCe/PXFB4ZyhfDOH0vfFvb58z0YmVp9hdA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiH4uMPjbOn8M58ODOaVYpiCrtlUtHVoLHRcEp8QEw6lOyBD/o
+	/we1P7SjZ91tVTLmEnmyag6ayOLJNWtV+sd7p5cxPEpNTdJws0mTz72V
+X-Gm-Gg: AYBFou3D2m74w3d43uapqYo+DlwFauZzSrWrupx+0ANs4tCwqCt2my35ZdmuT1DhTx0
+	ux6PIlb39A8uJjDpdxNs/WjwraJp7XweA0Yp/rcWc7L0zupzf8oc1i5btVpR4Q2ByPj4zYIJDQJ
+	N39/hts5Pb3HSUOtrHr8oEIB3vG+fdG1qN0DLIbta3MtGQvUK9mc0cadDNAQkQa+PLXqyJYxTOf
+	wc32y9MjfOCrqpo/InZCjrPpU67jklyCLZcqugh3VIegjQDhcTgXQZ3/RUnx2bu2uaHmh62KYvw
+	oZw+3KUnku/HVdUc+OksAHdJlihFLNcn+9Um3qWIcV1hSt8cVqeR3kVWhKZcoYMBSPr7A2vMJYp
+	t/IiBMbkuH/E50BGQ4ct5oGUaH8BH7AMgPuQR382U/tbwSDTYMMr0yS+jnCM0xSn/iF1MrO2kYV
+	8FzEVbN6Ld6wY/1PgSXUcTrhfbGdJ+f1/NHuvLg814L3DKuSaYRB5EAfbDR/LGoyeF6D60bjC3A
+	9VM9gAoDDVEgjLGHuQ0/d+DsRbpFxb/1IHEi7UymmbQGoIh/JjUZlKUuOmZPjRZ42I7hSlMMGq9
+	QW8ozhYsqKIJDtP7bqwsJcWhWb5tAiaTeVU=
+X-Received: by 2002:a5d:44cd:0:b0:488:89e4:c3af with SMTP id ffacd0b85a97d-48dbaae4869mr30499724f8f.45.1792084668569;
+        Thu, 15 Oct 2026 10:17:48 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfaf1acd7sm1180327f8f.1.2026.10.15.10.17.46
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 15 Oct 2026 10:17:48 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Ackerley Tng <ackerleytng@google.com>
+Cc: David Woodhouse <dwmw2@infradead.org>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
-	Jayaraj Devaraj <jayarajdmit@gmail.com>
-Subject: [PATCH v2] gpio: lpc32xx: check devm_gpiochip_add_data() return value
-Date: Thu, 15 Oct 2026 22:45:57 +0530
-Message-Id: <20261015171557.21243-1-jayarajdmit@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261014204331.15383-1-jayarajdmit@gmail.com>
-References: <20261014204331.15383-1-jayarajdmit@gmail.com>
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
+Date: Thu, 15 Oct 2026 17:17:46 +0000
+Message-ID: <20261015171746.51538-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAEvNRgHtB8j6=9r=txjsKvQM0F85nRN4KW5sdnuv_-Og=cWEfg@mail.gmail.com>
+References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <CAEvNRgEseLO+LbkwXrEit0H2LH5Wx-srSvHEMpt0=upPL3tF=g@mail.gmail.com> <20261014095702.39676-1-griffoul@gmail.com> <CAEvNRgHtB8j6=9r=txjsKvQM0F85nRN4KW5sdnuv_-Og=cWEfg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-lpc32xx_gpio_probe() registers each gpio chip with
-devm_gpiochip_add_data() but ignores the return value. If registering
-a chip fails, probe still returns 0, so the driver binds with a chip
-missing and no error is reported.
+Ackerley Tng <ackerleytng@google.com> writes:
 
-Check the return value, print an error naming the failing chip and
-return the error code. Chips registered earlier in the loop are devm
-managed and are removed automatically on failure.
+> To borrow David's words, the part about this that makes me itch is
+> conversion. We have to support conversions. Even if it doesn't merge in
+> the first patch series, we have to have line of sight to how conversions
+> would work.
+>
+> Conversion requests originate from the guest and then the host handles
+> the guest request by making calling an ioctl on guest_memfd. Hopefully
+> this part doesn't change with alternative provider support.
 
-Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
-Reviewed-by: Vladimir Zapolskiy <vz@mleia.com>
----
-v2: use dev_err_probe() as suggested by Bartosz
+Agreed, and it doesn't change. Conversions still go through
+guest_memfd. It is the only one that knows which pages are private.
 
- drivers/gpio/gpio-lpc32xx.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+> Suppose guest_memfd still gets the conversion request first, in RFCv2,
+> to reach all the mappings in various page tables, it would have to be
+>
+> + [GUEST_MEMFD] -> [KVM], [USERSPACE]
+> + [GUEST_MEMFD] -> [PROVIDER] -> [IOMMU]
+>
+> since guest_memfd must ensure no IOMMU mappings to guest private pages?
+> There's that extra step through the [PROVIDER]...
 
-diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
-index 37fc54fc7385..7fb46262e18c 100644
---- a/drivers/gpio/gpio-lpc32xx.c
-+++ b/drivers/gpio/gpio-lpc32xx.c
-@@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
- 
- static int lpc32xx_gpio_probe(struct platform_device *pdev)
- {
--	int i;
-+	int i, ret;
- 	void __iomem *reg_base;
- 
- 	reg_base = devm_platform_ioremap_resource(pdev, 0);
-@@ -524,8 +524,11 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
- 			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
- 			lpc32xx_gpiochip[i].reg_base = reg_base;
- 		}
--		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
--				  &lpc32xx_gpiochip[i]);
-+		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
-+					     &lpc32xx_gpiochip[i]);
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					"failed to register gpio chip %d\n", i);
- 	}
- 
- 	return 0;
--- 
-2.34.1
+Right, there is a step through [PROVIDER]. But it can be a step through
+the mem_provider code in mm, which every provider shares, rather than
+through each provider driver. Then guest_memfd doesn't need to know who
+else maps the frames, and providers don't have to get it right one by
+one.
 
+Here is the idea, on top of your in-place conversion. The VMM gives the
+same provider file to guest_memfd and to iommufd, as in v2. When
+guest_memfd converts a range to private, it claims the range:
+
+  int mem_provider_claim(struct mem_provider_attachment *att,
+                         loff_t offset, loff_t len);
+  void mem_provider_unclaim(struct mem_provider_attachment *att,
+                            loff_t offset, loff_t len);
+
+The claim revokes the range for every other consumer of the file. After
+that, get_page() returns a hole to them. So iommufd unmaps the pages
+and can't map them again, and nothing changes on the iommufd side.
+guest_memfd zaps its own mappings, as it does today.
+
+Going back to shared is the reverse. guest_memfd returns the frames to
+the host first, then unclaims the range. The other consumers then map
+the frames again. So a conversion looks like:
+
+  [GUEST_MEMFD] -> [KVM], [USERSPACE]
+  [GUEST_MEMFD] -> [PROVIDER] -> [IOMMU]
+
+That is your second chain, but the [PROVIDER] step is the common code
+in mm/mem_provider.c. It does the revokes and hands out the holes. The
+provider driver itself only gets one callback, and it can refuse a
+claim. For example, it would refuse if it also lends those frames
+through another file. Conversions can already fail, so this fits. If a
+later step fails, guest_memfd just unclaims the range.
+
+This also answers your earlier question. The provider doesn't need to
+know what is shared or private. It only needs to know which ranges are
+claimed, so that it doesn't move or share them, and only takes them
+back once the guest has given them up.
+
+I haven't implemented this yet. My plan is to rebase on kvm-x86 next,
+which has your conversion code. Then I'd demo it with a
+KVM_X86_SW_PROTECTED_VM and the sample provider. A device sees a shared
+page, loses it when the page becomes private, and sees the same frame
+again when it goes back to shared.
+
+Does that match what you have in mind?
+
+> Thanks, I will prototype what I have in mind too to make sure things
+> work as I think they will :)
+
+Thanks, that would really help. The sample provider and the KVM
+selftest in the series could be a starting point.
+
+Thanks,
+Fred
