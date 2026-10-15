@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB7A4BD360;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579C94A7CA7;
 	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061672; cv=none; b=GKRFGZlwtjOE8CX78qPy6Zf8NMToY9uwRKypOUk3wOho/VXrHH7A8F4yYZHmbjWKZUmodrXNthjqfkJtzsgy8mwFI+4JVbHZwaxjjJajZFJBvmW2pPYxTiXXmIRoShGvsOO92gA+/dfWh1K9rfXRR2tFECHhS64MrOPOC2B5v+c=
+	t=1792061672; cv=none; b=pS6TU4UZbiSr5fB/0RTQXlCTytICto5cDx+CrzRkKhHhIJ+qXPcJo+cpEcq16/nAfp0M1/LvrAjXPmZFsM+D7dYC+/pz57NAaKZkA7lfZIGY6t0YkgZJ+Css2sn9pk16KNouGR/rmWp8+bkylugbwnVUf9QWpdyZ0YF23czE/HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792061672; c=relaxed/simple;
-	bh=5iVsx0esljQMsMNbNHsXk5qGRl5hScwGXeCgjwaBc1U=;
+	bh=6qmV5fP/ovYkMChG07yhC6ChgksYfCJp8P8sxHcAz/c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kHm1O3bSgYaF7NsagzdxEO/CE8WKluOX6r1nvqggVogmTJGShD8whvNCbOT9Ce8dyrmLUiTKzk3QUO4a4dNs1hrIQWLPhWmyc33nzRT776RDhiUa9vITtOJa38YhTB7NqiQ0Llq0T1XuEbd0lMlp9r/mCEjIm0pg3hy/nOXswRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5sq11Uc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=KFnF/2JylgwAIEmDm3LX/wxmnVze51zIJdZqQxV09csD4gVWmKr73GnSJXHsNQuOAk6zufpzKC+IpCS1OThdDM/1r43T0/D3GljK2xc/GFdUGjYz5xWF/HV00RReWhMALC1p/7iIKXnrU1oO7QzCXe+4a96jDqpbr3TAF9z8VRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7Ze7pQN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5sq11Uc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21A87C4AF09;
-	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7Ze7pQN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 02BD2C2BCFB;
+	Thu, 15 Oct 2026 10:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792061672;
-	bh=5iVsx0esljQMsMNbNHsXk5qGRl5hScwGXeCgjwaBc1U=;
+	bh=6qmV5fP/ovYkMChG07yhC6ChgksYfCJp8P8sxHcAz/c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Y5sq11UcQ3BpXW6d6WnV8yHJlgTGQ1nRgN4u7aX1AQuAwqrR8qiW551lyyaMhGJwK
-	 eIj7TG+RebaeoKBsZkk6lQdjatXfNOY0pPcQsG+UJqRJOcPdNg2hExjzKbSFtTryMB
-	 tjZLOkpe/VMKEZ063Ofs6okFHIe3o0s8yZKAHP7s1Ugwx/qEKzShfyLl7dgV1rMZNr
-	 oVqYmaUnrAQA37J+kQQXxYJjOnFomfSQebmPAh5Gw4CDIRO3mYytiZHj7wpy/XadVM
-	 CS2H/bZDNrfnrce8pGjc47xk3n+Yj9ACpwaOsyI9vWh25hcA2dVkfXRAPiPxSI+ukj
-	 Y+YLU+OwXlaaw==
+	b=j7Ze7pQNlea9bkUyFWzMJpZbjGh0BCw2S/t2xpGjeKoGuFYHlBp1WiXX7Zr04E2qV
+	 VLY/e9kQX/soMj09RIRRintCIvp8XWjSdcc3hsLh9HhSJxJMn/1drHWT43a2JPMoj/
+	 YvqCpHuSt1rJMu6ARiWLBSV4WHVdLw1HHfPFdXhUmOI3IOFVb1YYdD+KG9+8W+hBAd
+	 9LY2UGurfaevyhFjPKlgiANAwf971R7eFtgr0cz4uEJIcSQh7hEoRPCdT2rBYYPiVb
+	 bv5uZ3PR1RYyTsdfJHzMIURnoBCYIWVtMucTH5AqEEq6KGBR8vLwm83wZYb6PSFt3F
+	 Zt5kFYI8LLkoA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B8DCC6B3D;
-	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D685ACC6B33;
+	Thu, 15 Oct 2026 10:54:31 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 15 Oct 2026 18:53:30 +0800
-Subject: [PATCH v10 3/8] gpio: pl061: drop redundant pending check in the
- IRQ handler
+Date: Thu, 15 Oct 2026 18:53:28 +0800
+Subject: [PATCH v10 1/8] dt-bindings: gpio: pl061: add Ambarella CV75
+ variant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
+Message-Id: <20261015-cv75-gpio-v10-1-3fe3eb315a55@ambarella.com>
 References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
 In-Reply-To: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
@@ -52,13 +52,13 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
  Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792061669; l=911;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792061669; l=2127;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=3vJo2yt93pgkrdZ4lG47j+Zlec72mroOPt6GOk7rCSM=;
- b=63KK+e6FOijeR2JzPNDLKsicpKL0QhGHmRR82dIqQ7b6df26VAxBp1HlnSjh0dX1sl5+kt5Sl
- OZlyYqbBYw4D1zYdi7YTmCED6bVZFUY/4Kr5Sr6QOlxQtvcvbr2C3Jf
+ bh=BkO6pO1YpBBieaeL0yXFXs09zVgjmaMwMQO7kuG29w4=;
+ b=G4zLzsTlBcqQj1SoDIghxuZesERSzrNjhMPFY+NWXR4aiBhV5T+iGNhKyjUIZ2RtmI4euI1sO
+ mE4LByiHHH8C5wM+wP5OaIVhMuKGsvkZNQaUiS8wIRiPHqn9rBgTpRF
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -68,33 +68,74 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-for_each_set_bit() does nothing when the mask is zero, so the
-if (pending) wrapper around it is redundant.
+The CV75 GPIO is a modified PL061. The basic registers have the same
+names and roles (DAT/DIR/IS/IBE/IEV/IE/MIS/IC). Each bank is 32-bit
+and 32 lines and adds MASK and ENABLE, so it is not
+register-compatible with the ARM PL061 and arm,pl061 must not be
+used as a fallback.
 
+The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
+compatible string. These blocks do not implement the standard PL061 ID
+(0x00041061) in the ID registers, so arm,primecell-periphid is required
+and is fixed to 0x000e8061; the driver uses that ID to select the
+Ambarella layout. gpio-ranges is required because each bank is a slice
+of the SoC pinctrl pin space.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-pl061.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 +++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index 919cf86fd590..e48842601310 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -219,11 +219,9 @@ static void pl061_irq_handler(struct irq_desc *desc)
- 	chained_irq_enter(irqchip, desc);
+diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
+index 4d970e55104b..c22dd8a1d2c1 100644
+--- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
+@@ -15,7 +15,9 @@ select:
+   properties:
+     compatible:
+       contains:
+-        const: arm,pl061
++        enum:
++          - arm,pl061
++          - ambarella,cv75-gpio
+   required:
+     - compatible
  
- 	pending = readb(pl061->base + GPIOMIS);
--	if (pending) {
--		for_each_set_bit(offset, &pending, PL061_GPIO_NR)
--			generic_handle_domain_irq(gc->irq.domain,
--						  offset);
--	}
-+	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
-+		generic_handle_domain_irq(gc->irq.domain,
-+					  offset);
+@@ -25,7 +27,9 @@ properties:
  
- 	chained_irq_exit(irqchip, desc);
- }
+   compatible:
+     items:
+-      - const: arm,pl061
++      - enum:
++          - ambarella,cv75-gpio
++          - arm,pl061
+       - const: arm,primecell
+ 
+   reg:
+@@ -64,6 +68,21 @@ required:
+   - "#gpio-cells"
+   - gpio-controller
+ 
+-additionalProperties: false
++allOf:
++  - $ref: /schemas/arm/primecell.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ambarella,cv75-gpio
++    then:
++      properties:
++        arm,primecell-periphid:
++          const: 0x000e8061
++      required:
++        - arm,primecell-periphid
++        - gpio-ranges
++
++unevaluatedProperties: false
+ 
+ ...
 
 -- 
 2.34.1
