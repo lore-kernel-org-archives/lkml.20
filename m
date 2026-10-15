@@ -1,305 +1,301 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010023.outbound.protection.outlook.com [52.101.85.23])
+Received: from relay14.grserver.gr (relay14.grserver.gr [157.180.73.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1243EF67D;
-	Thu, 15 Oct 2026 09:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056896; cv=fail; b=tZE0Or6oNfMzpL393OTIHILhvhs3qlUszP3RPLL8yvWeiFOKm3u/VV+uGeNniKLIHm0iOZ0Alx7YAs9ab0eKl2TUFyoRbGLA771Vi/4Bg/eQ82o8WL7w9MM7EagZmTrcf8MlS+uQ+IxsritEiJbCZgNTyOoYJcp/+BgE0Z4vD9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056896; c=relaxed/simple;
-	bh=fP05W5VMlZ/8Vr+3B/3G0LdzAiBQadP2HPf0u3JB2Pg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XdmdzmGFjPbUMCHCIf8RSQ02e0TGzmIVMj2vgRRdV8vfCU3/81wKJStcR5bBIYhyJOK2SPtJfT9puVoZGxyIqQprBZfwIIw8doiH1DNlujleK9p5tJfqQxXVwnHSh3KyGMfIMSLY+yoLiD0z744gL7h4b2F5+OKiIIk7ag8iYro=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lO1lQyOd; arc=fail smtp.client-ip=52.101.85.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92137501F45
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.180.73.62
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792056941; cv=none; b=VA1aPUSF3GR1a7iEoOV9rv7l+4mDc7bArHIJ4LKx3Du3Xd3lZUoUMNEfda8ZrbYWDFD4c9cyteQZu8UIwe7w06JvLrPWgKIirKPa6RmRilUFbuMlf2TGKN1Gnxfv00Ex2poos29bNuZg08m8R+hgQ44CTrmfDF97fTnMtewC3dI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792056941; c=relaxed/simple;
+	bh=xobRz54SHqwDVnLrV36cs9SobC4AhSXFO8cUNw/6pjA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BgX7TMLJvLbh37eQbhuqgH+dPSChcJxKB9Dk4A26Yp9AYaV/pniWxGJ/PHYaAjwMRpa1WT4CW3Ya22n1e0V6q2QI2V6XJgNCI2zzOPAbRmev0QX7EtkA4xth0GwUvXfTHaBGbEzhlJ1rcaAt7DFz7YbtzkiBY6XplAYYtCkrLKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=Qb+UUlOW; arc=none smtp.client-ip=157.180.73.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lO1lQyOd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qISlT7rpiNRXlo/szoycHfLiEZjqPOc9aLR2gnk6jNkAVUDCXg3S4zqxAVmC8Py2QGJrT/0l7o6aDcXxIGD+nyW7gMH6DNOULLSshWTdu1YSnW5KlJjXAIs87/LUJV0Lj4esXNkmdnpqWiG+pW1ztSn1lSZd0y/hqQLa2gUP7FkCqYQzL1n4oDT7Oe7t4TplNKwrzhMhkhlmV3T8V2ypoR/biAgfjt78rqFqIc0VD9Vn3Sz5FQbzByILIOE3gYGPpJTeXSFALAsdA6553QNtoWteXPxjlXxq1UGHWJYutZd5OVtervWPOp5IzsGyeI6zqdcAiALC7eDn7AWL13CW2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t37iR2kftL/51UvrsFwJg3WW0ux8UcVmjN0rHGF2XwQ=;
- b=DZiysWzQlOKbUoq7YMc290JWYRh/GHg/ncTDkWZ3QKbPGOUa4dhPyoTlo5HiFf4M+xKNjg00244hCreMHsc5kYB5XbRT0OWTAo4lUFDvcIRblVVMkztvBKTrWxUoBxG+2s1rn+HEv4LiApoBzDXyMWNli5RfuIWkKP+m2gSwgk2WJXFPi/U6s7ZksagQUzoO8wZ2YkdwnnpNmK/cPe+ob5Ubd8VPIs+qbM9PjXl3pbwSFxYhaad7COaCsXhQiBzFKnd4ZFpPN+wVwo0eFOvSZA39ARBlwV3K45ZfmgfAtI4Gp5CQ4naKs/kpUylP7xh1Ji6fjTwqnoV8mWqyj8Obbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t37iR2kftL/51UvrsFwJg3WW0ux8UcVmjN0rHGF2XwQ=;
- b=lO1lQyOdhfce5SnLUA7JgpMEWpwsDf9nXJmBaibSMoLNzRBSJ/3mgePoJBdUHUEzrJA+xAsEPaxTiMJJzQLCKfHRq5T+mxIoy0NpfFhEDwu4pBVmZCuHyUSaaLHwZnSVZTG4+Vcff7g5OjK6Vkar+4lvhWz+r8VoRhCR69DLZ15scerkWTA13mXi7hWiOjG28kJdYk7YX+0rrmNGnZfIUoe7PCBcmatXOeT2/HcBjCHZ0csgQu+3Wi95FIbiVRSxbblKRQMk1b2LxIIW3elYfL31jXoxVQSlA6+aZQGDteEbWdKlcX7t5L9DJSekzD1rC26/zTPUKaeTkG2TjJISQA==
-Received: from BN9P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::21)
- by CHBPR12MB319464.namprd12.prod.outlook.com (2603:10b6:610:409::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 09:34:49 +0000
-Received: from BN1PEPF00018547.namprd05.prod.outlook.com
- (2603:10b6:408:10a:cafe::20) by BN9P221CA0027.outlook.office365.com
- (2603:10b6:408:10a::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
- Oct 2026 09:34:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 09:34:49 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 02:34:31 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 02:34:31 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 15 Oct 2026 02:34:27 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Akiva Goldberger <agoldberger@nvidia.com>, Gal Pressman <gal@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
-	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed
-	<saeedm@nvidia.com>, Shay Drory <shayd@nvidia.com>, Simon Horman
-	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net] net/mlx5: Fix lock dependency cycle on uplink unbind in switchdev mode
-Date: Thu, 15 Oct 2026 12:34:19 +0300
-Message-ID: <20261015093419.1150837-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="Qb+UUlOW"
+Received: from relay14 (localhost [127.0.0.1])
+	by relay14.grserver.gr (Proxmox) with ESMTP id 07A823EE8E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:35:28 +0000 (UTC)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay14.grserver.gr (Proxmox) with ESMTPS id EB0E93EDD2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:35:23 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 1933C1FE6DA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:35:23 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1792056923;
+	bh=A8kEjfeOxELEAzfA6hLwjIPLBZ8G69pH3V+m07x5rv8=;
+	h=Received:From:Subject:To;
+	b=Qb+UUlOWLpweEM6V+aDdEMWw2oCf8/hM6y/qlby6d/rGr5QvBqT6iPoMsuK3BUiTz
+	 0KaJ/56acRd4Xtb9NU5/VA8Uz/+4KfiLtuZ4gUUbZieKWsThR/edK+7SzJ+ZNNOiv5
+	 dH4JK/Ok5ueh9HY0e/rkBbR6dSD/5byNjkntQZblxI7bg8qVvGUbOMkaylgJjfJBEG
+	 DC+7xKYDz+Jz0nEc25ZNuQLUQc/xGOdeprOn0myIqZ/28Fz+FwuhBDE23uIISbdMJp
+	 lr9yLyfpFt8H5ZsdskhF/kY7LCuDbSp+KJ3PbgrFRoR2jfKiYaMbIn/DaUPxP1oI19
+	 E0HouCtALLTZg==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.210.176) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pf1-f176.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-868b3248b2cso3863219b3a.1
+        for <linux-kernel@vger.kernel.org>;
+ Thu, 15 Oct 2026 02:35:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByNvHEKMsrurXOwf+GQMA9S5ZLxY0JUxH+PtW/Rq3Qe9nGVuPVaSXfNZN+FqeKGkw5DQEMA4opVIaVfEFo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiKeOjDFNmf+hY8VGdJpH1PSp16gmPEX1n/2eFHoi7NWB3USGh
+	CQ/NeU5AvcXjYTJnD7fIHYSb2hDSPDYGgnXeTdDADXa66ny07gXjLre1moLCVzmCzsEPDHbYXti
+	D4feyeml2nnekV61GxybH/RLIGdw+VuY=
+X-Received: by 2002:a05:6a20:a124:b0:3b4:7e2d:a3c2 with SMTP id
+ adf61e73a8af0-3e16bd7e1e4mr15808933637.18.1792056921357; Thu, 15 Oct 2026
+ 02:35:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|CHBPR12MB319464:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7b912b4-4ea3-496c-72e6-08df2a9f8ebf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700016|82310400026|23010399003|56012099006|11063799006|261009223327099003|261009221227099003|261009220027099003|261009221727099003|261009223027099003|10067099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	gypq4oSG3A3FFQl9ipI9c4EDMfkYMgs4CmDLzJkbcje9FCm8LIVfIqAE5OVYsaM/QqEBshWVf7+oQrW4d9daxVH62Z+2rmoqo66vuJbyFUNBQKSteQ6dMLUZHSvcvwNgEz8/eb0aMiArixwKauWSJb/G2W1j7q04mOaYzBJfXGeODeHVcs5JPvZdDrZfcfOX6ycdz+Ywp5CgVoElCXbIs4UIWy1mbDZXIeOIc5voSdc0mQRHqVnzyu+vw+OQ1TkLk4OtJf4DQizaq3DO5pyLs8hYRcEEVAaPv8GrhOeR/n5GT3yKuSKLemp1SW/iBaL8ydJk8xwnvNO/YlLH+ZJH9ZPhtkr4XaKnKa/O7aINVNAhmx1G51BGutM77oHJs69JNxXzf0y5LKYDzgRCQkDkcfrrFc09vw63Q8CMbTljLZX6N+UWfgw/gV6rxWg/PJnaRyNzciGabXCChksIbfS6kk+Rq3I2ZhJx7vGt40A6VZtzJia82VBTpRG5fBbEFSHYBFCBavldDLZC86ajeeWVNwzUb5JC5Yv2hjnuPqQlUoJkIhL3nw2YGlsEhk00/9Gtf22NFWT6efECOK/9IigsmhPC2SM4ILzw1U2O5ydfN2HlDf1XZU8JxrZSO3mB4ux/i7sM2Kgnphz4q1b5LNOV2qd3Cb2ya/QuBJYmEzyC92ftHHHKPlXyvH5VQ7Z9TE63/MCZHu9PzBsRLrr8Y88iaA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700016)(82310400026)(23010399003)(56012099006)(11063799006)(261009223327099003)(261009221227099003)(261009220027099003)(261009221727099003)(261009223027099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RhGnl9X1ATg6bb54JQ/owK/y53gFZjjSPTCgzKec8IderJm4NPDc770zUgTPp6YELi07/SEBc5EqLeXciwe31CetpAflKelKpi+0hO8X2PdbgYCbl9Ui3yypdgZErqLiisRnN66nGYaWDBrZMggbH/eGSfbnUVLqMRorFvVvsdVKB24ZcIU/Sr/rPttzbrzyZ2/x5nGzYF3hYrlxwXPCT5CYfdJHEVXLmiTwVddUHHHATIDoKiAb0ehFdtuRpLMZinNwZyS7Bj+ySwNNYshZBLJE9h1R4M61n9RMC8D+Q6IfDXDcchq6LT2MmIFil46Pn0yEIwq++g5kTNeGgwXmWOh2wfS5BSIyWUnWzoeoBQ93L2PkHacKPvSJC40zH41fYrwm2/2/0jgQS2opaMlT6nTMhUjpCEOOcnbaco1f8eOXahWM7oB6fSxV3uqVUTYI
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 09:34:49.1033
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7b912b4-4ea3-496c-72e6-08df2a9f8ebf
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018547.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB319464
+References: <20260309205125.293148-1-lkml@antheas.dev>
+ <42275140-ecef-4878-b256-1061060d4958@amd.com>
+ <CAGwozwEmENx98qB51D89h59rb2qw66f_TJENd+W41onb5GYhfw@mail.gmail.com>
+In-Reply-To: 
+ <CAGwozwEmENx98qB51D89h59rb2qw66f_TJENd+W41onb5GYhfw@mail.gmail.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Thu, 15 Oct 2026 11:35:08 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGD7JNuWz2D0AetacX=H95sB=mz0nnssQHs=pvmsEiKaA@mail.gmail.com>
+X-Gm-Features: AclHuK_ntr1Q1ekD39mYBHgr-YPnZwjUrvmjiRY6-Ov4BNeNHKCHXZ0LIhwFszA
+Message-ID: 
+ <CAGwozwGD7JNuWz2D0AetacX=H95sB=mz0nnssQHs=pvmsEiKaA@mail.gmail.com>
+Subject: Re: [RFC v4 0/4] platform/x86/amd: Add AMD DPTCi driver for TDP
+ control in devices without vendor-specific controls
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: W_Armin@gmx.de, sashal@kernel.org, Shyam-Sundar.S-k@amd.com,
+	derekjohn.clark@gmail.com, denis.benato@linux.dev, i@rong.moe,
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179205692337.3562218.9304670353574733941@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-From: Shay Drory <shayd@nvidia.com>
+On Tue, 10 Mar 2026 at 08:59, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+>
+> On Tue, 10 Mar 2026 at 03:43, Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+> >
+> >
+> >
+> > On 3/9/2026 3:51 PM, Antheas Kapenekakis wrote:
+> > > Many AMD-based handheld PCs (GPD, AYANEO, OneXPlayer, AOKZOE, OrangePi)
+> > > ship with the AGESA ALIB method at \_SB.ALIB, which accepts Function 0x0C
+> > > (the Dynamic Power and Thermal Configuration Interface, DPTCi). This
+> > > allows software to adjust APU power and thermal parameters at runtime:
+> > > sustained power limit (SPL/STAPM + skin), slow PPT, fast PPT, and the
+> > > thermal control target.
+> > >
+> > > Unlike mainstream AMD laptops, these devices do not implement vendor-
+> > > specific WMI or EC hooks for TDP control. The ones that do, use DPTCi
+> > > under the hood. For these devices, ALIB is the only viable mechanism for
+> > > the OS to adjust power limits, making a dedicated kernel driver the
+> > > correct approach rather than relying on the out-of-tree acpi_call module
+> > > or ryzenadj.
+> > >
+> > > The driver provides two layers of control:
+> > >
+> > >    * Platform profile integration (low-power / balanced / performance /
+> > >      custom), with per-device preset tunings derived from thermal envelope
+> > >      data. Selecting a non-custom profile applies values immediately and
+> > >      locks the individual tunables to read-only. The default profile is
+> > >      "custom", leaving the device at firmware defaults until userspace
+> > >      explicitly selects a profile.
+> > >
+> > >    * Four firmware-attributes tunables (ppt_pl1_spl, ppt_pl2_sppt,
+> > >      ppt_pl3_fppt, cpu_temp) that become writable in "custom" mode.
+> > >      Values are enforced against per-device limits (smin..smax), with an
+> > >      "expanded_limits" toggle that widens the range to the full hardware-
+> > >      validated envelope (min..max). A save_settings attribute controls
+> > >      whether writes commit immediately ("single") or are staged for an
+> > >      explicit bulk "save".
+> > >
+> > > On resume, the active profile or staged values are re-applied so that
+> > > suspend/resume cycles do not silently revert to firmware defaults unless
+> > > in custom and in bulk mode. In that case, defer to userspace.
+> > >
+> > > Device limits are supplied for GPD Win Mini / Win 4 / Win 5 / Win Max 2 /
+> > > Duo / Pocket 4, OrangePi NEO-01, AOKZOE A1/A2, OneXPlayer F1/2/X1/G1,
+> > > and numerous AYANEO models. The SoC table covers Ryzen 5000, 6000, 7040,
+> > > 8000, AI 9 HX 370, and the Ryzen AI MAX series.
+> > >
+> > > Tested on a GPD Win 5 (Ryzen AI MAX+ 395). Confirmed with ryzenadj -i
+> > > that committed values are applied to hardware, and that fast/slow PPT
+> > > limits are honoured under a full-CPU stress load.
+> > >
+> > > Responsible disclosure: The development of this driver is AI assisted.
+> > > This includes its writing, testing, reviewing, and readmes. The driver was
+> > > manually reviewed line by line, but there may still be small leftover
+> > > quirks. This is an RFC, not a final version. Let's push these tools to
+> > > their limits and see where it takes us.
+> > >
+> >
+> > I'll tell you where the most immediate limit is.  Humans can't review
+> > RFC changes that go in daily.
+> >
+> > Over my weekend I see multiple copies of the series in my inbox.  To me
+> > they must have obviously been garbage because you sent them so quickly
+> > instead of waiting for feedback.  So I'll delete those from my inbox and
+> > review the most recent one.
+> >
+> > That's somewhat tongue in cheek.  I know you're excited for this series,
+> > but please make sure you take time to gather and take feedback into
+> > account before posting another series.
+>
+> It's true, I've been having a bit of fun. But the series is stabilized
+> now, I don't plan to send another version soon unless I messed up
+> something.
+>
+> V3 incorporated your feedback/derek's and V4 incorporated rong's
+> feedback. V4 is minor, it is just nits.
+>
+> > Maybe you can pass this to a robot and it
+> > can give you actionable feedback, but a human sitting down and reviewing
+> > a patch series in a serious way takes time.
+>
+> I'm using this series as a testbed to make some tooling for this,
+> maybe I will post it soon.
 
-mlx5_eswitch_safe_aux_devs_remove() holds esw->mode_lock for read across
-mlx5_core_reps_aux_devs_remove(), which unregisters the REPs auxiliary
-devices and therefore takes esw->offloads.reps_lock. This nests
-mode_lock outside reps_lock, the exact nesting
-mlx5_devlink_eswitch_mode_set() goes out of its way to avoid: there the
-eswitch_operation_in_progress flag is raised, mode_lock is dropped, and
-only then is reps_lock taken.
+Opus 4.6 was something. Anyway. @Mario v4 of this driver as it stands
+is pretty good for prod. Since then, I kept adding devices and
+adjusting devices based on user feedback but I did not have to touch
+the driver otherwise. It has been tested on most APUs and around 30
+device models now.
 
-With that nesting in place lockdep reports a cycle [1]. IPsec packet
-offload takes mode_lock under ipsec->tx_esw->ft.mutex, through
-mlx5_eswitch_block_encap() in tx_get(); the mode change path takes
-rtnl_mutex under reps_lock, through the netns immutable set; and
-unregistering a REP netdev takes ft.mutex, through the xfrm policy
-flush, under the netdev instance lock which is itself nested under
-rtnl_mutex:
+One thing this driver does not do is AC/DC limits and it would be good
+if it did. That way presets could be pushed higher for AC but that is
+only mildly necessary for AI Max platforms. 45W is more than enough
+for all of them anyway, but we could go to 55W e.g. (after that they
+saturate so it is unnecessary strain). But the updated limits I have
+are conservative enough where it is not an issue. I also found myself
+not using the commit option, so I think it can be removed.
 
-  &ipsec->tx_esw->ft.mutex -> &esw->mode_lock -> &esw->offloads.reps_lock
-    -> rtnl_mutex -> &dev_instance_lock_key -> &ipsec->tx_esw->ft.mutex
+The only issue with this driver is that steam maxes out TDP when you
+disable the TDP slider and as the custom limit is generic for both
+AC/DC it can strain the battery. This is an architectural issue with
+steamos manager as before steam used the _default tdp value in AMD
+sysfs but dropped the notion of default when transitioning to steamos
+manager. But this is a downstream problem unrelated to the driver
+where special DC limits could help a bit.
 
-Reproduced by unbinding the uplink ETH driver with an IPsec packet
-offload policy configured in switchdev mode:
+This is because I heard you might be working on something similar. So
+let's prevent some duplicative work. Should I repost a cleaned up V5?
 
-  devlink dev eswitch set pci/0000:08:00.0 mode switchdev
-  echo 2 > /sys/class/net/eth2/device/sriov_numvfs
-  ip addr add 193.237.171.21/16 dev eth2
-  ip link set eth2 up
-  ip xfrm policy add src 193.237.171.21 dst 193.237.172.22 \
-     offload packet dev eth2 dir out \
-     tmpl src 193.237.171.21/16 dst 193.237.172.22/16 \
-     proto esp reqid 0xdcd95f7b mode transport priority 21
-  echo mlx5_core.eth.0 > /sys/bus/auxiliary/drivers/mlx5_core.eth/unbind
+Best,
+Antheas
 
-Keep mode_lock and reps_lock unnested here as well: take mode_lock for
-write, raise eswitch_operation_in_progress, drop mode_lock, remove the
-REPs auxiliary devices, then retake mode_lock and clear the flag. The
-flag keeps excluding concurrent mode transitions and mode users while
-mode_lock is not held.
-
-Acquiring mode_lock for write can't go through mlx5_esw_try_lock(),
-which also refuses the lock while esw->user_count is non zero: that
-count is held for the lifetime of every offloaded TC flow, and those
-flows are only flushed by the REP netdev unregister this function is
-about to perform.
-Use a local trylock helper that attempts to acquire mode_lock and only
-bails if the operation flag is set. Bail out early when the device has
-no eswitch, which mlx5_esw_hold() used to cover.
-
-[1]
- WARNING: possible circular locking dependency detected
- 7.2.0-rc2+ #2 Tainted: G        W
- ------------------------------------------------------
- run.sh/7007 is trying to acquire lock:
- (&ipsec->tx_esw->ft.mutex){+.+.}-{4:4}, at: tx_ft_put_policy+0x81/0x130 [mlx5_core]
-
- but task is already holding lock:
- (&dev_instance_lock_key#9){+.+.}-{4:4}, at: unregister_netdevice_many_notify+0x3eb/0x2140
-
- which lock already depends on the new lock.
- [...]
- Chain exists of:
-   &ipsec->tx_esw->ft.mutex --> rtnl_mutex --> &dev_instance_lock_key#9
-
-  Possible unsafe locking scenario:
-
-        CPU0                    CPU1
-        ----                    ----
-   lock(&dev_instance_lock_key#9);
-                                lock(rtnl_mutex);
-                                lock(&dev_instance_lock_key#9);
-   lock(&ipsec->tx_esw->ft.mutex);
-
-  *** DEADLOCK ***
-
- 8 locks held by run.sh/7007:
-  [...]
-  #3: (&esw->mode_lock){++++}-{4:4}, at: mlx5_esw_hold+0xcc/0x150 [mlx5_core]
-  #4: (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xa5/0x560
-  #5: (&esw->offloads.reps_lock){+.+.}-{4:4}, at: mlx5_eswitch_unregister_vport_reps+0x1f/0x40 [mlx5_core]
-  #6: (rtnl_mutex){+.+.}-{4:4}, at: rtnl_net_dev_lock+0xde/0x260
-  #7: (&dev_instance_lock_key#9){+.+.}-{4:4}, at: unregister_netdevice_many_notify+0x3eb/0x2140
-
- Call Trace:
-  <TASK>
-  tx_ft_put_policy+0x81/0x130 [mlx5_core]
-  mlx5e_xfrm_del_policy+0x36/0x90 [mlx5_core]
-  xfrm_policy_kill+0xc3/0x410
-  xfrm_dev_policy_flush+0x258/0x360
-  xfrm_dev_event+0x2a3/0x3b0
-  notifier_call_chain+0x97/0x2b0
-  netif_close_many+0x367/0x710
-  netif_close_many_and_unlock+0x1d/0x240
-  unregister_netdevice_many_notify+0x567/0x2140
-  unregister_netdevice_queue+0x29a/0x350
-  unregister_netdev+0x18/0x60
-  mlx5e_vport_rep_unload+0x20b/0x2b0 [mlx5_core]
-  mlx5_eswitch_unregister_vport_reps_blocked+0xb0/0x230 [mlx5_core]
-  mlx5_eswitch_unregister_vport_reps+0x2a/0x40 [mlx5_core]
-  device_release_driver_internal+0x3b2/0x560
-  bus_remove_device+0x2a9/0x510
-  device_del+0x3b9/0x990
-  mlx5_core_reps_aux_devs_remove+0x135/0x200 [mlx5_core]
-  mlx5_eswitch_safe_aux_devs_remove+0xa5/0xd0 [mlx5_core]
-  mlx5e_remove+0x10d/0x370 [mlx5_core]
-  device_release_driver_internal+0x3b2/0x560
-  unbind_store+0xce/0xf0
-  kernfs_fop_write_iter+0x3c6/0x5d0
-  vfs_write+0x4d9/0xf70
-  ksys_write+0xec/0x1c0
-  do_syscall_64+0xaf/0x5c0
-  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-  </TASK>
-
-Fixes: 2ae8c7edea87 ("net/mlx5: Fix Unbinding uplink-netdev in switchdev mode")
-Signed-off-by: Shay Drory <shayd@nvidia.com>
-Reviewed-by: Mark Bloch <mbloch@nvidia.com>
-Reviewed-by: Akiva Goldberger <agoldberger@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- .../mellanox/mlx5/core/eswitch_offloads.c     | 37 +++++++++++++++++--
- 1 file changed, 34 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-index eb74b6260168..f934cb2b26b0 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-@@ -4438,15 +4438,36 @@ static bool mlx5_devlink_switchdev_active_mode_change(struct mlx5_eswitch *esw,
- #define MLX5_ESW_HOLD_TIMEOUT_MS 7000
- #define MLX5_ESW_HOLD_RETRY_DELAY_MS 500
- 
-+/* Unlike mlx5_esw_try_lock(), don't refuse the lock over eswitch users.
-+ * Teardown must run even with TC flows still offloaded, as those are only
-+ * flushed once the REPs are removed.
-+ */
-+static bool esw_try_lock_ignore_users(struct mlx5_eswitch *esw)
-+{
-+	if (!down_write_trylock(&esw->mode_lock))
-+		return false;
-+
-+	if (esw->eswitch_operation_in_progress) {
-+		up_write(&esw->mode_lock);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
- {
-+	struct mlx5_eswitch *esw = dev->priv.eswitch;
- 	unsigned long timeout;
- 	bool hold_esw = true;
- 
-+	if (!mlx5_esw_allowed(esw))
-+		return;
-+
- 	/* Wait for any concurrent eswitch mode transition to complete. */
--	if (!mlx5_esw_hold(dev)) {
-+	if (!esw_try_lock_ignore_users(esw)) {
- 		timeout = jiffies + msecs_to_jiffies(MLX5_ESW_HOLD_TIMEOUT_MS);
--		while (!mlx5_esw_hold(dev)) {
-+		while (!esw_try_lock_ignore_users(esw)) {
- 			if (!time_before(jiffies, timeout)) {
- 				hold_esw = false;
- 				break;
-@@ -4455,9 +4476,19 @@ void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
- 		}
- 	}
- 	if (hold_esw) {
-+		/* Keep mode_lock and reps_lock unnested. The operation flag
-+		 * excludes mode users while mode_lock is dropped before the
-+		 * REPs removal takes reps_lock.
-+		 */
-+		esw->eswitch_operation_in_progress = true;
-+		mlx5_esw_unlock(esw);
-+
- 		if (mlx5_eswitch_mode(dev) == MLX5_ESWITCH_OFFLOADS)
- 			mlx5_core_reps_aux_devs_remove(dev);
--		mlx5_esw_release(dev);
-+
-+		down_write(&esw->mode_lock);
-+		esw->eswitch_operation_in_progress = false;
-+		mlx5_esw_unlock(esw);
- 	}
- }
- 
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
--- 
-2.44.0
+> > > Assisted-by: Claude:claude-opus-4-6
+> > >
+> > > ---
+> > >
+> > > Changes in v4:
+> > >    - Align dptc_params continuation lines to opening brace
+> > >    - Reflow all dptc_device_limits structs: expand zipped braces into
+> > >      separate .params and .profiles blocks with proper indentation
+> > >    - Extract enum dptc_save_mode from struct dptc_priv to a standalone
+> > >      declaration
+> > >    - Replace vague mutex comment with explicit list of protected members
+> > >    - Use &buf[off + 1] form for put_unaligned_le32
+> > >    - Fix misaligned '=' in ACPI in_params block
+> > >    - Factor out dptc_alib_fill_param() helper to deduplicate ALIB buffer
+> > >      construction in dptc_alib_send_one() and dptc_alib_save(); use int
+> > >      instead of size_t for element counts throughout
+> > >    - Consolidate dptc_current_value_store: single guard(mutex) instead of
+> > >      two, eliminating duplicated profile check
+> > >    - Return -EBUSY instead of -EPERM when profile is not custom
+> > >    - Add blank line after early returns for readability
+> > >    - Consolidate dptc_alib_save() call into dptc_apply_profile(), which
+> > >      now returns int; simplify dptc_pp_set() and dptc_resume() callers
+> > >    - Squash device_create formatting fix into the patch that introduced it
+> > >    - Remove bogus "AMD Ryzen AI HX 360" SoC entry (no such model exists)
+> > >    - Return -ENOENT instead of -EINVAL from dptc_alib_call() when no
+> > >      parameters are staged, matching think-lmi save_settings semantics
+> > >    - Remove bool has_staged[] array: use staged[i] == 0 as the "not
+> > >      staged" sentinel, raise expanded_min from 0 to 1 W to ensure 0 is
+> > >      never a valid user value
+> > >    - Remove unnecessary braces from if/else if/else chain in dptc_resume()
+> > >    - Drop Ryzen Z1 SoC entries: Z1 devices (Lenovo/Asus) use vendor EC/PMF
+> > >      drivers, not ALIB DPTCi
+> > >
+> > > Changes in v3:
+> > >    - Split single driver patch into 3: core driver, platform profile,
+> > >      device entries
+> > >    - Rename DRIVER_NAME from "amd_dptc" to "amd-dptc" (match subsystem
+> > >      convention for platform drivers and firmware-attributes devices)
+> > >    - Add scale field to dptc_param_desc: sysfs values in user units (W, C),
+> > >      driver multiplies by scale (1000 for mW) before sending to ALIB
+> > >    - Rename struct fields: min/smin/smax/max ->
+> > >      expanded_min/device_min/device_max/expanded_max
+> > >    - Remove comment "ALIB parameter IDs (AGESA spec Appendix E.5, Table
+> > >      E-52)"
+> > >    - Move ALIB method check after SoC/DMI validation, change pr_debug to
+> > >      pr_warn
+> > >    - Reorder local variable declaration in dptc_init (dptc after other vars)
+> > >    - Add commit subject prefix "dptc:" to all driver patches
+> > >    - Remove early-return for empty save in dptc_alib_save; let
+> > >      dptc_alib_call handle the empty case
+> > >    - Remove max_power as we do not do DC/AC validation in the driver
+> > >    - Fix Ayaneo AIR device matches to reflect their wattage, add 15W profile
+> > >      for original AIR. Cheers to the AIR Plus user who had helped tune the
+> > >      AIR Plus profile so it was correct.
+> > >
+> > > Changes in v2:
+> > >    - Use a platform_device base instead of raw inits + exit, hook into devm
+> > >      helpers referencing samsung-galaxybook
+> > >    - Add platform_profile support (low-power / balanced / performance /
+> > >      custom) with per-device energy presets; non-custom profiles lock
+> > >      tunables to read-only. We default to custom to avoid writing values
+> > >    - Reduce exposed parameters from seven to four (ppt_pl1_spl,
+> > >      ppt_pl2_sppt, ppt_pl3_fppt, cpu_temp); drop time constants and
+> > >      separate skin/STAPM limits in favour of a single SPL that sets both.
+> > >      For devices where the max tdp offers thermals that are not suitable
+> > >      for day to day use (e.g., excessive fan noise), MAX_POWER is added
+> > >    - Remove CONFIG_AMD_DPTC_EXTENDED and the "soc"/"unbound" limit tiers;
+> > >      keep only device (smin..smax) and expanded (min..max) and soc match
+> > >      (certain devices ship multiple SoCs on the same motherboard/thermal
+> > >      envelope, make sure we only hook into validated SoCs)
+> > >    - Rename "commit" attribute to "save_settings" per firmware-attributes
+> > >      ABI; rename limit_mode to expanded_limits
+> > >    - Change expanded_limits attribute type from "enumeration" to "integer"
+> > >      (min=0, max=1) since firmware-attributes has no bool type
+> > >    - Remove all global vars, limit _dev access to init and exit
+> > >    - Use u32 accessors to set values for ALIB call
+> > >    - Clean up verbose comments throughout
+> > >    - Add Ayn Loki Max / Tectoy Zeenix Pro
+> > >
+> > > V3: https://lore.kernel.org/all/20260307115516.26892-1-lkml@antheas.dev/
+> > > V2: https://lore.kernel.org/all/20260305181751.3642846-1-lkml@antheas.dev/
+> > > V1: https://lore.kernel.org/all/20260303181707.2920261-1-lkml@antheas.dev/
+> > >
+> > > Antheas Kapenekakis (4):
+> > >    Documentation: firmware-attributes: generalize save_settings entry
+> > >    platform/x86/amd: dptc: Add AMD DPTCi driver
+> > >    platform/x86/amd: dptc: Add platform profile support
+> > >    platform/x86/amd: dptc: Add device entries for handheld PCs
+> > >
+> > >   .../testing/sysfs-class-firmware-attributes   |   41 +-
+> > >   MAINTAINERS                                   |    6 +
+> > >   drivers/platform/x86/amd/Kconfig              |   15 +
+> > >   drivers/platform/x86/amd/Makefile             |    2 +
+> > >   drivers/platform/x86/amd/dptc.c               | 1271 +++++++++++++++++
+> > >   5 files changed, 1320 insertions(+), 15 deletions(-)
+> > >   create mode 100644 drivers/platform/x86/amd/dptc.c
+> > >
+> > >
+> > > base-commit: 4ae12d8bd9a830799db335ee661d6cbc6597f838
+> >
+> >
 
