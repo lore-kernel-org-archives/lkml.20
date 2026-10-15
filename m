@@ -1,66 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B111D3C09F8;
-	Thu, 15 Oct 2026 08:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E0F3DD86F;
+	Thu, 15 Oct 2026 08:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053832; cv=none; b=X0FQDoIOCj6E6oDW/m+dde2Dp5frhGk+OnAT91xeI1shc3DeGYztzyLsF5qnUZR7EF4AODLS/YKIm0c7Ea8W1eWoxuEn5+MOUHVNGKmZOs514V7O7/oHgh3oGAw0G8aE5VuVM9cO+6Vu00W+mqhWZVq9aY+LAvVuD1Z8mjkjnvc=
+	t=1792053833; cv=none; b=aRecDj1gyRBTvRM8lTof/sOd8JQ0mDZenXNDSeoc5TgkTp/b3+U0cw/Na4MF7QpUjBseUi3P+YYksFLeSL27loZGnrwURw7mOIefMTrV15QdHdwg4mzV8JKbNUMWlyIYOYgkzMkNeuS8L9KfxwCRRxy/hdQLIVKQEUucLIezi00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053832; c=relaxed/simple;
-	bh=jNta5tJrlL+kVyd/VQA+FmuKKgibGSZIM2soOuLgHaA=;
+	s=arc-20240116; t=1792053833; c=relaxed/simple;
+	bh=zKyfno9ujp9P0lk+Qs6+gvFZupmtJqb7vwW2ek7SFgA=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=MULtcEXc/1U+ZSDjR4+vXAmiCMTglrjQfnnEhoeBSNDrHBbdTTmYbR8KIgkjNCq9g+ID28b7m+jnaRze+UAma0HX3R7w7EDO5mnBwXXFc9hzwk4XkirhVGXY28EK8zLrSwVDtbVj1Rk8rrOcD0jYhuDWtUAjduj0d740Lh42Wik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l/+HCLej; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=G6QHiYg6; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=SFdIKDUJmPjeYrcSXWR+nDYNZSksqDNMRtshJWJZ4cvMmWwaPfk2Z3SHMPpke4UUzn1+MWDHdenBDg4kihBKLO4xR6T++gSpTrW+PyHH+i9tAH+tS051/gTEcCeW6oMpz0mGrqRRI4pYz1/8e383d37nkB7o731valdf7OO43sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gPqCRWl/; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Q1l1ugMq; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l/+HCLej";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="G6QHiYg6"
-Date: Thu, 15 Oct 2026 08:43:46 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gPqCRWl/";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Q1l1ugMq"
+Date: Thu, 15 Oct 2026 08:43:48 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792053828;
+	s=2020; t=1792053830;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+VkRWmnE0pu7bXDyHBV80/xwlWFuBIFyo4Pp8FoJO5w=;
-	b=l/+HCLejAX6gNwwkqIt7UJqLKqLzSyGXbYyukZRGmo2x8No9M7ipkANIt+z51X3ZJAeErS
-	ZmHuzp5VALW8/ZxtGhhUqU/GlWGeGGkPZokQCNaNJT5NKBrsTB2tUSBM5pQKPDY+8PUwYU
-	9SUWHYmpCAETDHcoIKATBmZYAuhk8HbD7VrRhlsnft0SP3UYaZlTm67sbUD+szWxx2KdDF
-	E5EPZZJZIcx7WvYJfZp7QyB+qRIxLTVqEACD/lgwqUEryXTV9XqCa7hwBtTxr/uECWkM9I
-	Vq/v6g83/kaiR8n6bU5/l2nxJPIrpksDlpilASUQBVQFOSFRVqpw4MGdpILRnQ==
+	bh=7BZspPrD9UWEFx8695S6SgBtrP75yQYv5wPnJnAYOgI=;
+	b=gPqCRWl/yv4Lg/BRS+NWbTwlSQjt9aM9Dx8sXCS1+Vzw8VSVQVaiHMTJ/2K63tGIw2LsKP
+	vOrVZBc/XEV4GsiHR0vzJ7Bu9e57ZSziZ2VkfrPiwbUx2Qjof2WvbVuqB/tQlnDn1hIfQ9
+	+U0QSa5VxEWIrJcAyc8L3bDCtuwKkI29O76sLqYJ2hxN62hfNpCG9tzBNUT7cpv/UNXZkC
+	Nh0chy4nbdnzrptBaMUjU4dDzuWCFwTXLJ/TfxR8FW554lBL4EKdRV+qn9LmJUeofNkyKC
+	h1GmupgpPo3oJBcZPRnrTcP61qRW3mIYaEzXgBUbzDFcIfvvgx2Jl3cyzbv4Ww==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792053828;
+	s=2020e; t=1792053830;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+VkRWmnE0pu7bXDyHBV80/xwlWFuBIFyo4Pp8FoJO5w=;
-	b=G6QHiYg6VY7S7s5ml49rwM3C6eb95d1RavX7S4PG+An2hvj/GjjAxIyBCvBtp4zQbwEPX7
-	K6S1FVeFaw00sVAg==
-From: "tip-bot2 for Haris Okanovic" <tip-bot2@linutronix.de>
+	bh=7BZspPrD9UWEFx8695S6SgBtrP75yQYv5wPnJnAYOgI=;
+	b=Q1l1ugMqS4s3Pi4kewSPBbFQKlJHGFXmVRu2KSn6hoviHW+UaGYWfiGcmWtvKPtCcJMB2v
+	8jcM+b6zCCwQF9DQ==
+From: "tip-bot2 for Vidya Sagar" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: irq/core] genirq/proc: Fix missing CPU header in /proc/interrupts
-Cc: Haris Okanovic <harisokn@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
- Michael Kelley <mhklinux@outlook.com>, Radu Rendec <radu@rendec.net>,
+Subject: [tip: irq/core] PCI/MSI: Skip MSI/MSI-X programming while the channel
+ is offline
+Cc: Vidya Sagar <vidyas@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
  x86@kernel.org, linux-kernel@vger.kernel.org, maz@kernel.org
-In-Reply-To:
- <20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
-References:
- <20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
+In-Reply-To: <20260909164908.2562818-1-vidyas@nvidia.com>
+References: <20260909164908.2562818-1-vidyas@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205382650.2666988.3089457189034425264.tip-bot2@tip-bot2>
+Message-ID: <179205382812.2666988.5965484759762042818.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -70,98 +67,120 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/core branch of tip:
 
-Commit-ID:     4351cc74202857f5b85b3573c477c9f798f5cd88
-Gitweb:        https://git.kernel.org/tip/4351cc74202857f5b85b3573c477c9f798f=
-5cd88
-Author:        Haris Okanovic <harisokn@amazon.com>
-AuthorDate:    Fri, 11 Sep 2026 13:31:59 -05:00
+Commit-ID:     869bf1131e369c0ed60e50629bb6c1982438c8ef
+Gitweb:        https://git.kernel.org/tip/869bf1131e369c0ed60e50629bb6c198243=
+8c8ef
+Author:        Vidya Sagar <vidyas@nvidia.com>
+AuthorDate:    Wed, 09 Sep 2026 22:19:08 +05:30
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Thu, 15 Oct 2026 10:38:14 +02:00
 
-genirq/proc: Fix missing CPU header in /proc/interrupts
+PCI/MSI: Skip MSI/MSI-X programming while the channel is offline
 
-irq_seq_show() must be idempotent since it may be called multiple times
-to render the same record, e.g. when seq_file's buffer is exceeded. It
-emits the CPU header behind the one-shot print_header flag, which the
-first pass clears, so the header is lost with the discarded buffer.
+The MSI-X Table lives in device MMIO space behind a BAR and the MSI Mask
+register in Configuration Space, so neither is reachable while the Link is
+down. While a Downstream Port has the Link contained by DPC it completes
+these accesses with Unsupported Request, and reads return all ones.
 
-This can be seen on large systems, such as 8g.48xl (192 CPUs) and
-8i.96xl (384 CPUs) AWS instance types:
+If the upstream Root Port implements the RP Extensions for DPC, it
+additionally reports that UR completion as an RP PIO error and triggers a
+second containment event, this time at the Root Port, which contains every
+device below it. So a contained Link on one Downstream Port turns into a
+far wider outage that takes down unrelated devices.
 
-  $ head -1 /proc/interrupts
-     9:          0          0 ...  0  GICv3  25 Level  vgic
+pci_free_irq_vectors() is called from driver error_detected() and
+prepare-for-reset callbacks, i.e. while the Link is contained and before
+the reset and the pci_restore_state() that follows it, and it masks every
+descriptor. Skip the programming when pci_channel_offline(), which also
+covers surprise removal. The msix_ctrl and msi_mask caches are still
+updated, so the restore paths replay the intended state once the Link is
+back up, and report_slot_reset() clears the offline state before the driver
+callback runs, so recovery is unaffected.  pci_msix_write_tph_tag() flushes
+its Vector Control update with an unconditional read, so return -EIO there
+rather than issue it for a write that was skipped; the caller disables TPH
+in response. error_state is only set once containment has occurred, so this
+covers the case where the kernel knows the Link is down; it is not mutual
+exclusion against a containment event that begins concurrently.
 
-Replace print_header with the position of the first record and include
-the header whenever that record is emitted.
+This does not attempt to make every Configuration Space access safe while
+the Link is contained.
 
-Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
-Signed-off-by: Haris Okanovic <harisokn@amazon.com>
+Signed-off-by: Vidya Sagar <vidyas@nvidia.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: Michael Kelley <mhklinux@outlook.com>
-Reviewed-by: Radu Rendec <radu@rendec.net>
-Link: https://patch.msgid.link/20260911-dev-harisokn-proc-interrupts-fix-b4-v=
-1-1-f9ff208efcfa@amazon.com
+Link: https://patch.msgid.link/20260909164908.2562818-1-vidyas@nvidia.com
 ---
- kernel/irq/proc.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/pci/msi/msi.c | 15 +++++++++++++--
+ drivers/pci/msi/msi.h |  8 ++++++++
+ 2 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
-index 1b83572..0c0df16 100644
---- a/kernel/irq/proc.c
-+++ b/kernel/irq/proc.c
-@@ -462,7 +462,7 @@ int __weak arch_show_interrupts(struct seq_file *p, int p=
-rec)
- static DEFINE_RAW_SPINLOCK(irq_proc_constraints_lock);
-=20
- static struct irq_proc_constraints {
--	bool		print_header;
-+	loff_t		first_pos;
- 	unsigned int	num_prec;
- 	unsigned int	chip_width;
- } irq_proc_constraints __read_mostly =3D {
-@@ -543,14 +543,13 @@ static int irq_seq_show(struct seq_file *p, void *v)
- 	struct irqaction *action;
-=20
- 	/* Print header for the first interrupt? */
--	if (constr->print_header) {
-+	if (p->index =3D=3D constr->first_pos) {
- 		unsigned int cpu;
-=20
- 		seq_printf(p, "%*s", constr->num_prec + 8, "");
- 		for_each_online_cpu(cpu)
- 			seq_printf(p, "CPU%-8d", cpu);
- 		seq_putc(p, '\n');
--		constr->print_header =3D false;
- 	}
-=20
- 	if (desc =3D=3D ARCH_PROC_IRQDESC)
-@@ -635,14 +634,25 @@ static void *irq_seq_next_desc(loff_t *pos)
-=20
- static void *irq_seq_start(struct seq_file *f, loff_t *pos)
- {
--	if (!*pos) {
--		struct irq_proc_constraints *constr =3D f->private;
-+	struct irq_proc_constraints *constr =3D f->private;
-+	bool first =3D !*pos;
-+	void *ret;
-=20
-+	if (first) {
- 		constr->num_prec =3D READ_ONCE(irq_proc_constraints.num_prec);
- 		constr->chip_width =3D READ_ONCE(irq_proc_constraints.chip_width);
--		constr->print_header =3D true;
- 	}
--	return irq_seq_next_desc(pos);
-+
-+	ret =3D irq_seq_next_desc(pos);
-+
-+	/*
-+	 * Record position of the first output record so that irq_seq_show()
-+	 * knows where to write the header.
-+	 */
-+	if (first)
-+		constr->first_pos =3D *pos;
-+
-+	return ret;
+diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+index 80a9db4..8a0133a 100644
+--- a/drivers/pci/msi/msi.c
++++ b/drivers/pci/msi/msi.c
+@@ -133,7 +133,9 @@ void pci_msi_update_mask(struct msi_desc *desc, u32 clear=
+, u32 set)
+ 	raw_spin_lock_irqsave(lock, flags);
+ 	desc->pci.msi_mask &=3D ~clear;
+ 	desc->pci.msi_mask |=3D set;
+-	pci_write_config_dword(dev, desc->pci.mask_pos, desc->pci.msi_mask);
++	/* Cached either way, for __pci_restore_msi_state() to replay */
++	if (!pci_channel_offline(dev))
++		pci_write_config_dword(dev, desc->pci.mask_pos, desc->pci.msi_mask);
+ 	raw_spin_unlock_irqrestore(lock, flags);
  }
 =20
- static void *irq_seq_next(struct seq_file *f, void *v, loff_t *pos)
+@@ -249,7 +251,7 @@ void __pci_write_msi_msg(struct msi_desc *entry, struct m=
+si_msg *msg)
+ {
+ 	struct pci_dev *dev =3D msi_desc_to_pci_dev(entry);
+=20
+-	if (dev->current_state !=3D PCI_D0 || pci_dev_is_disconnected(dev)) {
++	if (dev->current_state !=3D PCI_D0 || pci_channel_offline(dev)) {
+ 		/* Don't touch the hardware now */
+ 	} else if (entry->pci.msi_attrib.is_msix) {
+ 		pci_write_msg_msix(entry, msg);
+@@ -976,6 +978,15 @@ int pci_msix_write_tph_tag(struct pci_dev *pdev, unsigne=
+d int index, u16 tag)
+ 	if (!msi_desc || msi_desc->pci.msi_attrib.is_virtual)
+ 		return -ENXIO;
+=20
++	/*
++	 * The tag update below is a write to the MSI-X Table followed by a
++	 * flush read, neither of which can be completed while the Link is
++	 * down. Check as late as possible, as the Link can go down at any
++	 * point. Let the caller disable TPH.
++	 */
++	if (pci_channel_offline(pdev))
++		return -EIO;
++
+ 	FIELD_MODIFY(PCI_MSIX_ENTRY_CTRL_ST, &msi_desc->pci.msix_ctrl, tag);
+ 	pci_msix_write_vector_ctrl(msi_desc, msi_desc->pci.msix_ctrl);
+ 	/* Flush the write */
+diff --git a/drivers/pci/msi/msi.h b/drivers/pci/msi/msi.h
+index 0b420b3..f987cf8 100644
+--- a/drivers/pci/msi/msi.h
++++ b/drivers/pci/msi/msi.h
+@@ -36,6 +36,10 @@ static inline void pci_msix_write_vector_ctrl(struct msi_d=
+esc *desc, u32 ctrl)
+ {
+ 	void __iomem *desc_addr =3D pci_msix_desc_addr(desc);
+=20
++	/* The Table is unreachable while the Link is down */
++	if (pci_channel_offline(msi_desc_to_pci_dev(desc)))
++		return;
++
+ 	if (desc->pci.msi_attrib.can_mask)
+ 		writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+ }
+@@ -43,6 +47,10 @@ static inline void pci_msix_write_vector_ctrl(struct msi_d=
+esc *desc, u32 ctrl)
+ static inline void pci_msix_mask(struct msi_desc *desc)
+ {
+ 	desc->pci.msix_ctrl |=3D PCI_MSIX_ENTRY_CTRL_MASKBIT;
++
++	if (pci_channel_offline(msi_desc_to_pci_dev(desc)))
++		return;
++
+ 	pci_msix_write_vector_ctrl(desc, desc->pci.msix_ctrl);
+ 	/* Flush write to device */
+ 	readl(desc->pci.mask_base);
