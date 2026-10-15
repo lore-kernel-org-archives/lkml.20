@@ -1,143 +1,124 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062B65237A3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497C75208A3
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068280; cv=none; b=fNWmyIB6310+F6tNGAtLNT9xgE/WGypEGih/ygju5mSrUHiOtDid9pVCxHMfkWWvkSjOtvAd9XA3OQTFTLExeMDLWUokSBei16IyVPTcl0hGI8GtC9XlBbyjnghW3SNT1jmuIH7FHsHJpIkQAb/0XkR3xcoRHjx6Ifa3+xHCat8=
+	t=1792068317; cv=none; b=pQpN7chb6CEj6JhevBZtcFGhXpVp3190cdXjF+xgIq498XGDrUKMTOHkuwxS8lRy6hx4ne7kAD5SKU4bFYJ6v9HRZSjzg5BzBPQE7q1s0RPiECHNe/HcDJr14vSCXl3AbK+Z2NFleug/Knt8largeAHgQgNc+10niXMrHPcP8jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068280; c=relaxed/simple;
-	bh=5qhaWzhdS3osLaGeSAZyD/YR16YDXoXP1Hs+7UcmpXQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=JKa1l/j66qpTLeWTp3c5Ks0xB0NQ5Tz9TRARosiPmE6aJAuRRiCaJyw11y2cU3Lhid5xcKNwr5t9UwKFYl7S9opekzDbYMW+7/ycV1bCJrUI2HihCRZxBaW9Q/b0FpI4r/536a0EhqhcN9QSveeuGfqcpxvdWz4/pSqqK19LsQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c307941971so7768066b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:44:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792068278; x=1792673078;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+	s=arc-20240116; t=1792068317; c=relaxed/simple;
+	bh=j4bWdL2KdzuWTN7mQcdzbBE3anUhrJg5Qh62aTSfhog=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JoEmiskYwgTk/K9L8EQSa2KhkOGR4WUXs8m1PW6GTduf9nOlKlYCd60HVBM3qblw8qWSEYMS8aP174TUIQNWSX//e6N/cOuFN+MYJbENM4na1VvMBhm1rV5wH2ju2I8CFWOTsIAEs33WtXHhrZIhWWPaeDsTpZlbDsH2MeRSAzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=gkEMpKuu; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="gkEMpKuu"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c6f764f82so700720f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1792068313; x=1792673113; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=hE3+QeYBz3abijvNNrapvmbBeHvYU9X5O/L1CcRTiDs=;
-        b=O1r9aGGJN/q6N/1D9JUvFHS1wI0z17U4fTWCHt6TMJuqT4oCkkkQD+NIIiOzZHchOA
-         j/WQIW8LBfskVSRGxaIHKq5zKbVBMdq4QTxBEkVbd0S3Ryj3tDiBNtOOs2MARj9lcbqj
-         XMV8wgYXUK+Q3tYAPXtSGU1iWY9nn7ffD/MuxssWxZSjjHmLJn6eCMWZyxpetUm0aeCD
-         fNwrHkgBZLDxDsjAGnk5vmpAvVgD08kA1Ak7Kf/FzsKW7KmP/qmn+oWUYrGabOaDFZzI
-         Ja9olcHlw7DRpzcKfAhqPi+ETReA0/NYZ8m1sU1UrKCwS9vWhGkEZov/nhkkHr9HhRCh
-         7yrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwB1YSZTAboOwSgiOfLIplrGB86RcMcwd0L/52hG1p//QJa2sLmcZ05dr+GWWxs0vDHyMCRWJJ9XbYQW4g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK99ctrpolfa8GM+ccaJ+3sz/3xewLYHY5wH4JjW+3hJbWHry/E
-	K0upSJvDFSR+tbIG/+xA6xT4HaqkUDJZxs3APdPlqulUiK0I4rTaBm4+EI4CNExS+Sj6fvgvgT7
-	O9YRqru8KoCIjchkC4dQtwx8soO85iiAUrbus8cEuhq8zeX92SW/Hh8ZJxYc=
+        bh=5Il+ddCvnfoN5BE2PTqdZxQP835L2JzCkXFfKNhKcR0=;
+        b=gkEMpKuuiZju3dY3nJTJkhpwyWzd0DF21vBLece/CRWwY/ho1cjniWk0xPech7HhOv
+         qxVoaavz4VhMF2Z4HUncGzoJlE8FfWIh0Nn1/HQnid1xpDEVcRIJWHeYN23bf4BNgevY
+         vd22S4b8aQVSGXzX8akUHu+yDokTc5RGRBapK+JXDNly8s/6U7QcxG/W7Mh6Y/Qzw5OP
+         2OwkZcI9V8gsCr6cfKPRJS5xCAcv729qwlhL/FOiaijiPqR34YB5UvYAEw7zD9O3saVp
+         HADZLtA91EbIAi+vrF/FX4D4DkG5dnYkjwPQ30WcoZgkF5aIHVJm6BlF3RtrP3Sqrjrn
+         jb0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792068313; x=1792673113;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5Il+ddCvnfoN5BE2PTqdZxQP835L2JzCkXFfKNhKcR0=;
+        b=X1Gyumc3N0KlPAYKSNJcqqRhLc51ZJzJXcErWnDXo11hjFz7biuTomeri0OhN2FtGA
+         BcZrTc/HbxswlFvNhQvYOdHjiSug/pWmUk2yBfgtpF4Rt1hULs2qV0RY8eHcP+LCQBD3
+         aJddDm7jJIQAaGGfQxNaXBHtl7aBTnXpOgyliS3vOCi1bb2sbM/Qnt/MBk/8yF+kLXei
+         GkDSz8sdCyOkxuS4/H1IZxCFENKtz8sWPziFATt4sI7ZLxVxpgIoWHAwgeUicGMtCLUr
+         37V5TDhWciVmGrw2qkMr1iltER3Rp52j4gjTPg8efePVr668LT/ED4IaQ47mRqq3aZpS
+         OxRA==
+X-Forwarded-Encrypted: i=1; AKwUvBymEqp64TRbJWZ0fY0+lWM99ZUjM1dBHpQwHVFNAM01FQDcECtH39qd4QRE3AU9M+q8PTMfllOb/rmS/jY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLD5mR4SG1ri/byAf1m8oarYzMZIWf0XJQkZigho1XmtsGWkya/
+	L/zrHnkg1zFFXu/bbfVXPgtT8xBuHbXQ/kKmd6MpRkNv9ZPQKNazfdvBC6JBSPDvv0c=
+X-Gm-Gg: AYBFou1Ru6a9nGAjTiTOEnVsDRk7MUKnwJDMATQRrefxD+lG05ocKNwzT3utqqiM2Xk
+	a8YfGRCjtE9LHWQteDIPzjNm1eX+hlDeLznZzGZgtRO3wh3ucq5Yebo35Fl0I+YQAC80PdXoBVL
+	WXc3L4ak9s4yCyAEaVXV7oo3a88xd2HU7IU5H2jf/USqvHAsT6tp+XcJeGRefU2F2EPIraOMvca
+	4Z0phqJRhwxWYctcDcCiiTQbMN0cjl7TJ+DA6OLvit/4uxlmJTmL3VeIpJylAfW/WueCI+CpiA4
+	1+RHB/c9fuCH2E0YFdEd/G77yJzJHucX8Tq0pyCoFctvXZ0FJi9TD2/WXO0aGfQEFe/YBu/DOvN
+	XRgwsW/016Wr5pm/Bf2IwtF773YOiquGQoEnJqqSaDzpMfXTB/JIL1Y149i2dwYC5embwXh57H4
+	DFa/i+vT0jteNonCzOXr0ogt4k710DeD5fGbonTHwbB2RstHg73yIU1TRdSq88Q90nhz+kbG5pA
+	XG3Lw9HcgA4/p58LBq/BQ+i+zMSl1CLRZ+JSvWrcE+ovYOF7Wd9ykQ=
+X-Received: by 2002:a05:6000:41cd:b0:48d:f14a:9179 with SMTP id ffacd0b85a97d-48df14a92cdmr7027218f8f.48.1792068313379;
+        Thu, 15 Oct 2026 05:45:13 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab4edfsm19586102f8f.26.2026.10.15.05.45.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 05:45:08 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 15 Oct 2026 16:45:03 +0400
+Subject: [PATCH] power: supply: bq257xx: Describe the dev field in the
+ driver data structure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1310:b0:4c4:5f5b:6918 with SMTP id
- 5614622812f47-50c5237ca39mr16065006b6e.16.1792068277935; Thu, 15 Oct 2026
- 05:44:37 -0700 (PDT)
-Date: Thu, 15 Oct 2026 05:44:37 -0700
-In-Reply-To: <6ac82420.a150a118.27e199.001f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad0cab5.5f317f00.247b6.0069.GAE@google.com>
-Subject: Re: [syzbot] [net?] WARNING in vmxnet3_probe_device (2)
-From: syzbot <syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com>
-To: andrew@lunn.ch, bcm-kernel-feedback-list@broadcom.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, pabeni@redhat.com, ronak.doshi@broadcom.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-bq257xx-dev-comment-v1-1-c87ee6a3b251@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTMJLbQ1XoWwsMOoY0LRFkkTw
+ t0punyL/zdIHIUTXKsNIq+SZA4Fqq6AnrfwYJSxGHSjrWqUQf/RxuWMI69I8zRxWPDiyGiyru2
+ sh1K+I98l/6798Hf6+hfTcq5g3w/p9fQrdwAAAA==
+X-Change-ID: 20261015-bq257xx-dev-comment-87c52c67346b
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1214; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=j4bWdL2KdzuWTN7mQcdzbBE3anUhrJg5Qh62aTSfhog=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRdOHX5enzCpVxpoxlqoj8LFIK3MvYU2b3RbHNf8FPEc
+ efc9Sk5HRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEy1hDXDf1eTI48Ujh1TtdnJKW0k+T2Ip+3lD+/JX6tCLfIZdiTUCjH8M/LsecA
+ 94XzGzPCne7xU4l425k4SN7+2rZRJSe0k370DrAA=
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-syzbot has found a reproducer for the following issue on:
+The commit moving the device initialization to the new .init callback
+missed the description of the newly introduced dev field in the driver
+data structure - add an entry to the kerneldoc.
 
-HEAD commit:    0fcb05b72344 Merge tag 'libcrypto-fixes-for-linus' of git:..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16328171580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=8eed6f83440ecdaf4be6
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1209b29c580000
+No code changes.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610120726.XkN50Smh-lkp@intel.com/
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ drivers/power/supply/bq257xx_charger.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-------------[ cut here ]------------
-vmxnet3 0000:00:07.0: rejecting DMA map of vmalloc memory
-WARNING: ./include/linux/dma-mapping.h:532 at dma_map_single_attrs include/linux/dma-mapping.h:531 [inline], CPU#0: syz-executor621/5600
-WARNING: ./include/linux/dma-mapping.h:532 at vmxnet3_probe_device+0xab8/0x2e70 drivers/net/vmxnet3/vmxnet3_drv.c:4047, CPU#0: syz-executor621/5600
-Modules linked in:
-CPU: 0 UID: 0 PID: 5600 Comm: syz-executor621 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:dma_map_single_attrs include/linux/dma-mapping.h:531 [inline]
-RIP: 0010:vmxnet3_probe_device+0xb32/0x2e70 drivers/net/vmxnet3/vmxnet3_drv.c:4047
-Code: 89 ff e8 31 23 f6 fa 4d 8b 2f eb 15 e8 f7 a3 83 fa 41 bf 04 00 00 00 41 b6 03 eb 7d e8 e7 a3 83 fa 48 89 df 4c 89 f6 4c 89 ea <67> 48 0f b9 3a 48 8b 04 24 48 05 88 c4 00 00 49 89 c6 48 c1 e8 03
-RSP: 0018:ffffc900047a75e0 EFLAGS: 00010246
-RAX: 1ffff110061ea41a RBX: ffffffff91882270 RCX: dffffc0000000000
-RDX: ffff888030efd880 RSI: ffffffff90a9b2c0 RDI: ffffffff91882270
-RBP: ffffc900047a7770 R08: 0000000000000003 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed10061ea4b3 R12: 0000000000000001
-R13: ffff888030efd880 R14: ffffffff90a9b2c0 R15: ffff888030f520d0
-FS:  00005555736d9400(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f97b57c8330 CR3: 00000000454d9000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- local_pci_probe drivers/pci/pci-driver.c:354 [inline]
- pci_call_probe drivers/pci/pci-driver.c:416 [inline]
- __pci_device_probe drivers/pci/pci-driver.c:478 [inline]
- pci_device_probe+0x48e/0xd10 drivers/pci/pci-driver.c:512
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __driver_attach+0x339/0x600 drivers/base/dd.c:1292
- bus_for_each_dev+0x23b/0x2c0 drivers/base/bus.c:383
- do_pci_add_dynid drivers/pci/pci-driver.c:70 [inline]
- new_id_store+0xb8f/0xc40 drivers/pci/pci-driver.c:272
- kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f97b57d02f7
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffe613544f0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00005555736d9400 RCX: 00007f97b57d02f7
-RDX: 000000000000000d RSI: 00007ffe613545a0 RDI: 0000000000000003
-RBP: 00007f97b580b2c0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffe613545a0
-R13: 0000000000000002 R14: 00007ffe61354580 R15: 0000000000000002
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	89 ff                	mov    %edi,%edi
-   2:	e8 31 23 f6 fa       	call   0xfaf62338
-   7:	4d 8b 2f             	mov    (%r15),%r13
-   a:	eb 15                	jmp    0x21
-   c:	e8 f7 a3 83 fa       	call   0xfa83a408
-  11:	41 bf 04 00 00 00    	mov    $0x4,%r15d
-  17:	41 b6 03             	mov    $0x3,%r14b
-  1a:	eb 7d                	jmp    0x99
-  1c:	e8 e7 a3 83 fa       	call   0xfa83a408
-  21:	48 89 df             	mov    %rbx,%rdi
-  24:	4c 89 f6             	mov    %r14,%rsi
-  27:	4c 89 ea             	mov    %r13,%rdx
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 8b 04 24          	mov    (%rsp),%rax
-  33:	48 05 88 c4 00 00    	add    $0xc488,%rax
-  39:	49 89 c6             	mov    %rax,%r14
-  3c:	48 c1 e8 03          	shr    $0x3,%rax
-
+diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
+index 2177cee29a4f..569608bc0d6a 100644
+--- a/drivers/power/supply/bq257xx_charger.c
++++ b/drivers/power/supply/bq257xx_charger.c
+@@ -54,6 +54,7 @@ struct bq257xx_chip_info {
+  * @chip: hw specific functions
+  * @bq: parent MFD device
+  * @charger: power supply device
++ * @dev: charger platform device
+  * @online: charger input is present
+  * @charging: charger is actively charging the battery
+  * @fast_charge: charger is in fast charge mode
 
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261015-bq257xx-dev-comment-87c52c67346b
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
