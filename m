@@ -1,115 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB133939C;
-	Thu, 15 Oct 2026 01:50:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A2836BCED
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792029020; cv=none; b=SZBsHR3kNtLc8d1i3QjnKLe/X5mCWhb9VdqlIsOCgcv/PRzTF9h65vBfiqABOkCmjIWRotCmShrKKvtDXtG6Idiy/kHxrFdsx9Frz+oPaOaCIB1rvbX0IkF49yef5KVNz6dy1uabhCYK4tHI3ojCmR8/VlZ1asBGDgmMKktKSmU=
+	t=1792029024; cv=none; b=PA/7FYJckE6Y6iOm5+Teh9h7Fbfe6n5vzqs2DUxxQvgYWScPJjT68QwQKGiTf+f27IKajtEev9ClKHgAKlqnxs06Og+GDq9aqLXv2MAdLWH5SseGGrpVQDHY+3tJfC6H0yysvKsPbvZ0KJqYnUYpw8sUK8h75m0wpXlpf9rSM30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792029020; c=relaxed/simple;
-	bh=lqzqa6mXZFZB56ZiAqpMIdWmUh42nRNUKyxJ3d69eCw=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ZoYQ+qGDUXB8IPZMwaUpcke0DsQwnUnYPS6IuP//crfevdXkYI5l+sj+OhF2QR7qyleizN7ERRBg23tVsOTqeFnVvf15rwhHWuJMXPJhf/p6Wj0sheqEIMs7nf8/EejeON4Hi1jaD/y3zt6EQnZ0FJckoEV6o58Lpy3RUliNI3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PGJf06ng; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792029024; c=relaxed/simple;
+	bh=FZEwana/OW3ODi6xFN55pPX+MLagNsoGOIMAf6UwyHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bkuNfeXzXtdSAbqwxiEXdNMpNEixj7S2hezCUMwe7M5dZQ/JAyk8DW+EZXn1lzpK4mndP2jKaDZKPz4dtSUPqt5SKnfzhZs9nlngZGjWDkBf6FTG0fsg7da3Loh+ir4PeQ62oDXPbfP6i9Ap7zhPsTcG8dRAnZnNTm2ebRF4wUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EgBgoVUJ; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PGJf06ng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A73B1F000C4;
-	Thu, 15 Oct 2026 01:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792029019;
-	bh=XqCsBBDToclNhntWS7LwgwCgD6io3q7EceQlCXtUiuU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PGJf06ngwaQwr3biaCaU9TpAVmbFprp7n3Ipjgw+QnNJyDJ6lP8jJISWbjlWWJsTa
-	 R4RnmmLTaQliAuKDYnjo3ypOGMbGxsfj+RMFnYjUcWW3bzl9BaQ5I0esD/h9ePfMHb
-	 nRY17QRgTs9OdkABkpahY0OK4HO82/qPvVlZKtB06Mckthp7Vq/FQzBScGiNcbOZmy
-	 2P5NykZAhpS4+7brbXgufHXsK839w8P4xnvYIGRtHHfw+7oSyHH0GDGYx9pxMcL+fW
-	 9Eb+VF+d+U3mHcBgLwxvNNLOUO44ZX5amNIGycT8tAl16/mZ1Xi9XwXYcl6Y9HWqMy
-	 7zXqFugGYiDvw==
-Message-ID: <sashiko-outbox-172123@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/16] mtd: rawnand: sunxi: select the pattern ID for
- the current ECC step
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, "Clark Williams" <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, "Maxime Ripard" <mripard@kernel.org>, "Richard
- Genoud" <richard.genoud@bootlin.com>, "Boris Brezillon" <bbrezillon@kernel.org>, "Masahiro
- Yamada" <yamada.masahiro@socionext.com>, "Brian Norris" <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rt-devel@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-6-5d3fc6ad2da1@gmail.com>
-References: <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com>
- <20261014-submit-sunxi-nand-vendor-oob-layout-v1-v7-6-5d3fc6ad2da1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 01:50:16 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EgBgoVUJ"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e49fbf92aaso28046075ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:50:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792029022; x=1792633822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=adbLjE108wpHReKKgrEkXzgfA1DRZ6TN8trHQTyRjGk=;
+        b=EgBgoVUJTnuF4KREKAxIN2diuHFmGGPnfnIbWlAnrKO0ME0gk/EhQ5kOo4ByxjTtZp
+         nA7hCkRqoPe4S1WU0X390GhZUUp9RfBHEpdaQlQMy8XzSKVO0ss7mxYhP+wQWXve4c1U
+         zXzSGtJ4E6OtbsMVtz6ddZMOFApE4vlPpr4383gRkeo0NK34yJqX+w12eN0c25jsCW4M
+         UPidPJPMzCRvawE+QRgDgphEGTvcBiyjwXJnEaIFL0UrI+dRPiVrIrw9mdX8EK+uLP6h
+         EwM7jwC7Sr2ApMnHA03oGsGJdOsnvih6rNuBCuws238gsSO5ultLRh0j6KNTb9KTTgOL
+         j2EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792029022; x=1792633822;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=adbLjE108wpHReKKgrEkXzgfA1DRZ6TN8trHQTyRjGk=;
+        b=vedd0KN8rfcIt3SljveVp0P9RMFP5MznEO38aLczmJPlaYBuddzAZXP9uCrIi3TQyj
+         KZGwCuo2kmQEda15z2SZciOrJeARs5E31vR0CpCzqOjMYvvtIzWJtwZGMqobA1kEW0mL
+         4nkX8DmYl9tsVb8ZRfH+U0uKTo9hm/HgcVOHQ+j9sCnFiGGlCfmbg4cjtgcYlQjI4+s3
+         rtIdrqnxv9KBRoWyVUxibtlzw5PuOvtLPamLOauxg79YkWLIvEptA0W10eBHzoQ6siSO
+         lb1MVabQgWQ+sNwEXzgixxisiHhWWe8sa+MzTbapXS/UKwes83AjXBXTHQLPYR1AZnPR
+         ENzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxp7OmDsvl8dfdKElQD/eye4W09VbyKhyO7RKCFJEs/vXJNNzFyFvz+DYVXBpQvlEwUo869eLmpjdEPB+0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuJJPIyLx0Y/+Uw78oPa/r5KlpfWp5RQI1Hygd1cxOINtx8FYx
+	kVVJy367u67LMCPAJwRfXeLgMRgI82rad2dXiqxpGLhJjfNW124fY2uT
+X-Gm-Gg: AYBFou1TDWcUKpHbqbsVQSvaI9m4Si9a0Csr0StBxuDpC2BFmMkB5/W77xKFkI6uyL8
+	lquRgWQRNERB60WWBjytUjWefLCXqjL1Lr6bjxYQr5AajQBJKQlLz29SL3SJAqqwBbm3GzzSjqj
+	Uo6BSDBTpdVEriZbTDN+Jtb+swAF871X2oSAeH3LwLCrfB3z4fKp0ihBDbkrtSpWRSiHVufYxzH
+	3rbD8OnvBHLCKiPjPUDxuFvZY78Mvdmuv0l2bJWLApOskmOX9P5sOwgxmELcKE6WT7Fs/EbFbtX
+	EholjsImthFAsJsC+eaEX6Q41JCgiPSqWXsFiDoPy4tBgJraq//8mL2O/e3SHBwqeTKZUYQGyYt
+	IHhWhVdshnGJpZMHJenOof3ySb4Jf69P+KYQDFyrhPWvom79RdEoZKn/wqVwFz7h4FVveJ7NK8f
+	r0wXO9QG3uf2/SkJyjUsA2zUghRG/Jx+eyj/e2O6ouufOCnqFurZSL8pW7bWua1WHy8CSVCXAzE
+	umolkNjfqXYy/3hXVOiROgAJex5y69fv2mJH28sCEZOv99QIcnYX2u7f+05IedLUEOQpAYb/nJL
+	ANDF07mb8BlunQ==
+X-Received: by 2002:a17:902:ef44:b0:2dd:c100:7cbb with SMTP id d9443c01a7336-2e842bc6930mr140413355ad.55.1792029022012;
+        Wed, 14 Oct 2026 18:50:22 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cc1sm73202995ad.54.2026.10.14.18.50.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 18:50:20 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	povik+lin@cutebit.org,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrei Simion <andrei.simion@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Kees Cook <kees@kernel.org>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	wangdicheng <wangdicheng@kylinos.cn>,
+	Chris Bainbridge <chris.bainbridge@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Neo Chang <YLCHANG2@nuvoton.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	u.kleine-koenig@baylibre.com,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Md Shofiqul Islam <shofiqtest@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Zain Aboobacker <zainaboobacker33@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Bo Shen <voice.shen@atmel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	linux-sound@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com,
+	linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 23/25] ASoC: renesas: rz-ssi: Remove redundant component open callback
+Date: Thu, 15 Oct 2026 08:43:22 +0700
+Message-ID: <20261015014324.5569-24-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
+References: <20261015014324.5569-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] mtd: rawnand: sunxi: PIO mode overwrites zero pattern with SRAM =
-garbage
---
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-commit 6c354ef3bc88ac95cdf40b092e5c146de75aa789
-Author: James Hilliard <james.hilliard1@gmail.com>
-Subject: mtd: rawnand: sunxi: select the pattern ID for the current ECC step
+In DMA mode, the generic dmaengine PCM component already applies
+the integer PERIODS constraint in snd_dmaengine_pcm_open().
 
-This commit fixes the pattern-ID register check during ECC exception mode.
-It updates the correction helper to test the bit corresponding to the
-current hardware step rather than always checking bit zero, which ensures
-DMA processing classifies physical all-zero and all-ones data blocks
-correctly.
+Since rz_ssi_pcm_open_dma() only applies this constraint, remove
+the redundant component .open callback.
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index 57df88099206a..8256982d1d565 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-> @@ -1101,7 +1101,7 @@ static int sunxi_nfc_hw_ecc_correct(struct nand_chi=
-p *nand, u8 *data, u8 *oob,
->  	if (pattern_found & BIT(step)) {
->  		u8 pattern;
-> =20
-> -		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & 0x1))) {
-> +		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(step)))) {
->  			pattern =3D 0x0;
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/renesas/rz-ssi.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-[Severity: Medium]
-When the pattern is identified as 0x0, the *erased out parameter remains
-false. Later in sunxi_nfc_oob_read_batch(), the code checks this boolean
-and handles PIO mode (!read->dma) by copying directly from SRAM:
+diff --git a/sound/soc/renesas/rz-ssi.c b/sound/soc/renesas/rz-ssi.c
+index 5f4a53886541..9a0781bb072d 100644
+--- a/sound/soc/renesas/rz-ssi.c
++++ b/sound/soc/renesas/rz-ssi.c
+@@ -954,13 +954,6 @@ static int rz_ssi_pcm_open_pio(struct snd_soc_component *component,
+ 	return 0;
+ }
+ 
+-static int rz_ssi_pcm_open_dma(struct snd_soc_component *component,
+-			       struct snd_pcm_substream *substream)
+-{
+-	return snd_pcm_hw_constraint_integer(substream->runtime,
+-					     SNDRV_PCM_HW_PARAM_PERIODS);
+-}
+-
+ static snd_pcm_uframes_t rz_ssi_pcm_pointer(struct snd_soc_component *component,
+ 					    struct snd_pcm_substream *substream)
+ {
+@@ -1011,7 +1004,6 @@ static const struct snd_soc_component_driver rz_ssi_soc_component_pio = {
+ 
+ static const struct snd_soc_component_driver rz_ssi_soc_component_dma = {
+ 	.name			= "rz-ssi",
+-	.open			= rz_ssi_pcm_open_dma,
+ 	.legacy_dai_naming	= 1,
+ };
+ 
+-- 
+2.43.0
 
-sunxi_nfc_oob_read_batch() {
-    ...
-    if (erased) {
-        read->has_erased_chunk =3D true;
-        continue;
-    }
-
-    if (!read->dma)
-        memcpy_fromio(data, nfc->regs + NFC_RAM0_BASE, ecc->size);
-    ...
-}
-
-If scrambling is enabled for a physical all-zero block read in PIO mode,
-will this memcpy_fromio() overwrite the valid zeros populated in
-sunxi_nfc_hw_ecc_correct() with descrambled pseudo-random garbage from
-the SRAM?
-
-It appears this regression leaves PIO broken while fixing DMA zero
-pattern reads.
-
->  		} else {
->  			pattern =3D 0xff;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261014-submit-sun=
-xi-nand-vendor-oob-layout-v1-v7-0-5d3fc6ad2da1@gmail.com?part=3D6
