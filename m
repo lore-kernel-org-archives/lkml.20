@@ -1,510 +1,97 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A073D969E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0A7853DB658;
+	Thu, 15 Oct 2026 02:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031523; cv=none; b=EHMHXDxdfawXpxTsY0tDJ4qJYsLDj8v738Ng9ibXxXL4GoKeNjQFYMvF/8WrLHDKjKoZGlv/KW1OLKGcZUSVq5hkpBy4eOHlzxEDqHKEyTTTebaSMuZuQiINrfxC8naQzatKHOOyZmiEf77W2oTKF7754XCnrKvSursQbMh4dio=
+	t=1792031713; cv=none; b=sgoBpwa3YhUYp8zZYkbEk/QYErB+CbfvDUNsaXQwI5scHpdrW9PiWHE0iFsjYAwWH3P8Knry93hxkwxDXqdcveOvsbnf7z7wDSUulpqk1zgyIr63bmpsIAH3z4tSeviBmHVX5LfkBYz1X8U4D783lix6r67AehVsRDHVxWt3iqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031523; c=relaxed/simple;
-	bh=ArleLi+M0DTEuyIN0wh/cYS0LQN9Nt9cd9Uku2IW92w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jS2hNkTPjHC1rRiJmKtngFmLYlzdWgRaYP0KAvcucNqDwr2N4E9DKx8Wg80NrL5rpzqEf63KK2PF/4xKo+cOTmwuNWhC6upiFL2vc1Ft73/qAOVgJHdGVzlDwQ+e89F5Es9IviuubD5fhU4j4t1OHBl9319zLrY5SeX712UHsjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DMlaKtZp; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792031713; c=relaxed/simple;
+	bh=yqboJuSFj1MiuZgOPBB633piM82kQ985s72WYweaYT0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=TkK3Os68WJ5+BWNlZNiLgoY0Ja9Wb4q5eh3FAmv5iJt0y4VtCemMnnwH5n5c+ypFaV0Z9mHjxzlSu+ac2lzCGIiOWgK/75/Sn3xX8c21fHkHIpZEPHgqz96eyYwvWRR3u4Wdvb92EybbIinjd1GAYjEFdEuBCwpD9zs6wMxBGf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=pe93UWe4; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DMlaKtZp"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15756f82e8aso702269c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:32:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="pe93UWe4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792031520; x=1792636320; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SIr3KE4wiTOmPi/gWE/VmNTTSQBWIApFS/4c+uSZ+C0=;
-        b=DMlaKtZpQFcvq5gg51QwmfHk+YS4f64KXoabLsnoVptxKs6t6TNjG73VIuyJXv5+ab
-         DChYDCkJAAoGWs9oKgRKg1gq+7auesp1rgD8tdmzWrAOgaIWa4pruKma2ZEVGl4Ekx3B
-         kAu392UiI9aKIwpvdLzWJoK+2CoFiqAvPDEC0eUWU4bKUWFUTkAOLUNDfwhp4iD/EhI7
-         ZV2pmKnincrqUOBc3J7oodQM4nspGE3SXb6WjyYqAgRh7dMEyHqERPVUjqWPGWZeAPnU
-         SbLxb7zQ/0TNIuUcYBtRc8Dv3Q1D39KUR+knyez+XGNLYKVfYrvlgk3SSKh+IzuJdx1i
-         EC8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792031520; x=1792636320;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SIr3KE4wiTOmPi/gWE/VmNTTSQBWIApFS/4c+uSZ+C0=;
-        b=p0H7H7gp1zG/HCPC3kDrahxIL6Y5Ux7UrCVp/Qzu3QyVCdaAnMOkYdVtVPwfvCNREd
-         nGdcZkMNKtsTyhYThAlXGfgKW14DmygEXoWYhsE8XPbylyheQPgBX6rqH+sSTjrvoccZ
-         xe2V7zfC/u/AR0pN3xtlnLykvvlxvZfhySlEgXEurLjhfVufPN2+KYcEXjXvETIz/SVO
-         oUORnbp8yXISmJyywa7vzR1OClmuLO90TsHu/0QTH+9ZaiXVWNWm0iHk5gBPZes12G5o
-         DbS0B8QqvHtuB2RfXSC0Lr1WlyKoWjeY8X9fLng+VydfLQOur3iwiadaWLyEbZ8wuzvb
-         BUHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQIh54XXRnlXuOeyXqZTut8WvtUE55qxqmYwfVNtt8yOreVVqxmb0+3evPh+NzvAqXuCq4lR20iXyJTr4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGjQdXh6Zdpm3Spm8b5uLj8WoVcB7BD1dahQkb4XgEoHVdmfHZ
-	qsL3YkIeoMmooVvakDUnGFfwVKHAPYFVwklAF5lUyXkXyi/lHgP+puVw
-X-Gm-Gg: AYBFou072RU/fGpjga2IZW57HczVeKmU1tPMm/QCgxWMB7gXvTz8ymIfyj9kekCiShm
-	wuih4VYbdjub0hypa1HjZgPpKSQNc3A0gCudpQbmNfjVISsiCYsRzBvurCyS/L6yDoOetj7Xc4i
-	sYohIhqTpUTrbbz13u2rrCjTOVvhjvOIRAttH1XlbiJn9NZbnZDkjw+q7yf1j97gFifyOEtlxUj
-	LAqR63DjQBQVBU/DUZ2Xty9ZSzFdN0R7LVB8oSu3qjPvk+3OODCvK/HVUcUhvczL2b+wCcU5Fh2
-	kYOkyh8DTavCHxHejZnGK3D+i7yirvOurACnDCKp4c0P+7zRYGyUjVLHBwkGfMQ52czxdOqsAQo
-	ZfFALI1JZ8ubl90VPZ2DDYof6JQ3TnMERJjbD52AfheOYIvSsOerbXV225G8HIqOCXmPvHGtPin
-	WHz1RjsD5xDlJBmLOj4s3lYaB4UdwBXPeRCHQYwx79DSinVenCiMd4BRtTNvkPj0h1
-X-Received: by 2002:a05:7022:7e89:b0:144:eb3f:563a with SMTP id a92af1059eb24-16a129230a4mr24031124c88.15.1792031520121;
-        Wed, 14 Oct 2026 19:32:00 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567bd18sm49912225c88.21.2026.10.14.19.31.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:31:59 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Nikolay Borisov <nik.borisov@suse.com>,
-	Li RongQing <lirongqing@baidu.com>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/2] selftests/x86: shadow stack must survive a bad TLS
-Date: Wed, 14 Oct 2026 23:31:47 -0300
-Message-ID: <20261015023147.519257-3-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015023147.519257-1-ivanrwcm25@gmail.com>
-References: <20261015023147.519257-1-ivanrwcm25@gmail.com>
+	d=ultrarisc.com; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=c/6W0LBdBU+dTI2matne96lJqD7HP4Hyuh
+	pge2Ox2K8=; b=pe93UWe4R2PxYqJgNMsXL/fjQfk6/pAlF2O0O8LoIRbu0AB0X5
+	HNJrK5pwRyuF1AQOJvn4KRlLKe1NqchCAZrDFgWfA4MFHxeTh8NlzSUWbl5Y7EH2
+	FFHFXx+9+nvIa7X2H+t6BVRsVhBBhqrtjbV99ALy1ZRrxvBDA2z9yd94k=
+Received: from leopard.. (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwCnYwXWO9Bq+BcCAA--.697S2;
+	Thu, 15 Oct 2026 10:35:02 +0800 (CST)
+From: Xincheng Zhang <zhangxincheng@ultrarisc.com>
+To: Niklas Cassel <cassel@kernel.org>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] PCI: dwc: Allow drivers to skip MEM outbound iATU setup
+Date: Thu, 15 Oct 2026 10:34:59 +0800
+Message-Id: <20261015023459.125468-1-zhangxincheng@ultrarisc.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <as89A9X9wAHJ-dIR@ryzen>
+References: <20260905025635.211390-1-zhangxincheng@ultrarisc.com> <20260905025635.211390-2-zhangxincheng@ultrarisc.com> <as89A9X9wAHJ-dIR@ryzen>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAfwCnYwXWO9Bq+BcCAA--.697S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gr4DAF45AryUWF1xGr1DAwb_yoWDXwcEka
+	4DKw4Ikw1DJa9rA3WfKF45WrZ29a9I9rn5JrWDX397G3yFvFnxXrZ5Grsay3Z5Ja4xCr45
+	Kr98J3yxKwnIyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbhAYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ec7CjxVAajcxG14v26r1j6r
+	4UMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK6svPMx
+	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgSfODUUUU
+X-CM-SenderInfo: x2kd0wp0lquxxhqjq3powut2xlvfhudrp/1tbiAQAGDGq8sakAAwASsU
 
-clone3(CLONE_VM|CLONE_SETTLS) with an out-of-range TLS fails in
-set_new_tls() after copy_thread() has mapped a shadow stack.
-copy_process() does not call exit_thread() on that failure, so the
-VMA stays in the parent's mm.
+Hi Niklas,
 
-Enable user shadow stack, reject 16 such clones, and require the
-shadow-stack VMA count to stay unchanged. The original mapping must
-remain, and a call/return on that stack must succeed, so the cleanup
-cannot be unmapping the parent's shadow stack.
+On Wed, Oct 14, 2026 at 10:27:57AM +0200, Niklas Cassel wrote:
+> Sorry for commenting on this patch after it was accepted.
+>
+> But... since this behavior is intrinsic to the DWC controller, rather than
+> being SoC specific... Why bother creating a flag for it?
+>
+> Is there a reason why this can't just be a simple:
+>
+> if (atu.parent_bus_addr == atu.pci_addr)
+> 	continue;
 
-A clone3 with the same flags and a valid TLS has to succeed first.
-EPERM from the rejected calls is not evidence on its own: a policy
-can reject every clone3(). The child exits with a raw syscall because
-it resumes on an empty shadow stack.
+Thanks for pointing this out.
 
-Skip when CPUID has no shadow stack, when the kernel does not provide
-the feature, or when it is locked. Any other ARCH_SHSTK_ENABLE error
-fails the test. The test expects /proc already mounted, as in a
-normal kselftest run.
+I added the flag because I had only tested no-match pass-through on DP1000.
+But you are right that this is DWC behavior, not SoC-specific, and comparing
+the two addresses is enough to tell whether translation is needed.
 
-The recursive call goes through an indirect call. A visible recursive
-body is optimized into a closed form and does not execute ret.
+Since the series has already been applied, I will send a follow-up patch
+that skips MEM outbound iATU programming when atu.parent_bus_addr is equal
+to atu.pci_addr, and removes bypass_ob_mem_iatu and the UltraRISC-specific
+setting. CFG and I/O accesses, as well as non-identity-mapped MEM ranges,
+will continue to use outbound iATU windows.
 
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- tools/testing/selftests/x86/Makefile          |   3 +-
- tools/testing/selftests/x86/shstk_clone_tls.c | 364 ++++++++++++++++++
- 2 files changed, 366 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/x86/shstk_clone_tls.c
-
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index d478b13cc8d5..4f8a771b0839 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -19,7 +19,8 @@ TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
- 			test_FCMOV test_FCOMI test_FISTTP \
- 			vdso_restorer
- TARGETS_C_64BIT_ONLY := fsgsbase sysret_rip syscall_numbering \
--			corrupt_xstate_header amx lam test_shadow_stack avx apx
-+			corrupt_xstate_header amx lam test_shadow_stack avx apx \
-+			shstk_clone_tls
- # Some selftests require 32bit support enabled also on 64bit systems
- TARGETS_C_32BIT_NEEDED := ldt_gdt ptrace_syscall
- 
-diff --git a/tools/testing/selftests/x86/shstk_clone_tls.c b/tools/testing/selftests/x86/shstk_clone_tls.c
-new file mode 100644
-index 000000000000..6b2f1001b084
---- /dev/null
-+++ b/tools/testing/selftests/x86/shstk_clone_tls.c
-@@ -0,0 +1,364 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * clone3(CLONE_VM|CLONE_SETTLS) with an out-of-range TLS must not leak a
-+ * shadow-stack VMA. copy_thread() maps one before set_new_tls() can fail,
-+ * and copy_process() does not call exit_thread() on that failure.
-+ *
-+ * Pass: shadow-stack VMA count is unchanged, the original mapping is
-+ * still there, and a call/return on this thread still works.
-+ * Fail: one new shadow-stack VMA per rejected clone.
-+ *
-+ * Enable shadow stack with an inlined syscall. A normal function return
-+ * across that point has no address on the shadow stack, so main() must
-+ * not return after a successful enable.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <linux/sched.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#ifndef __NR_clone3
-+#define __NR_clone3 435
-+#endif
-+
-+#ifndef ARCH_SHSTK_ENABLE
-+#define ARCH_SHSTK_ENABLE	0x5001
-+#endif
-+#ifndef ARCH_SHSTK_STATUS
-+#define ARCH_SHSTK_STATUS	0x5005
-+#endif
-+#ifndef ARCH_SHSTK_SHSTK
-+#define ARCH_SHSTK_SHSTK	1ULL /* bit 0 */
-+#endif
-+
-+/* Same value as KSFT_SKIP in kselftest.h. */
-+#define KSFT_SKIP		4
-+
-+#define NCLONE			16
-+#define STACK_SIZE		(64 * 1024)
-+
-+/* CPUID.(EAX=07H, ECX=0):ECX[7], CET shadow stack. */
-+#define CPUID_SHSTK		0x80
-+
-+#define ARCH_PRCTL(arg1, arg2)					\
-+({								\
-+	long _ret;						\
-+	register long _num  asm("eax") = __NR_arch_prctl;	\
-+	register long _arg1 asm("rdi") = (long)(arg1);		\
-+	register long _arg2 asm("rsi") = (long)(arg2);		\
-+								\
-+	asm volatile (						\
-+		"syscall\n"					\
-+		: "=a"(_ret)					\
-+		: "r"(_arg1), "r"(_arg2),			\
-+		  "0"(_num)					\
-+		: "rcx", "r11", "memory", "cc"			\
-+	);							\
-+	_ret;							\
-+})
-+
-+#define get_ssp()							\
-+({									\
-+	unsigned long _ssp = 0;						\
-+									\
-+	asm volatile("rdsspq %0" : "+r" (_ssp));			\
-+	_ssp;								\
-+})
-+
-+static int cpu_has_shstk(void)
-+{
-+	unsigned int eax, ebx, ecx, edx;
-+
-+	asm volatile("cpuid"
-+		     : "=a" (eax), "=b" (ebx), "=c" (ecx), "=d" (edx)
-+		     : "a" (7), "c" (0));
-+	return ecx & CPUID_SHSTK;
-+}
-+
-+static void on_fault(int sig)
-+{
-+	static const char msg[] = "[FAIL]\tparent shadow stack faulted\n";
-+
-+	(void)sig;
-+	if (write(2, msg, sizeof(msg) - 1) < 0)
-+		_exit(2);
-+	_exit(2);
-+}
-+
-+struct ss_span {
-+	unsigned long start;
-+	unsigned long end;
-+};
-+
-+static void ss_scan(int *vmas, int *kb, unsigned long addr, struct ss_span *hit,
-+		    const struct ss_span *want, int *kept)
-+{
-+	FILE *f;
-+	char line[256];
-+	unsigned long start = 0, end = 0;
-+	int size = 0;
-+	int saw_size = 0;
-+
-+	*vmas = 0;
-+	*kb = 0;
-+	if (hit) {
-+		hit->start = 0;
-+		hit->end = 0;
-+	}
-+	if (kept)
-+		*kept = 0;
-+	f = fopen("/proc/self/smaps", "r");
-+	if (!f) {
-+		perror("smaps");
-+		_exit(1);
-+	}
-+	while (fgets(line, sizeof(line), f)) {
-+		unsigned long a, b;
-+
-+		if (sscanf(line, "%lx-%lx", &a, &b) == 2) {
-+			start = a;
-+			end = b;
-+			saw_size = 0;
-+			continue;
-+		}
-+		if (sscanf(line, "Size: %d kB", &size) == 1) {
-+			saw_size = 1;
-+			continue;
-+		}
-+		if (strncmp(line, "VmFlags:", 8) || !saw_size)
-+			continue;
-+		if (!strstr(line, " ss")) {
-+			saw_size = 0;
-+			continue;
-+		}
-+		(*vmas)++;
-+		*kb += size;
-+		/* Ordinary membership is [start, end). */
-+		if (hit && addr >= start && addr < end) {
-+			hit->start = start;
-+			hit->end = end;
-+		}
-+		/*
-+		 * An empty shadow stack leaves SSP at the exclusive end.
-+		 * That address is not inside [start, end).
-+		 */
-+		if (hit && addr == end) {
-+			hit->start = start;
-+			hit->end = end;
-+		}
-+		if (kept && want && start == want->start && end == want->end)
-+			*kept = 1;
-+		saw_size = 0;
-+	}
-+	fclose(f);
-+}
-+
-+/*
-+ * clone3 carries tls in the struct. 0 is a valid FS base. -1 is rejected
-+ * by ARCH_SET_FS before any FS write. No CLONE_THREAD: a created child is
-+ * a separate process and _exit() does not tear this one down.
-+ *
-+ * Returns 0 if the child exited 0, -errno if clone3 failed, 1 otherwise.
-+ */
-+static int clone_tls(void *stack, size_t stack_size, unsigned long tls)
-+{
-+	struct clone_args args = {
-+		.flags = CLONE_VM | CLONE_SETTLS,
-+		.exit_signal = SIGCHLD,
-+		.stack = (uint64_t)(uintptr_t)stack,
-+		.stack_size = stack_size,
-+		.tls = tls,
-+	};
-+	long ret;
-+	int st;
-+
-+	/*
-+	 * Inline syscall. The child resumes here on an empty shadow stack,
-+	 * so it must not return into the libc wrapper.
-+	 */
-+	asm volatile("syscall"
-+		     : "=a" (ret)
-+		     : "0" (__NR_clone3),
-+		       "D" (&args),
-+		       "S" (sizeof(args))
-+		     : "rcx", "r11", "memory");
-+	if (ret == 0) {
-+		asm volatile("syscall"
-+			     :
-+			     : "a" (__NR_exit),
-+			       "D" (0)
-+			     : "memory");
-+		__builtin_unreachable();
-+	}
-+	if (ret < 0)
-+		return ret;
-+	if (waitpid((pid_t)ret, &st, 0) < 0)
-+		return -errno;
-+	if (!WIFEXITED(st) || WEXITSTATUS(st) != 0)
-+		return 1;
-+	return 0;
-+}
-+
-+/*
-+ * GCC 13 turns a visible recursive body into "return n + 1". Hide the
-+ * callee in an asm output so each level stays a real indirect call/ret.
-+ */
-+static int depth(int n);
-+static int (*depth_fn)(int) = depth;
-+
-+static int depth(int n)
-+{
-+	int (*go)(int n);
-+
-+	if (n <= 0)
-+		return 1;
-+	asm volatile("" : "=r" (go) : "0" (depth_fn) : "memory");
-+	return go(n - 1) + 1;
-+}
-+
-+static int skip_enable(long rc)
-+{
-+	if (rc == -EOPNOTSUPP) {
-+		printf("[SKIP]\tkernel has no user shadow stack\n");
-+	} else if (rc == -EINVAL) {
-+		printf("[SKIP]\tkernel built without user shadow stack\n");
-+	} else if (rc == -EPERM) {
-+		printf("[SKIP]\tuser shadow stack is locked\n");
-+	} else {
-+		printf("[FAIL]\tARCH_SHSTK_ENABLE returned %ld\n", rc);
-+		return 1;
-+	}
-+	return KSFT_SKIP;
-+}
-+
-+int main(void)
-+{
-+	struct sigaction sa;
-+	struct ss_span parent;
-+	void *stack;
-+	unsigned long ssp, ssp_mid;
-+	long rc;
-+	int vmas0, kb0, vmas1, kb1;
-+	int i, kept, d, cret;
-+
-+	setbuf(stdout, NULL);
-+
-+	if (!cpu_has_shstk()) {
-+		printf("[SKIP]\tCPUID has no shadow stack\n");
-+		return KSFT_SKIP;
-+	}
-+
-+	stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
-+	if (stack == MAP_FAILED) {
-+		perror("mmap");
-+		return 1;
-+	}
-+
-+	/*
-+	 * rdsspq #UDs while CET is off, so enable before the first read.
-+	 * Already enabled is a no-op. Locked-and-enabled returns EPERM
-+	 * before that no-op; ARCH_SHSTK_STATUS tells the two apart.
-+	 */
-+	rc = ARCH_PRCTL(ARCH_SHSTK_ENABLE, ARCH_SHSTK_SHSTK);
-+	if (rc == -EPERM) {
-+		unsigned long status = 0;
-+
-+		if (ARCH_PRCTL(ARCH_SHSTK_STATUS, &status) ||
-+		    !(status & ARCH_SHSTK_SHSTK))
-+			return skip_enable(rc);
-+	} else if (rc) {
-+		return skip_enable(rc);
-+	}
-+	if (!get_ssp()) {
-+		printf("[FAIL]\tenable left SSP at 0\n");
-+		_exit(1);
-+	}
-+
-+	/*
-+	 * Same flags as the rejected calls, with a TLS that set_new_tls()
-+	 * accepts. EPERM from the rejected calls is only meaningful if this
-+	 * one is allowed: a policy can reject every clone3().
-+	 */
-+	cret = clone_tls(stack, STACK_SIZE, 0);
-+	if (cret < 0) {
-+		printf("[SKIP]\tclone3 with a valid TLS failed: %s\n",
-+		       strerror(-cret));
-+		_exit(KSFT_SKIP);
-+	}
-+	if (cret) {
-+		printf("[FAIL]\tclone3 with a valid TLS did not exit 0\n");
-+		_exit(1);
-+	}
-+
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_handler = on_fault;
-+	sigaction(SIGSEGV, &sa, NULL);
-+	sigaction(SIGBUS, &sa, NULL);
-+
-+	ssp = get_ssp();
-+	ss_scan(&vmas0, &kb0, ssp, &parent, NULL, NULL);
-+	if (!parent.start) {
-+		printf("[FAIL]\tSSP %lx matches no shadow-stack VMA\n", ssp);
-+		_exit(1);
-+	}
-+
-+	for (i = 0; i < NCLONE; i++) {
-+		cret = clone_tls(stack, STACK_SIZE, (unsigned long)-1);
-+		if (cret == -EPERM)
-+			continue;
-+		if (cret < 0)
-+			printf("[FAIL]\tbad TLS errno %d, want EPERM\n", -cret);
-+		else
-+			printf("[FAIL]\tbad TLS was accepted\n");
-+		_exit(1);
-+	}
-+
-+	ss_scan(&vmas1, &kb1, 0, NULL, &parent, &kept);
-+	ssp_mid = get_ssp();
-+	d = -1;
-+	if (kept && ssp_mid)
-+		d = depth(16);
-+	ssp = get_ssp();
-+
-+	printf("ss_vmas=%d->%d delta=%d ss_kb=%d->%d\n",
-+	       vmas0, vmas1, vmas1 - vmas0, kb0, kb1);
-+	printf("parent=%lx-%lx kept=%d ssp_before_depth=%lx depth=%d ssp=%lx\n",
-+	       parent.start, parent.end, kept, ssp_mid, d, ssp);
-+
-+	if (vmas1 != vmas0 || kb1 != kb0) {
-+		printf("[FAIL]\tleaked %d shadow-stack VMA(s), %d kB\n",
-+		       vmas1 - vmas0, kb1 - kb0);
-+		_exit(1);
-+	}
-+	if (!kept) {
-+		printf("[FAIL]\tparent shadow stack %lx-%lx was unmapped\n",
-+		       parent.start, parent.end);
-+		_exit(2);
-+	}
-+	if (!ssp_mid) {
-+		printf("[FAIL]\tparent SSP was 0 before call/return\n");
-+		_exit(2);
-+	}
-+	if (d != 17) {
-+		printf("[FAIL]\tparent call/return returned %d, want 17\n", d);
-+		_exit(2);
-+	}
-+	if (!ssp) {
-+		printf("[FAIL]\tparent SSP is 0 after call/return\n");
-+		_exit(2);
-+	}
-+
-+	printf("[OK]\tno shadow-stack VMA leak; parent stack still works\n");
-+	_exit(0);
-+}
--- 
-2.43.0
+Thanks,
+Xincheng
 
