@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A855437FB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3540545D85;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082995; cv=none; b=kINoSYu6a2omyOvk4NdUqkgPcd0n3oKIKqG8zdukzMsG1Ujdo0Xh28Ov69SW0pPztJdNunHMhYesxInGYCI3ftIHTdKcG9/G8LCkzPt6CjxZ4VAWDNmTX2OMMlbywSb1wdlSRK+wGGNTItrV4gp4AmXj7mKclp8zUIkQjn0DKGQ=
+	t=1792082995; cv=none; b=Z8SO2S0JbsL4xr7VzEoM3Nrsu8vdc8zNIa6N37XD1ECvJ4FLzyKchB30IIoZPb5dP4ROMQNrHql490snH5mM1Mf76054SgcbPQgg2HyUNss99D+XEyiKXOng9iknx7N57AJyCLIlQI7tiRmZAYLW475eSjsUi8y1YkPrnfEnQ1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792082995; c=relaxed/simple;
-	bh=JNXa9EY9DorVXCpgEHNR1iSm211urEUD88TNEug/caA=;
+	bh=SnU0DT/RjXLJbopdxpaOnyfW6SnaewFBaST4OCO0iI0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kKWGiJlRsDQ3xo45ueJ7Z/dubQWFC79b386Cf5Fv8DdNLteqo/egFmaJxgqKHHVH9BFVugGg7+KYEDBIojjVG4hzboate2ZIRnHFhfEeZKORqd6cXX85jkwHO/TvNi4bDi8u5oZoIe1XF/UEV4HNIIvNlGHqFc7J1IcDszM4+zQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMoczZ7i; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=A9qh9VlS2zkN3C5z8edC7JqwyXuovhYT0+YK8jWkQiRdf67fJbVsb2itz3ExwT+I6Fe+vuXAH469vgjTdOMKbtvJApHZDUlcaU2DjK+yLknmZ5aiwCZ5GfjzTtxTPtJQK9Jn4WpcejHB8dZvgguGT1fSaq1UvcetoMj+zXk1UXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5fU8/zX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMoczZ7i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DF89C4AF0B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5fU8/zX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D87DC4AF0D;
 	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792082995;
-	bh=JNXa9EY9DorVXCpgEHNR1iSm211urEUD88TNEug/caA=;
+	bh=SnU0DT/RjXLJbopdxpaOnyfW6SnaewFBaST4OCO0iI0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PMoczZ7ii2uTxjAj0lwjb/XFXJ1yFERFSMZ/iq467DgIwiKkJpI9oX5XHEx6HruSO
-	 f0ZyUaQoaZeJfGpEKZjY/7lSweppKbESDgVYdllwEpe0SzbWFBGWMZwFvYf71jQhDN
-	 N4WW0enWrFLIhGWHXyS3SVcDNxP18NkQto7bDYNJjz4bclK1sPWeRD5hREnJnUME2j
-	 tlMgJLoyKiCqKlNmjSvHhGRIeyvt/7VCHy4FJvQZgqgcsNgLLVZ/EqgDu8E7+NgVEL
-	 oZwpALhsBWjesms/NNT+/TDIuRAv2WWf+VyIQ73bcuvnqDbTxZiR6ofS3hmWtPWhtP
-	 Dte0tOFbliolQ==
+	b=L5fU8/zXG/IqJMo5mOaCvxXFGgGyPxtLwiloB2UvqqRDEji8kCw+B9aQ+YS2e6OSL
+	 USqj+hY+1pUE+WUnPynjHi/wB7k6UiCB2M8sU2xogZe17H+DrMFQ/oq6XuJw/ggbaq
+	 GpCkvMi9MDkAO75/oF+JhXJSFOKTllG0D+5UyT8mr4oab27ffeujFCugF86wsXX08o
+	 sfDPTC82WnflgmsGZM/sy8O8GZdh+ed2K0J+Sho2d082P5KOqnZTXihkz8W0a7ssUK
+	 Tg/jZsc9d/7OwHp1nRia3ScMegtm9xTdQjZ9/Yw49aVXlCmiOPF7eaviukL6xiYFMz
+	 veF3ogCG7khIA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDC84CC6B39;
-	Thu, 15 Oct 2026 16:49:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A8A0CC6B38;
+	Thu, 15 Oct 2026 16:49:55 +0000 (UTC)
 From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Thu, 15 Oct 2026 13:49:45 -0300
-Subject: [PATCH 05/10] iio: frequency: ad9910: move channel indexes into a
- shared header
+Date: Thu, 15 Oct 2026 13:49:49 -0300
+Subject: [PATCH 09/10] iio: ABI: add integration_time for output channels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ad9910-backend-support-v1-5-3c21648c8e26@analog.com>
+Message-Id: <20261015-ad9910-backend-support-v1-9-3c21648c8e26@analog.com>
 References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 In-Reply-To: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
 To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -59,11 +58,11 @@ Cc: Olivier Moysan <olivier.moysan@foss.st.com>,
  Randy Dunlap <rdunlap@infradead.org>, 
  Rodrigo Alencar <rodrigo.alencar@analog.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=4329;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792082993; l=1995;
  i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=VsqJQc+ePynwFhVyVl6Uf/Qo3uusPG2hDGbHDjQCWp0=;
- b=/CtkwCFECJiXQy82RHizUoY1L5pL8v0dEkVDf9WFdxSwKGcRXjmJODpFTeuOxLWX176uDGKmM
- foVnVG0qwpzDe9lXDZj+Mnprl0WimFHjcChHUyMHzF9pnD1uTLBCupR
+ bh=IoK+rS/AZpKcfckFDfvILHdHeYT/QobUUWmOhvEtSTA=;
+ b=Mr5vQFQlwKKy+y9gy8vISksfEGtOjpmByK+zUfotprSp5IkhDdmGDFnwNYqLDX2gnY6yRr/v5
+ Jp1ZhkCb/kxCKImrY+JD9r0PACi3QKTqLic3rPsXD5I0ZXx0EIEP0t3
 X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
  pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
 X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
@@ -73,143 +72,46 @@ Reply-To: rodrigo.alencar@analog.com
 
 From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-The channel indexes are used as channel identifiers in IIO backend
-operations, such as enabling a parallel data port destination or
-selecting a profile. Move them, along with the data destination
-definitions, into a shared header, so that the frontend and backend
-drivers agree on those identifiers.
-
-No functional change.
+Document the integration_time attribute for output channels, which is
+the time interval during which the output is generated by integrating
+a quantity, such as its rate of change. It is the output counterpart of
+the integration_time already defined for input channels.
+Add entries for the altcurrent, frequency and phase channel types, which
+are going to be used by the AD9910 DDS driver.
 
 Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- MAINTAINERS                    |  1 +
- drivers/iio/frequency/ad9910.c | 35 ++-------------------------------
- drivers/iio/frequency/ad9910.h | 44 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 47 insertions(+), 33 deletions(-)
+ Documentation/ABI/testing/sysfs-bus-iio | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93ad6a829cb3..a9cb4396b3e1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1735,6 +1735,7 @@ F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910-axi-backend.yaml
- F:	Documentation/devicetree/bindings/iio/frequency/adi,ad9910.yaml
- F:	Documentation/iio/ad9910.rst
- F:	drivers/iio/frequency/ad9910.c
-+F:	drivers/iio/frequency/ad9910.h
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
+index 2b6f57041763..a41a96935cfb 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio
++++ b/Documentation/ABI/testing/sysfs-bus-iio
+@@ -1744,6 +1744,23 @@ Description:
+ 		seconds. If shared across all channels of a given type,
+ 		<type>_integration_time is used.
  
- ANALOG DEVICES INC MAX22007 DRIVER
- M:	Janani Sunil <janani.sunil@analog.com>
-diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
-index 8bc24d0b7442..dc13986dff3d 100644
---- a/drivers/iio/frequency/ad9910.c
-+++ b/drivers/iio/frequency/ad9910.c
-@@ -33,6 +33,8 @@
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
- 
-+#include "ad9910.h"
++What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_integration_time
++What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_integration_time
++What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_integration_time
++KernelVersion:	7.4
++Contact:	linux-iio@vger.kernel.org
++Description:
++		This attribute is used to get/set the integration time in
++		seconds of an output channel, i.e., the time interval during
++		which the output is generated by integrating (accumulating) a
++		quantity over time, such as the rate of change (roc) of the
++		channel. The output variation over this interval corresponds to
++		the integral of that quantity, which may be bounded by limits
++		configured through other channel attributes. The written value
++		may be adjusted to the nearest interval supported by the
++		hardware. If shared across all channels of a given type,
++		<type>_integration_time is used.
 +
- /* Register addresses */
- #define AD9910_REG_CFR1			0x00
- #define AD9910_REG_CFR2			0x01
-@@ -194,11 +196,6 @@
- #define AD9910_RAM_ENABLED(st)		\
- 	FIELD_GET(AD9910_CFR1_RAM_ENABLE_MSK, (st)->reg[AD9910_REG_CFR1].val32)
- 
--#define AD9910_DEST_FREQUENCY		0
--#define AD9910_DEST_PHASE		1
--#define AD9910_DEST_AMPLITUDE		2
--#define AD9910_DEST_POLAR		3
--
- /* PLL constants */
- #define AD9910_PLL_MIN_N		12
- #define AD9910_PLL_MAX_N		127
-@@ -302,34 +299,6 @@ struct ad9910_ram_fw {
- 	__be32 words[] __counted_by_be(wcount);
- } __packed;
- 
--enum {
--	AD9910_CHAN_IDX_PHY,
--	AD9910_CHAN_IDX_PROFILE_0,
--	AD9910_CHAN_IDX_PROFILE_1,
--	AD9910_CHAN_IDX_PROFILE_2,
--	AD9910_CHAN_IDX_PROFILE_3,
--	AD9910_CHAN_IDX_PROFILE_4,
--	AD9910_CHAN_IDX_PROFILE_5,
--	AD9910_CHAN_IDX_PROFILE_6,
--	AD9910_CHAN_IDX_PROFILE_7,
--	AD9910_CHAN_IDX_PARALLEL_AMP,
--	AD9910_CHAN_IDX_PARALLEL_PHASE,
--	AD9910_CHAN_IDX_PARALLEL_FREQ,
--	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
--	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
--	AD9910_CHAN_IDX_DRG_FREQ,
--	AD9910_CHAN_IDX_DRG_PHASE,
--	AD9910_CHAN_IDX_DRG_AMP,
--	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
--	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
--	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
--	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
--	AD9910_CHAN_IDX_RAM,
--	AD9910_CHAN_IDX_OSK,
--};
--
- enum {
- 	AD9910_POWERDOWN,
- 	AD9910_DWELL_EN,
-diff --git a/drivers/iio/frequency/ad9910.h b/drivers/iio/frequency/ad9910.h
-new file mode 100644
-index 000000000000..6452a8678ed9
---- /dev/null
-+++ b/drivers/iio/frequency/ad9910.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * AD9910 SPI DDS (Direct Digital Synthesizer) driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#ifndef IIO_FREQUENCY_AD9910_H_
-+#define IIO_FREQUENCY_AD9910_H_
-+
-+#define AD9910_DEST_FREQUENCY		0
-+#define AD9910_DEST_PHASE		1
-+#define AD9910_DEST_AMPLITUDE		2
-+#define AD9910_DEST_POLAR		3
-+
-+enum ad9910_channel_idx {
-+	AD9910_CHAN_IDX_PHY,
-+	AD9910_CHAN_IDX_PROFILE_0,
-+	AD9910_CHAN_IDX_PROFILE_1,
-+	AD9910_CHAN_IDX_PROFILE_2,
-+	AD9910_CHAN_IDX_PROFILE_3,
-+	AD9910_CHAN_IDX_PROFILE_4,
-+	AD9910_CHAN_IDX_PROFILE_5,
-+	AD9910_CHAN_IDX_PROFILE_6,
-+	AD9910_CHAN_IDX_PROFILE_7,
-+	AD9910_CHAN_IDX_PARALLEL_AMP,
-+	AD9910_CHAN_IDX_PARALLEL_PHASE,
-+	AD9910_CHAN_IDX_PARALLEL_FREQ,
-+	AD9910_CHAN_IDX_PARALLEL_POLAR_AMP,
-+	AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE,
-+	AD9910_CHAN_IDX_DRG_FREQ,
-+	AD9910_CHAN_IDX_DRG_PHASE,
-+	AD9910_CHAN_IDX_DRG_AMP,
-+	AD9910_CHAN_IDX_DRG_FREQ_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_FREQ_RAMP_DOWN,
-+	AD9910_CHAN_IDX_DRG_PHASE_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_PHASE_RAMP_DOWN,
-+	AD9910_CHAN_IDX_DRG_AMP_RAMP_UP,
-+	AD9910_CHAN_IDX_DRG_AMP_RAMP_DOWN,
-+	AD9910_CHAN_IDX_RAM,
-+	AD9910_CHAN_IDX_OSK,
-+};
-+
-+#endif /* IIO_FREQUENCY_AD9910_H_ */
+ What:		/sys/.../iio:deviceX/in_velocity_sqrt(x^2+y^2+z^2)_integration_time
+ KernelVersion:	4.0
+ Contact:	linux-iio@vger.kernel.org
 
 -- 
 2.43.0
