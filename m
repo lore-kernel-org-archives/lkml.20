@@ -1,194 +1,145 @@
-Received: from mail-qk1-f228.google.com (mail-qk1-f228.google.com [209.85.222.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B227560AC8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07DC56C641;
+	Thu, 15 Oct 2026 19:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792091429; cv=none; b=Ph1zPsGbP9UIJF95buFvbPN7gi0gd8whd+ISU/Hu7TIVvbD5s3ShMM5WFMebNruyRlEFLIyj0yG13i6DNR0OwHhBPVkA8G+NzBFTiwn613kskOSFEB9AoaYdIeEkli/0pJIvQKQU5+Z666PWL8cg3TOsJUxP3wLVey0t56XtKzg=
+	t=1792091498; cv=none; b=C6TdoWb7zWmfLbO8B0kjzdyJ8RGQHFcZT5xDh6L2wH8hdxuUrkEDhdMsmtCbL2tE+Rz8Nq+acUr4EGXSMSLCSNc5SA8dnYk7g/hq1h7/v6fnXZVJ2cFbehTXEpiXPTrM2uFOLQZT/C0fe9i5dhM40ZQLk/5av+a3Kq8RlYwQXIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792091429; c=relaxed/simple;
-	bh=hE3f8QdWqnVhUuJM36XTgD2Q348p5LglREhubn7I+ww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TrSmy7vLCoXz4LnQL6Fg7rC9FemNzDUcDboCi3uQJ2LQQ+bkS3eBzvaMfqt20/8FO0kiTFCObAbSy3pI0DfsOOw9Fl63bgU1LHKD+1wxmBNgHedrZyZ/KRO1etpMqg1UUXs4Cfuo+RzscwvzHOfGZr9Ks+r6ZQLqKEn/FFX2Ffo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=VV6K+DVN; arc=none smtp.client-ip=209.85.222.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1792091498; c=relaxed/simple;
+	bh=WfYnkLvsxFQ2Iy1AZblL4oivfqAitetwqf0jIRb78zM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nx60Wqd2S2bwOHqe1EhEk8f7dMkb3BW6ZyjhXp6l1O1i0iVA473eZh8EXWgLB5dioTLnSeuf6LyMl1u7fj7DtJJ7WXNFaP28T5ivTrMrw+u8tmOSPCmlr4HVcd2I1ILwupXSYQbhKulogTdWBgSda0mSccBL9Id/8/FTDC3H4P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOi0wl0w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="VV6K+DVN"
-Received: by mail-qk1-f228.google.com with SMTP id af79cd13be357-93e6fb35f91so533805085a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:10:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792091427; x=1792696227;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=fpovG3xe/GFBxw/GZpFun0w46KPpZR7RwgjQ0+f5SJE=;
-        b=MZV8zQZhfclplrN8gQ6VnhPlzkBstOtKZbTf3qaY/P7QUJ0JzuktFcp6uw2LzU5Kek
-         JRB9SqDgXmo9b4BYBgKb1EZKr6bgi7e+Jat1aF436DFMdIO7D9mmKwRUgKKG9xK3zRAX
-         th7rMNKtxDwqN2lzW9MrVVb8SLzD1NQcPbLsQw6betZe7ZCUaaxc/9I9wFh6vZRaRMcu
-         bGsmvYKlmrEZbYsS51R9JBUezQYhUNIUoLqoUwtAVlyCSqQyiTlGSuHZvtcKIyJ/oKF/
-         WOyrURl+JoLYbTD8nxCGIZqHGnURHzAcDQgoBbjdP7QXIUhFNtiUJl5/Q1weOm/6TXkI
-         fTwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCEamj5oej5qZw72EfcL4G/2IYv5ejtNj2QpKC2+gGbM+T8T+7tEAgJ4PKl5RJkH85KhlZS+PZcDpYjIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIujsaODWScjDCS8gMWSrNhuH6f/2lM7BJ5gXeAV4x0SJx3tFPB
-	yUdtRXfLt3vQPk1yP+3b4R10Xii8b3ONUfEJIL61Vc5QmlmsAYPhRObycON8oMmN8tD2WIHRiSO
-	EhZpzVKU74P04zOYEx2mXlMIcx7mfnCt3g1xV3jiVa6/qZIkvybU3bOyPaSFs6Lkd+xxzDEKP14
-	sAVNi5wOF1OKE9914QSy7c5APuDeCVJyLadxGc7+jt4Ncg5NN4UFuVvoFnmP3mXVUBCLY4LqCyk
-	hvgwkcmbzN5iHOIa4qiwQM/
-X-Gm-Gg: AYBFou0+oYlakWjy8Z0Fka1RR8NtPgw4c39+VGOvOWCPpUOGRUX8D6f8eD6+LosT6x4
-	vFZ1PMM+NxEGfr15wgfGt3onCQXsoLer3LxNjKV+4coJtLqG5/iTpaWBecVM+TfIx2BbiVkWWcJ
-	c94U3jRZcePTAi7rGJVpC5mCa/+azDcYegfX3eAf0DknTSzEIJexTx5MK0ZtFn0aiDOLq79f9gU
-	txJ3zfPLd6hOLdaD+xNDztuJTpmjmYhAfxmntpGiEntHa0Oh/u8V7IW5iejEINejN6YAb7pzf9m
-	FLh+1IaWBfunXyschVTdRx7tbTjyJHRKId5lnCzuvURCVVmmN3o/97XzcpDWUAiXfgHoURFQwwX
-	+Pz/RshWQxTnybVbr8W64MGQySVMsty34kMwtoFfQSTJA1CNVcI6C6zS/k+yQ7TQ6qOPXqBS+Lh
-	Zwv1pOKf/TDPYHYp82mQD86WGJAE60blvVLOJ4v//Vv1U=
-X-Received: by 2002:a05:620a:6601:b0:93e:4dd3:bbb1 with SMTP id af79cd13be357-93ebd1e0104mr3371259585a.19.1792091427033;
-        Thu, 15 Oct 2026 12:10:27 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93f1a16118csm1536385a.12.2026.10.15.12.10.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 12:10:27 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc359d9easo933209985a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:10:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792091426; x=1792696226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fpovG3xe/GFBxw/GZpFun0w46KPpZR7RwgjQ0+f5SJE=;
-        b=VV6K+DVN5vaRfTlBAHAqkf37WriJyaIgIDifIHp5nZMsvzTOhB5i3Tcu768etqPYX7
-         fdBhBIFS3JlNk7MWbRRmT1mrn+QqbPIhUcE8YHsMfeOxDjLcxdPR66QU1PNFZlPZAfWj
-         wDWBNffboufNooiacKahpBD3FutI8sAtdsXNc=
-X-Forwarded-Encrypted: i=1; AKwUvBw/IHZ8+p/GWyPvdeUmfxFOk9HX6TXILje7+QM7OeLSNpk615JZ/w07EZYEzndp7NIP37L3joRaBvg0+V4=@vger.kernel.org
-X-Received: by 2002:a05:620a:19a5:b0:93e:acdd:acd9 with SMTP id af79cd13be357-93ebd0cb796mr3250025985a.7.1792091426112;
-        Thu, 15 Oct 2026 12:10:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:19a5:b0:93e:acdd:acd9 with SMTP id af79cd13be357-93ebd0cb796mr3250018785a.7.1792091425443;
-        Thu, 15 Oct 2026 12:10:25 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8b4c51sm3232936d6.5.2026.10.15.12.10.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 12:10:24 -0700 (PDT)
-Message-ID: <f7cf09c5-dba1-4501-b93e-ce4ad555edeb@broadcom.com>
-Date: Thu, 15 Oct 2026 12:10:22 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOi0wl0w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8A11F000C4;
+	Thu, 15 Oct 2026 19:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792091483;
+	bh=SAUwP8uv+umPvOo9Qj4Nscuwt4gS+Jp3uOlXS5VCJX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cOi0wl0wIMf7h6fRzBGzvmfNVak4QfBXmz5UnHGQQ//LoBbqmk8ISLwwLjlNRe5Zs
+	 GA+DIVBtyk2epQQzkS5TNPlbIs+JwXJKrmqRcEsBJSWfZtwEwp6uOhULQfYLjtyqt4
+	 5KFgSQL9Dhu9YzqkojCN/j3wcVZQRzcNzEZZCuKeaA4OZVyM6vtQtE5Sek2XP1xDQo
+	 mkYJ0zv8NUdXBgNONVQzRTD6VJVLkWBPUdxhdnHztVjO68F4vBJaRJUizOkps3jn4S
+	 0PY3ZMjpwDIuyI2Bc9jmPKHvakp8HRDb918uC+aEDjli9MTrM19VmYHLO5mSfkiozk
+	 53TZ4XwXpuMYg==
+Date: Thu, 15 Oct 2026 20:11:21 +0100
+From: Harry Yoo <harry@kernel.org>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, 
+	SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Nico Pache <nico.pache@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, Gregory Price <gourry@gourry.net>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, 
+	Hugh Dickins <hughd@google.com>, David Rientjes <rientjes@google.com>, 
+	Yu Zhao <yuzhao@google.com>, Vernon Yang <vernon2gm@gmail.com>, 
+	Zicheng Wang <wangzicheng@honor.com>, Chen Ridong <chenridong@xiaomi.com>, 
+	Tal Zussman <tz2294@columbia.edu>, Kairui Song <ryncsn@gmail.com>, 
+	Xiang Liu <liuxiang.277@bytedance.com>, Ehab Ababneh <ehab.ababneh@intel.com>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, Lian Wang <lianux.mm@gmail.com>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+	damon@lists.linux.dev
+Subject: Re: [PATCH v4 03/17] mm/memcg: add folio-based lruvec live helper
+Message-ID: <atEkfmRFgXJCbJuK@thinkstation>
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
+ <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] PCI: iproc-bcma: Use EROM instead of devicetree
-To: Semih Baskan <strst.gs@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <rafal@milecki.pl>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, Rosen Penev <rosenp@gmail.com>,
- Rani Hod <rani.hod@gmail.com>, bcm-kernel-feedback-list@broadcom.com,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
-References: <20261013220421.1588051-1-bhelgaas@google.com>
- <0dcfb2db-5536-465a-bee1-afe160535748@broadcom.com>
- <CAAsRjR=_Q7aT6+NGAszYx=FkFMYWtp0HVe1KJwLwHEVhR0ghSw@mail.gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <CAAsRjR=_Q7aT6+NGAszYx=FkFMYWtp0HVe1KJwLwHEVhR0ghSw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com>
 
-On 10/15/26 11:51, Semih Baskan wrote:
->> Humm, this is not materially different for me before/after applying tihs
->> patch and unfortunately but here is what I am getting with these two
->> patches applied on top of Linus' master at
->> 0fcb05b72344f40806cbe810de8872f1698bf053:
-> [...]
->> Unhandled fault: external abort on non-linefetch (0x1008) at 0xc896df40
-> [...]
->> r3 : c896df40  r2 : 0000ffff  r1 : 00000f40  r0 : c1ce1a00
-> [...]
->>    pci_host_probe from iproc_pcie_setup+0x8a0/0xd94
->>    iproc_pcie_setup from iproc_pltfm_pcie_probe+0x10c/0x1d4
+On Fri, Oct 16, 2026 at 02:15:52AM +0800, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> The series only changes the pcie-iproc-bcma path, and this kernel probes
-> the controller with pcie-iproc-platform, so the patches do not run here.
-
-Yes, clearly not enough coffee, thank you Semih.
-
+> Add a helper that resolves a stable lruvec for a folio under RCU
+> without taking the lruvec lock.  It takes a folio directly so the
+> lruvec lookup happens inside the RCU read-side critical section,
+> which a lruvec-based interface cannot guarantee.
 > 
-> I think the abort is the read of APB_ERR_EN at offset 0xf40 (r1). I
-> measured the same on an RT-N18U (core revision 0x01) in September: the
-> platform-only kernel does not come up, and with this one line it boots
-> and enumerates the BCM4360 [1]:
+> No functional change.
 > 
-> --- a/drivers/pci/controller/pcie-iproc.c
-> +++ b/drivers/pci/controller/pcie-iproc.c
-> @@ -1388,7 +1388,7 @@
->           break;
->       case IPROC_PCIE_PAXB:
->           regs = iproc_pcie_reg_paxb;
-> -        pcie->has_apb_err_disable = true;
-> +        pcie->has_apb_err_disable = false;
->           if (pcie->need_ob_cfg) {
->               pcie->ob_map = paxb_ob_map;
->               pcie->ob.nr_windows = ARRAY_SIZE(paxb_ob_map);
+> Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
 
-Yes that works for me, and I was able to establish the last working 
-baseline was v7.0 which did not include 
-76701239797698b620f2b7ec713fe08ef50ee664 ("ARM: dts: BCM5301X: Describe 
-PCIe controllers fully"), whereas v7.1 and onwards crashes unless your 
-patch is applied.
+This new helper is doing the the same thing as what
+get_non_dying_memcg_start/end() do.
 
-Also, the good thing is that my local test bed has been resurrected and 
-will be more regularly testing now.
-
+>  include/linux/memcontrol.h | 39 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 39 insertions(+)
 > 
-> [1] https://lore.kernel.org/all/CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com/
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 74110a324f9e..829ab776ab44 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -1535,6 +1535,45 @@ static inline void lruvec_lock_irq(struct lruvec *lruvec)
+>  	spin_lock_irq(&lruvec->lru_lock);
+>  }
+>  
+> +/**
+> + * folio_lruvec_live_get - get a live lruvec for a folio under RCU
+> + * @folio: the folio
+> + *
+> + * Computes @folio's lruvec and walks up to the nearest live ancestor
+> + * if the folio's memcg is dying.  Paired with folio_lruvec_live_put().
+> + * The result may be stale: RCU keeps it alive but does not pin @folio
+> + * to it.  That is fine as the counters are fixed up on reparenting.
+> + *
+> + * Return: the live lruvec, with rcu_read_lock held.
+> + */
+> +static inline struct lruvec *folio_lruvec_live_get(struct folio *folio)
+> +{
+> +#ifdef CONFIG_MEMCG
+> +	struct lruvec *lruvec;
+> +	struct pglist_data *pgdat;
+> +	struct mem_cgroup *memcg;
+> +
+> +	rcu_read_lock();
+> +	lruvec = folio_lruvec(folio);
+> +	pgdat = lruvec_pgdat(lruvec);
+> +	memcg = lruvec_memcg(lruvec);
+> +	while (unlikely(memcg && css_is_dying(&memcg->css))) {
+> +		memcg = parent_mem_cgroup(memcg);
+> +		lruvec = mem_cgroup_lruvec(memcg, pgdat);
+> +	}
+> +	return lruvec;
+> +#else
+> +	return folio_lruvec(folio);
+> +#endif
+> +}
+> +
+> +static inline void folio_lruvec_live_put(struct lruvec *lruvec)
+> +{
+> +#ifdef CONFIG_MEMCG
+> +	rcu_read_unlock();
+> +#endif
+> +}
+> +
+>  static inline struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
+>  {
+>  #ifdef CONFIG_MEMCG
 > 
-> Best regards,
-> Semih
-
+> -- 
+> 2.56.0
 
 -- 
-Florian
+Cheers,
+Harry / Hyeonggon
