@@ -1,47 +1,71 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4396A4A0EFE;
-	Thu, 15 Oct 2026 06:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0619149EC5C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792047424; cv=none; b=TzImyGfGrRWmlpmO6kDoX2oYnIwnwrDJaDV2tI3XTvAi0hbwXQVAXGK8cm7kZCkuySiRyQM8wIx58E3kQV+6HA5ogd5KEKMn/rT3qT7AcFp6NZjkOoe4O2Hfihi60OkgdcLMlOareat2ian5PWtsw/E2QTocqtCVtTiu13rg/14=
+	t=1792047444; cv=none; b=obbiZieO+hZzwgtfvD2sNPzpK20OBFJPJd9QoN/BoaQyXHM0JclRNBzU0L3x3mqyeqc00IA+DVWF0IH/UW9tHzNe3v75lLIq+uMLdB5GQgZ14+untI3wjqJdmLiGaKQS4oJUk6TNZZG3YP0PeQAzHFVOre0zlCG3qTeRwDUhy8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792047424; c=relaxed/simple;
-	bh=2NRnXUoTYhE6dctcceEuqKNJ1jVNwCq/koP+DN/ZEOQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZLt2zjqXab85CSDzPbv5ozsf0ncMmNIWvm9oiRCt8Sqp11aKwm8uUlKRntqRoFEWhKoMHc3wYP8XS+6g841Yq7rmN0Y6lilbrBLgLqKHiW+5V/iSCDeN154m36mInkyeoUGE/T+C3lacpa1wRfD6nEK0rfiGwsuAVigVgMM0woA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 95b8929ec86511f19a56ed5b684f684d-20261015
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:534f10fa-1ecd-4941-865d-d8977db57739,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:1a55f037f40013148ff75768c968bf37,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 95b8929ec86511f19a56ed5b684f684d-20261015
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1125435934; Thu, 15 Oct 2026 14:56:45 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
+	s=arc-20240116; t=1792047444; c=relaxed/simple;
+	bh=edDdu0m1Tays1tEmbQaqGjg3SKbY2zUZEO/enKdLJNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UW1l31Z2jEJs3596kHki/vU183JLWlTfsjk2geREB83nQwOa753zdoAQgoJQ7Brhbp8sdl53lQsD7qtJGGe3cRkE58Y6tQOdcXjVXYz5xHqVa1WxipCod2UaWknbohbHdCGRLzuhR+dJCqz95QEJaDKLSAGtmXaFm4J/fUwK3go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E2t9tEMQ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E2t9tEMQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792047436;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PlndOUpPD0rIHOGOOB7+cfhvzEcigQMJ8mrT3merEI0=;
+	b=E2t9tEMQfn//HG4+aPHPsSJrWTFUb8akX4FNJ9eMTW/8dvMPw9PO4xbc5a8d3WgZHKKnTM
+	IjFSRLvPMwvPW+k64io8vy2O1Q0gT/EjNd1WZCeHRmvfaGmkNi+HtrGj4d/k32BgoSEKrx
+	UTY+yNf/98+niZio8TFBQRByLczz0UE=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-177-zjakPm4AMKSwoTffPaeZCA-1; Thu,
+ 15 Oct 2026 06:57:11 +0000
+X-MC-Unique: zjakPm4AMKSwoTffPaeZCA-1
+X-Mimecast-MFC-AGG-ID: zjakPm4AMKSwoTffPaeZCA_1792047429
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3B30B1956071;
+	Thu, 15 Oct 2026 06:57:08 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B26353000723;
+	Thu, 15 Oct 2026 06:57:02 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: helgaas@kernel.org
+Cc: alex@shazbot.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	bhelgaas@google.com,
+	jgg@ziepe.ca,
+	jjohnson@kernel.org,
+	johannes@sipsolutions.net,
+	jtornosm@redhat.com,
+	kevin.tian@intel.com,
+	kvm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: Fix quirk for HP Laptop 15-fc0xxx
-Date: Thu, 15 Oct 2026 14:56:40 +0800
-Message-Id: <20261015065640.377466-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	mani@kernel.org,
+	skolothumtho@nvidia.com,
+	yishaih@nvidia.com
+Subject: Re: [PATCH 4/7] ath11k: add PCIe link recovery retry
+Date: Thu, 15 Oct 2026 08:57:00 +0200
+Message-ID: <20261015065700.120184-1-jtornosm@redhat.com>
+In-Reply-To: <20261014165829.GA1636877@bhelgaas>
+References: <20261014165829.GA1636877@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,64 +73,21 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-The HP Laptop 15-fc0xxx is based on an AMD platform where the digital
-microphone is provided by the snd-soc-acp6x-mach driver, not by the
-HDA codec. The ALC236_FIXUP_HP_DMIC quirk configures pin 0x12 as an
-internal DMIC, which is a misconfiguration for this machine: the pin
-is not wired to a codec DMIC and the setting has no effect on the
-actual microphone path (which works via ACP6x).
+Hi Bjorn,
 
-Replace ALC236_FIXUP_HP_DMIC with
-ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO, the standard quirk used by the
-closely related HP Laptop 15-fd0xxx and other ALC236 HP machines. This
-removes the misleading DMIC pin config and adds proper mute LED and
-micmute LED support that was missing from the original quirk.
+> Link down is a PCIe reset of the endpoint, which should clear all
+> PCIe-specific state, e.g., BAR values.  Is that restored somewhere?
 
-Fixes: 720460722310 ("ALSA: hda/realtek: add quirk for HP Laptop 15-fc0xxx")
-Cc: stable@vger.kernel.org
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221233
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222044
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc269.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+PCIE_SOC_GLOBAL_RESET is a device-internal SoC reset, not a PCIe
+fundamental reset. The link drops transiently but PCI configuration
+space (including BARs) survives. Only a device-specific window
+register needs restoration, handled by ath11k_pci_restore_window()
+right after. Same pattern as ath12k.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 92686e71dad1..1c2d88689988 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4480,7 +4480,6 @@ enum {
- 	ALC245_FIXUP_BASS_HP_DAC,
- 	ALC245_FIXUP_ACER_MICMUTE_LED,
- 	ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
--	ALC236_FIXUP_HP_DMIC,
- 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
- 	ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS,
- 	ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE,
-@@ -7247,13 +7246,6 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
- 	},
--	[ALC236_FIXUP_HP_DMIC] = {
--		.type = HDA_FIXUP_PINS,
--		.v.pins = (const struct hda_pintbl[]) {
--			{ 0x12, 0x90a60160 }, /* use as internal mic */
--			{ }
--		},
--	},
- 	[ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -7919,7 +7911,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da8, "HP 16 Piston OmniBook X", ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX),
--	SND_PCI_QUIRK(0x103c, 0x8dc9, "HP Laptop 15-fc0xxx", ALC236_FIXUP_HP_DMIC),
-+	SND_PCI_QUIRK(0x103c, 0x8dc9, "HP Laptop 15-fc0xxx", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
- 	SND_PCI_QUIRK(0x103c, 0x8dd4, "HP EliteStudio 8 AIO", ALC274_FIXUP_HP_AIO_BIND_DACS),
- 	SND_PCI_QUIRK(0x103c, 0x8dd7, "HP Laptop 15-fd0xxx", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
- 	SND_PCI_QUIRK(0x103c, 0x8de8, "HP Gemtree", ALC245_FIXUP_TAS2781_SPI_2),
--- 
-2.25.1
+Thanks
+
+Best regards
+Jose Ignacio
 
