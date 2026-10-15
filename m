@@ -1,46 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2291496D4C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD5C479869;
 	Thu, 15 Oct 2026 08:57:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054659; cv=none; b=JfLTK2e8OdV+oAUeLDqHfn23/6XHtDgLML4XBnBnjdfgDn2HqAloSO64VOzZ5FfgRTvLcoYLDLKO0a2jEDhXmfH+b8PcsIBlXZa28PnFZVI58YK9VnHuqK1MobLt8cHlBJKJuYgvfFxebc9t0t74ANqvohKQ/6iDl97p2Mg4s6Q=
+	t=1792054660; cv=none; b=aAXzEvZnLrPihmZBU3AGc5BoXYr0o1PpKMcQo8+oqxPpVJe+3Z0+gq0NBI0ZGhHrAlbqBkfKgek5RYdMz5WvSeapl7I68Buh3CpggbcAVh0wmeJEvPCWhUt84eapRer15ukhb+Ftkc3Lxso6g2RSai9n5UXHs/ikjGXK9OM/Wng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054659; c=relaxed/simple;
-	bh=nA1AwkSwf28jxip5Bj3ji0l68Xbeo8VYJG8eCXPCuc0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NTFy+Ztj9DtYy1pBisBmA2OpXJp1gDVVWDHWL/m6Tx9bfqaPfw00ihxTwXuCUPtPUjMH2055E0mBvTvi3P5ldZETfiTNJwTlFtApkSV0WHussIv5hcEauyM5YjRk1YAhv3y6DGdzdfK/htPRaxsnbxeEeebDsA1sem7kqC2zG2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgYz0Eu5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792054660; c=relaxed/simple;
+	bh=5+cEQ/PF+ta6IgoIBYQpBk8oGsZM/5n1gnXXe7Rrwtc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rdRjn/wFn42UpfYgRVL24lSFwwB3w02waiBMkDORI/qNyDbcWzaQFrs+xLugW4WCsxmGTAds6Fhb2TvO6sAOD0FOaJVA7k/SBdp4C41NBPN9TuHsbMv6tHuogMaOuiYepuOb0eLeYI0nm5qDNadoadBIfJdOk4IC4vyvxFuX79o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKcP5azB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgYz0Eu5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EE81F000C5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKcP5azB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E0D1F000C8;
 	Thu, 15 Oct 2026 08:57:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792054653;
-	bh=/8AJXbJ1qf8wP1AoGud53XojAWbKJNvTY4/Y9innJpw=;
-	h=From:To:Cc:Subject:Date;
-	b=CgYz0Eu50flY4iRlQc7yX9+b8O4Hw7KWQOkfZUy3BS6xaVJugMYVkoSfsDro1bIAm
-	 UIkDyauUid3rZAn5+EPKy9dJM5elMK2+mIWaJP/YvcNDLqJCDHUR3ttAPk8d4+CpQX
-	 AmCIkXKLz/bxa5GCkRaPXn7JQ0FOPnj5aPky0hN5P+7iyYJC0iho75EFElIiFBrjpC
-	 6ZqFMR8PHBQRBWTwHrzKkF2Rqhvz1m1KVsnwNZKhhB8gL970rkwrHm/OtOmcC1uc38
-	 qywycgwsOq0RfqLGlVaBAjKm2XHxIyRe/eh4M1FqvfYz0CzwcB6uLHYNZWpH7d6gkz
-	 V6aGz6gkcIopg==
+	bh=18dFr36xUFH5UiJnAqmaLxGXaMtXyYfjClSscW+YwNs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MKcP5azBNn0rrJOXalCs+T+mnG/4Wh2zHNtWY2GapSgCPiba6bzKZkk/OP3bTpxyI
+	 PGdgfFZ2hf0WKRLVHJVXUmO65UO6qC2ifcSe80wkGR93Uj7haj9rH+gsiBAF8gL62E
+	 cXRwesUmMKvdvmI8X8nuo9/GrqL+pNw0rS4Tn6W/HQFhfRFkVWlhHQWyE/BEYq/4+8
+	 Gs+qC6mjeeNjXrqviYHzpiYL+BVw8ec3+NBick+03TGkapOMJjMU42XduBh2fp3wEZ
+	 We/64z64fhKyJrXgpeWqZvInKGoTuWf9uV4SpLUPjDut+6tFHON1CvELC3Gem91wUA
+	 x2rD9rEXZeiRA==
 Received: from mchehab by mail.kernel.org with local (Exim 4.99.5)
 	(envelope-from <mchehab+huawei@kernel.org>)
-	id 1xHHHH-00000000Mil-0YDT;
+	id 1xHHHH-00000000Mio-0fsq;
 	Thu, 15 Oct 2026 10:57:31 +0200
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
 	Randy Dunlap <rdunlap@infradead.org>,
 	Shuah Khan <skhan@linuxfoundation.org>
-Subject: [PATCH 0/4] docs: test_doc_build: Test up to Sphinx 9.1.0
-Date: Thu, 15 Oct 2026 10:57:17 +0200
-Message-ID: <cover.1792053090.git.mchehab+huawei@kernel.org>
+Subject: [PATCH 1/4] docs: test_doc_build: better handle python version
+Date: Thu, 15 Oct 2026 10:57:18 +0200
+Message-ID: <871255ee391ceae0d24ed18f31c1e91589d139c7.1792053090.git.mchehab+huawei@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1792053090.git.mchehab+huawei@kernel.org>
+References: <cover.1792053090.git.mchehab+huawei@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,81 +55,134 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Sender: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Hi Jon,
+Make the python version logic more generic to allow adding more
+python degradation changes on more recent Sphinx tools.
 
-This small patch series extend test_doc_build to cover up to
-Sphinx version 9.1.0.
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+---
+ tools/docs/test_doc_build.py | 70 ++++++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 18 deletions(-)
 
-I didn't use AI to write code changes on this series. All manual
-work. I did use it to help me identifying what versions are
-relevant. After such "AI browsing", I double-checked references
-and ended not adding version 9.0.0 at the DEFAULT_VERSIONS_TO_TEST,
-as I didn't find a major distro using it.
-
-With that, I kept there version 8.1.3, as Debian trixie uses it
-(I removed Fedora 42 from comments, as this is already EOL).
-
-Version 8.2.3 is on an Ubuntu LTS version (being the one on
-my machine which has Fedora 44).
-
-Version 9.1.0 is the current latest version, so it is used at
-the rolling version distributions.
-
-Also pointed by LLM, version 9.0.0 comes with a new dependency.
-I could have simply ommitted that, since pip should automatically
-add it, but I opted to map it there with its minimal requirement,
-as this way it would be easier to track changes on future
-Sphinx versions.
-
-On this series:
-
-patch 1 improves python version detection, as there are version
-deprecations on newer Sphinx versions. It also makes the logic
-more generic, as the current logic was limited up to Python 3.14.
-
-patch 2 adds the new entries at +PYTHON_VER_CHANGES, SPHINX_REQUIREMENTS
-and DEFAULT_VERSIONS_TO_TEST.
-
-patch 3 solves pylint issues.
-
-patch 4 addresses a minor issue related to urllib3 2.0.
-
-After running the new script, it now reports with
-tools/docs/test_doc_build.py -b on its summary:
-
-        Sphinx 3.4.3 elapsed time: 00:10:23
-        Sphinx 5.3.0 elapsed time: 00:09:27
-        Sphinx 6.1.1 elapsed time: 00:33:15
-        Sphinx 7.2.1 elapsed time: 00:09:22
-        Sphinx 7.2.6 elapsed time: 00:09:21
-        Sphinx 7.3.0 elapsed time: 00:09:36
-        Sphinx 7.4.7 elapsed time: 00:04:44
-        Sphinx 8.1.3 elapsed time: 00:04:59
-        Sphinx 8.2.3 elapsed time: 00:05:00
-        Sphinx 9.1.0 elapsed time: 00:05:01
-
-And the logic properly used different python versions starting
-from python3.10 (which is the minimal one I have installed on
-my local machine):
-
-	Sphinx 3.4.3 with /usr/bin/python3.9
-	...
-	Sphinx 7.4.7 with /usr/bin/python3.9
-	Sphinx 8.0.0 with /usr/bin/python3.10
-	Sphinx 8.1.0 with /usr/bin/python3.11
-	...
-	Sphinx 9.0.0 with /usr/bin/python3.11
-	Sphinx 9.1.0 with /usr/bin/python3.12
-
-Mauro Carvalho Chehab (4):
-  docs: test_doc_build: better handle python version
-  docs: test_doc_build: update it to support newer Sphinx versions
-  docs: test_doc_build: address pylint warnings
-  docs: test_doc_build: don't select urllib3 yanked version
-
- tools/docs/test_doc_build.py | 120 +++++++++++++++++++++++------------
- 1 file changed, 81 insertions(+), 39 deletions(-)
-
+diff --git a/tools/docs/test_doc_build.py b/tools/docs/test_doc_build.py
+index 47b4606569f9..4082317d581d 100755
+--- a/tools/docs/test_doc_build.py
++++ b/tools/docs/test_doc_build.py
+@@ -11,29 +11,47 @@ and optionally test the build.
+ 
+ import argparse
+ import asyncio
++import glob
+ import os.path
+-import shutil
++import re
+ import sys
+ import time
+ import subprocess
+ 
+-# Minimal python version supported by the building system.
++MIN_PYTHON_SUBVER = 9  # Currently, Python 3.9 is the minimal supported version
+ 
+-PYTHON = os.path.basename(sys.executable)
++RE_VERSION = re.compile(r"python3\.\d+$")
+ 
+-min_python_bin = None
+ 
+-for i in range(9, 13):
+-    p = f"python3.{i}"
+-    if shutil.which(p):
+-        min_python_bin = p
+-        break
++def get_min_python_bin(min_subver):
++    """Get minimal python binary since 3.MIN_PYTHON_SUBVER"""
++    bins = set()
+ 
+-if not min_python_bin:
+-    min_python_bin = PYTHON
++    paths = os.environ.get("PATH", "").split(os.pathsep)
++    for d in paths:
++        for p in glob.glob(os.path.join(d, "python3.[0-9]*")):
++            if not RE_VERSION.search(p):
++                continue
+ 
+-# Starting from 8.0, Python 3.9 is not supported anymore.
+-PYTHON_VER_CHANGES = {(8, 0, 0): PYTHON}
++            ver = int(p.split(".")[1])
++            if ver < min_subver:
++                continue
++
++            if os.path.isfile(p) and os.access(p, os.X_OK):
++                bins.add(p)
++
++    if not bins:
++        return None
++
++    return sorted(bins, key=lambda x: (3, int(x.split(".")[1])))[0]
++
++# Minimal python versions. Please notice that for 3.4.3, older python
++# versions would work with Sphinx, but kernel doc build is not compatible
++# with them anymore, due to Sphinx extensions and kernel-doc.
++PYTHON_VER_CHANGES = {
++    (3, 4, 3): (3, MIN_PYTHON_SUBVER),
++    (8, 0, 0): (3, 10),
++}
+ 
+ DEFAULT_VERSIONS_TO_TEST = [
+     (3, 4, 3),   # Minimal supported version
+@@ -173,7 +191,7 @@ class AsyncCommands:
+         self.output = None
+         self.fp = fp
+ 
+-    def log(self, out, verbose, is_info=True):
++    def log(self, out, verbose=True, is_info=True):
+         out = out.removesuffix('\n')
+ 
+         if verbose:
+@@ -362,8 +380,19 @@ class SphinxVenv:
+             if not args.verbose:
+                 args.verbose = True
+ 
++        cmd = AsyncCommands(fp)
++
+         cur_requirements = {}
+-        python_bin = min_python_bin
++        python_bin = get_min_python_bin(MIN_PYTHON_SUBVER)
++        if not python_bin:
++            python_bin = os.path.basename(sys.executable)
++            python_ver = tuple(sys.version_info[:2])
++
++            if python_ver < (3, MIN_PYTHON_SUBVER):
++                sys.exit(f"Python {python_ver[0]}.{python_ver[1]} is too old.")
++        else:
++            ver = int(python_bin.split(".")[1])
++            python_ver = tuple([3, ver])
+ 
+         vers = set(SPHINX_REQUIREMENTS.keys()) | set(args.versions)
+ 
+@@ -372,8 +401,14 @@ class SphinxVenv:
+                 new_reqs = SPHINX_REQUIREMENTS[cur_ver]
+                 cur_requirements.update(new_reqs)
+ 
+-            if cur_ver in PYTHON_VER_CHANGES:          # pylint: disable=R1715
+-                python_bin = PYTHON_VER_CHANGES[cur_ver]
++            if cur_ver in PYTHON_VER_CHANGES:
++                new_ver = PYTHON_VER_CHANGES[cur_ver]
++                if python_ver < new_ver:
++                    python_bin = get_min_python_bin(new_ver[1])
++
++                    if not python_bin:
++                        cmd.log(f"Can't check {cur_ver}: {python_bin} not found.")
++                        break
+ 
+             if cur_ver not in args.versions:
+                 continue
+@@ -390,7 +425,6 @@ class SphinxVenv:
+                                        python_bin)
+ 
+         if args.build:
+-            cmd = AsyncCommands(fp)
+             cmd.log("\nSummary:", verbose=True)
+             for ver, elapsed_time in sorted(self.built_time.items()):
+                 cmd.log(f"\tSphinx {ver} elapsed time: {elapsed_time}",
 -- 
 2.56.0
 
