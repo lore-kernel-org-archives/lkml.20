@@ -1,117 +1,127 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D3E651AFDB;
-	Thu, 15 Oct 2026 12:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D565851AFDB;
+	Thu, 15 Oct 2026 12:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068700; cv=none; b=shUiF2WE6uj7gozeUTQ0idjW2S6f0qxmUEdE4iytNvDMjaSn0jUOCTT4X622u5Bt++9dABX1DdeZGY79bJnMjXuVR7JnMH7xB06ogzM97zHGkAcfwLO9+wLF9J6QrBchw141SbaSD0Vgf1PtkTZZKQUhdtH+z/M+syAqtCk4Q2o=
+	t=1792068706; cv=none; b=YNUpR52de3t+fOU5/Rc50jsjqzPtvOx5SfSRDKRm3KyEKBdPTvBpKM/q8RwAZW2UG6IkoAnUkpKyQy9OQUpKVDCR0JWcPTE0G0MSYchbVlwxfT8+xWLSidvssSl8vGANrzdJsd8U+UQ+1HYeFkbbpj3g9w51f02TwoJ3FpOhl04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068700; c=relaxed/simple;
-	bh=e+safD3hUNzYJYliSocdsb9uNpf58U7yqIw1V03S0TU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=B8iBiTdYkBHYuQCKoS+Lr/7JQAdmiAzg6OZgPeLIK9f57W4rZ7R8IDoPTGE1azeLzToLzcMuzoNwMxSw2xYjYmkNH4ReMQ6RTHW1xvXo4ngmu8GNyDm+MrGhDgCbD4uFMCud/M32YLQPd0US5f+jorP5PdoBqe17Oc1GMH2bp9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [180.108.30.19])
-	by gateway (Coremail) with SMTP id _____8Ax29FYzNBqvSEWAA--.64744S3;
-	Thu, 15 Oct 2026 20:51:36 +0800 (CST)
-Received: from chenhuacai$loongson.cn ( [180.108.30.19] ) by
- ajax-webmail-front1 (Coremail) ; Thu, 15 Oct 2026 20:51:30 +0800
- (GMT+08:00)
-Date: Thu, 15 Oct 2026 20:51:30 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6ZmI5Y2O5omN?= <chenhuacai@loongson.cn>
-To: linux-kernel@vger.kernel.org
-Cc: linux-tip-commits@vger.kernel.org, "Thomas Gleixner" <tglx@kernel.org>,
-	x86@kernel.org
-Subject: Re: [tip: irq/drivers] irqchip/loongson-eiointc: Use pa_to_nid()
- rather than hard-code
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
- 20250609(354f7833) Copyright (c) 2002-2026 www.mailtech.cn loongson
-In-Reply-To: <179205976728.2666988.6236210457087239433.tip-bot2@tip-bot2>
-References: <20261013062358.60654-1-chenhuacai@loongson.cn>
- <179205976728.2666988.6236210457087239433.tip-bot2@tip-bot2>
-Content-Transfer-Encoding: base64
-X-CM-CTRLDATA: nmZ1jmZvb3Rlcl90eHQ9MTk4MDo2MTg=
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1792068706; c=relaxed/simple;
+	bh=QXllR0xP8nWVvi4ycSEzU3+CGxjq+MXIYtSkdlH3t/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nsZZspeHyQK3qyakEMLK6q6fyoF7BD5uRJjxnLg1bQydNDy0YMfDauyQ6L6rmtjMxvjHdf33ToX0TA1/yFbJE5nGG2U5+lSSUuHY8qLVszl5k5zB6eE/WytL+s3osAdJ8zI1cTGwF7OLtzANFc16VN2pX1hNYJoe0NhGLkhAAAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JoNhX8C7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JoNhX8C7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178A01F000C4;
+	Thu, 15 Oct 2026 12:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792068704;
+	bh=IWtHMI/eMhJnI9me/c92CVJGdl0B9ute1Ne9yIrUfww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JoNhX8C77Ykv96e4Yk0ko6Smt0zFrtP1GFRE4zwmTf3o6Jd6iuQoBEf/NAvmW6JaH
+	 BIHCVrqch7YPo6bMoc5X5nXp2LHMOtCUpRSFVEXKldzxmzfdESHrirTyNb2Jf1Lpxr
+	 71rZ4W/HsrP6AoOPDq6VtBzX6Z9gApAzzXSSxFa8=
+Date: Thu, 15 Oct 2026 14:51:47 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Jan-Simon Moeller <jansimon.moeller@gmx.de>,
+	Pavel Machek <pavel@kernel.org>,
+	Joseph Strauss <jstrauss@mailbox.org>, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] leds: blinkm: Clean up sysfs group on LED
+ registration failure
+Message-ID: <2026101556-boxer-underfoot-1e9f@gregkh>
+References: <20260926000344.29899-1-mhun512@gmail.com>
+ <179198508016.839288.4695468891309561458@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2a16d59f.8234.1a13f9e2242.Coremail.chenhuacai@loongson.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:qMiowJCxuM1SzNBqUqosAA--.11268W
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/1tbiAQEBBmrQNHcIvQABsK
-X-Coremail-Antispam: 1Uk129KBj93XoW7uryrKF1UAryxKrykJF4DWrX_yoW8tr1UpF
-	W7Cayqkr4UG34Ykr1vvr4UCFy5Zwn3WFZrKFWUG3y3ZF98Xr1DXr1fAws8XFsFkwn2ga4j
-	vFsYq34q93WUCacCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFcxC0VAYjx
-	AxZF0Ew4CEw7xC0wACY4xI67k04243AVC20s07MxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l
-	6VACY4xI67k04243AbIYCTnIWIevJa73UjIFyTuYvjxUFApnDUUUU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179198508016.839288.4695468891309561458@kernel.org>
 
-CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAidGlwLWJvdDIgZm9yIEh1
-YWNhaSBDaGVuIiA8dGlwLWJvdDJAbGludXRyb25peC5kZT4KPiDlj5HpgIHml7bpl7Q6MjAyNi0x
-MC0xNSAxODoyMjo0NyAo5pif5pyf5ZubKQo+IOaUtuS7tuS6ujogbGludXgtdGlwLWNvbW1pdHNA
-dmdlci5rZXJuZWwub3JnCj4g5oqE6YCBOiAiSHVhY2FpIENoZW4iIDxjaGVuaHVhY2FpQGxvb25n
-c29uLmNuPiwgIlRob21hcyBHbGVpeG5lciIgPHRnbHhAa2VybmVsLm9yZz4sIHg4NkBrZXJuZWwu
-b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4g5Li76aKYOiBbdGlwOiBpcnEvZHJp
-dmVyc10gaXJxY2hpcC9sb29uZ3Nvbi1laW9pbnRjOiBVc2UgcGFfdG9fbmlkKCkgcmF0aGVyIHRo
-YW4gaGFyZC1jb2RlCj4gCj4gVGhlIGZvbGxvd2luZyBjb21taXQgaGFzIGJlZW4gbWVyZ2VkIGlu
-dG8gdGhlIGlycS9kcml2ZXJzIGJyYW5jaCBvZiB0aXA6Cj4gCj4gQ29tbWl0LUlEOiAgICAgMGEw
-Y2RmODdkMDdlMjI5MjdjMmE0YzQ3Yjc4YTA5YmVjMzdhN2QzOAo+IEdpdHdlYjogICAgICAgIGh0
-dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvdGlwLzBhMGNkZjg3ZDA3ZTIyOTI3YzJhNGM0N2I3OGEwOWJl
-YzM3YTdkMzgKPiBBdXRob3I6ICAgICAgICBIdWFjYWkgQ2hlbiA8Y2hlbmh1YWNhaUBsb29uZ3Nv
-bi5jbj4KPiBBdXRob3JEYXRlOiAgICBUdWUsIDEzIE9jdCAyMDI2IDE0OjIzOjU4ICswODowMAo+
-IENvbW1pdHRlcjogICAgIFRob21hcyBHbGVpeG5lciA8dGdseEBrZXJuZWwub3JnPgo+IENvbW1p
-dHRlckRhdGU6IFRodSwgMTUgT2N0IDIwMjYgMTI6MTY6NTkgKzAyOjAwCj4gCj4gaXJxY2hpcC9s
-b29uZ3Nvbi1laW9pbnRjOiBVc2UgcGFfdG9fbmlkKCkgcmF0aGVyIHRoYW4gaGFyZC1jb2RlCj4g
-Cj4gTk9ERV9BRERSU1BBQ0VfU0hJRlQgaXMgNDQgbm93IGJ1dCBtYXkgYmUgY2hhbmdlZCBpbiB0
-aGUgZnV0dXJlLCBzbyB1c2UKPiBwYV90b19uaWQoKSByYXRoZXIgdGhhbiB0aGUgaGFyZC1jb2Rl
-ZCB2YWx1ZC4KSGksIFRob21hcywKCnMvdmFsdWQvdmFsdWUvZywgOikKCkh1YWNhaQoKPiAKPiBT
-aWduZWQtb2ZmLWJ5OiBIdWFjYWkgQ2hlbiA8Y2hlbmh1YWNhaUBsb29uZ3Nvbi5jbj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAa2VybmVsLm9yZz4KPiBMaW5rOiBodHRw
-czovL3BhdGNoLm1zZ2lkLmxpbmsvMjAyNjEwMTMwNjIzNTguNjA2NTQtMS1jaGVuaHVhY2FpQGxv
-b25nc29uLmNuCj4gLS0tCj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtbG9vbmdzb24tZWlvaW50Yy5j
-IHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
-PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9pcnFjaGlwL2lycS1sb29uZ3Nvbi1laW9pbnRjLmMg
-Yi9kcml2ZXJzL2lycWNoaXAvaXJxLWxvb25nc29uLWVpb2ludGMuYwo+IGluZGV4IGE5ZThiNDgu
-LmJhNmU4NDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9pcnFjaGlwL2lycS1sb29uZ3Nvbi1laW9p
-bnRjLmMKPiArKysgYi9kcml2ZXJzL2lycWNoaXAvaXJxLWxvb25nc29uLWVpb2ludGMuYwo+IEBA
-IC00NTQsNyArNDU0LDcgQEAgc3RhdGljIGludCBfX2luaXQgcGNoX3BpY19wYXJzZV9tYWR0KHVu
-aW9uIGFjcGlfc3VidGFibGVfaGVhZGVycyAqaGVhZGVyLAo+ICAJCQkJCWNvbnN0IHVuc2lnbmVk
-IGxvbmcgZW5kKQo+ICB7Cj4gIAlzdHJ1Y3QgYWNwaV9tYWR0X2Jpb19waWMgKnBjaHBpY19lbnRy
-eSA9IChzdHJ1Y3QgYWNwaV9tYWR0X2Jpb19waWMgKiloZWFkZXI7Cj4gLQl1bnNpZ25lZCBpbnQg
-bm9kZSA9IChwY2hwaWNfZW50cnktPmFkZHJlc3MgPj4gNDQpICYgMHhmOwo+ICsJdW5zaWduZWQg
-aW50IG5vZGUgPSBwYV90b19uaWQocGNocGljX2VudHJ5LT5hZGRyZXNzKSAmIDB4ZjsKPiAgCXN0
-cnVjdCBpcnFfZG9tYWluICpwYXJlbnQgPSBhY3BpX2dldF92ZWNfcGFyZW50KG5vZGUsIHBjaF9n
-cm91cCk7Cj4gIAo+ICAJaWYgKHBhcmVudCkKDQoNCuacrOmCruS7tuWPiuWFtumZhOS7tuWQq+ac
-iem+meiKr+S4reenkeeahOWVhuS4muenmOWvhuS/oeaBr++8jOS7hemZkOS6juWPkemAgee7meS4
-iumdouWcsOWdgOS4reWIl+WHuueahOS4quS6uuaIlue+pOe7hOOAguemgeatouS7u+S9leWFtuS7
-luS6uuS7peS7u+S9leW9ouW8j+S9v+eUqO+8iOWMheaLrOS9huS4jemZkOS6juWFqOmDqOaIlumD
-qOWIhuWcsOazhOmcsuOAgeWkjeWItuaIluaVo+WPke+8ieacrOmCruS7tuWPiuWFtumZhOS7tuS4
-reeahOS/oeaBr+OAguWmguaenOaCqOmUmeaUtuacrOmCruS7tu+8jOivt+aCqOeri+WNs+eUteiv
-neaIlumCruS7tumAmuefpeWPkeS7tuS6uuW5tuWIoOmZpOacrOmCruS7tuOAgiANClRoaXMgZW1h
-aWwgYW5kIGl0cyBhdHRhY2htZW50cyBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBm
-cm9tIExvb25nc29uIFRlY2hub2xvZ3kgLCB3aGljaCBpcyBpbnRlbmRlZCBvbmx5IGZvciB0aGUg
-cGVyc29uIG9yIGVudGl0eSB3aG9zZSBhZGRyZXNzIGlzIGxpc3RlZCBhYm92ZS4gQW55IHVzZSBv
-ZiB0aGUgaW5mb3JtYXRpb24gY29udGFpbmVkIGhlcmVpbiBpbiBhbnkgd2F5IChpbmNsdWRpbmcs
-IGJ1dCBub3QgbGltaXRlZCB0bywgdG90YWwgb3IgcGFydGlhbCBkaXNjbG9zdXJlLCByZXByb2R1
-Y3Rpb24gb3IgZGlzc2VtaW5hdGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRoZSBpbnRlbmRl
-ZCByZWNpcGllbnQocykgaXMgcHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhpcyBlbWFpbCBp
-biBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWlsIGltbWVk
-aWF0ZWx5IGFuZCBkZWxldGUgaXQuIA0KDQoNCg==
+On Thu, Oct 15, 2026 at 12:54:33PM +0100, Lee Jones wrote:
+> On Fri, 25 Sep 2026, Myeonghun Pak wrote:
+> 
+> > blinkm_probe() creates the BlinkM sysfs group before registering the LED
+> > class devices. If multicolor sub-LED allocation fails, probe returns
+> > without removing the group. If multicolor LED registration fails, the
+> > helper removes the group but returns success, leaving the device bound
+> > without an LED class device.
+> >
+> > Keep LED class device rollback in the registration helpers, but remove
+> > the BlinkM sysfs group in blinkm_probe() when either registration mode
+> > fails. Propagate the multicolor registration error so probe can perform
+> > this cleanup and report the failure.
+> >
+> > Fixes: 56e8c56c9af0 ("leds: Add multicolor support to BlinkM LED driver")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Move sysfs group cleanup to blinkm_probe() for both LED registration modes.
+> > - Propagate multicolor LED registration errors to blinkm_probe().
+> >
+> >  drivers/leds/leds-blinkm.c | 15 ++++++---------
+> >  1 file changed, 6 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/leds/leds-blinkm.c b/drivers/leds/leds-blinkm.c
+> > --- a/drivers/leds/leds-blinkm.c
+> > +++ b/drivers/leds/leds-blinkm.c
+> > @@ -671,7 +671,6 @@ failblue:
+> >  failgreen:
+> >  	led_classdev_unregister(&leds[RED]->cdev.led_cdev);
+> >  failred:
+> > -	sysfs_remove_group(&client->dev.kobj, &blinkm_group);
+> >
+> >  	return err;
+> >  }
+> > @@ -714,9 +713,8 @@ static int register_multicolor(struct i2c_client *client, struct blinkm_data *da
+> >  	if (err < 0) {
+> >  		dev_err(&client->dev, "couldn't register LED %s\n",
+> >  				mc_led->cdev.led_cdev.name);
+> > -		sysfs_remove_group(&client->dev.kobj, &blinkm_group);
+> >  	}
+> > -	return 0;
+> > +	return err;
+> >  }
+> >
+> >  static int blinkm_probe(struct i2c_client *client)
+> > @@ -749,13 +747,12 @@ static int blinkm_probe(struct i2c_client *client)
+> >  	}
+> >
+> > -	if (!IS_ENABLED(CONFIG_LEDS_BLINKM_MULTICOLOR)) {
+> > +	if (!IS_ENABLED(CONFIG_LEDS_BLINKM_MULTICOLOR))
+> >  		err = register_separate_colors(client, data);
+> > -		if (err < 0)
+> > -			return err;
+> > -	} else {
+> > +	else
+> >  		err = register_multicolor(client, data);
+> 
+> Please add a newline after the 'if-else' block.
+> 
+> > -		if (err < 0)
+> > -			return err;
+> > +	if (err < 0) {
+> > +		sysfs_remove_group(&client->dev.kobj, &blinkm_group);
+> 
+> How about using 'devm_device_add_group() to automate clean-up?
 
+Wait, why is a driver manually adding sysfs files at all?  Shouldn't
+this "just work" if it's a default group for the driver?  This way (or
+with the devm_device_add_group() call) will race with userspace and
+loose.
+
+thanks,
+
+greg k-h
