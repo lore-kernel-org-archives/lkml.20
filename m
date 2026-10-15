@@ -1,86 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EA251AECB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E3E4F4024
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058141; cv=none; b=t/gWFdSDpWAhH/cKzD9OLLvo6FGj03+nl7lIWI6zUZB+rdmawK/68gem2DyyNXcNA113XwuZYibn/3+vJjvrNuZj6nwj5HWF9CsQLJxR0xwr1GmcVhZdZC55MTZYyC3qMnvC7teDDLTSLXNSwSINHC7Jnd2zA699cPbfZLu07qs=
+	t=1792058142; cv=none; b=iES3mp3l/6QPYOGFFm6k7z2l0mxyMf0rda4RHXwk32Vm3a49eMjuWu5Uw84Lvk8zRC5KXAjazIyNq+YXf4gYUci5bEFG4EziDTvZ7kTYy/dX3VQrnMONnjjbJilQkBbjQviI6nh9Oub/DEkbgz+Vl1sXgJFBL6j5obF7eD2FMOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058141; c=relaxed/simple;
-	bh=zuvXFCHS/nhMByhn2p8KGe6GFveXurDavEHYPA7bF4M=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LxO2lzVS+h0vTbwEqoAiKBXSuXx/H16T63pzlqAPwdLiQiMoUO/MMkGVXDPMoOBh4NNBaRe8fYREYMSPVEHG7Uy2FWciUNN4pyN2xosFBMvZAUO3eePoWHaVAMFReXbo4+0xDezmhTtUJO++/zjamdvumqXoqd0ID0YFWaHXanA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CjuldHek; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dth/qEBF; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1792058142; c=relaxed/simple;
+	bh=wb3EvT2aSl7klz2UgJHQq0QEIeAXIx4uIPM2LzTmY2M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gc/UZJPKiYM5/0kQ4w6n+aEKd5nol9rWDIkz4M5enb0zJRwklFGzu1/Z2Taa66WKLTrEIqXVEC8WdyiXO0gvjh6U0reXR8hTwGDKRM+dIUIxXH2FgspdmQwcz8lbiEunvPWoEBfHepVRiLOqrKysbQQT9gDgyYHLAWY6eU05t8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CtdCMIcU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WMig1TS/; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CjuldHek";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dth/qEBF"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jOru2114144
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:30 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CtdCMIcU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WMig1TS/"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kEdF2999157
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=WyvZ8qBRw7K7we48lMPQ8H
-	aYJ/8IJebU4K4q+EbfVCs=; b=CjuldHekRcv4/AMdaWpM6X8dp+Ef3pepSuvN6/
-	piLKWiI1puXpU0TwZ7XLU7BSnVe8q2BwAHGiPWzhccsxHxVqR2HLXaUKhWSMMAri
-	E3vt/zpLAKru1qTx4E2RYx+LgMb0SpxOPwMuqK8K6uEt7T2ZWyDDETNbmLsp6MUq
-	dkVNsH3ImuRT/H/jBdij1ajJHjZ0IhCDgLUPGDawxFkBsWWuP/PgZFbrPeFzWLg9
-	v+CjU5qp+vsp4L9siWAhMuByH1NCRs7/0aY2sAaFeLhRnnWB6VLkBpJq+N1K/HJR
-	0qoY31BG33rRYg15D+eQuevIqUqFqoxdpMxeArRhVWJ4U7TQ==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fE1exKssV2qfOjHjVoRaELptiZ1wBqEO5jlvibdDEbE=; b=CtdCMIcUK+XrXc8y
+	IcxiitShv2sytA52Nmz2q+OQZt20rBDdoVsloSjnQQ4K0nFoP16xVil6Mo74bAYZ
+	9Aj/LjaC9V6jezM+uiuxoofnSZha1lPEBG+B4wTKgxzSNpMBZHjXNlA3+TAJDOPo
+	bwGAo+kDEoFcZANNTw5p+/AZFMuqvq4BKW2iAA/qQ/9Xn0ZKTvyAjO6FayEbaWmY
+	L5J3rgYhhX/DnfNNfNrYtYNVs/tV19g7zuKqHYvDCiwgtRDXcEjkszgL2ygcTbQl
+	ayjk8DS0xAE4myew45jxQiHfjzSpt/4Eo6XJPatXqvXppGhEFTy+GUvDibUuRbdb
+	jtUv+Q==
 Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmyads5-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hausm09hp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:30 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1663fb7e005so6516019c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:55:29 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:55:35 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-151ba226e1bso6044335c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:55:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792058129; x=1792662929; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WyvZ8qBRw7K7we48lMPQ8HaYJ/8IJebU4K4q+EbfVCs=;
-        b=dth/qEBFwA5Xs/YYztHMQqzkx46y0EZWKGxFjXw3M+2fN0z2G6hTWe74sPLIj5of+H
-         b1UqFUdy407hRcmPZn02V1rev4yk/SwF3OF1mD2tuhifkLGpj9QTzaJQEtJShS+O/ADf
-         9bqwAflUOvFrNGi94iNHGYCaj7HvBApJ46l3glP1QZBFsZX9fHW0UCp/XE2wvk0Kk11v
-         X3BegfVH9EKY0yN0wWtNeD2/+OquU9PdXoMqMSs1QsLAvzTqOxITnhtYnEX6LdzsPgEE
-         JK5eT8PpJIKrXt11IQ4nuIN6t4nrhWP+1FMxLo+foRfbAdBBlZqTueYZUopiw4K1g7GX
-         z5aQ==
+        d=oss.qualcomm.com; s=google; t=1792058135; x=1792662935; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fE1exKssV2qfOjHjVoRaELptiZ1wBqEO5jlvibdDEbE=;
+        b=WMig1TS/QYi6YM2+llyjRHC3+M7dJ3xFZOiejZy1w9tOZ9vn8dieyzM7ZJRtZgpDC+
+         VI/TBROiMnDJYkED2w1GrVXb9O+FldlVw+6TQAhTMIbKTVSlkWtvqx5UBeWoKtPHu3G/
+         XhjuJqUp4RZC1U/cTZ7zVn5E4F2MJpljWsLduEvM/hl9wR9geheadm0MKtqsZ2JElERz
+         y7TkIl1u8qCAt4RunFDc/vcCkufzUulRCVWNm4Xjmygy/Z50qUyOW8ghVi/9jEMQe2Sd
+         wj/NHzeB6M48lLT1koj58WONeALLoCW8suALUlxe2g6oyuYuc7xoU/4Xza2IDp/kAOw2
+         7yDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792058129; x=1792662929;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WyvZ8qBRw7K7we48lMPQ8HaYJ/8IJebU4K4q+EbfVCs=;
-        b=tc2wOwE8k7594DxTeS1AW51/TjYLVvwjMiijT7gm6Culh+Htouq/QwAZDnqcRclLzr
-         Puip5La6mZOESipSrtsFDGgiqGd5iCRKJzlDHJtMP4UZuTSQHl71X8GzCNDXrYV7Zzly
-         mnu19Vy0lDZ675TMozJ896P+JfUHRanVSNBFpuzbNYmAzrXTQaudRImGlDSgUVCWD/la
-         oEjIc4d4rH76YMth31/BdELXiBy9Iv1OZwiNn+9srmCCdMPwS7pxc7a4dsOOi8fKJL3T
-         wGNrav5S8zUtNowIqUrqh5mXFPnBZwy+bCk9o6BUfJ03380Y69fEKYyVkfQPZ6J4UFp9
-         8NJw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/wchmDtQvLE9yts5lpbZfuRw5QLQc/qwzYvVpKDsWyv/9P7JkZWRHxzBG70kG/dWgS2u/NOK3170IbX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjxwpT08TUmRw8B6ZxnPxWUAUIdiVulMsfhft6MvyL9wMygSvP
-	7w8H4ryFc69Sv5c0Ctralvm2qnY84luu4gO0ZBxj5SXkQQqsNq/vUiZUxf9ZiVCLZoysCHJ3zzF
-	v5VuSIkO+xhuQRIFbNN0x2ON2oCIgkT2auPIM0ejXjp/YiB5mBCCGeN7Gcto0VbyEAcw=
-X-Gm-Gg: AYBFou2Qa6garnwM+eDWM7t51UKF8uBQwp7jB8Q8IClQ8YXpb1akGH1ElrfTbCen6Vx
-	G1N0wackDhIQaw9FbCCVxFxv7mQmHb++jqdYC0wKcFayU1CA2mQlzOIaVm2yj0Ilx+tQSSp6eYp
-	5G8zF0Y4nr37GeMzSf24bHZiJN0CL8bzc+pYCTDkY0516TIysJ0+ZXAM7FajcNWJDeocmE8i/eM
-	bLVdZcCk+Syy6sdi2Wq3z6K7cPXKITT4V1hMf+s7MUpBq36BD0hmhnnrqoevsVYyYd4Kg9Ib885
-	xePpgDJk2sYT84SfoRmJVmJI3LMe6H2pkeuL9icVYvJbALcMWiYNpOM9NxGUleEVCSVj4qhO5gn
-	h60oVFblqhGYmQIK25d1bCQ5DFDrn
-X-Received: by 2002:a05:7022:7e08:b0:144:fdf0:9d91 with SMTP id a92af1059eb24-16a61695832mr34478714c88.24.1792058128749;
-        Thu, 15 Oct 2026 02:55:28 -0700 (PDT)
-X-Received: by 2002:a05:7022:7e08:b0:144:fdf0:9d91 with SMTP id a92af1059eb24-16a61695832mr34478673c88.24.1792058128170;
-        Thu, 15 Oct 2026 02:55:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792058135; x=1792662935;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fE1exKssV2qfOjHjVoRaELptiZ1wBqEO5jlvibdDEbE=;
+        b=rGnqvwkJXFLVIypsGKjekA8q1VXlWatSPO4p3Q5bN5uhZrnfb6bgbbnoeCXeW1oUy8
+         3HXj5GMtQx+UCduaccYSXakUBTLSdVa/nK3x8dYYlQRowi7XmRn4s2mwIX9DkDo2c7JQ
+         OLQoB4PGArG6ggBOdqS9knKKm5lq2hYEdjHOmLvrYRHKRfx5D9qN5qjOL6As8UWaz5QQ
+         bcvnz9FUUD98P3+ta8BkDajL3K3rpV7fxr14eOiw5cFcQ7IiElqEFrYMcm1EoF7nxKst
+         5akVuWDv2Z/gH31JIQSwAI4nujK7g2eybcmH6nz3DrMenQzVw7Kz6vyILySJ2yeVGDWP
+         Pq5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxQYUIXjQ5bpBL9n/9oCwbFI9FBOuoF+aX5d4f6dNi3S55pPGSJJXuIaHspTGEWWQ4A947m/yvA5AJmjZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBeXGvbuDYN2S91OePz9vycp6wYzQALs9SjzICgVojxBmsegx5
+	bxbIFod8dcr5Zem1Lj5BbUHT9Qqn/ckewhL8n6IKjOrupK8SyzukZ9TgMGkdwr4k0V/1h9yCbJw
+	xU07FgnVp2Dg2QPMf+/0iOy19/Bx0wPXLrRzm6h6AQ2i9q1S5p02pkS4+KDz4IyKXlvI=
+X-Gm-Gg: AYBFou3B7Mdv+/6wJni6U0DZi+DASLUXdFr1qF1PIM4cZIZneEep9YXvceIzZ682mKA
+	SABV5xrJYhpSZXVafAoydcWN6w24R2Pxf0Nt88eGWAjVfIQfx9F3tmLNchqauiXOn6TVLs5hUcP
+	RmUr/Kv562Ava62/vPgXX62K5o0ZQGP3F13EuLwmAAOV9GME0jq/blERqTflpPAkAFWOBvHk04I
+	3yAk80hfT8Wc+ipEpGSa7id5KUEtQJBEaLAWo+/d+sHlvfewOI15Q7K5LqlL32839mVvU4KFKYk
+	x1ecz56aZ/6wvlaUeA8MK0pwBnJzEL9WijtzFN324qMwcrN5IV6SVIbqb1mdrVudqfr8Cwq9NGH
+	jSbhivaLD7e2sEZozWBS6jWuytcEr
+X-Received: by 2002:a05:701b:2512:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-16a8ffd49d9mr20307291c88.17.1792058134561;
+        Thu, 15 Oct 2026 02:55:34 -0700 (PDT)
+X-Received: by 2002:a05:701b:2512:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-16a8ffd49d9mr20307263c88.17.1792058133920;
+        Thu, 15 Oct 2026 02:55:33 -0700 (PDT)
 Received: from hu-smankad-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm84476533c88.18.2026.10.15.02.55.22
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm84476533c88.18.2026.10.15.02.55.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:55:27 -0700 (PDT)
+        Thu, 15 Oct 2026 02:55:33 -0700 (PDT)
 From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Subject: [PATCH v2 0/9] Add fallback method to handle RPM notification in
- MPM driver
-Date: Thu, 15 Oct 2026 15:25:16 +0530
-Message-Id: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 15:25:17 +0530
+Subject: [PATCH v2 1/9] arm64: dts: qcom: shikra: Add CPU idle states
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,11 +90,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAASj0GoC/3WNyw6CMBREf4V0bQktCOjK/zCE9HErNwLFXiQaw
- r9bce1mkjPJnFkZQUAgdk5WFmBBQj9GkIeEmU6NN+BoIzOZyTIrRcV1wanDe1BtPw2tshbnOOG
- FOmlTS60cAIvjKYDD1y6+NpE7pNmH9/6ziG/7U1Yi/6dcBM94butjbZ00WruLJ0ofT9UbPwxpD
- NZs2/YBUE4ZIMMAAAA=
-X-Change-ID: 20260617-b4-shikra_lpm_addition-4a9bc82bafee
+Message-Id: <20261015-b4-shikra_lpm_addition-v2-1-ac7f1a0d5638@oss.qualcomm.com>
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+In-Reply-To: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -107,116 +106,189 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
         Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792058122; l=3659;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792058122; l=4467;
  i=sneh.mankad@oss.qualcomm.com; s=20250818; h=from:subject:message-id;
- bh=zuvXFCHS/nhMByhn2p8KGe6GFveXurDavEHYPA7bF4M=;
- b=WTrWPEBOlhihxP5STVHc3U/9SmT+/GsHtaqtSGhtK5ss4NjY4PwYW3OHGhtEapOyWneHym7vl
- VgOrUS5UeqmA5+3bw5BKAmxpZ/fDLIZXaGuUKDGttS66p9mNmd7mwxa
+ bh=wb3EvT2aSl7klz2UgJHQq0QEIeAXIx4uIPM2LzTmY2M=;
+ b=qU3lNFGQgQYnbIWoAxUGGmhIZhU2+35sGMbVEWluduIDYJdEVd0ns2srHaOoFurCtymLVK2xg
+ lIYELgHvuW6BbdnhE/S4hQ+1zJNuPpsGd7hzLQWJrcBvXoHtxm4OO0F
 X-Developer-Key: i=sneh.mankad@oss.qualcomm.com; a=ed25519;
  pk=sv57EGwdcfnp6xJmoBCIT1JFSqWI+gawRHkJWj/T2B0=
-X-Proofpoint-GUID: A1_8HwLTL4p2abs3PvD3ekExnKv4hJkk
-X-Proofpoint-ORIG-GUID: A1_8HwLTL4p2abs3PvD3ekExnKv4hJkk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfXw8gFhWT0tL7/
- G33A17g/NiE9RZOILic6dFJTXF1evq0bGfGSaDghY4JfOr3rlfH792Hh74tlUMzR+d+/YQcVcl4
- 5XH0TuixBfuYb9fyqOPXboaGVnbS61U=
-X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0a312 cx=c_pps
+X-Proofpoint-GUID: EKLBpr0zOw_igoFU8QELfODAaRmPfU6s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX2Bvfe4J45XmU
+ rozeP6BfMZX9YpjE3xE3vCKoliJbOojrVBWs21vWyrz4cgsZixnqzKXr6a7W2th3//5FfdVJfqY
+ DDgDi2BpJ6x5AC9vNLRknMkcCbLFG+fmKwWmNoxUmzU7EdTi/dWy8CRhw0z8Xx9B1XFgTyNNqKd
+ tKow5Jq+a7su0siO7KOnBBu/CvgLsRgnpP4JQRB66XDZuMxPE6oFFijVYe/EYd5GVnbinl8Cp7O
+ VFOmCQXE7SC96E2CG++Kh4XeIYxUAy45f/Akb/6w5ElYI/Z3eKpTLIQpk4wXwIqwVTYgJJypYob
+ FpU/KfKsTdgL7I17zW5xRQ3Ttb+h9eTbXxj8u6hnQj7cL1lBlhbYh8v2fIWOP8jB6iFU2tVNF9V
+ 8uVJWLEHDQmlOgYzg7Q29sfbJwmI6WBlHBHpYcuLKVTy0sYhMQTiA/DjSoUPuZwAHvUjCwI41VO
+ h2z05prP2o2TkJXMmKA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfXww3FArCxsxGR
+ 8V7iBRzmC10gg8rBaDmYyrjoBlXz1pgS8YcrRiBVSmKWmsqmYl+Rf1XP64MzXvucZY1rVi82ziv
+ KIp+q5AgO32aSvSitb03vH2R7WuwoGU=
+X-Authority-Analysis: v=2.4 cv=Eb5d0/mC c=1 sm=1 tr=0 ts=6ad0a317 cx=c_pps
  a=JYo30EpNSr/tUYqK9jHPoA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=ag1SF4gXAAAA:8 a=EUspDBNiAAAA:8 a=-g7Su3eQ9jgtFDl0TfQA:9
- a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22 a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzOSBTYWx0ZWRfX4PENRZUv3RJH
- d/JGyEJj/Vix9ReWCtcqEN6f3ZkqOHg+J+nI3tKRoIX0F/2oaIh29PaRVkXldukt4WOi/n5U4ts
- MSOCF7JobXkC88xio0k0hdV+aTBT+5IL9uRWvZrfqRspNmLnrG/Q3OI92wEoMBPDH/YWV1JPib7
- 0i1zVisQAf1uiCfA4hY6PQ/TazJfhyW0diHj+tO9wusdahDKd0zHKZbiEiMFDdmi2Tfg1Me0rT9
- ziXgFR1TrRqv8KSu97kGnpYmmwP2kqDQwF9+uK0wcRDuJHHdq87fTyTF+vj6pVBW16DTaccqNPa
- 5C4ugMmgVb9VYOXg0iVdFaQ87cjNmehDgzzOCRuc7c8wS19SktWYs/TkU8Zw8/0QJ5z0cz6yyxS
- u6T5pSgkU68PUkKeosbvIv6TG15zDKGvjAVfiYL3x9siOKnANk0lxWhZXEFuRZeJkmTFUFsNfMN
- qlPQnTSf1UbOpmgHNIg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=1ktBgAoqaJrOdt2i0ToA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-ORIG-GUID: EKLBpr0zOw_igoFU8QELfODAaRmPfU6s
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150039
 
-MPM irqchip needs to notify RPM (Resource Power Manager) processor to read
-the latest wake up capable interrupts when the CPU cluster is entering the
-deepest idle state. This is done by sending IPC interrupt to RPM and is
-implemented as .power_off() callback by registering MPM as parent power
-domain to CPU cluster.
-
-Such implementation earlier introduced a hard probe dependency between MPM
-irqchip and CPU cluster power domains. That is MPM irqchip needs to finish
-probe before PSCI power domains are probed.
-
-The above problem has since been resolved after bd7f488a8e5d ("cpuidle:
-psci: Fix support for probe deferral by dropping the faux device") / [1].
-However, it makes sense to remodel the RPM notification in MPM irqchip due
-to general consistency.
-
-MPM is not really a power domain provider, all it needs is a notification
-when CPU cluster is going to power collapse to carry out the RPM
-notification. We can register for CPU_PM notifications for that purpose.
-This way we can avoid such unrelated dependencies.
-
-We cannot register MPM under CPU cluster power domain and rely on
-GENPD notifications here, since that way cluster low power modes will be
-blocked whenever some consumer of MPM, and in turn MPM itself, are
-runtime active. This will add another unnecessary dependency for CPU
-cluster low power modes.
-
-For now as first step, register with cpu_pm as a fallback to manage RPM
-notification. Trigger the RPM notification when the last CPU in CPU cluster
-goes to power collapse.
-
-Add support to program MPM wakeup timer when CPU cluster goes to power
-collapse.
-
-Enable CPU and CPU cluster LPMs for Shikra, and CPU cluster LPMs for
-qrb2210-rb1 board.
-
-[1] https://lore.kernel.org/all/20260909134240.685115374@linuxfoundation.org
+Add idle states for the  CPUs as well as the whole cluster. This enables
+deeper-than-WFI cpuidle.
 
 Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 ---
-Changes in v2:
-- Enable Shikra LPMs in the first patch, following patches concern
-  MPM driver.
-- Register with cpu_pm as a fallback to manage RPM notification.
-- Move USECS_TO_CYCLES and xloops_to_cycles to common header delay.h.
-- Reformat qcom_mpm_offset() as per feedback.
-- Avoid deleting cluster_pd node in qrb2210-rb1.dts.
-- Link to v1: https://lore.kernel.org/r/20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 93 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 93 insertions(+)
 
----
-Sneh Mankad (9):
-      arm64: dts: qcom: shikra: Add CPU idle states
-      irqchip: irq-qcom-mpm: Register MPM with cpu_pm for RPM notification
-      arm64: delay: Move USECS_TO_CYCLES() to generic header
-      irqchip/irq-qcom-mpm: Prepare common access path for timer and pin regs
-      irqchip/irq-qcom-mpm: Program wakeup timer when CPU cluster goes to LPM
-      arm64: dts: qcom: sm6375: Do not mark MPM as a power domain provider
-      arm64: dts: qcom: agatti: Do not mark MPM as power domain provider
-      arm64: dts: qcom: qrb2210-rb1: Enable CPU cluster low power mode
-      arm64: dts: qcom: shikra: Do not mark MPM as power domain provider
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index 4e5bc9e17c8ed8914733ac9fdc9b69128b40216e..df4a7181ff80da0b75287bf4b96f82facb152b46 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -40,6 +40,8 @@ cpu0: cpu@0 {
+ 			compatible = "arm,cortex-a55";
+ 			reg = <0x0 0x0>;
+ 			enable-method = "psci";
++			power-domains = <&cpu_pd0>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&l3>;
+ 			capacity-dmips-mhz = <1024>;
+ 			dynamic-power-coefficient = <100>;
+@@ -50,6 +52,8 @@ cpu1: cpu@100 {
+ 			compatible = "arm,cortex-a55";
+ 			reg = <0x0 0x100>;
+ 			enable-method = "psci";
++			power-domains = <&cpu_pd1>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&l3>;
+ 			capacity-dmips-mhz = <1024>;
+ 			dynamic-power-coefficient = <100>;
+@@ -60,6 +64,8 @@ cpu2: cpu@200 {
+ 			compatible = "arm,cortex-a55";
+ 			reg = <0x0 0x200>;
+ 			enable-method = "psci";
++			power-domains = <&cpu_pd2>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&l3>;
+ 			capacity-dmips-mhz = <1024>;
+ 			dynamic-power-coefficient = <100>;
+@@ -70,6 +76,8 @@ cpu3: cpu@300 {
+ 			compatible = "arm,cortex-a78c";
+ 			reg = <0x0 0x300>;
+ 			enable-method = "psci";
++			power-domains = <&cpu_pd3>;
++			power-domain-names = "psci";
+ 			next-level-cache = <&l2_3>;
+ 			capacity-dmips-mhz = <1946>;
+ 			dynamic-power-coefficient = <489>;
+@@ -105,6 +113,61 @@ core0 {
+ 			};
+ 		};
+ 
++		idle-states {
++			entry-method = "psci";
++
++			little_cpu_sleep_0: cpu-sleep-0-0 {
++				compatible = "arm,idle-state";
++				idle-state-name = "little-power-down";
++				arm,psci-suspend-param = <0x40000003>;
++				entry-latency-us = <549>;
++				exit-latency-us = <901>;
++				min-residency-us = <1774>;
++				local-timer-stop;
++			};
++
++			little_cpu_sleep_1: cpu-sleep-0-1 {
++				compatible = "arm,idle-state";
++				idle-state-name = "little-pll-power-down";
++				arm,psci-suspend-param = <0x40000004>;
++				entry-latency-us = <702>;
++				exit-latency-us = <915>;
++				min-residency-us = <4001>;
++				local-timer-stop;
++			};
++
++			big_cpu_sleep_0: cpu-sleep-1-0 {
++				compatible = "arm,idle-state";
++				idle-state-name = "big-power-down";
++				arm,psci-suspend-param = <0x40000003>;
++				entry-latency-us = <523>;
++				exit-latency-us = <1244>;
++				min-residency-us = <2207>;
++				local-timer-stop;
++			};
++
++			big_cpu_sleep_1: cpu-sleep-1-1 {
++				compatible = "arm,idle-state";
++				idle-state-name = "big-pll-power-down";
++				arm,psci-suspend-param = <0x40000004>;
++				entry-latency-us = <526>;
++				exit-latency-us = <1854>;
++				min-residency-us = <5555>;
++				local-timer-stop;
++			};
++		};
++
++		domain_idle_states: domain-idle-states {
++			cluster_sleep_apss_off: cluster-sleep-0 {
++				compatible = "domain-idle-state";
++				idle-state-name = "cluster-power-down";
++				arm,psci-suspend-param = <0x41000044>;
++				entry-latency-us = <2752>;
++				exit-latency-us = <3038>;
++				min-residency-us = <6118>;
++			};
++		};
++
+ 		l3: l3-cache {
+ 			compatible = "cache";
+ 			cache-level = <3>;
+@@ -144,6 +207,36 @@ pmu-a78c {
+ 	psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
++
++		cpu_pd0: power-domain-cpu0 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0 &little_cpu_sleep_1>;
++		};
++
++		cpu_pd1: power-domain-cpu1 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0 &little_cpu_sleep_1>;
++		};
++
++		cpu_pd2: power-domain-cpu2 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0 &little_cpu_sleep_1>;
++		};
++
++		cpu_pd3: power-domain-cpu3 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&big_cpu_sleep_0 &big_cpu_sleep_1>;
++		};
++
++		cluster_pd: power-domain-cluster {
++			#power-domain-cells = <0>;
++			power-domains = <&mpm>;
++			domain-idle-states = <&cluster_sleep_apss_off>;
++		};
+ 	};
+ 
+ 	rpm: remoteproc {
 
- arch/arm64/boot/dts/qcom/agatti.dtsi     |   2 -
- arch/arm64/boot/dts/qcom/qrb2210-rb1.dts |   2 -
- arch/arm64/boot/dts/qcom/shikra.dtsi     |  93 ++++++++++++++++-
- arch/arm64/boot/dts/qcom/sm6375.dtsi     |   2 -
- arch/arm64/lib/delay.c                   |   8 --
- drivers/irqchip/irq-qcom-mpm.c           | 166 +++++++++++++++++++++++++------
- drivers/soc/qcom/rpmh-rsc.c              |   8 --
- include/linux/delay.h                    |   8 ++
- 8 files changed, 236 insertions(+), 53 deletions(-)
----
-base-commit: 7777cc195ca1301a28008ca5cdb98bdb2a9d0def
-change-id: 20260617-b4-shikra_lpm_addition-4a9bc82bafee
-
-Best regards,
 -- 
-Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+2.34.1
 
