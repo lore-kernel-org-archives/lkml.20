@@ -1,40 +1,77 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBF7647ACCB;
-	Thu, 15 Oct 2026 07:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A822747ACFE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049066; cv=none; b=kvhbpYsJ5TgNaStQxG9wEaAN3IorrNzdChsvUm39EC4T2IhnnKPa4e2rVw6zrwAsG2j4mSVwLbuZT68nA09YXo/6U1CNAtRvrh8YtdQHI5GjJRc7JwjAce0bicFFa5wEEl8QRf6467Ubq5fiIErzql6nLNced+zpkzHzUw5Ew/I=
+	t=1792049189; cv=none; b=e8ZIoIOx33UthhSZb/0bhtn/TSLT513h21V7h2oew+I/mqVPjBoe+SHicO4hrh2DKWcdDz+Flwmxdl0dqm6nxzAWT4N0wZc4yn0oHzVf73BcnewJ/HQ44n4pNsx59IUp1sFthZyOgn4mhAD8s6rwZNv8OAKwJ1ZIS1jabOR6w8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049066; c=relaxed/simple;
-	bh=JkHHNgajNIi21dLKcEUnhbwqeP1oYRSfSI+q1Lv0snE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WN13+1QVruvm3JshFvYZbAqdstNx6cWzrYTmq9A017Ix05UBxUS+KFqL+854N7LP5V1f42T+tgT+E1bC/SWxDI2cZUO7ip3W0BN0vEHDDBhEj3Kjau4XQfCgPDy9pBIsHY+dJX+6tat5JHAB41aAyYBa2x80iMdjCvUScf8RbmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=VTF7R2QP reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792049189; c=relaxed/simple;
+	bh=xwtBzirXEOCLJqRYZFFzZjl9ExUUK4CKgV7ms93Fd3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BaNUye4GnZmM4R+lzDYfX9erHYMUf/y+yLckS4Lkd2VJkr03Vi0G4k6O5Vcw/HqZ4iRtmg/Dsm+x+YrfXbTZgjX+/HTuNWegpz1VSWiq5YY0LMhB1QdiCZtu9QOKPo5jOQ0zZhjC3C3nt7+6+Yvb/nYfHjTo0nABgSg3WMI9uEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CmOgOEKt; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="VTF7R2QP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CmOgOEKt"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so38446025e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=PCKRTBESFf
-	T+/ncAMlToa5Ok9BfMsEykK8bbFWXICZU=; b=VTF7R2QPfE5L2GXX6hn3TwebYv
-	/lgsDlgL1k9c38Wy6SB6Ly1+BDxsc0XQKqO8aCdyOS4D2zCNttrUhmAtBTJNPNrC
-	z6AoBkj0X/zerPg+b0T0JvRWSXahsl+GDAYHHD6LEOXlMd6dNEhXNo0/Ke4h7QTc
-	ZHRYmxOSm0rUTYzqo=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.94])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDGDwWCf9BqbMmgAA--.38329S2;
-	Thu, 15 Oct 2026 15:23:47 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        d=gmail.com; s=20251104; t=1792049178; x=1792653978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4TcvTv0+MA3VdoeuP+foXkM6LedLqAHNwCZW23zraGo=;
+        b=CmOgOEKtLDPx5dFMZzstlEpO5tqqbN0GmUvZEOP+bNEI5ebj3yT6+MiiMGqHSBV6Jx
+         MJrwDFv9411A7gxzZozTN7uA07+2fys4UdRO0KOs+WFaycBoOc+CMpoP9gBZDLU6aCXc
+         7pzeIPwG1hniWVl2u9yOlP7tAl8FAJfz59Qp5iPewo1p23kIqNC6ou5V55SyaAVEvn+h
+         m7KJeJLS9+m3FhUS8bZkgzkE1s6ckq4/yI6lmikb8exXJoI3nNT8E2t6GmDIDX/l9FtL
+         FzikmILsmC/r+6O7Jl+udQTLlwnjxB7mS3DTjnlc94g8ieSGDawgDCeCtgxzowLSLO+7
+         pv/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792049178; x=1792653978;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4TcvTv0+MA3VdoeuP+foXkM6LedLqAHNwCZW23zraGo=;
+        b=zLWbeiT2LuMM1Afg+lw8Nxjxmkxghtvr2f+qo74Yyi88sn0RedhBFqt4gcKwN9jPiO
+         6s46MQ9U9VMdpggnQkbwT6vBT3b2LCZm49cicwVRFKNFPXcQybDKjPoF14iPBYTlUh5/
+         I85CtdYYqaRKOIGEKsngWBj0KZBdnA+20kF3n19UNfTp1hRynvNYshgJ0P2fjIaFakYa
+         mYaPHAg02rBkxKLWRQKLS06KTMscD8mu/tBlsmdegBJm+f1C29pv1fk9kitMzb4Zwo9F
+         N1mscpGkuCo3GkOIb7u/BDaZbmgbuUmVFZszEe+l3Medeex522gA3H+GJnL3y5r8kLt8
+         Xbbw==
+X-Forwarded-Encrypted: i=1; AKwUvBx8PT23h1saW+Yz23pCE4K25ZKB85UFraZlBJxSaJPgFq4bx6wc50lbXjrlbJ3BQDUFIyi11YvmwMT3D64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+oYu9PTAKGInIduKfc30DykL71RiL97t17euLi1KlsUvYTBie
+	/j/ZQw9ieUbLxY0KLYvbKnOdJwNj35Cff2WLS5AhXbvRDiYY3HW+rbOPPdAlyNnI
+X-Gm-Gg: AYBFou3bvOP48MJUDK3rrlwz9C5HJ0vxucDONPVHrfHLf73woOOPITRuHatAu/5Jtjf
+	p7WiXArIAb9QbIYU11Xf5xtw/2QRfCEqQefMhmeK2v6owWLrJn6E9vaacdjEOXL+EnawITGjgQx
+	zjpsStai3/Y6Y+E7rmOIn6Xhe6yj0orRTQGOJ9AX74Ntzg/dcNetIjQ4ebWIFWKEaoqYo3JDr4V
+	rWUkiwTZC9A8AbX+CbpacrW/fiiGKCaSuwFU/vWLZICRTjnOHX4suAeM0hr6oaPl1FMTEBexwRi
+	YC4aiKHdu7ggfEZJn1eL6TbFeZk8pLT0Z3Png0WMnW8XvE6gpSAhQ1USKieD/IuU1AoIWVedt4L
+	1hBlis9MfYSZNRu5BKpQeAF5VYsNYU0/G4NssK4jate1+hAlzSLnJIUkDdUIwYVpUNMhCQhnO0V
+	nxMsZGHgehzCNnzH1oxPQK8SgJj4AC/tDvcQd5hTUHwWue+8+oXKQjvT20ftjVGuEIq08lmm9Im
+	QXHcoVhRMT+NFt46zYWBgXHCowfV0nPmzXn99sZJJ57Sw==
+X-Received: by 2002:a05:600c:609b:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4a18e4c9944mr358446205e9.30.1792049177294;
+        Thu, 15 Oct 2026 00:26:17 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ef4dsm55898465e9.4.2026.10.15.00.26.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 00:26:16 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH] media: dvb-core: prevent frontend thread resurrection after unregister
-Date: Thu, 15 Oct 2026 15:23:45 +0800
-Message-Id: <20261015072345.11129-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ftrace: Fix lost recursion records in ftrace_record_recursion()
+Date: Thu, 15 Oct 2026 09:26:11 +0200
+Message-ID: <20261015072612.401602-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014172821.2b1fde91@gandalf.local.home>
+References: <20260917090217.6738-1-parri.andrea@gmail.com> <20261014172821.2b1fde91@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,139 +79,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDGDwWCf9BqbMmgAA--.38329S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKrW3AF4kJrykCw1fAF4Utwb_yoW7XFW8pF
-	WkJry5KF4Utw12qr4qy3Zrur90vw1xGFWUG347Ga13Ar4fGFWIgry8ta4DXrnxAr4fAr4q
-	qwnxWFW8u3y7AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GF4l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUQID7UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2rPmtGsgwAAsN
 
-A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
-device was disconnected concurrently with userspace opening and closing the
-frontend device node:
+On Wed, Oct 14, 2026 at 05:28:21PM -0400, Steven Rostedt wrote:
+> > Can't claim to fully understand the logic behind ftrace_record_recursion().
+> > Notably, its smp_mb__after_atomic() calls and the lack of barrier comments
+> > both look suspicious to my LKMM-trained eyes.  ;)  Hence the RFC.
+>
+> Well, the nr_records is updated via a cmpxchg() which itself is a full
+> memory barrier. The smp_mb__after_atomic() calls are to make sure the value
+> read is in sync with other CPUs before doing the compares. It also syncs
+> with the clearing function that is disabling and the writes, clears it, and
+> enables it (the -1 updates).
+>
+> Otherwise, IIUC, the atomic_read() itself doesn't guarantee that what you
+> read is what is in memory without explicitly using the smp_mb__after_atomic().
 
-  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
-  Read of size 8 at addr ffff888008dd4320
-  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
-  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
-  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
+Thanks for the explanation.  I don't think smp_mb__after_atomic() gives
+us that, though.  Per Documentation/atomic_t.txt, the barriers
+smp_mb__{before,after}_atomic() "only apply to the RMW atomic ops";
+atomic_read() and atomic_set() are not RMW ops, so after them the
+barrier is not guaranteed to order anything.  Most architectures
+implement it as smp_mb(), which happens to cover these uses, but on x86
+it is not even a compiler barrier, so the compiler is free to move the
+memset() before atomic_set(-1); LoongArch still defines it as
+barrier(), though a fix for that is pending [1].
+And no barrier makes a load return a more recent value; barriers only
+order accesses against each other.
 
-  Allocated by the frontend attach path:
-   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
+What I think the code wants is: on the recording side, the load from
+nr_records ordered before the loads from recursed_functions[], e.g.
+atomic_read_acquire(); on the clearing side, the store of -1 ordered
+before the memset(), for which smp_wmb() is enough.  (The memset()
+itself still races with the recorders.  Marking its stores would make
+that a well-defined race, but clearing would stay best-effort, as the
+existing comment says, unless the clear waits for in-flight recorders,
+e.g. with a grace period.)
 
-  Freed by the final frontend release:
-   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
-   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
+This is independent of the cached_function bug, so I'll leave it out of
+v1 and send it as a separate patch, with comments, if that's OK with you.
 
-On disconnect, dvb_unregister_frontend() stops the frontend kthread through
-dvb_frontend_stop() and unregisters the dvb device, but it never marked the
-frontend itself as removed: fe->exit was left at DVB_FE_NORMAL_EXIT, or at
-DVB_FE_NO_EXIT when no thread was running.  dvb_frontend_open() does not
-hold frontend_mutex, and dvb_frontend_start() did not check the removal
-state at all, so an open racing with dvb_unregister_frontend() passed the
-DVB_FE_DEVICE_REMOVED check in dvb_frontend_open(), unconditionally reset
-fe->exit to DVB_FE_NO_EXIT and spawned a new kthread on a frontend that
-was being removed.
+> > @@ -67,24 +67,27 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
 
-dvb_unregister_frontend() and dvb_frontend_detach() then dropped both
-registration references.  The resurrected kthread itself never holds a
-reference on the frontend object, so once the last file descriptor was
-closed, dvb_frontend_release() dropped the final reference and freed the
-frontend state while the kthread was still running, resulting in the
-use-after-free reported above.
+[...]
 
-Fix the lifetime break by making removal a permanent state:
+> >  	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
+> >  	if (old != 0) {
+> >  		/* Did something else already added this for us? */
+> > -		if (old == ip)
+> > +		if (old == ip) {
+> > +			cached_function = ip;
+> >  			return;
+> > +		}
+>
+> I think we do not need the above. If old == ip, then whatever set it before
+> should have updated the cached_function.
 
-- set fe->exit to DVB_FE_DEVICE_REMOVED in dvb_unregister_frontend()
-  under frontend_mutex before stopping the thread; dvb_frontend_stop()
-  already preserves this value and dvb_frontend_is_exiting() then makes
-  a running thread exit immediately;
-- check DVB_FE_DEVICE_REMOVED in dvb_frontend_start() after taking
-  fepriv->sem and fail with -ENODEV; the thread's exit path writes
-  fe->exit under the same semaphore and dvb_frontend_stop() returns only
-  after kthread_stop() observed that write, so the check cannot miss a
-  concurrent removal and the unconditional fe->exit = DVB_FE_NO_EXIT
-  reset can no longer undo it;
-- do not clear DVB_FE_DEVICE_REMOVED in dvb_frontend_thread() when the
-  thread exits on its own, so the removal marker survives;
-- initialize fe->exit to DVB_FE_NO_EXIT in dvb_register_frontend(), so
-  a frontend object that is registered again after unregister remains
-  usable.
+Makes sense, I'll drop it in v1.  (The cache only holds one entry, so
+another ip could have replaced it in the meantime, but that just means a
+later call takes the slow path.)
 
-em28xx already sets DVB_FE_DEVICE_REMOVED manually before unregistering
-its frontends; the core now provides this protection for every dvb-core
-user.
+Thanks,
+  Andrea
 
-Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-core/dvb_frontend.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index d082b6c57c76..d06f16b2ab84 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -796,7 +796,7 @@ static int dvb_frontend_thread(void *data)
- 	fepriv->thread = NULL;
- 	if (kthread_should_stop())
- 		fe->exit = DVB_FE_DEVICE_REMOVED;
--	else
-+	else if (fe->exit != DVB_FE_DEVICE_REMOVED)
- 		fe->exit = DVB_FE_NO_EXIT;
- 	mb();
- 
-@@ -873,6 +873,11 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
- 	if (down_interruptible(&fepriv->sem))
- 		return -EINTR;
- 
-+	if (fe->exit == DVB_FE_DEVICE_REMOVED) {
-+		up(&fepriv->sem);
-+		return -ENODEV;
-+	}
-+
- 	fepriv->state = FESTATE_IDLE;
- 	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->thread = NULL;
-@@ -3042,6 +3047,7 @@ int dvb_register_frontend(struct dvb_adapter *dvb,
- 	init_waitqueue_head(&fepriv->events.wait_queue);
- 	mutex_init(&fepriv->events.mtx);
- 	fe->dvb = dvb;
-+	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->inversion = INVERSION_OFF;
- 
- 	dev_info(fe->dvb->device,
-@@ -3076,6 +3082,13 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
- 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
- 
- 	mutex_lock(&frontend_mutex);
-+	/*
-+	 * Mark the frontend as removed before stopping the thread, so that
-+	 * a racing dvb_frontend_open() cannot restart the kthread via
-+	 * dvb_frontend_start() and leave it running after the last
-+	 * reference on the frontend object is dropped.
-+	 */
-+	fe->exit = DVB_FE_DEVICE_REMOVED;
- 	dvb_frontend_stop(fe);
- 	dvb_remove_device(fepriv->dvbdev);
- 
--- 
-2.34.1
-
+[1] https://lore.kernel.org/r/20260908073906.31781-1-yangtiezhu@loongson.cn
