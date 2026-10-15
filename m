@@ -1,242 +1,125 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E295F4D7D4D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E794A3264D1;
+	Thu, 15 Oct 2026 10:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061399; cv=none; b=ifJUGB+GLHqel7OOuBbTg7KhszjHqQxjV2AB16X9ge+0le51whjsz8a2Ql8D4Nj7kUa4n1qji0NJu+Ldwg12XJEqxOWSo/KhcOgpdAryi4h33megj6RwY0A5N9LO0k++YbNJ8xNzuHdlI+AU6/Nja4xGHHaeQqhle92HPy1ANvc=
+	t=1792061448; cv=none; b=RZggNdGsws9U9ihkbY41APJC56r1VH45Dy+MAKgONmHz7wELj+zVAhNm93RDWMi8q+m0YY6/AdA+Qkmyi9nJK7Bg5OFW0pxRxXU/xxmML6CstlWgFOA7al7FpDHBOAkoqqJLk8Kkvit8T2YKWagje8AXHzxf/jtVglh0cSdRauQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061399; c=relaxed/simple;
-	bh=SFQP2O2rc9PrF1HkOxz3XDNnNvJFTjNshWWoO2KLuuo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BzB3OJfJYlh4jQRGneIVIjXM0dQupM77Kag7b1q6YpMceVaxqevifAt3OTQJP5qUABbrIHO+ADbt4kpUi/JP7JcRYi5zEvZiAwO6eOH4tQgt70Q82SMnzHo6OuzWscS0CpaOR2EcMDn5jVpDY55EYaGv57Abg2/W/Thv6nwYg3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KzO3pZrO; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792061448; c=relaxed/simple;
+	bh=v+0gqgeAv+u2MidpA8kdHgPnBc5OwfSPu4zwLlNJr1M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vEh4X+Fm/6rQI5n2FgAPaETI9o/yoCcNm/Su9Ces/soepVest45HuvSgJAbsoD2vR4mL3eocGZ4Sw7zDDczlKbSp9CL3mOm96kOE/HPka5qBWMvRFgVaLIbHRNToftgAObVy5OuRfq0NiYxXNKM6hmXlZlrNh2RmY0yfgctG+Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNvnW9GU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KzO3pZrO"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e2007dd8bso853013366b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:49:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792061396; x=1792666196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kKzIJd3FSTUVPyfxVoZRotvQdM6+CYpS0Hp7ZM2/Nns=;
-        b=KzO3pZrOPH1aE/6JM0HP5ODQPEJDpvPYdNVo/Oz8WEWFzZ2ApUs08YiPWO07R0tFTr
-         el9sQLQSBHfJcDaeLqMMk8ktQbh0o2Qv2pPia2G6GiGhNwZ6T1RsZwrkVd3tzoZEEygQ
-         wd1Fd9w2wKFr2ufPDAkh826aWpiu0Z/wsr2UZ4qJ9ZoBExh6SqxM7ygNZVKRaoxllu//
-         7qZATUVbX20cvvYRx+AsMYh2ZM+nWgIyYsTyUsoxSRBXco32amRdfJC8f0kB6jlPs/7Z
-         VrfjjsoZ5vYqxZ/JPV8yZ09OJZlh1IIwrvf5KAsAa18FoN2MSBPKOSZZ7o1UT0374dfE
-         smUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061396; x=1792666196;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kKzIJd3FSTUVPyfxVoZRotvQdM6+CYpS0Hp7ZM2/Nns=;
-        b=YOqSyeKOVPD5KXESXeqfN5/BcFV5aeEkiBMuQJA3mS+eEwfOYfMSffiG7bMtQMJv5f
-         faYKgSY1kkq3rgwoYGWRGImYk9iq8bj/l7ZdDWdr+HDDuRBa9JIQ73MiXbaRFJUzuz/y
-         OCqleCWEkE72e+BlYGIMzUVS26ngnH7D9XWQAKJNKe12EtV6YOMt3bbcdhucWc3ALCAf
-         6OH6jsPn7Z2AUhj7bbXgmSBjKB0o/7UggMYqei0anxbS1UIIMYuLRbl5D1fO4a+/wDed
-         wHOXXzUaKkR/YhbTeBQHUaJUlcIPNCwj2CHxNjhe9O6/jXs3W6u2m9iAqLEHw3kaRHXq
-         LoCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwS/MZOUpntIJDmbwnbbSwi3fHnr8fBSC496Fz2m0NysW87bdBoJl5DgdkiYZkeHGFUt7aeTla2jQBMeUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm/0LqoWxDkayOma8bvcWljnUCQQGsBVwD7xwb32UFniSS7SjF
-	aoCqMlI+7oCx1TnasMAcI/kiNt85I8T0L5+IRNXXhfyS3fkFRKq13swN
-X-Gm-Gg: AYBFou1ZQB9ztc/BJ/hRw5A0j/DiMWbPQO8u6QVTyCn2DWTEvQ9TPgtcptCouV3y4Ui
-	X2QES15UBmrx2BTt7n8e4dUYyxkIzUFva52R5Yu8f5e9h6q/VWGaADZQcSbzdETNBhF4gj1SMnL
-	mgd6iIz7JfqXVWUm5oGDkJLASbSMFck2EqIUVYZCGL8nn4yyJwgJRw6HkOy9+XssTwKnxFl3FCd
-	htkUnpN0N8pZB6w3ekoEiZGm917Ts2ERU3P9g8qCprCA325801tiaoNrtIWjeegtct+mL7v3tqb
-	7U8cqu1XmNvjmGu+5oAZDWEn2gUq3czrfVjBUtgFEbK5Q4eGFXb207o7YrVV9oEw1Lne7sy00PP
-	O6E4Ooc/qPtufEBPiYpZ91++hEzK7/1yQvf95oGtOl4meAKVJC89Af1FGrtA+ASltUFmVMcL6XC
-	VifGiR71s5LNKlTOXMna3zrAG9GQOgf11TX/wCQkT5PNgSSinYxllYZNTDVPrHEPZSEixBFOu8S
-	GFNN7RqvUglsTQoQ8dXci754SA2fD8FxWl0BKyRqLhmuIEClB7skm7WOYXa2/hULHios8JiYuaZ
-	bqBvhKiroDp4qLwTxAnpbTUM4Wt7PYMUCFoiUA==
-X-Received: by 2002:a17:907:6e8c:b0:c2a:46a2:5b57 with SMTP id a640c23a62f3a-c31a9d097fdmr1569452666b.10.1792061395970;
-        Thu, 15 Oct 2026 03:49:55 -0700 (PDT)
-Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:49:55 -0700 (PDT)
-From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNvnW9GU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B2E1F000C4;
+	Thu, 15 Oct 2026 10:50:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792061443;
+	bh=Lg7TOt6XcTyEdNiE5CmdXlCwY1B5FyDuCn0rC6jxWBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cNvnW9GUrhLinFBjC6477v73avjTrrQ7q2SPtXIcbbbu5XfcOxKI6PY+4Z+CmYla3
+	 FB3xpamgSxabA7NqCjrru1Kkmkbg8UXyjRegetGO8dgQ1pKsOXAZRKVk8DbWfXwiB9
+	 2lUpoIT5inXQlt0czvv8uyhAtt/sIZkOoZ3ypbofciipgFDYZleVxJISxCKDfpg31Q
+	 1ZEH8kcWG5iaJBVFgjHM92bSd89NRYblPZxX40YCwjRrwViCrdAAMBXI9xHMu5w7tS
+	 wqVgS7gIhuOXtKDUqM19JQjeI6f3dowA+9qlyMmk75lD0qbtgEndPSqpiFgRKdmg19
+	 Lf1z4eufhfREA==
+Date: Thu, 15 Oct 2026 12:50:38 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH v3 5/5] iio: pressure: dps310: add Zilltek ZTS8032 support
-Date: Thu, 15 Oct 2026 13:49:45 +0300
-Message-ID: <20261015104945.2687162-6-paulius.zaleckas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
-References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: gicv5: Relax IRS
+ properties constraints
+Message-ID: <atCv_t_KPJ23UAhJ@red-moon>
+References: <20261015-gicv5-irs-no-cpus-v1-0-d4b337b7f000@kernel.org>
+ <20261015-gicv5-irs-no-cpus-v1-1-d4b337b7f000@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-gicv5-irs-no-cpus-v1-1-d4b337b7f000@kernel.org>
 
-The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-compensation, with these differences:
+On Thu, Oct 15, 2026 at 10:20:25AM +0200, Lorenzo Pieralisi wrote:
+> An IRS is architecturally allowed to be stand-alone (ie with no direct
+> CPU connection).
+> 
+> Relax "cpus" and "arm,iaffids" properties constraints allowing a standalone
+> IRS configuration.
+> 
+> Fixes: 7d7299bd07c6 ("dt-bindings: interrupt-controller: Add Arm GICv5")
+> Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> ---
+> I have not marked the patch for stable though I think it should go
+> to stable kernels to fix the original schema. I am a bit nervous about
+> making cpus and arm,iaffids optional but I don't think there is a way
+> to keep them required and force them to be empty for an IRS with
+> no CPU connection.
 
-- two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
-  c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-- TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
-  the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
-  bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
-  25/16 Hz background rate instead of the external sensor.
-- product ID 0x11 instead of 0x10, the driver does not check it
+Hi Thomas, all,
 
-Add its chip data, reading 22 coefficient bytes and leaving TMP_CFG at
-0, a Horner step for each of c40 and c31, and the I2C and OF IDs.
+I have noticed this is now queued into -tip (thanks), I would still appreciate
+DT maintainers feedback though on the above and I still think that this must
+go to stable kernels (I have not tagged the patches CC: stable as mentioned in
+the cover letter but I believe the Fixes: tag will do ? If not I can send
+them myself anyway).
 
-Tested on a ZTS8032 over I2C: in_pressure_input is within 1 Pa of the
-datasheet formula evaluated from the raw and coefficient registers at
-every oversampling rate from 1 to 128, and TMP_CFG reads 0x00 after
-probe.
+Thanks,
+Lorenzo
 
-Assisted-by: LLM
-Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
----
- drivers/iio/pressure/Kconfig  |  6 ++++--
- drivers/iio/pressure/dps310.c | 33 ++++++++++++++++++++++++++++++---
- 2 files changed, 34 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
-index cef8b90b9ae7..21363d542c38 100644
---- a/drivers/iio/pressure/Kconfig
-+++ b/drivers/iio/pressure/Kconfig
-@@ -115,8 +115,10 @@ config DPS310
- 	select IIO_BUFFER
- 	select IIO_TRIGGERED_BUFFER
- 	help
--	  Support for the Infineon DPS310 digital barometric pressure sensor.
--	  It can be accessed over I2C bus.
-+	  Support for the following digital barometric pressure sensors:
-+	  - Infineon DPS310
-+	  - Zilltek ZTS8032
-+	  They can be accessed over I2C bus.
- 
- 	  This driver can also be built as a module.  If so, the module will be
- 	  called dps310.
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index ad3860d11592..940bde38e8e3 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -7,6 +7,10 @@
-  *
-  * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
-  *
-+ * The Zilltek ZTS8032 is register compatible, with two more pressure
-+ * calibration coefficients (c31, c40) and temperature calibrated against
-+ * the internal sensor.
-+ *
-  * Temperature calculation:
-  *   c0 * 0.5 + c1 * T_raw / kT °C
-  *
-@@ -63,7 +67,8 @@
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
- #define DPS310_COEF_LEN		18
--#define DPS310_MAX_COEF_LEN	18
-+#define ZTS8032_COEF_LEN	22
-+#define DPS310_MAX_COEF_LEN	22
- 
- /* Make sure sleep time is <= 30ms for usleep_range */
- #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
-@@ -92,6 +97,7 @@ struct dps310_chip_info {
- 	const char *name;
- 	u8 tmp_cfg;	/* TMP_CFG at startup: sensor the coefficients are for */
- 	u8 coef_len;
-+	bool has_c31_c40;
- };
- 
- static const struct dps310_chip_info dps310_chip_info = {
-@@ -100,6 +106,14 @@ static const struct dps310_chip_info dps310_chip_info = {
- 	.coef_len = DPS310_COEF_LEN,
- };
- 
-+/* TMP_CFG bit 7 is a rate bit here; the internal sensor is the default */
-+static const struct dps310_chip_info zts8032_chip_info = {
-+	.name = "zts8032",
-+	.tmp_cfg = 0,
-+	.coef_len = ZTS8032_COEF_LEN,
-+	.has_c31_c40 = true,
-+};
-+
- struct dps310_data {
- 	struct i2c_client *client;
- 	struct regmap *regmap;
-@@ -108,6 +122,7 @@ struct dps310_data {
- 
- 	s32 c0, c1;
- 	s32 c00, c10, c20, c30, c01, c11, c21;
-+	s32 c31, c40;
- 	s32 pressure_raw;
- 	s32 temp_raw;
- 	bool timeout_recovery_failed;
-@@ -210,6 +225,11 @@ static int dps310_get_coefs(struct dps310_data *data)
- 	c30 = (coef[16] << 8) | coef[17];
- 	data->c30 = sign_extend32(c30, 15);
- 
-+	if (data->info->has_c31_c40) {
-+		data->c31 = sign_extend32((coef[18] << 8) | coef[19], 15);
-+		data->c40 = sign_extend32((coef[20] << 8) | coef[21], 15);
-+	}
-+
- 	return 0;
- }
- 
-@@ -711,10 +731,15 @@ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
- 	if (rc)
- 		return rc;
- 
--	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
--	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
-+	/*
-+	 * Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow.
-+	 * c40 and c31 are ZTS8032 only and zero on the DPS310.
-+	 */
-+	if (!dps310_horner_step(&prs, data->c40, p, kp) ||
-+	    !dps310_horner_step(&prs, data->c30, p, kp) ||
- 	    !dps310_horner_step(&prs, data->c20, p, kp) ||
- 	    !dps310_horner_step(&prs, data->c10, p, kp) ||
-+	    !dps310_horner_step(&tmp, data->c31, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
- 	    !dps310_horner_step(&tmp, data->c01, t, kt))
-@@ -1038,12 +1063,14 @@ static int dps310_probe(struct i2c_client *client)
- 
- static const struct i2c_device_id dps310_id[] = {
- 	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
-+	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, dps310_id);
- 
- static const struct of_device_id dps310_of_match[] = {
- 	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
-+	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, dps310_of_match);
--- 
-2.55.0
-
+> ---
+>  .../devicetree/bindings/interrupt-controller/arm,gic-v5.yaml     | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
+> index 86ca7f3ac281..b901e4288816 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
+> @@ -120,13 +120,14 @@ patternProperties:
+>  
+>        cpus:
+>          description:
+> -          CPUs managed by the IRS.
+> +          CPUs managed by the IRS. Omit it if the IRS has no associated CPUs.
+>  
+>        arm,iaffids:
+>          $ref: /schemas/types.yaml#/definitions/uint16-array
+>          description:
+>            Interrupt AFFinity ID (IAFFID) associated with the CPU whose
+>            CPU node phandle is at the same index in the cpus array.
+> +          Omit it if the IRS has no associated CPUs.
+>  
+>      patternProperties:
+>        "^its@[0-9a-f]+$":
+> @@ -210,12 +211,14 @@ patternProperties:
+>            - reg
+>            - reg-names
+>  
+> +    dependencies:
+> +      cpus: [ "arm,iaffids" ]
+> +      arm,iaffids: [ cpus ]
+> +
+>      required:
+>        - compatible
+>        - reg
+>        - reg-names
+> -      - cpus
+> -      - arm,iaffids
+>  
+>  additionalProperties: false
+>  
+> 
+> -- 
+> 2.53.0
+> 
