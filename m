@@ -1,64 +1,64 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AF83E8330
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D861B3ED3C4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039951; cv=none; b=h9hrClUegLwCZ5329TQQyiN6vwl9/3X4/LfvytPUILuLnfNNU3USzuOTPzKSK0tcKWjXH04zlpzn+T8159CRFY3vlW1PB5ATHUBoSiI1SX/xfBcW2LZGJbWOQyfCBqgu0rx7OTC3zsYCRCzcHiQHCo4oLYPIEtdg2RajMbFbMGk=
+	t=1792039954; cv=none; b=cD3a/9FK/0bxr95Yf3lwroMkJs4sEj8kZj53EvF3Hyt9CVPDCh/mGaPEFH6AMJOGFGUBHSdE0SXSqxPsQxWmwt3UKd85EjY4suzwYMae3fgcb3Ucsqz9ILFcpTXxbkR26iAV2lLX8u1UHapEzZNSf7CHu2MOM9r3MZSenHqdVrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039951; c=relaxed/simple;
-	bh=d/UWuIDLttRptXRjgPCr2gHnKIUlkWJphZ/F4/3NVHw=;
+	s=arc-20240116; t=1792039954; c=relaxed/simple;
+	bh=A9dZqNlJD9WYs+GSLH29AUnwq+8L5IzDDOZ0LYgLQg8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RzOR0Ng/2SyX5tneqmCj4gU3V6F2wpmlYp5CgSvA3PGreJtDPDEVjV5/jvD3/x2dx9nNim1v0kmV/69byJS+/q6OGFLUwyy3UMfukR0sO2Lpws6Dls/wQF+rw1nrP/BZRwGZqj7dvWZQeQQi3LCH5wFdkPCH9s8J8ZUEt9qkkdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=yind8M00; arc=none smtp.client-ip=209.85.214.180
+	 MIME-Version; b=PKprXLLjag9YtQh7Rh0FGN/FN2Sb9/gMPJWb1n7lQJ6QVQgKXoCaTGtMm6+s9mA1GkFht2LJS3w9XhjLH7ae2wY69gMR8vsaEsees4hLnn7u5AiWdSNHfMn+TcP5ql+1apPptIxm0EopFPJNUCl98L8nr9y8InvIjTIBz/aDGIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ljzYPIoC; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="yind8M00"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2df8c28a0b1so22701955ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:52:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ljzYPIoC"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e82462a3f1so9612715ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792039950; x=1792644750; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792039952; x=1792644752; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=parD2IM7xfaD1K9JnqVrI4SVPT6JMErPe2GlYkxbGxg=;
-        b=yind8M00tmux4mKJ38fz+feD9IoVGlrJm8K7/PTb3TWoCVG83KkHJ5FCNPy0YzgF17
-         to0ASbQNrFTgaT5QRkcYfaMTBhkW4ZxdtUCVIF30XqimEFzURjM6inwzu0AGRRDFtIyC
-         i8MiCN8GA10/096tZ1pgd2IxfoYfMRKoJqIvj2WFBUq17dmVPcZWdWI/4gokOhXYBJpR
-         B+BhOgnDTD6nTdksJaX+F2hsarL3h+NmeDh+Pz2MpQQ3N6baN4IBOjJthFb3Yy11nBp8
-         ca619WiwGHzWxBByrLt/7pqjfn6Wejf/5IJhOJDmVMtv2yYtfj7KyRGpYZEU5RTzBx6+
-         UaHw==
+        bh=qB5u2eAth6kclTEDr0WUXrH+pdbrWwKcjOH4XM8d050=;
+        b=ljzYPIoClvqjfi/yNUahQ0WG1gz10QoRd5L/gCJ/EDMrbxxj77YRANXxroyOxD2nVB
+         QmGPqZYrX2qMLuBQv9SWXuZzo33ObSJ4VPgPmgGivUCnARAmBGImNEJvJYa8svfGDVEz
+         PWX5exQxIYXXakInY6ViFHlY4G8NErxIdZearYNjyLcDxMuNguOSupCoi9GgP2jcUYZC
+         fCOVnK7YfeQbWFim+4k8cqxOBicXcgcnartcAQ3L23Z9M0/qYLq3oG7pTik2lnVbQQ9m
+         8tCZy+LAnRQyib3aO2IJUB4ZI/23ahwUeOQ07z3Y+i23tK9iUDI2clSAJSlQR1jWShSn
+         jGog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792039950; x=1792644750;
+        d=1e100.net; s=20260707; t=1792039952; x=1792644752;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=parD2IM7xfaD1K9JnqVrI4SVPT6JMErPe2GlYkxbGxg=;
-        b=0cz0pFklHjq5K1Km3HxOzILWmbSlWpO2k5dXPflhpuisrACQLaE5KER0FAlG4cJ72k
-         IP0uhF16Oa8BselHUYipdvL3EpFvmGvK5vTxvqVn4LNb/Gvo+N/FvjRI5Di3AcCbx5KJ
-         PTyOwjZe+hwnDKkuwdUeo6G4iK+3wEJG4bUEG3uKH7SaRqCwzs7ffj5qqer+pGKfIIhO
-         jxtm2lJXeWK3nBfoeZP0dRg0JaF44j13uHir3nHJnc85e7JT1CiH7Ajwp54Vaszd9A73
-         QNOIfAXTdFpjyVWAzqcMean7U+zvtRmHNYfPPLbypFP4q2VXkWF4CMuosnd3yZqArUlQ
-         z+Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBxG9wlPv/+qPsaXv0IM+oRL918QOkVUzrbcKq7xA5cyn0lL1bqHBrS83FI3rZ60lvgImXlmpSjaIJIoxOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwyF0qeISVQMaVa4WzOU4enNQRzujah8uM1z+nkWJWuXmoO5C8
-	wLAVwMAzBwP9wmhXgdxIXQ2/ZWZ4i5I7HWRGJ2coOh4wwwubVxcw+j577k2t+4jKg+0=
-X-Gm-Gg: AYBFou0cn8hHqMC4a0CeUODrhjYgjrS4zjUpJ+elapPA9T6fzZ8vKUZA8oRFOImHqYr
-	VqU1wxC9xb3Ts6XY7spxjwXQvbSI5YZAhhvxhSegfz3JbFZE+xWHGzNapgN6hJ4PUTowOU22Inh
-	7yRPWmtzNNsSt7i9Nfbgv+y5WpByBs2QEtnQhEZ4GB1ZcuTCYsFIxtC0sb7fUdvAuADeCmQZ+Vo
-	Y101I7wzRu4278qKlEW7PgNI0ycwBlC/5b7Pu/Vl4s8g5XbiRZyKVmDJZAxOYWDefdczGYgNS4b
-	Zau4pooJi5BoQ26HFmYpwg6Ny09pPzrqn55rRKK/P1t/lqpYpHuW+qLFeQ711UnhA7rKg/YtxWA
-	/5W6765xl8Bfny6bwQwVyxoT96ALjiNIzf5T3jc1pavIkzjB8M+bxFS4N/5zvjtpUkyn9tfZm41
-	OCaiuOpKqn0CrPbvC5fGLu6th7eWeXsLXUFONq/ywo1KjfF5mSJNnQkYibIlkIKpNrcaLGtSmoi
-	KPP0Q==
-X-Received: by 2002:a17:902:dac3:b0:2dd:c100:7cb6 with SMTP id d9443c01a7336-2e842abe6e9mr141045385ad.50.1792039950052;
-        Wed, 14 Oct 2026 21:52:30 -0700 (PDT)
+        bh=qB5u2eAth6kclTEDr0WUXrH+pdbrWwKcjOH4XM8d050=;
+        b=sSev0SttHZYCSSrt0dqYFt4LXgtjtHl9AEIylIzKmw4KPPZXdr7zqjNKm7Xm/zrcCN
+         xyeMj8NfPLAgX9b3OncvNwCKx3z3978pP/CaQVm8ulnvzb5N3Wv6mAN6CAdp2GBElPAR
+         AB91t/Nr9J74r4I2Dzk79IkrZ8wsC+wvyN6vtFKilQ9zDLB4yP6SyslwUDe+E/GtmbYS
+         4+GWaLu2u118yMOR/YzPR/q3IZYprt9r2IfbPy3qSwqX+tWL5IPap5sZiyW9KfieDEvk
+         nUCU/3WGuUpdPvKE5TTz/AoO+e730BGtHOdUwgGee8iU+EfUXkaLOkGd1T4+OPbhrHPF
+         sVjA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBrpgPb7IAPgVc2jYY5B2ak5d35acPzP29ztMyPZwYaDgbCq1Fr5MGD2XfcnrB3zC79CyQRPsT/jQtJVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImZXk5T5iiLYZwGOuebe0FJUiykWSs5LW3jlF1lT8Gjb79smNs
+	Ul4uyBEMWVpee+HjH2N2MNcrOD0SEpGPmIGNZJ9NmpPGqFJN6HXs3S4kzegIaYH/JUg=
+X-Gm-Gg: AYBFou1XjYhapq6oIUBShwYnNLrX198YIiof86IsQCD0q0QAxqPZtMVWiF82c1fZSQR
+	leMtQsVWMQW/08MncRTeIG1GorIxKJurpWPbnjO5xNmgoVQbnODN6tKPQVnayUo7gOWsxVAbdTd
+	wQl+5pl7bZiDc0eEDSEB1DZpEnrFmY2YUl/nnKCpGIMzaqxPBoqArl78C0ATNmo5XRUFVidUIyj
+	wxJVSnsJ/Jdb100jowHYaIDnlfNfEFJ54CDITTYFL6xTV4qGCIyB8Spr0TXQXYqw59WlqwQ4Lj2
+	4930JBTSCe0SqRpfw/HqR29PtRd2cfK9j+6rJkw3ick66Y6FDtq9lP9sh9uB9h3QOFWzdRKGoUB
+	aVfEt/8t2rN44vX7HY7AsyTyUb0UTbiJR7tI/SxgC2XTlMTT9vjox3CoP1JbvZoZY71mgnl0laK
+	wtJtlsFKLcYuj+R5Q7ittIb/ePvASW7Wj8W2EbZm4rLbKsjCOFclkgKBB5IhKO3CJtnV+hBCR5B
+	62kUg==
+X-Received: by 2002:a17:902:f650:b0:2e9:5507:b538 with SMTP id d9443c01a7336-2e95507b924mr18630555ad.3.1792039952157;
+        Wed, 14 Oct 2026 21:52:32 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e962a4dfbbsm1615915ad.58.2026.10.14.21.52.28
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e962a4dfbbsm1615915ad.58.2026.10.14.21.52.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 21:52:29 -0700 (PDT)
+        Wed, 14 Oct 2026 21:52:31 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: "Martin K . Petersen" <mkp@kernel.org>,
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
@@ -66,9 +66,9 @@ Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v9 3/9] scsi: mvumi: bound the hotplug event bitmap
-Date: Thu, 15 Oct 2026 13:52:07 +0900
-Message-ID: <20261015045213.3975845-4-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v9 4/9] scsi: mvumi: walk the hotplug event bitmap a byte at a time
+Date: Thu, 15 Oct 2026 13:52:08 +0900
+Message-ID: <20261015045213.3975845-5-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261015045213.3975845-1-yhlee@isslab.korea.ac.kr>
 References: <20261015045213.3975845-1-yhlee@isslab.korea.ac.kr>
@@ -80,87 +80,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mvumi_proc_msg() takes size from the hotplug event the firmware DMAs into
-the event buffer and uses it twice: as the bit count for two
-find_next_zero_bit() scans, and as the byte offset of the second bitmap.
-Nothing checks it against the buffer, which mvumi_get_event() allocates at
-a fixed 512 bytes, and size is a u16, so a firmware reporting 65535 makes
-both scans run roughly 8 KiB past the allocation and places the second
-bitmap past it to begin with.
+mvumi_proc_msg() casts param->bitmap to unsigned long * and hands it to
+find_next_zero_bit().  bitmap sits four bytes into struct
+mvumi_hotplug_event, so on a 64-bit host the pointer is four-byte aligned
+where the bitmap API expects long alignment.  On an architecture that
+traps unaligned loads that faults, and the second bitmap, which starts at
+an arbitrary byte offset derived from size, can be misaligned on any host.
 
-Reject a size whose bitmaps do not fit.  The second bitmap starts size bits
-in and find_next_zero_bit() reads a long at a time, so that span is the
-furthest either scan reaches.  Compare it against sizeof(struct
-mvumi_event_req), the only length the driver ever puts in
-data_transfer_length and therefore the most the firmware may write into the
-shared buffer, rather than against the buffer itself: dma_alloc_coherent()
-hands back zeroed memory, a zero bit in these bitmaps means a device is
-present, so scanning past what the firmware wrote would add devices that do
-not exist.  Read size once, since it lives in memory the firmware can still
-write, and give the buffer size a name while here.
+Walk the bitmap bytes instead.  The driver reads every other
+firmware-supplied field natively, so bit n of the bitmap is already byte
+n / 8 bit n % 8 in practice; writing that out keeps the device numbering
+this driver has always used, needs no alignment from the buffer, and drops
+the long-at-a-time reads the earlier bound had to allow for.  That bound
+stays as it is, which is now more conservative than the walk needs.
 
 Fixes: bd756ddea18e ("[SCSI] mvumi: Add support for Marvell SAS/SATA RAID-on-Chip(ROC) 88RC9580")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/scsi/mvumi.c | 18 ++++++++++++++++--
- drivers/scsi/mvumi.h |  3 +++
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ drivers/scsi/mvumi.c | 41 +++++++++++++++++------------------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index 2378b676a7a78..9a3dde53dea97 100644
+index 9a3dde53dea97..18964e860ac8e 100644
 --- a/drivers/scsi/mvumi.c
 +++ b/drivers/scsi/mvumi.c
-@@ -1652,11 +1652,25 @@ static int mvumi_rescan_bus(void *data)
- static void mvumi_proc_msg(struct mvumi_hba *mhba,
+@@ -1653,16 +1653,15 @@ static void mvumi_proc_msg(struct mvumi_hba *mhba,
  					struct mvumi_hotplug_event *param)
  {
--	u16 size = param->size;
-+	u16 size = READ_ONCE(param->size);
- 	const unsigned long *ar_bitmap;
- 	const unsigned long *re_bitmap;
+ 	u16 size = READ_ONCE(param->size);
+-	const unsigned long *ar_bitmap;
+-	const unsigned long *re_bitmap;
++	const u8 *ar_bitmap;
++	const u8 *re_bitmap;
  	int index;
  
-+	/*
-+	 * The second bitmap starts size bits into the event buffer and
-+	 * find_next_zero_bit() reads it a long at a time, so that is the
-+	 * furthest the two scans reach.  Bound it by the length the firmware
-+	 * was told it may write, not by the buffer: the bytes past that are
-+	 * still zero, and a zero bit here means a device is present.
-+	 */
-+	if (sizeof(*param) + (size >> 3) + BITS_TO_LONGS(size) * sizeof(long) >
-+			sizeof(struct mvumi_event_req)) {
-+		dev_err(&mhba->pdev->dev,
-+			"invalid hotplug event bitmap size %u\n", size);
-+		return;
-+	}
-+
+ 	/*
+-	 * The second bitmap starts size bits into the event buffer and
+-	 * find_next_zero_bit() reads it a long at a time, so that is the
+-	 * furthest the two scans reach.  Bound it by the length the firmware
+-	 * was told it may write, not by the buffer: the bytes past that are
+-	 * still zero, and a zero bit here means a device is present.
++	 * The second bitmap starts size bits into the event buffer, so that
++	 * is the furthest the two walks reach.  Bound it by the length the
++	 * firmware was told it may write, not by the buffer: the bytes past
++	 * that are still zero, and a zero bit here means a device is present.
+ 	 */
+ 	if (sizeof(*param) + (size >> 3) + BITS_TO_LONGS(size) * sizeof(long) >
+ 			sizeof(struct mvumi_event_req)) {
+@@ -1672,25 +1671,19 @@ static void mvumi_proc_msg(struct mvumi_hba *mhba,
+ 	}
+ 
  	if (mhba->fw_flag & MVUMI_FW_ATTACH) {
- 		index = -1;
- 		ar_bitmap = (const unsigned long *) param->bitmap;
-@@ -1708,7 +1722,7 @@ static int mvumi_get_event(struct mvumi_hba *mhba, unsigned char msg)
- 	struct mvumi_cmd *cmd;
- 	struct mvumi_msg_frame *frame;
+-		index = -1;
+-		ar_bitmap = (const unsigned long *) param->bitmap;
+-		re_bitmap = (const unsigned long *) &param->bitmap[size >> 3];
++		ar_bitmap = param->bitmap;
++		re_bitmap = &param->bitmap[size >> 3];
  
--	cmd = mvumi_create_internal_cmd(mhba, 512);
-+	cmd = mvumi_create_internal_cmd(mhba, MVUMI_EVENT_BUF_SIZE);
- 	if (!cmd)
- 		return -1;
- 	cmd->scmd = NULL;
-diff --git a/drivers/scsi/mvumi.h b/drivers/scsi/mvumi.h
-index 1306a4abf19ad..5d45f0d99e639 100644
---- a/drivers/scsi/mvumi.h
-+++ b/drivers/scsi/mvumi.h
-@@ -124,6 +124,9 @@ enum {
- #define APICDB1_HOST_GETEVENT		1
- #define MAX_EVENTS_RETURNED		6
- 
-+/* size of the buffer the driver hands the firmware for event replies */
-+#define MVUMI_EVENT_BUF_SIZE		512
+ 		mutex_lock(&mhba->sas_discovery_mutex);
+-		do {
+-			index = find_next_zero_bit(ar_bitmap, size, index + 1);
+-			if (index >= size)
+-				break;
+-			mvumi_handle_hotplug(mhba, index, DEVICE_ONLINE);
+-		} while (1);
+-
+-		index = -1;
+-		do {
+-			index = find_next_zero_bit(re_bitmap, size, index + 1);
+-			if (index >= size)
+-				break;
+-			mvumi_handle_hotplug(mhba, index, DEVICE_OFFLINE);
+-		} while (1);
++		for (index = 0; index < size; index++)
++			if (!(ar_bitmap[index >> 3] & (1 << (index & 7))))
++				mvumi_handle_hotplug(mhba, index,
++						     DEVICE_ONLINE);
 +
- #define DEVICE_OFFLINE	0
- #define DEVICE_ONLINE	1
- 
++		for (index = 0; index < size; index++)
++			if (!(re_bitmap[index >> 3] & (1 << (index & 7))))
++				mvumi_handle_hotplug(mhba, index,
++						     DEVICE_OFFLINE);
+ 		mutex_unlock(&mhba->sas_discovery_mutex);
+ 	}
+ }
 -- 
 2.43.0
 
