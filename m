@@ -1,150 +1,93 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251653F2100;
-	Thu, 15 Oct 2026 18:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD333F58E8;
+	Thu, 15 Oct 2026 18:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089075; cv=none; b=oEpVHp9+cav+8ahLubTvVS2RKTUUgaIng0iLG63R0OBXdMKFXNiMspPYF+kQzknCna1zNNGN14ZPdWBsnMgnN2P5+8YGCTazloicLR1RUNguVT0QgkvnDHHZOMay9xRse2ZXSI0EVUjv0DENCWnzgcktkuJyS3RBFOSG+UZPYWw=
+	t=1792089150; cv=none; b=G2X/TW8GkHOP1aYjU+pdyOUpZFIZ0WyG9UXClUKY9f75BEjuegZZZPU1Yc2h2msaudGFaZd6VOAi4p8JbrBxExlFMrvkBX+6Ogp84nYD7NHvC8XCsYyeXBWlDjb4xl0hbAes5y/Vf5id44Q2CdhCFdMUqw5cL4sbYG79Eo874iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089075; c=relaxed/simple;
-	bh=XnqirTAOIyOEUEjM5gZAlIddME/VKFHHyuu7S7qv8SU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N8UkD1f4CbzPzGFkLedV7QE4jQcwvA0izfrQxM0NOdb8GqnyFEIEWUeQRD6OwQpW8gBgULsb2luM0B0d6T7QjcoupwO0PqHRE1ApIClh0rMrnrlyD4U6dJi59J27X7r4DErp6LENKbd4N9rgTZ2qaG8Oln+lS4D5ApT5IExmveQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=dE1Vtecx; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1792089150; c=relaxed/simple;
+	bh=4Htp05Yu6WKm/2IcPJJ+TCWaRgP4kwiFqBvKWAwgdzw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ciEZeIOBvktAraMwmEIZJphc2fxuW4hj8DsNK8K9jQ8tjrunhTAfXp0IbVbfbBDaY1ri1Yp0ZOi/Xcf2qM2cw/uEip6LNLJpARnzdap+4K3nAKDEXFfXPzuliqmeHtFBpu/HbgkjgjAbu4D5QQHV3Bh5pW87lNMiOykufeSIkHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnPFzpFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="dE1Vtecx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1792089065; x=1792348265;
-	bh=12AmhKHxbLCv2FSRsicB7sk85Z0FKPCHLGV0cKefTJM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=dE1VtecxiVIuKGRpV70GWCQBPPq7Qp2vPmfdR0o/S3epOlwdd8+uMDKry4U/G+7pT
-	 gJO2EfoUpwAHMI4gfuyLwhFnYyBkqfxcYxgztLCtkTG0V6s6+IrO2ePT0WPKwALX1g
-	 aubJlIyTmm/m/ivut8hkcc4lzSIdPatf6TeYB/Fk/Kp3Lt2C/3D8Op7RVW1zccc4vN
-	 SDMzqVJkMxF6G19AEjryidejDGxE2V/Lcs6zFM4EwJ3+q5GqBsDtklbf4PGga7OBEF
-	 6kk08O64YrFvbkSAiIhUjWTIZ7IFLBkMbmcIBLHzCBfT6THvVWoZy4bLwzn+FfWF8A
-	 Da7f+fZLU/i8Q==
-Date: Thu, 15 Oct 2026 18:31:02 +0000
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-From: cochcoder <cochcoder@proton.me>
-Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] Bluetooth: L2CAP: tolerate zero-ident LE credit indications
-Message-ID: <kSgAQJi1qQPQmEKSbh2o-nT3b7dFTdU4_Ld1BZi90BsBSb0XUbXGREvCaB_PRJMmy7os8opcmtBtv3GvRQNiHHa9yGzSRT7Q8CciGPx6DfA=@proton.me>
-In-Reply-To: <CABBYNZJJf3owtAwGs4OuL6+YZz+zuY_kewKFDZPQdfcF-xyFFA@mail.gmail.com>
-References: <20261013031943.489829-1-cochcoder@proton.me> <CABBYNZJJf3owtAwGs4OuL6+YZz+zuY_kewKFDZPQdfcF-xyFFA@mail.gmail.com>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: a3097f93aaebcf5e0019e21bc2121149c39ca427
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnPFzpFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984041F000C4;
+	Thu, 15 Oct 2026 18:32:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792089148;
+	bh=3/ZhwJXDAIhjRzxk9QyR5oQU0tHsJ0x+/pfjWyCI3iY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=DnPFzpFaptJ0bOVBAltZYO4in70ZAna2pAqSQcqL6Hjq21Uo3iyAbj9LJQ1GCkpKU
+	 wFuuDv1iA+i2NnlpOMVABUgBw0WyWBNZW2QoDsz94JIUmrz1ZIYZStkvzVP34uaKLA
+	 ujTt5A4vUBdbAgWY9hbNNyyZoOmcMMkMkuY4DLNyQhHC0l6V3x0S+RHW/tABestSV8
+	 pRNVrtJ2I3mKITo9Wp/12o6XOKBs2UNBrLR3JEvMo2Q+sOhCDC2dq1MZF4URjexMlC
+	 U2WO5WjsbK7D2c2LjiQjxP4Jtnvrr6Y2a1y4xSRUX5iw9V6kfGlm+IdQ2A/E4k/Hg9
+	 wgzKaES/vUYQw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>, John Stultz
+ <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, Miroslav Lichvar
+ <mlichvar@redhat.com>, Jiri Wiesner <jwiesner@suse.de>, Daniel J Blueman
+ <daniel@quora.org>, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [REGRESSION] clocksource: delayed watchdog can mark TSC unstable
+In-Reply-To: <20261010065509.72916-1-kmehltretter@gmail.com>
+References: <20261010065509.72916-1-kmehltretter@gmail.com>
+Date: Thu, 15 Oct 2026 20:32:25 +0200
+Message-ID: <87a4oeerwm.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-Thanks for flagging this. I've sent v3 as a two-patch series:
-the security fix first, followed by the dependent zero-ID RFC.
+On Sat, Oct 10 2026 at 08:55, Karl Mehltretter wrote:
+> Since the watchdog rewrite in v7.1, the TSC can be marked unstable
+> after a delayed watchdog run under QEMU TCG. Without injected stalls,
+> this happened on 5 of 12 boots on a loaded host and 0 of 6 on an idle
+> host.
+>
+> The delayed run re-arms the timer with an expiry already in the past.
+> The watchdog then runs again almost immediately and rejects the TSC
+> based on a roughly 75 us measurement interval.
+>
+> #regzbot introduced: 763aacf86f1b
+>
+> v7.3-rc5, 4 vCPUs, after vCPU 0 was stopped for 0.8 s:
+>
+>   clocksource: Marking clocksource tsc unstable due to frequency skew
+>   clocksource: Watchdog                    hpet interval:            74940ns
+>   clocksource: Clocksource                  tsc interval:            74251ns
+>   clocksource: Switched to clocksource hpet
+>
+> The intervals are 75 us, not the 500 ms watchdog period. A function
+> trace of clocksource_watchdog() from the same boot:
+>
+>   busybox-79 [000] ..s1. 15.168486: clocksource_watchdog <-call_timer_fn
+>   busybox-79 [000] .Ns.. 16.269726: clocksource_watchdog <-call_timer_fn
+>   busybox-79 [000] .Ns.. 16.269820: clocksource_watchdog <-call_timer_fn
 
-Security fix:
-https://lore.kernel.org/r/20261015181624.48318-1-cochcoder@proton.me
-
-Zero-ID RFC:
-https://lore.kernel.org/r/20261015181624.48318-2-cochcoder@proton.me
+I did not think about that scenario obvioulsy. The code is resilient
+against long intervals between two measurements, so the easy and
+straight forward fix is indeed what you (or the LLM) suggested.
 
 Thanks,
-Kyle
 
-
-On Tuesday, October 13th, 2026 at 10:44 AM, Luiz Augusto von Dentz <luiz.de=
-ntz@gmail.com> wrote:
-
-> Hi Kyle,
->=20
-> On Mon, Oct 12, 2026 at 11:20=E2=80=AFPM Kyle Pepper <cochcoder@proton.me=
-> wrote:
-> >
-> > A nonconforming ASHA peer sends identifier-zero credit indications
-> > that are discarded, reducing usable transmit credits until audio stalls=
-.
-> >
-> > Tolerate only exact-size credit indications for a connected LE CoC.
-> > Preserve the channel reference, lock and credit-overflow checks and do
-> > not send a response with identifier zero. Other zero-ID commands and
-> > BR/EDR signaling remain unchanged.
-> >
-> > Core Vol 3 Part A section 4 forbids identifier zero. This is an
-> > interoperability RFC requiring maintainer agreement, not a conformance
-> > fix or a claim of automatic stream recovery.
-> >
-> > Assisted-by: OpenCode:gpt-6.1-sol
-> > Signed-off-by: Kyle Pepper <cochcoder@proton.me>
-> > ---
-> > Submission review notes (not part of the commit message):
-> > Core specification forbids identifier zero. This is a narrow opcode
-> > interoperability exception, not a conformance fix. N8 captures contain
-> > zero-ID credit indications. Native malformed/overflow/teardown and
-> > lockdep/KASAN coverage and exception policy remain review gates.
-> >
-> >  net/bluetooth/l2cap_core.c | 18 +++++++++++++++++-
-> >  1 file changed, 17 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-> > index 49a998804..1a0868437 100644
-> > --- a/net/bluetooth/l2cap_core.c
-> > +++ b/net/bluetooth/l2cap_core.c
-> > @@ -5328,6 +5328,12 @@ static inline int l2cap_le_credits(struct l2cap_=
-conn *conn,
-> >
-> >         l2cap_chan_lock(chan);
-> >
-> > +       /* Tolerate identifier-zero credits only for a live LE CoC. */
-> > +       if (!cmd->ident &&
-> > +           (!credits || chan->state !=3D BT_CONNECTED ||
-> > +            chan->mode !=3D L2CAP_MODE_LE_FLOWCTL))
-> > +               goto unlock;
-> > +
-> >         max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
-> >         if (credits > max_credits) {
-> >                 BT_ERR("LE credits overflow");
-> > @@ -5923,11 +5929,21 @@ static inline void l2cap_le_sig_channel(struct =
-l2cap_conn *conn,
-> >
-> >         BT_DBG("code 0x%2.2x len %d id 0x%2.2x", cmd->code, len, cmd->i=
-dent);
-> >
-> > -       if (len !=3D skb->len || !cmd->ident) {
-> > +       if (len !=3D skb->len) {
-> >                 BT_DBG("corrupted command");
-> >                 goto drop;
-> >         }
-> >
-> > +       if (!cmd->ident) {
-> > +               if (cmd->code !=3D L2CAP_LE_CREDITS ||
-> > +                   len !=3D sizeof(struct l2cap_le_credits))
-> > +                       goto drop;
-> > +
-> > +               /* Credits have no response or identifier-matched trans=
-action. */
-> > +               l2cap_le_credits(conn, cmd, len, skb->data);
-> > +               goto drop;
-> > +       }
-> > +
-> >         err =3D l2cap_le_sig_cmd(conn, cmd, len, skb->data);
-> >         if (err) {
-> >                 struct l2cap_cmd_rej_unk rej;
-> >
-> > base-commit: 964430c038967fd06643e866f68115664e1a1bd1
->=20
-> Sashiko flagged a problem with this:
->=20
-> https://sashiko.dev/#/patchset/20261013031943.489829-1-cochcoder%40proton=
-.me
->=20
-> --
-> Luiz Augusto von Dentz
-> 
+        tglx
+---
+--- a/kernel/time/clocksource.c
++++ b/kernel/time/clocksource.c
+@@ -673,7 +673,7 @@ static void clocksource_watchdog(struct
+ 
+ 	/* Could have been rearmed by a stop/start cycle */
+ 	if (!timer_pending(&watchdog_timer)) {
+-		watchdog_timer.expires += WATCHDOG_INTERVAL;
++		watchdog_timer.expires = jiffies + WATCHDOG_INTERVAL;
+ 		add_timer_local(&watchdog_timer);
+ 	}
+ }
