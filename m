@@ -1,118 +1,64 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C191B4A013F;
-	Thu, 15 Oct 2026 13:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB585293ED
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072594; cv=none; b=mDoVBlqVMh3A/AqHq09Kvfua15Ut1Yrxy7fgcQIt0XwqxIkbr/aGoRQWOZRWkkJXdyEtrPqonYThYxQ3cXfbEMchTdxHAQA68natE+dgmsddnx39lxZpF/i+TYhmH1/34MuTgc6ZqGAV2Yt8CzUeATs6A3yCPxWkRVSMAjjRxR8=
+	t=1792072639; cv=none; b=XDQRMXTyNc/N/tR8UQmDUUKeCLIUAP+l/UU9eiHMFtRHdh9Q7jFeJkA6JtoDLAGyXxTMPMTiCBXBme9gnZjJDRvIGUETiuNiL49VMGHLeLw1UOHNHqzqUteRqBh4xzgdOMZ5E3f1mRVIy7EHnLoCw1sTwp8hDnLwhjxa21NZILE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072594; c=relaxed/simple;
-	bh=cZInJwt3I1Vz51nYszD9oJKFR4xZNAD0JZYGc9csw/k=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OLUPxNvwTSEg/HNh0mK9aZmK8LLw3ytn8uYUPkUGHRTertguu4WaliM7TO10yZAUJLWz9Nbqx57XfnKnYMuQsln+TQ6aIHbqNy/KUdCU4e8MaAMHy6GveWCUdrvNuRkOIF73X0/OFV/6nKSV0Cal0nTs+sH0wolZfgSdEwlIyZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=kIPcpLsL; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1792072639; c=relaxed/simple;
+	bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=Pz3k71lOC2jyfzx1/OHRPfNSjo95LdfQsLtD04t1MbwfM4LtwN/AjyYH9FeB2RtUWzO+LEXXeToYC9ceteTPLrWwQlPq0aah4bjhmbLf5pOBohNPcMTnzHM67mMuDxLcB3fBZaSkuYh/4ndRknut27r9ZRSa2oRKE8TZn5wZqSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me; spf=pass smtp.mailfrom=rcpassos.me; dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b=DBUAR6WU; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=B1SMUW5b; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rcpassos.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rcpassos.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="kIPcpLsL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=hyeYQUg0kCG8rtzMOcp0V29L6yI/OwoMh+F4fpMdMiE=; t=1792072592;
-	x=1792677392; b=kIPcpLsLcaDxm95BAw5O5vt4coLT1oR8Q7+TAUkXG/8bQ3q4MVdXpa3PjUZ+a
-	9Vy/HvUjRT2MEu5VWCW71JE3/lsTwM7K4EfqPfiaUpafUxdssEJ/jdPfpBsjzMQjQ7G9BQVz19H6l
-	F/STZjCi/kkMQdc7sBWRPRWy3WR5mh07INmNXNhWW0SFgSxO4Ugcwm0KwvxRdnPZqsnItpoU5QTL0
-	oRwvXYs8t/JLC/SU2b8p2Wcyd77kQsf6MJ7B7TVag5tBJEGP+grnAx3dq4Pl9XTRrHT4bXdeJL94p
-	YZeSfwzU9T6AP0cdYzMfKhjk10+JVQbxK08UGH4BRp7/JULSIg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xHLwb-00000000qf8-309p; Thu, 15 Oct 2026 15:56:29 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xHLwb-0000000035H-234o; Thu, 15 Oct 2026 15:56:29 +0200
-Message-ID: <b08109cb3f685126f4414f68a8a48e5f6eb4e1d8.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 0/3] alpha: self-extracting compressed kernel images
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, Matt Turner
- <mattst88@gmail.com>,  Lasse Collin <lasse.collin@tukaani.org>, Richard
- Henderson <richard.henderson@linaro.org>, Nick Terrell	 <terrelln@fb.com>,
- David Sterba <dsterba@suse.com>, 	linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org
-Date: Thu, 15 Oct 2026 15:56:28 +0200
-In-Reply-To: <CA+=Fv5RS6tyB28U1b-OJFLkwFLLA6r57amPCsfuMpc4ZQ9JZNA@mail.gmail.com>
-References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
-	 <alpine.DEB.2.21.2610120106400.55767@angie.orcam.me.uk>
-	 <3a8312daad335c9cc7efdc497155af7c8a32af83.camel@physik.fu-berlin.de>
-	 <CA+=Fv5RS6tyB28U1b-OJFLkwFLLA6r57amPCsfuMpc4ZQ9JZNA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=rcpassos.me header.i=@rcpassos.me header.b="DBUAR6WU";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="B1SMUW5b"
+DKIM-Signature: a=rsa-sha256; b=DBUAR6WUtGCJIDLmDkTw/YNGCZfLM+o2BzaEHe81C7uetRQVqJm7PoNbpt2//lNqWz8Eer3Mh6fSDd+Yk6oFZiekuxTzZX+Z66QYv8OvFnEbJEJ5CBfVuHBuUx+nLHz2Ysqs2e3YkQRUFAejwOIRa8mD4dlLExHJUQdMd+ddIJCZ6ybkQOd73RJwjHdwPd/dQhxX315Zui+IE2Ec7K13NuC+D4mKv61fL1qeUgEzHUd/S8kAbP8qIkZnL+hQBunugEOEPpAak/LMWwk1pwRbE4lNbSpU0OTY1xpATlq5gAr/1DPwKswJoc2zfsSbOGLEUVek9LXV0ydG5eQnexutew==; s=purelymail3; d=rcpassos.me; v=1; bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=; h=Received:Date:Subject:From:To;
+DKIM-Signature: a=rsa-sha256; b=B1SMUW5bm8TJO1aMihwKHaPgNu4RxDeyhVlh1H1q84XLNyUzsp6UrQpo3in4EV5SFkwGnyOq6XvEUpLIeWcZBIK+lrtxterLxvNi2Kn6dWKDw0DlBN3IfTaTM3vO0is4D/HR8d4dPjxy6uFeccqH6ynoo4yy/02KzJq6GcP7TARXfa2tkwlYprk4O352GzG+0T3GfZFtxRMUX/Q5+EUX5gxy1lL0WIqSewXVmAYfV6sLRDtiwMjhK2Q+OIjtQiTroq/1NgiOH8/Xh2GgId4t4+9cx8PTYjxkvYliADE/+VvtvxVzMj/hYBwRXP6sHtePXO4qFveFzGWcdwe1GXtmyA==; s=purelymail3; d=purelymail.com; v=1; bh=7jNLKwOqbiWEPHrbrn0pf17cBjhNkg4KpFVZkY9bEs8=; h=Feedback-ID:Received:Date:Subject:From:To;
+Feedback-ID: 45355:7809:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -957297502;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Thu, 15 Oct 2026 13:56:30 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 10:56:51 -0300
+Message-Id: <DM5GQ0LS1ZRY.U1YDYGY80PEZ@rcpassos.me>
+Subject: Re: [PATCH] rust_binder: avoid overflow in get_node_debug_info()
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>,
+ <syzbot+d39ca51f29c6b944a4f0@syzkaller.appspotmail.com>
+From: "Rafael Passos" <rafael@rcpassos.me>
+To: "Alice Ryhl" <aliceryhl@google.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Carlos Llamas" <cmllamas@google.com>,
+ "Rafael Passos" <rafael@rcpassos.me>
+X-Mailer: aerc 0.22.0
+References: <20261015-binder-debug-info-overflow-v1-1-81fffb74d288@google.com>
+In-Reply-To: <20261015-binder-debug-info-overflow-v1-1-81fffb74d288@google.com>
 
-Hi Magnus,
+I wish I had though of that when making the previous change.
+A very elegant check, as returning "out"" with the default value is safe
+:)
 
-On Thu, 2026-10-15 at 15:37 +0200, Magnus Lindholm wrote:
-> On Thu, Oct 15, 2026 at 3:26=E2=80=AFPM John Paul Adrian Glaubitz
-> <glaubitz@physik.fu-berlin.de> wrote:
-> >=20
-> > On Thu, 2026-10-15 at 14:09 +0100, Maciej W. Rozycki wrote:
-> > > On Sat, 12 Sep 2026, Matt Turner wrote:
-> > >=20
-> > > > The SRM netboot path (bootpz.c) has its own boot protocol and keeps
-> > > > using gzip.
-> > >=20
-> > >  Reminds me to dust off and upstream patches for making an image suit=
-able
-> > > for netbooting via MOP, which is the only protocol supported by all S=
-RM
-> > > revisions, since earlier ones lack BOOTP/TFTP handling, such as with =
-one I
-> > > have in one of my Alpha systems.
-> >=20
-> > Please do so. ;-) And maybe help getting the LRA port for GCC done.
-> >=20
-> > >  There's also a fix I already posted for cross-compilation support th=
-at is
-> > > required to avoid relying on a.out support in the build machine, whic=
-h may
-> > > not be there; I've come up with a better way to handle that and will =
-share
-> > > the outcome hopefully sometime soon.
-> >=20
-> > aboot is also not cross-buildable and also needs some tweaking:
-> >=20
-> > https://github.com/alphalinux/aboot/issues/5
-> >=20
->=20
-> I think I fixed cross-building a while back
->=20
-> https://github.com/linmag7/aboot/commits/crossbuild
+Reviewed-by: Rafael Passos <rafael@rcpassos.me>
 
-Oh, I see and Matt also landed quite a number of patches. I should look int=
-o
-updating the aboot package in Debian then. Thanks a lot for the hard work!
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Thanks (and sorry),
+Rafael Passos
