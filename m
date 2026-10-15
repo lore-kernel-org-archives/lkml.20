@@ -1,175 +1,1095 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66ADA3EC6B3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083444; cv=pass; b=RYKF9dBCQ7wikvG9aotLzo4fIRtGd9EPv35fb2CJQSgXXlsdzBkMNvY5tdDSQx8CR1qkLVvDoYGSiT5Kc+T4kxYSQXGmRe9sR6jNpjB6FNadjEnmqfnT1SBlWQ2Kq4FKR5mMgHRUb1KvvL6c8RiIQE9/qyl5ob6VYiYKO5evqKE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083444; c=relaxed/simple;
-	bh=Wcbn2GcvtLQUEORhzyW6dd22VWzNNL8fogxMLhwJTug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Pw2bUHsmIxSNFacdwAQIUUgTXukCkvoUFlR3mjR0Lg1yvQumiGRcDoGEpZV1dOAhVdjjGnaixJyCAFmgRleCY89dhi8p/uKMXxDnmObeBNjhxFNcMU8Mnm2PH3hdB0M6f1XxaEnQKvWnDVQu5khBQTObZe5V0h+80Sto3VNLLmo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Br+RCbLR; arc=pass smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C2E30F7FF
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792083472; cv=none; b=Ntli0k4GuuBzajwuWkH/umKj58zcxg0OVDlOmDGJDMuzJC64AxRNVG3xnwFSjU1z2oe36NZSVITOSWaa3wXrXqZ5Mm2M5HU/oDDXj4NkHR8ya8yMvInbY5xGcaOoDS7fdtAfbHyaUvOur7kc73sGW2ygO95Qvk58D1xgdyKJo9E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792083472; c=relaxed/simple;
+	bh=4ooP4YzPk/3J0uYVKsGh8di+W0PF2VgL3Pxir7zYrck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tyGqKlCuv/Oh4a8zWBzJonJnS2qwnh439PqI5jObFPQpTpale4H6nX21wpwj72rN1+FbYWJ+i4x3ttN1g0U3MbtvAGIkurdxgKTgAutW5av0CZPpSCGWwTM97u1KJlhwB/b8MUh9uOQKrSJanMiSHsblPTTjHSm/KMjVAHjaJis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huRM+C68; arc=none smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Br+RCbLR"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8ab38a051aaso47914517b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:57:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792083433; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i0raCQP7ATzHMqr1KC/p42i/XpYlFp0rtwWDOZA5mx+upEvr7JjLjKp5p6D8McgMWj
-         zpUvFRwevuyCc55M99Rrba74dBLdzkWPNwLn6v5/3ICjwVTBSMiLpSPhwKGHbHTxkDFk
-         VzBRaLcRPMPHVgBju24sdVAxHA76syW5lBSd9E2bj1w+aUSX11PaXXQhChXcvbH1vjVr
-         KIZ7EA370WgGmNiAbaCJ1zrlrT7oxC6Y6akeu5oTo/nRvuRznvE6hQSLWSw4Knh7EUT3
-         Ln5BDLjgmkcj6FPYcFkA6HEKREQDsbZVVSTQK4lB5xI/PTMDvMkHy3LTygWtjCLycCtA
-         tPuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5J5kIW+tQBMxGbCV/MEEhu0uSXSHsdNy5FmgcKXwebA=;
-        fh=Wk79VkZ8MmmZgbPvqPSVW2fvk2zu78l8WHpJet3LoWk=;
-        b=ZVripFGSmbheP6t1q6lCYwCctyXpvemqFrDIRkzFSBKqGU4mzDg/tCiohUiQeZJz8o
-         slsUXXNHSh12J+GWQo1bWdNImFOynFgZb3CP3exLV4w6i+f1r+uOwxZrD5VPlkfpJJiu
-         ypvEWKyacu3Jxptgudtnt2yRBAJFTp1DMtraIZ32v0yiKI2dENhSr83E/n6PQqKF0Pez
-         Ia0faEEcLmJqy1Zs3dWD+jfSFyiPLMHr12cT8qb7TL9Z5ehNyqsydWMBq6e7ebOnwk/d
-         yLhDcFpcO9SHZrEI47ZCLgn8EXHdSvXw5w1gKVehuvMTkMElm16StLGab+yLGV0+INyn
-         NDNg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huRM+C68"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so1023050eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:57:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792083433; x=1792688233; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5J5kIW+tQBMxGbCV/MEEhu0uSXSHsdNy5FmgcKXwebA=;
-        b=Br+RCbLR/6rPCXJJg4Oo88Zqq8MXiDJVoz2Ueqs5o4orhvEftl2XOsWOQKNpH3NPhs
-         mDI4hXSKyiKvNJoFIRtL1exi2pqxKZ5fsSiN1hn/La4gzq/sKV/H8q31Dle0FIYlnrhI
-         vwwdiTy8pOze5g/73tJWlCBuB3nObg4CN8byXxh+YH2Zy/d2EkDWYbPisLVLggRJuZy4
-         jYQyTfH9w5HiFTZulDhkbmy7Ghw2IEzRrZhOJBiejB9S7lC3O9A36CWEIOFULKu6QmkG
-         UbKyRTbAHEcB/K+kBqmcCKmGtKhrArb/X1FPtORMf5P/ThH4/gsAjzmQMOtSZe5JfBLi
-         R2AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083433; x=1792688233;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792083458; x=1792688258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5J5kIW+tQBMxGbCV/MEEhu0uSXSHsdNy5FmgcKXwebA=;
-        b=YbCp8CGnrhmzdGr9BgvxUQHW77mGNOrb3716EUZEt1+q27ElmpyaNvIM9yVOg/mbSD
-         PhOsNL6Wx0VWteihCZ+xA5d5AzjjzW89qKzXgpknjum8+Zu1FjuDqqM/ur2nT5ruHY2n
-         VJgEdZ/4L+PWMtxXxQFbPv33CmJ4V5MD4fM6ao41eFUYKfX/3PwQWHew+9893xwaKHzV
-         usY7Ubx5NzW2IZ+ojMeM5M2ZTfH4sQXPRGCcbEy6HxJjr5+RJt2nHXLcOwJqsfsnBdyR
-         z83tuF2fCvRWeqx2NdIP6ahu1JpCp1ZVv38NQlSYiO7lRVaUXPbRcNYSzEINFxpqn/cQ
-         RtDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzRstFA5Y5VshuXiorllRI0tSuM1ZXWwgUY6XbDsj4FM1rtKlX0377Rn6gc2b2Vd6pX5eyekbdC04UnWpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLoFovJigAYKYPTPX3peqi+sQHQXrP8/Jn10e9BcQDRZ08HwXMo
-	3ZpGhpPnzyl+FuGn6L2fqUjY33K22GFqVM8bo0Ot7hK+634+xwB1VUkb20zA0djTH9v6WSX2WsY
-	c+XJIpHdYcab1hE7jGJjUuzg842dhtVo=
-X-Gm-Gg: AYBFou02Az19bMxBN3IPqqpwIAfM5wQn2uIBqcvNGlMSmFLuyvEBxCxlH66uT9fRFlg
-	6k2HXWgu3ORO9LxiV/sCBMlP7Cq/YvR9NzUj2/15200Kb6Ddsgl+eao3gyoQzBlFKmSgpVTZU8c
-	+11Ijvc6m1g55vqkRyBwvfJ0C4X3r6W4UH2MaGFgeSdybMmzFOR9W0FWXV8bkAHKMx+Ipo93mfp
-	olEE4p6OQ+Up4ut3Nht1/xtc2iiuU8sMvygXko3sYwP7InE1cg5u/627zghTkCQTeilQKSKwjoK
-	X47bEuUEXHTeFHmBqKl0CReug6hP8Y9L7OcFrrDvrXQptaLuYBNSZUoM
-X-Received: by 2002:a05:690c:fd1:b0:8b0:dc44:9258 with SMTP id
- 00721157ae682-8b0dc44944amr6439537b3.10.1792083432951; Thu, 15 Oct 2026
- 09:57:12 -0700 (PDT)
+        bh=2wZn70uciHUzgxEfd5kRJZAYK6jwVlQn49FD1AkjtrI=;
+        b=huRM+C68Lao/kqspH6DnDYkTFFWTUg9YPviKkZgJODYxS4osrbuRpKb4Y46xUsmPkD
+         xlZi/kCXr1DeRjTTDpdDH6A5k84eMxn/jj91LKX6qmSHAeBG42d+AJreAX5+qJ4QAwcv
+         F/fYipA3KpE8jXOxNSwBqbkDYSACpGZhOj0dVfaZfcKoEAo5NmSJFVfVrcu8LXhAuA8y
+         h/Gf070xlweg6KQGpKSKCZOn/YElGDk3sWJ8myK4aRpWucUF3i5fUcl7y69k6NjqLF1H
+         67bFoD4wph+q6j6lRBccx4xBSfnoYq/c+G3GGr1vaCSoYwmztcSYunKSVLkNJyXe6F/k
+         lmSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792083458; x=1792688258;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2wZn70uciHUzgxEfd5kRJZAYK6jwVlQn49FD1AkjtrI=;
+        b=ktEMpCVT6gSYbleWFwYKJiGWRbhqlQj2GihTmHYp0io2suefP4NjLFGVAmnGn8CYF7
+         sfNxDb6GR6b8GJ1iZQauAsDo2TtZqdE8I/mbvg4jabp2UomhyOcIvltRQ3YmjdNpy0Qp
+         Pkpb8RE+i8y3OivbbneN2PHw5Pgr59Kdwb/rlKI+TAZFIFVSiDi1FFALcE4KVrvt8PZf
+         22TSP13Zs7N6eoF5IqqXbZbBQFMkxrRv7a4uYRxdS+s895PR+txL1LKgtWhZTEIyXe/I
+         gssu0z5UfAY6mBv3d0D+uIC+kpg+f5PebaKjkART3K12Jwe04LSV5o1ATxbxxsu9nGLe
+         8Bpw==
+X-Gm-Message-State: AFq9FYL20h4xUYnauQMyLewfSYGIyoLLKPxM80G2aSVCveQaf+EkVaz6
+	k3/bOrZmDXj/9lRKb4cM591a1mS6h9WHFH1d0k3oM984F8YpGUhLqWGm
+X-Gm-Gg: AYBFou05oDQvhUR1nA/5EBSa9DOzVodpENc7w9F201VOvxBgI8aSh8qoIJDlR4lrUJc
+	hOoLK03u9QFMiMxgbncQ1jZb1kiUDCkWdDiINetil9hddyTIVidQn3f9Z0R38j07UJBJlGiIpxR
+	mxnpqG5dzsByT9a9U2fe8YTWe8OscCz/3eat/2ylF8u8Nau1xqTBRW6WlGzvmfSVltpME39ZQuN
+	cFv4bBvrEoNciVidQXsETkC8OgIgWBmDQxAZEWTJ2KWo6igRrPUuuJQUu19BiP6mRtDN8OH5yXM
+	8Me252jnHcklhfRfG7cRz/Op3w23RhYzQVlEGvXrHsF5LYoeNFg9GeLgXGjHEvswe+Si4k/bHVT
+	9pEnnevOMqq3rS3OSBQqDAREhEMUCO12Kww29Yt/Knw0Nq8N/dcqQck8aSzA27FAB48XHyx8DEi
+	/CaOgh3UCzqkOq7PKJtlGP3znOt2UXOLGvUhljUgqEryfKFPvByYT1A6ngEiNUCUQtNUnbkavyf
+	DNTINGC7IFxifQXOr5H0CU1MlOryjSV3ui6
+X-Received: by 2002:a05:693c:87c4:10b0:356:4b46:9393 with SMTP id 5a478bee46e88-3564b46940amr23349915eec.24.1792083457477;
+        Thu, 15 Oct 2026 09:57:37 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c085:21c8::143c? ([2620:10d:c090:400::5:116d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3605506873asm287118eec.3.2026.10.15.09.57.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 09:57:36 -0700 (PDT)
+Message-ID: <8b90899c-42ef-43e9-8210-c8980642c278@gmail.com>
+Date: Thu, 15 Oct 2026 09:57:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org> <20261008-04-k3-clk-pm-aux-v1-1-8372d7307694@kernel.org>
-In-Reply-To: <20261008-04-k3-clk-pm-aux-v1-1-8372d7307694@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Thu, 15 Oct 2026 18:57:00 +0200
-X-Gm-Features: AclHuK_UaTV6-y66kPO6og4udDg5dfC89mcLvyhiRip0upObtlxnkinWliLQi1M
-Message-ID: <CABdCQ=P3bTmc=DX9zG6ELV=zsTmzDFsZyWhLCWnSwSeHP101og@mail.gmail.com>
-Subject: Re: [PATCH 1/2] clk: spacemit: rename to generic ccu aux register function
-To: Yixun Lan <dlan@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Alex Elder <elder@riscstar.com>, 
-	Icenowy Zheng <uwu@icenowy.me>, linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v15 1/2] hinic3: Add ethtool statistic ops part1
+To: Fan Gong <gongfan1@huawei.com>, Wu Di <wudi234@huawei.com>,
+ Teng Peisen <tengpeisen@huawei.com>, netdev@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Ioana Ciornei <ioana.ciornei@nxp.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>,
+ Larysa Zaremba <larysa.zaremba@intel.com>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Zhou Shuai <zhoushuai28@huawei.com>, Wu Like <wulike1@huawei.com>
+References: <cover.1792053295.git.gongfan1@huawei.com>
+ <2b4a6fad842e0a2ea6c5ab7555916f970b78b599.1792053295.git.gongfan1@huawei.com>
+Content-Language: en-US
+From: Mohsin Bashir <mohsin.bashr@gmail.com>
+In-Reply-To: <2b4a6fad842e0a2ea6c5ab7555916f970b78b599.1792053295.git.gongfan1@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Tested on OrangePi RV2.
 
-Tested-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-El jue, 8 oct 2026 a las 4:58, Yixun Lan (<dlan@kernel.org>) escribi=C3=B3:
->
-> The APMU (Application Subsystem Power Management Unit) register region
-> block not only provides clock and reset support, but also the pm domain
-> management capabilities, so function of aux registration is being renamed
-> to a more generic one, in order to prepare for future addition of pm
-> domain driver.
->
-> No functional change is introduced therefore.
->
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
+On 10/15/26 2:55 AM, Fan Gong wrote:
+> This commit adds per-queue TX/RX software counters and firmware-backed
+> vport and physical port statistics to the hinic3 driver. It implements
+> the .get_strings, .get_sset_count and .get_ethtool_stats callbacks so
+> these can be read with ethtool -S, and adds packet/byte accounting to
+> the RX and TX hot paths.
+> 
+> Co-developed-by: Wu Di <wudi234@huawei.com>
+> Signed-off-by: Wu Di <wudi234@huawei.com>
+> Co-developed-by: Teng Peisen <tengpeisen@huawei.com>
+> Signed-off-by: Teng Peisen <tengpeisen@huawei.com>
+> Signed-off-by: Fan Gong <gongfan1@huawei.com>
 > ---
->  drivers/clk/spacemit/ccu_common.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/clk/spacemit/ccu_common.c b/drivers/clk/spacemit/ccu=
-_common.c
-> index 8696bb9cba2d..56f3d081857e 100644
-> --- a/drivers/clk/spacemit/ccu_common.c
-> +++ b/drivers/clk/spacemit/ccu_common.c
-> @@ -79,16 +79,16 @@ static void spacemit_adev_unregister(void *data)
->         auxiliary_device_uninit(adev);
->  }
->
-> -static int spacemit_ccu_reset_register(struct device *dev,
-> +static int spacemit_ccu_aux_register(struct device *dev,
->                                        struct regmap *regmap,
-> -                                      const char *reset_name)
-> +                                      const char *name)
->  {
->         struct spacemit_ccu_adev *cadev;
->         struct auxiliary_device *adev;
->         int ret;
->
-> -       /* Nothing to do if the CCU does not implement a reset controller=
- */
-> -       if (!reset_name)
-> +       /* Nothing to do if the CCU does not implement a reset/pm control=
-ler */
-> +       if (!name)
->                 return 0;
->
->         cadev =3D kzalloc_obj(*cadev);
-> @@ -98,7 +98,7 @@ static int spacemit_ccu_reset_register(struct device *d=
-ev,
->         cadev->regmap =3D regmap;
->
->         adev =3D &cadev->adev;
-> -       adev->name =3D reset_name;
-> +       adev->name =3D name;
->         adev->dev.parent =3D dev;
->         adev->dev.release =3D spacemit_cadev_release;
->         adev->dev.of_node =3D dev->of_node;
-> @@ -165,7 +165,7 @@ int spacemit_ccu_probe(struct platform_device *pdev, =
-const char *compat)
->         if (ret)
->                 return dev_err_probe(dev, ret, "failed to register clocks=
-\n");
->
-> -       ret =3D spacemit_ccu_reset_register(dev, base_regmap, data->reset=
-_name);
-> +       ret =3D spacemit_ccu_aux_register(dev, base_regmap, data->reset_n=
-ame);
->         if (ret)
->                 return dev_err_probe(dev, ret, "failed to register resets=
-\n");
->
->
-> --
-> 2.56.0
->
+>   .../ethernet/huawei/hinic3/hinic3_ethtool.c   | 294 ++++++++++++++++++
+>   .../ethernet/huawei/hinic3/hinic3_hw_intf.h   |  11 +
+>   .../huawei/hinic3/hinic3_mgmt_interface.h     |  37 +++
+>   .../ethernet/huawei/hinic3/hinic3_nic_cfg.c   |  64 ++++
+>   .../ethernet/huawei/hinic3/hinic3_nic_cfg.h   | 108 +++++++
+>   .../net/ethernet/huawei/hinic3/hinic3_rx.c    |  63 +++-
+>   .../net/ethernet/huawei/hinic3/hinic3_rx.h    |   8 +-
+>   .../net/ethernet/huawei/hinic3/hinic3_tx.c    |  68 +++-
+>   .../net/ethernet/huawei/hinic3/hinic3_tx.h    |   5 +-
+>   9 files changed, 646 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+> index 90fc16288de9..bb6094d61196 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_ethtool.c
+> @@ -13,8 +13,11 @@
+>   
+>   #include "hinic3_lld.h"
+>   #include "hinic3_hw_comm.h"
+> +#include "hinic3_hwif.h"
+>   #include "hinic3_nic_dev.h"
+>   #include "hinic3_nic_cfg.h"
+> +#include "hinic3_tx.h"
+> +#include "hinic3_rx.h"
+>   
+>   #define HINIC3_MGMT_VERSION_MAX_LEN     32
+>   
+> @@ -409,6 +412,294 @@ hinic3_get_link_ksettings(struct net_device *netdev,
+>   	return 0;
+>   }
+>   
+> +struct hinic3_stats {
+> +	char name[ETH_GSTRING_LEN];
+> +	int  offset;
+> +};
+> +
+> +#define HINIC3_STAT_SIZE_CHECK(type, member) \
+> +	BUILD_BUG_ON_ZERO(sizeof_field(type, member) != sizeof(u64))
+> +
+> +#define HINIC3_FUNC_STAT(_stat_item) {	\
+> +	.name   = #_stat_item, \
+> +	.offset = offsetof(struct l2nic_vport_stats, _stat_item) \
+> +		  + 0 * HINIC3_STAT_SIZE_CHECK(struct l2nic_vport_stats, \
+> +					       _stat_item) \
+> +}
+> +
+> +static struct hinic3_stats hinic3_function_stats[] = {
+> +	HINIC3_FUNC_STAT(tx_unicast_pkts_vport),
+> +	HINIC3_FUNC_STAT(tx_unicast_bytes_vport),
+> +	HINIC3_FUNC_STAT(tx_multicast_pkts_vport),
+> +	HINIC3_FUNC_STAT(tx_multicast_bytes_vport),
+> +	HINIC3_FUNC_STAT(tx_broadcast_pkts_vport),
+> +	HINIC3_FUNC_STAT(tx_broadcast_bytes_vport),
+> +
+> +	HINIC3_FUNC_STAT(rx_unicast_pkts_vport),
+> +	HINIC3_FUNC_STAT(rx_unicast_bytes_vport),
+> +	HINIC3_FUNC_STAT(rx_multicast_pkts_vport),
+> +	HINIC3_FUNC_STAT(rx_multicast_bytes_vport),
+> +	HINIC3_FUNC_STAT(rx_broadcast_pkts_vport),
+> +	HINIC3_FUNC_STAT(rx_broadcast_bytes_vport),
+> +
+> +	HINIC3_FUNC_STAT(tx_discard_vport),
+> +	HINIC3_FUNC_STAT(rx_discard_vport),
+> +	HINIC3_FUNC_STAT(tx_err_vport),
+> +	HINIC3_FUNC_STAT(rx_err_vport),
+> +};
+> +
+> +#define HINIC3_PORT_STAT(_stat_item) { \
+> +	.name   = #_stat_item, \
+> +	.offset = offsetof(struct mag_cmd_port_stats, _stat_item) \
+> +		  + 0 * HINIC3_STAT_SIZE_CHECK(struct mag_cmd_port_stats, \
+> +					       _stat_item) \
+> +}
+> +
+> +static struct hinic3_stats hinic3_port_stats[] = {
+> +	HINIC3_PORT_STAT(mac_tx_fragment_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_undersize_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_undermin_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_1519_max_bad_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_1519_max_good_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_oversize_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_jabber_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_bad_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_bad_oct_num),
+> +	HINIC3_PORT_STAT(mac_tx_total_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_uni_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri0_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri1_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri2_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri3_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri4_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri5_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri6_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_pfc_pri7_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_err_all_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_from_app_good_pkt_num),
+> +	HINIC3_PORT_STAT(mac_tx_from_app_bad_pkt_num),
+> +
+> +	HINIC3_PORT_STAT(mac_rx_undermin_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_1519_max_bad_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_1519_max_good_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_bad_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_bad_oct_num),
+> +	HINIC3_PORT_STAT(mac_rx_total_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_uni_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri0_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri1_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri2_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri3_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri4_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri5_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri6_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_pfc_pri7_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_send_app_good_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_send_app_bad_pkt_num),
+> +	HINIC3_PORT_STAT(mac_rx_unfilter_pkt_num),
+> +};
+> +
+> +#define HINIC3_TXQ_STAT(_stat_item) { \
+> +	.name   = "txq%d_"#_stat_item, \
+> +	.offset = offsetof(struct hinic3_txq_stats, _stat_item) \
+> +		  + 0 * HINIC3_STAT_SIZE_CHECK(struct hinic3_txq_stats, \
+> +					       _stat_item) \
+> +}
+> +
+> +#define HINIC3_RXQ_STAT(_stat_item) { \
+> +	.name   = "rxq%d_"#_stat_item, \
+> +	.offset = offsetof(struct hinic3_rxq_stats, _stat_item) \
+> +		  + 0 * HINIC3_STAT_SIZE_CHECK(struct hinic3_rxq_stats, \
+> +					       _stat_item) \
+> +}
+> +
+> +static struct hinic3_stats hinic3_tx_queue_stats[] = {
+> +	HINIC3_TXQ_STAT(gso_packets),
+> +	HINIC3_TXQ_STAT(busy),
+> +	HINIC3_TXQ_STAT(skb_pad_err),
+> +	HINIC3_TXQ_STAT(offload_cow_skb_err),
+> +	HINIC3_TXQ_STAT(map_frag_err),
+> +	HINIC3_TXQ_STAT(unknown_tunnel_pkt),
+> +};
+> +
+> +static struct hinic3_stats hinic3_rx_queue_stats[] = {
+> +	HINIC3_RXQ_STAT(lro_packets),
+> +	HINIC3_RXQ_STAT(csum_errors),
+> +	HINIC3_RXQ_STAT(other_errors),
+> +	HINIC3_RXQ_STAT(rx_buf_empty),
+> +	HINIC3_RXQ_STAT(alloc_skb_err),
+> +	HINIC3_RXQ_STAT(alloc_rx_buf_err),
+> +};
+> +
+> +static u16 hinic3_get_hw_stats_strings(struct hinic3_nic_dev *nic_dev, char *p)
+> +{
+> +	u16 i, cnt = 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(hinic3_function_stats); i++) {
+> +		memcpy(p, hinic3_function_stats[i].name, ETH_GSTRING_LEN);
+> +		p += ETH_GSTRING_LEN;
+> +		cnt++;
+> +	}
+> +
+> +	if (!HINIC3_IS_VF(nic_dev->hwdev)) {
+> +		for (i = 0; i < ARRAY_SIZE(hinic3_port_stats); i++) {
+> +			memcpy(p, hinic3_port_stats[i].name, ETH_GSTRING_LEN);
+> +			p += ETH_GSTRING_LEN;
+> +			cnt++;
+> +		}
+> +	}
+> +
+> +	return cnt;
+> +}
+> +
+> +static void hinic3_get_qp_stats_strings(struct hinic3_nic_dev *nic_dev, char *p)
+> +{
+> +	u8 *data = p;
+> +	u16 i, j;
+> +
+> +	for (i = 0; i < nic_dev->q_params.num_qps; i++) {
+> +		for (j = 0; j < ARRAY_SIZE(hinic3_tx_queue_stats); j++)
+> +			ethtool_sprintf(&data,
+> +					hinic3_tx_queue_stats[j].name, i);
+> +	}
+> +
+> +	for (i = 0; i < nic_dev->q_params.num_qps; i++) {
+> +		for (j = 0; j < ARRAY_SIZE(hinic3_rx_queue_stats); j++)
+> +			ethtool_sprintf(&data,
+> +					hinic3_rx_queue_stats[j].name, i);
+> +	}
+> +}
+> +
+> +static void hinic3_get_strings(struct net_device *netdev,
+> +			       u32 stringset, u8 *data)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	char *p = (char *)data;
+> +	u16 offset;
+> +
+> +	switch (stringset) {
+> +	case ETH_SS_STATS:
+> +		offset = hinic3_get_hw_stats_strings(nic_dev, p);
+> +		hinic3_get_qp_stats_strings(nic_dev,
+> +					    p + offset * ETH_GSTRING_LEN);
+> +
+> +		break;
+> +	}
+> +}
+> +
+> +static int hinic3_get_sset_count(struct net_device *netdev, int sset)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	int count, q_num;
+> +
+> +	switch (sset) {
+> +	case ETH_SS_STATS:
+> +		q_num = nic_dev->q_params.num_qps;
+> +		count = ARRAY_SIZE(hinic3_function_stats) +
+> +			(ARRAY_SIZE(hinic3_tx_queue_stats) +
+> +			 ARRAY_SIZE(hinic3_rx_queue_stats)) *
+> +			q_num;
+> +
+> +		if (!HINIC3_IS_VF(nic_dev->hwdev))
+> +			count += ARRAY_SIZE(hinic3_port_stats);
+> +
+> +		return count;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+> +
+> +static u16 hinic3_get_ethtool_port_stats(struct net_device *netdev, u64 *data)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	struct mag_cmd_port_stats *ps;
+> +	u16 i = 0, j;
+> +	char *p;
+> +	int err;
+> +
+> +	ps = kmalloc_obj(*ps);
+> +	if (!ps)
+> +		goto err_zero_stats;
+> +
+> +	err = hinic3_get_phy_port_stats(nic_dev->hwdev, ps);
+> +	if (err) {
+> +		kfree(ps);
+> +		netdev_err_once(netdev, "Failed to get port stats from fw\n");
+> +		goto err_zero_stats;
+> +	}
+> +
+> +	for (j = 0; j < ARRAY_SIZE(hinic3_port_stats); j++, i++) {
+> +		p = (char *)ps + hinic3_port_stats[j].offset;
+> +		data[i] = *(u64 *)p;
+> +	}
+> +
+> +	kfree(ps);
+> +
+> +	return i;
+> +
+> +err_zero_stats:
+> +	memset(&data[i], 0, ARRAY_SIZE(hinic3_port_stats) * sizeof(*data));
+> +
+> +	return i + ARRAY_SIZE(hinic3_port_stats);
+> +}
+> +
+> +static void hinic3_get_drv_queue_stats(struct net_device *netdev, u64 *data)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	struct hinic3_txq_stats txq_stats = {};
+> +	struct hinic3_rxq_stats rxq_stats = {};
+> +	u16 i = 0, j, qid;
+> +	char *p;
+> +
+> +	for (qid = 0; qid < nic_dev->q_params.num_qps; qid++) {
+> +		hinic3_txq_get_stats(&nic_dev->txqs[qid], &txq_stats);
+> +		for (j = 0; j < ARRAY_SIZE(hinic3_tx_queue_stats); j++, i++) {
+> +			p = (char *)&txq_stats +
+> +			    hinic3_tx_queue_stats[j].offset;
+> +			data[i] = *(u64 *)p;
+> +		}
+> +	}
+> +
+> +	i = nic_dev->q_params.num_qps * ARRAY_SIZE(hinic3_tx_queue_stats);
+> +	for (qid = 0; qid < nic_dev->q_params.num_qps; qid++) {
+> +		hinic3_rxq_get_stats(&nic_dev->rxqs[qid], &rxq_stats);
+> +		for (j = 0; j < ARRAY_SIZE(hinic3_rx_queue_stats); j++, i++) {
+> +			p = (char *)&rxq_stats +
+> +			    hinic3_rx_queue_stats[j].offset;
+> +			data[i] = *(u64 *)p;
+> +		}
+> +	}
+> +}
+> +
+> +static void hinic3_get_ethtool_stats(struct net_device *netdev,
+> +				     struct ethtool_stats *stats, u64 *data)
+> +{
+> +	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+> +	struct l2nic_vport_stats vport_stats = {};
+> +	u16 i = 0, j;
+> +	char *p;
+> +	int err;
+> +
+> +	err = hinic3_get_vport_stats(nic_dev->hwdev,
+> +				     hinic3_global_func_id(nic_dev->hwdev),
+> +				     &vport_stats);
+> +	if (err)
+> +		netdev_err_once(netdev,
+> +				"Failed to get function stats from fw\n");
+> +
+> +	for (j = 0; j < ARRAY_SIZE(hinic3_function_stats); j++, i++) {
+> +		p = (char *)&vport_stats + hinic3_function_stats[j].offset;
+> +		data[i] = *(u64 *)p;
+> +	}
+> +
+> +	if (!HINIC3_IS_VF(nic_dev->hwdev))
+> +		i += hinic3_get_ethtool_port_stats(netdev, data + i);
+> +
+> +	hinic3_get_drv_queue_stats(netdev, data + i);
+> +}
+> +
+>   static const struct ethtool_ops hinic3_ethtool_ops = {
+>   	.supported_coalesce_params      = ETHTOOL_COALESCE_USECS |
+>   					  ETHTOOL_COALESCE_PKT_RATE_RX_USECS,
+> @@ -417,6 +708,9 @@ static const struct ethtool_ops hinic3_ethtool_ops = {
+>   	.get_msglevel                   = hinic3_get_msglevel,
+>   	.set_msglevel                   = hinic3_set_msglevel,
+>   	.get_link                       = ethtool_op_get_link,
+> +	.get_strings                    = hinic3_get_strings,
+> +	.get_sset_count                 = hinic3_get_sset_count,
+> +	.get_ethtool_stats              = hinic3_get_ethtool_stats,
+>   };
+>   
+>   void hinic3_set_ethtool_ops(struct net_device *netdev)
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_hw_intf.h b/drivers/net/ethernet/huawei/hinic3/hinic3_hw_intf.h
+> index cfc9daa3034f..6b0f486ba590 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_hw_intf.h
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_hw_intf.h
+> @@ -53,6 +53,17 @@ static inline void mgmt_msg_params_init_default(struct mgmt_msg_params *msg_para
+>   	msg_params->timeout_ms = 0;
+>   }
+>   
+> +static inline void
+> +mgmt_msg_params_init_in_out(struct mgmt_msg_params *msg_params, void *in_buf,
+> +			    void *out_buf, u32 in_buf_size, u32 out_buf_size)
+> +{
+> +	msg_params->buf_in = in_buf;
+> +	msg_params->buf_out = out_buf;
+> +	msg_params->in_size = in_buf_size;
+> +	msg_params->expected_out_size = out_buf_size;
+> +	msg_params->timeout_ms = 0;
+> +}
+> +
+>   enum cfg_cmd {
+>   	CFG_CMD_GET_DEV_CAP = 0,
+>   };
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_mgmt_interface.h b/drivers/net/ethernet/huawei/hinic3/hinic3_mgmt_interface.h
+> index c5bca3c4af96..76c691f82703 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_mgmt_interface.h
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_mgmt_interface.h
+> @@ -143,6 +143,41 @@ struct l2nic_cmd_set_dcb_state {
+>   	u8                   rsvd[7];
+>   };
+>   
+> +struct l2nic_port_stats_info {
+> +	struct mgmt_msg_head msg_head;
+> +	u16                  func_id;
+> +	u16                  rsvd1;
+> +};
+> +
+> +struct l2nic_vport_stats {
+> +	u64 tx_unicast_pkts_vport;
+> +	u64 tx_unicast_bytes_vport;
+> +	u64 tx_multicast_pkts_vport;
+> +	u64 tx_multicast_bytes_vport;
+> +	u64 tx_broadcast_pkts_vport;
+> +	u64 tx_broadcast_bytes_vport;
+> +
+> +	u64 rx_unicast_pkts_vport;
+> +	u64 rx_unicast_bytes_vport;
+> +	u64 rx_multicast_pkts_vport;
+> +	u64 rx_multicast_bytes_vport;
+> +	u64 rx_broadcast_pkts_vport;
+> +	u64 rx_broadcast_bytes_vport;
+> +
+> +	u64 tx_discard_vport;
+> +	u64 rx_discard_vport;
+> +	u64 tx_err_vport;
+> +	u64 rx_err_vport;
+> +};
+> +
+> +struct l2nic_cmd_vport_stats {
+> +	struct mgmt_msg_head     msg_head;
+> +	u32                      stats_size;
+> +	u32                      rsvd1;
+> +	struct l2nic_vport_stats stats;
+> +	u64                      rsvd2[6];
+> +};
+> +
+>   struct l2nic_cmd_lro_config {
+>   	struct mgmt_msg_head msg_head;
+>   	u16                  func_id;
+> @@ -234,6 +269,7 @@ enum l2nic_cmd {
+>   	L2NIC_CMD_SET_VPORT_ENABLE    = 6,
+>   	L2NIC_CMD_SET_RX_MODE         = 7,
+>   	L2NIC_CMD_SET_SQ_CI_ATTR      = 8,
+> +	L2NIC_CMD_GET_VPORT_STAT      = 9,
+>   	L2NIC_CMD_CLEAR_QP_RESOURCE   = 11,
+>   	L2NIC_CMD_CFG_RX_LRO          = 13,
+>   	L2NIC_CMD_CFG_LRO_TIMER       = 14,
+> @@ -272,6 +308,7 @@ enum mag_cmd {
+>   	MAG_CMD_SET_PORT_ENABLE = 6,
+>   	MAG_CMD_GET_LINK_STATUS = 7,
+>   
+> +	MAG_CMD_GET_PORT_STAT   = 151,
+>   	MAG_CMD_GET_PORT_INFO   = 153,
+>   };
+>   
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.c b/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.c
+> index de5a7984d2cb..e4a3fa6fb8db 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.c
+> @@ -738,3 +738,67 @@ int hinic3_get_pause_info(struct hinic3_nic_dev *nic_dev,
+>   	return hinic3_cfg_hw_pause(nic_dev->hwdev, MGMT_MSG_CMD_OP_GET,
+>   				   nic_pause);
+>   }
+> +
+> +int hinic3_get_vport_stats(struct hinic3_hwdev *hwdev, u16 func_id,
+> +			   struct l2nic_vport_stats *stats)
+> +{
+> +	struct l2nic_cmd_vport_stats vport_stats = {};
+> +	struct l2nic_port_stats_info stats_info = {};
+> +	struct mgmt_msg_params msg_params = {};
+> +	int err;
+> +
+> +	stats_info.func_id = func_id;
+> +
+> +	mgmt_msg_params_init_in_out(&msg_params, &stats_info, &vport_stats,
+> +				    sizeof(stats_info), sizeof(vport_stats));
+> +
+> +	err = hinic3_send_mbox_to_mgmt(hwdev, MGMT_MOD_L2NIC,
+> +				       L2NIC_CMD_GET_VPORT_STAT, &msg_params);
+> +
+> +	if (err || vport_stats.msg_head.status) {
+> +		dev_err_once(hwdev->dev,
+> +			     "Failed to get function statistics, err: %d, status: 0x%x\n",
+> +			     err, vport_stats.msg_head.status);
+> +		return -EFAULT;
+> +	}
+> +
+> +	memcpy(stats, &vport_stats.stats, sizeof(*stats));
+> +
+> +	return 0;
+> +}
+> +
+> +int hinic3_get_phy_port_stats(struct hinic3_hwdev *hwdev,
+> +			      struct mag_cmd_port_stats *stats)
+> +{
+> +	struct mag_cmd_get_port_stats_in ps_in = {};
+> +	struct mag_cmd_get_port_stats_out *ps_out;
+> +	struct mgmt_msg_params msg_params = {};
+> +	int err;
+> +
+> +	ps_out = kzalloc_obj(*ps_out);
+> +	if (!ps_out)
+> +		return -ENOMEM;
+> +
+> +	ps_in.port_id = hinic3_physical_port_id(hwdev);
+> +
+> +	mgmt_msg_params_init_in_out(&msg_params, &ps_in, ps_out,
+> +				    sizeof(ps_in), sizeof(*ps_out));
+> +
+> +	err = hinic3_send_mbox_to_mgmt(hwdev, MGMT_MOD_HILINK,
+> +				       MAG_CMD_GET_PORT_STAT, &msg_params);
+> +
+> +	if (err || ps_out->head.status) {
+> +		dev_err_once(hwdev->dev,
+> +			     "Failed to get port statistics, err: %d, status: 0x%x\n",
+> +			     err, ps_out->head.status);
+> +		err = -EFAULT;
+> +		goto out;
+> +	}
+> +
+> +	memcpy(stats, &ps_out->counter, sizeof(*stats));
+> +
+> +out:
+> +	kfree(ps_out);
+> +
+> +	return err;
+> +}
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.h b/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.h
+> index 5d52202a8d4e..3b8b595d7060 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.h
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_nic_cfg.h
+> @@ -129,6 +129,110 @@ struct mag_cmd_get_xsfp_present {
+>   	u8                   rsvd[2];
+>   };
+>   
+> +struct mag_cmd_port_stats {
+> +	u64 mac_tx_fragment_pkt_num;
+> +	u64 mac_tx_undersize_pkt_num;
+> +	u64 mac_tx_undermin_pkt_num;
+> +	u64 mac_tx_64_oct_pkt_num;
+> +	u64 mac_tx_65_127_oct_pkt_num;
+> +	u64 mac_tx_128_255_oct_pkt_num;
+> +	u64 mac_tx_256_511_oct_pkt_num;
+> +	u64 mac_tx_512_1023_oct_pkt_num;
+> +	u64 mac_tx_1024_1518_oct_pkt_num;
+> +	u64 mac_tx_1519_2047_oct_pkt_num;
+> +	u64 mac_tx_2048_4095_oct_pkt_num;
+> +	u64 mac_tx_4096_8191_oct_pkt_num;
+> +	u64 mac_tx_8192_9216_oct_pkt_num;
+> +	u64 mac_tx_9217_12287_oct_pkt_num;
+> +	u64 mac_tx_12288_16383_oct_pkt_num;
+> +	u64 mac_tx_1519_max_bad_pkt_num;
+> +	u64 mac_tx_1519_max_good_pkt_num;
+> +	u64 mac_tx_oversize_pkt_num;
+> +	u64 mac_tx_jabber_pkt_num;
+> +	u64 mac_tx_bad_pkt_num;
+> +	u64 mac_tx_bad_oct_num;
+> +	u64 mac_tx_good_pkt_num;
+> +	u64 mac_tx_good_oct_num;
+> +	u64 mac_tx_total_pkt_num;
+> +	u64 mac_tx_total_oct_num;
+> +	u64 mac_tx_uni_pkt_num;
+> +	u64 mac_tx_multi_pkt_num;
+> +	u64 mac_tx_broad_pkt_num;
+> +	u64 mac_tx_pause_num;
+> +	u64 mac_tx_pfc_pkt_num;
+> +	u64 mac_tx_pfc_pri0_pkt_num;
+> +	u64 mac_tx_pfc_pri1_pkt_num;
+> +	u64 mac_tx_pfc_pri2_pkt_num;
+> +	u64 mac_tx_pfc_pri3_pkt_num;
+> +	u64 mac_tx_pfc_pri4_pkt_num;
+> +	u64 mac_tx_pfc_pri5_pkt_num;
+> +	u64 mac_tx_pfc_pri6_pkt_num;
+> +	u64 mac_tx_pfc_pri7_pkt_num;
+> +	u64 mac_tx_control_pkt_num;
+> +	u64 mac_tx_err_all_pkt_num;
+> +	u64 mac_tx_from_app_good_pkt_num;
+> +	u64 mac_tx_from_app_bad_pkt_num;
+> +
+> +	u64 mac_rx_fragment_pkt_num;
+> +	u64 mac_rx_undersize_pkt_num;
+> +	u64 mac_rx_undermin_pkt_num;
+> +	u64 mac_rx_64_oct_pkt_num;
+> +	u64 mac_rx_65_127_oct_pkt_num;
+> +	u64 mac_rx_128_255_oct_pkt_num;
+> +	u64 mac_rx_256_511_oct_pkt_num;
+> +	u64 mac_rx_512_1023_oct_pkt_num;
+> +	u64 mac_rx_1024_1518_oct_pkt_num;
+> +	u64 mac_rx_1519_2047_oct_pkt_num;
+> +	u64 mac_rx_2048_4095_oct_pkt_num;
+> +	u64 mac_rx_4096_8191_oct_pkt_num;
+> +	u64 mac_rx_8192_9216_oct_pkt_num;
+> +	u64 mac_rx_9217_12287_oct_pkt_num;
+> +	u64 mac_rx_12288_16383_oct_pkt_num;
+> +	u64 mac_rx_1519_max_bad_pkt_num;
+> +	u64 mac_rx_1519_max_good_pkt_num;
+> +	u64 mac_rx_oversize_pkt_num;
+> +	u64 mac_rx_jabber_pkt_num;
+> +	u64 mac_rx_bad_pkt_num;
+> +	u64 mac_rx_bad_oct_num;
+> +	u64 mac_rx_good_pkt_num;
+> +	u64 mac_rx_good_oct_num;
+> +	u64 mac_rx_total_pkt_num;
+> +	u64 mac_rx_total_oct_num;
+> +	u64 mac_rx_uni_pkt_num;
+> +	u64 mac_rx_multi_pkt_num;
+> +	u64 mac_rx_broad_pkt_num;
+> +	u64 mac_rx_pause_num;
+> +	u64 mac_rx_pfc_pkt_num;
+> +	u64 mac_rx_pfc_pri0_pkt_num;
+> +	u64 mac_rx_pfc_pri1_pkt_num;
+> +	u64 mac_rx_pfc_pri2_pkt_num;
+> +	u64 mac_rx_pfc_pri3_pkt_num;
+> +	u64 mac_rx_pfc_pri4_pkt_num;
+> +	u64 mac_rx_pfc_pri5_pkt_num;
+> +	u64 mac_rx_pfc_pri6_pkt_num;
+> +	u64 mac_rx_pfc_pri7_pkt_num;
+> +	u64 mac_rx_control_pkt_num;
+> +	u64 mac_rx_sym_err_pkt_num;
+> +	u64 mac_rx_fcs_err_pkt_num;
+> +	u64 mac_rx_send_app_good_pkt_num;
+> +	u64 mac_rx_send_app_bad_pkt_num;
+> +	u64 mac_rx_unfilter_pkt_num;
+> +};
+> +
+> +struct mag_cmd_get_port_stats_in {
+> +	struct mgmt_msg_head head;
+> +
+> +	u8                   port_id;
+> +	u8                   rsvd0[3];
+> +};
+> +
+> +struct mag_cmd_get_port_stats_out {
+> +	struct mgmt_msg_head      head;
+> +
+> +	struct mag_cmd_port_stats counter;
+> +	u64                       rsvd1[15];
+> +};
+> +
+>   enum link_err_type {
+>   	LINK_ERR_MODULE_UNRECOGENIZED,
+>   	LINK_ERR_NUM,
+> @@ -215,4 +319,8 @@ int hinic3_del_vlan(struct hinic3_hwdev *hwdev, u16 vlan_id, u16 func_id);
+>   int hinic3_get_pause_info(struct hinic3_nic_dev *nic_dev,
+>   			  struct hinic3_nic_pause_config *nic_pause);
+>   
+> +int hinic3_get_vport_stats(struct hinic3_hwdev *hwdev, u16 func_id,
+> +			   struct l2nic_vport_stats *stats);
+> +int hinic3_get_phy_port_stats(struct hinic3_hwdev *hwdev,
+> +			      struct mag_cmd_port_stats *stats);
+>   #endif
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> index 309ab5901379..233cc5523455 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+> @@ -46,7 +46,6 @@ static void hinic3_rxq_clean_stats(struct hinic3_rxq_stats *rxq_stats)
+>   
+>   	rxq_stats->alloc_skb_err = 0;
+>   	rxq_stats->alloc_rx_buf_err = 0;
+> -	rxq_stats->restore_drop_sge = 0;
+>   	u64_stats_update_end(&rxq_stats->syncp);
+>   }
+>   
+> @@ -147,6 +146,8 @@ static u32 hinic3_rx_fill_buffers(struct hinic3_rxq *rxq)
+>   {
+>   	u32 i, free_wqebbs = rxq->delta - 1;
+>   	struct hinic3_rx_info *rx_info;
+> +	struct u64_stats_sync *syncp;
+> +	unsigned long flags;
+>   	dma_addr_t dma_addr;
+>   	int err;
+>   
+> @@ -155,8 +156,13 @@ static u32 hinic3_rx_fill_buffers(struct hinic3_rxq *rxq)
+>   
+>   		err = rx_alloc_mapped_page(rxq->page_pool, rx_info,
+>   					   rxq->buf_len);
+> -		if (unlikely(err))
+> +		if (unlikely(err)) {
+> +			syncp = &rxq->rxq_stats.syncp;
+> +			flags = u64_stats_update_begin_irqsave(syncp);
+> +			rxq->rxq_stats.alloc_rx_buf_err++;
+> +			u64_stats_update_end_irqrestore(syncp, flags);
+>   			break;
+> +		}
+>   
+>   		dma_addr = page_pool_get_dma_addr(rx_info->page) +
+>   			rx_info->page_offset;
+> @@ -170,6 +176,11 @@ static u32 hinic3_rx_fill_buffers(struct hinic3_rxq *rxq)
+>   				rxq->next_to_update << HINIC3_NORMAL_RQ_WQE);
+>   		rxq->delta -= i;
+>   		rxq->next_to_alloc = rxq->next_to_update;
+> +	} else if (free_wqebbs == rxq->q_depth - 1) {
+> +		syncp = &rxq->rxq_stats.syncp;
+> +		flags = u64_stats_update_begin_irqsave(syncp);
+> +		rxq->rxq_stats.rx_buf_empty++;
+> +		u64_stats_update_end_irqrestore(syncp, flags);
+>   	}
+>   
+>   	return i;
+> @@ -330,10 +341,23 @@ static void hinic3_rx_csum(struct hinic3_rxq *rxq, u32 offload_type,
+>   	struct net_device *netdev = rxq->netdev;
+>   	bool l2_tunnel;
+>   
+> +	/* HW ensures that only 1 bit is set in csum_err. */
+> +	if (unlikely(csum_err == HINIC3_RX_CSUM_IPSU_OTHER_ERR)) {
+> +		u64_stats_update_begin(&rxq->rxq_stats.syncp);
+> +		rxq->rxq_stats.other_errors++;
+> +		u64_stats_update_end(&rxq->rxq_stats.syncp);
+> +	}
+> +
+>   	if (!(netdev->features & NETIF_F_RXCSUM))
+>   		return;
+>   
+>   	if (unlikely(csum_err)) {
+> +		if (csum_err != HINIC3_RX_CSUM_HW_CHECK_NONE &&
+> +		    csum_err != HINIC3_RX_CSUM_IPSU_OTHER_ERR) {
+> +			u64_stats_update_begin(&rxq->rxq_stats.syncp);
+> +			rxq->rxq_stats.csum_errors++;
+> +			u64_stats_update_end(&rxq->rxq_stats.syncp);
+> +		}
+>   		/* pkt type is recognized by HW, and csum is wrong */
+>   		skb->ip_summed = CHECKSUM_NONE;
+>   		return;
+> @@ -387,8 +411,12 @@ static int recv_one_pkt(struct hinic3_rxq *rxq, struct hinic3_rq_cqe *rx_cqe,
+>   	u16 num_lro;
+>   
+>   	skb = hinic3_fetch_rx_buffer(rxq, pkt_len);
+> -	if (unlikely(!skb))
+> +	if (unlikely(!skb)) {
+> +		u64_stats_update_begin(&rxq->rxq_stats.syncp);
+> +		rxq->rxq_stats.alloc_skb_err++;
+> +		u64_stats_update_end(&rxq->rxq_stats.syncp);
+>   		return -ENOMEM;
+> +	}
+>   
+>   	/* place header in linear portion of buffer */
+>   	if (skb_is_nonlinear(skb))
+> @@ -555,6 +583,8 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>   	struct hinic3_nic_dev *nic_dev = netdev_priv(rxq->netdev);
+>   	u32 sw_ci, status, pkt_len, vlan_len;
+>   	struct hinic3_rq_cqe *rx_cqe;
+> +	u64 lro_packets = 0;
+> +	u64 rx_bytes = 0;
+>   	u32 num_wqe = 0;
+>   	int nr_pkts = 0;
+>   	u16 num_lro;
+> @@ -575,9 +605,12 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>   			break;
+>   
+>   		nr_pkts++;
+> +		rx_bytes += pkt_len;
+>   		num_lro = RQ_CQE_STATUS_GET(status, NUM_LRO);
+> -		if (num_lro)
+> +		if (num_lro) {
+>   			num_wqe += hinic3_get_sge_num(rxq, pkt_len);
+> +			lro_packets = 1;
+
+Is it supposed to be lro_packets++?
+
+> +		}
+>   
+>   		rx_cqe->status = 0;
+>   
+> @@ -588,5 +621,27 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+>   	if (rxq->delta >= HINIC3_RX_BUFFER_WRITE)
+>   		hinic3_rx_fill_buffers(rxq);
+>   
+> +	u64_stats_update_begin(&rxq->rxq_stats.syncp);
+> +	rxq->rxq_stats.packets += (u64)nr_pkts;
+> +	rxq->rxq_stats.bytes += rx_bytes;
+> +	rxq->rxq_stats.lro_packets += lro_packets;
+> +	u64_stats_update_end(&rxq->rxq_stats.syncp);
+>   	return nr_pkts;
+>   }
+> +
+> +void hinic3_rxq_get_stats(struct hinic3_rxq *rxq,
+> +			  struct hinic3_rxq_stats *stats)
+> +{
+> +	struct hinic3_rxq_stats *rxq_stats = &rxq->rxq_stats;
+> +	unsigned int start;
+> +
+> +	do {
+> +		start = u64_stats_fetch_begin(&rxq_stats->syncp);
+> +		stats->lro_packets = rxq_stats->lro_packets;
+> +		stats->csum_errors = rxq_stats->csum_errors;
+> +		stats->other_errors = rxq_stats->other_errors;
+> +		stats->rx_buf_empty = rxq_stats->rx_buf_empty;
+> +		stats->alloc_skb_err = rxq_stats->alloc_skb_err;
+> +		stats->alloc_rx_buf_err = rxq_stats->alloc_rx_buf_err;
+> +	} while (u64_stats_fetch_retry(&rxq_stats->syncp, start));
+> +}
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.h b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.h
+> index 06d1b3299e7c..9a87203f887e 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.h
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.h
+> @@ -8,6 +8,10 @@
+>   #include <linux/dim.h>
+>   #include <linux/netdevice.h>
+>   
+> +/* rx cqe checksum err */
+> +#define HINIC3_RX_CSUM_HW_CHECK_NONE    BIT(7)
+> +#define HINIC3_RX_CSUM_IPSU_OTHER_ERR   BIT(8)
+> +
+>   #define RQ_CQE_OFFOLAD_TYPE_PKT_TYPE_MASK           GENMASK(4, 0)
+>   #define RQ_CQE_OFFOLAD_TYPE_IP_TYPE_MASK            GENMASK(6, 5)
+>   #define RQ_CQE_OFFOLAD_TYPE_TUNNEL_PKT_FORMAT_MASK  GENMASK(11, 8)
+> @@ -32,6 +36,7 @@
+>   struct hinic3_rxq_stats {
+>   	u64                   packets;
+>   	u64                   bytes;
+> +	u64                   lro_packets;
+>   	u64                   errors;
+>   	u64                   csum_errors;
+>   	u64                   other_errors;
+> @@ -39,7 +44,6 @@ struct hinic3_rxq_stats {
+>   	u64                   rx_buf_empty;
+>   	u64                   alloc_skb_err;
+>   	u64                   alloc_rx_buf_err;
+> -	u64                   restore_drop_sge;
+>   	struct u64_stats_sync syncp;
+>   };
+>   
+> @@ -125,4 +129,6 @@ int hinic3_configure_rxqs(struct net_device *netdev, u16 num_rq,
+>   			  u32 rq_depth, struct hinic3_dyna_rxq_res *rxqs_res);
+>   int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget);
+>   
+> +void hinic3_rxq_get_stats(struct hinic3_rxq *rxq,
+> +			  struct hinic3_rxq_stats *stats);
+>   #endif
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
+> index d19cfbe3ed3b..3cfab74dc646 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.c
+> @@ -25,11 +25,9 @@ static void hinic3_txq_clean_stats(struct hinic3_txq_stats *txq_stats)
+>   	txq_stats->dropped = 0;
+>   
+>   	txq_stats->skb_pad_err = 0;
+> -	txq_stats->frag_len_overflow = 0;
+>   	txq_stats->offload_cow_skb_err = 0;
+>   	txq_stats->map_frag_err = 0;
+>   	txq_stats->unknown_tunnel_pkt = 0;
+> -	txq_stats->frag_size_err = 0;
+>   	u64_stats_update_end(&txq_stats->syncp);
+>   }
+>   
+> @@ -97,8 +95,12 @@ static int hinic3_tx_map_skb(struct net_device *netdev, struct sk_buff *skb,
+>   
+>   	dma_info[0].dma = dma_map_single(&pdev->dev, skb->data,
+>   					 skb_headlen(skb), DMA_TO_DEVICE);
+> -	if (dma_mapping_error(&pdev->dev, dma_info[0].dma))
+> +	if (dma_mapping_error(&pdev->dev, dma_info[0].dma)) {
+> +		u64_stats_update_begin(&txq->txq_stats.syncp);
+> +		txq->txq_stats.map_frag_err++;
+> +		u64_stats_update_end(&txq->txq_stats.syncp);
+>   		return -EFAULT;
+> +	}
+>   
+>   	dma_info[0].len = skb_headlen(skb);
+>   
+> @@ -117,6 +119,9 @@ static int hinic3_tx_map_skb(struct net_device *netdev, struct sk_buff *skb,
+>   						     skb_frag_size(frag),
+>   						     DMA_TO_DEVICE);
+>   		if (dma_mapping_error(&pdev->dev, dma_info[idx].dma)) {
+> +			u64_stats_update_begin(&txq->txq_stats.syncp);
+> +			txq->txq_stats.map_frag_err++;
+> +			u64_stats_update_end(&txq->txq_stats.syncp);
+>   			err = -EFAULT;
+>   			goto err_unmap_page;
+>   		}
+> @@ -260,6 +265,9 @@ static int hinic3_tx_csum(struct hinic3_txq *txq, struct hinic3_sq_task *task,
+>   		if (l4_proto != IPPROTO_UDP ||
+>   		    ((struct udphdr *)skb_transport_header(skb))->dest !=
+>   		    VXLAN_OFFLOAD_PORT_LE) {
+> +			u64_stats_update_begin(&txq->txq_stats.syncp);
+> +			txq->txq_stats.unknown_tunnel_pkt++;
+> +			u64_stats_update_end(&txq->txq_stats.syncp);
+>   			/* Unsupported tunnel packet, disable csum offload */
+>   			return skb_checksum_help(skb);
+>   		}
+> @@ -487,6 +495,20 @@ static u16 hinic3_set_wqe_combo(struct hinic3_txq *txq,
+>   					      num_sge + !!offload);
+>   }
+>   
+> +static void hinic3_get_pkt_stats(struct hinic3_txq *txq, struct sk_buff *skb)
+> +{
+> +	u64 gso_packets = 0;
+> +
+> +	if (skb_is_gso(skb))
+> +		gso_packets = 1;
+> +
+> +	u64_stats_update_begin(&txq->txq_stats.syncp);
+> +	txq->txq_stats.bytes += skb->len;
+> +	txq->txq_stats.packets += 1;
+> +	txq->txq_stats.gso_packets += gso_packets;
+> +	u64_stats_update_end(&txq->txq_stats.syncp);
+> +}
+> +
+>   static void hinic3_prepare_sq_ctrl(struct hinic3_sq_wqe_combo *wqe_combo,
+>   				   __le32 queue_info, int nr_descs, u16 owner)
+>   {
+> @@ -542,8 +564,12 @@ static netdev_tx_t hinic3_send_one_skb(struct sk_buff *skb,
+>   	int err;
+>   
+>   	if (unlikely(skb->len < MIN_SKB_LEN)) {
+> -		if (skb_pad(skb, MIN_SKB_LEN - skb->len))
+> +		if (skb_pad(skb, MIN_SKB_LEN - skb->len)) {
+> +			u64_stats_update_begin(&txq->txq_stats.syncp);
+> +			txq->txq_stats.skb_pad_err++;
+> +			u64_stats_update_end(&txq->txq_stats.syncp);
+>   			goto err_out;
+> +		}
+>   
+>   		skb->len = MIN_SKB_LEN;
+>   	}
+> @@ -561,10 +587,16 @@ static netdev_tx_t hinic3_send_one_skb(struct sk_buff *skb,
+>   					hinic3_wq_free_wqebbs(&txq->sq->wq),
+>   					txq->tx_start_thrs);
+>   
+> +		u64_stats_update_begin(&txq->txq_stats.syncp);
+> +		txq->txq_stats.busy++;
+> +		u64_stats_update_end(&txq->txq_stats.syncp);
+>   		return NETDEV_TX_BUSY;
+>   	}
+>   
+>   	if (unlikely(offload == HINIC3_TX_OFFLOAD_INVALID)) {
+> +		u64_stats_update_begin(&txq->txq_stats.syncp);
+> +		txq->txq_stats.offload_cow_skb_err++;
+> +		u64_stats_update_end(&txq->txq_stats.syncp);
+>   		goto err_drop_pkt;
+>   	} else if (!offload) {
+>   		wqebb_cnt -= 1;
+> @@ -599,6 +631,7 @@ static netdev_tx_t hinic3_send_one_skb(struct sk_buff *skb,
+>   				  txq->tx_stop_thrs,
+>   				  txq->tx_start_thrs);
+>   
+> +	hinic3_get_pkt_stats(txq, skb);
+>   	hinic3_prepare_sq_ctrl(&wqe_combo, queue_info, num_sge, owner);
+>   	hinic3_write_db(txq->sq, 0, DB_CFLAG_DP_SQ,
+>   			hinic3_get_sq_local_pi(txq->sq));
+> @@ -608,6 +641,9 @@ static netdev_tx_t hinic3_send_one_skb(struct sk_buff *skb,
+>   err_drop_pkt:
+>   	dev_kfree_skb_any(skb);
+>   err_out:
+> +	u64_stats_update_begin(&txq->txq_stats.syncp);
+> +	txq->txq_stats.dropped++;
+> +	u64_stats_update_end(&txq->txq_stats.syncp);
+>   	return NETDEV_TX_OK;
+>   }
+>   
+> @@ -615,6 +651,7 @@ netdev_tx_t hinic3_xmit_frame(struct sk_buff *skb, struct net_device *netdev)
+>   {
+>   	struct hinic3_nic_dev *nic_dev = netdev_priv(netdev);
+>   	u16 q_id = skb_get_queue_mapping(skb);
+> +	struct hinic3_txq *txq;
+>   
+>   	if (unlikely(!netif_carrier_ok(netdev)))
+>   		goto err_drop_pkt;
+> @@ -622,11 +659,15 @@ netdev_tx_t hinic3_xmit_frame(struct sk_buff *skb, struct net_device *netdev)
+>   	if (unlikely(q_id >= nic_dev->q_params.num_qps))
+>   		goto err_drop_pkt;
+>   
+> -	return hinic3_send_one_skb(skb, netdev, &nic_dev->txqs[q_id]);
+> +	txq = &nic_dev->txqs[q_id];
+> +	return hinic3_send_one_skb(skb, netdev, txq);
+>   
+>   err_drop_pkt:
+>   	dev_kfree_skb_any(skb);
+>   
+> +	u64_stats_update_begin(&txq->txq_stats.syncp);
+> +	txq->txq_stats.dropped++;
+
+is txq set here? Does not look like.
+
+> +	u64_stats_update_end(&txq->txq_stats.syncp);
+>   	return NETDEV_TX_OK;
+>   }
+>   
+> @@ -799,3 +840,20 @@ bool hinic3_tx_poll(struct hinic3_txq *txq, int budget)
+>   
+>   	return pkts == HINIC3_TX_POLL_WEIGHT;
+>   }
+> +
+> +void hinic3_txq_get_stats(struct hinic3_txq *txq,
+> +			  struct hinic3_txq_stats *stats)
+> +{
+> +	struct hinic3_txq_stats *txq_stats = &txq->txq_stats;
+> +	unsigned int start;
+> +
+> +	do {
+> +		start = u64_stats_fetch_begin(&txq_stats->syncp);
+> +		stats->gso_packets = txq_stats->gso_packets;
+> +		stats->busy = txq_stats->busy;
+> +		stats->skb_pad_err = txq_stats->skb_pad_err;
+> +		stats->offload_cow_skb_err = txq_stats->offload_cow_skb_err;
+> +		stats->map_frag_err = txq_stats->map_frag_err;
+> +		stats->unknown_tunnel_pkt = txq_stats->unknown_tunnel_pkt;
+> +	} while (u64_stats_fetch_retry(&txq_stats->syncp, start));
+> +}
+> diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.h b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.h
+> index 00194f2a1bcc..a166e7aa3677 100644
+> --- a/drivers/net/ethernet/huawei/hinic3/hinic3_tx.h
+> +++ b/drivers/net/ethernet/huawei/hinic3/hinic3_tx.h
+> @@ -103,14 +103,13 @@ struct hinic3_sq_wqe_combo {
+>   struct hinic3_txq_stats {
+>   	u64                   packets;
+>   	u64                   bytes;
+> +	u64                   gso_packets;
+>   	u64                   busy;
+>   	u64                   dropped;
+>   	u64                   skb_pad_err;
+> -	u64                   frag_len_overflow;
+>   	u64                   offload_cow_skb_err;
+>   	u64                   map_frag_err;
+>   	u64                   unknown_tunnel_pkt;
+> -	u64                   frag_size_err;
+>   	struct u64_stats_sync syncp;
+>   };
+>   
+> @@ -160,4 +159,6 @@ netdev_tx_t hinic3_xmit_frame(struct sk_buff *skb, struct net_device *netdev);
+>   bool hinic3_tx_poll(struct hinic3_txq *txq, int budget);
+>   void hinic3_flush_txqs(struct net_device *netdev);
+>   
+> +void hinic3_txq_get_stats(struct hinic3_txq *txq,
+> +			  struct hinic3_txq_stats *stats);
+>   #endif
+
