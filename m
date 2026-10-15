@@ -1,228 +1,270 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3533649E5F4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E493F3C1086;
+	Thu, 15 Oct 2026 08:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051739; cv=none; b=LD9qlgro14C4+0H+5hSlqpwt1Lci0d7g1uOYg2FRx9IADud++V2HzB/ZR9hOhcuGwQEUKgq87F3UvchudEYhLV5i9BoYTlR6KUk1y3dlDSZaONiP7hB3XkHnfwMbe31D6ZbiaAsi3XDrgVzWSNaJGuWoh+bGZp1+7li2srQq+7A=
+	t=1792051762; cv=none; b=pC8ybJo7qwX+O4CWcbUUMUmvHwV0UrDvqc+LWjtRmGGLdfJc2e3G/H+r2pWG/82d03vQs2fg2jfgLpBsqoZ0IjCGWwkAfpqsij68UuW+UoSqVBD2iUBHgGGIfoI2Vv3g6hgoqOZvB3ftA+injoulgUB2aeukuXDFDbyBS4jDpq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051739; c=relaxed/simple;
-	bh=45PV67NtVgc4sgYoNCXN4H3us/yM8vaBVPcRzxk4TYo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QYGVa3ttlMK5D1TTJDt8Kp5u1Aa//7hBKe1849zEVpsGf76mgrzK/cVRTW9QMnnV8R1fGsnkjuA8AchwieKiLai+yU3xceghYFZnm3usrPfDDIYONFTox/jvAbR06v16RxkgAbEZ/aqnjK/jvjvatPSIGL0bzRU61H05a42YCI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Res8tA3h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=guTIaqTA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792051762; c=relaxed/simple;
+	bh=CY0z8ZQGnKABVN+rZBZRq7oipzcPxdguuy+q124zH4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XsV43CUX9Djvs+FM522uiNcb/e93hGTpTWJ3IZFedALml04beXHDHN8otLtlugYNu9Xn79ZPAHWjmB4RjoA7CjpWkCfAZ3iKOqgwtgcNMibQZnLNyuxyECOXTgG0wLF7WsfLW/RyklyI0Q/C1S4U4WfW2zEzRo4Xir2eNefFuC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Kfv+WYSW; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Res8tA3h";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="guTIaqTA"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6w77k2121427
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:08:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VMnY2CqlgwWMj3YeqL6fccDpD4YzU58CT0eUffdDoHE=; b=Res8tA3hpKW+/v3Y
-	qd9PdKElNkpfRFG8PjnPy5qMMB0ADXBDMqSZRbUDe1sOwIVOvbCX67jHZ1TAOrrw
-	RqAjKI3FMEQithBfeOjNv/RhMRxP26sxxkReXOHuhIq6aGCQ0uoJho6Fx0EVfs6T
-	sdG0/BMx5ARj4sY+0bUfCMKRIVhX8cZ1SKdmHYigHq+qqjypnRkdTsMNq248uC4L
-	ZvbPtTOJZLcp5i1Ce8PHv/GsxW8JFNpGtb7zJcAmobbVCms9AAhHYc0OxAxHrb6t
-	JUGriX+6tWN4YZwcBvzkwBnHRLeLdmmoHj0phFBfPBBlqPCVai259ulfyYPG8LVo
-	DAGj5g==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1m80-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:08:56 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5338d5d0509so10906071cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:08:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792051736; x=1792656536; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VMnY2CqlgwWMj3YeqL6fccDpD4YzU58CT0eUffdDoHE=;
-        b=guTIaqTAHl2v/qBQVjjinXWaTC3PmoEhn/T3D1gR5BtDrkAelKxrHrtQAKNIY/ykbK
-         Z9gj14LQoIQXuioi0ga12cnBhSh7vSI9AR2FtCq24GiNcWCEch0ERiH/mNP0Wj8SWzdN
-         kHQRo45OW9lMLj28Ug5O+gZc7pH7+Jrvs0sXrI989jcorO3uqKSyPgPTvyaHvCMF/0Ls
-         5XA2szQgkRnSZ8DRFH9SeGbhM32DzRRMbt/0+0bvSncKXGccxuEf0mxO6CtL0RpJVzDp
-         Zr6ibSO4x+Hq+zIbUdgXSp8lb/AaJHS4HnAlZdWDC1BzVAPOtZRv1e5+6pQkgOAXoC1O
-         rYZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792051736; x=1792656536;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VMnY2CqlgwWMj3YeqL6fccDpD4YzU58CT0eUffdDoHE=;
-        b=IiZoQjPdMhSd+xw+xFH2A9ZyJVwPA0K/WSUT8fntlPf7bT4iPN7cmW5un71470cnz6
-         wjrN8BC2Ei9/eID4wkw6GhLJGSr+ejM/yZObYi5ZqrD+O86VqBdPYW+Ok+PkQey8nnzJ
-         u62HYjJvL7bVF3TD2067IFXdBlYz+Xq08MsX8l0nu/Uu4KFfMy3hz4/NRypsR6ibY2Uv
-         5Cu3q5OqekexvkSU0LezK3biHTHODs1FenwIm6f3m0bYCkc2sIailBy7Ftgm806q3SBf
-         e8CzmkFWqHlZV7vX95NcyytndfUQYN8a9KYjThk6jXS2p5PSWLSrjOdO+6thUN3wBvVv
-         A2Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBzd1TZ0mMupYk4f32d5Gaox1A2EDL2j/yN5neS7KNY/ltZlckK+2PQBF5q3PuSFibmaNcjJzQnbjy5QAEA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbReXKW+y/w8zt6cuKqMTqshxxKagNyPFuKorNGOj74Mdk2TTR
-	br70lh541x7P5KnZwLhVDDkjerctXxUC2BirqfBs3C2T4U5ZhMO1jneYN815vj7htVc3osflnSj
-	rG7e4VtThfAviQB44Y01kQjDupATkUJqpXH9Ttn3mKxU+L+SAhSDis2Eo/Eu7q++0uLg=
-X-Gm-Gg: AYBFou0jpLdGBIFrxXEjay6C/0ghFuLrIv+MM+qUOzlCkpI2r0AyWls5Q+vbkEfHzTY
-	6XwycRqQNdo7kEQBZtbfiKhDnbRJ0H/p6DXMCRNWG/fNWyb+opoo9RnMhLLD5E9MUM1sukI2Qs7
-	5iNfYK6uYRdvK7BoPwSGZcA2pF7BqN58HbQlNs9XbUwdGdRa0Azr5okyHkZl9IXlpN3ScMejvoU
-	a3mNPrvMiu8bNJQgoU2seJSKigRqujEP9sTpeTFbfhd/NcW2MXilRosIkuZvQp9M5JkrNTZb2G8
-	Sh6zfXtRoUaIJ2arxpa9a75w2CinSKD3fHf9IpPWqvgZkHavfaUYT+d5kH2hqZzVzEOYAxv23F9
-	IOLNNCkNV3+ltrZ4LsBJnVQ==
-X-Received: by 2002:a05:620a:4449:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ebd27cc8fmr3390575585a.6.1792051735995;
-        Thu, 15 Oct 2026 01:08:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:4449:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ebd27cc8fmr3390562685a.6.1792051733632;
-        Thu, 15 Oct 2026 01:08:53 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963e0dbsm93441866b.23.2026.10.15.01.08.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 01:08:52 -0700 (PDT)
-Message-ID: <47797de1-b50d-4b4f-989c-00ac2427d40a@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 10:08:48 +0200
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Kfv+WYSW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=19Xt6ynQ3lZgWiajCCIQS5nrD0ARL9yYFFtEUFMIEvg=; b=Kfv+WYSWgAK7UQBa3Rgk/qmfht
+	kl5FF1Cdj0V7Q2N6miwhKRetMw/4ouZteg1M7tOK4GJBoWx0H0EO9J5odJAbOAeAkwKVOOMVOnbX4
+	62tEmSWCZ2mox1mGdfZSlNg+lBGeFsCbyDx2mYyG/AiZ9B1kfls14O6CF7TM0tL+WVF/30L9lbyh/
+	GXtN73oLX0Wy1S3u08CS8R+7t1Xb81hT2LhONk8KFnr7ANxys9K89njQw9iNehSgI2cYMNHRD41pA
+	+R07nmQD1BsVhuIuuuBdqE/HLgg0tY48OIyRLYMQ53IYDNIYP5uOc5hpDNjz3PqHKCHcSN6Z0n2zW
+	S1Uf9iHQ==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xHGWV-000ERc-1d;
+	Thu, 15 Oct 2026 10:09:11 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xHGWU-000AW1-2z;
+	Thu, 15 Oct 2026 10:09:10 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Liu Ying <victor.liu@nxp.com>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux@ew.tq-group.com
+Subject:
+ Re: [PATCH v2 3/5] arm64: dts: imx8qxp: Add MIPI-LVDS combo subsystems
+Date: Thu, 15 Oct 2026 10:09:09 +0200
+Message-ID: <6836920.lOV4Wx5bFT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <as-LIGGpmBc1NJYj@SMW015318>
+References:
+ <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
+ <20261014071657.118378-4-alexander.stein@ew.tq-group.com>
+ <as-LIGGpmBc1NJYj@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 07/16] clk: qcom: Add clock-owned GenPD DVFS
- aggregation
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Mike Tipton <mike.tipton@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        driver-core@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
- <20261014-topic-qc_clk_dvfs-v1-7-3041b788e9f7@oss.qualcomm.com>
- <ygwhik5t6w74xcqz4igmb6t5esmjjgrmtwqqqmo4doj34t7rpu@jkngx4v76rxg>
- <6c9937a6-88c3-4e5f-85a3-73d929d3ba01@oss.qualcomm.com>
- <dbyuabhh3phhe3uq2kvhcnuem7qb2a6j5yvhl6ylizqikt2rlk@vyvrcj3lewtp>
- <dad15717-4439-41b7-8552-0176c9cd1505@oss.qualcomm.com>
- <ussxpger36nwnvuqv4nmtogxkrn4krogw254qbtusdf7y2ofn4@pswnav4mz6lm>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <ussxpger36nwnvuqv4nmtogxkrn4krogw254qbtusdf7y2ofn4@pswnav4mz6lm>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMiBTYWx0ZWRfX0YTGFQcJ3taD
- B2SGJYBy+YJvOa9TXl4q/phN+dykXqFxT5xaztPSaJ074DlUov2fW6wLaTvjmqgF/a/xiDsMJKD
- 0w0FT6Ne7kNrEzq/6C82aoGtJdghqZcGGVIb8KAihyqscrbE1iARzi3v5b5Eh5SrsWdyg4u0rnK
- Ybdop4FrqVr61QQV4IzrgmdXYQxuwGSdVZHL2Bzt/2UAxI8tQT197+OVwXgYw6NtBMRkVC5UASn
- olSITPTTSJjyTgZn3ahbz1rre8AHsIPwoAF/DIw7HNNCVz6AScdL+BPZmQQSSxk4jqToMi5Rcr7
- XYeDpbE4Jp0ZkxXG//SYUugEAloM8DB7NMct6jgV6w5mm2/tOmGF+ljJdpV7eF3QWpZ35M+PCr2
- UCs1uKLUJpm3w7Ce8TyTfABDzQrfbZZRK47pcqGOy9I6fYO6jFb/EsbAJ1FxzrzI2dkjwAMyjBn
- 1VEb+jP1Q9qL6CJePtQ==
-X-Proofpoint-GUID: 2WUHZ8ShDktwAQ3Kaqqopy5fP1NUOHg_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMiBTYWx0ZWRfX8OYNnbL324Xx
- EC7aYXr9eklM5U6wIGhJBRz1Kk7hldiJ+rsHFPBjb1jmjlFwxxgRB15gE8IBw39k4gShxgfRNKc
- EE0uM38A7X9a1PhpNZx62iYKxGZKPxA=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad08a18 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=tlWqZDqU6_vpIpeepkAA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: 2WUHZ8ShDktwAQ3Kaqqopy5fP1NUOHg_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150032
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28154/Thu Oct 15 08:24:22 2026)
 
-On 10/14/26 7:31 PM, Dmitry Baryshkov wrote:
-> On Wed, Oct 14, 2026 at 06:45:46PM +0200, Konrad Dybcio wrote:
->> On 10/14/26 6:30 PM, Dmitry Baryshkov wrote:
->>> On Wed, Oct 14, 2026 at 05:26:00PM +0200, Konrad Dybcio wrote:
->>>> On 10/14/26 4:36 PM, Dmitry Baryshkov wrote:
->>>>> On Wed, Oct 14, 2026 at 02:19:07PM +0200, Konrad Dybcio wrote:
->>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Am Mittwoch, 14. Oktober 2026, 16:01:04 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb Frank Li:
+> On Wed, Oct 14, 2026 at 09:16:47AM +0200, Alexander Stein wrote:
+> > From: Liu Ying <victor.liu@nxp.com>
+> >
+> > The MIPI-LVDS combo subsystems are peripherals of pixel link MSI
+> > bus in i.MX8qxp display controller subsystem.  Add the MIPI-LVDS
+> > combo subsystems.
+> >
+> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> > ---
+> > Changes in v2:
+> > * None
+> >
+> >  .../boot/dts/freescale/imx8qxp-ss-dc.dtsi     |   4 +
+> >  .../dts/freescale/imx8qxp-ss-mipi-lvds.dtsi   | 443 ++++++++++++++++++
+> >  arch/arm64/boot/dts/freescale/imx8qxp.dtsi    |   3 +
+> >  3 files changed, 450 insertions(+)
+> >  create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.=
+dtsi
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi b/arch/ar=
+m64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
+> > index 647ee3348f494..9916a06669c87 100644
+> > --- a/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
+> > +++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
+> > @@ -156,10 +156,12 @@ port@1 {
+> >
+> >  				dc0_pixel_link0_mipi_lvds_0_pxl2dpi: endpoint@0 {
+> >  					reg =3D <0>;
+> > +					remote-endpoint =3D <&mipi_lvds_0_pxl2dpi_dc0_pixel_link0>;
+> >  				};
+> >
+> >  				dc0_pixel_link0_mipi_lvds_1_pxl2dpi: endpoint@1 {
+> >  					reg =3D <1>;
+> > +					remote-endpoint =3D <&mipi_lvds_1_pxl2dpi_dc0_pixel_link0>;
+> >  				};
+> >  			};
+> >
+> > @@ -211,10 +213,12 @@ port@1 {
+> >
+> >  				dc0_pixel_link1_mipi_lvds_1_pxl2dpi: endpoint@0 {
+> >  					reg =3D <0>;
+> > +					remote-endpoint =3D <&mipi_lvds_1_pxl2dpi_dc0_pixel_link1>;
+> >  				};
+> >
+> >  				dc0_pixel_link1_mipi_lvds_0_pxl2dpi: endpoint@1 {
+> >  					reg =3D <1>;
+> > +					remote-endpoint =3D <&mipi_lvds_0_pxl2dpi_dc0_pixel_link1>;
+> >  				};
+> >  			};
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi b/=
+arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
+> > new file mode 100644
+> > index 0000000000000..67f5392cfc803
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
+> > @@ -0,0 +1,443 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +/*
+> > + * Copyright 2024 NXP
+> > + */
+> > +
+> > +#include <dt-bindings/clock/imx8-lpcg.h>
+> > +#include <dt-bindings/firmware/imx/rsrc.h>
+> > +
+> > +/ {
+> > +	mipi_lvds_0_ipg_clk: clock-mipi-lvds0-ipg {
+> > +		compatible =3D "fixed-clock";
+> > +		#clock-cells =3D <0>;
+> > +		clock-frequency =3D <120000000>;
+> > +		clock-output-names =3D "mipi_lvds_0_ipg_clk";
+> > +	};
+> > +
+> > +	mipi_lvds_1_ipg_clk: clock-mipi-lvds1-ipg {
+> > +		compatible =3D "fixed-clock";
+> > +		#clock-cells =3D <0>;
+> > +		clock-frequency =3D <120000000>;
+> > +		clock-output-names =3D "mipi_lvds_1_ipg_clk";
+> > +	};
+> > +};
+> > +
+> > +&dc0_pl_msi_bus {
+> > +	mipi_lvds_0_irqsteer: interrupt-controller@56220000 {
+> > +		compatible =3D "fsl,imx-irqsteer";
+> > +		reg =3D <0x56220000 0x1000>;
+> > +		interrupts =3D <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
+> > +		interrupt-controller;
+> > +		interrupt-parent =3D <&gic>;
+> > +		#interrupt-cells =3D <1>;
+> > +		clocks =3D <&mipi_lvds_0_lis_lpcg IMX_LPCG_CLK_4>;
+> > +		clock-names =3D "ipg";
+> > +		fsl,channel =3D <0>;
+> > +		fsl,num-irqs =3D <32>;
+> > +	};
+> > +
+> > +	mipi_lvds_0_csr: bus@56221000 {
+> > +		compatible =3D "simple-pm-bus", "syscon";
+> > +		reg =3D <0x56221000 0x1000>;
+> > +		clocks =3D <&mipi_lvds_0_di_mipi_lvds_regs_lpcg IMX_LPCG_CLK_4>;
+> > +		clock-names =3D "ipg";
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <1>;
+>=20
+> Does any children nodes have address?
 
-[...]
+AFAIK the children only use the parent's syscon and SCU, so no direct addre=
+ss.
 
->> Right, but the meaningful difference here is that the consumers
->> only know they need a certain frequency. The required power votes
->> from that don't stem from the consumer's requirements. They stem
->> from the clock controller's inner workings that are necessary to
->> fulfill the consumer's demand.
-> 
-> Doesn't Iris core also have "we need this power to work on this
-> frequency" kind of requirements? My assumption has always been that
-> those are just folded into the clock requrements.
+> > +		ranges;
+> > +
+> > +		mipi_lvds_0_pxl2dpi: pxl2dpi {
+> > +			compatible =3D "fsl,imx8qxp-pxl2dpi";
+> > +			fsl,sc-resource =3D <IMX_SC_R_MIPI_0>;
+> > +			power-domains =3D <&pd IMX_SC_R_MIPI_0>;
+> > +			status =3D "disabled";
+> > +
+> > +			ports {
+> > +				#address-cells =3D <1>;
+> > +				#size-cells =3D <0>;
+> > +
+> > +				port@0 {
+> > +					#address-cells =3D <1>;
+> > +					#size-cells =3D <0>;
+> > +					reg =3D <0>;
+> > +
+> > +					mipi_lvds_0_pxl2dpi_dc0_pixel_link0: endpoint@0 {
+> > +						reg =3D <0>;
+> > +						remote-endpoint =3D <&dc0_pixel_link0_mipi_lvds_0_pxl2dpi>;
+> > +						status =3D "disabled";
+> > +					};
+> > +
+> > +					mipi_lvds_0_pxl2dpi_dc0_pixel_link1: endpoint@1 {
+> > +						reg =3D <1>;
+> > +						remote-endpoint =3D <&dc0_pixel_link1_mipi_lvds_0_pxl2dpi>;
+> > +						status =3D "disabled";
+> > +					};
+> > +				};
+> > +
+> > +				port@1 {
+> > +					#address-cells =3D <1>;
+> > +					#size-cells =3D <0>;
+> > +					reg =3D <1>;
+> > +
+> > +					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch0: endpoint@0 {
+> > +						reg =3D <0>;
+> > +						remote-endpoint =3D <&mipi_lvds_0_ldb_ch0_mipi_lvds_0_pxl2dpi>;
+> > +						status =3D "disabled";
+> > +					};
+> > +
+> > +					mipi_lvds_0_pxl2dpi_mipi_lvds_0_ldb_ch1: endpoint@1 {
+> > +						reg =3D <1>;
+> > +						remote-endpoint =3D <&mipi_lvds_0_ldb_ch1_mipi_lvds_0_pxl2dpi>;
+> > +						status =3D "disabled";
+> > +					};
+> > +				};
+> > +			};
+> > +		};
+> > +
+> > +		mipi_lvds_0_ldb: ldb {
+> > +			#address-cells =3D <1>;
+> > +			#size-cells =3D <0>;
+> > +			compatible =3D "fsl,imx8qxp-ldb";
+>=20
+> compatible should be first property, check others
 
-My understanding is that is just an effect of the requirements of
-the clock controller.
+Right, thanks. Will change.
+
+> > +			clocks =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>,
+> > +				 <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPASS>;
+> > +			clock-names =3D "pixel", "bypass";
+> > +			assigned-clocks =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_MISC2>;
+> > +			assigned-clock-parents =3D <&clk IMX_SC_R_LVDS_0 IMX_SC_PM_CLK_BYPA=
+SS>;
+> > +			power-domains =3D <&pd IMX_SC_R_LVDS_0>;
+> > +			status =3D "disabled";
+> > +
+> > +			channel@0 {
+> > +				#address-cells =3D <1>;
+> > +				#size-cells =3D <0>;
+> > +				reg =3D <0>;
+>=20
+> reg should be first one.
+
+Right, thanks. Will change.
+
+Best regards,
+Alexander
+=2D-=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+http://www.tq-group.com/
 
 
->>>> The Qualcomm case is easy - RPMH is *always* reachable, so the
->>>> pmdomain provider needs no clocks itself. For the other cases,
->>>> "patches welcome".
->>>
->>> Ok. There is a promise that I2C PMICs will never ever be involved in the
->>> clock / power tables.
->>
->> Or at least that someone who needs them will contribute a
->> solution to this problem.
-> 
-> I meant actual I2C PMICs, like PM8008.
-
-Yes, I know
-
-
->>>>>> +static unsigned int
->>>>>> +qcom_clk_dvfs_aggregate(struct qcom_clk_dvfs_rail_voter *rail_voter)
->>>>>> +{
->>>>>> +	struct qcom_clk_dvfs_vote *vote;
->>>>>> +	unsigned int level = 0;
->>>>>> +
->>>>>> +	list_for_each_entry(vote, &rail_voter->votes, node)
->>>>>> +		level = max(level, vote->level);
->>>>>> +
->>>>>> +	return max(level, rail_voter->safety_floor_level);
->>>>>
->>>>> I guess you want to avoid having too many voters, but would it be
->>>>> possible to have one voter per 'signficant' clock and let GenPD itself
->>>>> aggregate all the votes?
->>>>
->>>> What does "significant" mean here?
->>>
->>> I'd define it as "using a different power domain or requiring a
->>> different corner".
->>
->> I still don't get it
-> 
-> When the consumer votes for a frequency A / domain BX / level cc, usually
-> the parent clock (at the corresponding frquency nA) also has domain BX
-> and level cc. Sometimes (like in the case of PLLs) it's not the case.
-> The domain might change or the level might change. In those cases that
-> clock must have an explicit voting (I'd still prefer OPP).
-
-I think what you believe is the PLL case is actually more common - the
-branch, its RCG, the PLL upstream and anything inbetween may have a
-different list of [(rail, freq, level)] settings (I say list
-specifically because e.g. the branch may need CX, the RCG may need
-MXC+MMCX and the PLL above may need CX+MXA at various levels.
-
-Konrad
