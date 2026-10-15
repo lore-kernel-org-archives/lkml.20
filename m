@@ -1,140 +1,79 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C83248880;
-	Thu, 15 Oct 2026 03:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9950248880;
+	Thu, 15 Oct 2026 03:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033629; cv=none; b=Nc1HyzcDMMf+h8e4KmaP4FCrBJlfZNhbK+DHQaJjkVVHwYLzowuI9Eh/b9p5Vs+ZTeO+p4NXTTXJUA02w0U6Zjh9XILBonaroAArKJApOUIwIUj1fSbDKj/OjenvzCmzvUiT44h4Eljj9JbmPEniDqBAgx993+3neAsGkeRwrX8=
+	t=1792033640; cv=none; b=DEFsDB1Aa7uaATgNFTrfoV6PTC34mgkBp4p5XXkHHLj50mZlcAiJmL96ebd5rBgD5gDaspazt/yq9difajq1bDUf52WboeK5JyYqwzl5AJxIOjx660pIdLP+uAN89/E5MDHvFoGCLAy2BPCeXXSCiXrQGNAFJzQ+gMRaUsIjouA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792033629; c=relaxed/simple;
-	bh=+gYw+3sUsg14DlcbLrjueFcj9EC/ttbsvn7/7gIUaiM=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=jwaU+LdeHkrHw1WktfY18fE8r+w3HYfOprWzomw6o7M1mKoYQnba1DIJq2597eOrO9QUGm2fACLgmeEp53YjuQAFRkPZA+AUTWTtC+JLOTCRxBXwRkMjNsFJ+LfQRmEnu8/cExC7ehSPafV48Wmqf9JYhjX0h1HdqwkHJUoWeh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=w0ycVgh2; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1792033640; c=relaxed/simple;
+	bh=rAK7HgXGowqUeKif+VnYn5zrmeAh8fwhzBCSu3eGP1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H0T+GCPVNpoP1ev11BA+iWt9LkPji65QdmizzQMRn5nqkk/rgL97ngWE2FnKBdlX2NSQkdGSnHR4H6cujW8T9DeXHoTFuvb01IA9wDRyUQDQrf9P2uPES+lreVQye8eMmPSA8h4mgUvJ+BZhNmuENWtgGEd7wKzNnL+Dfmkl3KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sa4+G5Eu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="w0ycVgh2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1792033620;
-	bh=yUDt//PJXit0FvcW0Ffq9mi2xIbedhJD3D6xAfTiaOs=;
-	h=From:To:Cc:Subject:Date;
-	b=w0ycVgh2ou52g+UEfxlJ1Z88qxeTD4rikjJgLrYjDr3WZBQekDxGumtY8Z/uCu6pP
-	 +T6BSPAlsYr+4p6+a5HvP3g//r8bG1MIlvMdBTuHRPsYM3i/WRSgAhkJbUFJlETX4d
-	 z+a1ZL4Gp1VOS57K0CThqZ4RU9DfOkD9PFuTL1iU=
-Received: from RE0700.barrietech.com ([115.196.186.15])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 1B9B66C4; Thu, 15 Oct 2026 11:06:57 +0800
-X-QQ-mid: xmsmtpt1792033617t1vug9ypo
-Message-ID: <tencent_E0E7052529B6851284963EB90DF4D28CBB06@qq.com>
-X-QQ-XMAILINFO: NnYhxYSyuBnL0o1PdiPUuyqKyv4jKqvl7xvb0gtkWzDzWoEct0TCHD2rHkDX1C
-	 wQNamOpr4B+XWNuBuxOOd0jfEKpzZZB+GnGoym1au15zS+pxxr02f9XIJgJWFAA5Osz/HT+E5Usl
-	 AX4ZQKzvpNJj3SWnAGEdSQdFdGx9t+PEs50qJaKa6ok9MK22OhBZ+8ES+MjY6aDRlzOadDYDSVcL
-	 tETN0GpEoex6G0JGjSv7588aR0gKqkih7pwajTpOZGPKdZronWZCmclr8AEfcCpQml/iOKP2w64L
-	 QBG561F06l8S1M0qkQ+xYIlYDbj2pq/On4NWpNCiexNPLEEqb2/m+2MgIFmbvXRlbI/h5+1AbR1S
-	 0HYzldj3acVGQTHam9XHX7bLnft8YX28d+FGhcNn2HaC1TjSUIVz8hwxFBWZi5vVoFD8Ng6Hf8Lw
-	 p0ajy+m0/4P0G2XbxpSPh3bFkmqgDre66IbjIwNRcAcdv0ah5vkQIcURo+rBCRWoZH5YgIUGOhmY
-	 3NcICgohU/NmbD/GYdZ5IxVIjeOtlABduBa/06C+GttvJhvDsZEJOryws89JdqEbMgyyFjq8m4rR
-	 OzWGeOl6j8Tst+UXtCjwq4yuRZEgm2q/QCfQr1X25alIXZHTh867fJJUnVGbfhbp5sbItBMwrJyr
-	 /kZ4XJpg3Yw0m92QXRLKi9eRPCHRsEPU03SanEX4X9Fl2LsKXuvNX13cXzZtjhTHZmWxn/oY6s3w
-	 TThQzg7GOw8z+UsWt/wk9xaDlc/T3uNvUhyQTAzz4D5js6SbLnAsUAqLUldL0jN4VuIU6Iv+i35y
-	 2OFzZOOrZhGZt1u6U1FvpCq8RNGJy7EOM8WC9d1Do8CN9k8uNtZwRriWCZG7Jx+nr/0ic6rXs4xl
-	 C64RUjKCGuPYm1FMr7kD+PFZiboHaU+OIjXgYexEfGQFDI7Y8uO2LzBJ/bk3ZTwbhhsNP+QZuyEJ
-	 6pxT+tIK0iy1nVvAtQ6BvKGD75wfgfaBZ6hxdBVH2+81V+IvG2PBO3p6CkNeBxb/laEDyySTm/44
-	 ZdO/gTj30BMEdZPjoaMNy7WIgcsY6OcvFldNq8U4nZsoXZycYBPY78/WexqP97NXMx9llx5mOqyC
-	 eyhkrxH6w0+TsZS6I=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: zhoumin <teczm@foxmail.com>
-To: dlemoal@kernel.org,
-	cassel@kernel.org
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	teczm@foxmail.com
-Subject: [PATCH] ata: ahci: preserve preset port masks
-Date: Thu, 15 Oct 2026 11:06:55 +0800
-X-OQ-MSGID: <20261015030655.6682-1-teczm@foxmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sa4+G5Eu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD4D1F000C4;
+	Thu, 15 Oct 2026 03:07:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792033639;
+	bh=EGVRFfnMsw6nPB9r/fY5gkO5XIAOgbWc0egL3oNP6dI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sa4+G5EuIrxVH9xf2sM2cRKlUOeN7qGt4kq6w3FK6ugEXrEmtekX3sN2uxrKVaFTO
+	 tN1IwhLHd67+tNPo0XmyxWFidOlOo3aipPngense/qRIi8/MTYTq/rDVE4jyJTutQn
+	 Ai6LxJrEj7qwR6TZQDRTIanQmEMy32nwzFK7zbCRJ4fnxKm/bUokieAblRW7dWmGdv
+	 8rOqNDPZyBsAHp10FrRovDRGKYdPVyYxz4YqcccgkM3AhRRPd0X+YpQZNxmaGko0eR
+	 2py8Rp5FOOLKscGPXp/uy1bmc7KTkTzRrWlA2bc345pp7sO21MSVw/+QrwPVY0nveu
+	 iUEYBkYbPC1JA==
+Date: Wed, 14 Oct 2026 22:07:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Aleksandrs Vinarskis <alex@vinarskis.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Liviu Nicoara <lnicoara@thinkoid.org>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Tobias Heider <tobias.heider@canonical.com>,
+	Val Packett <val@packett.cool>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	linux-hardening@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: platform: introduce EC for Dell XPS
+ 13 9345
+Message-ID: <20261015030717.GA295784-robh@kernel.org>
+References: <20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com>
+ <20261011-dell-xps-9345-ec-v6-1-2a66a364fe70@vinarskis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011-dell-xps-9345-ec-v6-1-2a66a364fe70@vinarskis.com>
 
-ahci_get_port_mask() returns zero for absent or unmatched parameters,
-overwriting the mask set by the Marvell PATA quirk.
+On Sun, Oct 11, 2026 at 07:50:08PM +0200, Aleksandrs Vinarskis wrote:
+> Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+> codename 'tributo'). It may be partially or fully compatible with EC
+> found in Snapdragon-based Dell Latitude, Inspiron ('thena').
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+> ---
+>  .../embedded-controller/dell,xps13-9345-ec.yaml    | 91 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 96 insertions(+)
 
-Update the mask in place only when parsing a global value or a matching
-device entry. Preserve existing numeric parsing and override behavior.
-
-Fixes: 70c1595c181c ("ata: ahci: Allow ignoring the external/hotplug capability of ports")
-Signed-off-by: zhoumin <teczm@foxmail.com>
----
- drivers/ata/ahci.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/ata/ahci.c b/drivers/ata/ahci.c
-index 9b8c0935001c..324e4918a055 100644
---- a/drivers/ata/ahci.c
-+++ b/drivers/ata/ahci.c
-@@ -1654,22 +1654,21 @@ static u32 ahci_port_mask(struct device *dev, char *mask_s)
- 	return mask;
- }
- 
--static u32 ahci_get_port_mask(struct device *dev, char *mask_p)
-+static void ahci_get_port_mask(struct device *dev, char *mask_p, u32 *mask)
- {
- 	char *param, *end, *str, *mask_s;
- 	char *name;
--	u32 mask = 0;
- 
- 	if (!mask_p || !strlen(mask_p))
--		return 0;
-+		return;
- 
- 	str = kstrdup(mask_p, GFP_KERNEL);
- 	if (!str)
--		return 0;
-+		return;
- 
- 	/* Handle single mask case */
- 	if (!strchr(str, '=')) {
--		mask = ahci_port_mask(dev, str);
-+		*mask = ahci_port_mask(dev, str);
- 		goto free;
- 	}
- 
-@@ -1704,13 +1703,11 @@ static u32 ahci_get_port_mask(struct device *dev, char *mask_p)
- 			param++;
- 		}
- 
--		mask = ahci_port_mask(dev, mask_s);
-+		*mask = ahci_port_mask(dev, mask_s);
- 	}
- 
- free:
- 	kfree(str);
--
--	return mask;
- }
- 
- static void ahci_pci_save_initial_config(struct pci_dev *pdev,
-@@ -1736,10 +1733,10 @@ static void ahci_pci_save_initial_config(struct pci_dev *pdev,
- 	}
- 
- 	/* Handle port map masks passed as module parameter. */
--	hpriv->mask_port_map =
--		ahci_get_port_mask(&pdev->dev, ahci_mask_port_map);
--	hpriv->mask_port_ext =
--		ahci_get_port_mask(&pdev->dev, ahci_mask_port_ext);
-+	ahci_get_port_mask(&pdev->dev, ahci_mask_port_map,
-+			   &hpriv->mask_port_map);
-+	ahci_get_port_mask(&pdev->dev, ahci_mask_port_ext,
-+			   &hpriv->mask_port_ext);
- 
- 	ahci_save_initial_config(&pdev->dev, hpriv);
- }
--- 
-2.53.0
-
+Please address sashiko comment.
