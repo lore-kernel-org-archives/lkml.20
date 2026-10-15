@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12A24A0F01;
-	Thu, 15 Oct 2026 07:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263404A2617
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048247; cv=none; b=Cide1G3DwrqQ75X0huOAUNb5Zh76Ty+v8Mz4D44mCN+tKjtBrYm4ETnptGqWjKz8ZcqL1BlBn974suc3oFg4gQ8xWIYmta9Q8dCNmQJ+ZZwBPShdAqvnMTApaGJHZY+XTrHgAelw0ntK0On/oKBYINv+ml4pffR0Br9+Nu1fiMo=
+	t=1792048265; cv=none; b=SCEr/zo3pjaHne7bRRHC+VYrZWj+geThWgtNdtWyPbZGVaq8e9iq71ZYI6GxSL7999Qy8HfxzOJD6GKwRy98FITPOO8QIYZLn8ZauNXZzkmY6MvFbBLATjUgy6ZODXTVg435pXal70yAz8k+2Fu9ow/cWbuEIih+WX0ox/VrNAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048247; c=relaxed/simple;
-	bh=WiDxLwRc8l+63GRJReDGwoeViR7iwJaKNodwD4jyc3U=;
+	s=arc-20240116; t=1792048265; c=relaxed/simple;
+	bh=xy/pbJv5rk0AZgE0MAUUcXJlIE2Ibp6hOh9B6SVt5N4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B7nOLi1tazpFBKuGs9CmCUPGjehAPl+YQvzn98+asN9UEqZ//Y4F4WeEoRNR/plTNB2gW0iW1Xt/X4r07XSJgxpqAAZv/H0gllk74Uo/ENAipNXm65cKv7RG/uMnGn0jXTJ+A07hzUIZld2jyWrH8rjgJN6EEZ86tFE1Sz9lbP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AtteeYFf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tb4Tcd9xjVO+F9S2QTV9SBcIBiSkdsXC/jPUSEzI7w7Rej5J4iBmUsIpWodoGDlH84JHT2kWabUaxCbAltsPOIZ4g8eAmUAcBHrpeZSxBVR2cu/E6dgYav1c1eownfEm1za4goMPTvCjZhOHc30N2Q90/gtGQ68D2XYbB49sXIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Do+45MFE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eT8rgjpL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AtteeYFf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2571F000C4;
-	Thu, 15 Oct 2026 07:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792048238;
-	bh=t35CZqhZ37FpgWrxYiwnoxvM2WrIBjmPysOYClvNAFg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AtteeYFfkxiI7tEEpMbi8Yt7KJIKQSaoWpn4H36UJAg09QBpf7WG4edfMyvKSNnmk
-	 f8K68Cx3Q/125UsxrICx0flle39xsvHYEgg2vTNLdV9dvODivacIr0a2kWbAdpAY84
-	 JkR5imJAv2Fud4Q/jO6EXhK4to8N6hfGPKinyQ6fKNWbtQwyzmf7Q2eTvxgEUdkFF4
-	 KxtZAGiEhyIOGhpWb2ACDNImCrhkmB+dLsPbO92NkHm1xREah+d0w7UJcIBo/A9ADe
-	 pOMorbyndlL677Oaj4VHidtSTpiYXIJ9HHYJfTMNOWR7sALvJZ23LBMBXZiCnhXrXq
-	 joWvay/B8zEtw==
-Message-ID: <51b242a5-3918-446b-8884-30d6d05327aa@kernel.org>
-Date: Thu, 15 Oct 2026 09:10:31 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Do+45MFE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eT8rgjpL"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F0WlcI1672812
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:10:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CqdmAbJsWzaNsPsG0T6wcp7j81AciEH3O1LUc2xXTBo=; b=Do+45MFEVGkoS9x9
+	t81Mq7WUK1m13qgQihjztuztYBlk1r9cHtrWGBm39Gun+br75kuNpQ6GbnF7yaXY
+	qrskbdXlZdPoYwvjJyfm3WH6SCOoPpr34D02AZQM+035blR7hUVJ9eiZd82rJxnA
+	onUU8jCrXii0fqjzEWrdYl7+Sm7mrrloFL6MdYOV/bbPpBDYSpW3LAiMKtMvSGlG
+	dlCrDjOSpRjDjbOtJ3LWVidLZHmJbyWN01JvWjlbQMbzdhXuZAVi525ORoeBsXpD
+	hSSa0M/oJnfRiifVUh+ulvChU0EG84NgSclt3lmbnLYC7Qr1vzsybI0dnDvA9zvu
+	W8nWsA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacrhb28v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:10:55 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a1de6d5c3so1114856485a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:10:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792048253; x=1792653053; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CqdmAbJsWzaNsPsG0T6wcp7j81AciEH3O1LUc2xXTBo=;
+        b=eT8rgjpLpQnd8oiqazHJ51xhiwt1eO58dzph7t1Locp2+t/4lqqxQLayaAawupp0o0
+         k+a9RQAn1SNR2DPfc4zxpcCUQjBB2cHwMQ8/FzaMU5dhDv6PTGA359xoSfRrhcHHOkB/
+         mi052PJnluqmlNY0y0mAraaTh/mGczPnak+z/TuVBk/Uff0x34PwMANRaKisC2+qhU5S
+         uM1lY+xUmoWVVhFWh4Ta1Lo2OKoX+Mm5UovyVHcH52Y2nh+dSAVDO/hbM8KNZBmqbnit
+         yxL6H3v2BG8bp9ej0HMHa5Zwuw5XL75uhk5UkTNZjDbiceZ3XAcRf/fwVQcle4k23Olg
+         MsSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792048253; x=1792653053;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CqdmAbJsWzaNsPsG0T6wcp7j81AciEH3O1LUc2xXTBo=;
+        b=D45QYOGHz5PTYX/GgX986ZEP7w8NIE77SUUBv1ydreKbPYOgIFJVYZY6pEKdWaF79z
+         Evsjq6znSsJyx89CkxysfGL1EZWnubDd6iENBvhnw4qXhoO7EaBtBU6qawC6taPo5JEm
+         hGMxhoXItwhIRjSGGoeD1OA8y9oYYXQOW/uwpSPQHql5Z/O0JzKQEVZFHVj81OHZOevs
+         C9XDzBe5KgszF37P5elM7NYKXJ/zAT+hEiA9R/NzlWIpGYqBMYPETjjZmOyHDCjJDHD7
+         KQQ1E/8emtZeuVNoe0o3if2EPlSSnLfxT9bmQ+BQITXRGitoCw/2dzeWlCwbf6auN3wh
+         /Ofw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXPGVuXiAKLRUuiRvPdX9fyHtYPnVMxeIk0h7rqXJmDh4TkgYf/2+SAIP/VAt3MXH4ebFCmI9SlPxOxl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwSjnwqJGeqFK+VhBPi9X3jaT0jzvHV06kHA+4kj4qfhaJVwZV
+	rA6S+wqZ6KlIxfIQ51VVFo0PHLxZZre7zFD6n0v4BPEkJntPHPGQfBYbdxlfqmSYhcFqFgNzAT3
+	fJVt9kZ+ZMM9/hKhazq4bEZ1fumczOAdzcuz+GKId1ahX+rXRZAr/+miZIeaFI2EFR+A=
+X-Gm-Gg: AYBFou2N2jNVMHBydryWgc8FE1NI+5oRxccGNzLkLpbBv4Atr/UUEFpmUrYWSmRwxzc
+	KOpe65QzvwPi6ks0FUp25cbgBdwSN6nHgZfDJHJxbc/BIuSvKAcIZNA32eHaWvxIp22Dr5Pu/hL
+	ks3n+xesstwsaUxtg8PuihoDb5LKBmGBHVIdtX0EHiMj2jhDBEK+gPEa5oaWqL0BrmX9n+OJtnY
+	WLXCZ45OdFPhb/tnZmjLB0QCIs+gCru4xbkU695escjGcC20zXrNtH3NRVloLEbX+Se4+gKyyvP
+	19NBSr7TIp8yfxtuq9rbcz88/SGTW1zZT5T+VL+BD+JDiXxWmbiI7sUVsE31lAYmEDtxHoCBew4
+	6U9BSl3I8qrlB7tq7MOdyLXawVDHKDXi5gKS0jdNAWmrNgwlvCbc2g8Xef7OY2w==
+X-Received: by 2002:a05:620a:1b87:b0:93e:6c02:d173 with SMTP id af79cd13be357-93ebd26f427mr3142071985a.46.1792048252892;
+        Thu, 15 Oct 2026 00:10:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b87:b0:93e:6c02:d173 with SMTP id af79cd13be357-93ebd26f427mr3142068885a.46.1792048252403;
+        Thu, 15 Oct 2026 00:10:52 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdbace19sm49809535e9.14.2026.10.15.00.10.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 00:10:50 -0700 (PDT)
+Message-ID: <0ca8681e-8402-4540-8635-9a98140b8243@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 09:10:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,88 +89,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: stop recalculating min_free_kbytes once set by
- userspace
-To: Nimrod Oren <noren@nvidia.com>, Andrew Morton
- <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
- <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- David Laight <david.laight.linux@gmail.com>, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261014140859.1006967-1-noren@nvidia.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Subject: Re: [RFC PATCH] platform/arm64: lenovo-thinkpad-t14s: Adjust thermal
+ trip with platform profile
+To: Kurt Borja <kuurtb@gmail.com>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Hans de Goede <hansg@kernel.org>,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        Mario Limonciello <mario.limonciello@amd.com>
+Cc: sre@kernel.org, bryan.odonoghue@linaro.org,
+        platform-driver-x86@vger.kernel.org,
+        LKML <linux-kernel@vger.kernel.org>, stephan.gerhold@linaro.org
+References: <20261001181917.9367-1-daniel.lezcano@oss.qualcomm.com>
+ <1eb6d74f-28c7-8f0a-4001-dfe717196836@linux.intel.com>
+ <36418d4e-ba34-4c31-b676-1e636cfb8a7a@oss.qualcomm.com>
+ <DM55HM3TYCHT.1F7FX19ORJPG@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
- KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
- 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
- 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
- tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
- Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
- 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
- LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
- 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
- BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
- QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
- gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
- CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
- UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
- XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
- 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
- FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
- QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
- 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
- icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
- uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
- SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
- cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
- La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
- FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
- bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
- +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
- jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
- CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
- HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
- SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
- 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
- 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
- 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
- wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
- NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
- OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
- jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20261014140859.1006967-1-noren@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <DM55HM3TYCHT.1F7FX19ORJPG@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: YxltvLSJPQV_UzuBqMhxCIcHpiojBUK_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAyOCBTYWx0ZWRfX+Do4JmFVAM5h
+ MWmYvumtqo+9IqGpil2ctJ4cDwhXUGCl4fc8phuVL4mr3M/+653mAmZTLiSk/hAEUFdceja1Lcy
+ qQz4Z0UJ2DQD61+963hTmt6kDNUEz/o=
+X-Proofpoint-GUID: YxltvLSJPQV_UzuBqMhxCIcHpiojBUK_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAyOCBTYWx0ZWRfX7PE/RrJ+5CWv
+ vxbrILEUyrnWIFoz9jpVibJ98cwt38w5cmCnBxvbHdVKP0q2zDS+jlXOaz43pXEq1myLGedx8C1
+ 0Qc6pjcv/ebuh49TdLlMd6Xon0kmGJ38jXqsBDuAURuGhW4lZ6JyawpmcnXPV6sdHrq6M6NfM/e
+ Wf4+N8QlM8EJ91DnZTtnm+sy3V8GgluRTWmgY6PUieDhkUJT15+Hnygi+akQ0mqOgVxkSjNQuh6
+ 5dNO/dmO+ghMEv98eejd8p3BTHbHmIpCFI+2zG6pjcGMbqUfKYGEDpFMRixjoZmBZDHH0xj/I2e
+ ROh4B/GRdZ33YsUBScrkGVo+VhoBtQip+MYFdhhCSz7GF/nz27dKdJVqfgs7AlQ0CKX4nDKmPz1
+ El5hbpzDYGspdP3MrtkEKva1wTHnOJA7PQJ1y59aWGrUPzTbylFaNJMjNQqmVpYRYrGeNHOYesI
+ 6Y/V7W/R1nxSjILIVvg==
+X-Authority-Analysis: v=2.4 cv=SYZi5fRu c=1 sm=1 tr=0 ts=6ad07c7f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=5Kx5z0Epgnzjo5jacSQA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150028
 
-On 10/14/26 16:08, Nimrod Oren wrote:
-> min_free_kbytes is recalculated on memory hotplug and on THP sysfs
-> writes. The new value comes from calculate_min_free_kbytes() or, while
-> THP is enabled, from set_recommended_min_free_kbytes(). A value written
-> to the vm.min_free_kbytes sysctl is replaced whenever the new value is
-> higher, so a lower value does not stick. This matters most when THP is
-> enabled on configurations with large pageblocks, where the new value
-> can be excessive [1].
+On 10/15/26 07:08, Kurt Borja wrote:
+> On Wed Oct 14, 2026 at 10:03 AM -03, Daniel Lezcano wrote:
+
+[ ... ]
+
+>> Yes but I have a series I'm about to send decoupling the
+>> platform_profile from ACPI
 > 
-> Stop recalculating min_free_kbytes once a value has been written to the
-> sysctl. Systems where the sysctl is never written keep the current
-> behavior.
+> The platform-profile already has a platform agnostic interface at
+> /sys/class/platform-profile-N. Unless I'm missing something, I believe
+> that interface should already cover your use case and its also the
+> recommended way to expose interfaces to user-space.
 > 
-> Link: https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/ [1]
-> Suggested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Link: https://lore.kernel.org/r/d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org/
-> Signed-off-by: Nimrod Oren <noren@nvidia.com>
+> I was not around here when this functionality was exposed to
+> /sys/firmware/acpi so I don't really know the context, but I personally
+> don't see a reason to duplicate this at /sys/firmware/devicetree or
+> something like that.
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Yes, I agree, thanks for pointing this out.
 
-Thanks!
+The platform_profile is however tied with ACPI because if acpi_disabled 
+is set then platform profile is not usable. It uses also a acpi_kobj.
+
+The aforementioned series [1] decouples both so it can be used on any 
+platform.
+
+[1] 
+https://lore.kernel.org/all/20261014132500.3817549-1-daniel.lezcano@oss.qualcomm.com/
 
