@@ -1,115 +1,90 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FDC2BCF46
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9165C35E93B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040357; cv=none; b=LDwSbShMRR7LMT5aO1/xwco2cHBIIef1vcRyt4rre0b/5rboV2lQpgBBjPtysl3yFDKw8VLqmdXU3DT5mGjgWwQAPMQHXYt+xy75mjQ8ymzc4ka0qKa79Vu0HGswHjA6Vo+0dGzD7NqCC+bKb5xBaIkYh7M/7D8GVm6/b4KR8QM=
+	t=1792040766; cv=none; b=CU3RrZLnksRM+hyHOLgwn/2uDt1urLJIxizGWfEyYteYhx1JFPhjPRSdSnFpw2fbWhign81XDrR3r4rO8fh/LfBRAl967nB5AL06Ih64XDxQK2es/QV+UDH2mb9LDuTdHubERzp75TGH8qgoJr470XDAGOCs41v2TkEVJFsDJRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040357; c=relaxed/simple;
-	bh=FtOtHetixsPWQ3Z+zGmjEH31xi/VxCFdFoLvi+3Jif8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YpwVQcDos21ydLO5KkmuX51jjzWFV4rznd/1R8iegT2HG73iEMFfJNOpc/i8IdLqwoM9OsyLALSFnZj84Y1qigedL/vAc90qppgNkZ4VjSrf5mguyUlhqFoHePWJ5sB+ii0qWoYlzXkVli1kw7djS23DjE2jameTtV/KTbQW1zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=ozUpM48U; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1792040766; c=relaxed/simple;
+	bh=w11y49jbyV/4vIC2F4b6XFOH4Euf+45PUeCl4BzyPVM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O2mwzJJ6HSuhVQXtLKHvPM++AooeFvZgd4T5HttM24i13RZyLNY8O2llsJdhIxIAyHOJJ4TfjdF2Y1qB+fi7Awsc4Skwz0b6lNNIx9z5xogpSiAeNPKKcRFav5WE9OErnMM2B790oAa2Cjo3PC0rtdQcQoLtpShB3d+v6htInEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pGmHK5U3; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="ozUpM48U"
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id H5iDxIaV6LvgbHDX8xI16e; Thu, 15 Oct 2026 04:57:38 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id HDX7xJgiiirxPHDX7xSaIb; Thu, 15 Oct 2026 04:57:38 +0000
-X-Authority-Analysis: v=2.4 cv=FqoF/3rq c=1 sm=1 tr=0 ts=6ad05d42
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=_kS_R5bZiuQTXeyLJeIA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=vsBsGNikXw5pstylM6RA9bsmHSV3hOgxfeTPA6wB2/k=; b=ozUpM48UgP14YWcJ8/x3Hg6Fnf
-	O929cmcYtEqJm/ABfdD1OQTNwgfyP5lKW6VC4pfJouhLAnUsaCFdglQHfQcsR124HF0hRFex+sFTm
-	A0b0kzB8g41Mm0lxDBrK3KeLmN8lQwLJv8T58g9StqWgxDC6UtUJs3EQ518PQ1lBUT0ItZYhea6dY
-	4jdWmcKcc7WCrtYVvtkjFRlrf5iEka77bsBJu01GkPEJ1vSnDiJRRkCjKZbfmpuAcJSW35B1r3kph
-	kfNxg8gRYEZoRmBjCtl4X5eNNeg7PouVCEd0gzKl7hUwdbhfIUYkxmlgEFMsci/EiJ2PZleW2a6JQ
-	/QdyUEdg==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:41226 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xHDX6-00000000xbc-3Ma7;
-	Wed, 14 Oct 2026 22:57:36 -0600
-Message-ID: <72cf3085-4d87-4ff5-abfe-dbc4b32f77ee@w6rz.net>
-Date: Wed, 14 Oct 2026 21:57:34 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pGmHK5U3"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-89e018e466eso509892b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:06:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792040765; x=1792645565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w11y49jbyV/4vIC2F4b6XFOH4Euf+45PUeCl4BzyPVM=;
+        b=pGmHK5U3snngF0QolHy6HqPWemjepwXdVLMaJA7GLUhRUx27xqrLkzKpfIAvC4rxUm
+         HLfjL6qXdeaM0XGLHROVG2uZYiQ5T/m/UxIB4C1LWONqIo6cHri86tlelfO9CiJ3J3y/
+         8c+Okskgh4SLYTeqnw9p8dwRTk1qlND/j44mUUTMSaLY0bsiqqIwnjZIHCyuJA+2g5Wg
+         WNL9g+IYESXF0U70hAchIle17YuUKB4OZhyvWUFmL6Rib01c8hHVP7zh08T+tTBsX0gW
+         hHGG8hWdvEcbB3B7bzTKerBinYtvVnxVxPCdb4dWQsyVeUcLeekOxCSBYJjfThkR4grd
+         If/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792040765; x=1792645565;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w11y49jbyV/4vIC2F4b6XFOH4Euf+45PUeCl4BzyPVM=;
+        b=P6BLd7KZMHwp5l5FheeTnm3PlGYGSP/+qfaD9F5QYvBmsGsuuCJqjtWMuCVCwcUdpa
+         X+E/TO/LYay4oGl1VmQqW2Ui1BFeOMhTUWTTtLev73YPYydIXDlJZV/V/aaANeRrJ84m
+         Y6H+tp4xRtx5NyJZ6BGOK9+KWpXlQr0CqPGdC0PJNbI2/7ezyNw2nSSKRPsC+J4Tet1R
+         gRQfIIfQWpBYNxFp3R4d6trDOgkq0jgPvKVLwNt/pthhTWCq3iHx7ZfqgnbrJjfnsXCS
+         GQckxipMBmLmLkPvXU3im6c/rYYInYV1iEaj7HF4ugJhq7rbELFVm75//loP3m5YzDGP
+         aXUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMjL+AT5+q6Doqg8FHsyRTfNDrwcGpI46hXm/2VzKX8Vs/trr6z4SSS2e8rJL1LtGGkWzVALa3Fy709+M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnv4Jtix4GbSCj+cY8cN/kJtCKb+ZsP6OC2bcaD33LHOlqAW67
+	TsfoqL9nBOz91jUx3/ffAeJv3o2GpEu4HTAVk7F0PKz+bmnSFYr6rYDT
+X-Gm-Gg: AYBFou3Qitwu5h4yoM8UDUwFPBRlvtAbAl/w+EOXC1HJafvawEEZFjkkByl8/gmtA8E
+	dSokevUDDnBWLBJaYmGvQ9ip0FrzQ7F1E4/Nje/TuMFC7f1Dg+X5P3YX/ZM8T8A+PtDbX5unXh9
+	eedVO77vO/zfIRaO8jMVf8Bynee6x5jIUTkmdJ9NhVTXaxHd6+rgPCuOWkAT5h0MMaIG2TkHBbr
+	6AXsxx0yxbHGtl6tTSX7omd7IrtcmCvmk11DaoaJ0bRGFvBTQeMc54eL4jz5Ku7w5LKUF0TeNYs
+	JoQnBo6tStZq865TIx8QK2p/8uiuwHDDasL2Cb5t1/CaRVeMqC16gfvo7lT4LU4YPf7uNPaHusZ
+	lsPWY05O6/2K5AiXqXLzGguNCuDalzd31ksb7GlBAiHTRBVnhiTO3ggQpLOKvtsQ603/zGbcl6H
+	FS9BerHneYw1IbK6AmD+mWZVI7n3qUUQ0SbR7x7CILabkFMymMP94+hyVmsUaYCrNHI64tycofO
+	lPJsmcBenw=
+X-Received: by 2002:a05:6a00:8019:b0:886:84c7:72b3 with SMTP id d2e1a72fcca58-897c78d79d0mr14722485b3a.26.1792040764769;
+        Wed, 14 Oct 2026 22:06:04 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f51f452sm1726602b3a.1.2026.10.14.22.06.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 22:06:03 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	David Ahern <dsahern@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 1/3] ipv6: serialize address publication with device teardown
+Date: Thu, 15 Oct 2026 14:05:51 +0900
+Message-ID: <20261015050553.1835517-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012145306.GB779501@shredder>
+References: <20261009054042.272944-1-4ncienth@gmail.com> <20261009054042.272944-2-4ncienth@gmail.com> <20261012145306.GB779501@shredder>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261014123758.782265692@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xHDX6-00000000xbc-3Ma7
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:41226
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfO+h0AQgVgJY5w67S0KVszfeztJzLlKktjde4OFJ/nX+g/NVCa7gJs1d2WAyiqJSy6v/OJaTjSJQOM38Wl6Vu50ymLxGSt7MRaqwFb+CQreMyua116Lw
- A1CoAx4Wz9PtO/ARywmN3Xvl25kGQlYM6mYLQpifCScCy6xltwNtt8fn9jnfwgqz4fVd/ffB0ATSaywvW3fVFxAodGwLWVKcA18=
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 05:50, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.11 release.
-> There are 284 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 16 Oct 2026 12:37:26 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.11-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
-
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
-
-Tested-by: Ron Economos <re@w6rz.net>
-
+You are right. I overlooked both earlier comments. V4 drops the preliminary
+READ_ONCE() conversions and the disable_ipv6 recheck. The new locking now
+serializes only idev->dead, the state relevant to the reference leak, and
+leaves the existing preliminary checks unchanged. Sorry for the churn.
