@@ -1,46 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B350B48665F;
-	Thu, 15 Oct 2026 09:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4591503BF3;
+	Thu, 15 Oct 2026 09:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058006; cv=none; b=i/aQJcPIFrgpC0vJYgLcHidcWTTECfwGPgn/xEURy+6zTX3FfAidDwx7G2LqXBdRsiLNnXTGCEPkpVT41S0YtLKRa/kICoQBKyq86IvdhavSGMlnJ0Nojufz8x5wx6ef4plTmCQWcU7WWLxAlmNW+TrHLyJL+LTRopJc+QTHje8=
+	t=1792058062; cv=none; b=mIZB8v/PYKlcxCLo7/vtlpubxdCle9M9qFbjAUNRYnKayDF2n6LGJBQ/6P80yh8kL2W9KqrxOqpRmscpdCkVltY2GYzsflN6H1oIxdCqV3TMLhGEkFeTu2gtpqDFvrBdGOQzi9XVt4SHhinQUg9AjDvjajHExW8TLO0E1ztQzsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058006; c=relaxed/simple;
-	bh=pwEm4/2RBhku51g18W4c5ncfp9iaO/+W3jklu4v+Va8=;
+	s=arc-20240116; t=1792058062; c=relaxed/simple;
+	bh=UL2cUuM9jWClRNs+NjvX3Sg7IF6yTgJ7aMrxlv2SVDo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GHnBzys5E4IWZ8QEVoKesyQ/xEQQSKcTUKMw/NLw0S/srUSBLOZpUL9YRoyos3oRJNYIA/x8NWn8OLu6VRdSlwvZrPwJ/b7Pyg/+KyDrNOqmnxTY98Hu1ZcjaUBKzycXk8Xwuzr5+fMf3EapwMsfJZ16rufv0orp6TecpdEytDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfSjs0NV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=seYZVO0xZUkMAcAdAxpLBHzbWhVg3ktj/grqJTnFsUgYC4apJlenCzElHvyENpJUra1vyCmrRntkpv851YDgsk/YTZXMkR+jdWJjRbvynTf/4bnopU2k/IRwJBSmOHj8BmZ0icMcZOJvuNHLAddKVDOJep7NhVmeNMmTdAThkLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=dNnLFCDd; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfSjs0NV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439281F000C4;
-	Thu, 15 Oct 2026 09:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792058004;
-	bh=pWSv0HLiAJoTWLt7uJPRQqYR8RlGcCvdzB2n4hsLLBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lfSjs0NVa2Q7Yoce0HBjO6gAq4xiMOnf48jazkWzuNHu9mMe451E88M/arH5Jf5ZT
-	 EBiLaH31kt4glfCU96mV+sdGqiYwFU+FoR+YVVcdoHCTzcOu6uKuVdaAEQMmXLd3BM
-	 wUA/4VtkCA8pm7unwTtXb4NedmPqxs6bTVA9n8SGjV6H6GlBGHbWUPYpFu/L7hPIZh
-	 j8DwNvXcq2TSgmdSOwKXC1PyC2XA6TdTn3DKC3gh83HxOD3rzRrB5TCrfFJbno9MFt
-	 4thOVS3Dp3ETLiKJm2JJYyWKPm3o4/RjhiJirzG/eYY2kMmuKr0F/kPbZDziOJmT29
-	 Dytk8Ghkv3WCA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xHI9K-00000006EBG-0xAz;
-	Thu, 15 Oct 2026 11:53:22 +0200
-Date: Thu, 15 Oct 2026 11:53:22 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com,
-	EddieSY.Lin@moxa.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/6] USB: serial: add generic write control callbacks
-Message-ID: <atCikmW89iycQzTp@hovoldconsulting.com>
-References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
- <20260811060501.2307836-5-crescentcy.hsieh@moxa.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="dNnLFCDd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=FTiAObyAESh3G5YxQwvY1f/k5aL+7XVnCiMQ+GLcbRk=; b=dNnLFCDdJxUFAnrNjRUh3QEdY7
+	2KbWJtVpT8MtlXfHPk4eNHJ0WK0IHo26G9EEcRYvjgB21eaBUz8/eg+lr/VKHV4xsxuwxhEgClC5v
+	Sin9Tp+SerlmItUku+HmrO1sk0egRZlwpHgJrGq3UC1n5SnbgDFZq4A1N8KVgXVsM3brOzcMfZX65
+	CScOmGCD+sEkN+ZwDz0wRROYnLq8o4GpMh9Y0DKHQHUA5UsZI7fu/fg0t6eIoPWVOVmD94lCBg03U
+	kdUaj7kaHdSWHDTbKli3+NrOc89nucwHa/GwQQCF3dTFnjvtB8NZXVsHY8IQ7+1710ULQyru7cUbR
+	cK+eNmHw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHI94-0056ak-1F;
+	Thu, 15 Oct 2026 09:53:06 +0000
+Date: Thu, 15 Oct 2026 02:52:58 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Chia-Wei Wang <chiawei_wang@aspeedtech.com>, 
+	Oskar Senft <osk@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Jani Nikula <jani.nikula@intel.com>, 
+	Vitaly Lubart <lubvital@gmail.com>, Hanjun Guo <guohanjun@huawei.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Alexander Usyskin <alexander.usyskin@intel.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Stephen Hemminger <stephen@networkplumber.org>, Dave Penkler <dpenkler@gmail.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	Dan Williams <djbw@kernel.org>, Mukesh Rathor <mrathor@linux.microsoft.com>, 
+	Vladimir Oltean <vladimir.oltean@nxp.com>, Alexandra Winter <wintera@linux.ibm.com>, 
+	Julian Braha <julianbraha@gmail.com>, Karthikeyan KS <karthiproffesional@gmail.com>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org
+Subject: Re: [PATCH v2 1/4] uart-routing: Add common UART routing framework
+Message-ID: <atCibvmbCSTMTMYD@gmail.com>
+References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
+ <20260905102901.126035-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,48 +65,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260811060501.2307836-5-crescentcy.hsieh@moxa.com>
+In-Reply-To: <20260905102901.126035-2-changhuang.liang@starfivetech.com>
+X-Debian-User: leitao
 
-On Tue, Aug 11, 2026 at 02:04:59PM +0800, Crescent Hsieh wrote:
-> Some USB serial devices use device-specific flow control to determine
-> whether write submission may proceed. The generic write path currently
-> provides no way to pause submission based on driver-specific state. It
-> also provides no way for a driver to restore its state if URB submission
-> fails.
-> 
-> Add an optional write_ready() callback to struct usb_serial_driver. Call
-> it with port->lock held after confirming that data is queued and a write
-> URB is available. If the callback returns false, stop write processing
-> and leave the data in the FIFO. The driver must call
-> usb_serial_generic_write_start() when writes may proceed again.
-> 
-> Add an optional write_rollback() callback for restoring driver-specific
-> state after usb_submit_urb() fails. Call it with port->lock held after
-> restoring the generic transmit accounting, and pass it the length of the
-> prepared transfer.
-> 
-> Drivers which do not provide these callbacks retain the existing generic
-> write behaviour.
-> 
-> Signed-off-by: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+On Sat, Sep 05, 2026 at 03:28:58AM -0700, Changhuang Liang wrote:
+> +ssize_t uart_routing_show(struct device *dev, struct device_attribute *attr,
+> +                       char *buf)
+> +{
+> +     const struct uart_routing_selector *sel = to_uart_routing_selector(attr);
+> +     struct uart_routing *routing = uart_routing_from_dev(dev);
+> +     unsigned int val, pos;
+> +     int len, ret;
+> +
+> +     ret = regmap_read(routing->regmap, sel->reg, &val);
 
-> @@ -171,9 +173,7 @@ int usb_serial_generic_write_start(struct usb_serial_port *port,
->  	spin_unlock_irqrestore(&port->lock, flags);
->  
->  	urb = port->write_urbs[i];
-> -	count = port->serial->type->prepare_write_buffer(port,
-> -						urb->transfer_buffer,
-> -						port->bulk_out_size);
-> +	count = type->prepare_write_buffer(port, urb->transfer_buffer, port->bulk_out_size);
+It seems routing can be NULL here if the file is read while the device
+is being unbound, and uart_routing_store() has the same problem.
 
-I kept the last line break here to keep the line under 80 chars.
+I hit this while testing v2 on arm64 (next-20261008 with KASAN), and the
+code is unchanged in v3.
 
-> @@ -436,4 +444,3 @@ module_exit(usb_serial_module_exit);
->  	usb_serial_module_driver(KBUILD_MODNAME, __serial_drivers, __ids)
->  
->  #endif /* __LINUX_USB_SERIAL_H */
-> -
+        d=/sys/bus/platform/devices/$DEV
+        drv=/sys/bus/platform/drivers/aspeed-uart-routing
+        while :; do cat $d/uart1; done >/dev/null 2>&1 &
+        while :; do echo $DEV > $drv/unbind; echo $DEV > $drv/bind; done
 
-And dropped this unrelated change.
+and then got:
 
-Johan
+    KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+    Internal error: Oops: 0000000096000006 [#1]  SMP
+    pc : uart_routing_show+0x64/0x288 [uart_routing]
+    Call trace:
+     uart_routing_show+0x64/0x288 [uart_routing] (P)
+     dev_attr_show+0x64/0xc0
+     sysfs_kf_seq_show+0x21c/0x380
+     kernfs_seq_show+0x138/0x1c8
+     seq_read_iter+0x358/0xa30
+     kernfs_fop_read_iter+0x438/0x500
+     vfs_read+0x484/0x6f0
+
+--breno
