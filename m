@@ -1,92 +1,129 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64C25B0A4;
-	Thu, 15 Oct 2026 00:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EFE2DC350
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025698; cv=none; b=PdI4Sg/2803/nrjP5jfb6U7ItU5GNgG2ncq4ykuVAmNRrFNR3yor2jyO2g9TktvUQtuDXdquzVmfzq3HGhSLazNjTvJ3NZZjtL3c439XHjyzkCHbye73APZMeuXVHPM+oWrpZFeX5mIX9kat0Wk734p6Cbt7o1DtvWmMvwowfmQ=
+	t=1792025781; cv=none; b=l3qTrpNMs3OCDg/bWZgWM6Y8J9Pm/l/k6tOsJ7MoBAmvKVPjrmZFTi4781odAqx8UORgy5qIEZFLWmWPeen6UpFzINaSqGlV1YVikS+vJIyyQ6lwJF4ePpzA228S09tBENHumVbsfXhFMun4zAotVN+s9p3ueueOxIRHbWWC7EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025698; c=relaxed/simple;
-	bh=UcXfq2s8RBg/mdMLs5Sze1N6LCsFPoK+hasLw7OL0Iw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gUGDqdMpOuJh+e+0XrlVMRSiPA+IOqxmL54a9OWZjm8f4mGpclPPoCxe8zMF8h4OsqEriqPNkGh3YGXmSGboW0Mk6aVFsg9iOOdxSqk9gDFZoHpwOCzt7v+qzkLlqYy1SBKKaAUhTtTYr0hk0n9oUgkfZHg3H9nJNp9ELNWBOUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5958242301;
-	Thu, 15 Oct 2026 02:54:48 +0200 (CEST)
-From: Lubos Rendek <l.rendek@proxmox.com>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
-Subject: [PATCH 7.2.y] nfsd: fix all-zero stateid in CB_OFFLOAD for async COPY
-Date: Thu, 15 Oct 2026 11:53:40 +1100
-Message-ID: <20261015005340.550134-1-l.rendek@proxmox.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
-References: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
+	s=arc-20240116; t=1792025781; c=relaxed/simple;
+	bh=q/5JUGSHxQEcGfb5zJ8nWWv2tTCa6ZzCCN+qIAsk18Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=amQ72k2Y3RXvTTH6iecHbc38GAeRjDdd4pIGCYEwQuKthXlpLFWAKUvXemeP49PV5Gi0apnsuNoZZMhxE7WdwRkh56FU4TsMVDiPomw6GulQgtEaj5ql/AVCe+Am70TBgSNWn5WbIovzIBPodVjoOzdmM/cmPaM0aQicEJnMNpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=H7+atuVu; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="H7+atuVu"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792025769; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Xc2/quJBTUOfJC1n3uvaie/5AYgyo8YZ90+dymiITHI=;
+	b=H7+atuVulOXfMcVm3OE3aYrdI1d4/QpRNyOgyR3j5Amd1FuYImC0fsfnA+A/CtXJI4SbdzbshHnuBhcF6xZZ4O3n8qJjlxt9OIFVfNEbb/u565t805w4Lz/z/TjCu0z7rrYZtz+8Cz/YKtqQaq7OOxrPn4e4jdTT4iCHHoZBEXY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R611e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XCpy1O7_1792025768;
+Received: from 30.221.144.234(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCpy1O7_1792025768 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 08:56:08 +0800
+Message-ID: <93e4c76b-a855-469e-a210-eccb9da855c2@linux.alibaba.com>
+Date: Thu, 15 Oct 2026 08:56:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1792025687393
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2/dlm: hold the lookup reference across convert AST
+ enqueue
+To: Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261014112321.2955584-1-joseph.qi@linux.alibaba.com>
+ <as-cs6Pxot8LavVG@p15>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <as-cs6Pxot8LavVG@p15>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-[ There is no upstream commit: this fixes the 7.2.y backport of
-  d0beaee498e1. Mainline fixed the problem as part of the async COPY
-  rework in commit f307b4f7ed17 ("nfsd: split nfsd4_copy into transient
-  and durable async copy objects"), which is too risky to backport. ]
 
-Since commit 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry
-for async COPY"), nfsd4_copy() calls dup_copy_fields() before the copy
-stateid is created and then writes the new stateid only into the COPY
-result. The async copy's own cp_res.cb_stateid stays zero, so
-nfsd4_send_cb_offload() sends CB_OFFLOAD with an all-zero stateid. The
-client cannot match it to its pending COPY and waits forever in
-nfs42_proc_copy().
 
-Also copy the new stateid into async_copy->cp_res.cb_stateid. Calling
-dup_copy_fields() after nfs4_init_copy_state() instead is not an
-option, because dup_copy_fields() also copies cp_stateid and would
-overwrite the stateid that the backport moved to the async copy.
+On 10/14/26 11:18 PM, Heming Zhao wrote:
+> On Wed, Oct 14, 2026 at 07:23:21PM +0800, Joseph Qi wrote:
+>> dlm_convert_lock_handler() drops the reference it took when it found the
+>> lock on res->granted at its leave label, one statement before it calls
+>> dlm_queue_ast().  dlm_free_dead_locks() takes res->spinlock and drops the
+>> list and base references, so a peer death landing in that gap leaves the
+>> handler's own put as the one that frees the lock, and __dlm_queue_ast()
+>> then reads lock->lockres from freed memory.
+>>
+>> The handler is registered next to dlm_create_lock_handler(), so a convert
+>> message buffered on a dying peer's socket arrives on the same o2net
+>> receive work that o2net_disconnect_node() does not wait for.  The two can
+>> interleave as follows, with the reference counts as they are before this
+>> fix:
+>>
+>>   Socket data-ready       Node-down thread      Receive worker
+>>   -----------------       ----------------      --------------
+>>   o2net_data_ready()
+>>     select sc under
+>>     callback read lock
+>>                           o2net_disconnect_node()
+>>                             queue shutdown
+>>                             begin flush; new color
+>>     queue sc_rx_work
+>>     in the new color
+>>     release callback lock
+>>                             shutdown socket
+>>                             flush returns
+>>                                                 read buffered convert_lock
+>>                                                 dlm_convert_lock_handler()
+>>                                                   find lock on res->granted
+>>                                                   dlm_lock_get()  refs = 3
+>>                                                   lock res->spinlock
+>>                                                   __dlmconvert_master()
+>>                                                     call_ast = 1
+>>                                                   unlock res->spinlock
+>>                           DLM node-down cleanup
+>>                             lock res->spinlock
+>>                             dlm_free_dead_locks()
+>>                               unlink lock
+>>                               put list ref  refs = 2
+>>                               put base ref  refs = 1
+>>                             unlock res->spinlock
+>>                                                 dlm_lock_put()  refs = 0
+>>                                                   free lock
+>>                                                 dlm_queue_ast()
+>>                                                   __dlm_queue_ast()
+>>                                                   read lock->lockres
+>>                                                   (use-after-free)
+>>
+>> __dlmconvert_master() only moves the lock between lists, so the count
+>> entering the gap is base, list and lookup.  Drop the lookup reference
+>> after the AST is queued instead of before it and the race ends with the
+>> one __dlm_queue_ast() took, which dlm_flush_asts() releases later with
+>> ast_pending cleared and ast_list unlinked.  No extra get is needed, and
+>> the normal case ends with the same count as before.
+>>
+>> dlmconvert_master() has the same shape but is only reached from dlmlock()
+>> for a lock this node owns, which dlm_free_dead_locks() never matches.
+>>
+>> Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> 
+> The code looks good to me.
+> Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> 
+> btw, how do you find the issue?
+> 
 
-Tested on 7.2.10 with an NFSv4.2 server-side COPY between two
-exports: with this change the copy completes and CB_OFFLOAD carries
-the same stateid as the COPY reply. Without it, cp(1) hangs on 7.2.4
-and 7.2.9; the affected code in nfsd4_copy() is the same in 7.2.10.
+This is found when I review patch:
+  ocfs2/dlm: hold a lock reference across grant AST enqueue
 
-Fixes: 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
-Closes: https://lore.kernel.org/stable/7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Lubos Rendek <l.rendek@proxmox.com>
----
- fs/nfsd/nfs4proc.c | 2 ++
- 1 file changed, 2 insertions(+)
+Since they address difference flow, so I send it as a separate patch.
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 939749709..7c2955796 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2243,6 +2243,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out_dec_async_copy_err;
- 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
- 			sizeof(result->cb_stateid));
-+		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
-+		       sizeof(async_copy->cp_res.cb_stateid));
- 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
- 			       FMODE_NOCMTIME) != 0)
- 			async_copy->attr_update = true;
--- 
-2.47.3
-
+Thanks,
+Joseph
 
