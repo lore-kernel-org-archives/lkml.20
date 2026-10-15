@@ -1,245 +1,131 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AE871A0BF3;
-	Thu, 15 Oct 2026 09:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0644749EC68
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057910; cv=none; b=ude/mrN5PcNQYBETneAwixRXHdHt/FwwRHk3gSfcBi6je4jewDc8SzmOTvluchUjRrJ8D5YN6iBCsECha7VqsTLZiMFT3J2sLdorMXw4HjIwKwSPbbelQfOSsEUVnuWF0m5hZ1TlKR8xbMWLEqi6MxHMEIzAg/Ffx1nSXubKt2A=
+	t=1792057921; cv=none; b=QBuSEt0JPjGRVo9AsxWUDtTeuEPeJbykMg6koW9zzke/78AeePNT3/pi+bVdL7umZ1lJUuKD0h0viSdo8Eg/5Kx+qL0YlkSYcKsB5oDFR6txGKmHgSjC4/RZqyvVwVENshGdFFcx6dfrQq9k4+IZngMjUQsTQ6zBhZmi5A7Vy2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057910; c=relaxed/simple;
-	bh=RQlu94IndRkINK239J0mO/jxEWIhrsUmM+Ly4qV5KTI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PkHNlY2xBEq3reziMWWuIesd4Pv89kpFV4mPE+B8yzuXutnBM05KuftMA/PYrdHTIZGpv/wXcda6nMR6UfN13Sj/BhaTtW67peSTY+T+gZ6VQdMGGKeyndtacJtwrN5euRk80WmPPIlCqP3Qw7NhihQYmmg9h3cYlOhb63E48WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=R0LCZU8B; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792057921; c=relaxed/simple;
+	bh=h1WMbnMbzIi253lfdQ+u9FLPEFTOIsOzHEUUkwnXNqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KpjSUeFgjAc9ygD1xkr43rjNO54wkp32KJ8XoiKf4+s9N3zWbG5I6GnvfUgTVoQ70sraj2ugCTiHLqmqAZpqlsKIyxTZ0q0hYpTLTs4JBq1lnZhscXERyaMa/z+FO6HYTHpktKB5xwG2V0XlGTGy53WkGPO4qZBMyuv12tmnp+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UnSBobRf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=sr6Ugn4v; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="R0LCZU8B"
-Received: from [10.94.176.134] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id D205E20B7167;
-	Thu, 15 Oct 2026 02:51:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D205E20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792057904;
-	bh=q6NX91n8sg0b4V5XyUBL6pTMXOsCEZRCIKDjR1HCVko=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=R0LCZU8Bm4A7wctc9j6aHEiOhMnlKfeMxoDNSSPJRlcLlgmBiviXbSymwpu6KDHw9
-	 KMSVMGaQm+1ITiFkMVxzW96Sr032KoY3DyGmcWCNjEcDp3i+LAHvT5BQznwAnRlf5y
-	 n1zf89Ms4AaJ7d+9AkocphWw2rMy2ICCrQOBRcKY=
-Message-ID: <4f9398a0-d303-4b7f-9967-9a5f3077cc1a@linux.microsoft.com>
-Date: Thu, 15 Oct 2026 15:21:43 +0530
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UnSBobRf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="sr6Ugn4v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792057918;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
+	b=UnSBobRfaksXNjQa+TVWwdBcULpIeIQ3sEbxV3ORoLMo5FXo+w8Rle/GHp3ZB25AdNiNt5
+	b4EQxxfiv5hgx+EUn4D9UXXHsVHt5Aw5S1rhzFontIVFMwvfxbovQlbC/TYudqbfYRXjLj
+	x0lECdlC/I+kOLbiE9tuRjkZaQh1+wY=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-385-U1PLL9xqPyyZk_pG0T1J4g-1; Thu, 15 Oct 2026 09:51:57 +0000
+X-MC-Unique: U1PLL9xqPyyZk_pG0T1J4g-1
+X-Mimecast-MFC-AGG-ID: U1PLL9xqPyyZk_pG0T1J4g_1792057916
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c4445512dso1193872f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792057916; x=1792662716; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
+        b=sr6Ugn4vNJa+IKRRChLBwLXfQkii45jqcBGTJ3J4qk30iby/CmXcIaakXlAet63fVC
+         3yjN0o9+5HoiCIO1nJONS3Egv1y4lG1CBZiwW81GS/DzIY9fTmTpwMV7pdREAa/8BhEq
+         i0O1MVI4CWRTgxygHJizlZezi9aZF6WVqKkOxAsgZ1CdBlus9wmHNb6iIjL9hI+XZRc/
+         N/ghLbapsrOnjkEmaLkYraGc3XmZSWF3AfbPA3VNE2rsovCfD1KwvBZcwC5jjipeJTNV
+         4J4KmK0Jp3e5aM2xnnCvjWGFaT+bPI0RfH9r3K/uLKi2Sul92lHgnvzaJCahGJLDkAG4
+         ViGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792057916; x=1792662716;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iSloRlPr3slvcSabouqCfbFikV0zEeUbF8yFoLWgrFc=;
+        b=aZ2Ynjlbl7GX69uwQb3VfT0fdSRpm5rFsB9NRZwMc4xPijKvxCepx1r2pXJ0rZX+lZ
+         xCaOj45g84urKSmGvhBKAGoCKgzML6vJdFymHAGQ2rTEnjXubTUtmbb2xY1Ffr9aFL0b
+         ziIhjQM0nF//5zVNUDLblNdocPdKEtNvrMnmrVSA+QbvcnO1tCjMk1lRhM/svaIaiqzY
+         9K2HmYB90Dv2xp/y6YkUAwvP6v3a0DyH0rJ8WIiXYcCzGIxnfLjF4kphJALivMaq8X9+
+         hC06/Z9CzA4jU+i/Ig0XvclPB7yUURhvSCbrncrf0cBRB8TRZwnl8qfocoe5q4GvWgZq
+         zonA==
+X-Gm-Message-State: AFq9FYJEWIhw/oC5hn7ksyQBs4Bj2+0NOFO+JWmsjG4juPE4Av70qbTN
+	s7yxTpZ71Ats2QlPGBrXt/R8gR3PjmbpXmreUKQdHdQaeDg3uCLgRU5SIDlAy1mI1RwHz70pOqT
+	tYLgRASxYSdF7Dm7TQh5bnYekm/O+X6OumAWcXej+vgN2Tiv9PDsYE6sdnmjqnHItPpHDRJgqOg
+	==
+X-Gm-Gg: AYBFou1f1KAsXKsSpdjfeYlOUZUZxSOmRq51beG+PQpwzLS++7e3qRcUYtFUk9YiBCJ
+	pe8u1Xij3xCnAcaJFc+XqsMDZIZ4SD2zhuwDFTFtXpgQzl4NHKb+F5OAnA0zHLWox2YhD0wh4xA
+	7aHTaOPPN0na2HrorJ+erl88fstByDHZBaENoYEEPSYAi3xqfgfpOGKqrJmyTT2hPi3d3egFRwF
+	CrBRD8lbni/cKufBUBqIPTzG5UK6etcNZqY946a7oJ6KD3ma85NeRSGvuNjj8yoK2Qz4LX1naRf
+	KY71v78qcdPae694vDVtNwdwyJbJ/tkLaELtgOMpCEacXHWMCZ2KSyuRdJvcAOXmVVg6jFreb/a
+	K9LZOoBAMlotUxgd0qtPM4xFS9nFrAKvUY8AiLTm+1tgMbTuGd2JybMyB5a5kTeQpqK/UZD1o82
+	sjgfxM
+X-Received: by 2002:a05:6000:2407:b0:487:1ddc:aaff with SMTP id ffacd0b85a97d-48dbace40cfmr33733787f8f.44.1792057916413;
+        Thu, 15 Oct 2026 02:51:56 -0700 (PDT)
+X-Received: by 2002:a05:6000:2407:b0:487:1ddc:aaff with SMTP id ffacd0b85a97d-48dbace40cfmr33733768f8f.44.1792057916074;
+        Thu, 15 Oct 2026 02:51:56 -0700 (PDT)
+Received: from [192.168.10.48] ([176.206.82.153])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm18207703f8f.51.2026.10.15.02.51.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 02:51:54 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: [GIT PULL] More KVM fixes for Linux 7.3-rc8 or final
+Date: Thu, 15 Oct 2026 11:51:54 +0200
+Message-ID: <20261015095154.815793-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: xilinx: versal-net: Remove CPU idle states
-From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-To: Jay Buddhabhatti <jay.buddhabhatti@amd.com>, git@amd.com,
- ptsm@microsoft.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michal.simek@amd.com, sven@kernel.org
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
- <b9213a36eb1d28f3e7b8610592c085f627f5c7cf.1791374721.git.jay.buddhabhatti@amd.com>
- <20175a31-2ef8-4c12-b329-616cb07d3d0b@linux.microsoft.com>
-Content-Language: en-US
-In-Reply-To: <20175a31-2ef8-4c12-b329-616cb07d3d0b@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Linus,
 
+The following changes since commit 4056b3c9d3c92ea45955641dbafeb9b960e146ef:
 
-On 15-10-2026 15:01, Prasanna Kumar T S M wrote:
-> 
-> 
-> On 07-10-2026 17:49, Jay Buddhabhatti wrote:
->> The sleep state powers down the CPU core, and the wake-up time cannot be
->> guaranteed because the firmware may be busy handling other tasks at the
->> time of the wake-up request. This leads to unpredictable and potentially
->> high wake-up latency during CPU idle.
->>
->> Remove the sleep state to avoid this dependency on firmware. The default
->> backend CPU idle state simply puts core in WFI and retains its context
->> without being powered off. Since wake-up from WFI is handled entirely in
->> hardware, it is effectively immediate (a few cycles) and does not depend
->> on firmware availability.
->>
->> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
->> ---
->> Changes in v2:
->> - Remove the idle state instead of replacing it with a retention state.
->> - Update the subject and commit description.
->>
->> Link to v1: https://lore.kernel.org/all/20260727121842.3410495-1- 
->> jay.buddhabhatti@amd.com/
->> ---
->>   arch/arm64/boot/dts/xilinx/versal-net.dtsi | 29 ----------------------
->>   1 file changed, 29 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/ 
->> boot/dts/xilinx/versal-net.dtsi
->> index 21bb917bcba1..9b74e59fd64a 100644
->> --- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
->> +++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
->> @@ -103,7 +103,6 @@ cpu0: cpu@0 {
->>               enable-method = "psci";
->>               reg = <0>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -133,7 +132,6 @@ cpu100: cpu@100 {
->>               enable-method = "psci";
->>               reg = <0x100>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -163,7 +161,6 @@ cpu200: cpu@200 {
->>               enable-method = "psci";
->>               reg = <0x200>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -193,7 +190,6 @@ cpu300: cpu@300 {
->>               enable-method = "psci";
->>               reg = <0x300>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -223,7 +219,6 @@ cpu10000: cpu@10000 {
->>               enable-method = "psci";
->>               reg = <0x10000>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -253,7 +248,6 @@ cpu10100: cpu@10100 {
->>               enable-method = "psci";
->>               reg = <0x10100>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -283,7 +277,6 @@ cpu10200: cpu@10200 {
->>               enable-method = "psci";
->>               reg = <0x10200>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -313,7 +306,6 @@ cpu10300: cpu@10300 {
->>               enable-method = "psci";
->>               reg = <0x10300>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -343,7 +335,6 @@ cpu20000: cpu@20000 {
->>               enable-method = "psci";
->>               reg = <0x20000>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -373,7 +364,6 @@ cpu20100: cpu@20100 {
->>               enable-method = "psci";
->>               reg = <0x20100>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -403,7 +393,6 @@ cpu20200: cpu@20200 {
->>               enable-method = "psci";
->>               reg = <0x20200>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -433,7 +422,6 @@ cpu20300: cpu@20300 {
->>               enable-method = "psci";
->>               reg = <0x20300>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -463,7 +451,6 @@ cpu30000: cpu@30000 {
->>               enable-method = "psci";
->>               reg = <0x30000>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -493,7 +480,6 @@ cpu30100: cpu@30100 {
->>               enable-method = "psci";
->>               reg = <0x30100>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -523,7 +509,6 @@ cpu30200: cpu@30200 {
->>               enable-method = "psci";
->>               reg = <0x30200>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -553,7 +538,6 @@ cpu30300: cpu@30300 {
->>               enable-method = "psci";
->>               reg = <0x30300>;
->>               operating-points-v2 = <&cpu_opp_table>;
->> -            cpu-idle-states = <&CPU_SLEEP_0>;
->>               d-cache-size = <0x10000>; /* 64kB */
->>               d-cache-line-size = <64>;
->>               /* 4 ways set associativity */
->> @@ -632,19 +616,6 @@ llc: l4-cache { /* LLC inside CMN */
->>               cache-size = <0x1000000>; /* 16MB */
->>               cache-unified;
->>           };
->> -
->> -        idle-states {
->> -            entry-method = "psci";
->> -
->> -            CPU_SLEEP_0: cpu-sleep-0 {
->> -                compatible = "arm,idle-state";
->> -                arm,psci-suspend-param = <0x40000000>;
->> -                local-timer-stop;
->> -                entry-latency-us = <300>;
->> -                exit-latency-us = <600>;
->> -                min-residency-us = <10000>;
->> -            };
->> -        };
->>       };
->>       cpu_opp_table: opp-table {
-> 
-> This change works fine.
-> 
-> Tested-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
-> 
+  Merge tag 'nios2_update_for_v7.4' of git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux (2026-10-13 18:06:58 -0700)
 
-Change looks good to me.
+are available in the Git repository at:
 
-Feel free to add:
-Reviewed-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+  https://git.kernel.org/pub/scm/virt/kvm/kvm.git tags/for-linus
 
-Regards,
-Prasanna Kumar
+for you to fetch changes up to c8f4cfe1cf93bce924e27f2abead7a4c4a487505:
+
+  KVM: nVMX: Reset MMU back to the root MMU if loading L2 state fails for !VM-Entry (2026-10-14 16:42:40 +0200)
+
+----------------------------------------------------------------
+Even more x86 fixes:
+
+- Avoid a false positive panic in the #PF handler, if the kernel triggers
+  a page fault within the asynchronous page fault handler before the flags
+  are reset.  This can happen for example because of a perf NMI.
+
+- Always reset a vCPU's MMU pointer back to the root MMU when loading
+  nested guest state fails during RSM or KVM_SET_NESTED_STATE.  Otherwise,
+  KVM tries to run a non-nested guest with a nested MMU, which can result
+  in a NULL pointer dereference attempting to get the nested MMU's pgd
+  (EPTP or nested CR3).
+
+----------------------------------------------------------------
+Amirmohammad Eftekhar (1):
+      KVM: nVMX: Reset MMU back to the root MMU if loading L2 state fails for !VM-Entry
+
+EJ Campbell (1):
+      x86/kvm: Don't consume async #PF flags on a kernel #PF in NMI context
+
+ arch/x86/kernel/kvm.c     | 32 +++++++++++++++++++++++++++++---
+ arch/x86/kvm/vmx/nested.c |  4 +++-
+ 2 files changed, 32 insertions(+), 4 deletions(-)
+
