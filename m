@@ -1,215 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E50551990;
-	Thu, 15 Oct 2026 19:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392FD4D0A0B;
+	Thu, 15 Oct 2026 19:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092072; cv=none; b=K2WJQMomJF2e8khN52aucVFgyVIxWTuGQK1FmtldsLg3mQ50w49jWfuApt8NOcpIjPzBgFXf6msUPDnp4jnd2Rww6vtF0JngMEc79/sGYyisCU6sFJPjMh+3epPOMjXnrh92+e9kMrznGMcivKQsZt48UqoWe/dPfL8TUhT0zIA=
+	t=1792092104; cv=none; b=o0+z8UyuUvCoQ2uFTd5U096Yf1i/zFo3L0jx4hwvNBSlOLPcGGzX714soppaS5yB1fm+DkJJNq8aYBn9gsYU/ymqawa/K7zFBk4fHQSaMQiTOZFWYcLgLH0esNsaupEtWmQfziyQGNYepWkR+j4NMZ6135CtHLh65MEmNgH6pnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092072; c=relaxed/simple;
-	bh=+hkYwqtOj1rF3P9043erQEuvSeBTD8JF+5UmELpyEnI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o3bO6EPtkqq3RscnRCmLKPQRwuEJ349BN+8qDUNKUvaS4rjcsvo4X6Eu+TdF8O4Kl7rKGMafFnnVlUC6+ayPNqs3SczOtL8d11l6w5SjRoxEJaRAF9z/LfKbJ8aKuTX0tAcfQCruCZgVBt5UO/DT9beC8z+qIC8dyGKed/L/wRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RABnDfJP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792092104; c=relaxed/simple;
+	bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gy/g+Bl0j3eMNlEYD7AzhTXxrxM76TePdR2NqiwPBD1Nobd9+bBG3x15BijLgIH5Zc4AAMA4YWEHNEIY0OQXSj+in3ryl9eMlOnk6f0t7wAOd8BWYjaomWmKoepxc+VjoZR/1O4OxYQ1QpDSdP17JUOk/RqqoSGloS5uwR9m8io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3Cv3nPi; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RABnDfJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E961F000C4;
-	Thu, 15 Oct 2026 19:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092070;
-	bh=GgBgaGH8A1dFQW3H1sBO1hUvGwcWJ6mOtr3Ya+b10HA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RABnDfJP47XBl2oNxKo8DaXiXoYOGriUg3dHJZX4NIQevXyTwYqKuKbsCvuEGKcMm
-	 F6y/MK9XjRhd5ip7nul+xqddelY1VnU2if4xWXNGz+kg47p6s+FFwqJpsKRI5UaASq
-	 yvCstuHteyLmNAQvnel9etVDipnLBO8+sSm5XpJNU9clPyX2HZ9BoEqz/F37eRFIYE
-	 C80PbiAYyFkXMQzKdj+MEWJObYXqgZGxf0ntI3KOTzE7Xq71lq1BeF35MYA53TmOvI
-	 ck0JvHYNPweJjd0JVhT1Y/n7M5UjSgf7GivpPYWQWfIMGXSyM9PzDemjyO5NZNyUHU
-	 B9P+xuDiGpG8A==
-Subject: Re: [PATCH net v3 3/4] netdevsim: support devmem RX and TX bindings
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me,
- ap420073@gmail.com, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
- razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com,
- dtatulea@nvidia.com
-Date: Thu, 15 Oct 2026 19:21:08 +0000
-Message-ID: <179209206849.434549.7519044574049970137@kernel.org>
-In-Reply-To: <20261014161754.3782346-4-almasrymina@google.com>
-References: <20261014161754.3782346-4-almasrymina@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3Cv3nPi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792092102; x=1823628102;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9LqhazZ8y0jzFuAz+1Zjczovem69p4adWSJPxrySQ4w=;
+  b=n3Cv3nPih7jUBd9JIwE5Pg3aqeMV+OdAB/w+/KKONsAUxd/7DYuQzeci
+   ZChy6Y1epHlESNxDhtRHm3SrSCiU12Kvcw3Q5/BJaUy2yZRPnF5P4nrHQ
+   q7r71CEeyUCJh8/JBFPVOCIEQZxmCxKaQgZr3/WO4cjJTNoEEfEwBkfLM
+   Dw0l7FKpb5sViIDVcvLXZlB42CFe4bihFKE+27mMW3GpeAQyfuuASYTPn
+   kZWYPZPgmOxlOu7aoULoiTAOlr7Bf9Deg23TMPO8bNCX8dAYOD6bpj4Ma
+   jsQr5Zb9xxYk0Ke3DlWvnHXcpAdr2RgVj+0gRVRw8jes+iJpvTsPyXHpM
+   g==;
+X-CSE-ConnectionGUID: 3udm8/EGSPaNWc0Bq0NcAA==
+X-CSE-MsgGUID: qDy2VMzhRAyl86fT3MEsTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="874444"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="874444"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:42 -0700
+X-CSE-ConnectionGUID: bSRXlOtVSZOQfVM12h86JQ==
+X-CSE-MsgGUID: EcAkDL28RuSW35z1IStPJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="2237555"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:21:38 -0700
+Date: Thu, 15 Oct 2026 22:21:35 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 3/8] gpio: pl061: drop redundant pending check in the
+ IRQ handler
+Message-ID: <atEnv-fSdwSDCcO1@ashevche-desk.local>
+References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
+ <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-cv75-gpio-v10-3-3fe3eb315a55@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Oct 15, 2026 at 06:53:30PM +0800, Long Zhao via B4 Relay wrote:
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+> for_each_set_bit() does nothing when the mask is zero, so the
+> if (pending) wrapper around it is redundant.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-- [High] nsim_bus_dev_new() now calls
-  dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64)) on…
-- [Medium] Before this patch, netdevsim page pools did not DMA-map pages.
+One nit-pick below, though.
 
---
+...
 
-netdevsim: support devmem RX and TX bindings
+> +	for_each_set_bit(offset, &pending, PL061_GPIO_NR)
+> +		generic_handle_domain_irq(gc->irq.domain,
+> +					  offset);
 
-The patch sets a 64-bit DMA mask on the netdevsim bus device and enables
-NETMEM_TX_DMA. It also creates page pools with
-PP_FLAG_ALLOW_UNREADABLE_NETMEM and a queue_idx, and adds DMA mapping
-flags under CONFIG_HAS_DMA, so devmem bind-rx and bind-tx can be tested
-against netdevsim. Finally, it refuses pp_hold when the queue 0 pool is
-backed by a memory provider and drops unreadable skbs in the software PSP
-checksum path.
+Make it a single line now
 
-> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-> index 5c55c308487b4..f87f5e037b6fb 100644
-> --- a/drivers/net/netdevsim/bus.c
-> +++ b/drivers/net/netdevsim/bus.c
-> @@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
->  	nsim_bus_dev->port_count = port_count;
->  	nsim_bus_dev->num_queues = num_queues;
->  	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
-> +	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
-
-[Severity: High]
-Can this oops on sparc64 when a netdevsim device is created?
-
-The nsim bus device has no DMA or IOMMU setup, so dev->archdata.iommu
-stays NULL. On sparc64, get_arch_dma_ops() returns the global sun4u/sun4v
-ops for devices that have no per-device dma_ops. The call chain is:
-
-new_device_store()
-  nsim_bus_dev_new()
-    dma_coerce_mask_and_coherent()
-      dma_set_mask_and_coherent()
-        dma_supported()
-          dma_4u_supported()
-
-arch/sparc/kernel/iommu.c:dma_4u_supported() {
-	struct iommu *iommu = dev->archdata.iommu;
-
-	if (ali_sound_dma_hack(dev, device_mask))
-		return 1;
-
-	if (device_mask < iommu->dma_addr_mask)
-		return 0;
-	return 1;
-}
-
-ali_sound_dma_hack() returns 0 for non-PCI devices. That would make the
-iommu->dma_addr_mask read a NULL pointer dereference.
-
-Even if the mask check got through, the page_pool mappings enabled under
-CONFIG_HAS_DMA in nsim_create_page_pool() would still go through the same
-arch IOMMU ops with a NULL iommu. CONFIG_HAS_DMA is set on sparc64.
-
-The return value of dma_coerce_mask_and_coherent() is also ignored here.
-Should a failure be handled, or should PP_FLAG_DMA_MAP depend on whether
-the mask was actually set?
-
->  	/* Disallow using nsim_bus_dev */
->  	smp_store_release(&nsim_bus_dev->init, false);
->  
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-> index b4a99f3ceac60..357ea9e5623b3 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-> @@ -414,19 +414,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
->  	return done;
->  }
->  
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns = netdev_priv(dev);
->  	struct page_pool_params params = {
->  		.order = 0,
->  		.pool_size = NSIM_RING_SIZE,
-> +		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-> +		.max_len = PAGE_SIZE,
->  		.nid = NUMA_NO_NODE,
-> -		.dev = &napi->dev->dev,
-> +		.dev = &ns->nsim_bus_dev->dev,
->  		.napi = napi,
->  		.dma_dir = DMA_BIDIRECTIONAL,
-> -		.netdev = napi->dev,
-> +		.netdev = dev,
-> +		.queue_idx = idx,
->  	};
->  	struct page_pool *pool;
->  
-> +	if (IS_ENABLED(CONFIG_HAS_DMA))
-> +		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
-> +
-
-[Severity: Medium]
-Pool pages are now DMA-mapped against &ns->nsim_bus_dev->dev. Can the
-deferred page_pool release worker end up unmapping against a struct
-device that has already been freed?
-
-nsim_destroy() returns the pp_hold page on purpose late, after
-unregister_netdevice() has already destroyed the pool via nsim_stop():
-
-drivers/net/netdevsim/netdev.c:nsim_destroy() {
-	...
-	/* Put this intentionally late to exercise the orphaning path */
-	if (ns->page) {
-		page_pool_put_full_page(pp_page_to_nmdesc(ns->page)->pp,
-					ns->page, false);
-		ns->page = NULL;
-	}
-	...
-}
-
-That can recycle the page into the retired pool's ptr_ring instead of
-releasing it.
-
-When PP_DMA_INDEX_BITS evaluates to 0, page_pool_register_dma_index()
-does not track the mapping, so the first page_pool_scrub() has nothing to
-unmap. Later the retry worker drains the ring:
-
-page_pool_release_retry()
-  ...
-    __page_pool_unmap_netmem_dma()
-      dma_unmap_page_attrs(pool->p.dev, ...)
-
-In this case there is no xa_cmpxchg guard, so the unmap runs
-unconditionally.
-
-page_pool holds no reference on pool->p.dev. nsim_bus_dev_release()
-kfree()s the nsim_bus_dev that embeds the device once device_unregister()
-drops the last reference.
-
-If page_pool_release_retry() runs after that, does dma_unmap_page_attrs()
-dereference freed memory?
-
-It is not clear which shipping configurations end up with
-PP_DMA_INDEX_BITS == 0, so this may be limited in practice.
-
->  	pool = page_pool_create(&params);
->  	if (IS_ERR(pool))
->  		return PTR_ERR(pool);
-
-[ ... ]
+		generic_handle_domain_irq(gc->irq.domain, offset);
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014161754.3782346-1-almasrymina%40google.com
+With Best Regards,
+Andy Shevchenko
+
+
