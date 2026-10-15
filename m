@@ -1,210 +1,198 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6C5331A66
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E208A5304BC;
+	Thu, 15 Oct 2026 14:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073654; cv=none; b=luuRi5U5JgEqb1zfAR05w/NMZF+cgLr9EBKzQ0dY6zKHqityJbSIlFUWdeahv0DtsspMj/4xGi/1n2O8BdJUdU411BMvTEKiT91pgDCygmybRpQOruENcHl/BKX6w0eN5Y+pKJLjP36fy0gnKYVkP9BO7Bm7fhwN/W9aHa2hRKw=
+	t=1792073658; cv=none; b=hean5uL+z+nQrMTHZoC8qM++EOvjAw2wIZy1L6UbiZYI+aY8Q9rJLdelfMdttZHyvn4ckLYfiCBU3o++KcKOb7HdM0B7Od56PfQuV4AZl3vr59DcH1y1PJVEyMfr79zSQzdfwxeYxtRftcP79T7SpbAKwtv4iiCuJ+3C0ugfs0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073654; c=relaxed/simple;
-	bh=7ABxntECG7NT779hQL1aoFYuMX7NmvO2shkDnYZLe0U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YZeYkawLgQzhAWdZP7P8hyOQpuRt235PAPM0MoB50sZoIIJpeGot28UmwAd+EpZRuXFb0Ikq1EnnEOJ4psB7yCaqyiQfK+gyOrPxhbp1h9syj+3k6xbtSEav26pN1L7zcD7oYu5oKYSFoAF5xtQOrTZS3MXXTLslctdaXUojgPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fuVG6CNt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L5gybcRF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792073658; c=relaxed/simple;
+	bh=ZCejfvmafwnBOk5vT8e9YPV7RwSvPgoJ0T7baK1aNEc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ft+GU2C9v2U4+31ABZLthKUOxQ5rVu1Qarq17TeHvbkBBLcHkmrwQnMjisEET4sEmU0G0+kizwmY5jNpjnYvGNU+SOn9YtioH4MAcwFetldffr9zQqDZZ7FjHCZeWhUuqnTTFQebJsxH1ZCeRUHzpxDaCy+C0cd0xDatcm6d1Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtXhzWod; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fuVG6CNt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L5gybcRF"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FAPdMx4100190
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:14:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AObEZGdXg5sS4kziMxlJgZbdtwqYN1gMq8xe9Kxgv3Y=; b=fuVG6CNtpVeDzjeC
-	Jy1A+tltQ2v5RBjkr4NxiTQUWZfkJa/J/uUXKKcr7tnG09KPwvsQiq18L0FB3RQg
-	65jqvdYfKNLwHqmbCBBgGAyKaFYPyPCVD4IsNgC0LXbX+wVFR8SMLquOJF4wGk91
-	lk4g438cMElVcsRH7rkZ+yCdTjyNSy+rJxTK8dZ4vEZECApVpbKddyqCKiH3R0Gr
-	kzoN+cwQFLH7F7OQcfgirYsLWQkEfIL4cFJbwSsfQMCETHemZP85R6x/FU58B1X5
-	11B2dTZRb1KQt6SgEzSZqc0EIm6Z8S5LIcSxqRk9+bOuiH/wJ1WFyxTAIwwsyWRR
-	EMxBXA==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2r8uyg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:14:11 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6f4d828b9eeso4054240eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:14:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792073648; x=1792678448; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AObEZGdXg5sS4kziMxlJgZbdtwqYN1gMq8xe9Kxgv3Y=;
-        b=L5gybcRFqxP9oEbASXdGB64L0EuL9xqVF/430r07hNXQRuUT805Aojd3wz0v+wnaEG
-         sRWxfpiBBxdTNibZJrq+9HK+cp6hfxx9xMffZSELw+ALy9lHG5CF6j8tkRmI624LlvO1
-         cbhZCdPjaFWRGjZM3wjFZgvPQD5rQmWBeLI2ridLShRMIoWrL0JZOTmFOHhPoplN75pa
-         1S/PhxctYK+Z0nZlMsYkXBMcz+KzFVvHjWq+Dy/l8f+93jfbuBkgiMHVvmpKyfKVcwu6
-         A3BFgF7iUnQOadv5r+7v6qhjwTyg58oDJ8GqiZ0sRBDh9h9cfHNQ5uZTh92Yed8GojfA
-         zu4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792073648; x=1792678448;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AObEZGdXg5sS4kziMxlJgZbdtwqYN1gMq8xe9Kxgv3Y=;
-        b=Amzit7y+J92PMNGEQVR0IWI/5WHQG33+KZYV6XJ08uR2hf4sChS6AnI7VWovi8sdn3
-         eu5yqDQQo/BBvHAkUosWJMnm6lezfT/BKOa2gCG+4BhP6KM/EWA7982f8mZEcRF/1Xmo
-         ThDc8LdAD36Z/TICq41oH1YxSlt/DDkQuWbN2N6gQtikB2Eu8VivpFLaspCYyicfas8n
-         semdH/GUYDGj/upQkikpGSuIxU+byhMC9qY45ebNyBoagHYeTs0ZcbIw0nu1Ad1Xff6o
-         Nz282y71MHJwqVDCSK7iZ1xM7Q7npCaMVGSM2kcfxQMjli3baLwqMPbOsI8ccxVAmFXP
-         omqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxY3PeTbmohIOraHOzD+BCqiWzUQlHB77Z25jgS/HYcNVNdR0RCghZ9piGILRZokjcqq8kZFhdI4gWupY4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLT/NPppUS7vk2wNd1eBkiruBRleCTC+N/NWoeTixYO0zYsVcbV
-	b608X32odI/7QLi0WYPWZPFH11wZ0gR5rYqOdahKrkleykjLKT44jQkKu4nTScw4QK1VQvqJxx8
-	crjiGF3oeqJKadyi6MqFBfFezf8q6k7+etkDFwiDSTQxE8f9GQX1d2kr0BX6pTKO53tY=
-X-Gm-Gg: AYBFou2fG6zgNe/11FGeHqhbVV0RvGEKZSXoMZjmVshoN/Qxi7LwVXpnbDC9aJe5Y0F
-	rX9IsJknn0ML2IdTf3FPBpkTU27v6DQrlyXuFiAnNBfXFRD++nk4oYJwxTFOA4shjgJIh8tCkOG
-	U0/j74LLy0KllCxalNXvyAhpSJT4PNU2XH/jlorXpL2q77s7Yhf+37G9SSZ3CMN/AKklK0fbi8H
-	BqOR9VhpxOBqaWJNsRIZOSgZ6zq2yAo3mRU8L5YPmRuZDvuD2uCu46MhmMqPUYyRkda5z/23WAa
-	SMRMs3VJ+YOsFxTSQ7y29Ocfaa2wMjSwl1QNll1QnrnxrGVnZpPO47jClmEgukbz4LfRxCdctMS
-	XoP6RbdqEwK6Fx9VpTMfmoO3azJSJpVggm94=
-X-Received: by 2002:a05:6820:625:b0:6f6:b13f:5d20 with SMTP id 006d021491bc7-6f6b13f60d7mr7841857eaf.23.1792073647589;
-        Thu, 15 Oct 2026 07:14:07 -0700 (PDT)
-X-Received: by 2002:a05:6820:625:b0:6f6:b13f:5d20 with SMTP id 006d021491bc7-6f6b13f60d7mr7841843eaf.23.1792073647119;
-        Thu, 15 Oct 2026 07:14:07 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6f47500ae30sm11366719eaf.1.2026.10.15.07.14.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:14:06 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 19:43:11 +0530
-Subject: [PATCH v1 3/4] ASoC: codecs: pm4125: Keep the micbias reference
- count balanced
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtXhzWod"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFBEA1F000C4;
+	Thu, 15 Oct 2026 14:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792073656;
+	bh=UgdqyF6FEN8olbz6l9+spc+Bapy75+BcU13cALLW+eI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MtXhzWod9jpMv2PHNRke7nFXeXMTCxfQmq1SByHN/ACefsv1CJ40kxnEmYNPzEqHm
+	 knVkDXnJrIKBc5IkEo/4zRzB59Vm2fD+RdnEwKresx9fecoGg6SEvizJu6nOwq2v0t
+	 XChs7uSw9Rn6UwqnLvI4FQUHke9LV6VhBDdmQODyh75Wj82lKG5hl4Cd5xd37+B7YH
+	 7/tuNjR7X1cHa0nBeuEek/QA863n2R+XLbnnnyckmFO6o2UiJktkSKVS7Yu5LtHphA
+	 aM3Yb4Md1bBwpIeDA+NkUo/xOzJ1wGHTv27be6RQIhBnWeIDa2aSmWu71s/kh2slh8
+	 5g+/y/3hlS2yA==
+Message-ID: <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
+Date: Thu, 15 Oct 2026 16:14:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
+ lock in copy_huge_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-pm4125_mbhc_support-v1-3-8bc1212db6f7@oss.qualcomm.com>
-References: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
-In-Reply-To: <20261015-pm4125_mbhc_support-v1-0-8bc1212db6f7@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792073622; l=2940;
- i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=7ABxntECG7NT779hQL1aoFYuMX7NmvO2shkDnYZLe0U=;
- b=dsIGx5n/RBHXvfyT99BuqfU0aQTpwd447tfJBU06n8FLUdS9pUoxzu6bEsoW1koHRb3vQwZ9U
- 5WWC3ngYO4EBXGu37yz5k38PFjj28Z4OeXOEqXn6+Rwo+nYpByv/S2S
-X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
- pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfX1Rfw7Gfa+QTz
- qf487NOIRuBMSB4VdUTdHK59ak+SVpPdyz7UjVEa6ZW8lRdZ9R1BYmmF15b/3/6sYDu0OEijeMX
- LE6X0nGqTJ9GwEnAUoN1kMrf/PzbI4w=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NiBTYWx0ZWRfXyCfiViRjYvuE
- TBubCG8tPIPOaQlXe37/nRuq2CEjddhtAsyeDCOPoL84irxItGHG8RNOZOPQsZA8CR+GU31ejLb
- cf/vsqL75Q4NHaLJFqnx+OiNWBKC+7j+oqgRufxcL7uN1Wle/ExOs4suLeYZE288D28HYMx6Ckh
- uj9CRV8jGxYY/D/KVqr2ZsHc8nNjNPqS7KdFXiTx3xcl0/oOLr+aASYtAlruFUAUttzAi1Am5dk
- hGoVPjRgiuGIozQIWkdQjDmw5U8y8JrL3KHNxMbQc+C0FOp6yzfa67RlBuQ2gGObwZYbqzVa1bc
- vg28lqveOmXDT51ssGJCjbfsPHdMEWxS8RgvR2kSCHsWWHrwLhoZxQ+GxfaIj+y/aZHYhTc2swp
- 8/MtUoFBz8og7NiWKiz5AfOEbFqWYUrjvIEv8NHryoEylNIP9dz+Hw9xD4iClFr/LSHS2+Wbgto
- q070ACX8QuFFEEdib5Q==
-X-Authority-Analysis: v=2.4 cv=BNMmP1QG c=1 sm=1 tr=0 ts=6ad0dfb3 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=a79-ETRTX09cNbBUWbcA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
- a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-GUID: Lear2GxgaeCLagY_LFgrc5T9ZVYmfYpa
-X-Proofpoint-ORIG-GUID: Lear2GxgaeCLagY_LFgrc5T9ZVYmfYpa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150056
 
-The analog master bias is shared between the microphone bias supplies
-and the playback and capture paths, so pm4125_global_mbias_enable() and
-pm4125_global_mbias_disable() reference count it and only touch
-PM4125_ANA_MBIAS_EN for the first user and the last one.
+On 10/14/26 17:46, Konstantin Khorenko wrote:
+> copy_huge_pmd() reads a special PMD without the page table lock and
+> copies that value to the child. The mmap write lock held by fork does
+> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+> lock.
 
-MICB_DISABLE clamps the per-supply reference count at zero but then
-evaluates the enable and pull-up counts regardless, so a release that
-has no matching request still reaches pm4125_global_mbias_disable() and
-drops a reference it never took. The MBHC framework issues exactly such
-a release: it takes MIC_BIAS_2 once when it starts detecting a plug
-type and releases it both at the end of the correction work and again
-from wcd_micbias_disable(). Inserting a jack while a stream is running
-therefore switches the analog master bias off underneath it, leaving
-the path up but silent, and it stays silent until another stream takes
-the first reference again.
+For a special PMD (that is not the huge zero folio), we need to go through
+vmf_insert_pfn_pmd()->insert_pmd().
 
-Return early when there is nothing to release, so the hardware is only
-touched for a request that was actually made.
+I would have thought that unmap_mapping_pages() is only called in corner cases
+when we would have concurrent fork().
 
-While at it, use atomic_dec_if_positive() for the global count.
-atomic_dec_and_test() lets it go negative, and once it is negative the
-next enable increments it to zero instead of one and never re-arms the
-bias at all.
+Like vfio_pci_zap_bars().
 
-Assisted-by: Claude Opus 5
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
----
- sound/soc/codecs/pm4125.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+But yeah, likely there is a theoretical race.
 
-diff --git a/sound/soc/codecs/pm4125.c b/sound/soc/codecs/pm4125.c
-index 923318c78..2100f4e36 100644
---- a/sound/soc/codecs/pm4125.c
-+++ b/sound/soc/codecs/pm4125.c
-@@ -229,7 +229,7 @@ static int pm4125_global_mbias_disable(struct snd_soc_component *component)
- {
- 	struct pm4125_priv *pm4125 = snd_soc_component_get_drvdata(component);
- 
--	if (atomic_dec_and_test(&pm4125->gloal_mbias_cnt)) {
-+	if (atomic_dec_if_positive(&pm4125->gloal_mbias_cnt) == 0) {
- 
- 		snd_soc_component_write_field(component, PM4125_ANA_MBIAS_EN,
- 					      PM4125_ANA_MBIAS_EN_V2I_MASK,
-@@ -772,8 +772,18 @@ static int pm4125_micbias_control(struct snd_soc_component *component, int micb_
- 		}
- 		break;
- 	case MICB_DISABLE:
--		if (pm4125->micb_ref[micb_index] > 0)
--			pm4125->micb_ref[micb_index]--;
-+		/*
-+		 * Ignore a release that has no matching request. The MBHC
-+		 * framework releases MIC_BIAS_2 once when the plug type
-+		 * correction work ends and again when it turns the bias off,
-+		 * and honouring the second one would drop a reference on the
-+		 * shared global mbias that was never taken, switching the
-+		 * analog master bias off under an active stream.
-+		 */
-+		if (!pm4125->micb_ref[micb_index])
-+			break;
-+
-+		pm4125->micb_ref[micb_index]--;
- 		if ((pm4125->micb_ref[micb_index] == 0) &&
- 		    (pm4125->pullup_ref[micb_index] > 0)) {
- 			snd_soc_component_update_bits(component, micb_reg,
+> 
+> The zap visits the parent VMA before the child's, as dup_mmap() links
+> the child right after the parent in i_mmap. If it clears the parent PMD
+> after fork has read it, and passes the child before fork copies it, the
+> child keeps a mapping the driver has revoked:
+> 
+> - vfio-pci: the child reaches the BAR after the device memory was
+>   disabled or the device was reset, instead of getting SIGBUS;
+> - panthor: the child maps the pages of an evicted buffer object after
+>   they are freed.
+> 
+> Read the PMD again under the source PMD lock, which the zap takes to
+> clear it. Either the zap got there first, and the PMD is none, or the
+> copy is in place before the zap reaches the child. Faults are locked
+> out, so only a zap can change the PMD, and pmd_none() is the test.
+> 
+> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>  mm/huge_memory.c | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 1e5d68acf62a5..bf788bb231691 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		src_ptl = pmd_lockptr(src_mm, src_pmd);
+>  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>  		/*
+> -		 * No need to recheck the pmd, it can't change with write
+> -		 * mmap lock held here.
+> -		 *
+> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+> -		 * mapping, otherwise it means either the anon page wrongly
+> -		 * applied special bit, or we made the PRIVATE mapping be
+> -		 * able to wrongly write to the backend MMIO.
+> +		 * The mmap and VMA write locks of the source keep faults
+> +		 * out, but unmap_mapping_range() does not take the mmap
+> +		 * lock and may have cleared the pmd since the lockless
+> +		 * read. Let copy_pmd_range() skip it then.
+> +		 */
+
+TBH, I think we can drop this comment entirely. That's just simply the right
+thing to do? :)
+
+> +		pmd = pmdp_get(src_pmd);
+> +		if (unlikely(pmd_none(pmd))) {
+> +			spin_unlock(src_ptl);
+> +			spin_unlock(dst_ptl);
+> +			return -EAGAIN;
+> +		}
+> +		/*
+> +		 * Make sure it's not a CoW VMA with writable mapping,
+> +		 * otherwise it means either the anon page wrongly applied
+> +		 * special bit, or we made the PRIVATE mapping be able to
+> +		 * wrongly write to the backend MMIO.
+>  		 */
+>  		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+>  		goto set_pmd;
+> 
+
+But why do we do this early copy dance *at all*? I think I complained about this
+vma_is_anonymous handling in the past. vma_needs_copy() is the one deciding
+whether something should get copied or not.
+
+So, can't we just get rid of the vma_is_anonymous() handling and perform the
+weird special-pte check (that I hate entirely) when already holding the PTL?
+
 
 -- 
-2.34.1
+Cheers,
 
+David
