@@ -1,83 +1,38 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4C049EC40
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974BB4A205D;
+	Thu, 15 Oct 2026 08:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053856; cv=none; b=NyYImFsN1QRLyHD79rWhz2OEsuC9Cbc0G+c3X4E5Y5av4FAbmfOudACw6K6sybgkuiYzkXO0Gzk93bpdSMRNa+7g6yBOTtQtoVMqnp7t9rcre4XzlXo7+Uq3QZUtng+4lasNz7ckAI6qXpgj7UvRGrPFzICvKCt78Orz/vO/giY=
+	t=1792053863; cv=none; b=b1cAJNdabzbit+BhXkzIdSBICo1Yd3Dy3DOZg22XiRWDjDj7zlGRfQLz6Y79ShaG8uX3yqGP055UI9cOMXM/7zqLDhAOfP2FzL4v5O0mxWXZBIqYyknxU3Y1tCDVwSX6hxxGVktHFWvB/tevbBNOTiKInqKTA8UrVtgQo2ko8Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053856; c=relaxed/simple;
-	bh=SlB68F3f+BdlirJUEjyixhDsOheZ/zyFCqTY5noaKsY=;
+	s=arc-20240116; t=1792053863; c=relaxed/simple;
+	bh=2prWKZldvCX2n0mxqHkwqsegVwBYc4lTQjmzG6E2h2E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=akA5Sx0eUXIxrAE3XNl4Sv9b0tF6wBZedGptjspITHvGoVpipB4hDtaBrGLKjMa0nTn7qSzl6pDfQjtNOKi/QplQDt9gLtukLA1NBQrbxC31NMfP0E/+t/EJ25Ecki2OZDc+K4ufvP27gDbbGnGxIUmxR1XEmr1Knt1hClkhgxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Qu38pjZv; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KKNlhbueUclxSLcwVsNSMZtSxmo9hFbm2hiimclikDRp/Uand5dm1WQGpyxEtcV61VCXRXppVomAC5lIm5WqS0Q6iQ/snsy4n6PxaY7UsSZHbgeWA6s3vBrYXo3Nvs2Pr8Hj5+VWq4C+7KUwBAnXve3G7yNBXEQU3s1YwlzF2ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sc/veeA7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Qu38pjZv"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso16364515e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792053853; x=1792658653; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7CSJIT17g58+oITTv0q53z5VUcT+bUH2Z8uN5LCucOA=;
-        b=Qu38pjZvJ/9yhCQf/QKDuagSkuepfr5Kk4tIXVsmZhlVJ/NmU/xNH8es5/NAEIsURr
-         yrmv9zxxVdZYiRB2SrFmfZYTl/wvPWUtOWhcyZdQI+x7U3A2zKuZwiWQ6z/t0oDn0xw3
-         nUXE/xKb8VNb9VQF7TLqOuEtHg4nMfke9frKMXzHZLx0M0Y8b4l8Qst9eiJ9uIfrkqVo
-         7SybQMAYfEgETv8MPcq2JMabHLhSg2gR7tpiMCubNSVkLMl5J7vhr9gf5BavxFLBBiog
-         cnLE8Q+afMWLx4G8S2fD59alFjbU2N/25/ZiDwdvWe9CFq4QBDFc40wcELPL/AwHOq2g
-         PcwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053853; x=1792658653;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7CSJIT17g58+oITTv0q53z5VUcT+bUH2Z8uN5LCucOA=;
-        b=nYPIkMzmaSoig3oyASK+a75EqJDBLIx03ypOWmCUgtkJargbmP8RiNlhjq+KUqn4TS
-         miCvo9vBEf3rfNkqMPuyn6oefbD7WuJ8NHLnVoVAxBTpApN19sB4IjZWr2DZDrxYCegB
-         ThgkUmAyorw2zIzMJ/rKxHQ4ITdfid64SFvjx/WtgDHzgeXisDVS2ZfG0R7XuZNP8pwR
-         WEhS7qsY+0Jh1gua3xRfROEQ4TzdfAZn60KzMh3RemFXX6vxRpYU3qLhbOv0QGli5GYJ
-         BPbUDFqabW7SWcRrrgn+7Jhe/WtTpD5yAL1/m3j0BXHxwGyZ49xesq0HVtdwK/oXgeEC
-         LPoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBM9yFdUaH4ykIPxmmxYqykedhhj7ngm5+u1zLyDolSbp4nhyPvDi2PKov/3oKi4K72mt++wyJuS2AsdY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOTKsXYRdN/nc4Vk1c6NI3m5ZRUQRACwdM323HDTjZNZk5kHwf
-	8Y182dsH6iqhQF9yyiU+dkYPGOpyGaXvb69FF9kGAWHUcjJhGtDw6j/+c3dET1EgwRcFD1gXEHz
-	ae4yW
-X-Gm-Gg: AYBFou3Ke3fw5kTAeOOdV/n8hARq4oi8zVAJBRTHGLh/cOIEZpH/9CeTc6U9uhJrZ7r
-	0QA2XK1+Iqy5mscaM36CEtDclc19zgTb8hAflGRmxfHw+O9wYz32X2xGvu9tEPHHisl2rflNoKD
-	Zn9wHlp7kfT6je2a3qOUiFt+NLHP69cSQXKfo6/vxd1zEosfkvGEyj4xBR+9S2Wn1wE+qMY4ZfV
-	FP/OHT5WZwO0zXGAPTc7+91cPChqAn4xOxanHnnT5kFm3bVyZspuHtWK8dCqJIsDBKqd0u4rOeI
-	gxUrgA300+MCvucsbThfqbPYSzTq7SzP15T3Pa8nlFXcFwM/gCF9O5okEpYufZsu/9wBgVKSKzI
-	hGEzqk1+VNaWW0LIXgqxtb0BCFtDfEmt+brMXlcwo58CTen5l8b67M3s/5a6b3LQT2kt1d1iJeh
-	llcvouuaz4NYHpwxftUlZpYkCJgtVHaqz5TKeEvXfb5Q9EOoah0s01/voGyVO78mcTosIeL1Rwz
-	bKinzPFZVUM+AQ/pyUD0VKpuRherzoy7vP7IvUutrvo8PJs0YTA3OwcA/4+VzTZskEGr0bnu8UD
-	ucysv3Rav/kWw5vjMR7bGfFVlgU2+dPd0q1wtLWouIY1EQ486BA6CuY3NRU=
-X-Received: by 2002:a05:600c:c092:b0:4a1:9831:a69c with SMTP id 5b1f17b1804b1-4a19831a9f7mr220004565e9.30.1792053852671;
-        Thu, 15 Oct 2026 01:44:12 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993caesm110794555e9.12.2026.10.15.01.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:44:11 -0700 (PDT)
-Date: Thu, 15 Oct 2026 09:44:09 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, donggeunyoo.kernel@gmail.com,
-	ansuelsmth@gmail.com, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: qcom: qca808x: Add regulator
- management
-Message-ID: <atCSWZQAyqvz62_K@aspen.lan>
-References: <20261014172300.292324-1-elder@riscstar.com>
- <44a96544-5ed8-4bdc-8757-d7413e221f40@lunn.ch>
- <4c0d9a12-6236-4bc5-949c-62a092edb0bc@riscstar.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sc/veeA7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D8F1F000C4;
+	Thu, 15 Oct 2026 08:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792053862;
+	bh=cEX2ZWAeYBdoqlVT1gjPGchlDWE0HZwfagWF9vIwj18=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=sc/veeA774ZDxO59Bzz4Obxxf5hzNa3lpmx2kWb7ZhJTZAYOxvUrYlHbgIxYpwWK8
+	 8ImScpq65vwXsfUIXljQzUpMSA3VNaZT8tuXFqq7MsWW9676+61j8QCKByRutgT6Kb
+	 NCD25k/rYfSDylUkNqNQRag7y9Nf0mmoZyboRB9U=
+Date: Thu, 15 Oct 2026 10:44:26 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Haoran Wang <haoranwangsec@gmail.com>
+Cc: rostedt@goodmis.org, mhiramat@kernel.org, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+	security@kernel.org
+Subject: Re: [BUG] tracing: __copy_from_user without access_ok leaks kernel
+ memory in syscall fault tracing
+Message-ID: <2026101539-rinse-refocus-8203@gregkh>
+References: <6ad07a3c.6e2bf4e6.f29cc.dd67@mx.google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,79 +41,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4c0d9a12-6236-4bc5-949c-62a092edb0bc@riscstar.com>
+In-Reply-To: <6ad07a3c.6e2bf4e6.f29cc.dd67@mx.google.com>
 
-On Wed, Oct 14, 2026 at 03:41:20PM -0500, Alex Elder wrote:
-> On 10/14/26 12:36 PM, Andrew Lunn wrote:
-> > On Wed, Oct 14, 2026 at 12:22:59PM -0500, Alex Elder wrote:
-> > > From: Daniel Thompson <daniel@riscstar.com>
-> > >
-> > > QCA8081 appears in embedded board designs paired with GPIO controlled
-> > > regulators for its power rails. Add logic to allow these regulators to
-> > > be turned on during a probe.
-> > >
-> > > In order to avoid the complexity of tracking state for suspend with and
-> > > without WoL we take a tremendously simple "always-on" approach to
-> > > regulator management, essentially relying on BMCR_PDOWN to conserve
-> > > power when the phy device exists.
-> > >
-> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > > Co-developed-by: Alex Elder <elder@riscstar.com>
-> > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > ---
-> > >   drivers/net/phy/qcom/qca808x.c | 30 ++++++++++++++++++++++++++++++
-> > >   1 file changed, 30 insertions(+)
-> > >
-> > > diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
-> > > index bab26e4c61408..6e2bd753257d9 100644
-> > > --- a/drivers/net/phy/qcom/qca808x.c
-> > > +++ b/drivers/net/phy/qcom/qca808x.c
-> > > @@ -1,6 +1,7 @@
-> > >   // SPDX-License-Identifier: GPL-2.0+
-> > >   #include <linux/phy.h>
-> > > +#include <linux/regulator/consumer.h>
-> > >   #include <linux/module.h>
-> > >   #include "qcom.h"
-> > > @@ -181,15 +182,44 @@ static void qca808x_fill_possible_interfaces(struct phy_device *phydev)
-> > >   		__set_bit(PHY_INTERFACE_MODE_2500BASEX, possible);
-> > >   }
-> > > +static int qca808x_power_on(struct phy_device *phydev)
-> > > +{
-> > > +#ifdef CONFIG_OF
-> >
-> > Does this need to be conditional? It seems like
-> > devm_regulator_get_enable_optional() should return ENODEV, which you
-> > already handle.
-> >
-> > Making code this like conditional makes build testing less useful,
-> > more combinations which need testing.
->
-> This is a really good point.
->
-> > Another option is
-> >
-> > 	if (IS_ENABLED(CONFIG_OF)) {
-> >
-> >
-> > 	}
-> >
-> > That at least compiles the code, and then the optimizier throws it
-> > away when it sees  if (0) { }
->
-> Yes I like doing it this way better.  I'll modify it
-> to be similar to this for v2, which I'll plan to send
-> tomorrow.
+On Thu, Oct 15, 2026 at 03:01:08PM +0800, Haoran Wang wrote:
+> I'd like to report an issue in kernel/trace/trace_syscalls.c:686 (function
+> syscall_copy_user_array), found via static analysis of Linux 7.0.11 and
+> verified against the 7.2.10 source tree. I have reproduced the leak on an
+> 7.2.10 kernel.
 
-Reading things back, I think Andrew's first suggestion of having no
-conditional might be better.
+Cool, but you forgot to also provide a working patch for this?
 
-devm_regulator_get_enable_optional() is log-silent on failure. I suspect
-the reason this code was conditional is that an early version used
-devm_regulator_get_enable() which is not log-silent when it falls back
-to a dummy reg.
+> 1. Summary
+> The "syscall fault tracing" feature (added in 7.0, CONFIG_FTRACE_SYSCALLS)
+> treats the raw syscall argument args[1] (the buffer pointer) of faultable
+> syscalls (write/pwrite64/ mq_timedsend) as a user address and copies it
+> with __copy_from_user(buf, args[1], size) without an access_ok() check.
+> When a traced process calls write(fd, <kernel address>, count), the
+> sys_enter tracepoint fires before vfs_write's access_ok and
+> __copy_from_user copies up to 165 bytes from that kernel address into the
+> per-CPU trace buffer, which is appended to the sys_enter_write event and
+> readable from /sys/kernel/tracing/trace. The write() itself then returns
+> EFAULT, but the leak is already complete. copy_from_user() would have
+> rejected a kernel address via access_ok(); __copy_from_user() does not.
 
-I suspect I was more influenced by the log-silence than the marginal
-code size cost on a CONFIG_REGULATOR && !CONFIG_OF system.
+This is root-only, so there's no security issue really, right?  Or am I
+mistaken?
 
+thanks,
 
-Daniel.
+greg k-h
