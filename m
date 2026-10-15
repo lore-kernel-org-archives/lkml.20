@@ -1,64 +1,67 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EC352E058
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F0F524B14
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082369; cv=none; b=KzBQJV54fBiEtUlNMEbhsaHVQAmd6W3ZoVN0+o/X+GKsjHd3Kp+deAqALR4xwOqpa/m/uNaFIXmeIFJzH8OkTFW/hBOVfgsx9l9AdpVC09eyxGbsFQv3iUpFl71jVdK9tK5FtSTnOKTyrIKpGvvvBVI6rc7wjx2OK6UaeK3wg+Y=
+	t=1792082373; cv=none; b=XleYTO3+S2030ZMNrBiIozuIXJMF7Fskmeu9wtV5h1LIaPKpRT2JLmseFWYzgNiViS4qR3UkhtwV6tNpHluvryqwB3OUATdQDHrojrbn8xWeVHQOOMUMyXGK8eF88fC91t5mhSCHwbPRcqrmAsxQUDicjdADbib77PZja9rUyNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082369; c=relaxed/simple;
-	bh=E+zSoTtuwkYhdpk9ljOm3Z9OJ5QmHoC4r8hcYNR5OJM=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JBgVyxww/gmQjikLP5Hd/F3RZLKvh6nx3LPnGPYbMdezVOcgK/oVdXzFDz+S7sCp+gEwNRHrYSvaiMy6rF9nnrgAOfYKkuo5HRdGoNIm6P9CJuY5Wtp5XOCsHRvP8ZqXhE8QZpgJkxy1syptzYCSsyTlwsQMqatdsze1iZ1Gsqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XSSUXbK6; arc=none smtp.client-ip=74.125.82.198
+	s=arc-20240116; t=1792082373; c=relaxed/simple;
+	bh=Txx+SO8uwxuJ3Ktm0Hsppbh1+qsaoXJIVwNfp/iA60c=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=sdcpuZhRNWeBy30VvMYFabrDWM1FGVRc24hzfo91sjdGUgOldRLFzKD9aLGaYszcADLN/tQJyAzPU2hSg+W5Ew1/Yj5fIJUwXrg5ieAZAhyGA6qa0z9gNBQoVSyPfDxkpvNy7VtBqq0DOVxVShE8Yc8gKFrAgOmEy/Qf2GpHzMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dloQYJ5G; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XSSUXbK6"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3592749a017so123375eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:39:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dloQYJ5G"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c5aef2a74so4226681eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:39:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792082357; x=1792687157; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
-        b=XSSUXbK6SPBy0cpT4zSFmyOcz1BG3NJbuSHIHTwgfwg38ivDGGFFtZg57kikXFOf86
-         Upbsf6HUZoHOSuCcGY/tdc8Tu6gn4zcSZNrAZKRD/rwYj8WV//kHq3PhNkXBWwU3pU4J
-         umYWCJ3bF6htuT9/rw3n4/SABRG0B1OFz4L5El1+nC2EcRo+PTRXk4luqVnpfPmk4j8B
-         27LkfEGiUvMOS987K3kCl0F7GFhTDc4yP1MWiECJY3HLisTpHhxMCF7D5HbB7d4wCYCz
-         uT2TkyjmSn7NDw2jOO9AIqd81fnJXuABDgz/mrqRAnUeL+2fn4MjXBxyU8433NasJlMP
-         Mnjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792082357; x=1792687157;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792082359; x=1792687159; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
-        b=FEil/XkKfoMNvhRysYAqFuW9YkHzqX1GDzNNsfYAQdDRwRMiXnnqn9xVIi0s3HXhO6
-         ggrFdBqwsTI1YctonBvHG47GOznmbJQQuHqMWagr7Zdvk443AmHwAKS28dG/Rp12VXJh
-         KoA0efF5pQorrApUIEw6fTeF+PjH9rXawkI9gdaJTr/N05iHaQSEahyp7OZbrYBZ5kyE
-         ur2zVBfsbTws+zds7s7rX6+VoI/5u3BlbFdFdNe0UfjTUycgkKQz+Vk39lsNy/aMQibE
-         zcg+kJeJ3NP/UWmmqNY8HCH+L/hNfYOoO8IJhKQVLc+nd2TuqyK9IGKT3sL/Vc+5G8vl
-         FytA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJEBVeK8xk6nC6FnieGWMiVCnOlsEVmuAPwj1hMvTIKU1kQmtKfzz3k5vf+V1UJQiU+CN6VgUCCxRSodI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyYuGcUamvHKuSmeGs8Inff/71k4QwtxionxT7fHpij2eLOQCT
-	TDL3ZZoJ1w+ql+4Lbk8qx3hbKok+wugV9JxH+sc0rjTYkfJHApbVF0+mb/qkPVRodmJODJiJDxR
-	jxqx3N6A1649MZEsB61yXn2OmwQ==
-X-Received: from dlbut14.prod.google.com ([2002:a05:7022:7e0e:b0:152:9a82:8c78])
+        bh=7vrwp4HC01Z0kE3Wy37HFrMt6VtKQXq+YFsCUGH+2uM=;
+        b=dloQYJ5GNV0bEqh9RgMaDW7gbbP4NocC2aINiEXJ9dxt2CfEfR6V/aSfqruRWKpcXw
+         jJP+vHmCEtjmyNnMj+ZgtznwQGpzFnRkCExnGXkifJusM4Ja+0bDJ6f3Z0gNZZsfweGe
+         318zRti4x0BNUjPcr5J0HdWg17o7eR79TaF3j28/UKaH9f5KGLJWtCQ3IwvHWm86wmVN
+         NkvsTJ1SIDuUdo6N88W0EcbOc/cD1C+X1Z4fzyZcLPmOJOu1OWOnz3pn1ECjjc8E1+No
+         6xmnswuPfqGN6zZ/fg4MfVl7ssih7dhOEFWv1ocPZDUtnqXAK5Soms0IqfYMpX6JwYtQ
+         BWbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082359; x=1792687159;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7vrwp4HC01Z0kE3Wy37HFrMt6VtKQXq+YFsCUGH+2uM=;
+        b=HBZKKMq+gSKaeYPa0dJBdOP0Xa3SMfLolXi7+RSnvQ/FwUpLRst7sNKp4XT9MYU4MN
+         kKK+tkC1bg0UCPczhd70nffMbRc4a2UB1y2QKV34rcLtyEVNRZaRo41iIlXdgTRMTLdU
+         pGQYBLi+R6sE3hWAVJz8dE7KyEjTX6+YErd1HA05EtP98kROTaximTbCfo+GuQDEP4M5
+         Sa+ooNDVVPCm+qfm5Q5K3eW7hSZe5TCr+IhxJ28jrIcfCIBgAej8H287m98AqNdy0+Y5
+         G9LLKiDk9/+8VZ1ywFfnrgttfaInSDD1+ah3TXY5DoqlIA3hcDsKvdqXZREuYizsaB7S
+         HHHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+Xf3DceY7VUM7FUtSR9M7QEFL6FRbL4o29m6XS83rrHAWSkUoZby0bp4y3jcmzywHiEOUhKJW20gBiq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKu2u0H7LQciSNNvEcvvnUSOygdoBBJZuiHkzkMy7tRqbwF7ch8
+	hlJ5PQGuiKZGnbsoOqgKw9+Ikl8IYIdjswiwZVVK4ARNhZm8Ugvc5hPTgzL11ilmgJr0fIcQj8g
+	PmjbEYSi2PbS9mJ/lHynADltOTw==
+X-Received: from dybtm1.prod.google.com ([2002:a05:7300:f0c1:b0:358:cd5e:4e5c])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:6b9b:b0:156:d588:c881 with SMTP id a92af1059eb24-182500534eemr688262c88.2.1792082356249;
- Thu, 15 Oct 2026 09:39:16 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:39:11 +0000
+ 2002:a05:7300:e002:b0:35d:5a2c:2321 with SMTP id 5a478bee46e88-35d5a2c2980mr8679042eec.20.1792082358745;
+ Thu, 15 Oct 2026 09:39:18 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:39:13 +0000
+In-Reply-To: <20261015163915.1166043-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261015163915.1166043-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261015163915.1166043-1-almasrymina@google.com>
-Subject: [PATCH net v4 0/4] net: devmem: fix RX and TX binding teardown on
- device unregistration
+Message-ID: <20261015163915.1166043-3-almasrymina@google.com>
+Subject: [PATCH net v4 2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
 From: Mina Almasry <almasrymina@google.com>
 To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
 	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
@@ -75,93 +78,133 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>
 	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
-add netdevsim support plus selftests covering both RX and TX device
-unregistration:
+TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
+mp_dmabuf_devmem_uninstall() never runs when binding->dev or
+binding->vdev unregisters. As a result, binding->dev and binding->vdev
+dangle pointing to freed struct net_device memory, and the dma_buf
+remains attached and mapped after device removal.
 
-1. net: devmem: unmap dma_buf synchronously on queue uninstall
-   Synchronously unmap and detach binding->attachment under binding->lock
-   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
-   or closed in net_devmem_unbind_dmabuf(), and unmap unbound RX bindings
-   whose queue failed to restart on NETDEV_UNREGISTER, preventing
-   slab-use-after-free in dma_unmap_sg_attrs() when the binding is freed
-   after dma_dev.
+Closing the netlink socket after netdev unregistration dereferences the
+freed struct net_device in netdev_nl_sock_priv_destroy():
 
-2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
-   Extend net_devmem_dev_unregister() to fully detach and unmap TX
-   bindings when binding->dev unregisters, or clear binding->vdev alone
-   when only a virtual device unregisters while binding->dev lives.
+  BUG: unable to handle page fault for address: ffff88824ca9b000
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
+  Call Trace:
+   genl_release+0xf5/0x190
+   netlink_release+0xd01/0x18d0
+   __sock_release+0xb0/0x270
+   sock_close+0x18/0x20
 
-3. netdevsim: support devmem RX and TX bindings
-   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
-   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
-   can be exercised in software selftests.
+Extend net_devmem_dev_unregister() to TX bindings, including ones
+whose netlink socket is already closed but which TCP retransmits keep
+alive:
+- When binding->dev (the physical DMA-capable device) unregisters,
+  clear the binding's NET_DEVMEM_BINDING_LIVE mark and both
+  binding->dev and binding->vdev, and unmap the dma_buf under
+  binding->lock. No grace period is needed: the device is already
+  closed, so nothing hands the DMA addresses to the hardware anymore,
+  and concurrent senders only compare against binding->dev.
+- When only binding->vdev (virtual device) unregisters while
+  binding->dev lives, only clear binding->vdev so no new TX sends match
+  the virtual device while allowing in-flight TX packets on binding->dev
+  to finish DMA safely.
 
-4. selftests: net: add devmem RX and TX netdev unregister tests
-   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-   to tools/testing/selftests/net/nl_netdev.py.
-
+Fixes: bd61848900bf ("net: devmem: Implement TX path")
+Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
+Suggested-by: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Kaiyuan Zhang <kaiyuanz@google.com>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>
 Cc: Tariq Toukan <tariqt@nvidia.com>
 Cc: Kaifeng Wang <kaifengw@google.com>
-Cc: Dragos Tatulea <dtatulea@nvidia.com>
-
+Assisted-by: LLM
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 ---
 v4:
-- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
-  are closed, and make netif_mp_close_rxq() report queue restart
-  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
-  queue failed to restart. Drop net_devmem_lock: walk the bindings under
-  the xarray lock and take the instance lock of binding->dev in the
-  final free. (Stanislav) Record a queue in bound_rxqs before opening
-  it. (Sashiko)
-- 2/4: Detach and unmap TX bindings directly from the walk, without a
-  grace period or a second pass. (Stanislav)
-- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
+- Detach and unmap TX bindings directly from the xarray walk, without a
+  grace period or a second pass (Stanislav).
 
 v3:
-- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
-  and skip it when the device only moves to another netns. (Sashiko)
-- 2/4: Detach all matching TX bindings, then synchronize_net() once
-  before unmapping them. (Sashiko)
-- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
-  pp_hold on memory provider pools, and drop unreadable skbs in the
-  software PSP checksum path. (Sashiko)
-- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
-  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
-  add the needed config options. (Sashiko, Dragos)
-- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
+- Detach all matching TX bindings first, then call synchronize_net()
+  once before unmapping them, instead of once per binding. Don't wait
+  for a grace period when only binding->vdev is cleared, since vdev is
+  never dereferenced (Sashiko).
+- Don't detach TX bindings when the device only moves to another netns
+  (Sashiko).
 
 v2:
-- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
-  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
-  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
-  the binding->lock and binding->ref comments. (Sashiko)
-- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
-  which now also covers unbound TX bindings, and clear the LIVE mark
-  instead of erasing the ID. The walk no longer uses RCU or takes
-  binding references (Stanislav).
-- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
+- Build on the net_devmem_dev_unregister() walk from the previous patch,
+  so unbound TX bindings are also detached (Sashiko). Clear the
+  binding's LIVE mark instead of erasing its ID.
+- The walk holds net_devmem_lock, which the final free also takes
+  before erasing the binding, instead of using RCU and
+  percpu_ref_tryget(), so it no longer takes a binding reference
+  (Stanislav).
+---
+ net/core/devmem.c | 22 +++++++++++++++++++++-
+ net/core/devmem.h |  3 ++-
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-Mina Almasry (4):
-  net: devmem: unmap dma_buf synchronously on queue uninstall
-  net: devmem: detach TX bindings on NETDEV_UNREGISTER
-  netdevsim: support devmem RX and TX bindings
-  selftests: net: add devmem RX and TX netdev unregister tests
-
- drivers/net/netdevsim/bus.c              |   1 +
- drivers/net/netdevsim/netdev.c           |  27 +++-
- drivers/net/netdevsim/psp.c              |   5 +
- include/net/page_pool/memory_provider.h  |   4 +-
- net/core/devmem.c                        | 157 +++++++++++++++++++----
- net/core/devmem.h                        |  11 +-
- net/core/netdev-genl.c                   |   1 +
- net/core/netdev_rx_queue.c               |  26 ++--
- tools/testing/selftests/net/config       |   4 +
- tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++-
- 10 files changed, 314 insertions(+), 47 deletions(-)
-
-
-base-commit: aa07285705f8d5bac464eb1c5b7412f8e88b91e1
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 20d95b24d5951..d33a092c6e4bb 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -207,11 +207,30 @@ net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+ 			    NET_DEVMEM_BINDING_LIVE);
+ }
+ 
++static bool
++net_devmem_dev_unregister_tx(struct net_devmem_dmabuf_binding *binding,
++			     unsigned long xa_idx, struct net_device *dev)
++{
++	if (binding->direction != DMA_TO_DEVICE)
++		return false;
++
++	if (READ_ONCE(binding->vdev) == dev)
++		WRITE_ONCE(binding->vdev, NULL);
++
++	if (READ_ONCE(binding->dev) != dev)
++		return false;
++
++	__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
++			NET_DEVMEM_BINDING_LIVE);
++	return true;
++}
++
+ static void net_devmem_dev_detach(struct net_devmem_dmabuf_binding *binding,
+ 				  struct net_device *dev)
+ {
+ 	mutex_lock(&binding->lock);
+ 	WRITE_ONCE(binding->dev, NULL);
++	WRITE_ONCE(binding->vdev, NULL);
+ 	if (!netif_is_queue_leasee(dev))
+ 		net_devmem_dmabuf_binding_unmap(binding);
+ 	mutex_unlock(&binding->lock);
+@@ -229,7 +248,8 @@ void net_devmem_dev_unregister(struct net_device *dev)
+ 
+ 	xa_lock(&net_devmem_dmabuf_bindings);
+ 	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+-		if (!net_devmem_dev_unregister_rx(binding, xa_idx, dev))
++		if (!net_devmem_dev_unregister_rx(binding, xa_idx, dev) &&
++		    !net_devmem_dev_unregister_tx(binding, xa_idx, dev))
+ 			continue;
+ 
+ 		xa_unlock(&net_devmem_dmabuf_bindings);
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index a834e0f698c7e..ce069e1736416 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -39,7 +39,8 @@ struct net_devmem_dmabuf_binding {
+ 	 * The binding undos itself and unmaps the underlying dmabuf once all
+ 	 * those refs are dropped and the binding is no longer desired or in
+ 	 * use. RX bindings are unmapped earlier, once they are no longer
+-	 * installed on any queue.
++	 * installed on any queue. TX bindings are unmapped earlier if their
++	 * device is unregistered.
+ 	 *
+ 	 * net_devmem_get_net_iov() on dmabuf net_iovs will increment this
+ 	 * reference, making sure that the binding remains alive until all the
 -- 
 2.56.0.176.g3575e65682-goog
 
