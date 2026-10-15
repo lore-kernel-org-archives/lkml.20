@@ -1,168 +1,205 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B8D50C280
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456384A498E;
+	Thu, 15 Oct 2026 10:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060476; cv=none; b=PlkxhFiCVvuUprp7p6yW0XYOoauHTsRrPcAO4wOBv+IHjN803k8WjOa08RBsFytksAgPjGOy8COLbLmMP32/poGvnw/PofZNenRuR6lqyFG6j3hL98L4kgcjvWx54novk0v3qAfnHQKGeiEAQ6rb+hRhDM167QqTcjCulrgJSkA=
+	t=1792060597; cv=none; b=Ulh6OQfLO/TgxWZeXhAgyvgoVAj4jYlhvlmveOVPQmtH2yhAQG6nuZg3TNeeCzF9Og1nDEfGOsMoKb12Kcuc9nJbhE0LJahqfk0mO0UV8PazggfRPJm27U9M1ktJmy1k7l5Iz7RkCczmPTy7ilyO5XNltaXzRvoVe58TaTfEw94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060476; c=relaxed/simple;
-	bh=uuA282mbAAsxubVd//hesrkFUMk7A9wWWPpltUN9p9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fibemgnA9PcOun3HPRb3cNCu+JKsowEhIvqG/h+6Fn2UwtPr7XRHDRkr8d4UA/5IHKFzkqzU2BqR+27hbz5cmx0mmNFNGoBJO2L68oIoF3LwjZo5XSfpWHLKGp2wEcLNKlJ5unFG1UWzxnv3hbUN9e6CErsItwtlnZ4/60NAfEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=gymOQQaI; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792060597; c=relaxed/simple;
+	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aB6KzoPASLl5k5LUnCbiiQq9xI4KV7TWWCBC2KW0nrRUA8Ra/27g2dwA2zv/kM0gty+ing/lrz6+1TyHgDo8u/MmHS32rJTIc5nfV/9lS4yF8YSR8ih3+oLgoV6aNeZ7Y83QEoBrUJ9EzMkM/qxYvKQ4oX9sU+FEIYNFsGyNUGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oJ3gkW+L; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="gymOQQaI"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso37067715e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:34:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792060473; x=1792665273; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P3osTZ0BdPAIjeNNLvrEv8uJJ4FA/b0wHvWNDV0Nx5A=;
-        b=gymOQQaIIRoElkvVPhqHyVMovxqZ3iQy0BLGbbbSRQNcs8Nk04LzDxcNi310uyQDl4
-         cGEuORZ4GyMNNtMUxy2uu6yFYxwDhhF7I4aghNtJZMgwWjFD/+u8av3ZisfFN1Q5kGZA
-         VwjzdOm1G8HZldqnyMLCmggWnSgNRs2WuASpPqKGqEW1Uk6DbPFcoYkv1hGM/sPpHaIK
-         kiyjRu7YvOGsfnuTSSu8VCcmYEI1ctTG/fxxJrmlOMFfxhPxk02GEYw2jiv728M/abCC
-         NHsTFR0wealdxpZOK25X6vkBD1JhnJtXL8tBreBhL2NdooUPB/GTZmN/8Y7b7Y44S5Q9
-         MJyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792060473; x=1792665273;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P3osTZ0BdPAIjeNNLvrEv8uJJ4FA/b0wHvWNDV0Nx5A=;
-        b=Ss+hHEzTE7zjhX4vdMYPI72iSZPfbcV6xzWLW0AH/U00kYujasislOzUa4y13Qg2Ug
-         fnDfSupUbphE9HKqFSt3xw03a16ahqL3p4/jtMdNwlR0wZ50xim94/VVUYZNRkD+ojiA
-         MYClkFnZ2vZZd00YIQhFA7gPOHAXprbScNV10cK8tIFPCjUGxFLldU4JkhhnuXo0timL
-         /TMIjxlj0yEVMsTLyd29ZIIHSmjaerMUTE+EYAK1eyzjBWfyuWB74rHr7spg52nzc1xF
-         WlUscVZa+3WcaiLn6VEDJXUPBRUk6X7kuzRNM6yTh2vVJAWn8J5wphbb9StePIPrYcKp
-         M+0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzcE0pU7bj8J3h6937sT3DB5Wpp2ayFiXqLRuthYcSr33U6fy2Ox4xB4q7LqfJI4d906Y6ZT7oLW5Gh+iM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlhFBXUZKcDWLPGikXqFSH/7VhzJsl2gNVYtDwR6hgguPwP95u
-	lH+lGEG2n/Zrm+6il7Uqw0IXX3GHYuSvfsC6+Wmaa2QLr2z9PVUmO4tlYzvFf2ddvZRtlXEroJ1
-	lntlYqsAbwg==
-X-Gm-Gg: AYBFou06Xm8Uf0y+5ocKVEDh8xS06Y72j7cqICWb9g/5U6djLztNsV8/MrMtN4PIPux
-	cPjUMUDsXhMmgOEhwwEJVb2E7je/BBlaRsc0JkF805ZePhsTtkRMED3RViMDEIcP3f/x6BxZ4Xb
-	7DCqEGByGCoHmWPqqRrJfeNTICY9LvOSHs6bMtMcrD73luSQXCwgMAUhkUo9+lts45K0xGDGXkh
-	mgOGH4plBHHCFR2TgpsrbRTsjtspiB7pUYadiK1hjR1lkXAtbEBtN8oEaaS1xZpFmUmaUFbCUM9
-	JW6dcug58D3oZ/711RGAe5gdI21ObiZ+lLstl0U5fXvHeAF3xyvwluHvs4sTZa/33fWZM7RVnff
-	VHAkLgXtzgkruaW6Vw2f3w73tqnEOB5gn1el2Rm/+1I90Qy4Swf0AGPZ7acthsmXEMZTgLTawth
-	0ZSQMRRgzUTOGKiKblPu7RetihDXBYmZPBejRIREtsuJLsq/VuCq2gGjhERjCay5gig4yy6ZlC
-X-Received: by 2002:a05:600c:608d:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a18e48d45cmr404356995e9.16.1792060472529;
-        Thu, 15 Oct 2026 03:34:32 -0700 (PDT)
-Received: from [10.86.129.46] ([149.22.87.44])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac944af2f1sm3803007a91.15.2026.10.15.03.34.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 03:34:31 -0700 (PDT)
-Message-ID: <0928487d-bde6-45e3-868d-8bdf9d22b6c8@suse.com>
-Date: Thu, 15 Oct 2026 21:04:26 +1030
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oJ3gkW+L"
+Received: from [192.168.1.7] (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9E644F1;
+	Thu, 15 Oct 2026 12:34:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792060470;
+	bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=oJ3gkW+Ld3qvFEUDAJz3fQCZJyi27nVkVajcchszxiD27Hm75sLm4W5RSejPRE3Z/
+	 pktaPrymc4g3rTKkwPb1PiCq+WGx68+XVGpAKtiVggCwRAzv/dKRG8krRckSfvnMLT
+	 dzlO1wLRS8iTzX41rcuRcXrmO0ofovlRX8l4UbBg=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Date: Thu, 15 Oct 2026 12:36:23 +0200
+Subject: [PATCH v6 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: verity: propagate orphan insertion errors when
- enabling verity
-To: guolingxing <guolingxing@tju.edu.cn>, David Sterba <dsterba@suse.com>,
- Chris Mason <clm@fb.com>, Boris Burkov <boris@bur.io>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <e3321d2d-d8dc-43e5-8501-31b2d5ae1146@suse.com>
- <20261015095901.4140409-1-guolingxing@tju.edu.cn>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
- Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
- SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
- YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
- 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
- vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20261015095901.4140409-1-guolingxing@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-mira016-v6-1-177ecfd6d357@ideasonboard.com>
+References: <20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com>
+In-Reply-To: <20261015-mira016-v6-0-177ecfd6d357@ideasonboard.com>
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3613;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=j/mjwgMFfWx14DxqZfBXYelW4WS4Tjqwvqj8XQCa3bg=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBq0KyvWe63nM4UtNJp8M6e1sXVwX7nAQGXDtVNT
+ IrgcNJqNoqJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCatCsrwAKCRByNAaPFqFW
+ PNCBD/9ZqZ/e64Cnwl9eUsskaG+vs1/GAMveM071iMn8mDYNmkCQEwzRhU7Jvq5HurT/k3ffGzN
+ SO3WcaG/B80KWlvxKiy1AoPmBFeUa8rOIxqZ5xIlENSK57IRsR0CMlK5GlsCfk9nHLFs+RtyFt7
+ 9V78KPC9NA/m7aSZ5KOJ/0kZR+DXJ1L0U62T4DKrl0u46a10vJBw87h1Jkdvf0L6UWlsdxJNwLO
+ K3fmqr8Ny0tTQHfQPcOo9O0QK4ENeX6xJ7oyT2Cfr3oJ7M6KkrnOnMjZXfn1jXfTUVIPOurq9VR
+ 1ewV86v6HsjVyOcYqQLHhEcYQHPGnoyw7VY6yaj6X9A/8FcmMsPnKb8xXNrHf+AI54vgWl7IxKx
+ nw4Ic5eHF7uD1xF28AGFvXC08ffHpZNs/vI8RCbIBmGxqt0/68k4mbo6TwAP5KXF2+KsH0ytF1o
+ 47huI7aMkNwGlItTeADpd29MAJaChKphf0DoXZeQC2h4IsabotdTqmKGkaYlb76ARzDGbqFSCUW
+ yA5q+vPZt4zteX5wgQOLDm2YC4yU0pId9OznWY7RCYxWslkwXt8GHpbFLsZKjhY46QKGLV2ah7n
+ vX+Yx/wz7Ytr/CGpqJyDP0WO38iSbCwwKKvEDaQ9tfZd9r0XGxBnDb9vqOkDcooPQnrsO9DgN3J
+ H4VPqF2V3IBFgDg==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
+Add bindings for the ams OSRAM Mira016 image sensor.
 
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 ++
+ 2 files changed, 104 insertions(+)
 
-在 2026/10/15 20:29, guolingxing 写道:
-> btrfs_begin_enable_verity() ignores the return value of
-> btrfs_orphan_add() and unconditionally returns 0. If orphan insertion
-> fails, btrfs_orphan_add() aborts the transaction, but the generic
-> fs-verity code still proceeds with Merkle tree construction because
-> the begin_enable_verity callback reported success.
-> 
-> Return the error so that fs-verity stops immediately instead of
-> continuing after the initialization failure.
-> 
-> The transaction is already aborted by btrfs_orphan_add() and the
-> handle is released by btrfs_end_transaction(), so no additional
-> cleanup is needed.
-> 
-> Fixes: 705242538ff3 ("btrfs: verity metadata orphan items")
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+new file mode 100644
+index 000000000000..49a606fca6cb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+@@ -0,0 +1,97 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AMS 0.16 MP NIR enhanced global shutter image sensor
++
++maintainers:
++  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
++  - Philippe Baetens <philippebaetens@gmail.com>
++
++description:
++  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
++  and 3D consumer and industrial machine vision applications. The sensor is
++  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
++  physical layer specifications to transmit the image data to the host
++  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ams,mira016
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  vdd28-supply:
++    description:
++      I/O voltage supply, 2.8 volts
++
++  vdd11-supply:
++    description:
++      I/O voltage supply, 1.1 volts
++
++  reset-gpios:
++    description: Sensor reset (RST_N) GPIO
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++    description:
++      Video output port
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vdd28-supply
++  - vdd11-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@36 {
++            compatible = "ams,mira016";
++            reg = <0x36>;
++            clocks = <&cam1_clk>;
++
++            vdd28-supply = <&cam1_reg>;
++            vdd11-supply = <&cam_dummy_reg>;
++
++            port {
++                endpoint {
++                    data-lanes = <1>;
++                    link-frequencies = /bits/ 64 <750000000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 760791e3635f..2e01f389f057 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1454,6 +1454,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
+ F:	drivers/iio/light/as73211.c
+ 
++AMS MIRA016 DRIVER
++M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
++M:	Philippe Baetens <philippebaetens@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
++
+ AMT (Automatic Multicast Tunneling)
+ M:	Taehee Yoo <ap420073@gmail.com>
+ L:	netdev@vger.kernel.org
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-
-Will push to for-next branch soon.
-
-> ---
-> Hi Qu, you are right. The claim about leaving the on-disk state
-> inconsistent was incorrect.
-> 
-> btrfs_orphan_add() aborts the transaction on failure, so I do not
-> have evidence that ignoring its return value can cause on-disk
-> inconsistency. The real issue is that btrfs_begin_enable_verity()
-> reports success despite the initialization failure, letting the
-> generic fs-verity code proceed with Merkle tree construction only to
-> encounter an error later, instead of returning the original error
-> immediately. This revision removes the on-disk inconsistency claim and
-> describes the error propagation issue instead.
-> 
-> Thanks for pointing this out.
-> 
-> Changes in v2:
-> - Remove the incorrect claim about on-disk inconsistency.
-> - Clarify that the fix propagates the initialization error immediately.
-> 
->   fs/btrfs/verity.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
-> index 600337a84fbe..d92c9dab0293 100644
-> --- a/fs/btrfs/verity.c
-> +++ b/fs/btrfs/verity.c
-> @@ -615,7 +615,7 @@ static int btrfs_begin_enable_verity(struct file *filp)
->   		set_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
->   	btrfs_end_transaction(trans);
->   
-> -	return 0;
-> +	return ret;
->   }
->   
->   /*
+-- 
+2.55.0
 
