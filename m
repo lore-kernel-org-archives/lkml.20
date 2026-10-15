@@ -1,78 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F988370AE6;
-	Thu, 15 Oct 2026 04:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C8328B7C8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039849; cv=none; b=KkBiu7R3X9lswwtNoR1rWkAF4oKIOQIekVmcfgxz8katDFOaXcCUe4biBxuyszAH4cVgOCwWRqadE3prrebIsu22rlePUB4v89RgnvXzmcLiwVvt0b2TMlK3iy6QcFPsPL23pk9eVUEsefDsipgTMoIQqQeial7FPHuTB1PGvNQ=
+	t=1792039947; cv=none; b=Ek4/haH3lhjV/+wVh/gKUaLjUlAMdM10km6FUyVB4nfpeWbQL+nYJdb9P1MMLZPBiLo91WKgGOmg5z518qyPS0S7qJQvE8dv3Gtdr07n7eXDIo/CyeBDuBS5chrVEfqJcwo+uxDPNitmxDm0oqLLES90q1gogelDNwiSXHUgnIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039849; c=relaxed/simple;
-	bh=hEnYdcWvaVfvBTjrtiYDqeBInOl1mQvNxuuKtHGceuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YwRtV62MEH+gNTP6z1qHU3/N0Owv9wqH0YO257eFnh01p8aQsaF0hQvy6JwEzAXuK8y+WPboHzNJlOypSmfbXm4ibSbVEBLgs4/DGR9AMLdcL0LtdUH7nlTARnG7VLtUq/9sJDCs/SCkrhwZeSGbqBCdnfXCARfrYsswKM5TkA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C87YkfWs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792039947; c=relaxed/simple;
+	bh=pZcPqmI0wKjjQYdTGXbl3f1Xv9J+0KXIB9pJxbsR8+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B6hTOAbsC+1q81+fm4WJiq4WCsfDNrpvStdDpaems9JgexvJIRffrXc5elNu+J5lAaLAXOCGf28PBqqyl14A1czEUCmV1cBXkl/v9uoaf3P91Wmh369CLNbpHKbQCuL2TyqG5dMSKj0a/DIU37mc6iNy3Y9ARVVJJoYP70Tlfm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=DVMcbKsI; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C87YkfWs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D6E1F000C4;
-	Thu, 15 Oct 2026 04:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792039847;
-	bh=s5Y/6iBHV7ezHjvoUhMR7Eh3f9MZh8DMV1YS04Aex5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C87YkfWsbG0fqfeu3PlgMOMSM2NmAqPrW3jnELD4a2FliuCYS1ktfrnfiJghRl46j
-	 5ms5Aim6lQRE6jftc/gmUDYvAPk3DlKPlql4vMztZGbkgNoubiSa1xb3mnv087p4Op
-	 Gg3yRRYEiOhV0/f/0QLqjCYJNuy2Ddv3Dk2B/2RduFELYWd8AtPInGMIgejKQLEACi
-	 T+QHoZOn5rxFHZEBpbziYQctuS0WOz6hok7ETUL/8J2aF7SsPaLGycrwam8eSy9fS1
-	 WuP2hcIJLqmV1eFEdreathatLx/fRH7f0FSqCbBLSA4aQlTfI0T3rYNocBjoC68SVA
-	 Q7JWBD8NBgVzw==
-Date: Wed, 14 Oct 2026 21:50:47 -0700
-From: Kees Cook <kees@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>,
-	workflows@vger.kernel.org, ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Mark Brown <broonie@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Leon Romanovsky <leon@kernel.org>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	"Michael S . Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 0/5] agents: add skills for Fixes tags, stable tags,
- similar bugs, and commit messages
-Message-ID: <202610142149.C3CC39B22@keescook>
-References: <20261012213452.1863248-1-sashal@kernel.org>
- <87zewiy1sd.fsf@trenco.lwn.net>
- <202610122047.A9E381A@keescook>
- <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="DVMcbKsI"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e915887d9dso17132485ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:52:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792039944; x=1792644744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6H2Mg08LBrKNkGx6ANh2AzhZuIGv+IBNWXSBQcbv5VM=;
+        b=DVMcbKsIIr9uOMdtE5Xc3rTPJ5+QL0BsS58LHOX6y3IVumwLdM20xqMDXdMpdwo1nR
+         Xna38msfGXl9MN+NGOkXckoHFJcPppeiZXqrKpVJ2bWwkxB9ML8Ms7+Tk7D0vo9GAuVz
+         wOJ73IK48tcpVq1uc9b+h7vdUjPLRqM/iKcQNsXL9v60gFfo5eHDuP3Uvc+2yqhIkVD7
+         G+VyXAMzQRhoRyp0+nBm5sfNTSjHYQNl58WPjk2IAyYJs1VrkNYZdisCLI5XV9zSo12A
+         QGQZI3AdSMCFeoYBX8kOJvfPsNXfjlnBaTW7JgYBDO+qNwkyIvrFSKv/H/EyLsNWXNfh
+         SLzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792039944; x=1792644744;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6H2Mg08LBrKNkGx6ANh2AzhZuIGv+IBNWXSBQcbv5VM=;
+        b=K0mv+tJeqJaXJAc2aoNVG3a/mcjERAn0SeKIp4+fCbiZU3R20XCpWLczOf4U7i4odk
+         BtbsQ9LvLNBAWGo0Z+hpM29yWy7+S5QDmbSqZCBVUSRFvFpMfZG+tlcGDxCfYkk/Fyms
+         dYObwAygk73sJHXfMSo5bZfzckcX4WxNNxlOUGfAHpd2H48yfSp89nrGXI16BNo7R37b
+         y+sZ28/Xl0VOc61zlwsfMZ9zYs04gAlXDwnIK/t2kh5ETxg3kxQaJj6jYZ0Y/D2VjeiM
+         A5kf8p0oc2d9Q7hqDqLKgB6kq2cpFljimGbE5nkavHWBn/eXdzuWgmNEIM2CtPGNxS46
+         JXvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsWfTuvgSY+z39vNWIeBQWLks72cBDKytJkyllv2AlSc8S50dI+8BekECJMFH9j3DhuEV+HxB6Djdysxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILHmmzuEjxSb0kOWAcNOZVNrMGFfLaRi+NCcTO0eSvymdFEbzL
+	Cy7Jk4+lUEQxIOCwmNw73Ha7zPEQlk/fQ05Bw7Pyq4uRZHgp0OAR2HemUj8OpgMYUCLfJYzOBHb
+	Zzt+x
+X-Gm-Gg: AYBFou17EzNGtP91tLW6dQABoZQdYuZkjucAP/kRPswrLFXB/SJjnO3ofEv8Qr21fZ7
+	5da960DBh7/C/tgqAuZ71voXVPjdmRdzEkzLKG3/VJbL1ES2dhEpPzVtozNWOvjZcW3AXU0jrLc
+	wN2ZyBAPAx+yiW+spgE8wHHsQirTquLMHNocnzKWdNYPe//bsn1ZNelDiJnT2o9WoXBwle6HvXg
+	6Y12dhJeeipOEgjNB9+SHlhp6eqZjxtgfQcRZROi59lR6X6jNYdBXTDzihef7Sp3D/zk3eacfpd
+	beNaPBTuW2dEaRFC+KFbn2/Z6BwVpq+2IEp6j84wsZTVPQt34FqvpxJT1hrgxSHLeTPi1qez97v
+	uCqUGOYP54bgiG4FrUut6NgYVneWPXnJ7z9/tbn9B47hhRuc2SqP2JLcSCJR5YZAkcqJ8wgq0Rl
+	XH34pS5SfgQojud6vwaFyRT/wm76GMbQ01wlNzaQxl77+TuVM6myuvjfwIVmTouPMppHQepAhA/
+	rFKeQ==
+X-Received: by 2002:a17:902:e744:b0:2e2:ffcb:87a9 with SMTP id d9443c01a7336-2e842ab6aaamr150097475ad.24.1792039943631;
+        Wed, 14 Oct 2026 21:52:23 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e962a4dfbbsm1615915ad.58.2026.10.14.21.52.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 21:52:23 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v9 0/9] scsi: mvumi: bound the values the firmware supplies
+Date: Thu, 15 Oct 2026 13:52:04 +0900
+Message-ID: <20261015045213.3975845-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 03:51:27PM +0200, Geert Uytterhoeven wrote:
-> On Tue, 13 Oct 2026 at 05:49, Kees Cook <kees@kernel.org> wrote:
-> > I was expecting this to appear under Documentation/. The agents are
-> > designed to read human text, so let's make it at least passingly
-> > sensible for humans to read too. :)
-> 
-> The expectation is that the agents are becoming better in understanding,
-> so more "instructions" can be shared?
+This supersedes
 
-Exactly. And the rate of frontier model improvement has me convinced
-that there is no need to spend any time writing documentation to be
-consumed _only_ by the agents. If an agent gets it wrong after reading
-our existing documentation, ask it what would need to change for it to
-understand it, and then see if that makes it better for a human too, and
-send those patches. :)
+  [PATCH v8 0/8] scsi: mvumi: bound the values the firmware supplies
+  <20261015022728.3936714-1-yhlee@isslab.korea.ac.kr>
 
+which can be dropped.
+
+Patches 1-6 and 8 are unchanged from v8.  Patch 7 replaces v8's 7/8.
+Patch 9 is new.
+
+Everything the firmware writes reaches the driver either through the
+handshake page, through the event buffer, or through a response frame in
+the outbound list.  The patches follow that split:
+
+ 1  event buffer: param_count and sense_data_length index fixed arrays in
+    mvumi_show_event().
+ 2  handshake page: frame_length drives the checksum walk, whose counter is
+    an unsigned char, so 256 or more never terminates.
+ 3  event buffer: the hotplug bitmap size drives two walks with nothing
+    holding it inside what the firmware was asked for.
+ 4  event buffer: those walks cast a four-byte-aligned bitmap to
+    unsigned long *.
+ 5  handshake page: the entry sizes and max_io size three allocations, the
+    list depth drives the ring index, the device count has to fit the byte
+    mvumi_build_frame() gives it, a reset reports all of them again without
+    reallocating anything, and every field is read once.
+ 6  response frame: the tag indexes tag_cmd[], and the value that is
+    checked has to be the value that is used.
+ 7  DMA teardown: mvumi_delete_internal_cmd() rebuilt the buffer address
+    out of the command frame with a shift that cannot produce the upper
+    half of it.  Rather than widen the shift, keep the address and the
+    length in struct mvumi_cmd and stop reading the frame back.
+ 8  outbound list: the 0xff the driver stamps over the tag of an entry it
+    has consumed is a tag in range once the firmware asks for more than 255
+    commands, so a stale entry is no longer turned away.  Stamp 0xffff,
+    which is outside the u16 tag range whatever the firmware asks for.
+ 9  handshake: nothing bounds how many times mvumi_check_handshake() will
+    answer the firmware, so a controller that keeps the handshake going
+    keeps it going forever.  Count the steps and give up after 1024.
+
+Patch 7 is what the review of v8 7/8 pointed at.  I had sent that as a
+one-line fix to widen the shift; the review asked why the driver reads
+those fields back out of the command frame at all, which is the better
+question, so the read-back is gone instead and the shift with it.  The
+truncation is not reachable as a bug: dma_set_mask() moves only the
+streaming mask and nothing in this driver raises the coherent mask above
+the 32 bits pci_device_add() sets, so dma_alloc_coherent() never returns
+an address whose upper half could be lost.  No Cc: stable on that patch
+for the same reason.
+
+Patch 9 answers the review of v8 5/8, which said a rejected handshake page
+would leave the driver retrying forever.  The quoted reason was a
+"before = jiffies" reset inside the DRBL_HANDSHAKE_ISR branch, and there
+is no such code in the tree -- mvumi_handshake_event() samples that once
+on entry and times out after FW_MAX_DELAY -- but the outer loop in
+mvumi_check_handshake() really is unbounded, so that is what patch 9
+bounds.  It does not touch the doorbell writes or the HS_S_ABORT store, so
+the FW_STATE_STARTING restart still works.
+
+Two points from the v8 reviews I am not changing.
+
+Endianness: the driver does no device-to-host endian conversion anywhere,
+and these fields are plain u16 and u32 used natively throughout
+(host->max_id = mhba->max_target_id, tag_pool.size = mhba->max_io).  The
+new checks read the same values the driver already consumes, so they
+follow the existing convention rather than change it.  Making the driver
+big-endian-correct is a driver-wide change: fifteen multi-byte fields are
+read from firmware-written memory without a conversion, across the
+handshake header and page 1, the response frame, the event and hotplug
+records, and the inbound frame fields the driver reads back.  I will send
+that as its own series.  Patch 7 takes the SGL fields off that list, since
+nothing reads them any more.  On a big-endian build the base driver
+silently accepts a byte-swapped device count and scans phantom targets;
+patch 5 turns that into an explicit probe failure, so the behaviour there
+does change.
+
+dma_rmb(): both reads of mhba->ob_list, and the memcpy of the payload, are
+reached only through mvumi_receive_ob_list_entry(), which begins by
+calling mvumi_check_ob_list_9143() or _9580().  Both of those read the
+MMIO copy pointer with ioread32() before returning, and that read carries
+the architecture's read barrier, which orders every load after it, so a
+dma_rmb() further down would be covered by a barrier that has already run.
+Making the tag the thing that is ordered against instead would need the
+controller to write the payload before the tag, and the tag is at offset 2
+of the response frame while the payload starts at offset 8.  Nothing in
+the tree states a write order, so I have left it.
+
+One more thing I left alone: the second hotplug bitmap starts at
+bitmap[size >> 3], which is only self-consistent when size is a multiple
+of eight, and nothing in the tree says whether the firmware packs the two
+bitmaps bit by bit or aligns the second to a byte.  Either reading makes
+the index wrong for a size that is not a multiple of eight, but correcting
+it one way breaks the other, so patch 4 keeps the existing numbering
+exactly.
+
+I don't have mvumi hardware; these are reasoned from the code, not
+reproduced on a controller.
+
+Yehyeong Lee (9):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
+  scsi: mvumi: bound the hotplug event bitmap
+  scsi: mvumi: walk the hotplug event bitmap a byte at a time
+  scsi: mvumi: reject handshake sizes that overflow the list allocations
+  scsi: mvumi: validate the response frame tag before using it
+  scsi: mvumi: free the internal command buffer by what was allocated
+  scsi: mvumi: stamp a consumed outbound list entry out of range
+  scsi: mvumi: bound the firmware handshake retry loop
+
+ drivers/scsi/mvumi.c | 264 ++++++++++++++++++++++++++++++++-----------
+ drivers/scsi/mvumi.h |  36 ++++--
+ 2 files changed, 226 insertions(+), 74 deletions(-)
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-Kees Cook
+2.43.0
+
