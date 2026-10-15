@@ -1,44 +1,58 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3957C5304C3;
-	Thu, 15 Oct 2026 14:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81C4B5304CD;
+	Thu, 15 Oct 2026 14:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074360; cv=none; b=AqvYRsrg6lDLwgzmAusGNe4kbH33s/faol1lPjpysuJnpEZZ+L+iYWYk3CKxFlmSpNcIFm27NBJXT+EF00KNVXgIyfHUrf0jxrcGfPY1BMPIlDFJAr6hyaoAguIiKO8tHT6dYNodZFwZJE2ytp7cVfi6Tvq4Hc99RpbtbwGsHzg=
+	t=1792074369; cv=none; b=JIXk5B+0CdRvgs4t/Eb+e7HbiGj41AKmUM6I4++qtUjHVTYTUd7lNpr0NYJF5bVVDwY6LnAmo46EX+NKzHbc2ghLB8VF8bLCB9QjJebTXr6tKSJTrP9FnqWO9ve+MWxim4TZ4SWIvnjWo09lEKlDd4tkfz/C8dQne62h16eGpTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074360; c=relaxed/simple;
-	bh=TCnKJL/cmfCg3+qnk6+F/sWRoG4MSvzL+K6GXfYYyBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oa009iiVDA34G8q9SBNEunhEKGD3Mmz8/uxpIuRNNI0m/X6b0/8qLFyBvws+Xd25nqnxDbSCRHtW88550vXV6NX08m8HcqMMi9GL1CpqaVeKjLQ08Ns0pi10nS69wu1V/6WLJ+7I3x5GHvdmze8SZStJUcT+WbEFDhYYnEOoNNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifOWUm4c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792074369; c=relaxed/simple;
+	bh=nRMhCWv1VYJE0ooCA755xJ6dFPiezH5+ScPUC6Dphts=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MU8YnMgefb2/XZSg5VG/fOM+qEJ/P52jsbWryV2splOs3RxaQOY2R5b4iOjoARHKl76dwXEB18ypQJYMT8aoK++cNfAdhHGVI4awUamXodRD/4B4nQQ79rj3BUgneUGeDBsnMuN6R1ifviA57kHEFWae0tWYXhIsdQkCtDbhl8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QcG0e46u; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifOWUm4c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58421F000C4;
-	Thu, 15 Oct 2026 14:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792074359;
-	bh=MK9QpizG4Ez/xmCFB+Kev+kIplhhTdrrGQvFvPcmbYM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ifOWUm4c/UtZ6cHt8h+s0NRcM/TO90Uv4HYt4iBWL8yiHHGfbev3In/FHJWhhIyu9
-	 HFS8IzLjMm45YjEPU8xUgFseEBAG2L0VWaKnTzuUlzoav3LC4sMZiD7vVGtfiFuSKJ
-	 U8r+YNN07yPz5jZKhKrVujrhGEudOIyL7SCCEw2lgl5oCL1MLqCVwR1mDbA2Il6oVX
-	 G3KV21ojGD1QYI1f+34SGmQITmpfZNU8dhTZISmkmdkr0TippmeK13a80f/6EwFAYa
-	 c2af4nUA2ctsH24L2uPZsus5bqfF2EHejdEnGNZMfCWo3NJ22CPeG+9cGfRaNekvWL
-	 RSzMKEk/LBvAg==
-From: SJ Park <sj@kernel.org>
-To: Suhaas Joshi <suhaas@s-joshi.in>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
-Date: Thu, 15 Oct 2026 07:25:51 -0700
-Message-ID: <20261015142552.104856-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261015135801.19326-2-suhaas@s-joshi.in>
-References: 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QcG0e46u"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5CC911477;
+	Thu, 15 Oct 2026 07:26:00 -0700 (PDT)
+Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6F6B3F871;
+	Thu, 15 Oct 2026 07:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792074363; bh=nRMhCWv1VYJE0ooCA755xJ6dFPiezH5+ScPUC6Dphts=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QcG0e46uz/7hlMfHpaXW1ozPdaqgTVqNUy1PeqfN2lkSTvz+SkpiTinzKAox+EXrg
+	 W5meia0bwgyrfC9AS0HoJ9neI2kdDzSj5qtgQAsmYJNv3ddD/rPgPHM7kPSfjc15/J
+	 oEU9YCoUQojOnp17pewfxUDuFTan4gdxPZ/GD0Mc=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
+Date: Thu, 15 Oct 2026 15:25:34 +0100
+Message-ID: <20261015142552.4128028-1-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,29 +61,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 19:27:54 +0530 Suhaas Joshi <suhaas@s-joshi.in> wrote:
+Hi All,
 
-> In damon_split_region_at(), we copy the entire probe_hits[] and
-> last_probe_hits[] arrays of DAMON_MAX_PROBES size. However it is possible
-> that the number of probes installed is less than DAMON_MAX_PROBES, in which
-> case one or more iterations is/are redundant. To remedy this, iterate over
-> only as many times as the number of installed probes. To do so, accept a
-> struct damon_ctx pointer in damon_split_region_at(), and update all
-> invocations of the function to pass the new argument.
-> 
-> Also update damon_test_split_at() and damos_test_filter_out() in
-> core-kunit.h to supply a context to function paths that call
-> damon_split_region_at().
+This is v2 of an RFC to introduce a driver for the Arm Core Local Accelerator
+(CLA), a CPU-local interface for programming attached accelerators. While the
+interface is agnostic to the accelerator type, the initial (and currently only)
+target is a compute engine.
 
-Looks good to me.  Thank you for this patch.
+The RFC aims to engage the community and get feedback on some key aspects. This
+will help plan our approach for eventual upstreaming. Based on feedback from
+Will and Marc in RFCv1, the driver now supports both bare metal and virtualized
+environments. I also have commitments to publish the CLA spec, a supporting FVP
+and a representaive user space, all to support upstreaming the driver, as per
+Will's feedback.
 
-> 
-> Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+For now you can find documentation included with patch 1, which describes the HW
+and driver design. Note that the CLA is not part of the Arm Architecture.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Patch 1 documents the hardware and driver design, and adds a driver skeleton.
+Patches 2-5 initialize and probe the device. Patches 6-9 add context management
+for switching the device between different users. Patches 10-12 add some (small)
+changes to KVM and VFIO, which then enables patches 13-15 to expose the HW for
+device assignment into a VM.
 
+Aspects I'm seeking feedback for:
+
+* The general structure of the driver: The current shape addresses the
+  performance requirements we have for the use cases, and is therefore our
+  preferred approach. But there are some unusual aspects due to the HW design.
+
+* Driver interaction with architectural support: I've opted to treat the CLA as
+  a device rather than a CPU extension, so it's implemented as a (mostly)
+  self-contained driver. It has some unavoidable coupling to the arch code since
+  it needs to share page tables and ASIDs/VMIDs. All arm64 arch interaction is
+  contained in cla-mtc.c.
+
+* The location of the driver: although most accelerators will likely be compute
+  ones, CLA is a generic MMIO interface that could handle any kind of
+  accelerator. It's currently implemented as a misc driver. accel is another
+  potential option, but given the current SVA approach, we would not use any of
+  the services (memory-management or otherwise) that accel provides.
+
+* Virtualization support: since the HW uses the CPU's MMU, we introduced a new
+  VFIO_CPU_MMU group type, and added the kvm_arch_[get|put]_guest_mmu() API to
+  KVM/arm64 so that the CLA can share the stage2 pgtables and VMID. The CPU
+  pinning problem remains unsolved; the vCPU must be pinned to the pCPU that
+  owns the CLA in order to access it. If the pCPU goes offline or the vCPU is
+  otherwise unpinned, it would look to the guest like the HW is faulty. This
+  issue is therefore contained to the guest. I've additionally improved the
+  robustness of the core driver to deal with this eventuality gracefully.
+
+I consider the core driver to be well tested and robust. The virtualization
+portion is prototype and has known issues that would be addressed assuming the
+approach gets positive feedback.
+
+Changes since RFCv1 [1]
+=======================
+
+ - Added KVM guest support through VFIO mdev, including exclusive domain
+   assignment, stage-2 memory translation and VMID pinning
+ - Changed the userspace ABI to expose one `/dev/cla/<class-id>` device per
+   accelerator class; `ARM_CLA_PARAM_DEV_ACCELS` now reports only accelerators
+   belonging to the opened class (per Arnd)
+ - Removed `ARM_CLA_UABI_VERSION` and the `ARM_CLA_PARAM_UABI_VERSION` query
+   (per Arnd)
+ - Various driver bug fixes and robustness improvements
+
+
+Source, along with some tests, is available at [2]. Patches based on v7.3-rc5.
+
+[1] https://lore.kernel.org/all/20260717104759.123203-1-ryan.roberts@arm.com/
+[2] https://gitlab.arm.com/linux-arm/linux-rr/-/tree/features/cla-driver-v2-rfc-tests
 
 Thanks,
-SJ
+Ryan
 
-[...]
+
+Jean-Philippe Brucker (10):
+  misc/arm-cla: Add driver skeleton and documentation
+  misc/arm-cla: Add launch operation helpers
+  misc/arm-cla: Probe firmware-described devices
+  misc/arm-cla: Initialize devices on CPU bringup
+  misc/arm-cla: Accelerator context save and restore
+  KVM: arm64: Export stage-2 MMU config
+  vfio: Support VFIO devices that access the CPU MMU
+  misc/arm-cla: Add stage-2 MTC and VM context switch
+  misc/arm-cla: Support exclusive context assignment
+  misc/arm-cla: Add vfio-mdev user interface
+
+Ryan Roberts (4):
+  dt-bindings: misc: Add Arm Core Local Accelerator
+  misc/arm-cla: Set up memory translation context
+  misc/arm-cla: Manage domain contexts
+  misc/arm-cla: Add userspace interface
+
+Shameer Kolothum (1):
+  KVM: arm64: Introduce support to pin VMIDs
+
+ .../devicetree/bindings/misc/arm,cla.yaml     |  77 +++
+ Documentation/misc-devices/arm-cla.rst        | 217 +++++++
+ Documentation/misc-devices/index.rst          |   1 +
+ MAINTAINERS                                   |   9 +
+ arch/arm64/include/asm/kvm_host.h             |  14 +
+ arch/arm64/include/asm/kvm_mmu.h              |   1 +
+ arch/arm64/kvm/mmu.c                          | 102 ++++
+ arch/arm64/kvm/sys_regs.c                     |  14 +-
+ arch/arm64/kvm/vmid.c                         |  77 ++-
+ drivers/misc/Kconfig                          |   1 +
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/arm-cla/Kconfig                  |  26 +
+ drivers/misc/arm-cla/Makefile                 |  15 +
+ drivers/misc/arm-cla/arm-cla-regs.h           | 192 ++++++
+ drivers/misc/arm-cla/arm-cla.h                | 393 ++++++++++++
+ drivers/misc/arm-cla/cla-ctx.c                | 229 +++++++
+ drivers/misc/arm-cla/cla-init.c               | 562 ++++++++++++++++++
+ drivers/misc/arm-cla/cla-mdev.c               | 469 +++++++++++++++
+ drivers/misc/arm-cla/cla-mtc.c                | 335 +++++++++++
+ drivers/misc/arm-cla/cla-ops.c                | 417 +++++++++++++
+ drivers/misc/arm-cla/cla-regs.c               | 370 ++++++++++++
+ drivers/misc/arm-cla/cla-sched.c              | 474 +++++++++++++++
+ drivers/misc/arm-cla/cla-topology.c           | 202 +++++++
+ drivers/misc/arm-cla/cla-user.c               | 541 +++++++++++++++++
+ drivers/vfio/group.c                          |  37 +-
+ drivers/vfio/vfio.h                           |   5 +
+ drivers/vfio/vfio_main.c                      |  16 +-
+ include/linux/vfio.h                          |   1 +
+ include/uapi/linux/arm-cla.h                  | 198 ++++++
+ 29 files changed, 4969 insertions(+), 27 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/misc/arm,cla.yaml
+ create mode 100644 Documentation/misc-devices/arm-cla.rst
+ create mode 100644 drivers/misc/arm-cla/Kconfig
+ create mode 100644 drivers/misc/arm-cla/Makefile
+ create mode 100644 drivers/misc/arm-cla/arm-cla-regs.h
+ create mode 100644 drivers/misc/arm-cla/arm-cla.h
+ create mode 100644 drivers/misc/arm-cla/cla-ctx.c
+ create mode 100644 drivers/misc/arm-cla/cla-init.c
+ create mode 100644 drivers/misc/arm-cla/cla-mdev.c
+ create mode 100644 drivers/misc/arm-cla/cla-mtc.c
+ create mode 100644 drivers/misc/arm-cla/cla-ops.c
+ create mode 100644 drivers/misc/arm-cla/cla-regs.c
+ create mode 100644 drivers/misc/arm-cla/cla-sched.c
+ create mode 100644 drivers/misc/arm-cla/cla-topology.c
+ create mode 100644 drivers/misc/arm-cla/cla-user.c
+ create mode 100644 include/uapi/linux/arm-cla.h
+
+--
+2.43.0
+
