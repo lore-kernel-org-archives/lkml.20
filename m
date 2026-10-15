@@ -1,105 +1,137 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6D0541E72
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077795; cv=none; b=JOwdmlXKZrq+Sq6dEWMCMGjEeOvNd9ZGspmZE/nFl8NyFlolk5up/2V8cxsuWoIhfzNethhymJKaPVHmTh2jkhsSW4bfsxeqOV1Fv/MxWdk2NEOXAhtxBgZdjWr6XnAdSfxihXmntdvjhdP+qq9HlKFRP1GJJMnSLtbhhyYgXHA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077795; c=relaxed/simple;
-	bh=4dauBJvADEExgMQfHXq+IRvV55pQwyhrlwye1iITDI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mLmaYMX1pqwpN2hiogXjSBFDXoEmsf2lPoJwXh2I2O+MsnyMyUOaIgrvDIGf5nU5XDhuEI99BOIZTNKUk24I8mC1fKzsMsGWOYUrXg8n9wY8wiDK3tt3L1Vjkoi6ZS/USbuQeldMtbZYoNvRV9zzzygxVbMzKDf/TX6hwfWlClE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P2kl8slx; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCD754281B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:23:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792077809; cv=pass; b=kr3ctTrbk0W6AQUtXUQ6M5MEiTmzn5NxCoYLXnT41w1m4DGfHWOmHM2TscPkR4xGMzuskCXrzlkoVA+Qc8aqS0ChsuTPwuB2ruk8rKdOWyy+7iVLt7wS7Og9HEzOWw6gi0ENY0pAVI1EmmXI0ciHUN8DJ/K9eL7SF+foJ79E4F0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792077809; c=relaxed/simple;
+	bh=2EOHoPv3BQDykUH33A3omRl0PnRrEhVuncaHNdWKUGE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D0+Owwu1eiguxieRlGIiL9iCxvhkY+JkphM9pzbADm5b2GiF7xa9TXBAwF3immjCLUXGhzrCl5WJepcAePPMvyZ9IeXvD7MjND8aAM+fI0fE0kU6D04OnEEZG5VjFN39GP9PhCPMGwjrDBZoRtw8u1J8YKklmHHKDZU8oh/rqRw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kJvOiHM9; arc=pass smtp.client-ip=74.125.224.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P2kl8slx"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8a83d2706fdso22193177b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:23:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kJvOiHM9"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-677d35fd1d2so1905158d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:23:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792077799; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bn5m1lsW84Iu6t8qcFl9UzjOyy3PG81aX4TH3xZsQD2ETmrBfOncbdfSAjv44pW7IA
+         Ik+/N0u6PvBmEHVedYVvu9PyN+LRX/HeZZkb0mgbU2UrPwWTmrWTmxclAO8ZKjXILfPF
+         RswJpoIOLsg2ynGp2JUQzvNUBLb1WLTHKDODgyeN9nhU/DVBaqII+VXk8+XwsJDOQ3jg
+         z5wmKidvXlH0xQzNln9dbx608ilIN2yE/KCSSbbtxEiskM3rve1jWg4Q/OeRs52YRV/T
+         7c1gZTqlloz+GbIZokvNCeZfWvta3r3tye5V78EgQeT7S5Uj+RVSDaULPqTxcBmEyNQu
+         V7Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2EOHoPv3BQDykUH33A3omRl0PnRrEhVuncaHNdWKUGE=;
+        fh=BbHliuIJ0X6DGGzXqVq+feGAn2ZPC+sQhEZ6zrtupBE=;
+        b=bci7CJp1kPs2TIsVIyXVZsattKhA+r4MLJpIF4HpuqkJy2unofonRrERRjEtz0cecI
+         66044e6h9zRL+IRWA7V3VgSR0e8kjvOF1OjYnpDrLa8JUQNjI1TC6Sl7JEvTiqR/N6X0
+         M/UxZQAxxxPye6n6kj4M6KJcGUF7ddVJVxMu9HnL00+zsKj1ZeRubV0oxUMWyHzONZ22
+         OsEgdVd1nXqi04G155dCWBqAzGoxGq+D507ctstUoZCcfpFsTMPPbeXL6+zl4HTrMjM5
+         V6j+1GO5IIjbtBmi4znUjN+1kbH9aFE7dwZcAXyPZvkQ4us2ytQPDzwTNlRpmivrHyH1
+         jHLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077786; x=1792682586; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ffUdm1w2bLO+0OCh3PoxdUD/MaQBekn/KGeOVmB9bPs=;
-        b=P2kl8slxMqYdvWUGAqupDV/AGCjUpYuzZKb1JeqdzsWkk4ePfKV5x9CUYQOyLSRd3A
-         EfkFRtm8MAks+l4MpMYjENvTFXdRwnV5s/y+P4cRfsrYY+olT1Ra0idXwC75wKQNz9So
-         FHnSS0um69oQPgm1VqSr5A5/Dgc9INpIHAQ4JWtP7Gi27Xl1MHFl9KZt2L1e+p4L0LK2
-         uaeQi06xoO9ouyJUWqkCvrHsxGYSTNLGMXZg+EjvwRG2HPb4h+lq9GB8zFiNvGteduLi
-         iMF/Z84dP6++DeVbDpC3fdk0Q+j6Ncqj9uaVZWL0mqBmKWk4lotx9wvb5l3b8k/0+tPW
-         2XRQ==
+        d=gmail.com; s=20251104; t=1792077799; x=1792682599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2EOHoPv3BQDykUH33A3omRl0PnRrEhVuncaHNdWKUGE=;
+        b=kJvOiHM9M0WnN33nHmHK3r+01pGpxKYp5aY/UMKhQFhOLUSVrDioLgyfEQddwhvQ38
+         PSxocSnNo4gQUdIbe4ErVPJiV96p+kqbiIxQcBbi7vbgtMDwRxN5BGIrrEmVjrvwbGhi
+         0YCuafuazhtWQFzgBrSCDze23oQAIfATfnChfJJA42QV55tZXBH4DSzlHC4euw7F+JYX
+         ieWEFUQcCTMYDeBtXjSe9qtkAAJtz4+p2iCkdX7bjFDQxaCuc8msRNw56cgXEz9EFzHv
+         UEuv6DmGT5a0nd7IP8MfwnoWyF+3btMgkyS9YVwMoxdO2oDWtDnoZXek8Em3C42YaF85
+         mLMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077786; x=1792682586;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ffUdm1w2bLO+0OCh3PoxdUD/MaQBekn/KGeOVmB9bPs=;
-        b=ZZAkn99d6FytdLGkFnwbfHcCUsuxo+P/RzWAePpPF3S3i7cNVoh61rj+fFdIPjoroa
-         SgiK4ZO/8J79vb7+MDu+VJV/lqNL5Bi1HFg/objUQNPXfK71Oew50K3bPgFCis9e1u2a
-         LYqslLUsfKcuchMOhDajhVzNNZoA5/zdhZ0mtfxAlayQss0wAzx7gWt3dnvRjzn8qISq
-         5cxEldt5WrPc47MNuMCFGClm6U7uyj2v6Z/D818ZxTZE5UgtfO0VRD3/IYHSYrJBLvcO
-         t1vbB4VOnhr0jBCoW1ftvL7Q+dgaOWEiOZYgydUEudjp/K0HsWamV0M4DNVYsi9LOMrG
-         6FwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzb5rtqKSVsbPdo54SHBrVsAWRryLtXKdpzfHa/rr6LIFsGeKztNYfq9lR8vgFQdejA2rCyQ1F59VNq3Rc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTpsRtB3s+1VDhhMls3JxRAca3grp0S5uP+k+5mKaNj93tLLQ8
-	UdPqTDkSd7dZdOMHwzp6jhdIAkiS/vU7d+loRp+Zt5cT5r/e2l4Dru1rwyf67w==
-X-Gm-Gg: AYBFou00tw/2KC3qFRByKv7oAhR+dNQ+01PM6Qjn635vEuZFDX8xjMOwLwrLFiXsB+z
-	vRSriI3+SgKFP2aso0dOoS8Xj5lNYl8xrQg2B/ijDfHeLvtm6VDEU0zNoNUWvMdljCcW4GCaSmw
-	QqokKd8mRts58Ml8pl9aybuBPl9cP5+LLH+Hf9PeIXeQWYrGi6Kd3oc4Mam+oJlhKO8SG0RuUuF
-	iVSNNXkqveUWazAHcLwxFdfCBolwxQWoD6QZ6hOHiV1MsmGW1jvlRygc9rWcg8SUjKMjW4SJK7d
-	fKSDzt4YeCGR1fNfFK4oiyQXtuDjnNnrWUhLp2eSBeqR1K/JRZ001+/CQczDImd1gSLo9V20jaP
-	v4YGMAnWYwgbWuhsrpEK/3BACTrSnMRmPIwEGeQ0UthXfd6CpyjpObFw088HRVZBJfKpsVk37tT
-	rBVIbP627SJYMXXNDXSTBIpepWl3E7AOspuJfjFQjEeINSJSVN3bKGvKVvYmuCdzt2xRI62PhVm
-	17G1VoIq/Ih8U2j/tvJvYpsGR1ftgHEImzp5EvuQM1DRqavss/lWJ+QNXFw6jruxO3410U=
-X-Received: by 2002:a05:690c:c4e9:b0:8b0:9eb3:dbd1 with SMTP id 00721157ae682-8b09eb3dc7dmr36797807b3.37.1792077786332;
-        Thu, 15 Oct 2026 08:23:06 -0700 (PDT)
-Received: from tux ([2601:7c0:c37c:135::8803])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f2320a6sm67686617b3.35.2026.10.15.08.22.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:22:38 -0700 (PDT)
-From: Ethan Tidmore <ethantidmore06@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ethan Tidmore <ethantidmore06@gmail.com>
-Subject: [PATCH] wifi: cfg80211: Fix error pointer dereference in nl80211_pre_doit()
-Date: Thu, 15 Oct 2026 10:22:08 -0500
-Message-ID: <20261015152208.351083-1-ethantidmore06@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792077799; x=1792682599;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EOHoPv3BQDykUH33A3omRl0PnRrEhVuncaHNdWKUGE=;
+        b=YaT/NAFUZs1d6BSoBdo5z3p0f8fmTcPnWvi1HeDKCuc+onymoHIzjOHB3laf01ErwB
+         S+Gua1gvmj6V4hehvN98MStwyBt3UNdq7OdZgNabiN7V2lZFyBaSjLHKrAuj6zagq95Q
+         rgd/JxSDDpiLmZSuzKiI6JKnYVcBLagPh9FHhqjjjpvA6EoupN7R7KRRHTg1Ofo4uThH
+         EH5gdaXITdnYW+RHcPlSiz7QM60An4HLpoBEppb+n5SWI1ZZbThM1OOXSnLEole19Sbt
+         85T46JpJDVekPjKyp6Q6dLNdQzrSyEbxH/F4ILonAxbC4Wukc04nGhmeumUPH5KcxRKW
+         ky4w==
+X-Forwarded-Encrypted: i=1; AKwUvBw9qt4xsFly8BmmDuJtACNXG5W8xihrBIoGstibAn8mVZynYP5eTNCziq1B7af935JaolvZhdJHzxFC+TQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ98JbdcLo8296Mq/X58fCQWAhT5zcM8MKIILgRXbZ26JvZXhns
+	yzwISiL+8j8OEE8obIgJtyeuhEhJNOGkJKXJ10CwnONTgvE5KF4Ku0SEfMqbdMkvHLMzGBNIxvz
+	uv8cO1kE4TiUqp1soKAELrW+swP2ZSuY=
+X-Gm-Gg: AYBFou2AqzZQFT5yLyhhQpTOi5lhbsE1KPwVWe17po8pAmhZqSvK8moyphKiyqU9Ay3
+	pipN2VHHtVA2ZdOrvksE8hMlum6PkeBpYGGXdc1001aXBT1RFqvF8BwAHm8fXWAqcSDNzA8MV/Y
+	vQJbvsjtjc9nt0kQxOjG9rT/EdgD4alk5PJHIGgrqz6YvNWvqZMWR/5GblDVDsOsAOQaJmvcTcd
+	JtrzwRw9t9teM7hWyDqxQ84WEGwXJwWsBPMKPR6nC+6sS6vonhPeipY99U0nNSUiguERsTnQQ/Z
+	0hO9jcsY7x/Vh7vSetmDnNad48LOI/ZXILSvZZwExCqRIBrLkfYdcIU=
+X-Received: by 2002:a05:690e:1286:b0:66f:94c4:51ea with SMTP id
+ 956f58d0204a3-6793603db52mr5927090d50.47.1792077799474; Thu, 15 Oct 2026
+ 08:23:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015093854.2082600-1-huangsj@hygon.cn> <20261015093854.2082600-2-huangsj@hygon.cn>
+In-Reply-To: <20261015093854.2082600-2-huangsj@hygon.cn>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Thu, 15 Oct 2026 11:23:07 -0400
+X-Gm-Features: AclHuK8xZfXzISQM_5AP4aKpkZUrwKcxhhqslcqF8aMXobo6HxWE2h1pVZC0fso
+Message-ID: <CAEjxPJ7xgpYOQVRSoBMK-_w4kmrPu_v37iS+q3Oj5TvtKUvJqA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] vfs: add inode iteration method super_iter_inodes
+To: Huang Shijie <huangsj@hygon.cn>
+Cc: axboe@kernel.dk, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	zhongyuan@hygon.cn, fangbaoshun@hygon.cn, yingzhiwei@hygon.cn, jack@suse.cz, 
+	agruenba@redhat.com, mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
+	jmorris@namei.org, serge@hallyn.com, aleksa@amutable.com, legion@kernel.org, 
+	david@kernel.org, sandeen@redhat.com, ebiggers@kernel.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, gfs2@lists.linux.dev, 
+	linux-security-module@vger.kernel.org, sunjunchao@bytedance.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-nl80211_lock_and_recheck() can return an ERR_PTR on failure. If this
-happens, 'wdev' holds an error pointer that bypasses the non-NULL
-check at 'out' and gets passed into wdev_put(), resulting in a
-dereference. Clear 'wdev' to NULL before jumping to 'out' to prevent
-this.
+On Thu, Oct 15, 2026 at 5:44=E2=80=AFAM Huang Shijie <huangsj@hygon.cn> wro=
+te:
+>
+> This will be used to replace the explicit sb->s_inodes iteration,
+> with the caller supplying a callback function and a private data
+> pointer that is passed to the callback along with each inode that is
+> iterated.
+>
+> A single iteration function, super_iter_inodes(), is provided, with
+> the iteration mode selected by the INO_ITER_F_UNSAFE flag. The
+> INO_ITER_F_REFERENCED flag can additionally restrict the iteration to
+> inodes that still have a reference.
+>
+> Without INO_ITER_F_UNSAFE, the callback is called with a valid,
+> unlocked and referenced inode, so any inode operation, including
+> blocking operations, is allowed. The iterator is responsible for
+> inode lifecycle management, so the callback only needs to implement
+> the operation it wants to perform on all inodes.
+>
+> With INO_ITER_F_UNSAFE set, the inodes are iterated without taking a
+> reference and the callback is run in an atomic context that must not
+> block. This mode is for internal VFS use only and runs under a RCU
+> read lock so that the VFS inode is not freed from under the callback.
+> It is needed for operations that require tight control over the state
+> of the inodes they operate on.
+>
+> This mechanism allows the existing sb->s_inodes iteration models to
+> be maintained, providing a generic implementation for iterating all
+> cached inodes on the superblock.
+>
+> Signed-off-by: Huang Shijie <huangsj@hygon.cn>
 
-Fixes: 8e3d9039d280 ("wifi: nl80211: avoid rtnl for commands that don't want it")
-Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
----
- net/wireless/nl80211.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
-index d790e204aee3..7a5f7000fbaa 100644
---- a/net/wireless/nl80211.c
-+++ b/net/wireless/nl80211.c
-@@ -20192,6 +20192,7 @@ static int nl80211_pre_doit(const struct genl_split_ops *ops,
- 			wdev = nl80211_lock_and_recheck(rdev, netns, wdev_id);
- 			if (IS_ERR(wdev)) {
- 				err = PTR_ERR(wdev);
-+				wdev = NULL;
- 				goto out;
- 			}
- 		}
--- 
-Thanks,
-ET
-https://github.com/sponsors/ethantidmore
-
+Perhaps SELinux could also use this to replace its own inode walking
+logic at the tail of security/selinux/hooks.c:sb_finish_set_opts()?
