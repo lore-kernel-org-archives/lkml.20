@@ -1,88 +1,82 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCE73E169F;
-	Thu, 15 Oct 2026 19:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72DC5650F7;
+	Thu, 15 Oct 2026 19:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090825; cv=none; b=hy5swx6lnnHn5RFh3tAy6jhTzf3jJlvPG1Epnk9MlmvVmGTUloJEbJQ9jlAt2vyTswmjs8qDneeFimNLvjFlD6B0d90iYAPQ5diWd+x9vuOZ5yF1KOd5k1b80oi2y6buYmleBpipg3EJr5pGtD4cWZExxJt3mFLgyYXEzRJylHE=
+	t=1792090862; cv=none; b=IAe9/glKUghpq2pJifIYh563BW5kHS5tA2UEvFRRsvWi+efNocVy/TXJkgJWigdgkqleum0OOa93hgi62Xrvo/DCe6n2L8Pf8xd15mmE8vOE0FEJp6es+wVBrkbgbr+MXbny9YP65adrufjl5Fv54eEyzFToXOnLkoqtIlLIsfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090825; c=relaxed/simple;
-	bh=EHY+jDXHN8l9W9NAnQiCcDhI/lRVuDk62Io1rS6/3ic=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ELr9aMcuRbOoxjex5lIXVoWylxA9UW+sY4lwtR/A1n05m16LWIzw8gxVmcOrMxshFcnvKsPrtLS4R5pSZn5zlhBqjXvwDjk5ZHaM2vawmTGPBSXOVyAwT3HevwCG+hlW7de8gGPcE7x7kPSMyr7L8F7OxldRtzBMzU8qMZMyvFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=bPi8Mk2w; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1792090862; c=relaxed/simple;
+	bh=OGGP3Gc+g4ugsGV/o/gkbmqVWY/OYF6rYovKSR2ACQo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uM7aEsk+/hcoFpAT1FYaPFVvxHMbDoKlHmrTcZ4JFwSHjxsD4rYBmj+8o6lIPtwT9Nom1aM6vTv95NemHfFu1bMeu6hUAoOxi7sXRAa5s92/RHSV3AV1CDOOwFVTMW0Xan3pReqa/feIlQ8zn54P9IOThafMLWUIhKEk50JtaAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0eGglui; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="bPi8Mk2w"
-Received: from MAILGW-BIG.big.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 56AA412272;
-	Thu, 15 Oct 2026 22:00:21 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=EHY+jDXHN8l9W9NAnQiC
-	cDhI/lRVuDk62Io1rS6/3ic=; b=bPi8Mk2wywtMFG5yin3/az/KxmVVGDpmcnuz
-	2tKaOK2nKnOAhm9tSeHcaqrFwMtL98//5hswoHtvC1y8kxP6KQIhdBEhBBvNfnLK
-	NT0RQg3uUk4HeMc1qhcviWLqg435t08Ce9q7dzBLZ3RKlGbPEe9JUcfk2eYXTVli
-	i3dJgJjtwigNQ7ltr8MhgIWc+T/sG5x/aEpW4TCCgn6kwbqgKUh7Xk/3eflLbAGT
-	PBzhhm5RI0WVyFsEMccsaC7w3dEhsg8tQtcJB19RQ09xgIiien5QEjDH8iYvQv2Q
-	c60JSuU2stj9r0Gp3lyokyp3oE4hFebhS/sVX1KJ3miZ38XLJw==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 5084C122AF;
-	Thu, 15 Oct 2026 22:00:20 +0300 (EEST)
-Received: from [10.89.11.73] (10.57.8.14) by VTJ-MX.corp.irix.systems
- (2a02:2f04:1:9c24::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 22:00:20 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Chuck Lever <cel@kernel.org>
-CC: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
- Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
-	<tom@talpey.com>, <linux-kernel@vger.kernel.org>,
-	<linux-nfs@vger.kernel.org>, <linux-rdma@vger.kernel.org>
-Subject: Re: [PATCH 1/1] xprtrdma: Post small RPC Calls inline
-Date: Thu, 15 Oct 2026 22:00:19 +0300
-Message-ID: <20261015220019.3412840-1-me@andrei-z.com>
-In-Reply-To: <ddd5a532-bdb2-4976-9b1b-6470414473ec@app.fastmail.com>
-References: <20261015124826.2962950-1-me@andrei-z.com>
- <20261015124826.2962950-2-me@andrei-z.com>
- <ddd5a532-bdb2-4976-9b1b-6470414473ec@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0eGglui"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFBEE1F000C4;
+	Thu, 15 Oct 2026 19:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792090843;
+	bh=OGGP3Gc+g4ugsGV/o/gkbmqVWY/OYF6rYovKSR2ACQo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c0eGglui3ZCuMcFeS7bbG1bQ21NsUWClNzdHaHe9wXocNO/MkX3O/G3W1SzudiW5U
+	 OrH7m0JqhUBrvbCOQ9te2Ya/E4qOXaCttMZ2JcIW4CcjhMd3OSX/ZNMLHInVTPXJjo
+	 cHr/VA9rvKfQVWuLYtbJPZP9jSAksPVkWdF/WIdCt8HuZ/NWDjhQaCmeTIivegumXb
+	 BlV0Bp7s0DzTXZoMT1zF31DXVz+OcoH9OyI5vbB3cs57nNDfFK1N8TNCTDd6F7TNut
+	 HAIfXUwg9TM6h4aPInvxBGt2VV/YMP5Qw6E0UQ8jVB5ETyFn79a/VJQjE164XTEL9A
+	 05zY/LBORDAsw==
+Date: Thu, 15 Oct 2026 20:00:37 +0100
+From: Conor Dooley <conor@kernel.org>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH 04/10] dt-bindings: iio: frequency: ad9910: add
+ io-backends property
+Message-ID: <20261015-uncurious-unwrapped-aa7b2fa6787a@spud>
+References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
+ <20261015-ad9910-backend-support-v1-4-3c21648c8e26@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rXpn9wAQnF+zzvmy"
+Content-Disposition: inline
+In-Reply-To: <20261015-ad9910-backend-support-v1-4-3c21648c8e26@analog.com>
 
-On Thu, Oct 15, 2026, Chuck Lever wrote:
-> These mean completion latency gains are noise compared to the client's
-> own RPC tasking machinery. Perhaps the additional code complexity is
-> not worth it yet.
+--rXpn9wAQnF+zzvmy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks for looking. The gain is real but small. Over 40 paired runs
-its interval excludes zero, and a comment-only patch moved the result
-by -0.0139 us. But the 4 KiB write took 48.4 us on average, so the Call
-saves 0.4 % of it, and 0.8 % of the 35.7 us read.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> General policy is not to put device-specific details like this
-> in ULP code. So, NACK on holding these numbers in a table in
-> the rpcrdma.ko module.
+--rXpn9wAQnF+zzvmy
+Content-Type: application/pgp-signature; name=signature.asc
 
-Understood. Bart asked for the same on the SRP patch, and I proposed
-the create flag you describe on linux-rdma:
-https://lore.kernel.org/all/20261015212227.3338582-1-me@andrei-z.com/
+-----BEGIN PGP SIGNATURE-----
 
-I will drop this patch and the svcrdma one for now. If the flag goes
-in, the client change shrinks to setting the flag and the check in the
-send path, with your lower bound. You can judge then whether it is
-worth it.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatEi1QAKCRB4tDGHoIJi
+0uCxAP95ntDYEgJy1qERWZSEz20Xl3vlfQRB8z7M5bHV7NqTvwD+MqH/CJls1uPL
+57lDZhz1XYBpZua6haLyUeyWhgayQgg=
+=UaJ6
+-----END PGP SIGNATURE-----
 
+--rXpn9wAQnF+zzvmy--
