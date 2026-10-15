@@ -1,86 +1,74 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A404908D1;
-	Thu, 15 Oct 2026 07:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53CA4908D1;
+	Thu, 15 Oct 2026 07:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048311; cv=none; b=kgGcJ4m5VOZa4gIWFkPo9WmuiQjMQTTKUGYBq8iSdhcsPN2jTZLLJx5awF/c/PlR22rJhKk7Ye8LQ/af8PWSZC36oCWQcQw87vKnnyO9bQbWsCovvD0a1yt7PSEpjm+XpwM2NMZi5eZRuSkbf83RUXoBd2uiiXqptEK8G3uek0A=
+	t=1792048452; cv=none; b=AQcAMNGwVZPcdkyPQqDZU20eg4lIiuKwq1/cBxNbgS/SPelKaqFR+Lk6qdqZgwO8vtOKIJGiSHUcDGorFzEv9eh72P+OSzcIag2i5JMLppcN/78n7EIIK50PbS3F8Y78J5AccYXYzEjChZY+udch0Ri3Sk8LhDtpR7E0g06VuEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048311; c=relaxed/simple;
-	bh=GT7sDCXITABokia3XhC6ZU5UMtZeLtdIIOdtvJw/Zis=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e8r8HoH0cLHXX+bugNmJ9R5qqH/ool5tHM2RPD2ouTcl8F1uB3yd6BEZrpyLJ+Qn2yRZFCFb8wcch9z8B3llbNkX0dqgptRejk+6T20zK0sxupaqlWMqOPBWx0+g4kfdOAJRPFrTzXCzCwVID2hNezRuLujm3LmnPKaCEbdFABY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=anVGI1N3; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1792048452; c=relaxed/simple;
+	bh=fKH+1Bp6XRsNMG9dc5HGKDnhLMD62quetW8NrrNn2as=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iVnFYlq5VFawWhXhN49cdK9lI2A7aY421SVuQXw/RKELRNqZQFHcShLY1igLt2v7XESrwdN0TZXtprxe68ZdDN1R6b5UEnXSrvH4SpcJaT9Rg27WQv8vwRe1FpsDpBEn8VO0UPdiTerUS/vG364Ea6mSIvpfVm5/kqMyTa21KGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fVE4nzPP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="anVGI1N3"
-Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [IPV6:2409:8d28:39:f54:403e:4083:f623:91af])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51223b4cd;
-	Thu, 15 Oct 2026 15:11:31 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	Boris Burkov <boris@bur.io>
-Cc: linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: verity: return error from btrfs_orphan_add in begin_enable_verity
-Date: Thu, 15 Oct 2026 07:11:28 +0000
-Message-Id: <20261015071128.3319350-1-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fVE4nzPP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA9361F000C4;
+	Thu, 15 Oct 2026 07:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792048444;
+	bh=D6x1fISs5AcZrukLtgufyChM/sdinLD8YEymSWdlEE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fVE4nzPP9Vtov/ytYPqt0cHJfNfD8lKMyGICTx3wbyINNRF9jxrQTxMwQISadr92d
+	 QIZv0L5io2h9RiLSfvSVBjcQ8LuhXDiYHGjBcQ8guJ3nqewj6Q5kzFvkeccNppJOCI
+	 V2uc+TDwWf9T3KRyAdZBV9LrZy490BxHfBzU6CHSbQKdGos1Ar4RFcHT5t2EV3AuDM
+	 4f4bJZXoZq+doDOLTBKeU3iUW6ORKAxheW6mfX14M2zQSA50MgEhYFMC6QN6HwE42Y
+	 NvPShiI20dJ3jW39IuuTowwhQqQiIqvgdDZIg73vcd5WpVDlaKpw/ek0vDcbMbR9RY
+	 c2metI3VT5m0w==
+Date: Thu, 15 Oct 2026 00:14:02 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Easwar Hariharan <easwar.hariharan@linux.microsoft.com>
+Cc: Emerson Busson <emersonbusson@gmail.com>, mhklinux@outlook.com,
+	kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 0/14] hv: vmbus: make rings and host-visible buffers
+ survive buddy fragmentation
+Message-ID: <20261015071402.GA936897@liuwe-devbox-debian-v2.local>
+References: <20261007190752.336426-1-emersonbusson@gmail.com>
+ <28fe612a-e91b-4825-bb8c-f34c893c2dec@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13e66ddac03a2kunmfc98b02167272
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTB0dVhlNHRgaSR5NH0xISVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQUJKGh
-	1ZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTUNVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=anVGI1N3hZJXnN6IgGoSd37p7+HwZHVYh73JG5lG5XxrZxj44WtlE6CtxgG3Rq83nlA65nfqxwEidgKIoGDDmk2YITahUnzmOWq1HpIbRi+9s1Jp9jnXTlIihiza9f4AOm4Hn3n5WkZr7COklnQpJ7+ms+VQpbZzI9NJPDD+KMI=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=LYphTqGMrkmNiWbMOtzHMbORmjEVtNFv7ZLeMtQHIrM=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <28fe612a-e91b-4825-bb8c-f34c893c2dec@linux.microsoft.com>
 
-btrfs_begin_enable_verity() ignores the return value of
-btrfs_orphan_add() and unconditionally returns 0. When inserting the
-orphan item fails (e.g. -ENOMEM), the error is swallowed and the
-caller continues to build the Merkle tree even though the orphan item
-was never written and BTRFS_INODE_VERITY_IN_PROGRESS was not set,
-leaving the on-disk state inconsistent.
+On Thu, Oct 08, 2026 at 09:55:27AM -0700, Easwar Hariharan wrote:
+> On 10/7/2026 12:07, Emerson Busson wrote:
+> > This series moves VMBus ring backing to the chunk allocator and keeps the
+> > allocation, GPADL ownership, and mapping references together. It preserves
+> > the exported four-argument interfaces while allowing the private allocation
+> > paths to carry ownership and sharing policy.
+> > 
+> > A review of the original vzalloc fallback noted that CCA and TDX guests
+> > without a paravisor need direct-map page transitions. This revision uses
+> > contiguous chunks for buffers that must be host-shared, transitions each
+> > page through page_address(), and combines the chunks with vmap(). Ordinary
+> > guest-private buffers retain vzalloc-style allocation.
+> > 
+> 
+> Can you provide a link to the v1 of this changeset and this "original vzalloc
+> fallback" review? And a changelog and motivation for this series?
 
-Propagate the error to the caller so that fsverity_ioctl_enable()
-aborts before building the Merkle tree. The transaction is already
-aborted inside btrfs_orphan_add() on failure and released by the
-unconditional btrfs_end_transaction(), so only the return value needs
-to change.
+The title is
 
-Fixes: 705242538ff3 ("btrfs: verity metadata orphan items")
-Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
----
- fs/btrfs/verity.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[PATCH 0/2] hv: vmbus: prevent control-plane starvation and order-7 ring deadlocks under memory pressure
 
-diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
-index 600337a84fbe..d92c9dab0293 100644
---- a/fs/btrfs/verity.c
-+++ b/fs/btrfs/verity.c
-@@ -615,7 +615,7 @@ static int btrfs_begin_enable_verity(struct file *filp)
- 		set_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
- 	btrfs_end_transaction(trans);
- 
--	return 0;
-+	return ret;
- }
- 
- /*
--- 
-2.34.1
-
+Wei
