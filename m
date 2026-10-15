@@ -1,102 +1,179 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1D549DBA8;
-	Thu, 15 Oct 2026 22:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B550130F7EA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792102367; cv=none; b=Ab2wjr8LAPF8ffiXvNlttxeGFtbJVrplfWCO2VkhcQOGwCtBsrdZr43lSl/4cN/80p23e/JDu1EnVqnmuMwq4ALtKxPeA2uRKo39+p/VODZ+xL0xQaXj5jbIR7SCM9/TZ8tTs//I3gRbWPnWga433T7h/tuIIJIMEAPz+eQsVv8=
+	t=1792102387; cv=none; b=fQrzJdjskUyZd+a9hER8h/eEuUbohAIU+woiaJQhSqV5R2VHJ+qhAu6Wqh50i5wW4va73etG4aHLQ3soKVyBNq1mArKZrO/peY1h7EZfOtWBR1yMm9vLbspI3wRVEXxm/mgwvZNZghqktwSlFl7snZH5bNVdlDKYoOTlT0GVArA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792102367; c=relaxed/simple;
-	bh=KwhzzEMkuLBeAKhai04Zik5QWjQVv0gnGiO9DNfQxrw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=apyWv2twViqxp1zPrLGhJWJrIDA7eVEzayYUe+cYFfs3IOJarRNC13eRc1IucQmgKYl1l5XPjgDQm22gh54Ns0Rl+vRblHApc9ia8MpexcSmh3XvLVkb+vAzOU/XXfYFscRaHN0p1Y58XXiT7KRXveBflXHsq2cTMWOieVvPDxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=s+dFI/m6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bD5UWpdG; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792102387; c=relaxed/simple;
+	bh=40gmtCymycQFHbFXfgKDqLipoiytU518gUFzifom2sI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rrx3PMzQtmKvDFyaUnInPiJ8jFuK4PaaQ6A/x1VGvUxUbkVrYrUufshNronIc4eK4k9Ex78IUmseHEa8RTrFNYu3o2NULWwVgyEnku/sLEQYUY9wXpVsHoXvUNsvQoEexCtNQoAh7nOP3KykPN07P/ZHW8Y5VV+BBFLDBfZZzgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=cpYzY6Nq; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="s+dFI/m6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bD5UWpdG"
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792102361;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FCQiXcwagl43OEWiORSs16kaBC+Da36kWfM0/gujHO0=;
-	b=s+dFI/m69xfZYZ6NFHe2h81rK1p+3V/t723Id5UdIQe5y8v1nQ/S8JtXf2aDmyS/hseGhx
-	vdvETDP97XGxcr0UPEw6aXcLN2LuhNm9vq1ZARXoxnkWwEQQfwMfi/JpRfdVwKU9dGkrr+
-	BQk3voE1l2wO5fWqq5/UPBLEoP9Q3sblf2K2RDsvyORuA7NOlD0lMb8jF9IYEeDLLnRuza
-	sia/D8GBhYDOm/AP1BeTZxItTJfbU8kztbPU86o45j8ZItvAzV2N3O1NovC2s+j+Jrm3qy
-	n4MaKBH74nk0YRU50v12xjTft62WNj3x6qj0IwQmZvIbsBNozIXO8UAwKtLi9Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792102361;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FCQiXcwagl43OEWiORSs16kaBC+Da36kWfM0/gujHO0=;
-	b=bD5UWpdGnmyp5BhTyJlyARy6hy6Y9i2D7G0ymSiIL2BuqRQb2rWgwv218SUEy6vvw8EX45
-	0qurYfZ3rcL/VqBg==
-To: Koichiro Den <den@valinux.co.jp>, WeitaoWang-oc <WeitaoWang-oc@zhaoxin.com>
-Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
- x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
- WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH] x86/apic/msi: Fix MSI interrupt affinity configuration
-In-Reply-To: <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
-References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
- <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
-Date: Fri, 16 Oct 2026 00:12:41 +0200
-Message-ID: <87jynid352.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="cpYzY6Nq"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1385379a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792102385; x=1792707185;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KAMNNIjaffC8G5IgYh2OMegewZGeZrERfs6YCxgtum8=;
+        b=tkFCrOKpZu1Lk5LxXrcDouWDDjhOW7lCnhlQA4lJ0XmDU7u1qSxoqCsdXgRzbFiRwL
+         A83g90dcPdpbkETdtCbNxE6WwePDv9vaUdLsZU3Lnx3EDySsGMpcu5YFJg/MlF+jHkYr
+         S+zSIKYZl16ngc9YypdAFwjtVzGdK9WqWmglWF9lLWaECMAlCOZSWEOjMPc+xUrGc43D
+         ya7NYiRSgo7v7pOhecabJkyU+clix3oZblnwxbdgUr+ONm/rktanbLJ15kOzI14/hQne
+         m+x7tvvfjUvwemSVHfH2x2jC52qNNJmvlnDxBoxXPq6qZJ6mJktWzEOGJwuld77pVWR/
+         YBpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFhzqsN9d/eViB4sv2ntEJV7a8tLLCnu2JnEWnLtD1WPXi6F/4aDUYmqNXl07k82eJPX7MqUMhDgV5qus=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIO2jWYPneQKJAj8bh0tLXRLSHUrHvi5vgs9VpuL9UQDqowLc6b
+	c+sXfYbcHNInno0id/YaE8dvWL7vsgoaJ0xp8y9WemY/4koprvPbj2DVypPjeJGHYtj/RZqS8La
+	gW7P4qH2dGnEa355+Ne3bmuiRT4gwZ8Mas/+2cUZOQWDvzA+xQLGJ4FC3JSUiD+tYkl3o82TymO
+	belw6kklKFbe+SASEurqLL9Sd3qbx+GSPN6HLKptuwkmINvAF7h8vWm8D/NNGDiJ78jB8vWBsMH
+	OMwRepgHjMt97wfpXxK52oV
+X-Gm-Gg: AYBFou3gGOiofpVni3zhT1c3rW5BHRYoAufXxBv5pNZG1Wbi30W2Tqzp/REq73b88Rl
+	CtQTmugQZEO+lmAZkPGobBgfF6C1so9ydBDxQShsfplT8/XheUN0KC5/xGgnqRWXCUM0yeUotc/
+	yE9lLQCCs9oFW2Si6H9qyPBAg4KsHghQcDr31y8opFIJCa+qIB1D6t2M8omXpL5EA/6+chbiwRd
+	o4uj85OO4PEPvzm3OiL1wgKHOyC6Xl69Bq6b0I+26BD36LIrGLbCCiwdxarClnUNOqfc0I2LkFF
+	KvmXxYSNSkBJMxBw3QjFsRX0Gb7VYb5XVDlTB7DlXdMwvjAX43mcgl3p6mr9Jb+FbeF60i7wyFl
+	KAhiYeJafZI+0BClvlSheoArLnL2Ol3YjVjHTBo02ngTeIyv0NGc3Q2yxlQJongkeGm4J7RtGt+
+	gUGshnkJIL36exi4a0Y8L0yyagaYNG/2dmGKiY+yvD+Ns=
+X-Received: by 2002:a17:90b:590e:b0:3ac:bc3d:6fe5 with SMTP id 98e67ed59e1d1-3acbc3d72edmr1477299a91.7.1792102384843;
+        Thu, 15 Oct 2026 15:13:04 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3acc963d427sm81042a91.0.2026.10.15.15.13.04
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 15 Oct 2026 15:13:04 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso2793675a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792102383; x=1792707183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KAMNNIjaffC8G5IgYh2OMegewZGeZrERfs6YCxgtum8=;
+        b=cpYzY6NqjdtF4W2IViWyd0UP8nzrsDcgBlFd99Cff8LrLc2OIP8ABzyk3gUZpwIXYm
+         257T1/Bdp9m422zegBDgQ+d1tl0DPmrlQnnlxNVEhVoOAFbruxEpikNyPcx8RzOSWalV
+         ifrhR/oIWa2Ad34kMCzegt8u0suz6gKaW5hcg=
+X-Forwarded-Encrypted: i=1; AKwUvByF2Js/WzEQ1ySHe+DmbpRZjwMdKal2/iCItRp0vQZp88mcP36ao8Z7pW5cIyBVjpTz5Kh12K+Qt4fqkUA=@vger.kernel.org
+X-Received: by 2002:a17:90b:5345:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3ac9df36ea5mr3322560a91.24.1792102382660;
+        Thu, 15 Oct 2026 15:13:02 -0700 (PDT)
+X-Received: by 2002:a17:90b:5345:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3ac9df36ea5mr3322538a91.24.1792102382175;
+        Thu, 15 Oct 2026 15:13:02 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94748c6csm6168418a91.10.2026.10.15.15.12.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 15:13:01 -0700 (PDT)
+Message-ID: <2279ba71-009f-429b-a27e-dc72ab11cfbc@broadcom.com>
+Date: Thu, 15 Oct 2026 15:12:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement timestamped
+ MDIO writes
+To: Nicolai Buchwitz <nb@tipi-net.de>, Andrew Lunn <andrew@lunn.ch>
+Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>, Doug Berger <opendmb@gmail.com>,
+ =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>,
+ Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <20261009143506.2507607-6-jjc@jclark.com>
+ <3b1a2994-5251-4800-8c61-b63d7a435b21@broadcom.com>
+ <60accbd89cfaf0d4be1da5ec2fafd975@tipi-net.de>
+ <CANz3_EYfcBopo=HgRioXkhoT6P+4WWpfFT7UeWkXd5eM_RNpSA@mail.gmail.com>
+ <41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de>
+ <68eeee64-7f62-459c-b53d-61ec04b4d8e3@lunn.ch>
+ <6b5ff0aee5db9bba10828d2f949c9d67@tipi-net.de>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <6b5ff0aee5db9bba10828d2f949c9d67@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
-> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
->> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
->> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
->> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
->> race. Maskable MSI interrupts use the direct path to update configuration
->> info. However, the current code logic is the opposite as only maskable
->> MSI interrupts will enable reservation mode.
+On 10/12/26 06:21, Nicolai Buchwitz wrote:
+> Hi Andrew
+> 
+> On 12.10.2026 13:51, Andrew Lunn wrote:
+> 
+>> [...]
+> 
+>>> I've put together 3 patches, which do the clock plumbing:
+>>> https://github.com/nbuchwitz/linux/commits/devel/bcm2711-gisb-clk/
+>>
+>> It would be nice to extend this and set the divider based on this to
+>> give 2.5Mhz, as required by 802.3, as the default. Allow boards to
+>> override this using the clock-frequency property.
 
-Please read:
+Regarding the choice of the GISB clock to feed it into the MDIO clock 
+input, that's something for Raspberry Pi to comment on because I vividly 
+remember we did something different for 7211 and used a 250MHz clock in 
+the interest of being identical to the other STB chips. Your changes do 
+look correct however.
 
-  https://docs.kernel.org/process/maintainer-tip.html#changelog
+> 
+> Sure, as a net-next follow-up once James's clock lookup is in, plus a
+> binding tweak since it currently promises hardware defaults?
+> 
+> Only BCM2711 would notice for now, 10 MHz down to 2.5. Both Pi PHYs do
+> 12.5 MHz and the slower bus mainly hurts the PTP path, so I'd set
+> clock-frequency = <10000000> in bcm2711-rpi.dtsi to keep what the
+> boards do today. Florian, ok?
 
-and restructure and reword the changelog accordingly. The above is
-incomprehensible word salad.
-
->> Fixes: ef8dd01538ea ("genirq/msi: Make interrupt allocation less convoluted")
->
-> I'd rather (or also) add:
->
->   Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
-
-That's the correct Fixes tag.
-
-> As I recall, I started out trying to fix the issue, but then got too focused on
-> removing the flag. I missed that the check needed to be inverted.
-
-I missed it too :)
-
->> @@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
->>  	 * - The interrupt is not yet started up
->>  	 * - The new destination CPU is the same as the old destination CPU
->>  	 */
->> -	if (!irqd_can_reserve(irqd) ||
->> +	if (irqd_can_reserve(irqd) ||
-
-Amazing that this went unnoticed so long ...
-
->>  	    cfg->vector == old_cfg.vector ||
->>  	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
->>  	    !irqd_is_started(irqd) ||
->> -- 
->> 2.32.0
->> 
+Works for me if it gets us what James want as well, thanks Nicolai!
+-- 
+Florian
