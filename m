@@ -1,307 +1,193 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A762A384CDF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA60D38330C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:46:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082771; cv=none; b=mgElI4lGH9N6LIdSIXt5ciAzsRvIAXl2hzD9W1pXGBnLGWGB8LYvMtx9YULcD/43KAC3YxdD+wDABDE0RcVqTBdpHUnMygulknRf6MCqYj6JvTvEdgfe9LU2xhkmhLWjTPPq7ykhmvqbR6w3Sdiknyr/CahzH56d2dvQQ9bOHvM=
+	t=1792082787; cv=none; b=uur5GqHW8++F5R+8fMj/7adiHmCVRnHvoSIN2PVtFVT1iBrX7P8nu1fgUBEeY5z6QZEFJarzd3afciUGrUpCu1z22WrotA9QADLxRLSlz4/QZpJIxhWwoU3rGwNRCcSCZwznsAgZXTpmULTjKQjlQ55cTw9uNZaHxWjadYSgzPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082771; c=relaxed/simple;
-	bh=a1Qz/aW19Hse8kHOmj6fiQmNMBEaSrg+soL9FPT9qtw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gCgRZkoqnYdbUa4n7Zrh485gAbMfNz33fR21djusy/XsOTwyTu6mgeDAuvUqxtrhGftkaF49N4Vz8ZbEO0HCp09qqU5gcBcJ/b8G3XugP10iSVwfWa+Ecj6nOcnZAIG1uU0Kch9FoDf6wjD8jAy+f4wJr5FTnOcNJPJK2S43tt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=DhRkfwOW; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1792082787; c=relaxed/simple;
+	bh=e8AVypFcDpfdqFKE+7LYw0E3D2q4xn1i6UyrrzKEcsA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i+AerrpyktrA5bwDTlmegOKKfZXZ9lE82AgoWXFyJ1jtaxQ5kkMQcTaAWYvkovPvjP0ti57SQJX0dGW/YH1dJOC0W2PKth5Jw0hXEr2Olh3TJHkrkrzXlxpRGJpQeb5wLRIw93w8CG4M3xzSgXGGdndq3Jx3sd8eydALTqdzqPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E54S7zeW; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="DhRkfwOW"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-398a5aad413so1297818a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:46:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792082761; x=1792687561;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IbSOZzpeglx/TWkOXskzb501l9ji1KtJgr/PQMFt49Y=;
-        b=hfrqQgWKCtPkiRqWCrLwrock5Y/ZdM2KzyrJ82ywqhbnxZIlRfLEEZRPUgxdunkeiU
-         ni4ZTppyVqdjXlQ3+FH6EGyR05Ja1DkK234VloJDLYxjDG7yKoWy0v4SsQ9SEdujKygJ
-         PJgnjrY+fXP0VfAmfqn2+tZsx5gLyD5eO3k/c3lenTcviVzhGVqjSuuOe2o+G70Upr0P
-         1lyQ4jsk9t89D3+HGsmjWUQ9YOiR41FPGMdApiAQ7jFhRbBVzf3zmNbBcnfhwFMcXQEK
-         Ep96yBebQYBB0rH2xLe3mdjQoS00nGUSXepMF0/xluOKRGDrvFF5lZls9hMRq7y7sqOh
-         qJaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxiDMYXpzAJMTNnBcaoriof8IuhCK++92QlUVCkaaBO1+6XemC7uX8aB8CKEy9GsNZqFg4YCfRiDIsYCQY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLM7BnvVEujTHJVf52mkzpYGazYdq4zs8xR2+WEKN8B82lFDHBA
-	ySh1Cm1swWP4LFrutcvPDmtCoQR2o47AxC3Dg/FhJu0rQL++HchdDPk0jF0k58+aBRTD/ZQ4wFV
-	LDTCXbBfVX51q7tuPpRdek3mpGw31YsYXHiJ4i1Hv7pSbSSSDd3Yw9Qb2GupsUHiaQc1Cu2qFeB
-	AGfPXLLSdW0GcFlbQYx4P/Cn1CeO8y234Bqdu4jWeCNVjuBOy0lsopFnknmWrKPiDLHHA2ErbHt
-	/rOnB/z0LS9JfED5lk=
-X-Gm-Gg: AYBFou0RPnMkeZZ9uR06zi1mT5Hu4t0yT9f1gC4nYEBWy9eMRjv0JTtJenExeU/kbfK
-	GkVWRLm/Bz1yXk4K70dK65QG/RaorV3VJq0KvkEY5I25JaAt2CeNxvBoK4xiqApbUp3Es6n4uRr
-	jDsb8mil9a3HB/ISy5Mh0xFgp4Gey0EDFEydemp48cGniKz1Vg3rkqA/I6iEon9q+r//0MXFpPK
-	c9vgd/JucYNIdyCL7IawHwxzc2815RDszcN1cWfp3TFS1btq8YCd2IAHMdmR7wpyXHGHvpKAsJj
-	3/Xtkvx7rbz1/n8f20MUhXTy2DM7MxCeT3Msf+I3HgRTHrB9XPy391ITVM0GdvHwkC822JtlZT2
-	fyJz1MyYygmzDLX6NyYETRCCqH0CdQ40QpZEsCvDTq6cYMnFyQJ5oGjb+XI8P9SM3XLpwzthWmq
-	dsflT7oyzk5NFxK/lJmCsA1qeAGnVuxEeSZwU=
-X-Received: by 2002:a17:90b:1b06:b0:3ac:adce:60b2 with SMTP id 98e67ed59e1d1-3acadce66cfmr1526853a91.2.1792082760577;
-        Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3acbc5638fdsm199680a91.0.2026.10.15.09.46.00
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 09:46:00 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35cbea41088so3342705eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E54S7zeW"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4887dbe4f2dso555071f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792082759; x=1792687559; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IbSOZzpeglx/TWkOXskzb501l9ji1KtJgr/PQMFt49Y=;
-        b=DhRkfwOWeIVP2MZnNuKrQmBaec5WgXlV7tLPgp4fuSVB/jgck3i44fsmEYJ8Mi4yV+
-         bOpuvODiZ8zADd0GaEaUdzDvvFsEd7z3n7xgku4NbK6F9EQtNRf0FjH9i5wgFMIgVHU4
-         ZKEb1A6oDOKbZzbfkL6vYPZAFZU/bWMCe35Oc=
-X-Forwarded-Encrypted: i=1; AKwUvBxa7zbVLa6pfL0Ylry0FQWkIR8hMFUv2rL1GL/7vifHDU0adY6B75qT/auSq9Ff/TTu5Z3Fqv2+1+GzOP0=@vger.kernel.org
-X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id 5a478bee46e88-3537dfa8c6cmr25184429eec.17.1792082758478;
-        Thu, 15 Oct 2026 09:45:58 -0700 (PDT)
-X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
- 5a478bee46e88-3537dfa8c6cmr25184392eec.17.1792082757800; Thu, 15 Oct 2026
- 09:45:57 -0700 (PDT)
+        d=gmail.com; s=20251104; t=1792082776; x=1792687576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CzeUoH4s3R1vjJ6KljgBZ8kapLArpobGIe88CwWkAgM=;
+        b=E54S7zeWXEg84RvSAk3CujpXeA544CpbGqTgiwxcTgnRV9JJg4bArgQX42ZifVvQMK
+         2zbaP0mFzKRXb/F7Ut82Rbc8LUNdmIsHVdezcnnjy4u1vjwvv24iMuCTrgjwV0f79wYK
+         i7Lv+R2AJKMYuM4/Chp3Qmt2AuozyzxaRtjt9wY/VasmOUgEeilrYyfZ4IRCm1oXTf5L
+         dAjdm1pdoZP7/EpCkgWD/h/a0N4SvwbiNvr6u9apsiTYOx+UIMjoC16lWu6IzqWsQTST
+         RL66+6V6a0OkHeCF+mwTX0dWOvhse03Bpm/YfVU2Zhm1sczTA/paFixs6F1pHy8v641i
+         +rQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082776; x=1792687576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CzeUoH4s3R1vjJ6KljgBZ8kapLArpobGIe88CwWkAgM=;
+        b=g6k7BdUH7+TWIElAFJsGUX1DLTlnrErVvxu2WyUy7VezJX7xy8iWvn7pYQSWspXQXC
+         EvcjbXGl93PvtyrkoUbJA+A5obcaMtzunbp9Lce2Kq0nxdnbxC1HhfuClD0Qj1GA+ugQ
+         fjTCGMzJgwq5UYW/pSi0JwRl1x+EyxiwvkgYjAJvXuJwOaxvT8goDH0VTc/a+I63Ztns
+         T8fPJnAqphGXNagvMa1yb0mvbstZrScEZ+TGZWTa/PV4jGoM5PuLVhxtIOlIwo76DCYy
+         GWrSK0ApAkJzPtGkxsz8DfuSal0BHm9Z0xCULbLljCKP8qyCKNhqQzua5VWpHazs5wj7
+         RRPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPGrjfQhPVcI5i+Yts+G80dqt39C4/3U/rQTzzSBQbNqTX8zgMKOwxrNgXPwEaNAmzJ7ifeECgLRIZgxU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuj9OsiRaq0MScvmRxtjrvyU31S9a7FIokp7EYIK73HftwilJr
+	DTbH+vNg8TgBzjVuhuZMbDXcrSpY+AEA3a/G965noQYzE68GXWFu6UNw
+X-Gm-Gg: AYBFou2lk+tiYjIAzjHkHJjTfq48AZk8rHKT6KCTtsWZ4KJGhnXpMruuNiE32QiUszE
+	VznwNHEdabZGq8MxB4mz20AKqi7VFT3Y3eSoU4FaGcXwnSC/4cIXWIvbuv/hyDCh3Qny2gpeYmC
+	vpWGopyCDat4D+bE3gxu/O+rc4Du5HgAf43BlRzJfi9ESsWgGAHsimTkld4SoERs6WEmbCEgSWW
+	vbU5C9nPgmZNZ/9VwpQWmXv2ReUEQJ7EXzDRMeFYDuXKXWCcleB7J0WVdfGU8hikBhLVB6bl4Us
+	c7kdCSTzPcBbvVpO+GkEP531idm6s2GGrPHk/dS+DzMWtwZGpnQ2OpXb9SLRaXIOsaezxj6rQgz
+	WjyPtIxMmNJmesgRo0B1DGSQ6CTfll5iqI5OFKVBvE/xG1adIaLul6vKWl7SqnkGyVS2t7KocRX
+	MxFV7IKjegpLev9Sp/gEl9sVNOY0uPgPU+LLC7gFdjACHGZFX7JMUeVic6XlXNL6pf6ikl5w8Kk
+	DqUDP3t5B55gyDzZJBKuhrtBMZn9oY=
+X-Received: by 2002:adf:e00a:0:10b0:487:8ba:8b4c with SMTP id ffacd0b85a97d-48dba79fbf3mr27881997f8f.1.1792082775368;
+        Thu, 15 Oct 2026 09:46:15 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.74.201])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm19110712f8f.54.2026.10.15.09.46.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:46:14 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	mchehab@kernel.org,
+	paulmck@kernel.org,
+	linusw@kernel.org,
+	Julia.Lawall@inria.fr,
+	gary@garyguo.net,
+	rmk+kernel@armlinux.org.uk,
+	hemanth.selam@gmail.com,
+	emmaonana18@gmail.com
+Subject: [PATCH v3 1/2] docs: kdoc: handle TRACE_EVENT_FN() family in tracepoint parser
+Date: Thu, 15 Oct 2026 17:44:47 +0100
+Message-ID: <20261015164524.14066-2-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015164524.14066-1-emmaonana18@gmail.com>
+References: <8733u7t8xq.fsf@trenco.lwn.net>
+ <20261015164524.14066-1-emmaonana18@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013120211.135807-1-matt@ozlabs.org> <20261013120211.135807-4-matt@ozlabs.org>
-In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:45:41 -0700
-X-Gm-Features: AclHuK8gEHzRL7o1P7PbsprYTPQIJqIPg_1G1oX-C1t78VeDlarF5hWwxG694Uw
-Message-ID: <CABQX2QOis8GJK4Mm8FEuH8UtrXF1NbeMoN8vQD5j4Hwcdk8JoA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
-	Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000043fd52065de3c814"
+Content-Transfer-Encoding: 8bit
 
---00000000000043fd52065de3c814
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+kernel-doc fails to parse tracepoint declarations that use
+TRACE_EVENT_FN(), e.g. gpu_power_status:
 
-On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
->
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
->
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
->
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
->
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close then only executes as one of:
->
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file =3D NULL (no file)
->
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
-y_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->  include/linux/dma-buf.h   |  5 ++++-
->  2 files changed, 22 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..61485fc28b8b 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> -       if (!is_dma_buf_file(file))
-> -               return -EINVAL;
-> +       struct dma_buf *dmabuf =3D file->private_data;
-> +
-> +       if (!dmabuf)
-> +               return 0;
->
-> -       __dma_buf_list_del(file->private_data);
-> +       __dma_buf_list_del(dmabuf);
->
-> +       /*
-> +        * As the file is being closed, dmabuf->file is no longer
-> +        * valid and NULL replaces an otherwise stale pointer.  If a
-> +        * reference to the file isn't already held, the file can be
-> +        * closed at any time, including before dmabuf->ops->release()
-> +        * happens: dmabuf->file _must not_ be accessed directly.  An
-> +        * exporter should use get_file_active(&dmabuf->file) which
-> +        * atomically tests and acquires a reference to the file (or
-> +        * returns NULL if the file has closed).  The barrier ensures
-> +        * get_file_active() observes the store before file_free()
-> +        * frees the memory.
-> +        */
-> +       smp_store_mb(dmabuf->file, NULL);
->         return 0;
->  }
->
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..a31eb0ab9ecf 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -303,7 +303,10 @@ struct dma_buf {
->          * @file:
->          *
->          * File pointer used for sharing buffers across, and for refcount=
-ing.
-> -        * See dma_buf_get() and dma_buf_put().
-> +        * See dma_buf_get() and dma_buf_put().  When an exporter holds a
-> +        * common lock with the ->release() callback, it can use
-> +        * get_file_active(&dma_buf->file) to safely acquire a reference;
-> +        * the file could otherwise be closed at any time.
->          */
->         struct file *file;
->
-> --
-> 2.47.3
->
+  drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
+  tracepoint format ...
+  ... expecting prototype for gpu_power_status(). Prototype was for
+  TRACE_EVENT_FN() instead
 
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
+kept as the prototype and the TP_PROTO() arguments leak into the
+parameter list as garbage.
 
-z
+Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
+TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
+TRACE_EVENT() and list them explicitly at the call site in
+process_proto_function().
 
---00000000000043fd52065de3c814
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Add a regression test for the gpu_power_status declaration.
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBCL
-84tfrxmEydRsa1w33yx6kN2PzfUL8NyJllPrxqdvMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDU1OVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGzG9yKhRrbn4VGJFWDcPw20WJoiE/6KD+Cg1KqC
-h6BS1xXVufGiY5gvfwlaKaa0uX1BMOOXBkCA2l+qN82gilIQSEhXBk0XzvoiE1up8Ps0m3ncoAKn
-F8e87A551Eyx/OFtw+fVvLeaVYj2kkn3b+8AY/mVE7puKUU67aQ4nz3A80sIR2S5KfvnuxkXndSA
-+inJYcHuzXJG2OlbN1wvw38nsQCiVR+XbeSCih3eal0TAIO/c2oIUGF9TH5rjMn0ieVUtp1Mcn4J
-3/gCN7TwPt6dfmultyHXyj6LJ/ImFSvZarTc+BRxJziqjHIqJmdez6sAKsbQU4XBT0G8XV42JZE=
---00000000000043fd52065de3c814--
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+---
+ tools/lib/python/kdoc/kdoc_parser.py | 18 +++++++++++++++++-
+ tools/unittests/test_kdoc_parser.py  | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+index 80d4245acd17..a65bda3e81b9 100644
+--- a/tools/lib/python/kdoc/kdoc_parser.py
++++ b/tools/lib/python/kdoc/kdoc_parser.py
+@@ -1545,6 +1545,22 @@ class KernelDoc:
+         if r.search(proto):
+             tracepointname = r.group(1)
+ 
++        r = KernRe(r'TRACE_EVENT_FN\((.*?),')
++        if r.search(proto):
++            tracepointname = r.group(1)
++
++        r = KernRe(r'TRACE_EVENT_FN_COND\((.*?),')
++        if r.search(proto):
++            tracepointname = r.group(1)
++
++        r = KernRe(r'TRACE_EVENT_CONDITION\((.*?),')
++        if r.search(proto):
++            tracepointname = r.group(1)
++
++        r = KernRe(r'TRACE_EVENT_SYSCALL\((.*?),')
++        if r.search(proto):
++            tracepointname = r.group(1)
++
+         r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
+         if r.search(proto):
+             tracepointname = r.group(1)
+@@ -1604,7 +1620,7 @@ class KernelDoc:
+                 self.entry.prototype = self.syscall_munge(ln,
+                                                           self.entry.prototype)
+             else:
+-                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
++                r = KernRe(r'TRACE_EVENT|TRACE_EVENT_FN|TRACE_EVENT_FN_COND|TRACE_EVENT_CONDITION|TRACE_EVENT_SYSCALL|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
+                 if r.search(self.entry.prototype):
+                     self.entry.prototype = self.tracepoint_munge(ln,
+                                                                  self.entry.prototype)
+diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+index 4baa78ca02b3..04dafae412e4 100755
+--- a/tools/unittests/test_kdoc_parser.py
++++ b/tools/unittests/test_kdoc_parser.py
+@@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
+         self.assertEqual(entries[0].name, "debugfs_cancellation")
+         self.assertEqual(entries[0].warnings, [])
+ 
++class TestTraceEventFn(GenerateKdocItem):
++    def test_trace_event_fn_declaration(self):
++        source = """
++            /**
++             * gpu_power_status - called when hardware turns on or off
++             * @dev: pointer to device
++             * @shader_bitmap: bitmap
++             */
++            TRACE_EVENT_FN(gpu_power_status,
++                TP_PROTO(const struct device *dev, u64 shader_bitmap),
++                TP_ARGS(dev, shader_bitmap),
++                TP_STRUCT__entry(__field(u64, shader_bitmap)),
++                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
++                TP_printk("%s", __get_str(dev_name)),
++                my_register, my_unregister
++            );
++        """
++
++        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
++        patcher = patch('builtins.open', new_callable=mock_open,
++                        read_data=dedent(source))
++        with patcher:
++            _, entries = kernel_doc.parse_kdoc()
++
++        self.assertEqual(len(entries), 1)
++        self.assertEqual(entries[0].name, "trace_gpu_power_status")
++        self.assertEqual(entries[0].warnings, [])
++
+ #
+ # Class and logic to create dynamic tests from YAML
+ #
+-- 
+2.43.0
+
