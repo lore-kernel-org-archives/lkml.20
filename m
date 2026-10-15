@@ -1,169 +1,156 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013068.outbound.protection.outlook.com [40.107.159.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0961348E0DD;
-	Thu, 15 Oct 2026 21:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF722FE05C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099105; cv=fail; b=Lht5Z9SDYUkOHtXYlBZH8hYc9b2Us87szKigyJI4J+OzOptGaU8rSjyGc+O/ru+YyIuDjFnTcQbW0zpJXTlKQCAua6AD6k/Kowd4V0GygDnYcURhHROz5p3m2UDjmjgMeT2jgEjvmreqqDMaCvsWBUR28LaZIAAivxwf6cEdCYs=
+	t=1792099166; cv=pass; b=r28RLmwDPk94Q41U+kNw7PIaaTGsjS7rMemiOKSyW3bIFdmC+OWaY0ABeECk9qAYPLs+VInSNO4GD2DLJPbKYrVhyRjlx9I9ssiwUweq+WYVtNQ/W8u8pYv04NAszvPKVXITPBeaSxCA2/I514p/OuiYQOa1tCALEl+Z0cTQCe4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099105; c=relaxed/simple;
-	bh=ddjwtWjd3ELTRm6pOTTmcI7W347g/xLea1xnmOXXaLA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=g3FD44xj+Z/MREDaCVditVOPsb4ACOLch5bPhIQO71oZ3UtMDeUqTvYWphWsKsWNzGG0Y1VCJoAiHbzR4zJNdVZ4UK+0q3+sV56oCX/zVs+qOPJi4+0Rc3veSpesvelaXhLWMJ2BPDvJjspBxF5JLOLUOO1ua2Q2J2Wz+9gg1ck=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZD/k4j9E; arc=fail smtp.client-ip=40.107.159.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1792099166; c=relaxed/simple;
+	bh=Uz/5hctKvlaqdWO6KpHIaPRKCJnqvXCmJd5cUbHaT7I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BAu82/3R9TqG5RPUeTHJKNR0w6BWjYDFY0lagJkq+VVYHhAmGjjrfDwCfL5ddbcfKTGqSay33DR7RN4zlotwMp3kYx8ZVkR/rISnLgDpvNi6RatshF1TjBHv6t+PyGzQh3vj3ttf09sqwGgsh/RdKmiLQ/fHTTFQH8kJHT4b0F0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=0LkLPT2h; arc=pass smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZD/k4j9E"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/ldh7UgyoOf4SS/AAeyHP5Snl4Fi2NaikkHEXl2VPzkgAFhsCWeHK3ZKeYQM24rkGQ2XV8oyWDTh/rOhJq83Z11w7I+8oFMnnLmKApSJRlAU2COrQ7hXJhd7O5vTVe48zXzzN+vaKJgueaLz76vIXNRc3d9aqZTo5nkve/5oTDHN14+0yIxgf1qvJeZTi3okne6KabVZ/EIiLJXwgobBy1NK4v+A73Yb8viNuQew5MQozm84+HIvaSj2IZVkpFZi7nQtB3Dzns/MOh5PyLTRYJQFUymswQS/S9SyvoCDG+NJLLnwHOChAP7AtnebJVb6Jiq+vJ4dG5sDCgPYePVVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xezBdtShoeA9x/WEvrBj4BmTw7DTrxf/9kI/jmS0448=;
- b=G8FuAYHbTHTsbzOrdaBaqnXZE7KANG08ygwupv6aNNP4QYzp/rM8H35es0WllZRzAESSCXCHvYfOU8+Ez/3D+wPohSFp1mQU78x+VLtC5R3/pPtXSOciplmbxaZdxCQlsXnC+efg82N2CZ/Weuyf+468lmwTm9BahLHm+xedOzxd8MuV+IYQ7JMdGFzM1863C8ULm+XqTo2XxBh/h+c4VIiDVlyfc5JmFRg0T5xekkeWtcZo6AgzNh5JazHY0526Js24lZ1b9trzr7sJ2/hhRM91R5HiHXjplBMQyk2YGczxrp30MRdpLMjQLoV/BD3gnAKYEqGmvjJP2LHNEWanDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xezBdtShoeA9x/WEvrBj4BmTw7DTrxf/9kI/jmS0448=;
- b=ZD/k4j9EGfE4ECZfETKe42ksWppSFo9z8ACZDCgUMM7VehNpBmK7WZj96XRJo8VWiAXQvptsXjqkJY0YXlwtLMumWtVn28K/QX5TdXwWngNZvk/yjBKUgEHYDDQonvmrTKIoLe9spsUbBo7/MngjmKQ+TuBppB4Ar+DUca918Czck/Zg9DQD8dgZPmFIoj2en9Num0WedjUEpFXhAFJYwoeS25ZY3/aOPofiBH4OInkwSwk7+kdupd2rhdYF9mfmkS88lDWdBUqLTnU2PnZg6Cy3gD+Wso9/XW68leTqFdAyr/sNQUP5v/DKOPrNbp9dfLNmqy3bKo1RZZPpO/ZOqw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com (2603:10a6:10:623::11)
- by DU4PR04MB10984.eurprd04.prod.outlook.com (2603:10a6:10:586::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 21:18:13 +0000
-Received: from DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de]) by DU4PR04MB11791.eurprd04.prod.outlook.com
- ([fe80::11ca:6b74:3234:d7de%4]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
- 21:18:13 +0000
-Date: Thu, 15 Oct 2026 16:17:49 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 6/6] async_tx: Mark as Deprecated in Kconfig
-Message-ID: <atFC_Yi75uRqac8w@SMW015318>
-References: <20261014-async_tx_dma-v1-0-35790d01e190@nxp.com>
- <20261014-async_tx_dma-v1-6-35790d01e190@nxp.com>
- <20261015205146.GA2331635@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015205146.GA2331635@google.com>
-X-ClientProxiedBy: PH8P220CA0030.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:348::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="0LkLPT2h"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33fb4680717so802688eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:19:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792099164; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QfobB5VbV/I4B2KiSV1FfTfHt6YXmfiiDcMQWMo3cPXWXKHdua1Otg6Qt3f4Po1wp2
+         uh63CXObd1QoTJw/PkNWfMZInkMRBKNfcP+NFU/IPm/OdCO01jofDC2zYCJ2wZhl+1Te
+         ZLjR47pKfa10GAOAHMKK7GYKaHFrw0D2Se080RUYsLl6GMDXvOIvYN8jY1wPYPRBtBsa
+         82wY7xAxu8ncCs4nzyz9xZ5aANjkHiDu75WFLjT+GsxP9oWs2w0FbshI2JWJ0sATny4T
+         n1kudXHHOBwyItSX1D9HyjJJ9qDVJ4JuRZlom14D4yQ+ISh8dzQluE2ZsRHsIW4ehWlD
+         NjqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WFhecx82FkxQ1C38UPIvum31gQyjmwYifrg5hB5ZM6E=;
+        fh=M9eMDxXOqYx/YxrGk0/UIcKT0rNHvZPEVPVwjY3QtUA=;
+        b=LXDFs8pghaIrp5mSmZX2qzY2+F2v/2dSUSx46KgWjVCa/CcARnQVwVR1lPb0k/+2z1
+         4IbgRUxWyhrXex+JTuSNpTs0QtPb9oH8FhbtqFnPKECjhDmpKsIBiRHEEzVgGGMb0u0o
+         c2VcdlnpJHOohTm9MQ3Gc0qcdlrjUXDQul9Hs9XjorpG7KUZJohOKoiBG9sR9FSHDQZR
+         mt/Mv8dUq4Egb0f51cgRhA3JDwvYbMyXFWGjBsU4XBJt6hwBa0nKm72NekpZKKtF8a8Z
+         qDJ6+iCDfiNSu1qZ40ked3eknO1WD476/8nFTbubGA0cs2LTrqx5NDCEZhE3vFLNIVfv
+         +NJA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=x6u.co; s=google; t=1792099164; x=1792703964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WFhecx82FkxQ1C38UPIvum31gQyjmwYifrg5hB5ZM6E=;
+        b=0LkLPT2hrKkXY2CZBX5DPXvTJtNPaaYR2ncurNgOJ9XF5KdaPDw9in4Uoh20GkCY7U
+         56u7MXyHVdGIhKPze4p4NBjIwjcEoWNGrfDuzcdg6FXx+NjBDUfepT/Gafots4TNFFUQ
+         2k1/xJIma8uTtJ0hXZx+1I+omXPo7Y2Evb5t3h+YbHXUNCMMBstkDzc1ug7MTt4xPxFW
+         kPyz1gwhR8shckEdhlft0zgi1Tozd8JX0nlBfn4VahMg/lsX9JARgIgC6mrr3kB3XiqY
+         4YWPv0hSPiib7f8LLWOYP1ZmYtoub61GSWJavBywdDmKxNpRvvyHEHF1gbjQ20s0ZjQ7
+         8Q3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792099164; x=1792703964;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WFhecx82FkxQ1C38UPIvum31gQyjmwYifrg5hB5ZM6E=;
+        b=jw7vO8ubhBGRVACL8IAIsc01N6m7XtQVdSpctqtYNfHG7aqtU1pSihPrYgQpphdsm+
+         DG8G0yL+1XFfoQgGA8jJWPH7gYkFmzvOhhkrIhb386XRBjLpIYrYMvZrXGqKNXiN2Hiz
+         3vbgbXBW25raYPjepS9evGLAeH8V47CrFi9vZmZW4x9h+p3XUZ7V+en+D9taGZolp0Uo
+         baSLPZpgfwrG31+Vp5FgCikkpzDue9d6SxErnJ/5YL7i5WpLgD4bSgDyawHQZEPpcW3O
+         U+6bmM53R3HWDv+IaHwMZrvi7xdonWYFbLO/+2SezRp5xMtzEhVlp0fp+S9EN8YSBafe
+         SQOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhB3cgALOo7mM2Wu1vKb4q3R82Y3LBozJ2AVD204jgnL0zOF9CECJoIA7dailX4MXHRpRsRYFVKIsSvPI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJslTbLAGS2phtWzsXGFJ7D8HqkuGp5VQZVMhIddlxLoV7fjxrK
+	FvoYLxR8FYiLeyJ3UYJVUoxCtcil3Wxwd72bdn4MFPyKkgZe03bNzayzNfx9o3B2CThK9zE9QIA
+	KuTamKX9YO3XPz1SxNoa6ks46k0SjOgg1CXm5QoPz2UQ=
+X-Gm-Gg: AYBFou3J5v/2/2YZKl5hQPzlnY3In/S2OywUpUG/6+evVsknmzrGHnjGdRVXCVc6PHm
+	ui5GTia3d/tXcV005hF34ohiau1ecBtd/zUcupbogMaH1gERW2cpQkuX0vOjqHb+qTyVzlU/EMZ
+	v79zh4Rmm6eCghKMHU895WC3Sojqk/b5MlMhAl63vleEQCJ4SevWMwslQtpwc5KH7X6avVbCPtT
+	kWc/KMaRa7SItqtGES7zwPZO2q5XIBm99Drd+CyGWOETYVRfDfAGA1PLPqS9RGJdOIKC/ipeLbV
+	HRVuGYCOuQHQH7EVe4CcYXe1pvVFszI59jhITOKEjBR+Vp4snGmS5KHJCxYM0oI5tvNzOAThFzb
+	suP+WhGtudvWo9Zo4X4zTG1Dq+uEd014Cb0vcAQCnHA==
+X-Received: by 2002:a05:693c:2503:b0:35e:5db8:2ef with SMTP id
+ 5a478bee46e88-35e5dc756c3mr5975575eec.24.1792099163746; Thu, 15 Oct 2026
+ 14:19:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU4PR04MB11791:EE_|DU4PR04MB10984:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88f04a02-f961-470b-1a71-08df2b01cb56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|6133799003|22082099003|10067099003|18002099003|4143699003|5023799004|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	K3JfN6dznlnv9ezDQqc07WHY0Ir4yBWtabvPMkOnjjsTT+VOHt55u5F0EDaebMD0WEUywjuE+oTXz9wN/wmj/8untqtmSkoEJVg1Hda4PIyHuoRkH0Ca8ydMduwbEVsrXxiGD3OMNKzR9bmHA2UZg6tGZrORZeEkTlu27uvvsq+bktNks9V6nO5l4wI5ePHnWZNBp6pfbVXMLzG4a/w0EaHbHNQRIR2vWvL0hdpsZtFpIzWsY2Z/TuWy8aEnY0NzVQVddDKuFXR819UIXxqtXCjRR0qa0wTy/PDjiy0acGWmLiU7hwc7qvl1jPJ0LWQWxsSE1qD9tkhfOhwh0FJO+u9emVXcuLINTzVpi/6u6H8FxYzeyizz3jV9dpYLls6OhRZGpsbPgKgcpsVv4U8rfzrjhUaK9PyUvJwKNqEVSq7gnTTdmedF30uTpYE4yrklyyc+35AbWYifp2WX5Q1/fUx9t59TWLk7baCdYDw4u1h+GE2UMSCEkskDuDOrPVImLdUPq4GQVCYbA44s2p4nuiEN6nmVPGO1ivb2U6rpWQVgJ3NIs14gncWAg1S2Qc7Lgsfj9LKrzLpXqitheGVDbaRIu3eDyLgNdXWxj1jMJDv931fUtj3nJAAcrJdyoDHV
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR04MB11791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(4143699003)(5023799004)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DVndO7kFythL75an7d143P5Jyk3TMZpxcS3noCn+zX/L6p9czt1UPRUQxXVL?=
- =?us-ascii?Q?0E+IuyDkK/N9m5l8SlFZVolXDU6RkGP30wThgV8RX0ynZffKm63QOpPk7Jbc?=
- =?us-ascii?Q?yX8z9exR79IZZJBQBe0bJID6BH53iJVp6dTSpXO25p/xQKE877VEI4jxjGL5?=
- =?us-ascii?Q?e8g+CbN5sdqMLe/oEatR8sltTXDXDT6v2z2BouNEikDCKBDyRVzT62g2gQaN?=
- =?us-ascii?Q?GPjtlL1Vf4v4qfhS3U/yXKOtoRXBg+F6aLJizFVEDUuvIPhuitU2OZQxH/z2?=
- =?us-ascii?Q?GIiN7WNJbRSMKErtP/eQ6/F+0cQu/0KfNcvV4BUXvgB1gpzl0mySO7KOBePO?=
- =?us-ascii?Q?l2xe1dqDmN1p0FM6CLEk/ch1mtepElVXXVPa/sFcFoUQLUizlo3NMjFA1APi?=
- =?us-ascii?Q?T8KqbqsZ0RRn5V1eJAVeQgDaNmw68gaAKZ3SOBcouoISzase7m2vmQSJsLkC?=
- =?us-ascii?Q?J65bSSEBFhUaXgjy5tWEIXFMUOspa574RxFOsFbT51JgR8hw/ml6VwUGPQdl?=
- =?us-ascii?Q?8jNAfuxdq5bHiR4GNShe+FTyFE/PT9gRonnPuEFIAKjBN8LUdDiGw9Ksun0T?=
- =?us-ascii?Q?clSZwQVcl3m4lQjQ5J6WVh7TPYTEEVq8kK+P9GrYfvDOXez6RThxckmgBPns?=
- =?us-ascii?Q?8mkSRRtXHk68Ou/JjEOGJzZ/L+AGdhro05Z2Ffhvs1HYh1TaFJhlX0Ekv3Wk?=
- =?us-ascii?Q?amNp1k3uFexJ8NEdUpdDDGh9oLxJm0DDkdw+ExV7lJ5aIjx+usA0ECxokuYA?=
- =?us-ascii?Q?B/+DX1s63KRGgRV/as3qqAJFVA/Jgba2BzugsVQygFi+Ttq8CvrNivGkA5ba?=
- =?us-ascii?Q?JbCjpkPG+f3vmIpNyZk0nv8d/xOxpxzn81UtPEGvy3h2Lhsh4yFd/GwBe/o2?=
- =?us-ascii?Q?Io/8Gj8lBh07z6V38W+E+7Rih+G4VmeN2nDTmTihXdZuXDvn1Ic6gOPLp7Jn?=
- =?us-ascii?Q?9nHNj6svztULqag1dHdKaQ0UcweNXQCUdghKe/TgOxtmHp58PphfpqurGWMn?=
- =?us-ascii?Q?hx06GOt/eEKhqSC057ku//yHaXrdGGq7aTU1DTGB0qo6yWz0YoQIfKTG1Ob0?=
- =?us-ascii?Q?MNGJe9zXBPX8D/cOpp6pim8tuI82PJQqfzFQHwT/0R3x8FWltB7r1tAEpIbl?=
- =?us-ascii?Q?5HpBfjODZE2kzPZGxcjOGPsoGGKAtzi9UmvyYi7N/ft1oxklPf4GvVHqtZQG?=
- =?us-ascii?Q?1XqOKAI6P26wRp7RUOux1ffa5b3m4W49dWmSd7AipatAfq2Z6AZ9oWXFSsLK?=
- =?us-ascii?Q?fTnK6F2UlvsMMCAaMhbaS6G0Ko5h1DN03vhJYVIBFdJFUjUwAltJbNVWnpt3?=
- =?us-ascii?Q?Eh4Pa9M0+jLvyGroTi7gGnzJNUNOXSdDysWw+o/hcGPR5+4CcVorPHGsPeMi?=
- =?us-ascii?Q?C8yfHp8veHiF6kJG8HG8tMGIeM3mzpPi+YRJSPFLhoEmGp61IaXGFJUPRCe1?=
- =?us-ascii?Q?fPWLdEi4AdlpiyPveoa5SQNRN/0TbnvmNHw/1Ys9FbZxcnO/y4erzzQ942ex?=
- =?us-ascii?Q?S+tUdyuTCX1ajdMEXXcjH/1UTxzjIlWcG5968ez3DvgK2SJGEu0aL3F3rpM2?=
- =?us-ascii?Q?FnjtsV3KITiz/FRamtnTHjY1TKa9uVnzFnxe7JjRk+uqFvwvNweJ9FsWaCpz?=
- =?us-ascii?Q?Sw+2Y+208pgI95Hp3HL/FcD8x0dwbcw0IhKlcY4ouUg1UsWSCX0xU9TcvkWl?=
- =?us-ascii?Q?vRk5wdsfdxEGjDnNuotgO2VoCBizn1NKrwzOWb5gCfIU+E8aPvlNzTERpxS+?=
- =?us-ascii?Q?dwEz+JZniMjGyHWqlAUi5zXyQFwc3JJxCAPLASfDJdHJQDgxlK3E?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88f04a02-f961-470b-1a71-08df2b01cb56
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:18:13.4356
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bFiKgkzDERkD95Nnd6ZUp7K77DsjculnZ18uUBPLHCou7cplQPpnFBe6idzeDZ+O03owNYK8t3WWanbw4iIoCohuzABIF8jJnGFeotzUZoNiGDwoNtMMhrsXTD9UREef
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10984
+References: <20261015011940.4122452-1-dhu@x6u.co> <20261015011940.4122452-5-dhu@x6u.co>
+ <20261015181713.GB219304@unreal>
+In-Reply-To: <20261015181713.GB219304@unreal>
+From: David Hu <dhu@x6u.co>
+Date: Thu, 15 Oct 2026 17:19:12 -0400
+X-Gm-Features: AclHuK983uRNo0pxUvQDGtecJUcInNsMhMtPfO5CNth4ZI64eLju23gowvdoTn4
+Message-ID: <CABdL-LQK+hQkJkZVA8iwSVYTnBLtX7VYJ=VjhP534MR7d2ep5w@mail.gmail.com>
+Subject: Re: [PATCH rdma-next v2 4/6] RDMA/irdma: Split CQ setup to umode and kmode
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Tatyana Nikolova <tatyana.e.nikolova@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, jmoroni@google.com, 
+	eagleshaw@google.com, xuehaohu@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 08:51:46PM +0000, Eric Biggers wrote:
-> On Wed, Oct 14, 2026 at 03:43:50PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Frank Li <Frank.Li@nxp.com>
-> >
-> > The async_tx framework was introduced to support asynchronous RAID
-> > memory operations and DMA offload engines that were common at the time.
-> > Today, adoption is limited, most clients use DMAEngine interfaces
-> > directly, and the framework's dependency-chaining and software fallback
-> > features provide little value for new users.
-> >
-> > Maintaining async_tx adds an extra abstraction layer and ongoing
-> > maintenance burden while serving a shrinking set of users. Deprecate the
-> > framework and discourage new users in favor of direct DMAEngine APIs.
-> >
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> >  crypto/async_tx/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/crypto/async_tx/Kconfig b/crypto/async_tx/Kconfig
-> > index 89bafa2efc300..02d472fc7a476 100644
-> > --- a/crypto/async_tx/Kconfig
-> > +++ b/crypto/async_tx/Kconfig
-> > @@ -1,6 +1,6 @@
-> >  # SPDX-License-Identifier: GPL-2.0
-> >  config ASYNC_CORE
-> > -	tristate
-> > +	tristate "Async tx core (DEPRECATED)"
+On Thu, Oct 15, 2026 at 2:17=E2=80=AFPM Leon Romanovsky <leon@kernel.org> w=
+rote:
 >
-> If possible we should just remove async_tx entirely
-> (https://lore.kernel.org/linux-crypto/20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com/)
-> as your other series does.
-
-Yes, I am not sure if it can go smooth, some xor dmaengine added at 2017.
-
-> Adding the prompt here actually does the
-> opposite of deprecating it: it starts asking people to unnecessarily
-> enable it, while doing nothing to make it easier to disable.
-
-what's good ways if remove meet problem.
-
-Frank
-
+> On Thu, Oct 15, 2026 at 01:19:38AM +0000, David Hu wrote:
+> > From: David Hu <xuehaohu@google.com>
+> > @@ -2624,6 +2624,126 @@ static inline int cq_validate_flags(u32 flags, =
+u8 hw_rev)
+> >       return flags & ~IB_UVERBS_CQ_FLAGS_TIMESTAMP_COMPLETION ? -EOPNOT=
+SUPP : 0;
+> >  }
+> >
+> > +static int irdma_setup_kmode_cq(struct irdma_device *iwdev,
+> > +                             struct irdma_cq *iwcq,
+> > +                             struct irdma_cq_init_info *info,
+> > +                             const struct ib_cq_init_attr *attr)
+> > +{
+> > +     struct irdma_cq_uk_init_info *ukinfo =3D &info->cq_uk_init_info;
+> > +     struct irdma_pci_f *rf =3D iwdev->rf;
+> > +     struct irdma_sc_dev *dev =3D &rf->sc_dev;
+> > +     int entries =3D attr->cqe;
+> > +     bool cqe_64byte_ena;
+> > +     u8 cqe_size;
+> > +     int rsize;
+> > +
+> > +     if (entries < 1 || entries > rf->max_cqe)
+> > +             return -EINVAL;
 >
-> - Eric
+> This if() is impossible.
+
+Hi Leon,
+
+Right. That is impossible following your series in [1]. I'll clean up
+the checks.
+
+[1] https://lore.kernel.org/all/20260213-refactor-umem-v1-0-f3be85847922@nv=
+idia.com/
+
+> > @@ -2689,109 +2806,12 @@ static int irdma_create_cq(struct ib_cq *ibcq,
+> >       info.type =3D IRDMA_CQ_TYPE_IWARP;
+> >       info.vsi =3D &iwdev->vsi;
+
+> > +     if (udata)
+> > +             err_code =3D irdma_setup_umode_cq(iwdev, iwcq, &info, uda=
+ta);
+> > +     else
+> > +             err_code =3D irdma_setup_kmode_cq(iwdev, iwcq, &info, att=
+r);
+>
+> No, the idea was to actually implement and set ,crate_user_cq() callback
+> and clean as much as possible from existing .create_cq() callback.
+
+Thank you Leon for clarifying ! =E2=80=94 Will do. I will send out a v3 sho=
+rtly.
+
+Regards,
+David
