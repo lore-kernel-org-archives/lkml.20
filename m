@@ -1,230 +1,251 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8968135C6A5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A5A37A848;
+	Thu, 15 Oct 2026 08:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053336; cv=none; b=NiQSu6lUPdcCRfpI8jb9X79kHLROh79wSlj3jUMok/ICA4lP+CWQRRfuwirWkS79Zv3f0bB2M7mKrBwSA0MKC7YynjAdAMdKMC93eNiXDRdvlsityeltsG0/3L3TGTT6snCqiLmT8Xi/lCH9mg5lfq8wdmdiXoQkQVoBrPb6B/Y=
+	t=1792053338; cv=none; b=Mb82gRiF7QiUkMKhyk4MKfrPE7gbpEetfDUJ+dVXgXZ2+TUQp8n73/QGBCqMskq9vYwRrGV5SPwI5imLuK7cP9yB8pXql/n/eOVxwzrBgad2Kd4ocEOucodPskAdqsyhU8m3f7vBGLlhmq8Z5p36LopX4r15i7Lt3dVLEgoF2VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053336; c=relaxed/simple;
-	bh=ow4eDJ4i9dEfD0rhWJxE799P/HQ9fzxK9NtE4tMP18Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aqjeBBKd+PMjpUKnYkU4j+K/aP4LMqmOLasLe1ct5EZtaxvWVMHhR2WeeSZz76PQZ4y68yWYd2WTC2VjKaKvj1L79TH7kMjD1SgMo7zOv3fq/9xG8k5fcIx7pEhtvhrhvtdAoifnvcvYLIngTOJOKHKJQG+xh4CoIUWRQOrgWRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kOZGrQO/; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792053338; c=relaxed/simple;
+	bh=pVvQ3KKvitHRAPJVAnlZcFqINR1f9Sbt+S8x9HaqwLk=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=WUWy1T9cbr7zL1jy3oeU+qYJ6fi3rzK6sPkUquFVlRpkBQl5OsAR6lIbqZGjAr5/wOIhFOI1wWVd1s289ALnJSjrkosrZHz4vfh+4nGe3jYFFEClWYxEh+CmXaqzoW8WK09u6QffZ1OaI3bg8Z+QztRMYBOYxpbelVMYW3saehQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gTQk9nnC; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kOZGrQO/"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso3238805eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:35:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053332; x=1792658132; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BGWNvW31UDgJBtWGlH9/IY5pNbnK5DE95i3+WnOMIF0=;
-        b=kOZGrQO/2zfGravFz6Im8NH3X0CsC+cjaXRekONw+fLl5pnYaSGSbRsNEB9FzuoWid
-         y7BhNpZeYY8OENDwpPlU7xi6fq9pH0rQ2m394dpy6b677NaFNnTV1ms+4o1hL4U13T0F
-         VZa8EuoimB4zG//SpBfI6aEK9y9HU49/kkMwUJd0sNsiMazV7NAae7JjuESK9LxJ97GX
-         b/zhnATt7wm92U9BssCQv4pKQU+3bB+RFgZb4gJLhX+PIj3vfzKqsKtGRsDIukqz1KBe
-         xMt6CbBAWpMlLsqa6GwegIwI92XNaNdDvesCbHlszEeb/g/rCWhkimGNAYJUv/ne7xif
-         Z55w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053332; x=1792658132;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BGWNvW31UDgJBtWGlH9/IY5pNbnK5DE95i3+WnOMIF0=;
-        b=0WZ2v/cis9ITbKxYWT5SzOqh0KP39G5aZCJMmwDpvHsUEQT2EkLB36zmiPgUBLxBq+
-         GNxFo7nQbKIZzbL/JzZaytQHCU4/+gJqQMx1jJDZ3hki1NBV9MMW3jD6z36BmPXuhuJY
-         K3/U63wNfPfYwDTGKAW23Ry/vitvd8YzYES49k7IGx09G1bp2NivR7xBR4zLjQmSOUv4
-         FDncrchgqRF7pDUmFbj1L+juMyc0y9QqVpq8DAbpqLgZ48rIKRIROGrSoD0JoosWsjPF
-         ST372mLm5Yq/UY5BhBOoMluoRugTmLnM93+d3oS0yFOWP8huTAMgrD+NdW4N/z5icBOq
-         OJRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybyUuQPnJZKmQnbXuxy6J94oJz+iVu4fFuQKFicdgQwBNnjXLyo8RfcnGIwxe3WSp6/h1cQBrdKK1PX3c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsReXq5q1QckWMfLk7xwtUYoOqSsOxV3nf7xS1I7yGjSp86kjq
-	N7pO4yzUHWwy3OwISICGIlWRapbYQtX3COm0eqlS8mQh1SiExVBR7zmV
-X-Gm-Gg: AYBFou2e+gzYmCCIEnZChcLSX5DO3chi2mXqjlt54VS/k9TyQt5PGjyfUNQyd6EbA64
-	FNK+mdXhU4MYrPT6ESKwLcXS8P44IniQr7BvqbSU4kwJ9yzjHuh+S/60pV5R/f2b/fQ+Gwvijcx
-	zhGBVziTP/o3ch3KQEtPLCMN5xnEoGfxPm9LSafuPqXc50aqKoixXKpGhe9egIerRtGQ3JZp+RB
-	r1g4019UnusUvtlVFaydul4/bUUJKXMiEl1/VzkqMSMVGwuO6buqe/3aynLuTf4ljA6xgWdVCfd
-	mQ9KGBH6a8hd+kapjeNeLi9nAH6zVUOCFF2gJ0LeuZiOF3IgxyhPXo6N7LAaLxQqJIjrDNXiC6i
-	71Z0RdXrghRWei16bBv5d9KE1ICBO1T2Yz/SKBDkPxBSqd5hUsMkOhqCIq4j1/GuYfl8E/Q4VlD
-	f6cqrgcyCDtzJ7MAL+Hx98Dzh35Px6akKf4UJCs8yT4Et+jR6YPuU7YIpxgZPl0BDGExO3oHT6O
-	210a8LoIs7iMx53+aRV3DkDBhmkVbPf/2GOfVoGZth0Tw==
-X-Received: by 2002:a05:7301:e0cb:b0:351:1e3f:812d with SMTP id 5a478bee46e88-3537e0caeb8mr23093066eec.36.1792053332422;
-        Thu, 15 Oct 2026 01:35:32 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d20dsm64539101eec.12.2026.10.15.01.35.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:35:31 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Daeho Jeong <daeho43@gmail.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Qiuyang Sun <sunqiuyang@huawei.com>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH v3 2/2] f2fs: refresh pinned allocation boundary after resize
-Date: Thu, 15 Oct 2026 16:35:10 +0800
-Message-ID: <eaed01c69f5af16df36a6df9be3f6615e4818d29.1792050467.git.qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792050467.git.qiwenjie@xiaomi.com>
-References: <cover.1792050467.git.qiwenjie@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gTQk9nnC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792053332; x=1823589332;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=pVvQ3KKvitHRAPJVAnlZcFqINR1f9Sbt+S8x9HaqwLk=;
+  b=gTQk9nnCI/ab4XVcgBDO29v7wQbnqT65wvP2F8eLxgsiAloI/5qDwrOC
+   X+2wpagSydasvh7Bd6Z6KcR/zsHz7wdvvBQz9aYbWnDHnKOp00lwUCpnI
+   AhCfdaodxDxe1a0OvRjMiWwwY8JFNp/An2T5GKint1SRGE/UVgf2wu4qc
+   0bmjy3ADipDMrO7gnSpS2E57KC1S5MElXE+Exp9w6hjLMADoYbIsQBEvn
+   t27ZrS8FUzapFmKa/tnNpUp0v4QNFW7Af473pyRxB1K8HOYuQiBRUWfTv
+   p6b3dlstvMuTGXnL5qWFq7wrFx/gETvOpTLKXeDk5Sxq5gWorvxDOqZCl
+   g==;
+X-CSE-ConnectionGUID: 0kwF9+SeQTO+FuAEZerxPA==
+X-CSE-MsgGUID: YWOoKuD1S9aJT+Sv/uDaog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="818151"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="818151"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:35:31 -0700
+X-CSE-ConnectionGUID: qY1s9havR7S48f+/BilHog==
+X-CSE-MsgGUID: H3lFISSnTrqQxKgw2Qdl9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1699888"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:35:24 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 15 Oct 2026 11:35:19 +0300 (EEST)
+To: Bjorn Helgaas <helgaas@kernel.org>
+cc: Manivannan Sadhasivam <mani@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, 
+    Rob Herring <robh@kernel.org>, Nirmal Patel <nirmal.patel@linux.intel.com>, 
+    Jonathan Derrick <jonathan.derrick@linux.dev>, 
+    Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org, 
+    linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, 
+    ath11k@lists.infradead.org, ath10k@lists.infradead.org, 
+    Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+    Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+    Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+    Emmanuel Grumbach <egrumbach@gmail.com>, 
+    Matthew Garrett <mjg59@srcf.ucam.org>
+Subject: Re: [PATCH v3 0/8] PCI/ASPM: Add pci_force_enable_link_state() API
+ and convert Atheros drivers
+In-Reply-To: <20261014205117.GA1665327@bhelgaas>
+Message-ID: <2ddb1f53-b0bd-abf8-be0f-dc77da8a669e@linux.intel.com>
+References: <20261014205117.GA1665327@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-606769928-1792053319=:1307"
 
-Online shrink updates MAIN_SECS() but leaves resizable_tail_secno and
-pinned_area_max_secno unchanged. The pinned allocation limit can exceed
-the new main area when shrinking beyond the reserved tail.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Consume the reserved tail by the number of removed sections, clamping
-it to zero, before refreshing the shared pinned allocation boundary.
-This preserves the boundary while shrinking within the reservation and
-limits it to the new main area otherwise, retaining the zoned limit.
+--8323328-606769928-1792053319=:1307
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Save the old tail count and restore it before rolling back the geometry
-if the final checkpoint fails.
+On Wed, 14 Oct 2026, Bjorn Helgaas wrote:
 
-Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinned allocation")
-Suggested-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-Changes since v2:
-- Consume the tail reservation instead of keeping its old size.
-- Restore the saved tail before geometry and boundary rollback.
-- Document the remaining-reservation semantics.
+> [+cc Emmanuel, Matthew]
+>=20
+> On Wed, Jul 08, 2026 at 04:30:14PM +0200, Manivannan Sadhasivam wrote:
+> > Hi,
+> >=20
+> > This series converts the atheros WLAN drivers (ath10k/ath11k/ath12k) to
+> > use the PCI core ASPM APIs for enabling/disabling ASPM instead of writi=
+ng
+> > to the LNKCTL register directly. Touching LNKCTL behind the PCI core's
+> > back leaves the ASPM service driver's view of the link state out of syn=
+c
+> > with the hardware, which is not nice.
+> >=20
+> > The catch is that these drivers save the currently enabled ASPM states,
+> > disable ASPM before firmware download, and restore the saved states
+> > afterwards. pci_enable_link_state() cannot restore states that were
+> > disabled via pci_disable_link_state() or blacklisted during init (like
+> > the pre-1.1 device blacklist, which is only meant to be overridden with
+> > pcie_aspm=3Dforce), and that is intentional. So the save/restore sequen=
+ce
+> > cannot be expressed with the existing APIs.
+> >=20
+> > In v2 I tried to fix this by making pci_enable_link_state*() symmetric
+> > with the disable APIs, but as pointed out during review, that also ends
+> > up overriding the init-time blacklist for every caller (including VMD),
+> > which is not something we want. So instead, this version adds a separat=
+e
+> > pci_force_enable_link_state() API (patch 2) that re-enables the request=
+ed
+> > states unconditionally. The caller is responsible for only asking for
+> > states the device actually supports, and the ath drivers do this by
+> > restoring exactly what pcie_aspm_enabled() reported earlier.
+> >=20
+> > The first five patches touch the PCI core: patch 1 (from Ilpo) makes
+> > pci_disable_link_state() disable ASPM unconditionally, patch 2 adds the
+> > new API, patch 3 moves the D0 transition needed before enabling PCI-PM
+> > L1 PM Substates (PCIe r6.0, sec 5.5.4) into the shared helper and drops
+> > it from the vmd and pcie-qcom callers, patch 4 cleans up the kernel-doc=
+,
+> > and patch 5 makes pcie_aspm_enabled() return the enabled state mask so =
+it
+> > can be used for save/restore. The last three patches convert the ath
+> > drivers.
+> >=20
+> > Testing
+> > =3D=3D=3D=3D=3D=3D=3D
+> >=20
+> > I've tested this series on a Lenovo Thinkpad T14s with WCN7850 (so that=
+'s
+> > just the ath12k driver). Rest of the drivers are compile tested only.
+> >=20
+> > Merging Strategy
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >=20
+> > Even though there is no build dependency between the PCI core and ather=
+os
+> > patches, there is a functional dependency. So I'd recommend creating an
+> > immutable branch with the PCI patches and merging that branch into both
+> > the PCI and linux-wireless trees, and finally merging the atheros patch=
+es
+> > into the linux-wireless tree.
+> >=20
+> > If the immutable branch seems like a hassle, then the PCI core patches
+> > could get merged first and the atheros patches can wait for the next
+> > cycle.
+> >=20
+> > - Mani
+> >=20
+> > Changes in v3:
+> > * Dropped the change that made pci_enable_link_state*() symmetric with =
+the
+> >   disable APIs. Instead added a new pci_force_enable_link_state() API u=
+sed
+> >   only by the ath drivers, so the init-time blacklist stays overridable
+> >   only via pcie_aspm=3Dforce and existing callers like VMD are left
+> >   untouched.
+> > * Fixed the locked path to use pci_set_power_state_locked() for the D0
+> >   transition. The previous version called the non-locked variant, which
+> >   re-acquires pci_bus_sem.
+> > * ath drivers now disable PCIE_LINK_STATE_ASPM_ALL instead of
+> >   PCIE_LINK_STATE_ALL so that CLKPM is preserved and can be restored
+> >   (pcie_aspm_enabled() doesn't report CLKPM).
+> > * Reworked the kernel-doc patch to cover both the enable and disable AP=
+Is
+> >   and reference the new API.
+> > * Rebased on top of v7.2-rc1.
+> >=20
+> > Changes in v2:
+> > * Reworked the pcie_aspm_enabled() API to return the enabled states
+> >   instead of bool and used it to save/restore the ASPM states in ath
+> >   drivers.
+> > * Added a patch from Ilpo to disable ASPM even if BIOS didn't grant
+> >   permission.
+> > * Added the CONFIG_PCIEASPM dependency to ath{10/11/12}k drivers.
+> > * Rebased on top of v6.17-rc1.
+> >=20
+> > Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcom=
+m.com>
+> > ---
+> > Ilpo J=C3=A4rvinen (1):
+> >       PCI/ASPM: Always disable ASPM when driver requests it
+>=20
+> I put this first patch on pci/aspm for v7.4 because there seems to be
+> a consensus that it's better to have the ASPM core disable things even
+> if it doesn't technically have control of ASPM, because the
+> alternative is that drivers just do it themselves, also ignoring ASPM
+> ownership concerns.  Having the drivers do it just means the PCI core
+> ASPM support doesn't know what's happening.
 
- Documentation/filesystems/f2fs.rst |  3 ++-
- fs/f2fs/gc.c                       |  6 +++++-
- fs/f2fs/segment.h                  | 11 +++++++++++
- fs/f2fs/super.c                    | 15 ++-------------
- 4 files changed, 20 insertions(+), 15 deletions(-)
+Hi,
 
-diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-index 771216f45207a..55798421f2c45 100644
---- a/Documentation/filesystems/f2fs.rst
-+++ b/Documentation/filesystems/f2fs.rst
-@@ -421,7 +421,8 @@ resizable_tail_secno=%u  Control the number of sections at the tail of the
- 			 (MAIN_SECS - resizable_tail_secno) - 1. If set to 0
- 			 (default), there is no tail restriction unless running
- 			 on a zoned block device where conventional zones are
--			 used.
-+			 used. Online shrink consumes this reservation, reducing
-+			 the value by the number of removed sections, down to zero.
- ======================== ============================================================
- 
- Debugfs Entries
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 926e6976bc22a..540769ad58acc 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2342,6 +2342,7 @@ static void update_fs_metadata(struct f2fs_sb_info *sbi, int secs)
- 	SM_I(sbi)->segment_count = (int)SM_I(sbi)->segment_count + segs;
- 	MAIN_SEGS(sbi) = (int)MAIN_SEGS(sbi) + segs;
- 	MAIN_SECS(sbi) += secs;
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 	if (sbi->allocate_section_hint > MAIN_SECS(sbi))
- 		sbi->allocate_section_hint = MAIN_SECS(sbi);
- 	FREE_I(sbi)->free_sections = (int)FREE_I(sbi)->free_sections + secs;
-@@ -2373,7 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 	struct f2fs_lock_context lc;
- 	struct f2fs_lock_context glc;
- 	struct f2fs_lock_context clc;
--	unsigned int secs;
-+	unsigned int secs, old_tail;
- 	int err = 0;
- 	__u32 rem;
- 
-@@ -2482,6 +2483,8 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 		goto recover_out;
- 	}
- 
-+	old_tail = F2FS_OPTION(sbi).resizable_tail_secno;
-+	F2FS_OPTION(sbi).resizable_tail_secno -= min(old_tail, secs);
- 	update_fs_metadata(sbi, -secs);
- 	clear_sbi_flag(sbi, SBI_IS_RESIZEFS);
- 	set_sbi_flag(sbi, SBI_IS_DIRTY);
-@@ -2489,6 +2492,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 	stat_inc_cp_call_count(sbi, TOTAL_CALL);
- 	err = f2fs_write_checkpoint(sbi, &cpc);
- 	if (err) {
-+		F2FS_OPTION(sbi).resizable_tail_secno = old_tail;
- 		update_fs_metadata(sbi, secs);
- 		update_sb_metadata(sbi, secs);
- 		f2fs_commit_super(sbi, false);
-diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-index 526764ba31ae5..918bc4452ad09 100644
---- a/fs/f2fs/segment.h
-+++ b/fs/f2fs/segment.h
-@@ -91,6 +91,17 @@ static inline void sanity_check_seg_type(struct f2fs_sb_info *sbi,
- #define GET_ZONE_FROM_SEG(sbi, segno)				\
- 	GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
- 
-+static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
-+{
-+	sbi->pinned_area_max_secno = MAIN_SECS(sbi);
-+	if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno != NULL_SEGNO)
-+		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
-+				GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone_segno));
-+	if (F2FS_OPTION(sbi).resizable_tail_secno)
-+		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
-+				MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizable_tail_secno);
-+}
-+
- #define GET_SUM_BLOCK(sbi, segno)	\
- 	(SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
- #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 773b12ea29c0c..f323d9705aebe 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
- 			F2FS_OPTION(sbi).unusable_cap_perc);
- }
- 
--static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
--{
--	sbi->pinned_area_max_secno = MAIN_SECS(sbi);
--	if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno != NULL_SEGNO)
--		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
--				GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone_segno));
--	if (F2FS_OPTION(sbi).resizable_tail_secno)
--		sbi->pinned_area_max_secno = min(sbi->pinned_area_max_secno,
--				MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizable_tail_secno);
--}
--
- static void init_once(void *foo)
- {
- 	struct f2fs_inode_info *fi = (struct f2fs_inode_info *) foo;
-@@ -3103,7 +3092,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
- 	sb->s_flags = (sb->s_flags & ~SB_POSIXACL) |
- 		(test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
- 
--	adjust_pinned_area_boundary(sbi);
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 	limit_reserve_root(sbi);
- 	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
- 
-@@ -5440,7 +5429,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	/* get segno of first zoned block device */
- 	sbi->first_seq_zone_segno = get_first_seq_zone_segno(sbi);
- 
--	adjust_pinned_area_boundary(sbi);
-+	f2fs_adjust_pinned_area_boundary(sbi);
- 
- 	sbi->reserved_pin_section = f2fs_sb_has_blkzoned(sbi) ?
- 			ZONED_PIN_SEC_REQUIRED_COUNT :
--- 
-2.43.0
+Can you tweak the opening sentence as it has a small grammar error=20
+("Drivers can controlling") now that it has been altered from my original=
+=20
+wording.
 
+--
+ i.
+
+> I think we should defer the rest of these because I think there's a
+> little room to make the enable/disable/force-enable dance more
+> intuitive for the drivers.  As far as I know, the rest of the series
+> is definite cleanups but doesn't fix any actual functional issues.
+>=20
+> > Manivannan Sadhasivam (7):
+> >       PCI/ASPM: Add pci_force_enable_link_state() API
+> >       PCI/ASPM: Transition the device to D0 (if required) when enabling=
+ ASPM link states
+> >       PCI/ASPM: Improve the kernel-doc for pci_{enable,disable}_link_st=
+ate*() APIs
+> >       PCI/ASPM: Return enabled ASPM states from pcie_aspm_enabled() API
+> >       wifi: ath12k: Use pci_{enable/disable}_link_state() APIs to enabl=
+e/disable ASPM states
+> >       wifi: ath11k: Use pci_{enable/disable}_link_state() APIs to enabl=
+e/disable ASPM states
+> >       wifi: ath10k: Use pci_{enable/disable}_link_state() APIs to enabl=
+e/disable ASPM states
+> >=20
+> >  drivers/net/wireless/ath/ath10k/Kconfig |   2 +-
+> >  drivers/net/wireless/ath/ath10k/pci.c   |  11 +--
+> >  drivers/net/wireless/ath/ath10k/pci.h   |   5 +-
+> >  drivers/net/wireless/ath/ath11k/Kconfig |   2 +-
+> >  drivers/net/wireless/ath/ath11k/pci.c   |  19 +----
+> >  drivers/net/wireless/ath/ath11k/pci.h   |   3 +-
+> >  drivers/net/wireless/ath/ath12k/Kconfig |   2 +-
+> >  drivers/net/wireless/ath/ath12k/pci.c   |  19 +----
+> >  drivers/net/wireless/ath/ath12k/pci.h   |   4 +-
+> >  drivers/pci/controller/dwc/pcie-qcom.c  |   5 --
+> >  drivers/pci/controller/vmd.c            |   5 --
+> >  drivers/pci/pcie/aspm.c                 | 140 ++++++++++++++++++++++++=
+--------
+> >  include/linux/pci.h                     |   7 +-
+> >  13 files changed, 129 insertions(+), 95 deletions(-)
+> > ---
+> > base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> > change-id: 20260708-pci-aspm-fix-331826a2cb5d
+> >=20
+> > Best regards,
+> > -- =20
+> > =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=
+=A9=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=
+=AE=E0=AF=8D
+> >=20
+> >=20
+>=20
+--8323328-606769928-1792053319=:1307--
