@@ -1,101 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76C13859E2;
-	Thu, 15 Oct 2026 22:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792102929; cv=none; b=Xpka/53t96jmnKlgeDisZ2pcVLTCBmQ/DguvBwGwJWfMpLWpupx23/mVvlZYobqJSH9DErFDDCxtEbfLmA+eK8a9Oot88n6W7Ve8d7yspmbAOjVNY+LfRBAF3f2vmHpzNRfT3VpDd5vtodhibwa1bGlRHLACk/odlH8dNwoIuQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792102929; c=relaxed/simple;
-	bh=CGF6gjYDx0HWXrMYtaZcHl4A6c9k/zsBHEN7ag7RRZI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ik32XcD9Gr9YJ2KoeswAn1DZPJ4V7qd7LXAf/u1MXq2CDRd5BDYlHK+V5Zg7Shr95OHllDX4ibtGG5zNPndkB0xoPIbO5jrLwhO+EbDF6riwHQfv2QSLe41lNxP1cQ+MORBcsNtLIgVqQoD4Ka6n5vHXVt56Xq/ftPdgy5BDglg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V0o0vib3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F674E9C1A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792103071; cv=pass; b=dmCHR19luaSYnye4F3bjpAM7UURVb0YYCasdOiigVpUo6DovGj3vI6VNrucXtbc0Ki2+dbtOvMOyrjdvsxPoBLjhdEsuOfJlapSKrnRxqXkO9bTzhKYHACcrBQUqDFnPFcf5DQkM/chwsvuyj3VTGbcfqbidLHdnHbzuT8NsDho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792103071; c=relaxed/simple;
+	bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=a5/U597DCcxDfai2ZZFtzPdWcW04CC3MyeI/VEAKAHhsFwp97iAcCt67j0H24oKZoJQRbupUFtCN0vb0IbeaZVP6J+qr6XkLTqlR/57sOqAVpMMZOJuonfHC1G4D08Oq4DvyoYbEvz3d0oxuOPSyiG1Xv5tchX5BQ33ii0PJS9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eatGLZ1A; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V0o0vib3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037F21F000C5;
-	Thu, 15 Oct 2026 22:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792102928;
-	bh=fPD2nEI7t4cycmEl5v5zBx4KzV5gWyQpBBlGVu7uwtI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=V0o0vib3vbQa5MZ8ZSCvC/y/LSnkA+mykWmNgl9MARRXB2i9uHMSOd2CzNSQB4Qcb
-	 e7dKxDzAfItIDTPxHS8RCi0hnOs3LAN5B3xm/EeW1PfJ6eLuMTcztt1g8Nr8xJsAcp
-	 s3KazcxC1akZx3RDN5jWLsHlpkfx42Nql8ioGUuwNhes5zsjw6vg8q5jmjJ2hsTKE1
-	 sDI4oO5Z/2BRUUeoBA+a8zp3CjVNkDJ0ShHM11+4r9CQHJhSQpB/ggRclR5yU1JYL4
-	 XskbzBCahGGdNrFXrwZALuJkIbzyjJefJnxHccx2BtrPufnHkWWaCR1ZmGaWKcXkmK
-	 gSUXagNMKoetw==
-Subject:
- Re: [PATCH net v3 5/5] ptp: vclock: preserve missing hardware timestamps
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
- richardcochran@gmail.com, andrew+netdev@lunn.ch, yangbo.lu@nxp.com,
- mlichvar@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- linux-kernel@vger.kernel.org
-Date: Thu, 15 Oct 2026 22:22:07 +0000
-Message-ID: <179210292756.434549.32365876445256361@kernel.org>
-In-Reply-To: <20261013-ptp-vclock-sampling-v3-5-d3ee4ea62fc6@gmail.com>
-References: <20261013-ptp-vclock-sampling-v3-5-d3ee4ea62fc6@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eatGLZ1A"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-535f598d126so52731cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:24:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792103066; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kpvqIlyjS4fh0IlTR+Q4/DYE0dZyYbRKWwRJuJd+Y6oQxg0azm63WSq+NnG+hTpGHP
+         nrThYtPk0u2jKw7IZW5JZhifxGX2JlyOpB3j/NOEw0arTp+1BUbQU1KXp9oIoHNYo4F4
+         EPnc2ZyTulyNu8I6+3JxfUpSK4dR2ucqCXn5dBQm3zitLd22PyidR/GwRaWrUDfOcDHC
+         Ll7xsTApShjPw3SCyMTAN4W99u3/CpeH4EyLhb4zygeM7v+t+Wz15h7vH/D3fLxNdwLv
+         7So8aAA0smbLNtETCdJZj0wUJJCFEpoi3oVlFiL8LlGtHCC8Qb7mzlhHkkp93I8wd+Gs
+         7NLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
+        fh=qmvJEDcAy1G94NL3rvl3Ot/18gX92wkRUz85lSIrLLM=;
+        b=VS9UWwYtwRQMjLtQtGgxPxpOiLjyzavOgTa+WHM/2jr/r6wyXWyJx6JyIYL5P1HR66
+         FCxrxRZ4d4f1O5kogdZT+RyPUpiO99H64nR6SnV2SKSIByohWSUX9vTzhUnEEHqItJvc
+         5+7uySZbWejBMOTeu4LyRki0nqr+8qcBlGnRy95uExe3WT5JHJLngZkpVymRI/6mA897
+         BZvXh/HRNkVtqAnAwLyCInErYKGijjeVm49WYi6YRkdxXwfZO3z5rTnmc7T4bApUl4+A
+         gUhQ4vYoQdqDXazUXHMJKmirphqDZUxmlLaD6bmKOC5FmF7+IGpO+YGAIjlUaAeyMqza
+         sciw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792103066; x=1792707866; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
+        b=eatGLZ1AkoVbXnXQdacqidMYMM+AnC7mrJ5iXHKfFHuP3kt0ZVez1ReUPOVVqoyTxZ
+         A9hu8eVjCkWd7XJz0u+NOhDTAU12AvKItrHAPxM0z6TOVzIpZg9+JK6JZR/4XSMoF+gp
+         Q2A4Lg9Fu2u4SG8gP5WHgZm2ndXNfl+N9m6EZFwFTG4H4iio5BS6mkDCe8biTV6NVm4j
+         uONFOtVH+RUPj45EdPEz0OMAMyPjYbZRrCBO8CjfSPKjtbIQKodEGnXFeUeAs9RnN2y0
+         Xpt50h6a5hByIiXAkFi5QumsS+HxCakADE6ev1yZTbdOwyVfzigz1cOlMSClL60fnnCN
+         1Yjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792103066; x=1792707866;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JsHIw7j65xDVOcoDPikKv7uu3ebdMMVU+ZxDmQjoXQw=;
+        b=NaZWN6cIiU+lwk1q3zldvmaIAkfDiknfgKEJzFbPQHJTX38QUVctIeGmZF4xuInICn
+         3tYmKYiULKz0FAn/Di8vhTAq2DkBQS7suQ9Hdhmgr9nDoulcSxaFiCiC759ieRpKx8pv
+         86cplZmsbo7KOgMadGjlkQFeDrNDFOCh72KWZD/pYdsCpLfwAfkctxqLHgIYT7zfqYvf
+         xpG0m7WDRwIR1lu7JGqj+j2me2Jh/Xq5mQJrRygDkMjftbeko46C+Isq1ZSfdmh5CmiS
+         il8C5Hll/2tqHdOqZ26DpPBMRprfHHyyYpnoAjYsbtR3JkuILOTGi9wrv45Q6cwEBEYF
+         Qj/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzuX2fELVogJIFcB6vI5jqlhZVHvgxhDDphkxYJtL1h//7KWjljYuuw/ZlBitFUC0phxBlej7IqQHiCkrw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIshR3h2yyEmMfvol61O2WVqjKy82OSd6PZ+AQLjuy6KfYI2bmS
+	a3PNSVPWJQAu8UGbSpEmnCxqCIyISTm9awz+pvNheD3kzRPGhHpWlsLvPaqqZILPjKoQZ0egV+J
+	5tgvj7D20ilIQyhp83EDnz82BkS3qVWqOs6Rk3kNh
+X-Gm-Gg: AYBFou2TYBy9dcoAbS2yMIx2Fgszp9/pL58Y+YEfvUFT0uC2iZuBquvQV43DynKR7Ny
+	HMqsDyWOqtN0o1Kba+iK6pMQKsdAoe+RWPOwtoKpiK138U44yi9qBaPgwyArS5WIaxFoQJXth6M
+	ywOSW37lLC2RNTRdcBoYXbTkwh/NSruqgMS4jP+nQ2Ibu07LstvdMEMJL7sv0yr6gyokU5H8121
+	xKClnFdicjM5BKBjHHOXYcaj/8snfJtO+4WNf6vbPDAMLB2VkX3Jv2nBnWAeMlmOdQf6cJSSlLr
+	ne2mpIKNp9uVOx/wPRqx+YoZ7pciTBpvVP5SyY8AhIJqFhXPp/B2ogY=
+X-Received: by 2002:a05:622a:1648:b0:530:2f98:cebb with SMTP id
+ d75a77b69052e-5362b40cdc6mr3161581cf.11.1792103065023; Thu, 15 Oct 2026
+ 15:24:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-21-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-21-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 15:24:10 -0700
+X-Gm-Features: AclHuK8DXmxx-rfYkJXFdOtH4DbmnHj5hrHQbPjPUCKI-95-Z3_uO0rgyPy3uHg
+Message-ID: <CALMp9eTF2NBYafgbRCfo=aEcTyC1DLB4gVpPM=rZd_zhqSuzQQ@mail.gmail.com>
+Subject: Re: [PATCH v3 20/27] KVM: x86: Add KVM_REQ_MMU_SYNC_ALL_ROOTS
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Lai Jiangshan <jiangshanlai@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
-
-Low priority / nit picks for your consideration:
-
-- [Low] The patch adds a new early return to ptp_convert_timestamp() in
-  drivers/ptp/ptp_vclock.c: when the input hardware timestamp is zero…
-
---
-
-ptp: vclock: preserve missing hardware timestamps
-
-Socket timestamp delivery converts hardware timestamps to a vclock time
-before it checks whether a hardware timestamp is present. With a zero
-input, timecounter_cyc2time() can return a nonzero value. This patch
-makes ptp_convert_timestamp() return 0 without converting when the input
-timestamp is zero.
-
-> diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
-> index 6675466bc3074..4a62047f0ce0f 100644
-> --- a/drivers/ptp/ptp_vclock.c
-> +++ b/drivers/ptp/ptp_vclock.c
-> @@ -307,6 +307,8 @@ ktime_t ptp_convert_timestamp(const ktime_t *hwtstamp, int vclock_index)
->  	u64 ns;
->  
->  	ns = ktime_to_ns(*hwtstamp);
-> +	if (!ns)
-> +		return 0;
-
-[Severity: Low]
-
-This isn't a bug, but should the kernel-doc for ptp_convert_timestamp()
-in include/linux/ptp_clock_kernel.h be updated as well? It still says:
-
- * Returns: converted timestamp, or 0 on error.
-
-The new early return gives 0 on a path that is not an error. It passes
-through the "no hardware timestamp" case. After this patch, a 0 return
-means either a failed lookup or conversion, or a zero @hwtstamp.
-
-Both callers in net/socket.c already treat 0 as "no timestamp", so
-nothing changes at runtime. A wording such as "converted timestamp, or 0
-if @hwtstamp is zero or on error" would match the new behaviour.
-
->  
->  	srcu_idx = srcu_read_lock(&vclock_srcu);
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
 >
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-ptp-vclock-sampling-v3-0-d3ee4ea62fc6%40gmail.com
+> Add a new x86 request to sync all roots, current and previous. This will
+> be used when syncing the shadow NPTs on nested VMRUN when an ASID flush
+> (or new ASID) is requested by L1, as all physical translations in all
+> roots should be sync'd (since shadow mappings are not tagged with an
+> ASID).
+>
+> Refactor syncing all roots (currently only done by
+> kvm_vcpu_flush_tlb_guest()) to a helper, and use it to handle the
+> request.
+>
+> Clear KVM_REQ_MMU_SYNC when handling KVM_REQ_MMU_SYNC_ALL_ROOTS as the
+> latter is a superset. Do not do so inside kvm_mmu_sync_all_roots(), to
+> avoid any subtle behavioral changes from kvm_vcpu_flush_tlb_guest()
+> clearing KVM_REQ_MMU_SYNC. It makes sense to always clear it when
+> syncing the MMU, but there might be weird dependencies on the sync only
+> happening before the actual vCPU run, and kvm_vcpu_flush_tlb_guest() is
+> called in other code paths than handling KVM_REQ_TLB_FLUSH_GUEST before
+> vCPU run.
+>
+> No functional change intended.
+>
+> Reviewed-by: Lai Jiangshan <jiangshanlai@gmail.com>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
