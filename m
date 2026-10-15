@@ -1,157 +1,114 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1139A4A485F;
-	Thu, 15 Oct 2026 11:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062809; cv=none; b=n1Yeq+1tGR3CH+HzBiBSF43sVDQa+CxALvtgnABGFtp3GatgIiRUXG4O4rs3AxHVAZAqVlzc9fHwVQhEVz+bnNTRU3bb+KS1QIl3lU4y1nbPojXUYLTz0ua8Cyj50pUnNQieT+T94C7+DnR2oquhDj6nTGOn5rK4E3R69STie0Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062809; c=relaxed/simple;
-	bh=LrfilnFuB9fhW2urtvpexuMosoSCb5THhAwDoH3hzgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FIeVuB/ZGSPXIKCv1enw2fWr6G8t5YnCtISxptMRvta+gCoDUjjyTIXmqRoEKz1i9HPXyP+9JhcU+eS+9mG0ZRL8sKNuB718t+YbxaSsBWKejHrqmQLxpEFZIL69LwjeSj5+KoTlyl+PjfBPzCHgX0gsEXVwcYq9WUzRekcW+14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Sqt3USTI; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8DA4E06EA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792062917; cv=pass; b=Q8i5orBsqHQd/yhJr1mRFUT1x7XwTG2aVf5rsUyjdHHBuHLfaneSV8q5Vqpsj0Ak/4CUblypufwoQokLMi3kRQCGVJJz1EVm6nao85URdUJyV25vrlM8pfVgz7rKDhMWHotvHs1REEB81k4xhkfEThmgDOJz5xSWhaU7SKvzJcg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792062917; c=relaxed/simple;
+	bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tuYpBNor4JacAHGnqFjovOno3isvuwY4GWObIP0Uzf1DLpPg4GqIRLoZv3inrUvFUFNVPkReTe6ZjQbavpAQGRxLRzxV2DxmxGBEJXPmBn2XE2v6O2lqERRQ9lvYkyVNbgYqhkPogPlS3rACF5XwPPKDV8fWMUqKj0Ga2GguaiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=tFsok8Gu; arc=pass smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Sqt3USTI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xCpOlcL+L3VN03MDzmyIIb+BcnT/3D5y0X9zY5PMyU4=; b=Sqt3USTIEU7/88FDN6gmZRHig0
-	2MpwR3ROScPjifIDVw+PEVscx1q+KB51XRkDjGYO/ENXkJisn53yZr4LkogPVMu72cA20IIz6YZUa
-	QaDVdEFOoLmh+mBaO+qXFNoNwVrwIFS1ofth/KtNXYq/jxjGjnWYNdzzMAC81SuKHwrPrPAKrg/oy
-	Y7GSqWcePFaQzoOw8i6ZNBBsAAQ0I+k2X17F+6YmhBcvlGoc1MxtzayRJAqpk3Tj9AdTEpcgouQXj
-	88Gawnmx2WaCKae6WKIwI7rv2EHvb3rVfIgO0p26dDg5gJUnWSJiQmFy5X1Sv39Ui8ShWSqBoXiB8
-	fzppfZkw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xHJOg-00000000I41-1BAN;
-	Thu, 15 Oct 2026 11:13:18 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id DB2043006DD; Thu, 15 Oct 2026 13:13:16 +0200 (CEST)
-Date: Thu, 15 Oct 2026 13:13:16 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Antoine HURET <antoine.huret@bull.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>
-Subject: Re: [REGRESSION] perf: Rewrite core context handling breaks
- multiplexed cgroup events
-Message-ID: <20261015111316.GJ4121339@noisy.programming.kicks-ass.net>
-References: <PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="tFsok8Gu"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0cf2c0785so11703607b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:15:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792062915; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aG6sfFKE2AdIATvl0faBvplTpqUeJ4waqU46rSEBWMftm4oTpJLetFctsdzZLuiHpm
+         kzK2Ge1AVmwsaCgbjRi623ww7aF9KJjjFpHqML95ZjlOKOM5K+z16CM1cUHJVLrA/r7A
+         wasyCr7IjPMQX9nrNaeh+0qoRYNtNqbBVFLTYRg3bjW5ROdpHoMdNG3re1oAh7cc6pAk
+         SceCo9FiIG6hklTW0eo/ZcDqsWeFm48qaPyZE6idvPi+ywilWLebgfLude9j8cb/CIIY
+         zE/7mVicbpKwNQxuhyuJzLHtBM74kQxeUHzH8cgXdKnYz7BvlfSdIZBo4PZYOcushnmp
+         vkkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
+        fh=QfQq9mE7nY53kgmFj166msT/qIEeilJPMKJfQCl4i9o=;
+        b=BnsPZ08A6SFvrmXlvME1hdozknlrEsPGkx6wj59VQJ5F8qI1AvYXpULkIuywQ4sdHr
+         LU5egKezOlqIHIhXybkkkgCrGvBkkqDV13uf/tfiltca8bVn5aD79qessz6iEG358oEp
+         TxlK0I1IBIxYkx79wT8WOOJPulvctNRXTt4aTF9IWzc91epke4Sm6G5YsvAmuJhxbIF5
+         7kg35As4847+SAXJYgWoH9ZeKbZ4DbNDp7J9PSD7R+i+/vqKhW7mmMpAsMdgovg250S4
+         0pqKQKvn0+gBuPUb3s4nSxMiomwqwesJYDBGW9T177pqbQoZ38gni2/thXclW8sVL6Rx
+         banQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1792062915; x=1792667715; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
+        b=tFsok8Gu7pL10k+toUtA9U1xyWr1fKGTQGuD6siZNufYDmTlx5iGEacoYxtaO/9xuZ
+         royzZQvQ6BThJfyJOQm1cjOvW32PR3hZrFJznN27ptUm1mghkbkPzgXvj2a6XHJP47TB
+         bbih8OPOOMxnSjvYa3885JLpMvx+GgzIpy01s33Pr+h1OnjbITbetlHEid5It9BuxJdj
+         +jtrJxAEb7mGxUwzI9gbGyCk7bauz2wHkzrmnfBsZ71s8dxlipqI21+C75FkHWcs/1y6
+         QR+IKe4BLpXExBmfQlhIMoF33/KjpN4sl9hVB1ojQGf4RCv8Q7kgUbMcMuO8dLhZMhMI
+         Fxdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792062915; x=1792667715;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I9oPJ3YGlwxlNX6cpMBiC5ATHr477eWduZeRhnHEaoM=;
+        b=PHqqgOx/98YzhX/bhAYK+xUGQ9JdNWl+GQYvGZKlHbY3+TQSTPLysD4RNc6X/jN/C4
+         sQ3i42PJFk36MSlc8eMmWPUDIA3RAP09d0y07ykMHHDXBzBFgPoR/OmI78cOROSRmRha
+         /vxeHKMpBlVsZz/RB4Hygi6TgnNQLKE36QvDRehwTWKARoKb+VmaWX7lv2m0zIEMktxO
+         Hko7RpSZUxF2HHMhslDESa+KlmlcBCAj7a2WDHPzdsUqzo6lnBX7ZM3azt6WIfNQ4x97
+         pDCoYv80STFGzkMYy94ARfIAdCO/J1yq8SFUR50CmBtNltj4i9rMi38dxlfc0BMLHgDH
+         OlyA==
+X-Forwarded-Encrypted: i=1; AKwUvByjjAQ7iDmGt2pIb+uuTYMak6LyEFUdC2HEWqCNtNBr7DeTiZUnTT9sWagC9y+3IUBUILMQKgq0ydGauDI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvk8uUuNw/+e94UYT7ldEtgiokZRv7kNG92dTxFPU24e4vcjdH
+	akvTsQsm4JeZfjDFIXDC3ASd7goh0kh/lxv0OEcZDdNTm+X3hDP+2CXNZ+s0qgS1CADOLkIKLH3
+	R0yNTEiN2Y4mhfwfE2kiahMjjtB/ftHwBvV2Q3YdY
+X-Gm-Gg: AYBFou3O+yVH41LpOnutsB3dgrJe+OQFbKSeKcFgtXGbTJHHV8sa/nlESim7yDtXLHZ
+	cEc/q+nn8EaKNgrEwbYYschnSpjZQzEf8KtA2rF1xU0uGg97yTufLbWyobf5UjymkAcQ+bc1vP5
+	cSqmXL+jZHgSzbf9TNfPtpodkvaOxPrHlBaQqCEnFAPDl1F+wpoLu/Xe8EKiZhkUMPRrO3jg0hy
+	oS7WDI89sL1XpFrehK2ON0/crJUGdvKu5O09k2nT9ITdsJGsAMEEMv+yNP9DNGYkeSX2qlO01oB
+	Eqel99/ow+cAeguF9GgVJ/SzpO7O6rqqPAdqXOCW5C3XSt9qkHY21p2MMjMo+U9RoISdA6vxtMt
+	F2x6dFAwJv5XClYSmGvwucStEahZndGQbkpeDiV/TIY6bp2W7ZruFHNLk1mlD/B7gY5sLuSyPwY
+	9+QPBYj4qy1D4qNODknBzVzOIG+TpP543hya5vnlOpr6Acq9DQECpFxHPm7NtihJt0GiBujD141
+	9slgp+HtrxxDtMons35G8kwkf6piI7++df2S7dSWxUWwxvUuKbXYBOzIFWs0UBu3f720oyruN/7
+	v6mW+AE0fDV6UQ==
+X-Received: by 2002:a05:690c:7012:b0:8b0:cf3d:7b35 with SMTP id
+ 00721157ae682-8b0cf3d7ea6mr10078397b3.15.1792062915195; Thu, 15 Oct 2026
+ 04:15:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com>
+References: <20261014235628.197976-1-julius@bairaktaris.de>
+ <20261014235628.197976-2-julius@bairaktaris.de> <atCsGx2IRecQNK3r@chamomile> <atCs-U_AXIyvvpKd@chamomile>
+In-Reply-To: <atCs-U_AXIyvvpKd@chamomile>
+From: Julius Bairaktaris <julius@bairaktaris.de>
+Date: Thu, 15 Oct 2026 11:14:38 +0000
+X-Gm-Features: AclHuK-GCm2OH3Jid7zEvImtoqSM3gq7UTcC3JLFEhmei75CLrzAl8zOZjCyOVw
+Message-ID: <CAC1t37+g_5q2NbKmCkxhZthdHYabypyDZSoshwgAUVjbGm0NsQ@mail.gmail.com>
+Subject: Re: [PATCH nf-next v7 1/2] netfilter: flowtable: tear down direct
+ xmit flows when the fdb entry moves
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: netfilter-devel@vger.kernel.org, fw@strlen.de, kadlec@netfilter.org, 
+	phil@nwl.cc, horms@kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org, razor@blackwall.org, 
+	idosch@nvidia.com, ericwouds@gmail.com, dqfext@gmail.com, 
+	netdev@vger.kernel.org, coreteam@netfilter.org, 
+	linux-kselftest@vger.kernel.org, bridge@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 09:03:42AM +0000, Antoine HURET wrote:
+Hi Pablo,
 
-/me mutters something about having to go install and learn docker and
-what's wrong with simple shells scripts that poke about in /cgroup
-filesystems :-)
+Thanks for looking over this.
 
-> Analysis
-> ========
-> 
-> A cgroup event takes its times from a per-cpu cgroup clock.
-> That clock only moves forward when update_cgrp_time_from_cpuctx() or
-> update_cgrp_time_from_event() is called: on a cgroup switch, on a read
-> of an active event, and in ctx_sched_out().
-> 
-> Up to v6.1, perf_rotate_context() went through ctx_sched_out(), which
-> updated the cgroup clock. Since bd2756811766, it only updates ctx->time
-> (update_context_time()) before __pmu_ctx_sched_out().
-> 
-> So between two cgroup switches, the rotations see a frozen cgroup
-> clock. The events rotated out lose the running time they accumulated,
-> and the next update (usually the read) credits the whole interval to
-> the events that happen to be on the PMU at that moment.
-> 
-> Supporting this: a task from another cgroup waking up every 0.5 ms on
-> the same CPU (each wake-up goes through perf_cgroup_switch()) makes
-> the values correct again.
-> 
-> 
-> Proposed fix
-> ============
-> 
-> Update the cgroup clock in the rotation, as before v6.2:
-> 
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ static bool perf_rotate_context(struct perf_cpu_pmu_context *cpc)
->  	if (cpu_event) {
->  		update_context_time(&cpuctx->ctx);
-> +		update_cgrp_time_from_cpuctx(cpuctx, false);
->  		__pmu_ctx_sched_out(cpu_epc, EVENT_FLEXIBLE);
->  		rotate_ctx(&cpuctx->ctx, cpu_event);
->  		__pmu_ctx_sched_in(cpu_epc, EVENT_FLEXIBLE);
-> 
-> Tested on v7.3-rc7 (results above). Also tested on the Ubuntu 6.8
-> kernel, where the values are correct for a parent cgroup, for two busy
-> cgroups sharing the CPU, and for idle or mostly sleeping cgroups.
-> 
-> I am not a perf core expert. The root cause analysis and the fix were
-> done with the help of an AI assistant. I reproduced the bug, then
-> built and tested the fix on my machines. Corrections or a better fix
-> are welcome, and I am happy to test them. If this is the right fix, I
-> can send it as a proper patch.
+I will incorporate your feedback and send out v8 + explanations for
+the questions Saturday.
 
-Yes, I think this is right.
-
-That said; while looking at this, I wonder if we should write this like
-so instead. Although perhaps we should do this on top, your patch is
-trivial, correct and more convenient for backport.
-
-
-
----
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7846d70be57f..029c11e7358d 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -2535,8 +2535,10 @@ __ctx_time_update(struct perf_cpu_context *cpuctx, struct perf_event_context *ct
- 			return;
- 
- 		update_context_time(ctx);
--		/* vPMU should not stop time */
--		update_cgrp_time_from_cpuctx(cpuctx, !(event_type & EVENT_GUEST) && final);
-+		if (ctx == &cpuctx->ctx) {
-+			/* vPMU should not stop time */
-+			update_cgrp_time_from_cpuctx(cpuctx, !(event_type & EVENT_GUEST) && final);
-+		}
- 	}
- }
- 
-@@ -4633,12 +4635,12 @@ static bool perf_rotate_context(struct perf_cpu_pmu_context *cpc)
- 	 * and then, if needed CPU flexible.
- 	 */
- 	if (task_event || (task_epc && cpu_event)) {
--		update_context_time(task_epc->ctx);
-+		ctx_time_update(cpuctx, task_epc->ctx);
- 		__pmu_ctx_sched_out(task_epc, EVENT_FLEXIBLE);
- 	}
- 
- 	if (cpu_event) {
--		update_context_time(&cpuctx->ctx);
-+		ctx_time_update(cpuctx, &cpuctx->ctx);
- 		__pmu_ctx_sched_out(cpu_epc, EVENT_FLEXIBLE);
- 		rotate_ctx(&cpuctx->ctx, cpu_event);
- 		__pmu_ctx_sched_in(cpu_epc, EVENT_FLEXIBLE);
+Julius
