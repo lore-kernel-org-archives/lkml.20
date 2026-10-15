@@ -1,200 +1,305 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010023.outbound.protection.outlook.com [52.101.85.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80190489FBC;
-	Thu, 15 Oct 2026 09:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056896; cv=none; b=g1cvnfRiA7fMEIuSNYnXpzRcxHZN18nGYzbPi5gvKMFc3IyX1BysCJFYZUJVA+hMMb0NqRtG1F/BDhebWCvuO9citG2JUOUeO6+Gy3cGWAT5jqyy70Xcv2GUrQSyatStvM4RcDCmj++p1lkMfPWVXtk9s594+x9wKsKkAuvrCMI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1243EF67D;
+	Thu, 15 Oct 2026 09:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792056896; cv=fail; b=tZE0Or6oNfMzpL393OTIHILhvhs3qlUszP3RPLL8yvWeiFOKm3u/VV+uGeNniKLIHm0iOZ0Alx7YAs9ab0eKl2TUFyoRbGLA771Vi/4Bg/eQ82o8WL7w9MM7EagZmTrcf8MlS+uQ+IxsritEiJbCZgNTyOoYJcp/+BgE0Z4vD9Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792056896; c=relaxed/simple;
-	bh=IigKGt4PW7F7zXAXpX8XDS603ybyr0+K7eFGaI/aYxQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aKdUL56R6kP1KT9k+3lTPIwA6uS4ZsK4dvMtxfaUqPkI2GS5yGXhqCZu7NiBP7VWp4wJULS13VHqc8ixrTXq7frV+jJNwp4mEQaHGXNE/9S4cLITCAU0E4GZeCCurvpGNNsvh8EeOSD2mdbu98b64/le0G9CCgA8XNBY0eCxRrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvoquCoO; arc=none smtp.client-ip=100.103.45.18
+	bh=fP05W5VMlZ/8Vr+3B/3G0LdzAiBQadP2HPf0u3JB2Pg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XdmdzmGFjPbUMCHCIf8RSQ02e0TGzmIVMj2vgRRdV8vfCU3/81wKJStcR5bBIYhyJOK2SPtJfT9puVoZGxyIqQprBZfwIIw8doiH1DNlujleK9p5tJfqQxXVwnHSh3KyGMfIMSLY+yoLiD0z744gL7h4b2F5+OKiIIk7ag8iYro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lO1lQyOd; arc=fail smtp.client-ip=52.101.85.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvoquCoO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21E41F000C4;
-	Thu, 15 Oct 2026 09:34:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792056895;
-	bh=Fy/GnU/KaL5dtlm+MTrRXHciNdcaUAPUo37ESivV3qg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jvoquCoOEPkwG47cdNIbtkxUeJTArwA9Bb6uYEOcQRCLGNpVwhQUKGQKEzv1t5H2n
-	 x+WBcuO7vvYnPof4hIVP2m61Ir9sCKURBtRgWT2W25TztKKrGHoR9CmG4cJ2K343Hx
-	 iiFdTZ88MePng6R1G8PxHQLFUITWWTd8711l9i53zsXG1QSn9XVQnq73RVnN1Et03C
-	 4VGwBsHwVaUkhDH1DG62xX8d8FE/XwOMXhHvDS4+TYODZaaVuKaEmHUNEUr9XTOUHG
-	 dUtIy2TzMLAdMa5JPWOssyN8B4BDdIWR/DBNK599DFEFPSVCjTWN2FNmVaynXDT7rL
-	 dTdbpdLtUqxow==
-Date: Thu, 15 Oct 2026 11:34:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de, 
-	stefandoesinger@gmail.com, Mark Brown <broonie@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
-Subject: Re: [PATCH v2 20/24] spi: zx: Add ZTE ZX family SPI flash controller
- driver
-Message-ID: <20261015-large-mayfly-of-blizzard-bffef6@quoll>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
- <20261014072109.1759502-21-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lO1lQyOd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qISlT7rpiNRXlo/szoycHfLiEZjqPOc9aLR2gnk6jNkAVUDCXg3S4zqxAVmC8Py2QGJrT/0l7o6aDcXxIGD+nyW7gMH6DNOULLSshWTdu1YSnW5KlJjXAIs87/LUJV0Lj4esXNkmdnpqWiG+pW1ztSn1lSZd0y/hqQLa2gUP7FkCqYQzL1n4oDT7Oe7t4TplNKwrzhMhkhlmV3T8V2ypoR/biAgfjt78rqFqIc0VD9Vn3Sz5FQbzByILIOE3gYGPpJTeXSFALAsdA6553QNtoWteXPxjlXxq1UGHWJYutZd5OVtervWPOp5IzsGyeI6zqdcAiALC7eDn7AWL13CW2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t37iR2kftL/51UvrsFwJg3WW0ux8UcVmjN0rHGF2XwQ=;
+ b=DZiysWzQlOKbUoq7YMc290JWYRh/GHg/ncTDkWZ3QKbPGOUa4dhPyoTlo5HiFf4M+xKNjg00244hCreMHsc5kYB5XbRT0OWTAo4lUFDvcIRblVVMkztvBKTrWxUoBxG+2s1rn+HEv4LiApoBzDXyMWNli5RfuIWkKP+m2gSwgk2WJXFPi/U6s7ZksagQUzoO8wZ2YkdwnnpNmK/cPe+ob5Ubd8VPIs+qbM9PjXl3pbwSFxYhaad7COaCsXhQiBzFKnd4ZFpPN+wVwo0eFOvSZA39ARBlwV3K45ZfmgfAtI4Gp5CQ4naKs/kpUylP7xh1Ji6fjTwqnoV8mWqyj8Obbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t37iR2kftL/51UvrsFwJg3WW0ux8UcVmjN0rHGF2XwQ=;
+ b=lO1lQyOdhfce5SnLUA7JgpMEWpwsDf9nXJmBaibSMoLNzRBSJ/3mgePoJBdUHUEzrJA+xAsEPaxTiMJJzQLCKfHRq5T+mxIoy0NpfFhEDwu4pBVmZCuHyUSaaLHwZnSVZTG4+Vcff7g5OjK6Vkar+4lvhWz+r8VoRhCR69DLZ15scerkWTA13mXi7hWiOjG28kJdYk7YX+0rrmNGnZfIUoe7PCBcmatXOeT2/HcBjCHZ0csgQu+3Wi95FIbiVRSxbblKRQMk1b2LxIIW3elYfL31jXoxVQSlA6+aZQGDteEbWdKlcX7t5L9DJSekzD1rC26/zTPUKaeTkG2TjJISQA==
+Received: from BN9P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::21)
+ by CHBPR12MB319464.namprd12.prod.outlook.com (2603:10b6:610:409::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 09:34:49 +0000
+Received: from BN1PEPF00018547.namprd05.prod.outlook.com
+ (2603:10b6:408:10a:cafe::20) by BN9P221CA0027.outlook.office365.com
+ (2603:10b6:408:10a::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 15
+ Oct 2026 09:34:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ BN1PEPF00018547.mail.protection.outlook.com (10.167.248.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 09:34:49 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
+ 2026 02:34:31 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 02:34:31 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 15 Oct 2026 02:34:27 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Akiva Goldberger <agoldberger@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed
+	<saeedm@nvidia.com>, Shay Drory <shayd@nvidia.com>, Simon Horman
+	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5: Fix lock dependency cycle on uplink unbind in switchdev mode
+Date: Thu, 15 Oct 2026 12:34:19 +0300
+Message-ID: <20261015093419.1150837-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014072109.1759502-21-ghahramani.navid@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018547:EE_|CHBPR12MB319464:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7b912b4-4ea3-496c-72e6-08df2a9f8ebf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700016|82310400026|23010399003|56012099006|11063799006|261009223327099003|261009221227099003|261009220027099003|261009221727099003|261009223027099003|10067099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	gypq4oSG3A3FFQl9ipI9c4EDMfkYMgs4CmDLzJkbcje9FCm8LIVfIqAE5OVYsaM/QqEBshWVf7+oQrW4d9daxVH62Z+2rmoqo66vuJbyFUNBQKSteQ6dMLUZHSvcvwNgEz8/eb0aMiArixwKauWSJb/G2W1j7q04mOaYzBJfXGeODeHVcs5JPvZdDrZfcfOX6ycdz+Ywp5CgVoElCXbIs4UIWy1mbDZXIeOIc5voSdc0mQRHqVnzyu+vw+OQ1TkLk4OtJf4DQizaq3DO5pyLs8hYRcEEVAaPv8GrhOeR/n5GT3yKuSKLemp1SW/iBaL8ydJk8xwnvNO/YlLH+ZJH9ZPhtkr4XaKnKa/O7aINVNAhmx1G51BGutM77oHJs69JNxXzf0y5LKYDzgRCQkDkcfrrFc09vw63Q8CMbTljLZX6N+UWfgw/gV6rxWg/PJnaRyNzciGabXCChksIbfS6kk+Rq3I2ZhJx7vGt40A6VZtzJia82VBTpRG5fBbEFSHYBFCBavldDLZC86ajeeWVNwzUb5JC5Yv2hjnuPqQlUoJkIhL3nw2YGlsEhk00/9Gtf22NFWT6efECOK/9IigsmhPC2SM4ILzw1U2O5ydfN2HlDf1XZU8JxrZSO3mB4ux/i7sM2Kgnphz4q1b5LNOV2qd3Cb2ya/QuBJYmEzyC92ftHHHKPlXyvH5VQ7Z9TE63/MCZHu9PzBsRLrr8Y88iaA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700016)(82310400026)(23010399003)(56012099006)(11063799006)(261009223327099003)(261009221227099003)(261009220027099003)(261009221727099003)(261009223027099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RhGnl9X1ATg6bb54JQ/owK/y53gFZjjSPTCgzKec8IderJm4NPDc770zUgTPp6YELi07/SEBc5EqLeXciwe31CetpAflKelKpi+0hO8X2PdbgYCbl9Ui3yypdgZErqLiisRnN66nGYaWDBrZMggbH/eGSfbnUVLqMRorFvVvsdVKB24ZcIU/Sr/rPttzbrzyZ2/x5nGzYF3hYrlxwXPCT5CYfdJHEVXLmiTwVddUHHHATIDoKiAb0ehFdtuRpLMZinNwZyS7Bj+ySwNNYshZBLJE9h1R4M61n9RMC8D+Q6IfDXDcchq6LT2MmIFil46Pn0yEIwq++g5kTNeGgwXmWOh2wfS5BSIyWUnWzoeoBQ93L2PkHacKPvSJC40zH41fYrwm2/2/0jgQS2opaMlT6nTMhUjpCEOOcnbaco1f8eOXahWM7oB6fSxV3uqVUTYI
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 09:34:49.1033
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7b912b4-4ea3-496c-72e6-08df2a9f8ebf
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018547.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR12MB319464
 
-On Wed, Oct 14, 2026 at 08:21:00AM +0100, Navid Ghahremani wrote:
-> +static int zx_qspi_probe(struct platform_device *pdev)
-> +{
-> +	struct dma_slave_config dma_cfg = {0};
-> +	struct device *dev = &pdev->dev;
-> +	struct spi_controller *ctrl;
-> +	struct zx_qspi *qspi;
-> +	struct resource *res;
-> +	int irq, ret;
-> +	u32 reg;
-> +
-> +	dev_info(dev, "ZX QSPI Controller driver initializing\n");
+From: Shay Drory <shayd@nvidia.com>
 
-Drop such messages from all your code.
+mlx5_eswitch_safe_aux_devs_remove() holds esw->mode_lock for read across
+mlx5_core_reps_aux_devs_remove(), which unregisters the REPs auxiliary
+devices and therefore takes esw->offloads.reps_lock. This nests
+mode_lock outside reps_lock, the exact nesting
+mlx5_devlink_eswitch_mode_set() goes out of its way to avoid: there the
+eswitch_operation_in_progress flag is raised, mode_lock is dropped, and
+only then is reps_lock taken.
 
-> +
-> +	ctrl = devm_spi_alloc_host(dev, sizeof(*qspi));
-> +	if (!ctrl)
-> +		return -ENOMEM;
-> +
-> +	qspi = spi_controller_get_devdata(ctrl);
-> +	qspi->ctrl = ctrl;
-> +	platform_set_drvdata(pdev, qspi);
-> +
-> +	init_completion(&qspi->dma_completion);
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	qspi->phys_base = res->start;
-> +	qspi->io_base = devm_ioremap_resource(dev, res);
-> +	if (IS_ERR(qspi->io_base))
-> +		return PTR_ERR(qspi->io_base);
-> +
-> +	irq = platform_get_irq_optional(pdev, 0);
-> +	if (irq > 0) {
-> +		ret = devm_request_irq(dev, irq, zx_qspi_irq, 0, MODULE_NAME, qspi);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to request irq\n");
-> +	}
-> +
-> +	qspi->pclk = devm_clk_get_enabled(dev, "pclk");
-> +	if (IS_ERR(qspi->pclk))
-> +		return PTR_ERR(qspi->pclk);
-> +
-> +	qspi->wclk = devm_clk_get_enabled(dev, "wclk");
-> +	if (IS_ERR(qspi->wclk))
-> +		return PTR_ERR(qspi->wclk);
-> +
-> +	qspi->rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(qspi->rstc))
-> +		return PTR_ERR(qspi->rstc);
-> +	if (qspi->rstc) {
-> +		reset_control_assert(qspi->rstc);
-> +		udelay(10);
-> +		reset_control_deassert(qspi->rstc);
-> +	}
-> +
-> +	dma_cfg.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-> +	dma_cfg.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-> +	dma_cfg.src_addr = qspi->phys_base + ZX_QSPI_DATA_REG;
-> +	dma_cfg.dst_addr = qspi->phys_base + ZX_QSPI_DATA_REG;
-> +	/* FIFO_THRES has an impact on the burst size. Don't make them too small. */
-> +	dma_cfg.src_maxburst = ZX_QSPI_FIFO_SIZE / 2;
-> +	dma_cfg.dst_maxburst = ZX_QSPI_FIFO_SIZE / 2;
-> +
-> +	dma_cfg.direction = DMA_DEV_TO_MEM;
-> +	qspi->ctrl->dma_rx = devm_dma_request_chan(dev, "rx");
-> +	if (IS_ERR(qspi->ctrl->dma_rx)) {
-> +		dev_info(dev, "Cannot get RX DMA, using PIO\n");
-> +		qspi->ctrl->dma_rx = NULL;
-> +	} else {
-> +		if (dmaengine_slave_config(qspi->ctrl->dma_rx, &dma_cfg)) {
-> +			dev_info(dev, "Cannot configure RX DMA, using PIO\n");
-> +			dma_release_channel(qspi->ctrl->dma_rx);
-> +			qspi->ctrl->dma_rx = NULL;
-> +		}
-> +	}
-> +
-> +	dma_cfg.direction = DMA_MEM_TO_DEV;
-> +	qspi->ctrl->dma_tx = devm_dma_request_chan(dev, "tx");
-> +	if (IS_ERR(qspi->ctrl->dma_tx)) {
-> +		dev_info(dev, "Cannot get TX DMA, using PIO\n");
-> +		qspi->ctrl->dma_tx = NULL;
-> +	} else {
-> +		if (dmaengine_slave_config(qspi->ctrl->dma_tx, &dma_cfg)) {
-> +			dev_info(dev, "Cannot configure TX DMA, using PIO\n");
-> +			dma_release_channel(qspi->ctrl->dma_tx);
-> +			qspi->ctrl->dma_tx = NULL;
-> +		}
-> +	}
-> +
-> +	ctrl->mode_bits = SPI_RX_QUAD | SPI_RX_DUAL | SPI_TX_QUAD;
-> +	ctrl->bus_num = -1;
-> +	ctrl->mem_ops = &zx_qspi_mem_ops;
-> +	ctrl->mem_caps = &zx_qspi_mem_caps;
-> +	ctrl->setup = zx_qspi_setup;
-> +	ctrl->min_speed_hz = clk_round_rate(qspi->wclk, 1);
-> +	ctrl->max_speed_hz = 50000000;
-> +	ctrl->use_gpio_descriptors = true;
-> +	ctrl->num_chipselect = 1;
-> +	ctrl->dev.of_node = dev->of_node;
-> +	ctrl->dma_alignment = 4;
-> +
-> +	writel_relaxed(ZX_QSPI_EN, qspi->io_base + ZX_QSPI_EN_REG);
-> +	ret = readl_relaxed_poll_timeout_atomic(qspi->io_base + ZX_QSPI_EN_REG,
-> +						reg, reg & ZX_QSPI_EN_BACK, 1,
-> +						1000);
+With that nesting in place lockdep reports a cycle [1]. IPsec packet
+offload takes mode_lock under ipsec->tx_esw->ft.mutex, through
+mlx5_eswitch_block_encap() in tx_get(); the mode change path takes
+rtnl_mutex under reps_lock, through the netns immutable set; and
+unregistering a REP netdev takes ft.mutex, through the xfrm policy
+flush, under the netdev instance lock which is itself nested under
+rtnl_mutex:
 
-Why do you need atomic looping in probe function? This cannot sleep?
+  &ipsec->tx_esw->ft.mutex -> &esw->mode_lock -> &esw->offloads.reps_lock
+    -> rtnl_mutex -> &dev_instance_lock_key -> &ipsec->tx_esw->ft.mutex
 
-> +	if (ret) {
-> +		dev_err(dev, "SPI controller failed to start: en_reg=%x\n", reg);
-> +		return ret;
-> +	}
-> +
-> +	writel_relaxed(ZX_QSPI_SCLK_PAUSE_EN, qspi->io_base + ZX_QSPI_CTRL0_REG);
-> +	writel_relaxed(0, qspi->io_base + ZX_QSPI_INT_EN_REG);
-> +
-> +	/* Ensure proper data sampling point */
-> +	reg = readl_relaxed(qspi->io_base + ZX_QSPI_TIMING_REG);
-> +	if (!FIELD_GET(GENMASK(17, 16), reg)) {
-> +		reg |= FIELD_PREP(GENMASK(17, 16), 1);
-> +		writel_relaxed(reg, qspi->io_base + ZX_QSPI_TIMING_REG);
-> +	}
-> +
-> +	reg = readl_relaxed(qspi->io_base + ZX_QSPI_SW_REG) >> 16;
-> +	if (reg != ZX_QSPI_FIFO_SIZE)
-> +		dev_info(dev, "Got unexpected fifo size %u\n", reg);
-> +
-> +	ret = devm_spi_register_controller(dev, ctrl);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static void zx_qspi_remove(struct platform_device *pdev)
-> +{
-> +	struct zx_qspi *qspi = platform_get_drvdata(pdev);
-> +
-> +	writel_relaxed(~ZX_QSPI_EN, qspi->io_base + ZX_QSPI_EN_REG);
-> +}
-> +
-> +static const struct of_device_id zx_qspi_match[] = {
-> +	{ .compatible = "zte,zx29-qspi" },
-> +	{ .compatible = "zte,zx279128s-spifc" },
+Reproduced by unbinding the uplink ETH driver with an IPsec packet
+offload policy configured in switchdev mode:
 
-So devices are compatible? Then express it and drop redundant entry.
+  devlink dev eswitch set pci/0000:08:00.0 mode switchdev
+  echo 2 > /sys/class/net/eth2/device/sriov_numvfs
+  ip addr add 193.237.171.21/16 dev eth2
+  ip link set eth2 up
+  ip xfrm policy add src 193.237.171.21 dst 193.237.172.22 \
+     offload packet dev eth2 dir out \
+     tmpl src 193.237.171.21/16 dst 193.237.172.22/16 \
+     proto esp reqid 0xdcd95f7b mode transport priority 21
+  echo mlx5_core.eth.0 > /sys/bus/auxiliary/drivers/mlx5_core.eth/unbind
 
-Best regards,
-Krzysztof
+Keep mode_lock and reps_lock unnested here as well: take mode_lock for
+write, raise eswitch_operation_in_progress, drop mode_lock, remove the
+REPs auxiliary devices, then retake mode_lock and clear the flag. The
+flag keeps excluding concurrent mode transitions and mode users while
+mode_lock is not held.
+
+Acquiring mode_lock for write can't go through mlx5_esw_try_lock(),
+which also refuses the lock while esw->user_count is non zero: that
+count is held for the lifetime of every offloaded TC flow, and those
+flows are only flushed by the REP netdev unregister this function is
+about to perform.
+Use a local trylock helper that attempts to acquire mode_lock and only
+bails if the operation flag is set. Bail out early when the device has
+no eswitch, which mlx5_esw_hold() used to cover.
+
+[1]
+ WARNING: possible circular locking dependency detected
+ 7.2.0-rc2+ #2 Tainted: G        W
+ ------------------------------------------------------
+ run.sh/7007 is trying to acquire lock:
+ (&ipsec->tx_esw->ft.mutex){+.+.}-{4:4}, at: tx_ft_put_policy+0x81/0x130 [mlx5_core]
+
+ but task is already holding lock:
+ (&dev_instance_lock_key#9){+.+.}-{4:4}, at: unregister_netdevice_many_notify+0x3eb/0x2140
+
+ which lock already depends on the new lock.
+ [...]
+ Chain exists of:
+   &ipsec->tx_esw->ft.mutex --> rtnl_mutex --> &dev_instance_lock_key#9
+
+  Possible unsafe locking scenario:
+
+        CPU0                    CPU1
+        ----                    ----
+   lock(&dev_instance_lock_key#9);
+                                lock(rtnl_mutex);
+                                lock(&dev_instance_lock_key#9);
+   lock(&ipsec->tx_esw->ft.mutex);
+
+  *** DEADLOCK ***
+
+ 8 locks held by run.sh/7007:
+  [...]
+  #3: (&esw->mode_lock){++++}-{4:4}, at: mlx5_esw_hold+0xcc/0x150 [mlx5_core]
+  #4: (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xa5/0x560
+  #5: (&esw->offloads.reps_lock){+.+.}-{4:4}, at: mlx5_eswitch_unregister_vport_reps+0x1f/0x40 [mlx5_core]
+  #6: (rtnl_mutex){+.+.}-{4:4}, at: rtnl_net_dev_lock+0xde/0x260
+  #7: (&dev_instance_lock_key#9){+.+.}-{4:4}, at: unregister_netdevice_many_notify+0x3eb/0x2140
+
+ Call Trace:
+  <TASK>
+  tx_ft_put_policy+0x81/0x130 [mlx5_core]
+  mlx5e_xfrm_del_policy+0x36/0x90 [mlx5_core]
+  xfrm_policy_kill+0xc3/0x410
+  xfrm_dev_policy_flush+0x258/0x360
+  xfrm_dev_event+0x2a3/0x3b0
+  notifier_call_chain+0x97/0x2b0
+  netif_close_many+0x367/0x710
+  netif_close_many_and_unlock+0x1d/0x240
+  unregister_netdevice_many_notify+0x567/0x2140
+  unregister_netdevice_queue+0x29a/0x350
+  unregister_netdev+0x18/0x60
+  mlx5e_vport_rep_unload+0x20b/0x2b0 [mlx5_core]
+  mlx5_eswitch_unregister_vport_reps_blocked+0xb0/0x230 [mlx5_core]
+  mlx5_eswitch_unregister_vport_reps+0x2a/0x40 [mlx5_core]
+  device_release_driver_internal+0x3b2/0x560
+  bus_remove_device+0x2a9/0x510
+  device_del+0x3b9/0x990
+  mlx5_core_reps_aux_devs_remove+0x135/0x200 [mlx5_core]
+  mlx5_eswitch_safe_aux_devs_remove+0xa5/0xd0 [mlx5_core]
+  mlx5e_remove+0x10d/0x370 [mlx5_core]
+  device_release_driver_internal+0x3b2/0x560
+  unbind_store+0xce/0xf0
+  kernfs_fop_write_iter+0x3c6/0x5d0
+  vfs_write+0x4d9/0xf70
+  ksys_write+0xec/0x1c0
+  do_syscall_64+0xaf/0x5c0
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  </TASK>
+
+Fixes: 2ae8c7edea87 ("net/mlx5: Fix Unbinding uplink-netdev in switchdev mode")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Reviewed-by: Mark Bloch <mbloch@nvidia.com>
+Reviewed-by: Akiva Goldberger <agoldberger@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ .../mellanox/mlx5/core/eswitch_offloads.c     | 37 +++++++++++++++++--
+ 1 file changed, 34 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+index eb74b6260168..f934cb2b26b0 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+@@ -4438,15 +4438,36 @@ static bool mlx5_devlink_switchdev_active_mode_change(struct mlx5_eswitch *esw,
+ #define MLX5_ESW_HOLD_TIMEOUT_MS 7000
+ #define MLX5_ESW_HOLD_RETRY_DELAY_MS 500
+ 
++/* Unlike mlx5_esw_try_lock(), don't refuse the lock over eswitch users.
++ * Teardown must run even with TC flows still offloaded, as those are only
++ * flushed once the REPs are removed.
++ */
++static bool esw_try_lock_ignore_users(struct mlx5_eswitch *esw)
++{
++	if (!down_write_trylock(&esw->mode_lock))
++		return false;
++
++	if (esw->eswitch_operation_in_progress) {
++		up_write(&esw->mode_lock);
++		return false;
++	}
++
++	return true;
++}
++
+ void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
+ {
++	struct mlx5_eswitch *esw = dev->priv.eswitch;
+ 	unsigned long timeout;
+ 	bool hold_esw = true;
+ 
++	if (!mlx5_esw_allowed(esw))
++		return;
++
+ 	/* Wait for any concurrent eswitch mode transition to complete. */
+-	if (!mlx5_esw_hold(dev)) {
++	if (!esw_try_lock_ignore_users(esw)) {
+ 		timeout = jiffies + msecs_to_jiffies(MLX5_ESW_HOLD_TIMEOUT_MS);
+-		while (!mlx5_esw_hold(dev)) {
++		while (!esw_try_lock_ignore_users(esw)) {
+ 			if (!time_before(jiffies, timeout)) {
+ 				hold_esw = false;
+ 				break;
+@@ -4455,9 +4476,19 @@ void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
+ 		}
+ 	}
+ 	if (hold_esw) {
++		/* Keep mode_lock and reps_lock unnested. The operation flag
++		 * excludes mode users while mode_lock is dropped before the
++		 * REPs removal takes reps_lock.
++		 */
++		esw->eswitch_operation_in_progress = true;
++		mlx5_esw_unlock(esw);
++
+ 		if (mlx5_eswitch_mode(dev) == MLX5_ESWITCH_OFFLOADS)
+ 			mlx5_core_reps_aux_devs_remove(dev);
+-		mlx5_esw_release(dev);
++
++		down_write(&esw->mode_lock);
++		esw->eswitch_operation_in_progress = false;
++		mlx5_esw_unlock(esw);
+ 	}
+ }
+ 
+
+base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
+-- 
+2.44.0
 
