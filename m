@@ -1,97 +1,151 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A22221DAE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B826282F34;
+	Thu, 15 Oct 2026 01:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027398; cv=none; b=GLZXKN3z6TBBYFbi+IAendWhHbQhIpZAV8l8xGvSBUok7bvv32FFPLhfpjAg2b7jQSGkVvRL8X42uBtmej1npoFEV1F+6PXp7bgjWEHs0UnZ66wKg9tOKcDmsIICCImJrotjZuIpn4Z32IclSLcAyx/6nU1bgclkY3m75iribXY=
+	t=1792027569; cv=none; b=Aa+PYNgYgrwzM5n5rYPz2f4WunLmDdAYtSyIhxe0+qVUww4MF20PkMhHH8L8fFg2itaGxFb18EC5TcrtQB9a46y0qEoIbLI1HESwQO2gFHsu9ebdU2eyUmF1uH9nU8STeotkveglrly2VIdpt7XrbKYFFtQJYfhjtOBCMw5Aayo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027398; c=relaxed/simple;
-	bh=7ficzhK3Rhv6KNOjHabHwbT4xbc1BJMxfoyzCtkPbaI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qNHgnvvDW8vvHQiSATvvhHQpDGQFbm4pphnKaEAd2KqnaycCxt5huIUHwHzdVIl3vJb/2ce5LWbjBObGHM2BkKCTvPzn+uk5k/SfoS9kHyF+Vpeuer/KrtVEeM+zYChgH1gcCasDM2EzN1nJvL7YpxUQCXlQfHeXSfXlYwWnT5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=Vp+NEvvz; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	s=arc-20240116; t=1792027569; c=relaxed/simple;
+	bh=aARRQkKeZqCI8RoUsnyZ/pmuEQMAh/Nvzrz6WlyENj0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HXPnQIMo0tLhV4LWieolHKkRC1Co4oIzcFp2/M5yZbBFemL63+AQqnALV7S4cE3TGwBQWRv9Y4JZeftXgSJNxNJLt96AAZ1WZDgjmOlUZn6QiN4tGlRG1wbeVYwZBchMatUVtkBY66LmHAmATx7rlOOC4D33cfQjVEy+1oz7Z5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hlbsqdDY; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="Vp+NEvvz"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53391786e55so77409741cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:23:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1792027396; x=1792632196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tDPLaKfb2lMm0cNVfzQxbfZzYs380EKo9PAZuk6Z0DE=;
-        b=Vp+NEvvzOXnEIYPrqn+G5l7eCH3eikE3WhZPGidr4Xe8nWHOU+s188s3wNr5N1jWYq
-         kW65cWoRgd7JCPCPo2J7MKnG9ceO2c1i+9Brt1/Ur4gtkL71/5tiM8iyvkAAfZDEl/KE
-         Nk1thuxHtD8ZGW42jFHbiLMm7DGjpfLGuiUQ4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792027396; x=1792632196;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tDPLaKfb2lMm0cNVfzQxbfZzYs380EKo9PAZuk6Z0DE=;
-        b=AfJn3xn1bqW0c1wEqaIvcyVml6wiRHaF5m28/yC+1i85sfJ1u2jt0nYTiCLwZCV/4P
-         MSn33cU4E9w12pLzOzYabTcjv/NY4NGqIDqcPTvKB9gTeDRZvtBYu/zVj4h0qvatIQwh
-         IrzO6ydEONxUowlUrmoGFnRzywVKE9k5rlS1oSyCr9svxH1KhV84+ua1OYUZDVDVijjr
-         3vYalwk4RY+Jn56+Fw+uSnC9fapHM4NpheijEBIOPULHaqmdWvA87//3hcONhOZMdKJ7
-         W28szoKfciVHfW+FETR7spzQt+KocDTUym/je6CSMog/xWm65Cq+jnc1u1fNdNUrj9CC
-         hMJg==
-X-Forwarded-Encrypted: i=1; AKwUvBx00kc2Xyvaa9ZOYCBNVhWjxBySXF30v4/hkEUmmY5H1UKxvxPCX1T4cornsfzxgyu5zP9MXCPJkw6f5hg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJN8UugPUsehZKQxqkXF0goBbv4d+FbzRolEtU0m9H3aO5c6y1L
-	zPkCPZB2jVp8Og8VM4ActHJu4at4paRk7t4QT1jmeiG0Gv7qlCQHJ6D2dmcNSgYzIQ==
-X-Gm-Gg: AYBFou0PHXh8pKmGKwaXMGKV6T7DKNuAdxNxmFVC+3o/VJ8fBwVHBnv8e2yFINrzDaJ
-	wgnYnJ05Nd36BUx7zWy3cyA/HiJUdvuauB8hCod7LKN3bBtjqOIf68TKqVCQmUdKzf6BhZG+EIj
-	Md616r8joHTY2aeJUG5VN9Cqr3jaKnHTLb3udnaPRZKcN7y5T0LmkufIDF+VW+rClytpvVPQCw3
-	Ixq72beumeZbdTDc3FUqfKK2+myUkEyu38KuCgkjv2AB82BGLhaQ7IU+4MCcfhutuTzK68sMfNe
-	OvMucscrMILzlN0Hkx7iQrzMNK2xWlAfxMRHE87/VEGUTKy46NKMQ4yPl2oUOJgCW9dulYkuUV/
-	X5SdmVxzpnOKvBLRTv7kB0OuWQf34/dX0tC6nvqWQXuEfz2Lz3/1Mr+tImqlANurYA0L4Wpd4z0
-	56tp3Fw6AnLcPWoPls17ruG1bBRaWTORGV+5waGSkM60gnxirME7UqLyc2olsNiiq4Aw==
-X-Received: by 2002:a05:622a:c14:b0:535:521:75aa with SMTP id d75a77b69052e-5359fba2477mr270509491cf.48.1792027395839;
-        Wed, 14 Oct 2026 18:23:15 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id d75a77b69052e-536128071c9sm12258771cf.21.2026.10.14.18.23.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 18:23:15 -0700 (PDT)
-Message-ID: <80a12db6-8617-44f9-aac0-c4aa69de0a1c@ieee.org>
-Date: Wed, 14 Oct 2026 20:23:13 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hlbsqdDY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792027568; x=1823563568;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aARRQkKeZqCI8RoUsnyZ/pmuEQMAh/Nvzrz6WlyENj0=;
+  b=hlbsqdDYy6x7cZhKfbCt1j3NsuBGMUt1ELOALhVsYfgBT0/K2KamhtRw
+   WfB5DSn6GwwntVixs7FzIF4HnCau9H6yro8G9Cb7C+7xj+oCxkXfE/KjY
+   Dq8X1Jtd9ASXKdpgQ/0xL8j6b48JFG71xH6bGWQyhY4La91h7IYraN7hN
+   PWO2zxCpQok18zjxTHmZMjJ+Y/3tHT+zMvaHiToyLLXwhPANSI3xuBgwY
+   bvLzaBwMS46tyqbBOeE6HD3Jnv/1ATMl6wmf3Uw2ysA4V2le7WRPVWEN9
+   Ut16OO4mAMDsIiKM2gvzq06zli9dcO1e2Nv4HqarAVdv+SIxXDI4JgPXk
+   g==;
+X-CSE-ConnectionGUID: spX60e+PQnOE7UYn4BHRVw==
+X-CSE-MsgGUID: pFj3lQ1/TyWny/OH7EO5fw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="694767"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="694767"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 18:26:07 -0700
+X-CSE-ConnectionGUID: sBsw+8WWRdeSx+jswklIyw==
+X-CSE-MsgGUID: 4P0rxJFlQ9qBS2jErxIH1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1536954"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 14 Oct 2026 18:26:04 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHAEL-00000000FUN-1kv7;
+	Thu, 15 Oct 2026 01:26:01 +0000
+Date: Thu, 15 Oct 2026 09:25:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Donald Shannon <donalds@nvidia.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>
+Subject: Re: [PATCH 10/11] tty: Add NVIDIA LSTP UART driver
+Message-ID: <202610150927.WhzTb6WS-lkp@intel.com>
+References: <20261012-lstp-usb-adapter-v1-10-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] staging: greybus: replace PTR_ERR() with %pe in error
- messages
-To: Julia Lawall <julia.lawall@inria.fr>,
- Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-Cc: johan@kernel.org, gregkh@linuxfoundation.org, vireshk@kernel.org,
- elder@kernel.org, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- outreachy@lists.linux.dev, gservice341@gmail.com
-References: <20261013022402.6322-1-pavankumaryalagada@gmail.com>
- <2fd23f9b-7eab-4afd-aa77-93a5b9ff0c75@ieee.org> <as6mC7sZnpqIKxN6@user>
- <26a2a4af-5d27-4bd5-b284-3758fa7a67b2@ieee.org> <as-wgGhJAGgYBZ7-@user>
- <9f3e98b4-8c11-62bb-49e0-99873c6fea8@inria.fr>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <9f3e98b4-8c11-62bb-49e0-99873c6fea8@inria.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-lstp-usb-adapter-v1-10-aambrozewicz@nvidia.com>
 
-On 10/14/26 2:14 PM, Julia Lawall wrote:
->>> And if updating everything is a task you're willing to do,
->>> then I think I would prefer you extend this change.
->> I am willing to make these additional changes. Since my original patch
->> is already in staging-next, should i send a v3 of the existing patch
->> or submit a new patch covering all the relevant cases?
-> v3
-> 
-> julia
+Hi Adrian,
 
-Yes, agreed.  Thanks Julia.	-Alex
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on bbf6b99a57b2479bf51c3c8ad0946f4b8c33ed69]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Adrian-Ambrozewicz/dt-bindings-gpio-Add-NVIDIA-LSTP-GPIO/20261012-203559
+base:   bbf6b99a57b2479bf51c3c8ad0946f4b8c33ed69
+patch link:    https://lore.kernel.org/r/20261012-lstp-usb-adapter-v1-10-aambrozewicz%40nvidia.com
+patch subject: [PATCH 10/11] tty: Add NVIDIA LSTP UART driver
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261015/202610150927.WhzTb6WS-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150927.WhzTb6WS-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610150927.WhzTb6WS-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/tty/lstp_tty.c:167:60: error: use of undeclared identifier 'B2500000'
+     167 |                 { 1500000, B1500000 }, { 2000000, B2000000 }, { 2500000, B2500000 },
+         |                                                                          ^
+>> drivers/tty/lstp_tty.c:168:14: error: use of undeclared identifier 'B3000000'
+     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
+         |                            ^
+>> drivers/tty/lstp_tty.c:168:37: error: use of undeclared identifier 'B3500000'
+     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
+         |                                                   ^
+>> drivers/tty/lstp_tty.c:168:60: error: use of undeclared identifier 'B4000000'
+     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
+         |                                                                          ^
+>> drivers/tty/lstp_tty.c:171:25: error: invalid application of 'sizeof' to an incomplete type 'const struct (unnamed struct at drivers/tty/lstp_tty.c:155:15)[]'
+     171 |         for (size_t i = 0; i < ARRAY_SIZE(map); i++)
+         |                                ^~~~~~~~~~~~~~~
+   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
+      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
+         |                                ^~~~~
+   5 errors generated.
+
+
+vim +/B2500000 +167 drivers/tty/lstp_tty.c
+
+   151	
+   152	/* clang-format off */
+   153	static speed_t lstp_baud_to_speed(u32 baud)
+   154	{
+   155		static const struct {
+   156			u32     baud;
+   157			speed_t speed;
+   158		} map[] = {
+   159			{      50, B50      }, {      75, B75      }, {     110, B110     },
+   160			{     134, B134     }, {     150, B150     }, {     200, B200     },
+   161			{     300, B300     }, {     600, B600     }, {    1200, B1200    },
+   162			{    1800, B1800    }, {    2400, B2400    }, {    4800, B4800    },
+   163			{    9600, B9600    }, {   19200, B19200   }, {   38400, B38400   },
+   164			{   57600, B57600   }, {  115200, B115200  }, {  230400, B230400  },
+   165			{  460800, B460800  }, {  500000, B500000  }, {  576000, B576000  },
+   166			{  921600, B921600  }, { 1000000, B1000000 }, { 1152000, B1152000 },
+ > 167			{ 1500000, B1500000 }, { 2000000, B2000000 }, { 2500000, B2500000 },
+ > 168			{ 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
+   169		};
+   170	
+ > 171		for (size_t i = 0; i < ARRAY_SIZE(map); i++)
+   172			if (map[i].baud == baud)
+   173				return map[i].speed;
+   174	
+   175		return B0;
+   176	}
+   177	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
