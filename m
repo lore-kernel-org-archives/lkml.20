@@ -1,190 +1,128 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381D55012A7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A024EC666
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062997; cv=none; b=r3blu3P20IQIUNotwOxuh4XmKLqAQNRU3eCdC1E2aoDgHxVH0PabhdW/IXrjPGedmchZmi6UmbOUpgDLDXg2ekJBPLu2LDKu8ADpKN1BrXNLpTMOF/iqtcG3TOM/JGcxtTkcIyQT92TqlNjUA1xUtIxjtXSsavxOVwJ5LABw5bI=
+	t=1792062997; cv=none; b=bnQ19SE+3AI6v6VylVt+VfqHNc/gm+M6lS1nDju8GxPDdGdb4UZxiP/ErL1FPhZIaCI6GZwyp5dzty3gsDBUnQZzCfzObjUoX0I9uEld/rZpNnYTcunEDNOMMxy5LWDEsNWGHmeCm9wgsZJM88/pnNlyMJ+j+bHLu+bxBysB4qE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792062997; c=relaxed/simple;
-	bh=aq0xX3/cPkEAM0nO5kMsIP5zC8LwsPjKPbF1/P8O8k8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=EU/7AarYLgXI7k5zNXhGXYGAtEOp7vPY9uzpj/w2iA1bgV9At3BWn4RQmLXVh//y7Ob/Ibf1HdplKiUH5XqaB5VA3cUpX61e8svYClblwOF6yaFACc05v06HhZq4Uk9LFDp5Wv3dKuUApzj0W27FyyrlQuxKOsmY1AKdkEtOu+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dc57e2a3f2so2239098b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:16:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792062994; x=1792667794;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZMaWeQ8qRXsWqh/vQuYUD/x5APIi3Y53X4W2uV0kU3M=;
-        b=uRbLhYdDs/ewwD4nGshm6EbT5Uw3MoGJyts2dN82Fo8/Brk57RtMgEDwPpCelgPke3
-         KUmSdc8lwRZpzTqzsFpRfUlnKwujYKperwrVtCRlKzX77/RHc8Qs4BFXF84jMMyxYQE5
-         iF+MJohd11IKQioJw0+uW9WywSqqL7ys1Ud3NxmGRD7P05aASLwMZ5s+0MsFj36vHDQO
-         uF2htHtUOt8R+/kkOtUPwqgwe7Q8QtkGn8c9yboRD+HXDJz3wUH6Z5ywKgX+nyDTK9L3
-         DK5GxiIJ1cKbEynqfnXNLuxbyEXKJUs7CkTgDhMdy/Q3ZO4CTB14WjW6X5Y0qV9SXQxr
-         U7qw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/v4FV3dL8Vi+iO+5VoE0PpqoIERwHhvv9KG3DUCCXawquewCi1yBgStCArtxi31lOzzLkmmrUo8tkzKw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7tErUmAi4J82b88anYLT4kP5X/atAir5PyDpPk8U7qzdpUw2M
-	2/PQK9dWywm7qE6wZDWL7U+TGPpZmmxdNslpyEZ/yc+HoHysZHWY3ekNT9TWmR12L9hVm8mffbc
-	C14Zt3trCCjLzWb/JzjqX3shazx/4WNdtkrd7/FY5rdCIZ8PXFt/thDldl5I=
+	bh=vMRxXhglv4vVPhAZNH0VGgacBEqPuhZmuWkk5p8x4sU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RD2SlxkTubLlJy/2hLV+HiIhEQT8KqT9n0qQrpm2yocFP4KPPq5M5X8W1VnZUwg4m+uxzkKBandvD46DIdf/i5obc3kSvvJ+5FWIpEtj0NOyTZVbvhyOHoZtN1ePoHFLUjvrZrZAZmpGkV7RRlAPGDibESrvamVFXOBDwOubKR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XBoizUm4; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XBoizUm4"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2B0234F1;
+	Thu, 15 Oct 2026 13:14:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792062866;
+	bh=vMRxXhglv4vVPhAZNH0VGgacBEqPuhZmuWkk5p8x4sU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=XBoizUm4I+K7kxEzdivVVLhZBJxpAFbbOzkdKLGYBf92rG+1iDxJxsqK1V4VKYicP
+	 VfqOpsPeDZSbt0204J41Kf43iRolgBbUpxXk+b5kom/w/xEicw6vMLYZUnT3OlhK7v
+	 OY/6U2oq4yMy2LEgwh/NsvGdLbWNioX0ldjQOe38=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 15 Oct 2026 14:15:53 +0300
+Subject: [PATCH v5 02/13] drm/bridge: tc358762: Improve SYSCTRL register
+ defines
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f09:b0:4cb:abff:3db9 with SMTP id
- 5614622812f47-50c45c64e1cmr19275571b6e.9.1792062993992; Thu, 15 Oct 2026
- 04:16:33 -0700 (PDT)
-Date: Thu, 15 Oct 2026 04:16:33 -0700
-In-Reply-To: <6abfe422.7503fbd6.2d3f6.0023.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad0b611.5f317f00.247b6.0067.GAE@google.com>
-Subject: Re: [syzbot] [overlayfs?] possible deadlock in __d_alloc_parallel
-From: syzbot <syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com>
-To: amir73il@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, miklos@szeredi.hu, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-tc358762-fixes-v5-2-7cd721a6451b@ideasonboard.com>
+References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1738;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=vMRxXhglv4vVPhAZNH0VGgacBEqPuhZmuWkk5p8x4sU=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYFzpQSSsxHaEjdJaXmbgJMmCHvenXxRrzqB
+ dpFtpcgJTuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BQAKCRD6PaqMvJYe
+ 9U/oD/0XQiGRVD4fVPYguEfUq1wrCzXPctFbdW96Y8qr9yk1FIVE92Y1ibALeZeh3Gll2u8SacO
+ +Txlf/s25eIiymbVgC+hq73NKx9WGM+2paqeOM490XnGoS7DxceW2naD5xFklz6bqljY7xSm+Xb
+ ZGBFdFsRwHY8OJz07U+vPB233i6g/l4iBkUCz+RYY/Pw2i0kwrTsugsuZruzyarENp7aEgY3ON4
+ 3nUUYuUNleg9ptLyEF42vXnPZxmO1xV9MSRHb7e4ZyPwena8S6MKSdJmt7eD7YJY2dsw9THRCYF
+ nNppyhSeDF/lTGxQJfnokaZh7RZP13RQWi4jgxerpwbDDIVJRdHNuNjqhSDFUi5U1LGp+mO5ARq
+ FwHTfLCLxBOMb2ApCXHfNOsFL6FGCf+/lQ2lrDuuWcJqte7a0v+7jjORTaJ088Z/JRkjoA8j/vX
+ O4MquN+yrsSSvEFqJ2gLQTORF8/BHb9UKwNKEUav8i+v8g+HjT7SEOAxTSKNGq/XsmU7sbZRTsk
+ x020h87pdSXff4h2PB7+cwVWfaIWKE0SzuBVZw5lA6M/odL5Gf85za2HjFeFHe7Ku9QVnB/pQh3
+ mpFgQm/8RFtshHoA2t7I4Q7PdLfQu2TVFlvwfbC4AKn7B5Ill4Qi2XzE+q/uBogGGSxbmZd9Eoi
+ MWlo3jKGc3HpogA==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-syzbot has found a reproducer for the following issue on:
+Define SYSCTRL fields. No functional changes.
 
-HEAD commit:    d419d682257d Add linux-next specific files for 20261014
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1157ce8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2935483cab352f25
-dashboard link: https://syzkaller.appspot.com/bug?extid=52aa59fd5e3cd8a19dd7
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12f9d3d1580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-syz-executor151/5964 is trying to acquire lock:
-ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
-ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
-ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: __d_alloc_parallel+0x39e/0x1700 fs/dcache.c:2883
-
-but task is already holding lock:
-ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
-ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x46/0x80 fs/namei.c:1936
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #1 (&type->i_mutex_dir_key#3){++++}-{4:4}:
-       down_read+0x45/0x320 kernel/locking/rwsem.c:1574
-       inode_lock_shared include/linux/fs.h:1039 [inline]
-       lookup_slow+0x46/0x80 fs/namei.c:1936
-       ovl_lookup_positive_unlocked fs/overlayfs/namei.c:216 [inline]
-       ovl_lookup_single+0x323/0xe90 fs/overlayfs/namei.c:260
-       ovl_lookup_layer+0x377/0x440 fs/overlayfs/namei.c:365
-       ovl_lookup_layers fs/overlayfs/namei.c:1109 [inline]
-       ovl_lookup+0x5e5/0x1c80 fs/overlayfs/namei.c:1403
-       lookup_open+0x94b/0x1970 fs/namei.c:4578
-       open_last_lookups fs/namei.c:4816 [inline]
-       path_openat+0x70c/0x20f0 fs/namei.c:5055
-       do_file_open+0x258/0x570 fs/namei.c:5087
-       do_sys_openat2+0x115/0x200 fs/open.c:1442
-       do_sys_open fs/open.c:1448 [inline]
-       __do_sys_openat fs/open.c:1788 [inline]
-       __se_sys_openat fs/open.c:1783 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1783
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       d_wait_lookup fs/dcache.c:2840 [inline]
-       __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2944
-       __lookup_slow+0x82/0x2f0 fs/namei.c:1905
-       lookup_slow+0x59/0x80 fs/namei.c:1937
-       walk_component fs/namei.c:2316 [inline]
-       lookup_last fs/namei.c:2824 [inline]
-       path_lookupat+0x3f5/0x8c0 fs/namei.c:2857
-       filename_lookup+0x258/0x5f0 fs/namei.c:2886
-       do_readlinkat+0xe3/0x510 fs/stat.c:575
-       __do_sys_readlink fs/stat.c:609 [inline]
-       __se_sys_readlink fs/stat.c:606 [inline]
-       __x64_sys_readlink+0x7f/0x90 fs/stat.c:606
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  rlock(&type->i_mutex_dir_key#3);
-                               lock(DCACHE_PAR_LOOKUP);
-                               lock(&type->i_mutex_dir_key#3);
-  lock(DCACHE_PAR_LOOKUP);
-
- *** DEADLOCK ***
-
-locks held by syz-executor151/5964: 1, last CPU#1:
- #0: ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
- #0: ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x46/0x80 fs/namei.c:1936
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 5964 Comm: syz-executor151 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- d_wait_lookup fs/dcache.c:2840 [inline]
- __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2944
- __lookup_slow+0x82/0x2f0 fs/namei.c:1905
- lookup_slow+0x59/0x80 fs/namei.c:1937
- walk_component fs/namei.c:2316 [inline]
- lookup_last fs/namei.c:2824 [inline]
- path_lookupat+0x3f5/0x8c0 fs/namei.c:2857
- filename_lookup+0x258/0x5f0 fs/namei.c:2886
- do_readlinkat+0xe3/0x510 fs/stat.c:575
- __do_sys_readlink fs/stat.c:609 [inline]
- __se_sys_readlink fs/stat.c:606 [inline]
- __x64_sys_readlink+0x7f/0x90 fs/stat.c:606
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f0e12a36e97
-Code: 00 00 90 48 83 ec 10 48 63 ff 45 31 c9 45 31 c0 6a 00 31 c9 e8 4a 0a 02 00 48 83 c4 18 c3 0f 1f 44 00 00 b8 59 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d0 ff ff ff f7 d8 64 89 02 48
-RSP: 002b:00007f0e12a02fe8 EFLAGS: 00000202 ORIG_RAX: 0000000000000059
-RAX: ffffffffffffffda RBX: 0000000000000002 RCX: 00007f0e12a36e97
-RDX: 0000000000000100 RSI: 00007f0e12a02ff0 RDI: 00007f0e12a030f0
-RBP: 00007f0e12a030f0 R08: 00007f0e12ad9b20 R09: 0000000000000005
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007f0e12a02ff0
-R13: 00007f0e12ad9b20 R14: 00007f0e12aa5028 R15: 00007ffda7595668
- </TASK>
-
-
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ drivers/gpu/drm/bridge/tc358762.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 097d2f331a16..59c68432f8e1 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -10,6 +10,7 @@
+  *  Eric Anholt <eric@anholt.net>
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+@@ -63,6 +64,19 @@
+ 
+ /* System Controller Registers */
+ #define SYSCTRL			0x0464
++#define SYSCTRL_DPIDATA_IO_MASK GENMASK_U32(1, 0)
++#define SYSCTRL_DPIDATA_IO_1MA	0
++#define SYSCTRL_DPIDATA_IO_2MA	1
++#define SYSCTRL_DPIDATA_IO_3MA	2
++#define SYSCTRL_DPIDATA_IO_4MA	3
++#define SYSCTRL_DPISTB_IO_MASK	GENMASK_U32(3, 2)
++#define SYSCTRL_DPISTB_IO_1MA	0
++#define SYSCTRL_DPISTB_IO_2MA	1
++#define SYSCTRL_DPISTB_IO_3MA	2
++#define SYSCTRL_DPISTB_IO_4MA	3
++#define SYSCTRL_PCLKDIV_MASK	GENMASK_U32(11, 8)
++#define SYSCTRL_PCLKDIV_DIV_2	2
++#define SYSCTRL_PCLKDIV_DIV_3	4
+ 
+ #define LPX_PERIOD		3
+ 
+@@ -136,7 +150,11 @@ static int tc358762_init(struct tc358762 *ctx)
+ 
+ 	tc358762_write(ctx, LCDCTRL, lcdctrl);
+ 
+-	tc358762_write(ctx, SYSCTRL, 0x040f);
++	tc358762_write(ctx, SYSCTRL,
++		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
++
+ 	msleep(100);
+ 
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
+
+-- 
+2.43.0
+
