@@ -1,247 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB0F2641FC;
-	Thu, 15 Oct 2026 14:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 335A352E042;
+	Thu, 15 Oct 2026 14:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073957; cv=none; b=jIywPpPDCjDD7dbqM2vbRjnj2J8hZngwQirDvk3pQBsFFap0F5z3Gp3rHQ5+/sRRyosspNIm7BtvhZy2kdjaIarJqXcVb4y4wlQjIJJ/gOLvQX/5mhAItf0HBnxBlWu87gwrezBqswT5Sok88DrQeSomIaMEVMHqoFyE8fdwRAs=
+	t=1792073972; cv=none; b=SDxndLL3yzriFUH5OF47hVPXb2D0W0K3vOmB4Ej1WAg/feXC2oQauNM8F9juYYSw4KmqmQZU4r87lplkG2jIIuElLWsGj3rigr7IrOHFSY4UYpTJikYxx7GmuvsbdZFIgkIpbQ86t1gv6s2jYpmwhMEmjFP3xIZJ6qPn+m4Rxhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073957; c=relaxed/simple;
-	bh=3Nxy/R8Y0k/xk4cCiD0GJc6tc8FDoDdAEjPzb8f3Bso=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bhY9ezTbfnZ9q/9UCcfAWy5bKWzta00nW7VTrfTA/cj7t+lz/tpJv/qht3HqDTQFuAWzMSfoP3j9nQxLRA9fBDC7kGaC0PiKoW/3pve4rYdJBqz69OIl0yEhUO7SGZbr5+sil8zNiEfoDP5EtDp7AGuQjqgjssEZU9KPGRs0CdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JrWS3WxJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792073972; c=relaxed/simple;
+	bh=toY2d+nKnmDfOpFRB7kB9FTOmrbPE2iy1wkw0IypruA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ogloy8ELoCI0edWtMJJvLmFirZ7BFaDWeTS3uEZKassyF2BE4eO6D4vvS4cZ4kiSksSZOLeZuJ1Hfb43ZjiR8p37EwI/xK9AKPA0IhyXzGjMkZBiEvDftuCiKJ0BZpc7P1vPhzRVYcJOQnoSnGmri7VMzAgwRFI5m4TBtLM1SG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y3vi/qaG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JrWS3WxJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA3A1F000C4;
-	Thu, 15 Oct 2026 14:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792073955;
-	bh=OMbcusVFFCQHBChDr+K/gnTypIJ5iHka3+90bcArCZY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JrWS3WxJqu7YYtY8eNtGGyzPuES0zzNGeYqXBK+Dzml6NT4kA14py9NBuhtBlLiYk
-	 2+J7olVslfx1F9geVbOkwRIROSHTrTgH64noqdrhQ3djy8dQ+7drNLpZjNKXREuaJV
-	 FOBTu33f8CqvOoqzEri+R/m8paDhdqRmSp/TYJwsJYyQPzpbSZCKoFspSm3RUStmmI
-	 ninOFQPa2wTA+/6Z4BhEV/joib2tMAg7RZOv6c366ZX7BtzLSZ3hKePBn1UAKYGZTk
-	 +AB3cKopFGM6pU27bUMbHXilb+Y/rY4gBvGSa2rk35MSw8cKuCzoBO86Qb69FuN/uj
-	 7o0rgYReatWGA==
-Message-ID: <9f75b5d1-c8f9-4e74-a857-ca2a1fb096d9@kernel.org>
-Date: Thu, 15 Oct 2026 15:19:10 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y3vi/qaG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ABE2F1477;
+	Thu, 15 Oct 2026 07:19:25 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C8BF3F871;
+	Thu, 15 Oct 2026 07:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792073968; bh=toY2d+nKnmDfOpFRB7kB9FTOmrbPE2iy1wkw0IypruA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y3vi/qaGwlAMS6V2VrtigNi/Q0VFTsR5SvFAE1qOc5LJDFUg0KwzQ5o4ZY7d7aoXX
+	 c6oCRN7lw7xuowVJbfbIVt4snSN2EfAzZVhhsM1O1xgdggk2ZbjoUtMYtaebVcBZFd
+	 PVaIFnaZCRoisRwYZpfOTVYNcRuljdGFUMaL+nB4=
+Date: Thu, 15 Oct 2026 15:19:26 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: "Johnny.Fan" <johnny.fan@cixtech.com>, will@kernel.org,
+	mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	james.clark@linaro.org, jeremy.linton@arm.com,
+	cix-kernel-upstream@cixtech.com, bob.zhang@cixtech.com,
+	jie.fu@cixtech.com, Fugang Duan <fugang.duan@cixtech.com>
+Subject: Re: [PATCH] perf: arm_spe: Support heterogeneous ACPI systems
+Message-ID: <20261015141926.GC26205@e132581.arm.com>
+References: <20261015062908.3565761-1-johnny.fan@cixtech.com>
+ <86mrsf1bnv.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 14/14] arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5:
- Add DT overlay
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <yiDHbPcdxx4FNvCqU35drQaTjUFm6D6-6QEw1IlQjiF1MKicjyTasDPEGBTspeMPoNMkHrBCLgyaGM5ALeC0NA==@protonmail.internalid>
- <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86mrsf1bnv.wl-maz@kernel.org>
 
-On 12/10/2026 07:45, Hangxiang Ma wrote:
-> Enable the S5KJN5 image sensor via CCI on Kaanapali MTP board.
-> 
-> The Kaanapali MTP board connect S5KJN5 with QUP I2C bus by default. This
-> DTBO enables S5KJN5 on CCI-0 interface connected to the CSIPHY2 in four
-> lane mode on a rework camera module.
-> 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/Makefile                  |  5 ++
->   .../boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso | 81 ++++++++++++++++++++++
->   arch/arm64/boot/dts/qcom/kaanapali-mtp.dts         |  7 ++
->   3 files changed, 93 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 88230c4e00ea..84b244d43e9e 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -48,6 +48,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp449.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp453.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9574-rdp454.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= ipq9650-rdp488.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp-camera-s5kjn5.dtbo
-> +
-> +kaanapali-mtp-camera-s5kjn5-dtbs	:= kaanapali-mtp.dtb kaanapali-mtp-camera-s5kjn5.dtbo
-> +
-> +dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp-camera-s5kjn5.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-mtp.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= kaanapali-qrd.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
-> new file mode 100644
-> index 000000000000..d0e39855e0e6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
-> @@ -0,0 +1,81 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h>
-> +#include <dt-bindings/clock/qcom,kaanapali-camcc.h>
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/media/video-interfaces.h>
-> +
-> +&camss {
-> +	status = "okay";
-> +};
-> +
-> +&camss_csiphy2_in_port {
-> +	camss_csiphy2_inep: endpoint {
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&csiphy2_out_ep>;
-> +	};
-> +};
-> +
-> +&cci0 {
-> +	status = "okay";
-> +};
-> +
-> +&cci0_i2c1 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	camera@10 {
-> +		compatible = "samsung,s5kjn5";
-> +		reg = <0x10>;
-> +
-> +		reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&cam_mclk2_default &cam_reset2_default>;
-> +
-> +		clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
-> +		assigned-clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
-> +		assigned-clock-rates = <19200000>;
-> +
-> +		vddio-supply = <&vreg_l4n_1p8>;
-> +		vddd-supply = <&vreg_l1m_1p0>;
-> +		vdda-supply = <&vreg_l4m_2p2>;
-> +		vddio1p2-supply = <&vreg_l2n_1p2>;
-> +		afvdd-supply = <&vreg_l7m_2p8>;
-> +
-> +		port {
-> +			s5kjn5_out_ep: endpoint {
-> +				data-lanes = <1 2 3 4>;
-> +				link-frequencies = /bits/ 64 <1248000000>;
-> +				remote-endpoint = <&csiphy2_in_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&csiphy2 {
-> +	vdda-0p9-supply = <&vreg_l3d_0p8>;
-> +	vdda-1p2-supply = <&vreg_l1d_1p2>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&csiphy2_in_port {
-> +	csiphy2_in_ep: endpoint {
-> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +		clock-lanes = <0>;
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&s5kjn5_out_ep>;
-> +	};
-> +};
-> +
-> +&csiphy2_out_port {
-> +	csiphy2_out_ep: endpoint {
-> +		remote-endpoint = <&camss_csiphy2_inep>;
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> index 9eb02fd09dab..c70cd39bcb75 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts
-> @@ -1243,6 +1243,13 @@ &tlmm {
->   			       <119 2>, /* SoCCP */
->   			       <144 4>; /* CXM UART */
-> 
-> +	cam_reset2_default: cam-reset2-default-state {
-> +		pins = "gpio3";
-> +		function = "gpio";
-> +		drive-strength = <16>;
-> +		bias-disable;
-> +	};
-> +
->   	wlan_en: wlan-en-state {
->   		pins = "gpio16";
->   		function = "gpio";
-> 
-> --
-> 2.34.1
+On Thu, Oct 15, 2026 at 11:49:24AM +0100, Marc Zyngier wrote:
 
-Really nice to see sensor stuff in this series.
+[...]
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> > The CPUs without SPE are trimmed from the PMU supported CPUs by
+> > probing PMSVer on each CPU, both at probe time (for online CPUs) and
+> > from the hotplug callback (for CPUs that were offline at probe), as
+> > ACPI conveys no affinity information and the PPI otherwise defaults
+> > to all possible CPUs.
+> 
+> This is a bit odd: at the beginning, you are stating that the SPE
+> interrupt being 0 is an indication of SPE not being supported. Then
+> you check for PMSVer for the same properly. This seems pretty wrong.
+> 
+> It should be possible to build the mask of SPE-enabled CPUs without
+> IPI-ing the other CPUs, and only rely on the firmware table.
+
+Agreed.
+
+The SPE driver probes its capabilities on one CPU selected by
+smp_call_function_any(), then performs local setup on every CPU in
+supported_cpus. It therefore relies on that mask being accurate;
+including a CPU without SPE could lead to accesses to unimplemented
+SPE system registers.
+
+> > @@ -97,6 +100,20 @@ arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
+> >  			return gsi ? -ENXIO : 0;
+> >  
+> >  		this_gsi = parse_gsi(gicc);
+> > +
+> > +		if (optional) {
+> > +			if (!this_gsi)
+> > +				continue;
+> > +
+> > +			if (gsi && gsi != this_gsi) {
+> > +				pr_warn("ACPI: %s: CPU%d: inconsistent interrupt %u/%u\n",
+> > +					pdev->name, cpu, gsi, this_gsi);
+> > +				return -ENXIO;
+> > +			}
+> > +			gsi = this_gsi;
+> > +			continue;
+> > +		}
+> > +
+> 
+> This "optional" parameter feels very wrong. We now have an
+> infrastructure to get a set of affinities for an interrupt (see
+> 5324fe21ba9b7 and following patches). What this needs is ACPI to be
+> plumbed into this.
+> 
+> Unfortunately, ACPI is awkward and very badly abstracted in this area,
+> but that doesn't mean we should make the driver code more bizarre.
+> 
+> Treating SPE and TRBE differently is just as odd, and there is no
+> reason to do other than suiting your particular platform.
+
+Yes, SPE and TRBE should be consistent.
+
+There is also a grouping question for SPE and TRBE. If all participating
+CPUs implement the feature, but have different capabilities, should ACPI
+registration create separate platform devices for the compatible CPU
+groups? DT can describe separate CPU subsets using PPI partitions [1].
+
+Thanks,
+Leo
+
+[1] https://github.com/torvalds/linux/blob/0fcb05b72344f40806cbe810de8872f1698bf053/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v3.yaml#L139
+[2] https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+/refs/heads/master/fdts/tc-base.dtsi#328
