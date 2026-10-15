@@ -1,72 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EAA4DDB27;
-	Thu, 15 Oct 2026 10:09:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCF048665F;
+	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058966; cv=none; b=rt2xBSuJzEHMKl+KcXqzLl0K2jka49ouDwf12MUsrvUDYQFMdktMMnrfmWDa7q2AZpDyozNYHBVqXAUju6HYNLSxkvMzK10FZ3D2tdVjWqwcleF9ukOfeAnu9LOOZkUpdajGeTsimNVZPW5WJwmLmB26MXkBYjQbc6ajl+yp6Yg=
+	t=1792059007; cv=none; b=ApdMcS1ehelK5xO8yNwSUM2UY8TvOO/tt5P6EodWYiFjI6RkAHrcKPzJD07qsuF+dxJGGL57PaJLXfkUw2P0E9ZqmxNmZLiJFxX2ipQnQEqt1g4yVeg0fR332yE9ex48Iog2sc/uolfLpnPf/ll0mqR9dhwX4g0d9Z6oTFohV3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058966; c=relaxed/simple;
-	bh=l4CNhpGGzfP2v4Fupb9D2643mx3jOn6jyCXex/dXfNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s9p2eWOdoSTt5UJpalEZ/18yYvdt7oF09vvn3bjoKULCz2bLLyodqGl1onI7NElQZrABgF//1M3WWoisuVcTWYxkzApKAPKnW5lQjpij+VRPMXbV4HoEScBimuS5zYqsoxUbtS9Lu/TwRtAlU1Tcx4aseVHcyOUlcdRVu2H29yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajhoMSsR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792059007; c=relaxed/simple;
+	bh=WRgzYFOArbXaTYEeFNrGeUiCrAn4QQqyStUy/+BzAZY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=qloPcncIG6V+HlwZgvMajtbBKtQOS4cj7NOmqauQ53OOgd1yjjIZ/s3+uIeKS1crOyKDCGxMLOT20pakmSZpqJydE7P9M2NQxbJXre5tbZxcqfu/7XbWtoMZr+rWvLOeJm9Wglsf8QxTXT1zo5AlxvsaYmEWCo20a/uP9v4glYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hpGQE/J4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajhoMSsR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5489A1F000C4;
-	Thu, 15 Oct 2026 10:09:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hpGQE/J4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E1D1F000C4;
+	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792058965;
-	bh=h9tSjy5btu0nKEVD9uEjSPa7hI+lCWSjDGkfK4yaJpY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ajhoMSsRskdZnQj0c0oTEflDaXe1SWo77F2/5Lhxe2oXFVQ4wcXvcj+Xwij5FmbmA
-	 A7bAALzGMN8k8MSGD22je2/Qo6KPugVXSSvtD2DEQAgb69dkBQs3cm4BlnXN53xHO3
-	 S0qa//6dYPDAczscOVb8RUTIhrRIrqC7fDpIGYIC8A5gDzvfvAMSqakHNt+4fKEaI2
-	 mPV/LzrFDxSwPFWeRc66+0PXUDqBxiXZfZGD/kQx7Yaom1wW/gX/BSPewgFJB7vWsZ
-	 OmhOOUO4TRnDzv4FtpL/TgdxvYTty6FF3XYiSjF2HHkWUG0U7tgarIv0QPDiO0o9lE
-	 NeEJFuHoyzT9g==
-Date: Thu, 15 Oct 2026 12:09:20 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
-	Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hector Martin <marcan@marcan.st>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Sasha Finkelstein <k@chaosmail.tech>, 
-	Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH v2 04/10] dt-bindings: arm: power: apple,pmgr-pwrstate:
- Add t6041 compatible
-Message-ID: <20261015-rampant-imported-wildebeest-8a3b0a@quoll>
-References: <20261014-apple-m4-pro-max-initial-devicetrees-v2-0-961edd8d661b@cyberchaos.dev>
- <20261014-apple-m4-pro-max-initial-devicetrees-v2-4-961edd8d661b@cyberchaos.dev>
+	s=k20260515; t=1792059006;
+	bh=NCYNP9Fi9prxm0OJnfd1ciz/HhBuDQoqjbyYk3JuOoE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hpGQE/J4BlXWTO779nvAX1pRfX1xrCbDwDz9tSMxOxX2vp8Me50MBvYneOpCkVx6A
+	 i7tkPvte/MTyO4TS9FkZaFZStyvD/5nAn6nQDBMsTEblXOcbmOwxOzWk6H+Be++sJJ
+	 4uUHNcsrbGFc9I5IfjPzSC41r5oImsMBy5qkCOvBZc61psIZ8xyjtui5uE09y5mCsS
+	 TSyILHdXUz6RMeTXF/zSUCRp2oeUOe2txmKXXRu3JjWcqDmZciQ3yuqi6tvhrduwsp
+	 vRGHjvxxTLCnlH1hVWDcqP95d/ufVekaz63SwJi88LyQbldxZGoC2vXW0ufRkcDcay
+	 xDBIpaQkA6Skw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A288392EA50;
+	Thu, 15 Oct 2026 10:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014-apple-m4-pro-max-initial-devicetrees-v2-4-961edd8d661b@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: bcmgenet: unshare the skb before writing the
+ control block
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179205900502.3330315.1943709997032683206.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 10:10:05 +0000
+References: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
+In-Reply-To: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Wed, Oct 14, 2026 at 08:56:11AM +0200, Yureka Lilian wrote:
-> The device power state management of the PMGR blocks on the Apple
-> silicon M4 Pro/Max SoCs (t604x) is compatible with the M1-M4 SoCs.
-> Add "apple,t6041-pmgr-pwrstate" as M4 Pro/Max specific compatible.
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Fri, 09 Oct 2026 12:10:41 +0200 you wrote:
+> bcmgenet stores first_cb, last_cb and bytes_sent in the skb control
+> block and reads them back on completion to free the skb and credit BQL.
+> ether_setup() leaves IFF_TX_SKB_SHARING set, so the stack can resubmit
+> a shared skb that is still in the ring. The next transmit overwrites
+> last_cb, so the earlier slots complete without crediting their bytes
+> and BQL stalls the queue until the watchdog resets it.
 > 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
->  Documentation/devicetree/bindings/power/apple,pmgr-pwrstate.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> [...]
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Here is the summary with links:
+  - [net] net: bcmgenet: unshare the skb before writing the control block
+    https://git.kernel.org/netdev/net/c/89771ce4f8f6
 
-Best regards,
-Krzysztof
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
