@@ -1,147 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F0F541E69;
-	Thu, 15 Oct 2026 15:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D0C5505EF;
+	Thu, 15 Oct 2026 15:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078469; cv=none; b=Y9FbfnDZq1nl71d19uwYZTWNk0og3Lz9vhDWi219cTgldpXrFjfFyino7CwXBJX1TgaQk3IOl5GM1eOA94ixLtr/l7MG1P4/Jqlk+KNtp8jWOba+5bzFmGHhBABjlG3yjaQ1mxYNsx6WkHXHO/OAgKNxnwXJIqut2eVqgBpxi/M=
+	t=1792078488; cv=none; b=p1yKErWM3jMvL+eI2RjKFbR0Bo5h5LNnjgE2BysAgGFNBZnMq3xFi14y99wrqLPiYpKLsme74Wqd6Sf5/3A3vnGNAw+vuclobdVgz3+oIS9UaztOKX5DPJW8LQGbxncb7gHVbRTB9V3CfLL3xB2UrCId5+OS8ESbqZauYWwjILk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078469; c=relaxed/simple;
-	bh=yV1GY7ND7lu8rkd0JxgOF+YuarmDBLRX5V8XQ5RSVXI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=AkPtRAbnNYoeeNmuRIUra+onjjtALylaz5XFqD/tlG06lsP2oocSdf252f+jHADSLm5WpqfOkhJZ57FZM2FCPVHXxKnrKymmJGYJMyrTqrkCLs6jVamk0Ijn4Ejjy2rGYgii/vK0ErzO8sEw1vsrfc7XUi7fzvO/qrZz1Rbghzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzvXirs2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792078488; c=relaxed/simple;
+	bh=QaKRgkR0woy1vA5kmFEGr+R5MHpjVLEeKSVoWkJFbyo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=NUzsqEGqsMo4/8vcZPuuqFLn51owh9+ch3YGeQaA7DSksb1SFAWvtz9CP9cMP1IlFlhHFABxYa9Crvt9IuYzIbspy4kaEAnqR+L1nQMeNEQRvU4lLQ/+cb+YP6xx6CTfN3fpqVcB2RiDOvMnwc5BDYEKeYuMBCgsT559YZD55/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=xbq8JDhw; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzvXirs2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53531F000C6;
-	Thu, 15 Oct 2026 15:34:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792078455;
-	bh=TY86a0mHp5yHaGyXzoXEHyVTL87TWAxcR/9+ORDCkNM=;
-	h=Date:From:To:Cc:Subject;
-	b=UzvXirs2c4Ja6nS+ZO6m+UbzOPwzJRk7QUKBXE/PHHsnriRlagodBd/DMJQZ9OaxC
-	 nU4Gsj1ky63S7z0ONvPJuoCIPoq7b1iry2cbU0oGdnm87Nv16yT752dJ3gdP0lRhGm
-	 TtPxA1bjppiXZqy47ZiImxSgNCbIMi+l+CibUMtRozMaa8Yz5LGsYEcGJ2CJloNd9K
-	 9HdaGaWkmRMaYGbkBCgKT4qjGwryrEyKC2rTcwCqROXCd5VShj3VgbwqGSV31XK74j
-	 aBS1vBcQUx3yoy3VPjpxQ+Su/iTON1Kd1uXVpF6+UiLNeqL5ksZ4iYBCIHhdAUDrfd
-	 U4B3/EXNspjRw==
-Date: Thu, 15 Oct 2026 16:34:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: linux-next: manual merge of the scsi-mkp tree with the scsi-fixes
- tree
-Message-ID: <atDycwCquCFNwruf@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="xbq8JDhw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=FXysBoh7T/b5vIIQVT7Cjj+2PwX+ORp+Pnle7zngK5E=; b=xbq8JDhwVaZ+FeyTtxc90afsX7
+	rQ2I5IaR/QqG0fQGZAiA6EKlH/ap/qkzC5wqxbRBSy+MFQcG+2E8MCbSxxhGeQlBOmW0Rj4GjYdfI
+	xw5wugsNGDOjAF6iWA1tb2wGQVIBzZSR+jqdMi19gvfWcY3+Zc6itfNEaPSM0o/ybOrU=;
+Received: from [70.80.174.168] (helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xHNTN-000000005Ee-2F2h;
+	Thu, 15 Oct 2026 11:34:23 -0400
+Date: Thu, 15 Oct 2026 11:34:22 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v8 2/2] serial: core: reject baud_base values that
+ overflow port->uartclk in uart_set_info()
+Message-Id: <20261015113422.007d26d4c5135aa6a3add4a4@hugovil.com>
+In-Reply-To: <20261007094719.1362769-3-benquike@gmail.com>
+References: <20261007094719.1362769-1-benquike@gmail.com>
+	<20261007094719.1362769-3-benquike@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7mfmNpBRuW9C6ctu"
-Content-Disposition: inline
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
+
+Hi Hui,
+
+On Wed,  7 Oct 2026 09:47:18 +0000
+Hui Peng <benquike@gmail.com> wrote:
+
+> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+> uport->uartclk (an unsigned int):
+> 
+>   uport->uartclk = new_info->baud_base * 16;
+> 
+> While uart_set_info() checks if (uartclk == 0) and
+> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
+> (16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
+> setting uport->uartclk = 16 (baud_base = 1, well below the required
+> minimum of 9600 * 16).
+> 
+> Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
+> uart_set_info() to reject overflowing baud_base values with -EINVAL.
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+> &ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
+> TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
+> (TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
+> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v8:
+> - Dropped secondary Fixes: 6eabce6608d6 tag per Hugo Villeneuve feedback.
+> 
+> Changes in v7:
+> - Use check_mul_overflow() instead of raw UINT_MAX / 16 comparison as
+>   suggested by Jiri Slaby.
+> 
+>  drivers/tty/serial/serial_core.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 6ed0195e6912..9a8f4c2e1180 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/tty_flip.h>
+>  #include <linux/serial_core.h>
+>  #include <linux/console.h>
+> +#include <linux/overflow.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/kernel.h>
+>  #include <linux/of.h>
+> @@ -931,9 +932,11 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>  	old_custom_divisor = uport->custom_divisor;
+> 
+>  	if (!(uport->flags & UPF_FIXED_PORT)) {
+> -		unsigned int uartclk = new_info->baud_base * 16;
+> 
+>  		/* check needs to be done here before other settings made */
+> -		if (uartclk == 0)
+> +		unsigned int uartclk;
+
+If you leave uartclk declaration before the comments, the diff will be
+simpler.
+
+> +
+> +		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) ||
+> +		    uartclk == 0)
+>  			return -EINVAL;
+>  	}
+> -- 
+> 2.47.3
+> 
 
 
---7mfmNpBRuW9C6ctu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-Today's linux-next merge of the scsi-mkp tree got a conflict in:
-
-  drivers/scsi/libiscsi.c
-
-between commits:
-
-  c5958c770b2a0 ("scsi: libiscsi: Validate the ITT reflected in a Reject PD=
-U")
-  11bffcd9cb346 ("scsi: libiscsi: Validate the task named by a management r=
-esponse")
-
-=66rom the scsi-fixes tree and commit:
-
-  ae1c0d65bc711 ("scsi: libiscsi: Pass the session pointer directly to seve=
-ral functions")
-
-=66rom the scsi-mkp tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/scsi/libiscsi.c
-index 2ab55d1e66529,34d4125417db0..0000000000000
---- a/drivers/scsi/libiscsi.c
-+++ b/drivers/scsi/libiscsi.c
-@@@ -1136,22 -1159,21 +1159,23 @@@ static int iscsi_handle_reject(struct i
-  			 * Just resend.
-  			 */
-  			/* In RX path we are under back lock */
-- 			spin_unlock(&conn->session->back_lock);
-- 			spin_lock(&conn->session->frwd_lock);
-+ 			spin_unlock(&session->back_lock);
-+ 			spin_lock(&session->frwd_lock);
-  			iscsi_send_nopout(conn,
-  					  (struct iscsi_nopin*)&rejected_pdu);
-- 			spin_unlock(&conn->session->frwd_lock);
-- 			spin_lock(&conn->session->back_lock);
-+ 			spin_unlock(&session->frwd_lock);
-+ 			spin_lock(&session->back_lock);
-  		} else {
- -			struct iscsi_task *task;
- +			struct iscsi_task *task =3D NULL;
-  			/*
-  			 * Our nop as ping got dropped. We know the target
-  			 * and transport are ok so just clean up
-  			 */
- -			task =3D iscsi_itt_to_task(session, conn,
- -						 rejected_pdu.itt);
- -			if (!task) {
- +			if (!iscsi_verify_itt(conn, rejected_pdu.itt))
-- 				task =3D iscsi_itt_to_task(conn, rejected_pdu.itt);
-++				task =3D iscsi_itt_to_task(session, conn,
-++							 rejected_pdu.itt);
- +			if (!task || task->state =3D=3D ISCSI_TASK_FREE ||
- +			    task->sc) {
-  				iscsi_conn_printk(KERN_ERR, conn,
-  						 "Invalid pdu reject. Could "
-  						 "not lookup rejected task.\n");
-@@@ -1286,8 -1311,8 +1313,8 @@@ int __iscsi_complete_pdu(struct iscsi_s
-  	case ISCSI_OP_TEXT_RSP:
-  	case ISCSI_OP_SCSI_TMFUNC_RSP:
-  	case ISCSI_OP_NOOP_IN:
-- 		task =3D iscsi_itt_to_task(conn, hdr->itt);
-+ 		task =3D iscsi_itt_to_task(session, conn, hdr->itt);
- -		if (!task)
- +		if (!task || task->state =3D=3D ISCSI_TASK_FREE || task->sc)
-  			return ISCSI_ERR_BAD_ITT;
-  		break;
-  	default:
-
---7mfmNpBRuW9C6ctu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ8nIACgkQJNaLcl1U
-h9ByIAf/cq82qaBuVLrbK9fp43s4DLfAGA7fLnEkRfOv5QxV1be/QJY+23HBIyuw
-gpQjGvQDMwg5a1X0pZofzqVGk6EF/pWakyfFp74JHfZZThXnuyaEOPUGWRJ3qaUh
-1R+AQmH8IaGxt7f+NvC7d+YvR4VFWlLdPBhq2DFaZJOWrG/RTjT1W6igRYtQ1KRn
-y8+Gbxng/tX2EvovApTdFPCMyr5QeSUFf8ql2GjS08OKFPd73Zq6X3R9+6177ySO
-qYdfGJa/E0CmsnudnE5NQ+yQycE555jDTGrQEUaulp/XKhlwIiB21iJvBArCHQlf
-XwCatuCe2YJ2MbbcveK/8sAvMk4ClA==
-=XTUq
------END PGP SIGNATURE-----
-
---7mfmNpBRuW9C6ctu--
+-- 
+Hugo Villeneuve
