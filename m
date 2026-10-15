@@ -1,194 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C034EFFCA;
-	Thu, 15 Oct 2026 22:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72922D6E5A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792104433; cv=none; b=DgbkAkbduuku9CJ4UdeXlsK5SsVmLNXWjhP2GlrVK5D5R25glp/LJIINhsTnDTon0dJ+nHlbfF5rfgpSwohCYTSoU4lkaJ833Bwpw8OizazxobtIzOoDG4BBKOJLbBlRYLwcnB0A0x8sFJ15wp/xtEDI11PHtAEQvODlmDB/wqo=
+	t=1792104520; cv=none; b=AmiKzRkdEU9zbsVDK2bQI3/R2NHHeFLktZrvP7R7ylQfVYOVCrg7rlz+J9c0bTVcAX/Lfh1JhHrc9e87bKtARn7fDbwipp5lqBQwOdDKHfkez8wxpxLHtcFmDNANzSdrkSpe4BFAjrWfXMDU0ZtM3L2XhIWZ52w2za1b6WDU9PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792104433; c=relaxed/simple;
-	bh=7VzyWhS0yiLiqhjJozM7MK0XGplhJcLRtNB0AJdHGWE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=e4X2ICgc3jZsjchJ9F6dk9Dnt2LiKek0pfz4gIUGSLix4HNHkG+Qnwp4GQurG1aBSulLYNkdCNcUIA1JQUfeUv2FHH+1RJC9SaY+XoTjf2cSyss6v1X48Z49nJowQMTqCMVtFbHKzJugxxNsplycOJouvY8IqAGOFz2yaXpscPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frWiSVJb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792104520; c=relaxed/simple;
+	bh=mBvROpDAXljWOCYCxPFxmbqoGhdj5l7GlAWCJboV/2Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iBxZjTxCeZ0FBMx2MDs88GoH/wJJlOsX6BopzNIx+QkInsz/cjgiGnTGjEraBBmTGmIc5s+Hc9VLwv+5BDR4ruETLVEKdf+Ilj4eTBQsJdzA4M8J5pKH9bVW88ZIsi0htBsz4X4bn+2C5sQvYjhuHXlcaNqIpKRKBGSKj3mI51w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmMI300v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frWiSVJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECA71F000C4;
-	Thu, 15 Oct 2026 22:47:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmMI300v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB0DA1F000CD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792104430;
-	bh=EgeZyXP6AssGk+9sGtqMIvSOTxvKxWy2gMJ2hGDgcKE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=frWiSVJbt5aOK3+VC3/gyLircFrCXy1DAds2Xhs+iV5Ou6U8yfAECWUEb0qMVlist
-	 s+eyeHlp15yeTc0FhC5AsaRs3gtsCLfKnomPMDRwSSfo0fhQlW/gdnyeT1Fkru1gGf
-	 OGlpHpwb+vP9s5vkGrblUGuX8dK6AxLsi5Ri3JWxk+HPnfNM2SPsZNmFP2uOnK0V21
-	 9guIyf0rfunb7t/7gDnto0X//aJDrnaBCbx7imox00jv1ADS11buBhYhf3c6W+Qky/
-	 elHFGyjbcLdxdJ+hpQp1st6477Xa+oGpvBEUHrDo7t5pQIEgAdc/BK3QmNTAwkvjlW
-	 KTTP50YYAP3NA==
-Date: Thu, 15 Oct 2026 17:47:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>, Nam Cao <namcao@linutronix.de>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Kees Cook <kees@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>, Dmitry Ilvokhin <d@ilvokhin.com>,
-	Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thierry Reding <treding@nvidia.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Daniel J Blueman <daniel@quora.org>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v6 4/4] x86/irq, iommu/amd, x86/hyperv, PCI: Drop
- redundant irq_retrigger inits
-Message-ID: <20261015224708.GA1810637@bhelgaas>
+	s=k20260515; t=1792104518;
+	bh=1V9CLpu10O1jPLEvgLakWRwageDrCx/acxcQ42UB1iQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hmMI300v0CSWEEGulFbyPPwZQ5gUAMCZF+mqGOjdl+L62Lj1t74wfSuept1fVqG0v
+	 1b36Z0gw9b7VNlztUiioksU7+cIrBfMNSCj19qyZ5Vst+0lF3bvXxfrwr9e55vfJTJ
+	 pXMXrNWhGxi8LPrXCAZwsFSd5XdH562s5kQnW7IBxpUr2FYNaCdLGZzlado+qmhrr5
+	 Jwkklb6re1flkLKKBPUTX20GkDHzHzOwBVe+ZLk31K0RB5nCJigrhzqGTlP0xDOIUz
+	 iGWJrsiKSjBqOCNL3F4GLGT7GCY8S9AoT+FsdzLgw4QrkQR/qDoYuOBGfir4oixOHf
+	 eahrf2/taNYWg==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93c5b7f5bfaso51298285a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:48:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByi6KV576HCd/ZzOKgy9uT2hcsJxqT3pSRja5b++LEmG8oODu/cjYi0zqOL2C5q46Skb9Ct+MseCatizro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7zFhyp0sH0oTWbFdyRa/CKr+YXmMhv2mTpVqj2glds8QQr2md
+	pAUEpaD3P7BJO/A7H54KWCTyULNuk5YjjIRSsotFgDgAo0gXLti7z/NHM9MfxUq3090OosoRWF9
+	7ME2BV81NkDeaTVMnbb0S3Vb0+sbKXnQ=
+X-Received: by 2002:a05:620a:1707:b0:93e:5508:24f8 with SMTP id
+ af79cd13be357-93f17f65725mr271332285a.32.1792104518007; Thu, 15 Oct 2026
+ 15:48:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923043023.3150498-5-namjain@linux.microsoft.com>
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <20261008182814.27450-6-kanchanapsridhar2026@gmail.com> <as7JC8o2kggiq_ss@google.com>
+ <CACpmpofXMGBP70Rn7jHLwOF38GRKMUGoW3rb1Jp2SPH7ygKcfw@mail.gmail.com>
+ <CAO9r8zOEcGmg8eVttu41htugnng0ahnVQbubiJfxVH+GfDe47Q@mail.gmail.com>
+ <CACpmpodDA=oqnVa_hsJpyhGt=4zxknYF=QX9L6-sJbxsRxtM2w@mail.gmail.com>
+ <CAO9r8zNN6F01icKUFr8q_AgJvhxGw0MkGezKbBuKzFQV0NaAdg@mail.gmail.com> <CACpmpocCJWkA+zvZ9ivNCt8xSZWfViKQ2ZeYN+f1EmdVTewzRQ@mail.gmail.com>
+In-Reply-To: <CACpmpocCJWkA+zvZ9ivNCt8xSZWfViKQ2ZeYN+f1EmdVTewzRQ@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 15 Oct 2026 15:48:25 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOtedHfJ5A7JiXJYtWO-MjoGfE9PLPyyrQoHrr-R3FivA@mail.gmail.com>
+X-Gm-Features: AclHuK-xrj8xMXtzgLT0L3fOnR7Oshgch5485U5XCqQHI3AqfSa_Wb3B6E8EGrI
+Message-ID: <CAO9r8zOtedHfJ5A7JiXJYtWO-MjoGfE9PLPyyrQoHrr-R3FivA@mail.gmail.com>
+Subject: Re: [PATCH v1 5/8] mm: zswap: Store the folio's node id in the zswap_entry.
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 04:30:23AM +0000, Naman Jain wrote:
-> With fixup_irqs() and msi_set_affinity() now using
-> irq_chip_retrigger_hierarchy(), the outermost domain chips no longer need
-> the helper as their irq_retrigger() callback. The generic resend path
-> already uses the hierarchy helper.
-> 
-> The hierarchy walk reaches the x86 vector domain's apic_retrigger_irq() for
-> all of these stacked domain chips.
-> 
-> Remove the now redundant irq_retrigger() initializations from the outermost
-> domain interrupt chips, including the Hyper-V root partition PCI/MSI chip.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Thomas Gleixner <tglx@kernel.org>
-> Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-> Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+On Thu, Oct 15, 2026 at 3:45=E2=80=AFPM Kanchana P. Sridhar
+<kanchanapsridhar2026@gmail.com> wrote:
+>
+> On Thu, Oct 15, 2026 at 2:39=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > > > > > > @@ -1449,9 +1446,10 @@ static bool zswap_store_page(struct fo=
+lio *folio, long index,
+> > > > > > >  {
+> > > > > > >       swp_entry_t page_swpentry =3D folio_swap_entry(folio, i=
+ndex);
+> > > > > > >       struct zswap_entry *entry, *old;
+> > > > > > > +     int nid =3D folio_nid(folio);
+> > > > > > >
+> > > > > > >       /* allocate entry */
+> > > > > > > -     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, folio_nid=
+(folio));
+> > > > > > > +     entry =3D zswap_entry_cache_alloc(GFP_KERNEL, nid);
+> > > > > >
+> > > > > > We don't need to allocate the entry on the same node anymore, s=
+hould we
+> > > > > > drop this and let the slab allocator handle it as it sees fit?
+> > > > >
+> > > > > Was this a recent change? I see the folio_nid(folio) on my versio=
+n of
+> > > > > mm-unstable as of 10-3-2026. Let me check, and yes, allowing the =
+slab
+> > > > > allocated handle this is probably a good idea.
+> > > >
+> > > > We allocate the entry on the same node to avoid having to store nid=
+ in
+> > > > the zswap entry (see entry_to_nid()). If we store it, then there's =
+no
+> > > > need to allocate on the node.
+> > >
+> > > With patch 0006, we try to bulk allocate all entries for the batch.
+> > > Only if this fails, we call zswap_entry_cache_alloc(gfp, nid). So
+> > > patch 0006 addresses this already, and the nid is used on in the
+> > > fallback case.
+> >
+> > If we are storing the nid in the zswap entry, there is no need for
+> > zswap_entry_cache_alloc() to use the nid anymore.
+>
+> As of now, zswap_entry_cache_alloc() uses the nid for
+> kmem_cache_alloc_node(). Is the suggestion to change this to be
+> kmem_cache_alloc()?
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com> # pci-hyperv.c
+Yes. I don't think we need to use kmem_cache_alloc_node() if we store
+nid in zswap_entry.
 
-> ---
->  arch/x86/hyperv/irqdomain.c         | 1 -
->  arch/x86/kernel/apic/io_apic.c      | 2 --
->  arch/x86/kernel/apic/msi.c          | 2 --
->  arch/x86/kernel/hpet.c              | 1 -
->  drivers/iommu/amd/init.c            | 1 -
->  drivers/pci/controller/pci-hyperv.c | 1 -
->  6 files changed, 8 deletions(-)
-> 
-> diff --git a/arch/x86/hyperv/irqdomain.c b/arch/x86/hyperv/irqdomain.c
-> index 6d790636c8b95..b3ad50a874dca 100644
-> --- a/arch/x86/hyperv/irqdomain.c
-> +++ b/arch/x86/hyperv/irqdomain.c
-> @@ -316,7 +316,6 @@ static bool hv_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
->  		return false;
->  
->  	chip->flags |= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED;
-> -	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
->  
->  	info->ops->msi_prepare = pci_msi_prepare;
->  
-> diff --git a/arch/x86/kernel/apic/io_apic.c b/arch/x86/kernel/apic/io_apic.c
-> index 7d7175d012288..18f49a251f23b 100644
-> --- a/arch/x86/kernel/apic/io_apic.c
-> +++ b/arch/x86/kernel/apic/io_apic.c
-> @@ -1857,7 +1857,6 @@ static struct irq_chip ioapic_chip __read_mostly = {
->  	.irq_ack		= irq_chip_ack_parent,
->  	.irq_eoi		= ioapic_ack_level,
->  	.irq_set_affinity	= ioapic_set_affinity,
-> -	.irq_retrigger		= irq_chip_retrigger_hierarchy,
->  	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
->  	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
->  				  IRQCHIP_AFFINITY_PRE_STARTUP,
-> @@ -1871,7 +1870,6 @@ static struct irq_chip ioapic_ir_chip __read_mostly = {
->  	.irq_ack		= irq_chip_ack_parent,
->  	.irq_eoi		= ioapic_ir_ack_level,
->  	.irq_set_affinity	= ioapic_set_affinity,
-> -	.irq_retrigger		= irq_chip_retrigger_hierarchy,
->  	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
->  	.flags			= IRQCHIP_SKIP_SET_WAKE |
->  				  IRQCHIP_AFFINITY_PRE_STARTUP,
-> diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-> index 9160227b9b32a..aad2f15eb2176 100644
-> --- a/arch/x86/kernel/apic/msi.c
-> +++ b/arch/x86/kernel/apic/msi.c
-> @@ -246,7 +246,6 @@ static bool x86_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
->  	info->ops->msi_prepare		= x86_msi_prepare;
->  
->  	info->chip->irq_ack		= irq_chip_ack_parent;
-> -	info->chip->irq_retrigger	= irq_chip_retrigger_hierarchy;
->  	info->chip->flags		|= IRQCHIP_SKIP_SET_WAKE |
->  					   IRQCHIP_AFFINITY_PRE_STARTUP;
->  
-> @@ -313,7 +312,6 @@ static struct irq_chip dmar_msi_controller = {
->  	.irq_mask		= dmar_msi_mask,
->  	.irq_ack		= irq_chip_ack_parent,
->  	.irq_set_affinity	= msi_domain_set_affinity,
-> -	.irq_retrigger		= irq_chip_retrigger_hierarchy,
->  	.irq_compose_msi_msg	= dmar_msi_compose_msg,
->  	.irq_write_msi_msg	= dmar_msi_write_msg,
->  	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
-> diff --git a/arch/x86/kernel/hpet.c b/arch/x86/kernel/hpet.c
-> index 8dc7b710e1250..2bb7a6f466af3 100644
-> --- a/arch/x86/kernel/hpet.c
-> +++ b/arch/x86/kernel/hpet.c
-> @@ -509,7 +509,6 @@ static struct irq_chip hpet_msi_controller __ro_after_init = {
->  	.irq_mask = hpet_msi_mask,
->  	.irq_ack = irq_chip_ack_parent,
->  	.irq_set_affinity = msi_domain_set_affinity,
-> -	.irq_retrigger = irq_chip_retrigger_hierarchy,
->  	.irq_write_msi_msg = hpet_msi_write_msg,
->  	.flags = IRQCHIP_SKIP_SET_WAKE | IRQCHIP_AFFINITY_PRE_STARTUP,
->  };
-> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-> index 8a410d4aa3704..0d22324568911 100644
-> --- a/drivers/iommu/amd/init.c
-> +++ b/drivers/iommu/amd/init.c
-> @@ -2477,7 +2477,6 @@ static struct irq_chip intcapxt_controller = {
->  	.irq_unmask		= intcapxt_unmask_irq,
->  	.irq_mask		= intcapxt_mask_irq,
->  	.irq_ack		= irq_chip_ack_parent,
-> -	.irq_retrigger		= irq_chip_retrigger_hierarchy,
->  	.irq_set_affinity       = intcapxt_set_affinity,
->  	.irq_set_wake		= intcapxt_set_wake,
->  	.flags			= IRQCHIP_MASK_ON_SUSPEND | IRQCHIP_MOVE_DEFERRED,
-> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> index 056d379b3cee4..a004b08d68fe9 100644
-> --- a/drivers/pci/controller/pci-hyperv.c
-> +++ b/drivers/pci/controller/pci-hyperv.c
-> @@ -2119,7 +2119,6 @@ static bool hv_pcie_init_dev_msi_info(struct device *dev, struct irq_domain *dom
->  	info->ops->msi_prepare = hv_msi_prepare;
->  
->  	chip->irq_set_affinity = irq_chip_set_affinity_parent;
-> -	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
->  
->  	if (IS_ENABLED(CONFIG_X86))
->  		chip->flags |= IRQCHIP_MOVE_DEFERRED;
-> -- 
-> 2.43.0
-> 
+>
+> >
+> > >
+> > > >
+> > > > >
+> > > > > Along the same lines, I have been working on replacing zsmalloc w=
+ith
+> > > > > direct SLAB allocations for the zswap compressed data storage and=
+ see
+> > > > > very promising results: memory savings and latency improvements. =
+I
+> > > > > will submit an RFC shortly.
+> > > >
+> > > > Keep in mind that zsmalloc is movable memory, while slab memory isn=
+'t.
+> > > > Zsmalloc may also be less likely to make a new allocation in the st=
+ore
+> > > > path. There are other considerations beyond memory overhead and
+> > > > latency here.
+> > >
+> > > I realize this means we trade off page migration for writeback for th=
+e
+> > > pages representing zswap compressed data. This might not necessarily
+> > > be a bad thing for 2 main reasons, the way I see it in this specific
+> > > context:
+> > >
+> > > 1) Page migration would only be transferring a memory pressure proble=
+m
+> > > elsewhere. Not sure how well this would work with memcgs or
+> > > containers. At some point someone would need to do writeback.
+> > > 2) I don't believe there is a zswap specific page migration flow in
+> > > the kernel other than zsmalloc compaction. IOW, memory tiering
+> > > components like CXL are handled directly in the reclaim path. From
+> > > what I understand, things wouldn't break with slab memory for zswap
+> > > compressed storage, but I could be wrong. I hope to include the
+> > > architecture level considerations/trade-offs in the RFC.
+> >
+> > Zsmalloc memory is currently movable, so compaction can move it around
+> > to free contiguous blocks (e.g. for THP allocations). Slab memory is
+> > not movable. It can be reclaimable, but writing back memory from zswap
+> > when we are not under memory pressure is also bad.
+>
+> All good points, thanks. I agree, writing back memory from zswap when
+> not under memory pressure is bad, however I have not seen any
+> writebacks in my experiments with usemem at 60% over-commit and with
+> 64kB mTHP.
+
+We can discuss further when you make your posting :)
+
+>
+> I am running these experiments in a memory constrained environment:
+>
+> QEMU VM: 7G RAM
+> Swap: 3G
+> cgroup memory.high: 3G
+> 4 usemem processes want to allocate 1200M each. To make the experiment
+> even more stringent and representative of actual compression datasets,
+> each usemem process reads the Silesia dataset from a
+> pre-fork-allocated buffer into the 1200M. This causes realistic
+> compression payloads in usemem.
+>
+> >
+> > Note that compressed memory can be very large compared to slab
+> > allocations (or kernel allocations in general), so it can increase
+> > unmovable (or reclaimable but not movable) memory significantly,
+> > causing fragmentation.
+>
+> It took me a while to experiment with compressed size bins, until I
+> settled on a compromise between memory wasted per slab and zswap
+> latency in finding the correct size bin to minimize fragmentation. I
+> have been gathering extensive SLUB stats which indicate:
+>
+> 1) Even under peak zswap compressed quota ("pool") utilization across
+> 10 consecutive iterations, SLUB comes out ahead in less overall memory
+> overhead.
+>
+> 2) At steady state (when 10 iterations of the workload are done), most
+> of the slabs have been returned to the Buddy allocator, except for 3M
+> worth of slab setup per compressed size bin (0 objects in use): this
+> is as compared to 32K of zsmalloc slub metadata that remains at steady
+> state.
+>
+> I learned some really interesting things from these experiments, which
+> pose questions about the memory penalty due to latency that zsmalloc
+> adds to zswap compress/decompress paths vs. "internal fragmentation".
+> I expect to quantify this with data from my experimental setup.
