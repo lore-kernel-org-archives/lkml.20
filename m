@@ -1,42 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777154EBAC6;
-	Thu, 15 Oct 2026 11:28:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666A750AC20;
+	Thu, 15 Oct 2026 11:29:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063693; cv=none; b=WMwIVvRqWr7PTIvWkGGOSQy0B/0erddXWtUlV5crAdtvZV2wGyoNJ8Ny0py13RiCSnRYcejYMLO0oo8+BX8YSTZfpTIzjJ0MXdcvKvXdNSUxrjLeqYrkW+YrqOw29vQl/RwdRMOfABA6c+n4MUVnaZkVIer6DCXfJrOZFeSzEhs=
+	t=1792063796; cv=none; b=NDt6LcpKyV4d0ACdV7cSWH1B4/MX/5u7MbjEeQYz1gtv39Nu2blNUXCmnZqqftbXUXF6EvSvyhOUvonV7Mnk9Q+5DYfalout2RjGSNFnAL2NiywaXgfpWT4LQVDYPApGOwrrBRjeRq0edL9l7Lm0KFnn19CiVlEresiFoQv8gjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063693; c=relaxed/simple;
-	bh=vN8crsMLeMURqPwrucsHxLo2CIhLz3ZK0+yNKV6oupQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jq1qV0NTrdJzf68RmAxDosVUnUXTAFnzdnJWCFt5xoMJsK+mz0KNThij7iFhUFwnUEQJO09LR7Iz/Pi8/hU44N5T15GCVTT9tHpSypNwKelDirND9wa0ENfIcGEvy3kRjzhCrplMagNyeEua0o3JT7+YVcE2XgMdTdEre+EwP3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqRUzdfg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792063796; c=relaxed/simple;
+	bh=PuDraPxveObNw6YF0fJcKPhT+63JNYVYv2xDl3xx/YM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=KcsCCT73BNyHXvVkX+cdTQi9h2RwHU9hqiHtpEEXlhRuanu3Aou9vacMCfJsaf4MQmtEElY2cjpdbu4Qu0KBEnDjh/Eyf9WmP0Uff0HFYoiIYB5GYs0JBGlr+NPijgU/eQcMOR5A2aT/B/7XlfV1s+zOiPXHHUUj73Li0mmrTCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE4E45fg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqRUzdfg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C51C1F000C4;
-	Thu, 15 Oct 2026 11:28:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE4E45fg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B27C1F000C4;
+	Thu, 15 Oct 2026 11:29:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792063690;
-	bh=u2QYkuWc9e9/YKClMJHSyEAYi24qLkOSIRtRLWYuFx0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hqRUzdfgZvZBaBWVqhsAJ8qZmt35+6a3x133Ifa8+nXXp9ANkqme7QADYpe5pCO9q
-	 t23pWjxwzhVXgD3/sjfqtuCEAaYcnD2Ag7IVLcIbh/bHx7y6efj/wghtt/63StEy+a
-	 TvzwB1dV785FmgzvuYdhDThAWvihK+WFETYDLEgb0bPL2QgbbS0XcuRw/sAMlPZN6D
-	 VIkx32hzk36pUyA+e+oXqgCrilfH5l6cg5y+jImjXr29L3bRPMTM2h7JBJV/p2okjq
-	 5fu6+n2ur4NB7S/nE9Iqc/jZP5DIismkq3jw0ziqhnnPPVe0bDKM3sdtXEwlgt1ohn
-	 ObJHJodOVQahw==
-Date: Thu, 15 Oct 2026 12:28:05 +0100
+	s=k20260515; t=1792063792;
+	bh=2DwhX/3ce5TK5tWLd+Z7vb78AEHTFNPlbKXOzjGXpMo=;
+	h=Date:From:To:Cc:Subject;
+	b=TE4E45fgXlUji/yy8nvsc/9y70QQLG6CO6WdJ0lL3+3TwhM7fa5rTLehFrV8aw5LV
+	 6SmGRt3a2pIxTnlWTEHlVvUfpdL5Xu+0HQwaPr8UlDTImhrCdmWirKNLTKGiCMnXCi
+	 GRLoo+47xyyIXoCh1HC2YmUNgRo+0XQs4S8BYgmtvlo/2zYb8/4sMuDWW0P+O8YP26
+	 FkQOHSXZ1o5qGsUP8lv0mKgsjWbhP0LKHNZ5KZ4kktSb/sD/WKcES9lKZ43nKfJ9kX
+	 cbDuzCG1dgZfVozZdsRsEIMRr/kSg9zcGIcBxRmG0OA1ZFZAh3KUohVIIIEvAnLkZS
+	 fQy9iS04iS+Kw==
+Date: Thu, 15 Oct 2026 12:29:49 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Weibin Liu <liuwb@xiaopeng.com>
-Cc: ldewangan@nvidia.com, linux-spi@vger.kernel.org,
-	thierry.reding@kernel.org, jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org, swarren@nvidia.com,
-	linux-tegra@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: tegra20-slink: bound copies to t->len
-Message-ID: <e81a1b15-cc89-4db3-97bd-315e6d5bf3ca@sirena.org.uk>
-References: <20261014-spi-tegra20-slink-copylen-v1-1-0ec779a6357e@xiaopeng.com>
+To: Christian Borntraeger <borntraeger@de.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the kvms390 tree
+Message-ID: <atC5LZemJJUievn6@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,36 +40,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dgfhA1QFRLLUhNsN"
+	protocol="application/pgp-signature"; boundary="AWBEMmhd0o2wyiJM"
 Content-Disposition: inline
-In-Reply-To: <20261014-spi-tegra20-slink-copylen-v1-1-0ec779a6357e@xiaopeng.com>
-X-Cookie: Tax and title extra.
 
 
---dgfhA1QFRLLUhNsN
+--AWBEMmhd0o2wyiJM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Oct 14, 2026 at 10:18:16PM +0800, Weibin Liu wrote:
+Commits
 
-> +		if (nbytes > t->len - tspi->cur_tx_pos)
-> +			nbytes = t->len - tspi->cur_tx_pos;
+  2da555e616089 ("KVM: s390: Kick PV cpus at the right time for service irqs")
+  9d2c7de8ee14d ("KVM: s390: Improve floating IRQ injection behavior")
+  c07c9e91ebb33 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STHYI buffer")
+  7e4702e32be06 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the STSI buffer")
+  399ddb20fa708 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for the GIB")
+  1d42d02f443d0 ("KVM: s390: Replace get_zeroed_page() with kzalloc() for sie_page2 and CMMA")
+  ec95708cbb07b ("KVM: s390: selftests: Add IRQ injection selftests")
 
-spi_bpw_to_bytes() - 24 bit words can have padding.
+are missing a Signed-off-by from their committers
 
---dgfhA1QFRLLUhNsN
+--AWBEMmhd0o2wyiJM
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQuMUACgkQJNaLcl1U
-h9B4Qgf/Z2ll+eWiEnYdFjH2tp3iKcGa0d9Gdo6GKXCWrelStsrUiHGT+KqSnTy1
-s0y5kTCdmgR2NRxh8XLgD36ttHv3eok5KLGCKGzze4MIEHBHJSpxXzuLc4CbJHdA
-0zWaDa2G/uFbuEPb28jl6/h9O66I+arG22nzJKAUiRq+dQDDxTwbdBhUEF4OL/NE
-SKbQ+8kS0EjQ/8nOT0dBpY3XTHtYlXPYsGPIQibq/5dYbmkWoBv5Bfn3Grdvaw1S
-moOiuV1qPNEWO2WYyLEA2bl3IP0xnegq5efvZDhKZQ/BrQwYEPwLCbTaLKdDR2Cz
-LWFio3r8eE6UR5JIW7Ft2nHfX28WMw==
-=w8m4
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQuSwACgkQJNaLcl1U
+h9BYGQf7Bw5onf3w00DaTu7xuGcN/6ANB34NArBTAYQ2QQ4p1sjNe/+e9kbeKcgh
+UL5rJtqeLzzsRBiNHuLVfTCFtvGM4v2pmMJeSChRd30YllTnrIyW5j9AvmbtDNit
+YbWYAe4Yqkk3E12/MMKTBK7JC7ASXwjpR2bO2A9TNOWmu3u1E4ceKS9J45VxBY/D
+HVRy+cfvZT/K0XhqxI8dK9ZUnxca2DU2ubcSYG21Nw8FWvP/FAzCSA++ilrFUZBI
+Jaapy4K3MlEgIT2be3oBdJJ3lZNOVcryKPuTI7fZb4cjGaUm/5OYdC0PV9KYfrie
+cQcTyMcORTV9peokXWSLCq9N3wShZA==
+=5T7r
 -----END PGP SIGNATURE-----
 
---dgfhA1QFRLLUhNsN--
+--AWBEMmhd0o2wyiJM--
