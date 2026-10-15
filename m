@@ -1,130 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDB319DF62;
-	Thu, 15 Oct 2026 04:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC8C19DF62
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039118; cv=none; b=T7yTVKKpf22F+ColqAyDSUCdegpBcn1AjGFSb3k0vdN3TdJiAIICspOSJxNnOEikyAUuL0+71YoDRz0EqV327PsdypdZjUpahhLQws/bcn/sq9XZt6hSys+K2ePbxeNxiKH3Vfx/oG2JvAZ6vU0JRakOm1fqfyZm25QivD41ZK4=
+	t=1792039145; cv=none; b=ihfFJjRKxAzgecznKb+ZADEcNx6OnYb/+PtI8/DfXysk7vNU39OCygIJRjxslX0sxSFKZhJih1xbK67nyQzCiIH474MjaliyiHiVuUoRgHlHez7mXSjcKq7lnoJQMeyE2nlv5QkyseozrSoqXTy8tJxqzwMnbKOeAJ1QmbJXhV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039118; c=relaxed/simple;
-	bh=zrCxM1Z8Ln43pKllhc7ExMt4XHr/FbkHu2DnzRLllhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IrZWk7ltd46eUVtgIfsF9Incn2eRPRFtoZG5V8lsSClaKqM5hAdmI5qHsxdHaKRN+MXaMunKc9qDESBzHwfXGS4Ukw6rc5aRN02XnebxBHAZxKfp5arN8+dG5qhEyk1zVTK9dEpDnhzSbUJdf6Qkf6xvR+b1a3lBtg9LoJJ/Efw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+2oOwwY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792039145; c=relaxed/simple;
+	bh=JFsUqK9yz6nBN5iUAJ9e32IybN4bnnnH2DWUUmALfcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N7xK6Iyu3LXdDJAuFOcf+BQQe0PGMtNPeIWqM3yeMl/C7BYyui+53LJIDFkf4fvkZhfEf6Ex6kEjS9WTHTiQHLXpNMEhXfG3ACPILob74SkhUrM1iF5cot2s2cZLrj5Dy+y8LDtXvhhhahHf7Xo7lDWMJ6bf4rJvbFDH1InKIwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OWog/lXA; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+2oOwwY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4021F000C4;
-	Thu, 15 Oct 2026 04:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792039117;
-	bh=QMdbQQ8MSxOvImF8HNFP4RPydFgLhwcIAf1buxq3ETs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z+2oOwwYeiyDfIcRFAUPdkerYZ6fzMooWEnD3ZvppyjeXkFeHpES2pASe1+cGfHoI
-	 D0bNlUzJeaHh2CBgDYJETgB2dYCg1UcGsBs6T9qE7wSLVMT8zyQYtmN73KXdUcrL9K
-	 /8EcuD0UBO/eQtmhMx4DWn9gscB9SRuqL/I3FRJ3ZppO8XKXmOWaxgdVLE3XCwtVqt
-	 WQoGgjiv1Fx4lVSDANmOiAA8Uu83Evp7eD1bkqP6klH73PZOFudfhHUxpoQH83XtkB
-	 VKw+xsdpHhAZpyjSsxLEAo9/cQgT66hNr899ecfJjVg4Fu21DX5EcsK4CD6DDRvRyS
-	 jPUdlhPHvLZWw==
-Date: Wed, 14 Oct 2026 21:38:37 -0700
-From: Kees Cook <kees@kernel.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	David Gow <david@davidgow.net>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Laight <david.laight.linux@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] hexdump: Allow skipping identical lines
-Message-ID: <202610142135.0326EA9C@keescook>
-References: <20250319-perso-hexdump-v3-0-a6ba3a9f3742@bootlin.com>
- <as6TIm6xE8Izccb5@black.igk.intel.com>
- <as-iBP1781DVuZ7p@pathway.suse.cz>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OWog/lXA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JFsUqK9yz6nBN5iUAJ9e32IybN4bnnnH2DWUUmALfcY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792039141; v=1; x=1792643941;
+ b=OWog/lXA5VZDLVF2pC//6caNS6Gvc5+UTbSLxt7rmHASGKodDgbWh0jqO8VrlxwhNhNXf0po
+ dJxunqEMNUAEMpmu3A4xCJThaX7oxI7HiTyt3MC3eED10wnAgb8IuFPBJXA26TC/jgwsz0IuH1F
+ jVaUw3OnfHcjg7V3P1yXWABk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 90cb0f3fd8c9c893;
+	Thu, 15 Oct 2026 04:39:01 +0000
+X-Mizu-Trace-ID: 90cb0f3fd8c9c893
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: kas@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	jannh@google.com
+Subject: Re: [PATCH v5 3/9] mm/khugepaged: rename mthp_present_ptes bitmap to eligible_ptes
+Date: Thu, 15 Oct 2026 12:38:56 +0800
+Message-ID: <20261015043856.57881-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261014171145.3292736-4-kas@kernel.org>
+References: <20261014171145.3292736-4-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as-iBP1781DVuZ7p@pathway.suse.cz>
-
-On Wed, Oct 14, 2026 at 05:38:44PM +0200, Petr Mladek wrote:
-> On Tue 2026-10-13 22:22:58, Andy Shevchenko wrote:
-> > +Cc: KUnit maintainers + Kees
-> > 
-> > On Wed, Mar 19, 2025 at 05:08:09PM +0100, Miquel Raynal wrote:
-> > > While working on NAND issues, I used print_hex_dump() a lot to compare
-> > > data. But I am mostly working on embedded systems where the kernel
-> > > messages go through a serial console. Sometimes network support is an
-> > > option, sometimes not. Anyway, I often print buffers both in kernel
-> > > space and user space to compare them, and they may be full of 0's or
-> > > 1's, which means lines are repeated a lot in the output and this is slow
-> > > *and* hard to compare.
-> > > 
-> > > I initially hacked into lib/hexdump.c for my own purpose and just
-> > > discarded all the other users, but it felt like this might be a useful
-> > > feature for others and decided to make it a public patch.
-> > > 
-> > > * First patch creates a helper named print_hex() with a prototype
-> > >   containing a flags parameter, instead of an entry for the prefix type
-> > >   and another entry for the ascii boolean. print_hex_dump() now
-> > >   falls back to print_hex().
-> > > * Second patch adds a new flag to possibly skip the identical lines.
-> > > * Third patch is optional, and adds the offset at which the dump
-> > >   finishes in case the last line to be printed would be skipped.
-> > > 
-> > > The Cc-list, as provided by get_maintainers.pl, was returning 330
-> > > e-mail addresses which felt to much, so I ran the script only on the
-> > > second patch (the printk/includes/debug/Doc changes). It gave this
-> > > Cc-list which sounds more reasonable. Hopefully this is a smart move,
-> > > otherwise let me know what you think would be best.
-> > 
-> > Sorry for the so late response. First of all, a bit of a background
-> > development on my side. At some point a few months ago I asked John
-> > Ogness to give me a private dive to the printk() guts. He explained
-> > to me a lot about ow printk() circular buffer works and that the
-> > implementation is nowadays done in the terms of circular buffer library
-> > and printk() front-end. This gives a potential to get a clean solution
-> > for the testing how printk() actually behaves.
-> 
-> I am curious what printk() features you would like to test.
-> 
-> > The main issue with the
-> > real printk() is that the buffer it's using is defined globally and
-> > for clean test cases the printk() can't be used. We discussed the way
-> > of high-jacking that by linking an object file of printk() implementation
-> > to the KUnit test, but it seems quite a tricky if ever achievable exercise.
-> > 
-> > Meanwhile Kees Cook seems found a nice workaround for the similar use case
-> > in his recent patch series [1]. The idea is to register custom console and
-> > provide a custom .write() method which is the heart of the solution. On
-> > the writer side user prints something which has unique prefix, while the
-> > console callback recognises that pattern and checks the rest of the line.
-> 
-> I ask because the solution used by Kees seems to be quite complicated
-> and unreliable for the given purpose. In particular, printk() does
-> only the best effort to flush messages on legacy consoles. And NBCON
-> consoles drivers are even offloaded to a kthread by default as
-> pointed out by John in the other mail.
-> 
-> It seems that Kees just want to check some particular printk() calls
-> and what messages they print. It might be easier and more reliable
-> to redirect printk() to an alternative implementation via a hook
-> in vprintk() in kernel/printk/printk_safe.c.
-
-Yeah, I was just trying to "prove" that seq_buf_do_printk() actually
-put something onto the console (and to match up what was written and how
-truncation behaved). :P I'm open to adjusting this however it should be...
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
--- 
-Kees Cook
+On Wed, Oct 14, 2026 at 06:11:36PM +0100, Kiryl Shutsemau (Meta) wrote:
+>The name says less than the bit means.  A set bit means not only that the
+>PTE is present, but also that it passed the other checks: uffd,
+>lazyfree, anonymity, sharing.  The PTE can be considered a collapse
+>source.
+>
+>mthp_collapse() then reads the bitmap starting at the PMD order, so the
+>bitmap is not specific to mTHP either.
+>
+>Name it for what a set bit means, and update the comments that named it.
+>
+>No functional change.
+>
+>Assisted-by: LLM
+>Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>---
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
