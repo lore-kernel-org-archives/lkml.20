@@ -1,147 +1,164 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A47231836;
-	Thu, 15 Oct 2026 03:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC383B42EB;
+	Thu, 15 Oct 2026 03:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792036645; cv=none; b=OFzlCi280G4glWsdmDdVeRPsOvOITA1N3IML5pM4MyK1aqX/MTaOWyBMxcfgZvUQ+44auziEQxUwepsSu413b5y98+ulBPOhXvNiZTPOd+kFX+XKoXsJJJw1yKQhMEWYgmoMex4bX2kjBC3VUn48V7qbKVX1i0Ez6k7k/bYMlC0=
+	t=1792036654; cv=none; b=gjKTJAn+Nnd8oPxG60LDQBKurQ/CtA211atSqbLSK/5aASZuv9m24/fX3O5VnqxilS1zqwQkaIRc9h6puQNljAAZ4p1Mt6QYDBrd8gFsjgDi8DLTlUPsarxKbhnVD9kHsL3OfU8sVfe2/29CNH546pPx3O5Ucc6cgZHpYNl1Q6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792036645; c=relaxed/simple;
-	bh=laQEQmrevBbZLzCFQIVrAgnpTTHO73JD9uv0iZcWKOg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:CC:References:
-	 In-Reply-To:Content-Type; b=cpGg0kLG45pDTgiWmT3c1AGLfUNHnZz36jBgeYA7I5tNiBuu01ijVQ+auvLTRa8XDK04QLLaHjAL8lIYb2iN4D/uv7LrNNm2JDkJlHKgpi2dJRwceOzxHLPcVmwrELH6VH17QJIEqy+3ithgMdcKp+XW+u1F6cSwbf7vmtIC7Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=hisilicon.com; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j4v8l59c0zKm8R;
-	Thu, 15 Oct 2026 11:44:55 +0800 (CST)
-Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
-	by mail.maildlp.com (Postfix) with ESMTPS id E97934057C;
-	Thu, 15 Oct 2026 11:57:17 +0800 (CST)
-Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
- (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 15 Oct
- 2026 11:57:16 +0800
-Message-ID: <526758a6-40f5-4810-8e17-6e94afc3fab2@hisilicon.com>
-Date: Thu, 15 Oct 2026 11:57:16 +0800
+	s=arc-20240116; t=1792036654; c=relaxed/simple;
+	bh=1cDFLBVvvHLcDzWB9OQk3LPuPzmQ98hGevHbDfBVBVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PKcml4u8o/gzMB2tGRVvidG2k9a5mrgSMSzk9+sEmuPqVFJOQ+sF9j2m4JVg5uy30CwiFnpsRbEHSKy4YKAZqIiLYn//GZnrU0PnI0B0X5n/GI4iG0r5Cm38lwLWy/eE8rUwlXydfobfuyvkdraPzVfzYFssP91Qg7dOUidcjBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvcPsxre; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvcPsxre"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7F11F000C4;
+	Thu, 15 Oct 2026 03:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792036652;
+	bh=NdklXL+J+QrsiUIcd4Y8eww9fU6DL57yTDm47tGpRmI=;
+	h=From:To:Cc:Subject:Date;
+	b=VvcPsxreJKuXnD5r2PsAfUFkASVdn7mi7ckpeO+50e6VrdXkL3InUiEKMMJ8oyseU
+	 dt1H1OjTyjc67wdPQxjWjLhi+otu3emPaBCayfLAHC6kTiQhAed/ykBeDf3B9Kb5N6
+	 RfgEGpGGoZu4lfyE2EqUhkLjT93Da/LYkD56kdLnOBnlJhUZL6k+EN7p4dJsJvXH0E
+	 UZQtCvkxKqPL21MMX2h7yJXM81hSPGI4+A2kim9p45rWoR1Yz2qUYCN49PrIuqV5OD
+	 GFhsnoGAgaVu/CNMSeugeFioIpk44SzIr6WnIWp3Jowfx/IkprUuHy2g43ajtLdcG1
+	 a3O7rhx2IONOA==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	Xi Pardee <xi.pardee@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org,
+	tfiga@chromium.org
+Subject: [PATCH] platform/x86/intel/pmc: Disable ACPI PM timer during suspend on Panther Lake
+Date: Thu, 15 Oct 2026 03:57:11 +0000
+Message-ID: <20261015035712.3604634-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jie Zhan <zhanjie9@hisilicon.com>
-Subject: Re: [PATCH 1/3] cpufreq: Add a driver frequency resolution callback
-To: Christian Loehle <christian.loehle@arm.com>, <rafael@kernel.org>
-CC: <zhenglifeng1@huawei.com>, <zhongqiu.han@oss.qualcomm.com>,
-	<viresh.kumar@linaro.org>, <linux-kernel@vger.kernel.org>,
-	<linux-acpi@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, K
- Prateek Nayak <kprateek.nayak@amd.com>, Huang Rui <ray.huang@amd.com>, Perry
- Yuan <perry.yuan@amd.com>, "Gautham R . Shenoy" <gautham.shenoy@amd.com>,
-	Vanshidhar Konda <vanshikonda@os.amperecomputing.com>, Shubhang Kaushik
-	<sh@gentwo.org>, Pierre Gondois <pierre.gondois@arm.com>, Beata Michalska
-	<beata.michalska@arm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>, Sudeep Holla
-	<sudeep.holla@kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, Jeremy Linton
-	<jeremy.linton@arm.com>, Peter Zijlstra <peterz@infradead.org>,
-	<jonathanh@nvidia.com>, Vincent Guittot <vincent.guittot@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-References: <20260929102957.2591657-1-christian.loehle@arm.com>
- <20260929102957.2591657-2-christian.loehle@arm.com>
-Content-Language: en-US
-In-Reply-To: <20260929102957.2591657-2-christian.loehle@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemf200017.china.huawei.com (7.202.181.10)
+Content-Transfer-Encoding: 8bit
 
+The ACPI PM timer is used to drive the ACPI Watchdog Action Table
+(wdat_wdt) hardware watchdog.  When the ACPI PM timer is enabled by
+firmware on Panther Lake, leaving it running during s2idle prevents the
+SoC from entering its deepest S0i2.2 substate (staying in S0i2.1).
 
+Since the watchdog is stopped during system suspend, the ACPI PM timer
+does not need to remain active while suspended.  Disable the timer via
+ACPI_TMR_CTL (PWRMBASE + 0x18fc) in ptl_suspend() and re-enable it in
+ptl_resume() only if it was active prior to suspend.
 
-On 9/29/2026 6:29 PM, Christian Loehle wrote:
-> Without a frequency table, cpufreq treats the policy range as continuous
-> even when the driver selects discrete performance levels. Governors can
-> then issue different kHz requests for the same driver setting.
-> 
-> Add ->resolve_freq() for table-less ->target() drivers to canonicalize
-> requests within the supplied limits using CPUFREQ_RELATION_{L,H,C}.
-> Document the callback and verification contracts so callers can safely
-> cache resolved requests.
-Hi Christian,
+Unlike commit e86c8186d03a ("platform/x86:intel/pmc: Enable the ACPI PM
+Timer to be turned off when suspended"), which was reverted in commit
+5fa607880168 because it acquired pmcdev->lock from the acpi_pm
+clocksource suspend callback inside tick_freeze() atomic context, toggle
+the register in ptl_suspend() and ptl_resume() without taking
+pmcdev->lock.
 
-IIUC, ->target() + ->resolve_freq() should do almost the same work as
-->target_index() + freq_table. Why not switch to ->target_index() if that's
-intended?
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+ drivers/platform/x86/intel/pmc/core.h |  2 ++
+ drivers/platform/x86/intel/pmc/ptl.c  | 35 ++++++++++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
 
-I had a few unsent comments on the second CPPC patch but perhaps we discuss
-this first.
+diff --git a/drivers/platform/x86/intel/pmc/core.h b/drivers/platform/x86/intel/pmc/core.h
+index e55164e5807f..a5bd45c4b44e 100644
+--- a/drivers/platform/x86/intel/pmc/core.h
++++ b/drivers/platform/x86/intel/pmc/core.h
+@@ -487,6 +487,7 @@ struct pmc {
+  * @s0ix_counter:	S0ix residency (step adjusted)
+  * @suspend:		Function to perform platform specific suspend
+  * @resume:		Function to perform platform specific resume
++ * @pm_timer_enabled:	Whether the ACPI PM timer enabled before suspend
+  *
+  * @pkgc_ltr_blocker_counters: Array of PKGC LTR blocker counters
+  * @pkgc_ltr_blocker_offset: Offset to PKGC LTR blockers in telemetry region
+@@ -506,6 +507,7 @@ struct pmc_dev {
+ 	u64 s0ix_counter;
+ 	void (*suspend)(struct pmc_dev *pmcdev);
+ 	int (*resume)(struct pmc_dev *pmcdev);
++	bool pm_timer_enabled;
+ 
+ 	u64 *pkgc_res_cnt;
+ 	u8 num_of_pkgc;
+diff --git a/drivers/platform/x86/intel/pmc/ptl.c b/drivers/platform/x86/intel/pmc/ptl.c
+index a7d5d4f77934..8c32f9be9302 100644
+--- a/drivers/platform/x86/intel/pmc/ptl.c
++++ b/drivers/platform/x86/intel/pmc/ptl.c
+@@ -6,6 +6,7 @@
+  * Copyright (c) 2025, Intel Corporation.
+  */
+ 
++#include <linux/io.h>
+ #include <linux/pci.h>
+ 
+ #include "core.h"
+@@ -548,6 +549,9 @@ static const u8 ptl_pmc_list[] = {PMC_IDX_MAIN};
+ #define PTL_NPU_PCI_DEV                0xb03e
+ #define PTL_IPU_PCI_DEV                0xb05d
+ 
++#define ACPI_TMR_CTL_OFFSET            0x18fc
++#define ACPI_TIM_DIS                   BIT(1)
++
+ /*
+  * Set power state of select devices that do not have drivers to D3
+  * so that they do not block Package C entry.
+@@ -558,9 +562,38 @@ static void ptl_d3_fixup(void)
+ 	pmc_core_set_device_d3(PTL_NPU_PCI_DEV);
+ }
+ 
++static void ptl_set_acpi_pm_timer_on_suspend(struct pmc_dev *pmcdev, bool suspend)
++{
++	struct pmc *pmc = pmcdev->pmcs[PMC_IDX_MAIN];
++	bool enabled;
++	u8 val;
++
++	if (!pmc || !pmc->regbase)
++		return;
++
++	if (!suspend && !pmcdev->pm_timer_enabled)
++		return;
++
++	val = readb(pmc->regbase + ACPI_TMR_CTL_OFFSET);
++	enabled = !(val & ACPI_TIM_DIS);
++	if (suspend && enabled)
++		writeb(val | ACPI_TIM_DIS, pmc->regbase + ACPI_TMR_CTL_OFFSET);
++	else if (!suspend)
++		writeb(val & ~ACPI_TIM_DIS, pmc->regbase + ACPI_TMR_CTL_OFFSET);
++
++	pmcdev->pm_timer_enabled = suspend && enabled;
++}
++
++static void ptl_suspend(struct pmc_dev *pmcdev)
++{
++	ptl_set_acpi_pm_timer_on_suspend(pmcdev, true);
++	cnl_suspend(pmcdev);
++}
++
+ static int ptl_resume(struct pmc_dev *pmcdev)
+ {
+ 	ptl_d3_fixup();
++	ptl_set_acpi_pm_timer_on_suspend(pmcdev, false);
+ 	return cnl_resume(pmcdev);
+ }
+ 
+@@ -576,7 +609,7 @@ struct pmc_dev_info ptl_pmc_dev = {
+ 	.regmap_list = ptl_pmc_info_list,
+ 	.map = &ptl_pcdp_reg_map,
+ 	.sub_req_show = &pmc_core_substate_blk_req_fops,
+-	.suspend = cnl_suspend,
++	.suspend = ptl_suspend,
+ 	.resume = ptl_resume,
+ 	.init = ptl_core_init,
+ 	.sub_req = pmc_core_pmt_get_blk_sub_req,
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-Jie
-> 
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  Documentation/admin-guide/pm/cpufreq.rst |  4 ++++
->  Documentation/cpu-freq/cpu-drivers.rst   | 19 +++++++++++++++++++
->  drivers/cpufreq/cpufreq.c                | 17 +++++++++++++++--
->  include/linux/cpufreq.h                  | 10 ++++++++++
->  4 files changed, 48 insertions(+), 2 deletions(-)
-> 
-[...]
->  
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 54dde8419bdc..44bda2f32fcf 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -480,8 +480,12 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
->  
->  	target_freq = clamp_val(target_freq, min, max);
->  
-> -	if (!policy->freq_table)
-> +	if (!policy->freq_table) {
-> +		if (cpufreq_driver->resolve_freq)
-> +			return cpufreq_driver->resolve_freq(policy, target_freq, min, max,
-> +							    relation & ~CPUFREQ_RELATION_E);
->  		return target_freq;
-> +	}
->  
->  	idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
->  	policy->cached_resolved_idx = idx;
-> @@ -495,7 +499,10 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
->   * @policy: associated policy to interrogate
->   * @target_freq: target frequency to resolve.
->   *
-> - * The target to driver frequency mapping is cached in the policy.
-> + * The frequency-table resolution path caches the mapping in the policy.
-> + *
-> + * Keep the policy active and exclude driver teardown; a policy reference
-> + * alone does not protect driver-private data.
-Do you mean the caller should ensure this?
-This function doesn't seem to do this.
->   *
->   * Return: Lowest driver-supported frequency greater than or equal to the
->   * given target_freq, subject to policy (min/max) and driver limitations.
-> @@ -1445,6 +1452,11 @@ static int cpufreq_policy_online(struct cpufreq_policy *policy,
->  		 * If there is a problem with its frequency table, take it
->  		 * offline and drop it.
->  		 */
-> +		if (policy->freq_table && cpufreq_driver->resolve_freq) {
-> +			ret = -EINVAL;
-> +			goto out_offline_policy;
-> +		}
-> +
->  		ret = cpufreq_table_validate_and_sort(policy);
->  		if (ret)
->  			goto out_offline_policy;
-> @@ -2925,6 +2937,7 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data)
->  
->  	if (!driver_data || !driver_data->verify || !driver_data->init ||
->  	     (driver_data->target_index && driver_data->target) ||
-> +	     (driver_data->resolve_freq && !driver_data->target) ||
->  	     (!!driver_data->setpolicy == (driver_data->target_index || driver_data->target)) ||
->  	     (!driver_data->get_intermediate != !driver_data->target_intermediate) ||
->  	     (!driver_data->online != !driver_data->offline) ||
-[...]
