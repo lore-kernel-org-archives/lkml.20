@@ -1,225 +1,414 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F094E47884B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B66B3FE35F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094248; cv=none; b=c76LUpxu/zijFrs4eV6FeGLpGx6oUL18/yVqRyhghORNg//KFc2j9P5Rdj9gzZx2Js6A2q/7OuURmWMxU6mxKK/1mjJmCKelnE/l04P9slJfnfNRRMvucMsMlu+CcdYzrHv13QPz32/4NVsIJWB45S426pUg3HRDKD/eURedHnI=
+	t=1792094299; cv=none; b=VFFe3cLrY3obeQ/wuAOcAu7EUV0EujQ/MmLHZtfo4GgVrQM3kLMDGhc4R2+u0baExetkx50zWnUdBfD8bD+agHBGLBb2+HKlD8EJLdnJ+3s5Ft1mz1rNZEfSqJAiew7FDW5hReESJ23RzLcArbJzGX+B9w6qW9sd6NOu/S3LsoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094248; c=relaxed/simple;
-	bh=sxR2u9BA5/CcmtclWpp5AGM/HULwOi/W5ck+DMmMkIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qtsAxGHK84WgatPcLJsvHl78/h7zCBInpthmZWhfUJtoazqqGfSKHE7gc7xzY+PBMcfGpPGyzHKIg9phqEWLX6ukrtIvFuGmDEl769c1TvxMXXu5df81pb4AB4l8aBOruGmvwN59YrqeutazB7TWnfhDH0zhaZwo5SOe+88i7jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=VJ+w/L+R; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VhsCFx92; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1792094299; c=relaxed/simple;
+	bh=jPoslkIrch5pGS7H1VYUPULNCHIu+0vG9BS3QyCzvAE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=N6hVTHXZhga8A4tVDBGFrKl0nFd9/sbmmyMw2vsUhz+5IhR3xHjoSBwQxP9dKcEhbezE/GZUdaKi8+ZuU9xKsjnjKSOVlNTs660ueFFax/KNdA0YVjSUzONcIYIOW4FzSeiaS7nzOoisd35exCkLaMeIk5blVHkFPBmVVTdC6g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=d1V9VMIp; arc=none smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="VJ+w/L+R";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VhsCFx92"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9D6D07A0101
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:57:22 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 15 Oct 2026 15:57:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792094242;
-	 x=1792180642; bh=rYA62PIPCosAEwK3KTOovg055BVPSm68/iMypXOGiFk=; b=
-	VJ+w/L+R7J1aoOYYmj1shYFc218XHud1I3Ia1RIlUeYrDLNqM3TFbsOfhdZ6uR48
-	cE9HEUUW7UPAgjghJWVKObXC+cMh4PbOs8Rl7C+ieEoEJnwvje5s/gjT+7Hg1931
-	i6JJhLXVH0+PdwOpgqSbt1DWtDuVGp/OPHlnDoWmC7JuHYoz8hsXq6BAnxvSx6s9
-	ZjQyuSzRHAd+od7epaFuBFXxsS4bXJW9y4iksb7OsSwyDUTp2+gBp2hzxpzBOUk+
-	lXNL4SjMgOkvgJyYt3E9rD7uJi72Tx88BT7WteGf8u2FzHYvpQhtMCfNXzM5Wi7g
-	eOAzDMUukafPYOhT5yZNQQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792094242; x=
-	1792180642; bh=rYA62PIPCosAEwK3KTOovg055BVPSm68/iMypXOGiFk=; b=V
-	hsCFx92QKasidAESgTWTBQrf/yFyY+lEgFFse2c5dKxOQmb78cgCkmPUtpBoKEQ6
-	W6wwMYe4ufY3hYb3p3vTlbK3VXRVikRBsVawQ4BDCfk2pxSjt/2fpLk2BiMLIUsQ
-	2ErxHxYCubRaKyn66bRS/fzWzViiB+0ymBtNhSY4YzcO96enzq3dYQK95zVr5IqA
-	wAIWC+fzqklWqsvYgdCLjKmjfOVvKQA0W+VlfkEC0LYMg2n/EvAJl3n3biHy6Dn0
-	xz2ZfMFJbH3eShhGSMi45EpHLYACld0/5T5YVEQJxpJJIdR8fxvgr0aD0vMXGbjB
-	7z5/m1X4zJaURBHCWgsig==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792094242; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:01tjjS1memFUMobWTXX/8j+i73XujYtEQFJOiR+o4DHqc5k
-	iRq5JP9l0YIaONwsijcDBefnEkm3WIZWnB2DMc6wC+nKu0sjt6enfi1Fqt/Xc97u
-	TaOaLXHBcazwVX5u4R5LN0SeMTp+tbmyBtOZmC8E364E3+zYlPjxA0yzRhVvIgyr
-	SpQurpsIF2/9taug91WwHC5Iqa1sLdBUa3qcdMNeMbvRYROBDHBQqa24kky3HzhL
-	Y1gXwq3bmgaqivA9obaZDN/ZOxwKXmL9X41xTS3TUnvD5465a1LCjJ77OPZDelv8
-	XX+HBMqVuUJ0IH+RWZt003lC1K2GFpX98XgZ6/Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:L/oPJ2TgAoi5NCw9Z2kvz2XquLbFR2FN6C5vY/XcKeQ=:sxR2u9BA5/CcmtclWpp5AGM/HULwOi/W5ck+DMmMkIk=;
-X-ME-Sender: <xms:ITDRat6T61fiTrhwbbnHtKYVZEZKyEPjqyf2_Okpc8-Agiqyw0kf1A>
-    <xme:ITDRaqeo7Yj7AnosnEWJPdgH0syXFP04e2fkztua23jZNw_21NtcIAe4xgqMNvQ6z
-    snBaD_MTvihj-IWgA9scLC9ylQibhC137YCtta9dOfbJZxmTnQ31rU>
-X-ME-Received: <xmr:ITDRaoxsJgHCwnb7LTZSpkoWMB8hVl8uPITKUOM29hpkeJort9u3dZMtBG3aQg>
-X-ME-Proxy-Cause: dmFkZTE9ycIFqjPXJ15WpdX0VDq0lFUB2JIAwFolY1DFSoPQyuEKYW9WeKct6jhJUc0Vn8
-    4wPeZ8tsfI1xWmvqY64CFof+xE2xfcMwT6eSU096j01dTjlW2CAhuootUIZwfbHNSK+fSB
-    rvvRZdebbJ+RRQ4/89bPsLI0Zls+5Jxohl1DXrb9Q32FtdsCiwQxRDRWDMKtIhlmIBqcbC
-    QmCB4aPA+yxQSzJ86vi+RnTZA/vWgEa24GEWbuYidv+EpgJlaqa4sgvTZfVMe4z/tNe5O0
-    UQ7cufOsgJVD8zF5c4wROBrdKoeN3kvSUCn9En/2t8jX0B0u+NjjcTY+tSvTiJQfOcFQGe
-    zAOOCjuoNzJ+XY126cU8+JCVrhTExO9BbfV/hiohhOjFKJZD5ZratdVlWSe0XVXMUQDW0A
-    dcGT9yKs+uFHmRmgkUqidnHD2dhqTuqNZEl0QtZ1VvnxJbmPDTELX1iuWlxrzedMDOUPvg
-    DzmbULQAt+RsGUhiDdxT4otQR73J4N6KkRoOe0tkJ137QdcjRtpoWHSzCUG3x16cdvrcKv
-    92RXw/Ke6+af8ycwCof4ZA/l7FQ9mr402jINs6T9Cctb6bRJWggswtnOiWc+OtvPUKPyOu
-    LegFux2l0j4cEaqxtAgmIlHhc7fUl0jRhwfumqtIdlrF2Vom1vQ2Hd9DfJ+A
-X-ME-Proxy: <xmx:ITDRaop_0ryEhsoWgJYMfuukYldF0fAgOWWMJOHqXMv2N77j-wspLw>
-    <xmx:ITDRauzaKQYzKsteW083nC1-u5rihxoyz6bS_tg_phivkbzGyHEZiQ>
-    <xmx:ITDRakpTRzvkv6TIs9603vbQEJ_YXyUOgxY3nsaqMBIWmnE9dJnkyQ>
-    <xmx:ITDRameSMfO45u_k_rkivolPUbXXGLKWxV6S11xLpmXtPc4nZloh_A>
-    <xmx:IjDRal3ERqAPDN0hyobjAua0h2CD_1zXaOUGr8vu8GHwnJpe5sP8KqdE>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 15:57:20 -0400 (EDT)
-Date: Thu, 15 Oct 2026 13:57:18 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Shameer Kolothum <skolothumtho@nvidia.com>
-Cc: <kvm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
- <kbusch@meta.com>, <michal.winiarski@intel.com>,
- <satyanarayana.k.v.p@intel.com>, <sonangp@nvidia.com>, <ankita@nvidia.com>,
- <nathanc@nvidia.com>, <mochs@nvidia.com>, alex@shazbot.org
-Subject: Re: [RFC PATCH v2 00/16] vfio/pci: Handle PCI error recovery and
- report state to userspace
-Message-ID: <20261015135718.43d1d27f@shazbot.org>
-In-Reply-To: <20260929173305.204856-1-skolothumtho@nvidia.com>
-References: <20260929173305.204856-1-skolothumtho@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="d1V9VMIp"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677d35fd1d2so2203953d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:58:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792094296; x=1792699096; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6F6+u6wqk7hzKwJePinLCdyx1x0d0YFmhnOveG+uojA=;
+        b=d1V9VMIpXBwLdHRbNTVM30YGZToOEIfRknLJDL+e4fQBo/Y3uI5h0noQl1fBuumNxY
+         7/ZUcufi1E7T7pewBq8rqfkxgzZwYpoOJg9ebnNWC90C4Di+2CSMU5mBMXuXq6bZNbXV
+         Mskxs+Ybh4bDcYzhvcIWcOWNvAQ4pfMiatt0ZNuvrq/K3Aoz32DsEikmZexPoEpaYptM
+         PE5Lkxw+ynAlJLdgzHXeA4xC1IxP+4jqHD+KVMMXMAzf4KUyPcwPH+CVsgHDu3OKUg1j
+         HOeNv/OfSOoG9QWUkcNKXwwNGMWcL6Bn5jofA5y1JvdIh3Ka/c9FY83/j0GXO18xOaCv
+         AWMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792094296; x=1792699096;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6F6+u6wqk7hzKwJePinLCdyx1x0d0YFmhnOveG+uojA=;
+        b=pcFg42o2owi5xsYHrXIA+3oDhdZ5RKfGovLwHLGAuf34iu0GtQem6rkS3cJR6j2z8c
+         71U/7JQNebBLb+VOV/4oMjEHbqI3/MAaCAE1nngOXWcW2sIR+Dp55rDagA+nrXW35xgV
+         gSW44oZHSErO2LmpKYXA5MOFJV0LQ/9A/napQtZ6pCvCrS42rl7+NoGzNPPl/bcSxCeV
+         XinKBijXHWmy7XNdKw6KAkhAKeuARHU0RUvbA6OGN3N+JqHhtOyWfOyomjProFUmE0Sl
+         wKlZCEBS28QDAp4zVqBKRa+9EbqktmK41pKVk+CZ1+C/4JSrd8FVxoQveg4DBPWiauq7
+         ee0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzMMktbjJH1P1MYzhsKW9uRMJ8bUYaCdklOPbPYcBYGl3eUnl5s9mRQwGIedjzPXXm7jg3fpdr5Et+4tbI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKY2Vg4icev7nFpRJteeCk7P62kNwQnMAi8YjD5PKQuTazRCPx7
+	g9Qtrqu/ds/g9pmorxqsPjSkS027dqAMSzYkIaZZRjOkh3PJGzwOs7VXUxhMI6lzBgg=
+X-Gm-Gg: AYBFou3A5rXa8PrXnRRHyZ/irE6QkYH3126o6uGWtUVvts6H4bEbzszkKtmPJhJR1Lf
+	cov/+lhWrZXsT2nVRD9828skDKHJusBlh6KXbzOSZnBGLKfRGA8o0KOu4ZAs33EIUFP4N6wMGNf
+	S1i8Q8A3hSSmycAa0VEGxjnSv1U6jmFv7pcCMev6RgEc2+Os8IMpWPTfD7ynKzgLwTEv0rfvzsg
+	l7NDbsZKLdvRutMF3sR7+NC7xQaPpmSn0G+mGEEOHxKBSn7w37mU2rr0ynje3/RZSkURpRzGLsO
+	LRKXzacdM9HSD7SPmEVXuRVd3FitWmdm03+iRgOb41+6kzxLMMK84J4GCdnOCXhsD6DuZ0eKhXb
+	lFarzxno5U+MCjUkiLxGMWk83Io8eUbhsQyD9eODukQ0IWo/N/KCW/qV5ykM5LPQPtbVr7OKlfO
+	ao3wSkJEdPjiiHvb1sHecfmT1wmo0m/JCYTMSIV9Li8ND8pf1na7/DS/UOUHfw+Ng+Tr3M95z0F
+	9NjN0hqWovj5UeDLLfl9Exmr3suMiNpe7gFHUk8yhGuXjl6DcSsIqjBoYJUH+97VDyEp91s+fY4
+	hqdYoozUpv5P0cquQGG0QjiSzHyGE2VBK61KF9nTZ747bwqDtDM/IHpL6k0eM11P4eLh4A==
+X-Received: by 2002:a05:690e:b49:b0:672:a02c:61bb with SMTP id 956f58d0204a3-6796fe86253mr2633374d50.41.1792094296306;
+        Thu, 15 Oct 2026 12:58:16 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:f74:f3d:4fc4:4a6d? ([2600:1700:6476:1430:f74:f3d:4fc4:4a6d])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1e11207sm382123d50.8.2026.10.15.12.58.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 12:58:15 -0700 (PDT)
+Message-ID: <45b692cfda51e3b10caa27ae51609edc34efb0d0.camel@dubeyko.com>
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 15 Oct 2026 12:58:14 -0700
+In-Reply-To: <20261015110114.1649059-1-hengyul@cs.unc.edu>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue, 29 Sep 2026 18:32:49 +0100
-Shameer Kolothum <skolothumtho@nvidia.com> wrote:
+On Thu, 2026-10-15 at 07:01 -0400, Hengyu Liang wrote:
+> Commit a06ec283e125 ("hfs: add logic of correcting a next unused
+> CNID")
+> made hfs_correct_next_unused_CNID() use the CNID of the last file or
+> directory record in catalog key order to lower next_id after
+> deletion.
+>=20
+> However, catalog keys are sorted by parent directory ID and name,
+> not by the record's own CNID. The resulting next_id can still be in
+> use, so hfs_cat_create() finds an existing thread and returns EEXIST.
+> Commit 6592287869bf ("hfs: fix incorrect inode ID assignment in
+> hfs_new_inode()") exposed this issue by correcting the inode ID.
+>=20
+> On a freshly formatted and mounted HFS volume, run:
+>=20
+> =C2=A0=C2=A0=C2=A0 mkdir z
+> =C2=A0=C2=A0=C2=A0 : > a
+> =C2=A0=C2=A0=C2=A0 : > b
+> =C2=A0=C2=A0=C2=A0 rm b
+> =C2=A0=C2=A0=C2=A0 : > c
+>=20
+> Without this fix, creating c fails with EEXIST, although c does not
+> exist. With the fix, it succeeds on the first attempt.
+>=20
+> First look up the preceding CNID: if it exists, it must be the
+> largest
+> remaining ID. Otherwise, scan all file and directory records for the
+> maximum, including files without optional thread records. Follow the
+> leaf links regardless of node numbers, bound the walk by the total
+> node count, and acquire a reference on every visit so malformed
+> cycles
+> cannot loop indefinitely or reuse a released node.
 
-> Hi,
-> 
-> Currently, vfio-pci signals the error eventfd from error_detected() and
-> returns PCI_ERS_RESULT_CAN_RECOVER, including for permanent failure. It
-> has no slot_reset() or resume() callback, so userspace is not notified
-> when host recovery completes or whether the device was reset.
-> 
-> This series adds opt-in host PCI error recovery for vfio-pci. It blocks
-> device access during recovery, restores device state after a host reset,
-> and reports recovery status to userspace. The kernel runs host recovery
-> and the VMM decides how to recover the guest.
-> 
-> Changes from v1
-> ---------------
->  v1: https://lore.kernel.org/kvm/20260901093217.8539-1-skolothumtho@nvidia.com/
->   
->  - Thanks to Satya and Alex for reviews/feedback.
->  - Use SRCU to drain ongoing device accesses and reject new accesses during
->    recovery. A mutex protects recovery-state updates. 
->  - Return SIGBUS for blocked BAR faults instead of waiting in the fault
->    handler. VMM handling still needs target validation.
->  - Reject userspace SR-IOV changes while access is blocked.
->  - Exclude s390 and all CXL memory devices for now as s390 and CXL RCH
->    recovery can omit completion callbacks.
->   
-> Design
-> ------
-> Userspace opts in through VFIO_DEVICE_FEATURE_PCI_ERROR_RECOVERY. It
-> registers an eventfd and reads status flags and a sequence number. The
-> existing error eventfd is still signaled.
-> 
-> The callbacks handle the host recovery sequence:
-> 
->  - error_detected() blocks new accesses and drains admitted ones,
->    quiesces INTx, and revokes BAR mappings and exported DMA-BUFs. On a
->    normal channel it also clears bus mastering. It votes CAN_RECOVER
->    for a normal channel, NEED_RESET for a frozen channel, and DISCONNECT
->    for permanent failure. Failure to save PCI_COMMAND or disable bus
->    mastering leaves access blocked and returns NONE so other devices
->    can continue recovery.
->  - slot_reset() restores the configuration saved at open after a host
->    reset, then tears down interrupt configuration. Userspace must set
->    up interrupts again.
->  - resume() completes restoration, unblocks access and completes INTx
->    handling. A restoration failure keeps the device blocked.
-> 
-> Non-fatal errors also block device access because host recovery may
-> require a reset. Userspace reads the recovery status to determine
-> whether the device was reset or recovery failed.
->   
-> Without opt-in, the existing error notification behavior is retained.
-> The open check also rejects a previously recorded host transaction when
-> recovery is disabled, so closing the device does not discard that state.
-> 
-> Locking and open questions
-> --------------------------
-> Several locks are involved in recovery. PCI core holds device_lock
-> while calling the driver, preventing concurrent driver binding or
-> unbinding. During the bus walk, it also holds pci_bus_sem for reading
-> to keep the device list stable. Adding or removing PCI devices requires
-> the write lock. This semaphore is shared across all PCI buses.
->  
-> VFIO recovery blocks new accesses, waits for existing SRCU readers to
-> finish, and takes memory_lock. Power transitions also take memory_lock,
-> but entering D0 can then acquire pci_bus_sem to update PCIe link power
-> management (ASPM).
-> 
-> Local Sashiko/Claude review reports a lock-order conflict as below:
-> 
->  1. A guest D0 request holds memory_lock.
->  2. PCI core holds pci_bus_sem for reading while VFIO's recovery
->     callback waits for memory_lock.
->  3. Removal of an unrelated PCI device waits for the bus write lock.
->  4. D0's ASPM update requests the bus read lock and waits behind that
->     writer.
-> 
-> Each task waits for another, so none can proceed.
-> 
-> One possible solution could be(not implemented):
-> 
->  - PCI core guarantees that pci_bus_sem is held for reading before
->    invoking supported recovery callbacks. VFIO uses
->    pci_set_power_state_locked() in those callbacks, avoiding another
->    acquisition of the bus lock.
->  - A new pci_try_set_power_state() helper tries to acquire pci_bus_sem
->    and returns -EAGAIN on contention. Ordinary VFIO D0 paths use this
->    helper and handle failure instead of waiting while holding VFIO locks
-> 	  
-> Not sure there are better ways to handle this or not. Feedbacks appreciated
-> on this.
+Before diving in the deeper review, I have some questions:
+(1) The goal of hfs_correct_next_unused_CNID() was to fix the volume
+corruption issue. Have you run hfs.fsck tool to check that volume is
+valid (not corrupted) after your fix?
+(2) Have you run xfstests (especially, generic/736) with your fix?
+Because, the patch had goal to fix the generic/736 failure:
 
-I've been churning tokens with an LLM on this.  My original intent was
-that a disconnect via srcu between a device object and user interface
-object, or at least ops pointers that act on the device, at the
-vfio-core level could help to avoid this.  While that may be
-worthwhile for more general use cases of removing user access to the
-device (surprise unplug, force unbind, etc.), it doesn't seem to
-resolve the scenario here.  In fact I haven't come up with better
-solutions than you've already suggested above.
+    generic/736 [03:18:33][ 3.510255] run fstests generic/736 at 2025-
+05-05 03:18:33
+    _check_generic_filesystem: filesystem on /dev/vdb is inconsistent
+    (see /results/hfs/results-default/generic/736.full for details)
+    Ran: generic/736
+    Failures: generic/736
+    Failed 1 of 1 tests
+   =20
+    The HFS volume becomes corrupted after the test run:
+   =20
+    sudo fsck.hfs -d /dev/loop50
+    ** /dev/loop50
+    Using cacheBlockSize=3D32K cacheTotalBlock=3D1024 cacheSize=3D32768K.
+    Executing fsck_hfs (version 540.1-Linux).
+    ** Checking HFS volume.
+    The volume name is untitled
+    ** Checking extents overflow file.
+    ** Checking catalog file.
+    ** Checking catalog hierarchy.
+    ** Checking volume bitmap.
+    ** Checking volume information.
+    invalid MDB drNxtCNID
+    Master Directory Block needs minor repair
+    (1, 0)
+    Verify Status: VIStat =3D 0x8000, ABTStat =3D 0x0000 EBTStat =3D 0x0000
+    CBTStat =3D 0x0000 CatStat =3D 0x00000000
+    ** Repairing volume.
+    ** Rechecking volume.
+    ** Checking HFS volume.
+    The volume name is untitled
+    ** Checking extents overflow file.
+    ** Checking catalog file.
+    ** Checking catalog hierarchy.
+    ** Checking volume bitmap.
+    ** Checking volume information.
+    ** The volume untitled was repaired successfully.
 
-> 
-> Another issue flagged was(I think this is a pre-existing one):
->  - Open/close coordination with the whole host recovery transaction
->    was already missing. Recovery can start after the open check, and
->    close can overlap the physical reset. Restoration of closed devices
->    is also not implemented.
+Thanks,
+Slava.=20
 
-Yes, it's pre-existing.  A more structured concept of a disconnected
-device would help make these gaps easier to close as well.  Thanks,
-
-Alex
+>=20
+> Fixes: a06ec283e125 ("hfs: add logic of correcting a next unused
+> CNID")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> The fallback follows leaf sibling links independently of node
+> numbers.
+> Bound its iterations by the tree's total node count and acquire a
+> fresh
+> node reference on every visit, including when a cycle returns to the
+> tail.
+> The budget check runs before acquisition; exhaustion returns EIO
+> without
+> using the partial maximum to update next_id.
+>=20
+> Tested on v7.3-rc6 with GCC 10.5 and the unchanged KASAN
+> configuration:
+> 14 normal-volume cases passed, including predecessor lookup, ID
+> holes,
+> missing file threads, concurrency and reordered leaf node numbers.
+> Three malformed prev chains (tail self-loop, a loop returning to the
+> tail,
+> and a loop excluding the tail) each returned EIO after exactly
+> node_count
+> visits. The on-disk next CNID was unchanged; no KASAN or BUG was
+> observed.
+>=20
+> =C2=A0fs/hfs/catalog.c | 80 +++++++++++++++++++++++++++++----------------=
+-
+> --
+> =C2=A01 file changed, 48 insertions(+), 32 deletions(-)
+>=20
+> diff --git a/fs/hfs/catalog.c b/fs/hfs/catalog.c
+> index 490c5e130da3..2d90f1857781 100644
+> --- a/fs/hfs/catalog.c
+> +++ b/fs/hfs/catalog.c
+> @@ -269,48 +269,54 @@ void hfs_set_next_unused_CNID(struct
+> super_block *sb,
+> =C2=A0 * Correct the next unused CNID of Catalog Tree.
+> =C2=A0 */
+> =C2=A0static
+> -int hfs_correct_next_unused_CNID(struct super_block *sb, u32 cnid)
+> +int hfs_correct_next_unused_CNID(struct super_block *sb,
+> +				 struct hfs_find_data *fd, u32 cnid)
+> =C2=A0{
+> =C2=A0	struct hfs_btree *cat_tree;
+> =C2=A0	struct hfs_bnode *node;
+> +	u32 max_cnid =3D 0;
+> +	u32 remaining;
+> =C2=A0	s64 leaf_head;
+> =C2=A0	s64 leaf_tail;
+> =C2=A0	s64 node_id;
+> +	int res;
+> =C2=A0
+> =C2=A0	hfs_dbg("cnid %u, next_id %lld\n",
+> =C2=A0		cnid, atomic64_read(&HFS_SB(sb)->next_id));
+> =C2=A0
+> -	if ((cnid + 1) < atomic64_read(&HFS_SB(sb)->next_id)) {
+> +	if ((cnid + 1) !=3D atomic64_read(&HFS_SB(sb)->next_id)) {
+> =C2=A0		/* next ID should be unchanged */
+> =C2=A0		return 0;
+> =C2=A0	}
+> =C2=A0
+> +	/* If the previous CNID is still in use, it must be the
+> maximum. */
+> +	res =3D hfs_cat_find_brec(sb, cnid - 1, fd);
+> +	if (!res) {
+> +		hfs_set_next_unused_CNID(sb, cnid, cnid - 1);
+> +		return 0;
+> +	}
+> +	if (res !=3D -ENOENT)
+> +		return res;
+> +
+> =C2=A0	cat_tree =3D HFS_SB(sb)->cat_tree;
+> =C2=A0	leaf_head =3D cat_tree->leaf_head;
+> =C2=A0	leaf_tail =3D cat_tree->leaf_tail;
+> -
+> -	if (leaf_head > leaf_tail) {
+> -		pr_err("node is corrupted: leaf_head %lld, leaf_tail
+> %lld\n",
+> -			leaf_head, leaf_tail);
+> -		return -ERANGE;
+> -	}
+> -
+> -	node =3D hfs_bnode_find(cat_tree, leaf_tail);
+> -	if (IS_ERR(node)) {
+> -		pr_err("fail to find leaf node: node ID %lld\n",
+> -			leaf_tail);
+> -		return -ENOENT;
+> -	}
+> -
+> +	remaining =3D cat_tree->node_count;
+> =C2=A0	node_id =3D leaf_tail;
+> =C2=A0
+> =C2=A0	do {
+> =C2=A0		int i;
+> =C2=A0
+> -		if (node_id !=3D leaf_tail) {
+> -			node =3D hfs_bnode_find(cat_tree, node_id);
+> -			if (IS_ERR(node))
+> -				return -ENOENT;
+> +		/* A valid leaf chain cannot visit more nodes than
+> the tree. */
+> +		if (!remaining)
+> +			return -EIO;
+> +		remaining--;
+> +
+> +		node =3D hfs_bnode_find(cat_tree, node_id);
+> +		if (IS_ERR(node)) {
+> +			pr_err("fail to find leaf node: node ID
+> %lld\n",
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node_id);
+> +			return PTR_ERR(node);
+> =C2=A0		}
+> =C2=A0
+> =C2=A0		hfs_dbg("node %lld, leaf_tail %lld, leaf_head
+> %lld\n",
+> @@ -331,42 +337,52 @@ int hfs_correct_next_unused_CNID(struct
+> super_block *sb, u32 cnid)
+> =C2=A0				pr_err("fail to get the keylen: "
+> =C2=A0					"node_id %lld, record index
+> %d\n",
+> =C2=A0					node_id, i);
+> -				return -EINVAL;
+> +				res =3D -EINVAL;
+> +				goto out;
+> =C2=A0			}
+> =C2=A0
+> =C2=A0			entryoffset =3D off + keylen;
+> =C2=A0			entrylength =3D len - keylen;
+> =C2=A0
+> -			if (entrylength > sizeof(rec)) {
+> +			if (entrylength <=3D 0 || entrylength >
+> sizeof(rec)) {
+> =C2=A0				pr_err("unexpected record length: "
+> =C2=A0					"entrylength %d\n",
+> =C2=A0					entrylength);
+> -				return -EINVAL;
+> +				res =3D -EINVAL;
+> +				goto out;
+> =C2=A0			}
+> =C2=A0
+> =C2=A0			hfs_bnode_read(node, &rec, entryoffset,
+> entrylength);
+> =C2=A0
+> =C2=A0			if (rec.type =3D=3D HFS_CDR_DIR) {
+> +				if (entrylength !=3D sizeof(struct
+> hfs_cat_dir)) {
+> +					res =3D -EIO;
+> +					goto out;
+> +				}
+> =C2=A0				found_cnid =3D
+> be32_to_cpu(rec.dir.DirID);
+> =C2=A0				hfs_dbg("found_cnid %u\n",
+> found_cnid);
+> -				hfs_set_next_unused_CNID(sb, cnid,
+> found_cnid);
+> -				hfs_bnode_put(node);
+> -				return 0;
+> +				max_cnid =3D max(max_cnid,
+> found_cnid);
+> =C2=A0			} else if (rec.type =3D=3D HFS_CDR_FIL) {
+> +				if (entrylength !=3D sizeof(struct
+> hfs_cat_file)) {
+> +					res =3D -EIO;
+> +					goto out;
+> +				}
+> =C2=A0				found_cnid =3D
+> be32_to_cpu(rec.file.FlNum);
+> =C2=A0				hfs_dbg("found_cnid %u\n",
+> found_cnid);
+> -				hfs_set_next_unused_CNID(sb, cnid,
+> found_cnid);
+> -				hfs_bnode_put(node);
+> -				return 0;
+> +				max_cnid =3D max(max_cnid,
+> found_cnid);
+> =C2=A0			}
+> =C2=A0		}
+> =C2=A0
+> =C2=A0		node_id =3D node->prev;
+> =C2=A0		hfs_bnode_put(node);
+> =C2=A0
+> -	} while (node_id >=3D leaf_head);
+> +	} while (node_id);
+> =C2=A0
+> -	return -ENOENT;
+> +	hfs_set_next_unused_CNID(sb, cnid, max_cnid);
+> +	return 0;
+> +out:
+> +	hfs_bnode_put(node);
+> +	return res;
+> =C2=A0}
+> =C2=A0
+> =C2=A0/*
+> @@ -420,7 +436,7 @@ int hfs_cat_delete(u32 cnid, struct inode *dir,
+> const struct qstr *str)
+> =C2=A0	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
+> =C2=A0	mark_inode_dirty(dir);
+> =C2=A0
+> -	res =3D hfs_correct_next_unused_CNID(sb, cnid);
+> +	res =3D hfs_correct_next_unused_CNID(sb, &fd, cnid);
+> =C2=A0	if (res)
+> =C2=A0		goto out;
+> =C2=A0
