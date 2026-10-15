@@ -1,101 +1,73 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87F0519E10
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBCD37FF76;
+	Thu, 15 Oct 2026 11:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065437; cv=none; b=YtK+m1sbV+ppGY+Z8R+3uSKLpI3MM2wGblrih/L+nPnd5XXriS2fDRPEGRj0vySmsW7YFdOUEd/aD4c3FY9U+dofWuXBu2PEd/k0lchUC9eVed3o5cPMYb70rmX60pDq69LiP8ZapvNo0fB/SxOEuVhGlS+Hh3rTq/sQqBM3wo0=
+	t=1792065465; cv=none; b=K0GCobnglQHWB2yKhGMWbZSn0PFl2tEIh2muQgmPkrLOt9jws9ZZWIp/t5Mp//MIdGCQwzF3FIu+3oPqlbCAY4ICWH0RH8PcOGcDWAChrMjcNXALmTlivOH+A9wx5qmLgNH+nJ9/rBT+3NWsXQ3XOCH8m/tUHFrWP8SSx8OCajA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065437; c=relaxed/simple;
-	bh=3XCuBw38kpgO4xOaIKCKr5QjgzDN5P/inh/IbOiOiyI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gvFqehWS9cyr6D0YUqZhUdAety3pf7ilN6foY72ZwgZ8+sVAOMeLjGB71CQX63Tem0EZGesAnOls6DvQJOnZGIL6PhsT2/hYCDnmL+299h0OkiwZYDFMv33/8ElOmXKvgodlt9XvaWmDFmrYjgf26sGFTkdBafK3Ja5DgL7Ncf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M+HUaCs7; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792065465; c=relaxed/simple;
+	bh=JvXuenLF+b4xhhHq/Bj6Qgdd2Ert0xvkhcOU/N1WslE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PcXmnvpHeLiZJgzryxqS/dnTfgg91LCHhOZ7/CS/ppWLckpYsdkz5HVYsHlKIFz8erzaxdFZ9Jn5MGIJT7K+VZHwbOTUWg9Qs3X1GqA0fuOjeTN/2pJiwRieXrM1yYdwgEnSQD4qnbfX09yVh9OzMAUhF+MQh+T5+v2tiHlNuZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=xca9RJb7; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M+HUaCs7"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1317340a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792065435; x=1792670235; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=906FzucSaczRxmafxCH5c+olZhTAIC+89/t5khd2vjw=;
-        b=M+HUaCs72f6tElHxCdWNVdWBOhVndCI5gils0aPtGoK/9wquhSRIqrhtE85g46GMDA
-         /QuZGBvpfRLOrH7t3LVel5jkdlrupxkwiBcDzJMU4utT/m09USo+bYq4ZIjnrZyLTmkz
-         oUtPWxhDxOT/X/9LNTo2T+Wb2R1IxwCuKlUGVaP5+TiXRorgvhnySUPyoQiFmKOAu0dn
-         FHmPd9BHtxCtEG5dbhQ1KrOau9jSVfnWbr7PcJ8WZvNlpLT1xN1h15nBZ5QtIQh7z905
-         +tkWpFfdAEKKgyCqPLZDPNkmIulDmqgMQNqiA/b8pEQdfYsjGkM5zXWre7p7237hdB5D
-         UfEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792065435; x=1792670235;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=906FzucSaczRxmafxCH5c+olZhTAIC+89/t5khd2vjw=;
-        b=sHnXFyElkvTF6z7yhymCxG8t3TxZ+niHgzgCDf8PZ2l91bXR7zDrNqnuve91CZcrCy
-         vcTVQDmfsQdHrCO2aUTgLjZ4WbnXc/PwMUxItAGQ6nCVLy8vSvmhpRGQ0uJRmqUeudXH
-         lHIF0sg7GGwonE97fweVYg4QnSdYt0KfzOg2ku/vt++K7mvnJcV0OtkiSehkvcyDtg9t
-         9AD6YvadyilozeXigESkxa8Azx5mdnvJEOcUl1JFySxqg3SMJtBfAhI6BmWxJK6CYvXt
-         5Z/hI4jMoSiGwCPfgnrS1RfgQFVCj3H7YZJYZLTXGYFHSHqfBeOpDTWYB67i3GexuMb0
-         2OOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwoN4iHQIufBRlNx+pjzjgLYhaNozFTSJRTO8zuaFAmOHsmOTQiWU4pW0NrM99mQL+kLSmcpM0h+FOM5u0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQmvFQ6811YU5+9I5QXznSz60jWD5uv7CGt5qVcdfZSok6d5ly
-	KqYN9K7k5r3N8koPZBJATnjUhnDJq23h2EYWaYCc+mfL1sKBfAaM6chx
-X-Gm-Gg: AYBFou3mNcFYuTB1kM18U/F6TAxxJSdwqnjLjjOyUR/CLyWwBlhgl+Y3uARt1l4VstP
-	Al8l7QKkJtUHHT7E511BPm5xBmNY6zM+G0d6Cw1VywosNa1yixSeKv9N23q9EtoHoTlrl8ikbAk
-	0YvMD8T1XFuRIjj35WOJB3+1bVQrqKH8lTy4qm/QAQlOdNEYyOLEOci1yRJdP+UlS1z9tfksn64
-	KssdRxcom4JMJ5JTzR8AvEu/Qmrsm/CuM7AMvkKkc2M+D6k1V+0oPK/N+ZejyrPukxDd6jQyp7O
-	59Hg086qwlcYhEyJFvyVZDXMEJE3FJn91BTtYKOhFYiiVa2UG+7OmdaTwZcbbdXCSGFjO9kGjmc
-	ZAGQkZ4GrIDwFVQEW5C6HqvO0bwKmv3hNtCit1HLZPDs9Y3xQEH0D1GqXtI+UrcWkCqw0+Oc2AE
-	cqNlzgg9FacNJVtdfcY3Nqm7bU+3JKMRaKiQAsEH36clZrn8GI4hS5mRIXE3suxMWvdcnGnfAog
-	RDHSp86MAZj6zi1sMqM+8gkMeQ=
-X-Received: by 2002:a17:90b:2ec4:b0:39e:574d:3d2f with SMTP id 98e67ed59e1d1-3ab3a39ee2fmr16098050a91.7.1792065434854;
-        Thu, 15 Oct 2026 04:57:14 -0700 (PDT)
-Received: from localhost.localdomain ([183.250.189.231])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e74bcsm4236919a91.3.2026.10.15.04.57.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 04:57:14 -0700 (PDT)
-From: Ye Linfei <yelinfei66@gmail.com>
-X-Google-Original-From: Ye Linfei <yelinfei@ruijie.com.cn>
-To: chengzhihao1@huawei.com
-Cc: linux-mtd@lists.infradead.org,
-	richard@nod.at,
-	miquel.raynal@bootlin.com,
-	vigneshr@ti.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mtd: ubi: use GFP_NOIO for lock tree entry allocation
-Date: Thu, 15 Oct 2026 19:56:53 +0800
-Message-Id: <reply-zhihao-patch2.1792046946.git.yelinfei@ruijie.com.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <f89c80cb-d879-ede2-9459-1778ff2f71c2@huawei.com>
-References: <cover.1792046946.git.yelinfei@ruijie.com.cn> <8b4e0b970271095df8321b1662aa464c5b9002dc.1792046946.git.yelinfei@ruijie.com.cn> <f89c80cb-d879-ede2-9459-1778ff2f71c2@huawei.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="xca9RJb7"
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id ED9694096A;
+	Thu, 15 Oct 2026 11:57:35 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 3034B20028;
+	Thu, 15 Oct 2026 11:57:34 +0000 (UTC)
+Date: Thu, 15 Oct 2026 07:57:32 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Haoran Wang <haoranwangsec@gmail.com>
+Cc: mhiramat@kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com
+Subject: Re: [PATCH] tracing: guard trace_event_get_offsets() against an
+ empty fields list
+Message-ID: <20261015075732.1a0e9bc6@226.227.38.69.naturalwireless.com>
+In-Reply-To: <6ad09433.a938ce27.3282d8.5f98@mx.google.com>
+References: <6ad09433.a938ce27.3282d8.5f98@mx.google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 3034B20028
+X-Stat-Signature: ejoof7f6f8oqzac41io641x48esrfp15
+X-Rspamd-Server: rspamout01
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19OUN7WkzHlOs53F9zVA40E+/55SaVuZtI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=j7W61aF5OzwBAsCJAucTc4mWUWmR61vJ7Wwj6/Y+xpk=; b=xca9RJb7FGXBzPM2xn+iE6xX7RM2QDkKZ5B0/i0+06Wh/UabElyQl4jdo3xoQ+P/GAxVZLH6DIgCaHLoxA8+nzUH3bT149qF15LouOSFEnt9G3p8pNWA7XBNCElhoOPUfZ0V39vIzbQDp99aJV/KgP/IVONpcRVwXebNaW9lMcQ=
+X-HE-Tag: 1792065454-742779
+X-HE-Meta: U2FsdGVkX1+k4SgGr+Hy7+Z4GV43WpU5PzMjsKwYWvsKIwanR3dadvwKMQy02EaV7sDkY9E6YWdIatGTWBvQ9pPTlFXzjgSqTVui/Af8e4UYTQjy5vfQ4YfSt9XDioUkqW1WUgBF/sdttays6ZmYRY+788RHMCpZaX8o0ah9GFr9Ow0NTt09aVaFoav+GpUJ24poPRogaN+iOm2NnG9beNqvGZ+K4ZTgHmo2xPQRW2QPu896iuPUDyRWGXkwpjJN2hiLIZ4ULdJPbxUwHpNIji+iE1wnm7TrbQlHMOlKOwLbu2RsDLU5fucyfFr4kd3ZICYZojp2oBLoh0aaBNph1Efl71eoehUH
 
-On Thu, 2026-10-15 at 19:03 +0800, Zhihao Cheng wrote:
-> The ltree_add_entry() has many callers that not need GFP_NOIO, I think
-> 'mtd: ubi: block: forbid direct reclaim I/O during synchronous read'
-> is enough.
+On Thu, 15 Oct 2026 16:51:58 +0800
+Haoran Wang <haoranwangsec@gmail.com> wrote:
 
-Agreed, and thanks for catching this.
+> 6. Proof of Concept
+> 
+> The reproduction runs on 7.2.10 kernel. A custom-tracepoint module
+> (zerofield_mod) registers a zero-field tracepoint (empty TP_STRUCT__entry)
 
-With memalloc_noio_save() in place, the ltree allocation inside
-ubiblock_read() already drops __GFP_IO implicitly, so the explicit
-GFP_NOIO there adds nothing.  The remaining ltree_add_entry() callers
-(ubi_eba_write_leb() and friends from cdev/update/wear-leveling paths)
-run in process or kthread context rather than a blk-mq synchronous
-dispatch loop, where swap I/O triggered by direct reclaim can complete
-normally; forcing GFP_NOIO on them is unnecessary.
+The real fix is to reject any event with an empty TP_STRUCT__entry.
 
-I will drop this patch and send a v2 with the block driver change only.
+-- Steve
 
-Ye Linfei
+
+> and places an inert 64-byte 0x53 sentinel in .ref.data right after the
+> 72-byte event_class global (GCC lays out same-section statics by
+> descending size), so the kernel's OOB read of class+84/class+88 picks up
+> 0x53535353 instead of zero section padding. The sentinel is inert data --
+> it does not change kernel control flow or inject a bug; it only makes the
+> pre-existing OOB read's effect observable (off becomes non-zero instead of
+> silently zero, the latter being indistinguishable from a fixed kernel
+> returning 0).
+
