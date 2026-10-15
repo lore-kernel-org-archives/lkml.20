@@ -1,74 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0394F799E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA98B502D70;
+	Thu, 15 Oct 2026 11:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063319; cv=none; b=kpmDFSeTrpOnyvo8lERQ5DQbE5sAM8KvovH1GqW12TzCfItKtbmpsaU/OMbfk1AbFUvhgglvjNviLJZXp7moPyX4LPn5lcrJqGwFj0C8lXyCs1zxBGilzFfnHoz5V3NA4o7ruLh+V35wdlAQ01Rk6CK60pMQuZtfRIbqrCeZyIs=
+	t=1792063356; cv=none; b=LRt2VrWXEN9XD/NAibVpRDgUAUMEBbrx0Sft2bkMLcBmPeTTGkrfRRB5SIxDcVur01M2HxhOY2gVJi1Bdoi/c7p2NHtbC3kB601fIhdf4iJ5OFTmO091XGhtebvEQs8QLzznadYqFNxeoapd4HI03RgzPonh9mralWN7jIUNHrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063319; c=relaxed/simple;
-	bh=6LRLl4jVPEFVAXY2BRqgZpy/X6yETBthjrFMUB4zjSo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=UOxiaSz1OV2ztbabAM8XyFFi8Ij8/wCxN20HvmFLHy9eys+YHgp0Cs7qzOD0fbxBmcrrFpUWjczyVitgnzjRzyT+Bk4i5eeJbiV/jOsaK95JQPAgmlJklJvs8+eiNnWjSVrzwwDuING40zKpDzEgQTY4uf791RYLK3ZhJvMdSXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=L/9wNE0O; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792063356; c=relaxed/simple;
+	bh=aMxJHIWlVQlSshgv/y9UUCL7CLcqpL9m3f0H/p2ZYsc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V50rbMeuc6wzkKpfrc65jZapVOzgFW8+Vcww8p8NCWpc3nmgUIu8TgeLXRaFGpWThWoV/ak7lEJ1C4pX0tyLtSq28QDqCSQo5jgYjD/tDpxn/3A0vWa/VawjAYEBYLtdOx5lwYiWlN2YSKjj0c09lDha36fD1f1POz1nfyA8W7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ce0UlVOr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="L/9wNE0O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=6LRLl4jVPEFVAXY2BRqgZpy/X6yETBthjrFMUB4zjSo=; b=L
-	/9wNE0OnMg/TLFGeJV8jpxj88Kkaa9uuY+5zf0UnawavR8yDYW5N1k7BqZ0RvcNJ
-	SejKs9EUu+Rc3iJyMlZD/2ilBpV83S8Tcgv6SrHdr3NHZBnQYO9TU5DXXiZ3bT1H
-	RQNXA4EG5cbhCgnyMy4+0A6ylXn/go6Z44hsUbDh0A=
-Date: Thu, 15 Oct 2026 19:20:40 +0800 (CST)
-From: kensanya  <kensanya@163.com>
-To: "Christoph Hellwig" <hch@lst.de>
-Cc: justin.tee@broadcom.com, nareshgottumukkala83@gmail.com,
-	paul.ely@broadcom.com, sagi@grimberg.me, kch@nvidia.com,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	TanZheng <tanzheng@kylinos.cn>
-Subject: Re:Re: [PATCH] nvmet-fc: skip hostport ops when the LLDD has no
- host handle
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261015061449.GA14497@lst.de>
-References: <20261014075303.277735-1-kensanya@163.com>
- <20261015061449.GA14497@lst.de>
-X-NTES-SC: AL_Qu2SAPydvEov5iWYZ+kcnkcTg+k8WMW1ufsg2Ydec/4EswX9+hASWlF5LWX1/+uDGhqFqgmybiFH5+hjQKhGNmqyOAipXo4kMzfWuftYFw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ce0UlVOr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE041F000C4;
+	Thu, 15 Oct 2026 11:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792063345;
+	bh=0bZqwPG1wq/RthV+cWbRM5Z37j8aa7pr5Ny6doQT6s8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ce0UlVOratY16ZBAbkQpvDIb2sdp+racO2JI7oiOCzsN/+AmqSLEit7LJutDcTmlJ
+	 XOJWIB69NqilrTxR5TwojHtZPqk4UQYU+HdffWOoGN4YMIxrQ1k61AqS8uxNjqaWvx
+	 0AWGJ/GFo44vQkpkh6ZRTmLIZG+SitDzJ1Bey1tnGFVbJiLkVyNzsjVMRLatBxlRBY
+	 VLfLHFG63dCVqhuW3Pn6GVOzDvrSx+rQGCaBvfWjBgY7i25ToxYB5wH5FLp8Y0JmVl
+	 Mf7Wg4SlwZwFmDjmSl2c65Z0lOK15Bv7PqKD45TWymoXzsj873oNeYa/iwzabH9gzp
+	 /qb9I6VPYhiJg==
+Date: Thu, 15 Oct 2026 12:22:21 +0100
+From: Simon Horman <horms@kernel.org>
+To: mail@gmelikov.ru
+Cc: Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Edward Cree <ecree.xilinx@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] bnx2x: fix header length calculation for
+ encapsulated TSO
+Message-ID: <20261015112221.GG83879@horms.kernel.org>
+References: <20261009-bnx2x-tso-fix-v1-1-1ebea422422d@gmelikov.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <7273ecea.964a.1a13f4af93f.Coremail.kensanya@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:dSgvCgD3_ysJt9BqTehZAA--.5112W
-X-CM-SenderInfo: 5nhq2txq1dqiywtou0bp/xtbC6gm+mmrQtwnzMQAA3B
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-bnx2x-tso-fix-v1-1-1ebea422422d@gmelikov.ru>
 
-QXQgMjAyNi0xMC0xNSAxNDoxNDo0OSwgIkNocmlzdG9waCBIZWxsd2lnIiA8aGNoQGxzdC5kZT4g
-d3JvdGU6Cj5PbiBXZWQsIE9jdCAxNCwgMjAyNiBhdCAwMzo1MzowM1BNICswODAwLCBrZW5zYW55
-YUAxNjMuY29tIHdyb3RlOgo+PiBGcm9tOiBUYW5aaGVuZyA8dGFuemhlbmdAa3lsaW5vcy5jbj4K
-Pj4gCj4+IG52bWV0X2ZjX2FsbG9jX2hvc3Rwb3J0KCkgcmV0dXJucyBOVUxMIHdoZW4gdGhlIExM
-REQgcGFzc2VzIGEgTlVMTAo+PiBob3N0aGFuZGxlLiBUaGF0IGlzIG5vdCBhbiBFUlJfUFRSLCBz
-byBudm1ldF9mY19hbGxvY190YXJnZXRfYXNzb2MoKQo+PiBrZWVwcyB0aGUgYXNzb2NpYXRpb24g
-YW5kIGxlYXZlcyBhc3NvYy0+aG9zdHBvcnQgTlVMTC4KPgo+QSBOVUxMIGhvc3RoYW5kbGUgZG9l
-c24ndCBtYWtlIG11Y2ggc2Vuc2UsIHNvIHdoeSBkbyB5b3Ugd2FudCB0byBoYW5kbGUKPnRoYXQ/
-CgpIaS4KCm52bWV0X2ZjX3Jjdl9sc19yZXEoKSBvbmx5IHN0b3JlcyB0aGUgaG9zdGhhbmRsZSBp
-biB0aGUgaW9kLiBJdCBkb2VzIG5vdCBjYWxsIApudm1ldF9mY19hbGxvY19ob3N0cG9ydCgpLiBU
-aGF0IGZ1bmN0aW9uIHJldHVybnMgTlVMTCBmb3IgYSBOVUxMIGhvc3RoYW5kbGUsIAphbmQgbnZt
-ZXRfZmNfYWxsb2NfdGFyZ2V0X2Fzc29jKCkgc3RvcmVzIGl0IGluIGFzc29jLT5ob3N0cG9ydC4g
-ClRoZSBhc3NvY2lhdGlvbiBpcyBzdGlsbCBjcmVhdGVkLCBzbyB0ZWFyZG93biBjYW4gTlVMTC1k
-ZXJlZmVyZW5jZSBpdCBpbiBudm1ldF8KZmNfaG9zdHBvcnRfcHV0KCksIGFuZCBpbiBudm1ldF9m
-Y194bXRfZGlzY29ubmVjdF9hc3NvYygpIHdoZW4gb3BzLT5sc19yZXEgaXMgc2V0LgoKbnZtZXRf
-ZmNfaG9zdHBvcnRfcHV0KCkgbmVlZHMgdGhlIHNhbWUgY2hlY2suIE5vIGhvc3Rwb3J0IGlzIGFs
-bG9jYXRlZCBhbmQgCm5vIGtyZWYgaXMgdGFrZW4sIGJ1dCBudm1ldF9mY190YXJnZXRfYXNzb2Nf
-ZnJlZSgpIHN0aWxsIGNhbGxzIG52bWV0X2ZjX2hvc3Rwb3J0X3B1dChhc3NvYy0+aG9zdHBvcnQp
-LCAKd2hpY2ggZG9lcyBrcmVmX3B1dCgmaG9zdHBvcnQtPnJlZiwgbnZtZXRfZmNfaG9zdHBvcnRf
-ZnJlZSkuCgpCZXN0IHJlZ2FyZC4KVGFuWmhlbmcu
+On Fri, Oct 09, 2026 at 08:30:18PM +0300, George Melikov via B4 Relay wrote:
+> From: George Melikov <mail@gmelikov.ru>
+> 
+> Commit 80bfab79b835 ("net: adopt skb_network_offset() and similar helpers")
+> replaced the difference between the inner transport header and the outer
+> network header with skb_inner_transport_offset().
+> The helper is relative to skb->data, so the new calculation incorrectly
+> includes the outer Ethernet header in fw_ip_hdr_to_payload_w.
+> 
+> On a BCM57810 transmitting TCP over VXLAN with an outer MTU of 1500,
+> hardware segmentation emits packets declaring an outer IPv4 total length
+> of 1514 while the actual IP packet is only 1500 bytes long. The receiver
+> drops these malformed packets, severely degrading TCP connectivity.
+> 
+> Subtract skb_network_offset() to restore the original calculation of the
+> length from the outer network header to the inner TCP payload.
+> 
+> Reproduced with plain kernel VXLAN and one TCP flow on kernel
+> 7.0.0-31-generic: 50 of 200 captured packets had an invalid outer IP length
+> with the original driver, versus none with this fix. Disabling TSO/GSO on
+> the test VXLAN device also eliminated the error with the original driver.
+> 
+> Fixes: 80bfab79b835 ("net: adopt skb_network_offset() and similar helpers")
+> Signed-off-by: George Melikov <mail@gmelikov.ru>
+> Assisted-by: LLM
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
