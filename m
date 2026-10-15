@@ -1,163 +1,241 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCBB56511E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792085771; cv=pass; b=AyJ1IbkpdV4RKzkEX2Q9gv5DhjunGoMvm3Zfgvtm8pMjXheu2Ma5JizS05GnUOuu4gUGXBsq3MoMW9f0rUYjqMb5gagk1kExvuEuDtXV7wWhq8iiC9WoCpHRXZkKWa2H80NZtBEKaDKAvZT/8o5qczvOH+qFMM4+zVaRK4J9Xis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792085771; c=relaxed/simple;
-	bh=dm9d8Wo7phCvR235TygduRlnGSKE1I/4rDerIX3YHQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ph4KBFA9pGhT+9vZiA1XCYT3HzbzxPKFTXsmzt4Gqq/45DnrV8O+wd04EcKQpsc9jn91A/3qErD3L/fpB1MVHJZclGY93/SbGN0KpVk75YYCZFnAqyaRqkE5c+LtYbBQtRKbK9/v6khaUaISrGDJBBmF+bCJ1Ep0Dg4mpYM7BMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mo8arRBp; arc=pass smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC594404BC8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792085794; cv=none; b=Fuq2PUn6ELvpyP9ev01sgLOpjc1tu11zHjlyBtw4jhSegikkQByA2AX4tvWNeJ/l6VvwQ7A9LX1+hFpt3VypQXbNcuqi+YUZYSI6RJOjLyz+ICfzqJtScD6ZPPiGjcj6n4FUsUgBcsUYgZZ6/RXdB37NZP+EbdYzzM8VFGCEf6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792085794; c=relaxed/simple;
+	bh=XMZWNSALGx66DAXTjiCW6D0VHKFTsEvlhMkKHIV7N3U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=HxNAbTIdkqz/aK+dpYUTEoZf5oH2wjAnw7xMozWuWC3sLxr9//+P8W1scitJC1ue3L4GmH+AebcL3yW3BmlSd7aqgc5cRftK4Uzii00Mctsh9Aw2a35tvxlcnnGX8tMKa7e6QBuPKOewxL4sUAoV8n6zyXFZxZqyrV0IRlzYqZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6hvOgH4; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mo8arRBp"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8ab432273c5so50542347b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:36:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792085760; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g9FoHHw6kIy6Pcj72MTNb7D5Ukm4boWrT67pEHIajujPudOGPY5QGvr9chGIKa9rJx
-         RBHleOoz8zKwMoDWI/LEUi4BHuF7Mp4HX9K8tM40Dp88DiW9i/wbD4QMKWynmxyEfb7o
-         iDH8rFyEzVm0HBztBE3xXXaKIPzPHbjjv80kzX6uaHGLj/vx7IAthLZjAsthcBpH2JNn
-         7f416YeX24rIqx7tfQK4ddS3HiI2qIntGd5cmMA9PYDml4QA6WRjlBa/MfTdix8Z34EI
-         2pAuxFjcyWfts5J0LvOXb3onnjKhGgHvUdPh0P1N8BSgzYCZVoS4wYkQ4nAwwxsGULQV
-         0B0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dm9d8Wo7phCvR235TygduRlnGSKE1I/4rDerIX3YHQA=;
-        fh=WjHo3BScqE130SkYh+Y+trkmmqinf7gEdOnYuILNJNc=;
-        b=oek68pkKhL9y2IhE8Y4znz+pmWAOVVwyFfR8860cnqxrKsDKkbhZnl+cYncT9zwIA6
-         cxHfsvQSQ3S1fzSFEbZG6y+eDKJeaY0aNOCCjWSZGxuJ7BvmLt60AYf1ziKDDDppwzvR
-         YVTj9THde8bQTVa6oyOGiNwzoioa78Byd/zyF6n2Q0fOMRK+POj7ErE4FmBLzzSmmOvz
-         cN0qo9Ju5L/tdl/sUOwj2Kd2OVpHxshAhcRR2ebdmHVinl3ZD1EhdfH2zwa7JMsvr66M
-         gWyVEdhATf8xyN0BHGpsGXW/DhVxz1RVRuIKdB1UImfiTwi3EongqrzQOgLwozEAQLYe
-         rjjQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6hvOgH4"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-88b7d853b11so1014235b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:36:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792085760; x=1792690560; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dm9d8Wo7phCvR235TygduRlnGSKE1I/4rDerIX3YHQA=;
-        b=mo8arRBp4Jfh8UYILGXLhAkhdCrikPAbVWDzvUQdlrPr9kRMJ+rOlkSQinqRO2b8nL
-         +e2KPo6L+7Bai4X08Cuo9O/xYjaGTbxmLN0UWftL//2sniRJOg4ZGE7DEO/7Ho01feEf
-         C2omtWjh6qpp3AcY2gJUWgwXcly0Gay26bbA53nAVsz8jetkb/G9CR/IN/Hw8eXiJLFI
-         22Dz2/eFy0/BeNakjEv4ZbzYCQgvar7v7rPZDPIbkEp8I49SdH44E11KF1W+cKgpRBS9
-         YpBjY7m9svi0Mbd6/JP9lnWAO+vv0GL9ZxbaedyhuuhDTihZjmcZhNWZ2SWJgTy0pgc+
-         Oxrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792085760; x=1792690560;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792085783; x=1792690583; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dm9d8Wo7phCvR235TygduRlnGSKE1I/4rDerIX3YHQA=;
-        b=tTPVBtMtFKELjAAxlgzYriOJmpkXGcNNc4o/rjvKVUhBfJE5EZRKcp/pe08T1XWGSj
-         nafYFZbr1/ClKGG++awq5H3C+PAE4zglJ+unD6wRQIkFnPdwgJJ6NZflylrpaFd68Tmv
-         4wY/P9NP8Etg/z10WU4U0ztvM7vZ2ZWY9RvE2ycCALZOmmywEVeu02b9w0PmTlrwR/3F
-         /mr9TY2GRJO0cMYZuGKu39OnVXPdagE0YpbFoGaj5x50vCPc5h3Z+j81rML6gvVmIia7
-         cosPLNZpB7qqGi9mRvk8/t6xtQziscz/GzXmxHURmoNKE5d7e4djLdRj+MnLlgBRu+Mk
-         /P2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxzI0pbY9+0owsMyifn+Lt2aNlT+N7Ma6GNnZtN7HegvPVz38E4cT3WuArvmqEt54swUDyz3QryL7RFNyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/orabIlSr3MR8nWYKc8PxzJiCaBXHzkuBoYB6ygthqSAOVUbz
-	aLh1F1jfT3cQXKVQNiQVoibMS91HbnFC1yoLvnn88d9Uj+m96kSxhrmGrvASBIAYEjOmARfOyyf
-	zWV+GWTvlM4SJUNBTI9lpEtZ/B7XlF90=
-X-Gm-Gg: AYBFou0uRc9McNKB4UdLR4j9I2qoOjpMGt/P4BeDaoA000Kjz5UnmXugUrqHkTAvMAN
-	yoZeJGFdc1q1l7MFpzMj80jIkgpwVYCYwAxjml/70vE86jeujgb3tSctNDwXmaBJejjQKNeE4nH
-	NvB/wcNNbzQnUbBUKKYnWagsO2qq1alxcInwGgPojnEmtVf6iwPUYQ3scv1w7vgeIY9E7Ie42mI
-	Kb4md31FfT+UX+/NW+5WgrGlipO00XjIRXmKXd+U0flwtk2zb6Dp2haI9jX6xSD4kzRdMOYbw63
-	AMO+lyx8nJKASmd+hYWh2P3eYWLgvGxdLmbRzWoHLQdMcl1FtPA51MI=
-X-Received: by 2002:a05:690c:e3cd:b0:8b0:dc4d:941d with SMTP id
- 00721157ae682-8b0dc4d98f3mr6640397b3.37.1792085760499; Thu, 15 Oct 2026
- 10:36:00 -0700 (PDT)
+        bh=d2fubKBoLgQUTAWsAbRE7jSlw3VB6SYRsTIq0RJ/P+s=;
+        b=O6hvOgH4GGZIHrCjBiKeS7+J1M3QaS6yOILhKkWuGyqGySq3r/lcbhifdpYJvttcBo
+         TFSityp4LPDYF6FuclEzniIsZ25OtI/B3O9BWI1HzNyEJggn63TziOQtURSUVnuPCg0/
+         VTc7j0Rx+BhPOZIzgdXXJCZ+k0ZzvU178rrvaiTEZLk8vCynvXenmSXcdU2NhVtVcJlE
+         2w3+nx5gOmZiMuY9VY6Aq6Xi+wwmMBkyKCbltERWCYj3MraSNvXzZfpsFCNzTKNTOmKV
+         nsYp7qn1F38eu/EQOLHOQ87JVuoNj09ahzNUZeL6XpHb8zgrVSIarH04Jt7zn4twF2NQ
+         m1lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792085783; x=1792690583;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d2fubKBoLgQUTAWsAbRE7jSlw3VB6SYRsTIq0RJ/P+s=;
+        b=Zbarl0shTYEgaJIztR8mkgHoKarWKdFyOfmSIOkY3X/BlUiJtCba+wDuo/yxGBlGEY
+         Sk9xIOr9mg3FEbIpSi8HvDeJoiO+tpxmx03nEXYqPezPWtE8Hfz4YqUgTlIvyGeJYm8W
+         itmp4nrpft5Mm7oM6R+D/7V4T9izi2vCGsjW6zYzgGDD58pwszVUkKcrG5CVi0voU+1T
+         YP07lwBg7T1ZONghlmcAu+vImolqInwbEtmwh8N8ZABdEuSCaKS4nEDI0tlkt069IVl1
+         9r/1ueuD9COqqgjvRZ3DwuiMIWvAoVEs0QtXpKtNUvyZq5LGx4sFtVJxQ6OdcGrEbl7S
+         5H9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzyevaEgCJVaTPN7iYKBtoB8N+BM9H1MYqPju9Btqu/gKOxeEVCZGR0VNdx1tMTwkXzLaWrdnKxzbF1SVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXe43FjQ6KRwychave7t+OoWjEhOVyXKxZgCYYogaKw21C9OFL
+	B4d+F0/xY0M+yIRDM7muRjJcaGyLs2/Z5zkwls/yYiNrHDfEnGjEVTcP
+X-Gm-Gg: AYBFou0LaUyWoFBfOdlDJJyZE3csf3SeSjBAQv5Ep8ux74/7+5DlTfqVasIomE0T2f9
+	ngN1NP1GEsCfCD9lOGH79KprhVzKXe6BZ+N+Rum7asiDJmvcYJpqJK1XyyGp5eShYNfX2LJbWMx
+	RKTpvzTM2BYZWZd5zxdwu56X8jS/6qSyUNwsNv4G0soSMNcc8CewlLpoogBE5RABTaHZ3oXS+TR
+	D9prh3xXlGWlVc5uRGWNtnrXWuEeEeNsGqZ2sSrf0ID5RyIs1Sb2CF1e/FFq7QInVvI2mmXq3lB
+	7BE676YbFjXhpCiJVToEzn3Wx06O8ImCxrkGHyMCnD7hjg41jVHMmyVG8JEla3N7TkM/k1usNlb
+	9OuB8Q3poGVHqz8Iw+nAAmY7Zh/ssac1EnEqfVuH5zCcC5+LTPvGKfiuuMQ4h4UJx3/Ya+O6VMe
+	B1+LzWka95Vi28h5Cwx4jimbkHr31bjNvhv7akD1xD7a+Bvb3uRB3twK5pV+WhNiZG+g==
+X-Received: by 2002:a05:6a00:4fca:b0:87d:430:1437 with SMTP id d2e1a72fcca58-897c7ec3069mr17209710b3a.38.1792085782783;
+        Thu, 15 Oct 2026 10:36:22 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5820b344sm1422b3a.53.2026.10.15.10.36.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:36:22 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	boyu.mt@taobao.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2: stabilize the dentry name while tracing reads
+Date: Fri, 16 Oct 2026 01:36:16 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0088-v4-a9a0df898afb4fc65fa0@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
- <ar_Rathmoj2aP-H7@xhacker> <CALsPMBOYQbro2gZTQR=DSUowmVDs9kujH4ua2UzCoHAQrncuiw@mail.gmail.com>
- <asm95GdbmMpc81p3@xhacker> <CALsPMBPMHc7q-YZvqLLYDSr5RfLmDRwBSq-TFeB8Fc8bPBjQGg@mail.gmail.com>
- <as8NpaT0g9Tsl6PS@xhacker> <CALsPMBOdy4ZDWfnkYokUFuB3UYPV27wTUpBCZaxLWEV10ZuS=A@mail.gmail.com>
- <atAROTefufggiFPO@xhacker> <atBWGQ2iWpm2VKcY@xhacker> <CALsPMBPNKsnSAczyVm3LFFQjwRg8eiGgpB2hJN19iipRZ0mASA@mail.gmail.com>
-In-Reply-To: <CALsPMBPNKsnSAczyVm3LFFQjwRg8eiGgpB2hJN19iipRZ0mASA@mail.gmail.com>
-From: Roman Storozhenko <romeusmeister@gmail.com>
-Date: Thu, 15 Oct 2026 19:35:49 +0200
-X-Gm-Features: AclHuK-wBT1gio8L_jkhM1aKzScEpjwEXurLQrG7VqNt3Zx9orkwjzcjHQwTcig
-Message-ID: <CALsPMBOfqDuCqCdODvJc05CFVda5pMsixOOTXyvjyDO2=DnWYw@mail.gmail.com>
-Subject: Re: [PATCH v2] riscv: mm: Trace TLB flush path selection
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 7:08=E2=80=AFPM Roman Storozhenko
-<romeusmeister@gmail.com> wrote:
->
-> On Thu, Oct 15, 2026 at 6:47=E2=80=AFAM Jisheng Zhang <jszhang@kernel.org=
-> wrote:
-> >
-> > On Thu, Oct 15, 2026 at 07:33:13AM +0800, Jisheng Zhang wrote:
-> > > On Wed, Oct 14, 2026 at 05:58:42PM +0200, Roman Storozhenko wrote:
-> > > I think you misunderstood something. A riscv platform uses either
-> > > SBI RFENCE or IPI for tlb shootdown, and won't change. So you can
-> > > know whether the system is SBI RFENCE powered or IPI powered by
-> > > cat /proc/interrupts. It's much simpler.
-> >
-> > Aha, I missed aclint sswi case, if sswi, no explict /proc/interrupts
-> > difference between sswi and traditonal plic. However, whether TLB is
-> > powered by SBI RFENCE or IPI can still be known by checking
-> > "providing IPIs using SBI IPI extension" in dmesg.
->
-> Thanks, I see your point now.
->
-> I was treating SBI RFENCE vs the Linux cross-CPU path as part of the
-> per-request selection, but with the current implementation
-> riscv_sbi_for_rfence is effectively a system-wide choice established
-> during initialization.
->
-> I reworked the patch in v3 based on your feedback. The tracepoint no
-> longer reports the local/SBI RFENCE/cross-CPU implementation path.
-> Instead, it describes the semantic TLB invalidation request itself,
-> including the range, stride, ASID, target CPU mask and request scope.
->
-> I still think there is value in exposing this information as one
-> semantic event. The individual pieces can be reconstructed with dynamic
-> tracing, but having them together makes it straightforward to analyze
-> the distribution and characteristics of TLB invalidations across a
-> workload without depending on the current implementation details.
->
-> The v3 patch is here:
->
-> https://lore.kernel.org/all/20261015-tlb_tracepoint-v3-1-eef305a3bb63@gma=
-il.com/
->
-> Thanks for pointing out the distinction. It helped simplify the event
-> and make its abstraction clearer.
+An open file pins its dentry, but not the external allocation backing
+an individual dentry name. ocfs2_file_read_iter() passes d_name.name to
+its trace event without holding d_lock or a name snapshot. The event's
+__string field needs those bytes for both strlen() sizing and the
+subsequent copy.
 
-And quick v4, where I removed unnecessary cleaning for checkpatch:
-https://lore.kernel.org/all/20261015-tlb_tracepoint-v4-1-f238a2bd8f7e@gmail=
-.com/
+With the read event enabled, a read of an open long-named file can be
+preempted after evaluating the trace argument. A successful concurrent
+long-to-short rename of the same dentry can then reclaim that name,
+provided no other name snapshot retains it:
 
->
-> --
-> Kind regards,
-> Roman 'Hedin' Storozhenko
+  Reader                              Renamer
+  ocfs2_file_read_iter()
+    load old d_name.name
+    <preempted>
+                                      vfs_rename()
+                                        take_dentry_name_snapshot()
+                                        ocfs2_rename()
+                                          ocfs2_dentry_move()
+                                            d_move()/copy_name()
+                                        release_dentry_name_snapshot()
+                                      kfree_rcu() reclamation completes
+    trace callback calls strlen()
+      through the old name pointer
 
+The pointer load precedes the rename, and sizing follows reclamation,
+so strlen() reads freed name storage. The tracepoint's SRCU section
+protects its probes, and the event callback disables preemption only
+after the caller has loaded the name pointer.
 
+Take a dentry name snapshot before tracing and release it after the
+trace call. The snapshot copies inline names and pins external name
+storage, keeping both the string and its length stable while the event
+sizes and copies the name. This avoids holding d_lock across trace
+callbacks. Check whether the event is enabled before taking a snapshot
+to avoid adding snapshot work to reads when tracing is disabled.
 
---=20
-Kind regards,
-Roman 'Hedin' Storozhenko
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
+
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+
+    [Page and shadow-memory dumps omitted.]
+
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
+
+---
+Changes in v2:
+- Replace d_lock around the tracepoint with a dentry name snapshot so trace
+  callbacks run without the caller holding the dentry lock.
+- Pass both the name and its length from the snapshot; keep the event
+  enabled check and release the snapshot after the trace call.
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v3-d628f98bfcb6784a0bfb@gmail.com
+
+diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+index d6e977ba6565..fc357c227ad8 100644
+--- a/fs/ocfs2/file.c
++++ b/fs/ocfs2/file.c
+@@ -2542,11 +2542,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs); /* GRRRRR */
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 
+ 	if (!inode) {
