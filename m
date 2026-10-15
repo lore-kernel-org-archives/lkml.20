@@ -1,286 +1,219 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011069.outbound.protection.outlook.com [40.107.130.69])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B955051CF62;
-	Thu, 15 Oct 2026 13:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070464; cv=fail; b=miD8pi+BAcr0hQ+RbE1NZoV7hzAmnGDBPlmUtpOr6JC+op9BwFxvsT2sebo3uO6Rb9c2SI2rTnCRvf3N5ZMcBaSRa5wdNlaX6c4STL2z1Sdb9cGfqRVjKsOvMCjcy1D0Uld63UWbj+N9IqRVqtg9QThWBcQOJo2tGK4MFaniO6g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070464; c=relaxed/simple;
-	bh=4haOELsZPyp7TJWZHDFi/daxRy9dxKLAsWZxY8h8Igs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dYGx5aNArvAsBnNnKlGJ3d6w54RyZQ4YwbEKcF/8G6ulJR6ROTCDoCK+Uv3tZtwK6EeCy4bZjudzsItv1CSgPuCqk36gvkpTbqIRzOr1fSdQzKBgpBUdiPixI427ItM1PXWUpWYThw1AW/N5I7pTK4Psqu8BOhvQExH9O4ZXjzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BMkvbxDu; arc=fail smtp.client-ip=40.107.130.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DC2526AA2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792070502; cv=none; b=d31W74bB/jRTO0Qd5GXZz3zcMbu/gCc0GPk4au95mHRWGzoph4MUiIvd4rzG3BMV7siY5pl2717/U0qdjy1VR3dC8vgot7SbSl9+PHQO97SwoSQrg+gKzOWDaVefHZrxPAvBok/2U+OpSKIxGnfZhW1vO3E5sVmDpAw0DuwQfJo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792070502; c=relaxed/simple;
+	bh=r1cDUK4n4vsOkir84Mzgh88NYpQXfnFBKPDVl4FY7Wo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sH/enhniC4Vl1p8kROlaHS3ky8obrlNloRP9D5CFlEhMRC5okiuUcgxokFB2rWbdgciKqH+rnxqukJ/RjmAcXtBJeT89w+BdfZgFHgyGsFwoUjVlsTcIRJ0QSye1epytHqXJ+8Nq3Sl5LQgV6ehC7PLM0Xdx4KdgFDK1zyLY4Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KjKxcA58; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NYeP1fhC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BMkvbxDu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cs5tMWfPBF8odvL6Z1rt1ypnbhLWadOAXOJwIeNTOBJFildxoWFXIHsvjue9lkgWnvnBBqPKImiznF8TVOgFD9c8DG4alNtd0SSXXQRgifLAfzQ48/GdyvZdvNaHSFsgHNTfvna+nu8/9xn97jYw83Drt09E43NLVMFEvMLChKLCHjewvB/UznH8zUD+1qQoCRXqOh7HAfWOwSah2DvWnnqshqZdbxv+f4Ouiih0HEWoqhSGDq1UAFtX4xXK6FAmS8d932SDo3s6xhXAW27Y8ZbKb+I8+ULgrihIHAIZzlF9GbcxhjquWa8fY3S2PZMsTs/HahprHbYe+PwyjKYDYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zT9W2ZqG8PMAOmnJa6qGpt/ZQKKTT3x/eW9kbddIWis=;
- b=V672SyjGFSS5crT5Kf892ooyEga52egapzU7zG79+AiP8ogUG9cZRAKznvWEZaa3QJp6sGWRUdfVFYG5HnaOIEn0mQpR8BjX/kzv9dcJ4qvYgR/QhbDyMjcPoJtjV43nlXjPv2GRO1fweNzXBfMshjjwrys2BnP8A1EG1B7Rjc6IdtPmEsI9IIIxoJFh1rdBjChbRgfjitBu/nWGyRXrVIZ5VL++SmLo4ZWpdv+QCtEIcVi6oUpY/ytccmBx5fxDPRzvUuDYuFlPZMFTpOyv6LZH4n4d7vlk5cqGNZ07Sr85NqIYoHw9XUzJBzZNXZGflZS89No0cDjMtW+VwsTYLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zT9W2ZqG8PMAOmnJa6qGpt/ZQKKTT3x/eW9kbddIWis=;
- b=BMkvbxDum/11vxVoqU5Z3F7t4KiKydDO6AwbpQkfRdJOmjds6FHA1TnVfCG7oWxmk2bCbaKeUpY19TVxTUH4QBAsahQzV2XxXaWnEg+Po9TULaVgh6kcNuPAt32M3Vy4hsqsOgfIZ3ikQKqdPCguVBAfLkIbBaTk+Zp9MdEYLWNZwlQm/OgoWNztYpawmijNZV321CuD3Nqv2zBe7owbImcvsAwSPdnME4mkGYq/k55VsFkqQNy/5j15AlcOW/1PG6HUxGmwJHemCJqOw8V7tFWyGEEI6rJiwS9h/sDhryLJpTOzxakVZ/tbiEbYkOXlHv5eOrE9PT3BvxMTvtCU3A==
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- (2603:10a6:150:2cd::13) by CPJPR04MB809864.eurprd04.prod.outlook.com
- (2603:10a6:380:20a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 13:20:56 +0000
-Received: from GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490]) by GV2PR04MB11740.eurprd04.prod.outlook.com
- ([fe80::ca5f:7e1c:a67a:a490%4]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 13:20:56 +0000
-From: Claudiu Manoil <claudiu.manoil@nxp.com>
-To: Wei Fang <wei.fang@nxp.com>
-CC: dl-S32 <S32@nxp.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Clark Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob
- Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Russell
- King <linux@armlinux.org.uk>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: RE: [PATCH net-next v2 1/5] net: enetc: Add pseudo-MAC support for
- ENETCv4 Ports via a fixed-link node
-Thread-Topic: [PATCH net-next v2 1/5] net: enetc: Add pseudo-MAC support for
- ENETCv4 Ports via a fixed-link node
-Thread-Index: AQHdWzYWe74LlF4VAU2QF0Eh2lZjvrb93/uAgAC0P2A=
-Date: Thu, 15 Oct 2026 13:20:56 +0000
-Message-ID:
- <GV2PR04MB1174099F6844DBF759BE22E0A969C2@GV2PR04MB11740.eurprd04.prod.outlook.com>
-References: <cover.1791908694.git.claudiu.manoil@nxp.com>
- <d7b51cb29758538a4c68a700dd8cd41b6e7e08b6.1791908694.git.claudiu.manoil@nxp.com>
- <AS4PR04MB933876A424328F6A6FCFD29C889C2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-In-Reply-To:
- <AS4PR04MB933876A424328F6A6FCFD29C889C2@AS4PR04MB9338.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11740:EE_|CPJPR04MB809864:EE_
-x-ms-office365-filtering-correlation-id: e3f00ac7-791a-40d9-ec2f-08df2abf2541
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|19092799006|376014|1800799024|7416014|6133799003|10067099003|18002099003|22082099003|3023799007|5023799004|11063799006|261009223027099003|4143699003|38070700021|56012099006;
-x-microsoft-antispam-message-info:
- 6NOIjwf+QnFUU1bUuk0ucLCNVIscQtzR/f44scbXfiGzhIN93lvv+8Bh1fYtC05qY2LNrsRqrCD9HYG03Xin5c2oEdlhdK5jnxW0YwnRuFfonrtUmdroHjZVNxB2l/IRIzwQCJt0rp/47wk+qjbD0jzfOPc7oqVvefX/cYo/LgdlP1cbuU/FkGqH+J+ok2/DyHt+PBLfRKzz4ROIJn0+kkt6+83WRIIcRLHynMrIMc8urC3WwDrrXzlq4sOtZIN4fImTEnwYpMjBwz5LB2hdyoKtqXmyUunIpccsyjRBlCOf8UlNno4G+GYr27UL72mXaRsvFpawkPOpReUZbBEdHZFMhfMUBL3DBBd4W4y+bfCibfcsEKM0HF7mWyvudeTl8VeXiMDod1q7guOhcBL999KXCiy0DhiQXc0AfT2grp+IBPZOExtDsNSH6WE8mEaTxstwCjieRyOBGJxNBHehzUltAkwPaBJlCtuesA0tenNu22vzUjPv7JPRNoMI+w4oSP21IbkZiB6cJ9nR8hHxGKoLOWWFXWr/EX9GY8m3vfxhs3Lusmu89RDZWTAHvBmT2pUtUNT4ZybOdecsZ9ETV29AezmLi+crN56qOsbAyyELh3/7ow02JrV1fOPSW8P27S1mav/WLM3tVfcJc0B16q5xCrVgM+N+bPx/xwjnAy9iBHBy7tfaPkI6zhZ72+lnYHm7erehpsakjW4ZcEPZRH8tMg5nbQSh+e28eQgnGvQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11740.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(376014)(1800799024)(7416014)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(5023799004)(11063799006)(261009223027099003)(4143699003)(38070700021)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?WiBVV3LYeON41CH6owW2cceq+sneYJrwyANl/8Hcg5iqeph0sjhYcjoFFDaC?=
- =?us-ascii?Q?aEEQO+SvBOMEo1vPlcP2Hc6oEMSRMUqf4ihF3w3hRryCLiGiGbCBIeGg0bqy?=
- =?us-ascii?Q?0juWPlh4J5imiyTCbqBj3fbWjL2PXIPvTysSnNWuKUjLaR3DK0GFlpO8YgFc?=
- =?us-ascii?Q?xyax5b2XbJmwEqoiOPddpoQgnFxSOge0I8Qnn5QWLL0KsSO2gB+9N9vz5tVA?=
- =?us-ascii?Q?36T8LchMmgg5CN5kgOqsjqTIpgFB3ANjEQjxUP1ROasBkMF31H10v04ELVNc?=
- =?us-ascii?Q?13rueIGku25KvOV0kP+N+KpSL56rkThG+60JL4m+c4gYeZut6Mgct+oUaT5j?=
- =?us-ascii?Q?+AEgw35AQcdexK67An5M4QNsxKC7YB3snaktvriaoLbIdvV/J+vTn/zQFLN7?=
- =?us-ascii?Q?Yzb0B7F+XSCcgs5agVa77/8ro9Wwsjw/LgF2vnjAgffV1Z60XZecNIJHh/L5?=
- =?us-ascii?Q?zYGz+lSldRwNwD72jY58qPwa8bWmuzvzmuJJAeP4nNJbs989UUXJFIFZ5WXI?=
- =?us-ascii?Q?gFnrR7DfhRgDnzVNCXa+bzXTwXmXfi4Q2BxcLSWeKN0y1vRJwwSwUv1y212E?=
- =?us-ascii?Q?4iU29ao6X/krLMyyzdhVeq8OFmsBdaUJ29SGI2Bu+7EzbnEXJqDoxyrpG6Nf?=
- =?us-ascii?Q?GwUzwE4/vjMF2wLJqTiClqM/sgequkkEI9DWxnKbCFRkDtBGt37gpx2GcblK?=
- =?us-ascii?Q?R8c0JPFtw9IAhjc3wIxzLADoB1mIbQtogNBGuBF+hPmE9ZNk8P3ChZv/pyC8?=
- =?us-ascii?Q?BEAVQ5IDr394La4+LBUIFZRD3No24jApY/62qp7YgrMcbTcT92lZNDyaaeQ9?=
- =?us-ascii?Q?iypFp2Z2qv2Lee0GPTP5GXcostrlZLr1I2lDs39RX0/Hx4m1IrKs6HkfLwpI?=
- =?us-ascii?Q?9dx3Km9gzsxzW9T8mC5KNsioQCkK+eO42G49PYih5VcdCbGUlxJSRPSx3uW3?=
- =?us-ascii?Q?TRrGA+tGx5uu9veBKq/c5QOF2Tv6iK0zFa32VODlpDRuEjBrk2eoTJiK/SP2?=
- =?us-ascii?Q?Jt0lFT7uWloTuVQ/gtReijckACq7nEzUjmdPBl/3fxoW2KWsW7mfJ3sV0ceZ?=
- =?us-ascii?Q?kBuV+5aGZQxZTVyP7zpFd0a7HOzgqJT9oPaV+e4+HHis/aULfaghn768Mlgb?=
- =?us-ascii?Q?aS4JB7KcVQNMkFVUACzwYVlb83KeHxbbS0ro1aU+rxnXMwTEsOrN/RPQCEw6?=
- =?us-ascii?Q?pwUG3dNzUjVpKyLuO3KXHGbRC7sRTXHDNSvfdJ790DqOsH/94f4YcJeBwEvP?=
- =?us-ascii?Q?KAf6f1uByKWBuch8jVvAJmCSBOYvEDvhFIwRSJ8EbF28ia4uET4sFPyv0ELX?=
- =?us-ascii?Q?y1sq8ygtVuYKEpXb97kCXQ2MZC3b5Hycfr7yyXyMhG5QFb4+Vw63d9+nryPG?=
- =?us-ascii?Q?1AsWR1hl4zV5mbeJyQAaIWt/I5B71haLUovW76H74V4BmDfiXJfa6v9Fz6qS?=
- =?us-ascii?Q?y1ZtXckre+E1SbaVj0bK/V3gidtDEfwEtnHbxjVWfEzcW9JsHkVN2FC2Z2tP?=
- =?us-ascii?Q?eefOsWdrmnUCXAxpSaKYKcgii1ijuU5yV37+Mpoq4lgul/Ai+oJZPgkGXwxE?=
- =?us-ascii?Q?xpzosHrnYJGgQMRP1GKVnquTdpc+oCtO2wfufSBxsjtyvny/i8SL15OEyzdI?=
- =?us-ascii?Q?7lu/A3xisDZtJ85qekEEBLoQy+aiEWYFbKdDTgpRi07RYQzCZgmUCWPKCy4V?=
- =?us-ascii?Q?X5wgR1IVlokPIRLzrv+8V1HemKwAhXm8KbLxg5TFhza/bcDFjnne2IedxcpQ?=
- =?us-ascii?Q?ZfcySpIpOw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KjKxcA58";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NYeP1fhC"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kRXU2999386
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:21:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=; b=KjKxcA58C7U60Ql5
+	0ocYGUoqGG6KIGic2UcwFm5pe1gVXsfpBEw4kbbl33+zH+hafjwnY92JxhXRS/Vi
+	XlqcVQ2SWs9JSKdNFz8yPRRELbuAoRTXoSVEa5MSyDLnmyc9j2c6GT6aG8L8Rj29
+	8gdg1Tevy/LFTE62JO+T5hZDnNRe+enSVDHkHzCwIJeTu97gCYZCQzoGhnHl2Iok
+	G51QSyHVq6BrUaS6Tx4IZVk323JFUsj2RXo6z9ImTGBaODMHWhDFhfgv4L53N8H6
+	3aNHi51HP816TJp0phFB2StMeCW3DbGQtq2tX1AEJ3kbOmfyVJRolBFo0ZkN1SBP
+	nYvhHw==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hausm13x7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:21:39 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5ea1a9e0f05so9725e0c.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:21:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792070499; x=1792675299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=;
+        b=NYeP1fhCeiZ4SsC2IIJeQxZLW/hqD9ui3rh9BCWAdNsQfJsMPmME2lygYulr/QcRgo
+         0xk5v6SAXk/jM0u8532jS4p6J6nz0BdQqjnyFYpgJYaiAE7lYXr8oGWBXfYKiADxhNP3
+         smbtAqCoBMiDc0mNfpc7FQJjO89Ois8qU8FE+i3ZRnM1jce7a/7vuIJqsdXMi8lLvMwH
+         fm1K1t4oNodUlrOEv+2e/6+gtOSImrYGTI6mCCmDPAfZhPEb3nsT+DqJ/zaeyx0s4Q5X
+         YuHMKCVTanEIxy17UrdMnPpLvsYeOpA407/LHJRgmL0A9bKHr6alO2w1TbDMjWH92QW2
+         QmIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792070499; x=1792675299;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pB4Vm9muqHjsBGpjHRKxj8v/lRoKTmIfKwt7EToa49E=;
+        b=s10c2YJmZ1LXaaoxU4kcHTt9yn53jjRIZ/ho/ktCXVVxexN4XXNiQysLpbj7mMKUMf
+         qD7X4eiMi+FoRlFUVq+iouPRWd67ZswbOQZBsMko9lhnC1hSQJClAcKRu9S2at8R9QmP
+         aF9CQaMbKNaj/Kdx1gN2gjdm74QxfqGbqT9jeyYFHyDd/MkYGpHiKtG1FuYaCvM6w+Mu
+         ry6zxK5cP1fn2srT+T+N3oPbQ993OvFNBTwv5GIN7lG64tMusCe9FXQaQGEm601EFnP8
+         HcF4JZ6X/uiRgs1HWpPnhkhMUR6DtbjhydIAJBF3gv0HcqqMJodI62gCIPgQCw9Nmi1N
+         SwBA==
+X-Gm-Message-State: AFq9FYKSkb2RDvNz9YetrDtIxXKQT6XfepUapl/QQDQsIZ3O2ppd80xf
+	qa74CHch7HJVosaeXL30npcJChSqtiPPzo7eyXgc+5Jeh2+I1WXAxBttLvc06jM8f0et98v+UNs
+	cIbmFE/kYn0NYGv4wBTd69b5h+oHHVLRYsnbYjDLvPOrEQpTKg36UaUzd2K+dWkO4CzM=
+X-Gm-Gg: AYBFou3lxAAUL5f5LplpMjpRrvIfQ4ODpMKj5jNaJOayJrGiM4AE3hsCyqL5xkN+DxX
+	YR7tGYa3rTvYh7sitSpyfC85g/24yHqqW02TBK+PseWYu4kNnYQ6qADQ1IKh9FRZzgEhYbxrpjZ
+	ha9pGEzzu2+0hK0MqvmdYL03YdJREK1HXOnHUzWfVpLF/yceSY54n+rL1QYZPp4LMYPu0T5CRtj
+	Rv8fDCc/9BCmAY7dC1MOtV40/Wi9CtX+QD9d6F1NdgWLMjBv96Hyryfq5ULbpC5cYrpxxgZsabS
+	n5HIvoZU2IJjzy3WzMZz1wmDmPhGXmyzzT0MC1tetOcLENXF+KsPcIOfptFJzIhoWNGe0Z1zwRR
+	PwKbZCirMKorclT7OSXMGBg==
+X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr259251e0c.5.1792070498699;
+        Thu, 15 Oct 2026 06:21:38 -0700 (PDT)
+X-Received: by 2002:a05:6122:2c09:b0:5ea:8fce:8a45 with SMTP id 71dfb90a1353d-5ea8fce8d42mr259228e0c.5.1792070498112;
+        Thu, 15 Oct 2026 06:21:38 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038ac6c1sm2560431a12.35.2026.10.15.06.21.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 06:21:36 -0700 (PDT)
+Message-ID: <44878919-4835-4790-ae85-f865d0522391@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 15:21:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11740.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3f00ac7-791a-40d9-ec2f-08df2abf2541
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Oct 2026 13:20:56.1689
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JzmoI/akRZB4rbDUF4d8IJDKBijecQsYUdgvGTFxdL8Xz7Yv113yhaT5f6ynvPANWjTiZjrMRvVnbGSbGwbpkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPJPR04MB809864
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: talos-lyra-evk: Add CYPD6129 Type-C
+ support
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 0P89ceGT613WHgzpQQVaWCRryAlxvqYp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX1w0HE8zzkz+k
+ JIidOc/ZF2z13ZWwJAlX3p/1n7WGtbe24ckOdi6C/S++d5qB11qzKfKJfNb3V4eaX6Nq96MoOI9
+ KHEb8EC+/5haLgklu/UBdaj9kZ9LR6zA0S/nMzh90+1qfC3qxYF7lQHtXExwBT2N14mibUEF04o
+ tJl1VWPrclK1EfbgVEhgPDxgNquL2wi2wbR8Bb6nN54wQ1a6FzkU9Q1hizmPLdsybxi/v0WtVex
+ GAYB9cqKs3lVCvViiqDhjb16yoLRek1nZM2S/yIu/InmDaQv/Ms/n5xJaUatgnyITVn/nfaBhUN
+ Nrhv9RW7hfpWDUIkje5AAq1rWExsHb/vwUQBy8Jh5cxUo8jCnAT1eesTpmunnTLHmWA+IhJSHFi
+ tJ72UdMwhVEB3wD/Yu4UTO17m09ihQa/ROiQqha6BNNYIUrI3yGpYeaL/afPBW+rbNH3kHOo4/B
+ +fj67/lN7XCM8uWwsDA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MyBTYWx0ZWRfX7Gx8jkNVWOAy
+ VhhHdDA84CfOXDKaro0PnvQFJ9lfOsyosDiTsfh2yJ+IYZ6dPaKrIdUAS9AFMiAc2cBhOW0H1Fz
+ a7YnJjRd3zMQP+1pbJdrbDQZuvCVQc0=
+X-Authority-Analysis: v=2.4 cv=Eb5d0/mC c=1 sm=1 tr=0 ts=6ad0d363 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=nSxbz2b1ZoL0s5JVDngA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-ORIG-GUID: 0P89ceGT613WHgzpQQVaWCRryAlxvqYp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150053
 
-From: Wei Fang <wei.fang@nxp.com>
-Sent: Thursday, October 15, 2026 5:17 AM
+On 10/12/26 3:11 PM, Akash Kumar wrote:
+> Add support for the Cypress CYPD6129 dual Type-C PD controller on the
+> Talos Lyra EVK.
+
 [...]
-> Subject: RE: [PATCH net-next v2 1/5] net: enetc: Add pseudo-MAC support f=
-or
-> ENETCv4 Ports via a fixed-link node
->=20
-> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc.h
-> > b/drivers/net/ethernet/freescale/enetc/enetc.h
-> > index d9e91832a9c1..ed5402f1b73c 100644
-> > --- a/drivers/net/ethernet/freescale/enetc/enetc.h
-> > +++ b/drivers/net/ethernet/freescale/enetc/enetc.h
-> > @@ -500,6 +500,7 @@ struct enetc_ndev_priv {
-> >
-> >  	struct clk *ref_clk; /* RGMII/RMII reference clock */
-> >  	u64 sysclk_freq; /* NETC system clock frequency */
-> > +	struct of_changeset *ppm_ocs; /* pseudo-MAC fixed-link changeset
-> */
->=20
-> struct enetc_ndev_priv is shared by both PF and VF, but ppm_ocs is only
-> used by PF. Would it be better to move it to struct enetc_pf?
->=20
 
-Ok, will try this out.
+> +	regulator-usb1-vbus {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "USB1_VBUS";
+> +		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-0 = <&usb1_en>;
+> +		pinctrl-names = "default";
+> +		enable-active-high;
+> +		regulator-always-on;
+> +	};
+> +
+>  };
 
-> >  };
+Stray \n
+
+>  
+>  &i2c5 {
+> @@ -59,6 +73,68 @@ expander3: gpio@3c {
+>  		#gpio-cells = <2>;
+>  		gpio-controller;
+>  	};
+> +
+> +	typec@40 {
+> +		compatible = "cypress,cypd6129";
+> +		reg = <0x40>;
+> +		interrupt-parent = <&tlmm>;
+> +		interrupts = <86 IRQ_TYPE_LEVEL_LOW>;
+
+interrupts-extended = <&tlmm 86 IRQ..>;
+
+> +		pinctrl-0 = <&usb0_intr_state>;
+> +		pinctrl-names = "default";
+> +		wakeup-source;
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		status = "okay";
+
+Nodes are enabled by deafult
+
+> +
+> +		/*
+> +		 * connector@0 is the USB0 Type-C port with SuperSpeed support,
+> +		 * routed to usb_1. connector@1 is the USB1 Type-C port with
+> +		 * USB 2.0 HS-only support, routed to usb_2.
+> +		 */
+
+We can read this from the of_graph below, please drop this comment
+
 [...]
-> > +static int enetc4_add_ppm_fixed_link(struct enetc_ndev_priv *priv)
-> > +{
-> > +	struct device_node *np =3D dev_of_node(priv->dev);
-> > +	struct device_node *fixed_link;
-> > +	struct of_changeset *ocs;
-> > +	int speed, err;
-> > +
-> > +	if (!np)
-> > +		return dev_err_probe(priv->dev, -ENODEV,
-> > +				     "Missing of_node for Pseudo-MAC port\n");
-> > +
-> > +	enetc4_get_pcr_speed(&priv->si->hw, &speed);
-> > +	speed =3D enetc_phylink_match_pseudo_mac_speed(speed);
-> > +
-> > +	ocs =3D kzalloc_obj(*ocs);
-> > +	if (!ocs)
-> > +		return -ENOMEM;
-> > +
-> > +	of_changeset_init(ocs);
-> > +
-> > +	fixed_link =3D of_changeset_create_node(ocs, np, "fixed-link");
-> > +	if (!fixed_link) {
-> > +		err =3D -ENOMEM;
-> > +		goto err_destroy;
-> > +	}
-> > +
-> > +	err =3D of_changeset_add_prop_u32(ocs, fixed_link, "speed", speed);
-> > +	if (err)
-> > +		goto err_put_node;
-> > +
-> > +	err =3D of_changeset_add_prop_bool(ocs, fixed_link, "full-duplex");
-> > +	if (err)
-> > +		goto err_put_node;
-> > +
-> > +	err =3D of_changeset_apply(ocs);
-> > +	if (err)
-> > +		goto err_put_node;
-> > +
-> > +	of_node_put(fixed_link);
-> > +	priv->ppm_ocs =3D ocs;
-> > +
-> > +	return 0;
-> > +
-> > +err_put_node:
-> > +	of_node_put(fixed_link);
-> > +err_destroy:
-> > +	of_changeset_destroy(ocs);
-> > +	kfree(ocs);
-> > +
-> > +	return dev_err_probe(priv->dev, err,
-> > +			     "Failed to add fixed-link node\n");
-> > +}
-> > +
-> >  static int enetc4_link_init(struct enetc_ndev_priv *priv,
-> >  			    struct device_node *node)
-> >  {
-> > +	bool dynamic =3D node && of_node_check_flag(node, OF_DYNAMIC);
-> >  	struct enetc_pf *pf =3D enetc_si_priv(priv->si);
-> >  	struct device *dev =3D priv->dev;
-> >  	int err;
-> >
-> > -	err =3D of_get_phy_mode(node, &pf->if_mode);
-> > -	if (err) {
-> > -		dev_err(dev, "Failed to get PHY mode\n");
-> > -		return err;
+
+>  &usb_1 {
+> -	dr_mode = "peripheral";
+> +	dr_mode = "otg";
+
+This is the default
+
+> +	usb-role-switch;
+
+This belongs in the SoC DTSI
+
 [...]
-> > +	if (enetc_is_pseudo_mac(priv->si) && (!node || dynamic)) {
->=20
-> This indicates that the node pointer can be NULL, but
-> enetc4_add_ppm_fixed_link() subsequently does not allow node
-> to be NULL. This is puzzling.
 
-enetc4_add_ppm_fixed_link() checks dev_of_node(priv->dev) and
-if NULL, it returns error and prints following err message:
-"Missing of_node for Pseudo-MAC port\n".
-Which is fine for the enetc_is_pseudo_mac() case.
+>  &usb_2 {
+> -	dr_mode = "host";
+> +	dr_mode = "otg";
+> +	usb-role-switch;
+>  
+>  	status = "okay";
+> +
+> +	port {
+> +		usb_2_dwc3_hs: endpoint {
+> +			remote-endpoint = <&ucsi_ccg_port_1_hs>;
+> +		};
+> +	};
 
-One alternative would be to take the common 'else' branch in case of NULL
-node for the pseudo-MAC, and let of_get_phy_mode() return with error, but=20
-in that case "Failed to get PHY mode\n" is not a good error indication.
+Likewise
 
-So, nothing to change here, the 'if' branch check for the pseudo-MAC case i=
-s
-correct as it is.
-
->=20
-> > +		pf->if_mode =3D PHY_INTERFACE_MODE_INTERNAL;
-> > +
-> > +		err =3D enetc4_add_ppm_fixed_link(priv);
-> > +		if (err)
-> > +			return err;
-> > +
-> > +		/* The fixed-link node was spliced onto dev's own of_node, so
-> > +		 * phylink will find it via dev_fwnode(dev). Use that node for
-> > +		 * the subsequent MDIO/phylink setup below.
-> > +		 */
-> > +		node =3D dev_of_node(dev);
->=20
-> Based on the implementation of enetc4_add_ppm_fixed_link(), the
-> input parameter dev->of_node cannot be NULL. I'm not familiar
-> with the of_changeset_* APIs. Will enetc4_add_ppm_fixed_link()
-> update this pointer?
->=20
-
-Sure, all these functions take 'np' as argument, and 'np' is
-dev_of_node(priv->dev), which is the same as dev->of_node.
-
-> > +	} else {
-> > +		err =3D of_get_phy_mode(node, &pf->if_mode);
-> > +		if (err) {
-> > +			dev_err(dev, "Failed to get PHY mode\n");
-> > +			return err;
-> > +		}
-> >  	}
-> >
-> >  	err =3D enetc_mdiobus_create(pf, node);
-> >  	if (err) {
-> >  		dev_err(dev, "Failed to create MDIO bus\n");
-> > -		return err;
-> > +		goto err_mdiobus_create;
-> >  	}
-> >
-> >  	err =3D enetc_phylink_create(priv, node, &enetc_pl_mac_ops);
-
+Konrad
