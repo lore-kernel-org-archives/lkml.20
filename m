@@ -1,118 +1,113 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119352264A9;
-	Thu, 15 Oct 2026 06:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 706EB45FFB0;
+	Thu, 15 Oct 2026 06:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044874; cv=none; b=T+sR6UtrRXO6dr6gOs+JAEsiar4S26PQ/GLAxnSCAMbgIYYtOJW3mRXBIN/fUvMQYgyo90Ym0IVWm0aAekWhqeaViIXlZCiI0Uk7foeAn64+0+1OAmLgmEZq3HuH1Vo4RtMSNfy3YaAzVDCf8BmW+VRrNjkPFev6RtH9aTuIDuQ=
+	t=1792044887; cv=none; b=EyrO+2zYNdPk+5gvRA9Niy7xFd3FRtdoB3Su8j1Z3u5jDcPPGuIatGvv0yYHILqivS7h8dwdXSrRK9kV90y4GkhFmTuhHl/9levgaPHMExWQHJRuyGO28GtAL+VvZwzCPnA9yFwpeenEwnEZgmIOjFbo+8sWoHJpGPxTaknHYoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044874; c=relaxed/simple;
-	bh=A707wls31/eBkNhp2G0sxNimnvn4r7S/1WK2jh4NHoA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=Yx68mwZ2iEudNxY773s2lkv17d5HnVzmrwjGGoKKdJ/4Ufeo8KmsPoHZ1igb8jQTupxmVm/CyLAZK2bK4IDAr60aXfc8D42PAxMaOA+ph4SB4ITOATdFoSFGdOjGsuvFqTqzsX7JETHIewfwEIn2UCvsGsJeOxvwEbslDdraR3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RGmiTV6f; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792044887; c=relaxed/simple;
+	bh=ZjHmUvD814tjkhysjYalQNoKk/0MhRSls02vcp1OVtw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ePT78EWDC+rQ3tRL8uXJ/8aixo+8y6MG1pV7MguSfrtKkyMfQ3aQgKqy0MahvwwwCZ4s3uvRUBotLcrBG2pHHc4tZGrHUl6iog0GNfk7dpyR4pfj6juYQ0r0y8WcgU5yaVliZUMAekckY+xzYz94YkIuvw28j9rKfVFEUY/r24I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FvNgevAo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RGmiTV6f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=A707wls31/eBkNhp2G0sxNimnvn4r7S/1WK2jh4NHoA=; b=R
-	GmiTV6fTs45cmDkjTvf+IHC4L1K4HrynpgKlqmvoRNHsr8D4HLv5045FZBjBWo8M
-	XPAcucwOGyb4htYufaAMSmkW2rGhrH+ouLkuy8KE4E1AoEznXhq8eFtiMdNsI/sL
-	BbF1X7GdfzDIryg9KRgl8f2KkwetjkHNBlQXmLXoy0=
-Received: from slark_xiao$163.com (
- [2408:8459:3c60:813e:6c63:98bf:da07:5564] ) by ajax-webmail-wmsvr-40-113
- (Coremail) ; Thu, 15 Oct 2026 14:13:52 +0800 (CST)
-Date: Thu, 15 Oct 2026 14:13:52 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Manivannan Sadhasivam" <mani@kernel.org>
-Cc: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>,
-	jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <astaLolGh8XkPNms@debian>
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
- <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
- <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
- <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
- <5506abc6.8919.1a11aab7e81.Coremail.slark_xiao@163.com>
- <astaLolGh8XkPNms@debian>
-X-NTES-SC: AL_Qu2SAPyfu0Ao5CWQZekdk0gTg+0/WsW4u/4n345Vc/sEggvW8AYGZURjOFv99fulMSO8nhORbil+1s9rXoV9UQjYBWIQWXWg6PUZagsO/A==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FvNgevAo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBB0F1516;
+	Wed, 14 Oct 2026 23:14:31 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C38BB3F871;
+	Wed, 14 Oct 2026 23:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792044875; bh=ZjHmUvD814tjkhysjYalQNoKk/0MhRSls02vcp1OVtw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FvNgevAoTv232YZhVkEm7d++ZVEKA0pJhUSWt3GosYUbkm5hDIEIx75W5Y33f7zs7
+	 3ACuYSJGmk4lkTHG2VDI1rwU/6nPZByOqb8lICdTFpcigp3s+5oWcWe/dzvpsQIf+m
+	 vTyW5mgvnVnn0rY2YOjrQFigPYkrjRFPF6rZ7Vio=
+Message-ID: <3d43e4bd-7065-4ae1-bbc9-b034a9de531f@arm.com>
+Date: Thu, 15 Oct 2026 11:44:29 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <6e90be7f.4d64.1a13e32174b.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSgvCgDnz0Qgb9Bq_s9YAA--.20072W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5wCyF2rQbyAI5AAA3b
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: mremap_test: Validate the preamble region
+ before mapping it
+To: =?UTF-8?B?UmljYXJkbyBCLiBNYXJsacOocmUgKFNVU0Up?= <ricardo@marliere.net>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261014-selftests-mm-mremap_preamble-v1-1-2e97f501cb56@marliere.net>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20261014-selftests-mm-mremap_preamble-v1-1-2e97f501cb56@marliere.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-CkF0IDIwMjYtMTAtMTEgMTc6NDY6MjIsICJNYW5pdmFubmFuIFNhZGhhc2l2YW0iIDxtYW5pQGtl
-cm5lbC5vcmc+IHdyb3RlOgo+T24gVGh1LCBPY3QgMDgsIDIwMjYgYXQgMDQ6NDA6MDlQTSArMDgw
-MCwgU2xhcmsgWGlhbyB3cm90ZToKPj4gCj4+IAo+PiBBdCAyMDI2LTA5LTI2IDE5OjI2OjE1LCAi
-TWFuaXZhbm5hbiBTYWRoYXNpdmFtIiA8bWFuaUBrZXJuZWwub3JnPiB3cm90ZToKPj4gPk9uIFdl
-ZCwgU2VwIDIzLCAyMDI2IGF0IDA5OjI0OjU1QU0gKzA1MzAsIEtyaXNobmEgQ2hhaXRhbnlhIENo
-dW5kcnUgd3JvdGU6Cj4+ID4+IAo+PiA+PiAKPj4gPj4gT24gOS8yMi8yMDI2IDU6MDkgUE0sIFNs
-YXJrIFhpYW8gd3JvdGU6Cj4+ID4+ID4gQXQgMjAyNi0wOS0yMiAxMjoxMjozNSwgIktyaXNobmEg
-Q2hhaXRhbnlhIENodW5kcnUiIDxrcmlzaG5hLmNodW5kcnVAb3NzLnF1YWxjb21tLmNvbT4gd3Jv
-dGU6Cj4+ID4+ID4+Cj4+ID4+ID4+IE9uIDkvMTkvMjAyNiAzOjI1IFBNLCBTbGFyayBYaWFvIHdy
-b3RlOgo+PiA+PiA+Pj4gRm9yIHNvbWUgV1dBTiBkZXZpY2UsIGl0IG1heSBnZXQgYSBTWVMgRVJS
-T1IgaXNzdWUgd2hlbiByZXN1bWluZwo+PiA+PiA+Pj4gZnJvbSBzdXNwZW5kIHN0YXRlIGZyZXF1
-ZW50bHkuIFJlZmVyIHRvIHRoZSBRdWFsY29tbSBXaW5kb3dzCj4+ID4+ID4+PiBkcml2ZXIsIHRo
-ZSBkZWZhdWx0IHZhbHVlIG9mIGF1dG9zdXNwZW5kX2RlbGF5X21zIGlzIHNldCBhcyA1MDAwCj4+
-ID4+ID4+PiBtcy4gQnV0IGluIExpbnV4IHNpZGUsIGFsbCBXV0FOIGRldmljZSB3ZXJlIHNldCBh
-cyAyMDAwbXMuIFdlCj4+ID4+ID4+PiB0cmllZCB0byBzZXQgdGhpcyB2YWx1ZSB0byA1MDAwbXMg
-YW5kIHdlIGNhbiBnZXQgYSBwb3NpdGl2ZSB0ZXN0Cj4+ID4+ID4+PiByZXN1bHQuCj4+ID4+ID4+
-Pgo+PiA+PiA+Pj4gU28gd2UgYWRkIGEgc3VwcG9ydCB0byBhbGxvdyB2ZW5kb3IgdG8gc2V0IGEg
-ZGlmZmVyZW5jZSB2YWx1ZSBmb3IKPj4gPj4gPj4+IHNwZWNpZmljIFdXQU4gZGV2aWNlLgo+PiA+
-PiA+PiB5b3UgY2FuIGNoYW5nZSBhdXRvIHN1c3BlbmQgZGVsYXkgZnJvbSBzeXNmcywgcGxlYXNl
-IHVzZSB0aGF0IHdheSBpbnN0ZWFkIG9mCj4+ID4+ID4+IGRvaW5nIGluIHRoZSBkcml2ZXIuCj4+
-ID4+ID4+Cj4+ID4+ID4+IC0gS3Jpc2huYSBDaGFpdGFueWEuCj4+ID4+ID4gWWVzLCB3ZSBjYW4g
-ZG8gdGhpcyBieSBzZXR0aW5nIHRoZSBzeXNmcyBBUEkgLiBIb3dldmVyLCBub3QgYWxsIHVzZXJz
-IAo+PiA+PiA+IGFyZSBhd2FyZSBvZiB0aGlzIG1ldGhvZC4gQWRkaXRpb25hbGx5LCB0aGlzIGFw
-cHJvYWNoIGlzIG9ubHkKPj4gPj4gPiBlZmZlY3RpdmUgZm9yIGEgc2luZ2xlIGluc3RhbmNlOyBp
-dCByZXF1aXJlcyByZWNvbmZpZ3VyYXRpb24gYWZ0ZXIgZWFjaAo+PiA+PiA+IHJlc3RhcnQsIHdo
-aWNoIGlzIHF1aXRlIGluY29udmVuaWVudC4KPj4gPj4geW91IGNhbiBoYXZlIHVkZXYgcnVsZSB0
-byBzZXQgdGhpcyB3aXRob3V0IGFueSB1c2VyIGludGVydmVudGlvbi4KPj4gPgo+PiA+V2Ugc2hv
-dWxkIG5vdCByZWx5IG9uIHVzZXJzcGFjZSB0byBmaXggdGhlIFNZU19FUlJPUi4gVXNlcnNwYWNl
-IGtub2Igc2hvdWxkIG9ubHkKPj4gPmJlIGV4ZXJjaXNlZCB0byBjdXN0b21pemUgdGhlIGRlbGF5
-IGZvciBwb3dlciBtYW5hZ2VtZW50IHB1cnBvc2VzLCBub3QgdG8gZml4Cj4+ID5maXJtd2FyZSBj
-cmFzaC4KPj4gCj4+ID4KPj4gQWdyZWUuIFdlIGFyZSBzdGlsbCB3b3JraW5nIG9uIHRoZSBpc3N1
-ZSBkZWJ1ZyBvbiB0aGUgbW9kZW0gc2lkZS4gCj4+IAo+PiA+Rmlyc3Qgd2Ugc2hvdWxkIGtub3cg
-d2hldGhlciB0aGUgZGVmYXVsdCBkZWxheSBjYW4gYmUgaW5jcmVhc2VkIHRvIDUwMDBtcyBmb3IK
-Pj4gPmFsbCBkZXZpY2VzIG9yIG5vdC4gSWYgdGhhdCBpcyBub3QgZGVzaXJlZCwgdGhlbiB3ZSBj
-YW4gZ28gZm9yIEVuZHBvaW50IHNwZWNpZmljCj4+ID5kZWxheS4KPj4gPgo+PiA+LSBNYW5pCj4+
-ID4KPj4gRm9yIHJlZmVyZW5jZSwgTVRLIDVHIG1vZGVtIFQ3MDAgaXMgdXNpbmcgNTAwMG1zIGFz
-IGRlZmF1bHQgdmFsdWUuIEFuZCBRdWFsY29tbQo+PiBXaW5kb3dzIGRyaXZlcnMgc2lkZSwgdGhl
-IGRlZmF1bHQgdmFsdWUgaXMgNTAwMG1zIGFzIHdlbGwuCj4+IEhvd2V2ZXIsIEkgY2Fubm90IGd1
-YXJhbnRlZSB0aGF0IGlmIGFsbCBNSEkgZGV2aWNlcyBhcmUgYWRqdXN0ZWQgdG8gNTAwMG1zLCBz
-b21lCj4+IHBvd2VyLXNlbnNpdGl2ZSBkZXZpY2VzIHdpbGwgbm90IG9wcG9zZSB0aGlzIGNoYW5n
-ZS4gQWRkaXRpb25hbCwgREVMTCBob3BlcyB0aGF0Cj4+IHdlIG9ubHkgbW9kaWZ5IHRoZSBTRFg3
-MiBkZXZpY2Ugd2hpbGUga2VlcGluZyB0aGUgMjAwMG1zIHNldHRpbmcgZm9yIHRoZSBTRFg2Mgo+
-PiBkZXZpY2VzLCBhcyB0aGVyZSBhcmUgY3VycmVudGx5IG5vIHNpbWlsYXIgaXNzdWVzIHdpdGgg
-dGhlIFNEWDYyIHBsYXRmb3JtLgo+PiAKPgo+SSB0aGluayB3ZSBzaG91bGQga25vdyB0aGUgcm9v
-dCBjYXVzZSBvZiB0aGUgY3Jhc2ggYmVmb3JlIGFkZGluZyBteSBmaXguIFJpZ2h0Cj5ub3csIHdl
-IG9ubHkga25vdyB0aGF0IGl0IGlzIGEgZmlybXdhcmUgY3Jhc2gsIGJ1dCB3ZSBkb24ndCBrbm93
-IGlmIHRoZSBjcmFzaCBpcwo+ZHVlIHRvIE1ISSBzdGFjayBvciBQQ0kgYnVzLiBJZiBpdCBpcyB0
-aGUgTUhJIHN0YWNrLCB0aGVuIHdlIGNhbiBxdWlyayB0aGUKPmRldmljZSBpbiBwY2lfZ2VuZXJp
-YyBkcml2ZXIuIElmIGl0IGlzIGEgUENJIGJ1cyBpc3N1ZSwgdGhlbiB3ZSBuZWVkIHRvIGhhbmRs
-ZQo+dGhlIHF1aXJrIGluIHBjaS9xdWlya3MuYy4KPgo+LSBNYW5pCldlIHByb3ZpZGVkIHRoZSBj
-cmFzaCBkdW1wcyB0byBRdWFsY29tbSBmb3IgZnVydGhlciBhbmFseXNpcy4gSXNzdWUgc2VlbXMK
-Y29tZSBmcm9tIGZpcm13YXJlIHNpZGUuIEZpbmFsbHksIFF1YWxjb21tIHJlY29tbWVuZCB1cyB0
-byB1cGRhdGUgdGhpcwphdXRvIHN1c3BlbmQgZGVsYXkgdmFsdWUgdG8gNXMuIE90aGVyd2lzZSB3
-ZSBtYXkgZ2V0IGEgdW5leHBlY3RlZCBpc3N1ZQpmb3Igc29tZSBzcGVjaWZpYyBzY2VuYXJpby4K
-QW5kIGN1cnJlbnRseSBvdXIgY3VzdG9tZXIgYWdyZWVkIHRoYXQgd2Ugc2V0IHRoaXMgdmFsdWUg
-dG8gNXMgZm9yIGFsbCBEVzU5MzRlCnByb2R1Y3RzLiBTbyBJIHdhbnQgdG8gYWRkIHRoaXMgdXBk
-YXRlIGJhc2VkIG9uIG91ciByZWFsIHJlcXVpcmVtZW50LgoKVGhhbmtzCgo=
+
+
+On 10/15/26 12:16 AM, Ricardo B. Marlière (SUSE) wrote:
+> remap_region() checks that the destination region is free before mapping
+> it, but not the preamble region placed right before it, so mapping the
+> preamble can intermittently fail with EEXIST:
+> 
+>   # Failed to map dest preamble region: File exists
+>   not ok 15 5MB mremap - Source 1MB-aligned, Dest 1MB-aligned with 40MB Preamble
+> 
+> This happens when the kernel's heap ASLR (arch_randomize_brk()) lands the
+> process heap inside that unchecked range. Confirmed by correlating
+> brk(NULL) at startup with pass/fail across 60 runs: every failure had brk
+> land inside that range.
+> 
+> Fix it by including the preamble in the free-region check.
+> 
+> Signed-off-by: Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+> ---
+
+Just wondering, should this have a Fixes: tag as well?
+
+Other than that, LGTM.
+
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+
+> Hi, this sporadic issue has been found in openSUSE CI:
+> 
+> https://openqa.opensuse.org/tests/6270334/logfile?filename=serial_terminal.txt#line-6760
+> ---
+>  tools/testing/selftests/mm/mremap_test.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+> index 131d9d6db867..8d4fa3025a9d 100644
+> --- a/tools/testing/selftests/mm/mremap_test.c
+> +++ b/tools/testing/selftests/mm/mremap_test.c
+> @@ -1006,8 +1006,10 @@ static long long remap_region(struct config c, unsigned int threshold_mb,
+>  	if (!((unsigned long long) addr & c.dest_alignment))
+>  		addr = (void *) ((unsigned long long) addr | c.dest_alignment);
+>  
+> -	/* Don't destroy existing mappings unless expected to overlap */
+> -	while (!is_remap_region_valid(addr, c.region_size) && !c.overlapping) {
+> +	/* Don't destroy existing mappings unless expected to overlap. */
+> +	while (!is_remap_region_valid(addr - c.dest_preamble_size,
+> +				      c.dest_preamble_size + c.region_size) &&
+> +	       !c.overlapping) {
+>  		/* Check for unsigned overflow */
+>  		tmp_addr = addr + c.dest_alignment;
+>  		if (tmp_addr < addr) {
+> 
+> ---
+> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+> change-id: 20261014-selftests-mm-mremap_preamble-5f98ad625f93
+> 
+> Best regards,
+> --  
+> Ricardo B. Marlière (SUSE) <ricardo@marliere.net>
+
