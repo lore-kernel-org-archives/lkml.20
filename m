@@ -1,181 +1,80 @@
-Received: from mail3-164.sinamail.sina.com.cn (mail3-164.sinamail.sina.com.cn [202.108.3.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7AE248880
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284602931E6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792024790; cv=none; b=o2UB/Za+CxJcleIeXpLP77fBzazY7kZ34tPqDanN8WQeA98Op37Ij6Rwf7+8IRtvi91IKcv2PAIixO7qgIQJFEDwprkYDPXRvCp6T/jZV8EXw6sO8xVD6YwkwxXk6XlgkZ5dIqa92e1Zwr6au6ayqCme+2SWjzZueU/1PHoK3r4=
+	t=1792024891; cv=none; b=O81Dw1STvsnc22LQuF+JNQBPaGQNDHmtuUTw++wr/Wuat7d6qqyrwblymJqkliSJKZ3BhkewatuBvb/Gz1qQO4b17xNoxg/S5Emmr/SqZBcULNrXVUYOEaOcA1jjeIAynjDSjQMp7jxJkQ9e2EuZZJvkT8PAow/cl036LItqb7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792024790; c=relaxed/simple;
-	bh=idH0hCK9+Ac1zzsSvHM2DzrFyVKzPYMIMe9FcJ3Fnxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5Odg+KQNWaIx8P8racLvc5Ss+O2gC8Q3K6aoBjVJ2EbfRrqihmludnizBI5eazidq7q4T7VoMmN1Rglr/LALhb3i6/hq7N4D8jkJgW9HTYpzIOG+yhhU0CE6XxiNx6medWUO2YiFBp4ijqwqhcS50LBYQfoDsKIwJlxOwOfvaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=kZVjzFq1; arc=none smtp.client-ip=202.108.3.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1792024891; c=relaxed/simple;
+	bh=Pf5+YeQcPloVKTlYpAhhmE0RtcJ7wod9H7wGMxmpep0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=emd4NHo/B1ea8v1We9iYwAAR5eXoUJTsD5/0cWqj5wxoCHwx/xFRfzmKbRHNJ13hsFGsQVl/pn6XE6ioxmLU6GtN2foXoxVu3F3uOlxzy8ng2zXafbyPcxB7KAvyiZndiiotn9yDnwJH3EZTOLW4YyUHbmN7SOQPH0MibOZFTl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e+DMcqUU; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="kZVjzFq1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792024786;
-	bh=qo6CsvOfDb2LpVW3di2AIauLJii7seDt0kp6m0r013o=;
-	h=From:Subject:Date:Message-ID;
-	b=kZVjzFq1WHTQ+gbv0ahor7uFK4bnWTI1u4aleQyD7oMFK7AwqfGTUHmqSovUz2YM/
-	 Iqj2BM+chohdbxgZcXR4SV4++PQXDpSJ10/SoutC2xfh2mWhCjseFULiThjKopRcas
-	 +fsbZqXcFnFRhw0RL3pS5K1VcQkcM13G0xnz3jOY=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AD020A6000010D5; Thu, 15 Oct 2026 08:39:05 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 6215844456923
-X-SMAIL-UIID: C02280566B0F444891C475ABBE904BB3-20261015-083905-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com>
-Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	Igor Putko <igorpetindev@gmail.com>
-Subject: Re: [PATCH] Bluetooth: mgmt: Fix UAF in mesh_send_sync caused by race in mesh queue
-Date: Thu, 15 Oct 2026 08:38:51 +0800
-Message-ID: <20261015003852.532-1-hdanton@sina.com>
-In-Reply-To: <20261014160504.42527-1-igorpetindev@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e+DMcqUU"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso5698340a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792024889; x=1792629689; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pf5+YeQcPloVKTlYpAhhmE0RtcJ7wod9H7wGMxmpep0=;
+        b=e+DMcqUUezx/+5tCerSipK2GUeSGc6pIck6z/lUjo4g9i8/+ve1MuFEe2/szmuymIs
+         agjk1a1EMDWcynLJHvvzFbOSqtXO7sdw2ZXQ7vPHT+54KjdQDwBhtmn6XxxO/Wq3BL73
+         1AVd6gkTvzfeJMbKYTs39xbdXBNbxgmE24dGm9MwsUu6dkSVAsvl243tyww4y0ROchGZ
+         z5RrVSWhmDzCQQZytUKgalGhFkOgEPeC8PlTmXhBkj/2sL8kFhWehp5pfRSLX5UjGvEE
+         vMB1HNSGzW4UqxehmxtRxFYyYE/9jwFwfsNC9Gexdq+bSv8eywilGp3JKEN04sfuIc7F
+         i7RA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792024889; x=1792629689;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pf5+YeQcPloVKTlYpAhhmE0RtcJ7wod9H7wGMxmpep0=;
+        b=o4sca8cfIxvT2ZDf18XgL13wlwoLkY05G7WfwT0jGdgtCpumuYSuULLKTlK4YbBViE
+         yNIc7zp228Loz6MflA5lCTTOUEYv6WC/Ii4sGMuMFEFJDeSfVbgpcdXNdbpjsFKBFa82
+         YfVaztWaiqFGPcWsi0DpEvpHSm/UNCKLRul+36jVyLHk6ZNWyQRks5rT+tjtBTFLa7Xc
+         dn0COGmamNV/FsSQ9hoKqj70t8HXdLbgTHh/kIQDaFFBr1jEMi8VX3enT4sg5dDTvE74
+         eTTP2Ecq19gIm5ZRjJ9F582vcEauEIp1j7QmSB8+nNpQ1wEx0zwz6tXUO65jUwfCiOjB
+         COXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzL2lH/YgHl4lwBL1u5lWkysJ9azeFyf7OJh5zZDK4zQgt4zHVzI6pKSe8cekc3QKmEAFEJAGqzdIGoHkM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEedHNLxfMd1rt8PTfvq1GrD9gsxuo4HHEgWqLK9ESCf2XerwE
+	kXitQtwXAA749BcIKp+JOaC2L23O5GzKPn5yzGSFaFjPZRW/7yPUQSiRv84slq4qt2clmgJc1d0
+	L4HPEilj1bUDSz8H1MNPMig==
+X-Received: from pgac2.prod.google.com ([2002:a05:6a02:2942:b0:cc7:e840:a614])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:28c4:b0:3ac:8af9:4a73 with SMTP id 98e67ed59e1d1-3ac8af94eeemr1509712a91.28.1792024887625;
+ Wed, 14 Oct 2026 17:41:27 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:41:25 +0800
+In-Reply-To: <sashiko-outbox-172057@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <sashiko-outbox-172057@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261015004125.3503453-1-stanleyjhu@google.com>
+Subject: Re: [PATCH v2 1/5] scsi: ufs: bsg: Complete the job on error
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K. Petersen" <mkp@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-#syz test upstream  master
+On Thu, Oct 15, 2026 at 12:32:09AM +0000, sashiko-bot@kernel.org wrote:
+> Because job->reply_len is set to 104, this copies 8 bytes of adjacent
+> slab memory to userspace, which could lead to heap corruption and
+> memory disclosure.
 
-A race condition between mesh_send() and mesh_next() can lead to the
-same struct mgmt_mesh_tx object being queued twice into the cmd_sync
-work list.
-
-Specifically, mesh_send_done_sync() and mesh_send_start_complete() clear
-the HCI_MESH_SENDING flag before mesh_next() is executed or without
-holding hci_dev_lock. If a concurrent mesh_send() arrives during this
-window, it observes HCI_MESH_SENDING as cleared, adds the new mesh_tx
-to hdev->mesh_pending, and queues it via hci_cmd_sync_queue().
-Immediately thereafter, mesh_next() executes without holding
-hci_dev_lock, inspects hdev->mesh_pending with mgmt_mesh_next(), and
-queues the very same mesh_tx a second time.
-
-When the first queued entry finishes, its completion callback invokes
-mesh_send_complete(), which frees the mesh_tx structure. When the worker
-subsequently picks up the duplicate second entry, mesh_send_sync()
-attempts to access fields in the already freed mesh_tx, triggering a
-KASAN slab-use-after-free read.
-
-Fix this by:
-1. Synchronizing mesh_next() under hci_dev_lock and checking if
-   HCI_MESH_SENDING is already set before queueing.
-2. Holding hci_dev_lock when modifying HCI_MESH_SENDING and completing
-   mesh transactions in mesh_send_done_sync() and
-   mesh_send_start_complete().
-3. Unconditionally removing mesh_tx if hci_cmd_sync_queue() fails in
-   mesh_send().
-
-Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
-Reported-by: syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?id=d2762f31ce58dfcb900c2db500bf361f165c07bc
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
----
- net/bluetooth/mgmt.c | 37 ++++++++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 11 deletions(-)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 251a896babd5..0dda38af00ec 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -1094,13 +1094,15 @@ static int mesh_send_done_sync(struct hci_dev *hdev, void *data)
- {
- 	struct mgmt_mesh_tx *mesh_tx;
- 
--	hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
- 	if (list_empty(&hdev->adv_instances))
- 		hci_disable_advertising_sync(hdev);
--	mesh_tx = mgmt_mesh_next(hdev, NULL);
- 
-+	hci_dev_lock(hdev);
-+	mesh_tx = mgmt_mesh_next(hdev, NULL);
- 	if (mesh_tx)
- 		mesh_send_complete(hdev, mesh_tx, false);
-+	hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
-+	hci_dev_unlock(hdev);
- 
- 	return 0;
- }
-@@ -1109,18 +1111,30 @@ static int mesh_send_sync(struct hci_dev *hdev, void *data);
- static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err);
- static void mesh_next(struct hci_dev *hdev, void *data, int err)
- {
--	struct mgmt_mesh_tx *mesh_tx = mgmt_mesh_next(hdev, NULL);
-+	struct mgmt_mesh_tx *mesh_tx;
-+	int ret;
- 
--	if (!mesh_tx)
-+	hci_dev_lock(hdev);
-+
-+	if (hci_dev_test_flag(hdev, HCI_MESH_SENDING)) {
-+		hci_dev_unlock(hdev);
- 		return;
-+	}
- 
--	err = hci_cmd_sync_queue(hdev, mesh_send_sync, mesh_tx,
--				 mesh_send_start_complete);
-+	mesh_tx = mgmt_mesh_next(hdev, NULL);
-+	if (!mesh_tx) {
-+		hci_dev_unlock(hdev);
-+		return;
-+	}
- 
--	if (err < 0)
-+	ret = hci_cmd_sync_queue(hdev, mesh_send_sync, mesh_tx,
-+				 mesh_send_start_complete);
-+	if (ret < 0)
- 		mesh_send_complete(hdev, mesh_tx, false);
- 	else
- 		hci_dev_set_flag(hdev, HCI_MESH_SENDING);
-+
-+	hci_dev_unlock(hdev);
- }
- 
- static void mesh_send_done(struct work_struct *work)
-@@ -2309,9 +2323,12 @@ static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err)
- 	/* Report any errors here, but don't report completion */
- 
- 	if (mgmt_err) {
-+		hci_dev_lock(hdev);
- 		hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
- 		/* Send Complete Error Code for handle */
- 		mesh_send_complete(hdev, mesh_tx, false);
-+		hci_dev_unlock(hdev);
-+
- 		if (err != -ECANCELED)
- 			mesh_next(hdev, NULL, 0);
- 		return;
-@@ -2541,10 +2558,8 @@ static int mesh_send(struct sock *sk, struct hci_dev *hdev, void *data, u16 len)
- 		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_MESH_SEND,
- 				      MGMT_STATUS_FAILED);
- 
--		if (mesh_tx) {
--			if (sending)
--				mgmt_mesh_remove(mesh_tx);
--		}
-+		if (mesh_tx)
-+			mgmt_mesh_remove(mesh_tx);
- 	} else {
- 		hci_dev_set_flag(hdev, HCI_MESH_SENDING);
- 
--- 
-2.47.3
+Pre-existing and not changed by this patch; fixed separately in bsg-lib:
+https://lore.kernel.org/all/20261013132708.1669415-1-stanleyjhu@google.com/
