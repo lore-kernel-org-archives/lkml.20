@@ -1,147 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CE94A6CFA;
-	Thu, 15 Oct 2026 07:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FDD4AA1E4;
+	Thu, 15 Oct 2026 07:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050715; cv=none; b=RlcUu5vIXs7mtDp91cnIFanRS2zZ94AbZh1KkhUhALrHKwPuA4k0GjxnqxTa5S64PdyiAILmoIQkRk+FPtMNOkrScmUmlxCh02m+XUSAQVU6cO1uaxyitCJhj1TCdWb6+U5wOG2Foukn2IYN+PKLm677rSugKUfd6Ye5RFw5PFY=
+	t=1792050728; cv=none; b=f81olt32TBDRVMPVlYVmcXL166S63oVT46OZN7T276dKS4MZx5jzNjEhRYpdsZv1ptRZFD4QjGEKD5x7b4JiVg5tA1n6u8cIchfYVNsYiibWENPhCcbndAHE0VO53LLlomtJBc5m/mnGEmJKxeY8W+zcYuZOS4OSVwqs0BgUmiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050715; c=relaxed/simple;
-	bh=58MGJzsg/gzKE9+ctrzXojPWzyH5En6609u7hKIGXXY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NHQvhgXlE07nJrODHXw8WN+Jqw2uJkYwpCBtFs7svsIii2flbxdj9PXCsMPbpSd43O5vpavaz7dp/d3l5mO3Yjpo2+QUoWIzlt5r8lZRvQhLQpZgE/5NSD+zZC3GoSMpILU1H9aNEpGVRClNPodNiE1+pu/I6575eGLX/3RfnUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBSxGh4f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792050728; c=relaxed/simple;
+	bh=4Rir2O/SJYgRxfaFeRkPtzZ3fpUBeXF+MRaQx2U5Z38=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=M9ITM0loQpu81YlecEqA01H3ocIXkBoGUDN7P8xyWnKfGgUqIWPU8zzUMxcvqhoYGpEDIQKP5W/bTrU1Xv4Z5l2d08KP+IHG0WIsiRDuyI/FUPVCXZYCqFRLNKfeEop8dAqsG+nQcGCDNDixLfMMcgNK0t/0gpU2bIh7hOZzpXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=G4DFnAIr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBSxGh4f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA0C1F000C4;
-	Thu, 15 Oct 2026 07:51:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792050708;
-	bh=UJe2c3nr2fvv5KSBUYY6ev4UYSzq43r8K4rqLE7u2ow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oBSxGh4fID9Jb/BaBMZN/U6FvOCiPd6N7cRzVv5ZUHrqBrbIrcIWGCcvXVMGTheuJ
-	 W+qG1lbxXHer5r+0wuQve1Q6pTvKVtG6Gx7k0OQek3+MdJt6uKWVtS+SPRUZ06wwGH
-	 +TlkcYsOavW/HhicDk4ctMOHY3Ed6Ss1utyQniU9T67YS9V0PHcZh92SFNKiLXLj96
-	 VBFVPmsIHDD5WEaaFofdaYG7yqvMM/vAUD/ZszvtHeZJ1w3TCo8kNcB+9U70BJeN5B
-	 d7v2BRD4I7h5hZV5j0V650CJxbPZPe4h5Updm4umkoiRfZFMOWWfdtL5tXCl/KceGc
-	 iM+rAPtYeGrxw==
-Message-ID: <8b312a3c-5985-4da1-be5f-11364e662363@kernel.org>
-Date: Thu, 15 Oct 2026 09:51:43 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G4DFnAIr"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:6f1c:794c:1e6c:a09b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 701CA22B;
+	Thu, 15 Oct 2026 09:49:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792050597;
+	bh=4Rir2O/SJYgRxfaFeRkPtzZ3fpUBeXF+MRaQx2U5Z38=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=G4DFnAIr628qAII7TVB89qe16JEU2M9AeQDmGLS2BuyWH0rRzIi43mML20bIFaxqc
+	 nrhMoDSQG1ps7jAZK+jNyKA1QyZMUXhyrn6T70Dp9jasXVLaTLwEHCSuOCTJkMQHrZ
+	 Fb5ZxDxZYGo2Su29Eb52xeqgo3EhkcAzeYxC+iuc=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Thu, 15 Oct 2026 16:51:41 +0900
+Subject: [PATCH DNI v3 01/15] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ CPG_SGD4_VIO_DP_{TX,OTHER}
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/page_alloc: detect zonelist rebuilds from memory
- hot-add
-Content-Language: en-US
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
- cgroups@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, longman@redhat.com,
- ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
- akpm@linux-foundation.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, ziy@nvidia.com, david@kernel.org,
- mgorman@techsingularity.net
-References: <20261014222456.2318284-1-gourry@gourry.net>
- <20261014222456.2318284-2-gourry@gourry.net>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261014222456.2318284-2-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-1-e052903a3832@ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-On 10/15/26 00:24, Gregory Price (Meta) wrote:
-> The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
-> presumably because only hot-remove takes zones out of a zonelist.
-> 
-> However, build_zonerefs_node() rewrites the zonelists in place, so
-> onlining the first block of a zone shifts the entries that follow it
-> in every zonelist containing that zone.  This can cause a spurious
-> allocation failure for a __GFP_THISNODE caller.
-> 
-> For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
-> rewrites the node's ZONELIST_NOFALLBACK list as:
-> 
->   [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
-> 
-> A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
-> intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
-> CONFIG_MEMORY_HOTREMOVE=n, check_retry_zonelist() returns 0 and the
-> allocation fails even though the node has free ZONE_NORMAL memory.
-> 
-> Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
-> configuration that rebuilds zonelists after boot.
-> 
-> Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all_zonelists and page allocation")
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Add the CPG_SGD4_VIO_DP_TX and CPG_SGD4_VIO_DP_OTHER clocks. The former
+is used by FCPV{B,D,I} and VSPD while the latter is used by VSP{B,I} on
+the Renesas R-Car X5H.
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+---
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> ---
->  mm/page_alloc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 7682aecc2c075..81db19f2ab551 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4425,7 +4425,7 @@ static DEFINE_SEQLOCK(zonelist_update_seq);
->  
->  static unsigned int zonelist_iter_begin(void)
->  {
-> -	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
->  		return read_seqbegin(&zonelist_update_seq);
->  
->  	return 0;
-> @@ -4433,7 +4433,7 @@ static unsigned int zonelist_iter_begin(void)
->  
->  static unsigned int check_retry_zonelist(unsigned int seq)
->  {
-> -	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
->  		return read_seqretry(&zonelist_update_seq, seq);
->  
->  	return seq;
+diff --git a/include/dt-bindings/clock/renesas,r8a78000-cpg.h b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+index 5851a29847f961b9b4ec270f263eb3aa19e45308..8c1a01e28ddbb26c583d7c9b387400ef6626c06c 100644
+--- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
++++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+@@ -12,5 +12,7 @@
+ #define R8A78000_CPG_SGASYNCD16_PERW_BUS	2
+ #define R8A78000_CPG_S0D4_PERE_MAIN		3	// FIXME Preliminary
+ #define R8A78000_CPG_MSOCK_PERW_BUS		4	// FIXME Preliminary
++#define R8A78000_CPG_SGD4_VIO_DP_TX		5	// FIXME Preliminary
++#define R8A78000_CPG_SGD4_VIO_DP_OTHER		6	// FIXME Preliminary
+ 
+ #endif /* __DT_BINDINGS_CLOCK_RENESAS_R8A78000_CPG_H__ */
+
+-- 
+2.47.3
 
