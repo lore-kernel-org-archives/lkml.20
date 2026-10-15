@@ -1,61 +1,61 @@
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDED02D2486;
-	Thu, 15 Oct 2026 23:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF13E3D88E0;
+	Thu, 15 Oct 2026 23:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108572; cv=none; b=Z2Kpso1RJNWp6exkoPaebXF9xC44psSV1xNMsHeEWWKwPGd2rQRXbR9sgCGU8OTNSV+Ku0w4zstZOfq9h9uuMzutfIi/m+gc/OZamDMVkxEFH2eb6vFaixFWxTdRCsDKh3y++Gb1rpHs2AAavP1fU8oPyRGK5Uc/6mB8RFV+NMY=
+	t=1792108610; cv=none; b=M2j2Uvvw+FXmlIiyHQKo5TcYPVcwrgTTj7atuGitZRk3lEyNgH16RLfio413rNMrEXNT3c88fPz3hL8LrZECAyfx5YSJULnT1SKPVnbPhT44qR1kw+m49m48/TkMbziJYaXu4r6ABCb60ap/N8sNJYFyWAlFlmZRdPBO+e8BFqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108572; c=relaxed/simple;
-	bh=Y6xOJ/FZEZ60ZTLOfQSx9qKWhcVEugt1+98XMLwr7ds=;
+	s=arc-20240116; t=1792108610; c=relaxed/simple;
+	bh=Aw7Uh7QIY/HPESoLBQp6yeoOqo6iAB6HcKSVOV0eK84=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iJ4xKL0SksTprAaK6hzICqKEo6Weiw3ToEV1UPGy430JDx40ZjRBV+u80KH1Xop2VhjshG+A5wThbNXW2mUhFeGSzS3ma3AbNDDRwjsgmLrFKS0NzGsBMp1tXV6ANlEmaSooX0C5nqzKTvTXtbd8MJ8FMpzssELl7BqEMCbDoR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=YkaYyoxq; arc=none smtp.client-ip=52.26.1.71
+	 MIME-Version:Content-Type; b=Av1lPjxqt3EUbQq9vz0D5bg6gtZonGBT95GBjcY11cBVwkHVMwYnqXxULGL+bPVoJa5HYHRHg/uv3AhtEBsUsQPHYb35D7X55YTa09XC9AQlj27tN/6La4lIblkBJhaxkgufJ9siuu8FnJ5jZXeo87x3ohUeNsf4HpbEWEYx3/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=IQWjixcz; arc=none smtp.client-ip=52.13.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="YkaYyoxq"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="IQWjixcz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792108571; x=1823644571;
+  t=1792108607; x=1823644607;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QzzUznMlKtudOmhH+teEEF+wX5F+Oj/gbu0fYozZlpk=;
-  b=YkaYyoxqSMiPCosYZAvVmTZN80EYa81Gomy70bbqs/JEFtrlqgWqYxj0
-   sktNRD4PZrnJnImCCtYT5cv2SifX8iCm357SqgBlJC/zprIbZrRjBDomm
-   ukZ/038t/PhiDc1iClALrX4Mzname8zsJRZFX6Aa8M7ru3zmRaK0/7rZf
-   OfUSu7m79VEsISvPeZE8HNIcq863+Tv3ePlXjbsZD6/CMRbCztuvJroCJ
-   6NvL+h5VHwl1634PmveQrzcuocSNKJdFt88VD2KT0y6GVs+wc94AMYf3S
-   T1UoFpgTFk2KXfajk7vBNbMnZUUq+AYCYWqY6vaHLTHkVBPH8Kx3ALgs8
-   g==;
-X-CSE-ConnectionGUID: lOQoElyMQXSAH+FiEwH4yQ==
-X-CSE-MsgGUID: DM1OUUb4ScaG9WgxTsDtLg==
+  bh=iporXgDcLq8Qs5m1AomBCEZH863qUOYM2erUOveq4GQ=;
+  b=IQWjixczm2WbmlE4yAvWSp6n7sP7GR/xAjqbjv9Y+XY3dilM72faHXMm
+   JjSww59YwFi9pHoBL9kKcVefHCnfbAKXfDTFtdjwZ7dKBIn1E53Qlg41l
+   Z9atWq/CRGl36xICwebW4SA4i+ArvFCx4mjqp1IzEKPcERf1eHrzC2H0E
+   /QyqENovAV03BdxkF/qwE1afp1E9WiQS+/QCPF7Nkg7tJHXPIzj+lI/Xi
+   kmTlmFufzdlCyQNWdUFh134BdqHci0O0FzQOVeBEvUOZhGpvmY1+ucGnY
+   yQDUkicdl/UqjP1fqAgeD4G92aU4KVDPYnf8hq6zfRjLVORYZmPAA4uAw
+   w==;
+X-CSE-ConnectionGUID: T55mjaqtQ/m9ox5hHqnMZQ==
+X-CSE-MsgGUID: 4WQ80iPOTpKbUgKwMWk6gw==
 X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31427771"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 23:56:11 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:28890]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
- id bf50fe36-5e22-4823-9b78-2097d7834e2a; Thu, 15 Oct 2026 23:56:11 +0000 (UTC)
-X-Farcaster-Flow-ID: bf50fe36-5e22-4823-9b78-2097d7834e2a
+   d="scan'208";a="31368865"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 23:56:44 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9704]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.90:2525] with esmtp (Farcaster)
+ id 0df28996-750e-4a56-ac9d-24d89250e3a0; Thu, 15 Oct 2026 23:56:44 +0000 (UTC)
+X-Farcaster-Flow-ID: 0df28996-750e-4a56-ac9d-24d89250e3a0
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 23:56:10 +0000
+ Thu, 15 Oct 2026 23:56:43 +0000
 Received: from dev-dsk-dkeogh-ai2-36d3b9a7.us-west-2.amazon.com
  (172.19.55.127) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 23:56:10 +0000
+ 23:56:43 +0000
 From: David Keogh <dkeogh@amazon.com>
 To: <netdev@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
 	<pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
 CC: Dragos Tatulea <dtatulea@nvidia.com>, Nimrod Oren <noren@nvidia.com>,
 	<nh-open-source@amazon.com>, <linux-kernel@vger.kernel.org>
-Subject: [RFC net-next 4/6] selftests: net: add tx_extra_headroom test
-Date: Thu, 15 Oct 2026 23:53:33 +0000
-Message-ID: <20261015235335.4162993-5-dkeogh@amazon.com>
+Subject: [RFC net-next 5/6] selftests/bpf: add tx_extra_headroom data-plane programs
+Date: Thu, 15 Oct 2026 23:53:34 +0000
+Message-ID: <20261015235335.4162993-6-dkeogh@amazon.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261015235335.4162993-1-dkeogh@amazon.com>
 References: <20261015235335.4162993-1-dkeogh@amazon.com>
@@ -67,178 +67,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Exercise the IFLA_TX_EXTRA_HEADROOM attribute through YNL: the default
-of zero, setting values up to the maximum and back to zero, rejection
-of a value above the maximum, supplying the attribute at link creation,
-the change notification, persistence across link down/up and across a
-network namespace move, and that a VLAN created on top of a configured
-device does not inherit the setting.
+Add two BPF programs for a tx_extra_headroom data-plane test:
+
+  * push_outer (SEC "tc") pushes a 20-byte outer header on UDP egress,
+    forcing a head reallocation when the skb lacks the headroom.
+
+  * count_realloc (SEC "fentry/pskb_expand_head") counts those reallocs
+    for one ifindex, selected via the cfg_ifindex map.
+
+The test that loads them is added to selftests/net in the next patch.
 
 Signed-off-by: David Keogh <dkeogh@amazon.com>
 ---
- tools/testing/selftests/net/Makefile          |   1 +
- .../selftests/net/tx_extra_headroom.py        | 137 ++++++++++++++++++
- 2 files changed, 138 insertions(+)
- create mode 100755 tools/testing/selftests/net/tx_extra_headroom.py
+ .../bpf/progs/tx_extra_headroom_probe.c       | 68 ++++++++++++++++++
+ .../bpf/progs/tx_extra_headroom_tc.bpf.c      | 69 +++++++++++++++++++
+ 2 files changed, 137 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
 
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index 54beea2e3..0eb9a69e9 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -120,6 +120,7 @@ TEST_PROGS := \
- 	test_vxlan_vnifiltering.sh \
- 	tfo_passive.sh \
- 	traceroute.sh \
-+	tx_extra_headroom.py \
- 	txtimestamp.sh \
- 	udpgro.sh \
- 	udpgro_bench.sh \
-diff --git a/tools/testing/selftests/net/tx_extra_headroom.py b/tools/testing/selftests/net/tx_extra_headroom.py
-new file mode 100755
-index 000000000..f6f087e98
+diff --git a/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c b/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
+new file mode 100644
+index 000000000..a6ca66ef0
 --- /dev/null
-+++ b/tools/testing/selftests/net/tx_extra_headroom.py
-@@ -0,0 +1,137 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
++++ b/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
+@@ -0,0 +1,68 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * fentry realloc counter for the tx_extra_headroom data-plane selftest.
++ *
++ * count_realloc (fentry/pskb_expand_head) increments realloc_cnt[0] each time
++ * pskb_expand_head() runs for an skb whose egress device ifindex matches
++ * cfg_ifindex[0]. The ifindex filter scopes the count to the test interface so
++ * unrelated background reallocs are not counted. fentry is BTF/CO-RE based, so
++ * this attaches by its SEC name via "bpftool prog loadall ... autoattach" with
++ * no raw kprobe name, no bpftrace, and no user-space loader.
++ *
++ * The companion tc program (tx_extra_headroom_tc.bpf.c) is what forces the
++ * reallocation this program observes. Userspace writes cfg_ifindex[0] (the
++ * device under test) and resets realloc_cnt[0] before each run via bpftool,
++ * then reads realloc_cnt[0] after.
++ */
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_core_read.h>
++#include <bpf/bpf_tracing.h>
 +
-+"""Tests for the IFLA_TX_EXTRA_HEADROOM link attribute."""
++/* realloc_cnt[0] = number of pskb_expand_head calls on the test interface. */
++struct {
++	__uint(type, BPF_MAP_TYPE_ARRAY);
++	__uint(max_entries, 1);
++	__type(key, __u32);
++	__type(value, __u64);
++} realloc_cnt SEC(".maps");
 +
-+from lib.py import ksft_run, ksft_exit, ksft_eq, ksft_raises, ksft_true
-+from lib.py import ip
-+from lib.py import NetNS, NetNSEnter
-+from lib.py import Netlink, NlError, RtnlFamily
++/* cfg_ifindex[0] = ifindex of the device under test (set by userspace). */
++struct {
++	__uint(type, BPF_MAP_TYPE_ARRAY);
++	__uint(max_entries, 1);
++	__type(key, __u32);
++	__type(value, __u32);
++} cfg_ifindex SEC(".maps");
 +
-+ATTR = "tx-extra-headroom"
-+MAX = 512
++/*
++ * BPF_PROG unpacks the trampoline args, so skb is the first argument of
++ * pskb_expand_head(struct sk_buff *, int, int, gfp_t). Count only reallocs
++ * whose egress device matches the configured ifindex.
++ */
++SEC("fentry/pskb_expand_head")
++int BPF_PROG(count_realloc, struct sk_buff *skb)
++{
++	__u32 key = 0;
++	__u32 *want;
++	__u64 *cnt;
++	__u32 ifi;
 +
++	want = bpf_map_lookup_elem(&cfg_ifindex, &key);
++	if (!want || *want == 0)
++		return 0;
 +
-+def ifindex(name):
-+    return ip(f"link show dev {name}", json=True)[0]["ifindex"]
++	/* CO-RE read: skb->dev may be NULL on some paths. */
++	if (!BPF_CORE_READ(skb, dev))
++		return 0;
++	ifi = BPF_CORE_READ(skb, dev, ifindex);
++	if (ifi != *want)
++		return 0;
 +
++	cnt = bpf_map_lookup_elem(&realloc_cnt, &key);
++	if (cnt)
++		__sync_fetch_and_add(cnt, 1);
++	return 0;
++}
 +
-+def get(rtnl, idx):
-+    return rtnl.getlink({"ifi-index": idx})[ATTR]
++char _license[] SEC("license") = "GPL";
+diff --git a/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c b/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
+new file mode 100644
+index 000000000..43e3bea60
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * tc-egress pusher for the tx_extra_headroom data-plane selftest.
++ *
++ * On egress, pushes OUTER_LEN bytes of outer header via
++ * bpf_skb_adjust_room(..., BPF_ADJ_ROOM_MAC, ...). On an skb allocated with only
++ * LL_RESERVED_SPACE() of headroom this forces skb_cow_head() ->
++ * pskb_expand_head() (a realloc-and-copy) on every packet; when the device has
++ * reserved extra headroom via tx_extra_headroom the push finds room already
++ * present and no realloc happens. The reallocation is counted by the companion
++ * fentry program in tx_extra_headroom_probe.bpf.c.
++ *
++ * UDP only, so TCP control traffic and IPv6 NDP are not corrupted. OUTER_LEN
++ * defaults to 20 (one IPv4 header) and can be overridden at build time.
++ */
++#include <linux/bpf.h>
++#include <linux/if_ether.h>
++#include <linux/in.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/pkt_cls.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_endian.h>
 +
++#ifndef OUTER_LEN
++#define OUTER_LEN 20
++#endif
 +
-+def set_(rtnl, idx, val):
-+    rtnl.setlink({"ifi-index": idx, ATTR: val})
++SEC("tc")
++int push_outer(struct __sk_buff *skb)
++{
++	void *data = (void *)(long)skb->data;
++	void *data_end = (void *)(long)skb->data_end;
++	struct ethhdr *eth = data;
++	__u8 l4 = 0;
 +
++	if ((void *)(eth + 1) > data_end)
++		return TC_ACT_OK;
 +
-+def test_default_and_set() -> None:
-+    """Default is 0, values up to the maximum are accepted, 0 resets."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        ip("link add d0 type dummy")
-+        rtnl = RtnlFamily()
-+        idx = ifindex("d0")
++	if (eth->h_proto == bpf_htons(ETH_P_IP)) {
++		struct iphdr *ip = (void *)(eth + 1);
 +
-+        ksft_eq(get(rtnl, idx), 0)
-+        for val in (1, 256, MAX):
-+            set_(rtnl, idx, val)
-+            ksft_eq(get(rtnl, idx), val)
-+        set_(rtnl, idx, 0)
-+        ksft_eq(get(rtnl, idx), 0)
++		if ((void *)(ip + 1) > data_end)
++			return TC_ACT_OK;
++		l4 = ip->protocol;
++	} else if (eth->h_proto == bpf_htons(ETH_P_IPV6)) {
++		struct ipv6hdr *ip6 = (void *)(eth + 1);
 +
++		if ((void *)(ip6 + 1) > data_end)
++			return TC_ACT_OK;
++		l4 = ip6->nexthdr;
++	} else {
++		return TC_ACT_OK;
++	}
 +
-+def test_reject_above_max() -> None:
-+    """Values above the maximum are rejected by the policy."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        ip("link add d0 type dummy")
-+        rtnl = RtnlFamily()
-+        idx = ifindex("d0")
++	/* UDP only: do not corrupt TCP or ICMPv6/NDP control traffic. */
++	if (l4 != IPPROTO_UDP)
++		return TC_ACT_OK;
 +
-+        set_(rtnl, idx, 128)
-+        with ksft_raises(NlError):
-+            set_(rtnl, idx, MAX + 1)
-+        ksft_eq(get(rtnl, idx), 128)
++	/*
++	 * Grow at the MAC layer by OUTER_LEN. The helper's internal
++	 * skb_cow_head() reallocates when headroom is insufficient; that
++	 * realloc is exactly what tx_extra_headroom is meant to avoid.
++	 */
++	bpf_skb_adjust_room(skb, OUTER_LEN, BPF_ADJ_ROOM_MAC, 0);
++	return TC_ACT_OK;
++}
 +
-+
-+def test_newlink() -> None:
-+    """The attribute can be supplied when the link is created."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        rtnl = RtnlFamily()
-+        rtnl.newlink({"ifname": "d0", "linkinfo": {"kind": "dummy"},
-+                      ATTR: 64},
-+                     flags=[Netlink.NLM_F_CREATE, Netlink.NLM_F_EXCL])
-+        ksft_eq(get(rtnl, ifindex("d0")), 64)
-+
-+
-+def test_notification() -> None:
-+    """A change produces a link notification carrying the new value."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        ip("link add d0 type dummy")
-+        ip("link set dev d0 up")
-+        rtnl = RtnlFamily()
-+        idx = ifindex("d0")
-+
-+        rtnl.ntf_subscribe("rtnlgrp-link")
-+        set_(rtnl, idx, 192)
-+
-+        seen = None
-+        for msg in rtnl.poll_ntf(duration=1):
-+            if msg["name"] == "getlink" and msg["msg"]["ifi-index"] == idx:
-+                seen = msg["msg"][ATTR]
-+                break
-+        ksft_eq(seen, 192)
-+
-+
-+def test_survives_down_up() -> None:
-+    """Toggling the link does not reset the value."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        ip("link add d0 type dummy")
-+        rtnl = RtnlFamily()
-+        idx = ifindex("d0")
-+
-+        set_(rtnl, idx, 96)
-+        ip("link set dev d0 up")
-+        ksft_eq(get(rtnl, idx), 96)
-+        ip("link set dev d0 down")
-+        ksft_eq(get(rtnl, idx), 96)
-+
-+
-+def test_survives_netns_move() -> None:
-+    """Moving the link to another namespace keeps the value."""
-+    with NetNS() as ns1, NetNS() as ns2:
-+        with NetNSEnter(str(ns1)):
-+            ip("link add d0 type dummy")
-+            rtnl = RtnlFamily()
-+            set_(rtnl, ifindex("d0"), 160)
-+            ip(f"link set dev d0 netns {ns2}")
-+
-+        with NetNSEnter(str(ns2)):
-+            rtnl = RtnlFamily()
-+            ksft_eq(get(rtnl, ifindex("d0")), 160)
-+
-+
-+def test_not_inherited() -> None:
-+    """Stacked devices do not inherit the value of the device below."""
-+    with NetNS() as ns, NetNSEnter(str(ns)):
-+        ip("link add d0 type dummy")
-+        rtnl = RtnlFamily()
-+        set_(rtnl, ifindex("d0"), 224)
-+
-+        ip("link add link d0 name d0.10 type vlan id 10")
-+        ksft_eq(get(rtnl, ifindex("d0.10")), 0)
-+        ksft_true(rtnl.getlink({"ifi-index": ifindex("d0.10")})["headroom"]
-+                  >= 4, "vlan needed_headroom")
-+
-+
-+def main() -> None:
-+    ksft_run([test_default_and_set,
-+              test_reject_above_max,
-+              test_newlink,
-+              test_notification,
-+              test_survives_down_up,
-+              test_survives_netns_move,
-+              test_not_inherited])
-+    ksft_exit()
-+
-+
-+if __name__ == "__main__":
-+    main()
++char _license[] SEC("license") = "GPL";
 -- 
 2.50.1
 
