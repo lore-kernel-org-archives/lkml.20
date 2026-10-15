@@ -1,71 +1,71 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288F63E1231
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F7B4FD278
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792107225; cv=none; b=UdiBAoMkIXhsHoHy4lEkPHUU1rOsqptCDWhqjo1sljt6zjaAOo8KMt0cFCb1NkPbePe2NsVkXkEIc3Fq6xP5EccK3gi9Sr4X63ixNXXTdDrkEBDUInMlDo/J4KWpIbGZp2ret2tCCMgXFfW1tM4kQQC9OlTsG2ym/mVglG7dsTI=
+	t=1792107230; cv=none; b=uAODivsid641wmg0tP3uTWYzpC6tfUkDDkN0K+Pmn3x0LI5qnsPQosrkTaN2xS8ouI6UgpAwZA9HfnwpPKajjyKwUmH1bxHq2YEFxeqd5pOsBOZkoWqTlgY7CnFYihFm0E2UmzelogjvHmWf2MH+rmgtWwdFDdP7yH2kk8GIWK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792107225; c=relaxed/simple;
-	bh=GrTN2b5PpfqmbfLLMqSYA4B6Q1Ro+NBdw8xoIri7aK0=;
+	s=arc-20240116; t=1792107230; c=relaxed/simple;
+	bh=8fFNiipPoEYTI9kJgYaXWKF/L91RircxH5iKO4nRQKA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uTLUg0VtGxqFn0hh2cMJL5qoBb3hNncIJAHRHEZsgVaTEumQ6FuMGQ1GzJrMQJpi9P5D4o25TLeXTfeqJMzvlvuxtpWhLZ7/41WtgVoGa3aQf5HwjFp2lVt9ZOuaAW20FdkDvZAK0CqyQrKdPcWh5tB8hROijq3z5PJSWZRLLPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BuJwfZa+; arc=none smtp.client-ip=209.85.161.50
+	 In-Reply-To:To:Cc; b=Zc7GQdSU+KonYyabrWIkIs94GBid+eZBc413NIIx3bTA948wsxJay0C/4zrSoCz5fho+Ej4HklfNZPXJHVJJDhfzqbToAuNDdbdGk7e4gbhn9lZ1GcpwP26w3n5vRgTVRUzoVcvIRjDCHjbUPl5T1nKkrMr0CAo+T+xJ2A5yTNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJeYv7o7; arc=none smtp.client-ip=209.85.161.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BuJwfZa+"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so4055414eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:33:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJeYv7o7"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6faddda49e7so2615144eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792107221; x=1792712021; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792107225; x=1792712025; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dOGTVagpmg3SkovNg8gY9NJcdR0snicKiJ3IvwwYIZg=;
-        b=BuJwfZa+frL9anoe1a/YGLllVJgn0irp7JXNwT/GqJa2xxm5jLJbQRK40MzM4/gKwt
-         Wn+BDuWoNXAmyWouZMPgqqfKaqFpiBIsr0fWgVkqeMJXlCkgYhUBmzCXG6wlazTyjm0+
-         hKyfs7HJDjYFOYqwm0VOmIKooUMR2e2HSdXVbiGG8keil9tWw4bNW1PmdLZZe7hWmWfx
-         DaGNURWOSqNCLFD4ZdR78oJdxTDv84XLJ07EfAnn6n1UMcnrHsZT65B5W3zx270EvIDJ
-         /MEtntWBw+H6wocoC+lOjQqdhmo8sn4AiqCIxExT++wyfbSYp0/AyFD536TYxi5M9X1d
-         e8dQ==
+        bh=L+fARNsD1Pjz/B72o/CPW4A26RynJA7qBILUXZsof8Y=;
+        b=DJeYv7o7HwsWAd4Nhu0AsUfXl/YAqXjXNAl+yxeHvHxWkOZ9OYHeHl0pv4DE8IQj6/
+         l8KrWyJBlAjZvK4fAxmI5zxr00LUCWw0SDTdtl93iCp5S+kVH3K63HkHjuLnJKDjXDck
+         ZfkOrRxQu4zgpHKtKc+V0g1RYf089vZptJWIZlum5k+iYqXnOINbvKjpXOya5gduUCHI
+         qZ1RM465ZBqYy2JcRjKmapA36BWZXytakiBprrlko7Y8muPZrtxFRIPZyQGdAc5OazOG
+         fLHNA2HyFyWVt4hPBuVJxcibKr+MaV9m9XtfTNpjR6qnRJjbCxlWnKV0bv09CC+7/o85
+         ORjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792107221; x=1792712021;
+        d=1e100.net; s=20260707; t=1792107225; x=1792712025;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dOGTVagpmg3SkovNg8gY9NJcdR0snicKiJ3IvwwYIZg=;
-        b=pE0qdzi4d5dNdhrAuOO5BHIt/GzvUze21AHU0Bj9WDIQUEcGfJOitNPLRRSJvzsvDB
-         2cqPmD6n2gyqQaKcGt+46bUYRwHXjkdHBmn+qJR+wP7YS668ImqWTPJaDnNKc0G3MJGR
-         PNXGI0nx21duinq5UsZWyWP22JRk37a0c8nJOYEusB4aGA/Ca4WiQfoQAcg3RVJGTstn
-         m07ip2md7tUBmYP4/O4diOw40a24nmfD3fpLzt0EQrU2+xqW5ixJh4Yj/FJpprXW1n/i
-         ARmHzeLhOjXc7ykyjsZyXMm/oDNIFNSigBCzDAjE89J0lIX4SnkjYHrcjcJ2i0AevCeU
-         7meA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlYjJDmyWHXs7Bi5GarNBScF9ip5zViWIDBsgi//vy8izDdYmbxLJYSP8ociwz3zCnjGypcZj05O6/1Kc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJny9aaOBJXEWdamqOvitlodMUNKV/gfYi17UOmFnVk5JKSi/fm
-	2/T8TsxgdSn5LdWvPatgr8LsPyvGaexm3PrFacitQnjTjZrHKe/TwPAz
-X-Gm-Gg: AYBFou1HXJNVOdfojDhYJMRf3PU8BZjHbGwjeNsd0nK/512PJldCz25ZDWMxy1zhm77
-	Ip+SWLw0YT0Rf+7O6vJriFTpKtuX4FO2/4HzRtCjWIeP63qUjRmDJZUegTOv9+kATF0xVym2IdD
-	6hh5d2fJ6243ErN6/JVwhzgj+kUpqLGeyduqw10NM7dPhumN2ebxle/uDAaR9w/v/P1C0De1fON
-	9Ag4EHgzF0DALjhOnQLhAGQa5ZTc5uvFx+yxTgKmF8MT3Uslf1jooMhGesjYJIWuE9Ii4L0Hg6T
-	tuuNDUSTOeFEsvDUVYzj6Ih6RVAK6sXMxMSE0EEjKVEZvG770NNk1RXDJjURTUM60dgmkH9Fv3R
-	e7lEyeaQTsjlyxjSlulxn2gqwohIRuJce/F0CY/xTJQ9Wk4v8P3maLQAZB+Fz+zWdn91SejPxJ9
-	ZfgDRxhbLeyQe3ZRu4Gq5v9VZt/1XidzawuRyNVXaQh5pV/rn9WI9S7/QKr7g3MoFahRST69zSg
-	ReoKtBUmRTqJ8qkhVLj2eVb6Xszba9FZs55w76uKtu5/dc/RHmnjzV4FpetZQbzsgbZP6Q0q50G
-	/cSkAjB5fbIixNuKCq4re0ZhCjowfmDFRd0jeIrTB/CEJQ3wQI8AG5oKmqTU+wDxw5UyP+8kdrz
-	IpxtIg1a0TFru1LqQfdWGqfa1qhB3C8ml
-X-Received: by 2002:a4a:e907:0:b0:6be:1570:73b6 with SMTP id 006d021491bc7-6ef0e9dac96mr13517324eaf.20.1792107221207;
-        Thu, 15 Oct 2026 16:33:41 -0700 (PDT)
+        bh=L+fARNsD1Pjz/B72o/CPW4A26RynJA7qBILUXZsof8Y=;
+        b=i8CDsfzr351cWwM+9GYLqxm1s1t4HwcB23rAWs7i2lKUctsswvFN9WGcNsKI6dEMOr
+         po0EjcFSYwgKzs72+JodQgT1Xlph7VC5REvfOvXvWGzWluNUueuMPY1T+BElHXTloAFv
+         DuudPE0nPO90n1+drU5+bezV+M9DA2tJD6A0zT6ujYoQ90vMIiZuVrMk2cTo0q5HDlVe
+         esT4UxzFjyKCf0L5L4/S9Mejl19p06wFR1ErX2jU2UK1mF5Bo4Hik/qmQeNDEdbh+p9P
+         joMY+ajvg0jCWUJSuXlOnS72bY9bYh3Qcqo7uz2rJPpt6cN2ah74F8qBWh5FItcxhzxT
+         T/gw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYtcdoj3GPE+ahi/jH8LoBEAF7UeJstNZnwdV+LbpWVT0e77t4b+2OJ4+0/F/XEG4fWJ5aDQepvKUHKPA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLAtwPYNRx/aon3E3tMXhX2TOQv+QC8fJMGy799fH/g1i+Z0Rq
+	iacVGMuvo2piokxhDhywn1t8o+b3XoH8/yA6746oHC3Sbn1fLVZPAzKp
+X-Gm-Gg: AYBFou15eQqvFnP57uGRxFQk23yOYaacUiZAn3TBEVrTCRH7NFaiq16ARlDS/8TB/OP
+	QYETVtaYbqprAeq68QxpX9NJPxe/HVG4+LlxzzngZ3u9fJyM3E1dWfCSZ35qj9ezjEDtz5DAP2g
+	ceVa9PzoF2VO8iuv/15C2HFM3P1IZgRtkUWT7x7IajuMNBiXv6z/dnrF36ChBDVMv3n7fJIHT9e
+	QoHhiih72rnUQZJDNGDYPiJEnOmbqFuvtzhsm7mYDC/cho0BroHeFhKO/z+aFG1iZk+gp+37s3L
+	/IQbD0hPEXThJEJX/YqZX2uKaC9mKkIphQZiqWhRWo8cNRukV49jAE5l+1B+Yzb7RsATnVJdajw
+	cLl+OUy+IQUeQCDR0vwdsJRhMktEX0IZIFPwERCr+QeSE5rfCUQp3hdzWgPr43F99r4U6jwgOYp
+	9L851kxs8fpI+5rRWu4g/FSkybYuEBh3Gwjby6XR/Ey5pSo4v5OtPsqYop0pRPypxM6HEKy8txn
+	ui+D51MmyMyVPB7BZB233LQzjqblmMVEI5ZgMFCuEhUkN6IJzcO9ptohJm743+dqOpsDF4EuDMO
+	bYSduFuTvZqpPpG+PK3zfVdDm3Wf0JdEapt6A6ytk9amZv+47t3trNJiJtLX5BL0keqmipFwqEg
+	Bs0+X7ZiDuKAZhI7fH/DIPRZb94sRTAsp
+X-Received: by 2002:a4a:ee10:0:b0:6ca:46e:b06 with SMTP id 006d021491bc7-6ef0f1b83b6mr14516002eaf.52.1792107225019;
+        Thu, 15 Oct 2026 16:33:45 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70188bd9ecdsm525519eaf.2.2026.10.15.16.33.39
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70188bd9ecdsm525519eaf.2.2026.10.15.16.33.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 16:33:40 -0700 (PDT)
+        Thu, 15 Oct 2026 16:33:44 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 15 Oct 2026 17:33:32 -0600
-Subject: [PATCH net v4 2/5] ptp: unwind partially completed virtual clock
- creation
+Date: Thu, 15 Oct 2026 17:33:34 -0600
+Subject: [PATCH net v4 4/5] ptp: vclock: serialize extended samples with
+ counter updates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ptp-vclock-sampling-v4-2-cba6ffc8ceb6@gmail.com>
+Message-Id: <20261015-ptp-vclock-sampling-v4-4-cba6ffc8ceb6@gmail.com>
 References: <20261015-ptp-vclock-sampling-v4-0-cba6ffc8ceb6@gmail.com>
 In-Reply-To: <20261015-ptp-vclock-sampling-v4-0-cba6ffc8ceb6@gmail.com>
 To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
@@ -88,53 +88,89 @@ Cc: Eric Dumazet <edumazet@kernel.org>,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-n_vclocks_store() publishes the new clock count only after every child
-has been registered. If a later registration fails, it returns without
-unregistering the children already created by that request. Those clocks
-are left out of n_vclocks, and a subsequent request can overwrite their
-index entries without removing them.
+The extended and cross-timestamp callbacks sample the physical clock
+before taking the virtual clock mutex. A concurrent frequency adjustment
+can advance the timecounter and change its multiplier in between, so the
+older sample is converted using a different frequency than the one in
+effect when it was taken.
 
-Unregister the newly created children in reverse order and clear their
-index entries on failure. Leave the previously installed clocks and
-their count unchanged. The n_vclocks mutex serializes this rollback with
-other sysfs changes, and parent removal drains the store before walking
-the children.
+Take the mutex before sampling and keep it held through the conversion.
+Retain timecounter_cyc2time() and its existing conversion window. A PHC
+sample need not advance the counter: for example, e1000e explicitly
+allows non-monotonic SYSTIM readings. Treating a slightly older sample
+as a forward delta would instead advance virtual time by nearly a full
+counter wrap.
 
-This was found by code inspection while adding initial PHC sample error
-handling to virtual clock registration.
+This race was found by code inspection of the virtual clock sampling
+paths.
 
-Fixes: 73f37068d540 ("ptp: support ptp physical/virtual clocks conversion")
+Fixes: f0067ebfc42b ("ptp: add gettimex64() to virtual clocks.")
+Fixes: 21fad63084c2 ("ptp: add getcrosststamp() to virtual clocks.")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/ptp/ptp_sysfs.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/ptp/ptp_vclock.c | 32 ++++++++++++++------------------
+ 1 file changed, 14 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/ptp/ptp_sysfs.c b/drivers/ptp/ptp_sysfs.c
-index 53388b123198..fabc1c9b1752 100644
---- a/drivers/ptp/ptp_sysfs.c
-+++ b/drivers/ptp/ptp_sysfs.c
-@@ -225,7 +225,7 @@ static ssize_t n_vclocks_store(struct device *dev,
- 		for (i = 0; i < num - ptp->n_vclocks; i++) {
- 			vclock = ptp_vclock_register(ptp);
- 			if (!vclock)
--				goto out;
-+				goto err_register;
+diff --git a/drivers/ptp/ptp_vclock.c b/drivers/ptp/ptp_vclock.c
+index 5f49f81891ef..88161be5eabc 100644
+--- a/drivers/ptp/ptp_vclock.c
++++ b/drivers/ptp/ptp_vclock.c
+@@ -115,20 +115,18 @@ static int ptp_vclock_gettimex(struct ptp_clock_info *ptp,
+ 	struct ptp_clock *pptp = vclock->pclock;
+ 	struct timespec64 pts;
+ 	int err;
+-	u64 ns;
+-
+-	err = pptp->info->getcyclesx64(pptp->info, &pts, sts);
+-	if (err)
+-		return err;
  
- 			*(ptp->vclock_index + ptp->n_vclocks + i) =
- 				vclock->clock->index;
-@@ -257,6 +257,12 @@ static ssize_t n_vclocks_store(struct device *dev,
- 	mutex_unlock(&ptp->n_vclocks_mux);
+ 	if (mutex_lock_interruptible(&vclock->lock))
+ 		return -EINTR;
+-	ns = timecounter_cyc2time(&vclock->tc, timespec64_to_ns(&pts));
+-	mutex_unlock(&vclock->lock);
++	err = pptp->info->getcyclesx64(pptp->info, &pts, sts);
++	if (!err) {
++		u64 ns = timecounter_cyc2time(&vclock->tc, timespec64_to_ns(&pts));
  
- 	return count;
-+err_register:
-+	num = i;
-+	if (num)
-+		device_for_each_child_reverse(dev, &num, unregister_vclock);
-+	for (num = 0; num < i; num++)
-+		ptp->vclock_index[ptp->n_vclocks + num] = -1;
- out:
- 	mutex_unlock(&ptp->n_vclocks_mux);
- 	return err;
+-	*ts = ns_to_timespec64(ns);
++		*ts = ns_to_timespec64(ns);
++	}
++	mutex_unlock(&vclock->lock);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static int ptp_vclock_settime(struct ptp_clock_info *ptp,
+@@ -154,20 +152,18 @@ static int ptp_vclock_getcrosststamp(struct ptp_clock_info *ptp,
+ 	struct ptp_vclock *vclock = info_to_vclock(ptp);
+ 	struct ptp_clock *pptp = vclock->pclock;
+ 	int err;
+-	u64 ns;
+-
+-	err = pptp->info->getcrosscycles(pptp->info, xtstamp);
+-	if (err)
+-		return err;
+ 
+ 	if (mutex_lock_interruptible(&vclock->lock))
+ 		return -EINTR;
+-	ns = timecounter_cyc2time(&vclock->tc, ktime_to_ns(xtstamp->device));
+-	mutex_unlock(&vclock->lock);
++	err = pptp->info->getcrosscycles(pptp->info, xtstamp);
++	if (!err) {
++		u64 ns = timecounter_cyc2time(&vclock->tc, ktime_to_ns(xtstamp->device));
+ 
+-	xtstamp->device = ns_to_ktime(ns);
++		xtstamp->device = ns_to_ktime(ns);
++	}
++	mutex_unlock(&vclock->lock);
+ 
+-	return 0;
++	return err;
+ }
+ 
+ static long ptp_vclock_refresh(struct ptp_clock_info *ptp)
 
 -- 
 2.53.0
