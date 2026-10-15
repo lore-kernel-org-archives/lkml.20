@@ -1,267 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F37C52ED32;
-	Thu, 15 Oct 2026 12:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AA14A2A6E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066929; cv=none; b=Kwt/UwIRycFMEJ8NS3lRHSI0lMq/dGOt6nugVjfmqu6rec1j2Odvcb051PFwO3SaMOoHsMy0YNIw+xLVdr1+++oGammLZXqyoeLiFu0f6tq7w2ssKItFxFo8gmJ10e11rI0/B3KRArIgNNFUMkmkaNLPPyYTd/K3zbexKaCVT8Q=
+	t=1792067027; cv=none; b=YBvFqKoPyxhoQZBLD8GXcFYshTND9S+IX8BJRrHBJl9+bAuJgTkOBN3PvEWMYnIPuIidiRdyLsigakRntlxOPdCHeRtUnXGwrVbCfAaQNG2mHGd9Su3ZUQvCgiAllAFz5nwrQXPS4CI37/hT2lhQ2tAWmrWyJC8lArpsvOZ4rAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066929; c=relaxed/simple;
-	bh=HJVf90+80Qr0r1LE5qBSgRaH+U6IyxnQAiT8rUjcRYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CfQyEF80HnVXEuU8d0arY4aoE5qFhv0ZtRSenO6hANaqjCnlTdl2pxX2QPybQF8rhzNjop5X2oYQwNtKyUD8Bjv5RI+5+l6kW12Fhg2IjaNhZ+DhSyWEzLxin/aRmG0brrdmw1EI7HBVX3b2mLi98SCd1x+IuqTWFzgCk37CBEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lGJxpXtG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067027; c=relaxed/simple;
+	bh=vYw3szEqR7zQw5YAGZqRLpKAPIDise6b7Wp5pAeF4L4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yf9HJhVAXbfgwDZJT0tzH893rDDhF9jVusdUQ8LPhRwZ1/DaKhypItKOom4l4Ls+eKnczOMmVGmWFYvO0/uRtifa/+vsKPj82BPxtWOb2XOwFeQLgIaXGo5SYtxyBOVw1KqYdqr8E1y+RyrhoPym7ju15WBZUrqSirqMy72qwOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bmHI4wUJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HgL5fCj0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lGJxpXtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428741F000C5;
-	Thu, 15 Oct 2026 12:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792066927;
-	bh=9l6acNSMFyMFPGzceal1WZ21+xnmEF04X+2VQ8UFPj4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lGJxpXtGQnRr5dEkHLilc4YieHHtN51qaiJnhD74DYYxHGch4jOTm7uOvOuy+Skvi
-	 yKoQwiSkrMyWrMy6At6O9BFaKs+lK0Rq3oMjeI3N+wdtW2rTPvza3nzm82JFFU2XXs
-	 fytA9jUkqAURR/DT83q5FU7ex8B1+LY5CtSlnAzs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	torvalds@linux-foundation.org,
-	stable@vger.kernel.org
-Cc: lwn@lwn.net,
-	jslaby@suse.cz,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 6.6.159
-Date: Thu, 15 Oct 2026 14:22:03 +0200
-Message-ID: <2026101503-hertz-audio-e110@gregkh>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026101503-giggly-nerd-6be4@gregkh>
-References: <2026101503-giggly-nerd-6be4@gregkh>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bmHI4wUJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HgL5fCj0"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FAPuVv1596368
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:23:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LvFhKVI4lkCsedzrjtoN/EvLmnSUYjT8LaUiWGuOKcA=; b=bmHI4wUJQdGO42nj
+	dwWM6EEdKyRRpKdX9HZQUKO769PHEDw+K9nQco6GHnoDz+hV0xcvCxSRk7HFXfKq
+	gZW4wRmXOR+ZMk5f0rzQhx9Es56J6rTR0rP1taNcv5Nl79Had+CHVs6T9x6odtsu
+	Lco1e52o3pYWrOmhUe6ffDgEDxOMh7ifMfNP8BelF4qUW2zwGOkjCYY7uNm68hW8
+	whIix9kTcSW5umMNskMomXck0gPDsESGBb8R28Mk1U9tpbyJEqMC9j4kry9tKFcR
+	xi3Rcaq8OOxFEflTD5GRNv3wQBp/Jvtr0LCYz1JNaoOfOEIqQaG3kwGIbR4tw8iM
+	2EvuzA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2v8drj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:23:45 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934a8cd3a8bso78096185a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:23:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792067024; x=1792671824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LvFhKVI4lkCsedzrjtoN/EvLmnSUYjT8LaUiWGuOKcA=;
+        b=HgL5fCj0hvl1ib5GiNy6hcR8SLTuyT4oGXt6ddbTTpKPF0KoMUU0dsWA9o/D+86Exa
+         SSSY53XlXQ1ylpMBgRmxNHyMeUSAE/WQrSyKD1j/GmBVJU8JMRKWByOWE4GSDyyJCDFC
+         11TVdqFVt9E+nLShXzMzbq3gVNSi4Vpj8RugQNg9uqis4LXw583Lg3u6LjGqZ4QKK6KI
+         HRXlrk3KkSK/vOUxnGH4gri4/FZM/CCu0ewUUDjcwNvEFEqomkd35+u1wPe0griUljT4
+         tNwzl2GmrkF6BG9VPKf1HG/hBHiA9nngh1gw9+sPoIErla2M3RpOihLxjBfZ9+ohUV2P
+         vefg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792067024; x=1792671824;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LvFhKVI4lkCsedzrjtoN/EvLmnSUYjT8LaUiWGuOKcA=;
+        b=mzvv4yunaVMxd6BcH57VGIsnQOzo9kcW50+ryePheRj5Oq8ax5r2/4Y3HK8k6SlUyg
+         1OS3+ocOV/TCqQDyGsvWhVlWuUtwY6fQRTOlcmh4GkvHUvFXBzmUuk3P+t/00QL/K3+P
+         wYhDjeIYyOfX8j8hTeUrd5I8GcWyLIjRYaX3wWjr64qflkcECM4FHnl2K1lSi2EKJ+gC
+         NXYV/84OxyiNBBk/cWaGydocdOOVZZb6w7n50MZRfAgDB0ZlmE1JtcHhXo/A5vcQrQzC
+         dpEA3NIZs3waLiyJMAppI6hVh6CsQtHeCChpHjN2XrtSyDOhs57qxb3swXRe3OAp+ts0
+         WcrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQvAYi81nNeY7jGpnD2/z1uAoyUXsXub8BMB799YEyE8PBHoibvNTRX64rQFZKIC8SuUuzAgAZ86zrZiY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqbhyrSdS4C1bbs5/u37CsfztBigwL4Dk8j6+wTSXL6QFuGLst
+	2VnXvVU3OWrIAaaUjhkdMuxUVKoRtwI7x4hzW/lxgBj6jroRbp3BvK3k2Zb8frdMc9qwucaY/Di
+	3+nIjfWLaLdWLFJoG4hGVyRwiuw6UVdgPTVtKCqR9u9L1YdcLKtKDCHKq+x+xb5odRAk=
+X-Gm-Gg: AYBFou04WgTla1FvotVDCxXrXNixopuwK+VqhHdVlFIRd1PrgbNAhIS7KP8fDbzC8SH
+	ew14lmMsCheL4lpyelByy4UXeEeCh+9bBofGfSsCJRhzE3LuqTOtZ36G6VfzcaScJ9NJUCkMAGR
+	ZKQs0cB6Tc1JhrLwZOPFNcPpMcpj6LvroMFnoc4Z6K59vczrfDBs4JJNGhVU/a+okjIYmF38SSt
+	J8YPIuno4K2Gqi2I8VJeD91gwYoB6Ajo6WY+QlObFUJykmnWgeF57I9cGhObjnLCa3GZZ4zROKT
+	uscak7UE8RCQUc6YfDk7LFloj97OVNP6OUY4cnU8uggEnxsTmurWct3NMiREoVpo7cgS8QzbHb/
+	hGQwwWXcHtcg+TRtbS01Lxg==
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3138020985a.0.1792067024418;
+        Thu, 15 Oct 2026 05:23:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ebcd2b830mr3138015085a.0.1792067023825;
+        Thu, 15 Oct 2026 05:23:43 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cf98sm117559366b.13.2026.10.15.05.23.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 05:23:42 -0700 (PDT)
+Message-ID: <2fb64437-e5e2-4c32-8ee5-6e81913789f7@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 14:23:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: mdt_loader: fix off-by-one heap overflow in
+ segment name
+To: Kenneth Kabogo <kennethkabogo2@gmail.com>, andersson@kernel.org,
+        konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260912065651.59968-1-kennethkabogo2@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260912065651.59968-1-kennethkabogo2@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0OSBTYWx0ZWRfX0PawywCKfmK6
+ jOj2MNv6Q9nwp1oWrt+1xBIkyx/zWSQwmKE5uCGUqChb0WlVMTJ550sBDysT5jhmK3IXwQFA/Dj
+ 8dDvEJqSYOWhx+wqk0mWSR3BHD8bBIfZ4/wd1OVnznRzTHZpAi9JaW3m3SN2ekWltWaaELr2p3q
+ fZ4h+SEHf8F6n2OETIRT545OwYxQ3cm8ErUfEFO37JBl/yMf2hBNIdkppYsSWk1WvyAMmTDpyEy
+ 7qts0rKyDrVFSMaQq25qzHfL4B09IRL7Fu8Hv5givy+xceMtBnThlmgQnBJrvZjl0pPtwH35eeq
+ Th+ipXrxSiVrgcyPHsRvDejUAqNeGelmC62Z00yNwJ21uVhvwjrFoA2Eh+T04RE6xiaCNm8f/tW
+ laCHmGHfmY0goiqqDIwLNFzqyqoYseoPgsMcdAX9XCwM+Td4AZWAa6+DUJ5yUs7r9T4QV2Ce1XQ
+ jkxVfLQmgFfrXd7fhAg==
+X-Proofpoint-ORIG-GUID: qIjB0tm1QSCrCfCiD9mC9dstbNRDuz0Z
+X-Proofpoint-GUID: qIjB0tm1QSCrCfCiD9mC9dstbNRDuz0Z
+X-Authority-Analysis: v=2.4 cv=G/CJgNk5 c=1 sm=1 tr=0 ts=6ad0c5d1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=GfdbEUfwneyheCU63SoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0OSBTYWx0ZWRfX10hrjf91YdnQ
+ aAwMEkEAtqUEDrQRbc5snaxWspcdV7RuMRW6AC7zVunTXsQs+o2IWziHLdXvPmcuTZzbkrUgLXY
+ AQjAIitDglwpjQhTqhVPz5RPhlIWQ3E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150049
 
-diff --git a/Makefile b/Makefile
-index fb0678c1bcfb..59b8cecf471f 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- VERSION = 6
- PATCHLEVEL = 6
--SUBLEVEL = 158
-+SUBLEVEL = 159
- EXTRAVERSION =
- NAME = Pinguïn Aangedreven
- 
-diff --git a/include/net/ip.h b/include/net/ip.h
-index baea9acd7e85..32825e2ac43d 100644
---- a/include/net/ip.h
-+++ b/include/net/ip.h
-@@ -72,6 +72,13 @@ static inline unsigned int ip_hdrlen(const struct sk_buff *skb)
- 	return ip_hdr(skb)->ihl * 4;
- }
- 
-+static inline int ip_check_csum_start(const struct sk_buff *skb)
-+{
-+	if (unlikely(skb->csum_start < skb->network_header + ip_hdrlen(skb)))
-+		return -EINVAL;
-+	return 0;
-+}
-+
- struct ipcm_cookie {
- 	struct sockcm_cookie	sockc;
- 	__be32			addr;
-diff --git a/net/bridge/netfilter/nf_conntrack_bridge.c b/net/bridge/netfilter/nf_conntrack_bridge.c
-index 8834a45f697b..3b75d5b21617 100644
---- a/net/bridge/netfilter/nf_conntrack_bridge.c
-+++ b/net/bridge/netfilter/nf_conntrack_bridge.c
-@@ -40,9 +40,13 @@ static int nf_br_ip_fragment(struct net *net, struct sock *sk,
- 	int err = 0;
- 
- 	/* for offloaded checksums cleanup checksum before fragmentation */
--	if (skb->ip_summed == CHECKSUM_PARTIAL &&
--	    (err = skb_checksum_help(skb)))
--		goto blackhole;
-+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-+		err = ip_check_csum_start(skb);
-+		if (!err)
-+			err = skb_checksum_help(skb);
-+		if (err)
-+			goto blackhole;
-+	}
- 
- 	iph = ip_hdr(skb);
- 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 2fdef07b7b93..39ae67377358 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -3431,6 +3431,7 @@ int skb_crc32c_csum_help(struct sk_buff *skb)
- out:
- 	return ret;
- }
-+EXPORT_SYMBOL(skb_crc32c_csum_help);
- 
- __be16 skb_network_protocol(struct sk_buff *skb, int *depth)
- {
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index f336b2ddf972..c3dcdee3f212 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -154,7 +154,7 @@ void inet_sock_destruct(struct sock *sk)
- 	WARN_ON_ONCE(sk->sk_wmem_queued);
- 	WARN_ON_ONCE(sk_forward_alloc_get(sk));
- 
--	kfree(rcu_dereference_protected(inet->inet_opt, 1));
-+	kfree_rcu(rcu_dereference_protected(inet->inet_opt, 1), rcu);
- 	dst_release(rcu_dereference_protected(sk->sk_dst_cache, 1));
- 	dst_release(rcu_dereference_protected(sk->sk_rx_dst, 1));
- }
-diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-index 3bb198b2c101..c8f966d8c77f 100644
---- a/net/ipv4/ip_output.c
-+++ b/net/ipv4/ip_output.c
-@@ -778,9 +778,13 @@ int ip_do_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
- 	int err = 0;
- 
- 	/* for offloaded checksums cleanup checksum before fragmentation */
--	if (skb->ip_summed == CHECKSUM_PARTIAL &&
--	    (err = skb_checksum_help(skb)))
--		goto fail;
-+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-+		err = ip_check_csum_start(skb);
-+		if (!err)
-+			err = skb_checksum_help(skb);
-+		if (err)
-+			goto fail;
-+	}
- 
- 	/*
- 	 *	Point into the IP datagram header.
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 638303d6691e..5120db6c5f13 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1059,7 +1059,7 @@ static int tcp_v4_send_synack(const struct sock *sk, struct dst_entry *dst,
-  */
- static void tcp_v4_reqsk_destructor(struct request_sock *req)
- {
--	kfree(rcu_dereference_protected(inet_rsk(req)->ireq_opt, 1));
-+	kfree_rcu(rcu_dereference_protected(inet_rsk(req)->ireq_opt, 1), rcu);
- }
- 
- #ifdef CONFIG_TCP_MD5SIG
-diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
-index 2237dd093935..1944fba91b02 100644
---- a/net/netfilter/nfnetlink_queue.c
-+++ b/net/netfilter/nfnetlink_queue.c
-@@ -31,6 +31,7 @@
- #include <linux/list.h>
- #include <linux/cgroup-defs.h>
- #include <net/gso.h>
-+#include <net/ip.h>
- #include <net/sock.h>
- #include <net/tcp_states.h>
- #include <net/netfilter/nf_queue.h>
-@@ -385,6 +386,20 @@ static int nfqnl_put_bridge(struct nf_queue_entry *entry, struct sk_buff *skb)
- 	return -1;
- }
- 
-+static int nf_queue_checksum_help(struct sk_buff *entskb)
-+{
-+	if (entskb->protocol == htons(ETH_P_IP)) {
-+		if (!pskb_network_may_pull(entskb, sizeof(struct iphdr)) ||
-+		    ip_check_csum_start(entskb))
-+			return -EINVAL;
-+	}
-+
-+	if (skb_csum_is_sctp(entskb))
-+		return skb_crc32c_csum_help(entskb);
-+
-+	return skb_checksum_help(entskb);
-+}
-+
- static struct sk_buff *
- nfqnl_build_packet_message(struct net *net, struct nfqnl_instance *queue,
- 			   struct nf_queue_entry *entry,
-@@ -447,7 +462,7 @@ nfqnl_build_packet_message(struct net *net, struct nfqnl_instance *queue,
- 	case NFQNL_COPY_PACKET:
- 		if (!(queue->flags & NFQA_CFG_F_GSO) &&
- 		    entskb->ip_summed == CHECKSUM_PARTIAL &&
--		    skb_checksum_help(entskb))
-+		    nf_queue_checksum_help(entskb))
- 			return NULL;
- 
- 		data_len = READ_ONCE(queue->copy_range);
-@@ -859,7 +874,7 @@ nfqnl_enqueue_packet(struct nf_queue_entry *entry, unsigned int queuenum)
- 		break;
- 	}
- 
--	if ((queue->flags & NFQA_CFG_F_GSO) || !skb_is_gso(skb))
-+	if (!skb_is_gso(skb) || ((queue->flags & NFQA_CFG_F_GSO) && !skb_is_gso_sctp(skb)))
- 		return __nfqnl_enqueue_packet(net, queue, entry);
- 
- 	nf_bridge_adjust_skb_data(skb);
-diff --git a/net/netfilter/xt_CHECKSUM.c b/net/netfilter/xt_CHECKSUM.c
-index 9d99f5a3d176..1fb0f8118404 100644
---- a/net/netfilter/xt_CHECKSUM.c
-+++ b/net/netfilter/xt_CHECKSUM.c
-@@ -15,6 +15,7 @@
- 
- #include <linux/netfilter_ipv4/ip_tables.h>
- #include <linux/netfilter_ipv6/ip6_tables.h>
-+#include <net/ip.h>
- 
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Michael S. Tsirkin <mst@redhat.com>");
-@@ -25,8 +26,11 @@ MODULE_ALIAS("ip6t_CHECKSUM");
- static unsigned int
- checksum_tg(struct sk_buff *skb, const struct xt_action_param *par)
- {
--	if (skb->ip_summed == CHECKSUM_PARTIAL && !skb_is_gso(skb))
-+	if (skb->ip_summed == CHECKSUM_PARTIAL && !skb_is_gso(skb)) {
-+		if (xt_family(par) == NFPROTO_IPV4 && ip_check_csum_start(skb))
-+			return NF_DROP;
- 		skb_checksum_help(skb);
-+	}
- 
- 	return XT_CONTINUE;
- }
-diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
-index 53654c5fa9e9..21aa65caf0c6 100644
---- a/net/xfrm/xfrm_output.c
-+++ b/net/xfrm/xfrm_output.c
-@@ -810,16 +810,22 @@ int xfrm_output(struct sock *sk, struct sk_buff *skb)
- 	}
- 
- 	if (skb->ip_summed == CHECKSUM_PARTIAL) {
--		err = skb_checksum_help(skb);
--		if (err) {
--			XFRM_INC_STATS(net, LINUX_MIB_XFRMOUTERROR);
--			kfree_skb(skb);
--			return err;
-+		if (skb->protocol == htons(ETH_P_IP)) {
-+			err = ip_check_csum_start(skb);
-+			if (err)
-+				goto error;
- 		}
-+		err = skb_checksum_help(skb);
-+		if (err)
-+			goto error;
- 	}
- 
- out:
- 	return xfrm_output2(net, sk, skb);
-+error:
-+	XFRM_INC_STATS(net, LINUX_MIB_XFRMOUTERROR);
-+	kfree_skb(skb);
-+	return err;
- }
- EXPORT_SYMBOL_GPL(xfrm_output);
- 
+On 9/12/26 8:56 AM, Kenneth Kabogo wrote:
+> mdt_load_split_segment() builds a segment firmware filename by
+> overwriting the last three characters of a kstrdup'd copy of fw_name
+> with "b%02d" formatted from segment. %02d is a minimum field width,
+> not a cap: for segment in [0, 99] this produces exactly "bNN" + NUL,
+> which fits the buffer, but for segment >= 100 it writes "b100" or
+> wider, one or more bytes past the end of the kstrdup allocation.
+> 
+> segment is not bounded to [0, 99] anywhere before this point. It is a
+> raw index into the firmware's ELF program header table, ultimately
+> bounded only by e_phnum, a 16-bit ELF field (max 65535). The existing
+> check in mdt_header_valid() only verifies that the program header
+> table fits inside the firmware file, not that e_phnum itself is sane,
+> so a small firmware file can supply e_phnum > 100 and reach this path
+> with segment >= 100 from either qcom_mdt_read_metadata() (the hash
+> segment scan) or the main loadable-segment loop in
+> qcom_mdt_load_no_init(), whenever the image uses the split-firmware
+> convention.
+> 
+> segment was never valid past 99 under this driver's own "bNN" naming
+> scheme, so reject it outright instead of widening the buffer.
+> 
+> Found by code inspection while auditing the Qualcomm PIL/PAS
+> firmware-authentication flow. No reproducer beyond code inspection is
+> available; I don't have affected hardware to trigger it on.
+> 
+> Signed-off-by: Kenneth Kabogo <kennethkabogo2@gmail.com>
+> ---
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
