@@ -1,229 +1,186 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA055172C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74536480DC4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059833; cv=none; b=cFCM2oTcWZPuopsfIw0nUy7ozG9NAl5QkNBomwG9brIOjgmhKnBOEXq7j9sAaCClx0sL/Sa+atwDLix6LjO7uKM3463Vdx5L7Q6cdcJJOFgI8KFym6o1li+8s45d2WQyn3a+dlh0MPMTkFC7OPcKEqg0+Lsv/zG+1GM0Ph5PmUA=
+	t=1792059850; cv=none; b=Ix1zpo5gHZuXUt14o35quv5C8omYc+sHFy72Kn5mymnJgFGfzrSoFOGXUvzZr4U4sEaD/sOoZI3ijIkqXv5CmfalL4tdOWYYIgafJMdJCvPhpxBOASTO1hvnEMjw9T6iD1WS1dN097Y8F9FmMWDbaelkmzyOewcefAfuezzIjMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059833; c=relaxed/simple;
-	bh=oPmXs6PcNZzdaUBQIem0fqkF464Nvc5dRLKpKu7jUms=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BKNmKO9VicjUJICtV2H7iKrxAPHEAUvyxeczgoyJ2MUrI99qa8oJEPmmrT9KzTZiFYcOz/OLTtjLT+Pb0PaxgMxm1WwEhgbySqcOYyK9f0qw1rIVW9jk+My0xQFn+7Jdo0l1CE5M89JYMGHosjJH/hWoOmloz5Nshx+afrRZ2mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ace8xCUu; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792059850; c=relaxed/simple;
+	bh=3khgOKeKmUoaWgJJenmKWRfZDfiGPSQWgn335B2SDxs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnFa0NnYMxEN3UcdoAC/EtKsLoQ7s7dBgnmIWZMpK5zANkCHbUCjfxHSMVPsnoM2JGGwjPHtpdmgMFIk0mLZH49zZEm8+511CpEs5YiCQ57SRM0a2NlJ324dYXsfIirm//iHqjDEC+J5pMN/QZOjVtQl5ey8DJVwCeH8TKmHRzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBbHR223; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ace8xCUu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7A23AC63455;
-	Thu, 15 Oct 2026 10:24:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 25C6460360;
-	Thu, 15 Oct 2026 10:23:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D42F410328AF1;
-	Thu, 15 Oct 2026 12:23:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792059822; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=syd7pC4o5FJKMVRMWpCAKTHTRahn3mOftmNMccwmH/o=;
-	b=Ace8xCUuDmy99gChU5whbEEs/vV1Zgx81j6uZ2vPRDsuS2uWtV3wHkbSBZpuubVwoDO0LD
-	FFin5ZP5IE+TBXZY/0lr8BC4sk/M2N8bp7MGccKzQ3BysKg4kM/e4zu/iOgFygjFunmsYU
-	E2TqqaLif1Ynj1paiWS+ZV7ndEhuAvbHQMVnxs+qaKYE71A/BEbNtsX0mmG/2lhAO46x+G
-	JwmybegxkH9+cmVYix7T1DMcQh7Ssx4cFuV0yhYiO7Cf9YWrSP+brI4riERcG4HjF4zJf4
-	CdGKzXP2QSw5n8x3SaO/Cv0orIyZORSkUClnrtSqn00QYK5dGHI2AntSnyaGsw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Bough Chen <haibo.chen@oss.nxp.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
- <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  "linux-mtd@lists.infradead.org"
- <linux-mtd@lists.infradead.org>,  "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>,  "michael@walle.cc" <michael@walle.cc>,
-  Bough Chen <haibo.chen@nxp.com>,  "open list:NXP i.MX 7D/6SX/6UL/93 AND
- VF610 ADC DRIVER" <imx@lists.linux.dev>
-Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode when
- entering Octal DTR
-In-Reply-To: <20261015031017.pdqnv2bp5627bhed@shlinux89> (Bough Chen's message
-	of "Thu, 15 Oct 2026 11:10:17 +0800")
-References: <20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com>
-	<87zex05uvn.fsf@bootlin.com>
-	<AS8PR04MB8820E136E7257FC5A02F1A3E908C2@AS8PR04MB8820.eurprd04.prod.outlook.com>
-	<20261015031017.pdqnv2bp5627bhed@shlinux89>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 15 Oct 2026 12:23:38 +0200
-Message-ID: <87zewfuus5.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBbHR223"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6acbdbc1725so2729596a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792059847; x=1792664647; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xmi74G8HFRQCFdS34OpGVxUvdaPm2FB3DuHQsxBpLfo=;
+        b=dBbHR223HjTkwxDvWIIeTLfGXjMG2NafqiQM14vfBn/sKO980ZxZk38r0Bz6nm6dIV
+         pZuTFAx7ObZ01yhWlxYD0OeCOmzMYAfXJtw6QlV4TY42fORv52ajwwDROoCvvklK/hP7
+         gEu/xFSXcY2Meom96JAmnoLitxunV0Yn4Z/Jp8uUJJassqjlw+4e2Z3mwkmtaUDT2f3q
+         gfvOHr3LWhO52wo8z/G/IwVoD2rhclNNkyXhFpptYNnWwkoTqo0lA8iAG4x9QNVFDt5p
+         TrfXHy13A3tWUt7Ky3O6XNi+zvnHsFIMXejwe/+X3/o17hoehVr/IlfY1zG4iaofIpJJ
+         ylEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792059847; x=1792664647;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xmi74G8HFRQCFdS34OpGVxUvdaPm2FB3DuHQsxBpLfo=;
+        b=XqJB78IPnoD7RkNv0OpoZpKisnZIg/CYaP2nez3gcUvSD/CfHqtTAvH2Lejl3DuDO0
+         6YHrJ1prRG6whWNC0h3e2ogsKiBAhmv5Ki/yWdt7Nd9Gq7MbKKRIdz1JOu2Ot0ovAyig
+         VlDZyJA4HAfFg1Jx+wN2lTaT7qqHQjxMLH5tKOUoz3uap0WPAYJCBx1LM4epQw/XuIn1
+         xiRFZnQawzWSwaTrozWyuFDk+V4Xh9vKj0AtjgwZUyLMhkK5om/l5ZuOdtqfAtx8WOZo
+         unponQvEQBzRSjnjkWJcB2348unxakk2Kp4w5J4fq+N59HhJGPDumGasb2HT6ppDMycg
+         DwtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsG/35uYbIRQhuLqediXrKvxCmAf11egkHKa62fGfOWrbVVkFICVePxb2fo9189z/4w4lh7sM3oS80Icg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIurG6XJKenPrOhgufPeJkXiguw7K6bNDo0iynfVXgTroiYiUra
+	9cdFWSrk0G6Md8f/2OnHO7g1SdfDWQ1tMJHcB/sT3WPzZSy4aPfYqLFL
+X-Gm-Gg: AYBFou2xbDS6t4kwGRII0AOrqFCclxyqXHx7tW07B9C+ZRJubmOQyEhNf9zYq9NEPT0
+	gadYLszaiRIUF1G9WNzjGMleMPFExFy+XOJSNqXuzen67wga5JL8duI/jwTv9I4NtrSyhYG2dRu
+	lWqm+XGVbp5vPeIJWVApwQxhob3zh2jedb1lzCjN2DrcpybSHFFbDAsthteOolt2tKfAihos0mu
+	v30TDyVW1mk5D+Ppzo9KmrWnOn8wfr/wW7ypKKuCz2OaHMA95rS7U2VGtUeavn5wdnKPy/YgoCq
+	Jlfq8KJHOuVm1TmpYbDDYbBHyhOCVLgSXgsz+BZAQiNY40/HaBQJ/yBlvqRtseeOHN88KwP0T8H
+	/PK6LVKHzqC1XpVSUVC6/D05/62Fv3NnksMEmpKHMMjYMQDv6KHfI+KhxuPGrRRYEsYtvosvZnp
+	Av5mF7k9pR2QkY+vvIE/J6VAvIwLpQ1+vrU+AQ080ClzOEjZ3Zz9z6lLIDZH5wP8no1nRJe/w0E
+	b7cmRo1UVBrA32HMgeBx+9KKW817RVzl1BPEyfH
+X-Received: by 2002:a17:906:2092:b0:c34:1ed:54d9 with SMTP id a640c23a62f3a-c3401ed6006mr801846666b.4.1792059846449;
+        Thu, 15 Oct 2026 03:24:06 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3edab13f4esm108371766b.87.2026.10.15.03.24.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 03:24:05 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH v8 0/6] alpha: improve Tsunami machine check reporting
+Date: Thu, 15 Oct 2026 12:22:49 +0200
+Message-ID: <20261015102353.999695-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2026 at 11:10:17 +08, Bough Chen <haibo.chen@oss.nxp.com> wrote:
+This series adds Tsunami/Typhoon system-error diagnostics and Clipper
+ES40 environmental reporting. It applies to v7.3-rc1 on Alpha for-next
+at 33465f6ab697.
 
-> On Tue, Sep 29, 2026 at 09:10:37AM +0000, Bough Chen (OSS) wrote:
->> > -----Original Message-----
->> > From: Miquel Raynal <miquel.raynal@bootlin.com>
->> > Sent: Tuesday, September 29, 2026 4:23 PM
->> > To: Bough Chen (OSS) <haibo.chen@oss.nxp.com>
->> > Cc: Pratyush Yadav <pratyush@kernel.org>; Michael Walle
->> > <mwalle@kernel.org>; Takahiro Kuwano <takahiro.kuwano@infineon.com>;
->> > Richard Weinberger <richard@nod.at>; Vignesh Raghavendra
->> > <vigneshr@ti.com>; linux-mtd@lists.infradead.org; linux-
->> > kernel@vger.kernel.org; michael@walle.cc; Bough Chen
->> > <haibo.chen@nxp.com>
->> > Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode wh=
-en
->> > entering Octal DTR
->> >=20
->> > On 29/09/2026 at 14:53:07 +08, haibo.chen@oss.nxp.com wrote:
->> >=20
->> > > From: Haibo Chen <haibo.chen@nxp.com>
->> > >
->> > > The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35).
->> > > In 8D-8D-8D mode the opcode is extended to two bytes per cmd_ext_typ=
-e,
->> > > but the resulting command is not a valid SR2 read for these flashes,
->> > > which access their status/config registers through a vendor-specific
->> > > indirect register space. Since spi_nor_cache_sr_lock_bits() now reads
->> > > SR2 during init, i.e. after the switch to Octal DTR, the extended RD=
-CR
->> > > gets no data back and the read times out (on i.MX FlexSPI: -ETIMEDOUT
->> > > and a controller
->> > > WARN() during probe with Micron MT35xU and Macronix octal parts).
->> > >
->> > > Clear read_sr2 when the switch to Octal DTR actually succeeds, so the
->> > > SR2 read is skipped (a cleared opcode already means "unsupported").
->> > > Doing it in spi_nor_set_octal_dtr() keys off the real runtime
->> > > protocol: a flash that advertises Octal DTR but runs in (x)STR becau=
-se
->> > > the host lacks support keeps its usable RDCR.
->> > >
->> > > Assisted-by: LLM
->> > > Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
->> > > Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status
->> > > support")
->> > > Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
->> > > ---
->> > > Changes in v2:
->> > > - Rework the fix following review: instead of guarding the read at r=
-untime
->> > >   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once=
-, at the
->> > >   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
->> >=20
->> > I don't get that choice. Why switching when Octal DTR succeeds only? S=
-R2 is
->> > either supported or not supported, I don't think it is anyway differen=
-t when
->> > entering octal DTR mode, is it? So I would expect SR2 to be cleared ea=
-rlier than
->> > that, once we know the chip is octal DTR capable. And this must be ear=
-ly
->> > enough so that manufacturer drivers can still set their own value.
->> >=20
->> > I am wondering whether we should simply drop sr2 opcode in the QER SFDP
->> > parsing entirely for octal DTR devices (Michael?).
->>=20
->> The reason I clear it at the point Octal DTR actually succeeds rather th=
-an
->>  "once the chip is octal-DTR-capable" is that capability !=3D running mo=
-de:=20
->> a chip can advertise Octal DTR while still running in (x)STR because the=
- host=20
->> controller does not support 8D (see reply below). In that (x)STR case RD=
-CR is
->>  valid and needed, so keying off capability alone would wrongly drop a u=
-sable
->>  SR2 read.
->>=20
->> That said, I agree the current spot is awkward and does not let manufact=
-urer=20
->> drivers override the value. I'm happy to move it earlier. Two options:
->> 1, Clear it during SFDP QER parsing (as you suggest) for octal-DTR-capab=
-le devices.
->>      This is the natural place next to the existing read_sr2 =3D 0 QER c=
-ases, and it runs=20
->>       before the manufacturer late_init/fixups, so a driver can still in=
-stall its own SR2
->>       opcode afterwards.=20
->>      My only concern is the capability-vs-running-mode point above =E2=
-=80=94 we'd be=20
->>      clearing based on advertised 8D capability, not on whether 8D is ac=
-tually entered.
->>=20
->> 2, Clear it in spi_nor_late_init_params() after the manufacturer hooks, =
-gated on=20
->>      octal-DTR capability, so vendor values set in their late_init are p=
-reserved.
->>=20
->> If the capability-based approach is acceptable (i.e. we accept that a ch=
-ip advertising
->>  8D but forced to STR by the host loses its RDCR), I'll go with dropping=
- it in the QER SFDP
->>  parsing. Michael, do you have a preference?
->
-> Hi Miquel,
->
-> Any suggestion?
->
-> Regards
-> Haibo Chen
->
->> >=20
->> >=20
->> > > - Key the clear off the real runtime protocol so a flash that advert=
-ises
->> > >   Octal DTR but runs in (x)STR (host without 8D support) keeps its
->> > >   RDCR.
->> >=20
->> > Are you sure this is a valid case?
->>=20
->> Yes. spi_nor_setup() computes shared_mask =3D hwcaps->mask & params->hwc=
-aps.mask,=20
->> i.e. the intersection of flash and controller capabilities. If the host =
-does not support 8D,=20
->> SNOR_HWCAPS_READ_8_8_8_DTR is not in shared_mask, spi_nor_select_read() =
-picks a=20
->> non-8D read_proto/write_proto, and spi_nor_set_octal_dtr() bails out ear=
-ly at:
->>=20
->> if (!(nor->read_proto =3D=3D SNOR_PROTO_8_8_8_DTR &&
->>       nor->write_proto =3D=3D SNOR_PROTO_8_8_8_DTR))
->> 	return 0;
->>=20
->> So the chip stays in (x)STR with reg_proto =3D=3D SNOR_PROTO_1_1_1, and =
-RDCR is still a valid=20
->> single-byte SR2 read there. That is the case I wanted to avoid breaking =
-by keying the clear
->>  off the negotiated runtime protocol rather than the advertised capabili=
-ty. If we move the=20
->> clear to capability-based SFDP/late_init as discussed, this is exactly t=
-he scenario we need to=20
->> be comfortable regressing (an 8D-capable part on a non-8D host would los=
-e its RDCR read of SR2).
+Thanks to Matt Turner for reviewing v7 and checking the register and
+frame layouts against the manuals. His Reviewed-by tags are carried on
+patches 1 and 2 from v5, patch 3 from v6, and patch 4 from v7. Patches
+1-3 are unchanged. The new panic policy remains deferred as agreed.
 
-I am sorry but I failed to find devices acting like you describe. Your
-commit log mentions Micron MT35X and Macronix devices. I checked the
-datasheets:
-- Micron octal devices do not seem to use SR2 at all, they have a flag
-  register, but that's something else (like Winbond) and they have
-  similar support for it both in ODTR and in SSDR mode.
-- Macronix octal products feature several SR/CR. The sr1_and_sr2 opcode
-  exist but I would like to stop using it since there is no more need
-  for it and it just complexifies everything for no good reason. There
-  is no difference between the SSDR and the ODTR instruction sets, they
-  both support the same opcodes for reading and writing those registers
-  (with the subtlety that the repeated opcode should be a bitwise
-  complement).
+Changes since v7:
+- Restrict live chipset reads, acknowledgment and live-status reporting
+  to system vectors 660/620. CPU and environmental vectors leave those
+  registers alone so they cannot consume a pending Pchip error.
+- Correct the PERROR comment: the first error freezes the register,
+  mixed error bits were detected together, and only LOST can be set
+  afterwards. Remove the detached PERRMASK comment.
+- Split live environmental reporting (patch 5) from console-log support
+  (patch 6), so the scanner can be reviewed or deferred independently.
+- Remove the environmental decoder's unused return value and print
+  parameter, and keep version-history notes below the separator.
+- Print console wrapper names, event/halt timestamps and halt codes.
+- Replace the open-coded byte dump with print_hex_dump().
+- Remove the unused console-handler registration and mark the private
+  scanner helpers __init.
+- Remove the unverified type-6/type-7 definitions and register annotation
+  tables. Those payloads remain raw; no register ordering is assumed.
 
-Which device do you use exactly? Why is it not working? Are you sure it
-is not a problem with your controller or the SFDP tables instead?
+PERRMASK remains as firmware configured it. Its reset value is zero,
+and the HRM says mask bits gate PERROR latching. On my ES40,
+both Pchips read 0x0000000000000ff7 under the v7 console-test kernel,
+and the same values were confirmed after booting v8.
+DCRTO is masked; the other defined error bits are enabled. Bit 9 is also
+set but is not interpreted as a defined PERROR error. These were read
+through read-only /dev/mem mappings without accessing PERROR or writing
+any CSR; dmesg was unchanged and kernel taint remained zero. This is an
+observed runtime setting, not a measurement at reset or a claim about
+other firmware configurations.
 
-Thanks,
-Miqu=C3=A8l
+The class-5/type-4 console record observed on ES40 remains unsupported.
+Patch 6 retains its firmware pointer and prints at most 1 KiB of raw
+bytes per log, so it may be reported again on subsequent boots. Console
+environmental payloads also remain raw because Table D-18's sys_offset
+conflicts with its field offsets. Successful decoding of a nonempty
+hardware console log is not claimed.
+
+Validation:
+- Native ASan/UBSan handler tests pass with CONFIG_VERBOSE_MCHECK enabled
+  and disabled. Protected mock CSR pages establish that CPU and
+  environmental vectors make no live chipset accesses. Tests also cover
+  stale INV state, system-vector acknowledgment, malformed frames,
+  environmental status, wrapper metadata and bounded console dumps.
+- The six-patch mailbox applies cleanly to the stated base and reproduces
+  the source tree exactly.
+- Each of patches 4, 5 and 6 builds as vmlinux with W=1 and GCC 15.0.1
+  for GENERIC, SHARK, DP264, EIGER and DP264 with VERBOSE_MCHECK enabled
+  (15 builds). The other four configurations have it disabled. No warnings
+  in touched files; logs contain unrelated kernel-doc warnings and the
+  existing saved_config COMMON-symbol modpost warning. These are minimal
+  configurations, not ES40 deployment builds.
+
+V8, built with my ES40 configuration, boots on the ES40 with three CPUs
+online and the root filesystem mounted read/write. Available dmesg shows
+no oops, panic or new I/O/filesystem errors; kernel taint was zero during
+inspection. I unplugged and reconnected one PSU. The final notification
+at 926.597181 seconds reports no recognized environmental fault bits and
+all three supplies enabled; all three PSU LEDs are green. SMIR bit 0
+remained set, so keeping it as raw context avoids a false failure message.
+This exercises reporting of a valid notification with no fault bits set.
+Earlier notifications named both PSU 0 and PSU 1 despite only one supply
+being disconnected; the extra indication's origin remains unexplained.
+
+Earlier CPU, memory and file I/O stress results apply to v7, not v8.
+V8's available boot log shows raw console fallback but omits the start of
+scanning, so it does not independently verify firmware-pointer retention.
+V8 hatch tests, ECC/PCI fault injection, successful decoding of nonempty
+hardware console logs and testing on other boards remain outstanding.
+
+Matt's v7 build report covered patches 4 and 5 for GENERIC, DP264, SHARK
+and EIGER, plus DP264 without CONFIG_VERBOSE_MCHECK, with no warnings in
+touched files. Those minimal configurations were not booted. His manual
+review confirmed the PERROR/MISC decoding, frame layouts and Clipper bit
+tables, including unconditional SERR suppression and the fact that
+configuration reads do not set NDS.
+
+Magnus Lindholm (6):
+  alpha: move Tsunami machine check handling to err_tsunami.c
+  alpha: describe the Tsunami system machine check frame
+  alpha: bound EV6 logout decoding by the processor area
+  alpha: decode and acknowledge Tsunami system machine checks
+  alpha: decode Clipper environmental events
+  alpha: add bounded Clipper console-log scanning
+
+ arch/alpha/include/asm/core_tsunami.h |   8 +-
+ arch/alpha/kernel/Makefile            |   4 +-
+ arch/alpha/kernel/core_tsunami.c      |  34 --
+ arch/alpha/kernel/err_common.c        |  13 +
+ arch/alpha/kernel/err_ev6.c           |  38 +-
+ arch/alpha/kernel/err_impl.h          |   1 +
+ arch/alpha/kernel/err_tsunami.c       | 682 ++++++++++++++++++++++++++
+ arch/alpha/kernel/proto.h             |   2 +
+ arch/alpha/kernel/sys_dp264.c         |   3 +-
+ 9 files changed, 737 insertions(+), 48 deletions(-)
+ create mode 100644 arch/alpha/kernel/err_tsunami.c
+
+
+base-commit: 33465f6ab697abceafd9a340067a544d551c4412
+-- 
+2.43.0
+
