@@ -1,261 +1,122 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021080.outbound.protection.outlook.com [52.101.125.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FC7416841;
-	Thu, 15 Oct 2026 07:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048225; cv=fail; b=rtqcBb9sOjDWy95KNgPXX6KA93C9g16FqLjhtWhW/i8+6oCAIrPRKBIoE6NkNXWqfZv1AQGprRxtRBuTZ8xeLSs0Bg9JABj4pE75xtodrn3HwTm897JgpqzhiG4WIbP7AAYaPgqNipEHw13dgF5PhI9p22Q4Z5TpA5998EQkFQ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048225; c=relaxed/simple;
-	bh=XPyLkz6tY7fHIk2D+o8pW3I3QB1Oj6ykvpXrsr4yZ2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=J2Kdl3NC6zZkE8EXmqlopSjdGJJPQmOUHMhcgNWMeGPIhC6YVZt7n9jzqwVUjouPzGDnCfSjc0dOFD5rL9NPquKOhpY4HtonosW8SFYgPUmfLa6f/ZVhxvhnBmc5LQzH/bBpDbh2xGVsbUpGV9j8rBIIIYQtNZiOY+yNWaRhvHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=PnVvjaMP; arc=fail smtp.client-ip=52.101.125.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12A24A0F01;
+	Thu, 15 Oct 2026 07:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792048247; cv=none; b=Cide1G3DwrqQ75X0huOAUNb5Zh76Ty+v8Mz4D44mCN+tKjtBrYm4ETnptGqWjKz8ZcqL1BlBn974suc3oFg4gQ8xWIYmta9Q8dCNmQJ+ZZwBPShdAqvnMTApaGJHZY+XTrHgAelw0ntK0On/oKBYINv+ml4pffR0Br9+Nu1fiMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792048247; c=relaxed/simple;
+	bh=WiDxLwRc8l+63GRJReDGwoeViR7iwJaKNodwD4jyc3U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B7nOLi1tazpFBKuGs9CmCUPGjehAPl+YQvzn98+asN9UEqZ//Y4F4WeEoRNR/plTNB2gW0iW1Xt/X4r07XSJgxpqAAZv/H0gllk74Uo/ENAipNXm65cKv7RG/uMnGn0jXTJ+A07hzUIZld2jyWrH8rjgJN6EEZ86tFE1Sz9lbP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AtteeYFf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="PnVvjaMP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m/CFaYpoQAkhieX7Hjipk2WR5FBHGvMh4chRa+2EXMQETB/wHa234Aj6gIKdiI4O39QsQugFPLsVbQi/0KKNSuPg4M85/x2L5Q62WOYhrOsZLf1e3JRVK4Nr7W/tlDBhOr0vWYJfea+YWkeOAJLCPDMZOKna/hKtgvTiKfZ24/f+umm1yRZLnpC1hCf4eyIULaDbIIayB23moUNpVu99Mxhz43c+dP0DuLVXbHpqRs7O5mqiuDdOOARMRt0UX7a+iQTtu4nxGe0Vc5vLP4T3UGEtWNsQGoIZLuNhC7pHiMa6CSBJYupJy+IDCEHvouMolFp9v2HF9AlRqxl+hfPooA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wELAVMVHZrMgwP9UwI0X3Ycryo8GRK2UHoFEvFCacKM=;
- b=mYVr0eSUe2e5U4Gi2SznYlDG/iHwlXThieVk9yVOQyHaMhu8fxRSeK1q9af5jjfPZVgDgb30H0NiX0kmL4qfwL3g/IwiF0r0lh0YqgViQJ5952XU+3L+828r8FbkCpMfxhXYzCW69f00uSZiIcDQvqP1Ros6Xe7oo0+/6FhrUZ/+HSXC4FJascvSUe+xxf9/ZyUpOqgZ678PvdtVL8kin6JZooRYXuzZPwnaaeOujXSC5yh1+QSrLz+/Ljqu2kZuOkb9t3aBuglBISpcBcmu4xyP68PElzOqhWe7hDLUpvX/DhTgXufyo5V1jwlEYid+nT27P9VkCTvDVncYh9II8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wELAVMVHZrMgwP9UwI0X3Ycryo8GRK2UHoFEvFCacKM=;
- b=PnVvjaMPVasE5icxWQ+ibyCVTW7nxv90bhVyIVFVLJAEK0H71pLHMeZ+KKLyOdoXa6mjsZ87ZHhNohWiTo8q1nMVvDYT/ciCjvfxZWgnVjPNiUsHwqnjty5iLXv3kXe4GOsCUhAbssrxZ/jOi5MTyZ1mWUq55CIJaxLv+hcYQNo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OSOP286MB521575.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:518::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 07:10:14 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 07:10:14 +0000
-Date: Thu, 15 Oct 2026 16:10:12 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] PCI: endpoint: pci-epf-vntb: Track link state from
- both sides
-Message-ID: <xva2fpj23ijtdzfm2kgmtsnhyzpmizprboisrxstx42vthleww@n6v5bjos2pkk>
-References: <20261014071448.2473208-1-den@valinux.co.jp>
- <atBuBPXKlQJLnBXL@debian>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atBuBPXKlQJLnBXL@debian>
-X-ClientProxiedBy: TY4P286CA0095.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:369::14) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AtteeYFf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2571F000C4;
+	Thu, 15 Oct 2026 07:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792048238;
+	bh=t35CZqhZ37FpgWrxYiwnoxvM2WrIBjmPysOYClvNAFg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AtteeYFfkxiI7tEEpMbi8Yt7KJIKQSaoWpn4H36UJAg09QBpf7WG4edfMyvKSNnmk
+	 f8K68Cx3Q/125UsxrICx0flle39xsvHYEgg2vTNLdV9dvODivacIr0a2kWbAdpAY84
+	 JkR5imJAv2Fud4Q/jO6EXhK4to8N6hfGPKinyQ6fKNWbtQwyzmf7Q2eTvxgEUdkFF4
+	 KxtZAGiEhyIOGhpWb2ACDNImCrhkmB+dLsPbO92NkHm1xREah+d0w7UJcIBo/A9ADe
+	 pOMorbyndlL677Oaj4VHidtSTpiYXIJ9HHYJfTMNOWR7sALvJZ23LBMBXZiCnhXrXq
+	 joWvay/B8zEtw==
+Message-ID: <51b242a5-3918-446b-8884-30d6d05327aa@kernel.org>
+Date: Thu, 15 Oct 2026 09:10:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OSOP286MB521575:EE_
-X-MS-Office365-Filtering-Correlation-Id: da84e839-78c7-4107-8c44-08df2a8b5bdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|23010399003|56012099006|4143699003|261009223027099003|18002099003|10067099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	CQq0IsHI3r8RnsiqHqHt2E0i1ZxlWx7HBAoFbvAnrK2hDPm/C4cr5aMWu6H399DbAKzbUXG7WA/eKbKcgn7GGoYDSEP/kVQzKXiaIjI61biVbsm1pIKMsriqrQkPebQqaPNvqCIEiCdnzDzRgT35h2KeMYAJVzJV3/O7wzvgGBWUsReGMmb0rI/QXq9n+lr4xFPVvXjPId8JYMpD50ftwRDotXP7jrbdCsH937qXIZw4M0J/Y/Z51LHNuaGh4tJYWv8wIee/qBqXfVqAgPcLHiwtkbdaXU0ZzK0y+PqHSu4a0RnEAOhWV+MwprxAQp9C0L6dYv0cHinllN9QOULjmc35zTWmBrx138Pg4C89zhtLHYO6k78AAEjZNV24AhBaNp0+50l6adJ/RdxkwBLojargDUlnB/DT5t1TBIN8qHFxak39mKhvPfvMN/V6IuLdoYkSDovbo53IjI0Dtv9zXgw8HYI2q5pisJUBDCe5LjhmYyXZjIIysedg+5ZPYoRzOQDBY8nZf9lFv1xmWulQgGVx17XecWERDfKQpnPLEonGRYhQdfen0uFL2cu6GaX0wfxzU/hIlVXXLGPlTR1NpctqcW/RHu0W52jhXgrgz1A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(23010399003)(56012099006)(4143699003)(261009223027099003)(18002099003)(10067099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QjFtTmJBdVB6K1hWaENSOHNkeTF5NDVNVEZGNTVWSGtaT2s2dWlNd2U1V3Yv?=
- =?utf-8?B?YXh1UkhlWjdDSlpKdFBMTmp2b0xXRWJXQ3B3eHB3QzRCN0dEYmlMMWQ3MmJ1?=
- =?utf-8?B?NFdxMjdFeHQ3eWYyTm1CZzFYMDh0WWVjeE1KZDk2UmJNYnZRY3pRRXJIa3ZZ?=
- =?utf-8?B?QTFwamJmS3VJMFgrVkNZU0I1dENyeUc1NnhvZ0w2K0s5Yy9oYmx3UzlrUDFm?=
- =?utf-8?B?aWhmYnFaRWlvbHNhWC9RSE51VzU1aWxCYjNsOUdkNEdqbGxwRFBIN1FlOFl1?=
- =?utf-8?B?NzNBcUExTTJxdmliRndtQUZYa0hvR21zNk50YnMyMklYOUtTRWFKNlVZaVdU?=
- =?utf-8?B?RzZYQVN2QmNITXlVYUExc0hzdi9SYkN6eUtVRE9BdG1oR1JNekZWRlZZL3Zy?=
- =?utf-8?B?RzlmSGdrTC91WjhPeDVreU5aMzdBd2RBbFY5cnJuY0R6QVhxSFkxVVVNVmoy?=
- =?utf-8?B?V0x5cGNtN01VbUVZVlFLV2ltSnZGWEdpbWthNlM0cWJQWGNualpSWDRNNjlO?=
- =?utf-8?B?L1ZaVzVZNjJFQ0R0V1FSbkNlMXR2OHF6MEV2Yk40YlhJWXNCb0F5UG9HbHFw?=
- =?utf-8?B?L1h3Nks4eU1QU3daa2NvazhKeGZyYXdvV2k2amRqVVNpRGNmTHhtRWNPMlRC?=
- =?utf-8?B?U3JmSjlHZ2NoMHh6OW9xT0RLMTVxWDd0eFFJOHZWVVM4cEloR0JOWVZMZ2Iy?=
- =?utf-8?B?Z0pDbVdnZUgxSU9nWGRudUdRdE90dkVtY3h0OWI4cnFQRnNONVJkU1ZDb1VC?=
- =?utf-8?B?a1h5eE8rN2VVTEVmNmZhajMyQTZvVDcwS2V6Zm1rQlBDYUhPUTFDdTVvaG5j?=
- =?utf-8?B?dEJENTNveU9sQnlYRm9tV1BUZGRmRnlsNDRuMXZVSkVTMlI5RGxIWi9oZVY1?=
- =?utf-8?B?MHF1emRKcHZCQk42TUZDTkZObG1DMjFNQXpTdFpIQ3lLQzRyanpjRFd2NFZy?=
- =?utf-8?B?Sm9scFdBR2YveS8wNDRhdHVVaHQ4bXcyUzJRMGg2U0F1UFJoalJxMTBSV2Y0?=
- =?utf-8?B?aUkvWWdXSnNFa1pyK2dPbTQwZWdDU210ZzBKaUR3QmZGM3RYL2IyQmlNZ0VU?=
- =?utf-8?B?THFxUWxLazM0cUJ0UUdKMVMvREZxOFpPVXFkVFRKMGRXbmp2Tjc1YnEwTDF3?=
- =?utf-8?B?UjhKVkY4dVJqNS9OUDNXLzNWaW5iRUtLSTJ5cjg5SXY4ZkhKUWZVSng1MmZV?=
- =?utf-8?B?YnFySHlZU3NLYUlkOUxRSUV1SEtGVW1QQmlwdmVqYnVtN01ydU8rY09sbmJo?=
- =?utf-8?B?dTJBOU9OcVpJQ3oxdGNPM3k1eHdwc25CMTJoNCtYN0xDMThZUGF3c0d2Yk5i?=
- =?utf-8?B?dWZjYWR5cm45eVhzV2RzUHJCNzZhWWdQRTVxNElaOWRMS1pkSjZsbmZXQUQz?=
- =?utf-8?B?TG9WOFNrNEZNc0p2cVEzV2tNOEpCSmVkT251V29KS2hBaE0vN1JjNG9NYUxz?=
- =?utf-8?B?ZEJHS05CbjUyRm82LzY2TER3eWZPYmZ3VjNpZzlKc29keFNQUytuQzBweVc0?=
- =?utf-8?B?TmRvdEh2V056UURmcE11Ukd5SExKalBUYmdjSTFxRGJjdjdvSTFKNWFTdFFX?=
- =?utf-8?B?VHpoZGw4MklTV1ZKUmx4aHVQM0VvaXlKRTAvUE9qMUlQVmNZekJnMTZEd29F?=
- =?utf-8?B?SEg4bHAweW83V1pBMEpLR25KUXBsT0Zad251ZzJxTVM0cXQzOHQxcDVEYlJU?=
- =?utf-8?B?eTIzcENXNk5tSnZ3Z3NIR2Z3b3FLaVBVYnZWYzJsZGpsVGo0Mll0TEZkYlZs?=
- =?utf-8?B?OCs0YWkwRWFVTEZDMHRuRUE2RTVicCtneGErT3hVcVh6ejJBM0xkeWUyNXFy?=
- =?utf-8?B?MG03M00yRWRXL3N6Wm04N204UGNLL0FMRFRXYmpsZmNoZWk1dXRGUjJuM0da?=
- =?utf-8?B?NmJIQ1hqT2F5UTJxd2FLZFFBWUtXNU5FWUFaS3J0dndUTlpyZVBMMStCQ0Zs?=
- =?utf-8?B?RUtMN2dVVTlNRDZGa3dkNERuc0J0Yy94d2FaT0pBUi9yeEk3akk5cmhVQXhp?=
- =?utf-8?B?RW8vQjR4S3JpeHM0SkRBdnJyM1g0OTZJRnhCR3BNUEt6dGJ1ODloWkFFK0hN?=
- =?utf-8?B?VHB2SnpHK1lpMzYyNlI5WkhTN3Vva2s5NUdsQk1HV2RJR2hJTFVpTi9wN3c3?=
- =?utf-8?B?NlB5TVdZN0FEL3MvN0puSmNNQm9mbFZkbFlXT2ltY2w5TTNTOW05cWFGMWZj?=
- =?utf-8?B?RHZYS3VqT2FzRzVSSW1DUDU2cEtpU1I1OFVXQU9DOHJ3SFNzNXptY0pmYlZN?=
- =?utf-8?B?d2xNZEdDNzErR2tQQXJaaTBodlhtaDZnWVdLcnJ0OFRwOVNUUTBTRCtNK2dX?=
- =?utf-8?B?RmZSaXZNMGM0MnNtUWF2UlhhelRDR1NtM3JIdGg4L1Y5K0pjeVBiMFB6dTVC?=
- =?utf-8?Q?vewvb8mLppCigr4OkovKRlNpfzuNYVkOFduBs?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: da84e839-78c7-4107-8c44-08df2a8b5bdf
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 07:10:14.1822
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tbrjgFeu04JcXIfmH1GwCMDI/uTvFsLLgxzsSPgi5NPY1XvzwtWeOdqOMVz7F/BenNCKZ97fZufWz2JJCE7vCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB521575
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: stop recalculating min_free_kbytes once set by
+ userspace
+To: Nimrod Oren <noren@nvidia.com>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman
+ <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ David Laight <david.laight.linux@gmail.com>, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261014140859.1006967-1-noren@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261014140859.1006967-1-noren@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 11:44:46AM +0530, Manivannan Sadhasivam wrote:
-> On Wed, Oct 14, 2026 at 04:14:48PM +0900, Koichiro Den wrote:
-> > The control-region link status is currently updated only by
-> > COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
-> > NTB link callbacks are empty. Consequently, the HOST can see the link as
-> > up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
-> > leaves LINK_STATUS_UP set without notifying either NTB client.
-> > 
-> > ntb_netdev can hide this device-level state bug because ntb_transport uses
-> > a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
-> > device link state directly:
-> > 
-> > After bringing both sides up, start one waiter on each side:
-> > 
-> >   HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
-> >   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
-> > 
-> > While both waiters are blocked, disable the link on the VHOST:
-> > 
-> >   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
-> > 
-> > Without this patch, the link-disable command succeeds, but peer0/link
-> > remains Y on both sides and neither waiter returns.
-> > 
-> > Track HOST and VHOST enablement separately and report the effective link
-> > as up only when both sides have enabled it, as pci-epf-ntb does for its
-> > two physical hosts. Both NTB clients observe this effective state, so
-> > notify both sides only when it changes, including the side whose request
-> > completes the transition. Serialize the two paths because HOST commands
-> > run from delayed work while the VHOST callbacks may run concurrently.
-> > 
-> > With this patch, peer0/link changes to N on both sides and both waiters
-> > return.
-> > 
-> > Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> > Changes in v3:
-> >   - Rebase onto the latest pci/endpoint.
-> >   - Drop redundant dma_wmb(). (Frank)
-> >   - Retest using ntb_tool.
-> >   - Link to v2: https://lore.kernel.org/r/20260904162049.3432464-1-den@valinux.co.jp/
-> > 
-> >  drivers/pci/endpoint/functions/pci-epf-vntb.c | 90 +++++++++++++++----
-> >  1 file changed, 73 insertions(+), 17 deletions(-)
-> > 
-> > diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > index 07ba338732d4..a11f9260ee86 100644
-> > --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > @@ -41,6 +41,7 @@
-> >  #include <linux/delay.h>
-> >  #include <linux/io.h>
-> >  #include <linux/module.h>
-> > +#include <linux/mutex.h>
-> >  #include <linux/slab.h>
-> >  
-> >  #include <linux/pci-ep-msi.h>
-> > @@ -147,7 +148,10 @@ struct epf_ntb {
-> >  	u16 vntb_pid;
-> >  	u16 vntb_vid;
-> >  
-> > -	bool linkup;
-> > +	/* Serialize HOST and VHOST link state changes. */
-> > +	struct mutex link_lock;
-> > +	bool host_linkup;
-> > +	bool vhost_linkup;
-> >  
-> >  	/*
-> >  	 * True when doorbells are interrupt-driven (MSI or embedded), false
-> > @@ -183,24 +187,54 @@ static struct pci_epf_header epf_ntb_header = {
-> >  	.interrupt_pin	= PCI_INTERRUPT_INTA,
-> >  };
-> >  
-> > +static void epf_ntb_update_link(struct epf_ntb *ntb)
-> > +{
-> > +	u16 link_status = READ_ONCE(ntb->reg->link_status);
-> > +
-> > +	/* The link is usable only after both sides have enabled it. */
+On 10/14/26 16:08, Nimrod Oren wrote:
+> min_free_kbytes is recalculated on memory hotplug and on THP sysfs
+> writes. The new value comes from calculate_min_free_kbytes() or, while
+> THP is enabled, from set_recommended_min_free_kbytes(). A value written
+> to the vm.min_free_kbytes sysctl is replaced whenever the new value is
+> higher, so a lower value does not stick. This matters most when THP is
+> enabled on configurations with large pageblocks, where the new value
+> can be excessive [1].
 > 
-> I see a bit of ambiguity here and it is confusing. This comment says that both
-> host and vhost has to enable the link first. Yet, the variables are named as
-> '{host/vhost}_linkup'. Also, the functions setting these variables are named
-> as:
+> Stop recalculating min_free_kbytes once a value has been written to the
+> sysctl. Systems where the sysctl is never written keep the current
+> behavior.
 > 
-> 	epf_ntb_link_up()
-> 	vntb_epf_set_link() 
-> 
-> Even though these two are doing the same thing but on different side, these two
-> functions are not symmetric. This needs to be fixed up.
+> Link: https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/ [1]
+> Suggested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Link: https://lore.kernel.org/r/d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org/
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
 
-That's indeed a fair point. How about the following renames?
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-       v3 (this rev)               v4 (next rev)
-  --   --------------------        ---------------------------
-  #1   epf_ntb::host_linkup   =>   epf_ntb::host_link_enabled
-  #2   epf_ntb::vhost_linkup  =>   epf_ntb::vhost_link_enabled
-  #3   epf_ntb_link_up()      =>   epf_ntb_set_link_enabled()
-  #4   vntb_epf_set_link()    =>   vntb_epf_set_link_enabled()
+Thanks!
 
-We might as well rename the 'link_up' argument to 'enabled' in both functions.
-
-note:
-
-  #3 : This is an existing function, but with this patch it records HOST
-       enablement, which does not necessarily mean the link is up. So I think
-       renaming it in this patch makes sense.
-
-  #4 : For symmetry, I realized that the VHOST helper could use the same return
-       pattern:
-
-       if (notify)
-           return epf_ntb_notify_link(ndev);
-       return 0;
-
-If no objections, I'll respin accordingly.
-Thanks for the review!
-
-Best regards,
-Koichiro Den
-
-> 
-> - Mani
-> 
-> -- 
-> மணிவண்ணன் சதாசிவம்
