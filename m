@@ -1,91 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEA7149C7B;
-	Thu, 15 Oct 2026 00:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025271; cv=none; b=G7/21sHZJ6phLlAMTTkJPfUpWoe1KeoPqSRYMhefV3w9ad388IY3EMd/a2Z5GB10MHKhQ9btOjfbbSYJlDsS+B768vTVz2Rz6vHsH8/iNAc/FIVbA8fVIr0OOO6wGuYEOUYKq3fimZoW9ocShdVl7ql9E6zBRbX3VbAPDfS2Ar8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025271; c=relaxed/simple;
-	bh=Jdmh2k9Zpzpdab+Hym7n7mZWRfos+CdbSF3v4xNVA+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bad/QO0+QIF9kZro7GXua2U5aPCXhrYb19WLgA4dJTRurVzTyM6kybsrlX8ZgeQCmYMkLZaO/+gLRvAeU9XAR4rghYTNyNWxNExxNqRbrb4uR1dZyjJeVgkTm+WUC3Jiy8zOS2YZaDGOq2VIhqMCel3qHFfNj/Ypv8GhtkKY8pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sx8NP5Ft; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1D214A619
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792025467; cv=pass; b=MX+6gB0w331Dgd0kzIx8v/bF2c+S2cH0wRVZnMHZ8Qwlc69+gXSw/7lJ1jNploXCpo+uPnDuC1TFCCNohFafkf2pq2W+Mbzj7WdPx0BCpWe3EGEio3v77okBg411dDFpQLvykEWYoSZp4EUlwvhI8843dlaJt6MNBHXt+VIIA6A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792025467; c=relaxed/simple;
+	bh=rUkvizF94O7wbkK+B9hI74UD1HRMZ0AGrNVXGILC+RA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YBqmLNQIXlYpaacDCGQsVuqT/bFQ+Hl4op9+159RDbeSwBWeZluoeZ1u8+mB/l82NtoqX1T87ErSp4nr57MxDA3dJGxQPLKimbF4F30m6a+sqceWyxJ29wqZuV3twqKtUTgFKYXKkq0J2QGXsoECAfLahIYNtV2hmFMtPn0CQJM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kqe3u7F1; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sx8NP5Ft"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3AF11F000C4;
-	Thu, 15 Oct 2026 00:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792025269;
-	bh=ck0I1cu2qhraA2RvExDj6Fn2uXukxj3qD78HQeaCDzU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sx8NP5FtVuQxca+Ul4eqj28/qEc8DFULXNiItJxMV9nEmkDNd06EmC0LScAYZNmCq
-	 aWvUKHXmzg8dHDOpi0JRhGqGckq45BmgGTxQzDYoBY5LEEaw+dfSlLAnMn5KXkjnwT
-	 oZufciBd4BqBpg3Bo444dHTWNHBDjS3cl6+qzJi6GYNYf61bvC/d/4ToOqTtzFHlzK
-	 L9i1ZcFFT6d50GieY55plgDhWLGpqYCN1K9p9tHcWF2a2Df9tQ/bDzS8bna40PJ3Mw
-	 WWMafCB+8KwysWixKYsuMH7jFTvoyGxTwOyQJIEA6Icp/+GU6ueTNsTDMKW+AWHLCz
-	 gmltmA5NrR+Qw==
-From: SJ Park <sj@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/505] 6.12.113-rc2 review
-Date: Wed, 14 Oct 2026 17:47:41 -0700
-Message-ID: <20261015004742.4703-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261014123803.944920639@linuxfoundation.org>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kqe3u7F1"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1474163a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:51:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792025464; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jlE35ucHLgGFdE7w/ZGrhquECOuo3igmU7KqrZEoBFA1ZZSob24+7YX70L5SSs0exA
+         y4Tp7dR0aNA6fx7KGsbQGj5xvSJK1CGKPdVJqVZG4G9EbauMwQ1WfiWFRUs5IZBe4ZrT
+         4wPss/N5fmUprciB/0nPmU+MwTbaNUozX4FIMmX+Yg1VQZzbZWqlE83UC36UUDAEr3kL
+         R7il/D+AzIkgWLWrkDVY/Ewro6mMfJGi9b3s6HYiTVvLc4UTubZVO+yx9LL56vQaPOTr
+         TbkB9eDHhbNpLMivz1N19b4rNyQofq/6dzOGz1ojyT4RMZSu8etVgOAo87LDlAI3gvuX
+         GAPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rUkvizF94O7wbkK+B9hI74UD1HRMZ0AGrNVXGILC+RA=;
+        fh=0rs7SMRBnc1+bZ2IPGXqvgLd1iLZMximhO5ZDFM5cq8=;
+        b=PlDaPza0fpvz2T4XRSU07PCmuecZ8R/EIAxa8RoHc6X6F3i/DyJdTTsJAQ4kthFycW
+         ogspWp/WrgipiK+EPhRrQdS1lljouiHhhYRA5OdlaYMRLJ8vQDWdXR4Uinn2hlIyltfU
+         5V8OwVhPBmz/pqgj4HV5l9XUzS9Zz4qig7RZs/ZLs0akIdyd/A9JThgRt1XFQnasb2Mh
+         EWtMJ8Rg2FU3/gQHDpZxsMEaQt3ZCG3t1jSWHyvP+V2NjjQ6hYE86jliIkrlLLylvTdO
+         OJ0FY6/+crmdcAsdp4C1tVoIpkgZCX+NQalMLdeFWkXP4j/fPkY653zzRE3L10kQU4uY
+         mDXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792025464; x=1792630264; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rUkvizF94O7wbkK+B9hI74UD1HRMZ0AGrNVXGILC+RA=;
+        b=kqe3u7F1CV6N529svEOlto8w8CMrL3ZdH6WPeHe0XSmtomVlV6N1Ps3qCeBMWTaTAp
+         jcqyRPIAf6VkxX36zZ77fdFs6Scum1Ae7Kyxzc4hkFsyUc2W7ENxPKx3v2EipYVb8xzK
+         Us2xlg6QdAQ7ektYAd6zmguPktr1YwwUCIa/HZI+q1/V41Kf84dsbPYETJvUipwB0eG5
+         pOU8ffjWOAw46Q0Uwf+blUFvUpdF3TIr0qT26lJYC/AWFOoD9nz+uEtsvjLN2IUZNh0i
+         5RNm5yniz9Btej0bQLeMUWf01j3GCTASHc5P5kOj8AOCWfJJ9VlCC995EIXzMCGEulPf
+         3dAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792025464; x=1792630264;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rUkvizF94O7wbkK+B9hI74UD1HRMZ0AGrNVXGILC+RA=;
+        b=BV+7uOi2OAXhHwjOEcqpyEoyDPVOTTgJeRmWDaZpEjORqA/HooGTGj7ClUl0Rludmc
+         OkIXVPg3+JkfsWZFJbLDDiLDgyQf7OyX8OdMzHu7v0RTZiaWPfhSQERgatJ2mqSqLfyG
+         lT6W9Rvb1FqE3VUx9AX8EqP3SEYH4NzzGQX2jANF1UeALekgdNhThSHj67rZ2hI/Kpza
+         2FMw6dJjIygPbUD1XDhQ3E45kT5AXcNT1hRfQqV0sy6DI6nb8vN4XvbBlmYjd7mW1q7H
+         gr1vv+jqranhmT25CCLld+jlbef04Y8iDZ1dUJw6GGIZgOraLiJLwMQ3m3MycKx1zwOZ
+         9Ovg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4LDVwHqTaa15LVdpmqwl5dC+ENp7lCL2xgkjLxAaW/i+RONaZyGhAZBl5X27scd/HErICxwQFiw0X/aQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUclzNlMiaqQr9Vsv6NxF1Ol4NNp619okLxXIfisBwFx/P/RWo
+	VzfhwofZWHb0vsXaqLMZhN2VDwYwxTO4fxPJh5+1kI3GDCMEDaXfrpzGfnuiTk7Yp8cLpti0cAf
+	QGE0Bvyj8tR2d5dWRtKYNA+ZxWJFybGQ=
+X-Gm-Gg: AYBFou2oTuqxmOqyKFObI01DLUMv1bmV5/iLyGryTBOfj3hVzW2s9fMFnMiSOaWMSUa
+	BIeWhUO2kepJg3M1lBe3aVSNyCwB0oGGvxJTFtgih/cKoBNZnv2C7ZnJhr3H0JTNsLslZKCuApc
+	OSFflJnQyRBdPelUrFaWCgzrDMYS6KYfNDHzN4lxPRSjYTkf2fbvuZAS8HWsQ4L0VkF6ePB+aOp
+	l2w7sdLj7ooSFHqM0T/sgX/e00uzCaUHFmc6iopD6fW+pvl9RAWppmIUuMt0+OuO761PCBroaGN
+	9i53ATiiIXMTJdp3rBj2Zvdbn0CYNKGttXoQf61LOLpmDSI/suKl5kcnCl94bvNT5XJj7bxNM0P
+	jgGNnJDZ2sWjY
+X-Received: by 2002:a05:6402:455a:b0:6b1:e8b3:c3b5 with SMTP id
+ 4fb4d7f45d1cf-6b1e8b3c65amr4467054a12.6.1792025464368; Wed, 14 Oct 2026
+ 17:51:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013165814.3092559-1-samarth.colleges@gmail.com> <20261015003412.GA13920@nvidia.com>
+In-Reply-To: <20261015003412.GA13920@nvidia.com>
+From: Samarth Narang <samarth.colleges@gmail.com>
+Date: Wed, 14 Oct 2026 20:50:53 -0400
+X-Gm-Features: AclHuK9892uYyXNXapLy9aok7YxBXJNaRdpJfdG1a3-YNrgC35sKsdI5-DIcB0g
+Message-ID: <CAAbz3fSE3cnjRXcdQkx9EPuQwarhH+XasQdaEvh6X8eCg+osQQ@mail.gmail.com>
+Subject: Re: [PATCH] iommupt: report the whole contiguous group in read_and_clear_dirty
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 14 Oct 2026 14:50:30 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-
-> This is the start of the stable review cycle for the 6.12.113 release.
-> There are 505 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 16 Oct 2026 12:37:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-
-This rc kernel passes DAMON functionality test [1] on my test machine.
-
-Tested-by: SJ Park <sj@kernel.org>
-
-[1] https://github.com/damonitor/damon-tests/tree/next/corr
-
-
-Thanks,
-SJ
-
-[...]
+Thanks Jason, that makes sense. If it helps, I am also happy to send a
+v2 of both patches along those lines.
+Best,
+Samarth
