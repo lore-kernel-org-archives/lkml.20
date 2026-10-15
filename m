@@ -1,186 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.teplosmart.kz (mail.teplosmart.kz [109.248.152.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E251812D;
-	Thu, 15 Oct 2026 10:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBC6493D29;
+	Thu, 15 Oct 2026 10:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.248.152.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060349; cv=none; b=OSAUZL8hvhL0OLqVC5hmi0Ul5yJV4a51SzV5n2y/r8KtDXwH8ltwk87NggzoETt1oKpScnNuJCywv0vGXLQHIwqiYaHWw1UWPFu2jX6yzmek/Wkfl4AS5iFHZRfoh54eq8fhT22HEn3SijKL/6Yw230w4XulLaWmL5GiSyLJn6c=
+	t=1792060420; cv=none; b=SKHiYwtfNcTpe4xjjNrku/oQDnJyctD6FYdjooUZewLL4+uJLd4+bAkb/jy7owpyudGMWalxtubLvUEHxgJ9STFW7WV0LZK40JlNaDqo+gvrLTGMJ8oc3jMZ5pE8cyuyrfq26uqz7p6+Ahtr7RPflN2CxTU+xd1TJAwQBHpmsBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060349; c=relaxed/simple;
-	bh=XUYOScsxtpoMvmTZT4+4w0G08Qy83jX28yQHeYVl7kI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DzX0JVAwq62geJBRHAppZq2wvtzxZhlLGpcbCWfTnlrs87AbvHMrwix1Xm9m1pUJF0OUKPT37WAHjfoKg4NjUN4+A6ELKhYisj+PpS1pxUCbTen4mTcbKoGu6ExWOQzAO42/lp3faG1bdX/79Ba+AQ5fBrhDyu4OKvebFmsAAPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI5GrVnW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792060420; c=relaxed/simple;
+	bh=x4j1MyhbT+c7+HAuHRvQK/5M5CfjgRnbi3oXyr1fFQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DE2eUjR9kfdr0B+hjUTMFQXwu4N0cQ9v45c9IoyCR4zHmfEf++AOWDvdLjxcv3nNo9XoEIxB0remNsk0UI9Ir/DoxfrG7Fpy4tt95QBI2rSh9ns9TjtYb3dhE1tWLd3busqhxEtjDiTqhhgRido9E24piQoCd6kfPt/IVX0vP+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=teplosmart.kz; dkim=pass (2048-bit key) header.d=teplosmart.kz header.i=@teplosmart.kz header.b=15Twt2zl; arc=none smtp.client-ip=109.248.152.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=teplosmart.kz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI5GrVnW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E431F000C6;
-	Thu, 15 Oct 2026 10:32:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792060347;
-	bh=LsdCD24KD2Tp7y3HBX5d5H3zRxOHnSIBh2ksy9wg8Ts=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PI5GrVnWNLXPUfA56WspsR/Sfk0JXapnfU2XLZpZyaYhVj7WNauNiYX8WZHeKvjuX
-	 5SPyA829h6ChMVvtyYpWgC9r5KhwBmWi0V9iMUVWBSOABvvFFoQ7pIFY42kEWmFQDW
-	 eH/hAvT8mHUsib5HpTG1kCLTIREHI5WbXfXRuxWoLuvwfn0jI4Kmv3qzJqMtz1kniP
-	 2mY6REC4hDxFvstBjKKrjG0lY9PS7KCcSPrnW2it1S5hUOa0yuDC9X/40L4T6+HGb3
-	 ynwiYKfpWJ3TlxbrBUA9buCkJjSpmDaMyM6UnyC3rTAvgSUUUH05G4s3qMUaPr+7SB
-	 I2d/0P6cLtriw==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, povik+lin@cutebit.org, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrei Simion <andrei.simion@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Cezary Rojewski <cezary.rojewski@intel.com>, 
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Heiko Stuebner <heiko@sntech.de>, phucduc.bui@gmail.com
-Cc: Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
- wangdicheng <wangdicheng@kylinos.cn>, 
- Chris Bainbridge <chris.bainbridge@gmail.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Neo Chang <YLCHANG2@nuvoton.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Hemanth Selam <hemanth.selam@gmail.com>, 
- Md Shofiqul Islam <shofiqtest@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Zain Aboobacker <zainaboobacker33@gmail.com>, 
- Sang-Heon Jeon <ekffu200098@gmail.com>, 
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, 
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, 
- Bo Shen <voice.shen@atmel.com>, Vinod Koul <vkoul@kernel.org>, 
- linux-sound@vger.kernel.org, asahi@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
- linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
- linux-rockchip@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261008103831.542533-1-phucduc.bui@gmail.com>
-References: <20261008103831.542533-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 00/24] ASoC: Fix constraint return value handling
-Message-Id: <179190764565.42298.7608820451808443258.b4-ty@b4>
-Date: Tue, 13 Oct 2026 17:07:25 +0100
+	dkim=pass (2048-bit key) header.d=teplosmart.kz header.i=@teplosmart.kz header.b="15Twt2zl"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE3576654B0;
+	Thu, 15 Oct 2026 15:26:01 +0500 (+05)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=teplosmart.kz;
+	s=dkim; t=1792059962; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=eigKfEJaMCURfst9+qumadUfklLLvkmWswsRO/BSs7Q=;
+	b=15Twt2zl99pCuLTWLzFUpaoEfxwR1OWU2Q+UabrtDujhyh90KVsxZWay4S+zaSUs4Y1siw
+	pL95CcO8TTNMMeWhy37zzVdi25MNiFGkhaI8+DMg2iosiIOHD4z7PPLdajlvHEcVP98vwV
+	w6RLFlMBOCF0FagywwIcw9t7sfaqlBOfvHyz2HMZJfZwV4LlioNGUslEZAb8o/oALyEaCH
+	hQdiguRszlfuLxyYaKlOMfFV/+oTY5S5niMcsvs7xH4jEIiEpq9SfG6P7sV9nDvFIR277F
+	sRmGLRY87iWX8sO+cXUp4i7/K8zVnyVzpvjc0qJAFjF+jhI7yByX+hgR/UJPOQ==
+From: Fedor Gubenkov <writesfaster@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	writesfaster@gmail.com
+Subject: [PATCH] HID: usbhid: add HID_QUIRK_SKIP_FEATURE_REPORT_ID
+Date: Thu, 15 Oct 2026 15:26:01 +0500
+Message-ID: <20261015102601.1235724-1-writesfaster@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4621; i=broonie@kernel.org;
- h=from:subject:message-id; bh=XUYOScsxtpoMvmTZT4+4w0G08Qy83jX28yQHeYVl7kI=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIurF436QbXa43IwJtVz+a9/WP+dErigiRWRdWnu6RO7
- AjMf7hrdUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmIiLKyHDq2uODof8nCxuF
- ZpfxcTPWcS7d8W7zzOu3Jb2WdVWxqZ9n+J+wZiZ7iINepZ/T5W/rbJe6Pjpf3LOofnnrcZW5jw+
- FszMBAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 08 Oct 2026 17:38:07 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: Fix constraint return value handling
-> 
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi all,
-> 
-> snd_pcm_hw_constraint_minmax() and snd_pcm_hw_constraint_integer()
-> may return positive values on success. However, ASoC only marks the
-> DAI, link, or component as started or opened when the corresponding
-> callback returns 0.
-> 
-> [...]
+Some HID dongles implement a stateful challenge/response over HID
+feature reports: a SET_REPORT(Feature) carrying the challenge,
+immediately followed by a GET_REPORT(Feature) returning the response.
 
-Applied to
+One such dongle (3689:8762, reporting itself as "USBKey"; used by
+several automotive key-programming tools) rejects SET_REPORT(Feature)
+when the report ID byte is present in the payload. For a numbered
+feature report usbhid puts the report ID both into the control-transfer
+wValue and as the first byte of the data, i.e. it sends 21 bytes for a
+20-byte report. The device then STALLs (EPIPE) the following
+GET_REPORT(Feature), which breaks the challenge/response and makes the
+dongle unusable - also for Wine applications relying on it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+A raw transfer that keeps the report ID only in wValue and omits it
+from the SET_REPORT(Feature) payload (20 bytes) works: the device
+accepts the challenge and returns the response. Confirmed with usbmon:
 
-Thanks!
+  usbhid: Co .. 0302 0000 0015 21 = 02 11 ..  -> GET: C -32 (STALL)
+  libusb: Co .. 0302 0000 0014 20 = 10 11 ..  -> GET: C 0   (response)
 
-[01/24] ASoC: amd: acp: Fix .close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/2c3400aa9f39
-[02/24] ASoC: amd: ps: Fix acp63_pdm_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/172888114dda
-[03/24] ASoC: amd: ps: Fix acp63_sdw_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/45dd2b22ea89
-[04/24] ASoC: amd: raven: Fix acp3x_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/37ceef26df57
-[05/24] ASoC: amd: renoir: Fix acp_pdm_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/a92571113ef2
-[06/24] ASoC: amd: vangogh: Fix acp5x_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/38559fcd1c51
-[07/24] ASoC: amd: yc: Fix acp6x_pdm_dma_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/06654a3ef513
-[08/24] ASoC: apple: mca: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/4d23ef7515dd
-[09/24] ASoC: atmel: atmel-pcm-pdc: Fix atmel_pcm_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/50aaca643038
-[10/24] ASoC: codecs: cs42l42: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/c2a3d0b2be0c
-[11/24] ASoC: codecs: nau8325: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/0634e7b24727
-[12/24] ASoC: codecs: nau8540: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/1de1fd7c69a3
-[13/24] ASoC: codecs: nau8821: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/fc5da89a0a8a
-[14/24] ASoC: codecs: nau8824: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/e66285731262
-[15/24] ASoC: codecs: nau8825: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/552944e3b027
-[16/24] ASoC: codecs: wm8580: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/b2c81f056c53
-[17/24] ASoC: codecs: wm8782: Ensure the DAI is marked as started on success
-        https://git.kernel.org/broonie/misc/c/29f52545ada7
-[18/24] ASoC: imx-pcm-rpmsg: Fix imx_rpmsg_pcm_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/85e56c3bbb7e
-[19/24] ASoC: intel: atom: Fix .shutdown() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/e3bb57581104
-[20/24] ASoC: renesas: fsi: Ensure the component is marked as opened on success
-        https://git.kernel.org/broonie/misc/c/6bba4e5a171c
-[21/24] ASoC: renesas: msiof: Fix msiof_close() being skipped on rollback
-        https://git.kernel.org/broonie/misc/c/b7c58a55fd9b
-[22/24] ASoC: renesas: rz-ssi: Ensure the component is marked as opened on success
-        https://git.kernel.org/broonie/misc/c/fd5c45166d65
-[23/24] ASoC: rockchip: rk3399_gru_sound: Mark the link as started on success
-        https://git.kernel.org/broonie/misc/c/8a43611c834f
-[24/24] ASoC: rockchip: rockchip_max98090: Mark the link as started on success
-        https://git.kernel.org/broonie/misc/c/303961c7daf1
+Mirror the existing HID_QUIRK_SKIP_OUTPUT_REPORT_ID handling for feature
+reports via a new HID_QUIRK_SKIP_FEATURE_REPORT_ID quirk and apply it to
+the 3689:8762 dongle.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Signed-off-by: Fedor Gubenkov <writesfaster@gmail.com>
+---
+--- a/include/linux/hid.h
++++ b/include/linux/hid.h
+@@ -408,6 +408,7 @@
+ #define HID_QUIRK_X_INVERT			BIT(12)
+ #define HID_QUIRK_Y_INVERT			BIT(13)
+ #define HID_QUIRK_IGNORE_MOUSE			BIT(14)
++#define HID_QUIRK_SKIP_FEATURE_REPORT_ID	BIT(15)
+ #define HID_QUIRK_SKIP_OUTPUT_REPORTS		BIT(16)
+ #define HID_QUIRK_SKIP_OUTPUT_REPORT_ID		BIT(17)
+ #define HID_QUIRK_NO_OUTPUT_REPORTS_ON_INTR_EP	BIT(18)
+--- a/drivers/hid/usbhid/hid-core.c
++++ b/drivers/hid/usbhid/hid-core.c
+@@ -914,8 +914,10 @@
+ 	int ret, skipped_report_id = 0;
+ 
+ 	/* Byte 0 is the report number. Report data starts at byte 1.*/
+-	if ((rtype == HID_OUTPUT_REPORT) &&
+-	    (hid->quirks & HID_QUIRK_SKIP_OUTPUT_REPORT_ID))
++	if (((rtype == HID_OUTPUT_REPORT) &&
++	     (hid->quirks & HID_QUIRK_SKIP_OUTPUT_REPORT_ID)) ||
++	    ((rtype == HID_FEATURE_REPORT) &&
++	     (hid->quirks & HID_QUIRK_SKIP_FEATURE_REPORT_ID)))
+ 		buf[0] = 0;
+ 	else
+ 		buf[0] = reportnum;
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -1623,6 +1623,9 @@
+ #define USB_DEVICE_ID_RAPHNET_2NES2SNES	0x0002
+ #define USB_DEVICE_ID_RAPHNET_4NES4SNES	0x0003
+ 
++#define USB_VENDOR_ID_USBKEY		0x3689
++#define USB_DEVICE_ID_USBKEY_DONGLE	0x8762
++
+ #define USB_VENDOR_ID_UGTIZER			0x2179
+ #define USB_DEVICE_ID_UGTIZER_TABLET_GP0610	0x0053
+ #define USB_DEVICE_ID_UGTIZER_TABLET_GT5040	0x0077
+--- a/drivers/hid/hid-quirks.c
++++ b/drivers/hid/hid-quirks.c
+@@ -211,6 +211,7 @@
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_UCLOGIC, USB_DEVICE_ID_UCLOGIC_TABLET_KNA5), HID_QUIRK_MULTI_INPUT },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_UCLOGIC, USB_DEVICE_ID_UCLOGIC_TABLET_TWA60), HID_QUIRK_MULTI_INPUT },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_UGTIZER, USB_DEVICE_ID_UGTIZER_TABLET_WP5540), HID_QUIRK_MULTI_INPUT },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_USBKEY, USB_DEVICE_ID_USBKEY_DONGLE), HID_QUIRK_SKIP_FEATURE_REPORT_ID },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_VRS, USB_DEVICE_ID_VRS_R295), HID_QUIRK_ALWAYS_POLL },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_WALTOP, USB_DEVICE_ID_WALTOP_MEDIA_TABLET_10_6_INCH), HID_QUIRK_MULTI_INPUT },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_WALTOP, USB_DEVICE_ID_WALTOP_MEDIA_TABLET_14_1_INCH), HID_QUIRK_MULTI_INPUT },
