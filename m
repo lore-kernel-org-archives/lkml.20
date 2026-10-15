@@ -1,132 +1,92 @@
-Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E42B38DD3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64C25B0A4;
+	Thu, 15 Oct 2026 00:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025682; cv=none; b=hhoihpU0Q3QrWYhucsHXAEVtnmy9QQWoRabh/3NirJahH5vOacsdi2ImdwZUVxd6GN9cpwJDQbZMrBnbKD8lxnMm4ZAvdQuqQdTGXDQQ04mncDEmHrjU9QWxj45QsbEBaFUP28O/hOH6dri1jSYSAGBCRRUOGMxDCaO2v/26A2A=
+	t=1792025698; cv=none; b=PdI4Sg/2803/nrjP5jfb6U7ItU5GNgG2ncq4ykuVAmNRrFNR3yor2jyO2g9TktvUQtuDXdquzVmfzq3HGhSLazNjTvJ3NZZjtL3c439XHjyzkCHbye73APZMeuXVHPM+oWrpZFeX5mIX9kat0Wk734p6Cbt7o1DtvWmMvwowfmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025682; c=relaxed/simple;
-	bh=r247dczbk+8j7HVrazYqB4jq4GEyWT/BBF98AxWtuB8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TEJcrUioOFRU3NGDIjnAveMPlMi6rvAas3LFgkmDqJqe42soyARryj4vkp/6fZecKmNdOlM8YV97J1BJGC7dQFe41m8v8lISHMupoDN0YMTiMIuxz467+Yze6I/0K7ckdjs67bvc9hF12qjwFj8F7aYkEBU0hpf0U0EruTvu+ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SE4RzuVO; arc=none smtp.client-ip=91.218.175.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SE4RzuVO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r247dczbk+8j7HVrazYqB4jq4GEyWT/BBF98AxWtuB8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792025678; v=1; x=1792630478;
- b=SE4RzuVOWBfqDbbWmdLh+Oxecw401ihk60GUM7rm7cXZyltp45UG3LSkJ3Ju3W8/aF6xrw9l
- jEBYhbzYoACrrOHpXccNirXLrIsOQqOSazOQLXlrJu2mmiKwjT5CvutLfDA7ytOxK7vVwmWaJwD
- uVSFpBAh+9MA8QRZqrwokSmE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 57c161504278a604;
-	Thu, 15 Oct 2026 00:54:37 +0000
-X-Mizu-Trace-ID: 57c161504278a604
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 15 Oct 2026 08:54:30 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Ahmed Abdelsalam <ahabdels@cisco.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>,
-	andrea@common-net.org
-Subject: Re: [PATCH net-next 3/5] seg6: apply the PSP flavor together with
- NEXT-C-SID in SRv6 End
-Message-ID: <atAkRpVssWDpyx9-@fedora>
-References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
- <20261011192310.55-4-andrea.mayer@uniroma2.it>
- <asyXpWXMeKnPw9U6@fedora>
- <20261015000052.7731f972b28eb12ab57dd93c@uniroma2.it>
+	s=arc-20240116; t=1792025698; c=relaxed/simple;
+	bh=UcXfq2s8RBg/mdMLs5Sze1N6LCsFPoK+hasLw7OL0Iw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gUGDqdMpOuJh+e+0XrlVMRSiPA+IOqxmL54a9OWZjm8f4mGpclPPoCxe8zMF8h4OsqEriqPNkGh3YGXmSGboW0Mk6aVFsg9iOOdxSqk9gDFZoHpwOCzt7v+qzkLlqYy1SBKKaAUhTtTYr0hk0n9oUgkfZHg3H9nJNp9ELNWBOUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5958242301;
+	Thu, 15 Oct 2026 02:54:48 +0200 (CEST)
+From: Lubos Rendek <l.rendek@proxmox.com>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
+Subject: [PATCH 7.2.y] nfsd: fix all-zero stateid in CB_OFFLOAD for async COPY
+Date: Thu, 15 Oct 2026 11:53:40 +1100
+Message-ID: <20261015005340.550134-1-l.rendek@proxmox.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
+References: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015000052.7731f972b28eb12ab57dd93c@uniroma2.it>
+Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1792025687393
 
-On Thu, Oct 15, 2026 at 12:00:52AM +0200, Andrea Mayer wrote:
-> On Mon, 12 Oct 2026 16:17:41 +0800
-> Hangbin Liu <hangbin.liu@linux.dev> wrote:
-> 
-> > [snip]
-> > > +static bool seg6_flv8986_enabled(__u32 fops)
-> > > +{
-> > > +	return fops & SEG6_LOCAL_FLV8986_SUPP_OPS;
-> > > +}
-> > > +
-> > > +/* check whether the NEXT-C-SID processing has to be used for the packet,
-> > > + * instead of the RFC8986 flavors set for the given SRv6 End* behavior
-> > > + * instance.
-> > > + *
-> > > + * This function returns:
-> > > + *  - true, when the packet has to go through the NEXT-C-SID processing;
-> > > + *  - false, when NEXT-C-SID is not configured or the packet has to be
-> > > + *    processed on the basis of the RFC8986 flavors.
-> > > + */
-> > > +static bool seg6_use_next_csid(struct sk_buff *skb,
-> > > +			       const struct seg6_flavors_info *finfo)
-> > > +{
-> > > +	const struct in6_addr *addr;
-> > > +	__u32 fops = finfo->flv_ops;
-> > > +
-> > > +	if (!seg6_next_csid_enabled(fops))
-> > > +		return false;
-> > > +
-> > > +	addr = &ipv6_hdr(skb)->daddr;
-> > > +
-> > > +	/* NEXT-C-SID and the RFC8986 flavors combine according to the
-> > > +	 * DA.Argument (see RFC9800, sections 4.1.1 and 4.1.7):
-> > > +	 *
-> > > +	 *       DA.Argument   RFC8986 flavors   processing
-> > > +	 *   (1) != 0          any               NEXT-C-SID only, SL unchanged
-> > > +	 *   (2) == 0          none              the behavior, e.g. End
-> > > +	 *   (3) == 0          one or more       the behavior with its flavors,
-> > > +	 *                                       e.g. End with PSP
-> > > +	 *
-> > > +	 * In (2), the packet still goes through the NEXT-C-SID processing,
-> > > +	 * which runs the behavior (e.g. End) when the DA.Argument is zero.
-> > > +	 */
-> > > +	return !seg6_flv8986_enabled(fops) ||
-> > > +	       !seg6_next_csid_is_arg_zero(addr, finfo);
-> > 
-> > nit: based on the comment, maybe we can change the order to
-> > 
-> > 	return !seg6_next_csid_is_arg_zero(addr, finfo) ||
-> > 	       !seg6_flv8986_enabled(fops);
-> > 
-> > No need to change if there is no new version patch.
-> > 
-> > > +}
-> > 
-> > [snip]
-> 
-> Hi Hangbin,
-> 
-> thanks for the review and for the suggestion. I would prefer to keep
-> this order. The table in the comment is meant to describe the cases
-> rather than the order of the checks. Since testing the 32-bit flavor
-> mask can be cheaper than checking the DA.Argument, I just put the mask
-> test first.
-> 
-> Let me know if you see it differently.
+[ There is no upstream commit: this fixes the 7.2.y backport of
+  d0beaee498e1. Mainline fixed the problem as part of the async COPY
+  rework in commit f307b4f7ed17 ("nfsd: split nfsd4_copy into transient
+  and durable async copy objects"), which is too risky to backport. ]
 
-Yes, putting the mask test first makes sense to me.
+Since commit 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry
+for async COPY"), nfsd4_copy() calls dup_copy_fields() before the copy
+stateid is created and then writes the new stateid only into the COPY
+result. The async copy's own cp_res.cb_stateid stays zero, so
+nfsd4_send_cb_offload() sends CB_OFFLOAD with an all-zero stateid. The
+client cannot match it to its pending COPY and waits forever in
+nfs42_proc_copy().
 
-Thanks
-Hangbin
+Also copy the new stateid into async_copy->cp_res.cb_stateid. Calling
+dup_copy_fields() after nfs4_init_copy_state() instead is not an
+option, because dup_copy_fields() also copies cp_stateid and would
+overwrite the stateid that the backport moved to the async copy.
+
+Tested on 7.2.10 with an NFSv4.2 server-side COPY between two
+exports: with this change the copy completes and CB_OFFLOAD carries
+the same stateid as the COPY reply. Without it, cp(1) hangs on 7.2.4
+and 7.2.9; the affected code in nfsd4_copy() is the same in 7.2.10.
+
+Fixes: 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
+Closes: https://lore.kernel.org/stable/7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Lubos Rendek <l.rendek@proxmox.com>
+---
+ fs/nfsd/nfs4proc.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 939749709..7c2955796 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -2243,6 +2243,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 			goto out_dec_async_copy_err;
+ 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
+ 			sizeof(result->cb_stateid));
++		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
++		       sizeof(async_copy->cp_res.cb_stateid));
+ 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
+ 			       FMODE_NOCMTIME) != 0)
+ 			async_copy->attr_update = true;
+-- 
+2.47.3
+
+
