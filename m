@@ -1,144 +1,169 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E60486420
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8548C449EB2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:43:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057356; cv=none; b=k1Fq+1iXSN9k4tp6dTXZAOPQ4xAOX4sDBkS9ql2xWP1wBzpmMzz6MAsCWPsssTw61ih28B9rYOBVIrbb43C+moLNEllxaMO6esPLvsgAZ6XY7anFEE7pd1hxtrg4QYeXhwPXHjCZnDOezQDP8B9m+3VKTlElnEuZ//HwT0gSzYc=
+	t=1792057389; cv=none; b=RkuL7dCJ12p/7nqOlCDiDMhyE/wKVE7lfnrKOa81LoVfyy8aR7RAJfAFbFjNm2nMeR8sj60LXiHAh9ujpzw/DFfsWsUmu+jVb7tYjDhpxrSuxRFZ3JcC1oHlFmlw6Qf2fzZApiR1Cat0eIh1rRCPfB9alTH3DTNE2pvSAgX4z4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057356; c=relaxed/simple;
-	bh=yvq6ttRHPiAv8pkpttwMQSYUvX9YzAAnSIjoqjDDjuU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0ydJKyF7B4sc2lLxbP5ym1YBYv25LJjS3nBeI5Xcjq5YPtoEi8P13QqBtBO5VaZjKBov4xEVI+QQgwi3XzZW1Ht8ZniDn2MdzHJr2PTR3yvtGj5qFIl4SrTP7E3JiGBLmzzLveKM3S8NhvRFn3naPH/9Uqs2AhyWwDMb2G9hOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JaKQJu/Z; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ep9xo2KN; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792057389; c=relaxed/simple;
+	bh=LDHuhXzhqSsKFw0QQ+al7co5fJURPVu81XK5aDR8AmQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NvIia02bZtzVoeZpD7+pZgrRiy5BywMLLuX263TiRVoI2c5yscH1Ule/Io0WX1rGrFuYG9PiE3dpij6tL+vgbmbSA7fS8X1w7WC6fZOq0F+hSEGd2IAiI43WkVehio+OSbvNPlrMZIbV72/CpxjT0CydI69zFa7Y9BGt40Vb4nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XnB5rCnl; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JaKQJu/Z";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ep9xo2KN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792057352;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zn1wkXYiN71d87RqqidqsthvjRH9zSTMQzZFpbrX5PU=;
-	b=JaKQJu/Zs64Oyf+bByB3pta8z+buJWm+hYgAy4O6a5BRk62+UTpKLLUodGTVpOrRw0KVlG
-	3XXQHoBM5vj6yfv5onev2p9nH5r4tincENgCQb5D3dBENvAuHaF6Y40Y06kdwZfp9GRRv7
-	ZRUTiETrB+rq+Z6LisX79IzB07kTxzw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-256-iVaRGQmoOAeIGIu_nSvscg-1; Thu, 15 Oct 2026 09:42:31 +0000
-X-MC-Unique: iVaRGQmoOAeIGIu_nSvscg-1
-X-Mimecast-MFC-AGG-ID: iVaRGQmoOAeIGIu_nSvscg_1792057350
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a17b4c613fso26105495e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792057350; x=1792662150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zn1wkXYiN71d87RqqidqsthvjRH9zSTMQzZFpbrX5PU=;
-        b=ep9xo2KN+TLkHQiQNTDv4VWEzskqg2eJP8x3bhYMpkG3c7AeAAFx3iCLBb7Fy/Fj3W
-         8u6N+ntLMANLrbO9iTC11eEg1onAeHFn5x55qTdg5GUgFmwxzV9ZXReQ2I0rDo1+i1nO
-         g4i1iwJ80Mt4BFZju0Z5XQIMEzn0+N4Z/6SykLIXMDPFUVQUvsW/LPt1uRVAA5mEPL22
-         OAI1pLyRdrvGV8veWV0+ew26gJMri50nJyJLYHoKcKFF1Y3l9AoHUfWk0q/VYlOxQl6b
-         3R+G3yrOsLyaJss0AM92noPfrE+Wb2MhZodY9w5iEdEdYrHZfsw5gBBw9TfQSdX+Rd8p
-         DKVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057350; x=1792662150;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zn1wkXYiN71d87RqqidqsthvjRH9zSTMQzZFpbrX5PU=;
-        b=gSn9QcG8S9mEWVPxfZ7bBasdGtElbHOUukGJsxOHaTEoc6FWKmM94u1977dX5Ij6jy
-         GGSZEVlfpk5ULN5KlcOeTfDBveGLGC9bzJc1GExXxWhGHeKYF+QYl1IvO8lqLzRH4duE
-         +C8KV/gioEDx5ivPT+zMp0GWtt53kh8c0Ep+f8V4Rm0SehFyfqx8dSJSffKnQYizQthU
-         WNAurMr9IvH7SdOMOOz54CNPejYvtdrVg136dy17Td6JttH+/aDb6w1AWyR32Lfd4XT4
-         oarliyxxChazxmRa78qQpaiISuqvQxTsZJ7pjfYo6fRQLPdG1Epin+P8yGQSAM5g4Dct
-         +ACw==
-X-Forwarded-Encrypted: i=1; AKwUvByvg1peE35LVKddjXbCMW2L0/HrcdR3gjFAfBUXtdhP5petxAKMC4xAWKmAqeAjq5CVjdh/X3V1GdhtDSw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVUaxHM3YkIQ0akOPCJOpUFRaCw20ZVsgSSzH6AzY8rGZQtL+M
-	Du+lGvZw+OceDtxYS3SuF+AqrYxNnG192rWWhyVCb8BjYqTrMnJIQGI++X4PQ2rWgOh++IzyV8F
-	/hrmYvC/ACMXYgFNlksS+J1f/X2h56NETRooRbNnOFW+gqxTB9P0x8vnZWkKhOvn0kA==
-X-Gm-Gg: AYBFou30Ap2Z/f5H46IIMXVoyO206gEyJAyikKONHTECibaVli5oTTcr1386ouyCNbt
-	E67vSYDnv5RB6BvLKGbgbfKBjSqiNv95DI/DiuKxeVWtQRAJPu1Q3IG/hQnE/yjQ4aYKpIP2Cgr
-	l322fx6b2As5cZiL93tkUNJf/bmy2dzskIp78edqKuaAd0WdSm5N75Ix3yX8mzdYStsiIaOxAqD
-	fCM2u4V7jgs9sHmImVO71UeLvUx0wiPKIrLPSDrfmm9JSSgjJo1VlxETZsUoHTMwkwmw1hoHOeC
-	N9bLYPEYjrh/6xyiWfXZzUriYwSlZDifFN1ghX5WN94hEEMUTc8NjyThZxqjqdN0qIrwOAFaoVM
-	iiAVIUYngpAKdWOxOHSW9fT6DfNPfKAedss6dbDH3UnLAphqq7YUfMvIDxRLhewotKb5ULAp3hg
-	==
-X-Received: by 2002:a05:600c:e549:20b0:4a1:96cd:2f6d with SMTP id 5b1f17b1804b1-4a196cd3280mr199460175e9.1.1792057350235;
-        Thu, 15 Oct 2026 02:42:30 -0700 (PDT)
-X-Received: by 2002:a05:600c:e549:20b0:4a1:96cd:2f6d with SMTP id 5b1f17b1804b1-4a196cd3280mr199459865e9.1.1792057349833;
-        Thu, 15 Oct 2026 02:42:29 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdc036a4sm65355755e9.11.2026.10.15.02.42.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 02:42:29 -0700 (PDT)
-Message-ID: <5277963f-c6ab-4fa4-884f-82fafd98cfb0@redhat.com>
-Date: Thu, 15 Oct 2026 11:42:28 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XnB5rCnl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Pw
+	tbfomv95pVh430USUSVD0JX8E5q+0LXyQwpoGnff4=; b=XnB5rCnlmzp7kLlFUG
+	dKaCDWIZXOdyB8D8e3QuSJZ857Zo2f6IAwTpTCvs0Xxx2vpf2SisfydIyOERYpI8
+	Ttu/qdSyi6Do4px8aERyJsCF6uRUfbaBkgK1fu76L74wa0Bol8VXtGeLkk11D/Fc
+	nt2VPlc+u+pdYPEjsVHsDW4LI=
+Received: from localhost (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDXf9bzn9BqYugkEw--.55640S2;
+	Thu, 15 Oct 2026 17:42:12 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	sh_def@163.com
+Subject: [PATCH] sched/idle: Make forced polling state race-safe
+Date: Thu, 15 Oct 2026 18:42:11 +0900
+Message-ID: <20261015094211.4156055-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v12 00/15] rxrpc: Miscellaneous fixes
-To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
-Cc: Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261006133011.531806-1-dhowells@redhat.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261006133011.531806-1-dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgDXf9bzn9BqYugkEw--.55640S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJF4fur47ArWrGw4xZw1rtFb_yoWrGFy5pF
+	9Yya43Kr4kJw17ZwnrJ3WqgFyruan7A343ZrW2k3y8CF4YvF1FqFyvq3WFvrW8CrWkXr13
+	Z3WUGF9rCa15JFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hTzU2rQn-SfWAAA3I
 
-On 10/6/26 15:29, David Howells wrote:
-> (This has been split from "rxrpc: Fix CHALLENGE packet handling")
-> 
-> Here's a set of  miscellaneous patches, mostly found by sashiko.  Note that
-> a number of the patches have been reworked and reordered after the last
-> sashiko round[10].
-> 
->   (1) Revert patch to rxperf to expect the magic cookie at the end of the
->       request.
-> 
->   (2) Fix the kvno on rxperf's test rxgk keys to be 0 to match other
->       implementations.
-> 
->   (3) Fix the update of call->tx_pending in rxrpc_send_data() in paths when
->       the call lock has been dropped.
-> 
->   (4) Fix rxrpc_kernel_send_data() to loop around on a short send.
-> 
->   (5) In AFS, fix various callers of rxrpc_kernel_send_data() to abort the
->       call on send error.
-> 
->   (6) As (2) but for the rxperf test server.
-> 
->   (7) Fix the use of len vs msg->msg_iter.count in rxrpc_send_data().
-> 
->   (8) Fix double IRQ enablement in __rxrpc_notify_socket() when called
->       indirectly from rxrpc_end_rx_phase().
-> 
->   (9) Fix error handling in rxrpc_kernel_recv_data() to distinguish between
->       end-of-request from end-of-call.  Upstream a return of 1 is used for
->       both, but we mustn't shut down an incoming service call at the end of
->       request as there's still the processing and reply transmission to
->       come.
-As per off-list discussion, patch 1-9 are good to go, and David agrees to
-move them to net-next.
+cpu_idle_poll_ctrl() maintains a global nesting count for forced idle
+polling. The count is updated with plain increments and decrements while
+idle CPUs read it without synchronization.
 
-The other will be reworked.
+Use an atomic counter to make the nesting count safe against concurrent
+updates and to make idle-side accesses race-free.
 
-/P
+The weak arch_cpu_idle() fallback also permanently switches the generic
+idle path to polling. Keep that state separate from the temporary
+request counter so a concurrent request cannot overwrite, or later
+release, the fallback state.
+
+Fixes: d16699123434 ("idle: Implement generic idle function")
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+Testing:
+- On x86_64, a two-worker KCSAN harness reported the data race and ended at
+  -14565 before the change; 100,000 balanced requests ended at zero with no
+  target report afterward.
+- The KCSAN/noinstr build completed without objtool warnings. A focused test
+  confirmed that polling remained enabled after the temporary count returned
+  to zero; the weak fallback itself was not exercised on x86.
+---
+ kernel/sched/idle.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index eb73b65ce6c4..84b02db65828 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -6,6 +6,7 @@
+  * (NOTE: these are not related to SCHED_IDLE batch scheduled
+  *        tasks which are handled in sched/fair.c )
+  */
++#include <linux/atomic.h>
+ #include <linux/cpuidle.h>
+ #include <linux/suspend.h>
+ #include <linux/livepatch.h>
+@@ -24,22 +25,27 @@ void sched_idle_set_state(struct cpuidle_state *idle_state)
+ 	idle_set_state(this_rq(), idle_state);
+ }
+ 
+-static int __read_mostly cpu_idle_force_poll;
++static atomic_t __read_mostly cpu_idle_force_poll = ATOMIC_INIT(0);
++static bool __read_mostly cpu_idle_force_poll_sticky;
++
++static __always_inline bool cpu_idle_force_polling(void)
++{
++	return raw_atomic_read(&cpu_idle_force_poll) || READ_ONCE(cpu_idle_force_poll_sticky);
++}
+ 
+ void cpu_idle_poll_ctrl(bool enable)
+ {
+ 	if (enable) {
+-		cpu_idle_force_poll++;
++		atomic_inc(&cpu_idle_force_poll);
+ 	} else {
+-		cpu_idle_force_poll--;
+-		WARN_ON_ONCE(cpu_idle_force_poll < 0);
++		WARN_ON_ONCE(atomic_dec_return(&cpu_idle_force_poll) < 0);
+ 	}
+ }
+ 
+ #ifdef CONFIG_GENERIC_IDLE_POLL_SETUP
+ static int __init cpu_idle_poll_setup(char *__unused)
+ {
+-	cpu_idle_force_poll = 1;
++	atomic_set(&cpu_idle_force_poll, 1);
+ 
+ 	return 1;
+ }
+@@ -47,7 +53,7 @@ __setup("nohlt", cpu_idle_poll_setup);
+ 
+ static int __init cpu_idle_nopoll_setup(char *__unused)
+ {
+-	cpu_idle_force_poll = 0;
++	atomic_set(&cpu_idle_force_poll, 0);
+ 
+ 	return 1;
+ }
+@@ -63,7 +69,7 @@ static noinline int __cpuidle cpu_idle_poll(void)
+ 
+ 	raw_local_irq_enable();
+ 	while (!tif_need_resched() &&
+-	       (cpu_idle_force_poll || tick_check_broadcast_expired()))
++	       (cpu_idle_force_polling() || tick_check_broadcast_expired()))
+ 		cpu_relax();
+ 	raw_local_irq_disable();
+ 
+@@ -83,7 +89,7 @@ void __weak arch_cpu_idle_exit(void) { }
+ void __weak __noreturn arch_cpu_idle_dead(void) { while (1); }
+ void __weak arch_cpu_idle(void)
+ {
+-	cpu_idle_force_poll = 1;
++	WRITE_ONCE(cpu_idle_force_poll_sticky, true);
+ }
+ 
+ #ifdef CONFIG_GENERIC_CLOCKEVENTS_BROADCAST_IDLE
+@@ -348,7 +354,7 @@ static void do_idle(void)
+ 		 * broadcast device expired for us, we don't want to go deep
+ 		 * idle as we know that the IPI is going to arrive right away.
+ 		 */
+-		if (cpu_idle_force_poll || tick_check_broadcast_expired()) {
++		if (cpu_idle_force_polling() || tick_check_broadcast_expired()) {
+ 			tick_nohz_idle_restart_tick();
+ 			cpu_idle_poll();
+ 		} else {
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.55.0
 
