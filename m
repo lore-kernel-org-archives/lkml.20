@@ -1,81 +1,81 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAAA4A5EB6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112E33CF208
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792104687; cv=pass; b=hmBlqXGRGykIksPrR/kxCIoYRkq3QVi8+0Dc95pVVA2yvp3B0JxcBzlN5nEcHOr0B5c3xaebxDAvY6k1gQ++ebEwR39w7T39QmeTBOqjAzDCOyV+9au19Wy7itI8P+EeUxkzor+RbuZpSYTOeFt8/tIsDqSqeSAnFO4nsWuL4Og=
+	t=1792104844; cv=pass; b=Bf78QwmDdKttEOHaM8kbZTDbzJn57sgqpO8jw0Igvoct+4R2oGy66Q8SU4DdkPy91Brgbg6HAKGRKlQUOynqC2UOPl9v4E8VdlHSK5YhxlKoRxvTEl1SyIOoMO4+/78EU8YZP1tX9wHOtVxAK19lnnLYhG2T8EBb623+rWQSEK4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792104687; c=relaxed/simple;
-	bh=1sT8NdIr+AU2SPJki3v9lJtmhGP0p+Dta5BBYpiM838=;
+	s=arc-20240116; t=1792104844; c=relaxed/simple;
+	bh=akJSZf05dfo8ZB1BNAXdg6JKZt42Pqg3iN8HG2G8ViY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AgTcPDmd/5f1FaLn/FfcSWPUSey5yV4a402QJcoVZMjXZCM1SIYHEaVEpOYjyN0iUTnb+Sn8xaLouI220M6Zbio9Zzt5Q9k4ss1RwWTr8rDVe4PXjn1T/rBYKjdxF72t3lV6WVKx4CI6vWkU3rIgVU1mvKe8boLZXJcyJdM2ElI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fqZuYkqv; arc=pass smtp.client-ip=209.85.167.48
+	 To:Cc:Content-Type; b=sveF1ZnNvobDeRjgjCsub8mRmGnsc+M3lcwD6NSlhjUPRHdHRjnhntYgLresq65akjplamJuuiPvnVLlewR5AhsogwD5btaoZzKoAp9EkRTQlAxcUuOM2Wxc9h5nuzpAU8ERVFgtNy0cnQLxy/Nq7zXIVUf/sdh1SIr0sN/R9Qo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQWc7lFx; arc=pass smtp.client-ip=209.85.208.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fqZuYkqv"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso29728e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:51:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792104684; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQWc7lFx"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so26350861fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:54:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792104840; cv=none;
         d=google.com; s=arc-20260327;
-        b=kjtMpWA9jcER0eWPX0Yre2I3JrXM946l6wctOFi80fyaQd86k+f4DLbrhBiYItHxTk
-         sbnfCm+aNoRsFX91CfwuwFS7OdHcNCGWNg0H5mixgJaAM5LGiNQs7svTvc9VHbSsCh5a
-         HGjEMEgfbaI8mGy32orb7Jp8mfF87sCYdz4ofBEmkArTj3OVDQ8lio+n5I0LCMtP8yZV
-         /w1G4yr4b8fdvr1e981D+dAo+ScHqWzhnvV7oKn3qQlZ3hBF+hUF2z6Un5dUFTs4Bxq3
-         m5ee4BY2oPxDXX7EDLejw3Gpa/vmRuSgDn1i9tvqyGi3JScYc6edxQaj6t43ITWh3nJc
-         7+cg==
+        b=DsaZg2gZ1umpB1+vD8WNyc7KnuAJkjK8afpPGlFxUxOhx5rVcT8cDqh6M+KLmzFp6i
+         Mrld5IQ1JkCi+Js/ziRMoo6/Bq7e6M5S1xsRalnUmsEP5qqHfXlry295Qab6fTVuWIp0
+         JxP7V6VxG9lYWZE6ynouEwTVsqG+NqVG/geEit7bCECJxbj/CAeqo++zfqnY6rr40Jxq
+         nBIXPspBPFN7DPZX2ZpU+WAsmParGb1DaOScs0RkHkKNNASbsqbQ00X35Vq7Bo401xxl
+         7PM+25rBjceOgbaA2gOdmYRlohZZU5sWoyJrsn2N60CJoH37IyMbQBOLu+gwQNglF27g
+         cGIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=n63KkNNJ2ZOvS2IAs8k+KZxz8QryTA7xZPJO3TDdt5A=;
-        fh=36LkHiAC57RwpdapcMMMvsjifHdL0Sw2/zDJ1xG15Kg=;
-        b=o7Ms2mf1XWVb2qzSVeH0wdPF2g+Y2snw80IFS8r8jiSMBDz61DBdiNlntkAJEb3nbu
-         RBqXnjQuXqbqE16dh7wKdK2uJp47P5jLnx5Nezdb2LvXDd+MoxazaGgSLV1TJDZ9b27l
-         AByGtO5xhN9bZnbdJy/vnCGCdXu9dvdFSU908c8bED92fZB5ddflftfa0cz4eFkEUxQc
-         Z96CgHdBzBVmYtgykaHAHsqEtVmmD+v4ORkELtb9YcAm2gS8KXaPu9Ak0lyVk2JDpQLl
-         AQbPu0ORFHn6m5SbPwQp1ChUDW7SBWCwxRC0dHMLtsr1qrRObDhiomaf3SqY50fCMFwB
-         /UpQ==;
+        bh=XzxLC094t785DsRLF3VJxAg0mtapcZEnZpiZaHEc51I=;
+        fh=jit/cQHW5Ro5S9dFn7vs8CKJilJwyKTGLz85zplNzAo=;
+        b=VkzkHX7gK3CaYFGkaMq4KZTz0LoJPTouG8jNugkkGKa300hg5tC8BxmIbLFu5RwPc7
+         QnBoq4b4DV3ACX3IayuXgC9L0MgRosjx6XwZMGrSyPvbWu/aqVzWsxsaKPENxpv+KiCR
+         Z4IxXEiv2cFqPy6VywR1CW1wwST18fdiwzdNeo94mlS6XkjV5+Q+Q6t3Fl/c90LjJueQ
+         e/yuatJAM8jzM+fGcqeMx+AQRawUnlTvBvXZoVIGyYuy1OvMa0uJp+vpkzv4TKGkaH7h
+         qXFpc4gnISB9NXGDlfV/2SGD8zN/GPMyghrbT8/qeDyQZzquT0dUjiQUSTkmxLSsEs+a
+         1Vgw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792104684; x=1792709484; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792104840; x=1792709640; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=n63KkNNJ2ZOvS2IAs8k+KZxz8QryTA7xZPJO3TDdt5A=;
-        b=fqZuYkqvGWTSuoGfR9kkjcfgt6yx0xIZNE0Q4POhZHahcbLhRjePS5ODBAHj1hm9O2
-         EGZ9csHAX4srpNsrPkeRqQ2PF8yla98LcY26tlBti15bVaRVb65f3hD/mwNo8PZCUjYc
-         R6wWZJz4eX/vxvTmpnbbnWJgnj3EkJkxNbk549EYNfgF0DXtSQor4OeCalx8oecW4SAK
-         xZjw1/BRsuNd8/p3LQQSN84M33KVE2yrLpaiYEkMN7ede9B4Oq8Ow8uaze5icyrTkdBP
-         TC4Rz6pLZuVILhn0uzfNyRT2W/UM1mCorPUs1JeBOfig46UCeglkXPw/QJNJaZ+4PlOt
-         NnfQ==
+        bh=XzxLC094t785DsRLF3VJxAg0mtapcZEnZpiZaHEc51I=;
+        b=qQWc7lFxJ1RyoCqcSDOjxZ3ETc0DtXIHOCtsy6twsT3sGqlNYQRpT5HWjv9nPGUIh6
+         VO9TiWrWriobZtdSf8o1ULX39jDmKJYGf2KKZSmXc+G3gQwaOAN044cycCC93U6RcsVs
+         qrypXVmOX1fV3YxZICFwciWbsVVTmwJsf1EBuyZY1Wnc/ZjfPZHNEth2BtrZESrY7+y/
+         6ITnDNPSGUVfiVPyZELB9xW8mBI6QqLskDUKz2B9Ct/XRWnLe2Yf01YgLbrw7BuNrRRt
+         HegR95tYxLisIYPS7p6d27IFl4+KjZwq+3yb76kRWloxrgZSt6XO2F13UQzJBtQ4SXDp
+         bFNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792104684; x=1792709484;
+        d=1e100.net; s=20260707; t=1792104840; x=1792709640;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n63KkNNJ2ZOvS2IAs8k+KZxz8QryTA7xZPJO3TDdt5A=;
-        b=ftFjc/ZGOZvJItwPYkPF2Ac92fYm/F0BlavF7oWykfBXHGi7CZL0TGMQ505F2pAKeA
-         fcXzs0J7FRgtnT8oKSExPkfkIOZjRC/w4X8FGdQWOrxfEjaM8Buhuw6+siu3ShpETi5N
-         06eJsW0109AA4Suzz0SsjLquQrOUD/UgZj6ekwy1Y5aHtdHRtmy9fp355vSgDd2lfKnJ
-         iV/nqLyNnCj8JrI+i73SKDeFznN0bDa8FSXN79eaR1/UPWokm8NS9u0wtmDRTLOu4pOr
-         zNaQ+SUWgwJpKrnHQbYenAl2lnRCl1uD0PZ5U4C2GZg5d7kRJgr38KAtM6jcvRiYKHS6
-         5rTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlIq5r1bgYRwLeoKgceMwgZCUCyNXphD23N6O9kgq1/dJaUmjBdqD0zaBh1To8aP4lJ0zi0gFlQvQ+IT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDBZbK8GBxhLwe+vE+2lZ1CyEQdCFtVBQK44KWYaSMqaMnpOIz
-	V6NZB2TLUNwtez+DEyN8ubQqGY3dsgSvQwNh4f4bYXNcYFNhnDFwvEfktetX5fjk5rjVfVl9zft
-	0LAC43X3+83Plq8BtIkncz7X4E8wTs26f2UYw
-X-Gm-Gg: AYBFou05ut5aS5Sha+huTAE0XD5EYUUF/mk5cEsQ2kL6BQgJYiVM9FZQHOLcfVg0yDZ
-	8p2Wicee+62HmtpEQFHHa5yOkoUMJWlCsjs2rBYGd5RAm/aHeSGt0jJWQkAY0Ik0xl8vcq4VMTz
-	xizggo/PB/+nP/CinG24eP035kwW7yvVXNXaLpAHriaynTdA0DcY/QUXUdVEUmdlKCcyrRbdm++
-	hVUWLWfDE/hmVHCUF1vtokS9XeeIkGGkHfDgK3qacLyHdkylp7g/LGtyjP7Wiv4/zJNsOqcKODZ
-	q18JaQywbX9L6QbscPDZDRRXGF1eGZsLiLgUgY14QnetfTxkXVsFuc8=
-X-Received: by 2002:a05:6512:238c:b0:5bc:b728:31b with SMTP id
- 2adb3069b0e04-5bcde39f1c0mr6258902e87.21.1792104683741; Thu, 15 Oct 2026
- 15:51:23 -0700 (PDT)
+        bh=XzxLC094t785DsRLF3VJxAg0mtapcZEnZpiZaHEc51I=;
+        b=rt6qpKxRO7d/6gRUZmLfIP7XB+KJzfQR2cc4JC2p3tFrMSimVF6Gyp6z/Z2UDz/zak
+         pcQOqXxVZkIjC8IXZIHRWovYmxlHV9AFUX8vrypPGIbs2u+BPSPyqX8RkHsvI76rBmjV
+         XVwqax0HAfkfj2SByrKi5GAd2/11li5V+CU379vvv+CSVSenTMgX2MG53KTbLDUfrZr6
+         gXn73nLQMqZ4lW8HDIU6Vw5Fz9TDVyxnDnFGB3GXsYw2/5puB5pqSXIDmHBHqoQUpKp6
+         e6OyrwRLIy0dQtc9ywIquWHN/+mMDaXiOaYXQ8GwBxnOokluDLbMf6mHgXZVKhckOAbK
+         9A5A==
+X-Forwarded-Encrypted: i=1; AKwUvByqhmD9sv/DLTJ3wloIjgi5WOs+mfOxlBqetPrsPBNMnPNyp3liEecQCeu4s959nJ/dsgoYBBkVyQgPfmY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzJ/+nHSQzSu9w4unpymdlCFYGy5+uIkOJWL0ig072eb86tvMk
+	0yAlqbv9LZ7MZreHJ0TZFtvj830dTrYGjV7nt2y1ItnVt082clgwzsZhDiZcwW9iykeC776SFol
+	rCNYFv8PY9WjH7EOoJVe8ofdxzYed6WE=
+X-Gm-Gg: AYBFou3py5aVWFO3TvodDF9BBzH4woA1KCTCest58Y4nPyyV2mv4sd5oMNrVMGGWQdD
+	C1J1+eORaTVwmlNQWjI+1pEqPXW2+SjsfzBff6PYHxbhqDIJDFXuof8RcW8xER+wKRPRXjnI5VI
+	k5Jd4I0OuPksnOzdqqX2MxNqVXUMXHtB5DIIDQqe31SIwEn4UGO+eKjpoklmR6+1NNcQAJaxogs
+	YvbQScRun2VqFebfO7GvvgAC6KWiC7SLAw5MWiLR61nDOGnq2UaaU4WBIvMQ0Abl6Gwebcc6o8k
+	L8WlFOHEZDMOUq4laDjHfm42ooitfZfZOvjaV9uo9SSmnx/0kDeSqEs=
+X-Received: by 2002:a05:6512:4022:b0:5b8:f15d:7a59 with SMTP id
+ 2adb3069b0e04-5bcde362a09mr6934603e87.7.1792104839491; Thu, 15 Oct 2026
+ 15:53:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,14 +83,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <as-jZopKRfuYAiTE@google.com> <CACpmpoeS_cvXRWJXqiYZV9oykk=91efv8KtZgK2Pi-QwHnQH3A@mail.gmail.com>
- <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
-In-Reply-To: <CAO9r8zN5n=9v4K+OtEEODg=e0kcFW99PreUcZm09q9CUMQc+ew@mail.gmail.com>
+ <20261008182814.27450-8-kanchanapsridhar2026@gmail.com> <as-izeIj5bP01bna@google.com>
+ <CACpmpof++tM9MUYgqgenwEBfaaJ60VsDwptK7Ne_-b+-DKMRZg@mail.gmail.com> <CAO9r8zPpmLyMHF+yDb2ZHRmSdAHFTNvsu8PZsQ2Z-EVvF-dc3g@mail.gmail.com>
+In-Reply-To: <CAO9r8zPpmLyMHF+yDb2ZHRmSdAHFTNvsu8PZsQ2Z-EVvF-dc3g@mail.gmail.com>
 From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Date: Thu, 15 Oct 2026 15:51:11 -0700
-X-Gm-Features: AclHuK-C_rlfvY9gc7Ysw5I3rgT-17tzvCB8MZKJeUsSlTmiFpKdeYuI1BXf3wA
-Message-ID: <CACpmpofdoeVbbw7izCDeJ7eS+XpWj+3sp3teKEQWywyRB75jYQ@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Date: Thu, 15 Oct 2026 15:53:47 -0700
+X-Gm-Features: AclHuK8XCRmndmlU8lQlUVHlY-_F-OMKekh2ybGWDMTVBykCkJfOyvNAoky4LzQ
+Message-ID: <CACpmpodjZ60-r_VWu9ui+5o2WDSJ3gWEY79dRNp5Bei4dPwsrg@mail.gmail.com>
+Subject: Re: [PATCH v1 7/8] mm: zswap: Optimally place members of struct
+ zswap_pool, struct zswap_entry.
 To: Yosry Ahmed <yosry@kernel.org>
 Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
 	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
@@ -101,120 +102,58 @@ Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 3:04=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+On Thu, Oct 15, 2026 at 3:06=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
 e:
 >
-> On Thu, Oct 15, 2026 at 3:00=E2=80=AFPM Kanchana P. Sridhar
+> On Thu, Oct 15, 2026 at 2:49=E2=80=AFPM Kanchana P. Sridhar
 > <kanchanapsridhar2026@gmail.com> wrote:
 > >
-> > On Wed, Oct 14, 2026 at 8:45=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> =
+> > On Wed, Oct 14, 2026 at 8:43=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> =
 wrote:
 > > >
-> > > On Thu, Oct 08, 2026 at 11:28:06AM -0700, Kanchana P. Sridhar wrote:
-> > > > v1: Batched zswap_store() with compression batching
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
+> > > On Thu, Oct 08, 2026 at 11:28:13AM -0700, Kanchana P. Sridhar wrote:
+> > > > Place and align the members of struct zswap_pool and struct zswap_e=
+ntry
+> > > > such that members used together in compress/decompress hot paths ar=
+e
+> > > > able to share the same cacheline. Minimize holes within these struc=
+ts
+> > > > while doing so.
 > > > >
-> > > > This series is a spin-off of "v14: zswap compression batching with =
-optimized
-> > > > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and=
- zswap
-> > > > compression batching enablers. Resuming work on this series followi=
-ng a gap
-> > > > since v14 (January 2026). Please note that my email address and aff=
-iliation have
-> > > > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@g=
-mail.com. I
-> > > > have retained the original Intel sign-offs on prior patches for his=
-torical
-> > > > attribution while signing off v1 of this series with my current add=
-ress.
+> > > > Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
+> > > > ---
+> > > >  mm/zswap.c | 10 +++++-----
+> > > >  1 file changed, 5 insertions(+), 5 deletions(-)
 > > > >
-> > > > To summarize the main contribution of this patch series: Batching i=
-s introduced
-> > > > in zswap_store() of large folios: we carve out a large folio into b=
-atches of
-> > > > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store =
-each
-> > > > batch. Moving the fundamental operations that need to be happen to =
-store a page
-> > > > to now work at the granularity of a batch offers opportunities to o=
-ptimize them
-> > > > from these perspectives:
-> > > >
-> > > > 1) Utilize existing kernel API that minimize obtaining locks for bu=
-lk
-> > > >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
-> > > >
-> > > > 2) We keep the working set for each of the core store functionaliti=
-es (alloc
-> > > >    entries, compress pages, store pages in zsmalloc) to be focused =
-on a
-> > > >    batch, thereby minimizing cache evictions and benefiting from ca=
-che
-> > > >    locality.
-> > > >
-> > > > 3) Along the lines of (1), the main zswap_compress() batching routi=
-ne obtains
-> > > >    the acomp_ctx mutex lock once per batch, and releases it after i=
-t has
-> > > >    processed all pages in that batch.
-> > > >
-> > > > 4) Any zswap store functionality that works on a batch can potentia=
-lly be
-> > > >    parallelized as a next step, to further improve performance.
-> > > >
-> > > > Performance data: usemem with 60% over-commit:
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > diff --git a/mm/zswap.c b/mm/zswap.c
+> > > > index 8ae67fd10522..ade84ac4076e 100644
+> > > > --- a/mm/zswap.c
+> > > > +++ b/mm/zswap.c
+> > > > @@ -160,11 +160,11 @@ struct crypto_acomp_ctx {
+> > > >  struct zswap_pool {
+> > > >       struct zs_pool *zs_pool;
+> > > >       struct crypto_acomp_ctx __percpu *acomp_ctx;
+> > > > -     u8 compr_batch_size;
+> > > >       struct percpu_ref ref;
+> > > > -     struct rcu_work release_rwork;
+> > > > -     struct hlist_node node;
+> > > >       u8 idx;
+> > > > +     u8 compr_batch_size;
+> > > > +     struct hlist_node node;
+> > > > +     struct rcu_work release_rwork;
 > > >
-> > > How much of the performance benefits come from patch 6 vs patch 8?
+> > > compr_batch_size is added by this series, why not just add it before =
+idx
+> > > to begin with?
 > >
-> > This is how the performance changes: Average throughput is averaged
-> > from 10 iterations of usemem.
-> >
-> > patch 6: 19,119 KB/s
-> > patch 8: 17,593 KB/s
-> >
-> > So the acomp_do_req_chain() path that ZSTD goes through with patch 8
-> > causes a regression, even though it provides a generic batching
-> > framework in acomp.
-> >
-> > I was able to retrieve performance with the following change in acompre=
-ss.c:
+> > In patch 0006, where compr_batch_size is introduced, I was attempting
+> > to place it in the same cacheline as the acomp_ctx. This increased the
+> > size of struct zswap_pool to 248 bytes. I later optimized this in
+> > patch 0007, bringing back the size to 240 with the addition of
+> > compr_batch_size.
 >
-> Why add it to begin with in this case?
+> This doesn't make much sense, and the size of zswap_pool is not that
+> important (usually only one globally). I would drop the patch and add
+> compr_batch_size directly where it needs to end up.
 
-Patch 3 ("crypto: acomp - Add trivial segmentation wrapper.") was
-co-developed with Herbert. The request chaining for non-segmentation
-algorithms was as in Herbert's original implementation. Since this
-causes a regression, I would like to get Herbert's Ok on replacing the
-request chaining in this part of crypto_acomp_compress().
-
->
-> >
-> > patch 3 with this change in acompress.c: 19,578 KB/s
-> >
-> > diff --git a/crypto/acompress.c b/crypto/acompress.c
-> > index 192ea996e779..dc609bd7d927 100644
-> > --- a/crypto/acompress.c
-> > +++ b/crypto/acompress.c
-> > @@ -293,8 +293,12 @@ int crypto_acomp_compress(struct acomp_req *req)
-> >                 return -EAGAIN;
-> >
-> >         if (likely(req->unit_size && acomp_request_issg(req))) {
-> > -               if (!crypto_acomp_req_seg(tfm))
-> > -                       return acomp_do_req_chain(req, true);
-> > +               if (!crypto_acomp_req_seg(tfm)) {
-> > +                       int err =3D tfm->compress(req);
-> > +
-> > +                       req->dst->length =3D unlikely(err) ? err : req-=
->dlen;
-> > +                       return err;
-> > +               }
-> >
-> >                 return tfm->compress(req);
-> >         }
-> >
-> > Herbert, would you be Ok with this change in patch 3?
+Sounds good. Thanks!
