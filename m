@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB26446D096
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4343B446050;
+	Thu, 15 Oct 2026 07:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792048894; cv=none; b=BfScSGzA50oC6MiJVpCSLbFmpgbqc3SgGqe/wM2jHR4n5HHTVA9PGsf1iN7NCsd+3xkD7gAaM3LAsJTP4p2Lj0iialwv5kt0nzBJTNeoUahtmQd1cn+GDHD0S12zXpWgsLxz0dqxpxEYpmp7vdSNfJ18LU5LbxP/TpJj0B5vFoQ=
+	t=1792048916; cv=none; b=XYY2bSIHGZaSqIpm2oQGGJHnIjQFpy4m27GzTVOrZtgSTAl4VdoVYYabFzC1bLFhHfLqzDYJOeb8lDGXupzes3kArMMvu5dcQ3YH9nxYPE4jOiGi2ZcRsSt2oXL3KxCB1eN3NYFl3bOvBy7/x2bDfUld5w3y96Q2I5gDlted8OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792048894; c=relaxed/simple;
-	bh=i9PGNYI4FgKmm5g04rgKr3I+6E1QizmO/YnLvfMjF2o=;
+	s=arc-20240116; t=1792048916; c=relaxed/simple;
+	bh=WTKyqtiPMn2XJZn7MHJ+i/UaMdGbg+1pXEkTe99FJSU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P3T2hvvNPpe3JsorRxJSleRm+4Wa6rLwFCjnwY7ytLTfkl3du6R/DznUQmaX9Sy3kptA6VPlWi1SM7KG8V12zT+vE5j5kmaKycFWMz4b0K/sKiaSPC7tm+J+s15x6ATliHAHh+8QNxdkFKQU1ZEHmRRHSC1A+mQKyvonCTLypXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VY3TB6I5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NXN5ZvEN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=NEF8C/C0HtzYdfEkcxbnrteMqZnZ2dC5zzsHdZ2bdTYfwLBdpQqhqSDFNG1QKOGAPJ+uXj4g/PoY7DdOJu/1jLTVmlJGGKfZMkFFRKb0ZYEBDCcoNkwuBuUI1u7hJKjnUC/CgO3n6AA2KNhsnqtDuhTPrH4WgtFfZ37YJMVq6Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n9Wt/TIv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VY3TB6I5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NXN5ZvEN"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6vPQx2121588
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:21:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+Vh8VDafyxQoJ4R6CmmLgnWnqUOhc9iVaJBsTAw855I=; b=VY3TB6I5J5fsvPQE
-	Z77MhghDb8P0sczgqNbV94IEEhKZ2W36YXjvgUSyzbXHq5oW+N+zlRzdM4EkNnkt
-	UmWmVyJOSAIRkqbtphOHG+Rk3+LOQ6wUxR7gRI79Nwxgkf/8yVZO2kDbWTzpcSrE
-	S99wNwv5NFuNgBzcLyyvL66CQULWUSDeScrTeFXqpJbBN3zpz1BTk4NRJcUCcKIi
-	DH1EZltqQFAmxQheEtUkOZTQJ0AdZ6UD9FxZfCYquajVGF/Et42gMTRxzwqGVIPG
-	y7Eb3A06UkfNH7zMzQQXDCtuI7ryrRARuoEQWGZUAl28yzKA1OL6mlNsFUxSdY1u
-	eNwFEA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn1e1w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:21:25 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e82060977so362901285a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:21:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792048884; x=1792653684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Vh8VDafyxQoJ4R6CmmLgnWnqUOhc9iVaJBsTAw855I=;
-        b=NXN5ZvENJYwo+TBPDxlzWp4pXNOcSMq50ZJ4duFlVr1WAYk9WF5mkS/KhVgc+7JKAg
-         Vyoo+arYpausIpa//dWJwG6gb3Vdkcj3rd7KmikSTaxLuW78TKJeljlsTrp5xnGDAmGi
-         gUjgv9blR/bBHGY7JECFus1mM4+iBDvb5OrKtTW60Kw1/AWv5SGZe1uPva6j3dkvRJj7
-         mmei/OlQ1wbrzxDQK8+zfQJNkJ7PcuJlTsSBpLPNZpv4gDNetDRJnrBaUMtyhmDmsn49
-         ARZX2RS/i1MkMWLwk9xMmwSF4BMjZ2SzEIIqI8GKtOwTPjdnAy+ivOBUd0wCN3dkmIf7
-         9s6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792048884; x=1792653684;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Vh8VDafyxQoJ4R6CmmLgnWnqUOhc9iVaJBsTAw855I=;
-        b=atvKzUlncNJyLSU788DZoIPvHkx3zUpQr88SW0/92lXMjENk9NREYVZqoSDCz2Ciwt
-         UbE4EyEeJ3iNTx8oiCrrF7dJLkG7EXnmnXSBNuz4uwvZI1q3ghz6I1i0gkktQSPS55mh
-         SxRzs6J6w67sFiS0KHlHjvM3mzX33ghapvHWXbUX4gKvV/YcrekGMUOqtQL8quF6rBjG
-         +amUOKEtL/QKfPOxwOUIKW5cf8Uxs8QE7Sc6rodT45RIGgllVplAi40LpasSYzG4oDDI
-         JaMPe1iFraMYUKfRmCCqcKkHHuMJvBF0HSDKo3CVc3mWrwQGG/7bUfeOaF10BpsN77P/
-         GXQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwP27H1IjVOl1nyZWndiEIyk2vLzsXOYMaS3UVxQTCca6BILD023yL9ddhVMAlJ2VPvIUlgMWhDcia7Viw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuL8HAyp2pwX7Ul6xwdmyULvSHfJL/67qRxwBGyVNa2fKXAMfp
-	x/6wBMuCY3uDBwXEkQfaEd1dvGhvitClVQpfZH6dhJZVRLZc4FfgpJGnxVoVLn4cclsQjCi37q3
-	pS0lSnYrYubdXpdgUaqvGZh4PMInP9i/9j6129fXne6yK2ssYxYuBUluh99cbXloC+Y0=
-X-Gm-Gg: AYBFou2KKuM7BxQySNKjjN9aS7a9F76VXKtBOPU9VsDxNEqwApKMstuLR+XUyBeTrZw
-	JZmm19epv+76B2P/hmSYPYCOgmPvLsbgqoAvjyohhcfCZM/bjzqrKN+iqIUebbZoQ24xTfeeBY/
-	EnZFkGNAAHwXWeGg3pMXM9jWiEye6vhMh+eA7iNbTLUs85RdQTbbKb1ZyY7ehluzx59gcE2afFw
-	Gm3KGwmVDTn/qo7Q2dneje8bGKGvz+pb6EDO0/37iWLUc99wgDmcJR/ue8al2JeTPagivM1SYXH
-	qBTPZBDyR+tKQtcu+seVPSvdJKr2RfPB7mDfbz8CK/gCqko2xX5ciFEhWjgi+b9dPe3/VFVOgm7
-	05c/UBt0PiRpmiJ4IIWgY3WazQDm6Wbp7HYew2Nn95yHg+b0TGwKGIpWrekEdqw==
-X-Received: by 2002:a05:620a:448e:b0:93c:65e3:df81 with SMTP id af79cd13be357-93eb95e3948mr2983883985a.13.1792048884538;
-        Thu, 15 Oct 2026 00:21:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:448e:b0:93c:65e3:df81 with SMTP id af79cd13be357-93eb95e3948mr2983881985a.13.1792048884088;
-        Thu, 15 Oct 2026 00:21:24 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm16747351f8f.43.2026.10.15.00.21.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 00:21:23 -0700 (PDT)
-Message-ID: <08095630-fd5f-49f9-b502-d5b2b33c60f4@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 09:21:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n9Wt/TIv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E31C1F000C4;
+	Thu, 15 Oct 2026 07:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792048907;
+	bh=6E0yMU0F/dYcS/pM3/JIocnZEqhByRAwCMM1dXa2r9g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n9Wt/TIvaRqHvS58flbPJxcq8b+Y2rkw6Q4rbfF1L5MOhrDcvfjR2OnjmSoRE/mjd
+	 AF/gbjk8wZzFSYtxtCkWt48IHWnxipI6scVmXdr3cNu9KAirHMjpgXgrICSBwTbuQp
+	 R1yKIJWNUWMW9+0Ia6IgTclEQa+Xi4bvVAqIGRSN/xfpTrNEIkvW7bcdEXU5oqTjzt
+	 HQCcfjLO2TFQR6qLvxtg6lcaG3guwKkknqMsx8focT1p7yxPEAgrm1Uq3G5f0jiSgG
+	 9RPskU4ONuZ5SGgxaGhD3RlVcdT6XthFZudyedwIPg6jkYGdgcw+XMCDZGZdw1a7RI
+	 zrvwCsz45Y3NA==
+Message-ID: <d966f16a-a2be-48c7-b31a-a2c7d3ef6d5c@kernel.org>
+Date: Thu, 15 Oct 2026 09:21:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,84 +35,181 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org, devicetree@vger.kernel.org,
-        krzk+dt@kernel.org, linux-kernel@vger.kernel.org, naseefkm@gmail.com,
-        robh@kernel.org, tglx@kernel.org, grandmaster@al2klimov.de
-References: <20260918153606.344143-1-cjd@cjdns.fr>
- <20260918153606.344143-6-cjd@cjdns.fr>
- <5874ea6e-4e2f-416e-bcc1-851461c7308b@oss.qualcomm.com>
- <7108eadf-5dc8-4f39-beee-d748aa88e9af@cjdns.fr>
+Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
+ kmem_cache_destroy()
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <7108eadf-5dc8-4f39-beee-d748aa88e9af@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAyOSBTYWx0ZWRfX79XW/27LFvSa
- 5NpcLfE+XcQgXFlejrKiDRTEwodbAqoHU8vXkxhtWgsiQBhnyIOTsJ+483nAbCSi1PDELkFQXya
- F4D3Ht7Rw9Exakuo9lp6TsHfha1Y/8b/PzAuXkveHM4puC6nx4c4Ennlmjv9nYgXJ+4ueAxObkG
- FXUMG6bZmyUSeDV7FEYiS65+8dWgMX5D72uYdcDghITCBXm170gnxFGeE45pNN6wtQpSYaZRHg2
- UHPPZKDdddeeFbiktQvdjj6MqANoWZaFwqbGaP945X0AevdVPX5mJxy0DYwR18hn7n/o50HSawk
- +1aALIKRFcW0PXJp2+RkrhDoKRNMc5wo73Phl8h9n6R7T4hi1dqDlzVHTYeu/fKwu5yMCDeniFz
- 4Y0uKBMU08H7V/IC+p2Ma6ilVTbjRo+hoKPvd29/2qQ+EDYuC/lSqzjLXY2Lo0HyHMyVZjof2Rk
- zGGJNPlYelsL5xt5KuQ==
-X-Proofpoint-GUID: Yv3o02vv7hDnp9Fvo0BdTUWrTG2PxhfG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAyOSBTYWx0ZWRfX6Bkf4thtFojR
- +17Uu0NCgmMM227AdTQN7ZNGVEGuTT0+448UjXHQiga+w9urElyikK+lGLa2up7sf9Wv7pQGU9C
- KB+WxHRG2WKGesYVWwy1CWD33xxGKzA=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad07ef5 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=fx9yKbBvac2UQYKBdUIA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: Yv3o02vv7hDnp9Fvo0BdTUWrTG2PxhfG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150029
+To: Imre Kaloz <kaloz@kernel.org>, Harry Yoo <harry@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
+References: <20261014150844.8536-1-kaloz@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261014150844.8536-1-kaloz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 10/14/26 22:36, Caleb James DeLisle wrote:
-> Hello Daniel,
+On 10/14/26 17:08, Imre Kaloz wrote:
+> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
+> has dropped slab_mutex and unlinked the cache, and for a
+> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
+> before that test it sets slab_state to FULL but skips the unlinked cache,
+> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
+> on a kobject that was never initialized:
 > 
-> Thank you for the review.
+>   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
+>   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
+>   refcount_t: underflow; use-after-free.
+>   kobject_put+0x64/0x2c0
+>   sysfs_slab_release+0xc/0x20
+>   kmem_cache_destroy+0x104/0x1e0
+>   bioset_exit+0x13c/0x1e0
+>   disk_release+0x54/0x140
+>   put_disk+0x18/0x40
+>   floppy_async_init+0xbec/0xd10
 > 
+> The release-time test has run outside slab_mutex since at least v4.4 for
+> SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
+> the unlink-time test in kmem_cache_destroy() is a separate read of its
+> own, also after mutex_unlock(), so the two can disagree. Both tests ask
+
+It would be useful to mention the commits here along with the versions. Also
+this suggests 3 commits but there's only 2 in Fixes. I would guess the 6.0
+change is not a crucial one?
+
+> whether the cache has a kobject, which cache creation skips while
+> slab_state <= UP. UP is the state just below FULL, so a false sample
+> cannot skip a kobject_put() that was owed.
 > 
-> On 14/10/2026 20:43, Daniel Lezcano wrote:
->>
->> Hi Caleb,
->>
->> with the help of a LLM, I got the following two issues with the changes
->>
->> On 9/18/26 17:36, Caleb James DeLisle wrote:
->>> EN751627 is based on the 1004Kc which uses a different interrupt number
->>> for each CPU timer. Support both this and the EN751221 which uses a
->>> single percpu interrupt.
->>>
->>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->>> ---
-
-[ ... ]
-
->> The binding requires four interrupts and two register blocks for 
->> EN751627, but the driver sizes its resource arrays from NR_CPUS and 
->> rejects DTs exceeding those sizes. Consequently, a UP kernel 
->> (NR_CPUS=1) or an SMP kernel configured for two CPUs rejects a valid 
->> EN751627 DT before registering any timer.
->>
+> Seen on sparc64 at boot, where the asynchronous floppy init tears down
+> its bio slab while the late initcalls are running.
 > 
-> This is a fair point, and I suppose a reasonable thing to do here is 
-> instead set num_blocks = ARRAY_SIZE(econet_timer.membase) so we just 
-> don't use the other blocks. I can send an updated patchset with that.
+> Sample slab_state once, under slab_mutex which slab_late_init() holds
+> when it sets FULL, and use the result for both the unlink and the
+> release.
+> 
+> Fixes: d50d82faa0c9 ("slub: fix failure when we delete and create a slab cache")
+> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-IMO, econet_timer.irqs[] and econet_timer.membase[] should just be big 
-enough to store all nodes without using NR_CPUS.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Given you have num_irqs and num_blocks, why not just kzalloc them ?
+Thanks!
+
+> ---
+> v2:
+>  - Changelog reworked around the release-time read outside slab_mutex,
+>    with the separate unlink-time test as the second read; Fixes:
+>    d50d82faa0c9 added, as discussed with Harry.
+>  - Correction to what I wrote in the v1 thread: the release-time read is
+>    older than d50d82faa0c9 (the RCU work function had it from v4.11
+>    until v6.12); d50d82faa0c9 added the unlink-time test under
+>    slab_mutex.
+>  - Added the explanation Jose asked for; his Reviewed-by from v1 is
+>    kept. The code is unchanged.
+> 
+> v1: https://lore.kernel.org/r/20260930195110.13296-1-kaloz@kernel.org
+> 
+>  mm/slab_common.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 7223a7596dab..de11edfd1a0b 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -515,10 +515,10 @@ EXPORT_SYMBOL(kmem_buckets_create);
+>   * and release of the kobject does not need slab_mutex or cpu_hotplug_lock
+>   * protection. So they are now done without holding those locks.
+>   */
+> -static void kmem_cache_release(struct kmem_cache *s)
+> +static void kmem_cache_release(struct kmem_cache *s, bool sysfs_ready)
+>  {
+>  	kfence_shutdown_cache(s);
+> -	if (__is_defined(SLAB_SUPPORTS_SYSFS) && slab_state >= FULL)
+> +	if (__is_defined(SLAB_SUPPORTS_SYSFS) && sysfs_ready)
+>  		sysfs_slab_release(s);
+>  	else
+>  		slab_kmem_cache_release(s);
+> @@ -533,6 +533,7 @@ void slab_kmem_cache_release(struct kmem_cache *s)
+>  
+>  void kmem_cache_destroy(struct kmem_cache *s)
+>  {
+> +	bool sysfs_ready;
+>  	int err;
+>  
+>  	if (unlikely(!s) || !kasan_check_byte(s))
+> @@ -580,10 +581,18 @@ void kmem_cache_destroy(struct kmem_cache *s)
+>  
+>  	list_del(&s->list);
+>  
+> +	/*
+> +	 * slab_late_init() sets slab_state to FULL under slab_mutex and adds
+> +	 * sysfs entries only for caches still on the list. Sample the state
+> +	 * here, so that a cache unlinked before that point is not handed to
+> +	 * sysfs_slab_release() with an uninitialized kobject.
+> +	 */
+> +	sysfs_ready = slab_state >= FULL;
+> +
+>  	mutex_unlock(&slab_mutex);
+>  	cpus_read_unlock();
+>  
+> -	if (slab_state >= FULL)
+> +	if (sysfs_ready)
+>  		sysfs_slab_unlink(s);
+>  	debugfs_slab_release(s);
+>  
+> @@ -593,7 +602,7 @@ void kmem_cache_destroy(struct kmem_cache *s)
+>  	if (s->flags & SLAB_TYPESAFE_BY_RCU)
+>  		rcu_barrier();
+>  
+> -	kmem_cache_release(s);
+> +	kmem_cache_release(s, sysfs_ready);
+>  }
+>  EXPORT_SYMBOL(kmem_cache_destroy);
+>  
+> 
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
