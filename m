@@ -1,103 +1,86 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE813560AA7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599B03822B1;
+	Thu, 15 Oct 2026 16:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080166; cv=none; b=TwR5687sKdnwosIl1bajgIapCYWcOcnQbO410S0Ohi4Hc/kxudjWRj8UfRYlaiSrdUYNRtV5o4bDwrGGEOCeK3mq4Drmxz+IvMajq8u+jAp8DA5Hbse2DGq4+E/Rt9ut14M+eTtMb5KHfsAuZjjgtyg4dXnWSitiZkz3lsCV0vc=
+	t=1792080169; cv=none; b=gqejkL2BPoDVW+DTkz62quZUQaMSbINQFfHrbadUjqoEr9cEsnp6bLrUcz1yNk6Snka9tkFipAHsPKw1eRU6JnU3ebOwdKlCu7IyROZRxSZjMpUgXl7MRaf5g0r/4KoYVRprXBJrAy2pK8ilSbhHpkwziF01tqPubUr50mNG8p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080166; c=relaxed/simple;
-	bh=ntgI1uFoKmwC0j7KbZiA+1P/H021PU59ERAZPtAvuVk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RhkYgJaWUaa03u23OY6sF8idqhLtBZgPg5o95ojbacQJnuD6kB05kDWSH827ftyWFn/Oo8S0a6m33HAPjgWmy89oPgAvA1oNLfheYotbKzTGepIIUDl8pIOpA6PSjBx2cCdFJ5CaXnCc85KHl6gHF5CjuqAhB51oA/yodfh/FGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KFhvYlcJ; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792080169; c=relaxed/simple;
+	bh=8gdjOKgrDih0wkVOs8l2QbHcmeS5J7v2+strT1QWPxw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kk3WUQ9HEgEnv6vJ0ZPBisK5Re0TORyDfOOPVmgpI9OtqinBd6JhvUzAfn3UDQuVyVTuAaUZbs6ErBDKT99lDh9jnFdms2r0on1ZJLlRyX9n7qm0H+oM8IyoTl+OqPtSBOgEzSoQB2DVhWCZjF5kIfvIy3Unm/6g6faKnh0yJIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=urG0wmvp; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KFhvYlcJ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 444A9C62209;
-	Thu, 15 Oct 2026 16:03:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CE53A6075C;
-	Thu, 15 Oct 2026 16:02:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 525A510328BDA;
-	Thu, 15 Oct 2026 18:02:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=oUZJWgh1jtbi+p1yrcW64LX48+HiL8UrWIoerSJqBPI=;
-	b=KFhvYlcJ9F22guPUjZxJPxJYLAH9q4fjgmaXZ+8gV7KT68G1HOHtoBIeUiFh+ixPw3Roo5
-	oFbNqrPTplqQq6xi8B/x2Urk3sfAVW982EqN0D6CY2+6iJ0baGIkhkKLbKLFofTbUuN2Uc
-	Se1egGcwX1g2Tg9KvjMZs8klYroS2EpC1wlTJDQKbnHJYPHPsYteX25gKW4cNApXIg3zhQ
-	H6iUIhiB3QkPHRwmJloogKIgpz4v1R/dbfE0nLObxtAgmBE3WzC3BdS+kIyaV8qe3lcABn
-	giZHno8HDLemMMbzlZ/+Fb9cSVSYTWEbjcTPYoTL6iYRoTp6qDDzPQ7w5Gk4GA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 18:01:21 +0200
-Subject: [PATCH v10 08/10] MAINTAINERS: Add myself as Nuvoton MA35D1 clock
- controller
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="urG0wmvp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=K0u57/z8jtSUOgsIRuljVakGxstUfqikfUalLZjBTY4=; b=urG0wmvpASIEplabHTn8fnH2tf
+	LwA1v85gsX6Og87OkQNwv5R8X9InuloBr/V2JnJpasGCslxKxAg1XoS8cuwkj+X+RnH0UxlgdxAKn
+	NeyfTWK5qJ4TunqAhJK50yqx4R3j2RVRd0bbiDSDNMeIE09WAQ1Za8UbYE38NsuKctMk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xHNuJ-00Aysf-LV; Thu, 15 Oct 2026 18:02:15 +0200
+Date: Thu, 15 Oct 2026 18:02:15 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
+Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>
+Subject: Re: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
+Message-ID: <5afc446b-bd20-4f9c-a330-71615a71d244@lunn.ch>
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <20261009143506.2507607-5-jjc@jclark.com>
+ <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
+ <CANz3_EamUFhoQJ54g9pxdrxGK9EYxu_KeqRTdAdxWzV15k4_9w@mail.gmail.com>
+ <DM5J6J74NCTY.1IDZXHZM276JS@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-8-47c97b54a809@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM5J6J74NCTY.1IDZXHZM276JS@bootlin.com>
 
-I have the platform, I currently use it for my developpements and
-therefore I care about the clock controller driver and the SPI
-controller driver not being constantly broken. I would like to step up
-to help the Nuvoton team (not visible in the diff since they created
-an MA35D1 catch-all entry) in the maintaince of this driver.
+> I've not checked what is in tree. I care most about EyeQ platforms.
+> The EyeQ dev boards use a Marvell PHY which could benefit from the
+> feature if/when Marvell PHY PTP support lands in tree. I've tested it
+> briefly (more accurately, I tasked an LLM with running a few tests) and
+> something times out but I stopped there.
+> 
+> An RFC has been sent two years ago by rmk, and I guess it will be
+> iterated upon because there is interest!
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+That seems to be self contradictory. If nothing has happened in two
+years, nobody is interested enough to actually finish the work.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6977bc6245b0..c9f482b5edd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19541,6 +19541,14 @@ F:	drivers/nubus/
- F:	include/linux/nubus.h
- F:	include/uapi/linux/nubus.h
- 
-+NUVOTON MA35D1 CLOCK CONTROLLER DRIVER
-+M:	Miquel Raynal <miquel.raynal@bootlin.com>
-+L:	linux-clk@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-+F:	drivers/clk/nuvoton/clk-ma35d1*
-+F:	include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-+
- NUVOTON NCT6694 MFD DRIVER
- M:	Ming Yu <tmyu0@nuvoton.com>
- S:	Supported
+From what i remember, it is not easy, because Marvell switches contain
+the same PHY, but also have PTP at the MAC level. We need to ensure
+that when the PHY PTP is introduced, it is not used in preference to
+the MAC PTP, which i think is more accurate. Otherwise there are going
+to be regressions.
 
--- 
-2.55.0
-
+	Andrew
