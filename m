@@ -1,116 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F1A3B83E0
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:35:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B7A3D47A5;
+	Thu, 15 Oct 2026 22:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103704; cv=none; b=otv4O9HUe/1Q1cKL5rvCXTjZBZ0WkVhC8TzapYk1Gi9gXSEWYZMc3EN2i2+Gh45tvELE3iwNDRKZf5SAss6UsJt48xMVWFiSqX1bZWPQWizEpsi4dKSi2F+jlbcQFFGQtGnNfnP6r9bq5DQwbjom8eGov5Z6zXCjz0gY2z5jzSk=
+	t=1792103727; cv=none; b=KAwDiMf7FJwO0tWMyPKs0irH8nGfD1B3GYjXVGrDEivaq0HwSD+Ob7wJk4xSqldWNHMsUOamz9irrJ4tQV8eDWV7xx28z48nupvYF2SbupW3YZej5hqETKwocWu/H86uonVgdSnEaU2MvGjt8QHkZpayPovdMmWpjN8RQEouSKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103704; c=relaxed/simple;
-	bh=5PFxIgrJdw21ooFVEocIxaEpQMQcs7ItkH0ese3ArLE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h7QTdXOiqybLDuDkkwKmOwYLgMqeawYpgUTrnwwYH+ylXVdXIVHdYF9Ag6T4mK6UNncD2xxxYRLBO5kW5DGVrQNiJE9DLawy4pCYYbHtcUG3yIX1pzJeQeJ39MThj9HSm/4ImUIRAwEZKVtERiUpixFNZGF6ReZbzvTqOt5K3Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCkS8jX2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792103727; c=relaxed/simple;
+	bh=3E+U6VozkWbJDG0scmCEXfCdyNI3ebUxG20vG9jLttY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lysCj4z8je6+VmzSnqF3Y+RW/CodSAZhdsdgyoCLK/OFNPck2sVHXQM7MkNqBe9OD2nxeCnseI4TfTKXbzdkED0t5DJN9H6Z/CH3vEyQEUeTXzGzl6nC30hQ7OH1KKLDkKMibhS9LhZTU2P4a7R/hkqJbHdjQuCnwg385iWL/r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adw/q6Vo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCkS8jX2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116ED1F000C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:35:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adw/q6Vo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51EF71F000C4;
+	Thu, 15 Oct 2026 22:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792103702;
-	bh=WbO4SWlI15SaTCWeULamB5kn+8ZiGYLKf2XlNAHXwv0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GCkS8jX2kX7QGEl4LSEyKTzi9rWy1Nus/ZdKpgw9JULuSs1Y+lu1yNYE422pLh8nL
-	 HblSU9NCAUDuytovps6zWm+opILBqlGLN3/urrwrE6QntANzrq+rhzca65OsJEJHpF
-	 NyTfcIiRBWVV1KLjkhE5TyCivpPnpecmZp6HMLc4Cfgksa3u12TZJ6+q8HOj9jssqL
-	 cOhOzTv2uswakilpsEcJxwi1BIm2yXs8AvQCkxHrnBitlM1hnNMzgY/5GEHIfv+QWh
-	 um+3ZILVkU2nGtBKeyYQeyrXkk9SbB8cq05Cv4Tj4Y6YUbaAhxW5+gYqlWGyhSjBiM
-	 vAkjVNs3i598g==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2a4e013a44so424299266b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:35:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzbixgbe7vackN+Iyev8m5a8EflIEySr5C4r2jARDW1/vHBJaWhQhkPGqF7UalduA3C9bLxm0vQhZ7Vmyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM8UiVeCYve7YIrnMI9hTI2nUrVK3riuyXuyw4cZj8AoyLh0+Q
-	1QJ8IFwSoSOHM+qovtBlgsECl3Xm8KLnC9dOHjYVCdexROEkqvz4Cd37ZeWdAabjPSVX3vkUIQJ
-	wQl2OEa2VTlHYWkhEe2LFq81JnDqB8+M=
-X-Received: by 2002:a17:907:9411:b0:c2e:3464:6e36 with SMTP id
- a640c23a62f3a-c31a9ff9da2mr1818965366b.41.1792103700947; Thu, 15 Oct 2026
- 15:35:00 -0700 (PDT)
+	s=k20260515; t=1792103724;
+	bh=3NmvYLl5QHeykmporrZNiQW/rnQk5zz4ISSBCPdSjPA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=adw/q6VoJblAyBzhC05/WcBR3verzhT/2YShYwqZzoW4sOFkXql9e7jy3/0o5mUrI
+	 qcQyhCMcrK0yMNYSytMyoqsFrh7KLrgWFmoAU5vPAqTJcVuD7hhWfkiPgZb+e936Y1
+	 1IDP3mgLcv35UuvXZ36snkmcBtFdIgdgKFyFZpskWRHV+7X82j2bh4Q8hDG1ccaX9f
+	 UWJJw8V6uVCi4YdA34Xz4qBgSJmwNgnVl7qEt3EOz3lMHW7HL4kBAct18fD5dBYxo1
+	 MIMtFQVosFx4zW+mghjFCQRbjjiTJEUFdfv2YZCvC6CPCVIUqb07W6/yNTGFgmsqwU
+	 0QQsWoVRX5czw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, "H. Peter Anvin"
+ <hpa@zytor.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, Bill Wendling
+ <morbo@google.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>, John Paul
+ Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Jonathan Corbet
+ <corbet@lwn.net>, Justin Stitt <justinstitt@google.com>, Nathan Chancellor
+ <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>, Nick Desaulniers
+ <ndesaulniers@google.com>, Richard Purdie
+ <richard.purdie@linuxfoundation.org>, Sam James <sam@gentoo.org>, Shuah
+ Khan <shuah@kernel.org>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>, Tomas
+ Glozar <tglozar@kernel.org>, Willy Tarreau <w@1wt.eu>, x86@kernel.org,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v5 2/2] x86: Start removing X86_X32_ABI
+In-Reply-To: <20261015-x32_removal-v5-2-2bfef9151fad@linutronix.de>
+References: <20261015-x32_removal-v5-0-2bfef9151fad@linutronix.de>
+ <20261015-x32_removal-v5-2-2bfef9151fad@linutronix.de>
+Date: Fri, 16 Oct 2026 00:35:22 +0200
+Message-ID: <87h5imd239.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-20-yosry@kernel.org>
- <CALMp9eRd3COQijFU8AdcJKo+usr4A7dC6GOYT3YS93UBZ0yHRA@mail.gmail.com>
-In-Reply-To: <CALMp9eRd3COQijFU8AdcJKo+usr4A7dC6GOYT3YS93UBZ0yHRA@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 15 Oct 2026 15:34:48 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zNvcoXxDHxxZEWZM-Effav-Yb8piVuN5BsGanhR5dJmFw@mail.gmail.com>
-X-Gm-Features: AclHuK_YkVEoNDjbcrU4O3rdkg8Pvm3reSys94L6OW6XtPIG7XQ-1bdB25FxSiY
-Message-ID: <CAO9r8zNvcoXxDHxxZEWZM-Effav-Yb8piVuN5BsGanhR5dJmFw@mail.gmail.com>
-Subject: Re: [PATCH v3 19/27] KVM: nSVM: Service local TLB flushes before
- nested transitions
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, Oct 15, 2026 at 3:20=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
-rote:
+On Thu, Oct 15 2026 at 20:47, Sebastian Andrzej Siewior wrote:
+> The x32 ABI was introduced in v3.4 to leverage the additional registers
+> which were available on x86_64 but not on i386 while keeping the smaller
+> 32bit pointers.
 >
-> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > Service pending TLB flushes for a specific context (L1 vs. L2) before
-> > entering/leaving guest mode, as KVM does not track TLB flush requests
-> > for L1 vs. L2. This is not currently required as KVM always flushes the
-> > TLB on nested transitions, but it is a requirement to drop the
-> > unconditional flushes.
-> >
-> > TLB flushes are performed through the VMCB's TLB_CONTROL field, so
-> > service the flushes before every VMCB switch (except the precautionary
-> > switch in svm_free_nested()). Servicing flushes may end up purging the
-> > relevant HV TLB flush FIFO, which is based on guest_mode, so make sure
-> > local TLB flushes are handled before calling {enter/leave}_guest_mode()=
-.
-> >
-> > This is conceptually similar to how nVMX calls
-> > kvm_service_local_tlb_flush_requests(), except that the VMX calls only
-> > have ordering requirements on {enter/leave}_guest_mode(), and not
-> > switching the VMCS, because VPID used for TLB flushes depends on
-> > guest_mode, and flushes are not VMCS-based.
-> >
-> > Note that nested_svm_{entry/exit}_tlb_flush() must be called after
-> > kvm_service_local_tlb_flush_requests(), otherwise the TLB flushes will
-> > be immediately applied on the outgoing VMCB rather than the incoming
-> > one.
-> >
-> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> > ---
-> >  arch/x86/kvm/svm/nested.c | 22 ++++++++++++++++++++++
-> >  1 file changed, 22 insertions(+)
+> This did not take off. The memory usage usually knows no limit and the
+> better performance did not reach a point where certain workloads widely
+> move to x32 and use it exclusively. In the meantime Debian introduced a
+> patch to disable x32 by default (so it has to be enabled at boot time on
+> the command line) because they are afraid of the increased attack
+> surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
+> rpm in rawhide).
 >
-> [ ... ]
+> The syscall range >512 used by x32 can not be reused because on earlier
+> kernels (before v5.4 with x32 enabled, see commit 6365b842aae4
+> ("x86/syscalls: Split the x32 syscalls into their own table") it is not
+> obvious if the syscall is for x86-64 and not implemented or meant for
+> x32.
+> What can be removed are the special compat cases due to different
+> alignment.
 >
-> > @@ -1549,6 +1567,8 @@ void svm_leave_nested(struct kvm_vcpu *vcpu)
-> >                 vcpu->arch.nested_run_pending =3D 0;
-> >                 svm->nested.vmcb12_gpa =3D INVALID_GPA;
-> >
-> > +               nested_svm_service_local_tlb_flushes(vcpu);
-> > +
+> Since there is practically no real use for x32, start removing it by
+> marking the symbol as BROKEN so it is not possible to enable by default.
+> If you have a legitimate use case for x32, this is your last chance to
+> speak up. Otherwise it will be removed.
 >
-> When called from svm_vcpu_free() during teardown,
-> kvm_service_local_tlb_flush_requests() will be called for a vCPU that
-> is being destroyed--and isn't loaded. By that point, the MMU has
-> already been unloaded. Is that safe?
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: H. Peter Anvin (Rosaic) <hpa@zytor.com>
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-It should be, VMX already does it.
+Reviewed-by: Thomas Gleixner <tglx@kernel.org>
 
-I am assuming you are specifically asking about
-kvm_vcpu_flush_tlb_guest(), as it could end up syncing roots with TDP
-off. kvm_mmu_unload() should set all roots to INVALID_PAGE. Both
-kvm_mmu_sync_roots() and kvm_mmu_sync_prev_roots() will then
-gracefully skip.
+> ---
+>  arch/x86/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+> index 15fd9ec5ecacb..21a6863e14e7a 100644
+> --- a/arch/x86/Kconfig
+> +++ b/arch/x86/Kconfig
+> @@ -3104,7 +3104,7 @@ config IA32_EMULATION_DEFAULT_DISABLED
+>  
+>  config X86_X32_ABI
+>  	bool "x32 ABI for 64-bit mode"
+> -	depends on X86_64
+> +	depends on X86_64 && BROKEN
+>  	# llvm-objcopy does not convert x86_64 .note.gnu.property or
+>  	# compressed debug sections to x86_x32 properly:
+>  	# https://github.com/ClangBuiltLinux/linux/issues/514
