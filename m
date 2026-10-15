@@ -1,161 +1,138 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C4155D886;
-	Thu, 15 Oct 2026 18:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B3045040A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090590; cv=none; b=txHnZ1XC6pBiIQ1Kx/mSPK/1l/Q8/ZCBy/MVyx/pBkom6K/sLl3wygpL5e3ejJ+tXoEDczLEFJRty1K4snJ08XAnXWgVmRWgjTJZXqPtImLaHXQMc+MnXsSMXzCIfZ51L7linxD2+XO4sxhmg7kBNZqbPlizeIsl6ds8lcVYKaM=
+	t=1792090594; cv=none; b=icRcDzY5H13auIsKBJWN48IYkeZm8WgDWJvfNbe2I08XdFPrG9R5wwCSH2+hcdmH/EBE3mrSi91mlDkmdmUSSNE+eArIgxSC4kWrGGXAx1tWCscFeProJCh30ol+sWdUd74OwxyZotQKac5OHEZiMNfcx50/gtn6jqA5oAcVkG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090590; c=relaxed/simple;
-	bh=TpL3AL+DPLyvjc59lhaDDL+UzcNvTzAPwCOP4r44f/c=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cfXCriGKiXK8p1Nb2yBphZejYccqCBanr5kJH9mq6Rxg2XRy2wTxY/LsmMVyo0oVR8OPMmAOzUFWEnAxB2ASFY5qCMHiSfgk6s67ieUYQmORD6vtK5+G4WpR2XU3jFzPlCflO/oH5+8BPuEa3Tjk+J2MEu0oZCMRqPaUbNLjVdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=DZByGVhl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1/9Sl0xs; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=xYpch03A; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=BQW3L8Sj; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792090594; c=relaxed/simple;
+	bh=WfTIScce4+xOI3ZOn4jbGBOjmSx07uEqCRWoRnAARnM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=L2v/M41nJp8rae9MKtQuMaLSJaj/kg8MRyK1tyqhEDflwb6T6NdiDGGOri9aN1NoUJI7nisyUmWYkG7OMp8fyHSthRCcxwlSCB+bpxCzaWdOPgLyYeZKr9pEdrC/Iy4hZA+gvnPcMbEJit5L7z2snHjIPITqn53HpPUxlfUSGlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hyYwR5kB; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DZByGVhl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1/9Sl0xs";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xYpch03A";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="BQW3L8Sj"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6BD9E21FB2;
-	Thu, 15 Oct 2026 18:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792090584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+DYdVznP4V2nXI5G3D8OFKhVnP9OHZHEq/UKx3pvMMg=;
-	b=DZByGVhlaJWR0AXGe09JZxo5azVqC0JmifzxIo47AAqRaUiWABzpAF3XC1q5Rn6yyLw38f
-	woZUhrZsDAyx1urs63lyZVQadFafGXBmKcMDt7xKIiyKqOTZPFoxZRHhOpTYf0CgkOILxi
-	lf6v54xJnh2KhTpLP64qbsNcIWN9LI4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792090584;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+DYdVznP4V2nXI5G3D8OFKhVnP9OHZHEq/UKx3pvMMg=;
-	b=1/9Sl0xstsljIX60qqJ4rtNhMC5pjY1eX7p2gmllfUwTypIP6p8uaroFTVyJaSWu5LXRbR
-	sntqv42EMf+b0wDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792090583; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+DYdVznP4V2nXI5G3D8OFKhVnP9OHZHEq/UKx3pvMMg=;
-	b=xYpch03AooGnsUxSnXua5WzLWaeE2N4rNHTSSTXtY6Z6ehiOIPp2/I3POy0E7zkvI1angN
-	bVzLzva+7MhANwulceQOyR7QTFEZ1rwEuBN0k2fpvbFRceF6wavzyKGWxC2lZlfBXZ3/oz
-	FJ6VAWkvZ8+9KiwW345cFnEJCx/qAjQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792090583;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+DYdVznP4V2nXI5G3D8OFKhVnP9OHZHEq/UKx3pvMMg=;
-	b=BQW3L8SjnE28Yyd+pXYP0KWbN6y79CvwN68ogeaVP1lnCWBbMuqGVkMfm/zPbH8JphlcNY
-	suNexLdRFkjabdDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 26C901321C;
-	Thu, 15 Oct 2026 18:56:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zJWOItUh0WrbIAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 18:56:22 +0000
-Date: Thu, 15 Oct 2026 20:56:21 +0200
-Message-ID: <874iem7pyi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: pcm: Apply sync-stop at SNDRV_PCM_IOCTL_DROP ioctl
-In-Reply-To: <c2bc1478-5999-455f-bd67-8b536c452215@samsung.com>
-References: <20261014142454.320703-1-tiwai@suse.de>
-	<CGME20261015183022eucas1p10d5777e112c34458f4b360407d2228c4@eucas1p1.samsung.com>
-	<c2bc1478-5999-455f-bd67-8b536c452215@samsung.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hyYwR5kB"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a17baef589so22315015e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:56:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792090589; x=1792695389; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
+        b=hyYwR5kB+Pph+oFCrPXfSDzxwVTdyKdVqXoqwO7C+hXKAm1uEZ/k8DZQYTGqCC1y6T
+         KVR7Pe21zAL3q3rAtBc+ky1EgvuayuvWfcIgl0sEhkk5B7d6caGxezFXGSkYPwWvoShT
+         zajggHd8VHhx3YA1OMDtJNSFjI76hcqvF3aLu7VRru25vq833t8d+C+GApC665ovGsSl
+         ZUjS6SmK+I0CMDsAt0dsAq1tiWAIG8lmXvVNjPAc1xx/wfT2/J/93IfPcW5wo5sZMNFk
+         SK95Au1bdxFQ2G/BHZIvbefRqx77D3VH2trnmtYg0U4EYvWOFFG2QG3QxKlLU3Lhyxta
+         svuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792090589; x=1792695389;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WFz+OPWq9luKuBDqe0uuJVjFv3DbmqRC69UJmoS/3w4=;
+        b=2NlHSx55OiW42zgWqEbfbBPotyqvzVhv7TA+dPisNTOGRC3SUD39eTHb+WDNb9dqRe
+         PmkjEhEjhtniXpk0yz9d6O5EU6/BNik9hBUBSkVUbeJPsBLkiaYxjRI4d6mz874QAfqo
+         3Jp+H1JpO5egi56m+rxFePwnW1JRWYpF/5iyiLfs8ZuYdEQOlKBNSEC07Bds4x86j4yQ
+         mNabTEeaEwZ+wJvVJVF5OLb5e3Bpq3URlXTuJY4RK2uLs3c8v79teBt10P/dqTXv/L3M
+         qiYzV53SJP3HSAH+423ySj9vUXYlaI8buR02Yr/qckzkil2n7kbDs8lbsQuprR6ZpFxX
+         atDg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3LVu3UVPfb66/ccyuvn10v6UuSGuWXSSMkowwcNSQhirl4ztirLN+uoLJR9bpQ+9MriZ2F2QbgyXb09Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVm19cDPPp2ISzQaL1ZnipK7LyPcA0BrxCC6vMbU4gDn+LCnce
+	I56alQ/R8iJ3TtgAPAPrytQ7cG4xPEijokBVkrkSzZ/agYhzjefkEVF/
+X-Gm-Gg: AYBFou1dj+eb+BRJZTGwp00SUkahx1+61PEyojVYySVns/z7W/AnRCLFWH/XwEVx2Fe
+	MkQ650+4VoYTPGeTqmUm/QoE9viyazLSfVimTYwTlehEPhUbVZOKm6KW7S40froSGxooNO5K028
+	voPbiATkYproqQm6zuDP5mirs0ZsVgDrUF6wFntieBSFTT1jvT3s9UHv+lZ9H2yis34wiAXR9/t
+	QmaZzrKyMwAx/qd6mQ5KKI6/J/gjwMnqoBr2NLA0+sW3IhMh8CtZDNMzCpqUlc28dLtlffYJg75
+	XO+T4aqNJtfK535SBfKL0PK/6ygUFh2r6AWJbQG1LvDsRTYNJ4o+d1eBe+xR/wdNjVUFNjhlQ3L
+	NyjJVoU06IloboR+n3X2kIFhq0bdTeYskI0y+WseI8iIJgeTrWTh0OpbeLA+V7r6i6slPNOOlZ5
+	LKr13P3EzPT0yzeXbwLFdY1kJtXmUMDNJULU73qsnY5qtrueDopFIcu5QvKRwH+vUbpYf7h5EbU
+	2MhNeIvYZ22LkDcmApZ6wotp0NWeRHckdQT4jmKMQ==
+X-Received: by 2002:a05:600c:3144:b0:4a0:2423:946 with SMTP id 5b1f17b1804b1-4a18e48d362mr400641705e9.15.1792090589045;
+        Thu, 15 Oct 2026 11:56:29 -0700 (PDT)
+Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.239.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bdc036a4sm106148295e9.11.2026.10.15.11.56.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 11:56:28 -0700 (PDT)
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Subject: [PATCH RFC 0/2] riscv: dts: spacemit: Enable PowerVR GPU on
+ OrangePi RV2
+Date: Thu, 15 Oct 2026 20:56:04 +0200
+Message-Id: <20261015-orangepi-gpu-v1-0-03566a615660@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0Nj3fwikGhBpm56QamugVGKhbFlipmpgVmaElBLQVFqWmYF2LhopSA
+ 3Z6XY2loAe3MpI2MAAAA=
+X-Change-ID: 20260413-orangepi-gpu-02d839d6506f
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Thu, 15 Oct 2026 20:30:21 +0200,
-Marek Szyprowski wrote:
-> 
-> On 14.10.2026 16:24, Takashi Iwai wrote:
-> > When a PCM stream is stopped via SNDRV_PCM_IOCTL_DROP ioctl, it calls
-> > snd_pcm_stop() but sync-stop operation is missing.  Although this is
-> > usually no big issue, let's add snd_pcm_sync_stop() call, just to be
-> > sure.
-> >
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  sound/core/pcm_native.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-> > index 6c379068b54c..7ffbf2c0ea92 100644
-> > --- a/sound/core/pcm_native.c
-> > +++ b/sound/core/pcm_native.c
-> > @@ -2332,6 +2332,8 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
-> >  	result = snd_pcm_stop(substream, SNDRV_PCM_STATE_SETUP);
-> >  	/* runtime->control->appl_ptr = runtime->status->hw_ptr; */
-> >  
-> > +	snd_pcm_sync_stop(substream, true);
-> > +
-> >  	return result;
-> >  }
-> 
-> This patch landed in today's linux-next as commit fdf9a21cda78 ("ALSA: pcm: Apply
-> sync-stop at SNDRV_PCM_IOCTL_DROP ioctl"). In my tests I found that it triggers
-> the kernel bug about invalid context for sleeping.
-> 
-> It looks that thissnd_pcm_sync_stop() should be called outside the scope of
-> the guard(pcm_stream_lock_irq)(substream).
+Enable the Imagination PowerVR Rogue GPU (BXE-2-32) on the SpacemiT K1
+SoC for the OrangePi RV2 board.
 
-Gah, obviously it's calling in a wrong context, and I overlooked
-guard() line.
+This series depends on:
+- Yixun Lan's power domain series [1], which provides the genpd-based
+  GPU power domain driver required for proper power sequencing.
+- Baihui Liang's dt-bindings patch [2], which adds the spacemit,k1-gpu
+  compatible string to the img,powervr-rogue binding.
 
-I'm going to submit the trivial fix.
+The GPU firmware is not yet available upstream. A copy can be found
+at [3].
 
+With this series applied on top of [1] and [2], the full GPU bring-up
+path works end-to-end on hardware:
+- Power domain: GPU power island on/off via APMU
+- Clock: GPU clock enabled/gated through CCU
+- Reset: GPU reset line deasserted
+- Firmware: PowerVR RISC-V firmware loads and signals ready
+- DMA: dma-ranges correctly maps CPU-to-GPU physical addresses
+- DRM: kernel exposes /dev/dri/card0 and /dev/dri/renderD128
+- IRQ: GPU interrupt registered, firmware watchdog running
 
-thanks,
+Userspace rendering requires Mesa's PowerVR Vulkan driver
+(imagination-experimental).
 
-Takashi
+[1] https://lore.kernel.org/linux-riscv/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
+[2] https://lore.kernel.org/linux-riscv/20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com/
+[2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/blob/powervr/powervr/rogue_36.29.52.182_v1.fw
+
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+---
+Iker Pedrosa (2):
+      riscv: dts: spacemit: k1: add PowerVR GPU device node
+      riscv: dts: spacemit: k1-orangepi-rv2: enable GPU
+
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts |  4 ++++
+ arch/riscv/boot/dts/spacemit/k1.dtsi             | 12 ++++++++++++
+ 2 files changed, 16 insertions(+)
+---
+base-commit: 7e986b457d43edf8dd3eb3f6c34e55e92cd545f3
+change-id: 20260413-orangepi-gpu-02d839d6506f
+
+Best regards,
+-- 
+Iker Pedrosa <ikerpedrosam@gmail.com>
+
