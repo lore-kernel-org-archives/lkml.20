@@ -1,247 +1,189 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010010.outbound.protection.outlook.com [52.101.61.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821165221D1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068258; cv=none; b=oynlDT6XGzIevRlX2MDufxTyiTkrIKummigXM08gjeSVtVE984eXsjKlrzgJ/M45mTiBec4ILmqkhv38Bllu6UhZFZaCu4Rn3pWpMZ+/2fqK7MoL5bSKNNMKpB6uXPCgoMedxMSvcnEOi4ZSFcFE5LUB304SygSVj6y3K8UUQe4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068258; c=relaxed/simple;
-	bh=S3MW9H3wgEOvPP0uhKYDeITR4aJO7iujGxWR+LezJgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mvqV/cnQUJ8nZ33PqRv3Zp28+iCnazhcrtzanHlHgLl6oaMvDNqGk1q0k0QIlp5SXqF4TDA22omoIkjLVHfW+rpiEpPDYgzfVoScSSRcVHP/nLTg47odKNvBx7sLP7QHbdc3Fo7WTvF/hgotP+wi0sVdFfD8bZ9R2ueqAv6ygUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O+Ke54Gg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fmmOyAp6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51F251EE1A;
+	Thu, 15 Oct 2026 12:44:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792068269; cv=fail; b=s2wTEjnLlttFDzAiLlFsOh1ztxOi7L8RCT7H7dhMM24Azk/ZfRTwQUaTYqCJRHrIgu+I+0XrtGixIzryjDL9Z4Ltp9yhiN96xePk+Q+5/bS+Oh0kZDREzy4OMDcCZKd0HQ64ILEHPUWIgNFudH5/iAVi6w/MCcJjJAaYCGe6ky4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792068269; c=relaxed/simple;
+	bh=Q1nOuE4oxPl6RgciwVJEElkmFcjUvG4KbsSRAZfaKuY=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=jD66sFHZxIuuQJSOGqDZ3HqOWH6J02cnlm36M+S+6CFtOruo+e0dgdNdxkKYp9kUjeFI5t7JhrbbZZP8nWqeR8HC3YUJge/rIskpfp1fYZtnoqa961r1Y3whU7hrxbRdggNW96yjnT1BYuo6ynJJwGao90+6xEYlnFP5sgW6ZBw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SOCEuIzH; arc=fail smtp.client-ip=52.101.61.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O+Ke54Gg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fmmOyAp6"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jWqp2416945
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:44:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=w8o5JafesiRvwaLb/g8OOXSj
-	6qim+o/hrusYm3HaIh8=; b=O+Ke54GgUCNZs50ieolXqxwKWZv0GIbzUBWi/mRX
-	qAr6Yc9v7NGxFfNxuj1qm+mf68ZVCtMHRN/GHTRMJQiIoKc8h1h84O3NW2NiiT2R
-	wLdLcB8PSbHwQqJoTa3n00fLvxuYQ1WxSTJdTbHfVACOEMIJMfTL0kI8f+cId4Uu
-	Ofom2YTbY9cCqIN666IL9KBx4fbze9wANQhw2i/msJHFhBaVbRBac+rszrbYC8Kj
-	3pL7HzIWeJ9b4zWstuSD75Vu3okjf8sdEngWm5Dyc+K8H69jlyzuQpNzOU38trOO
-	TUb4BmS1X2z8hfsvxeljav8v/3aQ/PKwsB4izHosZsRD6w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhj3x7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:44:16 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e46c120dfso188090185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792068256; x=1792673056; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w8o5JafesiRvwaLb/g8OOXSj6qim+o/hrusYm3HaIh8=;
-        b=fmmOyAp6VNU81isEBPn0aDWEvZkbTI81fLE0NqNvBoK0EDdUqrYdOfvdB0oZVPbGgM
-         RLVuiixXoZG8CNAuAs4F/7hxTvfC2xR3n/uH36iHZH65D74aUokIaxJhvGAuTcNXZOxl
-         /o4UWW/cfa4F98HoPSIyF/5N7nNWjRMuzCV7xb0Z7grbG7GwUv05bLHhV94QE9rc6Ebr
-         fZhAX+2ai3wKzjCEckEGXgQlFLID7ZS6I6aywvdf+plxJH2vwc5pMTfXdHkd8VOdiUDq
-         DmjlT41K1f9BZg3dWpvVs7EUyJOPBAvkCOY1X/2P4ecQFrFoyCVs/rO9/FreZOJgqPLS
-         6PJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792068256; x=1792673056;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w8o5JafesiRvwaLb/g8OOXSj6qim+o/hrusYm3HaIh8=;
-        b=jACCj9+CYfWkrPmW+HjenVo9XIAZqmrw9gskAb/2xcULQHux/5UJLaS1k73bKGhZbr
-         QZ9q45tZcCvk/MA6tsbnA2dP+hfUZkZbm+gSxHIXTgbbGyHzLTfGSA+LDE3A5UQF1PX5
-         QzJSFTLRPcSJZmzhD0nQKxdHTpPEHr3Eo60Ed8a/RVGSAJYPQ1UPv9eaDdNvCFDtyarq
-         iZ2Hkcp9LMCYV5lvg+zcPpX2EAMhM4cXH0+4xffbegXCV53c+p0CDohG6rIwGdPSYC0v
-         185sehGwsv6oIvy40p+b88ocfxCoeqNaX4a7LOpcX/ZVXbJsK8239fVtOJ3+5w4O3iEZ
-         ksFg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/vWDbYZ5TZtPPmLjK1JVLF+ftLFBDm/6UML+Kt0P0Iz4oxhWUm8UXdLBx4pQYVp0eDdWS/4U3RzNXBQg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLefpL6pSwL5VfcX9n8L8mej9eQBQ9XD3ohP1/vFsG1d7antdlk
-	O+1x1wy06xIVhuCea0ahgZdmzpRCTPPhTOC4IWsY1MiogU2AuBCQlr538j5kVlEao0ksLXMozdy
-	Kz3RwzI841t95iTACxT0Ptd/eS2B+BQR0LCbozQB37tGPnM3f8TNfy9nRbBSos59Pe40=
-X-Gm-Gg: AYBFou1PO0+xFUl3ckxr5Y0WLiYogrIbbhlHrXvYNgOsWoPFZ+Ri1GHoCAphOXhHMJL
-	2b2LSGl1QxJCR0X5X0FpPKP4Ub8lNcUzlbqR7BgcgFQ60QButTAFcGFdm89e64CaaGAdzrPbvuh
-	Ad21L1hSC6dU1/phpFRtZaIwXBPRpEkwweJoHBJXzjUyQUW3l9FuIj7GHpRgedlPRm04F5nW36L
-	OpR1kf2PEUwBINm/EdFBADOLfKYzTHV+pwqboiDoAo6BxYmZwKBarFTp5sGVWnv7IaGZhZP8OJF
-	ftK1qvXLOrw2Ea3rWJxeCG+vdEpYKdEx4t44WvA3YB02maNz3uMJJCSFB+QIYCQ5KjhZho3qFiJ
-	uB/KxlVjuBE5oH/PiKtcDQ1FAIApe52Qg/v251OHvGvk05rYXIvCdgdAUzlO6BqHd340sjxt9HE
-	YjTvheZ1x0uDJ1
-X-Received: by 2002:a05:620a:4041:b0:937:675e:2903 with SMTP id af79cd13be357-93ebd212371mr3197367285a.14.1792068255544;
-        Thu, 15 Oct 2026 05:44:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:4041:b0:937:675e:2903 with SMTP id af79cd13be357-93ebd212371mr3197362985a.14.1792068254905;
-        Thu, 15 Oct 2026 05:44:14 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdf2fa18sm5761271fa.36.2026.10.15.05.44.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 05:44:13 -0700 (PDT)
-Date: Thu, 15 Oct 2026 15:44:12 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-        iommu@lists.linux.dev
-Subject: Re: [PATCH 07/13] drm/msm/dcp: Add DCP encoder
-Message-ID: <bmtabdrtxygyubfmxgvixn5r4rosu4tepopc2ro37heeqzwzgx@mu5wk2stm7yi>
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-7-48aad0fe4f72@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SOCEuIzH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oFsXTwg6NJGSgfRWBmwtKyibRlKcbiZJdGqSe7xz9UuFenOpUKt9bDrOzWV2NFfAriSavxo4QGrHGPxf+zfrAe8eORfjv9tBFPEoZ5sg8p8JitT5PhylDj5OrwSvp71ynhUGZAgylsK8DIZ7dX/Gt5rzUnVRMgDGMl002zL0CaEbsThPR10EMHiz0SUcRdvrVvhVYktDgpgKB+V8d2RidlaPSfzrEW8dbCFerOIT5MF9JHwVYxlVGwiqIXUgbY0IWl2cbMJ+hW+gXd7MosLT3lDOyvuG12DQ5+qD6Zakh47hTLWbIphD9yQRVjnvauKaeFcGg995OqX2tCsvymPkSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UeXbgsCS8ZxtK80yqHFuIvifMxbJrIi6FTA352EKgO8=;
+ b=k83GYOwWwJ/UNscFTr3sa387zsAk3FKSyJCLHbt4sW+d6x/BzxNtdQTIgFPhhVlY/sYkKBj+gtwk2/KsR8CVP+dmK8AyCyW4PU3Z/n7B8+ezmwkGWk8GqmkOEiyY2Y59Snnc2sHviCERI3qxasbZrjxhalQCuBhOzzIVKdBN+kAEyROd/MXPII+Va2jHZYZyapn+6XjUWWgVZQL3MZ2S1gkMxouNetiJphKcLs+y3ox7bxwfiT/GqdrpmbGicz9vus1lqypin0a94TEyn12DSODA3G8KoGBetNdrXPc+G0Qy9K7q+m5lzoib5Q+PzR+PZOdXDQ0lNkfiOhbnPuM04g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UeXbgsCS8ZxtK80yqHFuIvifMxbJrIi6FTA352EKgO8=;
+ b=SOCEuIzHcgQYEwvoJDhaQ4U4X/7NYQ0qFlVmRQ5AajTANWpsXQv0/nyBc6qJopeoh28SA64s4OwbdtgpOblhQFGb2vOz8RBegdjX9Q1tZqAzFlqtwpeu87JJKG4RqAdF7AH0Bcp5QsnxfATG3Pzi74slLs4EoaODypQfP+1kzw/O3+zHN7umFb0NW/u5JkEMZNqVTzWW4Vx37PRV4wh5fzZm5GR2YDIWpDfVWa90o/dp9YMQMcGGjv0b2i+6nFojOPqiaxHzHSC7YoJcaJuJ967bnj0EUsf4KgYRo33n9Runcf115xbUZ9pz3TtHeIJhVHfTSGKD1WjNOwjxNUyALA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SA0PR12MB4496.namprd12.prod.outlook.com (2603:10b6:806:9b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 12:43:48 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0522.011; Thu, 15 Oct 2026
+ 12:43:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 21:43:44 +0900
+Message-Id: <DM5F615QE0QH.MV46NZSC3TR0@nvidia.com>
+Cc: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Lorenzo Delgado"
+ <lnsdev@proton.me>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Thorsten
+ Blum" <blum@kernel.org>, "Francis Laniel" <laniel_francis@npnm.eu>
+Subject: Re: [PATCH v3 1/2] rust: non_empty: add NonEmpty
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20261013-nonempty-slice-v3-0-4463cc0338f8@proton.me>
+ <20261013-nonempty-slice-v3-1-4463cc0338f8@proton.me>
+ <CANiq72nok4xoA6j1SXVdWKLEKAqj3MfzCa-Sse7NNbkrn2MXiw@mail.gmail.com>
+ <DM4MPF17NSQL.2IOMXIQEVINKR@garyguo.net>
+In-Reply-To: <DM4MPF17NSQL.2IOMXIQEVINKR@garyguo.net>
+X-ClientProxiedBy: TYWP286CA0004.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:178::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-7-48aad0fe4f72@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX856J7BSnx3OR
- YKXtwVmgIghSSmm5u2R3prrAr3pnLxG1T+CQofWnXiO5nzm7XLKFTjd/AI8In/Y948weUs4M/Kp
- 9+O7fWZDcM1GqoBnKlzYiWCD+maw1KFdVhVXVJJ218NE0cqjsVlex1rEMVE0rV60pOOKIAR+dw+
- Tt5cvl8Jsf94mtIdQRXX3Wffs/mwWnyaPDsGxNNaC/PK9K8WRsm+HhncPjziGgKACoDZ3F3p1LD
- ES5ko2A+oF7hqkPV4zpgGBVJExSWBeb1HNgzMqxXo8EDoCUyYixakTwv/tiRKCn+4UROQmcAe+F
- YgyYSXV45VeyvJwm+CT4RbM1S9wEUVWub4oiGBJBmTHK6kqQc4Fx1J+aTssly+OChoBYtBGSbxw
- spSEusnkRHgz6z7WMdDT8aJZxeJpq8ImwBP5Db2i7i8CUNZn+Yn9SnU324VXUG4mYGH4zUKAl/q
- 0gWlx0sxdXBl209+xEA==
-X-Proofpoint-GUID: DzTydQqSvC5gDSiUcED5Abt65m_B4YpK
-X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad0caa0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=N3-jI2xQlndCWEcerb8A:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfXzizJnFXhOG13
- oNctxHcF+xTWVycIL4hgKsd+iTD2NTc/iONxT/HCwR2urgGBz6arA9JZoRzUb9Sc9ZnKAmpOeWq
- cu1wBVRyXLBCxwcpAk1+OnWsxgk9W9E=
-X-Proofpoint-ORIG-GUID: DzTydQqSvC5gDSiUcED5Abt65m_B4YpK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150050
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SA0PR12MB4496:EE_
+X-MS-Office365-Filtering-Correlation-Id: 864e90f4-473d-42cd-4fb0-08df2ab9f4f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|10070799003|6133799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9M1Z3rGm1gbErHjWMu6odi10pJuDxq4bnRQTLNBYbvybAK4jbnZ6j1Ty9eFMy1uOahLcP9qZFLo2VnXgPBgozmSssFodLY/7S0M/pSinWB5NIpjnPnntcoCrJvqJmtEeqFpwo9uPT2qF6H22B7ohItCCMxD1XcbFZFnZ3mAmvvGkhvJqwmVG9LT8+P7V6nD4vmz209Og0Vkov9K2g7AzS+WDGOfwA9TGKS+uW6dHiWUiglMh82tzBs+8rGaPnrh4owaHKxw2228R1m6g5Dz0XgtBrRwhbgWYOqHwm6Ko8gv94kCdX9FXetz5rQ60VgXf9p3XlQgxolSFYPTX972vcaEtZR9JCzZbj9QnYn+zr4aImsntw7vpidJo8c9RCaCueGZ4y2QptpgSTkwIhNCJioSOj9wOWLDG+KoKKiX4LMqy1UkJfOa30gr7oxOvUGqxDzbEApRgMduk3299e9npW73EBPLlO6FgpuWXYx2u/n9uDCZlz/6mLZJdZ8S0GUyi2d1XZ3dkw6sQQGHhyVANQgwmRsF7a1DUKeREX8IsC13ef1yctSBYfrltKNTE6QEP5FFV3uvBzg+zjIwsY/e4zDvKi4VaeTL7R3RNrCUJqkU67pwgeCqVHcgI95gx2ZV2xb47lPAvQ5ruSf36FhOElBEweNGf8cYVgKbwUyQbkYo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(10070799003)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QWxLdU1xT3huaWpVQUE3enllQWIrVll1RXRyZVpYLzRLaUNuNlJveEJsVjRx?=
+ =?utf-8?B?K2V1clJzZGNKaUxFU3E2dzlHR3kvUGZRcmZBQ1FVaWNCT0JnZWkyZm5zdVVT?=
+ =?utf-8?B?U3VOMnFzZXI0c0YwalpudTk3eDd2eDR0NjA5OElPOUpJZWhSRHloWnUxd1RW?=
+ =?utf-8?B?dUhYRVNhdjNiN3hzWkpROFp4N0Y2VWZqbjRGSnVkUXcwQ1FPTW1nUCtkUlFr?=
+ =?utf-8?B?a2JrOE9kUWNrMnR6MmhocmNaZHYxQW5ySFlZM0pycEZNc3pNUitiU3pCdlRv?=
+ =?utf-8?B?U2tWUm5hYXR3cnlFR2VSVlBPWjUwR09CdTFxQ3pYWUVGWjFsaytTbUd2K3Qw?=
+ =?utf-8?B?dXdqUDR0LzNFaGRtRDRab2p6cms1ZlROVStLYUtxdmJBMHI3bWt3Zy9QYklM?=
+ =?utf-8?B?QWJJQWw3bTN5bTdRTzliUVBNbUo2L3krQ3AyTWhRcW91dkdPVDduSktOY2Rm?=
+ =?utf-8?B?QXJaOWxZdmZaOTdCSVIwRlpQOXVzOG5qajJEMWZwVVZJYWRMVXJQSTE4R0t1?=
+ =?utf-8?B?eE53SmM3eENMbUt5VlhwK3lHS092SzFrbCtSOWZ5VjZMdkpzc2dORmJWR1d4?=
+ =?utf-8?B?aUM2YkFkckhGTUZlRVhab21PZlJlZFVpNDJnV01uaWFBb2pMdlZpOGlVTjNs?=
+ =?utf-8?B?MUp5bjI0UVFZd3hwbGJkMWlmblhjZEpWUlNqaVo0blZwbjlCclhiRXZZVWNz?=
+ =?utf-8?B?M0JQL0ZrRHRsRnVwK0RjSE1aNU5SNjdaS0duaS9OenpDZlJCZ3VKUzltZ2k4?=
+ =?utf-8?B?NFhoNi9QY0xOL2xQTDF0dERyVHdDRGVYRHhBUVJ0TVR2ZWR3UzRjTnFZOVNB?=
+ =?utf-8?B?c2JZT1dhN3pndWljaXFNN2ZPZW9zdmN5ZlM3bC9mdjBrU3AzbVZIcjhRTmJn?=
+ =?utf-8?B?WEFEamJyUEE2YTEzZGVmb09RZVcwTHY3bTgvVDgwUnpUb1hqSEg1WUZDdzNz?=
+ =?utf-8?B?ei9kSTg1U1l4SUZKczVPWDhxdE1pMkVkV2tlV2VUNytycGhDdGpMLzMrUTNB?=
+ =?utf-8?B?dWFlc3JDTHBFK00xdVU3ZkdkcE40cm9oZ25ObTZMWVowVEg2ZkhFWkZydnZ5?=
+ =?utf-8?B?NXExRkZVMUJEUjZvdGllQitpUVVhbGloOHlmSHZCSXNGbUNjajNJSHk0WFQy?=
+ =?utf-8?B?d29yTDB1dnBBaGhzWEZ1Q2xZSlNmUzZvb0ovalJJVDYxNmtVWFhIZWlHeXJu?=
+ =?utf-8?B?Yk9lMUxZY2MwaHlwQXNXQjd2VlVEdHF6QnZ4bERLL1gyZUg1WDZBU1J1Q3hT?=
+ =?utf-8?B?WFlDWWhSM20vek8xaGI1c0t0Q0Y2M1RlZjBoL21UTnNpOExDODNaOFc0Z1Ey?=
+ =?utf-8?B?Wm1ZSGJGTHd5MEJTYldScnJoUlpobE5EL20zK2o1OGpZM1Mrd240QXo1SG1D?=
+ =?utf-8?B?eUZuWVBTeTVrRk5POE1JeU8zWmRrRENFSlU0THhvU01sOVRIalppK1JpRnJ2?=
+ =?utf-8?B?NVlQOU51RWgzb1NENGFUenhPM1hqUzFsMG9JbDdpT2ptbkppaS91VExIR2RW?=
+ =?utf-8?B?Wm1Eb3dPeGdocnJxSXNSUXFORVlZZTlRNmN5NnNBSFhvN25RcVNYV1djNHg0?=
+ =?utf-8?B?Q2ZzOW02alVMN3Bhd0NXTHg1T3NHT1pFNjRSTUxadmdtUXZld0hRUVRIWS9F?=
+ =?utf-8?B?WEF0cGVxcHhKN2dNM3FuRk4wSGRJU3E0U1BEbWF1TTBNQWZlZXl4SWF5S3Vw?=
+ =?utf-8?B?ZE1YcW1vLzdwa3lsVkFpZm40Y3hIY3E0MkNzakpjVnppODJQYzZnbm4vZmlZ?=
+ =?utf-8?B?NklKaFVSTU1WbExVTGpTdTRDZktKWFloQ3dMWGRtY3R4bm9XeE9OL3pZZFQy?=
+ =?utf-8?B?aTl1b3ZDQTFlZW8rS0Z2YjBjZm5NZjVLMTg5eVdGOEJMY29WcVRsbDdiOTk0?=
+ =?utf-8?B?ck0xb0dhTmdVdFJJdUlMay9uT0ttSCtBRTRVQjl5elZIbnlUa2RuR2ZQeFVn?=
+ =?utf-8?B?a2V6c0RyRTAvUFVPdjY0dy96SXkzWXZXVGpmWDJMU2YwcVNtSkUwZ2hKdThW?=
+ =?utf-8?B?MExuRi9DU2NsQTlOQ1dBOHFDbWo1TGt2ekNDT1BndjVRcUlLZ2dZb0hCbXhZ?=
+ =?utf-8?B?NEdSdEFRWjI5cG4zTGhTWGxKS3pxT1ZaTEc5ZVc4RWMyY1EwazBMS05rVHpP?=
+ =?utf-8?B?NnZBZXBBNUl1YmRON3B1NmtPbTZZZGZLalhKTk9tK3R0RWplTU5XcEVCNlJ3?=
+ =?utf-8?B?QlptMmxXMDkvdm5XTUIybFQ5NXVTd0p3bVhOdEFCMlhjc3VqYjNJTU1vRkJC?=
+ =?utf-8?B?d0tPdGNEZnI3SzI5V2xLMVI3eDR2d3JxdG04RG1HSldKVlZHVm1XYUFldFdD?=
+ =?utf-8?B?UGkyaHY1YURtYmhVNXRGRVRWWG82a0U4amY2ZzUvSUZTejRFTDNMbEg1eWpy?=
+ =?utf-8?Q?TZfmq/yUBZu4UQbHvez/VU2TdsmtsOcd6dp47imrV93Sq?=
+X-MS-Exchange-AntiSpam-MessageData-1: n/9ZzqslhVuMgA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 864e90f4-473d-42cd-4fb0-08df2ab9f4f8
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 12:43:48.0188
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iF/5dvg0Nv3y62fi2JEJuVEoiN8XEw5FGmQsIDc9ybpFE5KbyGcJuxbb8SN22DhaDeol67MwBm832MUl50yP5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4496
 
-On Thu, Oct 15, 2026 at 01:08:27PM +0530, Jayant Shekhar wrote:
-> The DCP display pipeline needs a DRM encoder to connect a CRTC to its
-> firmware-backed output bridge while reusing the existing MSM DRM object
-> model.
-> 
-> Add the DCP encoder wrapper and keep encoder allocation and DRM object
-> initialization independent from bridge and KMS registration.
-> 
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> Assisted-by: LLM
-> ---
->  drivers/gpu/drm/msm/Makefile          |  1 +
->  drivers/gpu/drm/msm/dcp/dcp_encoder.c | 31 +++++++++++++++++++++++++++++++
->  drivers/gpu/drm/msm/dcp/dcp_encoder.h | 16 ++++++++++++++++
->  3 files changed, 48 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index b7c1a2e9a19e..e7d24be72113 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -81,6 +81,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->  	dcp/dcp_hfi_plane.o \
->  	dcp/dcp_ipcc.o \
->  	dcp/dcp_plane.o \
-> +	dcp/dcp_encoder.o \
->  	dcp/hfi/hfi_packer.o \
->  	dcp/hfi/hfi_unpacker.o \
->  	dcp/hfi/hfi_utils.o
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_encoder.c b/drivers/gpu/drm/msm/dcp/dcp_encoder.c
-> new file mode 100644
-> index 000000000000..bc173fffb325
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_encoder.c
-> @@ -0,0 +1,31 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * DCP encoder wrapper for the CRTC-to-bridge connection.
-> + * Hardware programming and mode sequencing are handled by the bridge and HFI.
-> + */
-> +
-> +#include <drm/drm_encoder.h>
-> +#include <drm/drm_managed.h>
-> +
-> +#include "dcp_encoder.h"
-> +
-> +struct drm_encoder *dcp_encoder_init(struct drm_device *dev, int enc_type)
-> +{
-> +	struct drm_encoder *encoder;
-> +	int ret;
-> +
-> +	encoder = drmm_kzalloc(dev, sizeof(*encoder), GFP_KERNEL);
-> +	if (!encoder)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	ret = drmm_encoder_init(dev, encoder, NULL, enc_type, "encoder%d",
-> +				dev->mode_config.num_encoder);
-> +	if (ret) {
-> +		dev_err(dev->dev, "encoder init failed: %d\n", ret);
+On Wed Oct 14, 2026 at 11:25 PM JST, Gary Guo wrote:
+> On Wed Oct 14, 2026 at 12:55 PM BST, Miguel Ojeda wrote:
+>> On Wed, Oct 14, 2026 at 10:30=E2=80=AFAM Lorenzo Delgado <lnsdev@proton.=
+me> wrote:
+>>>
+>>> +/// A container that can report whether it holds any element.
+>>> +///
+>>> +/// The result must not change while the container is only reachable t=
+hrough a shared reference.
+>>> +///
+>>> +/// Unsafe code may only rely on the result for a container type whose=
+ implementation it trusts,
+>>> +/// such as the ones in this module, since a safe implementation can r=
+eturn anything.
+>>> +pub trait IsEmpty {
+>>> +    /// Returns `true` if the container holds no element.
+>>> +    fn is_empty(&self) -> bool;
+>>> +}
+>>
+>> Do we need this to be a safe trait? If it is unsafe, then we can
+>> simplify the invariant and more easily think about the type, like
+>> other `Non*`s, no?
+>
+> I think in this case the meaning of "empty" depends on the container itse=
+lf.
+> Unsafe code that relies on "is_empty" would be the `NonEmpty<Container>` =
+itself,
+> so it just needs to trust itself (as boundary of unsafe is module level).
+>
+> I think of almost all of the text above can be removed. The invariant of
+> `NonEmpty` can just be "`IsEmpty::is_empty` has returned true" and how it=
+ is
+> interpreted is up to the container type.
 
-Again, ignored feedback. Use drm_foo functions instead of dev_foo().
-Also, there is little point in printing an error here.
+Is `IsEmpty` actually useful? It needs to be implemented for every
+container we want to wrap with essentially the same boilerplate code,
+which looks a bit overkill to me. Couldn't we just do:
 
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	return encoder;
-> +}
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_encoder.h b/drivers/gpu/drm/msm/dcp/dcp_encoder.h
-> new file mode 100644
-> index 000000000000..de40c9bca4bb
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_encoder.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * DCP encoder interface between the CRTC and bridge chain.
-> + * Hardware programming is delegated to DCP firmware.
-> + */
-> +
-> +#ifndef __DCP_ENCODER_H__
-> +#define __DCP_ENCODER_H__
-> +
-> +#include <drm/drm_encoder.h>
-> +
-> +struct drm_encoder *dcp_encoder_init(struct drm_device *dev, int enc_type);
-> +
-> +#endif /* __DCP_ENCODER_H__ */
-> 
-> -- 
-> 2.43.0
-> 
+  impl<T, C: Deref<Target =3D [T]>> NonEmpty<C>
 
--- 
-With best wishes
-Dmitry
+and have a single constructor method that supports all container types
+by reusing the slice's `is_empty` method?
+
+That way we could get rid of `IsEmpty` entirely. That would limit
+`NonEmpty` to types that directly deref to `[T]`, but I guess we are
+going to use it on slices most of the time, with the exception of when
+we want to return an owned container that is not empty, and those we
+have already deref to a slice.
