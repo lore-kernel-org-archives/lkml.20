@@ -1,145 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3222352CCED;
-	Thu, 15 Oct 2026 13:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309D151B19F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:34:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071248; cv=none; b=LZ5/+SKdVcvurqpTtPN9+vQlnG9iAHZ/IYQhQq4Ci2pElNqT3FMP94pN/WAu6rCRqS6QnNxlQPJHZi9SZyJlMDbDTZ8FhPJoj0uSu9ZjCStUY10D7OkMc3J+TkPy3feEyBaNCdvpsyr1AW2PC/Hb0NVd3/QprXXHS4SjPSbp3xs=
+	t=1792071261; cv=none; b=JBatsHgzeakyLK1JEBewDRt5QDLiUC6ROr4AyNVoEPWnCaxkmRedvKr4OVvzE9MscEDvUqSKVKOImp1Wb3CuzMdigA+nJ4m1obKMi7RFukXFVEC7XwGhb8ow9f45ugQ2WQQV8L9NsaV504c2ELtjPSzrFTeHlUY7N5RienPslhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071248; c=relaxed/simple;
-	bh=kRA7wR0Lu2ILqY7s+P4GH6XQ2xOocIz2J3AnBq61uso=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=OVHB9Ot63fOx+VzyYyKpDJX7iUvAKHRpED1ARCVHQDi1PQgmJBT+rd4Ph/QkmB1V+cj4x5tcKYAEi5iCeS506/zkToYrzMvBenOnASY4XMyKq/gK5lTSrVpJLPHHYqmP4jTY3oPej4BTl2sgcUw46UF9RNYOHEn8EfcmcfjUTzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9izgXze; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792071261; c=relaxed/simple;
+	bh=OlLxK0kgVNVyPQc5F8MkuIa3UdaV8TkjyaoIHrUDjv0=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=I3NcWMV4AG+E7uZTawwtzdVcQHnrdFzPSkM0CjP3khtclsZVXH2gZQbX1jgg1y7DjW4FGhjm8Kae87Xa7IEdUyx7183SDWZUSXscE3i1WMB/Z2flo2SwwMWXvr/a+TIqFGLBu2JfD5jMb+D6inRyLalBTCioPWlj14miQTzF5f4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNcoUQ0t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9izgXze"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3A71F000CA;
-	Thu, 15 Oct 2026 13:34:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNcoUQ0t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BDE1F000C4;
+	Thu, 15 Oct 2026 13:34:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071246;
-	bh=NmjlTVpki8ZFzqxPcRkdL0IDLG9OBVvlQVOnJ2jaiKU=;
-	h=Date:From:To:Cc:Subject:References;
-	b=k9izgXze0WODA2AWq0ZOiTjAk40aoWkEstHUAHjr4UE46+qiCy6pxcwgJrAZfhvft
-	 cecmm2nkofIPYXlrnp35FsY7PLsCL+pw9Ixtz6Swcz1bV54gaTUjlbvOJvCD1zIMxk
-	 j6U5uR55LLz2HILJP1mjitFZPx2Z2v9hAhBoNnyXETJ4Xcrb5vF5TKegO4USEPlaL5
-	 qPpJ0K5WLMLxGUSq424X015I0/McSiRUfLz1UjtLzvtH4+rF1/CLh2AScKh0YaIl1r
-	 0G62Li0zQdaW0Ios/D8KDz+dAcTDK4DJs0UR0WjHB0nLI4entm9d2S0JlJcOjFr6qm
-	 zXfJR1E9dLyhg==
-Received: from rostedt by gandalf with local (Exim 4.100.1)
-	(envelope-from <rostedt@kernel.org>)
-	id 1xHLav-00000000MiN-1Lnh;
-	Thu, 15 Oct 2026 09:34:05 -0400
-Message-ID: <20261015133405.152631018@kernel.org>
-User-Agent: quilt/0.69
-Date: Thu, 15 Oct 2026 09:33:26 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Lee Jones <lee@kernel.org>
-Subject: [for-linus][PATCH 16/16] tracing/histograms: Reject non-stacktrace fields for synthetic
- stacktrace fields
-References: <20261015133310.731003448@kernel.org>
+	s=k20260515; t=1792071259;
+	bh=wL0pcDUdhO+6B3feeMzk1v/C02vcc6EjWkQgbU5Zed0=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=TNcoUQ0tDACV9eoxyyNp8hZJ3O5LXYmtHvu9Ct5s53NbEcHhjn3TbTpNBK7ApkF2M
+	 ZKwm0B9R4oSdi+tD/HutwwqyKD9kmbXcZ405Y3irbXJAYD2aUYnRwX1TaapEm9Xss0
+	 Gqnn1Nsm0A28xT2nmUr4ZV0HNrv1E6IpyZWLMDm/pLbTFV25E1UalCUvWHQphjvXvN
+	 3Et4HCDLoMrXDKouc+bVcYWr73vPuSbiHUZqLCykUkfAg6K8a5lInCyCNbNna0zdSw
+	 +dWH0EduXK6Dz+hyDYHtbQ/EUtvkXyFtXv5lh3cszJCUeGwX2CP5OPq0i59CH6BORb
+	 C2v9kz18r08Lg==
+Message-ID: <e80cc65e-22aa-45ca-892f-d13f2b1ae12d@kernel.org>
+Date: Thu, 15 Oct 2026 21:34:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Nanzhe Zhao <zhaonanzhe@xiaomi.com>, Juan Yescas <jyescas@google.com>,
+ Daeho Jeong <daehojeong@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v5 10/16] f2fs: support partial uptodate large folio read
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <20261014064445.2835813-11-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261014064445.2835813-11-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Lee Jones <lee@kernel.org>
+On 10/14/26 14:44, Nanzhe Zhao wrote:
+> Buffered write can have write bytes smaller than folio
+> size for cases when folio minimum order is not zero.
+> This can left partially uptodate folio in page cache.
+> So we skip uptodate subpage read in read_data_large_folio.
+> Also mark hole subpage uptodate in uptodate bitmap.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>   fs/f2fs/data.c | 88 +++++++++++++++++++++++++++++++++++++++++++++++++-
+>   1 file changed, 87 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 59346b61615b..b9f2054f514f 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -148,6 +148,7 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>   		struct folio *folio = fi.folio;
+>   		unsigned nr_pages = fi.length >> PAGE_SHIFT;
+>   		bool finished = true;
+> +		bool uptodate = bio->bi_status == BLK_STS_OK;
+>   
+>   		if (!folio_test_large(folio) &&
+>   		    f2fs_is_compressed_page(folio)) {
+> @@ -163,6 +164,9 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>   				(struct f2fs_folio_state *)folio->private;
+>   
+>   			spin_lock_irqsave(&ffs->state_lock, flags);
+> +			if (bio->bi_status == BLK_STS_OK)
 
-In check_synth_field(), when a synthetic event field is a stacktrace
-(field->is_stack) and the histogram field is not a "long[" stacktrace
-array, validation falls through to the generic size and signedness
-comparison.
+if (uptodate)
 
-Because parse_synth_field() sets a stacktrace field's type to
-"__data_loc unsigned long[]", its size is sizeof(u64) and
-synth_field_signed() marks it as signed.  Consequently, any 8-byte
-signed scalar histogram field passes the fallback check, and its scalar
-value is subsequently dereferenced as a kernel stacktrace pointer in
-get_field_size() and trace_stack().
+Thanks,
 
-Furthermore, checking strstr(hist_field->type, "long[") is insufficient
-because tracepoint fields defined with __bitmask() or __rel_bitmask()
-also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
-long[]", whilst create_hist_field() treats them as 4-byte scalar values
-without HIST_FIELD_FL_STACKTRACE.
 
-Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
-variables (whilst excluding variable aliases from per-element
-stacktrace capture), and reject any mismatch between
-HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
-
-Cc: stable@vger.kernel.org
-Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
-Link: https://patch.msgid.link/20261013112449.1006088-1-lee@kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/trace_events_hist.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 571a57e0f369..dcb5d7321095 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
- 	ref_field->size = var_field->size;
- 	ref_field->is_signed = var_field->is_signed;
- 	ref_field->flags |= var_field->flags &
--		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
-+		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
-+		 HIST_FIELD_FL_STACKTRACE);
- 
- 	if (system) {
- 		ref_field->system = kstrdup(system, GFP_KERNEL);
-@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
- 		ret = PTR_ERR(var);
- 		goto err;
- 	}
-+	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
- 
- 	field_var = kzalloc_obj(struct field_var);
- 	if (!field_var) {
-@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
- 	    && field->is_dynamic)
- 		return 0;
- 
--	if (strstr(hist_field->type, "long[") && field->is_stack)
-+	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
-+		return -EINVAL;
-+
-+	if (field->is_stack)
- 		return 0;
- 
- 	if (strcmp(field->type, hist_field->type) != 0) {
-@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
- 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
- 		update_var_execname(hist_data->fields[val_idx]);
- 
--	if (!ret && hist_data->fields[val_idx]->flags &
-+	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
-+	    hist_data->fields[val_idx]->flags &
- 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
- 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
- 
-@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
- 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
- 			var_idx = hist_field->var.idx;
- 
--			if (hist_field->flags &
-+			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
-+			    hist_field->flags &
- 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
- 				unsigned int str_start, var_str_idx, idx;
- 				char *str, *val_str;
--- 
-2.53.0
