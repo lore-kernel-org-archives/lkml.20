@@ -1,306 +1,115 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55686519DFB;
-	Thu, 15 Oct 2026 10:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C7151A72C;
+	Thu, 15 Oct 2026 10:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058776; cv=none; b=geTh1zzyzsp994la3HyEF8gumRVfps75Fd4vYmc95GdtZX216NkZhTgdrm63DkgMlD/cZbBD+CaVh//KrItrMMSMvgyMJq8Nla1Ol7O7e+3yv194+Zkac5REnUR12RFyRv8C8vp368LKmbVSMqg22xnAzr3QRf05Usi92Y0q1yo=
+	t=1792058777; cv=none; b=ClKQGvi45x3ZuYtaa48J+UzQmUPh8Rgs/SJcAMjTEI4VT2IYoR9lE2DPzdeXl5+iQF1PALpDQ3CpAO78QoqIyeAeuOn1dg8WxQsaCmjnyXQw1VHWOgLk1xxr8DD4Ffi57IhbrN5ZYx1KCzNSp5i3/j3bNwuHAhpbGUuHpoPn3rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058776; c=relaxed/simple;
-	bh=jZvIF6Um7hdspDLmuKHLMsPfspQuFqojdqrOiZVmQ6g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m3WtnB3HLUMGhZvZx87V84jydsN7hpT6UPZEtIuiAaokKMJUvBvMh83eNo1bgZgGMBmnPUGe894mfgc+5IWjawEtPFdSVpX76Wta+1HVdJawZT+30hsQFuZw6qsvmbgbQbpCNrZcdpkn9t3m/g7uc1M1CmHuMMJrrpkMmWTKUhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=G006Eq7m; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1792058777; c=relaxed/simple;
+	bh=iIW0WXTcyJ2XwQgQsEMkcrSOTiYQP0UWPZkVSOm5e9U=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=M04hsfj9Nrk3mR/YKVyRuaPJKWw6TWvivMbirTL6RKlrlXTqt/pQ1A6VLj90fXZ4bKJAM8yL6Wt7E8cOKtAO69R/1hq1kyDUfrCgiXgm6SHlxUiPXCWDypfWblvUokx9UY+E/DP9pal0PCaS+aY9zQLSCaehxDVMwUuMbZLlbhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KiAZ15tY; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=muT4TEFY; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="G006Eq7m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=xLpiKoXJyj8JNjwHTlllc2VGnMmWrXdHmGo07ZS732c=; b=G006Eq7mxwNtgdCz94owHlmkP5
-	djbsOuKRBvnAiuKbmaRGGOSfkAaU75+HaOvoBTXtu8Xn3exUO9H5+5PzD04uWKZIn4uRRqR2zq+cx
-	LZ9f/yX004UayxMkd/3Dk4WDcypLVG/wft5wRlGYsBvLnmO3leIXjiC3sVRynk/ILC/kY/+8S8u30
-	DAZMiziH2X3hreTv50X0cYjryU/tHIdmYtEeRCklq75WOGbH50aUuyCWncqa8/mOo8pLSi3LXpHTu
-	nC+1jT+nqGjv7+vt0c590K6A6RKstf1XSKKzc1IiiHkPGggRDONVjDFb4/bvq+bghLxDRor4tObdT
-	cW8muCUA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHILk-0057Bo-0p;
-	Thu, 15 Oct 2026 10:06:12 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 15 Oct 2026 03:05:33 -0700
-Subject: [PATCH net-next v3 4/7] ipv4: igmp: convert ip_mc_gsfget() to
- sockopt_t
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KiAZ15tY";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="muT4TEFY"
+Date: Thu, 15 Oct 2026 10:06:12 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792058774;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XO1WOuxfjx+/2w5cnh7JAcf+ip0BWv2Il+mUrF70LfM=;
+	b=KiAZ15tYUotAmAuhimcJFI4XuohdG2XL63o5j6C9tBnFQImuxHRdr4Uj5KRf4BKHr/okJX
+	F2Sz/XA6KGzDLatoP+BS8gAMT1h/fLdue51GJBSHDKPJc1/7Hby3256mAxSxpDCc4fg3OT
+	4HBrIktkhZGYnE5xUv3C7v9ZEPJxnraKffRZvuDU9Wc9m3zO2uBD3Xn6eSV6IzQKIq0ZKu
+	j4t8uHYzAjSH1HDr/qcNFWn1cB5suiZ+FS/+w8/6Udg4VCH8wOdF/mZCnU8SwJoeMMAHA3
+	TlvB0ux/OsIAaZMhYqJE+NcDUAIdwUDsgUB/zAUSg1KfD9KXn+v6hHTsYTQszA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792058774;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XO1WOuxfjx+/2w5cnh7JAcf+ip0BWv2Il+mUrF70LfM=;
+	b=muT4TEFYIA3qoNde5Qwbm0UmfrM1jaMvvciV2ibFPsh39WZkWGt9voKy/XJewE7Ll/VT/e
+	WwB7rBEocsxnYzAw==
+From: "tip-bot2 for Vladimir Murzin" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/gic-v3: Ensure change to DS is visible
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260930161123.46368-1-vladimir.murzin@arm.com>
+References: <20260930161123.46368-1-vladimir.murzin@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Message-ID: <179205877221.2666988.6823427304608483749.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-sockopt_expand_out_v2-v3-4-7d05ef2df448@debian.org>
-References: <20261015-sockopt_expand_out_v2-v3-0-7d05ef2df448@debian.org>
-In-Reply-To: <20261015-sockopt_expand_out_v2-v3-0-7d05ef2df448@debian.org>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8024; i=leitao@debian.org;
- h=from:subject:message-id; bh=jZvIF6Um7hdspDLmuKHLMsPfspQuFqojdqrOiZVmQ6g=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0KV0euBs1oj7uVqNHZI/G628B8j2mAbajWm84
- dgWYrljDdOJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatCldAAKCRA1o5Of/Hh3
- bVwHD/4hzEOtHaMw1vsFmdKcMvDkbDYGlaf9MzPmcKA9NLkze/OdtNeotpr5dta65rLG8fWyk84
- 1NsbFkxu4EKdc+BgXnWSIxdmsFmQCdPKpmOLvqLRreSFiVEl4Xv9jnEWmR2v10LqDO/p4D8032u
- cVrPydj9pfho79OIOXLnXEW4+kWQwikIl1nLABHOP9EUigII1U8XQLsf+eUpBXl7INaAFQPyIqP
- y+pdCo45lmTKeB8hAbSIkV1OgldxuGT9HzKPtwhEOhGcmEFyQwHpEgg1ELDWH+qhBk1fRfNsuTm
- AcCzeSwwMyhUAyA0o36KLzqNQvbnLqc3SSVNyWblX2x81q7CuS68Ljrbv3IpQtRWgNhP9rafjyb
- itzGkjQUQatf9iXw9BuxrZ3ZedjcpoE9j6difZZDtl3U3vEH73jsLj5T+LYIPuNSsRXOoybGXHE
- m2WOF7NbMXjAu/IkgrYQNdhJlHbxbtiXBAxPzUfIF7mrg5nLByZjmscJZii7qQ+TRqhe417i9ux
- ZbaIk+VqiyspBJU3eNAGCjcu/N8EHxlqCIK1BwBB3xd7aos9EO/eLH7CqfF5zmYXTEZ6VepIc+A
- Gy+EwzA/7+Dww3QsOUSRmMMl9SqhKTdaL0IgcG+8JY+nzv8KqWW7U69X2HjuiOM8waOF/rwuMH3
- QRskQV+Oq0KcarQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: quoted-printable
 
-MCAST_MSFILTER reads its reply through ip_mc_gsfget(), reached from
-do_ip_getsockopt() and from nowhere else. Convert it the same way as
-the ipv6 side, and build the sockopt_t at the call site for as long as
-the caller still carries a sockptr_t pair.
+The following commit has been merged into the irq/drivers branch of tip:
 
-optlen here only has to cover the fixed part, and the real reply size
-comes from the gf_numsrc field inside it. This is nasty, but userspace
-relies on it, so sockopt_expand_out() preserves the same mechanism: it
-grows optval only for a user address, and only far enough for the
-sources the socket has.
+Commit-ID:     254772534e40060abe5321093400947e03b13d54
+Gitweb:        https://git.kernel.org/tip/254772534e40060abe5321093400947e03b=
+13d54
+Author:        Vladimir Murzin <vladimir.murzin@arm.com>
+AuthorDate:    Wed, 30 Sep 2026 17:11:23 +01:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 15 Oct 2026 12:02:17 +02:00
 
-ip_mc_gsfget() writes the source list, and its two callers write the
-fixed part afterwards, at the head of optval. iter_out only moves
-forward, so the callee advances over the fixed part rather than
-addressing each source by offset.
+irqchip/gic-v3: Ensure change to DS is visible
 
-The callers then rewind. The reply length they already compute is
-exactly what the callee consumed, ss_offset plus the sources it wrote,
-so both land back where they used to write: offset 0 for the native
-reply, gf_fmode for the compat one. The bytes are the same.
+Sashiko reported missing GIC synchronization when the
+FLAGS_WORKAROUND_INSECURE path modifies DS. Specifically, an immediate
+read of the DS state after the write might not observe the effect of
+that write, which can lead to misreporting the DS state.
 
-ip_get_mcast_msfilter() and compat_ip_get_mcast_msfilter() only store
-*optlen after their own copy succeeds, so a copy failure can't report
-a changed length: -EINVAL, -EADDRNOTAVAIL and -EFAULT all leave the
-caller's optlen word unchanged.
+Updates to the DS bit are tracked by RWP, so poll it after the write
+before proceeding to read back the DS state.
 
-The old code stored *optlen before writing the fixed part, so an
-unwritable optlen word stopped the fixed part from being written. Now
-the fixed part is written first.
-
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260930161123.46368-1-vladimir.murzin@arm.com
 ---
- include/linux/igmp.h   |  2 +-
- net/ipv4/igmp.c        | 20 +++++++++++++-----
- net/ipv4/ip_sockglue.c | 57 +++++++++++++++++++++++++++++++-------------------
- 3 files changed, 52 insertions(+), 27 deletions(-)
+ drivers/irqchip/irq-gic-v3.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/igmp.h b/include/linux/igmp.h
-index e075611344ef3b..0a1abf3552d2bb 100644
---- a/include/linux/igmp.h
-+++ b/include/linux/igmp.h
-@@ -276,7 +276,7 @@ extern int ip_mc_msfilter(struct sock *sk, struct ip_msfilter *msf,int ifindex);
- extern int ip_mc_msfget(struct sock *sk, struct ip_msfilter *msf,
- 			sockopt_t *opt);
- extern int ip_mc_gsfget(struct sock *sk, struct group_filter *gsf,
--			sockptr_t optval, size_t offset);
-+			sockopt_t *opt, size_t offset);
- extern int ip_mc_sf_allow(const struct sock *sk, __be32 local, __be32 rmt,
- 			  int dif, int sdif);
- extern void ip_mc_init_dev(struct in_device *);
-diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-index 144fca158adcb0..d573c5bf8f038b 100644
---- a/net/ipv4/igmp.c
-+++ b/net/ipv4/igmp.c
-@@ -2775,9 +2775,9 @@ int ip_mc_msfget(struct sock *sk, struct ip_msfilter *msf, sockopt_t *opt)
- }
- 
- int ip_mc_gsfget(struct sock *sk, struct group_filter *gsf,
--		 sockptr_t optval, size_t ss_offset)
-+		 sockopt_t *opt, size_t ss_offset)
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index b9a99f9..9487364 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -164,6 +164,7 @@ static inline bool gic_dist_security_disabled(void)
+=20
+ static bool cpus_have_security_disabled __ro_after_init;
+ static bool cpus_have_group0 __ro_after_init;
++static void gic_dist_wait_for_rwp(void);
+=20
+ static void __init gic_prio_init(void)
  {
--	int i, count, copycount;
-+	int i, count, copycount, err;
- 	struct sockaddr_in *psin;
- 	__be32 addr;
- 	struct ip_mc_socklist *pmc;
-@@ -2805,6 +2805,18 @@ int ip_mc_gsfget(struct sock *sk, struct group_filter *gsf,
- 	count = psl ? psl->sl_count : 0;
- 	copycount = count < gsf->gf_numsrc ? count : gsf->gf_numsrc;
- 	gsf->gf_numsrc = count;
-+
-+	/* The source list is sized by the gf_numsrc the caller left in optval,
-+	 * not by optlen, which only has to cover the fixed part.
-+	 */
-+	err = sockopt_expand_out(opt, ss_offset +
-+				 copycount * sizeof(struct sockaddr_storage));
-+	if (err)
-+		return err;
-+
-+	/* The caller fills the fixed part in once it knows gf_numsrc. */
-+	iov_iter_advance(&opt->iter_out, ss_offset);
-+
- 	for (i = 0; i < copycount; i++) {
- 		struct sockaddr_storage ss;
- 
-@@ -2812,10 +2824,8 @@ int ip_mc_gsfget(struct sock *sk, struct group_filter *gsf,
- 		memset(&ss, 0, sizeof(ss));
- 		psin->sin_family = AF_INET;
- 		psin->sin_addr.s_addr = psl->sl_addr[i];
--		if (copy_to_sockptr_offset(optval, ss_offset,
--					   &ss, sizeof(ss)))
-+		if (copy_to_iter(&ss, sizeof(ss), &opt->iter_out) != sizeof(ss))
- 			return -EFAULT;
--		ss_offset += sizeof(ss);
- 	}
- 	return 0;
- }
-diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
-index e06c1f48ecad6e..1b7461f1569c32 100644
---- a/net/ipv4/ip_sockglue.c
-+++ b/net/ipv4/ip_sockglue.c
-@@ -1442,45 +1442,46 @@ static bool getsockopt_needs_rtnl(int optname)
- 	return false;
- }
- 
--static int ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
--				 sockptr_t optlen, int len)
-+static int ip_get_mcast_msfilter(struct sock *sk, sockopt_t *opt)
- {
- 	const int size0 = offsetof(struct group_filter, gf_slist_flex);
- 	struct group_filter gsf;
- 	int num, gsf_size;
- 	int err;
- 
--	if (len < size0)
-+	if (opt->optlen < size0)
- 		return -EINVAL;
--	if (copy_from_sockptr(&gsf, optval, size0))
-+	if (copy_from_iter(&gsf, size0, &opt->iter_in) != size0)
- 		return -EFAULT;
- 
- 	num = gsf.gf_numsrc;
--	err = ip_mc_gsfget(sk, &gsf, optval,
-+	err = ip_mc_gsfget(sk, &gsf, opt,
- 			   offsetof(struct group_filter, gf_slist_flex));
- 	if (err)
- 		return err;
- 	if (gsf.gf_numsrc < num)
- 		num = gsf.gf_numsrc;
- 	gsf_size = GROUP_FILTER_SIZE(num);
--	if (copy_to_sockptr(optlen, &gsf_size, sizeof(int)) ||
--	    copy_to_sockptr(optval, &gsf, size0))
-+
-+	/* ip_mc_gsfget() consumed the whole reply; rewind to the fixed part. */
-+	iov_iter_revert(&opt->iter_out, gsf_size);
-+	if (copy_to_iter(&gsf, size0, &opt->iter_out) != size0)
- 		return -EFAULT;
-+	opt->optlen = gsf_size;
- 	return 0;
- }
- 
--static int compat_ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
--					sockptr_t optlen, int len)
-+static int compat_ip_get_mcast_msfilter(struct sock *sk, sockopt_t *opt)
- {
- 	const int size0 = offsetof(struct compat_group_filter, gf_slist_flex);
- 	struct compat_group_filter gf32;
- 	struct group_filter gf;
--	int num;
-+	int num, len;
- 	int err;
- 
--	if (len < size0)
-+	if (opt->optlen < size0)
- 		return -EINVAL;
--	if (copy_from_sockptr(&gf32, optval, size0))
-+	if (copy_from_iter(&gf32, size0, &opt->iter_in) != size0)
- 		return -EFAULT;
- 
- 	gf.gf_interface = gf32.gf_interface;
-@@ -1488,19 +1489,23 @@ static int compat_ip_get_mcast_msfilter(struct sock *sk, sockptr_t optval,
- 	num = gf.gf_numsrc = gf32.gf_numsrc;
- 	gf.gf_group = gf32.gf_group;
- 
--	err = ip_mc_gsfget(sk, &gf, optval,
-+	err = ip_mc_gsfget(sk, &gf, opt,
- 			   offsetof(struct compat_group_filter, gf_slist_flex));
- 	if (err)
- 		return err;
- 	if (gf.gf_numsrc < num)
- 		num = gf.gf_numsrc;
- 	len = GROUP_FILTER_SIZE(num) - (sizeof(gf) - sizeof(gf32));
--	if (copy_to_sockptr(optlen, &len, sizeof(int)) ||
--	    copy_to_sockptr_offset(optval, offsetof(struct compat_group_filter, gf_fmode),
--				   &gf.gf_fmode, sizeof(gf.gf_fmode)) ||
--	    copy_to_sockptr_offset(optval, offsetof(struct compat_group_filter, gf_numsrc),
--				   &gf.gf_numsrc, sizeof(gf.gf_numsrc)))
-+
-+	/* Rewind to gf_fmode, which gf_numsrc follows. */
-+	iov_iter_revert(&opt->iter_out,
-+			len - offsetof(struct compat_group_filter, gf_fmode));
-+	if (copy_to_iter(&gf.gf_fmode, sizeof(gf32.gf_fmode),
-+			 &opt->iter_out) != sizeof(gf32.gf_fmode) ||
-+	    copy_to_iter(&gf.gf_numsrc, sizeof(gf32.gf_numsrc),
-+			 &opt->iter_out) != sizeof(gf32.gf_numsrc))
- 		return -EFAULT;
-+	opt->optlen = len;
- 	return 0;
- }
- 
-@@ -1727,12 +1732,22 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 		goto out;
- 	}
- 	case MCAST_MSFILTER:
-+	{
-+		struct kvec kvec;
-+		sockopt_t opt;
-+
-+		err = sockptr_to_sockopt(&opt, optval, optlen, &kvec);
-+		if (err)
-+			goto out;
-+
- 		if (in_compat_syscall())
--			err = compat_ip_get_mcast_msfilter(sk, optval, optlen,
--							   len);
-+			err = compat_ip_get_mcast_msfilter(sk, &opt);
- 		else
--			err = ip_get_mcast_msfilter(sk, optval, optlen, len);
-+			err = ip_get_mcast_msfilter(sk, &opt);
-+		if (!err && copy_to_sockptr(optlen, &opt.optlen, sizeof(int)))
-+			err = -EFAULT;
- 		goto out;
-+	}
- 	case IP_PROTOCOL:
- 		val = inet_sk(sk)->inet_num;
- 		break;
-
--- 
-2.53.0-Meta
-
+@@ -179,6 +180,7 @@ static void __init gic_prio_init(void)
+ 			val =3D readl_relaxed(gic_data.dist_base + GICD_CTLR);
+ 			val |=3D GICD_CTLR_DS;
+ 			writel_relaxed(val, gic_data.dist_base + GICD_CTLR);
++			gic_dist_wait_for_rwp();
+=20
+ 			ds =3D gic_dist_security_disabled();
+ 			if (ds)
