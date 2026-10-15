@@ -1,183 +1,101 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCF336E47A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472412367B8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028984; cv=none; b=EgzlkpRIQ5jI92qYrVqWGNU/4+oZEuFZdmuDiXNPy7FSHhF4wLsfWXgq5C0MKXRbUkq/qDic6jt46BYRHNd1cUuQdLoVD3hdrEiEtAe41ferlTjREgiGRBD5CrbOgzG+m0wTJ8bgEELurAw7eIGNOx51q/KxGB4T63jyqkW510M=
+	t=1792028994; cv=none; b=bTSNtqGOiH/weIdcHUX0PfBU8ehfwTV58hHfk1W/CbMZB4rJneGIHjt+IiCtMJ3UWZD/BQ4yBgK35OXxfCERAYxhhGHEtcS53gPnFHl/D6CCipiBItnXoF4HYVqj5ZYPeiAi4H7XMDe988ENpbDh/avHfWmswTDPOSYI1+CeXDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792028984; c=relaxed/simple;
-	bh=jlEb+ienncM3LL+BnYDTqkV/y1oGhTtwElRku4Cmr6c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AYMBF3Sep2Z1vQPJtNgh+0gByuCZV2Gpfj7/5Zq5R6yd58ET9JyxZGD1NUkmq6RayYhFHSihDM2CT4cKfZbt8UmgiDuQjsWdjuCpG370eHy7GGyx3JK40pp+LZMXTOnfl1DZFuO3KylsVRBlNB31EtgTCfloTSG1qU6bJQjXrWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4+BOBkC; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792028994; c=relaxed/simple;
+	bh=1tTxZ5kOWU06Y0H6PgnC/UOcxg4zC3bPkYQIp8UlU78=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BsT+nnRxEMFA0qgks8X5MsNKVxH/hrysiE/X+UM22ZatLtbGoT6j33apeRSR8xikL7QWGbsLfgCSHPRp7B9cUPC393uNEqSB+n/WXTz3SO/ENf5wMHoEtV11dellRKCSEpMYYw0RWwDC9Rc6cQce0k5rWDAMKD41u4xgk3BFpH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=apXUJ1qv; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4+BOBkC"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6e954afbdso7420875ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:49:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792028978; x=1792633778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FVU2me1+3bnamRCjCl3aeaOsDD74U7zM2YYw6HaRgfo=;
-        b=V4+BOBkCcVFDOF1oErC3PeurvYWSyTu6yuYe9GubVrhefUyUQMFa1XYlu0vwZvcsha
-         DRTcoyiw2GXHmwfcdbRotSfR0/2ejJ85tomLYYCFeHIPFurFSlwt5d1Onp/oZX/JhHDw
-         PGZsyhQgMIqN1Qwwhapl9SPj0Ym6unO9BMFdwDAGBw80vJ5X3McHjsn4zYBN7ehNQOlo
-         g5TS9xLFTup3+d6PoQ7pzDAXV8Kdn4vZZc9p9sYfqCPIUzwEZJVD5eIPIh2avw6X4x+l
-         /Nzs4BxenfyQa3BW8bLn/qpDLMMjm297eFfQqA/PHZC6De+/7aoIKk+Ahu5yi6oGtfi2
-         B2Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792028978; x=1792633778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FVU2me1+3bnamRCjCl3aeaOsDD74U7zM2YYw6HaRgfo=;
-        b=qvylAvvbSkkVJXvqtm6CaofXxcyi4dgwvT1GLFed4YQLXT0OOwck+9THql8QvIMPA9
-         NZwfOSg3ZbzaGtQmQczRfhWkAACJrhGbXQqYcaGVn0un47JLa36+FmF41ADIdfeocmkF
-         /UEQBvrM/7huLw6ZTntT3umj0o0d/vOVOA31fGuzk0mrsceOB41kk9BiAxQzKO37g8pA
-         XPlcrUi/SiUwlhsjHJ6o47mWYIPq8yDmrAyJVZwdbR4vslC2v6Inirv8QV4NeQTuwbNw
-         B+M7QgTgO+51JKAg8QiMHGSK8Mlf8GYj18BhsCzEfKkzhqxeOJlA/WedJZrfhIdu/PKb
-         YsvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcwx/RgUkEDNlcQMLQHjQ5wga9xwUyW7Oxy3GKMfeBfEBYlXlEAv4CczjvD12hShTrw7Jd+6G3EESXMvA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8Mg4up6igqnIMjk4fOg/8Odtqc/D0pPBEsJdXpuo1IQFbCQlJ
-	l0qEcZ3rHiQTfQgGSRWeYxn7okzM9n5Ee5trki/UqxU+M8t0J7QGr+dJ
-X-Gm-Gg: AYBFou3L8PQWC5PXIJJ+98zlPLpZlyveSmPbmfKetpkI7mwu3/R6P5q1IIsire9hHuU
-	/XINI7KnbhbVqT++6F47nEzaPm8B+5U9JzdvLhpgomU8aLP39noWNz94PBMLTnIkIINsZlI+UOO
-	G4vMiYhInY/PsgIF3TEPHvVMYGneAnI4vfVaK0tEiKjhlxJPNwlRc9Bp/wAzk6/wcxhn6l08toh
-	+NrIIu03V99VjLzijhcvfj2uhQomVCUwZpOj90eL5v0nUrLavQxltSRWC2QZnse1cOraiyZt21A
-	C++o6YtkmkxbyPWq9+jp1F4GL0dkJbgH//N6TziR216NPkB9G3DwmoJ4iYZeGnIj99jfqnb3npb
-	+6uXQGSSYN5gEOmYs0m612beDKEFws1MSZQ8Pkj1RFo4wvsvvVx8pbSc+1pfsT3FU71FdIgStZP
-	mGx56xwEUK2VchnIn+WsdMmsMTd0IdOfudUdvNs6Y1dXFz5LAbh0CbjrssQcw4TMPv/lP+RllUd
-	20MKSehRku+tWaqLXGIlVH9nDQTcbGC27ocDyPVrZUpLKX+pj6BhYoSPAm2M6kk0VNW2tP1CT9X
-	zbntBahC0kXiWg==
-X-Received: by 2002:a17:903:3243:b0:2dd:ad74:ac32 with SMTP id d9443c01a7336-2e842bc61a1mr152460415ad.27.1792028978441;
-        Wed, 14 Oct 2026 18:49:38 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cc1sm73202995ad.54.2026.10.14.18.49.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:49:37 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	povik+lin@cutebit.org,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Kees Cook <kees@kernel.org>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	wangdicheng <wangdicheng@kylinos.cn>,
-	Chris Bainbridge <chris.bainbridge@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Neo Chang <YLCHANG2@nuvoton.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	u.kleine-koenig@baylibre.com,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Md Shofiqul Islam <shofiqtest@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Zain Aboobacker <zainaboobacker33@gmail.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Bo Shen <voice.shen@atmel.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	linux-sound@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com,
-	linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev,
-	linux-rockchip@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 20/25] ASoC: renesas: fsi: Ensure the component is marked as opened on success
-Date: Thu, 15 Oct 2026 08:43:19 +0700
-Message-ID: <20261015014324.5569-21-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
-References: <20261015014324.5569-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="apXUJ1qv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=1tTxZ5kOWU06Y0H6PgnC/UOcxg4zC3bPkYQIp8UlU78=; b=apXUJ1
+	qvxEejs0phcpBdCH+HRMDFBZ8US2Z+7dEGv/dISiydav3dlIN04lyA6W5kiZ4tJNUaAjl1VuNh53C
+	UaAtu4PizEVYeEhjeus2F3WzEdfbp5KMB0F1htj44qHhEG1VwTISecaC+kv1z5eVgeAsOfHUTcfIi
+	KZMbFaY+g1ilbmO6fdik44/6sYd8yAiHBeHY94KmdOFF+z8dK3eQozD/ycM+Y8MaRM7ze0sOExw59
+	BtOn5wdJkpp1k6IcoDW2QybD0SHYcRS1qtSDu+EH59FCOcc38PTPaOHlTB/242pg+EtbaHV9TDe+K
+	5s5GobLjPbxI7Zfw6M4RGLrHHuJw==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xHAbI-00000007uZB-33oH;
+	Thu, 15 Oct 2026 01:49:44 +0000
+Message-ID: <bbeb70884055b85f99f93795deb5d6af8f64cd64.camel@surriel.com>
+Subject: Re: [RFC PATCH v3 7/8] mm/gup: walk multiple PTEs per
+ follow_page_pte() call
+From: Rik van Riel <riel@surriel.com>
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, Andrew Morton	
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Jason
+ Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
+ linux-mm@kvack.org
+Date: Wed, 14 Oct 2026 21:49:41 -0400
+In-Reply-To: <20261014215451.515-1-aa9736195201@gmail.com>
+References: <20260811025157.1632867-1-riel@surriel.com>
+	 <20260811025157.1632867-8-riel@surriel.com>
+	 <20261014215451.515-1-aa9736195201@gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Thu, 2026-10-15 at 05:54 +0800, Yuan-Hao Hsu wrote:
+>=20
+> You already mentioned on 3/8 moving the gup_fill_pages() call out of
+> the lock so the PUD path can share the helper; this makes it more
+> than a cleanup.=C2=A0 Storing pages[] under the lock is cheap; could the
+> flushes move after pte_unmap_unlock() and run over pages[0..nr), the
+> way follow_pmd_mask() and follow_pud_mask() do it after 5/8 and the
+> way __get_user_pages() did it before the series?=C2=A0 With pages =3D=3D =
+NULL
+> there is nothing to flush either way.
+>=20
+Good point. I'll move the cache flushing to a separate
+function for v4.
 
-snd_pcm_hw_constraint_integer() may return 1, which is then returned
-from fsi_pcm_open(). ASoC only marks the component as opened when
-.open() returns 0.
+Thank you for pointing out this issue.
 
-This currently has no functional impact, as fsi_soc_component has no
-.close() callback. Still, return 0 explicitly on success to
-match what ASoC expects and ensure the component is correctly marked
-as opened.
-
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/renesas/fsi.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 23b7e63596d3..74e2ea002fbb 100644
---- a/sound/soc/renesas/fsi.c
-+++ b/sound/soc/renesas/fsi.c
-@@ -1811,14 +1811,21 @@ static int fsi_pcm_open(struct snd_soc_component *component,
- 			struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	int ret = 0;
-+	int ret;
- 
- 	snd_soc_set_runtime_hwparams(substream, &fsi_pcm_hardware);
- 
- 	ret = snd_pcm_hw_constraint_integer(runtime,
- 					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0)
-+		return ret;
- 
--	return ret;
-+	/*
-+	 * ASoC only marks the component as opened when .open() returns 0.
-+	 * Since snd_pcm_hw_constraint_integer() may return 1, explicitly
-+	 * return 0 to ensure the component is correctly marked as opened.
-+	 */
-+	return 0;
- }
- 
- static snd_pcm_uframes_t fsi_pointer(struct snd_soc_component *component,
--- 
-2.43.0
-
+--=20
+All Rights Reversed.
