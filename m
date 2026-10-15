@@ -1,121 +1,127 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtpcmd10101.aruba.it (smtpcmd10101.aruba.it [62.149.156.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4A47F3DE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8CE463B69
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095244; cv=none; b=R1SPGKFBhlGUHjHb6TwChd4MKHJU+bkvm6E/ZzpGvVzcrc2A/SWopOjxYuT+Krwc0zqRnjl5f3H6oq2v2DkcYQx9+xlx+GXgq62/8qz+OBoXEZlRuglspFGa69SXF0+ObstSEtK7I/6gntRU7pOrh3AQyeG4sjj2dwXoKzWCiXw=
+	t=1792095265; cv=none; b=QpJoJDBh+jV7yKi1WWQG1I8rGaQWRm+TSy+Yv2rPjbLrddheD2IlO/BKNDfFDi+RpzLjYSwOYD9SnOTQ8/oixuU6tLnrZ92ujv4BBuHSiB+wtNzwSNLT5NBdgZHsAL2L2DBxR0g96orLkUPiPm27Jz37BucPB4e925cS2CgBKSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095244; c=relaxed/simple;
-	bh=SnbfDLY4tTJqB1v8LhA/WdScgHkhh06wd2LjFSIubrE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hKEZ2cjdnVpGp5H83yFSP138Cs94AM4DuPglz6xM5W3OXtAQ7cX2j50wz1DSyj7zTXhiZSckF43MvG9U8Yw4ykpKfP4G6ws4p8Wv5SEGAvYYK8Xt6ew9IgUlYQoi7/paxo9ot2kekFWWrG2F7GPwmC0QCMckJIArqgxu1f7iSYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=heqTmse4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792095265; c=relaxed/simple;
+	bh=HojjwIF6mPv2+Mx1dmhXz+yurqqBob/ezcwRgtSOF3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cvSiOR3cnTSVOAa6v8KAD1Y0dIS0iSALLbYATno0AiZqyLz3ZUA+IN7OHyghs2K8PP1X3rB8K+Y9lQ63n+oIRuBeTDLt/i4LnOXS7HEnFPEKSq4CL5UP4eJh31z82QN71IbwhcsxLnDFx7osEIOzrZW1kCQ4OPKd9clT6/d8We8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=eQW6vmU7; arc=none smtp.client-ip=62.149.156.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="heqTmse4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792095241;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UYRSFyiULvh6szKRePAOtHKD+7/o0oF90IjOubYIGB4=;
-	b=heqTmse4IcYcxajpUHFO5NfmHq45vspk7SJEh7yI5uWAQF/Q7MV1MGN/4EYI4t5lyQXOAw
-	8hLacwH5qhmwIBBpy2po31mZgoSB366sQomyd0JdUYRle6wgmhoL3Vaa8QFdBCZxIdfgaT
-	RQWUpHh1uoo3+F2GpJDj/xhcPYM7k5k=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-600-IdpI9AU0N62UZVqT0kj7fQ-1; Thu,
- 15 Oct 2026 20:13:56 +0000
-X-MC-Unique: IdpI9AU0N62UZVqT0kj7fQ-1
-X-Mimecast-MFC-AGG-ID: IdpI9AU0N62UZVqT0kj7fQ_1792095234
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A9BBB1955F1A;
-	Thu, 15 Oct 2026 20:13:53 +0000 (UTC)
-Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6D8397C6;
-	Thu, 15 Oct 2026 20:13:50 +0000 (UTC)
-Message-ID: <f12ad8ee-4cad-4c7e-a0c9-c22fe894f14c@redhat.com>
-Date: Thu, 15 Oct 2026 16:13:49 -0400
+	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="eQW6vmU7"
+Received: from localhost ([79.43.52.162])
+	by Aruba SMTP with ESMTPSA
+	id HRnExVnAcN2P6HRnExyeTN; Thu, 15 Oct 2026 22:11:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1792095072; bh=HojjwIF6mPv2+Mx1dmhXz+yurqqBob/ezcwRgtSOF3s=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=eQW6vmU7dvF8CF9X1mGCNeUuf2SoUD9JjczeX97n+Z0ILVk/AyxBiTuVPBpRRXgRG
+	 RfQV0B9iHf0Af0l5ls3cC22nQVkqf6xT7uuxBAKIhkm4DoldgE0ihsFl2kwhYmeKCr
+	 3ODJytgWfOmXm0klejkOzQnzJrT2r+pc79ClKhnDu9vTKAr1rFDgqHAQBs05HRrI1/
+	 sdvtwpx0WUWOF45/NAtP7eg7ZUChs14//8sldIVGSGhbOdbmzo2Llv7QbmtAgJ62h8
+	 Sp+JXV5CgTVhKyc+JZPSoEty98LoT0e990hntUY4VJ4vzLnfUvOaHLcvXIBWuOaiGE
+	 brv3OVVJChOhQ==
+Date: Thu, 15 Oct 2026 22:11:10 +0200
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-kernel@vger.kernel.org, "open list:B43 WIRELESS DRIVER"
+ <linux-wireless@vger.kernel.org>, "John W. Linville"
+ <linville@tuxdriver.com>, "open list:B43 WIRELESS DRIVER"
+ <b43-dev@lists.infradead.org>
+Subject: Re: [PATCH wireless] wifi: b43: back off the N-PHY TX power per
+ rate
+Message-ID: <20261015221110.000078b3@mythread.it>
+In-Reply-To: <20261015175928.3558057-1-rosenp@gmail.com>
+References: <20261015175928.3558057-1-rosenp@gmail.com>
+X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/2] tick/nohz: Add runtime control of non-idle tick
- suppression
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
- <dakr@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>,
- He Rongguang <herongguang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, cgroups@vger.kernel.org
-References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
- <8d10bb84-d312-4be0-8c43-ddd602850a1d@redhat.com>
- <atER8P0ws6Gg4GWE@MacBook-Pro.local>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <atER8P0ws6Gg4GWE@MacBook-Pro.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-CMAE-Envelope: MS4xfHhZJYd9femzhxibRcD3AOuOak6Owxp+zp/0xkbtqhzp/M+GSksE4KDsypAlycTFiuP9M4sIAd16eUlihXrmVzDkwfNIqEevZptTiwsHozUFkj4cBDLs
+ p6eKsZ65o+QdyKZ8RIWD1gIpgBpTBW2Li5Qx9pH1nI0I04YHIXt7Jart7TpnAhxedRaxdAy8R6yW0dZMAsZUJHl0p/Nixq6GQxrGYN4wWF2nBJdN7LyyrG3N
+ bKWw/SRT+y1sCC0hXpHnQUrPtpbdqB0Fd32ohnEeh3Z8bKsjx8Z7hB0ioyzmnzTGhSrGVT/sNBYwAnid61ZUDAdLHwoFRs+UECnqadp2EvZnUpWhBJD4pltU
+ ejyGCyob
 
-On 10/15/26 1:48 PM, Peng Wang wrote:
-> On Thu, Oct 15, 2026 at 12:00:25PM -0400, Waiman Long wrote:
->> On 10/15/26 8:43 AM, Peng Wang wrote:
->>> Workloads and their need for periodic ticks can change after boot.
->>> This series lets userspace choose at runtime which CPUs in the boot-time
->>> nohz_full set retain the non-idle scheduler tick and which are permitted
->>> to stop it, while preserving the existing isolation configuration.
->>>
->>> The first patch adds a per-CPU tick dependency; the second exposes a
->>> sysfs CPU list. Permission defaults to all nohz_full CPUs. Revocation
->>> uses the existing asynchronous kick. Idle tick suppression is unchanged,
->>> and policy persists across hotplug.
->> So you are basically setting up more nohz_full CPUs than the system actually
->> needs to use at the moment and so want to disable nohz/tick part of
->> nohz_full CPUs that don't need it. Can you elaborate more about the problems
->> solve by introducing this new behavior?
-> Hi Waiman,
->
-> Yes. We have CPU-pinned workloads that benefit from reduced periodic
-> tick interference. The desired tick policy changes with CPU allocation.
->
-> With spare capacity, we allow selected nohz_full CPUs to stop their
-> tick. When capacity is fully allocated, we prefer to retain the
-> non-idle periodic tick across CPUs, avoiding an additional difference
-> in tick interference between housekeeping and nohz_full CPUs.
-What problem does that cause?
-> A CPU may still have only one runnable task in either case, so the
-> existing tick dependencies do not express this policy.
->
-> This series keeps the boot-time nohz_full CPU set, context tracking,
-> RCU offloading and housekeeping configuration unchanged. It only
-> controls whether those CPUs may stop their non-idle tick. The policy
-> can be changed without taking CPUs offline.
+Il giorno Thu, 15 Oct 2026 10:59:28 -0700
+Rosen Penev <rosenp@gmail.com> ha scritto:
 
-So the policy is to make the tick keeps running when there is only one 
-running task. Right? I am just not clear about the advantage of doing 
-that. Is there a use case that will require this particular feature? I 
-doubt this will get accepted unless there is a compelling reason to show 
-why we will want to have this feature.
+> On N-PHY rev 3+ the hardware TX power control aims at the highest
+> per-rate target, and an adjusted power table backs each rate group off
+> from it. b43 fills that table from nphy->tx_power_offset[], but never
+> sets the offsets, so they stay zero and every rate is sent at the
+> power allowed for CCK.
+> 
+> The SPROM power offsets exist to avoid this: on boards with external
+> PAs, OFDM and MCS rates have to be sent a few dB lower than CCK to
+> keep the PA linear. Sent at full power, 16-QAM and 64-QAM frames are
+> too distorted to decode. On an ASUS RT-N16 (BCM4718, N-PHY rev 5,
+> radio 2056, ofdm2gpo 0x66666666) the router could only send at 6-18
+> Mbit/s and MCS 0-2, even at -50 dBm, and 24 Mbit/s and up or MCS 3 and
+> up delivered nothing.
+> 
+> Set the offsets from the per-rate targets b43 already computes from
+> the SPROM, as brcmsmac does, before the table is built.
+> 
+> With this, the RT-N16 sends at 54 Mbit/s, and at MCS 7 with HT
+> enabled, and TCP from the router to a client goes from 9 to 17-18
+> Mbit/s.
+> 
+> Fixes: 8615eb2870f1 ("b43: N-PHY: support setting custom TX power")
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/net/wireless/broadcom/b43/phy_n.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/broadcom/b43/phy_n.c
+> b/drivers/net/wireless/broadcom/b43/phy_n.c index
+> 22359bd9db47..c9b2b7496983 100644 ---
+> a/drivers/net/wireless/broadcom/b43/phy_n.c +++
+> b/drivers/net/wireless/broadcom/b43/phy_n.c @@ -5834,6 +5834,7 @@
+> static enum b43_txpwr_result b43_nphy_op_recalc_txpower(struct
+> b43_wldev *dev, struct ieee80211_channel *channel =
+> dev->wl->hw->conf.chandef.chan; struct b43_ppr *ppr =
+> &nphy->tx_pwr_max_ppr; u8 max; /* qdBm */
+> +	int i;
+>  
+>  	if (nphy->tx_pwr_last_recalc_freq == channel->center_freq &&
+>  	    nphy->tx_pwr_last_recalc_limit == phy->desired_txpower)
+> @@ -5868,6 +5869,16 @@ static enum b43_txpwr_result
+> b43_nphy_op_recalc_txpower(struct b43_wldev *dev, /* Make sure we
+> didn't go too low */ b43_ppr_apply_min(dev, ppr, INT_TO_Q52(8));
+>  
+> +	/*
+> +	 * The hardware power control aims at the highest per-rate
+> target.
+> +	 * The adjusted power table backs other rates off from it,
+> so that
+> +	 * e.g. 64-QAM isn't sent at the power allowed for CCK.
+> +	 */
+> +	max = b43_ppr_get_max(dev, ppr);
+> +	memset(nphy->tx_power_offset, 0,
+> sizeof(nphy->tx_power_offset));
+> +	for (i = 0; i < B43_PPR_RATES_NUM; i++)
+> +		nphy->tx_power_offset[i] = max - ppr->__all_rates[i];
+> +
+>  	/* Apply */
+>  	b43_mac_suspend(dev);
+>  	b43_nphy_tx_power_ctl_setup(dev);
 
-Cheers,
-Longman
+I'm not the maintainer, and i also have the same exact patch in my repo 
+https://github.com/aleferri/b43-6362-wip/tree/main/patches/mainline, so 
+i'm all for it, but isn't the ppr currently populated with 2Ghz sprom
+params for all bands?
 
+Alessio
