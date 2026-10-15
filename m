@@ -1,107 +1,72 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892934848BA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EAB3E40EC;
+	Thu, 15 Oct 2026 09:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055057; cv=none; b=qSia8GXBX9jhNprTwxZo6aGau9AugTXb8Po/C7AyyiUjRGd395cnCJheq1MX6kNRBk+N6TB2yW9fFcQhQVZvyY6Wkqw8iPKq8t18yPO3f7mIXAQLEAmjz0ZiRHT4dwyKnLAXN4HwKWFjWO0RmNHEvdvIZYOVrwFrG6HnZx60LTc=
+	t=1792055077; cv=none; b=C3RLZk556DfD3a/TAi800DQcw4oibXATX8i6LBeQ5bi6AA89uo2s6cRj+IKWbnux6qgWtX3dFdfV86w5nSa/FhzIAZUNtffLuW6SkJTr0L5+CpkSIZfufmDcY2epaitGanjVh99rxLFc70TtmRoO+PeHbHbn8LKh1EYiqTxQv4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055057; c=relaxed/simple;
-	bh=xoSMGcPrzf+w4ikyCB84AbmV6Jpjst1FcJWplTx8esM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kBz9/Q2wk91TFbFvM8+DbajYZDqEuoi1CIiNRqmQ1dkcJjnxDQZsLBgeYFPefq0NcoeNTiqEvlssMEcctfkFtCkwcBiIKo+QDMOVSxzjqnfrDcOkvH3ToJRWQEwnez8FvPsWN0zyzSXnOi4Y5tdOEH3r4UP71uDggBUHdf2gG0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fQ3Samn+; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792055077; c=relaxed/simple;
+	bh=rIcgzJ1ny5/J3daVISJQD+ulG+XxhvSZdvi/N1YkZ/0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=o0kJY21WI9x6Zs9RQbg+Ep6QsJYTu8qHgcsH6qBUAokFT5X2V0+BA7lHVzdKlUt5njrnblvj/sQcwH34qKM6OimBAG+VOwrN2oYxkErQXYgwNfH8EzV8ySLxViNlp/WBRSYn/llspyx1nPgxuwIx15nWVP0kRLbMF9tvDMNS4bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecah4T/L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fQ3Samn+"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc751eddf25so3077674a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:04:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792055054; x=1792659854; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aAp8nRUf9PkjRjYtrHFE+R8uyBzEHqKOUymE8wD/INs=;
-        b=fQ3Samn+P858XwzOXIVfDZwxT/bskJ2O3BrrkISWkWOuh4248zlzPX5zxwI2qNL2F0
-         4QlPqYj7LP5mJAD41wo4k51wicG7L7Y9f1QJ2ykXeqw4RWayUrMIJx+zE0qXGRQMfKso
-         ZoO4MObKUXhmOJtU1QJPZI8q9Ww9SiK89QN0yhS0oCaPdBkUIotyieYKiBaB2or9uMvZ
-         hURy2YOV/a56ZDFwEitcunTJEGqQ7W8mWnzmecZ6srUB5xUlgCh7R05N6d9KTAPhFBqF
-         wEzM2PFnBOkVvuIwmnJHOhK1ypqsTAlMmw2l9gYy/Pje51Vfs/6RiTZJ7V6MYiwGJzn9
-         0Guw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792055054; x=1792659854;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aAp8nRUf9PkjRjYtrHFE+R8uyBzEHqKOUymE8wD/INs=;
-        b=WghrFjUpvRbfZPkKBnhoLwz5FSMFcLzPBxy7moV822+rZz7U9wW5l+jO646iwdMosR
-         Szg/oqNeRCUpwB1GCmWcSBHQOgzg6LYMFwpxmSYUPc7S783/zZzsm97gTWkbPVj7hbQT
-         RbQzUYlVdfhHiEg/XG+spOpgjFEcF110PgoIpqlPTNOR9MxMhZS3TDJ04AXAJlISgsQG
-         uuQ9fKit4OHFzbnQRls5JANeg+f7GDDbBQC09NQAOGn+DbfDojqkgAsInmHhKMsC+t7W
-         PcPHHvTWIfjE/TVY7ItUKr2rXlRlRc9bhDazaLCsx4bI2I/7a/8M50Jn/G0mSEsBQG0A
-         LL9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwQKn2HoDERKFgPziPQ6HNoOCGZ1y9+eJAVI6tfEqMzSJTkI6G3SNdaBaBGuSOo2q2cSSyJczAsy9g14RQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQCT7lV4UtVEVv1hmkLTCpJPU46HF3ySUzZL+N+mz5ra0QQu86
-	UbpaTfa7VYni1cfr1FooCFQh1GBEw78/lq1LDamMDn0rwHf0xDilNB99
-X-Gm-Gg: AYBFou1+Sch4FEN2S31FMvhyV+bq+MdsvfvBqioITczQA418RbLNWDHF6IWSb1/Bc8Y
-	DIjxGLDF/0DylYaPPwmQSUMOmXafMxMOgmKOm/CGWb6fyW0g4ZF5jBO5ygJUXlHztxg7CsBS4v7
-	ZmWDjzxhS7Edi6YeDr1/oBOmZSM8ZSJ9E9ma+8srr+zY8wVQ7cQ5nz8R7Lc9qhpLvqpSjFLjzhi
-	6hxrUbgQt+OJMccwJNtM4QREuw3AcmobO9n2sCpY1opG4JrOxH6kS5E+EDa+eAIibv70MkolnN8
-	X1oMoWzkwjyZWshWb2Rx881Sd8xgoh1aUJAdnoEymBHdPOKWHp/T/wfzwSZ/wIDo0idWtC7K4ky
-	cKGGDtfbPY4CO70IzDONNzxTkZ7vn/gHcgc2DT/HEUgwINeqXtP6ajbfy4NQ3LxWSbgLX+G7K1X
-	X9iEM1a9SfpdVNNVF70hJ6w0c4uAPWSX0B2NKDdz3lPMyXOJpLPVBCclPyHEe8WFJ9/mwX
-X-Received: by 2002:a17:90a:e7d2:b0:3ac:a521:959 with SMTP id 98e67ed59e1d1-3aca52109eemr559134a91.29.1792055053807;
-        Thu, 15 Oct 2026 02:04:13 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9474b52fsm3869119a91.9.2026.10.15.02.04.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:04:13 -0700 (PDT)
-Date: Thu, 15 Oct 2026 17:03:41 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen Wang <chen.wang@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, 
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 3/3] riscv: dts: sophgo: sg2044: Add eFUSE device
-Message-ID: <atCWzDzmknrsMNNQ@inochi.infowork>
-References: <20261014074516.240247-1-inochiama@gmail.com>
- <20261014074516.240247-4-inochiama@gmail.com>
- <20261014-romantic-pretty-petrel-36c7ec@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecah4T/L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12481F000C4;
+	Thu, 15 Oct 2026 09:04:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792055076;
+	bh=tmt5C5wnNkSte67ei197UKPIQT8pB7GNLGRn4j1UgVY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ecah4T/LRzgVLyo61rznlNkAwRcAcAOiNjcy0rFYcMcAdV/3sok0n5XsJMdrHmUjA
+	 oH77Id5eC4pgTpY/0CfXa6HMmApjBka2PtFGDWykas/vz9TbpVccHRWu5///+qG8j0
+	 z69JMW4OpfDhrp9wKJ5xCmQk79Jf7T9wTi1E5U9RZEcKJKgDU0XvmrHCy3sTQ3HCsk
+	 P8Z0uhKynOqPbyN0ogokG+qaHe23MHSg83o6ue5Vom9avR5mhHAlJvW6jfBKyw8jJj
+	 gMqMnESN6I5YZ9Y3AjdsfUagD4gHe2Xs7wUquVaP6yydkBSHq9owLtdvDuaQFh35sa
+	 tUhOtfnVQJ0MQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Roland Dreier <rolandd@cisco.com>, 
+ Edward Srouji <edwards@nvidia.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Carolina Jubran <cjubran@nvidia.com>, 
+ John Popplewell <john.popplewell@nmc2.ai>, Cosmin Ratiu <cratiu@nvidia.com>
+In-Reply-To: <20261014-ipoib-cancel-work-v1-1-6c0faac016b8@nvidia.com>
+References: <20261014-ipoib-cancel-work-v1-1-6c0faac016b8@nvidia.com>
+Subject: Re: [PATCH rdma-next] IB/IPoIB: Cancel normal flush work on device
+ stop
+Message-Id: <179205507348.3945842.17418999970026945894.b4-ty@kernel.org>
+Date: Thu, 15 Oct 2026 05:04:33 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-romantic-pretty-petrel-36c7ec@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Wed, Oct 14, 2026 at 01:43:50PM +0200, Krzysztof Kozlowski wrote:
-> On Wed, Oct 14, 2026 at 03:45:15PM +0800, Inochi Amaoto wrote:
-> > Add eFUSE controller node for SG2044.
-> > 
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > ---
-> >  arch/riscv/boot/dts/sophgo/sg2044-sophgo-srd3-10.dts |  4 ++++
-> >  arch/riscv/boot/dts/sophgo/sg2044.dtsi               | 12 ++++++++++++
-> >  drivers/nvmem/sophgo-efuse.c                         |  1 +
-> 
-> Review code before sending.
-> 
-> Best regards,
-> Krzysztof
-> 
 
-Yeah, I forgot this, I merge it in the wrong patch. Thanks.
+On Wed, 14 Oct 2026 13:47:04 +0300, Edward Srouji wrote:
+> ipoib_ib_dev_flush_normal() can race with ipoib_stop() because the normal
+> flush work does not run under RTNL.
+> 
+> Before commit a77a57a1a22a ("IPoIB: Fix deadlock on RTNL in
+> ipoib_stop()"), ipoib_stop() flushed ipoib_workqueue after clearing
+> IPOIB_FLAG_ADMIN_UP and before calling ipoib_ib_dev_down(). This ensured
+> that any in-flight flush work completed before ipoib_ib_dev_down()
+> performed the final clear of IPOIB_FLAG_OPER_UP.
+> 
+> [...]
 
-Regards,
-Inochi
+Applied, thanks!
+
+[1/1] IB/IPoIB: Cancel normal flush work on device stop
+      https://git.kernel.org/rdma/rdma/c/66196a559be596
+
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
+
