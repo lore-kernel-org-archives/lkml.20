@@ -1,210 +1,433 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA26C5293ED
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B7D52CCD1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072707; cv=none; b=H7B5bmxXr9JL9/86p2aq06N9v9UBNjZI+89QM+q0Z+t089u8RIq0pZZ6r2n+AGCbH3TtS67MsrN05yjHeaTOrAiXQhko+u8knHFC0A9Osj5JS7VrELwjMr2/eXVj/xlB2wLO07NZA7XfsNB2tfQtLwosU9lIkPx60j28HP+qnss=
+	t=1792072709; cv=none; b=kIuKDnx4BY+90SU90kU05w7CqApPbSUgAzciQQzeaKjUFIKNQ0O1A/ro4KxyIv8XFLafDD2wmOM5M7eU5nJEvXa6qiZvjclJJaraA4oBt0RDSq+q8IB8E6SV6yu82Pu5L3RMOBKybFn5Xt4djlFpF1Ama0qaAQSUFueI1SM9qfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072707; c=relaxed/simple;
-	bh=CICcyDkLBlgP0XbsqlouCRaSY2ZySTTQkbqDa3AC5pM=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=Ki1KYp+BB/lp71vJh0cFww14L/O0wtUqEpHBe9yR8mR5jKdmToiVKrvBl7JfT6avQkz2ht4cpw0XC8iX7M94h7+n8/qdd/wyiFwI9Q5pYsCHbjAHEy2OBhGHpXhw9b6ukO1Gw5BHuVQBDn5MLVO6fj4VweJkFbluK6G0IMnWGdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V0QarqSx; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792072709; c=relaxed/simple;
+	bh=OCv0J4F0+cKT1MGHRq/Orj+bkEruIA6kgjMbhaQyAzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WctQXBEgCvSgV6KYEXt4Na16fgGw0Bms9uPTylQrr1NYDX0X6A+bpxlss0QQRYbI01Bhmar+75xmIG0HJQijp2K5M7oMgBU+tnVPnY7n3SitBI1RwmCbP1Q/e5YFeQaX54kMXuUlYJBk1VZ6gXBE44uhbg9b63hsgWWEVvPKtGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=iawvqngN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xr6tPNFl; arc=none smtp.client-ip=103.168.172.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V0QarqSx"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-89ea35973dfso33264b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792072705; x=1792677505; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CICcyDkLBlgP0XbsqlouCRaSY2ZySTTQkbqDa3AC5pM=;
-        b=V0QarqSxS/LBSThWWzo7eT3JB5WdMp/ZzlJ8xsOOFVG3seaQLAodhDpqA7ptiiRbm8
-         xlwzeK+xxOxIAxJMXynuRLhZjSIBHvhueW//sKaXcZu0Yrc9LHO0vhvWZMJRBgho3pJ8
-         DgirW9su++8Q/kCk/yeFvu1OmGqxAKbXBYWxLhWASaFmp1PQtE9sdmla9QxI+pnNcYw2
-         N9K5TB2MiLD8oj7QA4a4mSFjUkGJaXSs+nmmERkdzKKhmcUR56UtkY+HuFxFhgzcAdcx
-         NtBkxU3Eg9frAVHAI05CzntDfedzQQGZ9Xjznw7uUrSIvNGIcKsdH6iaM8duxsBmu7FM
-         dmmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072705; x=1792677505;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CICcyDkLBlgP0XbsqlouCRaSY2ZySTTQkbqDa3AC5pM=;
-        b=bsMPo77dDk+sW6xNupb4oaGp0V10OEDDz0lHPcNJ3LPTcji2BtgKAi7rYADb0+5179
-         vv4mzf26ZOob5p9LNHy8nIUA19xZlvA6S69J9VqAmy81qw1ymxjclWtooe3cONIgMRsJ
-         ADsqMCphzGtu6uomuqEoCQv9cgNWg3s6p1Rro/hC63RU+h8f8voFW8W8fOAMmD+q+HC0
-         +cfly3XLV+/bXO3u0o/ywR35AklWcVK/8SfFKhqPrTV5ljMkV6fgOzktPbBimiCVUNlG
-         c88weLU2wyxVp24YfYQD9bD6Zrqz4gw30P7oCMQ0xjGgncXZV6IFyW4N3MaHZU7D3Q1i
-         2sag==
-X-Forwarded-Encrypted: i=1; AKwUvBzx1wXBrb4XtOdnpZ0a4t3IT+ykFtcfJRze0PsCXHZaOdtLQ++ByPiCyEoycXRDqAAC2HJccVIqK7Qnup8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBa3xnfCQq244BgjpzP3MbXvfUd4aiCLkp4NWN7HloudyC7pNp
-	C1SQDv89aDBOXuM9M0UADHMwDb7kA66/F0KW8MbUZBYUFwgmpJpv9bRG
-X-Gm-Gg: AYBFou04+U+NhbzJLbwJB91jBcw7PBppXvUuNDlHAkUKG/nRLPwwGq1uyDXe+1/B3B/
-	+OCC0X4IDSqKJqeYZKekXcZo9mgFO4TaiHkUNCak7Fn8kE6fZJl0aI0TrIJxB4OOTCa3/CD8dbp
-	MR7NMFgTuAU2vZjwI783rGmiNvTPjvaZGMaveVAMGH03XSw0Maz/TFWlCiqhPS1YN1p9ER6Oiik
-	k6D3x/KTMLYqTjaSlaI2oSwermgh3b+gvXDmdBNGiFXhIffKFYJ+PGk/9HnFyReyLNFgHHm4htd
-	P7MALKSUQl+WPh5qf8+FiFeyu3YWelDlgbmYRSjA76ISlPExFF0TqRkfabBXdJBq+9mt4AG7aKy
-	mZRcmiXsP74GbeT38CCmSFkNl7Yk7331C8NwXCfyINctx24fJhusx3UvS4WfdrJk+aQAjL1Cuyr
-	1LWiiBhiV+GbgNTRF53KXaz1bnvPaYqDPx3Mp9RQnQchiXNjGjSYZdZ6ksLRmmUQjGztXGVckeG
-	50xtp4LOTlDb0lN4KsU
-X-Received: by 2002:a05:6a00:4a86:b0:89e:f07f:d848 with SMTP id d2e1a72fcca58-89ef07fe383mr756538b3a.3.1792072704961;
-        Thu, 15 Oct 2026 06:58:24 -0700 (PDT)
-Received: from smtpclient.apple ([23.247.139.92])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a437csm2447219b3a.19.2026.10.15.06.58.21
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:58:24 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="iawvqngN";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xr6tPNFl"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id E3D111380286
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:26 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 09:58:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1792072706; x=
+	1792076306; bh=3/Q6wychZRDpWguDGY6+VUJKrf/+wIfeSmHd7gFbPr0=; b=i
+	awvqngNARpAE/TLK4RtHxMeNE3TZygqK/rDPNeHvb2w+9/B0ZsnG10SGIOCK8KV3
+	78hz2SGOf6aSAD+ZagL+V3DbOpKNdXhC+dkb2zDfYN3u9pRYRHPzeOt9T3U5MvHm
+	VmFJrCtvFv0VBkOQBDGu6+7Oqg+6NI4yTGSU8GDxS8R7lJtVeVXm4XkcEk4Rfa46
+	/H3DpJgFGymOCdqsudGR9/Dhge9r2rAnXGwrFA7MO4pcb66OgXZchCNxXbvqlHSe
+	pxt3Ydi42Et74t4rftWk7IFi621XYlv7iC4WMr+32vSQiQ6BhPMaD7Lt51aW3zTo
+	ohW+iNDsPNHrkZPK1qRjw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792072706; x=1792076306; bh=3
+	/Q6wychZRDpWguDGY6+VUJKrf/+wIfeSmHd7gFbPr0=; b=xr6tPNFlrzoYZIQIk
+	B3mECbrwebsOLGPcdeZaAZoSuOdGKb+axz3V3yLZuLXLdukoy7JLkeKCkYkxV1xA
+	tgkKpfmIqgP4/UQmw71eNHvpqE3H/oKd3h4ua4Fwdu8LCxRTieuAAo/HKyNwYGYv
+	vbMM/v+1KESlaSzBU0c3kOmB5a3nbKaSdeM5hiT+HGvEHRuSTZrLiYa5wf+pfujB
+	yUZ7qjIHVTMH131ZqZZGYD4qg108g44862CBFPQLJQyYfNPv2vl8uF/1pymlagBB
+	tSJBOuZeluHmLBhtRIhmmwnHBVEmGF0ObbxcArQtTgfnvxYz40rzjOv6wACRoX3f
+	FZOmg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792072706; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:FxWAdiapLz8yaT+6x+GPGOf7aVJsaYuX/ARU5RK1+AcmAVf
+	uZG/Sfry9CT/O9spD/O34O2PGavaesRYC4MmlzRkMLoZx4/6Yym4SDrIK/L9khxs
+	oMhJyjwCk7UpJiitglc5DS9qw3REG+sV2vqJlieZCwuDENuIhdr3eUNGwZWzjMe7
+	PGuDU2HuIvxH+TxMweR4oRT5dFImX/UqWtZs3spMO1SY3drdP4rvkPbMJMLIfDhn
+	EcrYyhgSaQ23TygImZ2ppppj5Exe10jhb/XuPMob2mq7wgGmZ3itymjac1757/+R
+	9+Gcc2J2o4anwj/d4UzRJ80DmNh6Ra1VBq1S3iw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:J1qIQ0oheCSSO4Oo6x7gs3ST57Fjww9Za6MZ8s3CE0w=:OCv0J4F0+cKT1MGHRq/Orj+bkEruIA6kgjMbhaQyAzo=;
+X-ME-Sender: <xms:AtzQaiHMIfxUGI_NYffml3NcyLRi2ddZDFRLNuQrRbzD4Cm7GJ-quw>
+    <xme:AtzQasr_ImjUphF0IcsbcidZJFLyfkLB2sWvtOoNuertM5OPaWpgKPw_T4yrVekfO
+    GQtLNtHvMUOEUdgyKraW8GU45gxHGxvq0ngIrPGSVg8_smK6HW5iJ3J>
+X-ME-Received: <xmr:AtzQajY0ZClSuwhhsJjS2NCxhYQnDd1OdL0MB9lV4aFJWUHpYEB-XMy9bA>
+X-ME-Proxy-Cause: dmFkZTGmFAKykKSAVqFKtPUpA7z4HQxXGeWq8/WsVMtzile6xT4qlc2iJUMvU5uto9J+tl
+    6xiHAOs1vo9mJEQbj1wOR5tng2NlvDB6a5Z09lC8JabfXEHTsrLDRNS8fsGwBbVTP+reZe
+    OPwjXNfp4gnxt9qvz6/K/kr69tIFsz1HP6WSz8b9cBQ+1gKTJaE7P9pHmuAiAUKfuzJtVh
+    0WZBQIH5ePTnc6MO1Zq7Pn6fWiuTviDKYiSaak1txos9SONMiUdZzxGnVOrmnxkHNtSoO2
+    Fu9ajJhlc/cETsT+/iB2rFW91QAMj4/zaA/p3GMz4isfOE2rvE5e4ENNuPhiQt/3u/qnlR
+    Az/eWamD4w7ZWn3s3oi1ZC1CvEq3+Pr08RHUB3PC2Buzgyd5F2QaN2Z1PENyluqqqARYjs
+    eYBoh4TDwak9q9r6p+v/4tocQFhLQ6IyEF3/6RAyMH8YwLBwSOHcTXToVmm9X3qP7aMiAH
+    j8xRyrZtqQBdwlwr2igbvaPie95KNsNc3Om/hbrqOpfifKkLBsN/c7pfYR4yyVRWLfYRBj
+    PTLsItgD7CdO4NC7V3CMjfZ0/DLL/s/Mb3IxG6iKqJ1/nmMsnwsdwYCN1UR8Q84dHIjGQ4
+    edIlgJce22Wh9J6st+yroGrUWZsXgdD656Bs7xV2dJHJrEkiiy7hQQfifZQw
+X-ME-Proxy: <xmx:AtzQatXdiiu6WNVqMybFRZy1Kyt7bbM-pwjcxZ9FbgF69RWKkZeSOw>
+    <xmx:AtzQak9I0pFmxS6ijUWRpPGmXyTQtdzUVxHUs7hVmq_JJUf12XDr6Q>
+    <xmx:AtzQau_HIS3cvVs867xVTt5U5wMfhPFuP_8hJxEZkvKX5HgnhwG8Ng>
+    <xmx:AtzQasS2mg4QcHnSvj_17JCnbuRE6pP9E3Cqs4kwxqi4qA-ps4gpwQ>
+    <xmx:AtzQaoNC-FL-TmUGxuaO6wrESJr9EwD6iqs51ppVpbCeU_dl6_6FH_Sy>
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Oct 2026 09:58:25 -0400 (EDT)
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
+Date: Thu, 15 Oct 2026 19:27:54 +0530
+Message-ID: <20261015135801.19326-2-suhaas@s-joshi.in>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015135533.18761-1-suhaas@s-joshi.in>
+References: <20261015135533.18761-1-suhaas@s-joshi.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH RFC v2 0/4] gpio: loongson-64bit: add interrupt support
- for more models
-From: Miao Wang <shankerwangmiao@gmail.com>
-In-Reply-To: <CAMRc=Mf0c8mqU46xqNVZRF+GSy=uZnHq_o90UsQXi+tUwgzEDw@mail.gmail.com>
-Date: Thu, 15 Oct 2026 21:58:08 +0800
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Miao Wang via B4 Relay <devnull+shankerwangmiao.gmail.com@kernel.org>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Yinbo Zhu <zhuyinbo@loongson.cn>,
- Linus Walleij <linusw@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F0F05A76-F67E-438F-BACF-F5B118A491AA@gmail.com>
-References: <20261002-loongsongpio-v2-0-6e3eb150a4ef@gmail.com>
- <CAMRc=McnDBO6OZx6p9HGHn=Yyt8ydD=8Z=zYZvYvuy-_DUq6tQ@mail.gmail.com>
- <7D6EB1C6-0CCB-44F1-B698-89B0479EEDA2@gmail.com>
- <CAMRc=MeW2nR8W3_4266N05p3Oa1WPNJhA92+T3miXQ0k5CsyJg@mail.gmail.com>
- <317E251E-9135-4376-B813-74B8A748FD72@gmail.com>
- <CAMRc=Mf0c8mqU46xqNVZRF+GSy=uZnHq_o90UsQXi+tUwgzEDw@mail.gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+In damon_split_region_at(), we copy the entire probe_hits[] and
+last_probe_hits[] arrays of DAMON_MAX_PROBES size. However it is possible
+that the number of probes installed is less than DAMON_MAX_PROBES, in which
+case one or more iterations is/are redundant. To remedy this, iterate over
+only as many times as the number of installed probes. To do so, accept a
+struct damon_ctx pointer in damon_split_region_at(), and update all
+invocations of the function to pass the new argument.
 
-> 2026=E5=B9=B410=E6=9C=8815=E6=97=A5 21:24=EF=BC=8CBartosz Golaszewski =
-<brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> On Wed, 14 Oct 2026 18:20:49 +0200, Miao Wang =
-<shankerwangmiao@gmail.com> said:
->> Hi,
->>=20
->>> 2026=E5=B9=B410=E6=9C=8814=E6=97=A5 23:33=EF=BC=8CBartosz =
-Golaszewski <brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->>>=20
->>> On Thu, 8 Oct 2026 12:21:43 +0200, Miao Wang =
-<shankerwangmiao@gmail.com> said:
->>>> Hi,
->>>>=20
->>>>> 2026=E5=B9=B410=E6=9C=888=E6=97=A5 18:04=EF=BC=8CBartosz =
-Golaszewski <brgl@kernel.org> =E5=86=99=E9=81=93=EF=BC=9A
->>>>>=20
->>>>> On Thu, 1 Oct 2026 20:13:18 +0200, Miao Wang via B4 Relay
->>>>> <devnull+shankerwangmiao.gmail.com@kernel.org> said:
->>>>>> This patch series aims to correctly add interrupt support for =
-GPIO
->>>>>> controllers found on more Loongson CPUs. The GPIO controllers in =
-such
->>>>>> models do not have a complete intgrated interrupt controller, but =
-choose
->>>>>> to delegate interrupt handling to their parent interrupt =
-controller.
->>>>>> This sounds like a heirarchical interrupt setup, but what makes =
-it
->>>>>> more complex is that multiple GPIO lines in these controllers may =
-share
->>>>>> one interrupt line on the parent interrupt controller. The =
-details is
->>>>>> described in the third patch.
->>>>>>=20
->>>>>> Signed-off-by: Miao Wang <shankerwangmiao@gmail.com>
->>>>>> ---
->>>>>=20
->>>>> The series looks pretty good. Who is the RFC addressed at in this =
-case? I can't
->>>>> really answer the questions from patch 3/4 as I don't know this =
-platform nor am
->>>>> I well versed in ACPI. Maybe Cc the GPIO ACPI maintainers for =
-review?
->>>>=20
->>>> Thanks for your review. The RFC contains two questions, the first =
-is about
->>>> the firmware interface, including FDT and ACPI; the second is about =
-the
->>>> way handling the delegated IRQs.
->>>>=20
->>>> Regarding the firmware interface, it is to be decided how to =
-declare
->>>> platform irq numbers for the GPIO controller. Such a GPIO =
-controller
->>>> may have N gpio lines with M parent interrupt lines (M < N). The
->>>> firmware should a) list M irq numbers corresponding to the M parent
->>>> interrupt lines or b) list N irq numbers (which might be =
-duplicated)
->>>> orresponding to the N gpio lines. Previously b) was chosen by the
->>>> kernel driver. However actual ACPI tables found in the published
->>>> firmware chose a). The discussion about it happened in [1].
->>>>=20
->>>=20
->>> Unless it impacts DT systems, I'll let Andy handle the ACPI part. =
-Please Cc him
->>> next time as I pointed out under the RFC.
->>=20
->> Will add him on the Cc list in further revisions.
->>=20
->>>> Regarding to the interrupt handling delegation, since there is no
->>>> complete interrupt controller integrated with the GPIO controller,
->>>> the interrupt handling, including detecting edge triggered =
-interrupts
->>>> and masking/unmasking, should be delegated to the parent IRQ =
-controller.
->>>> I want to check if my implementation approach is acceptable and not
->>>> violating any implicit rules on the interrupt subsystem side.
->>>>=20
->>>=20
->>> I'd suggest to run your implementation by Thomas Gleixner because =
-directly
->>> accessing the internals of the parent's irq data looks fishy. For =
-instance:
->>> you call irq_set_type() directly without going through __setup_irq() =
-->
->>> __irq_set_trigger() which does some additional bookkeeping.
->>=20
->> I would originally tend to avoid directly calling into =
-->irq_set_type() and
->> other handlers like this. However, the IRQ subsystem does not seem to =
-provide
->> APIs to mask, unmask or set type of a given IRQ. Furthermore, =
-__setup_irq()
->> is for registering irq_handler for an irq, while in chained irq chip, =
-however,
->> irq_flow_handler is needed and should be registered via =
-__irq_do_set_handler().
->>=20
->=20
-> As I said: I'd involve Thomas in this discussion as it's his =
-territory. I'm
-> afraid I lack the deep knowledge of the interrupt subsystem internals =
-to be
-> able to help here and I'd also prefer to avoid adding any new abusers =
-of the
-> IRQ API to the kernel.
+Also update damon_test_split_at() and damos_test_filter_out() in
+core-kunit.h to supply a context to function paths that call
+damon_split_region_at().
 
-+Cc-ed Thomas
+Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+---
+ mm/damon/core.c             | 42 +++++++++++++-----------
+ mm/damon/tests/core-kunit.h | 64 +++++++++++++++++++++++++++++++------
+ 2 files changed, 78 insertions(+), 28 deletions(-)
 
-Cheers,
-
-Miao Wang
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index bebd2889c2c8..2677fabc9c29 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2051,8 +2051,8 @@ static unsigned long damon_region_sz_limit(struct damon_ctx *ctx)
+ 	return sz;
+ }
+ 
+-static int damon_split_region_at(struct damon_target *t,
+-				  struct damon_region *r, unsigned long sz_r);
++static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
++		struct damon_region *r, unsigned long sz_r);
+ 
+ /*
+  * damon_apply_min_nr_regions() - Make effect of min_nr_regions parameter.
+@@ -2077,7 +2077,7 @@ static unsigned long damon_apply_min_nr_regions(struct damon_ctx *ctx)
+ 	damon_for_each_target(t, ctx) {
+ 		damon_for_each_region_safe(r, next, t) {
+ 			while (damon_sz_region(r) > max_region_sz) {
+-				if (damon_split_region_at(t, r, max_region_sz))
++				if (damon_split_region_at(ctx, t, r, max_region_sz))
+ 					goto out;
+ 				r = damon_next_region(r);
+ 			}
+@@ -2474,6 +2474,7 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
+ /*
+  * damos_skip_charged_region() - Check if the given region or starting part of
+  * it is already charged for the DAMOS quota.
++ * @ctx: The pointer to the context.
+  * @t:	The target of the region.
+  * @rp:	The pointer to the region.
+  * @s:	The scheme to be applied.
+@@ -2496,8 +2497,8 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
+  *
+  * Return: true if the region should be skipped, false otherwise.
+  */
+-static bool damos_skip_charged_region(struct damon_target *t,
+-		struct damon_region *r, struct damos *s,
++static bool damos_skip_charged_region(struct damon_ctx *ctx,
++		struct damon_target *t, struct damon_region *r, struct damos *s,
+ 		unsigned long min_region_sz)
+ {
+ 	struct damos_quota *quota = &s->quota;
+@@ -2525,7 +2526,7 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ 				}
+ 				sz_to_skip = min_region_sz;
+ 			}
+-			damon_split_region_at(t, r, sz_to_skip);
++			damon_split_region_at(ctx, t, r, sz_to_skip);
+ 			skip = true;
+ 		}
+ 	}
+@@ -2583,12 +2584,12 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			damon_split_region_at(ctx, t, r, start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		damon_split_region_at(ctx, t, r, end - r->ar.start);
+ 		matched = true;
+ 		break;
+ 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
+@@ -2781,7 +2782,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 					c->min_region_sz);
+ 			if (!sz)
+ 				goto update_stat;
+-			if (damon_split_region_at(t, r, sz))
++			if (damon_split_region_at(c, t, r, sz))
+ 				goto update_stat;
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+@@ -2828,7 +2829,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
+ 		if (damos_quota_is_full(quota, c->min_region_sz))
+ 			continue;
+ 
+-		if (damos_skip_charged_region(t, r, s, c->min_region_sz))
++		if (damos_skip_charged_region(c, t, r, s, c->min_region_sz))
+ 			continue;
+ 
+ 		if (s->max_nr_snapshots &&
+@@ -3665,15 +3666,18 @@ static void damon_verify_split_region_at(struct damon_region *r,
+ /*
+  * Split a region in two
+  *
++ * ctx		pointer to the region's context
+  * r		the region to be split
+  * sz_r		size of the first sub-region that will be made
+  *
+  * Return: 0 on success, negative error code otherwise.
+  */
+-static int damon_split_region_at(struct damon_target *t,
+-				  struct damon_region *r, unsigned long sz_r)
++static int damon_split_region_at(struct damon_ctx *ctx, struct damon_target *t,
++		struct damon_region *r, unsigned long sz_r)
+ {
+ 	struct damon_region *new;
++	struct damon_probe *p;
++	int i;
+ 
+ 	damon_verify_split_region_at(r, sz_r);
+ 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
+@@ -3685,11 +3689,13 @@ static int damon_split_region_at(struct damon_target *t,
+ 	new->age = r->age;
+ 	new->last_nr_accesses = r->last_nr_accesses;
+ 	new->nr_accesses = r->nr_accesses;
+-	/* todo: do this for only installed probes */
+-	memcpy(new->probe_hits, r->probe_hits, sizeof(r->probe_hits));
+-	memcpy(new->last_probe_hits, r->last_probe_hits,
+-			sizeof(r->last_probe_hits));
+ 
++	i = 0;
++	damon_for_each_probe(p, ctx) {
++		new->probe_hits[i] = r->probe_hits[i];
++		new->last_probe_hits[i] = r->last_probe_hits[i];
++		++i;
++	}
+ 	damon_insert_region(new, r, damon_next_region(r), t);
+ 	return 0;
+ }
+@@ -3718,7 +3724,7 @@ static void damon_split_regions_of(struct damon_ctx *ctx,
+ 			if (sz_sub == 0 || sz_sub >= sz_region)
+ 				continue;
+ 
+-			damon_split_region_at(t, r, sz_sub);
++			damon_split_region_at(ctx, t, r, sz_sub);
+ 			sz_region = sz_sub;
+ 		}
+ 	}
+@@ -3750,7 +3756,7 @@ static void damon_split_some_regions(struct damon_ctx *ctx,
+ 			if (sz_sub == 0 || sz_sub >= sz_region)
+ 				continue;
+ 
+-			damon_split_region_at(t, r, sz_sub);
++			damon_split_region_at(ctx, t, r, sz_sub);
+ 		}
+ 	}
+ }
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 849cf61cb828..0a442f1e6a42 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -141,6 +141,8 @@ static void damon_test_split_at(struct kunit *test)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r_new;
++	struct damon_ctx *ctx;
++	struct damon_probe *p;
+ 
+ 	t = damon_new_target();
+ 	if (!t)
+@@ -150,13 +152,29 @@ static void damon_test_split_at(struct kunit *test)
+ 		damon_free_target(t);
+ 		kunit_skip(test, "region alloc fail");
+ 	}
++	p = damon_new_probe();
++	if (!p) {
++		damon_free_region(r);
++		damon_free_target(t);
++		kunit_skip(test, "probe alloc fail");
++	}
++	ctx = damon_new_ctx();
++	if (!ctx) {
++		damon_destroy_probe(p);
++		damon_free_region(r);
++		damon_free_target(t);
++		kunit_skip(test, "context alloc fail");
++	}
++	damon_add_probe(ctx, p);
++	damon_add_target(ctx, t);
++
+ 	r->nr_accesses = 42;
+ 	r->last_nr_accesses = 15;
+ 	r->probe_hits[0] = 7;
+ 	r->last_probe_hits[0] = 3;
+ 	r->age = 10;
+ 	damon_add_region(r, t);
+-	damon_split_region_at(t, r, 25);
++	damon_split_region_at(ctx, t, r, 25);
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
+ 	if (damon_nr_regions(t) != 2)
+ 		goto out;
+@@ -175,7 +193,7 @@ static void damon_test_split_at(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, r->age, r_new->age);
+ 
+ out:
+-	damon_free_target(t);
++	damon_destroy_ctx(ctx);
+ }
+ 
+ static void damon_test_merge_two(struct kunit *test)
+@@ -1799,6 +1817,8 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	struct damon_ctx *ctx;
++	struct damon_probe *p;
+ 
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
+ 	if (!f)
+@@ -1818,28 +1838,44 @@ static void damos_test_filter_out(struct kunit *test)
+ 	}
+ 	damon_add_region(r, t);
+ 
++	p = damon_new_probe();
++	if (!p) {
++		damon_free_target(t);
++		damos_destroy_filter(f);
++		kunit_skip(test, "probe alloc fail");
++	}
++	ctx = damon_new_ctx();
++	if (!ctx) {
++		damon_destroy_probe(p);
++		damon_free_target(t);
++		damos_destroy_filter(f);
++		kunit_skip(test, "context alloc fail");
++	}
++	damon_add_probe(ctx, p);
++	damon_add_target(ctx, t);
++
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, f, 1));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 2;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(ctx, t, r, f, 1));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = 6;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_FALSE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(ctx, t, r, f, 1));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = 1;
+ 	r->ar.end = 4;
+-	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, f, 1));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
+@@ -1855,7 +1891,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	r->ar.start = 2;
+ 	r->ar.end = 8;
+ 	KUNIT_EXPECT_TRUE(test,
+-			damos_filter_match(NULL, t, r, f, 1));
++			damos_filter_match(ctx, t, r, f, 1));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
+@@ -1868,7 +1904,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	damon_destroy_region(r2, t);
+ 
+ out:
+-	damon_free_target(t);
++	damon_destroy_ctx(ctx);
+ 	damos_free_filter(f);
+ }
+ 
+@@ -2458,6 +2494,7 @@ static void damos_test_esz_goal_temporal(struct kunit *test)
+ static void damon_test_last_region_quota_reset(struct kunit *test)
+ {
+ 	struct damos s = {0};
++	struct damon_ctx *ctx;
+ 	struct damon_target *t;
+ 	struct damon_region *r1, *r2;
+ 	unsigned long min_region_sz = 1;
+@@ -2484,7 +2521,14 @@ static void damon_test_last_region_quota_reset(struct kunit *test)
+ 	s.quota.charge_target_from = t;
+ 	s.quota.charge_addr_from = r1->ar.end;
+ 
+-	skipped = damos_skip_charged_region(t, r2, &s, min_region_sz);
++	ctx = damon_new_ctx();
++	if (!ctx) {
++		damon_free_target(t);
++		kunit_skip(test, "ctx alloc failed");
++	}
++	damon_add_target(ctx, t);
++
++	skipped = damos_skip_charged_region(ctx, t, r2, &s, min_region_sz);
+ 
+ 	/* 'r2' is not processed, it should not skip */
+ 	KUNIT_EXPECT_EQ(test, skipped, false);
+@@ -2493,7 +2537,7 @@ static void damon_test_last_region_quota_reset(struct kunit *test)
+ 	KUNIT_EXPECT_PTR_EQ(test, s.quota.charge_target_from, NULL);
+ 	KUNIT_EXPECT_EQ(test, s.quota.charge_addr_from, 0);
+ 
+-	damon_free_target(t);
++	damon_destroy_ctx(ctx);
+ }
+ 
+ static struct kunit_case damon_test_cases[] = {
+-- 
+2.55.0
 
