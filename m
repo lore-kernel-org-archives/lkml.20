@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAFF51AFF4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4D84D5984
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063018; cv=none; b=GGBf6jsas2KNEl9MGrLHE/lwn64TwsgPi0MYIUTQBLL4P98KvOTMaGD3b9CMnQnlOj9YNywoTQQ5FQHAlb9PhpqZC0rjFRKsoCcxU8YaKGpynMqDgGbZow7L40PkvAmb0Y3j2b+R72FPK37Oyw+c5sxIIZwINGdtIgoZBjb1vJk=
+	t=1792063019; cv=none; b=qBZHPTsetEdD60e4dlDrrChZS7hJR7Ew9H1BArjFAGlJ4pxgncjnY5aRVjJUVn2rBtT7d+Qo1tfbb0YF/98xGqEwas9hk3iBxIx+c9la8iZ2J4Pvmr3Ccc4OMDl17tdBqt1NKuAp9/Tnhw5HJooZoxR8WI05Vz9siPRsGA2uxGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063018; c=relaxed/simple;
-	bh=qMp5HZDET6t4NRwZDDm2bhglOWdrH264jAdXSIODebA=;
+	s=arc-20240116; t=1792063019; c=relaxed/simple;
+	bh=WcUMVWweb5f3swf9yKUqGoVDO5r8H/qimMUgyzAtyXQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eCk+Q+ZpFyrSAyoid/O1dASmHRxXWVCDmKeTAPi1xOHXJnROmnUM0vNc5/F5y+k39883rJXizcbL2xed0peM8cqn4l0uV4Hh3O4Ri5zFgtZlzyAadYIbhSl/XhmyIbFjcJpvXrwH7thqud5NnD+AMKkQoD/bpMGkmUgf/oMceI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=anVg+2s5; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=HWvmM1JqPDd6B2F5wiF7Py5zkBNj63B47M+c6usOmXsCC3tmdeb9mvAeRyjRa1v6upI8eDyFTiLAljgxSaNZMKhJP27JHL59tIwD0JYZtRARotR/1jzsFtTSwj8JUYE1BZDN7L5AOjQ2CXHBp/Hzs8Uxa4sHQGYCg/PeB33l/Es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=RREF5pKN; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="anVg+2s5"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RREF5pKN"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 536C0166C;
-	Thu, 15 Oct 2026 13:14:34 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6B66A4F1;
+	Thu, 15 Oct 2026 13:14:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792062875;
-	bh=qMp5HZDET6t4NRwZDDm2bhglOWdrH264jAdXSIODebA=;
+	s=mail; t=1792062876;
+	bh=WcUMVWweb5f3swf9yKUqGoVDO5r8H/qimMUgyzAtyXQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=anVg+2s5u2rxs6DwGlz98i4idwwRcFZLWVywzNG6SmN6ZNqqH3NmpPj2Fgx/3K101
-	 UMVZGRACauQV984Lw6i0ibXioeemNZco5gEnkxqk9cwUNvkxzX4U4AQe6U8QMLrrj3
-	 mL056MVp6WxgVRzB4JCg+6YOkVFzvHsk+Yud+8Wc=
+	b=RREF5pKNe5swA+BS/Nj4mxZFtW+CxEXyJl7Sy2DEP7uCs1a0FR02OX39L+wHC2iQV
+	 vcY5UUV7v4qCSoo9sOhZTxdE7IBlG/NKZNYqucMVtSzYDCPlhrVCBTMt4ljXOnd/Ct
+	 HknobpsrCGYF6O8lq/3/D8dIdh+X66OOfBF22o6o=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:16:02 +0300
-Subject: [PATCH v5 11/13] drm/bridge: tc358762: Drop
- drm_bridge_funcs.mode_set
+Date: Thu, 15 Oct 2026 14:16:03 +0300
+Subject: [PATCH v5 12/13] drm/bridge: tc358762: Set DE_POL and DCLK_POL
+ properly
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-11-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-12-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -52,109 +52,74 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3099;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2009;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=qMp5HZDET6t4NRwZDDm2bhglOWdrH264jAdXSIODebA=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYI909mUUQMoOcgdlVQjPqhB6F5uM1RcF04B
- Ds4XTq0n7mJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CAAKCRD6PaqMvJYe
- 9ZDDEACSbXfyvrHW9HluMYvBM3jFf1F6Xoo68Bk06vq+ertctRsMoFYFP0Ccb7MR8DSbfqCuVxJ
- md82buOeOxndZQb8FIfrI1syKb6b1thBVe+vB+bB1YBba8+0KKzkDEhDkYbbcN+cwW6QYFuen3N
- /mbEJD1U+IkkYOQLqXvXmStjeFumyZDkzfeO71fH/x2vvZs6viSrBBTBH4I/2deJ/tBoUSOGk+F
- JnWL0bIVfF6EJd8TXdDxnliEyRFbU2kF8F0vPKnbDT+GEIX+ib6Tg3N9UYkHncHTbMdfTDYZC17
- 0kbkOwRC0oMjKtkYZEwbs0XIHVC7GHzLnZCbkZkq1TY5OmdGsmvbMTbrMeyKWsvUBH7rj4g/UPS
- zQmV/+g6jxtj7BHQkY/JJUf7N/WkcLA+yIKkI1juldIZCKWov2o/mlAAJZpqPjza+Dycf470txo
- NvqsU199L1WE40mhbhtIp5O7cqC2RBY26eZL8GAMAftLWZniP9ch2NIQ9WJEmFOwqtwyx9FhT9C
- M5XrLFrNkbFxBaSKEf1na/JUcGUH3NxgPbPg2u4i9b8s0SVx2sdRIDNZupXzNrM3VprNU5xwQvj
- F9ArkIIYAsfOjVeGpCsczm+LFWv2TKZqtbspozEUfVMZq6UDbJWpNgBRtenmiokxBs8RIhEYXeg
- E2w4YT0Eu8eFyXg==
+ bh=WcUMVWweb5f3swf9yKUqGoVDO5r8H/qimMUgyzAtyXQ=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYI8nRBuy9YExz+dQqxuVtKqII8+bBrL/TCe
+ COLDduReYCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CAAKCRD6PaqMvJYe
+ 9QiEEACv/uAbwbzqr5meeYt8HhYiFtLb4do0deiqi4HcWm0VZnfBUCX2JNtXTh3VK3cTwlWnApZ
+ Qz2ItKM05uAhKjspsxDmB3a0fy4drW+YiX8J7uu63+pwrK8dB+1j/w3B/QNjyxRaQ5yTNSx2PJl
+ fNUOzZG9BCKVF1ohDETxrMmNMz0/f6piIKnPqVUGGHusDq3WjI2aCTO5koyIu070i0GpYwcoMGh
+ IDeUnAs4VXC8cAGKCyhMJKtDYdxRFaaOltK24wyr1pWr6seNdSGCr6S92U4nk8q515Xx6Wfi7Mz
+ 6jF4weShfHyQbL3o3Vt+uws1hg6aVT4AwEsvsJ5affi0TDCupEj27o5zOgtZGETCC9fZUbm1kqj
+ tf97lnWBNT1nE+beMMijM9kemghc4QkjyGWJmVpjd7BPZ9Y35eULluCWJFzQpHRRjyF0ep5oeK2
+ gwAy48xL6xZO9Kq+o7hTfdfvnonwfIuJce0+X7Ga5nbXf4QSq9X0kfW8IeEWzytktIPW/dYIcla
+ bKYaJ3jD/yOjp1EGNFN6fL43Eg5hnCJdJbE70R96wvd5xyHe8O8rCTKe7cjNoVNSzUnUebAWYRV
+ hXH+uiwepo2ErJnHkfp345jr/V4e4LgtQgN9ab8K+LkKYle2ITAo0oP4D2U1a4o9njczqoY+vvJ
+ R6t2KNkWJIEdM6w==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-drm_bridge_funcs.mode_set is deprecated. Drop it and get the
-drm_display_mode from the atomic state.
+The driver hardcodes LCDCTRL_DCLK_POL and ~DE_POL, ignoring what the
+panel actuall wants. Fix this by looking at the
+bridge_state->output_bus_cfg.flags, and set the polarities correctly.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index a91cf159ba27..33312300e606 100644
+index 33312300e606..e73be376e33c 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -98,7 +98,6 @@ struct tc358762 {
- 	struct regulator *regulator;
- 	struct drm_bridge *panel_bridge;
- 	struct gpio_desc *reset_gpio;
--	struct drm_display_mode mode;
- 	bool pre_enabled;
- 	int error;
- 	bool use_vtg;
-@@ -186,9 +185,18 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 			    struct drm_atomic_commit *state)
+@@ -186,12 +186,15 @@ static void tc358762_enable(struct drm_bridge *bridge,
  {
  	struct tc358762 *ctx = bridge_to_tc358762(bridge);
-+	struct drm_connector_state *conn_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_connector *connector;
-+	struct drm_display_mode *mode;
+ 	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	struct drm_display_mode *mode;
  	u32 lcdctrl;
  	int ret;
  
-+	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	mode = &crtc_state->mode;
++	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
 +
- 	/*
- 	 * DPIENABLE has reset default of 1. Make sure we don't output on
- 	 * DPI until we have finished the coniguration.
-@@ -213,7 +221,7 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 	if (ctx->use_vtg) {
- 		struct videomode vm = { 0 };
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	conn_state = drm_atomic_get_new_connector_state(state, connector);
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+@@ -243,7 +246,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	if (ctx->use_vtg)
+ 		lcdctrl |= LCDCTRL_VTGEN;
  
--		drm_display_mode_to_videomode(&ctx->mode, &vm);
-+		drm_display_mode_to_videomode(mode, &vm);
+-	lcdctrl |= LCDCTRL_DCLK_POL;
++	/* Note: DCLK_POL affects pixdata, de and syncs */
++	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE)
++		lcdctrl |= LCDCTRL_DCLK_POL;
  
- 		tc358762_write(ctx, LCDC_HSR_HBPR,
- 			       vm.hsync_len | (vm.hback_porch << 16));
-@@ -237,10 +245,10 @@ static void tc358762_enable(struct drm_bridge *bridge,
- 
- 	lcdctrl |= LCDCTRL_DCLK_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PHSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
+ 	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
  		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
--	if (ctx->mode.flags & DRM_MODE_FLAG_PVSYNC)
-+	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
+@@ -251,6 +256,9 @@ static void tc358762_enable(struct drm_bridge *bridge,
+ 	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
  		lcdctrl |= LCDCTRL_VSYNC_POL;
  
++	if (bridge_state->output_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
++		lcdctrl |= LCDCTRL_DE_POL;
++
  	tc358762_write(ctx, LCDCTRL, lcdctrl);
-@@ -265,15 +273,6 @@ static int tc358762_attach(struct drm_bridge *bridge,
- 				 bridge, flags);
- }
  
--static void tc358762_bridge_mode_set(struct drm_bridge *bridge,
--				     const struct drm_display_mode *mode,
--				     const struct drm_display_mode *adj)
--{
--	struct tc358762 *ctx = bridge_to_tc358762(bridge);
--
--	drm_mode_copy(&ctx->mode, mode);
--}
--
- static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_post_disable = tc358762_post_disable,
- 	.atomic_pre_enable = tc358762_pre_enable,
-@@ -282,7 +281,6 @@ static const struct drm_bridge_funcs tc358762_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.attach = tc358762_attach,
--	.mode_set = tc358762_bridge_mode_set,
- };
- 
- static int tc358762_parse_dt(struct tc358762 *ctx)
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
 
 -- 
 2.43.0
