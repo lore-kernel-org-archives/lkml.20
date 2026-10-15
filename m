@@ -1,77 +1,77 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A822747ACFE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925C24756CA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049189; cv=none; b=e8ZIoIOx33UthhSZb/0bhtn/TSLT513h21V7h2oew+I/mqVPjBoe+SHicO4hrh2DKWcdDz+Flwmxdl0dqm6nxzAWT4N0wZc4yn0oHzVf73BcnewJ/HQ44n4pNsx59IUp1sFthZyOgn4mhAD8s6rwZNv8OAKwJ1ZIS1jabOR6w8o=
+	t=1792049195; cv=none; b=rqiBpDj2OV1dgZaQMxh4VzAZmERdf/ayct7bMhYrgMptASjPDrOqG9eoW6BimhPeizF+nyCkIl5oBZDZg24f46jHH1ymfmAsXbV4IfZyAJMEJVw+EGI/W6+aqeyvjoI3xPFQPrwRoiWbvdWylXU35apq3TUaaHnGhUMw/3DSo0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049189; c=relaxed/simple;
-	bh=xwtBzirXEOCLJqRYZFFzZjl9ExUUK4CKgV7ms93Fd3w=;
+	s=arc-20240116; t=1792049195; c=relaxed/simple;
+	bh=55fngw8U7i276yUTXQntdbIZF4Wd6ep68zhxSVkxCO8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BaNUye4GnZmM4R+lzDYfX9erHYMUf/y+yLckS4Lkd2VJkr03Vi0G4k6O5Vcw/HqZ4iRtmg/Dsm+x+YrfXbTZgjX+/HTuNWegpz1VSWiq5YY0LMhB1QdiCZtu9QOKPo5jOQ0zZhjC3C3nt7+6+Yvb/nYfHjTo0nABgSg3WMI9uEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CmOgOEKt; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=NWZIWORBCkn1AlylpwgTaz0368nVDu5UB9Gd9sAaDyJ8N4ynkZnVJW7c9DROyEkAoPhxM6wu9VqJ73Q0n+EaYsfqrDvvbgQFeGVb53KG0jGbJaHb09ROfCNJd6rRWRHFi87/BWG4HY6Zudu2WxRK1c1hF0QxwXUBEYL0i2e+xWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=GJI3uEIH; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CmOgOEKt"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so38446025e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:26:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="GJI3uEIH"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso870406a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792049178; x=1792653978; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792049186; x=1792653986; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4TcvTv0+MA3VdoeuP+foXkM6LedLqAHNwCZW23zraGo=;
-        b=CmOgOEKtLDPx5dFMZzstlEpO5tqqbN0GmUvZEOP+bNEI5ebj3yT6+MiiMGqHSBV6Jx
-         MJrwDFv9411A7gxzZozTN7uA07+2fys4UdRO0KOs+WFaycBoOc+CMpoP9gBZDLU6aCXc
-         7pzeIPwG1hniWVl2u9yOlP7tAl8FAJfz59Qp5iPewo1p23kIqNC6ou5V55SyaAVEvn+h
-         m7KJeJLS9+m3FhUS8bZkgzkE1s6ckq4/yI6lmikb8exXJoI3nNT8E2t6GmDIDX/l9FtL
-         FzikmILsmC/r+6O7Jl+udQTLlwnjxB7mS3DTjnlc94g8ieSGDawgDCeCtgxzowLSLO+7
-         pv/w==
+        bh=i6VprNe7yjepyKxDyWl/GS5n+61wlhCAhAo3qvs5zaA=;
+        b=GJI3uEIHj20+6V+mGjtCAY8MK4iFB8mWOlPqtEMJS/ilIx/Tpk8bb7cAMCW+Qgmns7
+         I+faRk1YMn3Bygc+hMZTQGFdp7s7mk0jKWXTiF3ANdHFnDeBjrfmzNMvhKyvaeaK+2h2
+         RKVFjTkXPMLzFovHLSePSyMgebS7a5XF1bsDjCBFjW7Q+g8PzxJjwMiZCWBn9f7QcGw7
+         +IJUicSt9v3h4Dgba5PqLZYvWMiDxRkJ4ALUdc7Ef3Il3BrlDayMIPbhKPnDVoLrXrT4
+         f6R+EkNN8vH0vQMxCFzxaUfS2d/ltBca12OgDFtmlg8D7GJwKCfmEgu5mmbZ7ioRWjOz
+         LPsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792049178; x=1792653978;
+        d=1e100.net; s=20260707; t=1792049186; x=1792653986;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4TcvTv0+MA3VdoeuP+foXkM6LedLqAHNwCZW23zraGo=;
-        b=zLWbeiT2LuMM1Afg+lw8Nxjxmkxghtvr2f+qo74Yyi88sn0RedhBFqt4gcKwN9jPiO
-         6s46MQ9U9VMdpggnQkbwT6vBT3b2LCZm49cicwVRFKNFPXcQybDKjPoF14iPBYTlUh5/
-         I85CtdYYqaRKOIGEKsngWBj0KZBdnA+20kF3n19UNfTp1hRynvNYshgJ0P2fjIaFakYa
-         mYaPHAg02rBkxKLWRQKLS06KTMscD8mu/tBlsmdegBJm+f1C29pv1fk9kitMzb4Zwo9F
-         N1mscpGkuCo3GkOIb7u/BDaZbmgbuUmVFZszEe+l3Medeex522gA3H+GJnL3y5r8kLt8
-         Xbbw==
-X-Forwarded-Encrypted: i=1; AKwUvBx8PT23h1saW+Yz23pCE4K25ZKB85UFraZlBJxSaJPgFq4bx6wc50lbXjrlbJ3BQDUFIyi11YvmwMT3D64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+oYu9PTAKGInIduKfc30DykL71RiL97t17euLi1KlsUvYTBie
-	/j/ZQw9ieUbLxY0KLYvbKnOdJwNj35Cff2WLS5AhXbvRDiYY3HW+rbOPPdAlyNnI
-X-Gm-Gg: AYBFou3bvOP48MJUDK3rrlwz9C5HJ0vxucDONPVHrfHLf73woOOPITRuHatAu/5Jtjf
-	p7WiXArIAb9QbIYU11Xf5xtw/2QRfCEqQefMhmeK2v6owWLrJn6E9vaacdjEOXL+EnawITGjgQx
-	zjpsStai3/Y6Y+E7rmOIn6Xhe6yj0orRTQGOJ9AX74Ntzg/dcNetIjQ4ebWIFWKEaoqYo3JDr4V
-	rWUkiwTZC9A8AbX+CbpacrW/fiiGKCaSuwFU/vWLZICRTjnOHX4suAeM0hr6oaPl1FMTEBexwRi
-	YC4aiKHdu7ggfEZJn1eL6TbFeZk8pLT0Z3Png0WMnW8XvE6gpSAhQ1USKieD/IuU1AoIWVedt4L
-	1hBlis9MfYSZNRu5BKpQeAF5VYsNYU0/G4NssK4jate1+hAlzSLnJIUkDdUIwYVpUNMhCQhnO0V
-	nxMsZGHgehzCNnzH1oxPQK8SgJj4AC/tDvcQd5hTUHwWue+8+oXKQjvT20ftjVGuEIq08lmm9Im
-	QXHcoVhRMT+NFt46zYWBgXHCowfV0nPmzXn99sZJJ57Sw==
-X-Received: by 2002:a05:600c:609b:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4a18e4c9944mr358446205e9.30.1792049177294;
-        Thu, 15 Oct 2026 00:26:17 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd97ef4dsm55898465e9.4.2026.10.15.00.26.16
+        bh=i6VprNe7yjepyKxDyWl/GS5n+61wlhCAhAo3qvs5zaA=;
+        b=es84Cyk6aYkyvT6mNr0P58+5b83aOsIj2+IHh9lOhEFTrT6rXi3faW8krnGuyKGKMv
+         XY3v426tzoPwd9rnr3/rHph/28Ni4GKPvPVxaQJYweNMMjYzHGN1Ue351MVpAcSkfotx
+         TYdgB509OYhuHcsWDHz57hCNsTUqOvxbpGu+SwZrc2aoMBn+IGkJiiSBtSXs8j7QqhZ1
+         fKwb9CPYVkxJjxKFbEnfNpKR9e1LQNf9ya2AZdS5+qY0k08yJrhXKo0scWTzhvDZCXAz
+         lNEBMsSPKwOCPSuF6bwtvtQhxbvtKBH2o7A4nliRhEOe2C7bCoKHyfGiYtF49UJ8WY/X
+         ZoiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzScybVZfaQnoikyNDOiU5JP1hCu4mtaDMEkcAoUGLnAFvjbfd8l87cRTlLzA9WpC1s3Wji81MDu2+c0xM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcwZMOCdLNsrDYWz49aIWwI85skK4Dmd3WfWkLbOYaiWQWSTPf
+	A6iiafTB2pQsrdP+sutBRvSkwCmuu+0MYbyJLZlVxWbzegBj8jBGZjiyyJAot3zCMsw=
+X-Gm-Gg: AYBFou14EfdY0xFLCfqCigxD8e0dUGUOD8/6b3dEUUVdk7/2fjzyXQCwh/g16Wpcvex
+	pzII/dlX2EbbJnIz5dMiUp+7P+xBMs5BAfOhmpIoi4WuemTeqHpM98qvRPUu/0VVaG0W7LYKw73
+	1KbLls5xlbmjUWiZfXsfenfPJvC5sgyPtcSehrWLv0iQkQb1CCMLE3O/nIzrH7pcuTRYJvuUI1Q
+	Lfb1GNb0QFlMQJLUzxVl25ibV/uu+BlgGabV+HdZxQ/DkFegirZ0X8x7opUZ5SamC/B/ZhTx7SW
+	k2VWXuIlAzXK6x6cBQSwLPw6Z8PB+VI5PnJJD/giMBM+pOGt7iszCohSjavnIrFSWAczyrjPOG0
+	DPnKuZNhrud3Mb1cvYXYlIM1ahTDYLZmTWVymvs+DqH6YAm+vxe45GIF7ruZozSsa1iI2JrdzO6
+	XukacvHdpFofFkCD5ivBgOY/eJdfkljS27KVDQbkLCK+E6aXxbY+Lcjc8t/Qdqw17ZKEmWJh4ah
+	XVKuA==
+X-Received: by 2002:a17:90b:2d86:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-3ab3a90b5f4mr13828970a91.15.1792049185606;
+        Thu, 15 Oct 2026 00:26:25 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac937c4e7asm1754279a91.3.2026.10.15.00.26.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:26:16 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Thu, 15 Oct 2026 00:26:25 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] ftrace: Fix lost recursion records in ftrace_record_recursion()
-Date: Thu, 15 Oct 2026 09:26:11 +0200
-Message-ID: <20261015072612.401602-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014172821.2b1fde91@gandalf.local.home>
-References: <20260917090217.6738-1-parri.andrea@gmail.com> <20261014172821.2b1fde91@gandalf.local.home>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH 1/3] scsi: aic94xx: bail out of escb_tasklet_complete() on a bad EDB index
+Date: Thu, 15 Oct 2026 16:26:10 +0900
+Message-ID: <20261015072612.4144043-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015072612.4144043-1-yhlee@isslab.korea.ac.kr>
+References: <20261015072612.4144043-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,65 +80,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 05:28:21PM -0400, Steven Rostedt wrote:
-> > Can't claim to fully understand the logic behind ftrace_record_recursion().
-> > Notably, its smp_mb__after_atomic() calls and the lack of barrier comments
-> > both look suspicious to my LKMM-trained eyes.  ;)  Hence the RFC.
->
-> Well, the nr_records is updated via a cmpxchg() which itself is a full
-> memory barrier. The smp_mb__after_atomic() calls are to make sure the value
-> read is in sync with other CPUs before doing the compares. It also syncs
-> with the clearing function that is disabling and the writes, clears it, and
-> enables it (the -1 updates).
->
-> Otherwise, IIUC, the atomic_read() itself doesn't guarantee that what you
-> read is what is in memory without explicitly using the smp_mb__after_atomic().
+escb_tasklet_complete() derives the empty data buffer index from the done
+list opcode the sequencer wrote:
 
-Thanks for the explanation.  I don't think smp_mb__after_atomic() gives
-us that, though.  Per Documentation/atomic_t.txt, the barriers
-smp_mb__{before,after}_atomic() "only apply to the RMW atomic ops";
-atomic_read() and atomic_set() are not RMW ops, so after them the
-barrier is not guaranteed to order anything.  Most architectures
-implement it as smp_mb(), which happens to cover these uses, but on x86
-it is not even a compiler barrier, so the compiler is free to move the
-memset() before atomic_set(-1); LoongArch still defines it as
-barrier(), though a fix for that is pending [1].
-And no barrier makes a load return a more recent value; barriers only
-order accesses against each other.
+	int edb = (dl->opcode & DL_PHY_MASK) - 1; /* [0xc1,0xc7] -> [0,6] */
 
-What I think the code wants is: on the recording side, the load from
-nr_records ordered before the loads from recursed_functions[], e.g.
-atomic_read_acquire(); on the clearing side, the store of -1 ordered
-before the memset(), for which smp_wmb() is enough.  (The memset()
-itself still races with the recorders.  Marking its stores would make
-that a well-defined race, but clearing would stay best-effort, as the
-existing comment says, unless the clear waits for in-flight recorders,
-e.g. with a grace period.)
+DL_PHY_MASK is 7, so the subtraction yields -1 through 6, and the
+function already says that anything outside [0,6] is wrong:
 
-This is independent of the cached_function bug, so I'll leave it out of
-v1 and send it as a separate patch, with comments, if that's OK with you.
+	if (edb > 6 || edb < 0) {
+		ASD_DPRINTK("edb is 0x%x! dl->opcode is 0x%x\n", ...);
+		...
+	}
 
-> > @@ -67,24 +67,27 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
+The block reports the problem and then falls through to let it happen.
+edb is used twice afterwards: asd_bytes_dmaed_tasklet() adds
+ascb->edb_index to it to index seq->edb_arr[], and the out: label at the
+end of the function hands the same value to asd_invalidate_edb(), which
+indexes both escb->eb[] and seq->edb_arr[]. asd_assign_edbs2escbs() gives
+the first ESCB edb_index 0, so for that one edb == -1 reads
+seq->edb_arr[-1], one pointer before the array, and dereferences whatever
+it finds.
 
-[...]
+Finish the check the way it reads: return instead of falling through.
 
-> >  	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
-> >  	if (old != 0) {
-> >  		/* Did something else already added this for us? */
-> > -		if (old == ip)
-> > +		if (old == ip) {
-> > +			cached_function = ip;
-> >  			return;
-> > +		}
->
-> I think we do not need the above. If old == ip, then whatever set it before
-> should have updated the cached_function.
+Whether the sequencer can really report an opcode that makes this zero is
+not something the tree answers. It is firmware loaded with
+request_firmware(), the done list opcode is described only by the comment
+above, and there is no Documentation/ file and no MAINTAINERS entry for
+this driver. This is not a claim of a reachable out-of-bounds access,
+only that the driver goes on to index an array with a value it has just
+decided is invalid. The intent to bound what the sequencer supplies is
+already in the same file, in asd_bytes_dmaed_tasklet():
 
-Makes sense, I'll drop it in v1.  (The cache only holds one entry, so
-another ip could have replaced it in the meantime, but that just means a
-later call takes the slow path.)
+	size = min(size, (u16) sizeof(phy->frame_rcvd));
 
-Thanks,
-  Andrea
+which clamps a device-supplied length a few lines after indexing
+seq->edb_arr[] with a device-supplied index and no bound.
 
-[1] https://lore.kernel.org/r/20260908073906.31781-1-yangtiezhu@loongson.cn
+One consequence worth naming: an ESCB dropped this way is not invalidated
+and so is not reposted to the sequencer, because the repost happens
+inside asd_invalidate_edb(). That takes one empty buffer out of
+circulation per malformed opcode. It is the lesser of the two, and
+recovering the ESCB instead would mean choosing some other buffer to
+invalidate, which this index cannot tell us.
+
+Fixes: 2908d778ab3e ("[SCSI] aic94xx: new driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/aic94xx/aic94xx_scb.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/aic94xx/aic94xx_scb.c b/drivers/scsi/aic94xx/aic94xx_scb.c
+index 08c8dad9ad621..d050e5325b943 100644
+--- a/drivers/scsi/aic94xx/aic94xx_scb.c
++++ b/drivers/scsi/aic94xx/aic94xx_scb.c
+@@ -421,6 +421,7 @@ static void escb_tasklet_complete(struct asd_ascb *ascb,
+ 			    le64_to_cpu(ascb->scb->header.next_scb),
+ 			    le16_to_cpu(ascb->scb->header.index),
+ 			    ascb->scb->header.opcode);
++		return;
+ 	}
+ 
+ 	/* Catch these before we mask off the sb_opcode bits */
+-- 
+2.43.0
+
