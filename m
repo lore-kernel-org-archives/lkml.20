@@ -1,212 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086A9521224
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:25:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337C951814F;
+	Thu, 15 Oct 2026 12:25:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067104; cv=none; b=V/4/NYFnEGKq9/PnPCD0QFyY0VOWKA1d74ODp1KCOYpI5FtYorRT5DrCs4XbHb7cA2tB1tiO2nAOuuJFV8AaGRdcz7UWiCCrvQv6Ibg6G4Eh3E3NnhRvZmYzGQYQ5T9Kvf5PwUmP5m46FUEaT0TGLglh+ggLydtgPFvOTd7/mHU=
+	t=1792067158; cv=none; b=g8zao1ZKozhigFGr3IK5CfUgnOw2QII209pzc5ZaM481KPlOLVm/7K1qI14YtQOcELnGKFtrc6Pim+WA2fEM6nnPBa4e3KvuwsqvJYaVDZT4WXlfcn/BRBilV1l0N7jiEWGBuTEOxQKwkWbO9dWKdhX8kdc1nKXmIBuYvk9CmzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067104; c=relaxed/simple;
-	bh=/wfRzpEhzmKDk5Q1Tg0JL3kbB2zDdbSwGEi12JEc9jo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bHDmYM1yyvJkh6CGLuAXBPg6V7OobvPpHkeCbhCNkTKVsW6+bUlC5X/9Qr0MbiHL4czft8L0y5y3+SVplh9a8z14enXOf8x+pnOP/XE+qayzyuPQLcbKo+RdV3i3enYa7+pnhNN2yd8hMBPhKCQscmVG5ZxtIeXaAdAgjOfeMrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oY2H1XZy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067158; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LXVJcZ+sYzC3iMJCWQ6/Yoi7CsAIG47aoXFoOKX0cXn9OXOzeW9krbs7LYAiDIGT7pqdi0INe7olgMjwXp2f8kLA96UiiYy6vh/dTYoX1AlezqimT9ysWxRO4j6/JTqh6MgChNMmR3qukjvOwPQlFWfq4fkrxBA1tEevKz98EnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CHrPJU9p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oY2H1XZy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B5B1F000CA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:25:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CHrPJU9p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E441F000C4;
+	Thu, 15 Oct 2026 12:25:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067102;
-	bh=XWBbbDlf4EIwAAVhrNOPgxfdQorqL6I+zOwc8slJsqA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=oY2H1XZyIbnqyuy9ZYrkW/bwtfEtmpmrrrPgH0gEKO4rjAbAF4Rr29YEmejrYxWkL
-	 vR1qzJK9JwqSwFkWuV75Vj6fRh2/a3c5qJw3kqhSYbJ1OybRZNmmBXeu0QKcm+UwSJ
-	 98U8hVMRPVTGDdXhpXuegBO/edEZfS+yzfys3I1AI/LC+PU+sCvYQvAAEfdb690GbB
-	 VBJbRGyUY7ESh4zEY//CizYpMIEsoqucX4/9700sly8oG0kJMARc0x+PA3xMCkQG5e
-	 vClriT9LqQzK4gxJwvP5C7xmmH6X8+3FyL3+jifzi7wEKb74FE3Z+NpFE/dJGluTJK
-	 jBN7s0IqI5qRA==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so3663460e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:25:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx9V0oLtnxrtN2LtZjlSK/B48ezZCDtACcLLu9k36BO/sPWRNFkwxxTaZqNY2MKlcN+mjTJavstpLlZobI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKh2byuHW4VCXEqYhm9WA0In8ObbAyuBfoAnTxA2y70LEghttgu
-	4vGM42U0BA4MGLe6kGeybzJU8d5QRVzjgoAPfx4zV13lzNOsYkTDo5Ilb+jPF2q7Xgw/DUg7lCP
-	Wl4UnXwLpSqcFXblp2c4gdc0IemxHmdlMUYLxjw2/YQ==
-X-Received: by 2002:a05:6512:3989:b0:5ba:37c8:a485 with SMTP id
- 2adb3069b0e04-5bcde6bdfd9mr6220298e87.22.1792067101328; Thu, 15 Oct 2026
- 05:25:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:25:00 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:25:00 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261014072109.1759502-9-ghahramani.navid@gmail.com>
+	s=k20260515; t=1792067156;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CHrPJU9pmHVEr1L1ltxqVEd/yKPxYXAHD8UGY39GlH56K+bI88omAo5lOD8mgfaJG
+	 xbywwZ5oosFOhd30DZtGYS8RRNsmJ4yKY2/om6bh72CMZhoO7IYmZCRJ1F1sxBRYaX
+	 UYZRRbgTe4gaYTAflamV2F4NH2klK0vwZZAKi3iF4sTZnFuDUCLvUD0UUadEhwxqHW
+	 kHJmpE3hI0i9aJAjxzMQqghLoQuvMHwe9YnB+ZjhYwTAJPxje988svUJ4bRFhv48nr
+	 rCL7Ra0/SIYsUmjW3jhVJmGiWqmht4PyvbQ6rS6FHlYwjMHwVpP2+jmS6RL6XBV7Rb
+	 KJi+u8GuKUgWw==
+From: netdev-bot+sinfo@kernel.org
+To: Vikas Gupta <vikas.gupta@broadcom.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
+ dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
+Subject: Re: [PATCH net v2 0/2] bnge fixes
+Date: Thu, 15 Oct 2026 12:25:55 +0000
+Message-ID: <179206715563.408196.17628524065724738513@kernel.org>
+In-Reply-To: <20261015121847.1933308-1-vikas.gupta@broadcom.com>
+References: <20261015121847.1933308-1-vikas.gupta@broadcom.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-9-ghahramani.navid@gmail.com>
-Date: Thu, 15 Oct 2026 12:25:00 +0000
-X-Gmail-Original-Message-ID: <CAMRc=MfhnbwvM+c=e1=ga4wALCmj8Bi8LWkB_W4_0YHkK3Hikw@mail.gmail.com>
-X-Gm-Features: AclHuK8GH8etn3uUshACOzvmzHuZTS1r4ysvL-52dRD2_mweQZCACUKo2mAjagE
-Message-ID: <CAMRc=MfhnbwvM+c=e1=ga4wALCmj8Bi8LWkB_W4_0YHkK3Hikw@mail.gmail.com>
-Subject: Re: [PATCH v2 08/24] gpio: Add ZTE ZX279128S GPIO driver
-To: Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: arnd@arndb.de, stefandoesinger@gmail.com, krzk@kernel.org, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 14 Oct 2026 09:20:48 +0200, Navid Ghahremani
-<ghahramani.navid@gmail.com> said:
-> Expose the six banks using the generic GPIO implementation and enable
-> the register clock before accessing the bank.
->
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
-> ---
->  drivers/gpio/Kconfig          | 12 ++++++
->  drivers/gpio/Makefile         |  1 +
->  drivers/gpio/gpio-zx279128s.c | 79 +++++++++++++++++++++++++++++++++++
->  3 files changed, 92 insertions(+)
->  create mode 100644 drivers/gpio/gpio-zx279128s.c
->
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index a48586bb8e..3ae51a3c10 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -902,6 +902,18 @@ config GPIO_ZEVIO
->  	help
->  	  Say yes here to support the GPIO controller in LSI ZEVIO SoCs.
->
-> +config GPIO_ZX279128S
-> +	tristate "ZTE zx279128s GPIO support"
-> +	depends on ARCH_ZTE || COMPILE_TEST
-> +	select GPIO_GENERIC
-> +	help
-> +	  Say yes here to support the GPIO controller of the ZTE zx279128s
-> +	  SoC. It has several banks of 16 lines each, which boards such as
-> +	  the ZTE ZXHN H3600 use for LEDs, buttons and reset lines.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called gpio-zx279128s.
-> +
->  config GPIO_ZYNQ
->  	tristate "Xilinx Zynq GPIO support"
->  	depends on ARCH_ZYNQ || ARCH_ZYNQMP || COMPILE_TEST
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index dc9e6d643b..a57ed7ec71 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -223,5 +223,6 @@ obj-$(CONFIG_GPIO_XLP)			+= gpio-xlp.o
->  obj-$(CONFIG_GPIO_XRA1403)		+= gpio-xra1403.o
->  obj-$(CONFIG_GPIO_XTENSA)		+= gpio-xtensa.o
->  obj-$(CONFIG_GPIO_ZEVIO)		+= gpio-zevio.o
-> +obj-$(CONFIG_GPIO_ZX279128S)		+= gpio-zx279128s.o
->  obj-$(CONFIG_GPIO_ZYNQ)			+= gpio-zynq.o
->  obj-$(CONFIG_GPIO_ZYNQMP_MODEPIN)	+= gpio-zynqmp-modepin.o
-> diff --git a/drivers/gpio/gpio-zx279128s.c b/drivers/gpio/gpio-zx279128s.c
-> new file mode 100644
-> index 0000000000..71eb6b5d82
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-zx279128s.c
-> @@ -0,0 +1,79 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * ZTE zx279128s GPIO controller
-> + *
-> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/err.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/gpio/generic.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +
-> +/*
-> + * Each bank has 16 lines, one bit per line in each register. The registers
-> + * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not supported
-> + * yet.
-> + */
-> +#define ZX279128S_GPIO_DIR	0x00	/* 1: output */
-> +#define ZX279128S_GPIO_DATA	0x14	/* line level */
-> +#define ZX279128S_GPIO_SET	0x18	/* write 1: drive high */
-> +#define ZX279128S_GPIO_CLEAR	0x1c	/* write 1: drive low */
-> +
-> +static int zx279128s_gpio_probe(struct platform_device *pdev)
-> +{
-> +	struct gpio_generic_chip_config config = { };
+Hi!
 
-Don't initialize it here, instead...
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> +	struct device *dev = &pdev->dev;
-> +	struct gpio_generic_chip *chip;
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-> +	if (!chip)
-> +		return -ENOMEM;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get the clock\n");
-> +
-> +	config.dev = dev;
-> +	config.sz = 4;
-> +	config.dat = base + ZX279128S_GPIO_DATA;
-> +	config.set = base + ZX279128S_GPIO_SET;
-> +	config.clr = base + ZX279128S_GPIO_CLEAR;
-> +	config.dirout = base + ZX279128S_GPIO_DIR;
-> +
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-... do:
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-	config = (struct gpio_generic_chip){
-		.dev = dev,
-		...
-	};
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
-> +	ret = gpio_generic_chip_init(chip, &config);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set up the GPIO chip\n");
-> +
-> +	chip->gc.ngpio = 16;
-> +
-> +	return devm_gpiochip_add_data(dev, &chip->gc, NULL);
-> +}
-> +
-> +static const struct of_device_id zx279128s_gpio_of_match[] = {
-> +	{ .compatible = "zte,zx279128s-gpio" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, zx279128s_gpio_of_match);
-> +
-> +static struct platform_driver zx279128s_gpio_driver = {
-> +	.probe = zx279128s_gpio_probe,
-> +	.driver = {
-> +		.name = "zx279128s-gpio",
-> +		.of_match_table = zx279128s_gpio_of_match,
-> +	},
-> +};
-> +module_platform_driver(zx279128s_gpio_driver);
-> +
-> +MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-> +MODULE_DESCRIPTION("ZTE zx279128s GPIO controller driver");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.55.0
->
->
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Looks pretty good, I love small drivers like this.
-
-Bart
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
