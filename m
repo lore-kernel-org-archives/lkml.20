@@ -1,94 +1,79 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10FD4E36CB;
-	Thu, 15 Oct 2026 12:07:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0844D09E6;
+	Thu, 15 Oct 2026 12:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066063; cv=none; b=FcVc/wQhKCdeBzYwpw4lBweIlDEuYAhx8CoPn0aAth6HEAcCQVsP/UChrj6IxTl8rzEnFLMeJPbJCnMfklvNX6+k5uL+Xkui9CDYdGmZQV2wxG/QGfsQqDHHgwI+0+dunXFJdXhDigxPYdDcu3TUtFeuMegQDRUrzGrWwYDJHT8=
+	t=1792066111; cv=none; b=l8IdHVMv4uS4JBEGyxnI2j9d/jDwfIMVprrdPQscWTwAXKkKeyFv2v0gl9J8XUYUGks1geObIYrX2XBpFDk+Pk3CPPvgTEgbRhmp2VDEwbLpp/qXp0WiXPjIJgBooPqg0WzNNkXgDGyvciGdfdAb62Pu4NpYwH28duOB+SkfWyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066063; c=relaxed/simple;
-	bh=JSTPOfMEMNY5Dif/UXqSkehzAUf9xhNTdJTHWZr2g3k=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=s+JzwR1E7STH7rchqDC39TMnsv6wMIxMmGNR9lG8jePawO7JHqk9UMiCgqg8ESHyNCgSCjXXB9CP5O1lqbaLORDVDVskwJ1u+TBwAXNvipeb1LuFG07RpKWonlReCo8C5XeISWSLL1XpDuK7KqNqnb/pSvJl9TgXVXzJNWdjq3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=KDUS7IGX; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1792066111; c=relaxed/simple;
+	bh=RtvN2fiU8eso/VYTgVC3AlJRBMOMc9Jhgibg/oYeddA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmdeyE2zlAdRk3Zu0nq1t0Xk79W45cCzHlAcuH6J844uc4npDjXEhuxXOvdMGt7I7dqaUwsE1ljKE7b3Xau+Io01vGCXqDqEV1Y6OyngBHlQUTqTvpkPoOnIFfAOM/E7A1rwiDEOBQWZxMmnAxK6dG6UsjgWFWUsgk6Nh89IbYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=sr3lLKRz; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="KDUS7IGX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=gXZus4eIAZOnD1ewViYTrnWW5mwavEiiaKQlGIlSyyQ=; b=KDUS7IGXyOgmYucA1q1TAtJpor
-	KhsBtGNjExCM0HVGUINSqmSYnFyse7TkC5/kVQY1cUdSSPmTTKRupGeACJBY/OXsLEOkyJzdv7+d1
-	sewnVCfsA6J53BRy2XytgDem2SxzFvRmADRtoJBgpoCniuhNVZ/MkDh2VCJMFb0g+bJCg35JSqV3U
-	eqc7+eYlYfNVnlRCzw5Yf5GZa4rVElA2EfpcNZg8nDi5kIqw77mzKaQ34jMJy5vgJAFCSH0QMvrX1
-	i0BUXJUrb4/qMEd96W9Lfvsk//ERBuazde2El33S22ljQwEv5fN7HXe4xpjoWCmIM+7+i2J09roJn
-	6JUdlw/g==;
-Received: from [::1] (port=39656 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xHKFI-0000000DeN8-1KtR;
-	Thu, 15 Oct 2026 14:07:39 +0200
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="sr3lLKRz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=3SopCeXNyuGlNNcNjQkg/EEQ3+Zn5BMadtb0CBo850A=; b=sr3lLKRzHMF2MQ9+dIbW6ZuJ2M
+	8vSIx3n3HMFMJEozPjgAYUPpNBIdQVZ0+mnaGTUErCyupyuA8UI65C+9kSRXS1UNpQiK45JQzA1UH
+	mGf9TTsrMMh5BBA+fAk8Gxav80b8Ak1cG0dt0/E0gS0h/NzjEVcJJ68+aikWtylGVvBydJOaf8X/S
+	whFeLaEPXlST61j3ZAgS4ELna5ARx8a7e39SGWIkJRnfypI+UI64bmZ1BKFysRUorKMCmRay/eM+J
+	NoIyxrwF9gnLgQwyT38tCE9ibjkO/4fOlSedeqYFCvzLiY/jVLE+7XLs2dtHjPKozAWqDMqWqjC5Z
+	Loph72hg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHKG3-005BB9-04;
+	Thu, 15 Oct 2026 12:08:27 +0000
+Date: Thu, 15 Oct 2026 05:08:22 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [GIT PULL] Rust configfs changes for v7.4-rc1
+Message-ID: <atDCJcl6kYPrLPLg@gmail.com>
+References: <87a4opeh10.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 14:07:28 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: essiv: fix use-after-free in AEAD path
-In-Reply-To: <atBKr1-gTDAJ1IRe@gondor.apana.org.au>
-References: <20261014222351.2930674-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <atBKr1-gTDAJ1IRe@gondor.apana.org.au>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <dcf362bd924d7090dbd03ef8af7a6ece@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87a4opeh10.fsf@kernel.org>
+X-Debian-User: leitao
 
-On 2026-10-15 05:38, Herbert Xu wrote:
-> On Wed, Oct 14, 2026 at 10:23:51PM +0000, Jérémy Jean wrote:
->> 
->> @@ -247,11 +248,12 @@ static int essiv_aead_crypt(struct aead_request 
->> *req, bool enc)
->>  				  essiv_aead_done, req);
->>  	aead_request_set_crypt(subreq, src, req->dst, req->cryptlen, 
->> req->iv);
->> 
->> +	assoc = rctx->assoc;
->>  	err = enc ? crypto_aead_encrypt(subreq) :
->>  		    crypto_aead_decrypt(subreq);
->> 
->> -	if (rctx->assoc && err != -EINPROGRESS && err != -EBUSY)
->> -		kfree(rctx->assoc);
->> +	if (assoc && err != -EINPROGRESS && err != -EBUSY)
->> +		kfree(assoc);
+On Wed, Oct 07, 2026 at 04:12:27PM +0200, Andreas Hindborg wrote:
+> Hi Breno,
 > 
-> Last time this came up Ard asked for the rctx->assoc != NULL test
-> to be dropped completely.  Could you please do that and resend?
+> Here is the first pull request from me to you for the Rust configfs
+> abstractions. Please note that I neglected to push these three patches
+> to the remote that is picked up by linux-next (just did it now).
+> However, I tried the merge and verified everything works under my usual
+> configurations, so we should be fine.
+> 
+> Best regards,
+> Andreas Hindborg
+> 
+> 
+> The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+> 
+>   Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/a.hindborg/linux.git tags/rust-configfs-for-v7.4-rc1
+> 
+> for you to fetch changes up to e84c9b64df615e658e47561b835c1364dc48f0c0:
+> 
+>   rust: configfs: fix data offset calculation for subsystem callbacks (2026-09-29 10:30:08 +0200)
 
-Hello,
+Pulled into configfs-next, thanks.
 
-Thanks for the feedback.
-I have updated the patch, and will send a v2 shortly.
-
-Regards,
-Jérémy
