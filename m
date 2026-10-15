@@ -1,154 +1,295 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7AE443E3B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C5F40B11C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099550; cv=none; b=GH19/PntG7Us8lQikO8vgk+vf5rHYPl6wlre9pGddgslV+sS0hsEYgYSBSneFoQV0k/hAF57AuneMJEe3PNxeEN+Bg7kv/4YPGFK28LKCe6ETQTxqwcKBlOi2wS2vmX+yaL5BON6BlAzOD5tYdP1M2H28xuMpV4cXD94cHcKiKo=
+	t=1792099556; cv=none; b=Myj6renfpY4AOUnmF3ifkWECgjyxqb5V9I5gkJH6D0on6dhszyTvCftaKIlmM7Dde/AMdVuQ0ne7CuUgzYZk+V3d8SK1o8Mi+gfSZZqz9BVyao71nQ8BzE6pqZaMUp5QokAcfeJv8MmAurOl7GCbLczH6DT2LNEt/pHpsqkH1FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099550; c=relaxed/simple;
-	bh=Kf30i8cGqP3IPHZ3WCA4IROcb1QglSnTECh4JWUUq2s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=FTdwYwGzWs6aF8EcRYzicaD3EhAU2IF89VyVsiCuldNtVMxSKprQh9GEsvftONdwMZTNnNYJVtpOQv2nuNHtBEq5+R61e3YEFp0Blq6PRsWKGDZtC9V7aFNwyI1OTUgbU9PuHhTXIrRxiO4yfATuADCRM6DqgXM8spB/rLrqI7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bf5bdYdv; arc=none smtp.client-ip=209.85.221.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792099556; c=relaxed/simple;
+	bh=Ed3nrKBJMUw+vtkxHLkaEq/vtc8zGfUikz9gbIiFznc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rsV9SlQIbX2OgFKLFEd/9ONFOOUTFsf74I5D0lmaZi50ngGW2nKHLSOWmMedbl+bPsiPJ44v1Q/RIMIgmsLlbZvz5Ng2l8gtjOAyhzDSaFtNMBA0xQBar80DUKi9KW5iO3Gz4reEdc5Vvg7dOILI55dYolrUiVjbECRlvqJbvo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=ZyXzzWUh; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bf5bdYdv"
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5d866bac1caso179605e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:25:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792099548; x=1792704348; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hmU7byQJ7V4GqxfEroCMT0quvOeWGZm1zt5/8tVd594=;
-        b=Bf5bdYdvKY7nV4dkqXEDreBTZJ3KlMngethc8GClcJCp4qy+xuVKpHMe1oDyIF73qC
-         rgCbO6q9A9qBaDu7iSNEELtqg/ZZb11DQ4rnEm9MgfXgcryqLnVULzKfgHV5t2gOMaLZ
-         Mn0mUhbspr99Ur8wLGx+mKMCXu3sT+jgFqEuFQycaVfT0okdRT3VUr9zIV396sijTHD/
-         JtaciTU/R1IAVtKde6tIXxQBnfSjtOFsAZyYAqY1tdD8W30koZpYW1Hwhyeh20wVNztF
-         suoUUHMeXUv8oxI1uvosi/v0W1sfnyXD16xXhMAzSkAj23fZbqG0nkxWkfa8Fw5dZp8p
-         y02Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792099548; x=1792704348;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hmU7byQJ7V4GqxfEroCMT0quvOeWGZm1zt5/8tVd594=;
-        b=yXbictxHQfKhBVHWZqipEXYy0fj2NtxW6W+KwyfUiOwSe5AKhav76RWwpEBpD2s4+i
-         7cBnoXhyzpmy3Wfs6J79+6/wznmpits0VaHDl1YOxVsut1PMYH6yW2HA0hGC/HAKAE5A
-         TrFmWrdegiTqfM2OAsNIhoBWWkDp1dhVmRgRIBq/xGKl0m8ygoD04IM3qsgOWhiHQl5R
-         ogwRz2gXEOa1yApt9lT5FuC0KrparbBLK2LDj6OJouHuuD7Ci4VKTomrB1MrOwS0+9Lt
-         Vfesy6/9oXUa0j6r+XhfYHP9v+WwgnqtQCplyy9o0cl7Ufn2tFm71TXeifLv3CRrgQID
-         Od8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzycbkT+TVOx89eVZMR/9szJSG3jDDzpaFnRLhfNI3UXu+Mu1FMMx3drxQU2lWhR3uv8gAYRVLiRIrGk50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1Ve6GMDpTaZrx5sIt4AKNhcuXqi+JL6nD3osxiT8+BCYeGu9e
-	NY+dGLryJIRNmLOU7rF4POrAmc6QIwebd0vEBT9B9d2QHlJhw6BlzUW1
-X-Gm-Gg: AYBFou0N2xmUvbAvYWteMwi02G0xbamhne983fXDWb4Q7dkgj7P20jf8zSFPfkROQpR
-	VPWawxpIqBPcBic4meLGAL8fM5pEfp9qf+Msj6VFlZci25qs2BpjUnsdodmqQYwDHfKTRqxeN0B
-	mUd7fq9WboaCsQmFoP0RU57SqDu1k5NaAWTI5yg2/4cY+DO4Pe84A+sI0kUXHUS42SXV95YnK2b
-	rDqrAx2DfntyB7knvrhDnFay9MS2eHPHdornz+bdwZVQ6bWV6hGycX/1BCxQZjO8dYicaeqvf9k
-	OpDgRAnSaxG9ZRC1wkMoxS6qBUSVyV5ZDZpm7QFAjecxJ9jzuP96d4w4y4l5PcUrMMrrX/PlXbB
-	Hk53sjzkqAUMI5nSCA5alKqNY8JbIIj9w7qhWLzchH9bn9jYQrF9mC+z0JvKZyabjb+MYVlPw9N
-	PJ00ZIjcWE49h4zxY2pZzzZW7/+H8IbHG0+UDCbaG8MRtl1aeLFPkVZ0pWXmzoxxIrqA==
-X-Received: by 2002:ac5:c001:0:20b0:5e9:4e2b:4c9f with SMTP id 71dfb90a1353d-5e94e2b4d71mr3032400e0c.4.1792099547922;
-        Thu, 15 Oct 2026 14:25:47 -0700 (PDT)
-Received: from localhost ([2802:8012:9f:dd00:c85b:fc61:635f:8eeb])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b53cfdfsm190902e0c.15.2026.10.15.14.25.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 14:25:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="ZyXzzWUh"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j5Lht3mYnzKp6j;
+	Thu, 15 Oct 2026 23:25:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1792099550;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2XuJhNfjGucHhAObYOA10HejVry4A1chjwC3rTMjxNQ=;
+	b=ZyXzzWUh4SJ7TIsKT/Upe4sKD5jNfPYTAG1lyaL+2Mut3j6z7U2Hm+rVdRG58Grum2HxcW
+	rG5KLSdRwnYmXgUehkz7y4T2zOs7nXseo++rGy6pTDoJuC9y+MgCA+4VfWYE4abnkS0LHG
+	ABMqef7PCTHGeRPmEcEmdpDZvkM84Yxy0/WDGd/W6rTDEuMEd90LbDBefvsBYcDzo+ShLC
+	KVmaZAoHADsI8JbaET5HqH9bqvDdfB9jjs1IEl4MzPFCibJg5pxgBXjhGtdt5kxz+usHiN
+	jwtvYhzPf3yujVH7tPR0AR4zN20J4G35MlwDew6AJs7+tQkyhBwFpXyTFGc55Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	ville.syrjala@linux.intel.com,
+	jfalempe@redhat.com,
+	javierm@redhat.com,
+	Hugo Sales <hugo@hsal.es>
+Subject: [PATCH 1/2] drm/client: Probe connectors with the device's mode size limits
+Date: Thu, 15 Oct 2026 22:25:44 +0100
+Message-ID: <20261015212545.1989962-2-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
+References: <20261015212545.1989962-1-hugo@hsal.es>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 18:25:40 -0300
-Message-Id: <DM5Q9NKRO89O.22R04QM8YBKWM@gmail.com>
-Cc: "Broadcom internal kernel review list"
- <bcm-kernel-feedback-list@broadcom.com>, "Jai Luthra"
- <jai.luthra@ideasonboard.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Stefan Wahren" <wahrenst@gmx.net>, "Phil
- Elwell" <phil@raspberrypi.com>, "Laurent Pinchart"
- <laurent.pinchart@ideasonboard.com>, "Umang Jain" <uajain@igalia.com>,
- "Kees Cook" <kees@kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-staging@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
-Subject: Re: [PATCH] platform/raspberrypi: vchiq: register bus at
- subsys_initcall
-From: "Gaston Gonzalez" <gascoar@gmail.com>
-To: "Martin Wetterwald" <martin@wetterwald.eu>, "Florian Fainelli"
- <florian.fainelli@broadcom.com>
-X-Mailer: aerc 0.20.0
-References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com> <20261013131435.1454019-1-martin@wetterwald.eu>
-In-Reply-To: <20261013131435.1454019-1-martin@wetterwald.eu>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4j5Lht3mYnzKp6j
 
-On Tue Oct 13, 2026 at 10:14 AM -03, Martin Wetterwald wrote:
-> Since the VCHIQ interface was moved out of staging, its bus is no longer
-> guaranteed to be registered before its client drivers. bcm2835-audio,
-> still in drivers/staging, registers at device_initcall level and now
-> runs first:
->
->   Driver 'bcm2835-audio' was unable to register with bus_type
->   'vchiq-bus' because the bus was not initialized.
->
-> Register the bus and the platform driver at subsys_initcall so the bus
-> exists before any client driver, independently of link order. The
-> platform driver probe already returns -EPROBE_DEFER while the firmware
-> is not ready, so probing earlier is safe. When built as modules, this is
-> equivalent to module_init() and nothing changes.
->
-> Tested on Raspberry Pi 1B rev2, 1B+, 2B, 3B and 4B with VCHIQ and
-> bcm2835-audio both builtin and both as modules.
->
-> Fixes: aa125180c673 ("platform/raspberrypi: Destage VCHIQ interface")
-> Reported-by: Martin Wetterwald <martin@wetterwald.eu>
-> Link: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R=
-272j6Bs4tg@mail.gmail.com/
-> Closes: https://lore.kernel.org/r/CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio=
-5R272j6Bs4tg@mail.gmail.com/
-> Signed-off-by: Martin Wetterwald <martin@wetterwald.eu>
-> ---
->  drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/d=
-rivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-> index e78641703252..d35f5ac5c2e2 100644
-> --- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-> +++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-> @@ -1462,7 +1462,7 @@ static int __init vchiq_driver_init(void)
-> =20
->  	return ret;
->  }
-> -module_init(vchiq_driver_init);
-> +subsys_initcall(vchiq_driver_init);
-> =20
->  static void __exit vchiq_driver_exit(void)
->  {
+Currently, drm_client_modeset_probe() passes the client's width and
+height to ->fill_modes(), and the probe helper leaves every larger mode
+out of connector->modes. drm_log, fbdev's initial setup and the
+GETCONNECTOR ioctl already probe with the device's limits, but on a
+hotplug fbdev passes its framebuffer size. After that, the list that
+userspace and the driver share lacks every mode larger than the
+framebuffer. That includes the panel's preferred mode when video= sets
+a smaller one
 
-Hi,
+Probe with the device's limits instead. Make the mode pickers skip
+modes that don't fit width x height, using the drm_mode_validate_size()
+check the probe helper applied before. The probe helper still runs
+mode_valid on every mode, so only the size check moves
 
-For Raspberry Pi Zero v1.3:
+fbdev picks the same modes as before, with one exception. A DisplayPort
+sink with no mode that fits used to end up with an empty list, so the
+probe helper added its 640x480 fallback modes. Its list now keeps the
+larger modes, and fbdev leaves that output off
 
-Tested-by: Gaston Gonzalez <gascoar@gmail.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+ drivers/gpu/drm/drm_client_modeset.c          | 57 +++++++++++++------
+ .../gpu/drm/tests/drm_client_modeset_test.c   |  4 +-
+ 2 files changed, 43 insertions(+), 18 deletions(-)
 
-Test setup:
+diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+index 0080a8e9556a..e79c7257aaa2 100644
+--- a/drivers/gpu/drm/drm_client_modeset.c
++++ b/drivers/gpu/drm/drm_client_modeset.c
+@@ -121,11 +121,13 @@ drm_client_find_modeset(struct drm_client_dev *client, struct drm_crtc *crtc)
+ }
+ 
+ static const struct drm_display_mode *
+-drm_connector_get_tiled_mode(struct drm_connector *connector)
++drm_connector_get_tiled_mode(struct drm_connector *connector, int width, int height)
+ {
+ 	const struct drm_display_mode *mode;
+ 
+ 	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
++			continue;
+ 		if (mode->hdisplay == connector->tile_h_size &&
+ 		    mode->vdisplay == connector->tile_v_size)
+ 			return mode;
+@@ -134,11 +136,13 @@ drm_connector_get_tiled_mode(struct drm_connector *connector)
+ }
+ 
+ static const struct drm_display_mode *
+-drm_connector_fallback_non_tiled_mode(struct drm_connector *connector)
++drm_connector_fallback_non_tiled_mode(struct drm_connector *connector, int width, int height)
+ {
+ 	const struct drm_display_mode *mode;
+ 
+ 	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
++			continue;
+ 		if (mode->hdisplay == connector->tile_h_size &&
+ 		    mode->vdisplay == connector->tile_v_size)
+ 			continue;
+@@ -163,14 +167,19 @@ drm_connector_preferred_mode(struct drm_connector *connector, int width, int hei
+ }
+ 
+ static const struct drm_display_mode *
+-drm_connector_first_mode(struct drm_connector *connector)
++drm_connector_first_mode(struct drm_connector *connector, int width, int height)
+ {
+-	return list_first_entry_or_null(&connector->modes,
+-					struct drm_display_mode, head);
++	const struct drm_display_mode *mode;
++
++	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_validate_size(mode, width, height) == MODE_OK)
++			return mode;
++	}
++	return NULL;
+ }
+ 
+ static const struct drm_display_mode *
+-drm_connector_pick_cmdline_mode(struct drm_connector *connector)
++drm_connector_pick_cmdline_mode(struct drm_connector *connector, int width, int height)
+ {
+ 	const struct drm_cmdline_mode *cmdline_mode;
+ 	const struct drm_display_mode *mode;
+@@ -183,6 +192,8 @@ drm_connector_pick_cmdline_mode(struct drm_connector *connector)
+ 	 */
+ 
+ 	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
++			continue;
+ 		if (mode->type & DRM_MODE_TYPE_USERDEF)
+ 			return mode;
+ 	}
+@@ -199,6 +210,8 @@ drm_connector_pick_cmdline_mode(struct drm_connector *connector)
+ 	prefer_non_interlace = !cmdline_mode->interlace;
+ again:
+ 	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_validate_size(mode, width, height) != MODE_OK)
++			continue;
+ 		/* check width/height */
+ 		if (mode->hdisplay != cmdline_mode->xres ||
+ 		    mode->vdisplay != cmdline_mode->yres)
+@@ -321,7 +334,7 @@ static bool drm_client_target_cloned(struct drm_device *dev,
+ 			continue;
+ 
+ 		mode_replace(dev, &modes[i],
+-			     drm_connector_pick_cmdline_mode(connectors[i]));
++			     drm_connector_pick_cmdline_mode(connectors[i], width, height));
+ 		if (!modes[i]) {
+ 			can_clone = false;
+ 			break;
+@@ -357,6 +370,8 @@ static bool drm_client_target_cloned(struct drm_device *dev,
+ 			continue;
+ 
+ 		list_for_each_entry(mode, &connectors[i]->modes, head) {
++			if (drm_mode_validate_size(mode, width, height) != MODE_OK)
++				continue;
+ 			if (drm_mode_match(mode, dmt_mode,
+ 					   DRM_MODE_MATCH_TIMINGS |
+ 					   DRM_MODE_MATCH_CLOCK |
+@@ -472,7 +487,7 @@ static bool drm_client_target_preferred(struct drm_device *dev,
+ 
+ 		mode_type = "cmdline";
+ 		mode_replace(dev, &modes[i],
+-			     drm_connector_pick_cmdline_mode(connector));
++			     drm_connector_pick_cmdline_mode(connector, width, height));
+ 
+ 		if (!modes[i]) {
+ 			mode_type = "preferred";
+@@ -483,7 +498,7 @@ static bool drm_client_target_preferred(struct drm_device *dev,
+ 		if (!modes[i]) {
+ 			mode_type = "first";
+ 			mode_replace(dev, &modes[i],
+-				     drm_connector_first_mode(connector));
++				     drm_connector_first_mode(connector, width, height));
+ 		}
+ 
+ 		/*
+@@ -499,14 +514,16 @@ static bool drm_client_target_preferred(struct drm_device *dev,
+ 			    connector->num_h_tile * connector->num_v_tile ||
+ 			    (connector->tile_h_loc == 0 &&
+ 			     connector->tile_v_loc == 0 &&
+-			     !drm_connector_get_tiled_mode(connector))) {
++			     !drm_connector_get_tiled_mode(connector, width, height))) {
+ 				mode_type = "non tiled";
+ 				mode_replace(dev, &modes[i],
+-					     drm_connector_fallback_non_tiled_mode(connector));
++					     drm_connector_fallback_non_tiled_mode(connector,
++										   width, height));
+ 			} else {
+ 				mode_type = "tiled";
+ 				mode_replace(dev, &modes[i],
+-					     drm_connector_get_tiled_mode(connector));
++					     drm_connector_get_tiled_mode(connector,
++									  width, height));
+ 			}
+ 		}
+ 
+@@ -721,7 +738,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 
+ 		mode_type = "cmdline";
+ 		mode_replace(dev, &modes[i],
+-			     drm_connector_pick_cmdline_mode(connector));
++			     drm_connector_pick_cmdline_mode(connector, width, height));
+ 
+ 		if (!modes[i]) {
+ 			mode_type = "preferred";
+@@ -732,7 +749,7 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 		if (!modes[i]) {
+ 			mode_type = "first";
+ 			mode_replace(dev, &modes[i],
+-				     drm_connector_first_mode(connector));
++				     drm_connector_first_mode(connector, width, height));
+ 		}
+ 
+ 		/* last resort: use current mode */
+@@ -750,7 +767,8 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+ 		    num_tiled_conns < connector->num_h_tile * connector->num_v_tile) {
+ 			mode_type = "non tiled";
+ 			mode_replace(dev, &modes[i],
+-				     drm_connector_fallback_non_tiled_mode(connector));
++				     drm_connector_fallback_non_tiled_mode(connector,
++									   width, height));
+ 		}
+ 		crtcs[i] = crtc;
+ 
+@@ -865,8 +883,15 @@ int drm_client_modeset_probe(struct drm_client_dev *client, unsigned int width,
+ 	mutex_lock(&client->modeset_mutex);
+ 
+ 	mutex_lock(&dev->mode_config.mutex);
++	/*
++	 * Probe with the device limits, not width x height. connector->modes is
++	 * shared with userspace and the driver, so it must keep modes larger
++	 * than this client's size. The mode pickers skip those instead
++	 */
+ 	for (i = 0; i < connector_count; i++)
+-		total_modes_count += connectors[i]->funcs->fill_modes(connectors[i], width, height);
++		total_modes_count += connectors[i]->funcs->fill_modes(connectors[i],
++								      dev->mode_config.max_width,
++								      dev->mode_config.max_height);
+ 	if (!total_modes_count)
+ 		drm_dbg_kms(dev, "No connectors reported connected with modes\n");
+ 	drm_client_connectors_enabled(connectors, connector_count, enabled);
+diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+index ec58fe064d86..00f43fca9795 100644
+--- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
++++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+@@ -112,7 +112,7 @@ static void drm_test_pick_cmdline_res_1920_1080_60(struct kunit *test)
+ 	mutex_unlock(&drm->mode_config.mutex);
+ 	KUNIT_ASSERT_GT(test, ret, 0);
+ 
+-	mode = drm_connector_pick_cmdline_mode(connector);
++	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
+ 	KUNIT_ASSERT_NOT_NULL(test, mode);
+ 
+ 	KUNIT_EXPECT_TRUE(test, drm_mode_equal(expected_mode, mode));
+@@ -151,7 +151,7 @@ static void drm_test_pick_cmdline_named(struct kunit *test)
+ 	mutex_unlock(&drm->mode_config.mutex);
+ 	KUNIT_ASSERT_GT(test, ret, 0);
+ 
+-	mode = drm_connector_pick_cmdline_mode(connector);
++	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
+ 	KUNIT_ASSERT_NOT_NULL(test, mode);
+ 
+ 	expected_mode = params->func(drm);
+-- 
+2.55.0
 
-- Branch: patch manually applied in staging-next over commit ec1ecf4f23c5
-- Setup: RPi Zero v1.3 connected to a HDMI monitor
-- OS: standard raspbian with the desktop environment enabled
-- Driver built both as a module and built-in.
-- The following command was run to test the sound: 'speaker-test -t wav -c =
-2'
-- Result: Both HDMI audio channels worked correctly
-
-I=E2=80=99d be happy to run any additional tests if needed.
-
-Regards,
-
-Gaston
