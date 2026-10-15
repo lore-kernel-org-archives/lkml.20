@@ -1,182 +1,114 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDA9313E2C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF746371867
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792029039; cv=none; b=Cytpn/5Qk9O3hf4wJx4oPj/mr8DPV2Uwch8iOaGMmvXDyLnjj4KDJAiiKPKi6s3uvknWFRn0Fk+RAwqouPhwvTjBlJpyOT10R3wlcxWx3cUGPeuoWcxxXNZDJApJVBnkSXXtksotAy15ArAnKEJoY9Wn1qGk66XSVaXmXJIVtAc=
+	t=1792029141; cv=none; b=GBN7ZOztkg1zxtwXWU+6p96V+wn90f2FjtiGxeYdRPO17oBWtHZzBAbOViOii5+e6qWfESJBoigHccDW+G99YTqgDDiqQ0989nZB/ZnG7u3yzj5z8x+SqowxNYqIrooHySNxzrFzy+nnSS+FStjtfuaAsZYUxfvDNf6bEKVomEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792029039; c=relaxed/simple;
-	bh=/x4wgoOpRrlKj8g7RinhirGMQW8lTujhGHYMYJBcDDw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ar/0Hnuhl4eLl8yoUoJ2kIu1htjDGiE+AsTJt/yVUHa26lzs4Sq2J0xea7/8bjMtaM9UiVE0q8st9TF2z4Qn7GW5xhZhhCvMGwJ4JMy2hG5QQIJxY62eUIviG2mU5h2cMBltx7YKLKJQQu1H91ZZURVQHkSinagt3cSopuIbCBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=avQ/nmnn; arc=none smtp.client-ip=209.85.214.172
+	s=arc-20240116; t=1792029141; c=relaxed/simple;
+	bh=KP2iHaL/44s57MvPvmwfua7vwBb/vSPDJ59vz0bCga0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EwFzG8KSRFF2Tq5z1sY7uOdrLT0O+jeBqRAGVqoUUwKgARfCqko5IEk3xErG+iqmSeZuQNIg1vSLCf56LeA+yaUy3aZ8hEE1KsaWczJQfFdHWDGdR2P39VW474zqZb4hxoDSZb6gSSSPFaEvgjEyAktjsOWfIwFc9KnBHUw4SNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qm934V+C; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="avQ/nmnn"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e915887d9dso16494605ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:50:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qm934V+C"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33fb4680717so4267921eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:52:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792029037; x=1792633837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lmt1bwfRxOTKjQOsp9tkvpG9ehM8yzZulL3eFnlXWR4=;
-        b=avQ/nmnnmdQWGkkLl1ZaoXabR89CPuJuiq0KeDy93a2oC8+qq+nzkyIvCEUaSyaufN
-         YYYoMjNrkKHMYh/VnXk/ntlBMqLx+TEMJGup+bNjjjiQj4NX6AnNQCDyodvF7qzvDMW1
-         8bia2ROC+ByWbIRgDfiBILPqYEWKNUrybgBZA3kOpsCUE6j8cqtfo7tT3pYtnFyhXP2C
-         675m437KTTJ7ASPNYoneWOMAd4703Xf70ZMNeFCQPhtzu+AGfjI0YCQfVmZpsL6BkSWC
-         754/LLe9alP3u86Ggdq7eCop93CGbBN1OAYS7/WcQa/i791aSzDJnjwDlWwBAUbvbPoD
-         oD7Q==
+        d=gmail.com; s=20251104; t=1792029139; x=1792633939; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=glf3wPsStHsKi3TlEqw1dZgM8u514rgSxUDeGdh5Ugc=;
+        b=qm934V+CtW9rd/Y9vMifc/pQ2hKkxJeV9wtiqMHuf+loPeUvpwTemCYSeSZbZaUz6t
+         ml6le4ZR/CW+uX2hFPxPFHzYJKPA6dtKb7vhgxT68b9fe8Osnkrf1Hrpo2ial8UlHoX7
+         Qd7p3JFSCzy7RCacnjBLscaZd30f0+exR5rL+srhw45X6Q3HyOiF0GCwtZFhr/YFtRnu
+         2kEEhpQVpgHorAbW6jA4BAYG6rHjz3R/4iIa4xyGSIrubfVFjE3sXUbfL8KXICuX0g+w
+         Mn2Air1qC6BNOON7XvOpbrwJ07k8BlCEDNUYFtcL/PvIkKpXB3Rf22/VMZpDcKwiduI8
+         Rbcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792029037; x=1792633837;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lmt1bwfRxOTKjQOsp9tkvpG9ehM8yzZulL3eFnlXWR4=;
-        b=VU6+Y+fomQrma9yUHye96HqiyIkJqbPSJkrrMkYVxg+J84wbeR62obceuI2sn6gJKM
-         FXamXm0qIlYavZ/MRDWUB4rxsgRlADfESRZrSTsyVA9L2drMM9KnUBT4vj5uXXRFh9cm
-         n6O+wryAKlp+SmVMxMcLXgXEIp/v/OP8ar5+yqwbW0yVsmXdcV8tMMPtZeJ+NVA69znr
-         I/FJVIfYDmKckIl3xyikPgVwr0SqE94kWrrfs/0p4LrBzFHJ3VV3KWHDJfMWcG1HV+mK
-         e8b6Zn3TyE6lNmX7dRVHH8IK6lQwqD00/xfRLjaqlqbOoqz45YznsGdN9SUE0foK6zty
-         vlLw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8FN+8WJJTrtJ0l6hQnJ8DgYYucW1rhtMZ8FpsSo48gOVu5OzHolg3NgCliwM97TPuSzjUgdEXVtxsyDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFdZGU/VYp5xNPHbaH8tf5nD2g3o/1KxsJwYPwQmZWeUEeKu4F
-	mVqCVWM74IOs8LGMH3wC6jXePPSHHYIXFZ40c82DUmqtE8Z+JjhLXNDi
-X-Gm-Gg: AYBFou3kcEC80kbP3Od7KZOPLMeLtiGkn0i2CaSDSMlcPotVkkipHJtm5aViwCszDZ7
-	O2h0Rcsa+BCd/UOXUfpZ0RJ8C0jqNtQQjDwXd68sy9zy8kL514qDavy/UptKzxRfHAsjGC0UA7r
-	mBKi71YMBGbx8GxFI89pbuwUGdkmwq602XZH8p8gvIwHLsSOVRRl1r8PBHvjNRPYWsOssplna86
-	I5CbJGONoURQmH0zzTKYpWkeSUB2VtgAzWDq7v0u2ZU35pg8Plw+M1LhDnGKuhiwhNWArW+Wg9t
-	o9dQ68y1FcRUtaMhmGWIFc6cp/jQsqhM96h6GEIrvphvpRROVfnotl8sgfqMwvmc/oRcARd0ynZ
-	VGjtzlYZ4MjxuCW8Pp8ExC3L+O/EJPgdUKPqR552WXcaCeD8l2cv//C8v8e2ADDEDy3pyx00QbN
-	LwFoE0cHewZ7i8wA2SfCXgPvBXgUjiXXptIYO+Z1c0beo4SkBWFh+RQ+u/V2HzvjBHwKq2GHc+b
-	0tCdhbAk7G81MudhDKruiGYRO+rOsqYC+HVUUdrXTypDCC4qa2TK/+y/ZgjxFxfee7LvBst+I/V
-	x7PwU5x0n+Sbmg==
-X-Received: by 2002:a17:902:f706:b0:2dd:c053:82f1 with SMTP id d9443c01a7336-2e842cdb110mr149481055ad.40.1792029037428;
-        Wed, 14 Oct 2026 18:50:37 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8cc1sm73202995ad.54.2026.10.14.18.50.23
+        d=1e100.net; s=20260707; t=1792029139; x=1792633939;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=glf3wPsStHsKi3TlEqw1dZgM8u514rgSxUDeGdh5Ugc=;
+        b=0TfAv0wevgHCy6oBDdl+Xyr5ldfSv1pEJt0Lboc5UPvYwxHBoeXezty/nCG0OLzr3b
+         4ASfWmIaYAJEcvZHQrbgih2+XApYbs5ztjlzN9hyKL/jvnEDqXYhx81lxsNinM5G93Ak
+         lKkvBMSOw8ldVbdc58IDp8xgvjNMGZwalnqSFJfz1HKv1M1b5W55ZXh5xu41bYi1F54t
+         UhvveT7L9QER50S2KDuTZtFE8MIPgDDw9Ow6kjQXd+8G/sKs4yJBB3rzyaH+e8GfTXQF
+         YbCZacJEHCPwOtkFD2DruPQBjRvlB9V7gXzea1v+K7rjF+DTWqZz3odzddPs+JPgZ0CA
+         7Ehg==
+X-Forwarded-Encrypted: i=1; AKwUvBxA22/T01iqAg8HjcRnCBuZrjGr1JpcbU117+VKF2Qv9Z0ucLoggjq5TXR39TCSAyl4SRRKsJ4Uc6Is3lw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9wpKTdPIIEfHkJdbqOZaC5c/gO7tAx1dPg9KfhImFnmtNclxW
+	NlTnA8B0CfxV56C5pJ0Hgxrz2bS6J7uY/t5WtJCdubuFavGLTWXW8d7OJASWLY1sC9I=
+X-Gm-Gg: AYBFou3k8wMvW+o9I/UjXfdfHg7rxREfl8ZMWs8Z0lF2ob4Z4Ln/2KsQ1S+oxYvEfyM
+	MHsKTSjgzIyEz2TApzpBhIHYNFQqPilXaR9Ijb4zVdXDQMeTO/OAnxx0t8bGE1RKGxopv4qWYOe
+	BQDIKSxYZjXSbw3bUTpfV1uVKA2K8aWc7Q//tuAX0cmAHxe5T1CuEogdDONc9PKtiS8dVCetwtV
+	mG3/AyMYRNJ5DWP1/jrTO0j71CCSziYBv+cKLaKDvst+DpcNtqCZRvwhX7OnlPkBAHvLSDoPmH2
+	YIJlbo/CVZlYFI9I9F5ejES6c/8ZwZh0NYdj7FCI9v3z31aNG0izfJd/BgNFzZtacMFqwmB+jv/
+	+VsSwN9z1USnRcuJHvY8Ll5vSMwmiROtln/j14tXADB/7qVqzzybrHIUi5a3+G5kAKs3ho6kWEL
+	zWIXNG3J4tDfhSplWIYMNKsrZoQELcS7IjLfTrQVYM+pfAwATl4EmDFHry2VLpU9yNMC72TgZK/
+	iXV
+X-Received: by 2002:a05:7022:150e:b0:163:bee9:b250 with SMTP id a92af1059eb24-16a5ef287c9mr26663841c88.22.1792029138518;
+        Wed, 14 Oct 2026 18:52:18 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm50647870c88.2.2026.10.14.18.52.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:50:35 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	povik+lin@cutebit.org,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Kees Cook <kees@kernel.org>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	wangdicheng <wangdicheng@kylinos.cn>,
-	Chris Bainbridge <chris.bainbridge@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Neo Chang <YLCHANG2@nuvoton.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	u.kleine-koenig@baylibre.com,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Md Shofiqul Islam <shofiqtest@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Zain Aboobacker <zainaboobacker33@gmail.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Bo Shen <voice.shen@atmel.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	linux-sound@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com,
-	linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev,
-	linux-rockchip@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 24/25] ASoC: rockchip: rk3399_gru_sound: Mark the link as started on success
-Date: Thu, 15 Oct 2026 08:43:23 +0700
-Message-ID: <20261015014324.5569-25-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015014324.5569-1-phucduc.bui@gmail.com>
-References: <20261015014324.5569-1-phucduc.bui@gmail.com>
+        Wed, 14 Oct 2026 18:52:18 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH v2 0/2] block: skip quiescing the queue for the default
+ elevator
+Date: Thu, 15 Oct 2026 09:52:14 +0800
+Message-Id: <20261015-bug-block-elevator-init-quiesce-v2-0-505a2b0b1c07@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAM4x0GoC/4WNQQ6CMBBFr0K6dkxbLIor72FYtGWAidBqC42Gc
+ HcrF3D5fvLfW1nEQBjZtVhZwESRvMsgDwWzg3Y9ArWZmeSy4nXJwSw9mNHbB+CISc8+ADma4bV
+ kjUUoVXsuu9qcKtmybHkG7Oi9F+5N5oFi/nz2YBK/dXcLzsVfdxIgQNmL6jRHq2pz6ydN49H6i
+ TXbtn0BVfHvPc4AAAA=
+To: Jens Axboe <axboe@kernel.dk>, Ming Lei <tom.leiming@gmail.com>, 
+ Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Setting the default elevator of a new disk quiesces the queue, so every
+disk added with a default elevator waits for an RCU grace period. Patch
+1 skips the quiesce there, which brings START_DEV of a single-queue ublk
+device from 7.74ms to 0.68ms at p50. Patch 2 renames a misleading label
+in elevator_switch().
 
-snd_pcm_hw_constraint_minmax() may return 1, which is then returned
-from rockchip_sound_startup(). ASoC only marks the DAI link as started
-when .startup() returns 0.
-
-This currently has no functional impact, as there is no .shutdown()
-callback in the relevant snd_soc_ops. Still, return 0 explicitly on
-success to match what ASoC expects and ensure the DAI link is correctly
-marked as started.
-
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- sound/soc/rockchip/rk3399_gru_sound.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+V1 -> V2:
+- Add Reviewed-by from Ming Lei and Nilay Shroff to patch 1.
+- Rename out_unfreeze to out_unquiesce in a separate patch 2 (Nilay).
+- Rebase onto for-7.4/block.
 
-diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
-index 04e7bed8275d..d4a0daabfb42 100644
---- a/sound/soc/rockchip/rk3399_gru_sound.c
-+++ b/sound/soc/rockchip/rk3399_gru_sound.c
-@@ -258,10 +258,20 @@ static int rockchip_sound_dmic_hw_params(struct snd_pcm_substream *substream,
- static int rockchip_sound_startup(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
-+	int ret;
- 
- 	runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
--	return snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE,
--			8000, 96000);
-+	ret = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_RATE,
-+					   8000, 96000);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * ASoC only marks the DAI link as started when .startup() returns 0.
-+	 * Since snd_pcm_hw_constraint_minmax() may return 1, explicitly
-+	 * return 0 to ensure the DAI link is correctly marked as started.
-+	 */
-+	return 0;
- }
- 
- static const struct snd_soc_ops rockchip_sound_max98357a_ops = {
+v1: https://lore.kernel.org/r/20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com
+
+---
+Qiliang Yuan (2):
+      block: don't quiesce the queue when setting the default elevator
+      block: rename the out_unfreeze label in elevator_switch()
+
+ block/elevator.c | 11 +++++++----
+ block/elevator.h |  2 ++
+ 2 files changed, 9 insertions(+), 4 deletions(-)
+---
+base-commit: 0f6b042f9a13968c4cd6cde1a70a7b242009ef46
+change-id: 20260930-bug-block-elevator-init-quiesce-35d73f9b462d
+
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
