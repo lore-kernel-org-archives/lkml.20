@@ -1,183 +1,141 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF6250AC05
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057532; cv=pass; b=jaQx3qdQIWqt5YtOfcuUV6R6dtEnfg1jCnGaSU4Yncji1GiRcTl63p55dh5T9p5XHOqyTxd+59UM+z4u/QqVdcZHyOh+Wh8DgByNhZcymo0Fkuqplf9TQZNKUTCt5+S8D1Irhx2Ojo11Wi5XHDFJD56ZjHiu2pqzBeR+d0wFBg8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057532; c=relaxed/simple;
-	bh=hQ/O1jXrg7vtXtaXIgXlSw0Yo6Wdunyn/TqAF45Oh2k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QDSx0jXpOgRLEXS4MgI0Sal5GXKx1CpkUw92AAE8/syF1JS6wiFJeGirYN8037wR8wPogwoi7ti71B36rhOiFbYhbbKXNjYix9sEHloJrJNR9OsLVBEk1Ufv1rVThYEdXmldOkfD6+lZwOPdH9vFIjdP1YXobdZmiYSXVgKFZGs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ANE+qzCU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=l2iRU/jv; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A9C503BD1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792057534; cv=none; b=Ik6w0ZGmRcnAVezKczoKqH4wmaLP9lKgu5g1CDvGkzE8a4y0jsOr+bZjNsgksgo9LIsTic8uSAEb1YR/GwE8vM/VxS6KrSI9hKS0tQFpVHAOh8PSdoIEiu2y6vLX96MxIKMF4dJsRXqGa9K0jilLMKiWRyd/fTxehTfWhq6rKpQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792057534; c=relaxed/simple;
+	bh=7uD671pmVMs/GG7qCtecfsIB9Xednz3DnV7yLyykshk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Meac0Q2oBdZNyTNqa4ZxXOXEZkR803Xazxwis9nWwAqgQ2Hhxo27a165a9B0BABQuofQJOW24HmH9K+Rm1QHtv5ufp37zxA6BS40wczNRoJskmZt0EkNjdLG5RDDllEfnOdPjPrinCpym1toSAc+OkGnqQCCbitjFuRrgVzYWs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=ZznzT8HB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cPVh5N6U; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ANE+qzCU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="l2iRU/jv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792057528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t/+KZUJjxU9hKUHG/eUaO/FcCKTpYENEUj2QT3nk9hY=;
-	b=ANE+qzCUspuZM0k9H6fvnqisyDMaG8ZkbZ0Zc/5a4CXBGg+Kbn3K65P/tS6Yh4kB/YObxX
-	bCdPuCnPSs8sG1AqGI3uXMsf2aS6cy3lqiNv9CizJ4zjjiRK4Mc2zlSwBmZEhCzZLXoXfL
-	OggnX7KVNEqyGnXsHXGq1XQ3NC92NVE=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-677-814nvIuTNZSLjmiu624adw-1; Thu, 15 Oct 2026 09:45:14 +0000
-X-MC-Unique: 814nvIuTNZSLjmiu624adw-1
-X-Mimecast-MFC-AGG-ID: 814nvIuTNZSLjmiu624adw_1792057514
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8461ade272bso46655737b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:45:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792057514; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NG3lGHAsCUjyCZIC1452UMjkPUgCGDrhKcxXl2+gdTWISXYCd+cUJPG7v7OpKpjI03
-         ZGb5f9tTKPbdoxbV5tpqoOszOKRz3L7Wdz8hoe08G1vd/wVrNzHz3hWXgiZFEmXu6kEf
-         LQHD2sflaBu09nlKdMpq8808To7trdAVHWwpFUM2ZKQeJeBpVQC8UMOngkwTA/tZZb+E
-         3LU7xa9EGUxreRFbYbIhMPaElMN3P6jbVo/0nRWAYoClAAk5WUHZEecqXU25KJyPf/Af
-         yvTHfg6rqGf59ctTteFLCwnpR3IWwdxpgWXcx9diqcZ7rNl81/9zJgPB2B5eac6LT2xa
-         XQvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t/+KZUJjxU9hKUHG/eUaO/FcCKTpYENEUj2QT3nk9hY=;
-        fh=149cWARQxig0gLrQKrxhLFAk0XewSh3da6bP7NJLI3M=;
-        b=eaIKZAOy12TRKxKdU5Aysek0S52pWntKBDNkLYXPtJdV71oz4ML2vgptbtsEKDU7wM
-         Pa0iEhix/EBdS9lC6C3mwMCEUua+4fm3qWSc4DV3WJSsqG5a2lXtwymEL374fBUKEUEN
-         sCa7jaeFHRKBeDOG/5iCgD8Hr0vfO8s/QLXK3zsKNsAQfLxp9sBTjp9X3IYDMUcHWlW8
-         +qmZz9cwOfcgp++JBNRPnBL0yX1IN8mlxU8xG83WN7fUh9fOHVSypGOrOyC1FdhoKYBl
-         nn/BZWL/c7jNxSqGjWt44Gc8Qa3/78ulcDZ7Eg78TBOMVUmyKpoPMEwQPlMQE5cn38P2
-         CkhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792057514; x=1792662314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/+KZUJjxU9hKUHG/eUaO/FcCKTpYENEUj2QT3nk9hY=;
-        b=l2iRU/jvrxxfBZdF0B2TR119tsmjZmDimXtzaNAcmk8EfmKsvz80fj114rq2UmmGu6
-         j7nfABcJjFJr2cHU6iF7Xhd5MHg7hPBCarSItA8dB0EW3Lx0nl/ky3M3W8NSN8Fbibp/
-         ZKmkY5Z9cJr3EdRcVyWI0lkEEvZ70W0VJvrEjCm37gypJC6KC+xIzG+IvsE2KGZhEVYt
-         aF7TG0ivSXy/OMfprDIvFK+xzzahnAr8gntAWL7XpJiaHYmKhIvyHGg+yGRRroeC72/b
-         pJiNrS55EQKmMdVnOXUq6hVb2mtoiwn+EMsraQ8CJ4MaFEmE4k+OQZCxCPbHFRXlsirW
-         o7+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057514; x=1792662314;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t/+KZUJjxU9hKUHG/eUaO/FcCKTpYENEUj2QT3nk9hY=;
-        b=RyP1kNVXb7Za46a2ZQzg8uIQKrJqJszQh0BjibGKmIblqEIWEGUDhUNaHN0A7uFMUH
-         fqOPMiUgqNiio/ONpJWDVzSqjCylMdNS3weHbkTuBh5ox+qp9VTvuG7P6g9VIqWkgYv0
-         L0KuF685wVahEr5DYt7HVQCR9xrMvJetd1VA1Aea1cZVlYp2qK7O/yDPwTV14n+gKuPm
-         bUybi8OqaxdxgnL3PjW4yVlR8GW7mcOgGf0Rs5oG53QeibFXFbY2Hu9FoOwZB2xlucWt
-         D81BU+J8TWKxojkjopStCagN3sEY9lYR+Hw3ZFv0DCENDj2fXYwjPHqsHf5yXmIs8cTn
-         WFAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHh14vDzU5EjRpydYUCVbr1ubtBqIzKicF01GOtilC58ODJOu/gR3/Vn3sxKlhXn1XWQljsDHTg2st0aQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjQc9Yu0FW+6K1WksqrVE/sQjgqKay1eMcNEzi3Unk9RTymTNM
-	gyQ66P4UmTEZ4OOHd926+4YBlVCObM1g8fEaZQnM7fpCYxxuVPxXwBK33eHFxOysii5sxBvvrC+
-	gRPfnv/1FZlQEiGWoj413S6d98wqF4KnuuMkiN7jJVM2Y/vrkN37uZrBMjP27EpCuPaO7wsOfFC
-	8JEgNCOM39RQtzSFUOirjjPlsXdhUSvVuucUPUBppp1BlIqdM3xYE=
-X-Gm-Gg: AYBFou3iYihLY6C+ljegvZ88k8/ha3/LCF6dmDRbbUnCcjY9QRolORk8P+oYyH7JZRp
-	HjSSeYaeyi634S3yIL9xs1vFXyWQ2doIEQo8eA7qpmOZ8P/ij0ZpydM+KUby3FabZzLZV6ocFlI
-	sdEC2XbHsUFzSfYP3siahvaj3haDl4IEhWSSgwyPkLAbr6dRlO4x5t3I17mP/M9JXhZUWDYsG1t
-	nR4kOzVWJkqPWKtzLxJ9HJgdAjhncMt/uK45zzmhKuIWOtCvnNjWPgvp0U=
-X-Received: by 2002:a05:690c:e3c8:b0:8b0:a352:f99b with SMTP id 00721157ae682-8b0a352fd39mr45441657b3.5.1792057514216;
-        Thu, 15 Oct 2026 02:45:14 -0700 (PDT)
-X-Received: by 2002:a05:690c:e3c8:b0:8b0:a352:f99b with SMTP id
- 00721157ae682-8b0a352fd39mr45441587b3.5.1792057513796; Thu, 15 Oct 2026
- 02:45:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="ZznzT8HB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cPVh5N6U"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0FD507A0127
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:45:30 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:45:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792057525;
+	 x=1792143925; bh=r1tzCOkHV5jDjHScMXSBpN7g/AgiibaU0qItNz/gOGQ=; b=
+	ZznzT8HBzk6bqmmI1rvPSALi3WMvqFMheYS+4cu7pgCeNfRF3BO3QpXcNALpEW0c
+	43CJWO5TBCD9vGXpZsZKx0/mPQnBrexT1UGKVpKM5dPOZ2fYE+i+DI8jQwb/uvGJ
+	Tstxqg+y3ZnplBkz+v5bJqCBcHh6qES7En6wjKN8YaDbDd2Lnu5S2gs0IWDkAQkq
+	cgVjVUJ7h4vtoN9+zgnnLZo3wUZBldOCy2TNcBOE9Df8MR0UQ5THjnQwHYTIPdGQ
+	ZH9ZUxBlpDXwnf+hkaVNK1TayNHWbPvISVDhklP3xZXaBOOk1yrQk7OBU2h/Z2e6
+	sJ4rXiP3dEE9/rFP6fwR1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792057525; x=
+	1792143925; bh=r1tzCOkHV5jDjHScMXSBpN7g/AgiibaU0qItNz/gOGQ=; b=c
+	PVh5N6U0jMN/uiCAmBT1yRHM+VnKu2gJjggm5sPGmQwzdBLfbwoSM/z693M8aet+
+	ghC7p2/zQtI6bK7adwhPcMZtoYgSgzeC0aZwpVE/ZfWM18/ESkILcGAXJ60UJqA1
+	Emhf3pV8nxZytnksnYzzA8jNwdsOJlcEds6Lbj2nroLce3isJGidYmDcDe5uwdVr
+	hYYXCKsaoBKLdVl0c9MVxvYiEAPo86myhmir32yZPaRjLjGq4C9w3W53ZjYzi9KQ
+	iO1JQKZFfZi08UfgEHjHQfHIVX/aRbOAUXdwGALrY6GYBAv5HGWLiqoiP6PJxbLR
+	zas26C+72qthTjn4BnNCA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792057525; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Y2TuNqB1mdfCIwMCVySwGprICT4bbatWaam0KQja/vQySN6
+	0qe2yTgK6A+N/uyegPMofbYQA+3rQW805vw89f1+QiIVXsUrCeNhSecg9IjDA+OA
+	L70sBPYIlOH/8QSaYRTrPN7ABGVawb7zVP/l3B+SgywqBepg5RIgzor9vynRMpml
+	escNhqpnWvOokm4ejnYRSG8+K68qz8I02aNjHh1WeSsTxuq1JLAEdamQ6vn0kgRQ
+	4ebKrwkehGJGqiGTw/v17yOpj3QakBTGQzSbsIVqBhh/qarc9ewUfh0H7b9mnIAs
+	osM1p0scS63BhilriVrOnphACEdrAur0OG3AP4w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8V2xEtLHKoxGmPadnIZenC1kE65qORwVnVXR+y5enuI=:7uD671pmVMs/GG7qCtecfsIB9Xednz3DnV7yLyykshk=;
+X-ME-Sender: <xms:sKDQari_DL1nGCfu7E_RDULe9nH0Rdm4t5wrLsbNGaYpadWnG5v37Q>
+    <xme:sKDQai3F2xtwAbg-XvO29Z5Xw0gTH5Eal_W3hNbpK8XQu2wmCma0QA7qhg6dfmJEd
+    eiiQVEbzBP5rBjF00ITW4LfbVLP3D8U89GZRcXe0dL_aO7uvmGLHg9V>
+X-ME-Proxy-Cause: dmFkZTFCCY7MnPrJKPDx8CIW7Q6btopFgmLLsFhNIbGJJZAfC6SzaUN+XTsHmEyFk1CX+o
+    /bn/3s68uUGOisZ0cSJuE+4dXBCQgIjmLDZabv55CP4BXOA++zALU7LmrisJdXboI7tDoB
+    8CsD+PkBUZAAc31CGiX7Q4f5dnwyISKjJ4qqN/kcNDXDtEM9uC0tLEmEDpwHrFzNvBkuQI
+    Yxn810dCgZQgUkMmnKGwpK3SKlxHYeuBVd7c3sH2C3lmro3qXPr/EFryncr4opl9ymMymX
+    QfemNtBeJ8SRUQfGXyi51EZiDQrU4U8XC2Lmc5/FvZi6RtvYtFsaGjQevVNyqSOKPtQMcW
+    7w/3C/p8l2B+C8vEKNT7nP0W8CZ55uPCOxvDNNPxV5BBWB2KwLgl71ormdAvTKQmbk3N1Y
+    yb53SEPLNEYiAd8oOnS+4VjjqzDBjilm/Bh/CYQ+zrrwiHYG8xj2xEY6fNBovkbEZnCtxL
+    AdA30czu4C9PUwjuIWRpkBjuiHdcrkwahCXkMQwj3LE121y6tLNzmSZL6J1MQNewlg6Hcg
+    Otg2vaV6NfPPXRweIgylLc4ez7DXyX812Dv/8MixHxJJaumTBkYAM4XQsI2aDQCOQYWnkj
+    jYHa6o8p4fx2YguprvGSdE1/KloWr4fFuLUyCcoZGLxqBWPhgVSfQhH+mo0g
+X-ME-Proxy: <xmx:sqDQanG75E4rx2atLEB5Gkr3hubb11l4T9bzViq8vMUJnm0zS1ufeA>
+    <xmx:sqDQashlaaSA6Q0nh_PobMdGmHlyEwlVmoSJ-WhxGIEDZzeKfUoHIg>
+    <xmx:sqDQakvILIBfG5DDqruklOqoP1_wcvMmUED4oWP5CtSBiM_FCfDKaA>
+    <xmx:sqDQavsvoeAvZgkv5wKK2AcDEsyjyc9fUGKvYmW6YAWydN5OzLVBPw>
+    <xmx:taDQarqGM04RQDe1Q4d4heAU-9rg0Hx9EPe00b9gslJZV7Y0d0x45zkm>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 70E3832A008E; Thu, 15 Oct 2026 05:45:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015094049.107999-1-eperezma@redhat.com>
-In-Reply-To: <20261015094049.107999-1-eperezma@redhat.com>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Thu, 15 Oct 2026 11:44:37 +0200
-X-Gm-Features: AclHuK-LzQXrraKcjrq2gn14rhkXoC0CRIcZZIDODKUQmzqbCXSFbFDTcemdS_k
-Message-ID: <CAJaqyWeozDb=fgxNvcN7-ZYGBmAMZ1pABj=h_nv9T=4GAaSNGw@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: add missing virtio/vdpa/vduse/vhost headers
-To: mst@redhat.com
-Cc: Stefano Garzarella <sgarzare@redhat.com>, linux-kernel@vger.kernel.org, 
-	Laurent Vivier <lvivier@redhat.com>, virtualization@lists.linux.dev, 
-	Jason Wang <jasowangio@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AZUAoEL-p1MZ
+Date: Thu, 15 Oct 2026 11:45:00 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
+ "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
+ "Andreas Larsson" <andreas@gaisler.com>,
+ "David S . Miller" <davem@davemloft.net>
+Cc: "Thomas Gleixner" <tglx@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>,
+ "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Imre Kaloz" <kaloz@kernel.org>
+Message-Id: <6ee3bd4f-3563-4e14-a665-df1f766e4710@app.fastmail.com>
+In-Reply-To: 
+ <ed61723a01eeeb2e94306de3be3a363974b984fb.camel@physik.fu-berlin.de>
+References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
+ <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
+ <7334b77c-2ec7-4678-8296-f187e0304f49@app.fastmail.com>
+ <ed61723a01eeeb2e94306de3be3a363974b984fb.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 3/4] sparc32: implement futex atomics, with casa detected at run
+ time
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 11:40=E2=80=AFAM Eugenio P=C3=A9rez <eperezma@redha=
-t.com> wrote:
+On Thu, Oct 15, 2026, at 11:28, John Paul Adrian Glaubitz wrote:
+> On Thu, 2026-10-15 at 11:23 +0200, Arnd Bergmann wrote:
+>> On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
+>> > sparc32 has no futex_atomic_cmpxchg_inatomic() or
+>> > arch_futex_atomic_op_inuser() of its own. The generic versions only
+>> > work on UP, so FUTEX depends on !(SPARC32 && SMP) and an SMP kernel
+>> > has no futexes at all; NPTL cannot run on it.
+>> 
+>> I believe there are existing patches for LEON with CASA that
+>> should just be merged, I would not worry about supporting broken
+>> CPUs that never had this.
 >
-> Several headers related to virtio, vDPA, VDUSE and vhost were not
-> covered by any specific MAINTAINERS entry and fell through to the
-> catch-all THE REST section:
->
-> - include/linux/device-id/virtio.h: not matched by the existing
->   "include/linux/virtio*.h" glob, which only matches files directly
->   under include/linux/ and does not recurse into subdirectories.
->
-> - include/uapi/linux/vdpa.h: the in-kernel include/linux/vdpa.h was
->   listed under VIRTIO CORE but its UAPI companion was missing; the
->   "include/uapi/linux/virtio_*.h" pattern does not match it because
->   the filename lacks the "virtio_" prefix.
->
-> - include/uapi/linux/vduse.h: there is no dedicated VDUSE section in
->   MAINTAINERS; the driver lives under drivers/vdpa/ which is already
->   covered by VIRTIO CORE, so the UAPI header belongs there too.
->
-> - include/uapi/linux/vhost_types.h: the VIRTIO HOST (VHOST) section
->   explicitly lists include/uapi/linux/vhost.h but omits its companion
->   types header.
->
-> Assisted-by: claude-sonnet 4.6
+> I think you mean the series by Imre Kaloz [1]? If yes, he actually
+> implements CASA emulation unless I'm missing something.
 
-I forgot:
-Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+No, I had not seen that one, I was actually surprised that Andreas
+never merged it as we had discussed this years ago when I looked
+at the Leon downstream kernel. I see it is still part of his
+downstream patches at [1], at least the versions from 4.9 to
+the latest (6.13).
 
-Also, in case it is useful, the model looked for all the potentially
-missed files.
+        Arnd
 
-> Signed-off-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
-> ---
->  MAINTAINERS | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..9f85882f307e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28903,9 +28903,12 @@ F:     drivers/block/virtio_blk.c
->  F:     drivers/crypto/virtio/
->  F:     drivers/vdpa/
->  F:     drivers/virtio/
-> +F:     include/linux/device-id/virtio.h
->  F:     include/linux/vdpa.h
->  F:     include/linux/virtio*.h
->  F:     include/linux/vringh.h
-> +F:     include/uapi/linux/vdpa.h
-> +F:     include/uapi/linux/vduse.h
->  F:     include/uapi/linux/virtio_*.h
->  F:     net/vmw_vsock/virtio*
->  F:     tools/virtio/
-> @@ -28979,6 +28982,7 @@ F:      drivers/vhost/
->  F:     include/linux/sched/vhost_task.h
->  F:     include/linux/vhost_iotlb.h
->  F:     include/uapi/linux/vhost.h
-> +F:     include/uapi/linux/vhost_types.h
->  F:     kernel/vhost_task.c
->
->  VIRTIO HOST (VHOST-SCSI)
-> --
-> 2.56.0
->
-
+[1] https://download.gaisler.com/anonftp/linux/linux-2.6/kernel/
