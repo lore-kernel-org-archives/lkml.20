@@ -1,83 +1,44 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010007.outbound.protection.outlook.com [52.101.85.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78153D79E9;
-	Thu, 15 Oct 2026 06:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046917; cv=fail; b=k7F4lOsJ7neWjnwTvT5H+v9QU/JfztNn7OOLqxmwWdbZICEPiPKvZSSmrc+pYf3TDcIwFfveVrZ5DXT+xAuh7wKwDX/Gj7gZaVFjXnfNS83Tpg+G8ZCmCY9N06Sg1HgvbB1rOnZAYkWh86xBttwxmh3RkJncMetj01WC9Cax+z0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046917; c=relaxed/simple;
-	bh=X+3wPiNIY/aryrrkG1ADF4G79uAUbyHWHnckn1/g6x4=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DTB6yjM1puK03yvMxE3DqB+z7YfixzZIizKRnLwSePGcr7Uf5Oker3BSEJAo82KOxnS62TOqUJh1eBfUQIabU4MUjulVmd5MG9fTfCZeIjzUKqUCv3WY85kLQDtfFTaOfYvuP6+YwuGsSpaUdM0xy8qpZG9KCVMP/qgHL0kM1s0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rcq0W2Ce; arc=fail smtp.client-ip=52.101.85.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6D27057D;
+	Thu, 15 Oct 2026 06:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792046937; cv=none; b=eFbp4QvOCQkJBEc/Tn5E+5upGaPdNHsF5d2vgpTYfxhQE9KUqYxVncuXuElLIacTTi5Py534zqaCTlZFjS7D8kA3NVH+14iwxApmd1mcWnkD4bA3WTS8h18WWi7Ovc6WpFTWFKMitAS430v1baFARrqWMXaH+uGXajP5LljpD2U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792046937; c=relaxed/simple;
+	bh=Vx4WNBNl7SOPDEKnt7RVr9r9XrczH2ZC8K4MYPdXKYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BpDVWx65jW3RAr41ylE75/Nu0TT8Qomdf7fpm+5VXsji+dEaUeA8J4YbbzzUOr1YUPuJ75CcCsUV/MGseCshhdCdoZWawjFrwQtOLm6NWrSxDaeYsGh2FqnH1LretU1arT1m7+VFJQVfTvkhfb99Ft+imaWlMs4zHSODzu3t9XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aSvZh6T6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rcq0W2Ce"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yGGVSYL+SoTutWMbm89n50jWr7V2OOW1EJrPlIDW9BpD0LAqMUBNbI878gj2e/ymUXK3fh8iPMkLXO8PY5PBNcgdXqHjj2eHRIejZI749/qj5f3XaLuBGQmEmVnI+IE7lkSqXoI9aFdSBRfDJMLw+cGT7s5LwfY56rUBI9nIWjQqghEKN+z3ayUK05n1cLolQdnBih3N6tZob5Lip/U5I04ZAlxMRR3W85Hirdwm3yZ5hIXHOJV+mJmZEd4C4Z4YootntigDrOvOcwEluh2llLR+V3QTm8xtcEIU5T3RZR006Fi/SbuX9vjHVLAcoRpAQBLV3aFfTlsLxqTuojFVfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wcq5krF/Q9hEi1ogpoJRGe5osH5temXaEr+QbDdY208=;
- b=bLP3pSn9OLIYZ2difolKqXpdGLvyGjdk10L4tSeGQa6R8IgkSg0EEqT2DrTOApzVCEKQUVWPXgjieaNX2qw7OgKVCV2+6FTJDxvFVUv8qYF/tL03Rmv19uvGMN53cUrip1NDDt5uDJ7TmJ3KXI4aESLy2GNOQ85WB7kICERkuDFx2sYqlg1ETWmn5Iojy24zF9rKvAdSbyCKKS7VSHRILCRJDVQPb1MdCalF9gV1EBTxVPMEtMBbxYToJpHEKxmyf24/DlQLjdmK/DI5H0ggm2OALAVR+xPh2WY1FV482nfUJtam/8/GW5w6Gw8aFKrDaS/UzBzVjVZrel3BGuS8tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=zytor.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wcq5krF/Q9hEi1ogpoJRGe5osH5temXaEr+QbDdY208=;
- b=rcq0W2CenzZa3WtAcOaMLFczvDQtPYSW5ADqsBoww2R5/SwQbbfoqlMqUHJeEy0Cb3UqLX5b9QbWq+FXkX7T+RF7WjLdrXqYuZq19s6VdFHqJrnSxnJUeJfgrDe7leSHhXIAeWuGjdFmA6DZVEAtv71qoIjNK6umX9RGh9vX7e8=
-Received: from CH5P223CA0015.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::15)
- by SAAPR12MB042067.namprd12.prod.outlook.com (2603:10b6:802:300::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 06:48:31 +0000
-Received: from DS8PEPF000000E0.namprd05.prod.outlook.com
- (2603:10b6:610:1f3:cafe::a1) by CH5P223CA0015.outlook.office365.com
- (2603:10b6:610:1f3::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu,
- 15 Oct 2026 06:48:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS8PEPF000000E0.mail.protection.outlook.com (10.167.23.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 06:48:31 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
- 2026 01:48:15 -0500
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "H. Peter Anvin" <hpa@zytor.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Borislav Petkov <bp@alien8.de>, Dapeng Mi
-	<dapeng1.mi@linux.intel.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jeff Layton <jlayton@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, Kiryl Shutsemau <kas@kernel.org>, Li RongQing
-	<lirongqing@baidu.com>, Marco Elver <elver@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Rick Edgecombe
-	<rick.p.edgecombe@intel.com>, Robin Murphy <robin.murphy@arm.com>, "Sairaj
- Kodilkar" <sarunkod@amd.com>, Sean Christopherson <seanjc@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Thomas Gleixner <tglx@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	<iommu@lists.linux.dev>, <kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v5 4/7] iommu/amd: Program guest-mode IRTEs for GAPPI wakeup when IRTE[IsRun] = 0
-Date: Thu, 15 Oct 2026 12:15:12 +0530
-Message-ID: <20261015064515.10700-5-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261015064515.10700-1-sarunkod@amd.com>
-References: <20261015064515.10700-1-sarunkod@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aSvZh6T6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110961F000C4;
+	Thu, 15 Oct 2026 06:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792046936;
+	bh=INoA3eVpkm2e3ROHdK2qniT1eVroY4hUq1eYZv5DCfk=;
+	h=From:To:Cc:Subject:Date;
+	b=aSvZh6T6xahyGHhC0EW9wxXhrWhpEM8b0kFruRKRwBYOVP7S7kbkaxdvUzakZEpcq
+	 R97WKRNx7PsoGU0GHXd3u9Bh00VCMBH37GUFgMt2cv54NKgXpdLIx9wp3XlacVH8dW
+	 iRrLRizPNdWSu+WFto1NOfHCKjnXmbUU3um/WMU1MlSR3fxH3VvBx9MqjbKw0vRiEC
+	 BlOSA0bXcvzUP/XgOZ0sWYq/YGxlyWycdudy8TIVU92zBaPy+S08OG5a7PoiTJYibO
+	 0BhM4ZCzpyaGd4RBPQtemEVN3Mj9HsyuYFHJXWn30XtonSCYhMsA15GxWyMe+ddUmi
+	 Bqo44S6hc5wQQ==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH] perf c2c: Fix memory leaks on output fields
+Date: Wed, 14 Oct 2026 23:48:50 -0700
+Message-ID: <20261015064850.43366-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,172 +46,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E0:EE_|SAAPR12MB042067:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac5ae833-34de-47eb-8044-08df2a885343
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|23010399003|261009223027099003|10067099003|11063799006|56012099006|22082099003|18002099003|13003099007|921020;
-X-Microsoft-Antispam-Message-Info:
-	qBfGf4FstTnxycjhOekTaRxOiU9MLzXK2vLNMNZjCw+eJvY6y1fE9lmObgUlG8zh/txYCg5XHmzpmFqJRFpPioDh3QrObWjiOJ1r4y7ElU0BpKsjNkoib/ul1ZweEYnrgfQR5gvs9bZvgTG+mrx4z3BpsPs8HK6pMKMgqBe/5Kr7J9rd6SGU6vb9qS/0u0sj71YSRi239nQYo/ICfVqCRGbJ6cMDhvWzCcxv02cgsS9EEEpiUsICvKSwxqjkLsNfMMoIFDP7o2YbjERsX8Rzm0JarxO1JrK6LiTrveXOa8ueNMaZpuJVt9khJJctWuqUbb49xm7ctYaHvZXIPQzzXIATPedGnHV/G1CUE8c8OlPUMH25zB5DKrPcF+4RjeAvoSWgW8igU6Vprnv6wgymJK1SV/kqIBKm9yg2hZVv8m9XcXZeGfd9dHS7ijJSYKnXB98thI3SGSnu+kASuyG5/wAolo6W8X965O26i/7ABGspC+jeaLwABOeS8dzJhQe4to7mm6FOFyndegwhtIpeQX7oTAuPol/MPgQcFsE+pXT9xYYFKWwR1uxVIis9iCGA3yky2livgrrA2pvtKeJq/OZjFGlI0wqXLEb6+T/rz9fwKa7mqCjk705VbAar02d87QmXH5FdCv2QF+9cIqARxUNEawDRr9Lp+JcGVteirtfop0UzhRW6UUdMeLk4azVXjKZS/dOcm5Vq6GlXd9zsXDiWoRVLX+xkqBtXZZc6kPNkzNaY9Pk1QMy8WzzUzLlB
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(23010399003)(261009223027099003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(13003099007)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kjCL61lFC9OT3T7x//9tiSokRPK08PCJWBP+6f1m6ikA0hrC2R9YEkqXV7dCnCo0bpPJ982TM0VHaIe4kN6DAiFQt3sIsJ0b8PD3Mus01z8eURrDPh8YIwsnn5u19LwbzqF/5Evuy3yWdI8BmwkBpiDL/Hs5+bX9IjBF7GvVqT9hn2u3ncrxXMIM5RsoUOz5zRv4bdQM/vlKa3iLvWMZYCj/u7Tm5QO8vzsDCAtvU4jGStXxKhkehXVhWbN49bxH/0Yht0slxkgZSUTNHKTGUI83u6hf2RoymYNKl8VU1Z6/tjh0UnT0J9Omyegyl8wVG70VLa31lccrcBERUZgqRjA6R+/aZmc5Ie4cS8n6ygDfxHEWySq1+ps+BdiIUHFReNP2VHovHykbpdsaRKQ3GXiCtuq3aVLNvd8ZrEXrnngEIVKaLIaXLS6A5OlwOAzm
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 06:48:31.0009
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac5ae833-34de-47eb-8044-08df2a885343
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS8PEPF000000E0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR12MB042067
 
-Guest APIC Physical Processor Interrupt (GAPPI) is an alternative to the
-GA log for notifying the host when a device interrupt targets a
-non-running vCPU (IRTE[IsRun] = 0). Per the AMD IOMMU specification [1]
-(section 2.2.5.4), with GAPPI enabled the IOMMU delivers a physical APIC
-interrupt to the CPU described by IRTE[Destination], using
-IRTE[GATag][7:0] as the vector, while still updating the guest vAPIC
-backing page IRR as usual.
+The perf_hpp_list was not freed after use.  Let's add it for the main
+c2c hists list in perf c2c report and a local list in print_pareto().
 
-The AMD IOMMU also allows suppressing GAPPI interrupts using the
-IRTE[GAPPIDis] bit when the GAPPIDisSup feature is available in
-extended feature register 2. The AMD IOMMU driver sets this bit when
-the wakeup_intr flag is not set by KVM.
+Previously it was detected by ASAN like below.
 
-Note: amd_iommu_gappi is currently false; a later patch enables it via
-the kernel command line.
+  =================================================================
+  ==42183==ERROR: LeakSanitizer: detected memory leaks
 
-[1] https://docs.amd.com/v/u/en-US/48882_3.11_IOMMU_PUB
+  Indirect leak of 1064 byte(s) in 7 object(s) allocated from:
+      #0 0x7f17334ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
+      #1 0x0000005fa099 in zalloc  ../../lib/zalloc.c:8
+      #2 0x0000004faf6d in get_format  tools/perf/builtin-c2c.c:1978
+      #3 0x0000004fb45e in c2c_hists__init_output  tools/perf/builtin-c2c.c:2004
+      #4 0x0000004fb7de in __hpp_list__parse  tools/perf/builtin-c2c.c:2047
+      #5 0x0000004fbae9 in hpp_list__parse  tools/perf/builtin-c2c.c:2085
+      #6 0x0000004fee13 in print_pareto  tools/perf/builtin-c2c.c:2563
+      #7 0x0000004ffcd7 in perf_c2c__hists_fprintf  tools/perf/builtin-c2c.c:2708
+      #8 0x000000500ab5 in perf_c2c_display  tools/perf/builtin-c2c.c:2949
+      #9 0x0000005045c3 in perf_c2c__report  tools/perf/builtin-c2c.c:3522
+      #10 0x000000505caa in cmd_c2c  tools/perf/builtin-c2c.c:3676
+      #11 0x0000005df50e in run_builtin  tools/perf/perf.c:383
+      #12 0x0000005df9b1 in handle_internal_command  tools/perf/perf.c:436
+      #13 0x0000005dfd7f in run_argv  tools/perf/perf.c:480
+      #14 0x0000005e02d6 in main  tools/perf/perf.c:581
+      #15 0x7f1729450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #16 0x7f1729450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+      #17 0x000000409c34 in _start (tools/perf/perf+0x409c34) (BuildId: 36a64600776d92e4ab7dfd5ca20c92280d72a645)
 
-Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+  SUMMARY: AddressSanitizer: 1064 byte(s) leaked in 7 allocation(s).
+
+Fixes: c75540e3160f ("perf c2c report: Add dimension support")
+Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 ---
- drivers/iommu/amd/amd_iommu_types.h |  4 +++-
- drivers/iommu/amd/init.c            |  3 +++
- drivers/iommu/amd/iommu.c           | 30 +++++++++++++++++++----------
- include/linux/amd-iommu.h           |  6 ++++++
- 4 files changed, 32 insertions(+), 11 deletions(-)
+ tools/perf/builtin-c2c.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-index 8241ef922519..b89a2b3df0a4 100644
---- a/drivers/iommu/amd/amd_iommu_types.h
-+++ b/drivers/iommu/amd/amd_iommu_types.h
-@@ -97,6 +97,7 @@
- /* Extended Feature 2 Bits */
- #define FEATURE_SEVSNPIO_SUP	BIT_ULL(1)
- #define FEATURE_GCR3TRPMODE	BIT_ULL(3)
-+#define FEATURE_GAPPIDISSUP	BIT_ULL(4)
- #define FEATURE_SNPAVICSUP	GENMASK_ULL(7, 5)
- #define FEATURE_SNPAVICSUP_GAM(x) \
- 	(FIELD_GET(FEATURE_SNPAVICSUP, x) == 0x1)
-@@ -982,7 +983,8 @@ union irte_ga_lo {
- 		    no_fault	: 1,
- 		    /* ------ */
- 		    ga_log_intr	: 1,
--		    rsvd1	: 3,
-+		    rsvd1	: 2,
-+		    gappi_dis	: 1,
- 		    is_run	: 1,
- 		    /* ------ */
- 		    guest_mode	: 1,
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 8a410d4aa370..ef23e0755c32 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -160,6 +160,9 @@ u8 amd_iommu_hpt_vasize;
- /* Guest page table level */
- int amd_iommu_gpt_level = PAGE_MODE_4_LEVEL;
+diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
+index 4222ac784fabef6b..b2b07e6a2a717466 100644
+--- a/tools/perf/builtin-c2c.c
++++ b/tools/perf/builtin-c2c.c
+@@ -2155,6 +2155,11 @@ static int c2c_hists__reinit(struct c2c_hists *c2c_hists,
+ 	return ret;
+ }
  
-+bool amd_iommu_gappi;
-+EXPORT_SYMBOL(amd_iommu_gappi);
++static void c2c_hists__exit(struct c2c_hists *c2c_hists)
++{
++	perf_hpp__reset_output_field(&c2c_hists->list);
++}
 +
- int amd_iommu_guest_ir = AMD_IOMMU_GUEST_IR_VAPIC;
- static int amd_iommu_xt_mode = IRQ_REMAP_XAPIC_MODE;
+ #define DISPLAY_LINE_LIMIT  0.001
  
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index c0eec32ee3cb..7ceb6bf508f0 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -4004,8 +4004,18 @@ static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
- 		entry->lo.fields_vapic.is_run = true;
- 		entry->lo.fields_vapic.ga_log_intr = false;
- 	} else {
--		entry->lo.fields_vapic.is_run = false;
--		entry->lo.fields_vapic.ga_log_intr = wakeup_intr;
-+		if (amd_iommu_gappi) {
-+			entry->lo.fields_vapic.gappi_dis = !wakeup_intr &&
-+						check_feature2(FEATURE_GAPPIDISSUP);
-+			entry->lo.fields_vapic.is_run = false;
-+			entry->lo.fields_vapic.destination =
-+						APICID_TO_IRTE_DEST_LO(apicid);
-+			entry->hi.fields.destination =
-+						APICID_TO_IRTE_DEST_HI(apicid);
-+		} else {
-+			entry->lo.fields_vapic.is_run = false;
-+			entry->lo.fields_vapic.ga_log_intr = wakeup_intr;
-+		}
+ static u8 filter_display(u32 val, u32 sum)
+@@ -2577,6 +2582,8 @@ static void print_pareto(FILE *out, struct perf_env *env)
+ 		c2c_he = container_of(he, struct c2c_hist_entry, he);
+ 		print_cacheline(c2c_he->hists, he, &hpp_list, out);
  	}
++
++	perf_hpp__reset_output_field(&hpp_list);
  }
  
-@@ -4016,15 +4026,15 @@ static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
-  * If the vCPU is scheduled to run on pCPU (@is_running = 1), configure the
-  * Destination with the pCPU's APIC ID, set IsRun, and clear GALogIntr. If the
-  * vCPU is scheduled out (@is_running = 0), clear IsRun and set/clear GALogIntr
-- * based on input from the caller (e.g. KVM only requests wakeup_intr when the
-- * vCPU is blocking and requires a notification wake event). This API is
-- * intended to be used when a vCPU is scheduled in/out (or stops running for
-- * any reason), to do a fast update of IsRun, GALogIntr, and (conditionally)
-- * Destination.
-+ * and GAPPIDis based on input from the caller (e.g. KVM only requests
-+ * wakeup_intr when the vCPU is blocking and requires a notification wake
-+ * event). This API is intended to be used when a vCPU is scheduled in/out (or
-+ * stops running for any reason), to do a fast update of IsRun, GALogIntr,
-+ * GAPPIDis and (conditionally) Destination.
-  *
-- * Per the IOMMU spec, the Destination, IsRun, and GATag fields are not cached
-- * and thus don't require an invalidation to ensure the IOMMU consumes fresh
-- * information.
-+ * Per the IOMMU spec, the Destination, IsRun, GATag and GAPPIDis fields are
-+ * not cached and thus don't require an invalidation to ensure the IOMMU
-+ * consumes fresh information.
-  */
- int amd_iommu_update_ga(void *data, int apicid, bool wakeup_intr, bool is_running)
- {
-diff --git a/include/linux/amd-iommu.h b/include/linux/amd-iommu.h
-index a5f1bd6db0ee..de228140ce6e 100644
---- a/include/linux/amd-iommu.h
-+++ b/include/linux/amd-iommu.h
-@@ -35,6 +35,9 @@ extern int amd_iommu_update_ga(void *data, int apicid, bool wakeup_intr,
- extern int amd_iommu_activate_guest_mode(void *data, int apicid, bool wakeup_intr);
- extern int amd_iommu_deactivate_guest_mode(void *data);
+ static void print_c2c_info(FILE *out, struct perf_session *session)
+@@ -3378,12 +3385,12 @@ static int perf_c2c__report(int argc, const char **argv)
+ 	err = setup_nodes(session);
+ 	if (err) {
+ 		pr_err("Failed setup nodes\n");
+-		goto out_session;
++		goto out_hists;
+ 	}
  
-+/* IOMMU AVIC Flag */
-+extern bool amd_iommu_gappi;
-+
- #else /* defined(CONFIG_AMD_IOMMU) && defined(CONFIG_IRQ_REMAP) */
+ 	err = mem2node__init(&c2c.mem2node, env);
+ 	if (err)
+-		goto out_session;
++		goto out_hists;
  
- static inline int
-@@ -58,6 +61,9 @@ static inline int amd_iommu_deactivate_guest_mode(void *data)
- {
- 	return 0;
- }
-+
-+#define amd_iommu_gappi false
-+
- #endif /* defined(CONFIG_AMD_IOMMU) && defined(CONFIG_IRQ_REMAP) */
- 
- int amd_iommu_get_num_iommus(void);
+ 	err = setup_callchain(session->evlist);
+ 	if (err)
+@@ -3525,6 +3532,8 @@ static int perf_c2c__report(int argc, const char **argv)
+ 	free(output_str);
+ out_mem2node:
+ 	mem2node__exit(&c2c.mem2node);
++out_hists:
++	c2c_hists__exit(&c2c.hists);
+ out_session:
+ 	perf_session__delete(session);
+ out:
 -- 
-2.34.1
+2.56.0
 
