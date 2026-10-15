@@ -1,302 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D4F483831
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5436E48C405
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053388; cv=none; b=T0Y1kb5zVo5vJQTkpvcANjVlm/GWKngZGdt5QZWrgYDYw6V4CzICNKSS7u4ueDdegSrd/10G2YlSaXPkNThd4DLqLNrZk68Yt0WRPWfRvQ7m853ssCEuNWLRfE9kwa11cc4eEmvViP8e859nX0SUcOdophmpGVFrX8vc3DMYkBc=
+	t=1792053403; cv=none; b=VOoeiGRuBeycN9xt7FiPLIK/s+ZjhRIBQTFPS67ONedQ5AhJRssg7MPo5w+PNOnvgYG6uf0xqAn2FhD3r2LO/qGcRTLmKkx7OFh2xuHCNeFFrht+hRtFEXLgE1cSv7zVwk7i0HR+An9fsTj1f7b87ZDQfqhDVfHUy+/dOruc0H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053388; c=relaxed/simple;
-	bh=5MqX8eHZVo9OpafR8fwdCskbkthcFy0oRBvbPUBjcys=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tGj8LQ63uFgLSfeNenE0fRMFSeCGovCgqRfrBL7M//Xl1xh6CoWQyyXrmP76ESKGMQPOc82Gf7ET+VpKrpx4qJKeXErZvcBhnYXIUyq5X3Sq+w6K0s4AH+nlyGEb40C48/4Fy93nFCPUoktBvkmHfD2utQtKHs3+0bYxHZ7oit8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYbeLhLp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792053403; c=relaxed/simple;
+	bh=pzrGaXr2vc7AK2dHic6Dxs3t4dtTkJgIvsCv45uqoO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e9mdngB2Vk5Zq2CVNN7rtKPyDu+z+DyIfh+vZniYMRcjlA5MR+g5VYtQuo0FzhgmzqKtt5hRd1B1cCCUMPbtHwFjWyKEpK1dPDFsDYpYKq8xLIXoFaIS9Z40BjbvC5Zw5uch+T8m2wP1u0pTq3DxfsCfdHdeA8SNaeYl6I5d9rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lOJY+fIX; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYbeLhLp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546161F000C8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792053386;
-	bh=kyqPAP8gbfZgXqYwApY6S2VUSai3hfApMqSsO+21XHY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=TYbeLhLpb810YrkYeati2gHulrEGe4QvJCpwrW5/ty/QUNYmMYDNZqQt9SChof2nl
-	 bkqWjAIBxPZPhpQT3l0gh/2bLBaWi5bMYf1TjVSGfIxSc5bUpg40EcDRyYpHoIfa+W
-	 43dX/opZQBDnAUqmCy7J5QbVbGJb1Qm0S4Amcc0+x6esxfeZDKRTPwndDvyYCgL3pE
-	 iXjXrba4LCCiLoQfwPr4IIl1tW4n4muPMvOaCLl0Hue5+3y5wXRU0Zt+yujHrzUcmg
-	 CVm6nptDIZwUAdx0vbS+sNnmPz3kal7XwFoJTetsMGsbg09DzlsIMnOSnxTGnKmsvQ
-	 l/L458YlUhQsw==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso1246135e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxwFmnsXPqN4lHBOLvhpqNMaXrI0Zt/TICdMVzkCfWZVCt9+lZ0db1mrrldYEBDNt8cPO97v7k7TbGzDKw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdjHQUyQeVO+TcZ8EfwfqS3uJ6W/BboUz461HUG+A9wHrrCRDi
-	KYcLPpZ1rutog5RmAIoTcYuyvmjUmA1zR+naN+HGudlRVx/oNmE+l0pf0OSQ9CTUu+0xyrz+Ep2
-	lrgT9Gtp8CJYejiIaEIj9Jb7Blx8ZnOhvSSKD9TxDfA==
-X-Received: by 2002:a05:6512:3f01:b0:5ba:3b1c:2f68 with SMTP id
- 2adb3069b0e04-5bcde8d5d0emr6645100e87.47.1792053384918; Thu, 15 Oct 2026
- 01:36:24 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 08:36:22 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 08:36:22 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <179163141354.18006.80461347454353634@pm.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lOJY+fIX"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93cb9e9405fso69876585a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792053400; x=1792658200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+        b=lOJY+fIX7fKTPd5JoHrz///6LH8QPt7T+9J2luCNr8/+KfEmBcpIVYWIyq05ANTSio
+         GhthWLK93vM2BFCfb2XEeMTiFc3xYnWbuSfQ6AqNOYPXB0PbY72jM2bL1nrMOiSWDnv8
+         +HhVDF9uabAePRl15s8iO1zlH0UFZpT25DoS3qeOjWQBIJoiUESbK4pKXXxMBzBBeZc0
+         Fz9b3QPYmXz6ewoHTiX7zzcAeAa90o5RW60lDa5FxpP0U8L+E/01ZdHRR5MIfsqvCWvP
+         25fk3q6Fgb5E1Xy+CT4QOcFuY55qQSI+NMsONEfk4mAMaoU5ha0JL5/2oQHLMkxggo8h
+         Hlcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792053400; x=1792658200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+        b=04aXVU39b71ldkt9PoKIHispsDVDtNO7AOwNFaTMSibcGl/ZEcI2qSV6jKN5cVRfmF
+         D8ICT6eDuyqy0rRaE3VPC9tXtZTa0lxPT+1Ra+dGPqQ+Zj5kJzTR2bFaC4O1VAm805C5
+         my5pS76HMrchylyZ+jWW7OXJT3u5MbHPewfz9wjNf8FeNzMlA+s/qer2zxHz48P03Rll
+         8r/7WQuOk4PyVUGxjWo7cIe67qkMCNeLN9ixWSBVUOJjpNgNm31jdX07qM8FdWQflQwy
+         kdxj6Eb7hHYTNVU7GbJpC0/zInZkSNR3GyjnwM9+FlE5DKOaMa2KRD1vmEb0aVBoOq7M
+         MzuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqGxPu3J+t1ZeXVn1YoJoF/ipuZYDuZcCgKLVblFbrlRAT8WNPhpiopio4RYs/wrOUg/TArcy82ICPntw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4Px05Mv0R2RdQ08I8QZR4AiQjTYJiAVeSfOEv5WcHXjG7xkWs
+	VmTsgbU+hb/MkgakZzX3JNYewk+GDvhcId8YwoaEH5foi86JPxHKz/jR
+X-Gm-Gg: AYBFou0SLYnxwaXk6y+yG427Y5SWXehE4Qlba2OqK5TPzxEyPy4JEJB+UTTwGwyadYI
+	z/9M/7OfF6DluNt1x52aryXkSw9zMtijifFSHPfLHQK747PU0EJIxJ37n1yHMlQAXqA8skeYTGd
+	sA83StxuPALaIYnPd02/kqx+39t1f0aeq0ZEVue5uwwUTglhHmJwP1O2/ongQmwanuM5qv+d4lM
+	2ZPi9fkoNl856C5CoRt9zycAp6UFZURbynZOJMHEnvvoLSKWTy7zO6iMDTcGRKowHH1oBAGFFNA
+	sYDx+yvvtBcI0TKH06wiOmnjUXItZ5XdBUPVVmhaEooYv2YrkH8j4nNTA0pnzBkqRj9U+zfPqgl
+	jcmanhir09DsHGKYc5de4hafJcVUu1bFVkT4r61W3sNX+S/l1ODb8GhsXFT0gc1NzjRwcG/4W5N
+	Ho04uu30yaW2vx4AVDc1JJVQB0mY2Wee1D5tcxdhs9YDMLtUmcUaAIOkiT/F+/EekBwTwMclFAo
+	dJtg0vCFgKMtW2DsPmXypR4Uxr78fnM2/kRGUkOD5MACwTxvFHyXUNllzBv7HgQOy995xBj7Bqx
+	jZWBfEWU8R4jquRI1OU+1Xw=
+X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr2908976185a.42.1792053400267;
+        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
+Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:36:39 -0700 (PDT)
+From: Deep Shah <deepshah146@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Edward Srouji <edwards@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Deep Shah <deepshah146@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH rdma-rc 1/2] RDMA/uverbs: Fix uobject leak in DMABUF release
+Date: Thu, 15 Oct 2026 08:36:36 +0000
+Message-ID: <20261015083637.200958-2-deepshah146@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
+References: <20261015083637.200958-1-deepshah146@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <179163141354.18006.80461347454353634@pm.me>
-Date: Thu, 15 Oct 2026 08:36:22 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Me8-gMimv0qNNr15JnCzQmoFgf_tVmUQfg-5wQb9GDAMg@mail.gmail.com>
-X-Gm-Features: AclHuK98Smx14Zl5Wsew-q1M57A-NdB2f6aZBLBBY3hD4S9pqNn3XhleI05VRAE
-Message-ID: <CAMRc=Me8-gMimv0qNNr15JnCzQmoFgf_tVmUQfg-5wQb9GDAMg@mail.gmail.com>
-Subject: Re: [RFC PATCH] pinctrl: qcom: Restore the pin configuration after hibernation
-To: Birk Skyum <birk.skyum@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026 13:23:36 +0200, Birk Skyum <birk.skyum@pm.me> said:
-> A hibernation image is restored after a power cycle. The TLMM registers
-> then hold what the boot firmware and the kernel that loaded the image
-> made of them. The restored kernel has the configuration it applied in
-> memory only, and nothing writes it to the hardware again, so every pin
-> that the loading kernel did not set up the same way stays wrong.
->
-> On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
-> are two of them. Their drivers are loaded from the root file system, so
-> the kernel that loads the image never touches the pins. This is
-> /sys/kernel/debug/gpio before the hibernation and after the resume:
->
->   gpio116 : out low  func0 2mA no pull
->   gpio117 : out high func0 2mA no pull
->
->   gpio116 : in  low  func0 2mA pull down
->   gpio117 : out high func0 16mA no pull
->
-> The driver that owns gpio116 still believes it drives the line.
->
-> Save the control, output and interrupt configuration registers of every
-> valid pin in freeze_noirq and write them back in restore_noirq, the
-> output level first, so that a pin drives the right level from the
-> moment it becomes an output. Enabling the raw interrupt status can
-> latch an interrupt, so the status is cleared afterwards, as
-> msm_gpio_irq_set_type() does.
->
-> msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
-> these ops. With that x1e80100 also gets their suspend and resume
-> callbacks, which apply the sleep and default state of the controller's
-> own pins where a board defines them.
->
-> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
-> ---
-> RFC because the two callbacks go into msm_pinctrl_dev_pm_ops, which the
-> sc7180, sc7280, sdm845 and sm7150 drivers use as well, and I can only
-> test x1e80100. If you would rather have this for x1e80100 alone, or
-> done another way, I am happy to redo it.
->
+uverbs_dmabuf_release() treats a NULL uobj->context as an aborted
+allocation, but normal ufile cleanup also clears it. Closing the uverbs
+FD before the dma-buf FD therefore skips uverbs_uobject_release() and
+leaks the uobject and ufile references.
 
-These four use the same TLMM layout so should be safe.
+Clear dmabuf->priv before dma_buf_put() on allocation failure and use
+that NULL pointer to identify an abort. Otherwise, always call
+uverbs_uobject_release(). This also avoids reading a freed uobject if
+release is deferred until after the allocation has been aborted.
 
-> Tested on a Lenovo Yoga Slim 7x with Arch Linux ARM's v7.2 kernel plus
-> this patch. The kernel also carried the PCI change in [1], without
-> which this machine does not resume at all, the smp2p change in [2] and
-> a GENI serial change that is not ready for the list. The patch is
-> based on pinctrl/devel, where it builds without warnings (W=1,
-> CONFIG_HIBERNATION=y).
->
-> - Without the patch, gpio116 and gpio117 come back as shown above
->   after a hibernation with a real power-off. With it, in four such
->   hibernations, the TLMM part of /sys/kernel/debug/gpio differs only
->   in the level read on two inputs (gpio93 and gpio153).
-> - pm_test=core and test_resume pass.
-> - A suspend (deep) and wake still works. On x1e80100 it now goes
->   through msm_pinctrl_suspend() and msm_pinctrl_resume().
->
-> Not covered here: the LPASS LPI pin controller, whose pins also came
-> back at their reset values after a hibernation.
->
-> [1] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
-> [2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
->
->  drivers/pinctrl/qcom/pinctrl-msm.c      | 106 +++++++++++++++++++++++-
->  drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
->  2 files changed, 105 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
-> index 27f06bbc1..fba8a4165 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-msm.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-> @@ -39,6 +39,14 @@
->  #define MAX_NR_TILES 4
->  #define PS_HOLD_OFFSET 0x820
->
-> +/* Register values of one pin, kept across a hibernation. */
-> +struct msm_pin_state {
-> +	u32 ctl;
-> +	u32 io;
-> +	u32 intr_cfg;
-> +	u32 intr_target;
-> +};
-> +
->  /**
->   * struct msm_pinctrl - state for a pinctrl-msm device
->   * @dev:            device handle.
-> @@ -58,6 +66,7 @@
->   * @soc:            Reference to soc_data of platform specific data.
->   * @regs:           Base addresses for the TLMM tiles.
->   * @phys_base:      Physical base address
-> + * @saved:          Pin registers kept while a hibernation image is taken.
->   */
->  struct msm_pinctrl {
->  	struct device *dev;
-> @@ -80,6 +89,8 @@ struct msm_pinctrl {
->  	const struct msm_pinctrl_soc_data *soc;
->  	void __iomem *regs[MAX_NR_TILES];
->  	u32 phys_base[MAX_NR_TILES];
-> +
-> +	struct msm_pin_state *saved;
->  };
->
->  #define MSM_ACCESSOR(name) \
-> @@ -1583,9 +1594,93 @@ static __maybe_unused int msm_pinctrl_resume(struct device *dev)
->  	return pinctrl_force_default(pctrl->pctrl);
->  }
->
-> -SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
-> -		  msm_pinctrl_resume);
-> +static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
-> +					const struct msm_pingroup *g)
-> +{
-> +	return !pctrl->intr_target_use_scm && g->intr_target_reg &&
-> +	       g->intr_target_reg != g->intr_cfg_reg;
-> +}
-> +
-> +/* Remember how the pins are set up when a hibernation image is taken. */
-> +static int msm_pinctrl_freeze_noirq(struct device *dev)
-> +{
-> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
-> +	const struct msm_pingroup *g;
-> +	struct msm_pin_state *s;
-> +	unsigned long flags;
-> +	unsigned int i;
-> +
-> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
-> +	for (i = 0; i < pctrl->chip.ngpio; i++) {
+Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Deep Shah <deepshah146@gmail.com>
+---
+ drivers/infiniband/core/uverbs_std_types_dmabuf.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-This misses the SDC pads?
-
-> +		if (!gpiochip_line_is_valid(&pctrl->chip, i))
-> +			continue;
-> +
-> +		g = &pctrl->soc->groups[i];
-> +		s = &pctrl->saved[i];
-> +		s->ctl = msm_readl_ctl(pctrl, g);
-> +		s->io = msm_readl_io(pctrl, g);
-> +		if (!g->intr_cfg_reg)
-> +			continue;
-> +
-> +		s->intr_cfg = msm_readl_intr_cfg(pctrl, g);
-> +		if (msm_pin_has_own_intr_target(pctrl, g))
-> +			s->intr_target = msm_readl_intr_target(pctrl, g);
-> +	}
-> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The image is restored after a power cycle, when the pins are back at what
-> + * the firmware and the kernel that loaded the image made of them. Nothing else
-> + * writes the configuration again, so put back what was there.
-> + */
-> +static int msm_pinctrl_restore_noirq(struct device *dev)
-> +{
-> +	struct msm_pinctrl *pctrl = dev_get_drvdata(dev);
-> +	const struct msm_pingroup *g;
-> +	struct msm_pin_state *s;
-> +	unsigned long flags;
-> +	unsigned int i;
-> +	u32 val;
-> +
-> +	raw_spin_lock_irqsave(&pctrl->lock, flags);
-> +	for (i = 0; i < pctrl->chip.ngpio; i++) {
-> +		if (!gpiochip_line_is_valid(&pctrl->chip, i))
-> +			continue;
-
-I'd extend this check to also cover pins that have no GPIO or mux owner or is
-an interrupt. See how pinctrl-intel.c does it. Otherwise you can have pins that
-are "valid" but are used by firmware.
-
-> +
-> +		g = &pctrl->soc->groups[i];
-> +		s = &pctrl->saved[i];
-> +
-> +		/* Set the level before the pin starts driving it. */
-> +		val = msm_readl_io(pctrl, g);
-> +		val &= ~BIT(g->out_bit);
-> +		val |= s->io & BIT(g->out_bit);
-> +		msm_writel_io(val, pctrl, g);
-> +
-> +		msm_writel_ctl(s->ctl, pctrl, g);
-> +		if (!g->intr_cfg_reg)
-> +			continue;
->
-> +		if (msm_pin_has_own_intr_target(pctrl, g))
-> +			msm_writel_intr_target(s->intr_target, pctrl, g);
-> +		msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
-> +
-> +		/* Enabling the raw status can latch an interrupt. */
-> +		if (s->intr_cfg & BIT(g->intr_raw_status_bit))
-> +			msm_ack_intr_status(pctrl, g);
-> +	}
-> +	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +const struct dev_pm_ops msm_pinctrl_dev_pm_ops = {
-> +	SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
-> +	.freeze_noirq = pm_sleep_ptr(msm_pinctrl_freeze_noirq),
-> +	.restore_noirq = pm_sleep_ptr(msm_pinctrl_restore_noirq),
-> +};
->  EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
->
->  int msm_pinctrl_probe(struct platform_device *pdev,
-> @@ -1663,6 +1758,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
->  	if (ret)
->  		return ret;
->
-> +	if (IS_ENABLED(CONFIG_HIBERNATION)) {
-> +		pctrl->saved = devm_kcalloc(&pdev->dev, pctrl->chip.ngpio,
-> +					    sizeof(*pctrl->saved), GFP_KERNEL);
-> +		if (!pctrl->saved)
-> +			return -ENOMEM;
-> +	}
-> +
->  	platform_set_drvdata(pdev, pctrl);
->
->  	dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
-> diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> index e4c0abcd9..bfe122fc7 100644
-> --- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> +++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-> @@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver = {
->  	.driver = {
->  		.name = "x1e80100-tlmm",
->  		.of_match_table = x1e80100_pinctrl_of_match,
-> +		.pm = &msm_pinctrl_dev_pm_ops,
->  	},
->  	.probe = x1e80100_pinctrl_probe,
->  };
-> --
-> 2.53.0
->
->
->
-
-Bart
+diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+index 2411ebee69e2..d88d30f1e42f 100644
+--- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
++++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+@@ -68,9 +68,10 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
+ 	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
+ 
+ 	/*
+-	 * This can only happen if the fput came from alloc_abort_fd_uobject()
++	 * This can only happen if the fput came from the error unwind of
++	 * UVERBS_METHOD_DMABUF_ALLOC. The abort cleans up the uobject.
+ 	 */
+-	if (!priv->uobj.context)
++	if (!priv)
+ 		return;
+ 
+ 	uverbs_uobject_release(&priv->uobj);
+@@ -141,6 +142,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
+ 	return 0;
+ 
+ err_revoked:
++	/* Tell uverbs_dmabuf_release() that the uobject is being aborted */
++	uverbs_dmabuf->dmabuf->priv = NULL;
+ 	dma_buf_put(uverbs_dmabuf->dmabuf);
+ err:
+ 	rdma_user_mmap_entry_put(mmap_entry);
