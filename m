@@ -1,466 +1,125 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C38453E2EB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83DF223336;
+	Thu, 15 Oct 2026 14:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075944; cv=none; b=RjgzExQvZkCpAHx1vhkkndEi5+fk2cd669RGK+60Z03YgwIhA4gbSjULDwTDPaiSt3rjRNKZRv3s4KaFIFDRwXWmUppNwjseM35Bb0xXQazHV1bzccsFMapHOrQXmRPYEylFHY+f+A4reZOFLmlDDx+6Y4GndX1+WbPZzE1Db1k=
+	t=1792075969; cv=none; b=c1+ez2WRL+iwhjkbBZOadcBIKTIQIprTKxjlYu7y9+D5JAI2csuteuzERiXkeR+J3/Uh80YbFxw/hOkwcCi1Y6mdaw4wqRFzx5AkmU71yWclStzGqHqP1iXGor30vuMrYc4aYzU4SWXhNEATst2Q0BoonDpuIc1OExmN6Jnrxzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075944; c=relaxed/simple;
-	bh=IIYDSkmK5d46cA9S1uvpN3XtFbPTp7y5uXpeN3p4TGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AYiIazuY0Nwf2Cpc0SPZW17vm3hlWxhSqVUGioD7/ovH7nINbDQ/AdqoQCm8lLQrJppY0lH5jDxHxDjlRn3b2bRRRI6K5Sae1DHHS9P54mPPmlMBlqkI6blqjJPMcs+ZckYSsHXTM8EcdBe4azz0mmWGLhGExjQcv5QWq9/FoQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=EaeN+kZS; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
+	s=arc-20240116; t=1792075969; c=relaxed/simple;
+	bh=WUD7ZmFpEH5pp45xghtynRttTm+KE9DanMZl0k9Dhzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YPPm6xAJRzcePAISBScYhHhx/npjVE9NLlXqATaZQi6pXX2848tGyXJB8j3b7LjBg8Jciv9KC9qKa9SvFe9cZIa+BtYhwZWe92DTMiDcw33yM4QULAAidt+chLmNFoIZbCf3yopRPXxaNl/3cFhpUH6O99duCTDbGFs+Qo2TCl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCSKPFoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="EaeN+kZS"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso737427866b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075939; x=1792680739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iVqDzpfDA3WTL/rRjIXG9OKMA9xQQIb+x8amT3YTw4A=;
-        b=EaeN+kZS6omdHrxaalqYaEqcxekdeP4YREC0/yF6GugFYCox90YlEwvJ+AA67ejCWX
-         ZiDi3BfaBWrO1VirfxUHilEQ84N9XlwUyYogyeDS3K0+K1kv9nVJvtt6Z7N5TTZslNsQ
-         DaMZj/g1r0EJB136z7Azh21/qX31fX6GRz8GLW9oc9oz4wPw7lbAN4N/rru4xdw3XpH2
-         FNxHTUHw5d7/uHqJtyFPXe3Z7/GKBqv9CLPpUzQBMzF07P2TeFuA724t9x8ZbHiOJUwr
-         vJcOOoUrqs0zj077FIhJ2cn9drtAKUQsBaXicSo0EIPHThPHSncF/uxoOhmUQ7fhb4/g
-         Ax7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075939; x=1792680739;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iVqDzpfDA3WTL/rRjIXG9OKMA9xQQIb+x8amT3YTw4A=;
-        b=mIyVuAOqMMUjcsUR0JeWb4GWglYgjBqy2gsnkWBKbS71JSpoP+/qAOuhyTH7sTW0VC
-         FYmlXiO4FGf0Esc62yWFwnhYu8y/lJs28hoKI5mZaYkVN80mc5IaXyEDwg/6tTVKGK89
-         pJdzUkD5rtfB3fA8yUZ4jVhxSssTanSsjM/lUSdR/AEvqYArXKnMJKU0Gax9SUg2/Ccy
-         vz4w3MPNawpPe0KAa0Z6+rMS1c8nVVMBsPx4tZv/UgiYucsrPqqf0CpwgeLvkgUQVNQw
-         cqoNekVHmJEIjTknOFyyXXcVoGEUiXeZEC31WyejaaMRDYwt4L+ZfB1YTmzpHj/uL67B
-         lOZQ==
-X-Gm-Message-State: AFq9FYLBBCH4AwoviCukWYAagAXvJ/6tRp7DLgnzSEVMbrvvjWHm+oIo
-	oXB4XYWj4b8I0Qh1n0xclSqxl3IZs8y/YAWNPYIIX5GqmfVvkCNTRLW0mXigQQ8WuB4=
-X-Gm-Gg: AYBFou18dy+njwavApsFdTZmtZvjw2xeCYYzISJIcHaQ7DTk7Ple/oiSthqagx6xH3E
-	7RrejtdqTYgclV2FV9+sTQVYjz0l31yB69eZiNwDnwvE7XsZQDlY9yq0bbga4zbpvmgi5JqcPl+
-	BQEkCvzSDivSRuOo8lYGis4IakXa8APRGDCCPdLftadVpA/wy4K0XS8kgEPQX5xb2gRJ2NRvR1V
-	wdeww/mtwsqoUPCxJEE5g97fsm+YugGxjc90AhiBNuYKKBWC6WKe8pbNr2aSanJFX4TwccVJufY
-	we4ckdXm0lmJc2TXNO9vUlockJpbid/vXmM5XgMXj9xhT/xE/U92OQUiukUDpg1+mIxUm0LFZ0Y
-	+6LcoUuz7g3D+ldaX4qO5C+nVgWzMyxjxKkNmx5wBQJAX19RIqc5/UEkT5ZQQU6ah/uwARgjdix
-	mZQVftFjaDv78LO6KEiIIyrqmscmvuEbQs9u1QHtCWGltdsMLLlqq7iFlYqlxGDbNxbKCd3IbRA
-	n4GpFRDSQ==
-X-Received: by 2002:a17:906:c10b:b0:c2e:4742:491c with SMTP id a640c23a62f3a-c31a9f887cbmr1836174666b.31.1792075939352;
-        Thu, 15 Oct 2026 07:52:19 -0700 (PDT)
-Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3f41b78f77sm95954666b.54.2026.10.15.07.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:52:18 -0700 (PDT)
-From: Jiri Pirko <jiri@resnulli.us>
-To: linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	x86@kernel.org,
-	kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	jgg@ziepe.ca,
-	david.quigley@intel.com,
-	lukas@wunner.de,
-	ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com,
-	cedric.xing@intel.com,
-	sameo@meta.com,
-	drdeeglaze@gmail.com,
-	James.Bottomley@HansenPartnership.com,
-	aik@amd.com,
-	jpiotrowski@nvidia.com,
-	qinkun@google.com,
-	pgonda@google.com,
-	jic23@kernel.org,
-	alistair.francis@wdc.com,
-	ankita@nvidia.com,
-	suzuki.poulose@arm.com,
-	kas@kernel.org,
-	rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com,
-	peter.fang@intel.com
-Subject: [PATCH RFC 20/20] attestation: Add the TDX family implementation
-Date: Thu, 15 Oct 2026 16:50:53 +0200
-Message-ID: <20261015145053.3664509-21-jiri@resnulli.us>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCSKPFoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5D11F000C4;
+	Thu, 15 Oct 2026 14:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075968;
+	bh=Ei46+KxB+IHBh4EjqfXrbgGpc7y+UFCPlOwCEn9c6qk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iCSKPFoj/AukWTunBsDJA/3NTgkG89Hs1yjswr5NFYg/KmdSkBAgchB4Lto1NE7X/
+	 Y0/JfDkPDbLHV/ReJEI029Q6/SV6FVKAcEycLHrZgyUDDIOOlvVDk9ezg/SuKlBurM
+	 /xY992S/kuAMx/O5zs04x3hSnfb4UouGSsObcNF7QhzXvc7KqVgITf6m+kcWMsC4KO
+	 8N3uBNosC1wVtI1QNNJJwFzKLJgQnScmBzWz3O8t+W9mD9qpXhOq8k2c277fPxT3Y3
+	 fSZ+88QWZB+ylrhesoXuAaQCYdP+ZJoOSdLsngVegYEGX+xf5Sds0e/PMzOzBQ6GHu
+	 DDqlPfzKzKHvA==
+Date: Thu, 15 Oct 2026 15:52:43 +0100
+From: Lee Jones <lee@kernel.org>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Mike Marciniszyn <mike.marciniszyn@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>,
+	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] leds: trigger: netdev: Put netdev on activate
+ error path
+Message-ID: <179198456306.839288.14631216021466477145@kernel.org>
+References: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
+ <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
+X-AI-Review-Draft: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
 
-From: Jiri Pirko <jiri@nvidia.com>
+On Thu, 01 Oct 2026, A. Sverdlin wrote:
 
-Connect the attestation family to the native TDX service. Expose
-TDREPORT, Quote, MRTD and RTMR operations while preserving the existing
-native interfaces.
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+>
+> When hw control is active, set_device_name() takes a reference on the
+> netdev via dev_get_by_name(). The register_netdevice_notifier() failure
+> path frees trigger_data without dropping it, leaking the netdev.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
+> Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> ---
+> Changelog:
+> v3:
+> - introduced unset_device_name() as a counterpart of set_device_name()
+>
+>  drivers/leds/trigger/ledtrig-netdev.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+> index 5b0132484594c..e2a6c95a0dc97 100644
+> --- a/drivers/leds/trigger/ledtrig-netdev.c
+> +++ b/drivers/leds/trigger/ledtrig-netdev.c
+> @@ -324,6 +324,13 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+>  	return 0;
+>  }
+>
+> +static void unset_device_name(struct led_netdev_data *trigger_data)
+> +{
+> +	dev_put(trigger_data->net_dev);
+> +	trigger_data->net_dev = NULL;
+> +	trigger_data->device_name[0] = 0;
+> +}
 
-Assisted-by: Cursor: GPT-5.6 Sol
-Assisted-by: Cursor: Claude Opus 5.5
-Signed-off-by: Jiri Pirko <jiri@nvidia.com>
----
- Documentation/driver-api/attestation.rst |  16 ++
- drivers/attestation/Kconfig              |  14 ++
- drivers/attestation/Makefile             |   5 +
- drivers/attestation/providers/tdx.c      | 277 +++++++++++++++++++++++
- 4 files changed, 312 insertions(+)
- create mode 100644 drivers/attestation/providers/tdx.c
+Given that both callers immediately 'kfree(trigger_data)' after calling
+this, why bother clearing these at all?  Wouldn't calling 'dev_put()'
+directly in 'netdev_trig_activate()' be simpler than introducing a
+helper here?
 
-diff --git a/Documentation/driver-api/attestation.rst b/Documentation/driver-api/attestation.rst
-index 5ce121ded05f..f253c848e856 100644
---- a/Documentation/driver-api/attestation.rst
-+++ b/Documentation/driver-api/attestation.rst
-@@ -46,3 +46,19 @@ CTLV first drains userspace operations.  The base ``pre_fini`` callback then
- withdraws the instance from the kernel registry while provider state and CTLV
- event emission remain available.  CTLV stops events only after that callback
- returns; provider and base ``fini`` callbacks may then release native storage.
-+
-+TDX provider
-+============
-+
-+``CONFIG_ATTESTATION_TDX`` registers a ``ctlv-attestation-tdx`` instance for
-+the native TDX guest service.  MRTD has stable MR ID 0 and is read-only.
-+RTMR0 through RTMR3 have IDs 1 through 4 and are readable and extendable with
-+SHA-384.
-+
-+``EVIDENCE_GET`` supports complete raw TDREPORT and Quote objects.  Both
-+formats cryptographically bind all architectural TDX measurement registers,
-+so successful replies carry the matching MR-journal boundary.  The provider
-+exposes no verdict or device-security operation.
-+
-+The provider consumes only ``<linux/tdx-guest.h>``.  It does not call the TDX
-+misc ioctl, configfs TSM-report, or TSM-MR sysfs frontends.
-diff --git a/drivers/attestation/Kconfig b/drivers/attestation/Kconfig
-index e2fb4b4205fe..139bcc710019 100644
---- a/drivers/attestation/Kconfig
-+++ b/drivers/attestation/Kconfig
-@@ -10,3 +10,17 @@ menuconfig ATTESTATION
- 	  translate the common operations to their native service.
- 
- 	  If you are unsure, say N.
-+
-+if ATTESTATION
-+
-+config ATTESTATION_TDX
-+	tristate "TDX attestation provider"
-+	depends on TDX_GUEST_DRIVER
-+	help
-+	  Exposes TDREPORT, Quote, MRTD and RTMR operations through the common
-+	  attestation CTLV family. The native TDX misc, TSM-report and TSM-MR
-+	  interfaces remain available independently.
-+
-+	  If you are unsure, say N.
-+
-+endif # ATTESTATION
-diff --git a/drivers/attestation/Makefile b/drivers/attestation/Makefile
-index e520fee2e90d..d56df9adaa75 100644
---- a/drivers/attestation/Makefile
-+++ b/drivers/attestation/Makefile
-@@ -3,3 +3,8 @@ obj-$(CONFIG_ATTESTATION) += attestation.o
- 
- attestation-y := core/core.o core/ctlv.o core/events.o core/mr.o \
- 		 generated/ctlv_attestation_gen.o
-+
-+obj-$(CONFIG_ATTESTATION_TDX) += attestation-tdx.o
-+
-+attestation-tdx-y := providers/tdx.o \
-+		     generated/ctlv_attestation_tdx_gen.o
-diff --git a/drivers/attestation/providers/tdx.c b/drivers/attestation/providers/tdx.c
-new file mode 100644
-index 000000000000..9b41b985c783
---- /dev/null
-+++ b/drivers/attestation/providers/tdx.c
-@@ -0,0 +1,277 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <crypto/sha2.h>
-+#include <linux/attestation.h>
-+#include <linux/ctlv.h>
-+#include <linux/err.h>
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+#include <linux/tdx-guest.h>
-+
-+#include "../generated/ctlv_attestation_tdx_gen.h"
-+
-+struct attestation_tdx_init_info {
-+	struct device *parent_dev;
-+	const struct tdx_guest_ops *ops;
-+};
-+
-+struct attestation_tdx {
-+	struct device *parent_dev;
-+	const struct tdx_guest_ops *ops;
-+};
-+
-+static const enum hash_algo attestation_tdx_algorithms[] = {
-+	HASH_ALGO_SHA384,
-+};
-+
-+static const struct attestation_mr_props attestation_tdx_mrs[] = {
-+	{
-+		.id = 0,
-+		.name = "mrtd",
-+		.algorithms = attestation_tdx_algorithms,
-+		.algorithms_count = ARRAY_SIZE(attestation_tdx_algorithms),
-+		.readable = true,
-+	},
-+	{
-+		.id = 1,
-+		.name = "rtmr0",
-+		.algorithms = attestation_tdx_algorithms,
-+		.algorithms_count = ARRAY_SIZE(attestation_tdx_algorithms),
-+		.has_register_index = true,
-+		.register_index = 0,
-+		.readable = true,
-+		.extendable = true,
-+	},
-+	{
-+		.id = 2,
-+		.name = "rtmr1",
-+		.algorithms = attestation_tdx_algorithms,
-+		.algorithms_count = ARRAY_SIZE(attestation_tdx_algorithms),
-+		.has_register_index = true,
-+		.register_index = 1,
-+		.readable = true,
-+		.extendable = true,
-+	},
-+	{
-+		.id = 3,
-+		.name = "rtmr2",
-+		.algorithms = attestation_tdx_algorithms,
-+		.algorithms_count = ARRAY_SIZE(attestation_tdx_algorithms),
-+		.has_register_index = true,
-+		.register_index = 2,
-+		.readable = true,
-+		.extendable = true,
-+	},
-+	{
-+		.id = 4,
-+		.name = "rtmr3",
-+		.algorithms = attestation_tdx_algorithms,
-+		.algorithms_count = ARRAY_SIZE(attestation_tdx_algorithms),
-+		.has_register_index = true,
-+		.register_index = 3,
-+		.readable = true,
-+		.extendable = true,
-+	},
-+};
-+
-+static const struct attestation_evidence_supported_object
-+attestation_tdx_evidence_objects[] = {
-+	{
-+		.format = "tdx-tdreport-1.0",
-+		.max_length = TDX_GUEST_REPORT_LEN,
-+		.binds_mrs = true,
-+	},
-+	{
-+		.format = "tdx-quote-1.0",
-+		.max_length = TDX_GUEST_QUOTE_MAX_LEN,
-+		.binds_mrs = true,
-+	},
-+};
-+
-+static const struct attestation_evidence_caps attestation_tdx_evidence_caps = {
-+	.min_challenge_length = TDX_GUEST_REPORTDATA_LEN,
-+	.max_challenge_length = TDX_GUEST_REPORTDATA_LEN,
-+	.max_total_output_length = TDX_GUEST_QUOTE_MAX_LEN,
-+	.objects = attestation_tdx_evidence_objects,
-+	.objects_count = ARRAY_SIZE(attestation_tdx_evidence_objects),
-+};
-+
-+static int
-+attestation_tdx_evidence_get(struct attestation *att,
-+			     const struct attestation_evidence_request *request,
-+			     struct attestation_evidence_result *result)
-+{
-+	const struct attestation_evidence_object_request *object;
-+	struct attestation_tdx *tdx = ctlv_priv_child(att);
-+	size_t length;
-+	void *buffer;
-+	int ret;
-+
-+	if (request->objects_count != 1)
-+		return -EOPNOTSUPP;
-+	object = &request->objects[0];
-+	buffer = kvmalloc(object->supported_object->max_length, GFP_KERNEL);
-+	if (!buffer)
-+		return -ENOMEM;
-+	if (object->supported_object == &attestation_tdx_evidence_objects[0])
-+		ret = tdx->ops->report_get(tdx->parent_dev,
-+			request->challenge,
-+			request->challenge_length, buffer,
-+			object->supported_object->max_length, &length);
-+	else if (object->supported_object ==
-+		 &attestation_tdx_evidence_objects[1])
-+		ret = tdx->ops->quote_get(tdx->parent_dev,
-+			request->challenge,
-+			request->challenge_length, buffer,
-+			object->supported_object->max_length, &length);
-+	else
-+		ret = -EOPNOTSUPP;
-+	if (!ret)
-+		ret = ctlv_blob_write(object->output, 0, buffer, length);
-+	if (!ret)
-+		result->object_lengths[0] = length;
-+	kvfree(buffer);
-+	return ret;
-+}
-+
-+static int attestation_tdx_mr_read(struct attestation *att, unsigned int mr_id,
-+				   struct attestation_digest_set *values)
-+{
-+	static const enum tdx_guest_mr native_mrs[] = {
-+		TDX_GUEST_MR_MRTD,
-+		TDX_GUEST_MR_RTMR0,
-+		TDX_GUEST_MR_RTMR1,
-+		TDX_GUEST_MR_RTMR2,
-+		TDX_GUEST_MR_RTMR3,
-+	};
-+	struct attestation_tdx *tdx = ctlv_priv_child(att);
-+
-+	if (mr_id >= ARRAY_SIZE(native_mrs) ||
-+	    values->values_count != 1 ||
-+	    values->values[0].algorithm != HASH_ALGO_SHA384)
-+		return -EINVAL;
-+	return tdx->ops->mr_read(tdx->parent_dev, native_mrs[mr_id],
-+		values->values[0].data);
-+}
-+
-+static int
-+attestation_tdx_mr_extend(struct attestation *att, unsigned int mr_id,
-+			  const struct attestation_digest_set *values)
-+{
-+	struct attestation_tdx *tdx = ctlv_priv_child(att);
-+
-+	if (mr_id < 1 || mr_id > 4)
-+		return -EOPNOTSUPP;
-+	if (values->values_count != 1 ||
-+	    values->values[0].algorithm != HASH_ALGO_SHA384)
-+		return -EINVAL;
-+	return tdx->ops->rtmr_extend(tdx->parent_dev, mr_id - 1,
-+				     values->values[0].data);
-+}
-+
-+static const struct attestation_provider attestation_tdx_provider = {
-+	.evidence_get = attestation_tdx_evidence_get,
-+	.mr_read = attestation_tdx_mr_read,
-+	.mr_extend = attestation_tdx_mr_extend,
-+	.evidence_caps = &attestation_tdx_evidence_caps,
-+	.mrs = attestation_tdx_mrs,
-+	.mrs_count = ARRAY_SIZE(attestation_tdx_mrs),
-+};
-+
-+size_t ctlv_attestation_tdx_priv_size(void)
-+{
-+	return sizeof(struct attestation_tdx);
-+}
-+
-+const void *ctlv_attestation_tdx_pre_init(const void *init_info)
-+{
-+	return &attestation_tdx_provider;
-+}
-+
-+int ctlv_attestation_tdx_init(struct ctlv_device *ctlvdev,
-+			      const void *init_info, void *priv)
-+{
-+	const struct attestation_tdx_init_info *info = init_info;
-+	struct attestation_tdx *tdx = priv;
-+
-+	if (!info || !info->parent_dev || !info->ops)
-+		return -EINVAL;
-+	tdx->parent_dev = info->parent_dev;
-+	tdx->ops = info->ops;
-+	return 0;
-+}
-+
-+void ctlv_attestation_tdx_fini(struct ctlv_device *ctlvdev, void *priv)
-+{
-+}
-+
-+int ctlv_attestation_tdx_op_pre(void *priv, struct ctlv_op_ctx *ctx)
-+{
-+	return ctlv_attestation_op_pre(ctlv_priv_parent(priv), ctx);
-+}
-+
-+void ctlv_attestation_tdx_op_post(void *priv, struct ctlv_op_ctx *ctx)
-+{
-+	ctlv_attestation_op_post(ctlv_priv_parent(priv), ctx);
-+}
-+
-+int ctlv_attestation_tdx_device_info_fill(void *priv,
-+					  struct ctlv_op_ctx *ctx,
-+					  const struct ctlv_cursor *request,
-+					  struct ctlv_cursor *nest)
-+{
-+	struct attestation_tdx *tdx = priv;
-+	const struct tdx_guest_info *info =
-+		tdx->ops->info_get(tdx->parent_dev);
-+	bool ok;
-+
-+	if (!info)
-+		return -ENODEV;
-+	ok = ctlv_attestation_tdx_info_mrconfigid_put(nest, info->mrconfigid,
-+						      sizeof(info->mrconfigid));
-+	ok &= ctlv_attestation_tdx_info_mrowner_put(nest, info->mrowner,
-+						    sizeof(info->mrowner));
-+	ok &= ctlv_attestation_tdx_info_mrownerconfig_put(nest,
-+							   info->mrownerconfig,
-+							   sizeof(info->mrownerconfig));
-+	return ok ? 0 : -EMSGSIZE;
-+}
-+
-+static void *attestation_tdx_add(struct device *parent_dev,
-+				 const struct tdx_guest_ops *ops)
-+{
-+	struct attestation_tdx_init_info info = {
-+		.parent_dev = parent_dev,
-+		.ops = ops,
-+	};
-+
-+	return ctlv_create(parent_dev, &ctlv_attestation_tdx_family,
-+			   &info);
-+}
-+
-+static void attestation_tdx_remove(void *client_priv)
-+{
-+	ctlv_destroy(client_priv);
-+}
-+
-+static const struct tdx_guest_client attestation_tdx_client = {
-+	.add = attestation_tdx_add,
-+	.remove = attestation_tdx_remove,
-+};
-+
-+static int __init attestation_tdx_init_module(void)
-+{
-+	return tdx_guest_client_register(&attestation_tdx_client);
-+}
-+
-+static void __exit attestation_tdx_exit_module(void)
-+{
-+	tdx_guest_client_unregister(&attestation_tdx_client);
-+}
-+
-+module_init(attestation_tdx_init_module);
-+module_exit(attestation_tdx_exit_module);
-+MODULE_DESCRIPTION("TDX attestation provider");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("ATTESTATION");
-+MODULE_IMPORT_NS("CTLV");
-+MODULE_IMPORT_NS("TDX_GUEST");
+> +
+>  static ssize_t device_name_store(struct device *dev,
+>  				 struct device_attribute *attr, const char *buf,
+>  				 size_t size)
+> @@ -776,8 +783,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+>  	led_set_trigger_data(led_cdev, trigger_data);
+>
+>  	rc = register_netdevice_notifier(&trigger_data->notifier);
+> -	if (rc)
+> +	if (rc) {
+> +		unset_device_name(trigger_data);
+>  		kfree(trigger_data);
+> +	}
+>
+>  	return rc;
+>  }
+> @@ -790,7 +799,7 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
+>
+>  	cancel_delayed_work_sync(&trigger_data->work);
+>
+> -	dev_put(trigger_data->net_dev);
+> +	unset_device_name(trigger_data);
+>
+>  	kfree(trigger_data);
+>  }
+> -- 
+> 2.55.0
+>
+
 -- 
-2.56.0
-
+Lee Jones
