@@ -1,35 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB004C6531;
-	Thu, 15 Oct 2026 08:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C519A3806CC
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052407; cv=none; b=pBudRBtePvucr2cZlK1U3ctiYWLUya33c3wp9TS13Y+F8hnOw9xZElFvHENwo/1yTovy+MDPG98cq4Wy4d1oZIbBl5zfnw/0rY/1thcjl67zhiYHdZcNKOB9ZPAGCE0mv4BEJhWlXt/M4XpXe6avCAuVRfHIbzagkE+oGdQqIhY=
+	t=1792052417; cv=none; b=g4UzxnE9Ws+JEZ/CyY0p47d0AAmUtyL7oZfenXhXWN5iiVHc6RIqG1dJjzWic2uv1kfG53Jq3hagXm6HY2fqAmSm3vE6a9KlDSdLG1itpqQw1be+bOqyALcwjoOYaxDtV7L98FHmW8XHvRvA76WtjXqlSzWkA9nfvZoIC1PuYsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052407; c=relaxed/simple;
-	bh=8jCHQm6YGyLbzzuDtZCpslXsjH5ss7zLw6nwavgl+dY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=NvuAJ4UKZ1Et3bRHjUBTP+6adVMOWMF+ADA2voe2We389CQlRLVAChVIcFmX25m4rSuGdMj62VATgKvr+akt+vsH0Qyp6+bTp4UKSMHy2jNu3ckqmRb/HdwzndmNwXjrl1hQ6kK0omQ+OIK1ktMlg31IHJ9rRlQEpfLz0QtvwwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1/IkUPw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792052417; c=relaxed/simple;
+	bh=H63zxjWp1jLDvdHp4Krl+dOy/FAVseUmuLwFmUPXyfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NRLveHo2u3nbuiH0sJk0sxJK68H6EoNtGJYx6P/g1uK0cm5GOykaep+oKAc/FD1ece2OqAjKtA6ZjVpe1F/8qdwqvMrDzj/fJY4M8K7P3QsJAXUwGN4xIsvbt0Q4G7fOhJdHhzkpod2wyUAA11602CbAlnDF/RAQU4OVzUX60Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNO5wKWU; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1/IkUPw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD43A1F000C4;
-	Thu, 15 Oct 2026 08:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792052405;
-	bh=yhvn8bIgQn4Ii8JvjJVQJ8Fslzl0AFG6s5FtZK1BfYw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=B1/IkUPwNn5+tf1JLU8XbWtOaQ57iSAYtJ4ykienK0G7QRoIJRwiVKoQWgR1CRy/I
-	 iRctEXK/Gn/9pI0h4gZtiLADjSNpPYto6vnzg//p5bsoj2e0usOruioAWQe2O3wKwQ
-	 xuV6a71UxqDLC1FGMNg4B42Ifvv9asus/TTFGyiXz5EsRsEix0a33NLJsw4Vog7LWo
-	 ZNuReFcOWGitNbExKWGtUe48ftHbFhLN5C8cdNWQM2LxT/YbLQ1Mn3tU2uotHirC6E
-	 ztngbJJESnakSOdFgBMTDkPqknilU+L0XSdpiB1a5mpUwf12DaP0Rnbza676RLRnLx
-	 MEBGEi23lnPag==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4475392E9E2;
-	Thu, 15 Oct 2026 08:20:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNO5wKWU"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso46830375e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:20:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792052414; x=1792657214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H5Vd8qfuBft/Q+5AUgWTrpKu6Zh/Rd4i1LR0LLBN6fE=;
+        b=gNO5wKWUwsngt3KmuEMRTtXlJL4SAvEd/CF+nBwCWdL1L9O0ZnMJvhZocXnK/GY9Tj
+         aJw87xgCCQpDGwuGryIMAB188ETAK2x6CiixfryatHHj9jtHUJkhhxmc0kmWuZGBJIJo
+         1rB+0anfQHnsvqwXZCl6azBaLmj6mmQnXJmn5cTtvBUigoVHPzUcMyg13jU0CNmxWKI0
+         YTuAmgUf7BgoIUyvQlj3snbC6s3ANIx5/v71cv7ZeCALizWjAsl9E/iyXbcGsk/chT4G
+         Srxj8rkLvWWICi/7fdPKr9/uQFdwWkGgVP/D+UuuA0Wr8B90KlkxpRjQn83HZDBt3HrL
+         xHNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052414; x=1792657214;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H5Vd8qfuBft/Q+5AUgWTrpKu6Zh/Rd4i1LR0LLBN6fE=;
+        b=VOt8uWXP8kaPGOdjlKQCnFNtJLFAXp5+c1EASLxGYH7nOuO1lGmTyY6eomEsjzhp7G
+         Wnbm4OfAMTz0bLwYAZgk598OoGVquR470rNH4usnXUkkjfo/I/CuxV2T3frIYhZsWfP6
+         SGUD3/BRbHvSw3v7zYL0B/apqPgefzFXQ07QEdsB64p1qd1hj9njEZKA7dmh/HCE72Oo
+         cOqJtCRe7v6Mgu3RdQMJfC7NfGMdgRFEDUrJghSu5BsQDFCLfDG9Cey46mHa2GlzOGUW
+         Q+jlfXLsnPUxLSUKHGMzXRCVHKlMQP0yzd6dV7Rx4Unv1xt8pRIOZvHUF8QHqj1/EVTF
+         PJ2A==
+X-Forwarded-Encrypted: i=1; AKwUvByTiNxs18Ugkdyxlk+0gpR/rDcEBiHBQpQpRDnI6lHkr1uQOUa/4X3ZObwXHdPzvs1VnQ/DTOmeLAa0868=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlVAp8reCkS5kqH5uA/PFjUe4UrtiRtlko8UvVhG/cosbgugPO
+	NN0fKWdl4gqfFtj9WySCrjCZZsCVZZepTFDL3+0j8T82EFcCkmwCp/Vm
+X-Gm-Gg: AYBFou3gTqgfNgUtDyKyH/H5xkVhBWpZDePq5Zw3nfqlv3vID5Tb65xqQiZRudtHPUc
+	N3+duZnfCGj2qbmytmk+3flc0mX1YKoNODuG/JiJDQYchdu19sv+y/hw6OgfRIUm6fNFi/k/DER
+	qVRvD5K+C0RLc7J6Hp3m96tBdohzHHM2CL1xbTf6ctVt7lLMlJXE4CgcaYdZO5PNCRMGLeDTWIn
+	SqYXZtUSUurRlxtmfIWOeN/a9cX/9ABSJksEjYd+bm5akCLE0wA2S4v3LYEp1NdkNrM9T7glXRn
+	lm7RPASZTKLsfa36TEpZrgvt6SOT3O1jLp0r5l/dqx9pvvcgdv3GrixVVmYNbFDh59HXGMxmdaE
+	Dtc0R0zZzNKtUBUB70EIbQ/2ySuXk83EXefJXsnE68fQG1KUJ0y2j9jNnnAwSoncGaiJO78XloD
+	U/DIvQKv0F5qDR2g6u9iiPHMX6/QyBFlXkMXuLE1IbNuqCzx50er0jHacBGfRTeCeE+eVVTe+bX
+	8UyXfPKgUqQmuGpEwBUse2Cia64qgQxRSj9GMLo2mp7FQ==
+X-Received: by 2002:a05:600c:8a09:20b0:4a1:9687:bbd4 with SMTP id 5b1f17b1804b1-4a19687bdcamr221742185e9.31.1792052412468;
+        Thu, 15 Oct 2026 01:20:12 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm49003545e9.6.2026.10.15.01.20.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:20:12 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jiaqi Yan <jiaqiyan@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] vfio/nvgrace-gpu: Separate the fallback-mode open_device
+Date: Thu, 15 Oct 2026 10:19:33 +0200
+Message-ID: <20261015081937.405320-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,47 +79,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next] selftests/bpf: Expect at least one tp_recursion
- miss in missed
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179205240454.3269137.11377280407638045267.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 08:20:04 +0000
-References: 
- <20261008-selftests-bpf-missed-tp-recursion-v1-1-0dd60471d655@gmail.com>
-In-Reply-To: 
- <20261008-selftests-bpf-missed-tp-recursion-v1-1-0dd60471d655@gmail.com>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+In fallback mode, where the ACPI memory properties are missing or the
+C2C link is down, nvgrace-gpu opens a device through
+nvgrace_gpu_open_device() but closes it through
+vfio_pci_core_close_device().  The open registers an empty usemem range
+for poison handling that nothing unregisters, so a second open fails
+with -EBUSY, and the first open after an unbind hits a KASAN
+slab-use-after-free in register_pfn_address_space().
 
-This patch was applied to bpf/bpf-next.git (master)
-by Daniel Borkmann <daniel@iogearbox.net>:
+Patch 1 gives the fallback table its own open_device, as Alex suggested
+on v1, and is marked for stable.  Patch 2 drops a usemem length check
+in nvgrace_gpu_open_device() that only existed for fallback mode.
 
-On Thu, 08 Oct 2026 22:03:47 +0800 you wrote:
-> missed_tp_recursion attaches its tp programs to bpf_trace_printk and
-> expects each of them to miss exactly one run, the one that its kprobe
-> program triggers by calling bpf_printk().
-> 
-> Any other kprobe program calling bpf_printk() hits bpf_trace_printk as
-> well. When another test runs one in parallel, the tp programs that are
-> already attached at that point count an extra miss, and
-> test2_recursion_misses comes out as 2 instead of 1.
-> 
-> [...]
+Tested on x86-64 under virtme-ng with KASAN, not on Grace hardware.  A
+QEMU cxl-type3 function, bound through driver_override, takes the
+fallback path and is opened through a noiommu VFIO cdev.  On v7.3-rc7
+the second open fails with -EBUSY and the open after unbind and rebind
+reports the use-after-free.  With patch 1, and with the whole series,
+neither happens.  Patch 2 only affects full mode, which this setup
+cannot reach.
 
-Here is the summary with links:
-  - [bpf-next] selftests/bpf: Expect at least one tp_recursion miss in missed
-    https://git.kernel.org/bpf/bpf-next/c/a5e144985d68
+Changes in v2:
+- Replace the usemem.memlength guards with a core-only open_device for
+  the fallback table (Alex)
+- Add patch 2
+- Fallback open no longer fails when BAR0 cannot be mapped; Ankit
+  confirmed fallback mode does not need that check
+- Rebase on v7.3-rc7
 
-You are awesome, thank you!
+v1: https://lore.kernel.org/r/20260925161024.189771-1-parri.andrea@gmail.com/
+
+Andrea Parri (2):
+  vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
+  vfio/nvgrace-gpu: Drop the usemem length check in open_device
+
+ drivers/vfio/pci/nvgrace-gpu/main.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
