@@ -1,81 +1,94 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D07623E6DF5;
-	Thu, 15 Oct 2026 16:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7073939A2;
+	Thu, 15 Oct 2026 16:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081957; cv=none; b=EDCrPfhYuOYEcsW/nqYatLv1pRgzNUBcsOqfrN51U0Z+a/X6oKhcuyJwceytagF4jBITK+OH95Gf/q1cxCm/bMHkMjpfHdS/2nAGbM5IHj5vmwVZnA1+ZsNSnk2sAukNxPJ18aeJnxEbax2klbrA3dr1ku2rUr75cNqnrrLl9jY=
+	t=1792082021; cv=none; b=abalzpzDaKHa5TIeZ3DjMtCNUWGEtLBTr6tOEoUTdhJjbuELELI3zoDDng9zERJq74wuzzdtPcaDUnFn7u7+rvgtZs1zy9sGXXHxSGFicPK4fz+Rt4CjgZhAnJxvVIflSRLRkyDQoTJqVJtOXKzPpvNEbANustlazyEIdT0GPQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081957; c=relaxed/simple;
-	bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sk1JDl+xfXsu8AZ9BgdjlZNBOfuYjZQ6JQYb2xWErNPSmlsPU4sU2IMH8bW6Xk2RyRLf9umLvXADDA5mSoj60H6VHVDc819w1WZHdgV2TO68xJN4E0v52Hm0jQTSPIAwZQPyvbQssMxIz1p8wTLVj8iQJCfi9D6zwReeBOJsRY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QvHiuvww; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792082021; c=relaxed/simple;
+	bh=rvUDJ5coe/g3in+yWuUokYMULA0JxvqrpSyvwFlBe48=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JEfz0mBo3mvj9N2GoLejX7Nlz6Syo7OR+WPwT0YM4/tQ8xMECRm7CtNJOTJqR0NBD8DeDLwon7t02YtLsi4TFhUoKgqIb73VAbwMBcGb9USgXxRnQcDncrAToogLqtNBy8GuUoHmnhC5CjLQHAuoP5uzVlP1sMPMlaZVwGLHFk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VudioFi2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QvHiuvww"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A328614BF;
-	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-Received: from [10.0.138.89] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.89])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E966C3F871;
-	Thu, 15 Oct 2026 09:32:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792081942; bh=K53bHe/qRL8PgX+fC0aZ/IKukdzfGE2CeH1J1pXxbIw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QvHiuvww2XMiC1VH5lrEn7YT52tcUfUfqnhqZ6AL7/+1oS59HDeC1lXKxNrpFi1pC
-	 t0SbzJpTfupyKQqZc3bVVGYXHq188MRT6NrH01zSEEbyjpLbZx7PQxzYaj0Ht2nEy2
-	 xPD7PUul+C++YYvpS1ogXhTXImp3VMZKjPrCVxsE=
-Message-ID: <e8d97f6c-8e22-4c85-b15d-6edade16d789@arm.com>
-Date: Thu, 15 Oct 2026 17:32:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VudioFi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B79C1F000C4;
+	Thu, 15 Oct 2026 16:33:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792082010;
+	bh=wB0tk+aH7s3MMfbB8Iw2GRSSbSBPsDhiY+SCoFkNsE0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VudioFi2FIVI2/fFALAn/y1jf4ZzoXofytfczFv34fp72Oif46y1ry4mQu+WPZP2s
+	 E2ZZGLtjF7Yau/YIJgdgFi2o+fzQ1/oWgWA0fmYfhcPyas0xomvMYlOMmZcaDJgYYX
+	 lGifki/2RHy25ChSrFrEIUhPWnEHPPeBAoldjq1RZaIUJX5M8gb4tlFwDKlP6gQSlm
+	 tbcHEoHih1M6N2E84RmeaRtd0IybWXnRwy1i37aRUnlRDR4+llM/owiXQEzvdbPqvN
+	 aifGd5Zwdu8D4RirzErTFtrV3ak9iK0tVb9PIfy/4bBhTO+gmLbo7gaNkjwQ5IxtcD
+	 JBAXTmYR4V2ew==
+Date: Thu, 15 Oct 2026 17:33:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, damon@lists.linux.dev, 
+	linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: exclude DAMON docs from MEMORY MANAGEMENT -
+ MISC
+Message-ID: <atEAOFcrkyEsqhcw@gremlin>
+References: <20261015-maint-mm-core-x-doc-damon-v1-1-226decb5cd0d@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 02/15] misc/arm-cla: Add launch operation helpers
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-3-ryan.roberts@arm.com>
- <2026101542-briskness-most-a8ca@gregkh>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <2026101542-briskness-most-a8ca@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-maint-mm-core-x-doc-damon-v1-1-226decb5cd0d@kernel.org>
 
-On 15/10/2026 17:17, Greg Kroah-Hartman wrote:
-> On Thu, Oct 15, 2026 at 03:25:36PM +0100, Ryan Roberts wrote:
->> From: Jean-Philippe Brucker <jpb@kernel.org>
->>
->> CLA commands are issued by writing optional payload registers,
->> programming the LAUNCH register and polling LRESP until the hardware
->> accepts or rejects the operation.
->>
->> Add a common launch helper that performs this sequence on the CLA's
->> local CPU, waits for LRESP completion and translates launch response
->> codes into Linux errors.
->>
->> Build accelerator reset and register read and write support on top of
->> it. The register read and write helpers split larger accesses into
->> multiple launch operations when an access crosses an eight-register
->> window.
->>
->> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-> 
-> You forgot to sign off on patches from others :(
+On Thu, Oct 15, 2026 at 06:31:46PM +0200, Vlastimil Babka (SUSE) wrote:
+> MEMORY MANAGEMENT - MISC is a list of misc mm sources and also acts as
+> catch-all for the mm Documentation subdirectories. Documentation for
+> DAMON is well maintained within its own subsystem and also actively
+> updated, so there's no need to Cc all MISC maintainers for them as well.
+> Thus add exclusion entries for them.
+>
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Ahh sh*t, sorry about that. Hopefully given this is "just" an RFC that's not a
-big deal? Else, let me know and I'll resend.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+> I'd love to have the time to check the DAMON documentation changes, but
+> it's simply not happening, so this will save some mail traffic for me,
+> if others agree.
+> ---
+>  MAINTAINERS | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f53047aa8d3c..cbe565b353d1 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17269,6 +17269,8 @@ F:	Documentation/ABI/testing/sysfs-kernel-mm-cma
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-numa
+>  F:	Documentation/admin-guide/mm/
+>  F:	Documentation/mm/
+> +X:	Documentation/admin-guide/mm/damon/
+> +X:	Documentation/mm/damon/
+
+TIL about the X: tag :)
+
+>  F:	drivers/char/mem.c
+>  F:	include/linux/cma.h
+>  F:	include/linux/dmapool.h
+>
+> ---
+> base-commit: d6d3455d8751854e0d1820f14184682e23ac4475
+> change-id: 20261015-maint-mm-core-x-doc-damon-d2da56de5ee8
+>
+
+--
+Cheers, Lorenzo
