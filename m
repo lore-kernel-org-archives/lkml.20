@@ -1,65 +1,65 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A872F7F12
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B2C2E54B6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027245; cv=none; b=qnwd11vAFSyn3ZQ2Mu9vl1pRF2T+2SbhfJi9elHrYH+kXaBPu5tu5zyKd7e0DDal8pfSMDtEkDB5swmCqG5vS3wv6V2w3pfnnEO1Fw/3eQq8nQjaqPXNhxuhwjMlXhtkR5i/UFPtROIx8mf3cP0n2d99lOONYj7lMmz/cfoxTZE=
+	t=1792027248; cv=none; b=c+H3IZhK2/1xQNUJiSi0FCTgw7Bu9RBzMW0gKdjWZjfBHe/o86zHFjqL75UEbWZB7P8F3Rp0jqEMiCp7bNqMWLT93Zm/SccG/y53lkUdMWQIM83zCkET17hW4HTprd5wP0eZlStM8q0AexLfl88huzuWYg49Y16m64lISyumJrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027245; c=relaxed/simple;
-	bh=HeEYS4ZdYMFES3cNCOYwOV/M26i0VppeIk1NZ7IKm/0=;
+	s=arc-20240116; t=1792027248; c=relaxed/simple;
+	bh=05AdkyUQdCzH6xEkkEaPU08TCfAbBpzzTM6Lv9bU/Ak=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G8ZfyxHvvFtHlIrT+oMkFKzPsDbD1/2JVPbMlnusxTjS1lGnuE7yhws1u2C0+2mizUmKOICI3U2Za0efLGASZlNp7h1QEro7d1iBv2Y6PjksEdXOavfHxDgpBN1YpDBNoLwxp53NtAFPHvmOAdHxYStfd00Vg44r/Trkq7sFxaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=e4mg+ZQL; arc=none smtp.client-ip=209.85.221.176
+	 MIME-Version; b=Em95KHZ/ZiVssN3y2RMOuik0UrvGHsBCkhUXz054Y9kbqZUuq56DHIiIiL6TNkzwh93h71OWvoQpbhCSkw/+U6BRcde9yud9W9hxqr6TJg//sHOunteviOIqVAGOVeu686DhMNiPlITnWA3FRKbQstVRb9R6QHNUuoORy9J2vRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=qR4ivLnO; arc=none smtp.client-ip=209.85.221.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="e4mg+ZQL"
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c9e7731b34so692368e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:20:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="qR4ivLnO"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5e9a1f1681dso203921e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:20:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1792027243; x=1792632043; darn=vger.kernel.org;
+        d=x6u.co; s=google; t=1792027245; x=1792632045; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d9DeaH+2kLV69uaObfPYF0BGWxoks2kBHmSQiHqO18M=;
-        b=e4mg+ZQL8LLjKOwdvXfpe7Bg0+IsgnWXoEk8eH9Nx/8BcU5/RMWWijkv6qiI9VJ95s
-         SGd8GxU2h3KdadH/NPL9txRvoQIUXd95yODqygW1lB2p1TaH/FZqepNOO+71rrGrV6Y4
-         HpKlXcCUlwsQt2MsZUP6fIyOuYnngf62ep7tNKcnQcLPzFyKhw5Pikg4Gw/7XpJhKcdu
-         6TMb3n08fdNTvq3/AVr00E1LVrhC3nsQLSf+KsBLFq4cCDdBlseewTHSmc4dQ1iaszoP
-         KKBxkjq46mjosbQkD1j6RZSet0pngy9/FlafzRI4bbfPhbY9NyAGnkDaWB+sH7lEJGn0
-         t/6Q==
+        bh=aR4E5pBkcL1wUPcb3FSSNDhs4mdbzNgOQvXrj9SQcJY=;
+        b=qR4ivLnOYQLo7ys5ErrEWeokeFZ2fhdNbQkqQIq6x+gX5npK227/+yD+vcBJxCvvGr
+         Li61UYsl4VQwcs9F3lx5NISPrAF43xpbMIzOnPjR3GuwlHb7q3lFGmPywsV5+DCzP3fl
+         c+Lde396+6JOo5bfzVzZsFq3tGRviA/cbRMf56Bqn0OBLWqJ2r8rQ5udhvdIxJRJ3AmT
+         s1tieb5lFNIdX0LhnOOQRf7YpE9N8m4WqQNwmkdts5EBeT22wnbKhQ0pna4eHqxh15Y8
+         6sLUMeaHUx9cQCt6NyzvkD2sH/4JuY9ytQB9ADqeWplNPORMgmA0JIinCa15uVdYS2Ch
+         UREA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792027243; x=1792632043;
+        d=1e100.net; s=20260707; t=1792027245; x=1792632045;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d9DeaH+2kLV69uaObfPYF0BGWxoks2kBHmSQiHqO18M=;
-        b=mVJ/vp3ATUSqbz12n2gCURb8TxWorglAELPcnCQOLJNCi0dMUOT0iHqFcSFsVLavwB
-         2Q1Qf1yybpdc9ykjAoHg26JEho7VP13WR1SreHglB/q+aZXsCLTbW0kzUouMMPyg8B1f
-         z5616YA4trgqDhHG2Rz1LRgJALajHUfEOQ0UD6JFZuTlidpXVsP8VUyCNA1Ldc1DhOx9
-         HMH6a4jvicuIGQkVSBwjMMsTqkX398tHHySeJJN7p0G9ijlLSL8MJBmYXHbgbBG4FZ/s
-         LXNIfwhIy5AG5cxG8ImHaWmdCOjHwvWqzD352w1BnkIhOh9JxFQ7RAS6IbcxpXvRYdIK
-         JvHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzT6cmmUugIFI2m4JjjoA6VeG0kFVSdspZ9G+li6Q6N+IkhajRvxCyjps+6SHo86y8vv2IPgn6/lQycnaE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsPXjP4sfygevAgvkMqm1raLE9J70SucrYK1g9HlQ0hdMw9zsV
-	wonWcle8fFIbmk8gRkPr+3XdWhrux84mBN956G2vNdjuss+PFUmyVmQEGG1bP0JoWEJ5
-X-Gm-Gg: AYBFou1Q8mGHIS067ywLW/woVrHG5B9jxUWAsVb2AS53vyYdNNd3AYd+3HBUd8CnfRV
-	gv7/5I7vRStKa3HsGEWtX/TYvwWBGX77TbzHchxQRZXKnJv1HEWckSmSTEwvEcrUPfBycWXftV2
-	6b+QFUm7+PcToKCbzPTfu0Py5Eh88uFRhSO+ZrXfC1yGU7X6DWXNcpgu4Z7FEb/vFMRG7g557P9
-	lFcURpfoIvETy7qvUD7cHqP0SrK0LiIwdZj6b/V+YDb7/5rwjIrr4xRTdOePS7lrvGGu7YV2hNe
-	Swd8DMVMoWjO3fm1G/jwh7RvjmFdYtmOWALiyPcouB7RSKSlYzWjCkGmtbu42cOp+pZH0v4HdmU
-	dQvesile7u/LUFXW9lcL1xMoU44fPLjbt40mkqFRYk4gv+zcwfcFcdPQX+DyzpwsyjfD9ZrGNMY
-	nyMTKN3JtAcCaqv/Nnyx0mLdZUCNeTuZl5DUbqxw8EhpA5Mi8Oz2isoFbEJGd3NyzJe+SktSQxt
-	9OFwTcT7CH+7I9pAuz8w589SZlRMLNeLXk+6kFndpxtxMTj148lsGqMG+/NW27b0tjf5ms3fBEr
-	k1X6nLkE6Ijvvhxg6IcE
-X-Received: by 2002:a05:6122:17a2:b0:5cc:4a63:4a01 with SMTP id 71dfb90a1353d-5e91f483a40mr6046479e0c.11.1792027243301;
-        Wed, 14 Oct 2026 18:20:43 -0700 (PDT)
+        bh=aR4E5pBkcL1wUPcb3FSSNDhs4mdbzNgOQvXrj9SQcJY=;
+        b=esfkzyKNoSB8umx4XFpIJqXAgNtNiIPlACris4v028OAfgk4XewDwye20puZZC20gH
+         YFHhZ6B2+mgxE42rhxNSacGU48yM6OTHNx+WCcaYsZo4QlG0ohEC8xeG2vKIOcjrQ0wY
+         Kgn27GvXZjg7xm3zY+dJ+Vyw8apjbOnl6qMsOkRGwZ/VdvF/mI6prP8jeYACG0vBFqzZ
+         QzxipovX1+RQwShQW+MqZE5+/yPtqNWkaFSIDUf9dGe51LwJS1jZ+WwssxcWgwUG/un8
+         I/pEuJd9iWSzMubK7JIfr6EJvt8MSl3wNDvGv2SyUJc1JR75u3BAaWZR0sWeqDJJQP1/
+         xwuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMWiDLqGBLEqm07AYG2OjuTBTDygCOZ3nZwcn4/ODZSbAtQlaPRcBHyZk3722CDYVnDmi7E+O7m5thbNA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImO8ezmD1bXsbA7LWBhP9GlxPVtWZEmViBmAA8yFu74+QixZex
+	Gnb0BzQ/iz2pV0HRSVvz6clVL4YNFSI3mrfG6bB8UZkW07rnyUUp+fGbcg0axSdeRK/R
+X-Gm-Gg: AYBFou0Bf7rfAKaS5h6GkHXylxAFhvKxzcy8rwoNkLN0nu26Vw+7uyDorNhiOlO9na4
+	17BR3OXH1Jq50/ZmyKpH+B1uxQJGpFHINALX95rdmnokb863iI4y2cpjEe0p4WqNjzQD2vbUt6N
+	K5pRH0Car9w8VBgn97x4M1Y+THU9/15Pi1hjuIuFD/ChPjQBHvNd5dRcXQnPCpZWQd/fqLC2V0U
+	2SfeMVW5NdsKrk68cxl+jnK7vGbQkcEAVx/EtiIexuOrO4zPdL6DyGfUDe2N0BdQTXHPJb81EsQ
+	OZNpDDgMfS4j71ZQcgvvJFIOEMMOPijZrptVZgRt7SbS3nbP3M4eEVFcSZYfw4e3aCh5vynUaby
+	mAjPfRo6rQkMoRXLyDhHaT2CHPkrcm6MDrWDkMlRJRdxhgMw7887Hu36I7DW0WKGjGPbsi9yl2G
+	DOVP5vikQA+uts3OcJndptq8R4K3A6c/TLZIeOM5O7qO8+GLseHDvCwZc4NQaKAvpWl+cK5DHxB
+	2Np39K1gJ5g7SDmKRf1CV2JiRCxvcm5/9LqKdmjEndWitNlprnVdz/B2J22N+a25QUAFXxu7SLb
+	A3YwgUvF6Jj2a8ntVBJy
+X-Received: by 2002:a05:6123:420d:10b0:5ea:c67:5d9a with SMTP id 71dfb90a1353d-5ea0cd230dfmr70692e0c.6.1792027245281;
+        Wed, 14 Oct 2026 18:20:45 -0700 (PDT)
 Received: from worldpeace10.c.googlers.com.com (119.20.221.35.bc.googleusercontent.com. [35.221.20.119])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab57c8sm12406159e0c.5.2026.10.14.18.20.41
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab57c8sm12406159e0c.5.2026.10.14.18.20.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:20:42 -0700 (PDT)
+        Wed, 14 Oct 2026 18:20:44 -0700 (PDT)
 From: David Hu <dhu@x6u.co>
 To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
 	Jason Gunthorpe <jgg@ziepe.ca>,
@@ -69,9 +69,9 @@ Cc: linux-rdma@vger.kernel.org,
 	jmoroni@google.com,
 	eagleshaw@google.com,
 	xuehaohu@google.com
-Subject: [PATCH rdma-next v2 5/6] RDMA/irdma: Support UMEM attribute for CQ creation
-Date: Thu, 15 Oct 2026 01:19:39 +0000
-Message-ID: <20261015011940.4122452-6-dhu@x6u.co>
+Subject: [PATCH rdma-next v2 6/6] RDMA/irdma: Support UMEM attribute for SRQ creation
+Date: Thu, 15 Oct 2026 01:19:40 +0000
+Message-ID: <20261015011940.4122452-7-dhu@x6u.co>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261015011940.4122452-1-dhu@x6u.co>
 References: <20261015011940.4122452-1-dhu@x6u.co>
@@ -85,241 +85,125 @@ Content-Transfer-Encoding: 8bit
 
 From: David Hu <xuehaohu@google.com>
 
-Support the standard 1-step queue buffer creation model for CQ by
-`UVERBS_ATTR_CREATE_CQ_BUF_UMEM`, `IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM`
-via `ib_umem_get_attr()`.
+Support the standard 1-step queue buffer creation for SRQ by
+`UVERBS_ATTR_CREATE_SRQ_BUF_UMEM` via `ib_umem_get_attr()`.
 
-Set up hardware pble directly from the pinned CQ and shadow umems via
+Set up hardware pble directly from the pinned SRQ umem via
 `irdma_setup_q_pbl_from_umem()`.
 
-Proper umem and pble cleanup are added into existing `irdma_cq_free_rsrc()`
-upon CQ destruction.
+Proper umem and pble cleanup, and error unwind are added into existing
+`irdma_srq_free_rsrc()` upon SRQ destruction.
 
-We maintain backward compatibility for legacy 2-step registration if UMEM
-attributes are not provided.
-
-`irdma_resize_cq()` will have a possibility to deal with a pble/mr that
-is created via one-step logic, after this change. Therefore, a proper
-cleanup is added.
+We maintain backward compatibility for the legacy 2-step registration if
+the UMEM attribute is not provided.
 
 Signed-off-by: David Hu <xuehaohu@google.com>
 ---
- drivers/infiniband/hw/irdma/verbs.c | 135 +++++++++++++++++++++++-----
- 1 file changed, 112 insertions(+), 23 deletions(-)
+ drivers/infiniband/hw/irdma/verbs.c | 68 ++++++++++++++++++++++++-----
+ 1 file changed, 58 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index 7162b37fa6ff..4f0831813119 100644
+index 4f0831813119..5d085933c7f0 100644
 --- a/drivers/infiniband/hw/irdma/verbs.c
 +++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -2028,13 +2028,24 @@ static void irdma_cq_free_rsrc(struct irdma_pci_f *rf, struct irdma_cq *iwcq)
- 		if (iwcq->iwpbl) {
- 			iwmr = iwcq->iwpbl->iwmr;
+@@ -1996,9 +1996,16 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f *rf, struct irdma_srq *iwsrq)
+ 		iwsrq->kmem.va = NULL;
+ 	} else {
+ 		/* Not called in any failure path, so iwpbl is valid. */
+-		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
++		if (iwsrq->iwpbl) {
++			struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
  
--			refcount_dec(&iwmr->user_ring_refs);
+-		refcount_dec(&iwmr->user_ring_refs);
 +			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
 +				ib_umem_release(iwmr->region);
-+				if (iwcq->iwpbl->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc, &iwcq->iwpbl->pble_alloc);
++				if (iwsrq->iwpbl->pbl_allocated)
++					irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
 +				kfree(iwmr);
 +			}
- 		}
- 
- 		if (iwcq->iwpbl_shadow) {
- 			iwmr = iwcq->iwpbl_shadow->iwmr;
- 
--			refcount_dec(&iwmr->user_ring_refs);
-+			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+				ib_umem_release(iwmr->region);
-+				if (iwcq->iwpbl_shadow->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc,
-+							&iwcq->iwpbl_shadow->pble_alloc);
-+				kfree(iwmr);
-+			}
- 		}
- 	}
- 
-@@ -2161,6 +2172,7 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 	struct irdma_dma_mem kmem_buf;
- 	struct irdma_cq_mr *cqmr_buf;
- 	struct irdma_pbl *iwpbl_buf = NULL;
-+	struct irdma_pbl *old_iwpbl = NULL;
- 	struct irdma_device *iwdev;
- 	struct irdma_pci_f *rf;
- 	struct irdma_cq_buf *cq_buf = NULL;
-@@ -2273,17 +2285,12 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 
- 	spin_lock_irqsave(&iwcq->lock, flags);
- 	if (udata) {
--		struct irdma_pbl *old_iwpbl = iwcq->iwpbl;
-+		old_iwpbl = iwcq->iwpbl;
- 
- 		/* Only update if the resize was successful. Otherwise, HW is
- 		 * still pointing to the old PBL.
- 		 */
- 		iwcq->iwpbl = iwpbl_buf;
--		if (old_iwpbl) {
--			struct irdma_mr *old_iwmr = old_iwpbl->iwmr;
--
--			refcount_dec(&old_iwmr->user_ring_refs);
--		}
- 	}
- 	if (cq_buf) {
- 		cq_buf->kmem_buf = iwcq->kmem;
-@@ -2298,6 +2305,21 @@ static int irdma_resize_cq(struct ib_cq *ibcq, unsigned int entries,
- 	ibcq->cqe = info.cq_size - 1;
- 	spin_unlock_irqrestore(&iwcq->lock, flags);
- 
-+	/* Old pble/umem is cleaned up outside spinlock's atomic context
-+	 * since both of them take sleepable lock.
-+	 */
-+	if (old_iwpbl) {
-+		struct irdma_mr *old_iwmr = old_iwpbl->iwmr;
-+
-+		if (old_iwmr && refcount_dec_and_test(&old_iwmr->user_ring_refs)) {
-+			ib_umem_release(old_iwmr->region);
-+			if (old_iwpbl->pbl_allocated)
-+				irdma_free_pble(rf->pble_rsrc,
-+						&old_iwpbl->pble_alloc);
-+			kfree(old_iwmr);
 +		}
-+	}
-+
- 	return 0;
- error:
- 	if (iwpbl_buf) {
-@@ -2686,15 +2708,20 @@ static int irdma_setup_kmode_cq(struct irdma_device *iwdev,
- static int irdma_setup_umode_cq(struct irdma_device *iwdev,
- 				struct irdma_cq *iwcq,
- 				struct irdma_cq_init_info *info,
--				struct ib_udata *udata)
-+				struct ib_udata *udata,
-+				struct uverbs_attr_bundle *attrs)
+ 	}
+ 
+ 	irdma_free_rsrc(rf, rf->allocated_srqs, srq->srq_uk.srq_id);
+@@ -2425,6 +2432,7 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
+ 				 struct ib_udata *udata,
+ 				 struct uverbs_attr_bundle *attrs)
  {
-+	struct irdma_cq_uk_init_info *ukinfo = &info->cq_uk_init_info;
- 	struct irdma_create_cq_req req = {};
- 	struct irdma_pci_f *rf = iwdev->rf;
-+	struct irdma_sc_dev *dev = &rf->sc_dev;
++	struct irdma_srq_uk_init_info *ukinfo = &info->srq_uk_init_info;
+ 	struct irdma_create_srq_req req = {};
  	struct irdma_ucontext *ucontext;
- 	struct irdma_cq_mr *cqmr_shadow;
- 	struct irdma_cq_mr *cqmr;
- 	unsigned long flags;
-+	bool cqe_64byte_ena;
- 	int err_code;
-+	u8 cqe_size;
+ 	struct irdma_srq_mr *srqmr;
+@@ -2440,14 +2448,49 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
+ 	if (ret)
+ 		return ret;
  
- 	iwcq->user_mode = true;
- 	ucontext = rdma_udata_to_drv_context(udata, struct irdma_ucontext,
-@@ -2708,26 +2735,88 @@ static int irdma_setup_umode_cq(struct irdma_device *iwdev,
- 	if (err_code)
- 		return err_code;
- 
--	spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
--	iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
--				    &ucontext->cq_reg_mem_list);
--	spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
--	if (!iwcq->iwpbl)
+-	spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
+-	iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
+-			      &ucontext->srq_reg_mem_list);
+-	spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
+-	if (!iwpbl)
 -		return -EPROTO;
-+	cqe_64byte_ena = dev->hw_attrs.uk_attrs.feature_flags & IRDMA_FEATURE_64_BYTE_CQE ?
-+			 true : false;
-+	cqe_size = cqe_64byte_ena ? 64 : 32;
-+
-+	if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_CQ_BUF_UMEM)) {
++	if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_SRQ_BUF_UMEM)) {
++		struct irdma_mem_reg_req srq_req = {};
 +		struct ib_umem *umem;
-+		struct irdma_mem_reg_req cq_req = {};
-+		u8 shadow_pgcnt = (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
-+				   IRDMA_FEATURE_CQ_RESIZE) ? 0 : IRDMA_SHADOW_PGCNT;
-+		u32 min_size;
++		u32 total;
++		u8 shift;
+ 
+-	iwsrq->iwpbl = iwpbl;
++		irdma_get_wqe_shift(ukinfo->uk_attrs, ukinfo->max_srq_frag_cnt, 0, &shift);
++		srq_req.rq_pages =
++			DIV_ROUND_UP((ukinfo->srq_size << shift) * IRDMA_QP_WQE_MIN_SIZE,
++				     IRDMA_HW_PAGE_SIZE);
++		total = srq_req.rq_pages + IRDMA_SHADOW_PGCNT;
 +
-+		cq_req.cq_pages = DIV_ROUND_UP(ukinfo->cq_size * cqe_size,
-+					       IRDMA_HW_PAGE_SIZE);
-+		min_size = (cq_req.cq_pages + shadow_pgcnt) << IRDMA_HW_PAGE_SHIFT;
-+
-+		umem = ib_umem_get_cq_buf(&iwdev->ibdev, attrs, min_size,
-+					  IB_ACCESS_LOCAL_WRITE);
++		umem = ib_umem_get_attr(&iwdev->ibdev, attrs,
++					UVERBS_ATTR_CREATE_SRQ_BUF_UMEM,
++					total << IRDMA_HW_PAGE_SHIFT,
++					IB_ACCESS_LOCAL_WRITE);
 +		if (IS_ERR(umem))
 +			return PTR_ERR(umem);
 +
-+		iwcq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem, NULL,
-+							  IRDMA_MEMREG_TYPE_CQ, &cq_req);
-+		if (IS_ERR(iwcq->iwpbl)) {
-+			err_code = PTR_ERR(iwcq->iwpbl);
-+			iwcq->iwpbl = NULL;
++		iwsrq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem,
++							   iwsrq->ibsrq.pd,
++							   IRDMA_MEMREG_TYPE_SRQ,
++							   &srq_req);
++		if (IS_ERR(iwsrq->iwpbl)) {
++			ret = PTR_ERR(iwsrq->iwpbl);
++			iwsrq->iwpbl = NULL;
 +			ib_umem_release(umem);
-+			return err_code;
++			return ret;
 +		}
++		iwpbl = iwsrq->iwpbl;
 +	} else {
-+		if (!req.user_cq_buf)
++		if (!req.user_srq_buf)
 +			return -EINVAL;
 +
-+		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
-+		iwcq->iwpbl = irdma_get_pbl((unsigned long)req.user_cq_buf,
-+					    &ucontext->cq_reg_mem_list);
-+		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
-+		if (!iwcq->iwpbl)
++		spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
++		iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
++				      &ucontext->srq_reg_mem_list);
++		spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
++		if (!iwpbl)
 +			return -EPROTO;
++
++		iwsrq->iwpbl = iwpbl;
 +	}
+ 	srqmr = &iwpbl->srq_mr;
  
- 	cqmr = &iwcq->iwpbl->cq_mr;
+ 	if (iwpbl->pbl_allocated) {
+@@ -2615,7 +2658,12 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
+ 	if (iwsrq->user_mode && iwsrq->iwpbl) {
+ 		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
  
- 	if (rf->sc_dev.hw_attrs.uk_attrs.feature_flags &
- 	    IRDMA_FEATURE_CQ_RESIZE) {
--		spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
--		iwcq->iwpbl_shadow =
--			irdma_get_pbl((unsigned long)req.user_shadow_area,
--				      &ucontext->cq_reg_mem_list);
--		spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
-+		if (attrs &&
-+		    uverbs_attr_is_valid(attrs, IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM)) {
-+			struct ib_umem *shadow_umem;
-+			struct irdma_mem_reg_req shadow_req = {
-+				.cq_pages = IRDMA_SHADOW_PGCNT,
-+			};
-+
-+			shadow_umem =
-+				ib_umem_get_attr(&iwdev->ibdev, attrs,
-+						 IRDMA_IB_ATTR_CREATE_CQ_SHADOW_BUF_UMEM,
-+						 IRDMA_SHADOW_AREA_SIZE << 3,
-+						 IB_ACCESS_LOCAL_WRITE);
-+			if (IS_ERR(shadow_umem))
-+				return PTR_ERR(shadow_umem);
-+
-+			iwcq->iwpbl_shadow =
-+				irdma_setup_q_pbl_from_umem(iwdev, shadow_umem, NULL,
-+							    IRDMA_MEMREG_TYPE_CQ,
-+							    &shadow_req);
-+			if (IS_ERR(iwcq->iwpbl_shadow)) {
-+				err_code = PTR_ERR(iwcq->iwpbl_shadow);
-+				iwcq->iwpbl_shadow = NULL;
-+				ib_umem_release(shadow_umem);
-+				return err_code;
-+			}
-+		} else {
-+			if (!req.user_shadow_area)
-+				return -EINVAL;
- 
--		if (!iwcq->iwpbl_shadow)
--			return -EPROTO;
-+			spin_lock_irqsave(&ucontext->cq_reg_mem_list_lock, flags);
-+			iwcq->iwpbl_shadow =
-+				irdma_get_pbl((unsigned long)req.user_shadow_area,
-+					      &ucontext->cq_reg_mem_list);
-+			spin_unlock_irqrestore(&ucontext->cq_reg_mem_list_lock, flags);
- 
-+			if (!iwcq->iwpbl_shadow)
-+				return -EPROTO;
+-		refcount_dec(&iwmr->user_ring_refs);
++		if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
++			ib_umem_release(iwmr->region);
++			if (iwsrq->iwpbl->pbl_allocated)
++				irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
++			kfree(iwmr);
 +		}
- 		cqmr_shadow = &iwcq->iwpbl_shadow->cq_mr;
- 		info->shadow_area_pa = cqmr_shadow->cq_pbl.addr;
- 	} else {
-@@ -2807,7 +2896,7 @@ static int irdma_create_cq(struct ib_cq *ibcq,
- 	info.vsi = &iwdev->vsi;
- 
- 	if (udata)
--		err_code = irdma_setup_umode_cq(iwdev, iwcq, &info, udata);
-+		err_code = irdma_setup_umode_cq(iwdev, iwcq, &info, udata, attrs);
- 	else
- 		err_code = irdma_setup_kmode_cq(iwdev, iwcq, &info, attr);
- 	if (err_code)
+ 	}
+ 	irdma_free_rsrc(rf, rf->allocated_srqs, iwsrq->srq_num);
+ 	return err_code;
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
