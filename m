@@ -1,37 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7BE39795B;
-	Thu, 15 Oct 2026 14:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A260E37F748
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074174; cv=none; b=WmQosD1HU+OQLChRAFE4sRpRSUpcFGJJleFV5lbsa/kLXD0i7pQWHCv+vqeLF8zxmps+xrbBNU/Tv28y5i+nIcCn32dtTrvQ2EgDRjt6wgqJ8V1toOCTKPk0Gxg39I6txcG107bHEFNAsRzi6c/MT4QPata6QohYtwxUnhNUMx0=
+	t=1792074211; cv=none; b=LFIg6UqznOCAJDeWMQrLmX4psUn2TLx9n2ISfP3xZbGKf/O0cuAAi3XT2Ih5TWhZNpmV4Ej7aFQIyloNGi7PDcq6SIqxYbpEhBkesPJCIDsfFFpSTn1sdUrIppCCzn6trUahoq79EqGjESFDAVcTnpeP48gl47+48Rq6eguYnjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074174; c=relaxed/simple;
-	bh=VqrrmEk2cJHrQsZ48/6inZ2+0H2J7jxHlqONanH6Q98=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IJ66snWiTc4oSIcBarxcn/Q5RFbsrFOXN44y+4YDCNEKH0dz+RBJGz+u2Wur4zO7mHbbNOGh8IfeEIHeeZm2h2Ek8GC0LS6vjHVJhNkHUlglmWe/CC6zvJKsZKGPVXAedOtDmQs+gABJFjdYEYKd5NPJyds1raAQAYsRfiBV/HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8JYac9B; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792074211; c=relaxed/simple;
+	bh=7dj08UaEF+uVRHox/KqNQDFcUyy0+3y5svIojtdje3w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lF/LKbSro35MADK+cNgo2TU/mZhYPfQCp8dHmQUIyYjdEdOzX+4QjL20rIUXDm99NaDLt7/RAYd/SzYx4JMnBKefwW0N+xYajRWif4qfjuAV6od00HLBveB6+vFwbmjWDfci3D0+Y33C0xygqh7Yl2I49fQq3RdhKweTB9quhyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=p0Ulo0D/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DegpS4ek; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8JYac9B"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B215C2BCF5;
-	Thu, 15 Oct 2026 14:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792074174;
-	bh=VqrrmEk2cJHrQsZ48/6inZ2+0H2J7jxHlqONanH6Q98=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=C8JYac9BO+JOzG8GsBZdyI/9G5Tk9b7w1gN1yHRI5gpCRNyKZ9GcxGbIgmKOvQKdT
-	 qqqtLIqwaYCHJRjtw7kEkQ5U+9zurkdeT682if/NVopeZn4ru3u/H+rWiUO/OuRn5q
-	 xrdyivRM7DDGFvl2Q5bLCTA/YFteMgK+/vn9wrKouZ7pP2iLkpD4d8ET/HYDwXpLmX
-	 o2/ONgklDIfOe47SZKF0U6ZzaWOt7Y66jyOdnfxGX1kQz/elvwSKNbfrPdS5vz73mF
-	 rEuY9PXWZ53jys/XnzFCtFBncwLL9PrRgsMSw1rasOkGL4vFoX1mZkHrBgc3B1L25N
-	 XcRB7pyL8Kerw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEF65CC6B34;
-	Thu, 15 Oct 2026 14:22:53 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Thu, 15 Oct 2026 14:22:51 +0000
-Subject: [PATCH v9 2/2] clk: Add gpio-enabled clock driver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="p0Ulo0D/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DegpS4ek"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FAPdOR4100190
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:23:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=R3hmrufZEG3bdOwlfCPty+
+	Gw0DZl6uJhxP3h4THqxJY=; b=p0Ulo0D/ck1RR2NMvtX6GQXehcnndVr3xqQgpg
+	i5Ef0purUBG1ibdKKMl/mo7ngNFOvAZLBas/6TmY1awOHSulhWnmf6k5R0n/T2dj
+	tkTY7Dj7hsoK1EwtJSq600MFe7xuaSI2K9FqLs8+f4jkDadGHw24f3LrryJRCFBM
+	OolwwHlxkbqQDipFRqoEj/hBEeck/gDd/Q4IyU08J+GeMVXVsldA3IkS6+o4mMey
+	1U6nUHeE2tRqgGDV4G/ZKakRHH1HXRhnakjS6i3+yVrdo2Ml82xANAaTxUKaGJi4
+	rEhzTJl2umE5eSc3o5cZQ6cVKOLDZXRi4+adT3IR7PbVJsJg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haw2r8w7n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:23:28 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1665200f4c2so7456199c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792074208; x=1792679008; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R3hmrufZEG3bdOwlfCPty+Gw0DZl6uJhxP3h4THqxJY=;
+        b=DegpS4ekhMaMvarOUd1Zo+v9pS3bWYYXWABcDzo7HqtxrOUSFTbaOm+5q2pY61X2ls
+         +5HebmU09yKnfgKrWVUAnCW7BobNQGzP5NAQO4QRYIozeNFkjRG/EirkqT4WWD53hVAX
+         CpJEWOp1LdqYZjPelTPw27BfOh2CP+2npzVX7RLVYjmc4eEa6GIU2jQS0hR37v3ElGK2
+         hgyk9YMNVO5B1OC4B9RQvUTC5Tuw5Y9qomgAnn/Pbxg9dhmhY5sFYZnewnebWpE4Z1UI
+         bdsmilHBmenuxGQDqolKF51xb4QucJIoYc4hDakRB699nZtOKK4xStEh2gfE7AGYXpBe
+         Zf1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792074208; x=1792679008;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R3hmrufZEG3bdOwlfCPty+Gw0DZl6uJhxP3h4THqxJY=;
+        b=S+dmyBRdiCx0N+jZt2jqEq5sfTQTpwvwdp3wbIll4XkmPxDuH4BF0tmfQEzXX3xFIJ
+         qJu7+BH8uJZz42EaIRgsBm2ibhTLJLUWpIUM3KUQrnY1VxCYE1Lt+6cRpJQj3MDoZs+O
+         43aeCB+lRC300qTHPzH41ikpDOz8MdyApuukxNLaUyJeumGdhjrimNBYoX3dUVWczj6h
+         Lq0DSrlDpTWukkAs3+fv5HEQJlBZAvZCBlVJrWEZSazRB/ECmMYxNmvK3J/lBs4EqrM1
+         tDHQhiLQ2NJYO/qWBHglabY4jcyaltUL9DaAesRBQq68WESTYzSmLigxzLbgpJw+1oI5
+         ONyA==
+X-Forwarded-Encrypted: i=1; AKwUvBzudeEjSsDj2ouaP+1NEyNNCS7RjLK4NQhMpxBv9wHQydq9Y2gC0KYo/JXoN3qEwQyBWnLoq1VO7Zos/XM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIuZ4bQuCQTsdQmOhCgDKza5A7kHLsDdqwcOzl/AXFMJmIJJQG
+	Roa7uSQMavKeneJxH/yp9+W8Zo5VKoKrcaeQ7yK7GcYe++l9RdaowmLY0XdkpTKWH4ZFamKJbaa
+	NYLKWfJ+yNDNN0p2SZSb62YzBbeHqAcNIqYI5v3ZAMbehhzuXvdC+K1+toamrBLL/Q84=
+X-Gm-Gg: AYBFou0HfiMfDdlUaOTGT68azMKQQJ9vtf83cyM4nUrZO62cwj86aOWVTm1urNBYlp3
+	T+z3tIlnjZTbdbTLe2H/WzhWqWFHAYfnTWL7bPlm8cAp4aTRlmK/Amsv5JcRuiZTQ73A4ogl43x
+	V1WYx6Yv1cn3Jw8MUH+xcgLBuvxGtYoyTEmSiye1at8jNwWzqMfOaEZgd46crEo+NJqdiRdsawv
+	VlNpGYD4yGazHWfm5c8v/6T/mZcHXDitSWEKyO6w9A8NYZzhE7lAmlD6etl/DDr87f8DXA7Ovyc
+	tXocsa2yeEnHYwOnhc3zbgOxSw+7Y5LYimVgQWZ1u9z8zsAFZbHXlnNDFT+kr7f+QRNa9JY2zr6
+	M/liHoclv4EPGL00drP9j5WT1siG0kaNCmF8=
+X-Received: by 2002:a05:7022:7f10:b0:144:c128:4c4d with SMTP id a92af1059eb24-16a5e49fa41mr25619136c88.38.1792074207828;
+        Thu, 15 Oct 2026 07:23:27 -0700 (PDT)
+X-Received: by 2002:a05:7022:7f10:b0:144:c128:4c4d with SMTP id a92af1059eb24-16a5e49fa41mr25619096c88.38.1792074206782;
+        Thu, 15 Oct 2026 07:23:26 -0700 (PDT)
+Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-17dc865cbffsm22921139c88.6.2026.10.15.07.23.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:23:26 -0700 (PDT)
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: [PATCH 0/2] pinctrl: qcom: Allow arming the wakeup_enable bit from
+ pin config
+Date: Thu, 15 Oct 2026 19:52:58 +0530
+Message-Id: <20261015-tlmm_wakeup_gpio_support-v1-0-c6d6f37a7e51@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,226 +89,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-feature-clock-guard-v9-2-c1c05a498d9a@bruker.com>
-References: <20261015-feature-clock-guard-v9-0-c1c05a498d9a@bruker.com>
-In-Reply-To: <20261015-feature-clock-guard-v9-0-c1c05a498d9a@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792074172; l=6336;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=LjC4L6SFdDLredA/wfbBXKpJv2TqPX6Is881A8HRjys=;
- b=qYKF61S2Wp+sXefgKpCsx4HdT8KYLJz4R5R9QgQAUcS5W9b2LA/UrKGx4R5lWUjREvcvM4XZi
- byqkZzgHqAEBdNHQHjP4HErqQpb83krWxIk9IJBiLAwrnFCo3G5uzYv
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
+X-B4-Tracking: v=1; b=H4sIAMLh0GoC/yWMQQrCMBAAv1L2bCAJVNSviIQ0buqqbZZsUoXSv
+ xv1OAMzKwhmQoFTt0LGhYTS3MDsOgg3P4+o6NoYrLZ7o02vynOa3Ms/sLIbmZKTypxyUccQbdA
+ HH3sToeWcMdL7tz7DYuDyd1KHO4byfcK2fQA5DI6bgAAAAA==
+X-Change-ID: 20261015-tlmm_wakeup_gpio_support-9cf2c08af51f
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792074202; l=2452;
+ i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
+ h=from:subject:message-id; bh=7dj08UaEF+uVRHox/KqNQDFcUyy0+3y5svIojtdje3w=;
+ b=caTBPoNHnRkX426+ZKQGS39H0gx/45jcC1U5FGIyY5cxFbmOzep9gYhU+c/QmuyfVKNoeRXL9
+ s4kZH8OwphiCTzwjxKqXdEd5MRJ2zgOHwg8jsad8k/fc2oci0FhJ7jk
+X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
+ pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXwPfJsarZGmcQ
+ 5GARc84U/i9CvdLQtd8ITFCM4DBjoFv2VtvjTcPsEoXLfNM7k8EoQtzmJzY2mhQCzaxUuFUa/vQ
+ YHmadXZ7Dt7BENpp6XB7Q3JTqp4+MM8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX7W7Ru2Bkmdpe
+ Pp5rY6hTxg8kzqeqHAuf4PafcfGIh3KgEOdPwawEqwDdKQkQ98CCOvHFhuTusst2j1mzsEGjgj2
+ rpcEB5D2SzJwColEiTIINzQK8ESLIFAqJ2hebookwC0+1/auEZgIm5Fg0H5BP4570DSmb03Jrws
+ h42sx8u+U0WGwh4D90K8ztgvbx2DKGCGKOqCO9SD4dwHlip+QjzmQgoesDZ4tvmainxyJrLjO6r
+ /rtjzleN2SITDhPmuxsD76ttBYEJGImIiP7ZRWnCkCBetFzEJk/ds+fYi9YWtje834Dd5BqP0af
+ d+ffUDzj324UddHOEItvghVE8BYj4NR9MQPOnZBQTpgL06cSEHo5xkkBdEgSumAfEXPpiCSriJ4
+ jm7eLk/+H0y9oWq0r8ZJfvoJAeo36LXdCclqo6YJVMj0zxjiRJMXfwnRZ4sYqdntacT/tVET2wV
+ /TQkRW+apI4Ylmub46Q==
+X-Authority-Analysis: v=2.4 cv=BNMmP1QG c=1 sm=1 tr=0 ts=6ad0e1e0 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=6rBjBSuKeGo2F8ZnovAA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-GUID: icC5PhKGoBQPlLei3ixaXnc2LAyStWHg
+X-Proofpoint-ORIG-GUID: icC5PhKGoBQPlLei3ixaXnc2LAyStWHg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+The TLMM keeps a per-pin wakeup_enable bit that gates whether a toggle of
+the pad is transferred to the wake up controller (PDC/MPM). Despite the
+name, that transfer is what delivers the interrupt event as well as what
+wakes the system from a low power mode, as the comment in
+msm_gpio_irq_reqres() already notes.
 
-A gpio-enabled clock exposes a clock, which status is determined by a
-GPIO signal. The common use-case is a FPGA-assisted clocking design
-where peripheral clocks are generated by FPGA PLLs that are outside
-CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until the input clock is enabled
-and only then initialize dependent peripherals.
+Today the bit can only be armed by requesting the pin as a GPIO interrupt:
+msm_gpio_irq_reqres() sets it and msm_gpio_irq_relres() clears it. That
+path calls msm_pinmux_request_gpio() and so takes over the pin mux, which
+makes it unusable for a pin that has to keep a peripheral function and is
+still toggled by an external device to request a wake up.
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Such a pin exists on boards with a SoundWire codec. While the bus is clock
+stopped, the codec asks to be read out by toggling the SoundWire data line,
+which stays muxed to the SoundWire function and is never requested as a
+GPIO. With the pad not armed the toggle is dropped, the controller is not
+resumed, and the codec's interrupt - a headset insertion, for example - is
+only seen if something else happens to wake the bus first.
+
+This series adds a "wakeup-enable" pin configuration parameter so the bit
+can be armed from the pin's own configuration, without turning the pin into
+a GPIO.
+
+A pin the SoC data does not describe as wakeup capable - no
+intr_wakeup_present_bit, or the present bit not set in the live register -
+is rejected with -EOPNOTSUPP and an error message, rather than silently
+accepting a configuration that cannot take effect. The GPIO interrupt path
+keeps its existing best effort behaviour and ignores that return value, so
+its behaviour is unchanged.
+
+There is no functional change for any existing device tree: the new
+parameter only does something where a board asks for it.
+
+Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+
 ---
- drivers/clk/clk-gpio.c | 161 +++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 161 insertions(+)
+Mohammad Rafi Shaik (2):
+      dt-bindings: pinctrl: qcom,tlmm-common: Add wakeup-enable
+      pinctrl: qcom: Allow arming the wakeup_enable bit from pin config
 
-diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
-index 9099c57e2715..c968c1d4cb1c 100644
---- a/drivers/clk/clk-gpio.c
-+++ b/drivers/clk/clk-gpio.c
-@@ -15,6 +15,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/err.h>
- #include <linux/device.h>
-+#include <linux/iopoll.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
-@@ -241,6 +242,166 @@ static struct platform_driver gpio_clk_driver = {
- };
- builtin_platform_driver(gpio_clk_driver);
- 
-+/**
-+ * DOC: Clock which status is determined by a GPIO signal
-+ * Traits of this clock:
-+ * prepare - clk_prepare (is_prepared) checks for a sleeping gpio
-+ * enable - clk_enable (is_enabled) checks for a non-sleeping gpio
-+ */
-+
-+/**
-+ * struct clk_gpio_enabled - gpio enabled clock
-+ *
-+ * @hw:		handle between common and hardware-specific interfaces
-+ * @gpiod:	gpio descriptor
-+ * @timeout_us:	timeout that is used to get a GPIO value
-+ *
-+ * Clock, which status is determined by a GPIO signal.
-+ *
-+ * Implements .enable, .is_enabled or .prepare, .is_prepared
-+ */
-+struct clk_gpio_enabled {
-+	struct clk_hw hw;
-+	struct gpio_desc *gpiod;
-+	u32 timeout_us;
-+};
-+
-+#define to_clk_gpio_enabled(_hw) container_of(_hw, struct clk_gpio_enabled, hw)
-+#define GPIO_ENABLED_TIMEOUT_MIN 10
-+#define GPIO_ENABLED_TIMEOUT_MAX 1000
-+#define GPIO_ENABLED_TIMEOUT_DEFAULT 10
-+
-+static int clk_gpio_enabled_sleeping_is_prepared(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+
-+	return gpiod_get_value_cansleep(clk->gpiod) > 0;
-+}
-+
-+/* We can't prepare the clock, but the Common Clock Framework calls only
-+ * prepare() not is_prepared(), therefore we fallback on the actual GPIO value.
-+ * The function clk_gpio_enabled_sleeping_is_prepared() returns the raw boolean
-+ * GPIO status (1 if enabled, 0 if not enabled), but the prepare callback
-+ * clk_core_prepare() expects 0 for success and non-zero integer for failure.
-+ */
-+static int clk_gpio_enabled_sleeping_prepare(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+	int value = 0;
-+
-+	readx_poll_timeout(gpiod_get_value_cansleep, clk->gpiod, value,
-+			value != 0, 10, clk->timeout_us);
-+	if (value == 1)
-+		return 0;
-+
-+	return -EBUSY;
-+}
-+
-+static const struct clk_ops clk_gpio_enabled_sleeping_ops = {
-+	.prepare =	clk_gpio_enabled_sleeping_prepare,
-+	.is_prepared =	clk_gpio_enabled_sleeping_is_prepared,
-+};
-+
-+static int clk_gpio_enabled_is_enabled(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+
-+	return gpiod_get_value(clk->gpiod) > 0;
-+}
-+
-+/* We can't enable the clock, but the Common Clock Framework calls only
-+ * enable() not is_enabled(), therefore we fallback on the actual GPIO value.
-+ * The function clk_gpio_enabled_is_enabled() returns the raw boolean
-+ * GPIO status (1 if enabled, 0 if not enabled), but the enable callback
-+ * clk_core_enable() expects 0 for success and non-zero integer for failure.
-+ */
-+static int clk_gpio_enabled_enable(struct clk_hw *hw)
-+{
-+	struct clk_gpio_enabled *clk = to_clk_gpio_enabled(hw);
-+	int value = 0;
-+
-+	readx_poll_timeout_atomic(gpiod_get_value, clk->gpiod, value,
-+			value != 0, 10, clk->timeout_us);
-+
-+	/* If the reading timed out or return an error,
-+	 * it means the clock is not ready
-+	 */
-+	if (value == 1)
-+		return 0;
-+
-+	return -EBUSY;
-+}
-+
-+static const struct clk_ops clk_gpio_enabled_ops = {
-+	.enable =	clk_gpio_enabled_enable,
-+	.is_enabled =	clk_gpio_enabled_is_enabled,
-+};
-+
-+static int gpio_enabled_clk_driver_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct clk_gpio_enabled *clk;
-+	const char *clk_name;
-+	const struct clk_ops *ops;
-+	const struct clk_parent_data gpio_parent_data[] = {
-+		{ .index = 0 },
-+	};
-+	u32 timeout_us = GPIO_ENABLED_TIMEOUT_DEFAULT;
-+	int ret = 0;
-+
-+	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-+	if (!clk)
-+		return -ENOMEM;
-+
-+	clk->gpiod = devm_gpiod_get(dev, "enabled", GPIOD_IN);
-+	if (IS_ERR(clk->gpiod))
-+		return dev_err_probe(dev, PTR_ERR(clk->gpiod),
-+				     "Can't get enabled GPIO property\n");
-+
-+	ret = device_property_read_string(dev, "clock-output-names", &clk_name);
-+	if (ret)
-+		clk_name = fwnode_get_name(dev->fwnode);
-+
-+	device_property_read_u32(dev, "poll-timeout-us", &timeout_us);
-+	if (timeout_us < GPIO_ENABLED_TIMEOUT_MIN ||
-+	    timeout_us > GPIO_ENABLED_TIMEOUT_MAX)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "poll-timeout-us is out of range [%u, %u]\n",
-+				     GPIO_ENABLED_TIMEOUT_MIN,
-+				     GPIO_ENABLED_TIMEOUT_MAX);
-+	clk->timeout_us = timeout_us;
-+
-+	if (gpiod_cansleep(clk->gpiod))
-+		ops = &clk_gpio_enabled_sleeping_ops;
-+	else
-+		ops = &clk_gpio_enabled_ops;
-+
-+	clk->hw.init = CLK_HW_INIT_PARENTS_DATA
-+		(clk_name, gpio_parent_data, ops, 0);
-+
-+	/* register the clock */
-+	ret = devm_clk_hw_register(dev, &clk->hw);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register clock\n");
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &clk->hw);
-+}
-+
-+static const struct of_device_id gpio_enabled_clk_match_table[] = {
-+	{ .compatible = "gpio-enabled-clock" },
-+	{ }
-+};
-+
-+static struct platform_driver gpio_enabled_clk_driver = {
-+	.probe		= gpio_enabled_clk_driver_probe,
-+	.driver		= {
-+		.name	= "gpio-enabled-clk",
-+		.of_match_table = gpio_enabled_clk_match_table,
-+	},
-+};
-+builtin_platform_driver(gpio_enabled_clk_driver);
-+
- /**
-  * DOC: gated fixed clock, controlled with a gpio output and a regulator
-  * Traits of this clock:
+ .../bindings/pinctrl/qcom,tlmm-common.yaml         |  12 +++
+ drivers/pinctrl/qcom/pinctrl-msm.c                 | 101 +++++++++++++++------
+ 2 files changed, 85 insertions(+), 28 deletions(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261015-tlmm_wakeup_gpio_support-9cf2c08af51f
 
--- 
-2.34.1
-
+Best regards,
+--  
+Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
