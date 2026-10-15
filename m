@@ -1,100 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34094521228;
-	Thu, 15 Oct 2026 12:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5F7525A76;
+	Thu, 15 Oct 2026 12:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068933; cv=none; b=Xm2ToKX36QVr3Qb1GykmQTyIkPz7UeeQfpYdKMKjkBWY12uBW1Ca4MCLMZGqcZ/jzDb0WpOS8YbjQEQLW+HcIwujzCoQhw2u8OBjE4UBpP1RtiGOgTEwmORr946V3+axzlGIEappy9ajhVS8NqrieVf5cqv4VYNpxaumLvgkh2o=
+	t=1792068936; cv=none; b=Jo5AIapjdDNWvHVmld9zVUTziq974r8CGgDpe5GaJX2A6FKVr7bZRrP2KyUvy2fbJHW1Q8fup4m2BcOnB/S43msKCqSYqdaY/DurWiIxq5akv9Qe8HgLbK+jpQHl2SCkX+wuMFlpov6lCa0QqFU9xnXQgGPfhIVoawKP6NluDmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068933; c=relaxed/simple;
-	bh=7DBp+1phuyFtsy9CKcOsQZlKRPdN0E+MHLNqjGsXSLY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lS6yV9fg7Ghr4/7VpYzcJjHVs3bP3F8dNKoQy/VtrBX5rp6sohBhMUu325Q7X7qZLmUza5Aovm1s/jHoUMoL+80l1FzdRak2ahHtbC5V4re1GCeLe0G340P0SOekwHRwxFb9Yn7FjIhvhJzmlDC71R33jlyy3I4zPQKlz2BCNc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTiix9Xg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792068936; c=relaxed/simple;
+	bh=1VL3ul+oyEqH/SBvPY1P3l7zVD9s1jUU5EEiHqlYnhE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CODgOYjSITQV829hQzExWbazQR9g1Ldhs7Tyi2UVD3OeUoLfbJHpAzf4ekXvD+pRqZH9SfhQ4v8p6Aojt/JUC9AWrhMhCF6OJIKQ0DeQNeBa7JzE7YwHy1TThq2Nc8CbktmtdPpW/6UjZXfqjnMuUC+L999SPPIPNgedALCLees=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=wHImKLHW; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTiix9Xg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FF31F000C4;
-	Thu, 15 Oct 2026 12:55:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792068931;
-	bh=clp57vnClQVP+nCheYCqZXPNnTl55WO/xc0j2+TAHUA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jTiix9XgOAqINvZR6bBWHZkWxkukxvVWHBigSvYyttYP4WCdUAK3ug6NfdyHF0Xom
-	 6CElzymUseQSn99vTklK0xyJoKCdJuC4jKujZlICBkJwe4umY6OUwcelJmMWNaAPW6
-	 xmfjAGsw+JX8kt0coGIqQ53dWGbaZx/OqBuCfdNVzw3B4wcTlDBy3T27/AMrBOX4GX
-	 YoV2lgw8DQkl9/aP3/rzA8p1yOg4nlnL4E3I1B+IMSYTZ0GeM6aotR8vbEtL2fXA0x
-	 gquDnP9jiclizoXw09TJTXFFnKduBNvMQE/pEKRLQGV7FV8okTDUV/6gpTRTSL9W9q
-	 MoLASdh0CoWUQ==
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 98E18198004A;
-	Thu, 15 Oct 2026 08:55:26 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Thu, 15 Oct 2026 08:55:29 -0400
-X-ME-Sender: <xms:Ps3QauruKha1RaTfSbJorefQoWrO5sC1GZTxGDEtT6iwvRfoXTnxNA>
-    <xme:Ps3QavAbGBJLEN6dY-z20ZQ6DtGwyMVrPgKtNQrxjV-a_4_Myh7Pmbz94QaVFS-Eu
-    vmiA7kGkPTVTYeENlib_vXjh2JE4EV3TaWejBE3zRlVm9KElicDjAA>
-X-ME-Received: <xmr:Ps3QaseGMDjM_RzxtK5GG3WzyCjra6Si_TRxn-EASt6Gg2a6jyWWK3JrM6M>
-X-ME-Proxy-Cause: dmFkZTENeah5jCyIIexJsBjsOW84TqH2gO5rqiAOue2liPsjxhJZVfheu5qG/L9bNI7vZP
-    O56axSZ1Wv+bTUUudMcDhq8xMBTsA7tgGR/i3ipoz6XNgpJ8FASKYlVpoWG55dt0ppMuMe
-    c9UrZ/xlGXys176GvhcEKtHQ/ed0Rj8PJD+28gZatuRokFMbBB1hCyDumbQerfaqidDsU9
-    9h31i+E4VRHRE8eXq00ymlPNkbhhutz5ixoC1ggrRIo6Jb9JjFLIHyGaOOqdgQtzmbYv+M
-    VI3K/8qaxFK/Fezlj/6k3b3fWpdpMMzbtWmoN+b3zurRSSR8fiqqa6hkYACGX4hI3WgoPt
-    IirMy5el1faMQe1WSd0dX9YsMwuu5yeN9bde+mswRyZSJKUDjBlnFQSe8AJJ5ywzeDEvEI
-    aGnUbIMhtUFDHoOwLND8Zb08YrUQU21VVlWqXe/A5IcMcYZn0oAujblX+iYCNNyuEj7lQL
-    Cy2ESt1imr0U35qn3Tb/p6kjom1TAS7L/mwHMDO+NDSTb867rANutnqTlXYDz0HMmilFUJ
-    3CfgqtLOYct/PZnalIpHy+/41L+LY1Bo1MSpO8UFb47vo+Kvjr5KnQjRjNqfd12rWpoWS3
-    FhunUymkYp9bH229QCAlwcww0dzWLmJ4t4daxRfL2nkJT5ua7SC1q0RtDpOw
-X-ME-Proxy: <xmx:Ps3QahDY9OLuq4Lvb5ErDpmJPkc-ntt6m5HfzKAf_cwYGHr-vtHSlw>
-    <xmx:Ps3QagRokeyqCDKS9Jozm5Fc2a-hFwELMmlV99lOPj_JVTIXwkhi_g>
-    <xmx:Ps3QalcR0uZZ_zK5Dv32EWTxhRkvmoZLTPh11jjmBfbipPPVpVKTMA>
-    <xmx:Ps3Qajoi2LZk8-4njLtYjq9AisXNOOdY5kyVToTAVtJd40WLKewlZg>
-    <xmx:Ps3QalbxEL27mxEe6tb0xbg8C-QSzpxw4S6szaBMM0dOmOjW0So4a51i>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 08:55:25 -0400 (EDT)
-Date: Thu, 15 Oct 2026 13:55:24 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <atDMN5MoGrwJNpAj@thinkstation>
-References: <20261009125503.126202-1-kas@kernel.org>
- <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
- <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation>
- <20261014202936.GC371161@cmpxchg.org>
- <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="wHImKLHW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=zL4P1buyUO0HTa8tz5fIfgHMxvjhBM1cuXeP1N+bW10=;
+	t=1792068935; x=1793278535; b=wHImKLHWjYOEFReQdzIl9jLd6b48Nsnes8s4ioAQnRsH1ld
+	M08QoGB+/w7SF1ugXglUIHta+zD4ZdWkd+fu1NWAU+pNDRHmiu/k6C72wWsZWOfXvHfux0/j1N4vb
+	eWRcEBrc3ifePfHbBjolTBFK86TKpwqaMZJ0+dotRCAxuV/6aoGNl5k+mZ6JspqXM9wenWEd7BsDA
+	R8dD8DPRqlNu9ghObdeJl6QejWwVTNS1d4YLetEihADDCMa7KA7rUrK9AbsP07pa/mGeiyQHqzZ6t
+	Ddj87I3sQkoYKDPVxgGUIfqJGLAW37BWcMWFCOHMs9z/mDg7kMXjiWJ7NdiAfSpw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xHKzU-00000003bXE-0Kyl;
+	Thu, 15 Oct 2026 14:55:24 +0200
+Message-ID: <64ee40b97fc447bbf3abb80250ad0d9f3cf3c6fa.camel@sipsolutions.net>
+Subject: Re: [PATCH net-next v2 2/7] um: vector: honor virtio net hdr
+ conversion failures
+From: Johannes Berg <johannes@sipsolutions.net>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Willem de Bruijn	
+ <willemdebruijn.kernel@gmail.com>, Jason Wang <jasowangio@gmail.com>, 
+ Eugenio =?ISO-8859-1?Q?P=E9rez?=	 <eperezma@redhat.com>, Xuan Zhuo
+ <xuanzhuo@linux.alibaba.com>, Andrew Lunn	 <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet	 <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>,
+ netdev@vger.kernel.org, virtualization@lists.linux.dev,  Rusty Russell
+ <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>, Richard
+ Weinberger <richard@nod.at>,  Anton Ivanov
+ <anton.ivanov@cambridgegreys.com>, linux-um@lists.infradead.org
+Date: Thu, 15 Oct 2026 14:55:23 +0200
+In-Reply-To: <20261015085119-mutt-send-email-mst@kernel.org>
+References: <cover.1792067836.git.mst@redhat.com>
+	 <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
+	 <8420ba1fe84fc7d105825026802d4ad10d44af71.camel@sipsolutions.net>
+	 <20261015085119-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+X-malware-bazaar: not-scanned
 
-On Thu, Oct 15, 2026 at 09:16:36AM +0200, Vlastimil Babka (SUSE) wrote:
-> > And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
-> > but Meta is using the feature right now.
-> 
-> I thought it was there for a long time but it was only added in 2025 :) At
-> least the enterprise world is slow to adopt things, AFAICS.
+On Thu, 2026-10-15 at 08:52 -0400, Michael S. Tsirkin wrote:
+> On Thu, Oct 15, 2026 at 02:47:01PM +0200, Johannes Berg wrote:
+> > On Thu, 2026-10-15 at 08:41 -0400, Michael S. Tsirkin wrote:
+> > > virtio_net_hdr_to_skb() refuses packets whose checksum metadata
+> > > it cannot make sense of, but the vector raw transport ignored
+> > > its return value: rejected packets went on into the stack with
+> > > their metadata unvalidated.
+> > >=20
+> > > Propagate the failure.
+> > >=20
+> > > Assisted-by: LLM
+> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > ---
+> > >  arch/um/drivers/vector_transports.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/ve=
+ctor_transports.c
+> > > index e1fb2a76fdff..8b7548458663 100644
+> > > --- a/arch/um/drivers/vector_transports.c
+> > > +++ b/arch/um/drivers/vector_transports.c
+> > > @@ -210,7 +210,9 @@ static int raw_verify_header(
+> > >  		return 1;
+> > > =20
+> > >  	skb_set_network_header(skb, ETH_HLEN);
+> > > -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian(=
+));
+> > > +	if (virtio_net_hdr_to_skb(skb, vheader,
+> > > +			virtio_legacy_is_little_endian()) < 0)
+> > > +		return -1;
+> > >  	return 0;
+> > >=20
+> >=20
+> > Seems it'd be simpler to just
+> >=20
+> > 	return virtio_net_hdr_to_skb(...);
+> >=20
+> > As far as I can tell, the function only returns -EINVAL or 0 (never a
+> > positive value), and the caller only cares about negative (error) or
+> > positive (no checksum needed), so that'd be equivalent?
+> >=20
+> > johannes
+>=20
+> if raw_verify_header can safely return any errno - i did not want to
+> audit it.
 
-I was thinking to propose a patch after merge window to make defrag_mode
-default. Do you think it is too early? I don't think it is ever going
-to be truly stabilized without wider exposure.
+You already used an LLM and still didn't want to? ;-)
 
-We also discussed with Johannes to make a stricter (defrag_mode=2?) mode
-that will not give up on fragmentation ever, but OOM instead.
+I checked briefly (by hand) and it seems fine, it's assigned to the
+function pointer, which only has two callers on the _kern.c side.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+johannes
