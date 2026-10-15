@@ -1,53 +1,75 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770B1429029;
-	Thu, 15 Oct 2026 17:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B708541472
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086538; cv=none; b=J3bxp+b+ujevT7xjV8GPjuAK6tqUFJUO8YL/+vYnQiQQCWFIojgf1ZzFmuRDVwXS14Q7E4cxuA9E6h+IbMMz/9PGhoOZBkozgSHBgWGF1Op78Vi2zRcMBJCUKk4LgFv9jyUcvUkz9YPk44DfHhbPqUn6EBze+5ltDj9yny0Zmy4=
+	t=1792086544; cv=none; b=dyFP+WrzcHeU3o+1lqkH7RS/c4GTLuR9ueMQBlWovfBPH7ucP3ywP6Go7UNWs6Rswtah5TrDS+jjON8CG6LJZgHrXWbHY6oCkiQG/4FcikZc0BbrFSGJMq0Cn68OPCKsdFXefDKJ//I9lOua+B7wSTbqcH3L5Y/u/bWx9S5BaBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086538; c=relaxed/simple;
-	bh=9c2/PaGf1u2yPgJLZdE2wgl/BvhUgfPpxVWHX6kIGWE=;
+	s=arc-20240116; t=1792086544; c=relaxed/simple;
+	bh=4O/bKw9XxLrmWnCqNb+nEiSrTkGQi1THgwJJAv7ICAU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QUuRo5ro/GvtJ6tDFcVkseGDUf/bhwGk5yUlqMklh9NzBia8PSAI4zUJdw9/A3XjAAy2eV/T6ZweO3EeHyUEATWTdg0RIQ9D39j72b9jUCuFL993PckVRR9VNiT5O6uXvhdneeuZWQ+DXFFVQCDtkVm7L/Zwo3rg9QTZiMxem4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SRkneZY7; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bQgtFHQcgNgFqiE/a4+36neOqsMQ8J3EX5yYNW4eOdPjOxJd+ptRZCxBn8xMWgKYx9P7yS/tR/AmdM5SoNfbEA7DvNE4+w1XYOIOnuYEyBZjdJkPZq1Y2kyKsXBtW7lRC1fJVbGQWzAHK/ZHmgWZbxQEohIDr/QUvg/pIUTM1Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xaq9gpde; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SRkneZY7"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792086514; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=dkulAnttC6PoebpWm1nHtQ7Lp9yXSkyxV6VmIgyOjW0=;
-	b=SRkneZY7+Rt1Y2x6YqysYgUlJffnd/7uYUPzsJ3JFZNyI4FD33ShjSUkSCX8gM72rkIOAoZyya6pOlnUYWZJfvkmen5TAT/pV2Bsl6ZPJ2Ec94peVm10ccpkNioSOtMj5bBWRhsBq5lWxTyIKw2HEAi1nLFibI1VBCc6CvD1maw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=peng_wang@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XCsGuGY_1792086512;
-Received: from localhost(mailfrom:peng_wang@linux.alibaba.com fp:SMTPD_---0XCsGuGY_1792086512 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 16 Oct 2026 01:48:33 +0800
-Date: Fri, 16 Oct 2026 01:48:32 +0800
-From: Peng Wang <peng_wang@linux.alibaba.com>
-To: Waiman Long <longman@redhat.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH 0/2] tick/nohz: Add runtime control of non-idle tick
- suppression
-Message-ID: <atER8P0ws6Gg4GWE@MacBook-Pro.local>
-Reply-To: Peng Wang <peng_wang@linux.alibaba.com>
-References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
- <8d10bb84-d312-4be0-8c43-ddd602850a1d@redhat.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xaq9gpde"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so1332146a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792086536; x=1792691336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8gmOZqAjPixYY6Ob7IGv/llQqi0+9XdrKezybj1a6U4=;
+        b=Xaq9gpdeyIMKtBM4ipDL7uGANYSKeNzb4uI40yTcBlpEo5zK6SpHz0toZMQWYB7Qqt
+         YyFQnFdgunyQsVD/ksYuS6xb7j2LloDqEyXXbYGqT/WYw/LTzfy8ZKb96BpyfZgbRdty
+         g5p0Hom7FoiASLXHV/enaZ/Y5tug6DKJtY1RQtxKvzwu2v1fX/GF6Saef25+IUgE36Dh
+         HowezT0xYYPamX3Pjel7ReZbTmmwsMeGE4XggdP2Id2YpkIV0n+7mcOuR6wiBWgYlfsp
+         xiLsI3jq0gB3GNv+AFz8g0vq01841vaDMCMc0dblEJdpuj7w/asz/niWMaMJL953/v7Q
+         dl6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792086536; x=1792691336;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8gmOZqAjPixYY6Ob7IGv/llQqi0+9XdrKezybj1a6U4=;
+        b=F+PDn/7VUjly0KQ/EJMydowHX8JUtfvUBktcgLdQtamaBMnJAvfzp23mEeOIWoIus+
+         yK19Eb0eFW754wiUDpnXmjx4aPbDwjisNexvo+TsqTGTQ3AddYWYUEDj5YONIN5/ToVO
+         JchxL/3NfOlIfRUGYZZjJQuPOeri6yHdEktFa3VU3eMoJHWyVHuqxDTV9DrR2ywgfnC9
+         dA7NdLaMO9x+A+1cbB1CBJE7sNdxTjAJUX6zSYzv29WfEHEcuv8XOG00q2UQ/kMMHtXR
+         dXPxERj3qzTu1w3/psBbjITES+TjffAHPWr4d1lRY8oGSkg726BHp4pXVSac6Lz6LT/9
+         oEdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbBjiC3pMOl85fivsjIcqm4zAzWMa1AabLeALHvwv/Yk+dwkj1MySceIi3h7bEnuUEq4y+uNCKqlKSOew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcMaAwr7pjKUFNgeHA2aK5P3eEza7ut2ezRq8xcnHlSsK8tKU9
+	oEaA1TvVdLzUXFHlxRw0UpdRLtn677NHuHvO4iCNNw3p/9f0Z81uYTxqaoGahdmixg==
+X-Gm-Gg: AYBFou3jxvCSK4xQVShasRCpdvsa7mmGCa4dODeHJrgB0lC0IdryjCnjJy2BaR06SsS
+	R5CnlBrIbobw/cPRdks6XiiA8m+h/7Q+o2zEJi8ggjpUE4fd6oRhVHy+v6cikc89nx4cnZWcqHt
+	mHvEr7HFpRWQ2zDSnKxoshPKzAj8PWz88gQY6KkntM1ghrM3tPtZUIw66+3f8s7iGJwrCbcxAww
+	nRoRoDznK4ZfifnB4lBWVt4akRNhY5YW9ywF6hY4s/aMmWzAXT7cdwOqgKpACu1VhIX2fX0qjo3
+	dFOMK34LSbn3btytD1vr92v/ZPJqWGKOGoUqHKbBt/Llxn34KWLhj+aI59c0xVq5QFXPvDtRpan
+	eqCU2UAf4qz2BY3Xyqr08esBI8pHjPUFheCU2IVBZlt33VuBBrbQ8oI7KmiEfiby9dnZS1LuKF3
+	9bqBPAXrPkVRvruNs2nTtwtfXJOh4skKoSVnlzPj5/kZG/FUsoCU89U6nA1Vvhjlext5XLMaaPb
+	kGmydH5xNKPrSXWkOzpJC7VQOsC6oU0iD0n2xHto09r4w==
+X-Received: by 2002:a17:90a:bd7:b0:3ab:f38:2b3b with SMTP id 98e67ed59e1d1-3ab9628e531mr9843506a91.21.1792086535442;
+        Thu, 15 Oct 2026 10:48:55 -0700 (PDT)
+Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm5041683a91.11.2026.10.15.10.48.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:48:54 -0700 (PDT)
+Date: Thu, 15 Oct 2026 17:48:51 +0000
+From: David Matlack <dmatlack@google.com>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
+	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+	pratyush@kernel.org, graf@amazon.com
+Subject: Re: [PATCH v1 0/7] liveupdate: tmpfs preservation and early freeze
+Message-ID: <atESAwf17pJ11S9U@google.com>
+References: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,74 +78,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8d10bb84-d312-4be0-8c43-ddd602850a1d@redhat.com>
+In-Reply-To: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
 
-On Thu, Oct 15, 2026 at 12:00:25PM -0400, Waiman Long wrote:
-> On 10/15/26 8:43 AM, Peng Wang wrote:
-> > Workloads and their need for periodic ticks can change after boot.
-> > This series lets userspace choose at runtime which CPUs in the boot-time
-> > nohz_full set retain the non-idle scheduler tick and which are permitted
-> > to stop it, while preserving the existing isolation configuration.
-> > 
-> > The first patch adds a per-CPU tick dependency; the second exposes a
-> > sysfs CPU list. Permission defaults to all nohz_full CPUs. Revocation
-> > uses the existing asynchronous kick. Idle tick suppression is unchanged,
-> > and policy persists across hotplug.
-> So you are basically setting up more nohz_full CPUs than the system actually
-> needs to use at the moment and so want to disable nohz/tick part of
-> nohz_full CPUs that don't need it. Can you elaborate more about the problems
-> solve by introducing this new behavior?
-
-Hi Waiman,
-
-Yes. We have CPU-pinned workloads that benefit from reduced periodic
-tick interference. The desired tick policy changes with CPU allocation.
-
-With spare capacity, we allow selected nohz_full CPUs to stop their
-tick. When capacity is fully allocated, we prefer to retain the
-non-idle periodic tick across CPUs, avoiding an additional difference
-in tick interference between housekeeping and nohz_full CPUs.
-A CPU may still have only one runnable task in either case, so the
-existing tick dependencies do not express this policy.
-
-This series keeps the boot-time nohz_full CPU set, context tracking,
-RCU offloading and housekeeping configuration unchanged. It only
-controls whether those CPUs may stop their non-idle tick. The policy
-can be changed without taking CPUs offline.
-
-> > 
-> > Existing cpuset partition modes do not express this independent tick
-> > policy. Feedback on the proposed interface is welcome.
+On 2026-10-15 05:38 AM, Pasha Tatashin wrote:
+> This series allows preserving files in tmpfs via LUO to survive across a
+> live update, and allows userspace to decide when to freeze a session
+> instead of delaying until auto-freeze at kexec time. Once userspace is
+> done with a session, it can freeze the session immediately (and across
+> multiple sessions in parallel), reducing blackout time by not postponing
+> this operation to kexec shutdown where all sessions are frozen serially:
 > 
-> We are planning to eventually extend cpuset partition mode to change
-> nohz_full at runtime. This is still a work in progress.
+> 1. Early session freeze (LIVEUPDATE_SESSION_FREEZE):
+>    Currently, LUO sessions are frozen automatically only inside the
+>    reboot(LINUX_REBOOT_CMD_KEXEC) path, where luo_session_serialize()
+>    iterates through all outgoing sessions under global write locks and
+>    freezes them serially during shutdown.
+> 
+>    Add the LIVEUPDATE_SESSION_FREEZE ioctl on session file descriptors so
+>    userspace can freeze a session as soon as it is done with it (and freeze
+>    multiple sessions concurrently, since luo_session_freeze() only acquires
+>    the per-session mutex). During kexec, already-frozen sessions skip the
+>    late auto-freeze step; if an early-frozen session is closed before
+>    kexec, its files are rolled back via .unfreeze() before being
+>    unpreserved.
 
-Thanks for mentioning the cpuset work. Would this tick-only policy
-fit into that plan? The core mechanism in patch 1 is independent of
-the sysfs interface.
+Thanks for putting this together. I'm on board with driving
+retrieve-into through a per-handler argument instead of a LUO-level
+flag. It's what Pratyush suggested on the RFC too (sorry Pratyush, I
+never replied to that). I still need to review the actual patch but
+I think the idea is fine.
+
+However, nothing ties the arg struct to a handler, it's interpreted by
+whichever handler owns the token. At LPC we discussed letting userspace
+pick the handler in PRESERVE_FD/RETRIEVE_FD, so that it controls which
+one is used when more than one can take a file. If we do that, the
+handler name would also be the natural key for which arg struct is
+expected.
+
+> 3. Tmpfs file preservation and retrieval:
+>    Using the file handler retrieve argument, extend mm/memfd_luo to allow
+>    preserving generic shmem-backed tmpfs files (not just unlinked memfd
+>    pseudofiles), recording MEMFD_LUO_FLAG_TMPFS in
+>    struct memfd_luo_ser.flags so that preserved tmpfs files must be
+>    retrieved as tmpfs files and preserved memfd files must be retrieved as
+>    memfd files.
+
+I've been working on a v1 of the tmpfs preservation since LPC. v1 fixes
+a number of problems in the RFC that I think this series still has
+(sorry for the wall of text, it is LLM-generated):
+
+ - Failures that userspace can fix lose the file. The folios are
+   restored, charged and added one at a time, so if the target's mount
+   is too small (ENOSPC/quota) or the caller hits its memcg limit
+   partway through, the target is truncated, the folios are freed, and
+   the failure is permanent. Only bad-argument errors are retryable.
+   v1 restores all the folios first, charges all the blocks and memcg
+   up front, and adds all the folios to the page cache or none of them.
+   It keeps the restored folios in private_data between attempts (LUO
+   needs to pass private_data to .retrieve() and keep it on failure),
+   so the only permanent failure left is losing the KHO state itself.
+
+ - memfd_pin_folios() doesn't require the inode lock, so iommufd can
+   pin folios of the target while they're being added or truncated
+   away. v1 starts with two patches that make iommufd take the lock
+   and make memfd_pin_folios() assert it.
+
+ - The target has to be opened for writing (FMODE_WRITE). Since LUO
+   holds a reference to it until finish, that means a restored binary
+   can't be executed until the session is finished (-ETXTBSY). v1
+   instead requires mnt_want_write_file() and file_permission(MAY_WRITE)
+   under the inode lock, like FS_IOC_ENABLE_VERITY. That also rejects
+   immutable files, which a fd opened for writing before chattr +i
+   doesn't.
+
+ - There's no file_modified() or fsnotify_modify(), so setuid/setgid
+   bits aren't cleared and timestamps aren't updated. The normal write
+   path does both.
+
+ - f_pos is set through fget() + vfs_setpos() without f_pos_lock, which
+   races with read()/lseek() on the same open file. v1 uses
+   fdget_pos(). (Sashiko called this an ABBA deadlock. I don't think it
+   is one, since vfs_setpos() doesn't take the lock, but the race is
+   real.)
+
+ - Early failures leak the preserved folios. The seals/flags check
+   frees ser and records a permanent error, so .finish() skips the file
+   and the folios are never freed. Sashiko flagged this as well. The
+   new MEMFD_LUO_ALL_FLAGS check adds another way to get there. In v1,
+   early failures don't consume anything and aren't permanent, so
+   .finish() cleans up.
+
+ - If a token was already retrieved, luo_retrieve_file() returns the
+   existing file and ignores arg. Userspace that asks to retrieve into
+   X gets success and an fd for a different file. I think LUO should
+   fail with -EBUSY if an arg is passed for a token that was already
+   retrieved.
+
+ - Sashiko's WARN_ON(liveupdate_claim_file()) report on 3/7 is valid:
+   xa_insert() can fail with -ENOMEM there, and userspace can trigger
+   that.
+
+One place our series are not aligned is MEMFD_LUO_FLAG_TMPFS. My
+thinking has been that RETRIEVE_FD should support retrieving into any
+shmem file (including linked files, memfds, and O_TMPFILE). It is
+userspace's choice at retrieve time. The only thing the kernel enforces
+are the fundamental requirements such as exceeding the file's mount's
+limit.  When I think about it that way there is nothing special about
+retrieving into a memfd and MEMFD_LUO_FLAG_TMPFS is just artificially
+limiting how a shmem file can be retrieved. WDYT?
+
+One last thing is my v1 also comes with a dedicated tmpfs selftest with
+much broader positive and negative test coverage that I would like to
+land (things link O_TMPFILE and read-only targets, executing restored
+binaries, exact block accounting with statfs() and st_blocks, including
+large folios that extend past EOF, etc.).
+
+Maybe what we can do is keep your 1-5/7 patches and I'll rebase my v1 on
+top and send that as a replacement for 6-7/7?
 
 Thanks,
-Peng
-
-> 
-> Regards,
-> Longman
-> 
-> > 
-> > Thanks,
-> > Peng
-> > 
-> > Peng Wang (2):
-> >    tick/nohz: Add a policy dependency for full dynticks
-> >    cpu: Add sysfs control of full dynticks policy
-> > 
-> >   .../ABI/testing/sysfs-devices-system-cpu      | 40 ++++++++++++
-> >   drivers/base/cpu.c                            | 46 ++++++++++++++
-> >   include/linux/tick.h                          |  8 ++-
-> >   include/trace/events/timer.h                  |  3 +-
-> >   kernel/time/tick-sched.c                      | 62 +++++++++++++++++++
-> >   5 files changed, 156 insertions(+), 3 deletions(-)
-> > 
-> > 
-> > base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> 
+David
