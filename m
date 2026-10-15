@@ -1,311 +1,205 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F1949E5C9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065467; cv=none; b=uQmyU7tNeexHdjq6+k9kdayqsPo8nwVcbL0TGywF4nfd6kDx62w2C2V7UIcX63dsWZ9a1KNryqsdFeV9gLHpHGZAY4EAMaZ+yqbrulfd6TA7NfxmnEZ544jcaGEm0VH6qMzaXWbM2+3tXPXJ44YROZOmCJr054fnt27RvIK1sGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065467; c=relaxed/simple;
-	bh=i+YoRWwUTMdzBgxgYQpRg4TTlO7py0vjcCdoEbxGXdQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=cL94ddfZjJgJv4H1BQHQ4Lc/WhCCmSq4CqzWz5ijUuV6/VJaRsICrwjXAix5DaVEY2Xw3cXsGnDsePAwjfwRab1SNIQztPEeE9SUtAZzBqhfkIJCZ2EsE2J78vvZLmJZWJI3bD9+TxgXoFy/YqQt+767sIqf1yxe2eT63BWYFco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=lZBpy6ys; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039D831A07F;
+	Thu, 15 Oct 2026 11:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065490; cv=fail; b=Nc1Oh/Tle4Q9vb3++dnLgU1+yye7Wijybm4nFAyaOf7O7WqL0Wz/63EObnZW1WPhfk/6op3AUkme10mvi2FWCQFfZXRbmVxmcI17ZUj1bOu+0gbaiNeCASUk6HjFQvrvaWFzPhpvoUE22O+9FLQY5Ir/iB+qfPKue1Yq0o04ET8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065490; c=relaxed/simple;
+	bh=oNPf9vHQxdNKu8/GlUqvCGty40/RDGsGIMiU/FarNBA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=MGDl5bEUhshDdfR3gDX0MmjTqRgqTSWRJH+oDSDma9rQLACBC8tZOo+p72A57gOi0uxFhuxaq2ULpaiD0c//Iofw+a5KRhDXelZuIq4qYAbhvnVjFF5xeCnOWwRTK8bbUupNBGTi1+XgUSgGy93IuUEeOFleqtzzMaEfFweVfLA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zshRyQhj; arc=fail smtp.client-ip=40.93.196.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="lZBpy6ys"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=lUrSdLAzDvxoTWd+40KVxrwlneH/gJqjempWLV15bz4=;
-	b=lZBpy6ysL/jHDPpotkmzVPoamBTxY2G948FlR/FSxupDDncH4kPcgHY4S7W/oL0v0NVYwdZ3Q
-	u3STEIU093xk9B5ooiDr8oacH+r+o/9ZCBV+19aYchtgNwzbX14sl3ruo/IyFgaE/Q8mv5wWMDC
-	kk3P8ghiq63LNVQR3u39bpg=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j55q12MJzz1prLV;
-	Thu, 15 Oct 2026 19:45:17 +0800 (CST)
-Received: from kwepemo500007.china.huawei.com (unknown [7.202.195.114])
-	by mail.maildlp.com (Postfix) with ESMTPS id AA0B940561;
-	Thu, 15 Oct 2026 19:57:37 +0800 (CST)
-Received: from [10.67.120.170] (10.67.120.170) by
- kwepemo500007.china.huawei.com (7.202.195.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 15 Oct 2026 19:57:36 +0800
-Message-ID: <c4ee3b65-848e-42ac-af16-e6aeee05b6b3@huawei.com>
-Date: Thu, 15 Oct 2026 19:57:36 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zshRyQhj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LwPcFF9YHDPidGteLlwgzYh/a+wLKsAlGtP3LnNfgTgjNIdEZDJ9OCFwi8DKpb/A3/ls12/YeGmzzb4BsSmUeQJvAsCh+3Q9rEEazgTqYkYMEpGitlLTI+Qp10hrLMIVZXxbL5mySEx2au/k+LLTtMkSh2Yb98caxw+vNR9QLZNw3NlRhNj0xa0sNkbYZkE3S2YEAFAy8ZCPMB91eHEn7l6zwYmDiuxNZeHqRpvEy6S42o4atY8VGcPtQzMXSI7gRnf/AVIua6QM+XJz6uBILt9zHYPc7PFKlcinVEtgNr4/HzkvP+BHKM7sVM6T8JgWj4tFNqjpWv+1ckLQYbHqbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/+z1u4hqTvDJQB71vZ4PreEgvuF35BZIXmUW8RR5BuA=;
+ b=hhbAdKvqbry+MjuuzOxaRov1ZTSVswOcsHkxogYfLGRUFylyVfhquZ18rU6zX4M4ryGk4TfUtXpcXSIc+q5FGSi4/1w10sHkupL6rISg9mZBOiFf7/mDeicehs5Ss+6Kh+bKGqD+mTVwu9BbHRdzgp9CUln+iLGI1kKQotoUe0M9SHMklPn3o7P83GyE0BMcjq639OkU/z2677wnq7yoa1wlaz7l4YeHYwE5VJJwmlhnkj6lJmwi+Yic/K8G5MjUapXR9ILOhSEO88awEcAcA8DUTLIKAar1vVWexCasWv8E1INSytbtYHfO9ong8kspdueGgp4rcMKNisEA5ldgQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/+z1u4hqTvDJQB71vZ4PreEgvuF35BZIXmUW8RR5BuA=;
+ b=zshRyQhjJve2Z+g0Paiv/9blYbXv+es1+VpxYEnVAO3iNAs1LfiMkmP8siBuFBL9blYkM5+HjYc9Mcdjlco0rREULAr9fls1zKkHbNliRfJs25PSN1Bp8Uct2ZuB7/YBogU6oqYZIakw3rQRQvVi+cXTfjjPPaWGDrtvzcolGtA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
+ MW4PR12MB7429.namprd12.prod.outlook.com (2603:10b6:303:21b::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.23; Thu, 15 Oct 2026 11:58:03 +0000
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 11:58:03 +0000
+Message-ID: <247100a4-3dec-4257-abaa-2b311deb842b@amd.com>
+Date: Thu, 15 Oct 2026 17:30:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] ASoC: SOF/amd: ACP7.B support and ASP carveout
+ firmware loading
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, yung-chuan.liao@linux.intel.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+ Mario.Limonciello@amd.com, Richard.Gong@amd.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sound-open-firmware@alsa-project.org
+References: <20261013154644.3788064-1-Vijendar.Mukunda@amd.com>
+ <179191856632.42298.5680316320552393906.b4-ty@b4>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <179191856632.42298.5680316320552393906.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0045.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::11) To DS2PR12MB9567.namprd12.prod.outlook.com
+ (2603:10b6:8:27c::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Resctrl and I/O
-To: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, James Morse
-	<james.morse@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Luck Tony
-	<tony.luck@intel.com>, <reinette.chatre@intel.com>
-CC: <x86@kernel.org>, <iommu@lists.linux.dev>, <linuxarm@huawei.com>,
-	<alex@ghiti.fr>, <corbet@lwn.net>, <tomasz.jeznach@linux.dev>,
-	<robin.murphy@arm.com>, <fustini@kernel.org>,
-	<baolin.wang@linux.alibaba.com>, <aou@eecs.berkeley.edu>, <pjw@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <babu.moger@amd.com>,
-	<wangzhou1@hisilicon.com>, <linux-riscv@lists.infradead.org>,
-	<will@kernel.org>, <joro@8bytes.org>, <kevin.tian@intel.com>,
-	<yuanzhu@bytedance.com>, <cuiyunhui@bytedance.com>, <zengheng4@huawei.com>,
-	<palmer@dabbelt.com>, <shuah@kernel.org>, <ben.horgan@arm.com>,
-	<Dave.Martin@arm.com>
-References: <arKx__kOPe4B5gDW@agluck-desk3>
- <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
- <CACnXVnfJvJXm58TRd92q0j2FuAt8=SYLvXn_8aYk9qNoBFj+Zw@mail.gmail.com>
-From: Qinxin Xia <xiaqinxin@huawei.com>
-In-Reply-To: <CACnXVnfJvJXm58TRd92q0j2FuAt8=SYLvXn_8aYk9qNoBFj+Zw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemo500007.china.huawei.com (7.202.195.114)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|MW4PR12MB7429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f2669cc-674d-471d-6cb2-08df2ab390f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|11063799006|4143699003|18002099003|22082099003|56012099006|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	mUnOm06HfVcCDCVt1a5HbAmy3qV9qOOppuQqRrc7XfU4Ikbzpzl0wiGmNOn7devY3z4YRcAanaqZP+ipWoK1J1jlMg9Pzl4mB2W7is8KMxDKWgVBJy7UncREfTwjsLDnaYkzrPUMraz0zs1di1PT1oBAUAzo+XRJuugXnNPZ36g4R/Wor0/n8QTHGYdYvKUNVe4S/mZUB9WLFdKava34DpdfPWYlRsqfqCzW8cflish9qiETo264co/8N70fwAO930gHoGPFlSgZyNIS6VC8fgF28VaOA5UR4J/CepqVNqNROwVtbw3ED+3EtDqdMOSlHzwSzHFgACLYPkKWakLgVCnLPbyM8IBGiJGlTuNZWsITZVGJQtsLo6u4Vlk7kLRN84pEdFipEr36bM/aNAWZQCWoFQrYTZOVg5RXaOd1ZzeFumbMgWHctXDDu92o3gg5wFlwZkO5l27hShBsF/wi/GOMAvGBTFdxMuWxnRlQHDsl0LmksFg5YlpFgvgRFpnlxMqAiZHgK4Cxh3P8EQPwFBp/YkYSg4YGs7IdQsSimnTj2d+4TdTSXMUtdQYBxHilQbo9iegb9m9Gg5cK55UTot4P+22LBqcBAH7snsFaJE0MsfRkyMbzxM3OWVsF7fkX
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXpmd044ZE10alBEamdrdE9qUnd6TjJkTGJlNm5UbTVaeHk3L0s5NVVWU0dX?=
+ =?utf-8?B?NWZrV2QzejJlVGdjRFlYZmNPYXYrV2hjQ25tWmN1RHNPZVVXT01EMnRScDVu?=
+ =?utf-8?B?TGhXOTBMSkI2ZEhEUzVKRFBuOVl0TlBRbWp3aThSTm9TQ3BHTVl6aHlMU0lr?=
+ =?utf-8?B?WlRBdGo5Yk00emJmRnpNR3YzUDk4Z0dLbFZQWDlXWktnd3dqLy9QSFAvODlG?=
+ =?utf-8?B?VHhuUWxBNEF5d25oQk9NbEtWZ1hVQk93OU5pRnRSdDg4N1dza2pyc04xZnJ6?=
+ =?utf-8?B?QTl0bG4rRXFDVnJXSmI1bjlncTBTeWhBNmhNRWtDU3lKWU9NSG9vcExrRk9L?=
+ =?utf-8?B?RWd4SEV4ZlQzTS9SNGxtYnlSblFhb2RPNXU5R1hWZ0VlZ2MvVVk5WWtVS1B2?=
+ =?utf-8?B?SXZGZXF1NVg0dVB4aVk2dmd1TVJHRy9qMzk2R0U4OWtJSnBnVzFNM0kzSGx4?=
+ =?utf-8?B?ZGdUVXJzZnJ2bzhQNUJ2YUl4OEVLNlp6VCtlQ0REM1V6NWVsbUlZSk1jSlM3?=
+ =?utf-8?B?TmVIKzk5aUtRRUFTRjhxT2J3NmtKLzU2VXMyVEN2UWxKNGR6clZWcExSeGxQ?=
+ =?utf-8?B?eTl6aTBGdm1HV0ZqSFN5akpBaEZYbkdFQmpvd1lFMUdDYytYSkgwaEh6UUdR?=
+ =?utf-8?B?QjZpcGxFNnErckN5d0R2c3FlK3hDSmFTQ1pyTlRKR2F6K3RxOW03aXNGd3E5?=
+ =?utf-8?B?cXFvUm1oVE9rUGVndnFVWGpDKzdJdHNuMmk5N3dTL1BRbG1udjBoS2RCZys1?=
+ =?utf-8?B?aUo0blNCVTNaYVdjczJjSGVyR0EvbXhxTzBoL0FpWjQ3T2ZtRG85bjNRdEFR?=
+ =?utf-8?B?UGZ5SU5tT0JWMTRmbHZRWnlCVXlUajBFWG95QWNmSHB4MnJCZXNFaWt5Kyta?=
+ =?utf-8?B?eVBhKzdDaVdaOVNLc3hkVVRoUG9BSk50UGR3ZW9oaUNodk5abnFwd1hZSmRS?=
+ =?utf-8?B?aUY0blduazNLNWllY2ltcXZMczJCMWRPY1NyWEt5WnlyTGxwQVpoL2F3VW5E?=
+ =?utf-8?B?a3Q1SjZlMnpqeXYyd01CUDA2MjlSZ0V3RGJYTTVBbEZmazArR3d1N1VBV1c4?=
+ =?utf-8?B?SEV2Tkw5U0FnaXpQOE1UaTByMnNMOFRiRWRuU05VZDNzTGllTHhlM05ZZEp4?=
+ =?utf-8?B?WWR3RW5PTzV1eVFXTG1yaWsrUkdWOENuOXIxbW04aTZraUFTcEZ1eFRsMWhP?=
+ =?utf-8?B?aGFhWmhzcndtOVNJMU8wSmJLMTUvOUJldnpCZ3Rxd0ZEZ09TV0JzaytaalNw?=
+ =?utf-8?B?aEY0NzFYRnB3NFhscVJSNk1kSjBGRUtDVWp6TXJ5RG8xR2pyZ1VUVktWRjdo?=
+ =?utf-8?B?cE9LTDlyc0VGQkJJRjdRcEpFY25jby9NdFUxTzJFU3hhbXl1Rjcwb0d1bWl1?=
+ =?utf-8?B?dFNpMmxqcmlXai95NWNwY2FCdUduOExZTXdVUWxZb0NLQmFpUEczS3VySVZL?=
+ =?utf-8?B?RTRWMUJDNVlqOERPNmE5N2dzeGFkOUFlMjRwNVhWSG1VNWJ5MC9udnhQVkcr?=
+ =?utf-8?B?eXZhY0MyNVZ1aWZJUy8xM1FRTFFZeHhlQXlnc0ljd0VnMGtjWnFzcFZiREVt?=
+ =?utf-8?B?MG1UTXpZcmp6T29hNVZUU1piNzJiU1BvSXcxSFRPaTk3QVhyaTJIWFRSL0ZO?=
+ =?utf-8?B?U1RBcWRndU5nOTZURGdnQVQ5bjNia1E5djNraXk4SHpyMVI5VHVVb0NEblds?=
+ =?utf-8?B?S3BpWEFoWExybzhsUkdYK0FaWkFqT2RmZExibmx3ZGk4b2o5NXBFQktxT2Zj?=
+ =?utf-8?B?QjVJS09senhMTmZjSlQzbW5Rd21JWnJDcFdEVTNzWEcyZ1Fja1daOTdlNDFG?=
+ =?utf-8?B?OGJVZzduMkhuZlNSQ2E2MGxRMmU4NnpQYjNIc0tPMUpId3U4cXZDU25ETlVS?=
+ =?utf-8?B?cVpqUDRrbmszVVlFWVhwODZpNzRpcUQrK2ZiRmpzOUUyRjdJSWtkL3BOd2Jh?=
+ =?utf-8?B?VkxwZmN5NHpHVjZLOGU3anNTcWVLMEljdFc0L3VSLzM5eUozc2xWSzdYamx6?=
+ =?utf-8?B?QmszclJjQ21zR0k1R1VGRkMxQVdocnRiRjRVOHdiS0VMYUc4aEVYTytEU09R?=
+ =?utf-8?B?cDNUS09hcjllWTZCRVpQc0pUVVBYK3VhTGhyK3FLL1Zzb1NzSGtIMy90Y3h1?=
+ =?utf-8?B?Z1dpODhRQ0Ixa3FXV1k2dThiNk10R1J5cHpwVCtEVXpsT1pNN05aMW1idWxr?=
+ =?utf-8?B?ZE52NWdOU0JIeng0Y2RTSEJGSmRIVmxoN09XaEtrQWNJakp1czYreHk2aFd6?=
+ =?utf-8?B?bEovMUNUaEFaazBSbXE0RlRZKzl1SEZjOWdmNi9adTFHek5BVmdDV0g0RFpV?=
+ =?utf-8?B?TW9VWEJYdWRkem9qdm9jQ1cyVXVGM0JEUjlYR3JuU1F2OStmT0h1UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f2669cc-674d-471d-6cb2-08df2ab390f7
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 11:58:03.1015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4fY/HDk/MSD4lClSEFeC39GM2IclAlP0bnFt9bv1O8I4IEczpJO6VGsRL//i/4KFwzRwmmu/WHIldDxij2z95g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7429
 
+On 14/10/26 00:39, Mark Brown wrote:
+> On Tue, 13 Oct 2026 21:11:32 +0530, Vijendar Mukunda wrote:
+>> ASoC: SOF/amd: ACP7.B support and ASP carveout firmware loading
+>>
+>> This series adds ACP7.B platform support to the AMD SOF driver stack
+>> and implements the ASP-authenticated firmware load path required by
+>> both ACP7.B and ACP7.F.
+>>
+>> Patches 1-2 are preparatory renames and restructuring. The existing
+>> acp7x machine table and chip descriptor are renamed to acp7f to
+>> accurately reflect the hardware they target (ACP7.F). The probe
+>> callback is restructured to select the per-revision descriptor via a
+>> dedicated static pci_device_id entry rather than encoding it in
+>> driver_data of the shared ID table.
+>>
+>> [...]
+> Applied to
+>
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+>
+> Thanks!
+>
+> [1/9] ASoC: SOF: amd: rename acp7x machine table and descriptor to acp7f
+>       https://git.kernel.org/broonie/misc/c/929e433b8cbc
+> [2/9] ASoC: SOF: amd: select descriptor per PCI revision in acp7x probe
+>       https://git.kernel.org/broonie/misc/c/f84363861e44
+> [3/9] ASoC: amd: add I2S machine table for ACP7.B
+>       https://git.kernel.org/broonie/misc/c/9246ac5b5c99
+> [4/9] ASoC: SOF: amd: add ACP7.B chip descriptor and wire per-revision probe
+>       https://git.kernel.org/broonie/misc/c/44f8d28191f1
+> [5/9] ASoC: SOF: amd: Propagate PCI subsystem Vendor and Device IDs
+>       https://git.kernel.org/broonie/misc/c/b2dc10ee0b51
+> [6/9] ASoC: SOF: amd: consolidate local variable declarations
+>       https://git.kernel.org/broonie/misc/c/b23e9b1f3b4c
+> [7/9] ASoC: amd: acp: add acp-mach-common.h for shared machine driver types
+>       https://git.kernel.org/broonie/misc/c/0e4c4081169b
+> [8/9] ASoC: SOF: amd: propagate pdm_sel to SDW machine driver via mach->pdata
+>       https://git.kernel.org/broonie/misc/c/439c43d9628e
+> [9/9] ASoC: SOF: amd: add ASP carveout firmware loading for ACP7.B/7.F
+>       https://git.kernel.org/broonie/misc/c/cec3598305a6
+>
+> All being well this means that it will be integrated into the linux-next
+> tree (usually sometime in the next 24 hours) and sent to Linus during
+> the next merge window (or sooner if it is a bug fix), however if
+> problems are discovered then the patch may be dropped or reverted.
+>
+> You may get further e-mails resulting from automated or manual testing
+> and review of the tree, please engage with people reporting problems and
+> send followup patches addressing any issues that are reported if needed.
+>
+> If any updates are required or you are submitting further changes they
+> should be sent as incremental updates against current git, existing
+> patches will not be replaced.
+>
+> Please add any relevant lists and maintainers to the CCs when replying
+> to this mail.
+Hi Mark,
 
+I noticed that the incremental patches sent as replies to the v1 series were
+not included in the applied changes.
+https://lore.kernel.org/alsa-devel/20261014114446.1476489-1-Vijendar.Mukunda@amd.com/T/#u
 
-On 2026/10/15 11:46:09, Zhanpeng Zhang 
-<zhangzhanpeng.jasper@bytedance.com> wrote:
-> Hi all,
-> 
-> Thank you for the helpful discussion, and sorry for the late reply.
-> 
-> On 9/24/26 1:13 AM, James Morse wrote:
->> Hi Tony,
->>
->> On 22/09/2026 17:51, Luck, Tony wrote:
->>> Patches for ARM[1] and RISC-V[2] are both at RFC status.
->>>
->>> They appear to be based on similar h/w capabilities where architecture
->>> specific tags can be added to transactions from I/O devices by the IOMMU
->>> servicing the device. Device enumeration is handled outside of the resctrl
->>> file system.
->>>
->>> ARM docs say "the device name is the one listed under /sys/kernel/iommu_groups/<id>/devices/"
->>
->> I think using existing stuff in sysfs is a good idea.
->> (Creating new things in sysfs fills me with dread!)
->>
->> ARM/MPAM also has platform devices that can add the CLOSID/RMID metadata.
->> e.g. the GIC ITS [4] - a kind of translator for MSIs.
->>
->> For these we considered just using the device name as found in /sys/bus/platform/devices/,
->> in the hope that can be tied back to a struct device - and we could add a callback for
->> resctrl to configure the device with a CLOSID/RMID.
->> (but - I've not seen a use-case for this yet - those devices generate very little traffic)
->>>
->> Robin M set me straight on the iommu_group:
->> Strictly that is the wrong abstraction as devices are in the same group if the
->> driver can't stop them communicating, e.g. PCIe peer2peer. This doesn't mean it
->> can't tell the traffic apart for CLOSID/RMID labelling.
->> I picked this because its the device granularity VFIO works with.
->>
->> Equally, a device may create multiple streams of traffic, where only the driver
->> will know what each one corresponds to.
->>
->>
->> Using iommu_group like this may need a bit more thinking....
-> 
-> I agree. DMA isolation groups do not necessarily match the granularity
-> at which QoS IDs can be assigned.
-> 
->> If we can fall back to using a device as seen by sysfs, then the arch differences
->> here could be invisible to user-space.
->>
->>
->>> RISC-V says architecture specific device tokens are "devices or device groups"
->>>
->>> In both cases assignments are made with:
->>>
->>> 	# echo {device} > {group}/devices
->>>
->>> So now I'm looking at the capabilities of Intel RDT hardware. I'm ignoring
->>> the implementation on the Granite Rapids CPU, and looking at what is described
->>> in the RDT Architecture Specification[3]. Here are the highlights:
->>
->>
->>> 1) Enumeration is split between two ACPI tables. IRDT enumerates device groups
->>> and provides MMIO addresses to assign CLOSID/RMID to each group.
->>
->> For ARM/MPAM - this would always be driver specific. The fields may be share a register
->> with other things the driver needs to consider.
->> The IOMMU abstracts this for its devices, but this is still something the IOMMU driver
->> needs to know about.
->>
->> A driver hook, with a drivers/acpi fallback would be ideal.
->>
-> 
-> Building on James's callback suggestion, could the driver responsible
-> for tagging register supported devices with resctrl? Common resctrl
-> code could manage token lookup, group membership and assignment
-> cleanup, while the driver supplies the ID-programming callback.
-> 
-> For illustration:
-> 
->       static const struct resctrl_device_ops iommu_resctrl_ops = {
->           .set_ids = iommu_set_qos_ids,
->       };
-> 
->       /* After the device's tagging state is ready. */
->       resctrl_device_register(dev, &iommu_resctrl_ops);
-> 
->       /* Before releasing that state. */
->       resctrl_device_unregister(dev);
-> 
+Please let me know if you would prefer the incremental patches to be resent?
 
-There is a scenario where some devices simultaneously support
-configuring the QOS ID on both the device side and the iommu side.
-Therefore, we may need to maintain the ops as a linked list or manage
-iommu_ops separately. :-)
-
-> For IOMMU-managed devices, the IOMMU driver could handle registration
-> and the callback, without changes to individual endpoint drivers.
-> We have an early PoC along these lines, but it is not yet ready for
-> an RFC.
-> 
-> A full sysfs path would identify the device unambiguously, but can
-> be long and cumbersome to use. Perhaps a bus-qualified device name under
-> `devices/`, such as `pci/<BDF>` or `platform/<name>`, could be an
-> alternative?
-> 
-> The token format, sub-device contexts, hardware-defined groups,
-> differing ID limits and detailed removal/error handling remain open.
-> I would appreciate your thoughts on whether this could be a useful
-> direction for a shared interface.
-> 
->>
->> Do you have arbitrary grouping of devices? e.g. a USB controller and the UART.
->> Or would the grouping make some sense to the OS. e.g. all the USB devices behind
->> this port.
->>
->> Having the UART show up when you add a USB controller to a control group is a bit odd.
->>
->>
->>> ERDT provides
->>> MMIO addresses to read event counts for RMIDs and to configure cache allocation
->>> bit masks and memory bandwidth limits.
->>
->> Arm's IOMMU does have controls/monitors that match the spec the MPAM driver needs,
->> but we currently have no way to expose them through resctrl.
->> The caches on the IOMMU are also relatively small - I've not yet seen anyone show that
->> setting the controls there makes a big difference.
->>
->>
->>> 2) All I/O monitoring and control is with respect to I/O caches, not to the L3
->>> caches that legacy RDT features operate on.
->>
->> Do you have I/O traffic that can turn up in the CPU L3 cache? I think PCIe calls
->> this 'cache stashing'.
->>
->> Arm's IOMMU is the same - but the traffic may also show up in the L3 depending on how
->> the system is put together.
->>
->>
->>> 3) The number of RMIDs supported for I/O is lower (maybe considearbly lower)
->>> than the number supported for CPU monitoring.
->>
->> MPAM can have this happen - and today it will sanitise the values to the lowest
->> common value. Considerably lower becomes considerably upsetting!
->>
->> I'd be interested if we have an approach for this - the IOMMU designers would argue
->> they only need one RMID per device - but the system wide sanitised value means they
->> have to match the rest of the system.
->>
->>
->> For MPAM systems this shape is a big headache because on the platforms we've seen,
->> the monitoring is done at the memory-controllers - so any RMID spaces get joined
->> up eventually.
->>
->>
->>> 4) Monitoring events are I/O cache occupancy, total i/o bandwidth, and i/o miss
->>> bandwidth.
->>>
->>> 5) Current revision (1.4) of the specification doesn't include details of
->>> I/O memory bandwidth control (The "IBAD" subtable of ERDT is reserved for this).
->>>
->>>
->>> Fitting this into resctrl
->>> -------------------------
->>>
->>> RISC-V description of "architecture specific device tokens" sounds great.
->>> I'll have to find some ares of /sys to provide the mapping of tokens to
->>> "device groups".
->>> There's no association with IOMMUs, so this will be some
->>> other path in /sys. Perhaps under /sys/firmware/acpi since the data comes
->>> from ACPI IRDT table.
->>
->> What about using the device behind the IOMMU instead? Presumably the kernel
->> could allocate ids that don't clash with those in the IRDT, and use those
->> for the IOMMU.
->>
->>
->>> Need an info file to tell users the format and source for device tokens.
->>
->> I'd prefer we have one consistent way of doing this across architectures.
->> Especially if we're going to add something new to sysfs.
->>
->>
->> The sysfs path probably covers all bases - but I wouldn't want to parse that
->> in the kernel.
->>
->>
->>> I'd like to avoid limiting resctrl monitoring of CPU activity due to the small
->>> number of I/O RMIDs. Perhaps don't include a "devices" file or mon_data/{i/o
->>> events} files in resctrl group directories when rdtgroup::mon::rmid >=
->>> num_io_rmids? But that feels clumsy.
->>
->> I had a half baked idea on how to do this. (which Ben has poked some holes in)
->>
->> Assigning a device to a ctrl/mon group needs to be able to fail. We can use this
->> to re-allocate the RMID into the range the new device can use. The CPU tasks can
->> be repainted to use the new value - but the obvious problem is the old data in
->> the caches that uses the old RMID.
->> As no new traffic will be generated for that RMID, it might be possible to keep
->> it associated with the ctrl/mon group (which would now have two RMID) to keep the
->> user-space view of the counters correct until the old RMID falls below the
->> reallocation threshold, and it can be free'd.
->>
->> It's worse if we ever needed/wanted to do this with CLOSID. Two CAT bitmaps
->> can be configured the same - but MBA doesn't alias in the same way. Tasks would
->> be able to burst higher than the configured limit - but the size is limited by
->> the size of the caches. And if no new traffic can be generated with the old
->> CLOSID/RMID, then the effect can't be made to last forever.
->>
->>
->> For a totally wild suggestion (that I don't think works here) - I had
->> mooted having a second mount of resctrl for islands of the SoC where the
->> properties are different. I don't think it works in this case as the IO-RMID
->> presumably gets seen by some other monitors later.
->>
->>
->>> Domains are based on I/O L3 cache instances. So a new rdt_resource with
->>> new line in the schemata file for IOL3 cache masks per domain. In the
->>> future when there are I/O MBA controls, new line(s) for those too.
->>
->>
->> Thanks,
->>
->> James
->>
->>
->> [4] https://support.arm.com/documentation/ihi0069/hb/?lang=en search for "MPAM" in the pdf.
->>
->>>
->>> [1] https://lore.kernel.org/linux-iommu/20260901140802.1215508-1-xiaqinxin@huawei.com/
->>> [2] https://lore.kernel.org/lkml/20260714130657.46963-1-zhangzhanpeng.jasper@bytedance.com/
->>> [3] Linked from the bottom of https://www.intel.com/sdm under "Related Specifications", or
->>> direct link: https://cdrdv2.intel.com/v1/dl/getContent/789566?erpm_id=1158389_ts1790091453223
->>
-> 
-> Regards,
-> 
-> Zhanpeng
-
--- 
 Thanks,
-Qinxin
+Vijendar
+
+> Thanks,
+> Mark
 
