@@ -1,154 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B92652CCC1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDAF52CCF1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066808; cv=none; b=gYOu1YPdLq8ygKYhYpNd8VZFf8HQy7CwZp78YhhzVk2a/8tz4frjZSz4GOfBzUYKZ2msotTP79hUCR0trJS/+f5AdVbSh9EwVdNJYza7DkLyJPMZCJFKoi8qjdMix1PTfVVEQ07M8nunuse52CU6238embFCHxcUCp4SHbc44DQ=
+	t=1792066810; cv=none; b=Y3cI1Z3hQKOluIuO7jQKX8fTareVqB//0tejqR/QraK/g6l6Dr93ulkVVliNUjMI6izA/sJwUtuoHYI8dhDNHWsrlGOHLkS4AyY0b5XHn6w/ftS8N5lJhCxqeOOmaywmD/DwdJI+kk2jCuF/qBH+39J2yJoWWMIyWOlfADG9uI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066808; c=relaxed/simple;
-	bh=TXsDg8NIm7HJN2tl3l2p2aC54SSE4YQCcwi9qQHzh60=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=At6AiYSznjTV8yS3aSI2t3+e2xhpVFypIaUbr/915/wVb9lVoaoGoqf2Yv24wilG4dfaq+4rd1zcHfGwnFNz5oMXbAfF0Dmh/s/rVFhw2SREY7pjbOKYSISuzRVkzwiEJf6FzpcX1k3vD12ooOZ2TsIX4UxHcnzSfwAYVz3B2Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yx+6oREN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792066810; c=relaxed/simple;
+	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X8JiJNij7IAV6x62tfxFhoIkna1ubVMmy+sGcM/T15xQQ4z7akgvNi+tQh/G5QbeuMlBW+0wIDLmK8UM46tqNjoFEqmPdROBGalLIB6WP/AodD4v3JUDUfklFjo7ARg1yGwoOnHextmGCw6pxJ1yByiWRcrf+pABn3tMLBZn+o8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sB6BF9zG; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yx+6oREN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00361F000C9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792066806;
-	bh=lE661Wroe2zgjZuO0pf3gpxokjJ832mVAkgNNQuLNvI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Yx+6oRENxvUEon0EDnrTB2/eYkaoIOdp+HpfJRkv6+vY2K3xjruKd/F3Si2EXmJkw
-	 tXeyQx6k71Q6MXslrKqzbRx5nrfVsKf82oSr8DA9gWPyBuGOpFrFLb7veq8Y6lSy1X
-	 FG1twHdp/ZPeOsm76OG9m6L8vcHPXlm46krmxgfNeuX61hnILVHnhYvzJ+qbKH4FDU
-	 1zMTg9+2WGSzBJSX3sK8O6U7VEwuUX1vMlx6OVz41svaG/b9ularjvLDQbb5KY5T/5
-	 BXC5C+D37QlTsiGs0vsHCTq7uHJKfEBd4p1dJpZERkq5n5fy7mwIdzEKCzv4VhUqfV
-	 mfS1kdsQI0PHQ==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be47159f2bso6624e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:20:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxvz36+I/72qCBweRJfxAJ7GHDiIk4w6wAQumQmz0BCLXqTQgYt6KqsI4rfZKiXvCvNFTwIoy1AqRDN5VM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLf3WT5LB6nfQnR2vatdkkFXrdZg/Pl5GVMGVxK2HLl+O7CFbtW
-	/KnBk0y4ySWXI7MZh/DjahhW/dbbawjCNDy8S8PhQ3gPNDFDNjSddbkpEfmFjSR77sxD4ni7zYw
-	bYvGQ6+5sJ38GL71tMhVU7Il0v8ivW7rYt2G4IQonzg==
-X-Received: by 2002:a05:6512:3e04:b0:5be:3db4:5665 with SMTP id
- 2adb3069b0e04-5be3db4582cmr703817e87.7.1792066804656; Thu, 15 Oct 2026
- 05:20:04 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:20:03 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:20:03 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <as4wZeHPziPV3nKU@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sB6BF9zG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6F9F1C62201;
+	Thu, 15 Oct 2026 12:21:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 14F6060360;
+	Thu, 15 Oct 2026 12:20:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7B50D10328B70;
+	Thu, 15 Oct 2026 14:19:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792066801; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
+	b=sB6BF9zGL2ZU/strrmUISETR4noJNIwvoSFUY+Lkyrh1MZcvR+cauOSAMwp3/NI9yZoj7H
+	E0sJ50qpAcRiQqcEpg1xDoOWtR37GqwPgZHhZvAdtumwRkITXfYV0+eSnjjrG8kmLr2u1t
+	XHEEa7I6OlQUrsS6ZGKQXpP0JWRfQTjqlU020859k2g9kISZgBd9z+5imFaM7gLX+mPEUK
+	JZGgohccHhT5uSzQde3m4PdwZfYChsGqPC0W1CiCiXP/dUw0AzN3EJU+3dUkg/Wm3MNddR
+	Wist4WxZhCvxkGViRb1li15Zy//6HOHfAeWBjgHQhJJkZdABoLbMP++bzIta8w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Thu, 15 Oct 2026 14:19:06 +0200
+Subject: [PATCH v9 10/10] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
+ clock-names
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011131518.48838-1-toorandom@gmail.com> <as4wZeHPziPV3nKU@ashevche-desk.local>
-Date: Thu, 15 Oct 2026 12:20:03 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Mf0kGs0gOs52T46C0udU2avb5SzT9V7-Pp+oPAe0b0TQA@mail.gmail.com>
-X-Gm-Features: AclHuK8Z90jAgvsy5hC9pGJg69VYpYcrqoLFJxC_udcjr-dP0Dficdu0s-QRt48
-Message-ID: <CAMRc=Mf0kGs0gOs52T46C0udU2avb5SzT9V7-Pp+oPAe0b0TQA@mail.gmail.com>
-Subject: Re: [PATCH] media: ipu-bridge: hold a reference on the IVSC software node
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Eduardo Ruiz Duarte <toorandom@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, sakari.ailus@linux.intel.com, 
-	bingbu.cao@intel.com, djrscally@gmail.com, heikki.krogerus@linux.intel.com, 
-	tian.shu.qiu@intel.com, lixu.zhang@intel.com, linux-media@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-10-1f548fa2002e@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 13 Oct 2026 15:21:41 +0200, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> said:
-> +Cc: Bart for the double check of the approach. This sounds like it might need
-> to be fixed in driver core (software node implementation).
->
-> On Sun, Oct 11, 2026 at 03:15:18PM +0200, Eduardo Ruiz Duarte wrote:
->> ipu_bridge_instantiate_ivsc() attaches the IVSC software node to the mei-csi
->> device with set_secondary_fwnode(), but never takes a reference on it, while
->> the driver core unconditionally drops one when that device goes away.
->>
->> device_add() calls software_node_notify(), which does a kobject_get() on the
->> swnode behind dev_fwnode(dev). device_del() calls
->> software_node_notify_remove(), which does the matching kobject_put() -- and
->> that put sits *outside* the "if (swnode->managed)" block, so it runs for every
->> device whose fwnode is a software node, managed or not:
->>
->> 	sysfs_remove_link(&swnode->kobj, dev_name(dev));
->> 	sysfs_remove_link(&dev->kobj, "software_node");
->> 	kobject_put(&swnode->kobj);
->>
->> 	if (swnode->managed) {
->> 		set_secondary_fwnode(dev, NULL);
->> 		kobject_put(&swnode->kobj);
->> 	}
->>
->> csi_dev is the mei-csi device, which the MEI client bus has already added by
->> the time ipu_bridge_instantiate_ivsc() runs. The add-side get therefore never
->> happens for this node, but the del-side put always does.
->>
->> On hardware where the MEI bus resets -- which it does on every s2idle and S4
->> resume on a Dell XPS 13 9340 -- mei-csi is destroyed and recreated each cycle,
->> so the node loses one reference per resume. INTC10CF-N starts at 3: one for its
->> own registration plus one for each of its two port children, since
->> kobject_add() of a child takes a reference on the parent. The third resume
->> therefore frees it, software_node_find_by_name() starts returning NULL, and
->> isys walks the fwnode graph into freed memory:
->>
->>   refcount_t: addition on 0; use-after-free
->>   WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x7e/0xb0
->>    kobject_get+0x94/0xb0
->>    software_node_graph_get_port_parent+0x89/0xd0
->>    fwnode_graph_get_port_parent+0x70/0xd0
->>    fwnode_graph_get_endpoint_by_id+0x93/0x280
->>    isys_notifier_init+0x92/0x180 [intel_ipu6_isys]
->>    isys_register_devices+0x3c9/0x4e0 [intel_ipu6_isys]
->>    isys_probe+0x3df/0x500 [intel_ipu6_isys]
->>    auxiliary_bus_probe+0x4c/0x70
->>    ...
->>    deferred_probe_work_func+0xa5/0x110
->>
->> followed by an underflow and a saturate on the same kobject, and the camera
->> never comes back.
->>
->> Take a reference so the attachment owns one, balancing the put the core will do
->> when csi_dev is destroyed. Where csi_dev is never destroyed this leaks a single
->> kobject reference, which is what the lifetime of the node already assumes.
->>
->> Found while making the camera survive hibernation on a Dell XPS 13 9340
->> (ov02c10 behind an INTC10CF IVSC); with suspend-then-hibernate the first cycle
->> burns two resumes, so the failure consistently showed up on the second
->> hibernation. Tested on 7.0.0-1015-oem: two consecutive hibernations with the
->> node alive throughout and no refcount warnings, where before the second one
->> hung the machine.
->>
->> Signed-off-by: Eduardo Ruiz Duarte <toorandom@gmail.com>
->> ---
->>  drivers/media/pci/intel/ipu-bridge.c | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->>
->> --- a/drivers/media/pci/intel/ipu-bridge.c
->> +++ b/drivers/media/pci/intel/ipu-bridge.c
->> @@ -765,6 +765,15 @@
->>  	if (!fwnode)
->>  		return -ENODEV;
->>
->> +	/*
->> +	 * Balance the kobject_put() that software_node_notify_remove() will do
->> +	 * on this node when csi_dev is destroyed. That put is unconditional,
->> +	 * while the matching get in software_node_notify() only happens at
->> +	 * device_add() time -- and csi_dev was added before we got here, so it
->> +	 * never ran for this node.
->> +	 */
->> +	fwnode_handle_get(fwnode);
->> +
->>  	set_secondary_fwnode(sensor->csi_dev, fwnode);
->>
->>  	return 0;
->
+The clock controller takes its two crystal oscillator inputs from the
+board: HXT and LXT. The LXT crystal is not described at all: add the
+fixed clock node for it and reference both inputs from the clock
+controller node, with their respective clock-names.
 
-Thanks Andy. Yes, it looks like a bug in swnode.c. I'll send a fix proposal.
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
+Cc: stable@vger.kernel.org
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+---
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
-Bart
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index d7670afb0a63..7752e85734ac 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
++
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
+ };
+ 
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index 8f3cb18d39b6..5c65f1fe5da9 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
++
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
+ };
+ 
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..9a341c2b1397 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
+ 			compatible = "nuvoton,ma35d1-clk";
+ 			reg = <0x00000000 0x40460200 0x0 0x100>;
+ 			#clock-cells = <1>;
+-			clocks = <&clk_hxt>;
++			clocks = <&clk_hxt>, <&clk_lxt>;
++			clock-names = "hxt", "lxt";
+ 		};
+ 
+ 		pinctrl: pinctrl@40040000 {
+
+-- 
+2.55.0
+
