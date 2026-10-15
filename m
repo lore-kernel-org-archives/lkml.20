@@ -1,242 +1,102 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF13E3D88E0;
-	Thu, 15 Oct 2026 23:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91FA4DD6E6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108610; cv=none; b=M2j2Uvvw+FXmlIiyHQKo5TcYPVcwrgTTj7atuGitZRk3lEyNgH16RLfio413rNMrEXNT3c88fPz3hL8LrZECAyfx5YSJULnT1SKPVnbPhT44qR1kw+m49m48/TkMbziJYaXu4r6ABCb60ap/N8sNJYFyWAlFlmZRdPBO+e8BFqE=
+	t=1792108617; cv=none; b=JvWf0Ldv6sjPEKcts0bnx8z2Px+Z8Ss3KcQD17DwkvMq8nbiGZ984t8A2M+E2ghgTuAwpG1/JPyTk4B1rhGNTzhiYNologo++GRDZZdGe0+YEqxeSiF5sJmY8XHS2XsZ0MPALzt/YG6kTaCaIqi50AD8YeSd2SNJTnhjhHkE51s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108610; c=relaxed/simple;
-	bh=Aw7Uh7QIY/HPESoLBQp6yeoOqo6iAB6HcKSVOV0eK84=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Av1lPjxqt3EUbQq9vz0D5bg6gtZonGBT95GBjcY11cBVwkHVMwYnqXxULGL+bPVoJa5HYHRHg/uv3AhtEBsUsQPHYb35D7X55YTa09XC9AQlj27tN/6La4lIblkBJhaxkgufJ9siuu8FnJ5jZXeo87x3ohUeNsf4HpbEWEYx3/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=IQWjixcz; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1792108617; c=relaxed/simple;
+	bh=OLKZfeAEGNd4QrCvnjx531rHZB9oA9ODZa1gnZdedSM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jpXkFJeFs7Y6CSuCu1ZWBBfuhPEyo11dOs0nNLbhgOv0TkGJXrJNizu+QHilzRz58wX8iRnV7uyNjp2sfnSpG4VaZ1aERets8ednKVrasVcJgkVvR1fyQCO0clvfUIpRg6u83tPZaFeib4XfmUjwa5PSlMTKfTVCIUU5raFU3/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApjIy5vj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="IQWjixcz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792108607; x=1823644607;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=iporXgDcLq8Qs5m1AomBCEZH863qUOYM2erUOveq4GQ=;
-  b=IQWjixczm2WbmlE4yAvWSp6n7sP7GR/xAjqbjv9Y+XY3dilM72faHXMm
-   JjSww59YwFi9pHoBL9kKcVefHCnfbAKXfDTFtdjwZ7dKBIn1E53Qlg41l
-   Z9atWq/CRGl36xICwebW4SA4i+ArvFCx4mjqp1IzEKPcERf1eHrzC2H0E
-   /QyqENovAV03BdxkF/qwE1afp1E9WiQS+/QCPF7Nkg7tJHXPIzj+lI/Xi
-   kmTlmFufzdlCyQNWdUFh134BdqHci0O0FzQOVeBEvUOZhGpvmY1+ucGnY
-   yQDUkicdl/UqjP1fqAgeD4G92aU4KVDPYnf8hq6zfRjLVORYZmPAA4uAw
-   w==;
-X-CSE-ConnectionGUID: T55mjaqtQ/m9ox5hHqnMZQ==
-X-CSE-MsgGUID: 4WQ80iPOTpKbUgKwMWk6gw==
-X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31368865"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 23:56:44 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:9704]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.90:2525] with esmtp (Farcaster)
- id 0df28996-750e-4a56-ac9d-24d89250e3a0; Thu, 15 Oct 2026 23:56:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 0df28996-750e-4a56-ac9d-24d89250e3a0
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 23:56:43 +0000
-Received: from dev-dsk-dkeogh-ai2-36d3b9a7.us-west-2.amazon.com
- (172.19.55.127) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 23:56:43 +0000
-From: David Keogh <dkeogh@amazon.com>
-To: <netdev@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>
-CC: Dragos Tatulea <dtatulea@nvidia.com>, Nimrod Oren <noren@nvidia.com>,
-	<nh-open-source@amazon.com>, <linux-kernel@vger.kernel.org>
-Subject: [RFC net-next 5/6] selftests/bpf: add tx_extra_headroom data-plane programs
-Date: Thu, 15 Oct 2026 23:53:34 +0000
-Message-ID: <20261015235335.4162993-6-dkeogh@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261015235335.4162993-1-dkeogh@amazon.com>
-References: <20261015235335.4162993-1-dkeogh@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApjIy5vj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1811F000C5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:56:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792108613;
+	bh=AdumzskNHkZh1l/i33IFVVPJoN8A4mpwGvQVHoQhWCA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ApjIy5vj6aRrXElfrL524uA0NR2ZAXxKhOCGXCCzThrtOYWKgGLLRhIf36BSHjtVu
+	 u1FjIja3SMkZl9NIdoIRz/DhslutyKoBFg6ovc/cqZneCBW7Db4jZF/T4DJ9TMTUC/
+	 fUwYrry6SA/1EnyzmOTXBM7VzVoKz/wmfmwx9onY0VpMxMfiC4fIP0F/GpvFs+S5bo
+	 PfjeUlCFtNd1XqfMXJ2RglQnp9l71gUWOinjVSTxYFNFHzhj64zazjUv9mvtV6Xou9
+	 /jOfWeRQnefydpLuKklHef4vXWX8e9BykxgOlCebfg9sAE6tRD8yhlTcICbgzuE7aQ
+	 zmnTBrqWfoH8w==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso1026098066b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:56:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByzSyDi4KHpp0Jt5cFzzXpAYqnpAi6P1GEYKoW88lhz1e3bkVB49Nac8v4R8b1k3/lbGN8EId87kxzsUzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlsGyx7z1oX5OOd4vM3OCH2HeRklwjSXdRZX10EuYawAY/VJ2w
+	kyqm6YtNmGLgCmb3ykXhWrFmRg+4nP5wqs6WcWAX5yvOChjQPMoXYDgXf5oQ+NN4dkkWSDVukyg
+	yTph7Cs3DYBHpp+u+yMe5pvECx/6mYIg=
+X-Received: by 2002:a17:907:724a:b0:c2d:c800:d797 with SMTP id
+ a640c23a62f3a-c31a9a2d879mr1922117066b.6.1792108612039; Thu, 15 Oct 2026
+ 16:56:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-23-yosry@kernel.org>
+ <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com>
+ <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com> <CALMp9eTM23iFdrbZE8qw9kuJ2va+Mahv5wZDmgs1TZrAREh=gw@mail.gmail.com>
+In-Reply-To: <CALMp9eTM23iFdrbZE8qw9kuJ2va+Mahv5wZDmgs1TZrAREh=gw@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 15 Oct 2026 16:56:40 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
+X-Gm-Features: AclHuK98P5xud1M3Uu8_V1jqxz7NFSA37b3DkBoaVSsnZgUfueLMwshqG5P2HOw
+Message-ID: <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
+Subject: Re: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID
+ in vmcb12
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add two BPF programs for a tx_extra_headroom data-plane test:
+> > > > @@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vmcb12(struct vcpu_svm *svm,
+> > > >  static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+> > > >  {
+> > > >         struct vcpu_svm *svm = to_svm(vcpu);
+> > > > +       bool new_asid = false;
+> > > >
+> > > >         /* Handle pending Hyper-V TLB flush requests */
+> > > >         kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
+> > > >
+> > > > +       if (svm->nested.ctl.asid != svm->nested.last_asid) {
+> > > > +               svm->nested.last_asid = svm->nested.ctl.asid;
+> > > > +               new_asid = true;
+> > > > +       }
+> > >
+> > > To make sure we don't miss a flush after restore, do we need to clear
+> > > last_asid in svm_set_nested_state()?
+> >
+> > In [1], we set svm->nested.vmcb02.cpu = -1 in svm_allocate_nested(),
+> > which should be called when EFER.SVME is set on restore, and should
+> > force a TLB flush on the first vCPU run. That being said, if EFER.SVME
+> > was already set (not a fresh vCPU), we won't necessarily flush the
+> > TLB. KVM_SET_SREGS will _probably_ flush the TLB, but I don't think
+> > it's guaranteed.
+>
+> I'm pretty sure that restoring nested state on an existing vCPU with
+> the same asid12 and no TLB_CONTROL skips the flush.
 
-  * push_outer (SEC "tc") pushes a 20-byte outer header on UDP egress,
-    forcing a head reallocation when the skb lacks the headroom.
+I can clear last_asid in svm_set_nested_state() to make sure we don't
+break this.
 
-  * count_realloc (SEC "fentry/pskb_expand_head") counts those reallocs
-    for one ifindex, selected via the cfg_ifindex map.
+>
+> > But wouldn't this also affect non-nested? Are we guaranteed to flush
+> > L1's ASID after restore?
+>
+> That may be a bug too.
 
-The test that loads them is added to selftests/net in the next patch.
+It's tricky. KVM_SET_SREGS will only flush (with 64-bit vCPUs) if
+CR0/CR3/CR4/EFER are changed apparently. But it's not just the TLB
+flush, the entire MMU context wouldn't be reset?
 
-Signed-off-by: David Keogh <dkeogh@amazon.com>
----
- .../bpf/progs/tx_extra_headroom_probe.c       | 68 ++++++++++++++++++
- .../bpf/progs/tx_extra_headroom_tc.bpf.c      | 69 +++++++++++++++++++
- 2 files changed, 137 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
- create mode 100644 tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
-
-diff --git a/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c b/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
-new file mode 100644
-index 000000000..a6ca66ef0
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/tx_extra_headroom_probe.c
-@@ -0,0 +1,68 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * fentry realloc counter for the tx_extra_headroom data-plane selftest.
-+ *
-+ * count_realloc (fentry/pskb_expand_head) increments realloc_cnt[0] each time
-+ * pskb_expand_head() runs for an skb whose egress device ifindex matches
-+ * cfg_ifindex[0]. The ifindex filter scopes the count to the test interface so
-+ * unrelated background reallocs are not counted. fentry is BTF/CO-RE based, so
-+ * this attaches by its SEC name via "bpftool prog loadall ... autoattach" with
-+ * no raw kprobe name, no bpftrace, and no user-space loader.
-+ *
-+ * The companion tc program (tx_extra_headroom_tc.bpf.c) is what forces the
-+ * reallocation this program observes. Userspace writes cfg_ifindex[0] (the
-+ * device under test) and resets realloc_cnt[0] before each run via bpftool,
-+ * then reads realloc_cnt[0] after.
-+ */
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_core_read.h>
-+#include <bpf/bpf_tracing.h>
-+
-+/* realloc_cnt[0] = number of pskb_expand_head calls on the test interface. */
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__uint(max_entries, 1);
-+	__type(key, __u32);
-+	__type(value, __u64);
-+} realloc_cnt SEC(".maps");
-+
-+/* cfg_ifindex[0] = ifindex of the device under test (set by userspace). */
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__uint(max_entries, 1);
-+	__type(key, __u32);
-+	__type(value, __u32);
-+} cfg_ifindex SEC(".maps");
-+
-+/*
-+ * BPF_PROG unpacks the trampoline args, so skb is the first argument of
-+ * pskb_expand_head(struct sk_buff *, int, int, gfp_t). Count only reallocs
-+ * whose egress device matches the configured ifindex.
-+ */
-+SEC("fentry/pskb_expand_head")
-+int BPF_PROG(count_realloc, struct sk_buff *skb)
-+{
-+	__u32 key = 0;
-+	__u32 *want;
-+	__u64 *cnt;
-+	__u32 ifi;
-+
-+	want = bpf_map_lookup_elem(&cfg_ifindex, &key);
-+	if (!want || *want == 0)
-+		return 0;
-+
-+	/* CO-RE read: skb->dev may be NULL on some paths. */
-+	if (!BPF_CORE_READ(skb, dev))
-+		return 0;
-+	ifi = BPF_CORE_READ(skb, dev, ifindex);
-+	if (ifi != *want)
-+		return 0;
-+
-+	cnt = bpf_map_lookup_elem(&realloc_cnt, &key);
-+	if (cnt)
-+		__sync_fetch_and_add(cnt, 1);
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c b/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
-new file mode 100644
-index 000000000..43e3bea60
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/tx_extra_headroom_tc.bpf.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * tc-egress pusher for the tx_extra_headroom data-plane selftest.
-+ *
-+ * On egress, pushes OUTER_LEN bytes of outer header via
-+ * bpf_skb_adjust_room(..., BPF_ADJ_ROOM_MAC, ...). On an skb allocated with only
-+ * LL_RESERVED_SPACE() of headroom this forces skb_cow_head() ->
-+ * pskb_expand_head() (a realloc-and-copy) on every packet; when the device has
-+ * reserved extra headroom via tx_extra_headroom the push finds room already
-+ * present and no realloc happens. The reallocation is counted by the companion
-+ * fentry program in tx_extra_headroom_probe.bpf.c.
-+ *
-+ * UDP only, so TCP control traffic and IPv6 NDP are not corrupted. OUTER_LEN
-+ * defaults to 20 (one IPv4 header) and can be overridden at build time.
-+ */
-+#include <linux/bpf.h>
-+#include <linux/if_ether.h>
-+#include <linux/in.h>
-+#include <linux/ip.h>
-+#include <linux/ipv6.h>
-+#include <linux/pkt_cls.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_endian.h>
-+
-+#ifndef OUTER_LEN
-+#define OUTER_LEN 20
-+#endif
-+
-+SEC("tc")
-+int push_outer(struct __sk_buff *skb)
-+{
-+	void *data = (void *)(long)skb->data;
-+	void *data_end = (void *)(long)skb->data_end;
-+	struct ethhdr *eth = data;
-+	__u8 l4 = 0;
-+
-+	if ((void *)(eth + 1) > data_end)
-+		return TC_ACT_OK;
-+
-+	if (eth->h_proto == bpf_htons(ETH_P_IP)) {
-+		struct iphdr *ip = (void *)(eth + 1);
-+
-+		if ((void *)(ip + 1) > data_end)
-+			return TC_ACT_OK;
-+		l4 = ip->protocol;
-+	} else if (eth->h_proto == bpf_htons(ETH_P_IPV6)) {
-+		struct ipv6hdr *ip6 = (void *)(eth + 1);
-+
-+		if ((void *)(ip6 + 1) > data_end)
-+			return TC_ACT_OK;
-+		l4 = ip6->nexthdr;
-+	} else {
-+		return TC_ACT_OK;
-+	}
-+
-+	/* UDP only: do not corrupt TCP or ICMPv6/NDP control traffic. */
-+	if (l4 != IPPROTO_UDP)
-+		return TC_ACT_OK;
-+
-+	/*
-+	 * Grow at the MAC layer by OUTER_LEN. The helper's internal
-+	 * skb_cow_head() reallocates when headroom is insufficient; that
-+	 * realloc is exactly what tx_extra_headroom is meant to avoid.
-+	 */
-+	bpf_skb_adjust_room(skb, OUTER_LEN, BPF_ADJ_ROOM_MAC, 0);
-+	return TC_ACT_OK;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.50.1
-
+I am not sure if there is a practical use case for restoring on an
+existing vCPU tho.
