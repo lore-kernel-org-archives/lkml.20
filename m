@@ -1,77 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE13C47F79B;
-	Thu, 15 Oct 2026 08:09:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF11F3D4129;
+	Thu, 15 Oct 2026 08:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051783; cv=none; b=c+Sd8Rp6F6q87RBtjX2uPErp4fJCAGERCFsEQmZofA9EPp+djO18V6iQCAs+VwnNLbL+BA/BT7LIGva1XAficaV1OWWroNj0+j4Rdg1/BBjWN1XnoIOQTpUp5RgcX4GrktErNLqcqBACVRCiAPs2tCRlE29QksoDl+jz0dvZ2xc=
+	t=1792051807; cv=none; b=GIcxn9xBrd7jFQCn8lLeJIt45jVLIKZ+uN2ExF3nrYFznT0ag1AoQPZtLCmtdbOxx1wNDH6nmHBwwosiqxO1lBuAVH0CFNiBQkH0N40O6lYD3fHg6H5USL/bMPjGUBRBfp9OafB1sl8X3kyUDv5c5dGBB9Qyi3pCFeJEpUL/hvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051783; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bjqSD8C7MDUIFqm2Bf2xQofA6PIhKhJ9gOcjrIvHhk6Y/TcYKvmGmiuICmd3yH/8z1ynkvnvMDgQeW7ewq595g49rVhcnzuMFYOXPJu01wHcRlCaQuEzR9X/YEoNMUyQpOTyRAd8g8ZeRwEpFC8Y3d0XlCgg4QNZHINLlmbogPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlSIYaMn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792051807; c=relaxed/simple;
+	bh=1nJ7JqAp/hjJCBrhsZfLL6LP1UpxTz7irnB2XFyIgys=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=GPzGB1/S8gpLafXozcW+8EllQ2tuOOQtMk0A9v1tj9h1yvFpqZX0iRNt3ftrXIrYwVAiYRPiBdUpORJRXHrf5kAJjDVEqK2sjJWkTjgU/ooCLpj5XLRyonQB7pOZXg+e5mS55xLSlapRX09GBmcw0RvUcUfNy4IX6cWhD+XTtqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NqwhqnsI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlSIYaMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461291F000C4;
-	Thu, 15 Oct 2026 08:09:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NqwhqnsI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EEC1F000C4;
+	Thu, 15 Oct 2026 08:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792051782;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GlSIYaMnzOqXLt4ERkB23djhcjITbTnv3qlZenzf7zo3MajqrE9FXsnsq8LDXJ6/J
-	 78SY/bWLHigtpz7D+p6p0pFw9pKkr699Ga/RSpIB+sRo4CWWHr8DZWFkk7NNmaMDtB
-	 dPGthuG/y2RxXJDx2n+1wiWzfStvmwRCbLcjAoVQTlfRVLAoTTvguuzhenLxtwnnw7
-	 7MSwoChwTw6m46CtOIBl2NpB2Q3naei3TzwO2bHeXqgr18zo368qODzl5GSmUSRSYC
-	 EUkgWknEAgFFLhYezvcKG/H7h8hauJ2/XlNDVPgtoYXZxHCwK7RS8gjkvKSeHhrtbf
-	 OQT/7h0pSPpfA==
-From: netdev-bot+sinfo@kernel.org
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Alex Lazar <alazar@nvidia.com>,
- Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
- Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>,
- Kees Cook <kees@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
- Mark Bloch <mbloch@nvidia.com>, Richard Cochran <richardcochran@gmail.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit <shshitrit@nvidia.com>
-Subject: 
- Re: [PATCH net] net/mlx5e: Fix NULL deref in PTP TX timestamp recovery warn
-Date: Thu, 15 Oct 2026 08:09:40 +0000
-Message-ID: <179205178078.408196.12399315538524843906@kernel.org>
-In-Reply-To: <20261015080218.1102172-1-tariqt@nvidia.com>
-References: <20261015080218.1102172-1-tariqt@nvidia.com>
-Auto-Submitted: auto-generated
+	s=k20260515; t=1792051806;
+	bh=e8lzYLVpnRWmRqsq7Q3LYeLB9N234ALYisZYgKg3Sh0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NqwhqnsI4BbXw30pheLSw0gQHz446F1hGJ1NTjcef3dia9lEicaxZRVpdNCN8yzqW
+	 YBFj3jqGUt25cnOGznT61bEqnOskYM2by2Nnao/Atha4iU6g4MyySV8NbtfLXDHizp
+	 57yHw+6Nz8j8faGvZ7gZx7LeWXwpVlXvrpkAaQ/TvQFW2UuQPEd07yoZKiAqLJc89r
+	 R8pM2FgTe7+lWRQIj23eZgdmp9BDlGVS2XulNGgn8Vrq/8sAVeE/xn9Qtb3sTIvdMn
+	 PDs09mCap5qBXA68YbInP32oera3QhUIyQK4+OInlrIzuZILONMYj0m7GOCJiM+k/t
+	 0ziUQ/kfk/NWg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A358392E9D9;
+	Thu, 15 Oct 2026 08:10:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next] selftests/bpf: Report a failure to register the
+ session key in test_progs
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179205180479.3264110.5124083722824998872.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 08:10:04 +0000
+References: 
+ <20261008-selftests-bpf-test-progs-session-key-v1-1-ec48e793639b@gmail.com>
+In-Reply-To: 
+ <20261008-selftests-bpf-test-progs-session-key-v1-1-ec48e793639b@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, shuah@kernel.org, kpsingh@kernel.org,
+ bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-Hi!
+Hello:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+This patch was applied to bpf/bpf-next.git (master)
+by Daniel Borkmann <daniel@iogearbox.net>:
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+On Thu, 08 Oct 2026 22:03:25 +0800 you wrote:
+> test_progs adds the key that verifies signed programs to the session
+> keyring before it runs any test, and exits when that fails.
+> 
+> It exits with 255 without printing anything. pam_keyinit revokes the
+> session keyring on logout, so a test_progs started in the background
+> from an ssh session that has been closed since leaves nothing but an
+> empty log behind, with no hint of what went wrong.
+> 
+> [...]
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Here is the summary with links:
+  - [bpf-next] selftests/bpf: Report a failure to register the session key in test_progs
+    https://git.kernel.org/bpf/bpf-next/c/66fd5eb9da12
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+
