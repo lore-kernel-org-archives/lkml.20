@@ -1,63 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C648F3F9268;
-	Thu, 15 Oct 2026 19:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2DC44AB68
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094072; cv=none; b=qX4zPvn7BWF4WRigd4fwKbzXt2EBhUc7/b0lHY6fVoxxd4mjF1IEzuZZ0fhpkJuso+IjNsHsHmSCc0GpfoG0AgeGWCQ34pMZ5b+GKVFgC//QzTS62biIqVdOhsvwWdSzqjnmn+m60Yic4PnESazMqDtzMRNO35uoMsGfiyDHxqM=
+	t=1792094230; cv=none; b=d645zoaWWWWOAK/Mqx2ZA4lhhW8TSq5qqXSKCxsjDs1JFzL7D6y9GIXL0vdCkK5DdHe1l/oYkrItyDRPVxdELE4FSrwKieodNIxto2ob9Z2IOIDyXCbgLAQa/MpKR2P+/hW9Zn/70OJ6uCq96/joIrbfnRqhd2GunQG0Vem9L1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094072; c=relaxed/simple;
-	bh=JFsWwV0EnmhXusnURRHJsleGQwtPYJm6GUAsuf+oGxM=;
+	s=arc-20240116; t=1792094230; c=relaxed/simple;
+	bh=W+WQcbkuYlf7iZbcxCz0t5n2JDNxk3p3Ac8rA0qdxo4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gloxxIO59V/Fwzbo+13Ju3KCILtPEt4ZEe9pj5ny5IGxni8OopneOt2SosSCkMo6AItityoz7UW+9KEibBlpkJOfs8dt3dH7TqaAISzM7M63+M+bHnbG08iP+uYBsmjFtmyNGURg4zO8zMUQ070FTf8WX9qCJuznut5uBev5qQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iZHmO6qc; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jMjChj2VdBCxs7oSMLOUurwc7dLlZ3I6m0QgGl5gqXOkk3VM7Y5HT0Y0wPmCRQIJbiGSDSqU1Hr2fBSVrrEcu77xaKolf7GC4yKw47Hka01NQVMcdog6sgY3OI6xeYA0iXAKAgBbmOO+Tf9etZKDt5v/vnDtj09N8VoZLKzLISs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=phw4c37w; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iZHmO6qc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792094071; x=1823630071;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JFsWwV0EnmhXusnURRHJsleGQwtPYJm6GUAsuf+oGxM=;
-  b=iZHmO6qc5Z6IvtpDpvOL/3l7Efowl0a4lhHXRdoRTf2pLVonNe1v46lw
-   14gF7HZwEkmB0z8uX4GI8UbBrwaRufGWEiY2SeGZ+72LLQ+7/AyxoTB0G
-   b1hcggBpxdi8yx9jSbCxxtX0Skje7NuBIBrMxNLO+HcRq0EzZtmIuxU6M
-   wNksz/bIJEzeh+9XhgUyyNnS9RixzfRzP0w5pv5TzieVmd9gaLKSJ5TGO
-   b4IW+ihlO9OAgcSoz9aDzUJUIOX911cSUguUt+ruA/+wW1cMr+hP4Nqfq
-   cvjby0l+/afDKLUrgijSrK8JdVi1CWKihTGl73oHEFgqEmqvMUhV0R2Si
-   g==;
-X-CSE-ConnectionGUID: 5uOCb50USiaaLEq/CNdOfA==
-X-CSE-MsgGUID: 6FSxnzrdTeuIGa4e7AkaMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="908534"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="908534"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:54:30 -0700
-X-CSE-ConnectionGUID: TA5lRrtrQ/i1FocHa1ABuQ==
-X-CSE-MsgGUID: xYrP0xEyTFSBRkQZ5DTJBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1705421"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:54:28 -0700
-Date: Thu, 15 Oct 2026 22:54:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jyoti Bhayana <jbhayana@google.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	kernel test robot <lkp@intel.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: common: scmi_sensors: fix truncating 64-bit
- divisions
-Message-ID: <atEvb5jQsZCywGKs@ashevche-desk.local>
-References: <20261006045244.13993-1-kapoorarnav43@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="phw4c37w"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c5358fc28so684906f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792094227; x=1792699027; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JdoamN/QCC00RvjhRgyruFfNMjWo34XWF83HIj4FenE=;
+        b=phw4c37wlpZzjMOLQkvakf8RFHeyVSF+9qTB7O+dS3+3WT7WWZ1Oc3qYkiESnrbVGM
+         BORkxpLXPuaLbAlxzLBHtbQZCUTqgL+041pUksotsUGmwHF4jYbN8wvJXjL9MTihlDNk
+         uwL8T/aRwv1Zu8vkhc/W0XYB/RSnNy5jm0EhEc0WLAuOHpsIUK2nVj8itr3tNNHDd0AT
+         huH6Bg4f+rywB/POueEFxu98XbPmEG3ToxIlQ1Je5pN7yMpW0UUxHnZ2/VtDVb0XkZOY
+         cCjkRRhAPdqTLT8zuBil/ZBq4FMcVY/MDDDlB8Kngs4ohvCcwcLgjpucjEANmvtP42Ga
+         YUiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792094227; x=1792699027;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JdoamN/QCC00RvjhRgyruFfNMjWo34XWF83HIj4FenE=;
+        b=P75Q19WiTr9PTgw0YCyvRYGb8KlfdnjEkVRIJpFnrJD4Ru0MMkbSnqe5nLQopYtZ83
+         8HdUBoDzwPds3KNw8rl6vNm+T4XvE0TIwpa2zVoKom4/gLFEzXuaOz6fWMmuhmCyRUMj
+         psWlPVQY/HoC/CzxGov2V4EWRFT0+moNak43opIrTfIal7mT4BvdnPeBR2xdXvuruMU9
+         aOmK2vNbLpXDei0qhM3qLNavMfjH8kaXvwF8HontHjLxbwcLBxkHYRglQqW9yZ6O1R3B
+         Cq48gKVE8Dmj7KDJAY51DGeXkC//11QbTerfxP+ZgmI1wQjcu22+7C3oV1UpJjtSk1tr
+         e+0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzjkoR4K5ogWWH+nnpQ+A38ZNz4mor2QXhUKnjOcAWfMsbEzkcGcOMq7Jd9ChmyQtgwfEziIlpUWRI6mRM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMS3CnTNPlz9xCk7yN8pXwn/BjGpByIWwNl/i1/0/QwRaBKXKy
+	WnPpbkG4XFVe4UPVMnOiTdlYLd8LxGI1/KIvwWnxNhclnHHRP3yo39Xp
+X-Gm-Gg: AYBFou1R5JC/LhvTtJ1cuvpAuk1fzoVQ8+okv/wvBAghk4gnMU7n8c/AnWDQfTOIbBs
+	LMnZUw17PO+LsPcmMl4YvjjI7v6XRJh5+hW2l6ccbnTL6U0pLbsCG1WIEgZ0lUBLczDO7KvrwQf
+	UQCL6vEi2d9qfoRzMEDNWqoGja7wc6O/z4Ee8lT4G7ZGOhUXwIVv7ASfM2qFptbMCzoRI86UePZ
+	0Z4SIojM5ZC2zwo+01w/MkOMMxPNAWHPAYd87/ADc0R6e5QK1erWE9hFJmgEsd4++utben4cAJy
+	M346PKclSwPDGPI5c2dg0WWt7cEo+cvZ7vYM2PtRF6BVIZ3NNvo0LCUBbJms6LUGJ23OtzSn+M9
+	ow7CP4gMRJvawkZOQ4yP0qP72rb08oT3NgYoq5c62Co8LGsAdFttebyAi2e0vih/Cw3dWIg7Nm1
+	kpaAhf076BQrwOgMy6n7ybelbVqcKOxsjoUl/03bjo0LhHacLyvfrvlUaWQZ5PvNMZ87Y=
+X-Received: by 2002:a5d:6402:0:b0:48c:7f18:c85e with SMTP id ffacd0b85a97d-48dbace9c60mr29174300f8f.45.1792094226897;
+        Thu, 15 Oct 2026 12:57:06 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8cfesm200478f8f.37.2026.10.15.12.57.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 12:57:05 -0700 (PDT)
+Date: Thu, 15 Oct 2026 22:57:01 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Alex Elder <elder@ieee.org>, pavankumaryalagada@gmail.com,
+	johan@kernel.org, gregkh@linuxfoundation.org, vireshk@kernel.org,
+	elder@kernel.org, greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	outreachy@lists.linux.dev
+Subject: Re: [PATCH v4] staging: greybus: replace PTR_ERR() with %pe in error
+ messages
+Message-ID: <atEwDf4RuTWtaSoW@stanley.mountain>
+References: <20261015082238.65187-1-pavankumaryalagada@gmail.com>
+ <99cd529b-dffd-4315-b9be-9b0029973497@ieee.org>
+ <cc868527-c13c-4e9b-aa7a-d2553f93d92@inria.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,34 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006045244.13993-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <cc868527-c13c-4e9b-aa7a-d2553f93d92@inria.fr>
 
-On Tue, Oct 06, 2026 at 10:22:41AM +0530, Arnav Kapoor wrote:
-> do_div() divides a 64-bit dividend by a 32-bit divisor: the divisor is
-> stored in a uint32_t on all architectures. The driver passes 64-bit
-> divisors to it in several places, so they are silently truncated:
+On Thu, Oct 15, 2026 at 02:10:53PM -0400, Julia Lawall wrote:
 > 
-> - scmi_iio_set_odr_val() divides by uHz, which exceeds 32 bits for
->   sampling frequencies above ~4294 Hz.
-> - convert_ns_to_freq() divides by interval_ns, which exceeds 32 bits
->   for update intervals of ~4.29 s and above. If its low 32 bits happen
->   to be zero, this is a division by zero.
-> - scmi_iio_get_odr_val(), scmi_iio_convert_interval_to_ns(),
->   scmi_iio_sensor_update_cb() and scmi_iio_get_raw_available() divide
->   by int_pow(10, n), which returns u64 and exceeds 32 bits for n >= 10.
->   The SCMI exponent fields allow values down to -16.
 > 
-> Truncation results in wrong sampling frequency, timestamp and
-> raw_available values being reported to userspace.
+> On Thu, 15 Oct 2026, Alex Elder wrote:
 > 
-> Use div64_u64() and div64_u64_rem(), which take a 64-bit divisor.
+> > On 10/15/26 3:22 AM, pavankumaryalagada@gmail.com wrote:
+> > > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> > >
+> > > Use %pe to print error pointers directly and display their
+> > > error names.
+> > >
+> > > Keep PTR_ERR() calls when the numeric error value is needed
+> > > for returning the error code.
+> > >
+> > > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> >
+> > In a few places you are *adding* the error value where it was
+> > missing (which I think is an improvement).  I assume that the
+> > return values in this case are negative errnos.
+> >
+> > It would have been worth mentioning this other type of change
+> > in the patch description too.  But it's not worth doing a new
+> > version for that.  I trust you found all the spots, and fixed
+> > them this way.  This looks good to me.
+> 
+> This Coccinelle semantic patch finds over 3000 opportunities for this
+> change in the kernel as a whole.  Outside the context of outreachy, I
+> wonder if people would be happy to see such changes, since the %pe code
+> seems much more informative.
+> 
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+I like %pe but it's not universally popular.  I've seen people NAK
+these patches because it looks weird in their subsystem and I'm
+wondering how many error messages their code prints?  Surely, any
+error message would stand out is weird and undesirable?
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+regards,
+dan carpenter
 
