@@ -1,54 +1,53 @@
 Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A733152269A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7625B525A61;
+	Thu, 15 Oct 2026 12:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068515; cv=none; b=ssI7aqY7NAIEimuCRvXsbm/RUgRzDvMtzm37iYYvfNpJfpgDfIdxW8ZYMF5Ds+GhWI5xLgiEzNr+LbRg9GffmpwcS+/wvmdAV8IyLHoQOmS2XNySE7YIGgherg9jIdJMt4H5yBjdDruOUscUWVFONlLC3IbKDpVq7qyJADxGsII=
+	t=1792068518; cv=none; b=FnUyCx83M5nBUSBWCUStwFlGIpajLbSFApvjXjRhtOZwM1GJ0l+XjYrqvxguNqXu+7Zwc5AvU3ieah/tOxM+tc41gimir2lAhMBqPTGWMiADKKUoSl7gk++vLVei9d0CDuqSq9MuL9GhxSURiEaV83HbNFrcSTR/LgAMibGN4MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068515; c=relaxed/simple;
-	bh=1HLaFHQuYo63Oh3QtIL8lbVLPK4ZtLXeIY4zt4k4BLo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=S/P9RWx5jw5D9VB2KBa6E41mE/AjeFu70M6M1v0FCb/timjDYU5AnCLRjl1f9IHl4yYlXFwJmnu7GKkNWDWG2qOtiSHv6TW3yh/kRLS+3F67QbFHWar/4cpEeSOeuRwpaMhBYG5xeFHSgTJXX08UKigg1m93pWD4j8ackSjkx0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=Uk7h+Xvw; arc=none smtp.client-ip=82.76.27.144
+	s=arc-20240116; t=1792068518; c=relaxed/simple;
+	bh=z07TVzYXM1jRmFoR6nl9/1yYUtyer7YepNvmldlBkG4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cflvRmvvqYARwW2p1gyKIiHRxlZ2a5SSqXdazGbKJQy+/4xFllEuZuBiLm0YHMQpRW6jVLx337PwDKCG+rksvr6epRjHAI32cloLhmQi68se42W0+TzPw5vraVXA6E2Qlj7dJLqJ0bMVMw1TW9/Wn7MBN9y97CZukBOE6TNG3L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=X1UOeabO; arc=none smtp.client-ip=82.76.27.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="Uk7h+Xvw"
-Received: from MAILGW-BIG.big.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 4F7B411CE3;
-	Thu, 15 Oct 2026 15:48:25 +0300 (EEST)
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="X1UOeabO"
+Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id 7673B21344;
+	Thu, 15 Oct 2026 15:48:29 +0300 (EEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=VjuAVMRAOQhBucSDPBTX
-	XjKhh3RkY/7DidXgYyu2ie8=; b=Uk7h+Xvwc3nfR8lo4C/GstlKJxtIUYfZ84iY
-	dmUPQMBC4i0Fo9oYRTbPL60eVNQe2spGmc8FKcZMJLqDiBCQUadCa/KBnfLt5BQr
-	b8eWdZ7XCRyzKmaGoxzV0i2tvt4MnA8cy93Dz1HAeT8d5Q/RC64d1yhE+prlLrN4
-	2HbJg3bet5uN88M8HZRN9VbZLYrqxt1IgyI+bvjg7u4BZLpeVxRJ+l1/IOhH4YVy
-	P7XNxNTv3eGJeIEjvSHtBlPccKo4VLsDV5x3h/tQtaFEBP3dnqqtt2jjPM6AyIUk
-	sUe2ppp99pYKKkooB5KzdJM34waV0qiQPsrNWlzzXpgMidfang==
+	:from:from:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=sig1; bh=Wi062/qPlsR7jF1ZZXk4rpe47tL9Gsd6z4BWAhu7j6k=; b=
+	X1UOeabOkYWhowKKGkRwBZiKLKEvazzijM4nUDhSOKM/nCGl83PcmEANiEeU18im
+	SNj1RJyrOuPWmXmMwI8qP9OHu1gjFjlW213jPg83RTOLvw68bmmbbjY1wAGQc4C6
+	qz/cj95OQ6AAU1bAR7A4vcAbz+uQrThf8TiB9GODglyQ7K5DbBu2UzquBFkDc+HV
+	X9T/dQzVzPRgd2DMgBrEC8ilZciNXBRy+xcelb+j4h/ydTVRhiKaCv5JG2/bCmGr
+	vrS4XdtokVQIKOObbtEXt9t347S6m5gzYlsMeexuYRWaGY5fe5+vQfnF4ZEcFYis
+	IDBJFlCBwKY+8vj5H9Pq5Q==
 Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 047EE11C71;
-	Thu, 15 Oct 2026 15:48:24 +0300 (EEST)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 5BDD4211F2;
+	Thu, 15 Oct 2026 15:48:27 +0300 (EEST)
 Received: from [10.89.11.73] (10.57.8.14) by VTJ-MX.corp.irix.systems
  (2a02:2f04:1:9c24::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 15:48:23 +0300
+ 2026 15:48:27 +0300
 From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph
- Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	<linux-nvme@lists.infradead.org>
-CC: Andrei-Alexandru Bleortu <me@andrei-z.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/1] nvme-rdma: post the command capsule inline when it fits
-Date: Thu, 15 Oct 2026 15:48:23 +0300
-Message-ID: <20261015124823.2962700-2-me@andrei-z.com>
+To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+	<linux-nfs@vger.kernel.org>
+CC: Andrei-Alexandru Bleortu <me@andrei-z.com>, Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
+ Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
+	<tom@talpey.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/1] xprtrdma: Post small RPC Calls inline
+Date: Thu, 15 Oct 2026 15:48:25 +0300
+Message-ID: <20261015124826.2962950-1-me@andrei-z.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015124823.2962700-1-me@andrei-z.com>
-References: <20261015124823.2962700-1-me@andrei-z.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,99 +59,48 @@ Content-Type: text/plain
 X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
  VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-nvme_rdma_post_send() posts the 64-byte command capsule by reference,
-so the HCA has to DMA-read the capsule from host memory before it can
-send the command. That read is on the latency path of every I/O.
+The client posts every RPC Call by reference, so the HCA reads it from
+host memory before transmitting. This patch asks for 256 bytes of
+inline data at QP creation and posts small Calls with IB_SEND_INLINE.
+If the device refuses, it asks for less. The commit message has the
+details and the measurements.
 
-Ask for sizeof(struct nvme_command) bytes of inline data when creating
-the queue pair, and create it without inline data if the device refuses.
-Post a capsule that has no in-capsule data with IB_SEND_INLINE when it
-fits in the granted inline size. The CPU then copies the capsule into
-the send WQE and the HCA no longer reads it.
+The matching server change, "svcrdma: Post small Replies inline", is
+going to the NFSD maintainers on its own. The two do not depend on
+each other.
 
-Providers copy inline data from sg_list[].addr as a kernel virtual
-address, but nvme-rdma keeps the capsule's DMA address there. On the
-inline path the SGE therefore points at qe->data. The capsule stays
-DMA-mapped for the by-reference path.
+It builds with W=1 on Anna's linux-next without new warnings. I tested
+it in a QEMU guest with rdma_rxe on a dummy netdev. The NFS client and
+server ran on the same host over RDMA, using NFSv3 and NFSv4.1.
+8 MiB of 4 KiB O_DIRECT writes and reads, and 200 small files,
+compared equal. 9836 Calls went inline and 214 by reference.
 
-An earlier version of this patch was measured with fio doing 4 KiB
-random reads at queue depth 1 against a null_blk namespace exported by
-nvmet-rdma. Both host pairs ran a 6.8 kernel over RoCEv2 at 100 Gb/s.
-The mean completion latency fell by 0.998 us (95% CI 0.943-1.049)
-between two AMD EPYC 7452 hosts with ConnectX-5 Ex, and by 0.589 us
-(0.558-0.618) between two Xeon Platinum 8360Y hosts with ConnectX-6 Dx.
-IOPS rose by 3.3% on the EPYC pair. A run there that asked for inline
-data but kept posting by reference showed no change. That version asked
-for 220 bytes and had no fallback, but it inlined the same capsules.
+I also made rxe refuse inline requests above a limit and report a
+chosen vendor ID. The data still compared equal in each case:
 
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- drivers/nvme/host/rdma.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+  vendor ID   limit        QP got
+  Intel       216/101/48   216/101/48 bytes
+  Alibaba     96           96 bytes
+  rxe         101          96 bytes
 
-diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 5b9b540693b5..517098ebffb1 100644
---- a/drivers/nvme/host/rdma.c
-+++ b/drivers/nvme/host/rdma.c
-@@ -106,6 +106,7 @@ struct nvme_rdma_queue {
- 	bool			pi_support;
- 	int			cq_size;
- 	struct mutex		queue_lock;
-+	u32			max_inline_data;
- };
- 
- struct nvme_rdma_setup_ctx {
-@@ -265,7 +266,7 @@ static int nvme_rdma_wait_for_cm(struct nvme_rdma_queue *queue)
- static int nvme_rdma_create_qp(struct nvme_rdma_queue *queue, const int factor)
- {
- 	struct nvme_rdma_device *dev = queue->device;
--	struct ib_qp_init_attr init_attr;
-+	struct ib_qp_init_attr init_attr, attr;
- 	int ret;
- 
- 	memset(&init_attr, 0, sizeof(init_attr));
-@@ -284,9 +285,21 @@ static int nvme_rdma_create_qp(struct nvme_rdma_queue *queue, const int factor)
- 		init_attr.create_flags |= IB_QP_CREATE_INTEGRITY_EN;
- 	init_attr.qp_context = queue;
- 
--	ret = rdma_create_qp(queue->cm_id, dev->pd, &init_attr);
-+	/*
-+	 * Ask for enough inline data to carry the command capsule in the send
-+	 * WQE (see nvme_rdma_post_send()).  If the device cannot provide it,
-+	 * create the QP without inline data and post the capsule by reference.
-+	 */
-+	attr = init_attr;
-+	attr.cap.max_inline_data = sizeof(struct nvme_command);
-+	ret = rdma_create_qp(queue->cm_id, dev->pd, &attr);
-+	if (ret) {
-+		attr = init_attr;
-+		ret = rdma_create_qp(queue->cm_id, dev->pd, &attr);
-+	}
- 
- 	queue->qp = queue->cm_id->qp;
-+	queue->max_inline_data = ret ? 0 : attr.cap.max_inline_data;
- 	return ret;
- }
- 
-@@ -1641,6 +1654,17 @@ static int nvme_rdma_post_send(struct nvme_rdma_queue *queue,
- 	wr.opcode     = IB_WR_SEND;
- 	wr.send_flags = IB_SEND_SIGNALED;
- 
-+	/*
-+	 * Post a capsule without in-capsule data inline if it fits in the
-+	 * granted inline size, so the HCA does not have to DMA-read it from
-+	 * host memory.  The CPU copies inline data from a kernel virtual
-+	 * address, so point the SGE at qe->data.
-+	 */
-+	if (num_sge == 1 && sge->length <= queue->max_inline_data) {
-+		sge->addr = (uintptr_t)qe->data;
-+		wr.send_flags |= IB_SEND_INLINE;
-+	}
-+
- 	if (first)
- 		first->next = &wr;
- 	else
+At 216 bytes 5632 Calls went inline; at 96 or 101 only 3 did, as most
+Calls in this test are larger. The guest kernel also carried the
+svcrdma patch. Its xprtrdma client code is linux-next's without two
+later commits, 0b5bb4e586f7 and 9ee534a75912, which do not change how
+Calls are posted.
+
+I wrote this patch with an LLM coding assistant (Claude Code), which
+also drafted the commit message and ran the build and the VM test.
+
+Andrei-Alexandru Bleortu (1):
+  xprtrdma: Post small RPC Calls inline
+
+ net/sunrpc/xprtrdma/rpc_rdma.c | 30 ++++++++++++++++++
+ net/sunrpc/xprtrdma/verbs.c    | 58 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 87 insertions(+), 1 deletion(-)
+
+
+base-commit: 9ee534a75912361308b1f956bc3e7895a082a422
 -- 
 2.56.0
 
