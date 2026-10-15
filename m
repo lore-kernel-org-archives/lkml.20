@@ -1,71 +1,78 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B28D3E9C05;
-	Thu, 15 Oct 2026 15:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BD93E3170;
+	Thu, 15 Oct 2026 15:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078494; cv=none; b=OoWLv9vngoflX6x74Zw2X3Re5AnCOHsx7JiMqek1Ukovp/tfRBwSj4qnnKZurc/PGd452gph9X5lc88jN6zz9AlntyNyNPX8hdtGhHBF+wPWl6pHjZ/FtCeXLOkIZsGOswX/b69FbTLgIvvCN8zgSBJX+3+s5993jtt4AAPq8vY=
+	t=1792078496; cv=none; b=LhoO9KEJAEk0R57jj6ama0AfOMa7oa9yJbnv1Cq7bRWU05TvmZJnMeKdEKQWRAmusXvBAIpkRw+jBL1WOgVhhQ6pqeIn2g1ek/2fXu9WDMfN+50rnys+VVDyPG0+O7af4CM6MIaHaKlIktzsd9OlVJaPLR15xJ1U35iJxsDx+Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078494; c=relaxed/simple;
-	bh=qGWfG3smDCffb/1kC2SHw6xzfsK2o+zRukC76FDBnBw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=quIkkzNrqKFzpZLk6QpisGaS16M/YITtbQIlrjVrKps0ggMnEYdn71fDDIi1Tkv4YJZ6T1u7sTIFxtMUZwxVuFyxv+eSCg+/TjmpahELIWjws4AqUACEITXUeyo+Pqx+SHtIq528nDnXJ4Seuibkcu89sqouuE2eOljutaevjE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=iLP68Tj5; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1792078496; c=relaxed/simple;
+	bh=xCoWm76K7Je/Bde4Db+58+P61QXkeYtjOfp6416uJn0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bt0GJKB1KicwgjfK2tVCqmH5/3knOwQK96mzGUXFkgtn+Ux/6+Ppixd+lEJx9dr2AnISRcVUgl8t4PfuQsKARuZ6ODB6z4feZrBOlBJtMpWHJfXp2YaNuBpXrWgpBxTPKxtyWo1OfOZJ14vXBaBZ1lJdczIY0PMLY+6aCriMM3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BtbYuSbu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="iLP68Tj5"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 02DF74091F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792078482; bh=qGWfG3smDCffb/1kC2SHw6xzfsK2o+zRukC76FDBnBw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=iLP68Tj5wvqf3a4K4p1jRwe/HRs9JM+347fXqBiwdhMing3M9equUC3lwug1g+bAQ
-	 k0GDTBQ2Jh93C/CQPGYhSKhoj5B8nr+PogJ5Yu1TFhkaJu+eEr44Dp6Z6Jf56xs4l5
-	 SCS0TDKCEd+RkztxGT/IzcOZm3slpEVhiq13Lsg1ZkMG2AnS5dvW+z+t6SJm4qStol
-	 d0l+ezIRpiIdDBl/0T4fFb1KuEJxjPD1wZoHKJ4h0RSLTabfK4GXBV4VlYfYTM2c/m
-	 fgIpdWJr3qzVx5rRbT553VvzbSzkjB5B7WdmyzxoTtoaCLiIDyuiT3Bn6v1haYt80Y
-	 Hjd4h2Sm4XawA==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 02DF74091F;
-	Thu, 15 Oct 2026 15:34:41 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Miguel Ojeda
- <ojeda@kernel.org>, broonie@kernel.org, ksummit@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, skhan@linuxfoundation.org, tytso@mit.edu,
- workflows@vger.kernel.org
-Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
- attribution
-In-Reply-To: <atDnmZ_AGg6PnyRW@laps>
-References: <cover.1791499378.git.sashal@kernel.org>
- <20261014174838.114990-1-ojeda@kernel.org> <as_Cr4FhzyAh-kC4@laps>
- <CANiq72m6okeCHuR8BCGENTw=wJhfXXZbXZtJq8xtoeVfvfo3TQ@mail.gmail.com>
- <atDYWe9L0tv90Xjk@laps>
- <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
- <87jynjrrqo.fsf@trenco.lwn.net> <atDnmZ_AGg6PnyRW@laps>
-Date: Thu, 15 Oct 2026 09:34:41 -0600
-Message-ID: <87y0bzq8oe.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BtbYuSbu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F191F000C4;
+	Thu, 15 Oct 2026 15:34:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792078484;
+	bh=sChR5Hau90j+23n1F1vs+V5WMT8DmxEKb5dTXeNjTlk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BtbYuSbuiR7+Jkich3+6fT7q1jZ0MgEKeWx3xhOy8v4G7rdo3Px9TKtdEcteJEBKN
+	 EZ46R5F6fNu13bkp/ocIlLgGqzd6jxXy09wLDlcHXc5/+N3GVviVadmNGBQ1PjNbo8
+	 pzBOYOU3t2/+MWaMniu23HloIo/VQjz+eVID5uVcyJRP1JWgBpTyDiZJRN+y6BWrBN
+	 gCabmyNzWknmGIUNwQ7V5v8+R6vLE83cYt2ZTtyjyyGx0Zkt6cbiEHQi7uzCThgRB+
+	 QXMeadqn26PPz0pIehwZOlGWhE3QIK60szCiSxVsso4gJWYha0E/x+2o4e6vPF5YvS
+	 ioO9UHDUUgxGg==
+Date: Thu, 15 Oct 2026 08:34:44 -0700
+From: Kees Cook <kees@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Theodore Tso <tytso@mit.edu>, Geert Uytterhoeven <geert@linux-m68k.org>,
+	Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>,
+	workflows@vger.kernel.org, ksummit@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Mark Brown <broonie@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>
+Subject: Re: [PATCH v2 0/5] agents: add skills for Fixes tags, stable tags,
+ similar bugs, and commit messages
+Message-ID: <202610150832.58E80C02A@keescook>
+References: <20261012213452.1863248-1-sashal@kernel.org>
+ <87zewiy1sd.fsf@trenco.lwn.net>
+ <202610122047.A9E381A@keescook>
+ <CAMuHMdXR+U+pgyN+B=trSuPJuS5Kn1-kN=VMFPRSvSUiiwbqDg@mail.gmail.com>
+ <202610142149.C3CC39B22@keescook>
+ <atDWaGJegsI3_Q8K@mit.edu>
+ <f7734347-efe7-46c2-96d7-0d9d6ec19e67@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f7734347-efe7-46c2-96d7-0d9d6ec19e67@leemhuis.info>
 
-Sasha Levin <sashal@kernel.org> writes:
+On Thu, Oct 15, 2026 at 04:35:27PM +0200, Thorsten Leemhuis wrote:
+> Can't we prevent all of that somehow -- maybe while also improving the
+> docs for humans? Is one of those frontier models maybe now or soon
+> capable of generating and maintaining dedicated skill files for less
+> capable LLMs from documentation written for humans? Or at least pointing
+> out inconsistencies when someone updates one side but not the other?
 
-> I'll send the v3 later today, which does a better job at having very little
-> information in the SKILL.md files themselves, and just points to our existing
-> documentation. Would it make sense to keep it in the agents/ dir rather than
-> mixing it with Documentation?
+Every release, we ask, "Treat all of Documentation/ as the correct
+instructions, and examine all of agents/ to find inconsistencies,
+redundancies, or conflicts with Documentation/, and correct the agents/
+docs. Then do a pass to distil instructions in agents/ down to only what
+is strictly needed for agents to operate."  and commit the results?
 
-If you're asking me ... dunno, I guess I'd say put it wherever makes the
-most sense to you... :)
-
-jon
+-- 
+Kees Cook
