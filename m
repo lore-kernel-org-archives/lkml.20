@@ -1,76 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B421D53F6AB;
-	Thu, 15 Oct 2026 15:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6824153FD5A;
+	Thu, 15 Oct 2026 15:22:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077776; cv=none; b=WUo3LOevU36A7/81NIQr/STjUZqSGJRw+TLytvm0LOe08E8A/16zmgUpQrP28a6djJu/AVgHH4DLWrhGmRry+kY6HkbQBfAaDD/YeRTAaziZSi6+VRiwx71y6VnUdlJqlvGBGaRVoe7Zv4yplwNZdAzHYc6rwF3lqxWJJd5GHYY=
+	t=1792077785; cv=none; b=BXgxML/1z69zcCI1O2xseJYh4DJVwBdJXIbJKFodg9DOGhAet++UIdQFfpvrNcMGjgfvJxEx5Bg3GLwFkP3/mq4xUxJ+PnRE5PWqehRNYj5LUyj4zs6kPPl70DVXPRKb3VvLbWAL64g/VC+EbjgokxPu1byl8jrVPt6Qcz82z0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077776; c=relaxed/simple;
-	bh=2YpI9jVcsBXYCM4XU0pletdCzfsA/GcjSf3ZfsNBPf8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=g3fLNM8wiorw5ThQPD0fb/Rn+36W6qF+je69w6kC4h03fJC4TB5QPvmnkFwLrvHdvLOfHFNbFQsEzYdfWmDCh95ntj+g0ddCH+SRMGfSlkfEDjslLynrK1yd0eUEOg0GlZWNmQd2apN58mg+yuIgrfhZtPmuR+IN74+a30bpqQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGa81SFt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792077785; c=relaxed/simple;
+	bh=pBVIUhqWcaZfPcq5z/rpMLtbodmcs1yW4/aInBEFpxU=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=fm4CF+9/VwgKtU46v5jUk4JnGapNgCe0VoxFl4kBpW9dvxNzoIVbN4tufENIKAbhs6i0tfrK5yp0CeNUxauTwwEynysvZdFVQTYD4oCqadGObHTH3GCQbfg+1ViH5WDXd8vWz3pil3tWXPqqkr5o8vCgfwCJIPHgkzFmtfJ87TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mN3t7+40; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGa81SFt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8E01F000C6;
-	Thu, 15 Oct 2026 15:22:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mN3t7+40"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E0B1F000C4;
+	Thu, 15 Oct 2026 15:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792077769;
-	bh=6w4n9Y2nnDculdbshwjwPH1uLClYOHiVxv4e24nwGCg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kGa81SFt/pe7ST3DypMaxTsrZ+FApfjn9e6lbzt6CdFDhpqmMS7FjEQo5kR5tmzvF
-	 BI5XbvoXuJmL0jyc+M59D1BEaaoyafQp/ZkIfyr9ExH8B4C2GPLKZDpFPLZ29QfGvn
-	 plGr0dvUS8hzz3KY+1KIlSAjAQxaAXe4NLBIBXpSEiulzIk/jcI+SUBFbu0Ad1xrBT
-	 tXgxobzOg/o7DZMmELjAFaIXyJOkAC6bvidOV3aB0AEUPPtO1Vx1uEbQIfLy1wmZZg
-	 IkMx59ncHssZLrNU+bXRQs7WjNVffL6WbFlBB8+ulaWXfcYDPFPVgmtCcuQPpqA77w
-	 yBvttOSJFUP8Q==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
- Dave Jiang <dave.jiang@intel.com>, Koichiro Den <den@valinux.co.jp>
-Cc: Allen Hubbe <allenbh@gmail.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev, 
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261015142716.3452900-1-den@valinux.co.jp>
-References: <20261015142716.3452900-1-den@valinux.co.jp>
-Subject: Re: [PATCH v4] PCI: endpoint: pci-epf-vntb: Track link state from
- both sides
-Message-Id: <179207776522.95117.17789668304625324236.b4-ty@b4>
-Date: Thu, 15 Oct 2026 20:52:45 +0530
+	s=k20260515; t=1792077777;
+	bh=uJXIiF8prnALe94Y+5cz/F5pbW16tata7wadQKRqYnk=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=mN3t7+40h16hYrfupBzonJnvQDLQLiDubNZ8eRqsCORCJH2z38rP3wfcJqMHDwfpC
+	 qGJtFqiqWFkYeaWxIEUeqbnRwPMQNSf2l5UvOs5HLCZbHFqfx+klCjD/dRMlPlkb+K
+	 Cm3ZELkQt3DpGge5B6ecdXU33CE6WqpLNd1fDRypb69SR1mys1SCiAcvLjwyBHGllO
+	 XfWz3w2s+GoqTDAsiKKQNrKh2NZ5ameFTCnfOu27CmiPsW9uv70ETVCBowITbF7zvC
+	 amuQLd63At+PC4yvtpaGtz9Kks2UcsyataZyFEqG8NHwbJTUsKKRiDweeMR//HVZk2
+	 +Vm32xLzsRKiA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3C2392EB21;
+	Thu, 15 Oct 2026 15:22:57 +0000 (UTC)
+Subject: Re: [GIT PULL] Networking for v7.3-rc8
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261015140051.105229-1-pabeni@redhat.com>
+References: <20261015140051.105229-1-pabeni@redhat.com>
+X-PR-Tracked-List-Id: <netdev.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261015140051.105229-1-pabeni@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git net-7.3-rc8
+X-PR-Tracked-Commit-Id: aa07285705f8d5bac464eb1c5b7412f8e88b91e1
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 045958acaa75205b31578cb22c4345e28dd2e4bf
+Message-Id: <179207777577.3502468.11718910943020250395.pr-tracker-bot@kernel.org>
+Date: Thu, 15 Oct 2026 15:22:55 +0000
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: torvalds@linux-foundation.org, kuba@kernel.org, davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
 
+The pull request you sent on Thu, 15 Oct 2026 16:00:51 +0200:
 
-On Thu, 15 Oct 2026 23:27:16 +0900, Koichiro Den wrote:
-> The control-region link status is currently updated only by
-> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
-> NTB link callbacks are empty. Consequently, the HOST can see the link as
-> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
-> leaves LINK_STATUS_UP set without notifying either NTB client.
-> 
-> ntb_netdev can hide this device-level state bug because ntb_transport uses
-> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
-> device link state directly:
-> 
-> [...]
+> git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git net-7.3-rc8
 
-Applied, thanks!
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/045958acaa75205b31578cb22c4345e28dd2e4bf
 
-[1/1] PCI: endpoint: pci-epf-vntb: Track link state from both sides
-      commit: f9eabc48327fae33cf0a02a8f312c24505dc413b
+Thank you!
 
-Best regards,
 -- 
-மணிவண்ணன் சதாசிவம்
-
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
