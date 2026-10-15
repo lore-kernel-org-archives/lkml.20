@@ -1,98 +1,77 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A207633A71A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C003B42DA3F;
+	Thu, 15 Oct 2026 20:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096874; cv=none; b=YFZC1c9DanxkRJX8zvWky4ktmsNX9djoRUFdQJrUNGFKS+NkRGSm6YdMXZVx3jIIu+7JPMxQsJ+WCJ7WM0a5nPkqXgAoJQJLKSGgn9ICp9zVhWmSgefn7hUNr5s5sDzcW6h5ecxkBDNPsjL/y8AS8FIusZcjAvVvVOonmZW9tBo=
+	t=1792096989; cv=none; b=N2aGpSJf92/6M2KJfzsDPuoUm99huo0BhgDyIWDfvNNk/v4KoQbw/FJG3yWR8MMCHk0tmN/w7kOzYlWTMVYnkNcCuBnr0yInEWEcjMGX5eVS++pud/xojI+lrLRwLIML+1a1PsBkV9YvdivbZbpIQm+zX/ezrPcIyar3nbSoGD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096874; c=relaxed/simple;
-	bh=XBa7XjRKeJ3NbqHnarNo98CmUhjOgDxizD3P7JuqFN4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=slUYg4Vc+VcAbCPApQRdqmtUWhEZr1JwfDjsK5THMcUjDu1Y+Z8D2kT94xTU9izQ1E4FN8DwLePeQVaxd49BlSU3075BKEpkKS/3+sBPxmeZbgTMhxse73Mj05bcF/C+r+mC9WykQEo9Wjx11HiTzjKPP0O+3D0WxkDiKoCQyzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KT7ErP8S; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792096989; c=relaxed/simple;
+	bh=pr5x9Oy5kRt7mW+BUk7k/FVWfwFLBzKn554o/sTZ1aU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WjyY9o76POETbR0sgT4GH/sA1R0TBb7+9xVpaipp/JlqwYYsZvttdQL+raTnRV0dknJo5ggs8zWQGC1Zr4N3s2g+qUbiAPjJn6Iw/6kw/886AFl7gJbPAyNcnkce9ojk47g0FX1CPSlaOdRuaWwyPynFLee8SqKoGICXUd/On5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWKUem4N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KT7ErP8S"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4be28b82so830943f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:41:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792096870; x=1792701670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2W/kXlm5ND7ClrDzBFtvNJDZO1bLmd3mgAbbGVfKnFM=;
-        b=KT7ErP8SrE69QPgiqBh+lusvVt+J6U1wnon0AitSEzMy6xF8ZXNmZ9EmAbqU1YNGTv
-         7Mo1Il8YkGIkPjxmImyeZ/g+gvnYJrxhTB3izP/ofQFkdn74qg+nY2+m2La8Ttp1L9jo
-         q81tBZUgpg7ZCIKcZtmhR0SjHKD/FbuO76SvCGHo28L6Sd8HkxTpq5YgvddCQXvKd95s
-         fmBioHlN0p5D9VXWGzxyeeIkXfcEeHvFzWramlpe8b9Dmg89t5kvYK4zwrcHHUiV/eMN
-         nD9jow8Fr/qtZ87CLF+jd9WuB8BUiDx2DUTyX9a0MYINAt8IDJvILxjVs1LOAul0Muuz
-         045A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792096870; x=1792701670;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2W/kXlm5ND7ClrDzBFtvNJDZO1bLmd3mgAbbGVfKnFM=;
-        b=fhjWQbxdbehGKge6WoRSmUYLTfx4JbjZpDrMlitrmjz8PVH3kMHQ2MsIQbbQ9AZFhC
-         fT8AedOUX8UWQyCzxEcHszYUcIBmoDCFEFSx+IB1wvpnoKr4h/FhzqLKIY6gwSrFblob
-         ZjKFM8MsQBRxTYg+CRR3n6nbMVtQWZP08iREAh6FzQHJpPymNRtnuenXHJWACeVpozmX
-         SXgAKXbEiLH8vRZcv4H6msjwHnnu/kK04mZqE/iJrwLeRcHdG8N4ikoXUPA44oPtgQJ0
-         N6Tolhnyhyyb+crKRsuzKJ9LJgilq2Lp7UfirGslq+DdSqKiH+wwJj5Zbi+aHuFNgGPx
-         /2nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaIVv/htiFF/hmt/3mI7C7QCX6JzUr9fIxxvLPDodeVf6a1c/63im9FBj7ndMiaKCgJm6XzGiB1BaDx7k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeujQXkpfME+FuAVsXScK+CfUe5wYrnZdk+5Zui8AEGyc99Qgd
-	JDeA/1ouJz7HnnVCLFRs/Tydpi2+X82tuP6V5fx1hZxgliklnV+qnHcX
-X-Gm-Gg: AYBFou0Ruz5GpQ6k+ABAoqVov1K+Sg/opq6T3LBrxLqi+kVufElDhmCXznBEoGcP1qz
-	OO9+/XuTn59fjgG/BDduSbNSAqfPF1ZXtTavMzEvG6d/2IGBp9InUF9y/qGADZ515onx9jhrXos
-	qh6QTfsw3Ax9S6lLei1AMsOVvi7r4/ZDXHLEuPYs0n5w+ltf4YriOb6r6vC5+gVC5rA99dV5bHU
-	4PdcLc/xqXH+KnQv6rCXBvxDWRQyEiSxm7l2zl9MjiF3OjA+FIA1X4uTUbhpM4OenNf0pMVLNgl
-	dxfsauNKrSLkSgJTUFkNQa38brb8qGxX/YeZL1hrBgJ/h1LodN/s9JciilrWfmocNHArG68oTZm
-	3Mp0tNgT3CtHp82N2gvKFlutW44eN9nSDQH6KhpFbGPgLAskXJColbPtw3VUzKGnz/jeuGK2RJY
-	zYpIFrBikQtad4k5KbhYanoRld1gr3vj0sRTCxVUHh1EiyuLaZ8r/Jk+rjdRDWbLPEhmrFFT3NW
-	eH4a1hLTEH7c+P1hKSscQN6R/DE7oq56EAIpVb1nHlAUMjex0vHp9a8g43/vWH7Bc7+wG/3T1DN
-	2jCn8tTWRArgTJHpi1JfVwY8ITbdh4N1e2uskwLTHBohPyjAzGj4jBzpck628pz0fG305eFpXZ1
-	btFyZdma5oPvzjBSeviiXmaR3oA9nyHoW+F09om4Eew==
-X-Received: by 2002:a05:600c:19cf:b0:4a1:7b56:1151 with SMTP id 5b1f17b1804b1-4a18e48f00dmr402724835e9.18.1792096869665;
-        Thu, 15 Oct 2026 13:41:09 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm91136205e9.6.2026.10.15.13.41.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 13:41:09 -0700 (PDT)
-Date: Thu, 15 Oct 2026 22:41:05 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Dingisoul <dingiso.kernel@gmail.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
- linusw@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- nuno.sa@analog.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: gyro: mpu3050: add missing trigger cleanup on
- remove
-Message-ID: <20261015224105.7b27d7f4@systembl0wer>
-In-Reply-To: <20261015203559.2125485-1-dingiso.kernel@gmail.com>
-References: <20261015221818.09527ff6@systembl0wer>
-	<20261015203559.2125485-1-dingiso.kernel@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWKUem4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC251F000C4;
+	Thu, 15 Oct 2026 20:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792096986;
+	bh=Z32cr+2zpC1ByPRqQb3sKosGGUM77X1spoPfr6I4FJQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EWKUem4N7fl149UT/ZgYdhE09OSePyi0EPkqpkhRPbVf8ClPuqV9o/lTMD6BqE7tT
+	 RDUfVhkZcg9+1i5eUK03pKIA/06nB97+upAAv051ZuupUarnsIJdjV3F6x5JoB6BWG
+	 kzOpur5y9Cb347Rh5ux7uJGiViqrzNpX5HOKkP0f4ipBMIP42aWK6Sk1phBZqXFM9v
+	 6ZBJu+Khb21srN7Y8dAXkahbvh/PTGiNgoLQJDJpN7iEqtI7PC+C7z7uVV7DL0bpfc
+	 HVskZtOvrSrtkgGp3+5qiOi3VZOP2EXvq4tpmxfGDhpwrEMu/7GS6LAAcQtMM49FQP
+	 TW3+hx9ZhMPsg==
+Date: Thu, 15 Oct 2026 15:43:03 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Radu Sabau <radu.sabau@analog.com>
+Cc: devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	Alexandru Ardelean <alexandru.ardelean@analog.com>,
+	Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, linux-kernel@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v3 2/6] dt-bindings: iio: imu: Add bindings for ADI
+ ADIS16607
+Message-ID: <179209698354.3152231.7674208347588415958.robh@kernel.org>
+References: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+ <20261015-adis16607-v3-2-f972d4efee85@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-adis16607-v3-2-f972d4efee85@analog.com>
 
-On Thu, 15 Oct 2026 16:35:59 -0400
-Dingisoul <dingiso.kernel@gmail.com> wrote:
 
-> Applied it, rebuilt, and reran my reproducer: the trigger now gets
-> properly unregistered on unbind, so the attack just gets -EINVAL
-> instead of a UAF. No KASAN report, no warnings.
+On Thu, 15 Oct 2026 12:32:59 +0300, Radu Sabau wrote:
+> Add device tree bindings for the Analog Devices ADIS16607 Precision
+> MEMS Inertial Measurement Unit. The ADIS16607 integrates a triaxial
+> gyroscope, triaxial accelerometer, and temperature sensor, and
+> communicates over SPI Half-Duplex.
+> 
+> Two variants are supported: adis16607-2 and adis16607-3.
+> 
+> The binding exposes optional properties for:
+>   - An external clock for sync mode (falling back to the internal 8 kHz
+>     clock when absent)
+>   - A hardware reset GPIO (active low)
+> 
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+> ---
+>  .../devicetree/bindings/iio/imu/adi,adis16607.yaml | 82 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 89 insertions(+)
+> 
 
-Good to hear, thanks for testing!
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-Kind regards,
-Joshua Crofts
