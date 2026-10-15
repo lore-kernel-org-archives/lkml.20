@@ -1,72 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2384D55294B;
-	Thu, 15 Oct 2026 15:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B773E317F;
+	Thu, 15 Oct 2026 15:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078714; cv=none; b=rUlSuL/nB9tUINuOEusZLsbnoHBPtHPAZXnV+MqsRAip6cks/+cfpQaaR7qmw4HifMhYPCUtskGfJ9mC20y4hJ17YGTdhxGDtfs/Qf1BIGZ84O0bjxa+mQH/B8YOhe2y/kPm7bkeqWiVGINQNn7sx4B0VgCUJKuaX1HWezg0Owk=
+	t=1792078768; cv=none; b=Q6KqSnxOgRMXYVWFFqEYaLkR3kJjTcbY+0cqba2XeJ2gTpOA+mwj3d1IVHUFXB0O5tlYmiJLTHPI3UQw7DPrfAPJcY8TNM8xd88JnF7Pe3ODX9NL5n9X8rj8hls/ijD3Zh//9zVy9ofOZZ3HOG/n1aeNTEWNxB2X6bhQymJoi3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078714; c=relaxed/simple;
-	bh=I+kVzXbrVImoxKim9SUcCscwuEW9HqE09aKABsRGFA8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NCHMUJpO9dVk5XAyluwPlUqpfVQlY84hMtrpX9Tu1TE3sMJGLDTsRRyO56lOIVJZS2XkFhpZBcvTmhiblifvj93hD9y/gOBGf7BMeX/urv8g0crcafX3frcdUu6m3mhvewnNIaA9E37GKi6kMR29d1nV49Q80U4OV5fptb2AAjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFVcbDMW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792078768; c=relaxed/simple;
+	bh=+dHgy3N/7gLS1Qh9qig6x46n+yZUjDiqsiVq+rHySdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fpsEuQXuZWrRAerj4bclDKogZQKLm7158BGkgmZiBRFoW0r8X9Z2q7VImWHXjznitcvHcVIdBxkHl+PL97RciPFe8uRvxjtBnfRvLAYIEZMHhABWcpRxZSz1OJU1bT6gFOCs4WyFl3eNLh3ml3sgYtZanwNVH/xXZ1t3Oq2Pg+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jN7ROiVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFVcbDMW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0D71F000C4;
-	Thu, 15 Oct 2026 15:38:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jN7ROiVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC171F000C4;
+	Thu, 15 Oct 2026 15:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792078702;
-	bh=gF4R8zEeHiL25NkVdPqa/dIy2QBL8dcXvc8EjTnjx8k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YFVcbDMWhX2AQ8H1wiQedCMu6IYYv5/G3TceVAfOgmbdsxuvVQ9m+wvT/k48xEwoC
-	 JePtb1C8/EuVhg0wNoNl4tvFLPL2qJCLl5ejWG/bzP/RlBo88n/rFmcvyN0YkoWrX5
-	 3yTuyF9GtLzYCk9wVOhKatlvElSUHxOfVyddyvTNeyJlQqD55l/nw8gwvsws2u/w8+
-	 N0txPfEAqAUXh/iFJqY1Nvx/UnlQ7DhnMOUpyv0EoyR9soHivBRAMAZtxZMQuVN/cK
-	 Gkm/iuI489uFwQuinD8h5Qv7ECWLFe/9WhSY/81cUL+wSL9vCp0z7ys6kIRRBF3sE2
-	 o6eABIzdJkshQ==
-From: Lee Jones <lee@kernel.org>
-To: linux-kernel@vger.kernel.org, Thierry Chatard <tchatard@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, 
- lee@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, 
- djrscally@gmail.com, mchehab@kernel.org, sakari.ailus@linux.intel.com, 
- jacopo.mondi@ideasonboard.com, nicholas@rothemail.net, 
- andriy.shevchenko@intel.com, v.vitovt@gmail.com, dmanresa@gmail.com
-In-Reply-To: <20261002163350.1248431-1-tchatard@gmail.com>
-References: <20261002163350.1248431-1-tchatard@gmail.com>
-Subject: Re: (subset) [PATCH v12 0/9] Enable cameras on Dell Latitude 5285
- 2-in-1
-Message-Id: <179207869949.2065793.15429443832906134780.b4-ty@b4>
-Date: Thu, 15 Oct 2026 16:38:19 +0100
+	s=k20260515; t=1792078757;
+	bh=clDnXgxlukUJgyNafFQbgSdwRfqCNaCIb5WhZlQOEAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jN7ROiVeST/l6I5kKRVzvkIdwzfTWzii7v7nxX40LXf/KzJWS2QfO4aYf/3oSlSqz
+	 UakhmzpNopiedNKGrII9giQlTHjQXtIPpg4WV6C6Hr8E7WmNRy35QXaCfv0I/2jPcm
+	 oUYfSc8waj3mLvs7E3TKmNwN6hWW8Gn2qbfh3+jXOxRw2Rm7nUvfU0032NRtg6mWlV
+	 OAQDEr0ctPRZHzLfHLvQmOm0f3lArZvjyHlB63LmnAlHDmgDqoE26v44QHgdKhWe4T
+	 t+PxfDFHNMHoP7aIDVE5alttoEuCiO6PyOFP6wKKeTYibFiQbZGqy+VLzBQJ3CeGoD
+	 Tl38NVCuzkQPA==
+Date: Thu, 15 Oct 2026 18:39:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Dongliang Qin <cccccccccccc777777@gmail.com>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bob Pearson <rpearsonhpe@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] RDMA/rxe: Fix MW/MR lifetime races
+Message-ID: <20261015153913.GA219304@unreal>
+References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+ <20261014061223.1547823-1-cccccccccccc777777@gmail.com>
+ <20261015085034.GY219304@unreal>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015085034.GY219304@unreal>
 
-On Fri, 02 Oct 2026 09:33:41 -0700, Thierry Chatard wrote:
-> This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
-> cameras on the Dell Latitude 5285 2-in-1 under Linux.
+On Thu, Oct 15, 2026 at 11:50:34AM +0300, Leon Romanovsky wrote:
+> On Wed, Oct 14, 2026 at 02:12:23PM +0800, Dongliang Qin wrote:
+> > Any comments on this patch ?
 > 
-> Per Documentation/process/coding-assistants.rst, every patch carries an
-> Assisted-by tag; this work was developed with help from an AI coding
-> assistant. I have reviewed and tested it on the hardware and take
-> responsibility for the result.
+> It is hard to say anything meaningful for AI-generated RXE patches.
+
+And it doesn't apply.
+
+Thanks
+
 > 
-> [...]
-
-Applied, thanks!
-
-[1/9] mfd: intel-lpss: add resource conflict quirk for Dell Latitude 5285
-      commit: 194da454d5e204e8bb995359e995fac232fb6da5
-[2/9] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
-      commit: 495d5f41a6161dffafe61ac458459c62d440344a
-
---
-Lee Jones [李琼斯]
-
+> Thanks
+> 
