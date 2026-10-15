@@ -1,105 +1,130 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D93F4EF14D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD7927057D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100115; cv=none; b=cjsTEoB3T3BCDF2lP6dt2cFZjQZdn0T7QEkRnWPLBBCwlQMpbVQ+TtlIj/DsB+cPB8STRF7U7op3nepxZWOWLKDCSLEl1TcpbM/emwvq4Z5SkNaFSRkEMJy55Ifp/f2DQE6Ee5LiM/8dH4wdmJMHfR5udTEgPq/5LFhbcCN92Pw=
+	t=1792100213; cv=none; b=aBHUfVBU2hMMtXgXliBa+w2Dn+n4Gj1iGQ8VB3Mhqmy1k6WbwOzg4uItsi/NdZb4zA+8VNisoRwJ2e34K++f8QZBqlEbfs+v0tqxBURfNOkmFk2gKUqnEFr9WPSMbGibo4KcvkkfI73B+9XOpkjBropB6umLtD2wkOElSn++H68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100115; c=relaxed/simple;
-	bh=VOxMxCDPWN+fLBBRLpSJMHD9RS9TItpTF8mT+aGjZRs=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=IcTQSbdXlneJFGZDHLRmahnpoPpjxg4uRoNFDihehJSFkfY6b/zaXHvl0D00ee9HxZlFzdEg/wH2sRLXRnuLx0G49bHI7ze6LYCjCa+xPd3/QN9Ky8cQxvVf9O2dqNOiXnxXXG4qusJjOKqOaOOKkJp6t/uqoj7P49PJ5vVAfsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c80LvQ5E; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792100213; c=relaxed/simple;
+	bh=/mThlAxqOQ/illGXXCKqwpofgrrCmo0z6UJR5iZDmek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VhpTln6h3IZFagBmZZuNCd6oHIRposx82B7A3VQb2QkxqPR3yWxsm97/+HGO4GmkBXWTV5+Z7SGISUmUIZ1VvPU6bgILc5BOa6RjdCnJjMLKFlMwYZ1v7o2aWU9gp3fv4ajqVp9hm4qeAoVMx9AchzWdKJJv2yugbbgJF8Nl8tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5Gw+2rH; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c80LvQ5E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792100105; x=1823636105;
-  h=date:from:to:cc:subject:message-id;
-  bh=VOxMxCDPWN+fLBBRLpSJMHD9RS9TItpTF8mT+aGjZRs=;
-  b=c80LvQ5EWrMM7oRpyT5G2R+8IAazMyKdFJ46V4lcNHalljLAs3GYlqfG
-   woV+XjdXhogVzWPi7bAktj37BqJOzPKpY/kAu9ZmDZ0H4MDGg4vqnxyIv
-   cxuWQkmb5XwbLcQPuMYrcn2S9HgSLqZp5i8V/4uCatr6c6hrG0CuaQKzD
-   sMvBT5J9TZKUZSjEXVB+WCvaRFAQS+iVBdCR8KX34TFMuFndQAGtU3w/Z
-   /CWWZsu1N7raRNsvhf46zUeE4M1BZ6kXyuCGxcfeYNWd47EAjkgUOLTQ6
-   yElDtQdgQCeMpjhGBJjX6K3IKcuktftDTajEEY3Muz+rtq6JZdgyJavpb
-   A==;
-X-CSE-ConnectionGUID: VEc6HxybT1C9is2aH1yK9A==
-X-CSE-MsgGUID: cdxVmPD9RpCKeYVSX9ymQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="780943"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="780943"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:35:04 -0700
-X-CSE-ConnectionGUID: mvG7m/LrSmyS0h15KCAu1g==
-X-CSE-MsgGUID: 1anueJecSXGqUZG9ipQh7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1706475"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by orviesa005.jf.intel.com with ESMTP; 15 Oct 2026 14:35:03 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xHT6K-00000000BrD-18XT;
-	Thu, 15 Oct 2026 21:35:00 +0000
-Date: Thu, 15 Oct 2026 23:34:17 +0200
-From: kernel test robot <lkp@intel.com>
-To: Richard Patel <ripatel@wii.dev>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- x86@kernel.org, Thomas Gleixner <tglx@kernel.org>
-Subject: [tip:irq/core 3/7] kernel/irq/manage.c:1208:2: error:
- implicit declaration of function 'clear_and_wake_up_bit'; did you mean
- 'clear_pfnblock_bit'?
-Message-ID: <202610152305.qx1OoHrk-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5Gw+2rH"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3ac144119e4so1904820a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792100210; x=1792705010; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TFWHGN7cklsMWKCyO/CrNxAqmD+l+5aS8n56/ZuYuKE=;
+        b=L5Gw+2rHfKE35YiYPy1ol+Mo3zNmcIrTcm+mx5+BQacp1HSFNELcpJ6qmDp0QHOg3n
+         eSTwG/f5uRWvuhiLEoPNh2WZHfLDYhdc00wODroEGA2Jc0PUIZSOtUVfQ3SU5Dd+N1b3
+         HfocrloFYZ3lGJ7lihdL3QuZoGxvCIZUeYtCKnnitqPWwkoC3y9LMKNscFi4lcdLoARf
+         dICo26do3vBcP09lvRkDSgOyDefSdm2vtCqzdztqSCrp4FhXpYa7AuOEDh/TM4RQHd2X
+         DWgUOL8szfRsiHPSZtukg6KSbYtG8pwMW6DMaZLbQdoHydZz3/N8YgC0ahh0Q0IejlQs
+         25Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792100210; x=1792705010;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TFWHGN7cklsMWKCyO/CrNxAqmD+l+5aS8n56/ZuYuKE=;
+        b=k3JCUcfAbd3BZgJsfcRhILtiE4w0J+g5Ii3nul0fJpLdLOanR0L09TbaBumNdlyxC0
+         XXosX+9y12lNORR94dRvug+mRmjkJEw6LphP934mb1NrtDeHPdF2QvXO8OxBEqz5+Fvu
+         RE/xRBIvwelfo7+yJVqGwt61JiZZ5wg8GJ8FDGO1YskisgPp09EJlIIec9AHr/0cNA4V
+         6xY/WjwpsKjqxNkxcUFg6Dnk9/fftRMt3RfNbc8eh9QTxMCJA+xEtpE7aXKvXqu2MOhC
+         ryjlD5FvHnKn5xEZbeSR42kMATCgQjqrSffa1JjrAMaWtOV7kfi8Rrpfn4q4VV0rv0RC
+         R4pg==
+X-Forwarded-Encrypted: i=1; AKwUvBwuZQXmyWK0YXmdJiVWMmcdT60H5OdMQnfRjrZtTQlBKdFxoXSOM9JxV6lr8CiWXykwHOxeUHvcIJUQ3ec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFtb7yYWJDsBjvPeT7JOzbHMrMSW0IEifAxOfPXuENMU3w6bhw
+	fOEWSlwGIkAfMpYgGy8qt8Ps+BWE+E8I4/4ILiZvVvyQ7eXSM2makjrr
+X-Gm-Gg: AYBFou0KB4dH2vxiI4LKZ4gXi9snmNL5novl/Ti6C4f6kk42XEWQLvalhpc3F+U0sOB
+	bSI9SZEQvrR71G2gamIdwu4TYOba0xmQNbZiW0BOiKOXrq1oWGd5CLhMUb4R6euzETpTgBVfMAt
+	ZECPMG30NhwOxiy7SplTzzehYSKW5ikqYJlZKTAXoZdC0G1XEwEmSTmtYj8Ua0puQ+nGOUJ3GS3
+	PWvmzO1MiClGWcrfilZsOmqcTtSJ78tk5OYglvegfLJiuLFcnIAq1zrak3tvtE1/UQv1Op/ITDS
+	HH4MtSHM5G2/bIpuPSIhmGzkRVNIPlROAEMekvLcuORm0QTx9CrifaGCgxzxidHn/LPhLWKt/du
+	DZA4PM/c4Q9+pymfKDRFaytxxOVbgHXtK0y+ko79V+37yFeZtmPv/WqYn4iLWx/zvzJl9csqXTy
+	oGYZ1BAhKl+ygwtC3j6II2madSkHnaM/DbfxOne8ldFRoh59CUp0Z0Zt7LXfGLccBP
+X-Received: by 2002:a17:90b:48c5:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ab3a7366bfmr18636143a91.14.1792100210060;
+        Thu, 15 Oct 2026 14:36:50 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:46::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd05fb680sm23372a91.2.2026.10.15.14.36.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 14:36:49 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:36:38 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, Ayush Sawal <ayush.sawal@chelsio.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
+	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Jakub Raczynski <j.raczynski@samsung.com>, 
+	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
+Subject: Re: [PATCH net-next v3 0/6] net: unify symmetric netmem and
+ page_pool refcounting
+Message-ID: <atFHX4ryLonqXpn4@devvm7509.cco0.facebook.com>
+References: <20261014173945.373295-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014173945.373295-1-almasrymina@google.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/core
-head:   4351cc74202857f5b85b3573c477c9f798f5cd88
-commit: 313fa9ffa302f81b437e1ebbb1e6abae06be0cad [3/7] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
-config: xtensa-randconfig-2001-20261015 (https://download.01.org/0day-ci/archive/20261015/202610152305.qx1OoHrk-lkp@intel.com/config)
-compiler: xtensa-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610152305.qx1OoHrk-lkp@intel.com/reproduce)
+On 10/14, Mina Almasry wrote:
+> netmems (pages and net_iovs) have two independent refcounts: a non-pp
+> refcount (page._refcount or binding->ref) governing backing memory
+> lifetime, and pp_ref_count governing recycling within a page_pool while
+> page_pool holds a single backing non-pp reference. SKBs with
+> pp_recycle=1 own pp_ref_count references on page_pool fragments; SKBs
+> with pp_recycle=0 own non-pp references.
+> 
+> Core helpers currently mix these two refcounts asymmetrically:
+> skb_frag_ref() always increments the non-pp refcount via get_netmem(),
+> whereas skb_frag_unref() decrements pp_ref_count when skb->pp_recycle
+> is set. Any path that refs a fragment on a pp_recycle=1 SKB (or unrefs
+> with a hardcoded recycle=false) increments one counter and decrements
+> the other, leaking the backing memory while underflowing pp_ref_count
+> (e.g., IP-TFS [1], skb_split(), skb_shift(), and cloned SKB uncloning).
+> Unclear core APIs also led drivers and ULPs to open-code pp_ref_count
+> manipulations or add one-off helpers like skb_pp_frag_ref().
+> 
+> Unify fragment refcounting into symmetric pairs where each layer clearly
+> specifies which refcount it touches:
+> 
+> - Non-PP refcount: get/put_page(), get/put_net_iov(), get/put_netmem()
+> - PP refcount:     napi_pp_get/put_page()
+> - SKB netmem:      skb_netmem_ref/unref(netmem, recycle)
+> - SKB fragment:    skb_frag_ref/unref(skb, f)
+> 
+> Found by code inspection while reviewing [1] and confirmed with the KUnit
+> tests in patch 6; not observed in production. Driver and ULP call-site
+> changes are compile-tested only.
+> 
+> Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/ [1]
+> 
+> ---
+> v3:
+> - Linearize straddling output segments in skb_segment() when frag_list
+>   SKBs mix pp_recycle flags instead of clearing NETIF_F_SG, and add a
+>   KUnit regression test (Sashiko).
+> - Link to v2: https://lore.kernel.org/netdev/20261012082148.1698596-1-almasrymina@google.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610152305.qx1OoHrk-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   kernel/irq/manage.c: In function 'irq_thread_dtor':
->> kernel/irq/manage.c:1208:2: error: implicit declaration of function 'clear_and_wake_up_bit'; did you mean 'clear_pfnblock_bit'? [-Werror=implicit-function-declaration]
-     clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
-     ^~~~~~~~~~~~~~~~~~~~~
-     clear_pfnblock_bit
-   kernel/irq/manage.c: In function 'irq_stop_thread':
->> kernel/irq/manage.c:1866:2: error: implicit declaration of function 'wait_on_bit'; did you mean 'llist_on_list'? [-Werror=implicit-function-declaration]
-     wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
-     ^~~~~~~~~~~
-     llist_on_list
-   cc1: some warnings being treated as errors
-
-
-vim +1208 kernel/irq/manage.c
-
-  1202	
-  1203	static void irq_thread_dtor(struct callback_head *unused)
-  1204	{
-  1205		struct irqaction *action = kthread_data(current);
-  1206	
-  1207		__irq_thread_dtor(action);
-> 1208		clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
-  1209	}
-  1210	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
