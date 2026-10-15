@@ -1,242 +1,117 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C796F5038E8;
-	Thu, 15 Oct 2026 12:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D3E651AFDB;
+	Thu, 15 Oct 2026 12:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068684; cv=none; b=ltPZYA3FFzQHSOIf1NazN0Db4LcDIGoiITZb/eqOytrCASSdFmfAnaOzHETylxkE4BKuUI8jOB0GCo41135Jhbx+DFJge1bJtzAkMbXR/hGaOI2WYuMZpDb+UxjfgcvgipsPrRS+GndUMU6yY09To1GOEyjuc150UQPOlVto9mQ=
+	t=1792068700; cv=none; b=shUiF2WE6uj7gozeUTQ0idjW2S6f0qxmUEdE4iytNvDMjaSn0jUOCTT4X622u5Bt++9dABX1DdeZGY79bJnMjXuVR7JnMH7xB06ogzM97zHGkAcfwLO9+wLF9J6QrBchw141SbaSD0Vgf1PtkTZZKQUhdtH+z/M+syAqtCk4Q2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068684; c=relaxed/simple;
-	bh=Hok8IYh2hUr15CKnSYNR/eX3ixGPr6/mHgtOFU8ZpRk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AYHCq7fL+s5cs6lgBvOUT0la8FfyyqxxalEDTdwDZ1HZztWIroCTWlRah76tbXUgNjDu4naWeB0SNmJ+hjvJccfEjnqkrWm49C0VZWkP9BtvZLbhC4ps0Z59r9gRDWH6ym7MJrqE3lyENVpJznFHmntlQyWYARtsLMfIdNwLH8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=jdVW7Cm/; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="jdVW7Cm/"
-Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 018CF21A84;
-	Thu, 15 Oct 2026 15:51:21 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=wRpEnCnzQ7K4SgQuxvHE
-	YcH5E8zGzMsm22KjnhjBopg=; b=jdVW7Cm/hxdHWKbkl74CLPMRj2c5PfnuaafC
-	AtiYxJdaq3V/CF6umEt9m41nFAmZ7Iqn5XTnfctY9QJlSKmzZo06S1xDpN/VU/8a
-	bVKipZuBeO6gvNJLDMeHjZ6YMsLv2AokRf4ExEnQ4KuM+WWhRXfylydoRCNKNM1m
-	w8meRNxa18EG65Fg601fu9wRvIo1b1PPJ6Rh0Zzp3fkjJ8NTGWFFh7sNFWkiSmm7
-	0V7fH1ejcE+Ta8J06BKhtz6+Qdjk8/0Fc6RDBx8ZfECZM84Ox7F/+3TayEZCKeDz
-	yTa53E1uvdKwIxbwsi24t727AKEdqGp6fydQ9ycm49eIL4Plmw==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 737D221B05;
-	Thu, 15 Oct 2026 15:51:19 +0300 (EEST)
-Received: from [10.89.11.73] (10.57.8.14) by VTJ-MX.corp.irix.systems
- (2a02:2f04:1:9c24::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
- 2026 15:51:19 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Sagi
- Grimberg <sagi@grimberg.me>, Max Gurtovoy <mgurtovoy@nvidia.com>, Bart Van
- Assche <bvanassche@acm.org>, "Md. Haris Iqbal" <haris.iqbal@ionos.com>, Jack
- Wang <jinpu.wang@ionos.com>, <linux-rdma@vger.kernel.org>
-CC: Andrei-Alexandru Bleortu <me@andrei-z.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH RFC 3/3] RDMA/rtrs: Post client read requests inline
-Date: Thu, 15 Oct 2026 15:51:18 +0300
-Message-ID: <20261015125118.2966247-4-me@andrei-z.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015125118.2966247-1-me@andrei-z.com>
-References: <20261015125118.2966247-1-me@andrei-z.com>
+	s=arc-20240116; t=1792068700; c=relaxed/simple;
+	bh=e+safD3hUNzYJYliSocdsb9uNpf58U7yqIw1V03S0TU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=B8iBiTdYkBHYuQCKoS+Lr/7JQAdmiAzg6OZgPeLIK9f57W4rZ7R8IDoPTGE1azeLzToLzcMuzoNwMxSw2xYjYmkNH4ReMQ6RTHW1xvXo4ngmu8GNyDm+MrGhDgCbD4uFMCud/M32YLQPd0US5f+jorP5PdoBqe17Oc1GMH2bp9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [180.108.30.19])
+	by gateway (Coremail) with SMTP id _____8Ax29FYzNBqvSEWAA--.64744S3;
+	Thu, 15 Oct 2026 20:51:36 +0800 (CST)
+Received: from chenhuacai$loongson.cn ( [180.108.30.19] ) by
+ ajax-webmail-front1 (Coremail) ; Thu, 15 Oct 2026 20:51:30 +0800
+ (GMT+08:00)
+Date: Thu, 15 Oct 2026 20:51:30 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6ZmI5Y2O5omN?= <chenhuacai@loongson.cn>
+To: linux-kernel@vger.kernel.org
+Cc: linux-tip-commits@vger.kernel.org, "Thomas Gleixner" <tglx@kernel.org>,
+	x86@kernel.org
+Subject: Re: [tip: irq/drivers] irqchip/loongson-eiointc: Use pa_to_nid()
+ rather than hard-code
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
+ 20250609(354f7833) Copyright (c) 2002-2026 www.mailtech.cn loongson
+In-Reply-To: <179205976728.2666988.6236210457087239433.tip-bot2@tip-bot2>
+References: <20261013062358.60654-1-chenhuacai@loongson.cn>
+ <179205976728.2666988.6236210457087239433.tip-bot2@tip-bot2>
+Content-Transfer-Encoding: base64
+X-CM-CTRLDATA: nmZ1jmZvb3Rlcl90eHQ9MTk4MDo2MTg=
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+Message-ID: <2a16d59f.8234.1a13f9e2242.Coremail.chenhuacai@loongson.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:qMiowJCxuM1SzNBqUqosAA--.11268W
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/1tbiAQEBBmrQNHcIvQABsK
+X-Coremail-Antispam: 1Uk129KBj93XoW7uryrKF1UAryxKrykJF4DWrX_yoW8tr1UpF
+	W7Cayqkr4UG34Ykr1vvr4UCFy5Zwn3WFZrKFWUG3y3ZF98Xr1DXr1fAws8XFsFkwn2ga4j
+	vFsYq34q93WUCacCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
+	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFcxC0VAYjx
+	AxZF0Ew4CEw7xC0wACY4xI67k04243AVC20s07MxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l
+	6VACY4xI67k04243AbIYCTnIWIevJa73UjIFyTuYvjxUFApnDUUUU
 
-The RTRS client sends a read request as an RDMA Write with Immediate of
-a small message: the user message, the RTRS header and one memory
-descriptor, about 60 bytes for RNBD. The message is posted by reference
-and the QP asks for no inline data, so the HCA has to DMA-read it from
-host memory before sending. That read is on the latency path of every
-read.
-
-Let rtrs_cq_qp_create() take the amount of inline data to ask for.
-The client asks for RTRS_CLT_MAX_INLINE_DATA, enough for a read
-request with one descriptor and up to 64 bytes of user message, and
-the server asks for none. If the device refuses, the QP is created
-without inline data. The client posts a read request with
-IB_SEND_INLINE when it fits in the inline size the device granted.
-Write requests, whose message travels behind the data in the same
-WR, are not changed.
-
-Providers copy inline data from sg_list[].addr as a kernel virtual
-address, so the inline path puts req->iu->buf in the on-stack SGE.
-
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- drivers/infiniband/ulp/rtrs/rtrs-clt.c | 17 +++++++++++++++--
- drivers/infiniband/ulp/rtrs/rtrs-pri.h | 10 +++++++++-
- drivers/infiniband/ulp/rtrs/rtrs-srv.c |  2 +-
- drivers/infiniband/ulp/rtrs/rtrs.c     | 22 +++++++++++++++++-----
- 4 files changed, 42 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-index bf3a0377da3f..4a552e0459b2 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-@@ -489,6 +489,17 @@ static int rtrs_post_send_rdma(struct rtrs_clt_con *con,
- 				      req->iu->dma_addr,
- 				      req->sg_size, DMA_TO_DEVICE);
- 
-+	/*
-+	 * Post the request inline if it fits in the granted inline size, so
-+	 * the HCA does not have to DMA-read it from host memory.  The CPU
-+	 * copies inline data from a kernel virtual address, so put
-+	 * req->iu->buf in the SGE.
-+	 */
-+	if (req->sg_size <= con->c.max_inline_data) {
-+		sge.addr = (uintptr_t)req->iu->buf;
-+		flags |= IB_SEND_INLINE;
-+	}
-+
- 	return rtrs_iu_post_rdma_write_imm(&con->c, req->iu, &sge, 1,
- 					    rbuf->rkey, rbuf->addr + off,
- 					    imm, flags, wr, NULL);
-@@ -1714,11 +1725,13 @@ static int create_con_cq_qp(struct rtrs_clt_con *con)
- 	if (con->c.cid >= clt_path->s.irq_con_num)
- 		err = rtrs_cq_qp_create(&clt_path->s, &con->c, max_send_sge,
- 					cq_vector, cq_num, max_send_wr,
--					max_recv_wr, IB_POLL_DIRECT);
-+					max_recv_wr, RTRS_CLT_MAX_INLINE_DATA,
-+					IB_POLL_DIRECT);
- 	else
- 		err = rtrs_cq_qp_create(&clt_path->s, &con->c, max_send_sge,
- 					cq_vector, cq_num, max_send_wr,
--					max_recv_wr, IB_POLL_SOFTIRQ);
-+					max_recv_wr, RTRS_CLT_MAX_INLINE_DATA,
-+					IB_POLL_SOFTIRQ);
- 	/*
- 	 * In case of error we do not bother to clean previous allocations,
- 	 * since destroy_con_cq_qp() must be called.
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-pri.h b/drivers/infiniband/ulp/rtrs/rtrs-pri.h
-index 59529d593869..bcba80d3c214 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-pri.h
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-pri.h
-@@ -97,6 +97,7 @@ struct rtrs_con {
- 	int                     nr_cqe;
- 	atomic_t		wr_cnt;
- 	atomic_t		sq_wr_avail;
-+	u32			max_inline_data;
- };
- 
- struct rtrs_path {
-@@ -286,6 +287,13 @@ struct rtrs_msg_rdma_read {
- 	struct rtrs_sg_desc    desc[];
- };
- 
-+/*
-+ * Inline data the client asks for on its QPs: enough for a read request
-+ * with one memory descriptor and a user message of up to 64 bytes.
-+ */
-+#define RTRS_CLT_MAX_INLINE_DATA (sizeof(struct rtrs_msg_rdma_read) + \
-+				  sizeof(struct rtrs_sg_desc) + 64)
-+
- /**
-  * struct rtrs_msg_rdma_write - Message transferred to server with RDMA-Write
-  * @type:		always @RTRS_MSG_WRITE
-@@ -325,7 +333,7 @@ int rtrs_post_recv_empty(struct rtrs_con *con, struct ib_cqe *cqe);
- int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
- 		      u32 max_send_sge, int cq_vector, int nr_cqe,
- 		      u32 max_send_wr, u32 max_recv_wr,
--		      enum ib_poll_context poll_ctx);
-+		      u32 max_inline_data, enum ib_poll_context poll_ctx);
- void rtrs_cq_qp_destroy(struct rtrs_con *con);
- 
- void rtrs_init_hb(struct rtrs_path *path, struct ib_cqe *cqe,
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-index 5314599d29fe..30fa4c7f64dc 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-@@ -1759,7 +1759,7 @@ static int create_con(struct rtrs_srv_path *srv_path,
- 
- 	/* TODO: SOFTIRQ can be faster, but be careful with softirq context */
- 	err = rtrs_cq_qp_create(&srv_path->s, &con->c, 1, cq_vector, cq_num,
--				 max_send_wr, max_recv_wr,
-+				 max_send_wr, max_recv_wr, 0,
- 				 IB_POLL_WORKQUEUE);
- 	if (err) {
- 		rtrs_err(s, "rtrs_cq_qp_create(), err: %pe\n", ERR_PTR(err));
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs.c b/drivers/infiniband/ulp/rtrs/rtrs.c
-index a642626e0ecb..08b8b1abb1d3 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs.c
-@@ -253,9 +253,10 @@ static int create_cq(struct rtrs_con *con, int cq_vector, int nr_cqe,
- }
- 
- static int create_qp(struct rtrs_con *con, struct ib_pd *pd,
--		     u32 max_send_wr, u32 max_recv_wr, u32 max_sge)
-+		     u32 max_send_wr, u32 max_recv_wr, u32 max_sge,
-+		     u32 max_inline_data)
- {
--	struct ib_qp_init_attr init_attr = {};
-+	struct ib_qp_init_attr init_attr = {}, attr;
- 	struct rdma_cm_id *cm_id = con->cm_id;
- 	int ret;
- 
-@@ -271,13 +272,24 @@ static int create_qp(struct rtrs_con *con, struct ib_pd *pd,
- 	init_attr.recv_cq = con->cq;
- 	init_attr.sq_sig_type = IB_SIGNAL_REQ_WR;
- 
--	ret = rdma_create_qp(cm_id, pd, &init_attr);
-+	/*
-+	 * If the device cannot provide the requested inline data, create the
-+	 * QP without it.
-+	 */
-+	attr = init_attr;
-+	attr.cap.max_inline_data = max_inline_data;
-+	ret = rdma_create_qp(cm_id, pd, &attr);
-+	if (ret && max_inline_data) {
-+		attr = init_attr;
-+		ret = rdma_create_qp(cm_id, pd, &attr);
-+	}
- 	if (ret) {
- 		rtrs_err(con->path, "Creating QP failed, err: %pe\n",
- 			 ERR_PTR(ret));
- 		return ret;
- 	}
- 	con->qp = cm_id->qp;
-+	con->max_inline_data = attr.cap.max_inline_data;
- 
- 	return ret;
- }
-@@ -296,7 +308,7 @@ static void destroy_cq(struct rtrs_con *con)
- int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
- 		       u32 max_send_sge, int cq_vector, int nr_cqe,
- 		       u32 max_send_wr, u32 max_recv_wr,
--		       enum ib_poll_context poll_ctx)
-+		       u32 max_inline_data, enum ib_poll_context poll_ctx)
- {
- 	int err;
- 
-@@ -305,7 +317,7 @@ int rtrs_cq_qp_create(struct rtrs_path *path, struct rtrs_con *con,
- 		return err;
- 
- 	err = create_qp(con, path->dev->ib_pd, max_send_wr, max_recv_wr,
--			max_send_sge);
-+			max_send_sge, max_inline_data);
- 	if (err) {
- 		destroy_cq(con);
- 		return err;
--- 
-2.56.0
-
+CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAidGlwLWJvdDIgZm9yIEh1
+YWNhaSBDaGVuIiA8dGlwLWJvdDJAbGludXRyb25peC5kZT4KPiDlj5HpgIHml7bpl7Q6MjAyNi0x
+MC0xNSAxODoyMjo0NyAo5pif5pyf5ZubKQo+IOaUtuS7tuS6ujogbGludXgtdGlwLWNvbW1pdHNA
+dmdlci5rZXJuZWwub3JnCj4g5oqE6YCBOiAiSHVhY2FpIENoZW4iIDxjaGVuaHVhY2FpQGxvb25n
+c29uLmNuPiwgIlRob21hcyBHbGVpeG5lciIgPHRnbHhAa2VybmVsLm9yZz4sIHg4NkBrZXJuZWwu
+b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4g5Li76aKYOiBbdGlwOiBpcnEvZHJp
+dmVyc10gaXJxY2hpcC9sb29uZ3Nvbi1laW9pbnRjOiBVc2UgcGFfdG9fbmlkKCkgcmF0aGVyIHRo
+YW4gaGFyZC1jb2RlCj4gCj4gVGhlIGZvbGxvd2luZyBjb21taXQgaGFzIGJlZW4gbWVyZ2VkIGlu
+dG8gdGhlIGlycS9kcml2ZXJzIGJyYW5jaCBvZiB0aXA6Cj4gCj4gQ29tbWl0LUlEOiAgICAgMGEw
+Y2RmODdkMDdlMjI5MjdjMmE0YzQ3Yjc4YTA5YmVjMzdhN2QzOAo+IEdpdHdlYjogICAgICAgIGh0
+dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvdGlwLzBhMGNkZjg3ZDA3ZTIyOTI3YzJhNGM0N2I3OGEwOWJl
+YzM3YTdkMzgKPiBBdXRob3I6ICAgICAgICBIdWFjYWkgQ2hlbiA8Y2hlbmh1YWNhaUBsb29uZ3Nv
+bi5jbj4KPiBBdXRob3JEYXRlOiAgICBUdWUsIDEzIE9jdCAyMDI2IDE0OjIzOjU4ICswODowMAo+
+IENvbW1pdHRlcjogICAgIFRob21hcyBHbGVpeG5lciA8dGdseEBrZXJuZWwub3JnPgo+IENvbW1p
+dHRlckRhdGU6IFRodSwgMTUgT2N0IDIwMjYgMTI6MTY6NTkgKzAyOjAwCj4gCj4gaXJxY2hpcC9s
+b29uZ3Nvbi1laW9pbnRjOiBVc2UgcGFfdG9fbmlkKCkgcmF0aGVyIHRoYW4gaGFyZC1jb2RlCj4g
+Cj4gTk9ERV9BRERSU1BBQ0VfU0hJRlQgaXMgNDQgbm93IGJ1dCBtYXkgYmUgY2hhbmdlZCBpbiB0
+aGUgZnV0dXJlLCBzbyB1c2UKPiBwYV90b19uaWQoKSByYXRoZXIgdGhhbiB0aGUgaGFyZC1jb2Rl
+ZCB2YWx1ZC4KSGksIFRob21hcywKCnMvdmFsdWQvdmFsdWUvZywgOikKCkh1YWNhaQoKPiAKPiBT
+aWduZWQtb2ZmLWJ5OiBIdWFjYWkgQ2hlbiA8Y2hlbmh1YWNhaUBsb29uZ3Nvbi5jbj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAa2VybmVsLm9yZz4KPiBMaW5rOiBodHRw
+czovL3BhdGNoLm1zZ2lkLmxpbmsvMjAyNjEwMTMwNjIzNTguNjA2NTQtMS1jaGVuaHVhY2FpQGxv
+b25nc29uLmNuCj4gLS0tCj4gIGRyaXZlcnMvaXJxY2hpcC9pcnEtbG9vbmdzb24tZWlvaW50Yy5j
+IHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
+PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9pcnFjaGlwL2lycS1sb29uZ3Nvbi1laW9pbnRjLmMg
+Yi9kcml2ZXJzL2lycWNoaXAvaXJxLWxvb25nc29uLWVpb2ludGMuYwo+IGluZGV4IGE5ZThiNDgu
+LmJhNmU4NDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9pcnFjaGlwL2lycS1sb29uZ3Nvbi1laW9p
+bnRjLmMKPiArKysgYi9kcml2ZXJzL2lycWNoaXAvaXJxLWxvb25nc29uLWVpb2ludGMuYwo+IEBA
+IC00NTQsNyArNDU0LDcgQEAgc3RhdGljIGludCBfX2luaXQgcGNoX3BpY19wYXJzZV9tYWR0KHVu
+aW9uIGFjcGlfc3VidGFibGVfaGVhZGVycyAqaGVhZGVyLAo+ICAJCQkJCWNvbnN0IHVuc2lnbmVk
+IGxvbmcgZW5kKQo+ICB7Cj4gIAlzdHJ1Y3QgYWNwaV9tYWR0X2Jpb19waWMgKnBjaHBpY19lbnRy
+eSA9IChzdHJ1Y3QgYWNwaV9tYWR0X2Jpb19waWMgKiloZWFkZXI7Cj4gLQl1bnNpZ25lZCBpbnQg
+bm9kZSA9IChwY2hwaWNfZW50cnktPmFkZHJlc3MgPj4gNDQpICYgMHhmOwo+ICsJdW5zaWduZWQg
+aW50IG5vZGUgPSBwYV90b19uaWQocGNocGljX2VudHJ5LT5hZGRyZXNzKSAmIDB4ZjsKPiAgCXN0
+cnVjdCBpcnFfZG9tYWluICpwYXJlbnQgPSBhY3BpX2dldF92ZWNfcGFyZW50KG5vZGUsIHBjaF9n
+cm91cCk7Cj4gIAo+ICAJaWYgKHBhcmVudCkKDQoNCuacrOmCruS7tuWPiuWFtumZhOS7tuWQq+ac
+iem+meiKr+S4reenkeeahOWVhuS4muenmOWvhuS/oeaBr++8jOS7hemZkOS6juWPkemAgee7meS4
+iumdouWcsOWdgOS4reWIl+WHuueahOS4quS6uuaIlue+pOe7hOOAguemgeatouS7u+S9leWFtuS7
+luS6uuS7peS7u+S9leW9ouW8j+S9v+eUqO+8iOWMheaLrOS9huS4jemZkOS6juWFqOmDqOaIlumD
+qOWIhuWcsOazhOmcsuOAgeWkjeWItuaIluaVo+WPke+8ieacrOmCruS7tuWPiuWFtumZhOS7tuS4
+reeahOS/oeaBr+OAguWmguaenOaCqOmUmeaUtuacrOmCruS7tu+8jOivt+aCqOeri+WNs+eUteiv
+neaIlumCruS7tumAmuefpeWPkeS7tuS6uuW5tuWIoOmZpOacrOmCruS7tuOAgiANClRoaXMgZW1h
+aWwgYW5kIGl0cyBhdHRhY2htZW50cyBjb250YWluIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBm
+cm9tIExvb25nc29uIFRlY2hub2xvZ3kgLCB3aGljaCBpcyBpbnRlbmRlZCBvbmx5IGZvciB0aGUg
+cGVyc29uIG9yIGVudGl0eSB3aG9zZSBhZGRyZXNzIGlzIGxpc3RlZCBhYm92ZS4gQW55IHVzZSBv
+ZiB0aGUgaW5mb3JtYXRpb24gY29udGFpbmVkIGhlcmVpbiBpbiBhbnkgd2F5IChpbmNsdWRpbmcs
+IGJ1dCBub3QgbGltaXRlZCB0bywgdG90YWwgb3IgcGFydGlhbCBkaXNjbG9zdXJlLCByZXByb2R1
+Y3Rpb24gb3IgZGlzc2VtaW5hdGlvbikgYnkgcGVyc29ucyBvdGhlciB0aGFuIHRoZSBpbnRlbmRl
+ZCByZWNpcGllbnQocykgaXMgcHJvaGliaXRlZC4gSWYgeW91IHJlY2VpdmUgdGhpcyBlbWFpbCBp
+biBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWlsIGltbWVk
+aWF0ZWx5IGFuZCBkZWxldGUgaXQuIA0KDQoNCg==
 
