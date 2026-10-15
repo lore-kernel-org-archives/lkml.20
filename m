@@ -1,248 +1,114 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3C63CAA59
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33D650390D;
+	Thu, 15 Oct 2026 15:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078982; cv=none; b=ICoalYJlLAXCqMZo6JeO/kj8sXMt2VKagQS4OVpg/sTVY/CDRnoXWrL3wIR88p0k8BGyIJZkJ+g6S6OH0UjilchWsXCzXYWxan8gviZZi2lXl1oZyS3tcS5zYciS6f3/8V0F3ehucDAshwFdoCLQYt4Ul1Uf/4N366dE9+5OE2Q=
+	t=1792078988; cv=none; b=KVoRr3oU6EcibTOHWXHgKcn+haMJvd6Pf2PlCZAzubT1chyj/ydOa6yrY5elpgB3LZNPR0sQvpNP4IQ5kdhd01EXzhnj6Ga7KRnmfswMVik2+e+Th6LzIJAMkdfbX75+/ud5R6t7y3RvcyjEBr+7ZYCZsaMX5etUeMMgsR/KX7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078982; c=relaxed/simple;
-	bh=1fUOi+Usxn2LQcFzjoDicMxQvfperVSbtfIS6t3a0mM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gpBzFTeqHQ+85wOmg3iSv4FePW8PwYZ+L+COgFewECgnWOWQqBBjiY6qsgTWRF+0fuV1xBlWS8UMzVYOTVlfyX0KadJxzOzoNj0/ML4/9SnWtghZG3DtqScZbrcNNOMY4u42ppcCLP3VY/wFVdpGWtX+mEsEXy7RWupzZncDN6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R0UR9SXf; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792078988; c=relaxed/simple;
+	bh=BHnpQ4xHrm6QJXyGWiiGIf2ueOdd/+jwPC+jYKzSun0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=s+L47T0U5E3bIA+MjQbJM4iDB2j/p0KF7ieIsjBMSNgF2MvdiU2z3/2nuZ8t16smBrbEXh2Qog0Aie2kDVHZQs8wLO9j85kpZD3Gsp0uDZrJ7L5EbnQbULznXccbA+pDuWPa/KY3RtP8nx6+JLFdxmFU06HUg3dM8a+1OcC8jgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FtzQeevF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R0UR9SXf"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a01933b584so47021775e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792078967; x=1792683767; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8EVUVXTF9B/pmjVEVo0zfJaBGiZoNVg7V5lse2RyO7M=;
-        b=R0UR9SXfSdLRKN8vgsjzhyd81oaEz7tHTwslAVD4uu2yocB8iyTzeaX91HJfAF2HSZ
-         zfyNFy9tY2rveIy5HSk4kHu6cou98Mmm65Nw/ib9mtV2wnXWSnap0yORcKiRn9+bhNLb
-         /HvkgPwk8c21B4vfdeFwnATqt/tKh7V1N6JFjc1GswxG79FMaIisTlhabNQRTkYz/AAi
-         A1KK2BSF7pJOfDu8sLbpi305mh4DqIdXIenAOtLPi3roSTwyU1GWiEULVpymwqlkfLkZ
-         ApWTy1oTpVVOcfy57kt0RsQYUZoCNCDNc0yb16GC0j95gqwCT6HKnJMFBD1/29NWON5y
-         v/Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078967; x=1792683767;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8EVUVXTF9B/pmjVEVo0zfJaBGiZoNVg7V5lse2RyO7M=;
-        b=EniYDRyJh6GSSnurWKHWoT+TN8YTm5FBz0cfE9L5fm0of/PCboRTFutHzBOylXD2Y7
-         vxv9n6NUIWvN98GuBlwIVdZ4pYIya/c4CsPK6xyjn9VOMSQhOd8M+C0PYWSDtP0+bJHv
-         Wk54y++e6UH62oz9WbMGpKTr56OhqHqJ5F4XM9zUdndU2rxDmUX3I7yfUVzuQAYJmOxT
-         MvMiweCQ4rMVKAqv5qxHkj7ul6B3+eUSkDew614CuavkCs3dk7xQ1lH72jxEdVR65Gg4
-         yFgNu7htArKYVfc5eW5cT40+KfaE1nlEdOM8HD+F4wGtwaftb57iOXouoeC5o2PDRF3N
-         nhOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwngtwALYkaFiIq4RrkhN6auJDH/5w+v2fFIaXzxoa8XNR9WQdjf8UbEKsu20qvC81Cb6alDRNnFu/+l48=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu+JX9duAJd/t3JwHQHKIiV4wbEgDcJTgOinpAFHpWpscDDGX7
-	ciT8HVHqHSOkHzSm+punqa99qJ2lVErs1hQlJtkzh8sPSh/g/BarQeLPk/Cr/kFsHBI=
-X-Gm-Gg: AYBFou08PauyUQyjlhex5AgpNe9tdxIUrd1vIOiD9mZG+btYLWdNgSr2uYGBzFFEz3M
-	sf7Xpdfpd0lhtpygTfDVzgwwVg3Z8b/ok8PKdd5cpGejLX1LZ3qLGdumN7Lc94jBRYKNqYQzmrd
-	nM/NRs82IKwPPVbjYNy1sbjLJYWauPecAmlECOncUjFNno0AX6PbZnjy399SGjCC3LyIb+I1PzH
-	5eZ2FEdv1tCanv8w0ZU5viArIQ07qPxat2LjXQmn8YKYfLu6KBOJDjEp1I2Zwm3k/uVGGjHZPMV
-	X25SxsMbKzhMdQ00n4GC6NXyi2qUxEoa09+gDMTIaT8aPP8LZPxMO5R6sqFm/q8fFGnYOwVZjrN
-	xDbrhabyrnOm6jfnSyYcSJFu/VIuI1XLWOiox/j2F1m25ZapdhTfGnMrM5qdoE9Zda16cL9PkC+
-	4ZWTyggM9rrV/TOBhiwV39kSO75bQWOOVh+Vmxlim+YKRY6RdfHD7OzExX+ERYg4rHtoemtzHQv
-	qz7XvBBtrXq7iX8FNLcwRrMeiIxShMQnKO08Y/l5Z6p8w==
-X-Received: by 2002:a05:600c:8b82:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a18e4b887amr354993855e9.27.1792078967287;
-        Thu, 15 Oct 2026 08:42:47 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd66c5e6sm52172585e9.2.2026.10.15.08.42.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 08:42:46 -0700 (PDT)
-Message-ID: <d17b00f9-2a6c-425f-9697-6bc8f31f7a7a@suse.com>
-Date: Thu, 15 Oct 2026 17:42:45 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FtzQeevF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA571F000C4;
+	Thu, 15 Oct 2026 15:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792078978;
+	bh=5B5p+FZHuvqzKTx3y+BMcjuPx8RKHUVpxDoUZylJey0=;
+	h=Date:From:To:Cc:Subject;
+	b=FtzQeevF573Q6PYFqaWuOTm/AKCpvpEXsRHjtHvZM2WrW784uae6CY4MO7x9Ul76x
+	 Vy1L7zB52yMBEDZLygFSqWT4FqCzQAQH7g/Iuy05TblbzBkidnL4A0KBYRIXy0JKRv
+	 //hdCzBSGFJqJ3mCS2mCSeULIjRYZEYU3En87jF1a9Pxq3YPxE1bWWA4Q/w8MOZAJk
+	 IXIY/GadjeakKWp7lgcTGxTdnZJmfGGfP0NtY5cnal0XGThw9UFfujB8u/ZSTJt6FW
+	 Tf/LsI79VFB/opzywTvSQgdFbQm/4iNh4Xer5dZCloqSeJhXG7gplBKvsawVdPexis
+	 le8CbT/CFDUsg==
+Date: Thu, 15 Oct 2026 16:42:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Oct 15
+Message-ID: <atD0f6-oQBYyK_sV@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/22] modpost: cache section relocation mismatch state
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
- linux-hardening@vger.kernel.org
-References: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
- <20260923-build-speedup-v4-13-73128809a4a4@kernel.org>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260923-build-speedup-v4-13-73128809a4a4@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pOiq4RVRjfpQ0vj4"
+Content-Disposition: inline
 
-On 9/23/26 7:18 PM, Lorenzo Stoakes (ARM) wrote:
-> For every relocation modpost invokes check_section_mismatch() to determine
-> whether there is any kind of mismatch between the source and destination,
-> and if so which classification applies.
-> 
-> Each time it does this it invokes section_mismatch() which iterates
-> through the sectioncheck[] array every time it's called.
-> 
-> When walked a relocation section the source is fixed and there aren't many
-> targets, so the same names are looked up over and over again.
-> 
-> Therefore cache not only mismatch categorisation but also whether a
-> mismatch even exists for a given section and look up the sections in the
-> cache.
-> 
-> Special indices (undefined, absolute, common) take the uncached path as
-> before.
-> 
-> This results in very significant speed ups for allmodconfig incremental
-> builds.
-> 
-> modpost is on the serial tail of every build that links vmlinux.
-> 
-> Whole build, 128-thread Threadripper 9980X, best of N runs:
-> 
->                                          before   after     delta
->                                          -------------------------------
->   x86 defconfig, touch mm/vma.c, gcc        8.5s     8.3s    -0.14s (-2%)
->   x86 defconfig, touch mm/vma.c, clang      7.7s     7.6s    -0.13s (-2%)
->   x86 allmodconfig, touch mm/vma.c, gcc    33.9s    29.4s     -4.5s (-13%)
->   x86 allmodconfig, touch mm/vma.c, clang  31.9s    27.9s     -4.0s (-13%)
-> 
-> Assisted-by: LLM
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This looks mostly ok to me. Below are some nits you might want to
-consider addressing.
+--pOiq4RVRjfpQ0vj4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> ---
->  scripts/mod/modpost.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 64 insertions(+), 2 deletions(-)
-> 
-> diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-> index 75374c64b8cc..0fd43c8a89ea 100644
-> --- a/scripts/mod/modpost.c
-> +++ b/scripts/mod/modpost.c
-> @@ -1155,12 +1155,67 @@ static void check_export_symbol(struct module *mod, struct elf_info *elf,
->  			 name);
->  }
->  
-> +/*
-> + * mismatch_cache[section index] ->
-> + *   0 - uncached.
-> + *  -1 - no mismatch.
-> + *  >0 - mismatch index + 1.
-> + */
-> +static int *mismatch_cache;
+Hi all,
 
-It might be cleaner to maintain this cache per elf_info, since it
-logically belongs to the processing of an individual ELF file. This
-would also be consistent with the existing symsearch cache, which uses
-elf::symsearch.
+Changes since 20261014:
 
-The description could use 'to_secndx' instead of 'section index' to
-clarify whether it refers to the source or destination section of
-a relocation.
+The fuse tree acquired a conflict with the vfs-brauner-fixes tree.
 
-> +
-> +static void init_mismatch_cache(unsigned int num_sections)
-> +{
-> +	mismatch_cache = xcalloc(num_sections, sizeof(*mismatch_cache));
-> +}
-> +
-> +static void reset_mismatch_cache(unsigned int num_sections)
-> +{
-> +	memset(mismatch_cache, 0, num_sections * sizeof(*mismatch_cache));
-> +}
-> +
-> +static void free_mismatch_cache(void)
-> +{
-> +	free(mismatch_cache);
-> +	mismatch_cache = NULL;
-> +}
-> +
-> +static const struct sectioncheck
-> +*cache_mismatch(unsigned int secndx, const struct sectioncheck *mismatch)
+The modules tree acquired a conflict with the drm-xe tree.
 
-Similarly here, s/secndx/to_secndx/.
+The char-misc tree acquired a conflict with the rust tree.
 
-> +{
-> +	if (!mismatch) {
-> +		mismatch_cache[secndx] = -1;
-> +		return NULL;
-> +	}
-> +
-> +	mismatch_cache[secndx] = (mismatch - sectioncheck) + 1;
-> +	return mismatch;
-> +}
-> +
-> +static const struct sectioncheck *get_section_mismatch(const char *fromsec,
-> +		const struct elf_info *elf, unsigned int secndx)
+The scsi-mkp tree acquired a conflict with the scsi-fixes tree.
 
-s/secndx/to_secndx/, and the fromsec and elf arguments could be swapped
-for consistency with the rest of the code.
+The s390 tree acquired a build failure in the final build for which I
+applied a revert.
 
-> +{
-> +	int cached;
-> +
-> +	if (secndx >= elf->num_sections)
-> +		return section_mismatch(fromsec, sec_name(elf, secndx));
-> +
-> +	cached = mismatch_cache[secndx];
-> +	if (cached < 0)
-> +		return NULL;
-> +	if (cached > 0)
-> +		return &sectioncheck[cached - 1];
-> +
-> +	return cache_mismatch(secndx,
-> +			      section_mismatch(fromsec, sec_name(elf, secndx)));
-> +}
-> +
->  static void check_section_mismatch(struct module *mod, struct elf_info *elf,
->  				   Elf_Sym *sym,
->  				   unsigned int fsecndx, const char *fromsec,
->  				   Elf_Addr faddr, Elf_Addr taddr)
->  {
-> -	const char *tosec = sec_name(elf, get_secindex(elf, sym));
-> +	const unsigned int to_secndx = get_secindex(elf, sym);
+Non-merge commits (relative to Linus' tree): 16152
 
-The const qualifier can be dropped from the to_secndx definition to
-match the usual kernel style.
 
--- 
-Thanks,
-Petr
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 434 trees (counting Linus' and 135 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--pOiq4RVRjfpQ0vj4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQ9H4ACgkQJNaLcl1U
+h9C+/Af/XPvRXvummwEfbOyZJb/w+tGsBuf1KjqTk2chciN96mIAylwnbf+g/rjd
+tnKqJ+1objHMvZknqsreRWIfAzKypuSaBKZCM38/UA4ZDnVi9W4Oj/l29smzuRb6
+wrs4jQcLlnfIqNccW3KoChcI4h3lHKXdcNaDDUdu+m44GrS1PuyxbKJOcuN6eoL4
+OZHQWMbzPu1zpuT/N3mb5y5L30ov15S2x61IQOlDkQ68SgMjh/gzlWmfM1JkG8M3
+pvaeTx1O1mT6vqAPkjfxFSFxJV9kPE5187S1hwI7fIvyeBuPgoKyZkMSUJPHpfgG
+4hgk7eBozL7GWjGlmsx5OO1jIRLZ3A==
+=ARGh
+-----END PGP SIGNATURE-----
+
+--pOiq4RVRjfpQ0vj4--
