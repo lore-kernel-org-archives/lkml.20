@@ -1,37 +1,39 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06D149E5DC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E48B443E3B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099558; cv=none; b=kapJyUwl9RQOk/oo6+lSvwFzq5TkCyfdMoYCrWeT2W+AGy7irU25pP2Xz1XixhXfaufwZfiOup2giPNtvChtrvwIpkZUu1PphG35UDgScQ9v53kVJGHzfJNHbN54EUq3ZW4/Nid3mBMoWR9+rIqC2NBeZFMq8XYRuiv6rnylhbM=
+	t=1792099557; cv=none; b=pcXkYuOxHazCpxLGXKkgtQyDk4oQkfQGMVTpMc7pQrc3och0kx24jfntYxOs58+IgJ8Mp6CWtRm5zx0/dy/xGwtZ4Fr/NJJ0hgtD9vmR9pnkNIQ/Os20phMxXIWTtHi48P/P46r289txZlmYhW8OfcjV0WzAa9ZZt/JpvagMCHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099558; c=relaxed/simple;
-	bh=x2tHL486GYCJLVeKGMHA2UGzvzGqDULDxFmBmVPs+8A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cPYNUAmK1Y9PgRPXyJsKkTsSvOJD7kIPWPsEJn3x3WKc5qc2p6wVO/90tjQZsnsTMU60hB973HkA4bdiqAy9Nj9Ro6kgkRlxJNb/rJYTLqZ6ruf3zjE8tB3X/GpDSs8KzJccquzGxoMeZFGpvAnZCqVJqYQVjOTSKVhtVo3tiy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=oR/US0z+; arc=none smtp.client-ip=80.241.56.172
+	s=arc-20240116; t=1792099557; c=relaxed/simple;
+	bh=UWJrK19ORxhCKg2t09pY5NemRM/rmVaPJ87tUodUEaI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FNq3UhZKIvLbn7+WZJHKq2iAHGE5jA6L0QRNlCHEK+WPrsJ7h+UUWqFMFyINUoXPu6e+gYLhsxfZOpIOuZ2yVEAj/u3Tgi3RaVpqQdyEa53CUuvowYqeNux+POMQ0QjMn6qoq+07cPcrc62v2Ahi0oa5bhpCs4jEfxksH6hUPWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=gLrVtBBE; arc=none smtp.client-ip=80.241.56.161
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="oR/US0z+"
+	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="gLrVtBBE"
 Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j5Lhr2XXszMlbP;
-	Thu, 15 Oct 2026 23:25:48 +0200 (CEST)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5Lhx0DTMzKnCy;
+	Thu, 15 Oct 2026 23:25:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1792099548;
+	t=1792099553;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=sNpQ/0RGdhDR+Y4DarK50jJ9ktHHzva5t2FzmBPC36I=;
-	b=oR/US0z+NTT8xmzpnTARDlaxdmg9TeswCohsboHgYyDrZbyFPkrNI9caKdNRBGUtHjGPeN
-	MShi6BJpp6z2JoGRK3ZWpsn0neuUB/gQWV0eL/nIUMan5lQB58IavEbRRpmW91Pwgn4YvN
-	Y2/iwHdW+CI73iLuPkjd+Io13OCJRFgLC0ZGYOXOxR10j7B2ZuLIlLO6qgRKEQVdcrRg8O
-	Mi3jjOxPLZbmcLDuokRK95ULe62CQBBWjliP1kPtrQxZ+2Ubeapjw/AjUk3PQv53Kl7ZmO
-	8bhwDO07zOnUKfzQFhuoms9EBOW+FYYQI3vaxghRLJbrVkkoBhOjs01Hr6eapg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7mcgoV3INGnoJVrXhx5IiQEBNo5YI0Bqb7zeSJExZ80=;
+	b=gLrVtBBEPfKVeqiy+wHhR5f3z3mJ70qrvmnfoVnPFJOklj/qPgT7MeXQTslHy5XvFRtBLR
+	6cqJO8oBgHkLAiq4VqYMhWKcTQNUmI2HVkPxsg7IEIFVVGvzToGbOpMrlMOg8Q9N3y5rp6
+	16PVhQ6hW+YmAKiajquvc3JF06VKof/uiZn6/P8wfoOwAU3SbdU91bK0VR/FJDZrnyPsBN
+	B0gzwGr5uK5g+owbB5nKqgoOB609jlPA6q+sg9AoG7VkyRVN6I6V2oavFiw8G9D5Ys9Pgi
+	7LBYH4Y5I1zANV4AimquqlCGrXab1XS2AD41/ZXQm3foyEKkyz7MN6LjIJ+0ww==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
@@ -47,10 +49,12 @@ Cc: linux-kernel@vger.kernel.org,
 	jfalempe@redhat.com,
 	javierm@redhat.com,
 	Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 0/2] drm/client: Keep larger modes in connector->modes on fbdev hotplug
-Date: Thu, 15 Oct 2026 22:25:43 +0100
-Message-ID: <20261015212545.1989962-1-hugo@hsal.es>
+Subject: [PATCH 2/2] drm/tests: Add KUnit tests for the client mode size limits
+Date: Thu, 15 Oct 2026 22:25:45 +0100
+Message-ID: <20261015212545.1989962-3-hugo@hsal.es>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
+References: <20261015212545.1989962-1-hugo@hsal.es>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,54 +62,268 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j5Lhr2XXszMlbP
+X-Rspamd-Queue-Id: 4j5Lhx0DTMzKnCy
 
-On an ASUS ROG Flow X13 with a 3840x2400 eDP panel, booted with
-video=eDP-1:1920x1200@60, an HDMI hotplug makes fbdev reprobe every
-connector with its 1920x1200 framebuffer as the limit. connector->modes
-loses the panel's 3840x2400 mode, and after suspend/resume amdgpu drives
-the panel with the 1920x1200 timing. The image ends up squeezed into the
-top-left corner. Details are in
-https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+Test that the first-mode, cmdline, tiled and clone pickers skip modes
+larger than the client's size, and that drm_client_modeset_probe() keeps
+the preferred mode in connector->modes when the client is smaller than
+it
 
-Patch 1 makes drm_client_modeset_probe() probe with the device's limits
-and moves the framebuffer size check into the fbdev mode pickers.
-Patch 2 adds KUnit tests for it
+The probe test calls drm_client_modeset_create() directly, because
+drm_client_init() needs a dumb_create callback the test driver doesn't
+have
 
-fbdev's hotplug probe has passed the framebuffer size since 2010
-(4abe35204af8). The pickers didn't check mode sizes then, so leaving
-larger modes out of the list was what kept fbdev from picking one. They
-check the size themselves now, so the probe can use the device's limits
-like initial setup, drm_log and GETCONNECTOR already do
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+ .../gpu/drm/tests/drm_client_modeset_test.c   | 218 +++++++++++++++++-
+ 1 file changed, 217 insertions(+), 1 deletion(-)
 
-The HiBMC thread "[RFC] drm/client: Relax clone mode selection in
-drm_client_target_cloned" runs into the same pruning: its 640x480
-framebuffer removes 1024x768 from both connectors' lists. With this
-series userspace sees that mode again, but fbdev still can't use it, so
-this doesn't replace that RFC:
-https://lore.kernel.org/r/a48e0b33-7eab-478e-a396-b6e76b7a066f@huawei.com
-
-I sent an amdgpu fix for the same symptom separately. It makes amdgpu
-fall back to the encoder's native mode on eDP and LVDS:
-https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
-This series fixes the shared mode list for every driver instead. Either
-one alone fixes the reported bug, from my testing
-
-On amd-staging-drm-next with only this series applied, with an HDMI
-hotplug and suspend/resume (pm_test=platform) in a loop, 255 of 255
-resumes kept the native timing. Without it, 28 of 29 came back with the
-wrong timing, and the same loop on unpatched v7.2.8 got it wrong in 103
-of 103. The drm KUnit tests pass, also under KASAN, which reports
-nothing in the code this series touches
-
-Hugo Sales (2):
-  drm/client: Probe connectors with the device's mode size limits
-  drm/tests: Add KUnit tests for the client mode size limits
-
- drivers/gpu/drm/drm_client_modeset.c          |  57 +++--
- .../gpu/drm/tests/drm_client_modeset_test.c   | 222 +++++++++++++++++-
- 2 files changed, 260 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+index 00f43fca9795..93aa919d4f31 100644
+--- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
++++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+@@ -18,6 +18,8 @@ struct drm_client_modeset_test_priv {
+ 	struct drm_device *drm;
+ 	struct device *dev;
+ 	struct drm_connector connector;
++	struct drm_connector second_connector;
++	struct drm_encoder encoder;
+ };
+ 
+ static int drm_client_modeset_connector_get_modes(struct drm_connector *connector)
+@@ -48,9 +50,23 @@ static const struct drm_connector_helper_funcs drm_client_modeset_connector_help
+ 	.get_modes = drm_client_modeset_connector_get_modes,
+ };
+ 
++static int drm_client_modeset_connector_get_modes_preferred(struct drm_connector *connector)
++{
++	int count = drm_add_modes_noedid(connector, 1920, 1080);
++
++	drm_set_preferred_mode(connector, 1920, 1080);
++
++	return count;
++}
++
++static const struct drm_connector_helper_funcs drm_client_modeset_preferred_helper_funcs = {
++	.get_modes = drm_client_modeset_connector_get_modes_preferred,
++};
++
+ static const struct drm_connector_funcs drm_client_modeset_connector_funcs = {
+ 	.atomic_destroy_state   = drm_atomic_helper_connector_destroy_state,
+-	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.fill_modes             = drm_helper_probe_single_connector_modes,
+ };
+ 
+ static int drm_client_modeset_test_init(struct kunit *test)
+@@ -197,6 +213,206 @@ static struct kunit_suite drm_test_pick_cmdline_test_suite = {
+ 
+ kunit_test_suite(drm_test_pick_cmdline_test_suite);
+ 
++static void drm_test_pick_first_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_first_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_ASSERT_NULL(test, drm_connector_preferred_mode(connector, 1024, 768));
++
++	mode = drm_connector_first_mode(connector, 1024, 768);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_first_mode(connector, 320, 240));
++}
++
++static void drm_test_pick_cmdline_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	struct drm_cmdline_mode *cmdline_mode = &connector->cmdline_mode;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	KUNIT_ASSERT_TRUE(test, drm_mode_parse_command_line_for_connector("1920x1080", connector,
++									  cmdline_mode));
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_pick_cmdline_mode(connector, 1024, 768));
++}
++
++static void drm_test_pick_tiled_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	int ret;
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++	connector->tile_h_size = 1920;
++	connector->tile_v_size = 1080;
++
++	mutex_lock(&drm->mode_config.mutex);
++	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++	KUNIT_ASSERT_GT(test, ret, 0);
++
++	mode = drm_connector_get_tiled_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++
++	KUNIT_EXPECT_NULL(test, drm_connector_get_tiled_mode(connector, 1024, 768));
++
++	mode = drm_connector_fallback_non_tiled_mode(connector, 1024, 768);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++}
++
++static void drm_test_pick_clone_mode_within_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connectors[] = { &priv->connector, &priv->second_connector };
++	const struct drm_display_mode *modes[ARRAY_SIZE(connectors)] = {};
++	struct drm_client_offset offsets[ARRAY_SIZE(connectors)] = {};
++	bool enabled[ARRAY_SIZE(connectors)] = { true, true };
++	unsigned int i;
++	int ret;
++
++	ret = drmm_connector_init(drm, &priv->second_connector,
++				  &drm_client_modeset_connector_funcs,
++				  DRM_MODE_CONNECTOR_Unknown,
++				  NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	drm_connector_helper_add(&priv->second_connector,
++				 &drm_client_modeset_connector_helper_funcs);
++
++	mutex_lock(&drm->mode_config.mutex);
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		ret = drm_helper_probe_single_connector_modes(connectors[i], 1920, 1080);
++		KUNIT_EXPECT_GT(test, ret, 0);
++	}
++	mutex_unlock(&drm->mode_config.mutex);
++
++	KUNIT_EXPECT_TRUE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
++							 modes, offsets, enabled, 1024, 768));
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		KUNIT_ASSERT_NOT_NULL(test, modes[i]);
++		KUNIT_EXPECT_EQ(test, modes[i]->hdisplay, 1024);
++		KUNIT_EXPECT_EQ(test, modes[i]->vdisplay, 768);
++	}
++	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
++
++	KUNIT_EXPECT_FALSE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
++							  modes, offsets, enabled, 800, 600));
++	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
++}
++
++KUNIT_DEFINE_ACTION_WRAPPER(drm_client_modeset_free_wrapper, drm_client_modeset_free,
++			    struct drm_client_dev *);
++
++static void drm_test_probe_keeps_modes_above_limits(struct kunit *test)
++{
++	struct drm_client_modeset_test_priv *priv = test->priv;
++	struct drm_device *drm = priv->drm;
++	struct drm_connector *connector = &priv->connector;
++	const struct drm_display_mode *mode;
++	struct drm_client_dev *client;
++	struct drm_encoder *encoder = &priv->encoder;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++	int ret;
++
++	drm->mode_config.max_width = 4096;
++	drm->mode_config.max_height = 4096;
++
++	plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL, NULL, 0, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
++
++	crtc = drm_kunit_helper_create_crtc(test, drm, plane, NULL, NULL, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++
++	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_NONE, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	ret = drm_connector_attach_encoder(connector, encoder);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
++
++	client = kunit_kzalloc(test, sizeof(*client), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, client);
++	client->dev = drm;
++
++	ret = drm_client_modeset_create(client);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = kunit_add_action_or_reset(test, drm_client_modeset_free_wrapper, client);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	ret = drm_client_modeset_probe(client, 1024, 768);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	mode = client->modesets[0].mode;
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
++
++	mode = drm_connector_preferred_mode(connector, 1920, 1080);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
++	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
++	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
++}
++
++static struct kunit_case drm_test_pick_mode_limits_tests[] = {
++	KUNIT_CASE(drm_test_pick_first_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_cmdline_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_tiled_mode_within_limits),
++	KUNIT_CASE(drm_test_pick_clone_mode_within_limits),
++	KUNIT_CASE(drm_test_probe_keeps_modes_above_limits),
++	{}
++};
++
++static struct kunit_suite drm_test_pick_mode_limits_test_suite = {
++	.name = "drm_test_pick_mode_limits",
++	.init = drm_client_modeset_test_init,
++	.test_cases = drm_test_pick_mode_limits_tests
++};
++
++kunit_test_suite(drm_test_pick_mode_limits_test_suite);
++
+ /*
+  * This file is included directly by drm_client_modeset.c so we can't
+  * use any MODULE_* macro here.
 -- 
 2.55.0
 
