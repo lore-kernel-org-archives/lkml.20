@@ -1,50 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DA3175A9D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB55E37267A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792107993; cv=none; b=Ahhok6kIZk40x2P40WFjRNQTBGsHM4Ud7PPKMhfzuzkxQvtN4BKfoAI+tp+mU8GNga/9jgEC9k5DvHxwCRTEW5omCAo1mEN3DlVG7FdhlTNs01CJAgm8t6XCLAzKwum5NyvKZCeuAH43cqBZIMPml1pmhBbbK+TmnIKq7ULEWjQ=
+	t=1792108011; cv=none; b=g7g1y1td5dFGIlQ7Uge2liI83OmBn5xpONO1v7s3RV5x/y2Yw9JF8dbUGT2PxonJ6EkQNie3j7ZZbbpOCS3hxzGswDNmhT5nA3FIzr9uhV4b2z+sfaMIpX+BLS3nqSyaIdy/MsJWq2nnPM5WyZVhUO+B8TEgr39DzumXUZbAlfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792107993; c=relaxed/simple;
-	bh=aH74MVx3BGtVwFNBQAulWRD6pbPpCPyEXrP7DWy2gVM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eVIHldDGrf7/1Cogtzjm5cvNCZsTcPc4wRmyfOznbseGzHXoNvOY2bMo9Nfd9U1Daglpm1L6pHvhBD1PVJpVmgFZfg8EZMmwcHn0yY0xZuG/dAIXcmX5RqUrXyMSs+nOGIhLgkvuQuceKnz4OXvsP451peZ5T3xZSGIzE0RNJv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=knPQqBoa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792108011; c=relaxed/simple;
+	bh=zWUKHHgdE4FtiQpO2+FWlgc3I65IEDGH6HfPURJKSvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iz8Bc2I866nGR+4RhFgwrza+IQXIXYMOawcOEmRsqV7jur3lvfh2qUam3CrBcwAoY2QVB+LZ9DvufVPJCugAKw88oPDbGzBudLfwwogh/YCrVMYwBj8+V+Epzqa9sSeh1UYwX5wlXzYxB7BLhfIPIqkkJsIlTZySHJ4jd9rPmMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VyYNPXHP; arc=none smtp.client-ip=95.215.58.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="knPQqBoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243021F000C4;
-	Thu, 15 Oct 2026 23:46:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792107992;
-	bh=KEyBJjOxNHoPN44Ocnab3KH7ph4eN7qBE/3bFv4RRfY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=knPQqBoaOSqw1cr48QtzRQ/zK7rsfJesZfj99LIFjlhYY5GL4GRM+09iaRBEacJOA
-	 PpW4f89PVRrRa1qaJMXKjPxyYChpmVbmMarHlxKL8oubRYUGRHaf4eTi1eoAmfcs/A
-	 z+XALiNhJa4Jg7YLKsIC7/UnO+1MLl6GYroHZiMEo7kmvWSJB6qdNAZTnRBI4GuWST
-	 qI/h0y3dJZQmFPfrNNM2OP699l8jk4oH+1CaLnhXtKpUprYoaVt+q3h/AEY48e/NUN
-	 0e3CjIjs4puKXlP5mldmRCGiUCT3VzCtNW8QX6wleq3YP0pLnIWO2wHU8yHoGXwDbr
-	 mH9dRa8rPmzVw==
-From: SJ Park <sj@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: SJ Park <sj@kernel.org>,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VyYNPXHP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zWUKHHgdE4FtiQpO2+FWlgc3I65IEDGH6HfPURJKSvc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792108007; v=1; x=1792712807;
+ b=VyYNPXHPNnNNBWBfuRLW0MJgeY/9gdl6m4YScaUWCm5jumdyyjn0IiHYwA7leVY7tq/uN3vZ
+ 9bwJRDjAkTomatP/C7FPcBhX4FeDlwQI9ebBPMPzH1ziJwuIqNR15QQvhPxglaCod/ir34XKPmG
+ J2dlOVgKyWfyGnHn2gyTTKac=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ea0d57db6aa5ee63;
+	Thu, 15 Oct 2026 23:46:47 +0000
+X-Mizu-Trace-ID: ea0d57db6aa5ee63
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: chenhuacai@kernel.org,
+	maobibo@loongson.cn,
+	zhaotianrui@loongson.cn
+Cc: loongarch@lists.linux.dev,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] mm/mempolicy: convert mempolicy refcnt to refcount_t
-Date: Thu, 15 Oct 2026 16:46:24 -0700
-Message-ID: <20261015234625.113115-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261015231322.3392551-1-gourry@gourry.net>
-References: 
+	kernel@xen0n.name,
+	nagachaithanya9911@gmail.com,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v4 0/3] LoongArch: KVM: irqchip fixes
+Date: Fri, 16 Oct 2026 07:46:35 +0800
+Message-ID: <20261015234638.1077815-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,29 +51,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 19:13:22 -0400 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
+From: Tao Cui <cuitao@kylinos.cn>
 
-> struct mempolicy uses an atomic_t as a pure reference counter.
-> 
-> Convert it to refcount_t so that overflow and underflow are caught
-> by the refcount saturation checks.
-> 
-> This silences the atomic_as_refcounter.cocci warning, which started
-> matching __mpol_put() when it switched kmem_cache_free() to kfree_rcu().
-> 
-> No functional change for correct callers.
+Hi,
 
-Looks correct to me.
+Three fixes for the LoongArch KVM irqchip code:
 
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610061946.Bx22ZFrw-lkp@intel.com/
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+- Patch 1 clears the device pointer in the destroy callbacks: when
+  KVM_CREATE_DEVICE succeeds but the following fd allocation fails
+  (e.g. under RLIMIT_NOFILE), ops->destroy() frees the irqchip while
+  kvm->arch.* still points to it.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+- Patch 2 aligns kvm_pch_pic_create() with kvm_eiointc_create() by
+  propagating the real error code; the kvm_ipi_create() counterpart is
+  being fixed separately (Chaithanya Lagisetty).
 
+- Patch 3 rejects repeated PCH-PIC CTRL_INIT with -EEXIST, using the
+  initialized state of the kvm_io_device as the indicator.  The check,
+  the MMIO base update and the bus registration are serialized by
+  slots_lock.
 
-Thanks,
-SJ
+All patches carry Fixes tags.
 
-[...]
+Changes in v4:
+
+- Patch 3: update pch_pic_base unconditionally, as suggested by
+  Huacai.
+
+Changes in v3:
+
+- Drop "Load dmsintc pointer once in pch_msi_set_irq" (v2 patch 2),
+  suggested by Bibo and Huacai.
+
+- Patch 3 (v2 patch 4): reject repeated CTRL_INIT by checking the
+  kvm_io_device state instead of a separate has_init flag, also
+  suggested by Huacai; the check stays under slots_lock.
+
+Changes in v2:
+
+- Drop "Guard against NULL irqchip in irq injection" (v1 patch 2) and
+  "Rebase steal time counter in vcpu context" (v1 patch 4) after
+  review discussion: their trigger scenarios are not reachable
+  through real VMM behaviour.
+
+- Use the one-line destroy style in dmsintc suggested by Bibo.
+
+- Track repeated PCH-PIC CTRL_INIT with a has_init flag and return
+  -EEXIST instead of -EBUSY, also suggested by Bibo; move the check
+  and base update under slots_lock so they are atomic.
+
+- Add READ_ONCE() to the dmsintc pointer loads so the compiler
+  keeps each of them a single load.
+
+Tao Cui (3):
+  LoongArch: KVM: Clear device pointer in irqchip destroy callbacks
+  LoongArch: KVM: Propagate real error code in kvm_pch_pic_create
+  LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+
+ arch/loongarch/kvm/intc/dmsintc.c |  1 +
+ arch/loongarch/kvm/intc/eiointc.c |  1 +
+ arch/loongarch/kvm/intc/ipi.c     |  1 +
+ arch/loongarch/kvm/intc/pch_pic.c | 14 ++++++++++----
+ 4 files changed, 13 insertions(+), 4 deletions(-)
+
+-- 
+2.43.0
+
