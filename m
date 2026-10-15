@@ -1,62 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E1C56C63B;
-	Thu, 15 Oct 2026 19:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF8030DECE;
+	Thu, 15 Oct 2026 19:38:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792093011; cv=none; b=vBsaUycaGwqOkRz66ZEOBOzALjrnzlrE/hpRnqv2RvIEXNWIb1r17XLUQRSd0gOzEDtnuqBKXQfv7O6c9zsIrdWIv6XVyTmPKj2rfTHrvaK/To7PPLlhOjSgd4ydUzvIJ+VfR7ryURuH+id8OvXSdtD+H49/+Rfr5t0Q5+NC+po=
+	t=1792093083; cv=none; b=VRRSA4oawdLjvZmdKrR4ZkXkUi2I5eo7n5Rqnwc/bMZ1Sw0r1xLo2D7wqa29qgw98ZQRst64cBP04jaqikd5FEgvhK2c26ASg6f1eJxX3fKey0xa3UZjtrCUtA8/u8ezJzsMGd2NeNMQDuEJZ8n0jW7YLTSgUdx8wUV/rfKUaMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792093011; c=relaxed/simple;
-	bh=4ENjj2bYjHj7sFuyE9//jVMeZKc0UUmrYtdZ+5RVlEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lpDg7R3nvoKKHmLN4qsCMP2DPw8WPDHEvCkqU06Z62daXtfYrT0YKbV7L1PV2RRewlB3gL20XuWSrzbqIbG8pJg3pE/VzGWNzmr97Y8aL163ZlP9LrwZJYQrrLwFf2CatXeqwn33K7CuM6Z8qXhADFmRoOwm7z2tjD1i/wIbwdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VouZ6BoK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792093083; c=relaxed/simple;
+	bh=SnTbC+SB724atHlEOq6yr2otqGLrkeDfMLW+sthUORI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hfb143u7nOr2mHyVB6V3KFU4DzUXOD7p6ALviI1nnFd4UGoQnhO6tG7TZXsLFWesUAtFdwEkyjhzyLl0cwuDo/KjLJja6mEm2elkW1Ru/Hwjdn9LQE97lZRCjnSqeEUuNA7OqcIItiKk0zQhxCdgHarvE3huc1MCUs9c2R0ylUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cpd6cuKq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VouZ6BoK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D221F000CD;
-	Thu, 15 Oct 2026 19:36:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cpd6cuKq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9F61F000C4;
+	Thu, 15 Oct 2026 19:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792093010;
-	bh=W1Y2degSRNAyhIkkt7NeJKf9SNBwC9k9gvH+7XOqk5Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VouZ6BoKYA2CNoL8QFA7VYi/Rr+nDsk0DC6T/W4RqkkP7/ZRfqrpGiYQ7Fd5aMIVA
-	 mQHJkFB5xT8coQLY85jqlESCoC0OFoTf3yN25Yqh/zYOSnCCshbpPdLm3oLphdjOpB
-	 acv8ZTd31A+42ueH2FAJ/NLRwsPsRP0sE7NJBoPKy3YeVGkwba5MqdCSjwbu0J34gc
-	 2zjQzlQlIXmhP5/iP9WwCh3ZgGLDIlSdWQK0a4paQRXio0O8aw5DjbtppQ0X8aJtiA
-	 Y/TQA+TPg8U2+3EfpEUVVkZDmVZw6wSskw8881xpbv1Yy1zd7uLaCpQTWQKKAe1ptm
-	 vSHv+PE212kzA==
-From: Sasha Levin <sashal@kernel.org>
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Artem Dinaburg <artem@trailofbits.com>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
+	s=k20260515; t=1792093082;
+	bh=MCzfw+3JLfOteu1hixOiVvtb5qCqzuwkXWc5kuMnKuo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cpd6cuKqQNWWSQDH/XjHeZzEC3tdAsa9kDWZeSXYYLPNnaeybgxf9XnwKQd1pmRuX
+	 1tSemSJQlnRFqv4QKeLGgeM5/RUVOe4OxLRuDhhFs+dTKBNwOL1ZqKaBTfb0Twn5RU
+	 zf87HWflXcClsq2QuZjnXCHEbtE6PEASKz1YOeQtNGvoC9Nh16lKPIkErWpM1OSLKg
+	 4Xg4e17H1fvzTSHk057t4Z0BpTadt4bYBHjl5I7AngjAopKkyJAKLUSvEcfzKTK/5x
+	 zT/v/nvGm9OHPnqi4FvXS+7vocpglkQn0u2r4CPZETVJ8DP0I5/oSODeW+8ebjcdPF
+	 YJxAWSUxhDFWg==
+Date: Thu, 15 Oct 2026 19:38:00 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Alex Markuze <amarkuze@redhat.com>
+Cc: linux-fscrypt@vger.kernel.org, "Theodore Y. Ts'o" <tytso@mit.edu>,
+	Jaegeuk Kim <jaegeuk@kernel.org>, Ilya Dryomov <idryomov@gmail.com>,
+	Xiubo Li <xiubo.li@clyso.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
-Date: Thu, 15 Oct 2026 15:36:04 -0400
-Message-ID: <2026-10-15-1-daily-reply-0021-ath12k-m3-copy-6-6@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <bc760367-4896-4626-8f5b-1bc3ef6cba22@oss.qualcomm.com>
-References: <20261012165925.32575-1-artem@trailofbits.com> <20261012165925.32575-3-artem@trailofbits.com> <bc760367-4896-4626-8f5b-1bc3ef6cba22@oss.qualcomm.com>
+Subject: Re: [PATCH] fscrypt: allow filesystems to disable symlink target
+ caching
+Message-ID: <20261015193800.GH2170687@google.com>
+References: <a01d0a297a3e174d21741a3ad586ce546327603e.1792081664.git.amarkuze@redhat.com>
+ <20261015183548.GE2170687@google.com>
+ <CAO8a2Sjr6XSizdgobZK1ZAO8PUd5tCDFKjdD-=3TXHwqOU6qfg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO8a2Sjr6XSizdgobZK1ZAO8PUd5tCDFKjdD-=3TXHwqOU6qfg@mail.gmail.com>
 
-> Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+On Thu, Oct 15, 2026 at 09:52:11PM +0300, Alex Markuze wrote:
+> Hi Eric,
+> 
+> This supports the concurrent CephFS subvolume quarantine series.
+> There’s no Fixes: tag since this isn't addressing an existing upstream
+> regression.
+> 
+> The quarantine series adds checks to Ceph's ->get_link(). However, if
+> an encrypted symlink target was cached prior to quarantine, the VFS
+> bypasses that callback entirely when following or reading it. While
+> the target data is still valid, access now needs to be denied.
+> 
+> This patch adds an opt-out for symlink caching and enables it for
+> Ceph, handling the encrypted-symlink case for the concurrent series
+> without affecting other filesystems.
+> 
 
-Queued the series for 6.6, thanks.
+That series wasn't sent to me.  Is it
+https://lore.kernel.org/r/cover.1792074165.git.amarkuze@redhat.com/ ?
+It would make more sense to add this patch to that series so that they
+can be reviewed together.  I can potentially apply a prerequisite patch
+by itself, but we'd first need to know that the rest has been reviewed
+and will be accepted too, otherwise it will be unused code.
 
--- 
-Thanks,
-Sasha
+- Eric
