@@ -1,35 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672B74FB9C3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8B44FD79B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063009; cv=none; b=g3P0ntIAO5EXjmqZRqobE/yTYRwsAtkxCcuD7gG10DwULtk3ljk5BRFILk1BxQbJJlLCbeWxw42f9eZXebZ1XO+EsMFymz7VpwI0rz0SVadtSdIo6Pw6mzv29mLTmeyM/aIJEaYLuVzTpio0/9kOHdBr0rf25vpDZ2vrKZiWHAg=
+	t=1792063011; cv=none; b=XUnwg43+ViVcaPghkd/NTkxhR8NcleWqmY9QedGg9nI0VxBkENjvC7X1eNApNxsAYKBzRCBJmVItf6+rPeA4XMBHYJgpRReKqunluxOzam1ljkauRgMTrXswUOkOJjWy3rGoeqG876R2Lr75EoYgMHqRcWJdlMqEpPyTG8dGykY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063009; c=relaxed/simple;
-	bh=fdg8eV/QDnydJFYV748UJ0GYkCe4BYsEnmoO5CBavJs=;
+	s=arc-20240116; t=1792063011; c=relaxed/simple;
+	bh=tow5j/Yfb21M+e62b8Mkx4hQ7MJYWZ+/hu5pWjj3/mY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tAXEnGqU5FSVfXi1dn59xeeI7uJpihYDUtToAnjj4rp8JuisUav6p7Fxfj1j6LGtVwFJu4QcaZ285VWs/lMxpKXHjXS1uA8+ss+/JlMbXis8L3mSKtRKq9rUK1GSTT3PxZzaAW4oAAxbrm5026ITIc1y76KVu3b40c/O8AOs0vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Iwj9r/vK; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=gLUsr51lCHHh21cS2VPCvhJ1OM40MWq3DJ8QoHAsldgo5nCuYjEol/II2EXQdwLY1ANF4z/3akkyBowiQPWRfLHE9VTL3X+lH0OtW7rMFUONKPyzsALv02uh3/L1m9jrafWu84pKd2KXIsUOnLME/HfKK781g1kqQcrXW/71ybU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UMjMMPX4; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Iwj9r/vK"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UMjMMPX4"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3DC47157F;
-	Thu, 15 Oct 2026 13:14:30 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3F629177A;
+	Thu, 15 Oct 2026 13:14:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792062871;
-	bh=fdg8eV/QDnydJFYV748UJ0GYkCe4BYsEnmoO5CBavJs=;
+	s=mail; t=1792062872;
+	bh=tow5j/Yfb21M+e62b8Mkx4hQ7MJYWZ+/hu5pWjj3/mY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Iwj9r/vKQaUpVYf0Dn0y4+c7ISakMtRKiVCGq1gvuEU6/zHEHG7nhcN8nlq4IGE6C
-	 gvgKO3MOjXan0Z2kRGEBCndLnIbB+XhwqPnQnEzYs4KG8zxNfkUUKD+/DtCydnEABy
-	 rjVgrKqrz1eqG59/fGIG7eCEzOvEfLgAEi66WV3A=
+	b=UMjMMPX4szTtTj9lcGEC66QMdievTTol12th6rfBSDHv+fvT9CSsknU1DQ+yUYxmY
+	 HXd0Lug4DtGTls1Rng4eNoswc3RheR45+4yHtzJZkm4/xI1LGCrE2AMAxtsP0gjBl2
+	 JR1RCrTiLErXTG9TvzfF7nhOVPzUnbQJtgAmTA3w=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:15:58 +0300
-Subject: [PATCH v5 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
+Date: Thu, 15 Oct 2026 14:15:59 +0300
+Subject: [PATCH v5 08/13] drm/bridge: tc358762: Support VTG
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-7-7cd721a6451b@ideasonboard.com>
+Message-Id: <20261015-tc358762-fixes-v5-8-7cd721a6451b@ideasonboard.com>
 References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,53 +49,128 @@ To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3465;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=fdg8eV/QDnydJFYV748UJ0GYkCe4BYsEnmoO5CBavJs=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYHH7U8w/F7jAXbT6GDiP5ya/i+WqIi7wKf/
- B87Io+SeXuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BwAKCRD6PaqMvJYe
- 9R2lEACfytEUffqHntXsShVoibCaBEit2fn+1RVczBtgke2Dy6o3NASTjvs9jbCHmGxkVd4y+Vl
- snMZ5qlIJKn1dY8GSpm3n6qEdphwveKzfKuz+l89rtjdCSOZcDbKOe2mMJ5EldIaUaE5+ThFAHP
- qnm8WTzCtDXj+kR21ZEsreWQTKDQTR5IpJ8FqdhaVE9AiKjZVbC2b4bIwJS8Q++Bom2BE0VRkul
- k0i/zM90536YqYAWQ9b4/c2KMZOnEtc4QTRY7Ic8EMLOpjJgfuHJJsmtovId/RnVspz40oWKYhG
- jVpRFpuqJ4sXpm3GnfdVLHfQgKLXJA2JaxfsTLsJucgLnL1WymhyAHylQVsF60QcxSYlJsC7P8b
- 7IqIor+tvSCu7TauYe5vLjx9OkiuHFHyXMF7R+USgIyR7hmaP4hkWZDiNg5WvonVxB8JhbTYRa5
- lX+kbS5f2Bmwdqv4Wg7euTMlNuPk9F5UFULHT5KVXWQHSiJcnkPQ4RI9MURItFhVxVD/TtP8MMl
- MpHfIBVvmbbx15R734t1Xlu35fQ1UH4ExyYhbjyEk2UtQ4wI6qiZnojU233RePw0aIWaycTzy0B
- kuX+YKEZRJEbMaLwkqvyK5JxUOKgwrxML4+svNHHOUcZhVaDhNB1CUgJhF9hUgq8RKEBV8lKeGO
- GdMtxRhvZ3Ue+5A==
+ bh=tow5j/Yfb21M+e62b8Mkx4hQ7MJYWZ+/hu5pWjj3/mY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYH5Zq71c+oSXOknBOlkojTk9w2PtPvGBIpy
+ hQCzwtBktWJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2BwAKCRD6PaqMvJYe
+ 9Rk+EACZK9sM5nRp2YbAQs8zdjbKwPF+VYsRLd3bsTiCBAIIUiK4iqoIvgbm76cNGiswJQ+GE7v
+ NPFEkEsywTiMlmOMfEjSFr8R1rihAfshR/2qfgIfVHBh1W6i2vv8GEGA8XllHaAV+qdwkHo9yal
+ vLvwP83ZUANnoSPUqXvGTOMjodF0/9PKDF3eyp6r2v+eDL4+NbHKQzibmq9Dmp3qSWppUo5BApA
+ Aj0VEZnqpIEAhYeyKvZWwq83Lc6hAs1rxI3OPvnMQLJuTGwLayuUQY/getxvp4LxgdDDm+ytPVU
+ a4JiVfdmKQzt8Fy5BOpTpDosLUPqxqzWP/CIML3NqdRjQ1Dq0iQKPinJskKxFLcTbwDnHf254aQ
+ iAp9mvIYKKG+6syoCSOluJECLxolp1p9u9w6aqMwWCgpSJoV+uwOpcUzJkYJ3vDrUZR1O/GVLXX
+ CbZ/YmI1600yx3WdP0wLI2qxhGOrNzWvkKoQfneIREIBQXQs5FRuLrzq7rgb/7rbb/8Y0UtvqGo
+ b/vGjn0g9WbhyWZO2VC3xvxe8KISrmsDkcDTCLv2TBYTCpD0tuvktF56cOV9QCTwt2jGrSn85o+
+ cfbckdDRzTztRQEKW92q9qhfEp2XR+R8Pzpf4qoKBWJHardMdubXeJHbcnaiHaeiv12yIup2whi
+ AM+ksQjSVFICIDg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Update comment about the number of lanes.
+TC358762 can generate the DPI output's timings in two ways, either Video
+Timings Generator (VTG) on or off:
+- VTG off: Duplicate the timings coming from the DSI. This requires DSI
+  pulse mode.
+- VTG on: Sync frame on DSI VSync Start, but the exact output timings
+  are defined in TC358762 registers. This can be used with DSI
+  event/burst mode.
 
+We are currently using VTG off in the driver.
+
+I observe that the hsync signal, on my HW setup, is not 100% stable with
+VTG off, and it seems to lengthen by a single clock every now and then.
+However, it then stabilizes later. To me the DSI input looks solid, but
+that is more challenging to measure exactly. So I have not found the
+root cause for this.
+
+Turning VTG on removes that instability. As I dont' see any downsides
+with enabling VTG (and it would allow extending the driver to use
+event/burst mode in the future), let's always enable the VTG.
+
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/tc358762.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 19f328b6e798..fd82274643db 100644
+index fd82274643db..1fb5626a35ab 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -305,7 +305,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
+@@ -18,6 +18,7 @@
+ #include <linux/regulator/consumer.h>
+ 
+ #include <video/mipi_display.h>
++#include <video/videomode.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -63,6 +64,12 @@
+ #define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
+ #define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
+ 
++#define LCDC_HSR_HBPR		0x0424
++#define LCDC_HDISPR_HFPR	0x0428
++#define LCDC_VSR_VBPR		0x042C
++#define LCDC_VDISPR_VFPR	0x0430
++#define LCDC_VFUEN		0x0434
++
+ /* SPI Master Registers */
+ #define SPICMR			0x0450
+ #define SPITCR			0x0454
+@@ -94,6 +101,7 @@ struct tc358762 {
+ 	struct drm_display_mode mode;
+ 	bool pre_enabled;
+ 	int error;
++	bool use_vtg;
+ };
+ 
+ static int tc358762_clear_error(struct tc358762 *ctx)
+@@ -155,9 +163,31 @@ static int tc358762_init(struct tc358762 *ctx)
+ 	tc358762_write(ctx, PPI_D1S_ATMR, 0);
+ 	tc358762_write(ctx, PPI_LPTXTIMECNT, LPX_PERIOD);
+ 
++	if (ctx->use_vtg) {
++		struct videomode vm = { 0 };
++
++		drm_display_mode_to_videomode(&ctx->mode, &vm);
++
++		tc358762_write(ctx, LCDC_HSR_HBPR,
++			       vm.hsync_len | (vm.hback_porch << 16));
++		tc358762_write(ctx, LCDC_HDISPR_HFPR,
++			       vm.hactive | (vm.hfront_porch << 16));
++
++		tc358762_write(ctx, LCDC_VSR_VBPR,
++			       vm.vsync_len | (vm.vback_porch << 16));
++		tc358762_write(ctx, LCDC_VDISPR_VFPR,
++			       vm.vactive | (vm.vfront_porch << 16));
++
++		/* Upload VTG timings */
++		tc358762_write(ctx, LCDC_VFUEN, BIT(0));
++	}
++
+ 	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
+ 		  LCDCTRL_DPI_EN;
+ 
++	if (ctx->use_vtg)
++		lcdctrl |= LCDCTRL_VTGEN;
++
+ 	lcdctrl |= LCDCTRL_DCLK_POL;
+ 
+ 	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
+@@ -305,6 +335,9 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
  	ctx->dev = dev;
  	ctx->pre_enabled = false;
  
--	/* TODO: Find out how to get dual-lane mode working */
-+	/*
-+	 * When using DSI clk for pixel clock (only mode supported in the driver),
-+	 * the pclk is derived directly from the DSI byteclk via simple divider,
-+	 * which is either 2 or 3.
-+	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-+	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-+	 * of 1.5.
-+	 */
- 	dsi->lanes = 1;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
++	/* Always use VTG */
++	ctx->use_vtg = true;
++
+ 	/*
+ 	 * When using DSI clk for pixel clock (only mode supported in the driver),
+ 	 * the pclk is derived directly from the DSI byteclk via simple divider,
 
 -- 
 2.43.0
