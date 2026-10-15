@@ -1,329 +1,165 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E48B443E3B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099557; cv=none; b=pcXkYuOxHazCpxLGXKkgtQyDk4oQkfQGMVTpMc7pQrc3och0kx24jfntYxOs58+IgJ8Mp6CWtRm5zx0/dy/xGwtZ4Fr/NJJ0hgtD9vmR9pnkNIQ/Os20phMxXIWTtHi48P/P46r289txZlmYhW8OfcjV0WzAa9ZZt/JpvagMCHo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099557; c=relaxed/simple;
-	bh=UWJrK19ORxhCKg2t09pY5NemRM/rmVaPJ87tUodUEaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FNq3UhZKIvLbn7+WZJHKq2iAHGE5jA6L0QRNlCHEK+WPrsJ7h+UUWqFMFyINUoXPu6e+gYLhsxfZOpIOuZ2yVEAj/u3Tgi3RaVpqQdyEa53CUuvowYqeNux+POMQ0QjMn6qoq+07cPcrc62v2Ahi0oa5bhpCs4jEfxksH6hUPWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es; spf=pass smtp.mailfrom=hsal.es; dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b=gLrVtBBE; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E543443E3B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792099600; cv=pass; b=KjSfiyTVcyXY7pP30KKM1ujDwlRIkqq5y36fK1urP0h5lYBSxDvlGWEK4ZWYBMKf8VKIc/hyJff5sm8jbMM2M6VtGGK3w/1trLIexw2wDekE8/p3xGS/eYELG4EsDez08rqctoc8QjFNuibvybDxLf0PtK9/04RvC3PPyvL7oy0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792099600; c=relaxed/simple;
+	bh=S24dOVcDoMu01ibSOw1+bNFyN8uZ1WIV5X5lG+8sUTM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KBWXJ4jM/p+catezrOp0lrlfCgvY09JVFfRYp7Kv5kLQ6X19u2nGnjOmpmeaujs9G8P9uMxOUCbBB/jG2ounWrAbU2w2AaCTVOjn6JdqLhGhdNu+TGZMBPiG9W7Zg+7Y9pvfBS2yyfVHAYMRyHRqvtrsts15LfQ7jXgApvvbB2A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oKrckloV; arc=pass smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hsal.es header.i=@hsal.es header.b="gLrVtBBE"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j5Lhx0DTMzKnCy;
-	Thu, 15 Oct 2026 23:25:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1792099553;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7mcgoV3INGnoJVrXhx5IiQEBNo5YI0Bqb7zeSJExZ80=;
-	b=gLrVtBBEPfKVeqiy+wHhR5f3z3mJ70qrvmnfoVnPFJOklj/qPgT7MeXQTslHy5XvFRtBLR
-	6cqJO8oBgHkLAiq4VqYMhWKcTQNUmI2HVkPxsg7IEIFVVGvzToGbOpMrlMOg8Q9N3y5rp6
-	16PVhQ6hW+YmAKiajquvc3JF06VKof/uiZn6/P8wfoOwAU3SbdU91bK0VR/FJDZrnyPsBN
-	B0gzwGr5uK5g+owbB5nKqgoOB609jlPA6q+sg9AoG7VkyRVN6I6V2oavFiw8G9D5Ys9Pgi
-	7LBYH4Y5I1zANV4AimquqlCGrXab1XS2AD41/ZXQm3foyEKkyz7MN6LjIJ+0ww==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ville.syrjala@linux.intel.com,
-	jfalempe@redhat.com,
-	javierm@redhat.com,
-	Hugo Sales <hugo@hsal.es>
-Subject: [PATCH 2/2] drm/tests: Add KUnit tests for the client mode size limits
-Date: Thu, 15 Oct 2026 22:25:45 +0100
-Message-ID: <20261015212545.1989962-3-hugo@hsal.es>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015212545.1989962-1-hugo@hsal.es>
-References: <20261015212545.1989962-1-hugo@hsal.es>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oKrckloV"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-535f598d126so38651cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792099598; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jsbtBjqkjIJQHPO7KckxP+XLoGPWciZqqbs9bInatREISoTSE4/o3elRoRTot9xSsf
+         77fmoSMT7BWNiF8bRrHdYDs4MMfq4oF+fK/7DWOvGWluPQEMjfRW0UEY+cQUJV5Y/P0H
+         ljE999uqPC4aCsSpE8VM8wY7OufpMNIhfFw3jmzYY9G2qtqw6dkBxHcbtHKklVI892wv
+         daJcYrE0r2WPdF1xcUQAoaUe/of8R24R7Y8vGKvTLIQYTqgJpAfoboelw6cuJ/XQuGxG
+         rJQkku42JV02sidGQyp54S2ncxOPP+/cyyTTe+H6OAdPmG8pr2+oeoK/lSMcjDq7GlAp
+         ZuIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OgcgdziUoCAQVTSOyr0xkG5j6Rc5FznnZ78bB8A0JZM=;
+        fh=5GQg1OmRkOeSJ8ewKrsT6ikb6gyF19kP5LKYwkM7yo0=;
+        b=Bk6npPIG2ZpKs0tFQffsagfm30Nz0MqfyD9kyfU9Nunrq66X0yJ5/RMVoxSZJ/6KoT
+         iy+WAwiD/aWZ/5MU10epmbRbQ92ugFBH3mH+2xIaHQsQklvjHS5MGGBmfHN7O7Sq37MS
+         QBkUcn9hCuMVc6ibHP+VcHlBGEtuOzHFFlKS2yLkVPtFXmxoPygFhOmrxrMq5c46mKX5
+         AMEo/Aaaeo/WFztyfhbyWYNzN52GBFauKuV1drh2hBxF2tM2KQshm30a/+ztibzFZcqc
+         8U5CD+vygr+t4aH+H6DRwjLHbPPok/SEuLt+K2LJHRsJzT1atV2yYGi8SpW3gqhBo9FP
+         a+xA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792099598; x=1792704398; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OgcgdziUoCAQVTSOyr0xkG5j6Rc5FznnZ78bB8A0JZM=;
+        b=oKrckloVPBkqU275fV0Dp0vswVpn9xI3pbBF0luDu5tSShg5dkG2YFZkgn8FRW6zce
+         SC6ce0/U2RwBMT7UdzqImKj7Zwk5S0nhq6OPLHt7tgXeMAaz7CD4ePFHyCr43fJxXA0Y
+         2jw5Oyrx7g+KPlc3TkA9w3oG2VFtEizziz3jHzVGNBWpDorHwNjHlbHymuYcu8CVQyzI
+         mvaz+FJ/xCsHJnZ4uSZEhOWijfOu6wwnL3wJ1s+dxyrL6peIWJod70X2U1Wzemtm1L0N
+         CFqg8wwGGvxXUvAYmKzgnxuDknpyeEjx5L1091lujDB82PDgTH1VZb4IgR3IDFsb64PI
+         K/BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792099598; x=1792704398;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OgcgdziUoCAQVTSOyr0xkG5j6Rc5FznnZ78bB8A0JZM=;
+        b=uayXe4XoAvccKNF3ZdtBSmVPxHAyFljg2SBPiCbqdZUgaKtyXUElN1JrFl4//xNgSM
+         LsTMAqf+OkCd6XCG5erAfv2GEASyhK6tuBhLtib3ij2sXnmiK2i1MlNjYWZBZekUhL6j
+         1UUkd/hmjChlgOh6MQIQ8hKiXQ6P1Vli6O0XeQGLDZLaFl4R1/EOSUXYzBKitsezzLoG
+         fEGSRjGOvv/oT2yK2Rbe0YIg0q6vjHZw+UO+Nm/3IeZ/XDbwMf/ngiu/gljzd98+dtUF
+         CF61aCApKSPutkFOrAA/hlv3Zm+HNXeKcaUummckuF1QKFWW704Q50QUi/S2ix0Tl2do
+         JK5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwW4D9NoAPZ+f88ih7cGcytnQJBmefxzsCoWmB7pJwTrYbbqRM1emaA4Wjn9Q3PiL2+2bPAtKxP/SJYTXM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeLHF5DYb4Y5+YwDowdwWJ63Ge8fULVDoc5Nb7MGZyUKj5f37N
+	lWOALVistSSZCb6siQdhXmxeIwnv9X7a8zTdJTElnLiUhev3SgkLbE5UF09nnm0988/kNMg358w
+	BBoMRkhTld4G8eSNzt88h7nP1515Rj5EZt8q42ATG
+X-Gm-Gg: AYBFou333RHyVeQ6cAbOWJYhYtX/J2PPtGXw+xkoLJQDz3U7J/8N2SasnbCcz93nCuP
+	9LByG7RvgNMwnUUJTepwlKnUyTjQ8Y2tzaUwSGYockcBFQP3iM//I7IiJUBSpiHcf6qvic1Tec/
+	kOfhl0VF0b5Ju9Ql50gSOxbXa0tPJZOMe01tDcDrYcuohKu/fw9NOHgSO9ORQpgg+335RR04Q4W
+	d4KAkcxoyv1UrILCHlWEt+y60z6aJzdlwYI15klyzSEN4AuWZKs61TONaZCcLVvIK/G8wRsaaKv
+	XzG1iG8Kmp/UsCtI4QKfEmkdDg0VJ0ixiTfwFS8HugIXg1Nz4h83moLiNF5QWOlFIfys6BNMwWC
+	bufnKZgOIgw==
+X-Received: by 2002:a05:622a:580a:b0:535:cee9:78ee with SMTP id
+ d75a77b69052e-5362b4d91b9mr2154821cf.15.1792099597789; Thu, 15 Oct 2026
+ 14:26:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4j5Lhx0DTMzKnCy
+References: <20261011233647.2454648-1-sashal@kernel.org> <20261011233647.2454648-4-sashal@kernel.org>
+ <CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com>
+ <20261013170854.647305-1-sashal@kernel.org> <as6SxXELnoIJenIX@x2> <atEo6aIQbgww4G0y@laps>
+In-Reply-To: <atEo6aIQbgww4G0y@laps>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 15 Oct 2026 14:26:26 -0700
+X-Gm-Features: AclHuK-FmTfmnNngMCTHGyBJ-W37rLbDe_VKRvUNDuHeCzq-aOwVNF9WYcEKmR8
+Message-ID: <CAP-5=fVq9rpDm2v8EjrQBVz6aV7SLaYzAwncQBwut0QDnFJ-kA@mail.gmail.com>
+Subject: Re: [RFC PATCH 3/6] tools: build perf in tools_build
+To: Sasha Levin <sashal@kernel.org>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, linux-perf-users@vger.kernel.org, 
+	Namhyung Kim <namhyung@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Test that the first-mode, cmdline, tiled and clone pickers skip modes
-larger than the client's size, and that drm_client_modeset_probe() keeps
-the preferred mode in connector->modes when the client is smaller than
-it
+On Thu, Oct 15, 2026 at 12:26=E2=80=AFPM Sasha Levin <sashal@kernel.org> wr=
+ote:
+>
+> On Tue, Oct 13, 2026 at 05:21:25PM -0300, Arnaldo Carvalho de Melo wrote:
+> >Why is that difficult to run:
+> >
+> >make -C tools/perf install-build-deps
+> >
+> >To do a recommended perf build deps install?
+> >
+> >That would be useful as it is what we expect users to do.
+>
+> That's what users do, but it wants to install packages.
+>
+> We need a path for unprivileged builds on bots and CI machines that can't
+> install packages, and many of those builds are cross builds, where perf n=
+eeds
+> the target's libelf and libtraceevent rather than the host's.
+>
+> >If that is too difficult, for some reason, there is a minimal build in
+> >tools/perf/tests/make, that is tested since forever:
+> >
+> ># all the NO_* variable combined
+> >make_minimal        :=3D NO_PYTHON_MODULE=3D1
+> >make_minimal        +=3D NO_DEMANGLE=3D1 NO_LIBELF=3D1 NO_BACKTRACE=3D1
+> >make_minimal        +=3D NO_LIBNUMA=3D1 NO_LIBBIONIC=3D1 NO_LIBDW=3D1
+> >make_minimal        +=3D NO_LIBBPF=3D1
+> >make_minimal        +=3D NO_SDT=3D1 NO_JVMTI=3D1 NO_LIBZSTD=3D1
+> >make_minimal        +=3D NO_CAPSTONE=3D1
+>
+> I tried make_minimal on perf-tools-next. It still requires libtraceevent,=
+ so an
+> arm64 cross build without the arm64 libtraceevent installed stops at that
+> check. With NO_LIBTRACEEVENT=3D1 added, it then fails building the Rust t=
+est
+> workload. Natively it still enables aio, libLLVM, libslang, libtraceevent=
+,
+> lzma, zlib and Rust when they are installed, so the result depends on the
+> machine.
+>
+> I'd like to go with Ian's suggestion then: a MINIMAL=3D1 knob in perf tha=
+t turns
+> off every optional feature, which tests/make can use for make_minimal as =
+well.
 
-The probe test calls drm_client_modeset_create() directly, because
-drm_client_init() needs a dumb_create callback the test driver doesn't
-have
+I can put a patch together for that. Just for discussion, I did do
+some work to break perf dependencies with libraries using dlopen/dlsym
+like:
+https://lore.kernel.org/linux-perf-users/20260130233439.647447-1-irogers@go=
+ogle.com/
+An area of controbversy with this approach is that it is still nice to
+use the header files for the library as library authors are bad and
+will do things like change function APIs over time. If the build uses
+the header files, why use dlopen when you can just link against the
+library? I could imagine using dlopen/dlsym for libtraceevent, but it
+would end up repeating this header file and library argument.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
- .../gpu/drm/tests/drm_client_modeset_test.c   | 218 +++++++++++++++++-
- 1 file changed, 217 insertions(+), 1 deletion(-)
+Thanks,
+Ian
 
-diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-index 00f43fca9795..93aa919d4f31 100644
---- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
-+++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
-@@ -18,6 +18,8 @@ struct drm_client_modeset_test_priv {
- 	struct drm_device *drm;
- 	struct device *dev;
- 	struct drm_connector connector;
-+	struct drm_connector second_connector;
-+	struct drm_encoder encoder;
- };
- 
- static int drm_client_modeset_connector_get_modes(struct drm_connector *connector)
-@@ -48,9 +50,23 @@ static const struct drm_connector_helper_funcs drm_client_modeset_connector_help
- 	.get_modes = drm_client_modeset_connector_get_modes,
- };
- 
-+static int drm_client_modeset_connector_get_modes_preferred(struct drm_connector *connector)
-+{
-+	int count = drm_add_modes_noedid(connector, 1920, 1080);
-+
-+	drm_set_preferred_mode(connector, 1920, 1080);
-+
-+	return count;
-+}
-+
-+static const struct drm_connector_helper_funcs drm_client_modeset_preferred_helper_funcs = {
-+	.get_modes = drm_client_modeset_connector_get_modes_preferred,
-+};
-+
- static const struct drm_connector_funcs drm_client_modeset_connector_funcs = {
- 	.atomic_destroy_state   = drm_atomic_helper_connector_destroy_state,
--	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.fill_modes             = drm_helper_probe_single_connector_modes,
- };
- 
- static int drm_client_modeset_test_init(struct kunit *test)
-@@ -197,6 +213,206 @@ static struct kunit_suite drm_test_pick_cmdline_test_suite = {
- 
- kunit_test_suite(drm_test_pick_cmdline_test_suite);
- 
-+static void drm_test_pick_first_mode_within_limits(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connector = &priv->connector;
-+	const struct drm_display_mode *mode;
-+	int ret;
-+
-+	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-+	mutex_unlock(&drm->mode_config.mutex);
-+	KUNIT_ASSERT_GT(test, ret, 0);
-+
-+	mode = drm_connector_first_mode(connector, 1920, 1080);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
-+
-+	KUNIT_ASSERT_NULL(test, drm_connector_preferred_mode(connector, 1024, 768));
-+
-+	mode = drm_connector_first_mode(connector, 1024, 768);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
-+
-+	KUNIT_EXPECT_NULL(test, drm_connector_first_mode(connector, 320, 240));
-+}
-+
-+static void drm_test_pick_cmdline_mode_within_limits(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connector = &priv->connector;
-+	struct drm_cmdline_mode *cmdline_mode = &connector->cmdline_mode;
-+	const struct drm_display_mode *mode;
-+	int ret;
-+
-+	KUNIT_ASSERT_TRUE(test, drm_mode_parse_command_line_for_connector("1920x1080", connector,
-+									  cmdline_mode));
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-+	mutex_unlock(&drm->mode_config.mutex);
-+	KUNIT_ASSERT_GT(test, ret, 0);
-+
-+	mode = drm_connector_pick_cmdline_mode(connector, 1920, 1080);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
-+
-+	KUNIT_EXPECT_NULL(test, drm_connector_pick_cmdline_mode(connector, 1024, 768));
-+}
-+
-+static void drm_test_pick_tiled_mode_within_limits(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connector = &priv->connector;
-+	const struct drm_display_mode *mode;
-+	int ret;
-+
-+	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
-+	connector->tile_h_size = 1920;
-+	connector->tile_v_size = 1080;
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	ret = drm_helper_probe_single_connector_modes(connector, 1920, 1080);
-+	mutex_unlock(&drm->mode_config.mutex);
-+	KUNIT_ASSERT_GT(test, ret, 0);
-+
-+	mode = drm_connector_get_tiled_mode(connector, 1920, 1080);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
-+
-+	KUNIT_EXPECT_NULL(test, drm_connector_get_tiled_mode(connector, 1024, 768));
-+
-+	mode = drm_connector_fallback_non_tiled_mode(connector, 1024, 768);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
-+}
-+
-+static void drm_test_pick_clone_mode_within_limits(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connectors[] = { &priv->connector, &priv->second_connector };
-+	const struct drm_display_mode *modes[ARRAY_SIZE(connectors)] = {};
-+	struct drm_client_offset offsets[ARRAY_SIZE(connectors)] = {};
-+	bool enabled[ARRAY_SIZE(connectors)] = { true, true };
-+	unsigned int i;
-+	int ret;
-+
-+	ret = drmm_connector_init(drm, &priv->second_connector,
-+				  &drm_client_modeset_connector_funcs,
-+				  DRM_MODE_CONNECTOR_Unknown,
-+				  NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_connector_helper_add(&priv->second_connector,
-+				 &drm_client_modeset_connector_helper_funcs);
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
-+		ret = drm_helper_probe_single_connector_modes(connectors[i], 1920, 1080);
-+		KUNIT_EXPECT_GT(test, ret, 0);
-+	}
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	KUNIT_EXPECT_TRUE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
-+							 modes, offsets, enabled, 1024, 768));
-+	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
-+		KUNIT_ASSERT_NOT_NULL(test, modes[i]);
-+		KUNIT_EXPECT_EQ(test, modes[i]->hdisplay, 1024);
-+		KUNIT_EXPECT_EQ(test, modes[i]->vdisplay, 768);
-+	}
-+	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
-+
-+	KUNIT_EXPECT_FALSE(test, drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
-+							  modes, offsets, enabled, 800, 600));
-+	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
-+}
-+
-+KUNIT_DEFINE_ACTION_WRAPPER(drm_client_modeset_free_wrapper, drm_client_modeset_free,
-+			    struct drm_client_dev *);
-+
-+static void drm_test_probe_keeps_modes_above_limits(struct kunit *test)
-+{
-+	struct drm_client_modeset_test_priv *priv = test->priv;
-+	struct drm_device *drm = priv->drm;
-+	struct drm_connector *connector = &priv->connector;
-+	const struct drm_display_mode *mode;
-+	struct drm_client_dev *client;
-+	struct drm_encoder *encoder = &priv->encoder;
-+	struct drm_plane *plane;
-+	struct drm_crtc *crtc;
-+	int ret;
-+
-+	drm->mode_config.max_width = 4096;
-+	drm->mode_config.max_height = 4096;
-+
-+	plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL, NULL, 0, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
-+
-+	crtc = drm_kunit_helper_create_crtc(test, drm, plane, NULL, NULL, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
-+
-+	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_NONE, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	encoder->possible_crtcs = drm_crtc_mask(crtc);
-+
-+	ret = drm_connector_attach_encoder(connector, encoder);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_connector_helper_add(connector, &drm_client_modeset_preferred_helper_funcs);
-+
-+	client = kunit_kzalloc(test, sizeof(*client), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, client);
-+	client->dev = drm;
-+
-+	ret = drm_client_modeset_create(client);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = kunit_add_action_or_reset(test, drm_client_modeset_free_wrapper, client);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	ret = drm_client_modeset_probe(client, 1024, 768);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	mode = client->modesets[0].mode;
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1024);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 768);
-+
-+	mode = drm_connector_preferred_mode(connector, 1920, 1080);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 1920);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 1080);
-+}
-+
-+static struct kunit_case drm_test_pick_mode_limits_tests[] = {
-+	KUNIT_CASE(drm_test_pick_first_mode_within_limits),
-+	KUNIT_CASE(drm_test_pick_cmdline_mode_within_limits),
-+	KUNIT_CASE(drm_test_pick_tiled_mode_within_limits),
-+	KUNIT_CASE(drm_test_pick_clone_mode_within_limits),
-+	KUNIT_CASE(drm_test_probe_keeps_modes_above_limits),
-+	{}
-+};
-+
-+static struct kunit_suite drm_test_pick_mode_limits_test_suite = {
-+	.name = "drm_test_pick_mode_limits",
-+	.init = drm_client_modeset_test_init,
-+	.test_cases = drm_test_pick_mode_limits_tests
-+};
-+
-+kunit_test_suite(drm_test_pick_mode_limits_test_suite);
-+
- /*
-  * This file is included directly by drm_client_modeset.c so we can't
-  * use any MODULE_* macro here.
--- 
-2.55.0
-
+> --
+> Thanks,
+> Sasha
