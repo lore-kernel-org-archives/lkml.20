@@ -1,98 +1,115 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1744813CF82
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B607242D88
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792023603; cv=none; b=g5wL1l3M0sVmFYySzkoxvm6DRXbGuPtHWd1LfZAsro8BdFhHhoadO9jvrLzZulI5wIIZZxSTx9b4d4WblpQj181DNGcnNGLSdbvnlr9O9d/rjmN0EUflRnUmg3yF9WDNvuK0KnLwpdHjhvI7n4pkA9psM/vzatUXP/M61C1Rvbc=
+	t=1792023606; cv=none; b=o6uXvxMGkbEwvROZCw4xPklrptK0lPjYATYkNYkmLciMDQtuU7ZBrRQ1mtZtIyPDYHnSVaA/jgOi4jIApkZRm4V6ILEyPrBsCDeb4auMxZuXEsOvhpxjjLhtQH7C3jrKl8f5N32t6wKU19kXKryi65431bNd7rMbkClwYzBzWIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792023603; c=relaxed/simple;
-	bh=hT9C8KpbWvhuKNsWMFmwkxNYGUnSTIDYXUV4/uXNbho=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lWWUwXW5AN5y46HIG86xgf65W2WrAghny/BHVhMC8PullN534oAIcd4e8X22WaNb4lWREP3kGjRtCLTI0RxPfTwA3EYLIrEaJ1Co/wFLMNFBgd3GlF2jwIjSwC33KGOvF8oEVvmXX6xJRz3sIrBgiIMtq2QgZ5SGmymeesDReBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eF64rZKq; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1792023606; c=relaxed/simple;
+	bh=AnNVEavxqtyOTLpLxYFj2+nZEID6bcl0Z2S7QWhHL6I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZRjTONuxryng+MieF18/sNv0EUEgpDVuR+bW24Tfpm038i/iVVBNv/i6hkadYB3nxY5rAxqfQbUg33fsGsuIBpJ6HWXCCsjgs9wxrV7BF/AhXsz6gqvJhe1wqPT87HTkhUfi5TlCq7qVb0Y3fEciJJJRXbpDHj+NGEgFyJ7vG3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rijFxrjr; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eF64rZKq"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so4415862a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:20:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rijFxrjr"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso793617a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:20:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792023601; x=1792628401; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c63/iXJr8hVZch+xmWANZyQNFENMpYcROr3AAHKmacE=;
-        b=eF64rZKqiBB1tAQasG7iSWR5w7CFmUFF76Y2xi/uiyrmcvazPjvVoqO2JH6dPsTFAv
-         9Fp09Ev/1pgWxUjG3fqW4KybzZp7tckWpGfp3kIHhOS6wmELUfKN+RjvhLxzzLoXGion
-         B4Ay6VuOmuOryQaz4qM9FLpDwpvQLGBWW2tTNuwMJOdGBOkWW676Fl777MsE4oNpzBjI
-         LZZzoWZ092iYtym07V3I7zjxH20rYJrYi1vJFd9VsRCaKNsPC8vgVtObyi1Epi1a1qPN
-         HJExF5rf+y6dmPy9pNx1BotHhSRFptQrjH6QGp5egyZZQmFFR30P10f7F5Pgcm9hADzy
-         vGxw==
+        d=gmail.com; s=20251104; t=1792023605; x=1792628405; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ISbHRDvpK26efrlSANt4b/Vey+sE4YbMfz0mAYLwgdI=;
+        b=rijFxrjrOwq/WCKEzLWGTcoWKMPy01wXTkwsNGGD2jZMbPFknXuJOqWtVtnTnbW2p4
+         hko/hUFuUEl7OTLSub4ZwfwnWHO6eJLdp3NTXdSXrmIQvJGuOyixo8mw5/ocS+tV4R1U
+         /V2lZdjf/jFF3dAekF95KtRGOdwrBdyL22zp4mvLFNMtQVwcFXy0ryXOZtIxrzMUiiMR
+         7u1Wv34oQ9MmiHJyf7r7VmXFCeFBGlS/pOJsDSkyb6yDow0SffXoUvDtfGSYT6+1S9LA
+         DSHIS3M3/cwJfE9+Wx+mhd//9muV68Xs5tJotIl7srp3mK20C/2kD9+TNLM/P0KphJeQ
+         trSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792023601; x=1792628401;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c63/iXJr8hVZch+xmWANZyQNFENMpYcROr3AAHKmacE=;
-        b=0dZk5ehphPKZwfe05Lwj96JBIHlKxPjzqj0O5/dx7hQKx9g2uUfE6JclNZGL/XnjGP
-         LMbH00PdiqDNjv6d/t/5buEGnPui4nwDOyEkl6gDl4IQVUg/oJTWYd9kufws/SLlYoBG
-         u6z21rAmzW3BZAnpBWh+lQ5rxwOG2CBD2eUPAJMh9BNU299yyl7e0pu+fN8zZlrw4rEj
-         qdjR3VFZoyt/kuWj4H6B05KCccnwU4SvP3xISU1AWmNdR75+DWdbmkRuSXK+5jZl1Pzf
-         HwPTYvjcDfErfCiI0NpkbhR9ANT9ksjK/R4PeqmlvB9Cmpgy7xJ2tce+yBfQKgIFIFyQ
-         NGug==
-X-Forwarded-Encrypted: i=1; AKwUvBwMVyWF9ppxyFSDWCsZywKWBoS0xwKmUHT2cqQ0NNU29UfhqycOxstDkx2qNCD5TBYJWmtae1cV3jVQAvU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8Qjkwpd1XzSu5/KNrf+gzouC7RcFvBSgu1ei0u2SOaP4atAb9
-	xNRqJA9NAK5Ik5wPd+ZCb8gS332SKRpzHnguu15buUkGwnZCmwJBXjDY/euMfWnUUHoi96kHFEA
-	IgYiCfwHCtkGFZ6R+sa4HSA==
-X-Received: from pgdo18-n2.prod.google.com ([2002:a05:6a02:6212:20b0:cc7:b455:d1fe])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2ec3:b0:3a8:240e:b493 with SMTP id 98e67ed59e1d1-3ab3acf5c6amr14581156a91.45.1792023601145;
- Wed, 14 Oct 2026 17:20:01 -0700 (PDT)
-Date: Thu, 15 Oct 2026 08:19:59 +0800
-In-Reply-To: <sashiko-outbox-169843@kernel.org>
+        d=1e100.net; s=20260707; t=1792023605; x=1792628405;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ISbHRDvpK26efrlSANt4b/Vey+sE4YbMfz0mAYLwgdI=;
+        b=z3VfjCNPOmKohOZyqbX9O1A5J7kl9zfoutNKpDudrnUBypiw1DYtvClP/SgmKJv7Qd
+         et/7PIpwN8PzQUnX1ihYCdI2pdxIfz/wt/phUn/DBwFzZkRMRIFc/adVLCH8xila2h4C
+         3jahrGHuflIa4cUb+GEkrHoUcIfKd/nkc+UKoP+GbFu/0IHvDt+5nz6cgI1qsqkUHEW+
+         O0vtbBZMPW2Gb4pGtosHTAjNjStw8K96lyApq9qYWxLIQgYrYRmlGHxAHTzEW+EpAoia
+         JrwjmyxYMkyaBedpfZTdbG4syzVs49pE1qpYWVWeqEC3BelvWNd6SrTHyXlsGfXwjam+
+         AHFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtusfnOXDlf7O7gSSgn/cXBGH4zTkU0gXezk3A3xUMzAMFdGZVo0MWdnN8m1zOmVGE7CfYIuCd6QF17ms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLr2G6M5MGBT64CmlvY1GvyemFG6mkhStXWzTFOewao46qnZl1g
+	YK61G/vwmsfoXpCAKOwRpxLHlFwV3ORtldugYAH5zO7HqHBz5RG9aAEn
+X-Gm-Gg: AYBFou0Rarhb+YpcXuH48qi+SCQK1rabUX0/4HVAxdSAgBOH/SCeuYEo6IrcF5+4PeV
+	afKO/qNu4XYyRb2RVjbSVjmfcfFU1Xy97itPluLbtliDpTZT/3Ux9WcYZ6EWpFQ5yY2CGPYiLQl
+	Z3iV7jomfc64GtY/qqGuouQ5zsgncGGcfsLb00PXpfkGK1dmc3Thg5OUwdHeSO0dm0IMB4Uq9A/
+	2dTiPVdy4V3b5eU2iVcQjAL6A9fCPA7BUoYUiFNl7/JckEKPe+1ylAHOo0JXnRXmbVd6Ky1+x3P
+	Kwd51RbZ2CVjAzNAcCHqMgzjEa0JKtxtvaPshrFunAgUZBlYW7VQBbMA6jMRw15AXZ1joEatBVq
+	zDl8MzGorOrd/JlnfrSadLf5KBFRG4YyH9ROghB7aB/f1lqw1EYaf+MGaUyZlKfl0uvZmqFbWGc
+	OXxzOPcmeuNwT31p/DWpnihhJpGWntcen25aOCdCao3Zm1PGLFrx+Elp/sB9by
+X-Received: by 2002:a17:90b:2681:b0:3ab:189b:6981 with SMTP id 98e67ed59e1d1-3ab3a92f9f3mr13983908a91.48.1792023604661;
+        Wed, 14 Oct 2026 17:20:04 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac93ff4474sm1597813a91.0.2026.10.14.17.20.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 17:20:03 -0700 (PDT)
+Date: Thu, 15 Oct 2026 09:20:01 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, zhongling0719@126.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5] ntfs: roll back the ACL xattr commit when the WSL
+ mode update fails
+Message-ID: <atAcMSHpAbf0aTGP@hyunchul-PC02>
+References: <20261013015652.19724-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <sashiko-outbox-169843@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261015001959.3452983-1-stanleyjhu@google.com>
-Subject: Re: [PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS
- ARPMB replies
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Jens Axboe <axboe@kernel.dk>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>, Kashyap Desai <kashyap.desai@broadcom.com>, 
-	Sumit Saxena <sumit.saxena@broadcom.com>, Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
-	Lee Duncan <lduncan@suse.com>, Chris Leech <cleech@redhat.com>, 
-	Mike Christie <michael.christie@oracle.com>, Bean Huo <beanhuo@micron.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	mpi3mr-linuxdrv.pdl@broadcom.com, open-iscsi@googlegroups.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261013015652.19724-1-zenghongling@kylinos.cn>
 
-On Tue, Oct 13, 2026 at 01:39:40PM +0000, sashiko-bot@kernel.org wrote:
-> Since job->result is 0, this check is bypassed and the full bset->reply_len
-> bytes of the uninitialized or recycled job->reply buffer will be copied to
-> user space. For UFS Advanced RPMB, this could leak up to 104 bytes of the
-> previous request's data.
->
-> Should the reply buffer be cleared when initializing the job, or should
-> job->result be explicitly set on all error paths?
+On Tue, Oct 13, 2026 at 09:56:52AM +0800, Hongling Zeng wrote:
+> ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
+> mode EA, and removes it again when the rewrite fails.  That only
+> undoes a set that created the xattr: when the update replaced or
+> removed an existing one, the old ACL is discarded along with the
+> failed update.  No error is recorded when the undo fails, so the
+> new, typically more permissive, ACL is left on disk while i_mode,
+> the mode EA and the cached ACL keep the old values.  After a
+> remount, a chmod 0640 -> 0777 that reported failure leaves the file
+> accessible to the relaxed ACL while stat() still reports 0640.
+> 
+> Save the previous xattr before committing the update, and restore it
+> when the mode EA rewrite fails.  A removed xattr is created again,
+> since XATTR_REPLACE fails with -ENODATA once the removal dropped the
+> entry.  Remove the new xattr only when there was no previous one, and
+> skip the undo when the commit changed nothing.  A failed rollback is
+> recorded: NVolSetErrors(), which the next persistence point persists
+> as VOLUME_IS_DIRTY, and a log message the errors= policy acts on.
+> The flag cannot be written to disk here directly: the target inode's
+> mrec_lock is held and the $Volume mrec_lock cannot be nested under
+> it.
+> 
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-This is pre-existing in ufs_bsg_request() and not tied to the new reply
-length; the same happens today with the 96-byte buffer. The other BSG
-transports complete the job via bsg_job_done() on error.
+Looks good to me.
 
-Both points are fixed in the UFS BSG series v2:
-- 1/5 completes failed jobs via bsg_job_done(), so job->result carries
-  the error.
-- 2/5 clears the reply buffer on entry to ufs_bsg_request().
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-https://lore.kernel.org/all/20261015001855.3450573-1-stanleyjhu@google.com/
+-- 
+Thanks,
+Hyunchul
