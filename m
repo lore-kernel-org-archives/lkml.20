@@ -1,124 +1,213 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E4551C077
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 10A5A51C078
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792064289; cv=none; b=NvKFBNKC+lj3+/Bhg7zCTwgBGLSnKhMbY1hVzy5fPbSongIy+/RSnCd6DKmZeWpVpC9LqeftTsItDa/wU9tRzVzj72tYRB0H+81yr47rh4iErcgDxL3kzm4sFst8U0yWZc1bYXqz/n/A91ch7S6MvutcFm/8yYyLWRhz68at0XQ=
+	t=1792064292; cv=none; b=Xju1PkRJQXZpE3lCeyOA7l0L8MxSzvlQbRBHOcxpZTKLbeVsnzYVVkBPvMBbshe9kvAJit0qupij5ZsZaeAhEQBIHxbbjjcvGz8j5pfkvILo6Q5O+cULSMMpokXRFD6VEFTntRCumsQ4xpJ7PnoPDDR1IiHnY/NhWcyOJsSi6xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792064289; c=relaxed/simple;
-	bh=9kcBr4qy1GjOghurCmFMBqZco2fiNT7SlRTN/GBR/t8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SRYz4FgjiWC3xeDDbnGnWIjturmgHPximGlkK/HL8cDeQ7Gt7Rd0Zy6hnQKapNinV5TAX84tbkB4Xp4xH2EwkxXyNYgknk/VAdN4mOK8eoiULt2NW0LGEeT+x9XCvo9Dfde5K2xz3auJY3NloNFM+nO8VmWKW4JcJhFB3ouKu4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RBz/cmBY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792064292; c=relaxed/simple;
+	bh=umiMISdru6YuYxrfBTwb8+2F9qdcXXf3bL3QaUo6Y0o=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Y7jT28scOlxycX+TMqh9CNX28beHqRqiSXLXEBbHeAVmR5k1QPZLK6IIAUfxqwTxHPKJY7wlFf2M3Db3SXUIoTmGWTPaTBSj+A7wDIesIPZDtGFdbXoakmHGHo2wmwdXYVq4w0pFixWX+KK8NF0LCOiBUOHpRh+FAKYGB9s9QWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tnAchyA/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RBz/cmBY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792064278;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=MZ97wBggcb4AZnAp8JyxdnSo+z3EENDs+SXWKghbgJM=;
-	b=RBz/cmBY5VexH5zRpXv891qsSrt/H0UDQ9r1t2vQSMkUG+4ZMyVpgF0/EQ4ZeaHMLkRi8m
-	rX9I/FMbYCRe0hRf2LDxZaDcNdiiIktiXHJOsP1I2U9tWfwfJYYDjY16QBNcPtiVFY3cPX
-	wkWaq/J5ZXSCCtsThb/dxcmp1UUoJeg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-498-P3_sEh9lMb2egh4ePKniRw-1; Thu,
- 15 Oct 2026 11:37:55 +0000
-X-MC-Unique: P3_sEh9lMb2egh4ePKniRw-1
-X-Mimecast-MFC-AGG-ID: P3_sEh9lMb2egh4ePKniRw_1792064274
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D8E6C1956060;
-	Thu, 15 Oct 2026 11:37:53 +0000 (UTC)
-Received: from F43 (unknown [10.64.240.22])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8CA1C7D5;
-	Thu, 15 Oct 2026 11:37:49 +0000 (UTC)
-From: Juhee Kang <juhee.kang@redhat.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Dustin Black <dblack@redhat.com>,
-	stable@vger.kernel.org,
-	Juhee Kang <juhee.kang@redhat.com>
-Subject: [PATCH v2] clocksource/drivers/nxp-stm: Register sched_clock once
-Date: Thu, 15 Oct 2026 20:37:38 +0900
-Message-ID: <20261015113738.435986-1-juhee.kang@redhat.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tnAchyA/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D30601477;
+	Thu, 15 Oct 2026 04:37:56 -0700 (PDT)
+Received: from [10.57.88.29] (unknown [10.57.88.29])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4957A3F673;
+	Thu, 15 Oct 2026 04:37:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792064280; bh=umiMISdru6YuYxrfBTwb8+2F9qdcXXf3bL3QaUo6Y0o=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=tnAchyA/p0akaxU2YPKSlELNpt/fAfDL63S9j2kemqleWEJYmZBVO+B2Ehu1ikTzq
+	 Pw4WFAampv+1CRt+L1MFk854jHpWUsHCxdD8u3hjtq0ijG90kSH4UUbT+W524Ojwpr
+	 1xo0tRHUSMRr58aJK3srA+hBJeiykLiTqr9aDV00=
+Message-ID: <fd8578a1-e60b-4993-ab51-2b5d63abcf77@arm.com>
+Date: Thu, 15 Oct 2026 12:37:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+User-Agent: Mozilla Thunderbird
+Subject: [PATCHv2] sched: Account I/O waits independently of delayed dequeue
+From: Christian Loehle <christian.loehle@arm.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Balbir Singh <bsingharora@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Valentin Schneider <vschneid@redhat.com>, Josh Snyder <joshs@netflix.com>,
+ Kayra Cizmeci <kayracizmeci@gmail.com>, linux-kernel@vger.kernel.org
+References: <20261014081731.1068794-1-zhanxusheng@xiaomi.com>
+ <fab66e31-7c7e-4a81-be59-1a4c1458ff43@arm.com>
+ <4ce12bff-9532-4b27-98f2-a807bbccfaf7@arm.com>
+ <20261015025912.1541134-1-zhanxusheng@xiaomi.com>
+ <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
+Content-Language: en-US
+In-Reply-To: <a71b6375-f460-49fc-aee6-9f01d58163c2@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Each probe updates stm_sched_clock before calling sched_clock_register()
-again. The call then subtracts the counter value saved during the
-previous registration from the new STM's counter. If the new counter is
-smaller, the subtraction wraps and the timestamp jumps forward.
-(e.g. from 0.4 to 32.9 seconds below)
+Starting blkio delay accounting and incrementing rq->nr_iowait in
+__block_task() ties both to removal from the runqueue. With EEVDF delayed
+dequeue, this misses the initial part of an I/O sleep, or the entire
+sleep if the task wakes before it is dequeued. Such tasks are also
+missing from procs_blocked while their dequeue is delayed. Final dequeue
+can run in another task's context, causing delayacct_blkio_start() to
+timestamp the wrong task.
 
-  [    0.403653] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
-  [    0.404056] clocksource: timer@40120000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
-  [   32.890509] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
-  [   32.890882] clocksource: timer@40124000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
+Start both forms of accounting in try_to_block_task(), when the current
+task commits to blocking, before delayed dequeue or proxy execution can
+retain it on the runqueue. End both when clearing is_blocked, including
+queued wakeups and the proxy execution paths that let the current task
+continue. Checking is_blocked excludes wakeups that precede blocking.
 
-To fix this, register sched_clock once at the end of the first
-successful probe. Clocksource and per-CPU clockevent registration
-remain unchanged.
+Save the CPU charged at the start of the wait. Delayed tasks can migrate
+while still queued, and proxy execution can also move blocked tasks.
+Decrement the saved CPU's counter on unblock, regardless of the task's
+current placement, and remove the old dequeue-based accounting.
 
-Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Timer Module for the s32gx platforms")
-Reported-by: Dustin Black <dblack@redhat.com>
-Signed-off-by: Juhee Kang <juhee.kang@redhat.com>
-Reviewed-by: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+CPU iowait continues to classify idle time using the counter on the
+charged CPU; it does not accumulate the full per-task blocked duration.
+
+Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Closes: https://lore.kernel.org/r/20261014081731.1068794-1-zhanxusheng@xiaomi.com
+Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
-Changes in v2:
-  - add the comment
----
- drivers/clocksource/timer-nxp-stm.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ include/linux/sched.h |  2 ++
+ kernel/sched/core.c   | 33 ++++++++++++++++++++-------------
+ kernel/sched/sched.h  |  5 -----
+ 3 files changed, 22 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
-index 6fe098a4a33f..23b2d44e4b78 100644
---- a/drivers/clocksource/timer-nxp-stm.c
-+++ b/drivers/clocksource/timer-nxp-stm.c
-@@ -211,10 +211,6 @@ static int nxp_stm_clocksource_init(struct device *dev, struct stm_timer *stm_ti
- 	if (ret)
- 		return ret;
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index d35ae49a991f..d558816cc05a 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -880,6 +880,8 @@ struct task_struct {
+ 	 */
+ 	int				recent_used_cpu;
+ 	int				wake_cpu;
++	/* CPU charged while is_blocked && in_iowait. */
++	int				iowait_cpu;
  
--	stm_sched_clock = stm_timer;
--
--	sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
--
- 	dev_dbg(dev, "Registered clocksource %s\n", name);
- 
- 	return 0;
-@@ -473,6 +469,15 @@ static int nxp_stm_timer_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
-+	/*
-+	 * STM counters run independently at the same rate. Use the first
-+	 * probed instance for sched_clock to avoid timestamp jumps.
-+	 */
-+	if (!stm_sched_clock) {
-+		stm_sched_clock = stm_timer;
-+		sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
-+	}
-+
- 	return 0;
+ 	int				prio;
+ 	int				static_prio;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1fe40de6ebe3..85eba26f00d6 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -636,7 +636,7 @@ int task_llc(const struct task_struct *p)
+  *
+  * p->is_blocked <- { 0, 1 }:
+  *
+- *   is set by try_to_block_task() and cleared by ttwu_do_wakeup() and tracks
++ *   is set by try_to_block_task() and cleared by unblock_task() and tracks
+  *   if the task is blocked. Traditionally this would mirror p->on_rq, however
+  *   due things like DELAY_DEQUEUE and PROXY_EXEC, this can diverge.
+  *
+@@ -3737,12 +3737,22 @@ ttwu_stat(struct task_struct *p, int cpu, int wake_flags)
+ 		__schedstat_inc(p->stats.nr_wakeups_sync);
  }
  
--- 
-2.55.0
++static inline void unblock_task(struct task_struct *p)
++{
++	if (p->is_blocked && p->in_iowait) {
++		delayacct_blkio_end(p);
++		atomic_dec(&cpu_rq(p->iowait_cpu)->nr_iowait);
++	}
++
++	p->is_blocked = 0;
++}
++
+ /*
+  * Mark the task runnable.
+  */
+ static inline void ttwu_do_wakeup(struct task_struct *p)
+ {
+-	p->is_blocked = 0;
++	unblock_task(p);
+ 	WRITE_ONCE(p->__state, TASK_RUNNING);
+ 	trace_sched_wakeup(p);
+ }
+@@ -3839,10 +3849,6 @@ ttwu_do_activate(struct rq *rq, struct task_struct *p, int wake_flags,
+ 		en_flags |= ENQUEUE_RQ_SELECTED;
+ 	if (wake_flags & WF_MIGRATED)
+ 		en_flags |= ENQUEUE_MIGRATED;
+-	else if (p->in_iowait) {
+-		delayacct_blkio_end(p);
+-		atomic_dec(&task_rq(p)->nr_iowait);
+-	}
+ 
+ 	activate_task(rq, p, en_flags);
+ 	wakeup_preempt(rq, p, wake_flags);
+@@ -4415,11 +4421,6 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 
+ 		cpu = select_task_rq(p, p->wake_cpu, &wake_flags);
+ 		if (task_cpu(p) != cpu) {
+-			if (p->in_iowait) {
+-				delayacct_blkio_end(p);
+-				atomic_dec(&task_rq(p)->nr_iowait);
+-			}
+-
+ 			wake_flags |= WF_MIGRATED;
+ 			psi_ttwu_dequeue(p);
+ 			set_task_cpu(p, cpu);
+@@ -6762,6 +6763,12 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
+ 
+ 	p->is_blocked = 1;
+ 
++	if (p->in_iowait) {
++		p->iowait_cpu = cpu_of(rq);
++		atomic_inc(&rq->nr_iowait);
++		delayacct_blkio_start();
++	}
++
+ 	/*
+ 	 * We check should_block after signal_pending because we
+ 	 * will want to wake the task in that case. But if
+@@ -6934,7 +6941,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 		if (!mutex) {
+ 			clear_task_blocked_on(p, mutex);
+ 			if (task_current(rq, p)) {
+-				p->is_blocked = 0;
++				unblock_task(p);
+ 				return p;
+ 			}
+ 			goto deactivate;
+@@ -6970,7 +6977,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
+ 			 */
+ 			__clear_task_blocked_on(p, NULL);
+ 			if (task_current(rq, p)) {
+-				p->is_blocked = 0;
++				unblock_task(p);
+ 				return p;
+ 			}
+ 			goto deactivate;
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 4c25fbe84fb5..eaad943a27a0 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3072,11 +3072,6 @@ static inline void __block_task(struct rq *rq, struct task_struct *p)
+ 	if (p->sched_contributes_to_load)
+ 		rq->nr_uninterruptible++;
+ 
+-	if (p->in_iowait) {
+-		atomic_inc(&rq->nr_iowait);
+-		delayacct_blkio_start();
+-	}
+-
+ 	ASSERT_EXCLUSIVE_WRITER(p->on_rq);
+ 
+ 	/*
 
+-- 
+2.34.1
