@@ -1,107 +1,132 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4591503BF3;
-	Thu, 15 Oct 2026 09:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E5A4CDA36;
+	Thu, 15 Oct 2026 09:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058062; cv=none; b=mIZB8v/PYKlcxCLo7/vtlpubxdCle9M9qFbjAUNRYnKayDF2n6LGJBQ/6P80yh8kL2W9KqrxOqpRmscpdCkVltY2GYzsflN6H1oIxdCqV3TMLhGEkFeTu2gtpqDFvrBdGOQzi9XVt4SHhinQUg9AjDvjajHExW8TLO0E1ztQzsw=
+	t=1792058088; cv=none; b=tM2I9mVFcH90cnLeUrzF8S6JPr+f2kAX+iXmAKM/taMtH7THgoWU88KvsffJ8F5Pw3idqayU43zI5tiV4QyJEDkolI3G1FZnC7UdW/GZhT6jxDOy/bGClu3iRuOLQsQ3tY8tpSWyBiQ4SVtHbsSFHU6Xs3rShGxGQKFIV+52Gn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058062; c=relaxed/simple;
-	bh=UL2cUuM9jWClRNs+NjvX3Sg7IF6yTgJ7aMrxlv2SVDo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=seYZVO0xZUkMAcAdAxpLBHzbWhVg3ktj/grqJTnFsUgYC4apJlenCzElHvyENpJUra1vyCmrRntkpv851YDgsk/YTZXMkR+jdWJjRbvynTf/4bnopU2k/IRwJBSmOHj8BmZ0icMcZOJvuNHLAddKVDOJep7NhVmeNMmTdAThkLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=dNnLFCDd; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1792058088; c=relaxed/simple;
+	bh=mHVmUCiRkn/8UwtnFUBM+YUG9kbHG43rM5PQTdhnxP0=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=TyvzOGcm6b1egb80a7tAqJmKkW7Ybe2OWGPVWopprhtqCF2RUHR89B6h1y/fCaKUXcatulG+54Dy6OJ4OaNyzfpxhW4L4guvLKlgVjEQ/UuqZEkAv0nL/uyP2EhMG9CayNrcLLVX9+rxhwNYNEk0sUiO+eJjPFwPxXfgQcovFKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=c6Mpfa49; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S+pCIZJB; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="dNnLFCDd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=FTiAObyAESh3G5YxQwvY1f/k5aL+7XVnCiMQ+GLcbRk=; b=dNnLFCDdJxUFAnrNjRUh3QEdY7
-	2KbWJtVpT8MtlXfHPk4eNHJ0WK0IHo26G9EEcRYvjgB21eaBUz8/eg+lr/VKHV4xsxuwxhEgClC5v
-	Sin9Tp+SerlmItUku+HmrO1sk0egRZlwpHgJrGq3UC1n5SnbgDFZq4A1N8KVgXVsM3brOzcMfZX65
-	CScOmGCD+sEkN+ZwDz0wRROYnLq8o4GpMh9Y0DKHQHUA5UsZI7fu/fg0t6eIoPWVOVmD94lCBg03U
-	kdUaj7kaHdSWHDTbKli3+NrOc89nucwHa/GwQQCF3dTFnjvtB8NZXVsHY8IQ7+1710ULQyru7cUbR
-	cK+eNmHw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHI94-0056ak-1F;
-	Thu, 15 Oct 2026 09:53:06 +0000
-Date: Thu, 15 Oct 2026 02:52:58 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, Chia-Wei Wang <chiawei_wang@aspeedtech.com>, 
-	Oskar Senft <osk@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Jani Nikula <jani.nikula@intel.com>, 
-	Vitaly Lubart <lubvital@gmail.com>, Hanjun Guo <guohanjun@huawei.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Alexander Usyskin <alexander.usyskin@intel.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Stephen Hemminger <stephen@networkplumber.org>, Dave Penkler <dpenkler@gmail.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Dan Williams <djbw@kernel.org>, Mukesh Rathor <mrathor@linux.microsoft.com>, 
-	Vladimir Oltean <vladimir.oltean@nxp.com>, Alexandra Winter <wintera@linux.ibm.com>, 
-	Julian Braha <julianbraha@gmail.com>, Karthikeyan KS <karthiproffesional@gmail.com>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH v2 1/4] uart-routing: Add common UART routing framework
-Message-ID: <atCibvmbCSTMTMYD@gmail.com>
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
- <20260905102901.126035-2-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="c6Mpfa49";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S+pCIZJB"
+Date: Thu, 15 Oct 2026 09:54:37 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792058079;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t90Y/THCiR7OWQHMvCDI21o9IGsknu5ZrVah4L/3mq0=;
+	b=c6Mpfa49UqBW/haE3xaamhNC0dnTOD8qCCpRWYylpsH6y0TrFuJa3Ehmv/4Ia3v5j0iSXF
+	V4WoKRgDibPP7KI64vM6kSPkTX5Kj3zf1UzeTfnnpdQ6vaJ0MU2jkvh1VO7new8dbKbebG
+	BJDJjQek1GH7aQEitLYsYsc+40XQYVcnGVMpz0fTKE/CkpqAjtqnLa0TO8RFsVpGeSnYDa
+	cWMrSZw3HuuBI7/sSzNKYrA8Ve0yVRzEI5GMMIIMaGg+OK2ae1T2nue14Ef0s/LrkS5tTC
+	COucDWxDvmCPF5nOeTWxW6Ptaq0sO/Ynht5ylonomyZQKthRO64npYG4uAIbQg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792058079;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t90Y/THCiR7OWQHMvCDI21o9IGsknu5ZrVah4L/3mq0=;
+	b=S+pCIZJBn/60E+bkeMIw+hTc/I9b2cesdkrYObg++yoHDYmoUOt1RvSwbCLOgZhr0Xblji
+	JpwTsyY7iC9R5xDw==
+From: "tip-bot2 for Fuad Tabba" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/gic-v3: Don't register a redistributor
+ that was never counted
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260925085000.753400-4-fuad.tabba@linux.dev>
+References: <20260925085000.753400-4-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905102901.126035-2-changhuang.liang@starfivetech.com>
-X-Debian-User: leitao
+Message-ID: <179205807788.2666988.12115351936867794153.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 05, 2026 at 03:28:58AM -0700, Changhuang Liang wrote:
-> +ssize_t uart_routing_show(struct device *dev, struct device_attribute *attr,
-> +                       char *buf)
-> +{
-> +     const struct uart_routing_selector *sel = to_uart_routing_selector(attr);
-> +     struct uart_routing *routing = uart_routing_from_dev(dev);
-> +     unsigned int val, pos;
-> +     int len, ret;
-> +
-> +     ret = regmap_read(routing->regmap, sel->reg, &val);
+The following commit has been merged into the irq/drivers branch of tip:
 
-It seems routing can be NULL here if the file is read while the device
-is being unbound, and uart_routing_store() has the same problem.
+Commit-ID:     7bcd2fa22186587e06c456d1c2e3d336c83136f6
+Gitweb:        https://git.kernel.org/tip/7bcd2fa22186587e06c456d1c2e3d336c83=
+136f6
+Author:        Fuad Tabba <fuad.tabba@linux.dev>
+AuthorDate:    Fri, 25 Sep 2026 09:50:00 +01:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 15 Oct 2026 11:50:48 +02:00
 
-I hit this while testing v2 on arm64 (next-20261008 with KASAN), and the
-code is unchanged in v3.
+irqchip/gic-v3: Don't register a redistributor that was never counted
 
-        d=/sys/bus/platform/devices/$DEV
-        drv=/sys/bus/platform/drivers/aspeed-uart-routing
-        while :; do cat $d/uart1; done >/dev/null 2>&1 &
-        while :; do echo $DEV > $drv/unbind; echo $DEV > $drv/bind; done
+gic_acpi_match_gicc() counts only the enabled GICCs with a non-zero
+gicr_base_address, and that count sizes redist_regs[], but
+gic_acpi_parse_madt_gicc() registers every enabled one. On a MADT with
+no GICR entries, an enabled GICC with a zero GICR base therefore makes
+gic_acpi_register_redist() write a struct redist_region past the end of
+the array.
 
-and then got:
+Commit fa2dabe57220e ("irqchip/gic-v3: Don't return errors from
+gic_acpi_match_gicc()") removed the check that kept the two consistent.
+Its message says such entries are still caught by gic_populate_rdist(),
+but that runs from gic_cpu_init(), after the write.
 
-    KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-    Internal error: Oops: 0000000096000006 [#1]  SMP
-    pc : uart_routing_show+0x64/0x288 [uart_routing]
-    Call trace:
-     uart_routing_show+0x64/0x288 [uart_routing] (P)
-     dev_attr_show+0x64/0xc0
-     sysfs_kf_seq_show+0x21c/0x380
-     kernfs_seq_show+0x138/0x1c8
-     seq_read_iter+0x358/0xa30
-     kernfs_fop_read_iter+0x438/0x500
-     vfs_read+0x484/0x6f0
+Skip the entry instead, and mark the CPU's redistributor broken as the
+online-capable path does, so that gic_check_rdist() rejects the CPU.
+gic_starting_cpu() runs past cpuhp's last failure point, so without the
+mark the CPU would come online with its redistributor and CPU interface
+unconfigured. With an ITS, its_cpu_init() would then dereference a NULL
+rd_base.
 
---breno
+Fixes: fa2dabe57220e ("irqchip/gic-v3: Don't return errors from gic_acpi_matc=
+h_gicc()")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20260925085000.753400-4-fuad.tabba@linux.dev
+---
+ drivers/irqchip/irq-gic-v3.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index 9231688..32a8ea4 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -2344,6 +2344,17 @@ gic_acpi_parse_madt_gicc(union acpi_subtable_headers *=
+header,
+ 		return 0;
+ 	}
+=20
++	/* Not counted by gic_acpi_match_gicc(), so there is no slot for it */
++	if (!gicc->gicr_base_address) {
++		int cpu =3D get_cpu_for_acpi_id(gicc->uid);
++
++		pr_warn(FW_BUG "GICC entry with ACPI UID %u has no GICR base address, CPU =
+kept offline\n",
++			gicc->uid);
++		if (cpu >=3D 0)
++			cpumask_set_cpu(cpu, &broken_rdists);
++		return 0;
++	}
++
+ 	redist_base =3D ioremap(gicc->gicr_base_address, size);
+ 	if (!redist_base)
+ 		return -ENOMEM;
