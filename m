@@ -1,162 +1,113 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634543C09F2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD50A3BBFD0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042105; cv=none; b=MmoDXaPXxO7P5qByAMsN9UD+aFPHDn6hbn3DOqtDwxdSURvx0tgulSf59q+n8AEEd/DnC9VWAdSddayifPazke5o7md66lX3oF0VpI7a19cb7US+v29P16gF1KwQPSpdwIq/iLKQBHsnFCP9Jq+kx5maxG+pPRWZzGFEI4eB3wo=
+	t=1792042139; cv=none; b=Nx0pB7uMqFFXMpafRAVEIkoFiQ3QDvpN2DMQufGk42LoASmFwIVUpbR0g7p7rbAX1z49Yo7uVDAUedCF60MLYVwHSp+I2THXRaW4Y00nm7MB0JfXz5IJQiL9yOyG+gEA7bthODUMibniz9g1wnQJ5Wp/WTjLLVfb6lyx/ijBl9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042105; c=relaxed/simple;
-	bh=U2gj/vaV65VNsUL7fPUVQ/1hnFH4ZW5FqtRa+wjwJM0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R8v35k0sAaqwFxQXtfqPeAHI2zytOcsc6FQAD74wGIG58Wvud6Haa9UnyXvVAMGo9mC5d47VSHwzVQv5rolIBx+LdeX6BKPpKrRnKp12d5T7ntD2QLNTRij/r/2jw8ZvvhmN33te7oej4aSX5pCKnGB0RVPvgW2W6wpVChNYBZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=QPvLQWl+; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1792042139; c=relaxed/simple;
+	bh=A97vlOYOPztpqkl/7WvApY4fo2D7MM+AAOuFU9WGDsU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pMyzqGsGV5fy64MxUddPCrlmk+N4Lq/iZAWeqNbijReQI3kujmuYnoHehifMNeQtU2fbic86iQ0BwmsGYCvxgEqQ0QEEhv0yWDJaNjyE9tHAJJlf+t0OWa6Hmxvez3pW0Y/b5UnO65Gr660rcjqZSpgvzwZjLMzE3J08jeQ5h50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EEqmiUGm; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="QPvLQWl+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1792042102; x=1792301302;
-	bh=cK+uFW9olimdOfTgCS7tswFXLY5ZJbA4nN3Y6M4+Al8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QPvLQWl+JYE3NDjbfKXEBhqhLFae9WISTCmsq3HnhVBUuw26bapNuDMP1i8vuLU7s
-	 Jc7Hhclpm2/4WU862FqZefGlJXgYfYGPBqoA2q+1tBLTK7jZwpplvpU6xXbBuVjTGx
-	 nzZZEURQzd5Gg8/FjTgZeFU9IQb7L0BucfXqmKIJb++SeZWN/Xzlg2U9n0y6QIPn93
-	 vkV6el9jbhjARJnHcENwvQosBQFIJ/y1SiOwMIq01eUnH/z1BGfzqP/eK/STw+CnbY
-	 3gf8gvb+Uhxdq7QLGTJqLtpfA+ujBYTC3GzKti3cMGSrdEdjq9KhAsQ2Y/DzeY47yn
-	 LY+JG9slNrpGA==
-Date: Thu, 15 Oct 2026 05:28:18 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2] Bluetooth: L2CAP: tolerate zero-ident LE credit indications
-Message-ID: <20261015052751.137705-1-cochcoder@proton.me>
-In-Reply-To: <20261013031943.489829-1-cochcoder@proton.me>
-References: <20261013031943.489829-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 0a035fcb2513a39e20eb97b1810c65016d85ce26
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EEqmiUGm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792042138; x=1823578138;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=A97vlOYOPztpqkl/7WvApY4fo2D7MM+AAOuFU9WGDsU=;
+  b=EEqmiUGmKVrDLAaAA3gVd4gwIsrqQ6/WQ74vCHnWeD0EqssDO2kuilHp
+   VigYHhLcgyMkGVaVk5mpXvAXnrv4SHv46iBdXkyFjFy2AUKDXKoJ69YJU
+   5l3F6O61+wAfQ0jXkbACtFx85vnycnmwMymavP5zwn6p246ATdqJbEa+e
+   kS6khezvVLOq9TidF+bXn6z70wxrmt2NmeHnIjwszOScJa5CD4ipG3oNe
+   teoPYv/e+EHUY9IU7bpmCLWiSEo0iej0GYkqcTdkVw7HxvAkA8SYRPJt2
+   bItSKh9tNvBvpRgFhBOVvyWq77LSh8l4eTS24hycazgVFP9JvmsmJmA6/
+   g==;
+X-CSE-ConnectionGUID: kyNAAVl+TpWC+KVEdX8cSg==
+X-CSE-MsgGUID: a5Gxjp5yStq77lft/l17Dg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="813092"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="813092"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:28:57 -0700
+X-CSE-ConnectionGUID: spdjT8QTS1O8cziCvbvlvw==
+X-CSE-MsgGUID: iSdMk6feSe6DAYMOGmJx6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1928827"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:28:55 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Subject: [PATCH char-misc-next 0/4] issei: runtime power management, dma
+ and in-kernel interface
+Date: Thu, 15 Oct 2026 08:28:40 +0300
+Message-Id: <20261015-issei_pm_and_itf-v1-0-8212238a57a4@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBG4avIrB3IKFraqxQJkoz2X5hKRkQQ7
+ 97U5bd47yTTDDV6VSdl3WH4pgKpKwqfMc3KiMXUuKYXJx3DTOHXxY8pemwTR3mKhPhoNTgq2Zp
+ 1wnEv3/9H5gUWOOmx0XBdP6IlGGRyAAAA
+X-Change-ID: 20261015-issei_pm_and_itf-d1911cd73ec0
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
+ Karol Wachowski <karol.wachowski@linux.intel.com>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>, 
+ Reuven Abliyev <reuvenab@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792042134; l=1353;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=A97vlOYOPztpqkl/7WvApY4fo2D7MM+AAOuFU9WGDsU=;
+ b=/GjW9Db20Vjj+r3X+LMpLq9k/QQBox/18Pv8hCuxpfOHIMmkdQ7GOfJKVM6AIk/MtWrbfejgc
+ rSecgudgHjRDrobh/VLnOcFRnUnc5936cScpHQerXp0ofADHCvWkzh7
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-Tolerate exact-size, nonzero credit grants with identifier zero only
-for connected LE credit-based channels. Keep the target and pending
-security checks shared with ordinary identifiers. Do not send a
-response with identifier zero or relax other signaling commands.
+Pack of additions for issei driver:
 
-This is an interoperability exception to Core Vol 3 Part A section 4,
-not a conformance fix.
+1. Support for runtime power management
+2. Support for DMA allocation on request from client
+3. In-kernel interface that allows kernel drivers to communicate directly
+   with issei.
+4. Fix for power down flow
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
-Changes since v1:
-- Depend on the separately submitted target/state and pending-security fix.
-- Require a connected ordinary LE CoC, an exact-size indication and a nonze=
-ro
-  grant. Keep fixed/unready targets and ECRED identifier-zero grants exclud=
-ed.
-- Preserve shared target/security checks for normal and zero identifiers.
-- Do not generate any response with identifier zero or relax other commands=
-.
+Alexander Usyskin (4):
+      issei: save power_down flag while processing event
+      issei: add runtime pm
+      issei: host_client: add dma allocation support
+      issei: add driver to driver interface
 
-REQUIRED security dependency, submitted separately and not resent here:
-https://lore.kernel.org/linux-bluetooth/20261015052018.129971-1-cochcoder@p=
-roton.me/
-Signed dependency commit: 61a7ca610078ddf616873e7d4914cb6ac9eae7a3.
-Apply it first. This mail includes its prerequisite patch-id against upstre=
-am
-397464709a20. The resulting source tree matches the validated refreshed pai=
-r.
+ MAINTAINERS                       |   1 +
+ drivers/misc/issei/Makefile       |   1 +
+ drivers/misc/issei/cdev.c         |  12 +-
+ drivers/misc/issei/host_client.c  |  70 ++++++++++
+ drivers/misc/issei/host_client.h  |  12 ++
+ drivers/misc/issei/hw_heci.c      |  21 ++-
+ drivers/misc/issei/issei_dev.h    |   3 +
+ drivers/misc/issei/issei_device.c | 268 ++++++++++++++++++++++++++++++++++++++
+ drivers/misc/issei/main.c         | 233 ++++++++++++++++++---------------
+ drivers/misc/issei/pci_heci.c     |  21 +++
+ include/linux/issei_device.h      |  84 ++++++++++++
+ 11 files changed, 612 insertions(+), 114 deletions(-)
+---
+base-commit: 79e5797d243a466138f641932f81dc69f796060c
+change-id: 20261015-issei_pm_and_itf-d1911cd73ec0
 
-The Core specification still forbids identifier zero. This remains an
-interoperability RFC requiring maintainer policy agreement, not a conforman=
-ce
-fix. The separate security patch is independently useful without this excep=
-tion.
-
-Fresh current-base controls: all nine focused security cases pass with eith=
-er
-security-only or combined kernels. Public credit controls pass 13/14 with
-security-only (expected positive zero-ID failure), and 14/14 with this revi=
-sion
-added. No skips or captured KASAN/lockdep alerts occurred in these focused =
-runs.
-GCC W=3D1 changed objects and source-extracted security/target/zero-ID fixt=
-ures pass.
-
-The refreshed full suite is NOT claimed passing: SCI Fast Mode encounters a=
-n
-invalid response length for HCI opcode 0x20a3 and times out without a compl=
-ete
-summary. The same SCI failure reproduces on unpatched current upstream and =
-both
-revised guests. Initial spaced VM selectors selected broader tests; correct=
-ed
-space-free credit runs are the focused results above. Earlier 134/134 combi=
-ned
-results belong to the older reference base, not this fresh full-suite attem=
-pt.
-
-The combined Arch integration is reported working on hardware, not isolated
-attribution or exhaustive device/security/teardown coverage. No remote CI p=
-ass
-or severity claim is made. Private security reproducer/logs are not include=
-d.
-Confirm archive rendering of the dependency link before sending.
-
- net/bluetooth/l2cap_core.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 7a7f30531..d805b1c62 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -5396,6 +5396,10 @@ static inline int l2cap_le_credits(struct l2cap_conn=
- *conn,
- =09     chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL))
- =09=09goto unlock;
-=20
-+=09/* Tolerate identifier-zero credits only for a live LE CoC. */
-+=09if (!cmd->ident && (!credits || chan->mode !=3D L2CAP_MODE_LE_FLOWCTL))
-+=09=09goto unlock;
-+
- =09max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
- =09if (credits > max_credits) {
- =09=09BT_ERR("LE credits overflow");
-@@ -5994,11 +5998,21 @@ static inline void l2cap_le_sig_channel(struct l2ca=
-p_conn *conn,
-=20
- =09BT_DBG("code 0x%2.2x len %d id 0x%2.2x", cmd->code, len, cmd->ident);
-=20
--=09if (len !=3D skb->len || !cmd->ident) {
-+=09if (len !=3D skb->len) {
- =09=09BT_DBG("corrupted command");
- =09=09goto drop;
- =09}
-=20
-+=09if (!cmd->ident) {
-+=09=09if (cmd->code !=3D L2CAP_LE_CREDITS ||
-+=09=09    len !=3D sizeof(struct l2cap_le_credits))
-+=09=09=09goto drop;
-+
-+=09=09/* Credits have no response or identifier-matched transaction. */
-+=09=09l2cap_le_credits(conn, cmd, len, skb->data);
-+=09=09goto drop;
-+=09}
-+
- =09err =3D l2cap_le_sig_cmd(conn, cmd, len, skb->data);
- =09if (err) {
- =09=09struct l2cap_cmd_rej_unk rej;
-
-base-commit: 397464709a204da9b8dc3b01d6ea42539d951cd2
-prerequisite-patch-id: 658bb8f3b3e38bbbb21f2619434affc641582b7f
+Best regards,
+-- 
+Alexander Usyskin <alexander.usyskin@intel.com>
 
