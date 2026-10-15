@@ -1,244 +1,114 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011007.outbound.protection.outlook.com [52.101.65.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAB43D3D09;
-	Thu, 15 Oct 2026 14:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075187; cv=fail; b=SfoQWo7svewBX/vk+HpeDIY+GjDviqKB/HqvQPjdrO4qNba1YKALhwI8GQhGLAg3JKC3wP+IcUNMvI2bhC0ghYYFwKSBLuUGcaDZ4Q6Kc7VKkR1y8lZmyf84pmFdOfY7zLscqa5SqCtxRnqlARInrYWViZrTrYmitn1GKhPRKAU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075187; c=relaxed/simple;
-	bh=R+MqEEvNTvn+Kt+L8e1KbnRAQWJmwshEG5xm6kL06co=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=Ua20ffyXE2KShhAmQ8XrcXDoKTAe3oCLi5xxGVpZkmNkRhM0CYCbGLk8ZvDvB1IuTXS4D/TctbfV2cXyKBcLS2tdGeIfqIn1976EMkzInUp+ovE4VONC23Cd2vHKJm6fKGgPGdDtycS7yFtD1ojPsq3Yy0j1HNmFkUwHjq0ny+4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Pfa8HuWk; arc=fail smtp.client-ip=52.101.65.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E5C3D7D9B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075191; cv=none; b=oOOiRexNgAIy5ne6xuZFttMK/vg24Z7iCjDyejGSPBjYsL/9GZVVCrXBfRc6tCJj9FLp3N3brMZ/ADxeb6Y3fxaDhge+lVrFE9h6kwO4vchfM8qOyRR7mas24slGyxajsv2UDsU272lWnGAMyfB4e5x/KqI9uW744inQmkgdLwQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075191; c=relaxed/simple;
+	bh=gBd1lQQ0YlH34GDEWrMLQObGGp6KHUI2WPq/24ZdM08=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tdR6cZt5csXZxqXD9Sn++KQO/MLtTk9wUwUj0BU37JMfniNyZhbwESA0ncrwBvLeMQVTUM7RZiRaomM7yipRhjlpkZsjPSIENDSxXI8dh8IeoecLihFvIgPpDm+kKxSnjqASCzw5Ju+B+ng3OknWqKR9dG//hNkjsPt4BcfYDFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ehxEHhNM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Pfa8HuWk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g7sVL34F+Ggm0m2W+C2C39r1J3wuM+DIPsgrB1Mb/S+N3k/sJfK3K80/8YcWJJ0bT8ij4bY9DhxkiRb68mrk6LCyI75MZKx81U/Ay/heiziBFuJqxjX2kdQ5RsM1YRWYYG3I9Pbifq9L4CJH7sUIN2BlSnEteBalWJv+5e7OX5KRmAO0KIBS90Q4nWd1Y8zcSbCXggEQmGfZwF+tyjLN6uJQ5KLMyYfwDkZNKYj9n8HUE6FZIQH0BKcEPD/dPgamJp73bU+h0DgrfAYOgtnjNgX4RQ3WoRUp/mVlGewnFmBnHxnEnwaw+n4vgOcGSRChn1zMdHY3qQicIUbjo4AB7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oLP0iyCsDxfhg8nWf11hWSqAnO6+CyJXB9U1kIFCLU8=;
- b=sCwECB1mzbPbi193baDLqF/L7ug4VZEcvBK18VYoaIi8L9I3CQ3xFsmkLvKkx1ihmD0Pbfrq0qIphvuMC8Uh9+GwGJVc1bmlzCgNsaGHbd+jqQOViZSSEgKS2gL6Z8DQyUdDQJe7aK9bNkBjZYLbAsCFG2wdHKui4crDxsUolngYDBMmJfTy3NZy6dByugURQIi6MHChaNsZ+RlGw9ysNdZkv/Boyu1XoIanSorzwSHi9XViKEwnL0UWzzOwnhe7r2K3rXQ5Vo4Jz0uELzbNCB9LDAq0eA/tVlRGa4a5ksUVxHapX3gCSl6wrKUtPWW1ROM++SgOgt/E8+nvksumtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oLP0iyCsDxfhg8nWf11hWSqAnO6+CyJXB9U1kIFCLU8=;
- b=Pfa8HuWkWRKfMPlMk2rhwTCNALKnI781vkIx4tIQNdBhADi6EqkZQFe3HF4SyARZN5O7YeIAcHOfpRpmNEnduE/tzOAVvBf0N/+BOBgdVbouEUC6oWIToamDRu7byeVavNhw+ufxPTU8Or27KU3GsCvEnnU0mP3qUJf2EPbhny4JJlVyz69/wjKPu7eBHFU0i3jO0tw0P6BXDLnyb5T3eByAgbj3KS92ezB5l7Ef5XWL05w9og/lBkFmuhCKCLDNXtluSim63pikueuvnTrN5DFqVz016h8VZr5HC39eIOcTvQGHrmjXyza/Hdzdbeq3J2naP6uRyz+G4B9xaUioEA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DBBPR04MB7676.eurprd04.prod.outlook.com (2603:10a6:10:20e::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 14:39:41 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 14:39:40 +0000
-From: Frank.Li@oss.nxp.com
-Date: Thu, 15 Oct 2026 10:39:23 -0400
-Subject: [PATCH v5 2/3] remoteproc: imx_rpoc: use memory-region-names to
- avoid hidden ABI
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-memory-region-name-v5-2-abc358b39a96@nxp.com>
-References: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
-In-Reply-To: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792075166; l=3094;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=KeHQDKtb32N839q2vs4xBvoi4TBg8ID0gzhqPOEx7vc=;
- b=6Lblc8ehTZntn8HXmkKw5ZndUYVRXQWfWuS77lQFsN1k+GaTSckON9q/pOxclYR4Ga3FsKzxo
- /iiT091pWBDDf5Z1SlFKC1rJ4DzkNuwJpQaUAvbl7PdHmnHNlcIvXjz
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: DS7PR03CA0154.namprd03.prod.outlook.com
- (2603:10b6:5:3b2::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ehxEHhNM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB91A1F000C7;
+	Thu, 15 Oct 2026 14:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075190;
+	bh=mmiUyqmsfSRg6ClwR6Q6JMr/UJ3nE7Qv5AHeR45H+eU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ehxEHhNMPvEzprsuKPf0KyV72AqmkoT0cFkugddWqDR1jW16KcjT4sO/ySSxEfGWT
+	 DIlBxD4Y3HvPqj7a4dnfqU+9/yusDtBRALtYlZ6ZcU+KYo9SE6SCsXrezt0eLqlFmL
+	 zHSGOIl3ezj7Y7sJzdbmtAKWHo0ylKdS2ihWXtbD12TecBWekas7wDvGVsybx3q7hF
+	 CDEK611Eh9ePcP90Uo37gH6RHHEd2RsIfFuEJOrqJhMXTcKw7ljsXYYVR7VuV2983j
+	 gvSQOJ0Ujn2HLOmoXOdlbU5rgRmZZmg3JNA5Oaq4h9Ly6f3xUUsg+CXrpr/vlP2q+O
+	 ZD+UwhvY4/X9Q==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E8C531980047;
+	Thu, 15 Oct 2026 10:39:45 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 15 Oct 2026 10:39:48 -0400
+X-ME-Sender: <xms:seXQatj6yK-vAkGfz3nmtzKfQEFz5k8BX2NImvxWqUbYpsHkFTQ01g>
+    <xme:seXQakYEg9wygmgO8qd9seG4qnI9uV1FznHgR73T2LqaINe9lH9e9JGyjRIcvPgjN
+    5-UyZOH9z1AE_w28SJ8XhztMPG7VFPG3N8OvnMXYuxZwrCPNLPl8Wtm>
+X-ME-Received: <xmr:seXQamW3ujf5cRPatCqmaVHg7mAYJNu8yUpSsSsDY4CYvzzTGX5vBv0WB3A>
+X-ME-Proxy-Cause: dmFkZTErd8TIAjJGupJmPa7o/yBWPPRT5ZQiaOhRc5EH22t7peU7D1eeODEsp8i629tNhO
+    r4mHy21KV0D6RvfIOkH3orkwlPlVaAN6jAj64nPwE5LJH03cLu0deasjjvmPESP5FrRnyw
+    jePRXgR+deIN9SCGY3LKnpTMhEl80DUyZsvo/zt9GQ4FZXq0CZ278f5cLt9/f6ZRqhOO0z
+    MW3niMw169KWxeTjSDwTUJBvQbp6c2o9+777eazijSZpKAhWCsSh1+j1yQFNgkZxgW+JEC
+    QKT4R1QjCQZxBw+xy0ZP+qQNv2hi8RFl5iAbv4eFLhMdaBxtKPy3D7BBsuG5AGTzp6ocfO
+    gW9/rTewo5ZjF/I7btK8pdenXh4Pai1Tp+eppPQBJmhh3h7qPtwjCu46ta7YXgDVbSS8Vl
+    Xy1vFOQa3hVQkaD8aDr9nO2Ru8V8jtY1ADsw+jwmfKujikDA1gymEpH8JSR9zF2Tk6Mq+y
+    0GHFZ7J9Fy+MbjhVfRFODtQDDx8VwCvZoWDuk7YUY4YDiZbLhZeOkPECpmVW0meovVfYBn
+    LxrVGtlOuAgpbe2FWut7pkilEntTgIphkhOEz28RSG8XGZXjvH721/OJrwz1gxUriBmlpx
+    kglVxqDks+d8Lgi2rTjnr2fXqEkKG0pk69Anuc0vT+mD8dIqRl+/rUEDT3HQ
+X-ME-Proxy: <xmx:seXQalZ_Ia4dtdBh7Y0MNSkyV_tmDrSX11oLZzx7oE4qV226opti-w>
+    <xmx:seXQatKEZXVI8WusdGaszIdpzIltlRXDnHaqnVKMgn-ZBWuxeYomNQ>
+    <xmx:seXQag1p6-xpzk_G1Uh6kjlQ1B1pIFbQs_lyg4K2NR9OivETPJTidQ>
+    <xmx:seXQarj-N8TiYs_mhj8M4epjZVN4_2UGXOyOyXn9eH-y7_7aVVs8UA>
+    <xmx:seXQavwGIxfp-zTAD4JRC20qfXYX_ZVHXgCfdyXS2sTR8wDiK9Y_eUPY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Oct 2026 10:39:44 -0400 (EDT)
+Date: Thu, 15 Oct 2026 15:39:43 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <atDlYr_RM4WRlMqG@thinkstation>
+References: <20261009125503.126202-1-kas@kernel.org>
+ <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
+ <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
+ <as5q14OsbK2CmOrh@thinkstation>
+ <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+ <a809956b-9775-4667-be60-f635b9a72ee6@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44fc0f95-ad12-4bcf-19a4-08df2aca2549
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|19092799006|366016|376014|261009223027099003|10067099003|11063799006|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	79MdR2d/DayscwNKG77KuNpHmS2vHCP5bbaCWAObFChgyh8YuJr/D8Og7d6xsZ5oD9P3CyOoO1WiAYh7UUJyhRliEKpfo5y7ZITHBQ4QLwHw41rNzjueQypCPW81dBp4IGqtoFhlVXzZsrMxG0rI4PqEDNx2rtwL9EdmoXi8r++2870G9SJFoL1OTRsTwx6RmqEZWjSXekZCRU09b3A//0FPGgYmmSiB+76FCOLKz0PUUZlPm5m43tWBXBXNlN9nhiU5IVvYheLGibMXzNxmcEk5Ub4r85mDG297Sxw5X1aErgXE9mbzoLd/yTpM60grpiSUvRn0pSZ6CbOGNEAFmuUVgslyIPXzuJBRrXiLHDJSJDEq8EudDizOUsjbnxtQl78AAVABrJRhjqMmM8+SEcIBTwiu3lSqeZWxJFHxiqdF9Jm4Mx5ZpGQswmcgemwm/wA3gC32XbuusU2+KHd8RkVBIVcYIrlnaS9lDQtVveYe2ag59L3lTHY4Z20dsyZwdx4kzDsrDad++ct1nams0XkQdmbSf4oV5oQMwLLUFPHjRE8NAWVB+47dcPi2l8rvStLUiYQQ4bQDWCBmh3ZO4g2PUuF5u0Cj++k8vn3+5Sva6yawuY6YtGPYvKsqK2Er
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(19092799006)(366016)(376014)(261009223027099003)(10067099003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Wm0vS2pZNnVmcWhrQ3doalR3Nnl6WnBWQUtXQTBlZmFsSkRQV3RNanNOU051?=
- =?utf-8?B?cmNvZTR6NEF5T2hxVXRlWEVqNkk4SzB2SnFrS21ObDlSUDA1ck1RcnNsOXhR?=
- =?utf-8?B?VVdIMllqamJrcmJCZ1JnL3lnSXdBMjJ5VzFaZ3l0cXJ6VWV1eXA0dFhqQ1Jx?=
- =?utf-8?B?cHRidHBXeXBVR3p5L2d3QWhsZUl5OFdwVjd1OEppUDVHanpJQzNIQW5CNXU0?=
- =?utf-8?B?T0VRRlRORDk3Y1pqQ1NzOXc0dnc2dWxINnNOVG42YjJoMUl4b09jWVdDYkRm?=
- =?utf-8?B?NHhGdlMvR21VOVJsdzllQ2JSWHpHUmVleUpENmpnbmJpWmNBT2FCNHBnVmhm?=
- =?utf-8?B?bWcyT2loVDZwVk93c09GM1NSNjZUQ0t4VU5EcEUwYXJEZDh5Yk9KajRibGVs?=
- =?utf-8?B?TnVPTHVkc29iNHlsVzlzcDlGRHdoL3EzWUJ3TjQ0TENxRi96MHVsTzJ6NHZV?=
- =?utf-8?B?bjExNGFtbkh3RHFETjlHcE4ycFFCZ0ZkYmNhbmo1NWhvSTNCeGtuZlRhaVgx?=
- =?utf-8?B?YmFjZnpPMmhzVVdYL3lQeE9XZjhMS1I2aWRDNm8rbE1RaHdUSW8zZnVlMm5Z?=
- =?utf-8?B?VUFmM0Z5Rmd5Q29ZbDlDMTU3OGpzMXRHS1BueWZtQklMUWYxUnh3ZXlwWm13?=
- =?utf-8?B?bXFEUnRZa3dYeXNkcXBMQXM2TVMrSkhkMGNoNmE5dm1ySDBwek5ndmlSMWVX?=
- =?utf-8?B?MEEyalFhYm1ndXR6Nk4vc2QwaFB4UlBQNytXNTFuVCtSb0tkOEwrMExJbDJL?=
- =?utf-8?B?SnhmRWRMV0hVaGtxU2hOR0FhNVA2TVV1RVlVYjY4RVJXYXUzV0VLN1k5WDBJ?=
- =?utf-8?B?MmloRnB0ZlBOcllYRUgyN0dzSVI5OXpmKzRoS3YvVDlTR29GczRJeWZWREdv?=
- =?utf-8?B?UnY2MDVKRlFzOG8xRGIyMThpR2NHaUFuQmVyQmJpWGluazlJdXZobkFjWlRk?=
- =?utf-8?B?dU44MmNXYThISngwQmFaM2hRMmRkd1hGVFBvUkJ0TVdDY3VYMUlIVmg4NXZJ?=
- =?utf-8?B?aThUajFKM1FoV0RrYytoSDVxN1dVR1luYU1uTHRhZStncC9QZDRjVklHL291?=
- =?utf-8?B?Yk13ckIwTDZNM3Q4M1l4K0txeU1XQnp6b0tqbHJTV1JBV3JackNja0x4NUhj?=
- =?utf-8?B?L1FOMXBBOFd4bllFKy9jemRSOUc3V08xbTZGb3ZVMFY2MFRkZndNdHJXZmhH?=
- =?utf-8?B?K2lYS0hWU0Q3ZmptbnlKditSK3dmVERJTEpiYmh5RDF0RFNhYjhSaCtrL2pP?=
- =?utf-8?B?M2lEMDZKdTBwcWtzbE1TeVROZHNkQ1VWVHVMTmhuSDA0TWt1WTFyMUpzTFB6?=
- =?utf-8?B?NUpGODlGUjgvcHNHS2g2dDZaMncwM3lDU0JKWURGSGRiSzd3UHB0OURubTZR?=
- =?utf-8?B?dVJQL3RFakUybFp1aWRzWElzblpEWkJWVUh4emNWenBlcUtycURWQkowM0Nq?=
- =?utf-8?B?R0R0d3pDMUh1aHJMRTBvL2NmYWp3czBiVE0yRm4vNkpObFlZd05DdC9wUEtT?=
- =?utf-8?B?UWpmbVFIUVJWcXBnUi90Z3llREFEbVBVdWJYNk9tU3hyNk9kL0lyTm4wZEdh?=
- =?utf-8?B?SVdmemM1YXlVdmNyMm1pVnZpQ0dkZHNVS0FZYk9CbGV1M1Bsdzd2KzZpbjZr?=
- =?utf-8?B?K20yRTl1NmYvQnk5NTRuVytKeUlvUTlnTGZLUnd6WXp6eFVyZG8vQU94MzIz?=
- =?utf-8?B?blRiZzNqczRMbXpLWThmZ2xlSU8wenB5T0VUb0ZEcFIwR3NPSWpYcVJ2eXd0?=
- =?utf-8?B?TlprWFRPcFQ0ckFzWUNCSkNBODlEOUJ1VFgwSmFmd0lwNlYrZUk0M2l4S3ZR?=
- =?utf-8?B?UHZyNkNDa01YY1RINm5Wb2JuMHJ1QnY3VWxVQVNLZmQzRmlTMUtZQmJmbXYw?=
- =?utf-8?B?L2FBQnFPeFpoS0hmcW82Y2dSMlV4VXpkeHphbm9ta3lTZHp5VmNwNmZJYXpY?=
- =?utf-8?B?MkpZOGlxYXZ1d2RlNjF3cHR4R0JpQXlFams1anI2Z1lMQTd1eCttWWlPU1pr?=
- =?utf-8?B?MEN2WXZXeU9SaC9BTkRnczFMSXZKZThKbXR0T3BoakxYWUhGbXpTanZIZWdz?=
- =?utf-8?B?WmozbU10cFpObWZMR2dPclZkNHpQMjZ6MjJ3NW1VeCtRNzNVREZOaWRUU2Jl?=
- =?utf-8?B?YnZWK3JOS0wzME51RzlUQ1ZLU3Q3Z0V3SEFUNU9aTW9KaVg3ajdudFZ1YWJX?=
- =?utf-8?B?MU1yZHJWem5tcU1sMHUrRE95bS9kUGVUenBINVY1SWwySVgyY3NSYi9WMGcr?=
- =?utf-8?B?d2V4ZERwckt0czE1RjR5alV1cWZqYUtUdGsxNkEzZExZazhYQ3BZbGo2RkFa?=
- =?utf-8?B?dWJyNm04QTBRRTFJVHYrRDlFSEMxeVlHZ1lkZllJbGxQR2ZjYWxMd2pGVU8z?=
- =?utf-8?Q?xLnfYFbPn6Z63a+NKZO8sCfPVQpXDAfTdZNHS?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44fc0f95-ad12-4bcf-19a4-08df2aca2549
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:39:40.8865
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wiD0iExCJE7o9vdY49KqbPJhoEMoc/2HLz4u/bm10J8MUSxbO5bxQAbJQDSthlsJ/c7kB/vhVgKqfVv+wn8t4WCDSDo/hsQveks9cOlJfMRttDlYkPbhYXQG1LHRM1hU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7676
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a809956b-9775-4667-be60-f635b9a72ee6@kernel.org>
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On Thu, Oct 15, 2026 at 03:53:30PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 10/15/26 14:55, Kiryl Shutsemau wrote:
+> > On Thu, Oct 15, 2026 at 09:16:36AM +0200, Vlastimil Babka (SUSE) wrote:
+> >> > And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
+> >> > but Meta is using the feature right now.
+> >> 
+> >> I thought it was there for a long time but it was only added in 2025 :) At
+> >> least the enterprise world is slow to adopt things, AFAICS.
+> > 
+> > I was thinking to propose a patch after merge window to make defrag_mode
+> > default. Do you think it is too early? I don't think it is ever going
+> > to be truly stabilized without wider exposure.
+> 
+> We can try it, but preferably with arguments (and best, numbers).
 
-The driver currently derives the memory region type from the referenced
-memory node name, creating a hidden DT ABI. Since memory node names are
-not constrained by the binding, incorrect names can silently pass DT
-validation, as seen in examples using "vdevbuffer" instead of
-"vdev0buffer" ([1] and [2]).
+Will do.
 
-Parse memory-region-names to identify the expected memory regions and avoid
-relying on memory node names as ABI.
+> > We also discussed with Johannes to make a stricter (defrag_mode=2?) mode
+> > that will not give up on fragmentation ever, but OOM instead.
+> 
+> Would you use that mode at Meta? That however most likely wouldn't be
+> general purpose enough to become default.
 
-Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-Reviewed-by: Peng Fan <peng.fan@nxp.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- drivers/remoteproc/imx_rproc.c | 13 +++++++++++--
- drivers/remoteproc/imx_rproc.h | 21 +++++++++++++++++++++
- 2 files changed, 32 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 581bb07f5893f..63a1a6d87141a 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -648,7 +648,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
- 		int err;
- 		struct resource res;
- 
--		err = of_reserved_mem_region_to_resource(np, i++, &res);
-+		err = imx_rproc_rmem_to_resource(np, i++, &res);
- 		if (err)
- 			break;
- 
-@@ -823,11 +823,20 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
- 	if (nph <= 0)
- 		return 0;
- 
-+	if (!of_property_present(np, "memory-region-names")) {
-+		dev_warn(dev, "using node names for carveouts should be avoided\n");
-+	} else {
-+		if (nph != of_property_count_strings(np, "memory-region-names")) {
-+			dev_err(dev, "invalid reserved memory name count\n");
-+			return -EINVAL;
-+		}
-+	}
-+
- 	/* remap optional addresses */
- 	for (a = 0; a < nph; a++) {
- 		struct resource res;
- 
--		err = of_reserved_mem_region_to_resource(np, a, &res);
-+		err = imx_rproc_rmem_to_resource(np, a, &res);
- 		if (err) {
- 			dev_err(dev, "unable to resolve memory region\n");
- 			return err;
-diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
-index 0d7d48352a109..3632bc375c711 100644
---- a/drivers/remoteproc/imx_rproc.h
-+++ b/drivers/remoteproc/imx_rproc.h
-@@ -7,6 +7,8 @@
- #ifndef _IMX_RPROC_H
- #define _IMX_RPROC_H
- 
-+#include <linux/of_reserved_mem.h>
-+
- /* address translation table */
- struct imx_rproc_att {
- 	u32 da;	/* device address (From Cortex M4 view)*/
-@@ -45,4 +47,23 @@ struct imx_rproc_dcfg {
- 	u32				reset_vector_mask;
- };
- 
-+static inline int imx_rproc_rmem_to_resource(struct device_node *np,
-+					     int index,
-+					     struct resource *res)
-+{
-+	int ret;
-+
-+	ret = of_reserved_mem_region_to_resource(np, index, res);
-+	if (ret)
-+		return ret;
-+
-+	/* "memory-region-names" is optional */
-+	ret = of_property_read_string_index(np, "memory-region-names",
-+					    index, &res->name);
-+	if (ret == -EINVAL)
-+		return 0;
-+
-+	return ret;
-+}
-+
- #endif /* _IMX_RPROC_H */
+Yes, we consider it to be preferable to fragmentation. But it requires
+experimentation.
 
 -- 
-2.43.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
