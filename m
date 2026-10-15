@@ -1,159 +1,115 @@
-Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A95C4BD360
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF67C42125A;
+	Thu, 15 Oct 2026 13:03:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069384; cv=none; b=OXAe6KKKUQ9Rk7Oixhy3SHOEUNFgmjyo0MhEWl4vPTnzFDRS2BbUrfQ8j+N6EhWMku76KNZt9iWsorqZ6cP1n551cAejSICwobcp/0FgnKrIplrt/J4TWt4G3NeaMjPlZ8H+O3NzvA0xWSGLJtKX+aUV9HRqOaNCSN/poE/waAk=
+	t=1792069425; cv=none; b=ktD7cSUv3kny8Ij6PT5a+a1QAs1hNp6lGGfoadUAN9+1hHZUPLa0kuXX03dpXBtmjxIZLLoEegJKGwt7VAbSgOiA8tkxF7Sd4UTzbXphCuvMPMt3c+zrz6eXy6MpXYjLOlTdOvwpitkmHvXFkbzgliSXmKvInXZOL3xe0cchdSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069384; c=relaxed/simple;
-	bh=VdVodvPg3p6dDjQ9jUKaUEb04QaunJ71hLYZPi/ddKE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VhNXDSIA14211AoOJft306Eowzvw7OpJ6Qgwj41Kmqu2LeRasBVJnkNDiuCIRRLjuLWbxSicrUCtO9raomRHbbQpkYIt7tt9IlOsHQYMA82sT9fITm7Qj/lcVLkvZ/8Wiq/bu6OfkzWG1G58p8YCGKLsCwFGSEcyh6JGp8TIYxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RZmlHshl; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792069425; c=relaxed/simple;
+	bh=tQvnPHmIgzcRK8h2t9lSqTK8xX5/TK+pMi3oHQb3Trc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QEVWuGIvaGI73ybxTqB/iAMsq88vCEIwhByJ/jnttrHFJUxMinFmkQ8RTBqtxPwRzwsDvx9QUHvifFFdxwzk20ovOE6F/bj7Rz9qgKmp9EHfMdvfjUazUxxfXVa/j/G4IGTxlVMGPbRpnyBBU1JkiA3sAHBgVwLCTvqmhOGJvUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tqsdf07X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RZmlHshl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VdVodvPg3p6dDjQ9jUKaUEb04QaunJ71hLYZPi/ddKE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792069380; v=1; x=1792674180;
- b=RZmlHshlVdI7h8o4NDOlXIVeAXJzSXphNENBO7VVV0Kyx9uAzGB4mOQhyteuaTZO+7QdRJuK
- MAt451h2Z/8ZWRWfOTnZiMFKDqHyMwdRP3RpI729GlgbNQAxucqjE81kdRQ3u8AJXxLZFaTVgo2
- e6r1rhRXL4eKm0pTUhnAkw+4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5f4e01ac4f981c2e;
-	Thu, 15 Oct 2026 13:03:00 +0000
-X-Mizu-Trace-ID: 5f4e01ac4f981c2e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0bd7f6ff-3675-4447-a62a-a2047241e3e6@linux.dev>
-Date: Thu, 15 Oct 2026 21:02:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tqsdf07X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6171B1F000C4;
+	Thu, 15 Oct 2026 13:03:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792069424;
+	bh=bunlwajOetrmnYf9ny1hT1imCQsIXnS2QyI1vpqiq1w=;
+	h=Date:From:To:Cc:Subject;
+	b=Tqsdf07X9753O1QUzh+kv8KBS/cPQyZDV2pjmmXigiYrQmHsa1oTnwuFimJNJ/5BF
+	 j0+vvjn9txn9d1T5AMY/Mkd3BQEb6obFayftHXamtcrHbJvh1SFaSx/H/Bx60GBPev
+	 pUhEXU/RHvMh8ulQkgA3bFnIk+4QooEmWkRSCxTD6zM0MDn3Y2uKuVxKcbVFbFlU4e
+	 +IxSLb5Bn/Gqut6i9rXEVuPzXn06LF5FqXrJVxFgUZjcEp1eleY/2/ne5oXpQghCBL
+	 5VBl3UJR43uWQ5TtAq4CriH4lVAvyAqI59Xa2Yo1WhSZzfaKrgsZG1k5w7VMVYwDEz
+	 OQ+glv61gXNBQ==
+Date: Thu, 15 Oct 2026 14:03:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Daniel Gomez <da.gomez@samsung.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+	DRM XE List <intel-xe@lists.freedesktop.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Zhanjun Dong <zhanjun.dong@intel.com>
+Subject: linux-next: manual merge of the modules tree with the drm-xe tree
+Message-ID: <atDPK3Tz7cNWdtDA@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 1/9] cgroup/cpuset: Fix a missing isolated_cpus
- update in update_cpumasks_hier()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Randy Dunlap <rdunlap@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hui Peng <benquike@gmail.com>
-References: <20261014140548.575122-1-longman@redhat.com>
- <20261014140548.575122-2-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261014140548.575122-2-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="voOosfS5jhpgDEb8"
+Content-Disposition: inline
 
 
+--voOosfS5jhpgDEb8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-在 2026/10/14 22:05, Waiman Long 写道:
-> It is found that when a local isolated partition is being invalidated
-> because its root partition parent is no longer valid, the isolated_cpus
-> cpumask may not be properly updated. If the parent was previously
-> an isolated partition, its invalidation should have properly updated
-> isolated_cpus before and no action will be needed.
-> 
-> Fix that by calling isolated_cpus_update() in this invalidation case
-> to update isolated_cpus. A test case in test_cpuset_prs.sh is modified
-> to test that.
-> 
-> Fixes: 11e5f407b64a ("cgroup/cpuset: Keep track of CPUs in isolated partitions")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c                        | 19 ++++++++++++++-----
->  .../selftests/cgroup/test_cpuset_prs.sh       |  4 ++--
->  2 files changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 0ebba2d646c3..6b5c870e5607 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2229,7 +2229,9 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->  		 * cpuset if the parent's effective_cpus changes.
->  		 */
->  		if ((cp != cs) && old_prs) {
-> -			switch (parent->partition_root_state) {
-> +			int parent_prs = parent->partition_root_state;
-> +
-> +			switch (parent_prs) {
->  			case PRS_ROOT:
->  			case PRS_ISOLATED:
->  				update_parent = true;
-> @@ -2238,11 +2240,18 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->  			default:
->  				/*
->  				 * When parent is not a partition root or is
-> -				 * invalid, child partition roots become
-> -				 * invalid too.
-> +				 * invalid, child partition roots become invalid
-> +				 * too. For an isolated partition with root
-> +				 * partition parent, isolated_cpus_updated()
-> +				 * is called to update isolated_cpus.
->  				 */
-> -				if (is_partition_valid(cp))
-> -					new_prs = -cp->partition_root_state;
-> +				if (is_partition_valid(cp)) {
-> +					new_prs = -old_prs;
-> +					if ((old_prs == PRS_ISOLATED) &&
-> +					    (parent_prs == -PRS_ROOT))
-> +						isolated_cpus_update(old_prs, new_prs,
-> +								     cp->effective_xcpus);
-> +				}
+Hi all,
 
-I tested switching a parent partition from root to member and found that
-CPUs can remain listed in cpuset.cpus.isolated. CPUs 0-15 are online, with
-nohz_full=2-15 and no isolcpus:
+Today's linux-next merge of the modules tree got a conflict in:
 
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A
-    # echo 1-2 > A/cpuset.cpus
-    # echo root > A/cpuset.cpus.partition
-    # echo +cpuset > A/cgroup.subtree_control
-    # mkdir A/C
-    # echo 2 > A/C/cpuset.cpus
-    # echo isolated > A/C/cpuset.cpus.partition
-    # cat cpuset.cpus.isolated
-    2
-    # echo member > A/cpuset.cpus.partition
-    # cat A/C/cpuset.cpus.partition
-    isolated invalid (Parent is not a partition root)
-    # cat cpuset.cpus.isolated
-    2
+  drivers/gpu/drm/xe/xe_guc_log.c
 
-A is now a member and C is invalid, so cpuset.cpus.isolated should be
-empty here, but CPU 2 remains.
+between commit:
 
-Thanks,
-Guopeng>  				WRITE_ONCE(cp->prs_err,
->  					   is_partition_invalid(parent)
->  					   ? PERR_INVPARENT : PERR_NOTPART);
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 7efd5e645767..874a8a161236 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -292,9 +292,9 @@ TEST_MATRIX=(
->  								       A1:P0|A2:P2|A3:P1 2-4|2-3"
->  	"   C0-4    C1-4  C2-4     .    X2-4  X2-4:P2 X3-4:P1   .    0 A1:0-1|A2:2|A3:3-4 \
->  								       A1:P0|A2:P2|A3:P1 2"
-> -	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
-> +	" C0-4:X2-4 C1-4:X2-4:P1 C2-4:X4:P2 \
->  				   .      .      X5      .      .    0 A1:0-4|A2:1-4|A3:2-4 \
-> -								       A1:P0|A2:P-2|A3:P-1 ."
-> +								       A1:P0|A2:P-1|A3:P-2 ."
->  	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
->  				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
->  								       A1:P0|A2:P2|A3:P-1 2-4"
+  149f81d8a73ea ("drm/xe/guc: Compress GuC log and CTB dump with zstd")
 
+=66rom the drm-xe tree and commit:
+
+  291a8fe5d999c ("drm/xe: Include error-injection.h for ALLOW_ERROR_INJECTI=
+ON()")
+
+=66rom the modules tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/xe/xe_guc_log.c
+index 90aeaccea596c,6f0739204d9e2..0000000000000
+--- a/drivers/gpu/drm/xe/xe_guc_log.c
++++ b/drivers/gpu/drm/xe/xe_guc_log.c
+@@@ -5,10 -5,7 +5,10 @@@
+ =20
+  #include "xe_guc_log.h"
+ =20
+- #include <linux/fault-inject.h>
++ #include <linux/error-injection.h>
+ +#if IS_ENABLED(CONFIG_DRM_XE_COMPRESS_DUMP)
+ +#include <linux/zstd.h>
+ +#endif
+ =20
+  #include <linux/utsname.h>
+  #include <drm/drm_managed.h>
+
+--voOosfS5jhpgDEb8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrQzysACgkQJNaLcl1U
+h9DZfggAg7Qc6hNRbd/owvc1n0nx24w/nGSMUKsrBni0a6RCgAdP7z1V0+IjxjgL
+++LsePYhSEXNyvDEpn716iICad5GVLklF2hF5Ir/bE60bk+VjhEzBZLfvjLTmHem
+cupuSVKNh9+vqO/du+5oARnslXvb8DeSEYB3AMwJwL1tplAFUPq0Ze5fIWp8V3+M
+avQZF8+s0nHanCAHxW4ETsA/oZd63VUqULma7bM+fboezhxxFEkliNY5rJg+VlcB
+8CPvAOz/cj5K9gxItDTBZBaX3PQkj/zeGP/iKDomxJ/axyRJSbLriTCsQbYZSJDZ
+MdrBTa+gX61fVSdzS3deh2ftEGApCw==
+=gwOq
+-----END PGP SIGNATURE-----
+
+--voOosfS5jhpgDEb8--
