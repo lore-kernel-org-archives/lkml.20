@@ -1,189 +1,109 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7FC392C34
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088585; cv=none; b=E6A77gnqADKDpAHQSbE4+xrQ55w21p7v+eWqR6s0HMAxNwoAdQr3oT2Z90arpWpMaXmngzmWJNwQFHUv2aHpS0hudqWOPStJNSuKW1fcDpap9ZB6X1QDIoKBhBU6QHgP278KQKQz6Qin/pb2vZzdu3nOtgVtktC6DenIpCJV6xs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792088585; c=relaxed/simple;
-	bh=XMIvug3i0RknPRe7WxtiEDH0ly3owKWOWapuAf1DmBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VFCVVTme9gW7tgkrIRYc09az8sfA7cZhdVp4qmusm/48+8MsFYVvSsTY5CPfU9C2mHHPBXHE2HaUcG8Tm0isrt/Q4tFvdUQfVSCvyWv+SyeCMj3w5Tiw537kpu+2fhi6F0umerh5Zs+ErvMrq1ZIAHDOOLcxC6ovQbbMPrvdxPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jc1pxq+P; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389D9560AD0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:22:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792088586; cv=pass; b=OX98BP+L8USAW/k8AlD+MVWAlH0LfjMipNWdaawtOcCx/KS0JxpUn2NSUieOyaQ/08H3Q14uJXjv2HSdd/S0gZbPcy6Xbcj2yqQJ8uW50gZSrtGWH+9gnsHPQBDOP9SpTBOmNcrRRM3sNfZicfr5V5aOuad/YtExI8KVGeg8Po4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792088586; c=relaxed/simple;
+	bh=sAKIIcZBMRT+whOaJSV103iMZeILabuC08FAYSIpbKs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PfIXkz3fj8NE7OIWfGWwXmK9OYD1c32Suq8QMsc0Rr95dUJwJ5AdWwNkJWWdHob1eLtho2HC8jMwlCrSwhHt4XXvzePuoc8dTFrJSGqy/+lv0guuA12wex0nYKhfCZeiYjbyDL+kdWmC6x2GPwjjQ+7MfcSmENzt0uYynbKwqGc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Q7ApbRua; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jc1pxq+P"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so3468912c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:23:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792088582; x=1792693382; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E867nn/QR68vfYR6iPaGHnb6wZdyLc3jZCntABPPlec=;
-        b=jc1pxq+PK+i+oET1dwRBkVfZV0BO/nw+Kf5d+3VUHC/hCBJ5KKXn1xiZpf+r0TF/GF
-         Ji4h5Q3mzPEJ4jdhdUKvqzH8JQIO7PJ35+2CoVrO2ioR5K2zzku0PNhBHuMUcOBjGZPp
-         d8i0mSTq3+EVhQgWR4TeRWqbSNz8sYrfUV2/A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792088582; x=1792693382;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E867nn/QR68vfYR6iPaGHnb6wZdyLc3jZCntABPPlec=;
-        b=tVGUT0bxd+L9PdLg/0s/TbfuebQByqzHAV4K7hXBU16uFPChc/1H7xbn65G02pl0Nm
-         Jw14z8/LddolEfak0+B2ZVqejhLWWYZrvy9M5Cnf9Z7hBp4G1FxKrrEaC21tl813bKJV
-         D2y+/aJa2CxcINUq46rZGb4hkDNNNzklhUnygxS9JudyhO4y7gcjvUsEWoN03x1Nq11j
-         vS54+fCwZyX98LYsSh2Muee2ENsPwlgJ++lVCCKGY4eNM6438lzmkOUNwFFgbb5uEAy5
-         G6/1sMPfIoMC9D0iuOV17pkbdy+TcckXq7nel8fsQE8+iIZJ59O5BJECNT6boFj5eQyU
-         JXWg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3YqoU+htVlnXUUeXxQbNtMZyavZ9TIcWWC/wD4odqcWKb+ivAEMHb9aFiuOdAWbTt+7BJk+wr/IJepeg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPv5/TzrjC6sQ5u+xMwY5XJvIuiEQC7yLu3HIePWXE94Nrb8Y7
-	DUhxmeirznOXyOtKjNoaQ/lysiqiMAo3vfEDPecZkTkDBoovtgK0K/iLfiys3gxG9g==
-X-Gm-Gg: AYBFou2Ie0gk/H5hXQ7pU+OoCdKrziOFKe/RRjnniVJFNJ8Zms8PEqa336koLGtj+uv
-	CFETR77ewWovCnJ3km6qnYyj9kDQb7dLX7wam4bNioxT3K8Wdo6tOSZ3yQFZq7y9udTXsLblIls
-	hx/NlsQzrAPtD5oerR26morb+yhC5LKwvfjOH8hiDyazj3GuGkJgET4Gl/cyn4LgSMNN83RMrEi
-	6vTBdFnSFmXuKJrBQsYuldMmj2sMT0GfMs5K29HKgoSBSRhg25YZwRdqMuxnNwsOdS7/W4nd0BX
-	Am0q2h+FAj2Mj7JEvqF4j5eEbhjHdku55KD29ZMW/tZvJsrucDk1SoOzN4lcJjTzmo8ii69wqYq
-	q6TBo71Hhr25e4hHF5T48O4ZirnRml4prKMqtW1fXU7fF0Kr5jo+Z6t+b1IEJjwdXqYbN2tzvIB
-	nMnKZiHLiIFJJUedqIVsmzzEm2VNI4qFDfuviiB9ob100MlUt1Y/Gz3wSFclnvcA5qRPwwnzIBT
-	0Ye9O5s9Vv75EMlu5AYTVyLgajZRfCUec8ofRUl/7rn93KgZZVg+cgi4rk=
-X-Received: by 2002:a05:7022:171c:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-16a6090d024mr25251303c88.33.1792088579688;
-        Thu, 15 Oct 2026 11:22:59 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:9ea0:3a29:323e:5f11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a8a4a56bsm727204c88.20.2026.10.15.11.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 11:22:58 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Devicetree@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH 0/4] fdtfactor: Introduce fdtfactor to auto-factor overlays
-Date: Thu, 15 Oct 2026 11:21:33 -0700
-Message-ID: <20261015182221.2931742-1-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Q7ApbRua"
+ARC-Seal: i=1; a=rsa-sha256; t=1792088559; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bbVzvl59kOMXmCBp5lS8ZfOreMqHu6N7R4T7Cgm8WDP88Eqy/rc+mihirCULmWF1djmI8XORzWT7P4VtY+mNLI5F1MwfPCesxWrSz/oHl39aELb2hMw8SGZg8ZtqazmMSe5y1cV+af/qwNzt0dhczCih1W8u/C90xC4MDPHNTKo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792088559; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=I79K5aa5qQeXc/3T5QF2OfAWKCWhMO8LxZ/7KmoZpiw=; 
+	b=Olg2vI3KIgCMlAGTlPe785spFwxIqwJ8DVCNcenbwNWxCvUccShDPrkVvnIBZ0tokmXIg+ALAya7L56g9FFUQ6zIWc63u/wyEFsNzN84YctXH0qb0chYpxeLFcYDsDjcCiWd1nYMxEEcc+t6eRAFBnJ+AGc8eeL49f8TiJB+dUU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792088559;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=I79K5aa5qQeXc/3T5QF2OfAWKCWhMO8LxZ/7KmoZpiw=;
+	b=Q7ApbRuaoT+YDgQLwJZdrDSOw03uOrYs19Q65ZoDqO51YTeaAPYSjsqklRY5k5nP
+	LTt5i2lCa9heZWFEpekqg3u7eQU/mONIeKsJKSueZo2fWAy99GCZViTWc+k/xEhjmH+
+	KsPlA/Ts2XU/bn3oI1KBz5we7pENlqUVtzVe+rxc=
+Received: by smtp.zohomail.com with SMTPS id 1792088556967817.0091812413211;
+	Thu, 15 Oct 2026 11:22:36 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH 0/2] Two small perfcnt fixes for Panfrost
+Date: Thu, 15 Oct 2026 19:22:30 +0100
+Message-Id: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKzbsAEFexVShdJ/GmniygzVgTx7
+ p22mwePz38HKYShdG0OEmysPFcTf2koP2N9wPFkTqENg29955ZYi8y6OoHCGDPUFd6NQ+lL6Pp
+ xymMiCyyC32D/2/3v+k4v5PVbpPP8ADjHmFF+AAAA
+X-Change-ID: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1186;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=sAKIIcZBMRT+whOaJSV103iMZeILabuC08FAYSIpbKs=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq0RnoYmV6H19fPB2fNEZeNI7KpU/Xev67wWvGH
+ Gx+DjRtuemJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCatEZ6AAKCRAOJn5M7lND
+ PenYDACYn4BqADHBWPYKAQzJlgTH5GV1AWH8/+GGuPDRfc68KdcZAX6gMb4I6BQSulFd2Vega2V
+ 2TyWuH3fGLfQ5tQU6RKPs3jfnHeS4ptLprXDkuKTTKCzV4z0s8YjeJte+MrFpgWmS+3MFT77y8I
+ z5rvJSvu6snka10VFP8QY6n74JO2A0mIewWq66bItAIRQWvgmocjAwsDxRj0hb5TajNUVtl/8Ph
+ +hY7gRUnxZx5s6c35dwBDrNy0tNyshAeDElrw7EsXX/LWMkejTfZfloyXjlXbjAdFQeIbk6PQKR
+ yFoh8bmu6Y5OOsa1ttGNFHRhPq+RxsKymd4gU/SQuhjnZuo7a/lNWEMiK5KRsCW7oHy3PedRRj+
+ scZ9+jwEBv/s93iumjEGFtj2efoMaS5hLOgwcsrIuku0lClvxXlwczcv+8y8DhUP8lSWa3EgXmS
+ us/v+j1mUQ1wxdf8phlkWkVI0J+8H4wVcYireuLwpkTEsinu5iNLUGaZVK+TmJNICcW8A=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Steven Price <steven.price@arm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-Devicetree overlays allow you to have a "base" compiled devicetree and then
-to apply an "overlay" to it to add or modify nodes. Devicetree overlays have
-at least two purposes:
+First fix makes sure cycle counter is enabled when starting a new
+session. This is required by some profiling frameworks like
+Perfetto. Second fix deals with a recently-introduced race condition.
 
-1. Supporting add-on boards (like "hats" on a dev board). In this case the
-   main board is described as a base devicetree and the add-on board is an
-   overlay. In this case there is a clear separation between the base and the
-   add-on board and the base/overlay separation models reality nicely.
+---
+Adrián Larumbe (1):
+      drm/panfrost: Fix race when restoring reset state in perfcnt
 
-2. Supporting a "family" of similar boards in a space-efficient way. In
-   upstream Linux, there are 47 distinct sc7180-trogdor boards supported.
-   These board are all highly similar, but we compile (and ship) a separate
-   devicetree for each. Devicetree overlays can make this much more efficient
-   by factoring the common bits to the base devicetree and having each
-   of the 47 boards represented by a small devicetree overlay.
+Boris Brezillon (1):
+      drm/panfrost: Enable cycle counting when perfcnt is enabled
 
-Up to this point, the usage of overlays in the upstream devicetree repo has
-mostly been for case #1.
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+---
+base-commit: 9944dd07f3cf7b6c19d65c2585147887ca06677c
+change-id: 20261014-panfrost-reset-races-fixes-6f5f2459dc9b
 
-Many Android phones attempt to use overlays for case #2 by describing the SoC
-as the base devicetree and then describing boards in overlays. However,
-this solution doesn't get as much savings as it could since there is still
-lots of duplication between the overlays. Upstream reception towards
-structuring boards this way has also been lukewarm [1].
-
-This patch series introduces a tool to help make case #2 a reality. The
-idea (suggested by Konrad Dybcio at LPC) is to continue to represent all the
-boards in a family as completely separate device trees in source code.
-Then, after we've done building everything, have a tool to automatically
-factor things to a base devicetree and a set of overlays.
-
-This tool has quite a few advantages over other solutions:
-1. No change to the way device trees are stored / arranged upstream.
-2. No need to deal with some of the awkwardness / limitations of overlays.
-3. Better savings than just a simple partitioning, like between SoC and
-   boards.
-
-I've used this tool to reduce sc7180-trogdor device tree files (which
-are stored lz4 compressed) from 1.71 MB to 213 KB, a 87.5% savings.
-
-NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
-an optimization. On Android phones like Pixel 10, the bootloader logic
-bakes in the need for overlays. Specifically, if we want to be able to
-build a single image that supports multiple boards and have the bootloader
-auto-construct the right devicetree, we need the boards to be represented
-by overlays. This fdtfactor tool can make that a reality.
-
-The fdtfactor tool can either work directly on a set of compiled devicetree
-files or it can work on FIT (flattened image tree) file. The idea is that
-you'd create the FIT file containing all of the duplicated devicetree
-files and then fdtfactor would "optimize" them.
-
-I'll freely admit that the patches in this series were pretty heavily vibe
-coded. I'll not pretend that I have a deep understanding of the intracicies
-of how overlays are implemented. That being said:
-* I've spent quite a bit of time reviewing the code from a high-level
-  perspective: confirming that functions are well documented, well structured,
-  and make sense.
-* I believe that what the tool is doing and how the tool is used make sense.
-* I have had quite a number of internal "the AI reviews the AI" rounds to
-  the point of diminishing returns.
-At this point, I'm not embarassed to put my name behind this. While I won't
-promise that there is zero cases of the AI doing something really stupid,
-I'd be willing to bet that the end result is better (and cleaner / better
-structured) than what I would have coded up if I had spend a few weeks doing
-this on my own.
-
-[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
-
-
-Douglas Anderson (4):
-  tests: Fix Python test environment setup in meson.build
-  fdtfactor: Add tool to split DTBs into a base DTB and overlays
-  fdtfactor: Support compressed DTB inputs and outputs
-  fdtfactor: Add compiled FIT image factoring support
-
- Makefile                   |    2 +-
- README.md                  |   75 ++
- fdtfactor                  | 2109 ++++++++++++++++++++++++++++++++++++
- meson.build                |    1 +
- tests/Makefile.tests       |    5 +-
- tests/fdtfactor_board1.dts |   69 ++
- tests/fdtfactor_board2.dts |   73 ++
- tests/fdtfactor_board3.dts |   96 ++
- tests/fdtfactor_other1.dts |   69 ++
- tests/fdtfactor_other2.dts |   69 ++
- tests/fdtfactor_test.its   |  109 ++
- tests/meson.build          |    4 +-
- tests/run_tests.sh         |  156 ++-
- tests/testutils.sh         |    1 +
- 14 files changed, 2833 insertions(+), 5 deletions(-)
- create mode 100755 fdtfactor
- create mode 100644 tests/fdtfactor_board1.dts
- create mode 100644 tests/fdtfactor_board2.dts
- create mode 100644 tests/fdtfactor_board3.dts
- create mode 100644 tests/fdtfactor_other1.dts
- create mode 100644 tests/fdtfactor_other2.dts
- create mode 100644 tests/fdtfactor_test.its
-
--- 
-2.56.0.176.g3575e65682-goog
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
