@@ -1,291 +1,89 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C854347CA69
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29522C08BB;
+	Thu, 15 Oct 2026 06:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045762; cv=none; b=oYK5eND01s54wXDhh8cwIrEEgj7uwcR1+vQcwql9MlGLKeGHyXjH36DuR2cZjviqyEaTcDywAcWATERF1wjOIlFfRuYBcWO6fvMYKSUlJJVyGu6sfz0mrceFARrToj6q13FkWktQCWnA8IMX5L2LB5LZetV5s8arc29s0uQizeA=
+	t=1792045882; cv=none; b=S0SR/V35m+WudobIE3WOktqmVH3xyXcyEGgGuhkagT8dC7i0v/6/cfzZ3QU5l7x8suG9PTRiqt831y7UBbg5loJGCJ10e+IvxpXOgRh+jPReCxtXrDxrkS2LyxGusjLY5Z459vjgdUzMds/H1irHWiPcOt7cDD3QzlMTLnBX3xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045762; c=relaxed/simple;
-	bh=ngMMr7wv1g49NtcMDPtMet1+NYvAn6ISxIYsQhJogC4=;
+	s=arc-20240116; t=1792045882; c=relaxed/simple;
+	bh=dCXhnYzCwpnojI7u2wCu1WWFpQblxRM81sL7Ra6gHb4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EoBR0sVdfthZPScLleLa435JbG/pVLKXdh2mFouXIgdXSvsQDrfR1CeVqCCgF1G0RSKZHa2KVtdBq4k/YQddOcNOWjFdsZpuJfFotGNyde6hJXww+hJgGA3WTjiS8UUP+VJGEBEmL8/BMbYUttrusE7vl2mmo7UbGLhzX3KGEsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Cl+1VbGv; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QoQNWP6n1BosMwYgmZq1+9C6I/ijbOvPe1ndKhA//P84c+WrK78eS7Q+2BqIXb83Xx5gBNqMA8HCWq/IhTdp9WHNl4P9Pq4fogIyH/UKn5cQpMf27fNys5XPEi+hi8pjXsWeU5Ep4YPmOA3foZhq34PNoDwBN8orb1mbn0CUB0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=zzQuVjTI; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Cl+1VbGv"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so39420615e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:29:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792045758; x=1792650558; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CrzILkoyvowEBCBs4W94J+1nI3BRb4DDhSmm0sp3WxM=;
-        b=Cl+1VbGve9R8Ka6N1rGjxz2HnPX569Tm1n1DR6sF7EG+5DD+4YZz0WJxP5T6R4vYaF
-         tDrLs2VjC9vMoL5cNEwunvTnwgg+9O02W1Fa2vJK+40FuXfScaUx3ORpY8y2B1gynUHV
-         xGSUEl9i3QVOAWrg0bwidzD6W+jodHwp9n1eg74O3erLKRyCEI9gLWcb0V1l3OtQe1Mv
-         XAikl0A315kw862GfFaNfU5I52c3XPrqeIMHroEPfvDuuNNcB+ywmUKLesH0oirLBeY7
-         fVz9YjYC429S58c3ummgT8DX+Lxe/VKle/d0woSMr3McQjfga56QYq6GJ0BMc35j7mrW
-         Eidg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792045758; x=1792650558;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CrzILkoyvowEBCBs4W94J+1nI3BRb4DDhSmm0sp3WxM=;
-        b=yqbKEGwbsf3ED7G/gZQkDEjFyW+aAlnw4jXf4S1lA+NXDFPjlTh+sLfSWAf318P7ML
-         G21xz1Rk7JSlVqPwQYmLk+MbdGmpOZwe1bT5a51b9kmIZu/4dHLdFBhBEAqX35bhPrZS
-         xobdd69L6ZEdOS7NOZIwrEn5hRU9NZ55pRYTSMQtDPJCwrM7oxdpQfMUtPQuwQXcN206
-         MHWQ8wLbgVa1TSwBykbtrRqUE/zdC5SsZmin1rvgWBrSYtHUJUcPGkhIv8lDRpcz+vE3
-         ntWSnLeWEoV0nNpRSggJDCGeAvKmrkpClJA15vKg8svSFqiISGXSbnxr3BdL6N/tc9Kx
-         7zhg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfY/K3yAfWqpxIY90COzaE++1iPip/bHe7kvgCG0zu4Aou79zfe68LeKOkx77zjDUz6NiKIZyxZ2uEL/Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3cUhWa/WJcFZTiBBsY5u/w+9zBGvQSQkW9zkrJHF+PZ1FEy0q
-	xSjObP3X4Dugd1/k1PXNJVqMYHBtQzfTV54iGKLYxrCNiK8+f7ojALxkGp0a3uPt9Iw=
-X-Gm-Gg: AYBFou2RNWAsxzLdClD6za0cfouBLg3zMxUmnXT9Sf4xo1wFaUdQNRb26tFF4YQWxPL
-	HcMRzB9Ur+Wrxgr7V8nXHR6x7Vof8MaVS28lhNtMFCKyWSObLp5S0Jl16GNZEGEzo4A66YyK35I
-	zD4Vam2TQHMNoS3XtdE6S6IdOUWY2Lodx99pIl9CfSRC4AqrXYb8vyFwBEkOY+zr+1TW5Xmap/Y
-	VyzuctyiKBp89NwXjh8ofGtLiLXzFfLrAJqteDAdoEGec4dM3DrnFEctVDpoEfZRJSOUsdjFQdd
-	zCwBUdwXOOwYuuqZ+dWuj0rvB/laggp1hRdXxx/eUnvmN0fk1NgwCBW42Q5dWt/wpSTHOyh15x9
-	S0xt4j69XX0R1sm5skHKNHX7C1C0EPUyI+8Bepjw2XfwtBbTxD9nZHRy4piDvHSKmk8vXb6hrhJ
-	a4HHIazvQI2xuEzb+vVjHNFahK7rfPvYH7EkVF64UQPSY3L4LG9L9MMWdFbkvui+QauYljvRZTS
-	aaj
-X-Received: by 2002:a05:600c:8518:b0:49f:cbf3:551c with SMTP id 5b1f17b1804b1-4a18e4a8ca6mr326220155e9.12.1792045757868;
-        Wed, 14 Oct 2026 23:29:17 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a1bd9a8a15sm46085045e9.4.2026.10.14.23.29.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 23:29:17 -0700 (PDT)
-Date: Thu, 15 Oct 2026 08:29:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Jeff Johnson <jjohnson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	ath12k@lists.infradead.org
-Subject: Re: [PATCH RFC 2/5] nvmem: Add UEFI variable NVMEM provider
-Message-ID: <atBwaKE20dJF1jXP@monoceros>
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
- <20261014-b4-nvmem-efivar-v1-2-187c85f65018@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="zzQuVjTI"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 6B3EA1FAE5;
+	Thu, 15 Oct 2026 08:31:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1792045870;
+	bh=HxESBsBcOxfIXhfEgZgU6ibboT4Rgframa1w/vi5IdE=; h=From:To:Subject;
+	b=zzQuVjTIDnlKGOVfK6vm4rVXgCh5moV/gqYTfDabv86bGMpRNP4ZJkj5ZqNHA079n
+	 rVCKfmhb2JYJhimweFdfdC4bAhRB+OMjW+U0f3YzgAtliHKpMQTOavGvMJjKiy3Gue
+	 9j+lrelQA3LfwygkQ0qcS5yPJgKA+w+0Lg5N85tqzkw5xI0opeMFxiLtsq0qTmaRvK
+	 yQMtpeL20zCmEReNzv486ii7N7qNyZEzYgJC7EXuUwwZ7qsO1zMI/14cw3gvEYfwcX
+	 Jiz8PaRUNneymfFB0Rn9UOSmQDod3q6HoRUXXhgAno6eUqfeYfcIg0yi2ZLHJxd0kf
+	 kxrxPARlvXS1Q==
+Date: Thu, 15 Oct 2026 08:31:05 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>, Liu Ying <victor.liu@nxp.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com
+Subject: Re: [PATCH v2 2/5] arm64: dts: imx8qxp: Add display controller
+ subsystem
+Message-ID: <20261015063105.GA5720@francesco-nb>
+References: <20261014071657.118378-1-alexander.stein@ew.tq-group.com>
+ <20261014071657.118378-3-alexander.stein@ew.tq-group.com>
+ <as-JyQG5vgaPYLeH@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zmiuyjupclul4syh"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-2-187c85f65018@oss.qualcomm.com>
+In-Reply-To: <as-JyQG5vgaPYLeH@SMW015318>
 
+Hello Liu,
 
---zmiuyjupclul4syh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH RFC 2/5] nvmem: Add UEFI variable NVMEM provider
-MIME-Version: 1.0
+On Wed, Oct 14, 2026 at 08:55:21AM -0500, Frank Li wrote:
+> On Wed, Oct 14, 2026 at 09:16:46AM +0200, Alexander Stein wrote:
 
-On Wed, Oct 14, 2026 at 04:02:40PM +0300, Abel Vesa wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+[...]
 
-<linux/mod_devicetable.h> pulls in a lot of unneeded dependencies and
-<linux/platform_device.h> already provides of_device_id. So please drop
-the former.
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi b/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
+> > new file mode 100644
+> > index 0000000000000..e94fbc6eae07d
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
+> ...
+> > +
+> > +	dc0_pc: pixel-combiner@56020000 {
+> > +		#address-cells = <1>;
+> > +		#size-cells = <0>;
+> > +		reg = <0x56020000 0x10000>;
+> 
+> reg should be first property, check others, you can use
+> 
+> https://github.com/lznuaa/dt-format/
 
-> +static int efivar_nvmem_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	const char *name, *guid_str;
-> +	struct nvmem_config cfg = {};
-> +	struct efivar_nvmem *priv;
-> +	struct nvmem_device *nvmem;
-> +	efi_char16_t *name16;
-> +	efi_guid_t guid;
-> +	guid_t g;
-> +	unsigned long size;
-> +	efi_status_t status;
-> +	u32 attr;
-> +	int i, len, ret;
-> +	void *buf;
-> +
-> +	/*
-> +	 * The EFI variable service may not be a native EFI runtime service;
-> +	 * backends such as the Qualcomm uefisecapp driver register the
-> +	 * efivars operations asynchronously.  Wait for them.
-> +	 */
-> +	if (!efivar_is_available())
-> +		return -EPROBE_DEFER;
-> +
-> +	ret = device_property_read_string(dev, "efivar-name", &name);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "missing 'efivar-name'\n");
-> +
-> +	/* ASCII variable name -> UCS-2 as expected by the EFI service */
-> +	len = strlen(name);
-> +	name16 = kcalloc(len + 1, sizeof(*name16), GFP_KERNEL);
-> +	if (!name16)
-> +		return -ENOMEM;
-> +	for (i = 0; i < len; i++)
-> +		name16[i] = name[i];
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv) {
-> +		kfree(name16);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	/*
-> +	 * The vendor GUID is optional: if it is not provided, look the
-> +	 * variable up by name across the whole store.  A variable that has
-> +	 * not been provisioned yet is reported as not found and handled
-> +	 * below like an erased EEPROM.
-> +	 */
-> +	if (!device_property_read_string(dev, "efivar-guid", &guid_str)) {
-> +		ret = guid_parse(guid_str, &g);
-> +		if (ret) {
-> +			kfree(name16);
-> +			return dev_err_probe(dev, ret, "invalid 'efivar-guid'\n");
-> +		}
-> +		memcpy(&guid, &g, sizeof(guid));
-> +		status = EFI_SUCCESS;
-> +	} else {
-> +		ret = efivar_nvmem_find_guid(name16, &guid);
-> +		if (ret && ret != -ENODEV) {
-> +			kfree(name16);
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to look up variable '%s'\n",
-> +					     name);
-> +		}
-> +		status = ret ? EFI_NOT_FOUND : EFI_SUCCESS;
-> +	}
-> +
-> +	/* First attempt with a modest buffer; grow if the firmware asks. */
-> +	size = 512;
-> +	buf = kzalloc(size, GFP_KERNEL);
-> +	if (!buf) {
-> +		kfree(name16);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	if (status == EFI_SUCCESS) {
-> +		status = efivar_get_variable(name16, &guid, &attr, &size, buf);
-> +		if (status == EFI_BUFFER_TOO_SMALL) {
-> +			kfree(buf);
-> +			buf = kzalloc(size, GFP_KERNEL);
-> +			if (!buf) {
-> +				kfree(name16);
-> +				return -ENOMEM;
-> +			}
-> +			status = efivar_get_variable(name16, &guid, &attr,
-> +						     &size, buf);
-> +		}
-> +	}
-> +	kfree(name16);
-> +
-> +	if (status == EFI_NOT_FOUND) {
-> +		/*
-> +		 * Variable not provisioned yet: behave like an erased
-> +		 * EEPROM so that consumers still probe and fall back to
-> +		 * their defaults.
-> +		 */
-> +		kfree(buf);
-> +		size = efivar_nvmem_cells_extent(dev);
-> +		if (!size)
-> +			return dev_err_probe(dev, -ENODEV,
-> +					     "variable '%s' not found and no cells described\n",
-> +					     name);
-> +		buf = kzalloc(size, GFP_KERNEL);
-> +		if (!buf)
-> +			return -ENOMEM;
-> +		dev_info(dev, "variable '%s' not provisioned, reading as zeroes\n",
-> +			 name);
-> +	} else if (status != EFI_SUCCESS) {
-> +		kfree(buf);
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "GetVariable('%s') failed: 0x%lx\n",
-> +				     name, status);
-> +	} else {
-> +		dev_dbg(dev, "variable '%s' attr=0x%x size=%lu\n",
-> +			name, attr, size);
-> +	}
-> +
-> +	priv->data = devm_kmemdup(dev, buf, size, GFP_KERNEL);
-> +	kfree(buf);
-> +	if (!priv->data)
-> +		return -ENOMEM;
-> +	priv->size = size;
-> +
-> +	cfg.dev			= dev;
-> +	cfg.name		= "efivar";
-> +	cfg.id			= NVMEM_DEVID_AUTO;
-> +	cfg.owner		= THIS_MODULE;
-> +	cfg.type		= NVMEM_TYPE_OTP;
-> +	cfg.read_only		= true;
-> +	cfg.word_size		= 1;
-> +	cfg.stride		= 1;
-> +	cfg.size		= priv->size;
-> +	cfg.reg_read		= efivar_nvmem_reg_read;
-> +	cfg.priv		= priv;
-> +	cfg.of_node		= dev->of_node;
-> +	cfg.add_legacy_fixed_of_cells = true;
+We have a tool in the Linux tree, ./scripts/dtc/dt-check-style,
+I would advise to use it and improve it if needed.
 
-having only nearly all of these aligned is really strange. If you ask
-me, don't try to align =, just use a single space before it.
+Documentation/devicetree/bindings/dts-coding-style.rst is the reference
+document.
 
-You can write this as:
+Francesco
 
-	cfg = (typeof(cfg)) {
-		.dev = dev,
-		.name = "efivar",
-		...
-	};
-
-which is a bit less repetitive and easier for the compiler to optimize.
-
-> +	nvmem = devm_nvmem_register(dev, &cfg);
-
-Does nvmem_register only return success or -ENOMEM? If not, a
-dev_err_probe() would be nice here.
-
-> +	return PTR_ERR_OR_ZERO(nvmem);
-> +}
-> +
-> +static const struct of_device_id efivar_nvmem_of_match[] = {
-> +	{ .compatible = "nvmem-efivar" },
-> +	{}
-
-s/{}/{ }/
-
-> +};
-> +MODULE_DEVICE_TABLE(of, efivar_nvmem_of_match);
-
-Best regards
-Uwe
-
---zmiuyjupclul4syh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrQcrgACgkQj4D7WH0S
-/k7Hggf/V5sRv/MeY3XE+UjeelKqRfTHz0evXvOJWyrUMTHIBxrDkz8QKuEN9Suk
-jeahg8flS8j/DDI1JqZdIFpsddA/zp4pQtQL5VgFe35gJoG3wYXsrVLdWozBylIP
-n/evHMBXhRXiCUnQPMB4l3th14mTR5TE1Hb94GtlMKTueC1PPc4L0jzfLBPzEsdT
-vnz/amCvOXWaguwBCYf2gy/PYMK/JZtJf0peAj404US7HDDFWiwqI+UdFRK4sTTy
-xUgWhdZ+Bj5PLXYavMI1VcPx6G1YPlfflK1GjkMA5/puxk28nPCguUFz9G9zoKwR
-7QQYsNrlVCJ9O8W14hihe8LrM7cotQ==
-=Qsq8
------END PGP SIGNATURE-----
-
---zmiuyjupclul4syh--
