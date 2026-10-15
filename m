@@ -1,216 +1,200 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011002.outbound.protection.outlook.com [40.107.208.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25153D25CE
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94763C1D73;
+	Thu, 15 Oct 2026 15:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792076430; cv=pass; b=sfp2g17QDdpa/XUnir7/PESYFb2A1AKMJXeV9oP1OfPgPBItLSUR5nQaEcg/Ekf9zbgyEQ+30eAAQF81xngCnKgf4RkDCVEMwXeodOAf071l1cJvwW2hHjKrxtEYlsts4a/vBt1DlX15PaA7FwYcO/mSA28Rq1bBxIJIxqx7nrg=
+	t=1792076566; cv=fail; b=is7QjjLInICZO9dJhB7mKzt1yGE6eDBUwd3jKYVylMT3nQT7hL9b/vScsAm7qPMPgaqQFQm1Lw1XZ1ddYfvYmJrbP8y4A06hTUmSNW4ormVgQts2Rz2hb2qQF1xLzZtC37KRSGoCepcBDwDF7llDDZ9cOOrIHIU3aiJ9OCzdH3I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792076430; c=relaxed/simple;
-	bh=9AubrjuTyFtTcB47akR0Z0Pa9zMrPvbyYIyhySwc51k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=udmuNaJvxwxMAJ/JuBtfexFfEpRGOqMXIpvDjpYeV1b+yBythSq0jHnn44L40AUlwO3+2QGShY6LRjer2+MKkYvAwTfh2N3TjZjWrjx3McI6jWcC+vMC4EloK0WONqgYwFmKp4w7194BQR+qTXMTZoeX+6HPgGixPTn5MTJKdyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L0UE3sjh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jQ6mW3XX; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792076566; c=relaxed/simple;
+	bh=U03TsRb9NPU/ymVxrxxkghPQsQ/5SUZLrLfeVAAiW7M=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qwiaqb/bX3H4f19QHb06VLFTuKAOnBPJPesYWNk4QaoeRzNTfNCglIKKF4edUIYzrIIeMUonKLYgieFvleRlHFtrwbxeuyzHqgaobcHFZZVvj4v+uC3ubLiXuc33fuivBz+Md2xJdslHedWQXkFVocRtog71MM1SlNJBQJiTaDI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eMlpq17m; arc=fail smtp.client-ip=40.107.208.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L0UE3sjh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jQ6mW3XX"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jpIa3408901
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:00:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9AubrjuTyFtTcB47akR0Z0Pa9zMrPvbyYIyhySwc51k=; b=L0UE3sjhpkGmhWcD
-	KoOduoIpJoA5a577JSZoePOLGX7e0v26yx67AbT0UmnzIES/59j8NaNAmujSvo/t
-	+RaQhZNWWVMJdzdxjDb9qxZjR5OhXQBs/79pve2O2qFAppZQZC785B9p0VdBTIQX
-	brXi7j5V332kv6AMTtCwBzoOVdr5kDUd6VoX7wlPgbSPAO012InaFRBcsEzg4zpE
-	CZMoZeKnIr5yvPZzx42HkPVrpSI0wIheotNwc4Mod4TdfJm7roYHOsLgL7VdAxKa
-	zwfHVIoJOvXFluitnuDTWiOym2MPWAgGECHEXZdKxD0LmXqVctIjAtfIxnjJjNBL
-	gVRiVA==
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakwn3bau-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:00:26 +0000 (GMT)
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66cbfb7ec42so6208800d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:00:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792076426; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n546TFbRc+OLt1JBqeg/bSGyO3+wSeLfDKSIiPsMTPPD2zSyfiVVLI2HYXEmKe6LZI
-         0Ijpwiw5LyRxQygp1G5MJrhCJmx5If5oHp6uvhTU66TXzoR6P/WZQYpFjISWkJeicgZp
-         KFBu9GHCFJB5UY4JZDprgKfBidKNLZtIDE8PNw2ykbVMKlwvfvrsRQx/q3cAvch5q0un
-         W9osqmYqzW/rNhGwt5S2yEI98+qwL+mfN2yMIj5Ig3Rp4lmusdtX8Lbr+KWfKh7MEOxb
-         lZivpVzZSXxxv59VaSyHxGzMIR8IvaD0q6WlKv7/Yjvxa+liH4jzx4YWfMDjYaP/4or3
-         W86g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9AubrjuTyFtTcB47akR0Z0Pa9zMrPvbyYIyhySwc51k=;
-        fh=wdGITRAHdcFrIYNshYgY8nq4fdkpcGQ5e+VDBrWSSJk=;
-        b=GuGsl2JRAlOKfhvbskkm+ZvnGfCNkPQfAPQEXEeJgsrzqBXr9a0iB93oOwzGbjXbLO
-         FhrNXdh1iFVmj1U1WbiVu367Hn3jMtGP0JUvsSVhOsrcsASC1+m3ftvpfUl1HRTj1iui
-         L8+Mz6i7sVGOsQEjcjuCmQtaofNnOPvW0LHEmFsoLODCOywKDQJ3ihootIYvxZzBvZgv
-         nhdpQSuHBK+A0oTDsouspYBS4ipFhwB4fmEiJI/IiUt2gZvpz3MuMxjod+U/AfsxjiuL
-         a+9XMifVJozRyUVPN85R9L2j+NbZNB5c8kjQ+i+tWLbXFqFsUWgWsys5v8deQ4I2CPre
-         c5Tg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792076426; x=1792681226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9AubrjuTyFtTcB47akR0Z0Pa9zMrPvbyYIyhySwc51k=;
-        b=jQ6mW3XXpmSsU/b9mMTY4iR5lR1mCpS2ELZ36hWA5aw/45ZZ5QREBzEahZGAGGsWhn
-         SKpQ/kkyMIaqsL7ySvr1gbs6Od/dujFL46A55PamdMmFKrTUqjbdrY83iZfcknyeFi9m
-         Y/SPh2MzOt5EjujPFKKztUcPw26HsQjwmt92q8z4EkKVZN1ydeQLm3DI3roZMsdlRmeC
-         35dWchuYeKhGoavL21RNeoijBC3/ZLooG+jxcEadM7pr/YtO4jB+deCa0mXimCUKSLEM
-         psiHYi/YmH8gEHhAR+8wWNy7ycUyGRYt+UZlXooUvRkH/wrv278KqUH182P1zOHkQ8bI
-         QJBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792076426; x=1792681226;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9AubrjuTyFtTcB47akR0Z0Pa9zMrPvbyYIyhySwc51k=;
-        b=NB9mezWg5kVE1HOmtiHe9YOHqUztZw36shhKgfM729xZyPH5b1sCkOWH99phmKXnAH
-         5mXlI40hBgAxMEB3l5FuehIstHflm7v3sVkHLVUN1faFrpRMflu/ibqtwtC3B2nKUBZx
-         QD9rL9MBaOUo6/KuSgYPEsEMQSgm51ijGM9ydulgR+NxYQTA0nZbdW8CANhs+9o6FJM0
-         H0qrDRh788acqKKscOLEjgLKL4Kc0W/a7JH9pvJ7brA0yi9V9Cc/eCfdQq8jXcRUCNWl
-         64MKsCMH9nQ8o6PG6KjMBp6gbR+ZhyiW3hdnFkzgRn9+J52cwBk7irVQU7fbmERq/DBs
-         6djA==
-X-Forwarded-Encrypted: i=1; AKwUvByujYUSuQUTWW64/nuA+pk5Jlo1CrzrnYHjSRcTzaRlCGgp26U816VmYPEE4SXiYt9Db+OWmhJrI/0Qj24=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImQhOCvZe6h2ikF1123rBGaS9NXO05cZ6BrHnn8t/1mIF53HBj
-	aUjNEzHrctr/s8+XHpW/Y2FPsRqNY2G6HH67xu45K3UA+gELEJkLaw8t+wAuwes+H5G6Y0XWgVy
-	wqLMpBFtWLjDzjapNR+iVTziKYsoumxUadFiwVCoyEQ3DUnVrOwpIP3Y2XMqImlhejCDDZkhM7p
-	DvdWr92XBjRbt4pPWRQs0nL+DGgjGcYRRWUM6PnfBnjw==
-X-Gm-Gg: AYBFou2vD3Z5Pz5xa3cMmmHYvT+f7depip/EML16hx2qMUB3Dd2PcgHLj/ZErN/mMms
-	5tZyxJtNSELztxmA+UxQMRwzfqfb5M473la5fizAFMLIruv+dvjJ/wc+6dtZ5ZORz9tXLzdEOUD
-	efoPWs4RhT46SgNw91yhcEG6VIrjBf2Ch4nB+PeJtdpAZmvZpPZzGVs5A1RQ==
-X-Received: by 2002:a05:690e:e8c:b0:679:a56c:e2d4 with SMTP id 956f58d0204a3-679a56ce9cbmr416689d50.21.1792076425637;
-        Thu, 15 Oct 2026 08:00:25 -0700 (PDT)
-X-Received: by 2002:a05:690e:e8c:b0:679:a56c:e2d4 with SMTP id
- 956f58d0204a3-679a56ce9cbmr416649d50.21.1792076423912; Thu, 15 Oct 2026
- 08:00:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eMlpq17m"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Oy9sZiNPqN3Si1wZzuWb4u7SxuKVb8CKow+99Rt0zTJAYFsGH/Yt6HpslZP45rMGjZvgrxdNS9to9ZPGyOlCLRCQ4n86sLUFN3GiNwT7hMzg3mm6VrWPFARcyVopYPYDAWGqlo2Pghew4Olj+WsoRRBoFKaAnSVVgbP7BayW7tqJs09vUoShzpXtHL7+cCTr2r7tA1XGAo5aDEedGyn7DJMJlHkIEB4n3dE8+zlxr0LIawLu83t4RNHVBB9N4QsXYm7psyUA1398M9ihHe7jjaRlFJpOmMMPxabUoYffG0WJkSffIrW3j2x0Bi75wa5FvF8C4jrxhEZZNMo+f9hHfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wt4lGju7D8PTj1rfAG/OcLfJQFJkK3lME2hd34qjobs=;
+ b=Z5oBLtAi8AdlZubUEJwKy3QyD3qFVPySKcTvhwRm72QpiLpIjytkhwXwzfSGMH4EbHpic5gwF22pI2P+q/2HjO3wmYBedGzxRUQdQ7xF44Q6oy+akUmp1ngX3Wamycw8k3ZzsajpU8rgF5dUYOTSjPQvBJ9Opn3qUYdE1xuNhHdmn11iM6XZxuVWfSXDR5BQCEGVQRo2Zw7xvAtMMcNAsTYDnrKRfgFvoQzwcOZS5xWK4u7e0NJCAyNb8UZLIaomPtB+FF/ho3lheHw1JafEzgOnMbSPhzFYIhUNgt3GqkAnMnoUJweCv+3G/u58i3Z4LV5FzS+ZWXj/yJ9O9PHTHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=microchip.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wt4lGju7D8PTj1rfAG/OcLfJQFJkK3lME2hd34qjobs=;
+ b=eMlpq17mPXPLixgae/D47sm+sQFJlGZ9u+hY4goPv3VQoxn2XB2Bf3xkSBMYQFgnD4Do+Q4iOe1njEwF0gmI+kq2qNwy3HUbCW1JgUWZkVa3q/uCY7gfJx0KmDjRYHhSXoizD019KPaGr0UKjhb9KwbH4X2lp0MN1KOogmMYyyzqGWwEJsxJnZG6mjWONDddbTVYHAFmYUToDdP/hhHBRmd5EvXul2inApkJV/h99LnqNbtOwaFz8B46BSFrqeKhlpVkYxHTd/jWMtbUk6+ub8WSR1fDTN9zPH49tMBkd2dOgNk7LQBDUSozLdYK4JcHl6P8uQ2iKIDKgZ3aIG6BIg==
+Received: from CY5P221CA0146.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:6a::19)
+ by DM6PR12MB4299.namprd12.prod.outlook.com (2603:10b6:5:223::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
+ 2026 15:02:38 +0000
+Received: from CY7PEPF000000F3.namprd05.prod.outlook.com
+ (2603:10b6:930:6a:cafe::5) by CY5P221CA0146.outlook.office365.com
+ (2603:10b6:930:6a::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Thu,
+ 15 Oct 2026 15:02:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CY7PEPF000000F3.mail.protection.outlook.com (10.167.247.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 15:02:38 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
+ 2026 08:02:08 -0700
+Received: from vdi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
+ 2026 08:02:06 -0700
+From: Chris Babroski <cbabroski@nvidia.com>
+To: <bryan.whitehead@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <richardcochran@gmail.com>,
+	<linux@armlinux.org.uk>
+CC: <maxime.chevallier@bootlin.com>, <Raju.Lakkaraju@microchip.com>,
+	<cbabroski@nvidia.com>, <davthompson@nvidia.com>
+Subject: [PATCH net-next v1 0/5] net: lan743x: automatically recover from TX hang
+Date: Thu, 15 Oct 2026 11:00:39 -0400
+Message-ID: <cover.1792008404.git.cbabroski@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
- <20260911-video-optee-pas-v1-v1-2-7bbddaaac5ba@kernel.org>
- <38fa7602-f03a-4343-9999-0eda108332e3@oss.qualcomm.com> <CAGptzHNO02tQJypLjQD+nKWW76m5R2fo-s=bAJhN=Hmu_oVvng@mail.gmail.com>
- <d293c3a5-7318-4ef4-978e-2bf1c064d0fe@oss.qualcomm.com> <CAGptzHN5uTR8w2b3ODHoSTcys4woRBmAf0fa=93H34ZDV+=ymw@mail.gmail.com>
- <9ae0c4e2-35cd-402e-96d0-eccfe26e622b@oss.qualcomm.com>
-In-Reply-To: <9ae0c4e2-35cd-402e-96d0-eccfe26e622b@oss.qualcomm.com>
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 20:30:12 +0530
-X-Gm-Features: AclHuK8demruQYQ8n8tHl0BDAgZY3hGCZO81qTxG4GuyJEws54lZr76wmzOWfEI
-Message-ID: <CAGptzHN1-x+9aoccmes7PSOZfT=SDQK8e2yJc2AQhhQuc5+BZA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: iris: Skip SCM call for non-SCM PAS backend
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OSBTYWx0ZWRfX0xZGvpmT6Il7
- Pw6OPjXAF9OGcyzYTEv/+/tHZM93xBrSjoH73TwKoSE+kouFRiDhMLYYhT35m4jY67ef61VqXHf
- nP0f+zrsXMy2LMBcXECiUM393PBnpW3cRLhkESU9hZOEbwlG5dGf+Gy6xDvG/99ba0Qx0wz5Vz9
- EPPqms6rzzczCJt3cOjqgX4ey7S6pcP39j5Za4y+bRjgEqKSychWgSZAWE3jab6UZHS6cis4sbp
- DE+Zqh+GIf7+rBFq9151IvJqyXD2KvhHCAhqEhX2ZisTbnEBtxywxMWDDM2hGOoOTf73ePZiU07
- KYZCLmUB/PYvLKq+CvWiNu7qL65QDBM5IeDp4uuxdRz0zXg1WaTlvUIZVBKFA6WVQAYbVR+2cES
- LNGkEKUlc623UNVR905IxGnrb5WXslvqn/Yb593/1laRtCR9R4flP1bLhY6mJgnXT5pXPfPPDsh
- uy/w8lhYJ/tkCl98nrQ==
-X-Proofpoint-GUID: ycKecZK5p6AmYyrGxGEwIEygLNtnOsJv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OSBTYWx0ZWRfX0qxGqtW2dpYw
- Ez7Ce8t5acycpRAG34Lq67Tm4atYflJvV015/sMckX+QSEV3+WLmmV7U5Gn/kyLecdg1xEPxtqo
- T2RJsz6vSHDWSNnFEG49d1AC6fYJhKo=
-X-Authority-Analysis: v=2.4 cv=BqUIUoX5 c=1 sm=1 tr=0 ts=6ad0ea8a cx=c_pps
- a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=b45o4kL6AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=aQIlNds9TXYcn2LlkrsA:9 a=QEXdDO2ut3YA:10 a=nd2WpGr1bMy9NW-iytEl:22
- a=dhdsR-PFWuPJUldTnwXm:22
-X-Proofpoint-ORIG-GUID: ycKecZK5p6AmYyrGxGEwIEygLNtnOsJv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 suspectscore=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150059
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000F3:EE_|DM6PR12MB4299:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3b99ff5-8957-4db4-ff2b-08df2acd5ac2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|6133799003|10067099003|18002099003|921020|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	lGV9ucvTD2yMJvAMzMbmKdWI8GfIgE7b8lQaUnscgMsaozASc2rWrJUjsXlEJpV5EvykYUvPq73ayfMC5tLrJzFp77zIzxHJB8M1quBUqaowT0mk8BtduxGZJH38q3dRO3eR7c47sAr+NX6e/1OfIiSAp0c4/4y3HhkBkAwabF/J/KdH8M30JPaq9nwO9Rrnk8h86vnI+cQp8B4/bwWp8zS9gOmacnnwNl5sAstRU/zTCXF8C1GTRrXOTH7YaPXTHdlu2iWY8Ndjju940GCSQed+WkPhEME0rp1cQNntsqFiYcN9chipyQeGEOv8+31mAw4lVvwtfkGGaVj04ouncu4cZIDVvh9WoWK6smYlf+fZ1gYHpzFA4Cd9PYneLQfsDhqtg0bvewiuxUnLhLza6gpsXPIRzkHqiEj4yI9cdhuS0ZG5BW0dTvp9ByyZ0TGpAo28hYSRfabXlbts0KOFOBXgdzFG3gaXMmihtG25fQMZzxG5TrgY56OyQ85vp1JDsjajzRTbmKCWt6Ev/rGZs2rAfFCpW0kfVry6lwEOO5eBhIE5so9GI0njNZtr6MT6kIpumgczjTWl0ZJrZUgtWm3fw9ZFkMY/m5ZnXoLY6tDnVLJO0gCDRfj8Tvzyu5AHmjuodXbKfTV5homc+NR+53MmmHlexvtnxGuXbwzpfWssXmIZmZ4slipkvMNJ1seYqdll6q7G3nuMSf6aD1TQzm8O2cWtLJrqWt7xmeAJS+IWZFMmOo4KszVVBpqbmA+8
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XXmI02bW4C7ClVONv85Q0cJVVHNoamsRd5bOfquNIpaS1hJ2TNjQbw9wbgMMTAFodct0vuYq1aSWM1xG4OE84ZHKapgaoVPowK04x6LZ9/uSwyGHJ7QkQenveVvMchYSURKEX8Si7TwOV5hVT0c2fbQDZmP2BCom9xZXzbhn7BgGr40d4ajBC20fDB5zDy9H4zvBhoxF9YbRSa+zZQGaFnHLJs4mkJQfqyojRFLO/6aeBjxHw8xhmCUqIIIhTzAeasbxcn9UKjar2/IfGUPWt8/xZ3W40WnxxRKx1oDxQ6fQ6DHPUCF3LdMYPfRPy+ybqESZafZQtHNIhx8/FjOLO36O3BBKbV8KXZYPBfXQcjZD7vQzvK1ucDwxdjPXt1fUp/4a0YX3kbxm/xOyM2p01Nd2VBKfQGRmE+9I7UggCYj3+l7Hi7n+bwIJGiaYmJC0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:02:38.7964
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3b99ff5-8957-4db4-ff2b-08df2acd5ac2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY7PEPF000000F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4299
 
-On Thu, Oct 15, 2026 at 3:13=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 9/18/26 1:10 PM, Sumit Garg wrote:
-> > Hey Vikash,
-> >
-> > On Thu, Sep 17, 2026 at 5:11=E2=80=AFPM Vikash Garodia
-> > <vikash.garodia@oss.qualcomm.com> wrote:
-> >>
-> >> Hi Sumit,
-> >>
-> >> On 9/14/2026 11:44 AM, Sumit Garg wrote:
-> >>> Hey Konrad,
->
-> [...]
->
-> > The main disadvantage is that we don't want to carry these custom SCM
-> > ABIs per kernel subsystem with the open source TF-A/OP-TEE boot stack.
-> > ABIs always come with maintenance burdens, especially the custom ones
-> > we have in this case.
-> >
-> > Since we started from scratch for the open source boot stack, the
-> > motivation is to keep the TZ ABI minimal and that too with
-> > discoverable OP-TEE services like the PAS service.
->
-> Okay, I can symphatize with that.
->
-> Let's think of another solution though, as a strcmp over the provider
-> name is 10x worse.
+Background
+----------
+On a custom HW platform that uses the LAN7430 NIC we have been able to
+reproduce a scenario where the SoC stops receiving TX completion
+interrupts, appearing as a TX hang. After dumping and decoding the
+LAN7430 registers we see that the TX channel reports that it is in
+started state with no error, but TX_HEAD stops advancing. TX MSI-X stops
+incrementing while RX interrupts continue to increment.
 
-Okay, I can rather stub these APIs via the generic PAS layer except the
-SCM backend, that can reuse the existing abstraction.
+This scenario has most often been reproduced in large server cluster
+environments, but it's also been seen locally during repeated SCP and
+iperf testing.
 
-Although I find these APIs not related to PIL/PAS, it will be
-just overkill to have another abstraction layer for it.
+The root cause of this issue is still unknown and we are continuing
+debug. It was found that bringing the interface down and up recovers the
+network. This issue has not been reproduced with the LAN7430 EVB
+connected to a standard Linux server.
 
->
-> What is the planned replacement on the open boot stack side?
+What this patch series does
+---------------------------
+This patch series attempts to implement automatic recovery of the
+network interface after a TX hang is detected. It does not fix the
+underlying root cause of the TX hang.
 
-In the case of video subsystems, OP-TEE pseudo TA already holds platform
-specific info so we can directly add this info there which is being
-passed by the kernel in SCM calls.
+At a high level, the patches implement the following:
+1. ndo_tx_timeout support to reset and recover the interface when the
+   netdev TX watchdog triggers.
+2. BQL support to decrease the amount of time it takes for the watchdog
+   to trigger.
+3. Stability improvements and error handling around the open/close paths
+   that now get executed more frequently as part of the TX hang recovery
+   flow.
 
-> FF-A lend?
+Potential issues and concerns
+-----------------------------
+* One of the patches adds new lan743x_dmac_tx_reset and
+  lan743x_dmac_rx_reset helper functions. There is no cleanup handling
+  introduced if these return an error, only a new error log. This
+  matches pre-existing behavior: if a reset timeout occurs then it is
+  possible to DMA freed memory. The datasheet states that these resets
+  are performed immediately in HW so I'm not sure if these will ever
+  time out, but I'm open to suggestions on how we should handle an error
+  in these cases.
+* The TX timeout reset flow does a full lan743x_netdev_close followed by
+  lan743x_netdev_open instead of individual TX channel reset. If the
+  stall is happening inside the NIC DMA engine then the theory is that a
+  full reset may be needed to recover. For internal use we also wanted
+  to reduce risk by putting the NIC into a clean state after recovery
+  with full reset. It would be great to have Microchip/LAN743x experts
+  confirm the best reset flow.
+* LLM review tools flagged several possible bugs during development
+  that resulted in the inclusion of three "Fixes:" tagged patches in this
+  series. They are included in this series with the ndo_tx_timeout
+  support because lan743x_netdev_open and lan743x_netdev_close are now
+  called more frequently as a result of TX hang recovery.
 
-FF-A surely is already enabled and tested with the open boot stack.
-See TF-A PR for Lemans as an example here [1]. However for FF-A lend to
-work in real terms when kernel running in EL2 (KVM mode), we need
-capability to be able to unmap buffers from kernel linear map.
+Testing
+-------
+Testing was performed on a 7.0 based kernel using the same driver code.
+Please let me know if you would like me to run any other tests.
 
-See this proposal from Google where discussions are leading towards
-making the generic CMA pool capable to unmap buffers on arm64 here [1]. It
-will actually unlock FF-A lend use-cases in the kernel.
+Tests:
+* Verified the TX timeout watchdog triggers and recovers the network
+  interface when TX hang is reproduced. This was done as part of
+  repeated SCP loop testing and is also being tested in a server cluster
+  environment. dmesg was inspected for "NETDEV WATCHDOG" to verify that
+  the watchdog is being triggered. No errors were seen in dmesg after
+  reset.
+* Performance tests using iperf3 to measure RX and TX throughput show no
+  noticeable difference with the patches applied.
+* Repeated module load and unload cycles produce no errors in dmesg.
+  Network appears to function as expected when module is loaded.
+* Repeated ifconfig down and up cycles produce no errors in dmesg.
+  Network appears to function as expected when interface is back up.
 
-[1] https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/54873
-[2] https://lore.kernel.org/all/as4ATqhp0bPI03PA@sumit-xelite/
+Chris Babroski (5):
+  net: lan743x: reset DMA channels that fail to stop
+  net: lan743x: start phylink last and stop it first
+  net: lan743x: quiesce TX before freeing the rings
+  net: lan743x: reset the device on TX timeout
+  net: lan743x: add byte queue limits support
 
--Sumit
+ drivers/net/ethernet/microchip/lan743x_main.c | 177 +++++++++++++++---
+ drivers/net/ethernet/microchip/lan743x_main.h |   2 +
+ 2 files changed, 155 insertions(+), 24 deletions(-)
+
+base-commit: 05b5019b01fb9443b09ae4ed34af1135a80a84c8
+-- 
+2.34.1
+
