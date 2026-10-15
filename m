@@ -1,76 +1,43 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3344CC27F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96B64C6531;
+	Thu, 15 Oct 2026 08:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052263; cv=none; b=m1uIrF7d8qCZW8uFSu2JxnvYJK9bOIZRx1Oz12vCxt+qHwQblAlbJrI41rpVViuPm8CGEO8ABbXhmyVRJ6GxIOLuMGCBdgydOOXBCsxQ+83w8qOxzjMMD9Ot1XLLZk0FvcY0zwkx1mMcQjLgkygOZA9rfYvI/44/P9xG0Ih8xXg=
+	t=1792052276; cv=none; b=r+UTcPCGsGJaRNf0nRCachWRCDqRKLUhM3UhsdAgPXdRTIn88qF2bx5RRRpQ07co/RC47NhjEV4TNv+aQtFL+1cSrKEWKE/01YQod/o0RLu3b1DPySgo/xHL6obHs41b6opAl3NwHBLoRb96RZQxpFZWZH8LT6xIX8HHOvODY2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052263; c=relaxed/simple;
-	bh=/HnoRr6jTN7lhWQJjX7agqNJaK5Mj2EZ7UCIBTgv/SA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j7C56XZdoiE60Rnf63Dp4PIQ1X8XoQOfiTE1mJhLeaZHvUZILDj8PjESZPXTrOEokzLRihmYvMU4lbwkdgkP4zeRIQV+lmMzKpa2WHr/CxHZpCFNHlxq8+57I5jDWhs4ON3cE9cMLs+ly90sPAs/qYWVV0siBVcT5SvhlpZM2gA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e++FoW80; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792052276; c=relaxed/simple;
+	bh=RKCtN1wXI2cvgrqNsXUwB6m/9sTuEtwUbZ0OanR6nZU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nGA50ILCBwEOc1aMA7Whuo120Q8s90EivqdU5XCBw8To/bKx1QnW5OmCL9G3cwCozdh3RHr+8LQyqMdzhcFR1yhD+X0c53TMqg+KjDOJyj3IOoT9Cv9MjI3eg4HnDz0Wz7PfH/4BbW1N5lUnQk2NHOueXVDwAyYCS0NPb1nTTC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=d/azfDLx; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e++FoW80"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d05d51553so11588745e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:17:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792052253; x=1792657053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1wKZanZE44fFdmkSv3uEQgs6bQ7hBbf+Whca0W3g7zo=;
-        b=e++FoW80yrrKTpIUOVXRJksmP/Rz4CMOF+4us3VnOgQbFzr8aYizm9GIn5FnI7oEgr
-         ELFqMrzysgT6TCRbOSYrSX5WYIaaqX8AhuakaMqnrzYePxceQO7S4RFn+jau0epVrwRz
-         q510/y8ZeV8EBUO3d9ZbrCh6tuXOnlRWWGx3KjuNyflrxuM9KpEt758up6TauiET+NvF
-         SXogO2LLRQQCrStH0nq/I4Em2az0J9mqHYU/5ukJsy2NDW07rAQOiEMCIMltvpN4PRIq
-         k9ZGJqRUdgO4xxusBBvViw4oxgKtNzrn9tij6lSIkl7l9yE8R1iYN4uf1/tHSNzdel64
-         YZAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052253; x=1792657053;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1wKZanZE44fFdmkSv3uEQgs6bQ7hBbf+Whca0W3g7zo=;
-        b=SygKvgALoiC+G08FQxCT7Zm2whHEZsxyX51EEvfsWyVEY+6IYNrqLvKJ99qvNLLkqD
-         p4CxtZkyRnHpGaMDy/fMOJVIfMg3cB57owfWb0AdVijFTjoYvWGh5Ry38fCUWzIgFsgz
-         xlpwPO76JcLUIWdoMk/j67kRP5p4rnPbnMf0BCkXaHgPkYWNT7Oqj2Uq0ls1y6cwwoh3
-         9vMUUKirm0GUSpwBlrkxunjjP2DVoUuED5JyDoGutYn/BDzloYSe1cSa3klanv79UUP7
-         2FZOOzerKfd6FaMmird1X0AjQ33ZgZ/IFaUviF2U0Iz+0Vp/71ysxNi7jjU09k1TAV6u
-         RQhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzxOJoleQIcwBL6zY+woLy/Ow4vnb1l7lUo7hDz1OSPzpXPTVBj9Ej3ixKMy5o28tSDBxg4xK3+9Ztv1yU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgpdajG/uiTRZdtUhc01E6ZbGWgQdBCBkx43tm5dJYbB1Ac5m6
-	vcp947jp/VNdy8KFwKOfvIrPaOM2Rjm6oKFE7cCvL/KpOSON6LBLKpgU
-X-Gm-Gg: AYBFou0e1g3XC2Zh3IPlh96o6bG8tXEfeu/mIL9PoHkWRRzxSiFV4MRaaRT1HWIzyIX
-	9O8FRIOjJD9HmrnjxevWCZLF15LMqtFeNmB9rFcQkadBzrgIlm/oZriWbNfRbvF8d+5OwDoQ0jM
-	Bz7jAVQfyiBcOqIJkSsKND+Mts67SXl2e/Fia/MhOUwjH02snVPlkWo4PU9vHe52zuYFM4m7E+J
-	0I7xn/FYRYhl2aE0nf4tClkYNz6xqT3gKahYPVc+PzcY93B7AadVSXrRQ9mJ8WZR+D2ySjDjoOA
-	caFcQjyZe7xyNX9PIHWpMfn7l2SaaMyfHvi/qax3BaOcCzwMtTmPCLCoqnw8Z2urzj9XPH1nXcw
-	GwUxkUkwXoKx5rCV9Q/u61rMpJ7JndneWsFGsQ2rQ5psWCPAkEVJj1MMM69I+Cp/vZn1EwFyLP+
-	jak/QqGf1XFAZ2YwSdskUqNLawUp7S9i7mZlNG2Qfr5mNTZ4YMHhaAUQeNkS7S7+E5S0LlKm0ZI
-	ZrsGI1p1OfDDILMN406xRU8z1QZG3+iqvBZbPW7hXV3nQ==
-X-Received: by 2002:a05:600c:524a:b0:4a1:8824:c9ba with SMTP id 5b1f17b1804b1-4a18e49234fmr374111135e9.18.1792052253328;
-        Thu, 15 Oct 2026 01:17:33 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967a0dsm16930322f8f.3.2026.10.15.01.17.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:17:32 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] rtnetlink: comment the RCU waits in unregister paths
-Date: Thu, 15 Oct 2026 10:17:16 +0200
-Message-ID: <20261015081723.404990-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="d/azfDLx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yV
+	uQanL4K+S38cQaMBb2N0Tzj0/cdnYmNCO8ZHjJ8s4=; b=d/azfDLxHItVaUtVk5
+	uQB5jCqS501sX/c6pcuPbpOZ/1egRswKgdwATL799G1A2hl+8Z/mJlu4LGgE2lPR
+	p3Q1t553hyyixMxYEVorbWaZkuCUsw5DOvYKn+WnGbLGdkQRzOaIfIlVCIF1my4t
+	WxqC1R1JveUsaa66lMgrKwPKg=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3P74EjNBqLkvpAA--.28339S2;
+	Thu, 15 Oct 2026 16:17:09 +0800 (CST)
+From: Yongxin Yang <yangyongxin@kylinos.cn>
+To: rafael@kernel.org
+Cc: lenb@kernel.org,
+	pavel@kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yongxin Yang <yangyongxin@kylinos.cn>
+Subject: [PATCH v4] PM: hibernate: Log the hibernation mode on entry
+Date: Thu, 15 Oct 2026 16:16:44 +0800
+Message-Id: <20261015081644.1353321-1-yangyongxin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261013023411.1364546-1-yangyongxin@kylinos.cn>
+References: <20261013023411.1364546-1-yangyongxin@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,58 +45,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P74EjNBqLkvpAA--.28339S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZrykKFyrXF43WF43WF4fGrg_yoW5XF18p3
+	97Xrs3ta4DA3W2vayrJrW5JF93Z392ga13JFnFgrZrArnrta90yr40qF1IyryYk3s7Wa1F
+	gF1Dt34UJF43WF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5o7tUUUUU=
+Sender: yang_yongxin123@163.com
+X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-wXykGrQjAVZJQAA3X
 
-rtnl_unregister_all() and rtnl_af_unregister() wait for RCU readers
-before tearing down what those readers use, but do not say which
-readers they are waiting for.
+The hibernation flow is the only place where the kernel decides what
+to do after a successful image write: hand over to the platform
+firmware (ACPI S4), power the system off, reboot it, or resume from
+the image right away. That decision leaves no trace in the log. If the
+resume path later fails or hangs, the tester cannot tell which outcome
+was requested, so a report of "the system rebooted instead of powering
+off" cannot be attributed to configuration or to platform behavior.
 
-A missing wait is then easy to overlook: rtnl_link_unregister() lacked
-its synchronize_rcu() until commit 3b70edea393d ("rtnetlink: wait for
-RCU readers in rtnl_link_unregister()"). Add a comment to both waits,
-naming the readers each one waits for.
+The mode is selected through /sys/power/disk and stored in
+hibernation_mode. Append its name to the existing "hibernation entry"
+message, so that the line reads "hibernation entry (platform)",
+"hibernation entry (shutdown)", "hibernation entry (reboot)",
+"hibernation entry (suspend)" or "hibernation entry (test_resume)"
+instead of a bare "hibernation entry".
 
-Suggested-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://lore.kernel.org/CAL4WiioFMQN4troVjQjCmE6Z9kwwb95SnoEupjD=PPSK6Q5f6w@mail.gmail.com
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+The name comes from hibernation_modes[], the same table that
+/sys/power/disk uses, looked up directly by mode index.
+
+No functional change.
+
+Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
 ---
-v2:
-- Drop the comments on synchronize_srcu(), its argument already names
-  the readers (Kuniyuki)
-- Name rtnetlink_rcv_msg() and try_module_get() in the
-  rtnl_unregister_all() comment (Kuniyuki)
-- Mention the rtnl_af_ops walkers that do not take ops->srcu in the
-  rtnl_af_unregister() comment
+ kernel/power/hibernate.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-v1: https://lore.kernel.org/20261008124423.11543-1-parri.andrea@gmail.com
-
- net/core/rtnetlink.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/core/rtnetlink.c b/net/core/rtnetlink.c
-index 15bffafbf0a9c..d73dbc2c8ba0d 100644
---- a/net/core/rtnetlink.c
-+++ b/net/core/rtnetlink.c
-@@ -526,6 +526,9 @@ void rtnl_unregister_all(int protocol)
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index e365e440cd52..2bbfd7ffafe5 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -72,6 +72,16 @@ enum {
+ #define HIBERNATION_MAX (__HIBERNATION_AFTER_LAST-1)
+ #define HIBERNATION_FIRST (HIBERNATION_INVALID + 1)
+ 
++static const char * const hibernation_modes[] = {
++	[HIBERNATION_PLATFORM]	= "platform",
++	[HIBERNATION_SHUTDOWN]	= "shutdown",
++	[HIBERNATION_REBOOT]	= "reboot",
++#ifdef CONFIG_SUSPEND
++	[HIBERNATION_SUSPEND]	= "suspend",
++#endif
++	[HIBERNATION_TEST_RESUME]	= "test_resume",
++};
++
+ static int hibernation_mode = HIBERNATION_SHUTDOWN;
+ 
+ bool freezer_test_done;
+@@ -794,7 +804,8 @@ int hibernate(void)
+ 		goto Unlock;
  	}
- 	rtnl_unlock();
  
-+	/* Wait for rtnl_get_link() calls that rtnetlink_rcv_msg() makes
-+	 * under RCU, before try_module_get().
-+	 */
- 	synchronize_net();
+-	pr_info("hibernation entry\n");
++	pr_info("hibernation entry (%s)\n",
++		hibernation_modes[hibernation_mode]);
+ 	pm_prepare_console();
+ 	error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
+ 	if (error)
+@@ -1130,17 +1141,6 @@ static int __init software_resume_initcall(void)
+ }
+ late_initcall_sync(software_resume_initcall);
  
- 	kfree(tab);
-@@ -843,6 +846,9 @@ void rtnl_af_unregister(struct rtnl_af_ops *ops)
- 	list_del_rcu(&ops->list);
- 	spin_unlock(&rtnl_af_ops_lock);
- 
-+	/* Wait for rtnl_af_ops walkers that invoke callbacks without
-+	 * ops->srcu, and for rtnl_af_lookup() readers not yet holding it.
-+	 */
- 	synchronize_rcu();
- 	synchronize_srcu(&ops->srcu);
- 	cleanup_srcu_struct(&ops->srcu);
+-
+-static const char * const hibernation_modes[] = {
+-	[HIBERNATION_PLATFORM]	= "platform",
+-	[HIBERNATION_SHUTDOWN]	= "shutdown",
+-	[HIBERNATION_REBOOT]	= "reboot",
+-#ifdef CONFIG_SUSPEND
+-	[HIBERNATION_SUSPEND]	= "suspend",
+-#endif
+-	[HIBERNATION_TEST_RESUME]	= "test_resume",
+-};
+-
+ /*
+  * /sys/power/disk - Control hibernation mode.
+  *
 -- 
-2.53.0
+2.25.1
 
