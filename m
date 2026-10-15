@@ -1,76 +1,81 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832B235CB95
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86F62F39B5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792034356; cv=none; b=Jl5JwehjH7s4Z7C6vJunNZlFv9cQa3A4ZEzx5HZhsERc8sWa5TI6I5W/cKCJUyc8urt62G+Deh3th3Fe3HzPlHKTQ7xCXdRFb3rs/Ia8PbEFUgOCWwfFX7kX4/GOmI70+Kb7z9ForeidxcmGSWIXyfgTsoCmOI0t9myZBxfMokI=
+	t=1792034387; cv=none; b=Aze2aGhgTJMOVVvYPYRp/sGlogWE8+yASJNB7qONbV/h8THYO7rxYzEb9AScSYFj4RGgZEnkQ9J7n0U+o6x3/vvfe34bH/9GsooTcaU4NN5FGu8NDDzy+KUsPBqS910KmOC7+MyfF/+y1Wx2KQstKR0FguIkw9DTJ0gioulK6XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792034356; c=relaxed/simple;
-	bh=7DkAMSdqs432b5pKGZ5+z0IBkk9S52bp6CXXe3fg5J8=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Z6Gj+rGMuOuSCGBQHeBbovISBeJKjzoM7hPkoIrs/cozYWiHudt9NeXpAOwInAmn6MRjtShi/VL6/h9dbsp0VGjRqJo3y+fLmbSvYW0AbIm5BPIYnE7bEyuWAm+NJ8UkRrJ9ZiNe4IkQr7UI51l5z0IQLqiL4yrsnGZphhgfMr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iY9fqwH1; arc=none smtp.client-ip=209.85.222.171
+	s=arc-20240116; t=1792034387; c=relaxed/simple;
+	bh=dDuUS9lEAlDmYNRCGgtkqtpjRNa5kOmWvu33Let1WwQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gxoNkzpFFmIJXRd55jtZhkkXKCgrrkx03k0AElW5aD/AL4pEU3YYJi6gFKcseNz47PebFGs+oflSPz9Klgvx0H3enGL4hbJeCKPXFGtbKBoQtfyTGNoXlR2VGXfmirTFfQbE+08y3qOBimjsg96cwPkPOk6ZbRTbIM+y/pCwDac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FT9Eiu3v; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iY9fqwH1"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93ece7a73b9so613656085a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:19:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FT9Eiu3v"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2792254eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:19:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792034354; x=1792639154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fBJxQj6NIsMthKy4n+dk5f3Do42mZLL4sgV4e8c1TBM=;
-        b=iY9fqwH1t4R5QFF+ee3dl1XkyhOsceF7tr8MpDtGz58zoFkMNc1H4p0N+u4OsGhS7f
-         68HOsjy67owCZxvgSYj9e53iBXHszQsoJMnjiJB0EpKRx6KVkNVgucthmIlVhxgt3E6F
-         Eto1EPDLdGU9+w2ns1EvM0ED3g3jZ8Im3TKpMD8RuUfya8LzIDSCLdBCf3YXospaTRel
-         yNEvotxDq4BBGIO2Nt2pDsySUM8nqt0cJbtG3vKZnMP+hLuh1XgZ1Ootryo1bFn4sWEt
-         ktv18wDLG8prgvf8lCKV6uyJxBckFGmgxTNeDcrOsn1PQl+NjTxegWoBf2IlaTxZVHPv
-         0VnA==
+        d=gmail.com; s=20251104; t=1792034386; x=1792639186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dDuUS9lEAlDmYNRCGgtkqtpjRNa5kOmWvu33Let1WwQ=;
+        b=FT9Eiu3vet6uPGpkuVsjs0r/ZDgw+fY850ubPD4q4piWpXnJvGavQeXkBUXZSYy3ac
+         81kBt6rowytSrxgAafUxVUw0atKi+do4YvL6E/5dVYD3qAa8kUpaY9fyO1IPGQ+8YycK
+         7K+j4Yz0KVB5FniozV5BR1keaEnPtJN5hITCcNawCyOtHseNwv6BvqwRaTB7sMc63p1/
+         ItL51Ze2Zf5C5CCAj3d+mJ99zG2UIFZlPN3eYo7lYeYkcilLi10xiQMPUUH/xoSTjY3+
+         mZMssMMXGI3WQ+RaaVQbMyGluz+YvuOT9Tsnm4Zra4Lhf4gNt5GgQKpEZ6Ijr1bvD2PS
+         kDxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792034354; x=1792639154;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fBJxQj6NIsMthKy4n+dk5f3Do42mZLL4sgV4e8c1TBM=;
-        b=RN4s6n8sbsdbtzfCyhkYCjw5tJ7YnbOPmFsnceXeqq1WV9KabwoKlhkZHlDTqdJI4U
-         9sNkkGskxbaIDVGPxaKB+OAd3XKlsvNjOydEnsKd1Xy/sRUh4+IbI24rVyCsq5OcigTd
-         A3p9YXUF1aaP2QDQA3uoFwF4STGkXKiKj3rqFve3dUuGJgFG+7unoaT1c0TsCQ2g1HVI
-         mvrBYZNkzY5s74FWPAHuRNHSTj28YHf2Ev7fA2VmwDJu7oZR47peiZyS6oLvVyiz5/mi
-         3HusL6lS7Q230HmWM5CHvdoNK7AkhoE5sr9u/eOMK26BaI0/LtbdCFn+WpL/6h7/+q9s
-         xXhA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiaQ9eOnvHPMgerpbgTlx8qyz3aK8XdB0FYVpkFjZGu2863v3k2/6Xrj942LnI1V0x5L/zXhJZt0/qt30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0DbvLyj/gDJqYqX5Hw4wSokgpsY8LNjCEpomYvQblZzYJOg/B
-	GUBl4q+fsoU2L1osvloGPtn+0A4PnLIsiWYlw6d2KwYmFT06e/KQHvM=
-X-Gm-Gg: AYBFou2o3xvWQ7XkH0PqhRH4iWLnUYhmpTHTCajybPPH00vpfP/pKXvY6iEGFKDiI0F
-	Wu9zw5wDNF9WmZzCMtx3Hy4uML0W3zCCfSNz+QdImOSsJI6BT9+qzp77TnLQjumwCt15MXhXze3
-	URuNwqxaT+di4xHOktzoOgXi6PFMdTra5Biz5BWJGhNujbZThen8D4Tp9K3EB1h1kCbmDUkf9Og
-	NIyqSjb9LFNMfZqqtiR/r05lzCeB183TaMEqC+aw2iJ4ahU6Wtwmp6ENvBm7L0RDdvwI6Qe/0Aa
-	cuGi8u4gxmMf5M1DJwGKXQwbhguJXoxGiAjZaMpyoayAvqJggl2imbrCfRpAplEW9so05rrTAbq
-	hs9ZkFpK/NuENRndxS3/45wCeklKaxLDVPFEsQnG0uYMo7C4gNA/RRrM3sf80Dhe7WkaaF0XBBZ
-	hFtUbhSI7HWxZMgogRFy5BEnGBZYowiPCUH2APDf0Y48wJQVZiBXf5CvlDZPHHpVoC/L/2C/oEM
-	nsDepBY50R4pThSiuRI9FPqAN8YIMYlyTHq5Aq2/TlviETnC7o7TSvoub9wwcHflNBZYhmxBhRF
-	bYh+6WBOlEbVAESHuaFpoOB40a4t
-X-Received: by 2002:a05:620a:1a20:b0:93c:e83:6ba4 with SMTP id af79cd13be357-93ebd20e0b5mr2836858985a.25.1792034354184;
-        Wed, 14 Oct 2026 20:19:14 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50095a5sm659924785a.12.2026.10.14.20.19.12
+        d=1e100.net; s=20260707; t=1792034386; x=1792639186;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dDuUS9lEAlDmYNRCGgtkqtpjRNa5kOmWvu33Let1WwQ=;
+        b=agsewnZ/8Ek7fY5ivLe4Nx7XAaS2DizJ/IGmd2nC435Xq0scK4r4L4qRqagPAl8VPw
+         VvZqPAM/Fq2FOBuSbFIzoAM5hg4KqDrGExhEPDO81tuDMyC4HD5oPcUJsCYHXec4pW/z
+         +bNz5cY+TvH/DuLKrogJotswHciqpUSCtxQqzSZyjNgrVVJ4YX9Cb5j2qlLIUyX4knPL
+         ekegmPyGT6ew7pm8NYTCPKfq4EA0ZUjTq84ky8WJ/zeCjFgow0iym+T4UN32fa80bLnK
+         z9D/IoHPqTZWRnF6nmHEBMRG7v+C0v862pmJsyKRqxWwjOMOLcepvgBBIAGUU1SA8bVx
+         XBmA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1dqhWJDOx623MIJvoBXw9S7nRofNRMbHH2YEYKlYXEbuvtTFykRDye35JNXmkmYAapXal2+LvDE3jVl8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdn5P9WXrXdumX4LaCarNfXMEiyootdtaKb/Jc2bfjbfsPWDy2
+	WFfP3eqxZ5Z67GrTuh/+h/fssD2VKEPSCYyzaCiVJPowVml+yAJGsYRk
+X-Gm-Gg: AYBFou3ElXcLBh7gnyVvyU/KgCE67XDrrb3pqXJZiSfmS8nijNdzousShg37c2qLXlH
+	7mh0oLFKCcgKtZucRN4K6BBEfc52Qxg31LBPFccLhqIMyaHSOeomikf8ob+MqGebbZd51VtOvRN
+	+o2m2tp4ghoFfOEp7Z9BXpcBvNza6wab5IFrUOF0LI1V0PdJwtxuPFkVSKU2/kNicqreN8QjSY4
+	PwZtqWzXXob/SbThn5qnBtyEJrF90b/i3An0f4CConQshdnot5V1YETbS+jjKn06hzq7QBC4GAK
+	u8d4vNpqaIMWealhangMezOxu6hOWJvMQCMriuXFIUbXyL3yPB9exvO97SK/pYe3abF5ybD5Mji
+	JtCoAOx1Te6U4yKXRRQV5nh8gvqiwriKpOw8AOI6/l3cBD6c+d06MdRV/7rywZB153FCAQS1xte
+	jUVsyUU8XP85iUiQvQU8c+iWUceTTYzmvNv4GY5U0+D4efODCY/zVbNzcYayGN9Pxj3PWYOgKzt
+	YuFXs6BnWveJ/3N
+X-Received: by 2002:a05:7301:3a84:b0:351:985:e729 with SMTP id 5a478bee46e88-3537e01e8b6mr26189806eec.12.1792034385583;
+        Wed, 14 Oct 2026 20:19:45 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm64832837eec.18.2026.10.14.20.19.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:19:13 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev,
+        Wed, 14 Oct 2026 20:19:45 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: baohua@kernel.org
+Cc: senozhatsky@chromium.org,
+	akpm@linux-foundation.org,
+	bgeffon@google.com,
+	minchan@kernel.org,
+	richardycc@google.com,
 	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Eric Lapuyade <eric.lapuyade@linux.intel.com>
-Subject: [PATCH] nfc: pn544: close firmware requests and IRQ before teardown
-Date: Wed, 14 Oct 2026 23:19:11 -0400
-Message-ID: <20261015031911.2746479-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
+Date: Thu, 15 Oct 2026 11:19:40 +0800
+Message-Id: <20261015031940.1410875-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAGsJ_4wuPCPR0DnbrLp7ebdO=Oih6K_yP4XxwETKQ+3U+THVjg@mail.gmail.com>
+References: <CAGsJ_4wuPCPR0DnbrLp7ebdO=Oih6K_yP4XxwETKQ+3U+THVjg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,123 +84,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The I2C interrupt can queue fw_work after remove has cancelled it, or
-pass a received frame to the HCI device while that device is being freed.
-Releasing the managed IRQ only after remove returns leaves both paths
-active during teardown.
+On Thu, 15 Oct 2026 04:46:27 +0800 Barry Song <baohua@kernel.org> wrote:
+> is it due to the case that sg_is_last() is false, local_copy is needed?
 
-Serialize firmware request admission with a driver-local mutex. Close the
-request gate before joining the IRQ and draining firmware work, so a late
-request cannot change the firmware state or report success after the
-worker has been disabled. Do not hold the mutex across either join.
+Yes, exactly. Our tree isn't on the sg read model yet, so I detect the
+single-page case via zs_obj_get_pages() (page1 == page2) rather than
+sg_is_last(), but the condition is the same: the residual exclusive
+reads are the cross-page objects that need the ->local_copy bounce.
 
-Keep the gate closed until the HCI context is initialized and the IRQ is
-enabled. NFC registration publishes the device before pn544_hci_probe()
-assigns the PHY's HCI pointer, so an earlier firmware request must be
-rejected without modifying the firmware state.
+> Also, with either deflate or zstd, create_dctx() will
+> always be present. So, what algorithm are we actually testing?
+> What happens if we switch to zstd?
 
-Request the IRQ with IRQF_NO_AUTOEN and enable it after HCI setup. Release
-and synchronize it before disabling firmware work. Complete an aborted
-download while the HCI device is still alive, then remove that device.
+We're testing lzo-rle, which is stateless (no create_dctx), so the
+~77% shared figure is specific to it. You're right that with zstd or
+deflate every read takes create_dctx != NULL and would fall onto the
+exclusive path, so the shared benefit wouldn't apply there - as Sergey
+noted, zstd mutates the decompression ctx and its dctx workspace is too
+large to allocate per-request. So the shared-read win is really a
+stateless-backend property; I should have called that out.
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+I'll also apply Sergey's vm_map_ram() patch (with the memalloc_noio
+fixup) and re-run on-device. Note this only helps the cross-page part
+of our exclusive reads on a stateless backend like lzo-rle; it won't
+change zstd/deflate, which stay exclusive regardless because of
+create_dctx. Will report the numbers separately.
 
-Fixes: 06c660340f1e ("NFC: pn544: i2c: Add firmware download implementation for pn544")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with GCC 15.2.0, W=1 (x86_64). No runtime testing.
-
- drivers/nfc/pn544/i2c.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nfc/pn544/i2c.c b/drivers/nfc/pn544/i2c.c
-index 7fde3aefae70..057ef481579b 100644
---- a/drivers/nfc/pn544/i2c.c
-+++ b/drivers/nfc/pn544/i2c.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/crc-ccitt.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/i2c.h>
- #include <linux/acpi.h>
- #include <linux/interrupt.h>
-@@ -153,6 +154,9 @@ struct pn544_i2c_phy {
- 
- 	u8 hw_variant;
- 
-+	/* Serializes firmware request admission with probe and removal. */
-+	struct mutex fw_download_lock;
-+	bool fw_download_enabled;
- 	struct work_struct fw_work;
- 	int fw_work_state;
- 	char firmware_name[NFC_FIRMWARE_NAME_MAXSIZE + 1];
-@@ -522,6 +526,12 @@ static int pn544_hci_i2c_fw_download(void *phy_id, const char *firmware_name,
- {
- 	struct pn544_i2c_phy *phy = phy_id;
- 
-+	mutex_lock(&phy->fw_download_lock);
-+	if (!phy->fw_download_enabled) {
-+		mutex_unlock(&phy->fw_download_lock);
-+		return -ENODEV;
-+	}
-+
- 	pr_info("Starting Firmware Download (%s)\n", firmware_name);
- 
- 	strscpy(phy->firmware_name, firmware_name);
-@@ -530,6 +540,7 @@ static int pn544_hci_i2c_fw_download(void *phy_id, const char *firmware_name,
- 	phy->fw_work_state = FW_WORK_STATE_START;
- 
- 	schedule_work(&phy->fw_work);
-+	mutex_unlock(&phy->fw_download_lock);
- 
- 	return 0;
- }
-@@ -878,6 +889,7 @@ static int pn544_hci_i2c_probe(struct i2c_client *client)
- 	if (!phy)
- 		return -ENOMEM;
- 
-+	mutex_init(&phy->fw_download_lock);
- 	INIT_WORK(&phy->fw_work, pn544_hci_i2c_fw_work);
- 	phy->fw_work_state = FW_WORK_STATE_IDLE;
- 
-@@ -906,7 +918,8 @@ static int pn544_hci_i2c_probe(struct i2c_client *client)
- 
- 	r = devm_request_threaded_irq(&client->dev, client->irq, NULL,
- 				      pn544_hci_i2c_irq_thread_fn,
--				      IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-+				      IRQF_TRIGGER_RISING | IRQF_ONESHOT |
-+				      IRQF_NO_AUTOEN,
- 				      PN544_HCI_I2C_DRIVER_NAME, phy);
- 	if (r < 0) {
- 		nfc_err(&client->dev, "Unable to register IRQ handler\n");
-@@ -920,6 +933,11 @@ static int pn544_hci_i2c_probe(struct i2c_client *client)
- 	if (r < 0)
- 		return r;
- 
-+	enable_irq(client->irq);
-+	mutex_lock(&phy->fw_download_lock);
-+	phy->fw_download_enabled = true;
-+	mutex_unlock(&phy->fw_download_lock);
-+
- 	return 0;
- }
- 
-@@ -927,7 +945,12 @@ static void pn544_hci_i2c_remove(struct i2c_client *client)
- {
- 	struct pn544_i2c_phy *phy = i2c_get_clientdata(client);
- 
--	cancel_work_sync(&phy->fw_work);
-+	mutex_lock(&phy->fw_download_lock);
-+	phy->fw_download_enabled = false;
-+	mutex_unlock(&phy->fw_download_lock);
-+
-+	devm_free_irq(&client->dev, client->irq, phy);
-+	disable_work_sync(&phy->fw_work);
- 	if (phy->fw_work_state != FW_WORK_STATE_IDLE)
- 		pn544_hci_i2c_fw_work_complete(phy, -ENODEV);
- 
+Thanks,
+Bo
