@@ -1,154 +1,367 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D1C51EDED;
-	Thu, 15 Oct 2026 10:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08B351B173
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061831; cv=none; b=LAG67xj1Y9gJkHGG0JXACKJbdCIxqRyhQIxoAZ8VpQFIiAx51f081VnmMQ1zQpLDuLE2a7ajXWFzJ62bnadfig4QI8lar1CkmO0oUPk/wXNGteEJzFpUYAmI/i9LXniuFD3p79fbEdFdHFbpecpAu4t7CL9VCG7ahMm/oeI1Yaw=
+	t=1792061856; cv=none; b=LcHIkO4giknXQgNrJR9JPc7AQB3wJIGGm/4Ua++L6KCASJWawCY7zoSxrBVdtb2TDnm6EnkVK5dlaaRGybmALn4bf66JuB8gyz2m9fg2Ak7nmkEno/iyMmG5n3f/29sQVjFmPu3/gCoFKugX50rrav90frEdW8j4lOmmWUXRwp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061831; c=relaxed/simple;
-	bh=0REL/m2y6i647azVBbE6Hi6dOXqodNeRc9FI3vDDqwE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LRWChcdRCvdPan6wQ2IESr9Su/kbqbns2cTI9Xls1d1cMWBN+xunWKWIz7SU63p1nyWVN7bsfLzxu/ITNTJFwjSKFtROdUBRHmG3EZagK9BRfN71xH5M8fe0viLfaRqEtnp4jkVBbtoCgZWFybOrAwZdhWvfhSKLM0yVQUwy5JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DkbyaOS/; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792061856; c=relaxed/simple;
+	bh=AcPfRM3vZkDZSubbc522Lfk5YywwxyJuwTjFzMcnOSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PFHL850sp+6D1HwUXGUxuW3zrUSyhf+RjiuQbQT9UgroRrn5Iu6/v9qC5dLhDrXrEAVHGOGQUWLOQZ/T6hoZ68Xdo1b/4JCJNn0uqH13YYHU55/bZlBE+xMThorrVCZgCsUMuAzCOs8M5e3FH3O0Cm75TYVoRoRjTRgFRCf+218=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gTUKceUM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P66Y7DbR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DkbyaOS/"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kTNi3000992;
-	Thu, 15 Oct 2026 10:56:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ucUN5G
-	ZcjIlprFag9xgUmIk1e0Wn9pgsi38X6K0yHso=; b=DkbyaOS/6ejhVntQdg5DjF
-	3cWGoHcnlgeOQpWGWcOQRGR5PlFLaI++rEneBcuqnNe8jd2/sd4F5NYMFi2jAAgj
-	2QePkkYW2oO3RNe/umLJT9NNw5eVkxWSjF9ne0FGEP4YVGswDQGRr/rG0rapCmXR
-	Ju8PgXHQUcn0omHPLOkUyrzY1S047VkDWKAF76MDKuIN+BbxiQ8vnFBqDiqH9XqN
-	tnOxCjrrskKJKhhWzW09Kkot3VZMOoqkwPuyKEkRhSRQZBbNPunABvF0nw5LcqkJ
-	8z66uzVQ4lPZUWXpxjm+4KwaoVmYhIotMZapQjJeois4lXyxVeFjGR1Aij4lEnYw
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhsg33-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 15 Oct 2026 10:56:59 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9nx3J1891223;
-	Thu, 15 Oct 2026 10:56:58 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ys3kd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 15 Oct 2026 10:56:58 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FAus6m49938712
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 15 Oct 2026 10:56:54 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0BED02004B;
-	Thu, 15 Oct 2026 10:56:54 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BD7CB20043;
-	Thu, 15 Oct 2026 10:56:53 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.224.75.30])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Thu, 15 Oct 2026 10:56:53 +0000 (GMT)
-Date: Thu, 15 Oct 2026 12:56:51 +0200
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Gautam Gala <ggala@linux.ibm.com>
-Cc: borntraeger@linux.ibm.com, kvm@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        frankja@linux.ibm.com, david@kernel.org, hca@linux.ibm.com,
-        gor@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com,
-        pbonzini@redhat.com, seanjc@google.com, shuah@kernel.org
-Subject: Re: [PATCH v2 0/2] KVM: s390: fix ESSA addressing exception
- injection in migration mode
-Message-ID: <20261015125651.558f2d85@p-imbrenda>
-In-Reply-To: <20261015104822.77062-1-ggala@linux.ibm.com>
-References: <20261015104822.77062-1-ggala@linux.ibm.com>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gTUKceUM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P66Y7DbR"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jS1I2662667
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:57:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AnVt82VPabbk8HOMdt4DGD6AAgX9o61Mi1c5nLHpoog=; b=gTUKceUMhWcfc8fE
+	BlcOXVx/ZDYgahxFheSA5e6dVwFgLe9Otetf3dLDZK94B5z2u5d5e+A2f/a4cxWM
+	xKp23yDqg71w/+AwRJKpC/mDuoV2fiRfdWAtT/f+NKYZ5NQYI6u/MaIuiYckr9AX
+	Y3hb6eLK5cFqdmiCbRSwP7b/Ct2MEOQu7JcYkVtzPx/XuyvgPvSkLKWYe4nX14Rg
+	XKmwiEe+lSxcUdVW+UvIsS44IXmU51N/FC2q+bB1hRbhlHmE/unKQqdmNqr/R0ia
+	29O+aHfvNo1VTn2QnpC7ex7/Lsc5p83v7b8lb0M+Ik5ZfZ6fOyoNxqXUkXeVGOvR
+	UXVL9Q==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqda1nn4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:57:31 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88c4da716f4so1878284b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:57:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792061850; x=1792666650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AnVt82VPabbk8HOMdt4DGD6AAgX9o61Mi1c5nLHpoog=;
+        b=P66Y7DbRmGnbMxBYEaJFcQsTwZbFy3zSmUe80Oo4ARV48dTlmC5MvNuBzoEbn2hEJI
+         76L9tub4IoPidmi3TKVVjyxtn09Kba5yoveZ1x0s5mctkD2j/5pErNXTlLnMbn9TppCl
+         etnYRHMMwQrYk6QE25p1rEEglOqS7fu2MjXPeEHMAwWtjIVORJGFDI7jqFrmP8LluYdS
+         JhkhmqU83sia/lOUgM8gdc6awXs+ZQL3fH/ys9KKwLSQgslfmWZKWNLZ4mgpYje/j+Zj
+         /IV1BhKIHDtJMhlDt7aVFbH9t9Q5Ao5QUiB9aN3gd4Siys81AuN1vzhKlApHxVBPd/rD
+         Cuvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792061850; x=1792666650;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AnVt82VPabbk8HOMdt4DGD6AAgX9o61Mi1c5nLHpoog=;
+        b=OyYwsfEJYrD0Q5FsuuRU0yvXWq6DqD0kmRi5RKNop6T0NCXPhKcL7Bmb0tdxsKfeKS
+         MInqiW45E9dlH6p5t3c9hwZcjROlsyNHrdt/AmOxauFXDnyr/LERfj5IX6UanVa0KpCt
+         C4FcMN9uE1lKqsYjncmBW1J3BxY9bDsmeNKwpxOGKN0Uwd+OaymmbagwdVe4jkCRCkOm
+         2GnQu9bk/XpNIY8wSngATCIysvvbpdYwcXC475asbCJf0RulkWRDx0dIgZWFAa9+bfsb
+         3Yt3IgbLhh7UGJs5W0hha11UHVXbXUvF8az9EPIJr2ePevUB1zzvqdEBOyi/iZRxT2m8
+         175Q==
+X-Forwarded-Encrypted: i=1; AKwUvByMZgqKyTSNG0Gc8gs8HQBhNIXrFfMSvm2kYsZOQWhX+ByPwk2zfU/IBZL66kCFmJTD8muzHlBJlN7eGRg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIN217dUq3yQQBUcm/dIzU9F0JzsyFViyplBRS55dzAjzZbVszf
+	Gdqs90J3VaUgmrJxkcp6LFlp/chVJ6PmJDWn1+kNWni0xef3LDHTFpvKkgX0LUaz90TC88b0KuA
+	x77h2SZoDSu5J5Wm+0CmXZuAYeCeAI7fwn6OxYrs+rFAVfSRQiTZ4HbHfMV6CcKBJJuU=
+X-Gm-Gg: AYBFou2JJCJmbwYnHMJ0KSuL1+NZ43FwKhlJhu1PlKk23fL1OmH1k0iJ3Tk215kJP5G
+	8k16NlcH7bQkI1h/dcjHnfHAc2wxiL2VoAT6GEOjgl2z1bCHvpPE95W4vYV8FRCoWKDceVIn9UH
+	UmiLEJGs3I1fRdADbenw0x3U+tI4x13du+tiptLeGCgBkOLW7g0W0C40g5WGuFAaYyw6wEHe9fz
+	R2tz4gRuhakZKRWhzeYKlNssiYy66mKH7dieqbYTyRlUuA1fE5GlK2gPzJbPywrYfWtek2sAe3Y
+	+N8sktcGka7I9azzf1x4ZQnr51igNyVteQtl3Fkk3FAB5M1HA7t6cgIrqqKdyBJWoVxlSmnH2zZ
+	4szE/FObaQQYwR4st1l9UGqOLvhw=
+X-Received: by 2002:a05:6a21:4cc2:b0:3de:138f:c86e with SMTP id adf61e73a8af0-3e1d03aa6camr5415497637.3.1792061849987;
+        Thu, 15 Oct 2026 03:57:29 -0700 (PDT)
+X-Received: by 2002:a05:6a21:4cc2:b0:3de:138f:c86e with SMTP id adf61e73a8af0-3e1d03aa6camr5415480637.3.1792061849512;
+        Thu, 15 Oct 2026 03:57:29 -0700 (PDT)
+Received: from [10.217.216.28] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635b31a50sm1112723a12.2.2026.10.15.03.57.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 03:57:29 -0700 (PDT)
+Message-ID: <187f4cc2-05b3-4c8f-aad8-0d803f2f5b21@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:27:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/16] Centralize the ownership of power rail votes
+ for Qualcomm clocks
+To: Konrad Dybcio <konradybcio@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Mike Tipton <mike.tipton@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20261014-topic-qc_clk_dvfs-v1-0-3041b788e9f7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfX4ZyS7OqVAWSF
- 1ZXGb878dkh5Ee062NngWGCkeo9CJ8OyWe39ibOdAmQzp+CW58y4XsjYGCb1QnJW/Fp3s7cGNNw
- mGq+xJqC+dTYVONj29Aoi9DBUWK/khI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MiBTYWx0ZWRfXw//mw/py3z63
- g+EJ7d6sZG5eYVVMsknrRfikJsv2U5sMG+uNFe3KW26E1aNpFli+XCLftaifAF9rT0hTK46CHHj
- FA6zVGBgpXp1IQIZcL3u7U07JlFKb2r75b1eCuskRJOrY7BJcLEVssnj/OLs2KQ5mXwwbWD+1Qi
- tNzVpKp3S0kMePGrii2M8ZyTi5qXsRdOOM6tL8EAqdjWCsiBzVqTYwAociwW0RkH1HUr5FXhDyG
- ilv4vGdMZYdZBLVo5brIzTyyFkjZoR9Nm0ylV/trZP1niMW8i9YGNOGGzQFF7IIRyn4omSTx812
- 15432BxoHM0M5OEChQ88eL3Z5GPHsttjS3MFNSBH7/9kGeQBhMCZbYYMwRCJfIa4W6GSvo3JhC+
- 9J3wm/VCwXzl2x68iomvsDYtg6eyZ/i4YitQQGi6cSCV7ivDcGniLNMHP+/YzAqsnbSJZ23A5Dc
- mFim9oUYSBREc3bzllg==
-X-Proofpoint-GUID: aNoMplhT1Du88ynDkgR4FIHOSyQP-0N_
-X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad0b17b cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=ce-6K0IsK1CbvpNoDM0A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: g9BzTdoVznsDwq7RDixPsVqEac5E2Q6h
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MyBTYWx0ZWRfX14q+Dyq67u5z
+ WO1qU0tawVA00C3xZrp54e5/8N29/NbnPnx1ffz/Z76aLqptqAqD75fpbfzJbter2jIwv0HPqs1
+ sGspELHhUSehTb9jCs4y2v58MBQJ/uE=
+X-Authority-Analysis: v=2.4 cv=K9u3jCWI c=1 sm=1 tr=0 ts=6ad0b19b cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=LpQP-O61AAAA:8 a=EUspDBNiAAAA:8 a=iEdp9f2tR9rxy83nKJ4A:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=pioyyrs4ZptJ924tMmac:22
+X-Proofpoint-GUID: AtbjuHFG-0EoNi_zHRoN-zmkhZQpR2vE
+X-Proofpoint-ORIG-GUID: AtbjuHFG-0EoNi_zHRoN-zmkhZQpR2vE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MyBTYWx0ZWRfXzD7ZGKWjoV/n
+ jwYLmwc7CXeWOLC1Lmsbha6gY8Fd4iPV2yMjMk5qFAikDIXiuN2C3EdxY7Wwer17pprnZ9CE41y
+ QUyRlPBZp1I1muxxE/jJ1axmg+AIK/+8vIp65sNtsEApDBpzm4PZtRz0dZ9DC4cEvCdPloP1por
+ eJc7PCA+n8AfIg47sFT83+hbWgM2mq21IK3NfSJZOv+X33voPp/uabtzveIPz46fBHWZseEBAQG
+ rxqh5B0cs0/GOUam8kcEUopVWQI9b7dESXf4WyUUQVPJGuKsjcQEXxBu+z3Oyks7e7ZS8ww5gpR
+ GW2HEglzJAI47OIeCT0yPqUT0TXWUSLDT0l+NxXE5O9eyJBN4xMU6cfT7oFPPBleD8CgXmddl1T
+ vfgzEXLPS0q07kY9Xc/f+BIca+m/t56Qk4daNCzEn8FJssIM8Q+sY1WWgAJh+m+A6GKbrqhcgsM
+ JYBuE2GKA0YVw0MgbnQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1011
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150042
+ malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ phishscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150043
 
-On Thu, 15 Oct 2026 12:48:20 +0200
-Gautam Gala <ggala@linux.ibm.com> wrote:
 
-> ESSA emulation in migration mode silently dropped addressing exceptions
-> when the guest page-table walk failed, so the guest never received the
-> expected PGM_ADDRESSING interrupt during live migration.
-> 
-> Patch 1 fixes dat_perform_essa() to return PGM_ADDRESSING on a walk 
-> failure, and __do_essa() to inject the program interrupt when it sees 
-> that return value.
-> 
-> Patch 2 adds a regression test integrated into the existing cmma_test
-> selftest.
 
-Whole series:
+On 10/14/2026 5:49 PM, Konrad Dybcio wrote:
+> On Qualcomm SoCs, both the PLLs and other types of clocks alike require
+> specific voltage rail levels to operate in-spec, but through the
+> separation and decentralization of clock and voltage votes, these
+> requirements are often not met and are never explicitly stated.
+> This results in clocks being undervolted, or at the very least a state
+> we're unable to reason about.
+> 
+> The devices consuming these clocks very rarely have their own
+> requirements in that regard. (1)
+> 
+> This series moves the frequency-power_domain-perf_state mappings inside
+> the clock drivers, ensuring a single, trusted source of truth is
+> established and that the silicon is no longer driven at out-of-spec
+> conditions.
+> 
+> To illustrate the nuances involved, here's a couple examples of hidden
+> dependencies, as found on SM8650:
+> * video_cc_mvs0_clk requires LOW_SVS to run at 900 MHz, but the
+>   PLL it sources the signal from requires SVS (higher corner) to
+>   produce that frequency. Similarly, to produce 1140 MHz, the clock
+>   requires SVS, but the PLL then requires SVS_L1.
+>   Analogous story for mvs1_clk.
+> * gpu_cc_gmu_clk requires MX to be at SVS to output 625 MHz, the PLL
+>   requires SVS_L1 to produce that frequency.
+> * A number of camera clocks follow the same pattern.
+> * Additionally, some clocks like cam_cc_cci_{0,1,2}_clk require
+>   MMCX to run at LOW_SVS, but the PLL has the additional requirement
+>   of keeping MXC (a wholly different rail) at SVS_L1.
+> 
+> There's a broad agreement that a consumer should only have to care
+> about the clock it consumes, and that configuring its parents is the
+> responsibility of the CCF. Requiring the consumers to care about the
+> above cases (as is the expectation today) is a clear violation of
+> that contract.
+> 
+> A clock controller may have on the order of hundreds of clocks, each
+> one with its own frequency-power map, and potentially all of them
+> could be similarly affected.
+> 
+> Recently, some drivers (Iris, CAMSS) have attempted to circumvent these
+> problems by holding a direct reference to the power rails and managing
+> the votes manually, through placing direct votes on each rail via an
+> OPP table. That however has a number of drawbacks:
+> * Because more than just one clock needs to be scaled at runtime, the
+>   OPP table either has to contain NUM_CLOCKS * NUM_RATES to handle
+>   that (which blows up pretty quickly), assume the worst case (and
+>   waste power), or ignore that problem (and undervolt the clock
+>   controller), instead of just being able to call set_rate() on each
+>   clock as needed
+> * The data ends up being dispersed across various consumers, even
+>   though it logically belongs to the clock controller, making it
+>   absolutely unauditable
+> * It's horrendously error-prone because of the number of clocks
+>   involved, the depth of the clock tree and the fact that at the end
+>   of the day, one still has to consult the clock controller
+>   documentation
+> 
+> The approach proposed here also happens to more naturally fit into the
+> process of how an SoC is brought up - clock controllers are always
+> the very first pieces that need to be complete before other IP blocks
+> can be brought up. And because of (1), enclosing the frequency-corner
+> data within the clock drivers takes a weight off of everyone else's
+> shoulders.
+> 
+> On a related topic, the GDSCs are modeled as children of *all* power
+> domains consumed by a clock controller at once. GDSCs are on/off switches
+> with some fancy logic attached to them and may need some (or none) rails
+> enabled to power on or off while meeting the hardware timing
+> requirements. Voting on them was never quite right in the first place
+> and is once again only a side-effect of the clocks' power requirements
+> not being handled centrally.
+> 
+> This series removes the vote propagation and the overly broad parent-
+> child links, resulting in dropping unnecessary/incorrect votes that are
+> now encapsulated by the clk-dvfs infrastructure. Big emphasis on (1)
+> once again.
+> 
+> The implementation is as follows:
+> 
+> Each clock describes the rail levels it needs at each frequency. The
+> new clk-dvfs helper combines these requirements and submits the
+> resulting votes through GenPD and RPMHPD. Votes remain held while a
+> clock is prepared, and rate or parent changes reserve the new
+> requirements before any clocks are reprogrammed. This also requires CCF
+> to report programming failures and OPP to retry failed transitions
+> instead of relying on stale cached state.
+> 
+>                 Consumer: select rate, prepare clock
+>                                    |
+>                                    v
+>         +------------------------ CCF ----------------------+
+>         | Walk the clock tree and reserve resources          |
+>         | before programming rates or parents                |
+>         +--------------------------------------------------+
+>                                    |
+>                                    v
+>  +------------------------------------------------------------------+
+>  |                                                                    |
+>  |    GPLL9 ------> SDCC2 RCG -------> SDCC2 apps clock               |
+>  |      |               |                                             |
+>  |      |               |                         Other GCC clocks    |
+>  |      v               v                              |              |
+>  |  +------------+  +------------+                     v              |
+>  |  | PLL's own  |  | RCG's own  |          Per-clock requirements    |
+>  |  | rate table |  | rate table |                         |          |
+>  |  +-----+------+  +-----+------+                         |          |
+>  |        |               |                                |          |
+>  |        | CX            | CX + MX                        |          |
+>  |        v               v                                v          |
+>  |    +--------------------------------------------------------+      |
+>  |    |                  Clock-owned DVFS                        |    |
+>  |    |                                                          |    |
+>  |    | Prepared votes + temporary transition votes              |    |
+>  |    |                          |                               |    |
+>  |    |               Maximum requirement per rail               |    |
+>  |    +-----------+--------------+--------------+--------------+      |
+>  |                |              |              |                     |
+>  |            CX voter      CX_AO voter     MX voter                  |
+>  +----------------+-------------+-------------+---------------------+
+>                    |              |              |
+>                    v              v              v
+>        +----------------------- GenPD ----------------------+
+>        |      Aggregate GCC votes with other consumers       |
+>        +---------------------------------------------------+
+>                                   |
+>                                   v
+>                             +-----------+
+>                             |   RPMHPD  |
+>                             +-----------+
+> 
+> Straightening out all of the above lets us tackle another problem
+> with the upstream description of the power grid - the dependency
+> between various rails. Most notably:
+> * CX does NOT need to follow the performance state of MMCX
+> * MX/MXA/MXC and CX are co-dependent only on some platforms (in coarse
+>   terms, SM8350 and before)
+> 
+> However, the main part of series needs to land first to ensure that
+> dropping those relationships doesn't remove some wrongful votes the
+> system relied on to stay functional. Resolving that will save power and
+> finally ensure total stability as far as the providers are concerned.
+> 
+> SM8650 is used as an example in this series, but the conversion will
+> have to be done for all Qualcomm platforms. That will follow soon
+> after the patches are merged. DFS clocks are left out of this RFC to
+> reduce noise (the remaining diff is not particularly large but also
+> requires boilerplate changes to bus drivers).
+> 
+> dt-bindings changes are not included since it's an RFC.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+> Konrad Dybcio (16):
+>       clk: Propagate rate programming failures
+>       clk: Acquire resources for clock transitions
+>       OPP: Retry failed default single-clock transitions
+>       pmdomain: core: Support named indexed virtual attachments
+>       pmdomain: core: Support subdomains without pstate propagation
+>       pmdomain: core: Support indexed power-domain attachment lists
+>       clk: qcom: Add clock-owned GenPD DVFS aggregation
+>       clk: qcom: dvfs: Add debugfs
+>       clk: qcom: clk-alpha-pll: Add DVFS (un)prepare
+>       clk: qcom: clk-alpha-pll: Vote for the PLL calibration frequency
+>       clk: qcom: gdsc: Make GDSC parenting optional
+>       clk: qcom: gdsc: Link required power domains
+>       [DNM] arm64: dts: qcom: sm8650: Describe clock controller power rails
+>       [DNM] clk: qcom: Enable clk-dvfs on SM8650
+>       [DNM] arm64: dts: qcom: sm8650: Drop required-opps
+>       [DNM] pmdomain: qcom: rpmhpd: Stop forwarding MMCX pstate to CX
+> 
+>  arch/arm64/boot/dts/qcom/sm8650.dtsi        |  62 +--
+>  drivers/base/power/common.c                 |  24 +-
+>  drivers/clk/Makefile                        |   1 +
+>  drivers/clk/clk.c                           | 793 +++++++++++++++++++++++-----
+>  drivers/clk/clk_resource_test.c             | 376 +++++++++++++
+>  drivers/clk/clk_test.c                      | 194 ++++++-
+>  drivers/clk/qcom/Makefile                   |   1 +
+>  drivers/clk/qcom/camcc-sm8650.c             | 282 ++++++++++
+>  drivers/clk/qcom/clk-alpha-pll.c            | 317 ++++++++++-
+>  drivers/clk/qcom/clk-dvfs.c                 | 635 ++++++++++++++++++++++
+>  drivers/clk/qcom/clk-dvfs.h                 |  41 ++
+>  drivers/clk/qcom/clk-rcg2.c                 |  93 +++-
+>  drivers/clk/qcom/clk-regmap.h               |   6 +
+>  drivers/clk/qcom/common.c                   |  28 +-
+>  drivers/clk/qcom/common.h                   |   3 +
+>  drivers/clk/qcom/dispcc-sm8550.c            | 328 ++++++++++--
+>  drivers/clk/qcom/gcc-sm8650.c               | 261 +++++++++
+>  drivers/clk/qcom/gdsc.c                     | 154 +++++-
+>  drivers/clk/qcom/gdsc.h                     |   7 +
+>  drivers/clk/qcom/gpucc-sm8650.c             | 101 +++-
+>  drivers/clk/qcom/videocc-sm8550.c           | 135 ++++-
+>  drivers/opp/core.c                          |  72 ++-
+>  drivers/opp/opp.h                           |   2 +
+>  drivers/pmdomain/core.c                     |  60 ++-
+>  drivers/pmdomain/qcom/rpmhpd.c              |  14 +-
+>  include/dt-bindings/clock/qcom,sm8650-gcc.h |   2 +
+>  include/linux/clk-provider.h                |  39 ++
+>  include/linux/pm_domain.h                   |  33 +-
+>  28 files changed, 3734 insertions(+), 330 deletions(-)
+> ---
+> base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+> change-id: 20261001-topic-qc_clk_dvfs-ef907f059611
+> 
+> Best regards,
+> --  
+> Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
 
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
 
-> 
-> Changes since v1:
->  - dat_perform_essa() now returns +PGM_ADDRESSING instead of
->    -PGM_ADDRESSING; kvm_s390_inject_program_int() takes an unsigned u16
->    so passing -5 would have wrapped to 0xFFFB and injected a bogus PIC.
->    __do_essa() comparison and inject call updated accordingly. The
->    kernel-doc return-value entry is corrected to %PGM_ADDRESSING.
->  - Selftest: pgm_handler_c() now reads the actual PIC from lowcore
->    (__LC_PGM_INT_CODE) instead of hard-coding PGM_ADDRESSING, so the
->    test would have caught the sign error above had it been in v1.
->  - Selftest: virt_map(vm, 0, 0, 1) added so the DAT-on guest can
->    access the lowcore to read the PIC.
->  - Selftest: PGM_ADDRESSING, __LC_PGM_INT_CODE and __LC_PGM_NEW_PSW
->    constants moved to the shared s390/processor.h header.
->  - Selftest: SIGALRM/alarm() timeout wrapper removed.
-> 
-> Gautam Gala (2):
->   KVM: s390: fix ESSA addressing exception injection in migration mode
->   KVM: s390: selftests: add ESSA migration mode PGM_ADDRESSING
->     regression test
-> 
->  arch/s390/kvm/gmap/dat.c                      |  5 +-
->  arch/s390/kvm/s390/priv.c                     |  2 +
->  .../selftests/kvm/include/s390/processor.h    |  7 ++
->  tools/testing/selftests/kvm/s390/cmma_test.c  | 69 +++++++++++++++++++
->  4 files changed, 82 insertions(+), 1 deletion(-)
-> 
+This seems to be similar proposal which was there earlier
+
+https://lore.kernel.org/all/1532196902-28570-5-git-send-email-tdas@codeaurora.org/
+
+
+-- 
+Thanks,
+Taniya Das
 
