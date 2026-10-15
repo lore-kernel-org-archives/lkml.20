@@ -1,149 +1,367 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013027.outbound.protection.outlook.com [40.107.201.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C64A44F55D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080066; cv=none; b=SVSuONoF+khNu7Q/vsqYiIzMbFiuo0J61qlqOyyuPhLoBncXgDyHhI9hVpybhI8PdahP2KZrWFcUeQJJ7w35JGfr2EN/zFnrIXJxDpvYgabuX/68YgxmpkpPVK3zbLpt6oxHIx3yEKu5iwbkevjYJclpFnd2pVDLu57J1ttHJts=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080066; c=relaxed/simple;
-	bh=DK4c55g/tzPTcIBg6XeoxcaeiamPH5AZ1Td+iwKZkD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KkP1rbqPdBB60DL7mNoGDv87eWdQ71YWhxUQ8xCuZo/1Kr3/27JO4YggijAeZEd/r3WGZzm5jkAtGKt5pP3AZi0Lw0bpbrkr9WRucvmCA9FE54G8XQTevG+VXFe+nASaaXwZTUyEp4RcU1DOto57xCWd+Nfm0DjeJ4CXM03WQxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=myVya/G1; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3600538423D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792080102; cv=fail; b=QO9Hj5urhfNs+yfl0M3cD10jwhbuc2bnZB3GC/LJOKeckzlI+lhHDbleV3pPRJjcGpJ+FrJ6SbygxCxVOJaLTAC6k/DaF1jwobYM1KqAClgrPzbp7BlPGkZkHcahZYaYqdzvj6O8/DLT/p0XWPMsd3Cx/XrqlGHPNDd+YvF3jG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792080102; c=relaxed/simple;
+	bh=bthgiPUP/H8tKVQdLJXzXNYfm2i+xONjcq3zdSuYQxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PBuNKSYuxQPbatJxQwMpkM9d931PjvvAbIFhqjhNfWxbRzRG69ADEwXrHFtg0smYV+ctQl+v8I6ETSSooSodqTYAFGbj5l8G7mvkiQ+mMgWkgehddJilaFY7VctT7tHuh/tytdOcD95hZlS9Jju3eK22y0m9KS0/EGg/aSPix9g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=fail (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MIYiehMA reason="signature verification failed"; arc=fail smtp.client-ip=40.107.201.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="myVya/G1"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b9e758c50so1794126d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:00:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792080052; x=1792684852; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SbpT8BLJUAOEuxeA8KOnTCYBccRzkGTlx+5Bc7jHz9U=;
-        b=myVya/G1/Nv5RG+UeumL2TYXPLnMvH9sZ4xBXpyadoSXM6SbQtySM2UX69OSvaXxc7
-         W5u1rUQXYXJ0J+VJp1CoqXpi/QkR3h9jw06Eajeiuj4nkdmRf8Mkm7Cml0XshJPCJ5v7
-         nD0xiVXVffrfezcCgaWjmqh1vhU9AcFA18g9M8BxHfNwEzVNBkRwiPgXdNufasE+l7H9
-         A09rm2lI7mljgcZHBSrI/VtFf9qEIvmwN15Ju/ygX+Zts3gGAt5GgIZmgZ7utFk0mFIL
-         tKd5H2PpR0D240hHrvtPOAlhl2PJ5vViCEG37XjIQfE/QGTvcmfGA5AFJ0fGrBAjdLre
-         SN2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080052; x=1792684852;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SbpT8BLJUAOEuxeA8KOnTCYBccRzkGTlx+5Bc7jHz9U=;
-        b=W26opsWFOVXjFFE4YTE7MFfTvusNKQ1bqFTNJxdwSyUJml9J3+X41jHzKS5DQmDwEb
-         e2nF7KJTr4lMtVhRcPFyKUcOakmliGNYqy2lpgrDavKqOFFR3phGKKbljmWtu4W29vST
-         XPX5Rnug1I+8HYYz3jBusKpoKlxYKVUS1j1JEqA3cMTSn4BJir+kmtJHzWPZycRuHStV
-         CFKUp793dXbIWTU+8dr7VZML/n+hIBc9EDgnKMGvThbt7M5bHbgbJrtIwDxsZxWCu1jZ
-         kL83kjmimKVi4KU1/DvTbpbduhmDeCWdxNhWTh4tTAaZ82OX3AKwLGjezdO1/CEZYsys
-         30rQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjDYNRH4ZqGE5EUBbIWeNEXJWtzG/J/cQgJC9oM3bcHLnVtrCNnb8inIZ3McjyOIULncB5jlzbRwNkb3Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJu61MPNPve/DleCRLhEKMPVuROklFd8OLbtSmpmO179hgD90JD
-	MedM1Om16wz/JGYLbVsFmsx5bK+nuN8BJoxhfOZOkAM2q8VpTrGrZDt3dQEcB2X2oQ==
-X-Gm-Gg: AYBFou1qLEjVYHGSG9I/NlCleztTkpptvFUnp5/FzlgXE5fj16DX4XW8QtXx2Rjj5gH
-	t99m3gHNl45LRCPPGAumcduJrAqzxH63eoTQ6d8TUVU/2WVFLk1Qu9VEdxVoE6kl+Jqj9mKO0Ol
-	/l9tnV/nZDD0FcFP6iG7iWzaaMklFSR8m/gqSxhUwitkfKJHVQQIw9v4lb4544axtVmBVd3MqsW
-	dGTx/oTyug++PlaiOioUnt0V1W51P9E2HYXJzh3Oo9jZyEymfe0RfHDA4M88llcjX8VphKeddJc
-	lWIvqRY90mo1q/O/VGa945kp9xQurxcCdBgsqWH2gNmWmJimOdF9OrwHTWkzAZQvZDNLOx2dIiH
-	qiV816YIqnQXxW6LmCti92JJvQCkwvYDN72lGQUw3s0t/dXArLbUV+fcycbLpmGMb4rZOZ2yJFh
-	THTH+S8aVUs1uRs95HYs9KVebEodNEQbbKvVKyG1/gca8jOvdHwAbRnQaL3KhhqQPE4XKMYACel
-	dQv/0JY4SVT95WtnbE+ksyc7huItDOoIlaaUrCov/Ihw6P/wcRn
-X-Received: by 2002:a05:6214:45a1:b0:914:3120:b7c3 with SMTP id 6a1803df08f44-91bc91c136fmr9205076d6.7.1792080051810;
-        Thu, 15 Oct 2026 09:00:51 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c4a7d9sm84867566d6.47.2026.10.15.09.00.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:00:51 -0700 (PDT)
-Date: Thu, 15 Oct 2026 12:00:46 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	=?iso-8859-1?Q?=D6mer?= Mete Kaya <omermetekaya0@gmail.com>,
-	oneukum@suse.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	david.laight.linux@gmail.com,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Subject: [PATCH] USB: Documentation: Update description of completion
- callback context
-Message-ID: <de582feb-a0aa-4fc8-9818-890014de32a9@rowland.harvard.edu>
-References: <20261008094338.301a75fa@kernel.org>
- <06a81ea1-b17d-40bd-82d9-922de946b86f@rowland.harvard.edu>
- <2026100910-petition-embattled-94cb@gregkh>
- <20261012194902.aEq58Q6b@linutronix.de>
- <8545800a-a37f-482a-9b06-cbdd70312b7a@rowland.harvard.edu>
- <20261012212527.5sFqlGYu@linutronix.de>
- <41af30de-4725-4913-9ad8-54d1dea2d4b8@rowland.harvard.edu>
- <20261014191141.GxlJhR1e@linutronix.de>
- <89da3b1f-60e5-4f18-9592-3d6d7175c437@rowland.harvard.edu>
- <20261014220403.R38Gf0pW@linutronix.de>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MIYiehMA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GeDmK+9SIrYHbZ/OCOw2OvN7pg0gVlhEK+FxDfOjWj+QzrivdgYN20a8aq3emuViS2WmfZRT17OnKemHklv2BTrgcJj6S5XN/RRX9BZQbhFYj5nH32Yf1Pd6/InYVxdUNA09xUHKOkmpDYBfIt/oXg95V/ToLHI1/54T1u7zRA/Wl1TGYzSBuBucAgDrJY3i9OmBUse4Y38yOBMM17IcIMcwyZUUzcmFsrUTmO8n/RchNwh04VP/Ns/lTL15MvWF3mVio2nnkzh/huuNNW0MnOKs3wQiNgR4XQ2KdZUt2EGYJf7oomHEnZS610spzeJ9cmxAiRzCmqL5eZurgyd0FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BqZLiAh+/UecXkEwPyCwUybj5NoY9DaNZcMDT9pHp2w=;
+ b=ZVvkrZ31Q0EpRRGvO+cYyE4jdMxHvVlkrLgvHIMBsfc5ylQXSQ1T8DeU+lD8qNlwCg605itHJpnyTiYR+lu1E/niDD1Cfzvr6+4T/EQ0anFnb9HDljIU4bGQiPzUMb0YXsSJqoZDmHc9CoMVfyTOSEnO66U5EBS3LkPHf8revveieR+aPuZI7KnLg/buEAO3EaV6Te1prLOXmdLZ/Fq9XAZcrgjoLyQHO9Jcb3vTqjz6zAVNZE6UBgZaTSazMuczfbqV8WoDV/+9scj9BcpXG6b+802ktedrzgihcqDc7FCV7haKTLRp7bup8Whk8gh3NL2j+AtrnuMEYsUs1RtOPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BqZLiAh+/UecXkEwPyCwUybj5NoY9DaNZcMDT9pHp2w=;
+ b=MIYiehMAP5TqXRLBUcDaGwC4SgTWuhGm+AC+rigD7V2hmUgdeWytjcekViGSrlwLsfoepzUoS/QJ6G8OPON4xnl1NB5su045a754PGEpcv7xkcKBHL90oBptIyeBcZJy3HOkODDA871DV/atvO4YuD+uy/H9cWbh6UcKF0b3nrADrP2QmQr08wEO2WKRMVfyj+wuTSC9gUe2XB+tNuh3Hf6zfM9MvBhW2EZyNoqcmUvScF/VJBvMu0vHjldoAmliS2dTR6HRo/WNNodQ6lqy+nzA4EZHJ+bx8z0b8Mhp9Ouk+Fr4yM/vHjVRfOk7vG+VCrmhNeSpH1JVbauVuNQSNg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by BY5PR12MB4321.namprd12.prod.outlook.com (2603:10b6:a03:204::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 15:59:24 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 15:59:24 +0000
+Date: Thu, 15 Oct 2026 17:59:15 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tengfei Fan <tengfei.fan@oss.qualcomm.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Cheng-Yang Chou <yphbchou0911@gmail.com>,
+	Emil Tsalapatis <etsal@meta.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org, trilok.soni@oss.qualcomm.com,
+	aiqun.yu@oss.qualcomm.com, abhijeet.dharmapurikar@oss.qualcomm.com
+Subject: Re: [RESEND RFC] sched_ext: Support RT task within sched_ext
+Message-ID: <atD4U-L-Dx8LKFaT@gpd4>
+References: <6b295276-4f42-4f46-b5a2-50c3ac83b412@oss.qualcomm.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6b295276-4f42-4f46-b5a2-50c3ac83b412@oss.qualcomm.com>
+X-ClientProxiedBy: MI1P293CA0018.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::12) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014220403.R38Gf0pW@linutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|BY5PR12MB4321:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8e1538c-038d-4f62-f174-08df2ad54832
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	3ai6DlPJNR5A5FwzaOFUmUdZHUYLe/A16iXQb9TRDvddY3FOMa9liTRpR8zCN/eWV0+8wfd7TBHq9Pyca9ZhBh3VykyyGLYMB3mAjDB/qf0UJZFg5PgKT86137QyRmhUR3E+NOy2U4NOR1zp+Eex3WBOpTRx1Yn+1Otf9CJ/Wb78OBznpTdFm0kznB8dfd34uOXUdypeOASvxmgOboRd/iuAP3jI9k+sbuXgM84KsHtN5mk+92RMbNNqJi62ei0s6nSPGwityfc+NuA86WktJt2laHWkD107Z147WknKlS1ZuA54iJKmRZ77T53sCuUIVm7EWhS38oTCl0ITCailRd8W+3RN/f/OKRt6TxM+gvfMOXCg94epJXt7wroVDR7OOR+j6RsfbtbUsFlfVguCKzKQrTocDOJ9opqmluv8lZ9kvP97/7OMX9kCI4cZLXVJ4Uwho6DpcIgGHafEAyNbzpFTAsiiHavOzgXY5PEbP0crfeNeUjX4eE49FqtUnw1cWG66U7rhMVCWyd/yvOOeKD8eoKH+tZ9yb7E13N/pOOdTUFAhO07z3ATe0YQhhHnST6YnMaSkKrwIL+5LNpCFXTlg2FHvaQjbUYrDygecJKIahBh7GKQ/hletHr7KgvzcJjeFFEu27C1JBGBcqmUBLuxjH0oFdTfIKIZhECCe29c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?eW2O7Mhy1gDiewDYK1+Qtwfwq+6EMgEL7DljoFzVXYnD3no3TE8JFtlRPF?=
+ =?iso-8859-1?Q?flrqujGKrsfCEDThHDtW3YCXo34DO3UBrxTFZviWvEpxLPoPJb1dcL0NBZ?=
+ =?iso-8859-1?Q?BVlfsCb5Sh7pHUSh0/b3XXQhwfmjIoclLLhHvyq1czLEBG4uf4XoUSiU1W?=
+ =?iso-8859-1?Q?CJuXG7bM9Ow93oMTYRaj01C0wqetR6WpVe98p3DVLBGQqscNURRVBlIdkf?=
+ =?iso-8859-1?Q?MSG9BdB9Nh89HHjUBgsamH3x84VxA5n3jn35dxrraMif0zi+mTJ53Uxr65?=
+ =?iso-8859-1?Q?k+1LyIyDRSaDBR7Is1BefTs7XbqQ//Tz1SjgVJLLupIsULxl+Uz+430be1?=
+ =?iso-8859-1?Q?aNo6jssRirtRYHcxAR6boCtpNd9qEmVBvUgMtpAkTsN+kHBOKKDZIh/LOY?=
+ =?iso-8859-1?Q?YapGFXyqi4MwOoP9JIsK+NrSCFZtQJXlBTLmEkO3LiGCRsBQknuZs1sPyE?=
+ =?iso-8859-1?Q?Ptra1SzFmJmKFO32W0QMhPTQElj9vBrtnq0yf098e61eT98y/Rdf1QI+W7?=
+ =?iso-8859-1?Q?HxuWgGTtiSR+iUc2N2Qq5jHG3dd9qt2Oig6nJib2YKElCnK4ItPvcGg81Q?=
+ =?iso-8859-1?Q?Cz3GnbRL1IZyvN3iaLtgoD91M71YJiGL3mfNSNRHaXiH4XMvH+MmAMcEve?=
+ =?iso-8859-1?Q?Q2A5hhH0laWU3psQ4W3K1B7CRz6mdFUO/T05M9uFjfLEY369HPyvPeS6DR?=
+ =?iso-8859-1?Q?GJDF4QMSRblkRQDik+Z1Zek0zJrjLGeQLYPvh79MqDzsDX5/gvC6LrZZvl?=
+ =?iso-8859-1?Q?0xpIw5z2H82UUP/X0nkCu7altTDoBuDosRmpmE+Yqf0Q2Oyy/lswIlU0KY?=
+ =?iso-8859-1?Q?QEhm3j2zau0wZtuS1VRR11N/sazSw93gFGZjCg8yP4sm70/CKDOSFXK4yl?=
+ =?iso-8859-1?Q?SD8FntqG6oEUConMhrBqA1zgfgVUWlH/FW71JTZswHszyJajKe1SbUPDMl?=
+ =?iso-8859-1?Q?cNPEhXZjRCG0Qg8a1wu02zZ6/WYlNavfoFG+IK/ThxR0gsvKLvEZNw8fdZ?=
+ =?iso-8859-1?Q?J/TUb+idKTXuz+u2JHRIxb0I8usB48/GGA0QulEY5qtSyzIPA9CnQbQBJ4?=
+ =?iso-8859-1?Q?leWUsP2VFgT3rnA8467iLMfUi+swlyKY8bC9shs2Y8q8KlfuJYb4ruuS44?=
+ =?iso-8859-1?Q?6ReUIUN7C5pMqn6fIGWz8p8YVL5Dsdr3K5exAti8iMOoAr3+mrBDYViXW4?=
+ =?iso-8859-1?Q?qBAfxuJSgkHIlAV/BZfJuzZGSyDoI9YmHEukMmekCp2V8HZhRZeN+o8b/N?=
+ =?iso-8859-1?Q?HboaVKlraKNQBBCVt8db7umqYYkqHLAcn1XGCoehduqjUT7C3Xe52Sqyh6?=
+ =?iso-8859-1?Q?G7OYb//FfPCHlqIrUColP4rRqCcLDWnP7s7RbKBmwuAQ5bc330KmTy3a5a?=
+ =?iso-8859-1?Q?RpnUWtUXSw6Mtm3OpYtK3ylIdacrMVQqgBW3S8T/LqP7Fwb8TtlhGrWTvA?=
+ =?iso-8859-1?Q?qWJ+YRqEUnrCoH/Bf8AndnXSY+WL0sjsd4GSOdRvwbLT1fv9MhRxIgyYOr?=
+ =?iso-8859-1?Q?n7mxyQ2tPPgFenETxo3Uz7i69T9hO5AlTyZ2ZG4xbqm3RCbg2u59LsIoIZ?=
+ =?iso-8859-1?Q?JHkj9EqH63g+5P/GGH6mGgPuVALLmqc8nrKq4Y0Oi5jWjjU3WD4lpGJMMw?=
+ =?iso-8859-1?Q?cabh9sHyxPsCFZMxszEXTl224Wufly9E2ZgG3257yD8bh8SxzjIzn3QcnZ?=
+ =?iso-8859-1?Q?paE75lqZiM3iWubmwjLkc+evz1NHu5fZ8Z7XbYQITnkRhoR5ZZJseGK0k+?=
+ =?iso-8859-1?Q?uDpfJ4Hsd4WU3ngiLOJq9Jnvd87My5CehNWpMhMhCIOBC5?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8e1538c-038d-4f62-f174-08df2ad54832
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:59:24.0801
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xZbZniYNYvt5vxtCma+w2GrB/EDKe2lwIk7xyl8M5Dy3Zy9fAqgVY6sUZtGLYQAvq+VQ1rNJOx8Fj545QvR0mQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4321
 
-The existing kerneldoc documentation for URB completion callbacks is
-incorrect about the context in which the callbacks occur; it is not
-always in_interrupt.  State explicitly that a callback may occur in
-any context with no guarantees, and likewise for the status of
-CPU-local interrupts.
+Hi Tangfei,
 
-Documentation update only; no code changes.
+On Thu, Oct 15, 2026 at 08:47:12PM +0800, Tengfei Fan wrote:
+> Sorry for resending this as plain text. The previous email was rejected
+> by the sched-ext mailing list because it contained HTML.
+> 
+> Hi all,
+> 
+> We would like to discuss how RT tasks can best coordinate with sched_ext
+> for cpu placement, cpu balance, and sched load reporting to schedutil
+> governor. This RFC is intended to continue the discussion in email list
+> from last LPC[1].
+> 
+> One of the options we would like to explore is allowing sched_ext to
+> schedule some explicitly selected SCHED_FIFO/SCHED_RR tasks.
+> 
+> We received feedback from Changwoo that the issue is valid, and in
+> LAVD sched-ext, they tried affining RT tasks to a limited set of CPUs as a
+> workaround for the scheduler placement, but we do know that it is not a
+> flexible enough solution.
+> 
+> We also had a discussion with Andrea Righi, that he acknowledged that
+> he understands the scenario and current problem, and he would suggest
+> not changing the current core scheduler, but instead using bpf ops to
+> bring the RT tasks under the sched-ext control. We are trying to explore
+> more on this path, and welcome to suggest or comment here.
 
-Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+Yeah, we discussed this with Maria at LPC, thanks for the follow up.
 
----
+Essentially, my suggestion was to run selected tasks that currently request RT
+scheduling under sched_ext as non-RT tasks. You could retain their requested
+priority as metadata and let the BPF scheduler implement more controlled RT-like
+priority classes for placement and ordering alongside the rest of the workload.
 
- drivers/usb/core/urb.c |    8 ++++++++
- include/linux/usb.h    |    7 ++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+For example, the userspace part of your sched_ext scheduler could manage this
+classification. When the scheduler starts, it could identify the application
+threads suitable for conversion, record their current RT policy and priority in
+BPF task storage and switch them to SCHED_NORMAL (which will move them to
+sched_ext). And it could explicitly exclude critical kernel helpers, IRQ threads
+and any application threads that genuinely need native RT behavior.
 
-Index: usb-devel/drivers/usb/core/urb.c
-===================================================================
---- usb-devel.orig/drivers/usb/core/urb.c
-+++ usb-devel/drivers/usb/core/urb.c
-@@ -254,6 +254,14 @@ EXPORT_SYMBOL_GPL(usb_urb_ep_type_check)
-  * request.  The completion handler may then immediately free or reuse that
-  * URB.
-  *
-+ * The USB core makes no guarantees at all about the context in which
-+ * the complete() callback is invoked.  It may be in process context,
-+ * interrupt context, BH context, or anything else.  Also, local interrupts
-+ * may be enabled or disabled.  To deal with this, the callback routine
-+ * must always use the _irqsave and _irqrestore variants of things like
-+ * spin_lock(), and it must always use GFP_ATOMIC for its memory
-+ * allocation flags.
-+ *
-  * With few exceptions, USB device drivers should never access URB fields
-  * provided by usbcore or the HCD until its complete() is called.
-  * The exceptions relate to periodic transfer scheduling.  For both
-Index: usb-devel/include/linux/usb.h
-===================================================================
---- usb-devel.orig/include/linux/usb.h
-+++ usb-devel/include/linux/usb.h
-@@ -1605,7 +1605,12 @@ typedef void (*usb_complete_t)(struct ur
-  *
-  * Completion Callbacks:
-  *
-- * The completion callback is made in_interrupt(), and one of the first
-+ * The completion callback can occur in any context: process, interrupt,
-+ * BH, or anything else.  Also, interrupts may or may not be disabled on
-+ * the local CPU when the callback runs.  A completion handler routine
-+ * must not depend on any particular properties of its environment.
-+ *
-+ * One of the first
-  * things that a completion handler should do is check the status field.
-  * The status field is provided for all URBs.  It is used to report
-  * unlinked URBs, and status for all non-ISO transfers.  It should not
+I would avoid making RT-class tasks generally eligible for sched_ext. The
+sched_ext core uses FIFO helper kthreads for enable, disable, and recovery work.
+The enable helper runs as RT specifically to avoid starvation during the
+transition. A priority cutoff may protect those helpers, but it does not
+establish that other RT threads are safe to move. Threads that genuinely require
+native RT behavior should remain in the RT class. For threads using RT priority
+to express frame criticality, I think a classification within sched_ext would
+give a more flexible and effective way to coordinate the whole workload.
+
+Thanks,
+-Andrea
+
+> 
+> LPC topic:
+> [1] https://lpc.events/event/20/contributions/2561/
+> 
+> Slides:
+> [2] https://lpc.events/event/20/contributions/2561/attachments/2025/4612/2026_LPC_Support_RT_tasks_within_sched-ext_.pdf
+> 
+> 
+> Here is a text-based description of the main idea presented at LPC.
+> If you already have that context, you can skip the section below.
+> 
+> 
+> Background
+> ----------
+> 
+> In most of the Android gaming, video playback, and livestreaming test
+> scenarios, non-RT threads work together with RT threads to construct and
+> consume a frame. Finishing the frame on time without frame jank is a
+> key performance KPI. A balanced workload across CPUs with fewer
+> unnecessary CPU frequency bumps is another key power KPI.
+> 
+> More specifically, taking a gaming scenario for example, UnityMain and
+> UnityGfxDeviceW are the critical normal threads that have significantly
+> higher load and usually run on the most performance-efficient cpus in
+> gold/prime cluster. Other than those high load tasks, the other normal
+> tasks mostly have similar workloads.
+> 
+> It has RT threads like the display HAL tasks, SurfaceFlinger, and the
+> GPU related tasks. Those RT tasks have workloads comparable to those
+> of other non-high-load normal tasks.
+> 
+> In our tests, sched_ext runs in switch-all mode, with
+> SCX_OPS_SWITCH_PARTIAL unset. It schedules the non-RT tasks
+> covered by this mode. SCHED_FIFO/SCHED_RR tasks still run in
+> the native RT class.
+> 
+> Below, we call these non-RT tasks "SCX tasks".
+> SCHED_DEADLINE tasks are not part of this proposal.
+> 
+> 
+> Observed problems
+> -----------------
+> 
+> cpu placement:
+> 
+> In our tests, RT tasks can run on CPUs used by important SCX tasks.
+> This can cause the SCX tasks to be preempted, waiting longer to run,
+> or lose cache locality.
+> 
+> Here is a diagram for easier understanding:
+> 
+>         RT task + important SCX task
+>                     |
+>                     v
+>                  same CPU
+>                     |
+>                     v
+>               CPU contention
+>                     |
+>         +-----------+-----------+
+>         |           |           |
+>    preemption   longer wait   cache impact
+>         \           |           /
+>          \          |          /
+>           +---------+---------+
+>                     |
+>                     v
+>        SCX work may finish later
+> 
+> RT tasks have higher priority, so the preemption itself is
+> expected. However, from the whole scenario perspective, better CPU
+> placement could reduce this interference when another suitable CPU
+> is available.
+> 
+> 
+> Load balance:
+> 
+> RT tasks can be scheduled in the same cluster of non-high load scx
+> tasks. This can also be a preferred placement decision. While the
+> load balance within the cluster is also hard to maintain.
+> 
+> We sometimes see RT and SCX tasks on the same CPU while other CPUs
+> can become idle very shortly. We need to check whether those newly
+> idle CPUs can pull and run the scx tasks. While if RT tasks are also
+> in the same scx scheduler, it is easier to make decisions from a load
+> balance perspective.
+> 
+> 
+> sched util calculation:
+> 
+> We also see a difference in load tracking. Our implementation
+> uses a frame-window model for SCX tasks, while the RT load signal
+> in our setup uses PELT.
+> 
+> The SCX task load is flat and steady, while the RT task load
+> sometimes spikes. An unnecessary CPU frequency bump up can be triggered
+> by RT task load spikes.
+> 
+> 
+> Why CPU affinity is not enough
+> ------------------------------
+> 
+> We could use CPU affinity to keep RT and important SCX tasks
+> on different CPUs. This could reduce the time they compete
+> for the same CPU.
+> 
+> However, CPU affinity is fixed and strictly limits how tasks can move
+> between CPUs. If the number of background tasks increases, CPUs perferred
+> for critical SCX tasks may still have spare capacity. With fixed CPU
+> affinity, non-critical SCX tasks cannot use those CPUs even when doing
+> so would help balance the system load.
+> 
+> Ideally, the scheduler should be able to choose CPUs dynamically as
+> the load changes, while still keeping tasks within their allowed CPU
+> masks.
+> 
+> CPU affinity may still help, but it does not provide the
+> flexibility we want here.
+> 
+> 
+> Possible options
+> ----------------
+> 
+> One option is to let sched_ext schedule some explicitly selected RT
+> threads together with SCX tasks.
+> 
+> This could let one scheduler choose CPUs for both selected RT
+> threads and SCX tasks.
+> 
+> For example, if other cpu is idle, or running a low priority scx task,
+> or running a low load scx task, an RT task could use that CPU instead
+> of a CPU running an important high load SCX task. This could reduce CPU
+> contention for the frame important KPI and help balance RT and SCX tasks
+> across CPUs.
+> 
+> Such placement should remain a preference rather than a fixed
+> rule. It must respect the RT task's priority, timing needs, and
+> allowed CPU mask. The other CPU must also have enough capacity.
+> 
+> It could also allow RT and SCX tasks to use the same utilization
+> model. We would like to study whether this can make the load
+> signal more stable and reduce late CPU frequency changes.
+> 
+> Another option is to keep all RT tasks in the native RT
+> class, but provide enough information for the two schedulers
+> to better coordinate CPU placement. However, this would also require
+> placement and load synchronization between the RT scheduling class
+> and the sched_ext class.
+> 
+> After the LPC discussion, we'd like to explore option 1 and use
+> BPF-only hooks to achieve current needed RT tasks within scx class.
+> 
+> One option is to have all RT tasks with a priority lower than the SCX
+>  helper thread go into sched_ext.
+> 
+> Migration thread, sched-ext enable/disable threads and IRQ threads need
+> to remain outside sched_ext. With this option, we will need to verify
+> more common scenarios. We can explore the first option first.
+> 
+> 
+> Open questions
+> --------------
+> 
+> * Can sched deadline can used to optimize those scenarios?
+> 
+>   It is possible, of course, so we put it here, welcome to share the
+>   possible configurations of which tasks goes to deadline. However, here
+>   we discuss only the topic of plugging RT tasks into and out of
+>   sched_ext for these scenarios. For different scenarios optimization,
+>   there is of course no single solution. It still can have different
+>   scheduler optimization to make a specific tasks a different sched-class.
+> 
+> * Other ideas?
+> 
+> 
+> We would appreciate feedback on the problem, the possible
+> directions, and what we should try first.
+> 
+> Thanks,
+> Tengfei Fan
+> 
+> 
