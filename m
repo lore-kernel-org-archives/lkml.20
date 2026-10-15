@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D2449C4B8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A6449E5D8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049979; cv=none; b=Z0Chfps5HzXSP1PmECbMTfLjinX6loE/cjaUJ5lpKsBt6a6OaXKzK/hyBjybp2Dj/c6/tvTKRSvgQoksTDp5HJFALFbrOtwYfhutYTK48ZiBc+U8545fL4kiW/cBLcudvmsorh/sV4CBHHaRLIL41/1wGHanTepmDjPc3ArQYzs=
+	t=1792049972; cv=none; b=bzV2SLA+L4IcVr3R1+sp5ELCIZRuVUD7OIQF5GKsvnH/NN4ROTKBXA3a91SbsKi3+ZQCfWUZm2qXmoZsSWccplr02X89MXTIaXqCYpU4zBG54SHFvC49/c75amIju1sX/+R3W0jy5oy5I8tcuDfT+CgfNdAefRFd/PKurPIka1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049979; c=relaxed/simple;
-	bh=fPkloJWnW4jV120+QwsLlNH62jL8JVRfsRHI42AR5Sc=;
+	s=arc-20240116; t=1792049972; c=relaxed/simple;
+	bh=0d/472uA2aBtWDTKkLGtSOJQbMgUohuutcoQbFBC0AQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FLQun0EueEaqlGr76QtWnYMdv/yvE+qSLBthU8VN1tmJJNvZDZH02vLobKxblzN+m2ZP6I2Lb0Qc7bn6nRSj1Rn8JF3oXgck9iVLeLylu6gVdt5ZLORe5QSTjwnuyznkL/ujEIgjY0IwNGTZir+xat2dEparnNzVj4b4TkLQADg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NQ6PgKt2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VszqrKZN; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=i8KrkAbQoMKpv4BTq/08AYSAN5lbuFvrVuKCITQO+IeM8pHIBV3dvU8QRWaRBMmiZ+tXjCmBtVgGzK+s80mxScEhwNBZfEE2Lej5aw9yuURtHvjBuKnZRKcwG3Zsqg7CVntVmpFDRFLdBVIivgxeR2MS+MOYFsj3UODl0w0ByuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kfq09MLP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DJz9qAXw; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQ6PgKt2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VszqrKZN"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F3xBqM1640485
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:32 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kfq09MLP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DJz9qAXw"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F1A2cm3468940
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PqjS4FnlYuc+QaADcRNw4g0dlRCNnsRiksJdOqt/jSQ=; b=NQ6PgKt2IaBAI5NL
-	2VCBxDSDPWCCie6LwiHYSLsoG5YJXPDyU0//DKNLhhWmipYCseiH7rg7yDkylJXm
-	ANeonRfJ7G61JPgabZc/7vorkejauHDE21CX0mYJZTs+q8e1dQoWe/REKCUw1KY+
-	Xp/98T+B2scW7FvpAe4vipCGPz7RhU7Hnk9PTBGwPh7K7Kj1quBJsZkneerVldxy
-	/nBGBse+rkx6b4Du+0MAB8iQio8SseAOC00XITCDbCknDRGnihR6PPY5+JB5YLWi
-	N+/nBwTZlOw4EPfpUZE26A9h7F00QBGiEtPgAljx52knEp7v9awEf3yaqTWONmL1
-	DuC4hw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdhgtbq-1
+	BxPJ5bz63v9HogdNZ3A3/Q9lNywKHQtZNLqPWsvnizo=; b=kfq09MLPoTK+MwoZ
+	nQ1iuVxvMBudjNZjG1NMa9nPUYhOai9O+ToiJQD/KLv6V6oz66Yi6Zl3or/cWmtS
+	5OM63oASIHm4n0lAIiM/2BiKqmQktIypGXSUzWuMtQVFlvq6jjQuQcgIL0bqEl6d
+	7cWeqv+GV6thJgzdN34My+448fBXB+a7jP2Wma7LfcPD+U7UGihb0flcHiWZzffR
+	/U9g/dejD2rSH4Fv1i3FfRgtHBWlbisV0MgmVcWDU5r3ao/hKzZmDXCeBrh9CSK8
+	1XqOWcNA22yrc43t7BC/teAox+8FcsX1yOJ/737N3Y94hNrvuu8wlCw3U3/5Vsoi
+	rhiSCQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hadd7b17h-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:32 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e94f72fb9fso12422295ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:39:32 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:23 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e60770381cso44164365ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:39:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792049972; x=1792654772; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792049963; x=1792654763; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PqjS4FnlYuc+QaADcRNw4g0dlRCNnsRiksJdOqt/jSQ=;
-        b=VszqrKZN8o8UnHHiViK5Z/BbxAd52jtMdD2w+bb5W1Sy3WxC3ZGI1mgYxIYNUI1MlG
-         6cKOqE/M07gsDGWVqh2fLLqLTSdunDr5qHaDHoEiZkdndkr2Jp3IAAvtyUdPeh5sfO6V
-         /16jDQ4YnUoDKhtLmP103DMuMmlsV1A666G9M8dDAWev2UV857JmZExHSK98EDt1KYGK
-         UcWNnEs2QBIY6AD3wBQb7ho8cj4gGxKcczXIHbrgCkdrmDOmFXLNIzFf3KFL0DD0+KWb
-         iw7FXdF2OdvqOe+EJ6Gr2YNrqvRrrcCyAd032VBa7Vg2IA+9iodJHcHc0UlTXQXdEzBX
-         AcuQ==
+        bh=BxPJ5bz63v9HogdNZ3A3/Q9lNywKHQtZNLqPWsvnizo=;
+        b=DJz9qAXw277vSfJ15Q55lloHdEw8WHHxVTQYWoePjCv3BIBuTo6Ahrz5cad02E8nPo
+         vEm7k0XbDtx0iZscddHQum3jnyU3aesJ9hAH3X3PA/PcPMghr4pxD1fkHVYO/AKa2UCe
+         oQ3yA90KAflj9kfLe8Jtqe/ILm2viyFSnEOi4GEGEOzdhfAzD2tkcFl9IP6+H8PMeR7X
+         sHcZFiYtCzyiap8bm2wkEkhUNI8Hh3Ll/YaSzS/S1rJmQr6o5Td0+DMLxBdXMqHnb04J
+         NudtKPoZU2zm7JCjeOvbAqTFQHG0IGoZ9N11lHrhCr2bjtmtiAlhBJfOm9PjbrUKw4JS
+         v+0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792049972; x=1792654772;
+        d=1e100.net; s=20260707; t=1792049963; x=1792654763;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PqjS4FnlYuc+QaADcRNw4g0dlRCNnsRiksJdOqt/jSQ=;
-        b=I6ki+dvL5jltvXa8EjYuDp0OTpQpoRc07tthcOqWHSFqWUQc8C4CyUFMBB9z5OhFT8
-         +yAxqwT3djwp29xWVoW63GMMofp8iZZ4RNUWUTgEEbaG+TO8wWZppVCv0OwrEiyDSpr3
-         DiQZ7dQZbf4WvAbvSiGscIxW3S/4tr9gqsUGhtlK4MjtkhbWuV0gBt9drH3lmG5xTYlf
-         4OyyDk1BU0CnFjXlEPONAKgnJ6UVTE/P4HFvI8yjm9eKxaJwavi1gN5NTeuhkGSxPFdV
-         8Zmrb7JOyvjmxrQmwUgcf36hIzC48/2Iku5zlqhSjNPypZ3nkWoc+FFxn7ZiZIyndWqs
-         4KOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJDdZTOZlA7lD+aKQcvnnnlWDEI+GckY2u07V1m/9SWofFsSEnbJMyFnOqiIIxlRA55Xm+2uhnoMNSbhM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqpg/1N6dGlHmr/ytzCI5H24l+5npmEIlG+x5U/jMeHSuGlHLJ
-	ulMetAYZClKRtGnpAP953W3f+KdY2c6tuAvatOCmvcjbndYNBwOohzRC2berDLMc9zRM/Vh1Xj7
-	fUd0573J4OykYpVVghlAa5d5EoLnDqamRALEwIDCUPvlJlkXCrk7Nakb5bvdkbDxVCSA=
-X-Gm-Gg: AYBFou135jDTZhiBFkC9b8iItAm1fnrBQcelMbMSEf1KjlnAf8kLujAb5c/oVLk72Pt
-	cqMyv1+bzKRmIiEb6sSxV/h5YKbjMrKYEykKd3iStSDYXMvNwhgPszdXatX9qWHD98dbifmoGV7
-	KdDzK1Go4Cfe4joJVdjdUIPTYq2GrtF+wegtRtvvW6921lko+LNtxm4bpb+DP2jQ+kjF1YMJsJc
-	XVjXcqi+k9B24o3HWYiMWoog18rRh1tATMbx4ByTpvMbS4775IyDNHQT3WyAV9pvpb3xFaD2nmR
-	KFlyn2BW0MAmGqMuf+fYr8XPWvzzUnX6IksOx6rGRlAXnhdYfCKUA1dc5hE/mpabyBBtgFkNKmK
-	a+WIvIxUqHoMwZJlmC/NpRXTVPkX9f3yLaS8=
-X-Received: by 2002:a17:902:f547:b0:2e9:3f5a:de9b with SMTP id d9443c01a7336-2e93f5ae5b1mr39673815ad.9.1792049971870;
-        Thu, 15 Oct 2026 00:39:31 -0700 (PDT)
-X-Received: by 2002:a17:902:f547:b0:2e9:3f5a:de9b with SMTP id d9443c01a7336-2e93f5ae5b1mr39673395ad.9.1792049971322;
-        Thu, 15 Oct 2026 00:39:31 -0700 (PDT)
+        bh=BxPJ5bz63v9HogdNZ3A3/Q9lNywKHQtZNLqPWsvnizo=;
+        b=FXVkz2vGMnDe2y5Xh6MJ+PL/A/EoxV6DigJQleeP3kNtKMJ/9V0KkCl7w+hf4CtvaF
+         cUrQuLOrExU8hIjIBKE/SwCRTPyE3rc73La+9b7Yma+FlS0QNQqJO+BgkUTrGO6p3KpB
+         76KCrNJi2Dk+T6kFWVAOFFccJI3BTrUjQJHBlDiFqF8GHg6C/5784cJEvlOE/vDwyAHX
+         Aa8dYCuwTgBCYpH3ktit2fAnbF68+d4VaBwuAKyJw3aMFIVqulvJd2Ybx9Fa2W13FvvJ
+         eOLdDv5mXNTw2FGeH+D3e1cUgdlqFZgXMR5UKgsOaHovOAnQD7pqMKEee0omBes/+X+6
+         9zVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByX/CM4xTPW8DI6P0ZMSVxZiW+8fXdRch3v3l+oPU01ra3VcLoR6WBoaSZ/KIYvItCKCNWo6zu3nI8Bukc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTZmblP4tt2ymXVNP1IgoNQb9CsdXMkKnm6zocrnH+XUljD7MC
+	a9wmeTZCgk4gTVOY1gZyiwrbT3TVdVzk0KmscFXAPa1nFYaJo8d/Ankdja2iytfej1qEFBjJY6Y
+	NQb7WzGpdFtPbWRBaWTL/9fP1AV35DvEgEen4tm5sO0ExO74doJ3/ZiXNKB3purRogsQ=
+X-Gm-Gg: AYBFou1DfyzGebQZz056YAvPqvMQ1nMSHt97ZPQgKyXTZuzgXajPo7vGz95FpPSaXfJ
+	HypO2jxvxJa0X3w7oab63TiQhFrSe1nnXdF/X0HVhW9lYZVl3/5IUCWbWgexoM/pPUqAoX498uE
+	dcyuv+u9F1Eit+S3nmcxaJPkqk5FNozF5JlLhQO+pJjLeKWO9N0gp0V/4n5VWSat50i58FVU/5h
+	/B6vhxeIv2m8P9TKlQPE+kmCRt4lY0+1hYxIdhsA6OhIrI9tTi85gz31EYIsf2AoFEO8SiuidXh
+	Tqrug4nJODrmfxr00cELEjCXTs4WO89fJ/KYE71q4/m+6kywqvuhdw47gWnLfK/mE3bqELTVppZ
+	zpNDEEdIEdo7ph5Fqx0TTIRRsrLNfX+fvo2M=
+X-Received: by 2002:a17:902:db0b:b0:2db:3b35:1ac6 with SMTP id d9443c01a7336-2e8427efd9dmr178100815ad.5.1792049962409;
+        Thu, 15 Oct 2026 00:39:22 -0700 (PDT)
+X-Received: by 2002:a17:902:db0b:b0:2db:3b35:1ac6 with SMTP id d9443c01a7336-2e8427efd9dmr178100625ad.5.1792049961739;
+        Thu, 15 Oct 2026 00:39:21 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.39.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.39.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:39:31 -0700 (PDT)
+        Thu, 15 Oct 2026 00:39:21 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 13:08:24 +0530
-Subject: [PATCH 04/13] drm/msm/dcp: Add IPCC power notification
+Date: Thu, 15 Oct 2026 13:08:23 +0530
+Subject: [PATCH 03/13] drm/msm/dcp: Add HFI transport over VirtIO
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-4-48aad0fe4f72@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
 References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -119,362 +119,1613 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
         Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=9608;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=46227;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=fPkloJWnW4jV120+QwsLlNH62jL8JVRfsRHI42AR5Sc=;
- b=hLSb4f+MiglFU3ZSmaynK1+PrO9Dkgllq5GgyVkExX9RRYtwbvodQBAzJdYhlB1ZrCeF58j8F
- b1eVgsH6GffBrR/AnT4Evi9v58omKtaDUHplptOcqeZ99HIDQsMHaiS
+ bh=0d/472uA2aBtWDTKkLGtSOJQbMgUohuutcoQbFBC0AQ=;
+ b=romwvP5tapZdxLBzf0FlMq9zcE++JS40EQSkBNIeKXmUckGUwYQpwS456wuAsGxvsko/VgFBP
+ 0B8TyM/Aw7kDjpiwnQUXmUv/CJizrbCUYayjHBygLz+xJFX8g/VRJfb
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfXzfQsiOlaQ04o
- nMVXDRp3fSXOljM45JNt2wOqfJYYbuHAWT0+pg/abHS9NaH50Wljk7/GcrfeqgWjNkfMEqzea0S
- l/Pr60PnklWKh82cJVZFSEnmMjZHweKb6ioOkN+8e5yMsmw8Wwfq7z9f5Xbmd9W8gVnPZVhCGSF
- YbcA0VLy2ZPvbgWBlkFAb7p6uz0c8vkXhC+R6bsLSlsJlCXyG5+Y+g35+cOPdtJREZNnGaqB4wF
- iQcX1q6/F30KsmgO0enUrEGlWtcmKhXDfgOGgHjgtMKkJEC9CtuGnSnGB8YGphi2VnWbWUeLhAT
- +fg/awb9rIoOXLCr+KupZOxfe97Re5NHArHfh4Q1HzLgFyRBhoYiQuosZgl3OBqzNU2mw8vvVV1
- G/4/mrNpsHOtPC/5D0YHiVuEkdhxYEGzEsObS7/axo1Y8F1chJ8GLTB5smLNvbFQH1GC2hQdmzC
- LQeMVNfKAYmVBb+bgBA==
-X-Proofpoint-GUID: ES6WAJ_6WMlSmDkHu8THOca7oubmdQFg
-X-Authority-Analysis: v=2.4 cv=DeeCOftW c=1 sm=1 tr=0 ts=6ad08334 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=BaVNQbt2 c=1 sm=1 tr=0 ts=6ad0832b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=HYBqBNDG3rqcJ-mQvmoA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX+mL4v8XyS6AS
- 7X7m/q1QjenXWiOPXnzRm0awyWmENRL3W1A2qMu2wrSEIAlFWuxO1OvBHjVcB36P+pXF4geMGBy
- BqnJdrviLauW/QsppYzj3QVDemv4ypU=
-X-Proofpoint-ORIG-GUID: ES6WAJ_6WMlSmDkHu8THOca7oubmdQFg
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=W2xyxme5nyVMB79hAmUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: 98D9H0qhRWInhaqSCRmmEUx1an3fbgFJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX2vlAkZTonpEA
+ Myi5Uri6YJ8Wa9SEKI83/eOqSEiorImO9sxd7IS14Q8+JHlvKgNzg7BhlF4X0BdIoNZyTpZ2DYJ
+ EdTVSu+3YcgFX5NbSRyRTpQ5/RV8fmnS8BbVwfQP0eu5AF08p2LLMKUANDgdo9rojFPSRQSrPci
+ lX+Za9hGRYnWlxMnyvqOPK4or5qbScMAIdXUqR22HrcCfboqVuhwIPQFwN77CckvTMCXYQLmixq
+ IcDPe9e21asfcvGGaGt8d0pCUKxlvOD4P3wU/SBr1cJHJ9LZDAocMdSy14LtLuXOHJw0tHFfFlz
+ 2HV+0l02Xv/Xiaj5zNCC/y1vD+zRIsE1WUW4S+E2pmKX922Ow/EZDEZF3xD4+DXUej8cVozHKGZ
+ BRYzpAPsZHa1tNwVt8pCeeR0D2nBLdkA/WTC6hDAMrVFeJhf4OkIGFB4EaQU7vKqExATBTa8BXh
+ 88c4cIKytG2GAW5UUcA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfXzhLuE/qDAUDP
+ ZNAS1wDdns/6j9L+H/mGToO74epHFfA7XrSd+rTTIfhB4LSMwYh1+5oNhGHbxs5reI8MCJoYLjZ
+ cO35cxaHc3Ue8Iu1dul9bThEzioz4I4=
+X-Proofpoint-ORIG-GUID: 98D9H0qhRWInhaqSCRmmEUx1an3fbgFJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150030
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150030
 
-DCP may be power-collapsed while the VirtIO transport remains available.
-The host therefore needs the platform IPCC channel to wake the firmware and
-to receive notification that it can service HFI queues.
+DCP firmware owns the display hardware, so the MSM DRM driver needs a
+transport for HFI commands, responses, and asynchronous display events.
 
-Add the IPCC mailbox client and power-notify interrupt handling. Wake DCP
-before VirtIO queue activity, wait for the firmware acknowledgment, and
-notify the response queue when the IPCC receive path completes.
+Add the VirtIO command and response queues used to communicate with DCP.
+Allocate command, response, and capability buffers through the DMA API
+using the firmware-visible IOVA window. Track synchronous commands and
+asynchronous responses, dispatch HFI callbacks, and synchronize queue
+teardown with in-flight transactions.
 
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 Assisted-by: LLM
 ---
- drivers/gpu/drm/msm/Makefile       |   1 +
- drivers/gpu/drm/msm/dcp/dcp_drv.h  |   1 +
- drivers/gpu/drm/msm/dcp/dcp_ipcc.c | 212 +++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dcp/dcp_ipcc.h |  56 ++++++++++
- 4 files changed, 270 insertions(+)
+ drivers/gpu/drm/msm/Makefile           |    1 +
+ drivers/gpu/drm/msm/dcp/dcp_drv.h      |   30 +
+ drivers/gpu/drm/msm/dcp/dcp_hfi.h      |  214 ++++++
+ drivers/gpu/drm/msm/dcp/dcp_hfi_core.c | 1198 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h |   74 ++
+ 5 files changed, 1517 insertions(+)
 
 diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-index bdc34babfc21..4195bc0e1fc9 100644
+index 00c995dde21a..bdc34babfc21 100644
 --- a/drivers/gpu/drm/msm/Makefile
 +++ b/drivers/gpu/drm/msm/Makefile
-@@ -71,6 +71,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
+@@ -70,6 +70,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
+ 	disp/mdp5/mdp5_smp.o \
  
  msm-display-$(CONFIG_DRM_MSM_DCP) += \
- 	dcp/dcp_hfi_core.o \
-+	dcp/dcp_ipcc.o \
++	dcp/dcp_hfi_core.o \
  	dcp/hfi/hfi_packer.o \
  	dcp/hfi/hfi_unpacker.o \
  	dcp/hfi/hfi_utils.o
 diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-index bf6c34af43a0..af2db3cf9066 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
-+++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-@@ -13,6 +13,7 @@
- #include <linux/virtio.h>
- 
- #include "dcp_hfi.h"
-+#include "dcp_ipcc.h"
- 
- struct dcp_dpu_kms;
- 
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.c b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
 new file mode 100644
-index 000000000000..e60a3ecbe3d8
+index 000000000000..bf6c34af43a0
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
-@@ -0,0 +1,212 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * DCP IPCC power-notify mailbox client.
-+ *
-+ * The APSS-to-DCP channel must be signaled before a VirtIO queue kick.
 + */
 +
++#ifndef __DCP_DRV_H__
++#define __DCP_DRV_H__
++
 +#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/jiffies.h>
-+#include <linux/interrupt.h>
-+#include <linux/mailbox_client.h>
-+#include <linux/mutex.h>
-+#include <linux/of_irq.h>
-+#include <linux/string.h>
++#include <linux/dma-mapping.h>
++#include <linux/notifier.h>
++#include <linux/platform_device.h>
 +#include <linux/virtio.h>
 +
-+#include "dcp_ipcc.h"
++#include "dcp_hfi.h"
 +
-+#define DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS	10000
++struct dcp_dpu_kms;
 +
-+static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
-+{
-+	unsigned long flags;
++struct dcp_drv {
++	struct virtio_device	*vdev;
++	struct platform_device	*dcp_subsystem_dev;
++	struct device_dma_parameters dcp_subsystem_dma_parms;
++	struct device_node	*dcp_subsystem_node;
++	struct dcp_hfi		*hfi;
++	struct dcp_dpu_kms	*kms;
++	struct dcp_caps		 caps;
++	struct notifier_block	 panic_notifier;
++};
 +
-+	spin_lock_irqsave(&ipcc->state_lock, flags);
-+	if (ipcc->shutting_down) {
-+		spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+		return;
-+	}
-+
-+	if (atomic_xchg(&ipcc->power_notify_pending, 0))
-+		complete(&ipcc->power_notify_done);
-+
-+	if (ipcc->resp_vq && virtqueue_kick_prepare(ipcc->resp_vq))
-+		virtqueue_notify(ipcc->resp_vq);
-+	spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+}
-+
-+static irqreturn_t dcp_ipcc_power_notify_irq(int irq, void *data)
-+{
-+	struct dcp_ipcc *ipcc = data;
-+
-+	dcp_ipcc_handle_rx(ipcc);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void dcp_ipcc_rx_callback(struct mbox_client *cl, void *data)
-+{
-+	struct dcp_ipcc *ipcc = container_of(cl, struct dcp_ipcc, client);
-+
-+	dcp_ipcc_handle_rx(ipcc);
-+}
-+
-+int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev)
-+{
-+	int irq, ret;
-+
-+	if (!ipcc || !dev)
-+		return -EINVAL;
-+
-+	memset(ipcc, 0, sizeof(*ipcc));
-+	init_completion(&ipcc->power_notify_done);
-+	mutex_init(&ipcc->power_notify_lock);
-+	spin_lock_init(&ipcc->state_lock);
-+	atomic_set(&ipcc->power_notify_pending, 0);
-+
-+	ipcc->client.dev          = dev;
-+	ipcc->client.tx_block     = false;
-+	ipcc->client.tx_tout      = 0;
-+	ipcc->client.knows_txdone = true;
-+	ipcc->client.rx_callback  = dcp_ipcc_rx_callback;
-+
-+	ipcc->power_chan = mbox_request_channel_byname(&ipcc->client,
-+						       "dcp-power-tx");
-+	if (IS_ERR(ipcc->power_chan)) {
-+		ret = PTR_ERR(ipcc->power_chan);
-+		ipcc->power_chan = NULL;
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(dev, "IPCC: failed to get 'dcp-power-tx': %d\n", ret);
-+		return ret;
-+	}
-+
-+	irq = of_irq_get_byname(dev->of_node, "dcp_power_notify_irq");
-+	if (irq <= 0) {
-+		ret = irq ? irq : -EINVAL;
-+		ret = dev_err_probe(dev, ret,
-+				    "failed to get required power notify IRQ\n");
-+		goto err_free_channel;
-+	}
-+
-+	ret = request_irq(irq, dcp_ipcc_power_notify_irq,
-+			  0, "dcp-power-notify", ipcc);
-+	if (ret) {
-+		ret = dev_err_probe(dev, ret,
-+				    "failed to request power notify IRQ %d\n", irq);
-+		goto err_free_channel;
-+	}
-+	ipcc->power_notify_irq = irq;
-+
-+	ret = enable_irq_wake(irq);
-+	if (ret) {
-+		dev_err(dev, "failed to enable power notify IRQ wake: %d\n", ret);
-+		goto err_free_irq;
-+	}
-+	ipcc->power_notify_irq_wake = true;
-+
-+	return 0;
-+
-+err_free_irq:
-+	free_irq(irq, ipcc);
-+	ipcc->power_notify_irq = 0;
-+err_free_channel:
-+	mbox_free_channel(ipcc->power_chan);
-+	ipcc->power_chan = NULL;
-+	return ret;
-+}
-+
-+void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq)
-+{
-+	unsigned long flags;
-+
-+	if (!ipcc)
-+		return;
-+
-+	spin_lock_irqsave(&ipcc->state_lock, flags);
-+	if (!ipcc->shutting_down)
-+		ipcc->resp_vq = resp_vq;
-+	spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+}
-+
-+void dcp_ipcc_deinit(struct dcp_ipcc *ipcc)
-+{
-+	struct mbox_chan *power_chan;
-+	int irq;
-+	bool irq_wake;
-+	unsigned long flags;
-+
-+	if (!ipcc)
-+		return;
-+
-+	mutex_lock(&ipcc->power_notify_lock);
-+	spin_lock_irqsave(&ipcc->state_lock, flags);
-+	ipcc->shutting_down = true;
-+	ipcc->resp_vq = NULL;
-+	irq = ipcc->power_notify_irq;
-+	ipcc->power_notify_irq = 0;
-+	irq_wake = ipcc->power_notify_irq_wake;
-+	ipcc->power_notify_irq_wake = false;
-+	power_chan = ipcc->power_chan;
-+	ipcc->power_chan = NULL;
-+	spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+
-+	if (irq > 0) {
-+		disable_irq(irq);
-+		if (irq_wake)
-+			disable_irq_wake(irq);
-+		free_irq(irq, ipcc);
-+	}
-+	if (power_chan)
-+		mbox_free_channel(power_chan);
-+	mutex_unlock(&ipcc->power_notify_lock);
-+}
-+
-+int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc)
-+{
-+	unsigned long flags, timeout;
-+	int ret;
-+
-+	if (!ipcc)
-+		return -ENODEV;
-+
-+	/* Wait for the doorbell acknowledgment before returning to VirtIO. */
-+	mutex_lock(&ipcc->power_notify_lock);
-+	spin_lock_irqsave(&ipcc->state_lock, flags);
-+	if (ipcc->shutting_down || !ipcc->power_chan) {
-+		spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+		ret = -ENODEV;
-+		goto out_unlock;
-+	}
-+	spin_unlock_irqrestore(&ipcc->state_lock, flags);
-+
-+	reinit_completion(&ipcc->power_notify_done);
-+	atomic_set(&ipcc->power_notify_pending, 1);
-+
-+	ret = mbox_send_message(ipcc->power_chan, NULL);
-+	mbox_client_txdone(ipcc->power_chan, ret);
-+	if (ret < 0) {
-+		atomic_set(&ipcc->power_notify_pending, 0);
-+		dev_err(ipcc->client.dev,
-+			"IPCC TX: power notify failed: %d\n", ret);
-+		goto out_unlock;
-+	}
-+
-+	timeout = wait_for_completion_timeout(&ipcc->power_notify_done,
-+					      msecs_to_jiffies(DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS));
-+	atomic_set(&ipcc->power_notify_pending, 0);
-+	if (!timeout) {
-+		dev_err(ipcc->client.dev,
-+			"IPCC power notify acknowledgment timed out\n");
-+		ret = -ETIMEDOUT;
-+	} else {
-+		ret = 0;
-+	}
-+
-+out_unlock:
-+	mutex_unlock(&ipcc->power_notify_lock);
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.h b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
++#endif /* __DCP_DRV_H__ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi.h b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
 new file mode 100644
-index 000000000000..a3430e5cbe72
+index 000000000000..726087e5c8a2
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
-@@ -0,0 +1,56 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+@@ -0,0 +1,214 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + *
-+ * IPCC power-notify mailbox interface for DCP firmware.
-+ *
-+ * Channel 5 carries APSS-to-DCP wake notifications; responses arrive through
-+ * the mailbox client's RX callback.
++ * DCP HFI (Hardware Firmware Interface) protocol layer.
 + */
 +
-+#ifndef __DCP_IPCC_H__
-+#define __DCP_IPCC_H__
++#ifndef __DCP_HFI_H__
++#define __DCP_HFI_H__
 +
-+#include <linux/atomic.h>
 +#include <linux/completion.h>
-+#include <linux/mailbox_client.h>
++#include <linux/dma-mapping.h>
++#include <linux/list.h>
 +#include <linux/mutex.h>
++#include <linux/scatterlist.h>
 +#include <linux/spinlock.h>
++#include <linux/types.h>
++#include <linux/virtio.h>
++#include <linux/workqueue.h>
++#include <linux/xarray.h>
 +
-+struct device;
-+struct virtqueue;
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
 +
-+/**
-+ * struct dcp_ipcc - DCP IPCC power-notification state
-+ * @client: Mailbox client used for APSS-to-DCP notifications.
-+ * @power_chan: Mailbox channel carrying power notifications.
-+ * @resp_vq: VirtIO response queue notified by the IPCC receive path.
-+ * @power_notify_done: Completion for the firmware acknowledgment.
-+ * @power_notify_lock: Serializes power notifications and teardown.
-+ * @power_notify_pending: Indicates an outstanding acknowledgment.
-+ * @state_lock: Protects shutdown state and response queue access.
-+ * @shutting_down: Prevents callbacks from accessing teardown state.
-+ * @power_notify_irq_wake: Whether IRQ wake was enabled.
-+ * @power_notify_irq: Power-notify acknowledgment IRQ number.
-+ */
-+struct dcp_ipcc {
-+	struct mbox_client client;
-+	struct mbox_chan *power_chan;
-+	struct virtqueue *resp_vq;
-+	struct completion power_notify_done;
-+	/* Serializes power notifications and teardown. */
-+	struct mutex power_notify_lock;
-+	atomic_t power_notify_pending;
-+	/* Protects shutdown state and response queue access. */
-+	spinlock_t state_lock;
-+	bool shutting_down;
-+	bool power_notify_irq_wake;
-+	int power_notify_irq;
++#include "hfi/hfi_packet.h"
++#include "hfi/hfi_pack_unpack_common.h"
++#include "hfi/hfi_packer.h"
++#include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_commands_device.h"
++#include "hfi/hfi_commands_display.h"
++#include "hfi/hfi_commands_panel.h"
++#include "hfi/hfi_commands_display_events.h"
++#include "hfi/hfi_defs_common.h"
++#include "hfi/hfi_defs_display.h"
++#include "hfi/hfi_defs_device.h"
++#include "hfi/hfi_defs_panel.h"
++#include "hfi/hfi_properties_device.h"
++#include "hfi/hfi_properties_display.h"
++#include "hfi/hfi_properties_panel.h"
++
++struct dcp_drv;
++struct dcp_hfi_caps_cache;
++
++/* Queue 0 carries commands; queue 1 carries responses and events. */
++#define DCP_VQ_CMD	0	/* TX: all commands */
++#define DCP_VQ_RESP	1	/* RX: all responses and async events */
++#define DCP_NUM_VQS	2
++
++#define DCP_MAX_DISPLAYS	4
++
++#define DCP_FEAT_DSC		BIT(0)
++#define DCP_FEAT_HDR		BIT(1)
++#define DCP_FEAT_SRC_SPLIT	BIT(3)
++#define DCP_FEAT_CURSOR		BIT(4)
++
++#define DCP_MAX_SSPP_COUNT	16
++#define DCP_MAX_VIG_PIPES	DCP_MAX_SSPP_COUNT
++#define DCP_MAX_DMA_PIPES	DCP_MAX_SSPP_COUNT
++
++#define DCP_MAX_BLOCKS			8
++
++/* Pipe indices encode the rectangle ID in bits 31:24. */
++#define DCP_REC_ID(x)		(((x) & 0xff000000) >> 24)
++
++/* Capabilities parsed from DEVICE_INIT responses. */
++struct dcp_caps {
++	u32 dcp_hw_rev;
++	u32 hw_rev;
++	u32 fw_rev;
++
++	u32 num_vig_pipes;
++	u32 vig_pipe_ids[DCP_MAX_SSPP_COUNT];
++	u32 virt_vig_count;
++	u32 vig_r1_indices[DCP_MAX_SSPP_COUNT];
++
++	u32 num_dma_pipes;
++	u32 dma_pipe_ids[DCP_MAX_SSPP_COUNT];
++	u32 virt_dma_count;
++	u32 dma_r1_indices[DCP_MAX_SSPP_COUNT];
++
++	u32 num_crtcs;
++
++	u32 dsi_count;
++	u32 dsi_indices[DCP_MAX_BLOCKS];
++	u32 max_dsi_resolution;
++
++	u32 dp_count;
++	u32 dp_indices[DCP_MAX_BLOCKS];
++
++	u32 active_pipes_mask[DCP_MAX_DISPLAYS];
++
++	u32 max_width;
++	u32 max_height;
++	u32 max_planes;
++	u32 features;
++	bool valid;
++
++	bool dyn_clk_support;
 +};
 +
-+int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev);
-+void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq);
-+void dcp_ipcc_deinit(struct dcp_ipcc *ipcc);
-+int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc);
++struct dcp_hfi_buf {
++	void *data;
++	dma_addr_t dma_addr;
++	size_t size;
++	struct scatterlist sg;
++	struct dcp_hfi_completion *comp;
++	struct list_head node;
++};
 +
-+#endif /* __DCP_IPCC_H__ */
++struct dcp_hfi_completion {
++	struct completion done;
++	int status;
++	void *resp_data;
++	size_t resp_len;
++	u32 packet_id;
++};
++
++#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
++
++/* Wire-format resource vote entry. */
++struct dcp_resource_vote_pair {
++	u32 key;
++	u64 value;
++};
++
++struct dcp_resource_vote_wire {
++	__le32 key;
++	__le64 value;
++} __packed;
++
++struct dcp_hfi {
++	struct device *dev;
++	struct dcp_drv *drv;
++
++	struct device *dma_dev;
++
++	struct virtqueue *cmd_vq;
++	struct virtqueue *resp_vq;
++
++	struct dcp_hfi_buf *cmd_pool;
++	struct list_head cmd_free_list;
++	/* Protects cmd_free_list and command buffer ownership. */
++	spinlock_t cmd_lock;
++
++	struct dcp_hfi_buf *resp_pool;
++	/* Protects response queue draining and power callback publication. */
++	spinlock_t resp_drain_lock;
++	struct list_head resp_repost_list;
++	struct delayed_work resp_repost_work;
++	struct xarray pending_xa;
++	/* Protects pending_xa. */
++	spinlock_t pending_lock;
++	atomic_t packet_id;
++	atomic_t shutdown_in_progress;
++
++	struct work_struct resource_vote_work;
++	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
++	spinlock_t resource_vote_lock;
++	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
++	u32 resource_vote_len;
++	u32 resource_vote_generation;
++	void (*resource_vote_cb)(struct dcp_drv *drv,
++				 const struct dcp_resource_vote_pair *pairs,
++				 u32 count);
++
++	/* Protects caps_cache pointer and its lifetime. */
++	spinlock_t caps_lock;
++	/* Serializes capability transactions and cache detach/free. */
++	struct mutex caps_cache_lock;
++	struct dcp_hfi_caps_cache *caps_cache;
++
++	void (*hotplug_cb)(struct dcp_drv *drv, u32 intf_idx, bool connected);
++	void (*error_cb)(struct dcp_drv *drv, u32 display_id, u32 error_code);
++
++	void *power_control_priv;
++	void (*power_control_cb)(void *priv, u32 display_id,
++				 u32 power_mask, bool enable, u32 packet_id);
++};
++
++int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
++		 struct virtqueue *cmd_vq, struct virtqueue *resp_vq,
++		 struct device *dma_dev);
++void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
++				  void (*cb)(void *priv, u32 display_id,
++					     u32 power_mask, bool enable,
++					     u32 packet_id));
++void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
++void dcp_hfi_stop(struct dcp_hfi *hfi);
++void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi);
++void dcp_hfi_deinit(struct dcp_hfi *hfi);
++
++void dcp_hfi_resp_callback(struct virtqueue *vq);
++void dcp_hfi_cmd_callback(struct virtqueue *vq);
++
++int dcp_hfi_send_sync(struct dcp_hfi *hfi, u32 cmd,
++		      enum hfi_cmd_buff_type cmd_type, u32 object_id,
++		      enum hfi_packet_payload_type payload_type, void *payload,
++		      u32 payload_size, u32 tx_flags, void *resp_data,
++		      size_t resp_len, unsigned int timeout_ms);
++
++int dcp_hfi_send_no_wait(struct dcp_hfi *hfi, u32 cmd,
++			 enum hfi_cmd_buff_type cmd_type, u32 object_id,
++			 enum hfi_packet_payload_type payload_type, void *payload,
++			 u32 payload_size);
++
++int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi, u32 cmd,
++			       enum hfi_cmd_buff_type cmd_type, u32 object_id,
++			       enum hfi_packet_payload_type payload_type,
++			       void *payload, u32 payload_size, u32 tx_flags);
++int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
++				      enum hfi_cmd_buff_type cmd_type, u32 object_id,
++				       enum hfi_packet_payload_type payload_type,
++				       void *payload, u32 payload_size, u32 tx_flags);
++#endif /* __DCP_HFI_H__ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+new file mode 100644
+index 000000000000..bf27cbf9b8a4
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+@@ -0,0 +1,1198 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP HFI core transport.
++ */
++
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/unaligned.h>
++#include <linux/slab.h>
++#include <linux/scatterlist.h>
++#include <linux/spinlock.h>
++#include <linux/virtio.h>
++#include <linux/workqueue.h>
++#include <uapi/linux/virtio_mmio.h>
++
++#include "dcp_hfi.h"
++#include "dcp_hfi_priv.h"
++#include "dcp_drv.h"
++#include "hfi/hfi_packet.h"
++#include "hfi/hfi_packer.h"
++#include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_commands_device.h"
++#include "hfi/hfi_commands_display.h"
++#include "hfi/hfi_commands_display_events.h"
++#include "hfi/hfi_defs_common.h"
++#include "hfi/hfi_defs_display.h"
++
++static void dcp_hfi_resource_vote_work(struct work_struct *work);
++static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
++
++u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
++{
++	u32 id;
++
++	id = (u32)atomic_inc_return(&hfi->packet_id);
++	if (id == 0)
++		id = (u32)atomic_inc_return(&hfi->packet_id);
++	return id;
++}
++
++#define DCP_HFI_BUF_ALLOC_RETRIES	3	/* Bound command-path stalls. */
++#define DCP_HFI_BUF_ALLOC_SLEEP_US_MIN	30000
++#define DCP_HFI_BUF_ALLOC_SLEEP_US_MAX	40000
++
++static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
++					      struct list_head *free_list,
++					       spinlock_t *lock,
++					       const char *pool_name)
++{
++	struct dcp_hfi_buf *buf = NULL;
++	unsigned long flags;
++	int retry;
++
++	if (atomic_read(&hfi->shutdown_in_progress)) {
++		dev_dbg(hfi->dev,
++			"HFI shutdown in progress — refusing %s buffer allocation\n",
++			pool_name);
++		return NULL;
++	}
++
++	for (retry = 0; retry <= DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
++		if (atomic_read(&hfi->shutdown_in_progress))
++			return NULL;
++
++		spin_lock_irqsave(lock, flags);
++		if (!list_empty(free_list)) {
++			buf = list_first_entry(free_list,
++					       struct dcp_hfi_buf, node);
++			list_del(&buf->node);
++		}
++		spin_unlock_irqrestore(lock, flags);
++
++		if (buf)
++			return buf;
++
++		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
++			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
++				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
++	}
++
++	dev_warn_ratelimited(hfi->dev,
++			     "HFI %s TX pool exhausted after %d retries — command dropped\n",
++			     pool_name, DCP_HFI_BUF_ALLOC_RETRIES);
++	return NULL;
++}
++
++static void _dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf,
++			      struct list_head *free_list, spinlock_t *lock)
++{
++	unsigned long flags;
++
++	buf->comp = NULL;
++	spin_lock_irqsave(lock, flags);
++	list_add_tail(&buf->node, free_list);
++	spin_unlock_irqrestore(lock, flags);
++}
++
++static void _dcp_hfi_buf_free_locked(struct dcp_hfi_buf *buf,
++				     struct list_head *free_list)
++{
++	buf->comp = NULL;
++	list_add_tail(&buf->node, free_list);
++}
++
++struct dcp_hfi_buf *dcp_hfi_buf_alloc(struct dcp_hfi *hfi)
++{
++	return _dcp_hfi_buf_alloc(hfi, &hfi->cmd_free_list,
++				   &hfi->cmd_lock, "cmd");
++}
++
++void dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf)
++{
++	_dcp_hfi_buf_free(hfi, buf, &hfi->cmd_free_list, &hfi->cmd_lock);
++}
++
++struct dcp_hfi_buf *dcp_hfi_buf_alloc_atomic(struct dcp_hfi *hfi)
++{
++	struct dcp_hfi_buf *buf = NULL;
++	unsigned long flags;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return NULL;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	if (!list_empty(&hfi->cmd_free_list)) {
++		buf = list_first_entry(&hfi->cmd_free_list,
++				       struct dcp_hfi_buf, node);
++		list_del(&buf->node);
++	}
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++
++	return buf;
++}
++
++/* Multi-packet headers register each response completion before submission. */
++int dcp_hfi_pending_add(struct dcp_hfi *hfi,
++			struct dcp_hfi_completion *comp)
++{
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	ret = xa_insert(&hfi->pending_xa, comp->packet_id, comp, GFP_ATOMIC);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++
++	if (ret < 0) {
++		dev_err_ratelimited(hfi->dev,
++				    "HFI pending XArray full or collision at pkt_id=%u: %d\n",
++			comp->packet_id, ret);
++		return -EBUSY;
++	}
++	return 0;
++}
++
++struct dcp_hfi_completion *dcp_hfi_pending_find(struct dcp_hfi *hfi,
++						u32 packet_id)
++{
++	unsigned long flags;
++	struct dcp_hfi_completion *comp;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	comp = xa_erase(&hfi->pending_xa, packet_id);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++	return comp;
++}
++
++static void dcp_hfi_complete_pending(struct dcp_hfi *hfi,
++				     const struct hfi_packet_info *pkt_info,
++				      int status)
++{
++	struct dcp_hfi_completion *comp;
++	size_t n;
++
++	comp = dcp_hfi_pending_find(hfi, pkt_info->packet_id);
++	if (!comp) {
++		if (!status)
++			dev_warn_ratelimited(hfi->dev,
++					     "HFI resp: SUCCESS cmd=0x%x pkt_id=%u no completion; payload dropped (size=%u)\n",
++					     pkt_info->cmd, pkt_info->packet_id,
++					     pkt_info->payload_size);
++		return;
++	}
++
++	if (!status && comp->resp_data && comp->resp_len &&
++	    pkt_info->payload_size) {
++		n = min_t(size_t, comp->resp_len, pkt_info->payload_size);
++		memcpy(comp->resp_data, pkt_info->payload_ptr, n);
++	}
++
++	comp->status = status;
++	complete(&comp->done);
++}
++
++static void dcp_hfi_cancel_pending(struct dcp_hfi *hfi, int status)
++{
++	unsigned long flags;
++	struct dcp_hfi_completion *comp;
++	unsigned long id;
++	void *entry;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	xa_for_each(&hfi->pending_xa, id, entry) {
++		comp = entry;
++		comp->status = status;
++		complete(&comp->done);
++	}
++	xa_destroy(&hfi->pending_xa);
++	xa_init(&hfi->pending_xa);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++}
++
++void dcp_hfi_cmd_callback(struct virtqueue *vq)
++{
++	struct dcp_drv *drv = vq->vdev->priv;
++	struct dcp_hfi *hfi = drv ? drv->hfi : NULL;
++
++	struct dcp_hfi_buf *buf;
++	unsigned int len;
++	unsigned long flags;
++
++	if (!hfi)
++		return;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	virtqueue_disable_cb(vq);
++	do {
++		while ((buf = virtqueue_get_buf(vq, &len)) != NULL)
++			_dcp_hfi_buf_free_locked(buf, &hfi->cmd_free_list);
++	} while (!virtqueue_enable_cb(vq));
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++}
++
++static void dcp_hfi_store_caps_payload(struct dcp_hfi *hfi,
++				       struct completion *done,
++					 u8 *dst, u32 *dst_len,
++					 const struct hfi_packet_info *pkt_info,
++					 const char *name)
++{
++	u32 n;
++
++	if (!pkt_info->payload_ptr || !pkt_info->payload_size) {
++		dev_dbg(hfi->dev, "%s: empty payload\n", name);
++		return;
++	}
++
++	if (pkt_info->payload_size > DCP_HFI_CAPS_BUF_SIZE) {
++		dev_warn(hfi->dev, "%s: payload too large: %u\n",
++			 name, pkt_info->payload_size);
++		return;
++	}
++
++	n = pkt_info->payload_size;
++	memcpy(dst, pkt_info->payload_ptr, n);
++	*dst_len = n;
++	if (done)
++		complete(done);
++	dev_dbg(hfi->dev, "%s: stored %u bytes\n", name, n);
++}
++
++/* Route asynchronous events and capability packets before flag handling. */
++static bool dcp_hfi_dispatch_event(struct dcp_hfi *hfi,
++				   const struct hfi_packet_info *pkt_info)
++{
++	switch (pkt_info->cmd) {
++	case HFI_COMMAND_DISPLAY_EVENT_VSYNC:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_START:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS: {
++		u32 intf_idx = pkt_info->id & 0xFFFF;
++		bool connected = false;
++
++		if (pkt_info->payload_ptr &&
++		    pkt_info->payload_size >=
++		    sizeof(struct hfi_display_hpd_status)) {
++			struct hfi_display_hpd_status *hpd =
++				pkt_info->payload_ptr;
++			connected = (hpd->dp_state ==
++				     HFI_DP_STATE_CONNECTED);
++		}
++		if (hfi->hotplug_cb)
++			hfi->hotplug_cb(hfi->drv, intf_idx, connected);
++		return true;
++	}
++
++	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
++		dev_err(hfi->dev,
++			"DCP: panel dead display %u\n",
++			pkt_info->id & 0xFFFF);
++		if (hfi->error_cb)
++			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 0);
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
++		dev_err(hfi->dev,
++			"DCP: HW recovery display %u\n",
++			pkt_info->id & 0xFFFF);
++		if (hfi->error_cb)
++			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 1);
++		return true;
++
++	case HFI_COMMAND_DISPLAY_POWER_CONTROL: {
++		u32 display_id = pkt_info->id & 0xFFFF;
++		u32 power_mask = 0;
++		bool enable = true;
++		unsigned long flags;
++		void *power_priv;
++		void (*power_cb)(void *priv, u32 display_id,
++				 u32 power_mask, bool enable, u32 packet_id);
++
++		if (pkt_info->payload_ptr &&
++		    pkt_info->payload_size >= 2 * sizeof(u32)) {
++			const u32 *p = pkt_info->payload_ptr;
++
++			power_mask = p[0];
++			enable     = (p[1] == HFI_TRUE);
++		}
++
++		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++		power_cb = hfi->power_control_cb;
++		power_priv = hfi->power_control_priv;
++		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++
++		if (power_cb)
++			power_cb(power_priv, display_id, power_mask, enable,
++				 pkt_info->packet_id);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache)
++			dcp_hfi_store_caps_payload(hfi, &cache->device_done,
++						   cache->device_buf, &cache->device_len,
++						   pkt_info, "DEVICE_INIT_DEVICE_CAPS");
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache)
++			dcp_hfi_store_caps_payload(hfi, &cache->display_done,
++						   cache->display_buf, &cache->display_len,
++						   pkt_info, "DEVICE_INIT_DISPLAY_CAPS");
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_VIG_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache) {
++			dcp_hfi_store_caps_payload(hfi, NULL, cache->vig_buf,
++						   &cache->vig_len, pkt_info, "VIG_CAPS");
++			cache->pipe_caps_received |= BIT(0);
++		}
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DMA_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache) {
++			dcp_hfi_store_caps_payload(hfi, NULL, cache->dma_buf,
++						   &cache->dma_len, pkt_info, "DMA_CAPS");
++			cache->pipe_caps_received |= BIT(1);
++		}
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_VIG_R1_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache) {
++			dcp_hfi_store_caps_payload(hfi, NULL, cache->vig_r1_buf,
++						   &cache->vig_r1_len, pkt_info, "VIG_R1_CAPS");
++			cache->pipe_caps_received |= BIT(2);
++		}
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DMA_R1_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache) {
++			dcp_hfi_store_caps_payload(hfi, NULL, cache->dma_r1_buf,
++						   &cache->dma_r1_len, pkt_info, "DMA_R1_CAPS");
++			cache->pipe_caps_received |= BIT(3);
++		}
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_COMMON_LAYER_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache)
++			cache->pipe_caps_received |= BIT(4);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		dev_dbg(hfi->dev,
++			"COMMON_LAYER_CAPS: received (size=%u)\n",
++			pkt_info->payload_size);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DISPLAY_WB_CAPS: {
++		struct dcp_hfi_caps_cache *cache;
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		cache = hfi->caps_cache;
++		if (cache)
++			cache->pipe_caps_received |= BIT(5);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		dev_dbg(hfi->dev,
++			"DISPLAY_WB_CAPS: received (size=%u) — all pipe caps received\n",
++			pkt_info->payload_size);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE: {
++		unsigned long vote_flags;
++		u32 payload_size = pkt_info->payload_size;
++		bool valid = pkt_info->payload_ptr && payload_size &&
++			payload_size <= DCP_HFI_RESOURCE_VOTE_BUF_SIZE &&
++			payload_size % sizeof(struct dcp_resource_vote_wire) == 0;
++
++		if (!valid) {
++			dev_warn_ratelimited(hfi->dev,
++					     "dropping malformed RESOURCE_VOTE payload size=%u max=%u\n",
++					     payload_size, DCP_HFI_RESOURCE_VOTE_BUF_SIZE);
++			payload_size = 0;
++		}
++
++		spin_lock_irqsave(&hfi->resource_vote_lock, vote_flags);
++		if (payload_size)
++			memcpy(hfi->resource_vote_buf, pkt_info->payload_ptr,
++			       payload_size);
++		hfi->resource_vote_len = payload_size;
++		hfi->resource_vote_generation++;
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, vote_flags);
++
++		if (payload_size)
++			schedule_work(&hfi->resource_vote_work);
++		return true;
++	}
++
++	default:
++		return false;
++	}
++}
++
++void dcp_hfi_resp_callback(struct virtqueue *vq)
++{
++	struct dcp_drv *drv = vq->vdev->priv;
++	struct dcp_hfi *hfi = drv ? drv->hfi : NULL;
++	struct dcp_hfi_buf *buf;
++	unsigned int len;
++	unsigned long drain_flags;
++
++	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
++		return;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
++	virtqueue_disable_cb(vq);
++	for (;;) {
++		while ((buf = virtqueue_get_buf(vq, &len)) != NULL) {
++			struct hfi_cmd_buff_hdl hdl;
++			struct hfi_header_info hdr_info;
++			struct hfi_packet_info pkt_info;
++			u32 pkt_num;
++			int rc;
++
++			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
++
++			if (unlikely(len < sizeof(struct hfi_header) ||
++				     len > DCP_HFI_BUF_SIZE)) {
++				dev_warn_ratelimited(hfi->dev,
++						     "HFI resp: short buffer len=%u (min=%zu) — skipping\n",
++					     len, sizeof(struct hfi_header));
++				goto repost;
++			}
++
++			hdl.cmd_buffer = buf->data;
++			hdl.size = (u32)len;
++			rc = hfi_unpacker_get_header_info(&hdl, &hdr_info);
++			if (rc) {
++				dev_warn_ratelimited(hfi->dev,
++						     "HFI resp: invalid header (rc=%d) len=%u\n",
++					     rc, len);
++				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
++					       DUMP_PREFIX_OFFSET, 16, 4,
++					       buf->data, min_t(u32, len, 64), false);
++				goto repost;
++			}
++
++			for (pkt_num = 1; pkt_num <= hdr_info.num_packets; pkt_num++) {
++				memset(&pkt_info, 0, sizeof(pkt_info));
++				rc = hfi_unpacker_get_packet_info(&hdl, pkt_num,
++								  &pkt_info);
++				if (rc) {
++					dev_warn_ratelimited(hfi->dev,
++							     "HFI resp: bad pkt %u (rc=%d)\n",
++							     pkt_num, rc);
++					break;
++				}
++
++				dev_dbg(hfi->dev,
++					"HFI resp: cmd=0x%x flags=0x%x pkt_id=%u id=%u payload_size=%u\n",
++					pkt_info.cmd, pkt_info.flags, pkt_info.packet_id,
++					pkt_info.id, pkt_info.payload_size);
++
++				if (pkt_info.flags & HFI_RX_FLAGS_SYSTEM_ERROR) {
++					dev_err(hfi->dev,
++						"HFI system error: cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
++				} else if (pkt_info.flags & HFI_RX_FLAGS_DEVICE_ERROR) {
++					dev_err(hfi->dev,
++						"HFI error: cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
++				} else if (dcp_hfi_dispatch_event(hfi, &pkt_info)) {
++					/* Event dispatch runs before flag handling. */
++				} else if (pkt_info.flags & HFI_RX_FLAGS_SUCCESS) {
++					if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION)
++						dev_dbg(hfi->dev,
++							"HFI info with success: cmd=0x%x pkt_id=%u\n",
++							pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, 0);
++				} else if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION) {
++					dev_dbg(hfi->dev,
++						"HFI info with cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, 0);
++				} else {
++					dev_dbg_ratelimited(hfi->dev,
++							    "HFI resp: unhandled cmd=0x%x flags=0x%x pkt_id=%u\n",
++							    pkt_info.cmd, pkt_info.flags,
++							    pkt_info.packet_id);
++				}
++			}
++
++repost:
++			spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
++			dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++			if (virtqueue_add_inbuf_premapped(vq, &buf->sg, 1, buf,
++							  NULL, GFP_ATOMIC)) {
++				list_add_tail(&buf->node, &hfi->resp_repost_list);
++				schedule_delayed_work(&hfi->resp_repost_work,
++						      msecs_to_jiffies(20));
++			}
++		}
++
++		if (virtqueue_kick_prepare(vq))
++			virtqueue_notify(vq);
++		if (virtqueue_enable_cb(vq))
++			break;
++	}
++
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
++}
++
++int dcp_hfi_send_cmd_async(struct dcp_hfi *hfi,
++			   struct dcp_hfi_buf *buf,
++			     size_t cmd_len,
++			     struct dcp_hfi_completion *comp)
++{
++	unsigned long flags;
++	int ret;
++
++	buf->comp = comp;
++	dcp_hfi_buf_init_sg(buf, cmd_len);
++
++	/* Serialize shutdown with both queue submission and notification. */
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	if (atomic_read(&hfi->shutdown_in_progress)) {
++		spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++		dcp_hfi_buf_free(hfi, buf);
++		return -ENODEV;
++	}
++
++	if (comp) {
++		ret = dcp_hfi_pending_add(hfi, comp);
++		if (ret) {
++			spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++			dcp_hfi_buf_free(hfi, buf);
++			return ret;
++		}
++	}
++
++	ret = virtqueue_add_outbuf_premapped(hfi->cmd_vq, &buf->sg, 1, buf,
++					     GFP_ATOMIC);
++	if (ret) {
++		if (comp)
++			dcp_hfi_pending_find(hfi, comp->packet_id);
++		spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++		dcp_hfi_buf_free(hfi, buf);
++		dev_err(hfi->dev, "virtqueue_add_outbuf failed: %d\n", ret);
++		return ret;
++	}
++
++	virtqueue_kick(hfi->cmd_vq);
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++	return 0;
++}
++
++static const char *dcp_hfi_cmd_buff_type_name(enum hfi_cmd_buff_type cmd_type)
++{
++	switch (cmd_type) {
++	case HFI_CMD_BUFF_SYSTEM:         return "SYSTEM";
++	case HFI_CMD_BUFF_DEVICE:         return "DEVICE";
++	case HFI_CMD_BUFF_DISPLAY:        return "DISPLAY";
++	case HFI_CMD_BUFF_DEBUG:          return "DEBUG";
++	case HFI_CMD_BUFF_VIRTUALIZATION: return "VIRT";
++	default:                          return "UNKNOWN";
++	}
++}
++
++static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
++				   struct virtqueue *vq __maybe_unused,
++				    u32 cmd,
++				    enum hfi_cmd_buff_type cmd_type,
++				    u32 object_id,
++				    enum hfi_packet_payload_type payload_type,
++				    void *payload,
++				    u32 payload_size,
++				    u32 tx_flags,
++				    void *resp_data,
++				    size_t resp_len,
++				    unsigned int timeout_ms)
++{
++	struct dcp_hfi_buf *buf;
++	struct dcp_hfi_completion comp;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	u32 packet_id;
++	unsigned long flags;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc(hfi);
++	if (!buf) {
++		dev_err(hfi->dev, "HFI TX buffer pool exhausted (cmd=0x%x)\n",
++			cmd);
++		return -ENOMEM;
++	}
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	packet_id = dcp_hfi_next_packet_id(hfi);
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = packet_id;
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	init_completion(&comp.done);
++	comp.resp_data = resp_data;
++	comp.resp_len  = resp_len;
++	comp.status    = 0;
++	comp.packet_id = packet_id;
++
++	dev_dbg(hfi->dev,
++		"HFI send cmd=0x%x type=%s obj=%u pkt=%u payload=%u timeout=%ums\n",
++		 cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
++		 packet_id, payload_size, timeout_ms);
++
++	ret = dcp_hfi_send_cmd_async(hfi, buf,
++				     hfi_get_header_size(&hdl), &comp);
++	if (ret)
++		return ret;
++
++	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_ms))) {
++		dev_err(hfi->dev,
++			"HFI cmd=0x%x buf_type=%s object_id=%u timed out after %ums (pkt_id=%u)\n",
++			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
++			timeout_ms, packet_id);
++		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++		dcp_hfi_pending_find(hfi, packet_id);
++		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++		return -ETIMEDOUT;
++	}
++
++	return comp.status;
++}
++
++int dcp_hfi_send_sync(struct dcp_hfi *hfi,
++		      u32 cmd,
++		       enum hfi_cmd_buff_type cmd_type,
++		       u32 object_id,
++		       enum hfi_packet_payload_type payload_type,
++		       void *payload,
++		       u32 payload_size,
++		       u32 tx_flags,
++		       void *resp_data,
++		       size_t resp_len,
++		       unsigned int timeout_ms)
++{
++	int ret;
++
++	ret = dcp_hfi_send_sync_on_vq(hfi, NULL,
++				      cmd, cmd_type, object_id,
++				       payload_type, payload, payload_size,
++				       tx_flags, resp_data, resp_len,
++				       timeout_ms);
++	if (ret)
++		dev_err(hfi->dev, "HFI command 0x%x failed: %d\n", cmd, ret);
++
++	return ret;
++}
++
++int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi,
++			       u32 cmd,
++				 enum hfi_cmd_buff_type cmd_type,
++				 u32 object_id,
++				 enum hfi_packet_payload_type payload_type,
++				 void *payload,
++				 u32 payload_size,
++				 u32 tx_flags)
++{
++	struct dcp_hfi_buf *buf;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc(hfi);
++	if (!buf) {
++		dev_warn_ratelimited(hfi->dev,
++				     "HFI TX pool exhausted (no-wait cmd=0x%x)\n", cmd);
++		return -ENOMEM;
++	}
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = dcp_hfi_next_packet_id(hfi);
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	ret = dcp_hfi_send_cmd_async(hfi, buf,
++				     hfi_get_header_size(&hdl), NULL);
++	if (ret)
++		dev_warn(hfi->dev,
++			 "HFI send (no-wait) cmd=0x%x pkt_id=%u failed: %d\n",
++			 cmd, pkt_info.packet_id, ret);
++
++	return ret;
++}
++
++int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi,
++				      u32 cmd,
++				       enum hfi_cmd_buff_type cmd_type,
++				       u32 object_id,
++				       enum hfi_packet_payload_type payload_type,
++				       void *payload,
++				       u32 payload_size,
++				       u32 tx_flags)
++{
++	struct dcp_hfi_buf *buf;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc_atomic(hfi);
++	if (!buf)
++		return -ENOMEM;
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret)
++		goto free_buf;
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = dcp_hfi_next_packet_id(hfi);
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++	if (ret)
++		goto free_buf;
++
++	return dcp_hfi_send_cmd_async(hfi, buf,
++				      hfi_get_header_size(&hdl), NULL);
++
++free_buf:
++	dcp_hfi_buf_free(hfi, buf);
++	return ret;
++}
++
++int dcp_hfi_send_no_wait(struct dcp_hfi *hfi,
++			 u32 cmd,
++			   enum hfi_cmd_buff_type cmd_type,
++			   u32 object_id,
++			   enum hfi_packet_payload_type payload_type,
++			   void *payload,
++			   u32 payload_size)
++{
++	return dcp_hfi_send_no_wait_flags(hfi, cmd, cmd_type, object_id,
++			payload_type, payload, payload_size, HFI_TX_FLAGS_NONE);
++}
++
++static void dcp_hfi_resource_vote_work(struct work_struct *work)
++{
++	struct dcp_hfi *hfi = container_of(work, struct dcp_hfi,
++					     resource_vote_work);
++	u8 buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
++	struct dcp_resource_vote_pair pairs[DCP_HFI_RESOURCE_VOTE_BUF_SIZE /
++							 sizeof(struct dcp_resource_vote_wire)];
++	const struct dcp_resource_vote_wire *wire;
++	u32 len, generation, count, i;
++	bool dirty;
++	unsigned long flags;
++
++	do {
++		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
++		len = hfi->resource_vote_len;
++		generation = hfi->resource_vote_generation;
++		if (len)
++			memcpy(buf, hfi->resource_vote_buf, len);
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
++
++		if (!len || !hfi->resource_vote_cb)
++			return;
++		if (len % sizeof(struct dcp_resource_vote_wire)) {
++			dev_warn_ratelimited(hfi->dev,
++					     "dropping malformed RESOURCE_VOTE size=%u\n", len);
++			return;
++		}
++		count = len / sizeof(struct dcp_resource_vote_wire);
++		wire = (const struct dcp_resource_vote_wire *)buf;
++		for (i = 0; i < count; i++) {
++			pairs[i].key = le32_to_cpu(wire[i].key);
++			pairs[i].value = get_unaligned_le64(&wire[i].value);
++		}
++
++		hfi->resource_vote_cb(hfi->drv, pairs, count);
++		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
++		dirty = generation != hfi->resource_vote_generation;
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
++	} while (dirty);
++}
++
++static void dcp_hfi_free_pool(struct dcp_hfi *hfi, struct dcp_hfi_buf *pool,
++			      u32 count)
++{
++	u32 i;
++
++	if (!pool)
++		return;
++
++	for (i = 0; i < count; i++) {
++		if (!pool[i].data)
++			continue;
++
++		dma_free_coherent(hfi->dma_dev, DCP_HFI_BUF_SIZE,
++				  pool[i].data, pool[i].dma_addr);
++		pool[i].data = NULL;
++	}
++}
++
++static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi)
++{
++	int i, ret;
++
++	for (i = 0; i < DCP_HFI_RESP_POOL_SIZE; i++) {
++		struct dcp_hfi_buf *buf = &hfi->resp_pool[i];
++
++		dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++
++		ret = virtqueue_add_inbuf_premapped(hfi->resp_vq, &buf->sg, 1,
++						    buf, NULL, GFP_KERNEL);
++		if (ret) {
++			dev_warn(hfi->dev,
++				 "resp_vq full at buf %d/%d: %d\n",
++				 i, DCP_HFI_RESP_POOL_SIZE, ret);
++			break;
++		}
++	}
++	return ret;
++}
++
++static void dcp_hfi_resp_repost_work(struct work_struct *work)
++{
++	struct dcp_hfi *hfi = container_of(to_delayed_work(work), struct dcp_hfi,
++					      resp_repost_work);
++	struct dcp_hfi_buf *buf, *tmp;
++	unsigned long flags;
++	bool retry = false;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return;
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	list_for_each_entry_safe(buf, tmp, &hfi->resp_repost_list, node) {
++		dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++		if (virtqueue_add_inbuf_premapped(hfi->resp_vq, &buf->sg, 1,
++						  buf, NULL, GFP_ATOMIC)) {
++			retry = true;
++			break;
++		}
++		list_del_init(&buf->node);
++	}
++	if (virtqueue_kick_prepare(hfi->resp_vq))
++		virtqueue_notify(hfi->resp_vq);
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++	if (retry && !atomic_read(&hfi->shutdown_in_progress))
++		schedule_delayed_work(&hfi->resp_repost_work, msecs_to_jiffies(20));
++}
++
++int dcp_hfi_init(struct dcp_drv *drv,
++		 struct virtio_device *vdev,
++		  struct virtqueue *cmd_vq,
++		  struct virtqueue *resp_vq,
++		  struct device *dma_dev)
++{
++	struct dcp_hfi *hfi;
++	int i, ret;
++
++	hfi = devm_kzalloc(&vdev->dev, sizeof(*hfi), GFP_KERNEL);
++	if (!hfi)
++		return -ENOMEM;
++
++	hfi->dev     = &vdev->dev;
++	hfi->drv     = drv;
++	hfi->cmd_vq  = cmd_vq;
++	hfi->resp_vq = resp_vq;
++	hfi->dma_dev = dma_dev;
++
++	spin_lock_init(&hfi->cmd_lock);
++	spin_lock_init(&hfi->pending_lock);
++	spin_lock_init(&hfi->resource_vote_lock);
++	spin_lock_init(&hfi->resp_drain_lock);
++	spin_lock_init(&hfi->caps_lock);
++	mutex_init(&hfi->caps_cache_lock);
++
++	atomic_set(&hfi->packet_id, 0);
++	atomic_set(&hfi->shutdown_in_progress, 0);
++
++	INIT_LIST_HEAD(&hfi->cmd_free_list);
++
++	xa_init(&hfi->pending_xa);
++
++	INIT_WORK(&hfi->resource_vote_work, dcp_hfi_resource_vote_work);
++	INIT_DELAYED_WORK(&hfi->resp_repost_work, dcp_hfi_resp_repost_work);
++	INIT_LIST_HEAD(&hfi->resp_repost_list);
++	hfi->resource_vote_len = 0;
++	hfi->resource_vote_generation = 0;
++
++	hfi->cmd_pool = devm_kcalloc(hfi->dev, DCP_HFI_CMD_POOL_SIZE,
++				     sizeof(*hfi->cmd_pool), GFP_KERNEL);
++	if (!hfi->cmd_pool)
++		return -ENOMEM;
++
++	hfi->resp_pool = devm_kcalloc(hfi->dev, DCP_HFI_RESP_POOL_SIZE,
++				      sizeof(*hfi->resp_pool), GFP_KERNEL);
++	if (!hfi->resp_pool)
++		return -ENOMEM;
++
++	hfi->caps_cache = NULL;
++	for (i = 0; i < DCP_HFI_CMD_POOL_SIZE; i++) {
++		hfi->cmd_pool[i].data = dma_alloc_coherent(hfi->dma_dev,
++							   DCP_HFI_BUF_SIZE,
++							 &hfi->cmd_pool[i].dma_addr,
++							 GFP_KERNEL);
++		if (!hfi->cmd_pool[i].data) {
++			ret = -ENOMEM;
++			goto err;
++		}
++		hfi->cmd_pool[i].size = DCP_HFI_BUF_SIZE;
++		list_add_tail(&hfi->cmd_pool[i].node, &hfi->cmd_free_list);
++	}
++
++	for (i = 0; i < DCP_HFI_RESP_POOL_SIZE; i++) {
++		hfi->resp_pool[i].data =
++			dma_alloc_coherent(hfi->dma_dev, DCP_HFI_BUF_SIZE,
++					   &hfi->resp_pool[i].dma_addr, GFP_KERNEL);
++		if (!hfi->resp_pool[i].data) {
++			ret = -ENOMEM;
++			goto err;
++		}
++		hfi->resp_pool[i].size = DCP_HFI_BUF_SIZE;
++		INIT_LIST_HEAD(&hfi->resp_pool[i].node);
++	}
++
++	ret = dcp_hfi_prepost_resp_bufs(hfi);
++	if (ret)
++		goto err;
++
++	drv->hfi = hfi;
++	dev_dbg(hfi->dev,
++		"HFI core initialized: cmd_vq=%p resp_vq=%p\n",
++		cmd_vq, resp_vq);
++	return 0;
++
++err:
++	atomic_set(&hfi->shutdown_in_progress, 1);
++	cancel_work_sync(&hfi->resource_vote_work);
++	cancel_delayed_work_sync(&hfi->resp_repost_work);
++	while (virtqueue_detach_unused_buf(hfi->cmd_vq))
++		;
++	while (virtqueue_detach_unused_buf(hfi->resp_vq))
++		;
++	xa_destroy(&hfi->pending_xa);
++
++	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
++	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
++	return ret;
++}
++
++void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
++				  void (*cb)(void *priv, u32 display_id,
++					     u32 power_mask, bool enable,
++					     u32 packet_id))
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	hfi->power_control_priv = priv;
++	hfi->power_control_cb = cb;
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++}
++
++void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	if (hfi->power_control_priv == priv) {
++		hfi->power_control_priv = NULL;
++		hfi->power_control_cb = NULL;
++	}
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++}
++
++void dcp_hfi_stop(struct dcp_hfi *hfi)
++{
++	unsigned long flags;
++
++	if (!hfi)
++		return;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	atomic_set(&hfi->shutdown_in_progress, 1);
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++
++	cancel_work_sync(&hfi->resource_vote_work);
++	cancel_delayed_work_sync(&hfi->resp_repost_work);
++	dcp_hfi_cancel_pending(hfi, -ENODEV);
++}
++
++void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
++{
++	unsigned long flags;
++
++	if (!hfi)
++		return;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	if (hfi->cmd_vq)
++		virtqueue_disable_cb(hfi->cmd_vq);
++	if (hfi->resp_vq)
++		virtqueue_disable_cb(hfi->resp_vq);
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++
++	if (hfi->cmd_vq)
++		while (virtqueue_detach_unused_buf(hfi->cmd_vq))
++			;
++	if (hfi->resp_vq)
++		while (virtqueue_detach_unused_buf(hfi->resp_vq))
++			;
++}
++
++void dcp_hfi_deinit(struct dcp_hfi *hfi)
++{
++	struct dcp_hfi_caps_cache *cache;
++	unsigned long flags;
++
++	if (!hfi)
++		return;
++
++	dcp_hfi_stop(hfi);
++
++	mutex_lock(&hfi->caps_cache_lock);
++	spin_lock_irqsave(&hfi->caps_lock, flags);
++	cache = hfi->caps_cache;
++	hfi->caps_cache = NULL;
++	spin_unlock_irqrestore(&hfi->caps_lock, flags);
++	kfree(cache);
++	mutex_unlock(&hfi->caps_cache_lock);
++
++	xa_destroy(&hfi->pending_xa);
++
++	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
++	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
++}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h b/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h
+new file mode 100644
+index 000000000000..4f7d0ff3d9f5
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h
+@@ -0,0 +1,74 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Private HFI helpers; external users should include dcp_hfi.h.
++ */
++
++#ifndef __DCP_HFI_PRIV_H__
++#define __DCP_HFI_PRIV_H__
++
++#include "dcp_hfi.h"
++
++#define DCP_HFI_CMD_POOL_SIZE					64
++#define DCP_HFI_RESP_POOL_SIZE					64
++#define DCP_HFI_BUF_SIZE						4096
++#define DCP_HFI_CAPS_BUF_SIZE					DCP_HFI_BUF_SIZE
++
++#define DCP_HFI_TIMEOUT_INIT_MS					2000
++#define DCP_HFI_TIMEOUT_RESOURCE_REGISTER_MS	5000
++#define DCP_HFI_TIMEOUT_CAPS_MS					1000
++#define DCP_HFI_TIMEOUT_DISPLAY_MS				1000
++#define DCP_HFI_TIMEOUT_MODE_MS					3000
++#define DCP_HFI_TIMEOUT_COMMIT_MS				2000
++#define DCP_HFI_TIMEOUT_DISPLAY_DCS_MS			10000
++
++struct dcp_hfi_caps_cache {
++	struct completion device_done;
++	struct completion display_done;
++
++	u8 device_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 device_len;
++
++	u8 display_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 display_len;
++
++	u8 vig_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 vig_len;
++
++	u8 dma_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 dma_len;
++
++	u8 vig_r1_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 vig_r1_len;
++
++	u8 dma_r1_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 dma_r1_len;
++
++	u32 pipe_caps_received;
++};
++
++struct dcp_hfi_buf *dcp_hfi_buf_alloc(struct dcp_hfi *hfi);
++struct dcp_hfi_buf *dcp_hfi_buf_alloc_atomic(struct dcp_hfi *hfi);
++void dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf);
++
++static inline void dcp_hfi_buf_init_sg(struct dcp_hfi_buf *buf, size_t len)
++{
++	sg_init_table(&buf->sg, 1);
++	sg_dma_address(&buf->sg) = buf->dma_addr;
++	sg_dma_len(&buf->sg) = len;
++}
++
++u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi);
++
++int dcp_hfi_send_cmd_async(struct dcp_hfi *hfi,
++			   struct dcp_hfi_buf *buf,
++			     size_t cmd_len,
++			     struct dcp_hfi_completion *comp);
++
++int dcp_hfi_pending_add(struct dcp_hfi *hfi, struct dcp_hfi_completion *comp);
++
++struct dcp_hfi_completion *dcp_hfi_pending_find(struct dcp_hfi *hfi,
++						u32 packet_id);
++
++#endif /* __DCP_HFI_PRIV_H__ */
 
 -- 
 2.43.0
