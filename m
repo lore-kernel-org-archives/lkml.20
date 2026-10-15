@@ -1,78 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DEC522F0C;
-	Thu, 15 Oct 2026 15:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C758D3E008F
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078255; cv=none; b=qn7A3afwWyaRt8fd1zBf9PUAvkipSdTyRrGJrDOHbqZtZ7wv0M5DBPVLl0M8Dje+Oj3f32N+FP2qB80Y4vAE4FSM5qbP3arDkANGEQEEDoq7/XWRmQ+teSZBGJHagKCuFPAiLRtqSAakh85WpaIIbOK570FzWeD87Pp9IYO/nOs=
+	t=1792078261; cv=none; b=bnTm1M1BHsjsYAR18gcaywH4Jt01DuA2/YxFoSuoOelkSq9KOC65WzMW8DQklEhWb0r2sB6zIeuZD9fpvTDGppPkA9wxGsT3zFPTSY8t0wf/04bzDGqzztZYfHc2JBgVAcL/VkceFdfS8DKYC7S+XlAa60YDG5J6E8COvkCOuGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078255; c=relaxed/simple;
-	bh=kmUlqeMV2/Ot0mbVmwfQrxAxb63qLSZqwxnDQ0wOQcY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=JjZ+zjPgalJi2cj8fATaOtgC6+QDsrUg2dcqJNlT7C3Lc/Gzf4qsBCcaD2OKkPmmpZa8AM0mz+7K8RttMMp4NhdP/uvv1I/emFKsmGL1tWN5p/jR+dq4huP1Z8LxclonlD1hN1ItGaTK2RzxSFfoUg/aXopmh85wDX0GAmXfz6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmUEFFI6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792078261; c=relaxed/simple;
+	bh=2yWri+1wXQrRPEy5ZKZnqhA5e1wWBSIZ6Uevifgk4uQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u7pTYyyW5lw3SsKfk1MJSIrtfti2rygKpO01O49LsJ/GOiLeZB5r0AVQk20m+IaXdx+s9Av/6aKRZaxsN6bRiB2zF0aKc0hOGOTOPbpw2V3WuCguPgBbglPlGV2A2M2k1lya6g2/7J0q62zI0iGdynFhHGevFRxcaWsQqKg+vqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RfnQHDOq; arc=none smtp.client-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmUEFFI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBB81F000C4;
-	Thu, 15 Oct 2026 15:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792078248;
-	bh=8PJTcaF/y8xSIxfiP8CpjR6gqiEkMX8vIMz6UcO+m3c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZmUEFFI6H9xgE0EnwoHZr2TpvKTIdQwAwkXGFGWZPJwueCY5bQxEYTIDS7kC0EXpS
-	 GatdHF9Jt5+P5nCfxKaMXlgRrQq6teg2yjWIptVE/dSnBaKeZRtU5yiHpdQLkLqWqw
-	 9Q4XyFvWIwRMi89fl9MmlQTZW/3WnWGV4jdgV4YMqBcwXKSkdrXe3Bk+f8P4euXoWV
-	 gDmKZApzBIXOcf4PmNZXZ8m2+YfN0Hw9mQvkRlcuEIsLQdytqGPnFI7cq68KkVQW+5
-	 D/v3PvF9T7ZA/nB1pITaRWKpc2iXwrjkNKXbk/28lfWRKHSuAVkR/rQ25PSFwVoeqy
-	 Tvi4vvkStoIpQ==
-From: Lee Jones <lee@kernel.org>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- =?utf-8?q?=D0=96=D0=B0=D0=BC=D0=B1=D0=B0=D0=BA=D0=B8=D0=B5=D0=B2_=D0=A0=D0=B0=D0=B4=D0=B8=D0=B9_=D0=A0=D0=B8=D0=BA=D0=B0=D1=80=D0=B4=D0=B8=D0=BD=D0=BE=D0=B2=D0=B8=D1=87?= <r.zhambakiev@prosoftsystems.ru>
-Cc: Andreas Kemnade <andreas@kemnade.info>, 
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Lee Jones <lee@kernel.org>, 
- Grygorii Strashko <grygorii.strashko@ti.com>, 
- Marcin Niestroj <m.niestroj@grinn-global.com>, linux-omap@vger.kernel.org, 
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org
-In-Reply-To: <20261002113624.178588-1-r.zhambakiev@prosoftsystems.ru>
-References: <20261002113624.178588-1-r.zhambakiev@prosoftsystems.ru>
-Subject: Re: [PATCH v5 0/3] mfd: tps65217: Handle IRQ initialization errors
-Message-Id: <179207824598.2059305.6769856473362990890.b4-ty@b4>
-Date: Thu, 15 Oct 2026 16:30:45 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RfnQHDOq"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2yWri+1wXQrRPEy5ZKZnqhA5e1wWBSIZ6Uevifgk4uQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792078252; v=1; x=1792683052;
+ b=RfnQHDOqDmJB+GpayIq10f1Wn1MCclKpVvggouQiaxId5xVpHDY2ibrnzDbpibrju6juc5Oj
+ XdKUtJAX784cdrN4M8Fz7UjnP+S2sR3IkE7BqjHt1U5MXFMdaIxF85cb+W+5Z8c7I8/178hJmbA
+ bO8TI9ddkjt61OMWrVdSZLEE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e3960b5cc32e181e;
+	Thu, 15 Oct 2026 15:30:42 +0000
+X-Mizu-Trace-ID: e3960b5cc32e181e
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: arm64: Only enable S1PIE and S1POE for a guest with TCR2 and ATS1A
+Date: Thu, 15 Oct 2026 16:30:41 +0100
+Message-Id: <20261015153041.3770032-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Fri, 02 Oct 2026 11:36:49 +0000, Жамбакиев Радий Рикардинович wrote:
-> From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-> 
-> The TPS65217 MFD driver does not validate the outcome of IRQ
-> initialisation and failed write of the interrupt mask leaves
-> the software mask out of sync with the hardware.
-> 
-> On top of that the irq_domain is torn down in the wrong order: the
-> remove callback disposes the mappings and removes the domain before
-> the MFD children are unbound.
-> 
-> [...]
+The world switch skips PIR_EL1, PIRE0_EL1 and POR_EL1 for a guest
+without TCR2, but KVM doesn't trap them for a guest with S1PIE or
+S1POE. Userspace can hide TCR2 while leaving either visible, and such a
+guest then accesses registers that are neither trapped nor switched.
 
-Applied, thanks!
+Under VHE, that leaks values between guests. POR_EL1, which the host
+kernel doesn't use, leaks between guests in every mode. On nVHE and
+hVHE, pKVM included, the host's own EL1 registers are saved and restored
+according to the running guest's features, so the host kernel resumes
+with its stage-1 permissions taken from the guest's PIR_EL1 and
+PIRE0_EL1.
 
-[1/3] mfd: tps65217: Fix NULL pointer dereference on IRQ init failure
-      commit: 0473a5b0663663b75573bf284beb77459e07c461
-[2/3] mfd: tps65217: Check return value when masking interrupt sources
-      commit: 66ed12c1e5a986bee1dc63f9bd9c7f068138a69a
-[3/3] mfd: tps65217: Use devres for IRQ domain and wake teardown
-      commit: cffd44d2d89524e2dda6adc7b0dd59363be1c8e6
+As per the architecture, S1PIE and S1POE imply TCR2 and ATS1A. Only
+enable them for a guest that has both. A guest that has S1PIE or S1POE
+without TCR2 or ATS1A still sees the feature in its ID registers, but
+its accesses to that feature's registers UNDEF.
 
---
-Lee Jones [李琼斯]
+Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
+Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+Reported-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
+Suggested-by: Marc Zyngier <maz@kernel.org>
+Link: https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+I'm sending this on its own because it affects the host on nVHE and in
+pKVM, so that it can go to kvmarm/fixes and stable rather than land
+with the GCS series. It's the data-driven fix Marc asked for on Mark's
+v21 02/15 [1].
+
+Following Mark's point on Lorenzo's draft [2], only feat_s1pie() and
+feat_s1poe() test TCR2 and ATS1A, so kvm_has_s1pie() and the world
+switch are unchanged. I've left the guest's ID registers alone, since
+updating them is the larger rework Mark described.
+
+I've got a reproducer showing the host's PIR_EL1 overwritten on nVHE
+and in pKVM, and can share it privately.
+
+Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm/fixes
+71cc2c67fb8f8).
+
+[1] https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
+[2] https://lore.kernel.org/r/ae24e80c-1b34-4827-9c93-e80b987e9cd7@sirena.org.uk
+
+ arch/arm64/kvm/config.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 1053676551aff..5e5277c721d52 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -280,6 +280,21 @@ static bool feat_anerr(struct kvm *kvm)
+ 		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
+ }
+ 
++/* S1PIE and S1POE imply TCR2 and ATS1A, but userspace can set them independently */
++static bool feat_s1pie(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A));
++}
++
++static bool feat_s1poe(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1POE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A));
++}
++
+ static bool feat_sme_smps(struct kvm *kvm)
+ {
+ 	/*
+@@ -393,10 +408,10 @@ static const struct reg_bits_to_feat_map hfgrtr_feat_map[] = {
+ 	NEEDS_FEAT(HFGRTR_EL2_nS2POR_EL1, FEAT_S2POE),
+ 	NEEDS_FEAT(HFGRTR_EL2_nPOR_EL1		|
+ 		   HFGRTR_EL2_nPOR_EL0,
+-		   FEAT_S1POE),
++		   feat_s1poe),
+ 	NEEDS_FEAT(HFGRTR_EL2_nPIR_EL1		|
+ 		   HFGRTR_EL2_nPIRE0_EL1,
+-		   FEAT_S1PIE),
++		   feat_s1pie),
+ 	NEEDS_FEAT(HFGRTR_EL2_nRCWMASK_EL1, FEAT_THE),
+ 	NEEDS_FEAT(HFGRTR_EL2_nTPIDR2_EL0	|
+ 		   HFGRTR_EL2_nSMPRI_EL1,
+@@ -474,10 +489,10 @@ static const struct reg_bits_to_feat_map hfgwtr_feat_map[] = {
+ 	NEEDS_FEAT(HFGWTR_EL2_nS2POR_EL1, FEAT_S2POE),
+ 	NEEDS_FEAT(HFGWTR_EL2_nPOR_EL1		|
+ 		   HFGWTR_EL2_nPOR_EL0,
+-		   FEAT_S1POE),
++		   feat_s1poe),
+ 	NEEDS_FEAT(HFGWTR_EL2_nPIR_EL1		|
+ 		   HFGWTR_EL2_nPIRE0_EL1,
+-		   FEAT_S1PIE),
++		   feat_s1pie),
+ 	NEEDS_FEAT(HFGWTR_EL2_nRCWMASK_EL1, FEAT_THE),
+ 	NEEDS_FEAT(HFGWTR_EL2_nTPIDR2_EL0	|
+ 		   HFGWTR_EL2_nSMPRI_EL1,
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.39.5
 
