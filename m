@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AB951992F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9122151C041;
+	Thu, 15 Oct 2026 13:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071245; cv=none; b=FiNH4W9A2l7yXx+kTh5B1SZxPPVfKQfIJmkVnXxGdr171KQJopjZO1dio/EZD2FhGI2NvWIbRjYzC26oAKYJpym0IfL9V6pt70Eh0pTAkE8h9Eln+u60XeSGjdThkCEgSjuTT30brFsPDY19PeC3bYGG0z9pMf3x45NpUPTVYYo=
+	t=1792071246; cv=none; b=PwuQAoiPgvVZ7ZmTmXs+4vPOJQvae3bWbJqLbFpz+iG0bZ8SU0KluH1RTb6n+Gs6TvREAdLFdZTeElzI+vUq9nnuRGJ5O7zwJNmkeo2lybEjN4OrBgKq2Fbj1if4rgmxhYM5m2aFfHp0YL0vpqc4IGObvqMEiegrtI0Jp1d2aeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071245; c=relaxed/simple;
-	bh=H22pMAj5FiNys53DaMXak/U2WiYZOBUZfF77Z+pPOwQ=;
+	s=arc-20240116; t=1792071246; c=relaxed/simple;
+	bh=drS7zsdGw2WWlaWiu5L3fnnDpFWSiGUs1fkBK6l6rEo=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=kcRTj0/8QexEh24eHi7OJ2GCrPOwSWJZHhgr9NLNMgseMzNlnTiC1noumgPlWIk/uVGg67MwP5LWDtmxv7dDLiHLww4aaUA2IAmVRTs1MqpOTiHQPXCzeiv2SSEZIoP9la2/NInSyWCZBbln2dz+AWSZb56kmkPRSA/xxKGZGDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4hhOEki; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=sWw8QBn6bYIlAb25bZudQqnNOaFGe87j6wCzx2O1wW86p+uzf2bDWYZStalCUdpkV9BM3SexCFV2T0mu1C7hD4S7Y8LYynSRSFUIqJ3QdTFX1LgtQXtEHF55tkJ4ptLrA7CqTBsLfuVcmDKmcQflexAcXwPJa7x2pfateJL3XQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z694581x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4hhOEki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41A361F000CA;
-	Thu, 15 Oct 2026 13:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z694581x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCCD81F000C9;
+	Thu, 15 Oct 2026 13:34:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071244;
-	bh=ANtwYDA0L5TyVSz9dXD3XljmTUB/zboBLunCtqBHSeE=;
+	s=k20260515; t=1792071243;
+	bh=32QJgRy7rPJA7+pGtfEQaWGLVab8kd6GII/J6YwBJJU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=B4hhOEkia0kxyc8l/NT5qkh7LH9St9QnzEIp7gFUv5/HnNBaS5hhAl98rbz0aHeBj
-	 VUk7mdBAekdK2vu4frh8mwo7s311sQxuUcvuNEbGupq3PT6s16fgsMVkI58nlxEXl0
-	 rqP0x8FumrYPh4WVYa1HXk7D98C20sNOvngx8kPGGUThophbvGpFwdc1rpIEXFW7Hq
-	 ewO1i672DD+V6o/ulN1dJHwXxmL09ONv5bJW3J3PHLaD3GbECJ5g+jovq3lHbRtbif
-	 HxA3jCNzJhFW61NcovtFIikKcyTivRo01KGJooCJ4uL/8sY56qft/n3wde6mshg5eY
-	 kCjM/NlFnC4dA==
+	b=Z694581x2wOuprYb279YQ2uhU24/WmqWherD4/tEMPxM9+uH27tz3ieolUxTl852v
+	 qOOoom7Af7yOg877hN3JC68LycTCP+t791Omb4urV4SkkeoLxY+7beQFXexByLT9+S
+	 xbuI1qwpsrfTP2q1TM2J6h1KQivw+dXiY+9Wjlx4of4x29TDFx1l9Nel/SIrVhLEKN
+	 i4zwy6AhVza5n4wmXuZHVD1RY83WaQ8YMOpExQEsUuM32bS5Z6TNQmiuNpXVwZE//V
+	 APhZevK3Ad3cYuEyrkOCClM4MHGVrbbvcZNFQCK4pY6+JG83reIvRrI2TWnwjuDLWj
+	 ScZV63E3ov4GQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHLat-00000000MdI-2Ky1;
+	id 1xHLat-00000000McA-0ZYw;
 	Thu, 15 Oct 2026 09:34:03 -0400
-Message-ID: <20261015133403.364511757@kernel.org>
+Message-ID: <20261015133402.944192115@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 15 Oct 2026 09:33:17 -0400
+Date: Thu, 15 Oct 2026 09:33:15 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>,
+ stable@vger.kernel.org,
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
  Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 07/16] tracing: Fix simple_ring_buffer undef check on parisc
+Subject: [for-linus][PATCH 05/16] ring-buffer: Fix the sub-buffer array base in rb_meta_subbuf_idx()
 References: <20261015133310.731003448@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,49 +52,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-simple_ring_buffer uses local_set() and cmpxchg() on unsigned long. Add
-them to undefsyms_base.c to extend the allowlist for the parisc
-architecture.
+On a persistent ring buffer, rb_meta_subbuf_idx() can return an index one
+sub-buffer too high.  rb_setup_ids_meta_page() then fills subbuf_ids[]
+shifted by one and leaves subbuf_ids[0] NULL, which __rb_map_vma()
+dereferences when userspace maps trace_pipe_raw.  rb_update_meta_reader()
+writes two such indices into meta->buffers[], which rb_cpu_meta_valid()
+would reject on the next boot, discarding the previous boot's trace.
 
-Link: https://patch.msgid.link/20260923074213.3077182-3-vdonnefort@google.com
-Fixes: 1211907ac0b5 ("tracing: Generate undef symbols allowlist for simple_ring_buffer")
-Reported-by: Guenter Roeck <linux@roeck-us.net>
-Closes: https://lore.kernel.org/all/5574c9e6-9ed2-4ee6-a2b2-fb6ee81e83a1@roeck-us.net/
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Guenter Roeck <linux@roeck-us.net>
+A CPU's sub-buffer array starts after its meta header and the nr_subbufs
+integers that follow, aligned up to a sub-buffer.  rb_meta_subbuf_idx()
+inverts that calculation but skips only the integers, not the header, so
+its base is one sub-buffer low whenever the omitted header size crosses
+the alignment boundary.
+
+Invert the calculation with rb_subbufs_from_meta() rather than repeating
+it.  rb_range_buffer() maps an index back to an address through the same
+helper, so the two directions can no longer disagree.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260918071507.1019251-1-donggeunyoo.kernel@gmail.com
+Fixes: b14d032973d4 ("ring-buffer: Add ring_buffer_meta data")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/undefsyms_base.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/trace/ring_buffer.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/kernel/trace/undefsyms_base.c b/kernel/trace/undefsyms_base.c
-index e65baf58e6ff..37310baf706b 100644
---- a/kernel/trace/undefsyms_base.c
-+++ b/kernel/trace/undefsyms_base.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/atomic.h>
- #include <linux/string.h>
-+#include <asm/local.h>
- #include <asm/page.h>
- 
- void undefsyms_base(void *p, int n);
-@@ -18,11 +19,13 @@ static char page[PAGE_SIZE] __aligned(PAGE_SIZE);
- void undefsyms_base(void *p, int n)
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index ce179619e655..ad3bc48e2670 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -3630,10 +3630,8 @@ static void rb_inc_iter(struct ring_buffer_iter *iter)
+ /* Return the index into the sub-buffers for a given sub-buffer */
+ static int rb_meta_subbuf_idx(struct ring_buffer_cpu_meta *meta, void *subbuf)
  {
- 	char buffer[256] = { 0 };
--
- 	u32 u = 0;
-+
- 	memset((char * volatile)page, 8, PAGE_SIZE);
- 	memset((char * volatile)buffer, 8, sizeof(buffer));
- 	memcpy((void * volatile)p, buffer, sizeof(buffer));
- 	cmpxchg((u32 * volatile)&u, 0, 8);
-+	cmpxchg((unsigned long *)p, 0, 8);
-+	local_set((local_t *)p, 8);
- 	WARN_ON(n == 0xdeadbeef);
+-	void *subbuf_array;
++	void *subbuf_array = rb_subbufs_from_meta(meta);
+ 
+-	subbuf_array = (void *)meta + sizeof(int) * meta->nr_subbufs;
+-	subbuf_array = (void *)ALIGN((unsigned long)subbuf_array, meta->subbuf_size);
+ 	return (subbuf - subbuf_array) / meta->subbuf_size;
  }
+ 
 -- 
 2.53.0
