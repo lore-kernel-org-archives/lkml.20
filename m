@@ -1,126 +1,435 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A192599A21
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A745B59B68F;
+	Thu, 15 Oct 2026 20:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096273; cv=none; b=l58CjWZTLCcJUz8UrZ6iI6dWcpCH3i9b+oGTpIYjLxO5I6iIwMAzJ/EeVkfuUaa418+KzMbx6f8ej29Fmdc46aVOn1OmPrI56n7KAehm8oDn7XHPaDkgPdKUPmDUjfVY0TggAWxpfTq/N3DyBJLMg0eHomKe4gNbEayzXmOjMgc=
+	t=1792096321; cv=none; b=frWuWp5WQfFk5bIzfB0SCRr4WjX2hYoaROvbuDdnWeB2SkauJverf5yTrEBvtS14+ml5jhiut9+MHcbQALmEO0zpebPklruyhWqeS+QnwU0vW3TGaldYHdZdgMHMJ1lJ4i7kB9XdfPNpm+vcMZOp6wp84n1Fx3UELeVzegtAGk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096273; c=relaxed/simple;
-	bh=lxbQ5/ioUInLVRx+yE+3nEiJw2cFSJvFb89VFYTZ8Rc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LIcXvGtm6U+0XhWVNhomKrmwyzhJj9DOeyrnHSSc1BappcX9zKlWN0nXUPlOqMRekG9o1wLVsJl0dMsHXs8KTVOoa17HsjP185yfDgaFTlt8KWq5vjCfeP3wP54w1PyvA8shk794W1MsHHcI635V4MYEoK4zZN8zxefFOyKZbzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KwYGqggl; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792096321; c=relaxed/simple;
+	bh=Ye9J+QlosXJybdaRR+F+8QPGWiEWV4w9P+CbaR3rRhU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V5X6qegzgkWqUaNMp7+rz7IRSU7tgNq0Owm5qUrgrY1RD/cxmGFxCA1FkLlqm1M2WU5paUVJkgFIEYR1uRCNRfFqCy6lg2fx+lo2iA4RT9MLghTLC1g22JF8nBM5eYQIQwoswn9hFFgTo3SFhBAplt7XHfKG2eSeOZ8JKprM8bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJWuvlVW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KwYGqggl"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1517bda04a0so4136223c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792096270; x=1792701070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oL+BJV/AvgUD6fnBEkb0OUbDdDNxy3pH+PTZKDhfTUo=;
-        b=KwYGqgglOTq+ClQCPyg/H0coyc1+ERH7WQuQcGon7xVAIBwRGL36vtRH6cjSGwD7wg
-         KsXG/RnrMU+GcDCCM4HFNoiHED1xZDGRBZaupFh2ZwQO7QsN4DiG7VtyBXsW3F/eGqgS
-         hUe/3DF1/L3K9qFyfWrspciGEWnslsiiC6hxl0jU0iyVcc3q0yfAG3SPgy31+AyRPg4U
-         5TSd6xkCmbFg7iHpU0Z/bg8mMbPN40CNq00erAp2nvSxhcVxn2NMbqklOqbk6YCvCvuJ
-         yqaind2xuxHz4N8IwdRDj/JcDtgOzvY3HjOXYeV+q9LozuHgNKR7TJGU5KiJeYYEI+4b
-         k0Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792096270; x=1792701070;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oL+BJV/AvgUD6fnBEkb0OUbDdDNxy3pH+PTZKDhfTUo=;
-        b=EVG6u1E3CVRVpS8YEYhV3VWaFTTqtPm2fMgvjPmss+9vRaAX/DVNumcX+jXWZcocNb
-         AUzQVyuPGGEbH+StEg4RQdQK9HVEHTSv/30+8BSMCBGRRb3l7Pl54g7ZTkPiCd1c3TOj
-         PsRDiyQyvEF/bZz5o45ThcOpI5u4Ffk+LMR6u948QFrQxFlC6B/VKxPlhmPUJHb6SrK/
-         EBG+ECRMW3GAdaLN7UH8wlkTgVdlszjCFwJVtJnr1YAcx5qBwN5ZqnqMMPub8891p9Uy
-         HoxseqvO6JImbUXq17CRmXmhnvJNF7p4xb7DOvRObl6px36G95bdU4lriTY0bSmI2tBl
-         zXug==
-X-Forwarded-Encrypted: i=1; AKwUvBzQzlpmjQqxpttNE+fL2xO4DbvFmx+8bh0eAnUHphnJHXoDC2b5qECQpK9jWAJMAFux3A18RRNXsd5dDcs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBRtc6c9l0lNlO90X4AgwRpL0SoSGOk+Go2zOYHvwPqT+GIsSx
-	aHXSWXfRTuGZu5sy7NRzgEKillBuZMkU0xGtyiV2P1Mf1D6P7iqSfGtA
-X-Gm-Gg: AYBFou26qPNlIWAl+W80dsw44tklVlftnjtZ8wxXLWIoqXO7UAD0g6llZHu5t3kU/aE
-	Zdg453fKwYu2cawLmbMh1fynWA/PwPyy8Lhnt5slgBfEoStIGWCg3vEpQ822Vonodlh+l4Fs+Nb
-	ynMB0tNHcTVRb/fFaP553s8kOUjqIC7I0qzslzjiW7PaIfq3tMWAZrPR6HmXjuh4Q5V9yLZZolJ
-	DKBsrAIy8p13Crmlc2jY1lsHIGRCxWwaep5CM/mUPCjWvyTeTeI1AroJAwy7WcP21JosSeAUEtO
-	gzZ3/VP/nw0rjFxvlsEE61KUcsZCn1YiboyTw+w1Rfs5ExXhyOKGNd0PNtp+XPGDGFqZywHCQoN
-	9GIHE9jN6GYaqetF5FPmkuR2encZFKzVKoiUc/xmK5xEBFetZZkeRnL7aWyCQlJvT1KoYzsDWk+
-	q4lLDlLXm5n7+ie63NuWfbyETJBSZGSqN6tzPvP0yk8XQOCTP7rX7aQJkVjMEzul61yXKiJBFgW
-	0kTJTv563153CwNp6io
-X-Received: by 2002:a05:701b:2086:20b0:149:1b5b:1f25 with SMTP id a92af1059eb24-16a5adfc081mr27862952c88.15.1792096270067;
-        Thu, 15 Oct 2026 13:31:10 -0700 (PDT)
-Received: from eldorado (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831996071csm54204c88.9.2026.10.15.13.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 13:31:09 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O window
-Date: Thu, 15 Oct 2026 13:31:05 -0700
-Message-ID: <20261015203107.545047-1-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJWuvlVW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FD961F000C4;
+	Thu, 15 Oct 2026 20:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792096313;
+	bh=cquZm0232ROzOo71FMBkiAHEc+4rux+dVirL11TLe7o=;
+	h=From:Date:Subject:To:Cc;
+	b=aJWuvlVWOmWZzuiLHUUmXLqCZhC8C4oilWq7Pm32YXpntLuWdOh1l9HszZrbI49U6
+	 1SKNjincHiwuC2eMmDTG+8lSvtiU6BB5R9NqZrXQYSopW6CBZ2N2RmkdUyWhrnYnqr
+	 HT6/CIlLCsVA9HVud+wjwbirA3ORQhb9az/Gz7wZrL2zNXVdXmG6gucibdkUL5wwiC
+	 pZCBSvdzW76WAUSSg8B0V/xupfZ2dtg13f7j+cpxMhqlCSQIjV/83laSwuuo4RNM+1
+	 ilvGdpoWVOkHzP9USCEHh9DDvYNildh2lw9W+lQZHHcgbpHlrEy2FdQ87fPvi3Ev+X
+	 5LK9v/wr7a/ew==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 15 Oct 2026 21:31:44 +0100
+Subject: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
+ overflows
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSwqAMBDFriKzdsAKinoVcVHrqw5+Ki1UQby7x
+ WUgyUMBXhCoyx7yiBLEHQlUnpFZ9DGDZUpMZVHWqlAVW7k57po3Z1Z2Ed5u7mLYSTVGjzXQUmp
+ PjyT+33543w/wAPIxZwAAAA==
+X-Change-ID: 20261015-fix-vma-lock-overflow-efd18cab6ee9
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
+Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ljs@kernel.org, 
+ Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15772; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Ye9J+QlosXJybdaRR+F+8QPGWiEWV4w9P+CbaR3rRhU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIuWpgYmeZVsZW/Odg6f8cOg0/PdA7/VPZ4a5w5ZaVNK
+ qPOPWnmjhIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkiRfDj21dKTb3+h4ZpQS+
+ Nn7zsDrKc//Vfrt3P2d+2nXG61Z2DCPDr5jPdrZV9n+mbL+g/YVBcObuc9FHVYLjzt3nfS+dLbS
+ MHQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
-controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
-0x3f6. These resources cannot be claimed under the host bridge window.
+So far the assumption has been that mm->mm_lock_seq overflow is benign,
+resulting only in readers spuriously falling back to the mmap lock, however
+it turns out that this was an unsafe assumption.
 
-Since pcibios_enable_device() was converted to pci_enable_resources(),
-the unclaimed IDE resources cause device enable to fail with -EINVAL:
+If a VMA can be spuriously considered write locked that means read lock
+exclusion does not take place, and thus a VMA can end up write-locked with
+concurrent readers.
 
-  pata_via 0000:00:09.1: BAR 0 [io  0x01f0-0x01f7]: not claimed; can't enable device
-  pata_via 0000:00:09.1: probe with driver pata_via failed with error -22
+Since overflow only occurs every 2^31 write lock/unlock cycles, resolve the
+issue by resetting every VMA's vma->vm_lock_seq each time such an overflow
+occurs.
 
-Lower the PCI I/O window start to 0x100 so the fixed IDE resources can
-be claimed. Keep the reserved ISA resources below 0x100 outside the PCI
-window.
+This is done in vma_end_write_all(), which is called when the mmap write
+lock is released, i.e. in mmap_write_unlock() and mmap_write_downgrade().
 
-On Qube2, the relevant I/O resources change as follows:
+Care must be taken, as resetting the sequence count at overflow means
+changing the seqcount of VMAs which are already attached and observable.
 
-                         Before             After
-  Host bridge window     1000-ffffff        0100-ffffff
-  IDE BARs 0-3           Outside window     Inside window
-  IDE BAR 4 (DMA)        1420-142f          0820-082f
+The mm's seqcount is guaranteed to be odd when a write lock is held, and
+thus any write locked VMA will have an odd seqcount assigned.
 
-With the fix, both pata_via hosts initialize and the ST380012A 80 GB
-hard disk is detected as sda. The MIPS64 kernel reaches a root shell and
-passes all eight boot-smoke checks.
+Therefore resetting to an even value prevents spurious write locks, since
+these can only occur with the mmap write lock held, at which point the mmap
+seqcount will be odd.
 
-Fixes: ae81aad5c2e1 ("MIPS: PCI: Use pci_enable_resources()")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+However, vma_start_read() also checks vma->vm_lock_seq == mm->mm_lock_seq,
+bailing if so (indicating a write lock).
+
+This would cause any even reset value chosen to prevent VMA read locks from
+being taken - avoid this by also checking whether the VMA seqcount is odd
+before bailing on the read lock.
+
+So far, vma->vm_lock_seq has defaulted to UINT_MAX, but this has been
+unnecessary since commit e5e7fb278e59 ("mm: convert mm_lock_seq to a proper
+seqcount"), since this is assigned when the VMA is still detached, and
+cannot be observed.
+
+Therefore perform both reset and initialisation of vma->vm_lock_seq by
+simply setting vma->vm_lock_seq to zero.
+
+The reset, performed in reset_vma_seqcounts(), only needs to WRITE_ONCE()
+the value. The stores follow the smp_wmb() in do_raw_write_seqcount_end(),
+so a reader observing a reset value also observes the VMA modifications
+made under the write lock.
+
+Since all VMA write locks were just released and the mmap write lock is
+still held, there are no concurrent VMA writers.
+
+Concurrent VMA readers are unaffected. New VMA readers observe either zero,
+never a write lock, or the prior seqcount, behaving as before the reset.
+
+Since this only occurs every 2^31 write lock/unlock cycles, the time taken
+to update all VMAs is considered to be acceptable.
+
+Also update comments, documentation and VMA userland tests to reflect the
+change.
+
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/all/20261015143735.1630957-1-4ncienth@gmail.com/
+Fixes: 5e31275cc997 ("mm: add per-VMA lock and helper functions to control it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- arch/mips/cobalt/pci.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Andrew - since we're so close to the merge window I'm applying this against
+mm-unstable.
 
-diff --git a/arch/mips/cobalt/pci.c b/arch/mips/cobalt/pci.c
-index 85ec9cc31d66..293c02e151d3 100644
---- a/arch/mips/cobalt/pci.c
-+++ b/arch/mips/cobalt/pci.c
-@@ -24,7 +24,8 @@ static struct resource cobalt_mem_resource = {
- };
+I think it's fine to just send it (early :) in the merge window.
+---
+ Documentation/mm/process_addrs.rst | 14 +++++--
+ include/linux/mm_types.h           | 12 ++++--
+ include/linux/mmap_lock.h          | 24 +++++++++---
+ mm/mmap_lock.c                     | 76 ++++++++++++++++++++++++++++++++++----
+ tools/testing/vma/include/dup.h    |  2 +-
+ tools/testing/vma/shared.c         |  8 ++--
+ 6 files changed, 111 insertions(+), 25 deletions(-)
+
+diff --git a/Documentation/mm/process_addrs.rst b/Documentation/mm/process_addrs.rst
+index 78231995e490..1a98798b2cda 100644
+--- a/Documentation/mm/process_addrs.rst
++++ b/Documentation/mm/process_addrs.rst
+@@ -819,9 +819,17 @@ All this is achieved by the use of per-mm and per-VMA sequence counts, which are
+ used in order to reduce complexity, especially for operations which write-lock
+ multiple VMAs at once.
  
- static struct resource cobalt_io_resource = {
--	.start	= 0x1000,
-+	/* Include legacy IDE ports, but exclude the reserved ISA ports. */
-+	.start	= 0x100,
- 	.end	= 0xffffffUL,
- 	.name	= "PCI I/O",
- 	.flags	= IORESOURCE_IO,
+-If the mm sequence count, :c:member:`!mm->mm_lock_seq` is equal to the VMA
+-sequence count :c:member:`!vma->vm_lock_seq` then the VMA is write-locked. If
+-they differ, then it is not.
++The mm sequence count :c:member:`!mm->mm_lock_seq` is incremented on both mmap
++write lock and unlock, so it is odd while the mmap write lock is held. If it is
++equal to the VMA sequence count :c:member:`!vma->vm_lock_seq`, and that value
++is odd, then the VMA is write-locked. If they differ, then it is not.
++
++A VMA's sequence count is not updated on unlock, so after 2^31 write lock/unlock
++cycles the mm sequence count would wrap and match stale VMA values again. To
++prevent this, when the mm sequence count wraps to zero,
++:c:func:`!vma_end_write_all` invokes :c:func:`!reset_vma_seqcounts` to reset
++every VMA's sequence count to zero, an even value which can never indicate a
++write lock.
+ 
+ Each time the mmap write lock is released in :c:func:`!mmap_write_unlock` or
+ :c:func:`!mmap_write_downgrade`, :c:func:`!vma_end_write_all` is invoked which
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 0dead656d3e3..3241a28fbc8a 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -992,15 +992,19 @@ struct vm_area_struct {
+ 	 * Can only be written (using WRITE_ONCE()) while holding both:
+ 	 *  - mmap_lock (in write mode)
+ 	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_FLAG is set
++	 * The one exception is reset_vma_seqcounts(), which stores zero (an
++	 * even value, which can never indicate a write lock) under the mmap
++	 * write lock alone once the mm seqcount has wrapped, so a reader
++	 * holding only vm_refcnt may observe the value change from odd to zero.
+ 	 * Can be read reliably while holding one of:
+ 	 *  - mmap_lock (in read or write mode)
+-	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_BIT is set or vm_refcnt > 1
++	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_BIT is set
+ 	 * Can be read unreliably (using READ_ONCE()) for pessimistic bailout
+ 	 * while holding nothing (except RCU to keep the VMA struct allocated).
+ 	 *
+-	 * This sequence counter is explicitly allowed to overflow; sequence
+-	 * counter reuse can only lead to occasional unnecessary use of the
+-	 * slowpath.
++	 * Assigned the (odd) mm seqcount on write lock and not updated on
++	 * unlock, so a stale value would alias the mm seqcount again 2^31 write
++	 * lock/unlock cycles later. The reset described above prevents this.
+ 	 */
+ 	unsigned int vm_lock_seq;
+ 
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index e5553f4a414c..ec859b350dda 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -154,7 +154,7 @@ static inline void vma_lock_init(struct vm_area_struct *vma, bool reset_refcnt)
+ #endif
+ 	if (reset_refcnt)
+ 		refcount_set(&vma->vm_refcnt, 0);
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ }
+ 
+ /*
+@@ -229,8 +229,9 @@ static inline void vma_refcount_put(struct vm_area_struct *vma)
+ 
+ /*
+  * Use only while holding mmap read lock which guarantees that vma lock is not
+- * contended (nobody can concurrently write-lock the vma). vma_start_read() should
+- * not be used in such cases because it might fail due to mm_lock_seq overflow.
++ * contended (nobody can concurrently write-lock the vma). vma_start_read() need
++ * not be used in such cases, as the mmap lock already excludes VMA writers so
++ * its sequence number checks are redundant.
+  * This functionality is used to obtain vma read lock and drop the mmap read lock.
+  *
+  * VMA can't be detached while we are holding mmap lock, therefore in practice this
+@@ -252,8 +253,9 @@ static inline bool vma_start_read_locked_nested(struct vm_area_struct *vma, int
+ 
+ /*
+  * Use only while holding mmap read lock which guarantees that vma lock is not
+- * contended (nobody can concurrently write-lock the vma). vma_start_read() should
+- * not be used in such cases because it might fail due to mm_lock_seq overflow.
++ * contended (nobody can concurrently write-lock the vma). vma_start_read() need
++ * not be used in such cases, as the mmap lock already excludes VMA writers so
++ * its sequence number checks are redundant.
+  * This functionality is used to obtain vma read lock and drop the mmap read lock.
+  *
+  * VMA can't be detached while we are holding mmap lock, therefore in practice this
+@@ -552,6 +554,8 @@ static inline int __must_check mmap_write_lock_killable(struct mm_struct *mm)
+ 	return ret;
+ }
+ 
++void reset_vma_seqcounts(struct mm_struct *mm);
++
+ /*
+  * Drop all currently-held per-VMA locks.
+  * This is called from the mmap_lock implementation directly before releasing
+@@ -564,6 +568,16 @@ static inline void vma_end_write_all(struct mm_struct *mm)
+ {
+ 	mmap_assert_write_locked(mm);
+ 	mm_lock_seqcount_end(mm);
++
++	/*
++	 * VMA seqcounts are not updated on unlock, so once the mm seqcount has
++	 * wrapped, any VMA still carrying a sequence number from before the
++	 * wrap would satisfy __is_vma_write_locked() when that number comes
++	 * round again, and readers would not be excluded. Reset every VMA's
++	 * seqcount so that no stale value survives the wrap.
++	 */
++	if (unlikely(!mm->mm_lock_seq.sequence))
++		reset_vma_seqcounts(mm);
+ }
+ 
+ static inline void mmap_write_unlock(struct mm_struct *mm)
+diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+index 2f94ee0fdee2..285583a0c437 100644
+--- a/mm/mmap_lock.c
++++ b/mm/mmap_lock.c
+@@ -194,21 +194,37 @@ void __vma_exclude_readers_for_detach(struct vm_area_struct *vma)
+ 	WARN_ON_ONCE(!ves.detached);
+ }
+ 
++/* Do the VMA, mm seqcounts indicate the VMA is write locked? */
++static bool vma_seqcount_is_write_locked(unsigned int vma_seq, unsigned int mm_seq)
++{
++	/* VMA and mm sequence numbers must match for a write lock. */
++	if (vma_seq != mm_seq)
++		return false;
++
++	/*
++	 * The VMA seqcount is always odd if locked. An even value can only be
++	 * the zero stored by reset_vma_seqcounts(), never a write lock.
++	 */
++	return vma_seq & 1;
++}
++
+ /*
+  * Try to read-lock a vma. The function is allowed to occasionally yield false
+  * locked result to avoid performance overhead, in which case we fall back to
+  * using mmap_lock. The function should never yield false unlocked result.
+- * False locked result is possible if mm_lock_seq overflows or if vma gets
+- * reused and attached to a different mm before we lock it.
++ * False locked result is possible if vma gets reused and attached to a
++ * different mm before we lock it.
+  * Returns the vma on success, NULL on failure to lock and EAGAIN if vma got
+  * detached.
+  *
+  * IMPORTANT: RCU lock must be held upon entering the function, but upon error
+  *            IT IS RELEASED. The caller must handle this correctly.
+  */
+-static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+-						    struct vm_area_struct *vma)
++static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
++					     struct vm_area_struct *vma)
+ {
++	unsigned int vma_seq;
++	unsigned int mm_seq;
+ 	struct mm_struct *other_mm;
+ 	int oldcnt;
+ 
+@@ -220,7 +236,9 @@ static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+ 	 * we don't rely on for anything - the mm_lock_seq read against which we
+ 	 * need ordering is below.
+ 	 */
+-	if (READ_ONCE(vma->vm_lock_seq) == READ_ONCE(mm->mm_lock_seq.sequence)) {
++	vma_seq = READ_ONCE(vma->vm_lock_seq);
++	mm_seq = READ_ONCE(mm->mm_lock_seq.sequence);
++	if (vma_seqcount_is_write_locked(vma_seq, mm_seq)) {
+ 		vma = NULL;
+ 		goto err;
+ 	}
+@@ -246,17 +264,23 @@ static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+ 		goto err_unstable;
+ 
+ 	/*
+-	 * Overflow of vm_lock_seq/mm_lock_seq might produce false locked result.
+-	 * False unlocked result is impossible because we modify and check
++	 * False unlocked result is impossible because a write lock sets
+ 	 * vma->vm_lock_seq under vma->vm_refcnt protection and mm->mm_lock_seq
+ 	 * modification invalidates all existing locks.
+ 	 *
++	 * The only other writer is reset_vma_seqcounts(), which stores zero
++	 * (even, so never a write lock) after the mmap write lock's seqcount
++	 * has been released and before any new write lock can be taken, hence
++	 * the READ_ONCE().
++	 *
+ 	 * We must use ACQUIRE semantics for the mm_lock_seq so that if we are
+ 	 * racing with vma_end_write_all(), we only start reading from the VMA
+ 	 * after it has been unlocked.
+ 	 * This pairs with RELEASE semantics in vma_end_write_all().
+ 	 */
+-	if (unlikely(vma->vm_lock_seq == raw_read_seqcount(&mm->mm_lock_seq))) {
++	vma_seq = READ_ONCE(vma->vm_lock_seq);
++	mm_seq = raw_read_seqcount(&mm->mm_lock_seq);
++	if (unlikely(vma_seqcount_is_write_locked(vma_seq, mm_seq))) {
+ 		vma_refcount_put(vma);
+ 		vma = NULL;
+ 		goto err;
+@@ -466,6 +490,42 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
+ 	return vma;
+ }
+ 
++/*
++ * Called with mmap write lock held after mm->mm_lock_seq just overflowed (and
++ * therefore zero), with all VMA write locks now released.
++ *
++ * The stores below follow the smp_wmb() in do_raw_write_seqcount_end(), so
++ * a reader that observes a reset value also observes this cycle's VMA
++ * modifications (ordered by the smp_rmb() in raw_read_seqcount()).
++ */
++void reset_vma_seqcounts(struct mm_struct *mm)
++{
++	struct vm_area_struct *vma;
++	VMA_ITERATOR(vmi, mm, 0);
++
++	mmap_assert_write_locked(mm);
++	VM_WARN_ON_ONCE(mm->mm_lock_seq.sequence);
++
++	/*
++	 * Failing to reset means stale vma->vm_lock_seq values could result in
++	 * those VMAs becoming spuriously write locked when mm->mm_lock_seq
++	 * happens to match their values.
++	 *
++	 * This is problematic, as it causes the VMA write lock to not exclude
++	 * readers, which can result in concurrent readers while a VMA write
++	 * lock is held.
++	 *
++	 * Avoid this by resetting to an even value (indicates no write lock
++	 * held).
++	 *
++	 * Readers will either observe zero (not write locked) or the previous
++	 * value, so this is safe.
++	 */
++	for_each_vma(vmi, vma)
++		WRITE_ONCE(vma->vm_lock_seq, 0);
++}
++EXPORT_SYMBOL(reset_vma_seqcounts);
++
+ #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+ #include <linux/extable.h>
+ 
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 718132580fac..f449129ea97a 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1225,7 +1225,7 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
+ 	vma->vm_mm = mm;
+ 	vma->vm_ops = &vma_dummy_vm_ops;
+ 	INIT_LIST_HEAD(&vma->anon_vma_chain);
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ }
+ 
+ /*
+diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
+index 8c4826499f40..c1e0c2280101 100644
+--- a/tools/testing/vma/shared.c
++++ b/tools/testing/vma/shared.c
+@@ -65,7 +65,7 @@ struct vm_area_struct *alloc_and_link_vma(struct mm_struct *mm,
+ 	 * begun. Linking to the tree will have caused this to be incremented,
+ 	 * which means we will get a false positive otherwise.
+ 	 */
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ 
+ 	return vma;
+ }
+@@ -97,13 +97,13 @@ int cleanup_mm(struct mm_struct *mm, struct vma_iterator *vmi)
+ 
+ bool vma_write_started(struct vm_area_struct *vma)
+ {
+-	int seq = vma->vm_lock_seq;
++	unsigned int seq = vma->vm_lock_seq;
+ 
+ 	/* We reset after each check. */
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ 
+ 	/* The vma_start_write() stub simply increments this value. */
+-	return seq > -1;
++	return seq > 0;
+ }
+ 
+ void __vma_set_dummy_anon_vma(struct vm_area_struct *vma,
+
+---
+base-commit: 5ba29027115bc6717b8d6dc3296aae0240933811
+change-id: 20261015-fix-vma-lock-overflow-efd18cab6ee9
+
+Cheers,
 -- 
-2.53.0
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
