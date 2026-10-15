@@ -1,98 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B2130274D;
-	Thu, 15 Oct 2026 14:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F141213E9C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075089; cv=none; b=M4GGDgrP6XvZxSG8ekre+1NJmYMvKddTMLk6QD+RyRVHopyQlvb6OckDoP+4Gy6nVlY290mZeWHdhGWrOlkA7U+UdKbN3TiNvMgvW/9dpvF80+7iRN6ZCbuFL0skTRLQzgDFNWxddDZqD7uJWpaE6ZC1xZj/57HCIn9EZv8o5VQ=
+	t=1792075126; cv=none; b=l/VEXiqGVJEZmYwofKj6yvPq3fytDPqmduE1Phf8TuKnvQ7voVwMfQj7xEZ58PoDQWvTeN7vT0jp420f+e7bCrjcxaqbQcqiMiq/dL0WaZWt3RqhWKWaiorfX8mJ0u183QOD56l4mWRYpxJyAviz5alpbg3J0/CvBnSscM3jrTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075089; c=relaxed/simple;
-	bh=RHMdOPbRXNN/vnIf1OyuOt1EVeisCNeiyQ97BSqvj1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PY/B6xCbDpRDQd74hTfjKkXFv0ldE1BQ9lekCk4h+n6Fk95awoySr9c1kipZ/ZBFKJm8sxymzKwvwu8NhRPc7rS/s9uQk8NlsyTF2q/1JdGs0ViNjItdDWvq4/AOaq9uRRQxuKEHh06mO5sFsPu+LZL+ylJ9ihu8+HVudYMggnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJ8aEj8Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792075126; c=relaxed/simple;
+	bh=xMt4CizzKgXzMObevKrlpDXfIZyZ5Y2qf3JseBuFDUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mV5BnI2/CzHa677LYj5bDm2Pnsfqifm05K5kjRtT45zK7/+QYXok50khmziwc3zHe1EdqeHJ0DZPZmrQU1eP8fwBqRStjQ1TUokoSYTSYL6t95iJVKhHEq2BmNnMDJ621ERMFezQc/fohbJofdDl7CDVmnL9+JgZ9qy7k+H2Onw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuOtH5LW; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJ8aEj8Y"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 850281F000C4;
-	Thu, 15 Oct 2026 14:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075087;
-	bh=tNDJWGJTpeF7yeDPvV10PQ4IQPwZQsBesVCOPEnYuxU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RJ8aEj8Yejha5/g5/reSgJ1SmNWZSTQsYcGlcn9e2sZGFvlpowmk56YbvjiCgNb9k
-	 W9a3OJtNOgNv6ppz9P/lF0fUteicwmaX36CSQZ9TKcGEyQmUvjpJXgaBjV7VVdW11f
-	 75JwUBCsnC7/31JLmHAYk3tEp8rHuq/J1V4Hvf7F6oDt/cFJYcWwQ4v/64PpqgsxF7
-	 586SoDfuXRA8E0VaYLHeSM+BpLOs0h+T8ncls5bFs7y6hQgGvoFeQ7MSwZEYTTzjXQ
-	 vvnW9HFK/HtuCHMZX0H2uljRFchsBnxjHzyr3OFPeUrUZG7dDhnT1b5+m7JkHWZeKU
-	 pOv+5X5AJajDg==
-Date: Thu, 15 Oct 2026 07:38:07 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Binbin Deng <18983559317@163.com>
-Cc: cem@kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] xfs: set healthmon mount cookie before publishing it
-Message-ID: <20261015143807.GN2705364@frogsfrogsfrogs>
-References: <20261015080225.45215-1-18983559317@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuOtH5LW"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88bda150550so2518519b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792075125; x=1792679925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ycblgGXLdUgSZ+lPqRwK58e5xvUphb7pOA34UYLh9Dc=;
+        b=EuOtH5LWaGa8cvqxW7XhgAWLeschJ5ORB4Gk12sgW9PMFacW6jNFhwzh5q8RFKSYpP
+         vqZbJXMydPP022IsQakaaTjQDWyOzg5HaSfq/ZXl/37p9ObIAATaFDg11h1LByk4gSsx
+         KuzxSeLFd1w2Kv+iGQdCBJ0q3mGIonUOTDYq3FmBs2rp9U0IVv0x6R4wAVgUOUnDkqNZ
+         xq2XxwAFNTEwjVhnIPECWXCJ2aHRpwDULcyk2NRk0K+5Mi3Ws2Kh1/PF3AmE9ox4GG6G
+         hlvdCKNlYsxNiTprHLKILbK2k+avOdQB5eFhgbYprTjSDLga7NK9hFsJvI8t4xWKvr0Q
+         JebA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075125; x=1792679925;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ycblgGXLdUgSZ+lPqRwK58e5xvUphb7pOA34UYLh9Dc=;
+        b=DOrNN1LlDdvVrxh3ON3QK7KI2l2ECHLjI2+xIasQ4dTSYbiyV5ie/pD8wu9cGQRfS2
+         ICwQcydGD/t6M6bZF3Y0BdmKmGBZWRPh1Jli/oEpzkOacmIZC62lEQDwjjh8+8xCy+9w
+         1l+h7RMaNiQ7QdkJBlSIqUqQA59z9F1tq7DHxkyczFR3MDO630s3upIIXhTF1njns1mN
+         e5eIc6gLxe9t5RSVRjdqk335vE5Jl4HCndhnpWMRaxN2n52op/FNW3lMkl4WPJFnur6j
+         SZe3xjL4RFbkHPfkT6h20WRkMw3dMxsChEtZ7k15rDkb4MyVVVk0YOj8DC7xhwE17ZDB
+         iwqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMq3T/fx2I2W6sOlkOydxZAtTeoUuBReB0kX463ldmldz2xjiiUn16UR2cZDU7raI44X29ALWgipjtml4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiW84viGGSoAyJnVoHiS+hWZ25LadqDU/G5xiCzrUcZV8BUgcs
+	5Z3sTmkvNjzkVh5R1IfwIFu+Lxl8mEpPdDEWAsTXjlQxuI8eMCYFLI09
+X-Gm-Gg: AYBFou0Hhwkc+jxi4gs/RiS8u0RzruahfTJ1Qp+Uceb6bUM9NWghWjeMx23rpX0lNwz
+	grwh82fY5ahYYYrZrs49qi1kexMP5/7U//v4EyaDSLrn3EOr4eawWhwIeiE2oilWypfijz3E9bK
+	RhIr9ndO9GnrWygklRdovnccWVT7Hw1DTf75We58y2bdiRDyboO4L25Bih+9+ERU/HYsWb9z1Sz
+	kickPUocP07GnkELz3H1HaZYMZ1SS2VFGeTsrwmf0BTLAhu7ldcBbTOR/XP0EcF07xeR/hJAx6Z
+	I1bxZqJRB/ac8jqmqH3MW/0x8VfZgBh9oyaiXGkKXTsu8NfNFJ0inqT3BleeJybHPXmLwN8tbYy
+	Jtxr/tWL2S+bWi34E3GyXAGaFFvbv0++HQiCax68vLMy4eKEYYMurLtab1N69AVd9RVlkiOi5jy
+	aBmx7bjg211g7u9Izc6CYGhjGgQY4u2L0EDbR3q+8aDRhqopj+FhGwmlZY8a6rTvlSp/4OvWLjt
+	DU=
+X-Received: by 2002:a05:6a00:3cca:b0:880:c10a:5de1 with SMTP id d2e1a72fcca58-897c79dd6d4mr16541393b3a.46.1792075124912;
+        Thu, 15 Oct 2026 07:38:44 -0700 (PDT)
+Received: from dev ([163.43.243.221])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89e0d1a3223sm1663592b3a.44.2026.10.15.07.38.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:38:44 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+To: Gabriel Goller <g.goller@proxmox.com>
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/2] seg6: skip the route refcount in seg6local IPv6 lookups
+Date: Thu, 15 Oct 2026 23:38:40 +0900
+Message-ID: <20261015143833.seg6-lookup-noref-v2-reply-9e125a3e@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <atDhp1tk31K4RAKS@luna.proxmox.com>
+References: <20261010-seg6-lookup-noref-v2-0-51c09dd98197@gmail.com> <20261010-seg6-lookup-noref-v2-1-51c09dd98197@gmail.com> <atDhp1tk31K4RAKS@luna.proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015080225.45215-1-18983559317@163.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 04:02:25PM +0800, Binbin Deng wrote:
-> xfs_ioc_health_monitor() allocates the healthmon object with kzalloc(), so
-> mount_cookie starts as zero.  zero is also DETACHED_MOUNT_COOKIE, but
-> xfs_healthmon_attach() publishes hm through mp->m_healthmon before storing
-> the mount cookie.  A concurrent reporter can therefore acquire hm from
-> xfs_healthmon_get(), see the detached cookie in xfs_healthmon_push(), and
-> drop the event even though the monitor is being attached.
-> 
-> This is reachable by racing XFS_IOC_HEALTH_MONITOR with an operation
-> that reports a health event, such as a filesystem shutdown.  Initialize
-> the mount cookie before making hm visible through the RCU pointer so
-> reporters always observe an attached monitor.
-> 
-> Found during a static-analysis-assisted audit: candidate sites were
-> surfaced by a Coccinelle rule, and the reader/writer paths were
-> confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-> not observed at runtime; it is identified by code inspection only.
-> 
-> Fixes: a48373e7d35a ("xfs: start creating infrastructure for health monitoring")
-> Cc: stable@vger.kernel.org
+On Thu, 15 Oct 2026 16:30:02 +0200
+Gabriel Goller <g.goller@proxmox.com> wrote:
 
-Cc: <stable@vger.kernel.org> # v7.0
+> I think we should use ip6_null_entry instead of ip6_blk_hole_entry here.
+> Previously this path (failure to acquire the dst ref) was reached through
+> ip6_pol_route() and ip6_hold_safe(), which uses ip6_null_entry and returns
+> -ENETUNREACH as an error.
+> After this patch, the error is triggered here and we use ip6_blk_hole_entry,
+> which returns -EINVAL.
+>
+> What do you think?
 
-> Signed-off-by: Binbin Deng <18983559317@163.com>
-
-Yes, we should set the mount cookie before exposing hm to the world.
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-
---D
-
-> ---
->  fs/xfs/xfs_healthmon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
-> index 2bdd747f1ead..05d6f0494139 100644
-> --- a/fs/xfs/xfs_healthmon.c
-> +++ b/fs/xfs/xfs_healthmon.c
-> @@ -114,8 +114,8 @@ xfs_healthmon_attach(
->  	}
->  
->  	refcount_inc(&hm->ref);
-> -	rcu_assign_pointer(mp->m_healthmon, hm);
->  	hm->mount_cookie = (uintptr_t)mp->m_super;
-> +	rcu_assign_pointer(mp->m_healthmon, hm);
->  	spin_unlock(&xfs_healthmon_lock);
->  
->  	return 0;
-> -- 
-> 2.43.0
-> 
-> 
+Agreed, the error changes.  v3 will drop this fallback altogether:
+following Andrea's suggestion, seg6_lookup_nexthop() will keep its
+refcounted lookup, so ip6_hold_safe() handles the failure as before.
