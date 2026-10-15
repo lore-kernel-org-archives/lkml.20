@@ -1,64 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDA05448A3;
-	Thu, 15 Oct 2026 15:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38FF652758B;
+	Thu, 15 Oct 2026 15:37:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078686; cv=none; b=Q6YzLwO6wiZu5UjygIkmLxdIL0ofGrW6F7Y5xBETcP2aEOPbhUWGZ/2WNknlG6I4Kb4wA345KrIstZ7RDCgFQF+owLobS+dlzKDEE02MOzmhB2MqAby3LQ20h7k8jLs4aWeVL5Yzk+w/zSCDYlKIOV5WYkzjRkxYGKm5660TWzA=
+	t=1792078689; cv=none; b=QGcj2jdTRi++rfVEQVHJlHUETRc/QXaZsiPWwGSGo1oWKLEARUDSIffzeU7AvkG9qu9/tP5jU62B3rNQKu8PpD7R/FxWYMaC8lwNOpjNAOStrN+4K8fNXYvz+fD/2RmnrtCcSAvteOfxvQ7ukS1l0ynXP3Ojggvmb4ufVbYOXuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078686; c=relaxed/simple;
-	bh=fQl5YJTZlZE0oyS+5Zf7GEXnQ1ZVvoNXuuGKTROJJNY=;
+	s=arc-20240116; t=1792078689; c=relaxed/simple;
+	bh=fLVvFYLbb73u10JY2H6ml3dDlzmg/duyaoFLnKuEqBs=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=jIjD1JG7yBOEm4EPku11tv6NWrFt4IFFtCNV1DHQuC9HpYYdAF4dwttTb79s1qNKYlpWznKiCnQqZ2n4Lt2nWM6QwKKLciG2oIXRfMZXuweKYrk2y7yhnUiZnhZreR7XzFTBpSXqTaU9vty5tahXhvuyxqzqcHyvZ489UtPaEGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YmV799qy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nggzi4vS; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=rp1gnOcWT0K/mtApovV9THEUCqEh4i+85QHcQDwT7rr/bnnRJDgLuP5U7HUQPrp/5C9iPdCo2LMaYHyhSIVKlOM4BNsg4h15oa0rKyTCpIVuT+7eWRaVypWUxzp162TprJQh4YFW/WRkCsTkGMSYP/84DvNv+O8wySt5NrKRaq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Jk4EYSXG; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ceLXflks; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YmV799qy";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nggzi4vS"
-Date: Thu, 15 Oct 2026 15:37:41 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Jk4EYSXG";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ceLXflks"
+Date: Thu, 15 Oct 2026 15:37:47 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792078663;
+	s=2020; t=1792078669;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=29EO9a+3adako6z308hbOFsAPODtFb5O3eCtqnb1LL0=;
-	b=YmV799qyOrhiR/hRomxvztI4Njf0MpCZYzxaEDL2EaPwyC5saljd+t7tTyfZrjXKoc9rLS
-	UbLoC2qLuCpABiumhyOIk52UDtLbsjNkiY6dRy7iizYyQs3JZYV4Ia1eAdYTs82g8ZCuoO
-	hO8kc9gUoShCaN7dHXU+nHY1wW9s/IA1smkm4wJ14FO5PHZOPMUwgLGpQL7jFW+qkpKNMg
-	QuwzOg4hirF08GCkBJAb9b8wTiJcxreVLkb4nN/v7hRYFhalntaXaLOmbIuquBiC6SkNN+
-	ZiGvJXo2jWCF6AlDaTS5s37W3sbjCQCMXmPd1gvOY5v4XteN36cNsA541naMkQ==
+	bh=An8vSis9l6Va08SlA/7gbzGUlSPiZ/uFnvh1uCsAmpc=;
+	b=Jk4EYSXGovmuzZYGy9Byq1ngo3v7E/zXFryizqVi23iXJ0deCgd7t0SHvEPLZrTOungJEk
+	U1k/apamlW3DdSyY9NWimqnNnSInfYwR4C6Yjzn5MCO7uIEmHR6uLQ2s5W32vQmxr6A7qG
+	QwW8p1ualX//k31PHd1H86JPRyMD15JJMhZbsQWb8Se/kPnGxTkreN0il4YflynK8xuF2x
+	nT5ww6L29gl8UrqkfOnXD4Ced4sHzBSH+h0v85QvOqzWEcFNixTvdaQZeBwo6FS+6/daw4
+	lmF6SEIi7I1rBTf/ctIWBdiKbEA6+zO8ObDc3/kA5JP3DuRlQPPNjMN4qquCHQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792078663;
+	s=2020e; t=1792078669;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=29EO9a+3adako6z308hbOFsAPODtFb5O3eCtqnb1LL0=;
-	b=nggzi4vSs6m9cMPlNflj14JtFOz4gUfVH0t9ZLgqY0k10ZDguhCV98n/Yh/UPshCS0+uPF
-	f7SXY1hdM4h3KpAg==
+	bh=An8vSis9l6Va08SlA/7gbzGUlSPiZ/uFnvh1uCsAmpc=;
+	b=ceLXflks8rqRZ9/T9vnNkjUM6gPkUvQa0ZJ0iHYW3WXaoi5xv3cwsFadFYddRBF0HYlfO1
+	NHHbWRJ+f43vb9AQ==
 From: tip-bot2 for Thomas =?utf-8?q?Wei=C3=9Fschuh?= <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/vdso] x86/vdso: Delete asm/vdso/vsyscall.h inclusions
+Subject: [tip: timers/vdso] x86/vdso: Move vDSO page definitions to asm/vdso.h
 Cc: thomas.weissschuh@linutronix.de, Thomas Gleixner <tglx@kernel.org>,
  x86@kernel.org, linux-kernel@vger.kernel.org
 In-Reply-To:
- <20260909-vdso-asm-generic-vsyscall-h-v1-10-63ae856cc659@linutronix.de>
+ <20260909-vdso-asm-generic-vsyscall-h-v1-6-63ae856cc659@linutronix.de>
 References:
- <20260909-vdso-asm-generic-vsyscall-h-v1-10-63ae856cc659@linutronix.de>
+ <20260909-vdso-asm-generic-vsyscall-h-v1-6-63ae856cc659@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179207866158.2666988.5742982077550159729.tip-bot2@tip-bot2>
+Message-ID: <179207866763.2666988.13940541406468536107.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -68,48 +68,65 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/vdso branch of tip:
 
-Commit-ID:     3086b69ee00f57a4b3c5735ce876801f25673aa7
-Gitweb:        https://git.kernel.org/tip/3086b69ee00f57a4b3c5735ce876801f256=
-73aa7
+Commit-ID:     8051a0f482e6039b257f534a39d820547e7c82bd
+Gitweb:        https://git.kernel.org/tip/8051a0f482e6039b257f534a39d820547e7=
+c82bd
 Author:        Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
-AuthorDate:    Wed, 09 Sep 2026 10:51:23 +02:00
+AuthorDate:    Wed, 09 Sep 2026 10:51:19 +02:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Thu, 15 Oct 2026 17:33:19 +02:00
 
-x86/vdso: Delete asm/vdso/vsyscall.h inclusions
+x86/vdso: Move vDSO page definitions to asm/vdso.h
 
-The inclusions are unnecessary, remove them.
+Most architectures define the vDSO page macros in asm/vdso.h.
+
+Align the x86 headers.
 
 Signed-off-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260909-vdso-asm-generic-vsyscall-h-v1-10-63a=
-e856cc659@linutronix.de
+Link: https://patch.msgid.link/20260909-vdso-asm-generic-vsyscall-h-v1-6-63ae=
+856cc659@linutronix.de
 ---
- arch/x86/entry/vdso/common/vdso-layout.lds.S | 1 -
- arch/x86/entry/vdso/vma.c                    | 1 -
- 2 files changed, 2 deletions(-)
+ arch/x86/include/asm/vdso.h          | 7 +++++++
+ arch/x86/include/asm/vdso/vsyscall.h | 7 -------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/entry/vdso/common/vdso-layout.lds.S b/arch/x86/entry/vd=
-so/common/vdso-layout.lds.S
-index a1e30be..f190efb 100644
---- a/arch/x86/entry/vdso/common/vdso-layout.lds.S
-+++ b/arch/x86/entry/vdso/common/vdso-layout.lds.S
-@@ -1,6 +1,5 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- #include <asm/vdso.h>
--#include <asm/vdso/vsyscall.h>
+diff --git a/arch/x86/include/asm/vdso.h b/arch/x86/include/asm/vdso.h
+index 4e73515..071e4a2 100644
+--- a/arch/x86/include/asm/vdso.h
++++ b/arch/x86/include/asm/vdso.h
+@@ -6,6 +6,13 @@
+ #include <linux/linkage.h>
+ #include <linux/init.h>
+=20
++#define __VDSO_PAGES	6
++
++#define VDSO_NR_VCLOCK_PAGES	2
++#define VDSO_VCLOCK_PAGES_START(_b)	((_b) + (__VDSO_PAGES - VDSO_NR_VCLOCK_P=
+AGES) * PAGE_SIZE)
++#define VDSO_PAGE_PVCLOCK_OFFSET	0
++#define VDSO_PAGE_HVCLOCK_OFFSET	1
++
+ #ifndef __ASSEMBLER__
+=20
+ #include <linux/mm_types.h>
+diff --git a/arch/x86/include/asm/vdso/vsyscall.h b/arch/x86/include/asm/vdso=
+/vsyscall.h
+index 57598db..65d10f4 100644
+--- a/arch/x86/include/asm/vdso/vsyscall.h
++++ b/arch/x86/include/asm/vdso/vsyscall.h
+@@ -2,13 +2,6 @@
+ #ifndef __ASM_VDSO_VSYSCALL_H
+ #define __ASM_VDSO_VSYSCALL_H
+=20
+-#define __VDSO_PAGES	6
+-
+-#define VDSO_NR_VCLOCK_PAGES	2
+-#define VDSO_VCLOCK_PAGES_START(_b)	((_b) + (__VDSO_PAGES - VDSO_NR_VCLOCK_P=
+AGES) * PAGE_SIZE)
+-#define VDSO_PAGE_PVCLOCK_OFFSET	0
+-#define VDSO_PAGE_HVCLOCK_OFFSET	1
+-
+ #ifndef __ASSEMBLER__
+=20
  #include <vdso/datapage.h>
-=20
- /*
-diff --git a/arch/x86/entry/vdso/vma.c b/arch/x86/entry/vdso/vma.c
-index 18dfd80..4bd3b22 100644
---- a/arch/x86/entry/vdso/vma.c
-+++ b/arch/x86/entry/vdso/vma.c
-@@ -25,7 +25,6 @@
- #include <asm/page.h>
- #include <asm/desc.h>
- #include <asm/cpufeature.h>
--#include <asm/vdso/vsyscall.h>
- #include <clocksource/hyperv_timer.h>
-=20
- static_assert(VDSO_NR_PAGES + VDSO_NR_VCLOCK_PAGES =3D=3D __VDSO_PAGES);
