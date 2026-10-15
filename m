@@ -1,64 +1,64 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB03A3DAADA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AB13E1D08
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040836; cv=none; b=d7+mdo8PHY+NEbBWC1ZFlEECuLAb8/kbhqvEdiKmCsztOltZmX3Ld7vniuM0hdStE92w9okjXrjCF7h9ThKhCp0nKCzSPqWUfNpuwypB2NV4WwIZT8sxysb7y3n+R/2ZxOlFnEEk8cjIid5Wtn2gEfrWxMQrfNhq11/U+1xWz84=
+	t=1792040844; cv=none; b=XP3MCiL+doAFg5iyXe2JqYef6LXn5gwe9Y5HuyervGFK7nuMXubpD5HeQb00DQaJ1P7UCNE7OhyrU+vsihrA6e901FN6U3FGPD5Ay48ecdFNa431WIzcWozQ0YD/ocWliPqXdLYJUZZ/YPXVJWmeoo13OR3d2SzcMn/nzuH+AtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040836; c=relaxed/simple;
-	bh=4laeaYnyM82VkcLLI0+4iJvrSAWDDWZ+kak0dp7QhoM=;
+	s=arc-20240116; t=1792040844; c=relaxed/simple;
+	bh=5QnK27Mi4gF8Os92Ye4At3N2Dx/p3ENx/C7QLtY+b8E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SaJYQJ3weXP9TNw6lZM7t2up4h0Wz+p2iP2dFONimLeecK3FuGWSFZJTEjPHZ5Zz71vNZxBWmuOGYeNWs5yqBmrRKr0F61LDlSiDdxQ2tCjGlRC5WmKj6pQSs1+l/4sndfNTTrbX5OnETwIdWvvKWcmxHJm2Ckjj9yx1nfMcbY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0td4gQK; arc=none smtp.client-ip=209.85.216.51
+	 MIME-Version; b=eYY2CV4qYHfTK+/ecHaZwbg2CECsq66qFgUUAMJAKy8TFet+GoRnhkcFgA2aP7UQnt2VQ+sj6p7AIQPSI0lh5TCUb6oAJ+PDdAvBJTdz5hA1ggm4ZHnHEPibU+f/g9wp9iDYfA3r/7wUVvuANFLIqDK8qckO1M3+dwtDMRce8M0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rG3eBLD9; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0td4gQK"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so949125a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:07:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rG3eBLD9"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so2275165a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:07:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792040835; x=1792645635; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792040841; x=1792645641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RG483f/vXFgd+W2LD/AsmPv9HxoY1L8OX7tqUMO6Cp0=;
-        b=T0td4gQKEiTmfqZ8oMoVvo/cv1CVno7rbOSroMIrA8UjJvKDR2PTsjhH+US4J6UmbV
-         4YeJcTELQ/Yt0OVsgkEqZjbraJKPiEwI6/AAUYoy+IydgK8Ti3l0ua+I5mg92RrOXvPn
-         ELr/7ioisvgg8RJ91SYHcydOB8uV6qqWph3XXBjgN/eAg8gukf5dYS8dYvjzp6Y395wn
-         RxUSM80C35QTY99072S3VeSsjuao42gPZP/nEKZNQ+faGycVLSntlAqO2QZ5F6lPCC/o
-         +lKXAVWldKuPa5cFaeMbLmSHSbl02/llKyf+TP5fyKrd1FLbnwMh82ouc6SVnlzGopBg
-         Uwdg==
+        bh=ZrMZ1EzhfMYxX8A1FtoB4N7lHSMJS/8Ps17souRyYLQ=;
+        b=rG3eBLD9Q9QV2kmDUtB7TjfJUYRVf6T13dwlx9AeQPMVwBein7YlbLsFpIg7fkKEkF
+         iV7pK5MMKaJKoYW+O6QZ+4Bq88Dru0fjz64K707DDqwEUSeI57Gtfx6rgpSbXp30hZtr
+         1FPGD3RdfY9TEF0PS9n5h+SkFFeuA3QYayE9TqPkcPD7NRq+fBRno7gSmh9G0s6cBPyC
+         VBd+q4ULdU/B5pX7Qs7rreMh/lXSYlGtrzlDwYRwWgUGYkcIM8qzJ985u8c3otqYFm+y
+         yAQsdNJeKn6U4CK4CXZRd0PUz0cc5sDdhH0SYNlfOtmZhNhJ/gf/66JwFGMdIsvPZiaf
+         EdcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792040835; x=1792645635;
+        d=1e100.net; s=20260707; t=1792040841; x=1792645641;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RG483f/vXFgd+W2LD/AsmPv9HxoY1L8OX7tqUMO6Cp0=;
-        b=Fv05HARV8rpUj1sHvBe6DsoOGGxz+/YLhRFdfbz9Ozvr3B5xywLpEfWj3c5/jAQilE
-         oHOrz15AuyxJLunOrMPAt3g05PuWIzasceolJO/tBL47KtzXJsiJMQMYUv3zu0WLnf6S
-         KBamEYcREPs0q6nmuCsPnS9TEYn3R40pLEmJYRFTKp+Hzy+M3N8SiXG2HXwIMCK+v02k
-         O6mre4JGBqYzDnDmRZ/JnlH7mmts9StQK7v1A4mGdhO7bTIHc6au+YH9gM8LuRbjQSV2
-         ybG/KehjZserruGVs3+PoZM6XEZskP3fUb1LB46fy6tPefo+ebR7sNJLSaITJQqAx49S
-         RGlA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAJkwgyfmiCiUy8TuHxV/yOWL8wX57skI+5pnsjaOezVzXV13caAz1H3KPqgXds4EhfkpK9KwqBlckGwQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB1nL9LeBYEawTkZFU/3lDZGuQusCKgstOWf3DqSLJNxLqbBqa
-	GawmCEcKqglFyuIs8O8wA6xYNEwD0e3uSFyxghMAzYFWU1516/enO8kF
-X-Gm-Gg: AYBFou3Dk0tYF1FXAKlg7TYWvNW9BmV6AfdzEhx+I4s/6dbotiI0f2CqI+gtd1nDzEP
-	KNMPuqEYIQssRL67sipWqNfnc8bRcpyCY6QOfZ18tQqd8+t97OL6JVqJ/6Sa+XgwDkaZvOVivZ3
-	WAhJAxuwUyY6hrL+9QXATEXde7BrQB1j9EuvC3V6PV5IOqRFA7qkc4bdOrGD6RsGIPcYLIkgO+J
-	wJCONbJYQPoP0JHZErozmx9eKT+QAIdqliobPIvR+yHe9clS5Imtb6DQsogp5DK6hRgbWObZKKM
-	Z/qQ/o4/cOm4JOP++Akz/i7dpwAYguGkNZa9Upc2/1x2NeiAgQpVdeCe2c3jijE9AXZlv29rLxD
-	R1+JUni4AWr+BB1niljNi6Q3YayJ8nvJRqBjAC5DqKjq1aG0xGD945ACDQtJYpVkN8VR1+tKncC
-	OeaqvGDgR0oM7Pv1go2/sZyrb+F1QJ5F4AoSnn+nDB+r/EMrc9S3folZ4K3MNHo6OIOSARRM1+u
-	M7tmWwB0ZY=
-X-Received: by 2002:a17:90b:498c:b0:3ac:9176:e81c with SMTP id 98e67ed59e1d1-3ac9176f12dmr1864528a91.46.1792040834893;
-        Wed, 14 Oct 2026 22:07:14 -0700 (PDT)
+        bh=ZrMZ1EzhfMYxX8A1FtoB4N7lHSMJS/8Ps17souRyYLQ=;
+        b=JPb3mtVMmonFs5U5LA1llpl5sZKQTMmu4e5TEI99Mv3QooZVcLCwJp9jf2Fs9MpTqt
+         FaVlw0Uz9FVD9XINKsSY2b8hJ+5BadFd2hCuZahwlyz6Oqkkc9vMe8j149DFQzI6+IHx
+         tIWuj/2haqu0XLQD+iwIDLBKcTcG9A/RfuGcyp1XESEKs9yT0mpCHY9fxOYTg3f/aLdx
+         smdKv6IO52Ybz3x42pfBgAxleJevo79UpxAuGoMn8AQMcL8l5pRy0/ba6j+FVnGQx4o6
+         ZntxD6GD4GlHeekIJgv2MsMuttzIdu6h+SDIvAOygo3IfUC8md1biYPQ4jv/yDoitC4Z
+         jU1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzNtjbR6npZCHknpi2fy1fbS/cI88ftbSUMwk5i6zGVH9Ub7J+PMZDFt5ii3Cl8VWzUmVV02Ax7RZyW9iQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMeUY+myOVHZ+Ei8mN1Pc7lqdbeai1lxAFOK/dwoOyZC/YRMAv
+	6lPGfBBHOcKx70atGPfw6dDMjpZkhf9x9O3pAc24zT8TAmhnRS0VgBZH
+X-Gm-Gg: AYBFou3D+IOgB0Qf2jVqwF6KrXFee6t23biAU1uebKQIG27BZ3tUHJpQuwGebTdlwwo
+	39GPROWgtYuBaYrLMg7J/0VEmKEKy3kjTnjk0inARLH7Bk740jAxuspGkh/bBnCNnkxvkbGYHp7
+	c9Qv4Vib7+Lm3PgDaMi60uGlvhhD7grWtVn2Zf5RcnyG9K4/kikUM7tEYIa2BxYleZ2SQPU+d4r
+	oCJ36vz9dCT6BjImysazWrbTqW34ChOIVERyuppuUaC1jsfs1o8DXUSHjquZmLXHXF6+Mk10YoW
+	Da2bYBNR2tM/d6EI4PrLlICZxgihT7rPcjrENM332cDQvNIQgRq7g8JQNEOFpr8ydChhgKKqYak
+	3Duvr8L1D3HfB838i9rr7cfxxT+QUsFNuUxIZrIc738inDasfAgTbsjTbPoNQstanP0FEgnnHz+
+	4exD5ksWCHBv54qrHXdZ7tTlseaBFMZnpjaPdV5NgKWE4nLIc4G1RUQD5h1yQdov0MzWzLHXvUq
+	6NkJ5QFgAj6WgxNtwIM5w==
+X-Received: by 2002:a17:90b:5823:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3ab3a60f9aamr15354818a91.18.1792040841080;
+        Wed, 14 Oct 2026 22:07:21 -0700 (PDT)
 Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm2548033a91.13.2026.10.14.22.07.10
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm2548033a91.13.2026.10.14.22.07.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:07:13 -0700 (PDT)
+        Wed, 14 Oct 2026 22:07:19 -0700 (PDT)
 From: Daehyeon Ko <4ncienth@gmail.com>
 To: David Ahern <dsahern@kernel.org>,
 	Ido Schimmel <idosch@nvidia.com>
@@ -71,9 +71,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net v4 2/4] ipv6: serialize address publication with device teardown
-Date: Thu, 15 Oct 2026 14:06:49 +0900
-Message-ID: <20261015050651.1841557-3-4ncienth@gmail.com>
+Subject: [PATCH net v4 3/4] ipv6: initialize temporary ifaddr before publication
+Date: Thu, 15 Oct 2026 14:06:50 +0900
+Message-ID: <20261015050651.1841557-4-4ncienth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261015050651.1841557-1-4ncienth@gmail.com>
 References: <20261015050651.1841557-1-4ncienth@gmail.com>
@@ -85,72 +85,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipv6_add_addr() checks idev state before allocating an ifaddr, but
-publishes the object later. addrconf_ifdown() can mark and detach the
-idev between the check and publication.
+ipv6_create_tempaddr() holds a reference to the public ifaddr, publishes
+the new temporary address through ipv6_add_addr(), and only then stores
+the reference and final timestamps.
 
-This happens when a non-loopback device MTU falls below IPV6_MIN_MTU. A
-forced interleaving published an address on a dead idev, and
-ipv6_get_ifaddr() still returned it after teardown. Later device deletion
-remained blocked with:
+addrconf_ifdown() can remove the temporary address before ifpub is
+stored, leaking the public ifaddr reference. Publishing ifpub alone is
+insufficient: manage_tempaddrs() can then find the object before cstamp
+and tstamp are final, update its lifetimes, and have the constructor
+overwrite its timestamp with an older value.
 
-  unregister_netdevice: waiting for ac0 to become free. Usage count = 3
+This follow-on was found by source review and was not separately
+triggered at runtime.
 
-Protect the dead indication with idev->lock and keep that lock across
-both hash and device-list publication. Recheck dead before publishing;
-if teardown wins the lock, reject the unpublished object.
+Pass the public ifaddr and both timestamps in ifa6_config. Initialize all
+three fields before adding the temporary address to either the hash or
+per-device lists. On success the existing public-ifaddr reference
+transfers to the temporary object. On error it remains owned and released
+by ipv6_create_tempaddr().
 
-Non-unregister teardown does not set dead. The preceding change covers an
-add that misses the initial hash scan but reaches the per-device list
-snapshot. Both changes are required when backporting this fix.
-
-Fixes: 8814c4b53381 ("[IPV6] ADDRCONF: Convert addrconf_lock to RCU.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/179161099408.434549.14449036924552933828@kernel.org
-Link: https://lore.kernel.org/r/20261012145306.GB779501@shredder
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://lore.kernel.org/r/179122559913.434549.12720841717630168470@kernel.org
+Link: https://lore.kernel.org/r/179161099665.434549.5858601179492551889@kernel.org
+Link: https://lore.kernel.org/r/20261007164548.GA1153540@shredder
+Link: https://lore.kernel.org/r/20261012145240.GA779501@shredder
 Suggested-by: Ido Schimmel <idosch@nvidia.com>
 Assisted-by: LLM
 Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
- net/ipv6/addrconf.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ include/net/addrconf.h |  3 +++
+ net/ipv6/addrconf.c    | 20 +++++++++++++-------
+ 2 files changed, 16 insertions(+), 7 deletions(-)
 
+diff --git a/include/net/addrconf.h b/include/net/addrconf.h
+index e6764245995f25..6818057cf72750 100644
+--- a/include/net/addrconf.h
++++ b/include/net/addrconf.h
+@@ -81,6 +81,9 @@ struct ifa6_config {
+ 	u8			ifa_proto;
+ 
+ 	const struct in6_addr	*peer_pfx;
++	struct inet6_ifaddr	*ifpub;
++	unsigned long		cstamp;
++	unsigned long		tstamp;
+ 
+ 	u32			rt_priority;
+ 	u32			ifa_flags;
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 72d7df23f79674..3bede30d4e989b 100644
+index 3bede30d4e989b..df566681226195 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
-@@ -1168,14 +1168,18 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+@@ -1155,10 +1155,19 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+ 		ifa->flags |= IFA_F_TENTATIVE;
+ 	ifa->valid_lft = cfg->valid_lft;
+ 	ifa->prefered_lft = cfg->preferred_lft;
+-	ifa->cstamp = ifa->tstamp = jiffies;
+ 	ifa->tokenized = false;
  
- 	rcu_read_lock();
- 
--	err = ipv6_add_addr_hash(idev->dev, ifa);
-+	write_lock_bh(&idev->lock);
+ 	ifa->rt = f6i;
++	ifa->ifpub = cfg->ifpub;
++	if (cfg->ifpub) {
++		ifa->cstamp = cfg->cstamp;
++		ifa->tstamp = cfg->tstamp;
++	} else {
++		unsigned long now = jiffies;
 +
-+	if (idev->dead)
-+		err = -ENODEV;
-+	else
-+		err = ipv6_add_addr_hash(idev->dev, ifa);
- 	if (err < 0) {
-+		write_unlock_bh(&idev->lock);
- 		rcu_read_unlock();
- 		goto out;
++		ifa->cstamp = now;
++		ifa->tstamp = now;
++	}
+ 
+ 	ifa->idev = idev;
+ 	in6_dev_hold(idev);
+@@ -1491,6 +1500,9 @@ static int ipv6_create_tempaddr(struct inet6_ifaddr *ifp, bool block)
+ 
+ 	cfg.pfx = &addr;
+ 	cfg.scope = ipv6_addr_scope(cfg.pfx);
++	cfg.ifpub = ifp;
++	cfg.cstamp = now;
++	cfg.tstamp = tmp_tstamp;
+ 
+ 	ift = ipv6_add_addr(idev, &cfg, block, NULL);
+ 	if (IS_ERR(ift)) {
+@@ -1501,12 +1513,6 @@ static int ipv6_create_tempaddr(struct inet6_ifaddr *ifp, bool block)
+ 		goto retry;
  	}
  
--	write_lock_bh(&idev->lock);
+-	spin_lock_bh(&ift->lock);
+-	ift->ifpub = ifp;
+-	ift->cstamp = now;
+-	ift->tstamp = tmp_tstamp;
+-	spin_unlock_bh(&ift->lock);
 -
- 	/* Add to inet6_dev unicast addr list. */
- 	ipv6_link_dev_addr(idev, ifa);
- 
-@@ -3897,7 +3901,9 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
- 	 *	   Do not dev_put!
- 	 */
- 	if (unregister) {
-+		write_lock_bh(&idev->lock);
- 		WRITE_ONCE(idev->dead, 1);
-+		write_unlock_bh(&idev->lock);
- 
- 		/* protected by rtnl_lock */
- 		RCU_INIT_POINTER(dev->ip6_ptr, NULL);
+ 	addrconf_dad_start(ift);
+ 	in6_ifa_put(ift);
+ 	in6_dev_put(idev);
 -- 
 2.55.0
 
