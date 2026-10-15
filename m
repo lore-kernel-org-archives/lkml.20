@@ -1,127 +1,88 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC25C542ED9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080940; cv=pass; b=jnvqr7nKHyVtCj+bZh9592nfqN5YNL1zDhlgHmfMFzQmgmlYugnJb0DzM16MVHmn2Xp3+PbtByQqUt4/DF9zMUVTRgwVWUwGsF8UKW2EQskjKRo6z+UTVUdCFDhq+LewyGSD3FEjyPjqRvOSuvzbfJVdwk1p53/a+7lOwmrhe2o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080940; c=relaxed/simple;
-	bh=G5AcZOU+pdoePF3JVJGwstAOUQkYC3WUg5uKVwxeFqQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I0bPOtdl+1TiBtdCkDR1LY/iSv6ebuTWs1QJbYgydiwIHMoaypbK7qNHBPZPsIaEErYHaTpwvYelZMYHksEJ/Zr8fcjaXI0yoHF2yohNRZGIAXseeOhPefupW8YIEIbtz937tnRUvL14vKaskp8fKFnFBryyniySEtzIt0dJWR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XutVYcfh; arc=pass smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4E0421A07
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792081004; cv=none; b=Xgd0FSb1UBSBD+VYx9NqeRgI3bEiNb49BwEGGvRXxYC9iv/0Cndpj3appGJdA2t7kwOjPeSV3AmIBlGydF1IJsypS1fBUiUG3ShljUR6s7j1ON3OMV7pP4sm3HvHR64nhZTXUm/iRNDVig91jD63hS8MahiRNksbg/eMvshKVLs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792081004; c=relaxed/simple;
+	bh=y33Oa0d5xyPoRA8yPA8pFGijt5la29UUqU+SWAiagdU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=euzUr9rQ211cuMzAOqx8FhIqCBJznV97KPkmZmX2Ylq0Rl99G1uv/Ycpa1dc8IE8SlDjvpmaZXueo6s6hCjy8O7YW2dZtVMaBkwDdA/rZgMtihaXPWhFSSKSPCLuy3vxnih3kDvR3ABeAAPelrGS7rxNnRR//hEM7SDBBdKW3j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5MEIDck; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XutVYcfh"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35159e0092aso638603eec.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:15:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792080929; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KfrXl8PoR2j8LFG3R5leJM6pRzyS+ia1vmzHGyr/SRJo0EXWxBPXXOC/6Vyly2SsO4
-         z7Wpod0pqG5w1mMcwmSfq4FoglKrtN6IhDKsGiWFRluj3OsKDpkKtgCILaBp4RBv+skH
-         eqvhHgkEoq2kb1rHHg5x6FJYqs2EPtQd5lNv/3HkiNaJDJot2YnXTOljP2lRr+x5U43A
-         f8skkmLfJ957Xa8YSdpplMH8QQt3hI146//U4aKoFsfKf2PG5vSBhYeSO+ovOnLakP+1
-         dQHSBH2cQbXav88yQn7qqOkSLL2xOVr+fMYQ6WAVFdKMQlBz1U1otv4JszNNB+mc4HaI
-         RaAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G5AcZOU+pdoePF3JVJGwstAOUQkYC3WUg5uKVwxeFqQ=;
-        fh=Bnu74TydktDmf5DQuSzg733OESd6zc9aa5NT4eaA8Hk=;
-        b=MHHuBAeVlwgxhQwCmDxPCbDG5Khym8XzEgoDhfTldCHo0avss3NPJFIus6KxI9on4V
-         68YK2fB4tYgKjPyu2WW4I4TCU6rNAnfxqDgoZHnGlbgPdgD24kQn5/E4MxzeiEwsU4IF
-         CsFpUIN5bhkhp8UnrLGy6RDQbaqcUMzlKvYna0mM/F/n3A+pTCdLsnpvgBBPfCtkzNxe
-         5KoOjDxTEa235WIktgRqkcpDWYC1kACZReXZLcRlXaPCuGzSIGlQhAd3NONyD+jbdWly
-         AfXZNRGrVscyPp7bqH1xLBhfZBckheR6qF/Gojfng+Awwcj8gAfWzGft0QNm25+rky2u
-         2J9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792080929; x=1792685729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G5AcZOU+pdoePF3JVJGwstAOUQkYC3WUg5uKVwxeFqQ=;
-        b=XutVYcfhfuIwYt7oz3fIbtmTfgpStJjx0N7LF92toIkgvtGcj2MmD5s/cVeJiTxigI
-         LV+Fyr3gB5C6KJ/2BkH+cV2QBADoqzCXxAmJGt1H2E7qzljiCj+T9pzzVWPKXWcTQey9
-         SIomRRuCS/L+IZvkJRCM+9kgl/OyB8TGUeC0WzP5sNjFobcjxGSGT++Yd/ljP4ZVuCzk
-         6iulHb5Wha2Ih86swcKayujTnHVNmYMWixdP1Coo6LvkJ5hM2U5tcLDG6iQeFvIPB+sX
-         HLz06BZ8XKlGRVhsDLCkzENGM7IGpoyud+xiLOu4KoFxA5sxTfeTHMsBrODtFe9hRXLQ
-         DVEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080929; x=1792685729;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G5AcZOU+pdoePF3JVJGwstAOUQkYC3WUg5uKVwxeFqQ=;
-        b=y2tRnxROLwNioktbknMeuV8smnrddC5Lx5Mm8sglmQT9hFoxBsrVElNWyfx/LDAro0
-         wGLAreRNmEYgN/kMbS8GCZhnQ4/BIKNl1Ci9Zz2z93Ef5uuq8wgk6pnyuCczFVMRbVFi
-         398qpADgzz/N3RMrLItwpnDlS3xDe2jzkkuGoXfmlGtnwla9VKgXmsw12jOKXOtM63CF
-         wmSdIWfmS1GQ3GQa3UUCSW/ipe3/2czdBRRJwSP/uxRH/np8xReN2HiyhFCJ2T9emc40
-         bb0fYj71OQ1tCj0H7bv1nqhGrrDOQHCkLxwLFH7v/+GLU6AH/9ITPYyUbm/cNkL9tDD5
-         o9Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBx/ficDoyu2+QKLgq69toboRjbQOmU7aUVESPPCSAQBvuiB1lHI9hcCYfrWUPjzSjJBLgy85JoQTNFW+ig=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8utWPYCXSg+LL6Y7eu5qhLgJsAT2oWropmyEvqZYSlxwXuGRF
-	patrzuH40IpfqTfuroThy8rR5uq56nD+D6fdlTiR/u64aDcPnaoqNR63vtKiATrJeVeTFlCN6r+
-	wDp0/x6wsH+cppJ2PLEFF77HTUghU384=
-X-Gm-Gg: AYBFou36O3bcOdMj2QDtsvCwe4v/bXn0pm7t3ksdCx97fzNKic/GV7cJA1zEZEW1kbR
-	duqIT1jBb7tfLeY0pf/JR7LuhqvvyTiDRD341G6mnI+IxdbhMD5gn+cZLZ0kSvGk6x5xL6Ci6pY
-	Y9VvJgPKKxg21wyPX84zCNX8lNJUtgn56euM2oEOW78l8TH51H51/WJWewuvjJijYzktDfg0Slm
-	HdWFlayP1wBFCaKiwbmUzHxCvvHw4PVnyupyARGZDfUPDnuad6IaK6AzVSDm5HWLmY/Qv5UyluH
-	W++HV7kKoY9yMr1e0XfZmkF47qxB0wPPyq/YtA56R704qW+s4KaOtbhHwDRgY8nYB9evl7veFh3
-	RKO7UTUaPaQW753DBlBHaItiNMQn+GanFtEvUZ1OxykORcQtnnNaLrKPUpyNYdu4V3Nr8zMNJGl
-	UOjZEaG69jLGzbLIro8T0kkECDN1tOS42llsEAbsmmAYf2eff3cJHZVETzXL/0Haw=
-X-Received: by 2002:a05:693c:66d0:10b0:35c:492b:e310 with SMTP id
- 5a478bee46e88-35c492be9f8mr17514341eec.0.1792080928498; Thu, 15 Oct 2026
- 09:15:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5MEIDck"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116311F000C5;
+	Thu, 15 Oct 2026 16:16:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792080994;
+	bh=5ej5ardrA65UZU6KUi4c494PUoSYJOjtrTbp029+Ouk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N5MEIDckJQOA5V99fH9dmX0lTZcDqLHJRH5C/CCBUu9IYQJIoRmYudwdXs0pnBVuh
+	 RGpRjNqnuqKj6lpAvlu28YKFSuXoLHj/28qkx6/DuJutcU7mmHwUMqOHNTxim+hMgp
+	 1KDmm3VwCS7u86ndTjX1KZOjEBqRngnmLT4ii3RwKRNQEg9AANzlXdctmnPsKlcwHk
+	 z7+g5NOLk4JqpKnJerViqfVJwM8a8xdBX6bLLqmdjevwT/gim5+SzFzewswTSFcCmF
+	 yizK7vH7VCk+IPkpsYt+eIvnpfO/D1QILv5xXRmOQ+0YQ+BvG0sKjTwzA1lVQgAh4N
+	 Za1QcIBvyFnUA==
+Date: Thu, 15 Oct 2026 09:16:33 -0700
+From: Kees Cook <kees@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, tglx@kernel.org,
+	peterz@infradead.org, luto@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] entry: Fix seccomp bypass after ptrace with TSYNC
+Message-ID: <20261015161550.79fd37-kees@kernel.org>
+References: <20260713025712.416366-1-ruanjinjie@huawei.com>
+ <as9Jqi5BvSZWfxj8@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1791499378.git.sashal@kernel.org> <20261014174838.114990-1-ojeda@kernel.org>
- <as_Cr4FhzyAh-kC4@laps> <CANiq72m6okeCHuR8BCGENTw=wJhfXXZbXZtJq8xtoeVfvfo3TQ@mail.gmail.com>
- <atDYWe9L0tv90Xjk@laps> <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
- <87jynjrrqo.fsf@trenco.lwn.net> <CANiq72=raWNCedXQW9dSDwxQTE0hfs9ecyGChRPnWqO6DUvbOw@mail.gmail.com>
- <atDlfUEr-d_sRP7c@mit.edu>
-In-Reply-To: <atDlfUEr-d_sRP7c@mit.edu>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 15 Oct 2026 18:15:15 +0200
-X-Gm-Features: AclHuK-PjnHmcyinHcDPK4Z6dnO9W7SGIPggSgvmNWFmm386jeOM2Bdrq8WVyuA
-Message-ID: <CANiq72m+j4j86sCnKUzjjq8udcW+hgdrnTa28WUWfyFu9qHXDw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes attribution
-To: Theodore Tso <tytso@mit.edu>
-Cc: Jonathan Corbet <corbet@lwn.net>, Sasha Levin <sashal@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	broonie@kernel.org, ksummit@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rdunlap@infradead.org, 
-	skhan@linuxfoundation.org, workflows@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as9Jqi5BvSZWfxj8@redhat.com>
 
-On Thu, Oct 15, 2026 at 4:43=E2=80=AFPM Theodore Tso <tytso@mit.edu> wrote:
+On Wed, Oct 14, 2026 at 11:21:46AM +0200, Oleg Nesterov wrote:
+> I agree with this patch, but SECCOMP_FILTER_FLAG_TSYNC can also happen
+> after syscall_trace_enter() re-reads ->syscall_work ?
 >
-> I'm a bit confused why people are assuming that we would need to have
-> copies of the same or similar content in Documentation/ and agents/.
-> For agents are are *doing* somethiing --- for example, determining the
-> correct commit for a Fixes: tag is not something I'd think would be relev=
-ant for Documentations.
+> And this race is possible even without ptrace, SECCOMP_FILTER_FLAG_TSYNC
+> from another thread can happen after syscall_enter_from_user_mode_work()
+> reads ->syscall_work ?
 
-I am confused -- I am not saying we will have copies between
-`Documentation/` and `agents/` of similar content.
+Right, and that's expected: TSYNC has never covered a syscall a thread
+has already entered; the filter applies from the thread's next syscall.
 
-I am saying that `SKILL.md` is necessarily Markdown (please see
-Sasha's patch), but most of the actual text is in the `.rst` instead,
-and that such a split is more complicated than a single Markdown file,
-especially if we don't plan to do any processing on it (as you say, it
-is mostly text).
+It also only matters for a thread's first filter. Once SYSCALL_WORK_SECCOMP
+is set, seccomp_run_filters() loads current->seccomp.filter when it runs,
+so a thread that already has a filter sees a newly synced one even with
+stale work flags.
 
-(I do think certain skills may want to point the agent to some
-`Documentation/` by file path; that is fine.)
+> I think we don't really care, but I don't understand the security concerns.
+> If debugger controls the process before it installs the seccomp filters, it
+> can simply nack sys_seccomp().
+>
+> In short, does CVE-2026-89603 make real sense?
 
-Cheers,
-Miguel
+I don't think it does. For the missed check to matter, the thread had
+no filter when it entered the syscall, and the tracer had it stopped
+there. That tracer could already make it run any syscall before the
+filter existed, or, as you say, refuse the seccomp() call. Nothing gets
+past a filter that was in place when the syscall started. I'll ask
+the CVE team to reject it.
+
+The patch is still right as a consistency fix: seccomp runs after
+ptrace so it checks what the tracer left. arm64 re-tests the flag after
+the ptrace stop, as powerpc, riscv, and s390 did before they moved to
+generic entry.
+
+I've sent a selftest for the ptrace case, based on Jinjie's reproducer:
+https://lore.kernel.org/all/20261015161348.i.779-kees@kernel.org/
+
+-Kees
+
+-- 
+Kees Cook
