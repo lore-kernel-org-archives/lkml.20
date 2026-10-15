@@ -1,106 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E39E49DBB1;
-	Thu, 15 Oct 2026 09:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45548322B8F;
+	Thu, 15 Oct 2026 09:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057868; cv=none; b=aWMbeRkkfVp31YrF5kwWI/HAhXvkTO3Z22ZQv8lu5nJ8LmGl9lWKlvDi8x5j2tB4Mxp9hk0BOPAyBhLy06SVywQvj7gMyNOfJVNm9P70S/8oRlLLoPp/vwS1DRKsMPwcAItawHr94gMP1HBQ6Y7idGOlm1UYn9VSaQ9D8s+GGfk=
+	t=1792057875; cv=none; b=FZ7MlFsrhG2mgVU6dzztm0lP5vxpFQTgFzTuftMAS5dYJ13+rms9NjdEBWxzwxnwpoogd8cGhX+nW4LYM4FfT9NmERBTqPAFF/riISs6LERd6vj+U4NFkk2c+GqNSEa9BFtNqCXKEZh3NgB/Xb6lJVIfmJnKhSnTBJkW1wazawo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057868; c=relaxed/simple;
-	bh=Mq47v+flZHLWwC8fpi8Q3bhmmbqX1lT4M0zWgmV5lZs=;
+	s=arc-20240116; t=1792057875; c=relaxed/simple;
+	bh=muwCLVxPr3lu2PYo+nyQS5gG+tKhi8xOCj4xL309a+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRjB098JI1OqaDyeDRLv7Z1qcwSF3DGNGc8FI+3jidPcG6RdqtQG9AiECFOPXsxT5VmMWYBYXn3fVdqtLbrNpaWL7EUsEmfzJZ9nsYqQLzC4vrkrRe4VtnJ+CtL4U2T4nwjF+aYAlYbSmiVD1fp1RDHRrGUzEqGAHugXRNnGRtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFBPh2Jf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hs1+Ow3KlmSyhAjHFkDiGOsW4qgUOw0QnhAOM69GgwIMYYaF/nD+NzFqOCdVW9pGg0W25sfbQ6k7HXSsp9tNb9jHEIgiLRvu92jRLXYsedTcxwqYyTRwdeEE7Zvs6MFIfjICqzy4Y2HuGPhzImpugwCX6Jc15MlCiBE/1j1KjcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGuNGhUX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFBPh2Jf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606FD1F000C5;
-	Thu, 15 Oct 2026 09:51:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGuNGhUX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66E81F000C4;
+	Thu, 15 Oct 2026 09:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792057866;
-	bh=Ciuww8GYCgeFiClfswF1NrS3AvHuKpWEdFzKRnqbzDI=;
+	s=k20260515; t=1792057872;
+	bh=6EimAlhipM/QvHYdXcrEyjUEVG6Xm+Hd234W5MqbFJk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FFBPh2JfE21Jgdt4OH9tVMqAkq1OBwBZSephPUkhOVYon3UiAgZXC75JU6kS7tRff
-	 U4qNtpQlX6QRDOVP9jI3Uj9iRbO+7Ak/kUUQGu5PNZBk9zWFSgve2ccg+foRTycjhJ
-	 De3AZIGx4ZTJXrzHOSPr8wxGuXbk6qApYossAeXG11KepXzm2p/yt2pgYpv8jRsnFU
-	 WJAa86akJMQY516mJA0shHroWIRZNuyH1L+qUQmh+avFGg8BQwXMAOd6n8GQ8Pdelz
-	 0B9ynpLsWdxny4E5ME+2Eg6KBY6y9hHYUg771eGMc18i1/BtaNJ44fJ7qk+9Ellhls
-	 +j06itIJMqfcw==
-Date: Thu, 15 Oct 2026 11:51:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ben Levinsky <ben.levinsky@amd.com>
-Cc: jassisinghbrar@gmail.com, andersson@kernel.org, 
-	mathieu.poirier@linaro.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	michal.simek@amd.com, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-Subject: Re: [PATCH 6/6] remoteproc: amd_mbv_bram: Add RPMsg support
-Message-ID: <20261015-amusing-private-hyena-65b1e8@quoll>
-References: <20261014213426.2957480-1-ben.levinsky@amd.com>
- <20261014213426.2957480-7-ben.levinsky@amd.com>
+	b=lGuNGhUXYGNT8rfxdEATidMUz1+wRE211/U6+2f0Q9FCk+UCGR13IPaYdSsl8BWpv
+	 cSjSfzJKyZ59LL8/iE7bOy5AqaM6KhZTh/mXaT/SSmlmDxRbLw4JiipeApqd9TMJDp
+	 7G9SqO/ZoEzo7S79VSNKl3G3hUi9h4fawiLMq6LLatpSI2paosVTNxBlSF4PDfKoWh
+	 v1bl0851TyWRlJj7SY6kOHwmRl2f0qTmBrC0jGR4NN9XcrBsyTtRvCZIYjss1x5lI0
+	 kw/gUbq8PmoOvMOlOq4UpBhrp6XIudByLSKTOFIg1nPbou/Z6WYnTgJh98tmLT8gJi
+	 cQeUB2jvMFSEg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xHI7C-00000006E9X-2a5D;
+	Thu, 15 Oct 2026 11:51:10 +0200
+Date: Thu, 15 Oct 2026 11:51:10 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	FangpingFP.Cheng@moxa.com, Epson.Chiang@moxa.com,
+	EddieSY.Lin@moxa.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/6] USB: serial: mxuport: add MUX50U support and
+ updates
+Message-ID: <atCiDvHBI7F3SCoZ@hovoldconsulting.com>
+References: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014213426.2957480-7-ben.levinsky@amd.com>
+In-Reply-To: <20260811060501.2307836-1-crescentcy.hsieh@moxa.com>
 
-On Wed, Oct 14, 2026 at 02:34:26PM -0700, Ben Levinsky wrote:
-> Register named reserved-memory carveouts and expose the firmware
-> resource table after it has been loaded into BRAM. This lets remoteproc
-> create virtqueues backed by reserved shared DDR without deriving
-> carveout roles from DT node names. Map the shared-memory carveouts with
-> the common rproc_mem_entry_ioremap_wc() and rproc_mem_entry_iounmap()
-> callbacks.
+On Tue, Aug 11, 2026 at 02:04:55PM +0800, Crescent Hsieh wrote:
+> This series updates the mxuport driver to support MUX50U-based devices
+> and fixes device-specific runtime behaviours.
 > 
-> Use the mailbox framework to send virtqueue notification IDs. Defer
-> received notifications to process context before dispatching them to
-> the remoteproc virtqueues. Keep mailbox payload storage valid until
-> transmit completion and order write-combined vring updates before each
-> kick.
+> The first three patches clean up the USB device ID table and firmware
+> version handling, and add support for UPort G2 and Platform UART
+> devices. The device family is encoded in the USB device ID table so
+> that the table provides both the port count and the information needed
+> for firmware handling.
 > 
-> For designs where the mailbox and remote processor share a clock, request
-> the mailbox channels only after enabling that clock, while the processor
-> is still held in reset. Release the channels before disabling the clock
-> during stop.
+> The fourth patch adds optional callbacks to the generic USB-serial
+> write path so that drivers can stop write submission based on
+> device-specific state and restore that state if URB submission fails.
 > 
-> The mailboxes are optional. Without them the driver keeps supporting
-> load, start, and stop only.
+> The fifth patch uses these callbacks to implement the per-port
+> SEND_NEXT transmit flow-control protocol without duplicating the
+> generic write implementation.
 > 
-> Select the mailbox framework, the AMD PL Mailbox controller and the
-> virtio RPMsg bus, which the driver uses for notifications and RPMsg
-> channels. Selecting MAILBOX while depending on GPIOLIB creates a
-> Kconfig recursive dependency, because GPIOLIB is selected by drivers
-> that are reachable from MAILBOX, so select GPIOLIB as well instead of
-> depending on it. The driver always needs GPIO for the reset line.
-> Depend on HAS_IOMEM, which the selected mailbox controller and the
-> write-combined carveout mappings require.
+> The sixth patch adds RS485 mode configuration through the standard
+> TIOCSRS485/TIOCGRS485 interface.
 > 
-> Assisted-by: LLM sparse
-> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
 > ---
->  drivers/remoteproc/Kconfig              |   6 +-
->  drivers/remoteproc/amd_mbv_bram_rproc.c | 231 +++++++++++++++++++++++-
->  2 files changed, 235 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> index 5b56b2dcc725..9ebbbf76289f 100644
-> --- a/drivers/remoteproc/Kconfig
-> +++ b/drivers/remoteproc/Kconfig
-> @@ -25,7 +25,11 @@ config REMOTEPROC_CDEV
->  
->  config AMD_MBV_BRAM_REMOTEPROC
->  	tristate "AMD MicroBlaze/V BRAM-based remoteproc support"
-> -	depends on OF && COMMON_CLK && (GPIOLIB || COMPILE_TEST)
-> +	depends on OF && COMMON_CLK && HAS_IOMEM
-> +	select GPIOLIB
-> +	select MAILBOX
-> +	select AMD_PL_MAILBOX
+> Changes in v3:
+>   - [PATCH v3 1/6]:
+>     Rename the existing PID definitions after their corresponding
+>     products and introduce a helper to keep each USB device ID table
+>     entry on one line.
+>   - [PATCH v3 2/6]:
+>     Rename the firmware-version composition helper and retain the
+>     existing firmware image-size validation.
+>   - [PATCH v3 3/6]:
+>     Name the new PID definitions after their corresponding products,
+>     list all supported products by device family, rename the family
+>     definitions to describe device rather than firmware families, and
+>     use BIT() for the nonzero family values.
+>   - [PATCH v3 4/6] and [PATCH v3 5/6]:
+>     Replace the mxuport-specific copies of the generic write path with
+>     optional write_ready() and write_rollback() callbacks. Use the
+>     callbacks to pause SEND_NEXT writes and restore the per-port state
+>     if URB submission fails. Expand the SEND_NEXT commit message to
+>     describe the per-port protocol.
 
-You should not select user-visible symbols.
+Again, sorry about the late feedback on this one.
 
-Best regards,
-Krzysztof
+Now applied for 7.4 with two whitespace amendments.
 
+It was a joy to review, excellent work.
+
+Johan
