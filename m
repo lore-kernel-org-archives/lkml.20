@@ -1,128 +1,121 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE7A4A68A4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366844ACC9D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061394; cv=none; b=WqCyL0zBiFU649zDcTRl8g2qsHmO29xVszqpcmuOFdQao5IgSr2Gk4JafAj80lvgK3CLKppuELdLTs0IuraeF1dbTWxgLTGm3eaJVIWd9KjzjUBv/INpGnFVF5p7iB2134DgUSjUyr3dnqUngiLNGKDtwS/aQ7hKYELfq66kbtQ=
+	t=1792061395; cv=none; b=bcQbAcvOdyxYrvC5Lmh8QZYrQyQ9EXmePtSHX478/t42IQNkaDEfuWRSkx+ZmuyzkQ0Bt1Ez9C06UgPChBAn9hV3jyFxB5f696s8XFm00K6S6NgGSguC6k1RQapVk52YJA5CaDygwiXFjFqUYSrtUGJIp5PUZm3IBTl/NWkhj8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061394; c=relaxed/simple;
-	bh=GZfFkmFPdQF/uZACubSWUzTLe8ySNGi7t5OkcD6f9Vc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XGaMEWEMpu/anFNZtJCz7CyTMO75F7YISBMqMr8h8+vYxOo/+KfJ5vRMZtjCiSR3M1CbzxMbiH1MhoP8wEaMhLcSqR0dYEt+1tR1EW78d5nc/TxCs10azRiDcDt5AKVIPjeBmCWqgeGQVsXy2ySSRsXWtJnW83iIndS81buzlMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bJbMyBdc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Erhd+Y9l; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792061395; c=relaxed/simple;
+	bh=nEBAEcr1DpggMNA7XbubOTPWUzXKTrOJxdCh4sDtEpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MXnKhV/6XjOvAJ4RBHI+wprDfZFyy3BAD/ZwPiNl7jwJ7gza+IrDeXgdp3jGsiC0Zs3BXdqPDllC4vvGi5fAycLA5uZZEJvuh0OUBq34IHhVdVeCfjCbYSDzEgtZYhY0niV7G1e+WoU3PSgKJIlg2QKbbFWirHw+480LSjLp+5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uf8ATGlq; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bJbMyBdc";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Erhd+Y9l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792061391;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YcmYNt/gMhxdaIj/6PLYTkAXyAHJ490Awmdvej+Tuqw=;
-	b=bJbMyBdco4sJzLZmKZYFwgFn3tnBKp0x9aZZMNlbt5rdaYVTYnxjSOSNEaA0Wuq3HbE76N
-	G1K9pH1kB5GOfttGgtdqlOZOTQsTVl11K/Hk3X9y5JhndGvJ9NLYgawK3eMe8sIjeoy5cT
-	e/PUrQyq0PpdqX47AaOeRtkIUwvHMrY=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-52-2BmIOslLOaKwptP5FQuOvA-1; Thu, 15 Oct 2026 10:49:50 +0000
-X-MC-Unique: 2BmIOslLOaKwptP5FQuOvA-1
-X-Mimecast-MFC-AGG-ID: 2BmIOslLOaKwptP5FQuOvA_1792061389
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48df730c035so278145f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:49:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uf8ATGlq"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c350db5a761so688052666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:49:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792061389; x=1792666189; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YcmYNt/gMhxdaIj/6PLYTkAXyAHJ490Awmdvej+Tuqw=;
-        b=Erhd+Y9lQdQH3eW9fmf+ArlpfZBGgIwgp+9DVL8RbxwPM7XCG+mruQfA/NZMkFlrr9
-         UAs3I7FqfQtOtMY/K70RpqTDrJ7RuxeYE3PYViFqpMOIPfpkiJWv2IxtRlq6q+8oHA0Y
-         r9VapKewCVASsjFGXVRnvL0tucUiUCw/hv7YaiqE/wF4vtzKBpRHiNgKnKCHoELMkIKp
-         x02bNlzt7LsR4qjn/zD+WjTWoaMNgZrAlxcdmNcp4zaVEx6ks7ZNjr5fwhasdlneXqXk
-         cUrwuge/mag1ply4g084k1m9xQvkLc1suqxPXbWnDvUella4JYlotlxP7iVIzcuda/67
-         iDwA==
+        d=gmail.com; s=20251104; t=1792061391; x=1792666191; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m/Zy7Y5eanQKJCoQxPls43jtvnUNLhviTL0wISl0Q1Y=;
+        b=Uf8ATGlqD2E7E71plUlHZjRo7gPgEIFE2QDGWsQgVD4gp1E299msUBLJoEVMtZOjr6
+         xFkeO93OjRoW8f/uYQGq094vD0uiYQoLxtqp3qHSIng69LRTpt+Zwc8hqRbuH64xJuVk
+         WS0fTkVSkIssVOmNfempPGqJ3Z71xRtoQytZvdqOvt5GZ9P57fR61aYE8Pk7Rn394Cdj
+         aG+7OyrKhLzrP1X+g5dOaBvjVOGod5GKTj+QsUCVbHp99fnEWFQ3i7TLcteorsz6SYOC
+         UoRfjzrfExiQt61k1xQGlPILzas7C3WTaAALRLPfSRAcNsnhleXmP0WQTD5wdM9e1iRt
+         MklA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061389; x=1792666189;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YcmYNt/gMhxdaIj/6PLYTkAXyAHJ490Awmdvej+Tuqw=;
-        b=157h4wd65zZDBslWh0dUibd17296qK/xzVJYO0zzj1Iv5z8ILRpoR/v+2yVVzzFUkL
-         ElKI4x04/OEsRyW2odS1m+YadLc86neZ3a8yLzYdWiF6JRie1qWdRKGczyyzfGYati3M
-         W3oz0gn55rMsHrn5GWMjqoXvtrRdlOupTz54fK/9dAgt1KzKH0J0BKyn0uHlS8eu/Cv+
-         Jwx69GrGmJkAXmBB60MRtzSqtUrla3eupn1Z5cmIES6CXE/gumolDda8PWAxeaiIAkzn
-         1Sn7C4rquLfWaRUhOKnRvscz8jJ2XIV6qhZp27voHM+xNa1abIjOSoGUCt7jx0bv+OgU
-         Hs/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwp6pKAWWuRIFccbFp/qyt7vEwCWyaq4JzWkdrDjwcGIAaPF+Bbs0h4MBfgtEyyOCXsExbKCbIHvRMLDBU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1xuiztoPmnpKYISFJMkByBRx5rMhDBLvwO91J1kIALC3YP37t
-	xDTTFbDIQJP0FNvTAG5Q8Xf/VUmuCmTDGnzcI0oCt55OuMz+R/WtLaxSKN9ePr7xCojRwRVcfh+
-	a1agClWvigfu3we5Gkgr14AKjQ+j2Fba+HSK4g9PkxrJayGhCK5X8RwX+UJfMfeo5Bw==
-X-Gm-Gg: AYBFou3qiq1z8SJQp3sxXFuD3wuontWNOrnsbHFtJ7q0mX7Uwx9NMIiiyJ6kghCXDw9
-	lLvnI0Z4tujrNKLyPmwEy2O1qoMSjRYcyHgyRIkq8d9QVrcO8hiz2VEC2oyPzJ9SNz9Ij9dIX+l
-	26BFb/kXhq5yUVflZh2Gy15YSRx/e/hAg3ucsMVdH+POFERtbqk0hJ2/MNGoB3i2Jag2gvDtHI9
-	1c7iwDQCN7wpfiiA0Y/raDqGuv5gxJfVX6uKTDwGYCoyx2FpCMmUzf4PpcTmRqDKAegNZjyrBWQ
-	uhz4ap3nY+4sSQ4Px2WZos9urrU0cRANOVVztJSrvTtH/FDl9LmIZP5xL6amlv2Ub2tYD7JRAKZ
-	x1GotFMwko2EtBM8awgX3B/xXxE+Vj+gU97EQB+CXlhzSag8LdF66l/Sdi6lfrDm2bA==
-X-Received: by 2002:adf:e185:0:b0:48d:f56d:be56 with SMTP id ffacd0b85a97d-48df56dc2c4mr3636388f8f.13.1792061388867;
-        Thu, 15 Oct 2026 03:49:48 -0700 (PDT)
-X-Received: by 2002:adf:e185:0:b0:48d:f56d:be56 with SMTP id ffacd0b85a97d-48df56dc2c4mr3636319f8f.13.1792061388254;
-        Thu, 15 Oct 2026 03:49:48 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48deeadc0b5sm8405153f8f.6.2026.10.15.03.49.46
+        d=1e100.net; s=20260707; t=1792061391; x=1792666191;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m/Zy7Y5eanQKJCoQxPls43jtvnUNLhviTL0wISl0Q1Y=;
+        b=CZB2JqJOPoe8h8n3V0modiJ0FhlnQL8EM60hy2p1WsDVpC1rku1gUYpZ1iN8Qb9D3r
+         1jbfIqirs0C0XEG2lvEmVCZEbLS2wulKsBir0nCxHG5sRjgR29GiaTuzGSwAnHlIgbRZ
+         DhU+HoVx7fnk4uufh9GQvrxVknNWWKHhRgtym29am3/mAZ61+DcfwXXPlwuj1bPgLXpr
+         I1NqVmy2NBG5bMIFn42vgvi5bvPkHwfGzmpziIBLjXt7V2vmQ4Im+GbWSpjvlMHd4Xo6
+         hIRd7RoDly+ny5bKhdpB/JI3oUMIdWwkVjErn6ZLbrjgHSBmxoefNvYCermET5022qMW
+         wdjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhN5lKRdNt/4PoSF+jqp5c67XOES8SJMsmPek2iCxUgtYoDkUB4Lt1hKrtiHwAWehpt4uRJiEVXdaSC7M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYqB7A8cPdM4yzrpIfHc9sms1d0iQNTkDhGx8Pk1G+r7uX6DX+
+	wBw+QJE+Dz0gxCGL/4UQUWm5I3QGzs940GorPA38kdBk2HVbz1VNaHCd
+X-Gm-Gg: AYBFou0EZ5JRO/fylZ01RvPNsZ+63ZYKvJrRUy3tssrWB1stZsXUNSxs4ldP5u3BoWL
+	/pesyjs1OfqrKrVxAmlP9+gKuNTUILlWoNLIBB0vzwF/zZjXM1L3CNvZ9iHjktRxYk56Wgf/dR2
+	wqqbHXFg0D94KQWknd7vMiQCt9qN4aLBtTbGtVD8qadOp0uhkzSwPPF/DfARBZJ1W0GbCa957nl
+	LsjbfxSLE6K7OAdSGgrVig6UA6FHJqKd9hWyh8JCoN4v0VkFt5VPFW9u+5OHydQn/dayxs2bqsA
+	52yT/RjnFleuvShsq7Q5GJ0siQ6cH9iJ4f0KiQUjmwhpEwyZHAu4WA4yTUOO+t4PZlISEUg0Exw
+	jJCR4zq6jnAJoWtZ9lSbv9tRdM9WSmkV3FsBCi2Ymuge1aTTUMAuJCyD1/awhHKeSomuji4YFky
+	3uOy59HlLTZXuzYcgdBAw4D2DgueQpqr1BU7rOkUChBRCqjMyxLYNOFyzquaPjwen341IGn7vtx
+	tvesD/3YU1bN5FPkLqGdwg6hT2Ky4UIXmmMXJKHqjHfbz7wONVBjDicpzwMsCXuhNdu39b6Pbyn
+	FmwV1R58iapsgeKabfr+6HHeahM=
+X-Received: by 2002:a17:907:9801:b0:c2d:be57:f73a with SMTP id a640c23a62f3a-c31a9fcedffmr1919031566b.13.1792061391328;
+        Thu, 15 Oct 2026 03:49:51 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3af45sm107890066b.33.2026.10.15.03.49.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 03:49:46 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Julien
- Chauveau <chauveau.julien@gmail.com>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luca
- Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 3/3] drm/bridge: ite-it66121: make successful probe quiet
-In-Reply-To: <xlv1se27fddc.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-References: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
- <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
- <xlv1se27fddc.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-Date: Thu, 15 Oct 2026 12:49:46 +0200
-Message-ID: <xlv1pkxbfdbp.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+        Thu, 15 Oct 2026 03:49:50 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 1/5] dt-bindings: vendor-prefixes: Add ZillTek Technology
+Date: Thu, 15 Oct 2026 13:49:41 +0300
+Message-ID: <20261015104945.2687162-2-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
+References: <20261015104945.2687162-1-paulius.zaleckas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Javier Martinez Canillas <javierm@redhat.com> writes:
+ZillTek Technology Corp. (Hsinchu, Taiwan) makes MEMS microphones and
+barometric pressure sensors such as the ZTS8032.
 
-> Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
->
->> When drivers are working properly they should be quiet. Turn the dev_info()
->> into a dev_dbg(). While there, also make it more informative.
->>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> ---
+Link: https://www.zilltek.com/
+Assisted-by: LLM
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Ups, forgot to add:
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..255dc56edc36 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1977,6 +1977,8 @@ patternProperties:
+     description: Shenzhen Zidoo Technology Co., Ltd.
+   "^zii,.*":
+     description: Zodiac Inflight Innovations
++  "^zilltek,.*":
++    description: ZillTek Technology Corp.
+   "^zinitix,.*":
+     description: Zinitix Co., Ltd
+   "^zkmagic,.*":
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+2.55.0
 
