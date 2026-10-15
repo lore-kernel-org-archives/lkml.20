@@ -1,122 +1,122 @@
-Received: from out-2z4y-a139.jellyfish.systems (out-2z4y-a139.jellyfish.systems [198.54.127.139])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9C53BFE4A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077290; cv=none; b=nV5YbdlkbLxZ1WMiN/xNmU0MmUDsX0xs2jB8s+SntZ4VT2bnxPxDOXsACyGSs66fOOkhaYKkMTJSO3Kj0Va+5JiE/ZOLFbEjPa+wfYgXlD6Yc/CLxG678Vlw03SMa0j6QE8xlTdB0qDxmKbjhu8PUStDkpxpBFCIkeWSdqDEPTo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077290; c=relaxed/simple;
-	bh=rZlMlEgUOKkJ42QPQ0hke9Wo1CT6eaOpPAYTZymSOiI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=psQPrSRwxZELzRstHX7JpZsig9ShDg47EqbTGz5AH2/W5n9lmp29jHbpq33Nyvp35Ze/HFxpQRpkqQj/TgntefGFyWUu8H9GPODyn0OO80oTQpuqDhT+htO0apxkbuO/crmYsrrZswCsTPQ3Zqzq9jiFWYO9B6OSHKWqbTnwjHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eltavine.com; spf=pass smtp.mailfrom=eltavine.com; dkim=fail (0-bit key) header.d=eltavine.com header.i=@eltavine.com header.b=BMWL15PQ reason="key not found in DNS"; arc=none smtp.client-ip=198.54.127.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=eltavine.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eltavine.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA4D53C3AD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792077353; cv=pass; b=oHrEam+pbwE2RfHd+nDii1DL2capTyNjcz1K3hbSV9FW9LZnF48jtAfSb2CHqrFMKx20SXQnlhk7W4OxWj8kRWHusbwwQKWsjrcKmBZEr65dZeNlJ4QCm+Fw8GzqdxhjiL/zGmB+sk/tx9VkwYXR27EG62KZ4LDNQegrgyhSrxI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792077353; c=relaxed/simple;
+	bh=IH6C2ITjynYuyHLytAInZHJ667Lrpx57dguMaAwX600=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W8Zca7jGSp9DUx+/1aY/wH/OxwsROUySMEIzKCn/THVgo85ucVniQ9TpAX0NppAOmqL8VS/Zb7CIElm5AmYFpAzRPFytKLiVZTrNGPqlPzp84Gw9Lrw2udwXP+SiUJCRi25iGmmBqYFLQ6ta4oz41GhzdEfVGoqZTw+joQQqpvU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nKnu4UbX; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=eltavine.com header.i=@eltavine.com header.b="BMWL15PQ"
-Received: from localhost.localdomain (unknown [188.253.121.98])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j5B0W6htzz2x98;
-	Thu, 15 Oct 2026 14:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eltavine.com;
-	s=spacemail; t=1792076033;
-	bh=v20J6Lj3iauircsktxZXY7nk0wbgpGdU6Gg01D0XwZg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=BMWL15PQp2x6A+290OewB5aYU5xZCWpCVCDMDZbuD103TKtkPJ0bdnydWY8jybPnD
-	 WUXnfeEVpmZQKmLyOvSK9MDeISQb4KpHrpS19LLDNXQUqFHFltOc0RvI1BjpL0bg9r
-	 ZCp8CbTeucr4bFCdpnJc+qOA+XSqXv4AQwKRErtVZNsqVXB/G6wHV/2YALRyPeaHnD
-	 yAe58FtAZybg+uHESZP3C7mRBobf00g45LIx246urKKDJ5i4vxPRDdJfrArQ6+UREy
-	 tUV34nbSqK7hjVq8AOo3oCLdyqDF2hpMPT2526QVBjp6Fyc6jKr9h27KNFAGKE1YZz
-	 iJgOXobfP/rxg==
-From: eltavine <me@eltavine.com>
-To: Richard Weinberger <richard@nod.at>,
-	David Woodhouse <dwmw2@infradead.org>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Leonid Arapov <arapovl839@gmail.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com,
-	syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com,
-	syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com
-Subject: [RFC PATCH] jffs2: disable empty summaries instead of calling BUG()
-Date: Thu, 15 Oct 2026 22:53:41 +0800
-Message-ID: <20261015145341.34322-1-me@eltavine.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nKnu4UbX"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso2788720a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:15:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792077349; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g37zpoNVmW7osqduroWwdxFm9qHS+F1kwC5cHUJ2b8txqEOmxXnLf1bHx/eaBGxZPK
+         9JEwbpO8FGzl0Y3+sbIaeHGMmQOzrPfb9WVPCLgJkRUcx/pRcSDdZeQ1Jf6C/F2Z5sWt
+         hwg6J0hKyeXfuH7MMvJ8hOL9Wqlsy3ksG3ZftTgOGpa24lA+J59nIkeqQsepYDokaBOU
+         z1r0fEmgcjGcopARuIrNoCLQr2nOSHizc8dSR83qhRAErf/V5rj/CRfE7QVnS+4C8YmJ
+         DnjETFu1XoxaZIfACikPMP02YSH1PdK1u5EePeUbk+WAZQfjt7Q3tPJFHTl9cvy5eAXH
+         UlHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
+        fh=T9VkBnQC5OgFutSQkUxCsbd32vzORmg7Dy2ToQYGMMc=;
+        b=kcf6Qqv0JDgIp3hp/IHEpgUoMGGhG7TyIKA4N2ICjYOZFi1vLIhyHA0v9UGaoWJsHz
+         qqHrgcEHY/6RowDF+XoaM0DdfMDkQkizswpPShfMRHNWv+KtPWBrdE//LeKawSJMYAhJ
+         NDSBBkdyUTQmMLwsihesTaWnt63LgPTFddFQgTEgyfR8GyjQFlD24tbn1GyzM8sngOMF
+         YQeGC62aIizd+S5bvAaoTeUEA4ubXRXJHNTJ/gR0Wz3NyPgD7wjsDa7tHnwOKCZzNXfA
+         r7TPd23oa++0ZlJ3EMrZAvDK+EowWfOr9H+9twc4ATeiGXD1bpkTq9aijq+A8PK4JXSr
+         JxNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792077349; x=1792682149; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
+        b=nKnu4UbXM55FqTwsXsL5rqRbhxYX57pXWxdWa1UIfw/Csfnu/EABonwqCW41UjrO/S
+         PBC8cak+s77RlztOUXxE0XyKjCDRZBaDuFgLcfuMpFXYXH6X3LnIUoZK/S/dsCQMGDTt
+         DJ1nkmmtzlF+s72190lS6CJoMmrXM+kP6VhRyIKVmF1eaSf7HuoksALVwaHXZag9tbIc
+         4NaavsXfG1fqgEbIqqPfjb/Txg6crHj+1zmHr2zHrt1s8mntv1AFLb5IBO/6kXlElJea
+         QJnZyePcN4+yaZ2edvoUtAbu3NHu7uZbbDNTAs8Mh1AU2piH0hpBAZVpLGvA0CIN0rEL
+         udJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792077349; x=1792682149;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0qzPWVIlKwsrNYhk0FU474psXi0lgPudC6/799gRiGo=;
+        b=dWJhpK8DuCQpwvUb6xBFyMOOOX/Rd7D+qBMGy9sIn15SRzw/xOqieB/hV4kPSFzlT2
+         95v3g47F8V1kKzWifmVXNKc09l1iQfqF1CsVMmXZ71ltwykgDnxngK+rGnPVAPzeC410
+         T5dG4DJcvGgcKD3rRrgl7QfmDJDBodgQvwIWI6DAAUeLrGkSf/37VbCrKc+4ziKonGX+
+         56U+jFT/C8aNotHugUzPMIyBhS64DVQksdRLRXZXHtq1k30XHiQn/Xqk+Hl8I/ZC0wxo
+         fBWHbJRx6DrNEHT05Ya+XFprE7nWzVT49FtHrPVvXHVbT5Etimpwykf+vc0vLXupMVWO
+         t3WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXdXJ4nWR+BbHzK34bO5AepAMgBzDpwy2XW9kkBgcs6cbTifeQxMr3URTlaQc3vSc0Jybn6wIYrdUBQ8Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZOP8B3EXFOl6fJNmgT7pn+0fbU4MYOp3+17e9bcJas4wGB6bg
+	mm2z/WbY8K916AAr7lj6T3PKq+PQy/2+/zh4uNpcJz/eVm8UG0fb/wX4jKZBvKXVJLAsOomn7/C
+	uMkHhGIGZ2M5odT973mxUJw9DmBMhAZw=
+X-Gm-Gg: AYBFou1gf3vXBH5p3C0huHZ2T1oDUsa53Rn5f8ePyc0G1DzivLOU6BPi+woVGNKOjR9
+	QCuaygqa85rYccKOnxJSmN7mHhjoScnfi4E7h7OBWFllfr+r+H9XSQLFXaduT3V+7mvR3B5FLeE
+	55/AYH+aqEDC9QMNzRPJggBvo78ZCvVUypGXGgX9KNu/e0y5AKXDgp87RGzFQ6LL20Faqfbx/0I
+	aoj30UI7PpYf7ssg6pb/U+6yOdPoZ9/cKked/spGT4NVHBaEtEEXHAMDljO+DOwMi/dThPXgzNE
+	WdKbkjkCPDPCAFgDRmsL4bbbIO3Tudmgx/FKBhmNw4acEaBKHQcF1xETSnogFO9glq41diQEUjx
+	aKdUY5aT06Kg4Fic311hMl12B3fl3a79cQ7gv7ysDQ4Y=
+X-Received: by 2002:a17:906:c155:b0:c2a:d65c:c194 with SMTP id
+ a640c23a62f3a-c31a9d56761mr1838328566b.29.1792077349343; Thu, 15 Oct 2026
+ 08:15:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: me@eltavine.com
+References: <20261015051926.13752-1-sreeshankar0910@gmail.com>
+ <20261015051926.13752-5-sreeshankar0910@gmail.com> <179207236622.28934.8455006218721757519.robh@kernel.org>
+In-Reply-To: <179207236622.28934.8455006218721757519.robh@kernel.org>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Thu, 15 Oct 2026 20:45:36 +0530
+X-Gm-Features: AclHuK8CtOHEeDeQkZ6GhBte8PNJPOJgXaJdB95NIQjYT2X3-p2J5_V6n9AGVI0
+Message-ID: <CAA-+uk+iNj0TxAkUgGSHhvBjDf7_EO_q9Zv6N1f+eoHBJf=q7A@mail.gmail.com>
+Subject: Re: [PATCH v10 4/6] dt-bindings: interrupt-controller: qcom,pdc:
+ Document SM7250 PDC
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: conor+dt@kernel.org, davidwronek@gmail.com, devicetree@vger.kernel.org, 
+	krzk+dt@kernel.org, viresh.kumar@linaro.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, danila@mainlining.org, 
+	jbrunet+clk@baylibre.com, linux-clk@vger.kernel.org, sboyd@kernel.org, 
+	konradybcio@kernel.org, andersson@kernel.org, radu@rendec.net, 
+	robimarko@gmail.com, bmasney+clk@redhat.com, rafael@kernel.org, 
+	tglx@kernel.org, mani@kernel.org, linux@gurudas.dev, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-With CONFIG_JFFS2_SUMMARY enabled, jffs2_do_reserve_space() tries to
-write out the current block's summary when a node and its summary
-overhead do not fit. jffs2_sum_write_sumnode() assumes that at least
-one summary entry has been collected and calls BUG() otherwise.
-
-An empty summary is a valid state. For example, the syzbot reproducer
-mounts an image whose selected nextblock contains only a cleanmarker
-and padding, leaving 140 bytes free and no summary entries. Creating
-a symlink needs 128 bytes for its inode node, but reserving another
-60 bytes for the summary reaches the BUG():
-
-  kernel BUG at fs/jffs2/summary.c:868!
-
-Large pristine-node GC reservations and xattr updates that fail after
-reserving space can also leave a newly selected block with an empty
-summary and reach the same check.
-
-Disable summary collection for the block and return through the
-existing exit path. jffs2_do_reserve_space() then retries the
-reservation without summary overhead, following the existing fallback
-for a summary that does not fit. Use dbg_summary() for this valid
-condition.
-
-The block is scanned normally on the next mount. The on-flash format
-and xattr size limits are unchanged.
-
-Fixes: e631ddba5887 ("[JFFS2] Add erase block summary support (mount time improvement)")
-Reported-by: syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
-Reported-by: syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=48f2d47f83a4c223ad14
-Reported-by: syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e4484dcf0982d86ca2e1
-Cc: stable@vger.kernel.org
-Signed-off-by: eltavine <me@eltavine.com>
----
-Validation: Built fs/jffs2/ in an arm64 Linux VM with GCC 13.3 (W=1),
-with and without summary support; the latter warns about unused vecs
-in writev.c. Not runtime-tested.
-
-I'm working from an arm64 Mac and don't have a physical Linux test
-machine available. Sorry for the limited testing; I'd appreciate
-review and help running the reproducer:)
-
- fs/jffs2/summary.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/fs/jffs2/summary.c b/fs/jffs2/summary.c
-index 4521a7723f30..4a07b7911b21 100644
---- a/fs/jffs2/summary.c
-+++ b/fs/jffs2/summary.c
-@@ -864,8 +864,11 @@ int jffs2_sum_write_sumnode(struct jffs2_sb_info *c)
- 		goto out;
- 
- 	if (!c->summary->sum_num || !c->summary->sum_list_head) {
--		JFFS2_WARNING("Empty summary info!!!\n");
--		BUG();
-+		/* Nothing collected yet, e.g. freshly opened jeb */
-+		dbg_summary("empty summary, disabling it for jeb at 0x%08x\n",
-+			    jeb->offset);
-+		jffs2_sum_disable_collecting(c->summary);
-+		goto out;
- 	}
- 
- 	datasize = c->summary->sum_size + sizeof(struct jffs2_sum_marker);
-
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+On Thu, 15 Oct 2026 at 19:22, Rob Herring (Arm) <robh@kernel.org> wrote:
+>
+>
+> On Thu, 15 Oct 2026 05:19:24 +0000, Sreeshankar K wrote:
+> > Document the PDC block on the SM7250 SoC.
+> >
+> > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/interrupt-controller/qcom,pdc.yaml       | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+>
+> Applied, thanks!
+>
+Thanks,
+Sreeshankar K
