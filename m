@@ -1,82 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290F5381B1D;
-	Thu, 15 Oct 2026 05:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80691A2C0B;
+	Thu, 15 Oct 2026 05:37:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042633; cv=none; b=Qf2BI0uFqgQhKDPP4mw0xpfMvBZFbdXzZ/mCt7nlqt9VgbnIyx/5lW//Sp7ZXyze8stKKlUSCaIJF0aTpSDClDoAVXM2ffIl2JJuUJC2ihStbfy9hJqmQM6ykZjvqeIJf0NPpteleLe3OgrfyGMTm8EK4nK5WBuTpsqGQTF2jSM=
+	t=1792042669; cv=none; b=acqyWRD+8RamYmRdb1KkLgBtNUAVhLJsSCmoI/BKC9Jua9PfG21q2aHb2yS87zYhQrxmNcT1Sm+3UrxHoq4sSSSu9Z0TymT5krkSJmoDzX7F6w6cRDxDpCmVbocHghG+fS/ceGGsQyLfAtEfcToyWNm87An+/55ULO9inySM3zA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042633; c=relaxed/simple;
-	bh=YBlvSzDB1rU7oRvUDxzhbDAGjAlKh2nNsuWGE6ogHIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rWZbvLJc9HNXxkz7OMLW1YvtaZ8XCQpV92bs0CDAtl2IYpp73yggENXaDI0EqYs33jPeFZtBSaU4+xJlJiizYkj4Low14IfEn7DEEvlrAtA66QzT23vupxS5JZBwfqfe9LJldIKoEgtcavbSlDJDirkcuEr2853vhjVc7l+Wp0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT55IM1E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792042669; c=relaxed/simple;
+	bh=eRPofMYnBCfCl542RM3WrRFosCu/RBhbPhw4M22mzUE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qweq7lxCwdX6iyTzIunEKPcXtnffD1BRezw+b/y3nM4AOKApuc03OS8QpqfkmpGmxioiY4C56CNzfeOyRhUShAPIb/6W22mrbiDsKuzjUEoCunKnqaQ+dN65DbZUIdZdtQaYGT1N7B1C5dvWUCNlHxgc+aT0q57pei/133qRej8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QiRcjtXI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT55IM1E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399581F000C4;
-	Thu, 15 Oct 2026 05:37:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QiRcjtXI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF5A1F000C4;
+	Thu, 15 Oct 2026 05:37:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792042631;
-	bh=eTSrQYMO7jE7vVJfflypwNjUVOfJ4WMVq9cSALIMhCU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BT55IM1Ed/Nlw5p9ekFBtQ8gSEY/AjYIGlWH6Pii0EcLe3QpnnAOJtsAhwmwIwBJc
-	 5ARJ2m6RRaCkjJS3yvGjH+RK5D3dPepwGUeSz1oHhbuaYbq/yM5l70TNoNF/diZ/9W
-	 MyDzQxyWeK9XNQKXmYv7s0WW3I91noB2RPo/l11iosGN7n44bJdHGK+KFIhdbb8XaC
-	 y6aqb8Z3YqaoharGJ9iI3EifPrvu/J1rp2HR5/mpjfYOEtiZITb2U3ZncslvwK6xpV
-	 At79GU9W1LU6EFUtppCxxbc0YPxyK+IRD8z888zlhIEEuGl0UGwU7k2NEDcepc+nOg
-	 +73bUYSOBcZPw==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
-Date: Thu, 15 Oct 2026 07:36:15 +0200
-Message-ID: <20261015053615.31145-1-ojeda@kernel.org>
-In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
-References: <20261014123758.782265692@linuxfoundation.org>
+	s=k20260515; t=1792042668;
+	bh=zYg5CWGxSdeKDaRo/A92SDbKDroOZH6PvO8iZ+HbgnE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QiRcjtXIJJ5isGPGSe4B+BDrnpUv4N5ymd1+fa/t3BDzibiUB2MR9tcsG+VEDcIFC
+	 MOC+z80peHijYscreZj2JsazByj17f8+XTq8thETxT20inFsHjdvD60RQjVejyyTio
+	 ENyr2fNhspoIlnCeVSk4DDuDE5Epuu1oK7UY4tuBmWpWNCzvde6uBiB/h2N/oyL4gA
+	 n81iACpYmocayG4zGkp1Ujd54qd8MsMhR1Y/Nxy4yKAG3AhU4hLKBoJPLKS6bmJcys
+	 0jAoSU+Y2oe8QUueeFmIgxFkrQ/H0i44RHsR8u86FrUc6MiIN5v1LxnUKSbW1SJwQT
+	 epTSizKeF34Jg==
+Message-ID: <eb21b333-3047-4f8c-a1d7-9d390d935abb@kernel.org>
+Date: Thu, 15 Oct 2026 07:37:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] ata: libahci: re-enable FBS after error handling on a
+ port multiplier
+To: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org
+Cc: cassel@kernel.org, linux-kernel@vger.kernel.org
+References: <20261012103917.389-1-illofspeed@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261012103917.389-1-illofspeed@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 14 Oct 2026 14:50:49 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.11 release.
-> There are 284 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 2026/10/12 12:39, Kyrylo Biryuk wrote:
+> ahci_do_softreset() disables FBS before resetting a device behind a port
+> multiplier, as required by AHCI 1.2 section 9.3.9, and re-enables it only
+> when that softreset succeeds. If it fails, for example because a
+> hot-plugged drive is still spinning up ("softreset failed (device not
+> ready)"), EH escalates to a hardreset of the PMP link, and nothing turns
+> FBS back on: only ahci_pmp_attach() does, which runs at the next boot.
+> The port keeps working with command-based switching until then.
 > 
-> Responses should be made by Fri, 16 Oct 2026 12:37:26 +0000.
-> Anything received after that time might be too late.
+> Seen on a Marvell 88SE9235 (1b4b:9235) with Marvell 88SM9705 port
+> multipliers (1b4b:9705, in a Synology DX1222 expansion unit): after
+> hot-plugging a drive, the kernel logged "FBS is disabled" followed by
+> "softreset failed (device not ready)" and a PMP hardreset, and never
+> "FBS is enabled" again (twice, on two different ports).
+> 
+> At the end of ahci_error_handler(), re-enable FBS if a PMP is still
+> attached and FBS is supported but disabled.
+> 
+> Fixes: 89dafa20f3da ("ahci: disabled FBS prior to issuing software reset")
+> Assisted-by: LLM
+> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Looks good.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-Thanks!
-
-Cheers,
-Miguel
+-- 
+Damien Le Moal
+Western Digital Research
