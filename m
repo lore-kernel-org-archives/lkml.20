@@ -1,115 +1,160 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461093002AB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF5F3CF962;
+	Thu, 15 Oct 2026 05:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040859; cv=none; b=Ut4iOlecjGxYwbkfiWYow5EZlZZcF1JXN6lx2JrpojNCzBFp4cpbPmjGwdUbjp5n+qfhkarw/4Q4QYS78tgipx/hCvvwQakrdDCk77WlAmCa0lxGlD8GfgBx+KMk1LCDZIHhCmufS+MeVhwPuLL8DqRTK9laWkBc+OENuKj5rvY=
+	t=1792040874; cv=none; b=CpPW3yTx6SX+Rhcgymkq6CZBMJOA1fG2oUYXJ8oDOSNzxsyz7MGnhqUYa8eV00tfCRpVS+AfSvdpJax8pIu4YdCEVzwdiNXzJmgCdw0RNy5uPPqwdp8ysWsOW0XZZCN2DuO1MpzcTHoSC1Opmc5PzteePMc8lxyB6B/W/rklDFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040859; c=relaxed/simple;
-	bh=L9GyfJKy0i+PWVDjSiUZqoSjdLwaf4lg66ej/kIviis=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WfSQsp5Y+s3MMVbMKyVS3HiVXgdGvEKOoGhxqXUEsrYg8pUuWvtJPiDDpObPnIGkJ6IPx5YRfsFaWjxNn9zVda3kVIZWoUGyDejhvWczdHC8Pk5X5gBhPiOIFTDuuclM94LMOtu2xcFGCAwrVCvW3pkGHs+Tk7rjlEFtyfW3XoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=k/p60Hsw; arc=none smtp.client-ip=35.89.44.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1792040874; c=relaxed/simple;
+	bh=GDkcSrZZLMPZxLwziNM3jSo8wJh7MM3T+70vE87ZBL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i5CXlvMVbHBXl9jKRTpPR+BxqybYJt+Yf+55X02pePPC9kTFwXzVyNeKFjk0cAThB0i+f9/51x6khZ7iRpLKs0jMPkYc/teMLwj6cYByWLr70DNWo5uidSkQEG6jhcVmUZy8Klm0dzYgfflr20xYFDrzLzuLb0QQ5eh+84hQoX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=am4aUj5q; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="k/p60Hsw"
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id H1OdxN7iHc3XsHDfGx4HPh; Thu, 15 Oct 2026 05:06:02 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id HDfFxGZRhFB8dHDfFxqCpQ; Thu, 15 Oct 2026 05:06:01 +0000
-X-Authority-Analysis: v=2.4 cv=HcoUTjE8 c=1 sm=1 tr=0 ts=6ad05f39
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=_kS_R5bZiuQTXeyLJeIA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=oYtDAAFS9VXuY5pzBUjRbvYRT9tsUMZkbpbrrRzoG4Q=; b=k/p60Hsw79fac2nCaViLGWB9Vt
-	SryZ0TqpGKdz92O7ItMGSbWLZ4PPz7qvi9sqstX+HqX2yUeXSmFvL2dnC3CXTf2R5K685ab9lypxM
-	LMuxBPIS6IeAXUe1DQIIblGOztgRjKnpSxdEgBJu+oimNjCWxbpX6Y3nGwGFJ3B/oop2vPjL0UxQm
-	tQrEsI6+gqBNd/9HecqwTctCq8D/+b1SPk2vqUdvjMILeXdFLaV/sQXBQwIza6DkJeB1Q+QVEHyBZ
-	3sY2Ide1/eBwMl81ElxmCvTe8ic44ewx5vnzqc+54xzEqvdubzBHxeEjVUmiSyFZplNYgJnyoDWzM
-	9lqdMAmA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:37564 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xHDfE-000000016Sq-1Scs;
-	Wed, 14 Oct 2026 23:06:00 -0600
-Message-ID: <ce03e9d5-a41f-411e-8ad0-d3dabcf7f393@w6rz.net>
-Date: Wed, 14 Oct 2026 22:05:58 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="am4aUj5q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792040874; x=1823576874;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GDkcSrZZLMPZxLwziNM3jSo8wJh7MM3T+70vE87ZBL4=;
+  b=am4aUj5qQ/aoNRJuI1WYedujcGgZX3k2Q6QXDHwC7TSvC8sawe5txxeA
+   oRC17zL5ctV3yOb6WGAHHB9/nHEQKJ+xU2guimt7CD+i+nmZvlL2LCamz
+   kDXzDEZ+hpIu0HtCkTa0wWZWgz/4ZheyjNhE71BsoTop2j57yyf01GEpX
+   Y1rCbKX/laEtPTC1bv+t0kpZ60m1cvYNdVybhpICdU/+mmF08wdrT0FA3
+   keo6VIvawDvLn4+lqNh51FiUrOVlcYwIEJE4aXmaph3YvOHDr00zCXKv3
+   sf8NZ0B4hZlBFSIpiKso0iWBIsWCDuTWzaAime0gyH2/C15fD/YbgBs/P
+   w==;
+X-CSE-ConnectionGUID: LXsqTIrcS16bkryaPAVC6g==
+X-CSE-MsgGUID: bfe/Bw60QqWAZYR/PGVB2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="705775"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="705775"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:07:53 -0700
+X-CSE-ConnectionGUID: vWmQz1fcQdOEqrNQm9ZkVw==
+X-CSE-MsgGUID: pi78vQZ4TPmTkOcNhE/Opw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="3360663"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 14 Oct 2026 22:07:47 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHDgu-00000000FqN-09LI;
+	Thu, 15 Oct 2026 05:07:44 +0000
+Date: Thu, 15 Oct 2026 13:07:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Li Zhe <lizhe.67@bytedance.com>, akpm@linux-foundation.org,
+	david@kernel.org, ljs@kernel.org, gourry@gourry.net,
+	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com,
+	peterz@infradead.org, mgorman@suse.de, riel@redhat.com,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	vschneid@redhat.com, kprateek.nayak@amd.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, Li Zhe <lizhe.67@bytedance.com>
+Subject: Re: [PATCH 5/6] sched/numa: do not feed tiering promotions into task
+ placement stats
+Message-ID: <202610151319.1QoCU2Pd-lkp@intel.com>
+References: <20261014094347.99157-6-lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261014123820.008483134@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261014123820.008483134@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xHDfE-000000016Sq-1Scs
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:37564
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNaL3iJod/fbQYLtdCBpsLxfCLR9q8Y+9VaBBCsKRc631Eojmzr9qs13k3P6ICClJ8uXD+DN0etcjy9UAC5LWJi+WaJuDe2sugzZkIo/wHA9BDMUmHzS
- yDt9jO9lHZb1R9otHIVV1VapVvjD+J5h+xSlJNDGNL7ckUBmvD2ztb5Qwx8WxtfiVwCIogcgzr4W6Ml7BE3OFIfOga4Da7Rvonk=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014094347.99157-6-lizhe.67@bytedance.com>
 
-On 10/14/26 05:50, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.57 release.
-> There are 632 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+Hi Li,
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+kernel test robot noticed the following build errors:
 
-Tested-by: Ron Economos <re@w6rz.net>
+[auto build test ERROR on tip/sched/core]
+[also build test ERROR on akpm-mm/mm-everything peterz-queue/sched/core linus/master v7.3-rc7 next-20261012]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Li-Zhe/sched-numa-clear-fault-locality-state-on-execve/20261014-174342
+base:   tip/sched/core
+patch link:    https://lore.kernel.org/r/20261014094347.99157-6-lizhe.67%40bytedance.com
+patch subject: [PATCH 5/6] sched/numa: do not feed tiering promotions into task placement stats
+config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20261015/202610151319.1QoCU2Pd-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151319.1QoCU2Pd-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610151319.1QoCU2Pd-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> mm/memory.c:6176:18: error: use of undeclared identifier 'LAST_CPUPID_ACCESS_TIME'
+    6176 |                 *last_cpupid = LAST_CPUPID_ACCESS_TIME;
+         |                                ^~~~~~~~~~~~~~~~~~~~~~~
+   1 error generated.
+
+
+vim +/LAST_CPUPID_ACCESS_TIME +6176 mm/memory.c
+
+  6147	
+  6148	int numa_migrate_check(struct folio *folio, struct vm_fault *vmf,
+  6149			      unsigned long addr, int *flags,
+  6150			      bool writable, int *last_cpupid)
+  6151	{
+  6152		struct vm_area_struct *vma = vmf->vma;
+  6153	
+  6154		/*
+  6155		 * Avoid grouping on RO pages in general. RO pages shouldn't hurt as
+  6156		 * much anyway since they can be in shared cache state. This misses
+  6157		 * the case where a mapping is writable but the process never writes
+  6158		 * to it but pte_write gets cleared during protection updates and
+  6159		 * pte_dirty has unpredictable behaviour between PTE scan updates,
+  6160		 * background writeback, dirty balancing and application behaviour.
+  6161		 */
+  6162		if (!writable)
+  6163			*flags |= TNF_NO_GROUP;
+  6164	
+  6165		/*
+  6166		 * Flag if the folio is shared between multiple address spaces. This
+  6167		 * is later used when determining whether to group tasks together
+  6168		 */
+  6169		if (folio_maybe_mapped_shared(folio) && (vma->vm_flags & VM_SHARED))
+  6170			*flags |= TNF_SHARED;
+  6171		/*
+  6172		 * For memory tiering mode, cpupid of slow memory page is used
+  6173		 * to record page access time.  So use default value.
+  6174		 */
+  6175		if (folio_use_access_time(folio))
+> 6176			*last_cpupid = LAST_CPUPID_ACCESS_TIME;
+  6177		else
+  6178			*last_cpupid = folio_last_cpupid(folio);
+  6179	
+  6180		/* Record the current PID accessing VMA */
+  6181		vma_set_access_pid_bit(vma);
+  6182	
+  6183		count_vm_numa_event(NUMA_HINT_FAULTS);
+  6184	#ifdef CONFIG_NUMA_BALANCING
+  6185		count_memcg_folio_events(folio, NUMA_HINT_FAULTS, 1);
+  6186	#endif
+  6187		if (folio_nid(folio) == numa_node_id()) {
+  6188			count_vm_numa_event(NUMA_HINT_FAULTS_LOCAL);
+  6189			*flags |= TNF_FAULT_LOCAL;
+  6190		}
+  6191	
+  6192		return mpol_misplaced(folio, vmf, addr);
+  6193	}
+  6194	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
