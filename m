@@ -1,62 +1,64 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2C5361657
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA8B3845C1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075134; cv=none; b=mQyiTeHdNcFeee6YABfT2dEuO92N9sn2QAPLWnglFSJ/MiOIydqM4xxrDr/8K/uQuwaSj+Q0RcJEOAtpl/gq87j3gtIuTnArpn1AwpCE+gQrsMonhiPVGZqOQKs17eUFqc1fTbWHwkz9ue+lGdu61yyWCEQ7pOSNdKZZrfpt8ww=
+	t=1792075136; cv=none; b=dxZzQr3hz7dbXOrLf3/ii+Fo/9le+xy1P/yWvEg6PvfwtCgs3weCXipjtZPax/5sasDoYPiJf+vZz54bDFmzz8h7AXPrCJBM6xBb6MxrOn6xUy0iig0Njdf6KSgACIrfDpz0MUxEv+Mi0ApsUNC61EPHQjXls8Phnb1TQdC/Q68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075134; c=relaxed/simple;
-	bh=JMGu2iM1quSp3Cy+yK9EW1dG4GajR3ZNEWEAaIoU1f0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tRsOJVa+deVZNqUtEWwM3sLKCSCTOgo+OdY+hR81nZ1RMw1LO5/unRTGywdu2ewPHE/LSkYDOpQVyLd1vdAVdKj0LILskdxFKx0pMsk7nilNzjsiWEeElzuMxdsneK6Wf9IqgEhpYeYafhvrJucG++e9VrWUS5QvRRmJvgYADfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=AoDwUjKF; arc=none smtp.client-ip=209.85.219.48
+	s=arc-20240116; t=1792075136; c=relaxed/simple;
+	bh=0MHY/DXLJSGlvlK4hfQH5ps+wyuy3lgdtPpSeRBwJZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rv60Kn3ZlQp/0hcp/clu2DP0cpDg9vfyMNhHbLoyUcqpEeCEYVNp9fcbGfNd7Lw9MJuMqRZIBQd/DEpMlO6b0rCmy6JgpaZ2rj7AGECWujHVGm+gM1aHLV269iKJ/jtQsRVYF/FXRb0iw9gvyP8TJ2CwsiIcQVLGM139me3N9SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=aw0nctY2; arc=none smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="AoDwUjKF"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917b78dfe30so85416636d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="aw0nctY2"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e6eb77f0bso136907285a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792075132; x=1792679932; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=87ArKhOz4mXpsOQz0dSA1S5HtkiIocsYKLa7zjBJOG0=;
-        b=AoDwUjKFNDMIuLAQpcS31VBM16iaveOUugmbll1thuhLqmTUcZBf2k0csqXga0+k2V
-         y77VmHzT57KEJwzkDZC9ezq2aEkpn8cCsCo5vzMbaeFz7RgNxMpLD50irKxpjfdxRIiJ
-         pAerW6P1W7PvMLaN7EcUfGmfmN1pcyH8hdKkCpjpfmhNBExaterzBUit5igk+GAWNKS8
-         7wZOplvmRG1VipSLmbmQAhzCbWxoRUHKuuDVkQw6/jompkKefOFXM5s5UGgjGgiYDfYQ
-         HxqaMyi0/7Xcvhv/Wv4zs8c6kHUkPuLKBNNnCwV1u4aKwxas7MKB57JvvLzvEke9HaLn
-         BamA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075132; x=1792679932;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792075134; x=1792679934; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=87ArKhOz4mXpsOQz0dSA1S5HtkiIocsYKLa7zjBJOG0=;
-        b=kTMMuzkjZ4EIyM6DDbWLIg7tLHSJC6IH3ABC/9pTI7y5yrIb8N/S5ZoRQBkErUsEUU
-         A9BzQiX/5g74m4/0mCSDjxOzw5npg1Unkm7z1hu/i//81r9YMBrwPQ3D7gVZruYq6TJ3
-         oiRo8BP1tORoREOPH/aSyYSbrtA+HEIxmygUzEsnpPp9ePoLjbcstuslg0sCtA6+HGDv
-         2Bwup86bayvaIAnmUqlJ2ngmh+gOADWkbSJQLYnOW2R7mDzD5rggq884EhSsGSKKlRJ/
-         0UU/2G6Yvs1lKSOqqN2sJwZap7oAE+1tuRpN2MYTlfkq4w2ocu8YcIFxyHt1wTI6mC1A
-         8OpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5qHryRwC88LYKXG/GKje3uaaCdE7Fv3z7vPsgIoaLjV/UtOOF7W19bozUiyzb/1zwPN3p7iBnTKmk8aM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ90WKCMjl3LZyfITyXWk+lmZtN6puQF/YOLu71+BYMeQk4Zbvb
-	PDbM4D1qD+MdNfyNggbTuwDRUt0YdcZw3srsCRfKA5OJSEIflOmxBEDdl0AaFKMVf9A=
-X-Gm-Gg: AYBFou3p4qBmPq56Gj1h7S49e/VB7Vu1sxIm5JJu9SoKrWY8PIWz1eMGl8iwMc5Z+Lh
-	3LDfyvFYd7taXVg/hVfqq9veT+Bh1QPolKrEUQ88wgARsUGlz63fmHC4rZryTPD4gYjJolhX5xv
-	6lcCu7mzIxDg3Qz1CrfAnMvnlHI0HdzmG+3uyKMyJynWMIaKv1yeci8fbdJ5YIALGrAhr/U/pzl
-	pW84doWcykei44djfc5JVMxe3gasjoEHnn8hi5GQlWsoxa+OZHEdPhzK7DlwikDWYiVQ1ebyzQj
-	wUbsqFs5SOca4MUy8b9tfkxrLcyZSM8XJMEt7OaB1HW0rpw3PZqQbRF0XDACySeEtOSt3yxS2l/
-	zGLzE0ZqloeSa71zLYrvUCULW9iW3h76P/4CVbTrAT2EMaFE9iFXZl5bKU9MX+cpuhr19szGJWs
-	DNXf8LtqpByncegmbolHkBXypUk7lY/MFjtPcDKtgz7V0EG+dWPOIzlRvZlygngPd2MeBGknL9l
-	rk=
-X-Received: by 2002:a05:6214:590a:b0:91b:9061:b808 with SMTP id 6a1803df08f44-91b9061ba50mr181091236d6.21.1792075132399;
-        Thu, 15 Oct 2026 07:38:52 -0700 (PDT)
+        bh=FyxQZm/TWmVMDcMFzjg+LflT1D2OtrWSrFPMXdJ9T9Q=;
+        b=aw0nctY2uWrNLLvxCvpBKlDeenQ/Dlbpc9B/OmDRgyQ2QaRF1AdrPKgn/i3vXsWxYx
+         zmzyGTIvQrKrSY6AWc/MfQ7mj88tyN2L5N2tJoxGlH7zxMEmrQJfPvdB5f7G3BZ/VZWM
+         cvtpeNYqsLpGFcy0uEI8prkkl1GS+Q0GsdeiS6N4KVcC2uD/58pRHMDgbzfbtLAuM2Z0
+         nv0+xxgcrMKhJVRO7/IwOzugu+rdg2IVjkzs81kClKpp+tvERx3aAIRxYmBjGXkTA0Yc
+         tmRFDNJLrIuwi9bhNWbr6urex9Xl1m35bvQoVeoOCiOdW7DMFyNcbTIotHqunYAfUDLx
+         zl4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075134; x=1792679934;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FyxQZm/TWmVMDcMFzjg+LflT1D2OtrWSrFPMXdJ9T9Q=;
+        b=FkkJRjYMPpglBIZg1jHYV+511kk3ySYGx3yU2iEkONRo3FgsT/x3SzgzelbzUzzD2J
+         Wz4NYM184JregF/iKZEEh8YYDfbP8Pv9h9BFPuS1YBiTquXDOfRwgSPp233kAvy20ptE
+         vi9Dciuj2hJf1xA8eOVTSJorQYfLN48fnrlpp6kmK4l0yP/bJK2zq6VcR0w+m+hDBbfx
+         O6ls6Z18fX4Oy9yvg/vW98U6cxFeSWJbcp8BIsce3xB5mCzDG25AkvfQ+KLgfWOx/4IA
+         AxSC5dVWmO6WWhEjSRDQ/VVYQHWCcql5ZOK6BUVuO1gd0lFF9O8b2GKhdBIjo1+ig0VO
+         A/Ug==
+X-Forwarded-Encrypted: i=1; AKwUvBzzGDe4/Bu+vi9v6RHlbA12TbJh4bXMkcjrvVIymyy4BPQy9KJYS0kGmzJByQIQr+E1Nvw/Q8dDY31UfYc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUVLCxu1Ra60v4qaQfiUwqek2JUBwzI2TY3aK+Bslrd46LHlQB
+	3HS8LoJmV6nekzrWzu7HykTBLXVNKeo/v5qItIAxG6mb6N7QOdR9QYrwijH7Wa/vMmc=
+X-Gm-Gg: AYBFou3MI2nBPpczh83z3Ec9n3MSDffU0/piqE8NKF4jU+3+k4hKsiefz8UlETQc+7o
+	+4VPgj16HgDCjYBY6OwHTcOO7UrYN03myQN7WQVo+4899lHWnWiaE2nisHlqgw0lAeqeKHQPKX4
+	YKNnu1V2tMNaGn+780vqC1+PqimTgbt5zX71424pzirk3hzCRoZmEIMXM/vvT54/ipaeLV1UKK9
+	st7RmDGMd/ML8iidl1LAsP0WE4YvY5xsHYcRrZcNDcYUjZAqGznstr1BjTf1veqoMFQfr8BAdzm
+	hKQHG2C5WyzeGRgKwJEfYDWGkAfPaSLfS/KqbCgG5ql6k7NeN6VQdjezufMD2tbD2XGk1hIjBNl
+	81gSGS9bcvz+8f+w3wWJFeh3SP9uvwZ+QQzIipDhnBb03umN3AfJalKiFjDu5IzjgOMMrOS11ME
+	j9eJ1fdjzl/8x2B2BNrkVhzDnhwWyobiijw2qxq/Psij+rnbo+lPzqlczcLz85G1CNT+kmSMyTF
+	HXqjNgKdOTMMA==
+X-Received: by 2002:a05:620a:3956:b0:93e:9792:fd47 with SMTP id af79cd13be357-93ebd0c2423mr2968505685a.4.1792075133775;
+        Thu, 15 Oct 2026 07:38:53 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bc6d42sm82581486d6.34.2026.10.15.07.38.51
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bc6d42sm82581486d6.34.2026.10.15.07.38.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:38:52 -0700 (PDT)
+        Thu, 15 Oct 2026 07:38:53 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: andrew+netdev@lunn.ch,
 	davem@davemloft.net,
@@ -68,19 +70,21 @@ To: andrew+netdev@lunn.ch,
 	conor+dt@kernel.org,
 	hkallweit1@gmail.com,
 	linux@armlinux.org.uk
-Cc: ansuelsmth@gmail.com,
+Cc: Daniel Thompson <daniel@riscstar.com>,
+	ansuelsmth@gmail.com,
 	donggeunyoo.kernel@gmail.com,
 	mohd.anwar@oss.qualcomm.com,
 	lorenzo.bianconi@oss.qualcomm.com,
-	daniel@riscstar.com,
 	devicetree@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 0/2] net: phy: qcom: add qca808x support
-Date: Thu, 15 Oct 2026 09:38:45 -0500
-Message-ID: <20261015143849.483339-1-elder@riscstar.com>
+Subject: [PATCH net-next v2 1/2] dt-bindings: net: qca,qca808x: Add regulator properties
+Date: Thu, 15 Oct 2026 09:38:46 -0500
+Message-ID: <20261015143849.483339-2-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015143849.483339-1-elder@riscstar.com>
+References: <20261015143849.483339-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,30 +93,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Qualcomm QCA8081 PHY (and compatible devices) has four power inputs
-available.  Not all designs need to control them, and some might connect
-multiple power inputs to the same rail.  This series makes it possible
-to optionally specify these regulators.
+From: Daniel Thompson <daniel@riscstar.com>
 
-Between version 1 and version 2:
-- Add a devicetree binding update that was not provided in v1
-- Remove #ifdef CONFIG_OF from the body of qca808x_power_on()
+QCA808x has four different power rails (although in many board designs
+the different rails share a regulator). Add each of these to the
+corresponding DT binding as optional supplies.
 
-Version 1 is available here:
-  https://lore.kernel.org/lkml/20261014172300.292324-1-elder@riscstar.com/
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Co-developed-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ .../devicetree/bindings/net/qca,qca808x.yaml     | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-					-Alex
-
-Daniel Thompson (2):
-  dt-bindings: net: qca,qca808x: Add regulator properties
-  net: phy: qcom: qca808x: Add regulator management
-
- .../devicetree/bindings/net/qca,qca808x.yaml  | 16 ++++++++++
- drivers/net/phy/qcom/qca808x.c                | 29 +++++++++++++++++++
- 2 files changed, 45 insertions(+)
-
-
-base-commit: 73022f605c447f31610b94ed4a983d2b4bf2c721
+diff --git a/Documentation/devicetree/bindings/net/qca,qca808x.yaml b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
+index e2552655902a3..03daef1c7a4e6 100644
+--- a/Documentation/devicetree/bindings/net/qca,qca808x.yaml
++++ b/Documentation/devicetree/bindings/net/qca,qca808x.yaml
+@@ -17,6 +17,8 @@ description:
+ 
+   By default this special PIN is set to LED function.
+ 
++  Additionally, up to four power supplies may be separately specified.
++
+ allOf:
+   - $ref: ethernet-phy.yaml#
+ 
+@@ -25,6 +27,18 @@ properties:
+     enum:
+       - ethernet-phy-id004d.d101
+ 
++  avdd18-supply:
++    description: 1.8v analog power supply.
++
++  vdd-supply:
++    description: 1.05v power supply.
++
++  vdd18-supply:
++    description: 1.8v power supply.
++
++  vdd125-supply:
++    description: (1.25v to 1.98v) LDO regulator power supply.
++
+ unevaluatedProperties: false
+ 
+ examples:
+@@ -39,6 +53,8 @@ examples:
+             compatible = "ethernet-phy-id004d.d101";
+             reg = <0>;
+ 
++            vdd18-supply = <&phy_vreg_1v8>;
++
+             leds {
+                 #address-cells = <1>;
+                 #size-cells = <0>;
 -- 
 2.53.0
 
