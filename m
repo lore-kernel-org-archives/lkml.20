@@ -1,59 +1,46 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1814149E5E9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A8D53E3141;
+	Thu, 15 Oct 2026 16:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082119; cv=none; b=RHSXRTrYIh+L7j4uuMepTpr7pD2WIJ/2KFgNs282YhSFdjLaKuqBpeercqmRH1AUpdHEri9xxcsXbsADj+nV7t7nygeiQ43zeQQBwmuq9z6e+RxGoPa3HaHyThM3RQhYqMHbyXnTcQnucJCiL0oOEnO1QFfGlCUAx5sz0I3SdIA=
+	t=1792082120; cv=none; b=QSIQn5vUJCHXvbRZEWYdXHWbcmZmjGX7gDmzC6cwS3QQhresoEgbE8TqxWetGsnUZkeAwP/axxJLXceUWNMHFIYUVRnMsEi0FfHlB7eXtZG4MmJ7GyiHkFsqYlQInDy3icNI+z8qs8b3hnDA+fYnN7pus1BCtsA2HNJxf4TJGl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082119; c=relaxed/simple;
-	bh=Dk8IqLqzesE4807xMJiy5ShJzomsE25WxSYU1Au3Fys=;
+	s=arc-20240116; t=1792082120; c=relaxed/simple;
+	bh=lsiH1+9I7R8Zogecgsc8mrMTXuCaEqcuQrsVaEDtkC0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/L+igOmJWi3qPUrR9vECV+iNk95RythhPti8wXqwusqksARQYYRdpZ6ma5aeNdDKUZFvmIVI1qLZTQ6aQG4TrHRP64iGPxdinynTzymmIGOvuJ8t/sATSJMHPdnD4IBcrNBZCMJSjgVuNb7K7k1ke3CEhxkzgZ9Y4TJ6a41IJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DJqnVtwj; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YrE0QI8DVwJn1JbBLO7Q/Ww5TjGrZ2unk4b8xQ4nNBOGhkiQqxI+obwRcgku0acX+OKW1M8me0bR6u7KUxQBXTeEyhu9k9Kzkm/4dvScHrHEHTLgOs8hg6O1cX1pJ9yPS4Ltl+gOb/Nov7KWqgEJB1WZGxDM8fNvLKAl16VP17c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a2AsLQvb; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DJqnVtwj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792082106;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dk8IqLqzesE4807xMJiy5ShJzomsE25WxSYU1Au3Fys=;
-	b=DJqnVtwj0cnZOB5eT/XumEzt/UdhXP+Qz0+6ak09hL1rJOl4+obQqdpeyCbNK6FJiPLMXG
-	TUPeTNKipES5Wakx41mmjHiB8S6b7yleKo7N3sMDwA0giIQ6fuaVE6frrtK/ZBZOBaEl9h
-	7ZFrkRp19FIe+0jSZaEMu74i3stgNec=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-209-uG3lX792O7WkRnxg1-5fig-1; Thu,
- 15 Oct 2026 16:35:00 +0000
-X-MC-Unique: uG3lX792O7WkRnxg1-5fig-1
-X-Mimecast-MFC-AGG-ID: uG3lX792O7WkRnxg1-5fig_1792082099
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E3E1F1967C57;
-	Thu, 15 Oct 2026 16:34:15 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 3D0EC195608A;
-	Thu, 15 Oct 2026 16:34:14 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Thu, 15 Oct 2026 18:34:15 +0200 (CEST)
-Date: Thu, 15 Oct 2026 18:34:13 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Kees Cook <kees@kernel.org>
-Cc: cve@kernel.org, linux-kernel@vger.kernel.org,
-	linux-cve-announce@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@kernel.org>,
-	Jinjie Ruan <ruanjinjie@huawei.com>
-Subject: Re: CVE-2026-89603: entry: Fix seccomp bypass after ptrace with TSYNC
-Message-ID: <atEAhWWDDOo4kWSR@redhat.com>
-References: <2026091133-CVE-2026-89603-dad5@gregkh>
- <20261015162119.1a1e0d-kees@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a2AsLQvb"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 17A7414BF;
+	Thu, 15 Oct 2026 09:35:02 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AC9223F871;
+	Thu, 15 Oct 2026 09:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792082105; bh=lsiH1+9I7R8Zogecgsc8mrMTXuCaEqcuQrsVaEDtkC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a2AsLQvbUtafLx5JEFU7If/jPUmnKDzQLNnyAKcPeXuraMiO1yHOL9cr1qGxmcFDg
+	 /ZtQ63wu2mEK+d3MgSz1GePJ/sF0hbTvf5y80ElN7tv5niqN5SSKYm3Huz/QQ9fjE3
+	 8WSg6sfzddBzCnipx04jTzq4ZNdtfgDF7erhtQtM=
+Date: Thu, 15 Oct 2026 17:35:00 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Iurii Trukhin <yuri@trukhin.com>
+Cc: Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit
+ and 52-bit VA
+Message-ID: <atEAtHiHh0eeVPn3@arm.com>
+References: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,25 +49,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015162119.1a1e0d-kees@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+In-Reply-To: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
 
-On 10/15, Kees Cook wrote:
->
-> On Fri, Sep 11, 2026 at 09:44:52PM +0200, Greg Kroah-Hartman wrote:
-> > This race condition could allow an unprivileged process to execute
-> > a prohibited system call (e.g., execve) that the newly installed filter
-> > was intended to block, especially since the tracer might have modified
-> > the system call number during the ptrace stop.
->
-> I'm disputing this one: please reject CVE-2026-89603. The fix is a fine
-> consistency change, but the flaw gave neither the tracer nor the tracee
-> anything they didn't already have.
+On Wed, Oct 14, 2026 at 10:23:35PM -0700, Iurii Trukhin wrote:
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index cab741a695f5..7bca47269dd5 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -313,6 +313,14 @@ config ARCH_MMAP_RND_BITS_MAX
+>  	default 16 if ARM64_16K_PAGES
+>  	default 18
+> 
+> +# default to 1 TiB (5 bits below ARCH_MMAP_RND_BITS_MAX) on 48-bit and
+> +# 52-bit VA; smaller VA sizes fall back to ARCH_MMAP_RND_BITS_MIN in
+> +# arch/Kconfig
+> +config ARCH_MMAP_RND_BITS
+> +	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
+> +	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
+> +	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
 
-Thanks Kees!
+This looks fine but I was wondering what ARCH_MMAP_RND_BITS_DEFAULT (and
+the compat equivalent) is for. It turns out that an int always evaluates
+to 'n', so not taken into account. It might be worth removing them
+altogether as a separate patch. No-one seems to be using them.
 
-I fully agree with both points. The patch is fine, but it doesn't fix
-any security problem.
-
-Oleg.
-
+-- 
+Catalin
