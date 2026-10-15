@@ -1,124 +1,121 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30C849CF40
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE19481640
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050165; cv=none; b=T83L9A6R94EBYp25MYy4zApmXD81QUWZeOaGBIoIbX9BcMaSuTbkQBhkWbQQKi1i0HBeuFW3OYzBqqhSF0X7OGf8isAWI+uG6fFI1YeqV0lvwtdEtNLtTHWM81OTMmKWgMTdPDsH9EOiOczv/MoPX1Ur5hUd175u1XFN12/OoXI=
+	t=1792050209; cv=none; b=asSzOckbhsH1Pq0qyP4w01EAvrvklPr47beWPrjeN5RUzPN+Ku6pgJeZxXYMbP6HC+wqaR9V/UQVejFawol3KCXY6nc73Zs1Z4b2qi4iAwNXK1Cl180iCj82YhH2KVGwzC6VxxHT1NqKC+aZP7U0aj3tDjODN+cI4PLGlE6Edxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050165; c=relaxed/simple;
-	bh=cDOfuyrvdvRsrhDANjxcZxfakofLAmsGw1zQ43Ooe8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QR/kJpUdLvB209K10FYo7gnSlOJoyObQcMwCqNrgpXHurkYG6JHMwl+aSy8mJi8LYXYYr2BwM9+4z7V1UvFUXFJGPCjhcupQ+UzKfvWJw2ToYno1zIzYMriIYVR8+S8zOkLlw8RLk/KnuIcHaNTWcExgn9sbk5D2M85IHT58Ggc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wuw9RUI/; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792050209; c=relaxed/simple;
+	bh=YLJQp9WZ3BIAITm1NSeUvtEDfPL4hEVvl7lUXyrIuOc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=M+uuTIszZ+6ujf/Lhwps1agWwAdJbPjVIhKPAX8rBX5va6UWmmCDoibEocdjNByFNg4ewqGRvLi49DwSvq0SDyn3uRdEQPBW6pFuQ0mcQwnt/j6qh2CEFwAbERw1Ww63PIAnNp1G7uWJ+ctNUrrI8Nm9Kk5jDbs1e7UoUjBvrkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oPGQE9o2; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wuw9RUI/"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a17ce1dc00so9966435e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792050162; x=1792654962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ejahELIiLsJOQNHGYSUsRkLMUyiI6tzi958QDrAOaok=;
-        b=Wuw9RUI/pXLq3PjnfhLV+lZlmrgQ6yGTuv7kXkdtA/bChxf1CRyo1nDNwezaD0Y3/u
-         lEY4G1ns6Xo9F7vcOhZJOgGK5Hv7comrSOqshGX02TzbLD02LlbhEbEOIPTafC6WuErk
-         i0yEdcDQAFXYcQT+mMotBqkRb6QnNlqgxuLLm+l9/HsFEPcjzXvywhsM50a4uJjsda0u
-         wuBuglbe0bPaWjoZj1w5k6nm/kmIp48hiZfJf3cIfvJGBssybv57jVAXHQEhdTVh9Z2m
-         m/sAcjxqN73l9EZjlst95IsSUp8I37VPtZSBK2/aLORaHjlvioygxKDePqTtW/Dfb0V2
-         /CIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050162; x=1792654962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ejahELIiLsJOQNHGYSUsRkLMUyiI6tzi958QDrAOaok=;
-        b=Kogw+f1WGTZzR3qZ/ypeO21Km/3dZZz7HRCrEqZnCn58VMAJkUg1WNNN12BRkrPazY
-         yCRmmGbA+Sj0Ef7n/lDXhGMw8AheHUHuycnhPnyaSgSuGktB+t0scF3PcoZNE+NCQhxx
-         piNm9hgCojl4Jv7rPiQ3Oy5hkJ951cu9vuPo4TBVxvANOJEceasCaIRsYYzilf/prM/E
-         Idgy377TDy+pApXHLeYT8p8sOOd3Vg7tdiPyNGTZHg38Dz/E8heWhR29J36cHyJnhglT
-         GuPZWVf73Q4bXdZA4pY7JilQ/MPMuqYKEfvlXa6kgZjMBDFYHntuZQiZK7N1EXlCxNe8
-         kofg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBi1Dl2CVmErIHHIhsmBDiXDnsfCH7y22+QLyGWQZPFF9WHANtxY+oI3OXr/IjHCIvJWQkMyAO9qovAqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpOSEUJRcyMnqOcsoueeVIVGxoeLDEbfVnxTb7xZDn0ZDtxabe
-	N623ET6oMhMBYw4kW1AzoUjaX8n1iQyVCSDlQBmeZILT5c1kjfT13jZw
-X-Gm-Gg: AYBFou2N1ZHoiEQDrQFRxQNHuJ8WKAOMnSvDnZ3ljQnNt25Xdx7ku3aS+eMzntPdSOt
-	8KtQwKQufeg1WR+sRucPF47uUpejBmwTMyeAZ9WxnkgC3WaZhwptLvXnJpYKlfwp58kn+7ueqJ6
-	X8BMMqERB78XkfOQ//GpLC7s+k1OvRw6hAOJ21Jr8Pwu+IEdCf9xFnSy2nWdPfLieP6VHmZ87eK
-	tXFMNzy0C7kYylF4SpILEK4TlhFaHLJvIm5P1XhDYsJFHTuAE6xT+LBrDWuMgndjVe7bj8CULxs
-	VsEmDUoUF3+liaWSa+Ct+z6HTexQI+WPoIwwTgrr3T41fC8WluAGsrskW8u9e4ujeXgoExYn699
-	rZQ4XEqNeP9Kk9CCrgY3jKShRUjKhYMIlptr+99h5iNXaw76/87iWgT7wCeF+4G1/SpPhAyUEmH
-	u6tOLS/QSG3s5PScfZ0WEWXB/UmUbWbPnEbszhX+fDTW10ZtsPiouGXQo8udr4hPQKNgVNe/iTr
-	IOds+LV1F2OorE1+Vci
-X-Received: by 2002:a05:600c:8b02:b0:4a0:1973:f05a with SMTP id 5b1f17b1804b1-4a18e47e19fmr389550585e9.2.1792050161721;
-        Thu, 15 Oct 2026 00:42:41 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9a88bbsm54197725e9.3.2026.10.15.00.42.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:42:41 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH v3] sched/fair: remove dead code on enqueue_task_fair()
-Date: Thu, 15 Oct 2026 10:42:38 +0300
-Message-ID: <20261015074238.2363-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6f7ec108-603a-45c3-a5c2-6f9aebb50f54@arm.com>
-References: <6f7ec108-603a-45c3-a5c2-6f9aebb50f54@arm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oPGQE9o2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 80405C63455;
+	Thu, 15 Oct 2026 07:44:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 33B4160360;
+	Thu, 15 Oct 2026 07:43:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C40741032869C;
+	Thu, 15 Oct 2026 09:43:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792050200; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=mXGPNaosFVQsfAd/lTLdcHqRv0MbTkP+44h/9Qmdp50=;
+	b=oPGQE9o22DWyG5MrX5/Dx6cE1yFNsrAINlgjyg3Mo6J7Cwb89AoA47oAe8AOkescjMsHXa
+	Fk0csLNol/R4VTt/X3ew1TfK7JNhEHTFKVt71aiLY/5pO8sY+T6xaSRCcpL8Xt/vqnR1xg
+	TH43CnJSTTXphAROeqIwsUZUdT54UGupuG6eLEFF/TQ45fyl6b4eGHM6LXMZOz81bfCtP6
+	SNmF9tB1r/Ei1aQGYLTEfrgTiizqh3ixswmS7eWNy+9JfX3UbkruWTgHt95uZAnsBEOQMy
+	x9PqsRfNYGgZtAZtMVdGdSjLeX5IVmqVbHHx7RuyDwvEyiWUxCG8rhX4bvspNQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Thu, 15 Oct 2026 09:43:09 +0200
+Subject: [PATCH] drm/bridge: ite-it66121: fix silent probe regression due
+ to reset timing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CQAxFr0K6tgkdMoV4FeMCoWhJRNOOxoRwd
+ 6ou3/95bwUXU3E4ViuYvNX1sQTQoYLh1i9XQR2DIdWJqaaMo91RS8yFmRLhpB80cSk4Ucu5yV3
+ fMUP4T5M4f+3T+c/+uswylG8Qtm0HHQjkJ30AAAA=
+X-Change-ID: 20261015-drm-ite-it66121-fix-reset-f1765358a866
+To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Julien Chauveau <chauveau.julien@gmail.com>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-> > I'm not entirely sure I follow. With the above fix there is still only
-> > one place_entity(), which is after enqueue_hierarchy() and has
-> > ENQUEUE_QUEUED on.
+Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+rightfully added code to make the reset pin really work instead of being a
+no-op, but that change introduced a regression making probe fail most of
+the times, at least on some hardware.
 
-> Exactly.
+On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of the
+times. This is because:
 
-> > 
-> > Here enqueue_hierarchy() adds the entity to h_nr_queued, and
-> > ENQUEUE_QUEUED tells place_entity() exactly this, so it can adjust.
+ 1. the regmap_read() calls just after it66121_hw_reset() to read the ID
+    registers fail
+ 2. there is no error checking for these regmap_read(), execution
+    continues silently
+ 3. this results in not matching any of the IDs from it66xx_chip_info
+ 4. and this results in silently returning -ENODEV
 
-> ... but place_entity(ENQUEUE_QUEUED) still does:
-> 
->     load = cfs_rq->sum_weight;
->     if (curr && curr->on_rq) // <-- this is true after enqueue_hierarchy()
->        load += avg_vruntime_weight(cfs_rq, curr->h_load.weight);
->          
->     weight = avg_vruntime_weight(cfs_rq, se->h_load.weight); // <- this assumes se isn't already part of cfs_rq weight, but it is (still)
->     lag *= load + weight; 
->     ...
+Empirical tests showed a small delay after de-asserting reset fixes
+probing. Likely the device needs some ramp-up time after reset. No such
+requirement is mentioned in the docs I could find, so the amount of delay
+was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting a
+20 ms delay should provide a safe margin.
 
-> (in this concrete enqueue()->dequeue() due to unthrottling case)
+Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+Cc: stable@vger.kernel.org
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+FYI For items 2 and 4 above, I'm sending separate patches to make those
+errors not silent. Those aren't fixes, so they would be for drm-misc-next,
+while this patch is for drm-misc-fixes.
+---
+ drivers/gpu/drm/bridge/ite-it66121.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Fixing this requiers bit of a revert I think. Or something really close to a revert.
+diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+index 51fc68ffdf8f..692a85e1e2e8 100644
+--- a/drivers/gpu/drm/bridge/ite-it66121.c
++++ b/drivers/gpu/drm/bridge/ite-it66121.c
+@@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx)
+ 	gpiod_set_value(ctx->gpio_reset, 1);
+ 	msleep(20);
+ 	gpiod_set_value(ctx->gpio_reset, 0);
++	msleep(20);
+ }
+ 
+ static inline int it66121_preamble_ddc(struct it66121_ctx *ctx)
 
-Peter/Christian, would you be OK if I send a fix about this with a revert
-(that I caused :<) and a comment or one of you guys want to fix it your way?
-And is there any cleaner way to fix these without a revert?
+---
+base-commit: 20b91781216dc693d862368b523e752525172176
+change-id: 20261015-drm-ite-it66121-fix-reset-f1765358a866
 
-
-I also need to rebase this: https://lore.kernel.org/lkml/20261014150251.30099-1-kayracizmeci@gmail.com/
-
-Thanks,
-
-Kayra
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
