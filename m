@@ -1,83 +1,87 @@
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B48307AC7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34553D16F0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792038817; cv=none; b=YZPUa10lGtLa/Ta0lK6Db8Af1EAM93N8MLi2/TdtMovMIm0LoLM3vGKEANFMQzLd8fFW68Et6z7stVyu6O/xIgJfJWmbXoQwzpIlTeCp3WAJ0BLerADwiLqOxDGKP2YXsXqk37eg/QaHFV9aKSFcBgTpO/YcMhfyBiFhNXiYEEI=
+	t=1792038855; cv=none; b=mPFKrsDLP/duZoULvusEWB5+90FUhqpJkhX4EuFbVFXkDRz4qAF4+Gu6c+ZoRphXD4GTPy3N07VhSyfgVyRdZNVr9N1HjZdTmt+xx58iur55n2x7BglaHBh3ETL+nvB2JgxpaTu4UElqdZYkXZuwwCKuiPOFJoULl8OV9406b4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792038817; c=relaxed/simple;
-	bh=dbz8GcIMQo2TU0DTtg3ZhR29u+Arpzub7JDmPn3cF+0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=K7vm/C+ERgCDZ9dvCjvNw8j6WiCm7MyakgAkbVLnlfJ1a9cvJcgWOIHHEk7CqS4gqeMO20fTRb2wQDynIevRdEXzsIEEEam8kIKqiwspqXjrDYmq/DggLlzfpRxKZnkKGKS1CSybN/RlkYtTk/430rKxm8zpNWkTuiQZmLoyNcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-46ac13882ccso1175689fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 21:33:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792038815; x=1792643615;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+srlzv5MQp1oOFkNoyekUF78d8Gu+n8al2OV7eZXNGw=;
-        b=gr4/oxXoYAITckLf+a214ejdK4e9MOr8l2l7PtktUDdxoLbceXXTBFJeJAwdGZhgYA
-         h58dW17af6fU+huFvK8CBoJqm8f20w6Qu/R15n/ckUlbz8VR5/gv9l1fBIT4zlzMbRZK
-         sfdqczwnElTnFv/xbV2c4cN7dXAqeeTw6nNdmPxV0dPqAG7t29fyKGTg6TOTjGrswDN3
-         6g8DY3mGHO4sNv0SY1y/Y/zPAjEUdgDb4ANPzEl1p+0iAw8MpmSujbp3HzlUZD7yuT4r
-         2P7Z9bXApcwXoTMh5wnPmwxCDDQGazPxjujDFF4/rtwpanXJXOxx4mETssDyjtL+ZDCD
-         cwLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqK2P+JjZNIoQIoLAbUvE66uPYA8s8WFWnjm9HsRtO+o3sI0XA1ebuXMHJj5WPq2ax+jMGT6c/NIN8viw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPwvZj9rHAkN4Omw6TZx7g2+Xjy8t9Ctb11W8SYGm4mXhuWlJ8
-	2vXASPnRCKQqLMqsgeUsEhLSAK7cLHHOL/4YlLHjMk79skrtZdfMbPKqgf+0Leyf7cIHvrUpNL8
-	X7yigdQ0IAOHZdZvFbh3IWBVIlqIKVgdIw0/qCvVZ9fGvv0Gq1twBzx14VKE=
+	s=arc-20240116; t=1792038855; c=relaxed/simple;
+	bh=tyD77QsF1TpQDhIMjdBhY/MqpYw4DT/Qu2z80DaAtcI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TyZHwFR2NGkyVb7xf32pJsv45SsHODVxkQQA/CwjL1AXdSjOf/+fcu2iNk19r9+7O5bpKm1KBso+Thc0/bL3ysYY03wnU99pg6S3ZH1qjukawtSi7QijB+jNQOZUFMpIprKVSsr4/x3ex2bYmK76qwaIlsIGMLKSDWe6nDuio04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dhsEw5MK; arc=none smtp.client-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dhsEw5MK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tyD77QsF1TpQDhIMjdBhY/MqpYw4DT/Qu2z80DaAtcI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792038850; v=1; x=1792643650;
+ b=dhsEw5MKBBoGzTz2w+QQH1VHDCAyl4zXmQkATTHI09MQO24gtw3YEC2O5JR/3Z85P5ul1FUU
+ H/KNCWTprdhB/RgHdWFZ1ul/Da31iu5WJNnNlh9NOxBkrjErN4CuSZB3UP/iU5tQqS1U+L7G8v1
+ 9IBheFIT97GPLhkjcIVWP8lg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b288e4c6ce06f05c;
+	Thu, 15 Oct 2026 04:34:10 +0000
+X-Mizu-Trace-ID: b288e4c6ce06f05c
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: kas@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	jannh@google.com
+Subject: Re: [PATCH v5 1/9] mm/khugepaged: drop redundant mm_struct pin in madvise_collapse()
+Date: Thu, 15 Oct 2026 12:34:04 +0800
+Message-ID: <20261015043404.57470-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261014171145.3292736-2-kas@kernel.org>
+References: <20261014171145.3292736-2-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5148:b0:4f1:a873:6ee6 with SMTP id
- 5614622812f47-50c51bc5823mr14456864b6e.17.1792038815440; Wed, 14 Oct 2026
- 21:33:35 -0700 (PDT)
-Date: Wed, 14 Oct 2026 21:33:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad0579f.5f317f00.247b6.005d.GAE@google.com>
-Subject: [syzbot] Monthly kvm-x86 report (Oct 2026)
-From: syzbot <syzbot+liste3ce2f4a0356808c7c72@syzkaller.appspotmail.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
-	seanjc@google.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello kvm-x86 maintainers/developers,
 
-This is a 31-day syzbot report for the kvm-x86 subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/kvm-x86
+On Wed, Oct 14, 2026 at 06:11:34PM +0100, Kiryl Shutsemau (Meta) wrote:
+>madvise_collapse() holds an mmgrab() reference across its work. It is
+>redundant. Every caller already holds mm_users:
+>
+> - madvise(2) works on current->mm, which lives as long as the task is in
+>   the syscall;
+> - process_madvise(2) reaches a remote mm through mm_access(), which takes
+>   an mm_users reference and holds it until the syscall returns;
+> - io_uring passes current->mm;
+> - DAMON takes one with get_task_mm() and drops it after the call.
+>
+>Drop the mmgrab()/mmdrop() pair.
+>
+>Assisted-by: LLM
+>Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>---
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 4 issues are still open and 81 have already been fixed.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 927     Yes   WARNING: locking bug in kvm_xen_set_evtchn_fast
-                  https://syzkaller.appspot.com/bug?extid=919877893c9d28162dc2
-<2> 357     Yes   WARNING in handle_exception_nmi (2)
-                  https://syzkaller.appspot.com/bug?extid=4688c50a9c8e68e7aaa1
-<3> 3       Yes   WARNING in x86_emulate_insn (2)
-                  https://syzkaller.appspot.com/bug?extid=fa52a184ebce1b30ad49
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
