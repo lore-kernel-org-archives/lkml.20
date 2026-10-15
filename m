@@ -1,101 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2725241695;
-	Thu, 15 Oct 2026 13:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E593033D8;
+	Thu, 15 Oct 2026 13:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071165; cv=none; b=blGdxNdMZxbPttduC0gGNHROAQI3kAlllzRCXp3TnuUxcv8SKbX3td0rUSUkqq2spiCVjzQpaKJxBgJUKoCsKTmImwb+R+hE4KOgClq5H/BqPZ39Z2XotqEyCWc83LpFBiRLh/bZ5d4mLZES2uTuN2fiteHNesJecfBjSjt8GS8=
+	t=1792071201; cv=none; b=YjI742fD2xagG4JN0GpSHOxf6UoRKM9ouS2+xpPGvG3ocCROdgNocYouFSOj1KY8hEZgpglpPsTjQf8refwvCuHHhqQFijtStJJwG0PBHCe5o3BI7MZqdNv/e/tWg8CHkrdWCAIBxIcJWdFtvBSf3QJJpne1K9Y5vPT9f3fQa5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071165; c=relaxed/simple;
-	bh=dNFE+0UDneyWKTtD7qawy+9dH5R8+C4LBXacelJmlhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tA1+i7p3zRjYELJrCkuu1F74W1cSkU1hKDc1lv1+Ig/+DlX3JyUyxqL2AishcpEy/Jz498IRWP9Zah1bI6dSmH3imGUUSaOThEzHNhuKzBedZbwFF9TO9BmU79Xy1URCSaBxYsVuvCnKS9nFbsF8ekJ+GLgb2tVWKhlo6AkC7Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nemcdfNg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792071201; c=relaxed/simple;
+	bh=5BgxENS6U6in+i4rqcWgX7H59IRDjvgj1GlaKeyU1Ig=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mXVbGFanclX/DJiRc0t3anuVTCCt2zcO5vwxbyyPbzWeM0fdohCOrNLVSqI0BI9b+jj/zdRmHuGvSIff3TTgMkgKYDGHGxhKl9XcTkLC6ks/HzS7+NODiJmwCmYvnP/qeboHj+ArhhZr9KkRbPPjZYxyg0ME4wlH+07KtGEu1JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=ZIHsI0h+; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nemcdfNg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D5DC314BF;
-	Thu, 15 Oct 2026 06:32:39 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 662AC3F673;
-	Thu, 15 Oct 2026 06:32:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792071163; bh=dNFE+0UDneyWKTtD7qawy+9dH5R8+C4LBXacelJmlhw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nemcdfNgayRdTS7dR6UHOCG6RHTna9KQ09c/ba9/UpVtCNPlJphTfBHxFzjRAMwy9
-	 IeU+DhZBB2R0ziP+dGNvqL0TeNJTXEjortCfszilYnJWLdndRZ5858afl2F4n98XnO
-	 ytj1ASrI0QH2FXiA5240qgBrZ+MzJ8vjaeZz6OOk=
-Date: Thu, 15 Oct 2026 19:02:39 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Iurii Trukhin <yuri@trukhin.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit
- and 52-bit VA
-Message-ID: <mcnimghb5b3h2h73c3uhrlmnc5azi3quzuq5owtsfw5zo7iw7t@t6j5xbd6zss5>
-References: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="ZIHsI0h+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=XDiPejxR1lgMFrxkIRsl7SfT4Fx5u6WjBTcNmbbgPsA=; b=ZIHsI0h+nJgbkM4vgDRxtJ0BO3
+	FrPxFLoxVW/per4eKKTEctzfsAipZL/g2g37C0iNLatQ51JPC4z41NjkQQ5VQ4B2U91tMUuhhot+z
+	4UEzayurmYRN9UD8jDRW7Jjxjl8Hx5Ju+EL3VAFFqbBtnV6sjhhqbM1PxE3o8CgZ9yVaWL0eYATpj
+	n0KsTRywdM7qlupF8FxYu1Yvcw2rdKD8qjZrMOqwKucwQmI9wZdZTJ//GEQbxpKZZ952DOAucqmJw
+	HGdBQinq13okJeJqu0wOCvmV0RozGsQ0rjbhkh0Emfn6mspbRzYt6QYo8A2MEqPDA0qLv67Jrzj/x
+	u3/iYdSQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xHLZu-005E8d-2n;
+	Thu, 15 Oct 2026 13:33:03 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 15 Oct 2026 06:20:38 -0700
+Subject: [PATCH] configfs: zero the write buffer on allocation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-b4-configfs_kzalloc-v1-1-17c1ba6db062@debian.org>
+X-B4-Tracking: v=1; b=H4sIACXT0GoC/yXMUQ6CMAwA0Ks0/WYJAxWyqxhjttJhlWxkVUIk3
+ N2on+/nbahchBUdbFh4EZWc0IGtAOnm08hGBnSATd2cbG2PJhwM5RRljHp9vP00ZTLk27bru54
+ GClgBzoWjrL/1fPlbX+HO9PxWuO8fWikNsncAAAA=
+X-Change-ID: 20261015-b4-configfs_kzalloc-ca337878cdcb
+To: Andreas Hindborg <a.hindborg@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: Gary Guo <gary@garyguo.net>, Priya Bala Govindasamy <pgovind2@uci.edu>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1700; i=leitao@debian.org;
+ h=from:subject:message-id; bh=5BgxENS6U6in+i4rqcWgX7H59IRDjvgj1GlaKeyU1Ig=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0NYJFB9C/ov8B9GlBNmNZA/V7i5vD8br0M8yb
+ vv3tXQ4P/qJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatDWCQAKCRA1o5Of/Hh3
+ bfCOEACsxjqSz1B2EKFZOZcNOCLMfv7bsba8IRiykXe4kZHP88x753mSODuI9dygTRhdjpchlfF
+ Xyhe2nmej4TBJXLtJZZB3xWKZAca2IblWs851eR7/2uf4qt7ABdw91rXx7qSoLdFJBdAJ+FnDL9
+ wC6C2z2iX0PviaW+4O4gULKIUDf2vUi1bBUT2MPykC2Gr0A43mjtVBMxMe4ZlbkprNodYacKvnD
+ mYz3PVCwwxbhLDvMDiAX+HGZHsLH3uD0ZN9U8aYjRj+yaDrHYbaT2uqzQRg3RMFPzYb0Efxypyl
+ uN6mk7tW05UZYlbB2F0IHpDn5qHR9hVLtCmNeytYg3CQCvzkBVPEYiOWFd8oiCtjW4p5wz++vg9
+ /j0jtKt1FE3DcUaMF9stKay/EAytAmy5Qe4Hb1JQ69qN+HLi6TfxXYEpwZJc9hmS5EJ2CLMMYkI
+ srgfLkDQWBpiLHZ3UrrVbj5KvRFSSee3sZoHVGAwFyjmNvNLoM+S6km7XOWKzKWm2bETsI4vqHF
+ 2jgIMczVG++cpcU9oHftPnWl1o14BOaXD7RvGqTkQmq57EL2I68kpcr3ov4CabFgPuuybjfapkw
+ 1bXqwr/GIgxzISQ8P77StZM1HdLp9HSFXw7mnY5CFUTo4QrNXRrvgn+Zxkkg+2XuY58OzUqdNmt
+ QtWY+PYE3AQBiWQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Wed, Oct 14, 2026 at 10:23:35PM -0700, Iurii Trukhin wrote:
-> Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
-> setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
-> bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
-> for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
-> still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
-> was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
-> when 39-bit VA was the 4K default.
-> 
-> Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
-> pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
-> randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
-> ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
-> 
-> Closes: https://github.com/KSPP/linux/issues/371
-> Reviewed-by: Kees Cook <kees@kernel.org>
-> Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
+fill_write_buffer() allocates the per-open buffer page with kmalloc()
+and initializes only the bytes copied from userspace plus the
+terminating NUL. fill_read_buffer() reuses that page if it is already
+allocated.
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+After a write, a read on the same file descriptor therefore passes
+->show() a page that still holds stale heap data. A ->show() that
+returns only what it wrote never notices, but one that returns a length
+covering bytes it did not write leaks that data to userspace.
 
-> ---
-> Changes in v2:
-> - Add a comment above ARCH_MMAP_RND_BITS explaining the 1 TiB default
->   for 48/52-bit VA and the fallback to ARCH_MMAP_RND_BITS_MIN in
->   arch/Kconfig for smaller VA sizes (Anshuman Khandual).
-> - Collect Reviewed-by from Kees Cook.
-> - Link to v1: https://lore.kernel.org/r/CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com
->  arch/arm64/Kconfig | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index cab741a695f5..7bca47269dd5 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -313,6 +313,14 @@ config ARCH_MMAP_RND_BITS_MAX
->  	default 16 if ARM64_16K_PAGES
->  	default 18
-> 
-> +# default to 1 TiB (5 bits below ARCH_MMAP_RND_BITS_MAX) on 48-bit and
-> +# 52-bit VA; smaller VA sizes fall back to ARCH_MMAP_RND_BITS_MIN in
-> +# arch/Kconfig
-> +config ARCH_MMAP_RND_BITS
-> +	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
-> +	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
-> +	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
-> +
->  config ARCH_MMAP_RND_COMPAT_BITS_MIN
->  	default 7 if ARM64_64K_PAGES
->  	default 9 if ARM64_16K_PAGES
-> -- 
-> 2.56.0
+The Rust bindings are exposed more directly: ->show() receives the page
+as an &mut [u8; PAGE_SIZE], so a driver can read the uninitialized
+bytes.
+
+fill_read_buffer() already allocates the same page with kzalloc(). Do
+the same here, so the page is initialized whichever path allocates it.
+The cost is zeroing one page the first time a file is written.
+
+Link: https://lore.kernel.org/r/cover.1790981219.git.pgovind2@uci.edu
+Suggested-by: Andreas Hindborg <a.hindborg@kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ fs/configfs/file.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/configfs/file.c b/fs/configfs/file.c
+index 6460b000c593..a4b58616352c 100644
+--- a/fs/configfs/file.c
++++ b/fs/configfs/file.c
+@@ -184,7 +184,7 @@ static int fill_write_buffer(struct configfs_buffer *buffer,
+ 	int copied;
+ 
+ 	if (!buffer->page)
+-		buffer->page = kmalloc(PAGE_SIZE, GFP_KERNEL);
++		buffer->page = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!buffer->page)
+ 		return -ENOMEM;
+ 
+
+---
+base-commit: 21671ce5ad38e0543331604bd96144d4d0d3b421
+change-id: 20261015-b4-configfs_kzalloc-ca337878cdcb
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
