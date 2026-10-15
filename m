@@ -1,112 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC3B4FECE4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342F9509F1C;
+	Thu, 15 Oct 2026 09:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057554; cv=none; b=c76/qjCxNmcjD9G5lX7g1g/seO2pVbX1KTEF9rG7lMWr77NkwxYkjxRiEKLIj7DHykdiF0tKJ5+0V8J0lv7O9khKonDlv8GnhS3Nm9QQru/DrK4SS5lsIMrsZXCUH2wtS/TjSWxHrMz4+tMN5g9J1/ipjgt8Yg1YHbHyexlnuV4=
+	t=1792057564; cv=none; b=BiDEsE97xoky5kVa/4WeWc6qzkPrWZ5eZe6TcskV6GIiROsm365R0/FuK84nRG/CMvpYUMBvWWnrupuwoOtxgJXhUHcwDINYM/1V+XCltqtUe+g+76nTpe6MELDiXg31nf+So96HnSJd4hT2IQCnvwMfRLqw380TzLbTQXr+K1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057554; c=relaxed/simple;
-	bh=bf/9IynU/TZAaugNj8YxcWTY0Uypv7i19g+dA1h42KU=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EeuVJWwlr2ImNFyFbGDPPfpDJW1jjAvpRIPjlXNMl0TsnYmLu+g4XYlg+L75isNOdihQaT7UjyxH3pKNuoYWmzEu6ofTTmZd/3sPmdhFBMKYfPWCLHfyBayPh+e2bhWM7Sj2RGTfbuG3bXr5fB+E8rTKH7dXf2urCt22rQKxnXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FC3sU3dv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792057564; c=relaxed/simple;
+	bh=ezz9X8LCg9d+XCwZ3z22UMCSEaqyTLaQMTVDqp8Flk4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e6sajxMG+wUaLo5SwL3ahieGsLBLmQKj4dQy7CLHUTxxT8tBJ6WvcrjJFEX0h6m+cwmY8awWLv+wtwDk1UJzKBu4JQX38v7GAqpDzoQyu1ISX322SkwIT2ZuFe+0crLglpNPguER4bcKypQnv1BuL4xSS9EKwuMgeiJHNwD5QNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMwUU0yX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FC3sU3dv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A229D1F000C6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792057551;
-	bh=iylgp2BXr6VBsamWkgBFHhiY7im1bWdJuQM7qpur38w=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=FC3sU3dvP/MwaaIMC8rkbDaEMTD60n7Xhme0u7Kc5eTBCR2++BftO10xGrTGnQ46/
-	 pmEmpKJXPgsFV+V7WUdGjt82t3yUjoCUlURKDzVZ114bEpt41Bwzh3iRD7ulLbuEA3
-	 wLPVJUR+/av3RPPqNlLmqI/9YsxVCFW4fWZSm2C1LDgV0nsuACcYLJxW7iz6fs6429
-	 Q87DoM9Hm3Hm5z3XTMO4+cmV1r+815E06jMsFK0ZojwSR5C+zVYhxHScK0cxmW/PhF
-	 lJIMKOi7HWLR99cQFp6ZsVNeoY+zS/t+RsDJI/Z7lsBCKQ3mdYomdPyZ7f4+rk80x8
-	 MQ54/RTqYiiqQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso4569218e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:45:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwi1e5jo+hSBkHjUEimrUepKnR+SaF3f+w4LjR8++pyE3yf3iouLMcLZMNnQ7td7R1L6Zhc875q/N4MKTA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBGfnnmuz7aF46jqXbA6PQvVVWFBhSRnNSPhqN4EJdeiVaf7LU
-	JNy2jzSjfleKsaj5vjNhIlx//BdLxvrIHvly7QFIhdScxahlFdfYQ1m+ob9wGfNmnGvZ2RJP9PW
-	XDQcJ6/W6qtkIg94XETAoFujAa74an9yAxTsZ/+cPAw==
-X-Received: by 2002:a05:6512:110a:b0:5ba:4400:6316 with SMTP id
- 2adb3069b0e04-5bcde6b3f84mr6589387e87.20.1792057550392; Thu, 15 Oct 2026
- 02:45:50 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:45:48 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:45:48 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMwUU0yX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C55C4C2BCF4;
+	Thu, 15 Oct 2026 09:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792057563;
+	bh=ezz9X8LCg9d+XCwZ3z22UMCSEaqyTLaQMTVDqp8Flk4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=oMwUU0yX7cyUqp6YbrMYWdwtKziUaUQOWmQejKuviONmRSAREkq4XcifHnDssIJmn
+	 b+ZohOJk2B8rdnmPqmoqb5CdD5i9A1ut9ciSbpnBycwZe7Ebg2rHRSuuena6+fZNGM
+	 KGA5SXkAiz6f0Mh4AKl5hJ0hpZMeOifMFIKh7WfE4c5+vA0gPDc/DSwHBT1JX1Rdgg
+	 QvbJLCOogIuP6VAWUQWZjIOdjz/GvWKjBvpPMrhMpNqSaukCfg6LqUrYIWcSeBB6Rl
+	 ie37f04e9LzhYHKlJ5g05fSth8GIhc9DETuTjkMnqgWHnBjS1igwqcpJOS9ae8z9Ys
+	 HcWzslmD9yTyA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6D25CC6B38;
+	Thu, 15 Oct 2026 09:46:03 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Thu, 15 Oct 2026 17:45:02 +0800
+Subject: [PATCH net v5 1/6] can: dev: prevent bus-off recovery when the
+ interface is not running
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Date: Thu, 15 Oct 2026 05:45:48 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
-X-Gm-Features: AclHuK_DRoTvQqNGSxxO90EJCwyosChwhDZVil4bDqYqpp-rSmgf6B3X4m6KzF0
-Message-ID: <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] soc: renesas: Kconfig: Select POWER_SEQUENCING_RENESAS_PWRRDY
- for RZ/V2H and RZ/V2N
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-rockchip-canfd-restart-close-v5-1-ae77327037c9@qq.com>
+References: <20261015-rockchip-canfd-restart-close-v5-0-ae77327037c9@qq.com>
+In-Reply-To: <20261015-rockchip-canfd-restart-close-v5-0-ae77327037c9@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792057562; l=2288;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=uB+Pk/mygKqGhQYSoYzTiXpubbzalD/v2yRTUeNfoh0=;
+ b=aDOVh3yRyfci2lDw37N9t4OltHL3UIkjn85vsXX0VOGrJzTsJ1xhkohkB/hfFvLNhdyYilBYW
+ zcqn9mCt1FnC1WfK015mmaWiq53KoChOnxQLi8kAAL6d+geWBHlGaTh
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-On Fri, 9 Oct 2026 18:57:10 +0200, Prabhakar <prabhakar.csengg@gmail.com> said:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> The RZ/V2H and RZ/V2N SYSC drivers register auxiliary devices for
-> power sequencing, which require the pwrseq-renesas-pwrrdy driver to bind
-> to them.
->
-> Select POWER_SEQUENCING and POWER_SEQUENCING_RENESAS_PWRRDY from the
-> RZ/V2H and RZ/V2N SYSC configurations so the power sequencer driver is
-> built whenever SYSC support for these SoCs is enabled.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v1->v2:
-> - No change
-> ---
->  drivers/soc/renesas/Kconfig | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
-> index b7abca4559df..32cd0d9c8758 100644
-> --- a/drivers/soc/renesas/Kconfig
-> +++ b/drivers/soc/renesas/Kconfig
-> @@ -517,9 +517,13 @@ config SYS_R9A09G047
->  config SYS_R9A09G056
->  	bool "Renesas System controller support for R9A09G056 (RZ/V2N)" if COMPILE_TEST
->  	select SYSC_RZ
-> +	select POWER_SEQUENCING
+From: Cunhao Lu <1579567540@qq.com>
 
-That's implied by the symbol below though?
+The networking core clears __LINK_STATE_START before calling ndo_stop(),
+but CAN bus-off recovery neither checks this state before queuing work
+nor before calling the driver's restart callback. Recovery can therefore
+be queued or started after the interface has begun closing, potentially
+re-enabling hardware while the driver is tearing it down.
 
-Bart
+Check netif_running() in can_restart() before flushing echo skbs, sending
+the restart notification or enabling the carrier. Keep the existing
+unsupported-operation check first. In can_bus_off(), only schedule
+recovery for a running interface and make the log message reflect that
+decision. Keep reporting bus-off and disabling the carrier.
 
-> +	select POWER_SEQUENCING_RENESAS_PWRRDY
->
->  config SYS_R9A09G057
->  	bool "Renesas System controller support for R9A09G057 (RZ/V2H)" if COMPILE_TEST
->  	select SYSC_RZ
-> +	select POWER_SEQUENCING
-> +	select POWER_SEQUENCING_RENESAS_PWRRDY
->
->  endif # SOC_RENESAS
-> --
-> 2.55.0
->
->
+These checks do not wait for recovery that has already passed the check,
+nor serialize the check with work submission. Drivers still need to
+cancel restart work before tearing down resources and quiesce its
+producers before their final cleanup.
+
+Fixes: 39549eef3587 ("can: CAN Network device driver and Netlink interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+ drivers/net/can/dev/dev.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
+index 769745e22a3c7..92492c503446e 100644
+--- a/drivers/net/can/dev/dev.c
++++ b/drivers/net/can/dev/dev.c
+@@ -198,6 +198,9 @@ static int can_restart(struct net_device *dev)
+ 	if (!priv->do_set_mode)
+ 		return -EOPNOTSUPP;
+ 
++	if (!netif_running(dev))
++		return -ENETDOWN;
++
+ 	if (netif_carrier_ok(dev))
+ 		netdev_err(dev, "Attempt to restart for bus-off recovery, but carrier is OK?\n");
+ 
+@@ -264,8 +267,9 @@ int can_restart_now(struct net_device *dev)
+ void can_bus_off(struct net_device *dev)
+ {
+ 	struct can_priv *priv = netdev_priv(dev);
++	const bool restart = priv->restart_ms && netif_running(dev);
+ 
+-	if (priv->restart_ms)
++	if (restart)
+ 		netdev_info(dev, "bus-off, scheduling restart in %d ms\n",
+ 			    priv->restart_ms);
+ 	else
+@@ -273,7 +277,7 @@ void can_bus_off(struct net_device *dev)
+ 
+ 	netif_carrier_off(dev);
+ 
+-	if (priv->restart_ms)
++	if (restart)
+ 		schedule_delayed_work(&priv->restart_work,
+ 				      msecs_to_jiffies(priv->restart_ms));
+ }
+
+-- 
+2.34.1
+
+
