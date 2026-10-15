@@ -1,130 +1,108 @@
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD7927057D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F0F4F6485
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100213; cv=none; b=aBHUfVBU2hMMtXgXliBa+w2Dn+n4Gj1iGQ8VB3Mhqmy1k6WbwOzg4uItsi/NdZb4zA+8VNisoRwJ2e34K++f8QZBqlEbfs+v0tqxBURfNOkmFk2gKUqnEFr9WPSMbGibo4KcvkkfI73B+9XOpkjBropB6umLtD2wkOElSn++H68=
+	t=1792100224; cv=none; b=Xvcr344RMFTnPBJrhlwdNt7j9tktKP2aNbnk1HOUX17XB95nd3pFp3Kb3hHjxfhcRaVZVVsrQT+iZh5F8Eg32vvmTmSGEIzdeD+4YcknXErZFLmkqHrqCIugZ7LyTINsPTvMfb0hKFnfIALO2+ocZy7J7uVKdOARVo0Asa6D4w0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100213; c=relaxed/simple;
-	bh=/mThlAxqOQ/illGXXCKqwpofgrrCmo0z6UJR5iZDmek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VhpTln6h3IZFagBmZZuNCd6oHIRposx82B7A3VQb2QkxqPR3yWxsm97/+HGO4GmkBXWTV5+Z7SGISUmUIZ1VvPU6bgILc5BOa6RjdCnJjMLKFlMwYZ1v7o2aWU9gp3fv4ajqVp9hm4qeAoVMx9AchzWdKJJv2yugbbgJF8Nl8tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L5Gw+2rH; arc=none smtp.client-ip=74.125.227.138
+	s=arc-20240116; t=1792100224; c=relaxed/simple;
+	bh=UlbqX9WXSoK354kqo1a8NtdRc0VTqh95EAURqNFg/L0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pqj3EDVUbQDzRIlZxbK9W6XFzg77eAA/FlbF35JGN70vQoQbh9heAV/wZS33mvVGuOEX90H36PEUELhf/qx1tj5awMVzKnwMSixtfzpcAPiYOl71yn569+8hcWwbC9gMR97a5LzeQY03TZxB2W2lY77ejSkRw8bmRzZG1ckPRdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KteikVZF; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5Gw+2rH"
-Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3ac144119e4so1904820a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:36:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KteikVZF"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so36013485e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:37:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792100210; x=1792705010; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TFWHGN7cklsMWKCyO/CrNxAqmD+l+5aS8n56/ZuYuKE=;
-        b=L5Gw+2rHfKE35YiYPy1ol+Mo3zNmcIrTcm+mx5+BQacp1HSFNELcpJ6qmDp0QHOg3n
-         eSTwG/f5uRWvuhiLEoPNh2WZHfLDYhdc00wODroEGA2Jc0PUIZSOtUVfQ3SU5Dd+N1b3
-         HfocrloFYZ3lGJ7lihdL3QuZoGxvCIZUeYtCKnnitqPWwkoC3y9LMKNscFi4lcdLoARf
-         dICo26do3vBcP09lvRkDSgOyDefSdm2vtCqzdztqSCrp4FhXpYa7AuOEDh/TM4RQHd2X
-         DWgUOL8szfRsiHPSZtukg6KSbYtG8pwMW6DMaZLbQdoHydZz3/N8YgC0ahh0Q0IejlQs
-         25Vw==
+        d=gmail.com; s=20251104; t=1792100219; x=1792705019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=khX/kyg1Fdhhactu6tDSNm+0C0qyulKzKWkAhiCcNiY=;
+        b=KteikVZFq7+5gjnQ8aczNjQoCKDVDZL3gNapw96JERi2iHila3cTsEz2SNFRV1Kvf8
+         pyCc70INZ3kAsoO/pWsNe+++Qer8XKbbjZoakBL5JdBM2qAQra4pINrjxzWCnB3rZYfh
+         u9TaT33Ois3/KUrsh/oFgvwm992FUcDitY1huy58zt0qUOV91fYhu1k8AROJ38jDfLhX
+         YE0updcu0zC3/t6gOSdbC+lmVWnXmtf6VpQ1igc/CCuu5qBOfOTgTHd50NmeOdvTL5Hr
+         agZyX7GLPJRuOy3VMpTK7++kaaEMQhjMu0Plr9A1+lqZMfpP2oex7FF+ExcWicK/0iG/
+         1M0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100210; x=1792705010;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TFWHGN7cklsMWKCyO/CrNxAqmD+l+5aS8n56/ZuYuKE=;
-        b=k3JCUcfAbd3BZgJsfcRhILtiE4w0J+g5Ii3nul0fJpLdLOanR0L09TbaBumNdlyxC0
-         XXosX+9y12lNORR94dRvug+mRmjkJEw6LphP934mb1NrtDeHPdF2QvXO8OxBEqz5+Fvu
-         RE/xRBIvwelfo7+yJVqGwt61JiZZ5wg8GJ8FDGO1YskisgPp09EJlIIec9AHr/0cNA4V
-         6xY/WjwpsKjqxNkxcUFg6Dnk9/fftRMt3RfNbc8eh9QTxMCJA+xEtpE7aXKvXqu2MOhC
-         ryjlD5FvHnKn5xEZbeSR42kMATCgQjqrSffa1JjrAMaWtOV7kfi8Rrpfn4q4VV0rv0RC
-         R4pg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuZQXmyWK0YXmdJiVWMmcdT60H5OdMQnfRjrZtTQlBKdFxoXSOM9JxV6lr8CiWXykwHOxeUHvcIJUQ3ec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFtb7yYWJDsBjvPeT7JOzbHMrMSW0IEifAxOfPXuENMU3w6bhw
-	fOEWSlwGIkAfMpYgGy8qt8Ps+BWE+E8I4/4ILiZvVvyQ7eXSM2makjrr
-X-Gm-Gg: AYBFou0KB4dH2vxiI4LKZ4gXi9snmNL5novl/Ti6C4f6kk42XEWQLvalhpc3F+U0sOB
-	bSI9SZEQvrR71G2gamIdwu4TYOba0xmQNbZiW0BOiKOXrq1oWGd5CLhMUb4R6euzETpTgBVfMAt
-	ZECPMG30NhwOxiy7SplTzzehYSKW5ikqYJlZKTAXoZdC0G1XEwEmSTmtYj8Ua0puQ+nGOUJ3GS3
-	PWvmzO1MiClGWcrfilZsOmqcTtSJ78tk5OYglvegfLJiuLFcnIAq1zrak3tvtE1/UQv1Op/ITDS
-	HH4MtSHM5G2/bIpuPSIhmGzkRVNIPlROAEMekvLcuORm0QTx9CrifaGCgxzxidHn/LPhLWKt/du
-	DZA4PM/c4Q9+pymfKDRFaytxxOVbgHXtK0y+ko79V+37yFeZtmPv/WqYn4iLWx/zvzJl9csqXTy
-	oGYZ1BAhKl+ygwtC3j6II2madSkHnaM/DbfxOne8ldFRoh59CUp0Z0Zt7LXfGLccBP
-X-Received: by 2002:a17:90b:48c5:b0:3a4:b418:94cf with SMTP id 98e67ed59e1d1-3ab3a7366bfmr18636143a91.14.1792100210060;
-        Thu, 15 Oct 2026 14:36:50 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:46::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd05fb680sm23372a91.2.2026.10.15.14.36.48
+        d=1e100.net; s=20260707; t=1792100219; x=1792705019;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=khX/kyg1Fdhhactu6tDSNm+0C0qyulKzKWkAhiCcNiY=;
+        b=MHzkRW1KI3zE9DsmtN5Ten1VUNTAsv15WkzgQZCni6HtLIXjJ7i4piObQ2GYqRdBCV
+         +kjE7hs66v5JMmHGiAXVCBgO7Q6fcmkRR2mDWZ57jsQu64BnVN6WvTYEcTidZU2vZlvv
+         cFYnBNi19F5yOpEE6Y+83YuKRrn1rW3wapvArxQnFMEpLYjheD/1caUjBjUIszkeGDqu
+         LaJRRRQUpMsXCsQx5pP0koYFTtRHxSVf7JuQi9q1Bsr6Qcybcsn7NdH4V1ZpHvhrist3
+         qlqZ+GMDYwumNfOYFFgH5lIjrCwliDIjzI6O6UPogucQzmUisB2dLrGEGbfrtFZmxPG1
+         9LiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNuviOmeVBuVBkxTdXEWP2NDdAe04T3UYzPH5vFVONLQ1Fv1aZTfDWByVYraDmbOk7DrCMm2FNbRqLmp0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsdlTWLa9AyppMLNVfALQOTvwp0Yejg3TirsK85kWMMwJjq0Ot
+	K375J7Ch4NtidkNHI3ohbkbJFKFjfcl6cwp6zBvUbmRKRY+x/SjyeqUj
+X-Gm-Gg: AYBFou20rUlKV+jkCAijDZPMrvjdV1QC+5GiPX33z/0eDIWrAvhMgGIKMEhGFv+NLXr
+	9gRSaZAHSmYed+FQ/+NGZn9gzMsD3KVjK1h9tqqS7yHj/S9YNpLlVIAQf8FFt+Q7wnqKghm5aYN
+	4pxYS1RYC7I8jKDR5ue8UdVHzQnmaGnsrM2fM53aWEuup7dekr1hvwlyYih32J1FSSYjTbqdUaH
+	ks7hXaRnKVnlnIww7LlA//IzM/kLgu10gcL2gpFkQFoK2h86O7h/+mMNit9FSUTwnC2Um8Zm0Hb
+	mlsNPTIGLS6vgsLue9UtNx0P9IOjeygfaTSekDPT8caVh05cV8f0dxwxrnw/f6Hq0096rN/UmpL
+	/8IuC9Qgy/8P8MM/yMHhh2EzY2uhTxh4yMpvZaeKkGlkMzifCpaRMFR5+AOzPAvLPQ7yYO0y9t5
+	VNhnsZtPInCzwQmC5S2+spFNbA4YKdbu2E92ETfnFOIvAiba+yDc0lZEW8RwylpPglApye2OeFO
+	HTPiVfm7CJeKoD870Gx0eUKUsBUEP/Ff6tnvIx8KEOxeCHPWz+MZoeF6XoIBxhFRqP8vQcBt5Gv
+	0ZcSBHeAss2Ry6v6rYYAcgfrkx4EfOBP6dHHHz3djjVY/j+qgnkcKEBiAVsI4c5B4N18Y5GgaKA
+	=
+X-Received: by 2002:a05:600c:4e55:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a18e49c008mr371304445e9.12.1792100219249;
+        Thu, 15 Oct 2026 14:36:59 -0700 (PDT)
+Received: from localhost.localdomain ([102.88.167.156])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d1esm650746f8f.39.2026.10.15.14.36.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:36:49 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:36:38 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, Ayush Sawal <ayush.sawal@chelsio.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>, Petr Machata <petrm@nvidia.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Jakub Raczynski <j.raczynski@samsung.com>, 
-	Wang Zhan <wang.zhan@smartx.com>, Willem de Bruijn <willemb@google.com>
-Subject: Re: [PATCH net-next v3 0/6] net: unify symmetric netmem and
- page_pool refcounting
-Message-ID: <atFHX4ryLonqXpn4@devvm7509.cco0.facebook.com>
-References: <20261014173945.373295-1-almasrymina@google.com>
+        Thu, 15 Oct 2026 14:36:58 -0700 (PDT)
+From: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+To: outreachy@lists.linux.dev
+Cc: David Lin <dtwlin@gmail.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+Subject: [PATCH] staging: greybus: uart: fix argument alignment
+Date: Thu, 15 Oct 2026 22:35:42 +0100
+Message-ID: <20261015213542.68994-1-okhuomonajayi54@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014173945.373295-1-almasrymina@google.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/14, Mina Almasry wrote:
-> netmems (pages and net_iovs) have two independent refcounts: a non-pp
-> refcount (page._refcount or binding->ref) governing backing memory
-> lifetime, and pp_ref_count governing recycling within a page_pool while
-> page_pool holds a single backing non-pp reference. SKBs with
-> pp_recycle=1 own pp_ref_count references on page_pool fragments; SKBs
-> with pp_recycle=0 own non-pp references.
-> 
-> Core helpers currently mix these two refcounts asymmetrically:
-> skb_frag_ref() always increments the non-pp refcount via get_netmem(),
-> whereas skb_frag_unref() decrements pp_ref_count when skb->pp_recycle
-> is set. Any path that refs a fragment on a pp_recycle=1 SKB (or unrefs
-> with a hardcoded recycle=false) increments one counter and decrements
-> the other, leaking the backing memory while underflowing pp_ref_count
-> (e.g., IP-TFS [1], skb_split(), skb_shift(), and cloned SKB uncloning).
-> Unclear core APIs also led drivers and ULPs to open-code pp_ref_count
-> manipulations or add one-off helpers like skb_pp_frag_ref().
-> 
-> Unify fragment refcounting into symmetric pairs where each layer clearly
-> specifies which refcount it touches:
-> 
-> - Non-PP refcount: get/put_page(), get/put_net_iov(), get/put_netmem()
-> - PP refcount:     napi_pp_get/put_page()
-> - SKB netmem:      skb_netmem_ref/unref(netmem, recycle)
-> - SKB fragment:    skb_frag_ref/unref(skb, f)
-> 
-> Found by code inspection while reviewing [1] and confirmed with the KUnit
-> tests in patch 6; not observed in production. Driver and ULP call-site
-> changes are compile-tested only.
-> 
-> Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/ [1]
-> 
-> ---
-> v3:
-> - Linearize straddling output segments in skb_segment() when frag_list
->   SKBs mix pp_recycle flags instead of clearing NETIF_F_SG, and add a
->   KUnit regression test (Sashiko).
-> - Link to v2: https://lore.kernel.org/netdev/20261012082148.1698596-1-almasrymina@google.com/
+Align the msecs_to_jiffies() argument with the opening
+parenthesis of wait_for_completion_timeout() to address
+the checkpatch alignment warning.
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Signed-off-by: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
+---
+ drivers/staging/greybus/uart.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index d47f00751e7a..2448fc9098d6 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -317,7 +317,7 @@ static int gb_uart_wait_for_all_credits(struct gb_tty *gb_tty)
+ 		return 0;
+ 
+ 	ret = wait_for_completion_timeout(&gb_tty->credits_complete,
+-			msecs_to_jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC));
++					  msecs_to_jiffies(GB_UART_CREDIT_WAIT_TIMEOUT_MSEC));
+ 	if (!ret) {
+ 		dev_err(&gb_tty->gbphy_dev->dev,
+ 			"time out waiting for credits\n");
+-- 
+2.43.0
+
