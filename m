@@ -1,75 +1,107 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9C11BD9C9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E014518136
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071013; cv=none; b=C7kobid5+lMs0HCRvDuwr5su9ol8QR63jkB9Fgqy/+5h+xeHcwuW00W/YByyCsh4+2QUhGbX2/cXNXkY0R9nR+ItKQ497/xSruHVDcTiplouVV0Vw8/5IgJ3VwgR67tN2/La2ibnCg/YgPNZwyBbCj/b5sI8vgZOqmuxf63U0rY=
+	t=1792071016; cv=none; b=EFNKQT/AbTDkwf+tFNYXNPMy2M/qAtKya6ju7kgztW9GSEw5Ipn4zmvQ6dEvoRMArRhtLWI98n/k0EKE405xny1BkPlassqPcHimfOByQR1D2kSDEiXHxBPD/U14wN4Mx5CYJ4Znjkxe043nSRnPuKfwDXf2Jfs++BaN0/INAc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071013; c=relaxed/simple;
-	bh=KPOBKOD35I/kw5qnrK8MZW9a9/HArKtRUri5ODVfi+A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qYf0lpMxZcQayehskbf8hKgHn8KU6t1oh1wYPYFXUihrKHkorrmJBU2iTPUpf4gLhn7Z+nwFwKArc/P0MR4XuvfQEmJZAVKK/2nBJ4d1q0b6w0udhXWMFQtL/Csc6COKHYqTSM/NinSVl/ifJLKk2OUAuOCcVnRXLzMMr6qwQbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eHiR5QW1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nkUMds42; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792071016; c=relaxed/simple;
+	bh=IoGIAHnaQYST5KBMu9mjyBm9EH/F3O3WcIGndcQBSbg=;
+	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
+	 Cc:In-Reply-To:To; b=rttchbdeUdNhjJNNdMh441lKddQ0W0o2wvPyyaDudV83QvBjFyI11TftjaTOKMxgqmOdrl7zVTPHff/UAFyJyvN6clRveGdiy13ASrKzz0O1C3HNmXhd/8X/NiMOfZRFxgvaiRd46qep1KJ4Bam9yc/a4mnuHt/2u1I+6/IlXEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jKc85fuW; arc=none smtp.client-ip=91.218.175.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eHiR5QW1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nkUMds42"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792071009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KPOBKOD35I/kw5qnrK8MZW9a9/HArKtRUri5ODVfi+A=;
-	b=eHiR5QW1+pw+S6T5YWHJcLz9sUc3jWWvEUhCjcWU2S8vImS4UO9OuxcF/6Xbcmw0HqYW4r
-	8DqZvrQhIS53I6g/CXPxHYTW9O8dJkf1biGk+ewHJwLxUEqNhWGOlczveVeoIgbUxJ/YhW
-	JxoyXahVEy1cOUzNI7Kbfofz5KgafqbubA/NgKz4nvv1mh76BjhNcci+NXFw3ToMg3ijWo
-	DVaRdPi4nJ/vxfBmraKY85ZSw58UGMgkb8CDfHEfW7w29WaGRiSVvtD7CacApOUO4sS8ir
-	JOMIOqlPez9kbnQDXoyi59Vzq+ElxKBlI/sE4CflLUV2jr8itW/bT6T7ObGr1A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792071009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KPOBKOD35I/kw5qnrK8MZW9a9/HArKtRUri5ODVfi+A=;
-	b=nkUMds423pOZx8VBO//UXEzmHI3jDhe7iIPX5N8v03Qcjftw2J5LytHOTm/qYpLpeIBZ9F
-	xyKhKeqoNiQvQ7CQ==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Derek Barbosa <debarbos@redhat.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC printk] printk: Postpone kthread startup
-In-Reply-To: <87ecdrqfhw.fsf@jogness.linutronix.de>
-References: <87ecdrqfhw.fsf@jogness.linutronix.de>
-Date: Thu, 15 Oct 2026 15:36:08 +0206
-Message-ID: <87bj8vqefz.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jKc85fuW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IoGIAHnaQYST5KBMu9mjyBm9EH/F3O3WcIGndcQBSbg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792071011; v=1; x=1792675811;
+ b=jKc85fuW+IQtGj5AZISh11GjZczerA20h45yKW1LN5LqEzJpBZPr44eFx6BKGoLP9SBmTRfd
+ xc3lcbxke/KN5167wpObNHr0cradxYiD29rvbGetcutdxB991jA5t4a3JUY+f5BiBRjUrmw/s8i
+ IA1n1gTTj4bOUoj6dFLqaU6k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id f4361a04069a03d7;
+	Thu, 15 Oct 2026 13:30:10 +0000
+X-Mizu-Trace-ID: f4361a04069a03d7
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Muchun Song <muchun.song@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v2 0/2] mm/shrinker: make per-memcg shrinker units cheaper
+Date: Thu, 15 Oct 2026 21:29:37 +0800
+Message-Id: <25784AE4-EE4B-4B15-A436-17F98354C10A@linux.dev>
+References: <84c9e97b-67c0-4c9b-bb7d-81811af8a16b@virtuozzo.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
+In-Reply-To: <84c9e97b-67c0-4c9b-bb7d-81811af8a16b@virtuozzo.com>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+X-Mailer: iPhone Mail (24A446)
 
-On 2026-10-15, John Ogness <john.ogness@linutronix.de> wrote:
-> There have been various bug reports related to SMP systems hanging
-> on boot. The reports vary wildly but seem to have some overlap with
-> regard to missed IPI's during SMP setup. The reports also show that
-> reverting NBCON console usage allows the bugs to disappear.
->
-> The NBCON kthreads for console printing are started very early
-> during boot using early_initcall(). Since these kthreads are
-> actively enabling/disabling interrupts during early boot, they may
-> be interfering with SMP setup.
->
-> Postpone kthread starting until after all arch initcalls have
-> completed.
 
-This should also contain:
 
-Reported-by: Derek Barbosa <debarbos@redhat.com>
-Closes: https://lore.kernel.org/linux-rt-users/arPmYPbFLf2EldIl@debarbos-thinkpadt14gen5.rmtusma.csb
-Fixes: 5f1b414ca027 ("printk: nbcon: Start printing threads")
+> On Oct 15, 2026, at 19:42, Konstantin Khorenko <khorenko@virtuozzo.com> wr=
+ote:
+>=20
+> =EF=BB=BFOn 10/14/26 22:50, Andrew Morton wrote:
+>>> On Wed, 14 Oct 2026 16:54:36 +0200 Konstantin Khorenko <khorenko@virtuoz=
+zo.com> wrote:
+>>>=20
+>>> Every memory cgroup allocates, per NUMA node, one shrinker_info_unit
+>>> per 64 memcg-aware shrinker ids up to shrinker_nr_max, whether or not it=
+
+>>> ever charges an object to those shrinkers. Every superblock registers
+>>> such a shrinker, so the cost is
+>>>=20
+>>>  memory cgroups x NUMA nodes x shrinker_nr_max / 64 x 1 KiB
+>>>=20
+>>> because the unit is 520 bytes and comes from kmalloc-1k.
+>>=20
+>> So we could almost halve this just by using a dedicated kmem_cache?
+>=20
+> Yeap, a dedicated cache gets approximately the same cost per shrinker id.
+> On a 48-CPU box SLUB puts 31 units in an order-2 slab, about 528 bytes eac=
+h:
+>=20
+>                                      ids/unit  bytes/unit  bytes/id
+>    today, kmalloc-1k                    64        1024        16
+>    patch 1, kmalloc-512                 63         512       ~8.1
+>    dedicated cache                      64        ~528       ~8.3
+>    dedicated cache, HWCACHE_ALIGN       64         576        9
+>=20
+> So the two are ~equal on memory, and the choice is about the code.
+>=20
+> I went with 63 ids per unit because the unit then simply fills the
+> kmalloc slot it already comes from.
+>=20
+> The price is an odd SHRINKER_UNIT_BITS and roundup() instead of round_up()=
+,
+> plus the static_assert.
+>=20
+> If you prefer the cache, I'm happy to redo patch 1 that way.
+> Patch 2 does not care about the unit size.
+
+Please use a dedicated cache, more straightforward for me. But also give som=
+e time to maintainers for reviewing the patch 2 before your update.
+
+Thanks.
+
+>=20
+> --
+> Best regards,
+> Konstantin
+>=20
