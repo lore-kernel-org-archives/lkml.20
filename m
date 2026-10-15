@@ -1,267 +1,154 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1C02874E1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792024573; cv=pass; b=LQZV6Rbp7phjgyux65rj3WVMF/wPsUnrvmBQfDny5AMXWgfqBDuWrmKpi0wCC/MsHgzVaJMisbugLemv1d3YewlMLzNPRzeY0Sbjky+5aheT3/urdQ+X3Q8yFokw74xpbPyJi7aA5xY/e5xEGC0x94UZGQbqnPg1MO/AWcAD4dM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792024573; c=relaxed/simple;
-	bh=xHIQ30qGJc+FXgEM5mQzAPKve3FI5FAHCGNtCGoOO8U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ArJEgyIKFE5dyKr0hFQm+oQz6oyDK/K8Jev3h5qpVKmAd67fq4QiW5MROKDMHNZa9ClpDaG2OXKwpqAm+XT6GXqi9O5y/r605RIs94RBOCOb0CGD2eo4mnjvEFgzblnbEy99J2HTxmU92CwKRYVKeM6uoutAk5Jdw+axmsIN+1Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KiG6A87Z; arc=pass smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D462DB7B9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792024577; cv=none; b=e2J5SOD2FKGj4E2B6XBti9vOFIXvQMrjiiFI16z/AqIzuftPHgIxOL6wtGzDPEPZChpPZVntdFQEHtJ63RRrVq4OfWl5KxRYEqV5BagDm8m9Zj81znq2G0Ztj1G/Plsm+/tzziWx3betG4oLEn2z4S/FMWRotkpJTe5ETlPVKBc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792024577; c=relaxed/simple;
+	bh=zhZzBea2Z86kYNzBM+LKVA2YIh33+o5OWhnjTOptYMI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O4ZnQontP+7YUvsRYbKLmQLNNYXF9Y2I+pVlbIcsB6OR/iYTdlzwZxNemYmhKT6bh8MRLPzPtUKg+mxvrps6yyqs6SyKKOjLMWgshFj5UbfVLgHd09gqAOzNNNLDSecoHUub5MS6Xm+O9ZnO5fRWnpyA3mkttDhvjWLmUc9Bf/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k80u0pV+; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiG6A87Z"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso828934566b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:36:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792024570; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qryGNLSlzKJlRcyFBT1RhmQhJDBWbVnnYXUDou+1kgfWZsXL223b7O5C4cpAp0gsOe
-         aZPn3lqEhftXUfPDajgougXFgMM9s3L4eX0ZAXxt4luFGTyCx/p5tf9veRh3FaeKlw1W
-         8McqQUumpbpXBPdRoE+rMvIStIpdog4yBgCiAcv/XEfxNQBbsNMg6zBHySKUws0HQvjm
-         Q21FjKAfrRJkegmByG2RFZtrhUYyy5eIxulv+tUJhrZbl3VFpP5aR7xWtYCTT8p5N7XO
-         Uk9d9kSGn5q/Y0Cof0/H1T8cfDJuPNJ6dmWBlYDX3cx6ea4laYVzu2Z1mQfBGO2Rby5H
-         vAvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2R0gXEt+P6rEHxwRyXuQ4nOXa7nTp9PwrTLPEOwbe5c=;
-        fh=sPYSrh7Qvf1GpHOvxVVeDWf+do0YHfI7+mJR4K5Al6w=;
-        b=B182GRETheI2sWESdRmroGddtQDMve0tHjtfTJnoB/xRBT5yaQQDU9WahoyI7YLLUm
-         8/97h0ckGVYsKcnJziMM/3itVAgA8eI5y/JERR2ultbCoFUP0dAvopvWCd7dXSDrokP1
-         nfTAUvN7Uo2RcDXN1eQY+JauIrTrBIKWEfFaRVbdKlZK5QQakW2PwO7PpVzp17Sbze+C
-         trQl+9OnK3A8gN8HYS9mpWUMUamnxvDOP0aoFJGtw24LAK6gEDVJH7PcFUy7GzCEN9IO
-         ST3Nr5h/WeXKM3O5+7YFt8eM6NT0euT0pn5f3pJR4qwiH5ZhI6wgjP1JntM5tSvQhcPn
-         99zw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k80u0pV+"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab98332238so2632355a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:36:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792024570; x=1792629370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792024575; x=1792629375; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2R0gXEt+P6rEHxwRyXuQ4nOXa7nTp9PwrTLPEOwbe5c=;
-        b=KiG6A87ZEMWBQLulzKOGegJeEJrkS4oXu2+hlLn0D0SJ3jdPiEWUNZKGezyhT4NEwc
-         oAIsbpVf4ynGOTsdJ0C+qjy/ZewD53H1ZRxYojrf1pyl4d+Z2DaJNfSfJrrYOxhsSela
-         R+udcSomWV3GGZbEdH+XC9qoQkCwG1COIuLIAfNI3mGnYoZJubOzQq3S1d8pW9hUzE89
-         mNx/4vFfqwKrCgUOxwIoKQAKtQpBWrxPTwUGSz9sOgjsLGizIY/Ary7/NAfHE96dbkQN
-         ciK7P+NdpojkB1O/Gk6DliWgjyPtoeUvoUF8WE9Qatl0nQGOHWJVuSKd3amhzXkvu3Kq
-         Zm8w==
+        bh=/qAZ6PZV9tCuDC2ird36Pj+1BXdLr29r1ZE5dTwgZds=;
+        b=k80u0pV+iOCprYN2/z4AjThtInWTF4WELiu8ikGbkh+4T6twnk5Se2/sqPLwONfiCS
+         rWQkRfTq8indfl+hJLukvLcXlUii2gcgSupdFMP+0KeaacObDtykMzShCJEilsB/8GdK
+         thfN8viBWv642H6/3xRcIEjmqzapfsCClq3v2R6WOhkDnUnh+18JtGOHOi9uTT+12Oxp
+         NxuToSh+YbZwgvW7kCmtWSYeTeYbnYidmmY3EXxaa2zPIov/SVvAUbX0YPZF/604NEQ/
+         RKeDXe+sROubvWqERtq4E+8Gzr/gt3tYRoHFLxITU09LxZYmyAJxw5SEoQD0zJZ37y6F
+         iOBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792024570; x=1792629370;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792024575; x=1792629375;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2R0gXEt+P6rEHxwRyXuQ4nOXa7nTp9PwrTLPEOwbe5c=;
-        b=musA51OCrCDnYfHR7D8IKMZ05Q+sJI8iKHJmWNKHXStbaDWz7gEPAMg6K5KvZnXoNE
-         JoKqrcm/RhMYAJY7oqOPOoKpv8oBNfnoAb3RN2f6Rqe/YcB8Y2DlfnsYjTESJJc2i0yd
-         Vm6RNoWtJi4ZGI5WiguvfGzKKc4zlYMYCcZTOetz/us34a9xX63PT2Zqv8osoTNSOl1e
-         G9CPN1aR2OlTGZ4Jo72N0ylfaD1HgC0UhL9eT9kZX6f9U9tEzmbvyXMHZ2YBkUj3ufir
-         UUmiN373F3Br6RW5kOc+EW52SQXaRKOJe+87+zv8pBlMeuLefsaF7jPRNoUYbarnmLX3
-         7J/w==
-X-Forwarded-Encrypted: i=1; AKwUvBydm+A3MUhObWLBBJvxufcBHswm5SAGPUGFXaR4ZeMUp7oq6BNRoegVHdu63T4FMzSVztoQLF9tUzrGvuA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcfWupGRpD5upsu34FZ3zBefVEEH87ky/T4smvKDI6V3N5G0ut
-	Rex/E4GjPpEUatArzs50JCxet0oToHb9JL271fx8de50xs42tKrKmyaVLRMS7qwDZs11eq0FIFZ
-	yLoCiCrBR4UZCPI7Vwx9mdYmmTl9LjA==
-X-Gm-Gg: AYBFou02urUUO4v5ZMOlwLdnJzN2Mohu545h+BOmQOSnI4agA2B6MRWLSsr5Nuqd3WZ
-	M2TAkSE8UomWR3JTExqPr1uJs8J1ABZ2uOVAghSfrdzpYh6u6Cqo06wrqQyKxUyUKgNKX+8PIoi
-	8H2RQA/Evdi1zkhoQzhjuOlhdRdh4cgmRqcxkL6/7tDOobr6jj6KAvjhUwAEWmhCM67EMzXhcb+
-	9r0glGSFQe4jAfldlPQCou4mH1PdYbxbrSBqERKkT2EZceqUuuG22FrB4EeRFZNH7QauCx57mr/
-	CSVN9JWlqJXtU2WZaqOhTj0gyqbaL6BRW2UluLYXaTwEnGnEjS/dfBz0B8ES6nUCQzM04LLUmhv
-	2qah4awDqVqIoiiQ7tDLT9jHgiQmn+WJ0C5KFbMGuYz3VeVuSaItb0kAJBPymYetHgi1VD2y5ot
-	VqRX8=
-X-Received: by 2002:a17:907:9409:b0:c29:f5d8:9c72 with SMTP id
- a640c23a62f3a-c31aa088548mr1508202666b.33.1792024570437; Wed, 14 Oct 2026
- 17:36:10 -0700 (PDT)
+        bh=/qAZ6PZV9tCuDC2ird36Pj+1BXdLr29r1ZE5dTwgZds=;
+        b=npXCO1Sl7wS1yPst7NbskVtvI56a3aSi44lEAzuK9TSPmaoFgiI6/upZcNoIEAor0+
+         4MpsW3o/RAJGaC5kF2TwXuukD0JQ4ZruAOK/lBY410pU4DF4uY/MSJ+HJ98DC8cxXv5C
+         3YCENcxW1Q2eG6VWx+c5/QjvoKaRXfrav9muZHUTW/sC2WWDzsVcE+BUHnkbL4AiPrpV
+         qajfdgEt2uIT30EYgEngXUfsZ8jaYEneCZP2dpPkNh/ZD/GyQXzQq1Ecv7Ee1nFE+FJU
+         hzIA0F4FSyCEZqmP/voEXwGR94NQbZBhxgLrj2NXKO9/JPfMeCYSHz4iGu/qKqzBYAb4
+         9e5A==
+X-Forwarded-Encrypted: i=1; AKwUvByf4m6zU3l6ZPg/u7xVQc3nrrvDaDlQxrJWkh2gWeiGI3dVxmHTao3MRJ7ULP5XlPNVVPmnP3yKexvpc1Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpUwfywUBzlz/tpEyzgFUO3etQCIm7O6oybmI3HdWlj5juf69A
+	VGKIVnvpG+AltVzwv9I8ZUeuR3QZRWHQO0JsENp76ViPXIithgpIxinpcbOWxg==
+X-Gm-Gg: AYBFou0Q1fFSg4L/WwysvlZYtocfqLWlvISAq+4UVfrZzLQ6djNb976+HwFYm3MJBvd
+	cXyToUtMEfEgtZXUBpBfyGTI6nX16AUHhLzp7AepH9naG/X2fwdR+07ueKeoU8Apgm34E3ST4PL
+	10tfpQmhu86YqyVADD/3WZiLJHy/7xqNfjXysK4hOaldEd7AzAHhpgEnUoIdZNrSsa7SO3K2EtJ
+	XT2cBSSlfrLRNGyQhAOF043UiluPLOcMqC+hH3P8C4wSfO1DzqRkKUZewWEGmL/0arexg32PFxY
+	1l+Qb/2CSUTbsYiYzKbmDEDL3ZDX8XUa6cMYH7iDWCmzjTyduupUayTDaeRkkGhXizWcb6LlSHr
+	mNlpxGpRNvIklreCRUDuA3H3HkF6UBfEewyTIsq4TQTsvqe36cfOmPaWSMlMZl6DNv8wwtsgmfI
+	10kASdrpl6WngXGkyMjKwh0t5LIM6LlFoSycDCJBbftGchpm57sDNEABJBCw69Wtf09zZjK+7TB
+	u2RS0GpaIbtBfnELx3edu+ZREp2G3knRbdV62q6LEY7cnf4uK8F187xNIEpwxDhR+RahLMFkoM5
+	gVXjFjmqLKlbHRJB
+X-Received: by 2002:a17:90a:e704:b0:3aa:fc22:8aaa with SMTP id 98e67ed59e1d1-3ab3b0951e9mr14438093a91.67.1792024575043;
+        Wed, 14 Oct 2026 17:36:15 -0700 (PDT)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e1a11sm1629010a91.7.2026.10.14.17.36.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 14 Oct 2026 17:36:14 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org
+Subject: [RFC PATCH v4 2/2] ALSA: pcm: refresh linked pointers before draining
+Date: Thu, 15 Oct 2026 09:36:11 +0900
+Message-ID: <rfc-v4-core-capture-drain-2.b56779f7976d4657@gmail.com>
+In-Reply-To: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
+References: <rfc-v4-core-capture-drain-0.b56779f7976d4657@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011220531.2073892-1-mhun512@gmail.com> <20261011220531.2073892-2-mhun512@gmail.com>
- <SJ0PR11MB770448ECA655129850E63866F49E2@SJ0PR11MB7704.namprd11.prod.outlook.com>
-In-Reply-To: <SJ0PR11MB770448ECA655129850E63866F49E2@SJ0PR11MB7704.namprd11.prod.outlook.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Wed, 14 Oct 2026 20:35:58 -0400
-X-Gm-Features: AclHuK_FiO8k2ANUvLel5w3-UBeosXNT17OFpLfw1OUVvRsSVTFeVw-K27VERoA
-Message-ID: <CAGEsz8H4z7cpJQkmFGcqnCT+H56OuUHQDch6kh13TiOo0b-TFA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during teardown
-To: "Xu, Even" <even.xu@intel.com>
-Cc: "Sun, Xinpeng" <xinpeng.sun@intel.com>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Even,
+Capture hardware can produce samples after the last PCM pointer update.
+Drain must refresh those pointers before stopping capture, or its final
+availability check can miss the remaining frames. With linked hardware,
+the first STOP may freeze other members, so refresh all running members
+before entering the drain action.
 
-Thanks for reviewing the patch.
+Factor the traversal into snd_pcm_update_linked_hw_ptr(). Hold
+snd_pcm_link_rwsem for reading to keep membership stable during that
+traversal, and take each member's stream lock for its ordinary
+snd_pcm_update_hw_ptr() call. Include running playback streams and invoke
+the helper after pause resume so paused capture also receives its final
+update. Keep pause and drain-init outside the helper's rwsem scope.
 
-No, I haven't tested it on actual hardware. I have only
-compile-tested it with GCC and W=3D1 on x86_64.
+Updating a pointer inside the group drain action can enter the XRUN stop
+path and recursively acquire the group lock. The helper runs before that
+action, so an update error follows the existing group XRUN path and is
+returned to the caller before drain-init.
 
-Best regards,
-Myeonghun
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/all/87jynkcn60.wl-tiwai@suse.de/
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+---
+ sound/core/pcm_native.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-2026=EB=85=84 10=EC=9B=94 12=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 8:52, =
-Xu, Even <even.xu@intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
->
-> > -----Original Message-----
-> > From: Myeonghun Pak <mhun512@gmail.com>
-> > Sent: Monday, October 12, 2026 6:06 AM
-> > To: Xu, Even <even.xu@intel.com>; Sun, Xinpeng <xinpeng.sun@intel.com>;=
- Jiri
-> > Kosina <jikos@kernel.org>; Benjamin Tissoires <bentiss@kernel.org>
-> > Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>; Mark Pea=
-rson
-> > <mpearson-lenovo@squebb.ca>; linux-input@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; Ijae Kim <ae878000@gmail.com>
-> > Subject: [PATCH 1/2] HID: intel-thc-hid: quickspi: quiesce IRQs during =
-teardown
-> >
-> > The managed IRQ can access HID/DMA buffers or queue recovery work while
-> > remove or probe unwind tears down those resources.
-> >
-> > Disable and synchronize the IRQ, drain recovery work, then mask THC int=
-errupts
-> > before freeing the IRQ and releasing HID/DMA resources.
-> > Track IRQ/DMA initialization for conditional probe cleanup.
-> >
-> > Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and =
-release
-> > outside the shared hibernation helper.
-> >
-> > This issue was found by static analysis.
->
-> Thanks for your patch!
->
-> I think this patch is still necessary. It can prevent some extremely unli=
-kely but problematic cases, such as an interrupt already being queued in th=
-e thread before the THC interrupt is disabled. Have you tested this code on=
- actual hardware?
->
-> Best Regards,
-> Even Xu
->
-> >
-> > Fixes: 4138f21115ae ("HID: intel-thc-hid: intel-quickspi: Complete THC =
-QuickSPI
-> > driver")
-> > Assisted-by: LLM
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> > Compile-tested with GCC, W=3D1 (x86_64). No runtime testing.
-> >
-> > Related recovery-work review and series:
-> > https://lore-kernel.gnuweeb.org/linux-input/20260717035609.3874015-1-
-> > even.xu@intel.com/T/
-> > https://patchew.org/linux/20260729050145.2272597-1-even.xu@intel.com/
-> >
-> >  .../intel-quickspi/pci-quickspi.c             | 28 +++++++++++++++----
-> >  1 file changed, 22 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-> > b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-> > index 89226f5ce45e..0bd22f285c78 100644
-> > --- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-> > +++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
-> > @@ -597,6 +597,8 @@ static int quickspi_probe(struct pci_dev *pdev,
-> >                         const struct pci_device_id *id)
-> >  {
-> >       struct quickspi_device *qsdev;
-> > +     bool dma_initialized =3D false;
-> > +     bool irq_requested =3D false;
-> >       void __iomem *mem_addr;
-> >       int ret;
-> >
-> > @@ -649,6 +651,7 @@ static int quickspi_probe(struct pci_dev *pdev,
-> >                                       qsdev);
-> >       if (ret)
-> >               goto dev_deinit;
-> > +     irq_requested =3D true;
-> >
-> >       ret =3D reset_tic(qsdev);
-> >       if (ret) {
-> > @@ -667,17 +670,18 @@ static int quickspi_probe(struct pci_dev *pdev,
-> >               dev_err(&pdev->dev, "Setup THC DMA failed, ret=3D %d\n", =
-ret);
-> >               goto dev_deinit;
-> >       }
-> > +     dma_initialized =3D true;
-> >
-> >       ret =3D quickspi_get_report_descriptor(qsdev);
-> >       if (ret) {
-> >               dev_err(&pdev->dev, "Get report descriptor failed, ret =
-=3D %d\n",
-> > ret);
-> > -             goto dma_deinit;
-> > +             goto dev_deinit;
-> >       }
-> >
-> >       ret =3D quickspi_hid_probe(qsdev);
-> >       if (ret) {
-> >               dev_err(&pdev->dev, "Failed to register HID device, ret =
-=3D %d\n",
-> > ret);
-> > -             goto dma_deinit;
-> > +             goto dev_deinit;
-> >       }
-> >
-> >       qsdev->state =3D QUICKSPI_ENABLED;
-> > @@ -692,10 +696,16 @@ static int quickspi_probe(struct pci_dev *pdev,
-> >
-> >       return 0;
-> >
-> > -dma_deinit:
-> > -     quickspi_dma_deinit(qsdev);
-> >  dev_deinit:
-> > +     if (irq_requested) {
-> > +             WRITE_ONCE(qsdev->recovery_disabled, true);
-> > +             disable_irq(pdev->irq);
-> > +     }
-> >       quickspi_dev_deinit(qsdev);
-> > +     if (irq_requested)
-> > +             devm_free_irq(&pdev->dev, pdev->irq, qsdev);
-> > +     if (dma_initialized)
-> > +             quickspi_dma_deinit(qsdev);
-> >  disable_pci_device:
-> >       pci_clear_master(pdev);
-> >
-> > @@ -718,9 +728,12 @@ static void quickspi_remove(struct pci_dev *pdev)
-> >       if (!qsdev)
-> >               return;
-> >
-> > -     quickspi_hid_remove(qsdev);
-> > -
-> > +     WRITE_ONCE(qsdev->recovery_disabled, true);
-> > +     disable_irq(pdev->irq);
-> >       quickspi_dev_deinit(qsdev);
-> > +     devm_free_irq(&pdev->dev, pdev->irq, qsdev);
-> > +
-> > +     quickspi_hid_remove(qsdev);
-> >
-> >       quickspi_dma_deinit(qsdev);
-> >
-> > @@ -747,6 +760,9 @@ static void quickspi_shutdown(struct pci_dev *pdev)
-> >       if (!qsdev)
-> >               return;
-> >
-> > +     WRITE_ONCE(qsdev->recovery_disabled, true);
-> > +     disable_irq(pdev->irq);
-> > +
-> >       quickspi_dev_deinit(qsdev);
-> >
-> >       /* Must stop DMA before reboot to avoid DMA entering into unknown
-> > state */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 657e77d33b21..9ee7245f4707 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -2071,6 +2071,25 @@ static int snd_pcm_prepare(struct snd_pcm_substream *substream,
+ 					(snd_pcm_state_t)f_flags);
+ }
+ 
++static int snd_pcm_update_linked_hw_ptr(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_substream *s;
++
++	/* Keep group membership stable while locking each stream separately. */
++	guard(rwsem_read)(&snd_pcm_link_rwsem);
++	snd_pcm_group_for_each_entry(s, substream) {
++		int err;
++
++		guard(pcm_stream_lock_irq)(s);
++		if (!snd_pcm_running(s))
++			continue;
++		err = snd_pcm_update_hw_ptr(s);
++		if (err < 0)
++			return err;
++	}
++	return 0;
++}
++
+ /*
+  * drain ioctl
+  */
+@@ -2180,7 +2199,13 @@ static int snd_pcm_drain(struct snd_pcm_substream *substream,
+ 	/* resume pause */
+ 	if (runtime->state == SNDRV_PCM_STATE_PAUSED)
+ 		snd_pcm_pause(substream, false);
++	snd_pcm_stream_unlock_irq(substream);
+ 
++	result = snd_pcm_update_linked_hw_ptr(substream);
++	if (result < 0)
++		return result;
++
++	snd_pcm_stream_lock_irq(substream);
+ 	/* pre-start/stop - all running streams are changed to DRAINING state */
+ 	result = snd_pcm_action(&snd_pcm_action_drain_init, substream,
+ 				ACTION_ARG_IGNORE);
