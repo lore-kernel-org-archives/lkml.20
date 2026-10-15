@@ -1,146 +1,84 @@
-Received: from sender5-pp-e108.zoho.com (sender5-pp-e108.zoho.com [165.173.182.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD4231A07F;
-	Thu, 15 Oct 2026 11:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065085; cv=pass; b=ZSLtA4/3cXWINIdrZCzlxKUSBIZTM6RYS+HDiIWLbdsPQH3G6IsLeRoOimRjnLSMi0hVwiNGzJu3oSrwqRGIPm8D0s1xe+mvBlUqhR5PdR1udX5Dh/XaOu2MvIpbwAMnbaaj98D+TPD6MT1oW16QXA7Hp6Y5thY8HeuFlQXh7ic=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065085; c=relaxed/simple;
-	bh=fhohS3lGuoWITFeS9t/S4V2FLSotjO0Kcny/fDfQFO8=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=c+kEWZIx9hpEjvU+yuSdyGZv6nR7aEOtPI/2JOWLSRb8qoMCtCW2XAWz0GO/ySk04Rzbi6hbtSU2jEpXPqogSTHqTadTGcFwKriLl16vWglCR7J06J24/K5m9avxtbLw123kJ8W5awxlvKkz1BxQWiusEzhcxDKy/6+eX2AkdXg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=qmvMmUJo; arc=pass smtp.client-ip=165.173.182.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8894C18A6DB;
+	Thu, 15 Oct 2026 11:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065170; cv=none; b=Z/WL3+bSq4h6n2vriFn9FD7x6vHJhN1N7NdpNjU+dT/E2+OXjSKIMbq7nxrRwepIYHoLplvnkdlB/4XH9b/BgGkuqG12ZVLaqQNNlDXwNYBFejpckVzbb98TAJ0ueBRMrhImfBiSTk903JaXowSCzjJuMfemOR2Wwp6PL1RUpW8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065170; c=relaxed/simple;
+	bh=2sQJXFyArpysCD9tVrNpkqhP5VFkJtWpl4LxV8vfjiI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V6RZSttjLJ3nbAowD+cYuiQIX4fhkkb3GQVjuHWQUSRieW8UojTjLppKueuPMRa6bK9F3aJoGIExkSOqztu1Qgh0KAMz5Te/lAEk741wyvvEGbWgOw24SMAJj0/HuYK0WoJTcYxEE/GL/hiU+0wFMoYdV83lYDXZjO1GNTMOXH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJ/rBYLc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="qmvMmUJo"
-ARC-Seal: i=1; a=rsa-sha256; t=1792065060; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bM0KUqPAqwMuqGiF6gbZrNSyw8nCUyHtV1lqrPdUwoAfdUjH5bXCUjbbCwcgn5FSTr1FoKaUC9JW+eroyjKLXtKzSLtLbTlsxwQ0O1o3HclGAaqumUSlhqeNx7BdRQTYlP6zqnNyz2jGFdmwxEYglxNvDudXO0X0/1LGL2R5gcc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792065060; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Sy70hYmBViSJhx1QgvBdjnOR2dPydIgQOX2U1TRTaeQ=; 
-	b=PleXrnwYVU5MP/1hRsKjfFP+eK/hKR7A3pmHO6mDISPDKrlY1QZxnK0dNTkopRR67BbVXIyTrP8keZw7NTp6UMLunE9NusEdfJNR1PH0sYQAmoZCty61tWlwJ1VG5MIdH9Agwqy50s4dMB80EZ3Klw/t7tE/YIdBNO4BFGpjeDY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792065060;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=Sy70hYmBViSJhx1QgvBdjnOR2dPydIgQOX2U1TRTaeQ=;
-	b=qmvMmUJoeDmnrVHHKOC7IrFoAUC4uv9ljEAekxkxh6tHpYTDebeycNsnxVb7Fqs8
-	4b6/NtgIz5q9RSwxXPLD8IIjhH07+hAelhIgdneJFC6RYnQDCn/X/EddiBjeY6ZIPnS
-	wFwqKp9c1Rma0w+uJ9cZ1ijQkXRsL3bGK8TufZOtuLyqBUgK+WUkFyBz7fffKLy/+A9
-	NWXWXgrLeSr/c5pUxGZSx2aCSE8gHYZebb94jOqrImlvDBS3nUDZAH8WkbeSvIKrPPN
-	S1yYB5xqd98CKJSTb1ZX0oxbrdq1SNNTbtG/VBgVLqifsO15Lq7sjNHweIQepezWbah
-	AGyEuPMFYQ==
-Received: by smtp.zohomail.com with SMTPS id 1792065057319972.0408465652614;
-	Thu, 15 Oct 2026 04:50:57 -0700 (PDT)
-Message-ID: <58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-From: Rong Zhang <i@rong.moe>
-To: Ali Ahmet =?gb2312?Q?Memi=810=946?= <aliamemis@disroot.org>, "Rafael J
- . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano
- <daniel.lezcano@kernel.org>,  Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
- <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>,  Hans de Goede
- <johannes.goede@oss.qualcomm.com>, Charis Stratakis
- <c.stratakis@proton.me>, 	linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, 	acpica-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261014132703.93355-1-aliamemis@disroot.org>
-References: <20261014132703.93355-1-aliamemis@disroot.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 19:45:47 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJ/rBYLc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D1D1F000C4;
+	Thu, 15 Oct 2026 11:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792065169;
+	bh=sC72EAmoifBVTLDVj0wP5wmbgewZfK5wW+3tvU4ypAc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kJ/rBYLcU9+AT5KZS7DdXNoxHHiA7p/tBxuSj9SdeuDX3SwkNYCOK6rMElDbIKpSd
+	 slYAbvxbr/99RMRAV0C9R4Do//LZaggIJHnktZ7NXJDUbKRR6ouEBYamAsLMt1Fijr
+	 mrIXPtbmJiLOIOqZezaZbz7QnyPttA0gu/jJRFP88nx6OLUvxKQ+7c0YM2oRJ1vyC2
+	 xBLTj7LUp3A2MXcLTc6z2NzJHgx5EYzYal6DSef40zEdO/3lc8z+ifMX7XTpoYA6Te
+	 BEoHcyKghzTdPdOYtGENPO5WG/IqVhk8Wy44SVXrC/uOBBL8wMGotd6aeUHN8ftG/Y
+	 05IFduzs89D5g==
+Date: Thu, 15 Oct 2026 13:52:45 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Thorsten Leemhuis <regressions@leemhuis.info>, Daniel J Blueman <daniel@quora.org>, 
+	Sasha Levin <sashal@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [PATCH] Revert "i2c: qcom-geni: Fix hardcoded clock index in
+ SE_GENI_CLK_SEL"
+Message-ID: <atC-ZZLkXs3yM6l4@zenone.zhora.eu>
+References: <20261014130805.48840-1-birk.skyum@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014130805.48840-1-birk.skyum@pm.me>
 
-Hi Ali,
+Hi Birk,
 
-Thanks for working on this!
+On Wed, Oct 14, 2026 at 01:08:08PM +0000, Birk Skyum wrote:
+> This reverts commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604.
+> 
+> With that commit the keyboard and touchpad of the Lenovo Yoga Slim 7x
+> (x1e80100) are dead, also at the disk passphrase prompt, on 7.2.9 and on
+> v7.3-rc7. The first transfer on their bus fails.
+> 
+>   geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
+>   i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
+> 
+> With the commit the I2C serial engine clocks read 32 MHz, without it
+> 19.2 MHz. A fix for the 32 MHz fast-mode timing is still being
+> discussed, so go back to the previous behaviour for 7.3. This brings
+> back the hardcoded index 0 in SE_GENI_CLK_SEL.
+> 
+> On v7.3-rc7 with only i2c-qcom-geni.ko swapped, the keyboard is dead
+> without this revert and works with it.
+> 
+> Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
+> Reported-by: Birk Skyum <birk.skyum@pm.me>
+> Closes: https://lore.kernel.org/r/179173732257.29426.7905170638383807320@pm.me
+> Link: https://lore.kernel.org/r/ae03e7a3-75f1-42df-b0e6-0e64358be647@oss.qualcomm.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
 
-The series is generally in a good shape. I just have a few minor
-comments.
+there is a fix taken here:
 
-On Wed, 2026-10-14 at 16:26 +0300, Ali Ahmet Memi=C5=9F wrote:
-> As discussed in [1], add exclusive variants of acpi_evaluate_object()
-> and acpi_evaluate_integer() and use them for the battery methods and
-> INT3403 _TMP, which interleave badly on ThinkPad P1 Gen2 and P53.
->=20
-> UCSI (bko221065) is not converted. =C2=A0
->=20
-
-Please leave a link to the bko bug, so that readers don't need to
-assemble the link themselves.
-
-> There the contention is on a
-
-After carefully auditing the ASL code again, I've just found the root
-cause of the mutex acquisition timeout.
-
-It's hard to notice, but \_SB.PCI0.LPC0.EC0.RDER being declared as
-"Serialized" causes an ABBA deadlock:
-
-Thread 1 (battery)                         Thread 2 (ideapad-laptop)
------------------------------------------  --------------------------------=
--------
-serialize \_SB.BAT0._BIX                   serialize \_SB.PCI0.LPC0.EC0.VPC=
-0.GBMD
-evaluate \_SB.BAT0._BIX                    evaluate \_SB.PCI0.LPC0.EC0.VPC0=
-.GBMD
-  acquire ECMT [A]
-  serialize \_SB.PCI0.LPC0.EC0.RDIF          serialize \_SB.PCI0.LPC0.EC0.R=
-DER [B]
-  evaluate \_SB.PCI0.LPC0.EC0.RDIF           evaluate \_SB.PCI0.LPC0.EC0.RD=
-ER
-    serialize \_SB.PCI0.LPC0.EC0.RDER [B]      acquire ECMT [A]
-
-That's why merging battery notifications significantly reduced the
-frequency of mutex acquisition timeout.
-
-> firmware AML mutex that _Qxx EC queries also take, which a wrapper
-> around acpi_evaluate_object() cannot cover, and Rong's notification
-> merging in 7.3 already reduces it on the battery side.
-
-Lock contention is not the root cause, and EC queries and UCSI _DSM are
-just innocent victims of the ABBA deadlock.
-
-Please rephrase the cover letter accordingly.
-
->=20
-> [1] https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpzmX=
-9aAZ0Rsv4z9Q@mail.gmail.com/
-
-You can use Link: tags in the cover letter, e.g.:
-
-Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpzmX=
-9aAZ0Rsv4z9Q@mail.gmail.com/ [1]
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+8cb5c17be3a2 ("i2c: qcom-geni: Restore the source-clock selection policy")
 
 Thanks,
-Rong
-
->=20
-> Ali Ahmet Memi=C5=9F (3):
->   ACPI: utils: Add exclusive AML evaluation helpers
->   ACPI: battery: Evaluate battery methods exclusively
->   thermal: intel: int340x: Evaluate _TMP exclusively
->=20
->  drivers/acpi/battery.c                        | 17 +++---
->  drivers/acpi/utils.c                          | 56 +++++++++++++++++--
->  .../int340x_thermal/int340x_thermal_zone.c    |  3 +-
->  include/acpi/acpi_bus.h                       |  8 +++
->  4 files changed, 71 insertions(+), 13 deletions(-)
->=20
->=20
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+Andi
