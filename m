@@ -1,42 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1ED5208C5;
-	Thu, 15 Oct 2026 12:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F86C52123A;
+	Thu, 15 Oct 2026 12:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067974; cv=none; b=sWxOZhk5L42d/3SP8VTzuqLeZUMWanAPJmLNffRM2QnPcR9L879vOzRaF2HJAY7pRSQKash4vY44lDPB47RQBhcIsuZmuqRojGVvt5IsoZykmlbVWMPIB4KvNcYbZrXZHUEibHtKQ4ffv3zePdhWutEkVcrbi3FAv9u/OAHZEaE=
+	t=1792067992; cv=none; b=q78LiIHEojEZqxSk6kS1hkJYJTJKM1xxVOMSIE+iNFUDpYjrY3rrvJFJHDit5NT4i1T/DMPH/J4QXlosI5nBoriMRQg0Y1gdPUeVpwcCF6us7EPh+/a8u+l28ukIEzTJTWtnZ03NnStK9UYmn+nMyU5M0XZHZYklACzroMQ2Fdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067974; c=relaxed/simple;
-	bh=B4rXNvWd3M3ynjiyep8bvj6S4M4B8RKyc83rLmHug/c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=O15FBU/uIzC6G8MyCImxmP+lGK41psQeQyh9rA0a37GQBfOfVafJ1Qzie9b4ede/nODMDE7rzP6h6NCcI9fNOsmdLtsQO5baFxUl+/texAwJ8oSngfuSiq1EyDwADifwaf0vfCWVE63AzVwBkyqYaHqigh6PPDY1d9i5+MkG8JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dg/IQS70; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067992; c=relaxed/simple;
+	bh=9jj5EeXLlOxjRdR+zAV5hvpMxKYNVjJAb16VRuznqDk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jTks5GQGeHiqwa+iM1Ojoj9t1gkmlnrd9r36YLEMZ+hGDSWb58n1n5077iY8Ht+VDJVTHlKMFn43L/W4z95kXt2EmR9TYtviKI6w4+yWU5efYqB5nizZS9ThiXcxvmQP/BIkHjVkaF1TXyyc5yID1qS7Jlgr/pEIUad0YnRdg04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=W0Nchy26; arc=none smtp.client-ip=115.124.28.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dg/IQS70"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDFC1F000C4;
-	Thu, 15 Oct 2026 12:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067973;
-	bh=sYehW8TQA3YYUsWa9+9y37k78FJr5VDzhEgHJOv21M0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=dg/IQS70bmXuO8yxHYr0sIOQkiwMQuGEiZnZ+twr3dwOcsR7TrTCe0g3OTvSqrzGw
-	 cNT8FwDWwYRjF3+e6dYD4DxljYbzKiKC5jzDm/SfO8UYpYAX4kWivHT+Tv7DI5jsYc
-	 pD/3W2/HUJDAPcfnDBFd95MP3qspgJcpPfcT+VocEtJIheJXEZ9f52BLYAHPIMxj02
-	 ujJShG/NqTxFmO+8622x4M27liKqsu1LMfa+UIsr4vWRv2Yp6bfK1UqSAELCtFOiyJ
-	 QKRRveyuiV8QQ6TdRlqKSRDCgus852tmXUO8LJm0yzMwPUIpSj5R4Xnf5ij07DwWim
-	 s3bruCdx4NwzQ==
-From: Mark Brown <broonie@kernel.org>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: lgirdwood@gmail.com, ckeepax@opensource.cirrus.com, 
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <cover.1791959026.git.sammiee5311@gmail.com>
-References: <cover.1791959026.git.sammiee5311@gmail.com>
-Subject: Re: [PATCH 00/13] ASoC: codecs: Fix Wolfson control definitions
- that write another control's bits
-Message-Id: <179198444223.228143.13293082026636478453.b4-ty@b4>
-Date: Wed, 14 Oct 2026 14:27:22 +0100
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="W0Nchy26"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792067986; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To;
+	bh=KsrSEPU4ZtBt1Ym2oMGlk7H+9jwpiIHOpORSTl0EMCA=;
+	b=W0Nchy26o55p/8o5sEEE2EZ62CT3H0c4hoVYZEG8vnErMoxTDvLu0bFgww4uLN9UYsnQ6UJ9I+MwZSA7OJ7sa0QoYQ0FKA+jZAC+jJTRfy/KIDwPnlAvhhfLxqlUGV/KfJRh+kvR1Sluf89uaAoTADIlz7j/45fmBt6lYNs88KI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07440349|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00470219-0.000751167-0.994547;FP=9971602157767101618|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jem-UFs_1792067985;
+Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jem-UFs_1792067985 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 20:39:46 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Thu, 15 Oct 2026 20:33:13 +0800
+Subject: [PATCH v2 2/2] spi: sprd-adi: enforce the exact transfer length
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,76 +36,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3155; i=broonie@kernel.org;
- h=from:subject:message-id; bh=B4rXNvWd3M3ynjiyep8bvj6S4M4B8RKyc83rLmHug/c=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIunGyKs4yp/VT/QWhy92JrLvXY2yzel84q/F/RWuso0
- dF40byzo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABNZqMDIsIT3bXDY/ikudX9e
- /V5c4yBWtVFl0fLmA0vTWiKfxpX8k2P4pzV/C2fMEtMz698/sJb38z3ed+pq5JdExhOqsnLTi+6
- WMgAA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20261015-spi-sprd-adi-exactlen-v2-2-13203b6aef7e@xiaopeng.com>
+References: <20261014-spi-sprd-adi-minlen-v1-1-77fee7e64259@xiaopeng.com>
+ <5e662ac5-efea-46dc-bd09-88a5a4841851@sirena.org.uk>
+ <20261015-spi-sprd-adi-exactlen-v2-0-13203b6aef7e@xiaopeng.com>
+In-Reply-To: <20261015-spi-sprd-adi-exactlen-v2-0-13203b6aef7e@xiaopeng.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Lee Jones <lee@kernel.org>
+Cc: Weibin Liu <liuwb@xiaopeng.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linux-spi@vger.kernel.org,
+ Chunyan Zhang <zhang.lyra@gmail.com>, mfd@lists.linux.dev,
+ Guanglei Zhu <zhugl3@xiaopeng.com>
+X-Mailer: b4 0.14.3
 
-On Wed, 14 Oct 2026 15:32:27 +0900, HyeongJun An wrote:
-> ASoC: codecs: Fix Wolfson control definitions that write another control's bits
-> 
-> These are more fixes found by the overlap scan from the first series
-> [1]. In each driver a control writes bits that belong to another
-> control, or writes the left channel bits for a right channel control.
-> 
-> [1] https://lore.kernel.org/all/20261008130953.2446692-1-sammiee5311@gmail.com/
-> 
-> [...]
+sprd_adi_transfer_one() never looks at the transfer length: the
+read path dereferences t->rx_buf as one u32 and stores the result
+back, and the write path reads two consecutive u32 values from
+t->tx_buf. A transfer whose length does not exactly match what the
+controller touches is a bug in the caller: a short transfer reads
+or writes past the end of the buffer, and a long transfer is
+silently truncated.
 
-Applied to
+The SPI core does not enforce the expected length, so reject reads
+whose length is not exactly sizeof(u32) and writes whose length is
+not exactly 2 * sizeof(u32) with -EINVAL before touching the
+buffers.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+The only in-tree user, the SC27xx PMIC driver, is updated by the
+previous patch to advertise the byte length of an ADI register
+access.
 
-Thanks!
+Tested in QEMU (aarch64 virt) against Linux 7.3-rc7, with the
+controller node added to the guest device tree. QEMU has no model
+of this hardware (the MMIO window is backed by RAM), so this only
+exercises the software path. Transfers submitted through spidev
+confirm the new checks: a 4-byte read and an 8-byte write are
+accepted, every other length from 1 to 16 is rejected with
+-EINVAL, and the SC27xx driver's transfers pass once it
+advertises the byte length. No Spreadtrum hardware was available.
 
-[01/13] ASoC: codecs: wm8990: Fix definition of right input PGA controls
-        https://git.kernel.org/broonie/sound/c/5bd6d05197af
-[02/13] ASoC: codecs: wm8990: Fix definition of LOMIX AINLMUX Bypass Volume control
-        https://git.kernel.org/broonie/sound/c/75e0b607e345
-[03/13] ASoC: codecs: wm8991: Fix definition of right input PGA controls
-        https://git.kernel.org/broonie/sound/c/2dfecdc25d49
-[04/13] ASoC: codecs: wm8991: Fix definition of LOMIX AINLMUX Bypass Volume control
-        https://git.kernel.org/broonie/sound/c/fee722db39c2
-[05/13] ASoC: codecs: wm8983: Fix definition of ADC 128x Oversampling control
-        https://git.kernel.org/broonie/sound/c/c1af9e2272f0
-[06/13] ASoC: codecs: wm8985: Fix definition of ADC 128x Oversampling control
-        https://git.kernel.org/broonie/sound/c/a747ec6e12cf
-[07/13] ASoC: codecs: wm8994: Fix definition of WM8958 noise gate hold time controls
-        https://git.kernel.org/broonie/sound/c/291d81d628f3
-[08/13] ASoC: codecs: wm8955: Fix definition of Treble Cutoff control
-        https://git.kernel.org/broonie/sound/c/71911bf5bb3f
-[09/13] ASoC: codecs: wm_hubs: Fix definition of MIXINR to MIXOUTR volume control
-        https://git.kernel.org/broonie/sound/c/22bfcedd3feb
-[10/13] ASoC: codecs: wm8737: Fix definition of zero cross switches
-        https://git.kernel.org/broonie/sound/c/121963197200
-[11/13] ASoC: codecs: wm5100: Fix definition of EQ3 Band 1 Volume control
-        https://git.kernel.org/broonie/sound/c/96d30816a9a4
-[12/13] ASoC: codecs: wm8750: Fix definition of ALC Capture NG Type control
-        https://git.kernel.org/broonie/sound/c/8c299077c787
-[13/13] ASoC: codecs: wm8510: Fix definition of ADC Inversion Switch control
-        https://git.kernel.org/broonie/sound/c/22d50113078d
+Fixes: 7e2903cb91df ("spi: Add ADI driver for Spreadtrum platform")
+Cc: stable@vger.kernel.org # 4.15+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+ drivers/spi/spi-sprd-adi.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
+index a6baaf02b3c8..ecec1da3ca7a 100644
+--- a/drivers/spi/spi-sprd-adi.c
++++ b/drivers/spi/spi-sprd-adi.c
+@@ -339,10 +339,20 @@ static int sprd_adi_transfer_one(struct spi_controller *ctlr,
+ 	int ret;
+ 
+ 	if (t->rx_buf) {
++		/* ADI reads consume exactly one u32: reg in, value out. */
++		if (t->len != sizeof(u32)) {
++			dev_err(sadi->dev, "invalid read length %u\n", t->len);
++			return -EINVAL;
++		}
+ 		reg = *(u32 *)t->rx_buf;
+ 		ret = sprd_adi_read(sadi, reg, &val);
+ 		*(u32 *)t->rx_buf = val;
+ 	} else if (t->tx_buf) {
++		/* ADI writes consume exactly two u32: reg and value. */
++		if (t->len != 2 * sizeof(u32)) {
++			dev_err(sadi->dev, "invalid write length %u\n", t->len);
++			return -EINVAL;
++		}
+ 		u32 *p = (u32 *)t->tx_buf;
+ 		reg = *p++;
+ 		val = *p;
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.50.1
 
