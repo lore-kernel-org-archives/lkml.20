@@ -1,167 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FE434F247
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB97945D923
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046529; cv=none; b=lcSUrLbr1WpGP4JsYL+7bvG+3jAoSxT/SkjzZr10FYxYoGsaLazkkkp5qeqi5gxS55ortzNdqoEo48nMspt8FA23TlnUOk5agEBr9RFHXyltgtzBrluTIQkfx/oYVmm2X+L2d4+uFqKUXkamT34rI0MrO/SqG7ZyXVZqdwc756E=
+	t=1792046552; cv=none; b=Z7/V43ZTIE0FyX8hbfIGjbfYp3hk4iHxpZxUuImHGk8K3LnYUlFWdwqpxawiXrHjZzj+PU1rYplZWvNQZA2Bg5o16p0mAOuJzvo8qkbRqVr2XDWWfxhOtxbFDeqb+oMtGZenOc3ouvlDVXPzwWkBoCyccogMf35yn8Col6l+jYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046529; c=relaxed/simple;
-	bh=3lAPBvS3FICeMeRxwRmZbW0Jb6e5f5IurhtPZFC4LK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FKZYSAkHW7dpWrQHLIfu+jb2OPtmhkWT/bHh7hrZQi2ZU7zDQcvjdzARWDhJbTCAAD+10XfBmmkQDQ8t6IVAFJ316sxEAMgnn9ecdJBncG6euCeO0e+HYUIHBI0dKMkqHR7i9gBMhVtP6As69cGGD0L6ZbZs1hSbT873b7S2GsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CN2NexLv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792046552; c=relaxed/simple;
+	bh=ggn8bVnKJA7RHxnagUCHzG2BcdHrEmbAPi5sFWORlCE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QfeYr4aGhK5kUwNoibrGk3rXR+9SyyY9ojswjqgS1ZPqxzsjXcRI/jgc/eCfKu4q1rWjJ8/83WD5jHwDrJshvpQwkatU8JjlvX2S2wJKsMKajbZUE9Ly2rIl60pGgYYgRe/EE0W9TFTedZDFFIodcyWv6+i+LOEs6sXvGGsDlPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h6qE9L6o; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jiangzp.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CN2NexLv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835E01F000C5;
-	Thu, 15 Oct 2026 06:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792046528;
-	bh=itTJctx5woTFx1UjaaSxyhEraQjWD0N04fegW0vbHfs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CN2NexLvgNNPX8sikpjWrJgrR5wKMEQLpBaG0IsFIZHnYG9WF9nmHNamMsF5aldIt
-	 fOisBJr4bMZZP3kf4ZvgIlQalMUbLoDDwUSgHdhHG5W9A4e0cR/oljA9OLVK/4PNzE
-	 WsrfyOTPGcyXOkJSFJyoXg7NdVTMuaX+LZ/NjeS9Y95rehfFIFU3gBW9hM67Rn2spI
-	 kFZ9DCETqtoUnRAjy6yN3VcQk3bsvr3h2SPgZkgPvqdQ093Tj4O6Y/U3j/XiD7CGuF
-	 OZ5auFV5dDSyvYXejLbYgD3ihc8WUdyyNE47WrQ/ZJ4ErHUHjQfirPFOv67FxiOZSQ
-	 7g+05vmfQ138A==
-Date: Thu, 15 Oct 2026 09:42:00 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: tarunsahu@google.com
-Cc: dmatlack@google.com, Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] memblock: drop for_each_memblock_type() and open
- code its users
-Message-ID: <atB1uG8kLfmZyLIH@kernel.org>
-References: <20261008190828.3221718-1-tarunsahu@google.com>
- <as4EcgiBH5jjww42@kernel.org>
- <9huzecdt633e.fsf@tarunix.c.googlers.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h6qE9L6o"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3425098ae4bso2635034eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:42:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792046550; x=1792651350; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CWLkBV9BBgDEhHUePIRuI9XTWV7QJLsODe5VGAKrDB0=;
+        b=h6qE9L6oAReYZJOkCTL2XJ+xvRhV5YoVsgUWY3CsgMeB6llEKDKj8vBmJS4/BOphnD
+         hnXiiNne/OHZCNzwlV1hYHmTHHkZX6Gc0B6REo2ekRJgT+dP29+LeR6eVc7wuJFIoNrx
+         5qbl0ylyM/aM9IDuNAej4Z62zLXgaMtCh1Sc/U0jZpA5El9gV5spmPZ5xhobLz253jE+
+         BUYcWdTXKJLnImMRBwGqNd3dOn3SOAzrrOIcDzfhxoYYVgK77mNcP3Ki2q1KL9VRTIj4
+         dFfC9vaEimWaSWuOncqZa2NVWFwPKj1eLGceKUOz2voRcxDiW4yebFpEMYFwZ8uXbe5a
+         WZfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792046550; x=1792651350;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CWLkBV9BBgDEhHUePIRuI9XTWV7QJLsODe5VGAKrDB0=;
+        b=EHpph41tlpPKi/PrI5m00GgXl9DWHSvE8zKm0CAcyVmAYdYdv2vPHF+PXc4aLbr3As
+         2eAs1sJbRFprzp3ae8V1Ty3SpTzpnhn+RZo28pjO+OTbQZKOZADMgSNE6buQSowlPYCh
+         ZcQCuedBpMu4BaGKPbeIDhm4t4U+Nog+uGMDaDC81dNaF9bC/owafdY9GAX0YceoSOIZ
+         j4vt5zNXntcpsS0BqeJ4ou+AAwlt49aBdH1m46d3lVMndQKz4UlLBG8W1bCqh3o4HWsg
+         hJmbNrWsgiErRHfd4z00ohwjITiOtMiZay4mkiEYXdQuBaVxsxB6skc6dNNrTLAl16r1
+         /+Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKC22k8h95fBSsIkCGak+Dj+IkDOn6gZr8fnb1JCVLxqlNJ1BR4UgfE/2NYyDG3RXd+2GaYMWX4xO2bJ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYUSc6K3i9UyNw6xgu0HLGTTMrb+sywYdSaC0rwXG8Ea2bgNbw
+	QbKGSyR3S5EsR/DcLav0DTrMGhRISJbZWpUvyho0zNQCjfkL4CdKXztMWYtk4CDwOCiRQpPXrS4
+	4PAVEEWzk2A==
+X-Received: from dldyr19-n2.prod.google.com ([2002:a05:701b:4513:20b0:143:75c2:6d21])
+ (user=jiangzp job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:e804:b0:13c:f65c:d5b5
+ with SMTP id a92af1059eb24-16a0b37d130mr26218964c88.3.1792046549601; Wed, 14
+ Oct 2026 23:42:29 -0700 (PDT)
+Date: Thu, 15 Oct 2026 06:42:23 +0000
+In-Reply-To: <01c8cf7d695261ba8270ff57aa8f2a6f@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9huzecdt633e.fsf@tarunix.c.googlers.com>
+Mime-Version: 1.0
+References: <01c8cf7d695261ba8270ff57aa8f2a6f@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261015064223.1939367-1-jiangzp@google.com>
+Subject: [PATCH v4] HID: vivaldi: avoid redundant feature report reads per usage
+From: Zhengping Jiang <jiangzp@google.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: "Sean O'Brien" <seobrien@chromium.org>, Shashikirana H K <shashikiranah@chromium.org>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Zhengping Jiang <jiangzp@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 13, 2026 at 03:18:45PM +0000, tarunsahu@google.com wrote:
-> Mike Rapoport <rppt@kernel.org> writes:
-> 
-> > Hi Tarun,
-> >
-> > Please for the next time add the cover-letter when sending more than one
-> > patch.
-> 
-> Thanks Mike for piking up the patches.
-> 
-> Sure, I will take care of adding the cover-letter.
-> 
-> You had some nit change suggestion, Let me know if you want
-> me send v5 or it is alright.
+vivaldi_feature_mapping() is invoked by report_features() in ascending
+usage_index order for each usage in the top-row physical keymap field.
+Because fetching the feature report at usage_index == 0 already reads
+the entire report from hardware, calling hid_hw_raw_request() again for
+subsequent usages redundantly reads the same report N times (e.g., 12
+sequential BLE GATT reads taking ~2s on Vivaldi BLE keyboards).
 
-I fixed some of it when applying and some right now, no need for v5
+Bail out immediately when usage->usage_index != 0, fetch the feature
+report once at usage_index == 0, and iterate over all usages in the
+field to populate data->function_row_physmap[].
+
+Fixes: 33bbe04a15f2 ("HID: google: extract Vivaldi hid feature mapping for use in hid-hammer")
+Signed-off-by: Zhengping Jiang <jiangzp@google.com>
+---
+Based on "[PATCH v2] HID: vivaldi: Extract feature report value directly in vivaldi_feature_mapping()":
+https://lore.kernel.org/r/20261013-upstream-vivaldi-fix-v2-1-ecc20329d24c@chromium.org
+
+Changes in v4:
+- Rebase on top of Shashikirana's patch using hid_field_extract() and
+  __free(kfree), as suggested by Dmitry Torokhov.
+- Return immediately when usage->usage_index != 0, fetch the report once
+  at usage_index == 0, and loop over all usages in the field so failed
+  reads do not update num_function_row_keys or expose an all-zero keymap.
+- Fix caller name in commit description (report_features()).
+
+Changes in v3:
+- Add comment explaining why the report is only read at usage_index == 0
+  and how failed reads rely on zero-initialized field->value[].
+- Jump/fall through to parse_usage on read failure.
+
+Changes in v2:
+- Move per-usage validation (HID_UP_ORDINAL and fn_key bounds) after the
+  usage_index == 0 hardware read.
+
+ drivers/hid/hid-vivaldi-common.c | 33 +++++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
+index 1359a107e63b..973393d09356 100644
+--- a/drivers/hid/hid-vivaldi-common.c
++++ b/drivers/hid/hid-vivaldi-common.c
+@@ -39,19 +39,11 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+ 	unsigned int offset;
+ 	u32 report_len;
+ 	int ret;
++	int i;
  
-> ~Tarun
-> 
-> 
-> >
-> > On Thu, Oct 08, 2026 at 07:08:27PM +0000, Tarun Sahu wrote:
-> >> for_each_memblock_type() always starts the iteration at index 0 and its
-> >> body is a trivial 'for' loop, so it hides very little. It also gets in
-> >> the way of iterating from an arbitrary index, which the next patch
-> >> needs.
-> >> 
-> >> Remove the macro and open code its three users: memblock_add_range(),
-> >> memblock_isolate_range() and memblock_dump(). While at it, move the
-> >> region pointer into the loop body scope.
-> >> 
-> >> No functional change.
-> >> 
-> >> Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-> >> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> >> ---
-> >>  mm/memblock.c | 17 ++++++-----------
-> >>  1 file changed, 6 insertions(+), 11 deletions(-)
-> >> 
-> >> diff --git a/mm/memblock.c b/mm/memblock.c
-> >> index f5aaa38cfa31..59dda7d085f3 100644
-> >> --- a/mm/memblock.c
-> >> +++ b/mm/memblock.c
-> >> @@ -155,11 +155,6 @@ struct memblock_type physmem = {
-> >>   */
-> >>  static __refdata struct memblock_type *memblock_memory = &memblock.memory;
-> >>  
-> >> -#define for_each_memblock_type(i, memblock_type, rgn)			\
-> >> -	for (i = 0, rgn = &memblock_type->regions[0];			\
-> >> -	     i < memblock_type->cnt;					\
-> >> -	     i++, rgn = &memblock_type->regions[i])
-> >> -
-> >>  #define memblock_dbg(fmt, ...)						\
-> >>  	do {								\
-> >>  		if (memblock_debug)					\
-> >> @@ -615,7 +610,6 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
-> >>  	phys_addr_t obase = base;
-> >>  	phys_addr_t end = base + memblock_cap_size(base, &size);
-> >>  	int idx, nr_new, start_rgn = -1, end_rgn;
-> >> -	struct memblock_region *rgn;
-> >>  
-> >>  	if (!size)
-> >>  		return 0;
-> >> @@ -651,7 +645,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
-> >>  	base = obase;
-> >>  	nr_new = 0;
-> >>  
-> >> -	for_each_memblock_type(idx, type, rgn) {
-> >> +	for (idx = 0; idx < type->cnt; idx++) {
-> >> +		struct memblock_region *rgn = &type->regions[idx];
-> >>  		phys_addr_t rbase = rgn->base;
-> >>  		phys_addr_t rend = rbase + rgn->size;
-> >>  
-> >> @@ -815,7 +810,6 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
-> >>  {
-> >>  	phys_addr_t end = base + memblock_cap_size(base, &size);
-> >>  	int idx;
-> >> -	struct memblock_region *rgn;
-> >>  
-> >>  	*start_rgn = *end_rgn = 0;
-> >>  
-> >> @@ -827,7 +821,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
-> >>  		if (memblock_double_array(type, base, size) < 0)
-> >>  			return -ENOMEM;
-> >>  
-> >> -	for_each_memblock_type(idx, type, rgn) {
-> >> +	for (idx = 0; idx < type->cnt; idx++) {
-> >> +		struct memblock_region *rgn = &type->regions[idx];
-> >>  		phys_addr_t rbase = rgn->base;
-> >>  		phys_addr_t rend = rbase + rgn->size;
-> >>  
-> >> @@ -2194,11 +2189,11 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
-> >>  	phys_addr_t base, end, size;
-> >>  	enum memblock_flags flags;
-> >>  	int idx;
-> >> -	struct memblock_region *rgn;
-> >>  
-> >>  	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
-> >>  
-> >> -	for_each_memblock_type(idx, type, rgn) {
-> >> +	for (idx = 0; idx < type->cnt; idx++) {
-> >> +		struct memblock_region *rgn = &type->regions[idx];
-> >>  		char nid_buf[32] = "";
-> >>  
-> >>  		base = rgn->base;
-> >> -- 
-> >> 2.56.0.385.gd3acb90ef8-goog
-> >> 
-> >
-> > -- 
-> > Sincerely yours,
-> > Mike.
-
+-	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP ||
+-	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL ||
+-	    usage->usage_index >= field->report_count)
++	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP || usage->usage_index)
+ 		return;
+ 
+-	fn_key = usage->hid & HID_USAGE;
+-	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
+-		return;
+-
+-	if (fn_key > data->num_function_row_keys)
+-		data->num_function_row_keys = fn_key;
+-
+ 	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
+ 	if (!buf)
+ 		return;
+@@ -74,9 +66,24 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
+ 		return;
+ 	}
+ 
+-	offset = field->report_offset + usage->usage_index * field->report_size;
+-	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
+-		hid_field_extract(hdev, buf + 1, offset, field->report_size);
++	for (i = 0; i < field->maxusage && i < field->report_count; i++) {
++		usage = &field->usage[i];
++
++		if ((usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
++			continue;
++
++		fn_key = usage->hid & HID_USAGE;
++		if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
++			continue;
++
++		if (fn_key > data->num_function_row_keys)
++			data->num_function_row_keys = fn_key;
++
++		offset = field->report_offset + i * field->report_size;
++		data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
++			hid_field_extract(hdev, buf + 1, offset,
++					  field->report_size);
++	}
+ }
+ EXPORT_SYMBOL_GPL(vivaldi_feature_mapping);
+ 
 -- 
-Sincerely yours,
-Mike.
+2.56.0.385.gd3acb90ef8-goog
+
