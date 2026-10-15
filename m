@@ -1,299 +1,425 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83261261B9E;
-	Thu, 15 Oct 2026 06:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792046817; cv=fail; b=Ws3mo08qTJGqhoqg7qC9/1nl1aPAYGVms2R9aof6dCkBVlRkQGvKZvNLBYXD/mfnnc4UR95OyRxPbxM3pFB3WJeZRilEBw/52zQwSJWwzufVx/YgMOyphbQPrGjCp+WLpe0YqVZaT74C5r7ZQbfAG3eD+fWBaq9VKeMDVy6ha7E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792046817; c=relaxed/simple;
-	bh=Y3pWzG8Rtq8EMdGSFJm015Iiaj/+nosFSd0nqBgAX+g=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LFL1x4dr2TKhkcG/blG3BQ5jYDYNrJrQSjGqgdHUYywfP0Ex0m4raFMGXPAFLWgWqVtPvlpGPWL4Qv7uWUa2WCkx3wr61stI3jgrzcvKKs+dVusAfzku7XMrNkOMxvSfc5dCvO6FYbT8Z5o1EjQecZ8IyBeTlL8iS4gfFQNAp5w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=XCIUrdT+; arc=fail smtp.client-ip=40.93.201.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A35A3EF0BE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792046826; cv=none; b=F6XZh+W0hQjGVI5g5OboWKtSVGYUQpJUy+V+/VOSB6yK1xlrQwgIjXDwU7OH9YzfxUc0WfFMVe6WCluJ1k/72LutaX9xWHL0ZT9oAtdRuu9Qr/ZA7U/Pe103lbzjqWFgzm8uv+DIHCrDo628/AD2tIiRisw9WqsYTI5pKASmg08=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792046826; c=relaxed/simple;
+	bh=cRFYXOuxJbnONPtCDPz6tNF59JHRetwT44+akCuhaLQ=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=U5e72+Zm9luOtaKmoCfqVgemkw7dWPVdUmD9/dPcw5LsxfbzAck4rVn0VMKPSBGeKxxgCY6AQf6dl5kyzpTZ6F68SqexybFS7ESLkyiubqU4pvrpuZ8ZKpZwK+d2q7hrB4XGKRfYRH2YXvX2WcDxVrhzeR+eDRYbtCJ5ZD6b2kI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d7+//yCz; arc=none smtp.client-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="XCIUrdT+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z0V76ElV7+Ij/BOgXvDr+mpT6GgsH8ki5Seg4YFhu1aMDE/qcFmXOz/gKFEctI62CDfE27rkIGUWlqlDl/nWYd7GTdHG15qJ0bIZ6QiNa9rf1yOorAVVxX6FKVoL/96Uq3lwcM5TAM7Cv5PdE/HWdPofNipUMdNuK0e076j/6kbvnnwtqN4+YLNGb0/CnPCu/uQqRBfsnu/MbpxwKa4Qob60TB8UBUvvQRowyH/t2LiJ/8kyrwQJ21pec/mQeNqQMVsH15HfoYwcXEoqPVFlxvWRNwMWdDb12JZ7lM5LDFSu5MOGoPhGXRqA82Ui6l2poY4vEzdcUyE4VIDf9+mPVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p74IQ91hEPcn4DB4+p2fcLBJ0juMDmBp/fNuxJAj7uM=;
- b=eJrSb/b2izfnCT21W+5joOkS+6nr4CUViasJ7iuGm5k2AS9zHF5pr5FFf73eq58dQrnQzZVNNyUCe52UgXMD9WvHPOllkR8idb70K3j1aAXI3z8GlW8+kmuzSmajdXsW6D23/Z1saJ9gRpQvO6i3tPZPFQyys39Gmz+VA58RCOWP+KXet2u3U5tDAkGdjxTnjo0OsNk+eBGszuRIskFaORXo3WESKHy2lsejDr6/ODJwXCnCqK9/t+ngyQ+uD8tNbljUczF7bWf5dSKyGQJ5IrD6kFJlSg3KP2KKpU0M5cU8llOXhMDqhMN11Ec1ByljZM4EFJAX7FALATk4xb0LUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=zytor.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p74IQ91hEPcn4DB4+p2fcLBJ0juMDmBp/fNuxJAj7uM=;
- b=XCIUrdT+6eDmzQfOoAlvF/TOBOdFDQrNAEXCcie59naELEEdOK92sZtf1+CldrMUNqEdNh50dgoXY7DPwd/jRfagwf42WZfZEgBOH9BJHsOpWXbqu0lqpxp39DpgqFQaHLZN27RQhX4fZxYRTpPVZZw/ExIB0MQDZeat1TfVnk4=
-Received: from CH2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:610:58::11)
- by SA1PR12MB7038.namprd12.prod.outlook.com (2603:10b6:806:24d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 06:46:50 +0000
-Received: from DS8PEPF000000E3.namprd05.prod.outlook.com
- (2603:10b6:610:58:cafe::5d) by CH2PR20CA0001.outlook.office365.com
- (2603:10b6:610:58::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
- Oct 2026 06:46:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS8PEPF000000E3.mail.protection.outlook.com (10.167.23.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 06:46:50 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
- 2026 01:46:34 -0500
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "H. Peter Anvin" <hpa@zytor.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Borislav Petkov <bp@alien8.de>, Dapeng Mi
-	<dapeng1.mi@linux.intel.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jeff Layton <jlayton@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, Kiryl Shutsemau <kas@kernel.org>, Li RongQing
-	<lirongqing@baidu.com>, Marco Elver <elver@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Rick Edgecombe
-	<rick.p.edgecombe@intel.com>, Robin Murphy <robin.murphy@arm.com>, "Sairaj
- Kodilkar" <sarunkod@amd.com>, Sean Christopherson <seanjc@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Thomas Gleixner <tglx@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	<iommu@lists.linux.dev>, <kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v5 0/7] Add support for AMD IOMMU GAPPI
-Date: Thu, 15 Oct 2026 12:15:08 +0530
-Message-ID: <20261015064515.10700-1-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d7+//yCz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cRFYXOuxJbnONPtCDPz6tNF59JHRetwT44+akCuhaLQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792046822; v=1; x=1792651622;
+ b=d7+//yCz3codMsbgwy6b/pAvIuIpIpamSbMHIt7FdW8azFH+tKc2UzLncPg3KlabqcR97oxg
+ /d/wOT0Ra4yuVz53bjF9J+prrtYfgUJSV3h+SXAjnc23IJQkMVGCn11mwzWQQM8qpVLDjYWX2mo
+ dxLsiVilZptEtbg1gYz3wax0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id ea0294c20a209d11;
+	Thu, 15 Oct 2026 06:47:01 +0000
+X-Mizu-Trace-ID: ea0294c20a209d11
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E3:EE_|SA1PR12MB7038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 361b6d0f-d30c-4e2c-5af6-08df2a881714
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|36860700016|82310400026|921020|56012099006|11063799006|5023799004|261009223027099003|261009221227099003|10067099003|18002099003|6133799003|13003099007|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	JKeamLIboS5sQke5Dg/FZ+KUzYZjPNsHf1Wa9wk3hqFcyGL1F16Uq9REx3hrTB69/2IEyxETzF5yODhGjX3FPX3+lbfG6iscw+ArCLHUl3wBVcbnPplR/PcLCkh9phfqKlN7s7bFZsvmbXSa1dnKdYPF+XoC910uceB54JK9WFVmoIQu2oBbRUS0UxSZimSoVluSDKmxv/iMm28HZ83T47cwA3J6tluMMRpmfLNcG6z9kB+YrUKsJledEGaJz4GiAM6Yfw82NuxO2L0oI7e2sTkSULC/V+7U+ZP2pJyPV7dnkuJDA1Yd/qlQa0TGlpv9Orsig+E+g7l9jAdsQ9b6Nj9VKIZS55OllPRLk2OqApKuohabQ6ULJJFIkg5J0Kd6bAyqtYeJCtETzmHUsE87wMbzCBmC6DNyOIJNVDSu6HdXlaIDzPSWS/cKocI0DpGq8/OxyGS6CxWPbESQWlGqH75H4N8s7UW7wBEBJOuKdULWNsv0iPaPIab3CyNqaeHHvuTcipnOdl3Uz006p00uneW64zcVMkdWqLl7h9WufxVVfUzyTsJu+oexJeZjJTYJqpWsKBRtqO3JeJAWNlP+ZRd+F+zwc56ekzSdIgh49QHdCYS6B85kegJAvItcMue7Ag+7k1wLLe1dHmvRo4YTSkLQ9n49xwe7UuVIaBvoL/mAOd1Gvuesg6vPc0Q8J7FcomuTTgsgHTRk9qtdDJCyIA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(921020)(56012099006)(11063799006)(5023799004)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Sxea9bgc72T7cILBUla1jzhUzTaUnBWaA/cJBs7u4pELdZcqt3S+QsV6uS1LrDQAyR44GVbDsPWIGmRrLJzHrD4n4umn2tYZU60voyvICqn4qaipXAa2NUxv3lTbeiGIuVbF1b3dCvv60R+gb6sXDzvZ8EH+YMqIawJFRYHhUeqPyxnhekIg6+h6KobWuDOt6xTHV9NIVqAn8uwmmq5X48qZK8PWtgcpusFvyvVKy4w9/eQPPKCtAwDHMGTXwYxlb5K7K0493KeF/bQXKLx1oPDp9H1wkZzjo2iqKjdyv9iH/w3ewrH87E5TaQ0V18k53R0YHM6nm5s/wTgMInhbjIEDFeC4hKAsoFtZt9cEnmYrAHhPsgigSqaqPCv8H3cwv9uj740FPmbcEOyepRQteU8ygw/DTSkcnqgG7fgOU0iWLnnqo7KIlLXCLe97pmIJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 06:46:50.0554
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 361b6d0f-d30c-4e2c-5af6-08df2a881714
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS8PEPF000000E3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7038
-
-Introduction
-============
-On newer generations of AMD processors, IOMMU AVIC/x2AVIC guest-mode interrupt
-remapping can use Guest APIC Physical Processor Interrupt (GAPPI) as an
-alternative host-notification path when device interrupts target a vCPU that
-is not running (IRTE[IsRun] = 0).
-
-With AVIC enabled, the IOMMU posts device interrupts into the guest virtual
-APIC backing page. When the vCPU is not running, KVM must additionally be
-notified so it can schedule the vCPU.
-
-The legacy notification path is the GA log (GALOG): the IOMMU appends vCPU
-tags to a shared GA log buffer and raises a single GA log interrupt.  KVM
-registers a notifier and scans the buffer to decide which vCPUs to wake.
-Under heavy interrupt load this adds latency and can overflow the buffer
-because all wakeups funnel through one interrupt and one shared log.
-
-Guest APIC Physical Processor Interrupt (GAPPI), defined in section 2.2.5.4
-of the AMD I/O Virtualization Technology (IOMMU) Specification [1], is an
-alternative.  With GAPPI enabled, the IOMMU still updates the guest vAPIC
-backing page IRR, but may deliver a physical APIC interrupt directly to
-IRTE[Destination], using IRTE[GATag][7:0] as the vector.  This distributes
-host wakeup notifications across CPUs instead of centralizing them in a
-log buffer.
-
-This series programs guest-mode IRTEs accordingly: IRTE[Destination] carries
-the target host physical APIC ID, IRTE[GATag] is set to
-POSTED_INTR_WAKEUP_VECTOR, and IRTE[GAPPIDis] / IRTE[GALogIntr] are set
-based on whether KVM requests host wakeup.  GAPPI is selected at boot via
-the amd_iommu=gappi kernel parameter on capable hardware, otherwise the
-existing GA log path is unchanged.
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v4 0/6] mm: Unify device DAX and HugeTLB vmemmap
+ population paths
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <wlrkqqvg.ritesh.list@gmail.com>
+Date: Thu, 15 Oct 2026 14:46:45 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <872F3B5D-DF89-494F-969B-862047BA98AE@linux.dev>
+References: <20261010075755.83339-1-songmuchun@bytedance.com>
+ <wlrkqqvg.ritesh.list@gmail.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
-SVM/AMD IOMMU interface changes
-===============================
-The first four patches refactor the SVM/AMD IOMMU interface ahead of GAPPI.
 
-The cpu field is renamed to apicid because it carries the host physical
-APIC ID for IRTE[Destination], not a Linux CPU number.
+> On Oct 14, 2026, at 22:49, Ritesh Harjani (IBM) =
+<ritesh.list@gmail.com> wrote:
+>=20
+> Muchun Song <songmuchun@bytedance.com> writes:
+>=20
+>> This v4 is based on mm-new commit d5207c6d152c, which contains v6 of
+>> "mm: Switch device DAX to section-based vmemmap optimization" [1].
+>>=20
+>=20
+> Hi Muchun,
+>=20
+> I was checking this patch series and seems like I am hitting an issue =
+on
+> mm-new, which most likely is due to this patch series.
+> (Note that a similar issue was reported by Pavithra on PowerPC)
+>=20
+> Let me first give the call stack:
+>=20
+> [   79.930815] page: refcount:0 mapcount:1 mapping:0000000000000000 =
+index:0x0 pfn:0x140000
+> [   79.930833] flags: 0x0(node=3D0|zone=3D0|lastcpupid=3D0x0)
+> [   79.930838] raw: 0000000000000000 0000000000000000 0000000000000000 =
+0000000000000000
+> [   79.930840] raw: 0000000000000000 0000000000000000 0000000000000000 =
+0000000000000000
+> [   79.930841] page dumped because: =
+VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn))
+> [   79.931043] ------------[ cut here ]------------
+> [   79.931051] kernel BUG at mm/page_alloc.c:373!
+> [   79.931109] Oops: invalid opcode: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
+> [   79.940576] CPU: 2 UID: 0 PID: 743 Comm: ndctl Tainted: G           =
+      N  7.3.0-rc5-01065-g45f4c1453cbe #23 PREEMPT(full)
+> [   79.942647] Tainted: [N]=3DTEST
+> [   79.943190] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), =
+BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+> [   79.945080] RIP: =
+0010:__set_pfnblock_flags_mask.constprop.0+0xef/0x110
+> [   79.946231] Code: 48 8b 07 48 89 d1 48 f7 d1 48 89 c2 48 21 ca 48 =
+09 f2 f0 48 0f b1 17 75 f0 c3 cc cc cc cc 48 c7 c6 b0 9b 5a 83 e8 91 be =
+fa ff <0f> 0b ba 00 10 00 00 e9 7a ff ff ff 48 c7 c6 a8 b5 56 83 e8 79 =
+be
+> [   79.949296] RSP: 0018:ffffc90011ebf7b0 EFLAGS: 00010246
+> [   79.950179] RAX: 000000000000004a RBX: 0000000000140000 RCX: =
+0000000000000000
+> [   79.951366] RDX: 0000000000000000 RSI: 0000000000000001 RDI: =
+ffffffffffffffff
+> [   79.952562] RBP: 0000000000180000 R08: 0000000000000001 R09: =
+0000000000000000
+> [   79.953759] R10: 0000000000000118 R11: 0000000000008000 R12: =
+0000000000000001
+> [   79.954948] R13: 0000000000000000 R14: 0000000000180000 R15: =
+0000000000190000
+> [   79.956151] FS:  00007ffff7e36d40(0000) GS:ffff8880f7f22000(0000) =
+knlGS:0000000000000000
+> [   79.957490] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   79.958464] CR2: 000055555572ce90 CR3: 0000000031130003 CR4: =
+0000000000172ef0
+> [   79.959657] Call Trace:
+> [   79.960096]  <TASK>
+> [   79.960487]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
+> [   79.961561]  memmap_init_zone_device+0x2fb/0x380
+> [   79.962392]  pagemap_range+0x272/0x590
+> [   79.963069]  memremap_pages+0x125/0x210
+> [   79.963726]  ? lockdep_hardirqs_on+0x7d/0x100
+> [   79.964488]  devm_memremap_pages+0x21/0x70
+> [   79.965191]  dev_dax_probe+0x1db/0x300
+> [   79.965870]  dax_bus_probe+0x6f/0xa0
+> [   79.966495]  call_driver_probe+0x24/0xf0
+> [   79.967190]  really_probe+0xb6/0x310
+> [   79.967810]  ? __pfx___device_attach_driver+0x10/0x10
+> [   79.968667]  __driver_probe_device+0x87/0x190
+> [   79.969415]  ? __pfx___device_attach_driver+0x10/0x10
+> [   79.970270]  driver_probe_device+0x1f/0x90
+> [   79.970976]  __device_attach_driver+0x89/0x130
+> [   79.971734]  bus_for_each_drv+0x86/0xe0
+> [   79.972412]  __device_attach+0xb6/0x1d0
+> [   79.973078]  device_initial_probe+0x40/0x60
+> [   79.973791]  bus_probe_device+0x3d/0xa0
+> [   79.974453]  device_add+0x4f0/0x6c0
+> [   79.975068]  __devm_create_dev_dax+0x18b/0x3f0
+> [   79.975830]  devm_create_dev_dax+0x21/0x40
+> [   79.976530]  __dax_pmem_probe+0x1c3/0x200
+> [   79.977244]  dax_pmem_probe+0xe/0x20
+> [   79.977867]  nvdimm_bus_probe+0x89/0x250
+> [   79.978566]  call_driver_probe+0x24/0xf0
+> [   79.979242]  really_probe+0xb6/0x310
+> [   79.979868]  __driver_probe_device+0x87/0x190
+> [   79.980618]  device_driver_attach+0x47/0xb0
+> [   79.981336]  bind_store+0x76/0xc0
+> [   79.981922]  kernfs_fop_write_iter+0x152/0x200
+> [   79.982715]  vfs_write+0x276/0x520
+> [   79.983323]  ksys_write+0x6b/0xe0
+> [   79.983900]  do_syscall_64+0xa6/0x470
+> [   79.984543]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>=20
+>=20
+> also -=20
+>=20
+> [    4.426995] BUG: kernel NULL pointer dereference, address: =
+0000000000000090
+> [    4.428266] #PF: supervisor read access in kernel mode
+> [    4.428266] #PF: error_code(0x0000) - not-present page
+> [    4.428266] PGD 0 P4D 0
+> [    4.428266] Oops: Oops: 0000 [#1] SMP DEBUG_PAGEALLOC PTI
+> [    4.428266] CPU: 6 UID: 0 PID: 1 Comm: swapper/0 Not tainted =
+7.3.0-rc5-01065-g45f4c1453c
+> [    4.428266] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), =
+BIOS rel-1.16.3-0-ga6ed6b701f04
+> [    4.428266] RIP: =
+0010:__set_pfnblock_flags_mask.constprop.0+0x3d/0x110
+> [    4.428266] Code: 84 e3 00 00 00 48 8b 17 48 89 d1 48 c1 ea 37 83 =
+e2 07 48 c1 e9 3a 48 8d 14 52 40
+> [    4.428266] RSP: 0000:ffffc9000001b770 EFLAGS: 00010246
+> [    4.428266] RAX: 0000000000140000 RBX: 0000000000140000 RCX: =
+0000000000000020
+> [    4.428266] RDX: 0000000000000000 RSI: 0000000000000001 RDI: =
+ffffea0005000000
+> [    4.428266] RBP: 0000000000180000 R08: ffff8880093e1600 R09: =
+0000000000000040
+> [    4.428266] R10: 0000000000000001 R11: 0000000000000000 R12: =
+0000000000000001
+> [    4.428266] R13: 0000000000000000 R14: 0000000000180000 R15: =
+0000000000190000
+> [    4.428266] FS:  0000000000000000(0000) GS:ffff8880f8722000(0000) =
+knlGS:0000000000000000
+> [    4.428266] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    4.428266] CR2: 0000000000000090 CR3: 0000000003aac001 CR4: =
+0000000000172ef0
+> [    4.428266] Call Trace:
+> [    4.428266]  <TASK>
+> [    4.428266]  pageblock_migratetype_init_range.constprop.0+0x50/0x90
+> [    4.428266]  memmap_init_zone_device+0x2fb/0x380
+> [    4.428266]  pagemap_range+0x272/0x590
+> [    4.428266]  memremap_pages+0x125/0x210
+> [    4.428266]  ? lockdep_hardirqs_on+0x7d/0x100
+> [    4.428266]  devm_memremap_pages+0x21/0x70
+> [    4.428266]  dev_dax_probe+0x1db/0x300
+> [    4.428266]  dax_bus_probe+0x6f/0xa0
+> [    4.428266]  call_driver_probe+0x24/0xf0
+> [    4.428266]  really_probe+0xb6/0x310
+> [    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
+> [    4.428266]  __driver_probe_device+0x87/0x190
+> [    4.428266]  ? __pfx___device_attach_driver+0x10/0x10
+> [    4.428266]  driver_probe_device+0x1f/0x90
+> [    4.428266]  __device_attach_driver+0x89/0x130
+> [    4.428266]  bus_for_each_drv+0x86/0xe0
+> [    4.428266]  __device_attach+0xb6/0x1d0
+> [    4.428266]  device_initial_probe+0x40/0x60
+> [    4.428266]  bus_probe_device+0x3d/0xa0
+> [    4.428266]  device_add+0x4f0/0x6c0
+> [    4.428266]  __devm_create_dev_dax+0x18b/0x3f0
+> [    4.428266]  devm_create_dev_dax+0x21/0x40
+> [    4.428266]  __dax_pmem_probe+0x1c3/0x200
+> [    4.428266]  dax_pmem_probe+0xe/0x20
+> [    4.428266]  nvdimm_bus_probe+0x89/0x250
+> [    4.428266]  call_driver_probe+0x24/0xf0
+> [    4.428266]  really_probe+0xb6/0x310
+> [    4.428266]  ? __pfx___driver_attach+0x10/0x10
+> [    4.428266]  __driver_probe_device+0x87/0x190
+> [    4.428266]  ? __pfx___driver_attach+0x10/0x10
+> [    4.428266]  driver_probe_device+0x1f/0x90
+> [    4.428266]  __driver_attach+0xd7/0x200
+> [    4.428266]  bus_for_each_dev+0x79/0xc0
+> [    4.428266]  bus_add_driver+0x127/0x250
+> [    4.428266]  driver_register+0x59/0x100
+> [    4.428266]  ? __pfx_dax_pmem_init+0x10/0x10
+> [    4.428266]  do_one_initcall+0x59/0x3a0
+> [    4.428266]  do_initcalls+0xdd/0x1b0
+> [    4.428266]  kernel_init_freeable+0x16f/0x2b0
+> [    4.428266]  ? __pfx_kernel_init+0x10/0x10
+> [    4.428266]  kernel_init+0x1f/0x1d0
+> [    4.428266]  ret_from_fork+0x244/0x280
+> [    4.428266]  ? __pfx_kernel_init+0x10/0x10
+> [    4.428266]  ret_from_fork_asm+0x1a/0x30
+> [    4.428266]  </TASK>
+>=20
+>=20
+> - I am hitting this issue on x86 kvm itself (and also on PowerPC)
+> - I am able to hit the issue with the following extra qemu params:
+>    -m 2G,slots=3D4,maxmem=3D16G
+>    -object =
+memory-backend-file,id=3Dmem1,mem-path=3D/tmp/nvdimm.img,size=3D2560M,shar=
+e=3Don -device =
+nvdimm,id=3Dnvdimm0,memdev=3Dmem1,label-size=3D256M,addr=3D0x100000000
+>=20
+>    # then once the system comes up
+>    ndctl disable-region region0
+>    ndctl init-labels all
+>    ndctl enable-region region0
+>=20
+>    ndctl create-namespace -r region0 -t pmem -m raw -s 256M
+>    ndctl create-namespace -r region0 -t pmem -m devdax -M mem -a 1G -s =
+2G=20
+>=20
+> I am still debugging this issue - but from the logs it looks like that
+> some struct page was never initialized which caused the VM_BUG_ON().
+>=20
+> Can you take a look at this once?
 
-The ga_log_intr boolean is renamed to wakeup_intr (and the synthetic
-AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR shadow bit to
-AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR). wakeup_intr describes KVM's intent
-(request host wakeup while the vCPU is not running), not a specific hardware
-mechanism.
+Hi Ritesh,
 
-A separate is_running boolean is added to IOMMU interface because GAPPI
-requires a valid apicid in IRTE[Destination] even when the vCPU is not running. 
-The prior encoding (apicid >= 0 means running, apicid == -1 means not running)
-no longer works once apicid carries the GAPPI destination while IRTE[IsRun] is
-clear.  The IOMMU driver keys IRTE[IsRun] and destination programming off this
-explicit boolean instead of inferring running state from apicid.
+Thanks for reporting this and for providing the detailed reproducer.
+
+I reproduced the failure on x86 with the same Device DAX namespace
+layout.
+
+After looking into it further, I think it is a pre-existing issue, so
+the underlying bug was not introduced by this series.
+
+In this case, the namespace-backed pgmap covers PFNs
+0x110000..0x180000, while the actual Device DAX data range starts at PFN
+0x140000 after applying dataoff.  The Device DAX alignment is 1 GiB, so
+pgmap->vmemmap_shift is 18.
+
+An order-18 compound page must be naturally aligned to 1 GiB,
+independently of whether vmemmap optimization is enabled.  However,
+memmap_init_zone_device() currently applies this compound-page geometry
+to the entire pgmap range, including namespace metadata and alignment
+padding.  It therefore attempts to initialize compound pages starting
+at PFN 0x110000, which is not naturally aligned to 1 GiB.
+
+The old Device DAX-specific vmemmap population path also used the pgmap
+start as its reference point.  Consequently, the population and
+initialization paths used the same incorrect range-relative layout, and
+the device could complete probing successfully.
+
+The common path introduced by this series identifies retained vmemmap
+pages from the naturally aligned absolute PFN instead.  It therefore
+allocates a private vmemmap page for PFN 0x140000, while
+memmap_init_zone_device() does not initialize that page.  The subsequent
+pageblock initialization then detects the invalid struct page and
+triggers the reported failure.
+
+I also tested the kernel immediately before this series.  The namespace
+was created successfully and exposed the full 1 GiB /dev/dax0.1 range:
+
+  start: 0x140000000
+  end:   0x17fffffff
+  size:  1 GiB
+  align: 1 GiB
+
+However, mapping the device as an unprivileged user and performing the
+first write caused a kernel panic in the page-fault path:
+
+  page does not match folio
+  page dumped because: VM_BUG_ON_PAGE(page->compound_info & 1)
+
+  const_folio_flags()
+    vmf_insert_folio_pud()
+      dev_dax_huge_fault()
+        handle_mm_fault()
+          do_user_addr_fault()
+
+So the previous Device DAX-specific path only hid the problem during
+initialization.  The invalid compound-page layout was still observable
+and directly triggerable from userspace through mmap.
+
+The underlying issue dates back to:
+
+  14606001efb4 ("device-dax: compound devmap support")
+
+That commit started setting pgmap->vmemmap_shift from dev_dax->align and
+initializing the pgmap as compound pages, without accounting for the
+fact that a static pmem pgmap may begin before the naturally aligned
+Device DAX data range.
+
+Commit:
+
+  aed877c2b425 ("device/dax: properly refcount device dax pages when =
+mapping")
+
+later changed the PMD/PUD fault path to insert the folio derived from
+page_folio(), making an invalid compound head directly affect the
+mapping path.
+
+The fix is to exclude the namespace metadata and alignment padding from
+the pgmap when the memmap is stored in system RAM and compound Device
+DAX pages are used.  The pgmap then starts at the same naturally aligned
+address as the user-visible Device DAX data range.
+
+The altmap path is left unchanged because memmap_init_zone_device()
+already advances past the entire altmap reservation using
+vmem_altmap_offset().  The 4 KiB-aligned static namespace path is also
+left unchanged.
+
+I also added an invariant warning in memmap_init_zone_device() so that
+any future caller passing a non-naturally-aligned compound range is
+reported directly.
+
+But I'm not sure if the fix is reasonable. Let me think it about for a
+while.
+
+Thanks,
+Muchun
+
+---
+  drivers/dax/pmem.c | 7 +++++++
+  mm/mm_init.c       | 2 ++
+  2 files changed, 9 insertions(+)
+
+diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
+index bee93066a849..938de88fa185 100644
+--- a/drivers/dax/pmem.c
++++ b/drivers/dax/pmem.c
+@@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device =
+*dev)
+      /* adjust the dax_region range to the start of data */
+      range =3D pgmap.range;
+      range.start +=3D offset;
++     /*
++      * When the memmap is stored in RAM, exclude metadata and =
+alignment
++      * padding from compound page initialization.  Otherwise, the =
+pgmap
++      * may start before the naturally aligned Device DAX data range.
++      */
++     if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > =
+PAGE_SIZE)
++             pgmap.range.start =3D range.start;
+      dax_region =3D alloc_dax_region(dev, region_id, &range,
+                      nd_region->target_node, =
+le32_to_cpu(pfn_sb->align),
+                      IORESOURCE_DAX_STATIC);
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 4c17a892924d..2bbd56cccc5e 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1142,6 +1142,8 @@ void __ref memmap_init_zone_device(struct zone =
+*zone,
+      if (!nr_pages)
+              return;
+
++     VM_WARN_ON_ONCE(!IS_ALIGNED(start_pfn | nr_pages, =
+pfns_per_compound));
++
+      /*
+        * Seed the reusable head-page template from the first real =
+struct
+        * page. The normal page-init and refcount helpers must operate =
+on
 
 
-KVM GAPPI wakeup scheme
-=======================
-SVM follows the Intel posted-interrupt wakeup model already used by VMX.
-Each pCPU maintains a list of blocked vCPUs that may be woken by a GAPPI
-delivery to that CPU.  When a vCPU blocks while waiting for a device
-interrupt, SVM enqueues it on the wakeup list of the pCPU on which it was
-previously running (gappi_cpu) and passes that pCPU's physical APIC ID to
-the IOMMU to program IRTE[Destination].  The rationale is that the vCPU is
-likely to run again on the same pCPU, which is common when vCPUs are pinned;
-targeting GAPPI notifications there reduces unnecessary VMEXITs from GAPPI
-deliveries on other CPUs.  When the vCPU is scheduled in again, it is
-removed from the list and IRTE[Destination] is updated to the current pCPU.
-
-List maintenance is moved from VMX layer to common KVM layer so that both VMX
-and SVM layer can share the same list handling code. 
-
-Note
-====
-kvm_pi_enable_wakeup_handler() and kvm_pi_disable_wakeup_handler() take the
-target pCPU explicitly instead of using vcpu->cpu, because on SVM the two can
-differ. avic_vcpu_load() returns early while the vCPU is blocking and leaves
-the target wakeup CPU untouched, but the generic layer still refreshes
-vcpu->cpu on every load. Using vcpu->cpu would then unlink the vCPU under the
-wrong per-pCPU lock, so SVM tracks the pCPU it last programmed in
-svm->gappi_cpu and passes that instead.
-
-Changes since v4
-================
-Patch 6:
-  - Initialize gappi_cpu to 0 instead of -1, the list_empty() check handles
-    the initial case when vCPU is not on the wakeup list of CPU 0 [Vasant]
-
-Changes since v3
-================
-https://lore.kernel.org/all/20260713105033.15405-1-sarunkod@amd.com/
-
-Patch 3:
-  - Make amd_iommu_activate_guest_mode() as wrapper around
-    __amd_iommu_activate_guest_mode() to in order to hardcode is_running
-    flag to "true" for external calls [Sean]
-
-Patch 5:
-  - Newly introduced, moves wakeup list handling from VMX to the KVM layer
-    [Sean]
-
-Patch 6:
-  - Use common list handling functions introduced in patch 5.
-  - Remove list addition during pi_update_irte by moving list handling
-    functions before list_empty(&svm->ir_list) check.
+Muchun,
+Thanks.
 
 
-Changes since v2
-================
-https://lore.kernel.org/linux-iommu/20260708091408.12106-1-sarunkod@amd.com/
 
-Patch[1-6]
-  - Expand commit messages to explain GAPPI, the interface changes, and the
-    per-CPU wakeup list scheme [Sean].
-
-Patch[1-3]
-  - Split the monolithic SVM/IOMMU API refactor into four preparatory
-    patches [Sean]
-  - Rename posted_intr to wakeup_intr to reflect host wakeup intent, not
-    guest interrupt posting [Sean]
-  - Pass vCPU running status with a extra parameter (is_running) instead of
-    flags.
-
-Patch[4,5]
-  - Move ga_tag=POSTED_INTR_WAKEUP_VECTOR setting from IOMMU to SVM layer.
-
-
-Changes since V1:
-================
-https://lore.kernel.org/all/20260626105906.14577-1-sarunkod@amd.com/
-
-Patch4
-    - Disable interrupts while holding wakeup list lock inside [sashiko]
-      avic_add_vcpu_to_gappi_wakeup_list and avic_remove_vcpu_from_gappi_wakeup_list
-    - Unregister posted_intr_wakeup_handler during module unload [sashiko]
-
-Patch5
-    - Disable GAPPI feature during kexec and suspend path [sashiko]
-
-
-------
-
-[1] https://docs.amd.com/v/u/en-US/48882_3.11_IOMMU_PUB
-
-------
-
-Sairaj Kodilkar (7):
-  iommu/amd: KVM: SVM: Rename cpu to apicid in IOMMU interface
-  iommu/amd: KVM: SVM: Rename ga_log_intr to wakeup_intr in IOMMU
-    interface
-  iommu/amd: KVM: SVM: Add explicit vCPU running state to IOMMU
-    interface
-  iommu/amd: Program guest-mode IRTEs for GAPPI wakeup when IRTE[IsRun]
-    = 0
-  KVM: VMX: Factor out wakeup list handling code to KVM
-  KVM: SVM: Add support for AMD IOMMU Guest APIC Physical Processor
-    Interrupt (GAPPI)
-  iommu/amd: Provide kernel command line option to enable GAPPI
-
- .../admin-guide/kernel-parameters.txt         |   3 +-
- Documentation/arch/x86/iommu.rst              |  22 ++++
- arch/x86/include/asm/irq_remapping.h          |   5 +-
- arch/x86/include/asm/kvm-x86-ops.h            |   1 +
- arch/x86/include/asm/kvm_host.h               |   1 +
- arch/x86/include/asm/svm.h                    |   9 +-
- arch/x86/kvm/svm/avic.c                       |  90 ++++++++++----
- arch/x86/kvm/svm/svm.c                        |   1 +
- arch/x86/kvm/svm/svm.h                        |   4 +
- arch/x86/kvm/vmx/common.h                     |   3 -
- arch/x86/kvm/vmx/main.c                       |   6 +
- arch/x86/kvm/vmx/posted_intr.c                |  82 +------------
- arch/x86/kvm/vmx/tdx.c                        |   1 -
- arch/x86/kvm/vmx/vmx.c                        |  14 +--
- arch/x86/kvm/vmx/x86_ops.h                    |   1 +
- arch/x86/kvm/x86.c                            | 111 ++++++++++++++++++
- drivers/iommu/amd/amd_iommu_types.h           |   6 +-
- drivers/iommu/amd/init.c                      |  31 ++++-
- drivers/iommu/amd/iommu.c                     |  65 ++++++----
- include/linux/amd-iommu.h                     |  16 ++-
- include/linux/kvm_host.h                      |   6 +
- 21 files changed, 323 insertions(+), 155 deletions(-)
-
-
-base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
--- 
-2.34.1
+>=20
+> Thanks!
+> -ritesh
+>=20
+>=20
 
