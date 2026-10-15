@@ -1,417 +1,403 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7636F535FD4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66A1C2EA754;
+	Thu, 15 Oct 2026 14:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074393; cv=none; b=l+E4jIF9MopNK74YJnQWjb3oWtaXkvCyvFZy3BUVroVNN8jjUz92z5xeT3/oX17HX6ToYOB/GCyTdjGGmx8SDI/ko4OWo1ojrVb215W+iNUzaS1Uy7MF8sFvgm1sXkF/7z0XE9PIfHVrDRWvHB6fPY2We4fcj9ClDEvyvJgKzwI=
+	t=1792074393; cv=none; b=llGguP4+EmG0wDh4uv8IWaorPYqVmMb8Av5S799SjEw6EU9f3tEmICgbCFBRhkj+HoEBj4DluowZVfAbsEcPjISgyPBH71ax4Vc2bIw997aKRAsWMpag3X2gB8itxab6rK0TUB5zSPSiUdXFk500Zm47YkAPD9bZsmmL7hBNbAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792074393; c=relaxed/simple;
-	bh=QGnBRrtVZ3FFfHcMd7JXeA3J2ysoWmJkVEJ8fD9hdOg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z0v7F31GCcPbtUVeLMur0syhADn+gSl6+q/YTTZFLg3dQoxxLRdBW+ozT/zx2OVrFAdeCH1ODewR0QTv7oqAk8ZrSXtLcGALyKv+oTDQfo6TabDDJwGt/vDB+OlcnX7K6rq+9fk6bwAzmHIIDVexlcX+tYPcHDrHi6r2B+1EZw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XZsjJyP8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dA4L7YLU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=HiQhnFeZAHqs9PJhZRil3wbZduwa+fFnW+iFYdZdmH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MAEBRKwpQdfgI/Cy99rPSoYJ72rtIlOIXF81bkwOCRDQzrfuSJMqrfFNcCvxXrgQclVqQdfFkgpVX8nzLV0i8jUwxyy7zO4RRuFUjq/ihXzHKqB+76URsHDXAN0oZVIjpRV5frYYFWprzTqfowdny6QBTykBq23VDFtFEKD97hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SDWu8jhh; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XZsjJyP8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dA4L7YLU"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jOfN2114144
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Rre9nYhysjyh/PSjFpSqFeP/GcQd3x85phPUQeiwexs=; b=XZsjJyP86E4GTGB6
-	a4bPbCinpsmnCbaCdpI1h2R8SU6W/Sfbvu7l54rl4LfpvRY/w+wfr6tub8JoMKYM
-	595hOFcRN0jFMk+GMScBT3neLO/EIxCKsyYVKPZCG+UjDwmQblRhBHquHl97Ha4h
-	qRkmZZM95FIKDgXzLK5RLeOaIgw23GYO4em7HhOhkBb1fA0ZcFQROn8mnYvB6M7C
-	DDWpbguBpGHbH9svCtj/wchrcRjviOPlWf7MfiCX28BrCY5ctz96qd0JElzNiN93
-	yIEwyrdQsGNCwMrQwAeTPD45Ytl0ekMmqwUeA4e3fn9vfpwWqvsUZYWMFGLzz+zC
-	Rq2gFg==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmybgp9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:26:24 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-98c77a77147so134960241.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792074383; x=1792679183; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rre9nYhysjyh/PSjFpSqFeP/GcQd3x85phPUQeiwexs=;
-        b=dA4L7YLUn3UyCLA476TKYiQy2N9u67VeU/AYPNVceg9P6lp3700U7USeqbUGQ50RCs
-         PPB4jYt/n3HDVTj6b276Vyn03OCOvhIh/hWZsiidsqwd4NLxOzdQYId0LUhBtME6zuZS
-         Bf5rTc/kGyGnoTqOUQtMdkIOQS/KS97yLerySvXm3wMpWDSHnL4O7Xsj7yGcq/7Gip7d
-         bSTRw48yRsU19rXoMiHke4vORXRsuTJ87PPXg/08251t2nh+AsxrKfB06fQvQuil75Hq
-         DviDEkCqHxn5cGPfNC1vysum322CHTxMpXLYAuC4SNicVQ6jHon/nKF6Wq3vxRpWP4Pr
-         s0wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792074383; x=1792679183;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rre9nYhysjyh/PSjFpSqFeP/GcQd3x85phPUQeiwexs=;
-        b=urK9P+MARq7MMYBljWaduPdf7vG0vJcH6fE0X5kp5iCVbyHsMQTIiv2MnNEQNj7A4n
-         NqrUgDDE1FLsbE599rjEQFCWo+xUZdokrzqyCEmHlalmI/fhCnvr7SPl9mfLSeYkAEYH
-         Fc8Wlkc4njM+Cdt+asRJrcyqv9V9lU9Q8Uv+qPYvJXCW2ix6bKbXnDsDvk7+6o/uNzu+
-         p76ScGkLIzaLC+Spt+/YpXaig8ZfA7DfsWtBftEVk7iFgPDH72VR9s58K/2vIdpOvKeW
-         RJuk42xvGqrC+Xz10uuFRSXcNxKM7907z8P6mbOmFEh5ecHEik0txM6yAHj4yYM2yRJR
-         iGkg==
-X-Forwarded-Encrypted: i=1; AKwUvByqiZqSBy5QZcQkNLxGeXDo1pCbzLF2aF5Kl2gBb8IqCWGXKwfEZDJypIYLb4UDwgo/LVrNQpfXfgsm2Xo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBZiD2T7LhdBXk7sGqS5FnG/Syr4MoCcgoil/VHo4aBf5iJCLQ
-	EB/vgsZmc6JIRQS3Bx8tzqUYBmgB39wcd4rE1nwJQW3uV3iTkxcPQY3I5lkHMp4eQD0khCmSTE6
-	+4Wzc4BvD+BNNfdXuEMNex0M1JiC4RYey05cdxJpwLjjWVxDzZzCE3QBx/m7+ejv7/HU=
-X-Gm-Gg: AYBFou1toOjSLvJSys7x3tGGewvF8HDriPOFnJUGM2N2+o8nXfAKcvADTeMUnWjgkHu
-	hK+g9MkjGGAGCkYMSkeDZ3HnmTHlYnURK7VmM92M6dO6sbjrYtEykSALuE4QYjqelTJ9ANSJ8tU
-	vTLV09bFdsmbbe+doC2unn69HdupwqTXObh5vSP7Nk8UWkPQOijLok+vpPVmAfFudiNLFOwP1Mk
-	9GwlqoZ/8KLsJ5FRRpDZ/nYvcqGc17QJFn4iMwmRPt/CTibxL1LMR/CmVgIAj78A4aZAZd5ZsCN
-	0xCXnNRwCTBvxCUEhpA7AbV/3e7sMTrUATjbePC4h83gYm8Qo9qCoUV2Bisdmw4pGTAyFnyaTA+
-	jJdHgcdgbwBz1Pt8nrasEv3kyCXTHw93HOOqeoRO+QQRSrhDptZ0HUmAAGEXbzlRgbstFj8sqJj
-	2SWA49bSHAFpOdj7tQal7FKOkY0Ck6hs9kZbT/i/v+ICkOLFvIOtY=
-X-Received: by 2002:a05:6102:149d:b0:7c3:8ae6:d7ae with SMTP id ada2fe7eead31-7cb3678b940mr4845578137.1.1792074382862;
-        Thu, 15 Oct 2026 07:26:22 -0700 (PDT)
-X-Received: by 2002:a05:6102:149d:b0:7c3:8ae6:d7ae with SMTP id ada2fe7eead31-7cb3678b940mr4845555137.1.1792074382082;
-        Thu, 15 Oct 2026 07:26:22 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:5402:5e0b:9ef0:9b5b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6428b3sm69083145e9.1.2026.10.15.07.26.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:26:21 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 16:26:02 +0200
-Subject: [PATCH v11 3/7] block: implement NVMEM provider
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SDWu8jhh"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C16F1576;
+	Thu, 15 Oct 2026 07:26:18 -0700 (PDT)
+Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B7ED3F871;
+	Thu, 15 Oct 2026 07:26:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792074381; bh=HiQhnFeZAHqs9PJhZRil3wbZduwa+fFnW+iFYdZdmH0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=SDWu8jhhK2Uwim8I9VurlgaqdGpRUqONwrqUNPzTpFbJbYB1kvKcqV72rwQfnwoKW
+	 z3Ur3+1b/kTNGEAmp4TYiDE7KmzF7EKNJCuaElW2LsJU6Prb/XDpRnj8ouN+Fv0o12
+	 yIbs1X9uyNBINiulOs5f4k1ftww/INzuQNohd0n8=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-doc@vger.kernel.org
+Subject: [RFC PATCH v2 05/15] misc/arm-cla: Initialize devices on CPU bringup
+Date: Thu, 15 Oct 2026 15:25:39 +0100
+Message-ID: <20261015142552.4128028-6-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-block-as-nvmem-v11-3-f890ac74f87d@oss.qualcomm.com>
-References: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
-In-Reply-To: <20261015-block-as-nvmem-v11-0-f890ac74f87d@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Eric Dumazet <edumazet@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Eric Dumazet <edumazet@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: ReE8F5DjBLwaihnJqJrBXDsPEK9W3V24
-X-Proofpoint-ORIG-GUID: ReE8F5DjBLwaihnJqJrBXDsPEK9W3V24
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX7KTG2J5d553l
- 5fO/Z1ksaKLK+/qyxFQtAekA5O39BCxwSxLDATMBDMlGoX4gEjRwvw5/pDgoKCA8Mc2jLDzjY1c
- Kmt7zRJi/2M7l1SOqxIy+GKUyW1HXDU=
-X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0e290 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=VT4XjZGOAAAA:8 a=71DuYGxFrHUPmPLwgxgA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22 a=6CpsfURP9XNmmWg3j1mJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXzXqXrPKvzEqn
- OwPV3B+g3rwqKi+Lq4RHlyPo3q+8Uo3Rj9+S1GSAeISWvp/plcJKKrBRRK7Sgpxawmf3Uq+4b9s
- 2vBjsn4vLtZiLjJ1/l/Ei+7nV+l+vDywIWG0cNXU/pZWvegWttfoU4eDwt6LJ537QMlMc+2oDY8
- 7bFx6yY0n1gbxaBMscrdTAACnl7829QzgDXTo1AH/lsMQvJLGjAIEht/8YeMCDL060CNw2P3pT1
- ndH9JDUEbmBwDGEIGksIPpe1N5ZKZUv0CuJpGXF76p0C8zxxHryw3h1GV7VXuuBEavwhZp2/U2A
- gMRrQHddU1CY1w4jVmG8Wn2aksB+4/bOQOu0pg389JID4oxxB7dGCrLZvon9SoKJGWbHc0Hv/CX
- RjFHp3WzrgxV9/OGt/HUbJ9S0na0QBOplhLRWCVWeFTfy3zpX/j/wvIcqGyTva+xfTfDI2o/bvy
- uBdjerjvyF1JYNAvwpQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
+Content-Transfer-Encoding: 8bit
 
-On embedded devices using an eMMC it is common that one or more partitions
-on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
-data. Allow referencing the partition in device tree for the kernel and
-Wi-Fi drivers accessing it via the NVMEM layer.
+From: Jean-Philippe Brucker <jpb@kernel.org>
 
-NVMEM is registered for a block device whose OF node describes an NVMEM
-layout, either via an "nvmem-layout" child or by being a "fixed-layout"
-node itself (e.g. an eMMC boot partition associated through its mmc-card
-node).
+CLA registers are only accessible from the CPU local to the CLA, so
+perform device initialization from the CPU hotplug online callback.
 
-The NVMEM device is a read-only side channel onto a block device.
-Each read opens the block device with BLK_OPEN_EXCL to keep other
-exclusive openers away for the duration of the access.
+Clear the DATA registers, reset each attached accelerator and verify
+that it returns to the expected idle state. Record the set of usable
+accelerators and expose only those through PL0CTRL, and through PL1CTRL
+when the kernel is running at EL2.
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reset optional timestamp and PMU controls where available so userspace
+starts from a predictable state, but do not fail probing if those
+optional controls cannot be programmed.
+
+On CPU teardown, reset all known accelerators and mark the device broken
+if reset fails, since the hotplug teardown path cannot safely fail.
+
+Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
 ---
- block/Kconfig             |  11 +++++
- block/Makefile            |   1 +
- block/blk-nvmem.c         | 112 ++++++++++++++++++++++++++++++++++++++++++++++
- block/blk.h               |   8 ++++
- block/genhd.c             |   4 ++
- block/partitions/core.c   |   5 +++
- include/linux/blk_types.h |   4 ++
- 7 files changed, 145 insertions(+)
+ drivers/misc/arm-cla/arm-cla.h  |  14 +++
+ drivers/misc/arm-cla/cla-init.c | 191 +++++++++++++++++++++++++++++++-
+ drivers/misc/arm-cla/cla-ops.c  |  23 ++++
+ 3 files changed, 227 insertions(+), 1 deletion(-)
 
-diff --git a/block/Kconfig b/block/Kconfig
-index 70e4a66d941ff66ecb0ec34f4f7eff7fd1e4be40..4899ad572c71ffdbb62460d57623216254893ddc 100644
---- a/block/Kconfig
-+++ b/block/Kconfig
-@@ -209,6 +209,17 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
- 	  by falling back to the kernel crypto API when inline
- 	  encryption hardware is not present.
+diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
+index 61176c4fce0f..6890c813a5c3 100644
+--- a/drivers/misc/arm-cla/arm-cla.h
++++ b/drivers/misc/arm-cla/arm-cla.h
+@@ -27,16 +27,25 @@ struct cla_domain;
+  * @regs:		Registers accessed by the kernel.
+  * @dev:		The platform device.
+  * @pfn:		Page of registers assigned to user.
++ * @accelerators:	Available accelerators.
+  * @pg_offset:		Mmap offset of this device.
+  * @domain:		The domain this CLA belongs to.
++ *
++ * Mutable, protected by CPU hotplug locking:
++ * @discovered:		Discovered state is cached.
++ * @broken:		Hardware failure.
+  */
+ struct cla_dev {
+ 	unsigned int cpu;
+ 	void __iomem *regs;
+ 	struct device *dev;
+ 	unsigned long pfn;
++	u8 accelerators;
+ 	unsigned long pg_offset;
+ 	struct cla_domain *domain;
++
++	bool discovered;
++	bool broken;
+ };
  
-+config BLK_NVMEM
-+	bool "Block device NVMEM provider"
-+	depends on OF
-+	depends on NVMEM
-+	help
-+	  Allow block devices (or partitions) to act as NVMEM providers,
-+	  exposing factory-provisioned data such as MAC addresses or Wi-Fi
-+	  calibration blobs to the drivers that consume them. This is
-+	  typically used on embedded devices where such data is stored in a
-+	  dedicated area of an eMMC, instead of a separate EEPROM or OTP.
-+
- source "block/partitions/Kconfig"
+ /**
+@@ -61,6 +70,10 @@ extern struct cla_dev **cla_lut_cpu;
+ extern struct cla_dev **cla_lut_pg;
+ extern unsigned int cla_nr_devs;
  
- config BLK_PM
-diff --git a/block/Makefile b/block/Makefile
-index e7bd320e3d6971a8abf584f5de42776bb54e8216..8200297fbcbab304beb4239d0c33da07011c3ed9 100644
---- a/block/Makefile
-+++ b/block/Makefile
-@@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= blk-crypto.o blk-crypto-profile.o \
- 					   blk-crypto-sysfs.o
- obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
- obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)	+= holder.o
-+obj-$(CONFIG_BLK_NVMEM)                += blk-nvmem.o
-diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..69b69184e16303444c9cb2dc816d5679daeb13c4
---- /dev/null
-+++ b/block/blk-nvmem.c
-@@ -0,0 +1,112 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * block device NVMEM provider
-+ *
-+ * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * Useful on devices using a whole disk or a partition (e.g. an eMMC boot
-+ * partition) to store MAC addresses, Bluetooth addresses or Wi-Fi
-+ * calibration EEPROM data.
-+ *
-+ * The NVMEM device is a side channel onto a block device that stays fully
-+ * usable. This is somewhat mitigated by opening the device exclusively.
-+ */
++#define cla_for_each_accid(dev, accid) \
++	for ((accid) = 0; (accid) < CLA_NUM_ACC; (accid)++) \
++		for_each_if((dev)->accelerators & BIT(accid))
 +
-+#include <linux/device.h>
-+#include <linux/file.h>
-+#include <linux/fs.h>
-+#include <linux/nvmem-provider.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
-+
-+#include "blk.h"
-+
-+static int blk_nvmem_reg_read(void *priv, unsigned int from,
-+			      void *val, size_t bytes)
+ #define cla_dbg(_dev, fmt, ...) \
+ 	dev_dbg((_dev)->dev, "[%u] " fmt, (_dev)->cpu, ##__VA_ARGS__)
+ #define cla_info(_dev, fmt, ...) \
+@@ -98,6 +111,7 @@ void cla_domains_free(void);
+ 
+ int cla_op_wait_lresp(struct cla_dev *dev, u64 *lresp);
+ int cla_op_reset(struct cla_dev *dev, unsigned int accid);
++int cla_op_reset_all(struct cla_dev *dev);
+ int cla_op_regread(struct cla_dev *dev, unsigned int accid, unsigned int regidx,
+ 		   size_t nregs, u64 *regs);
+ int cla_op_regwrite(struct cla_dev *dev, unsigned int accid,
+diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
+index 6818fb8c38ed..2974bf71033c 100644
+--- a/drivers/misc/arm-cla/cla-init.c
++++ b/drivers/misc/arm-cla/cla-init.c
+@@ -18,18 +18,204 @@
+ 
+ static int cla_cpuhp_state = -1;
+ 
++static int cla_reset_ts(struct cla_dev *dev, unsigned int accid)
 +{
-+	struct block_device *bdev = priv;
-+	struct file *bdev_file;
-+	loff_t pos = from;
-+	ssize_t ret;
++	int ret;
++	u64 reg;
 +
-+	/* open and prevent other exclusive openers */
-+	bdev_file = bdev_file_open_by_dev(bdev->bd_dev,
-+					  BLK_OPEN_READ | BLK_OPEN_EXCL,
-+					  blk_nvmem_reg_read, NULL);
-+	if (IS_ERR(bdev_file))
-+		return PTR_ERR(bdev_file);
-+
-+	if (file_bdev(bdev_file) != bdev) {
-+		fput(bdev_file);
-+		return -ENODEV;
-+	}
-+
-+	ret = kernel_read(bdev_file, val, bytes, &pos);
-+	fput(bdev_file);
-+
-+	if (ret < 0)
++	ret = cla_op_regread(dev, accid, CLA_REG_ACAP, 1, &reg);
++	if (ret)
 +		return ret;
-+	if (ret != bytes)
-+		return -EIO;
-+	return 0;
-+}
-+
-+int blk_nvmem_add(struct block_device *bdev)
-+{
-+	struct device *dev = &bdev->bd_device;
-+	struct device_node *np = dev_of_node(dev);
-+	struct nvmem_config config = {
-+		.id		= NVMEM_DEVID_NONE,
-+		.owner		= THIS_MODULE,
-+		.word_size	= 1,
-+		.stride		= 1,
-+		.read_only	= true,
-+		.root_only	= true,
-+		.ignore_wp	= true,
-+	};
-+	struct nvmem_device *nvmem;
-+	struct device_node *child;
-+
-+	/* skip devices which do not have a device tree node */
-+	if (!np)
++	if (!FIELD_GET(CLA_ACAP_TS, reg))
 +		return 0;
 +
 +	/*
-+	 * The layout is described either by an "nvmem-layout" child node or
-+	 * by the device node itself being a "fixed-layout" container.
++	 * Disable TS control from userspace, provide TS from CNTP. If we do
++	 * have to provide a timer to userspace or a virtual offset to a guest,
++	 * we'll need to make sure we have access to both TSCTRLOWNER and
++	 * TSOFFOWNER. For now best effort.
 +	 */
-+	child = of_get_child_by_name(np, "nvmem-layout");
-+	if (child)
-+		of_node_put(child);
-+	else if (!of_device_is_compatible(np, "fixed-layout"))
-+		return 0;
-+
-+	if (bdev_nr_bytes(bdev) > INT_MAX) {
-+		dev_warn(dev, "block device too large to be an NVMEM\n");
-+		return 0;
++	reg = FIELD_PREP(CLA_TSCTRLOWNER_PL, cla_kernel_pl);
++	ret = cla_op_regwrite(dev, accid, CLA_REG_TSCTRLOWNER, 1, &reg);
++	if (!ret) {
++		reg = FIELD_PREP(CLA_TSCTRL_TS, CLA_TSCTRL_PHYSICAL);
++		ret = cla_op_regwrite(dev, accid, CLA_REG_TSCTRL, 1, &reg);
++		if (ret)
++			return ret;
 +	}
 +
-+	config.dev = dev;
-+	config.name = dev_name(dev);
-+	config.priv = bdev;
-+	config.reg_read = blk_nvmem_reg_read;
-+	config.size = bdev_nr_bytes(bdev);
-+	config.of_node = np;
++	reg = FIELD_PREP(CLA_TSOFFOWNER_PL, cla_kernel_pl);
++	ret = cla_op_regwrite(dev, accid, CLA_REG_TSOFFOWNER, 1, &reg);
++	if (!ret) {
++		reg = 0;
++		ret = cla_op_regwrite(dev, accid, CLA_REG_TSVOFF, 1, &reg);
++		if (ret)
++			return ret;
++		ret = cla_op_regwrite(dev, accid, CLA_REG_TSPOFF, 1, &reg);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
 +
-+	nvmem = nvmem_register(&config);
-+	if (IS_ERR(nvmem))
-+		return dev_err_probe(dev, PTR_ERR(nvmem),
-+				     "Failed to register NVMEM device\n");
++static int cla_reset_pmu(struct cla_dev *dev, unsigned int accid)
++{
++	int ret;
++	u64 reg;
 +
-+	bdev->bd_nvmem = nvmem;
++	/* Disable PMU access */
++	reg = FIELD_PREP(CLA_PMUOWNER_PL, cla_kernel_pl);
++	ret = cla_op_regwrite(dev, accid, CLA_REG_PMUOWNER, 1, &reg);
++	if (!ret) {
++		reg = 0;
++		ret = cla_op_regwrite(dev, accid, CLA_REG_PMURESET, 1, &reg);
++		if (ret)
++			return ret;
++	}
++	return 0;
++}
++
++/*
++ * Discover immutable accelerator properties the first time the CPU comes
++ * online. Return: 0 on success, 1 if the accelerator is not usable, or an
++ * error.
++ */
++static int cla_dev_discover_accel(struct cla_dev *dev, unsigned int accid)
++{
++	dev->accelerators |= (1 << accid);
 +
 +	return 0;
 +}
 +
-+void blk_nvmem_del(struct block_device *bdev)
++/*
++ * Reset hardware on every online, but discover its properties only once.
++ * Return: 0 on success, 1 if the accelerator is not attached or not usable, or
++ * an error.
++ */
++static int cla_dev_setup_accel(struct cla_dev *dev, unsigned int accid)
 +{
-+	nvmem_unregister(bdev->bd_nvmem);
-+	bdev->bd_nvmem = NULL;
++	u64 status;
++	int ret;
++
++	/*
++	 * Reset even accelerators excluded during discovery, so that they cannot
++	 * issue memory transactions when we set up the shared MTC. Only skip
++	 * absent accelerators that were not previously discovered. Fail if a
++	 * higher PL has masked access.
++	 */
++	ret = cla_op_reset(dev, accid);
++	if (ret > 0 && (dev->accelerators & (1 << accid))) {
++		cla_err(dev, "[%u] previously discovered accelerator is absent\n",
++			accid);
++		return -ENODEV;
++	}
++	if (ret)
++		return ret;
++
++	status = cla_reg_read(dev, CLA_REG_STATUS(accid));
++	if ((status & CLA_STATUS_STATE_MASK) != CLA_STATUS_STATE_IDLE) {
++		cla_err(dev, "unexpected status 0x%llx for accelerator %d\n",
++			status, accid);
++		return -EIO;
++	}
++
++	/*
++	 * The following are nice to have, but the accelerator should work
++	 * without them.
++	 */
++	ret = cla_reset_ts(dev, accid);
++	if (ret)
++		cla_err(dev, "[%u] could not reset TS: %d\n", accid, ret);
++
++	ret = cla_reset_pmu(dev, accid);
++	if (ret)
++		cla_err(dev, "[%u] could not reset PMU: %d\n", accid, ret);
++
++	if (!dev->discovered) {
++		ret = cla_dev_discover_accel(dev, accid);
++		if (ret)
++			return ret;
++	} else if (!(dev->accelerators & (1 << accid))) {
++		return 1;
++	}
++
++	return 0;
 +}
-diff --git a/block/blk.h b/block/blk.h
-index 2cc03aa54c5327d0c596d67f5846740850550260..c5eed8f2777bea92281f5fef5287cb15b33e5dbe 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -823,4 +823,12 @@ static inline void blk_debugfs_unlock(struct request_queue *q,
- 	memalloc_noio_restore(memflags);
++
++/* Clean the device before releasing it */
++static void cla_dev_reinit(struct cla_dev *dev)
++{
++	int i;
++
++	if (dev->broken)
++		return;
++
++	if (WARN_ON(cla_op_reset_all(dev))) {
++		dev->broken = true;
++		return;
++	}
++
++	if (is_kernel_in_hyp_mode())
++		cla_reg_write(dev, CLA_REG_PL1CTRL, ~0ULL);
++	cla_reg_write(dev, CLA_REG_PL0CTRL, ~0ULL);
++	for (i = 0; i < CLA_NUM_DATA_REGS; i++)
++		cla_reg_write(dev, CLA_REG_DATA(i), 0);
++	cla_reg_write(dev, CLA_REG_LRESP, 0);
++}
++
+ static int cla_dev_setup(unsigned int cpu)
+ {
++	int i;
++	int ret;
++	unsigned int accid;
+ 	struct cla_dev *dev;
++	u64 plxctrl_val = 0;
+ 
+ 	dev = cla_lut_cpu[cpu];
+-	if (!dev)
++	if (!dev || dev->broken)
+ 		return 0;
+ 
+ 	if (WARN_ON(smp_processor_id() != cpu || dev->cpu != cpu))
+ 		return -EINVAL;
+ 
++	if (!dev->discovered) {
++		/* Discard partial results from an earlier, failed discovery. */
++		dev->accelerators = 0;
++	}
++
++	/* Clear DATA and LRESP_DATANZ */
++	for (i = 0; i < CLA_NUM_DATA_REGS; i++)
++		cla_reg_write(dev, CLA_REG_DATA(i), 0);
++
++	/*
++	 * Reset all accelerators. We restrict PLxCTRL to the accelerators that
++	 * are attached and well behaved.
++	 */
++	for (accid = 0; accid < CLA_NUM_ACC; accid++) {
++		ret = cla_dev_setup_accel(dev, accid);
++		if (ret > 0)
++			continue;
++		else if (ret < 0)
++			goto err;
++
++		plxctrl_val |= CLA_PLxCTRL_PREP(accid,
++						FIELD_PREP(CLA_PLxCTRL_AVAIL, 1));
++	}
++
++	if (is_kernel_in_hyp_mode())
++		cla_reg_write(dev, CLA_REG_PL1CTRL, plxctrl_val);
++
++	cla_reg_write(dev, CLA_REG_PL0CTRL, plxctrl_val);
++
++	if (dev->accelerators)
++		cla_info(dev, "available accelerators: 0x%02x\n",
++			 dev->accelerators);
++
++	dev->discovered = true;
+ 	return 0;
++err:
++	cla_dev_reinit(dev);
++	return ret;
  }
  
-+#ifdef CONFIG_BLK_NVMEM
-+int blk_nvmem_add(struct block_device *bdev);
-+void blk_nvmem_del(struct block_device *bdev);
-+#else
-+static inline int blk_nvmem_add(struct block_device *bdev) { return 0; }
-+static inline void blk_nvmem_del(struct block_device *bdev) {}
-+#endif
-+
- #endif /* BLK_INTERNAL_H */
-diff --git a/block/genhd.c b/block/genhd.c
-index 10ca8b4d6eea7ed3910271ca3af74479e2081d6d..6c45b8eb8dfad14fa2fbfa98177154f24af49a07 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -417,6 +417,8 @@ static void add_disk_final(struct gendisk *disk)
- 		 */
- 		dev_set_uevent_suppress(ddev, 0);
- 		disk_uevent(disk, KOBJ_ADD);
-+
-+		blk_nvmem_add(disk->part0);
- 	}
+ static int cla_dev_teardown(unsigned int cpu)
+@@ -44,6 +230,8 @@ static int cla_dev_teardown(unsigned int cpu)
+ 	if (!dev)
+ 		return 0;
  
- 	blk_apply_bdi_limits(disk->bdi, &disk->queue->limits);
-@@ -708,6 +710,8 @@ static void __del_gendisk(struct gendisk *disk)
- 
- 	disk_del_events(disk);
- 
-+	blk_nvmem_del(disk->part0);
++	cla_dev_reinit(dev);
 +
- 	/*
- 	 * Prevent new openers by unlinked the bdev inode.
- 	 */
-diff --git a/block/partitions/core.c b/block/partitions/core.c
-index eee954df1ac6ef7dd4f02ad5c9d49aed778bf015..c83227710584a6feb25c8abae3b319cfae9cce5b 100644
---- a/block/partitions/core.c
-+++ b/block/partitions/core.c
-@@ -289,6 +289,8 @@ void drop_partition(struct block_device *part)
- 	xa_erase(&part->bd_disk->part_tbl, bdev_partno(part));
- 	kobject_put(part->bd_holder_dir);
- 
-+	blk_nvmem_del(part);
-+
- 	device_del(&part->bd_device);
- 	put_device(&part->bd_device);
+ 	return 0;
  }
-@@ -406,6 +408,9 @@ static struct block_device *add_partition(struct gendisk *disk, int partno,
- 	/* suppress uevent if the disk suppresses it */
- 	if (!dev_get_uevent_suppress(ddev))
- 		kobject_uevent(&pdev->kobj, KOBJ_ADD);
-+
-+	blk_nvmem_add(bdev);
-+
- 	return bdev;
  
- out_del:
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 0cc09b975d8ffbd45ca3dc47533a71f8e8164de6..8026bd763a0710b60b9553a49783efbaf81aeb9f 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -15,6 +15,7 @@
- struct bio_set;
- struct bio;
- struct bio_integrity_payload;
-+struct nvmem_device;
- struct page;
- struct io_context;
- struct cgroup_subsys_state;
-@@ -73,6 +74,9 @@ struct block_device {
- 	int			bd_writers;
- #ifdef CONFIG_SECURITY
- 	void			*bd_security;
-+#endif
-+#ifdef CONFIG_BLK_NVMEM
-+	struct nvmem_device	*bd_nvmem;
- #endif
- 	/*
- 	 * keep this out-of-line as it's both big and not needed in the fast
-
+@@ -85,6 +273,7 @@ static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
+ 	dev->cpu = cpu;
+ 	dev->dev = parent;
+ 
++
+ 	/* Attempt to find device domain, or allocate a new one */
+ 	dev->domain = cla_dev_domain_get(dev);
+ 	if (IS_ERR(dev->domain))
+diff --git a/drivers/misc/arm-cla/cla-ops.c b/drivers/misc/arm-cla/cla-ops.c
+index 46026304a057..5d053c6aa1f7 100644
+--- a/drivers/misc/arm-cla/cla-ops.c
++++ b/drivers/misc/arm-cla/cla-ops.c
+@@ -207,6 +207,29 @@ int cla_op_reset(struct cla_dev *dev, unsigned int accid)
+ 	return 0;
+ }
+ 
++/**
++ * cla_op_reset_all - Reset all attached accelerators
++ * @dev: CLA device.
++ *
++ * Return: 0 on success, or an error
++ */
++int cla_op_reset_all(struct cla_dev *dev)
++{
++	int ret, err = 0;
++	unsigned int accid;
++
++	cla_for_each_accid(dev, accid) {
++		ret = cla_op_reset(dev, accid);
++		if (ret && !err)
++			err = ret;
++	}
++	/*
++	 * Since all accelerators in this loop are present, cla_op_reset()
++	 * returning 1 is an error.
++	 */
++	return err <= 0 ? err : -ENODEV;
++}
++
+ /* regidx is unsigned long here to avoid overflow during calculations */
+ static int cla_op_access_reg(struct cla_dev *dev, u8 op,
+ 			     enum cla_launch_data_mode data_mode,
 -- 
-2.34.1
+2.43.0
 
