@@ -1,200 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16B830D3FD;
-	Thu, 15 Oct 2026 18:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092193B47E0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089026; cv=none; b=sep6RhpBWX2I8eG5OIK4ZbxPwD09eK3BIXkAeKWnMlkO9Lo/ZOxvGG4Ct4IiTM/xx2nRdb24A/yTQGpHcMbk2KZSH54/kaCdhkySYy1snycgkrMV+iQWNJ7/ybZjSgZa7WVLIrlCNFMysYQQGnrZZ9dxjUc8nMCDtejGsw+c4xU=
+	t=1792089033; cv=none; b=tcJMSmI06xXI9DfYh0h9d6ToLq51T6feezpxTMHR1g54pKxgyWihdewzmO08hLwChHat5qfiBRvlxp57kZENAce9RWmj8RlPQlPIxMP6VmADlZQApe+4Q47XvqgKx2Ixhzr8ndBMLyIAvUz6HS4CZrpqds0fP3EKd+O0vg7Eu0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089026; c=relaxed/simple;
-	bh=3n63+mZEYnTl/Mw5t3lSEbJBvZxUH2MTWG5Qrlz6do0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=h+JfFYqxcXIQQ1pQdxQbawDPskYZxhtD3d20rNuY0SDefZ7aKSDHl/w/Dz+0FwOv7d40/6YAOX2W940L44+63bz36ZZdPdX7xaMGhqdw5GNDlc6sNwGy2SL4uGC+PC6XtDf9oUjta/zOyKph5p0MoXhYJjB/N3w7nO5wyTDMMEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dXhBugc7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792089033; c=relaxed/simple;
+	bh=P6/dvSz7qneGgfTy8nKL/yEy6vMoWyvQKJylEVWqeVw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=SR8nJVD94Hp4mO2RDIxDOV0ZDpnE7jh2pixkMdQmYIzlp6zNfyBBBt/6DeG8//HNGOyo3OuY8kwce95m660NzxTvgGQFHUsLALpJ1+Rijjqqm9RBwDoHXUyHe/5dG9u+ooplKzHKJSJA38ZqOOxnGK5Z48aRQItVIOUSEyba+OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=KsdNJgAK; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dXhBugc7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04EC51F000C5;
-	Thu, 15 Oct 2026 18:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792089022;
-	bh=kMk9HeC0gdwWXCsH6P2NJQOl/jdcrGwW4AYDreY7rhk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=dXhBugc7RI2d2GtQlTlZfN2ZAzUu3ipXbUVSDtSHDzAfKanYTpgPQB9GYW0rbFw1o
-	 U0ljajpRTEfM3+iVSP3fV5eCc9BcrcGt4wW1gMPRqrW9fObdI2CSEezUIKUblDZuYg
-	 8WvDY2rtLPIyBxOJZMliK9vRlbssJ7SAiAWXFjZ44+3kZOVDqHHPCmJpR2B6F9Zq7n
-	 U6Z0Mq8NGVV1GPSYb/QBKrm5JPz80zbR2O2MoyfxpnMuiCXqZCSe+A+vBB3j1xJD8t
-	 nKrxNwKeXQqeaPVcBi+qNocBpf+8IApqwuRgCRqdAsVhwSFFRsQmly+bOayNWQ2Z4o
-	 CUUk/H6VIzfnw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 595D6F40068;
-	Thu, 15 Oct 2026 14:30:21 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Thu, 15 Oct 2026 14:30:21 -0400
-X-ME-Sender: <xms:vRvRalSkR27Z3KIUE2bhnCfGP-n5ZRvrWnH52MMqynlz2rNWeNQ4uA>
-    <xme:vRvRaplDI4NETiQ4zTPkBfAFBI7LdwB-Vk6AyzTu8LczkkemR9ho4VFyQdDoJrL1q
-    C4J8GUZfZb7C9YVT7zIy-3owtw-Soms_YDeIqbtTOCG-9L8y0VykA>
-X-ME-Proxy-Cause: dmFkZTFGCXUpm5Xr62M/7C4QIwj/D+XUT6kXD4XVd4K4EBujtfTkFqUfpaGtiVln76l7Md
-    kpuiJwSppkkLsRtYwXf5eEEbD3Awn/5A+elMPnceijz4MfgDsaaMpNuM6oFnIjs5IhiS4C
-    3+kKuGZwuq5Sazw3OIH/hlPqo7Jxjf3gkkPaLnMW/F1wjzvu0UJ9A/UygxP3d40Cf3DO56
-    gMsNNDVGlEsqGjxzLTJzxgX0zhC+c8MHsyDlyx8VGRViL6icM8qeNXP/iYkecAVCH/AG66
-    iGDq2bjqxI/uzbzxKWlH5alRfbVDKFLGYwpJPKAvELmw9mRrjaqwF1jLkz8LPRm7DcggPa
-    MmxbO/AZaKkFsM/pfmBJjihbrmZ4PgLO/So1VS/BW9azehKYQMAxPl802fAfMNK8C0bT81
-    CodzA0I8p9ke8MMseHUACNcx6vyn7JsC21Wdk1NFVOMaSOtgGWmgwqHuEIYAtv1wQJZoPQ
-    ghS8o+COPjN9Bqf5W2hbw2ve/bM42MhYhyA9WK4ZUi/JaMONxDR8UInfhK6kn8p9ZDkflh
-    gVfsD7Y4qc6h8KzX1/w+WEDAEsUtKcZ9lthdVxobNdJMVwsQt2tDoyHUk/4Chq/D329C4k
-    pHTcEN8JRyF+xwvjCG61qHYi8HVFwF69R37zZqspUABMckJ0ZhXHFo9l09Ow
-X-ME-Proxy: <xmx:vRvRav4WzG3TBqImmZNuV74w05onCO6knkvgVLHpeSDhgVRSqD1_PQ>
-    <xmx:vRvRagtp50-lys6cwUx5Bi9Qf3m8DkZpziJ5WCN20li7VWS3zOuCKg>
-    <xmx:vRvRah3VXBYzbooyPeV92zRtYQUtO4L9Jd23Uo1yFREF3vaHE0146A>
-    <xmx:vRvRapoIabwH279qot2ZcJCthaczTyH7LHjvz1bzAdX9jPyO8OUDsA>
-    <xmx:vRvRahKc9Vb7xLlljTwr9j23nqE3dyLMplNhBlla7OzHmT7zht71WGY3>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 2A0AA782738; Thu, 15 Oct 2026 14:30:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="KsdNJgAK"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261015183022euoutp01f3e239aa3b815a9d77a97273690cf86c~ex3imeVnz0698006980euoutp01p
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:30:22 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261015183022euoutp01f3e239aa3b815a9d77a97273690cf86c~ex3imeVnz0698006980euoutp01p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792089022;
+	bh=x6Lm/7Jf9p49V05YIXOEdlVtzYgWkqbSiTYrDBfJ3Gc=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=KsdNJgAKPsAEP1NxDTUwfPouqhHYs/SxPJ8AeJVbAPFGRtlJlMQYQLhDY9EiJ+nz4
+	 LuPFc+1Eoo9n0mQabnzlcl489dyOf15Mv4cHkApS+P4LlAMNiTda3gkyd7j1H3L3Hy
+	 /Bb43XMLwJqaZWANqq6gmEy/3w1heN/OAGuoJ8sA=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261015183022eucas1p10d5777e112c34458f4b360407d2228c4~ex3ibJmez0417304173eucas1p16;
+	Thu, 15 Oct 2026 18:30:22 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261015183022eusmtip222c5dcfbbdbde3e98c6c15f6604fd951~ex3iOgxaP2603526035eusmtip2Q;
+	Thu, 15 Oct 2026 18:30:22 +0000 (GMT)
+Message-ID: <c2bc1478-5999-455f-bd67-8b536c452215@samsung.com>
+Date: Thu, 15 Oct 2026 20:30:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AmqPMHVnhD9w
-Date: Thu, 15 Oct 2026 14:30:01 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Andrei-Alexandru Bleortu" <me@andrei-z.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>
-Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-rdma@vger.kernel.org
-Message-Id: <ddd5a532-bdb2-4976-9b1b-6470414473ec@app.fastmail.com>
-In-Reply-To: <20261015124826.2962950-2-me@andrei-z.com>
-References: <20261015124826.2962950-1-me@andrei-z.com>
- <20261015124826.2962950-2-me@andrei-z.com>
-Subject: Re: [PATCH 1/1] xprtrdma: Post small RPC Calls inline
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] ALSA: pcm: Apply sync-stop at SNDRV_PCM_IOCTL_DROP
+ ioctl
+To: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261014142454.320703-1-tiwai@suse.de>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261015183022eucas1p10d5777e112c34458f4b360407d2228c4
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261015183022eucas1p10d5777e112c34458f4b360407d2228c4
+X-EPHeader: CA
+X-CMS-RootMailID: 20261015183022eucas1p10d5777e112c34458f4b360407d2228c4
+References: <20261014142454.320703-1-tiwai@suse.de>
+	<CGME20261015183022eucas1p10d5777e112c34458f4b360407d2228c4@eucas1p1.samsung.com>
 
-
-
-On Thu, Oct 15, 2026, at 8:48 AM, Andrei-Alexandru Bleortu wrote:
-> rpcrdma_ep_create() asks for no inline data, so every RPC Call is
-> posted by reference. Before the HCA can transmit a Call it has to
-> DMA-read the transport header and the RPC message from host memory,
-> and for a small Call that read is on the latency path of every RPC.
+On 14.10.2026 16:24, Takashi Iwai wrote:
+> When a PCM stream is stopped via SNDRV_PCM_IOCTL_DROP ioctl, it calls
+> snd_pcm_stop() but sync-stop operation is missing.  Although this is
+> usually no big issue, let's add snd_pcm_sync_stop() call, just to be
+> sure.
 >
-> Ask for 256 bytes of inline data per Send WR when creating the QP. If
-> the device refuses, ask for less. Intel irdma has a fixed limit of 216,
-> 101 or 48 bytes, depending on the generation, and Alibaba erdma one of
-> 96. On those devices, found by vendor ID, try these limits first, then
-> step down 16 bytes at a time to none. libfabric's verbs provider also
-> probes the inline limit by trial QP creation.
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/core/pcm_native.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> Post a Call with IB_SEND_INLINE when its SGEs cover only the
-> persistently mapped transport header and head buffers and it fits in the
-> granted size. Calls with page or tail SGEs, and larger Calls, are posted
-> by reference as before. IB_SEND_INLINE is unrelated to the RPC-over-RDMA
-> inline threshold.
->
-> Providers copy inline data from sg_list[].addr as a kernel virtual
-> address, so on the inline path the SGEs point at the regbufs' virtual
-> addresses. These SGEs are rebuilt for every Send and are not used for
-> unmapping: rpcrdma_sendctx_dma_unmap() starts at the third SGE, and the
-> regbufs stay mapped.
->
-> fio ran 4 KiB direct I/O at queue depth 1 on an NFSv3 mount of a tmpfs
-> export, between two Xeon Platinum 8360Y hosts with ConnectX-6 Dx over
-> RoCEv2 at 100 Gb/s on a 7.0 kernel. An earlier version of this patch
-> lowered the mean completion latency of random writes by 0.1923 us
-> (95% CI 0.1139-0.2769) and of random reads by 0.2705 us (0.1908-0.3502).
-> That version made the same check in frwr_send() and asked for 512
-> bytes. The largest Call in those runs was 216 bytes.
-
-These mean completion latency gains are noise compared to the client's
-own RPC tasking machinery. Perhaps the additional code complexity is
-not worth it yet.
-
-
-> Assisted-by: LLM
-> Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
-
-> diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
-> index 54957295a631..2e8a7fb6b1a6 100644
-> --- a/net/sunrpc/xprtrdma/verbs.c
-> +++ b/net/sunrpc/xprtrdma/verbs.c
-> @@ -55,6 +55,7 @@
->  #include <linux/sunrpc/addr.h>
->  #include <linux/sunrpc/svc_rdma.h>
->  #include <linux/log2.h>
-> +#include <linux/pci_ids.h>
-> 
->  #include <asm/barrier.h>
-> 
-> @@ -63,6 +64,44 @@
->  #include "xprt_rdma.h"
->  #include <trace/events/rpcrdma.h>
-> 
-> +/* Bytes of inline data (IB_SEND_INLINE) to ask for on each Send WR.
-> + * This is unrelated to the RPC-over-RDMA inline threshold.
-> + */
-> +#define RPCRDMA_WQE_INLINE_SIZE	(256)
-> +#define RPCRDMA_WQE_INLINE_STEP	(16)
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index 6c379068b54c..7ffbf2c0ea92 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -2332,6 +2332,8 @@ static int snd_pcm_drop(struct snd_pcm_substream *substream)
+>  	result = snd_pcm_stop(substream, SNDRV_PCM_STATE_SETUP);
+>  	/* runtime->control->appl_ptr = runtime->status->hw_ptr; */
+>  
+> +	snd_pcm_sync_stop(substream, true);
 > +
-> +/* The verbs API cannot report a device's inline data limit. Some
-> + * drivers have a fixed one: Intel irdma 216, 101 or 48 depending on
-> + * the generation, Alibaba erdma 96.
+>  	return result;
+>  }
 
-The table itself already states this, so the above comment does not
-add value.
+This patch landed in today's linux-next as commit fdf9a21cda78 ("ALSA: pcm: Apply
+sync-stop at SNDRV_PCM_IOCTL_DROP ioctl"). In my tests I found that it triggers
+the kernel bug about invalid context for sleeping.
 
+It looks that thissnd_pcm_sync_stop() should be called outside the scope of
+the guard(pcm_stream_lock_irq)(substream).
 
->                                       Try those first, by vendor ID,
-> + * then step down RPCRDMA_WQE_INLINE_STEP bytes at a time to zero.
-> + * libfabric's verbs provider also probes the limit
-> + * (vrb_find_max_inline()).
-> + */
-> +static const struct {
-> +	u32	vendor_id;
-> +	u32	max_inline;
-> +} rpcrdma_inline_limits[] = {
-> +	{ PCI_VENDOR_ID_INTEL, 216 },
-> +	{ PCI_VENDOR_ID_INTEL, 101 },
-> +	{ PCI_VENDOR_ID_INTEL, 48 },
-> +	{ PCI_VENDOR_ID_ALIBABA, 96 },
-> +};
+Here is log from one of my test boards:
 
-General policy is not to put device-specific details like this
-in ULP code. So, NACK on holding these numbers in a table in
-the rpcrdma.ko module.
+--->8----
 
-I didn't look at the other ULPs you modified, but I expect that
-they have a similar need to obtain this value. That suggests you
-should first add a helper function to the IB core, or provide
-the value in the qp attrs.
+root@target:~# speaker-test -l1
 
-The retry-based approach means a connect can take over a dozen
-QP creation retries on a device that does not support
-IB_SEND_INLINE. To avoid the retry, you might consider adding a
-new QP creation flag, say IB_QP_CREATE_INLINE_CLAMP, that changes
-one rule of ib_create_qp(): with the flag set, a driver that
-cannot grant the requested cap.max_inline_data grants the largest
-value this QP can support instead of failing with -EINVAL, and
-reports it back in cap.max_inline_data as it already does for
-the rounded-up value. Zero is a legal answer, which is what mlx4,
-pvrdma and rdmavt already return for kernel QPs.
+speaker-test 1.1.3
 
-The smaller sizes these devices provide are barely larger than
-the RPC/RDMA transport header. It might be best to set a lower
-bound (don't use inline at all for devices with inline limits
-that can't cover the RPC/RDMA and RPC headers).
+Playback device is default
+Stream parameters are 48000Hz, S16_LE, 1 channels
+Using 16 octaves of pink noise
+Rate set to 48000Hz (requested 48000Hz)
+Buffer size range from 128 to 131072
+Period size range from 64 to 65536
+Using max buffer size 131072
+Periods = 4
+was set period_size = 32768
+was set buffer_size = 131072
+ 0 - Front Left
+Time per period = 0.030588
+BUG: sleeping function called from invalid context at ./include/linux/dmaengine.h:1326
+in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 1691, name: speaker-test
+preempt_count: 1, expected: 0
+RCU nest depth: 0, expected: 0
+locks held by speaker-test/1691: 1, last CPU#3:
+ #0: c22ad2a4 (&group->lock#2){..-.}-{3:3}, at: snd_pcm_drop+0x30/0xd0
+irq event stamp: 10920
+hardirqs last  enabled at (10919): [<c0dcda30>] _raw_spin_unlock_irqrestore+0x5c/0x60
+hardirqs last disabled at (10920): [<c0dcd5e0>] _raw_spin_lock_irq+0x60/0x64
+softirqs last  enabled at (10832): [<c0113ab4>] vfp_support_entry+0x98/0x400
+softirqs last disabled at (10830): [<c0113a44>] vfp_support_entry+0x28/0x400
+CPU: 3 UID: 0 PID: 1691 Comm: speaker-test Not tainted 7.3.0-rc6-00238-gfdf9a21cda78 #13903 PREEMPT
+Hardware name: Samsung Exynos (Flattened Device Tree)
+Call trace:
+ unwind_backtrace from show_stack+0x10/0x14
+ show_stack from dump_stack_lvl+0x6c/0x8c
+ dump_stack_lvl from __might_resched+0x198/0x264
+ __might_resched from snd_dmaengine_pcm_sync_stop+0x8c/0xac
+ snd_dmaengine_pcm_sync_stop from snd_soc_pcm_component_sync_stop+0x3c/0x98
+ snd_soc_pcm_component_sync_stop from snd_pcm_drop+0x68/0xd0
+ snd_pcm_drop from sys_ioctl+0x508/0xc2c
+ sys_ioctl from ret_fast_syscall+0x0/0x1c
+Exception stack(0xf1da1fa8 to 0xf1da1ff0)
+...
+root@target:~#
 
-Also, at least for mlx5, the inline limit trades directly
-against send queue depth and the QP's host memory footprint.
+--->8----
 
-TL;DR: I'm not convinced adding several dozen lines of code
-pays for a tenth of a microsecond latency improvement.
-
-
+Best regards
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
