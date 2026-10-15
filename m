@@ -1,81 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E074852759B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072074; cv=none; b=Y2Cjo6crNZKLer7uo6Y5IptShEZ5eOzkiVsIjyMEqxX9l0Hic/dA6PJIZ0kl8V8lNBHlfmxQ17/HjenujH2qL8Idph8+waOk0w8Ak7KWT++K2Jwegfr09+2eAgio16FtcKyZF8mtzisf+2oCT9rASBNSWebyuZ3tgy/+IWCRw+A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072074; c=relaxed/simple;
-	bh=j55zw5viGxZp1pXxSJj+AkBUOD4ghpetwBiAyan2hnE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108D252759B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072080; cv=pass; b=VnOG1z0AtswAXKnF8nf9Hxfe+Kjudoy787h+/d6Gykec2UP98gqMVwGVVkFrdk/0jOtprI1qr3rGmsd82Obssdj+SgR0sthuhXBB6TWrwxsj8TzgCSAuGVemOrzFmfDPHZ2hld7XpmO8a10eSmjvQcmai8GuUHFyMqb9AWGb8VQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072080; c=relaxed/simple;
+	bh=aL+AafHZvOsGulzkqz3m9w2wFzipIqROE5U/Y/fmCXQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dZGjx9P4XSuWFzzAERPoX5YiaeVSPXStsZ0TYS4Q4AeD5aGRUH398ZcxadKy0Lr8jUv3I/ZLQi6QYmC/uhFyTp9L/sXdq0iODgFmYJAtGlB1gT1ne45hLbYYCuBwiX/VXPapKZLB4uVXGirVZo77jeyIUSha4wvc9JSXI+lvRfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUbuH08q; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=PIK1WSFYynxSCrRHGh/VxJmyzHY4cUoD2BOa4xEo8oEDVS6w+TpbekxhHkLBZQUccMdwwDPaOwthRyavhY4LP6GwgNmPpPu/q/dwLCk1MLGBl3wDFbZP73YRo27U6tI2wFQEPDLBrQK6zT2XOrzLLFrvsuGoWf3hvzrEAHztVws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K86JKnVc; arc=pass smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUbuH08q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC87C1F000CA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:47:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792072073;
-	bh=g0/qpdrfy/Oj2jhQu3d7Pibrb4+olgpm2ZjNSrruXrQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eUbuH08qiYvnc9cxPyONkuoJAtkQS6uILm2e4x6d1oj49SsGu154MK4GTGWhxXSHJ
-	 3cxsQhdmtYEzaLwr/2EmYruyEXlyTgZ0zDjxOWWxlJSLVHXT/GlnUCNuk7m49W8Lxs
-	 AQnh9JvmJwpWPyVbrcv6QGiYI7ql3Sno+MMdVpzP+Rqe1NEtr3YzkVKTvj5ZFtjalK
-	 wTNHZqZd+ZZzxk/skEATbuTZ1+msLxAjcqYFEoX6lLgQxvleU3yfhvrvC1FYO/dqUO
-	 s/veGeEciRoH1VpmVJ2t7OFXHh+5GWlL56g20mxsyHGgGgOpz5JtekQ/P4K2FxgVR2
-	 3X+2O5tBagVpw==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be47159f2bso96107e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:47:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxQXGnu/AEStzDYBOwYchO74TsAKP/vqRQlvaHNItLNOkfG/Vt05auBqo46wks81Oni8GQPPIeF4QCPbPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ4vhDrcHeokXhuswoAMH46PJpUEFnsZcezzdkTL+zS0OxsQ65
-	myzvnhOfJ9vDCB9BwxN/0yXG755a+CDPnJXFNdBQyXVvdCKbyOvkmARlJVHImBdubWn5d5w4QK6
-	cqp7Ztyc/BcKKnBQPsSIIWIp7NPNoFPg=
-X-Received: by 2002:a05:6512:3091:b0:5bc:cb78:b884 with SMTP id
- 2adb3069b0e04-5bcde8c1270mr5845776e87.41.1792072072088; Thu, 15 Oct 2026
- 06:47:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K86JKnVc"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b0c5a64de8so15950427b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:47:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792072078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VfMbz8esZzjJ7NDrZ5cEWCtbMWRjNO/v+eNpxNTTl+pO1l1EYomJUOuU39BrKaSRId
+         AIGnObw5TkvSId2xq1J/zy+2V1E0XCTxpg6HnnXnMBnrZ055dgWsDcaIQszrkR2MPoFG
+         L++OKN33dZ/miwjHpdBPwUJwlUkA//cP/4IrHZouxyYqYlxQxB21Xg1FD3eXgrB26nP9
+         OnNpEApZU5SMFd1kis5rajQXSGXaWKxzGMHC/BTu4d1OEIshz9NVdb40ZjhScVacrhqE
+         pzLFiyWurERfwrwTizNgZU9gT2SYdaq2EvCYF+P8jzZUXbuOjx4qtSmRRHm1OTLVAqM9
+         +erw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
+        fh=NoQw8PhP+kqxzW35lN4vJ9b3pFGO4ywagtJ4GXpgqEk=;
+        b=O6P12KmjsrpII8arOaw5R7rpjQGhac9DeDTIKiwnd1TG69bh7hSDCWIfdH/a/JtmUx
+         PUR3SZRD1FBa65WsUU6nCM1PQwa/EDAFR6DnW76Re3ecR0zb0UulBs/1BjN0Hp7Wlnys
+         aeX3IoQi67g7hNtU/pzWafFg11gDDRbtGlyWD7wGm0dXr8vcikNKzlaF8kHBGBAl+ljN
+         ORkGQUa7NuMb9HpTEQX21xrjKeFoIo1YgHfwyAbKa3xlzOJ5KSnoC8+mhGlGsOvmLKl/
+         UbYIr9OXIuFC0WdmBbhBVrvfvjwGN6LmqFOzLMbFOnXFcM9/E0oc3QD9KxaQIS9i10Hj
+         v3Hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792072078; x=1792676878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
+        b=K86JKnVcKkvc0AUD+XGRgVBywteXrq+WYmAOxLAfDYXBdMW8wQCq7NKByeOHbyA59O
+         +vm083tQFTT5+FYahRArW0TeWshzd7+9WRjhH93yjJY4YtorPu4KOOczTywWSZZk8xe9
+         OdMOjR5/GucqTZSDi/I9sWNb6Kh67NPxWDu4qTyl3Life3n1PhpuYS0Ke9wWfBBXIvv7
+         /P8NWQMsGlUliMrD8cVBpz5SVlvXaMS4wgRcSgogkdoG5byrDGV+TgNRQYvxCiSngIgF
+         glp9oAxM0dGT2JjtRoq9Z/XjTQtuUejosiW7wI6sodPmzCLmf+Bh1kUZvS7S0/PTBWfd
+         R5og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072078; x=1792676878;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0zsThSPhIE6QGWwQEvDK4me/jRV2aNmYqF2LqA0tXlY=;
+        b=igek8CzQCYRKyfU8Bqehxn9M1Px9z9JcxglOTlu61Ty5RAsIBoram4M0eDezRshztB
+         mXH5CL/8w6YzZikCM0YF4q3KLDMjkjNBEneG8aAf8aNMivO5fX2BCA2x47I5xPZgF9vd
+         v1rIZhgmGn1QDgjZXsjkXvXP7zYrBp1v0d2hDxFuIppujpUTuGqIKfgqXZOapCJMDmeC
+         o8FjkTaCsDnw4P/L7yKhTUbfz/sKfvc1iX9jOlUOxDc69WmtVCO9D17NfmlrqAeKU3Qe
+         xN2qOulYs0hT+Hm1a7Elf/6cDO8SCP7do1kM3/KGmIhWXjjN9HdzCpH4qHKcyirkTZXB
+         cfdg==
+X-Forwarded-Encrypted: i=1; AKwUvBxcfpdD/FOmiGi5/bwYB5cHngl5Sz/a9L3vALuZr1Zz8xURrff0Gx+r4ykQ/qC+xWTwEBdToEugsE9TNyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLz44EQjvD4iaoWzekIxaD44EH9/aqOTkFwj1jtyN1AVXd67HNT
+	GX5p1sPRUqdD8cWpNx1ou4s+/rzoE+5aJrexwMO9mNio6R2a/lRUyaX5MD7tiEv3hZotO0Dq+bb
+	mOwWaXToLYNK1TQHgnWDWID3hlJXWqgU=
+X-Gm-Gg: AYBFou24+LglNJntiedoCxLjC7wn6SBOhAuePWzMs5DxuAc0X+dstCdkO0iEWaU28B1
+	f0BcANOf005DPhHdz7/7RRiDAqrN/qiESBqF10mxzknz+w1l3kxF4DKY+VSwG2DyIuWa6xj868S
+	FwC9RCK19Bd3xeZ7NgAEPX9opUmnRrUbHf27vyRZDNbT0dAl8fT3NL+if3lO2+MhP3LEzzsXYaB
+	IoDzwwea5vp4cncWNbstUWbtSUGbv9sqsi+vsHHFYG+VETteqY21pe6UyDoFrURzow7XhN6cahY
+	GmHxBIJmBzzXcNdhuA81W4tbRqqk4eHq4v52ngGW9PkuBFPFxNJczBq9jJ5c3sVRvm7+jta2MKu
+	iOl+6cSs+HP2xnPP6CHLB9EknzwsLLCumsfQDIKU=
+X-Received: by 2002:a05:690c:e694:10b0:8ae:b617:712d with SMTP id
+ 00721157ae682-8b0e2c154cemr221067b3.13.1792072077811; Thu, 15 Oct 2026
+ 06:47:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014132703.93355-1-aliamemis@disroot.org> <24b2e368-f0bb-484c-bf88-b9ce3125180f@oss.qualcomm.com>
- <20261014150537.121547-1-aliamemis@disroot.org> <08b6196a955faef9968224d7946ea5b1150f2ae3.camel@rong.moe>
- <20261015120902.15337-1-aliamemis@disroot.org>
-In-Reply-To: <20261015120902.15337-1-aliamemis@disroot.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 15 Oct 2026 15:45:42 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hEA_Pna=So-jd77OhaUEO1-Y6bEVFVMJ-bGNeziNj1kw@mail.gmail.com>
-X-Gm-Features: AclHuK-LWYktE4aThDeFgwzeVaOyAWCAYG2t8e1kKUTnt2HN-pzsBDgg_CDv3q4
-Message-ID: <CAJZ5v0hEA_Pna=So-jd77OhaUEO1-Y6bEVFVMJ-bGNeziNj1kw@mail.gmail.com>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
-Cc: Rong Zhang <i@rong.moe>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
-	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
+References: <20261015081450.1241194-1-chris.lu@mediatek.com>
+In-Reply-To: <20261015081450.1241194-1-chris.lu@mediatek.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Thu, 15 Oct 2026 09:47:44 -0400
+X-Gm-Features: AclHuK-9IwK4gtIgFJ0IOoJ2ujxMQ8YcnWXIl-i3b10cUaiVlWQ4WrWnE6daL6c
+Message-ID: <CABBYNZKaRo1SLa33mWwxE0Vp+3Wd=tJpvTFru-q8uraysdw4Qw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Bluetooth: btmtk: fix ISO data reception
+To: Chris Lu <chris.lu@mediatek.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>, 
+	Hao Qin <hao.qin@mediatek.com>, Wenlong Tian <ot_wenlong.tian@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>, 
+	SS Wu <ss.wu@mediatek.com>, linux-bluetooth <linux-bluetooth@vger.kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	linux-mediatek <linux-mediatek@lists.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 2:09=E2=80=AFPM Ali Ahmet Memi=C5=9F <aliamemis@dis=
-root.org> wrote:
->
-> On Thu, Oct 15, 2026 at 07:51:22PM +0800, Rong Zhang wrote:
-> > Thus, any call to ECCC or RDER consumes at least 200ms in emulation, bu=
-t
-> > in reality it doesn't.
->
-> Thanks for finding the actual deadlock!  The 680 ms came from assuming
-> "slow" EC commands.
->
-> I'll wait a few days for Hans, Rafael or anyone else to comment on
-> dropping the EC query and UCSI patches, then send a v2 that merges
-> both series.
+Hi Chris,
 
-I would prefer to drop the EC query and UCSI patches for the time
-being until it is confirmed that they actually help.
+On Thu, Oct 15, 2026 at 4:15=E2=80=AFAM Chris Lu <chris.lu@mediatek.com> wr=
+ote:
+>
+> Three fixes for ISO data handling in btmtk, found while debugging LE Audi=
+o
+> on MT7925. The code is shared by every MediaTek USB controller that
+> supports ISO data, so none of this is specific to that part.
+>
+> Patch 1 drops the zero padding that the ISO interrupt IN endpoint appends
+> to each transfer instead of parsing it as ISO packets. The driver turns
+> that padding into handle 0 packets with a Data_Total_Length of zero and
+> hands them to the stack, which is what fills the HCI log with malformed
+> ISO frames, and a valid SDU is lost whenever handle 0 belongs to a live
+> CIS/BIS.
+>
+> Patch 2 bounds Data_Total_Length by hdev->iso_mtu. The existing
+> skb_tailroom() test enforces no protocol limit, because the skb head
+> allocation is rounded up to a kmalloc bucket and skb_tailroom() reports
+> the bucket size rather than what was requested.
+>
+> Patch 3 updates the mt79xx ISO data transmission setting.
+>
+> The three hunks do not overlap, so any prefix of the series applies on it=
+s
+> own.
+>
+> Changes in v2:
+> - Patch 2 reworked and retitled. v1 only enlarged the receive skb, which
+>   turned out to be a no-op, and added no bound at all. v2 bounds
+>   Data_Total_Length by hdev->iso_mtu and sizes the skb from the same
+>   value.
+> - Patch 3 added.
+> - Patch 1 unchanged.
+>
+> Based on bluetooth-next.
+>
+> Chris Lu (3):
+>   Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
+>   Bluetooth: btmtk: bound the ISO payload length by the controller's MTU
+>   Bluetooth: btmtk: derive the firmware ISO setting from
+>     MTK_ISO_THRESHOLD
+>
+>  drivers/bluetooth/btmtk.c | 37 ++++++++++++++++++++++++++++++++-----
+>  1 file changed, 32 insertions(+), 5 deletions(-)
+>
+> --
+> 2.45.2
+>
+
+In case you haven't seen it sashiko flagged a problem with this set:
+
+https://sashiko.dev/#/patchset/20261015081450.1241194-1-chris.lu%40mediatek=
+.com
+
+Unsuccessful packets shall still be delivered to the host, this is
+used, for example, to implement Packet Loss Concealment (PLC) logic.
+
+--=20
+Luiz Augusto von Dentz
