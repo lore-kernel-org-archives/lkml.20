@@ -1,170 +1,166 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D249F129
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090357; cv=pass; b=PVMHUFWJlffd6ODPpQyh71Bu4JVUVtNoUlMRwfSriXq8gjDXkvPayNqvifIz8OfM+TBVRugTqL+ac9eOO/IbO7NAsqPdHQcFEszxwkMNUh88pHYeQFDLe9jLRekvFBvvhcUWQPSbBJfFcQZ2i7sf30xLYZWYIQE6rwViGlVmyNM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090357; c=relaxed/simple;
-	bh=GIdhD9TeSPWmNsy0fX+a8u6D/y/bXyVjLxaptbqD0Vs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EJrFAjjwoHPB8UAYTs1bNbh4NoRTiOMuXLcPEHcv1jLQ7sStJlRShXNQiM/zrPhfQ+n4yzH3NhXvhVCW0mQvVeNqnDg+aHqmRNWTHMEZaYuqVd60L2X/Jdfv1MqQ4+/KI+qBUa7IseoID/xGWEJsDdQ1QOquDJrZwxA9nCwtTdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MGgGYtAM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=S7DXTUhI; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B08E55821F;
+	Thu, 15 Oct 2026 18:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792090364; cv=none; b=maG2sLVnpgr2cXe4qNRgV2oNrkZLX65d82NDqQKEDMYZM1XUN03y5qbytfP/Yq3XOJnK0rP5cgM84nttSQ3zpOaH/VJAcBa0J/v0VL6c2J12h57MIMgSDH9jEaotGgk9phCVAg0vydZCY1fhH1PqSWtcZzFf3PhIaBjJ+ImkrIY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792090364; c=relaxed/simple;
+	bh=LgJdMkuY3CxbGVuvdie+11He70UGUab1eNFyeH50fm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qoIZig0c/46iw4rB/trP6mB6vuegX7lHqk0ykPsrzeR15CUdZwrdzsX19sWE81149DBcmFlXkdaB3u2g9HpKLmjgNA8Spl/oR/8z7d1LaQmkH78cw/GAZnHYwh01cVfzHZEt0ScdF7RyOvX7QviXSUZVbjKHgm92PdKVuyTc5Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1AuxVCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MGgGYtAM";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="S7DXTUhI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792090352;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+sUmonbqyk5xIs2kC+9hn0/UcfQCr5PxfxA1r/ri1EQ=;
-	b=MGgGYtAMd3WABz/Fj61R5q9Unq2HyTtDP5jmLWyPTwCYLHHtb1UZAZ+vH/0Ylbd3UfQ6Dh
-	+wD37RgiGUxYmkCdxXM1IgaOg6fh5bpHD3yG4gUDS+z/IbdA79j/5kj/vfZVL4UZwnn9F5
-	PpF0jRzmPly4Sjv6Wj0kJR9nYHjRJuM=
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-665-S9VnXDzHNTmsgLlNqjOFGQ-1; Thu, 15 Oct 2026 18:52:25 +0000
-X-MC-Unique: S9VnXDzHNTmsgLlNqjOFGQ-1
-X-Mimecast-MFC-AGG-ID: S9VnXDzHNTmsgLlNqjOFGQ_1792090345
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c10b8abe29so4392008137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:52:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792090345; cv=none;
-        d=google.com; s=arc-20260327;
-        b=naUdjf0tw6gbeq+FdwT/haJx5PjvNu0TQhsKRGJD/761URrC1K63/R9pv7LJBpRBnx
-         xHC6sEPUG/hOpv/hVOCoDKDfeg6Fz+Rxo8aOXFf5y+juYUihFG2zgaO8xCFiNhi8W3Bq
-         qLWSocMtNfxvB5EwUTUgT3rzJmXK7DXmvBXSG9g8D5ZHyuGSS7G97l90J/UrY5/3qT5V
-         /MiyAcJI8IhS8VGMI7/FXzfF3fcB0ciOlmdC0iiscGHcboow+ydWHv6M09v8E7vRoHeE
-         nieWR2ObdoOFaGG3SRQ/fpqgRu+csgXY0iN9W6VkHdQzhVJVvkuZiwLSvxWXRYffvggZ
-         ryUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+sUmonbqyk5xIs2kC+9hn0/UcfQCr5PxfxA1r/ri1EQ=;
-        fh=OzG8XQeRHYkJ6xGZnaL8HH2q8NEK2OZC2KBprHz3rRs=;
-        b=fb9UnEtO7iTDtYHHDN6y4CP7Rdfp+kONNUlycs55qKNxKFJNS9+xFgZ9xjsnZKzGUO
-         YZ1SeZ/9XynUIF+X3z0/iLapK0uAAKKRJHg2wJcoK5LMbW4IKtInTIVjWaHL0dQB1Cxd
-         HcX6XgX6pqpKpgKEkBBGSdf3FDjOAr2Ku2f+N/PLWWQn+Qh/XTFzzi+mbKnHVFi5YlJX
-         DMEqvr6r9upJnsgrYPqCNyVKqTEE9wZlTmtz/pHx1VBCQ+ZJ+8DY5MshcQeaBeQgfsXf
-         kwnIyjEn6mA44/qBbiSrtfwgBXgipFUCYv5nvhqOI2yaT/Gt0flMyskkmFd5kfgSrvTm
-         xzMA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792090345; x=1792695145; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+sUmonbqyk5xIs2kC+9hn0/UcfQCr5PxfxA1r/ri1EQ=;
-        b=S7DXTUhIDeHVUxu1Kr2e5fJr+HhYZfjy443/e+IoVrkaJIW7uoG08nkkMqyQLyvdQy
-         q65Wd1LEo7MWI4T14hYpe+xZWvH7NF7ttX+6SvWULQPbpHHKD75w6uLsO+jw3eSBoazs
-         enZZRTbw+vnumLRg67Mv1iehY9yfZkY2KDbg39SZGgLRizKv8HX4ZCxiTAq5ZHqsrcGv
-         LDOtwQq5LTa9o78cb9PsgWYvVAMM6L0TJdYFi2ltstDiAk8pSBAoRxSc4t147xWZHRoW
-         PFpQR3Qg50+xeUu7UEL7t1bzwwT7RU/BMLmJ3r2Fe/7f7eP9LpoDjqGVstL80V7vzcSM
-         E8RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792090345; x=1792695145;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+sUmonbqyk5xIs2kC+9hn0/UcfQCr5PxfxA1r/ri1EQ=;
-        b=wo8NwEOl8xolIMgn2aDFEOWYrudHQGhSJ0RL3Gg9+IrG7kgJmm9f9KIEiZDoRRidG+
-         j/55OydF6x1WK973WA0AsAjONVKGbLLE/beY5e4XekOVvtqNd3eJzUxUWKigsIdDcvJn
-         Bc4AhWITx377XZ5TcZvpASLgn1PDrL06pPxVS9/o+yx8em9CDhpx/XYiXC7iLnBiIsSp
-         oJ1FVVmMvUIMQ9N9v5ihzelSy3fqAeIn7Jyr1mk+wtA+HNpUFSSKAJwTINEwz4J6X+ds
-         DJA8llfmzT2vOxMBKDCxoSEDBMwk83aBg2Y8/8VcNQM/CIsmla2QS549xVB84Fjnw1V4
-         huzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBSrgrkaE3V0MRwP8JcPtvGIUyIzMrmLED0peZPxDMgUYFB3Zq1ceQgFib96KpuZV67YgkA7YhM0KiHwE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5rvsAR7SB6pntNMOtZN+1epM7eUtr/1MHpUt8Q5o7+6TPKx8/
-	vWpQzQsAhNUDN+jw21kXF3quPkEPoqkh+0Bqf7Dix7RCIs0it3+z5oiHL8251O9UlY0MU8vnQYW
-	nVWRSLg0lzrteN+6EmxLzIrkPKxMXMapTUtVUFY5/yX5SMO+rYVG4vz/k4kRNeUWAET6JrW7RVX
-	3PvACTjJND6f3pRh2ayaPzc5yn8zJrl9zEqEYk1OmJ
-X-Gm-Gg: AYBFou0tzopYoNVQf0DvtAItDr9Yyj5Idpj/Gk0ZQZewY/gYIT0dgPS5WeuleBj5C38
-	/hMh9zKKorVSL0bWaSw03xp7AIId9HlNDwVMlevFYvXCydA0r1iJhpWnhLRKmEvH2cT4sj61lu0
-	DnCGxrezH3wWVbbeT98YI4nl3fgW/cBXzHrukYmczBTGY8cqppMfXzB7op8BXHoKbB3xF7lq97D
-	cjSrjd42RPSjwKAzvcCrRUfcCVyNmwvgZ95OjFzRyZnyW04yVZhHTrfZSElcsq504aJuQSgNtqP
-	VieAt3fr63fnrFmFBwbbKOvBJA==
-X-Received: by 2002:a05:6102:2909:b0:7bc:1de3:39b0 with SMTP id ada2fe7eead31-7cb3a15e9a1mr7057355137.32.1792090344947;
-        Thu, 15 Oct 2026 11:52:24 -0700 (PDT)
-X-Received: by 2002:a05:6102:2909:b0:7bc:1de3:39b0 with SMTP id
- ada2fe7eead31-7cb3a15e9a1mr7057329137.32.1792090343324; Thu, 15 Oct 2026
- 11:52:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1AuxVCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 890EE1F000C4;
+	Thu, 15 Oct 2026 18:52:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792090361;
+	bh=Njl37LUDsIFdauFRHaWsmyFWughBb0HjtnFZLbKLBCE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P1AuxVCDtDzaGD11WMuGAROblSXSvHwJzTIeUkyME2nRdttFU8BqQK4gd06lSoVgJ
+	 BSKir+YvMkcP3sUCmVFoWK002WP6TaGDJjYScyXJsogEjlK1GF9FbftB7jwkb+g94x
+	 J3z2GIUt3tmQNhqR8zPJBxBvlgfcxC0riohLZzywTgqR+8yKIiEOdaeb2v8XX3xulz
+	 FmD0I06pVbbShRA0qaHLoHPHaG8s80Rn4P0+g4cku4CehU1ehH0s0iwJ6gPGZOPlW8
+	 sDg0/o3II8mhfzE6WDm7efCnGeXGcpIGILczqkcB1PIVo96O9fzicYw5GsjyIikCeQ
+	 kVqqAYCLnDTgg==
+Date: Thu, 15 Oct 2026 14:52:40 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas@t-8ch.de>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [RFC PATCH 2/6] kbuild: add "make tools_build" to build
+ userspace tools from tools/
+Message-ID: <atEg-E51MHBHL8Ju@laps>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-3-sashal@kernel.org>
+ <b0fa30a6-9f41-4c9a-a3fb-2634322e2bd1@t-8ch.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a01d0a297a3e174d21741a3ad586ce546327603e.1792081664.git.amarkuze@redhat.com>
- <20261015183548.GE2170687@google.com>
-In-Reply-To: <20261015183548.GE2170687@google.com>
-From: Alex Markuze <amarkuze@redhat.com>
-Date: Thu, 15 Oct 2026 21:52:11 +0300
-X-Gm-Features: AclHuK8AcY6paQ-tWkxVfhofIbCNjjczg8Wu8LAM9XVRyc2K231BtACLuWOj-8w
-Message-ID: <CAO8a2Sjr6XSizdgobZK1ZAO8PUd5tCDFKjdD-=3TXHwqOU6qfg@mail.gmail.com>
-Subject: Re: [PATCH] fscrypt: allow filesystems to disable symlink target caching
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-fscrypt@vger.kernel.org, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Ilya Dryomov <idryomov@gmail.com>, Xiubo Li <xiubo.li@clyso.com>, 
-	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b0fa30a6-9f41-4c9a-a3fb-2634322e2bd1@t-8ch.de>
 
-Hi Eric,
-
-This supports the concurrent CephFS subvolume quarantine series.
-There=E2=80=99s no Fixes: tag since this isn't addressing an existing upstr=
-eam
-regression.
-
-The quarantine series adds checks to Ceph's ->get_link(). However, if
-an encrypted symlink target was cached prior to quarantine, the VFS
-bypasses that callback entirely when following or reading it. While
-the target data is still valid, access now needs to be denied.
-
-This patch adds an opt-out for symlink caching and enables it for
-Ceph, handling the encrypted-symlink case for the concurrent series
-without affecting other filesystems.
-
-On Thu, Oct 15, 2026 at 9:35=E2=80=AFPM Eric Biggers <ebiggers@kernel.org> =
-wrote:
+On Tue, Oct 13, 2026 at 10:38:37PM +0200, Thomas Weißschuh wrote:
+>On 2026-10-11 19:36:41-0400, Sasha Levin wrote:
+>(...)
 >
-> On Thu, Oct 15, 2026 at 05:46:24PM +0000, Alex Markuze wrote:
-> > fscrypt stores decrypted symlink targets in inode->i_link. The VFS can
-> > use this field without calling the filesystem's ->get_link() callback.
-> > The target can remain valid after the access policy changes.
-> >
-> > The CephFS subvolume quarantine series adds access checks to
-> > ->get_link(). Quarantine can revoke access after a target is cached. Th=
-e
-> > VFS cache can bypass these checks.
-> >
-> > The no_symlink_cache option in fscrypt_operations gives filesystems
-> > control of this cache. It applies during target creation, lookup and
-> > getattr. With this option set, the helpers do not read or update
-> > ->i_link. The filesystem callback can then revalidate access.
-> >
-> > Uncached targets use the existing delayed-free callback. Each uncached
-> > lookup allocates a temporary buffer and decrypts or encodes the target.
-> > This lets Ceph reuse fscrypt's target validation and buffer ownership.
-> >
-> > The default setting keeps the current cache behavior for other
-> > filesystems. Ceph selects the option so cached targets cannot bypass it=
-s
-> > ->get_link() checks.
-> >
-> > Signed-off-by: Alex Markuze <amarkuze@redhat.com>
+>> Assisted-by: LLM
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>  .gitignore            |  5 +++
+>>  Makefile              |  8 ++++-
+>>  lib/Kconfig.debug     |  2 ++
+>>  tools/Kconfig         | 72 +++++++++++++++++++++++++++++++++++++++
+>>  tools/Makefile.kbuild | 79 +++++++++++++++++++++++++++++++++++++++++++
+>>  5 files changed, 165 insertions(+), 1 deletion(-)
+>>  create mode 100644 tools/Kconfig
+>>  create mode 100644 tools/Makefile.kbuild
 >
-> This sounds like a bug fix?  If so, which commit is it fixing?
+>(...)
 >
-> - Eric
+>> diff --git a/tools/Kconfig b/tools/Kconfig
+>> new file mode 100644
+>> index 0000000000000..bf0643b39b86e
+>> --- /dev/null
+>> +++ b/tools/Kconfig
+>> @@ -0,0 +1,72 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only
+>> +
+>> +config TOOLS_BUILD_ABI
+>> +	def_bool X86_64 || ARM64
+>> +
+>> +config TOOLS_BUILD_GLIBC
+>> +	def_bool $(success,echo '#include <features.h>' | $(CC) $(CLANG_FLAGS) $(USERCFLAGS) -E -dM -x c - | grep -q __GLIBC__)
+>> +
+>> +menuconfig TOOLS_BUILD
+>> +	bool "Build userspace tools from tools/"
+>> +	depends on CC_CAN_LINK && !UML
 >
+>Why !UML?
 
+Building with ARCH=um was reaching the tools, which then set "-I
+tools/arch/um/include" but that dir doesn't exist.
+
+I worked around this for the RFC, but I think I can address it when I resent
+the patches.
+
+>> +	depends on TOOLS_BUILD_ABI && TOOLS_BUILD_GLIBC
+>
+>These dependencies could be on separate lines, it will reduce churn when
+>they get modified.
+
+ack
+
+>> +	help
+>> +	  Build the selected programs under tools/ for the target together
+>> +	  with the kernel, as part of "make all", or alone with
+>> +	  "make tools_build". Each program is built by its own build system
+>> +	  into tools-build/ in the object tree. The tools then always match
+>> +	  the kernel they were built with, and a change that breaks one of
+>> +	  them shows up in the same build that compiles the kernel.
+>> +
+>> +	  This needs a compiler that can link glibc programs for the target,
+>> +	  and is currently limited to x86_64 and arm64.
+>> +
+>> +	  If unsure, say N.
+>
+>(...)
+>
+>> diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
+>> new file mode 100644
+>> index 0000000000000..820a2d9a3893b
+>> --- /dev/null
+>> +++ b/tools/Makefile.kbuild
+>> @@ -0,0 +1,79 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only
+>> +#
+>> +# Builds the userspace programs selected in tools/Kconfig for the target.
+>> +# Invoked by "make tools_build", which "make all" runs when CONFIG_TOOLS_BUILD
+>> +# is set. Each program is built by its own build system, the way it is built
+>> +# standalone, into $(objtree)/tools-build/.
+>> +
+>> +PHONY := __tools_build
+>> +__tools_build:
+>> +
+>> +include include/config/auto.conf
+>> +
+>> +abs_srctree := $(realpath $(srctree))
+>> +toolsdir := $(abs_srctree)/tools
+>> +outdir := $(CURDIR)/tools-build
+>> +
+>> +# kbuild's state and the user's compiler flags, from the environment or the
+>> +# command line, would change how these build
+>> +unexport srctree objtree srcroot VPATH building_out_of_srctree sub_make_done
+>> +unexport CLANG_FLAGS INSTALL_HDR_PATH O
+>> +unexport CFLAGS CPPFLAGS LDFLAGS EXTRA_CFLAGS EXTRA_LDFLAGS USERCFLAGS USERLDFLAGS
+>> +space := $(subst ,, )
+>> +overrides := $(subst \$(space),\@space@,$(MAKEOVERRIDES))
+>> +MAKEOVERRIDES := $(subst \@space@,\$(space),$(filter-out O=% CFLAGS=% CPPFLAGS=% \
+>> +	LDFLAGS=% EXTRA_CFLAGS=% EXTRA_LDFLAGS=% USERCFLAGS=% USERLDFLAGS=%,$(overrides)))
+>> +
+>> +# Keep Python's bytecode caches out of the source tree
+>> +export PYTHONDONTWRITEBYTECODE := 1
+>
+>This should just be done in the toplevel Makefile IMO.
+
+I originally added this because perf was silly, but apparently that was a bug
+instead of intended behavior, which was fixed in 5479e1a13b759 ("perf tools:
+Put Python bytecode in output directory"), so I think I can just drop this
+altogether.
+
+-- 
+Thanks,
+Sasha
