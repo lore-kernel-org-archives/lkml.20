@@ -1,233 +1,89 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24EAD3C584B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075560; cv=pass; b=GDlOJ1QAAC+q/WR4IgalhproWmkb1zGbTAzd/A7SObmfIVZeiNKfZTkVuXkjSI9coKsHORq4sOY6VOIKylDHxN49G+LC7IMRTfl2Z1LFToRqW0j5qgoKpwfXB2skaH/akg9vKU4Ktkp2uuHU0YWiCOKKwjl/U6/Cs01FrbPkds4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075560; c=relaxed/simple;
-	bh=7kTPqpLAh+L97oFkxfh+4rZx6U3XxL8GE5687Tp1CcA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ho1vrYI/5rfc5yN1AEzy67bo081t0ChSZ5kpeqYevfn9kI0sdEJD9Pcg5+mZBt7Qs3/61wVnwl2vt7O1pRNyttO9ZGjOHB/C7eB750uIMmttwmVDHdYaMBoCfp6G5BxG9djBmi/sDD1emZ5Q3HxmfAmN1+9kraPFuFhEu5SymQo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gmBbjdG+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=S8V8/SC1; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682E83CE0A0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075565; cv=none; b=JSlJwo5i9wW7SN/bfivH+QNKU6sl9lt/NRdukwmPdT1LXUc/+CTdlM/abp6FtzBvewMkYA9rcRsB/l5UuwFscB3cVWdzhb6a5YzKcc5QPnpIHvhRdyzUjU5UyBWp11CIfTxnxTVTPoitBeJ3UArLRnXk0G6rYuWi4U5ZsP9NwWc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075565; c=relaxed/simple;
+	bh=n2eKzu35TvaEv8HyPaHxC7x3j0v0d8cIHnv6Jg8auww=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID; b=sSuID+eEY/08bgIVN32JceZ1rB+foN3b2N+Wx8Rha3gFA1ZVKM/HRbz8m1IuqWrbRYDFIMmc4UFd6eaiGGC4/FPJ6y7t6ChYtqfv8yFHS6sPd5kXIQFKchAqr89Wxl4gD35c5igxNUgEapkM+mKn5JS889JSfLvovxmd3cdojuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GWwnUb4n; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gmBbjdG+";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="S8V8/SC1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792075558;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
-	b=gmBbjdG+bTFmYJjjCB6IrqsMQydU5OqQC2jIKe8gPp7rQR/aR0uMiQEpfG7urVeW81iGJb
-	sJLQQ9kQq1pypO60xODCCyRPVwbAdA6U62CO69AEVxPOZbsIrgrKf+BDCLhM3xuXyzEM7g
-	k/AZxIJfS9SdHUqeURZHbQTiH3DYRmw=
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-674-kfmsO6TaNwGKqK_eLBhj1A-1; Thu, 15 Oct 2026 14:45:56 +0000
-X-MC-Unique: kfmsO6TaNwGKqK_eLBhj1A-1
-X-Mimecast-MFC-AGG-ID: kfmsO6TaNwGKqK_eLBhj1A_1792075556
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-47cfa971c9eso83736fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:45:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792075556; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eKMnYvqzJRDXinngEk1RtmNpkgtkJWxgFw+GySbIcfxuwgzbIudxR/4JYr0a4jeHrz
-         izlRmonoJBzsI13Sp2mehYhZ2WHkpyMqNOVIGfoFvavCLecTokLg9qIZGrMcyMz9Ht1f
-         810p56z+xE4NfhSMFxUpL5EKM+O83Kxmg9gdDaOiI1T94nlXLeolQiwwWHKS8oJnj8jh
-         vTK9upMCSkF1NUdYTtknoigyx96DiiRjYbsv8yA7zdhlE90TR17JyFttyuUAd7c+JwuO
-         XTi+nnjcxcCWK7Noe9jFJo3IRska0pNlMLc54DhsT6dci4T7p457hPoiYuMSxEvouAWO
-         C6LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
-        fh=dU7kybUWus+0JtpBAA8imxDIymjl7n97B6F+rEW3QC8=;
-        b=o8tXAffLE5mv8keK+fQZlL/IVQJ1SGc6X20jBUFR/QaT/yFO4hC1y9KQfz2cPU6RSr
-         p/CI6De7fB+ka2bUb45Cq0TFxyGid6ejTnUt8CqV+nn5lTt6NzEDSgkYSq1QiCKCohYM
-         9tJEuCk4RSa6liyDG8AYp6zFXDwP+b6fFWq4Qru5DTs7miXiB8hFKoOvbtvkcxEoqeUT
-         AbzRI9jOF2vlMeY8RYEufQHFsi8yTHXegdPzYNgcLpMaKrV2UX7MmmfPG/3iv+kXJ5PI
-         fGszJrlo13xnlWj7kUmwvKDa1SCXMKHbzhjgsjDqD3s1kEbtlop0UO6JjXeZ9nnn1g8n
-         h1Kw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GWwnUb4n"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4821449so2267434a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:46:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792075556; x=1792680356; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
-        b=S8V8/SC1KORhzrxzC7R+m/vG29QzYYZGH9wev7JsB2jQEGBYDxeR/NQCRS20SZLAoD
-         dDIFtVK0Ah7Ce34gAQA0RYZnLMKrSkFoGjPLhjxC3yaYAbmDiWPqs4E3wL8og8JhoBds
-         sHGnu67q8AC7ZRJy56IpPpOq6FAfD40Oh+OVQrYwsqBJv/qO/TEdP9nqobURCjGF4Dyx
-         EZyHxBlGg8yfy5SolW/5BeLMxIGcEYLEGXYxY86zD7XbWT8kyywvG6rw7S6w5Rt0ZzPT
-         HsWBC4S1nYHj06DMyI6Gf5/YuRXF0LEgbYL/KRf8FdUzEt05w+tZHiD6tqVizfMejZRp
-         6tqA==
+        d=gmail.com; s=20251104; t=1792075563; x=1792680363; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=n2eKzu35TvaEv8HyPaHxC7x3j0v0d8cIHnv6Jg8auww=;
+        b=GWwnUb4nELlnjiGTRz5QedNf3eNo544dN3n6eAKipUZSBgBt4MuYJDZ7TMpkfRz3qM
+         lgZEO4Dw6UZ7t41iwDyK/X07Gl/btMbW+Papx7xbLdwPch3Po600mQxw0u6XG10KCNST
+         1avWuaFTBR2fPOBO4k+KjESqcxKsowJ4twTsCoUNvrXbgivh3hl75G54xF4glyXlYVBz
+         PjbXH03W8Sxi4r/47vslgovgq3VIWnpSnSaBYZ8F3aVChblgckj/bYAVRqGN07XRKp23
+         njjsRJnOx0eV+xvLFIq1ha6aunSlHOPr4SrqZjqHPRfkFBudCelNo3XACldGoLtruFBH
+         ZM1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075556; x=1792680356;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792075563; x=1792680363;
+        h=message-id:date:references:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
-        b=l5YlOa4121FBS3CrZQYtQTs5+XhXvEKhpktuGuAqAEiOI4Z6kbj2jnPsKBSfuxNaHz
-         OMLit1A30txG90niPt0+/Rd/yp58hmK+VECQYyR3vKlQuGfEpEBVk3eQwyyDs3QJeKEQ
-         VGhsj6LcwW3oHvHKq6DgLNoGgybIU8jn5asFPhnoAxkj0AOVSMyrbQRgU0QZojRuAKBq
-         Pgl2Yf/JDGSDTZv9qhhkVUQSqNnCV/qYaVWdH6MdLhlIvSX+JjpjcpGNUut0xOefxDy/
-         8qCz1LtPod3SF/w6xypwR3vdcuGGS12kL8nJquvQ48bEmJ0RqNCHKFEZ/5B4jC2qN/ax
-         QN/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwzGSUsAVtQ7Q2dac5Ast/uB0JNbkZJzZHBEDR0ppek3AJydNkSzneIRUE87VYxnh4TZDACIHKklUVYcTo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZdzKmENamuQQiUwyU53RDT585HI5KxiJmq+f0B7E/XlTB0M8s
-	9D6IH/ffBRXdovwAPw36QZHe2d8GGQwF51oNhiEN6d7uuaie547COMGIwcAggonF8ib7KY+FQf1
-	LM4CfzEDBxg7jwoswdO9b05uHx0GSUYp1m3cz/IgPuHtMpIuxJzKduIKFMGhUtzkqyYjpsY78nq
-	lWTRpvLgVfrbK9DlhDflHfgoWFOqyh/zOEgPE7iqa4
-X-Gm-Gg: AYBFou1aB8Oz/nysXh8IvTLZF/FBNWBmHIjB9Adm8JtR+6GbOzccQeHlHjtAsH9KKGq
-	wSUD77fuSmpSY/4pyggW71MMYhvQKs+i90CSTUt9mi/4JVqSecMxdlwl+WqQqLJ0MUB3sF2X3lj
-	bPN6aQ/V/WnkSdTccKj6hVIbIOsmB8pY88hOcLgRDsaUCUzSxC2ROigeHe3GKGxB8GZ1E9gh8dV
-	ZgXBCXofWkBGr/yGg==
-X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id 5614622812f47-536fafdd8ccmr207184b6e.10.1792075555626;
-        Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
-X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id
- 5614622812f47-536fafdd8ccmr207137b6e.10.1792075555012; Thu, 15 Oct 2026
- 07:45:55 -0700 (PDT)
+        bh=n2eKzu35TvaEv8HyPaHxC7x3j0v0d8cIHnv6Jg8auww=;
+        b=eF/11wKbBQyszlPPoKZovB7Fqy2nywQUwVTI/xEBmg3UPLbVYWGcoIG3r0XFfs/+E1
+         Yjhg+19nXjvElTXaaxL7r326L9KhwDUu9Y3lFK6fJJFUthToEXue7y1nBip+ko5RUdDj
+         C7hjD0VXAbOUJKLYrms1nJzQWP3/GCs/mTgZYGd0eEeEu13dqZ+Ph9E2eLRpnlSzh0UU
+         9Jt9NPmOI4SqVdk59BP4SdjTzuV2yi9/w6ZRwJr35EDdyflWGLXQ4lwLPnw0wW1cZSLX
+         RxqZ0Qfbuv5Hzz9Doz8VxyBmUiu5BLhdMr/6GDbY0+DocCCxjJIQrysPB4qAiayK3qO1
+         hVTw==
+X-Forwarded-Encrypted: i=1; AKwUvBx8Ppx/2sZeAThFA/YMbsnbs3wIdagowrcmrXE1cD4stsH00wISiRIPBl010G7HMOGIe5vdgnHi7lxwWwY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS/e5Ri/qvzOcOaS2mWVOnsbxSI+iCP0vkfIS57Q8YwpQP55FV
+	H+KQz6VZ/v0CW4YnM6yqrscMX4xUSXUtfIbjHsM+pToH6b/c9ts3xSDe
+X-Gm-Gg: AYBFou3EUXuJK9e3Xkif2j1ak2su0e7DS5nn97No/mDboIsTMv5MiJkqX5EgM6Rv3Gv
+	d+sQ2iWADHckocm+9h8p41FDT4uLDGhIvC8p3UNWIqB+R1HDN/n3BKqHOAFaJtKr7Fbx13a9J2v
+	Wy2zpyu12S8VCgrqdhYSAAdlfb+BVrc/L2OYAo+ZpFpoBaEA3JhRhm2wut+K752ErEFAcn/QJ/8
+	1pLboH6B3j7OK1h+aEDbSv0Kl8P4xHDpvaSzoAypdweH12qETrOlDWbqe9f8NeAzQMWS5lDdQsD
+	VPVyigvCJXekXl8iAAohcO5pI0a7A3+KO3iXxP1Y722JoaZ5fY7OgvA28jWIrB7JbMRKipCD5Gw
+	EvrH7uVeYwjH/xSsqVA476yeWOWQn41u8OtNi6p1sB2RQt+jFSfR4pywC7mVfArNiFRFRnqEvhD
+	p6Wn/RQaTDFA9U6Q81C63mGQ4CiRBYnscUGisHx51Ux55xglnea0GfE0slDtnisWYomptkAmctP
+	XmOR4ioWQUOus5e
+X-Received: by 2002:a17:90b:35cc:b0:3ab:2737:3392 with SMTP id 98e67ed59e1d1-3ab3afce21emr16003498a91.53.1792075563236;
+        Thu, 15 Oct 2026 07:46:03 -0700 (PDT)
+Received: from [10.131.15.42] ([115.200.102.144])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635cdffa5sm1393286a12.29.2026.10.15.07.45.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:46:02 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
+    linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] DAMON_STAT: idle percentiles out of order on 32-bit
+In-Reply-To: <20261015141319.88393-1-sj@kernel.org>
+References:
+ <CANOyQmHad1vamnZT12M5yPrJ69==Pt1U0+MGw6u0MuNtr-DRCw@mail.gmail.com>
+ <20261015141319.88393-1-sj@kernel.org>
+Date: Thu, 15 Oct 2026 22:45:01 +0800
+Message-ID: <179207550140.2.6042983090152523193@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261015020811.1132314-1-keng-yu.lin@hpe.com> <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
-From: Desnes Nunes <desnesn@redhat.com>
-Date: Thu, 15 Oct 2026 11:45:43 -0300
-X-Gm-Features: AclHuK_vz2mggd0RcuByATED0GopB3zO_jGEVLBVHom48STilEFyTjbRWniIMTY
-Message-ID: <CACaw+ey8pZb=Vg+FDaK+K=iyho634sgs=G7nm60mooCD=PuVFg@mail.gmail.com>
-Subject: Re: [PATCH v3] PCI/PM: Restore BARs after powering up during enumeration
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Matthew Ruffell <matthew.ruffell@canonical.com>, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
-	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
-	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com, acelan.kao@canonical.com, 
-	michael.reed@canonical.com, dlee@hpe.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Desnes Nunes <desnesn@redhat.com>
+Hi SJ,
 
+I haven't seen this affect a real workload. I found it while testing
+DAMON_STAT on 32-bit.
 
-Desnes Nunes
+The upper percentiles can stay at zero or keep old values. If someone
+uses them to judge how much memory is cold or to choose a reclaim
+threshold, they could get the wrong picture.
 
+I'll send the fix and test results in a separate mail.
 
-On Thu, Oct 15, 2026 at 11:15=E2=80=AFAM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Thu, Oct 15, 2026 at 4:08=E2=80=AFAM Keng-Yu Lin <keng-yu.lin@hpe.com>=
- wrote:
-> >
-> > Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
-> > initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init(=
-).
-> > The helper ignores pci_power_up()'s return value indicating that BARs
-> > need restoring. Its resume callers restore saved configuration
-> > afterwards; pci_pm_init() does not.
-> >
-> > D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1=
-).
-> > After enumeration powers it up, pci_enable_device() reads D0 and skips
-> > the full power-up path. Previously, a device still in D3hot at enable
-> > time took that path, including BAR restoration.
-> >
-> > On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
-> > D3hot with No_Soft_Reset clear before kdump. Diagnostic reads on
-> > v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
-> >
-> >                                    PMCSR      BAR0
-> >   before the platform power call   0003       f4100004
-> >   after the platform power call    0003       f4100004
-> >   after native D0 power-up         0000       00000004
-> >
-> > The upper BAR DWORD stays zero. pci_power_up() returns 1, but the BAR
-> > address remains zero while dev->resource[0] still contains 0xf4100000.
-> > Without BAR restoration, the crash kernel hangs during boot. The
-> > last console output includes:
-> >
-> >   pci 0000:01:00.4: enabling device (0000 -> 0002)
-> >
-> > Restoring both controllers' BARs gives matching readbacks and allows
-> > kdump to save a vmcore and reboot. An AMD Turin xHCI [1022:1557] shows
-> > the same BAR loss; restoring its BAR also allows kdump to complete.
-> >
-> > Read the initial power state first. Otherwise, pci_power_up() may
-> > request a BAR restore based on a cached PCI_UNKNOWN state, even
-> > when the device is already in D0.
-> >
-> > For devices already in D0, only synchronize the platform state so
-> > that ACPI calls such as _REG still run. For other states, use
-> > pci_set_full_power_state() to power up the device and restore BARs
-> > when needed.
-> >
-> > Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> > Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
-> > Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initiali=
-zing")
-> > Link: https://lore.kernel.org/r/CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=3DWWO=
-QjDAPmSepSAQPg@mail.gmail.com/
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
->
-> Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
->
-> > ---
-> >
-> > Changes in v3:
-> > - Use Rafael's sequence: sync only the platform state for devices
-> >   already in D0, and use pci_set_full_power_state() otherwise.
-> > - The D0 path no longer runs the full helper's ASPM update.
-> >
-> > Tested with diagnostic prints on AMD Venice SP7 and Turin. Normal
-> > boots made no BAR writes from this path. The crash kernels restored
-> > only the cleared xHCI BARs (two on Venice, one on Turin), with matching
-> > readbacks. Both systems saved a vmcore and rebooted.
-> >
-> > v2: https://lore.kernel.org/r/20261012104645.975190-1-keng-yu.lin@hpe.c=
-om/
-> >
-> >  drivers/pci/pci.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> > index 8cc6a89130b5..895969fe4520 100644
-> > --- a/drivers/pci/pci.c
-> > +++ b/drivers/pci/pci.c
-> > @@ -3255,7 +3255,15 @@ void pci_pm_init(struct pci_dev *dev)
-> >         }
-> >
-> >  poweron:
-> > -       pci_pm_power_up_and_verify_state(dev);
-> > +       pci_update_current_state(dev, PCI_UNKNOWN);
-> > +       if (dev->current_state =3D=3D PCI_D0) {
-> > +               /* No need to do a full power-up, just sync-up the plat=
-form state. */
-> > +               platform_pci_set_power_state(dev, PCI_D0);
-> > +       } else {
-> > +               /* Power up the device and restore BARs if necessary. *=
-/
-> > +               pci_set_full_power_state(dev, false);
-> > +       }
-> > +       pci_update_current_state(dev, PCI_D0);
-> >         pm_runtime_forbid(&dev->dev);
-> >
-> >         /*
-> >
-> > base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
-> > --
-> > 2.43.0
->
-
+Thanks,
+Aveline Noir
