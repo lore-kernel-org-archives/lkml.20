@@ -1,130 +1,138 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA151D63E4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E6F305667
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071123; cv=none; b=ZNEu6OQ0ZsQiD72xxa1RUaQ5Mt++XtqfTcumg/Taetda78H3dYCLosKa1lfCziPNTsf13poRVqL6xN+OrKO0y4kGjXDL7S086F3tMi795dF/SsLEeUUkL8QEvKBlv19FxoNu+d2WA3I5Vo6y+++LWEYR4H23kBxIxdy9qaaq9OQ=
+	t=1792071126; cv=none; b=CWLx74HbWwAy1aVyZKhYlL/SIGsQAUaOfuGgtEJPi/aLr1eEuIm2jTyF2cDIybH7MC4QOIXwpfJEgfVkfLAGP2JMb3wsmhaVH1hgCVeJvSbp98x4r18X0bmkGanNf0jLVy3gxXQWn49GlYoeRKCQ94knrhFGOjsIr0RoOT7cO14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071123; c=relaxed/simple;
-	bh=DM+/4dpobs60R7WsyZ1su1V+Wmh+fgDiyg9humHU08o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ZNPdqpzAJiW/F1ssQH6pgHFE6AL6+kTHzdDgdWlewwUsH5FZpfYSpkOCiBK6yEqbF4WjzeAaUXc3AY9r6bs7uwEyE9A33jZ5nieDzzV8P5qE5i2WQflEcV2d2kIojvmN5CVMjeaZOvJPvu0RB5PJOY67XIgA4EjUokX9TE2jWFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kLNih6th; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1792071126; c=relaxed/simple;
+	bh=yh7CxzzcgveUPvADfwlYHhL5S/vf5+PDVOFhtED17X8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=adnt0fx/YV8ByIe31DPyPkdDzeZqf97U/YnLJwvMd3Kme7UD5kKyWPzZuSlP8q7Ji4awyo4r/0BjTc0Koo67j929UaXwvJNYzqIyZ/+O505h5AIA07r42NJJZSaDkQTJ3i9iSW31x9GerxnFXxGgTGroZb5B7++jvrZzLxD5rEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i12Mmki1; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kLNih6th"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so2546666a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:32:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i12Mmki1"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afbd35952so560923f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792071122; x=1792675922; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XKlAjlVXQ4jJGW7uqpZqIO3+PQyX2/sjL4lY5mEwx8s=;
-        b=kLNih6th6UOXndaxNipIjJ5ebSJuJklYNYwjTob0MxaTRmqMrcVh95VM+iiBaya0dS
-         rGkZStZ4ZAY19GneUWp1BfWR6t530EgBUu9WpH4pdshKQmPKm6z7qRo1FzSMOtwvGijs
-         wMRr5VAnPK3U7PlwA4M98XZtXLOJvR5Dtfo6lH/7/7DsE7zVUiFymrqtuMAFHceDBtok
-         qdT2jahJtS7PdMgmN7h5grWubJVVSy3hMBTpatOpSp8/sDEnrEwkYTrTYyyUqDOoHJD3
-         R8IhR6bee9ZPQUhUNdothgyyTd+3cz/smzYE2UZb3zdxqwNxXkf5WDcAeinmLvNkRbvY
-         KWMg==
+        d=gmail.com; s=20251104; t=1792071123; x=1792675923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cyNEyKLQ/jrd+Lrq1caBuwPPaSfg+nPmt7eph+HDO7s=;
+        b=i12Mmki119TiBMzzWABKcgv/bF16wdpD+BjGKFiR17jyuhq9js6IvVvP8d1u34z0qg
+         e+Tyi5jaAiw0OLSGx5Onz+E20IE82EU2oyHOHCScyZQ/zTmnopCmPS24JMcR9+N+SbEO
+         YUAymzgjFWlVM2GCnOtU1C//hf25Euc298QsU1yv4sHepmfyivjY0ejJSNN8ig/dENvY
+         s8GcBz9wITmQKlteuzsaX7PXAQSK1k314h5dVifGJxVp6h99awA5I+ZKyROIxXFWbwow
+         iJPPfq5N//UpN8XlV/ALFkjUWG3jrhzq0MjQFvPMX7Zy6CpMvfHDCwI6MQrrL7eA9yUF
+         Xjtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792071122; x=1792675922;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792071123; x=1792675923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XKlAjlVXQ4jJGW7uqpZqIO3+PQyX2/sjL4lY5mEwx8s=;
-        b=hG/KQmjs0EoDPkXF6z+X17K224TdY1238aQMvULuvRpTTxjAfrky4AIEyk3fOyqLCG
-         gSLSNHVdai1e4/yo0czpovKHTHAcKVoAR/vN31tWSkMquphRXQz1dtoE792/QrBXQOdb
-         XFF+WuhcfijiZn/I3r76RatvXhJ0TO55kD+d1ElrnXxQWgRnLT+h5le6+kKpGlC/nBHf
-         kHdFvyNOuxa2Pv2uBOBrji/0i86BTT3srYJbZhYHOmt4d1Fz3o1geEJM3LMFYoEznu4A
-         qTrFzBMr5WAnO6X/pt7SlLVaoim3JTuQhYRSRxyyYv32qhqwwbOm/oNCkYPySOphZqxq
-         I6jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxztgsG98jHMgbcH0VR4VdCd+MIfckC5o2ge8xn/UONYfuf5vXmXoQLXmRy1V9SZkR8N2TuV6NEeMjz0Y4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUg7gKgUbJ/FsWbBnlDmeFOXBntdKk6ARJOL75WvIzYEc0NYKd
-	s7AWF5mDuI7Ai5CTTxlNr8odgwu2ORWOsx00+4BMv2HSWJPexBSFOsBwFBPSk4JSy+ih/G5qaDa
-	UogZkrA==
-X-Received: from pgdo18-n1.prod.google.com ([2002:a05:6a02:6212:10b0:cc4:aa77:305b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:46c5:b0:3e1:1689:1eb8
- with SMTP id adf61e73a8af0-3e16baddb4amr18528802637.2.1792071121607; Thu, 15
- Oct 2026 06:32:01 -0700 (PDT)
-Date: Thu, 15 Oct 2026 06:31:53 -0700
-In-Reply-To: <asXlwARv1cE1RREu@blrnaveerao1>
+        bh=cyNEyKLQ/jrd+Lrq1caBuwPPaSfg+nPmt7eph+HDO7s=;
+        b=SPYsX3pyarTMLM7BqsSss90EVgdnHJprnj43fPE9D6KXhkKJ0MyTXsCYYSpJJaqq4u
+         B4psuwGTob4FvSLZlQvtBl6lfFRl3Jq0lBRrf+F9B3bfWZfxT3O0djdgu8QpeZ35inCC
+         FpAGTpuzKdej080qbdPEaw866QneCfSYBFH1w9kLA99cp8X1bDJpWt1RbQR4C6JjlUz6
+         TsNMZReFhIlDxXa03+WvjLL/7Cyf823jvwjWO1ZQQgmIc6iRmdgMftKvGTVs+XT9Auf4
+         gkIlO5X/1FV4PKLsg6eqpMcnfKXHW3EyI1YtJ1F4tfnspYizIZGO0qAT3sgzTih/xGAm
+         SsWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzW+xIx0/tTP4S0oTloP1uvtGCmPPUydAJ4Zg/iNZBKGbaq4M+XEjLC0u68U4BhiEZiWnsUTt6yLW1/gec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+j1tDcEqZdyXS2ZGxkVgnI0aTWXfmc9CzrBSx0bYETRK5RqCq
+	5pcxSNkrZE9yd9GO8SpTGyM2ePBelYLvVeAi+M2la5h1xIQJPVGPgSe2
+X-Gm-Gg: AYBFou0PfYqpz133PU7JLdSK4nTeGN1IXm5cNCeBzByclDYQ0L8y+KtvEPbVIFDsTnW
+	zIYcinbxK8qwwa5Zqqz6d9n+ef30pWBeI2wwTzamBffGKwp6s6Io/M1QOUaZOlpNFLNq6kocSEM
+	i13M3GTBZMaP/llFYdyEfu4DaS2WzQRjFtBLWa3+Fp7VGxm1HRvnARmgAdLH2b0Xdyq6jxKpTDT
+	Eaa4I/a7atRGplLYprwfl4dCw6KeKmcTvydkFqB3wByC9tAxdmtR+TCEjt5ocmu1XUU23hrdAad
+	bCR0UTKzHHCZOYaVUcN7m6SbHqk1105m2hDvqx6BmNYYg65Bzcs/DTVCEQEC/2oAITgITZWLfbr
+	cNJdZYhEQOSgNrYc7ui8sZ+UtITOJ5lPU3UUPSUXu4EfPuRg4G2yZn0U1DSDXgcyGjE0eGYmYVm
+	hnNkliww/bf4QKut0qUIokeWu3BuulFpRHXng5ZscaWUH+aHpaZCstCzoR35fzWO8/rdV8PGzF+
+	q5nSO/xGUH7za0oYyKOM6Wt3VY0dEJO/AcPVUt/KYnh56HJN1Tb10+Y4uPIkNGKI4HjSXFSsCon
+	DflKFIaAv5+P/PumPnaaHS6f9sbGIaycnzQ2HqAw5rW2yZHOvs3z+R2C6n6HDyswV6kJwthIg6M
+	Wl1qNnQI=
+X-Received: by 2002:a05:6000:4106:b0:48d:f14a:9186 with SMTP id ffacd0b85a97d-48df14a92e3mr7001420f8f.6.1792071122317;
+        Thu, 15 Oct 2026 06:32:02 -0700 (PDT)
+Received: from ast-epyc5.inf.ethz.ch (ast-epyc4.inf.ethz.ch. [129.132.161.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df5c3b89csm3301942f8f.23.2026.10.15.06.32.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 06:32:01 -0700 (PDT)
+From: Zijing Yin <yzjaurora@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Zijing Yin <yzjaurora@gmail.com>,
+	Haim Dreyfuss <haim.dreyfuss@intel.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: cfg80211: fix out-of-bounds read in valid_rule()
+Date: Thu, 15 Oct 2026 06:31:57 -0700
+Message-ID: <20261015133159.1499728-1-yzjaurora@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1783490022.git.naveen@kernel.org> <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
- <5f6bcceb-1c48-43e5-bafc-8f86676c4092@amd.com> <alX59ewiXXSx7J3R@blrnaveerao1>
- <asSSU2huZDlusYdG@google.com> <asXlwARv1cE1RREu@blrnaveerao1>
-Message-ID: <atDVyVCeUFafWPHm@google.com>
-Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
- native_apic_msr_eoi() for Secure AVIC
-From: Sean Christopherson <seanjc@google.com>
-To: Naveen N Rao <naveen@kernel.org>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, Borislav Petkov <bp@alien8.de>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nikunj A Dadhania <nikunj@amd.com>, Tianyu Lan <tiala@microsoft.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026, Naveen N Rao wrote:
-> On Mon, Oct 05, 2026 at 11:16:51PM -0700, Sean Christopherson wrote:
-> > On Tue, Jul 14, 2026, Naveen N Rao wrote:
-> > > On Mon, Jul 13, 2026 at 12:43:45PM -0500, Tom Lendacky wrote:
-> > > > On 7/8/26 01:32, Naveen N Rao (AMD) wrote:
-> > > > > Drop savic_eoi() in favor of using the native helper that writes to the
-> > > > > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
-> > > > > level-triggered interrupts. However, it relies on APIC_TMR indicating a
-> > > > > vector to be level-triggered, but APIC_TMR can never have a bit set
-> > > > > since it is only updated when the LAPIC accepts a level-triggered
-> > > > > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
-> > > > > level-triggered interrupt sources are in the VMM (emulated IOAPIC
-> > > > > primarily) and KVM accepts them on behalf of the guest resulting in the
-> > > > > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
-> > > > > by the guest, which has its own private APIC backing page. As such, the
-> > > > > savic_eoi() handler is dead code. Remove it.
-> > > > > 
-> > > > > Fixes: 43b6687ac877 ("x86/apic: Handle EOI writes for Secure AVIC guests")
-> > > > > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
-> > > > 
-> > > > Another guest change which should be separate from this series.
-> > > 
-> > > Yes, I have called this out in the cover letter. I see now that I should 
-> > > have used a better subject for the cover letter though.
-> > > 
-> > > > 
-> > > > Is this causing issues with this hypervisor support or is just code that
-> > > > is never invoked? Do other hypervisors behave the same way and will
-> > > > removing this break them?
-> > > 
-> > > This is code that is never invoked and is independent of the hypervisor.  
-> > > No impact to hypervisor code.
-> > 
-> > Doesn't that mean level-triggered interrupts are fundamentally incompatible with
-> > Secure AVIC?
-> 
-> I think so, at least from the hypervisor front. Secure AVIC uses a 
-> guest-private, encrypted APIC backing page. KVM's APIC_TMR is not 
-> visible to the guest and the only injection mechanism is via 
-> VMCB->Requested_IRR field, which can only carry vectors. This means 
-> APIC_TMR in the guest backing page will never be set. So, all guest 
-> writes to APIC_EOI are accelerated and do not cause an exit.
-> 
-> The guest could track level-triggered interrupts and notify the 
-> hypervisor though. But, it isn't clear to me that is necessarily better.  
-> Linux already seems to have a fallback which works for I/O APIC (see 
-> below).
-> 
-> I believe TDX has similar restrictions?
+valid_rule() validates a struct fwdb_rule from the regulatory database
+firmware file, but bounds checks only the first byte of the structure,
+the length field itself.
 
-No.  VMX lets the hypervisor select exactly which vectors will trigger a VM-Exit
-on EOI, via a dedicated bitmap.  Only SVM's approach of keying off the TMR is
-problematic.  FWIW, SVM's approach is flawed in general because it makes assumptions
-about hypervisor behavior that don't hold true, e.g. see the games that have to
-be played to deal with RTC tick stuffing when it's wired up as an edge-triggered
-interrupt.
+It then uses that length, which comes straight out of the file, to
+decide whether the optional fields are present, and reads rule->wmm_ptr
+at offset 18 of the 20-byte structure once the length claims 20 bytes or
+more.
+
+A rule placed in the last bytes of the file therefore makes the parser
+read up to 19 bytes past the end of the firmware image. The image comes
+from vmalloc() in kernel_read_file(), so with the rule at the end of a
+page the read falls into the guard page and oopses, with no memory
+debugging enabled.
+
+A length of at least offsetofend(max_bw) but below offsetofend(wmm_ptr)
+takes the other branch, so valid_rule() returns true having read nothing
+out of bounds, and the database is accepted. regdb_query_country() does
+not re-check the rule, and reads rule->start, rule->end, rule->max_bw
+and rule->cac_timeout off the end of the kmemdup()ed copy.
+
+A malformed regulatory.db is parsed by cfg80211's own
+request_firmware_nowait() at init time, and on demand from user space
+through NL80211_CMD_RELOAD_REGDB, which needs CAP_NET_ADMIN but no
+wireless hardware. Both paths require write access to the firmware
+search path and CONFIG_CFG80211_REQUIRE_SIGNED_REGDB=n.
+
+Bound the whole declared rule, not just its length field. The existing
+check on sizeof(rule->len) is still needed, since rule->len has to be
+shown to be inside the file before it can be read, so the new test goes
+after it. A rule reaching past the end of the file is now rejected,
+which fails the database rather than reading out of bounds. That also
+gives regdb_query_country() the bound it already assumes.
+
+Fixes: 230ebaa189af ("cfg80211: read wmm rules from regulatory database")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zijing Yin <yzjaurora@gmail.com>
+---
+ net/wireless/reg.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/wireless/reg.c b/net/wireless/reg.c
+index 11665e0a7efc..44226687349e 100644
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -679,6 +679,9 @@ static bool valid_rule(const u8 *data, unsigned int size, u16 rule_ptr)
+ 	/* mandatory fields */
+ 	if (rule->len < offsetofend(struct fwdb_rule, max_bw))
+ 		return false;
++	/* the rule must lie entirely within the database */
++	if ((u8 *)rule + rule->len > data + size)
++		return false;
+ 	if (rule->len >= offsetofend(struct fwdb_rule, wmm_ptr)) {
+ 		u32 wmm_ptr = be16_to_cpu(rule->wmm_ptr) << 2;
+ 		struct fwdb_wmm_rule *wmm;
+-- 
+2.43.0
+
