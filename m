@@ -1,198 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71E749C4C7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:13:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE2515894
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069997; cv=none; b=jHvQeNcPn2oIPEnbkqOEgcrgPGP2jSRBBC0tldYmPfX0CxzzvDp8E15kHb7ws60M+coXxohIYEABEdzVpvJbfABvKqhNvHki/OzZI++QMS79FXiL1LBN00k9aX8N9m20uWoX1l/+PH4ZmiszEiFj+PMyekSPSHwkUNZ+jJ++2f4=
+	t=1792070019; cv=none; b=RAGe8RG/1evSSTAz7yMDgBIszi9OWuEvqt4l1PQd2fAVZmcbEwmm7ww36g9XTZ4uMvmO6lNXsZKZo0DvljRIaoY7GrRYLAQvnDzvQtVJK/IjkywvfQBFjit3BPMi6h+22+BlxNeZvMy48MNpE4iwjUI4ruAz9iS5YMHylK7mQ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069997; c=relaxed/simple;
-	bh=qhwosOUFEn40xQ8xFJW/TeqPHN2EC2c9BkQeLwTb0ac=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fVvyvqVqJalVFS4tVVwf6McomT61CQ2Nx9wsBgLKEXqb1KTmiourcJ30PloM+jOwZyh/SdI/9YsVbZEt0+fLTP9wPRLjEKa4D/KQk8micEZBesqHyxRtEwq3aBUtm4zwcIREdjrifCfQ6Nmg+dv0aWDXXOlDSkYmUbAqi1gybmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nrbgjqHy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eZNZr7dO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792070019; c=relaxed/simple;
+	bh=ucFZ8Mq7ewmyXcDTFKP7UULK5m7ZGXARwwBrJyVQ/qA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NJ7Rk9818sf62yAMbsHu8FX6WzGRHXuEuT9aUTxE1HE5DEwSVD5ULOs0pCseey+TryBfd8JVVXZhXupoNXJdOhz+OxW+/V9w0B7Qqm+9z7MY8ZeQ0x9J/y379sVpzZAwLPBA1NT30yoQEYo1ccwA8tJPwHwTFnVV+55TRgEJzsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dFozGoY5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nrbgjqHy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZNZr7dO"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jkUd3510586
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:13:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	T4QVkck8E27F/8+DyCCyWCYYz70WAZti6OBC0YA7Lo0=; b=nrbgjqHy43VPixes
-	GMy+iRjepgiRo8XgnGN5CqmL+kk3Xhq501X/tx1YTUhmuyWQtxOhxRnbKveBM8vk
-	Qrypbr3eC7ILnQFKoexVYXVEFjyaQLOqFOD5QjVpqYLB3efdmnyrNOWOD1x5CG7n
-	BkGV1G1kPvytGjmSFyD4q9UCA5duKoioRjUJY/qfljoOLkSL1ScCUAPLOngqKIzG
-	IqzR32sQDvxrUbGKWzpN+u2wBD5gU6+FbXt0UUZSZLxdHcOWUCFZ6/i0bXuiOGFm
-	IXuLo0ekpbxtsUDFbHjHfy/CwGpL5YAy0fFtR4S9XqVXpYrEPYGZ/QzPG31w4W4u
-	zA9YuA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqdsa61q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:13:14 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93e46c120dfso191692185a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:13:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792069994; x=1792674794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T4QVkck8E27F/8+DyCCyWCYYz70WAZti6OBC0YA7Lo0=;
-        b=eZNZr7dOYQ2GDTlAQ20g1AXXoQ3k2bwQbplYz2L6/qls7aPY+Kh5sFzHW/CNiMGJ9K
-         uLV9VCjJ/yBG/uQr87DofVh7nI/vximi/XLnRXyTC96LhxTz82sTkMBRq2s6DSxir1YH
-         P3IW2cU6lh3TUSwUcdz/JagHZ5UMMwx0k6Pv19syoIijcyQq8eMmG6/xumIAQuP0dZ2z
-         34jknSfHleul5M0CK35hn4eqShx3mxofAJmsOWcx9W2YWsF2tLW5hWhf7gJa3ZyeEBBE
-         3MTOGU2i3ng0pTXf7nTuZPrkZgRsq79RtmNXJpZIqJ5JHUzsmsixYwHyfT27jcsosS4g
-         pXuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069994; x=1792674794;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T4QVkck8E27F/8+DyCCyWCYYz70WAZti6OBC0YA7Lo0=;
-        b=hIfWCvjBTM7FER1yRoN8TmMZfYztNKSl2+pN8hkaNt9A2Cw3W/M5hOf8s2unt4yGIM
-         zTTrPpY55rdUFOvEs3DbwX6bw0JWwfLDqut2kbpU/O4oRP7x2+QWizXSzwxTseh2Gs1T
-         1gQg2DwAnWmWUGUfFtFZBj+rSD9WU9gaMA9wIJIfHDUZoFxz6VW2uJ/PG3DHOvlo0EO8
-         D5Pyxbhgurw4Ol3QDYKJT5f355oF2lIC3/rErSChyhxQAsugp/nH2397UiKSeqbPHmRz
-         92N/kmUjpqbFSxDu+Yke9IisM2sQ3L+R9RS+2BPiQkEL+g6TdvVh8FuT3PZIs6vcOS6/
-         Qb9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzONVBwuRXkU32+LR8CMarcO48RhmvF8JtGDSYFpxi01a9r4+D8kHCY+N4FeCoU6NvrCx0Nwb8lNReoLCk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6GdexYLFV0wZfI4BPDKTJobWzqO5vu45GSAVZIwdTNnooBEDZ
-	tnbp2U74GE2/Cy2TMeoI9FqoSIlvNt15vYrVzRvx/el3pQuRUqLj5UkBPo7z9Q8xL9/PM0tCC2j
-	qYjJWk0x645dHVJTvG3i2sot0qTAr8A5HoD6J5BG1dxfYBH1tpUhsvtqnwgu4oX0IMcU=
-X-Gm-Gg: AYBFou3EotCOtPDjmL/5PKRSa+Yrvj3rWpGM5/5ON3L+MkfsIQdFKX/x3/YNRbgLQWb
-	XGmzPh+2T1v1QXxRS5Y2tTrn6RtLuhtF1Z/97jhFHXTK4lNnFbhwoNAdq3UV2erorUUBMX1yoFl
-	0S5jFrwkujdZ/gN5tyaguHLPiYIG/xb469ED8ZSuu0K+bjlwIO35jXspByWZP5nJZ5/bG+ZwRWG
-	vKlBJugrSz6a7NbyT+PJ5n5aFHJ88KBmlw5Gl8hVgwRCSf8bOIZKENR0f9Lb3usWvc4kotfQ+Fv
-	eAazSzCqg8+ams7dbbu14CUQEBvdmrareBeku92Gnf2RioOynPmNYgQXCVJWUygNXNE4kV87YQA
-	0w1fDaGsJBiLtY5E3DjsGXQfz2v3kF67Be3rWWSoTw0YMawKm1wE/Qmfi52kV12YSuC83aHgzRM
-	Q65rDKxSYHs2zj9tqJ/ZtFftlmL9yRpz2rrRlNDIHsEf+OGfOZaqEedlLN6OhUpbTLuA==
-X-Received: by 2002:a05:620a:4515:b0:93c:aa75:71e with SMTP id af79cd13be357-93ebd27cc81mr3034315985a.55.1792069993781;
-        Thu, 15 Oct 2026 06:13:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:4515:b0:93c:aa75:71e with SMTP id af79cd13be357-93ebd27cc81mr3034309285a.55.1792069993247;
-        Thu, 15 Oct 2026 06:13:13 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b20388cfe6sm2456350a12.28.2026.10.15.06.13.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:13:12 -0700 (PDT)
-Message-ID: <7ecfd94c-7083-4d76-a5f7-490ba1e650d7@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 15:13:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dFozGoY5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780801F000C9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792070017;
+	bh=GnEkXDjMJm1exlC5tTiLHa25Mrd5Uvr2qX3xMMnipRs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dFozGoY5ns8VBK7wD15lqifaPgZ5oRl7bS5qGyXzFGtf5JYcKUo6Ckh7lOZqaxhYR
+	 DLj85OQ8ASr5MYvmCcys2yYLuwqteJELC5+5SapxUbX2EF0Aj29yUJ1ershJvccHnE
+	 /ikMhITy18YX96OzVX0ctoBTREeIA/+3VP5iRNivJmPFWMuMNUB6uc31iZDqmJrZFr
+	 2VlFH7SPEOnWnKG67yaPjJ9U6R41FT39i2Q4+fcE+cVdSj7ykYBqN2QcjOres0wxs+
+	 +0lILV9W7gl6pS29jIS8ocoN6fi45+sp/j1KY4/Q6TVxAZqBa08jQR6wmutci5dyVD
+	 1AkNb9jUGmzbA==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c34bff61551so722069066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:13:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzGlwR+pq5l4Le1hZU64Qm9YIt7Pc5RjEGHiC8HRqjNdJIZ0w8ZYjQdBTV5+nVs9kTsPwTjWgPsp1xoMWQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLP6DTF+3risyUn+f07c824CqGvIFHLLtxtjvKH/0be9fihogHc
+	3AEak3Y8lMyuFHyZMDfpC7u6vamSdTa49G5FW3NET7iBhlj3G5KYLG8VNAax+scCKp1tx6Go+3F
+	uZoog9Oarcvv8gaWDclG2J80sk1k6QHQ=
+X-Received: by 2002:a17:906:dc8c:b0:c2d:ba08:9092 with SMTP id
+ a640c23a62f3a-c31a9fe730dmr1694771866b.16.1792070016069; Thu, 15 Oct 2026
+ 06:13:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] ACPI: Serialize battery methods and INT3403 _TMP
-To: Rong Zhang <i@rong.moe>,
-        =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?=
- <aliamemis@disroot.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Armin Wolf <W_Armin@gmx.de>, Charis Stratakis <c.stratakis@proton.me>,
-        linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-        acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261014132703.93355-1-aliamemis@disroot.org>
- <58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe>
-Content-Language: en-US, nl
-In-Reply-To: <58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 52o3fteuB_AG6EDFK_U1agWBD3M9HbB-
-X-Authority-Analysis: v=2.4 cv=fNusTpae c=1 sm=1 tr=0 ts=6ad0d16a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=Qb4wfcSRRCwKSm2dVBkA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MiBTYWx0ZWRfXwoQiLUCy+W46
- ryJox8CYkwIb6emSClNTOkyWAN8eyfVV7Ufhj9/BDsxzz0JgJkIGXq1i+RUWorgdaMP8i7BxY8x
- Pr2bio5fDK32iX1aXEgmBO5mIMglMrV2P4S57tAi+u8Y/wGxW9kY6BLYyMXqGHmrpzQBeANxctL
- 0Zphmsxop8ozuBi2Wlj/ZlJ3HboenPx8zBXB5XlERPIURiKCrgakT41L/ZjnbQ0O8ql4kHqEOo2
- gG09zBBhsakTm2OCLuTWRG0wjpUBwsH4N0oMOsHWVckmk+bARZvWDGKRVfVzDWATLffO6aFwWvC
- OcjJ2AzBe3tfi5tDBJxq3SWf2pkSD/OQ+44fzoJ6srV4cd2TdnrntblgD+5YspQtxSMQ7DOCDgv
- t2Pvxv0CgYxaeAK+y/c4r1auQRZrVE8ozT0nKRFc2XwIfUJHu5HriHGy6ojTWcpq30E+c7M5MzL
- K8nIAS+6hverbU1rs6Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MiBTYWx0ZWRfX6rs4wPUf0Puh
- C/nSqtSvZWNuy7KgQur1zqydrIn8/irnZNJhu08XL/uj50TNgKWyeKbFxjy/s0sZ3QRqbWqhydd
- 7djI2tUpTa8UZBZN6AM5PwRZuwzP95E=
-X-Proofpoint-GUID: 52o3fteuB_AG6EDFK_U1agWBD3M9HbB-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0
- spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150052
+References: <20261013015652.19724-1-zenghongling@kylinos.cn>
+In-Reply-To: <20261013015652.19724-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 15 Oct 2026 22:13:23 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_O0Xf3pUcPdwKVVMf_jn0WD-J4i0xmQ3v6a=y1kOmoRA@mail.gmail.com>
+X-Gm-Features: AclHuK_62zyJ9s2LrW-rF8gXePKSnnjHw0Oo6L11_y8j6ZkpLN8J9SMhVA2HM00
+Message-ID: <CAKYAXd_O0Xf3pUcPdwKVVMf_jn0WD-J4i0xmQ3v6a=y1kOmoRA@mail.gmail.com>
+Subject: Re: [PATCH v5] ntfs: roll back the ACL xattr commit when the WSL mode
+ update fails
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On 15-Oct-26 13:45, Rong Zhang wrote:
-> Hi Ali,
-> 
-> Thanks for working on this!
-> 
-> The series is generally in a good shape. I just have a few minor
-> comments.
-> 
-> On Wed, 2026-10-14 at 16:26 +0300, Ali Ahmet Memiş wrote:
->> As discussed in [1], add exclusive variants of acpi_evaluate_object()
->> and acpi_evaluate_integer() and use them for the battery methods and
->> INT3403 _TMP, which interleave badly on ThinkPad P1 Gen2 and P53.
->>
->> UCSI (bko221065) is not converted.  
->>
-> 
-> Please leave a link to the bko bug, so that readers don't need to
-> assemble the link themselves.
-> 
->> There the contention is on a
-> 
-> After carefully auditing the ASL code again, I've just found the root
-> cause of the mutex acquisition timeout.
-> 
-> It's hard to notice, but \_SB.PCI0.LPC0.EC0.RDER being declared as
-> "Serialized" causes an ABBA deadlock:
-> 
-> Thread 1 (battery)                         Thread 2 (ideapad-laptop)
-> -----------------------------------------  ---------------------------------------
-> serialize \_SB.BAT0._BIX                   serialize \_SB.PCI0.LPC0.EC0.VPC0.GBMD
-> evaluate \_SB.BAT0._BIX                    evaluate \_SB.PCI0.LPC0.EC0.VPC0.GBMD
->   acquire ECMT [A]
->   serialize \_SB.PCI0.LPC0.EC0.RDIF          serialize \_SB.PCI0.LPC0.EC0.RDER [B]
->   evaluate \_SB.PCI0.LPC0.EC0.RDIF           evaluate \_SB.PCI0.LPC0.EC0.RDER
->     serialize \_SB.PCI0.LPC0.EC0.RDER [B]      acquire ECMT [A]
-> 
-> That's why merging battery notifications significantly reduced the
-> frequency of mutex acquisition timeout.
-> 
->> firmware AML mutex that _Qxx EC queries also take, which a wrapper
->> around acpi_evaluate_object() cannot cover, and Rong's notification
->> merging in 7.3 already reduces it on the battery side.
-> 
-> Lock contention is not the root cause, and EC queries and UCSI _DSM are
-> just innocent victims of the ABBA deadlock.
-
-Hmm, ok so since \_SB.BAT0._BIX takes ECMT itself instead of relying
-on \_SB.PCI0.LPC0.EC0.RDER taking it (1), this means that not just
-the ideapad-laptop GBMD method call but anything calling
-\_SB.PCI0.LPC0.EC0.RDER may cause this abba dead-lock, right?
-Are we sure nothing else is calling  \_SB.PCI0.LPC0.EC0.RDER ?
-
-Regards,
-
-Hans
-
-
-1) I guess ACPI mutexes may be taken nested from the same thread
-
-
-
+On Tue, Oct 13, 2026 at 10:57=E2=80=AFAM Hongling Zeng <zenghongling@kylino=
+s.cn> wrote:
+>
+> ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
+> mode EA, and removes it again when the rewrite fails.  That only
+> undoes a set that created the xattr: when the update replaced or
+> removed an existing one, the old ACL is discarded along with the
+> failed update.  No error is recorded when the undo fails, so the
+> new, typically more permissive, ACL is left on disk while i_mode,
+> the mode EA and the cached ACL keep the old values.  After a
+> remount, a chmod 0640 -> 0777 that reported failure leaves the file
+> accessible to the relaxed ACL while stat() still reports 0640.
+>
+> Save the previous xattr before committing the update, and restore it
+> when the mode EA rewrite fails.  A removed xattr is created again,
+> since XATTR_REPLACE fails with -ENODATA once the removal dropped the
+> entry.  Remove the new xattr only when there was no previous one, and
+> skip the undo when the commit changed nothing.  A failed rollback is
+> recorded: NVolSetErrors(), which the next persistence point persists
+> as VOLUME_IS_DIRTY, and a log message the errors=3D policy acts on.
+> The flag cannot be written to disk here directly: the target inode's
+> mrec_lock is held and the $Volume mrec_lock cannot be nested under
+> it.
+>
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
