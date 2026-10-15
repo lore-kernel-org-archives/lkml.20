@@ -1,182 +1,203 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C526C4D6C2C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792084315; cv=fail; b=T4iOhMOdxFhBqDQqPshy6pLL0ZpAiXhW0tA4yJwt8lpmDSOjCMl+LxIrDXOJvT4pd3xNknwnK1Jmoux+L4E4NVCg4Nv9OLWHF7hmEAAnJ2gRofvUTbqJaJJHHfSGNPL5Z5TXmM1V/QeNrwQIxhcR4IpV4CMugurdcNeAKxovzHs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792084315; c=relaxed/simple;
-	bh=uqE4BPNZOxv4XcCIZbigBF0/gaIQg20z641CfXNaP0Y=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fjydybPG5Xd5nfWJg3ZgDYLhvsVzs8BFHJ7B+5VaajyaS4TC7Ff9UcBSoLxigkAKtMHybl/bDSdZ7fTCtHqyCUAUu0lbL9nm3HnHWBxSIvSzBhAY4uuN0pWHUQqT4sQF3goZkbXeCVmxLe+uJidYMSe+tSqxnkybgHF1vXBHZZs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fn20cQ+c; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380333A5E87
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792084320; cv=none; b=sZxOFbDGSCBU81Q+DA9uJPQ8IbRKrKOoFkOxiGmftj+LsRKUjPTkIhonBKBofPhGXNe2gsvlpZsYe3EUagiiGr5TGc06jwIOpIQaZU/3P4i3mL5/jy/p12iTIiec5zsJ1rObNyMYPccAxs3a9U0si5tmx5WxNri5lQO9Bg7oyS8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792084320; c=relaxed/simple;
+	bh=z0YZjBNUkiK9lE0CsAaTVDevg//c7p0btTBrRMwR2dU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=qkiWwb2CW++XEuKT3Hxn+UMfFCnfkIPI/7uM48zEWdOgdNN4eDgnUS8hVZcHFGTkWlOOeDbM4/sjfibnELEIl/cVPIJhZ47/kL3HyQfHqQ9Sa4WezwXiLyFnS9xWVjLqp7+j/xsvwk57r7nyMXqizp+AlVQfZd5IZjmLO55ASf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHSXZPQg; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fn20cQ+c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792084302; x=1823620302;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=uqE4BPNZOxv4XcCIZbigBF0/gaIQg20z641CfXNaP0Y=;
-  b=fn20cQ+cC0Ge6rbGEIMGmH91US8ka81I1InFTPU5LDoJnsLC2EMprdJI
-   9LZ1EpJidkOEPDYV1m0RDjbtVnMT835AJcol3ZXe6nuX4nsnyjooz7quo
-   qi86I8kh6xcx6SdBFU+ilcfML2tdhr9NmaQ9WWZ2/gx5ilM/YwoSYT3ZI
-   T2AQt92nWtlI/uzteM2jrDyKaw5uI6VXCTiHey4+ervQfVU36pa+vndcJ
-   DbKPS9rafum1qATecnmR6BHDtyvl7sDE1Wn9aXdCPvZpfpK4enZfqGOrE
-   0MkbTSJZ5Ex5Fvv/uEwkLqKS10n0kks/oSpbTaHSYcAfZyPXblW8buU5h
-   g==;
-X-CSE-ConnectionGUID: b3nnchsZTDiieE77kwnFdw==
-X-CSE-MsgGUID: FEURkf4YRxKGHtBV/BDgLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="759753"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="759753"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 10:11:41 -0700
-X-CSE-ConnectionGUID: LSuz4qTdRRqGULDY3I9UNw==
-X-CSE-MsgGUID: 2i/ZQWW8R9+hvf7BM/KvKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1702467"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 10:11:42 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 10:11:40 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 10:11:40 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.4) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 10:11:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bO/HR4GgoNiwcqQyWKxaAGShc5edp1GIEJizForgAUl5XNm6XhyIgcHBOlJVmgnTfMthEYVsUc2jQoUWVtTGKs48vK22JymHtl8CyMQgK2jYBN30i5BymcpCFD8t90lgqZtS8iFW+nbdeu+596yrs4zWLbiEsVMgte3Nb4NFI9KWoM3dDgxfzCzH5hI/TZkyMgeXFw8lvcj6dFZ1MrQaHb9pfLSQJWdFO1Kp1AZNTNJ3Dtdsp2jWCNkDVaV2Dnjs7zkLun1MHiuHVgPiFxUzDPRvOFlkjQRjA06OsKP1DJXSIMLkC7Iwn7Rldc20y7XIIocKILzCbGYNysZjAffdtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XJVQiHVjAWgHObVhl0pSAIPSPTT5f57NnuYKQ7QXHaI=;
- b=GmQRwWCB7AHqlIto0Abupc4D97iCJyCHjEUZLxIcn5r8ksrxZys7XOVS7T1y6mogzBRacH+r3KPCYhYIya+XiGp/T8ug3alK1pBXsja7soJG9RbmIThgWFjwxC3wZXyJySNpnJA15wH9CwNAA8FubOvPIP1iNo14tf468eCBh3O8U5tu3LMIgnDACbsFNQbQzs9YTzYATrPs8GBdy0Jf3FioSmjZ1JIW324M5Hr1I6d75Co60HRXwfPaiU3Ryn0VSAFTXES//ruuRsE1vUp3L/dk+VlqgAHh0onm+13gAnXBA/9Nb6YV1c/PoErP6pPPSCXWrCLvJ3ENnOXm9y/xDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by DS0PPF4C13E72FE.namprd11.prod.outlook.com (2603:10b6:f:fc02::507) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
- 2026 17:11:36 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 17:11:36 +0000
-Date: Thu, 15 Oct 2026 10:11:34 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: "Graf (AWS), Alexander" <graf@amazon.de>
-CC: Reinette Chatre <reinette.chatre@intel.com>, Dave Martin
-	<Dave.Martin@arm.com>, James Morse <james.morse@arm.com>, Babu Moger
-	<babu.moger@amd.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
-	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
-	<dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
-	"x86@kernel.org" <x86@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "nh-open-source@amazon.com"
-	<nh-open-source@amazon.com>, "Elshahed, Ibrahim" <lshahed@amazon.de>, "Wise,
- Jasper" <jaspwise@amazon.co.uk>
-Subject: Re: [PATCH] x86/resctrl: Require force for L3 CAT on early Skylake-X
-Message-ID: <atEJRr6iJhZv9lvU@agluck-desk3>
-References: <20261014083637.65430-1-graf@amazon.com>
- <4bc68d06-a45f-45cc-80a4-f72806d5c976@intel.com>
- <841a8030-f639-423e-9bd4-c4d4566450d2@amazon.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <841a8030-f639-423e-9bd4-c4d4566450d2@amazon.com>
-X-ClientProxiedBy: SJ0PR03CA0148.namprd03.prod.outlook.com
- (2603:10b6:a03:33c::33) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHSXZPQg"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1917236a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792084306; x=1792689106; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dbt7vqIJmAMRcAQT2HcbP9hEBB6OivbQ8YevrsbZx38=;
+        b=jHSXZPQglm21iaSCHLQeDZ1Nk7jvMlw7g1CAIUZBsPpompyDi1rfMn8PachJdT/muV
+         GmGMsMhhU2nUDMqt1aBst8Dr5hgzE2cwEZFEOjcmqnRWRLu3yZqzjNjpXvzoLbO9Lf+R
+         oiNOXtuVRhuMrc6jsT3OWjmhBaMW3yRsvlMDlPmUWvHZl+QiNJMvDqu6q9I7dQjEKHlP
+         7UtMGr8r/XS0JtvEzxwlONxTda+eVmNXUPv0yZT5gWlDoNOXnQh0aHFNep0yYnEny3aG
+         bnxaqC0pqAJYE8pHp0qFzbv8A+wtd2KCBCCUn8K4gtMI8ySJHduSX0xBaaXrcB7BMKWw
+         o/MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792084306; x=1792689106;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dbt7vqIJmAMRcAQT2HcbP9hEBB6OivbQ8YevrsbZx38=;
+        b=1RqMVh57ZDYfsTL+LpO04Sz84cEOOHB6d3ZzEusCkaVMy51YEN+hXTUU8Qd5Z9F1iv
+         XwyGefMkHOoBdhWW4BALX23nlC/JaJOXWCS99oebRaSKz8/E2Bl7DMwUy4H3/YwHfq+R
+         pp/594AoCC35rtbFliviWeixA9PClDAqdYLn472dgyoCLK4dMM6ZLbnbqR2sWfw4funh
+         7NVY6Ku4AXgPXbxvuxsuzIZDyu1xyl9GQnrT3GwLg2NqEjppZFN6/wbTRYxl/VCAvOyM
+         uXIC6FE+0BANJJuVayM5YV6xRs3bAgAB7dIXPX2Oqx8Ypk+6+FILsMo6Ag69tdX2rR8I
+         Aykg==
+X-Forwarded-Encrypted: i=1; AKwUvBxddH8dRsMa/I95eNEwuYXogUKMDXLddgPYCMaYqIImFHqkFh60jAKs6wDeebKKKVOGsD1JaJRLvyjWKqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZgLcAEwQb+GC9fQuDTKEELqbibWjcrl77zLBV0wJO5CKhMCKo
+	r8CdvogAZtHAMwWbyVwtrd1hhweIu9J9WBxNZb21aqxNC4WIQvamajdE
+X-Gm-Gg: AYBFou0mtR1nDYny8+yVbb2r4xk4L8sfbv36DryFBx1s3CU6WQPqR8cYPvbsJ6Yfks2
+	Dk987QCQH67I77uv+UqLUx6e5xpJmaJi2I3/sDn/RdgRzpIR5TF01XbGBCtCTbuirp1eP8iFRAt
+	11+3AT7eB8AegytsizacDA48VJaUxlR2H436OXBcfsogH4MylQyWGN1cOy2L08kUDkmsh75IjPp
+	dRSHTelx+guSfcbUqOMYJXOyrS+CNSFR4aRPU7X+7ilyyRz37weE87HbVTvEsvYqQd5lQkPNiaM
+	oCk4nQSs9/d9zpw7HZnquPV3DZpzmouiEs6RV2MBdUFCN9BfBlzx7jRTzvwRzKwTn1GDIsa5/a6
+	tDdn/duIYATBhdLJUCBGd/isirl/BuXPawX4E4qIA5YDV5DAxRoLQLB0C4nK7UB2+e2l3yQGwgZ
+	JQGNX3M7bkwLNO+uA9oVZq6OBSk0od369tCHZ/v2a6bSFLf1o5js1FlHK2njIzvfzu8w==
+X-Received: by 2002:a17:90b:4d0f:b0:3ac:97e3:73a3 with SMTP id 98e67ed59e1d1-3ac97e3ca4bmr2681282a91.6.1792084305933;
+        Thu, 15 Oct 2026 10:11:45 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1e1esm158403a91.1.2026.10.15.10.11.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:11:45 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	cezary.rojewski@intel.com,
+	kees+treewide@kernel.org,
+	error27@gmail.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: mixer: oss: Serialize initial slot construction
+Date: Fri, 16 Oct 2026 01:11:38 +0800
+Message-Id: <pm-pmb-99c1214968ae9fa4d744-v2-df0befb9a699eb50dcec@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|DS0PPF4C13E72FE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48a00f76-b50d-4c2c-69df-08df2adf5eab
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 7USnArrNuP+BXYMioJJleBgeb8qb9+YG3qAId+swbOWkyLBSx7jcqqfMj8IDggmTQxXF7NcRquHW1dCRhi1hUdescu/tn194Y5d4vE12SgClVsR1BXXI60t6ROkr6f4s7LHYSb75CD8tfwBrdl6KweBOyqImjvhU9zWHlvnb84Wv9dF+l11Kls3k+vV77GNwoujfDKh2ErzhB6WOlGrkkdbslzi3Csr5i3CcgzXcA/YwypEiXUUnBGOSZ2sUEKFGrC7k+eip/0DZiYlB1s9Rpy9m9GuMbxtfUhVZQheq1OFViUpG90r7iUhFLF9ZZEKNUGS46IsPfs5Awf6O8oMnHjmZGq9d3nESkvxKbETuqZ0JZOwBVpjDn7td6UDCcLCEmkcSd7CwQoE22K0a9eoKAxVhWMYh+bNejxErg1G0pSBfJ6d307BJfOYeJyOjX2DK0iMaqrMjqTb5yDVS5I27R1XT/+avNfwwwqxof/gjWHdyGlzqsbOt86XAVwa070YvQCdLxl7l89GvRmOYAdiBmy9lc03gqxUIt4JoFv6460kLHX+TxQCgkDLTkctHZ5uQFkwig1UvNIxaE1sL7AUTt8P18aFIplOYwpzW9uCpCyVoDBjjLsBeYCkvk2mMFOPoEo9xrxZ59kefu59mi8LPltuuHlr5e+mY06nC1kGkI2k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VoIHje9+REPyK7n8AORHZdfDiNUGVsEsE8ebkBX+BkRjmzUEfUqYEwmnBZF8?=
- =?us-ascii?Q?HxcEeveZG/DkRRG08XSxyNwVGErp0CgmmU1SMx3bIkzAng2CcQ4+JguMK1w2?=
- =?us-ascii?Q?CMzxhvJAZTsuZEryhJpoXR/NaFONWs4e5N9MaMtmXCre88hEBf+lj1m1UPiF?=
- =?us-ascii?Q?im0MzGlIgVvUl+rweSnwuZ0UJACV3HUz+TOR4kuXyqcd9vSqVKVM5rLJ+2P7?=
- =?us-ascii?Q?V6AKyD26c4J8PvIP03GeZyi18XEwcU84lba98NvLTwSKRXZENYmsNiaMm21L?=
- =?us-ascii?Q?giqHe7On4zEdkyiFCLA32YVV0v109bqhR8R3OaW+L5XGL8eSORV3TeT/B4fk?=
- =?us-ascii?Q?xwEYCXoZMvaSbaE7w7HQLAX8iexlFECg5CdzLp2Hr7aYbksLPR0TncaLac8+?=
- =?us-ascii?Q?Kpev6QN1uMA86uZRc/0WU7h1Ca8sw6IzPirBW2RAVn0EsSNZ3CFgH2R3Z9xP?=
- =?us-ascii?Q?8iBvE4N08OJ9G+YmOXCATGnqmbL/7eK4N5ZBamt9G8Jb+3Z1hHj+ViNEgM32?=
- =?us-ascii?Q?7by5SMt0x0Opum6V/OAIMzRaHb+8q7FjAjJHPowcZZ83MTwzPTi2VqGCZCf6?=
- =?us-ascii?Q?PHa2t8oovWYh13Ht0CkoCwHQbjKO2+0hR+XaosBF+ZTKygEF4lVbk/By+v6e?=
- =?us-ascii?Q?VGsw2SmdaTE2V5cLf09LlD6rKHe/9YhgS4jAXwkZAYXHlvGVcuLyM/nqss+v?=
- =?us-ascii?Q?QEFH3VaTDLBbzRM2uppn93IgypGjEQRWsPG0dJp4a24clm6mP4uYqGd5dvnm?=
- =?us-ascii?Q?2ywtGq8bvrBshStwngK+LY1+06OmffbQDBMfFjEmFPEuJOBSFZAP6nZ2iy/E?=
- =?us-ascii?Q?siA6YyCnPd6JuHOBooKFzwYnctHuzzK2/dh36TswAM+mDstuMMDtQxOjMant?=
- =?us-ascii?Q?LjTdblMsqj8QopCUrFQ529Shh4t81w8xa0c9qKNtwEvGpyDgbq/CUg9cEO33?=
- =?us-ascii?Q?in6lldquwjIwfr/7gv/xSsWDJN2jHv5kCWjPTf9mlXgvzwY32QWhYFcfjGow?=
- =?us-ascii?Q?Lc5YSDzhfN8NWQWIfW7L7//MMRShPDnGPra8yrEJYGX9ekATopR3Q/JRxpmc?=
- =?us-ascii?Q?Qe8c535ux1s5M1t5/cFICFxGNO4IerftqaeeHVhP72HQLFaS0WpHMRSFuVUZ?=
- =?us-ascii?Q?0DGUtdYFXuK3ZuhiPrImAjy0aBuOSF+jZmbrH4v0Z+MthQ3CsQx0BvpSTOR+?=
- =?us-ascii?Q?MaLKtd+lsbzY+CjAjZfS7FZXSFzkP6064nN/K/rZu57P/5KFR+jCSv4jjUvy?=
- =?us-ascii?Q?cOJUOpnnDNunCK9en8zFDw8bPDFhhm3TTUbi7W3oREImFybSfDUxKq7VWkS7?=
- =?us-ascii?Q?KDDY3d8PMd2CCHonq0tBY5uDh7nxlamv2l7TihoBAkgxUB/FRJsrhodIZSRI?=
- =?us-ascii?Q?q2fuv+s4//v8dj8ZRuLiSCCvD6+XKVgGtb5own6gP11paKPLidofZNn6BLAd?=
- =?us-ascii?Q?1eGR9O8uek3vUK0wZ1Fj5outxXmWcN/uCo+o6oOdJ5W9H/tmbbeA9kAfq9+2?=
- =?us-ascii?Q?GGNXErJP/Xzio8qJDqlYBh5OH1W1SUuMUEfTiQHIZZ9Bd0PLgedh0mrElEGJ?=
- =?us-ascii?Q?+QkIsuiIOEAtvvq9iAllAKHn0H4wsgHNYokjwHfY1RV6BAoRIminRMX8n6yw?=
- =?us-ascii?Q?tvbmut5KznZ+JRP4pNnH+qp6XU3J3082WYFdsJ6S6V+1ZgkgVUhWN/q5CWRc?=
- =?us-ascii?Q?3vIR5ShCetlf79zjovjRUm7B7z359vx9Ta7sfYOhmdmjRHs20D3GSXdEAcg3?=
- =?us-ascii?Q?40TBwtVuwQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: V1De01Q50q+9LpGInuYmw5kNOrX54B1IGp03arw8EudKEmLBMM5bj5UoHejMksj4p94V4xvQE3Mb60hGYnyIL7ZKYz+Hw27AeWk7S8+S4qCn7r0ReVVWQ6zzRU9qnvxDUF2QMeGb8HWONn04QwKLO+9SJB10L+h2ZklLLY++ItBSCL13mBvrNM3ZPTpdo1BEzH13WxmRYKow1KU5bdj3bx1ah8xpg9zQEQaPQcykCcPuVE90AEiLo8QdLw/o4iR5pOqcNMSu3QQa3hh4Pdscj8l1QYqFVarH9gcIhD/TaD8u5gF1BsFYs6pa83cGS78FtoTvQTwjVjO39LplPSAclQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48a00f76-b50d-4c2c-69df-08df2adf5eab
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:11:36.5493
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fy3Y+F4dYgVSn3Fv8I9WIldyBpMbqk2a9v96teinHO76+fFcIFNY3kYg9Z5tKAHimUeZfdlMf3NQU0RFmVjeww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PPF4C13E72FE
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 04:58:46PM +0000, Graf (AWS), Alexander wrote:
-> I ran a few more experiments. This seems un- or if anything only mildly 
-> related to kexec. The real culprit is the microcode version. In my 
-> environment, we boot with older microcode (0x1000159), then hot load the 
-> latest microcode (0x1000191) and then kexec. In that flow, any write to 
-> IA32_L3_QOS_MASK_n stalls the socket that write happens on. I'm 
-> collecting a bit more data - including microcode version bisects, early 
-> load, etc - and give you a full rundown tomorrow or on Monday, depending 
-> on how quickly it finishes.
+OSS mixer slot callbacks require an initialized private_data payload.
+However, snd_mixer_oss_notify_handler() publishes card->mixer_oss before
+snd_mixer_oss_build() constructs the default bindings, and
+snd_mixer_oss_build_input() stores get_volume before private_data.
 
-Alexander,
+With OSS mixer emulation enabled and a native control matching a default
+mapping, a volume read can arrive during initial binding construction.
+For example, the dummy card provides the Master Volume control before
+registration. The following ordering lets the read use the callback
+before its payload is attached:
 
-I don't think that an upstream generic kernel solution is the right
-path for your very system-specific issue.
+    Card registration                    OSS volume read
+    -----------------                    ---------------
+    register the OSS mixer device
+    publish card->mixer_oss
+    store slot->get_volume
+                                         open the mixer device
+                                         lock reg_mutex
+                                         invoke slot->get_volume
+                                         load NULL private_data
+                                         read slot->present
+    store slot->private_data
 
-Can't you fix your deployment scripts to look at system stepping and
-use that to choose the kernel boot options? I presume that you already
-have checks for CPU model number since there are lots of different
-options appropriate on a per-model basis. So adding a stepping check
-may be easier than battling upstream Linux submission process.
+The read holds reg_mutex, but the initial builder does not acquire it.
+The controls_rwsem read lock protects native controls and does not
+serialize the builder with another reader. As a result,
+snd_mixer_oss_get_volume1() can dereference a NULL payload and Oops.
 
--Tony
+Hold the existing reg_mutex throughout snd_mixer_oss_build(), as proc
+remapping already does for snd_mixer_oss_build_input(). A request can no
+longer invoke a callback between its installation and the payload store.
+This keeps the existing reg_mutex-before-controls_rwsem lock order.
+
+KASAN report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+    CPU: 1 UID: 0 PID: 431 Comm: alsa-oss-trigge Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:snd_mixer_oss_get_volume1+0xd1/0x610 [snd_mixer_oss]
+    Code: 00 c7 03 64 00 00 00 e9 b8 01 00 00 e8 e8 82 44 c1 49 8d 75 04 48 b8 00 00 00 00 00 fc ff df 48 89 f2 48 89 34 24 48 c1 ea 03 <0f> b6 14 02 48 89 f0 83 e0 07 83 c0 03 38 d0 7c 08 84 d2 0f 85 3f
+    RSP: 0018:ffff888104c67cc8 EFLAGS: 00010257
+    RAX: dffffc0000000000 RBX: ffff888104c67d80 RCX: ffffffffc0406cb8
+    RDX: 0000000000000000 RSI: 0000000000000004 RDI: ffffffff862d93a4
+    RBP: ffff888104c67d90 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff89406e57 R11: ffff888104c9d700 R12: ffff888113c48038
+    R13: 0000000000000000 R14: ffff888113c48000 R15: ffff888104646820
+    FS:  00007f7904d29780(0000) GS:ffff8881fd81d000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007f7904e388e0 CR3: 000000010662c002 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     snd_mixer_oss_ioctl1+0x25d/0x16f0 [snd_mixer_oss]
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_snd_mixer_oss_get_volume1+0x10/0x10 [snd_mixer_oss]
+     ? __pfx_snd_mixer_oss_ioctl1+0x10/0x10 [snd_mixer_oss]
+     ? lock_release+0xc8/0x280
+     ? pmbd_site_is_armed+0xa1/0xd0
+     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? _raw_spin_unlock_irqrestore+0x44/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_gate_site_armed+0x31/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xee/0x1c0
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? selinux_file_ioctl+0xaa/0x280
+     snd_mixer_oss_ioctl+0x4a/0x80 [snd_mixer_oss]
+     ? __pfx_snd_mixer_oss_ioctl+0x10/0x10 [snd_mixer_oss]
+     __x64_sys_ioctl+0x163/0x1d0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f7904e3891b
+    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+    RSP: 002b:00007ffc72071e20 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+    RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f7904e3891b
+    RDX: 00007ffc72071e84 RSI: 0000000080044d00 RDI: 0000000000000003
+    RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffc72072e12
+    R13: 00007ffc72072060 R14: 00007f7904f67000 R15: 000055cd1e601d50
+     </TASK>
+    Modules linked in: snd_dummy(O) snd_mixer_oss(O)
+    ---[ end trace 0000000000000000 ]---
+    RIP: 0010:snd_mixer_oss_get_volume1+0xd1/0x610 [snd_mixer_oss]
+    Code: 00 c7 03 64 00 00 00 e9 b8 01 00 00 e8 e8 82 44 c1 49 8d 75 04 48 b8 00 00 00 00 00 fc ff df 48 89 f2 48 89 34 24 48 c1 ea 03 <0f> b6 14 02 48 89 f0 83 e0 07 83 c0 03 38 d0 7c 08 84 d2 0f 85 3f
+    RSP: 0018:ffff888104c67cc8 EFLAGS: 00010257
+    RAX: dffffc0000000000 RBX: ffff888104c67d80 RCX: ffffffffc0406cb8
+    RDX: 0000000000000000 RSI: 0000000000000004 RDI: ffffffff862d93a4
+    RBP: ffff888104c67d90 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff89406e57 R11: ffff888104c9d700 R12: ffff888113c48038
+    R13: 0000000000000000 R14: ffff888113c48000 R15: ffff888104646820
+    FS:  00007f7904d29780(0000) GS:ffff8881fd81d000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007f7904e388e0 CR3: 000000010662c002 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Kernel panic - not syncing: Fatal exception
+    Kernel Offset: disabled
+    Rebooting in 1 seconds..
+
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+
+diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index c533d767c29ac0d2099936f0d4af71a12f082769..f1fa42e634fc145b734551c0957f9c2fa9745383 100644
+--- a/sound/core/oss/mixer_oss.c
++++ b/sound/core/oss/mixer_oss.c
+@@ -1272,6 +1272,7 @@ static void snd_mixer_oss_build(struct snd_mixer_oss *mixer)
+ 	};
+ 	unsigned int idx;
+ 	
++	guard(mutex)(&mixer->reg_mutex);
+ 	for (idx = 0; idx < ARRAY_SIZE(table); idx++)
+ 		snd_mixer_oss_build_input(mixer, &table[idx], 0, 0);
+ 	if (mixer->mask_recsrc) {
