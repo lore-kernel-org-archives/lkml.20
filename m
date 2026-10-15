@@ -1,126 +1,154 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1493F9294
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100694; cv=pass; b=a5qmyye+n6Gq3CfzGcyQ2IBMtdcLZKQFqZOhxyIxYwPkCF9IRoEqNrPhf/8vJ+i0ctY7PmfVmp+9Glvc5GBJ7PqB7m0inaiiOm3J1TMFRpCoB+69ld5l40/uVInnlBSCWDznhaf8LfOLOHsxXsJaE8qHakBMeTvIIFxRfu4q6NQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100694; c=relaxed/simple;
-	bh=VulLeIoBX7+WvSRBYrLJb/oaYRWw1efO4iiCwh0SFJQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A6c6BeV0AiHsfaVXYcCXkKj94GtKrGM4pQsGiVmj0VeNZToCLkK/T0IS+DaC6Ew7/OQU9jYWbl4EhxGdwhKfO9DJGeKVODLrbN+ZlGKEFFC+fg3pZNTyaP5ovq2sT6tL7cZPhwJeTnjThDFoMwl+dGzt9a1/AeX7W6wCdyoBpQ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jzXCWKWy; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4556D30EF6C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792100713; cv=none; b=HPFShIdcQpJAkDj1e3csLPsfN0Ire/aiURe2Lz6GO0RsZPWD4btO/zrlIZQDoD+e+E+2MSgPNXuuqVE6E4g4zh/oztkEvGgJFDiJtQinfOW8w4BXNAJWaJ3J03wPweWl3uqJb8IqAVrr9LWIRX+Ksy1Gft2uBI651QFLbfSOqSA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792100713; c=relaxed/simple;
+	bh=GPNQqOJAOgBKAauyZt2tdDWFLSk/zJ+iARLWqBubi6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sqI3qyGSTVo3gb0CmouTSZ+x0g8notlekK0+/t4MdGbN6kitNLiRoRIGXiU9zyHBbk5G2Ffi6FFNmvaPCC3ZMcDnoBMzNTkgLSgiKTVRMbyAIUMQxFExcsIF0HJQE9yR9taYqTIEGSlivIfQfYI6XxdhseXIi9dz/jbGoEzWgrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oBlUIjX8; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jzXCWKWy"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso4181a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:44:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792100691; cv=none;
-        d=google.com; s=arc-20260327;
-        b=djnjMF0dKfLMiSFK3Dd2shvwqwTXm/vCIEFeAMAGRg28J4ADUFDKz0geCMUMgCnf0Z
-         uTHR9fSMC1LZe73JW8we0GHJvg1Sqv+5MQ/GJidcVKCXro7J0zHzxJoCNWmUjnXL5Nkp
-         xtHmcQu1vXUD8h6+b8bRDEFiTia/haHRK+sN9RcSh2pe0/7iHStaPs+G86bDcyklJL8E
-         T7uqLp2keIDNhO7o1ZD01Ehkf/mp4+kKvLjb7196yloxz0jNwOTMl3YJrH44Z7YF+hAp
-         P6TmiGHv+gWNazcoOwueH5CR66HqqhCgHFGLvBib7WfnZVNqVezhYid7HksWgKY1fnKA
-         eyhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
-        fh=PKvZy5X7+iDwckiLoOymU6Xg2LZzDEtDlqV5s4DcPpM=;
-        b=Jp7pfJLueUFzyTSPbI28+0bcSmlLSHbeFWfMzprlWJzwE0DeeogMAVQu53HQSHVtRT
-         kSRecC+FevQzAKZK7sqPjfIXsDw1lZEtsMaoCaPcO8qWt4KwBvUZZJYzfsbZSCDg+o5y
-         aXoF/vZHOGTBqvvvbvbahxite1KYagpbkGFcxGVceNEEgu6CdF/E3LzkZCof1XqVWRFN
-         91bIB6Nsj3vFN4hs8RH2VhmXPaXLGu1/OHga55NOhqy8cwvfo6Nw2faStqLcbkzg/DJ8
-         uYgndlBURLeHJzVMMi4mwXp2Sunu1AolFBx6i0zt+KV/hcMZyDgrH0rOuIWo2xEzlEUw
-         l62Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oBlUIjX8"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1746530a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:45:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792100691; x=1792705491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792100712; x=1792705512; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
-        b=jzXCWKWyaDFlRuMMnhI3ZqqdAquVIdxYPkoqnQk869dEpzvCEZorU7aJoFtUZ5Rkmz
-         4MnHAoEc2CJpb8OT3tbpDndbqhq6FAHw9Meev3IMCJ3vTySTz9uDOX9QdyJHdymTrL3U
-         6PTtb09H4VYi5sJtx0ru8WnhyXxpESGdebxtOk93YVkrAMVG6/NqJqUQPOi7C3hgG0nr
-         jX5haikwzcrgoxE6B3WYnymKGx7Dt+7a6oRjRJ+36eTOBCmbZ4tYKpXU4Y0Jd+2ETsd0
-         DZkLYD+AktD8bHn48kwr8X8N+sXGcP39HTI+3D9BiDPT/10o5//oufK9fejj3kUs487s
-         Y/1Q==
+        bh=9Utj4RJBz9ZzU3Tg03m75VH5qFdGTJER42ZgUXj5+s8=;
+        b=oBlUIjX8H3L398YNTVFnWmj6VlVLiUIO2KPqjEG+Hk+0hL5At01p59XcFXwn2UrRS6
+         R2km8R5+QiphW4mpagyNunPEzS+jCMVjutxs6LL0c8d1fEvKSL2wVPueeBejArZHzjxM
+         eNjekzxVSW377t4jJhFU0tancVP7abd6IrBVjOe8CM5wTEp6s1WOX5t2xyh1nbeUwW3f
+         +iI80VEwLE2jbjI9NHITmArOqsZAmbA+JorYD9sPmp/vO9OjrsEUAPUyDLbLGyjbkFQp
+         KCX8N0URjeYkAZrG7ZVBvPEMH6ddB0zzLebV6AQuRxdke2l6/HnP7yfmaHCGePSNDkIy
+         snSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100691; x=1792705491;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792100712; x=1792705512;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
-        b=IQeJ1bH51o6Ox3Gboi0H40eQqpr2X3o2LQ0IJo51SBIM2XVZ3qEpCv0FRvfuPNxbtH
-         zt3YKiIz8zrTXTpTmcvoGiJfzjagT06EZsEBH19LRkMmUgKutQUZwmYej4KrB/tbp1hZ
-         cYJ74pG5fk4VVjZL8uFNk4/pyQAguoIPXOtGrfYw3b2XUADv9sKGzZ+zCXMgIfUPzjxf
-         n2BolGlYJzAKPWibrgb93mN9fcwmh9r/JxxUV5y+S6Gg6SWRn5yHliuuzKB5kqiMYImM
-         fdyhi5qD8tJ6QNBlifvk46liUw4Hv63ElrQTRFFoAd0ZRGw3Gq5XHUq6k5zk6aCWvf7Y
-         iVkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1D489DOIZJnqPjy533cJiCmUkiKXlAjUIsme0TXtAazaxgY2H013PVYLf12iS3UO5otKoeTa6qLFfx04=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrZWN7ioGCD+Cxf4mLUHJKCwAf5gf97iZdRKkNS+lRKmMVBT8V
-	SOpl7yU6WJxkkuq3BN2Gl9NkvEbBU/1uj2FPJsXpvxZTt2NoEQhhHocL7VbqgQx9T9nr65vtaic
-	RWw8K5KNbTuAFT/Mm4Segkz5SAeGVsrinVIGdoP2x
-X-Gm-Gg: AYBFou3Z8bEStNx4IAC4sqO9acnSo4EgJZq91Rmsh1ZcS8b5ZgEWlmNrYQ+sA86D2lH
-	VulDJDZzaxA1cdf0H62Wc5x0J9MwSFlM8BId2j+k12p8WLCqhOuWMySKSCWOLMkPEp8VvrCL3S+
-	nH+4dXkdgxOFVwpLbATG1V65MUjn9hD5Loc5I9DenIjGCP1uYwdTD58+2ncxtcBFulg83OVEPIT
-	jo2LBIWgPmhgjD3TJCuu5x25W9kSDes6vNZR0w9bY5xM8kCrI044GrBPz5WQwrlOGPvBq1tGKzm
-	bNID4mGFeZOdt+PYw97S29ZMP6k0AY5KxQ1Bsc6Rnm4As/+tITfloLU=
-X-Received: by 2002:a05:6402:512:b0:6b1:bc48:2238 with SMTP id
- 4fb4d7f45d1cf-6b3894961d1mr19975a12.11.1792100690504; Thu, 15 Oct 2026
- 14:44:50 -0700 (PDT)
+        bh=9Utj4RJBz9ZzU3Tg03m75VH5qFdGTJER42ZgUXj5+s8=;
+        b=BPXVFEHZVQLIAmmGJtwopp+U9os10fJKwBQLFpPULe5YnnAHpRsehqmHQzfkHq2psU
+         RSFfKwVLWXlNL/NposQ+3m6P17O1PW4cVgKG5dt0PtlDMtK5dbGArSVQaM5BlECRGX6Q
+         T3NM/XFgoI05VfQ1KnwXEPV60q/Qn3zRZeYyMVszGjWTG1QEE7H/RN3dLOU2lhB9MUtK
+         wrtaE1AK61zgqKt+4FWGpKLGjiHkacg2TDXTGHX6rvHKmkaW4ZQkRxG0ZYWB7emd0b4f
+         /qzXZKAgvmgaYCkLHJIwVi8ZsYKfH0m3CFiHXFHch6UgP9gBjdyrcw4VDMChEWaoiqJz
+         Z4Nw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjlkUFwn29fGAOgVsTvtZPPtL57nua8gKhb5AvywnkVjrVYXT6CsqTU45euiW3Pd7QH4Gd3dpsOXWr5JA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzoYl/Ye8oaAVjQ5xCyzcdPQefgGgmfGqvlxyCmGK+hGhLMBWh
+	JVnarizvaTxA72iLfXcRjZoncYMxL5bnIFi3YxBkkx+t5nGSfr4y39An
+X-Gm-Gg: AYBFou18Puj/YPKhC/CuUJv3VzYwY66ezdI+JIdzubphq2QEuGl4VjdiOOMDfmP2vIS
+	h6BRkoOID9idEUvJm+dooplQVvItiiE80zQH/BhmQl908+PgeAQGt+LEucRV+IhTi9FtxCZe3zv
+	t3bPO5Fa7zuP3WgVnt7PYPZD60Xo2OQQcmKiUxgAX8A2H1fRvRC4k2YbvcfBP6Ti5vTo+JBsyvv
+	tC1xhRPRyt5IE33gJTzlahzjZpRtrABB0m0QuGN40m/M3Cd6IRMBV0ySEm/5JoiUvPbgJg4MxkK
+	0iTpXh43wi8i/ZNUsekZeCbTF5EEoT+52F4cFy5/luaUVq/FYlbgxd5pb0GBDeq4F6ezOv4n8AJ
+	An4yBvnqaPuJ/Wv+wq0hdnbB+U6xwOih4nP44QV6TFhkZ35NfishEaWxlgSsjqMmz5QGbxYRYQ+
+	Opf8z/k+d1PcJmpvplJKRSSYeTfjapIPJo0opdBJBY+AfWNXRNmAbKdpJmamejjjPh
+X-Received: by 2002:a17:90b:4b09:b0:3a2:b16d:928b with SMTP id 98e67ed59e1d1-3ab3a79dd3emr16515826a91.46.1792100711675;
+        Thu, 15 Oct 2026 14:45:11 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:52::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc963f36asm239567a91.0.2026.10.15.14.45.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 14:45:11 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:45:02 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Willem Ferguson <wferguson@cloudflare.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, ncardwell@google.com, bpf@vger.kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, linux-doc@vger.kernel.org, corbet@lwn.net, 
+	linux-kselftest@vger.kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@cloudflare.com
+Subject: Re: [RFC PATCH net-next 0/4] tcp: carry a BPF-chosen identifier in
+ TSval low bits
+Message-ID: <atFI9vl5hy09Dc0t@devvm7509.cco0.facebook.com>
+References: <20261013103906.2660384-1-wferguson@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-12-yosry@kernel.org>
-In-Reply-To: <20261012233638.2546339-12-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 15 Oct 2026 14:44:38 -0700
-X-Gm-Features: AclHuK8Uq8sH_z4Z0am-zDBj0JfGwxILB64drxWhh9TWDwz6VRj3Ca40Gs607RU
-Message-ID: <CALMp9eThakVB_zqPQX=fQLrKh13BR33jmGg__rncOLDa2ZkXWw@mail.gmail.com>
-Subject: Re: [PATCH v3 11/27] KVM: SVM: Only flush the fallback ASID when used
- by a different vCPU
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261013103906.2660384-1-wferguson@cloudflare.com>
 
-On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> Instead of always flushing the fallback ASID on every vCPU run, only
-> flush it if the last vCPU that used it on the pCPU changes. This avoids
-> constant TLB flushing on a vCPU using the fallback ASID if no other
-> vCPUs that use the same ASID ran on the same pCPU.
->
-> Note that checking (and flushing) the current ASID on vCPU load is not
-> sufficient, as it is possible that a vCPU is using the fallback ASID
-> only for L1 or only for L2. To do this correctly on vCPU load, both L1
-> and L2 ASIDs would need to be checked, and the respective VMCB would
-> need to be flushed. This would not be much simpler, and would perform
-> unnecessary flushes in some cases (e.g.  loading a vCPU that uses the
-> fallback ASID for L2, but L2 doesn't actually run until the vCPU is
-> unloaded).
->
-> Another alternative is always flushing on vCPU load if the current ASID
-> is the fallback ASID, and flushing on nested transitions if the new ASID
-> is the fallback ASID. Again, this is not much simpler and also incurs
-> unnecessary flushes in some cases.
->
-> Do the logical thing and track the vCPU using the fallback ASID instead.
+On 10/13, Willem Ferguson wrote:
+> This series lets a listener encode a small per-connection identifier in
+> the low bits of the TCP timestamp values it sends. The peer echoes TSval
+> back in TSecr, so every segment the peer sends after the handshake
+> carries the identifier in its TSecr.
+> 
+> In Anycast networks, mid-stream path changes caused by BGP route flapping
+> or ECMP shifts frequently deliver active TCP packets to an ingress Point
+> of Presence (PoP) that lacks the flow's socket state, resulting in abrupt
+> connection resets (RST). While protocols like QUIC avoid this using explicit
+> Connection IDs, TCP lacks an in-band routing token to help ingress
+> nodes identify where a flow actually lives. To address this problem,
+> we propose embedding an N-bit data center ID into the lower-order bits
+> of the TCP Timestamp option (TSval, RFC 7323), allowing edge load balancers
+> to recognize misdirected packets and steer them to the correct origin data
+> center holding the active session.
+> 
+> How it works:
+> 
+>  - tcp_ts_id_bits (per netns, 0..8, default 0) sets how many low TSval
+>    bits are reserved. The millisecond clock is shifted up by that many
+>    bits.
+>  - A sock_ops program opts a listener in with
+>    BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG and is called with
+>    BPF_SOCK_OPS_TCP_TS_ID_CB for each SYN, before the SYN-ACK is sent.
+>    It sees the SYN and optionally returns the identifier
+>  - The identifier and width are stored in the request socket, then in
+>    the full and timewait sockets. Incoming TSecr values are decoded
+>    before RTT estimation and PAWS use them.
+>  - TCP_TS_ID reads back the identifier, and /proc/net/netstat gains
+>    TCPTSIdAssigned, TCPTSIdDeclined, TCPTSIdSkipped and
+>    TCPTSIdEchoMismatch.
+> 
+> RTT estimation on the encoding host sees the same decoded timestamps
+> as before, so they are unchanged. On the peer, PAWS keeps working too;
+> the only effects are a shorter idle limit and a narrower tolerance for
+> reordered segments, both described below.
+> 
+> Scope and limitations:
+> 
+>  - Passive opens only. SYN cookies, microsecond timestamps and peers
+>    without timestamps are left unencoded.
+>  - The peer sees a clock running 2^bits times faster. That narrows the
+>    real-time span of its PAWS window, so the width should be no larger
+>    than the identifiers need.
+>  - Peers that keep ts_recent for the RFC 7323 24 days (e.g. FreeBSD,
+>    macOS) stall connections that stay idle longer than 24.8/2^bits days
+>    (about 37 hours at 4 bits). Linux peers stop enforcing PAWS after
+>    TCP_PAWS_WRAP and are unaffected.
+>  - TCP_REPAIR cannot restore the identifier, so hosts that migrate
+>    established connections should leave the feature off.
+> 
+> All of this is documented under tcp_ts_id_bits in ip-sysctl.rst. With
+> the sysctl at 0 (the default) the only new cost on the established fast
+> path is one likely() branch when parsing TSecr.
+> 
+> Questions for reviewers:
+> 
+>  1. Is encoding an identifier in the low bits of TSval acceptable in
+>     principle, given the trade-offs above?
+>  2. If so, what feedback do you have on the implementation?
 
-Wouldn't it be simpler to track the VMCB associated with the fallback
-ASID on each pCPU? Then, you avoid any confusion regarding whether L1,
-L2, or both have been assigned the fallback ASID.
+Don't see any feedback yet, so from the top of my head: looks like you
+control two sides of the communication, so why not a custom (bpf) tcp option?
+Would you need that on every packet and it makes it expensive?
+
+Or any other field you can abuse maybe? IPv6 Flow label?
+
+Implementation-wise, the sock_ops is going away in favor of bpf_tcp_ops,
+so BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG is a no go.
