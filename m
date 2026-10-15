@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BFC488232;
-	Thu, 15 Oct 2026 21:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F92249E14B;
+	Thu, 15 Oct 2026 21:29:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099777; cv=none; b=G9OABrv/rO5aQ4XZx8SzSLyXf3K/q1xHY+0cutHMNRPWrryeww+JYxC3oTV3D+tsB1/ZUmX6a4HYksks9FvGQ/3PSBcsmUbC61KiLIyR4o/8qnkEnWqayHNG9EPiW5jAcZW+io1FBjp9+F6adMJtP/1wsN59A5QonZSJ3s0mAZk=
+	t=1792099780; cv=none; b=Lbufl9lCFDmhsD93fAmd8VR9eeSOn8OTSmWGBO3+6KuFtkshHp/UuOuWQZnw5OMbanQ2AkT1lOKRYpdnEopXa4aMIM9nonN/3b9GTksZhyrHaAsotFhHRyLrbHZtFpuNS/5SQxjt2aKbwLSUzqb8jhWKWUHFYzJq8+eFwK9PApM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099777; c=relaxed/simple;
-	bh=ICA+MXmJG/YyS2++LGqo+5Mnv644o+nXaxmSig4UzTs=;
+	s=arc-20240116; t=1792099780; c=relaxed/simple;
+	bh=NFDojQXe7wflHCGiMvlwhd0NemQg5tOuVj0VOaZsXpE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TATFmBPRHaVcXdBE+iDEImCsa0o7HLjVYr9wpuJBVI0EBdSSF7qI5kCV1FEywP4Dq1+AT6s4FHFXrjVw/7LEvbOU1pxC7UlWpFxylSFdGxo9RnaUnfl5a0w8el7TArWjYcl30og0RC9DoV6zxcKNVKLzfakihTxC9Pb95EWxSkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWPdJOFB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=FI4cXJiyv4cmBYw+Vdiky36NrXsrvFCpe16tcnjrzRYPW80zdtUvUdEA09dtSGJaUlRZ2bCBkl4D6iuCa9jnU1kO2dBh07cnaV0ei8P3re3RSFNHzIgYttPyo+z+SolbvdB8BnJKCxvMlppzNypHqqZDqiCIbjxxDGikIOvUmBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcEV2lsv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWPdJOFB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B9D91F000C4;
-	Thu, 15 Oct 2026 21:29:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcEV2lsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56AED1F000C4;
+	Thu, 15 Oct 2026 21:29:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792099775;
-	bh=oZNz2PfouwXdYAbOjv+HkNwiXAOKSt0CCIlurqOt4Bg=;
+	s=k20260515; t=1792099779;
+	bh=qKwy26hwUGwgZJw5ueB/ojDsCSqWQeQrEv/bT0nqLuE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JWPdJOFBGew6X8AYdyb0N/1jIhD4Mrr2nX8tHoIeEQ40mMCjRS/yRm8r80ugxqPIy
-	 Q0/YMzhtC/hxwYzJVby5jmiWG6taS9AGtSZriiPtLy/wUldnEsReuCuyBV8AQA7Qzq
-	 QRam7Lb5E618N603YFMVknn8oxvqEchxTwZe30smYvnDBahO4aSudEKXLyu5eJOw8U
-	 S7hTKNIh6109DInpqB1X4kKuxLzkeoN1eQdobcfGEtBsJtqvtwbQ4CCrF4XcWaEGyY
-	 5Z2jH4GYZ9SeBYpXh/vt5sDK0x+tp65VKX7pITaauUq9tkyMixPyATNNoSXMoC1FYV
-	 DX3lfvFe0U3YA==
+	b=mcEV2lsvOybpVsu0HLx3azpnlIXe8q5awQji2rIn4BlQw+4l3rQBHSYPQ5dtcfjvz
+	 f6EUVSn/5jXybSuFAVEScEMuRLANMOj/qQT/9+0s7+279VltsWA1sMPtnWfX0cpbhr
+	 3nxqfuGsfQJ7IdeefPVwI/ETu6TAcrAWoS2RBwSJZDHwkSiGiKY8aW0Rr/P7TQFKth
+	 lQk5cxozIWwJ7TDSrDxn2J/GbDET0z67n4n6yi5qsxsUquh6h8WOStoG0Kb53ZwfdH
+	 O0qfJFofC2iCG+feJ2lH9biNGwZrrW1coCMZSLPzPzsIS8i9AlirxWi203RY+JUUlG
+	 KEvo9nzg8Vs5Q==
 From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Myeonghun Pak <mhun512@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <179203261324.2681924.5002100194676410503.rt5645-button-timer@gmail.com>
-References: <179203261324.2681924.5002100194676410503.rt5645-button-timer@gmail.com>
-Subject: Re: [PATCH] ASoC: rt5645: Shut down the button timer on removal
-Message-Id: <179207629518.134795.889696462508486661.b4-ty@b4>
-Date: Thu, 15 Oct 2026 15:58:15 +0100
+To: Zhang Heng <zhangheng@kylinos.cn>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261015074149.426882-1-zhangheng@kylinos.cn>
+References: <20261015074149.426882-1-zhangheng@kylinos.cn>
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for MSI Crosshair A17 HX
+ D8WFKG
+Message-Id: <179207697004.134795.12996160263797400528.b4-ty@b4>
+Date: Thu, 15 Oct 2026 16:09:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,17 +44,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1121; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ICA+MXmJG/YyS2++LGqo+5Mnv644o+nXaxmSig4UzTs=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuuu755PSOkWPnXMsjVSWNTc2vc9ZlLH74heFIxNzqd
- VGvg7aZdZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiE+8x/NNfdLmXL9195sLp
- rJ8LeE5sd3NgDmMK3PN663b+gtRTOz0Z/spd+REz0VOcPb5fXN05oP9WDMuM+x2lwVxdHwqmTYt
- jZAYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=NFDojQXe7wflHCGiMvlwhd0NemQg5tOuVj0VOaZsXpE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuuh7Icm7OUdJqeLfz57MzCk/yuoo3Vy1fxCvpaXkgb
+ VJG59N1HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZgIixYjwyPlG6Hp+jIzGeYd
+ alZk8C2wb5t0WtbWxC05YFGvh2JYNMP/zC/qXzqfmPZc77vfNuVVxuXgBB3FbYsOXFQ5e+jd1O7
+ PLAA=
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 14 Oct 2026 22:51:10 -0400, Myeonghun Pak wrote:
-> ASoC: rt5645: Shut down the button timer on removal
+On Thu, 15 Oct 2026 15:41:49 +0800, Zhang Heng wrote:
+> ASoC: amd: yc: Add DMI quirk for MSI Crosshair A17 HX D8WFKG
 
 Applied to
 
@@ -64,8 +62,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5645: Shut down the button timer on removal
-      https://git.kernel.org/broonie/sound/c/f0ecc305442f
+[1/1] ASoC: amd: yc: Add DMI quirk for MSI Crosshair A17 HX D8WFKG
+      https://git.kernel.org/broonie/sound/c/5195b3434611
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
