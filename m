@@ -1,174 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D8E51A74D;
-	Thu, 15 Oct 2026 13:16:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070211; cv=none; b=mBX/qdx9EQMb6oA6saf8BQOPP7+4fFJqpG2G3xvVpsaZ1k+bXoaQTuPBwIHo2u1b5MtQXU7f9npoiDRt/2YMV+iE1DSX07T0EohFvqBwAD/nbD5Jbzf/IVAXW91/vQkvX/OZYfdw0MJfzQbgCFhf6/H+3Y5nvcC8WW9Vjji0GeI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070211; c=relaxed/simple;
-	bh=xphmFiHpnI/HmhlmkPm/h3prswLmj4PwQpyRncK3sKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tMmV6t1QEVwDc6W2xn7nlo+GUu+SwaqT2MFQYOleRORgYqbzwZKfK1WXqttji+t7V4Dpygam8GJca0FcD4PKIj2G6KASLaJxde4m504ghucSenhjUwduLL5WsDoh6jxIBqfUh3gDGtwq54JUth1s9nv9ETWnqTdzlp1OziwZePM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nJZqkXRM; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CE45226A1;
+	Thu, 15 Oct 2026 13:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792070227; cv=fail; b=b1b06nxFyssMfRvsSdCVnyoqNi26XPPK5yupVXrPvaH+JTWdgDJfU+lkvFFuYglh8glYtxVZ29Vkwga/vuKYGTdWKp2R49Xk4CQZu7jLOJzAULYs042DuXBRj9xOukQY38rzOQfFQzuRg1ETRT1hnhdRAVkWkfYcSUP/nmqKhb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792070227; c=relaxed/simple;
+	bh=1YekbLDcKMiOZvviEyiCeKKxdCvzxiSSzMRqIOTyZxs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=jWiWoGzwsJTpJV6NDKXtJRZF1WLlGHSYBigqk9WHjoNmpdYzfn7ngh824MlHUnEd8UPO7tEgCbAZwc84Ml4QodMr/1tzag5ekxZatQljTQLz0OE2sziELSC/C06yWtihlwLC6Xk/MIN9wvLZLPr4Y0DnHFrfe78ooLZDnb4IRms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fKBtm4lO; arc=fail smtp.client-ip=52.101.201.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nJZqkXRM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792070209; x=1823606209;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xphmFiHpnI/HmhlmkPm/h3prswLmj4PwQpyRncK3sKg=;
-  b=nJZqkXRMMu7Fopf2mmMuFnEkojkD4LcgV5lsdzKoR4GJPGvvTkrFTIZU
-   UfBm8XQcC0hxRfreYKL2gdIB+UrFOw+6kiH6YdIGoZYQCHhHwkFlUydP1
-   LBq7Vn5l6ZfieHdzq555tMwqHoeVxtoOWRxWVE00BizMSQV2/VIXK8ZUX
-   VETOULvktZd9dhRDb69foPXfOWMZdzKRrJwLImGkcShTxsyxX8xWeRLHa
-   lEnXpwEjg8jo9ZXKsyiS++OgtUR4aBD2bK2JrsxI5DDlyfOx9+i530xZU
-   S/6+N6M015tNhO/dH/aWZ55FWCV/Knl61oO8pNaOGC/v3e3y7iwHJTfvm
-   A==;
-X-CSE-ConnectionGUID: G8GhbtnHR125CKqBZYB8gw==
-X-CSE-MsgGUID: teZ+qyBfSsGA3pLR3gopCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="724144"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="724144"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:16:48 -0700
-X-CSE-ConnectionGUID: 3XtOOWnuTwOuHWs75W8FAA==
-X-CSE-MsgGUID: EzCabojDT/eI9tS8qVy7/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1786153"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:16:44 -0700
-Date: Thu, 15 Oct 2026 16:16:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	David Gow <david@davidgow.net>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Laight <david.laight.linux@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] hexdump: Allow skipping identical lines
-Message-ID: <atDSOfZy1RDhB_ff@ashevche-desk.local>
-References: <20250319-perso-hexdump-v3-0-a6ba3a9f3742@bootlin.com>
- <as6TIm6xE8Izccb5@black.igk.intel.com>
- <as-iBP1781DVuZ7p@pathway.suse.cz>
- <202610142135.0326EA9C@keescook>
- <87se27wdzl.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fKBtm4lO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uKL7dVhfhh2bOJ9bRTj/A80w36LAjnWiaYIE5n1L4XzIE7gLmkWMnvf7viOewthH4ZOiULkDBvHhd9qsrUCNzds5XOu0ZbWiHIwbkQooLXU+tnQ4Af+ZmU+kBlZ9PJVtNJQyXbaN+hviMs07genJDUfnFGkNXhzA2rZwO5QRK7RK0Jli6EkVPUURfytxE24VkzUP2uXTIj90ANPkMA3G23YclIl+dWz20uA7dgZnJJi3/F7SdvYd4okYQpyDXpebRJENgjiUmM35yJVOH8BnBiikGkw2fEq3PwPmDlVhfVqwCe8kinSCo5ilpeq3tqQxHXo0fjqGbLr2sbAoP65Uqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BcMwRtZH1blQTrFk38+4CniTCFrMHlcc7yPE73KbSZc=;
+ b=wwZ62uj8YzcHcZOkTq0EqvzmoIzw3euqaMm2Rc6RljDXTBfUbiY3195xQaGQPS8cZsWbhwEhOYjZcG6rXl12ajrFh7cKYN5gz3CvPv2HuQSL0i8qwcvOi6HJcyDo7jPk25FXiT+YSbnQFaG+Jz2dQhHrYzsJtCUw77bx+SBVS82BjpV5WHIahRke3ZD7lYx75ygvBfFperykrUCvzFtzNIOv2o+W2FpdlWgsWGfTRRH3KUm8r42L6cr8BIgwbyu8gPhEJwHUnqYEMdN0AhzJrmcH98L2YJNdN1XIv5vRySdWBkjwcYb1r2r/AhMc64oDnCeBtJ/VSr+J8Cn/SGFwnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BcMwRtZH1blQTrFk38+4CniTCFrMHlcc7yPE73KbSZc=;
+ b=fKBtm4lOVN3b3wbeZxus8R5GS8wA0Fy0T3VeuEpyoZ3zdZE+eoASEn3P4hs5X6/NU/0iC86e8D4XehyCT1g8IVJx0zrAZSvj2R2hw6IhdVh8YeLRVoiQsp+UCbV/opKoh+MlldexOYM3N3lJy0SWm3ntL5MhtUZf4XWMxXHxNYosXvA61C9VgtGvRxs4omPTU7//ZVSv9r812qUP5d7QRuO6IXhepDU6lSFZUOWbgEtXu/57ZtjZPY7M+GVZaEip9w9+DEfINg8HTgkxppvirWsqL9+vtWfCZJt9MhdlZNygWcGzmZLOZaa0yK5Kwo9rUmEOf77XOyY5R7LdYoM7dw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
+ by PH7PR12MB6954.namprd12.prod.outlook.com (2603:10b6:510:1b7::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 15 Oct
+ 2026 13:16:53 +0000
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 13:16:52 +0000
+Message-ID: <2a5adbe8-ed67-476b-bffd-169c8c50f686@nvidia.com>
+Date: Thu, 15 Oct 2026 14:16:45 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
+References: <20261014123820.008483134@linuxfoundation.org>
+ <6d8a0529-033b-4d81-a2e8-cf735e9a4b7b@rnnvmail204.nvidia.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <6d8a0529-033b-4d81-a2e8-cf735e9a4b7b@rnnvmail204.nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PH7P223CA0005.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::7) To PH8PR12MB7110.namprd12.prod.outlook.com
+ (2603:10b6:510:22e::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87se27wdzl.fsf@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|PH7PR12MB6954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71590b08-b3a5-4db4-d38d-08df2abe9421
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|56012099006|4143699003|11063799006|22082099003|18002099003|10067099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	th6/KDxHDvaUd7kg/9OJe2OSf18DStVOE/f6wnLk/NpksgXN696gpdss2kA1l7pWECNZAp4I7UBx7nOiRL1UloHpuXhakPWn6jWv6CtqXaqzYBddhwZVNQ2DroaV/DDi04a3Cgm3fGZcexIsCmaZI7jJVX8Z3b8DYQ3OT21gxd8vqiC0P13U4xHBLvuPqzQbfDzmlrwybz07VZQYJt0Gim4I+lchCypHLX2JmV9V1nndybby6WEBovKE40/lBLFMNJS5YT439HWk178NErDJ687y7p05r5GHSVsOQ7e9qhyjfL5aCbKdXfhXJLBG5/Wf06IT2C8K7Roh2cRrCE+H4nXPnb/Z2jx+QYusc0Bus2LauWH3xcZFn1Vqy0jX25yrw4vFn8TLZZsPegqyEewQfGwUk+urqKAh3vQ0U0uEP9NlYuIaI4il5FdNaVdQ0y7zLrq0Qne3eTkPRlH44I2BVQbnu5Fh4CJMSVLqMh5R0GhRcLvXRt23Hmal84iD/N9qHizAsp0LnwoGw1iVt/hTGIuwQ72UC3lWdAbtnXnEY9XBdHXqPR3mnj0Zf2YVwOCFLfZstSTKtd2H/06L5KB7ItuYKFbGS0y65ZD7HeluYqy6WTtCTJoBXoVefITgjTd8q+C1Wpx6u+aJl58+8Lc1XPsQNhilToDMXRNEW1y57nI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q0l2d0ZFRUhtWHNaWC9IK1lhT25sbnVzNFpQeEFyZlhjMzFValJDT212dGEz?=
+ =?utf-8?B?MStIOW1sVnQ3dDhTN3Bwb29LSWNTNWMraEozWUJKUmoyQndvMGYxSGh2Ry9E?=
+ =?utf-8?B?YUVJOWdPU3N1d2xTdDJ5Yml1YmtHa2xia1d1aWw3aUFEYkpUTkxVN3dibTZS?=
+ =?utf-8?B?MHRDOEg2cTNMUmk2Q241ZHR2NVdIUE43VE9sc0JBeEZyY01WcHppNGFRUUt5?=
+ =?utf-8?B?dHg0OUt6NHQzK2puWFI1Z1daWEFUdjI4K2RoR3AyNFBwTGo2SmlyZnA1ZHp2?=
+ =?utf-8?B?N3JLc25GTGFQQW50TVBicXpUL2l1aExNbkxKSGxCdHE0SGNUR3pGT2tPWFpB?=
+ =?utf-8?B?SWxJZ2hGeHp3Kzg4ZllTYVAwNkJLd2NtYm9YNHNPWSsrd2piVTVwMDhrOElV?=
+ =?utf-8?B?dUQvVStHc3hyd0R1TStFUElMbEtyTnVycW1vWFh3dXNJZGNJS3hyL0EyWURs?=
+ =?utf-8?B?dForSEllN0FsSmI0UGpXeFd0RllRVkxINWRPUldZTEw0VUMxbnNmZ0VQdkRw?=
+ =?utf-8?B?ekQrOGRzL3RxUTJ6ZER1S2Y4RG5uTVlwYk9XaHJnekxsQ24vdnVRbTRkeE0v?=
+ =?utf-8?B?UTU5aDFydUxadGU4cG4xMVAraWpOQnc2cGUzalBUU1FYbUJlMkFWckVWNHNo?=
+ =?utf-8?B?QnJreEQ1eHdocFhpNVJYZVVXWXl4a3BuZFo0eXlXZUpRbFV0azdpSUVoa0FV?=
+ =?utf-8?B?SWdlbFhkUk1WTEE4cnZsT3lEMkVsa05PcDhya3c3V2EzeW1JaWcySTVBUytB?=
+ =?utf-8?B?TjZCWEZ4WVJNeHlVWmJjZ2hiRVpnNUIrcGtPZ2tudnE0NUYycUxlSTNkcmlI?=
+ =?utf-8?B?N293bFRSMDBRNWtLNC9HbWxzNFROU0VtUlJaTDNBRXg1MXVTZ00yZDN1NFk0?=
+ =?utf-8?B?UzUxWG5HMm40U1ZFakNleDhlb0FtczJKMVlyeERqMmpTZVRZMERSNVNLMlEr?=
+ =?utf-8?B?TTB4R2lRTEFHNXdSSjVkSm1sZlUzbk5PZzhBay85bGYzUnZES0RzNTA5d2xw?=
+ =?utf-8?B?VXNRb0hNT3kvci9CaDNsa1BUTW9ISzJ2MGpZRUN4alFwSXJkZ0tKVFYrNVVQ?=
+ =?utf-8?B?NVFNeU9ubkYvRkFEcEJOS1N1cTFUUHJ4U0Y4VHJnVWdNQ0E2YStVZU52SnJ3?=
+ =?utf-8?B?VlU5Unp4QjNEYWRQRXpZWnhhalFFTWVZTlltdzE1Tmk2V1JEZjNlNStoNE9t?=
+ =?utf-8?B?Qy8rdzB4TVJwdmtQZXU4ZWtyTUQ4c3k4NDZzOU9LL0FmRlNDNEZVOWxUQzlO?=
+ =?utf-8?B?UmR2WXdxazJ1NFJvc2hyQXdtVVJzUFF1c2twSUI0ZW1lMlBieVJCT3lzMzFP?=
+ =?utf-8?B?MnArM3FkUHB0MXAxSm5QUk1nekttMlYwTjczcVZNZldoOHNXK3lBdkxNSWtp?=
+ =?utf-8?B?WE5VYUpYTDEweG5KL0ZMekVPMEg2V2Zqand4WEkyc2VDZlk5alp3a29OQXhQ?=
+ =?utf-8?B?aHdxK0tPYlJDaktHak1GUkxGaCt1Q0JoQlBxSzBiRDJuN1FxTVRSeC9IZWc1?=
+ =?utf-8?B?QVVUcUtJVVpQODhyOWVrZlNNUzdEVVU3a2VLbFNsandIMnBLQkJqUkwrdjRj?=
+ =?utf-8?B?Y2pSd1lzZnR1TkdyZlZFYnJ4OXlna3pIdGc3ZnVBcEdBL0VCYjlWeTB1RUhL?=
+ =?utf-8?B?N3lQOE9yQzdGT3BXajJTakxIeWF1NHFESzRoMXdEcFR1VXRTZVl5MEc2TGMv?=
+ =?utf-8?B?eDdrMXRWc1I2d2srQ21HNFVQUFBDbGZ4azlxc2dNWlFEWngrZ0hxNWpDeE5t?=
+ =?utf-8?B?a0dQSzhJY0JkOGF5b1N4TkVGZlFwN1p6Zmkwb1UvRkd1bmo4UGRDVGdlaWVw?=
+ =?utf-8?B?Vjk5UllrQ2k4aS91d0dybnpZNy82TFdjWmJoSjNPa1Z2cFQxMlFtNkxBZzVq?=
+ =?utf-8?B?OFhSaE5UdEtYc2s0ZnJvaGxZUVR2RUJwMHIzOS9zQ3N1a1FqZDVYTGRYLy93?=
+ =?utf-8?B?U1VOT21mSGxCbkcrMFZFMVpEK0lDQXlkallwaUNCZ3NnTndoc1dVbTgyL2Uz?=
+ =?utf-8?B?N3l1ZUd1NW1YNmZQeWxpRGI4ekNybEhHSm5vTXR2RFNVcXppWWFYRWRtSWww?=
+ =?utf-8?B?Z0xhek1yRU9ZR2pqc3hldWJQZTg5eEtNNlRYZXdaeFBmL0d5clg3TUNsU2pD?=
+ =?utf-8?B?TWYrRjF3OHZkUHljZWR1L3hQTGl2eXBSVXJYTXZiSzJqTFNEVHRwNC92UGw1?=
+ =?utf-8?B?TE9nS0Q2ZVY2aVBzNzVQeXRnemdlajdVcUlJK0RDUFFMQ2NaNENjZkF1VUx0?=
+ =?utf-8?B?cXhhSlVmeU9TSHVxa2RzVXBIQktMcjJ4c1cxTTFaOE9rVnVRV200VXdiWnpz?=
+ =?utf-8?B?cGR6NDFET0xYZHpvMERzMnd6Tk1WT3VaVTQvanNUMDI5Y0prbHREUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71590b08-b3a5-4db4-d38d-08df2abe9421
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 13:16:52.8366
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pVkKR7gys9WCp9/6qXSGd6Vp+htx2TaDUWwMXJx9zZ8toZ6vkWMKP/d1Gzt8ZrvxP+nPrL+f6A1fdMmU1upENw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6954
 
-On Thu, Oct 15, 2026 at 10:43:26AM +0200, Miquel Raynal wrote:
-> On 14/10/2026 at 21:38:37 -07, Kees Cook <kees@kernel.org> wrote:
-> > On Wed, Oct 14, 2026 at 05:38:44PM +0200, Petr Mladek wrote:
-> >> On Tue 2026-10-13 22:22:58, Andy Shevchenko wrote:
-> >> > On Wed, Mar 19, 2025 at 05:08:09PM +0100, Miquel Raynal wrote:
 
-...
-
-> >> > Sorry for the so late response. First of all, a bit of a background
-> >> > development on my side. At some point a few months ago I asked John
-> >> > Ogness to give me a private dive to the printk() guts. He explained
-> >> > to me a lot about ow printk() circular buffer works and that the
-> >> > implementation is nowadays done in the terms of circular buffer library
-> >> > and printk() front-end. This gives a potential to get a clean solution
-> >> > for the testing how printk() actually behaves.
-> >> 
-> >> I am curious what printk() features you would like to test.
-
-Besides the case the Miquel has I was think more of the testing the front-end
-part of printk(). The back-end, id est vsnprintf(), is well covered already
-since we may control the buffer the vsnprintf() prints to. With real printk()
-there is no control of the buffer, and as you explained below it might be
-required to add some more hooks and code.
-
-> >> > The main issue with the
-> >> > real printk() is that the buffer it's using is defined globally and
-> >> > for clean test cases the printk() can't be used. We discussed the way
-> >> > of high-jacking that by linking an object file of printk() implementation
-> >> > to the KUnit test, but it seems quite a tricky if ever achievable exercise.
-> >> > 
-> >> > Meanwhile Kees Cook seems found a nice workaround for the similar use case
-> >> > in his recent patch series [1]. The idea is to register custom console and
-> >> > provide a custom .write() method which is the heart of the solution. On
-> >> > the writer side user prints something which has unique prefix, while the
-> >> > console callback recognises that pattern and checks the rest of the line.
-> >> 
-> >> I ask because the solution used by Kees seems to be quite complicated
-> >> and unreliable for the given purpose. In particular, printk() does
-> >> only the best effort to flush messages on legacy consoles. And NBCON
-> >> consoles drivers are even offloaded to a kthread by default as
-> >> pointed out by John in the other mail.
-> >> 
-> >> It seems that Kees just want to check some particular printk() calls
-> >> and what messages they print. It might be easier and more reliable
-> >> to redirect printk() to an alternative implementation via a hook
-> >> in vprintk() in kernel/printk/printk_safe.c.
-> >
-> > Yeah, I was just trying to "prove" that seq_buf_do_printk() actually
-> > put something onto the console (and to match up what was written and how
-> > truncation behaved). :P I'm open to adjusting this however it should be...
+On 15/10/2026 14:13, Jon Hunter wrote:
+> On Wed, 14 Oct 2026 14:50:40 +0200, Greg Kroah-Hartman wrote:
+>> This is the start of the stable review cycle for the 6.18.57 release.
+>> There are 632 patches in this series, all will be posted as a response
+>> to this one.  If anyone has any issues with these being applied, please
+>> let me know.
+>>
+>> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
+>> Anything received after that time might be too late.
+>>
+>> The whole patch series can be found in one patch at:
+>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc2.gz
+>> or in the git tree and branch at:
+>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+>> and the diffstat can be found below.
+>>
+>> thanks,
+>>
+>> greg k-h
 > 
-> Just to redirect the discussion towards my initial goal, what I would
-> like to bring is a userspace-like hexdump output which allows to skip
-> identical lines. I am printing a lot of flash content. Empty flashes are
-> full of ones, I mostly do not care about them, yet, during
-> tracing/debugging they take ages to be printed at 115200 bauds. So I was
-> just proposing to skip identical lines (with a '*') like in userspace.
+> Failures detected for Tegra ...
 > 
-> Following my proposal, Andy requested that I would add unit testing of
-> this outpout. At that time I refused it for two main reasons:
-> - it is mostly a debugging mechanism, so if it ever breaks or changes,
->   it is not (IMHO) a big problem;
-
-I find this feature is good in general and maybe actually part of the real ABI
-or just beyond debugging.
-
-> - there was no accessible testing infrastructure that would not be
->   overly complex for verifying the output of those calls.
+> Test results for stable-v6.18:
+>     builds:	11 pass, 0 fail
+>     boots:	28 pass, 0 fail
+>     tests:	163 pass, 1 fail
 > 
-> I am still convinced adding testing here is superfluous.
-
-Petr, also note, that this series doesn't use any modifications to the
-hex_dump_to_buffer() facility as it's done on the upper layer of the printk()
-that is not anyhow covered by unit tests. That's why I was insisting on the
-test cases.
-
-And since we want to cover lib/ with unit tests, I tend to try to fulfil that.
-However, if there is a majority of stakeholders (Miquel, PRINTK() maintainers,
-and reviewers) think otherwise we might do no tests exceptionally.
-
-> Andy and myself met during LPC in Prague. Andy claimed that we might now
-> have the relevant infrastructure to add the tests. If there is an easy
-> way, I will just do it and move on. But based on the recent exchanges,
-> that does not seem so obvious.
+> Linux version:	6.18.57-rc2-gfea86ab6861e
+> Boards tested:	tegra20-ventana
+>                 tegra30-cardhu-a04
+>                 tegra124-jetson-tk1
+>                 tegra210-p2371-2180
+>                 tegra210-p3450-0000
+>                 tegra186-p2771-0000
+>                 tegra186-p3509-0000+p3636-0001
+>                 tegra194-p2972-0000
+>                 tegra194-p3509-0000+p3668-0000
+>                 tegra234-p3737-0000+p3701-0000
+>                 tegra234-p3768-0000+p3767-0005
 > 
-> So, what is the appropriate move here?
+> Test failures:	tegra194-p2972-0000: boot.py
 
-Yep, we need some discussion here how to move forward. Again, I like
-the feature, I just don't like it may go without testing.
+
+This is the same kernel warning reported by Peter Schneider.
+
+ WARNING KERN Driver 'ufs_device_wlun' needs updating - please use bus_type methods
+
+Jon
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+nvpublic
 
