@@ -1,108 +1,152 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A52B599A5C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E044A387E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792098285; cv=none; b=nEwfoY/4Ak/GrtgjS2lJj6UnU1w8csdruiEVsA8J+Ov16IM4jtWm6goOf7SvZ0sQJTtWuEbpEFKQo/HBLDcnujaZtmRvW9SdLL5qongYUKIyu7lMVS6PZbXgHVzF4R+uPwQZdsuY0KFPh0/wdCjsSTEzMlvqAyKGqtoRI2ECj14=
+	t=1792098349; cv=none; b=fZqzgtIlH3a+UXFSCAXERsdolca7xRa9dhkzT5f2ndowna14vD6YZfWC8OfgiHvUnKIKn8qY8Ir7ZSbH2e6oE/lgOsQQmOwJ5IAIPXh3Euz+Oa323uU6W98lBhIeQCvNczJpZ+D4gCLeWfCUAiu9PmetwOpob/mZAcFFHK79PRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792098285; c=relaxed/simple;
-	bh=7H04CVxxX4x8yKDGeGsyvBX1tcUcpxtXmtydhBTctSk=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=SqvAuDALYNWq3dCRfQtGPdLa0VD8xReeCQ8yNEIZz0A8njoB8ghGXmDKB5TeB3Zs/U0H+v/6KWWcpuJkZYmx3GXu0TDgS3+mqQgcSUcchY+hV73oU1p+ShbcWAvPdAW6UjXnN0Yoyg5wi+hV+lus2J8bCtRXK8ZNopR8yxzurbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=bxyXm997; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1792098349; c=relaxed/simple;
+	bh=aOCBkB1ohjW/2eEMaXRNHBXwAny3o8OCwYXHqgLf9H4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kI6HroGr9keHnknKgiI+GVogoHAyq2BU8YQ+MiQfWyTX2zdf0/dPzdVekVSQiOGPnDciDX0ynMthS2DPjCEacKeQil1ZWoJ8qyEoTpdjfhNWwSuVves4LnCtT6AQW6o+NvcPEGZPYygEZ06Dtm8pRzCCEpIB82r0KMrdEKuwwQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=EjIbK7Kj; arc=none smtp.client-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="bxyXm997"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3550c917fd3so3447602eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:04:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="EjIbK7Kj"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917a20e9efeso80522296d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:05:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792098280; x=1792703080; darn=vger.kernel.org;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7H04CVxxX4x8yKDGeGsyvBX1tcUcpxtXmtydhBTctSk=;
-        b=bxyXm9973MrNM6E+YfyDxQdxF+50u6SOgQTLnuW3aUdFqm5T1cspNxYdTXnus9hz7I
-         6ECEoRVRp1JzGy/fIpN0WafiwMCDmWyZU2DCU2yqXV5UbGobas/xkUU8Jltxk20x16Et
-         yyniftTkFujlXGKC2hZ/UMF3SNDv6XCsG1JVn/s3Q2kgGDBCwZ5dek+c/HK8n8NdX6x9
-         DHfu5jNyyKrik8/dxhRfhGCVxeqFM684v83WUyZ/IvxQ1jjwY+iHK7HMU0IH1pU36oSS
-         S0x5wnT+e7ZhQigjjCoQQTuRWijt1Ds4BM+SxzklIbTHFfYwDaShnGQHPcmFAIyQh6R3
-         clcg==
+        d=gourry.net; s=google; t=1792098343; x=1792703143; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
+        b=EjIbK7Kjpxf2YT3DyE7L4UfEkLVCRY0Qg6K3INUyj/eQFCirmHGP1SuYRpRjFdO/Dv
+         V4oAnjnMB1hTl0B4nQQEy9eyWm6o/0wjGFSKL+qVhuxAi2qKrBqPyMeoHBRqXTzROEbw
+         tg8vJ7elASquQJyzWDjT7jhXYBtVC5TXIScesmvn6CZ+QGdpLvElRhyLyiyg07MpBcps
+         hOq1CjzsIii3AjApiV+IfthHGfy8+TdUZ7ptYfmxKXvlm1YUaYKnU8N7sxHRmicMSyM3
+         onLZ66xe3y17rRcC4WA63lfz+gFBPkWfuxpmf8veFfZsppS7zkeneGDuwX5l+IPKaNqx
+         6nTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792098280; x=1792703080;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7H04CVxxX4x8yKDGeGsyvBX1tcUcpxtXmtydhBTctSk=;
-        b=vo2ACXreix/6uA6Z8SXsArldjzMKUKbspgmWkHKJ5aNPjeI/zFfo6svlZQaEtZo0fE
-         zMb099w0DcxeAkHniGI4ODUtWP+7TWLsaam4dmsHYqUEYDZ+8wmOdMK0UjD7ORmcTRE7
-         VOhGEr1gFou3a8JICTojTukccx+yKYyMgcZRH5T/SbJcQ7uUMHTznXMlrxFK+ZNjhp+N
-         j9XwxWdRzkm/2pdUhWHa5BdQuB9m4+HbdxC5pve3Eo6+I3ItA1+m5o+0QD0jxeek134i
-         uRaN/thqzRZFn28yeFzbKjcHszBvrloZTVy85FyaVphokb+MXbarmTy3BRP5fFUg18Vx
-         dmyQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAHZwfrxqJ76Sq74wb6u7Tn14lOdMfl7gaqjBDC7154U3B62UylXsyrvgRZMa7nCxHJE1NgkQNif2xIRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrgSpqV/ywPHp/rl42nioL4Jb9qEstj5zZvEqj0pyqm2kOI7W/
-	6/ZJ125VL5ec7r6vXi4f0xQAHUMuGpWlCf7VbJQnO4CQ8piRpd3M8CDuwYD4SdFpqdM=
-X-Gm-Gg: AYBFou2eD4SNqLzuAsfEFZ+3p9rHkGQq+3SLfv0eyo91wQCmJpfZ/gkQ6jqspsn+72J
-	zIhIyySJ2asSukMbBXMcDsSjeL7r02hNXM/K4bSrYUeWb+sJKCrlNOPujx4i6ENvTPSX899bzTl
-	IWPxCxizb9DTxAzrQpUDSjh4vWxSo9t90o+Sb3h9w89n2R7uW4x9bz1usC3ad5DjwYREH54nUmD
-	1R1zNGUSosagXUM4HjN0sAaG3fdWTM2Jj+qqkXuc1hHzv9U7v5qQSC+KVRaJOvCEjdNQSJWpdld
-	XCJa0Mtb4Q/Hqo0mYKbeJXjL8LhWBKr3TErbjCl8m4pyJqvI6eX5NrDeG7yYBnwFRyxZ2CD7cao
-	30zlMXE5Hg4e2nV0UYVpdlARWHEBVmghM2zXAgw3/tmXdlKcJL7k1o/v3as7InJfAF6tM1mpNxQ
-	uEU3BPnBVD/xlJmUIaTNeQxe/zZxtgtzkna0TiMIer9zDPDJ61d7lvq8LXz/DHPol1YI7K/NE=
-X-Received: by 2002:a05:7301:b13:b0:35d:a0cd:e4e9 with SMTP id 5a478bee46e88-35da0ce0d9bmr8413450eec.17.1792098279540;
-        Thu, 15 Oct 2026 14:04:39 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm814741eec.24.2026.10.15.14.04.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 14:04:39 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Oct 2026 14:04:38 -0700
-Message-Id: <DM5PTJLL1Q7I.3LGRGXTNBA9SF@nexthop.ai>
-Cc: "Michal Simek" <michal.simek@amd.com>, "Andy Shevchenko"
- <andriy.shevchenko@intel.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8] i2c: xiic: restore non-managed runtime PM to fix clk
- WARN flood
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Andi Shyti" <andi.shyti@kernel.org>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
+        d=1e100.net; s=20260707; t=1792098343; x=1792703143;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
+        b=m9CA+sDKuuuTJtOzRtG+D3ugNqkvsaf4iPDZjyYHgZNfGfaLf27WIEjckEPKy1QuOZ
+         HndAbhLcvuBNWlXambxj2VyNraNT/jx/vmA4asVQ85xXC5W+4jwVsWWYn0O/zNhoOcxN
+         82qwoyLVijTacznAb7nwPSEe5W4p5bfeF3Sy17oEfgwQRJVdK+mHM6LVLsO8khxhksM4
+         HOKVEVE9zTvONA9oErZF1gSDw+NWTTrx6XciJt2oVo61xsEpCnKRz97Pxit6OKVXM7bt
+         2zs9yYz4ysVR6uazsQRH8LkXK1tCrixFZO4vkmm8JF1/GbQep2wVUiA/FVi7ENTO34wm
+         bWHw==
+X-Gm-Message-State: AFq9FYKh8jLxOrdri5fq/YGoIyFtBA+BpWSTo4wFLH8sbfYlf69HPwuD
+	GI3cv/dMjtOZQt8MYfv8XYvJTmDpVmrsoMj57Sv2slsfiX6i+Ocouv/MKCr7uikeU8o=
+X-Gm-Gg: AYBFou0uaysn2xsDJVo0mDOYxAk0lxmk0dKqWRk/KOceah320hbJIdhxDo6i+kI2D4h
+	egmWMiWsGk+dU/g3DWIZbTkg0zqEffvmGuNTKlH8ma4+yrm5glFMDGZeNVVbKl3jh5SxAmbW+9y
+	Kt60QiosjAHgtReJbqYu5m1C6W0Fbu7wNpBjwiOIZQmSnH0BSTdC8H60QPpL21F24+OGS8KYxJD
+	QYnScbxVHg9BLcHN1AQXXkOkZlim0MEgCK2DeJKs26uqAOdMC1LcrLdbZSKtjlZfc58a86wvS7+
+	NGaOO+Bdjiun0eoZUv5VQSLLy4kkMsZlR4pfjUJmb3COWl3iRveizcPcZ7uXwjRQ5tv/GL246Hm
+	JaWPRx0c/e0DsmPTVCNIGWLx6YtCtyKiVnwLpORvWffp6VqzaFpXfPKErJaecnxmd26svdx4LBP
+	wFUzc2V1mE+T4Lzc7n5LLvOEGEexCKYuTE9XN7cGUKQW1KfCca0mS+QI/laT8rfZyydoUQPEznC
+	DC4GLAl0Aj5WnKT5LWIyhfcam/IVOkodEza3HiAwDW/ViFcCOU4BwCrb+MC
+X-Received: by 2002:a05:6214:4497:b0:917:edd4:d1d5 with SMTP id 6a1803df08f44-91b557bd604mr362771606d6.42.1792098342597;
+        Thu, 15 Oct 2026 14:05:42 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbbb0d44sm5187326d6.47.2026.10.15.14.05.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 14:05:41 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	mgorman@techsingularity.net,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/page_alloc: validate zonelist slots against concurrent rebuilds
+Date: Thu, 15 Oct 2026 17:05:39 -0400
+Message-ID: <20261015210539.3243563-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.22.0
-References: <20261014-i2c-xiic-restore-runtime-pm-teardown-v8-1-40668c270069@nexthop.ai> <atE6LA8SFpFvZfzZ@zenone.zhora.eu>
-In-Reply-To: <atE6LA8SFpFvZfzZ@zenone.zhora.eu>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 15, 2026 at 1:40 PM PDT, Andi Shyti wrote:
-> Hi Abdurrahman,
->
-> On Wed, Oct 14, 2026 at 04:56:55PM -0700, Abdurrahman Hussain wrote:
->> The devres conversion replaced manual pm_runtime_enable()/disable() with
->> devm_pm_runtime_set_active_enabled() and dropped the remove-time runtime
->> PM teardown. The managed release tears runtime PM down in the wrong
->> order: it calls pm_runtime_dont_use_autosuspend() before
->> pm_runtime_disable(), i.e. while runtime PM is still enabled, and devres
->> is LIFO so the devm_clk_get_enabled() release runs afterwards.
->
-> ...
->
->> Fixes: 50c63491ff26 ("i2c: xiic: switch to devres managed APIs")
->> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
->
-> pushed to i2c/i2c-fixes.
->
-> Thanks,
-> Andi
+Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
+rebuilds every node's zonelists in place. An allocation in flight can
+then be served from a zone it never asked for: a GFP_KERNEL allocation
+can get a page from ZONE_MOVABLE.
 
-Thank you!
-Abdurrahman
+The allocation succeeds, so the zonelist-retry logic never triggers,
+and an unmovable page in ZONE_MOVABLE breaks offline of that block.
 
+Recheck each zone the loop visits against highest_zoneidx and the
+nodemask, using the zone pointer itself. This covers both cases and
+is a no-op without a concurrent rebuild.
+
+Reproduced with a kprobe harness holding a GFP_KERNEL|__GFP_THISNODE
+allocation across the online.
+
+Fixes: c33d6c06f60f7 ("mm, page_alloc: avoid looking up the first zone in a zonelist twice")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ mm/page_alloc.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 6ed36ba4d055..a1254f2e1892 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3782,6 +3782,19 @@ static inline unsigned int alloc_flags_cma(gfp_t gfp_mask)
+ 	return ALLOC_DEFAULT;
+ }
+ 
++/*
++ * The zonelist can be rebuilt in place while it is walked, so the iterator's
++ * filters may have passed a slot that now holds a different zone.
++ * Recheck the zone itself before using it.
++ */
++static inline bool zonelist_zone_valid(struct zone *zone,
++				       const struct alloc_context *ac)
++{
++	if (zone_idx(zone) > ac->highest_zoneidx)
++		return false;
++	return !ac->nodemask || node_isset(zone_to_nid(zone), *ac->nodemask);
++}
++
+ /*
+  * get_page_from_freelist goes through the zonelist trying to allocate
+  * a page.
+@@ -3810,6 +3823,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
+ 		struct page *page;
+ 		unsigned long mark;
+ 
++		if (unlikely(!zonelist_zone_valid(zone, ac)))
++			continue;
++
+ 		if (cpusets_enabled() &&
+ 			(alloc_flags & ALLOC_CPUSET) &&
+ 			!__cpuset_zone_allowed(zone, gfp_mask))
+@@ -5234,6 +5250,9 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+ 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
+ 		unsigned long mark;
+ 
++		if (unlikely(!zonelist_zone_valid(zone, &ac)))
++			continue;
++
+ 		if (cpusets_enabled() && (alloc_flags & ALLOC_CPUSET) &&
+ 		    !__cpuset_zone_allowed(zone, gfp)) {
+ 			continue;
+-- 
+2.56.0
 
