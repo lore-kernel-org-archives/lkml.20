@@ -1,171 +1,149 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA233E2ADA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F414C33D8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052389; cv=none; b=RGbn6WEvZjc7BbBprl0jxmZF0KcygSqocQJOgyyRKqidU+GhXn8K9/avR86MFv8KYb/eZ59nxDwxSMKRaAzn+bvtLSZfUCopHVOA3tckMgkIGTtG5ju19AqSmNUza3eOTaETWwXSPdkxX4CVbwtTzwRG9JS42UMqKm4WFR2MWYo=
+	t=1792052396; cv=none; b=Zt1Ys9qxyG7cWDAgfnV5cjJP5kgwqsM2LSM3oFDqihDkOPmBsxwOIePfVD7fyPmZ0pY8zaCY3PkxL56ZTxRtALb715WY2PfDBn5opt9uqTWD2L3VwO/0a6wu2pLbe/yKp+ZFelPkQCZ0QQ6JA8a7iGsNjt+koWI2cXSyB9/dFRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052389; c=relaxed/simple;
-	bh=fKCu3EsmIOBjdZC4wMaJ8QoHplYkJtG581Mefg5DaB0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ru7JYNGxfmeC6WyrMuNCKcnGeKhGn5gGKpMDKkh1xutqRHCw8uVti+BTOtpMujG4XMYixKKShvlDwHU86xtwaCyT0yVJJeTiSa0e08ZCIg6bjfKbYUvWnZfdFbz/zBsCI1yffkfib4A9aGXVWC+ozoruaVFB6yYjCKzJrH5T3lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UvRFn2Ph; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sipnewb4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792052396; c=relaxed/simple;
+	bh=55fngw8U7i276yUTXQntdbIZF4Wd6ep68zhxSVkxCO8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hrepwMohE/E29NiHtH6OiLk5/Mzv5xEvHrROEwDOfHfio1Oug02AmkSJEd0kbMSQ/AH8oBTJZbhsEcrQh7tThl+SI9LJjDM6z1T9nHk4yGQK6NXCrZdcOeVveS5zmIH+qjrYVKWzoRcgaiiLb2DyEMi9O4LQxzMFOr8SeDqplTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Q1kWCDh2; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UvRFn2Ph";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sipnewb4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792052387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eddayEIfsUE7x2Kqd5MK7LCEtyH8/gmKjsVjC4N83e0=;
-	b=UvRFn2PhuMBU6bRUNWzXJGWSgpN3PrzmZWHUSQFwwYuzMZ6oYtaWO4uoAbS3Qi4+F1jNaI
-	8EyO6+8QT4r5PluAsrrx4H0DfTURhyhnghPTo4jQdrnr/F64k4qpsDzY4pgojg4EoLOf4v
-	kSFOjnzTSKkLORygjagIAU8DgroEmvI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-108-Vij2Vr17NQKG2j9Bspn2Fg-1; Thu, 15 Oct 2026 08:19:45 +0000
-X-MC-Unique: Vij2Vr17NQKG2j9Bspn2Fg-1
-X-Mimecast-MFC-AGG-ID: Vij2Vr17NQKG2j9Bspn2Fg_1792052384
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4870142f030so2991326f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:19:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Q1kWCDh2"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso951501a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:19:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792052384; x=1792657184; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eddayEIfsUE7x2Kqd5MK7LCEtyH8/gmKjsVjC4N83e0=;
-        b=Sipnewb4eF21xmt1ZapteyhK9JBEyzvG9x656dZ9m8TG68mXynhj/XmfZK62IUbWwg
-         05be2s6PnnMrS3FKDu9Zu7LgAJEgAUcIR2lOdn6a8Vk/Fx2bki3VB8augdJ4gGdhAwxF
-         CKRXjCDNB6D2Wu3wRAf1wtC7rT1a7no53Ablvbg6Bm0YVVpJ67q3FZN5okdZEq/OItQl
-         A5n9a4D8dQyofV0fWw4xa1KVEd2BevSmPYRy4C+htjVqAkLHtmh+xNFF3tl9UIjElg8D
-         tGWgIFqTX+ajoKTucXL5nOCFgH8tTERoAzAVKlP/SbIRlzTITao+K/U2PN/ABWyKvTD+
-         BVCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052384; x=1792657184;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792052391; x=1792657191; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eddayEIfsUE7x2Kqd5MK7LCEtyH8/gmKjsVjC4N83e0=;
-        b=SFdOXqpoXX5JdqwcSE4bC7qM7+lBI68+Mp85S4TEjYLtT3GF+83N82jO6NOqe2h1Lp
-         bf90aN/fv8sxcorrmPnepWlY8wh5sHCJZ6x+4d6Yvh8WsbsqJOEDTHPZFx8HFMcOruMB
-         M9yIZ22UdOLM/pT3xBlUXPdNJTjIJRMywplYweVhwSzUT7uRDQw0b9fIN/u5Oi8AH9V2
-         KdZmGZ8+Pd0AvuvkSYvMZpmyRUIUws0fWN7LD7dV/7Dv6r8FHsVP8WYwCsiJU6euXvD2
-         M5Bn6nlXCFUEgL+PGcF8JVGz1u4js0uCtemXVp8R2XOx3chMflbTro43PnbvMsXa6XMC
-         46TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5zE+76SboTVS6dYDwqisObzQZ2zFVlYKWZmI9zpHR3Z6XNh2kh+8zkl+x0vRkOtaEdp6+xMZ2jgvnNtU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeVZ4PYeHhS0f0V+w/4Hs1XQ8ESh6zIM49FaYwrK1US4134nZT
-	6HGQi+cM38PzmLO9arFpP+fgZC/9yHklx/t5L/+XbFnCBFABsuX8MmklCnKk2PDULasNwUqtpfs
-	d7a+rg4FxI+39ZvG1w49/X22KcyomDpWLOBaNNXtTtb5xhsXc8hCei9r6YQTkDuwxrw==
-X-Gm-Gg: AYBFou3avrgvuFgiuMqQiiGf6tYyjWJvcd2GtrGPnyjCLc75h8I/FFowdm2+ZoBp7yQ
-	nMo01USaxZyczD+tJuJbx0dRknhDebSDOfSAlzOQzdio1H7J2YBqDjlAoPeDOKqCkeYt7snAvMl
-	/sHTuOJNTaH4AVnP4lHh8QKJOPKmIs45e+y0skfjBFOVkmowUH7nZlxeIJ4KdOIlOsetmmT4hMm
-	nARbpISYlQNNDzkqdMAUcSr+n4GNJcuEjLovw0ThzT4Y8gQ/3fMSiKvLtSBftzvE1EqN+D3/hjS
-	KIe9gKolvkxzmCrV4AFSsXi+LR2ppzAJbrTCgL44Vu+3hflwkOP7V8QZn/TvXrnyY2Kj447NfAf
-	kj1iUQOdiEenpPS2osB4Z+ILUarcTLxGbEG5Gg3Od3QvspbzEmliK+UDlKgSP2Ucw2LXENOX8PA
-	==
-X-Received: by 2002:a05:6000:ad1:b0:48c:77ad:d52d with SMTP id ffacd0b85a97d-48dbacf5882mr27137755f8f.43.1792052384276;
-        Thu, 15 Oct 2026 01:19:44 -0700 (PDT)
-X-Received: by 2002:a05:6000:ad1:b0:48c:77ad:d52d with SMTP id ffacd0b85a97d-48dbacf5882mr27137717f8f.43.1792052383818;
-        Thu, 15 Oct 2026 01:19:43 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm8723936f8f.31.2026.10.15.01.19.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 01:19:43 -0700 (PDT)
-Message-ID: <9df14e56-633a-4771-82b5-03e3feb227a1@redhat.com>
-Date: Thu, 15 Oct 2026 10:19:42 +0200
+        bh=i6VprNe7yjepyKxDyWl/GS5n+61wlhCAhAo3qvs5zaA=;
+        b=Q1kWCDh27bUa03NhPCldjuS+wzOaEOIz1HLSErnfDS93x7VJqbS7EJh5vx6dtqe+UD
+         RElTfA22CZ1s+/2nThKkzqhOQFI3YDxlqfRHmKxtT3+BVoQ/q7Y0Hl/lvd1xPkCD43XH
+         Jzi6fZdAdXt4vgj+IxaFOCthiB648HDmx9KDRKJqCAyNPQ4gNy+9TS05qFFSPO+4pEi6
+         /ob4e9rv6jle7QPo2MvGgbYzOyQRMqC7LK0JcaUTCf/+truXmFC9VLkJGnl3l2Q3jd2P
+         QP4N6JE5mrR0TMqrXYka6KKsh01pqEFsexJ8ag00KiYMIwUS7GbDjMooGIx9il6YaUyN
+         2csA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052391; x=1792657191;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i6VprNe7yjepyKxDyWl/GS5n+61wlhCAhAo3qvs5zaA=;
+        b=iVc563lsEnFj3gRTB7TlwEVqkU/HDOqJdqiVA+fj5weyQXSgxx73QouGBldA6FxEaL
+         iizvw/BAdBM57OHyiW6seOfmrQUX5myOCk+U2nQ3T3qad+oMycqR+2FKCx7xG/9SwR+l
+         c6oisjaC4Hb/NEVBLYvEP/JeVgGqVZ65CuA2ZvWbc/ZkH8XvxH/oO2phYrZ43cpcEkkg
+         Rf+VfMspAUa6T8dFTYw+wHE4MguHjBV5mCiRX0h77j06hztX9cjPncbpAgiC8C2+cwXj
+         caloC/dgv3I+BnoQ0RHkaITic6pyE7ubpkuzxZKIdApLpQdMyjVN9kYmFa5b5Zq/xxHN
+         hkmw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbtAFcVDOhJnRjJB7j/ce9e9LpOn6XaZTOPL9fRXB6u7PqFeLxSGUD8M6JnUFYdaR1LB2A5xBuPAEvWBE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfway7AHrAL+JES0ebbgbU8/4U0Z1QI8U2we1Wl4rgn7h8QAbK
+	dT0zBwd4bNn3/HD82aC+f/DcCqMzRCukm+4pBv91KQbCqucfcNrfTqIyDIhoxLWD0oc=
+X-Gm-Gg: AYBFou1CrHW4r5+bc2ITJjYP+uVQ7E+7Lhpr3wmiklzhQGMfcnwrfwuhHFRKj7cVsLR
+	ry60QCo86sUU5oHso0l260SErhHP+yw/GvHwUpeA2cVjhYql31En5jLLc78DQ0Sb253oGOMAtc9
+	bEvx/oT3ShdEqmEgPHNqnfk44xwkCSw/j7ig7fjM8AnPv9A6TnC8OU/B8VnpL7Pku83sXmUSTv1
+	OGiuy8F2GNIqz0Weyb/ej5ytip+vYrabXDuPHnYUZPDEwGVZjhZ9VWP+w+jhGvzCRjHWsqUnmVA
+	dQsHSkZiL2SncYYiKn8cjVm62Vyi99UN8mJOYTBF8843F/p2ePRd7DxSjEtFI1gRv2k8ycrht7j
+	12LHRPT+BufKOrErv0/511gHXUQcwW+u+AHKnLr1m6Vk/Oe5tsqtXgcbjBXoKpyuM3D23xmSLpz
+	HCjCX5HUsLT71OBZ+F1Uj/tqQECwnwgymmIzbaB6zMynPDnp5xHPiXbYqBIESB93elwthc0SNkH
+	5FLyw==
+X-Received: by 2002:a17:90b:1b06:b0:3ac:adce:60b2 with SMTP id 98e67ed59e1d1-3acadce66cfmr116114a91.2.1792052390946;
+        Thu, 15 Oct 2026 01:19:50 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e755bsm3319784a91.2.2026.10.15.01.19.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:19:48 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2 1/5] scsi: aic94xx: bail out of escb_tasklet_complete() on a bad EDB index
+Date: Thu, 15 Oct 2026 17:19:30 +0900
+Message-ID: <20261015081935.4168771-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
+References: <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] veth: clear rx queue hint in veth_xmit
-To: Toshiaki Makita <toshiaki.makita1@gmail.com>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- Daniel Borkmann <daniel@iogearbox.net>, linux-kernel@vger.kernel.org,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-References: <20261009040412.14571-1-jiayuan.chen@linux.dev>
- <65a3e29a-24e0-47b3-a189-903b1a33c336@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <65a3e29a-24e0-47b3-a189-903b1a33c336@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/13/26 10:14, Toshiaki Makita wrote:
-> On 2026/10/09 13:04, Jiayuan Chen wrote:
->> With more tx queues on one end of a veth pair than rx queues on the
->> other, and RPS or generic XDP enabled on the receiving end, we get:
->>
->>      veth1 received packet on queue 2, but number of RX queues is 2
->>      WARNING: net/core/dev.c:5212 at get_rps_cpu+0x560/0x1360
->>      Call Trace:
->>       <TASK>
->>       netif_rx_internal+0x1af/0x4c0
->>       __netif_rx+0x99/0x350
->>       veth_xmit+0x713/0xca0
->>       dev_hard_start_xmit+0x166/0x5f0
->>       __dev_queue_xmit+0x1797/0x42d0
->>       ip_finish_output2+0xa34/0x1f40
->>       __ip_finish_output+0x510/0x7e0
->>       ip_finish_output+0x2f/0x320
->>       ip_output+0x17a/0x3f0
->>       ip_send_skb+0x1bc/0x220
->>       ......
->>
->> Easy to hit with "ethtool -L veth0 tx 4", "ethtool -L veth1 rx 2",
->> rps_cpus set on veth1 and a few flows sent over the pair [1].
->>
->> veth_xmit() uses skb->queue_mapping to pick the peer rq, but never
->> clears it before veth_forward_skb(), so the rx side still sees the tx
->> queue index. Everything on the rx side that goes through
->> skb_get_rx_queue(), like get_rps_cpu() and netif_get_rxqueue() for
->> generic XDP, takes it as a recorded rx queue and warns once it is out
->> of range.
->>
->> Clear it before handing the skb to the peer:
->>
->> - It is the tx queue index of this device, it says nothing about the
->>    rx queue of the peer.
->>
->> - The two sides don't even agree on the encoding. The tx side stores
->>    the index as is, the rx side stores index + 1 so that 0 can mean
->>    "not recorded". So tx queue k is read back as rx queue k - 1, and
->>    tx queue 0 as "not recorded".
->>
->> - Commit 710ad98c363a ("veth: Do not record rx queue hint in
->>    veth_xmit") already decided that veth should not pass any queue
->>    hint to the peer. There is no tx->rx queue mapping to preserve, so
->>    nothing is lost by clearing it.
->>
->> On NETDEV_TX_BUSY the skb goes back to the qdisc, which looks up the
->> txq from skb->queue_mapping to decide when to retry, so restore it
->> there, next to the existing __skb_push().
->>
->> [1]: https://lore.kernel.org/netdev/156834bb-8e40-496e-9443-9d515fa18eab@linux.dev/
->>
->> Fixes: 710ad98c363a ("veth: Do not record rx queue hint in veth_xmit")
-> 
-> I guess the splat can happen before this commit.
-> I'm not very sure but probably it has been possible since after 76ff5cc91935
-> (with ip link add numtxqueues & numrxqueues, instead of ethtool -L)
+escb_tasklet_complete() derives the empty data buffer index from the done
+list opcode the sequencer wrote:
 
-I think the above is correct; I'll update the tag accordingly
+	int edb = (dl->opcode & DL_PHY_MASK) - 1; /* [0xc1,0xc7] -> [0,6] */
 
-For the same reason I agree this is net-next material.
+DL_PHY_MASK is 7, so the subtraction yields -1 through 6, and the
+function already says that anything outside [0,6] is wrong:
 
-/P
+	if (edb > 6 || edb < 0) {
+		ASD_DPRINTK("edb is 0x%x! dl->opcode is 0x%x\n", ...);
+		...
+	}
+
+The block reports the problem and then falls through to let it happen.
+edb is used twice afterwards: asd_bytes_dmaed_tasklet() adds
+ascb->edb_index to it to index seq->edb_arr[], and the out: label at the
+end of the function hands the same value to asd_invalidate_edb(), which
+indexes both escb->eb[] and seq->edb_arr[]. asd_assign_edbs2escbs() gives
+the first ESCB edb_index 0, so for that one edb == -1 reads
+seq->edb_arr[-1], one pointer before the array, and dereferences whatever
+it finds.
+
+Finish the check the way it reads: return instead of falling through.
+
+Whether the sequencer can really report an opcode that makes this zero is
+not something the tree answers. It is firmware loaded with
+request_firmware(), the done list opcode is described only by the comment
+above, and there is no Documentation/ file and no MAINTAINERS entry for
+this driver. This is not a claim of a reachable out-of-bounds access,
+only that the driver goes on to index an array with a value it has just
+decided is invalid. The intent to bound what the sequencer supplies is
+already in the same file, in asd_bytes_dmaed_tasklet():
+
+	size = min(size, (u16) sizeof(phy->frame_rcvd));
+
+which clamps a device-supplied length a few lines after indexing
+seq->edb_arr[] with a device-supplied index and no bound.
+
+One consequence worth naming: an ESCB dropped this way is not invalidated
+and so is not reposted to the sequencer, because the repost happens
+inside asd_invalidate_edb(). That takes one empty buffer out of
+circulation per malformed opcode. It is the lesser of the two, and
+recovering the ESCB instead would mean choosing some other buffer to
+invalidate, which this index cannot tell us.
+
+Fixes: 2908d778ab3e ("[SCSI] aic94xx: new driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/aic94xx/aic94xx_scb.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/aic94xx/aic94xx_scb.c b/drivers/scsi/aic94xx/aic94xx_scb.c
+index 08c8dad9ad621..d050e5325b943 100644
+--- a/drivers/scsi/aic94xx/aic94xx_scb.c
++++ b/drivers/scsi/aic94xx/aic94xx_scb.c
+@@ -421,6 +421,7 @@ static void escb_tasklet_complete(struct asd_ascb *ascb,
+ 			    le64_to_cpu(ascb->scb->header.next_scb),
+ 			    le16_to_cpu(ascb->scb->header.index),
+ 			    ascb->scb->header.opcode);
++		return;
+ 	}
+ 
+ 	/* Catch these before we mask off the sb_opcode bits */
+-- 
+2.43.0
 
