@@ -1,174 +1,76 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF90A558204;
-	Thu, 15 Oct 2026 17:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69F2565119;
+	Thu, 15 Oct 2026 17:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087074; cv=none; b=JHTrA2IYfijxXCVGTvaBAmbVNm+SU5vtuViBHbZHCeoJ+vhNvh5god/u54e9vz4p4ZFWm8DZtxinaAGuHSzIoFJ65sfISXPw7wBJlCfBHh2dCjaVxeXybxP0xSJUlNGBiPmdqtjQFr8AvSWmn+qp7ooC5/Pjy3DZLPIVDjNePsI=
+	t=1792087113; cv=none; b=LhZ+oqlt7Hww9xK/o9SUVWHt0kYxKaZ1V8FW4dk2LxtDks/lvxjKu5ML4zLhFChCgH9oU7Rxgss/+HqP1RWV0nr2+/4j6zNKfj55Nw6W6EwDA1PKTNI4WKWTDyKNrYKDQWq0StncjPGFiAEM+sZzIMmKcqreHI00I3NV4FM4puU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087074; c=relaxed/simple;
-	bh=ONn5tgfVwDm8BT2O8Wsc5DAR+oniwRJ4KW4F1WoRg2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rds2AVJ+6x+SoaUndXuFSxzGCltjW3uxB00tgvzZkWqkeErjN23VgXMUR6TRZVq+fNg/Qk7zuJcn/h3M4DNeCbzNvBa4Er9UOqKeztqTZxB5q4k5wwQhNzHRchkXgsmvKa72UJbIqcAwFnjc59gclFGSdnzAn7sZRezjUhIEcnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=IPJweeg8; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1792087113; c=relaxed/simple;
+	bh=qvPGO9pAyxBSZn4aaNFYkrTQgYwhVRcpnLkRfV0YLzs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MOs6iCXC0TiW5bOJmw1+T90057SamrhXhKw4mAsNq3hmnYqd5Jw9lbciz5dQRo5r4b+WZo15t6r7lvDEjX3IaENEyp722qbAIodza7PnyWcCKlSUjRM5xuQLLfmchwnSQ6DPGdoT8yQp1B7PO77CQ+QMdW/pfoa+2tW55GSW9RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+BYtSrj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="IPJweeg8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=slzMnxiBKoSqhaRlHrQQc/690soy6qzq+CQUtjpNTL0=; b=
-	IPJweeg8znI6PX31nRWp8d95WLWk02S81uagkBkSheES+E6ijfP5m2vrXwcEsSpNbdel3YXY9WGH4
-	r3Cbf4knoh0nA2EUheYHG6VtSsig502T4xHvMTU+w4/n4rEELrSon1zIqDbRuof9XLf23xBzR3D3a
-	I2zOg1V8ez0Vms3Wnq7cQVXaapPxM+o8ZNCyD9AP8ibIBhfmo8BrrmOIEOBp/53Wy4vTrJ1H3eA0k
-	oAf4xOv7PgyqyGehltVwDDsA5mIQBxUw3O16LkM7z48AvwKW/nlC9xZ2bQxsaZlOvSQEfLnwCHNdH
-	gu9kw2x9DohvHNVsD5XCriEsdXvnX/hAJQ==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xHPhv-000fQx-Vr; Thu, 15 Oct 2026 19:57:36 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	kernel-dev@igalia.com,
-	Luis Henriques <luis@igalia.com>
-Subject: [PATCH v2] fuse: rename fuse_direct_io() to fuse_do_direct_io()
-Date: Thu, 15 Oct 2026 18:58:56 +0100
-Message-ID: <20261015175856.13333-1-luis@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+BYtSrj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178CF1F000C4;
+	Thu, 15 Oct 2026 17:58:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792087107;
+	bh=sw5Vs35NHiaOZ7dr1okYjwaIOYOwhFc/brSVUiHaWv8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M+BYtSrjlClM7TXreyMdxE+xstViocEmiak/TbwCFFCvktQOhci+9Gywo+ijccSnB
+	 6OTF3Ps/9DioxA0L6HeYBSDO3NntO2HyAR8DbFoZXbeSrNyLlRAQ2HilkaTB++WF7K
+	 6aM329sP3dqdyj/vqZDuQzoImAfaMSBK+/UA6zckbvIhaZNzsOnyb7vllQ/qmjkROU
+	 X6atAnnSx4s2bmmuiSrPDQCFJbDf5KbCkfmevi621I/rS2zRJvpl4GTjYWOKmYqkcB
+	 hhpZY22kfVWKgNe2YMuveV7/ZQzxrqWU7jG35aaRuasr90tcohMG0KrcTN2DTwKIHz
+	 E7h1P+/zBl5qA==
+Date: Thu, 15 Oct 2026 10:58:26 -0700
+From: Kees Cook <kees@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Brad Spengler <spender@grsecurity.net>,
+	PaX Team <pageexec@gmail.com>, Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next net] netdev: Hide the netdev_priv() origin from
+ GCC in netdev_from_priv()
+Message-ID: <202610151056.DB82177C@keescook>
+References: <20261015165959.i.798-kees@kernel.org>
+ <202610151006.E2F587A60@keescook>
+ <20261015103410.15ae1b8e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015103410.15ae1b8e@kernel.org>
 
-FUSE has two functions with very similar name: fuse_direct_io() and
-fuse_direct_IO().  Which is very confusing.  Rename one of them to remove
-the ambiguity.
+On Thu, Oct 15, 2026 at 10:34:10AM -0700, Jakub Kicinski wrote:
+> On Thu, 15 Oct 2026 10:07:06 -0700 Kees Cook wrote:
+> > geh, for the subject "net" and "net-next" glitch: I've poked my 
+> > subject-building tooling again, this should be for "net", not
+> > "net-next"... 
+> 
+> :) Ack. Just missed today's PR but looks like this is 2 releases 
+> old so not _extremely_ urgent. If you think it is we can also ask
+> Linus to take it direct
 
-Signed-off-by: Luis Henriques <luis@igalia.com>
----
- fs/fuse/cuse.c   |  6 +++---
- fs/fuse/dax.c    |  2 +-
- fs/fuse/file.c   | 14 +++++++-------
- fs/fuse/fuse_i.h |  8 ++++----
- 4 files changed, 15 insertions(+), 15 deletions(-)
+This is only hitting one place (currently), but as it went unnoticed for
+a while (GCC has been bugged for a few releases, it seems), I think the
+urgency isn't high.
 
-diff --git a/fs/fuse/cuse.c b/fs/fuse/cuse.c
-index 4079cf8e5974..01f61fc8e354 100644
---- a/fs/fuse/cuse.c
-+++ b/fs/fuse/cuse.c
-@@ -98,7 +98,7 @@ static ssize_t cuse_read_iter(struct kiocb *kiocb, struct iov_iter *to)
- 	struct fuse_io_priv io = FUSE_IO_PRIV_SYNC(kiocb);
- 	loff_t pos = 0;
- 
--	return fuse_direct_io(&io, to, &pos, FUSE_DIO_CUSE);
-+	return fuse_do_direct_io(&io, to, &pos, FUSE_DIO_CUSE);
- }
- 
- static ssize_t cuse_write_iter(struct kiocb *kiocb, struct iov_iter *from)
-@@ -109,8 +109,8 @@ static ssize_t cuse_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	 * No locking or generic_write_checks(), the server is
- 	 * responsible for locking and sanity checks.
- 	 */
--	return fuse_direct_io(&io, from, &pos,
--			      FUSE_DIO_WRITE | FUSE_DIO_CUSE);
-+	return fuse_do_direct_io(&io, from, &pos,
-+				   FUSE_DIO_WRITE | FUSE_DIO_CUSE);
- }
- 
- static int cuse_open(struct inode *inode, struct file *file)
-diff --git a/fs/fuse/dax.c b/fs/fuse/dax.c
-index 85cdf0199bc0..86e308960b24 100644
---- a/fs/fuse/dax.c
-+++ b/fs/fuse/dax.c
-@@ -709,7 +709,7 @@ static ssize_t fuse_dax_direct_write(struct kiocb *iocb, struct iov_iter *from)
- 	struct fuse_io_priv io = FUSE_IO_PRIV_SYNC(iocb);
- 	ssize_t ret;
- 
--	ret = fuse_direct_io(&io, from, &iocb->ki_pos, FUSE_DIO_WRITE);
-+	ret = fuse_do_direct_io(&io, from, &iocb->ki_pos, FUSE_DIO_WRITE);
- 
- 	fuse_write_update_attr(inode, iocb->ki_pos, ret);
- 	return ret;
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 9a36d0329e22..801a2a269906 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -1653,8 +1653,8 @@ static int fuse_get_user_pages(struct fuse_args_pages *ap, struct iov_iter *ii,
- 	return ret < 0 ? ret : 0;
- }
- 
--ssize_t fuse_direct_io(struct fuse_io_priv *io, struct iov_iter *iter,
--		       loff_t *ppos, int flags)
-+ssize_t fuse_do_direct_io(struct fuse_io_priv *io, struct iov_iter *iter,
-+			    loff_t *ppos, int flags)
- {
- 	int write = flags & FUSE_DIO_WRITE;
- 	int cuse = flags & FUSE_DIO_CUSE;
-@@ -1755,7 +1755,7 @@ ssize_t fuse_direct_io(struct fuse_io_priv *io, struct iov_iter *iter,
- 
- 	return res > 0 ? res : err;
- }
--EXPORT_SYMBOL_GPL(fuse_direct_io);
-+EXPORT_SYMBOL_GPL(fuse_do_direct_io);
- 
- static ssize_t __fuse_direct_read(struct fuse_io_priv *io,
- 				  struct iov_iter *iter,
-@@ -1764,7 +1764,7 @@ static ssize_t __fuse_direct_read(struct fuse_io_priv *io,
- 	ssize_t res;
- 	struct inode *inode = file_inode(io->iocb->ki_filp);
- 
--	res = fuse_direct_io(io, iter, ppos, 0);
-+	res = fuse_do_direct_io(io, iter, ppos, 0);
- 
- 	fuse_invalidate_atime(inode);
- 
-@@ -1806,8 +1806,8 @@ static ssize_t fuse_direct_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		} else {
- 			struct fuse_io_priv io = FUSE_IO_PRIV_SYNC(iocb);
- 
--			res = fuse_direct_io(&io, from, &iocb->ki_pos,
--					     FUSE_DIO_WRITE);
-+			res = fuse_do_direct_io(&io, from, &iocb->ki_pos,
-+						  FUSE_DIO_WRITE);
- 			fuse_write_update_attr(inode, iocb->ki_pos, res);
- 		}
- 		if (res > 0 && mapping->nrpages) {
-@@ -2787,7 +2787,7 @@ fuse_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	}
- 
- 	if (iov_iter_rw(iter) == WRITE) {
--		ret = fuse_direct_io(io, iter, &pos, FUSE_DIO_WRITE);
-+		ret = fuse_do_direct_io(io, iter, &pos, FUSE_DIO_WRITE);
- 		fuse_invalidate_attr_mask(inode, FUSE_STATX_MODSIZE);
- 	} else {
- 		ret = __fuse_direct_read(io, iter, &pos);
-diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
-index c8d4c5f3af7e..f892f60d3d22 100644
---- a/fs/fuse/fuse_i.h
-+++ b/fs/fuse/fuse_i.h
-@@ -1167,17 +1167,17 @@ int fuse_do_open(struct fuse_mount *fm, u64 nodeid, struct file *file,
- 		 bool isdir);
- 
- /*
-- * fuse_direct_io() flags
-+ * fuse_do_direct_io() flags
-  */
- 
- /** If set, it is WRITE; otherwise - READ */
- #define FUSE_DIO_WRITE (1 << 0)
- 
--/** CUSE pass fuse_direct_io() a file which f_mapping->host is not from FUSE */
-+/** CUSE pass fuse_do_direct_io() a file which f_mapping->host is not from FUSE */
- #define FUSE_DIO_CUSE  (1 << 1)
- 
--ssize_t fuse_direct_io(struct fuse_io_priv *io, struct iov_iter *iter,
--		       loff_t *ppos, int flags);
-+ssize_t fuse_do_direct_io(struct fuse_io_priv *io, struct iov_iter *iter,
-+			    loff_t *ppos, int flags);
- long fuse_do_ioctl(struct file *file, unsigned int cmd, unsigned long arg,
- 		   unsigned int flags);
- long fuse_ioctl_common(struct file *file, unsigned int cmd,
+-- 
+Kees Cook
