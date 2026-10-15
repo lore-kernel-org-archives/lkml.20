@@ -1,267 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB19489FBC;
-	Thu, 15 Oct 2026 09:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDE04FD79B;
+	Thu, 15 Oct 2026 09:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056786; cv=none; b=cU9BcheN1oxZjElJkvokGMuENrpnK/3Ir+MYO46PYIhc3ukNDI859MYnuYkM4JxzTAsVthoK1EQFQsS7EDnKHu28qCR+cVCmy6NSoWV3r7BBeM5JLSUQsFJgOppaP1StBxfpBERrp1OkTb9zMsFfSLbefUvVXH3fuyAbwES7HpY=
+	t=1792056786; cv=none; b=U1QNVXQ9oaNR13as27sv2XIXAHmI9yssqSp3K/q5fd+zGOwmg2RiOYLqOIeVqRLhjoDHBTWu5jUwtu7ebkBt0aIb5a5mF2jP3ikcgGXA4Fqs8vhlcXeKaDczZGRli7bfNmbY/yul2oT9kbxEqUitkXispXy4KdT9ThWNDnkJRUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792056786; c=relaxed/simple;
-	bh=yqD/9+CrvO1EK4sHo+hCa3W2BZSv0Mf4fR9oR/ZR8Mo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CEIL1C4wa2qqcsXBjFLX/YvRdUpr4eGkVDMHQDRDKxU5C2J4KdVNF2kVaKHMllbxqFW6WnCJjyBrlJiwbLmQ82CenA5J6Ap7lWT6gyZU5yYAJoW4/geZQwlD6cnLHkGTDbliVkJuPq2sf1DFNnIHgEvR10Wh5YkML4yyXjg913I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYtzeSWY; arc=none smtp.client-ip=10.30.226.201
+	bh=LpNClCQP5Is+elo/pq8lLIDHPbjUVBpwERR2/acZ+h8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AfFkWvzc/bMVOSKda5julfi9hKmnpY4/j4SM8zU10m9D5uvAwwb2BifPetgsHSHIXuYooYFcCCT6A+sqC41kDzQkdnCaexXDZ1ZY4Euha9UOx0KTgARmjFtIXQ4BOMQbwpJOYlQ37sgLB22OXH4aJDQaafVm/4u69mlABogRPoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Td4Bk9E2; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYtzeSWY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4AF70C2BCC7;
-	Thu, 15 Oct 2026 09:33:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792056785;
-	bh=yqD/9+CrvO1EK4sHo+hCa3W2BZSv0Mf4fR9oR/ZR8Mo=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=OYtzeSWYWrkCvofQTnDW+CMRDQC9EXJg46Ab7leCcMWALlaFqq+hn/1Xm1HjXLZGZ
-	 POi2MGrPOXf+BRIjH1gi0pbmN4g6QIOIj9tEyHTSQNaycwJz0De+u8C1jBGsbLwTM/
-	 dt8XRfYryOH0PfqqMer0FNGnhB5oHMwIIAA250FwJfnXjsiOd3xJAtzycG6soQB5yu
-	 cZx2hJ1WDAJkXBZxaeMFGQmrbnpXl8GtmTuOvGLAR9WyzlcgbkwiZy1NG3E4Ib/PeB
-	 G79n1L9hpPHpK4hUYpd4DS3vXWy1B3bB9pGEHTWRY4aKeZRfBVf2UOybqJ4oO2Mbxq
-	 xETRmuqN3dfEA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24B73CC6B2F;
-	Thu, 15 Oct 2026 09:33:05 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Subject: [PATCH v3 0/6] iio: imu: Add support for the ADI ADIS16607
-Date: Thu, 15 Oct 2026 12:32:57 +0300
-Message-Id: <20261015-adis16607-v3-0-f972d4efee85@analog.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Td4Bk9E2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=gqXL7E3N1x1LB8og9YdmknDi+YHVB1OXC5g35twuSCs=; 
+	b=Td4Bk9E29YBqTwLpaSyL0uIyAgwH02M2fYxO7/X8OGffbsCHsvS8iSS7ct97aWJGrzaJ5PQyXJN
+	Sttoq04OQLcRd8d8zV/VfBbv3RQ8Nszlc4RzYTeAFYVXltKZSzI4sOzjpHPLFdGqCFBKsjTsy+3td
+	LCvDeuCyk6TRikkn4XiDOQeHzmbeut56ydMyIxMNRMreUqgbGDNucUb/NrJ7+xNdX3TxKr29JjbVg
+	yorq1gQkKB3fml/e/rRZS0YJMrVUyCjVvTwhBukyGC5P2UC9XknakmfC28JZPa1dtCkN0LJe4BeKp
+	z/PqUycrslgimsUQMNdi4sILZP9fnGSVYDKw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHHpa-000000047NJ-2kY4;
+	Thu, 15 Oct 2026 17:32:59 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 15 Oct 2026 20:32:58 +1100
+Date: Thu, 15 Oct 2026 20:32:58 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v2] crypto: inside-secure: initialize EIP93 state before
+ requesting IRQ
+Message-ID: <atCdyvlEqqhgK-Fz@gondor.apana.org.au>
+References: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
+ <20261009033149.1127441-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAMmd0GoC/1WMyw7CIBQFf6VhLeZC5eXK/zAuEC4tiRYDhmia/
- ru0q7qckzMzk4I5YiHnbiYZaywxTQ36Q0fcaKcBafSNCQcuQTJFrY+FSQmKgjYhOCmEwztp/1f
- GED9b63prPMbyTvm7pStb163CANiuUhkFapw2DrEXXsiLnewjDUeXnmTNVL5X9V7lTVXOnHzQo
- JW2f+qyLD/p4w6J3gAAAA==
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792056783; l=10599;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=yqD/9+CrvO1EK4sHo+hCa3W2BZSv0Mf4fR9oR/ZR8Mo=;
- b=1F63EGoSh5V9V838WuFAkVeeoC8vTq3surEqRxp4B/ZX/o3tv928cx5An5k1vZzGUUwxl5p7A
- VY42VHMrLdqAPbRGfMp10hbej1GbLsFClCMH3VUBt7hWxK0nxP4jPc6
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009033149.1127441-1-runyu.xiao@seu.edu.cn>
 
-This series adds support for the Analog Devices ADIS16607, a precision
-MEMS IMU with triaxial gyroscope, triaxial accelerometer, and
-temperature sensor, communicating over a non-standard SPI Half-Duplex
-protocol.
+On Fri, Oct 09, 2026 at 11:31:49AM +0800, Runyu Xiao wrote:
+> devm_request_threaded_irq() can invoke the handler as soon as registration
+> starts. Initialize EIP93 state before requesting it and leave device
+> interrupts disabled until registration succeeds.
+> 
+> If IRQ registration fails after the hardware and rings are initialized,
+> call eip93_cleanup() before returning. This shuts down the engine and
+> clears the ring registers before devres releases the DMA rings.
+> 
+> Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> Changes in v2:
+> - Call eip93_cleanup() if IRQ registration fails after device initialization.
+> 
+>  drivers/crypto/inside-secure/eip93/eip93-main.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
 
-Patch 1 adds two small adislib (drivers/iio/imu/adis.c) extensions
-this series needs:
- - An optional self_test callback for devices whose self-test sequence
-   doesn't fit the generic mask-write/sleep/check-status pattern.
- - An optional post_reset_setup callback for devices that need extra
-   device-specific bring-up between reset and self-test (SPI mode
-   locking, status/bootloader checks, pin or burst-mode configuration,
-   etc.) - not all ADIS devices need this, so it's only called when
-   set, same as self_test.
-Plus a fix to the reset dispatch: both __adis_initial_startup()'s reset
-fallback and the public adis_reset() wrapper were calling __adis_reset()
-directly instead of dispatching through adis->ops->reset(). That bug is
-invisible for every existing adislib driver (adis_default_ops.reset is
-__adis_reset() itself), but silently breaks a driver with fully custom
-ops - like this one - on any board without a reset-gpios property, or
-any caller of adis_reset() on a device like adis16550 whose custom
-reset op needs a different write size than __adis_reset()'s hardcoded
-8-bit one. Carries a Fixes tag for the commit that introduced the
-hardcoded call; no stable backport is needed since the bug only
-manifests for a custom-ops driver, and this is the first one.
+Please check the Sashiko comments:
 
-Patch 2 adds the devicetree binding.
+https://sashiko.dev/#/patchset/20261009033149.1127441-1-runyu.xiao%40seu.edu.cn
 
-Patches 3-6 add the driver in functional groupings, as requested in
-v1 review:
- - Patch 3: base driver - probe, raw channel reads, decimation/sample
-   frequency, startup and self-test via adislib, debugfs identity
-   entries. No buffered capture yet.
- - Patch 4: buffered capture via the device's hardware FIFO.
- - Patch 5: external clock sync support.
- - Patch 6: calibration bias support for gyro/accel.
-
-Notable points for reviewers:
-
- - The device does not implement the standard ADIS SPI protocol used
-   by other parts in the family; reads/writes are done over a custom
-   Half-Duplex sequence (see adis16607_spi_read()/adis16607_spi_write()
-   and the adis_ops overrides).
-
- - Startup is split across the two new adislib callbacks rather than a
-   driver-private initial_startup(): adis16607_post_reset_setup() does
-   SPI Half-Duplex locking, dev_id verification, the bootloader-busy
-   check, an optional reset-status GPIO output, and (once FIFO is
-   wired up in patch 4) burst-mode and interrupt-pin configuration;
-   adis16607_self_test() does only the actual per-axis delta-check.
-
- - The optional reset-status GPIO output (RESET_GPIO_MASK, part of
-   "optional hardware reset via GPIO") is configured in patch 3's
-   post_reset_setup, independent of FIFO. Patch 4 later adds the
-   DR/DEV_NOK pins to the same USER_GPIO_CFG register via a
-   read-modify-write, so it cannot clobber what patch 3 already set.
-
- - The hardware FIFO is the *only* buffered capture path - there is no
-   single-sample direct burst-read trigger mode. The FIFO-pop command
-   and the regular burst-read command are genuinely different
-   protocols on this device (different payload shapes, no checksum on
-   the FIFO side), so this stays driver-private rather than going
-   through adislib's generic burst-read helpers.
-
- - The FIFO-threshold interrupt is signaled via DEV_NOK on the
-   device's one physically-wired interrupt pin, which stays asserted
-   (level-triggered) until DIAG_STAT is read and cleared - this sets
-   has_fifo on adis_data and requests the IRQ through adislib's
-   threaded/level path, matching adislib's actual contract for that
-   flag.
-
- - An optional external clock (clocks property) selects between
-   SYNC_DIRECT and SYNC_SCALED modes depending on the supplied
-   frequency, with the internal 8 kHz clock used as the default when
-   no clock is provided (adis16607_config_clk()).
-
-This has been tested on a Raspberry Pi 4 (arm64) with the device wired
-over SPI, exercising the FIFO buffered-capture path with the updated
-DEV_NOK/level-triggered interrupt wiring.
-
-To: Lars-Peter Clausen <lars@metafoo.de>
-To: Michael Hennerich <Michael.Hennerich@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Alexandru Ardelean <alexandru.ardelean@analog.com>
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-
-Changes in v3:
-- Fixed the public adis_reset() wrapper (adis.h) to also dispatch
-  through adis->ops->reset() instead of hardcoding __adis_reset() -
-  the same bug class as the v2 __adis_initial_startup() fix, just a
-  second call site that was missed. Switched both checks from
-  comparing against adis_default_ops to adis->ops->reset != __adis_reset,
-  which also works from the header, where adis_default_ops isn't
-  visible (Sashiko).
-- Fixed dt-binding wording: dropped "compatible" from the variant
-  description (reads as a DT compatible-string fallback claim, which
-  doesn't exist here - the two variants aren't interchangeable) and
-  dropped a Linux-driver-specific sentence from reset-gpios's
-  description (Conor); removed a stale commit-message bullet claiming
-  a FIFO watermark property that was never in the binding (Sashiko).
-- Dropped a redundant <linux/mod_devicetable.h> include -
-  <linux/spi/spi.h> already provides it (Uwe, Andy); switched
-  adis16607_id[] to named initializers (Uwe).
-- Fixed FIFO sample timestamps: they were projected forward from the
-  IRQ-fire time instead of back-dated, so the newest sample in a batch
-  ended up timestamped in the future. Now back-dated so the newest
-  sample lands on the IRQ-fire time and earlier ones count back from
-  it (Sashiko).
-- Added a comment explaining why disabling the FIFO during drain, and
-  the flush afterward, don't lose in-flight samples - no new samples
-  are enqueued at all while disabled, so nothing can arrive in that
-  window for the flush to drop (Sashiko asked twice, independently).
-- Reworked external clock sync configuration (adis16607_config_clk())
-  so every mode (default/direct/scaled) explicitly writes its own
-  complete SYNC_GPIO_MASK/USER_SYNC state, instead of only writing
-  conditionally when enabling non-default sync (Sashiko x2); switched
-  the sync scale factor from truncating to rounding division (Sashiko);
-  fixed a real bug where SCALED mode's effective clock was hardcoded
-  to the nominal internal rate instead of the actual achieved rate
-  (ext_clk_hz * sync_scale), which would have caused FIFO timestamps
-  to drift whenever the external clock didn't divide the internal
-  clock exactly (Sashiko).
-- Added range validation before writing calibration bias - out-of-
-  range values were silently truncated to 16 bits instead of being
-  rejected (Sashiko).
-- Link to v2: https://lore.kernel.org/r/20261008-adis16607-v2-0-7c94df80878a@analog.com
-
-Changes in v2:
-- Split the driver commit into functional groupings per review:
-  base, FIFO, external clock sync, calibration bias (Nuno).
-- Added adis_data.self_test and adis_data.post_reset_setup callbacks
-  to adislib instead of duplicating startup/self-test logic in the
-  driver (Nuno). post_reset_setup is a second, honestly-named hook
-  added after review feedback that overloading self_test to also mean
-  "everything else the device needs at startup" was misleading.
-- Fixed __adis_initial_startup()'s reset fallback to dispatch through
-  adis->ops->reset() instead of a hardcoded __adis_reset() call -
-  found while wiring up this driver's custom reset op. Added a Fixes
-  tag for the originating commit.
-- Removed the direct single-sample burst-read capture path entirely;
-  the hardware FIFO is now the only buffered capture mode. Dropped
-  adi,fifo-enable from the binding accordingly.
-- Fixed FIFO-threshold interrupt wiring: set has_fifo on adis_data and
-  switch the DT interrupt type from edge to level, matching the
-  DEV_NOK signal this now uses (previously only the data-ready pulse
-  was wired, which never actually generated a FIFO interrupt).
-- Moved the optional reset-status GPIO output into the base driver
-  patch (where it conceptually belongs) instead of bundling it into
-  the FIFO patch's USER_GPIO_CFG write; the FIFO patch now updates
-  that register with a read-modify-write instead of a blind write.
-- Fixed cover letter: "Three compatible variants (-1, -2, -3)" was
-  wrong, there are only two (-2, -3); "configurable data-ready
-  interrupt pin (DIO1-4)" was wrong, there's a single fixed pin.
-- Corrected spi-max-frequency to 10 MHz (datasheet maximum), from
-  15 MHz.
-- Renamed ADIS16607_REG_SW_RES to ADIS16607_REG_SOFT_RESET to match
-  the datasheet's register name; renamed burst_buf to fifo_buf and
-  dropped the redundant "fifo_" prefix from the buffer postenable/
-  postdisable/ops names, since FIFO is the only capture mode and
-  "burst" no longer described what that scratch buffer is used for.
-- Link to v1: https://lore.kernel.org/r/20261001-adis16607-v1-0-9c89cee35d56@analog.com
-
----
-Radu Sabau (6):
-      iio: imu: adis: Add optional self_test callback and fix custom reset dispatch
-      dt-bindings: iio: imu: Add bindings for ADI ADIS16607
-      iio: imu: Add driver for the ADI ADIS16607
-      iio: imu: adis16607: Add FIFO-based buffered/triggered capture
-      iio: imu: adis16607: Add external clock sync support
-      iio: imu: adis16607: Add calibration bias support for gyro/accel
-
- .../devicetree/bindings/iio/imu/adi,adis16607.yaml |   82 ++
- MAINTAINERS                                        |    8 +
- drivers/iio/imu/Kconfig                            |   13 +
- drivers/iio/imu/Makefile                           |    1 +
- drivers/iio/imu/adis.c                             |   30 +-
- drivers/iio/imu/adis16607.c                        | 1405 ++++++++++++++++++++
- include/linux/iio/imu/adis.h                       |   32 +-
- 7 files changed, 1563 insertions(+), 8 deletions(-)
----
-base-commit: 9c87e61e3c5797277407ba5eae4eac8a52be3fa3
-change-id: 20260617-adis16607-089ffc655ceb
-
-Best regards,
+Thanks,
 -- 
-Radu Sabau <radu.sabau@analog.com>
-
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
