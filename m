@@ -1,321 +1,164 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19092488232;
-	Thu, 15 Oct 2026 08:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4C049EC40
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053844; cv=none; b=K3z4qT9HXo/Su66HEVR8ECvLdL01hSRxXnd9hXcvueSNoCMCWbwbCXYjhIResxFHH1bTcxeEtG5v9eDPdqVlUA2EDKqM1rMGU70NffvhYdNdiCJbi74dkSTvqSpKDSTpqOok1NZPO88omrrP2uCcUUiZcYFmMvrifQ0aIJd0cyg=
+	t=1792053856; cv=none; b=NyYImFsN1QRLyHD79rWhz2OEsuC9Cbc0G+c3X4E5Y5av4FAbmfOudACw6K6sybgkuiYzkXO0Gzk93bpdSMRNa+7g6yBOTtQtoVMqnp7t9rcre4XzlXo7+Uq3QZUtng+4lasNz7ckAI6qXpgj7UvRGrPFzICvKCt78Orz/vO/giY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053844; c=relaxed/simple;
-	bh=iqI7eqILXG9u0SIH9IUbmKjP1OxjJ/Y/ZrbVPi+2Uhw=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=ujwBX5dbi2Ak+tw5y2Kmz1uzHZ6Wmtt91xVY1/KsgGy1FIgNUZVD89PHrELHcGEHyCYoZTjHny/PoyrjOv6y5ixRSA6auR5jwY2p1XWxO13rZ3c2LCU5LL+L0K90rM1ju8RuYa0yGf7/jQ+LID9CpuF1zTpbLuLYdqofv3Cx0Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=U9yj2Bws; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ke4QYrIl; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792053856; c=relaxed/simple;
+	bh=SlB68F3f+BdlirJUEjyixhDsOheZ/zyFCqTY5noaKsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=akA5Sx0eUXIxrAE3XNl4Sv9b0tF6wBZedGptjspITHvGoVpipB4hDtaBrGLKjMa0nTn7qSzl6pDfQjtNOKi/QplQDt9gLtukLA1NBQrbxC31NMfP0E/+t/EJ25Ecki2OZDc+K4ufvP27gDbbGnGxIUmxR1XEmr1Knt1hClkhgxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Qu38pjZv; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="U9yj2Bws";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ke4QYrIl"
-Date: Thu, 15 Oct 2026 08:43:54 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792053836;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZSSKqGiluUM2J6FDWS2C6/QvGT2tZ/QWUlRa0+Go5c=;
-	b=U9yj2BwsrVNhAFu1dLZZGLLTL2PnsC4SDoNPN2vqYN/9EGKg2wsv+KyXAIEA3+wnIxNBKZ
-	phjt64hQ1Gx1Dfhnpy0vWkj4NbpwyARdmm6Nr8CITjzzfT+DeAa7j4mnsuJNOEbZjXuEdR
-	uwpy3ytWZpNgAglSljn9JQSlYvyXAsaqAyEiaXa1zOxIB9FIXG2Uny7MEWzlHiKOSyM4JN
-	2KNsa4+OQa3b/M+GoeNQP8z6Qq2L1E4+BxAFGs254jIrXskX70ZHhSk2PJL8kYEW1EJIvy
-	Npu5p2Ld7yGtn/HBYnHqBfzNjYBMYizC/y/wL1YgtlbMoCWwWFBWTPJrpSkanw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792053836;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oZSSKqGiluUM2J6FDWS2C6/QvGT2tZ/QWUlRa0+Go5c=;
-	b=ke4QYrIl9LmwVK1Z3GbFEH/HlN+RNleekDnmP0YpV4M2YuePD3IFPXrGf+osRLLzuSekkW
-	zk/95mO0FR7C4ODA==
-From: "tip-bot2 for Karl Mehltretter" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: irq/core] softirq: Preserve interrupt context on return from interrupt
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Karl Mehltretter <kmehltretter@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- Bradley Morgan <brads@mainlining.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, x86@kernel.org,
- linux-kernel@vger.kernel.org, maz@kernel.org
-In-Reply-To: <20261011060742.30584-1-kmehltretter@gmail.com>
-References: <20261011060742.30584-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Qu38pjZv"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso16364515e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:44:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792053853; x=1792658653; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7CSJIT17g58+oITTv0q53z5VUcT+bUH2Z8uN5LCucOA=;
+        b=Qu38pjZvJ/9yhCQf/QKDuagSkuepfr5Kk4tIXVsmZhlVJ/NmU/xNH8es5/NAEIsURr
+         yrmv9zxxVdZYiRB2SrFmfZYTl/wvPWUtOWhcyZdQI+x7U3A2zKuZwiWQ6z/t0oDn0xw3
+         nUXE/xKb8VNb9VQF7TLqOuEtHg4nMfke9frKMXzHZLx0M0Y8b4l8Qst9eiJ9uIfrkqVo
+         7SybQMAYfEgETv8MPcq2JMabHLhSg2gR7tpiMCubNSVkLMl5J7vhr9gf5BavxFLBBiog
+         cnLE8Q+afMWLx4G8S2fD59alFjbU2N/25/ZiDwdvWe9CFq4QBDFc40wcELPL/AwHOq2g
+         PcwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792053853; x=1792658653;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7CSJIT17g58+oITTv0q53z5VUcT+bUH2Z8uN5LCucOA=;
+        b=nYPIkMzmaSoig3oyASK+a75EqJDBLIx03ypOWmCUgtkJargbmP8RiNlhjq+KUqn4TS
+         miCvo9vBEf3rfNkqMPuyn6oefbD7WuJ8NHLnVoVAxBTpApN19sB4IjZWr2DZDrxYCegB
+         ThgkUmAyorw2zIzMJ/rKxHQ4ITdfid64SFvjx/WtgDHzgeXisDVS2ZfG0R7XuZNP8pwR
+         WEhS7qsY+0Jh1gua3xRfROEQ4TzdfAZn60KzMh3RemFXX6vxRpYU3qLhbOv0QGli5GYJ
+         BPbUDFqabW7SWcRrrgn+7Jhe/WtTpD5yAL1/m3j0BXHxwGyZ49xesq0HVtdwK/oXgeEC
+         LPoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBM9yFdUaH4ykIPxmmxYqykedhhj7ngm5+u1zLyDolSbp4nhyPvDi2PKov/3oKi4K72mt++wyJuS2AsdY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOTKsXYRdN/nc4Vk1c6NI3m5ZRUQRACwdM323HDTjZNZk5kHwf
+	8Y182dsH6iqhQF9yyiU+dkYPGOpyGaXvb69FF9kGAWHUcjJhGtDw6j/+c3dET1EgwRcFD1gXEHz
+	ae4yW
+X-Gm-Gg: AYBFou3Ke3fw5kTAeOOdV/n8hARq4oi8zVAJBRTHGLh/cOIEZpH/9CeTc6U9uhJrZ7r
+	0QA2XK1+Iqy5mscaM36CEtDclc19zgTb8hAflGRmxfHw+O9wYz32X2xGvu9tEPHHisl2rflNoKD
+	Zn9wHlp7kfT6je2a3qOUiFt+NLHP69cSQXKfo6/vxd1zEosfkvGEyj4xBR+9S2Wn1wE+qMY4ZfV
+	FP/OHT5WZwO0zXGAPTc7+91cPChqAn4xOxanHnnT5kFm3bVyZspuHtWK8dCqJIsDBKqd0u4rOeI
+	gxUrgA300+MCvucsbThfqbPYSzTq7SzP15T3Pa8nlFXcFwM/gCF9O5okEpYufZsu/9wBgVKSKzI
+	hGEzqk1+VNaWW0LIXgqxtb0BCFtDfEmt+brMXlcwo58CTen5l8b67M3s/5a6b3LQT2kt1d1iJeh
+	llcvouuaz4NYHpwxftUlZpYkCJgtVHaqz5TKeEvXfb5Q9EOoah0s01/voGyVO78mcTosIeL1Rwz
+	bKinzPFZVUM+AQ/pyUD0VKpuRherzoy7vP7IvUutrvo8PJs0YTA3OwcA/4+VzTZskEGr0bnu8UD
+	ucysv3Rav/kWw5vjMR7bGfFVlgU2+dPd0q1wtLWouIY1EQ486BA6CuY3NRU=
+X-Received: by 2002:a05:600c:c092:b0:4a1:9831:a69c with SMTP id 5b1f17b1804b1-4a19831a9f7mr220004565e9.30.1792053852671;
+        Thu, 15 Oct 2026 01:44:12 -0700 (PDT)
+Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993caesm110794555e9.12.2026.10.15.01.44.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:44:11 -0700 (PDT)
+Date: Thu, 15 Oct 2026 09:44:09 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, donggeunyoo.kernel@gmail.com,
+	ansuelsmth@gmail.com, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: qcom: qca808x: Add regulator
+ management
+Message-ID: <atCSWZQAyqvz62_K@aspen.lan>
+References: <20261014172300.292324-1-elder@riscstar.com>
+ <44a96544-5ed8-4bdc-8757-d7413e221f40@lunn.ch>
+ <4c0d9a12-6236-4bc5-949c-62a092edb0bc@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205383441.2666988.1122915713819009723.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4c0d9a12-6236-4bc5-949c-62a092edb0bc@riscstar.com>
 
-The following commit has been merged into the irq/core branch of tip:
+On Wed, Oct 14, 2026 at 03:41:20PM -0500, Alex Elder wrote:
+> On 10/14/26 12:36 PM, Andrew Lunn wrote:
+> > On Wed, Oct 14, 2026 at 12:22:59PM -0500, Alex Elder wrote:
+> > > From: Daniel Thompson <daniel@riscstar.com>
+> > >
+> > > QCA8081 appears in embedded board designs paired with GPIO controlled
+> > > regulators for its power rails. Add logic to allow these regulators to
+> > > be turned on during a probe.
+> > >
+> > > In order to avoid the complexity of tracking state for suspend with and
+> > > without WoL we take a tremendously simple "always-on" approach to
+> > > regulator management, essentially relying on BMCR_PDOWN to conserve
+> > > power when the phy device exists.
+> > >
+> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> > > Co-developed-by: Alex Elder <elder@riscstar.com>
+> > > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > > ---
+> > >   drivers/net/phy/qcom/qca808x.c | 30 ++++++++++++++++++++++++++++++
+> > >   1 file changed, 30 insertions(+)
+> > >
+> > > diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
+> > > index bab26e4c61408..6e2bd753257d9 100644
+> > > --- a/drivers/net/phy/qcom/qca808x.c
+> > > +++ b/drivers/net/phy/qcom/qca808x.c
+> > > @@ -1,6 +1,7 @@
+> > >   // SPDX-License-Identifier: GPL-2.0+
+> > >   #include <linux/phy.h>
+> > > +#include <linux/regulator/consumer.h>
+> > >   #include <linux/module.h>
+> > >   #include "qcom.h"
+> > > @@ -181,15 +182,44 @@ static void qca808x_fill_possible_interfaces(struct phy_device *phydev)
+> > >   		__set_bit(PHY_INTERFACE_MODE_2500BASEX, possible);
+> > >   }
+> > > +static int qca808x_power_on(struct phy_device *phydev)
+> > > +{
+> > > +#ifdef CONFIG_OF
+> >
+> > Does this need to be conditional? It seems like
+> > devm_regulator_get_enable_optional() should return ENODEV, which you
+> > already handle.
+> >
+> > Making code this like conditional makes build testing less useful,
+> > more combinations which need testing.
+>
+> This is a really good point.
+>
+> > Another option is
+> >
+> > 	if (IS_ENABLED(CONFIG_OF)) {
+> >
+> >
+> > 	}
+> >
+> > That at least compiles the code, and then the optimizier throws it
+> > away when it sees  if (0) { }
+>
+> Yes I like doing it this way better.  I'll modify it
+> to be similar to this for v2, which I'll plan to send
+> tomorrow.
 
-Commit-ID:     feb5c9a2447a7d65a17d949c81c1f21864cde172
-Gitweb:        https://git.kernel.org/tip/feb5c9a2447a7d65a17d949c81c1f21864c=
-de172
-Author:        Karl Mehltretter <kmehltretter@gmail.com>
-AuthorDate:    Sun, 11 Oct 2026 08:07:42 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 15 Oct 2026 10:38:13 +02:00
+Reading things back, I think Andrew's first suggestion of having no
+conditional might be better.
 
-softirq: Preserve interrupt context on return from interrupt
+devm_regulator_get_enable_optional() is log-silent on failure. I suspect
+the reason this code was conditional is that an early version used
+devm_regulator_get_enable() which is not log-silent when it falls back
+to a dummy reg.
 
-__irq_exit_rcu() removes HARDIRQ_OFFSET from preempt_count() before the
-interrupt exit work. On the outermost interrupt exit, with no NMI or
-softirq state remaining, this makes context checks report task context. The
-softirq-dispatch, timer-wakeup and tick-exit checks account for the early
-decrement, but other code reached in this window sees the wrong context:
+I suspect I was more influenced by the log-silence than the marginal
+code size cost on a CONFIG_REGULATOR && !CONFIG_OF system.
 
-  - ftrace, perf and the ring buffer record task context and use the
-    task recursion and context slots.
-  - KCSAN attributes accesses to the interrupted task. KMSAN uses and
-    changes the interrupted task's KMSAN context. KCOV and the printk
-    caller id see a task.
-  - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
-    interrupt context to avoid interfering with PI when the interrupted
-    task is blocked on a lock. Those checks do not reject calls made in
-    this window. BPF programs attached to sched_waking or sched_wakeup
-    can reach the trylock path through kmalloc_nolock().
-  - An oops kills the interrupted task instead of ending in "Fatal
-    exception in interrupt".
 
-The early decrement predates git. No failure caused by this
-misclassification is known. lockdep is unaffected because
-lockdep_hardirq_exit() is the last operation in irq_exit().
-
-Keep HARDIRQ_OFFSET until the end of __irq_exit_rcu(), including
-tick_irq_exit(). Softirq handlers must run in BH context, so replace
-HARDIRQ_OFFSET with SOFTIRQ_OFFSET while they run and restore it
-afterwards. Use one raw counter update for each transition to preserve
-the preemption disable location recorded by irq_enter_rcu(), and update
-lockdep explicitly. Detect IRQ exit with in_hardirq() in
-softirq_handle_begin() because __do_softirq() can be reached through
-do_softirq_own_stack() and cannot take an argument.
-
-Adjust the exit checks for HARDIRQ_OFFSET still being present. Use
-irq_count() =3D=3D HARDIRQ_OFFSET for softirq dispatch, as in irq_enter_rcu().
-Use hardirq_count() =3D=3D HARDIRQ_OFFSET for the timer thread wakeup and
-tick_irq_exit(). NMI exits use a separate path. An IRQ nested in an NMI
-has an extra HARDIRQ_OFFSET from NMI entry, so it is excluded too. The
-timer thread check must ignore softirq_count() to allow wakeups when an
-IRQ interrupts softirq processing or a BH-disabled section. The timer
-thread handles all pending softirqs, including any raised during its
-wakeup.
-
-A softirq raised from a tracepoint on the final preempt_count_sub()
-waits for the next interrupt exit and can trigger NOHZ tick-stop
-warnings. Handling that instrumentation case does not justify a check
-on every interrupt exit. A tracepoint on tick_irq_exit() can also raise
-a softirq after the normal softirq handling has finished.
-
-The number of counter updates and interrupt time accounting are
-unchanged. The preemptoff tracer now reports the interrupt and subsequent
-softirq processing as one section. With nofuncgraph-irqs, function graph
-tracing also skips the IRQ exit work, including the __do_softirq() frame.
-
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: LLM
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kic=
-ks-ass.net
-Link: https://patch.msgid.link/20261011060742.30584-1-kmehltretter@gmail.com
----
- Documentation/core-api/entry.rst | 16 +++++---
- kernel/softirq.c                 | 60 ++++++++++++++++++++++++-------
- 2 files changed, 57 insertions(+), 19 deletions(-)
-
-diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.=
-rst
-index 79fdaed..0994213 100644
---- a/Documentation/core-api/entry.rst
-+++ b/Documentation/core-api/entry.rst
-@@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time a=
-ccounting. This
- means that up to the point where irq_enter_rcu() is invoked in_hardirq()
- returns false.
-=20
--irq_exit_rcu() handles interrupt time accounting, undoes the preemption
--count update and eventually handles soft interrupts and NOHZ tick state.
-+irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
-+possible, handles the NOHZ tick state and finally undoes the preemption count
-+update.
-=20
- In theory, the preemption count could be updated in irqentry_enter(). In
- practice, deferring this update to irq_enter_rcu() allows the preemption-cou=
-nt
-@@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragr=
-aph. The only downside
- is that the early entry code up to irq_enter_rcu() must be aware that the
- preemption count has not yet been updated with the HARDIRQ_OFFSET state.
-=20
--Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
--before it handles soft interrupts, whose handlers must run in BH context rat=
-her
--than irq-disabled context. In addition, irqentry_exit() might schedule, which
--also requires that HARDIRQ_OFFSET has been removed from the preemption count.
-+Note that soft interrupt handlers must run in BH context rather than in hard
-+interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
-+SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
-+puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit wo=
-rk
-+is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
-+irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
-+that HARDIRQ_OFFSET has been removed from the preemption count.
-=20
- Even though interrupt handlers are expected to run with local interrupts
- disabled, interrupt nesting is common from an entry/exit perspective. For
-diff --git a/kernel/softirq.c b/kernel/softirq.c
-index c3729c5..7fc2200 100644
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
- 	local_irq_enable();
- }
-=20
--static inline void softirq_handle_begin(void) { }
--static inline void softirq_handle_end(void) { }
-+static inline bool softirq_handle_begin(void) { return false; }
-+static inline void softirq_handle_end(bool from_irq_exit) { }
-=20
- static inline bool should_wake_ksoftirqd(void)
- {
-@@ -481,15 +481,38 @@ void __local_bh_enable_ip(unsigned long ip, unsigned in=
-t cnt)
- }
- EXPORT_SYMBOL(__local_bh_enable_ip);
-=20
--static inline void softirq_handle_begin(void)
-+static inline bool softirq_handle_begin(void)
- {
--	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
-+	if (!in_hardirq()) {
-+		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
-+		return false;
-+	}
-+
-+	/*
-+	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
-+	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
-+	 * interrupts. Use the raw operation to preserve the preemption
-+	 * disable location recorded by irq_enter_rcu(), and update lockdep
-+	 * directly.
-+	 */
-+	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
-+	lockdep_softirqs_off(_RET_IP_);
-+	WARN_ON_ONCE(irq_count() !=3D SOFTIRQ_OFFSET);
-+
-+	return true;
- }
-=20
--static inline void softirq_handle_end(void)
-+static inline void softirq_handle_end(bool from_irq_exit)
- {
--	__local_bh_enable(SOFTIRQ_OFFSET);
--	WARN_ON_ONCE(in_interrupt());
-+	if (!from_irq_exit) {
-+		__local_bh_enable(SOFTIRQ_OFFSET);
-+		WARN_ON_ONCE(in_interrupt());
-+		return;
-+	}
-+
-+	lockdep_softirqs_on(_RET_IP_);
-+	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
-+	WARN_ON_ONCE(irq_count() !=3D HARDIRQ_OFFSET);
- }
-=20
- static inline void ksoftirqd_run_begin(void)
-@@ -605,6 +628,7 @@ static void handle_softirqs(bool ksirqd)
- 	unsigned long old_flags =3D current->flags;
- 	int max_restart =3D MAX_SOFTIRQ_RESTART;
- 	struct softirq_action *h;
-+	bool from_irq_exit;
- 	bool in_hardirq;
- 	__u32 pending;
- 	int softirq_bit;
-@@ -618,7 +642,7 @@ static void handle_softirqs(bool ksirqd)
-=20
- 	pending =3D local_softirq_pending();
-=20
--	softirq_handle_begin();
-+	from_irq_exit =3D softirq_handle_begin();
- 	in_hardirq =3D lockdep_softirq_start();
- 	account_softirq_enter(current);
-=20
-@@ -670,7 +694,7 @@ restart:
-=20
- 	account_softirq_exit(current);
- 	lockdep_softirq_end(in_hardirq);
--	softirq_handle_end();
-+	softirq_handle_end(from_irq_exit);
- 	current_restore_flags(old_flags, PF_MEMALLOC);
- }
-=20
-@@ -716,7 +740,7 @@ static inline void tick_irq_exit(void)
-=20
- 	/* Make sure that timer wheel updates are propagated */
- 	if ((sched_core_idle_cpu(cpu) && !need_resched()) || tick_nohz_full_cpu(cpu=
-)) {
--		if (!in_hardirq())
-+		if (hardirq_count() =3D=3D HARDIRQ_OFFSET)
- 			tick_nohz_irq_exit();
- 	}
- #endif
-@@ -748,8 +772,12 @@ static inline void __irq_exit_rcu(void)
- 	lockdep_assert_irqs_disabled();
- #endif
- 	account_hardirq_exit(current);
--	preempt_count_sub(HARDIRQ_OFFSET);
--	if (!in_interrupt() && local_softirq_pending()) {
-+
-+	/*
-+	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
-+	 * softirqs, and only if it did not hit a softirq or BH disabled section.
-+	 */
-+	if (irq_count() =3D=3D HARDIRQ_OFFSET && local_softirq_pending()) {
- 		/*
- 		 * If we left hrtimers unarmed, make sure to arm them now,
- 		 * before enabling interrupts to run softirq.
-@@ -758,11 +786,17 @@ static inline void __irq_exit_rcu(void)
- 		invoke_softirq();
- 	}
-=20
-+	/*
-+	 * Wake the timer thread even if the interrupt hit a softirq or a
-+	 * section with BHs disabled. Only the outermost interrupt can wake it.
-+	 */
- 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
--	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
-+	    local_timers_pending_force_th() &&
-+	    hardirq_count() =3D=3D HARDIRQ_OFFSET)
- 		wake_timersd();
-=20
- 	tick_irq_exit();
-+	preempt_count_sub(HARDIRQ_OFFSET);
- }
-=20
- /**
+Daniel.
