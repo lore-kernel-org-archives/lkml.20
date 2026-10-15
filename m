@@ -1,36 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5B837106E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDFC3C345D;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100877; cv=none; b=o6TAJfCBKPZAY5/ro98eNNi+pCdzSKyMm2GrnK6yxmcCfgT6UJt+3cosVAaLBykeHZ9H4Cl0EBfJDV0bhIsqYXRqA73jY8cnqLWtKfUkC6t42YepwWxs0fEIdyO0eZa5g/hKmqAwaP5aDAMWyRYmeutrGHItxyZrAejav0Kaxrk=
+	t=1792100900; cv=none; b=iOtcYOxLWTnSeogFPJ4STFMGKRIAnvIdMk2hkgdFk7WeH5gbiF0H+biUoW8lIenJPS7AqJpukj/9EKAAVLqLRI8kwcUELhSh0NKdVE/g3zvnOa5mf011iRTThlbMKsGneQjJojYjb4FpXMVM1xANweqn+QppCWMKp0RXgGDRFY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100877; c=relaxed/simple;
-	bh=1ru8MmwZuLDEM2zqYTrOIBmWMjMMd1tXdR6Knu7aVEg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OT+ae8LiMx7Q+KG3A4iHHqx6F/+z/BhyEBgEAld6RZwysl0lHG+IrrQmDadBb5FBKgqZCpo3ebfJruLY3HpRdZ7JKuladP6X5qzLY4hunHMWMpW5mhEGmYyNt6Sdag+HKj7clRcu6nGBGd6YS/6D3lb8EOmjO529Af9UBRztwT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgTwpqqA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792100900; c=relaxed/simple;
+	bh=isc08oo5BJNK/t6lxx5OeyuoPKO6tU8zzXxw244V/KM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uREF6fQ2QYXnnHbhY8RvBzIUNqqg7NK1WPC1G3/mg+6rkarPaHi2+XbBcv4QKGiDZmp6+e+jyQ2bI4vmBBya+ItneJsF+jA5BbfjB9pjSFNm5etUvWpAo/Blo6IQMPQlcnWOxSodrYLvPhE++23dCDEq84zlZ7eJ0ocY6wo1yHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlMEi9xz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgTwpqqA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A7975C2BCC7;
-	Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlMEi9xz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86E99C2BCC7;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792100876;
-	bh=1ru8MmwZuLDEM2zqYTrOIBmWMjMMd1tXdR6Knu7aVEg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=dgTwpqqAD9y9mx1dFv5b9vixaypfZE9qTQeWi9a0Pkg5pvoO28sI0DwODltLLBQGM
-	 WSLwr9JYO8NgO4mFfwlnFhL8x3daBNDyr76zLuzs/AG3NwJTF9qIWBab37u5W7znn7
-	 LG8bLN0/tTf5aKwpi240bB1j4tFhHpHjS9V2GTZtQMwwg4VCj+BcbmDQKisyHyoL96
-	 /dKB4Dq1L0i0iDfIshz4b3o3OvDqiyeQ1mLFRg+17LdAhUbTquwl7o5c2Ch4235tC2
-	 N58yzLbWBaoqs8yost/zuwh3MNLnImY3dPJulwYb/Wf3p6Yc5u/kMuh3UM6XeE8Oqn
-	 HAbraT3N/j03g==
+	s=k20201202; t=1792100899;
+	bh=isc08oo5BJNK/t6lxx5OeyuoPKO6tU8zzXxw244V/KM=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=UlMEi9xztoQP8Dzp8kz+loWx/K/OzOuvL33FI8zLBQxNXNtAYw9kpwEx1wFD9Qbgl
+	 aEY4kOH+49Up/YelPh27e3eqinnGjmbfK9guC8ZHCEmsiJgZRxPjihIrURiQrhZvn5
+	 3fJXSxUnBpGjcF+DkuHD0OhjFN8hpxbm96vxIxmAIswe3Cvj68GXQE3AUpmGQDKBIT
+	 jnvAa4jzedbJvEXPXov3yFxWVTonc+1XqTxxwp+NmC01MvF0y7cDkr5CKZAgpL9NcH
+	 g1ZHUKfghWQA2pSRZXlkuT0qPWEarnIOvxYsiLgCPwzhqEYdz/ejRO81jNnVTD4W1+
+	 XOHMyxjq4sGCg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 830F0CCA464;
-	Thu, 15 Oct 2026 21:47:56 +0000 (UTC)
-From: Vasilij Markin via B4 Relay <devnull+vasilij.kernel.tototo.si@kernel.org>
-Date: Thu, 15 Oct 2026 23:47:36 +0200
-Subject: [PATCH v3] drm/appletbdrm: Add suspend and resume support
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 705DECC6B38;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Subject: [PATCH 0/2] media: ov13858: device tree support for the Surface
+ Pro 11 (Snapdragon)
+Date: Thu, 15 Oct 2026 22:48:18 +0100
+Message-Id: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,164 +41,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMwQrCMBBEf6Xs2UiyaYN66n9ID41Z7YJtQxKCU
- vLvpr3LzOUNzNsgUmCKcGs2CJQ58rpU0KcGHtO4vEiwqwwo0cgrtmL0/k3JujALPwtjHaLUl86
- ShfrxgZ78OXz3ofLEMa3he+iz2td/pqyEEpK6VqOqNapP655zZBhKKT8aGqKFqgAAAA==
-X-Change-ID: 20260924-appletbdrm-pm-6bd220385beb
-To: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Lukas Wunner <lukas@wunner.de>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Kerem Karabay <kekrby@gmail.com>, 
- Atharva Tiwari <evepolonium@gmail.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- Vasilij Markin <vasilij.kernel@tototo.si>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMcyxi6SrSoHGs2FQoiiHdPW
+ r7F/wUiB+EIc1cgcJIoz92AfQfHtd0nK3HNYLSZUKNVT8KBLKmMrIj87nai0ZOBVryBveT/tqy
+ 1fnmlNJFdAAAA
+X-Change-ID: 20261015-ov13858-x1e-88fbdb884f82
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
+ German Pablo Lindo <germanpapulindez@gmail.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100875; l=5223;
- i=vasilij.kernel@tototo.si; s=20260924; h=from:subject:message-id;
- bh=5WU2l1yPzf1T2QcmJPYERBCb+bsgaXl69kOpDB1ET3A=;
- b=L8RuW0f7e5ePRHSayGYmLP0GmLimZrmKkQo03AWEkmKWav4xyzZw5ClUTpdEQy8NwefW8Xkk6
- ILAawydc6GHDHWmpMcpzAQqCV6wJBQ10HkOEaYlnoRffLUWIi0pYoaI
-X-Developer-Key: i=vasilij.kernel@tototo.si; a=ed25519;
- pk=GBDozjDEYjDf6fxRiVINxMYHaGbpq/11fq4B6pdR7Gs=
-X-Endpoint-Received: by B4 Relay for vasilij.kernel@tototo.si/20260924 with
- auth_id=1057
-X-Original-From: Vasilij Markin <vasilij.kernel@tototo.si>
-Reply-To: vasilij.kernel@tototo.si
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100898; l=1975;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=isc08oo5BJNK/t6lxx5OeyuoPKO6tU8zzXxw244V/KM=;
+ b=GszMqCIhbFuRrL9l5FrRKO/5JBwQNCV8NmDmFtEOPmlwzM5GMaiyYRZHCb21ALesOCU0t/cOy
+ Y2YFvNBGYipBLLxlWRSGZEwuWKFya4rHOQN+p0seLzpVgfaJPzTceE9
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-From: Vasilij Markin <vasilij.kernel@tototo.si>
+Hi Sakari,
 
-The driver has no USB power management callbacks, so the USB core
-unbinds it before system suspend and binds it again on resume. The DRM
-device is unregistered and registered again on every suspend and resume
-cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-loses its device, and the Touch Bar stays dark after resume.
+The Surface Pro 11 with a Snapdragon X Elite (X1E80100) has the same
+OV13858 as its rear camera as the Intel model does. There it is wired to
+the Qualcomm CAMSS over four D-PHY lanes and described in the device tree.
+These two patches add the binding and the OF match the driver needs for
+that, and the endpoint checks that come with a DT user.
 
-Implement suspend and resume with drm_mode_config_helper_suspend() and
-drm_mode_config_helper_resume(), so the device stays registered and the
-last committed state is restored on resume. If the device was reset
-while suspended, repeat the probe-time handshake first.
+They apply on top of Sergey's "media: i2c: ov13858: add regulator, clock
+and reset GPIO handling" v3. The Snapdragon machine needs it too: nothing
+there powers the sensor for the driver either.
+https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
 
-Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
----
-Tested on a MacBookPro16,2 with this change backported to the t2linux
-7.2.11 kernel, deep (S3) suspend by closing the lid, tiny-dfr 0.3.7, 7
-suspend/resume cycles. On this kernel the Touch Bar display is reset on
-every resume ("usb 5-6: reset high-speed USB device number 7 using
-t2bce_core"), so reset_resume runs each time: the driver is not probed
-again, tiny-dfr keeps running and the Touch Bar shows its content right
-after resume. Without reset_resume (v2) the same reset makes the USB core
-unbind and probe the driver again, and the Touch Bar stays dark. The error
-path in reset_resume is untested: the handshake never failed.
+Tested on the Surface Pro 11 (X1E80100) with mainline ov13858.c, Sergey's
+v3 and these two, through an out-of-tree CAMSS capturing raw frames over
+CSIPHY1, CSID0 and an RDI interface. The in-tree register lists work
+unchanged at 540 MHz:
+- 4224x3136 at 29.95 fps;
+- the colour-bar test pattern arrives intact;
+- a scene captures;
+- the binding validates with dt-doc-validate, and dt-validate accepts
+  the example and rejects a two-lane endpoint.
 
-Kernels before commit 3d95f93b30b8 ("drm/appletbdrm: Convert to atomic_create_state")
-also need the plane reset hook to free the existing state, otherwise
-drm_mode_config_reset() on resume hits WARN_ON(plane->state) in
-appletbdrm_primary_plane_reset() and leaks the old state. 7.2.y is such a
-kernel; the tested backport carries that change as a separate patch.
+Sergey, German: on the Intel machine the IPU bridge entry for OVTID858
+already lists both link frequencies, so the new endpoint check should
+pass there. A quick v4l2-compliance run would confirm it.
 
-Built on drm-misc-next (1c01801c3) with W=1 without warnings.
----
-Changes in v3:
-- Bring back reset_resume: v2 dropped it because the device was not reset
-  on resume, but with the t2bce driver of the t2linux 7.2.11 kernel it is
-  reset on every resume, and without reset_resume the driver is probed
-  again (Sashiko review of v2).
-- In reset_resume, call drm_mode_config_helper_resume() even if the probe
-  handshake fails, so that the state saved on suspend is released
-  (Sashiko review of v1).
-- Rebase on current drm-misc-next.
-- Link to v2: https://lore.kernel.org/all/586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev/
+The device tree for the Surface Pro 11 cameras will follow once Bryan's
+x1e80100 camera DT series has settled.
 
-Changes in v2 (sent by Aditya Garg):
-- Remove reset_resume.
-- Link to v1: https://lore.kernel.org/r/20260924-appletbdrm-pm-v1-1-0e5432132161@tototo.si
----
- drivers/gpu/drm/tiny/appletbdrm.c | 46 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
-
-diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
-index 4297d9c11..350dc598c 100644
---- a/drivers/gpu/drm/tiny/appletbdrm.c
-+++ b/drivers/gpu/drm/tiny/appletbdrm.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_modeset_helper.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -821,6 +822,48 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
- 	drm_atomic_helper_shutdown(&adev->drm);
- }
- 
-+static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_suspend(&adev->drm);
-+}
-+
-+static int appletbdrm_resume(struct usb_interface *intf)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+
-+	return drm_mode_config_helper_resume(&adev->drm);
-+}
-+
-+static int appletbdrm_reset_resume(struct usb_interface *intf)
-+{
-+	struct appletbdrm_device *adev = usb_get_intfdata(intf);
-+	struct drm_device *drm = &adev->drm;
-+	int ret, resume_ret;
-+
-+	/*
-+	 * A reset puts the device back into its initial state, where it
-+	 * expects the same handshake as during probe. Resume the DRM side
-+	 * even if the handshake fails, so that the state saved on suspend
-+	 * is released.
-+	 */
-+	ret = appletbdrm_get_information(adev);
-+	if (ret) {
-+		drm_err(drm, "Failed to get display information\n");
-+		goto resume;
-+	}
-+
-+	ret = appletbdrm_signal_readiness(adev);
-+	if (ret)
-+		drm_err(drm, "Failed to signal readiness\n");
-+
-+resume:
-+	resume_ret = drm_mode_config_helper_resume(drm);
-+
-+	return ret ? ret : resume_ret;
-+}
-+
- static const struct usb_device_id appletbdrm_usb_id_table[] = {
- 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
- 	{}
-@@ -832,6 +875,9 @@ static struct usb_driver appletbdrm_usb_driver = {
- 	.probe		= appletbdrm_probe,
- 	.disconnect	= appletbdrm_disconnect,
- 	.shutdown	= appletbdrm_shutdown,
-+	.suspend	= appletbdrm_suspend,
-+	.resume		= appletbdrm_resume,
-+	.reset_resume	= appletbdrm_reset_resume,
- 	.id_table	= appletbdrm_usb_id_table,
- };
- module_usb_driver(appletbdrm_usb_driver);
+Thanks,
+George
 
 ---
-base-commit: 1c01801c393ef934286e19f03374999c858e6a20
-change-id: 20260924-appletbdrm-pm-6bd220385beb
+George Neacsu (2):
+      dt-bindings: media: i2c: Add OmniVision OV13858
+      media: i2c: ov13858: Add device tree support
+
+ .../bindings/media/i2c/ovti,ov13858.yaml           | 113 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ drivers/media/i2c/ov13858.c                        |  62 +++++++++++
+ 3 files changed, 176 insertions(+)
+---
+base-commit: ef7407f04f644833b0d1200a2e261c1879597b94
+change-id: 20261015-ov13858-x1e-88fbdb884f82
 
 Best regards,
 -- 
-Vasilij Markin <vasilij.kernel@tototo.si>
+George Neacsu <geocausa@gmail.com>
 
 
