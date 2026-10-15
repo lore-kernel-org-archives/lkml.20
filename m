@@ -1,127 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F6E4AB3CC;
-	Thu, 15 Oct 2026 08:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9557147F79B;
+	Thu, 15 Oct 2026 08:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051301; cv=none; b=FK1yKFZ7IbuF2imBerdZ5W9EIwc6PVkl9aavwvahmMeVZSjfwPR4/GAvoX30RfJE0rLm2Bem13vb9PzY0bWdf4LcWyLmssXi+InSar6zPIl6/rd3iuzwO8kNKJNtqTB4hB0p3LAk9XQ4LAU1pxaWIJ8STJFOnb/l1A+LqXfwiF4=
+	t=1792051318; cv=none; b=NntjKcONKmzR9Kd8PQMVgOspGJKUPiYGn8hzonc6X4QV1onNGSwOA/AP/SOo7kh1FQogM3jYwH0vWP3SivH0IplvF3vSWeQgBf7MeoqsiVGVk5pxQc09SrDCYz0phpPGsr3fVJ8JC4mdqgtQ9ltbj2/p4NlfMJEbn8BtY+ngJf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051301; c=relaxed/simple;
-	bh=TMBAise+eet+ZBmb0cxVaSMYfYf4z593ofd0AGvPruk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZsXpXWRdS0J++ebTWNdQ3uGTA43jVr6ryNvW/EbVPvGBis0iF+lFZI/PvoMM9jaG1bgzXIrZ84zEAMfzso4QoP8KRF8g0zB8bWT2Lreja9QgYK3fKvCf1IKLwuLRnua7TNr6jzbXgzhQMaXJf6mXnmgW7ECQqWHHXH/JEGStUeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bYz4gy4y; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792051318; c=relaxed/simple;
+	bh=wo6NeKZojviEosBcJYtMLCfWwCFzXBGs5gykktT9OoY=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=TM43TDzU2TioHkXFBWenQXosc9+PWY2kX2vBgrfXM2Vcxl7VeFLcPRM4Ht3YKTH85QVvOs/E89gtHChCTtb1MXGUDDD/9DjaPGy0Zz2FpJb62L266cmp0NyPrGHq7OkcR4LKnkpeFtTTjOmP/EzRJa+Xdlp0ws7+RZ7WJtkHABU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=u2mCl7oy; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bYz4gy4y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792051300; x=1823587300;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=TMBAise+eet+ZBmb0cxVaSMYfYf4z593ofd0AGvPruk=;
-  b=bYz4gy4y7F4AWvYZANxsl+/9+y+YhUCJTVOkYEgnYZ36anNqD5tU1gbD
-   n3ARJTcvZVrqaRNHpmVbLmWzmYBNcYxq75tP7UVyuBiQLIYvwnWelZgco
-   Em/QyjM2+rO0YnG+4qZ7Ya4qHpfoyh19hECF+QZRmK9Njik7tAsQMDGtU
-   JNPwdf5prv1n1rfXLVwJmTyDEQY+CmOT/gtJMLsOiWakjUi/5wga3+SkQ
-   Y/W+CBFg/bTJjQI2whNKVTaFuaJJbKPr7QUmBLHa5P5tGVNFlwq7QLow2
-   rV9B26YjUBvS4edWZIvPHRlUVNFak4PK9W3x9rFBbDi7QG2YPGuuHjh3y
-   Q==;
-X-CSE-ConnectionGUID: NfiTUb7zSpiUK+1+SqhvFA==
-X-CSE-MsgGUID: Pwhx30+XRgilrpUkdcyBGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="916096"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="916096"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:01:39 -0700
-X-CSE-ConnectionGUID: gCHsrrWORraAVLo4TzRKtA==
-X-CSE-MsgGUID: H7au3/f+Sl65Wny6eb7b/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="3465336"
-Received: from unknown (HELO WEBA2062.iind.intel.com) ([10.66.228.2])
-  by fmviesa011.fm.intel.com with ESMTP; 15 Oct 2026 01:01:37 -0700
-From: Ravindra <ravindra@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	Ravindra <ravindra@intel.com>
-Subject: [PATCH v2] Bluetooth: btintel_pcie: Use blocking reset for FLR
-Date: Thu, 15 Oct 2026 13:34:30 +0530
-Message-ID: <20261015080430.3336201-1-ravindra@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="u2mCl7oy"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 685AFA1544;
+	Thu, 15 Oct 2026 10:01:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792051306; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=lVUttG8iRwcZ+EEkZGFkY8VCO4ZqOKXFF79fwhVmDpU=;
+	b=u2mCl7oyCi8dyZxjmVyFnt8dJgiEPaEMIOtQGIeJPZSatiNCMbd3UKDKNqpes8pwee5u/F
+	lbvZUwDtJIoRyCjQ/+cS3jNdZajXUjYoxOvqPHBqSmlR9BUNcynm2DieqAh4giytIEf2hk
+	CEwrarokbGLOInTIARveF4YGWoW+66ac4BkojHGFTcV8lCZDnywS+oZHmodumC9PcXZoqa
+	IbiLemW1IXQ5T9xu0JwDwPa61Pzc6ENAVMVimKSjQRHtU25i0FoGXF+Fu+X2WaJyFt68gY
+	94Gh8P+/sVSBhjl1S9eV8VXeuhpqyGzyrpmP2Wq92Uk3tNqbLdWqCGVxCWhfuA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 15 Oct 2026 10:01:41 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ o.rempel@pengutronix.de, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, Jose.Abreu@synopsys.com, saeedm@nvidia.com,
+ tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org, dtatulea@nvidia.com,
+ alazar@nvidia.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH net-next 1/3] net: selftests: use skb_share_check() in the
+ loopback receive hook
+In-Reply-To: <cccfd292-6169-449e-a675-a9bb54ec4191@bootlin.com>
+References: <20261007-nb-net-selftest-shared-net-v1-1-458369bfa1ba@tipi-net.de>
+ <179149509090.434549.9918598206439291164@kernel.org>
+ <533b88ce917b59f4f59f52145d2f035f@tipi-net.de>
+ <cccfd292-6169-449e-a675-a9bb54ec4191@bootlin.com>
+Message-ID: <d28efab10f43a46d51cdfd978b0a1e90@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Several paths request an FLR asynchronously, including S3/S4 resume,
-resume recovery, HCI reset, and hardware-error recovery. A queued reset
-may run before the PM callback releases the PCI device lock, causing
-pci_try_reset_function() to return -EAGAIN without attempting the FLR.
+Hi Maxime
 
-Use pci_reset_function() so reset work waits for the device lock and
-performs the FLR once the PM callback releases it. If the reset fails,
-clear the recovery in-progress flag so a later reset request can try
-again.
+On 15.10.2026 09:46, Maxime Chevallier wrote:
 
-Fixes: 9c36951474d8 ("Bluetooth: btintel_pcie: Refactor FLR to use device_reprobe()")
-Signed-off-by: Ravindra <ravindra@intel.com>
----
- drivers/bluetooth/btintel_pcie.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+> [...]
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 3a555aa50c87..92b91f058fce 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -3745,13 +3745,10 @@ static int btintel_pcie_perform_flr(struct btintel_pcie_data *data)
- 	struct pci_dev *pdev = data->pdev;
- 	int err;
- 
--	/* pci_try_reset_function() avoids the device_lock ABBA against
--	 * btintel_pcie_remove(): .remove() runs with device_lock held and
--	 * then waits for this work via disable_work_sync(); the blocking
--	 * pci_reset_function() would deadlock by trying to re-acquire
--	 * device_lock here.
-+	/* Reset work runs asynchronously, so it can wait for the device lock
-+	 * held by a PM callback to be released.
- 	 */
--	err = pci_try_reset_function(pdev);
-+	err = pci_reset_function(pdev);
- 	if (err) {
- 		BT_ERR("Failed resetting the pcie device (%d)", err);
- 		return err;
-@@ -3817,6 +3814,7 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
- 		enable_work(&data->hwexp_work);
- 		enable_work(&data->fwtrigger_work);
- 		enable_work(&data->mbox_work);
-+		clear_bit(BTINTEL_PCIE_RECOVERY_IN_PROGRESS, &data->flags);
- 	}
- 
- out:
-@@ -3841,10 +3839,9 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
-  *     in-flight one (whose recovery will reinitialize the device
-  *     regardless of the dropped trigger's variant).
-  *
-- * The bit is cleared only by .remove() / re-probe via fresh devm
-- * allocation, which is the intended one-shot semantics: a reset
-- * tears down and re-probes 'data', so there is no "in-flight"
-- * reset to follow up after device_reprobe() succeeds.
-+ * A successful reset clears the bit through .remove() / re-probe via
-+ * fresh devm allocation. A failed FLR clears it in reset_work so a
-+ * later request can retry; there is no in-flight reset after failure.
-  */
- static void btintel_pcie_request_reset(struct btintel_pcie_data *data,
- 				       enum btintel_pcie_reset_type type)
--- 
-2.43.0
+>>> Could an IPv4 frame that arrives during ethtool -t make the hook read 
+>>> up
+>>> to about 64 bytes past skb->tail? Examples would be a minimum-size 
+>>> TCP
+>>> segment or a frame with ihl=15.
+>>> 
+>>> The over-read seems to stay inside the skb head allocation, because
+>>> skb_shared_info follows skb->end. If so, the only effect is a 
+>>> possibly
+>>> wrong selftest result.
+>> 
+>> The length check is pre-existing, will address that in a follow-up 
+>> patch.
+> 
+> I'm unsure about this, Can we instead assume that when one is running 
+> the
+> "ethtool -t" selftests on a machine, they are doing so in some 
+> controlled
+> conditions ?
+> 
+> IOW can we take the assumption that we won't get incoming traffic at 
+> the same
+> time as we run the selftests, and if we do get some and that triggers a 
+> wrong
+> result, this is expected ? ethtool selftests are very cheap to run, 
+> only a
+> handful of seconds, and don't require any extra dependency, it doesn't 
+> cost
+> much to re-run them if something unexpected happens during them.
+> 
+> ofc. getting a stray frame during the selftests mustn't crash :)
+> 
+> That's my take on these tests, but feel free to disagree :)
 
+Also fine with me. A stray frame just fails the magic check and gets
+dropped anyway, so the test result doesn't even change...
+
+Two patches less to fight with Clashiko over :)
+
+Regards
+Nicolai
