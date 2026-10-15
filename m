@@ -1,86 +1,217 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49947528452;
-	Thu, 15 Oct 2026 13:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FD44A64EF
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072658; cv=none; b=ey6OTSAas1sjUyq27CwGO5slPjrWcFyYvhzP4gki35z380o9GeWcliR4L2Au4WVRWfnw4iMPvXBJUTumkNa6EOOgdLR8QpPUMW6GtdC8/Yau1ChA0nBP7ih8taC8GP59fMDVeyHVtAYhxEcCtdAEKok6FlEDzQuk5w271Jx+Jis=
+	t=1792072699; cv=none; b=WeP0CsKwJUwQDIHKL1p4dTS4aFYeed23UzQGU5fZ4vd0MpsN/GWpzGiFERAr4L9nx1aJjhWD8IhoS1uKxdOQtmbHSbkIK5Y0GVApXXhdmSt8ZeeZwrA1EWUiLI0Jol2T8zoBADgVd4CtliqENGxysW3PWaK7n8fQ17+dNQA1ZLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072658; c=relaxed/simple;
-	bh=tR+B+P4H5laV3j7zzZU07VqSUEtfICzqGov3sJhZoEU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Spqa/OfZ+1Ns2fj/lsrJlegpvKoQakaJWXTnsi94LRDpg2keQTn78O1zC0uQSkKk73Y4CXanjYhEEaPrPpZO0R9a6XzcuBKyMnEx8AIbP6g1/RrnC1DKJXayST7hLbZ6S20f7GazJERRTN9BRV6rKLp/xyqJ+MUoCS4h1thao9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=fb+ScPOv; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1792072699; c=relaxed/simple;
+	bh=XCLZISSAltF//O6t+IpR0eamKchFx2zNh3GL/j8aZwA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VS3dKoRfjAM/6Ru1pdCiWs6tQCoWDP6x0PyN5C7U/VlxgSWRxroCvIZi5GjD1QAGt7sXcA/2pytS2616wkExtUduTnLdiRNMYtLD8Gow9oTl0O+na64cpUEuAD0seLCPqYu9onvU+6y3d3N8MfCB7/mHoxzBQMsGHqEwOWCWs3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=K6F5aK+N; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZyFd6SQk; arc=none smtp.client-ip=103.168.172.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="fb+ScPOv"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6A7E74091F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792072656; bh=AKSKxWPs7gQhreA/cSauuNkxef50fLag1JXhVoL4XXo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=fb+ScPOvonBUlpQ4VypD14R29RRIU8up9w9NubtFF/dZHNr14VzeH+4PPLcFwrtHd
-	 2pEzAsVYtqojH8ceBvXU7pseR/aFl3w0YHv5VbwhdUjUx/ZHD44kEND9EkZegRIEMb
-	 RvqsUHNYu18pGWMI0zosFR/+8cIBBuLKzHbh2okB3GGojoj0CgK5fWyxHPd/U1zReV
-	 du6PDL5T0HoVtWGh8ffzGF3ldizED52PvmPMP8WrJPqSC90Msgghk7i084FYi9K1QS
-	 dSmmgEWunFpPAEP8QbtHQZFbBxDt4/hxqU2AG9E0soppky5XxDqTIsnW4XHOHdDu0V
-	 yInvmB0mxVYTA==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 6A7E74091F;
-	Thu, 15 Oct 2026 13:57:36 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Sasha Levin
- <sashal@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, broonie@kernel.org,
- ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, rdunlap@infradead.org,
- skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Subject: Re: [PATCH 0/2] agents: add portable agent skills and Fixes
- attribution
-In-Reply-To: <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
-References: <cover.1791499378.git.sashal@kernel.org>
- <20261014174838.114990-1-ojeda@kernel.org> <as_Cr4FhzyAh-kC4@laps>
- <CANiq72m6okeCHuR8BCGENTw=wJhfXXZbXZtJq8xtoeVfvfo3TQ@mail.gmail.com>
- <atDYWe9L0tv90Xjk@laps>
- <CANiq72mgS15ZKwd-u1t1xvAaNf3ivpXdUMmVDfmGRyq1OewLvw@mail.gmail.com>
-Date: Thu, 15 Oct 2026 07:57:35 -0600
-Message-ID: <87jynjrrqo.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="K6F5aK+N";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZyFd6SQk"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id 165A11380286
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Thu, 15 Oct 2026 09:58:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1792072697; x=
+	1792076297; bh=CnO8Z6h9zpO/QTub1B+RFdiy6XB7flbUP5VcPsb88+8=; b=K
+	6F5aK+NfLqoqTsZdXarXaIgI2UEHWLUAVRLtF7QjmhL46+nVHdW88jDdLyNjpf94
+	YSo+9nhAzmOkjiGFr0DrKcmmLinWaHtftM1N5XjEWzzQ56bTG6dk20+wCAz/MK8a
+	FqjUQCSHcJLVbl12sNL7JUnw2caMjLl5pOb3QEWRodanu5LXy+Yqm8p5k5UVMcqH
+	aPh8rDxgJ0CqHl69L/ZVs0F015ImkRkG/dcB/Ulm9jOaXOaVVM0KjdcHnXPjK1mz
+	J73phcvEEMVAlt3CuAfwbXzCccXZPHpHc6CsWnyQJnsCeS9SRCqUId2WBcjFyc/k
+	AnzwIWyR9xp10WZL2IuUg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792072697; x=1792076297; bh=C
+	nO8Z6h9zpO/QTub1B+RFdiy6XB7flbUP5VcPsb88+8=; b=ZyFd6SQkm2PWBGE8L
+	Mh+hzm4BthoRgot8Gg19Buf9wtsKQ4TXySByy+1sLRWgASsD8aZhD8cAHx6uPwtc
+	4M/uDFbfWzpVcS8PHNfHrIq1CI4oGN2Cs3Q96L+3aJR5+AuIWe+IeGKQkasM4KAo
+	Z6pzZo5P2lEcj61TdOe1vXcQ0XGMIMCJvgypj9Jn06Zv5h0DZUqoptDyzDwaiw2V
+	2kVkup1Jy89QcTdbzbtrgYcEiCBDwtZ+JYLyjau2NLz+UXWxqwMNTyXdAJKz7Mxw
+	zoxhfx4sXGyAI4nlA9arzlJwXgkOgHDdzYyNnSX4zQKmPAITHxINBuocNQNp6BSF
+	/sfdQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=s-joshi.in a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792072697; d=s-joshi.in;
+	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:oRb4wXe/iL4aHnvrLaWLvgT/gEwC6Zoz717gh/nd1fZo1q7
+	CYKJnk+ueork6pKl6C7HnE8wHPTi+XCuvSHtvwacxC9qoY00xJNE7bSOepOyIHn1
+	Rt8bbEI6LQ557QkF/NLBKdsZWgVw5wKuvhveRYrJ2h84vQaJexA2HvCHdP0BhFFx
+	frxTzaK6/9DY6d0z1FroLcIJ0QjQ0H+kIjZLYSw47DuHUNpIu+8cnPrnxHM17rww
+	0PG4rkkLnfTJOtycgucVf1msmKSzk+YAT0FOzWJU30mduzEWWlFmst7afziMo4xu
+	kM1Z2HlDPsD2mloqdWsy0vORw6+0xlxVARN4s5A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ki8EbvuJseo+uOuHf5DKuwHpBlH2h/odU2Bm6ibMO4s=:XCLZISSAltF//O6t+IpR0eamKchFx2zNh3GL/j8aZwA=;
+X-ME-Sender: <xms:-NvQarjtjYk26pu96rBeAf5Y6Kd5uT1BJVbRf_AN9v3404waI8ErKQ>
+    <xme:-NvQahX3jq4LoFsdwXUkeXNb1nF0jpauLsqaBCO4-jkt1rm9J5x-DHcoKWN27CYY4
+    Vx1pC-D7o5ntSOlXTw-n9ggcRy1eaymZAGFC-5tExez5Xr2GgTy_w>
+X-ME-Received: <xmr:-NvQaiXhrSiDSpxmszIUkHI0fVPEkKM2_GP6-b6PmGHU2JRLZeXMRiNL9g>
+X-ME-Proxy-Cause: dmFkZTEjMW0FdWGU8vE5FR9XXFJ5ToXQmBEsNYZLPQzkZOcxhgH5+QmoDYPjPP5vf1P5tk
+    kOcza6G+URvZkSkJwB3YDQH7dUAAd0ZqfyynQ+1E1OsJDPUdK8Dt+uHyXhep3EiaQSJOlD
+    o+1BM+m08TR/PRN9ZQlF7oiURKLnSX7EXyfWtjN2YHEnbBobd7MH10qZ7W2ZuArD3zNNlE
+    nmHUnz0iCIoupLsV+aLjo6/JKRnPJMQK2CE8YB/7Dr/g1XtEoeayJBQ2G7RbKsER8qQbOH
+    f/Q+uoMEYrxVTutGmIUoXlCCcH7fCEsxm+CChuG+68dwGDfFwaO7ltAIXC5KOOvtwtTTL6
+    O37Cb5VY/wojXloYrzxPvucWr/OG7C1Gf8KizWJOplNZbi58ppZmMyg6SwJx0n80UPt9SA
+    95qeubFsW8a88vOIWJ91d5waLkDzM63YhJYxAYZhOVJgs3bFIO10B1Cj/dD6rquhNCZlT1
+    asipMEhPo7aKazxpKRzYVcawkEw+PSkzChOmDFxDaSwPzzCbmnFWN3XJxt0J/hPf1NbrMi
+    W3+bY6MGuxPDj7XGS8Y87nX64TZRTeelfT64/w2uCF2Tdopj7oaYOKxzN+xPc6WwPwAomX
+    EMpNhsXrtl42nClgOLgTt0Iy2qzOTpRmWdR9nthyCm+wPyUBRty/5iPfAaTg
+X-ME-Proxy: <xmx:-NvQapg5nL0Cl44MsMhVceea3-Maqn-ANcP289BE8pPm-lxO3nvoXg>
+    <xmx:-NvQalaMaw0jZYgsSvyjA7SZ9a_kKoHyagc7OYuR6-tBfwMj_jRMHA>
+    <xmx:-NvQauoI9khiOpQ7V10oFrcD_eoDfVfKgFTDJIRzQtJYdzfiuDwiyg>
+    <xmx:-NvQaqPjvyuts3pYmP5Dy-UtvTjx2AMaQVNcbzMTTQ_h-FUFJkn1DA>
+    <xmx:-NvQag6HeMn7JSEAbTCnHSit0Lu7HjWeT6w_1WCqY5wn7IWW3XxCUwEV>
+Feedback-ID: ia9504abf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Oct 2026 09:58:15 -0400 (EDT)
+From: Suhaas Joshi <suhaas@s-joshi.in>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
+Date: Thu, 15 Oct 2026 19:27:53 +0530
+Message-ID: <20261015135801.19326-1-suhaas@s-joshi.in>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015135533.18761-1-suhaas@s-joshi.in>
+References: <20261015135533.18761-1-suhaas@s-joshi.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Miguel Ojeda <miguel.ojeda.sandonis@gmail.com> writes:
+While merging 2 regions, we iterate over the entire probe_hits[] array,
+whose size is determined by the DAMON_MAX_PROBES macro. However, it is
+possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
+cases, we end up making redundant iterations. Therefore, to remedy this,
+iterate over the list of installed probes instead of iterating over the
+entire array. For doing this, start accepting a struct damon_ctx in
+damon_merge_two_regions(), and update calling functions to pass this
+argument.
 
-> On Thu, Oct 15, 2026 at 3:42=E2=80=AFPM Sasha Levin <sashal@kernel.org> w=
-rote:
->>
->> Sorry, what I meant to say is that the spec seems to require markdown as=
- it's
->> preferred format. We can experiment with other options, but then the ris=
-k is
->> that we'll break some tools.
->
-> Ah, got it, thanks! Yeah, at the very least the `SKILL.md` main file
-> should most likely be all Markdown inside (and of course the
-> filename).
->
-> Now, if we go with `agents/` instead of `Documentation/`, then I would
-> personally prefer Markdown for the other files in the same folder like
-> the `guide.rst`, but that is just my bias, and it has a small
-> disadvantage: if we happen to move things between `Doc/` and
-> `agents/`, then it is a bit painful to reformat.
+Update the damon_test_merge_two() test to use this new signature for
+damon_merge_two_regions() as well.
 
-For all that we hear about how smart these tools are, are they really
-incapable of dealing with two only slightly different markup formats?  I
-would really hate to bring in a separate format for this stuff...
+Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+---
+ mm/damon/core.c             | 15 ++++++++++-----
+ mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
+ 2 files changed, 28 insertions(+), 7 deletions(-)
 
-jon
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index b63e60ef8990..bebd2889c2c8 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3524,20 +3524,25 @@ static void damon_verify_merge_two_regions(
+ /*
+  * Merge two adjacent regions into one region
+  */
+-static void damon_merge_two_regions(struct damon_target *t,
+-		struct damon_region *l, struct damon_region *r)
++static void damon_merge_two_regions(struct damon_ctx *ctx,
++		struct damon_target *t, struct damon_region *l,
++		struct damon_region *r)
+ {
+ 	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
+ 	int i;
++	struct damon_probe *p;
+ 
+ 	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
+ 			(sz_l + sz_r);
+ 	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
+ 	l->ar.end = r->ar.end;
+-	/* todo: do this for only installed probes */
+-	for (i = 0; i < DAMON_MAX_PROBES; i++)
++
++	i = 0;
++	damon_for_each_probe(p, ctx) {
+ 		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
+ 				* sz_r) / (sz_l + sz_r);
++		++i;
++	}
+ 	damon_verify_merge_two_regions(l, r);
+ 	damon_destroy_region(r, t);
+ }
+@@ -3590,7 +3595,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
+ 			goto set_prev_continue;
+ 		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
+ 			goto set_prev_continue;
+-		damon_merge_two_regions(t, prev, r);
++		damon_merge_two_regions(ctx, t, prev, r);
+ 		continue;
+ set_prev_continue:
+ 		prev = r;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 3fbb4e4e36fa..849cf61cb828 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -182,6 +182,8 @@ static void damon_test_merge_two(struct kunit *test)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2, *r3;
++	struct damon_probe *p;
++	struct damon_ctx *ctx;
+ 	int i;
+ 
+ 	t = damon_new_target();
+@@ -206,7 +208,21 @@ static void damon_test_merge_two(struct kunit *test)
+ 	r2->age = 21;
+ 	damon_add_region(r2, t);
+ 
+-	damon_merge_two_regions(t, r, r2);
++	p = damon_new_probe();
++	if (!p) {
++		damon_free_target(t);
++		kunit_skip(test, "probe alloc fail");
++	}
++	ctx = damon_new_ctx();
++	if (!ctx) {
++		damon_destroy_probe(p);
++		damon_free_target(t);
++		kunit_skip(test, "context alloc fail");
++	}
++	damon_add_probe(ctx, p);
++	damon_add_target(ctx, t);
++
++	damon_merge_two_regions(ctx, t, r, r2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
+ 	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
+@@ -220,7 +236,7 @@ static void damon_test_merge_two(struct kunit *test)
+ 	}
+ 	KUNIT_EXPECT_EQ(test, i, 1);
+ 
+-	damon_free_target(t);
++	damon_destroy_ctx(ctx);
+ }
+ 
+ static struct damon_region *__nth_region_of(struct damon_target *t, int idx)
+-- 
+2.55.0
+
