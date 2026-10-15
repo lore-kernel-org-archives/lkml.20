@@ -1,21 +1,21 @@
 Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46AF463B6A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4573427F9C;
 	Thu, 15 Oct 2026 09:03:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055028; cv=none; b=ZFoD1upM7FRyo9kpLYcq3JKdB6UKn/tQ/Ve6FionpxOxtc94lNiy9XuEcLdlbyqjECYU1wpf3qhPzLwO8O9Br+SRUhylLJlkSfYjks8KZQnN3cm3bvKdbADjuWKOLysXOf8aJntUSAQQMOBpvc0lS49q9rTvBPMBULEObC7vlwA=
+	t=1792055028; cv=none; b=b/N0sF11lqZ4ncFhrebCjdULL8JxY+H3ohmAKL+dIWXi0CHEf4UlxP8iEXG0IsOrvtd19gaxEyBQ7fn78sHomIITdDbygUixrZZtqrmmkeX2GHNOGIStP6FiWoHl7DW29d84j5x5ppHf46LLuWTYU3yGha3Fj0FVkeZvFWsDmzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792055028; c=relaxed/simple;
-	bh=u3d03v9fCgN22j/TBAslrKnyYtTdXVEzgV2jKzoID/k=;
+	bh=ObsU36OOl337xJ5Nvk1h1SSzv5yswvaTc0H1geTAK1U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gWwT3Vqvwxqi/M02pMVXEeUneS/viRKqx2/lHAKVmPtMCbYoKgMLFFpNeYPpvt/pHO3REnpb4nK78MWdityarpJWjAyUEijITDRWPCeaIwrKg8feuwq78/H6dZfFGdj24gQWvoUICAab4KGGom6IhukuZmcEI2LWwu1CRj/mDmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=RPPb4kuW; arc=none smtp.client-ip=188.245.251.181
+	 In-Reply-To:To:Cc; b=d9fAIPUkMavL3Ufp+arkSn9yMV+pJtURwI28R9+/Wr6K2GFS6UpsPeVM7Vv+j7mQ4ghh/Mfo2f5L5+ItLp2eUvXMvcvND6cnk8GhPCIZdX6Muh6aTUNWLSuDYl70F+hFgj56TY85WYx9Fxg+wqBGg8JTY/7y9Yak8u7w8GYQB4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=pvJBZIDU; arc=none smtp.client-ip=188.245.251.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="RPPb4kuW"
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="pvJBZIDU"
 From: Frieder Hannenheim <git@fhannenheim.net>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
 	s=mail; t=1792054683;
@@ -23,12 +23,12 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ee/MLol4NK2hl3Se8DbyRCXa07uWqYspIqT1UMrvJ2k=;
-	b=RPPb4kuWFN63xs0/UTbC0zMrXKqyC3pT4uZenmVussYOtOS1lovQofC+vDUE2118wKLuUy
-	5La9DEJyD8TDR4TJ6rViQwm991SHxSEq836nfy7n5xFvtMkDrrYQrHzlcsjdPn9W9vmLsa
-	MfFEofXMSWuwe6SV3sD2w+XvYh2N6VQ=
-Date: Thu, 15 Oct 2026 10:57:27 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: oneplus-kebab: new device
+	bh=88WIQd8L6vbNHOJfXFZ38ekS86m5j9Tw/QRnD7dXZ5s=;
+	b=pvJBZIDUetKZJooPHeBAesmxcZw80He00/XA7ds2xrsHPfjZ88aNwXzhToTpuuioikbTA1
+	9/EycxKdqcG4PCp0vlhz5nydbp/7VWphLQWRZVVqJ0MHry8JWut5l4dDG/jV7+W1iMLcnj
+	ufs9UmcCxXtMTCzgzIZWPKzL8nvH/s0=
+Date: Thu, 15 Oct 2026 10:57:26 +0200
+Subject: [PATCH 1/2] arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-kebab_dts-v1-2-1fee1204a18b@fhannenheim.net>
+Message-Id: <20261015-kebab_dts-v1-1-1fee1204a18b@fhannenheim.net>
 References: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
 In-Reply-To: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -49,169 +49,649 @@ Cc: Robert Oscilowski <drgitx@gmail.com>,
  phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Frieder Hannenheim <git@fhannenheim.net>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4049; i=git@fhannenheim.net;
- h=from:subject:message-id; bh=u3d03v9fCgN22j/TBAslrKnyYtTdXVEzgV2jKzoID/k=;
- b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFkXpk6SfuS1el2Kyd9Cr6xVK1Y1x57MbGicLO9pXHrKb
- kOO65a7HaUsDGJcDLJiiizO0yV/2FcK6+iH/1OEmcPKBDKEgYtTACbSGsXwP1fQ6LV/utuEpTHF
- e4XX3L4l2HdY4tCsd3quqXdkgpymmTP89/Tnf7UyojBpxrpuxvX6rkInv76t0M5SLLb1Vzt+i3c
- SFwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16731; i=git@fhannenheim.net;
+ h=from:subject:message-id; bh=ObsU36OOl337xJ5Nvk1h1SSzv5yswvaTc0H1geTAK1U=;
+ b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFkXpvaUupytenXAMSW97eubVO+/qpuyrUqk5u0w9FNy+
+ HO2Riqyo5SFQYyLQVZMkcV5uuQP+0phHf3wf4owc1iZQIYwcHEKwERcAhkZnv0P+snOJRJgcd/n
+ m9c871SrnOle23fEsjxINFkTHLAzhOGfxvL1PxqWnumynH95wl8Wl3ecmz0+Xdo326K4rdx09V1
+ FRgA=
 X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
  fpr=439719F83F79132C2F57FE216C0173C8B7931E53
 
-Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
-
-[1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+This file contains common properties shared by all OnePlus devices using
+the Qualcomm sm8250 chipset.
 
 Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
 Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
 Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile                 |   1 +
- arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts | 124 ++++++++++++++++++++++
- 2 files changed, 125 insertions(+)
+ .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 618 +++++++++++++++++++++
+ 1 file changed, 618 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6f33c4e2f09c..d8292f681e71 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -356,6 +356,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-bahamut.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8150-sony-xperia-kumano-griffin.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-hdk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-mtp.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-oneplus-kebab.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-r8q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-samsung-x1q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8250-sony-xperia-edo-pdx203.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
 new file mode 100644
-index 000000000000..3e9802db1464
+index 000000000000..59f4a3c119c8
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts
-@@ -0,0 +1,124 @@
++++ b/arch/arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi
+@@ -0,0 +1,618 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +
 +/dts-v1/;
 +
-+#include "sm8250-oneplus-common.dtsi"
++#include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "sm8250.dtsi"
++#include "pm8150.dtsi"
++#include "pm8150b.dtsi"
++#include "pm8150l.dtsi"
++
++/*
++ * Delete following upstream (sm8250.dtsi) reserved
++ * memory mappings which are different on this device.
++ */
++/delete-node/ &removed_mem;
++/delete-node/ &camera_mem;
++/delete-node/ &wlan_mem;
++/delete-node/ &ipa_fw_mem;
++/delete-node/ &ipa_gsi_mem;
++/delete-node/ &gpu_mem;
++/delete-node/ &npu_mem;
++/delete-node/ &video_mem;
++/delete-node/ &cvp_mem;
++/delete-node/ &cdsp_mem;
++/delete-node/ &slpi_mem;
++/delete-node/ &adsp_mem;
++/delete-node/ &spss_mem;
++/delete-node/ &cdsp_secure_heap;
 +
 +/ {
-+	model = "OnePlus 8T";
-+	compatible = "oneplus,kebab", "qcom,sm8250", "qcom,kona";
-+};
++	chassis-type = "handset";
++	qcom,msm-id = <QCOM_ID_SM8250 0x10000>,
++		      <QCOM_ID_SM8250 0x20001>;
++	qcom,board-id = <QCOM_BOARD_ID_MTP 0x0>,
++			<0x0 0x0>;
 +
-+&battery {
-+	charge-full-design-microamp-hours = <4500000>;
-+	energy-full-design-microwatt-hours = <19575000>;
-+	voltage-max-design-microvolt = <4350000>;
-+};
++	aliases {
++		serial0 = &uart12;
++		serial1 = &uart6;
++	};
 +
-+&framebuffer {
-+	width = <1080>;
-+	height = <2400>;
-+	stride = <(1080 * 4)>;
-+};
++	battery: battery {
++		compatible = "simple-battery";
++	};
 +
-+&i2c2 {
-+	pm8008: pmic@8 {
-+		compatible = "qcom,pm8008";
-+		reg = <0x8>;
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
 +
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <112 IRQ_TYPE_EDGE_RISING>;
++		stdout-path = "serial0:115200n8";
 +
-+		reset-gpios = <&tlmm 93 GPIO_ACTIVE_LOW>;
++		framebuffer: framebuffer-0 {
++			compatible = "simple-framebuffer";
++			memory-region = <&framebuffer_mem>;
++			format = "a8r8g8b8";
++			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
++				 <&gcc GCC_DISP_HF_AXI_CLK>,
++				 <&gcc GCC_DISP_SF_AXI_CLK>,
++				 <&dispcc DISP_CC_MDSS_VSYNC_CLK>,
++				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++				 <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
++				 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
++				 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
++				 <&dispcc DISP_CC_MDSS_ESC0_CLK>;
++			power-domains = <&dispcc MDSS_GDSC>;
++		};
++	};
 +
-+		vdd-l1-l2-supply = <&vreg_s8c_1p3>;
-+		vdd-l3-l4-supply = <&vreg_bob>;
-+		vdd-l5-supply = <&vreg_bob>;
-+		vdd-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_bob>;
++	gpio_keys: gpio-keys {
++		compatible = "gpio-keys";
++		label = "Volume keys";
++		autorepeat;
 +
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-ranges = <&pm8008 0 0 2>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&volume_up_gpio &volume_down_gpio>;
 +
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		#thermal-sensor-cells = <0>;
-+
-+		pinctrl {
-+			gpio-keys-state {
-+				pins = "gpio1";
-+				function = "normal";
-+			};
++		vol-up {
++			label = "Volume Up";
++			gpios = <&pm8150_gpios 6 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEUP>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
 +		};
 +
-+		regulators {
-+			ldo1 {
-+				regulator-name = "vreg_l1p";
-+				regulator-min-microvolt = <528000>;
-+				regulator-max-microvolt = <1504000>;
-+			};
++		vol-down {
++			label = "Volume Down";
++			linux,code = <KEY_VOLUMEDOWN>;
++			gpios = <&pm8150_gpios 7 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
++	};
 +
-+			ldo2 {
-+				regulator-name = "vreg_l2p";
-+				regulator-min-microvolt = <528000>;
-+				regulator-max-microvolt = <1300000>;
-+			};
++	reserved-memory {
++		removed_mem: memory@80b00000 {
++			reg = <0x0 0x80b00000 0x0 0xcd00000>;
++			no-map;
++		};
 +
-+			ldo3 {
-+				regulator-name = "vreg_l3p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
++		camera_mem: memory@8dc00000 {
++			reg = <0x0 0x8dc00000 0x0 0x500000>;
++			no-map;
++		};
 +
-+			ldo4 {
-+				regulator-name = "vreg_l4p";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
++		wlan_mem: memory@8e100000 {
++			reg = <0x0 0x8e100000 0x0 0x100000>;
++			no-map;
++		};
 +
-+			ldo5 {
-+				regulator-name = "vreg_l5p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
++		ipa_fw_mem: memory@8e200000 {
++			reg = <0x0 0x8e200000 0x0 0x10000>;
++			no-map;
++		};
 +
-+			ldo6 {
-+				regulator-name = "vreg_l6p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
++		ipa_gsi_mem: memory@8e210000 {
++			reg = <0x0 0x8e210000 0x0 0xa000>;
++			no-map;
++		};
 +
-+			ldo7 {
-+				regulator-name = "vreg_l7p";
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <3400000>;
-+			};
++		gpu_mem: memory@8e21a000 {
++			reg = <0x0 0x8e21a000 0x0 0x2000>;
++			no-map;
++		};
++
++		npu_mem: memory@8e300000 {
++			reg = <0x0 0x8e300000 0x0 0x500000>;
++			no-map;
++		};
++
++		video_mem: memory@8e800000 {
++			reg = <0x0 0x8e800000 0x0 0x500000>;
++			no-map;
++		};
++
++		cvp_mem: memory@8ed00000 {
++			reg = <0x0 0x8ed00000 0x0 0x500000>;
++			no-map;
++		};
++
++		cdsp_mem: memory@8f200000 {
++			reg = <0x0 0x8f200000 0x0 0x1400000>;
++			no-map;
++		};
++
++		slpi_mem: memory@90600000 {
++			reg = <0x0 0x90600000 0x0 0x1500000>;
++			no-map;
++		};
++
++		adsp_mem: memory@91b00000 {
++			reg = <0x0 0x91b00000 0x0 0x2500000>;
++			no-map;
++		};
++
++		spss_mem: memory@94000000 {
++			reg = <0x0 0x94000000 0x0 0x100000>;
++			no-map;
++		};
++
++		cdsp_secure_heap: memory@94100000 {
++			reg = <0x0 0x94100000 0x0 0x4600000>;
++			no-map;
++		};
++
++		framebuffer_mem: memory@9c000000 {
++			reg = <0 0x9c000000 0 0x2300000>;
++			no-map;
++		};
++
++		ramoops: ramoops@b0000000 {
++			compatible = "ramoops";
++			reg = <0x0 0xb0000000 0x0 0x400000>;
++			record-size = <0x40000>;
++			console-size = <0x40000>;
++			ftrace-size =  <0x40000>;
++			pmsg-size = <0x200000>;
++			ecc-size = <0x0>;
++		};
++	};
++
++	vph_pwr: vph-pwr-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++		regulator-always-on;
++	};
++
++	vreg_s4a_1p8: vreg-s4a-1p8 {
++		compatible = "regulator-fixed";
++		regulator-name = "vreg_s4a_1p8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-allow-set-load;
++		regulator-always-on;
++	};
++
++	vreg_s6c_0p88: smpc6-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vreg_s6c_0p88";
++		regulator-min-microvolt = <880000>;
++		regulator-max-microvolt = <880000>;
++		regulator-always-on;
++		vin-supply = <&vph_pwr>;
++	};
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8150-rpmh-regulators";
++		qcom,pmic-id = "a";
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s6-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++		vdd-s9-supply = <&vph_pwr>;
++		vdd-s10-supply = <&vph_pwr>;
++		vdd-l2-l10-supply = <&vreg_bob>;
++		vdd-l3-l4-l5-l18-supply = <&vreg_s6a_0p95>;
++		vdd-l6-l9-supply = <&vreg_s8c_1p3>;
++		vdd-l7-l12-l14-l15-supply = <&vreg_s5a_1p9>;
++		vdd-l13-l16-l17-supply = <&vreg_bob>;
++
++		vreg_s5a_1p9: smps5 {
++			regulator-name = "vreg_s5a_1p9";
++			regulator-min-microvolt = <1904000>;
++			regulator-max-microvolt = <2000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_s6a_0p95: smps6 {
++			regulator-name = "vreg_s6a_0p95";
++			regulator-min-microvolt = <920000>;
++			regulator-max-microvolt = <1128000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2a_3p1: ldo2 {
++			regulator-name = "vreg_l2a_3p1";
++			regulator-min-microvolt = <3072000>;
++			regulator-max-microvolt = <3072000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3a_0p9: ldo3 {
++			regulator-name = "vreg_l3a_0p9";
++			regulator-min-microvolt = <928000>;
++			regulator-max-microvolt = <932000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5a_0p88: ldo5 {
++			regulator-name = "vreg_l5a_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6a_1p2: ldo6 {
++			regulator-name = "vreg_l6a_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7a_1p8: ldo7 {
++			regulator-name = "vreg_l7a_1p8";
++			regulator-min-microvolt = <1704000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
++		};
++
++		vreg_l9a_1p2: ldo9 {
++			regulator-name = "vreg_l9a_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10a_1p8: ldo10 {
++			regulator-name = "vreg_l10a_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l12a_1p8: ldo12 {
++			regulator-name = "vreg_l12a_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l13a_ts_3p0: ldo13 {
++			regulator-name = "vreg_l13a_ts_3p0";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l14a_1p8: ldo14 {
++			regulator-name = "vreg_l14a_1p8";
++			regulator-min-microvolt = <1650000>;
++			regulator-max-microvolt = <1880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l15a_1p8: ldo15 {
++			regulator-name = "vreg_l15a_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l16a_2p7: ldo16 {
++			regulator-name = "vreg_l16a_2p7";
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l17a_3p0: ldo17 {
++			regulator-name = "vreg_l17a_3p0";
++			regulator-min-microvolt = <2856000>;
++			regulator-max-microvolt = <3008000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l18a_0p92: ldo18 {
++			regulator-name = "vreg_l18a_0p92";
++			regulator-min-microvolt = <800000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8150l-rpmh-regulators";
++		qcom,pmic-id = "c";
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-s3-supply = <&vph_pwr>;
++		vdd-s4-supply = <&vph_pwr>;
++		vdd-s5-supply = <&vph_pwr>;
++		vdd-s6-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++		vdd-l1-l8-supply = <&vreg_s4a_1p8>;
++		vdd-l2-l3-supply = <&vreg_s8c_1p3>;
++		vdd-l4-l5-l6-supply = <&vreg_bob>;
++		vdd-l7-l11-supply = <&vreg_bob>;
++		vdd-l9-l10-supply = <&vreg_bob>;
++		vdd-bob-supply = <&vph_pwr>;
++
++		vreg_s8c_1p3: smps8 {
++			regulator-name = "vreg_s8c_1p3";
++			regulator-min-microvolt = <1352000>;
++			regulator-max-microvolt = <1352000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_bob: bob {
++			regulator-name = "vreg_bob";
++			regulator-min-microvolt = <3008000>;
++			regulator-max-microvolt = <4000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
++		};
++
++		vreg_l1c_1p8: ldo1 {
++			regulator-name = "vreg_l1c_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2c_1p2: ldo2 {
++			regulator-name = "vreg_l2c_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3c_0p8: ldo3 {
++			regulator-name = "vreg_l3c_0p8";
++			regulator-min-microvolt = <800000>;
++			regulator-max-microvolt = <800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4c_1p7: ldo4 {
++			regulator-name = "vreg_l4c_1p7";
++			regulator-min-microvolt = <1704000>;
++			regulator-max-microvolt = <2928000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5c_1p8: ldo5 {
++			regulator-name = "vreg_l5c_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2928000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6c_2p96: ldo6 {
++			regulator-name = "vreg_l6c_2p96";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7c_cam_vcm0_2p85: ldo7 {
++			regulator-name = "vreg_l7c_cam_vcm0_2p85";
++			regulator-min-microvolt = <2856000>;
++			regulator-max-microvolt = <3104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8c_1p8: ldo8 {
++			regulator-name = "vreg_l8c_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9c_2p96: ldo9 {
++			regulator-name = "vreg_l9c_2p96";
++			regulator-min-microvolt = <2704000>;
++			regulator-max-microvolt = <2960000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l10c_3p0: ldo10 {
++			regulator-name = "vreg_l10c_3p0";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l11c_3p0: ldo11 {
++			regulator-name = "vreg_l11c_3p0";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3304000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
++		};
++	};
++
++	vreg_f: regulators-2 {
++		compatible = "qcom,pm8009-1-rpmh-regulators";
++		qcom,pmic-id = "f";
++
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s2-supply = <&vph_pwr>;
++		vdd-l2-supply = <&vreg_s8c_1p3>;
++		vdd-l5-l6-supply = <&vreg_bob>;
++		vdd-l7-supply = <&vreg_s4a_1p8>;
++
++		vreg_s2f_0p95: smps2 {
++			regulator-name = "vreg_s2f_0p95";
++			regulator-min-microvolt = <900000>;
++			regulator-max-microvolt = <952000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
++		};
++
++		vreg_l1f_1p1: ldo1 {
++			regulator-name = "vreg_l1f_1p1";
++			regulator-min-microvolt = <1104000>;
++			regulator-max-microvolt = <1104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l2f_1p2: ldo2 {
++			regulator-name = "vreg_l2f_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3f_1p05: ldo3 {
++			regulator-name = "vreg_l3f_1p05";
++			regulator-min-microvolt = <1056000>;
++			regulator-max-microvolt = <1056000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l4f_1p05: ldo4 {
++			regulator-name = "vreg_l4f_1p05";
++			regulator-min-microvolt = <1056000>;
++			regulator-max-microvolt = <1056000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l5f_2p8: ldo5 {
++			regulator-name = "vreg_l5f_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l6f_2p8: ldo6 {
++			regulator-name = "vreg_l6f_2p8";
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l7f_1p8: ldo7 {
++			regulator-name = "vreg_l7f_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
 +		};
 +	};
 +};
 +
-+&i2c16 {
++&pm8150_gpios {
++	volume_up_gpio: volume-up-default-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
++	};
++
++	volume_down_gpio: volume-down-default-state {
++		pins = "gpio7";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		bias-pull-up;
++	};
++};
++
++&pon {
++	mode-bootloader = <0x2>;
++	mode-recovery = <0x1>;
++};
++
++&pon_pwrkey {
 +	status = "okay";
++};
 +
-+	fuel-gauge@55 {
-+		compatible = "ti,bq28z610";
-+		reg = <0x55>;
-+		monitored-battery = <&battery>;
-+	};
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++
++	status = "okay";
++};
++
++&qup_i2c7_default {
++	status = "disabled";
++};
++
++&qup_spi7_data_clk {
++	status = "disabled";
++};
++
++&qup_spi4_cs_gpio {
++	drive-strength = <6>;
++	bias-disable;
++};
++
++&qup_spi4_data_clk {
++	drive-strength = <6>;
++	bias-disable;
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&qupv3_id_1 {
++	status = "okay";
++};
++
++&qupv3_id_2 {
++	status = "okay";
 +};
 +
 +&tlmm {
-+	pm8008_default: pm8008-default-state {
-+		pins = "gpio93";
-+		function = "gpio";
-+		bias-pull-up;
-+		output-high;
-+		drive-strength = <2>;
-+	};
++	gpio-reserved-ranges = <28 4>, <40 4>;
 +};
 +
-+&vreg_f {
-+	status = "disabled";
++&uart12 {
++	status = "okay";
 +};
++
++&ufs_mem_hc {
++	vcc-supply = <&vreg_l17a_3p0>;
++	vcc-max-microamp = <800000>;
++	vccq-supply = <&vreg_l6a_1p2>;
++	vccq-max-microamp = <800000>;
++	vccq2-supply = <&vreg_s4a_1p8>;
++	vccq2-max-microamp = <800000>;
++
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l5a_0p88>;
++	vdda-pll-supply = <&vreg_l9a_1p2>;
++
++	status = "okay";
++};
++
 
 -- 
 2.54.0
