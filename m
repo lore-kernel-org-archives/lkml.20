@@ -1,203 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013025.outbound.protection.outlook.com [40.93.201.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C7749DB91;
-	Thu, 15 Oct 2026 07:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049216; cv=none; b=Fem1LP0s/dLSLRevmNQ/evQm+fZT+P70ZeQ8Kx3U7atwwW+CB9NzJIsqK1ERKTm6Vv4VwWFyLowQhM+aVFPttGNrAYDKrwlN0Q1he7YlVy26ORQgO12HCsJM/WSxf1sNVdClt7IDV0e97fFfly8EjiAU990gFPDoc4pW69PI1SE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049216; c=relaxed/simple;
-	bh=KkAoH9qOejJrCxiTN1zmpYB9UczNYRDdOcAloa58HAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ri4niiraNCm9QCSEgvTKNL6Of8VId37yH20CRkybX2vp2A4Y7PU7miQQPXTCXrA3caw7MeFCTgqQjDFdbOnf7x0ruz+aQqzFCv1p5W3p/wFZruohtJF4tC40ltCV8AVs8aPxy34iiENgWFTYn2vZ15MK74xouJoTlPNI6ufc5uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kixu3jtY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B264C447805;
+	Thu, 15 Oct 2026 07:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792049298; cv=fail; b=VDzRAKP9J739y7NDZPpgY6HhZ+g9i04aHGHjm/2idPW3HtavwnHGeKGn+zseYwYBFz7s7u6IAtN5owLJkevWSOsfu5uiuONr7Yvwz5ZfDYQT6uE4byb85KLNXbjsmvcM9xqwEdxSZ/Nlrxkp94njZgIO/F3mrn27mG6qSDUQqF0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792049298; c=relaxed/simple;
+	bh=ynwheJC4qHXahGi+9zT5vcGJ98YQILUAU97DM0BRJPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=C91lXzvFax9YaepKIXAT2CeXpEObv53PkmOQzVjAlMCfv0LEit60+lqhxUWNWYj3BtXAOw83QA6BPtoDGoi2Db42lNYSK+I/qSREm4cr4RR4ii5eWn3BYJLWcTvXRpMHlQs4XCyssgoNmpnoMvTTQ2uS5nBQaGNPvYEITqAd5bY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=I6iCqvXf; arc=fail smtp.client-ip=40.93.201.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kixu3jtY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393CF1F000C4;
-	Thu, 15 Oct 2026 07:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792049207;
-	bh=Pf46xFfEGVPZu/Q820g68271K70LkI89BCSOUGYUzss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kixu3jtYFhd+ObD9exXylcLYWSlmFTWFV6xHBK8xrnU3+uk/NDyZcxiIGGExOsuVY
-	 ovY8/sLCP32FFRZrrGYxCcE5usFrG48sEjn8NGcNh3epGhPhyZyDY4ioO5hNfNyFK2
-	 PSaUL+eJca5cNRe6ebq5QC3zOOe33/by1s469VF0bPMhsC4aZ8fb3wI8hH+oHwaUSU
-	 J6L1FSLXR7koOMPxzQLz1GBYmSR90fI3nw4BiGizi3YoqcCwV4WZaSJv9jVLOGGYJZ
-	 cO8d5AWjjmVfQM0ip/g23siqeun0DIL5Q7U+NoVeqAiNrtEOUe9yeyxiyS4QFOgdOs
-	 sG4HrwUO5brCg==
-Date: Thu, 15 Oct 2026 00:26:46 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Emerson Busson <emersonbusson@gmail.com>
-Cc: mhklinux@outlook.com, kys@microsoft.com, haiyangz@microsoft.com,
-	wei.liu@kernel.org, decui@microsoft.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 0/14] hv: vmbus: make rings and host-visible buffers
- survive buddy fragmentation
-Message-ID: <20261015072646.GB936897@liuwe-devbox-debian-v2.local>
-References: <20261007190752.336426-1-emersonbusson@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="I6iCqvXf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SxcjjfLZsvof/+DmzsHjSLWH374XZd2KaMua2oQ2mTaYvQm1whuAflAABlwg5mO7sis+wBjmLK0g0YYSDr+36wL92Sk6/f4bjRgKL1D6tlS/gdxMDdiSOs4Qt4cWdfzZikLofkbOQU7Vitay/KyWMEj3x7jlyDWVeuC9g3GlIJHezUuv/TjLdHmVcgWv2fSQGqkVOjzDYNgMJBkklh/fLFsE5YTeb6DytRH6GGB+b/JegAFlyURepq80s5nzie8UT2Kbi5tC8lB2ncqhcXE38LbyAuBqvCuLFi9bss2q6sVeKi+Sr9S5d+BvjXDEbZei16TSGAgDOozs5Jsm3//hiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0zwSmR+M+kpgV5fTlq8DQkM3TbPgAh9kpti/un6u5J8=;
+ b=KsAAhTh9S2nnBz0XyqGyjw7AZQJycSMrJqRcgb7br3+Uvm2UAH1KeAmcN8ZFAkBkCdTigXLrCugUWGP5evoJX73aymYmAtWIcjzNLSKOy50AyQx3wLouVrx3m/LZXCA9J+U2zrcxUOMzYhpDzOPx6oa0G/+9Z4s4pc+fRNOoAux+9km3EyhOF89dxepFtRN0c3CqljFQLbDots7E3tCxb8oYnMSMc9Zz2fLdRrgjWth6m7NNejk0KT8lgrIo5SVxZxWKxv90QbrbxkBZTA9WJlVggniz108Y+UhU3GiGj387vlMku860Cim6ZsVDdQe59L9bFLnKf/NqMVhgBu6sLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0zwSmR+M+kpgV5fTlq8DQkM3TbPgAh9kpti/un6u5J8=;
+ b=I6iCqvXfqoLW1Gaok9ZYxcTOVdFy3s6gcgZKNUwYTwkAlvxmE16UwA+LPWev2x+FdX9Cuqa6pRaW/rzxHV60nTK9kISoKeg5XkvuroBlGL27BfzbNR3VYJCLMd2DEKJ8vKMA7opmvizjnENQ2oVC6YSkTpt71ALj0dFAGG1s+Nmpa3RlOTWaq6/OIsYg1v0qAmspD1DTABvb4CXZvA5oK/IhtjF/j/TzUNYqZrXKqOopK+pmS/i0zPfU/Es4bnmKXocO2gtC/s+HPOFQPAOQvXukGuG+eBK7/rsa48sHvEJiLRvZ4jjpGdsL6gbZEZppIC920PLMA3AlT4WPQXeyDg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by MW5PR12MB5650.namprd12.prod.outlook.com (2603:10b6:303:19e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 07:28:04 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0496.020; Thu, 15 Oct 2026
+ 07:28:01 +0000
+Date: Thu, 15 Oct 2026 15:27:54 +0800
+From: Richard Cheng <icheng@nvidia.com>
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, 
+	Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>, 
+	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, linux-cxl@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, David Hildenbrand <david@kernel.org>, 
+	Oscar Salvador <osalvador@suse.de>, Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Subject: Re: [RFC PATCH 4/5] mm/page_alloc: Keep pre-online poison out of the
+ buddy allocator
+Message-ID: <atB-cL8x5CSMOHEP@MWDK4CY14F>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+ <20261010162017.62506-5-shaikhkamal2012@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010162017.62506-5-shaikhkamal2012@gmail.com>
+X-ClientProxiedBy: SI2PR02CA0021.apcprd02.prod.outlook.com
+ (2603:1096:4:195::10) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007190752.336426-1-emersonbusson@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|MW5PR12MB5650:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0488aeb-56b1-41da-81c1-08df2a8dd79f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	h6sRWnO/tCth3hvfWB9M9Xw7qi7i6g167Ne7HRlUUK53OdV7K6Vuzcj76FbOBK1SYx+a5P3fF3HJ58/W53vZVoIv2NfvR660eNqg7NSPqp6wKNlSaTb90KFFKIq+Nxfp5g5PdT/KMN9nn5IDiTRdTVtDjBvAEN5bSCK8BT3+aqG64gIg3bQBlm7umDVCrRYsX5/59ta3w9aXTQ5GHBOwgmcmGTp2pR9F7h1FoHf6Nt4ewbgO1XDrDLovzNSWiVi4xj4VjPXf0w2znabjGqFVCiRNkCl3pxqkAv8UGINVQdC9WwuMQaE6CNVHj6Ba1kU4wxk0N2OAVrzENGVnjFhoBOV1EI7eBJTCPrbxDzU0SemeaRWPsXsfagRZt4RBdwmaN0sBxOlKoF4pOnRo+UND5iahNDrdQSOse8ahu/91IqPCcFqrfNhbfE0AoqoD23mZ/KxXNilpxVh44SIkI+8OLTZhIYxp2I2dF+2xis3XMB1FI1DlpmvWcJLNbsSR9XZ90EAP6jGEbiH1AZPmVjqdeFXM+x0hEQdybEhT6mMoaErTTQY6Vy/iPQ01Qf9m2y05Ac+xYy3KJdOPjYVsp/qA6cbsf4uQIqwDqbFcoDgi3sSDsKFuy2yLsko4Y9TGhaynoaRBbK8ZxjzwMzwwALRLNoA9nU5ttlgxRpcIWl7A1cU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?T0HcIpJrjwZMw5QfEWbfbAiPTEjMSk7vewP4jRqluFTN5EEPZkXDQySVB7Ru?=
+ =?us-ascii?Q?a9sqNL4pU/p5HXDh/H7+v4PadDOGj13rCdMgghAp+fJG2+GXkW0oXkttZFg1?=
+ =?us-ascii?Q?mWLqn6Dik180hMQY5s2cqP4FgYaaU56JJqt+LmVRDbnoONHS236pMtHRC1XW?=
+ =?us-ascii?Q?LC/FjpSBq90jHgBuGLGoBvHEySPrlqxKvuVpbeevUeK0pRxhCKkwL+XnuV2t?=
+ =?us-ascii?Q?yCHB5cQissF8REs7PxIQqr5xMc3Ax3/+b7YQMK6nOd1/nJjxeq+qWK21pCf8?=
+ =?us-ascii?Q?C8UgXdVnoqYCwP5lic5dpxBnOzf/08Syq5r0/0qEzGzr0pFkpe9Fpq0rjAfC?=
+ =?us-ascii?Q?uPkSsMJoDI1h27WWM5mByds+QPEb/R8RNfWfjO1wOozz7A9NntZ+eTX7M9sG?=
+ =?us-ascii?Q?q7a7F6wxibEdELBfm49Ku9VtVgrskRmdRxUmIRm3weekSv79n80QY2CfQ6PD?=
+ =?us-ascii?Q?6i3WrA/a1/E6OFUccKTNjs2mtVDXRvEM4c7jImCOj4YCm6RWEkh4YWib3f9k?=
+ =?us-ascii?Q?M7zkRXbQNPdlR2CceDppbK1bgcvuSRt2sh0yrutUfAog/SGuNp9RyfbOz+QO?=
+ =?us-ascii?Q?x5Eg9/05LmV7dbYAXDO/4UQZlYBU/jOtCNHNrzPmYVFyff8FiXOMVIQEX4re?=
+ =?us-ascii?Q?e16QBQ8ok9cVrjvpn3EYD4vR7c2G5uuo/QWtRszS5qG3cC3gMrj0RMRvkwbK?=
+ =?us-ascii?Q?7bRxnpmy5YYhXgeJKMKwD+7AL4lP9+ySdJjQJZTfH15s7OM0NLBQa7nWn3if?=
+ =?us-ascii?Q?BK363Ccgr/oXyFaPZbnRwvjRlWjoiaD8kVDgyaOkPD3KFDGDNdLDDq8bPr/E?=
+ =?us-ascii?Q?/8/5Jrdg/WVuZ3XGXmGz1IvJo1XJikI2zAC9PgdeBjIu2/iilSL1EWGt3F3s?=
+ =?us-ascii?Q?xZ+eN5PKsIwo0Q6cKuhWq2byfi4R6mnQm2oVYTFIrCSFsEhK4udOpKGqF3Dx?=
+ =?us-ascii?Q?FtDHNCTpwXkHtXgSwaQ2Um/7OZznV7xTWSZF4xErriEMPZypHdyn+BIBj/t7?=
+ =?us-ascii?Q?j7l+k1oIGUIdF5rnCLfgsR2KxjDrKoh1M3/mr+KXxcbMg6+m61214jhRIQhA?=
+ =?us-ascii?Q?fD1pzD9hISVXRECY3+JReaIblicC2SxlioRTt95WI0JYbh4JPNS4dSWm/VhL?=
+ =?us-ascii?Q?MGNrkw+4GnS388pUf5ctXNCebBY5Zem67AXV+nvZ//bBCSgzlVF3p6Ss/n8H?=
+ =?us-ascii?Q?hhQyP3FkqpVV7VnXk9nDZ0SrX2g9A079/uo7iEk+hGZw4g/oBr9bhXoRQ9lM?=
+ =?us-ascii?Q?IcrXWd9IXwSZwpYHYTKRqBXb4QXGAlrfWjXuylsxMc3BjxR3HYjtHAodawTB?=
+ =?us-ascii?Q?PR2xv52q4s3VbP1PueamUTE3UI5W8HkKNoCm6N6Rhhro8R5jctihy8J8TkT0?=
+ =?us-ascii?Q?SQJ9GfPo4cwrl5zUW7J8mwVwG1YVOYpXbQ48kUeA3ShNxeGRwDPT25EjQ92Y?=
+ =?us-ascii?Q?wI77XAq1YZNd+KMN56aTv7LCnUoxbT1UBes9GCMIwCWhh+SspIbY6YCtsl4R?=
+ =?us-ascii?Q?o6SGBOySBSfWfRhqdOiI6nIicnCCrhZe8XtmcPyT/uCvrCEGrTvncucG2b3j?=
+ =?us-ascii?Q?Mg923bWe0YMeUY6W66IoGKrEtswM3ioc4QcceNv92HJDBlqFCLpqRPHwIumh?=
+ =?us-ascii?Q?nCduegiKoOdknsGfMNXDSy+pVugBDquMa1Y2H5wtslcsJxN17H8ohD2R3wMC?=
+ =?us-ascii?Q?f2X9udy9OyNd+xyfySDEyjV6jb7atXYD6al+h6X5gMNwLBpc?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0488aeb-56b1-41da-81c1-08df2a8dd79f
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 07:28:01.0928
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1MGFU/kNBiwD89qXs0MQeXcbqJVbUU+EnUitVPykBFU0NX965YUi94Gxw195uGLjPpAWlxJRruP7g5dA5+gyFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5650
 
-Hi Emerson
-
-I find the wall of text in the cover letter, commit messages and code
-comments extremely difficult to parse.
-
-With AI, generating code is cheap, reviewing is expensive. I don't think
-anyone on the list can or should review a patch series like this.
-
-Please make sure you understand the code and deslop the AI-generated
-content before posting.
-
-After reading v1, I think I know what you try to solve, but I'm not
-going to accept a patch series like this. A lot of the patches don't
-seem to be related to the problem you want to solve.
-
-Thanks,
-Wei
-
-
-On Wed, Oct 07, 2026 at 04:07:38PM -0300, Emerson Busson wrote:
-> This series moves VMBus ring backing to the chunk allocator and keeps the
-> allocation, GPADL ownership, and mapping references together. It preserves
-> the exported four-argument interfaces while allowing the private allocation
-> paths to carry ownership and sharing policy.
+On Sat, Oct 10, 2026 at 09:50:12PM +0800, Shaikh Kamaluddin wrote:
+> The inherited-poison path checks initialized blocks before releasing
+> them to the buddy allocator. CXL device poison discovered before
+> hot-added memory is onlined is recorded separately in the pre-online
+> poison registry.
 > 
-> A review of the original vzalloc fallback noted that CCA and TDX guests
-> without a paravisor need direct-map page transitions. This revision uses
-> contiguous chunks for buffers that must be host-shared, transitions each
-> page through page_address(), and combines the chunks with vmap(). Ordinary
-> guest-private buffers retain vzalloc-style allocation.
+> Extend __free_pages_core() to send a block to free_poisoned_block() when
+> it intersects either poison source. In free_poisoned_block(), withhold a
+> page when its PFN is registered as pre-online poison or its physical
+> address is present in the inherited-poison table.
 > 
-> Allocation and compatibility
-> ----------------------------
+> Pages identified by either source continue through
+> hwpoison_boot_page(), while clean pages are released through
+> accept_and_free_block().
 > 
-> Every ring allocation uses the chunk allocator. Ordinary guests and buffers
-> kept private by channel policy use vzalloc(). For host-shared buffers in an
-> encrypted or isolated guest, the allocator uses contiguous chunks and
-> transitions them page by page. Guest-memory encryption is selected
-> independently of Hyper-V isolation.
-> 
-> Ring consumers select co_ring_buffer. External buffers and the legacy
-> allocator select co_external_memory. The exported allocator and caller-
-> decrypted GPADL prototypes retain four arguments throughout all fourteen
-> patches. UIO migration follows its release support.
-> 
-> The address, page and chunk arrays, and embedded GPADL belong to one buffer.
-> The allocation extent, host-described GPADL extent, and retained allocation
-> extent remain distinct. Interior GPADL duplication preserves the existing
-> exported interfaces. Prepared owned buffers avoid repeat decryption, and
-> HV_GPADL_BUFFER_DECRYPTED is removed.
-> 
-> Lifetime and host acknowledgement
-> ---------------------------------
-> 
-> A host rescind alone does not prove GPADL revocation. For a known-live GPADL
-> whose channel identifier is still held, teardown posts a request and waits
-> for a matching GPADL_TORNDOWN message before clearing ownership. Synthetic
-> rescind notification cannot replace this acknowledgement. Unknown creates,
-> local removal, invalid identifiers, failed posting, and timeouts retain
-> ownership.
-> 
-> Waiter removal shares the response-list lock with matching replies so a late
-> acknowledgement cannot use a freed waiter. Released owners retain pages
-> across mapping references and failed page-state restoration. Reclaimer
-> shutdown cancels pending timers under the owner lock and requeues only work
-> that was actually canceled; running callbacks drain through workqueue
-> destruction without re-executing freed embedded work.
-> 
-> Sysfs mappings install no vm_ops and release the bridge pin on every setup
-> outcome. UIO mappings hold their pin through VMA close. Page, count, and
-> protection snapshots share the owner-lock boundary. New tests call the real
-> sysfs wrapper, insert actual PTEs, and check readable bytes and page
-> references through success and partial -EBUSY. They do not execute a full
-> kernfs syscall or full device destruction.
-> 
-> The final four fixes use vzalloc() for guest-private requestor arrays and
-> bitmaps, kvzalloc_obj() for guest-private RNDIS descriptors, handle NULL
-> control requests on empty NetVSC completions, and use kvzalloc_obj()/kvfree()
-> for the large guest-private NetVSC device object.
-> 
-> Qualification on the exact fourteen-patch series
-> ------------------------------------------------
-> 
-> The code mails are pinned by series/SHA256SUMS. Applying all fourteen to
-> 93f51579e7df248780214094418f205253383cc5 produces source tree
-> e6fe523ca92ce30ea7edb265b8a26bf20a867c47.
-> 
-> The VMBus workflow builds x86_64 and arm64 with W=1 and C=2, passes sparse,
-> and passes all 69 linked x86_64 QEMU KUnit cases. The distinct WSL backport
-> passes all 26 of its KUnit cases. CoCo source invariants pass on both
-> architectures; these are necessary static checks, not confidential-hardware
-> qualification.
-> 
-> Exact-source Hyper-V runtime, including controlled host rescind:
-> https://github.com/emersonbusson/WSL2-Linux-Kernel/actions/runs/37650468077
-> 
-> On both windows-2025 and windows-latest, the candidate passes 100 bind/unbind
-> cycles, bounded buddy fragmentation, channel rebind, UIO mapping teardown,
-> and the controlled host-origin NIC removal. Each report records
-> HYPERV_DRILL_HOST_RESCIND status=PASS, target_absent=yes,
-> matching_events=1. Both report zero splats and faults, restore the measured
-> kernel settings, and return lifecycle map accounting to the settled operational
-> baseline. Captured owner accounting reports 722 created, zero unobserved
-> creates, 715 reclaimed, and seven still active; active owners are not
-> classified as leaks. Trace capture has no overruns or dropped events, and
-> the disposable VM, VHD, and switch cleanup passes.
-> 
-> The baseline is an intentional negative control. It reproduces the expected
-> fragmented-allocation failure without guest faults; the workflow accepts
-> that exact signature as a passing control. It is not a candidate result.
-> 
-> WSL backport runtime matrix:
-> https://github.com/emersonbusson/WSL2-Linux-Kernel/actions/runs/37645708153
-> 
-> That separate backport passes the actual Windows candidate matrix. Each
-> runner completes 64 commands with matching teardown acknowledgements,
-> zero unacknowledged requests, no backing or tail growth, and all six
-> shutdown checks. The shutdown retry path is covered by 40 local parser and
-> refusal regressions; the live candidate runs required zero retries. These
-> results qualify the WSL backport's measured ordinary behavior, not the
-> mainline mail series.
-> 
-> Qualification limits
-> --------------------
-> 
-> The Hyper-V runtime uses the ordinary x86_64 vzalloc path. It does not
-> execute confidential chunk transitions. Full memory saturation, the
-> chunked CoCo fallback on hardware, SEV-SNP, TDX without a paravisor, Arm
-> CCA, and complete VMBus module unload and retained-owner destruction remain
-> unqualified. The exact mainline series has not been installed or booted on
-> the daily WSL host; the installed kernel and Windows WSL matrix are a separate
-> backport. The baseline is one intentional fragmentation negative control,
-> not a matched same-configuration diagnostic-count comparison for every patch.
-> No confidential-platform result is inferred from ordinary Hyper-V or static
-> checks.
-> 
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
 > ---
-> Emerson Busson (14):
->   hv: vmbus: convert ring backing through the chunk allocator
->   hv: vmbus: validate chunk buffer allocation and cleanup
->   uio: hv_generic: describe buffers for owned allocation
->   hv: vmbus: add KUnit tests for GPADL post failure injection
->   hv: vmbus: add KUnit test for order-zero allocation fallback
->   hv: vmbus: cover all shared-page policy combinations
->   hv: vmbus: distinguish host rescind from local channel unload
->   hv: vmbus: retain backing until ownership and references clear
->   hv: use owned VMBus buffers in NetVSC and UIO
->   hv: vmbus: pin buffer pages across UIO mmap to close the reclaim race
->   hv: vmbus: vmalloc requestor metadata
->   hv: netvsc: allocate RNDIS request descriptors with kvzalloc_obj()
->   hv: netvsc: handle a NULL request address on empty completions
->   hv: netvsc: use kvzalloc for device state
+>  mm/page_alloc.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index cca67a2702a4..57843df01b2a 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -33,6 +33,7 @@
+>  #include <linux/cpuset.h>
+>  #include <linux/folio_batch.h>
+>  #include <linux/memory_hotplug.h>
+> +#include <linux/memory-failure.h>
+>  #include <linux/nodemask.h>
+>  #include <linux/vmstat.h>
+>  #include <linux/fault-inject.h>
+> @@ -1601,12 +1602,14 @@ static void __meminit free_poisoned_block(struct page *page, unsigned int order,
+>  					  enum meminit_context context)
+>  {
+>  	unsigned long i, nr_pages = 1UL << order;
+> +	unsigned long pfn = page_to_pfn(page);
+>  
+>  	for (i = 0; i < nr_pages; i++) {
+>  		struct page *p = page + i;
+>  		phys_addr_t phys = page_to_phys(p);
+>  
+> -		if (range_contains_poisoned_memory(phys, PAGE_SIZE)) {
+> +		if (range_contains_poisoned_memory(phys, PAGE_SIZE) ||
+> +		    preonline_hwpoison_contains(pfn + i)) {
+>  			hwpoison_boot_page(p, context);
+>  			continue;
+>  		}
+> @@ -1652,7 +1655,8 @@ void __meminit __free_pages_core(struct page *page, unsigned int order,
+>  
+>  	/* First: a block parked by __free_unaccepted() never returns here. */
+>  	if (range_contains_poisoned_memory(page_to_phys(page),
+> -					   PAGE_SIZE << order)) {
+> +					   PAGE_SIZE << order) ||
+> +	    preonline_hwpoison_intersects(page_to_pfn(page), nr_pages)) {
+>  		free_poisoned_block(page, order, context);
+>  		return;
+>  	}
+> -- 
+> 2.43.0
+>
+
+Hi Shaikh,
+
+I think the idea of discovering device poison first is good, but the boundary
+should be more strictly designed.
+
+Now if I don't get it wrong, if we turn on memory_hotplug.memmap_on_memory,
+we can have part of CXL memory to do the bookkeeping for itself, without
+using the existing RAM.
+
+What if that bookkeeping part is poisoned ? the check ignores this situation
+right ?
+
+What about draw a clear line between normal RAM and hot-add CXL memory, have
+the latter gone through the thorough check and do the rest you want ?
+
+Best regards,
+Richard Cheng.
+
+
+
+
+
+
+
+
+
+ 
