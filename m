@@ -1,43 +1,39 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D6B51CF73;
-	Thu, 15 Oct 2026 09:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE15451C349;
+	Thu, 15 Oct 2026 09:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058135; cv=none; b=e23rmNEhA4+cm0CgEYU7mjWeSRyWIi3CpXokV1W4QqTaymXk871acKAOXxq1rm10SyR1Nx/BCW1B1didrIXT2W6EiN1vSi3OVSNTQZhNW5SvEu49JGcugcLKf8juzFZvpJBGm19cLOwAGr9kBp8fEZ7iE30m6Ub2rA3ZCEp4ayY=
+	t=1792058141; cv=none; b=KT9wWpUnttOahKU6ox1VHk1+ex4plmJwjeD6rXR89Md4z6clKV/tRQzbpGpq7xUcRiktpSQqsMGoPYittawrg4cna7CjtEK1qlkYV7TEFh3cIW2zNqvrxLuIFrs/ySKjNY/TI8G1q4KhY+VBkgLswc74Bh0VawJE6gUUkJjsQw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058135; c=relaxed/simple;
-	bh=6SX4yecHyXVbLshPsQWLilXsP7byy14yjQf58IyCF+M=;
+	s=arc-20240116; t=1792058141; c=relaxed/simple;
+	bh=Buk9x+xIr0Hp/9kAkSnMDdIn8/lS/bCV6UBqC0TwOuE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NdN5AKS0xOVe0ZUSiqkZPR1gN8GaK9DUgtnKAudHHrrFifR5ibtSyh3sZycRygE9eXcimOYUAMplHmj1rQ6K1lg7jLCk/JIu7xSDA/dinr3cYChqpXbBQcB8v3YiPMh0rm832EQbmo56vY1rFiBK0hQtJKXAhDNchH1MyqRYA9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=oH0fZ7Iq; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=Okzh081qTz2HVHbNCCOgEvVJliQss1lVYXtABcLTjwUeDG4PIxIH3rl+Xe1Ju69aOuYKvqSCKwrCbyLMd1ggum9wkroYUdp3j81YwYj/tEl/gE6NM5isWsCESbSYrNYBVaJMIu/hec8J6NvJDH5h9KeL4Jc8iBndNpz98jFD0OU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uMZAES2D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="oH0fZ7Iq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=23bNt0OfM+po4Z/srMUpSEf31cb6QWN8dJc5Q7JS6H0=; 
-	b=oH0fZ7Iq/R2ZrwSMbLU+BACQiQiFP4PkbXDETCo4gfnhoHGjpepjrXRGbmRBLZacfHFwlAP8ehd
-	EtIVfkPmvGWBThc/eZJ2EBQnhoLiAXXIPaoLBnS8Bu6bchWWhhLzTGYkTjFNaEpgvPWwhVLh/NNhC
-	HGNzBKmeJX5a28aCbLGBd+tqCseIynvQkfDBQu9iH0kfufX0Ozmt4gLcHL/F9hMpZOk8XTQrQcxMk
-	ScAKT1hHDu1UX4OgGxzt1AzUQijLGKCaYbx0T4Y3R1rBd239PWdijdd+S6g6P6XW/U4WAgIAVcY6/
-	qG+d7tKnr9jBxtZTvvJyx8T3QCpCoAWgIE9A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xHIBG-000000047td-1SWx;
-	Thu, 15 Oct 2026 17:55:23 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 15 Oct 2026 20:55:22 +1100
-Date: Thu, 15 Oct 2026 20:55:22 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Olivia Mackall <olivia@selenic.com>, Kees Cook <kees@kernel.org>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwrng: intel - simplify intel_rng_mod_init()
-Message-ID: <atCjCnj5LkSNaxYK@gondor.apana.org.au>
-References: <20261006172628.103594-2-blum@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uMZAES2D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0E81F000CB;
+	Thu, 15 Oct 2026 09:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792058135;
+	bh=OjGYxvUIE7EfrZL3fGuw5Qh3SDT3bvcL3SWeWM8eUOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=uMZAES2DjeDsfGU5WPmZ87Wr/UbsnwQy3b5GKnnqD++JeUejUdV1+IZqEnBQIvxQl
+	 iZVXQvcVfRUUG7ueXrfqr/b0eG+eJgMUcjiNZECTrokNEEsCQ3PWeijXVBiMDjfVF6
+	 v/kUAM0ScHfJZFx9Rj+Zh1l/+6FxopYq5s1mlJiE=
+Date: Thu, 15 Oct 2026 11:55:39 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Artem Dinaburg <artem@trailofbits.com>, stable@vger.kernel.org,
+	dlemoal@kernel.org, kwilczynski@kernel.org, kishon@kernel.org,
+	frank.li@kernel.org, bhelgaas@google.com, sashal@kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [6.12.y] Please apply one upstream fix
+Message-ID: <2026101501-willed-gracious-cc62@gregkh>
+References: <20261014190815.23455-1-artem@trailofbits.com>
+ <atBnuPOa68f21L6C@debian>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,18 +42,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006172628.103594-2-blum@kernel.org>
+In-Reply-To: <atBnuPOa68f21L6C@debian>
 
-On Tue, Oct 06, 2026 at 07:26:27PM +0200, Thorsten Blum wrote:
-> Return errors directly to simplify intel_rng_mod_init().
+On Thu, Oct 15, 2026 at 11:13:42AM +0530, Manivannan Sadhasivam wrote:
+> On Wed, Oct 14, 2026 at 03:08:15PM -0400, Artem Dinaburg wrote:
+> > Hi,
+> > 
+> > Please consider applying the following upstream commit to 6.12.y. It
+> > applies cleanly to 6.12.112 and is already in 6.18.y and 7.2.y.
+> > 
 > 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/char/hw_random/intel-rng.c | 21 +++++++++------------
->  1 file changed, 9 insertions(+), 12 deletions(-)
+> Please explain why you want this commit to be backported to stable kernels.
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Yeah, this is odd, it's a test function?  Artem, how are you hitting
+this and why is it needed in older kernels?  Can't you just update to a
+newer one if you have this hardware and want to test the endpoint
+hardware?
+
+thanks,
+
+greg k-h
