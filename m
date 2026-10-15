@@ -1,164 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3124D0A05
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA733CF699
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792108182; cv=fail; b=qywpJEJC1vZ7Wh69rxDdqYkdA0wUC1g627NWRvhudV8QcYgJEZNh7Duj5Cwb0gpmX6o2ELsbRwAn7dHyMlhNz83XFFbnkzKQhVeQpnqhDZzj8IEw9F/jTBF1yhwU8cS2r1ca4AvZzRH7fJ3tmA0ZhXwkYEqxLg8UASdA4BJ7cZE=
+	t=1792108237; cv=pass; b=k2OGyp9Zib59JCubNkKFOO1fk4wq4sStCfIzwDOJZOSttAzFI4QZ1wq5qmQY1MBNLjIlP3DP7y35bEjEkDuQUvd4InRb07vYRd1U3qyCwsoWjoGHtCpteR/8XYSn6Rzty7MjYbRi7mZy+XrCRh/EhguBcbXjt9HOHTIOFiRpMf8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792108182; c=relaxed/simple;
-	bh=PF+GTaS8c+yspqSvHmuZbWKbn0+FKfyubDdTFGMRbc4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uTf/nR72hLpCDR3QJvCMHiRb0KkKazaPfH0JU+h0BKVwOjpDX7k+0Ki86+4Mt08LBq4Z4Gr2egxqkzRRLYjCNq8+M4TH0X4/Ygdta9q8YTEpb3kGu9RWeacLhP8k7Hd3BxngD5cUXv4ganpm3c5/jf6DpCBsWXgs3mu2KNCkVF0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VKG9kf9Y; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792108237; c=relaxed/simple;
+	bh=/mWAiD+SdF93v7V1LXk7HNRMpAc7xPC+EtxxIdvRnvg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W7OS852SkrIw/DVwBsj0o8T5hEbXOtcplc4oIEK36TCHh/6N4BAmtwvLftdlBI3vfoMnoSwNO7iMK7Pa7IAgoL1FAppENjput1iqzWKHLgehWz0ABwmefFTT0jVf7kQ2Bn/Mvt9ci9V6ErNRnebQxWzHWhKU7/8bcxe6CRmwwNU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GchxOkN7; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VKG9kf9Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792108178; x=1823644178;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=PF+GTaS8c+yspqSvHmuZbWKbn0+FKfyubDdTFGMRbc4=;
-  b=VKG9kf9YkfEL/FnivBUMVyqaDUsYiym0hnJfPm7DZLnaO0fbKKm198gw
-   rTyqdtWoQQTdWFfGaqBIjlleUJgUwpeEpqU+fcb1EIi70k0AIAQNIva43
-   YjE4XdO+ChzuSodzTIgitvic18MJxM2jf5XB67oxd9r48+VozFvJ9fb57
-   o6+kxLC4S2C4CHoHaBHxgY1mnDLjA9i0T/uKlc3P4wiqcCS7pl6fDaP8E
-   6FuWMsZGjykW6Jvg8hq+Igx8eYkyM6W32Q6NxHXXmqFd+E26FaJTPhuSl
-   tyQslK/X+NMQ4CAItaKVZ3ZfLhnGUXO77ZYPNYs555hQLUIW7ynr1gOqH
-   g==;
-X-CSE-ConnectionGUID: WW50ZpiqQRyz0UshQ3FxuA==
-X-CSE-MsgGUID: zd0OVldLRli41Hj5L/qiUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="910970"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="910970"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 16:49:37 -0700
-X-CSE-ConnectionGUID: WYrPtWRfRGuJjD2xBxUUhg==
-X-CSE-MsgGUID: 4C8u+DzeS4ytWA4rxW8k/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1776915"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 16:49:37 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 16:49:36 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 16:49:36 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.55) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 16:49:36 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HKKBnmOP3iQQdGRwvVs3DlPBsKC3BhA52HoCjRyHgmesSNqRVcLtO351/K2D9uVA5brNnLPTNhkMf91/SbHgRk0aG3h7D/D/dJ5NoKx2/o9V66CTUsRwMlCLtcQOr9XO+tovMb1eePwS8FfnxFeQXawr5/VuCyWbmYo7hXlXWLT2oAAnKTL5Z28Tf5UvmthqLu/sqdc5CgTkrLY2U4H73K2YBdtaD8QLR5tvj6K9L+vqWCjpMHHunS6axH1NOZEndIQlzruO+XK6Hw3OZjX+ZO/4oSIm4dESJ59ZDxChvYfkTtpo1/GRJxjlKCIcp9xiqrrE/M91a+QabulWoT1t7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=awb5LMphF7edAS9trsRU6aGJM06UXa55cDF2dxjywhA=;
- b=bsdi4bDrkz5G2avlVmEKruXCPNqOphNSuV9kQmmq08AN1jc2PlmXQYnWFuGuLn61Tdos6DeLGpzJJSl3tBi8FElz+l+y89oH4xLUgwEZARLbmbmM6KD4/teB0DtIN+wYTV+pxONtalzgCGeUXSrxz6NE7uU7Pw2zNUiTMZvf5QLslqIU3tmGRe+wTtTrpa6CDHGTUCJ62WUwi10jnJPrwcJdq0hdXSVfwC3GslpCAHKqf3TT7qZ30cTnxbMBRIa+J5wtQ0sPH95eJBS2aP6YIpiGOQ3WCfGKt4djf6QqHzruDYZh99zde6aMh4uEkLPCVCM0+B4A+B70GVquPAmZwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA4PR11MB8891.namprd11.prod.outlook.com (2603:10b6:208:56d::20)
- by PH9PR11MB126636.namprd11.prod.outlook.com (2603:10b6:510:3e9::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 23:49:34 +0000
-Received: from IA4PR11MB8891.namprd11.prod.outlook.com
- ([fe80::1128:c90e:54:e8f1]) by IA4PR11MB8891.namprd11.prod.outlook.com
- ([fe80::1128:c90e:54:e8f1%4]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 23:49:34 +0000
-Date: Thu, 15 Oct 2026 16:49:29 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Serhat Kumral <serhatkumral1@gmail.com>
-CC: <djbw@kernel.org>, <vishal.l.verma@intel.com>, <dave.jiang@intel.com>,
-	<iweiny@kernel.org>, <nvdimm@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <error27@gmail.com>
-Subject: Re: [PATCH] libnvdimm: Handle negative return from
- nvdimm_clear_poison() in nsio_rw_bytes()
-Message-ID: <atFmiVHz4mkgwO8J@aschofie-mobl2.lan>
-References: <20261002165641.14479-1-serhatkumral1@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261002165641.14479-1-serhatkumral1@gmail.com>
-X-ClientProxiedBy: MW4PR04CA0237.namprd04.prod.outlook.com
- (2603:10b6:303:87::32) To IA4PR11MB8891.namprd11.prod.outlook.com
- (2603:10b6:208:56d::20)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GchxOkN7"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso5064a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:50:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792108234; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HqYLPSOyEtW952JuCbZaydsFPHD6xyEL1+0EmV2KYpMRdsygonfoY4tJJWgMACqIgd
+         P9LmmgwZITDzSoDSjuR95qKxCtXR8SzZIEr0E4v3sWcG90o/Flf7JpqOBX5wdw/n1BHO
+         8jF1qBLXw1lj2do7/EQ8u/vE9SNwtiv5FTI9bUyviWDCYfTG17Ad+S+8Jj6T89ZzXGOk
+         cskqcM6BsmXJ8rHdoMTZVlz2xBudTFkBKSWDZEZ3//9MnZIp0HjTrKaLgbipZ1YtWH4P
+         BqsUexdqrH6tR7ZnfBXTboNtLl+DtYhkMRFYIcrRpoGaa22yP9dx+izguMCtP+Xj70J8
+         m0Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wRjFLXV6COr6RPV3tAUL8X/xyP3XarNU6behXnaftIw=;
+        fh=qoE6/LezyfxgU2mebFtINafDFzV4S690medimun5Idg=;
+        b=S0a1SzepVv6VMlwPMSmNx/OfnJB8vNo9WfuwzP5Fc7Q4P9sHTfBY5PhInilRM1VfJ8
+         ksZDC4Fx1t5N3DaTxEPjqEIUhD10Icx03Hu6qRwVRA63cZX4X1Qf99TeRHGzHp6cShf5
+         7cBdnieyId1ni6ncIqcFOgTIsNnV52eyhSMMjBh+2MYcaYvZZdUmbWJhbRN3QKWR8mar
+         7bDV8CQsCqNFm5b7lmwpPH9L1nrt5tB+O+rkSiIpu2AwUlEkqycUwtNYPZDyzLKYTASP
+         i04bflpHzXE/uXpdEN9wzY/5sgXmSLJbgn+4oMCyYJoZ3f5/5Dx8bUt2OHXWkdCc5ks8
+         wwcQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792108234; x=1792713034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wRjFLXV6COr6RPV3tAUL8X/xyP3XarNU6behXnaftIw=;
+        b=GchxOkN7leNBeJZVYI12OP4G6bmSHvyVVIvzjAboQNyxXsrXcCzx1HTyvzDZFSwDkF
+         QxTQ+0xxOeKdHlY2euLs6mBsV0g9LXjhJ2uUDzqXS8PiGmojgqleqYNNpzXCBY6c9g9l
+         6rLC3OfQEojJPEWSYIwY482RoKfyYPGTCqBnebaMM9W0DGvUsasahBPT1mSbEqsxrf+h
+         5x0AEhMu2Vfs/0XKdWnFTD2crfjwppx5xwHpfVQGqLz727WOXozQosAgLboKZbsyitrg
+         2fdetylbl07l7jXDqQgO31OYHsDmNKCLEiWLCZDKoPKsoYB3LiktmCOV7VRPVrWC9cK0
+         jqSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792108234; x=1792713034;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wRjFLXV6COr6RPV3tAUL8X/xyP3XarNU6behXnaftIw=;
+        b=l5YorJz/xOqBXH30tfN3DmdTn08pMyLBamEg3NrCRxYW4+uYWHX3GFjPgQyY4xRJIA
+         P4kvqTuGOOhkquYeJySSYPSdRhN5yM3OCsGpSqLe3gPhJgFOqZECOkPmSt1xEkNn2W8q
+         fQnoDD1TPIqdEFyb5jaC82t0G7brdV7zapLtRwfs94MaTzK11pQ77qx5Hvlizk3pSQTz
+         cDp537YIyScpV4MCJxcv+KIodUFl7jD/keHDnIIWagIZsl+ABJ9cnfKgAB83ySQu1tT6
+         Yg9zf9eqmWvLiuKOcZ7AKHGFg170NNaS6HFMV2GUMQNMB1bpr/4VbScdy06BXoYoB3uw
+         +P1A==
+X-Forwarded-Encrypted: i=1; AKwUvBxQEvBexv2m+6V/cKxvzZLGejXp7rcHiEy9O2TFYI/2Lv1EdQViJjnHk0q1/f0Hi3WTuCue9gHA8r2+9CA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBpGflkqGB1+n2j0tHvhtDnX3z4nJLF089AMGfGySFXIa0pZAj
+	ktAEQ1HIuGgdXrLV3SeKYS6CXSBDxeDdLrSTS40cvvx9MOz3UnYDJ2v8iq7Ovzgybs+BoXRImAb
+	S7fJ+xJf1qysmOmAd12JgpiXpSj+XmKuEmkCD/fXS
+X-Gm-Gg: AYBFou1W671gVCZiPWXIpdr6LFnX1Hr2rANlr3lTkXd0CHFd13nYT5hWIAhK/iB1LdB
+	TCJfdFCHxu20EOO34153avb7nrcWF4jjSf4urWtcrIs6+oSBmRvpQXGzeC6wTMJYOaK/P0xwEQD
+	aaG5aPBto+bxT8h3p1BNiNmE749hluQAuSARGXpZRgZpVQE5iCaKTVa313SKOAYQbiu9Us9/+xx
+	wQEkP/x5XYtfEu0wHcvII2aXUYomRE6x3HeRNPDnFUgwhIhFqMah5jA9JmYhF7G/C7FefucDu4/
+	IP/yzbE1pz27npH4Il36W++RqtdiqK0V4VvcC/VrazPCQyNN4t81CJZUZFWcRLWA/Q==
+X-Received: by 2002:a05:6402:569a:b0:6b1:a517:5bce with SMTP id
+ 4fb4d7f45d1cf-6b375fed3bbmr61015a12.16.1792108233125; Thu, 15 Oct 2026
+ 16:50:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR11MB8891:EE_|PH9PR11MB126636:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4954a25c-e2fe-4509-d960-08df2b16f68b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|18002099003|22082099003|10067099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: b5IWUA24m79t067bYDSPaG995/xJxY6YKf4OGhw/w/DVd5ruoW6m03yVz7xlwpfnr1YhYOKG8ngh7Rkbp69MXh9YapqVPBf1XMfyth06S7WIKrdsBgTycmKOwi0i1qVRkENfUVk+ODyaEYwfqJQyL8Bl2MkC5l2uA5iOCSh1HjCdd/ELhvQ3kihMug9P+PrJEv6JcOX1tOSJbLdopmJp5CP/xirdcyWVIAaXDwsinDqUwwuDBOpgWpfa7W95Nit0dxicDyOqsOfNUhTJrmqTf7QQ1DXzK5gpTI80FkUoyiFv3jMqAsMjK+SMBHW1Kvin7RCa2NCpdzmLtr8t/ERqrWi+q74x5tXmZIEPwi+OVd2f46SN8fVs9kA/RyP8CvTE3ANQR16v4ia3+MSZOGdnuiT7kDuwFWPZrZxfChZXMofVMwgpedpE5nR01ToX4r+2ZI/aaeKgI9NP6Kk50TJW7hnxxFuyEgEbUQtxJCmjSYM/rOOkY6rgGhaTK99xRS7JH7I8Yj6VHlcuIupluelaKoPT2Y90RouYJZn+buqG2fCEf1x2uVldfRgRC8vjLNr98+ETGBaQ5mo/h2SctyTY6EX6hqadH6BHHcHNVqdTng9sKm+gQqjx27HrzMTtq5Xw
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR11MB8891.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4ij+14AHWsVtamAJL9GMbE5N25r7okpH57zoTeDt9dAgZNQp03IwFcmk+QWr?=
- =?us-ascii?Q?TPC3N65IRmj3jboBaSgv1H7pT0BpWosbJFmObPAUl5GLawL13+auWU4/ObPe?=
- =?us-ascii?Q?8KnhRHJbiFUDiYB3BCHA2Dgk+ANz+UGAS9+pvbAOoI1K1wtmkWJAUuci8Q3j?=
- =?us-ascii?Q?zXru6I9+jmpOlvoSPMfLw8a1a308bnLgx+IhLWitrOZ2pZmJ9I9ysBz8k5kg?=
- =?us-ascii?Q?a/LbT5bpIhJMRATWhhHL3IjY1s5jo6ea17govfscIJafFxc4omCbcl+LKWz3?=
- =?us-ascii?Q?TEfxbyLxhE/NBomVcQliqSyK0Ttj8ohwEMffkPEeKKIs+jeTeGxVjskiK7wp?=
- =?us-ascii?Q?Dqmy7fLca/SPyZhj2OiCdq5FHdBaiTUhh/OeI7l9bow+L4zTXtkrc7Wo7Du7?=
- =?us-ascii?Q?0bYVxU5e8OqJZBNB7OgIoj/dpRvROmuihfs7/G2R6zFhrbX8EgPJ6PL5H6bF?=
- =?us-ascii?Q?/TRQjRV7vJ5XiBquLh0Ydal/w+pWf4iDLzOXuQiQ4OJg5M7PvJU63L6WSYXT?=
- =?us-ascii?Q?wqiAJiwCGvo+VVuvFOPwDvdd6WdEIqYounBH0cxwcUhcTa5DxA7lD4MylC5X?=
- =?us-ascii?Q?GS4ir4OuVFNa0HbeOu6jDNohQfVsdVtY3t+ESkkyMNe0l/cb2aj9AfO2I0W1?=
- =?us-ascii?Q?A6vkKooPJDd198t9qFvtEjfyls1AdSY11YglHypAFLfxkp18MfvVUzkBkUZJ?=
- =?us-ascii?Q?3Ni6/zlj3iNeTPABxa8l0mour3/ZZhyTW/G+o42s5Y2C3Cof9a0HnuR42oWu?=
- =?us-ascii?Q?Jgcepo7mzEBP+Jdu26U752ddJpbk8IcgqKNwdqRwOKu+Qh2DU4ypbRrJ3RX+?=
- =?us-ascii?Q?4Tx4mBB2+F7btMtNtk6xrtOpAw9reCtU0jxT+6/qUerFy58Mh4u8lwy2YK9h?=
- =?us-ascii?Q?RF/un3WUQsWf33Hs8ht9t9C9x/38stYmc3gZEUe09IlxmYTvXG4qj9oPmP0i?=
- =?us-ascii?Q?s+3iMkiVdu7vyK4UvgyfAgNsDFn2s4AvG2bppXCOLpZoyWGQuQOHVw1q286d?=
- =?us-ascii?Q?oJTpjgyC3abvb0Mc7HD0OQFkkq0hZz1tlhE5kUlS0PS+a/daEUB6PLIU6bVQ?=
- =?us-ascii?Q?JxIREpBkz8TYu4pwnRW4+QzVCNi5WCi8+MZC9kCQtzrw+vQ1Ph8MBJ7tcKGv?=
- =?us-ascii?Q?F4bKZ/aJXogyyx0unrlGslbzuFM/d9pmWCZdzeD4V/EO1zO2cd2qkq9noKAY?=
- =?us-ascii?Q?Ns0h/BPhdb5GwbbOEcMk9qUeyWcxbwaYH0MQifLW+VZnGmJMJaRN4sjXo1b1?=
- =?us-ascii?Q?E0ZyrGS987778+XcoI2rnldlcYeeXF5Y6OD3EMIa/Jhu5/4k+JdzP/ZPpY28?=
- =?us-ascii?Q?T5ftJjwYoSFmIy+U6ma14EtM2b2bUvG///IcjD27N9Yspk0Q+iUuZJKe92NV?=
- =?us-ascii?Q?vEtCbh6GZ7kdn7KWVsOQY+7XwBvLClaEThgNErGXP1f48OPY4UIis7Yu1os/?=
- =?us-ascii?Q?GwYwpXIhYKPF5ANB4qOAv9IEWn1ZM0a2cfHTRBn0kRXJAu87HDNXQggOOsuT?=
- =?us-ascii?Q?o9BJF1HH85xM3OAh6uxVl9W5n2r4ZAjyP3OKpzresKYJMKZprQl33gJnhh6e?=
- =?us-ascii?Q?5FwczXM2Qnw8/i6Tn+LSOxrMcv6EfRBpV9eKcUSiW0Yr+pTJ6KaL7CAfDeoI?=
- =?us-ascii?Q?We2Qs7r7INCf6a3mVgxE9DmV3UriorxIV2F2JtzZuwKkSdN2G/irr4GkVk66?=
- =?us-ascii?Q?Uc6gtawKsIgIcaWd+aUnkPcB5doIkTOb9cR8KJS4+A2XJI83EgGdOLqiD94M?=
- =?us-ascii?Q?koWZFzE/A26WfBw6wVhna2XBu1IqbDY=3D?=
-X-Exchange-RoutingPolicyChecked: A5mPbqs/lhLI1mseqB10WEKCHA7nOEqz9mEaEm9xPT2RX5V0Q9/GfWr+dcuFK3S+AyQk3On4t2BJHfgy5X6MK/mchsxnXxaGU/gzBw/FnA5MD/Qa2EwcQMjhhzCU83/ihIhHeLUzbGs/vOa69MfoRhAs/bQFjtLav50wYYWSkg5GgikOsbBFkFfhAa6mdZahKPTCPi9BpTjKj9UqYNBSRmZrCKJanUDpFnqFwxSOXUme/eDeeFD3TfrjLofNpbw+SACQ27iLrNOx/A4FQbow9ONkDQMtkkUsZph1nJj+u08XY465/QImlMlV3wyx+Hc+mk3gW5SMssgH4WkLhbwgjg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4954a25c-e2fe-4509-d960-08df2b16f68b
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR11MB8891.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 23:49:33.9933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TlKA1PgSn0P1SKeiodMVL9rcjPJ43QAbdGZCN7bFPTipZnB2irulJGcJqqs6PYBKFIZciryZ3xEatAIuS6EADKzSr1i+AdRL01dXhj5dQZE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR11MB126636
-X-OriginatorOrg: intel.com
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-23-yosry@kernel.org>
+ <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com> <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
+In-Reply-To: <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 16:50:21 -0700
+X-Gm-Features: AclHuK__2bxVqgF-aRzH9PjET3jPZMjv08B5sdt-cb2rpApPG1RY0C2Eadkz3CM
+Message-ID: <CALMp9eTM23iFdrbZE8qw9kuJ2va+Mahv5wZDmgs1TZrAREh=gw@mail.gmail.com>
+Subject: Re: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID
+ in vmcb12
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 02, 2026 at 07:56:41PM +0300, Serhat Kumral wrote:
-> When nvdimm_clear_poison() fails, it returns a negative error code.
-> However, 'cleared' is a signed long while 'size' is size_t.
-> The comparison 'cleared < size' promotes 'cleared' to an unsigned long.
-> So the error condition can be bypassed and the function can
-> incorrectly return success if the subsequent flush succeeds.
-> 
-> Explicitly check for negative error codes before comparing with 'size'.
+On Thu, Oct 15, 2026 at 4:20=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Thu, Oct 15, 2026 at 4:09=E2=80=AFPM Jim Mattson <jmattson@google.com>=
+ wrote:
+> >
+> > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
+wrote:
+> > >
+> > > KVM uses a single ASID for L2 guests per-vCPU. Hence, when L1 changes
+> > > L2's ASID in vmcb12 (e.g. due to switching to a different L2
+> > > vCPU or simply to avoid flushing an existing ASID), KVM needs to flus=
+h
+> > > the L2 ASID to correctly emulate different ASIDs as different TLB
+> > > domains.
+> > >
+> > > Additionally, the nested NPT needs to be resync'd, as the MMU context
+> > > is not tagged by ASID, and KVM cannot reuse nested NPT entries across
+> > > different L2 ASIDs.
+> > >
+> > > Essentially, L1 switching L2's ASID is treated exactly the same as L1
+> > > flushing L2's ASID, which is consistent with the APM:
+> > >
+> > >   Software may effectively flush the guest's TLB entries by allocatin=
+g a
+> > >   new ASID for the guest and not reusing the old ASID until the entir=
+e
+> > >   TLB has been flushed at least once.
+> > >
+> > > This is similar to nVMX's handling of last_vpid, except that when L1
+> > > changes VPID12, KVM does *not* need to resync the nested EPT, because
+> > > VMX VPIDs, unlike SVM ASIDs, do not tag guest-physical translations
+> > > (i.e. nGPA to GPA translations).
+> > >
+> > > Reset last_asid when nested VMRUN fails to force a flush and sync on =
+the
+> > > next nested VMRUN. The TLB flush request survives the failure, but th=
+e
+> > > request to sync the nested NPT does not, as it ends up being serviced=
+ in
+> > > L1's MMU context after the synthesized VM-Exit.
+> > >
+> > > Drop the commentary about vmcb12's ASID being copied around only for =
+the
+> > > consistency checks, as they no longer apply, and opportunistically fi=
+x
+> > > whitespace alignment.
+> > >
+> > > This is currently functionally a noop, as a full flush and sync is
+> > > triggered on every nested transition, but is a step toward eliminatin=
+g
+> > > that.
+> > >
+> > > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > > ---
+> > >  arch/x86/kvm/svm/nested.c | 29 +++++++++++++++++++++++------
+> > >  arch/x86/kvm/svm/svm.h    |  2 ++
+> > >  2 files changed, 25 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> > > index e04cc4f7669ea..8e4686b0d603a 100644
+> > > --- a/arch/x86/kvm/svm/nested.c
+> > > +++ b/arch/x86/kvm/svm/nested.c
+> > > @@ -556,10 +556,8 @@ void __nested_copy_vmcb_control_to_cache(struct =
+kvm_vcpu *vcpu,
+> > >         to->nested_cr3          =3D from->nested_cr3;
+> > >         to->pause_filter_count  =3D from->pause_filter_count;
+> > >         to->pause_filter_thresh =3D from->pause_filter_thresh;
+> > > -
+> > > -       /* Copy asid here because nested_vmcb_check_controls() will c=
+heck it */
+> > > -       to->asid           =3D from->asid;
+> > > -       to->clean =3D from->clean;
+> > > +       to->asid                =3D from->asid;
+> > > +       to->clean               =3D from->clean;
+> > >
+> > >  #ifdef CONFIG_KVM_HYPERV
+> > >         /* Hyper-V extensions (Enlightened VMCB) */
+> > > @@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vmcb12=
+(struct vcpu_svm *svm,
+> > >  static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+> > >  {
+> > >         struct vcpu_svm *svm =3D to_svm(vcpu);
+> > > +       bool new_asid =3D false;
+> > >
+> > >         /* Handle pending Hyper-V TLB flush requests */
+> > >         kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
+> > >
+> > > +       if (svm->nested.ctl.asid !=3D svm->nested.last_asid) {
+> > > +               svm->nested.last_asid =3D svm->nested.ctl.asid;
+> > > +               new_asid =3D true;
+> > > +       }
+> >
+> > To make sure we don't miss a flush after restore, do we need to clear
+> > last_asid in svm_set_nested_state()?
+>
+> In [1], we set svm->nested.vmcb02.cpu =3D -1 in svm_allocate_nested(),
+> which should be called when EFER.SVME is set on restore, and should
+> force a TLB flush on the first vCPU run. That being said, if EFER.SVME
+> was already set (not a fresh vCPU), we won't necessarily flush the
+> TLB. KVM_SET_SREGS will _probably_ flush the TLB, but I don't think
+> it's guaranteed.
 
+I'm pretty sure that restoring nested state on an existing vCPU with
+the same asid12 and no TLB_CONTROL skips the flush.
 
-Applied to libnvdimm-for-next:
-https://git.kernel.org/nvdimm/nvdimm/c/c0962f508e80
+> But wouldn't this also affect non-nested? Are we guaranteed to flush
+> L1's ASID after restore?
+
+That may be a bug too.
