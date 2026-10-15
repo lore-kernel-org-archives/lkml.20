@@ -1,202 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA8353163D;
-	Thu, 15 Oct 2026 17:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086077; cv=none; b=tuQtid0j/xuRZLCKfIpL5KDj/OY70STO+6Ck06Obf3Ht2cRBdajYhPeQWunTNVTL6VTw1VkAV3qb1WdxHTO1KhpM5liWDNvYft8b6E0c6N/ywMFx+5qW9b8UMoesjThXWkrXB6FffqmgO9llDfhY739NPEkZzJosPRWC4FjhCDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086077; c=relaxed/simple;
-	bh=JFw0bpbSMHAqeGYxKKAYz5op/Z+aunIdwy0CuRP0No4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=InZOeMFshC9qB/Wk7imympdQm2fkK0UC+xebyjUxB/TC/GMnkRIcJSQ++1PhWQzgcaPQHwePWiVAXYoqTlFFGcIBIz0an0xxfdXOIulpX0VbG0gp2UsN5dAiwJwv2Gz0Fm0pMRDV8o2E3txd/3DnDIM/cTEATUoF7UYKX5Y+pYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YH7UkG6n; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D97A35A397
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792086118; cv=pass; b=hLUjRHAILiGEMAbGT5JaQRaNwFkSRkNcPKrRb1/klX6wF9n9yzFXxcpuhASxWXVUhTmQtBmabtVasFlA3gmyyJAFVSz2pSCC+K5R6QyJkV9Z8AxHldAPiZ9ATLdOvFzn8XtQzciR09Fy26q+SJTAX5cOxqQrFmwvxSBs02EJJdw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792086118; c=relaxed/simple;
+	bh=pWvyalycBKMpW/SeEYWiupuyITbO41ulxAjlLOu97oI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hi13VTybo0Vy/cY5MOR/cf5qk9dP4S1WrV4ekkLO2T5h7x6S3XaxwM68P/25b4uRcHhBLfjY8c2d1AF3vJyVopUhdEUIVQidg3KPZ1dql3AkbXknoQRNf1apDTh3u4uqRwfaLMPmMJhaLa9FPxMCe3Mnyx/DQ/xRsszPvnUy8pM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCqEcuHJ; arc=pass smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YH7UkG6n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3C21F000C4;
-	Thu, 15 Oct 2026 17:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792086067;
-	bh=fCB/nAeUeRxuZBJvipKyv3oCBpQ2JvV0i093QZCY2NU=;
-	h=Date:From:To:Cc:Subject:Reply-To;
-	b=YH7UkG6nM0TvI4585CupVvBI+oDhyY1hhV2GS15il0tWR94kjkLCfE3cH8PVVZVeI
-	 627sg2AW9d6G0W2P1JZmZwBrPBv38p7shY/NjFFE6reAdaYLkf03jtpeoVpqeyBMd4
-	 fRbMXW2wPUehdju2E0oBmtCyauRRnAwM+YTSlSmrgKviio+7XlbJOIdb8OBQLbrJce
-	 tFZpieT3dQzM/kLYCXadlMMJo0qeCRKtPuJ3V0rmxnamUQfX+/7vhVAG6kjRhNTbZF
-	 hU+ljHMWnIqBj1EbkgwEqLmmN4sWfza+LnOiyAoA1HYh6b9GPy9tBS9LcdVSOPVFIt
-	 h+ydJQolZ3FiQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 8BB3CCE23FD; Thu, 15 Oct 2026 10:41:07 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:41:07 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: Mapping from preempted task to running task on same CPU
-Message-ID: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
-Reply-To: paulmck@kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCqEcuHJ"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-833e671ee9fso4063456a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:41:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792086109; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VjJtEMG0Lkwns5dAt2YmQgbl0tGOQFa1qsrOv1CeAnhorIDp3f1SM+mDg+5AKXLPQV
+         wvvRURet8xRBbFyjPAZ9l/oRiNhXOKoa1Oc5FMxYvmMKwImdCB6zkhT+aIfvhth324CT
+         brpYyjHmkaD1ElmdBdtrcGqZO22kXtRH1MCuwewgrvyoWI7AavFytC/uf1PRKyCxZA5i
+         WD5gwBImJpVOBVUvnYu59i2bUikonEOUvw4lzgbk/wkJ01+a6xWIigsCttOFVZk9fesH
+         TbhVgpk8sb2Q9mfVD0H1SHR1GPfmRv8mVUXmQvh3r6wIu97jcwWYfrbcteLaihoLI+I1
+         m3fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
+        fh=3rUOPz2gHfRi48n0V7SFSvQkO3p+84lVpEx/xR3GTEs=;
+        b=RDGFQs9lWn29Yn5brsA2Vcj3uM7/vgjWAB570LJfbxLGp9v8W3IPgUa6Dn9OWK8kP8
+         /fMWtuIdV5YpIPr7hfHK4jW4xGMlcwrGdsPs69MIHDK/X8KXt+L2jJrP4cpHF4i3Mfac
+         6ZHeIkZVhakHExicE4Rglo79JSpVqPwjpiK4zT3GZolzTuUX2rAJNHO2Ddu5I6138OkQ
+         NZPLDZKSzyyyFdSrpvXgeSgmppSxYv1R2w7xtwub1HYRRX/2xqE9dhOtqbLpSKn+Rfe6
+         cYUoFAb2nm4rBddx67ecKk4lzFDnOrfLyeq69+xrXDPikMlQsq0u1ZW25uh7wZfaXrkt
+         xfyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792086109; x=1792690909; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
+        b=OCqEcuHJFXqRxFp5k9C3qFUlNuwbBbYwckBT8lwwZ1F5c3frwSvwc6BYnzGKdHVJnw
+         Z0Rgs29m5+A0cgLqHwlWCemkPV6hw6sibiojH676LAWoigpqY9v3p2fEy+eLTnlepSf/
+         Zu07kP4pmk4iOqpcHuHtiuiyjznwhAFg7m69TUZpvw+HDQpVeBE5OobSxP57ysFwVp31
+         YtSfmuCVobaRqK58dvreDN/vvF/mxReZrm+RQmgsvTkPsM/+gTUhHzQxIpdlzh8X+/Il
+         QZPwWw3zTFm3eV0X/sDBbsYL//Orvdyts/9U0kcRhWxtMLURxmBWGUearXK3wccgbaVT
+         f4CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792086109; x=1792690909;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
+        b=CrT56PkRK7ncGBsIwOlhNjEBmz4Rh7CECPcAY1R8pcyP+OZmeuH5FR17oFMKWK5lp0
+         bMiC15GCFPVp0TPs+d6E6eKtAD1iBugFFbAD+JpOhmifvOMs04Yrv+errN/756OeMmiF
+         hlxWoEyWjBmMDP4z9u+6zMLhC7xAdpTFAr+UckuX2lXJK9rMfV5UxPNiQ1l/gYySpHx1
+         h0EjEWHFH8LhjiiOUGnJFBEFqfgdYIGIR0Qcyu33oZbgoi3GB5doNlAxbxO3pPynT76B
+         kxzTsPPFyeZl+2XuV0jBzEYRF1T3Ni2aZZeEmFL/0+6T//RR4AiioEuVj0uyqJMzXhdG
+         cwlA==
+X-Forwarded-Encrypted: i=1; AKwUvBw97VFLw9jELaM8muxJesw3sMZPrwWOc48fbY+NGckQRc/tBBcO5thSLaZ1XwdlvPIeCLjmvrRXP0H3NJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7dhbk18M4dh+dPlD+pNbDWX9f8oJG5IjyQnFJh3C6+CfxgJuQ
+	o/5Grzf0AWISpwjP8X79AijkzP+3cs68L5rW61UWGF5H/AFkyvi+VZoxFCLyiDYq91D5CeppkF1
+	uH2QpEILgfcKl7VcuHGL5K4tAsXXbDHo=
+X-Gm-Gg: AYBFou1vJI+4m8fR77IZV+BTGw5jtQSm8zoA/6tCxZb6xJ7bcsO735F6xTTLan8t8Qb
+	jkLdI4Nu63JkniHV9HW+yWaKM+ToKPgFFY43h5BVKFPgQjrZnp+eneSQ6S8MI4IOZtxLIDHPmz3
+	deFqiS+BICNtOlxLpMNuNtLvXLC8IxY0ENn4+BQNIxkUA5ORVscO9wxNFzrc/ynJ+0yeEi2CTK2
+	yNnOIHREAoFCvb4qdOfY0RfvZdYWdSwjKSJBcsYIXzpqFVQH+MhmEVkPVn8BQWpidrUl+PzXxaE
+	bYTmPn3bKk4WE8W+noD8pz5MGYZNh1OxAUiq3CbQvTn/kf11hPVNcA8=
+X-Received: by 2002:a05:6808:23ca:b0:4d6:92b3:5c88 with SMTP id
+ 5614622812f47-50c5b27c212mr21580284b6e.64.1792086109195; Thu, 15 Oct 2026
+ 10:41:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
+In-Reply-To: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
+From: Amery Hung <ameryhung@gmail.com>
+Date: Thu, 15 Oct 2026 10:41:38 -0700
+X-Gm-Features: AclHuK98TOBFifxyiHAjpf6qUBttGLdv2xnCl-ElpsA6_pdX4NyYfKL1VgU_hh8
+Message-ID: <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v3 0/3] bpf: Fix a struct_ops use-after-free
+ behind a flaky assoc_in_timer test
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello!
+On Wed, Oct 14, 2026 at 6:35=E2=80=AFPM Qiliang Yuan <odys.yuan@gmail.com> =
+wrote:
+>
+> st_ops_assoc_in_timer_no_uref drops every reference to a struct_ops map
+> and expects a timer callback of its prog, 500ms later, to find no
+> struct_ops associated anymore. It fails now and then while test_progs
+> runs other tests in parallel, and v1 [1] made the test wait until the
+> association goes away.
+>
+> As the BPF CI bot pointed out on v1, the association goes away late
+> since commit 5db69b0fbdc8 ("bpf: Make struct_ops tasks_rcu grace period
+> optional"), which moved the RCU grace period of a struct_ops map in
+> front of clearing the association, so nothing waits for a prog that
+> reads the association in between. With that window widened, a timer
+> callback returns into a freed trampoline and the kernel hits an int3
+> Oops.
+>
+> Patch 1 frees the map only after a grace period that follows clearing
+> the association, and patch 2 adds a test that catches a map freed under
+> a running .test_1. Patch 3 is v1 of the test fix, which can keep calling
+> through the association until it is cleared now that this is safe.
 
-One of the commits [1] that I used to chase down a recent bug [2] (and
-thank you again for the fix!) uses the scheduler-internal cpu_curr()
-macro to map from a given CPU to the task currently running on that CPU.
-In the commit, the actual operation is mapping from a stalled (AKA
-preempted but runnable) task to the task running on the corresponding CPU.
-This tasks's ->comm and ->pid are then printed in the RCU CPU stall
-warning console output.
+I think this fix is heading in the wrong direction. The struct_ops map
+association was designed as an RCU-protected pointer: asynchronous
+users may outlive the map and observe a NULL association. The existing
+selftest explicitly verifies this behavior.
 
-One of the real-time folks voted in favor being able to use this (the
-group is CCed here), which suggests that I push this commit to mainline.
-Which means that I need to do something other than my crude hack of
-creating a rcu_cpu_curr() function in kernel/sched/core.c to get access
-to the scheduler-private cpu_curr() macro.
+The problem is that the disassociation now happens after the grace
+period initiated by bpf_map_put(). Could we instead make
+disassociation safe in map_free_pre_rcu(), before that existing grace
+period, rather than adding another deferred-free path?
 
-Please tell me what I should instead be doing (in the check_slow_task()
-function shown below) to get at this information.
-
-							Thanx, Paul
-
-[1] 68a2e5363f8f ("EXP rcu: Print CPU that preempted stalled reader wants to run on")
-    This is in -rcu, and is also shown at the end of this email.
-[2] https://lore.kernel.org/all/8fa7f795-518c-4507-b684-60b0c1cac2c5@paulmck-laptop/
-
-------------------------------------------------------------------------
-68a2e5363f8f ("EXP rcu: Print CPU that preempted stalled reader wants to run on")
-------------------------------------------------------------------------
-
-commit 68a2e5363f8f30f17038b3daee5dbbd661a7207e
-Author: Paul E. McKenney <paulmck@kernel.org>
-Date:   Mon Sep 28 13:35:01 2026 -0700
-
-    EXP rcu: Print CPU that preempted stalled reader wants to run on
-    
-    This commit uses the dirty trick of defining an rcu_cpu_curr() within
-    kernel/sched/core.c in order to allow the RCU CPU stall warning call out
-    the CPU that a task preempted within an RCU reader would like to run on.
-    In addition, print out the task (if any) currently running on that CPU,
-    and add an exclamation mark ("!") after the CPU number if that CPU is
-    currently offline.
-    
-    This is a potential step towards allowing people (or LLMs, for that
-    matter) to locate any tasks that might be preventing the preempted RCU
-    reader task from running.
-    
-    Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cca..a8b3434edb2b4 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2532,3 +2532,5 @@ extern void migrate_enable(void);
- DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())
- 
- #endif
-+
-+struct task_struct *rcu_cpu_curr(int cpu);
-diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-index 803a56af3259f..7826c4d905248 100644
---- a/kernel/rcu/tree_stall.h
-+++ b/kernel/rcu/tree_stall.h
-@@ -309,6 +309,9 @@ struct rcu_stall_chk_rdr {
- 	bool on_blkd_list;
- 	bool rcu_rdr_running;
- 	int rcu_rdr_boosted;
-+	int rcu_rdr_cpu;
-+	int rcu_rdr_cpu_offline;
-+	struct task_struct *rcu_rdr_cpu_task;
- };
- 
- /*
-@@ -317,8 +320,10 @@ struct rcu_stall_chk_rdr {
-  */
- static int check_slow_task(struct task_struct *t, void *arg)
- {
-+	int cpu;
- 	struct rcu_node *rnp;
- 	struct rcu_stall_chk_rdr *rscrp = arg;
-+	struct task_struct *th;
- 
- 	if (task_curr(t))
- 		return -EBUSY; // It is running, so decline to inspect it.
-@@ -327,6 +332,9 @@ static int check_slow_task(struct task_struct *t, void *arg)
- 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
- 	rscrp->rcu_rdr_running = task_curr(t);
- 	rscrp->rcu_rdr_boosted = 0;
-+	rscrp->rcu_rdr_cpu = cpu = task_cpu(t);
-+	rscrp->rcu_rdr_cpu_offline = cpu_is_offline(cpu);
-+	rscrp->rcu_rdr_cpu_task = th = rcu_cpu_curr(cpu);
- 	if (rscrp->on_blkd_list) {
- 		rnp = READ_ONCE(t->rcu_blocked_node);
- 		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
-@@ -352,6 +360,7 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	int ndetected = 0;
- 	struct rcu_stall_chk_rdr rscr;
- 	struct task_struct *t;
-+	struct task_struct *tc;
- 	struct task_struct *ts[8];
- 
- 	lockdep_assert_irqs_disabled();
-@@ -372,17 +381,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
- 	while (i) {
- 		t = ts[--i];
--		if (task_call_func(t, check_slow_task, &rscr))
-+		if (task_call_func(t, check_slow_task, &rscr)) {
- 			pr_cont(" P%d", t->pid);
--		else
--			pr_cont(" P%d/%d:%c%c%c%c%c%c",
-+		} else {
-+			tc = rscr.rcu_rdr_cpu_task;
-+			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
- 				t->pid, rscr.nesting,
- 				".b"[rscr.rs.b.blocked],
- 				".q"[rscr.rs.b.need_qs],
- 				".e"[rscr.rs.b.exp_hint],
- 				".l"[rscr.on_blkd_list],
- 				".R"[rscr.rcu_rdr_running],
--				".B?"[rscr.rcu_rdr_boosted]);
-+				".B?"[rscr.rcu_rdr_boosted],
-+				rscr.rcu_rdr_cpu,
-+				rscr.rcu_rdr_cpu_offline ? "!" : "",
-+				tc ? tc->comm : "???",
-+				tc ? tc->pid : -1,
-+				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
-+		}
- 		lockdep_assert_irqs_disabled();
- 		put_task_struct(t);
- 		ndetected++;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index b77152edafd92..e137cba24fc92 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -11321,3 +11321,10 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		p->sched_class->prio_changed(rq, p, ctx->prio);
- 	}
- }
-+
-+// Not for mainline, but hopefully someone has a trick that gets this
-+// job done.
-+struct task_struct *rcu_cpu_curr(int cpu)
-+{
-+	return cpu_curr(cpu);
-+}
+>
+> [1] https://lore.kernel.org/r/20261009-selftests-bpf-struct-ops-assoc-tim=
+er-v1-1-9a97a9b3d1db@gmail.com
+>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+> V2 -> V3:
+> - Wait for an RCU tasks trace grace period in patch 1 for every map, so
+>   that progs reading the association under RCU tasks trace, e.g. from a
+>   bpf_wq callback, are waited for too (CI bot)
+>
+> V1 -> V2:
+> - Add patch 1, fixing the use-after-free behind the flaky test (CI bot)
+> - Add patch 2, a test for the use-after-free
+> - Point Fixes of patch 3 at 5db69b0fbdc8 (CI bot)
+> - Move the restarting of the timer into patch 2, which needs it too,
+>   so patch 3 only turns it on for st_ops_assoc_in_timer_no_uref
+> - Rebase onto current bpf-next
+>
+> v2: https://lore.kernel.org/r/20261010-selftests-bpf-struct-ops-assoc-tim=
+er-v2-0-d7a43896dbf1@gmail.com
+> v1: https://lore.kernel.org/r/20261009-selftests-bpf-struct-ops-assoc-tim=
+er-v1-1-9a97a9b3d1db@gmail.com
+>
+> ---
+> Qiliang Yuan (3):
+>       bpf: Defer freeing a struct_ops map until its progs are done
+>       selftests/bpf: Test freeing a struct_ops map under a running prog
+>       selftests/bpf: Wait for the struct_ops map to be freed in assoc_in_=
+timer
+>
+>  kernel/bpf/bpf_struct_ops.c                        | 28 ++++++++++++++++=
+++++-
+>  .../bpf/prog_tests/test_struct_ops_assoc.c         | 29 ++++++++++++++++=
++++---
+>  .../bpf/progs/struct_ops_assoc_in_timer.c          | 16 ++++++++++++
+>  3 files changed, 68 insertions(+), 5 deletions(-)
+> ---
+> base-commit: 15b578b1715d9a318c804350d98af87c203672bc
+> change-id: 20261009-selftests-bpf-struct-ops-assoc-timer-5eb0295ec300
+>
+> Best regards,
+> --
+> Qiliang Yuan <odys.yuan@gmail.com>
+>
