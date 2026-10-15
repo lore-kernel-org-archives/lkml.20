@@ -1,77 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773F33BB128
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616753F58C9;
+	Thu, 15 Oct 2026 16:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081151; cv=none; b=ZDiML+uOj6UUjwkRHuvGJhYMNGGsuttcOjQOYSVSbFGrQ9fdSOSOkaGqYpneYbTvizeffTTP2guGVsLuWwEj9PqXePnaotMURcMpZZXhMLrLFmV01wsa9XVp5aHgqoNM1zBuIFxgLpWxJorkFv1ix0IC1JcvoyrFQVkk6VJg2b4=
+	t=1792081160; cv=none; b=PONKBITkJ6j7vVeiffUcthsfK4Ws9rSNZzkG7sccJ5iwVP5mV132D48gX95WKogNEs1eixuZw787pqvuU5d9oNlmaWwmydefHvuVhPdLqXFMclDEVPGFt20Vrce8Sl8sZ2SYPj5+AgBnT0YmloRgZCQVCjye3KZvFj7X6HkoLsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081151; c=relaxed/simple;
-	bh=/nsPFQ+knENtgyfFBGvM9pTrIjPek2cWSj+4DwQGBkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hd0ybPOz9gmDC19jGnZtwUad37HIeB7P9pfE2q5wUHq+MP8LqnXvCggg2AeqYuckQ6R0rOeCDZSbF4hLZxSGWN6mlAmd1PmZREURdlJy4CWsJyIJ9YcxHJqADI3K69YLVijFiQmXBWlFsP/VKRBjL7CeIjXK3pe/qoLbtWXTh+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hsIquxPo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792081160; c=relaxed/simple;
+	bh=po5HXruJpwckTyR/+Me64XnkD9DYoZAB1kvgWOOPowY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=obEFdx7xGa+Hhqz/cBy6LMAZTbobFwfcUCHrdlT5SIBrz3ZQquTfGTbjACjtOeVPKQXBn4uvAWQrf2sxkfCI7B0MUMJmCAmbyp4M8BdtzlxdgJ68xISmHNu0oFu/5KlGpKGODqNah5nqZsdzzqcNf+0W60jE8wrhD/BFNu9awbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jnsJflig; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PzpPbSFV; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jnsJflig; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PzpPbSFV; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hsIquxPo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735571F000C4;
-	Thu, 15 Oct 2026 16:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792081134;
-	bh=cz1oUpp56Zew9WMeuLYnFSeLe5kZDdhcep3hXyffVkg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hsIquxPo3YGMGU8bVly+ySWIwCtz7VpX7N48Oe57rXA9hkwYB+4/BypRyYw31PusL
-	 GqEHOuFLWjk8YwyANJlY6ps9CphdiGMDFWWD3XTLXykR7IP6zPAbBDAyYA9gL7FjGa
-	 lCJmVl1nDbglKx7AJS8ow1t5SIwXLZcc16wtXLcnVPwzjL8fkgmkSQ0gbQyEdyz7uc
-	 5py8cF3WvepQpTop22peaQh3M01PMEKR1/mKlhkjN3bNHCOSq1bcEM+HNiSaYY+auk
-	 BhHtxqdz0usYhDsnqc2B23gp4cA+DFnF4C/LPUbMRYGYhwIfxtP8y4KwSJPYklx9EG
-	 eYnilLva2gk+Q==
-Date: Thu, 15 Oct 2026 17:18:52 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shengming Hu <hu.shengming@zte.com.cn>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/slub: initialize the free pointer of the bootstrap
- kmem_cache_node
-Message-ID: <atD8CeImfP79s-9b@thinkstation>
-References: <20261010203906.93156-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jnsJflig";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PzpPbSFV";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jnsJflig";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PzpPbSFV"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 047A421ED3;
+	Thu, 15 Oct 2026 16:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792081147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1zJZhRIe66HcRNNvyY919R4QDhAQ13Lm7znLAWVOc0s=;
+	b=jnsJflig+ig9tOhZgThNbrvstn8x/yLUl5dAr9X7u2e8iTrkllCEMaECCkNgOTOAT/loEZ
+	S8IgKGlDA3AyZoN0nFqbhm0Y+MbUqQuQDqqOAzo9Q3oawFMRA7oVkFuoj1j4b7fdcnxNs5
+	ScnbOs2mUHGBz9zXJImwgMlsUH7nQWs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792081147;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1zJZhRIe66HcRNNvyY919R4QDhAQ13Lm7znLAWVOc0s=;
+	b=PzpPbSFVNvrd8OHtTUFUhuFHoPHS1hMqNUup/vYpZ6waP21iRsPrj/yLoE56eco2D0upOj
+	v8KrGN6fXItTGRAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jnsJflig;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PzpPbSFV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792081147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1zJZhRIe66HcRNNvyY919R4QDhAQ13Lm7znLAWVOc0s=;
+	b=jnsJflig+ig9tOhZgThNbrvstn8x/yLUl5dAr9X7u2e8iTrkllCEMaECCkNgOTOAT/loEZ
+	S8IgKGlDA3AyZoN0nFqbhm0Y+MbUqQuQDqqOAzo9Q3oawFMRA7oVkFuoj1j4b7fdcnxNs5
+	ScnbOs2mUHGBz9zXJImwgMlsUH7nQWs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792081147;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1zJZhRIe66HcRNNvyY919R4QDhAQ13Lm7znLAWVOc0s=;
+	b=PzpPbSFVNvrd8OHtTUFUhuFHoPHS1hMqNUup/vYpZ6waP21iRsPrj/yLoE56eco2D0upOj
+	v8KrGN6fXItTGRAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 747261321C;
+	Thu, 15 Oct 2026 16:19:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id C6WTEvr80GpeAwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 15 Oct 2026 16:19:06 +0000
+Date: Thu, 15 Oct 2026 18:19:06 +0200
+Message-ID: <87h5in6io5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	phucduc.bui@gmail.com,
+	cezary.rojewski@intel.com,
+	cassiogabrielcontato@gmail.com,
+	kees+treewide@kernel.org,
+	yilinzhang@moonshot.ai,
+	sammiee5311@gmail.com,
+	kees@kernel.org,
+	thomas.weissschuh@linutronix.de,
+	tglx@kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH v2] ALSA: pcm: Unlink substreams before releasing them
+In-Reply-To: <CAFRLqsUY+RhE=CsMHAvcQtUmwE_hd4_WUhJKSJiwdUUE3a--Yg@mail.gmail.com>
+References: <pm-pmb-9c80f858ccc13b3de84d-v7-fcd8c7aa0e837bf0b036@gmail.com>
+	<87zewgcuhy.wl-tiwai@suse.de>
+	<CAFRLqsX6Yz2dv_dV4BvV6_F-16WDWYTAk5ikC9WY7ZySkoJKUQ@mail.gmail.com>
+	<87qzhrmnz3.wl-tiwai@suse.de>
+	<CAFRLqsUY+RhE=CsMHAvcQtUmwE_hd4_WUhJKSJiwdUUE3a--Yg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010203906.93156-1-kmehltretter@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-2022-JP
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 047A421ED3
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,perex.cz,suse.com,gmail.com,intel.com,kernel.org,moonshot.ai,linutronix.de,vger.kernel.org];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[treewide];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-On Sat, Oct 10, 2026 at 10:39:06PM +0200, Karl Mehltretter wrote:
-> With slub_debug=FZPU, validating kmem_cache_node reports
+On Thu, 15 Oct 2026 17:35:30 +0200,
+Cen Zhang wrote:
 > 
->   BUG kmem_cache_node (Not tainted): Freepointer corrupt
->   Object 0xffff888000140040 @offset=64 fp=0x5a5a5a5a5a5a5a5a
+> Hi Takashi,
 > 
-> and taints the kernel. Poisoning places the bootstrap object's free
-> pointer outside the object, where check_object() checks it even while
-> allocated.
+> Takashi Iwai <tiwai@suse.de> 于2026年10月15日周四 15:18写道：
+> >
+> > The patch I submitted yesterday is such an attempt:
+> >   https://lore.kernel.org/20261014141212.316223-1-tiwai@suse.de
+> >
+> > Unfortunately it couldn't be reviewed by Sashiko, as it's based on my
+> > latest tree.  And now I noticed that there is still a potential race,
+> > and fixed now.  Will resubmit v2 patch.
+> >
+> >
+> > thanks,
+> >
+> > Takashi
 > 
-> early_kmem_cache_node_alloc() previously took this object from a
-> freelist with an initialized pointer. It now takes it from the slab
-> iterator and builds the freelist only for the remaining objects,
-> leaving its pointer filled with POISON_INUSE.
+> After read the v2 patch. I also have a minor concern: is there still a
+> lifetime window between snd_refcount_put() and snd_refcount_sync()?
 > 
-> Initialize the bootstrap object's free pointer to NULL.
 > 
-> Fixes: dc795d4c0282 ("mm/slub: defer freelist construction until after bulk allocation from a new slab")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
+> Suppose drain(A) has pinned B's runtime, and close(B) has completed
+> unlink and drop. Could the following happen on two CPUs?
+> 
+>   drain(A)                         close(B)
+>   --------                         --------
+>   finish_wait(&rt->sleep, &wait);
+>   snd_refcount_put(&rt->refcnt):
+>     decrement count to zero
+>                                    snd_refcount_sync(&rt->refcnt);
+>                                      /* sees zero and returns */
+>                                    ...
+>                                    snd_pcm_detach_substream(B);
+>                                      kfree(rt);
+>     wake_up(&rt->refcnt.waiter);
+> 
+> Here rt is B's runtime. Since wait_event() can return on its initial
+> condition check, could the final wake_up() access the embedded
+> waitqueue after rt has been freed? A holds its own stream lock at
+> this point, while B has already been unlinked.
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Yes, and it's covered by another patch:
+  https://lore.kernel.org/20261015112256.3902-1-tiwai@suse.de
 
--- 
-Cheers,
-Harry / Hyeonggon
+
+thanks,
+
+Takashi
