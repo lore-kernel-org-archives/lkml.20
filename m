@@ -1,397 +1,329 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4C94EC66E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079040; cv=none; b=rqb6l4X0eYgPOLkDaYT/xM7tJj/thcOn7ANDECx7IZfNElSWeD9eurKvQOp1zkVuLas0Rw+QBAgwVqEp6MgaBdKinnF2bIkLsZ1LiF3GTynzJiG3E645WWuNz2Ue+dIlnIV/I3X7m7zlIOQ/2LeE3m9URyT6dNzkFt1f0cceIhM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079040; c=relaxed/simple;
-	bh=cjliimpdVuKniQW64DNaS43E2VHJ8S1ZygL4W+E5f/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rvBcGgU9KZJ6ixehzh/3nJp0AShm0O2zkllRoom3y9tMCiJVnCPALodiRlrXSBNpfKEqmqZZGV68T9uSlsOBQWOpU0zsdlT4q6NqVgkG0HyqrjfThPML/q2wh83/qSSEzSqGANvTtVPtX6Xw2zqE6Ix+f+ZnZILcw8esKslsME8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CkWxiP7M; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07524ED18A;
+	Thu, 15 Oct 2026 15:43:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792079046; cv=fail; b=INEXn+9chXwj6SX3MW95/lN93JaVXB78s/qesG5S9ePDrrYLCCo/QAsxdkHWYn8vaeVFLEOutJpPB9rFEZ+Pbkgh3NBnQHLJia3U1hCR5n6VqOLa6xDEmIWIsrfgv91WCs4ckl37hgWvU8rlmJajvpyu2Hv9z1KkZ9MPBJJ1h3g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792079046; c=relaxed/simple;
+	bh=o4w0ruqToEepV1V/UnVVaJEgD1YpDFe1/GbmroL9bSA=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ZOIFHcx+DSs0B6ZvdWxa1nl56SanWa+ikJD4/zLic6HsUKOIy2DpkHn0NKHgVgL+mmCj//D51Cbn+E3+x9II1Jm+ZnUcmHFjPYSEZZAaPXC1R/kUEqy+0FCbgM6FamKAsVEU8SVXyVlfYwl5aJIkr2Lw2UTNy9DCUV07u1eph+E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jmX/pFp0; arc=fail smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CkWxiP7M"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a061a13884so45731505e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:43:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792079023; x=1792683823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5J5a55Pg+YpfFRUGFYyLBsKQw7Ye+GLO4/t3xMgXcbc=;
-        b=CkWxiP7Mpk9fhu/Mu3Niws5Z5yVCJoICnABrUNgzwnKjnInJahWcjhX8uNn24Q8NIh
-         DweEFXUK5pBhsVuiNazJvteBf/rmxo3jHCG5fNKSHDbF98WRIV90wPlN+w9U9mo9nMkl
-         2R9QZhjDU2jQx0st2wnmUDlvl2o7+CteJk42UTQwyf8KuArbVHYuoxTOwlAXTs9NDwcb
-         NCDKoSROGI7IQhMH8KYvBiM/v/wo9tbmaP6tOne1Arj+o1/bz4sQWiHlbkqd2o5nurGQ
-         HM6nbPR6POx+FQKO73K5xML/OGKBpATEpS+JlbxBmbhWhvzS/wKC+mfxfMCd7LEpTSUq
-         W2kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792079023; x=1792683823;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5J5a55Pg+YpfFRUGFYyLBsKQw7Ye+GLO4/t3xMgXcbc=;
-        b=C0hPcjWNop1UGi4HmLmB6hmPfebVmpispN8FLYWGYL0Bf2Lta6umfjOBv+p3zm6Iku
-         s65wBA5e+BOtv+gJWKRAu5xIuyOWtB3hhEgTHSq4xCq8EbQCGk2jFHBMwMSodDfpn6yE
-         p/alY7pJijwiQ7eAIglohoAU9rVHNgeMinEM5bN17lmYi5rw1QhTFi8J+A0Zp+HwBXGg
-         Aw4Rg6V0uqggcV+YPdsev4YjBRJ5m3LnRySZ085WHKzX3BqAxIznVsRxPIds1yAKPcBX
-         i/iju4hTwV0s1DD72TUwwCQGlL/Z1NwQ6qYUzXZV1NO+mseighM8moGmjIFg08VralbN
-         JfJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzCqxdxGMwYM6A/nsStKepwAGkZp1b2WYeb26ClZtcqwgu8HMqfwHBSFrLHFimMtEBp8t9RhBpr6SX6q4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWLd7XaDtHBqFyNsRCIUL91R1mMJF6xSrGMQVdcFSDPeWLFtmX
-	RICFG+N9sOzEwnKgt1BCH0iEkFK+MVQMuFzQBJmOl/fB1KFyZr3nPosM
-X-Gm-Gg: AYBFou2rZ91psE8X7/7VQa0X1X7wQzEXtMUaEdXC9e15qAj76lt6LUVMB0MPM+WajfS
-	dvJarejgHCKl8QFuUsyCc2bY2WSyYohA0NnwvzyewHson8NDyCmK0R1aIzEYxXtPD/Z7QUYWtfJ
-	O4zsr5Edpc0xuablITDim3eY3JnYqPmlof8BK7jhfme+tvBA0b4C4lmBvrotEKcEiavCAV2dxFM
-	iU2p5v9Au1RBeGowWkgJttWvp5rc/SV6IAATzsA/hDwLBi3xwleLqneWl6F+JcLLhaI1Vn4p2iW
-	kfjFwvbfnhLf817gZZDI7yUWDn4RQbaEDLj+/gEQLKhQJbKLZNLzHDTqNK8o2VLuH4N3RVzMQaU
-	z+OSHa3GKGp8gOtP1luKDL+UFGhyhkoqxzJaEHAFa6t5rDrs7eDhXyQsMb4+NDe2Z+g8YwULE3b
-	a+VyQ5eqI1KTnUxFlHLvzEh1CNOjl58VY3bewDS7/jAxSbJYsw6NAh3UgROC0DSRTHWHMpUikSF
-	R1ncxdGkmN7TMK0hzFxrcwbsOB00GPNKOlFlF9FqrLBmUyeA0nYuirbq7E=
-X-Received: by 2002:a05:600c:6384:b0:4a1:7741:ec43 with SMTP id 5b1f17b1804b1-4a18e4b8966mr365881315e9.26.1792079023060;
-        Thu, 15 Oct 2026 08:43:43 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd640be0sm61940825e9.1.2026.10.15.08.43.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:43:41 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: netdev@vger.kernel.org
-Cc: sgarzare@redhat.com,
-	bobbyeshleman@gmail.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH net-next v2 2/2] vsock/test: cover SO_INQ
-Date: Thu, 15 Oct 2026 16:43:34 +0100
-Message-ID: <20261015154334.3217358-3-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015154334.3217358-1-devnexen@gmail.com>
-References: <20261015154334.3217358-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jmX/pFp0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792079032; x=1823615032;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=o4w0ruqToEepV1V/UnVVaJEgD1YpDFe1/GbmroL9bSA=;
+  b=jmX/pFp0MuX7CUHd+Xroq6pjeXtwC5lCNBGEhEsRtNVb6KC+lJkoI/rg
+   Y8qOWvo9JjyKyonA5LxC6J2dwrxt1GRjFfH82Ic7ANXIdtMSk4PdwN3LK
+   NMlNCjjriGbfAXLj4MU/vqJoeC/5GbMcJyqcIgbHWHCBb5Q2BZDguLl5Q
+   irPxR09dDozH4s3dS4qK3bycSKM3w8E5ivjH4qoQvcI6zO2x4Ji7MbZ8l
+   121w/R5BDH47kgmectxhBZFAMVKvYwWKTkuLO3l6HVV7l9VYQ9Fgy+8vh
+   MuRwdE27Q5vF1ABK0sIbTB3opkWhIB6vomuDerpD4mwK1jWlLYCszLL2c
+   A==;
+X-CSE-ConnectionGUID: cSf4Q2jiS8WGxifI0UCTQQ==
+X-CSE-MsgGUID: nuJhiRnXTtCJ8b+5wGFtWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="843931"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="843931"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 08:43:50 -0700
+X-CSE-ConnectionGUID: 5/XxSRyFRfunX5kRPjxsSA==
+X-CSE-MsgGUID: d+zvZbO6SPWtcer0RMo5CQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1636219"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 08:43:51 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 08:43:50 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 08:43:50 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.64) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 08:43:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e/ZlEWC9yv2pG5BqrId+5Zs/1QKYs5uKhXy75WLKtVKe/8XJLRsXCrk0GBwt+5rFpj4xWCkcyy7YawG8++sZufailrl9BMrQ3NERnnwAO9o72agVl/xgYfqSKTBpY9LOfnJJiVIebBb77uxV+v02KuY6PZQgQoLpoAvVr38tDCk2iyhqQrPsSMnskIPySV5823GRgjuj9NtwqBySHg/pCRbKkIA48LlLNvYcdzUrQ+eS9VaguRiZlmW5JDlaxGzgPf0vFK2G1wVtgEA37f9beuBW8GXbZNwacg4izRn1GKMj2dxKelXAshoa54ftoddA7DciWZUH2TbjFZIze6ieLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KFiJwY1+4aTrsdQuK/3KCL/iA8SaY6pPMxTRkNPtzI8=;
+ b=B3Fx2HYp3ldxHrikyyeLBoQP37PVuowvdb4258QqFbTzyfnVEAF7+uQef2qSY0qGODQT1ByK9Z07tLIbZYOlnzxeY3fqDKahdFljF2O2iknUkA3GQgX8kNG+VDxDPAbBlyaSweFoyTDIibQERCR0sNR1/F9EIZqGibIH+E2XjTrh30nTfDDQypt5ZVTcqd8LCZn6cR3T4GfaPB5eswQ3y7cl4Hh4ewwIjwIi9Bqlgo4yAuJGJaqmUeJopEevaGXZz4UZa85rveuuzfoZXAo+pqAIRBdab+ie/gfhhEB7Dn87y149xF1erRKLcivHKXie+r+7gyHj0Z4BtOUIx7re9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by PH7PR11MB6884.namprd11.prod.outlook.com (2603:10b6:510:203::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 15:43:46 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 15:43:46 +0000
+Message-ID: <08e1de88-cab0-4caa-87f2-94db0f698ba7@intel.com>
+Date: Thu, 15 Oct 2026 08:43:42 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 13/18] fs/resctrl: Deactivate kernel mode associations
+ when a group is removed
+To: Babu Moger <babu.moger@amd.com>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<ben.horgan@arm.com>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <kas@kernel.org>,
+	<rick.p.edgecombe@intel.com>, <akpm@linux-foundation.org>, <rppt@kernel.org>,
+	<dapeng1.mi@linux.intel.com>, <elver@google.com>, <enelsonmoore@gmail.com>,
+	<jlayton@kernel.org>, <kuba@kernel.org>, <ebiggers@kernel.org>,
+	<seanjc@google.com>, <ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>,
+	<peterz@infradead.org>, <ashish.kalra@amd.com>, <superm1@kernel.org>,
+	<chang.seok.bae@intel.com>, <prathyushi.nangia@amd.com>,
+	<kim.phillips@amd.com>, <ackerleytng@google.com>,
+	<elena.reshetova@intel.com>, <naveen@kernel.org>, <darwi@linutronix.de>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>, <eranian@google.com>,
+	<peternewman@google.com>
+References: <cover.1790867441.git.babu.moger@amd.com>
+ <e9a2b05b2322acf51e16571d07bc7ee297613b3c.1790867441.git.babu.moger@amd.com>
+Content-Language: en-US
+From: Reinette Chatre <reinette.chatre@intel.com>
+In-Reply-To: <e9a2b05b2322acf51e16571d07bc7ee297613b3c.1790867441.git.babu.moger@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0116.namprd03.prod.outlook.com
+ (2603:10b6:303:b7::31) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|PH7PR11MB6884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e248364-ac15-4485-9ba3-08df2ad3194a
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: SsALWOLw7Jn0+x31kIgRbh0DnS5MPlebZ7ytKJOx5GXjWE7axUBfhZa/E7Kf1NA8VbCutET+p1MI3sfJ/xe30xBDiutGltxKwUQtIyo4731c4OAZ4AOh8PDcvZbg4TacGAwoshis/a3AB/MVVM8/tcDRLOuvOOMK3OjznkgXVE4Sk0PRl1F1td3VdxwOsBesrtH1uOxVq9NkY4htGsicVy5n0jpWjlv8MJm0DPHNgridfGhJSqptBXQ7z9cHVxRs9kAhExyh5wbhmDspgj8SGYnqwpn1VNhF1umRg/jR2oFGkJd4HQVT8Nzr8ufEes29TRSfyAurMCZPMSu1eSUzS+APeSXYny7H+J/pFuTZQMVhbT2haZpVieH7nvpRL6ChcSZ0nNy9TOIHzVXKBz5wvWqLbPMLNLs/S79z5pe9snEzNACu8rJ2TToP/q3YpanX6GTNe2Sz1lkP4e3FZPdZkgyUQTni4Iv68Cd/AYQmFIVheohd+w23C31YIH41q+roj5m1PRZXeF8bw0J7rxbSvk4rKFZoAyBsMuEOeyaxltpjiEiZfaQ3/mWJpToNo84GeRF+yxjsbIRDpVlUD3A4S2P9ed8sQiM+T7+qjlFOXOMJ4bL/LAL5Wth/qewUwqUtp6/2a9DImyir91Zp/kurlboTblTaadi0DTYdGB15IAo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R3dWRlNZNkZpNUhhNVRuY2lZRXFjMEdXN0g3SFFJamhtdnFqeHhRVHVrb3RQ?=
+ =?utf-8?B?K09aR05vdjVrTnRIQWJ5UDg0eHI1Mnc4bFpMU1MrajBwazR2dmhHRGI5SHpP?=
+ =?utf-8?B?WFJ2VjROR0lsS2p6R0tSdzF3YlRPK0JSeVhBTVJjRmE4YjhYdzNPMGJ2akta?=
+ =?utf-8?B?dG5RNmNZYWpUNGc2T2ZEWlpKaDVaMTI3Q3ZHNlpGYkYvbGRjVEdYeVZ6UVc3?=
+ =?utf-8?B?ZkpGdGwyQUlXTHJQVjhaS2ZRcDVzeEIyalBySytHckFvbys2TE5zblByOHNI?=
+ =?utf-8?B?NTErUGI5aFZOanBObE5SUHRlbGdXVVJTeEJkbDdvdTIvZU0rVWZsQ1pLSFJz?=
+ =?utf-8?B?eVdISk5WcHJiVmxOYWtXQ0JjekxQL0NaNDRONGtIeWtXQjNwNmIwWWNncE5V?=
+ =?utf-8?B?SHhjRTd5OElKbWttbG13ak50MDlQWGZMUFlXTEZhenZFcGtUeko2YVFNREdC?=
+ =?utf-8?B?Y2ZhK0JwNEpPWHVIRzFmLzZLbVpKVzdzOUFXQ2JJRVlnWjZVaElOU1hPNmxw?=
+ =?utf-8?B?NUNEMUVFdHB3SUs1a3A4R3hMQjdpdG9pVHpwOFMyVjhoQzJkWWVibjVpd3I2?=
+ =?utf-8?B?aDNWVjNRdkdGOHdOd2JpOUUrU3JhQUVBdmNKWnhrWFkyVUNNWWhSbjltNURZ?=
+ =?utf-8?B?L1RnVzlKVEJzRHp0UzJidHFCWmJycjdzSHlna1c0aDZySzNsYWtGS1VmaW9M?=
+ =?utf-8?B?TFhjSFJDZEEvRXkrNEM0Q0hTTlhyNlNtWFM4OTR1d2p4WFhrMExQc3RtZmlm?=
+ =?utf-8?B?VlZaa0lvTGhabi9DYU9FU2JFeEZYaUZ6YVJtSjFuVUo4S1VrbG9LNUdLVm9N?=
+ =?utf-8?B?bzIvb2FKZGo4UHB3N2hnL1pGdk1mbUQ2dzc2RGw0dXZkY21admtUcFdma3FY?=
+ =?utf-8?B?RUNMZVg2UzlLVGNnTjFZR09jQXJJbStnT3U2VkRPNTlubk1Gd013QS9ZbVM5?=
+ =?utf-8?B?ODF2d3QyYUpZQVpiQ2lYQTJ2WUxyaDZCcFg5MW9Md0k5SFdmYzN3RkNOb0Vi?=
+ =?utf-8?B?bUxpbkxJZWRpS0xKR2M2ZXFLZ3l1ZitsZzhFK3RHYXZIM1BVRDc0NllhM25m?=
+ =?utf-8?B?N1F1REFEVDhvbnRxNWdqR1JSdjBMTkZ0YlRwRGswR2dBdlZTWTFaZW5FNDRw?=
+ =?utf-8?B?dkNPbHN0ZDhGNUl3WjRLS1VmMXBYMWZLUGJPSEUwZUhUWjdpeGdxS2NqaEVu?=
+ =?utf-8?B?aXNGUTlscHMvY3F6eVUxaWJPZlZsdkp3TUVYbnBDOStqTGFocnpXZENHUGZE?=
+ =?utf-8?B?OEJYYmVVZ1ZHVWFuMnFyN2o3TUtGN2c2ZUpJSjhXL1pRU0ZpQ2E0eDNOM1Vj?=
+ =?utf-8?B?RzQzWTkwNzJkL25XUk5VUVV0a1N5QXFzdkIxYVJKMks5VDlGcDlEbEQ1NmR3?=
+ =?utf-8?B?dzFtQk8rS1MvZG9KK3BUWHllMnNNeDVLV21TT0E5ZkY5TVZmY2JoalJINjJs?=
+ =?utf-8?B?M09vOGcvTjBqMjF2ZS9jRmRNN1RlclRIbDJzWk9zRWZtWVZ3a1Rid3dmYzhO?=
+ =?utf-8?B?QUNCVUYvb3N6dkpnK3AvK1BTL2FDbmxDSnhXWUFQTDF0TjlXWFVtaExWVmND?=
+ =?utf-8?B?VThDQi9JbHRKNHArL2I0aXBVcW5hZG9tWlBBcjZub3ZlM1RLQmFsSG9sNVhT?=
+ =?utf-8?B?c3hOVFhmeFZlUnBRRG9WeWNlelhCdFFiSVh3QzJnUzFBMG1YOUMwM0lPMzli?=
+ =?utf-8?B?YS93K01aTTg3LytwMjF5VVlWS1NOaWlBUm8xVndBOVVOQ1YxVW4xczBuZDJv?=
+ =?utf-8?B?MUt2eTV2SVV4UGI1UEo1Y2NiUGNtVklLWHEwckhycTBGSmVXa1kvZDRLb0c1?=
+ =?utf-8?B?b25waW9IaStzakY0aExzMUczNExEaTJ1WmxKalNFT1JLQWpmZE5JWUVqcHhV?=
+ =?utf-8?B?ckRIMkVYVDE1RFBkcXo4R2lHdHJIWkdMMG1meXdKR0l2TWlQNUNQSUtQZGx4?=
+ =?utf-8?B?YlNJY0xCMlhOK1JvdGJkTExNMXU1bzVtSlVleFdXTXdKZlFYdXZoa1JSMnJH?=
+ =?utf-8?B?OGZSNnoxYkN3RkNnSk8zWE5oSCtJY3FEcExXeG9ZMk5GVnBEU3ZZWlp6ZmtS?=
+ =?utf-8?B?YklHL25FTWs5RHJRUmV4bm1FYmdUY0VFVjVlRlphTDI4bTRJenc5L2dTVndO?=
+ =?utf-8?B?Q202eTFOOGxuYVRWMWZmWGRKUXB3RGVMaUExSHpVL1U5S0ZQMk1rM1N6UGZY?=
+ =?utf-8?B?N1QvTUJuRFlMMjQwb2JVU0RkLzFPeXpSLzZrMzBSeG83V1pTVjlmeW1HeUlC?=
+ =?utf-8?B?N202V1lJNEw0bm11RE5LbVJuWmxGREJHazBmRnFobmhFQk9tZ2M1aGpFYjlu?=
+ =?utf-8?B?d0NaZE0xWHB5N2FIM0JCZHdRQ0VnWlpMWXlRaUVzWmR5U3RKR0JPVlFSalRB?=
+ =?utf-8?Q?RBKJ1CiEzuXaiOY0=3D?=
+X-Exchange-RoutingPolicyChecked: MeXwI5jlYphWlqA63t0ZqAG5zQTha57gldJXf3tZsfL6Oi4rlAyRtZpYBHF3JD6xH3KkpeMG2SPztn+m/fsQWzonNkRxK9fkLA6pS9jFJRuybalDrR5HhSq+kQt8kkZZT33giYBPeIeGN3iuSQKozvukllxP8DGbtLkQ671ItM828lo3J8Sbs5DAEUzTJ74A7P0jO13uATFbjNrcpG/TRyAS1IvSIRBpU3IwU9r8EDq9yt53hAg9SAqGVKFx2qr7HHHqHO7M1JIFsXIhYKiUjTtZb5gx+QH1vu3UZxuRmOoZbwDCFnvEs8z5ZTRhbWCFpubqDy+oMC/RiWeRdcY0hw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e248364-ac15-4485-9ba3-08df2ad3194a
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:43:46.1823
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MoFRJrOMDdCifMTMpqXFBbTDs3LVyD/qppNHTZRGQq6d7tgwHJFkzeZjP+PlzLMyVeyfesrWjkUpXTkNQ7s8Y3WNSf095WOv4xqC2ocINPs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6884
+X-OriginatorOrg: intel.com
 
-Check the SCM_INQ value after a partial receive, after draining the
-queue and at EOF, that no cmsg is sent while the option is off, that
-accepted sockets inherit it from the listener, and that out of range
-values and SOCK_SEQPACKET are rejected.
+Hi Babu,
 
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- tools/testing/vsock/vsock_test.c | 279 +++++++++++++++++++++++++++++++
- 1 file changed, 279 insertions(+)
+On 10/1/26 8:10 AM, Babu Moger wrote:
+> The active kernel mode association is backed by either a CTRL_MON or
+> MON group.
 
-diff --git a/tools/testing/vsock/vsock_test.c b/tools/testing/vsock/vsock_test.c
-index b4ff9f946565..10b9074fb87f 100644
---- a/tools/testing/vsock/vsock_test.c
-+++ b/tools/testing/vsock/vsock_test.c
-@@ -2429,6 +2429,271 @@ static void test_stream_collapse_server(const struct test_opts *opts)
- 	close(fd);
- }
- 
-+#define SO_INQ_BUF_LEN 64
-+#define SO_INQ_CHUNK_LEN 16
-+
-+static int so_inq_set(int fd, int val)
-+{
-+	return setsockopt(fd, SOL_SOCKET, SO_INQ, &val, sizeof(val));
-+}
-+
-+/* Receive @len bytes and return the SCM_INQ value, or -1 if the kernel did
-+ * not attach one.
-+ */
-+static int so_inq_recv(int fd, size_t len, int expected_ret)
-+{
-+	char control[CMSG_SPACE(sizeof(int))] = { 0 };
-+	unsigned char buf[SO_INQ_BUF_LEN];
-+	struct iovec iov = {
-+		.iov_base = buf,
-+		.iov_len = len,
-+	};
-+	struct msghdr msg = {
-+		.msg_iov = &iov,
-+		.msg_iovlen = 1,
-+		.msg_control = control,
-+		.msg_controllen = sizeof(control),
-+	};
-+	struct cmsghdr *cmsg;
-+	ssize_t ret;
-+	int inq;
-+
-+	ret = recvmsg(fd, &msg, 0);
-+	if (ret < 0) {
-+		perror("recvmsg");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	expect_res(ret, expected_ret, "recvmsg");
-+
-+	if (msg.msg_flags & MSG_CTRUNC) {
-+		fprintf(stderr, "SCM_INQ control message truncated\n");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	for (cmsg = CMSG_FIRSTHDR(&msg); cmsg; cmsg = CMSG_NXTHDR(&msg, cmsg)) {
-+		if (cmsg->cmsg_level != SOL_SOCKET ||
-+		    cmsg->cmsg_type != SCM_INQ)
-+			continue;
-+
-+		if (cmsg->cmsg_len != CMSG_LEN(sizeof(inq))) {
-+			fprintf(stderr, "unexpected SCM_INQ length %zu\n",
-+				(size_t)cmsg->cmsg_len);
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		memcpy(&inq, CMSG_DATA(cmsg), sizeof(inq));
-+		return inq;
-+	}
-+
-+	return -1;
-+}
-+
-+static void test_stream_so_inq_client(const struct test_opts *opts)
-+{
-+	int fd;
-+
-+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-+	if (fd < 0) {
-+		perror("connect");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	control_expectln("SENT");
-+
-+	/* Wait for the whole payload to be queued, so the values below do not
-+	 * depend on how the transport delivers it.
-+	 */
-+	if (!vsock_ioctl_int(fd, SIOCINQ, SO_INQ_BUF_LEN)) {
-+		fprintf(stderr, "Test skipped, SIOCINQ not supported.\n");
-+		goto out;
-+	}
-+
-+	/* No ancillary data unless the option is enabled. */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, SO_INQ_CHUNK_LEN), -1,
-+		   "SCM_INQ with SO_INQ disabled");
-+
-+	if (so_inq_set(fd, 1)) {
-+		if (errno != ENOPROTOOPT) {
-+			perror("setsockopt(SO_INQ)");
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		fprintf(stderr, "Test skipped, SO_INQ not supported.\n");
-+		goto out;
-+	}
-+
-+	/* Partial read: the rest of the payload is still queued. */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, SO_INQ_CHUNK_LEN),
-+		   SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN,
-+		   "SCM_INQ after partial receive");
-+
-+	/* Draining read while the peer stays connected. */
-+	expect_res(so_inq_recv(fd, SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN,
-+			       SO_INQ_BUF_LEN - 2 * SO_INQ_CHUNK_LEN), 0,
-+		   "SCM_INQ after draining receive");
-+
-+	control_writeln("DRAINED");
-+	vsock_wait_remote_close(fd);
-+
-+	/* Nothing is queued once the peer is gone, but 1 is reported so the
-+	 * caller keeps reading until it observes EOF, as TCP_INQ does.
-+	 */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, 0), 1, "SCM_INQ at EOF");
-+
-+	if (so_inq_set(fd, 0)) {
-+		perror("setsockopt(SO_INQ)");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, 0), -1,
-+		   "SCM_INQ after disabling SO_INQ");
-+
-+	close(fd);
-+	return;
-+
-+out:
-+	control_writeln("DRAINED");
-+	close(fd);
-+}
-+
-+static void test_stream_so_inq_server(const struct test_opts *opts)
-+{
-+	unsigned char buf[SO_INQ_BUF_LEN];
-+	int fd;
-+
-+	fd = vsock_stream_accept(VMADDR_CID_ANY, opts->peer_port, NULL);
-+	if (fd < 0) {
-+		perror("accept");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	memset(buf, 'A', sizeof(buf));
-+	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-+	control_writeln("SENT");
-+
-+	/* Keep the connection open until the peer has drained the queue: an
-+	 * early close would turn its last SCM_INQ value into the EOF one.
-+	 */
-+	control_expectln("DRAINED");
-+	close(fd);
-+}
-+
-+static void test_stream_so_inq_inherit_client(const struct test_opts *opts)
-+{
-+	unsigned char buf[SO_INQ_BUF_LEN];
-+	int fd;
-+
-+	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-+	if (fd < 0) {
-+		perror("connect");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	memset(buf, 'A', sizeof(buf));
-+	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-+	control_writeln("SENT");
-+
-+	control_expectln("DONE");
-+	close(fd);
-+}
-+
-+static void test_stream_so_inq_inherit_server(const struct test_opts *opts)
-+{
-+	bool supported = true;
-+	int listen_fd, fd;
-+
-+	listen_fd = vsock_stream_listen(VMADDR_CID_ANY, opts->peer_port);
-+
-+	/* Enable the option on the listener only. */
-+	if (so_inq_set(listen_fd, 1)) {
-+		if (errno != ENOPROTOOPT) {
-+			perror("setsockopt(SO_INQ)");
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		fprintf(stderr, "Test skipped, SO_INQ not supported.\n");
-+		supported = false;
-+	}
-+
-+	control_writeln("LISTENING");
-+
-+	timeout_begin(TIMEOUT);
-+	do {
-+		fd = accept(listen_fd, NULL, NULL);
-+		timeout_check("accept");
-+	} while (fd < 0 && errno == EINTR);
-+	timeout_end();
-+
-+	if (fd < 0) {
-+		perror("accept");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	close(listen_fd);
-+	control_expectln("SENT");
-+
-+	if (!supported)
-+		goto out;
-+
-+	if (!vsock_ioctl_int(fd, SIOCINQ, SO_INQ_BUF_LEN)) {
-+		fprintf(stderr, "Test skipped, SIOCINQ not supported.\n");
-+		goto out;
-+	}
-+
-+	/* The accepted socket reports SCM_INQ without its own setsockopt(). */
-+	expect_res(so_inq_recv(fd, SO_INQ_CHUNK_LEN, SO_INQ_CHUNK_LEN),
-+		   SO_INQ_BUF_LEN - SO_INQ_CHUNK_LEN,
-+		   "SCM_INQ inherited from the listener");
-+
-+out:
-+	control_writeln("DONE");
-+	close(fd);
-+}
-+
-+static void test_so_inq_validation_client(const struct test_opts *opts)
-+{
-+	int fd;
-+
-+	fd = socket(AF_VSOCK, SOCK_STREAM, 0);
-+	if (fd < 0) {
-+		perror("socket");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (so_inq_set(fd, 1)) {
-+		if (errno != ENOPROTOOPT) {
-+			perror("setsockopt(SO_INQ)");
-+			exit(EXIT_FAILURE);
-+		}
-+
-+		fprintf(stderr, "Test skipped, SO_INQ not supported.\n");
-+		close(fd);
-+		return;
-+	}
-+
-+	if (!so_inq_set(fd, 2) || errno != EINVAL) {
-+		fprintf(stderr, "SO_INQ accepted an out of range value\n");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	close(fd);
-+
-+	/* SCM_INQ counts bytes, which a message based socket cannot report. */
-+	fd = socket(AF_VSOCK, SOCK_SEQPACKET, 0);
-+	if (fd < 0) {
-+		perror("socket");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	if (!so_inq_set(fd, 1) || errno != ENOPROTOOPT) {
-+		fprintf(stderr, "SO_INQ not rejected on SOCK_SEQPACKET\n");
-+		exit(EXIT_FAILURE);
-+	}
-+
-+	close(fd);
-+}
-+
- static struct test_case test_cases[] = {
- 	{
- 		.name = "SOCK_STREAM connection reset",
-@@ -2633,6 +2898,20 @@ static struct test_case test_cases[] = {
- 		.run_client = test_stream_collapse_client,
- 		.run_server = test_stream_collapse_server,
- 	},
-+	{
-+		.name = "SOCK_STREAM SO_INQ functionality",
-+		.run_client = test_stream_so_inq_client,
-+		.run_server = test_stream_so_inq_server,
-+	},
-+	{
-+		.name = "SOCK_STREAM SO_INQ inherited by accepted socket",
-+		.run_client = test_stream_so_inq_inherit_client,
-+		.run_server = test_stream_so_inq_inherit_server,
-+	},
-+	{
-+		.name = "SO_INQ option validation",
-+		.run_client = test_so_inq_validation_client,
-+	},
- 	{},
- };
- 
--- 
-2.55.0
+This context does not reflect the code at this point in series but what
+behavior will be after entire series is applied. It is also written as
+general but specific to the global per-CPU kernel mode.
 
+> When the backing group is removed, or when resctrl is unmounted, clear
+> the programmed association and restore the default settings.
+
+Please provide more context to user and help reader to understand what the
+patch does without needing to decipher the patch.
+
+For example, "restore the default settings" is a very vague way to
+describe that removing the group backing the global per-CPU kernel mode
+automatically switches the kernel mode to "inherit user". Please explain
+at high level what the code does and why. As a hypothetical, why not
+keep the kernel mode as "global per-CPU kernel mode" but switch the assigned
+group to the default group? This would match most other similar resctrl behaviors,
+no?
+
+This is also user visible behavior that should be documented in resctrl.rst.
+
+> ---
+>  fs/resctrl/rdtgroup.c | 44 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+> 
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index f5c7790f7970..0cdc868a55b1 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -1167,6 +1167,36 @@ static void resctrl_kmode_global_offline_cpu(unsigned int cpu)
+>  	resctrl_configure_kmode_global(cpumask_of(cpu), rdtgrp, false);
+>  }
+>  
+> +/*
+> + * Disable the association on @rdtgrp's kmode_cpu_mask, clear the mask, and
+> + * hide the group's kmode_cpus files.
+
+"hide the group's kmode_cpus files"? Does not match the code below.
+Even so, the comments just narrate the function.
+
+> + */
+> +static void rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
+> +{
+> +	resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, false);
+> +	cpumask_clear(&rdtgrp->kmode_cpu_mask);
+> +}
+> +
+> +/*
+> + * rdtgroup_kmode_global_detach() - Detach @rdtgrp from the global per-CPU mode
+> + * @rdtgrp: Resctrl group being removed or torn down.
+> + *
+> + * If @rdtgrp backs the active association, disable it, clear kernel mode
+> + * state, and restore RESCTRL_INHERIT_USER.
+> + */
+> +static void rdtgroup_kmode_global_detach(struct rdtgroup *rdtgrp)
+> +{
+> +	if (resctrl_kmode.rdtgrp != rdtgrp)
+
+Please do not use tests on resctrl_kmode.rdtgrp as synonym for
+resctrl_kmode.active == RESCTRL_GLOBAL_ENABLE_PER_CPU.
+
+> +		return;
+> +
+> +	rdtgroup_kmode_global_deactivate(rdtgrp);
+> +
+> +	resctrl_kmode.rdtgrp = NULL;
+> +	resctrl_kmode.kmode_cur = RESCTRL_INHERIT_USER;
+> +	resctrl_kmode.ctrl = KMODE_ASSIGN;
+> +	resctrl_kmode.mon = KMODE_ASSIGN;
+> +}
+
+There seems to be some duplication between rdtgroup_kmode_global_detach() and
+resctrl_kmode_switch(). Since the contract is already established that
+disabling RESCTRL_GLOBAL_ENABLE_PER_CPU enables RESCTRL_INHERIT_USER, could this
+reset to RESCTRL_INHERIT_USER not just be done in rdtgroup_kmode_global_deactivate()
+without duplicating it in rdtgroup_kmode_global_detach() and resctrl_kmode_switch()?
+
+With that done, it looks like rdtgroup_kmode_global_detach() could just be
+dropped if rdtgroup_kmode_global_deactivate() gets the check to ensure the
+group needs removing?
+
+
+> +
+>  void *rdt_kn_parent_priv(struct kernfs_node *kn)
+>  {
+>  	/*
+> @@ -3228,6 +3258,7 @@ static void free_all_child_rdtgrp(struct rdtgroup *rdtgrp)
+>  
+>  	head = &rdtgrp->mon.crdtgrp_list;
+>  	list_for_each_entry_safe(sentry, stmp, head, mon.crdtgrp_list) {
+> +		rdtgroup_kmode_global_detach(sentry);
+>  		rdtgroup_unassign_cntrs(sentry);
+>  		free_rmid(sentry->closid, sentry->mon.rmid);
+>  		list_del(&sentry->mon.crdtgrp_list);
+> @@ -3265,6 +3296,7 @@ static void rmdir_all_sub(void)
+>  		cpumask_or(&rdtgroup_default.cpu_mask,
+>  			   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
+>  
+> +		rdtgroup_kmode_global_detach(rdtgrp);
+>  		rdtgroup_unassign_cntrs(rdtgrp);
+>  
+>  		if (rdtgrp->mode == RDT_MODE_PSEUDO_LOCKSETUP ||
+> @@ -3360,6 +3392,7 @@ static void resctrl_fs_teardown(void)
+>  		return;
+>  
+>  	rmdir_all_sub();
+> +	rdtgroup_kmode_global_detach(&rdtgroup_default);
+>  	rdtgroup_unassign_cntrs(&rdtgroup_default);
+>  	mon_put_kn_priv();
+>  	rdt_pseudo_lock_release();
+> @@ -4395,6 +4428,8 @@ static int rdtgroup_rmdir_mon(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+>  	u32 closid, rmid;
+>  	int cpu;
+>  
+> +	rdtgroup_kmode_global_detach(rdtgrp);
+> +
+>  	/* Give any tasks back to the parent group */
+>  	rdt_move_group_tasks(rdtgrp, prdtgrp, tmpmask);
+>  
+> @@ -4442,9 +4477,18 @@ static int rdtgroup_ctrl_remove(struct rdtgroup *rdtgrp)
+>  
+>  static int rdtgroup_rmdir_ctrl(struct rdtgroup *rdtgrp, cpumask_var_t tmpmask)
+>  {
+> +	struct rdtgroup *sentry;
+>  	u32 closid, rmid;
+>  	int cpu;
+>  
+> +	/*
+> +	 * A monitor group uses its parent's CLOSID. Detach a child that
+> +	 * backs the association before that CLOSID is freed.
+
+Why does this have to be done before the CLOSID is freed? The monitor groups
+are cleared later from free_all_child_rdtgrp() that will call
+rdtgroup_kmode_global_detach() for every monitor again.
+
+> +	 */
+> +	list_for_each_entry(sentry, &rdtgrp->mon.crdtgrp_list, mon.crdtgrp_list)
+> +		rdtgroup_kmode_global_detach(sentry);
+> +	rdtgroup_kmode_global_detach(rdtgrp);
+> +
+>  	/* Give any tasks back to the default group */
+>  	rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
+>  
+
+Reinette
