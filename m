@@ -1,104 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5A5556BA2;
-	Thu, 15 Oct 2026 17:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609EE568FC7;
+	Thu, 15 Oct 2026 17:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086651; cv=none; b=QbMwg1KfJK2Autr7vuF9pcscyOyHVsnF30VIFT39DaGf/xlKRmNrwKVnV1SFxIshA/A+r0sqeOoSC9laDTnhRKowT5heidPDIv35lNXwYnk5jNjvjrXoxw8vNizwQc0Y5/Pl7vTRCqnVXMYdSm3j0Ar5NxQ/eoaCEFvotefiCAI=
+	t=1792086658; cv=none; b=PqirbS1o1owLR0ZAF9WTK+6edTxrL/uelmSOv8vFeWOoKNx5/KAuHgMF9YR+w0HUNk87SVtfr/CQAPqTXn7VuEqP5uxC5S3awXVUAp8XrRXxmO05JE5R4iEJdaNEKuAE7GEfFzWyAGpw3D4+5G7ByWQrjnslCro6mqhwOQbfFA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086651; c=relaxed/simple;
-	bh=od6D35Z+cDqTugTOW66XHSDEU4C/ACzlXp5dQmFkbzU=;
+	s=arc-20240116; t=1792086658; c=relaxed/simple;
+	bh=R2WBw4Gg/cmC7jy75LHrgAUEe03aD6Qo0tsbSlw1dKc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jiupyyp1upAR8OMp5aDvLFwUmnUwvM9hAlrTDHon/O2xHfwD+i4k8qWC7pKQAQ7M3YtGVZNdfpl+JFQKEPFNAWKBdBqac8NES9llZ9ItHYMhedweEoj3yNgPoUpY7OwmRnmLiQTNIqKGHWAhQdZmIAwtmmTp6HiW5Z3dBPD/W7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRNrq6Al; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpbiuBN7rfMF/y6vK4iCZVjjo9tVS1921DVNBPrO1MWmsW4heE72HJD2Jpva49BH8yq9RMZ/XokB7sNMcLvbnz8UpGCwzfSvnFZz4k/aJJKm5h57LhyKHwk8oRlBVXvPHXfNtyKz42tZ10Bpw80J1gx/jwlUp5xEfhthNNavAVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Xf47+RNj; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRNrq6Al"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25671F000C4;
-	Thu, 15 Oct 2026 17:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792086644;
-	bh=YtJ9wtucwJXF3mMJtgnK/q136YJ2VxcqA/HQbP09yHM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jRNrq6AlxG7S7lIyo7Bi+xByIhvqx5Ur8AgrEWe+CAkIeLTAwlUqyEP0Ela4bGtc/
-	 r/jrE3ikj5OzAT6zlRSdL/WNTqFtWw3Qyv6jg76g+AqYclUOUMHtLUiapazM+m4UOk
-	 ZjuPcxbc/BAPQRIjr3/sEGbzj6Ph2huY8yJ2/sPtNb8XrYrXn44NJoDZtx1a9LVMtV
-	 E4zdSAkCgDN+KMuQhYU6Wx5HnQk/ZQNGehxdzw4ta8FhIqL7wQzo/DxAmcBsARtwGs
-	 DJqSkLTEBbtzR6RcTNyNrUuExJulzjb9eKhbEvFjS8HaGwyg8Yxxpm5YBRWWYAHtMT
-	 h45E0lAhzzH9w==
-Date: Thu, 15 Oct 2026 18:50:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Val Packett <val@packett.cool>,
-	Federico Amedeo Izzo <federico@izzo.pro>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH] ASoC: codecs: aw88261: start the amplifier on unmute at
- trigger time
-Message-ID: <bf823f3b-f064-4dd7-acfd-4136efd090de@sirena.org.uk>
-References: <20261014120000.aw88261-trigger-v1-1-tvlad744@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Xf47+RNj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792086642; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=l9Q5YpqYpJd9onDCM8db0IqtokPYusPa72Hj4TffybM=;
+	b=Xf47+RNj10Y46QI+kiYGuHrMBPjCkgHYFzOcbqy+sYmUn7K/aN4q8LLw+ysEjWzz41Cb5K/P1qA/e6yYVfWqz8NkRQNXDDrTuq3wf5zOz6TQwYL7mUrd/mCSyvG3WV/Jx4CqKvwqPxyok55LjFkShaCUL37RzXRJuK4Vod2rRGA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R231e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=peng_wang@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XCsOve5_1792086640;
+Received: from localhost(mailfrom:peng_wang@linux.alibaba.com fp:SMTPD_---0XCsOve5_1792086640 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 16 Oct 2026 01:50:41 +0800
+Date: Fri, 16 Oct 2026 01:50:40 +0800
+From: Peng Wang <peng_wang@linux.alibaba.com>
+To: Waiman Long <longman@redhat.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>,
+	He Rongguang <herongguang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] cpu: Add sysfs control of full dynticks policy
+Message-ID: <atEScHbaEEqOtzQw@MacBook-Pro.local>
+Reply-To: Peng Wang <peng_wang@linux.alibaba.com>
+References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
+ <e93ef15796946485eaaecd774141378351307940.1792067271.git.peng_wang@linux.alibaba.com>
+ <5f2b1519-6693-4d5c-afb7-4202a6d48365@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="InSaLPQge8k87Ejv"
-Content-Disposition: inline
-In-Reply-To: <20261014120000.aw88261-trigger-v1-1-tvlad744@gmail.com>
-X-Cookie: Tax and title extra.
-
-
---InSaLPQge8k87Ejv
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <5f2b1519-6693-4d5c-afb7-4202a6d48365@redhat.com>
 
-On Wed, Oct 14, 2026 at 07:36:49PM +0300, Vladyslav Tymoshchuk wrote:
+On Thu, Oct 15, 2026 at 12:07:14PM -0400, Waiman Long wrote:
+> 
+> On 10/15/26 8:43 AM, Peng Wang wrote:
+> > Expose nohz_full_allowed under /sys/devices/system/cpu/ as the subset of
+> > nohz_full CPUs permitted to suppress their non-idle scheduler tick.
+> > 
+> > Writes replace the entire list; reads report policy, not current tick
+> > state. Reject invalid input before updating policy. Document asynchronous
+> > revocation, offline CPU configuration and persistence across hotplug.
+> > The existing nohz_full attribute continues to report membership.
+> > 
+> > Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
+> > Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+> > Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+> > ---
+> >   .../ABI/testing/sysfs-devices-system-cpu      | 40 ++++++++++++++++
+> >   drivers/base/cpu.c                            | 46 +++++++++++++++++++
+> >   2 files changed, 86 insertions(+)
+> > 
+> > diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > index 82d10d556cc89..edf3408fd84c8 100644
+> > --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+> > @@ -767,6 +767,46 @@ Description:	Preferred MTE tag checking mode
+> >   		See also: Documentation/arch/arm64/memory-tagging-extension.rst
+> > +What:		/sys/devices/system/cpu/nohz_full_allowed
+> 
+> I do have a problem with the name of this sysfs file. nohz_full is more than
+> just the tick. The naming may introduce the wrong impression that all
+> nohz_full behavior can be controlled. May be a name like "nohz_tick_allowed"
+> which is much more specific will be better.
 
-> The amplifier is started from the PRE_PMU event of its AIF widget, that
-> is from DAPM in prepare. aw88261_dev_start() then waits up to 20 ms for
-> the PLL to lock to the bit clock and powers the amplifier down again if
-> it does not.
->=20
-> Not every host runs the bit clock by then. The Qualcomm AudioReach
-> backends only start their graph, and with it the I2S/TDM clocks, in
-> trigger since commit b54a38af7138 ("ASoC: qcom: q6apm-lpass-dai: move
-> graph start to trigger"). There every start fails with "start failure
-> (-1)" and the speaker stays silent for the whole stream, as seen with
-> six AW88261 on a TDM link of SM8750. The asynchronous start removed by
-> commit caea99ac809d ("ASoC: codecs: aw88261: remove async start") only
-> hid this when the trigger came soon enough.
+Hi Waiman,
 
-OTOH some hosts presumably do have the clock running earlier and will
-now get delays added in trigger which isn't ideal.  I'm not sure we have
-good solutions here given that this is all system dependent.
+Agreed, nohz_tick_allowed describes the scope more accurately.
+If the control remains in sysfs, I'll use that name in the next version.
 
-> The trigger has to be nonatomic for the I2C accesses, which the
-> Qualcomm DPCM links using this codec are.
+Thanks,
+Peng
 
-Are we *sure* there are no other users out there?
-
---InSaLPQge8k87Ejv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrREm4ACgkQJNaLcl1U
-h9AUigf/fq075WtWjYXHWepUgtsMQ+riHXSZrenWKYM/xRW3cSndug1ZbZRdJ02f
-gpahaf0zkDr5/K0HRK5Yla8QbMbUnVN/bLapTpf6t9UcYDq1dL4A1niA8884Ozlc
-9ti+hTWeNd6GPnMv33fv6m36I0JyrQa7rI30cr8btH3Iddzip4v0j/kZPHEuYBum
-G+TeOmtTCA/JZgKKz12j6y4P/+ETGrakgaw17AvKaPEH4X7u4ySZLL9yoUebfe1c
-b+IEnQQ4y30YloTGD1oQenA6Kn9Te9Zdgc/p/B2/keyIY6h5VvbhsDiUTFSG0WId
-9k/3eYLDTC6+35/WAkkG6h7o23PuDw==
-=0SnJ
------END PGP SIGNATURE-----
-
---InSaLPQge8k87Ejv--
+> 
+> Regards,
+> Longman
+> 
+> > +Date:		October 2026
+> > +Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+> > +Description:
+> > +		(RW) CPUs permitted to stop the scheduler tick while non-idle.
+> > +		Available with CONFIG_NO_HZ_FULL. The default is the complete
+> > +		nohz_full CPU list. Readback reports permission, not the current
+> > +		tick state: all the usual tick dependencies still apply.
+> > +
+> > +		A write replaces the entire list, using CPU-list syntax (for
+> > +		example, "1-3,5"). An empty line revokes permission from all
+> > +		nohz_full CPUs. Invalid input is rejected without changing
+> > +		policy. A parsed list containing CPUs outside nohz_full fails
+> > +		with EINVAL. CPU numbers beyond the mask range and numeric
+> > +		overflows are rejected by the CPU-list parser with ERANGE and
+> > +		EOVERFLOW, respectively. Input must be shorter than PAGE_SIZE
+> > +		bytes, otherwise E2BIG is returned. Embedded NULs and newlines
+> > +		other than a trailing newline are rejected with EINVAL. Valid
+> > +		writes without an active nohz_full configuration fail with
+> > +		EOPNOTSUPP.
+> > +
+> > +		Reads fail with EOVERFLOW if the formatted output reaches
+> > +		PAGE_SIZE - 1 bytes, rather than returning a potentially
+> > +		truncated CPU list.
+> > +
+> > +		Revoking permission adds a per-CPU tick dependency. Online CPUs
+> > +		are notified through the existing asynchronous kick mechanism
+> > +		to restart a stopped non-idle tick. A successful write means
+> > +		the policy is updated and any needed notification is queued;
+> > +		it does not wait for tick restart. Changes to multiple CPUs
+> > +		are not simultaneous. Granting permission only removes this
+> > +		dependency and does not force the tick to stop.
+> > +
+> > +		Offline CPUs may be configured without sending notifications.
+> > +		Policy persists across CPU offline/online. Idle tick suppression
+> > +		is unchanged; the policy applies when a CPU leaves idle.
+> > +
+> > +		This interface does not change nohz_full membership, context
+> > +		tracking, RCU offloading, or housekeeping configuration.
+> > +
+> >   What:		/sys/devices/system/cpu/nohz_full
+> >   Date:		Apr 2015
+> >   Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+> > diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
+> > index 69e52fed42415..299ce61cef895 100644
+> > --- a/drivers/base/cpu.c
+> > +++ b/drivers/base/cpu.c
+> > @@ -324,6 +324,51 @@ static ssize_t nohz_full_show(struct device *dev,
+> >   	return sysfs_emit(buf, "\n");
+> >   }
+> >   static DEVICE_ATTR_RO(nohz_full);
+> > +
+> > +static ssize_t nohz_full_allowed_show(struct device *dev,
+> > +				      struct device_attribute *attr, char *buf)
+> > +{
+> > +	cpumask_var_t mask;
+> > +	ssize_t ret;
+> > +
+> > +	if (!alloc_cpumask_var(&mask, GFP_KERNEL))
+> > +		return -ENOMEM;
+> > +
+> > +	tick_nohz_full_get_allowed(mask);
+> > +	ret = sysfs_emit(buf, "%*pbl\n", cpumask_pr_args(mask));
+> > +
+> > +	free_cpumask_var(mask);
+> > +
+> > +	/* Never present a truncated CPU list as the complete policy. */
+> > +	return ret == PAGE_SIZE - 1 ? -EOVERFLOW : ret;
+> > +}
+> > +
+> > +static ssize_t nohz_full_allowed_store(struct device *dev,
+> > +				       struct device_attribute *attr,
+> > +				       const char *buf, size_t count)
+> > +{
+> > +	cpumask_var_t mask;
+> > +	int ret;
+> > +
+> > +	/* kernfs may truncate an oversized write to PAGE_SIZE. */
+> > +	if (count >= PAGE_SIZE)
+> > +		return -E2BIG;
+> > +	if (memchr(buf, '\0', count) ||
+> > +	    (count > 1 && memchr(buf, '\n', count - 1)))
+> > +		return -EINVAL;
+> > +
+> > +	if (!alloc_cpumask_var(&mask, GFP_KERNEL))
+> > +		return -ENOMEM;
+> > +
+> > +	ret = cpulist_parse(buf, mask);
+> > +	if (!ret)
+> > +		ret = tick_nohz_full_set_allowed(mask);
+> > +
+> > +	free_cpumask_var(mask);
+> > +
+> > +	return ret ? ret : count;
+> > +}
+> > +static DEVICE_ATTR_RW(nohz_full_allowed);
+> >   #endif
+> >   #ifdef CONFIG_CRASH_HOTPLUG
+> > @@ -525,6 +570,7 @@ static struct attribute *cpu_root_attrs[] = {
+> >   	&dev_attr_housekeeping.attr,
+> >   #ifdef CONFIG_NO_HZ_FULL
+> >   	&dev_attr_nohz_full.attr,
+> > +	&dev_attr_nohz_full_allowed.attr,
+> >   #endif
+> >   #ifdef CONFIG_CRASH_HOTPLUG
+> >   	&dev_attr_crash_hotplug.attr,
+> 
