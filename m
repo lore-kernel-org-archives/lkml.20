@@ -1,135 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-239.mta1.migadu.com [95.215.58.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6366B49CF40;
-	Thu, 15 Oct 2026 20:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E853E480941
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095036; cv=none; b=MDIpcoLW8JyXj0hPVlyVXmySNZB9/JSCEWPRjtpmoqTE2+R8hDB1MgmP/Z+xjjUswvYyHBwUFPa2ipJqLusSZ1/qQPX05Hv0xsRJL6jqYPf1bYf+1sDeyzwbBfhNnaUkLrjvFXOjCjVRyribijgp2JC9NpUij6e7KqzM98UVDBA=
+	t=1792095067; cv=none; b=vFon5RzhY7fquSWTNPd1JsG3uXjsC5Gz2lOdmbL30zmTxHMTzLGnyYfvooCbrXCLSdsNoy6eN2X/osTmlKQriIo0MVNZ4KFQJtvLXB07DBvZiw+JW6MCGwpiKctZuWGzpQvXcwK2JB8lrF6tFpZdhXzUgYJraQv/v0+sFcjuN74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095036; c=relaxed/simple;
-	bh=Y8wzWW15iPX0w/KAfHwtmZmo2Ehi+gj1ghdmxwnUOXI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q/0jgitKYBuTt2fO65889SZWQdR9YsxV6vRxoNXKC2Y58GZIZWU5S+x11hdbFfiO1kBFhj4wWTOZag+Lbu/IxOHEpcI6Sb9SsLb8UMSBFTmdSu9I6b132gI25ga8BUAX6/8naMEuXFFxZnqX8Nz8VgpLd5MYWx2UO4gYo15CHx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxhkLSP1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792095067; c=relaxed/simple;
+	bh=kk+kPcVFHiLVyUQl1wdbVWBtluwdSYxSjGl00eh/bHQ=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=sHuDYbcQdmBdR37cfIyQdi+JQsUiv8Oz1yv43l4h4FD8cWYmXvz5f0J0F0xKyUDHvXa5/PmmoXC9oX1HmfDMm3SzyAob8gWyR1rBrGJo40WK9q+lXCeznauu3whJH79cp+qFBHAkx+JBkCgDTtx6BKOLdHLBBsx37xmzfU3Ltb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rJcwA5TP; arc=none smtp.client-ip=95.215.58.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxhkLSP1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DDC1F000C4;
-	Thu, 15 Oct 2026 20:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095034;
-	bh=Bm2ERFyVvwHy3KL3GkZjGCypavkWH4W9XQY9JXBOp38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gxhkLSP1ZNSGV8UU5saxrx0QHAqHeo8ZiuEPhoF5s7P570x19ZLLx/+1hYWjllG3A
-	 uTfOjm2GqP2hGVC1vT2M7tc0qf0kx0D8PpllSnxKPqAFhvKYwAAR+sbFcxsQbUwkA1
-	 atznjnS9TsmxwCILJJFNVTDqc6MDJF603RyAn2FK7UBYoMyRHiZmvUaDxm1N5Qn82x
-	 D6GGDEuRUBNVLommG2TkyePjUjK2On7X1EYYJ19e/Oaz/Dir4OON5iBzh901RRhKmp
-	 EatjIdApRPLEolKK2VkjzZlga9mhWhUyHiczizT3hcSoqezppKW7qdxB9wNnR3dckn
-	 ZgHwgwKq2+uzQ==
-Date: Thu, 15 Oct 2026 21:10:26 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
-	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 06/10] mm/hugetlb: fix endless write fault on a leftover
- uffd bit
-Message-ID: <atEuB27wc9Yp-_Ax@gremlin>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rJcwA5TP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kk+kPcVFHiLVyUQl1wdbVWBtluwdSYxSjGl00eh/bHQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792095062; v=1; x=1792699862;
+ b=rJcwA5TP3TDcdoDM08LQU0K0h68hLadHPZv5FtVH+5l6Myg/EETxFTRuhmuSpsRpwRfY8uMp
+ LvTLeRKVbs8tEb3KE2N3nJZvYurX+Fs16qd7gdIDJz1VEY4pioIMuBs11UqyjwPxvBCOF6W5HA/
+ Zc3Nckdo1vygOPllt9bfJMQg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a6cfccf0b1064ed8;
+	Thu, 15 Oct 2026 20:11:02 +0000
+X-Mizu-Trace-ID: a6cfccf0b1064ed8
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
+Date: Thu, 15 Oct 2026 20:11:02 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <672f78b36290a4021d3f94d9ec401d23420febbc@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
+To: "Dan Carpenter" <error27@gmail.com>, "Ethan Tidmore"
+ <ethantidmore06@gmail.com>
+Cc: pavankumaryalagada@gmail.com, gregkh@linuxfoundation.org,
+ outreachy@lists.linux.dev, dennylin0707@gmail.com,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <atEtUV5q9MHRSTJb@stanley.mountain>
+References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
+ <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
+ <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
+ <atEtUV5q9MHRSTJb@stanley.mountain>
 
-On Thu, Oct 15, 2026 at 06:07:12PM +0200, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
-> registered for userfaultfd write protection, and hugetlb_wp() bails out
-> for any entry with the uffd bit set assuming hugetlb_fault() has already
-> resolved it.
->
-> When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
-> that is not registered for uffd-wp, a write fault to it never makes
-> progress. If the access comes from the kernel, e.g. read(2) from
-> /dev/zero into such page, the task spins in the page fault handler,
-> ignores SIGKILL and keeps holding the locks taken by the system call.
->
-> Such entries should not exist, but an unprivileged user can create them,
-> for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
-> or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
+October 15, 2026 at 9:45 PM, "Dan Carpenter" <error27@gmail.com> wrote:
 
-Ugh yuck. Uffd is another gift that keeps giving...
 
->
-> Clear the uffd bit when the VMA is not registered for uffd-wp and let the
-> fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
->
-> Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
-> a private VMA that was made PROT_NONE now drops the RWP protection of
-> that page.
->
-> Original fix generated by an LLM and sent in private by Josef.
->
-> Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
-> Reported-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [rppt: massage commit message]
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> [ david: convert comment into a TODO ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Looks sensible to me so:
-
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/hugetlb.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index f8ad2efd472cb..c3823f1958568 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -6184,15 +6184,19 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
->  		goto out_ptl;
->
->  	/* Handle userfault-wp first, before trying to lock more pages */
-> -	if (userfaultfd_wp(vma) && huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
-> +	if (huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
->  	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(vmf.orig_pte)) {
-> -		if (!userfaultfd_wp_async(vma)) {
-> +		if (userfaultfd_wp(vma) && !userfaultfd_wp_async(vma)) {
->  			spin_unlock(vmf.ptl);
->  			hugetlb_vma_unlock_read(vma);
->  			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
->  			return handle_userfault(&vmf, VM_UFFD_WP);
->  		}
->
-> +		/*
-> +		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
-> +		 * are no longer registered with uffd.
-> +		 */
->  		vmf.orig_pte = huge_pte_clear_uffd(vmf.orig_pte);
->  		set_huge_pte_at(mm, vmf.address, vmf.pte, vmf.orig_pte,
->  				huge_page_size(hstate_vma(vma)));
->
-> --
-> 2.43.0
+>=20
+>=20On Thu, Oct 15, 2026 at 10:41:53AM -0500, Ethan Tidmore wrote:
+>=20
+>=20>=20
+>=20> On Thu Oct 15, 2026 at 9:11 AM CDT, Luka Gejak wrote:
+> >  October 15, 2026 at 2:06 PM, pavankumaryalagada@gmail.com wrote:
+> >=20
+>=20>=20=20
+>=20>  From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> >=20=20
+>=20>  Remove redundant parentheses around the address-of operator to
+> >  follow kernel coding style.
+> >=20=20
+>=20>  Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> >  ---
+> >=20
+>=20>  Hi Yalagada,
+> >=20
+>=20>  I'm just letting you know that this change is no longer needed as =
+the
+> >  entire staging/rtl8723bs driver is being deprecated and removed.
+> >  Support for RTL8723BS has been ported to rtw88 subsystem.
+> >=20=20
+>=20>  So rtl8723bs patches aren't being accepted anymore? I saw Dan revi=
+ewing
+> >  one earlier, just wondering.
+> >=20
+>=20I didn't know it was being removed. My expectation is that we'll
+> probably keep merging patches until it's actually removed. It's sometim=
+es
+> easier to just merge easy uncontroversial things without trying to trac=
+k
+> everything happening in the kernel. We should obviously delete the driv=
+er
+> as soon as the other patch is merged.
+>=20
+>=20regards,
+> dan carpenter
 >
 
---
-Cheers, Lorenzo
+But won't that cause a conflict? PR has been sent today, carrying my
+patch that removes whole staging/rtl8723bs into net-next and if
+another patch is merged into staging-next, whose time of commit is
+later than the time I made my commit localy it will try to exit a
+non-existent file.
+
+And since both net-next tree and staging-next tree are merged at the
+same merge window this will cause merge conflict. Correct me if I am
+wrong, but this is what I think would happen.
+
+Best regards,
+Luka Gejak
