@@ -1,308 +1,140 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385F24D9F91
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12574C8C53
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063493; cv=none; b=VXXtT5lCbeVNH2yVgSRmu/yTMaAy2LqF7hwwGejm5Y4VJYMkLluKYv+UiYd2v/NHyl274U3wl6v0ZHRe2Cy2v/znDHjf6qFarfkTTN5lMtY2YQclub5eEaXldI6Zz+i+Vik2boilOSYhtd4JrHTFU0p0t1WyFfNXMQS2T7gwM2k=
+	t=1792063591; cv=none; b=qH8P9/YGAJsKhfZUrR5pod2Ddy2myY+LFtumLTS/XSyuOop/tOItJkkH+1/cUOVlqObIx+QQos1N3ux1GkVWEnwJx8GxFsLVgtuzCiEbewTYLH0dI2bGsRDRKfCgAk4/GwOsVg8tzwCvkKGRgHZAEqzJ/LyHxEQc2s070cDxk24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063493; c=relaxed/simple;
-	bh=OuzZ0UmKpoG23RR+4wGy7RGYBwxYdgHUOlN9CNTGkWA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LWuxA5oGmTskJFBWGv/bMILPHv0Jz2FYmFV5KCJ/ZIl5Cgb3r6O2t5cQx+N8dgsOqVqo0AFYNdpBxs1eN62wxXftVtJOP1/lbk3V/HKneVeDvDYfm6zVZRaMMdZ0lOPhuFyuAVfEk5SzOxxuaQT/F3onkoiCFEH07Novv3B8DTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/MB9SQi; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792063591; c=relaxed/simple;
+	bh=lI/tePJrBFVT9SL+m5HYE7IsTsP2AEvX1IIa4r6QHjo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T4fsr0vyxjslqXE23OOTTV48iN1GkzmCw0y+A4BgnCi8n6gGYz095I9zDpdvWOkbnmcy3f3mnaNCI5jajE033cakCrIFRwNlnHp5cgLykzYrFBUJcERZTnsIgsIaWtbm7Pn/gGYKwwL7WluKuebgzYCffOuvNqipt9xgqmRG0XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=JREqItV/; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/MB9SQi"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3514b90bb89so3289222eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792063488; x=1792668288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mTGaRSiOlFT8MfguHaHZjIElUHA1XvWJ2csa7S+idE8=;
-        b=U/MB9SQi4oZt5Tc82p6jdlHsTAg/QP2/Ygny+DBOcNu0Wwb4YUjXeDuCtuaP/FsYnp
-         PtNr3CwBuA5RNk26HuVlQp4LVyd4En4gI8g5gGm2GPYfWII1F4qx+pY/Cf4d8bQwv/Qd
-         Jhg8FcGR1djQILMonewLyqr0aBV5eLlL14/oJzvQLN1aH3v2z4//hkpq5qxK07YXg6/W
-         MSjMh0aulMCesPp5CLzjV0pZnJ8ANBBHwiiHXPf67+fLC7I86RJ+H3FTxVHGvKLgKen+
-         ixaZ3ZOuI4BGpoFJXfn3P8Z5CAve5ZcLeaBAcGFHIsPHnvQ2wKLGXcL8Fo9ah3OMvGRG
-         yP7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792063488; x=1792668288;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mTGaRSiOlFT8MfguHaHZjIElUHA1XvWJ2csa7S+idE8=;
-        b=kCKTOD7wNkmjgBaFirvXjQAIuK274GVYaWZCiL0xwXSIF/G3xh8WeV0eIwNLtAyoO6
-         a16YRzNVSOb1yZSvdcykhdOLoAENrMTPr34MS3MS2QY55J1FmpVMKd+Hv5j23fWgWh2g
-         L/tq0k6jYtXjSnIGM/Tc68a0++qclUbiKXkYRqYvOErj5lnh/PArQeK4nQLlh0GNqIH9
-         rR+y9d6CyydSOOr58sZ7dGesGpDZghkqJm0KfyPG4SiDQOWPvhQq0oAg50MZY8lAGOCR
-         GzQ5G/L3waYq+H6qg9C9Md+P4An27Ml+9VCMPwON9o5svfCj/prc9FpNSpDggVnm14I1
-         BdpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzTpr/vWi/PqX+QIcvT3IqJsmuXgru4W43LE3k7t7xJHnU6SkNVMCBceACt9s/50Oyei3Rguxf/87yxMj8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPjd7MG3VCzN6Qw3Qt0NiHNiAPDE5ucZg58Hv9O0jG4vxqCPEr
-	BLGAy6zYGTHccnFD6O2FFG7I/WWAXBtVFGOJq03BAMLGpUQKzobNSiz7982+1igc
-X-Gm-Gg: AYBFou25g1IIHw9VysQldzaQ2Oee9txcYfaNTvOg0HjWb4hv7NswB80MDOCebo0nAr+
-	zwJaWJv4ka9EeTv5ELqB46zCyo7YvXzPM9AoSUjAUjutcnx9aS0+6KdD4/o5Zb/4jUO+s2olYf6
-	nmXP6EJF6P1ANgofrLdmrAiKAVil3QrxG8dl+QXRkwAKUkcPUs0nfCOS/pTpULBRFjeFPVoLZPN
-	mLVW2JxMT8uhX4ZrSe3b4t/6hfiJiyvdxL8e6WFNQymTznG7LA5nIi3mtSTWagcVI5a/jWFYx3H
-	ZWyISqlu67gjfcnhr84jUpaxK0PAI3pIq1a57F+c2opNt61FdK5b5wLE5F9eX6zFOhy0OAYQsmo
-	4EHMvHEd7H8kZCYHd87lFlLprznC1Fq+aA7lQIINHvCqPYFNspeXRiU3yG8tguRLG2panzNOmZA
-	FzseaaZJJGB4zcE9PhK1VEkiazn+sQie7zH5hvetEC0+t1dfbvBotDJ5l40ZGMeK2dg0Etc+r3G
-	5T+fCtO7LFucUJr
-X-Received: by 2002:a05:693c:88c6:20b0:359:89b9:5e09 with SMTP id 5a478bee46e88-35989b98cabmr19639355eec.36.1792063487634;
-        Thu, 15 Oct 2026 04:24:47 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm60818382eec.30.2026.10.15.04.24.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 04:24:47 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: senozhatsky@chromium.org
-Cc: akpm@linux-foundation.org,
-	baohua@kernel.org,
-	bgeffon@google.com,
-	minchan@kernel.org,
-	richardycc@google.com,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v3 10/11] zram: use rw_semaphore for decompression streams
-Date: Thu, 15 Oct 2026 19:24:40 +0800
-Message-Id: <20261015112440.1491168-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <atBh9xfpOji_A7A_@google.com>
-References: <atBh9xfpOji_A7A_@google.com>
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="JREqItV/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1792063583; x=1792322783;
+	bh=MLWjRkWsuEhV4xjZ82qNWkdlxPiGotLBkrXjhxnMXfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=JREqItV/BQQQ5m3osb8QWZl6xaocCp+fYVuDMT5F4J6pdazOQAVB8Sbg2fn5bRlOh
+	 5qPt7/y9x729V1hxQ8jBDZGYM3OQqb73Zm3Sa27CYBofzScRwWaFUsPxuXvF9NuQC9
+	 qwh6c8n0XTzVE47zgmcIhS8Gzqom3SNu8ySdqQd0kD9nteVWuFdDgiUuklL2JZ6S6N
+	 0NBd2/cvFHOZv3xFiGeKswiorAotP3LBcSBz0CDZvpvnSURAbBHlc5VoNPtFnCDmWs
+	 9VAATgac7UAzaqWfRyeoYDrQCVXxZB0qOJWxKdWx/9GoBR6E1tpT+QEeOVpzSSQXBA
+	 EeY+5XyQALGCA==
+X-Pm-Submission-Id: 4j55P632nVz1DDL8
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Gary Guo <gary@garyguo.net>
+Cc: rust-for-linux@vger.kernel.org,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	ojeda@kernel.org,
+	alex.gaynor@gmail.com,
+	boqun.feng@gmail.com,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	longman@redhat.com,
+	felipe_life@live.com,
+	daniel@sedlak.dev,
+	daniel.almeida@collabora.com,
+	thomas.hellstrom@linux.intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 5/6] rust: ww_mutex: implement LockSet
+Date: Thu, 15 Oct 2026 14:26:06 +0300
+Message-ID: <20261015112611.60966-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <DM2UEMVP195X.WA9QG4BY453P@garyguo.net>
+References: <cover.1791799751.git.work@onurozkan.dev> <8a3e94391fcee2b7e95a1f93a43c98ba385940c0.1791799752.git.work@onurozkan.dev> <DM2UEMVP195X.WA9QG4BY453P@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 15 Oct 2026 12:19:49 +0900 Sergey Senozhatsky <senozhatsky@chromium.org> wrote:
-> Or perhaps we can avoid vm_map/unmap.  A slightly different approach.
-> kmalloc on fast path + memcpy (zsmalloc objects are strictly less than
-> PAGE_SIZE bytes)
-
-I applied the kmalloc+memcpy variant on-device and re-ran the same
-Android A/B. It removes the exclusive path entirely in our workload.
-
-                      9+10       9+10 + kmalloc fastpath
-  read contended      ~1,959     0
-  read wait_ns total  ~12 s      0
-  read wait_ns max    72-96 ms   0
-  shared              76.7%      100%
-  exclusive           23.3%      0%
-  dpin_contended      0          0
-
-Every decompression now takes the shared (down_read) path, including the
-cross-page objects that previously had to go exclusive. The ~1,959
-residual contentions on the exclusive path are gone, and pin contention
-stays at zero, so the full read side runs concurrently with no stream
-contention.
-
-Read-side contention end to end:
-
-                 baseline   9+10      9+10 + kmalloc
-  read contended 24,749     ~1,959    0
-  shared         0%         76.7%     100%
-
-This is a stateless-backend result (lzo-rle). zstd/deflate have
-create_dctx and stay exclusive, so they don't benefit from shared reads
-at all - which, as you noted, is the sad part about zstd on that list.
-
-For those backends the serialization is unavoidable, but the actual
-root cause of the long waits is still the holder being preempted or
-migrated while holding the stream. So on top of 9+10+kmalloc I tried
-a quick-and-dirty preempt-disable for synchronous backends. Allocation
-can no longer sleep under the stream, so a two-stage zram_zs_malloc()
-does a non-sleeping attempt first and, on failure, bounces into a kmalloc()
-buffer, drops the stream and retries with a sleeping GFP_NOIO.
-
-zstd backend, same A/B workload, on top of 9+10+kmalloc:
-
-                       9+10+kmalloc   + preempt-disable
-  cwrite_contended     14,880         48          (-99.7%)
-  cwrite_wait_ns_total 137 s          0.32 s      (-99.8%)
-  cwrite_wait_ns_max   243 ms         43 ms       (-82%)
-  dexcl_contended      15,919         54          (-99.7%)
-  dexcl_wait_ns_total  109.6 s        0.68 s      (-99.4%)
-  dexcl_wait_ns_max    145 ms         34.6 ms     (-76%)
-
-zstd stays 100% exclusive either way; the win comes purely from the
-holder no longer being preempted/migrated, so the hold time stays short.
-It's the same mechanism that took lzo-rle read contention from 24,749 to
-406 earlier. So the two are complementary: shared reads remove
-reader-vs-reader queuing for stateless backends, and preempt-disable
-covers the exclusive/write serialization that stateful backends can't
-avoid.
-
-Quick and dirty, for discussion only - Patch below.
-
----
- drivers/block/zram/zcomp.c    | 17 +++++++++++---
- drivers/block/zram/zram_drv.c | 52 ++++++++++++++++++++++++++++++-------------
- 2 files changed, 51 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/block/zram/zcomp.c b/drivers/block/zram/zcomp.c
-index bb2a8101445a..5c31bd58c616 100644
---- a/drivers/block/zram/zcomp.c
-+++ b/drivers/block/zram/zcomp.c
-@@ -165,8 +165,11 @@ struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp)
- 		 * so then unlock and re-try on the current CPU.
- 		 */
- 		mutex_lock(&zstrm->lock);
--		if (zstrm->buffer)
-+		if (zstrm->buffer) {
-+			if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+				preempt_disable();
- 			return zstrm;
-+		}
- 		mutex_unlock(&zstrm->lock);
- 	}
- }
-@@ -174,6 +177,8 @@ struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp)
- void zcomp_cstrm_put(struct zcomp_cstrm *zstrm)
- {
- 	mutex_unlock(&zstrm->lock);
-+	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+		preempt_enable();
- }
- 
- bool zcomp_shared_decomp(struct zcomp *comp)
-@@ -207,16 +212,22 @@ struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
- 		 * Exclusive requests additionally own ->local_copy and
- 		 * ->ctx and hence can only wait for each other.
- 		 */
--		if (mode == ZCOMP_DSTRM_EXCLUSIVE)
-+		if (mode == ZCOMP_DSTRM_EXCLUSIVE) {
- 			mutex_lock(&zstrm->excl_lock);
-+			if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+				preempt_disable();
-+		}
- 		return zstrm;
- 	}
- }
- 
- void zcomp_dstrm_put(struct zcomp_dstrm *zstrm, enum zcomp_dstrm_mode mode)
- {
--	if (mode == ZCOMP_DSTRM_EXCLUSIVE)
-+	if (mode == ZCOMP_DSTRM_EXCLUSIVE) {
- 		mutex_unlock(&zstrm->excl_lock);
-+		if (!IS_ENABLED(CONFIG_PREEMPT_RT))
-+			preempt_enable();
-+	}
- 	up_read(&zstrm->lock);
- }
- 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index b429c52cb37d..079796b17bde 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -2297,13 +2297,37 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
- 	return 0;
- }
- 
-+static unsigned long zram_zs_malloc(struct zram *zram, struct zcomp_cstrm *zstrm,
-+				    size_t comp_len, const int nid, void **bounce)
-+{
-+	unsigned long handle;
-+
-+	handle = zs_malloc(zram->mem_pool, comp_len,
-+			__GFP_KSWAPD_RECLAIM | __GFP_NOWARN |
-+			__GFP_HIGHMEM | __GFP_MOVABLE, nid);
-+	if (!IS_ERR_VALUE(handle))
-+		return handle;
-+
-+	*bounce = kmalloc(comp_len, GFP_ATOMIC);
-+	if (!*bounce)
-+		return (unsigned long)ERR_PTR(-ENOMEM);
-+	memcpy(*bounce, zstrm->buffer, comp_len);
-+
-+	/* Drop the stream (re-enables preemption) before a sleeping alloc. */
-+	zcomp_cstrm_put(zstrm);
-+	handle = zs_malloc(zram->mem_pool, comp_len,
-+			GFP_NOIO | __GFP_NOWARN |
-+			__GFP_HIGHMEM | __GFP_MOVABLE, nid);
-+	return handle;
-+}
-+
- static int zram_write_page(struct zram *zram, struct page *page,
- 			   unsigned long index)
- {
- 	int ret = 0;
- 	unsigned long handle;
- 	unsigned int comp_len;
--	void *mem;
-+	void *mem, *bounce = NULL;
- 	struct zcomp_cstrm *zstrm;
- 	unsigned long element;
- 	bool same_filled;
-@@ -2331,22 +2355,20 @@ static int zram_write_page(struct zram *zram, struct page *page,
- 		return write_incompressible_page(zram, page, index);
- 	}
- 
--	handle = zs_malloc(zram->mem_pool, comp_len,
--			   GFP_NOIO | __GFP_NOWARN |
--			   __GFP_HIGHMEM | __GFP_MOVABLE, page_to_nid(page));
-+	handle = zram_zs_malloc(zram, zstrm, comp_len, page_to_nid(page), &bounce);
- 	if (IS_ERR_VALUE(handle)) {
--		zcomp_cstrm_put(zstrm);
-+		bounce ? kfree(bounce) : zcomp_cstrm_put(zstrm);
- 		return PTR_ERR((void *)handle);
- 	}
- 
- 	if (!zram_can_store_page(zram)) {
--		zcomp_cstrm_put(zstrm);
-+		bounce ? kfree(bounce) : zcomp_cstrm_put(zstrm);
- 		zs_free(zram->mem_pool, handle);
- 		return -ENOMEM;
- 	}
- 
--	zs_obj_write(zram->mem_pool, handle, zstrm->buffer, comp_len);
--	zcomp_cstrm_put(zstrm);
-+	zs_obj_write(zram->mem_pool, handle, bounce ? bounce : zstrm->buffer, comp_len);
-+	bounce ? kfree(bounce) : zcomp_cstrm_put(zstrm);
- 
- 	slot_lock(zram, index);
- 	slot_free(zram, index);
-@@ -2463,6 +2485,7 @@ static int recompress_slot(struct zram *zram, unsigned long index,
- 	unsigned int class_index_old;
- 	unsigned int class_index_new;
- 	void *src;
-+	void *bounce = NULL;
- 	int ret = 0;
- 
- 	handle_old = get_slot_handle(zram, index);
-@@ -2535,17 +2558,16 @@ static int recompress_slot(struct zram *zram, unsigned long index,
- 	 * modify zsmalloc API to return this information. For now, we will
- 	 * make do with the node of the page allocated for recompression.
- 	 */
--	handle_new = zs_malloc(zram->mem_pool, comp_len_new,
--			       GFP_NOIO | __GFP_NOWARN |
--			       __GFP_HIGHMEM | __GFP_MOVABLE,
--			       page_to_nid(page));
-+	handle_new = zram_zs_malloc(zram, zstrm, comp_len_new,
-+				    page_to_nid(page), &bounce);
- 	if (IS_ERR_VALUE(handle_new)) {
--		zcomp_cstrm_put(zstrm);
-+		bounce ? kfree(bounce) : zcomp_cstrm_put(zstrm);
- 		return PTR_ERR((void *)handle_new);
- 	}
- 
--	zs_obj_write(zram->mem_pool, handle_new, zstrm->buffer, comp_len_new);
--	zcomp_cstrm_put(zstrm);
-+	zs_obj_write(zram->mem_pool, handle_new,
-+		     bounce ? bounce : zstrm->buffer, comp_len_new);
-+	bounce ? kfree(bounce) : zcomp_cstrm_put(zstrm);
- 
- 	slot_free(zram, index);
- 	set_slot_handle(zram, index, handle_new);
-
-Thanks,
-Bo
+On Mon, 12 Oct 2026 13:02:15 +0100=0D
+Gary Guo <gary@garyguo.net> wrote:=0D
+=0D
+> On Mon Oct 12, 2026 at 11:26 AM BST, Onur =C3=96zkan wrote:=0D
+> > LockSet is a high-level and safe API built on top of=0D
+> > ww_mutex which provides a safe and easy to use API=0D
+> > while keeping the ww_mutex semantics.=0D
+> >=0D
+> > When EDEADLK is hit it drops all held locks and waits for the=0D
+> > contended mutex. It then retries the given (by the user)=0D
+> > locking algorithm with that mutex held and the same acquire=0D
+> > context until it succeeds.=0D
+> =0D
+> Do we really need this, or this can be achieved by simple retry loops?=0D
+> =0D
+>     fn retry_if_deadlock<R>(f: impl FnOnce() -> Result<R>) -> Result<R> {=
+=0D
+>         loop {=0D
+>             match f() {=0D
+>                 Err(EDEADLK) =3D> (),=0D
+>                 e =3D> return e,=0D
+>             }=0D
+>         }=0D
+>     }=0D
+> =0D
+>     stack_pin_init!(let acq_ctx =3D AcquireCtx::new(&class));=0D
+>     retry_if_deadlock(|| {=0D
+>         let mut gaurd1 =3D acq_ctx.lock(&mutex1)?;=0D
+>         let mut guard2 =3D acq_ctx.lock(&mutex2)?;=0D
+> =0D
+>         acq_ctx.done();=0D
+> =0D
+>         *guard1 +=3D 1;=0D
+>         *guard2 +=3D 1;=0D
+>     });=0D
+> =0D
+> I think the only difference is that the `LockSet` acquires the contending=
+ mutex=0D
+> first. However, I imagine we can solve this by having a wrapped `AcquireC=
+tx`=0D
+> that provides that.=0D
+=0D
+That's what LockSet already is. How would you design that wrapped AcquireCt=
+x and=0D
+what would we gain by replacing LockSet with another wrapper?=0D
+=0D
+You need to remember the contended mutex, release all acquired locks before=
+=0D
+waiting for it and retry with that mutex held and the same acquire context.=
+ Also=0D
+for a dynamic set, you also need to keep the acquired locks held across loo=
+p=0D
+iterations and helper calls and handle repeated objects. With ordinary guar=
+ds,=0D
+that bookkeeping falls on the caller unless the wrapper handles it. LockSet=
+=0D
+already does all this.=0D
+=0D
+Thanks,=0D
+Onur=0D
+=0D
+> =0D
+> Best,=0D
+> Gary=0D
+> =0D
+> >=0D
+> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+> > ---=0D
+> >  rust/kernel/sync/lock/ww_mutex.rs          |   6 +=0D
+> >  rust/kernel/sync/lock/ww_mutex/lock_set.rs | 449 +++++++++++++++++++++=
+=0D
+> >  2 files changed, 455 insertions(+)=0D
+> >  create mode 100644 rust/kernel/sync/lock/ww_mutex/lock_set.rs=0D
+> =0D
