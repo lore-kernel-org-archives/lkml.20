@@ -1,276 +1,171 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C010D51C040
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074015; cv=pass; b=UdsVbfvflw/ibY0bgvYZlnbbwU1SU68QBKgC8whFtXSEb4ss6So7xs3r23RL1D1j3mkRTQEWRjlT6x+9vgfVoYUpOCSdA77LZs7nKx1IEHehTF0/avL62NI+eKXqhpe7REG99PHiiQxwxr02XvAZLQIBdHemAr8bZ9aJf5HXTzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074015; c=relaxed/simple;
-	bh=5q68nD75mUwwpPx78vqnUM4U6C+IpjBmz1+55T3EIzs=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=QsNJeP3gOYHvLPT6JdWdUmEcbQFUDNt5bHEf0xi+zifYz4Tn0aC3f8cc5r56jCfuH+BhDVYwMX9vNXHIf6kAW6tHf47d1OXI6svS7NqFpfrdq1RKYrCDQ1xHM39gft689Vy63AMmElUZHnETOoYcc4QSwt7prm00u6ZW3IWhvhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=laaQnh7n; arc=pass smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4BF517BC6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792074073; cv=none; b=rkkwVZSxqWh7DPF+IwM1R6aPTw1Jw84w9mcWZaAAg94w77AlyIbiVgKWEs2LCXGpUZRm/cNQnjQKhaXCiQnR7KYbP0SrBJm9nvXoIsz2l+4PqLOuhEsFGKPdWG5Y3mxTT1Hbv24ESohqETC6Bu6sYZryJ+F6lygYDj82dABEkZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792074073; c=relaxed/simple;
+	bh=ncDYfni7DHLhnhuLavWrwx4tMg5ek5DmP4StCsrX1mE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H9fS2o034zx1qtQVbPrAbS4S53Opk3RScHXrgMpCpl8ShGrFaCjB3yKT+K0VCqVZLspPC5nTlGL15vlwBvmdnci9ESxBDXSpaa/NAJyvXiajLjzlEFHpxwH3HtOcOtg9Izw9jyfmCcoVUSy8kOZckAzCxKBwS8OPWcrp1y9+Jjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i5lgK+Md; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OkXhqb1J; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="laaQnh7n"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso731130666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:20:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792074012; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mel3W/1OEsE3PjDs0niPA5m6ExyeIYadEnzsg6CltYqajgwvqqPVgGMg97bjtXpvw3
-         OIHbJmHGofmt4UEsL6GLKQF+iYpJtzP0iua0AUJSUVZ6b1yL50FJJ2D547qPibHYXq34
-         HUZaqys9tIODkrFkg1oJPfJ0/L3JmdM70ATlFQR9JGiAuoXEzL3C97MjiRz7B5oOW8eq
-         mbuj8GmIdITn1HZJclwM7S4AbVZ4nfOfZWbG686m/2YNEK+W9Mn4+U6w7kHSJpo0JnLB
-         9yUwCt4xSHAYHGQo7G1gw2asxOcDiSfwtTbgbAl/uYItnilzCE9SEt35YVu8wGj1grOg
-         Rq1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
-        fh=mVnai6uUHgyISzngmynaKikAhZd8OC2HBUFkPbxNRtc=;
-        b=LjBkHQ1IbmcKAksaohi96GVYgfva0/dDkDPHC7jHQOQcHvU6VqblranftYeI7j3YaE
-         77W7DF4hpHfOV8WUbfYnZdAWE121YDEyhl2AuMPcED23wUm7A98djKpcZIT0Y0oyfmhY
-         DSg7XKxDNCFXz7hCq9BwnUSIn7SPaP9sqr2KZ3jjRb123V7Cf5u5oIaA4nLVf1tq7ZrU
-         uaDTL5SM0K0mPKM6Ix5hXrQQsE4Z2NBifer/yyN9r/nWCZwjrZZ9wcI5y1tdRUQIp5SW
-         0I121u6l7ZJ5iZTyKOz2OzANajJNek8vLd2UoHprlZIOdRxll3ZdR6AJiXlGq/NMKszo
-         X6QA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i5lgK+Md";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OkXhqb1J"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jOrr2114148
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:21:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wx21E7trA4uc9e24uzq3Is8WazplAsmPmxUJydtCCrk=; b=i5lgK+Mdhr2noejV
+	lbup9Ruf9vecslKnIR9ccO/RcsFDmlHCt+gy93g7gRw3NxdsrUQTXw9zbHyVyEmF
+	MbRkrXogAAEW4NI4dQInEECYglLaSQw8+08y+/KndmN/jt9aphEIWMcHrifDAO7d
+	+9yLdyDIhKUJSEiApIZUFU5BaRWd9GSwHfEx86d19iDsxtxzAwY56mEDteiv7FiT
+	h+Eiv/L/t43JvFY7OhTVXcadure7zwN61lKlMwVi9vyzUxYI4pzhaN2un/VRtMcj
+	Wk5QB/rkkelkh2t8A9Jg6CyCS7vQxGR1ILZF7WoLAi0LN0G565U18Vw3r9CBRzo2
+	NlMmoQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmybg1w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:21:11 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc081f3066so24807137.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792074012; x=1792678812; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
-        b=laaQnh7nTNWpMFIBc80//BLk8ULI2f6I0rfyIoxrOgLD513CQUkfrnL+kRQFslWzx/
-         3cfYyiB5jOHModn6xBco+AJ5rRiIVzJbqBHL5fDGHi7yFoJWMljCXu3meGJy5+eDSfP7
-         C/CIshaXtjHVQP5KVJguAN0gKqb1ie5rWr4AZrhUvEp+26mQpir1I5mIG62NIaDp3w3Q
-         gP3v0jlmEsQ3UqQE6YfVScJlpeuGAELUk+P2vCw+jjFT44tklQzFWAfZNOBUh48Aqmrl
-         LwFgMqVyxtkN2fCktjAxLNinETTq6ux3AM3keJTNzzb0f0AUu+t33A8pGePpt6hvdGAX
-         GugA==
+        d=oss.qualcomm.com; s=google; t=1792074070; x=1792678870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wx21E7trA4uc9e24uzq3Is8WazplAsmPmxUJydtCCrk=;
+        b=OkXhqb1JL6ct8cyRGApA5MPuar/TG+aBWM/h9aL84pyxW1/2wV7Ssasjft02jWjWLs
+         Hw94nW6u67i2Wn2sJLNo9V14RAaN2f33FGiFk9rhJ891pSdLNnCev+sLf0mk+Yg+L60q
+         iBKuQvn0AbO7evkQnnRVNPIUtQWraiWEaHjpaQbRwA/8A888Z024UF43Ut0GmJpx6DhG
+         l0FhBzvoWFMBylex7IW479ywZFe/bZbD26XToxOwXr0jesJUawHXoKy989QpK+hRJvB0
+         +WpZHaKBELkwPGGZdARA6FEojHN15jQGMTnuC3cEiOSxu3jzyVU4CpzRl76XS3s5I/dF
+         LHIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792074012; x=1792678812;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=I8fxzl9R9NonqR3UkCEFDRrhPu6nkInjtd6haYZAzdw=;
-        b=aS6rEBfM8gP/XZRSkZkn+fWR9B4IgVBLVEGgOnCBPekbPzcx9uVX2qDLHjgi374vcc
-         w9hjMRCz+Eh0xkqHOGi0SWoTOrDd84+Oogk5qNJQ11PlXOtnkADs17J/hu21RgDuqu/Z
-         jU5Qe2IJw7ybPIvtLznMYqMWrcyLQ8eauykGN13V3bUuSvnGOeUem0RnUy7l72Kj8oM+
-         56e8Wem48gVuoLPp0mtSD8Xw6I2rr3PBDzn+Uo3C1Y0w/wLfmeMhWptAXx880TJJRDCL
-         v04FwbypoxyOzvgx67QKfIYuu2idNMnQUWJ/ZtaoO2wW08cBmdvI1zrISRD7pp8SES19
-         o1Og==
-X-Forwarded-Encrypted: i=1; AKwUvByDaJx28AH4obMCvgGZZIaUhMd/C86yAzsO/gg4N/z3n41xXfTP6I7Gck0nM0nSo8mEsOj8yRn/UDI6nd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7iJ/iV8xLOdZklLyel3VKXEGPRkDB7GYzb5o1DhzOXpsNUPJc
-	7YJJgKZ605smnE0DTpQUllaBwRfj/BESYVAFJviR17vObQffWkfWhf4eiCIEr4hZEWg+2ca05W2
-	HDgBNao5ndMZuP7YsT1k9YiUoF4gH5NI=
-X-Gm-Gg: AYBFou2Yva7JHidEuBOyCpkT5XKWzxzxP5D5IAilsgIS8awA4aM7BgW/Wh2mODy3YO+
-	bjPFjN1/bSX2UFc+NKN7Fm/L0+EpR7ycg5HZBNTGuIfQ2KM5R/9A+Gf7kTm6VYxfBXvRaPLJpuf
-	wC5hraztjFnMsryuJ7KM89bGADrRh1U1ayqduotnA9x4V5+P2oudUUiP3lkJwt/clqQQLsIGF9p
-	IXjn1VWFqnHbN7QHr9ck7GpdXJZ9XqB6ELu558Fh61Q/lXW/klG3iiQYQLGu7Jfj0oZ7XZOIUhv
-	SvZ8SSTrPmqlK9CHyD+peBh75EKLDNDK3S5W35F0uIlJ2YrurBaWbWLPa8vWIP8tyR8=
-X-Received: by 2002:a17:907:3ea0:b0:c3f:98d4:dfd0 with SMTP id
- a640c23a62f3a-c3f98d4e648mr142302166b.45.1792074011520; Thu, 15 Oct 2026
- 07:20:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792074070; x=1792678870;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wx21E7trA4uc9e24uzq3Is8WazplAsmPmxUJydtCCrk=;
+        b=tmR9jlsemQDaUA6iy1UnWThtYlPYaSCaB4a9x4mgZL9oI11nndAdh80lNx94tp5EDT
+         aRCQRbLllvMTpNUCX/Rhe0qJwYf7vD6qcFFoauufh+zFxVQHoLfE3ky2umKqr8EAlC+V
+         HBZPSdXuCb5Y46YNCcQbtfowk3jr3SSHwvGiJekyP3OGpPox6NY+AjkAY9LIt6/CQ/Th
+         SsrBEOjQPzO/YAk2higwp7R7vfWX4ySYqmlGgYCk3iHh6GWQODTGDlTdwaQBrWsdOao2
+         AyaodWKLqUBApRKf5yAFhDcwE9cheZE5oYB3lrrBNcWFUVQ51YPSE0Yw3zmRTnNx98sH
+         UXuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByY7c+brhVRwOO9ngcNtKUU76N+k5lgJvMQnl7r8PqYM1Z5JlD3tF2tb4LI8Whuj50nGoQFJl8UlLmKz0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvM+vU8+nGzNowC0tU60Dcx6gdn5jC5zM9qpsLuQq2krSASSUG
+	FjZxtYsHTmB5HtrF5K8WV7MN4UxubByY+3gc4O0D4rq5qbKtXeP2eLow3pgQycqh+3L/RvwYNlX
+	rSLzivCNdENSH5BZ6GXS6EJfZKpwkZpemjROQw1EJle5IQ63UuAFi/Yu8JFa2krbW6x8=
+X-Gm-Gg: AYBFou1aRvAt3bqocrVXkm6kBaBdrnyvhEyJqCYYD2uswnoNjmtTjrSWVIt4FS7yjLh
+	VQk52TW3yQL6fnGp0BxkdklzpXuWY6CkEX/N8TSIUQQ5m/gOBLa5EZi/VbquDY2bekHxqVciAAh
+	jNH2AloOHlReKqHlL2qF+1ITuP7BrOisqvvH0scRzZqzkUDaZaFRbhN4C7XGQyUW2rgSMhX0OmK
+	Y1mxXFC1CprjwkdmFUzW69Y/fo4b/ODRqHChNSGh+rAqeOji2tAL0YEM3Q542QgDPTWWzGNC9BS
+	ZFIeQMlOiB0jo6WLr3ZX/6hVXJTjyqCU01TZcXKuiW/HeqWdpJijqtnIUrmBKAsxAYeMNYD3ltV
+	vzqKdD+Xtm7m7Ofch3rH5+Q==
+X-Received: by 2002:a05:6122:650b:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5e91f576816mr4067404e0c.4.1792074070255;
+        Thu, 15 Oct 2026 07:21:10 -0700 (PDT)
+X-Received: by 2002:a05:6122:650b:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5e91f576816mr4067389e0c.4.1792074069533;
+        Thu, 15 Oct 2026 07:21:09 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed6bea942sm131088866b.11.2026.10.15.07.21.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 07:21:08 -0700 (PDT)
+Message-ID: <7a6ef006-cb76-4e4b-bd31-886af708b375@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 16:21:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Thu, 15 Oct 2026 22:19:32 +0800
-X-Gm-Features: AclHuK8Eopw4NagnovXsrD2YLqs4Ei_fvd0nEsjlE6_Wb7YAbvsTTDxRBggZkrU
-Message-ID: <CANypQFbjcxXjiigMCCyErN=DSEh3ZG3NMWRpq=Hic8KJ76cwew@mail.gmail.com>
-Subject: [Linux Kernel Bug] KASAN: use-after-free Write in olq_alloc_dquot
-To: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	ocfs2-devel@lists.linux.dev
-Cc: heming.zhao@suse.com, linux-kernel@vger.kernel.org, 
-	syzkaller@googlegroups.com, r772577952@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] clk: qcom: dprxcc: Add Nord DPRX clock controller
+ support
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
+ <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ZJy154jc5wa5vK7osT3OIpvCMCcAX_tD
+X-Proofpoint-ORIG-GUID: ZJy154jc5wa5vK7osT3OIpvCMCcAX_tD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX6uRu+TJAtySb
+ HjWrkPpAX4K08WlWqeSdXwj8U5oRV40nDWSTf+2XhRjpAmczpGAX2613bP5ZbQfPPF4vEf7s8Sv
+ 3/4SmZ1aK6RZSXuyDjYShraqkkvqh7Q=
+X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0e157 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=2d2XUzBh9Lae0zXQoI4A:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXyhW586b5HZHo
+ bz6+1G8lEC4Le2iU4B6l9Z06A/xyAFDla9LpZDn3dFX93KXqSkLDFYP7c3sSPFv1iRa13iBeSj/
+ Hb01dHq6KeF+s36u3zs+z7rdLEL0N8dfj6CP4ECUDB/KtLLa6I9FNuCpuYYpgR7eJJ7UEgrkQVf
+ poPhB6D/11NoyYmcw3rhOsFdVeAr+UH1C6EDKD7DHAB3RV1et7sWQCTmU11t7SMEeNNrUBJ8j8L
+ Pod6sSdZ0CcG7R02/HyUK5eKPXagjwd29ihh3VFc4Dwgv1iATUiC3qOVzEPF+F/7dsaIqNjN3TM
+ u6LmmCL/TlKRROCKCS2lb318wjANRsD3HfL2FXJ8e8hrIFawE9Yu9OuzANMl1Nibc1C/RByqE5W
+ 4KBw9T2LToNdvAIfvmxy9GVHnQHWNW3I0PTplhjJk8Egy32V9MWBBYRRiPt0AAHz3afnudImxzU
+ 4dwy4Zokxkf9U4I4xuw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
 
-Dear Linux kernel developers and maintainers,
+On 9/23/26 9:21 PM, Taniya Das wrote:
+> Add support for the DisplayPort Receiver (DPRX) clock controllers on
+> Nord devices. There are two identical DPRX clock controller
+> instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
+> audio, AHB and video memory paths, along with core PLLs.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
 
-We are writing to report an issue discovered in the OCFS2 subsystem.  The
-issue is reproducible on the latest version of linux (v7.3-rc7, commit
-24a19b953e2a3d0ea5a8c4951a0ab8f32720c907).  It is triggered by mounting a
-crafted ocfs2 image that has quotas enabled (which needs CAP_SYS_ADMIN)
-and then creating a file on it.  Below is the kernel report:
+[...]
 
-==================================================================
-BUG: KASAN: use-after-free in instrument_write
-include/linux/instrumented.h:41 [inline]
-BUG: KASAN: use-after-free in ___set_bit
-include/asm-generic/bitops/instrumented-non-atomic.h:28 [inline]
-BUG: KASAN: use-after-free in __set_bit_le
-include/asm-generic/bitops/le.h:36 [inline]
-BUG: KASAN: use-after-free in _ocfs2_set_bit fs/ocfs2/ocfs2.h:930 [inline]
-BUG: KASAN: use-after-free in ocfs2_set_bit_unaligned
-fs/ocfs2/ocfs2.h:961 [inline]
-BUG: KASAN: use-after-free in olq_alloc_dquot+0x7a/0xd0
-fs/ocfs2/quota_local.c:1211
-Write of size 8 at addr ffff88806b34fda0 by task syz.0.17/12574
+> +	/*
+> +	 * Configure cdiv 20 for core aud and 11 for core ahb clks of DPRX CC
+> +	 */
 
-CPU: 0 UID: 0 PID: 12574 Comm: syz.0.17 Not tainted 7.3.0-rc7 #56 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x153/0x7e0 mm/kasan/report.c:482
- kasan_report+0x147/0x180 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x2b0/0x2c0 mm/kasan/generic.c:200
- instrument_write include/linux/instrumented.h:41 [inline]
- ___set_bit include/asm-generic/bitops/instrumented-non-atomic.h:28 [inline]
- __set_bit_le include/asm-generic/bitops/le.h:36 [inline]
- _ocfs2_set_bit fs/ocfs2/ocfs2.h:930 [inline]
- ocfs2_set_bit_unaligned fs/ocfs2/ocfs2.h:961 [inline]
- olq_alloc_dquot+0x7a/0xd0 fs/ocfs2/quota_local.c:1211
- ocfs2_modify_bh+0x240/0x470 fs/ocfs2/quota_local.c:116
- ocfs2_create_local_dquot+0x1511/0x1a90 fs/ocfs2/quota_local.c:1261
- ocfs2_acquire_dquot+0x7dc/0xb20 fs/ocfs2/quota_global.c:897
- dqget+0x73c/0xc50 fs/quota/dquot.c:1002
- __dquot_initialize+0x3b3/0xcb0 fs/quota/dquot.c:1462
- ocfs2_get_init_inode+0x13b/0x1b0 fs/ocfs2/namei.c:206
- ocfs2_mknod+0x88d/0x2000 fs/ocfs2/namei.c:315
- ocfs2_create+0x195/0x450 fs/ocfs2/namei.c:678
- lookup_open+0xf95/0x18e0 fs/namei.c:4596
- open_last_lookups fs/namei.c:4796 [inline]
- path_openat+0x6b1/0x1f20 fs/namei.c:5026
- do_file_open+0x203/0x440 fs/namei.c:5058
- do_sys_openat2+0x107/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f3ad6ba778d
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f3ad7b32018 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f3ad6e35fa0 RCX: 00007f3ad6ba778d
-RDX: 0000000000000042 RSI: 0000200000000040 RDI: ffffffffffffff9c
-RBP: 00007f3ad6c4eb3d R08: 0000000000000000 R09: 0000000000000000
-R10: 00000000000001ff R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f3ad6e36038 R14: 00007f3ad6e35fa0 R15: 00007ffe36ca1410
- </TASK>
+Nit: this fits in a /* single-line comment */
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x7f0af21c8
-pfn:0x6b34f
-flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
-raw: 04fff00000000000 ffffea0001acd7c8 ffffea0001d459c8 0000000000000000
-raw: 00000007f0af21c8 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 0, migratetype Movable, gfp_mask
-0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), pid 12556, tgid 12556 (9),
-ts 160210821197
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x205/0x260 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x235b/0x23e0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x209/0x5a0 mm/page_alloc.c:5436
- alloc_pages_mpol+0x241/0x4a0 mm/mempolicy.c:2486
- folio_alloc_mpol_noprof+0x39/0x160 mm/mempolicy.c:2505
- vma_alloc_folio_noprof+0xdb/0x1e0 mm/mempolicy.c:2540
- folio_prealloc+0x30/0x180 mm/memory.c:-1
- do_cow_fault mm/memory.c:6024 [inline]
- do_fault mm/memory.c:6136 [inline]
- do_pte_missing+0x519/0x3350 mm/memory.c:4700
- handle_pte_fault mm/memory.c:6558 [inline]
- __handle_mm_fault mm/memory.c:6707 [inline]
- handle_mm_fault+0x19bb/0x36d0 mm/memory.c:6876
- do_user_addr_fault+0xa7e/0x1360 arch/x86/mm/fault.c:1343
- handle_page_fault arch/x86/mm/fault.c:1483 [inline]
- exc_page_fault+0x71/0xd0 arch/x86/mm/fault.c:1536
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
-page last free pid 12556 tgid 12556 ts 160322719585 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- free_unref_folios+0xd80/0x14c0 mm/page_alloc.c:3022
- folios_put_refs+0x7b4/0x8a0 mm/folio.c:1036
- free_pages_and_swap_cache+0x25e/0x440 mm/swap_state.c:592
- __tlb_batch_free_encoded_pages mm/mmu_gather.c:138 [inline]
- tlb_batch_pages_flush mm/mmu_gather.c:151 [inline]
- tlb_flush_mmu_free mm/mmu_gather.c:417 [inline]
- tlb_flush_mmu+0x3a2/0x680 mm/mmu_gather.c:424
- tlb_finish_mmu+0xf9/0x230 mm/mmu_gather.c:549
- exit_mmap+0x473/0x9c0 mm/mmap.c:1328
- __mmput+0x118/0x430 kernel/fork.c:1193
- exec_mm_put_old fs/exec.c:920 [inline]
- setup_new_exec+0x30e/0x360 fs/exec.c:1400
- load_elf_binary+0xbd1/0x2860 fs/binfmt_elf.c:1024
- search_binary_handler fs/exec.c:1779 [inline]
- exec_binprm fs/exec.c:1811 [inline]
- bprm_execve+0x933/0x15c0 fs/exec.c:1867
- do_execveat_common+0x522/0x6b0 fs/exec.c:1965
- __do_sys_execve fs/exec.c:2038 [inline]
- __se_sys_execve fs/exec.c:2032 [inline]
- __x64_sys_execve+0x97/0xc0 fs/exec.c:2032
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> +	regmap_write(regmap, dprx_1_dprx_cc_core_aud_div_clk_src.reg, 0x13);
+> +	regmap_write(regmap, dprx_1_dprx_cc_core_ahb_div_clk_src.reg, 0x0A);
 
-Memory state around the buggy address:
- ffff88806b34fc80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff88806b34fd00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff88806b34fd80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                               ^
- ffff88806b34fe00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff88806b34fe80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
+Hex should be lowercase, but preferably please define some sort of a bitfield
+that this value is written into and run regmap_update_bits()
 
-Following is the root cause analysis for this issue, note that the analysis
-is performed with the assistance of LLM, but we try our best to ensure the
-accuracy.
+You should also set `.use_rpm = true`
 
-Every ocfs2 node keeps a local quota file, divided into chunks.  Each chunk
-starts with a header block whose bitmap records which quota entries of that
-chunk are in use.  When ocfs2 hands out a new entry, olq_alloc_dquot() sets
-the entry's bit in that bitmap.  The issue occurs because the bit it is
-asked to set lies far past the end of the bitmap, which fits in a single
-block.
-
-The bad bit position comes from dqi_blocks, the number of blocks the local
-quota file says it uses.  ocfs2_local_read_info() reads it from disk at
-mount time and never checks that it agrees with dqi_chunks, the number of
-chunks.  Later, when no chunk has a free entry,
-ocfs2_extend_local_quota_file() works out how many entry blocks the last
-chunk already has from dqi_blocks, and places the new entry right after
-them:
-
-    chunk_blocks = oinfo->dqi_blocks - ol_quota_chunk_block(sb,
-            chunk->qc_num) - 1; ... *offset = chunk_blocks * epb;
-
-A chunk can hold at most ol_chunk_blocks() entry blocks, so for a valid
-file this number is small.  On a crafted image whose dqi_blocks is much
-larger than the chunks can account for, the last chunk appears to hold
-thousands of entry blocks.  The resulting bit position then points
-kilobytes past the header block, and setting it corrupts unrelated memory.
-
-To fix this issue, we can check the local quota file header in
-ocfs2_local_read_info(), right after dqi_chunks and dqi_blocks are read
-from disk.  The two values agree when:
-- the last chunk has its header block and at most ol_chunk_blocks() entry
-  blocks, or
-- there are no chunks, and the file consists of the info block only.
-
-A file that fails the check should be rejected with ocfs2_error(), the same
-way ocfs2_read_quota_block() handles a corrupted quota file.
-
-If this solution is acceptable, we will submit a formal patch.
-
-The kernel console output, kernel config, syzkaller reproducer, and C
-reproducer are available at google drive:
-https://drive.google.com/drive/folders/1apOZQcX2fl3fQYSipzCoQy9HI1PYDwwf?usp=sharing
-
-Please let us know if any further information is required.
-
-Best Regards, Jiaming Zhang
+Konrad
