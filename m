@@ -1,165 +1,174 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49962EA754
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F36C213E9C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075385; cv=none; b=NxDIVvjSlwrEbIyxEmSQQ4JUbEus8OFZEvosSKMPdpOIMRGgCoLnsl+IWHPAz/vVQm9YeWHZFJu8SeSbUk0/bHWyFr6kEnSzcnXyx8fiA7eKYXAuJnv7gdQWlPVuLToZXjSOxsPcpX3LFHt46jU7re37JiiFK0ji8j8wg4sYRYM=
+	t=1792075410; cv=none; b=hp5+IDER6eVVmxSslRySpRNBnCGIN+QekzWl28zs1Xrc2E6Gd3eT0V/Fo8r/3JxVFgLXlGpnMoG4YOyINsn1KH4NtZVJHvty+4ACMPGkaZ4/GTzq1cZhMtJWHk3JupLjQk7qLd/uO6DLgCd1bMOVjHgGjPg9uKkdml8yq3VWlUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075385; c=relaxed/simple;
-	bh=tLbfeLUBRz9kckFa/m+pJGTBBECpJriJUZabU7HaqE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t2A/vggaLWcKzFCOWa5TI9ilK1YrJ4xSglvVaDyg0vnOxoXicAU5pb3G6gtyhF6/6ZzDoNRdRjMi/jElgmJ7CLWFwiwBvfUfv2PnfKxYli0RcXeaWE+PqGq8BNpQfVUoER0PmzrTWpa2yQ8pccONgWHrGBXRSpn4KPl5AzFYFyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V9lFjmry; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CcjR+uWI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792075410; c=relaxed/simple;
+	bh=l1msu6fUGlXDLbzJuF3G7A0YIGm5a6dwtgDp6hECOck=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Il3dwrhMLsf10HeHJKcQMlpbxtHEqO+Ue6U3iYKUAKv4/K6e0qqxyDbSztJthg6mnrX9vXTNvMBTZv9JuVrbrxI2Wm5vfqn9CynQmiorszoP5lS8rU92MXY9fEE0ZLqnAbNaKaifEqKmjt3XU8ILPtwpjLXTMmElTP+nzFxsekk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=fuO3v52g; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=ecx+IkK0; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V9lFjmry";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CcjR+uWI"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jgGA1955865
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="fuO3v52g";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="ecx+IkK0"
+Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FEYhZu856445
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=; b=V9lFjmryGDIEEMKP
-	vvEjKem2E+mBiIQd6HfqM2z+NkWa8HGtwJXTXUwtdMXaS/FOSEfqTL0UFBueok4P
-	DQFAd2uATooAw1dujFnWWtanKvRy6h8utBlCmCVR7u/V+rjimWTFZo0gASV1T2m/
-	44wfIoehgwOv5feAWEp3X21obQdoCUDGZL/mhi5cjeavCGfDxSlG/I7/Bj71KQuN
-	n4d1My6BRqlBxOWNgv59keu/hKBVWGaLOb1W7jQxSpSkmItpgx8HTap+5LjOv6Li
-	udkS+BkPof84ppA1LIhO31yCAkgVwddsW6djJyChwCoC5n10s9xA4Uo/ND0U97hn
-	xqV6tQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdeueb7-1
+	:message-id:mime-version:references:subject:to; s=pps01; bh=r+qM
+	MTrVdByCKG2VkdcgIflOX2Lqg7MaKcwpptJUaBE=; b=fuO3v52gF2kAyaBD4OqH
+	kF2yxgx8lgfNmnAp8fkiW4jSMcvFGHxHWU/4APrXFse7QN+jkDQC6IDScJDoFSvg
+	FL4tFUWwHm2DVTO52SZKkYjMNoXoRXzetlFKlla/Chy/mZclS4sHF2ymi0LbRS3S
+	jWHosz99sj6OuCuaY7a25ygij4MfwL9U1UlV4fOPeU4wznJdP83flU59QpVKHTNE
+	gdhbRJm71XejNeGI2bOEWChqiw71BLaw6FcinesuzNBB1Ig5GT2dCCpqcKYPxP1w
+	b2eMg7uPIghUHcrAXYCKS9OJAXu7tzuOFVtnpllmyrJ4QOEXzOPjifDoH2GGKGyI
+	Ow==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hatthjc7p-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:03 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-915e9e1a5f1so12632996d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:03 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:28 -0400 (EDT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9196b477c4cso1214326d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792075383; x=1792680183; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=;
-        b=CcjR+uWI6PxgvkXAqNRKa/M2S9ZB7Z0zgZ2mYLmhvaAtRPN1jhussYdkkHRC5NlmJh
-         aGEchQvmXM0qkEdA1AsNgtSWQvwPuHH/GQ52eVoOREzKIuuixDnyQrbqRxGHyYeCvsrG
-         9YYnpaHsI9n2ZcPhIxRGHND6SXKj/okErf6Dk8sQpciCbWVLsy3hu5EKwVcLJBuEVZIk
-         Ya98ilEVRH43YDGqcnNUr4ajwPugT5jFOTmRLQkBs8PsWTN/stDSm8QR5FYvSaG55Zsb
-         lnrfwbQypPPFWrikktkktXSOkxDI6Qo3FPAMmsFgZ4ZrFDRNBr0DIG6lxVrqHRwHJ4pc
-         gCbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075383; x=1792680183;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=columbia.edu; s=lionmail; t=1792075408; x=1792680208; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=80tjiWpoCbbPBE3onl4nOGkJVFrI+dWTU+A+MkoKPJA=;
-        b=UywAZLYozxArdPvEgNGUAlHQvexDeK0TDOs2qxzhjk1li9r8iL6xxTZIRy7rqjzWfR
-         nunj/5qv9ML1oi7GP7ptd635EM651X3TbqcHEmcEkuEtVq59hMz9JvW26npPBcjESsLW
-         4ZmZ4sANG9CtcuEN3hlljIej9E7r9QaoqBDRTOrSZIqAcayeaHxe/eBg9kpp7d5pAVQr
-         9xRcaNpb9l9hoDcjS63veYrsLqoz2ub3xfifurAAe8kKV1PegyOQQ6S5xFO2HHOa+oFO
-         WB1DJzc8y2XnHmNMfC+ORWZyWRT9MxOlhsJyxnO5xysWr2S8KigfjJ+RndUYmB65FbB3
-         vtyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxx6CjTaHm87kE/cpWWcMbda+yO/eO8Kf88068od4aMpqQ4fV+z0FZ4gSMzZfvldAIbZTlm6q8mZ0s3DOQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/XHIyFdnVwVeKaYB713u6bQmR7pouPryiFkf7d2H5kN8yQDI+
-	D5ikwzZIdl2dUSc9NDIymeQ6dniCRaVqUExevzQlBlcz2ImAO45Yg6viHwbRGkqxKOgDg5VCeBl
-	0vK1qKyjh3H1oQttfDW32+NQCeFGSJEp+MPmMYsue3gygDQ8bZmtlIWfBwywTgErdb4E=
-X-Gm-Gg: AYBFou2qBF3YpkS2rK7+WUmT01FDDTOnVaxvHzj2YudyauoOQT1P/eR7hL/1M52qhnN
-	do4jDKMy/So1aTY2Dwqv+w+mxcXOFVWOgko0LUxL4J8VhGamVttxr0OE+YY1Gt63A1NKb3jX3WN
-	+c/ocHHE882IAhQPxRw6FWDnw4KDoPHAJl+VBkpJh0oPbl42hEYLmabWAA4F42CBm/wu+McAdhc
-	Unmm20IT4JHaEIH4o/2Qw5HLBsD/wlUmFZjOUi6ntg1lkOFL7xPya+TVH6OWATZ9qRErJ31yURA
-	ofAnMm0zLoahT7TXAmH/hXWLNHZZeKnYmnJR37Ats24CpXsmmz8U1QMDvxFhdZz8QIIjgtD1XvF
-	UZ2/JSch/XhXagOmJOlfVag==
-X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3533923085a.4.1792075382631;
-        Thu, 15 Oct 2026 07:43:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:4613:b0:939:c7d1:7471 with SMTP id af79cd13be357-93ebd228f1cmr3533917985a.4.1792075382099;
-        Thu, 15 Oct 2026 07:43:02 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9f3deb1sm134751566b.45.2026.10.15.07.42.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 07:43:01 -0700 (PDT)
-Message-ID: <aa0aa4e3-6541-4cfb-b947-388c62fd4b72@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 16:42:59 +0200
+        bh=r+qMMTrVdByCKG2VkdcgIflOX2Lqg7MaKcwpptJUaBE=;
+        b=ecx+IkK0Y9MvSy6MZQpSXkrj85cBdtvtGiD+NoqVLZWEQ9ollhKTYpUjp+YygsDq02
+         +3D2SnLK+P4C1V8SyVLFweiptuHvisK1U+P+DDVFuBjEswEyfwzMN/h6WBqdK7e4Za2w
+         ObAKtkOltVQrZE/pqaKJzz0BcGefXEqpyFHFY7GnH8txzmvRM9DLZsYUri2cpQi2X6lg
+         NmVqbxvRtm8M9xIdkmAbwynsbgZ5XELGpYuyHgp17Rb3tUfXZd3mnCMgDNcCiYXfGe2M
+         SKm1rop5M5j38U5/Q6w22lEJax4sJekpFZJt1eiIiUQNYKN5yJdhUKAl639XkEUFCNT+
+         5LaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075408; x=1792680208;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r+qMMTrVdByCKG2VkdcgIflOX2Lqg7MaKcwpptJUaBE=;
+        b=Apui/X/C+uWQ+S1BNzC1jYnEkEo+KFx6pv750/GHcZd6IFyexIaOgIEEP0+S9Rs5w/
+         axdcRQrQ7LJSXjCFlnqbfQOPyFjep31VprSgSx3XLjD0kIxX1RUPHGrTywQ8YTCBUP9n
+         OJzl8E058zjjoTzmvHfHh3SVRZQyGNtFi5FY71h6rVuAj2/sT9LYn86yk4zfRNrUm3co
+         GOEy6xrRLk9mivWPGw7f8RO7iaLMECJ3AvfIf0uF3xpv3uKHdBVgIc5G4QSmAh4dYJo2
+         RNU9R4Jn9IGOqTgBSKst2cNrjUnzhWDoFphpaQ0w72I//k5us0UP1pgpsqe4XpTFGHX+
+         Ln6w==
+X-Forwarded-Encrypted: i=1; AKwUvBwgCSPYnpdKWYRe5KPlmv2LHX+HSEl1bLscbVu38U4Xt781+I7+74GoKzuzMWsPeypvvtCoiAM1yVob82s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrsq4Qovjs1JPLiX+ZYAGVEUeUiCObwuC50a32pFJsQ2prSvR7
+	rW1MBMWzwbiojeMXSv4wPpBXNZfI4HTORbk1fyzozl1tQrS1AE3kxp6Ae+78cGd6Bksjp9pXn09
+	MXMflqUfpgHUGA0i64hhe+UWF8ZbcLKrGT7wRzmdJAT+aae5LgXbgG+ZaSr3V0w==
+X-Gm-Gg: AYBFou2RMNMMnz4xVtFxc+S84ToQpz3fwhxss3y3ecp5a1fImgacPhYccBHlC2weulC
+	8rYuGGCkoxTrOqtn3crtVLGNSc/4zMtUmPmFaiZ0C3XG9r6V7VQ434iCoftBck26caUqvdHerwc
+	DPUICRCPU8wf1HrInhVI2wZmZbmoT3B1bR50ZTtixO3FjuEhASwZ8XvAWyjrLKRYawGC2He7uas
+	wYxA1Nj6J+Hv5fWlxKTN5KGVzg6jtO7H7q7lEHu1jAu3wseqJIjbFvcRHehLWkMMWBq/nnEfgUb
+	MWjwJF8xgnT5SF3KisEO+iK42fcAAf2KTRAh18hpA2t4fVHJA4DKsrpftJOzfkGkoYpqX4vynYr
+	9i0i5ft6lalB7zmNaKle7f9vWaix4uI8TtwykXuERDz0c
+X-Received: by 2002:a05:6214:29ec:b0:919:5e97:76b7 with SMTP id 6a1803df08f44-91bc962cadcmr4703586d6.18.1792075407760;
+        Thu, 15 Oct 2026 07:43:27 -0700 (PDT)
+X-Received: by 2002:a05:6214:29ec:b0:919:5e97:76b7 with SMTP id 6a1803df08f44-91bc962cadcmr4703096d6.18.1792075407148;
+        Thu, 15 Oct 2026 07:43:27 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-176-51.net.columbia.edu. [128.59.176.51])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5f323sm83026476d6.20.2026.10.15.07.43.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:43:26 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Thu, 15 Oct 2026 10:43:14 -0400
+Subject: [PATCH v5 01/19] btrfs: drop the extent maps of the written part
+ of a failed ordered extent
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/8] usb: misc: qcom_eud: add per-path role switch
- support
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@kernel.org>
-References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
- <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260929213513.2401005-5-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0e677 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=foisExlbF95jOuBURZEA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: hk8sH75NxBKwVhpI_iBbDroZO9b2SeoV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX8XZU/uSgqVlx
- EM//0Nmqn/8X/xOvd6C7DRfzJge8zGPNABAm1jtlaJZWzwH4Yb3ZOonUUiL402vQPSAihzRXpEl
- M7or7Z8XCDQ9uaKCHlee3pKwd/npv/mrzGkBnlR511Gsy6AcAuYKDNFlxAOMMqRvvl9d0bSQfV1
- YSjca2NmjnkmvLm2kN3Gi3i2wNKgOe99OgA/a8DuV8+vgmszMvLv+I1Dal+yUvYUiGGfapYWVwI
- 5Hv7Rfcd9k133dKychITRcvj5IcyFdyOriQpaDKSIqOP6EzEepn77xG0KINBRqSzzsksBE82uif
- NQ7MUcoAuwP6/wWiglFbao8XOO9BwuCQUrzNnPQWcJ7F2SeAzg+9icBAJykH9PGUOyuGm06yThN
- QoRFjdJ22HJT8M4et1zpXXFr8YWhr64ufvUv3956bgIXaEGFTnDza6J1vy7kmpF+sS21gCTXw4K
- byo7t5UmB1BrxueogGA==
-X-Proofpoint-GUID: hk8sH75NxBKwVhpI_iBbDroZO9b2SeoV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfXwqk0vK5jFcOj
- 345jDmH1rwgF8RuCQL1G/st0Qy+wjhuJX8u5UIuAb2ULvnGkUAH9YRk5DNHhchDzQned2hVC1mE
- N3s4X8Agq7Ba+pCpGdjeH0C09rw9cKY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+Message-Id: <20261015-btrfs-remove-v1-space-cache-v5-1-6b31347d9998@columbia.edu>
+References: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
+In-Reply-To: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+        Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792075404; l=1368;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=l1msu6fUGlXDLbzJuF3G7A0YIGm5a6dwtgDp6hECOck=;
+ b=DMD8OvzP/ioXtpq5AhK9LPvKupQnfJP46F8KBx2gZrxrFCkp1/9rryjuvXVJdBAUjdyKc0Hbt
+ gsUyAtAEO73Bm6rf2Wcb3sF2CBansT4yC7yQt35VOqMWrDLOD5ptOMC
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-GUID: QU_Ynb-av4NQArU1ipvdgtRqiHw7vLul
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX8C98fZJhZosf
+ yBudyCecPwUIq4ZpekUcPRNaCDeSYz0SB86cLNEbYJPLegB01Ay/YDXjjCh62e1PmXPS8lopxDC
+ Z/lkDWdPlINzpy8qDF9ioWf1XFKKD6IlgKvqmI0ZwuiiIw8G8RRD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfXwzEEpuTpLgsn
+ RZgul1neZkSKAHfNRr1Fe3+ad/PpNsSp4nxfpxUsfXiJFQzaWHX0Mm8o/5ssw2luTMUpMjw1MXs
+ TCzmmRjIszA5OYziITYUn+2Ko9C8TS31BeC+TpRoxoqdGtbCKTc5XSB62kbWYeuDUPtjQxlun2K
+ z2iS4ryr2pXxC/TZcQSD6WQiFoTJOGyoMRKlzaVduc2wps+qgQA1peWYIQMTLoRudZZxZiW/9rh
+ aBL2ivamApTwMkNQaZws/HKI6bdFiBliRWRVPIO14Yr0o3t6yE/Ht8nK1XIeV+TmPvJsdMf0PAs
+ 5oDR9EiN49bIYw34VwI+0VO3lcMA/GJBKYImdhsdMOLtG9SyQlCeXpQdw/BsMqv998h8XgKY4x0
+ 9pbclc0znTbzJ2069FhooquTIWj+Wt0Hk8zBjEVwq14+1872JqqCeQHjA4fPylIWDjqcB+BbL0N
+ uAvdp8HiEoh+inRStGA==
+X-Authority-Analysis: v=2.4 cv=WJvqzXsR c=1 sm=1 tr=0 ts=6ad0e690 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=NKoNGjn6KhAaSQkl0TXC/A==:17
+ a=zFgV0_0DlQRWwMvk:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
+ a=A0y_DWxS2BwA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22
+ a=Qm0qsxP7aFY2tkT6R2MF:22 a=IbTQtsteKuFIr66F210A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: QU_Ynb-av4NQArU1ipvdgtRqiHw7vLul
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11936
+ signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ suspectscore=0 malwarescore=0 impostorscore=10 lowpriorityscore=10
+ bulkscore=10 priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150058
+ definitions=main-2610150057
 
-On 9/29/26 11:35 PM, Elson Serrao wrote:
-> The EUD hardware can support multiple High-Speed USB paths, each connected
-> to different USB controllers. The current implementation uses a single
-> chip-level role switch, which cannot properly handle multi-path
-> configurations where each path needs independent role management. Since
-> EUD is physically present between the USB connector and the controller,
-> it should also relay the role change requests from the connector.
-> 
-> Restructure the driver to support per-path role switches and remove the
-> chip-level role switch. Additionally, as EUD need not modify the USB
-> role upon enabling, remove the unnecessary role switch call from
-> enable_eud().
-> 
-> Reviewed-by: Peter Chen <peter.chen@kernel.org>
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> ---
+If a truncated ordered extent fails to complete, the extent maps for the
+part that was written are kept while the extent itself is freed below.
+A later read can follow them to blocks that have been reallocated.
+Drop the maps for the whole range on error.
 
-[...]
+Fixes: 77cef2ec5484 ("Btrfs: allow partial ordered extent completion")
+Assisted-by: LLM
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+---
+ fs/btrfs/inode.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> +	path->np = of_node_get(np);
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 343b6402bb35..271f6024b72b 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -3390,6 +3390,8 @@ int btrfs_finish_one_ordered(struct btrfs_ordered_extent *ordered_extent)
+ 
+ 		/*
+ 		 * Drop extent maps for the part of the extent we didn't write.
++		 * On error the written part is freed below as well, so drop
++		 * its maps too.
+ 		 *
+ 		 * We have an exception here for the free_space_inode, this is
+ 		 * because when we do btrfs_get_extent() on the free space inode
+@@ -3405,7 +3407,7 @@ int btrfs_finish_one_ordered(struct btrfs_ordered_extent *ordered_extent)
+ 		if (!btrfs_is_free_space_inode(inode)) {
+ 			u64 unwritten_start = start;
+ 
+-			if (truncated)
++			if (truncated && !ret)
+ 				unwritten_start += logical_len;
+ 
+ 			btrfs_drop_extent_map_range(inode, unwritten_start,
 
-This changed because the binding now supports both bindings with
-eud-path@ children and without them. In the latter case, this np
-ends up being the `ports` node
+-- 
+2.39.5
 
-Konrad
