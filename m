@@ -1,263 +1,69 @@
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08AF475350
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A0E49CF40;
+	Thu, 15 Oct 2026 20:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094958; cv=none; b=DJvw49RTmocLcY32aiqnuW9kEwOEkDVGNsUfqrtK75RwNKZPDTT+oiGw1Fz6nskGcj5p6d/PRcEGqdxm56yqzSwjRs5zvOvc5FBdmyARABeDmADO67M5qEkDtL6EWrZ73KN6G98FfaDWKNMnF5BGaLgnnkNzaBVVYNyP0wGsWUU=
+	t=1792094962; cv=none; b=W0TYMDmmZ2TswjGs/7niVdpauEUxHvJuMQe4m4g0iLwk0/TzF2pfUojsWil4HknA1UlrHVB8+RFOF8rfFn4Hm4JWBUsC3+thKemOltTqEKGV0fAY455tguJlEoXy6butEuWTIdEWiZ6bjHuVdTdeR7gOCZ2ZMG8X6UHkDjGMaYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094958; c=relaxed/simple;
-	bh=S/OdhPySBRbmZocD6BWu21RnoGNGWr4Ep2msGIau+qY=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VWPBg4/YLqm7SnuTL3PskZgWPwwR4IS48g3CeIYVHarjqgQXBRSBeuaswuHE7dFiFifdvYSFYnl6uwtfOxXys5uUtO7RMe4CauGY7YUreC97HVamBS1CeXv213WgQIqTcNrBv91P+S4Il1pf4MjMt46o4nhiSY+4BBHMNhCs6mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y+tvPNbk; arc=none smtp.client-ip=209.85.218.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
+	s=arc-20240116; t=1792094962; c=relaxed/simple;
+	bh=StZLTfCM06PzpmgG8QjwUHV4VVWF0ZRZDnJmI2mwxPc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dMMtFXjIGnhV4HoetWQEpFO50ZI2tym+UuGLptLqScHW8hv65t1kupxuCmkOs+ZGqvWVvFDG6xlxF/2WbGGKAaUsnd9a0ueXd5k6FmKqmsCU4+eNS2TpqMfbvEGIml8ucIkaCJqft5880S55OB78m2xah4DQb9DCI4BQutjrS2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N30Z8VsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y+tvPNbk"
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2e2da5823aso321220866b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792094954; x=1792699754; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M5ixsAbdw/m1P57/+3HLK7jfThlRJ+tmwZshst71JoE=;
-        b=Y+tvPNbkVlyJneFdop25sV/6Cc/8fC5jwwBfChBP0gwymk8V8umar8VkOZNf6A2P0t
-         0YpXBtmS/i1IgGdkRcGZoW0uiHy99bK1Z2ESe+n4AfYioa3xC6OIqaJJS9y8xefhihtO
-         5U5VgLGYYMj6TduK1qONgiTupeM8PmpYDwra+IXTz5n/nL5zG89ZkWeyFs4YhC/hWho2
-         xfzfKyze4dE737bgpuIvXmD7Mno4e4Gvdy4DBhvvI6NSNxM/AM5D1q+sFARMHb0Meo/g
-         KZa1aSCbx/FxjbFbpz5YsmkecP+8Ys2lnJQM8tnBIDnbczMHOTYPmvJYCimnsfIkadEA
-         qNZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792094954; x=1792699754;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M5ixsAbdw/m1P57/+3HLK7jfThlRJ+tmwZshst71JoE=;
-        b=jAZAoJ1xH74yOQhmdA9rbF8Exry8EY/EA10c5gUuOXzNo6migWkzyUVwD8cEHiXE+X
-         kryiSEr4ps9YG6oC+Y5agrrqjmFNpCXYvAlNk0sx+PTtPgsPXAWkMDoLF4Ce2LikW16k
-         QIZ67GknvifuiiCzOYrn7D1eZZf3uLLhIdpmztsEHn/wBKJMOsWXY8QDnfQJDoPFPZy6
-         ysh6oGAzTP3ya4W4UfZJM+zUFKrUfdMgK99TPyODj6Q0jZuyqBvcXT4XUnVTWiNNN5bf
-         JXy7PdwY+pkYun9UHLdsHxlVF7i84lj0h2+Ska853tj8F+zQxGte90cQPLyZUCDxZo9b
-         LW3g==
-X-Forwarded-Encrypted: i=1; AKwUvBy78WVYIGOcR+z/IiNQaKCtI/R25P4iExE9A2aId5zZ7e1/T6Jkl0Y4H+ZZki/Hkg/uPtBV9xNtFhbyzxQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpQVz0Efw4JqQCJY3nHzLSQ9gTwgKrXOpxYBzQVbmSHtxuAbVI
-	rGWrSi15Fo7+0eI3RQ5QM6YcqwzHUn+mb+j+NNNfxHpxoREJDrNEiYI/LN2KyKsHkk/eOY8u3Tu
-	bkLqOeFE0p+qQzA==
-X-Received: from ejiq6.prod.google.com ([2002:a17:906:e46:b0:c37:a171:8eda])
- (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:72cd:b0:c40:33d:f06f with SMTP id a640c23a62f3a-c40033df381mr136086766b.39.1792094953037;
- Thu, 15 Oct 2026 13:09:13 -0700 (PDT)
-Date: Thu, 15 Oct 2026 20:08:33 +0000
-In-Reply-To: <20261015200903.2735565-1-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N30Z8VsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05CC71F000C5;
+	Thu, 15 Oct 2026 20:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792094958;
+	bh=p2KcvOIUBC/TdV+Jd24lA75BGETvwbl3FL2EbAgIgK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N30Z8VsCTnzf6hxH6BG1u8McAooOMWav/Xpd0C9OPvtD0rMnvNkMNP1E1MZMcsgBF
+	 2UqQyRZK2RXYXw7V807NlGyS0P6f9PMismFiBGmjuhnCZz5g+6uYXxYSb9KGyiLTaq
+	 0/zh7Md8I7974u3vx/TLGo+jXPU2IZFLxOL9Qa+rKz8z8A8R3F82rBhcwVRK+l14qG
+	 XSnqzUt+v0t+acpvhJx9d9WtI6Kd4oF8p3h/qwwX6EeHqGloL3TtCerzyxelvYm0WS
+	 WnG+6aEwQQw+21PBdvYl/LEpdCT7PjZFYm8vUzlLP4/9l94SS1w9XVMLOHaK+bTni8
+	 yALb+CdLUBYFQ==
+Date: Thu, 15 Oct 2026 15:09:16 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, linux-sunxi@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>, linux-kernel@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v4 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner
+ B288
+Message-ID: <179209495610.2841757.13508054994600042568.robh@kernel.org>
+References: <20261012100816.331033-1-pmazzini@gmail.com>
+ <20261012100816.331033-4-pmazzini@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015200903.2735565-1-smostafa@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261015200903.2735565-3-smostafa@google.com>
-Subject: [PATCH v9 02/25] iommu/arm-smmu-v3: Move Queue and STE functions to header
-From: Mostafa Saleh <smostafa@google.com>
-To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev
-Cc: catalin.marinas@arm.com, will@kernel.org, maz@kernel.org, 
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com, 
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca, mark.rutland@arm.com, 
-	qperret@google.com, tabba@google.com, vdonnefort@google.com, 
-	nicolinc@nvidia.com, Mostafa Saleh <smostafa@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012100816.331033-4-pmazzini@gmail.com>
 
-The KVM SMMUv3 driver would re-use some of the CMDQ and STE code
-inside the hypervisor. Move those functions to the header file that
-would be shared between the host kernel and the hypervisor.
 
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 62 --------------------
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h | 63 +++++++++++++++++++++
- 2 files changed, 63 insertions(+), 62 deletions(-)
+On Mon, 12 Oct 2026 11:08:08 +0100, Pablo Mazzini wrote:
+> The B288 driver takes its mux values from the DT, so allwinner,pinmux
+> becomes an allowed property here, required for this compatible only.
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>  .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 34e916ea339f..101ece0e38d3 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -140,33 +140,6 @@ static void parse_driver_options(struct arm_smmu_device *smmu)
- }
- 
- /* Low-level queue manipulation functions */
--static bool queue_has_space(struct arm_smmu_ll_queue *q, u32 n)
--{
--	u32 space, prod, cons;
--
--	prod = Q_IDX(q, q->prod);
--	cons = Q_IDX(q, q->cons);
--
--	if (Q_WRP(q, q->prod) == Q_WRP(q, q->cons))
--		space = (1 << q->max_n_shift) - (prod - cons);
--	else
--		space = cons - prod;
--
--	return space >= n;
--}
--
--static bool queue_full(struct arm_smmu_ll_queue *q)
--{
--	return Q_IDX(q, q->prod) == Q_IDX(q, q->cons) &&
--	       Q_WRP(q, q->prod) != Q_WRP(q, q->cons);
--}
--
--static bool queue_empty(struct arm_smmu_ll_queue *q)
--{
--	return Q_IDX(q, q->prod) == Q_IDX(q, q->cons) &&
--	       Q_WRP(q, q->prod) == Q_WRP(q, q->cons);
--}
--
- static bool queue_consumed(struct arm_smmu_ll_queue *q, u32 prod)
- {
- 	return ((Q_WRP(q, q->cons) == Q_WRP(q, prod)) &&
-@@ -185,12 +158,6 @@ static void queue_sync_cons_out(struct arm_smmu_queue *q)
- 	writel_relaxed(q->llq.cons, q->cons_reg);
- }
- 
--static void queue_inc_cons(struct arm_smmu_ll_queue *q)
--{
--	u32 cons = Q_POS(q, q->cons) + 1;
--	q->cons = Q_OVF(q->cons) | Q_POS(q, cons);
--}
--
- static void queue_sync_cons_ovf(struct arm_smmu_queue *q)
- {
- 	struct arm_smmu_ll_queue *llq = &q->llq;
-@@ -221,12 +188,6 @@ static int queue_sync_prod_in(struct arm_smmu_queue *q)
- 	return ret;
- }
- 
--static u32 queue_inc_prod_n(struct arm_smmu_ll_queue *q, int n)
--{
--	u32 prod = Q_POS(q, q->prod) + n;
--	return Q_OVF(q->prod) | Q_POS(q, prod);
--}
--
- static void queue_poll_init(struct arm_smmu_device *smmu,
- 			    struct arm_smmu_queue_poll *qp)
- {
-@@ -254,14 +215,6 @@ static int queue_poll(struct arm_smmu_queue_poll *qp)
- 	return 0;
- }
- 
--static void queue_write(__le64 *dst, u64 *src, size_t n_dwords)
--{
--	int i;
--
--	for (i = 0; i < n_dwords; ++i)
--		*dst++ = cpu_to_le64(*src++);
--}
--
- static void queue_read(u64 *dst, __le64 *src, size_t n_dwords)
- {
- 	int i;
-@@ -1817,21 +1770,6 @@ static void arm_smmu_free_cd_tables(struct arm_smmu_master *master)
- }
- 
- /* Stream table manipulation functions */
--static void arm_smmu_write_strtab_l1_desc(struct arm_smmu_strtab_l1 *dst,
--					  dma_addr_t l2ptr_dma)
--{
--	u64 val = 0;
--
--	val |= FIELD_PREP(STRTAB_L1_DESC_SPAN, STRTAB_SPLIT + 1);
--	val |= l2ptr_dma & STRTAB_L1_DESC_L2PTR_MASK;
--
--	/* Ensure the new L2 table is fully visible. */
--	dma_wmb();
--
--	/* The HW has 64 bit atomicity with stores to the L2 STE table */
--	WRITE_ONCE(dst->l2ptr, cpu_to_le64(val));
--}
--
- struct arm_smmu_ste_writer {
- 	struct arm_smmu_entry_writer writer;
- 	u32 sid;
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-index bb048e08d613..8c8957831286 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-@@ -1284,6 +1284,69 @@ int arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
- 				bool sync);
- bool arm_smmu_erratum_repeat_tlbi_cfgi(void);
- 
-+/* Queue and STE functions shared between kernel and hyp. */
-+static inline bool queue_has_space(struct arm_smmu_ll_queue *q, u32 n)
-+{
-+	u32 space, prod, cons;
-+
-+	prod = Q_IDX(q, q->prod);
-+	cons = Q_IDX(q, q->cons);
-+
-+	if (Q_WRP(q, q->prod) == Q_WRP(q, q->cons))
-+		space = (1 << q->max_n_shift) - (prod - cons);
-+	else
-+		space = cons - prod;
-+
-+	return space >= n;
-+}
-+
-+static inline bool queue_full(struct arm_smmu_ll_queue *q)
-+{
-+	return Q_IDX(q, q->prod) == Q_IDX(q, q->cons) &&
-+	       Q_WRP(q, q->prod) != Q_WRP(q, q->cons);
-+}
-+
-+static inline bool queue_empty(struct arm_smmu_ll_queue *q)
-+{
-+	return Q_IDX(q, q->prod) == Q_IDX(q, q->cons) &&
-+	       Q_WRP(q, q->prod) == Q_WRP(q, q->cons);
-+}
-+
-+static inline u32 queue_inc_prod_n(struct arm_smmu_ll_queue *q, int n)
-+{
-+	u32 prod = Q_POS(q, q->prod) + n;
-+	return Q_OVF(q->prod) | Q_POS(q, prod);
-+}
-+
-+static inline void queue_inc_cons(struct arm_smmu_ll_queue *q)
-+{
-+	u32 cons = Q_POS(q, q->cons) + 1;
-+	q->cons = Q_OVF(q->cons) | Q_POS(q, cons);
-+}
-+
-+static inline void queue_write(__le64 *dst, u64 *src, size_t n_dwords)
-+{
-+	int i;
-+
-+	for (i = 0; i < n_dwords; ++i)
-+		*dst++ = cpu_to_le64(*src++);
-+}
-+
-+static inline void arm_smmu_write_strtab_l1_desc(struct arm_smmu_strtab_l1 *dst,
-+						 dma_addr_t l2ptr_dma)
-+{
-+	u64 val = 0;
-+
-+	val |= FIELD_PREP(STRTAB_L1_DESC_SPAN, STRTAB_SPLIT + 1);
-+	val |= l2ptr_dma & STRTAB_L1_DESC_L2PTR_MASK;
-+
-+	/* Ensure the new L2 table is fully visible. */
-+	dma_wmb();
-+
-+	/* The HW has 64 bit atomicity with stores to the L2 STE table */
-+	WRITE_ONCE(dst->l2ptr, cpu_to_le64(val));
-+}
-+
- #ifdef CONFIG_ARM_SMMU_V3_SVA
- bool arm_smmu_sva_supported(struct arm_smmu_device *smmu);
- void arm_smmu_sva_notifier_synchronize(void);
--- 
-2.56.0.176.g3575e65682-goog
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
