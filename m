@@ -1,141 +1,112 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A9C503BD1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC3B4FECE4
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057534; cv=none; b=Ik6w0ZGmRcnAVezKczoKqH4wmaLP9lKgu5g1CDvGkzE8a4y0jsOr+bZjNsgksgo9LIsTic8uSAEb1YR/GwE8vM/VxS6KrSI9hKS0tQFpVHAOh8PSdoIEiu2y6vLX96MxIKMF4dJsRXqGa9K0jilLMKiWRyd/fTxehTfWhq6rKpQ=
+	t=1792057554; cv=none; b=c76/qjCxNmcjD9G5lX7g1g/seO2pVbX1KTEF9rG7lMWr77NkwxYkjxRiEKLIj7DHykdiF0tKJ5+0V8J0lv7O9khKonDlv8GnhS3Nm9QQru/DrK4SS5lsIMrsZXCUH2wtS/TjSWxHrMz4+tMN5g9J1/ipjgt8Yg1YHbHyexlnuV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057534; c=relaxed/simple;
-	bh=7uD671pmVMs/GG7qCtecfsIB9Xednz3DnV7yLyykshk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Meac0Q2oBdZNyTNqa4ZxXOXEZkR803Xazxwis9nWwAqgQ2Hhxo27a165a9B0BABQuofQJOW24HmH9K+Rm1QHtv5ufp37zxA6BS40wczNRoJskmZt0EkNjdLG5RDDllEfnOdPjPrinCpym1toSAc+OkGnqQCCbitjFuRrgVzYWs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=ZznzT8HB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cPVh5N6U; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792057554; c=relaxed/simple;
+	bh=bf/9IynU/TZAaugNj8YxcWTY0Uypv7i19g+dA1h42KU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EeuVJWwlr2ImNFyFbGDPPfpDJW1jjAvpRIPjlXNMl0TsnYmLu+g4XYlg+L75isNOdihQaT7UjyxH3pKNuoYWmzEu6ofTTmZd/3sPmdhFBMKYfPWCLHfyBayPh+e2bhWM7Sj2RGTfbuG3bXr5fB+E8rTKH7dXf2urCt22rQKxnXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FC3sU3dv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="ZznzT8HB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cPVh5N6U"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0FD507A0127
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:45:30 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:45:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792057525;
-	 x=1792143925; bh=r1tzCOkHV5jDjHScMXSBpN7g/AgiibaU0qItNz/gOGQ=; b=
-	ZznzT8HBzk6bqmmI1rvPSALi3WMvqFMheYS+4cu7pgCeNfRF3BO3QpXcNALpEW0c
-	43CJWO5TBCD9vGXpZsZKx0/mPQnBrexT1UGKVpKM5dPOZ2fYE+i+DI8jQwb/uvGJ
-	Tstxqg+y3ZnplBkz+v5bJqCBcHh6qES7En6wjKN8YaDbDd2Lnu5S2gs0IWDkAQkq
-	cgVjVUJ7h4vtoN9+zgnnLZo3wUZBldOCy2TNcBOE9Df8MR0UQ5THjnQwHYTIPdGQ
-	ZH9ZUxBlpDXwnf+hkaVNK1TayNHWbPvISVDhklP3xZXaBOOk1yrQk7OBU2h/Z2e6
-	sJ4rXiP3dEE9/rFP6fwR1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792057525; x=
-	1792143925; bh=r1tzCOkHV5jDjHScMXSBpN7g/AgiibaU0qItNz/gOGQ=; b=c
-	PVh5N6U0jMN/uiCAmBT1yRHM+VnKu2gJjggm5sPGmQwzdBLfbwoSM/z693M8aet+
-	ghC7p2/zQtI6bK7adwhPcMZtoYgSgzeC0aZwpVE/ZfWM18/ESkILcGAXJ60UJqA1
-	Emhf3pV8nxZytnksnYzzA8jNwdsOJlcEds6Lbj2nroLce3isJGidYmDcDe5uwdVr
-	hYYXCKsaoBKLdVl0c9MVxvYiEAPo86myhmir32yZPaRjLjGq4C9w3W53ZjYzi9KQ
-	iO1JQKZFfZi08UfgEHjHQfHIVX/aRbOAUXdwGALrY6GYBAv5HGWLiqoiP6PJxbLR
-	zas26C+72qthTjn4BnNCA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792057525; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Y2TuNqB1mdfCIwMCVySwGprICT4bbatWaam0KQja/vQySN6
-	0qe2yTgK6A+N/uyegPMofbYQA+3rQW805vw89f1+QiIVXsUrCeNhSecg9IjDA+OA
-	L70sBPYIlOH/8QSaYRTrPN7ABGVawb7zVP/l3B+SgywqBepg5RIgzor9vynRMpml
-	escNhqpnWvOokm4ejnYRSG8+K68qz8I02aNjHh1WeSsTxuq1JLAEdamQ6vn0kgRQ
-	4ebKrwkehGJGqiGTw/v17yOpj3QakBTGQzSbsIVqBhh/qarc9ewUfh0H7b9mnIAs
-	osM1p0scS63BhilriVrOnphACEdrAur0OG3AP4w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8V2xEtLHKoxGmPadnIZenC1kE65qORwVnVXR+y5enuI=:7uD671pmVMs/GG7qCtecfsIB9Xednz3DnV7yLyykshk=;
-X-ME-Sender: <xms:sKDQari_DL1nGCfu7E_RDULe9nH0Rdm4t5wrLsbNGaYpadWnG5v37Q>
-    <xme:sKDQai3F2xtwAbg-XvO29Z5Xw0gTH5Eal_W3hNbpK8XQu2wmCma0QA7qhg6dfmJEd
-    eiiQVEbzBP5rBjF00ITW4LfbVLP3D8U89GZRcXe0dL_aO7uvmGLHg9V>
-X-ME-Proxy-Cause: dmFkZTFCCY7MnPrJKPDx8CIW7Q6btopFgmLLsFhNIbGJJZAfC6SzaUN+XTsHmEyFk1CX+o
-    /bn/3s68uUGOisZ0cSJuE+4dXBCQgIjmLDZabv55CP4BXOA++zALU7LmrisJdXboI7tDoB
-    8CsD+PkBUZAAc31CGiX7Q4f5dnwyISKjJ4qqN/kcNDXDtEM9uC0tLEmEDpwHrFzNvBkuQI
-    Yxn810dCgZQgUkMmnKGwpK3SKlxHYeuBVd7c3sH2C3lmro3qXPr/EFryncr4opl9ymMymX
-    QfemNtBeJ8SRUQfGXyi51EZiDQrU4U8XC2Lmc5/FvZi6RtvYtFsaGjQevVNyqSOKPtQMcW
-    7w/3C/p8l2B+C8vEKNT7nP0W8CZ55uPCOxvDNNPxV5BBWB2KwLgl71ormdAvTKQmbk3N1Y
-    yb53SEPLNEYiAd8oOnS+4VjjqzDBjilm/Bh/CYQ+zrrwiHYG8xj2xEY6fNBovkbEZnCtxL
-    AdA30czu4C9PUwjuIWRpkBjuiHdcrkwahCXkMQwj3LE121y6tLNzmSZL6J1MQNewlg6Hcg
-    Otg2vaV6NfPPXRweIgylLc4ez7DXyX812Dv/8MixHxJJaumTBkYAM4XQsI2aDQCOQYWnkj
-    jYHa6o8p4fx2YguprvGSdE1/KloWr4fFuLUyCcoZGLxqBWPhgVSfQhH+mo0g
-X-ME-Proxy: <xmx:sqDQanG75E4rx2atLEB5Gkr3hubb11l4T9bzViq8vMUJnm0zS1ufeA>
-    <xmx:sqDQashlaaSA6Q0nh_PobMdGmHlyEwlVmoSJ-WhxGIEDZzeKfUoHIg>
-    <xmx:sqDQakvILIBfG5DDqruklOqoP1_wcvMmUED4oWP5CtSBiM_FCfDKaA>
-    <xmx:sqDQavsvoeAvZgkv5wKK2AcDEsyjyc9fUGKvYmW6YAWydN5OzLVBPw>
-    <xmx:taDQarqGM04RQDe1Q4d4heAU-9rg0Hx9EPe00b9gslJZV7Y0d0x45zkm>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 70E3832A008E; Thu, 15 Oct 2026 05:45:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FC3sU3dv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A229D1F000C6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792057551;
+	bh=iylgp2BXr6VBsamWkgBFHhiY7im1bWdJuQM7qpur38w=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=FC3sU3dvP/MwaaIMC8rkbDaEMTD60n7Xhme0u7Kc5eTBCR2++BftO10xGrTGnQ46/
+	 pmEmpKJXPgsFV+V7WUdGjt82t3yUjoCUlURKDzVZ114bEpt41Bwzh3iRD7ulLbuEA3
+	 wLPVJUR+/av3RPPqNlLmqI/9YsxVCFW4fWZSm2C1LDgV0nsuACcYLJxW7iz6fs6429
+	 Q87DoM9Hm3Hm5z3XTMO4+cmV1r+815E06jMsFK0ZojwSR5C+zVYhxHScK0cxmW/PhF
+	 lJIMKOi7HWLR99cQFp6ZsVNeoY+zS/t+RsDJI/Z7lsBCKQ3mdYomdPyZ7f4+rk80x8
+	 MQ54/RTqYiiqQ==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso4569218e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:45:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwi1e5jo+hSBkHjUEimrUepKnR+SaF3f+w4LjR8++pyE3yf3iouLMcLZMNnQ7td7R1L6Zhc875q/N4MKTA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBGfnnmuz7aF46jqXbA6PQvVVWFBhSRnNSPhqN4EJdeiVaf7LU
+	JNy2jzSjfleKsaj5vjNhIlx//BdLxvrIHvly7QFIhdScxahlFdfYQ1m+ob9wGfNmnGvZ2RJP9PW
+	XDQcJ6/W6qtkIg94XETAoFujAa74an9yAxTsZ/+cPAw==
+X-Received: by 2002:a05:6512:110a:b0:5ba:4400:6316 with SMTP id
+ 2adb3069b0e04-5bcde6b3f84mr6589387e87.20.1792057550392; Thu, 15 Oct 2026
+ 02:45:50 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 05:45:48 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 05:45:48 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AZUAoEL-p1MZ
-Date: Thu, 15 Oct 2026 11:45:00 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
- "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "David S . Miller" <davem@davemloft.net>
-Cc: "Thomas Gleixner" <tglx@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Imre Kaloz" <kaloz@kernel.org>
-Message-Id: <6ee3bd4f-3563-4e14-a665-df1f766e4710@app.fastmail.com>
-In-Reply-To: 
- <ed61723a01eeeb2e94306de3be3a363974b984fb.camel@physik.fu-berlin.de>
-References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
- <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
- <7334b77c-2ec7-4678-8296-f187e0304f49@app.fastmail.com>
- <ed61723a01eeeb2e94306de3be3a363974b984fb.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 3/4] sparc32: implement futex atomics, with casa detected at run
- time
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Thu, 15 Oct 2026 05:45:48 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
+X-Gm-Features: AclHuK_DRoTvQqNGSxxO90EJCwyosChwhDZVil4bDqYqpp-rSmgf6B3X4m6KzF0
+Message-ID: <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] soc: renesas: Kconfig: Select POWER_SEQUENCING_RENESAS_PWRRDY
+ for RZ/V2H and RZ/V2N
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026, at 11:28, John Paul Adrian Glaubitz wrote:
-> On Thu, 2026-10-15 at 11:23 +0200, Arnd Bergmann wrote:
->> On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
->> > sparc32 has no futex_atomic_cmpxchg_inatomic() or
->> > arch_futex_atomic_op_inuser() of its own. The generic versions only
->> > work on UP, so FUTEX depends on !(SPARC32 && SMP) and an SMP kernel
->> > has no futexes at all; NPTL cannot run on it.
->> 
->> I believe there are existing patches for LEON with CASA that
->> should just be merged, I would not worry about supporting broken
->> CPUs that never had this.
+On Fri, 9 Oct 2026 18:57:10 +0200, Prabhakar <prabhakar.csengg@gmail.com> said:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> I think you mean the series by Imre Kaloz [1]? If yes, he actually
-> implements CASA emulation unless I'm missing something.
+> The RZ/V2H and RZ/V2N SYSC drivers register auxiliary devices for
+> power sequencing, which require the pwrseq-renesas-pwrrdy driver to bind
+> to them.
+>
+> Select POWER_SEQUENCING and POWER_SEQUENCING_RENESAS_PWRRDY from the
+> RZ/V2H and RZ/V2N SYSC configurations so the power sequencer driver is
+> built whenever SYSC support for these SoCs is enabled.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v1->v2:
+> - No change
+> ---
+>  drivers/soc/renesas/Kconfig | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
+> index b7abca4559df..32cd0d9c8758 100644
+> --- a/drivers/soc/renesas/Kconfig
+> +++ b/drivers/soc/renesas/Kconfig
+> @@ -517,9 +517,13 @@ config SYS_R9A09G047
+>  config SYS_R9A09G056
+>  	bool "Renesas System controller support for R9A09G056 (RZ/V2N)" if COMPILE_TEST
+>  	select SYSC_RZ
+> +	select POWER_SEQUENCING
 
-No, I had not seen that one, I was actually surprised that Andreas
-never merged it as we had discussed this years ago when I looked
-at the Leon downstream kernel. I see it is still part of his
-downstream patches at [1], at least the versions from 4.9 to
-the latest (6.13).
+That's implied by the symbol below though?
 
-        Arnd
+Bart
 
-[1] https://download.gaisler.com/anonftp/linux/linux-2.6/kernel/
+> +	select POWER_SEQUENCING_RENESAS_PWRRDY
+>
+>  config SYS_R9A09G057
+>  	bool "Renesas System controller support for R9A09G057 (RZ/V2H)" if COMPILE_TEST
+>  	select SYSC_RZ
+> +	select POWER_SEQUENCING
+> +	select POWER_SEQUENCING_RENESAS_PWRRDY
+>
+>  endif # SOC_RENESAS
+> --
+> 2.55.0
+>
+>
