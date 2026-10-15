@@ -1,122 +1,97 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF7338B130
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077571; cv=pass; b=Q0d7Q4Y3jiZxprG3JXrUcxr67wce2QLiMysVfmjYKHkd8DPdLOTGetMBsGJ65JRTjPXvPXzrCp6m4qSWgkm2NYnlf+aDNCY1uABc3aUZOwSiR7Biu1HWox8cpDRIf+L7W5IAv8QtCe9KJZlw7fD7KGVLRpc7T6s2a1ooaaO+ciI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1E853D9D1;
+	Thu, 15 Oct 2026 15:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792077571; cv=none; b=PC0WtAU9kbMXrpfz3ppEDTI30JmNFAhcFX/93S9m7yHlPdgLIt64nT9KoN8WIaaa3S7vqXOqVDPa9mko5j1UgumK68MqOSdL2sHIdRFR+NO+C8ouBaYJ5W8LjvyV8X+IVzOH3rlr5ykCiVQ1aj9u+ZzKyqSW1FfQBApUdu/xz0Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792077571; c=relaxed/simple;
-	bh=pKuJFFIObsTW8E1vxj5zIM7WjIDHbM6IQyGrRxGOuIg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cyNBNo+fmDgRndrPYLX+nuXyzGaqcY80gjANbxLdRk4CxXJupYVGXAvK53BBNSpWjCbFCJJM4sWAgjUA5Tw8RglNAGHkJugSCPAsNg4xOQQhpbZcG/wJY1vHImW6MdHfV0uFsOFyELbyRShtswniRwY9WWE7aTFRS3WqLLxg3O8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NWSVWed9; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=EZUeNbmpfJYyDpKgx/wfa8dJ6ZCnpjyl7hPuRdP6xRo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BVscDCbJQLSeximwaNOo9xYc7/xygCXC05M+rQZCgXIjJp7REPbMHcA7nDciXCUg9adU+35SmlYZhcwVIU5/d53KD9p+vPYiEqY049dCpCxiLVSVFSD0Iqhz8QOis2m01/Y5NAFPYl9nIAU0fkfiDRaIFmG59n+QXgQSKH567mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e/UvBqAk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NWSVWed9"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6798eb0d190so1642093d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:19:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792077568; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RxX/YgB5EO31wncooKGdI0tI9qzO0JlxnsNj2WfmHB+i/t3cfqtY3VBUcVDCXjfFxR
-         mxNKlLE5+oPslOUxXnv6JU4raudGCX70jJQnZG1Hg51HnArPInkBAr2K9S5+r5XKQgkg
-         rSojA+MaiJPpDHpjxDimkci73PFn51JPRXtIwy+SMZ1NE3912Hw/MloVK2ncQcaEnHST
-         BWI7+wcUXQ+Sr/72LU2UTZIb7i6Ceb9ponVn5NMtljpRrLiWZhXjm/QZawsTBSZnLEOr
-         ff6yB6AFZMkf1sKk5dFj2IiHeSXpx8/1kpCi6KFnHm3pCvJd5Kd0mJSvHRy7d9i/367T
-         fNiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0SPCm5eDdaJD53SeTJrax7D0+CUbBZkE2aADFfA8a2Q=;
-        fh=H356RSeVf/ZWkyPhRuUhGbpa46ROplsBRmJdfwU82ss=;
-        b=Xe3xoWvjlMHejOQ0TU/eJo3viK+HFGK/gdS1STFA9ZtN9VoDBo0vqTJIijY7+9j5gp
-         v3iiQxKOuyIDMRFKg12yia04EfD9aFaABLskp0cDu/PtIESw03PDVuFyL2aR5ItyjFI+
-         ix4mygPVlfkDBm4Il08OL6MKsmVCofIHtEkvSwXfNr5+ufZxobYFqQqA9UjwrU6Os5A9
-         cln+n1zQ9+nJMkfEWSysagYdQ8Ov9DK3d4Bqzi4xZcpKkcdswZUGgdCKY4mSj/W5J5o6
-         b4To1T3sduh/gpAawx373DJZ/YDOjSqCZpo6/obLRgvYs4bNpsKKG0SohpA9I4R1ghMt
-         4qrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077568; x=1792682368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0SPCm5eDdaJD53SeTJrax7D0+CUbBZkE2aADFfA8a2Q=;
-        b=NWSVWed9KFgjH3f2dPhgr7ler/WR0HEQl89IwDckl9+d+cZ1s+Ynesv/wAzEwOmsWw
-         z1JckFWzrbl3S78krvLH285BXVhmjv/8yrEQfYeBJTzWez44hlt7lADATw4+VveaZ9nX
-         iTKrhgO6Oc+5YT9JAbwrQOXV7oOjnG7GRVjXZuaZxeuhafTbymVgTBSD17Pmzju0Z4gB
-         ei8/i6uN80waP5qWFOhUyFPuu9xkV2s6tILDw8uRSF5ikndj97mEekCZF0x6z66Cpcnp
-         AggIQdMHKD2P5rzLu7T0c6Gcjc1AG3nbJxn41iowaDGYWAUMaKoNfEAqSoOjLQWk9QS3
-         kpZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077568; x=1792682368;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0SPCm5eDdaJD53SeTJrax7D0+CUbBZkE2aADFfA8a2Q=;
-        b=ssfF0T+pJsg7ZQgyNt6FiuzzG9CMLPt3eadpfH+MLnjn8/5SNHZMPR9pA2AVNq+Kab
-         uQs2oo7ga6iW+jq+7yWkDMxk8X/6NZrW4qKDRqkLYfXEpc2e8oG2nhc+sU+TSmpKQEPW
-         gONLaXo2dAB8JcGRuWcGMk3arpB+0ua9zIuAIesz7rUuC95/IpITXts7XW75p/GPXqLY
-         YzjUZGhHR2LUct49kad9+6M44m3Dx3/EyHH4mAdpv42xwWAHJ4xgBXKDZYzxVz63ccTV
-         /z7S6KtS0Rjnx3VMZ1yn42ps7tk4ecs6zPu0DrLGM3LTFvw3yxIYlE4HmsbgJo3hlEIs
-         skNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwnbO/7Yxl/9a2+grkGA9nBj5dZggJsVE0vn3z72OWRQFMWEBpbO4Z/HBk8x45mpwxjM7E5GR46vT5b3A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQJOs65oNKImjJX3jaTdfe2dvNNWPjeOPbw1ycGzqKpTVzTxkT
-	VZYJgJaJSQRCmcYDXF4cRqQqJMas+6OBZKd93McJGN0i8p4IW53/EXSSGmkA91usTDdMYK28fev
-	M9qg8z3yY58jjXYDIoPkHE/hGvVR6UjA=
-X-Gm-Gg: AYBFou3Cg2ST5H4gxyT/RqZjO6tjTsCOjNPFFN4eSX6X8MyNLRkJochYmVAlcILirgt
-	c6ZjZCZjZ3aPQWAFW0PuRJGAnv6lfuYhiirOsmOJmo/8NbpcDDlwCJW+bKmuFYYTJ/3PnJ3SfZU
-	kDMlATfyqYakoINrQ/f4n9CMRYLsz5OMiAYbuTg3N9qwak5/bjMM2AWewin9tV2GNGjWMc2Te9W
-	Ksat5LCT1RKXrF5NHorNK2M9GLfY84JsFvoNqWO3OSFrnGS+MIIMyK80VrweHgp0kllKBW+9Z/5
-	fo4SRBQBEbGynSUrGFyb4O6CELBgoieNnklUqS4wAKijwIA45B1uWoAJwQ==
-X-Received: by 2002:a05:690c:698a:b0:891:c494:1a99 with SMTP id
- 00721157ae682-8b07ed49b2emr78442367b3.24.1792077567764; Thu, 15 Oct 2026
- 08:19:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e/UvBqAk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3571F000C4;
+	Thu, 15 Oct 2026 15:19:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792077569;
+	bh=Q4YhG24UUHdygj6VRaqvhrJ15ACDfiSdDeOEIq1CZ1I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e/UvBqAkIn0RbxKqFHJHJksge81HcPiAbt8t0cIwEm3fa98ItFw/aYt3gWwVW4p06
+	 RycX9Yr41lSpvRyFxFU1LDMwMhsetTP8CXsBuvK0+WYEnBXF2MmZaarETqnrvmjCyk
+	 8kmVk62pePQ9rVExMVbuFBHAmJJKTO//BRiGFCBfx0vx2MPP5ZbiZPYLf/e9UwdHFg
+	 hyS/27fJgvlh+D3olBLgb7f4SH7RA4YwdM5pVn7tFJrwiOfyQKl7YGciO5+sGF7xBe
+	 tfM/OTJPgVlmeepUdInjy0cBCMqXgXuZtCaKg7QL9kV3RxRX6GXGgSw1kbnghOm+jL
+	 b/kvrANhEwWew==
+Date: Thu, 15 Oct 2026 16:19:25 +0100
+From: Lee Jones <lee@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v4 1/9] mfd: cgbc: Fix use of negative error code as
+ valid  session handle
+Message-ID: <179198454582.839288.18173091548459871170@kernel.org>
+References: <20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com>
+ <20261002-cgbc-i2c-storage-devices-support-v4-1-eb42e0f1df59@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-9c80f858ccc13b3de84d-v7-fcd8c7aa0e837bf0b036@gmail.com>
- <87zewgcuhy.wl-tiwai@suse.de> <CAFRLqsX6Yz2dv_dV4BvV6_F-16WDWYTAk5ikC9WY7ZySkoJKUQ@mail.gmail.com>
- <87qzhrmnz3.wl-tiwai@suse.de>
-In-Reply-To: <87qzhrmnz3.wl-tiwai@suse.de>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Thu, 15 Oct 2026 23:19:16 +0800
-X-Gm-Features: AclHuK876HwHtGIkGUp_g_PYTFsJH2TdNPY_O1Ztauu_w9Y_Sayq96gfdd5293s
-Message-ID: <CAFRLqsUgiNEGPhfnUhTaSRjDKKo_7vc-gvyif=wyn1c2YTuRtg@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: pcm: Unlink substreams before releasing them
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, phucduc.bui@gmail.com, 
-	cezary.rojewski@intel.com, cassiogabrielcontato@gmail.com, 
-	kees+treewide@kernel.org, yilinzhang@moonshot.ai, sammiee5311@gmail.com, 
-	kees@kernel.org, thomas.weissschuh@linutronix.de, tglx@kernel.org, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-cgbc-i2c-storage-devices-support-v4-1-eb42e0f1df59@bootlin.com>
+X-AI-Review-Draft: <20261002-cgbc-i2c-storage-devices-support-v4-1-eb42e0f1df59@bootlin.com>
 
-Hi Takashi,
+On Fri, 02 Oct 2026, Thomas Richard (congatec GmbH) wrote:
 
+> The cgbc_session_command() return value was directly cast to u8 and used
+> as session handle without error checking. Casting a negative error to u8
+> produces a valid-looking session handle. So check if return value is
+> positive before to cast and use it.
 >
-> The patch I submitted yesterday is such an attempt:
->   https://lore.kernel.org/20261014141212.316223-1-tiwai@suse.de
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260713-cgbc-core-fix-cgbc-remove-v1-1-79274ad62b3a%40bootlin.com?part=1
+> Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
+> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+> ---
+>  drivers/mfd/cgbc-core.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> Unfortunately it couldn't be reviewed by Sashiko, as it's based on my
-> latest tree.  And now I noticed that there is still a potential race,
-> and fixed now.  Will resubmit v2 patch.
+> diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+> index 2becaf797646..4a409234e66c 100644
+> --- a/drivers/mfd/cgbc-core.c
+> +++ b/drivers/mfd/cgbc-core.c
+> @@ -103,7 +103,11 @@ static int cgbc_session_request(struct cgbc_device_data *cgbc)
+>  	if (ret)
+>  		return dev_err_probe(cgbc->dev, ret, "device not found or not ready\n");
 >
->
-> thanks,
->
-> Takashi
+> -	cgbc->session = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
+> +	ret = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
+> +	if (ret < 0)
+> +		return dev_err_probe(cgbc->dev, ret, "session handle request timed out\n");
 
-Thanks for the update. I=E2=80=99ll take a look at the v2.
+As previously requested, can we make this a bit more user friendly?
 
-Best regards,
-Cen Zhang
+"Failed to start XYZ session"
+
+> +
+> +	cgbc->session = ret;
+>
+>  	/* The Board Controller sent us a wrong session handle, we cannot communicate with it */
+>  	if (cgbc->session < CGBC_SESSION_VALID_MIN || cgbc->session > CGBC_SESSION_VALID_MAX)
+>
+> -- 
+> 2.53.0
+>
+
+-- 
+Lee Jones
