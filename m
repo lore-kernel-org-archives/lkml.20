@@ -1,111 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE40B3EFFA6;
-	Thu, 15 Oct 2026 13:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A720527594
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070562; cv=none; b=TU2Ax4Ygze9aPpr0Ku9lL1KCRlZbZEyYPOkQaBJsgB+d0ZAg016CsJ5+1JC8ePXuCXKY04zL9HUvR8wKCJxAB3ZSw8dyk0tk+h4okv+PePnU2vY9AZwxA9ja/brHwU5OUvpcDhXJ2YeWDrLGmrEwCUbX19G9Py9XuhEXjabUoFM=
+	t=1792070570; cv=none; b=eFJSBRvl92yahRU6cFN1fEfnork+AC5r6L6r7nESQcaEeXK3v66CVxZdgJ7ORaGrSn52ItieV6dxwtil2Zpzv5sOBLVZLasBwKxRJoRXhiJ+/c6yj/TZaeyIaMYf57Ch5E8lO6waE/JVfOCQPeLmHwE3swgrUOYMV07mib9xbu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070562; c=relaxed/simple;
-	bh=IXlVNMDkpK0+fZ4y8gNuDI1b+nRai2Bib1MjbJiOSTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PnVv/e02Ho7fSceaBNkqIvgvDR9WEinH8+CZtsE8RS2C044N5dio9UYpkCJ0LMQvjFemOZ1CR7f2y/y9VZU9YzSgJp1o8iSEgcrmr2vqdmcn6ltZyFCxJRLLSm3QILuLMheUX4jDC1dMgfrkbYjWU5XrTYdwOCJFZF3oKGRgCn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IOfDvkpe; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792070570; c=relaxed/simple;
+	bh=vlGf1T13Z+dYbNgaE76AaMl6XNAcJozRNF/jbJktorc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JzN7RkNl9kgFZlVLK/6gqGua9wU15k0r0yVZdSnkCRs9rXRbAMhm7N9YvGBL1QLsdYCZhn50+LvE1UvkXf+g8mgRx6bQicLHxpkfGTLU51mamIuU/jfz7I0udfxdKQcc2wKSKxzDP2i3cJTev/Cadr9/AzVkDBs9hLvY1iBVFlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBRqmuWK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IOfDvkpe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792070561; x=1823606561;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IXlVNMDkpK0+fZ4y8gNuDI1b+nRai2Bib1MjbJiOSTk=;
-  b=IOfDvkpeJBoFLWC0eSprE0VlbP4tf71qVDAAL0us0mObKwFokhPuLCYV
-   xlY7touIsLei4AUV12O2paBOIvVuMkPkj2tTihf+Ifotsf9TW8syYSF09
-   Fw2hlWicBiuIp6tZbIZq4y0JM01D5NrFAjfQrMNj0eql5FWxgBd6tnt+n
-   KSBrmd/gjYVQNCZs2ODbo3Ip97cKW8T1v4XGXlhYR7SrIdaKDqbodjFkz
-   KvippXyx0jW3BxWvCcmXEMAGOHTT0eJ0Ib4BqVLpnuIDaTz4gC5TItSfj
-   xwPm7x7o0QmWndVaKZxW5fxcfr38bgEBas3oW8LKezinAEk5Gw2gyWGLM
-   A==;
-X-CSE-ConnectionGUID: ICbIEr04TbCizcJatjn6yA==
-X-CSE-MsgGUID: 5SEWSCGzSVKbB3fv25IKUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="870429"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="870429"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:22:41 -0700
-X-CSE-ConnectionGUID: 2wjwuFS8S5GhOWuEL3J+tQ==
-X-CSE-MsgGUID: YrQLcR/uTtSgUIOFoTCGoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="2018679"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 06:22:38 -0700
-Date: Thu, 15 Oct 2026 16:22:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
-	Kurt Borja <kuurtb@gmail.com>
-Subject: Re: [PATCH] iio: adc: ti-ads112c14: add gpio support
-Message-ID: <atDTmxEp2KmTRUYf@ashevche-desk.local>
-References: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
- <arom9T0azKX9jV5m@ashevche-desk.local>
- <f4ddbc02-1fdd-4205-b511-fb39329fa5f3@baylibre.com>
- <as46JtMAij8yqcVQ@ashevche-desk.local>
- <f8b97c1c-7dae-4eea-9d64-c2c81ab4ef49@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBRqmuWK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6252C1F000D2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792070569;
+	bh=vlGf1T13Z+dYbNgaE76AaMl6XNAcJozRNF/jbJktorc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=dBRqmuWK2zLSWCkxNYW4OJpTwQKNTpkvCo/jQ6lhgNv16UISJugG6g32QJlrd5pDg
+	 Kwh5BEcx/Yrkl/ijOrJZWHJp1BvPWy03JD1CB3fRjV3oITasnByLO4Dkv/p9BqWJ7W
+	 YBg87zl7utcTaj47KB0Zvr1dD6GZJBc2mbUp0kBvwwgsRByrJchFu09zzjsLogM46G
+	 1A+ZiCP64ZT6DdgUU4KZe6wqWqafdrjpYtJPYzgeFB3RZ9dHRKYnyKT+O8eMe4kHrm
+	 PyiL0LQErfqQmH0g+6iIop1zb0MtNLx/2wp+POz8N6/nIqgVSQ4N62zYl9cooV3l54
+	 2Glt1U9KKXKSg==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so54064681fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:22:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzQ+2YUqFasY4DGFO8zrgTZBlKr0qsVW6BStippdmxgw8bp6OHe0FQEZ4hPaoJh/Gnh8pUgapldP3CHlEs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINHWfmzuu/akeJzYlbPkocno/jLSRu3tIWKbph2e2BLt2ZvMUD
+	CK9YqZd+AlZC3xryRDci83ktX+LMsnQW+7eOqiurTSVk4tVTGwALSbDru9UM4Tuc2i2Widb/fGc
+	BTvns9HU0pvXU4IkjwYLeReLIYKY4y28SGqYlLQSVog==
+X-Received: by 2002:a2e:bc23:0:b0:3a5:af50:bc99 with SMTP id
+ 38308e7fff4ca-3a9c5354501mr44082971fa.13.1792070567993; Thu, 15 Oct 2026
+ 06:22:47 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 06:22:46 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 06:22:46 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f8b97c1c-7dae-4eea-9d64-c2c81ab4ef49@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com> <20261014-b4-nvmem-efivar-v1-5-187c85f65018@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 06:22:46 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeDZZjDzCOwqyK5cKOuTz3zOScNS20NS+D8j2bEk=B6MQ@mail.gmail.com>
+X-Gm-Features: AclHuK8xL2vil4lfhLkzbT6CatB4Oy4PBPKqe80Zw3U5zHMs29jaaQ8CTSEyqXY
+Message-ID: <CAMRc=MeDZZjDzCOwqyK5cKOuTz3zOScNS20NS+D8j2bEk=B6MQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 5/5] arm64: dts: qcom: glymur-crd: Source MAC
+ addresses from a UEFI variable
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath12k@lists.infradead.org, Srinivas Kandagatla <srini@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Jeff Johnson <jjohnson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 08:00:04AM -0500, David Lechner wrote:
-> On 10/13/26 9:03 AM, Andy Shevchenko wrote:
-> > On Fri, Oct 09, 2026 at 06:04:21PM -0500, David Lechner wrote:
-> >> On 9/28/26 3:36 AM, Andy Shevchenko wrote:
-> >>> On Fri, Sep 25, 2026 at 04:50:47PM -0500, David Lechner (TI) wrote:
+On Wed, 14 Oct 2026 15:02:43 +0200, Abel Vesa <abel.vesa@oss.qualcomm.com> said:
+> Add an nvmem-efivar provider exposing the "MacAddresses" UEFI variable,
+> carrying the Bluetooth BD_ADDR (bytes 0-5) and the WLAN MAC address
+> (bytes 6-11), both MSB first. The variable is looked up by name, so no
+> vendor GUID needs to be hardcoded.
+>
+> Wire the bd-address cell to the Bluetooth controller and the mac-address
+> cell to the WLAN endpoint (pci17cb,1107) via the standard nvmem-cells
+> binding. Until the variable is provisioned the cells read as zeroes and
+> the controllers keep using their default addresses.
+>
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
 
-...
-
-> >>>> +static int ads112c14_gpio_init(struct iio_dev *indio_dev)
-> >>>> +{
-> >>>> +	struct ads112c14_data *data = iio_priv(indio_dev);
-> >>>> +	struct device *dev = indio_dev->dev.parent;
-> >>>> +
-> >>>> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
-> >>>> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
-> >>>> +						     dev_name(&indio_dev->dev), i);
-> >>>> +		if (!data->gpio_names[i])
-> >>>> +			return -ENOMEM;
-> >>>
-> >>> Wondering if you can utilise devm_kasprintf_strarray().
-> >>>
-> >> That uses "%s-%zu" internally, so would add a "-" where I don't want it.
-> > 
-> > What's the problem with a dash?
-> 
-> I want to match the datasheet pin name.
-
-I see. Sounds like we might need something more universal for
-devm_kasprintf_strarray(). (Yeah, I understand that that is out
-of the scope of your series.)
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
