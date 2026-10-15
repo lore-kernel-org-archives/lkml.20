@@ -1,168 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5633F1A682C;
-	Thu, 15 Oct 2026 17:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52173D9DCC;
+	Thu, 15 Oct 2026 17:07:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792084019; cv=none; b=g7yxjCiPad6z4D8koVmciMHelqXMEnURdUqNZikEjmBz8S9oXEd8md0msByVM7CIsTeCWJ4F29WIJh0WIuo8jtFA5UZVLOXQ9CYam/P3q7EwmOYnVdJr609U1jdFQmYGfcQZOomxVJiAO96sGTNNqRZEqd0UtnzEc3ffoEDG2y0=
+	t=1792084037; cv=none; b=Mz2tf1Xla8P76zzu6YykkGp7Sx82rTG3y1r08tEhyFKxCxEo8OH8nau6gwefVRxNqdU4uyS4ec3JameJgUdJQOqeYU3zixKWZyCwo76SK3sj9jhyvwvv0fKQJgkHztMXM64PeL/vDw8y1bMBZONcFBPq1Jl+Qb8aD0+i1McOCho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792084019; c=relaxed/simple;
-	bh=iT2B5mF8h/diXDhOTTXMHv6YR9hN1Osy2q0hy279a9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JLaxZRLtPFrfDs3IfozHNJ5tm7DLf9Er5kuX+zv9sN/fNN+VoViKgBPr5Z4nl5xyA22+yUZR1nlHZEJt7DlJv4BlhilEuILusRrF93tfi89fEtuAjkh6lmsdnCaDbLZfpq5NmzQ1D9xnnZ5/X13ipVnV9Fm0LdAv/ekLKSjDhj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gy190T5n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792084037; c=relaxed/simple;
+	bh=knm5sTGCsL01TnJ4ZhNaEWkpxU4c/0Sr70AV9htyH1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dViOQS4E40563W9Pgei7nU1Muhxc3boAIIyICtEV5VePcfb5o/ipfMC+I526Ir4lFq7oCe1mKzjEjIb9BxmnWKwERP7N8sVzvB9R89RfV+dFfcYBqET9R/BiK2nbROqxQHSmZIc7z+ZsCqq0SLqg4f29q4kYHj6yuKapcxFmGFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGdB/70J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gy190T5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E795C1F000C4;
-	Thu, 15 Oct 2026 17:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGdB/70J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08EE51F000C4;
+	Thu, 15 Oct 2026 17:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792084004;
-	bh=7LXdRQVlo+IatrPNbHoxpTkbcPjG0UJKxCqYwZdOL7A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Gy190T5n7j/eSNsWvMCBMXgvO43SgReR9YRJtON05MQRmA7z5KngeBn2QTdzCW5up
-	 7FhTQbVkxI9hMVCYHkszjKH39uH+k7AdESi60gzWvZUQAgLlfztYt1ccUM37W5y57J
-	 5HfZVhoslyJetRVNrB2zYbDbr/KNGv1Pd3HDQEIR5zVl/aNkWwhaeSQ1EIvWbI9Yd+
-	 59BoHtMqjlfbMTP9YF3s2IAdegRe+8hLJigkUSo0qbUM1uPPzi9It5pJ9EocphO9UJ
-	 4G84mfqYr1oVDUj4YwtJ1dR7mq+HALdBybfsKuW6bExYCtbHIMxdlgIW1gFgouPCLZ
-	 Mvl6rlkzUg6Fw==
-Date: Thu, 15 Oct 2026 19:06:39 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
- rdunlap@infradead.org, mchehab@kernel.org, paulmck@kernel.org,
- linusw@kernel.org, Julia.Lawall@inria.fr, gary@garyguo.net,
- rmk+kernel@armlinux.org.uk, hemanth.selam@gmail.com
-Subject: Re: [PATCH v3 1/2] docs: kdoc: handle TRACE_EVENT_FN() family in
- tracepoint parser
-Message-ID: <20261015190639.7b722dd7@foz.lan>
-In-Reply-To: <20261015164524.14066-2-emmaonana18@gmail.com>
-References: <8733u7t8xq.fsf@trenco.lwn.net>
-	<20261015164524.14066-1-emmaonana18@gmail.com>
-	<20261015164524.14066-2-emmaonana18@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=k20260515; t=1792084027;
+	bh=VWkfSRkT/w+lVOCbl0O97VWBKRGnrtBmH8DzMAgCTEg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fGdB/70JJ8gmWqUnw6NDgZZ0goLzwn+lUJEbTuIRQbKApZ3NQMoGeOiGaqEMwookG
+	 sEV3RBeT7uhuIPufi6BCW074FrQKPCFa/KBM/uWgpW3eAXy2ZYNROEqxOR8cIdxqB2
+	 95yjEP57Ppofbe+skjxT0bYMkBjt5W1FvDOWeE9wpMA9KaTug0T0cGvfFino6k4hS5
+	 hBr/4KzMyTH3JpbZf63/6IwRXxzyP2hMXrVdQo2gdjUqpwxJY8c9E5OHut6/5qD2dS
+	 ZhbXr6WDezUHCz3Y0MTxYRG4i4ALxkVof/YGLk3M4eZgQP+Upx3MhmYOLxBfpTgvy6
+	 801XU3qsxQZWA==
+Date: Thu, 15 Oct 2026 10:07:06 -0700
+From: Kees Cook <kees@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Brad Spengler <spender@grsecurity.net>,
+	PaX Team <pageexec@gmail.com>, Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next net] netdev: Hide the netdev_priv() origin from
+ GCC in netdev_from_priv()
+Message-ID: <202610151006.E2F587A60@keescook>
+References: <20261015165959.i.798-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015165959.i.798-kees@kernel.org>
 
-On Thu, 15 Oct 2026 17:44:47 +0100
-Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com> wrote:
+geh, for the subject "net" and "net-next" glitch: I've poked my 
+subject-building tooling again, this should be for "net", not
+"net-next"... 
 
-> kernel-doc fails to parse tracepoint declarations that use
-> TRACE_EVENT_FN(), e.g. gpu_power_status:
-> 
->   drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
->   tracepoint format ...
->   ... expecting prototype for gpu_power_status(). Prototype was for
->   TRACE_EVENT_FN() instead
-> 
-> tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
-> kept as the prototype and the TP_PROTO() arguments leak into the
-> parameter list as garbage.
-> 
-> Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
-> TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
-> TRACE_EVENT() and list them explicitly at the call site in
-> process_proto_function().
-> 
-> Add a regression test for the gpu_power_status declaration.
-> 
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-> ---
->  tools/lib/python/kdoc/kdoc_parser.py | 18 +++++++++++++++++-
->  tools/unittests/test_kdoc_parser.py  | 28 ++++++++++++++++++++++++++++
->  2 files changed, 45 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
-> index 80d4245acd17..a65bda3e81b9 100644
-> --- a/tools/lib/python/kdoc/kdoc_parser.py
-> +++ b/tools/lib/python/kdoc/kdoc_parser.py
-> @@ -1545,6 +1545,22 @@ class KernelDoc:
->          if r.search(proto):
->              tracepointname = r.group(1)
->  
-> +        r = KernRe(r'TRACE_EVENT_FN\((.*?),')
-> +        if r.search(proto):
-> +            tracepointname = r.group(1)
-> +
-> +        r = KernRe(r'TRACE_EVENT_FN_COND\((.*?),')
-> +        if r.search(proto):
-> +            tracepointname = r.group(1)
-> +
-> +        r = KernRe(r'TRACE_EVENT_CONDITION\((.*?),')
-> +        if r.search(proto):
-> +            tracepointname = r.group(1)
-> +
-> +        r = KernRe(r'TRACE_EVENT_SYSCALL\((.*?),')
-> +        if r.search(proto):
-> +            tracepointname = r.group(1)
-> +
->          r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
->          if r.search(proto):
->              tracepointname = r.group(1)
-> @@ -1604,7 +1620,7 @@ class KernelDoc:
->                  self.entry.prototype = self.syscall_munge(ln,
->                                                            self.entry.prototype)
->              else:
-> -                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-> +                r = KernRe(r'TRACE_EVENT|TRACE_EVENT_FN|TRACE_EVENT_FN_COND|TRACE_EVENT_CONDITION|TRACE_EVENT_SYSCALL|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-
-The best would be instead to move all of them to xforms_lists,
-together with SYSCALL_DEFINE.
-
-Regards,
-Mauro
-
->                  if r.search(self.entry.prototype):
->                      self.entry.prototype = self.tracepoint_munge(ln,
->                                                                   self.entry.prototype)
-> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-> index 4baa78ca02b3..04dafae412e4 100755
-> --- a/tools/unittests/test_kdoc_parser.py
-> +++ b/tools/unittests/test_kdoc_parser.py
-> @@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
->          self.assertEqual(entries[0].name, "debugfs_cancellation")
->          self.assertEqual(entries[0].warnings, [])
->  
-> +class TestTraceEventFn(GenerateKdocItem):
-> +    def test_trace_event_fn_declaration(self):
-> +        source = """
-> +            /**
-> +             * gpu_power_status - called when hardware turns on or off
-> +             * @dev: pointer to device
-> +             * @shader_bitmap: bitmap
-> +             */
-> +            TRACE_EVENT_FN(gpu_power_status,
-> +                TP_PROTO(const struct device *dev, u64 shader_bitmap),
-> +                TP_ARGS(dev, shader_bitmap),
-> +                TP_STRUCT__entry(__field(u64, shader_bitmap)),
-> +                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
-> +                TP_printk("%s", __get_str(dev_name)),
-> +                my_register, my_unregister
-> +            );
-> +        """
-> +
-> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-> +        patcher = patch('builtins.open', new_callable=mock_open,
-> +                        read_data=dedent(source))
-> +        with patcher:
-> +            _, entries = kernel_doc.parse_kdoc()
-> +
-> +        self.assertEqual(len(entries), 1)
-> +        self.assertEqual(entries[0].name, "trace_gpu_power_status")
-> +        self.assertEqual(entries[0].warnings, [])
-> +
->  #
->  # Class and logic to create dynamic tests from YAML
->  #
-
-
-
-Thanks,
-Mauro
+-- 
+Kees Cook
