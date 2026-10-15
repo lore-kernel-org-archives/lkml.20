@@ -1,79 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178484848BA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4601446066;
 	Thu, 15 Oct 2026 09:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055028; cv=none; b=eoRLplfJRb8Zl7cW0TQTpfrNueFU0MANVrtuX3MiU57h+eEAuzgyJ/EK80DFHuVFgGlwPRlqrFofXPv3VjWJjEecMbvctQ/c9WEcnx9eashu/QiyFN+MXoyGct/OmN/c3DMf2EFpIz09NSVA7vxB3MXAvZ7zIG5halOLdtJMxvg=
+	t=1792055028; cv=none; b=QF97EUKggwhwfXz3R8rCo/2auL2m+gN3/Wetj5A18cfqfEKNySi6SMDCoCE1iV97waGqUZWr2Vgnj5wa7IGy8UdYg0ke92Ce1LeYnWg+bCIPr85NX0TTgh3Cs66JrWeNv0ymzwsQBYvfD+6De3N6Vkijrko1LVPhvhCcLWHjFB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792055028; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eAgq2tkUGpX2sXbCrVrbFldVJLTIC0Z8IydUb5dleEgsj4uOvvsrzdZf/v0bSgq07RlrUn/3m3amXsHQ8RGT7zBtALp3/PrrBpPQENMkdHG3KAwLe9qlZ9W/71PYNaLbWSNHo/9SVBhn6z/ey2G4ArxfAOTO3VVd9sTyfNdKuI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeoC8Fk/; arc=none smtp.client-ip=100.103.45.18
+	bh=nfW463iS39OcXMk0BFD5ncJCzs2x1uUmGlp9Vf50HwU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ahYKk147lAf0De4c8AePIF2vBDlm6wtcyxdVt8/sKhWYoMMoU4U1lf70fkplgqJvhKX9CcsrNge9SMGooLloo+SvoWfT1/vnjHJmE4Btq/oLa5CiB17heDhzUD7TFgTf7siW44p/ZoBZ7by934gfIYWhVFDikar7CXP2dUj2bZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=KLs3aO0/; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeoC8Fk/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A1B1F000C4;
-	Thu, 15 Oct 2026 09:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792055026;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oeoC8Fk/hvQ75AsycJvkVMkByhxPIzupidqzUKlM5YkuPP7Im9rU+E0vjw0NLUVRh
-	 uHwRejb21YIek9RyrZ06ccGG4fXjYIbDKBTPLWmwhbI1ieEs4SJrzPag2u85jTk+a8
-	 n3RHq0uEDda9gZH9hoG10t8nA3S5wGc82Z0pjFPDPCfzjoUvIeFKL9uBqGb8hlKI93
-	 3BeWK2GntPdT4cpIaqN2Fg7OENazzoK8hlPJbeZxX9firOeegdheCuXiH+LH5eOslk
-	 Z8soc1wbDejHkdebEClyl+hRMWSZGz/6VQ4+hu1jdpKNt/lIYQZrp7kxqMQLVeFsSA
-	 flLlbHVOUFZnQ==
-From: netdev-bot+sinfo@kernel.org
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Gal Pressman <gal@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
- Moshe Shemesh <moshe@nvidia.com>, Roi Dayan <roid@nvidia.com>,
- Saeed Mahameed <saeedm@nvidia.com>, Shay Drory <shayd@nvidia.com>
-Subject: Re: [PATCH net] net/mlx5e: rep, Fix races between devcom PAIR event
- and uplink close
-Date: Thu, 15 Oct 2026 09:03:45 +0000
-Message-ID: <179205502546.408196.15852916239937447709@kernel.org>
-In-Reply-To: <20261015085744.1109107-1-tariqt@nvidia.com>
-References: <20261015085744.1109107-1-tariqt@nvidia.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="KLs3aO0/"
+From: Frieder Hannenheim <git@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1792054682;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eGRpZJBqdOwXw3LlAmdtItXl+llUR8M2qznkzrrhFX4=;
+	b=KLs3aO0/mTJB7TlFmIEw/TqslH/vrRSBHCmOzsz6sxSOVR9JsXWjefPY4iF5XYdv+NQnVx
+	zfabjzZFUPWzhUcRG2I0tsuOvwivEb17s3troKpQosydmdPRhLAswaxmPS83mkAiv2W+9L
+	3pOJgIHXr+qiWUUkgRLjZVdqZ3Wb0NY=
+Subject: [PATCH 0/2] Add OnePlus 8T
+Date: Thu, 15 Oct 2026 10:57:25 +0200
+Message-Id: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHWV0GoC/yXM0QpAMBSA4VfRubbaaCteRZLNGYdCO0jJuxsuv
+ /r7L2AMhAxlckHAg5iWOUKlCbihnXsU1EVDJjOjpNJiQtvapttYeJX7whiNhXcQ+zWgp/N7VfV
+ v3u2IbnsHcN8PZfP2cW0AAAA=
+X-Change-ID: 20261015-kebab_dts-f13f9665e9fc
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>, 
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Frieder Hannenheim <git@fhannenheim.net>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=927; i=git@fhannenheim.net;
+ h=from:subject:message-id; bh=nfW463iS39OcXMk0BFD5ncJCzs2x1uUmGlp9Vf50HwU=;
+ b=owGbwMvMwCWWw1h8YvtkuWDG02pJDFkXpjaVPmErnjht5WUrTh7e1Hu73+6Sfc8mWnHUwajEJ
+ tvtytWwjlIWBjEuBlkxRRbn6ZI/7CuFdfTD/ynCzGFlAhnCwMUpABPJesrw3/O8oJ9J+pGjdV8X
+ XJpxN3Fz8tTs08EZSiUVJ5Sb9TlWcjL803Td4/m0eNr7Wn6zWZmin2TdX+lZ/Zl16+N1r2SGOxF
+ vuQE=
+X-Developer-Key: i=git@fhannenheim.net; a=openpgp;
+ fpr=439719F83F79132C2F57FE216C0173C8B7931E53
 
-Hi!
+Adds a basic device tree for the OnePlus 8T (kebab). Common
+values for OnePlus devices using the sm8250 SOC are defined in
+sm8250-oneplus-common.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+This basic device tree brings up a framebuffer, UFS, battery monitoring,
+volume keys and UART. Further functionality will be brought up in
+subsequent patch sets.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+---
+Frieder Hannenheim (2):
+      arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+      arm64: dts: qcom: oneplus-kebab: new device
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 618 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 124 +++++
+ 3 files changed, 743 insertions(+)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20261015-kebab_dts-f13f9665e9fc
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Best regards,
+--  
+Frieder Hannenheim <git@fhannenheim.net>
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
