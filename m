@@ -1,128 +1,108 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9AF55C31B;
-	Thu, 15 Oct 2026 16:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A805055C1CB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080158; cv=none; b=By78RF2Moe+0p51VXG3MMiKwMJbp9McTgrHrLRDgwVrPnbCgs4EAREOi958fx5upFhOzs8WZNwwiF4QJh5zrUw3GvAn/WVH5TNZPIAZz4dIc2/iNvYnJRZtzI01XH29XMeJha+96MFuQMNBJUUeQu3TOjVJEBjy6k0vxD1J9ZRQ=
+	t=1792080158; cv=none; b=SuAyYFURO7WEt9knHpsbzSwyVLHTVAUO1o+Shtf2kVA1n7fZhRcsBh4dL2hARnWW4I8UQeqZItjQqS+dv0ker1dhU4uHRfjhpPlArDT6U4E0ssxk5jScf0A1/HjyJGyCGAWsRvv3Mz+D+s14pYhcLd8M2CKMgQ2M0h7LqyeJC70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792080158; c=relaxed/simple;
-	bh=vA4vE28281TukD4/DEYRuRGjqnt9rULXgEy+Q3NxSbk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=baYY0jiW+EYgMorRgCDfDOA/XsEzr0iz0DsGtO/LekubeRAGIBwPZXv1mTqOQc2J/E8D0ebiHKpkyTsrGj43JqnrwEs0tkxbtokB/SF00AuMjEucTOhpjreSgOSwdXEL+OvWrlap+M/Bp7Uj8/x5PGBLnT/dVdCpkxfxkM0erkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rGmCtVyl; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=YMS3STAi2ZRbq9hPB/V+mwXl8+F2jV0JX5lnw3Xx+7c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uxDBQxFX+4WW4vyurlxNblBpAHuVvLzHaJbCyZXjcl07KpWGPe4L2mnR+qXD4AzmBvPErwZtCNOEsOCkWYVzd70y2U58kRAaEW8pZUQgdrDKZOLThe1rClMoo7FQZJ+g0JKwR/qUvvzVO0TlLdvvIvdde+iGiL2uROhE3ICAkhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=L5RL9daN; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rGmCtVyl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 1B29D4E4124F;
-	Thu, 15 Oct 2026 16:02:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E1DD26075C;
-	Thu, 15 Oct 2026 16:02:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0481010328CF4;
-	Thu, 15 Oct 2026 18:02:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=4axd8RvbmAiH7g9oCEuJCNbjk0G7L7I4ZKsUL9l2L0c=;
-	b=rGmCtVylxsZOartwAYi8B7J9JTXEaFc6Vun5fCMwmF0lKMLAkkMETHFhNtgPMHftIbj3ag
-	Ph7rzgNksTo3qTmheOfdlwceZICGaOeH1/yjhcAfUF3iX/HO13pKYtYKOPbd7Ej2cR60Es
-	atpjO4t//znD0CB4DnBlMLg+utmVkZkcDFA2VWNOQdlvvjZYyzkUKDlHY/htCzxBLvoWaU
-	OSx+gqAh5Ukz/gem4u9fVWvbCc+QP9j8abR/LmTp3Su/hE83VneI4D0lMc0L70g+HkJ2sF
-	kx3muAUf6F5Dg1xBwaEU3tcDKFG0gkzED2FG2D44VgnDkxvXwy8eIXHjUYkMKw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 18:01:20 +0200
-Subject: [PATCH v10 07/10] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="L5RL9daN"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917a20e9efeso76955236d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:02:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792080146; x=1792684946; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qp/9SKATs2UWKIBCgmjLLiq0NUYRNZM0vL2DioomkZ0=;
+        b=L5RL9daNOk9LXpcTLefoJTLCjwlJVn6GjjyBeT70CHgHuNbyAYa3HOXTTaI+A+9TL5
+         rLlqy3UXypEyKlDFTtB2k/vtcrrHdQHIFfkqfVTchzGx+kMqgt8SMlbPJ31NldA3Xh46
+         abEkquWndp94Rl++gDxxrJ3Znuq5ELEll/+yuHgmo0ed3Qu7ZoDd4tC8YJEqM6XhuzjA
+         RcKZdnHY/AgISnIa/vTY0mIAzt4X8Ir6+E1a7uJz4Tn5uuV7LFCipWcBBUy3d8sj9wZF
+         RX0Prw6CS86AwLVZJCgf/OasBuMg2/jemy0INqWfnW0dvtvYhF9ihzM2l69jizJksdzY
+         36Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792080146; x=1792684946;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qp/9SKATs2UWKIBCgmjLLiq0NUYRNZM0vL2DioomkZ0=;
+        b=vM0lT6xfQrJ3ybM3s4+50EhyhB73elYjqR9G2XObxw+f9+cF65szZLjqQGO2j+SEGb
+         N1u9UcLYeFSdOVDMKrjkzDtQvl1zsoY8+ZVRK+TxBSPSruQQ8Okh2ZUhk85WZuqUcfye
+         bNQjvCFF2jeJyY9vznnvq4pa4kf4Zh+fn2wlVXPIwoUVPTEykYmoYZo8DlRJ62hxjLVF
+         iHLrvMeTcbgWAH6KdOn27HiAl8OyjrcbvXSZRnbTUcNUvBT+SZgADHlhRRd8aZH3Eyxn
+         FGBn/dHDKIC/gqWZ1xnMc5b3x46m6Uvd7TMFsrLosdljDR9tDvycM+fEYx3zAJoJu2Ea
+         Tw6w==
+X-Forwarded-Encrypted: i=1; AKwUvBySgE0Rw65Dbz9aTFIetyqK4i5s14lUodz7dkbPV5dRBo7Vhq9IMYRX4KeikEmpq8rYueSO3jaLbkwrNrg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEF4Uy6DiA63UBK4ckk4m9m0xn8l7RdXJ0lwkGwiOhkRgbmDAK
+	m6ZXKi2Uu3u4co3LeZVDAYEO9zYbtVll0j4fmr2aJklQQv18ZcbZVlGuSJXoNHy59wE=
+X-Gm-Gg: AYBFou0jschJNCIzQ01MBVM8vk5xliEaYUVVHFooToD3oJbmGBaDhbimodr5QrN/9Vz
+	k3ktRyvpGPUFJvDXjiGdN9+nCDm8tZHh59hifCuDeoX8bGeM1Z73rHeAA05D4W7GVCaOQ4i3yVe
+	os9NTp8u3MhziUTE/FqhG1ovYGtv5bL43ZkRQWvm8y4NpfVt11l93O/a+evM4z1VbGpy9QfCBYp
+	fkIg1XG+mdweU8R+n19ZMWcQ2Eo7qhk2My2dfVFRKgWxzdo/nCiEEBn7vrxdJ+tNvlul4kN12y+
+	260KAQ3p61IZURXNOooROQWk7sNhM7e8jESlQuNcrQYvz/rkb6JPPEIhuP7MgTaaQbHHJpAw9wL
+	XN9zn/lNJJD7HPwlvmB5HuxlsHEdBLz53qMqx8L1SAKZv1QT4LbpwgQLLCxaprAkQxbWQ5xT3gP
+	MrrsAk1G/AG+RQuDME1W9PZ8qs+/hXuF3D3jgM+ob+F9rmt2AuZIRq4lH0B8K/8R/WI9JGphNzS
+	nKRSFjfpDErutSkDBrazhuiUv++GrasiuK/6mMqh6sbP9pqt7mMToA=
+X-Received: by 2002:ad4:4eeb:0:b0:914:5552:8a56 with SMTP id 6a1803df08f44-91b5533f620mr339928906d6.4.1792080146178;
+        Thu, 15 Oct 2026 09:02:26 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b99ed3e9fsm78354316d6.29.2026.10.15.09.02.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:02:25 -0700 (PDT)
+Date: Thu, 15 Oct 2026 12:02:23 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com, peterz@infradead.org, 
+	mgorman@suse.de, riel@redhat.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 3/6] sched/numa: fix scan-period adjustment for shared
+ faults
+Message-ID: <atD3qhbqzN2R9Bxx@gourry-fedora-PF4VCD3F>
+References: <20261014094347.99157-1-lizhe.67@bytedance.com>
+ <20261014094347.99157-4-lizhe.67@bytedance.com>
+ <as9_SwmLxAcTovnl@gourry-fedora-PF4VCD3F>
+ <9b9e6c92-a291-48b4-a128-c31bc718db7a@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-7-47c97b54a809@bootlin.com>
-References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b9e6c92-a291-48b4-a128-c31bc718db7a@bytedance.com>
 
-The clock tree is still incorrect. SYSPLL is derived from HXT_GATE, very
-much like CAPLL, DDRPLL, VPLL, APLL and EPLL. SYSPLL has a fixed
-frequency, but if HXT gets gated, SYSPLL stops running.
+On Thu, Oct 15, 2026 at 07:39:42PM +0800, Li Zhe wrote:
+> So I think I should separate the severe fixes from the heuristic changes.
 
-Reparent SYSPLL under HXT_GATE to properly define the clock tree
-topology. After this change, the frequencies are identical, but the
-clock tree looks (again) much closer to the reality.
+This would be appreciated.  The heuristic changes that aren't obvious
+Fixes: should not be lumped in.
 
-Since the TRM does not explicitly shows that HIRC and LIRC are
-internally sourced from HXT and LXT, respectively, I haven't reparented
-them (even though that was tempting). This can be done later anyway.
+> For the latter, I will narrow the next version to NUMA balancing behavior
+> that is specific to memory tiering, instead of trying to justify the
+> changes as general improvements for normal NUMA balancing workloads.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/clk/nuvoton/clk-ma35d1.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+For heuristic changes, please try to generate some kind of data that
+demonstrate the behavior being changed. Some of this scan-period tweaking
+is very difficult to understand how it will affect end-users without
+examples.
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 8fab3c563316..3015c49ee852 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -139,6 +139,12 @@ static const struct clk_div_table eadc_div_table[] = {
- 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
- };
- 
-+static struct clk_hw *ma35d1_clk_fixed_parent_hw(struct device *dev, const char *name, int rate,
-+						 const struct clk_hw *parent_hw)
-+{
-+	return devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, 0, rate);
-+}
-+
- static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
- {
- 	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
-@@ -286,6 +292,9 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 
- 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 0);
-+	if (IS_ERR(hws[HXT_GATE]))
-+		return PTR_ERR(hws[HXT_GATE]);
-+
- 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 1);
- 	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
-@@ -297,7 +306,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 
- 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
--	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
-+	hws[SYSPLL] = ma35d1_clk_fixed_parent_hw(dev, "syspll", 180000000, hws[HXT_GATE]);
- 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
- 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
+There's risk of introducing unexpected regressions when we change these
+heuristics.  For example - the recent shmem scanning fix.  Fixing that
+resulted in 4-5 other regressions, despite being a "correctness" change.
 
--- 
-2.55.0
-
+~Gregory
