@@ -1,291 +1,340 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A706522F0C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16835519A2;
+	Thu, 15 Oct 2026 18:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090493; cv=none; b=jc5Rzvj+8U5a1jxvjsWTX0oKnTbuOlk/Ws581OBRVwgpERH37idBVR8o4onztS1GcfYCjdJDl5VGKRbqjse37Mm0HH/7Y2d1XCb6x888cHPfMixGFe+UVGq6GvlGJA9m/6QfGd3h6j14pOsEk+n6crFgGPpC+U4jwi1Auq5dVbo=
+	t=1792090502; cv=none; b=fxNh1354qBsNJ0G04r5k6bqnSaxfS87kzUObmPEVqnG385NtFAoSW1pAPKXy6zGrLs85KvKGgevoOG6tZ1LSkfDxJA0HIOnrqkDj5aJG9rs25wCJ8JbiHN8CIav7NItA7aU2kQRtYakg/yU7VHRsjxAdjD9zpkdrPA+ZTgW9wYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090493; c=relaxed/simple;
-	bh=V+5DobUGwWgbn/wQY1pIDzWIHCihSxw4xDJxND8YeZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nrVwHka991qg318Sd5IuIILsCWvkeg5aAlHfW5zmsRpuXh89GRZCO4KXib6vX4Cl0Lntz//jGhkZ40zHUj6iwViV0CCXkQoYpj/czdinu0RcuGdyJ0cYFOKwY0NsVTO1FmfOfuuop8c6N387RtGAILPl2lqo9yCvFKo1ja9lVjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lSC/+Mic; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1792090502; c=relaxed/simple;
+	bh=JtG2hrxozi+9CYMqN8TVt99CiZc61hxPSPk2vQRqZ9c=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=hFzNPHruYsTTvdf9pCg3M7O6uiw7yfk/naDwoZnEBDQe8qILGghyPX/E0w6xYPFUenKbLdLSTFVUmPIGSFUyWLLE5Dc4aHvmfWG+V+4uYsut5+9tIjW5TPashmXUYRwAsvGFJWERo9OL1lSgwRF8nZhrWtkCq2wjIoWPQVGMhpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=ptqPhPWn; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=a6V0M+YN; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lSC/+Mic"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso2306602a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:54:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792090489; x=1792695289; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IltlA15ffn2teEWgoeALmwOWBDbtdgaPXsnTGsD5rwo=;
-        b=lSC/+MicDWmDczibKQWLZPWUWT5H2X44ERqtu9QO/Y7ZdZ8f7ETJJkJGEFC3vpeZ4G
-         5jHK2or2b0YV5ZPBMaL/hxIqcRX55wxNaNWP7KHcqUPF7/A/JOv93c2L4yzwtopk4se7
-         ub9p0lSbmXDFwIp9Y4JFBQbIKBxJomgq4TRLzf35IYP9F8iZS8yNCkXs9dvfACdFpPc3
-         3v/Z+6HNwSDDPS7VAR0XUxScf5xwN9gtokw/5X/K/9xj/CpaSX6YXxLQDnNWs0+H++EU
-         1z8Z+UcJFErTsdp6bquy83PrR/t4NNeRb6Bk9AZsSL914AlRYgI0BmyORn1q3dWhDmtU
-         Dflw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792090489; x=1792695289;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IltlA15ffn2teEWgoeALmwOWBDbtdgaPXsnTGsD5rwo=;
-        b=bz0oHOSAetYec4+U1IH3doqT/BeSzULDrV3QyZPxq3a37muyQsOz0NGPzwStZghU6s
-         xY3ss+QHjR8miHBKf5Qu308SAsiEYmNJWpdPxZUmHZ3Aq9CHBlJooh6QvIpBD8gJHO9o
-         iDZ3Co/8VO27shPEtBOLOZPXFOak3b3dXVRiAE7dpBGe5mPgn5uR+C9ku7U7Kq4a+Gwo
-         6M8iyd4oiq6++lZNmJBYdrq8tFjHSWsun9XtYH/rtS/1PcDBnY9uFmnVoBqlMa4MZMz5
-         5TGUc7RYey8mGXcbdZ0LLImF//aBzB0+CI4RYMkNsTYkAi9R6DZ//VtLa2iBbsgxL1em
-         JxpA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9pfuga9xRX/bHCSSL2JPNn/qSXOhLwcPdMavAFALHKO6q3WTS8ehS3ndbJeiR63ZR9vWZcPwObeckXSk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJisZf24VZ097GOXHz4BLHE22hBKDsEN0NeK3sIukzqC6by/+4j
-	K1H8LXMo3igI3ZODEumKXuJIe5fTuEABI9W4KAk+tEcSOoTGFs1s1O4/ZI3k9M+qyQ==
-X-Gm-Gg: AYBFou0CLk1PmI24U+WTkv8cBqN+p4TMm1S1HKCHSHBwJQJaBx8QFYz+ozqGi5ehWyg
-	Y7W4KnVeyL/5E3nutqWxiJHvM374F6L7bzY9+50IwjpOZ9pdl8dS823InHReCqFtuvtgr2rkpF1
-	6+oHOfq7pbe0MMS3P3sNh4j+u3tPXrTS7y/CojgxKE+unkkE9/tQCkRas6TXCvmn0LGEiblHXr/
-	OmTPoU8Sx2IuMFDXtly+KIyd3vURQI34I0N5X3RJidA0jCaKE3IFnXGFRWScVKryPntA5v+ZPOe
-	i1t/UBWwHJ4wB/lAUT41IXyMLHumA/jA7Lc96e2JtPJPv6QPedA2mp++ylJM7Xd1T+aKuI/im5K
-	TT+lLECTppIv9wrqcxbInpQ73zSXA+u61jiLY5arXpXJHKFsTjyl9er0/L7li7n1RBsLcVrHNfh
-	XjgxPW9DSqez94lTCXG/66XPnmmO4W8Wb3alFpHiMit7WfTiIuHL6g4KgHvgM9kJ2I/dL6aa9LM
-	FqUQcSEfThgSiPmzvNTsCWzNf1I2BKEmAk=
-X-Received: by 2002:a17:90b:390d:b0:3ac:b6eb:e0d4 with SMTP id 98e67ed59e1d1-3acb6ebe1c9mr959297a91.63.1792090488544;
-        Thu, 15 Oct 2026 11:54:48 -0700 (PDT)
-Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ecd32sm452704a91.3.2026.10.15.11.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 11:54:47 -0700 (PDT)
-Date: Thu, 15 Oct 2026 18:54:43 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
-	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	pratyush@kernel.org, graf@amazon.com
-Subject: Re: [PATCH v1 0/7] liveupdate: tmpfs preservation and early freeze
-Message-ID: <atEhc20Zawj4D62x@google.com>
-References: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
- <atESAwf17pJ11S9U@google.com>
- <atEaPuWNOm5VLc7A@google.com>
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="ptqPhPWn";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="a6V0M+YN"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id C28A326F7667;
+	Fri, 16 Oct 2026 03:54:47 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1792090488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JNzY+QnXWDcIIPDI69FbfYKJ6FOdPQ+E4LlErZDEwPo=;
+	b=ptqPhPWng4I/ER/pwM0mzysd7JlQa/RPbZpXaXXFSBoohvygcl7FX/aj+OY/n3746w2LWL
+	WPwET7NsrrCvjGe6w4xknwd5mpC9rHVM9l3/d0pKYBhlVj8icP2d/UqxotHGLnsLOO0SDL
+	Md5ZDbfVFBFt8a8hN308U4sp18LbC3hRufluyFujdmNNZeSM3FH0WOh0DNrY8k7sxAer3U
+	u3Phu6Dv8g40ZwV9ZAFezc/fEkkn4I7bemYWfgHHvTwCKJz7a5XVIm0gOX5OOYvPFWO9Yk
+	8JUh1JFxH8RX3nWhoZezfxUSzrMV2t1b9d3dyM+EEnCwu7n6y+qaj6Vy80eNBw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1792090488;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JNzY+QnXWDcIIPDI69FbfYKJ6FOdPQ+E4LlErZDEwPo=;
+	b=a6V0M+YNFSYRjhYlPYGNk24EJqWXDp6SLSfE8K3p6VouV/9PLmi5Kwf5eLld7WHnQO4Jc5
+	vmtuwI/dV5AIGHCw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 47B1AE00144;
+	Fri, 16 Oct 2026 03:54:47 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 3226722000D5; Fri, 16 Oct 2026 03:54:47 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: linux-kernel@vger.kernel.org,  linux-fsdevel@vger.kernel.org,
+  syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] fat: make rename recovery safe after metadata write
+ errors
+In-Reply-To: <20261014082315.190262-1-krystianmkaniewski@gmail.com>
+References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+	<20260929090029.742579-1-krystianmkaniewski@gmail.com>
+	<87ld8j4161.fsf@mail.parknet.co.jp>
+	<1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
+	<87bj90m6dq.fsf@mail.parknet.co.jp>
+	<20261014082315.190262-1-krystianmkaniewski@gmail.com>
+Date: Fri, 16 Oct 2026 03:54:47 +0900
+Message-ID: <87qzhqvloo.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atEaPuWNOm5VLc7A@google.com>
+Content-Type: text/plain
 
-On 2026-10-15 02:23 PM, Pasha Tatashin wrote:
-> On 10-15 17:48, David Matlack wrote:
-> > On 2026-10-15 05:38 AM, Pasha Tatashin wrote:
-> > > This series allows preserving files in tmpfs via LUO to survive across a
-> > > live update, and allows userspace to decide when to freeze a session
-> > > instead of delaying until auto-freeze at kexec time. Once userspace is
-> > > done with a session, it can freeze the session immediately (and across
-> > > multiple sessions in parallel), reducing blackout time by not postponing
-> > > this operation to kexec shutdown where all sessions are frozen serially:
-> > > 
-> > > 1. Early session freeze (LIVEUPDATE_SESSION_FREEZE):
-> > >    Currently, LUO sessions are frozen automatically only inside the
-> > >    reboot(LINUX_REBOOT_CMD_KEXEC) path, where luo_session_serialize()
-> > >    iterates through all outgoing sessions under global write locks and
-> > >    freezes them serially during shutdown.
-> > > 
-> > >    Add the LIVEUPDATE_SESSION_FREEZE ioctl on session file descriptors so
-> > >    userspace can freeze a session as soon as it is done with it (and freeze
-> > >    multiple sessions concurrently, since luo_session_freeze() only acquires
-> > >    the per-session mutex). During kexec, already-frozen sessions skip the
-> > >    late auto-freeze step; if an early-frozen session is closed before
-> > >    kexec, its files are rolled back via .unfreeze() before being
-> > >    unpreserved.
-> > 
-> > Thanks for putting this together. I'm on board with driving
-> > retrieve-into through a per-handler argument instead of a LUO-level
-> > flag. It's what Pratyush suggested on the RFC too (sorry Pratyush, I
-> > never replied to that). I still need to review the actual patch but
-> > I think the idea is fine.
-> 
-> Yeah, Pratyush and I discussed this at LPC. I've been using this extra
-> argument in my cpu_preserve series to launch jobs at a given entry
-> address on a preserved CPU, and figured it would be a useful, generic
-> interface for others as well. So I decided to send this series now to
-> reduce the extra infrastructure I carry in my cpu_preserve series, and
-> your tmpfs work was a good reason to land it now :-)
-> 
-> > However, nothing ties the arg struct to a handler, it's interpreted by
-> > whichever handler owns the token. At LPC we discussed letting userspace
-> > pick the handler in PRESERVE_FD/RETRIEVE_FD, so that it controls which
-> > one is used when more than one can take a file. If we do that, the
-> > handler name would also be the natural key for which arg struct is
-> > expected.
-> > 
-> > > 3. Tmpfs file preservation and retrieval:
-> > >    Using the file handler retrieve argument, extend mm/memfd_luo to allow
-> > >    preserving generic shmem-backed tmpfs files (not just unlinked memfd
-> > >    pseudofiles), recording MEMFD_LUO_FLAG_TMPFS in
-> > >    struct memfd_luo_ser.flags so that preserved tmpfs files must be
-> > >    retrieved as tmpfs files and preserved memfd files must be retrieved as
-> > >    memfd files.
-> > 
-> > I've been working on a v1 of the tmpfs preservation since LPC. v1 fixes
-> > a number of problems in the RFC that I think this series still has
-> > (sorry for the wall of text, it is LLM-generated):
-> > 
-> >  - Failures that userspace can fix lose the file. The folios are
-> >    restored, charged and added one at a time, so if the target's mount
-> >    is too small (ENOSPC/quota) or the caller hits its memcg limit
-> >    partway through, the target is truncated, the folios are freed, and
-> >    the failure is permanent. Only bad-argument errors are retryable.
-> >    v1 restores all the folios first, charges all the blocks and memcg
-> >    up front, and adds all the folios to the page cache or none of them.
-> >    It keeps the restored folios in private_data between attempts (LUO
-> >    needs to pass private_data to .retrieve() and keep it on failure),
-> >    so the only permanent failure left is losing the KHO state itself.
-> 
-> I think the current behavior is fine: if the file doesn't fit when
-> restoring, I think it is okay to lose the file permanently. We shouldn't
-> keep preserved data around in private_data once we have started
-> retrieving folios.
+Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
 
-Ok I think we can omit keeping restore folios in private_data across
-retry attempts. It is a bit subtle.
+> A failed synchronous FAT metadata write clears BH_Uptodate. Rename
+> recovery can then modify and dirty the same retained buffer, which
+> triggers the !buffer_uptodate warning in mark_buffer_dirty().
+>
+> Stop on-disk rollback after a failed dotdot update or old-entry removal,
+> where a complete rollback can no longer be guaranteed. At an
+> inode-position failure no dotdot update or source-entry removal has
+> started, so rereading the affected entry block and restoring the changed
+> entry slots can still complete the rollback.
+>
+> Read a retained new-entry buffer again before removing the entry.
+> Replacement and exchange recovery use inode writeback, which reacquires
+> the directory-entry buffer. When the second exchange position write
+> fails, the first has already reached disk, so attempt both restorations
+> even if retrying the failed block also fails.
+>
+> Report recovery errors returned by these steps as corruption and preserve
+> the original forward error.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=b0aebd03565f5774f7f8
+> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+> ---
+> Changes in v3:
+> - Give up the on-disk rollback entirely after a failed dotdot update or
+>   old-entry removal, as suggested by OGAWA Hirofumi, instead of tracking
+>   buffer aliases and reverting what is still possible.
+> - After a failed inode-position write, read the retained new-entry buffer
+>   again with bh_read() before removing the entry, and write a replaced
+>   target entry back through inode writeback.
+> - New subject, since rollback is no longer skipped per buffer.
+>
+> v2: https://lore.kernel.org/all/1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com/
+>
+>  fs/fat/namei_msdos.c | 39 ++++++++++----------------
+>  fs/fat/namei_vfat.c  | 66 +++++++++++++++++---------------------------
+>  2 files changed, 39 insertions(+), 66 deletions(-)
+>
+> diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+> index d46d1a3..0aab2b1 100644
+> --- a/fs/fat/namei_msdos.c
+> +++ b/fs/fat/namei_msdos.c
+> @@ -441,7 +441,7 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  	struct fat_slot_info old_sinfo, sinfo;
+>  	struct timespec64 ts;
+>  	loff_t new_i_pos;
+> -	int err, old_attrs, is_dir, update_dotdot, corrupt = 0;
+> +	int err, old_attrs, is_dir, update_dotdot, rollback_err = 0;
+>  
+>  	old_sinfo.bh = sinfo.bh = dotdot_bh = NULL;
+>  	old_inode = d_inode(old_dentry);
+> @@ -533,7 +533,7 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  		if (IS_DIRSYNC(new_dir)) {
+>  			err = sync_dirty_buffer(dotdot_bh);
+>  			if (err)
+> -				goto error_dotdot;
+> +				goto error_no_rollback;
+>  		}
+>  		drop_nlink(old_dir);
+>  		if (!new_inode)
+> @@ -543,7 +543,7 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  	err = fat_remove_entries(old_dir, &old_sinfo);	/* and releases bh */
+>  	old_sinfo.bh = NULL;
+>  	if (err)
+> -		goto error_dotdot;
+> +		goto error_no_rollback;
 
-> >  - memfd_pin_folios() doesn't require the inode lock, so iommufd can
-> >    pin folios of the target while they're being added or truncated
-> >    away. v1 starts with two patches that make iommufd take the lock
-> >    and make memfd_pin_folios() assert it.
-> 
-> Hm, isn't this mostly orthogonal to the change we're making here?
+What is wrong to try to revert dotdot_bh?
 
-Kind of. Today .retrieve() fills a brand-new memfd that nobody else can
-reach until the ioctl returns. Retrieve-into fills a file that other
-processes can already open by path and pass to iommufd, so pinning can
-now race with the folios being added, or truncated away on failure.
+>  	inode_inc_iversion(old_dir);
+>  	fat_truncate_time(old_dir, &ts, FAT_UPDATE_CMTIME);
+>  	mark_inode_dirty(old_dir);
+> @@ -561,37 +561,26 @@ out:
+>  	brelse(old_sinfo.bh);
+>  	return err;
+>  
+> -error_dotdot:
+> -	/* data cluster is shared, serious corruption */
+> -	corrupt = 1;
+> -
+> -	if (update_dotdot) {
+> -		fat_set_start(dotdot_de, MSDOS_I(old_dir)->i_logstart);
+> -		mmb_mark_buffer_dirty(dotdot_bh,
+> -				      &MSDOS_I(old_inode)->i_metadata_bhs);
+> -		corrupt |= sync_dirty_buffer(dotdot_bh);
+> -	}
+> +error_no_rollback:
+> +	/* Do not continue an on-disk rollback that cannot be completed. */
+> +	rollback_err = err;
+>  error_inode:
+>  	fat_detach(old_inode);
+>  	fat_attach(old_inode, old_sinfo.i_pos);
+>  	MSDOS_I(old_inode)->i_attrs = old_attrs;
+>  	if (new_inode) {
+>  		fat_attach(new_inode, new_i_pos);
+> -		if (corrupt) {
+> +		if (!rollback_err) {
+>  			mark_inode_dirty(new_inode);
+> -			corrupt |= sync_inode_metadata(new_inode, 1);
+> +			rollback_err = sync_inode_metadata(new_inode, 1);
+>  		}
+> -	} else {
+> -		/*
+> -		 * If new entry was not sharing the data cluster, it
+> -		 * shouldn't be serious corruption.
+> -		 */
+> -		int err2 = fat_remove_entries(new_dir, &sinfo);
+> -		if (corrupt)
+> -			corrupt |= err2;
+> -		sinfo.bh = NULL;
+> +	} else if (!rollback_err) {
+> +		/* Read the entry block again if a failed write invalidated it. */
+> +		rollback_err = bh_read(sinfo.bh, 0);
 
-In the failure case a folio can stay pinned (and mapped for DMA) after
-it's been removed from the file. Retrieve-into introduces the race, and
-the fix is two small prep patches.
+Why do this read the bh from on disk?
 
-> >  - The target has to be opened for writing (FMODE_WRITE). Since LUO
-> >    holds a reference to it until finish, that means a restored binary
-> >    can't be executed until the session is finished (-ETXTBSY). v1
-> >    instead requires mnt_want_write_file() and file_permission(MAY_WRITE)
-> >    under the inode lock, like FS_IOC_ENABLE_VERITY. That also rejects
-> >    immutable files, which a fd opened for writing before chattr +i
-> >    doesn't.
-> 
-> Ah, good point.
-> 
-> >  - There's no file_modified() or fsnotify_modify(), so setuid/setgid
-> >    bits aren't cleared and timestamps aren't updated. The normal write
-> >    path does both.
-> 
-> That is true, though I'm not sure fsnotify_modify() is really needed
-> since the whole file is restored at once and I doubt anyone is watching
-> for modifications during restore (clearing setuid/setgid via
-> file_modified() makes sense, though).
-> 
-> >  - f_pos is set through fget() + vfs_setpos() without f_pos_lock, which
-> >    races with read()/lseek() on the same open file. v1 uses
-> >    fdget_pos(). (Sashiko called this an ABBA deadlock. I don't think it
-> >    is one, since vfs_setpos() doesn't take the lock, but the race is
-> >    real.)
-> 
-> Right, this was reported by Sashiko; I haven't looked into it yet.
-> 
-> > 
-> >  - Early failures leak the preserved folios. The seals/flags check
-> >    frees ser and records a permanent error, so .finish() skips the file
-> >    and the folios are never freed. Sashiko flagged this as well. The
-> >    new MEMFD_LUO_ALL_FLAGS check adds another way to get there. In v1,
-> >    early failures don't consume anything and aren't permanent, so
-> >    .finish() cleans up.
-> 
-> We originally agreed that if retrieve() fails, we fail permanently and
-> leak resources until reboot to avoid memory corruption from ongoing DMA
-> activity. However, now that we have the retryable option, we can start
-> relaxing what is considered a permanent failure vs. a recoverable/early
-> failure that .finish() can clean up.
+> +		if (rollback_err >= 0)
+> +			rollback_err = fat_remove_entries(new_dir, &sinfo);
+>  	}
+> -	if (corrupt < 0) {
+> +	if (rollback_err < 0) {
+>  		fat_fs_error(new_dir->i_sb,
+>  			     "%s: Filesystem corrupted (i_pos %lld)",
+>  			     __func__, sinfo.i_pos);
 
-Ok I think we are ligned that we need to keep the preserved folios
-around until finish(). I think this point was saying there are bugs in
-the existing memfd_luo code and in this series that leak the folios even
-after finish(). Either way I'll fix them up.
+Same above questions for vfat with msdos.
 
-> 
-> >  - If a token was already retrieved, luo_retrieve_file() returns the
-> >    existing file and ignores arg. Userspace that asks to retrieve into
-> >    X gets success and an fd for a different file. I think LUO should
-> >    fail with -EBUSY if an arg is passed for a token that was already
-> >    retrieved.
-> 
-> Agreed, if an arg is passed for a token that was already retrieved,
-> failing with -EBUSY (or -EINVAL if the target file doesn't match the
-> originally retrieved struct file) makes sense.
-> 
-> 
-> >  - Sashiko's WARN_ON(liveupdate_claim_file()) report on 3/7 is valid:
-> >    xa_insert() can fail with -ENOMEM there, and userspace can trigger
-> >    that.
-> 
-> Yeah, we can address that.
-> 
-> > One place our series are not aligned is MEMFD_LUO_FLAG_TMPFS. My
-> > thinking has been that RETRIEVE_FD should support retrieving into any
-> > shmem file (including linked files, memfds, and O_TMPFILE). It is
-> > userspace's choice at retrieve time. The only thing the kernel enforces
-> > are the fundamental requirements such as exceeding the file's mount's
-> > limit.  When I think about it that way there is nothing special about
-> > retrieving into a memfd and MEMFD_LUO_FLAG_TMPFS is just artificially
-> > limiting how a shmem file can be retrieved. WDYT?
-> 
-> I do not want LUO to change the type of a preserved file across live
-> update. Take seals, for example: a memfd can be sealed with the
-> guarantee that it will never be modified, whereas a regular tmpfs file
-> does not support sealing. Allowing a preserved memfd to be retrieved
-> into a tmpfs file would create a loophole to strip seals (or bypass
-> mount/superblock boundaries). I strongly prefer keeping the file type
-> strictly the same across preserve and retrieve.
+Thanks.
 
-I agree that seals must not be strippable. I am not proposing to allow
-that. Regular tmpfs files are created with F_SEAL_SEAL, and v1 refuses
-to retrieve into a target that has F_SEAL_SEAL if the preserved file has
-any seals the target doesn't have. So a sealed memfd can only be
-retrieved into a memfd that allows sealing, and gets its seals back
-there the same way F_ADD_SEALS would add them. Only unsealed memfds can
-be retrieved into regular tmpfs files.
+> diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+> index da3e89c..f10828c 100644
+> --- a/fs/fat/namei_vfat.c
+> +++ b/fs/fat/namei_vfat.c
+> @@ -938,7 +938,7 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	struct fat_slot_info old_sinfo, sinfo;
+>  	struct timespec64 ts;
+>  	loff_t new_i_pos;
+> -	int err, is_dir, corrupt = 0;
+> +	int err, is_dir, rollback_err = 0;
+>  	struct super_block *sb = old_dir->i_sb;
+>  
+>  	old_sinfo.bh = sinfo.bh = dotdot_bh = NULL;
+> @@ -984,7 +984,7 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  		err = vfat_update_dotdot_de(new_dir, old_inode, dotdot_bh,
+>  					    dotdot_de);
+>  		if (err)
+> -			goto error_dotdot;
+> +			goto error_no_rollback;
+>  		drop_nlink(old_dir);
+>  		if (!new_inode)
+>   			inc_nlink(new_dir);
+> @@ -993,7 +993,7 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	err = fat_remove_entries(old_dir, &old_sinfo);	/* and releases bh */
+>  	old_sinfo.bh = NULL;
+>  	if (err)
+> -		goto error_dotdot;
+> +		goto error_no_rollback;
+>  	vfat_update_dir_metadata(old_dir, &ts);
+>  
+>  	if (new_inode) {
+> @@ -1009,34 +1009,25 @@ out:
+>  
+>  	return err;
+>  
+> -error_dotdot:
+> -	/* data cluster is shared, serious corruption */
+> -	corrupt = 1;
+> -
+> -	if (dotdot_de) {
+> -		corrupt |= vfat_update_dotdot_de(old_dir, old_inode, dotdot_bh,
+> -						 dotdot_de);
+> -	}
+> +error_no_rollback:
+> +	/* Do not continue an on-disk rollback that cannot be completed. */
+> +	rollback_err = err;
+>  error_inode:
+>  	fat_detach(old_inode);
+>  	fat_attach(old_inode, old_sinfo.i_pos);
+>  	if (new_inode) {
+>  		fat_attach(new_inode, new_i_pos);
+> -		if (corrupt) {
+> +		if (!rollback_err) {
+>  			mark_inode_dirty(new_inode);
+> -			corrupt |= sync_inode_metadata(new_inode, 1);
+> +			rollback_err = sync_inode_metadata(new_inode, 1);
+>  		}
+> -	} else {
+> -		/*
+> -		 * If new entry was not sharing the data cluster, it
+> -		 * shouldn't be serious corruption.
+> -		 */
+> -		int err2 = fat_remove_entries(new_dir, &sinfo);
+> -		if (corrupt)
+> -			corrupt |= err2;
+> -		sinfo.bh = NULL;
+> +	} else if (!rollback_err) {
+> +		/* Read the entry block again if a failed write invalidated it. */
+> +		rollback_err = bh_read(sinfo.bh, 0);
+> +		if (rollback_err >= 0)
+> +			rollback_err = fat_remove_entries(new_dir, &sinfo);
+>  	}
+> -	if (corrupt < 0) {
+> +	if (rollback_err < 0) {
+>  		fat_fs_error(new_dir->i_sb,
+>  			     "%s: Filesystem corrupted (i_pos %lld)",
+>  			     __func__, new_i_pos);
+> @@ -1067,7 +1058,7 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
+>  	struct inode *old_inode, *new_inode;
+>  	struct timespec64 ts = current_time(old_dir);
+>  	loff_t old_i_pos, new_i_pos;
+> -	int err, corrupt = 0;
+> +	int err, rollback_err = 0;
+>  	struct super_block *sb = old_dir->i_sb;
+>  
+>  	old_inode = d_inode(old_dentry);
+> @@ -1106,13 +1097,13 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
+>  		err = vfat_update_dotdot_de(new_dir, old_inode, old_dotdot_bh,
+>  					    old_dotdot_de);
+>  		if (err)
+> -			goto error_old_dotdot;
+> +			goto error_no_rollback;
+>  	}
+>  	if (new_dotdot_de) {
+>  		err = vfat_update_dotdot_de(old_dir, new_inode, new_dotdot_bh,
+>  					    new_dotdot_de);
+>  		if (err)
+> -			goto error_new_dotdot;
+> +			goto error_no_rollback;
+>  	}
+>  
+>  	/* if cross directory and only one is a directory, adjust nlink */
+> @@ -1135,24 +1126,17 @@ out:
+>  
+>  	return err;
+>  
+> -error_new_dotdot:
+> -	if (new_dotdot_de) {
+> -		corrupt |= vfat_update_dotdot_de(new_dir, new_inode,
+> -						 new_dotdot_bh, new_dotdot_de);
+> -	}
+> -
+> -error_old_dotdot:
+> -	if (old_dotdot_de) {
+> -		corrupt |= vfat_update_dotdot_de(old_dir, old_inode,
+> -						 old_dotdot_bh, old_dotdot_de);
+> -	}
+> -
+> +error_no_rollback:
+> +	/* Do not start a partial on-disk rollback after a failed ".." write. */
+> +	rollback_err = err;
+>  error_exchange:
+>  	vfat_exchange_ipos(old_inode, new_inode, new_i_pos, old_i_pos);
+> -	corrupt |= vfat_sync_ipos(new_dir, new_inode);
+> -	corrupt |= vfat_sync_ipos(old_dir, old_inode);
+> +	if (!rollback_err) {
+> +		rollback_err |= vfat_sync_ipos(new_dir, new_inode);
+> +		rollback_err |= vfat_sync_ipos(old_dir, old_inode);
+> +	}
+>  
+> -	if (corrupt < 0) {
+> +	if (rollback_err < 0) {
+>  		fat_fs_error(new_dir->i_sb,
+>  			     "%s: Filesystem corrupted (i_pos %lld, %lld)",
+>  			     __func__, old_i_pos, new_i_pos);
 
-On mount boundaries, retrieving into a tmpfs file charges the blocks
-to that mount, so its size limit and quota apply. That's stricter than
-the unlimited internal shm mount that memfds live on, not looser.
-
-This is what I mean about enforcing the fundamental requirements, rather
-than enforcing something artifical like MEMFD_LUO_FLAG_TMPFS.
-
-BTW, MEMFD_LUO_FLAG_TMPFS is set based on i_nlink, so it doesn't really
-track the file type. An O_TMPFILE or unlinked tmpfs file gets preserved
-without the flag and comes back as an anonymous memfd on the internal
-shm mount. That changes its type and drops its mount's size limit and
-quota, which is the boundary crossing you're worried about.
-
-If you still want the type to stay the same, we can define it by
-superblock instead of i_nlink:
-
- - memfds (on the internal shm mount): plain retrieve only, as today.
- - files on a tmpfs mount, linked or not: retrieve-into only, into any
-   empty tmpfs file, including O_TMPFILE files.
-
-That keeps your guarantee, fixes the O_TMPFILE case above, and still
-lets userspace restore into an O_TMPFILE file and linkat() it into
-place once it's verified.
-
-But my preference is still to enforce the fundamental requirements,
-since we have to enforce them either way and MEMFD_LUO_FLAG_TMPFS adds
-ABI.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
