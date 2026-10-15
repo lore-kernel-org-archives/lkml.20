@@ -1,120 +1,88 @@
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF02A5275A3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7240327FB1C;
+	Thu, 15 Oct 2026 13:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.251.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069282; cv=none; b=BPSNdxo2LxjIEKplXRkH2quQmW63gyv42YE6kPF7idDIiy5M0B+vmRk8oCNujQapLnfqyo1QReIF6CYcKXRmND3QEihpv8Zgc6FJn4DXOGW8S6CeRvJnc9Ps6LKBp7xflIzJhJEkwJ78ybUQZ82HAd/Tu+8gj/6x2v4ONgcunJM=
+	t=1792069308; cv=none; b=F1F3JTFhuU7szZ3vNcczrnmNtF7W0qVVsr2i69XY4iELxclJw+Kw3dr3y+fN046rrM/Z0HfVpQxywkQOLzpCXRLCauY4UffEgi3C8oi6OSwsOtScaTdTg+ga6RdpU60vR6To4TS2O/O619r3kdXKR0tj0/Gd3McviczdU8yfH44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069282; c=relaxed/simple;
-	bh=M00L0DQuv05+wzHwVamvXqjP2sz1GvUfTGsI+8cDoWI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jzLe4JBxGs4hvWMDL8GvLBQDJDSEeQdX2RU38gke3kbIvFvNgB9AJyMMBlj9lYU0SOCE7U4DKBEXt5MX1S4WtZ55DlCs0Y6XGyk1kXyzTvT4zHBEzC2RgF5z+gHBh2ED7S1/tPqeP5dvlPEH6TIzJHWeZg7FBPb3aFFX+w2noLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MDe+XW3s; arc=none smtp.client-ip=209.85.167.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792069308; c=relaxed/simple;
+	bh=cOi8INQxMJO5xrkMJPUAlKbnYKd1UBxaoDwQK5r/QIo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=K6Nb0FZsfVxAdsNjrsmIcVjcNKXBXhOaMS8l6Iu4aNdQDW4l3TB6HCT5X5UmqqjksksTGJkTmoBjtqWNmt1Dpu/ZP41H2oIm05IrJzZS3x4kZ937fAJoLgqlYSHsNSDqov8aKikZmayoydFxQzby5lsz8loiqplr+VoQzzqnVWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net; spf=pass smtp.mailfrom=fhannenheim.net; dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b=JSZS2s7w; arc=none smtp.client-ip=188.245.251.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MDe+XW3s"
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4f66bb2ab57so2183060b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:01:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792069279; x=1792674079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cjFxj3bFbYPisDR6RrznzneRHAUvWft2WkzURGoz+vk=;
-        b=MDe+XW3sZGIKUEnYlfRZINRq8F9iFr7onbzNEHeWmvCuwXJaqwkGKfQ9gFok5rB8Id
-         IaJAjtROcVBzCDsrrDR69dw49e3I5biC8O2qfPa3WkToEm+M3D3LvUFNbnGyedARiCtk
-         cNZtA9RnUSfGGYHtfOcSZRqahDFL6o4H7lgUWZUr2DDzs0IzALO1ecLg7sWiv+lRCKvf
-         5XjUjwtQq5pw5W7ZOKOapISX4hwDWYsyK8+tAfyvkAEoBSgrY5CncfdpHFa5L0owkHYQ
-         TUTamUfG19ipMTGB++x8MWjdt8HWuPUcUIAQCQobn7hdzkM+MnCt+QPNSuXhetr+IvwI
-         oUpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069279; x=1792674079;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cjFxj3bFbYPisDR6RrznzneRHAUvWft2WkzURGoz+vk=;
-        b=lZf1OcbxpYFK5oRg9SqqRQKPwj23UqAAsaZY+4pjIuUKte1nfLg/yV5CDexEVrynwa
-         T92mZuzpBgls4tmsD7Dod3Ge7Hxv+GkG+RO9Bq4gtj54qWrX+g2ay7oVaRQH7i/skPMj
-         wQApWaV7Q9XSOpbRTlJVX0hVWRSoOGCTErOeZ8JD+CASOMnm8ztFdFGz/3yOnsx/DHQ6
-         r5bENERp3+zqoKpQPuKvR+BIE2ww6inl2pxBJm2nfs004Il4l1VNqm+QYcKcwByZ30Ry
-         es/d8IrmZUtQFFB19d75Y6iPj3rJeKY7T5finalogTsnxaLTNSbirsVGA2rWyZQ5bgK0
-         qQtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxmU4bICUPGb6g67UPtQ4tiXYyEpiyJi/iepJ7Jh8QF+I51TQFoO6YdhxkogUQxnwL/q+6my2L0ypjWyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCfetvDbFXKKLFYmddW5Dq2tBwv1p0ZXBWUq5R80/iXx7pI/kY
-	BJ6nW7hMyGkRC7qLBBL3mBgcEyiXE1vhCx+iEhObwNPHHJV4ikllirUlTD0+WIBcpVM=
-X-Gm-Gg: AYBFou1mNIpSxmeua/aJbPWbv9PBgslG4u/aSBy6+9yyMyTfjNQXgdne89w8GioceAm
-	pGaMNa7Q7FjLWaFIMNwRiRTgoejlu2EgOH+pWXvxQDHoCVisFDPyrndfsQGp0BKCCFLsjj6Y6kC
-	nLHOxAUTFK+88jLlSqeBeGM83ll/KLUpZakol4EOgPkYz8IxWZxtuTB4k8VgdcHTnnn+p31un3Y
-	MsLkgabFuzkLuUQsF1u3vJvDymt+KUHlpOgEHHbHWE4NXOEd65MSUTProwyJAcHQZXI3itc5o3k
-	tRJoRzwr/lZ4wYSZHzORoUD4i3GMfYmemgB19EfNUyBKqUvrQCbNP2o5tbaSdnBZBv+cNswE9TK
-	gQ3SvZeaAFmSy+fpoFIsKQh98caQ4hWqApgJ5VQI0iNZPLu1D7b8t4LvazoZxLYd/9CpHgzFELG
-	JEe4yYiQS7OSTF3xvGu4VyYeinIODDUYNKcKgr0LBh4OMSPZak92oOd/ZeewK6/oDgp4RZum7YK
-	UGb7fdESAsj3wVl5WPNhqseCxH2o/QpMMn8BQde/NRaE8UW5cJT2Mtf0JY=
-X-Received: by 2002:a05:6808:1387:b0:4f6:6041:f0a2 with SMTP id 5614622812f47-50c5482ee7amr19056488b6e.27.1792069279336;
-        Thu, 15 Oct 2026 06:01:19 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:7a64:39ea:e5ac:f974? ([2600:8803:e7e4:500:7a64:39ea:e5ac:f974])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1674ddf8sm18952180b6e.4.2026.10.15.06.01.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:01:16 -0700 (PDT)
-Message-ID: <ca27a15c-5b21-4381-a82f-e80bb0ae488a@baylibre.com>
-Date: Thu, 15 Oct 2026 08:01:14 -0500
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.b="JSZS2s7w"
+Message-ID: <a5fc6d63-75c0-44b8-aacb-245c9b7530d9@fhannenheim.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1792069298;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LXy1fifPCEzynS0G8IsZGcyXX7Dl+X3W6XOr87H3oGY=;
+	b=JSZS2s7wc68IlYkrlezCuhWTPfHQEKXDQYjCqT+xpvj2M4Szv+9SLAOryIdxIMKqKjZiEi
+	aAC+pg/oTt5tHutvgTxIpOqP3I6bNOrQl15tZPCqGnCnHRzl0MbSwqe1coQpkTy/dDWnTj
+	Q2+o1cljaQQboIt9AOHhG1lBV4qBWpI=
+Date: Thu, 15 Oct 2026 15:01:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads112c14: add gpio support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
- Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>
-References: <20261009-iio-adc-ti-ads112c14-gpio-v2-0-3231a795fa63@baylibre.com>
- <20261009-iio-adc-ti-ads112c14-gpio-v2-2-3231a795fa63@baylibre.com>
- <CAMRc=Mfn7+uQYvLjGLxU9wMOnRwx5pyPgaLp6oNx+ZcFXyXL=A@mail.gmail.com>
- <cde9d00a-bfe4-4093-b03d-f76a122e4ded@baylibre.com>
- <as46xFp-3fXvWPlm@ashevche-desk.local>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <as46xFp-3fXvWPlm@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
+From: Frieder Hannenheim <git@fhannenheim.net>
+Subject: Re: [PATCH 0/2] Add OnePlus 8T
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+ =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-kebab_dts-v1-0-1fee1204a18b@fhannenheim.net>
+ <1daa1740-2c91-4ea3-84a5-7f256ac0f07e@oss.qualcomm.com>
+Content-Language: de-DE, en-US
+In-Reply-To: <1daa1740-2c91-4ea3-84a5-7f256ac0f07e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/13/26 9:05 AM, Andy Shevchenko wrote:
-> On Sat, Oct 10, 2026 at 08:46:30AM -0500, David Lechner wrote:
->> On 10/10/26 4:00 AM, Bartosz Golaszewski wrote:
->>> On Sat, 10 Oct 2026 01:25:52 +0200, "David Lechner (TI)"
->>> <dlechner@baylibre.com> said:
-> 
-> ...
-> 
->>>> +	if (device_property_read_bool(dev, "gpio-controller")) {
->>>
->>> I think the right one to use is device_property_present().
->>
->> I thought this was the one case where device_property_read_bool() is
->> actually correct because gpio-controller property is a
->> /schemas/types.yaml#/definitions/flag.
->>
->> Otherwise, we should just remove device_property_read_bool() from the tree
->> because there would never be a reason to use it.
->>
->> My understanding is we should use device_property_present() for non-boolean
->> properties when we want to know if it is present or not before reading the
->> value of it.
-> 
-> That's not true. The _property_present() checks any type of property, while
-> _property_read_bool() returns an actual value of the flag, while they might
-> overlap in the behaviour, they are semantically completely different.
-> 
+Hi Konrad,
 
-That is exactly what I said.
+sorry I forgot to reply earlier. Thanks for the hint. I added the 
+dt-binding and fixed the lints in v2.
+
+Frieder
+
+On 15.10.26 11:16, Konrad Dybcio wrote:
+> On 10/15/26 10:57 AM, Frieder Hannenheim wrote:
+>> Adds a basic device tree for the OnePlus 8T (kebab). Common
+>> values for OnePlus devices using the sm8250 SOC are defined in
+>> sm8250-oneplus-common.
+>>
+>> This basic device tree brings up a framebuffer, UFS, battery monitoring,
+>> volume keys and UART. Further functionality will be brought up in
+>> subsequent patch sets.
+>>
+>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>> ---
+>> Frieder Hannenheim (2):
+>>        arm64: dts: qcom: Add sm8250-oneplus-common.dtsi
+>>        arm64: dts: qcom: oneplus-kebab: new device
+>>
+>>   arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+>>   .../arm64/boot/dts/qcom/sm8250-oneplus-common.dtsi | 618 +++++++++++++++++++++
+>>   arch/arm64/boot/dts/qcom/sm8250-oneplus-kebab.dts  | 124 +++++
+> 
+> Hello, thanks for your patches. For DT additions, you also need to
+> add dt-bindings for your board and validate the resulting DTBs,
+> e.g. via:
+> 
+> make [...] CHECK_DTBS=1 qcom/sm8250-foo-bar.dtb
+> 
+> Konrad
+
