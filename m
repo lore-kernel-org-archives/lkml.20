@@ -1,116 +1,68 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D20D54145D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DAFC33F8D4;
+	Thu, 15 Oct 2026 18:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792087900; cv=none; b=tpPmcEohj7NVxxyos3TL1IP8WbHbbYQyTDgZBxUbmT4RKe51jvvSHSwNdbQfzvJf5O6utgKN+YtLhOw5p9pWGEp5y9oYPywNLKb6+S96b9pQBcknCtGiWE8bLAfvyiXDP3ICc3/BAfDw/Swlb85VQ8aweHdl8KQo1q8CKO5DEnw=
+	t=1792087927; cv=none; b=pOwMxP+YV2vYQPOlPYRcEogH3OcfXDM0DEXHPb2abOjcbJtwq0IJCVcPVoI8ZIbWiuNI0vnAgNclEIuk18JXOohB08qfh9CL3wAHC4AuzblXO5VLzoI/r7tqvoRu+n+/nuZHqf3UOsQYS5L0uzuzZaWyg9CWh4h7OewxesFsiJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792087900; c=relaxed/simple;
-	bh=iF9KNRVVfl9yefyuDdsMHvmsXVUEtUTTt3+AdgKf5As=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mPeMPF0B14hktoeSstEcASjA/Wn6+tJdfaO2Fc9x9IQXp0Cd1AJcsPMEbeMXZEHnyzsTY8E20gGQ+61gYDuEsIBzs9CLvft3FfgCNWn+1Lxc00LQWLNqyq7et5TKf6RGSw5Lxp4l+Tu7Nh69U90S2HSQKwKfOACoYL76rzL5Eu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=d/2NaoVK; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1792087927; c=relaxed/simple;
+	bh=lb4Rl1o5/3HkWX592DeNjfwpCj6DGSbq0M9PUyV8CwU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ezfxZj/SYQBCPo00oU6h8NXFP79MLCxvPiTuuml3pXCMXxXuQEsk2pK6cJwf5CTx4wfrNv5iLU3PFqNc0VuPOBS+8UC1RTgV8F1SZCnO26nzuTy9BYexerJmpNG2MradbY8JVZnuauOVwDMMPFvrnK7TsnIWOvckBlJKDqx7rrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tRAQC+9J; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="d/2NaoVK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1792087880; x=1792347080;
-	bh=2msydkpPHwsYTtGjMai0sSWWVLFUdd2yy6ntZs9GgAw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=d/2NaoVKhbX7fByWOYUZE6MgnqIi5RGzYUmT1Jmc++fehe0cNCfbRTanFe9kmzs9e
-	 kL5r6H5GQ7t81xvbDnuvhRABY5Igg46VlvDHQLTxzCS5Hj4b4ss36T/xj26wFcc0qE
-	 V3T5E5Zirp+HCdrHTeZVwRsm5GDA8xHo1KS3hEzEZcq6WHvvawUB0O00BWQLyM0uGe
-	 1HBWoR0iRWc8o+kn1uzpZRtvAqFN9ffJ7ryLEiULOEwtWnkeQEIBUq3K8n055Ut7WE
-	 1r8Moxz3JuD1Q0vfqEhaqEc5XBe4iFaR4XodXIq6kMOzqOEWmeGCXym4j8/iZrfclA
-	 GonKPP6BH/42w==
-Date: Thu, 15 Oct 2026 18:11:14 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3] Bluetooth: l2cap: prefer compatible local LE intervals
-Message-ID: <20261015181041.42873-1-cochcoder@proton.me>
-In-Reply-To: <20261015043336.47734-1-cochcoder@proton.me>
-References: <20261013033118.501182-1-cochcoder@proton.me> <20261015043336.47734-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 32ae447af949694aa43417245bc5b45cd106647e
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tRAQC+9J"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE7BB14BF;
+	Thu, 15 Oct 2026 11:11:56 -0700 (PDT)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B5C613F871;
+	Thu, 15 Oct 2026 11:11:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792087920; bh=lb4Rl1o5/3HkWX592DeNjfwpCj6DGSbq0M9PUyV8CwU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=tRAQC+9JYeNu1Lo5qLLgcEKcdHvjm4GTZ5y2DaAWJGu/woDL7kSTd6k9SNg2aYzn6
+	 CfnYTCtnmvj3aZU49EJJvQzYIUU/eArK3Qoi6EJvSt88b6lSbFLg+RYVzzN3g815fX
+	 GOp8Q3Zle06+ptc+0P2G1j1C69YoXxCoNA6Tx8ZM=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Bill Roberts <bill.roberts@foss.arm.com>
+Subject: Re: [PATCH 0/2] arm64: gcs: Return -EPERM when changes are prevented by locking
+Date: Thu, 15 Oct 2026 19:10:36 +0100
+Message-ID: <179208783673.159915.17856867908691720090.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
+References: <20260910-arm64-gcs-lock-eperm-v1-0-d88e51855c9f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Use a valid intersection of a peer interval range and local preferences
-when they overlap. Otherwise retain the peer request instead of treating
-an initial preference as a hard supported bound.
+On Thu, 10 Sep 2026 20:00:39 +0100, Mark Brown wrote:
+> When we refuse to change the GCS configuraiton due to locking we
+> currently return -EBUSY which is an odd choice.  The only userspace I
+> found that relies on this value at present is the kselftest and other
+> architectures are using the more obvious -EPERM here let's switch.
 
-Validate the original wire request first. Only narrow its interval range;
-leave latency, timeout and disjoint-range acceptance unchanged.
+Applied to arm64 (for-next/gcs), thanks!
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
----
-Changes since v2:
-- Wrap test notes to avoid the GitLint B1 failure in series 1186108.
-- Refresh onto bluetooth-next ff8b09806b7b; no source delta from v2.
+While a minor ABI change, it's pretty harmless. The benfit is eventual
+(hopefully) common handling with x86 and risc-v. I did wonder whether to
+cc stable but we can always send it separately.
 
-Changes from v1 retained:
-- Treat local ranges as preferences, not supported bounds.
-- Prefer a valid intersection; otherwise keep the valid peer request.
-- Never repair an invalid original request by clipping.
-- Preserve latency, supervision timeout and disjoint-range acceptance.
-
-Prior native controls check the accepted L2CAP response and HCI range:
-overlap, fast HID fallback, slow idle fallback and exact match. Baseline
-passes 3/4; strict bounds pass 2/4 (reject HID/idle); v2 passes 4/4.
-The prior reference-guest full L2CAP suite passes 115/115, without skips
-or captured KASAN/lockdep alerts. These are prior runs, not fresh v3 VMs.
-
-The independent BlueZ test companion was sent as:
-https://lore.kernel.org/r/20261015044221.55631-1-cochcoder@proton.me
-Its overlap case intentionally fails without this kernel change.
-Completed-interval startup/stream gating remains separate profile work.
-
-The saved v2 CI report lists all jobs except GitLint passing, including
-the native L2CAP tester. This is not a remote CI result for v3.
-The combined Arch trial is reported working on hardware, not isolated
-testing of bluetooth-next or exhaustive device/negative-path coverage.
-
- net/bluetooth/l2cap_core.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 4dd56e007..afde04a19 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -5031,6 +5031,19 @@ static inline int l2cap_conn_param_update_req(struct=
- l2cap_conn *conn,
- =09memset(&rsp, 0, sizeof(rsp));
-=20
- =09err =3D hci_check_conn_params(min, max, latency, to_multiplier);
-+=09if (!err) {
-+=09=09u16 pref_min =3D max_t(u16, min, hcon->le_conn_min_interval);
-+=09=09u16 pref_max =3D min_t(u16, max, hcon->le_conn_max_interval);
-+
-+=09=09/* Local preferences must not reject a valid peer request. */
-+=09=09if (pref_min <=3D pref_max &&
-+=09=09    !hci_check_conn_params(pref_min, pref_max, latency,
-+=09=09=09=09=09  to_multiplier)) {
-+=09=09=09min =3D pref_min;
-+=09=09=09max =3D pref_max;
-+=09=09}
-+=09}
-+
- =09if (err)
- =09=09rsp.result =3D cpu_to_le16(L2CAP_CONN_PARAM_REJECTED);
- =09else
-
-base-commit: ff8b09806b7b18884ad8d3a2b3d702da534a4e21
-
+[1/2] arm64: gcs: Return -EPERM not -EBUSY for prctl() locking failures
+      https://git.kernel.org/arm64/c/988be99717ae
+[2/2] kselftest/arm64: Check for -EPERM not -EBUSY in the locking test
+      https://git.kernel.org/arm64/c/8c831e5cd3ad
