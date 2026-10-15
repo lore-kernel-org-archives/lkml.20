@@ -1,141 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633E03F8231;
-	Thu, 15 Oct 2026 18:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDF546AEF1;
+	Thu, 15 Oct 2026 18:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089768; cv=none; b=fZxrNb390QfsHbH9P4MQe+FdsXw3z+aOgwobhaump5002brK7G5vfUNJnwC9YROwsg0cJ8OYstb7s6Y3qvwA4jn7xwbPqKPkkqVoAjmM17sbKwYkRtCcCFo8Z6frDj1Ln3fOEbZGQT1V5xXpbfoi9121fLO3Y5oVwdEdtgvryXg=
+	t=1792089804; cv=none; b=nJNZo/AVwqcAOaR/GBGIV4jLBCgVYrmtc/HcmQULv3uMB1j8QNpbOQnkQK+VWwWdBzjE9rBm1BJCOYhA86H+AMheUiRMz9ROuPU3bNIGGLkfAm6v7OuC6PLOokKi0xAyLiNA2U1A2nBibhcLfWqKX4yN2OVdujmAX5sENj1P+Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089768; c=relaxed/simple;
-	bh=tDYWq06Lr0v8aO4d/FRTH+CAmRSgkd1Ug4MoqdpKYsg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FWcdTPylywntQXNJ+tiwqApJbSIz+sOCRv9MPZ39pIK/puVEweepqZX+YNXs/5qa4pfuU8JZXUvlP6wNSLyzAaT6U888mxGo0emxlpvqdrh9RuPrMD7kPKYQcQ2/M6Vhw70CTwhdCS1pIVx3aLQ30qu5yIMUh09TRA7/L80PRpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5ALtjyC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792089804; c=relaxed/simple;
+	bh=2nbazI1ztG5nMEwxaM7++j/y9IMyHe2N9tqtg9cKYm8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=offmOhPoon/3MLvAKDLfpgTpqZ3S442s2+uqq8xmsHZn427Rlg7TLgoqyEOg1V6E3KhAEZ0itjXlFPSQIbtDNO4kSw65SJx/Mi9eCWlz/G1xrBPibhlehG6WoQZKUrn4SkeqUzGuABgaDHPfJB1UsWM3M2Iq+RYKGfwRK2ueM4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=stg4i4tC; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5ALtjyC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FF051F000C4;
-	Thu, 15 Oct 2026 18:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792089765;
-	bh=dg/1OSkrW8sX2euc3aZ8a5bssRkph0JoeOFI3JZD560=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D5ALtjyC68GN/mpi+ZK8E1mWTMEDomCnS/ERWCEN6bBJPQCtugUMl+B22l+1wJ87o
-	 Hf+WjNfvU8VHb/MOo35aSpSbbtiJhvFwkuvJy8SdvTs4tED3cQebluDVjjUjxXz1RV
-	 10NtAzv7C/NQEJIftkQyH6he5O0wyi7/R2K/bcps+aobJQauR6XU/5Rlvb/ksM6j/L
-	 59oVD/dzJZQhZZ9ETV4mkQ0Wny9IbBXisFIw8Uq9voEdcR0398E47anliP1+RMUf+R
-	 NcmjNIg3KkyRf2CsCMhsGMRZueAB/J4ydYChvpem9THId0Ab9GKuFOOBhOgZqJyrv/
-	 Y3fVl4kmGEfLQ==
-Message-ID: <f482b724-7217-412c-a0d9-7d8e322fcc84@kernel.org>
-Date: Thu, 15 Oct 2026 13:42:43 -0500
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="stg4i4tC"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j5H5K17HszKp1t;
+	Thu, 15 Oct 2026 20:43:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792089797;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UX/ScQpB++PMVqQKSRy45nYkireTA+GVxkU1lh3v1uo=;
+	b=stg4i4tCPqWxaiA4nlaPYtmxpvUojz4CRUHEFGWIpVBXRIyjtnnzpfiv7A9I+kPLPfgoXL
+	+ymQElqTIH1K4DMdMsnguWD+4PwWeSIZh48pmNgYtXabWNVpaniF8sv2AyTES9lrEefGPX
+	K6HgVrxK/99k56yeSVkzGwvGQVLoZXzCbKD5nn56OERrqVto96zfX0pJ1GOKcr2tWvH5CH
+	OMC23ja+Vhl2usBF1jVV7+f+gDQUdTxDT+PtoKGMteKWsWD8ZB57Eap9jwGVXy1bRp/1SH
+	ORw9WhvnuoAE6DybyHMBzmySYxboFVVeze2po0+5XzCSk5Ku9moKyZLnIMErmg==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Jens Axboe <axboe@kernel.dk>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Keith Busch <kbusch@kernel.org>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] blk-mq-dma: remove obsolete part of kernel-doc
+Date: Thu, 15 Oct 2026 20:40:25 +0200
+Message-ID: <20261015184025.1025312-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] platform profile: Add firmware-neutral aggregate
- sysfs interface
-Content-Language: en-US
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Armin Wolf <W_Armin@gmx.de>,
- Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- Hans de Goede <hansg@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
- Greg KH <gregkh@linuxfoundation.org>, Jack Wu <jackbb_wu@compal.com>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- Kurt Borja <kuurtb@gmail.com>
-References: <20261014132500.3817549-1-daniel.lezcano@oss.qualcomm.com>
- <20261014132500.3817549-4-daniel.lezcano@oss.qualcomm.com>
- <c751e18d-57e9-4ce6-95dc-1bf53a7a4808@gmx.de>
- <CAJZ5v0jQQsXP4v7dymuHZhy2oVjPwV9eXhqV4bGPUgMyGyUsUQ@mail.gmail.com>
- <1cba0f2a-38cd-42b2-a773-9dca5d7519e5@app.fastmail.com>
- <68128016-661b-4b78-bac1-b7e23029d8de@kernel.org>
- <CAJZ5v0gHHoJVm9o-ZzD38jWpGbAZML4AMEpSmy9C9n5TSVYppg@mail.gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <CAJZ5v0gHHoJVm9o-ZzD38jWpGbAZML4AMEpSmy9C9n5TSVYppg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 4f53ce9d8380791632a
+X-MBO-RS-META: dmtiyx9o91b87u7ua6j8x8tg4foy9k4o
 
-On 10/15/26 13:33, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Oct 15, 2026 at 8:28 PM Mario Limonciello <superm1@kernel.org> wrote:
->>
->> On 10/15/26 13:04, Mark Pearson wrote:
->>>
->>> On Thu, Oct 15, 2026, at 7:30 AM, Rafael J. Wysocki (Intel) wrote:
->>>> On Wed, Oct 14, 2026 at 11:31 PM Armin Wolf <W_Armin@gmx.de> wrote:
->>>>>
->>>>> Am 14.10.26 um 15:24 schrieb Daniel Lezcano:
->>>>>
->>>>>> The per-provider class interface is firmware-independent, but system-
->>>>>> wide profile selection is only exposed under /sys/firmware/acpi.
->>>>>>
->>>>>> Add /sys/kernel/platform_profile/{choices,profile}, sharing the existing
->>>>>> aggregate callbacks and semantics with the legacy interface. Keep
->>>>>> attributes hidden until a provider is registered and remove them after
->>>>>> the last provider.
->>>>>>
->>>>>> Notify both aggregate frontends on profile changes. Also notify the
->>>>>> provider class device on a direct profile write, matching its documented
->>>>>> POLLPRI ABI. Restore aggregate visibility after a failed registration.
->>>>>
->>>>> IMHO the aggregate sysfs interface only exists for backwards-compatibility,
->>>>> so i would be very happy if you could just make the associated code optional
->>>>> and instead teach platform-profiles-daemon to use the individual class devices
->>>>> instead.
->>>>
->>>> It is not just a matter of opinion AFAICS, the aggregate interface has
->>>> been regarded as legacy for quite a while (see commit 778b94d7ac17
->>>> "ACPI: platform_profile: Add support for hidden choices" for example)
->>>> and it was retained exactly for backwards compatibility reasons IIRC.
->>>>
->>>> I'm with Armin on this.
->>>>
->>>> Thanks!
->>>
->>> I don't think we can get rid of the legacy aggregate interface - which I think is what you and Armin are asking for? What does making it optional mean?
->>>
->>> Reading through the patch series it seemed quite reasonable to me to move it out from under ACPI but still have the old interface working. What are the alternatives?
->>>
->>> User space (and users) are still using the aggregate interface in my experience
->>>
->>> Mark
->>
->> If we want to get rid of the legacy interface eventually I think this is
->> how you can do it:
->>
->> 1) Wrap it with a boolean Kconfig.  Default to enabled.
->> 2) Add some messaging in this Kconfig that it's being removed after the
->> LTS kernel from 2028.
->> 3) Emit a pr_notice_once() or similar that it's deprecated and will be
->> removed in the future.
->> 4) Modify all (known) userspace software to stop using it.
->> 5) Wait for userspace software to tag new releases.
->> 6) Change default to disabled.
->> 7) Wait some time.
->> 7) Next LTS is declared.
->> 7) Drop kconfig and legacy code.
-> 
-> That should work, but my point is rather to avoid adding another
-> aggregate interface to replace the old one and instead switch over the
-> ecosystem to the existing (and documented) class device platform
-> profile interface.
-> 
-> The legacy aggregate one may simply be removed when everybody stops
-> using it (which may take a while and it may be moved to staging at one
-> point).
+Variable 'state' is not part of blk_rq_integrity_dma_map_iter_next() nor
+was it ever part. Therefore remove it.
 
-Right totally agreed.  I was meaning userspace software should switch to 
-class interfaces not add a new aggregate one.
+Fixes: fec9b16dc555 ("blk-mq-dma: add scatter-less integrity data DMA mapping")
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ block/blk-mq-dma.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/block/blk-mq-dma.c b/block/blk-mq-dma.c
+index 88fd9cbc9..b0a1a2fc7 100644
+--- a/block/blk-mq-dma.c
++++ b/block/blk-mq-dma.c
+@@ -361,7 +361,6 @@ EXPORT_SYMBOL_GPL(blk_rq_integrity_dma_map_iter_start);
+  * 					 a request
+  * @req:	request to map
+  * @dma_dev:	device to map to
+- * @state:	DMA IOVA state
+  * @iter:	block layer DMA iterator
+  *
+  * Iterate to the next integrity mapping after a previous call to
+-- 
+2.55.0
 
