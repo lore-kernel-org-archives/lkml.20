@@ -1,200 +1,259 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B708541472
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086544; cv=none; b=dyFP+WrzcHeU3o+1lqkH7RS/c4GTLuR9ueMQBlWovfBPH7ucP3ywP6Go7UNWs6Rswtah5TrDS+jjON8CG6LJZgHrXWbHY6oCkiQG/4FcikZc0BbrFSGJMq0Cn68OPCKsdFXefDKJ//I9lOua+B7wSTbqcH3L5Y/u/bWx9S5BaBA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086544; c=relaxed/simple;
-	bh=4O/bKw9XxLrmWnCqNb+nEiSrTkGQi1THgwJJAv7ICAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bQgtFHQcgNgFqiE/a4+36neOqsMQ8J3EX5yYNW4eOdPjOxJd+ptRZCxBn8xMWgKYx9P7yS/tR/AmdM5SoNfbEA7DvNE4+w1XYOIOnuYEyBZjdJkPZq1Y2kyKsXBtW7lRC1fJVbGQWzAHK/ZHmgWZbxQEohIDr/QUvg/pIUTM1Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xaq9gpde; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DA13E274E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792086626; cv=pass; b=NwgtYnkQvVMSbMWYwEbylqwOSwYYjnJZMI0Md1yY3K9m9UnZ/8DgYVRrfdKP52F1vsYSEWHxGpQhH551MNBvxtLdttkZoPRdwQqxW0Lz0wx6HaAcCwD3sqVhwLeqsdJZbNHsTQij3jAoSfZ+JXxrm0bu+rkVwV5A6JjcBu8vCNU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792086626; c=relaxed/simple;
+	bh=7YFXKS/Ovq5nmb87+5GgKF45XBX6llfelH6aYSrZ1Hk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sTmzwqFcDSbu6f2IbzH6LRlafDtf1GEN+Fl7CWWKVkh6jpv8EInT7ZSi0PmNS+fQDTc4xoVT6QTO2BhlNnNpop3htBOrGiyYuBcQXIKLq0+PfHBJuqAKyMt9BNJnSVH3FzTBh28CWQZnkAztrUCPWA/GbDRd2wscldUfgr4FUxQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=H0pT6s6T; arc=pass smtp.client-ip=209.85.167.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xaq9gpde"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so1332146a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="H0pT6s6T"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so766e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:50:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792086616; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j4GSbAtD6tVTlzE9JpUx5HLzf/MPQlwQMvL5cV6WRUtqWn3v/2gHkoPi1nhBD/9q8R
+         KDQpV/6bsFmuljfRR154olW6YupzYUaBEQbSPztSIRsNeThh3bQKlc/USbSGoGuNrp/+
+         4E2uKtYN2uiQCmayOyGsSZOl+8GjFKM0ocj8GhS4La2CVpHEzElZSTXjxkSnEiRMfbMc
+         az/rHsjVUAYlruA6wDO3jJoYVBdZolm+rnfN8o/k1c2euyjWBFc5V1KJxzCHllotOSES
+         BP7l2eemCldm8SvkmWTLY3HA/28ds/1aygwxUS6n3u5Ys4ZC0tLHxz+XENZfs7M8Rms2
+         n9Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Yx75TLD9o3QgT7N/FNciO3xo0DqIeTswE4S8o7myHzk=;
+        fh=29B63AnIFOg3gZC1c0+NuemkqhfMd04CRKuZdBDbZ+M=;
+        b=PcwWeSWkNnpigWBpJV7LfExssyDI+MQsdYx9ztKvbyPJ2uKVWdnkRuypO5WB6c48jo
+         r1RVbIcRD9+5/HO5P6mzQ6LA3pZHKJmlI4owA7ylmPlv4ccaNpLmpA8IxH2u0JKidOt2
+         WGqXr71X/FYFg+hd1gbsyjYGp6gks2QDcxXnktl+2jJrhMx6G3hqlm4BOxat+PsNN7Cf
+         CSo2UV9hrYi+HJrPckUvMlGUH1Rty9qPrHcSZQl/kgiMhjD4dn+4hJntcYQ8sfr3GFhy
+         kxyjrw7jahR3IF8Cl+5McxVc/Jfr5sbkfmVy/0J0IfJSyjqfgRvi0S90dhzz4BYfUBFX
+         8OjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792086536; x=1792691336; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1792086616; x=1792691416; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8gmOZqAjPixYY6Ob7IGv/llQqi0+9XdrKezybj1a6U4=;
-        b=Xaq9gpdeyIMKtBM4ipDL7uGANYSKeNzb4uI40yTcBlpEo5zK6SpHz0toZMQWYB7Qqt
-         YyFQnFdgunyQsVD/ksYuS6xb7j2LloDqEyXXbYGqT/WYw/LTzfy8ZKb96BpyfZgbRdty
-         g5p0Hom7FoiASLXHV/enaZ/Y5tug6DKJtY1RQtxKvzwu2v1fX/GF6Saef25+IUgE36Dh
-         HowezT0xYYPamX3Pjel7ReZbTmmwsMeGE4XggdP2Id2YpkIV0n+7mcOuR6wiBWgYlfsp
-         xiLsI3jq0gB3GNv+AFz8g0vq01841vaDMCMc0dblEJdpuj7w/asz/niWMaMJL953/v7Q
-         dl6g==
+        bh=Yx75TLD9o3QgT7N/FNciO3xo0DqIeTswE4S8o7myHzk=;
+        b=H0pT6s6TJcjMa5xN5lPyy2nzM6ufCFcUF5FgzmU7TjBkz3PRRYRe3HQPWuxWMVWmhg
+         aWk14jc2GewPHK22ylxqCHHSYYC1kML8UwZ2bk2lV7ruDG7llWJ/twVhXrfrGQiSyiIU
+         v/2mNLCb2uTG+cx1V7fMbmYxiwZbj4f5s+iBBe0kVPLGdo1grhRdR04foIlfVBo5ljA9
+         ZhQAUKcnkhXfOBcmWp96khyhEOrDAvOdc+j5BqRhDCdHHxncvTG+TtRJ6yA/phDqG3NN
+         3LDO5QopnHevJma7KTgpIi8XKXy2Bc+7c/Ynb2a/U9+4GNocU+iLsU87AW+gMk7/ov95
+         FW0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792086536; x=1792691336;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792086616; x=1792691416;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8gmOZqAjPixYY6Ob7IGv/llQqi0+9XdrKezybj1a6U4=;
-        b=F+PDn/7VUjly0KQ/EJMydowHX8JUtfvUBktcgLdQtamaBMnJAvfzp23mEeOIWoIus+
-         yK19Eb0eFW754wiUDpnXmjx4aPbDwjisNexvo+TsqTGTQ3AddYWYUEDj5YONIN5/ToVO
-         JchxL/3NfOlIfRUGYZZjJQuPOeri6yHdEktFa3VU3eMoJHWyVHuqxDTV9DrR2ywgfnC9
-         dA7NdLaMO9x+A+1cbB1CBJE7sNdxTjAJUX6zSYzv29WfEHEcuv8XOG00q2UQ/kMMHtXR
-         dXPxERj3qzTu1w3/psBbjITES+TjffAHPWr4d1lRY8oGSkg726BHp4pXVSac6Lz6LT/9
-         oEdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbBjiC3pMOl85fivsjIcqm4zAzWMa1AabLeALHvwv/Yk+dwkj1MySceIi3h7bEnuUEq4y+uNCKqlKSOew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcMaAwr7pjKUFNgeHA2aK5P3eEza7ut2ezRq8xcnHlSsK8tKU9
-	oEaA1TvVdLzUXFHlxRw0UpdRLtn677NHuHvO4iCNNw3p/9f0Z81uYTxqaoGahdmixg==
-X-Gm-Gg: AYBFou3jxvCSK4xQVShasRCpdvsa7mmGCa4dODeHJrgB0lC0IdryjCnjJy2BaR06SsS
-	R5CnlBrIbobw/cPRdks6XiiA8m+h/7Q+o2zEJi8ggjpUE4fd6oRhVHy+v6cikc89nx4cnZWcqHt
-	mHvEr7HFpRWQ2zDSnKxoshPKzAj8PWz88gQY6KkntM1ghrM3tPtZUIw66+3f8s7iGJwrCbcxAww
-	nRoRoDznK4ZfifnB4lBWVt4akRNhY5YW9ywF6hY4s/aMmWzAXT7cdwOqgKpACu1VhIX2fX0qjo3
-	dFOMK34LSbn3btytD1vr92v/ZPJqWGKOGoUqHKbBt/Llxn34KWLhj+aI59c0xVq5QFXPvDtRpan
-	eqCU2UAf4qz2BY3Xyqr08esBI8pHjPUFheCU2IVBZlt33VuBBrbQ8oI7KmiEfiby9dnZS1LuKF3
-	9bqBPAXrPkVRvruNs2nTtwtfXJOh4skKoSVnlzPj5/kZG/FUsoCU89U6nA1Vvhjlext5XLMaaPb
-	kGmydH5xNKPrSXWkOzpJC7VQOsC6oU0iD0n2xHto09r4w==
-X-Received: by 2002:a17:90a:bd7:b0:3ab:f38:2b3b with SMTP id 98e67ed59e1d1-3ab9628e531mr9843506a91.21.1792086535442;
-        Thu, 15 Oct 2026 10:48:55 -0700 (PDT)
-Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm5041683a91.11.2026.10.15.10.48.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:48:54 -0700 (PDT)
-Date: Thu, 15 Oct 2026 17:48:51 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: linux-kselftest@vger.kernel.org, rppt@kernel.org, shuah@kernel.org,
-	akpm@linux-foundation.org, linux-mm@kvack.org, vipinsh@google.com,
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-	pratyush@kernel.org, graf@amazon.com
-Subject: Re: [PATCH v1 0/7] liveupdate: tmpfs preservation and early freeze
-Message-ID: <atESAwf17pJ11S9U@google.com>
-References: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
+        bh=Yx75TLD9o3QgT7N/FNciO3xo0DqIeTswE4S8o7myHzk=;
+        b=gmou2VhoeNiT76QBENxqF1G9ERsfyIyrHnGabhECeak2+KqyS2qHwGxxsd4qJv3m6M
+         3sV4951m5TFRbc6JW/w4UqsLcAXCVlv6ZWzuGxLX5hUEC8SxWyJLGEet18cYMsPLnehA
+         /P85ZCS5nh12R8U1sXF1FkdYja+VPiXVPJSvVIWyPbnOu2kO2XPM4j3A6WFBEVCDFum8
+         uQmar9WMhdW4Ha+l/iv4twCMghyw5PzKmR/yARFW+rhBlSvI1CAOqaRIMjbOz8ASioAS
+         iEMNTc4Qhr8yTdv/Ge8qPNbigBkGTo0uqj68s0iVVC+l3qAni9VV+W/Y/r+SNUgDIRVK
+         9ofg==
+X-Forwarded-Encrypted: i=1; AKwUvBz3OIjPbLAkh3VTLK6auKBpd6oJqq0Q2fxO4qyoYN0o1QN2VH+pfApwQjGik8k9na+3taabso0OzRGx9Gs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3xRrlpNnzPyMW2UGUWYGHR0+rvR95GyxaGCuNi1PeNYX+SQhO
+	9oUh1+CRbGi3+aSQdN6CB+NrKHRyMVpa6GCl9CZsu3UV9QUvyTT9JdSkizFr+3a1c2F6nI00gNK
+	Q3DYXn0od2bIvZT56k3PmC1uOH7BAMsdcrNRKrz9O
+X-Gm-Gg: AYBFou09/BjNWtU7RLwFm/vYCWrG1DAiZTOMgax17cbf/bTXwEgpgoCQYux1K8up6+o
+	2g6VCvKR43ST+VzJ16qP2/uSAjy4Q24zLIxdoFi7Vhfr0Lt7YeFyHLlB0iIhaA6v5Ahb9jgjK0Z
+	rgQs0O6va0zilr5TD+nfjtiZi2xuW+ScxqQyTlWxUZwS00QVTEJ4dS2e8ujWSx5SN0ueCOMFIH6
+	qQkxi1gKm6yc/uRwga245iUQEwEjlOA6hzU2cSWGBfiBzM7AP54lmWe2BjfDMR2EQ2N1Ye2IAIo
+	96+fv5RoPS/AKcbSbgJlpPHtDaOEhKfQiWHEMCCruZKVdFnm90QF2bn2GCkFEgsYrAYDsrfwe5r
+	l+zyOSpZj2Ypf
+X-Received: by 2002:a05:6512:15a5:b0:5b8:d04b:a1be with SMTP id
+ 2adb3069b0e04-5be49062033mr12408e87.2.1792086615838; Thu, 15 Oct 2026
+ 10:50:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015093816.2438942-1-pasha.tatashin@soleen.com>
+References: <20261010224902.1232178-1-arighi@nvidia.com>
+In-Reply-To: <20261010224902.1232178-1-arighi@nvidia.com>
+From: Josh Don <joshdon@google.com>
+Date: Thu, 15 Oct 2026 10:50:02 -0700
+X-Gm-Features: AclHuK9lirj1gDypxoTAo704_sbQDLhEJ7aMOCxHqLEYPUpC9luru9DQF83Mh7g
+Message-ID: <CABk29NuGMO+HUQzegh6mvy2zjQRD=-rOkiroeCwyTEAeTTsEZA@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs files
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	John Fastabend <john.fastabend@gmail.com>, Vineeth Pillai <vineethrp@google.com>, 
+	Balbir Singh <balbirs@nvidia.com>, Shameer Kolothum <skolothumtho@nvidia.com>, 
+	Himadri Chhaya-Shailesh <himadrics@protonmail.com>, NchangRoy <royfru44@gmail.com>, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Peilin Ye <yepeilin@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-15 05:38 AM, Pasha Tatashin wrote:
-> This series allows preserving files in tmpfs via LUO to survive across a
-> live update, and allows userspace to decide when to freeze a session
-> instead of delaying until auto-freeze at kexec time. Once userspace is
-> done with a session, it can freeze the session immediately (and across
-> multiple sessions in parallel), reducing blackout time by not postponing
-> this operation to kexec shutdown where all sessions are frozen serially:
-> 
-> 1. Early session freeze (LIVEUPDATE_SESSION_FREEZE):
->    Currently, LUO sessions are frozen automatically only inside the
->    reboot(LINUX_REBOOT_CMD_KEXEC) path, where luo_session_serialize()
->    iterates through all outgoing sessions under global write locks and
->    freezes them serially during shutdown.
-> 
->    Add the LIVEUPDATE_SESSION_FREEZE ioctl on session file descriptors so
->    userspace can freeze a session as soon as it is done with it (and freeze
->    multiple sessions concurrently, since luo_session_freeze() only acquires
->    the per-session mutex). During kexec, already-frozen sessions skip the
->    late auto-freeze step; if an early-frozen session is closed before
->    kexec, its files are rolled back via .unfreeze() before being
->    unpreserved.
+Hi Andrea,
 
-Thanks for putting this together. I'm on board with driving
-retrieve-into through a per-handler argument instead of a LUO-level
-flag. It's what Pratyush suggested on the RFC too (sorry Pratyush, I
-never replied to that). I still need to review the actual patch but
-I think the idea is fine.
+Thanks for sending this out, I'd really like to converge on a shared
+memory model that will work for both the goals of phantom tracker and
+for pvsched :) Been thinking about the tradeoffs of this vs the
+current structure of shared memory that we have in pvsched v3. I think
+this definitely brings some nice properties, but I have some
+questions/suggestions inline below.
 
-However, nothing ties the arg struct to a handler, it's interpreted by
-whichever handler owns the token. At LPC we discussed letting userspace
-pick the handler in PRESERVE_FD/RETRIEVE_FD, so that it controls which
-one is used when more than one can take a file. If we do that, the
-handler name would also be the natural key for which arg struct is
-expected.
+On Sat, Oct 10, 2026 at 3:49=E2=80=AFPM Andrea Righi <arighi@nvidia.com> wr=
+ote:
+>
+> As discussed in the BPF track and the sched_ext microconference at Linux
+> Plumbers 2026 [1][2], shared BPF arenas can provide a generic channel
+> for bidirectional zero-copy communication between BPF programs running
+> on a host and its guests. One potential use is to exchange scheduling
+> hints between host and guest sched_ext schedulers through shared memory.
+>
+> The goal is to let both schedulers access the same underlying pages as
+> BPF arena memory. Exchanging hints then requires no copies between
+> separate host and guest buffers. With the arena file interface proposed
+> here, the setup uses existing QEMU/KVM memory backends and guest NUMA
+> interfaces, without further kernel or hypervisor changes to implement
+> the communication channel.
 
-> 3. Tmpfs file preservation and retrieval:
->    Using the file handler retrieve argument, extend mm/memfd_luo to allow
->    preserving generic shmem-backed tmpfs files (not just unlinked memfd
->    pseudofiles), recording MEMFD_LUO_FLAG_TMPFS in
->    struct memfd_luo_ser.flags so that preserved tmpfs files must be
->    retrieved as tmpfs files and preserved memfd files must be retrieved as
->    memfd files.
+Seems this relies on QEMU support for supplying offset+size for a
+virtual NUMA node; looking quickly this would seem to need additional
+work to support on other VMMs like CHV (and especially crosvm). Not a
+showstopper but just a comment that I think the PCI device model is
+easier to integrate in other VMMs.
 
-I've been working on a v1 of the tmpfs preservation since LPC. v1 fixes
-a number of problems in the RFC that I think this series still has
-(sorry for the wall of text, it is LLM-generated):
+> A host scheduler's userspace component can create and pin an arena map,
+> then use an arena allocator to partition it into per-guest chunks.
+> Userspace passes each chunk to QEMU as a shared file-backed memory
+> backend, using a bounded offset and length in the sized bpffs file.
+> QEMU exposes only that chunk as a NUMA node inside the corresponding
+> guest; the rest of the host arena is not mapped into guest RAM.
 
- - Failures that userspace can fix lose the file. The folios are
-   restored, charged and added one at a time, so if the target's mount
-   is too small (ENOSPC/quota) or the caller hits its memcg limit
-   partway through, the target is truncated, the folios are freed, and
-   the failure is permanent. Only bad-argument errors are retryable.
-   v1 restores all the folios first, charges all the blocks and memcg
-   up front, and adds all the folios to the page cache or none of them.
-   It keeps the restored folios in private_data between attempts (LUO
-   needs to pass private_data to .retrieve() and keep it on failure),
-   so the only permanent failure left is losing the KHO state itself.
+So this is the host allocates, guest uses model. Contrasted with
+pvsched v3's guest allocate, host pins.
 
- - memfd_pin_folios() doesn't require the inode lock, so iommufd can
-   pin folios of the target while they're being added or truncated
-   away. v1 starts with two patches that make iommufd take the lock
-   and make memfd_pin_folios() assert it.
+Guest still needs some way of communicating back to the host which
+pages correspond to which data. Ie. a mapping of VCPU -> address
+within this arena memory that the host can then use to lookup per-VCPU
+info written by the guest. This comes for free with the guest
+allocation model in pvsched. I see you allude to this requirement
+below.
 
- - The target has to be opened for writing (FMODE_WRITE). Since LUO
-   holds a reference to it until finish, that means a restored binary
-   can't be executed until the session is finished (-ETXTBSY). v1
-   instead requires mnt_want_write_file() and file_permission(MAY_WRITE)
-   under the inode lock, like FS_IOC_ENABLE_VERITY. That also rejects
-   immutable files, which a fd opened for writing before chattr +i
-   doesn't.
+Another thing missing here is a doorbell, so this approach doesn't
+obviate the need for at least one guest BAR. If we have that, it's not
+a stretch to use an additional BAR for communicating the mappings (as
+pvsched does in v3).
 
- - There's no file_modified() or fsnotify_modify(), so setuid/setgid
-   bits aren't cleared and timestamps aren't updated. The normal write
-   path does both.
+> The guest scheduler can create its own arena and allocate pages from
+> that NUMA node. Those guest physical pages are backed by the host arena,
+> so host and guest BPF programs can access the same memory through their
+> respective arenas.
 
- - f_pos is set through fget() + vfs_setpos() without f_pos_lock, which
-   races with read()/lseek() on the same open file. v1 uses
-   fdget_pos(). (Sashiko called this an ABBA deadlock. I don't think it
-   is one, since vfs_setpos() doesn't take the lock, but the race is
-   real.)
+Two nice things here that we don't currently have with pvsched. One is
+that the host BPF programs can directly read/write the arena memory
+without needing an additional special kfunc to grab the right pointer
+(for pvsched specific BPF hooks in the host we intend to pass the
+pointer in the BPF context, but for sched_ext programs we intended to
+add a kfunc to e.g. lookup the pointer by VCPU).  Second, the memory
+here is arena memory, which is quite nice. Currently pvsched just
+interprets it as a struct with a large data blob. Ideally we'd like to
+convert the pvsched model to use an arena.
 
- - Early failures leak the preserved folios. The seals/flags check
-   frees ser and records a permanent error, so .finish() skips the file
-   and the folios are never freed. Sashiko flagged this as well. The
-   new MEMFD_LUO_ALL_FLAGS check adds another way to get there. In v1,
-   early failures don't consume anything and aren't permanent, so
-   .finish() cleans up.
+Some additional drawbacks of the guest arena allocation you describe here:
+- The extra NUMA node can presumably be used for unrelated
+allocations; there's no way to isolate it for just the purposes of our
+arena? Guest kernel and other guest userspace could allocate on that
+node.
+- Memory allocations targeting that NUMA node (for the arena) could
+fail to find free space and fall back to another NUMA node; that at
+least seems solvable by forcing allocations to only come from the
+targetted node though
+- This removes flexiblity of the guest to allocate memory how it
+likes. For example, with pvsched the guest can allocate the per-VCPU
+pages from the guest virtual nodes where those VCPUs reside.
+- I don't think this works for confidential VMs? You'd end up needing
+the guest to share the pages back with the host, which is essentially
+what the guest-allocates model already does
 
- - If a token was already retrieved, luo_retrieve_file() returns the
-   existing file and ignores arg. Userspace that asks to retrieve into
-   X gets success and an fd for a different file. I think LUO should
-   fail with -EBUSY if an arg is passed for a token that was already
-   retrieved.
+I would definitely like to have the memory come to BPF via an arena
+for the flexibility of use, but I'm still a bit hung up on the host
+allocation part. I had been thinking about how to make the arena work
+using guest allocations, but nothing super concrete. Essentially the
+guest would create an arena and allocate pages, and stash the GPAs in
+the pvsched BAR. The host would need to pull those pages into its
+arena and deterministically allow access to them.
 
- - Sashiko's WARN_ON(liveupdate_claim_file()) report on 3/7 is valid:
-   xa_insert() can fail with -ENOMEM there, and userspace can trigger
-   that.
+> After identifying the corresponding arena offsets,
+> both sides exchange data through direct BPF loads and stores. Arena
+> pointers are not relocated between mappings; a shared protocol can use
+> validated slice-relative offsets instead.
+>
+> QEMU is one potential consumer. The interface is generic: it exposes a
+> pinned BPF arena as a sized bpffs file that ordinary userspace consumers
+> can open and mmap, including consumers that require a file size when
+> setting up shared memory.
+>
+> The series separates page retention from file export:
+>
+> * BPF_F_ARENA_NO_FREE makes BPF page-free operations no-ops, retaining
+>   allocated pages until the map is destroyed. This flag alone preserves
+>   ordinary arena pin behavior.
 
-One place our series are not aligned is MEMFD_LUO_FLAG_TMPFS. My
-thinking has been that RETRIEVE_FD should support retrieving into any
-shmem file (including linked files, memfds, and O_TMPFILE). It is
-userspace's choice at retrieve time. The only thing the kernel enforces
-are the fundamental requirements such as exceeding the file's mount's
-limit.  When I think about it that way there is nothing special about
-retrieving into a memfd and MEMFD_LUO_FLAG_TMPFS is just artificially
-limiting how a shmem file can be retrieved. WDYT?
+Does this imply that the arena remains allocated at its highest
+watermark, regardless if we have VMs leave the system (and thus the
+host attempt to free the arena pages that corresponded to the departed
+VMs)?
 
-One last thing is my v1 also comes with a dedicated tmpfs selftest with
-much broader positive and negative test coverage that I would like to
-land (things link O_TMPFILE and read-only targets, executing restored
-binaries, exact block accounting with statfs() and st_blocks, including
-large folios that extend past EOF, etc.).
+Smaller note: we probably want to at least make the free operation
+zero out the page so that no data is leftover when we reuse that page
+(ie. for a new VM).
 
-Maybe what we can do is keep your 1-5/7 patches and I'll rebase my v1 on
-top and send that as a replacement for 6-7/7?
+> * BPF_F_ARENA_EXPORT exposes the pin as a sized file and requires
+>   BPF_F_ARENA_NO_FREE, so BPF programs cannot remove backing pages while
+>   external consumers may still use them.
+>
+> The map FD retains the canonical BPF address range. Exported mappings
+> can select different virtual addresses and map disjoint slices. Faults
+> resolve by file offset, and page zaps cover only the overlapping range
+> in each exported VMA. Consumers establish the canonical range through
+> map_extra or a full-capacity map FD mapping before mapping the pin.
+> For exported arenas, the canonical range matches the fixed file size;
+> ordinary and retention-only arenas still allow shorter mappings.
+>
+> Pin permissions distinguish readers from writers. O_RDONLY consumers
+> can create read-only shared mappings, but cannot request writable
+> mappings or acquire write permission through mprotect(). Private
+> mappings and file size changes are rejected. Open files and mappings
+> retain the arena after unpinning until the last reference is released.
+> The capacity is initialized before inode publication and can be queried
+> with fstat() or lseek(fd, 0, SEEK_END).
+>
+> Exported mappings retain the arena's lifecycle restrictions: they are
+> not inherited across fork and cannot be split, expanded, or relocated.
+> The documentation describes these limits and native tests exercise them.
+>
+> Access through open() and mmap() intentionally uses filesystem
+> permissions and the applicable file, mmap, and BPF map LSM checks.
+> olicies specific to the bpf() syscall, including seccomp filters on that
+> syscall, do not govern this file interface.
+>
+> [1] https://lpc.events/event/20/contributions/2429/
+> [2] https://lpc.events/event/20/contributions/2482/
+>
+> Git tree: git://git.kernel.org/pub/scm/linux/kernel/git/arighi/linux.git =
+bpf-pinned-arena
 
-Thanks,
-David
+Best,
+Josh
