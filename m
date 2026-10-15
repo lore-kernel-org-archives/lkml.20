@@ -1,122 +1,148 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+Received: from mail-vs2-f0.google.com (mail-vs2-f0.google.com [74.125.227.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C536384232
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05BE3E00A5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792041730; cv=pass; b=hl7JE8XCYpo25FS9MXflzmIGwxUtz7Uqsn+xu1sl7g1M+OalsdiekTtd4vZ0ZH2+TVWGXxmVWQ9qVryDHLlQJ3kTc5SW5lrNVdIeT8/wktZd0EHDzH0Q2voTfg3iCrN5u34le06qQYaLFJqHQi/cEzIpxmjK/3Zo0uW/tCONxHo=
+	t=1792041819; cv=pass; b=HgmxzUYsDVVA+Hfba1g8HTagNo0wmAF0eUPiZZyg+Fk2/3Sjh+IeqXKR0wJK8/dthQ4KbYbstuqZ7AjWMoRXpJ9GNbvw2zUmi6+b5gkxYU9YV/DSueLnIrY33mvgrmuluqO8re++ckqEQKaPWDKmfmBpLts1XtB2wmXZNb78FCc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792041730; c=relaxed/simple;
-	bh=LCA5ygrhxhhkIA05plaRNBxJfo5PazKMU7keUhXUWVQ=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fPK05CYcjOrTCg7NkPqNzUfipg31IQ/xuAtS4IHOSp7aK56SlxAb9vWnwvAQRkmi81kxl0+mY8ywv3E83l5oBNFEvIgu6+8AxEGgqgT8AG2EV9WFxd0YxL9Dw/KbNfWtf2yMX2eEFaJtJ9bnQ41tXNfAW9fzBatIsScv/w7yY7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=AgD0ODUC reason="key not found in DNS"; arc=pass smtp.client-ip=209.85.160.53
+	s=arc-20240116; t=1792041819; c=relaxed/simple;
+	bh=wT0s5EB9ctm1xuUw4zYNpW2sr7V/a+FHygJ9Zzmu2oA=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Rzwll8CcYtFkYN9tiv8bp1Dyv7FfstMbbtWEkiubYSnj9rKTL4iy0nZsnwbax/XMZI9xZnj86mjtk78KMnPjj5ecCVamXPvnbeIlH6w4E0H9mrFndrwi4Gq9rYIW/OeTHOs9TWP5c32yQrxj5wdCfXHofIQQT9WLQFu3XXX6FHk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=TTzVEVVz reason="key not found in DNS"; arc=pass smtp.client-ip=74.125.227.0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trukhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="AgD0ODUC"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4932b13c4ccso713584fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:22:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792041728; cv=none;
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="TTzVEVVz"
+Received: by mail-vs2-f0.google.com with SMTP id ada2fe7eead31-7565f2f85c5so1179740137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:23:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792041816; cv=none;
         d=google.com; s=arc-20260327;
-        b=JYq8X2HInZH+45ye+Nqlt6ni8OpK//sXfbVs1UHF/E75p4tRq4okIrrlX1CI8mmphx
-         2GXHo2JKvLt5zAakkz2zTIpxwGuTqDc+ahvRZsUE1UPOxUKGEeGPsQcOiBZKflXfs5zQ
-         D+jpoEz2Mk9VFTD7EdoO1bCS7qJbk01ubOZnGzJiJwtNX95d/V3mNhKzSuqE/eJZ4fi8
-         83thnHoyFQkzbXTUDL0gaW4RgRe9jpNkRRAiGoPLpzwPhLHcw/o/5wZNjkQee84OQ0iW
-         DHiWeV2SwSp/VUz00SedpyFppgQVL5VJg/3dGAOLRTYmWxOCd/pwcri2+PrI35rB2iG2
-         rzxQ==
+        b=EIDjg9vw6zUi3D4J90Mc1XeiMDTSORTSAbvQM1yutJnu3oYqACbS8Mfb7SiBbHPwCC
+         EjRSnHgyVn8dyeCsikpW5LpEBVXENEAw5ytEbLpy2H2mAzgv0IwyvTjirYPQ8oDrBf2v
+         8ZCCY4jw+TQq1tlCEx0OHKehT0hr7xwJHvI7oVaSODdH/AaBPQsgYdCmAaP1MFFVRGkg
+         7xVVw4vyXegqACkNT+kPqCWb6HI71PwOGa9Qp114JcxNUqNtXmVzwzKMZpcR/18glnvU
+         TY20OQMS6JffbEpB9/WhtZ6ybrx47tbFY28jAs5blY9AXCSn7pFmorG8tU/5mkkwA41t
+         5zSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=LCA5ygrhxhhkIA05plaRNBxJfo5PazKMU7keUhXUWVQ=;
-        fh=q77w7CZhYRKzkP/6OGCfUn6qkTXiODcGolxowh1p18I=;
-        b=rpHe2hqZxpOg5vuJlTbU1SpCxS6fYHVCGs1flZQKfHSeEdGy/3grAjemaNDXrMHsK+
-         PLKIEy4uYbUCHPi2lGHZSN/Gafbc2DZhRCgEuR60Tw75x5dS7+MLu5lN/L/6j40ymm5B
-         TTDmyCibRuz6dwBeghcMoPAim+6zZ1aeS2E854g29iaC+v95dg9ZwMn3YnJi5SjU3pkx
-         +CByp0NnqgkPD/PEhFJwj6PmPigZqBRWSrM9pDyXun9SVfu/32HRMlXZOZnbXyVjp2Wv
-         Iy3lkxA+nCLB/p3+mzd5jjdOrnyJ3mFo9ksaP+20V1swdER3Q5ONziYdE0qWxa0joYys
-         A2Ig==;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
+        fh=omvkeFBEv02VqzJoqon4rJpsvM2MMntyuPd4qK8TNYM=;
+        b=aeBnBqhvrr2oYFuBWHSeteLdah4/iynn6igMjSDNcEqS4Mk4oZHLu6f4BhuAfIxglr
+         +c5YIWuoekLFomwKEPy4Ond/Ox4Gazoa8TaVAjLiJnNbXfDC55E0gczudvAOyxGLN4nJ
+         /7xXqjrZao22lIjMStoG7+IkUaqRz25gUjShi0NdkKRMWJw93IuujU7VvmA2sz6z0Xh6
+         HcMGoGb3dJXLVZzARXXKP7ZDR2bJfXBs0O0JU7aLPWnJxuN02gA6DG+G5GzTzj+74G+v
+         W8KZFyXuLQF7pSM5otcxO1xA7ojTUwZuegSwWlWYa1Qj2sCdPywmzg+efedsL8pu6+I5
+         oxTw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trukhin.com; s=google; t=1792041728; x=1792646528; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LCA5ygrhxhhkIA05plaRNBxJfo5PazKMU7keUhXUWVQ=;
-        b=AgD0ODUClZW46Cgwt9+DDfkEeVu66OdbfsP4U6ib6YAn8jyX5x1u8yKqQg620Vy8AI
-         h3PZZKAddnwGDsWQ0pIS4jkr7y40oKykDK2wpR0g5u0s3gXqIxmd+SddxgxUP2dq6Wec
-         043jCUd7rrREoInBlP5nzXfP1k0/7yAZ84eE22dKuDjRCtzHgCFvF4kC1ZcoyBfnGszR
-         nU8/B74my+KsIxhbOie2kzwCV0YKslyw7ShE+WvIHgHJ/kN7vG3o6nFqMZX4952PfUdu
-         dwD5gJZUNM9SKv5S75yRcEgDE8LnLDUk+M3erz6IxLCqu0GQHpMJy6piZchVAHBK2Yu+
-         84nA==
+        d=trukhin.com; s=google; t=1792041816; x=1792646616; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
+        b=TTzVEVVz7CCwHCsnQnrJb/QG0wXgiVTR+P/R5OATRyo0kS91ljPygoINKfSTP3Di18
+         jHIDsl1gOhJ4HVVnEWdMjQxcVzolsL2tl/4wooxz8hMmDDZT5JcgB8msjQ5J5IZTMssc
+         rIPcMDSFpssT/HI0/ShHvUyG86ki/n0+ywji22uqWgC87vWuY5Ji0PmAVn0e1Y2kdzwA
+         scjtKG0t4tYQN1d4JLZi2utnG+6x5lNG6TMDwKNngjjlbjqBVIIUp/XqsJh/mO06ZUx8
+         4lFsk2BWriwsTfkGykJSLrZHKRFAKU5M1ygo7+QoBYbcbdBSogyDfYs203x8zDEHP21T
+         80ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792041728; x=1792646528;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LCA5ygrhxhhkIA05plaRNBxJfo5PazKMU7keUhXUWVQ=;
-        b=yCL9VOA6w2lJaG+y0HJian3yNgmdd36RLYVZdEmMa/nTk6uEZ4MQDBX1tqUPSUWlKt
-         +pIKe/RWbc65U0Ws4hbWp556IJsH+W3wRKOHXxMgqkJGySJMHrgKKs/cJQO6g9U4U6Tc
-         8vQPB2syFlwNM3DZiaymdIL+HcWT9142jLM3S24eAsDio3HvjHW2k1aGeNlCoyL6Y/6s
-         JVuiSHRPs8EmxDzAwYK4608aBatq7qmiwlcwFCMHMMop9yroSy/WIScYamAfZwWFFMel
-         hYG26f7THQgtm6LipKkYHa2mRo7daO18BmQrAbjNhrOkAi4+49W+keDCNTkBLC1FyT8o
-         K4iw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQGalAJ3KJMxNlNESLF6LzW3hl/sq0Oy8+KsJOotzlS3pLQgkA9iWlfrnG0gwLjvn61m60Fg8l+C8K2XI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIybKO96U1pZraswajzNzS2VsMoxxrWYoJdC9hGKIqeyWAP9JpB
-	CBwp+A+kycEEf3OBfbMfSbDMuvv6y7HPV6HmZ+i99X7B8mkSoMwm4qfa8R35AwgEaBDf5//2lPe
-	k15NSyjiGRUZhZjm5f3F9oHcu5cl4FFIyv/P/ddE0gQ==
-X-Gm-Gg: AYBFou07znev6r/pmP6s7Wpfr404PFD/AbP57F/3Erob2dWPXkRwG6n15QU8WB/YWNG
-	NddN0W79FLYX6FZD6I2lbUbU1zM0KxHGJp7B0g2BcshN63guH2dbOFM0LWY9iFgeQJDcTbgnp8D
-	rtZCCJjtiCrsd32n+XtnYTfDFOgz2casSFU8UMbHQ+kUcNIwZGCjibcVNQr1PWgq1/gqDvM4rkQ
-	vGiwudHYLISROyXXyyB4VqDT2JHMCFqCzTXu6XM1U1o2qzqMpV3Ot6rpHA5Jg60KqUyhni56Cvv
-	N2NE1pcNIv+S2KSHagCJ+MF8s7D1Lmp3CZ1NJ6vLd2Q5dqEWfHVkrFKxZzKRnlnxe7K/dfPMRs9
-	IZvYtrRqQlNek67WY7hzedIA=
-X-Received: by 2002:a05:6808:50a3:b0:4e6:a21a:8c38 with SMTP id
- 5614622812f47-50c53c90338mr16422275b6e.39.1792041727716; Wed, 14 Oct 2026
- 22:22:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792041816; x=1792646616;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
+        b=sX+ShDxMjO4ei9olZSzeH3e3mFCjNvwLRHqKtwXc4pvvoSxaFYN7JKWJa0aJAp84QA
+         6JPb10NU2pd2x7XoLsAwZjTHni/3EaT/x+nJSXhn3gKXtp4mHJugb+beq9BWYG1QljdO
+         6TAx3ph6STwSqM90K/zscBk4fAo9J/i96Em4glev+Dv2A7Wk+HW7K/vubwr+Giz1tVDD
+         8SHtA7ux4sDdAhry/UfyC92ClB7xX1IKhENcETDj3HE288XBr09Ga7wJ+Xyz/b5Fr0I3
+         B8CnfyuUy8Y//B7uMiochpq481XpWXXLq52QTmnN5527I4QBXLy7C2hPiMtX5bhpV2da
+         uw0w==
+X-Forwarded-Encrypted: i=1; AKwUvBymK6EafsSg45nsUWlvFldy3fSl1YpDyOdday7XBn8bSd1Hxpz/Mqft7gwyYw11N0yLkdY9pUxs+N8fJww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4ZYcQXrNV2YN25rsSNV8IZrnTNgu0AzGFILQ7zjgZUb/poaPK
+	scdcbU/AI00osVgKhf5MCME3+JnaZaU2z0Z5rXaIJBmoiseyLF5s73xyavwHyWnRe3jonbLZg9v
+	LOwM7RjKea7iUH3SVPHI2x6MjRQKXbXbkyTSl9LY3Sg==
+X-Gm-Gg: AYBFou2MzMLycKtN1wVfPV9ppdbU7CZkHayo3UVAFg5C4fDzq6tqaR3hN+PwLj8a3z0
+	O2h2t5QbsNTbbh6X13SboeovW/91MVJz7ZvbmyqnXBK3SW3LrIvR/U8HK8W1HLxQi7MF6yVMiEp
+	t8QwAz0eiIjkeQyJHNDHgBRg3CgxqPIzo5HDW8brKlDzPPMYcIBF79MARDn0VYj9N9+V27zf/ND
+	iueu2QNnVGQabVTaymYchmouTUqXBGFtufqj00UuGWPkpjQhw60o6Q1+ZN1Yl2yUdabXEPZNW9z
+	9lqE7Lk1TAgGX6/gqq70EpygPdiSLu/xmV7l44yOHAlsJKbznZdpWzTsfuPq3inrd0Rq54wNqEb
+	6Ellyk9WL6YeRED7Q3UzSV42bsh/5tiRKDQ==
+X-Received: by 2002:a05:6102:370d:b0:7c3:9464:efaa with SMTP id
+ ada2fe7eead31-7cb36590225mr4707868137.2.1792041816136; Wed, 14 Oct 2026
+ 22:23:36 -0700 (PDT)
 Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 22:22:07 -0700
+ HTTPREST; Wed, 14 Oct 2026 22:23:35 -0700
 Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 22:22:07 -0700
+ HTTPREST; Wed, 14 Oct 2026 22:23:35 -0700
 From: Iurii Trukhin <yuri@trukhin.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <x4iu6sii7fsxksdfur3wcpu4kb63eubsp5d6pzklxuhta7xtj7@rskyoy7ajncj>
-References: <CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com>
- <x4iu6sii7fsxksdfur3wcpu4kb63eubsp5d6pzklxuhta7xtj7@rskyoy7ajncj>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 22:22:07 -0700
-X-Gm-Features: AclHuK_bFzbfGIRxfiHxQRAWNh28jgXvMZCZ8XCr7vR2oiT7mhNNzw5OJD91xM8
-Message-ID: <CAOx7e9LcNFVS8K4bBngeYEpJTXFwADA+xgw6f8r6Lh2ms-3u=A@mail.gmail.com>
-Subject: Re: [PATCH] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit and
+Date: Wed, 14 Oct 2026 22:23:35 -0700
+X-Gm-Features: AclHuK_YYfxnldX7Bh0B9i3Tow6J5A6qSw_Ioe7q5Yt1rETlptfRJUA_JUSnfjQ
+Message-ID: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
+Subject: [PATCH v2] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit and
  52-bit VA
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Kees Cook <kees@kernel.org>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
 	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
 	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Iurii Trukhin <yuri@trukhin.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 10:25:49AM +0530, Anshuman Khandual wrote:
-> ARCH_MMAP_RND_BITS_MIN still gets used when VA_BITS != 48 or 52. But this seems
-> like a subtle detail. Just wondering - should a comment explaining this default
-> random bits fallback sequence be added here as well ?
+Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
+setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
+bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
+for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
+still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
+was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
+when 39-bit VA was the 4K default.
 
-Agreed, since arch/Kconfig includes arch/$(SRCARCH)/Kconfig before
-defining the generic config ARCH_MMAP_RND_BITS entry, the fallback to
-default ARCH_MMAP_RND_BITS_MIN in arch/Kconfig is not obvious when
-reading arch/arm64/Kconfig on its own.
+Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
+pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
+randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
+ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
 
-I will send a v2 adding a comment right above config ARCH_MMAP_RND_BITS
-to make that fallback sequence explicit.
+Closes: https://github.com/KSPP/linux/issues/371
+Reviewed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
+---
+Changes in v2:
+- Add a comment above ARCH_MMAP_RND_BITS explaining the 1 TiB default
+  for 48/52-bit VA and the fallback to ARCH_MMAP_RND_BITS_MIN in
+  arch/Kconfig for smaller VA sizes (Anshuman Khandual).
+- Collect Reviewed-by from Kees Cook.
+- Link to v1: https://lore.kernel.org/r/CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com
+ arch/arm64/Kconfig | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Thanks,
-Iurii
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a695f5..7bca47269dd5 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -313,6 +313,14 @@ config ARCH_MMAP_RND_BITS_MAX
+ 	default 16 if ARM64_16K_PAGES
+ 	default 18
+
++# default to 1 TiB (5 bits below ARCH_MMAP_RND_BITS_MAX) on 48-bit and
++# 52-bit VA; smaller VA sizes fall back to ARCH_MMAP_RND_BITS_MIN in
++# arch/Kconfig
++config ARCH_MMAP_RND_BITS
++	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
++	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
++	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
++
+ config ARCH_MMAP_RND_COMPAT_BITS_MIN
+ 	default 7 if ARM64_64K_PAGES
+ 	default 9 if ARM64_16K_PAGES
+-- 
+2.56.0
