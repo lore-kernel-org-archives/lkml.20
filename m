@@ -1,135 +1,298 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA17F531AF8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66A43DBD65
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077207; cv=none; b=OLHWELhJ2VMOxppdckBia0c6JRSww0pFglS7obChetBH2XkJFyBxJa+i03U6xfhiEvDJlDjAYcgMfrEtyQc8GpErmMmURGNSPIzXUaGjnYN+w5gsXnF9mRCGca/8c1wmx8CpA4vHE3huDC0llBAxugPecs08g+Z9okR4Ae8djYk=
+	t=1792077233; cv=none; b=KUqp8WfTTvQx7gXuH7JWLfI4XfbOdTu3xZSOUZW2b1z50ZoSC1FUNJNJqtqUQj3UtBML3vedCZhy2jq4lM4XCrEvXMCynCLjSxfHYvLVSeDjtg4zHwqwMWkJr9LC59xrVY2VabT8lWb15OziZgbA2a8rZmLQy/ONuDUuJbLkLpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077207; c=relaxed/simple;
-	bh=r79clFkHcqAlIgAF7dPQqiJC+HXwMzt4NkqmdL+gKqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DzgQR1O9efi5uA76XSxjnH8IuXeOg5xoVAiP90VWYX82BqrfDUhe2neVjU3cKMPq7+bCjEAlQuaaMkLc7imNHvQa3ox+X6lRMy7sHWVJWaWKMp7sJOFkKCa8rPBy+Uo1Ng9ZgWWH2GAGAfzJp13CNdIdXuDtjgwiTgmAGDYfb50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VWWwH4Z/; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792077233; c=relaxed/simple;
+	bh=bz8a03RD3M2L6FJMJe0o92eVBoKcNGOzdNrANua8vgQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FZz8W4R822I3kh9aOPh920jiHN47v/4le78iyBX+Ki3cNIbhq0TL28lfGTTPK8Lz8vgTd+Zqcj4BfegtGi6sgS6HEdoSKdyO4qDH7cazsk/QNjLDuIf87JLTpHgYWvIdENtXuLz4TsLyyFQCwq+lfOqPJMBpEsfOsLKRM9bOR9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=m9jnD0Qw; arc=none smtp.client-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VWWwH4Z/"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-88b5f43cb8aso662250b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:13:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077204; x=1792682004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qOQw7g2Msu66bDzbYk3ptJu7TL6fCzl0qAToEIpu/hQ=;
-        b=VWWwH4Z/Wt7fab4fvKqrFe74NRkcE+RmtxtjS2BVAyxGtRdhjhhkNIj0L4/qDMkvO4
-         xE4QZevYJ7Kx3/0uMyZ0SKqsd+TQH+S8swX/Iub890xia9nlAsksPJ3CPha0WfoMRgOM
-         7dPO1JUTI91BAtgE4dfEFEQOVZ7aqs9vO/4fRnegj1RFFs+5gHPEiAi/8xtdgDWYReFx
-         bNUDxPxhevtNDpwMxPlQUhdgSkGqcdBcyJZU8siKWItCQNV++NDmSiC/ipMSIYTmKLLl
-         jto7SnI9kxPPTTSsrBsu5qTFTyR8Ssw/QW2WaUjEJ4qLCZcScDq9PP/YOd3u0ntXM3o2
-         M/HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077204; x=1792682004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qOQw7g2Msu66bDzbYk3ptJu7TL6fCzl0qAToEIpu/hQ=;
-        b=L/LFwk58OipNUa/xUi7u7r1WKTOCW4eJc1Um+nHkD8vuFEkbVr7mC5UIJu9HeR75xF
-         fZ0fsqKOVk+56IQQGA4e1+9EDolBeEx8P0ru47FyKqUjT9KeagpXF8+enz8mHleodGjU
-         HxlDyxNcd2LIiKCwEajGTiIRmsdkjL4wqm4Xc/XkPCY8MSOQOdoy/rzFu3CbwM3mYov0
-         d6S1WYbcTQzSKb2DInPMRR0RG1r9CXZvK/JUviuBuXiEfpSZJAfIas2oBerkgDiLXhcR
-         QhvXZAJ/hl0ZY7wk1OV5Wh5SfqXInQsno+5KOKyrnoVz2L1jHA0QGZq5O1pa7xfdi9cM
-         lLMA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyuoAGkLqqEk8bf1+hTaNWh1hL1qSahbtwaN/WUFcDJUZLGl/amoQrG5TNOCIXcy706ND6HWAlgR618kc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEVnshECU+SIho/xJJFuswn51FN6ri1WCWaZRC+G947gy1V6Xb
-	lhC+GxnkUxKP/VAybkdF7PMMnFS///N8qRGc5bSBkQjQm7dgiXuKCqgX
-X-Gm-Gg: AYBFou34D116Oa0ab+tqM/QGAwtP2Uqr0rqsX8ih6Zdg4RlCD5hy4zLfN34shnI68dg
-	wWQT0WL3TYJ7kO8vb8pWl9k2NzayO71KcsOnUGn77FVWdQHmVJuQLEx49pfaTjAQwqxhQmw5HEv
-	dnJYVb2GGaraXN0MYvC6t8B835HoYVtEMz7zWTegIz0wf+vBT1LeJIYzV0oXt/GvR4sDi8evPRM
-	PhLFaroFb8t93bps0J9xnz8ic40RW1QyTvISMTnyowQdDBLauP3mTWZmeD85UrsVovqedngowsR
-	P8chqv1zrR3pcyrta4+SvLTNqCQSO/hQz6Qif5/TyaQxsExAOXaahP7+wZbaC8Ei/DvG3EQHiWm
-	/cu+4m44kvr3i+YbpmlJqcsMcIi2EXVi3Nc1e8utQn33YwQfz6wHkDHl2Vg12eSukXGQQlJ633r
-	Rhb0DjCR6huGcv50Gdxu6t2PH2Nssaeqy3tJu9TS/WjRYRDnTLIGupXkZ0MdXoSlbu9kA8i9dJ
-X-Received: by 2002:a05:6a00:c482:b0:899:465d:c8ff with SMTP id d2e1a72fcca58-899465dcb17mr8864486b3a.13.1792077204050;
-        Thu, 15 Oct 2026 08:13:24 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16c8::245:c9])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d7f51f452sm2419097b3a.1.2026.10.15.08.13.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:13:23 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Harald Brinkmann <hbrinkmann@braincalibration.de>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] HID: saitek: don't dereference a NULL hidinput in saitek_event()
-Date: Thu, 15 Oct 2026 22:13:18 +0700
-Message-ID: <20261015151318.208115-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="m9jnD0Qw"
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id 884A845702
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:13:44 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id 7A55A456FC
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:13:43 +0300 (EEST)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 4DC861FF652
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:13:42 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1792077222;
+	bh=NGLv403FQKRusajcfrFXHuqoCCEn2X3hTUJrwsbKzDA=;
+	h=Received:From:Subject:To;
+	b=m9jnD0QwSWDb3EzSPh0id7qwGduoMN74NXe/LHvtVw3LvNUrB82cCyG/gJzGixceW
+	 sIQ08lLy2E2E4Ggq2cgqQwRNOL6ti09+ESYpcEJ2QfQxO37J/d0mqw7tr/RpOnsgNG
+	 CH8S6kd69ZriidM3ps6bGHPGRkT/sEunNn4ISUaKVFE2NKWz7HDcNTkx3VSxgr5DB9
+	 7IO1XtK+C9j9qcJO+nTg71imIiCbx34mRAR3ZCNn5a9J4Sendo+oEJrShdyoA1wRzZ
+	 0OpJEXg4ZFvofp3VpYbLkrJvnBmqjVfxHRwhw2uoqCcEffePkUSlfg7vY8dOUo/bf8
+	 trpqgp6JSIIVg==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.214.169) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f169.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2db80fcdf8bso31708775ad.2
+        for <linux-kernel@vger.kernel.org>;
+ Thu, 15 Oct 2026 08:13:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvByVwssH5PW9rip5eRNxYTlA2BMMWOXAjy7J0tmVFKWK+QQuU7YeZhQrOydvCinUoCfAsIABWMhq5em+31U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9VuCDFZa/UhPCnl5cFSmDjfLc5b7VqIxsgYjgqiwXc2n/Hgum
+	R87AUmEZ2XxmQpPerf9RLwzdCzbHOFSFCvrjmrQO9wnmzrH1fcJB9SsupdlfujBpxITrf5YMtat
+	cxaqHPvQg4PV1xdEGfO5S9EJSCIqUyT8=
+X-Received: by 2002:a17:902:f691:b0:2e9:628d:e9a6 with SMTP id
+ d9443c01a7336-2e9628df265mr17339715ad.57.1792077220571; Thu, 15 Oct 2026
+ 08:13:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260309205125.293148-1-lkml@antheas.dev>
+ <42275140-ecef-4878-b256-1061060d4958@amd.com>
+ <CAGwozwEmENx98qB51D89h59rb2qw66f_TJENd+W41onb5GYhfw@mail.gmail.com>
+ <CAGwozwGD7JNuWz2D0AetacX=H95sB=mz0nnssQHs=pvmsEiKaA@mail.gmail.com>
+ <f47b3c8e-74ce-4aa5-8a64-a4c9ef12a4a5@amd.com>
+ <CAGwozwGi_hTxRYUEfMGyT0OQtLTD1Dogp_NXXfBzRpT_hV3qFQ@mail.gmail.com>
+ <f95dec8e-3735-49d9-b6d0-4c1b88f3a318@amd.com>
+In-Reply-To: <f95dec8e-3735-49d9-b6d0-4c1b88f3a318@amd.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Thu, 15 Oct 2026 17:13:28 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwH4k8XJJQ5K6JWRyK8r5vb-rpSu4Ta8sB1s6caS0=88mQ@mail.gmail.com>
+X-Gm-Features: AclHuK_784y6Ojsi4zQTu6mfoce0x1m6Q7Z-eCSZan7Pj7w4gPfAsRJkRdUDLqk
+Message-ID: 
+ <CAGwozwH4k8XJJQ5K6JWRyK8r5vb-rpSu4Ta8sB1s6caS0=88mQ@mail.gmail.com>
+Subject: Re: [RFC v4 0/4] platform/x86/amd: Add AMD DPTCi driver for TDP
+ control in devices without vendor-specific controls
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: W_Armin@gmx.de, sashal@kernel.org, Shyam-Sundar.S-k@amd.com,
+	derekjohn.clark@gmail.com, denis.benato@linux.dev, i@rong.moe,
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179207722284.931451.13274606012878130613@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-hid_process_event() calls the driver's ->event() for every usage of a
-report, including fields that hidinput did not map to any input device,
-e.g. a constant input item. For those fields field->hidinput is NULL,
-and saitek_event() loads field->hidinput->input unconditionally:
+On Thu, 15 Oct 2026 at 17:03, Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 10/15/26 09:55, Antheas Kapenekakis wrote:
+> > On Thu, 15 Oct 2026 at 16:37, Mario Limonciello
+> > <mario.limonciello@amd.com> wrote:
+> >>
+> >>
+> >>
+> >> On 10/15/26 04:35, Antheas Kapenekakis wrote:
+> >>> On Tue, 10 Mar 2026 at 08:59, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+> >>>>
+> >>>> On Tue, 10 Mar 2026 at 03:43, Mario Limonciello
+> >>>> <mario.limonciello@amd.com> wrote:
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>> On 3/9/2026 3:51 PM, Antheas Kapenekakis wrote:
+> >>>>>> Many AMD-based handheld PCs (GPD, AYANEO, OneXPlayer, AOKZOE, OrangePi)
+> >>>>>> ship with the AGESA ALIB method at \_SB.ALIB, which accepts Function 0x0C
+> >>>>>> (the Dynamic Power and Thermal Configuration Interface, DPTCi). This
+> >>>>>> allows software to adjust APU power and thermal parameters at runtime:
+> >>>>>> sustained power limit (SPL/STAPM + skin), slow PPT, fast PPT, and the
+> >>>>>> thermal control target.
+> >>>>>>
+> >>>>>> Unlike mainstream AMD laptops, these devices do not implement vendor-
+> >>>>>> specific WMI or EC hooks for TDP control. The ones that do, use DPTCi
+> >>>>>> under the hood. For these devices, ALIB is the only viable mechanism for
+> >>>>>> the OS to adjust power limits, making a dedicated kernel driver the
+> >>>>>> correct approach rather than relying on the out-of-tree acpi_call module
+> >>>>>> or ryzenadj.
+> >>>>>>
+> >>>>>> The driver provides two layers of control:
+> >>>>>>
+> >>>>>>      * Platform profile integration (low-power / balanced / performance /
+> >>>>>>        custom), with per-device preset tunings derived from thermal envelope
+> >>>>>>        data. Selecting a non-custom profile applies values immediately and
+> >>>>>>        locks the individual tunables to read-only. The default profile is
+> >>>>>>        "custom", leaving the device at firmware defaults until userspace
+> >>>>>>        explicitly selects a profile.
+> >>>>>>
+> >>>>>>      * Four firmware-attributes tunables (ppt_pl1_spl, ppt_pl2_sppt,
+> >>>>>>        ppt_pl3_fppt, cpu_temp) that become writable in "custom" mode.
+> >>>>>>        Values are enforced against per-device limits (smin..smax), with an
+> >>>>>>        "expanded_limits" toggle that widens the range to the full hardware-
+> >>>>>>        validated envelope (min..max). A save_settings attribute controls
+> >>>>>>        whether writes commit immediately ("single") or are staged for an
+> >>>>>>        explicit bulk "save".
+> >>>>>>
+> >>>>>> On resume, the active profile or staged values are re-applied so that
+> >>>>>> suspend/resume cycles do not silently revert to firmware defaults unless
+> >>>>>> in custom and in bulk mode. In that case, defer to userspace.
+> >>>>>>
+> >>>>>> Device limits are supplied for GPD Win Mini / Win 4 / Win 5 / Win Max 2 /
+> >>>>>> Duo / Pocket 4, OrangePi NEO-01, AOKZOE A1/A2, OneXPlayer F1/2/X1/G1,
+> >>>>>> and numerous AYANEO models. The SoC table covers Ryzen 5000, 6000, 7040,
+> >>>>>> 8000, AI 9 HX 370, and the Ryzen AI MAX series.
+> >>>>>>
+> >>>>>> Tested on a GPD Win 5 (Ryzen AI MAX+ 395). Confirmed with ryzenadj -i
+> >>>>>> that committed values are applied to hardware, and that fast/slow PPT
+> >>>>>> limits are honoured under a full-CPU stress load.
+> >>>>>>
+> >>>>>> Responsible disclosure: The development of this driver is AI assisted.
+> >>>>>> This includes its writing, testing, reviewing, and readmes. The driver was
+> >>>>>> manually reviewed line by line, but there may still be small leftover
+> >>>>>> quirks. This is an RFC, not a final version. Let's push these tools to
+> >>>>>> their limits and see where it takes us.
+> >>>>>>
+> >>>>>
+> >>>>> I'll tell you where the most immediate limit is.  Humans can't review
+> >>>>> RFC changes that go in daily.
+> >>>>>
+> >>>>> Over my weekend I see multiple copies of the series in my inbox.  To me
+> >>>>> they must have obviously been garbage because you sent them so quickly
+> >>>>> instead of waiting for feedback.  So I'll delete those from my inbox and
+> >>>>> review the most recent one.
+> >>>>>
+> >>>>> That's somewhat tongue in cheek.  I know you're excited for this series,
+> >>>>> but please make sure you take time to gather and take feedback into
+> >>>>> account before posting another series.
+> >>>>
+> >>>> It's true, I've been having a bit of fun. But the series is stabilized
+> >>>> now, I don't plan to send another version soon unless I messed up
+> >>>> something.
+> >>>>
+> >>>> V3 incorporated your feedback/derek's and V4 incorporated rong's
+> >>>> feedback. V4 is minor, it is just nits.
+> >>>>
+> >>>>> Maybe you can pass this to a robot and it
+> >>>>> can give you actionable feedback, but a human sitting down and reviewing
+> >>>>> a patch series in a serious way takes time.
+> >>>>
+> >>>> I'm using this series as a testbed to make some tooling for this,
+> >>>> maybe I will post it soon.
+> >>>
+> >>> Opus 4.6 was something. Anyway. @Mario v4 of this driver as it stands
+> >>> is pretty good for prod. Since then, I kept adding devices and
+> >>> adjusting devices based on user feedback but I did not have to touch
+> >>> the driver otherwise. It has been tested on most APUs and around 30
+> >>> device models now.
+> >>>
+> >>> One thing this driver does not do is AC/DC limits and it would be good
+> >>> if it did. That way presets could be pushed higher for AC but that is
+> >>> only mildly necessary for AI Max platforms. 45W is more than enough
+> >>> for all of them anyway, but we could go to 55W e.g. (after that they
+> >>> saturate so it is unnecessary strain). But the updated limits I have
+> >>> are conservative enough where it is not an issue. I also found myself
+> >>> not using the commit option, so I think it can be removed.
+> >>>
+> >>> The only issue with this driver is that steam maxes out TDP when you
+> >>> disable the TDP slider and as the custom limit is generic for both
+> >>> AC/DC it can strain the battery. This is an architectural issue with
+> >>> steamos manager as before steam used the _default tdp value in AMD
+> >>> sysfs but dropped the notion of default when transitioning to steamos
+> >>> manager. But this is a downstream problem unrelated to the driver
+> >>> where special DC limits could help a bit.
+> >>>
+> >>> This is because I heard you might be working on something similar. So
+> >>> let's prevent some duplicative work. Should I repost a cleaned up V5?
+> >>>
+> >>> Best,
+> >>> Antheas
+> >> By "something similar" do you mean the AMD overclocking driver posted
+> >> recently [1]?
+> >>
+> >> Does that happen to work on any of this hardware?
+> >
+> > 95F20B61-3D44-41F8-87E1-03CBF94C4E8F returns nothing on my ACPI dumps.
+> > There are functions which contain the e.g., 0x00020026 on a lot of
+> > ssdts but no WMI with the GUID that series provides.
+> >
+> > The WMI GUID of those functions is
+> > ABBC0F6A-8EA1-11D1-00A0-C90629100000. If the interface is the same,
+> > consider adding it to that driver.
+>
+> OK - It shouldn't be the same.
+>
+> >
+> > You may reference to check yourself [2]
+> >
+> > Here is what my LLM told me about that GUID:
+> >
+> > | Dump | GUID present |
+> > |---|---|
+> > | Legion Go `N3CN26WW` | No |
+> > | Legion Go `N3CN28WW` / `28WW-beta` | No |
+> > | Legion Go `N3CN29WW` and later versions here | Yes |
+> > | ROG Ally | No |
+> > | Ally X | Yes |
+> > | GPD Win 4 / Win Mini | No |
+> > | One Xplayer / F1 Pro | Yes |
+> >
+> > So very mixed, and perhaps not an alternative to what this series
+> > provides to these devices. Fine by me to go through
+> >
+> >> If it doesn't; sure please post your v5 that has incorporated feedback
+> >> from this thread after the merge window at the start of the next kernel
+> >> cycle and we can review it again.
+> >
+> > I was specifically asking about this interface. Not in a rush, just
+> > bumping this a bit so it does not end up getting re-implemented. I
+> > might not be able to fix all of the issues but I will try the best I
+> > can.
+> >
+> > It seems this interface is so universal the CPU check might be bogus,
+> > but I managed to collect 99% of the CPUs, I only get a straggler
+> > reported every month or so. So it should be ok to stay.
+>
+> I'll admit this series hasn't been top of mind for me in a while.  (So I
+> might have some page faults while trying to remember things about it).
+>
+> Earlier in the discussion for this series that as long as this is tied
+> to SMBIOS strings to *only* load on intended hardware that should be
+> sufficient.  If two systems use the same SMBIOS strings between
+> generations then you'll have to add CPU disambiguation.
 
-  KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
-  RIP: 0010:saitek_event+0x51/0x2b0 drivers/hid/hid-saitek.c:154
-   hid_process_event drivers/hid/hid-core.c:1572
-   hid_report_raw_event drivers/hid/hid-core.c:2109
-   hid_input_report drivers/hid/hid-core.c:2180
-   hid_irq_in drivers/hid/usbhid/hid-core.c
+You suggested removing it, but indeed that's the case. SMBIOS
+information is shared per device generation for most manufacturers. So
+typically there are 2-3 CPUs per device. But motherboard is the same,
+TDP limits are the same. Typically it is bins of the same SOC, eg.
+7600/7800/8600/8800 or 388/395, etc. I have not found an exception
+yet.
 
-A device that claims to be a Saitek MMO7 and uses such a descriptor
-triggers it with a single input report.
+I will add it to my todo list to revisit this submission
 
-Bail out early when the input side is not claimed or the field has no
-input device, as the other HID drivers implementing ->event() do. The
-claimed check also covers a failed hidinput_connect(), which frees the
-hid_input structures without clearing field->hidinput.
+Antheas
 
-Fixes: 37c492c8f6a9 ("HID: quirk for Saitek RAT7 and MMO7 mices' mode button")
-Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v2: also check HID_CLAIMED_INPUT. hidinput_disconnect() frees the hid_input
-    structures without clearing field->hidinput, so after a failed
-    hidinput_connect() the pointer dangles while the probe still succeeds
-    (->raw_event is set). Reported by Sashiko.
-
- drivers/hid/hid-saitek.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-saitek.c b/drivers/hid/hid-saitek.c
-index 6fe7c087c594..7e1160a24230 100644
---- a/drivers/hid/hid-saitek.c
-+++ b/drivers/hid/hid-saitek.c
-@@ -151,7 +151,12 @@ static int saitek_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
- 	struct saitek_sc *ssc = hid_get_drvdata(hdev);
--	struct input_dev *input = field->hidinput->input;
-+	struct input_dev *input;
-+
-+	if (!(hdev->claimed & HID_CLAIMED_INPUT) || !field->hidinput)
-+		return 0;
-+
-+	input = field->hidinput->input;
- 
- 	if (usage->type == EV_KEY && value &&
- 			(((ssc->quirks & SAITEK_RELEASE_MODE_RAT7) &&
--- 
-2.43.0
+> >
+> >> BTW I think this version was last posted before Sashiko started
+> >> reviewing patches too.  If you can; please run a local Sashiko review
+> >> cycle on it before posting your v5.
+> >
+> > Sigh, if I figure out I will
+>
+> No worries if you can't.  I was just looking for an opportunity for less
+> back and forth in case it flags something.
+> >
+> > [2] https://github.com/hhd-dev/hwinfo
+> >
+> >> https://lore.kernel.org/all/20261010190543.563161-1-Shyam-sundar.S-k@amd.com/
+> >> [1]
+> >>
+> >>
+> >
+>
+>
 
