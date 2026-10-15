@@ -1,142 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9227C2D2394
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:48:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922F42E7366;
+	Thu, 15 Oct 2026 04:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039699; cv=none; b=WqF/hFmOOh2RTntN3gUpARo1ZXadRhuQm+M9jo/MqnIphQyaG5YkECLphYkXUG/yQS3xOBgmvAWqJRnshbmQ/j5fNEcymoU2IRV41cSig7Y8NmpGoazEs1XyVDLqCKxjj9Qm/RLAuXrsDQdb4JsU+BGM0P9RvojKVInwkrNyDJA=
+	t=1792039700; cv=none; b=sKJPocf7PB1zi3gaNJ7j8c5WpCcjtV76JNxZMWULWq60eJFKChRVmwp5tJvZd7Lvq+qdofoF9WfZHMqH5TtkWk1p3KNBfhSv//4YRGleaktQyQfRn/HrvNMEhHhvDChR/FJ6OAlEqbXyxC1BaSZ0+mwx+2ht0IqS8dJYIT4ZFCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039699; c=relaxed/simple;
-	bh=PuB4FAolKmr9wiAFZuRuz2XwqivMnfXIBcZbdV96mMw=;
+	s=arc-20240116; t=1792039700; c=relaxed/simple;
+	bh=BL4VcGoROA7PDnT3vZ6aEr0VhdZPR/ihxMmEQPDm70M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PouPcNTOCuIU+eEYme/rL5ZZw5uqVpaJEk35dOjknqt93JzVWH+30jznS0jKZzuFoLdiW6MQvP+vQ7bBhANCWT1dchREhjYwxkSQV0YiMtsYyNoZts2Olt31vk1wUVTQEMI644CtFWkTwCkw46bZvXwl+Adu8HkFVeJGeurq4fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8Jq3rp4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gjj+UR9tu446uMpSmo54U/qXTX+7s1g0izU219dhYeiPff5iW8v88IsoFZV8LGFKyRowTfLbGbNdyiHuGV1Cuuc7SMjvo3raoflnJ+HW0l2omCMFyd6KA6OVKYYiRM2llE92uJwRxF66AAn+GF/jjytnVsrWc6+qIIkUNhESaYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGDqoKhF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8Jq3rp4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466761F000C4;
-	Thu, 15 Oct 2026 04:48:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGDqoKhF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245AA1F000C5;
+	Thu, 15 Oct 2026 04:48:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792039698;
-	bh=lPhFMlKbnevA2dxyWYfEBOkTsgsLNfvFF+EJg8wslHg=;
+	bh=6HMD5RchpGYsY0pRtaAyq/WdqXxarGhJNj4S4UKCbr4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n8Jq3rp43rSd6COSaLNj2L3jMeE5/yEwtWaQdaJR+2q9UNsCYR+qfy8ys5eC1eNA4
-	 lebFiJ+0mhZSg46bdDhgFMrlVPzvF7IKw+tbFtzCU0biUvEa8AyQ8KZvCNtu6AKnqY
-	 ghlJ7uL9kWgLqFlL7Z29MZLzvoiRz6NHINaWXBF+FndlvpKZWNRDqeO5VkN/LAOrjI
-	 S9DL1CVr5RzyUrqUzY/TOZ1AiHuIIvRM52n6gQFyGBmjFLROuEDT0gQrZK2ltR4xEr
-	 EbObgbS+FsBAbIeg0sScDFZmZ7fbBUMEEDcYQhUD97X9v+AnQc7UT5SqU8rXJeKpnz
-	 37tYTUpO0PmlA==
-Date: Thu, 15 Oct 2026 12:28:15 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Guo Ren <guoren@kernel.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: Always inline on_thread_stack()
-Message-ID: <atBWXxzTqLBj6Q6W@xhacker>
-References: <20261012204211.3351-1-kmehltretter@gmail.com>
+	b=UGDqoKhFmdLWTU9OhCOSgo50nsXn0YVZhp/FbpZFeGwBctn7pug8HGkZTqeWCHxKm
+	 xa1D3TEmpneVhIx2+Tero6MKORL1GupO/dubvGXy1VoKjMwzvK2MvSD2b2QdTPCoJo
+	 HMlkkrZpOYmWT7HaUxU40aj2i2v5oNxrJMIoLOIBX1nEryVdK6Prp0OqWTT8+zstpv
+	 Oy5z+HqMzwBby7BZ/BQAKoG5/ufi3sd0q2ELjLDilfW/yu7twZrn0CojcTU+1260Yw
+	 SukxQDVaUQbjhVWRDBClFV/eYpYEJoP9aBsyZEIVVDVbENaEcTvTp0yiJRGwsy0/pi
+	 +DECelzbkKd4A==
+Date: Wed, 14 Oct 2026 21:48:17 -0700
+From: Kees Cook <kees@kernel.org>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Paul Burton <paulburton@kernel.org>, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] binfmt_elf: return the real error when program headers
+ cannot be loaded
+Message-ID: <202610142140.D483AE26DF@keescook>
+References: <20261014-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v1-1-f39c74d55e42@virtuozzo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012204211.3351-1-kmehltretter@gmail.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v1-1-f39c74d55e42@virtuozzo.com>
 
-On Mon, Oct 12, 2026 at 10:42:11PM +0200, Karl Mehltretter wrote:
-> With CONFIG_IRQ_STACKS=y, GCC may outline on_thread_stack().
-> CONFIG_KCOV_INSTRUMENT_ALL instruments it, and do_irq() calls it before
-> irq_enter_rcu() increments the hardirq count.
+On Wed, Oct 14, 2026 at 02:30:33PM +0200, Konstantin Khorenko wrote:
+> Problem
+> =======
 > 
-> Normal KCOV records this interrupt coverage in the task's buffer, making
-> results timing-dependent.
+> load_elf_phdrs() returns NULL on any failure, and load_elf_binary()
+> turns that into a fixed error: -ENOEXEC for the executable, -ELIBBAD
+> for its interpreter. The real cause is lost:
 > 
-> With CONFIG_KCOV_SELFTEST=y, current->kcov_area remains NULL. In QEMU, a
-> timer interrupt called the helper before hardirq accounting. KCOV treated
-> it as task coverage and dereferenced NULL. Fault handling recursed to stack
-> overflow and stopped boot.
+>   cause                                  really      execve() returns
+>   -------------------------------------  ----------  ----------------
+>   bad e_phentsize, e_phnum 0 or too big  bad file    ENOEXEC (right)
+>   file ends before the header table      bad file    ENOEXEC (right)
+>   kmalloc() of the table fails           ENOMEM      ENOEXEC (wrong)
+>   kernel_read() fails                    EIO/ENOMEM  ENOEXEC (wrong)
 > 
-> On a BeagleV Ahead, the unpatched kernel did not finish the selftest within
-> 120 seconds. Three patched boots completed it and reached init.
+> For the interpreter every row gives ELIBBAD.
 > 
-> Mark the helper __always_inline to keep it in noinstr do_irq(), following
-> commit 1894a4030582 ("x86: Always inline on_thread_stack() and
-> current_top_of_stack()"), which fixed the same out-of-line call from x86
-> noinstr code.
+> Consequences
+> ============
 > 
-> Fixes: 163e76cc6ef4 ("riscv: stack: Support HAVE_IRQ_EXIT_ON_IRQ_STACK")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ENOEXEC says the file is not an executable, which is a property of the
+> file, not a transient failure:
+> 
+> - glibc's execvp() and execlp() take ENOEXEC as "not a binary" and run
+>   the ELF file with /bin/sh, which reports a binary it cannot execute
+>   instead of the ENOMEM or EIO.
+> - search_binary_handler() tries the next binary format instead of
+>   returning the error.
 
+Isn't that what we want? If one handler can't load it, move on to find
+one that does.
 
-Good catch!
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+> - For the interpreter the caller gets ELIBBAD, "Accessing a corrupted
+>   shared library", about an ld.so that is fine.
+> - A caller that would retry on ENOMEM or report EIO gives up on the
+>   file instead.
+> 
+> When it happens
+> ===============
+> 
+> - The allocation fails under fault injection. Since commit
+>   8030790477e8 ("binfmt_elf: remove the 4k limitation of program header
+>   size") the table may be up to 64K; above 32K that is an order-4
+>   allocation on 4K-page kernels, which can fail on a fragmented system.
 
-> ---
-> Tested with GCC 15.2.0 and QEMU 10.2.1 on v7.3-rc7. Both images
-> used byte-identical configs and v7.3-rc7 rebases of these seven pending
-> patches (canonical commit IDs shown):
+I would not want to risk changing established userspace error message
+interactions to make fault injection happy.
+
+> - The read fails with an I/O error, or with -ENOMEM when the page cache
+>   cannot take the pages.
+
+This is kind of a bad failure case -- I don't think the "right" error
+code is going to help much there. ;)
+
 > 
->   3a25097bf845 kcov: use unsigned int for kcov_start() mode parameter
->   e39a9c820c37 kcov: add kcov_pause()/kcov_resume() helpers
->   ae2662563c3e hrtimer: pause KCOV during deferred rearm
->   554af946139e sched: pause KCOV in __schedule()
->   7f608b777204 sched: pause KCOV in try_to_wake_up()
->   2ba73ec2a246 sched: pause KCOV in wake_up_new_task()
->   5ee777070fac context_tracking: exclude from KCOV instrumentation
+> Where it came from
+> ==================
 > 
->                               plain inline  __always_inline
-> KCOV selftest started                  yes              yes
-> KCOV selftest finished                  no              yes
-> Reached /init                           no              yes
-> 
-> The plain-inline image stopped after printing "kcov: running self test"
-> and reached the 45-second limit. The patched image reached /init in two
-> 60-second runs. Those runs timed out after the marker because the test
-> /init deliberately loops.
-> 
-> The first common patch is a type prerequisite. The remaining pause and
-> exclusion changes suppress separate KCOV callbacks that otherwise obscure
-> this test. CONFIG_RISCV_ISA_V_PREEMPTIVE was disabled to avoid a separate
-> vector-entry callback. The only A/B source difference was this patch.
-> 
-> The same images were tested on a BeagleV Ahead (TH1520, four C910 CPUs).
-> The plain-inline image did not finish the selftest or reach /init during
-> 120 seconds after the start message. It reported RCU stalls, and CPU 1
-> did not answer NMI requests. No panic or stack-overflow message was
-> printed. All three patched runs completed the selftest in about 0.301
-> seconds and reached /init.
-> 
->  arch/riscv/include/asm/stacktrace.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm/stacktrace.h
-> index b1495a7e06ce..c7c991452e11 100644
-> --- a/arch/riscv/include/asm/stacktrace.h
-> +++ b/arch/riscv/include/asm/stacktrace.h
-> @@ -16,7 +16,7 @@ extern void notrace walk_stackframe(struct task_struct *task, struct pt_regs *re
->  extern void dump_backtrace(struct pt_regs *regs, struct task_struct *task,
->  			   const char *loglvl);
->  
-> -static inline bool on_thread_stack(void)
-> +static __always_inline bool on_thread_stack(void)
->  {
->  	return !(((unsigned long)(current->stack) ^ current_stack_pointer) & ~(THREAD_SIZE - 1));
->  }
-> 
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-> -- 
-> 2.53.0
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+> - Until commit 6a8d38945cf4 ("binfmt_elf: Hoist ELF program header
+>   loading to a function") load_elf_binary() returned -ENOMEM and the
+>   read error. That commit documented an ERR_PTR return but returned
+>   NULL; commit cfc46ca4fdca later fixed the comment, not the code.
+> - Commit a9d9ef133f44 ("binfmt_elf: load interpreter program headers
+>   earlier") gave the interpreter's headers the same NULL check, and with
+>   it -ELIBBAD.
+
+So it's been like this for 12 years? :)
+
+> [...]
+>   kernel                errors returned by execve()
+>   7.3-rc7               ENOMEM 17, ENOEXEC 1, ELIBBAD 1, E2BIG 2
+>   7.3-rc7 + this patch  ENOMEM 19, E2BIG 2
+
+... so there are _fewer_ distinct failure codes with the patch?
+
+> +	/*
+> +	 * Read in the program headers. A read that fails part way returns
+> +	 * what it got, so read on to see the error or the end of the file.
+> +	 */
+> +	pos = elf_ex->e_phoff;
+> +	for (done = 0; done < size; done += rv) {
+> +		rv = kernel_read(elf_file, (char *)elf_phdata + done,
+> +				 size - done, &pos);
+> +		if (rv <= 0) {
+> +			kfree(elf_phdata);
+> +			return ERR_PTR(rv ? rv : -ENOEXEC);
+> +		}
+>  	}
+
+This is a behavioral change mixed into the errno handling change to
+support partial reads??
+
+I could be convinced that errnos need to be fixed, but the rationale
+here doesn't really make me think it's worth potential disruption to
+userspace. I'd need a pretty comprehensive survey of what would change
+there and then a clean patch that made zero other behavior changes...
+
+-Kees
+
+-- 
+Kees Cook
