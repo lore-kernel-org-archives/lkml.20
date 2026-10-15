@@ -1,55 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B30C475350;
-	Thu, 15 Oct 2026 20:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6366B49CF40;
+	Thu, 15 Oct 2026 20:10:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095009; cv=none; b=M04xUKrPYJ8EUK+SAixn8UKqvROJ3nqBvDi1YbA0DW6utEhZPOu5gFT6sSMj6OGUhG/OIS++6WX8KvBFjVH+8gF0sgP0wIqK4jFxO8Mn65tM/guN4gWhyYLk+ee3krCZ0WSmAQ9mX/G0AM+u2qL+2kQv8LX4+AUg9uv7gbUyedk=
+	t=1792095036; cv=none; b=MDIpcoLW8JyXj0hPVlyVXmySNZB9/JSCEWPRjtpmoqTE2+R8hDB1MgmP/Z+xjjUswvYyHBwUFPa2ipJqLusSZ1/qQPX05Hv0xsRJL6jqYPf1bYf+1sDeyzwbBfhNnaUkLrjvFXOjCjVRyribijgp2JC9NpUij6e7KqzM98UVDBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095009; c=relaxed/simple;
-	bh=5+ITx/IV/BoxeXsLcjNXvtzt06iKyo8dX2YvX/hAwNU=;
+	s=arc-20240116; t=1792095036; c=relaxed/simple;
+	bh=Y8wzWW15iPX0w/KAfHwtmZmo2Ehi+gj1ghdmxwnUOXI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jR8AY+Bv1B6WuAHrAMrYxguwjKokalnwBaVq9r3ACpmHhiZMeQ0QI5XNOnS6/C6b8xf/JMz012uMZWObfEoclPj0pGHNhYEW6V7ER7XvVRisbqkum9Fpl4sEmrIFyoVPmGmm4qu6zRfn9OdmQQumPqAkQ/bxpt6P1YWZBw3jvos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcaNxYGX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=q/0jgitKYBuTt2fO65889SZWQdR9YsxV6vRxoNXKC2Y58GZIZWU5S+x11hdbFfiO1kBFhj4wWTOZag+Lbu/IxOHEpcI6Sb9SsLb8UMSBFTmdSu9I6b132gI25ga8BUAX6/8naMEuXFFxZnqX8Nz8VgpLd5MYWx2UO4gYo15CHx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxhkLSP1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcaNxYGX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349D41F000C4;
-	Thu, 15 Oct 2026 20:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxhkLSP1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DDC1F000C4;
+	Thu, 15 Oct 2026 20:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095007;
-	bh=vGkzpNU4gEbEI0HBSrDSBMbVcu/OtmqB0nVCCkvCRSg=;
+	s=k20260515; t=1792095034;
+	bh=Bm2ERFyVvwHy3KL3GkZjGCypavkWH4W9XQY9JXBOp38=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZcaNxYGXNMGp5Yrju7JyTI4kvcvqFC4t+hvx5QEaD6PRkpeipBX8SBeRfajgWY/7v
-	 lXlooyOgiHXpgjqwREXb3WXmjLNroziatAm4oYrY1/4exZyN/48+uKSxbiaE0rR/Lm
-	 ENDS0EnqpqLWCyZSzXDJ8QvwBGyHkMMNQlCKIoV7VtsRHv1dW3QzrVIUUwyIua8mZL
-	 bxHEumb73EhE/PYOTL8HSmdSUVaXd8cRpwG19kfCJK4WIjK6xdEonXQ8qjCIHRvExS
-	 bEe+dCquaRNw34y6xMaICo5G9Bpe1XV/rOmYLseSlwPBtNPaw4pjhRaJOT2J2x+P2K
-	 1JpPIlW4ZiarA==
-Date: Thu, 15 Oct 2026 15:10:05 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Frank Li <Frank.Li@nxp.com>, Wilfred Mallawa <wilfred.mallawa@wdc.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Niklas Cassel <cassel@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-renesas-soc@vger.kernel.org, linux-pci@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-Message-ID: <179209500464.2848447.6678039207382562663.robh@kernel.org>
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
+	b=gxhkLSP1ZNSGV8UU5saxrx0QHAqHeo8ZiuEPhoF5s7P570x19ZLLx/+1hYWjllG3A
+	 uTfOjm2GqP2hGVC1vT2M7tc0qf0kx0D8PpllSnxKPqAFhvKYwAAR+sbFcxsQbUwkA1
+	 atznjnS9TsmxwCILJJFNVTDqc6MDJF603RyAn2FK7UBYoMyRHiZmvUaDxm1N5Qn82x
+	 D6GGDEuRUBNVLommG2TkyePjUjK2On7X1EYYJ19e/Oaz/Dir4OON5iBzh901RRhKmp
+	 EatjIdApRPLEolKK2VkjzZlga9mhWhUyHiczizT3hcSoqezppKW7qdxB9wNnR3dckn
+	 ZgHwgwKq2+uzQ==
+Date: Thu, 15 Oct 2026 21:10:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
+	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 06/10] mm/hugetlb: fix endless write fault on a leftover
+ uffd bit
+Message-ID: <atEuB27wc9Yp-_Ax@gremlin>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,33 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015033103.3076869-5-den@valinux.co.jp>
+In-Reply-To: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
 
+On Thu, Oct 15, 2026 at 06:07:12PM +0200, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+>
+> hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
+> registered for userfaultfd write protection, and hugetlb_wp() bails out
+> for any entry with the uffd bit set assuming hugetlb_fault() has already
+> resolved it.
+>
+> When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
+> that is not registered for uffd-wp, a write fault to it never makes
+> progress. If the access comes from the kernel, e.g. read(2) from
+> /dev/zero into such page, the task spins in the page fault handler,
+> ignores SIGKILL and keeps holding the locks taken by the system call.
+>
+> Such entries should not exist, but an unprivileged user can create them,
+> for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
+> or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
 
-On Thu, 15 Oct 2026 12:30:49 +0900, Koichiro Den wrote:
-> The intreq_pcim_lperr interrupt carries Root Port AER notifications,
-> separately from the integrated MSI receiver interrupt. Describe it with
-> the "aer" name so the controller driver can use it for Root Port error
-> reporting.
-> 
-> Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
-> trees remain valid. Extend the example accordingly.
-> 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Ugh yuck. Uffd is another gift that keeps giving...
+
+>
+> Clear the uffd bit when the VMA is not registered for uffd-wp and let the
+> fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
+>
+> Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
+> a private VMA that was made PROT_NONE now drops the RWP protection of
+> that page.
+>
+> Original fix generated by an LLM and sent in private by Josef.
+>
+> Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [rppt: massage commit message]
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> [ david: convert comment into a TODO ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Looks sensible to me so:
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
 > ---
-> Changes since v3:
->   - Rebase on Marek's Gen5 AER binding fix:
->     https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
->     This requires "aer" for the Gen5 SoC PCIe4 controller from the
->     beginning. Update the subject to clarify that it is optional only
->     on Gen4 SoCs, for compatibility with existing DTs.
->   - Drop R-b tags due to the changes.
-> 
-> v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
-> 
->  .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
+>  mm/hugetlb.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index f8ad2efd472cb..c3823f1958568 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -6184,15 +6184,19 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+>  		goto out_ptl;
+>
+>  	/* Handle userfault-wp first, before trying to lock more pages */
+> -	if (userfaultfd_wp(vma) && huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
+> +	if (huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
+>  	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(vmf.orig_pte)) {
+> -		if (!userfaultfd_wp_async(vma)) {
+> +		if (userfaultfd_wp(vma) && !userfaultfd_wp_async(vma)) {
+>  			spin_unlock(vmf.ptl);
+>  			hugetlb_vma_unlock_read(vma);
+>  			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
+>  			return handle_userfault(&vmf, VM_UFFD_WP);
+>  		}
+>
+> +		/*
+> +		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
+> +		 * are no longer registered with uffd.
+> +		 */
+>  		vmf.orig_pte = huge_pte_clear_uffd(vmf.orig_pte);
+>  		set_huge_pte_at(mm, vmf.address, vmf.pte, vmf.orig_pte,
+>  				huge_page_size(hstate_vma(vma)));
+>
+> --
+> 2.43.0
+>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+--
+Cheers, Lorenzo
