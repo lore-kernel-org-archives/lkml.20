@@ -1,245 +1,126 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012069.outbound.protection.outlook.com [40.93.195.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C544F0539
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1493F9294
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100581; cv=fail; b=Fuhnpfk34CMSVTyS1gUQ1WPrYJFCjcAL6t3WmWguiwEZvkzShdBtUkzps5Ri23jEqsf12dAsmKH2v7MEwE/jSBixzEzvL7oBKw4BW2hl7CO8UHZ2ZVZYItbgdhbH8sQu5FKY86+4cy50xrqZ97eMrgCDWuX3d7YYK23BweMmCgA=
+	t=1792100694; cv=pass; b=a5qmyye+n6Gq3CfzGcyQ2IBMtdcLZKQFqZOhxyIxYwPkCF9IRoEqNrPhf/8vJ+i0ctY7PmfVmp+9Glvc5GBJ7PqB7m0inaiiOm3J1TMFRpCoB+69ld5l40/uVInnlBSCWDznhaf8LfOLOHsxXsJaE8qHakBMeTvIIFxRfu4q6NQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100581; c=relaxed/simple;
-	bh=cQla56rGGZ1Luhe6pk+LA30H+GVJ1b6BUau9lOcjnms=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=R/s01ulvpFckBiPveifavnE7Qr0Pe4Uk35G78/+Kgu/x9vIUAMNKuM87TBD3UwU7jaRA1aUAxBwq6CiRZFz/Fu01LWA3DHdbg6nKK/hjwAPvBbQSX2QV2PcDq4DF+VoCwmj+HSMfvlgvpcl243tJW5vc+fHGj8mDdet+8WHvw5E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xpoqmgmT; arc=fail smtp.client-ip=40.93.195.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1792100694; c=relaxed/simple;
+	bh=VulLeIoBX7+WvSRBYrLJb/oaYRWw1efO4iiCwh0SFJQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A6c6BeV0AiHsfaVXYcCXkKj94GtKrGM4pQsGiVmj0VeNZToCLkK/T0IS+DaC6Ew7/OQU9jYWbl4EhxGdwhKfO9DJGeKVODLrbN+ZlGKEFFC+fg3pZNTyaP5ovq2sT6tL7cZPhwJeTnjThDFoMwl+dGzt9a1/AeX7W6wCdyoBpQ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jzXCWKWy; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xpoqmgmT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fjvfTtItxG0J1LDGFAjVBT3SJht+IoZpyFBLQlydcdAcVTWCHhh/DThLdQaUN0iwtVbLb9DPfiBrA7z9f6fWq1xZwKp4L+0IJjOzLcWhLfOGNHCAIKuE61ZsLhtlSAQweNtlg+v/ZMR4btwcaYHK5YPDWS5d0/4wItIy6k1kYlizNSzCNFcvO3HuOwWTzmsEGjgCC8NIQUM5rc+Myj1o7QWgOqozp3v9/HCvR4MR8/12igvYGCgeDP/VkZoujWbwnI8yK7Nbu21+imlCdhGTIYkqIB4HO2B79FJkPboHC8EF9qnuu6IxfRCqO8TICDsVVbkPbLZKh96NjDdGOUvPNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cQla56rGGZ1Luhe6pk+LA30H+GVJ1b6BUau9lOcjnms=;
- b=jxk9el+IRgZDQWyeWI0T1/OCXhvyLMuiQrHbX6uCY4UrAgFnF44weGIJ4KfcTigvlqEraMay98PJetkoHdlx8TKymS197VVU5Pl6tavnU77GH9AFiPigZ7R+Lh0XbYfg0gDlnokoHrPbey0YCs2hvADid4R6aju55awFcm9yZ4tZI6LcRnUZqaGUF2AuxBjf9PlJ8fR7aR1rLzfGD0gwE2xAjYYrrlyK9g+JJoEpGBLo8+b4uRNqMtX8LkS5e6a8tKf3FdXcZBga+H2lYGsF6Lz93LMa3WDDvXmOpF2cUZgs5jKALu6g8bQr42h3jebO7/Kn1M5wE4/cnOtsQEb8Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQla56rGGZ1Luhe6pk+LA30H+GVJ1b6BUau9lOcjnms=;
- b=xpoqmgmTZPT66yheTsiYeIG4hjx8EK5I/07Aj/8MCS8I2IbU3kH4H/6ccqzVRn2G7BhH7wfQEGi+NWPi3L5OTobNJCX41+Is+5uU0sP521L4tarC1Rz25Ay/DvXc8/1GybmtbBYnbwcLJ5liX3MBpRNB1UAiGijE++yU+YRR22Q=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB9059.namprd12.prod.outlook.com (2603:10b6:8:c5::18) by
- LV1PR12MB999329.namprd12.prod.outlook.com (2603:10b6:408:3f8::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 21:42:56 +0000
-Received: from DS0PR12MB9059.namprd12.prod.outlook.com
- ([fe80::74da:85c:3e01:6ca3]) by DS0PR12MB9059.namprd12.prod.outlook.com
- ([fe80::74da:85c:3e01:6ca3%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 21:42:56 +0000
-Message-ID: <4b8a17b0-efa4-4523-b98f-70bec947ef19@amd.com>
-Date: Thu, 15 Oct 2026 14:42:54 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
-To: Lizhi Hou <lizhi.hou@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Max Zhen <max.zhen@amd.com>
-Cc: ogabbay@kernel.org, quic_jhugo@quicinc.com,
- dri-devel@lists.freedesktop.org, mario.limonciello@amd.com,
- karol.wachowski@linux.intel.com, linux-kernel@vger.kernel.org,
- sonal.santan@amd.com
-References: <20261012203139.2573687-1-lizhi.hou@amd.com>
- <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
- <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
- <160b6982-7d87-547c-9d84-cb689b35f04f@amd.com>
-Content-Language: en-US
-From: yidong Zhang <yidong.zhang@amd.com>
-In-Reply-To: <160b6982-7d87-547c-9d84-cb689b35f04f@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0352.namprd03.prod.outlook.com
- (2603:10b6:a03:39c::27) To DS0PR12MB9059.namprd12.prod.outlook.com
- (2603:10b6:8:c5::18)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jzXCWKWy"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso4181a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:44:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792100691; cv=none;
+        d=google.com; s=arc-20260327;
+        b=djnjMF0dKfLMiSFK3Dd2shvwqwTXm/vCIEFeAMAGRg28J4ADUFDKz0geCMUMgCnf0Z
+         uTHR9fSMC1LZe73JW8we0GHJvg1Sqv+5MQ/GJidcVKCXro7J0zHzxJoCNWmUjnXL5Nkp
+         xtHmcQu1vXUD8h6+b8bRDEFiTia/haHRK+sN9RcSh2pe0/7iHStaPs+G86bDcyklJL8E
+         T7uqLp2keIDNhO7o1ZD01Ehkf/mp4+kKvLjb7196yloxz0jNwOTMl3YJrH44Z7YF+hAp
+         P6TmiGHv+gWNazcoOwueH5CR66HqqhCgHFGLvBib7WfnZVNqVezhYid7HksWgKY1fnKA
+         eyhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
+        fh=PKvZy5X7+iDwckiLoOymU6Xg2LZzDEtDlqV5s4DcPpM=;
+        b=Jp7pfJLueUFzyTSPbI28+0bcSmlLSHbeFWfMzprlWJzwE0DeeogMAVQu53HQSHVtRT
+         kSRecC+FevQzAKZK7sqPjfIXsDw1lZEtsMaoCaPcO8qWt4KwBvUZZJYzfsbZSCDg+o5y
+         aXoF/vZHOGTBqvvvbvbahxite1KYagpbkGFcxGVceNEEgu6CdF/E3LzkZCof1XqVWRFN
+         91bIB6Nsj3vFN4hs8RH2VhmXPaXLGu1/OHga55NOhqy8cwvfo6Nw2faStqLcbkzg/DJ8
+         uYgndlBURLeHJzVMMi4mwXp2Sunu1AolFBx6i0zt+KV/hcMZyDgrH0rOuIWo2xEzlEUw
+         l62Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792100691; x=1792705491; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
+        b=jzXCWKWyaDFlRuMMnhI3ZqqdAquVIdxYPkoqnQk869dEpzvCEZorU7aJoFtUZ5Rkmz
+         4MnHAoEc2CJpb8OT3tbpDndbqhq6FAHw9Meev3IMCJ3vTySTz9uDOX9QdyJHdymTrL3U
+         6PTtb09H4VYi5sJtx0ru8WnhyXxpESGdebxtOk93YVkrAMVG6/NqJqUQPOi7C3hgG0nr
+         jX5haikwzcrgoxE6B3WYnymKGx7Dt+7a6oRjRJ+36eTOBCmbZ4tYKpXU4Y0Jd+2ETsd0
+         DZkLYD+AktD8bHn48kwr8X8N+sXGcP39HTI+3D9BiDPT/10o5//oufK9fejj3kUs487s
+         Y/1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792100691; x=1792705491;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J2tauij8/FIv+ZF83BeJIOnsdUbtSr9TFwP9qp1j+qc=;
+        b=IQeJ1bH51o6Ox3Gboi0H40eQqpr2X3o2LQ0IJo51SBIM2XVZ3qEpCv0FRvfuPNxbtH
+         zt3YKiIz8zrTXTpTmcvoGiJfzjagT06EZsEBH19LRkMmUgKutQUZwmYej4KrB/tbp1hZ
+         cYJ74pG5fk4VVjZL8uFNk4/pyQAguoIPXOtGrfYw3b2XUADv9sKGzZ+zCXMgIfUPzjxf
+         n2BolGlYJzAKPWibrgb93mN9fcwmh9r/JxxUV5y+S6Gg6SWRn5yHliuuzKB5kqiMYImM
+         fdyhi5qD8tJ6QNBlifvk46liUw4Hv63ElrQTRFFoAd0ZRGw3Gq5XHUq6k5zk6aCWvf7Y
+         iVkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1D489DOIZJnqPjy533cJiCmUkiKXlAjUIsme0TXtAazaxgY2H013PVYLf12iS3UO5otKoeTa6qLFfx04=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrZWN7ioGCD+Cxf4mLUHJKCwAf5gf97iZdRKkNS+lRKmMVBT8V
+	SOpl7yU6WJxkkuq3BN2Gl9NkvEbBU/1uj2FPJsXpvxZTt2NoEQhhHocL7VbqgQx9T9nr65vtaic
+	RWw8K5KNbTuAFT/Mm4Segkz5SAeGVsrinVIGdoP2x
+X-Gm-Gg: AYBFou3Z8bEStNx4IAC4sqO9acnSo4EgJZq91Rmsh1ZcS8b5ZgEWlmNrYQ+sA86D2lH
+	VulDJDZzaxA1cdf0H62Wc5x0J9MwSFlM8BId2j+k12p8WLCqhOuWMySKSCWOLMkPEp8VvrCL3S+
+	nH+4dXkdgxOFVwpLbATG1V65MUjn9hD5Loc5I9DenIjGCP1uYwdTD58+2ncxtcBFulg83OVEPIT
+	jo2LBIWgPmhgjD3TJCuu5x25W9kSDes6vNZR0w9bY5xM8kCrI044GrBPz5WQwrlOGPvBq1tGKzm
+	bNID4mGFeZOdt+PYw97S29ZMP6k0AY5KxQ1Bsc6Rnm4As/+tITfloLU=
+X-Received: by 2002:a05:6402:512:b0:6b1:bc48:2238 with SMTP id
+ 4fb4d7f45d1cf-6b3894961d1mr19975a12.11.1792100690504; Thu, 15 Oct 2026
+ 14:44:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB9059:EE_|LV1PR12MB999329:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e9b57cd-4251-4d25-26b2-08df2b0545e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	qQdFM4b3XBuaePn0PLB6y/2taZ1NpoCBd6xZ0Hw7J0LF4fKid3xzGXK/4XXiMC2alGjlSRfje1Rw2vUqpEA8ot8zPr/TzODGasNRhKy26hqnJMEibLagSil2UhKS01IjGEubGaYvQi1/04z6vH5ypY75lfsODPTON3EIjZA8zSPKBVJ3ZXnm0DkKJOhM3BYueZ8OyUtlkdKutTGR1b5716w1BlPQq4UoTs1tjxw15MDs+dPc0RAh9QbTABVX27RO7Y2AK0WinL422xtKx5DGWCpNxyJXCxmrobLrO3kr/SFSmfrQjOmIhiVa/AGnW9d1yZ29CFUyYgQzfT5ebjvDF+CJzHdGaHtyPEZxA6C6hp5YSxQMSAg7qtjoxqR0EyP6yj0LOkFt0GoV8bWN7odMkL6ARBuIPyANJXRTC6qTaWP791L3dsq/omS+HuKwRqT0yz+Yd5CYR58V7NZZtdYXqPp0w0gULDv1+ZiLg9RHuyZv25RHZ4QGeHlEOr7JdO2F89e3sYWgrSjDBVu/lU31GmjVLioEF16a65g01wzRPSeLzmtAf//tX6X75HwDGBQBmhxayXkGAe2UWDeeydNq0E1VC6Hk2P6oqIiGs8UT7ZKlK+ijHshI6LK2Vz18IiFS
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB9059.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?alZ3ZjdIRUs5ZTVqOEhKaCtQOXRoWG5FbHVVem96M1l3UnE2dHdEK01sYXUx?=
- =?utf-8?B?dzNXN0NVbHZEQ2JuVDJQK01wNUgydTVVb2Jac0dlaG04blpiRU40WVFLMSsw?=
- =?utf-8?B?akViZ2ozcHJnQWwvaGE2L2dqUDUxUUVaaVV1YVpHSVM2SGw1Y2lTbGVnQndm?=
- =?utf-8?B?QmpsNi9MaTlGNW9iNlNCYlR0amJoa2phRFNmemcrMW1IT0NCTHBQRlUvazFY?=
- =?utf-8?B?akV5akIwV2tJdGZYSTRLa3hON2E2YTZ2WjhxM1Y1cHhCYjBuWldZQUdjclNh?=
- =?utf-8?B?ZjFydVRrd1VBbHVzRks5dC9HSGdhZzc4YVF2SUpCQlEvRnBhYXRpQXgrN1E5?=
- =?utf-8?B?b1pVZkdIaURiSkZBUDArd1h5ajcvWGNHUEZTbC81UVR2UGNKQ2ZKZE5RQjZu?=
- =?utf-8?B?Z3YrTHczaUNjUFdXdHBUTDJPSHZId0dra25pSk84aHV5R1krbjlqeXZjamJ1?=
- =?utf-8?B?MzRCTlBOWjAwcW13RVQyRVZ1UUtmOTBScEo1WVBoN0tVcVJkK252MVA4M1d6?=
- =?utf-8?B?U0JxeUlRLzlhUkgrTlVLU3JxRFViNlVEWjNZY3BiSWNBcW8zVE5maFBDVXNR?=
- =?utf-8?B?akxkSVZab1A5NytWTS9GYkZvVUNqeXhyQy9mT0M4M3JYOTdoNVdIZ3NCdDM1?=
- =?utf-8?B?SGUrSS9CNXhLM1BkVkFXU3VBQUhOb2s4ZEU0YVVWQ3JyclN3SGIzRlZaUEsr?=
- =?utf-8?B?dVpVbVNvL3creDMzTW4vNWFaWUJyV2NiQytmUG91MkZIT0xydDhtWGFRQm4x?=
- =?utf-8?B?QXRta1J4ZnMyQ2dUOHFQWWlpWVJmdHNRbVNCWklOdHRwK0swQ0dDUzFxMGpn?=
- =?utf-8?B?TEhIQ0dMQ1pOem1UYmNaaStFN05tcTNXQjhoWHAvdHhlTGIyaEhMbXNLdUMr?=
- =?utf-8?B?TVNleEFyTWIwb1p2RzFPSHlyRHNOcDg1b0pQZGtjdEsyZkF0ZzAxQnRqaVpW?=
- =?utf-8?B?bjhlOGpiQThvRXc2Mmc4bFY2clB4TUQrSnRwQkM0TC9PbTlsT1lEWXJhYmRE?=
- =?utf-8?B?NkZEM1BCYmFlNjF2REV0dXNwZ3VZNWNyZzhWeWZxeFNyZU9CTmhDZHZoOHdp?=
- =?utf-8?B?eGtBS0FOOTE1bW5qREdvVUxPUEtEcndNWXk5MGVtOCs2RmNGUHFrRFR5YjlO?=
- =?utf-8?B?NFYvaGN6dDlnaUEzTVhMSHFwS2ppYkErYW8xbnZtUGRMVmdJSEkxQkNUdHBQ?=
- =?utf-8?B?WHFibWs3RGUzNWMyVWRUVjduSjBmWUc2cWFETUdzNjZpdVM4TkdwQy9TMHRv?=
- =?utf-8?B?Y3dpNEVmWUNoQ09JU2cvS2VCUVpsRjZQUXBvazNiQjhFM1hEbm5jTGc0eXd2?=
- =?utf-8?B?ODQ0TGZpbGlDQTJNTmlybnlqWExKL0VkVEJOalVlTStiQ1pjMW40NnZMTmEw?=
- =?utf-8?B?VUN5MDlkMFZFL29kbnJJaGo3dFZCVFpQU0JLWHUwR3FVak9MQ0RIUk1Eb29i?=
- =?utf-8?B?eWxTRGVFaHJ0bEZ4dlVoQkh6N2VWVlpydUEvOHpNOTcxaUdoSXlBdjNGQytO?=
- =?utf-8?B?ZDlVNUlwSThpMll5d2VjT3EwbzFwTmh5RXZkS1I2WEpSQVNvRGFxU2FHazFq?=
- =?utf-8?B?ZExWaGJLV1Rqc2xmYUFFbkx3YjQyTXdXQ3lHd0RiaXoza1pZSVNWVlpkMm9a?=
- =?utf-8?B?b1d4ZjRhK2RncFllcytNQ3NPQ3dmNU12THpFNEdmWE5SdVFKSi9tem9Kei81?=
- =?utf-8?B?aDJGTEZyN3dqNk55RGo5NFIzUmdlT0MwNkQ3cnlDcThIeEtpZFZGUklnVGlY?=
- =?utf-8?B?UVM4MnhmTVNJUjhzU3RIcENycUJ0c3Z2TUlEZUdwdXF4L214TWtpU1hzV3Zk?=
- =?utf-8?B?ekM2alF5SGF1Z0pPK1haNVl3TjhScnNHbnphN2JtZFhIbDVzRXJKWVlUZUN6?=
- =?utf-8?B?QmU2RW1wWUR4L2ZJaWlwTXFITEpMcmY4OEh4ZUlMQjNIa0FJMW9WVlI3SjdZ?=
- =?utf-8?B?NmhaTEhkbXVqZ0dsVng0VFFUbERSa2dVL2pPRzdzK3dldklkaUlGeDk0eUdv?=
- =?utf-8?B?RndWMnNadGpFRnl1eExtOTY3N1FyS0swVWlzZVV3aWVyU0doQTVXRlpCajNX?=
- =?utf-8?B?YXFmNThPWGg1N2dab2ZyejZPWSs2eFBMbDlQMEFlREFEUytnZm1sbUhiZ1BK?=
- =?utf-8?B?eFI2Y0FsWDhzUmg3MFE4UncyUHpEZXU4NWwvOGNFOWg4UW42V0Z2S1djZVU5?=
- =?utf-8?B?djRuck9rUXJEUk9pSWJ0R3h1VXdUdDcxWkczTlV4SzdnOERQc2xDdDBlQy83?=
- =?utf-8?B?dzd1T1JvdDlHc1ZVYkM5UkpvRlJpVkMvZXZyOEg4NUZqOWp5Q3EyWmMzZUpF?=
- =?utf-8?B?WThNRlhXR2JYWnk5T0ZjREcxZ0ptaENBMkk5bHZEdHdtY0RST2N0QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e9b57cd-4251-4d25-26b2-08df2b0545e4
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB9059.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 21:42:55.9202
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NQASqnEEmLsIdDz1kWjf09ZuSARz/Wj62YNQQf2NeIw9kjcftNzhcqUPWxosh4o1PJoCcKE/DrMRoG3IeHItJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999329
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-12-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-12-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 14:44:38 -0700
+X-Gm-Features: AclHuK8Uq8sH_z4Z0am-zDBj0JfGwxILB64drxWhh9TWDwz6VRj3Ca40Gs607RU
+Message-ID: <CALMp9eThakVB_zqPQX=fQLrKh13BR33jmGg__rncOLDa2ZkXWw@mail.gmail.com>
+Subject: Re: [PATCH v3 11/27] KVM: SVM: Only flush the fallback ASID when used
+ by a different vCPU
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Instead of always flushing the fallback ASID on every vCPU run, only
+> flush it if the last vCPU that used it on the pCPU changes. This avoids
+> constant TLB flushing on a vCPU using the fallback ASID if no other
+> vCPUs that use the same ASID ran on the same pCPU.
+>
+> Note that checking (and flushing) the current ASID on vCPU load is not
+> sufficient, as it is possible that a vCPU is using the fallback ASID
+> only for L1 or only for L2. To do this correctly on vCPU load, both L1
+> and L2 ASIDs would need to be checked, and the respective VMCB would
+> need to be flushed. This would not be much simpler, and would perform
+> unnecessary flushes in some cases (e.g.  loading a vCPU that uses the
+> fallback ASID for L2, but L2 doesn't actually run until the vCPU is
+> unloaded).
+>
+> Another alternative is always flushing on vCPU load if the current ASID
+> is the fallback ASID, and flushing on nested transitions if the new ASID
+> is the fallback ASID. Again, this is not much simpler and also incurs
+> unnecessary flushes in some cases.
+>
+> Do the logical thing and track the vCPU using the fallback ASID instead.
 
-On 10/13/26 14:11, Lizhi Hou wrote:
->
-> On 10/12/26 21:38, Matthew Brost wrote:
->> On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
->>>
->>> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
->>>> Two hardware contexts can submit jobs that use the same GEM object while
->>>> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
->>>> notifier_lock before aie2_populate_range(), and that function takes a
->>>> reference on the first invalid umap without clearing invalid until the
->>>> fault returns. Both submissions then call
->>>> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
->>>> structure is not safe for concurrent callers. The calls write
->>>> notifier_seq and hmm_pfns[] at the same time, so mmu_interval_read_retry()
->>>> can see the other call's sequence, miss an invalidation, and clear
->>>> invalid. The job is then pushed while the pages may already be gone.
->>>> Give each umap its own mutex and hold it from the fault through the retry
->>>> check and the store that clears invalid. notifier_lock is dropped before
->>>> this mutex is taken, and the fault drops mmap_lock before notifier_lock
->>>> is taken again.
->>>>
->>>> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
->>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->>> Reviewed-by: Max Zhen <max.zhen@amd.com>
->> I was browsing dri-devel and this hmm interaction annoyed me enough to
->> ask my AI to fix this and converge properly on a DRM framework:
->>
->> https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup
->
-> The patch looks clean.  I pull it on top of latest drm-misc-next and run some regression tests. It works fine too. :) 
->
-Sure, I will wait for this fix merged then rebase my next patch on top of this fix.
-
-/David
-
-> Lizhi
->
->>
->> Improper HMM or abuse affects the entire kernel, hence we should
->> converge.
->>
->> Please consider the AI suggestions (last 3 patches) instead of open
->> coding this.
->>
->> Matt
->>
->>>> ---
->>>>    drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
->>>>    drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
->>>>    drivers/accel/amdxdna/amdxdna_gem.h | 1 +
->>>>    3 files changed, 9 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
->>>> index d927c8c9d557..4db67a789c34 100644
->>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
->>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->>>> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct amdxdna_gem_obj *abo)
->>>>            return -EFAULT;
->>>>        }
->>>> +    mutex_lock(&mapp->lock);
->>>>        ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
->>>> -    if (ret)
->>>> +    if (ret) {
->>>> +        mutex_unlock(&mapp->lock);
->>>>            goto put_mm;
->>>> +    }
->>>>        down_write(&xdna->notifier_lock);
->>>>        if (mmu_interval_read_retry(&mapp->notifier, mapp->range.notifier_seq)) {
->>>>            up_write(&xdna->notifier_lock);
->>>> +        mutex_unlock(&mapp->lock);
->>>>            amdxdna_umap_put(mapp);
->>>>            mmput(mm);
->>>>            goto again;
->>>>        }
->>>>        mapp->invalid = false;
->>>>        up_write(&xdna->notifier_lock);
->>>> +    mutex_unlock(&mapp->lock);
->>>>        amdxdna_umap_put(mapp);
->>>>        mmput(mm);
->>>>        goto again;
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> index f14484bc31ec..37bfa5058095 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
->>>>        struct amdxdna_umap *mapp = container_of(ref, struct amdxdna_umap, refcnt);
->>>>        mmu_interval_notifier_remove(&mapp->notifier);
->>>> +    mutex_destroy(&mapp->lock);
->>>>        kvfree(mapp->range.hmm_pfns);
->>>>        kfree(mapp);
->>>>    }
->>>> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
->>>>            goto free_pfns;
->>>>        }
->>>> +    mutex_init(&mapp->lock);
->>>>        down_write(&xdna->notifier_lock);
->>>>        if (list_empty(&abo->mem.umap_list))
->>>>            abo->mem.uva = addr;
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
->>>> index 9b4aa21a37c9..456a537eb68c 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_gem.h
->>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
->>>> @@ -19,6 +19,7 @@ struct amdxdna_umap {
->>>>        struct kref            refcnt;
->>>>        bool                invalid;
->>>>        bool                unmapped;
->>>> +    struct mutex            lock; /* protect range */
->>>>    };
->>>>    struct amdxdna_mem {
+Wouldn't it be simpler to track the VMCB associated with the fallback
+ASID on each pCPU? Then, you avoid any confusion regarding whether L1,
+L2, or both have been assigned the fallback ASID.
