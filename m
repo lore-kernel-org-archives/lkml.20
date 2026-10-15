@@ -1,134 +1,190 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF444F475F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381D55012A7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062994; cv=none; b=ENMBxdet8NQkaDVJ1VFQ2atbWb8n/4xJEMjTS9vapU9yWo93P9UyBBttJAb89jF64Odh7EjiRYnssIq96XD8xmxgNbOF6gPesKx+iJQtg4CH4nLiePx9xumfd/AzOWlMHSu4jdk3lXY8YxuilZaXFjzF7L54spUGSd9mhyU6QfM=
+	t=1792062997; cv=none; b=r3blu3P20IQIUNotwOxuh4XmKLqAQNRU3eCdC1E2aoDgHxVH0PabhdW/IXrjPGedmchZmi6UmbOUpgDLDXg2ekJBPLu2LDKu8ADpKN1BrXNLpTMOF/iqtcG3TOM/JGcxtTkcIyQT92TqlNjUA1xUtIxjtXSsavxOVwJ5LABw5bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062994; c=relaxed/simple;
-	bh=AMQezvz7kS5wMuY8Rft3IfVsBdryJebnully3o+6iAU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OJMXEoYu44o8jhGUzqm7o5KOHCHj7w1ltxWMkZDpNrCOoxnftY6a7jKY0sqLQKuKIs3s6ty6FL1mYoiznTLRQPcGffhsIUwXlheFsM4QjdFhmIu3GZECnhHkWCknrNf8q7DigNRib5nxDYd03F5w6igkGpebdSsth2QlkVkUDPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=W3IBLT2T; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="W3IBLT2T"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C28422B;
-	Thu, 15 Oct 2026 13:14:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792062864;
-	bh=AMQezvz7kS5wMuY8Rft3IfVsBdryJebnully3o+6iAU=;
-	h=From:Subject:Date:To:Cc:From;
-	b=W3IBLT2TIznwR9Ht6ozwraNLMh7Y4rRqyK0rvLsUyZOBSCXOt6/4sTrRlifXwsTMU
-	 sxwAC49z+/K4ympNq8KAx0KpYcf9Vzgn3eY/VdMC67yty/WriEb4XqtEJdG5GV+uAN
-	 iOwjr70XnCiuZRCmhLKr3f7Ee7yfM54sWWhpnXN0=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: [PATCH v5 00/13] drm/bridge: tc358762: Various small fixes
-Date: Thu, 15 Oct 2026 14:15:51 +0300
-Message-Id: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
+	s=arc-20240116; t=1792062997; c=relaxed/simple;
+	bh=aq0xX3/cPkEAM0nO5kMsIP5zC8LwsPjKPbF1/P8O8k8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=EU/7AarYLgXI7k5zNXhGXYGAtEOp7vPY9uzpj/w2iA1bgV9At3BWn4RQmLXVh//y7Ob/Ibf1HdplKiUH5XqaB5VA3cUpX61e8svYClblwOF6yaFACc05v06HhZq4Uk9LFDp5Wv3dKuUApzj0W27FyyrlQuxKOsmY1AKdkEtOu+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dc57e2a3f2so2239098b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:16:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792062994; x=1792667794;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZMaWeQ8qRXsWqh/vQuYUD/x5APIi3Y53X4W2uV0kU3M=;
+        b=uRbLhYdDs/ewwD4nGshm6EbT5Uw3MoGJyts2dN82Fo8/Brk57RtMgEDwPpCelgPke3
+         KUmSdc8lwRZpzTqzsFpRfUlnKwujYKperwrVtCRlKzX77/RHc8Qs4BFXF84jMMyxYQE5
+         iF+MJohd11IKQioJw0+uW9WywSqqL7ys1Ud3NxmGRD7P05aASLwMZ5s+0MsFj36vHDQO
+         uF2htHtUOt8R+/kkOtUPwqgwe7Q8QtkGn8c9yboRD+HXDJz3wUH6Z5ywKgX+nyDTK9L3
+         DK5GxiIJ1cKbEynqfnXNLuxbyEXKJUs7CkTgDhMdy/Q3ZO4CTB14WjW6X5Y0qV9SXQxr
+         U7qw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/v4FV3dL8Vi+iO+5VoE0PpqoIERwHhvv9KG3DUCCXawquewCi1yBgStCArtxi31lOzzLkmmrUo8tkzKw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7tErUmAi4J82b88anYLT4kP5X/atAir5PyDpPk8U7qzdpUw2M
+	2/PQK9dWywm7qE6wZDWL7U+TGPpZmmxdNslpyEZ/yc+HoHysZHWY3ekNT9TWmR12L9hVm8mffbc
+	C14Zt3trCCjLzWb/JzjqX3shazx/4WNdtkrd7/FY5rdCIZ8PXFt/thDldl5I=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOi10GoC/3XPwW7DIAwG4FepOI+K4OCEnfYeVQ8EzMphYYIqW
- lXl3evkkkpZjr+t/5P9FJVKoio+T09RaEo15ZGD+TgJf3PjN8kUOAutNCrQKO8eTN+hljH9UZU
- YEdEoFZwlwaXfQuuCO5cr51uq91weqz81y/SQmhqpJJrYdlbrzkXzlQK5mschuxLOPv+IRZz0u
- 9LtFM0KT2wA3zLmDhTYFNPAToHlFrT9YPi5frAHSrspVu1vaVkhiB7cYHzo4R9lnucX4G6D9YU
- BAAA=
-X-Change-ID: 20260326-tc358762-fixes-6f666500da9e
-To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2506;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=AMQezvz7kS5wMuY8Rft3IfVsBdryJebnully3o+6iAU=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYBV3YPUhU3biEtc6zSG4tJtporL3f1Y2SVR
- e42pF3aMa6JAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2AQAKCRD6PaqMvJYe
- 9ctXD/9CQLcYIOZ5SrQ7EeY5PgKvbN08iLuJjUDHRtvdxeRZzcN0JBTE5EdT2DtLLhTvxeVgP+A
- KyZYG7WFdayVpp/Knpl74vNpRXeR6Z6EnmThdAY6mDjDLRu2kxqrRhZUS4dT9x1nKKhLy8oA40+
- xwP+e/kkHlRyDhyqET/Rvj5JO66KBnrtAfbZbGoFlcvHhiRNQ68cQFk9jhRO3u4d+MtQuniacHN
- I8VowVqBVoIEFdycn6ODkNu7RxrKP0cb34lmBhAMZ0InXLrWrhjLMm+f8NIakm63EaVUxp1k/ue
- 71L5zb5HT7IThGcChyGSglu4oFBo7PHpR1wuNwCpSzqEeuRcDtPSMenLqAkFrJVOQw3PQ57RtCl
- xfZaZ+DHod2yGKtfJx40++rF7ife5XCeFrfxj1EDzny+sBA15XxIhJ4qMLXS8o163vFb+bQ/QhU
- U+I1uKZtHn072/Z3fxVmP0AX30GXsRMmE2BQSz9K9vH8uCzZco5JplUqtbnVjn31prj4CRzZHun
- YPvXgyS0L/mUcisO4ILmjpPCFwpphQzG7CxbJAsSntResyYDd2A1T/8B+jdERlwhv2LGFR3Dacd
- xsij3mLwS1cjJc0vKtCq00plaYCCgZd1iJS/otN1q60VPJrX5AMxE/H8PGOezO0KK/7xE2FeiMc
- iA+6A15EntinmrA==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+X-Received: by 2002:a05:6808:f09:b0:4cb:abff:3db9 with SMTP id
+ 5614622812f47-50c45c64e1cmr19275571b6e.9.1792062993992; Thu, 15 Oct 2026
+ 04:16:33 -0700 (PDT)
+Date: Thu, 15 Oct 2026 04:16:33 -0700
+In-Reply-To: <6abfe422.7503fbd6.2d3f6.0023.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad0b611.5f317f00.247b6.0067.GAE@google.com>
+Subject: Re: [syzbot] [overlayfs?] possible deadlock in __d_alloc_parallel
+From: syzbot <syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com>
+To: amir73il@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, miklos@szeredi.hu, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-While trying to get Raspberry Pi display v1.1 working on Beagleboard
-platforms, I noticed various small issues with the tc358762 driver.
+syzbot has found a reproducer for the following issue on:
 
-The series also contains a patch to fix the timings in the
-powertip,ph800480t013-idf02 panel. The combination of tc358762 +
-ph800480t013 is used in the Raspberry Pi display module, so it makes
-sense to fix them together.
+HEAD commit:    d419d682257d Add linux-next specific files for 20261014
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1157ce8e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=2935483cab352f25
+dashboard link: https://syzkaller.appspot.com/bug?extid=52aa59fd5e3cd8a19dd7
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12f9d3d1580000
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+52aa59fd5e3cd8a19dd7@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor151/5964 is trying to acquire lock:
+ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ffff88806b10d620 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}, at: __d_alloc_parallel+0x39e/0x1700 fs/dcache.c:2883
+
+but task is already holding lock:
+ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x46/0x80 fs/namei.c:1936
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (&type->i_mutex_dir_key#3){++++}-{4:4}:
+       down_read+0x45/0x320 kernel/locking/rwsem.c:1574
+       inode_lock_shared include/linux/fs.h:1039 [inline]
+       lookup_slow+0x46/0x80 fs/namei.c:1936
+       ovl_lookup_positive_unlocked fs/overlayfs/namei.c:216 [inline]
+       ovl_lookup_single+0x323/0xe90 fs/overlayfs/namei.c:260
+       ovl_lookup_layer+0x377/0x440 fs/overlayfs/namei.c:365
+       ovl_lookup_layers fs/overlayfs/namei.c:1109 [inline]
+       ovl_lookup+0x5e5/0x1c80 fs/overlayfs/namei.c:1403
+       lookup_open+0x94b/0x1970 fs/namei.c:4578
+       open_last_lookups fs/namei.c:4816 [inline]
+       path_openat+0x70c/0x20f0 fs/namei.c:5055
+       do_file_open+0x258/0x570 fs/namei.c:5087
+       do_sys_openat2+0x115/0x200 fs/open.c:1442
+       do_sys_open fs/open.c:1448 [inline]
+       __do_sys_openat fs/open.c:1788 [inline]
+       __se_sys_openat fs/open.c:1783 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1783
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (DCACHE_PAR_LOOKUP){+.+.}-{0:0}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       d_wait_lookup fs/dcache.c:2840 [inline]
+       __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2944
+       __lookup_slow+0x82/0x2f0 fs/namei.c:1905
+       lookup_slow+0x59/0x80 fs/namei.c:1937
+       walk_component fs/namei.c:2316 [inline]
+       lookup_last fs/namei.c:2824 [inline]
+       path_lookupat+0x3f5/0x8c0 fs/namei.c:2857
+       filename_lookup+0x258/0x5f0 fs/namei.c:2886
+       do_readlinkat+0xe3/0x510 fs/stat.c:575
+       __do_sys_readlink fs/stat.c:609 [inline]
+       __se_sys_readlink fs/stat.c:606 [inline]
+       __x64_sys_readlink+0x7f/0x90 fs/stat.c:606
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  rlock(&type->i_mutex_dir_key#3);
+                               lock(DCACHE_PAR_LOOKUP);
+                               lock(&type->i_mutex_dir_key#3);
+  lock(DCACHE_PAR_LOOKUP);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor151/5964: 1, last CPU#1:
+ #0: ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: inode_lock_shared include/linux/fs.h:1039 [inline]
+ #0: ffff88805c8d39e0 (&type->i_mutex_dir_key#3){++++}-{4:4}, at: lookup_slow+0x46/0x80 fs/namei.c:1936
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 5964 Comm: syz-executor151 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ d_wait_lookup fs/dcache.c:2840 [inline]
+ __d_alloc_parallel+0xc32/0x1700 fs/dcache.c:2944
+ __lookup_slow+0x82/0x2f0 fs/namei.c:1905
+ lookup_slow+0x59/0x80 fs/namei.c:1937
+ walk_component fs/namei.c:2316 [inline]
+ lookup_last fs/namei.c:2824 [inline]
+ path_lookupat+0x3f5/0x8c0 fs/namei.c:2857
+ filename_lookup+0x258/0x5f0 fs/namei.c:2886
+ do_readlinkat+0xe3/0x510 fs/stat.c:575
+ __do_sys_readlink fs/stat.c:609 [inline]
+ __se_sys_readlink fs/stat.c:606 [inline]
+ __x64_sys_readlink+0x7f/0x90 fs/stat.c:606
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0e12a36e97
+Code: 00 00 90 48 83 ec 10 48 63 ff 45 31 c9 45 31 c0 6a 00 31 c9 e8 4a 0a 02 00 48 83 c4 18 c3 0f 1f 44 00 00 b8 59 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d0 ff ff ff f7 d8 64 89 02 48
+RSP: 002b:00007f0e12a02fe8 EFLAGS: 00000202 ORIG_RAX: 0000000000000059
+RAX: ffffffffffffffda RBX: 0000000000000002 RCX: 00007f0e12a36e97
+RDX: 0000000000000100 RSI: 00007f0e12a02ff0 RDI: 00007f0e12a030f0
+RBP: 00007f0e12a030f0 R08: 00007f0e12ad9b20 R09: 0000000000000005
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007f0e12a02ff0
+R13: 00007f0e12ad9b20 R14: 00007f0e12aa5028 R15: 00007ffda7595668
+ </TASK>
+
+
 ---
-Changes in v5:
-- Rebase on v7.3-rc7 to remove a minor patch context conflict
-- Link to v4: https://patch.msgid.link/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com
-
-Changes in v4:
-- Rebased on latest upstream, fixing the minor compilation issues that it
-  brought
-- Added R-b tags
-- Link to v3: https://lore.kernel.org/r/20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com
-
-Changes in v3:
-- Add missing #include <linux/bitfield.h>
-- New patch: "drm/panel-simple: Fix powertip,ph800480t013-idf02 timings"
-- Link to v2: https://lore.kernel.org/r/20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com
-
-Changes in v2:
-- Always enable VTG. There should be no downside, and it fixes unstable
-  hsync
-- Add four new patches at the end
-- Extend the patch desc in "Drop SPICMR write" a bit
-- Link to v1: https://lore.kernel.org/r/20260326-tc358762-fixes-v1-0-65f479227af5@ideasonboard.com
-
----
-Tomi Valkeinen (13):
-      drm/bridge: tc358762: Clean up register defines
-      drm/bridge: tc358762: Improve SYSCTRL register defines
-      drm/bridge: tc358762: Improve LCDCTRL defines
-      drm/bridge: tc358762: Configure SYSCTRL first
-      drm/bridge: tc358762: Drop SPICMR write
-      drm/bridge: tc358762: Improve DPI enable handling
-      drm/bridge: tc358762: Update comment about the number of lanes
-      drm/bridge: tc358762: Support VTG
-      drm/bridge: tc358762: Fix sync polarities
-      drm/bridge: tc358762: Move tc358762_init() into tc358762_enable()
-      drm/bridge: tc358762: Drop drm_bridge_funcs.mode_set
-      drm/bridge: tc358762: Set DE_POL and DCLK_POL properly
-      drm/panel-simple: Fix powertip,ph800480t013-idf02 timings
-
- drivers/gpu/drm/bridge/tc358762.c    | 203 +++++++++++++++++++++++------------
- drivers/gpu/drm/panel/panel-simple.c |  14 +--
- 2 files changed, 144 insertions(+), 73 deletions(-)
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20260326-tc358762-fixes-6f666500da9e
-
-Best regards,
---  
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
