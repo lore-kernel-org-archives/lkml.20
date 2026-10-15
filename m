@@ -1,101 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEDF48FF7D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61928346E70
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053452; cv=none; b=CLtiq0198pFoQbtXI4qJiSOzLkfKodSO72jUDlV2M0WdOi0Gp+py4tKylPgfEYBJnTxrDNZiPUBWhY2tX2GSqUVhbps5tju1mQa1N3v1nvjRKeT0608V4N4AD2iHoBy3S7i6t4V/8GzGVW43GPughxweSSk3ztfzmHPC7cCMvXI=
+	t=1792053478; cv=none; b=S+3YpIvfGWCORx/g/4pY2Ug8PYaohJgAgAtXOGouxFGTpKgAA85tBv+BCZ7oz1Gtb/sziwKEdYIC8WLIusH27TuX5ZHFEtjKsJ3ZkAUHvHholpRt4+KPs1g3R1VOSj7Qw52WdQ70vfkNHaEXKYcxRgiZFS+s66v+WB6jNbo8S/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053452; c=relaxed/simple;
-	bh=hhG34pRBwNVfGPERzjm7GlkrPqWfNm+55ytwLAiZfwQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C3HFPHAvdBWDAa5Gqf5oTi5jwVrW9nra8D82BjyYhQwh7ayxwsrkuVsHIyKWYsX9rieB0163v9Gk6s6+1JQCYncOGWXkWd9/DpGqpTDBBHC9M/Kq6v7I3Ej2igvM8PwADI0gvp9bUScz6o8C9n4R52AGnmYvn/xqNThwCbn3UzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/sqtBNw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792053478; c=relaxed/simple;
+	bh=J8/WPUKZgvpFon73tY8pEvuDWGuU6a6DVXGoFvHaRSA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=KyOJDCzGfdnlgAVXex5kiX/lgRAMReWcj8JVhfcljdsnc9aT9I944UNszXknBPOJRJ5Wr/CehoXsV1YdujgF5mK54OOScAP52EHLJu8GACVvZLqThozUmJv+PhrvgC0/Gx/QcqfnaWkS3j7rblCmqngfz7LEJDGaSP7mifU+tso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Cprc7Jne; arc=none smtp.client-ip=95.215.58.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/sqtBNw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41AC1F000CB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:37:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792053449;
-	bh=Ffv3dgFroz/r+GFDSF0cH2uBXsTK3CbNpA3hXcagHYA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=P/sqtBNw5nzzSfwQAzuZvHa63i5Z7YyOlgL/M1OWIVfQLa9fyRrxPpESGEY2JyA1G
-	 7Ucq+7iOU52CVkh4izhxfD/mzWS4iHRHs/GIS20X/Wjv9IjKwbOVEaNiEtsc3qMjAp
-	 Z5td+r6YxlUNsT9ZQLp4pLxJmQ1OJS3y0gB6Yj0ZxB2edFkW6Jx7YtT0NZTiXdPei3
-	 V6nYebGbXRV2f2xQmXnT+kjciD7l2cuTiF/EO55QSsD4UCvLEDSvhnjLoC2izs+8/O
-	 ldfSx0BZ6OI+etzHofaQ20WyM4j/UmBpVFftNZrhpj6ir5mJBCwnUM0oZoauYeIbTr
-	 mY1EEE9C4burA==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so17896391fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:37:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxdTygeJ0MDe42UlOHR3VbOCqLMsoNojdnqsF/x6mfahR0+vsYLypoNKhh2GY5xRryAAGRFPklNuyxvE+4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2FAGBYgUArU2WZpwm2Zb2SQPrSaCMs8Fm+xlMwAo3DgcRvHzz
-	t76KAQUlMCGbKOO7a4qnxDTp5tBUxDn+3r7FVf6/6+YEgw6iBZjONfoL/bH93o3Fga2ABhX5prQ
-	CLKcMvt+U89gDGsf5DjN6B5fQzccoqOPywuS+Shh/4A==
-X-Received: by 2002:a05:6512:3d14:b0:5b8:d9ce:1d88 with SMTP id
- 2adb3069b0e04-5bcde6c7f62mr6490930e87.29.1792053448631; Thu, 15 Oct 2026
- 01:37:28 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 08:37:26 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 08:37:26 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261014175050.21982-1-tvlad744@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Cprc7Jne"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=J8/WPUKZgvpFon73tY8pEvuDWGuU6a6DVXGoFvHaRSA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792053474; v=1; x=1792658274;
+ b=Cprc7JneowWM/4GOXkbzF+0Sbbc7i0Zu8iF5EdKQs6uRWI6H6Qac89fH4ZMifndex0qaMIqh
+ 1dtvl3G/1cjl3HEoYiMHtbl5PCsfLgSAC81tr3r7E4ST43qLiZZDSTd2fcgJXhEYEbcnCEgFrkP
+ ndB/vfnT7av2kthqfpClU0rA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 9f4aca14d8d7e350;
+	Thu, 15 Oct 2026 08:37:54 +0000
+X-Mizu-Trace-ID: 9f4aca14d8d7e350
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <179163212446.46972.2306254853726299632@pm.me> <20261014162025.3733-1-tvlad744@gmail.com>
- <179199941686.68860.2209253288195283916@pm.me> <20261014175050.21982-1-tvlad744@gmail.com>
-Date: Thu, 15 Oct 2026 08:37:26 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Me5ZQ-obg3g28yqc-TMVeu9t-pvr65z2MZdxCY=Pw8jaA@mail.gmail.com>
-X-Gm-Features: AclHuK8ZaOArMNUK0s4TVJGKl-Y76el5XziQYBEWdSnDw1CHDECJExL51t1fD1g
-Message-ID: <CAMRc=Me5ZQ-obg3g28yqc-TMVeu9t-pvr65z2MZdxCY=Pw8jaA@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: hci_qca: Reset the in-band sleep state on
- power off
-To: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-bluetooth@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Birk Skyum <birk.skyum@pm.me>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+Date: Thu, 15 Oct 2026 16:37:39 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Lokesh Gidra <lokeshgidra@google.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Kyle Zeng <kylebot@openai.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <89E8831F-8877-48ED-A2DF-5128DEEF8C43@linux.dev>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Wed, 14 Oct 2026 19:50:49 +0200, Vladyslav Tymoshchuk
-<tvlad744@gmail.com> said:
-> Hi Birk,
->
-> On Wed, 14 Oct 2026 17:36:59 +0000, Birk Skyum wrote:
->> v2 takes your code, describes the AWAKE trigger next to the WAKING one,
->> and carries Fixes: 3e4be65eb82c and Cc: stable. The code is yours, so I
->> will add you as Co-developed-by, which needs your Signed-off-by. Reply
->> with it and it goes in above mine.
->
-> Thanks for running the power cycle on the Yoga. It is good to know the
-> stale state shows up there as well.
->
-> Co-developed-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-> Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
->
-> I wrote my version with the help of an AI assistant (Claude), so please
-> also carry an Assisted-by line for it, as described in
-> Documentation/process/coding-assistants.rst:
->
-> Assisted-by: Claude:claude-opus-5-5
->
 
-It should be Assisted-by: LLM without the model name but even that is going
-away:
 
-  https://lore.kernel.org/lkml/20261009083137.3-1-sashal@kernel.org/
+> On Oct 14, 2026, at 19:53, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs =
+that
+> are not CoW mappings, which is wrong.
+>=20
+> If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do =
+have
+> VM_MAYSHARE) and lack VM_MAYWRITE.
+>=20
+> While uffd later rejects such mappings (uffd registration requires
+> VM_MAYWRITE, see comment in validate_dst_vma) =
+find_vma_and_prepare_anon()
+> still wrongly allocates an anon vma before it validates the vma.
+>=20
+> This in turn later confuses copy_page_range()->vma_needs_copy() such
+> that we end up calling copy_hugetlb_page_range() with ranges that
+> actually do not contain *any* per-pagetable information that would
+> require copying, which is the basis for PMD-table sharing in the first
+> place.
+>=20
+> copy_hugetlb_page_range() should not have to worry about shared
+> PMD tables at all: it doesn't make any sense to copy page tables that =
+are
+> shared, as they can be fully recreated later. Ending up in the =
+function
+> with shareable page tables is the real issue.
+>=20
+> If a destination PMD table is shared in copy_hugetlb_page_range(), it
+> might get concurrently unshared as we are not holding relevant
+> locks, resulting in us using a page table that is no longer mapped and
+> possibly freed after calling:
+>=20
+> dst_pte =3D huge_pte_alloc(dst, dst_vma, addr, sz);
+>=20
+> To fix it, do not allocate an anon_vma in non-CoW mappings and add a
+> safety guard to copy_hugetlb_page_range(), making sure that we never
+> end up messing with shared PMD tables in there.
+>=20
+> Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in =
+userfaultfd
+> operations") we would always validate the VMA before allocating an
+> anon_vma, and consequently never wrongly allocate an anon_vma.
+>=20
+> As uffd_lock_vma() is part of the same lookup machinery and
+> also contains a misleading VM_SHARED check, change that one as well
+> directly for consistency.
+>=20
+> A follow-up cleanup will stop taking the =
+hugetlb_vma_lock_read(src_vma)
+> lock in copy_hugetlb_page_range() entirely. Further, the usage of
+> VM_SHARED in userfaultfd code should be cleaned up later to focus on
+> CoW vs. non-CoW mappings.
+>=20
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd =
+operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-> When v2 is out I will run it on the Pad 3 (power on within 2 s of the
-> power off, and boots without local-bd-address) and report back in the
-> v2 thread.
->
-> Thanks,
-> Vladyslav
->
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-Bart
+Thanks.
+
