@@ -1,97 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D390347A894;
-	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D221FE451
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045244; cv=none; b=VMmqKbFUX293YJe/pso6Y/1Q+dytfnyBOpLdilLDQDJJgNHAINS4y59P/UcAbTFBUgiA1Peu1AEfRo5cmGLLaXuz6a7aixSk/1gHg2XybtqcwNUrz3K4QYEvqojfHHfDh1imFdtjvAp7jBIG9DArhQ3E5cFgOStCRLfScyxmlLw=
+	t=1792045451; cv=none; b=QnuGd4Ia0Fa/1MeMv5bk5YWt9jEzzLCLFQg8TJwMazXI5HXc19QVWdNgAGI2r7lbUEVNi+dRsD0oWMV+SfWlq99FRJTaUH/yOzxUKpjfv8AXWpMszKsZpetKNMHZAv1pS5+MkX2NPYcvh/BsCT9JTCG+nBrvlV4dqAbgtFrLDiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045244; c=relaxed/simple;
-	bh=K/ZOGxcAPck/oG8zMA0EHFOK3zkvQ+pfWnaxGgZcJ98=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=csy4YpBO70hOMKkdH1YvWGbe+7fxKvUozU3mPaB5zAyTpsDwCs2GownW1FKFJL+IkWfbrTk/7mCDaeBsV8N44DWST3ZZPaAoue10Bv1kjYkpdhCHgbx7WC+2JuWuWarZXKl8RvcLopP7idT4CQF7xI/umRQQ4wFdabMnXM9MkXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rFzXQPBX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792045451; c=relaxed/simple;
+	bh=xzxTDP1kJen/uCrhE9uPE6+rH/MP3btycDaiyOCiueA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ftgyN3U1u8JR46r1DJm1Fys8YsbF/mexVU4YJvgpioEgW217R5s85sYWhtnPlCe5DAGodAW+LcUiNnO6g6hz9LiV53tFFc+Ufnf6e8ekTcFi0uqlVDZs7+qponESFnKrUHSKNJUFxc7U3bURtwdun2F1cpjvaUTow8pAoD3OwOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RnzgwFeU; arc=none smtp.client-ip=95.215.58.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rFzXQPBX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 54369C2BCC7;
-	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792045244;
-	bh=K/ZOGxcAPck/oG8zMA0EHFOK3zkvQ+pfWnaxGgZcJ98=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=rFzXQPBXFY4zndnk7XfS8qNqGkAt5+Ut+o1LN7YYlyYAmvzOSSOaY3G5wTk+Y6AH6
-	 rZU8/K+zvA5oS7+6OTMsUpLmrhDdQ9OdpOoW5MwSrVM5Na3OsnINbgQM8B0+dOQt/x
-	 UCGgeyW/F8eolh3PfSPp7lRZto8PtViBDa/ivq6fB42rDBIrZDoKudFUExnTGJI8tJ
-	 eecM3GBChV4/N+sKoA1ZVOsaPHAQBIQKO1NvlEXS4QP1MfcKBKJpHcCADkjaDr92Vc
-	 UAHaoX0ttANF0J4+MoKX+kk51HT5F1DPuaJT3ZD8NFJMLT0b8cc+5ZPCdAxVf3rKg4
-	 2OD26N5m29SYQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40D86CC6B34;
-	Thu, 15 Oct 2026 06:20:44 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Thu, 15 Oct 2026 11:50:40 +0530
-Subject: [PATCH] dt-bindings: nvmem: qfprom: Add SM7250 compatible
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RnzgwFeU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xzxTDP1kJen/uCrhE9uPE6+rH/MP3btycDaiyOCiueA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792045446; v=1; x=1792650246;
+ b=RnzgwFeU88f6BI4zgBBNdIygjAMJ3BZjmdDlRyFOlyHV+KyIxpf3GKSgFibzH+rU3O52dIke
+ mMUSfah2Ekqy7w4PY4YWQn3pWpcsKIR2ss2DS+VPZIX5z+TbGwn/COKfvRR+kTQ4wRHdBgZGIZY
+ E/LCa8Drk0DofYzdd62E+RG0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 539d3ab3f892d32c;
+	Thu, 15 Oct 2026 06:24:06 +0000
+X-Mizu-Trace-ID: 539d3ab3f892d32c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fd35d9dd-8fc9-4cec-97d8-86917bb3c216@linux.dev>
+Date: Thu, 15 Oct 2026 14:24:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-qfprom-sm7250-v1-1-2401e54253ad@brar.si>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSQqEQAxA0atI1l2QlFPjVRoXDlHT4FRREcS7W
- +ryLf4/QNkJK2TBAY43URkHD/oEUHXF0LKR2hss2oSQYjM3kxt7o31qYzTfKEyIEJmKGnwzOW5
- kf36//LWu5Z+r5Z7AeV5GCKsucQAAAA==
-X-Change-ID: 20261015-qfprom-sm7250-84361100e1ad
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792045241; l=1040;
- i=patches@brar.si; h=from:subject:message-id;
- bh=Js+mOiFMtKojVlFfFjDoASGr/TjMDscmI+GpAAhGGTg=;
- b=sRr5cyL40sr6YpjGeoZpyOQONA6bSYMeVLFmVA+zvDrgLSonGrhZsSfJyMyaySe+WOBlmnLkU
- GE6GYNH4RRLBwoGI4fctMgU+gJcneV614LqWx80R6Q1uJ7nMWdC6n1a
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH v6 0/2] mm/vmscan: fix NR_ISOLATED accounting and throttle
+ MGLRU eviction
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+References: <cover.1791968227.git.zhuhui@kylinos.cn>
+ <20261014160910.eeaa24697b614d1b94806d0d@linux-foundation.org>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <20261014160910.eeaa24697b614d1b94806d0d@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Ishu Brar <patches@brar.si>
 
-Document the qcom,sm7250-qfprom compatible for the fuse block on the
-Qualcomm SM7250 SoC. It holds the GPU speed-bin value that selects the
-Adreno 620 operating points.
+在 2026/10/15 07:09, Andrew Morton:
+> On Wed, 14 Oct 2026 17:00:22 +0800 Hui Zhu <hui.zhu@linux.dev> wrote:
+>
+>> The legacy reclaim path has two mechanisms around isolated folios that
+>> MGLRU lacks:
+>>
+>> 1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
+>>     from the inactive lists. Compaction's too_many_isolated() relies on
+>>     them to decide when to back off. The MGLRU reclaim path never
+>>     updates them, so compaction cannot see MGLRU's in-flight isolation.
+>>
+>> 2. shrink_inactive_list() throttles direct reclaim via
+>>     too_many_isolated() when isolated folios pile up. MGLRU's
+>>     evict_folios() isolates folios without any such check, so many
+>>     concurrent reclaimers can over-isolate the same (oldest) generation,
+>>     leading to unnecessary swapping, thrashing and premature memcg OOM.
+>>
+>> Patch 1 fixes the counter accounting in the MGLRU isolation path.
+>> Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
+>> adapted to MGLRU's per-lruvec contention and its dynamic type
+>> selection/fallback.
+> Thanks.  Questions for yourself and maintainers:
+>
+> [1/2] is nice and simple and reviewed.  How about I queue this for
+> second week of the upcoming merge window?
+>
+> [2/2] is much more code, isn't reviewed and has a Sashiko whine[*].  So
+> I'm thinking this is 7.4-rcX material.
+>
+>
+> [*] https://sashiko.dev/#/patchset/cover.1791968227.git.zhuhui@kylinos.cn
+>
+Hi Andrew,
 
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Sounds good to me. Thanks.
 
-diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-index bc0a0898b..3877b46ff 100644
---- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
-@@ -57,6 +57,7 @@ properties:
-           - qcom,sm6115-qfprom
-           - qcom,sm6350-qfprom
-           - qcom,sm6375-qfprom
-+          - qcom,sm7250-qfprom
-           - qcom,sm8150-qfprom
-           - qcom,sm8250-qfprom
-           - qcom,sm8450-qfprom
-
----
-base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
-change-id: 20261015-qfprom-sm7250-84361100e1ad
-
-Best regards,
---  
-Ishu Brar <patches@brar.si>
+Best,
+Hui
 
 
