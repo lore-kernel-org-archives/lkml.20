@@ -1,183 +1,255 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0408D52B1EC
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083535; cv=pass; b=AY0ehQpxluMPVh+g7QEgfo7Ub5MBqqedkA/2vlxP9DvPBh84N/qlYbuPK2OHO85eSRtqpYlWel0newXTLr+E/QNpcN/h/XV1opOxue0di+Xe0vvVQFAKAbQmvV0RrHuL3ZUmvxaqMYHM6B1gXpb95mXyBqoBqH9zQPC7h/6gMxE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083535; c=relaxed/simple;
-	bh=4m7SBHHakRxvWRxrFM8W3RjKHQwaQaOVYLNHKqhxYcc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BHhfhS+OKP1vt83+yduxkQoWLx65ahe81+hv5cDgpfR4m2b+L9wW9lq15DHBDbACIQSLYzBNQ3ZumDtepB/Ft4dERjsn471fAelxBQWuCwgtoeVuTncZoYkr/fXoVTG6uKpX/IAumeYkhVGnGJijEQ5IWlVRzsQjmNl9Cnzu/eY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=URfS4aql; arc=pass smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF94551989
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792083541; cv=none; b=X5XzV7kjj+RNGcl8k9OGrg0Fyp0NhghubqLMct8jAQ4t8Azaz0xrHLC1bQlvc2AcFhgSZXLhxxMLtNAWPcz2WDBzSwFi4ntMoYYRTKkwg4DFfwLDRqoJunKK1XVDe2K/1flXdjJ1wooLx6bwrE261uCjgD/uatnEfpqF5aTohwA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792083541; c=relaxed/simple;
+	bh=YzROl6vJA4Mn+TDlieovNm3NgImLMMW0O6JCegZ1Gp0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=dChOBFQADGFdp8y6PF6+vcO5IOHE8VfajRNfsl52uWSWAUwEVH+v98ckbueDLJAjUYWk7nAXLHiJJlG1ViM3d8gjgHEWKepPsAvRt6sxOaxWjtMPyc7eTazOqkI52eNXlupLt8yoFUKXErz6KW58+R/UJa7es9z3erGG9NN5Qlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=diWWaebh; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="URfS4aql"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8ab395abf79so44909697b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792083520; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b7OERMHnIIHAZpMeT0LZKKemvbq+vVh1E17CFjwQ6D/VZS+zGiHwt1X86SOE1WKXaA
-         zLOjtfeGXdrVpGrKJDEJfS2R9w5hDoFiCt1BZqCSHTQb1Pe/p17lEghS1Miifd9w8l7B
-         oL9wN9NOINxAr9wMAdXLwvuTRSVJjoJKxEhtXCTDXrjyW0ZCiT5wHrzFUBguzuSXMEXE
-         XfT4TILG6Ya7wa4C+MdeuFQMVl2xJIPfRKj8y0hmBl1dyssGQVacz1lW0867N9iOXXPe
-         DxOrZFrGbzca3t+cx0c6nY4IpW4KULjLfcGFkEjYgWjJEgB4Qp6HajZ55hWhc02sjYOo
-         FcRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NcCmfl6RTkm2LzfDS0fLA+Gp1Mg192MPyS3Ly+HKDr4=;
-        fh=YFVIxaS+wEtJU/o1aK/+pEuM+f7A+qmqIgSd9PLAW9E=;
-        b=UxoElDmvGqVwAI1ps8FBhBiqZ8Jnm0A+BszgOD7uLCc7zVg5i9TG4RKqKtqQVrztxO
-         ChS4V0EtYMZmKe4R+KqW7U+vXa4erhqYZelpIdOH+JekaHaQTQHf9JS7WdqIw8k95Oo+
-         BrCcBtbHmXH49c/Z/Z48i/xGlQM2w+OqJ7ZMSuTZJRvQYZqLRC6F42vOdgCPwPY7sUKg
-         AAI17HtqSi/GvVFAzq2r7G+0hCM25SFfBydmtS98K89JFRmA7/5wkMkBJMjxe2YOuL9L
-         qcbVbr+9BSiz1dBoiiToZ9iVBjqGwH026aDe2Z0hNcqgx1QePfTcpQKx8ikk9dFKCcI5
-         JF6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="diWWaebh"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8fe8e343fso23380565ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792083520; x=1792688320; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NcCmfl6RTkm2LzfDS0fLA+Gp1Mg192MPyS3Ly+HKDr4=;
-        b=URfS4aqlAzPZx+z0yG/kn68lj30DWGRr7UgAP11G2+3dS4Kr9TwyoVn3H6JroUu4+8
-         RtVRw2GE/oMgw6+M24wJQN6GZhJJ9SCzhG7EJAW6O7ZgVCf0NZC79JHnznQBzWt6p/HE
-         xB+IITysDqcxQFqQxzSEJdE64Uineo0eFROrOCta+qUnOuKFcFDnhHl6Xng8lmODnA3N
-         SRkbv8FtqlyzK3/1fXi4M4d6MW3G8LDOOO/AGlB11wIUrnSxaAGDV0WIVXvEAAXW5EeJ
-         bNMHd4oM/c7LRJiC9zV0AOvOMtuAQlaMB3mNCMHdWd/mJ4OSPPKSr4XjoR2KUaJd7081
-         0fpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083520; x=1792688320;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792083525; x=1792688325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NcCmfl6RTkm2LzfDS0fLA+Gp1Mg192MPyS3Ly+HKDr4=;
-        b=zWAfq9zi3MvCNudSCfggSQMSRXoOx4CQoQjmsOQu3pb+lygvYDoIpG0Um2MLPiIXoZ
-         m0X/BOih9z0263IOPcbg6UsiKDorIIROIo5v+bz5UmgPIDDmEx8C13tR2PZxMGT+f8+H
-         ngV6LXP//ojbCrTctValeUEekFUT3ZXmQQzRcD4E7wDchPU3oi/Q/+d61l077NVSEUxK
-         nKbXlbWHnEnF27bbsEArIGO71VcP4gNqrXFHaNeZcsDFShQvdazzJgzMWScw+qSS4ff8
-         uQ21Ntckr9G78DZLL8LLvyJOjtIAM0mkVI5k5bB+3fOLpHtr7g3wrgt2L3pHhad4vXvk
-         +6Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBwL0fPPctW1MUwgryzkrmDQU9GnPX/AUAJN/hhIp/MtKK2Dj8bGak9Wl7PVCLqaGt6tE/YGd2XaTCEgEfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7bR+m02vgKa01tmgirN8YMEJBPHjnatnHXZQtO7F3sjpl22pp
-	G4GYy/HiwpxJl5vPkccme2Z/wo3PrM3hYCqPYXkI1jbYhIVwPr360dh3b34JVeWSSpWZQeEwGpP
-	3ytqY90PaRZTAOZ0oNFO5ocXEfm8Ue/0=
-X-Gm-Gg: AYBFou2HGr/JlO/dOiANNGIwLdQg0/W64zORx6qT/yWN5G/q8Hq7rgmJBZ8qtgmOFqH
-	vhhMR9exz3HcFlW6MM+zOMPQiRloFMQNEkG1JXS+ZoL4hCul0XHQ2DR0+qNDSzhk1/+NxKdmQZs
-	7Ij9wTQGNqN9AEzA/VIA2jpPynhsRXRsl74Bq8L1hwfzubJ4HCF2RqKBktokoqeLP/9jBMP1lCN
-	Ny4vD+lO5z4H+Zd9FThfOBfwzsnSI/iK3AGXypoFsFJn4JFHUaRIyT+bhAjxWRtdOM8XiP7IQ20
-	N6G7vUGxHh+Cne2myDQLDR3ODqsNuIcVchcg8Vd80roBj5ADPQLLdxm7
-X-Received: by 2002:a05:690c:4006:b0:8a9:9f40:24e0 with SMTP id
- 00721157ae682-8b07edc853bmr64426667b3.14.1792083519586; Thu, 15 Oct 2026
- 09:58:39 -0700 (PDT)
+        bh=OXYHFaEiq6VlF6l7OPxNq/0HouFXap07l9nlhMKXwLY=;
+        b=diWWaebhxfhEERfAJr+quu41reH6pCHe01ZNFNabCLeaW/KSqwY6n1eWFwkYFAQAME
+         qFO6NlrDbnNRCpGRD/CJGB6ZwQ62FVwINiXap3pb7AWKsUH/2GO4fJJWM/5a3aaokgZM
+         fzNjQzAthhm0lnwCbC2xkukCeMibTMIwwZqB0ofx51d4M/uMKQLBb9phi+e36nyGS0QR
+         F3N2FkuPLom6bY8UfLekcJL6VJVdvrGzHzia+AVLpRMHFtyuWAiWdfxPUoEh+f32ix2Y
+         prymsErUoZTrhwM7hnaeDjgnxZL+NFsYOr+0/2oRxTBbf7BwEM0m+V/Y0hIdGzKYlUkx
+         3GvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792083525; x=1792688325;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OXYHFaEiq6VlF6l7OPxNq/0HouFXap07l9nlhMKXwLY=;
+        b=LUJ7EBMXx7k4ye0SZyaNbsiJCz6Q0jS/4JtzPdz87vJtTroVnUc8iyh32r/buAHrJ+
+         NJg822Zi875KjSqd9iFuJCUJn79xvrVTN9S35GmH57MbYPnkg7NgOqe9DkLDuOgfEtBT
+         ++nkBBtSJEhyWbznEACg/GhWueshSqi+bN1tA9Rm4JB7u9A9owkmQe7ld3lBD5c9WFy9
+         wrldIn6qnoQsj05Bl4VB7jZRPPkoCKTgSBiVhie90gPtXXEU+6K4FS9AsZAbcceYJ+WP
+         bAXzYqjzFqwFv8WMKHspqtlsm4M/CzMSJ3txFrzENEV69CYtwMspr8DmPMvB2/PpX8Ix
+         ExZA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8YiUJUjq3Y604kbHJYacaq6Xk3sM9ATBqmho4nI7dURXN2JpEKWkM5uP37OlrB15D5sKVw/UsNDeV+JU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6AN8ltz0I/mxfM6jgLmwy8xAvEASrDRRyjlo11aphrSeLNFUZ
+	Y6RDs8+Ft4RAuiS+RLB6WEMln5j7qnumH0sPxwt8dhDkAbNkD/G889AE717L2FFuNMA=
+X-Gm-Gg: AYBFou1s/OPv8EOh0l9bcpNjAldLj8mf0fEtQFSf7S63Lfs6ctgLePWu3JInyrJElZK
+	qqATOasR+thtxPXwNObf+1Mnn1JOdgp/u8axs9rtumPAWpyYnpvUb6/b1yiEuG7jHtPyTbK4tvO
+	rWmy3/Fc0SNhwh78RdifOsoS4EEyiOd7awwzJPL7PB1Ir8D/EdAqnbDZQM+AgfhD49vXkC5D1zQ
+	J0U7czHn0G3nGsXfOpmtU/RMfhK0wZFOnh9dEJWjIiFUUBLn/8EAXKuERyKnEMUkuQ7jqhnHRE0
+	gCxjHx2tpxb1I71rNSyjo8TRXdadb52hl3OfeDBQ/YKntpcYgLNgyyVkrRP9rs1xOlMWQ2SHI+I
+	1CDFBTWvwxBRV3N2llTVAa2bqqNE3xF6oBsI5yNFhfrthwjiwa+YNhCfzx1aGQpwRA04QY3SaL3
+	YLRPNRzUuLYyVlCQYQkVpiBuvvutltiLnclO2LkykyHbX3RcpjQIrIF7bDAkCI3Cdkmw==
+X-Received: by 2002:a17:903:19cf:b0:2dd:ad73:c989 with SMTP id d9443c01a7336-2e842bc7fa7mr166412235ad.33.1792083524573;
+        Thu, 15 Oct 2026 09:58:44 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1643sm87050475ad.70.2026.10.15.09.58.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:58:44 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	akpm@linux-foundation.org,
+	zzzccc427@gmail.com,
+	ericterminal@gmail.com,
+	christophe.jaillet@wanadoo.fr,
+	kees@kernel.org,
+	kmehltretter@gmail.com,
+	sunil.mushran@oracle.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: [PATCH] ocfs2/cluster: Initialize heartbeat regions before publishing them
+Date: Fri, 16 Oct 2026 00:58:38 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0079-v5-f931a29339cadc0a2a70@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org> <20261008-04-k3-clk-pm-aux-v1-2-8372d7307694@kernel.org>
-In-Reply-To: <20261008-04-k3-clk-pm-aux-v1-2-8372d7307694@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Thu, 15 Oct 2026 18:58:00 +0200
-X-Gm-Features: AclHuK9x9oH7LPEYYVfq-eVNh1cOyJug_mdtxh9957qtgQ6Mf8exPEfJOQrJddw
-Message-ID: <CABdCQ=OFZw+DnejaF4DothYGX=u=pTEgc3Gru09En7ApWHpCLA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] clk: spacemit: register pm domain auxiliary driver
-To: Yixun Lan <dlan@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Alex Elder <elder@riscstar.com>, 
-	Icenowy Zheng <uwu@icenowy.me>, linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Tested on OrangePi RV2.
+A region on o2hb_all_regions must have an initialized config item and
+name. o2hb_heartbeat_group_make_item() currently links the zeroed region
+under o2hb_live_lock, drops the lock, and only then initializes hr_item.
+The lock therefore protects the list without protecting initialization
+from readers of the published item.
 
-Tested-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+With global heartbeat enabled, a DLM_QUERY_REGION from the current
+joining node can pass the existing-domain and protocol checks while a
+configfs mkdir creates another region. The DLM locks are not taken by
+the constructor, and the network worker does not take the configfs
+subsystem mutex. The following ordering is possible:
 
-El jue, 8 oct 2026 a las 4:58, Yixun Lan (<dlan@kernel.org>) escribi=C3=B3:
->
-> The APMU (Application Subsystem Power Management Unit) register region
-> block contains the pm domain management capabilities, introduce a pm_name
-> member inside CCU data to register a pm domain device via the auxiliary
-> bus if that is needed - if pm_name is null, no device is registered.
->
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
->  drivers/clk/spacemit/ccu-k1.c     | 1 +
->  drivers/clk/spacemit/ccu-k3.c     | 1 +
->  drivers/clk/spacemit/ccu_common.c | 4 ++++
->  drivers/clk/spacemit/ccu_common.h | 1 +
->  4 files changed, 7 insertions(+)
->
-> diff --git a/drivers/clk/spacemit/ccu-k1.c b/drivers/clk/spacemit/ccu-k1.=
-c
-> index dee14d25f75d..9e2727521916 100644
-> --- a/drivers/clk/spacemit/ccu-k1.c
-> +++ b/drivers/clk/spacemit/ccu-k1.c
-> @@ -972,6 +972,7 @@ static struct clk_hw *k1_ccu_apmu_hws[] =3D {
->
->  static const struct spacemit_ccu_data k1_ccu_apmu_data =3D {
->         .reset_name     =3D "k1-apmu-reset",
-> +       .pm_name        =3D "k1-apmu-pmdomain",
->         .hws            =3D k1_ccu_apmu_hws,
->         .num            =3D ARRAY_SIZE(k1_ccu_apmu_hws),
->  };
-> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.=
-c
-> index 92b930d5ff30..e895d3ee6a28 100644
-> --- a/drivers/clk/spacemit/ccu-k3.c
-> +++ b/drivers/clk/spacemit/ccu-k3.c
-> @@ -1449,6 +1449,7 @@ static struct clk_hw *k3_ccu_apmu_hws[] =3D {
->
->  static const struct spacemit_ccu_data k3_ccu_apmu_data =3D {
->         .reset_name     =3D "k3-apmu-reset",
-> +       .pm_name        =3D "k3-apmu-pmdomain",
->         .hws            =3D k3_ccu_apmu_hws,
->         .num            =3D ARRAY_SIZE(k3_ccu_apmu_hws),
->  };
-> diff --git a/drivers/clk/spacemit/ccu_common.c b/drivers/clk/spacemit/ccu=
-_common.c
-> index 56f3d081857e..38577fb7776a 100644
-> --- a/drivers/clk/spacemit/ccu_common.c
-> +++ b/drivers/clk/spacemit/ccu_common.c
-> @@ -169,6 +169,10 @@ int spacemit_ccu_probe(struct platform_device *pdev,=
- const char *compat)
->         if (ret)
->                 return dev_err_probe(dev, ret, "failed to register resets=
-\n");
->
-> +       ret =3D spacemit_ccu_aux_register(dev, base_regmap, data->pm_name=
-);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "failed to register pm dom=
-ain\n");
-> +
->         return 0;
->  }
->  EXPORT_SYMBOL_NS_GPL(spacemit_ccu_probe, "CLK_SPACEMIT");
-> diff --git a/drivers/clk/spacemit/ccu_common.h b/drivers/clk/spacemit/ccu=
-_common.h
-> index 8691698e007d..221a92117b94 100644
-> --- a/drivers/clk/spacemit/ccu_common.h
-> +++ b/drivers/clk/spacemit/ccu_common.h
-> @@ -41,6 +41,7 @@ static inline struct ccu_common *hw_to_ccu_common(struc=
-t clk_hw *hw)
->
->  struct spacemit_ccu_data {
->         const char *reset_name;
-> +       const char *pm_name;
->         struct clk_hw **hws;
->         size_t num;
->  };
->
-> --
-> 2.56.0
->
+  Configfs mkdir                     O2net receive worker
+  --------------                     --------------------
+  Allocate reg
+  Lock o2hb_live_lock
+  Link into o2hb_all_regions
+  Unlock o2hb_live_lock
+                                     dlm_query_region_handler()
+                                       dlm_match_regions()
+                                         o2hb_get_all_regions()
+                                           Lock o2hb_live_lock
+                                           Copy 32 bytes from NULL name
+                                           Unlock o2hb_live_lock
+  config_item_init_type_name()
+
+The query thus dereferences NULL. Initialize hr_item before linking the
+region so the existing list lock also orders name initialization before
+any reader. Reject a failed name allocation, since the initialization
+helper does not propagate that error.
+
+Use config_item_put() on initialized constructor failures to release the
+name and respect references retained by o2hb_region_pin(). Initialize
+the list heads, mutex and delayed works needed by o2hb_region_release()
+before any such put, and leave the list node self-linked after rollback.
+Keep the existing handler drain before removing a failed published item.
+
+KASAN report as below:
+
+    ==================================================================
+    BUG: KASAN: null-ptr-deref in o2hb_get_all_regions+0xbb/0x1f0
+    Read of size 32 at addr 0000000000000000 by task kworker/u16:1/14
+
+    CPU: 2 UID: 0 PID: 14 Comm: kworker/u16:1 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: o2net o2net_rx_until_empty
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     kasan_report+0xe0/0x110
+     ? o2hb_get_all_regions+0xbb/0x1f0
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x23/0x60
+     o2hb_get_all_regions+0xbb/0x1f0
+     dlm_query_region_handler+0x4c2/0xc20
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? kvm_clock_get_cycles+0x31/0x60
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     o2net_rx_until_empty+0x1a50/0x3200
+     ? reacquire_held_locks+0xdd/0x200
+     ? __pfx_o2net_rx_until_empty+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    ==================================================================
+
+Fixes: 536f0741f324 ("ocfs2/cluster: Track number of global heartbeat regions")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Assisted-by: LLM
+
+---
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 8e6ead433228..9a4703bdc4e8 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -2140,6 +2140,18 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	}
+ 	reg->hr_node_num = O2NM_MAX_NODES;
+ 
++	INIT_LIST_HEAD(&reg->hr_all_item);
++	mutex_init(&reg->hr_arming_mutex);
++	reg->hr_stopping = true;
++	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
++	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
++	INIT_LIST_HEAD(&reg->hr_handler_list);
++	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
++	if (!config_item_name(&reg->hr_item)) {
++		ret = -ENOMEM;
++		goto put_item;
++	}
++
+ 	spin_lock(&o2hb_live_lock);
+ 	reg->hr_region_num = 0;
+ 	if (o2hb_global_heartbeat_active()) {
+@@ -2148,26 +2160,19 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 		if (reg->hr_region_num >= O2NM_MAX_REGIONS) {
+ 			spin_unlock(&o2hb_live_lock);
+ 			ret = -EFBIG;
+-			goto free;
++			goto put_item;
+ 		}
+ 		set_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	}
+ 	list_add_tail(&reg->hr_all_item, &o2hb_all_regions);
+ 	spin_unlock(&o2hb_live_lock);
+ 
+-	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+-
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
+ 	 */
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+-	mutex_init(&reg->hr_arming_mutex);
+-	reg->hr_stopping = true;
+-	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+-	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+-	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	ret = o2net_register_handler(O2HB_NEGO_TIMEOUT_MSG, reg->hr_key,
+ 			sizeof(struct o2hb_nego_msg),
+ 			o2hb_nego_timeout_handler,
+@@ -2190,10 +2195,13 @@ unregister_handler:
+ 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
+ remove_item:
+ 	spin_lock(&o2hb_live_lock);
+-	list_del(&reg->hr_all_item);
++	list_del_init(&reg->hr_all_item);
+ 	if (o2hb_global_heartbeat_active())
+ 		clear_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	spin_unlock(&o2hb_live_lock);
++put_item:
++	config_item_put(&reg->hr_item);
++	return ERR_PTR(ret);
+ free:
+ 	kfree(reg);
+ 	return ERR_PTR(ret);
