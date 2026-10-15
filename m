@@ -1,63 +1,63 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C4953E2EF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1450353F6AB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075938; cv=none; b=HpdtBoWQ7U3FyaQ9MwlzSZiJ0zVKjLAUWOG72sOt7d5ya5BcevDJOVtfHMjfsvHGH+HB4FTllmtkVUR+2S28TTCkXhwXo93RzWhC6jXu6xLMrwGOdOaOfLnnYMHIZ7miEZSjr4ePUCjWPDknQj029ejZsmvpdYrCqzQ1pbhyQLE=
+	t=1792075941; cv=none; b=tpvDE3kUE/AjpPAZfi65ZolMgbjM+3NNY3uNR5OF0g5jP4gZ1J/P0d1WB8De7LRBQz5m7AqJtabZQ+73xvWjrI3SlBYqS72L4QlmfFVWZJu5uyzzNXMXCVWhYWeN/QwRMRLI2UXzrMS4R/CIJRW/lu8QipKit1B54mThjyHmJYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075938; c=relaxed/simple;
-	bh=uTA5OqX6aCayYRXD94t69B3dcQ+q2y5pRQaAguIpFNY=;
+	s=arc-20240116; t=1792075941; c=relaxed/simple;
+	bh=lSmZcd98LmtWHL3GmrxnUEDZTHTJ5CdcCyQPbe6MJfE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rmyxYydH3nUfzIp8Fq8vQloVY1F86BikgGsrcq3YBp5UFbg/cNZH2fEf1q55JmH9B7TlGt+pMaQDD/m+Sns4/pcRfA4Pz1+mjGxou2NfsY2lee2KbwZxlXSoILu3jtTOQpAupuhDopU4fycOfoYUFBXbnkrwD4ZQENs2vqnomUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=Y4+Mw9ce; arc=none smtp.client-ip=209.85.208.54
+	 MIME-Version; b=X0hIR3TISOtHbOyzDoYnG+G2I4ZbWZ/lsVZKVoaU+ZybsGXeRzK8aZFMMCJLOK2WnFioR0Bk3uq5tErAQS5K5RRTDmeSN1ASKGUHNXK6CQQKPwlCbuR84hmt49JLLEVhppL674F1X3otxE+HROwhP6bJEHBFngdzOLrrJWNgMFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=F6InlA1w; arc=none smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="Y4+Mw9ce"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso102990a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:52:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="F6InlA1w"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e5e801487so828396466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:52:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075930; x=1792680730; darn=vger.kernel.org;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075936; x=1792680736; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NsmR4AMRImZA17bfh34rZkIDYhK7cJ0pMdRSE8RA0ss=;
-        b=Y4+Mw9ceRUTc7vwTcJUO0SwwIfG61jE23mMgKRctX8j0lIq+ZlZOF38U1ChEy+cmcR
-         kIfgXr46PW+2qo5Ng8cd4D5ehi5ApTHrswxeOe+XBDNqqeaY5xtTbqp5g+1rgHwY9bR5
-         I/yM1VkE6zPDbPBHcqvYYBy6l/9ykyGm3v0RfMFgWz301tMdzut31WU2Zc//MlqlsC5r
-         NkX/llfrMSPsntAsjcDdCHiECq0VgKvRZQWr8vqoPgI1m18W0Tl5MIhnGCAra6snbkgs
-         K3gIFSe34N+NhZoPmOppnHFAtoDd0jGpnEWZQDyIUisUpCeCeXOeg76wQZHTwSuHD/dA
-         wOvw==
+        bh=6yrHsN44XnhBGCcA9EOfWc6RZwmZTowMBhuPNpcmyRI=;
+        b=F6InlA1w9estJrRZGGvtYXjrvqNFgvOyf0bZ0+yNsyrXMeedmH62q56cLVzCTTEJCG
+         wqrtyd+6gfcCL+kwlRdfeBWyXP7O5AsOtGdTmEoXS6HOhnfQdjGuh3lPvOvFacm0vi2F
+         nJjXvUssG+aANS356Q/MxDOXXt57DUlQ/RASGuuuGntW/ThxP5jDG62VOEgj6w5HtwIV
+         P9APScXfUnFR7HKgYBatvR8ub/Cy5glhIyX0HvNbU2D5UAJIEThSIhEaFOswYlrLSNC4
+         F/9zqDPj2zeaKy/961XEyYIegu5jy2gTdEfUzLARXHjPdZi/0kzRQ5Afic1WYHaoR2mz
+         oeIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075930; x=1792680730;
+        d=1e100.net; s=20260707; t=1792075936; x=1792680736;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsmR4AMRImZA17bfh34rZkIDYhK7cJ0pMdRSE8RA0ss=;
-        b=pT9twXibng+bw0iLvH5a2yihkigAD8oycRVVMwdIeTmZiTr48+lwV65bTkyxDpNEfM
-         0ikFcDVmaEk4I9kQk7I9+dfom0g1YmEZuTd66Zmqv7OZvWwkJUWX15Bwd7/mG9j0SZzU
-         c4bJUPqQnsWQThdruZJRqJv2oQCcSCql0F6g/DRg6Sfc9T+BOTnT8VYPhcwvotGxEbBm
-         aCYaVGAkKGBK8efC4m66rsCXTEDrhdAA1MBQ2LNEBJifqDuBQ08YkStUpun94EwEz9lr
-         eLVfQPn9J+K9GXvVgq5Wr5QABywHbuVA8G3Zcutjo+YQZRCy+LK9g3MBkKC2bsZMGApF
-         RaIA==
-X-Gm-Message-State: AFq9FYL1J23bmh5OXO1BV/Zd9oPB2jbggJmqOnLppObjVVGCHm8PMDj1
-	9J5bDyACEz5p+1wxwnxYXB6l6Nq+gkDnKnHtymo8PSDAyUJEk8Sp3yYvk+7gGVoBcO8=
-X-Gm-Gg: AYBFou3FnvQrM7SCHFQQk3Mww4wO5QpBfsjzAJOjNLaE5BipethrRObqvBSBEmjHtut
-	Wq2D7plhEiTwDtBDSU4t2joVH8gk02+JeZUBR8Zcb5XgIin7CEfLy0uvr/xYZ3+Ex+Z0tkPkvSu
-	8Ep0rxWIyGiOQpDlYNWRdRVc2kwCPwPieqMv9k0NSTQmBvS7XxWU15KlvtUBLAkmRlKAhTrN2Gp
-	H1mwkYYZAkcz/4Y9qq4bSZmy12twIjo2cEV7TOeoX63cGWrJ1abA6+rmPQeyV+5yiSGb4RNUVuC
-	8434irD05ASNCAbu/L0MHogXqlgMoQq5B8vN3FWcOn8FFJXrNAEKb7PINfT1dZcFUvrJ39yYZR2
-	A3ghGVmGS7QFC6nE8NrB6QFuO95u1GnEW+cMtugwJ3YWKBjf8zGZfJuyVtghjCa2DH5xf9JHpDu
-	qSl24Y0DwGCo9zKmu7NhJBCtgrQ2Wvez/LecI4R8F92Yn4GTc8wIpZo11b+iti4W/0lzINdoKRY
-	tfnqz6STw==
-X-Received: by 2002:a17:907:9708:b0:c2a:ac35:95fb with SMTP id a640c23a62f3a-c40223da0b9mr27472066b.24.1792075929766;
-        Thu, 15 Oct 2026 07:52:09 -0700 (PDT)
+        bh=6yrHsN44XnhBGCcA9EOfWc6RZwmZTowMBhuPNpcmyRI=;
+        b=Ef053mZCdnTysK7gI6muGtT9GawRIfJXWqAG4CIUSBJXTp9uHqd2BEPPXiEe+HJ8+u
+         ySCZIBc23hGmLtsGM1528I69XcpyxiJNwXw9eWygZxpBUvbGVybe/U6r1TohvAAglOXD
+         xMeNER7yUB4X0Io3Js1QaKi4R5D7hdJ4a6qPEfYMNrz7CvkViPn+YkgWkyz0mz9IoKwW
+         OWYwa3m5+InU50tLi828+aXn+JQ24JQZbV7lR47S+kvNRtI5EvH4w4prLt+KjeZAvtNH
+         xTibh7emW4apsfvcNMW0ZHnZj/AQeLSa9NOUWkjypcR/uzu0ge0JmeM7CCm/NSYpTR1v
+         vuIQ==
+X-Gm-Message-State: AFq9FYIkJtvSvsq8yekr7si52/3RfQlQliyoVvB1hHrPTngGxAtP+RuN
+	J9VUQOb0IY+0VRUF1s1PYlgwLsKFHGvMRjGIY71SgFY01N3+ywDjZoyPc4q4co35rK0=
+X-Gm-Gg: AYBFou0MVyxX7/jxJVygk16IRiKU7Q4ZvCvER2HdV/kPaGN3hpOVnUOUSUON4E+/+Rx
+	MZJ+sBiPEiq9UML8ALTJxmoure5wR3a3FexsPi5B+yToEPswy4VzwgbLpAktXkZZjIWkY+/QdV5
+	Kc0aE7eMRGswdkrvY7sb2bc1TPLlp2QruVQd8j3g/9xllHrQJr1C4UYaNv3L559nEFwsm3F87m+
+	mTSYWaQVHHdG+fuZz9W9LL3Rw67j+KeruDkLpN+bQTcl0VTpo6GCdko4OKX7C0T1yWJMOt8aep7
+	Mptqp7mAtsJoFDhEohTaEU754ZQipi/g1UkpB1LbanylrRvLGs7HHvBZjW/1WoyxE4rTM5dznU7
+	c3l/a3ePQKHeacUd+Enf9Q+eZN8grHqPaqVqu9hFrSIuhF1Al0grcJsXN6qumhTsy+QWvNQ7Wgd
+	0tcMbclMXU8j9Het6ZqSH0OHYFjqZ8sAv+B7tRlqdwN1xchr4Xtr6efLEhD3N66oeSzk97uoRlp
+	cs3WYjgCw==
+X-Received: by 2002:a17:907:3d86:b0:c3e:34fa:6115 with SMTP id a640c23a62f3a-c3e34fa6bbfmr314175566b.19.1792075936110;
+        Thu, 15 Oct 2026 07:52:16 -0700 (PDT)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3f0a6sm137223866b.43.2026.10.15.07.52.09
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed9b3ec57sm137862466b.39.2026.10.15.07.52.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:52:09 -0700 (PDT)
+        Thu, 15 Oct 2026 07:52:15 -0700 (PDT)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.hansen@linux.intel.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	peter.fang@intel.com
-Subject: [PATCH RFC 17/20] attestation: Add CTLV operation handling
-Date: Thu, 15 Oct 2026 16:50:50 +0200
-Message-ID: <20261015145053.3664509-18-jiri@resnulli.us>
+Subject: [PATCH RFC 19/20] attestation: Add the TDX family specification and generated files
+Date: Thu, 15 Oct 2026 16:50:52 +0200
+Message-ID: <20261015145053.3664509-20-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
@@ -104,619 +104,330 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Translate CTLV evidence, MR and journal operations to the provider core and
-wire the attestation family into the kernel build.
+Define the TDX attestation family and reserve family ID 2. Add its ABI
+snapshot, registry entry and generated kernel and UAPI files.
+
+The ABI is intentionally specification-first. The generated descriptor is
+linked with the provider implementation in the following patch.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
- Documentation/driver-api/attestation.rst |   4 +
- drivers/Kconfig                          |   2 +
- drivers/Makefile                         |   1 +
- drivers/attestation/Makefile             |   3 +-
- drivers/attestation/core/core.c          |   2 +
- drivers/attestation/core/ctlv.c          | 520 +++++++++++++++++++++++
- 6 files changed, 531 insertions(+), 1 deletion(-)
- create mode 100644 drivers/attestation/core/ctlv.c
+ .../ctlv/abi/ctlv-attestation-tdx.yaml        | 22 +++++++
+ Documentation/ctlv/abi/families.registry.yaml |  1 +
+ Documentation/ctlv/families.yaml              |  1 +
+ Documentation/ctlv/generated-files.yaml       |  7 ++
+ .../ctlv/specs/ctlv-attestation-tdx.yaml      | 30 +++++++++
+ .../generated/ctlv_attestation_tdx_gen.c      | 61 +++++++++++++++++
+ .../generated/ctlv_attestation_tdx_gen.h      | 66 +++++++++++++++++++
+ include/uapi/linux/ctlv_attestation_tdx_gen.h | 44 +++++++++++++
+ include/uapi/linux/ctlv_families_gen.h        |  1 +
+ 9 files changed, 233 insertions(+)
+ create mode 100644 Documentation/ctlv/abi/ctlv-attestation-tdx.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_tdx_gen.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_tdx_gen.h
+ create mode 100644 include/uapi/linux/ctlv_attestation_tdx_gen.h
 
-diff --git a/Documentation/driver-api/attestation.rst b/Documentation/driver-api/attestation.rst
-index 3cddd853aaa0..5ce121ded05f 100644
---- a/Documentation/driver-api/attestation.rst
-+++ b/Documentation/driver-api/attestation.rst
-@@ -35,6 +35,10 @@ and event before invoking ``mr_extend``.  A successful callback is followed
- only by infallible publication, so userspace observes the same ordered
- journal.
- 
-+``MR_READ`` uses ``mr_read_generation`` only to validate query continuation;
-+the returned ``mr.generation`` is the journal boundary at which the values
-+were read.
-+
- Teardown
- ========
- 
-diff --git a/drivers/Kconfig b/drivers/Kconfig
-index 9acc7f74c5c8..971db1f0192c 100644
---- a/drivers/Kconfig
-+++ b/drivers/Kconfig
-@@ -27,6 +27,8 @@ source "drivers/connector/Kconfig"
- 
- source "drivers/ctlv/Kconfig"
- 
-+source "drivers/attestation/Kconfig"
-+
- source "drivers/firmware/Kconfig"
- 
- source "drivers/fwctl/Kconfig"
-diff --git a/drivers/Makefile b/drivers/Makefile
-index f2c0c3a367ea..2b4dfc8e256b 100644
---- a/drivers/Makefile
-+++ b/drivers/Makefile
-@@ -136,6 +136,7 @@ obj-$(CONFIG_INFINIBAND)	+= infiniband/
- obj-y				+= firmware/
- obj-$(CONFIG_FWCTL)		+= fwctl/
- obj-$(CONFIG_CTLV)		+= ctlv/
-+obj-$(CONFIG_ATTESTATION)	+= attestation/
- obj-$(CONFIG_CRYPTO)		+= crypto/
- obj-$(CONFIG_SUPERH)		+= sh/
- obj-y				+= clocksource/
-diff --git a/drivers/attestation/Makefile b/drivers/attestation/Makefile
-index e7c9cb2dfec0..e520fee2e90d 100644
---- a/drivers/attestation/Makefile
-+++ b/drivers/attestation/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_ATTESTATION) += attestation.o
- 
--attestation-y := core/core.o core/events.o core/mr.o
-+attestation-y := core/core.o core/ctlv.o core/events.o core/mr.o \
-+		 generated/ctlv_attestation_gen.o
-diff --git a/drivers/attestation/core/core.c b/drivers/attestation/core/core.c
-index 6db8ed093e93..3fb58f344663 100644
---- a/drivers/attestation/core/core.c
-+++ b/drivers/attestation/core/core.c
-@@ -326,6 +326,7 @@ int ctlv_attestation_op_pre(void *priv, struct ctlv_op_ctx *ctx)
- 	}
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(ctlv_attestation_op_pre, "ATTESTATION");
- 
- void ctlv_attestation_op_post(void *priv, struct ctlv_op_ctx *ctx)
- {
-@@ -333,6 +334,7 @@ void ctlv_attestation_op_post(void *priv, struct ctlv_op_ctx *ctx)
- 
- 	mutex_unlock(&att->lock);
- }
-+EXPORT_SYMBOL_NS_GPL(ctlv_attestation_op_post, "ATTESTATION");
- 
- static int __init attestation_module_init(void)
- {
-diff --git a/drivers/attestation/core/ctlv.c b/drivers/attestation/core/ctlv.c
+diff --git a/Documentation/ctlv/abi/ctlv-attestation-tdx.yaml b/Documentation/ctlv/abi/ctlv-attestation-tdx.yaml
 new file mode 100644
-index 000000000000..ff19400843c2
+index 000000000000..89b80d84e7f1
 --- /dev/null
-+++ b/drivers/attestation/core/ctlv.c
-@@ -0,0 +1,520 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <crypto/hash_info.h>
-+#include <linux/cleanup.h>
++++ b/Documentation/ctlv/abi/ctlv-attestation-tdx.yaml
+@@ -0,0 +1,22 @@
++# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
++%YAML 1.2
++---
++# Checked-in ABI snapshot of the ctlv-attestation-tdx family, written by
++# "make -C tools/ctlv abi-update".
++#
++# The checker compares this family's declarations and inherited stub fills
++# against this file. Updating it is how a UAPI change gets reviewed; an update
++# that removes or renumbers anything, narrows a bound, or makes a placement
++# required is an ABI break, whatever this file says afterwards.
++family: {name: ctlv-attestation-tdx, id: 2, inherits: ctlv-attestation,
++         pre-init: true}
++attr-groups:
++  info:
++    id: 1
++    attrs:
++      mrconfigid: {id: 1, type: binary, length: 48}
++      mrowner: {id: 2, type: binary, length: 48}
++      mrownerconfig: {id: 3, type: binary, length: 48}
++fills:
++  device-info:
++    attrs: [info.mrconfigid, info.mrowner, info.mrownerconfig]
+diff --git a/Documentation/ctlv/abi/families.registry.yaml b/Documentation/ctlv/abi/families.registry.yaml
+index fa511b709fc1..193e3570ab95 100644
+--- a/Documentation/ctlv/abi/families.registry.yaml
++++ b/Documentation/ctlv/abi/families.registry.yaml
+@@ -6,3 +6,4 @@
+ families:
+   - ctlv
+   - ctlv-attestation
++  - ctlv-attestation-tdx
+diff --git a/Documentation/ctlv/families.yaml b/Documentation/ctlv/families.yaml
+index d78025a9072c..d0e1493db498 100644
+--- a/Documentation/ctlv/families.yaml
++++ b/Documentation/ctlv/families.yaml
+@@ -12,3 +12,4 @@
+ families:
+   - ctlv
+   - ctlv-attestation
++  - ctlv-attestation-tdx
+diff --git a/Documentation/ctlv/generated-files.yaml b/Documentation/ctlv/generated-files.yaml
+index 669f1f8d51b4..00ad23af7f65 100644
+--- a/Documentation/ctlv/generated-files.yaml
++++ b/Documentation/ctlv/generated-files.yaml
+@@ -22,3 +22,10 @@ families:
+       uapi-header: include/uapi/linux/ctlv_attestation_gen.h
+       kernel-header: drivers/attestation/generated/ctlv_attestation_gen.h
+       kernel-source: drivers/attestation/generated/ctlv_attestation_gen.c
++
++  - name: ctlv-attestation-tdx
++    source: Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
++    outputs:
++      uapi-header: include/uapi/linux/ctlv_attestation_tdx_gen.h
++      kernel-header: drivers/attestation/generated/ctlv_attestation_tdx_gen.h
++      kernel-source: drivers/attestation/generated/ctlv_attestation_tdx_gen.c
+diff --git a/Documentation/ctlv/specs/ctlv-attestation-tdx.yaml b/Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
+new file mode 100644
+index 000000000000..09f4d9916f82
+--- /dev/null
++++ b/Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
+@@ -0,0 +1,30 @@
++# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
++%YAML 1.2
++---
++family:
++  name: ctlv-attestation-tdx
++  inherits: ctlv-attestation
++  pre-init: true
++
++attr-groups:
++  - name: info
++    attrs:
++      - name: mrconfigid
++        type: binary
++        min-length: 48
++        max-length: 48
++      - name: mrowner
++        type: binary
++        min-length: 48
++        max-length: 48
++      - name: mrownerconfig
++        type: binary
++        min-length: 48
++        max-length: 48
++
++attr-sets:
++  - name: device-info
++    attrs:
++      - info.mrconfigid
++      - info.mrowner
++      - info.mrownerconfig
+diff --git a/drivers/attestation/generated/ctlv_attestation_tdx_gen.c b/drivers/attestation/generated/ctlv_attestation_tdx_gen.c
+new file mode 100644
+index 000000000000..25f03a8d68fe
+--- /dev/null
++++ b/drivers/attestation/generated/ctlv_attestation_tdx_gen.c
+@@ -0,0 +1,61 @@
++// SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
++/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
++/*	Documentation/ctlv/specs/ctlv-attestation-tdx.yaml */
++/* CTLV-GEN kernel source */
++
++#define _CTLV_GENERATED_METADATA_ONLY
++#include <linux/array_size.h>
++#include <linux/build_bug.h>
++#include <linux/ctlv_family.h>
++#include <linux/export.h>
++
++#include <uapi/linux/ctlv_gen.h>
++#include <uapi/linux/ctlv_attestation_tdx_gen.h>
++
++#include "ctlv_attestation_tdx_gen.h"
++
++static const struct ctlv_node_schema device_info_fill_node_schemas[] = {
++	CTLV_NODE_SCHEMA_ROOT(1, 3, 3),
++	CTLV_NODE_SCHEMA_BINARY(CTLV_ATTESTATION_TDX_ATTR_INFO_MRCONFIGID, 1, 48, 48),
++	CTLV_NODE_SCHEMA_BINARY(CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNER, 1, 48, 48),
++	CTLV_NODE_SCHEMA_BINARY(CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNERCONFIG, 1, 48, 48),
++};
++
++/* The extension points this family fills. */
++static const struct ctlv_stub_fill_schema ctlv_attestation_tdx_stub_fill_schemas[] = {
++	CTLV_STUB_FILL_SCHEMA(CTLV_FAMILY_ATTESTATION, CTLV_ATTESTATION_SET_DEVICE_INFO,
++			      device_info),
++};
++
++/* The family ID is its position in the central registry. */
++const struct ctlv_family_schema ctlv_attestation_tdx_schema = {
++	.name = "ctlv-attestation-tdx",
++	.family_id = 2,
++	.stub_fill_schemas = ctlv_attestation_tdx_stub_fill_schemas,
++	.stub_fill_schemas_count = ARRAY_SIZE(ctlv_attestation_tdx_stub_fill_schemas),
++};
++
++/* Maximum uevent cost for this family chain. */
++static_assert(150 <= CTLV_UEVENT_MAX_LEN);
++static_assert(5 <= CTLV_UEVENT_MAX_VARS);
++
++/* Extension-point callbacks. */
++static const struct ctlv_stub_ops ctlv_attestation_tdx_stub_ops[] = {
++	CTLV_STUB_OPS(CTLV_FAMILY_ATTESTATION, CTLV_ATTESTATION_SET_DEVICE_INFO,
++		      ctlv_attestation_tdx_device_info),
++};
++
++/* Family descriptor used by ctlv_create(). */
++const struct ctlv_family ctlv_attestation_tdx_family = {
++	.schema = &ctlv_attestation_tdx_schema,
++	.parent = &ctlv_attestation_family,
++	.pre = ctlv_attestation_tdx_op_pre,
++	.post = ctlv_attestation_tdx_op_post,
++	.priv_size = ctlv_attestation_tdx_priv_size,
++	.pre_init = ctlv_attestation_tdx_pre_init,
++	.init = ctlv_attestation_tdx_init,
++	.fini = ctlv_attestation_tdx_fini,
++	.stub_ops = ctlv_attestation_tdx_stub_ops,
++	.stub_ops_count = ARRAY_SIZE(ctlv_attestation_tdx_stub_ops),
++};
++EXPORT_SYMBOL_NS_GPL(ctlv_attestation_tdx_family, "CTLV");
+diff --git a/drivers/attestation/generated/ctlv_attestation_tdx_gen.h b/drivers/attestation/generated/ctlv_attestation_tdx_gen.h
+new file mode 100644
+index 000000000000..d182d04cb086
+--- /dev/null
++++ b/drivers/attestation/generated/ctlv_attestation_tdx_gen.h
+@@ -0,0 +1,66 @@
++/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
++/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
++/*	Documentation/ctlv/specs/ctlv-attestation-tdx.yaml */
++/* CTLV-GEN kernel header */
++
++/* Kernel metadata and family API of the ctlv-attestation-tdx CTLV family. */
++
++#ifndef _LINUX_CTLV_ATTESTATION_TDX_GEN_H
++#define _LINUX_CTLV_ATTESTATION_TDX_GEN_H
++
++#include <linux/ctlv_family.h>
 +#include <linux/err.h>
-+#include <linux/limits.h>
-+#include <linux/slab.h>
-+#include <linux/sort.h>
-+#include <linux/string.h>
++#include <linux/errno.h>
 +
-+#include "internal.h"
++#include <uapi/linux/ctlv_attestation_tdx_gen.h>
 +
-+static const struct attestation_evidence_supported_object *
-+attestation_evidence_object_find(const struct attestation_evidence_caps *caps, const char *format)
-+{
-+	size_t index;
++#include "ctlv_attestation_gen.h"
 +
-+	for (index = 0; index < caps->objects_count; index++) {
-+		const struct attestation_evidence_supported_object *object = &caps->objects[index];
++extern const struct ctlv_family_schema ctlv_attestation_tdx_schema;
 +
-+		if (!strcmp(object->format, format))
-+			return object;
-+	}
-+	return NULL;
-+}
++/* Family-wide hooks around every effective non-core op. */
++int ctlv_attestation_tdx_op_pre(void *priv, struct ctlv_op_ctx *ctx);
++void ctlv_attestation_tdx_op_post(void *priv, struct ctlv_op_ctx *ctx);
 +
-+static int attestation_device_caps_put(struct attestation *att, struct ctlv_cursor *reply)
-+{
-+	const struct attestation_provider *provider = att->provider;
-+	struct ctlv_cursor caps_nest, group, object;
-+	bool ok = true;
-+	size_t index;
-+	u64 flags;
++/* Core-allocated family priv lifecycle. */
++size_t ctlv_attestation_tdx_priv_size(void);
++const void *ctlv_attestation_tdx_pre_init(const void *init_info);
++int ctlv_attestation_tdx_init(struct ctlv_device *ctlvdev, const void *init_info, void *priv);
++void ctlv_attestation_tdx_fini(struct ctlv_device *ctlvdev, void *priv);
 +
-+	if (!ctlv_attestation_device_caps_start(reply, &caps_nest))
-+		return -EMSGSIZE;
-+	if (provider->evidence_caps) {
-+		const struct attestation_evidence_caps *caps = provider->evidence_caps;
-+		u64 blob_class = CTLV_ATTESTATION_EVIDENCE_BLOB_CLASS_PRIMARY;
-+		u64 representation = CTLV_ATTESTATION_EVIDENCE_REPRESENTATION_RAW;
-+		u64 max_output_length = caps->max_total_output_length;
++/* device-info of ctlv-attestation: fill callback. */
++int ctlv_attestation_tdx_device_info_fill(void *priv, struct ctlv_op_ctx *ctx,
++					  const struct ctlv_cursor *request,
++					  struct ctlv_cursor *nest);
 +
-+		if (!ctlv_attestation_cap_evidence_start(&caps_nest, &group))
-+			return -EMSGSIZE;
-+		ok &= ctlv_attestation_cap_min_challenge_length_put(&group,
-+								    caps->min_challenge_length);
-+		ok &= ctlv_attestation_cap_max_challenge_length_put(&group,
-+								    caps->max_challenge_length);
-+		ok &= ctlv_attestation_cap_max_total_output_length_put(&group, max_output_length);
-+		for (index = 0; index < caps->objects_count; index++) {
-+			const struct attestation_evidence_supported_object *cap =
-+				&caps->objects[index];
++extern const struct ctlv_family ctlv_attestation_tdx_family;
 +
-+			if (!ctlv_attestation_cap_object_start(&group, &object)) {
-+				ok = false;
-+				break;
-+			}
-+			ok &= ctlv_attestation_cap_blob_class_put(&object, blob_class);
-+			ok &= ctlv_attestation_cap_format_put(&object, cap->format);
-+			ok &= ctlv_attestation_cap_representation_put(&object, representation);
-+			ok &= ctlv_attestation_cap_max_length_put(&object, cap->max_length);
-+			ctlv_nest_end(&object);
-+		}
-+		ctlv_nest_end(&group);
-+	}
-+	if (provider->mrs_count) {
-+		if (!ctlv_attestation_cap_mr_start(&caps_nest, &group))
-+			return -EMSGSIZE;
-+		flags = 0;
-+		if (provider->mr_read)
-+			flags |= CTLV_ATTESTATION_MR_DEVICE_CAPS_READ;
-+		if (provider->mr_extend)
-+			flags |= CTLV_ATTESTATION_MR_DEVICE_CAPS_EXTEND;
-+		ok &= ctlv_attestation_cap_mr_flags_put(&group, flags);
-+		ctlv_nest_end(&group);
-+	}
-+	ctlv_nest_end(&caps_nest);
-+	return ok ? 0 : -EMSGSIZE;
-+}
++#ifndef _CTLV_GENERATED_METADATA_ONLY
 +
-+int ctlv_attestation_device_get_action(void *priv, struct ctlv_op_ctx *ctx,
-+				       const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation *att = priv;
-+	struct ctlv_cursor info;
-+	int ret;
++/* Reading a validated message. A blob has a resolver instead of a getter. */
++CTLV_IN_REF(ctlv_attestation_tdx_device_info_info_mrconfigid,
++	    &ctlv_attestation_tdx_schema.stub_fill_schemas[0].members,
++	    CTLV_ATTESTATION_TDX_ATTR_INFO_MRCONFIGID, 0, 0, CTLV_SCHEMA_BINARY)
++CTLV_IN_HAS(ctlv_attestation_tdx_device_info_info_mrconfigid)
++CTLV_IN_BINARY(ctlv_attestation_tdx_device_info_info_mrconfigid)
++CTLV_IN_REF(ctlv_attestation_tdx_device_info_info_mrowner,
++	    &ctlv_attestation_tdx_schema.stub_fill_schemas[0].members,
++	    CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNER, 0, 1, CTLV_SCHEMA_BINARY)
++CTLV_IN_HAS(ctlv_attestation_tdx_device_info_info_mrowner)
++CTLV_IN_BINARY(ctlv_attestation_tdx_device_info_info_mrowner)
++CTLV_IN_REF(ctlv_attestation_tdx_device_info_info_mrownerconfig,
++	    &ctlv_attestation_tdx_schema.stub_fill_schemas[0].members,
++	    CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNERCONFIG, 0, 2, CTLV_SCHEMA_BINARY)
++CTLV_IN_HAS(ctlv_attestation_tdx_device_info_info_mrownerconfig)
++CTLV_IN_BINARY(ctlv_attestation_tdx_device_info_info_mrownerconfig)
 +
-+	ret = attestation_device_caps_put(att, reply);
-+	if (ret)
-+		return ret;
-+	if (!ctlv_attestation_device_info_start(reply, &info))
-+		return -EMSGSIZE;
-+	ret = ctlv_stub_fill(ctx, request, &info);
-+	ctlv_nest_end(&info);
-+	return ret;
-+}
++/* Writing a reply. An append is atomic; a nest ends with ctlv_nest_end(). */
++CTLV_PUT_BINARY(ctlv_attestation_tdx_info_mrconfigid, CTLV_ATTESTATION_TDX_ATTR_INFO_MRCONFIGID,
++		CTLV_SCHEMA_BINARY)
++CTLV_PUT_BINARY(ctlv_attestation_tdx_info_mrowner, CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNER,
++		CTLV_SCHEMA_BINARY)
++CTLV_PUT_BINARY(ctlv_attestation_tdx_info_mrownerconfig,
++		CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNERCONFIG, CTLV_SCHEMA_BINARY)
++#endif /* _CTLV_GENERATED_METADATA_ONLY */
 +
-+static int
-+attestation_evidence_decode_objects(struct attestation *att, struct ctlv_op_ctx *ctx,
-+				    const struct ctlv_cursor *request,
-+				    struct attestation_evidence_request *decoded,
-+				    struct attestation_evidence_object_request **objects_out)
-+{
-+	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-+	struct attestation_evidence_object_request *objects;
-+	struct ctlv_cursor object;
-+	size_t count = 0, index = 0, previous;
++#endif /* _LINUX_CTLV_ATTESTATION_TDX_GEN_H */
+diff --git a/include/uapi/linux/ctlv_attestation_tdx_gen.h b/include/uapi/linux/ctlv_attestation_tdx_gen.h
+new file mode 100644
+index 000000000000..04c8dbc3d07c
+--- /dev/null
++++ b/include/uapi/linux/ctlv_attestation_tdx_gen.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
++/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
++/*	Documentation/ctlv/specs/ctlv-attestation-tdx.yaml */
++/* CTLV-GEN uapi header */
 +
-+	ctlv_attestation_evidence_get_evidence_object_for_each(&object, request) count++;
-+	objects = kcalloc(count, sizeof(*objects), GFP_KERNEL);
-+	if (!objects)
-+		return -ENOMEM;
-+	ctlv_attestation_evidence_get_evidence_object_for_each(&object, request)
-+	{
-+		const struct attestation_evidence_supported_object *supported;
-+		const char *format;
-+		size_t total = 0;
++/*
++ * Constants of the ctlv-attestation-tdx CTLV family. Attr and op IDs are complete; the wire format
++ * carrying them is in <linux/ctlv.h>.
++ *
++ * The inherited ctlv-attestation header is included here, so one include covers the whole effective
++ * schema.
++ */
 +
-+		format = ctlv_attestation_evidence_get_object_evidence_format_get(&object);
-+		supported = attestation_evidence_object_find(caps, format);
-+		if (!supported) {
-+			kfree(objects);
-+			return -EOPNOTSUPP;
-+		}
-+		for (previous = 0; previous < index; previous++)
-+			if (objects[previous].supported_object == supported) {
-+				kfree(objects);
-+				return -EINVAL;
-+			}
-+		objects[index].supported_object = supported;
-+		objects[index].output =
-+			ctlv_attestation_evidence_get_object_evidence_data_resolve(ctx, &object);
-+		if (IS_ERR(objects[index].output)) {
-+			int ret = PTR_ERR(objects[index].output);
++#ifndef _UAPI_LINUX_CTLV_ATTESTATION_TDX_GEN_H
++#define _UAPI_LINUX_CTLV_ATTESTATION_TDX_GEN_H
 +
-+			objects[index].output = NULL;
-+			while (index)
-+				ctlv_blob_put(objects[--index].output);
-+			kfree(objects);
-+			return ret;
-+		}
-+		if (ctlv_blob_len(objects[index].output) < supported->max_length) {
-+			for (previous = 0; previous <= index; previous++)
-+				ctlv_blob_put(objects[previous].output);
-+			kfree(objects);
-+			return -EMSGSIZE;
-+		}
-+		for (previous = 0; previous <= index; previous++) {
-+			if (check_add_overflow(total, ctlv_blob_len(objects[previous].output),
-+					       &total) ||
-+			    total > caps->max_total_output_length) {
-+				for (previous = 0; previous <= index; previous++)
-+					ctlv_blob_put(objects[previous].output);
-+				kfree(objects);
-+				return -E2BIG;
-+			}
-+		}
-+		index++;
-+	}
-+	decoded->objects = objects;
-+	decoded->objects_count = count;
-+	*objects_out = objects;
-+	return 0;
-+}
++#include <linux/ctlv.h>
++#include <linux/ctlv_attestation_gen.h>
++#include <linux/ctlv_families_gen.h>
 +
-+static int attestation_evidence_request_decode(struct attestation *att, struct ctlv_op_ctx *ctx,
-+					       const struct ctlv_cursor *request,
-+					       struct attestation_evidence_request *decoded,
-+					       struct attestation_evidence_object_request **objects)
-+{
-+	const struct attestation_evidence_caps *caps = att->provider->evidence_caps;
-+	u32 challenge_length;
++/* attr groups */
++enum _ctlv_attestation_tdx_group {
++	CTLV_ATTESTATION_TDX_GROUP_INFO = 1,
++};
 +
-+	decoded->challenge =
-+		ctlv_attestation_evidence_get_evidence_challenge_get(request, &challenge_length);
-+	decoded->challenge_length = challenge_length;
-+	if (challenge_length < caps->min_challenge_length ||
-+	    challenge_length > caps->max_challenge_length)
-+		return -EINVAL;
-+	return attestation_evidence_decode_objects(att, ctx, request, decoded, objects);
-+}
++#define _CTLV_ATTESTATION_TDX_ATTR(_group, _attr) \
++	CTLV_ATTR(CTLV_FAMILY_ATTESTATION_TDX, (_group), (_attr))
 +
-+static void attestation_evidence_request_free(struct attestation_evidence_object_request *objects,
-+					      size_t count)
-+{
-+	while (count) {
-+		count--;
-+		if (objects[count].output)
-+			ctlv_blob_put(objects[count].output);
-+	}
-+	kfree(objects);
-+}
++/* attrs of group info */
++#define _CTLV_ATTESTATION_TDX_ATTR_INFO(_attr) \
++	_CTLV_ATTESTATION_TDX_ATTR(CTLV_ATTESTATION_TDX_GROUP_INFO, \
++				   _CTLV_ATTESTATION_TDX_ATTR_INFO_##_attr)
 +
-+int ctlv_attestation_evidence_get_action(void *priv, struct ctlv_op_ctx *ctx,
-+					 const struct ctlv_cursor *request,
-+					 struct ctlv_cursor *reply)
-+{
-+	struct attestation_evidence_object_request *objects = NULL;
-+	struct attestation_evidence_request decoded = {};
-+	struct attestation_evidence_result result = {};
-+	struct attestation *att = priv;
-+	bool mr_dependent = false;
-+	size_t index;
-+	int put_ret;
-+	int ret;
++enum _ctlv_attestation_tdx_attr_info {
++	_CTLV_ATTESTATION_TDX_ATTR_INFO_MRCONFIGID = 1,
++	_CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNER,
++	_CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNERCONFIG,
++};
 +
-+	ret = attestation_evidence_request_decode(att, ctx, request, &decoded, &objects);
-+	if (ret)
-+		goto out;
-+	result.object_lengths =
-+		kcalloc(decoded.objects_count, sizeof(*result.object_lengths), GFP_KERNEL);
-+	if (!result.object_lengths) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+	for (index = 0; index < decoded.objects_count; index++)
-+		mr_dependent |= decoded.objects[index].supported_object->binds_mrs;
-+	ret = att->provider->evidence_get(att, &decoded, &result);
-+	if (ret)
-+		goto out;
-+	for (index = 0; index < decoded.objects_count; index++) {
-+		if (result.object_lengths[index] >
-+			    decoded.objects[index].supported_object->max_length ||
-+		    result.object_lengths[index] > ctlv_blob_len(decoded.objects[index].output)) {
-+			ret = -E2BIG;
-+			goto out;
-+		}
-+	}
-+	for (index = 0; index < decoded.objects_count; index++) {
-+		put_ret = ctlv_blob_put(decoded.objects[index].output);
-+		objects[index].output = NULL;
-+		if (!ret)
-+			ret = put_ret;
-+	}
-+	if (ret)
-+		goto out;
-+	if (mr_dependent && !ctlv_attestation_mr_generation_put(reply, att->log->generation)) {
-+		ret = -EMSGSIZE;
-+		goto out;
-+	}
-+	for (index = 0; index < decoded.objects_count; index++)
-+		if (!ctlv_attestation_evidence_object_length_put(reply,
-+								 result.object_lengths[index])) {
-+			ret = -EMSGSIZE;
-+			goto out;
-+		}
-+out:
-+	kfree(result.object_lengths);
-+	attestation_evidence_request_free(objects, decoded.objects_count);
-+	return ret;
-+}
++#define CTLV_ATTESTATION_TDX_ATTR_INFO_MRCONFIGID _CTLV_ATTESTATION_TDX_ATTR_INFO(MRCONFIGID)
++#define CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNER _CTLV_ATTESTATION_TDX_ATTR_INFO(MROWNER)
++#define CTLV_ATTESTATION_TDX_ATTR_INFO_MROWNERCONFIG _CTLV_ATTESTATION_TDX_ATTR_INFO(MROWNERCONFIG)
 +
-+int ctlv_attestation_mr_get_action(void *priv, struct ctlv_op_ctx *ctx,
-+				   const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation *att = priv;
-+	struct attestation_mr *mr;
-+	u64 id = ctlv_attestation_mr_get_mr_id_get(request);
-+
-+	if (id > UINT_MAX)
-+		return -ERANGE;
-+	mr = attestation_mr_lookup_live(att, id);
-+	return IS_ERR(mr) ? PTR_ERR(mr) : attestation_mr_props_encode(reply, mr, false);
-+}
-+
-+int ctlv_attestation_mr_dump_query(void *priv, struct ctlv_op_ctx *ctx,
-+				   const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation *att = priv;
-+	struct attestation_mr *mr;
-+	struct ctlv_cursor nested;
-+	unsigned long id;
-+	u64 cursor = ctlv_op_query_cursor(ctx);
-+	unsigned int generation = att->log->generation;
-+	int ret;
-+
-+	if (cursor && ctlv_op_query_generation(ctx) != generation)
-+		return -ESTALE;
-+	id = cursor ? cursor - 1 : 0;
-+	mr = xa_find(&att->mrs, &id, UINT_MAX, XA_PRESENT);
-+	while (mr) {
-+		if (!ctlv_attestation_mr_item_start(reply, &nested))
-+			return ctlv_op_query_more(ctx, generation, id + 1);
-+		ret = attestation_mr_props_encode(&nested, mr, true);
-+		ctlv_nest_end(&nested);
-+		if (ret)
-+			return ret;
-+		mr = xa_find_after(&att->mrs, &id, UINT_MAX, XA_PRESENT);
-+	}
-+	return ctlv_op_query_done(ctx, generation);
-+}
-+
-+static int attestation_mr_values_put(struct ctlv_cursor *reply,
-+				     const struct attestation_digest_set *values)
-+{
-+	struct ctlv_cursor nested;
-+	size_t index;
-+	bool ok;
-+
-+	for (index = 0; index < values->values_count; index++) {
-+		const struct attestation_digest *value = &values->values[index];
-+		enum hash_algo algorithm = value->algorithm;
-+		size_t length = hash_digest_size[algorithm];
-+
-+		if (!ctlv_attestation_mr_value_start(reply, &nested))
-+			return -EMSGSIZE;
-+		ok = ctlv_attestation_mr_hash_algo_put(&nested, algorithm);
-+		ok &= ctlv_attestation_mr_data_put(&nested, value->data, length);
-+		ctlv_nest_end(&nested);
-+		if (!ok)
-+			return -EMSGSIZE;
-+	}
-+	return 0;
-+}
-+
-+int ctlv_attestation_mr_read_query(void *priv, struct ctlv_op_ctx *ctx,
-+				   const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation_digest_set values = {};
-+	struct attestation *att = priv;
-+	struct attestation_mr *mr;
-+	u64 id;
-+	int ret;
-+
-+	if (ctlv_op_query_cursor(ctx) &&
-+	    ctlv_op_query_generation(ctx) != att->mr_read_generation)
-+		return -ESTALE;
-+	id = ctlv_attestation_mr_read_mr_id_get(request);
-+	if (id > UINT_MAX)
-+		return -ERANGE;
-+	mr = attestation_mr_lookup_live(att, id);
-+	if (IS_ERR(mr))
-+		return PTR_ERR(mr);
-+	if (!mr->props->readable)
-+		return -EOPNOTSUPP;
-+	values.values_count = mr->props->algorithms_count;
-+	values.values = kcalloc(values.values_count, sizeof(*values.values), GFP_KERNEL);
-+	if (!values.values)
-+		return -ENOMEM;
-+	for (id = 0; id < values.values_count; id++)
-+		values.values[id].algorithm = mr->props->algorithms[id];
-+	ret = att->provider->mr_read(att, mr->props->id, &values);
-+	if (!ret)
-+		ret = attestation_mr_values_validate(mr, &values);
-+	if (!ret && !ctlv_attestation_mr_generation_put(reply, att->log->generation))
-+		ret = -EMSGSIZE;
-+	if (!ret)
-+		ret = attestation_mr_values_put(reply, &values);
-+	kfree(values.values);
-+	if (ret)
-+		return ret;
-+	return ctlv_op_query_done(ctx, att->mr_read_generation);
-+}
-+
-+static int attestation_digest_compare(const void *left, const void *right)
-+{
-+	const struct attestation_digest *a = left;
-+	const struct attestation_digest *b = right;
-+
-+	return (int)a->algorithm - (int)b->algorithm;
-+}
-+
-+static int attestation_mr_extend_decode(const struct ctlv_cursor *request,
-+					struct attestation_digest_set *values)
-+{
-+	struct ctlv_cursor item;
-+	size_t count = 0, index = 0;
-+
-+	ctlv_attestation_mr_extend_mr_value_for_each(&item, request) count++;
-+	values->values = kcalloc(count, sizeof(*values->values), GFP_KERNEL);
-+	if (!values->values)
-+		return -ENOMEM;
-+	values->values_count = count;
-+	ctlv_attestation_mr_extend_mr_value_for_each(&item, request)
-+	{
-+		struct attestation_digest *value = &values->values[index++];
-+		u32 length;
-+		const void *data;
-+		u64 algorithm;
-+
-+		algorithm =
-+			ctlv_attestation_mr_extend_value_mr_hash_algo_get(&item);
-+		if (algorithm >= HASH_ALGO__LAST || !hash_digest_size[algorithm])
-+			return -EINVAL;
-+		data = ctlv_attestation_mr_extend_value_mr_data_get(&item, &length);
-+		if (length != hash_digest_size[algorithm])
-+			return -EINVAL;
-+		value->algorithm = algorithm;
-+		memcpy(value->data, data, length);
-+	}
-+	sort(values->values, values->values_count, sizeof(*values->values),
-+	     attestation_digest_compare, NULL);
-+	return 0;
-+}
-+
-+int ctlv_attestation_mr_extend_action(void *priv, struct ctlv_op_ctx *ctx,
-+				      const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation_digest_set values = {};
-+	struct attestation_mr_change *change;
-+	const struct attestation_mr_log_entry *entry;
-+	struct attestation *att = priv;
-+	struct attestation_mr *mr;
-+	u64 id;
-+	int ret;
-+
-+	id = ctlv_attestation_mr_extend_mr_id_get(request);
-+	if (id > UINT_MAX)
-+		return -ERANGE;
-+	mr = attestation_mr_lookup_live(att, id);
-+	if (IS_ERR(mr))
-+		return PTR_ERR(mr);
-+	if (!mr->props->extendable)
-+		return -EOPNOTSUPP;
-+	ret = attestation_mr_extend_decode(request, &values);
-+	if (ret)
-+		goto out_values;
-+	ret = attestation_mr_values_validate(mr, &values);
-+	if (ret)
-+		goto out_values;
-+	change = attestation_mr_change_prepare(att, mr, &values);
-+	if (IS_ERR(change)) {
-+		ret = PTR_ERR(change);
-+		goto out_values;
-+	}
-+	entry = attestation_mr_extend_locked(att, change);
-+	if (IS_ERR(entry))
-+		ret = PTR_ERR(entry);
-+	else if (!ctlv_attestation_mr_generation_put(reply, entry->mr_generation))
-+		ret = -EMSGSIZE;
-+	attestation_mr_change_free(change);
-+out_values:
-+	kfree(values.values);
-+	return ret;
-+}
-+
-+static bool attestation_log_selected(const unsigned int *ids, size_t count, unsigned int id)
-+{
-+	size_t index;
-+
-+	if (!count)
-+		return true;
-+	for (index = 0; index < count; index++)
-+		if (ids[index] == id)
-+			return true;
-+	return false;
-+}
-+
-+int ctlv_attestation_mr_log_get_query(void *priv, struct ctlv_op_ctx *ctx,
-+				      const struct ctlv_cursor *request, struct ctlv_cursor *reply)
-+{
-+	struct attestation *att = priv;
-+	struct attestation_mr_log_entry *entry;
-+	struct ctlv_cursor item, nested;
-+	unsigned int ids[256];
-+	size_t ids_count = 0, index;
-+	unsigned int start, end;
-+	unsigned long xa_index;
-+	u64 boundary;
-+	u64 cursor = ctlv_op_query_cursor(ctx);
-+	int ret;
-+
-+	ctlv_attestation_mr_log_get_mr_selection_for_each(&item, request)
-+	{
-+		u64 id = ctlv_attestation_mr_log_get_selection_mr_id_get(&item);
-+
-+		if (id > UINT_MAX)
-+			return -ERANGE;
-+		for (index = 0; index < ids_count; index++)
-+			if (ids[index] == id)
-+				return -EINVAL;
-+		ids[ids_count++] = id;
-+	}
-+	if (cursor)
-+		boundary = ctlv_op_query_generation(ctx);
-+	else
-+		boundary = att->log->generation;
-+	if (boundary > UINT_MAX || boundary > att->log->generation)
-+		return -ESTALE;
-+	end = boundary;
-+	if (ctlv_attestation_mr_log_get_mr_end_generation_present(request)) {
-+		u64 requested_end = ctlv_attestation_mr_log_get_mr_end_generation_get(request);
-+
-+		end = min_t(u64, end, requested_end);
-+	}
-+	start = 1;
-+	if (ctlv_attestation_mr_log_get_mr_start_generation_present(request)) {
-+		u64 value = ctlv_attestation_mr_log_get_mr_start_generation_get(request);
-+
-+		if (value > UINT_MAX)
-+			return -EINVAL;
-+		start = value;
-+	}
-+	if (att->log->generation && start > end)
-+		return -EINVAL;
-+	if (!cursor && att->log->generation) {
-+		if (!ctlv_attestation_mr_start_generation_put(reply, start) ||
-+		    !ctlv_attestation_mr_end_generation_put(reply, end))
-+			return -EMSGSIZE;
-+	}
-+	xa_index = cursor ? cursor : start;
-+	entry = xa_find(&att->log->entries, &xa_index, end, XA_PRESENT);
-+	while (entry && !attestation_log_selected(ids, ids_count, entry->mr_id))
-+		entry = xa_find_after(&att->log->entries, &xa_index, end, XA_PRESENT);
-+	if (!entry)
-+		return ctlv_op_query_done(ctx, boundary);
-+	if (!cursor)
-+		return ctlv_op_query_more(ctx, boundary, entry->mr_generation);
-+	if (!ctlv_attestation_log_entry_start(reply, &nested))
-+		return -EMSGSIZE;
-+	ret = attestation_mr_log_entry_encode(&nested, entry);
-+	ctlv_nest_end(&nested);
-+	if (ret)
-+		return ret;
-+	entry = xa_find_after(&att->log->entries, &xa_index, end, XA_PRESENT);
-+	while (entry && !attestation_log_selected(ids, ids_count, entry->mr_id))
-+		entry = xa_find_after(&att->log->entries, &xa_index, end, XA_PRESENT);
-+	if (entry)
-+		return ctlv_op_query_more(ctx, boundary, entry->mr_generation);
-+	return ctlv_op_query_done(ctx, boundary);
-+}
++#endif /* _UAPI_LINUX_CTLV_ATTESTATION_TDX_GEN_H */
+diff --git a/include/uapi/linux/ctlv_families_gen.h b/include/uapi/linux/ctlv_families_gen.h
+index 2ea3068868be..25c90509d8ad 100644
+--- a/include/uapi/linux/ctlv_families_gen.h
++++ b/include/uapi/linux/ctlv_families_gen.h
+@@ -11,6 +11,7 @@
+ enum _ctlv_family {
+ 	CTLV_FAMILY_ROOT,
+ 	CTLV_FAMILY_ATTESTATION,
++	CTLV_FAMILY_ATTESTATION_TDX,
+ };
+ 
+ #endif /* _UAPI_LINUX_CTLV_FAMILIES_GEN_H */
 -- 
 2.56.0
 
