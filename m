@@ -1,48 +1,95 @@
-Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B3337F310;
-	Thu, 15 Oct 2026 14:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47003B7B70
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075844; cv=none; b=s0MGTsljUHU25u/Kd7XBY+qPy6f6XlHaPLtyWAIXGQVET8p141yp/AQss1N6G5zYu0JTGmt9KRhNji3exYzWwofvwaNYBaQJRZEhZ9pqT9YT97Zt54RXR7ucteQqjrGhOjgZ13nyw9s2I7hEH250neeVt+huiXiElePMoEJBw8Q=
+	t=1792075866; cv=none; b=GIJcPnUTxcrA4JOJbKwZ0/G8a2ZvRl0ZQRGNpAsorH5Tx+dngdXQ70KEdBIm9f1iYGzpe4g86ftvBGMntF0yK5ARiW4R1Y2RPyJREt5LqWOcXrL71J6EPQYcdZXInmJQG/Q0mFqH1ZP8tTnju0DhB2OZLcP3i4xyAFN6zYrbleY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075844; c=relaxed/simple;
-	bh=HP+XkyMi6V+nfah9Q3XU6k4C82hRhLAewzKKyWuoF/c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IEd04aqW+GwgVKx7jmsZ+k/wOuFYw9EhynvEEKhnzcLTibCazB8yTDTahTNNw4BN4JCg3m7dDbaiqbS3sJGso9Jc2dJWkz7bd9MND5FwqW1hJWeZmvqqSTBmrT3V0NYZLrWD/VLPgum6HSHn06t2HvT1WEJk6TKWic8bb+cB3Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06737254|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13761360782042877878|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jexT-FU_1792075829;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jexT-FU_1792075829 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 22:50:29 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com
-Subject: [PATCH net-next v25 2/3] net: phy: Add support for Template Control register for PMA
-Date: Thu, 15 Oct 2026 22:50:20 +0800
-Message-Id: <20261015145021.2216003-3-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261015145021.2216003-1-kyle.switch@motor-comm.com>
-References: <20261015145021.2216003-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1792075866; c=relaxed/simple;
+	bh=30pkOtZgf9ME4AwuW1ixELazskhl9vK+QR4jNkkbEPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rdWqqPbjQmCx9b+Yo3BTXVPwOn74n0u1UH4fQVzY3LoaGcWBCUTCkKFLeElrVS1ccVBmn4MI1KZKR36VGPcta/ehX5bXQx5+kA7mSSceY+I8WPcsrPWMNeUdsQXJ0CsV2UnR/HskTgTn72ue0dHwCYkapfgriAMuerj/Q8C8FCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=cZBl14wu; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="cZBl14wu"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1aa29e06bso3754609a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075860; x=1792680660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wJJUWKqlF+gd3ZMu1go4tClyLr+/3z2AgdparxQCI4I=;
+        b=cZBl14wuxRuixyycotbT0uMHXxHkmNJJ38y2m94hJK3eB6Iqhx+Hq2HS30+2GLIZgC
+         VFXB+4YAwncKqySEhsGr53Hh0n5zh8RgjX4Q0a9bK7VAUtRSrZ6y9AaANDWMWyavbbuj
+         1q1WMfqXu00VupsxKqE9hpslw+CZcwIY98xKXOunrucjpn5gNOAHokYjreaErxSY7WgW
+         1K8Bi2Xty6ABUoYW9IQRLw4MwAWxIbra/1sapDJH/ozgxGXPYiGZrf2ZLbUs5zUKD/T+
+         9dZCfqEFU6GO4s/oXPFilGh/zJQMdR3hAODtRs5Gl8aNo3fd9rkqRcBmSyxRTZb/T64g
+         Nq6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075860; x=1792680660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wJJUWKqlF+gd3ZMu1go4tClyLr+/3z2AgdparxQCI4I=;
+        b=wggwSBzqrnFJbQL5mz6oJIs49I+MIGx2faLmZRyWFxDS0i2et8g8hSUI2/Wqex9nRG
+         8ILlOQauIzus9Ko9qNuRV75+ACdndASTzdK0enX8F03O7yJgr9ER6qxQWwTYMrjCq28M
+         U08rD4seIU8SDYUYgAfcgGBpTNvTznlDuN5qg+tZbcjBfI3QapCifQQbAV72UYMWzDf1
+         2m+HvkkdZfW86SV7kZX89il6F+ugbiweeExWsvjRdcymYRuioJrKt0Qc+qpjg8i929U1
+         L9OatSxTCJdZh8S+8MIoJR1QXaU1x634yD4HHOLCVvotrVZWr+1G1wXW2eQ5DMmjvAkD
+         MgEA==
+X-Gm-Message-State: AFq9FYKkpMZxnKp+HPvv6JcZXfL0Q1QfXshNtAJfFrSRFq7DFIqNE9ft
+	Hp0VRHuDtr1AVBTXIj6azGHKvQOBIc2A0BSJNcnuovR8nMZEzWOfoiQVmoc1d2ZZwTM=
+X-Gm-Gg: AYBFou23jqZeZMfUCTrycGVDe0K25tRT2uNSdyDIUIJE4Oqf8RnIVjZ33FSOvn/Kz3J
+	ypyB5rgmZ4piYp+ZrOAo430ZdwWtO97FV9AJ3q8xWrUv3YW4/v0COrhQVHu8SNj1d1fApQgHAaA
+	bNUZkFnUhAgFmzhf6ECfNnURukBAEo7UM8Yu18cWt1rq0ZCKQ+IMYoJyh3JUFU0SJTCdBY7o9uV
+	UEuzlcsZXXzvRTg5iDmlpoSIto1cqI0WNnty3qI0BEas2YI73pK53IJ/6yE/vNHk04oSKacA1e8
+	If1ER5zqmFeYIEmVLfnyH+RYfXTWE3zBUi/YdPIRSTBMLC4IvFxW8c1K8/wSSV9nSk3XyZh7v3X
+	wROErak/m/5iKRB/XEJ94frKD756CcK852XJB0yE5G/jKtKCOmN2vYtU31x4T7qcmKKv+e8seMw
+	Ad4z0zJWVVfdjuv5FyE0TW+ze2oCzmkvqgo+AhWSVkX4KTXxddTmVLrsA2HvuDZyt8P1xllw8GQ
+	iU1ho/YmQ==
+X-Received: by 2002:a05:6402:27c8:b0:6ac:94cf:9f1d with SMTP id 4fb4d7f45d1cf-6b1e49eb8bcmr7444996a12.21.1792075859704;
+        Thu, 15 Oct 2026 07:50:59 -0700 (PDT)
+Received: from localhost ([140.209.217.212])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b203862c4esm2665322a12.16.2026.10.15.07.50.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:50:59 -0700 (PDT)
+From: Jiri Pirko <jiri@resnulli.us>
+To: linux-coco@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	x86@kernel.org,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	jgg@ziepe.ca,
+	david.quigley@intel.com,
+	lukas@wunner.de,
+	ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com,
+	cedric.xing@intel.com,
+	sameo@meta.com,
+	drdeeglaze@gmail.com,
+	James.Bottomley@HansenPartnership.com,
+	aik@amd.com,
+	jpiotrowski@nvidia.com,
+	qinkun@google.com,
+	pgonda@google.com,
+	jic23@kernel.org,
+	alistair.francis@wdc.com,
+	ankita@nvidia.com,
+	suzuki.poulose@arm.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com,
+	dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com,
+	peter.fang@intel.com
+Subject: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX support
+Date: Thu, 15 Oct 2026 16:50:33 +0200
+Message-ID: <20261015145053.3664509-1-jiri@resnulli.us>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,94 +98,262 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the 10GBASE-T PMA Template Test Mode register
-field, which allows selecting one of eight test modes (Normal and
-TestMode1..TestMode7) used for PHY validation.
+From: Jiri Pirko <jiri@nvidia.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
- include/linux/phy.h       |  1 +
- include/uapi/linux/mdio.h | 12 ++++++++++++
- 3 files changed, 36 insertions(+)
+Linux has several attestation interfaces tied to individual technologies.
+That makes evidence retrieval, measurement registers, device state and
+kernel consumers provider-specific.
 
-diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
-index 870920311f9a..c5f5753f7194 100644
---- a/drivers/net/phy/phy-c45.c
-+++ b/drivers/net/phy/phy-c45.c
-@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
- }
- EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
- 
-+/**
-+ * genphy_c45_template_testmode - configure template testmode registers
-+ * @phydev: target phy_device struct
-+ * @test_mode: testmode includes Normal to Test mode 7
-+ *
-+ * Description: Set template testmode include Normal to Test mode 7
-+ *
-+ * Return: 0 on success, or a negative error code on failure (e.g. register
-+ * read/write error).
-+ */
-+int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
-+{
-+	u16 ctrl;
-+
-+	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
-+		return -EOPNOTSUPP;
-+
-+	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
-+	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
-+			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
-+}
-+EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
-+
- /**
-  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
-  * @phydev: target phy_device struct
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 7c5098a0dd6c..b9dee2655e6b 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -2357,6 +2357,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
- int genphy_c45_pma_resume(struct phy_device *phydev);
- int genphy_c45_pma_suspend(struct phy_device *phydev);
- int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
-+int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
- int genphy_c45_plca_get_cfg(struct phy_device *phydev,
- 			    struct phy_plca_cfg *plca_cfg);
- int genphy_c45_plca_set_cfg(struct phy_device *phydev,
-diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-index 06f4bc3c20c7..353ca13c64fc 100644
---- a/include/uapi/linux/mdio.h
-+++ b/include/uapi/linux/mdio.h
-@@ -63,6 +63,7 @@
- /* Media-dependent registers. */
- #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
- #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
-+#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
- #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
- 					 * Lanes B-D are numbered 134-136. */
- #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
-@@ -320,6 +321,17 @@
- /* PMA 10GBASE-R Fast Retrain status and control register. */
- #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
- 
-+/* PMA 10GBASE-T Template Test Mode Register*/
-+#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
-+#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
-+#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
-+#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
-+#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
-+#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
-+#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
-+#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
-+#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
-+
- /* PCS 10GBASE-R/-T status register 1. */
- #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
- 
+This series introduces a common attestation subsystem. Its goal is to
+support platform, TEE and device providers through one model, including
+TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed devices.
+This first series implements the common subsystem and a TDX provider.
+Existing native TDX tsm_mr and tsm_report interfaces remain independent.
+
+Attestation devices use CTLV, a schema-driven character-device TLV UAPI.
+Compared with sysfs or configfs, CTLV executes one validated request
+atomically instead of assembling a transaction through several files.
+Compared with netlink, an opened device fd directly identifies authority
+and lifetime, can be delegated normally, and owns its event queue. CTLV
+also provides:
+
+  - generated kernel metadata, UAPI constants and documentation;
+  - strict type, bounds, nesting and required-field validation;
+  - runtime operation and schema introspection;
+  - family inheritance and extension points;
+  - fragmented queries with generation checks;
+  - per-fd event subscription, overflow reporting and removal notification;
+  - large input and output blobs.
+
+The attestation family exposes capabilities, evidence, measurement-register
+topology and operations, an append-only MR journal and journal
+notifications. This first ABI contains the paths exercised by TDX. Extended
+evidence classes, dynamic registers, record payloads, verdict recording and
+device-security transitions follow with providers that need them and are out
+of scope of this initial patchset. The broader direction is illustrated here:
+
+https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_1
+
+That branch also contains additional providers (test and sim),
+attestation core extensions, libctlv and ctlvctl. With the tools
+and kernel specifications, an attestation device can be used as follows:
+
+  # Discover CTLV devices and their family chains.
+  ctlvctl --spec-dir Documentation/ctlv/specs list
+
+  # Inspect the root-family lineage and attestation capabilities.
+  ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 families-dump
+  ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 device-get
+
+  # List the measurement registers of the attestation device.
+  ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 mr-dump
+
+  # Read RTMR0 (MR 1).
+  ctlvctl --spec-dir Documentation/ctlv/specs \
+          query ctlv0 mr-read mr.id=1
+
+  # Extend RTMR0 with 48 zero bytes (SHA-384).
+  digest=$(printf '%096d' 0)
+  ctlvctl --spec-dir Documentation/ctlv/specs \
+          exec ctlv0 mr-extend --json \
+          '{"id":1,"value":[{"hash-algo":5,"data":"hex:'"$digest"'"}]}'
+
+  # Retrieve the RTMR0 journal.
+  ctlvctl --spec-dir Documentation/ctlv/specs \
+          query ctlv0 mr-log-get --json '{"selection":[{"id":1}]}'
+
+The 20 patches are organized as follows:
+
+  1-13    add CTLV, its generator and documentation
+  14-17   add the base attestation family and implementation
+  18-20   expose the native TDX service and add the TDX family
+
+Note to reviewers: Please focus on the overall design, UAPI and internal
+attestation-provider API. The internal CTLV and attestation implementations
+remain rough around the edges.
+
+Jiri Pirko (20):
+  ctlv: Add the schema language and generator
+  ctlv: Add the UAPI wire format and family API
+  ctlv: Add the root family specification and generated files
+  Documentation: ctlv: Add userspace ABI
+  ctlv: Prepare message input handling
+  ctlv: Prepare blob descriptor validation
+  ctlv: Prepare schema validation
+  ctlv: Prepare message output handling
+  ctlv: Prepare VA blob handling
+  ctlv: Prepare event queue support
+  ctlv: Prepare runtime introspection
+  ctlv: Add device and operation dispatch
+  Documentation: ctlv: Describe how to write a family
+  attestation: Add the base family specification and generated files
+  attestation: Prepare provider and instance core
+  attestation: Prepare measurement register journal
+  attestation: Add CTLV operation handling
+  tdx-guest: Expose the native attestation service API
+  attestation: Add the TDX family specification and generated files
+  attestation: Add the TDX family implementation
+
+ .../ctlv/abi/ctlv-attestation-tdx.yaml        |   22 +
+ Documentation/ctlv/abi/ctlv-attestation.yaml  |  184 ++
+ Documentation/ctlv/abi/ctlv.yaml              |  186 ++
+ Documentation/ctlv/abi/families.registry.yaml |    9 +
+ Documentation/ctlv/ctlv-registry-schema.yaml  |   38 +
+ Documentation/ctlv/ctlv-schema.yaml           |  359 ++++
+ Documentation/ctlv/families.yaml              |   15 +
+ .../ctlv/generated-files-schema.yaml          |   64 +
+ Documentation/ctlv/generated-files.yaml       |   31 +
+ .../ctlv/specs/ctlv-attestation-tdx.yaml      |   30 +
+ .../ctlv/specs/ctlv-attestation.yaml          |  347 ++++
+ Documentation/ctlv/specs/ctlv.yaml            |  379 ++++
+ Documentation/driver-api/attestation.rst      |   64 +
+ Documentation/driver-api/ctlv.rst             |  422 +++++
+ Documentation/driver-api/index.rst            |    2 +
+ Documentation/userspace-api/ctlv.rst          |  507 ++++++
+ Documentation/userspace-api/index.rst         |    1 +
+ .../userspace-api/ioctl/ioctl-number.rst      |    2 +
+ Documentation/virt/coco/tdx-guest.rst         |   18 +
+ MAINTAINERS                                   |   26 +
+ drivers/Kconfig                               |    4 +
+ drivers/Makefile                              |    2 +
+ drivers/attestation/Kconfig                   |   26 +
+ drivers/attestation/Makefile                  |   10 +
+ drivers/attestation/core/core.c               |  354 ++++
+ drivers/attestation/core/ctlv.c               |  520 ++++++
+ drivers/attestation/core/events.c             |   65 +
+ drivers/attestation/core/internal.h           |  108 ++
+ drivers/attestation/core/mr.c                 |  376 ++++
+ .../generated/ctlv_attestation_gen.c          |  234 +++
+ .../generated/ctlv_attestation_gen.h          |  198 +++
+ .../generated/ctlv_attestation_tdx_gen.c      |   61 +
+ .../generated/ctlv_attestation_tdx_gen.h      |   66 +
+ drivers/attestation/providers/tdx.c           |  277 +++
+ drivers/ctlv/Kconfig                          |   12 +
+ drivers/ctlv/Makefile                         |    5 +
+ drivers/ctlv/blob.c                           |  355 ++++
+ drivers/ctlv/blob.h                           |   15 +
+ drivers/ctlv/blob_desc.c                      |  102 ++
+ drivers/ctlv/blob_desc.h                      |   29 +
+ drivers/ctlv/builder.c                        |  374 ++++
+ drivers/ctlv/builder.h                        |   14 +
+ drivers/ctlv/core.c                           | 1517 +++++++++++++++++
+ drivers/ctlv/ctlv_gen.c                       |  229 +++
+ drivers/ctlv/device.h                         |   55 +
+ drivers/ctlv/event.c                          |  713 ++++++++
+ drivers/ctlv/event.h                          |   69 +
+ drivers/ctlv/internal.h                       |   81 +
+ drivers/ctlv/introspection.c                  |  512 ++++++
+ drivers/ctlv/message.c                        |  403 +++++
+ drivers/ctlv/message.h                        |   92 +
+ drivers/ctlv/schema.c                         | 1047 ++++++++++++
+ drivers/ctlv/schema.h                         |   50 +
+ drivers/virt/coco/tdx-guest/tdx-guest.c       |  258 ++-
+ include/linux/attestation.h                   |  138 ++
+ include/linux/ctlv.h                          |  249 +++
+ include/linux/ctlv_family.h                   |  551 ++++++
+ include/linux/ctlv_gen.h                      |  137 ++
+ include/linux/tdx-guest.h                     |   75 +
+ include/uapi/linux/ctlv.h                     |  183 ++
+ include/uapi/linux/ctlv_attestation_gen.h     |  252 +++
+ include/uapi/linux/ctlv_attestation_tdx_gen.h |   44 +
+ include/uapi/linux/ctlv_families_gen.h        |   17 +
+ include/uapi/linux/ctlv_gen.h                 |  271 +++
+ tools/ctlv/Makefile                           |   59 +
+ tools/ctlv/ctlv-regen.sh                      |   55 +
+ tools/ctlv/ctlvgen/__init__.py                |    1 +
+ tools/ctlv/ctlvgen/cli.py                     |  172 ++
+ tools/ctlv/ctlvgen/lib/__init__.py            |    1 +
+ tools/ctlv/ctlvgen/lib/cgen.py                |  825 +++++++++
+ tools/ctlv/ctlvgen/lib/compat.py              |  821 +++++++++
+ tools/ctlv/ctlvgen/lib/errors.py              |   14 +
+ tools/ctlv/ctlvgen/lib/gen_family.py          |  347 ++++
+ tools/ctlv/ctlvgen/lib/gen_kernel.py          |  517 ++++++
+ tools/ctlv/ctlvgen/lib/gen_uapi.py            |  223 +++
+ tools/ctlv/ctlvgen/lib/outputs.py             |  329 ++++
+ tools/ctlv/ctlvgen/lib/semantics.py           |  893 ++++++++++
+ tools/ctlv/ctlvgen/lib/sizes.py               |  238 +++
+ tools/ctlv/ctlvgen/lib/spec.py                |  583 +++++++
+ tools/ctlv/ctlvgen/lib/tree.py                |   71 +
+ tools/ctlv/ctlvgen/lib/yamlload.py            |   83 +
+ tools/ctlv/pyproject.toml                     |   22 +
+ tools/ctlv/requirements.txt                   |    2 +
+ 83 files changed, 18084 insertions(+), 28 deletions(-)
+ create mode 100644 Documentation/ctlv/abi/ctlv-attestation-tdx.yaml
+ create mode 100644 Documentation/ctlv/abi/ctlv-attestation.yaml
+ create mode 100644 Documentation/ctlv/abi/ctlv.yaml
+ create mode 100644 Documentation/ctlv/abi/families.registry.yaml
+ create mode 100644 Documentation/ctlv/ctlv-registry-schema.yaml
+ create mode 100644 Documentation/ctlv/ctlv-schema.yaml
+ create mode 100644 Documentation/ctlv/families.yaml
+ create mode 100644 Documentation/ctlv/generated-files-schema.yaml
+ create mode 100644 Documentation/ctlv/generated-files.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv-attestation-tdx.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv-attestation.yaml
+ create mode 100644 Documentation/ctlv/specs/ctlv.yaml
+ create mode 100644 Documentation/driver-api/attestation.rst
+ create mode 100644 Documentation/driver-api/ctlv.rst
+ create mode 100644 Documentation/userspace-api/ctlv.rst
+ create mode 100644 drivers/attestation/Kconfig
+ create mode 100644 drivers/attestation/Makefile
+ create mode 100644 drivers/attestation/core/core.c
+ create mode 100644 drivers/attestation/core/ctlv.c
+ create mode 100644 drivers/attestation/core/events.c
+ create mode 100644 drivers/attestation/core/internal.h
+ create mode 100644 drivers/attestation/core/mr.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_gen.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_gen.h
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_tdx_gen.c
+ create mode 100644 drivers/attestation/generated/ctlv_attestation_tdx_gen.h
+ create mode 100644 drivers/attestation/providers/tdx.c
+ create mode 100644 drivers/ctlv/Kconfig
+ create mode 100644 drivers/ctlv/Makefile
+ create mode 100644 drivers/ctlv/blob.c
+ create mode 100644 drivers/ctlv/blob.h
+ create mode 100644 drivers/ctlv/blob_desc.c
+ create mode 100644 drivers/ctlv/blob_desc.h
+ create mode 100644 drivers/ctlv/builder.c
+ create mode 100644 drivers/ctlv/builder.h
+ create mode 100644 drivers/ctlv/core.c
+ create mode 100644 drivers/ctlv/ctlv_gen.c
+ create mode 100644 drivers/ctlv/device.h
+ create mode 100644 drivers/ctlv/event.c
+ create mode 100644 drivers/ctlv/event.h
+ create mode 100644 drivers/ctlv/internal.h
+ create mode 100644 drivers/ctlv/introspection.c
+ create mode 100644 drivers/ctlv/message.c
+ create mode 100644 drivers/ctlv/message.h
+ create mode 100644 drivers/ctlv/schema.c
+ create mode 100644 drivers/ctlv/schema.h
+ create mode 100644 include/linux/attestation.h
+ create mode 100644 include/linux/ctlv.h
+ create mode 100644 include/linux/ctlv_family.h
+ create mode 100644 include/linux/ctlv_gen.h
+ create mode 100644 include/linux/tdx-guest.h
+ create mode 100644 include/uapi/linux/ctlv.h
+ create mode 100644 include/uapi/linux/ctlv_attestation_gen.h
+ create mode 100644 include/uapi/linux/ctlv_attestation_tdx_gen.h
+ create mode 100644 include/uapi/linux/ctlv_families_gen.h
+ create mode 100644 include/uapi/linux/ctlv_gen.h
+ create mode 100644 tools/ctlv/Makefile
+ create mode 100755 tools/ctlv/ctlv-regen.sh
+ create mode 100644 tools/ctlv/ctlvgen/__init__.py
+ create mode 100755 tools/ctlv/ctlvgen/cli.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/__init__.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/cgen.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/compat.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/errors.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/gen_family.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/gen_kernel.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/gen_uapi.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/outputs.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/semantics.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/sizes.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/spec.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/tree.py
+ create mode 100644 tools/ctlv/ctlvgen/lib/yamlload.py
+ create mode 100644 tools/ctlv/pyproject.toml
+ create mode 100644 tools/ctlv/requirements.txt
+
 -- 
-2.25.1
+2.56.0
 
