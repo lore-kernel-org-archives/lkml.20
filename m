@@ -1,192 +1,141 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8409F53E2E2
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09D953CA95;
+	Thu, 15 Oct 2026 15:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077626; cv=none; b=W+xBcq5bdE3Wp49//iFEWkMpON2fVYqxIFfJd7JxiiHXJmR802zb1wgQ+2UIVlM5n9dwOaa36fApEXLM2L4Q+eHEBUNDFJ9kQWVBnuVXFVOTQIAxCDFIZi+Cjekb9vSIrnx/Y/1D518nNn+oJLx+uV5GL2R+B6d8cv6S1hH6BF8=
+	t=1792077635; cv=none; b=QrFM0veNOJkzlO9XfBeG1snAUzUz19swiMSbc9ixCmS7884MGENRAFEhf4yIfX1Zv86HPtIpwpS0ALKlrP3ciflbsLVKVoPaLjAqApyBdnnsa8VlTuTY1v7DjQLEc6HnEYM0sYtGLzKhiO0Yg1faN+s1znwG7S6XUNeJuXXMkxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077626; c=relaxed/simple;
-	bh=4NSUR17VCQVdZMTyKAJFDwPaPM61+d5u2XuQn5Nj6PI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cIghSmkh3u3SRq4G7B4Ow/4owF0WeSaME6O3O8uBG4RL18s08BGkknTkZt5n3nWWeddohVwingR9cmCF/oh86Q0Cez8ZsSaBJqQktFFAIgOa0ccS/WZ1hRanSGeqx91TIMq21D0ixeLhY9CRnpRqp0hvZKD8owkqSFJBhY7aKd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AUKwHAIU; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792077635; c=relaxed/simple;
+	bh=BA3eue6zjeSvwz7TXjutf+98IcuHqoEZeV5PtMcQPqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DzIEVvgkpkzb2wB9DS/tWIzvYVSFfPjd9thQkR4xqnJzW6q1aV2ipkEXi8BmOII+E68c2xF10xqtImUslimLpcKF3mvAW0KANeOJ/6deJUEjJefwvL5D873JR9yJs7E+HD9OIjze6XYGWveLAXeP352Z0/ENNOtMLvNk/XAMFZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2efBW8Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AUKwHAIU"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16c399641so52525975e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:20:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077611; x=1792682411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rqM9JJ4Bu8nRxycdnvpW5GKXnWTBWTx9uL9yN9l3qfg=;
-        b=AUKwHAIU/JqGordSLivWDyh0Fa4br1H8jQzKmPklBeduh8NXPl4ORAx3v+vX/VDMWe
-         vlRUQZiNlc3/p/uAdFUQMBoFEJQ5xHZwMJxw/hQP1lOoUNd1vsgEOzaQsDxWd45kFqZk
-         f/ddQlEJGK39s9mHUyk/UsSGJPLGcins5B5qImX4fzVrURfmJpf0fdk6y5IJvbggRIvL
-         Kc8coCpBdUoQtK/3cLrqyP4ObACkCurW2i/j7e8Hw2FNza2VyyZrZ+0u4pJBnS1v9mbI
-         lJR87NLBK/uklYOyn9qjy34wOS/0KExcKtFf+eNnL95nOZcKYaQoRkA0W0TDUsmenbLS
-         g76w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077611; x=1792682411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rqM9JJ4Bu8nRxycdnvpW5GKXnWTBWTx9uL9yN9l3qfg=;
-        b=Z+zopVpX6wa9JhW6gjaWhCkmaqrARCHa7OpW2Cq/vhQnJCOu6XGOUbCuwY+9dJeyGt
-         loglcF5l9A5k4pr8EIJ7YJZkl1/jvyED7MkZJG9qBL2bc2P3j5SaS/XJZl+DXhkY0lg+
-         Lsh6Poz2wG8NovEvHPVvPlJI3KPY9QXQOjUlxoe+Zwlejl0vCVkKJosXsAbKjsnbdsyP
-         2Gxi4bBoM61c+e6hQQiDotBpxldn2XoIk8Aiob96UCyfPX1J+IfLZ1EqlJjEE0zArtai
-         4zbHQRFfapm/QBseVWHOH/oTve7E7bRfrSGQ/JBachW9jcMF6IO1fO4lpKXGOL6jWvSe
-         3w1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzLavie2Zkx+oVV4L7Fin/hBCyONfwior+KiyvaB59EVLIS9Fy4e8TAJYa2r2moe0LAmO+LXlC5PxXZgMQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3GM8mXPb8Ijfbyh8wSwnfjyrr1LVCSuYzga2nVAXpA1wASFxD
-	/bA7BxQXHcTrjcifnxrYzh7PCi10KslC+l5NKutuoc75XdU1CvYTfFsC
-X-Gm-Gg: AYBFou0Ef01bcauepI4Xq27gt0fpkyCDGU53Z6PeQD0OY1TSsWiEnAnZxKpS06+Fkhj
-	osEFd/9zsqhF9SZBNJCDZN99CNW8bBQGxZP1JFiv7GIZ4F13bx1mOC39Wx2LWkneVcKzoXVZYsh
-	TM8zKbp74GTmxq273N5G5lypAaZtippsyGyiv2XJ8rnOBOjYtu0SjLLuW58Lps7re8ITrVqUHjR
-	c2HyO6vqLASVEQ2AtWVnyTkADf5BPq7H5vg8fBzlZCVcxg/bOv3UUOcbCZC8iw3HIWm3vKvhS8D
-	67ZtGBjUX4038fMf02DkZtq4epOzyV+/DadzHAu0LDAbBXMu1aQA6LdTioQwgejOU/ju7rfLFTe
-	iTn6Ktxj6ffUh12nRpjJtixBS+Du9mfgniAuUdFfIVPOT3j8P0Hyu32eHAauB1gdAMj/m6GVX6n
-	RjW6+BHko7hcaUZy54Gxv6+z0UOFZqcc2gPthlSH+R8q3I2S8ydNbA5MAKahDlmIxSxAn5h6NJb
-	jS8G60gvxgAHmnNf2Mv0IZJ/QX7+Cs=
-X-Received: by 2002:a05:600c:19c8:b0:4a1:7bae:d80a with SMTP id 5b1f17b1804b1-4a18e47ad49mr400472685e9.9.1792077611250;
-        Thu, 15 Oct 2026 08:20:11 -0700 (PDT)
-Received: from fedora ([154.183.128.82])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9a8a22sm88390005e9.5.2026.10.15.08.20.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:20:10 -0700 (PDT)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH] iio: adc: ad7606: use EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS() and pm_sleep_ptr()
-Date: Thu, 15 Oct 2026 18:19:03 +0300
-Message-ID: <20261015151903.13613-1-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2efBW8Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415FC1F000C4;
+	Thu, 15 Oct 2026 15:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792077631;
+	bh=n+oceHrTRJMQ77Zb3EQF8aIIEBOP+wwqUwDAtijAHYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h2efBW8YBLKXwbhq1502C5aMjov907XgpcfxR9BC6H2EHPE1/AHe5rDSgsoDtdcnu
+	 ovzb+JcuaUMAc8e2JQWwfq4zAu8aOWkkUzULz/1GF35Y8vppl1xEoG/6NKWXMVn1rJ
+	 T7bgqCxApf0/xzEBXY3RcIC+xst0UtuYNS7ApgAho0MbKVmuh9901/5+reUTdTAtu3
+	 XddBwulZygcgIQUmGft7Z8yz4Zr/zsFRw/DRJ7DYOW1QAxkZyOXvfGnAIyXNG2flUY
+	 5n/WBcgBIiIuGPNF0ot6XZH9wqxhaeNeikmsgKqQ7IYJhffG0ndIWjCA1XY2jnzUWQ
+	 cBmH8rmSzM+Bw==
+Date: Thu, 15 Oct 2026 20:50:10 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, 
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] PCI: endpoint: pci-epf-vntb: Track link state from
+ both sides
+Message-ID: <atDuWc1RH1sFbLk7@debian>
+References: <20261015142716.3452900-1-den@valinux.co.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261015142716.3452900-1-den@valinux.co.jp>
 
-Replace SIMPLE_DEV_PM_OPS() with EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS()
-and use pm_sleep_ptr() to wire up the power management operations.
+On Thu, Oct 15, 2026 at 11:27:16PM +0900, Koichiro Den wrote:
+> The control-region link status is currently updated only by
+> COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
+> NTB link callbacks are empty. Consequently, the HOST can see the link as
+> up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
+> leaves LINK_STATUS_UP set without notifying either NTB client.
+> 
+> ntb_netdev can hide this device-level state bug because ntb_transport uses
+> a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
+> device link state directly:
+> 
+> After bringing both sides up, start one waiter on each side:
+> 
+>   HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
+>   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
+> 
+> While both waiters are blocked, disable the link on the VHOST:
+> 
+>   VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
+> 
+> Without this patch, the link-disable command succeeds, but peer0/link
+> remains Y on both sides and neither waiter returns.
+> 
+> Track HOST and VHOST enablement separately and report the effective link
+> as up only when both sides have enabled it, as pci-epf-ntb does for its
+> two physical hosts. Both NTB clients observe this effective state, so
+> notify both sides only when it changes, including the side whose request
+> completes the transition. Serialize the two paths because HOST commands
+> run from delayed work while the VHOST callbacks may run concurrently.
+> 
+> With this patch, peer0/link changes to N on both sides and both waiters
+> return.
+> 
+> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+> Changes in v4:
+>   - No functional changes, but:
+>     * Rename link state flags and helpers for clarity. (Mani)
+>     * Make the *_set_link_enabled() return patterns symmetric.
+>   - Add Frank's Reviewed-by tag from v3.
+>   - Retest using ntb_tool.
+>   - Link to v3: https://lore.kernel.org/r/20261014071448.2473208-1-den@valinux.co.jp/
+> 
+>  drivers/pci/endpoint/functions/pci-epf-vntb.c | 98 +++++++++++++++----
+>  1 file changed, 78 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> index 07ba338732d4..bebdd93a067c 100644
+> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> @@ -41,6 +41,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/io.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/slab.h>
+>  
+>  #include <linux/pci-ep-msi.h>
+> @@ -147,7 +148,10 @@ struct epf_ntb {
+>  	u16 vntb_pid;
+>  	u16 vntb_vid;
+>  
+> -	bool linkup;
+> +	/* Serialize HOST and VHOST link state changes. */
+> +	struct mutex link_lock;
+> +	bool host_link_enabled;
+> +	bool vhost_link_enabled;
+>  
+>  	/*
+>  	 * True when doorbells are interrupt-driven (MSI or embedded), false
+> @@ -183,24 +187,55 @@ static struct pci_epf_header epf_ntb_header = {
+>  	.interrupt_pin	= PCI_INTERRUPT_INTA,
+>  };
+>  
+> +static void epf_ntb_update_link(struct epf_ntb *ntb)
+> +{
+> +	u16 link_status = READ_ONCE(ntb->reg->link_status);
+> +
 
-This allows dropping the #ifdef CONFIG_PM_SLEEP guards, simplifying the
-code and improving compile test coverage of the suspend/resume callbacks
-while still allowing the compiler to optimize them out when
-CONFIG_PM_SLEEP is disabled.
+I believe this READ_ONCE here is just kept for the sake of symmetry. Since the
+writer is inside this function only and this function is always called with
+link_lock being held, there is no way the compiler can optimize this read. But
+it is OK, I'm not complaining :)
 
-Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
----
- drivers/iio/adc/ad7606.c     | 9 +++------
- drivers/iio/adc/ad7606.h     | 5 -----
- drivers/iio/adc/ad7606_par.c | 3 ++-
- drivers/iio/adc/ad7606_spi.c | 3 ++-
- 4 files changed, 7 insertions(+), 13 deletions(-)
+- Mani
 
-diff --git a/drivers/iio/adc/ad7606.c b/drivers/iio/adc/ad7606.c
-index cebb8ed8dcb1..e71ff8d38e4c 100644
---- a/drivers/iio/adc/ad7606.c
-+++ b/drivers/iio/adc/ad7606.c
-@@ -14,6 +14,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/pm.h>
- #include <linux/property.h>
- #include <linux/pwm.h>
- #include <linux/regulator/consumer.h>
-@@ -1673,8 +1674,6 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
- }
- EXPORT_SYMBOL_NS_GPL(ad7606_probe, "IIO_AD7606");
- 
--#ifdef CONFIG_PM_SLEEP
--
- static int ad7606_suspend(struct device *dev)
- {
- 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-@@ -1702,10 +1701,8 @@ static int ad7606_resume(struct device *dev)
- 	return 0;
- }
- 
--SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume);
--EXPORT_SYMBOL_NS_GPL(ad7606_pm_ops, "IIO_AD7606");
--
--#endif
-+EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume,
-+				IIO_AD7606);
- 
- MODULE_AUTHOR("Michael Hennerich <michael.hennerich@analog.com>");
- MODULE_DESCRIPTION("Analog Devices AD7606 ADC");
-diff --git a/drivers/iio/adc/ad7606.h b/drivers/iio/adc/ad7606.h
-index 2951bb731354..c60f71a38883 100644
---- a/drivers/iio/adc/ad7606.h
-+++ b/drivers/iio/adc/ad7606.h
-@@ -241,11 +241,6 @@ extern const struct ad7606_chip_info ad7608_info;
- extern const struct ad7606_chip_info ad7609_info;
- extern const struct ad7606_chip_info ad7616_info;
- 
--#ifdef CONFIG_PM_SLEEP
- extern const struct dev_pm_ops ad7606_pm_ops;
--#define AD7606_PM_OPS (&ad7606_pm_ops)
--#else
--#define AD7606_PM_OPS NULL
--#endif
- 
- #endif /* IIO_ADC_AD7606_H_ */
-diff --git a/drivers/iio/adc/ad7606_par.c b/drivers/iio/adc/ad7606_par.c
-index 5b137e947f0b..986c15db90c7 100644
---- a/drivers/iio/adc/ad7606_par.c
-+++ b/drivers/iio/adc/ad7606_par.c
-@@ -11,6 +11,7 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/pm.h>
- #include <linux/property.h>
- #include <linux/types.h>
- 
-@@ -251,7 +252,7 @@ static struct platform_driver ad7606_driver = {
- 	.id_table = ad7606_driver_ids,
- 	.driver = {
- 		.name = "ad7606",
--		.pm = AD7606_PM_OPS,
-+		.pm = pm_sleep_ptr(&ad7606_pm_ops),
- 		.of_match_table = ad7606_of_match,
- 	},
- };
-diff --git a/drivers/iio/adc/ad7606_spi.c b/drivers/iio/adc/ad7606_spi.c
-index 8c479fa50a23..10df12311561 100644
---- a/drivers/iio/adc/ad7606_spi.c
-+++ b/drivers/iio/adc/ad7606_spi.c
-@@ -9,6 +9,7 @@
- #include <linux/err.h>
- #include <linux/math.h>
- #include <linux/module.h>
-+#include <linux/pm.h>
- #include <linux/pwm.h>
- #include <linux/spi/offload/consumer.h>
- #include <linux/spi/offload/provider.h>
-@@ -502,7 +503,7 @@ static struct spi_driver ad7606_driver = {
- 	.driver = {
- 		.name = "ad7606",
- 		.of_match_table = ad7606_of_match,
--		.pm = AD7606_PM_OPS,
-+		.pm = pm_sleep_ptr(&ad7606_pm_ops),
- 	},
- 	.probe = ad7606_spi_probe,
- 	.id_table = ad7606_id_table,
 -- 
-2.54.0
-
+மணிவண்ணன் சதாசிவம்
