@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F7E43BDC2;
-	Thu, 15 Oct 2026 04:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA00432E79;
+	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792037282; cv=none; b=fP7K7aZsLpwyjUvfI6OvO4IRcZ/Hy+eJ/ODxWs923vaFEm2M1Iz/0/5xuZeE0v51yPjcpuK2+ND0DATUvMySln6nqigm6a150gVs8BOFUswS+6/WhzQ9PME4QqRL5sDcL53oqIvVymPTEaoCjCUYzO6WGqBeyHiW5uSBZhrK+bg=
+	t=1792037282; cv=none; b=aqQPRnY1olgSXtjwh+mqkLI2qcxXn/47PCz4sGq/H2svt4VqaZFRC2UWtiRWSeAXq3NtLSglFx+1y7RXXy3fOS7wfZ4bUtTrIjPIFqRlTz61hGZUajWSFNXRv1FLzCmRMHXJhE5aabNfXBX/ssi2WUgYAiTlqW9okRGJGQotnpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792037282; c=relaxed/simple;
-	bh=5YMcUgmHuwZ09iRYdxUe+lH9zpyUBdXx1A6AMXut68I=;
+	bh=NgCaTkqAS2OLuHhTXwCgTA38+FOHqDIm0YdYwggkKkw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j/gMp55MRdtrHWFwGksM+ic8vC2Cis/Q1vQtEW3F43dvk1/Dh1SfJ1/XS1p9/tctzA29NCzpr6Jkt/mfeQTkL+PDeuHZsH00Ue72ez9W7rRnpddfGT1w162bO/j+AgarIIGUFIGPDtAYzMPW9tAhEO1idGrAjV88Lgkw0AfUm+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jys4+AdL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=hkbusMKhSsqW5fsMIPCTfJEudJg2PayrToi3BYdM01XD3RXfgMbNjNtS/xtU8OW+8Or52EOPHHq0r3ShVK5j5nr+zqbyZKDAIJoSCMhcniGyyvJMQ3Uz4LqH+1le5bhm8av0HFVmBrod7fODwWdMmvPFrcr7gS4e8wkhRVUuWkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgzwHyj2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jys4+AdL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 03858C4AF11;
-	Thu, 15 Oct 2026 04:08:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgzwHyj2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B350BC2BCFB;
+	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792037282;
-	bh=5YMcUgmHuwZ09iRYdxUe+lH9zpyUBdXx1A6AMXut68I=;
+	s=k20201202; t=1792037281;
+	bh=NgCaTkqAS2OLuHhTXwCgTA38+FOHqDIm0YdYwggkKkw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Jys4+AdLgNli27mEwyal1Nqz6zEfrqoCA0N0HckAEDJsyIbXUROK1IeNEW8cRZKoc
-	 mFaacnbNNk4MS/KxKWwNQwkgsBTBctZceRXgFimEpOOo7DCQ50AyfC3GnJuVvm+tEi
-	 fvMg+CZXB8nTXzkEisV28/PBI1fX7jygLrcwvtKwIWWq//Kb0G60ZAJh7F5Nq5GMgS
-	 WvYQktJgSfyMRFE8ERlil8Uk08BQf1NF0wWihsuMlXKlW+GSL8nK7rwRfFRDMq1Emq
-	 PyyNOm9Wr6rkNo0N719Ijbd0UUGjWVt+GT8JRYqpNw26uqBsVT+5PizIYsFh8wnmwl
-	 kGusDvPpNu2vw==
+	b=RgzwHyj2WmS4d8ONTx88AnTn6dc19t145Vo2+H/uhu+qqHSuSyeVQgJ/rze1OE+ha
+	 k5ItflRRnICAyh3R2A6D7ISZJl3qyu3fzrCe3nqaazdzTvNV7FZnpj+M+gvO0clTYa
+	 i+qyLxkyy+CLgROa+bAci7Frc4mY63WKYzVcKRHO3K5c+gp0jfPcq9dd01iuZKZ9ty
+	 BlfK80+XE1vHFDTQvFS4yGRalpEmreIzu1IjjJK5/c458EDGasZyuPsvzRdYcrcQOK
+	 9VTEmj7+KFWjKkuPfgv5e6BgqOxxMEpD1JzxHU+4rbskkDC2BxYYmUmt2KGIgCKJ+X
+	 3fwy36RseQKjg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DDB2CCC6B35;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DC08CC6B1C;
 	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Thu, 15 Oct 2026 13:08:03 +0900
-Subject: [PATCH v3 4/9] xfs: clamp a pNFS LAYOUTCOMMIT extent before
- computing its end
+Date: Thu, 15 Oct 2026 13:08:00 +0900
+Subject: [PATCH v3 1/9] xfs: mark the inode preallocated for pNFS write
+ layouts past EOF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-xfs-pnfs-batch-v3-4-54fc7b2e467d@samsung.com>
+Message-Id: <20261015-xfs-pnfs-batch-v3-1-54fc7b2e467d@samsung.com>
 References: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com>
 In-Reply-To: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com>
 To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
@@ -53,11 +53,11 @@ Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Daejun Park <daejun7.park@samsung.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792037279; l=1903;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792037279; l=4878;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=nP9RMvT+2/zi+VUBuU+Zdw9BhC8rbBfOGbPtZzbzLCE=;
- b=La7YdO6HQ29YYGK2deefgEYqYjXWO93FBIe/kNxCnQaF3rPsrAYUHGCejz6CPD7zRsQgWtmQG
- g08sI+bXZ5DB4lbDCflXjIj1Xnrwp6Ui5w9uG4HhltMncWKnZ+yz8Rr
+ bh=IX8mBRXgg/O734lGpmGH7yenX2zWrO6fKWs9gRJtuHA=;
+ b=92YkxHl5/+iTOiq9gxojFGZs+P1frmXWzOHnUrxV7ZaS4Ah74Ps2FSj7Q29gF/apK9DldvkTr
+ XfMBiLqhpRDCSlNsXrVAlMKulkdlMP1cJnrwPVRwHKM9RtPVJvA60vg
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -67,50 +67,130 @@ Reply-To: daejun7.park@samsung.com
 
 From: Daejun Park <daejun7.park@samsung.com>
 
-xfs_fs_commit_blocks() clamps the end of each committed extent to the
-file size, but computes the end as offset + length first. A length
-from the client can make that sum wrap around, and the loop then
-passes the client's length, unclamped, to xfs_iomap_write_unwritten().
-The range wraps there as well, and xfs_bmapi_write() maps nothing.
-Before the previous two patches, that failed an assertion on XFS_DEBUG
-kernels, which is a BUG with XFS_ASSERT_FATAL, and otherwise returned
--ENOSR, which nfsd warns about as a non-standard errno. With
-XFS_BMAPI_CONVERT_ONLY, the LAYOUTCOMMIT fails with -EIO and converts
-nothing, even when every block up to the size is allocated.
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+allocates blocks for a write layout, so that xfs_free_eofblocks() does
+not free blocks past EOF that a client may write to. But a write layout
+for a range past EOF where blocks are already allocated, such as the
+speculative preallocation of buffered writes, gets those blocks without
+an allocation, and the inode is not marked. blockgc, or the release of
+the file, then frees them without breaking the layout. The client still
+writes to them, and they may belong to another file by then.
 
-With pynfs as the client and an RW layout for the first 64 KiB of a
-2 MiB sparse file, a LAYOUTCOMMIT of 2^64 - 4 KiB at 4 KiB got
-NFS4ERR_IO, "nfsd: non-standard errno: -63" and a WARNING, or the
-assertion on XFS_DEBUG. With the previous two patches, it gets
-NFS4ERR_IO and the laid-out range stays unwritten.
+With pynfs as the client, a file grown to 1 MiB by two buffered writes
+on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+that range got it as one INVALID_DATA extent, without the inode being
+marked. About 300 seconds later, with the default
+speculative_prealloc_lifetime, blockgc freed those blocks while the
+layout was still held. When the client then wrote through the layout and
+sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+it with no blocks reserved:
 
-Clamp the length to what is left below the size before adding it to
-the offset. The extent then ends at the size, its allocated part is
-converted, and the LAYOUTCOMMIT gets NFS4ERR_IO at the hole after it.
+  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+    Shutting down filesystem.
+  ...
+   xfs_trans_mod_sb+0x817/0x960
+   xfs_alloc_vextent_finish+0x2e7/0x990
+   xfs_alloc_vextent_start_ag+0x25d/0x720
+   xfs_bmap_btalloc+0xdd2/0x1720
+   xfs_bmapi_allocate+0x197/0xf90
+   xfs_bmapi_write+0x4d0/0xb60
+   xfs_iomap_write_unwritten+0x307/0x7e0
+   xfs_fs_commit_blocks+0x1d9/0x630
+   nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+   nfsd4_layoutcommit+0x4b5/0xa20
+
+The client got NFS4ERR_IO, in six runs out of six. When small files were
+written on the server after blockgc, with a sync first so that the freed
+extents were no longer busy, they got those blocks, and the client's
+write through the layout replaced 978944 bytes of their data before the
+LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+blockgc runs, leave the client's data in place.
+
+Mark the inode also when a write mapping ends past EOF and nothing was
+allocated, the same way as for an allocation, before the blocks are
+handed out. With this, the same test keeps the blocks past blockgc, and
+the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
+
+To share the update with the allocation case, set a local update_inode
+flag in both cases, call xfs_fs_map_update_inode() in one place below
+them, and move the log force into xfs_fs_map_update_inode().
 
 Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/xfs/xfs_pnfs.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
 diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index 7ff83274a5..19eb18e129 100644
+index ab38561700..a9f0b472f3 100644
 --- a/fs/xfs/xfs_pnfs.c
 +++ b/fs/xfs/xfs_pnfs.c
-@@ -328,9 +328,7 @@ xfs_fs_commit_blocks(
- 		if (start > size)
- 			continue;
+@@ -110,7 +110,15 @@ xfs_fs_map_update_inode(
+ 	ip->i_diflags |= XFS_DIFLAG_PREALLOC;
  
--		end = start + maps[i].length;
--		if (end > size)
--			end = size;
-+		end = start + min_t(u64, maps[i].length, size - start);
+ 	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
+-	return xfs_trans_commit(tp);
++	error = xfs_trans_commit(tp);
++	if (error)
++		return error;
++
++	/*
++	 * Force the log so that the blocks handed out to the client are
++	 * guaranteed to be present even after a server crash.
++	 */
++	return xfs_log_force_inode(ip);
+ }
  
- 		length = end - start;
- 		if (!length)
+ /*
+@@ -134,6 +142,7 @@ xfs_fs_map_blocks(
+ 	uint			lock_flags;
+ 	int			error = 0;
+ 	u64			seq;
++	bool			update_inode = false;
+ 
+ 	if (xfs_is_shutdown(mp))
+ 		return -EIO;
+@@ -221,20 +230,27 @@ xfs_fs_map_blocks(
+ 				end_fsb - offset_fsb, 0, &imap, &seq);
+ 		if (error)
+ 			goto out_unlock;
++		update_inode = true;
++	} else {
++		xfs_iunlock(ip, lock_flags);
+ 
+ 		/*
+-		 * Ensure the next transaction is committed synchronously so
+-		 * that the blocks allocated and handed out to the client are
+-		 * guaranteed to be present even after a server crash.
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
+ 		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
++			update_inode = true;
++	}
++
++	if (update_inode) {
+ 		error = xfs_fs_map_update_inode(ip);
+-		if (!error)
+-			error = xfs_log_force_inode(ip);
+ 		if (error)
+ 			goto out_unlock;
+-
+-	} else {
+-		xfs_iunlock(ip, lock_flags);
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
+ 
 
 -- 
 2.43.0
