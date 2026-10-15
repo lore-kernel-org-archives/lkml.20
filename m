@@ -1,223 +1,159 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71F33EC82D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32E237A834
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792106311; cv=none; b=Q1ISWfdV7qL/9YtSVwwJWYDTzJQ53S+VsaC4CmtjleE5DInElsPkAJO97lkkAH837J55oTOiiUtTtHpu9MX9ZYpw0lZgbrohM6ySvDxBuFZA76j7ycfMTAH7OYS5rvIDWlNcHxSEqV8QTS41sHaD81GSYkYNYyNIobFWIgdENik=
+	t=1792106447; cv=none; b=sBr/vG1ZQYpzxzjjvLpxYmqA7pjenCsh79qiD5RQfoyK3aC0rfKRi/Ihuh/BLM3o03yXRWt0VFJdDZgT79mw3s2ULUxxnK6S2NAJtytYq8kaL2hwf+Etg1mckT+XKoL7HWo6ScMPOBiT49spo/eUaV7aCGkDWZhwkDMnAj8T2oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792106311; c=relaxed/simple;
-	bh=jaIYdqzVuhTxtuYM0QVnLqomqTzWxcVIW3tpECilNlc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R2K1whAF/DRlkUVc0r3sOEqzdarcGovMMW6zOHDqId7ZOg/ZwcEOYzgPhzh9gc3k9/m1mX3qUKruOVPY5mOPew7QQYhpBw6YWbX9mD+3YmAohCMzxBchlrhWJI9w96jqSVCItdtIyA6/t4V51/Q5Yd5XfjBAKc8v1pl+QMI30aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=CB0vr0Ws; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
+	s=arc-20240116; t=1792106447; c=relaxed/simple;
+	bh=j83uMIx5Rfc2yvF68EcUoRsA11g31hIpPgYnchUqs+E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k8dZUWlQvlqCM3890501mwOOuk16ViYeF27dN7C2GgAfsjG26RJZIh+VcEpudITGHT5lSkdDpiwl91BTu8RBs8qvQO/rF7Mbjsg38vbxdd0gozWLit87EleoXPBzZgqyfxC5dmXgzD/AYHBjEZ+6Nue7O+jrG8XeJ1l6ck7x7K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDu7Okga; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="CB0vr0Ws"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35cd538de29so1153073eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:18:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1792106309; x=1792711109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lskd2+aikpAUTY4xnAC2INKipXbwuFvd8XpYslDuZFM=;
-        b=CB0vr0Wsj9oi0QtzmOxGbu0vf4cyZNV4Nj/6tqU0pUeXcQkSL7VBOJ4LfEfulYmLOk
-         IZYdvqOj6WYAkFsW6FJkZHxm/ckJ6eBGOf0eS5fl9fYLbzsFGDoKU/1GBIEZ7dBQeWAQ
-         SGGy2wilro5tiEvhtHfHSzsPQqJ+5JWuakEORdJo34j56xTCE9jNRDnQX58SWlJPNWWX
-         wY+oRnP3IHzzS6pGzkpL6awLYj5EXUuh3TKXIXQdlQMkeLjYGcpnbJXn+rNyAJEw9o7J
-         /NFg33DMGBvDK/ArF/2eTH/ngP+HGsnYaqp7mJzspRSs5BPXyfiu1XIw4KmIguJxkWuV
-         OExA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792106309; x=1792711109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lskd2+aikpAUTY4xnAC2INKipXbwuFvd8XpYslDuZFM=;
-        b=l0XvlDUJGUdAA5dnd1gJtCPqDoTO9A5B8VUc/CzTSDrXOQkjrag7zwCYlMlZEqhrzQ
-         2ASugOLfPdirnu82V2Gnn0o/Lo5P2AHs719SDNOY0Q7w/73UM5iJIqpQnh5yBP6V7VC0
-         7B0PipwfUAW2pHLFiIRQL/upkTl+u/oObrsEbQOo26q1PPerYn7Qv4AWGa4Vt0CivS+S
-         q7xr151ieNeAmaZ2xDJGIaUKhxmAo59WZtsPZknGVgcdWs1iEj1/pAjDLMXT1KyzuRn0
-         naq1YItu49LeDU591lQhRSSAjmTeCZUWW+JPiqo5aDQQiNGl/jvtd+R8Jon720nqz9CE
-         +IGw==
-X-Forwarded-Encrypted: i=1; AKwUvBziU1vVHAsM9zot91TuB0UVlIqnT0ZKWYoSPCJv1kKzW8BuyhIUo+DxN9u739KolBC0ZiosUKug6krSkT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJANHcCebkB153CTyGhG3X6RG7+cHssoojTufmO7SlAjcoJISc7
-	/GpN/v+gBkynsziJXrUcHFhYz1l1UFPVdTb7wlpAl9wRBGzFfr6R37ZHomBc7U7mMmE=
-X-Gm-Gg: AYBFou3GQk+0HUxP/XdikX4vL0kR6WhHKHhgSdsf31/UsAxChoE9ColpflLxv+bSxn7
-	BjMM00ZK2eiGDAjZEb4GDTOYvxur9pKRYZywVrRSRHz/LSCvUQyHSbGsqDuv+hCrKeFy+10zxVc
-	J2cdDhGPRdbznRtWMJKGqR/qEN/FiQp+sfK2mrB/i9v0pYMuzMJ123Afbmuo+Lr0ycapetYTIna
-	uwFb3+MwidcsCAkHNqh/qokVFfX4OmhdP1Ln9ItTz9dHRjz1j2pbTfFeBmP6Jq0vXw8uKPEj5IB
-	2SVRmBx04NQy5HHbzPIZbF7vS6NU4l2FiSBWkrER8sW+WdsALV5TlI7s+5YuDLWBe95mIsOUZVN
-	74suoh2BUepTia20K4IqI6gxvOIFnj9TiwQclDxUydKRWZiRpUGVqNsko80qe9SuWgxwSgF+b9d
-	/V235xCk0PvbnxU6ELjrjlErxUEHTp92gJ0iuxT06jFPtZCojuGGzHS3yrHpHC6ISHY8iGE1ohV
-	D+YGnNQQZNZilNv7o60cmu2BLZu1k5jgcoVuOJK
-X-Received: by 2002:a05:7022:170c:b0:16b:fa6d:b121 with SMTP id a92af1059eb24-16bfa7cf6c4mr22192842c88.0.1792106308749;
-        Thu, 15 Oct 2026 16:18:28 -0700 (PDT)
-Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa7bbsm642623c88.5.2026.10.15.16.18.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 16:18:27 -0700 (PDT)
-From: Omar Ramadan <omar@blockcast.net>
-To: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>
-Subject: [PATCH net-next v2] amt: make the per-tunnel group and source limits configurable
-Date: Thu, 15 Oct 2026 23:18:24 +0000
-Message-ID: <20261015231825.2852054-1-omar@blockcast.net>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDu7Okga"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75C9F1F000C8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792106446;
+	bh=LUvhgsUTECZ66zaJTPjvK1A1xICdLeq69Y9+jbS//zo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XDu7OkgasokV1iQvw3CEpqZLLkZGI3z2dwXjxnRJtCYl4faVFEQA6/CWJYsSbQnay
+	 T+JaiGb99s2HI5ito20X5vsnEKrqzvqFlIA8K3vbHiiMFtiL+Hmnt8+MrJnS8P9Gcz
+	 j7VGK9OMwsXNHdZc/Dzbu6nIMYPqo7s8rhVug6w4uurM78QYJBTX85JrbQDzQ47xl0
+	 tCxubG+aX2MDIazqMrPNqcm7EEXGKDnAhSNL8xjQGJZXQzH9pVx9+d/RZSF0JabVx2
+	 uUGk7gsReduqCiW6uPBxITHBTrnqgn+Me01opaJ0VNtcmIIUbbJcX6jenvDFzIF10g
+	 ziaGGcQx74Nvg==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso461141766b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:20:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzvhVkNCia6+Bm5K0eBw2XjB4gBcQcddUx+GCWmxcb58DGb2AUbEw17dp3ONhycS6D+/wwdS0RYHy6tWn8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtPioVG8Rw6YbeSVDYvIWqZH4UtNjCa+Hs9V5SbQM6WPpt7mh8
+	2ylx7xHnir/jL/g9Z845iGZaGypLnhLOe0/tyqYPqgoxUKrnIwDSw2BZvSXfwLwQtYCnkVUYzEq
+	M1AxWqoHDjnvkg+kjvkyPprjr0TjEIvE=
+X-Received: by 2002:a17:907:d90:b0:c2d:bc76:8342 with SMTP id
+ a640c23a62f3a-c31a9a2db07mr1874472366b.5.1792106445362; Thu, 15 Oct 2026
+ 16:20:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-23-yosry@kernel.org>
+ <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com>
+In-Reply-To: <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 15 Oct 2026 16:20:34 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
+X-Gm-Features: AclHuK9Dl0an3RcXmue1Fj0HSSER5rW3elDdOiQ5i-t568Zwn5LzEUXcQnJZvgo
+Message-ID: <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
+Subject: Re: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID
+ in vmcb12
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A relay caps the state one gateway tunnel can hold at AMT_MAX_GROUP (32)
-group records and AMT_MAX_SOURCE (128) source records, counted across
-all of the tunnel's groups. Both are compile-time constants. An SSM
-receiver uses a source record for every (S,G) it joins, so a gateway that
-needs more than 32 groups or 128 channels through one tunnel has the
-excess joins dropped, and the relay operator cannot raise either limit.
+On Thu, Oct 15, 2026 at 4:09=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > KVM uses a single ASID for L2 guests per-vCPU. Hence, when L1 changes
+> > L2's ASID in vmcb12 (e.g. due to switching to a different L2
+> > vCPU or simply to avoid flushing an existing ASID), KVM needs to flush
+> > the L2 ASID to correctly emulate different ASIDs as different TLB
+> > domains.
+> >
+> > Additionally, the nested NPT needs to be resync'd, as the MMU context
+> > is not tagged by ASID, and KVM cannot reuse nested NPT entries across
+> > different L2 ASIDs.
+> >
+> > Essentially, L1 switching L2's ASID is treated exactly the same as L1
+> > flushing L2's ASID, which is consistent with the APM:
+> >
+> >   Software may effectively flush the guest's TLB entries by allocating =
+a
+> >   new ASID for the guest and not reusing the old ASID until the entire
+> >   TLB has been flushed at least once.
+> >
+> > This is similar to nVMX's handling of last_vpid, except that when L1
+> > changes VPID12, KVM does *not* need to resync the nested EPT, because
+> > VMX VPIDs, unlike SVM ASIDs, do not tag guest-physical translations
+> > (i.e. nGPA to GPA translations).
+> >
+> > Reset last_asid when nested VMRUN fails to force a flush and sync on th=
+e
+> > next nested VMRUN. The TLB flush request survives the failure, but the
+> > request to sync the nested NPT does not, as it ends up being serviced i=
+n
+> > L1's MMU context after the synthesized VM-Exit.
+> >
+> > Drop the commentary about vmcb12's ASID being copied around only for th=
+e
+> > consistency checks, as they no longer apply, and opportunistically fix
+> > whitespace alignment.
+> >
+> > This is currently functionally a noop, as a full flush and sync is
+> > triggered on every nested transition, but is a step toward eliminating
+> > that.
+> >
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/svm/nested.c | 29 +++++++++++++++++++++++------
+> >  arch/x86/kvm/svm/svm.h    |  2 ++
+> >  2 files changed, 25 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> > index e04cc4f7669ea..8e4686b0d603a 100644
+> > --- a/arch/x86/kvm/svm/nested.c
+> > +++ b/arch/x86/kvm/svm/nested.c
+> > @@ -556,10 +556,8 @@ void __nested_copy_vmcb_control_to_cache(struct kv=
+m_vcpu *vcpu,
+> >         to->nested_cr3          =3D from->nested_cr3;
+> >         to->pause_filter_count  =3D from->pause_filter_count;
+> >         to->pause_filter_thresh =3D from->pause_filter_thresh;
+> > -
+> > -       /* Copy asid here because nested_vmcb_check_controls() will che=
+ck it */
+> > -       to->asid           =3D from->asid;
+> > -       to->clean =3D from->clean;
+> > +       to->asid                =3D from->asid;
+> > +       to->clean               =3D from->clean;
+> >
+> >  #ifdef CONFIG_KVM_HYPERV
+> >         /* Hyper-V extensions (Enlightened VMCB) */
+> > @@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vmcb12(s=
+truct vcpu_svm *svm,
+> >  static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
+> >  {
+> >         struct vcpu_svm *svm =3D to_svm(vcpu);
+> > +       bool new_asid =3D false;
+> >
+> >         /* Handle pending Hyper-V TLB flush requests */
+> >         kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
+> >
+> > +       if (svm->nested.ctl.asid !=3D svm->nested.last_asid) {
+> > +               svm->nested.last_asid =3D svm->nested.ctl.asid;
+> > +               new_asid =3D true;
+> > +       }
+>
+> To make sure we don't miss a flush after restore, do we need to clear
+> last_asid in svm_set_nested_state()?
 
-Add IFLA_AMT_MAX_GROUPS and IFLA_AMT_MAX_SOURCES, read when the link is
-created, like IFLA_AMT_MAX_TUNNELS. Zero or an absent attribute keeps the
-current defaults. Gateways drive these allocations, so the policy caps
-them at 1024 groups and 4096 sources per tunnel, and strict_start_type
-has it validate them, and any attribute added after them, strictly.
-Report both limits in amt_fill_info().
+In [1], we set svm->nested.vmcb02.cpu =3D -1 in svm_allocate_nested(),
+which should be called when EFER.SVME is set on restore, and should
+force a TLB flush on the first vCPU run. That being said, if EFER.SVME
+was already set (not a fresh vCPU), we won't necessarily flush the
+TLB. KVM_SET_SREGS will _probably_ flush the TLB, but I don't think
+it's guaranteed.
 
-Assisted-by: LLM
-Signed-off-by: Omar Ramadan <omar@blockcast.net>
----
-v2:
-- No code change. Rebased on net-next 518bf436318e.
-- The amt_policy[] hunk now carries one line of context. In v1 that
-  context included the IFLA_AMT_DISCOVERY_IP entry, which patch 3 of
-  the pending net series [1] rewrites, so v1 did not apply to NIPA's
-  combined net + net-next branch. This version applies to net-next
-  with or without that series; with it, the result matches a 3-way
-  merge of the two.
-- v1: https://lore.kernel.org/netdev/20261014221334.2443184-1-omar@blockcast.net/
+But wouldn't this also affect non-nested? Are we guaranteed to flush
+L1's ASID after restore?
 
-[1] https://lore.kernel.org/netdev/20261015220648.1545576-1-omar@blockcast.net/
-
-Notes:
-- At the policy ceilings, with 256 source buckets per group, one tunnel
-  can hold up to 1024 * 4 KiB group records (176 bytes plus 2 KiB of
-  buckets, a kmalloc-4k object) and 4096 * 192 bytes of source records,
-  about 4.75 MiB. At the defaults it is about 152 KiB.
-- The IPv6 outer transport series ("amt: add an IPv6 outer transport",
-  posted 2026-10-09) also appends attributes after IFLA_AMT_MAX_TUNNELS
-  and sets strict_start_type at its first one. Whichever is applied
-  second will be renumbered after the other and drop its own
-  strict_start_type line.
-- Tested on net-next 518bf436318e, alone and with the net series [1]
-  applied, in an x86_64 KVM guest with the iproute2 companion patch,
-  which follows once this is applied. The defaults read back as 32 and
-  128, 1024 and 4096 round-trip in text and JSON output, zero keeps the
-  defaults, and 1025 or 4097 is rejected by the policy without creating
-  a device. An 8-byte IFLA_AMT_MAX_GROUPS is rejected as an invalid
-  attribute length, and the same request with 4 bytes creates the link.
-  tools/testing/selftests/net/amt.sh passes 6/6. W=1 builds with IPV6=y
-  and =n, sparse, and kernel-doc report nothing new.
-
- drivers/net/amt.c        | 15 +++++++++++++--
- include/net/amt.h        |  5 +++++
- include/uapi/linux/amt.h |  8 ++++++++
- 3 files changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 81d26ef82..30cff8de4 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -3162,6 +3162,7 @@ static void amt_link_setup(struct net_device *dev)
- }
- 
- static const struct nla_policy amt_policy[IFLA_AMT_MAX + 1] = {
-+	[IFLA_AMT_UNSPEC]	= { .strict_start_type = IFLA_AMT_MAX_GROUPS },
- 	[IFLA_AMT_MODE]		= { .type = NLA_U32 },
- 	[IFLA_AMT_RELAY_PORT]	= { .type = NLA_U16 },
- 	[IFLA_AMT_GATEWAY_PORT]	= { .type = NLA_U16 },
-@@ -3172,2 +3173,4 @@ static const struct nla_policy amt_policy[IFLA_AMT_MAX + 1] = {
- 	[IFLA_AMT_MAX_TUNNELS]	= { .type = NLA_U32 },
-+	[IFLA_AMT_MAX_GROUPS]	= NLA_POLICY_MAX(NLA_U32, AMT_MAX_GROUP_LIMIT),
-+	[IFLA_AMT_MAX_SOURCES]	= NLA_POLICY_MAX(NLA_U32, AMT_MAX_SOURCE_LIMIT),
- };
-@@ -3235,8 +3238,10 @@ static int amt_newlink(struct net_device *dev,
- 		amt->max_tunnels = AMT_MAX_TUNNELS;
- 
- 	spin_lock_init(&amt->lock);
--	amt->max_groups = AMT_MAX_GROUP;
--	amt->max_sources = AMT_MAX_SOURCE;
-+	amt->max_groups = nla_get_u32_default(data[IFLA_AMT_MAX_GROUPS], 0) ?:
-+			  AMT_MAX_GROUP;
-+	amt->max_sources = nla_get_u32_default(data[IFLA_AMT_MAX_SOURCES], 0) ?:
-+			   AMT_MAX_SOURCE;
- 	amt->hash_buckets = AMT_HSIZE;
- 	amt->nr_tunnels = 0;
- 	get_random_bytes(&amt->hash_seed, sizeof(amt->hash_seed));
-@@ -3352,6 +3357,8 @@ static size_t amt_get_size(const struct net_device *dev)
- 	       nla_total_size(sizeof(__u16)) + /* IFLA_AMT_GATEWAY_PORT */
- 	       nla_total_size(sizeof(__u32)) + /* IFLA_AMT_LINK */
- 	       nla_total_size(sizeof(__u32)) + /* IFLA_MAX_TUNNELS */
-+	       nla_total_size(sizeof(__u32)) + /* IFLA_AMT_MAX_GROUPS */
-+	       nla_total_size(sizeof(__u32)) + /* IFLA_AMT_MAX_SOURCES */
- 	       nla_total_size(sizeof(__be32)) + /* IFLA_AMT_DISCOVERY_IP */
- 	       nla_total_size(sizeof(__be32)) + /* IFLA_AMT_REMOTE_IP */
- 	       nla_total_size(sizeof(__be32)); /* IFLA_AMT_LOCAL_IP */
-@@ -3382,6 +3389,10 @@ static int amt_fill_info(struct sk_buff *skb, const struct net_device *dev)
- 			goto nla_put_failure;
- 	if (nla_put_u32(skb, IFLA_AMT_MAX_TUNNELS, amt->max_tunnels))
- 		goto nla_put_failure;
-+	if (nla_put_u32(skb, IFLA_AMT_MAX_GROUPS, amt->max_groups))
-+		goto nla_put_failure;
-+	if (nla_put_u32(skb, IFLA_AMT_MAX_SOURCES, amt->max_sources))
-+		goto nla_put_failure;
- 
- 	rcu_read_unlock();
- 	return 0;
-diff --git a/include/net/amt.h b/include/net/amt.h
-index 2846dde0c..18379ff7a 100644
---- a/include/net/amt.h
-+++ b/include/net/amt.h
-@@ -372,6 +372,11 @@ struct amt_dev {
- #define AMT_GC_INTERVAL		(30 * 1000)
- #define AMT_MAX_GROUP		32
- #define AMT_MAX_SOURCE		128
-+/* Upper bounds for IFLA_AMT_MAX_GROUPS and IFLA_AMT_MAX_SOURCES. Gateways
-+ * drive these allocations, so keep one tunnel's worst case to a few MiB.
-+ */
-+#define AMT_MAX_GROUP_LIMIT	1024
-+#define AMT_MAX_SOURCE_LIMIT	4096
- #define AMT_HSIZE_SHIFT		8
- #define AMT_HSIZE		(1 << AMT_HSIZE_SHIFT)
- 
-diff --git a/include/uapi/linux/amt.h b/include/uapi/linux/amt.h
-index 2dccff417..a106d7a07 100644
---- a/include/uapi/linux/amt.h
-+++ b/include/uapi/linux/amt.h
-@@ -54,6 +54,14 @@ enum {
- 	IFLA_AMT_DISCOVERY_IP,
- 	/* This attribute specify number of maximum tunnel. */
- 	IFLA_AMT_MAX_TUNNELS,
-+	/* Maximum number of group records one tunnel may hold.
-+	 * Zero or absent means the default of 32.
-+	 */
-+	IFLA_AMT_MAX_GROUPS,
-+	/* Maximum number of source records one tunnel may hold, counted
-+	 * across all of its groups. Zero or absent means the default of 128.
-+	 */
-+	IFLA_AMT_MAX_SOURCES,
- 	__IFLA_AMT_MAX,
- };
- 
--- 
-2.43.0
-
+[1] https://lore.kernel.org/kvm/20260903175856.4065099-1-yosry@kernel.org/
