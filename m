@@ -1,94 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic314-14.consmr.mail.bf2.yahoo.com (sonic314-14.consmr.mail.bf2.yahoo.com [74.6.132.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414BD4BA1D4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FD931F99C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.132.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792106595; cv=none; b=L0IcLQ7eJd/AcfgFGkAzaNZ7VneE8TLEAmn6bESigpXcSpzloxO+tMn3I6F59Yl0Yn6KKTYaoXf3sAUWIBXjZyUj2HCDIY/SR3hxtIelG3qcybJhIFgClQacGdaapbGUz8Br8uPdjHYMyCmpAUpBgvzoCeNVVZSG/ejHk+pHBZ0=
+	t=1792106726; cv=none; b=mt19GZ81dfEx+HUgIjcWp8mQ9tjwz53SNUuyiPul5azCydSkXsroxbR8ATWqgj2x1StL4y3/KHTm4PXsHDEswz6CpdU7BuCB8PCuby3TYrxHtJUFaars/mu2f2yVHRZEoiqKj1fSJzg7VoLSe5YWAsxJFWzTNqBBFsFc0h5bzRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792106595; c=relaxed/simple;
-	bh=88d23hl2u4nE+QByMY/+cT6s27MMOTxeyFDnS9wiczk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AkndmhOP/xFENy615GbE7NrhNj67Kb1usddD8SCcsb+M5NL1QNCGsjuLHBTcuYrUf6SVhwSxneRQuwU8Ykilc9x7W4EMZPQHIVZJEcAnq5qhdv0OJERP1hRNoHV1Y8ZkB5kGaViWO+h8NlHlHhcPeBnmh11H6/BxL/8+8v2jc9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnC8w+k3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792106726; c=relaxed/simple;
+	bh=sFPY+NE+zzGt2x6uHMfkfI++1+h9Di9RoH+S2GJ7+lo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IBxptfgWulMgm6WxvLIyU50GeumBFVIVSwrAgSvi/kWDcUaIM3rGVPEA7aOjNmVdApKt8w7pSTV+RgP6uO1RzEJ88RCQibzseYCG6cRZc6+cEwX/ZNJ16ScGznWQ34IO90p8oLHdlWGdmeS/UG0+427/cT6hDKiS08zEFgAyZw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Mh44yOXl; arc=none smtp.client-ip=74.6.132.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnC8w+k3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7C931F000C7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792106589;
-	bh=88d23hl2u4nE+QByMY/+cT6s27MMOTxeyFDnS9wiczk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dnC8w+k3glVnO9kOiu5XYfGQdqNGOk0spgL0A8lx73S282kKLpghx2xZ3jASaSBzf
-	 r87UpJXEmK/u7FwHfV1E+hA1Vk8iKOhdGYJfMCsWa6daTdVXsNyPM+ONakddR4OMSY
-	 K2BGiOKxmRuJOHv0WMwlmd4RSPBBJ4+Kpa5hVDT4iMaBBCmZqk9qTrLcbGj5c6luey
-	 Qtvj6/B8iD/bt95q3UmswDMTEDdc+OfmvIGgo2c37PyMKZY1YOFuG75Fx7DW3WcjlK
-	 XieqEZUR0OdtJqo05GTBbGqWdKuIoy3g0UBin2XF8ggFf7Wx89kCjKZcGuu/eaQfP4
-	 EkNS6vd/Nvhyw==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c247f6687dcso888260966b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:23:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByhvWvmB9Ra25GCaOwxg0XG7vN1B93T5gIRS4i8nivEpy9vHA7b/XmZ+EtVQX75QmGpLPrCxgBfU74nX0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHNFkC9m0ZupGT51qAglV41X4GRqW38kS1QrldryluYfOovDAX
-	THB/VrNy97Wzz2HbIWvVGWVqscAP3XNF8Y52yh4u8brLLzRl0HCYwglYxMzHd/4hY9TOV6vSzuI
-	btT34Fdj3OWE4jNL9xfjUDJD8aMbPmt0=
-X-Received: by 2002:a17:907:7212:b0:c2d:bd95:874a with SMTP id
- a640c23a62f3a-c31a9fd3559mr1864392966b.17.1792106588785; Thu, 15 Oct 2026
- 16:23:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Mh44yOXl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792106716; bh=nfyy4oED6oMdHpMx8K9LFhAAKuoqWIm18K3NK5xhum0=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=Mh44yOXlFKmMyZQMXbGcejLfrolWVHxmVcKpUx2DlKWcteliCZf0cwuDFMOKmRPpMebFe7EgmFI5NfQWEE+VidR/1HGKxkV4bywxmqeltIYFWUr/dQC+MulpJ9SQyCXyRV27M7yPVeA0f2qTUnoUxhAixhP5UbFqdYdYFrN9TbOULh3aFSUbupU24cuW2TiBgtuMK0sLznZGPA8fwMjES2Q5yQnh/c6EBT9e+vzzyczBWj2zjrN7r6/eWWVx0vJiH4WafvBd7M/RTMRLNffB5K34K52Fs84mH5yh9n/mE00+htzJnATIgACR2qVhcv3bjs1eazZuhNr8PcfQPaffRA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792106716; bh=nOJaUY7+jIK0gFgZxL2namNH+xt7sHEDFQTSdpQLUZf=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=sOolQJJXJcS11yyFFo10TzZ3Mnas6soLAiOnaIUlhuuub32cC1b+Mh3DXoRWTOkSIXgaOZKNU180YARzl0xqkmS5b+8BJBdz1L34pki1CTEq2PfwOZB1UI2l4ulELKwzL2SgM3QkHmkNJ+jPIDXHFiO9rw5xOX7XVHcSCtPYgZcXx80O6ZM3d5qUAEJRRmO/nSaYsKSbfEtOA9RlefvTdCMYtykeBShEoc9Nua4PHjj87Ch3afOEkbBUyVxPIqGh5Y9YcXvlUqvA4Ds7FXkNAhEgDRPuFWsd9TBeXr6QeBsApsYqvRUBecSlfhSm0DGPYLxGFAbJ8Bz2iFQY9wBKhA==
+X-YMail-OSG: eaHqIRMVM1kgk7KwMPt5uylUtxr0tZsIhtnCsCTiKoJX6U92Pacbsb4QCiKkkNQ
+ h0Xta9PyZx6B35Gzr8DfRLn7b62ALcrXYNKXxv061E0oGN45JdaDU.Y6SmsNB4vBjKTbKmXn0_zU
+ q.Bz_YxJhAMLltGwV.1ETHdIzZeCSD_Up8OsG7m2LXX1bYDjW3DOoXzypCy5ox9m_gPVK8EsnSat
+ 5qzA9cCRAgdZDA0pNY9mHaYetrX43p6kstfc0qcXteRha4_uNJKsalqpkUCWHwz9m.MGyN36XBDM
+ 87DmLLQfYP..CwOKZymPQ2lE_crAbJVzCzCGsMmoSgsiykzEeB_3dCA2DV0JIc_Y.nF9dkzpaxfO
+ 4Ql09GNAKnlGcBdFKdAGPwnztwzjDFn_bCqf4kKNOQ1oat_oDXi85l69.GG6oym.QsFZQ9sLPUsq
+ V4snGF45VC1iWMvh0YMNmjkJazWUBR31gLV6YSBe7mBtgOyG9urEYSzIUw65eJmmeKry484p1TK2
+ X_zexSdY8SbOH2x5uA0OHOHO8jpYt7ff4xJu9Jqq2ZXh2T74CHoRYidRklj9QQGIHv6euuAThvOE
+ k0Iopw2x1OtHoKBaW7Muk8Hb4OhVuw11WbL9fEP0CXuAh5SEHBfw__7RDTOZkJK6fG.iKqMG3Xdv
+ w0bCMmdRtJXXKI_lM76vEideZmm1JKMB_ade2PXggBqDLTzrgI_Jonv2ypmOW1yus77rilYe8aqJ
+ EUY.4Ws15RhL2L9Dp0lahlTKWOa8zJUImpy5tiCvrnZWJTU0NXl3ZWZhQpcoETrbOqVZM8wfE6Fj
+ DurbqSxOXp650qp8bqYIGS7Uu57Dy6BBLWf2OoGFHtEhazXlPSPm672STD0j0Fet34mxT37yr8b4
+ .mCcdF2R047Oz9tDjlWlmSSrzeEyQQko8BYBjj46do.Lv4Kp5E_BZ3R.lpztn2tGvDIjPwYzVSyE
+ zMj.6fOKDkYyLLiFmCe.z6sRypkdmoYylVL.16Yp4HWPXD1Z3kfL49iP7dQE.JdhgCFlHP22fuGD
+ dFyA0mzzHJ6myvq0SJCEsUxePPB46IBwrH3a68Y6fMv9IjvLKwak3IBlUDdL8qZAHmRWYjPyAQ8.
+ .1RUu76G6O1s4hkQ1JBapCwdl1GC9pebCvgz2DJVHvzLRPUnkCkuxMPGsnBE7T4BwpDn2keGJpDE
+ jExQGhKWNsRx8jmBSnT0PYkoo08PMrNANJFXJznCtWofgNL6hS.Nt_nfJCFQeUK90mZUcQ70V8ed
+ HvVPjmkpxh2FBpRU60fE5F1hCHuRv2UBo_08ddVmkebVbbUgSQhFFILnhRBYx4H6wFIiocf2T.Vn
+ jld0zd0sK5LU5ViCwx6N8emTURFrCAcMpndkA7ABeYn7O2Qtl3PKczf0QYOf5.VfQ7.oLmDYPfFF
+ FZvRmoHPmDQTA_Gu3_EfA40O9eovFwl0XwrlQb7fqCSErA0xb.8cNSFOyt1xEiDLsu34w3h3PYLF
+ 3DBGwd5E3iFbbvQO_ePX7gsVp2Odr9b0ISUsFTxXeUSv3GxXepX.Jk_QuRgi99ZKx_jeuYp0gDWL
+ j.N0J_e_RrX.jLDKTmnXC.e4_0YoTw.7YLSsiQWqIPUegsRqPEXWhDyQ_nsOfOKTXIU5cAUB6gqw
+ cDSQONrGo.yiPtYvmQXcHHOt1jJOl9NzTWaoPUTvnvX20.2pn_mGIXnN8JStfoYfOVTO7dIi.VwN
+ PTvZWJdpZzrBvsv9qAIwn7Lu7XyH6mDbswY361fC5kbYaLb0OwGsVXehS_yvHbQaV179S8mlrKRE
+ mtj5.tTk0WcdjsgCB3BZKfFD.kwhoFXCt7tK7.wX66j1wkv4gaonUJRNMuRDni.rZ.UbbtTLVggy
+ 5XD8h69uUOuozpK3QibU2L1fzFIuxNaaxLD6Mycpiyt2j3_lqKpANptMYSmma8GAt_EuRYVz6cm2
+ A7BIlyq.DRD55aK7Fx51ljWJjVUFp07B4EaBehUCknAzPRYeun6JUxH2cFzbij._GGYT8cntMWQT
+ LiUiQRleBtoH3zGoIMx73UjVwz51f7ZrXm2q85fcrTB_7p_wzlPb7XbmmU9SZqajetijfHwzRBEL
+ tB2BRFfdBuR7OSkr_XnKlffNK5IYMnFMbV7iIgLuR8KAI3idHmpN7YASkicCdkpyoQfkKryvUUQQ
+ xRKQaso.HZ1QWEF.jNuRD.a81hIB6YwwBp3hrUF_eJaXbzbWqHvH7F00jX4aNObflEzqISsE_3YY
+ wc9.mYmHME1hx4kFSkrwmHdo-
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: b6834d16-c8f9-49e1-8ec8-8809110e3cd5
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.bf2.yahoo.com with HTTP; Thu, 15 Oct 2026 23:25:16 +0000
+Received: by hermes--production-bf1-6d6877594b-ndv54 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 41b88935f80b471ddbbd921194e01a00;
+          Thu, 15 Oct 2026 23:14:59 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	federico.vaga@vaga.pv.it,
+	apw@canonical.com,
+	joe@perches.com,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	David Disseldorp <ddiss@suse.de>,
+	Mark Brown <broonie@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	David Hildenbrand <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Christian Brauner <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Date: Thu, 15 Oct 2026 23:14:55 +0000
+Message-ID: <20261015231455.104217-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <202610140951.C3D6CBF73@keescook>
+References: <202610140951.C3D6CBF73@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-24-yosry@kernel.org>
- <CALMp9eSZkbSEMkrbFDsWU962AuLVMMe-Uo_gesqrU7Nb_V+ezA@mail.gmail.com>
-In-Reply-To: <CALMp9eSZkbSEMkrbFDsWU962AuLVMMe-Uo_gesqrU7Nb_V+ezA@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 15 Oct 2026 16:22:56 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zM0xy_-uU+r-2tMsGpaujHqYksOwuV8AF-2vDoAknWSdA@mail.gmail.com>
-X-Gm-Features: AclHuK-vHPqGlBEI-T4MKWTyAl44e0wx1CvdtZYhWSnyusVUp47ZVHCTCX5DtuY
-Message-ID: <CAO9r8zM0xy_-uU+r-2tMsGpaujHqYksOwuV8AF-2vDoAknWSdA@mail.gmail.com>
-Subject: Re: [PATCH v3 23/27] KVM: nSVM: Do not reset TLB_CONTROL in vmcb02 on
- nested VM-Enter
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 4:16=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
-rote:
->
-> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > Stop clearing TLB_CONTROL when preparing the control area of vmcb02, as
-> > this potentially undoes pending TLB flushes for L2 (e.g. through
-> > KVM_REQ_TLB_FLUSH while L1 is running), and remove the associated TODO
-> > comment.
-> >
-> > This is currently harmless, because nested_svm_entry_tlb_flush() always
-> > requests KVM_REQ_TLB_FLUSH_CURRENT on nested VM-Enter, which sets
-> > TLB_CONTROL again before L2 is actually run. However, always flushing
-> > will soon go away with proper TLB handling for L2, at which point alway=
-s
-> > clearing TLB_CONTROL would be a bug.
-> >
-> > Clearing TLB_CONTROL on nested VM-Enter was probably done because
-> > TLB_CONTROL is not cleared by the CPU on VM-Exit. However, KVM always
-> > clears TLB_CONTROL in the active VMCB after a successful VMRUN. Hence,
-> > at nested VM-Enter, TLB_CONTROL in vmcb02 can only be non-zero if a TLB
-> > flush is queued for L2 while L1 is running (i.e. KVM_REQ_TLB_FLUSH), an=
-d
->
-> Nit: s/i.e./e.g./
-
-Ack.
-
->
-> > that should never be ignored.
-> >
-> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-> Reviewed-by: Jim Mattson <jmattson@google.com>
+On Wed, Oct 14, 2026 at 11:47:00AM -0700, Kees Cook wrote:
+> But I agree, it's a statement that says "I brought this to the project",
+> and is _just_ a statement. What we want for the LLM stuff is "I
+> understand this change and am ready to convince other people about why
+> they, too, want it to be included in the project". "Assisted-by" never
+> did that. And I've always held that the place to do that is, and has
+> always been, in the commit message body itself.
+ 
+I completely agree with removing the Assisted-by tag.
+ 
+Using an LLM, I can ask questions that lead me to understand the code.
+It gives me the knowledge to defend my change, and lets me weigh my
+approach against other possible ones.
+ 
+Along the way I'm gaining experience and learning the different ways
+people solve the same kind of problem. What matters most is that the
+committer understands what the proposed change means.
+ 
+People may now go to an LLM to learn about something the same way they
+go to search engines (which increasingly consult an LLM themselves),
+and I never saw an "Assisted-by: search engine" tag. The tool just
+makes people more productive.
+ 
+--
+Jeremy Dean Clifton
