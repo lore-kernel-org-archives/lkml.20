@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5461A6808;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578DC49E5E5;
 	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061672; cv=none; b=Jyg1Oojip4mvmlvkSn9UxIeK1rhZ5jPPcVGETJIp9u/G5rq/p5UHZNAz1/sqaEVQ3H01XDzyirmN4pOm9xMjNXsFLsxspIwIkWb2JwLeXazet4dfxK4MI19BGXnqhzAFLU8BFuFM3xskOXb7RASm8p3+jxpBJfeG8TZYEKvDCvc=
+	t=1792061672; cv=none; b=m2LBB1AoHNiIYLpL5Ps4y31e2Z+Js+43X7FxbgL9UVu9HQZlaGScEiMFerIqBTT8kWXe9X6zejmISuwP6Iu6AH6GqyfWTOSswfx5a6qT1IBuw0hLuSnfJnArNDcXCA1FK3AlaHro8fWBrRW6vqYQ65GbIi501Q38NgbVdRUVOi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792061672; c=relaxed/simple;
-	bh=XnBqo5KK1FbSG3AyKIGTKrozlFujcTdv2js0zbZAoqc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nPzc7Ws29j83fRERLsLsMs7NcA3Pi9Q5PCcyt7WkQMoWkUbPpdmcuE2fD6F9dJ2Txkwz09QcOTSCpunMo1et5/ELIgxOcAIf1agA8Qe3aer4+e70Aowflard4Sx40MaBxktX0FT/BDk4mBrqJduIscqRSNjRbFq+rnlJzcyUIzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSbdiHG3; arc=none smtp.client-ip=10.30.226.201
+	bh=jEiCuk+3TJFdVLdOVB6ZHGauBFtFVSE/sTByl3iEMT8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gwvETDfHSis96xh74Y9bfyF919xXA3qf2WnvWzDffs8b0/a5vw804+gncbnDs4Kw5LClDGt4XjKC8Y0/wZvEq/5Wg9rmzHb5+vzxiTqlt7P/Gu25b6RGVWV26rPcG9OC7e67kEvB7wU1jFxtbyyvdAV0SkTISIBgpLQpIvJZJeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tD6W5Z9V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSbdiHG3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 591F5C4AF0C;
-	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tD6W5Z9V"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E925CC2BCC7;
+	Thu, 15 Oct 2026 10:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792061672;
-	bh=XnBqo5KK1FbSG3AyKIGTKrozlFujcTdv2js0zbZAoqc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=RSbdiHG38g6EtkMpqFmi0SaKAgJCHlZ4Fgm/Sh0elNyVrGnwbKonqzjE0OJ17Wnhc
-	 Nz9RS1LiYb+Y/0l5FnA2tI7PiPhQeSR2X1NpT4NsMVvFVplqf0PQODKt0OoY2QfqJQ
-	 dndydmT9CljLYx9ibhMcQwUxUXMCC1rIa4tYKuFrrPF/ZPOxOIe4Wkb+SJC/1/avCu
-	 qCk966fXqfzzz46MCOHib6CVyEoDyBKfk1+9qPRcFKt8P8eETs/CGJzqje3qW2j4E8
-	 puG6JnfoJkjQbGAuG0+7RyNxXv68nmUUybWUlqEaWIqDaX0gK44gj+qUMXgg+d0u1Z
-	 dwQyUSTF+8Efw==
+	bh=jEiCuk+3TJFdVLdOVB6ZHGauBFtFVSE/sTByl3iEMT8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=tD6W5Z9V1nq1cpte8ibCeqnf4x3X4GqZs/+B8JgTMojAQYsR6IgKcler+Q9kpMrYL
+	 mwek3eT/hvBtGYXb1mezltk4iPPTL/hxekFzV74BUInOBoitW5tN3B8sJ9EI5gQeeE
+	 t92NHGpZJnxZtnQrd9dRTTSNxqzXwMEf1mu2Fb3wHFk5VWopVXHVz3KbgmEeUvqQFK
+	 7evjck9Hcd206K3KAxLqpVXAI7/d3tMm3+3acaPze5ZoF6KQhByvNNvk6uaRAthsPq
+	 Xh+JNsuuom0Xm/qxWN81zZHa6tjdY82/+HSb8LRjqlUgN1ooSgfTaeMTBM4w4xsF9D
+	 Ri/K3EDRADbpw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41A7ACC6B33;
-	Thu, 15 Oct 2026 10:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2C9CCC6B34;
+	Thu, 15 Oct 2026 10:54:31 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Thu, 15 Oct 2026 18:53:33 +0800
-Subject: [PATCH v10 6/8] gpio: pl061: use cleanup helpers for locks
+Subject: [PATCH v10 0/8] gpio: add Ambarella CV75 PL061 support
+Date: Thu, 15 Oct 2026 18:53:27 +0800
+Message-Id: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +40,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-cv75-gpio-v10-6-3fe3eb315a55@ambarella.com>
-References: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
-In-Reply-To: <20261015-cv75-gpio-v10-0-3fe3eb315a55@ambarella.com>
+X-B4-Tracking: v=1; b=H4sIAKew0GoC/zWNzQqDMBCEX0X23JRErT899T2Kh7iuukWNJDa0i
+ O/eqBTmMsPHNys4skwO7tEKljw7NlMoSl4iwF5PHQluwgCxjDMlZS7Q5zfRzWxEkiRNjqppSSk
+ I/Gyp5c8he1Znd+/6Rbjsgp3o2S3Gfo83X+7c36tOrw8phRRpkSHGRanTunjosdaWhkFf0YxQb
+ dv2AwlV3aC3AAAA
+X-Change-ID: 20261007-cv75-gpio-333d7c1dfe11
 To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
 Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
@@ -51,13 +53,14 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
  Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
- linux-kernel@vger.kernel.org
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Chanho Min <chanho.min@lge.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792061669; l=3457;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792061669; l=4253;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=XQJyY0aHFk39z5/tEjscrBfUNuKA3uLfYN69iEwDoKE=;
- b=xiQsxHpOyv7AKSdoN/0W417bACM0jkLh8aRc+iEW16G/t8u8rCsna9TQvc1uZw4pUMTo2yL9u
- LEp/W72/aVaBsakYf5rmlxX5ya6kdYP5XxXh4mW9XfQPEEbEUKo2I4Z
+ bh=jEiCuk+3TJFdVLdOVB6ZHGauBFtFVSE/sTByl3iEMT8=;
+ b=zZjlJN80OIBIGXahxvQr1Z5/AlxIuearouUxyeqsRWMkYmwuvGmFDjCdsfwszdYo9dnUkmNGi
+ Oa67TlKtf/jCxOsRZOsDw2NHKyF9mM9dZB655KNw0pIDxv6TkALbwUF
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -65,116 +68,99 @@ X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
 X-Original-From: Long Zhao <longzhao@ambarella.com>
 Reply-To: longzhao@ambarella.com
 
-From: Long Zhao <longzhao@ambarella.com>
+The ambarella vendor prefix [1] is applied in the devicetree tree.
+Do not apply the binding until the prefix reaches linux-next. The
+driver patches do not have that dependency.
 
-Convert raw_spinlock critical sections to guard() from cleanup.h.
+Please take this series through the GPIO tree. The quirk, the PL061
+conversion and the Ambarella layout belong together.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+This is v10 of the GPIO patches from the combined CV75 series. The
+posting on Oct 9 numbered them v1 after the split. That was a
+mistake.
+
+These patches convert the ARM PL061 data path to regmap, then add
+the CV75 layout.
+
+GPIO data path uses gpio-regmap with two layouts (ARM PrimeCell and
+Ambarella). ARM PL061 sets GPIO_REGMAP_QUIRK_SET_AFTER_DIR. IRQ stays
+a custom PL061 irqchip. The linear domain is created with the PL061
+private data and attached by gpio-regmap. regmap-irq is not used.
+
+Tested on the CV75 EVK. The board boots. gpio-hammer toggles gpiochip0
+line 26 ten times, and gpio-event-mon on line 27 records ten
+alternating rising and falling edges.
+
+Changes since the combined v9 [2]:
+- dt-bindings: explain that CV75 is a modified PL061 (Conor).
+- gpio-regmap: move quirks after fixed_direction_output (Andy).
+- gpio: pl061: Andy's review on the regmap conversion and switch:
+  use regmap_test_bits()/clear_bits()/set_bits()/assign_bits(),
+  drop the redundant if (pending) and fast_io, introduce the ARM
+  regmap_config (including REGCACHE_FLAT_S) in the convert patch
+  and leave it there, blank line after guard() plus the blank-line
+  and reverse Christmas tree cleanups, and keep the upstream
+  pl061_irq_chip name and unsigned irq_type() trigger without
+  adding .name.
+- gpio: pl061: cache DAT (REGCACHE_FLAT_S, not volatile) so
+  gpio_set() does not read-modify-write the pin level (Sashiko).
+
+Changes since the Oct 9 GPIO posting [3]:
+- gpio: pl061: Andy's follow-ups since that posting: assign_bits
+  for DAT writes, drop fast_io, name the ARM regmap_config in the
+  convert patch, the guard()/blank-line/irq_type cleanups, and keep
+  the upstream pl061_irq_chip name and unsigned trigger without
+  adding .name.
+- gpiolib: regmap: add Michael Walle's Reviewed-by on
+  GPIO_REGMAP_QUIRK_SET_AFTER_DIR.
+- gpio: pl061: restore Andy's and Linus's Reviewed-by on the
+  Ambarella variant.
+
+[1] https://patch.msgid.link/20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com
+[2] https://patch.msgid.link/20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com
+[3] https://patch.msgid.link/20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com
+
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Michael Walle <mwalle@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: Long Zhao <longzhao@ambarella.com>
+Cc: Long Zhao <zl020895@163.com>
+Cc: linux-kernel@vger.kernel.org
+
+Assisted-by: LLM
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-pl061.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
+Long Zhao (8):
+      dt-bindings: gpio: pl061: add Ambarella CV75 variant
+      gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+      gpio: pl061: drop redundant pending check in the IRQ handler
+      gpio: pl061: convert register access to regmap
+      gpio: pl061: use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH
+      gpio: pl061: use cleanup helpers for locks
+      gpio: pl061: switch data path to gpio-regmap
+      gpio: pl061: add Ambarella register-layout variant
 
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index 8f431d08573d..5c6d4209dc8e 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -10,6 +10,7 @@
-  */
- #include <linux/amba/bus.h>
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/errno.h>
- #include <linux/gpio/driver.h>
-@@ -105,11 +106,10 @@ static int pl061_get_direction(struct gpio_chip *gc, unsigned offset)
- static int pl061_direction_input(struct gpio_chip *gc, unsigned offset)
- {
- 	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned long flags;
- 
--	raw_spin_lock_irqsave(&pl061->lock, flags);
-+	guard(raw_spinlock_irqsave)(&pl061->lock);
-+
- 	regmap_clear_bits(pl061->regmap, GPIODIR, BIT(offset));
--	raw_spin_unlock_irqrestore(&pl061->lock, flags);
- 
- 	return 0;
- }
-@@ -118,10 +118,10 @@ static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
- 		int value)
- {
- 	struct pl061 *pl061 = gpiochip_get_data(gc);
--	unsigned long flags;
- 	unsigned int mask = BIT(offset);
- 
--	raw_spin_lock_irqsave(&pl061->lock, flags);
-+	guard(raw_spinlock_irqsave)(&pl061->lock);
-+
- 	regmap_assign_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
- 			   BIT(offset), value);
- 	regmap_set_bits(pl061->regmap, GPIODIR, mask);
-@@ -132,7 +132,6 @@ static int pl061_direction_output(struct gpio_chip *gc, unsigned offset,
- 	 */
- 	regmap_assign_bits(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
- 			   BIT(offset), value);
--	raw_spin_unlock_irqrestore(&pl061->lock, flags);
- 
- 	return 0;
- }
-@@ -161,7 +160,6 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct pl061 *pl061 = gpiochip_get_data(gc);
- 	int offset = irqd_to_hwirq(d);
--	unsigned long flags;
- 	unsigned int gpioiev = 0;
- 	unsigned int gpioibe = 0;
- 	unsigned int gpiois = 0;
-@@ -178,8 +176,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 		return -EINVAL;
- 	}
- 
--
--	raw_spin_lock_irqsave(&pl061->lock, flags);
-+	guard(raw_spinlock_irqsave)(&pl061->lock);
- 
- 	regmap_read(pl061->regmap, GPIOIEV, &gpioiev);
- 	regmap_read(pl061->regmap, GPIOIS, &gpiois);
-@@ -239,8 +236,6 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
- 	regmap_write(pl061->regmap, GPIOIBE, gpioibe);
- 	regmap_write(pl061->regmap, GPIOIEV, gpioiev);
- 
--	raw_spin_unlock_irqrestore(&pl061->lock, flags);
--
- 	return 0;
- }
- 
-@@ -270,9 +265,9 @@ static void pl061_irq_mask(struct irq_data *d)
- 	struct pl061 *pl061 = gpiochip_get_data(gc);
- 	u8 mask = BIT(irqd_to_hwirq(d) % PL061_GPIO_NR);
- 
--	raw_spin_lock(&pl061->lock);
-+	guard(raw_spinlock)(&pl061->lock);
-+
- 	regmap_clear_bits(pl061->regmap, GPIOIE, mask);
--	raw_spin_unlock(&pl061->lock);
- 
- 	gpiochip_disable_irq(gc, d->hwirq);
- }
-@@ -285,9 +280,9 @@ static void pl061_irq_unmask(struct irq_data *d)
- 
- 	gpiochip_enable_irq(gc, d->hwirq);
- 
--	raw_spin_lock(&pl061->lock);
-+	guard(raw_spinlock)(&pl061->lock);
-+
- 	regmap_set_bits(pl061->regmap, GPIOIE, mask);
--	raw_spin_unlock(&pl061->lock);
- }
- 
- /**
+ .../devicetree/bindings/gpio/pl061-gpio.yaml       |  25 +-
+ drivers/gpio/Kconfig                               |   2 +
+ drivers/gpio/gpio-pl061.c                          | 552 +++++++++++++--------
+ drivers/gpio/gpio-regmap.c                         |  15 +-
+ include/linux/amba/bus.h                           |   1 +
+ include/linux/gpio/regmap.h                        |  14 +
+ 6 files changed, 409 insertions(+), 200 deletions(-)
+---
+base-commit: 34cf6dafc47441dfb6b356a095b89c3585a93714
+change-id: 20261007-cv75-gpio-333d7c1dfe11
 
--- 
-2.34.1
+Best regards,
+--  
+Long Zhao <longzhao@ambarella.com>
 
 
