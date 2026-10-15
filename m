@@ -1,68 +1,68 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1954F36B931
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AC5370AFD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792029143; cv=none; b=VG9BqW9+lBehXqtKMfrZUyCyB+gQhxO7Vexcjf2K6NWBsC8xRseh/aWR2mrTeylYtLdkekacn7Hux7MX5r+MtX9T+0O1ZLIq9Bd8zkuiHTbbEuh78VMtdahM8OVAdaJaTJzNxgOTj2N7G5aEkVTunXLezaDBZTJdEh61rxCpYPQ=
+	t=1792029145; cv=none; b=kGP38w8YuQW+Z+bV1PWNu/kiDxx/XrnzwDl5tj4LM1AsNoDCuHgIq2m9ItDw16BPAfRqTPeApgAp8tFk4gt9KtkobLHejpCkeBPNbnKYiLHmHgrKdqBrlM0oSbek0kcQ83fxjqT74yGQ8b22xRiNT48UQu5c/I50c1iiGZPRXYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792029143; c=relaxed/simple;
-	bh=bFrgvj+de3selRQge+2zrsIXpmJFAWy1UibRaUF4G9g=;
+	s=arc-20240116; t=1792029145; c=relaxed/simple;
+	bh=gihWboRE85V7m8JwLGzpmc5MGT4+kT9xJPz2tjqtWJA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UuWuMc2+BUjqeyoLR44NLUllNf+1EFiQp6B/WO/rXb/mow3geduXnx1sPOHYLQtdZaAlk4qi/UNJl5Ko8mftZ3235XvaMSpfRZZZuKpFOg9QwNjzaxknLO82tyY/Mq2CvCaitQ071soTDs9P5X0G7uG3nmGnZ4XHfU79niQeAmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWelmWL6; arc=none smtp.client-ip=74.125.82.172
+	 In-Reply-To:To:Cc; b=TkKYz7n4OybgkFCFyZmoZ1AQtuYC3DnWu+b7Wxq7VpnaqDEvVqW/mnVV9e4INLbXXjUKRr+o5yhYIIcKp59NcqQ26qhUqdg6zV5oxCqvV1kn2OvAf/idiEEO9Bj7cflnSNLKqOhO++eimFvgVxZNXGSo3U2XRIfM8i+fo8nOcXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nOFkJYxF; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWelmWL6"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso5032747eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:52:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nOFkJYxF"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so4553215eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:52:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792029141; x=1792633941; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792029144; x=1792633944; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X9hVE7odX7S9N5tuemqcf/5aS0JWCqfMdUhNBSrDt5k=;
-        b=eWelmWL6W4Vlqh85ZXlyunXFmg0zdvQU9Yd3QqaLiFDaKAArANan7zDJGHU9hWmPs1
-         vo7qEDP6gJf/OMdmy/sS3n4idpCwMLvrjK7G4vqhn914hlcZV/hBrZoH+gqALQKxB3ZV
-         bpC+l9Ax1XGhswvifPyIgzJzh0x84qUOxkBeIlUcCuu2WD72XJ9QwmF90HrhI4pjqCWR
-         QWj5I9by1z9UhAqsx3VdZcZ+4LiQgrxqcUC/Fl1hC9djbLUejGDx00dFXaq93pQdLUS0
-         Y60OhPQq4TVmyauwmYI3S0ez4PlfySnkhiAJTCvId/E+h5O0yE2uuEgFgTc/qxCV5xbh
-         Q1WA==
+        bh=cQ1+f0AAlHHUtqEE8yDxNIJCGiJRuQL1+LEEf2vlKAo=;
+        b=nOFkJYxFn0kNk/GjLaHNgHfaTxeZ1z9BBIRImvMM7piiDbBv9M7G/UzKYerH1WOuND
+         Hagghu/6Y/OnZACkwm59g8685Luw2NMSFWbtlEC0qoJzKZ+9yTI7zytF/Io0aMngYANA
+         0P4FPynTdc7GGqAQkiTV1uj+4KFx3zZXsw1W+qieukjFtWHl1Kv2iSchpMS8cTY1mtkV
+         bOJy4SkRdtJr2NjLkmt9ZAkXH8RGp5bf+ZOEQxcCyNu0f9Fr5IGqeQtiebhzDsz9kuaW
+         xevfH/+ASzaaqx9O4rkT6jNvquBP2h3VwHrfQ7w8uXd018i3aASfk6kjakaAmdwBgaPM
+         5T0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792029141; x=1792633941;
+        d=1e100.net; s=20260707; t=1792029144; x=1792633944;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=X9hVE7odX7S9N5tuemqcf/5aS0JWCqfMdUhNBSrDt5k=;
-        b=0j0ElYVFQrmT28l8dzvM0aoBZ1Qm6bQsvoN+qRLQ0fhE0QaKgDiAOH392yECsT82oi
-         CxcGUu4yxmnTRCdgu1h2f9je/lou3MyHW0H6jIg3xjYYtc8iA6GDj2trVD/AUyHek4oA
-         LloTG00a11XxrMlhdL88WM5nrIky8csFoigIk9BXhBveqh+1K7kIj/dv9yOt8OAvmt1d
-         4nGrg8BMmxjK3t7b+o68v/RVSBOk4KOFEZTdlG3ylPGgCj23mjRXWPJ91aU7DkNvyZuN
-         O3R+RWWXVCkwKuTOH13J9kaK3g6EKbj32oKI0eYoWAsmOucrr/6TFUE1AA4iDEkTUOZ7
-         GgNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDLKGOnZvCjIyvkwtwogF2yJvWbmMDe7rMxHzCkMpK6IfW8G3f5jR8xYyyRZ2WWELS19GzxZ9SesGeHiY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCRHnKgxDLxqksL0zuluNKZ/CRD9ojsMIV6Q7pfy0nDVPXigLT
-	DvcrdfxT7HnVJAktW5/GK+YwO1bNXv5GQhnKmUo3hGYhM2J0ojOBdHQn
-X-Gm-Gg: AYBFou30P9sN56Pn6ZqDPDQLcWx/oYI+rRMVvIdaOpFDphwkbiTtIbB6iqyr2H2q3La
-	gcK/jMTLRJ0duRlj19ZHWgpsqaODRgPiaG3UZ6z2xcad7U9hDU9mrLCTLsw5pSwyPWlXApoYn7z
-	3icUjMdnMKOlrgwqgAdBamZ7UikbbIExrTnKLxdDiKed9IsZ09DSztDQj2yz+E86VLPBBJqzpBD
-	1RmrfSJyAdbCwZ4+vzaCY0bp1bBwl0/nXzdRlvWHuHTBUdWI4Y+vqtpS2mnJZRZbOdVpHWUYJd4
-	PzTem9nW3IFFzhu77t/y4o5gKz2byBMqUxLhpJ04dboVIJb1cV8Gh4DicUvowP6E9x+Tc+yEOpY
-	l2l3Ue+Ar3NE6SYmswz20u3IqdFsyc5ardu6C+dHzKpqBEQ5E2atOE6iUBL733mAisdC25e0Stf
-	h+6t3rXDqQI/H3Ya93yOpjJ4scP/BL+Ttzxj5QAzplGNkjxzFHgNaoujJzAeuxNk2uMQ==
-X-Received: by 2002:a05:7022:5f05:b0:144:eb46:be0 with SMTP id a92af1059eb24-16a5fc9171fmr21649087c88.13.1792029141115;
-        Wed, 14 Oct 2026 18:52:21 -0700 (PDT)
+        bh=cQ1+f0AAlHHUtqEE8yDxNIJCGiJRuQL1+LEEf2vlKAo=;
+        b=wjADDcITDFgpxCx5IBDvdOspF5cPCcVxWEukO2+VCjU7Fl3hf1ZEetdqf+Bn5UIarx
+         Z1kSMy4NwqWVQDo5Z/JyDNsmXs+JC3qdM4xCRmJVDvLS5Q5ag2kTxBDCt2sYComtQ3Po
+         m2ur1O1P6t1qe2u0lfxiRVTNoMeVMyHiJWjZKUEpCsDju4ISSgta2bBgzfRmTvwmXald
+         a/xGsFneW1d1gO8HpiWXJtP9Q7CQQ4dCpB6cbcD1nMlc/+2w9gdfL7nhJhl54J0+x+G2
+         oz4zUvQGw+CiLyA3YUDC7Kgm37vU5IGIDAfB5Z0qNw7B3uMSO7kDZN4TkxN+Vc2qvDRw
+         A8cA==
+X-Forwarded-Encrypted: i=1; AKwUvByQQ//sj5EYKEUhDgtiA+i5wpazYMl3U+6xr/VBC6Hq2KUjbQpJ7Nuj/YGugMIaP/madzmuQ5ZTDIr3kQ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiU9hwYThbbxCB6I7sOlPvFa3zNBJb/APxc3LOWebp5eKb85r9
+	JUfAPs7fixPCAzChnTxw3NAetuMO1+G00fIQyM8Nqk24fQyW0cW7cXM+
+X-Gm-Gg: AYBFou1xv//e/bFCeTPURgP0/iamkHuK8i4E5IFVukWyRztZMwKivw4RH68Yy48aQRS
+	JFFCpdgdS54866l8GFxUV6ujtFiYSODwGyWdj8wSNbe5ZGQUcTiTueKcGf+0+fHtJemd77FxFqW
+	84IFUqW7tlRt7FmJiyu7UTM2ULtnwzqSUMJwn0fpL0jSlPfugyW3rCrMQy4Pv1EHvBn8IgNdWYE
+	iffiDVJGxajb0he2aBQDo/G8OoeXVn7bj2JGb1/KUPHtkqiBQoz0s8WGw2h9JdU6l2Nuf+akmhx
+	LYbSZGcbYLQ/STPMIwVBumTfbhdJkexZktSrJD1JAixhjO2s9m7Mf0za9JQcaLmX/lnP4159w0j
+	QuDnKfqwT7ERLipWkI7AUlqq9NI5HZ9mAwQoAu3NyafrDo2WeHTF+eZopv2hvKnvtpetVZ3KJ/7
+	JSKlFzW0JJNmaJUUlZi3NUwwqQW6Iof+SfwQy9Z0GR9rApUtwVGIp9IvCtc7khcJAesQ==
+X-Received: by 2002:a05:701b:21d3:10b0:143:296a:3ee with SMTP id a92af1059eb24-16a5ef28797mr24120650c88.25.1792029143558;
+        Wed, 14 Oct 2026 18:52:23 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm50647870c88.2.2026.10.14.18.52.18
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm50647870c88.2.2026.10.14.18.52.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:52:20 -0700 (PDT)
+        Wed, 14 Oct 2026 18:52:23 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Thu, 15 Oct 2026 09:52:15 +0800
-Subject: [PATCH v2 1/2] block: don't quiesce the queue when setting the
- default elevator
+Date: Thu, 15 Oct 2026 09:52:16 +0800
+Subject: [PATCH v2 2/2] block: rename the out_unfreeze label in
+ elevator_switch()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,98 +71,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-bug-block-elevator-init-quiesce-v2-1-505a2b0b1c07@gmail.com>
+Message-Id: <20261015-bug-block-elevator-init-quiesce-v2-2-505a2b0b1c07@gmail.com>
 References: <20261015-bug-block-elevator-init-quiesce-v2-0-505a2b0b1c07@gmail.com>
 In-Reply-To: <20261015-bug-block-elevator-init-quiesce-v2-0-505a2b0b1c07@gmail.com>
 To: Jens Axboe <axboe@kernel.dk>, Ming Lei <tom.leiming@gmail.com>, 
  Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>
 Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
+ Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-elevator_set_default() runs from blk_register_queue() while the disk is
-still being added: the block device is not visible yet and uevents are
-suppressed, so no file system I/O can be issued. elevator_change()
-freezes the queue and cancels the dispatch work before switching, which
-is enough to drain dispatch activity from passthrough requests, as the
-comment in elevator_change() already states.
+Commit f8e111c859b9 ("block: don't call freeze queue in
+elevator_switch() and elevator_disable()") moved freezing the queue
+out of elevator_switch() into its callers, but kept the out_unfreeze
+label, which used to unquiesce and unfreeze the queue.
 
-elevator_switch() still quiesces the queue unconditionally, though, so
-every disk added with a default elevator waits for an RCU grace period.
-Commit 245a489e81e1 ("block: avoid to quiesce queue in
-elevator_init_mq") had removed this wait from the default elevator
-setup, and it came back when that setup was folded into
-elevator_change().
+The code at the label now unquiesces the queue but never unfreezes it,
+so the name is misleading.
 
-The wait is paid in full by callers that add disks one at a time. ublk
-adds the disk of a single-queue device from START_DEV, which takes 7.7ms
-at p50 in a 16 vCPU KVM guest, most of it in blk_mq_quiesce_queue()
-called from elevator_set_default().
+Rename the label to out_unquiesce.
 
-Skip quiescing in elevator_switch() when setting the default elevator.
-
-ublk null target, 1000 single-queue devices created one by one:
-
-                     before      after
-  START_DEV p50      7.74ms     0.68ms
-  START_DEV p99     14.61ms     1.32ms
-  devices/s             114        971
-
-Fixes: 1e44bedbc921 ("block: unifying elevator change")
-Cc: stable@vger.kernel.org
+Suggested-by: Nilay Shroff <nilay@linux.ibm.com>
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
 ---
- block/elevator.c | 7 +++++--
- block/elevator.h | 2 ++
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ block/elevator.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/block/elevator.c b/block/elevator.c
-index 2161b6eea680c..da9ba70ac9321 100644
+index da9ba70ac9321..80cbac91581b0 100644
 --- a/block/elevator.c
 +++ b/block/elevator.c
-@@ -573,7 +573,8 @@ static int elevator_switch(struct request_queue *q, struct elv_change_ctx *ctx)
- 			return -EINVAL;
+@@ -584,7 +584,7 @@ static int elevator_switch(struct request_queue *q, struct elv_change_ctx *ctx)
+ 	if (new_e) {
+ 		ret = blk_mq_init_sched(q, new_e, &ctx->res);
+ 		if (ret)
+-			goto out_unfreeze;
++			goto out_unquiesce;
+ 		ctx->new = q->elevator;
+ 	} else {
+ 		blk_queue_flag_clear(QUEUE_FLAG_SQ_SCHED, q);
+@@ -594,7 +594,7 @@ static int elevator_switch(struct request_queue *q, struct elv_change_ctx *ctx)
  	}
- 
--	blk_mq_quiesce_queue(q);
-+	if (!ctx->no_quiesce)
-+		blk_mq_quiesce_queue(q);
- 
- 	if (q->elevator) {
- 		ctx->old = q->elevator;
-@@ -594,7 +595,8 @@ static int elevator_switch(struct request_queue *q, struct elv_change_ctx *ctx)
  	blk_add_trace_msg(q, "elv switch: %s", ctx->name);
  
- out_unfreeze:
--	blk_mq_unquiesce_queue(q);
-+	if (!ctx->no_quiesce)
-+		blk_mq_unquiesce_queue(q);
+-out_unfreeze:
++out_unquiesce:
+ 	if (!ctx->no_quiesce)
+ 		blk_mq_unquiesce_queue(q);
  
- 	if (ret) {
- 		pr_warn("elv: switch to \"%s\" failed, falling back to \"none\"\n",
-@@ -731,6 +733,7 @@ void elevator_set_default(struct request_queue *q)
- 	struct elv_change_ctx ctx = {
- 		.name = "mq-deadline",
- 		.no_uevent = true,
-+		.no_quiesce = true,
- 	};
- 	int err;
- 
-diff --git a/block/elevator.h b/block/elevator.h
-index 3eb32516be0b1..3886d97427e33 100644
---- a/block/elevator.h
-+++ b/block/elevator.h
-@@ -43,6 +43,8 @@ struct elevator_resources {
- struct elv_change_ctx {
- 	const char *name;
- 	bool no_uevent;
-+	/* the disk isn't added yet, so skip quiescing the queue */
-+	bool no_quiesce;
- 
- 	/* for unregistering old elevator */
- 	struct elevator_queue *old;
 
 -- 
 2.43.0
