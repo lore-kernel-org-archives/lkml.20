@@ -1,68 +1,139 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AE255581F3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080146; cv=none; b=P6ORCvWzwX8O4seHecnbCo4hgo3S+qlXqrDHHAuLGI2rY0ghgl71OolaIPqcsqJnQec1+GgNZF2sVwf6Wn3UmSJPKPU0W6bpEZ7aZYtsbOkoRmzjTSiaXwDE4j5MQEup/xBrhFaCj/lIkxdt9tQ3dXQ0YuqEsIOZCNE4tIn029U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080146; c=relaxed/simple;
-	bh=NNMjjW8qdgXOU4AYb1jZwZ8a47UPSAZ6V0Z4UX65iYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A/RdaNbcMP+P/5QD0kl2Fcj1imrMwSyPyTBaYz2/5WVat7ylN43gwOFJSVEZ8semhu682gXEpxZa8uTQSSXxruzdVlJr0iBG+cXoo+aI8i4VRdWwBvjXnbv4P8mHyUosHkeO1ElD0TPdbnAYUSZx//qvKFjZJ1l9n7aMTDl91Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from io.home.8bytes.org (p200300f6af404a00bcc634c34b045ea0.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:bcc6:34c3:4b04:5ea0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 0ED8A1C7802;
-	Thu, 15 Oct 2026 18:02:07 +0200 (CEST)
-From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
-To: iommu@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Will Deacon <will@kernel.org>
-Subject: [PATCH] MAINTAINER: Make Vasant Hegde AMD IOMMU maintainer
-Date: Thu, 15 Oct 2026 18:01:19 +0200
-Message-ID: <20261015160119.1005966-1-joro@8bytes.org>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002C8559C8E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792080149; cv=none; b=Fbz+rta6r7E98+CW/iS+l40H/7Ipt3+BEN7abuAffnUqOjrn26NayWLrXpRhjQYLByeL3euMOr0iYatkeLIiZThW4yP2gftSyNZYH5UeXzotKp+dgGs5HRcTnIZJBNSKw9LLygILBAi2xETRPCSavBy2vlOA812+ncI41zuFDfk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792080149; c=relaxed/simple;
+	bh=1/BCW9hL/dnqi+MjTOyiCQgen+JFtJ2RNU3tcWIbF0k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kU/dMB2KqY0nYwHpm3NhCfYcrjIPMNWkVdkabCjCornNBBM0NzONAH10CCAKrYpUIsPuuCHJqQ5npqHcY0mqe0kxIPKipcmYe/vV0DGmpWIwoZnx32049O4wVRz1yPwLYNb5dI3BbIhd1t52nn98/v8xzyEuWxEpTkaxmIPFKZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YbsK4dDk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YbsK4dDk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 535824E41249;
+	Thu, 15 Oct 2026 16:02:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 11E366075C;
+	Thu, 15 Oct 2026 16:02:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3887410328C76;
+	Thu, 15 Oct 2026 18:02:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792080125; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=6BO4/TMDN+AnX7zo6BpkAHZoFqQTddTDZMpqSSN1Y88=;
+	b=YbsK4dDkdw8cpJW1uT51lUNexQ/MUagKsifJKYr/Twca5is8nt395izZ79rVefGvY9wT8P
+	B66zV9haE1mrzIcJHRgJF0ZQndGIE4da+tSSgqRuBQBtYiyJDvIeOBnHYq7TEuYsef9nNs
+	SSvbK20HOtepxw3shYudVlXfFEmtZ2YBoI+AqLYiyQ3hqSTHUukmY1K+um5C1c1mehp71g
+	JF1LGkqmKgIori5mBbyX78deBkBJvISkNkK8gkw8LXeNMr+3jrpczOe0KNCEgm5H4KmzQ9
+	yBj9zXHV04QORf3Dk9yyj5gAlb60jo1qYoLlD9snjWSbq/RVMM7pX5OFxw7CmQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Thu, 15 Oct 2026 18:01:18 +0200
+Subject: [PATCH v10 05/10] clk: nuvoton: ma35d1: Use device managed helpers
+ for fixed rate clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-5-47c97b54a809@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Joerg Roedel <joerg.roedel@amd.com>
+Most of the clocks are already registered with device managed helpers,
+except the fixed clocks. Harmonize the driver by using the already
+available managed helper for that.
 
-Vasant reviews and tests most of the AMD IOMMU patches and is critical
-for maintaining the driver. Make him an official maintainer.
-
-Cc: Vasant Hegde <vasant.hegde@amd.com>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Cc: Will Deacon <will@kernel.org>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..64052e51c3cc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1181,8 +1181,8 @@ F:	drivers/platform/x86/amd/hfi/
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 65a2691002a7..8fab3c563316 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -139,9 +139,9 @@ static const struct clk_div_table eadc_div_table[] = {
+ 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
+ };
  
- AMD IOMMU (AMD-VI)
- M:	Joerg Roedel (AMD) <joro@8bytes.org>
-+M:	Vasant Hegde <vasant.hegde@amd.com>
- R:	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
--R:	Vasant Hegde <vasant.hegde@amd.com>
- L:	iommu@lists.linux.dev
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
+-static struct clk_hw *ma35d1_clk_fixed(const char *name, int rate)
++static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
+ {
+-	return clk_hw_register_fixed_rate(NULL, name, NULL, 0, rate);
++	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+ }
+ 
+ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
+@@ -280,24 +280,24 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	 * purposes.
+ 	 */
+ 	if (num_clks == 1) {
+-		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+-		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
++		hws[HXT] = ma35d1_clk_fixed(dev, "hxt", 24000000);
++		hws[LXT] = ma35d1_clk_fixed(dev, "lxt", 32768);
+ 	}
+ 
+ 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 0);
+ 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 1);
+-	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
++	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
+ 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
+ 					 clk_base + REG_CLK_PWRCTL, 2);
+-	hws[LIRC] = ma35d1_clk_fixed("lirc", 32000);
++	hws[LIRC] = ma35d1_clk_fixed(dev, "lirc", 32000);
+ 	hws[LIRC_GATE] = ma35d1_clk_gate(dev, "lirc_gate", "lirc",
+ 					 clk_base + REG_CLK_PWRCTL, 3);
+ 
+ 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
+-	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
++	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
+ 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
+ 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
+@@ -338,8 +338,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
+ 	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+ 
+-	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+-	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
++	hws[USBPHY0] = ma35d1_clk_fixed(dev, "usbphy0", 480000000);
++	hws[USBPHY1] = ma35d1_clk_fixed(dev, "usbphy1", 480000000);
+ 
+ 	/* DDR */
+ 	hws[DDR0_GATE] = ma35d1_clk_gate(dev, "ddr0_gate", "ddrpll",
+
 -- 
-2.53.0
+2.55.0
 
