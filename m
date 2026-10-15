@@ -1,41 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5ABD4A2E27;
-	Thu, 15 Oct 2026 15:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947524D7D34;
+	Thu, 15 Oct 2026 15:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792076792; cv=none; b=rHdg0T8s2Htel5qc2JFYJmlVMoC0No7CJJe3AAyfXg6/jaN8/c1Xh+oUTn8hW6AhsUflicpfOn505OV5U9Qx+DsFhu4fDse+LOaY3T8+qPg1/jLToMDABbHbpAoSAL5qIuG/PoUJCSV++ZzZ9otHDhMhzmPD5FLbaIbeKEtVnY0=
+	t=1792076822; cv=none; b=C6s5WI3WuNxl5tKgUlz0hbPs5lXH2Sbu4StYWIldoSgBnFEuylRSsA5YEuXfcCG4jRT8uvyT1LNceAihqLds72ngdOyHUEV/HYlxRjS0cARe+g7x0L0vCKLSAdHllmPOPq7NASixPnflm/0/FzWOkQHtVoiamkebTwz/V6Jrmno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792076792; c=relaxed/simple;
-	bh=44ObRLLeSJEZjlONSmEVnsFZ1XHrhH0KyZ3LV7lCCZw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DTcu1Us03DxyDYK+UgkQoDXq0/49Z/i5by/hulwa1NLm8iIAiEH4objmtBVoOOm2h18btPmiopqEupArA4NtrbZtaWc7XM4zeH6AjcYX59AS028mRtQjkckoY3dfntbZ5syr5JLnGaxqV8p+xHtyvhluFZlDdn8BJW/TlJIPZKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RMQD5ome; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792076822; c=relaxed/simple;
+	bh=F1tNK4LvSB95qeM3y8c58Zeylxaw0twuE7juiA3LHAk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jaAufNaJHBt/0gG0VN0GlUDwqwGAgc1w6tBUpgwzuenNpMBK4wnHVIX6ZBWsIcSXnGe09HoSWkF1pxu5sppm253xzaPGul5jIpy0xJ6iRi3mITKOwt5Jc/8QS+ZfrGwNZLUUjxtqJrX2MF7ZbaNVlXdXf8liySV3HB9iHFW7ln0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVryW4l9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RMQD5ome"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE6A1F000C4;
-	Thu, 15 Oct 2026 15:06:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792076791;
-	bh=Bt2xHiRLuCEUEUjwNFd1YMNrjnY78GVVrs/wdHe6UPI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RMQD5omeVYZmDTStIvB+SQji/k4XirLOZuImSrmf7poXZIAji5j3jcLMb+ls0XIZu
-	 mW9Sl9BO08iYzHQCz6eUDueLEFjM8WcEMVGll9xqHJU1G0E8fts5BTuuEzeS8HjXOe
-	 hxfqc4bTVgyDPP6wStoHBicP3YLAwyW9/ST1KH/DrVmGVpiRwnjWb396Vc+dI8S975
-	 U0kZkuWlSkzooteUDh+xLkAgJ5T8rgINhnTJolN6N80v7I0WNc9oxTwgt73pDUE9MB
-	 3oLqjquRuvtgdHt+vQVZ7pIzJ6l4p+B82BZ5sJv81Wl8bxWdbJCgFnffnPLNnZKSEQ
-	 ejLN4AV6KWNQQ==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Alexey Charkov <alchark@flipper.net>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261001-bq25792-volatile-v1-1-cb3d4ec8a414@flipper.net>
-References: <20261001-bq25792-volatile-v1-1-cb3d4ec8a414@flipper.net>
-Subject: Re: (subset) [PATCH] mfd: bq257xx: Mark self-modifying BQ25792
- registers volatile
-Message-Id: <179207679007.2041061.16299423448287914984.b4-ty@b4>
-Date: Thu, 15 Oct 2026 16:06:30 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVryW4l9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5A91AC2BCF5;
+	Thu, 15 Oct 2026 15:07:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792076822;
+	bh=F1tNK4LvSB95qeM3y8c58Zeylxaw0twuE7juiA3LHAk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=UVryW4l9rGqnN2SzUPTzUeabok9kIct9NTH08IdSpcFU+Wg1yv9JXln8sGJH+IbGT
+	 3XbTEUhTJ1sOhYD33SIHLKKOCztmtOEwa22Vdn94Z5gT33B2JBrJOP4cX+LXxgcw+u
+	 liMwuwvOl8OmYNGJcassqafLeFWULLlS/wU76GKyA+rd8V5llM0+rih89kJkWctlst
+	 gy4EsjgtarIKYqUTs4UYuUfsn0MmddBTVvv1zrYWGPDjSZV+2sxLBhEVNhP6yNepxZ
+	 /Apda4ySzV8psw0xdj1YHwPSfGCy2yk5Nf+Y2z9d1YQ0pLo286dvEQR6z+ysHJiaQA
+	 8p9qqLQexn7Lw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A6BDCC6B34;
+	Thu, 15 Oct 2026 15:07:02 +0000 (UTC)
+From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
+Date: Thu, 15 Oct 2026 10:07:00 -0500
+Subject: [PATCH v14 01/11] scsi: ibmvfc: fix IRQ leak and guard deregister
+ on channel reg failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,25 +40,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-ibmvfc-fpin-support-v14-1-a0b063b8d825@linux.ibm.com>
+References: <20261015-ibmvfc-fpin-support-v14-0-a0b063b8d825@linux.ibm.com>
+In-Reply-To: <20261015-ibmvfc-fpin-support-v14-0-a0b063b8d825@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, 
+ Tyrel Datwyler <tyreld@linux.ibm.com>
+Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792076820; l=1764;
+ i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
+ bh=sg9Lbgea4G1OveFwjkYaq90w+e+5hioGkpYGXVuzHdo=;
+ b=MplTtmFEl2uF9VIFYJXBkOuSUVHDJ92F+peFfBLNhyxvYYhJPENb77YHn6bOj256N2UDH4qsJ
+ SL/6RLGWmlLCdoFrZrlG74es5IcdjuYjRN4pBB1zt1S8cvtF+3rh7Da
+X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
+ pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
+X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
+ auth_id=689
+X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
+Reply-To: davemarq@linux.ibm.com
 
-On Thu, 01 Oct 2026 17:30:23 +0400, Alexey Charkov wrote:
-> Some BQ25792 configuration registers change without being written: input
-> source detection sets VINDPM and IINDPM at plug-in, plug-in also clears
-> EN_HIZ, the FORCE_* bits clear once their operation starts or completes,
-> EN_ACDRV1/2 follow input path changes, and ADC_EN clears after a one-shot
-> conversion. Reading them from the cache returns stale values.
-> 
-> Mark these registers volatile, keeping the cache for the rest.
-> 
-> [...]
+From: Dave Marquardt <davemarq@linux.ibm.com>
 
-Applied, thanks!
+If request_irq() fails during ibmvfc_register_channel(), the error path
+disposes of the IRQ mapping via irq_dispose_mapping() but leaves scrq->irq
+populated with the stale virq number. A subsequent call to
+ibmvfc_deregister_channel() during teardown or reset cleanup then
+unconditionally invokes free_irq() and irq_dispose_mapping() on the stale
+IRQ descriptor, triggering kernel warnings.
 
-[1/1] mfd: bq257xx: Mark self-modifying BQ25792 registers volatile
-      commit: 56d974f3ad074a60bf877d131eab8b1df5b4f069
+Fix this by:
+1. Explicitly setting scrq->irq to 0 after irq_dispose_mapping() in the
+   ibmvfc_register_channel() error path.
+2. Guarding free_irq() and irq_dispose_mapping() with a check for scrq->irq
+   in ibmvfc_deregister_channel() so unmapped or unregistered queues are
+   safely skipped.
 
---
-Lee Jones [李琼斯]
+Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
+---
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+index 0b154e07299c..7818838669ae 100644
+--- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
++++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
+@@ -6435,6 +6435,7 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+ 	if (rc) {
+ 		dev_err(dev, "Couldn't register sub-crq[%d] irq\n", index);
+ 		irq_dispose_mapping(scrq->irq);
++		scrq->irq = 0;
+ 		goto irq_failed;
+ 	}
+ 
+@@ -6463,9 +6464,11 @@ static void ibmvfc_deregister_channel(struct ibmvfc_host *vhost,
+ 
+ 	ENTER;
+ 
+-	free_irq(scrq->irq, scrq);
+-	irq_dispose_mapping(scrq->irq);
+-	scrq->irq = 0;
++	if (scrq->irq) {
++		free_irq(scrq->irq, scrq);
++		irq_dispose_mapping(scrq->irq);
++		scrq->irq = 0;
++	}
+ 
+ 	do {
+ 		rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address,
+
+-- 
+2.56.0
+
 
