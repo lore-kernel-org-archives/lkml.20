@@ -1,350 +1,254 @@
-Received: from mta0.migadu.com (out-90.mta0.migadu.com [91.218.175.90])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE7151DE05
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.90
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065658; cv=none; b=VnPmzmfRGPLDFR29NYg3ptgZxAYmIU2+/xIBVHVApA/hNA1XYBn4f5kEAFZU12sP/0YbsGH5GyhfiCro0zFtECyCdrc03Sk15TcPstqPiGDwSLUka4kFjxWqlCfrvXfElV9mzyccpx3mFGsFyRm/eb2FoOvI6BCdv0Hx8Z4X84E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065658; c=relaxed/simple;
-	bh=R99PCc1zJFx/7ZGSZ5Cra+MQV7lkkTtEbiGNQNkkiQA=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=WLD28tP488/bbkrYWOq7XbgZVVqPei3RThwa+7FoTK/Cgkwk517NesHzfc1PCF1TZDvX0YSR41PE4x6qScZhV8VvWqpdBgwqW8NwhcWdLFhX3D8cPN89aMZ+kKa6wVU/XkrCO5LaWv8cj/RrjiTyvTiUfXPxJuY0MGALCNEH/zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NKGoCTR2; arc=none smtp.client-ip=91.218.175.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5090A4E8E0D
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065737; cv=pass; b=Fbq5jw/DSNzSVDPZZYCuPa9jNU1u+UQdfYrJoMosMAFiJZv2+s1/F6i+3wxZ8aKwA6fHseXrpbGuM4qXE/7sthOPduKVcnhA3DHOySw574iRE4XlgBG067fEnKLWRUtnJ/2xwlEp9mNXUefc9exgg4/RnCXJZv8Pyu8xUV4t6jM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065737; c=relaxed/simple;
+	bh=ugSv4CYM3N2i0DNju0EHUA/uM7s+Ulvw7zSWPcq+/zc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aFdBRI3bk40aRzMsOCzX8ZeDB9fWdhh3p2yBvTbZOggproOhYc+fBJIVopTG3Kakgv/+ZklbADannhwrv/uHZ8M/1CjVaILm9ZihbVV6+Hp28hCv4exP2A8GxvfXc0VR1oLuok00Km9F2QQvRsKRNQ8WSP/ngyv++ocxeFgkzko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qPNghg+d; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NKGoCTR2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R99PCc1zJFx/7ZGSZ5Cra+MQV7lkkTtEbiGNQNkkiQA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792065650; v=1; x=1792670450;
- b=NKGoCTR2om83DmcNmAuvw5SfyozQf9GYnaviA0YNixJ4LUbFJOsw6COwaTnuhWPJ5NNbqTeU
- Qy/hgxBy6GA/NgAk5iNlzOHrDvjKo16Z/Vwv0u/pB5Q+ygjLc+FtTVg7/iS1bMPWS4SCaaZMASk
- clVngPdkmGcLnYvEOzEucb7s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a62df552f173dbd5;
-	Thu, 15 Oct 2026 12:00:31 +0000
-X-Mizu-Trace-ID: a62df552f173dbd5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a3dfbc2d-8580-478c-8189-3794d49aee11@linux.dev>
-Date: Thu, 15 Oct 2026 20:00:20 +0800
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qPNghg+d"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso7346250a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:02:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792065733; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qNTuQLDoSUR7G2SDxpNq0JQ9t6hLT9kAc7XGlRVsbSpp2HZZw/GjBClRaHHqSZdzR9
+         W6I0+1mY4qH0iIIgKxhyjaPgeMRQc91dJ7l7nnszqRiTNbtD7tr/J46YzKwd866rePVf
+         ebwyU7VPvfKCzChAovqmjfdZyiZVGiWAsOriLg++DihtkNZip3PECmd223aQUYsU9oLh
+         07Xp7+LgyUMMS7MsRy7UUnj+kGvqKLsD1H4TKYJNOV5n5qEQpYm58lYeeOe8Qec5f1zE
+         Z4tC8gUDN6pdpRezNVBXu7/L1LDl3iW7k7jJhj0dPJjSZkxOJSkSre1jRd/uEOixGTi/
+         5XXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JEqhtpB+Zby+PIlGCDUQg6WjweZp3J9rWc7Srfjl8uw=;
+        fh=CDgtETo4i8lqaS00qwQzCxbgRxNvLD0DisskTOVvKgg=;
+        b=Njb5g1Qo3JgtZxRyNNgyor41OUyJ3Zj3cczbh8pQkrRG+YKvSqp99xr8tkwHrvNJL6
+         4CJXGqvjNJZbCDxs354OqFLVZaZ6VpS8NUIsfe19Zu+LAiaQuGLzXfIqVuhQJXKG2PD/
+         09iFYcKmEnSu04Cnhmc2SV16k5fKy0ERWZoIyRx+E6D1j2tJxdYOlsDI5drQ7O4FYmR/
+         r/rwUlSlFhymYnkbT7xEMEQRqyTJiZf8ZU7qLCLCl3aPmgMizG1OtEHD1Zhuffs00KUy
+         O7+pTOwprdSq9UvikOtRJdJxGn8qaVtHHaRrhgbao0Hkn2EdwDdj2V9gLf0gmw3Czvfx
+         PZ+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792065733; x=1792670533; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JEqhtpB+Zby+PIlGCDUQg6WjweZp3J9rWc7Srfjl8uw=;
+        b=qPNghg+du+PBZ8MB7RkZSZOeVO4lLNm5FIc2QB1Yj2JWYVh2KFe7JFWveTebcyPCEU
+         9RDYlra9xnjQLEYtdhxikCLilXxaZ6vherSoNsfWR5KEYrDjPug5sQ6Xte4BwSkS+OVp
+         AXCrs5E2butL+5HYCJ50VyWE6/jVtS6r65mB0+SZP53iuD+anO3s4DEj8xPveNSsyv40
+         Oes85CyyfKSxhxm/l06rSNTbTaYVlyBmEdBqAF5VEbfoO+qvTpo6ZbsOkIAQnrpl7Unm
+         twQ0rTx5S/CSdOzTftNP0i/8NwGjzJTCHyMw9SNQ8kBRLaLNWrwyH/zvR787agP57gHz
+         RwCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792065733; x=1792670533;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JEqhtpB+Zby+PIlGCDUQg6WjweZp3J9rWc7Srfjl8uw=;
+        b=MwBaiwfFUHg+nFzhn/MjQbPqp+U4BmTuEPwUz8kp4y/DrAgyUgDiUXv78LEm/2qnHo
+         kQrli774TQbwmmYIrEnyvpROKHm9uTmPJ3O7aF6beY75xf5v3B5+vAV1uIvLU648zPFY
+         KqMy0FS+2TcMy6ZGWb3StgrYf88jNdar2xnATshLyo4aa9y3tb7CySvHi7YM0rmsayMt
+         EX/uKABhFI5SGNWtleOS1zUgIS0PqcIs8R6gwQEj1FrS3pi9ivH7pzLOXx1gN4wsjZuS
+         dNh2xA8MVZqSKiAD4ASUaHds2VlzYANLHpXPCdq87p6uvafxB5WNimitU6LtMamQ7xYz
+         pgyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRt29u5T2uGaCpmjMtvXe1ELCDABMB2XeNhZH4o7QDPKSZutaheW5O+YYVZAIbSs3120twVwTxQN2WEE8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOQq3+bm/gSao+S7lhJ7MxgZXRi75tpA/LyB12ExjGqg1oQg/e
+	gh3Ko0+/ugcLXQyLmTla0ZxExxsGtVz2Rrk3C+7DrgeBtu4CGUzAKsNqLMBu/pb8CiNL5No6MtB
+	DIGBj+/vi78DjlyxciUwIqe4Rh0uT5TZMt+I3XqlDyg==
+X-Gm-Gg: AYBFou1A6CgQKcccPA0s96g8+HVmzFV0VSAXImtZEtC3qTeZ4YH+eR2UPAyESQN/iEV
+	ZHRdJxpoDsdhYhM5WXb169RHzDToV5aXkoS9tS3WO+N1Rdb48Uyj6pj8jAhfhcmFGnAU0V3Khrs
+	HX6C2gYgnhFsUd232sLSLhpOfbQeOVgw2LAbad0vSeb+cnENypp3b7UGTSc8P0nRodq9InVKdB4
+	GafVK4aiWOTlsO9HOM674JAD6/yWVFfuoidGCDryowzHSrL+vanilDSA+CdZDDkWF5DxqsPCmzD
+	aSMmkGprmga1FxrLpLXOvntEpXZzmoJtzVcuXP4tF1X4dX9EyxKOm9o2JqC6fnOxSLSZBVFmlW+
+	t28aA0MLmsUn/
+X-Received: by 2002:a05:6402:2b92:b0:6b1:ef16:1850 with SMTP id
+ 4fb4d7f45d1cf-6b1ef161c44mr6732131a12.43.1792065733323; Thu, 15 Oct 2026
+ 05:02:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com,
- alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v10 0/4] blk-iocost: add BPF struct_ops cost model
- support
-To: tj@kernel.org, josef@toxicopanda.com, axboe@kernel.dk
-References: <20261003124045.1289305-1-cui.tao@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261003124045.1289305-1-cui.tao@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
+ <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
+ <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com> <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
+ <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com> <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
+ <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
+In-Reply-To: <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 15 Oct 2026 14:02:01 +0200
+X-Gm-Features: AclHuK--zTS0aSJ0H3JJTTAh7_ndQC7xyA9YiZoCCOY9DqsahT_T78PB_dhOJyg
+Message-ID: <CAKfTPtC70sx58uiaMEXv=vOk+o-Q_1PcHewiVjGCWMd_kvn=tA@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
+ capacity systems
+To: Mete Durlu <meted@linux.ibm.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Andrea Righi <arighi@nvidia.com>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Tim Chen <tim.c.chen@linux.intel.com>, 
+	Chen Yu <yu.c.chen@intel.com>, Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello，Tejun
+On Tue, 13 Oct 2026 at 12:50, Mete Durlu <meted@linux.ibm.com> wrote:
+>
+> On 12/10/2026 16:49, Vincent Guittot wrote:
+> > On Mon, 12 Oct 2026 at 13:04, Mete Durlu <meted@linux.ibm.com> wrote:
+> >>
+> >> On 09/10/2026 17:32, Vincent Guittot wrote:
+> >>> On Thu, 8 Oct 2026 at 17:25, Mete Durlu <meted@linux.ibm.com> wrote:
+> >>>>
+> >>>> On 08/10/2026 16:58, Shrikanth Hegde wrote:
+> >>>>> Hi Meter/Andrea.
+> >>>>>
+> >>>>> On 10/8/26 5:40 PM, Andrea Righi wrote:
+> >>>>>> Hi Mete,
+> >>>>>>
+> >>>>>> On Thu, Oct 08, 2026 at 10:30:46AM +0200, Mete Durlu wrote:
+> >>>>>>> Summary
+> >>>>>>> ===========================================================================
+> >>>>>>> On systems with asymmetric CPU capacities, the scheduler prefers
+> >>>>>>> fully idle
+> >>>>>>> cores over idle SMT siblings of busy cores. This works generally well
+> >>>>>>> but
+> >>>>>>> virtualized platforms where low capacity cores should be avoided are not
+> >>>>>>> considered. Introduce a new config option and arch hook to prioritize
+> >>>>>>> SMT utilization.
+> >>>>>
+> >>>>> That's true only under physical CPU contention right? or is it always?
+> >>>>
+> >>>> Right, because of that s390 treats all CPUs as equal and starts to
+> >>>> assign lower capacities to CPUs with low entitlement once a certain
+> >>>> steal time threshold is crossed (aka physical CPU contention).
+> >>
+> >> Hi,
+> >> Sorry for causing a misunderstanding. I should have been more patient
+> >> and detailed while writing my reply.
+> >>
+> >>> I'm not sure to get what your topology is because "if s390 treats all
+> >>> CPUs as equal"  then you should never use select_idle_capacity()
+> >>> because  their capacity should be fixed and equal and
+> >>> SD_ASYM_CPUCAPACITY_FULL never set.
+> >>
+> >> On s390 the entitlement of the vCPUs are signified by an arch specific
+> >> value we call polarization. We can tell which vCPUs are assigned high
+> >> and low entitlement. This entitlement value tells us which vCPUs are
+> >> prone to experience steal time first. Without any contention all
+> >> vCPUs behave and perform *almost* the same(of course, we want
+> >> some priority for CPUs with high entitlement).
+> >>
+> >> Prior to experiencing steal time(it's what we use to determine
+> >> contention) to get the most out of the system we assign all vCPUs
+> >> the same capacities, making the system symmetric like you say.
+> >> While there is no contention s390's vCPUs also perform better if
+> >> fully idle cores are selected for task placement.
+> >>
+> >>> If your hypervisor lowers the capacity once a certain threshold is
+> >>> crossed, we already account for the steal time in the scheduler with
+> >>> irq and remove it from the capacity available for tasks but the
+> >>> original capacity doesn't change.
+> >> s390's linux implementation has a mechanism called hiperdispatch,
+> >> that checks topology changes along with system steal time (and soon
+> >> the total free capacity of the pyhsical machine) periodically and
+> >> makes vCPU capacity adjustments accordingly.
+> >>
+> >> After steal time starts ramping up and cross a certain threshold,
+> >> we start assigning lower capacities to vCPUs with low entitlement to
+> >> hint the scheduler that they should be avoided.
+> >
+> > If all your vCPUs starts with the same capacity, you should not use
+> > asym_capacity or enabled it . What you describe above is system
+> > pressure (steal time or other) on your vCPU that change over time but
+> > not a capacity change. The value returned by arch_scale_cpu_capacity
+> > is not supposed to change at runtime or you need to rebuild the
+> > sched_domain topology. As an example, max_allowed_capacity does assume
+> > capacity fixed otherwise the misfit detection will sometimes fails.
+>
+> Exactly for that reason on s390 we do topology updates after
+> capacity updates. Topology changes caused by the underlying hypervisor
+> or the cpu capacity changes can get reflected without a problem via
+> topology rebuilds. Without topology rebuild we wouldn't even get
+> the correct SD_ flags to trigger asym_capacity behavior like you say.
 
-在 2026/10/3 20:40, Tao Cui 写道:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> This is v10 of the RFC.  A BPF program can now take over the cost
-> model of one device: attaching an iocost_model_ops struct_ops creates
-> the ioc if needed and switches the device to the model, io.cost.model
-> selects between the attached and the builtin model, and detaching or
-> device removal restores the builtin one.  The attachment, the cgroup
-> callback pairing and the removal paths are serialized with what blkg
-> creation and destruction actually use.
-> 
+okay as long as you call rebuild_sched_domains(), this is safe but I'm
+surprised that you chose to rebuild the topolgy because it's expensive
 
-When you have a chance, could you take a look at this series? I'd
-appreciate your thoughts on whether the implementation still matches
-what we discussed, or whether it has drifted somewhere along the way.
+IMO you should use the pressure (steal or hw) reported to the
+scheduler to decide when a cpu become less efficient than others
 
-Meanwhile, two review points came in on v10. Both are already addressed
-for v11, which I'm holding until this thread settles, as Alexei
-suggested.
+>
+> > What you describe really fit into the prefered core that Shrikanth
+> > Hegde has developped
+>
+> I agree, but Shrikanth's solution can not bring some of the
+> behavior changes required. cpu_preferred_mask can help
+> direct task placement away from low capacity cores but idle
+> core first approach still places tasks to fully idle low
+> capacity cores. This patches proposal tries to move tasks
+> first to the idle SMT siblings.
 
-Sashiko flagged a possible ABBA between the BPF paths and
-ioc_cost_model_write(): attach/detach take the queue freeze before
-q->rq_qos_mutex, while the cost-model write holds rq_qos_mutex across
-its freeze. That is indeed the current ordering, but I don't think this
-can deadlock because the queue freeze is a depth counter
-(mq_freeze_depth), not a lock: concurrent freezers simply stack, and
-while the write path holds the mutex it only waits for in-flight IO to
-drain, not for anything the attach path holds. A lockdep kernel under
-concurrent model-switch and attach/detach stress didn't report any
-lockdep warnings. If you'd prefer a uniform order anyway, the write path
-can take its freeze before the mutex, and I'm happy to restructure;
-either way this will be settled in v11.
+We have compute capacity to decide which CPU is better than others.
+The capacity of SMT CPU has also been somewhat random, but we should
+find a way to fix this instead of adding a threshold to decide whether
+to pack or spread tasks onto idle cores. With correct per CPU
+capacity, we can easily decide if an idle low core is better or not
+than the sibling of an already busy high core.
 
-The other point came from Alexei Starovoitov, replying to patch 1:
-"device removal is still not tested." That's right. The selftest
-only used a device provided through $IOCOST_TEST_DEV. v11 adds a removal
-test to the same selftest: it creates its own null_blk instance through
-configfs, attaches to it, then removes the device out from under the
-attached model (rmdir of the configfs instance), and verifies that the
-ejection drops the device from the cgroup interface, that writes are
-rejected, and that detaching after the removal is a clean no-op; it then
-recreates the device, re-attaches and detaches again. I ran it locally
-under qemu on the v10 kernel; the new test passes cleanly with no dmesg
-warnings.
-
-Thanks,
-Tao
-
-> Why a pluggable model at all
-> ----------------------------
-> 
-> When iocost landed in 2019, its commit message already promised that
-> "a later patch will also allow using bpf progs for cost models", and
-> the code has carried the split for it ever since: calc_vtime_cost()
-> is a dispatcher whose only implementation is calc_vtime_cost_builtin().
-> Seven years later the builtin linear model is still the only one.
-> This series fills that slot: builtin algorithms remain the default
-> while new ones can be prototyped in BPF.
-> 
-> The measured problems
-> ---------------------
-> 
-> The builtin model prices each IO with a binary sequential/random base
-> picked by a single per-cgroup cursor and a 16MB seek threshold, plus
-> a per-page cost.  On a virtio-blk device with the HDD autop profile,
-> a 4k IO costs ~24us when judged sequential and ~2.7ms when judged
-> random, a 112x spread, so a wrong judgement becomes a wrong price.
-> Three classes of mispricing, all measured:
-> 
->  1. Heuristic rigidity.  Two legitimate sequential readers in one
->     cgroup (a database with multiple tablespaces, a threaded backup)
->     ping-pong the single cursor and are all priced random: a
->     measured 89x overcharge collapses throughput under the same
->     weight.  Random IO within a hot window smaller than the 16MB
->     threshold is priced sequential: measured 107x undercharge, an
->     accounting escape for hotspot workloads.  No setting of the six
->     builtin parameters seems able to fix this: telling the streams
->     apart requires per-IO state tracking, which looks like logic
->     rather than coefficients.
-> 
->  2. Device nonlinearity.  SLC-cache phases, SMR band placement and
->     shared controllers (multiple NVMe namespaces multiplexing one
->     device) make the real cost of an identical IO vary by an order
->     of magnitude over time or across namespaces.  A static
->     6-parameter linear model has no way to express that.
-> 
->  3. Unpriced operations.  Flush and zone append fall through to a
->     cost of zero and bypass throttling entirely, and the same pattern
->     extends to device quirks the builtin model was never taught.
-> 
-> Mispricing feeds directly into the control loop: vtime budgets,
-> surplus donation and the vrate feedback all consume the model's
-> output, so a wrong model can skew the whole controller.
-> 
-> How
-> ---
-> 
-> Attachment follows the hid_bpf_ops model: the target device is set
-> in the dev member of the struct_ops from userspace before load; the
-> device is looked up with blkdev_get_no_open() and disk_live() is
-> checked under rq_qos_mutex, like blkg_conf_open_bdev().  Attaching
-> creates the ioc if needed, like an io.cost.model write does, and
-> switches the model under the same freeze and quiesce those writes
-> go through; enabling stays with io.cost.qos and wbt stays with it
-> too.  When the disk goes away, the model is ejected completely.
-> 
-> Attachment is independent of the model selection and of the
-> controller state: while a model is attached, "model" selects between
-> it and the builtin model - "model=bpf" switches to the attached
-> model, "model=linear" switches back to the builtin model, and
-> neither detaches the struct_ops; only detaching removes the model,
-> after which "model=bpf" fails.  "ctrl" keeps describing the builtin
-> coefficients, which are kept while the BPF model is in use and take
-> effect again when switched back.  Enabling and disabling the
-> controller, and with it the wbt handover, remains with io.cost.qos.
-> 
-> A bound model in use owns pricing for every charged IO on the
-> device: it is called from the bio charging path and prices every
-> operation including flushes.  The completion-time request sizing
-> which feeds the latency met/missed accounting uses the transfer cost
-> coefficients the struct_ops carries (vtime per page for reads and
-> writes), so the builtin latency tracking and vrate adjustment
-> follow the model's pricing while it is in use; extending the
-> model to the QoS side itself is left for a later interface.
-> 
-> The cgroup callbacks are bound to the iocg policy lifetime and pair
-> up: iocg_init() is delivered to every cgroup which already has a
-> blkg on the device when the model is attached, and to each one
-> appearing afterwards; iocg_free() is delivered to the cgroups which
-> still exist when the model is detached.  The existing iocgs are
-> walked over q->blkg_list under q->blkcg_mutex, the same walk the
-> blkcg policy teardown uses; cgroups without a blkg on the device
-> yet are not missed, as their callbacks are delivered at blkg
-> creation and destruction.
-> 
->     u64 calc_cost(struct bio *bio, u64 model_flags)
-> 
-> The model reads whatever it needs from the bio itself: the
-> operation flags (the operation must be extracted with a mask, and
-> the REQ_* flag bits, including PREFLUSH/FUA, are part of it), the
-> size, the start sector and the issuing cgroup through
-> bio->bi_blkg.  model_flags carries iocost-specific metadata which
-> is not a property of the bio, such as whether the cost calculation
-> is for a merged request; the return value is vtime, clamped to 1
-> second of device time per IO.  Per-cgroup state can be stored in
-> BPF_MAP_TYPE_CGRP_STORAGE keyed by the cgroup of bi_blkg; it
-> follows the cgroup lifetime.  Sleepable models are rejected at
-> verification, since calc_cost() runs under RCU read lock.
-> 
-> Patch overview:
-> 
->  1/4: the BPF struct_ops cost model support: Kconfig, ops
->       definition, per-device attachment, unified dispatch and
->       verifier checks
->  2/4: selftests with two example models (the full builtin linear
->       HDD formula at double cost, and a multi-stream sequentiality
->       model) plus a runner and the selftest kernel config entries
->  3/4: add an iocost_ioc_tick tracepoint emitting the per-period
->       controller state, so model quality can be evaluated without
->       drgn (existing events are state-change driven and silent in
->       steady state)
->  4/4: document the attachment in cgroup-v2.rst
-> 
-> Does it work
-> ------------
-> 
-> Mechanism, verified functionally on a virtio-blk device (HDD
-> profile, sequential-read workload from a 1%-weight cgroup, builtin
-> vs the 2x example model):
-> 
->  - per-IO charge: 2882us -> 5722us, a factor of 1.985x; the
->    completed IO count halves and total cost.usage is conserved,
->    i.e. the model output drives both charging and budgeting
->  - attachment: model=bpf readback while in use (ctrl keeps
->    describing the builtin coefficients), EBUSY for a second model
->    on the same device, a second device attaches an independent
->    model, "model=linear"/"model=bpf" switch between the attached
->    model and the builtin without detaching, detaching removes the
->    model and "model=bpf" fails afterwards
->  - edge cases: writing an unknown device fails and nothing is
->    applied; the selftest runner checks the write error and errno
->    of every step, including the restoration
-> 
-> Workload-shape verification (same setup, 4k IOs at weight 1000,
-> builtin vs the 2x example model):
-> 
->  - flush-heavy workload (read/write/fsync alternating): priced
->    1.99x the builtin, i.e. flushes no longer reset the cursor
->    and misjudge the following IO as random
->  - non-page-multiple IO (6 KiB): priced ~2x, matching the
->    builtin's truncating page count
->  - first IO from a high LBA (past 16 MiB): priced 2.01x, i.e.
->    a fresh cgroup's zero cursor no longer misjudges the first IO
->    as random
-> 
-> Payoff, demonstrated with the multi-stream example model (2/4) on
-> the same setup, 4k IOs at weight 1000, builtin vs the model:
-> 
->  - two sequential readers in one cgroup: priced 1961us/op by builtin
->    (both judged random by the single cursor) and 23us/op by the
->    model (each stream keeps its own slot); the completed IO count
->    rises by two orders of magnitude
->  - random IO inside an 8M window: priced 24us/op by builtin
->    (undercharge, an accounting escape) and 2607us/op by the model
->  - single-stream sequential and whole-disk random pricing are
->    unchanged, so the model fixes both directions of mispricing
->    without introducing a new one
-> 
-> Non-interference, measured on enterprise NVMe: no measurable
-> overhead when the BPF model is not attached.
-> 
-> Changes in v9:
-> - the attach holds rq_qos_mutex from the disk_live() check through
->   the unfreeze, like an io.cost.model write does, instead of
->   releasing it between creating the ioc and switching the model;
->   the queue reference, the second q_to_ioc() and the lockless
->   traversal it needed are gone
-> - the attachment is published, cleared and the blkg list is walked
->   under blkcg_mutex and queue_lock: blkg creation runs ioc_pd_init()
->   and adds to q->blkg_list under queue_lock only, so the previous
->   blkcg_mutex-only serialization could double-deliver iocg_init() or
->   deliver iocg_free() without iocg_init().  The init walk now goes
->   parents first, like blkcg_activate_policy()
-> - the device removal ejection reads ops->bdev before clearing ops->q:
->   once q is NULL .unreg returns without a lock and the map can be
->   freed, so touching ops afterwards was a use-after-free window.  The
->   ejection moved to an ioc_bpf_eject() helper
-> - .unreg only detaches when the closing link is the one which owns
->   the attachment, so a map re-attached to a new device through a
->   newer link is not torn down by an old link; the v8 ops->q re-entry
->   guard at .reg is gone, a second attach of an attached map now
->   fails with -EBUSY like any other model would
-> - the ioc->attached and ioc->model pointers are unconditional and
->   blk_get_queue_rcu() is declared in block/blk.h without an export,
->   which drops the local prototypes and the remaining #ifdefs
-> - the unused struct_ops .init name lookup, the bdev/q cases in
->   .init_member (the core already rejects nonzero non-function members
->   it does not claim) and the unused write_cost_model() buffers are
->   gone; the -EOPNOTSUPP selftest paths call test__skip()
-> - the selftest writes the dev member through the skeleton's typed
->   struct_ops access instead of assuming it is the first member, and
->   the maps are ".struct_ops.link" so closing the fd detaches; the
->   example model's seek judgement is gated on a non-zero IO size so a
->   dataless flush is priced sequentially, and write_cost_model()
->   returns the negated errno ASSERT_ERR() expects
-> - the tick tracepoint's running field reports the active iocg list
->   instead of ioc->running, which has not transitioned to IOC_IDLE at
->   the emit point, so the final tick reads active=0 running=0
-> - the attach and detach take the queue freeze before rq_qos_mutex,
->   like ioc_qos_write() does; taking the mutex around the freeze
->   instead formed a lockdep cycle with the io.cost.qos write path,
->   and .unreg's link recheck moved under the mutex inside
->   ioc_bpf_detach()
-> - the io.cost.model documentation states that detaching restores the
->   builtin model and that ctrl only accepts "auto" and "user" and
->   never selects the model, says attaching rather than loading binds
->   the model, and that removing the device removes the model as well,
->   with the struct_ops link still having to be closed afterwards
-> 
-> Changes in v10:
-> - one map binds one device at a time: the attach rejects a second
->   attach while the ops is still bound, which the v9 owning-link
->   rework had dropped.  Without it, attaching the same map to a
->   second device clobbered the single device slot, leaked the first
->   bdev reference and left the first device pointing at the ops
-> - the detach takes the queue the caller holds a reference on as an
->   argument instead of re-reading ops->q, fetches the ioc under
->   rq_qos_mutex, and re-checks the owning link under the mutex, so
->   closing an old link after an ejection and a re-attach no longer
->   tears down the newer attachment
-> - iocg_free() is only delivered to a cgroup which received
->   iocg_init(), tracked per iocg, so a blkg appearing between the
->   attach walk and its own pd_init no longer gets an unpaired
->   iocg_free(); a blkg whose radix_tree_insert() failed may still
->   keep an iocg_init() without iocg_free(), which is now documented
->   in the interface comment
-> 
-> 
-> Link: https://lore.kernel.org/r/20260908100143.47598-1-cui.tao@linux.dev # v1
-> Link: https://lore.kernel.org/r/20260910125817.223354-1-cui.tao@linux.dev # v2
-> Link: https://lore.kernel.org/r/20260914073356.791518-1-cui.tao@linux.dev # v3
-> Link: https://lore.kernel.org/r/20260916072302.1068871-1-cui.tao@linux.dev # v4
-> Link: https://lore.kernel.org/r/20260918031751.1255420-1-cui.tao@linux.dev # v5
-> Link: https://lore.kernel.org/r/20260918055001.1273840-1-cui.tao@linux.dev # v6
-> Link: https://lore.kernel.org/r/20260924054549.2271705-1-cui.tao@linux.dev # v7
-> Link: https://lore.kernel.org/r/20260930075154.189958-1-cui.tao@linux.dev # v8
-> Tao Cui (4):
->   blk-iocost: add BPF struct_ops cost model support
->   selftests/bpf: add iocost cost model test
->   blk-iocost: add iocost_ioc_tick tracepoint for per-period device
->     summary
->   docs: cgroup-v2: document the iocost BPF cost model attachment
-> Link: https://lore.kernel.org/r/20261003013033.149288-1-cui.tao@linux.dev # v9
-
+>
+> Consider the following;
+> On a system with 2 high capacity and 4 low capacity cpus.
+> steal governor of vCPU backoff mechanism calculates 2 low capacity
+> cpus should be taken off from the cpu_preferred_mask to decrease
+> experienced steal time. cpu_preferred_mask has 2 high capacity
+> and 2 low capacity cpus.
+>
+> Current behavior tires to place tasks to fully idle cores first
+> even if they are low capacity cores.
+>
+>        c0(high) c1(high)  c2(low)  c3(low)  ...
+> -------------------------------------------
+> SMT 0 task     task      task     task
+> SMT 1
+>
+>
+> With the proposal, the fully idle core preference is circumvented
+> and the most fitting SMT thread is selected.
+>
+>        c0(high) c1(high)  c2(low)  c3(low)  ...
+> -------------------------------------------
+> SMT 0 task     task
+> SMT 1 task     task
+>
+> This is beneficial because at the time of contention(system pressure)
+> low capacity cores could perform worse than SMT siblings of busy
+> high capacity cores, even if there is not enough steal time for
+> steal governor of Shrikanth's vCPU backoff to mark said low
+> capacity cores as non-preferred.
+>
+> Andrea came up with an idea to extend Shrikanth's mechanism further
+> by adding a soft affinity to a selected set of CPUs. Task placement
+> would first fully load these CPUs before spilling load onto rest
+> of the CPUs on cpu_preferred_mask. That would help achieve the
+> behavior I describe above if the soft affinity covers high
+> capacity CPUs.
+>
+> The discussion is still on going though. If Shrikanth thinks this is
+> a worthwhile concept then I'd be glad to work on the implementation
+> and provide the patches.
