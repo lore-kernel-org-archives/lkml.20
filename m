@@ -1,285 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8BF53E2E6;
-	Thu, 15 Oct 2026 19:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6474D956F;
+	Thu, 15 Oct 2026 19:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.128.243.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092243; cv=none; b=XFC3mRsGwCdHkFb0J5YtaOKQloxGxYEWMKMhtmsn0t64oCOiJ/hHkB8gxU5uFgn+xGMSZ5q2czspu0JZJlc2Hovb6Fn+wW+RxR+wZAH8caqvhidVzvFBKsmV5yXPP7h0wkxI3abvzgygEdQFzUO+kYLWjaeUcMgSH8QRrg5qrcM=
+	t=1792092308; cv=none; b=KigFCzLNN868xYAMQmBgCNk7ULNpf01+iLKB4JnkqplWEGkYmk1yfDmDxxKjLoLissGqAAzWn7+ZhPpURHNyB8tf0eVg8ZB8gPPguyqTubAWnHXyOYL+nTfInBOnFd5G/EqhMGZtR8T2afX0gzmYDFWTH2Otvm0zgRTd+siTmTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092243; c=relaxed/simple;
-	bh=rTzMipX3pUBTumObf4JpFhE4XbMqCnpKISixRhCTdD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MbdETGmfon4EJfPy+6Dt32FzWG1W2XqzkuVpk2OJ67+FFuOalgh9BZjDV5BpnixpH+594b42MqkrbBVBkekgXVxsnxQgcsigiSOejufD9ZIkWflBMVtsZC4hqBRoq6LeSWRJiWDFyD97J80o/4sn5QYSF4VXC8LTMtj3ho4+Mqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JyFiVabh; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792092308; c=relaxed/simple;
+	bh=tU7SttCJuXiXSdn4aI6q5wp5/GBBe9+68ixR/4vh4SU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=edC3pVknD9QpfjSqMKBgfSr3UxjdU0P/JnB0jshAsq9isWhyjDdCVDdSnpweBmoKbppPjxIErL1ep4NJ9PUBpV/UV01eAtER85qtGazDLBbk7/3e8ybjULlwruB+dw+cVCR1mDntvkiPscdHw5kmKZssa7VjaRDjXume889fUoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net; spf=pass smtp.mailfrom=asmblr.net; dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b=Hi7NqBZG; arc=none smtp.client-ip=85.128.243.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JyFiVabh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792092242; x=1823628242;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=rTzMipX3pUBTumObf4JpFhE4XbMqCnpKISixRhCTdD4=;
-  b=JyFiVabhrAayLcQrYKKZSVybIOSG7qs2Lk/XMc9+EJyr/hXKNKyvY+JM
-   3gsyngPlLGY1q+hAYaIxrZdewYwIQizs9Mdh6F2k6Sz1/zx7MEyp6Wh0S
-   cqZCuUlvvVL1kaNOzWEYl6Zag1DZz0gW/lAjUeeWqOdMABG9layYkmnAf
-   fqTheN+1BJMtuWgIbzOpHRVF8iyvlaR2xdPchygsURURKvqcVZazGznBU
-   so5UxdrHA9rze/0RR5If4eYm6d2EX9FqeNqZVmhNrg3qne3CyzhVu81tA
-   3DIZKLQHM4B9Bzgqqdpq2YRxkdrXEsvB4s5oS8z/Et70a751PUMU5b3gy
-   g==;
-X-CSE-ConnectionGUID: /DlMcMR7S/+zOCS0vG7QdA==
-X-CSE-MsgGUID: FUIBgi+MRLK0n+HWBsnmfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="764818"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="764818"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:17:20 -0700
-X-CSE-ConnectionGUID: pOkU8tYoTKCuOjgVU8OUqg==
-X-CSE-MsgGUID: /HhP0v/TToiDVkP4sMomTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1836898"
-Received: from rpedgeco-desk.jf.intel.com ([10.24.81.149])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 12:17:17 -0700
-From: Rick Edgecombe <rick.p.edgecombe@intel.com>
-To: pbonzini@redhat.com,
-	dave.hansen@intel.com,
-	seanjc@google.com,
-	x86@kernel.org,
-	kas@kernel.org,
-	adrian.hunter@intel.com,
-	yan.y.zhao@intel.com,
-	binbin.wu@intel.com,
-	xiaoyao.li@intel.com,
-	chao.gao@intel.com,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	nik.borisov@suse.com,
-	yilun.xu@linux.intel.com,
-	tony.lindgren@linux.intel.com
-Cc: rick.p.edgecombe@intel.com
-Subject: [PATCH v2 2/2] x86/virt/tdx: Drop tdh_phymem_page_wbinvd_*()
-Date: Thu, 15 Oct 2026 12:17:10 -0700
-Message-ID: <20261015191710.3632302-3-rick.p.edgecombe@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
-References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
+	dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net header.b="Hi7NqBZG"
+X-Virus-Scanned: by amavisd-new using ClamAV (23)
+X-Spam-Flag: NO
+X-Spam-Score: -0.625
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
+	s=1706450368.internal; t=1792092303;
+	bh=LwfbJ/ovnkdDCpiQfYRa99yrv9di6xMouQJuq/fGtQ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Hi7NqBZGjwJm1Uf7orLDE9VAm186iLx/suzEiIxdkTv1kiW+r9hsQtHw8pqOjTFMo
+	 mgiu/hnPhyoiUo8Hh0xfrIwRAkTREZV2hqj3k1Hya/+1K4+NShs7Ht3nc2jIuVncUa
+	 EIp8mXlyo366q5xf728lPZ1SRVf8pvTSQxHT5NNHprYBlAmcdeHLXiO0GA328MjyF7
+	 muyzsD2weArJd93Vb5e4eO+pEJYUxoYmWHGpAYXeuBFpILBGo2R2CVkszdwKdOGcGA
+	 DIFatFJtmd2KYboHIts5ir0zeIruLWXuJxndRhJkdxyqr19rpjyJxUmn5Kw6xex5f5
+	 tyCqECtxwAILg==
+Received: from milkyway (91-150-221-36.dynamic.play.pl [91.150.221.36])
+	by server753313.nazwa.pl (Postfix) with ESMTP id 662AD1BD4C5;
+	Thu, 15 Oct 2026 21:25:03 +0200 (CEST)
+Date: Thu, 15 Oct 2026 21:25:02 +0200
+From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amade@asmblr.net>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: broonie@kernel.org, linux-sound@vger.kernel.org, tiwai@suse.com,
+ perex@perex.cz, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] ASoC: Intel: avs: Unprepare a stream when recovery
+ occurs
+Message-ID: <20261015212502.6280c705@milkyway>
+In-Reply-To: <20261015190240.729793-2-cezary.rojewski@intel.com>
+References: <20261015190240.729793-1-cezary.rojewski@intel.com>
+	<20261015190240.729793-2-cezary.rojewski@intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-In the early days of TDX it was expected that pages being reclaimed from
-the TDX module would need any cacheline from their private KeyID alias
-flushed. The TDX docs describe doing this in a couple narrow cases, for
-example reclaiming the TDR memory or guest private memory.
+On Thu, 15 Oct 2026 21:02:38 +0200
+Cezary Rojewski <cezary.rojewski@intel.com> wrote:
 
-Similar to how the CLFLUSH_BEFORE_ALLOC features0 bit was never actually
-set in any TDX module, the flush of the private KeyID cachelines turned
-out to not be needed by the final TDX HW either. However, the TDX docs
-were never updated to reflect that.
+> Recovery on alsa-lib side is handled with either:
+> 1) snd_pcm_prepare(state=XRUN)
+> 2) snd_pcm_drop/drain() -> snd_pcm_prepare(state=SETUP)
+> 
+> before starting the PCM anew. Relying solely on state=XRUN leaves 2)
+> unaccounted for. sound/core/pcm_native.c ensures correctness of the
+> state machine so plain state!=PREPARED check suffices.
+> 
+> This is the BE equivalent of job done previously for FE side only with
+> commit cfca1637bc2b ("ASoC: Intel: avs: Unprepare a stream when XRUN
+> occurs") and its follow up titled: ("ASoC: Intel: avs: Reset the stream
+> unless it is already prepared").
+> 
+> Link: https://lore.kernel.org/linux-sound/20261010103753.16969-1-stiraspo@gmail.com/T/
+> Fixes: d070002a20fc ("ASoC: Intel: avs: HDA PCM BE operations")
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/avs/pcm.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/sound/soc/intel/avs/pcm.c b/sound/soc/intel/avs/pcm.c
+> index 3cf455e8b879..a0a0d645ea33 100644
+> --- a/sound/soc/intel/avs/pcm.c
+> +++ b/sound/soc/intel/avs/pcm.c
+> @@ -461,6 +461,8 @@ static int avs_dai_hda_be_prepare(struct snd_pcm_substream *substream, struct sn
+>  	link_stream = data->link_stream;
+>  	p = &be->dpcm[substream->stream].hw_params;
+>  
+> +	if (substream->runtime->state != SNDRV_PCM_STATE_PREPARED)
+> +		link_stream->link_prepared = false;
+>  	if (link_stream->link_prepared)
+>  		return 0;
+>  
 
-CLFLUSH_BEFORE_ALLOC handles flushing when giving memory to the TDX
-module, where the alias that needs flushing is the default, normal KeyID
-0. This was done with a clflush of the kernel's KeyID 0 mapping of the
-memory. For the reclaim path, instead it is the TDX KeyID aliases that
-need to be flushed. Since virtual mappings for these aliases are
-restricted to the TDX module, the module is the only thing that can map
-the page to do the clflush. The TDH.PHYMEM.PAGE.WBINVD SEAMCALL leaf was
-created to facilitate this.
-
-The docs are being updated to clarify that calling TDH.PHYMEM.PAGE.WBINVD
-is not needed. So drop the kernel code that calls this SEAMCALL and the
-helpers that facilitate it. With the removal of
-tdh_phymem_page_wbinvd_tdr(), tdx_global_keyid no longer needs to be kept
-around as a global variable. It just needs to be selected and provided to
-the TDX module during initial setup.
-
-However, don't churn the code to remove the global variable because
-it fits neatly with the other KeyID partitioning global data. It is also
-foreseeable that this would be used in the future for other SEAMCALLs that
-require passing the global KeyID.
-
-KVM previously needed to call different types of tdh_phymem_page_wbinvd_*()
-helpers for different types of reclaim. So it had a stack of helpers and
-some open coded logic to use them in the rarer TDR reclaim case. Now that
-the wbinvd is gone, the steps for each operation are logically equivalent.
-So collapse the helpers and just call tdx_reclaim_control_page() from the
-TDR reclaim path.
-
-This unification brings TDR reclaim in line with the behavior of the other
-reclaim paths, by handling TDH.PHYMEM.PAGE.RECLAIM failure by leaking the
-page and setting the TDR page pointer to NULL. This results in reclaim not
-being tried a second time, which is reasonable because the first reclaim
-failing suggests a problem with the TDX module.
-
-AI was used to review the change.
-
-Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
----
-v2:
- - Clean up open coding of TDR reclaim now that it doesn't need to be.
-   (Yilun)
- - Logs stuff (Yilun, Yan, Chao)
- - [omit Yan RB due to code change]
----
- arch/x86/include/asm/tdx.h  |  2 --
- arch/x86/kvm/vmx/tdx.c      | 40 ++++++-------------------------------
- arch/x86/virt/vmx/tdx/tdx.c | 26 ------------------------
- arch/x86/virt/vmx/tdx/tdx.h |  1 -
- 4 files changed, 6 insertions(+), 63 deletions(-)
-
-diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
-index 89e97d5761d89..39e3c1f8a48e1 100644
---- a/arch/x86/include/asm/tdx.h
-+++ b/arch/x86/include/asm/tdx.h
-@@ -174,8 +174,6 @@ u64 tdh_phymem_page_reclaim(struct page *page, u64 *tdx_pt, u64 *tdx_owner, u64
- u64 tdh_mem_track(struct tdx_td *tdr);
- u64 tdh_mem_page_remove(struct tdx_td *td, u64 gpa, enum pg_level level, u64 *ext_err1, u64 *ext_err2);
- u64 tdh_phymem_cache_wb(bool resume);
--u64 tdh_phymem_page_wbinvd_tdr(struct tdx_td *td);
--u64 tdh_phymem_page_wbinvd_hkid(u64 hkid, kvm_pfn_t pfn);
- #else
- static inline void tdx_init(void) { }
- static inline u32 tdx_get_nr_guest_keyids(void) { return 0; }
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 00850a3a77d66..ed1db8023c6ec 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -320,7 +320,7 @@ static inline void tdx_disassociate_vp(struct kvm_vcpu *vcpu)
- })
- 
- /* TDH.PHYMEM.PAGE.RECLAIM is allowed only when destroying the TD. */
--static int __tdx_reclaim_page(struct page *page)
-+static int tdx_reclaim_page(struct page *page)
- {
- 	u64 err, rcx, rdx, r8;
- 
-@@ -334,24 +334,15 @@ static int __tdx_reclaim_page(struct page *page)
- 	if (TDX_BUG_ON_3(err, TDH_PHYMEM_PAGE_RECLAIM, rcx, rdx, r8, NULL))
- 		return -EIO;
- 
-+	tdx_quirk_reset_paddr(page_to_phys(page), PAGE_SIZE);
-+
- 	return 0;
- }
- 
--static int tdx_reclaim_page(struct page *page)
--{
--	int r;
--
--	r = __tdx_reclaim_page(page);
--	if (!r)
--		tdx_quirk_reset_paddr(page_to_phys(page), PAGE_SIZE);
--	return r;
--}
--
- 
- /*
-- * Reclaim the TD control page(s) which are crypto-protected by TDX guest's
-- * private KeyID.  Assume the cache associated with the TDX private KeyID has
-- * been flushed.
-+ * Reclaim the TD control page(s) which are crypto-protected by private
-+ * KeyIDs.
-  */
- static void tdx_reclaim_control_page(struct page *ctrl_page)
- {
-@@ -550,7 +541,6 @@ void tdx_mmu_release_hkid(struct kvm *kvm)
- static void tdx_reclaim_td_control_pages(struct kvm *kvm)
- {
- 	struct kvm_tdx *kvm_tdx = to_kvm_tdx(kvm);
--	u64 err;
- 	int i;
- 
- 	/*
-@@ -575,21 +565,7 @@ static void tdx_reclaim_td_control_pages(struct kvm *kvm)
- 	if (!kvm_tdx->td.tdr_page)
- 		return;
- 
--	if (__tdx_reclaim_page(kvm_tdx->td.tdr_page))
--		return;
--
--	/*
--	 * Use a SEAMCALL to ask the TDX module to flush the cache based on the
--	 * KeyID. TDX module may access TDR while operating on TD (Especially
--	 * when it is reclaiming TDCS).
--	 */
--	err = tdh_phymem_page_wbinvd_tdr(&kvm_tdx->td);
--	if (TDX_BUG_ON(err, TDH_PHYMEM_PAGE_WBINVD, kvm))
--		return;
--
--	tdx_quirk_reset_paddr(page_to_phys(kvm_tdx->td.tdr_page), PAGE_SIZE);
--
--	__free_page(kvm_tdx->td.tdr_page);
-+	tdx_reclaim_control_page(kvm_tdx->td.tdr_page);
- 	kvm_tdx->td.tdr_page = NULL;
- }
- 
-@@ -1814,10 +1790,6 @@ static int tdx_sept_remove_leaf_spte(struct kvm *kvm, gfn_t gfn,
- 	if (TDX_BUG_ON_2(err, TDH_MEM_PAGE_REMOVE, entry, level_state, kvm))
- 		return -EIO;
- 
--	err = tdh_phymem_page_wbinvd_hkid((u16)kvm_tdx->hkid, pfn);
--	if (TDX_BUG_ON(err, TDH_PHYMEM_PAGE_WBINVD, kvm))
--		return -EIO;
--
- 	tdx_quirk_reset_paddr(PFN_PHYS(pfn), PAGE_SIZE);
- 	return 0;
- }
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 8f9d3588f200f..21f7fce38aa46 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -1956,32 +1956,6 @@ u64 tdh_phymem_cache_wb(bool resume)
- }
- EXPORT_SYMBOL_FOR_KVM(tdh_phymem_cache_wb);
- 
--static inline u64 mk_keyed_paddr(u16 hkid, kvm_pfn_t pfn)
--{
--	/* KeyID bits are just above the physical address bits. */
--	return PFN_PHYS(pfn) | ((u64)hkid << boot_cpu_data.x86_phys_bits);
--}
--
--u64 tdh_phymem_page_wbinvd_tdr(struct tdx_td *td)
--{
--	struct tdx_module_args args = {};
--
--	args.rcx = mk_keyed_paddr(tdx_global_keyid, page_to_pfn(td->tdr_page));
--
--	return seamcall(TDH_PHYMEM_PAGE_WBINVD, &args);
--}
--EXPORT_SYMBOL_FOR_KVM(tdh_phymem_page_wbinvd_tdr);
--
--u64 tdh_phymem_page_wbinvd_hkid(u64 hkid, kvm_pfn_t pfn)
--{
--	struct tdx_module_args args = {};
--
--	args.rcx = mk_keyed_paddr(hkid, pfn);
--
--	return seamcall(TDH_PHYMEM_PAGE_WBINVD, &args);
--}
--EXPORT_SYMBOL_FOR_KVM(tdh_phymem_page_wbinvd_hkid);
--
- void tdx_sys_disable(void)
- {
- 	struct tdx_module_args args = {};
-diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
-index bdfd0e1e337ac..3289be59d14fc 100644
---- a/arch/x86/virt/vmx/tdx/tdx.h
-+++ b/arch/x86/virt/vmx/tdx/tdx.h
-@@ -43,7 +43,6 @@
- #define TDH_SYS_TDMR_INIT		36
- #define TDH_MEM_TRACK			38
- #define TDH_PHYMEM_CACHE_WB		40
--#define TDH_PHYMEM_PAGE_WBINVD		41
- #define TDH_VP_WR			43
- #define TDH_SYS_CONFIG			45
- #define TDH_SYS_SHUTDOWN		52
--- 
-2.55.0
-
+It's bit late, so I can be wrong, but if you are going to execute whole
+function in most cases anyway, is link_prepared even needed? Why not just:
+	if (substream->runtime->state == SNDRV_PCM_STATE_PREPARED)
+		return 0;
+and remove link_prepared entirely?
