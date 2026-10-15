@@ -1,178 +1,123 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633274D7D4D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061332; cv=pass; b=Y9XQl+I3FZ9eUSsv3DQIRhT6B5DSJML1hzrbMqSMkrjE0eOL85wb3nYS5n1AhhK4Sd9hD5ovk+h9szTrviZUO/VYpcHLj3C6zPcDnUOPAo2lP1oKo7nYRvu53Ac6cWTop6YNRhPv1S0E0ocJ+uLfiLAerKgieZF2uHMPeryYbXY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061332; c=relaxed/simple;
-	bh=FmmRZ608D4C2zUwqRQSrC5bNE6F6es2uQjBujj5jDeg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gEgdloMRMHZOhHB/iiL/0L6fBA16gIjxokY2VmXvPH1fg9FrM2xWlk91FnkhjqCuWVFGStojHEMitw4jraaJ0zVd8GyvlNUiC9D6cqwzWrbJnT2tkfb3i1nSUVjOUcR/wO2Eodl/QSlannqFaHoKnNRfeLPJdy39Ie/ogdOLuII=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HGHY4KRj; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543204EBAD9
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792061335; cv=none; b=axgQwu9LRpRrVSm+UGo78fOPhEIZ/L98c4JQwcxSqbqwjuUkawZPKadykoW34QEw3IjICXyjPnWPgsGucBgRCfanoTqyv5mffxhZ4CaoS//VOxNHHREQIqc/jTgloW8GGGePCZkXoXAlQhiz9h/P0M9EURUjU6OrNFd4rTnrOm4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792061335; c=relaxed/simple;
+	bh=RpN6E4WZheahMumO3urXk2ghVLNyw9TwqMMJ0iWbnJM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=DgfNw8A5kz6sVsNTke7Z+agL3BWOMV8/h+TOCNbdXc2y398cBf9PgvUkdvwHPZWBeZzA6o14WQn5wp20HNOLVdVhC3xxmYRNBp0U+zYPVq6f9Z7+VuC4gbiEiNEg8anjWEBTTVpK+2ETckjlxWEc65hX7HZKRZDE+LaeUY2SOXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QfoNsspf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fKvL92sH; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HGHY4KRj"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso3764751f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:48:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792061328; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gSABmay3O6k3DMyMnGjHuntspBGYH/pqHuFql78JqjR8Rh81dNKqEOlOQfPHu+alHn
-         e2OSG1zRY/QfJXJXqV0H8R9/9oQef1y1TERrcaLaLFVJzXcwnfLh2nOPHvI7B6mNZCTb
-         M49OaBcZgOi/+6ECZn8HNecU6sZPwukFrIaye21jV5X7OJ5adwnlS7XcrqCAVbPR0R0P
-         TpmJLI+gyuAR8qaySUZCq1cQ/9uVakLEJMoWuKUoCyYv2SF82aeJKUjINdQNbVPVdOdV
-         BAwcEPptzVj2VfEmEbg4TVrctOAew48qwskySYj+7bywavB3f3ZaZFwDGmn3Q+4FjfMJ
-         tjuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=p8Bpe0WzfKNt750+YudJl1Zs2RvA8+Qnb6B1KoIdGiE=;
-        fh=5yqd02rHLma8ao5u1M8Vk2ThklzI2jUPd+iosD4VLDw=;
-        b=Cw/iGEKm/85DOFF5ff0Qny36Tmb6Iw0fVwMnql0iRP25PoCfNeJpxFnUtVmnEpXM6L
-         TwUMmbv3u2AoyLJlx81MrNBAfg+Nz9/0FoLkpz1LneJrSlObfQakqc9ZfPpWzIq9LYaL
-         tfesaBVN62XyiK8TB5G01EUe9qqWmsx1r77bS0uNdAtSS3ykE0TL67siSkafcBaTA6BI
-         yDPh7xBvAepCPXsxXLAEljRoQCHm72Nlvi71a5w6J1+AxRycmqVH/Vfk3l4XXgP+8Kpb
-         HCANHL92QmOWBf0hErbTLfWtOL458EWPZP5c6nFM5e+Z6E4Vrd7KFfrR5DNfmxU7PG7e
-         qAug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QfoNsspf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fKvL92sH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792061333;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cdVLMAZy6yX+rhcPQgA+e1xHnyjEu1yIo4gqZ1n+w9E=;
+	b=QfoNsspfJ9srtkjjI5NlZWv4AAax3ZjfVlWLJMyf47lDoOpY7VP3a499JbZXlNhW+w4+B6
+	4ZT0urqMOZkQbS35uyWMcEs09o1CwVUyf9t9GyxhER2r+0HkzgwOwfAaOkN5ZXkSa10P9I
+	elmdVulVzXWLii8r00M7ZG3jgwZEM90=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-422-iDa3iv1BMQSfHe2lEmS4sg-1; Thu, 15 Oct 2026 10:48:51 +0000
+X-MC-Unique: iDa3iv1BMQSfHe2lEmS4sg-1
+X-Mimecast-MFC-AGG-ID: iDa3iv1BMQSfHe2lEmS4sg_1792061330
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c437ae81eso1032181f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792061328; x=1792666128; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p8Bpe0WzfKNt750+YudJl1Zs2RvA8+Qnb6B1KoIdGiE=;
-        b=HGHY4KRjFFixMp8LxPY4W3sl6Fm2iSsRXws7p5amThHrS1bIMSDbzUcJsNhVHSSSkc
-         vpnNNCGYFQbntsLd1GE47O4adACIyeRq2DalBo3fGycYeghLHa3mtfdd3qsuyz0nFAaW
-         2vPK87O6CwFiW3efiCeV6a4apP+vsoIe2IbsQ3D4FTIf4NUUQkZa4kuwJVQddzSUlDJJ
-         lCRMqyX1xuV5bJQl5pSFtMD2GbL0inp/SlPPmbq08jAJmjCbMIayUjGZWeDrjGeLiU3q
-         uMMyguf1Ewiy3k94edtnPsZrMx+7Th1M635N8HKSf1SJkhMr4Tc3ntl5kNofpTjMnxil
-         9UNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792061328; x=1792666128;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1792061330; x=1792666130; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p8Bpe0WzfKNt750+YudJl1Zs2RvA8+Qnb6B1KoIdGiE=;
-        b=WY+nz4WEJgHjX5POMY5HtRZTGZ1NfqMe5yP1zF2G+9QS2DtBRvU6VIYFkmeXi2ZWwY
-         jSMV9SLj4oZT41CTi82Qi9J6DO9U+Q5haytK2QQABZv6B4DzZHoYhdRdMYlotEoq9qxs
-         oi+CmCvkjyHV8szDgGgqGGjarovHv5C4BSI443qpk2DPxXMM7fyrz7WzvacqyEfDiiCZ
-         tL4qQ93mJ4S0T1ykUEgNwBUZoh7yK9SRKiUNw5R4xD7j/7kns7GX0vMsTL+vlhMExshr
-         CmH+/ysyoeJ9FDL7RkHfreNcAqIigPv0B2FHGR6tp7ze1xv+X2GfXdkfztZ5kr6HflWS
-         K1HA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmeS5q0bSLErx3DMTc5wCHNq0qRCctdVr4hVOKl6udeIU9L7mOsrIfKUbBENv+RDUYp+CwNjRJLpcHEjg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYs2XqksWu159ineGb/mEeJEati4sSz1oDg6QfTXgjahO2k+gB
-	cspyxh4GU9+ZR6R8TJBKL6rOeiqbW5fB2/1x2zshDnPcMZrZE1SpJ9vLH8rxIv9doQtlHW6Cyq6
-	5pgjw4sWGrdbD00qJIDpvnZjThtIzBJI=
-X-Gm-Gg: AYBFou25dmtMQTzPFyInvnf19L1eKrhdA1srcX6xG12Bv3hzN874RedLyLjea/5m7rg
-	oNI6GZMd/ohS64zhb5I/s6w19f12PLzDwbu2c+ZJ2hPA42ZrZP+v40f8TjjBTGCd8s5OfbINkyj
-	O94mFDggJx0I5xDygsuMzaRETu7dH61XiYgOk0LPkwkh0sOKBaeeYfme4rEWD2iHnq9suP1hHcf
-	svBFkgYP4A1HmLZzA8gJxdRlVzQv6iIpx3htg3UWYkif13lBYRxh41Ln5g9gLU5WcwKlFwJWGJW
-	DSdLpBSe3Vi+9+2mJbOykii8Hqgdm+RzCKCERDkyccGV2WRAYt1GEJ8SeTgB0luYwKoyj8myyX4
-	tdx++XuAy6kuJIT9OTvpzxWFBBhOuL+euNqUi1WrOjF4OsqpduX6+wE41nwgeGUKKnYXmuSGsUh
-	o0B1Z0s2eZ
-X-Received: by 2002:a05:6000:4305:b0:48d:f2a3:3a4 with SMTP id
- ffacd0b85a97d-48df2a3048amr4041591f8f.16.1792061328335; Thu, 15 Oct 2026
- 03:48:48 -0700 (PDT)
+        bh=cdVLMAZy6yX+rhcPQgA+e1xHnyjEu1yIo4gqZ1n+w9E=;
+        b=fKvL92sHSuRsX5/dr/wIVonwLCBwMVwzeAxazEnBFNfO2cXzAKTaL3KaB0dqo+YZwg
+         GMbpFvuNenUEFQgnHKliPmLHtq/6sYiofzkiyHuheXSemUVtv5GgSGvaBiPIVenCFozT
+         oflmA+A33szGMF+TBFWpaue00ZBJKGWs7z9BIRdFapeHsH1EJRUGKozUvI5TY8HH3xqd
+         vTOv7JlROABUljZTQOMEs4nUVytAk0OptIm786X3Er7RQxWL5pldIQBU69zkph5O4EIz
+         lX/lQU1hYgGw77cLUYNbntat4SFF4GGxEksU0uwt35N6CvRg8flt17/xTYLBB9HvsQax
+         ql2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792061330; x=1792666130;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cdVLMAZy6yX+rhcPQgA+e1xHnyjEu1yIo4gqZ1n+w9E=;
+        b=PLkMjNM4/g9iakhvKU1/sJ/rgOnhjGjprF0HuuopHTRDDXGxkPmeB3ygwu+ToYmhVQ
+         q9e6DDwLZHvgka3H05KWxX6CLO1C9bSYiAkCdJVMPb3d40EkmWrGel2zFr9IJqCZhOBW
+         reYXBvzAkCjpNLlE9zWfhWTR22XbA3rF3RJWqct06EtDe6PDO1cqEu1zn2Sw96f5QoQI
+         fmNjhTUgCWWlwdRwQnfUeSO5G5e8g7oZcWlyz+uggeSxXZlz5VIes+j2kIIBoBOz80xJ
+         YU7b2w8TyL3b5DCtcpuGLFjAjH222NDbOwUYMTsrxegLDZA7Rf92Pf8b9m93RpV4KOQV
+         xhxw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYD6pIAM08mFvlPX/IuBNeinLRhXqOr/caQJRNeH8EuYR2/3QKUUS12ysTK9t0v+LQIZwElRG90mhlLyY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgNiJ+wTF9HkvTrR5I4hZl/OVobyLv2yRdAkyoQjDoAaqWJJf2
+	VGOcj8CcngwNO7EWOWr5OP5usNB4hSlyCRWVPTd8HBMyVxbOS1Af6haO4fJ8H8SeZT6OxiDcFKb
+	J9OzX6t7imUxHyoOjpvAuTr2ZSlQK4Qbm5RprszS8pSRO6SjmtgeX6hHbIWeFFb4PEQ==
+X-Gm-Gg: AYBFou1rJ8f5k1+c/bpgcmCy7bW8uiIQmIujY67RPKu4l1JJO1uocku/R1IyOEklcdf
+	DcB1mZs6ZGxxSGDW8B0ZcIYS7c/nN21hDSaSjMIxnuRWErGfYnO9jSUOWDP6Un89XVG5VLPnVYk
+	Ilum3fSWNChdnxrpzqiwnWvDYvDR8oYihl00rJpGbhQVTfootHK/GF7JdwB231svZgYBgOgnuXA
+	ZK136v5Rr/FIsij9RZ34q+G/B3E3dOonBwokZ9Zhg2iKPHmjGjbb3qcTJ1gSzv2rLsr9SCoO9GU
+	lgl+1Osle+hEjGWNLV/JW9b6jXe45u5ewSh+NeKUpXHEDctaUtXxcXGYYcuDPIMIVm8NuOdNwHi
+	+UQXoqiQLOu1c/7MbjLu48Cq4fYyxrO73IcK7eavtJnauXdGRaaA0jtsgI1pVZOLPVw==
+X-Received: by 2002:a05:6000:26c7:b0:48d:f851:ee5f with SMTP id ffacd0b85a97d-48df851f00dmr1880330f8f.24.1792061330373;
+        Thu, 15 Oct 2026 03:48:50 -0700 (PDT)
+X-Received: by 2002:a05:6000:26c7:b0:48d:f851:ee5f with SMTP id ffacd0b85a97d-48df851f00dmr1880255f8f.24.1792061329842;
+        Thu, 15 Oct 2026 03:48:49 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df50bd11asm3806219f8f.8.2026.10.15.03.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 03:48:48 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Julien
+ Chauveau <chauveau.julien@gmail.com>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 3/3] drm/bridge: ite-it66121: make successful probe quiet
+In-Reply-To: <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
+References: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
+ <20261015-drm-ite-it66121-log-probe-errors-v1-3-7fd6994e0be0@bootlin.com>
+Date: Thu, 15 Oct 2026 12:48:47 +0200
+Message-ID: <xlv1se27fddc.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009165710.1320233-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009165710.1320233-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
-In-Reply-To: <CAMRc=Met2DuvMz4fZjSn4as56uaKaN4K3Nt_ub=4BjaLQe5nmw@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 15 Oct 2026 11:48:21 +0100
-X-Gm-Features: AclHuK9GL7dcegAHXj9a4i5LIQhbxiG32N7YkVxCBuH5SJV_-Wy1REjdRCS5iRg
-Message-ID: <CA+V-a8toBu8SkOft-LHxgR0OEy0pz8sMGMze3GCG5z6n-YuZgQ@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] soc: renesas: Kconfig: Select POWER_SEQUENCING_RENESAS_PWRRDY
- for RZ/V2H and RZ/V2N
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-Hi Bartosz,
+Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
 
-Thank you for the review.
-
-On Thu, Oct 15, 2026 at 10:45=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
-rg> wrote:
+> When drivers are working properly they should be quiet. Turn the dev_info()
+> into a dev_dbg(). While there, also make it more informative.
 >
-> On Fri, 9 Oct 2026 18:57:10 +0200, Prabhakar <prabhakar.csengg@gmail.com>=
- said:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > The RZ/V2H and RZ/V2N SYSC drivers register auxiliary devices for
-> > power sequencing, which require the pwrseq-renesas-pwrrdy driver to bin=
-d
-> > to them.
-> >
-> > Select POWER_SEQUENCING and POWER_SEQUENCING_RENESAS_PWRRDY from the
-> > RZ/V2H and RZ/V2N SYSC configurations so the power sequencer driver is
-> > built whenever SYSC support for these SoCs is enabled.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v1->v2:
-> > - No change
-> > ---
-> >  drivers/soc/renesas/Kconfig | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/soc/renesas/Kconfig b/drivers/soc/renesas/Kconfig
-> > index b7abca4559df..32cd0d9c8758 100644
-> > --- a/drivers/soc/renesas/Kconfig
-> > +++ b/drivers/soc/renesas/Kconfig
-> > @@ -517,9 +517,13 @@ config SYS_R9A09G047
-> >  config SYS_R9A09G056
-> >       bool "Renesas System controller support for R9A09G056 (RZ/V2N)" i=
-f COMPILE_TEST
-> >       select SYSC_RZ
-> > +     select POWER_SEQUENCING
->
-> That's implied by the symbol below though?
->
-POWER_SEQUENCING_RENESAS_PWRRDY will only be visible when
-POWER_SEQUENCING is enabled. If dropped, randconfig might generate the
-following warning:
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
 
-$ make menuconfig
 
-WARNING: unmet direct dependencies detected for POWER_SEQUENCING_RENESAS_PW=
-RRDY
-  Depends on [n]: POWER_SEQUENCING [=3Dn] && (SYSC_RZ [=3Dy] || COMPILE_TES=
-T [=3Dy])
-  Selected by [y]:
-  - SYS_R9A09G056 [=3Dy] && SOC_RENESAS [=3Dy]
 
-Cheers,
-Prabhakar
+-- 
+Best regards,
 
-> Bart
->
-> > +     select POWER_SEQUENCING_RENESAS_PWRRDY
-> >
-> >  config SYS_R9A09G057
-> >       bool "Renesas System controller support for R9A09G057 (RZ/V2H)" i=
-f COMPILE_TEST
-> >       select SYSC_RZ
-> > +     select POWER_SEQUENCING
-> > +     select POWER_SEQUENCING_RENESAS_PWRRDY
-> >
-> >  endif # SOC_RENESAS
-> > --
-> > 2.55.0
-> >
-> >
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
