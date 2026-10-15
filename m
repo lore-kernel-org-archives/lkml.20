@@ -1,283 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4D33F4DC7;
-	Thu, 15 Oct 2026 18:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251653F2100;
+	Thu, 15 Oct 2026 18:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792089074; cv=none; b=Y9ZQeakzWZIaem1dy0eFuhvFzV+eaTGsdYyRc48O9l5xA8xN5Y7xNaFkEYMh8Tezp/AjzV7zoa8Vx41LZVggZFSAuPgQZnpyFKAjf/xn1xAKA9j36LI3YcwkCIT5iiu1gbnx4cjf9Iz6BiHeYe4Vmr3a+1PUJbPDUpmzNLhEUDo=
+	t=1792089075; cv=none; b=oEpVHp9+cav+8ahLubTvVS2RKTUUgaIng0iLG63R0OBXdMKFXNiMspPYF+kQzknCna1zNNGN14ZPdWBsnMgnN2P5+8YGCTazloicLR1RUNguVT0QgkvnDHHZOMay9xRse2ZXSI0EVUjv0DENCWnzgcktkuJyS3RBFOSG+UZPYWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792089074; c=relaxed/simple;
-	bh=J8ZK4lfx4Bc0KT6ZdKMMtkNqCt7gAzAX8aDMXcnLiVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g6XD+QBISd1rHIdNLbsYM2HuMtSdNI4EBx998CXeGw2JOoLj3+imDzbPJHIxQlqeb4ztkIM7xZa9LJFJHxikxYudebYCevBhUP+/ZRguXvvFtPMyUxfGUHXYr49FLYJyUfF8oDsbPLewHhRNYIEAIi7LYMnwLHRSEvjKUjLH2lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V0GiD2FG; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792089075; c=relaxed/simple;
+	bh=XnqirTAOIyOEUEjM5gZAlIddME/VKFHHyuu7S7qv8SU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N8UkD1f4CbzPzGFkLedV7QE4jQcwvA0izfrQxM0NOdb8GqnyFEIEWUeQRD6OwQpW8gBgULsb2luM0B0d6T7QjcoupwO0PqHRE1ApIClh0rMrnrlyD4U6dJi59J27X7r4DErp6LENKbd4N9rgTZ2qaG8Oln+lS4D5ApT5IExmveQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=dE1Vtecx; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V0GiD2FG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792089069; x=1823625069;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=J8ZK4lfx4Bc0KT6ZdKMMtkNqCt7gAzAX8aDMXcnLiVc=;
-  b=V0GiD2FG/tN/z2jVZ1ApH4eiFKiHLHKHubQPP4kVslXd7fokvRI3Aa4W
-   e0Jnn8Ar8vyhZYY6VDdpkRJbVP6zvjMfllfnDjxNWe9REzPHBJFqPHAQY
-   IXXYu9GrndUJmEcdib4/8kY6UQC5tZ8WideNEIC2w6fq+ZG7E4HcjnYhF
-   995PanRDgXuLzBqDmisiEAwk83BozEtod+iI6Kz80grSsxYRoFUQioZeN
-   oY93pnA/xfdIXUuy2tkplqDsX1gJYQLRqJQjGjqZFavNegKAIDcyS9xeG
-   X1nHnYN9JcS00Mpv5Oyvn+HwJ1I0D7EXgavOKJNq8DSbF6T5S4ZKzG/7Z
-   Q==;
-X-CSE-ConnectionGUID: Sh/E9mMUSQe/SJ5c25s5Lg==
-X-CSE-MsgGUID: VgEuMaY+S4e3iVedApo3Rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="889509"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="889509"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:31:08 -0700
-X-CSE-ConnectionGUID: 7rGUEy19Qi+heaAU5rgqjA==
-X-CSE-MsgGUID: hUFvj3i7SmeILuknU3DXaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1833441"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.117])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:31:06 -0700
-Date: Thu, 15 Oct 2026 21:31:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Nikodem Sanecki <nikodemsanecki@gmail.com>,
-	Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Cc: westeri@kernel.org, linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: ThinkPad L13 Gen 2 AMD (21AB): Caps Lock LED broken by ACPI GPIO
- 11 interrupt conflict
-Message-ID: <atEb6FN6ZbKI9xgf@ashevche-desk.local>
-References: <CAAUQFRPW-rbcZV-=qV1NMjF_358sdJTiGvQuRxRqAsehY+J9Qg@mail.gmail.com>
- <atEaguJD7dh7xNs0@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="dE1Vtecx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1792089065; x=1792348265;
+	bh=12AmhKHxbLCv2FSRsicB7sk85Z0FKPCHLGV0cKefTJM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=dE1VtecxiVIuKGRpV70GWCQBPPq7Qp2vPmfdR0o/S3epOlwdd8+uMDKry4U/G+7pT
+	 gJO2EfoUpwAHMI4gfuyLwhFnYyBkqfxcYxgztLCtkTG0V6s6+IrO2ePT0WPKwALX1g
+	 aubJlIyTmm/m/ivut8hkcc4lzSIdPatf6TeYB/Fk/Kp3Lt2C/3D8Op7RVW1zccc4vN
+	 SDMzqVJkMxF6G19AEjryidejDGxE2V/Lcs6zFM4EwJ3+q5GqBsDtklbf4PGga7OBEF
+	 6kk08O64YrFvbkSAiIhUjWTIZ7IFLBkMbmcIBLHzCBfT6THvVWoZy4bLwzn+FfWF8A
+	 Da7f+fZLU/i8Q==
+Date: Thu, 15 Oct 2026 18:31:02 +0000
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+From: cochcoder <cochcoder@proton.me>
+Cc: linux-bluetooth@vger.kernel.org, Marcel Holtmann <marcel@holtmann.org>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] Bluetooth: L2CAP: tolerate zero-ident LE credit indications
+Message-ID: <kSgAQJi1qQPQmEKSbh2o-nT3b7dFTdU4_Ld1BZi90BsBSb0XUbXGREvCaB_PRJMmy7os8opcmtBtv3GvRQNiHHa9yGzSRT7Q8CciGPx6DfA=@proton.me>
+In-Reply-To: <CABBYNZJJf3owtAwGs4OuL6+YZz+zuY_kewKFDZPQdfcF-xyFFA@mail.gmail.com>
+References: <20261013031943.489829-1-cochcoder@proton.me> <CABBYNZJJf3owtAwGs4OuL6+YZz+zuY_kewKFDZPQdfcF-xyFFA@mail.gmail.com>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: a3097f93aaebcf5e0019e21bc2121149c39ca427
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atEaguJD7dh7xNs0@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 09:25:10PM +0300, Andy Shevchenko wrote:
-> +Cc: Dmitry (as it might be related to keyboard configuration), others for
-> the previously reported same IRQ on the same GPIO controller but for some
-> camera stuff.
+Thanks for flagging this. I've sent v3 as a two-patch series:
+the security fix first, followed by the dependent zero-ID RFC.
+
+Security fix:
+https://lore.kernel.org/r/20261015181624.48318-1-cochcoder@proton.me
+
+Zero-ID RFC:
+https://lore.kernel.org/r/20261015181624.48318-2-cochcoder@proton.me
+
+Thanks,
+Kyle
+
+
+On Tuesday, October 13th, 2026 at 10:44 AM, Luiz Augusto von Dentz <luiz.de=
+ntz@gmail.com> wrote:
+
+> Hi Kyle,
+>=20
+> On Mon, Oct 12, 2026 at 11:20=E2=80=AFPM Kyle Pepper <cochcoder@proton.me=
+> wrote:
+> >
+> > A nonconforming ASHA peer sends identifier-zero credit indications
+> > that are discarded, reducing usable transmit credits until audio stalls=
+.
+> >
+> > Tolerate only exact-size credit indications for a connected LE CoC.
+> > Preserve the channel reference, lock and credit-overflow checks and do
+> > not send a response with identifier zero. Other zero-ID commands and
+> > BR/EDR signaling remain unchanged.
+> >
+> > Core Vol 3 Part A section 4 forbids identifier zero. This is an
+> > interoperability RFC requiring maintainer agreement, not a conformance
+> > fix or a claim of automatic stream recovery.
+> >
+> > Assisted-by: OpenCode:gpt-6.1-sol
+> > Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+> > ---
+> > Submission review notes (not part of the commit message):
+> > Core specification forbids identifier zero. This is a narrow opcode
+> > interoperability exception, not a conformance fix. N8 captures contain
+> > zero-ID credit indications. Native malformed/overflow/teardown and
+> > lockdep/KASAN coverage and exception policy remain review gates.
+> >
+> >  net/bluetooth/l2cap_core.c | 18 +++++++++++++++++-
+> >  1 file changed, 17 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+> > index 49a998804..1a0868437 100644
+> > --- a/net/bluetooth/l2cap_core.c
+> > +++ b/net/bluetooth/l2cap_core.c
+> > @@ -5328,6 +5328,12 @@ static inline int l2cap_le_credits(struct l2cap_=
+conn *conn,
+> >
+> >         l2cap_chan_lock(chan);
+> >
+> > +       /* Tolerate identifier-zero credits only for a live LE CoC. */
+> > +       if (!cmd->ident &&
+> > +           (!credits || chan->state !=3D BT_CONNECTED ||
+> > +            chan->mode !=3D L2CAP_MODE_LE_FLOWCTL))
+> > +               goto unlock;
+> > +
+> >         max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
+> >         if (credits > max_credits) {
+> >                 BT_ERR("LE credits overflow");
+> > @@ -5923,11 +5929,21 @@ static inline void l2cap_le_sig_channel(struct =
+l2cap_conn *conn,
+> >
+> >         BT_DBG("code 0x%2.2x len %d id 0x%2.2x", cmd->code, len, cmd->i=
+dent);
+> >
+> > -       if (len !=3D skb->len || !cmd->ident) {
+> > +       if (len !=3D skb->len) {
+> >                 BT_DBG("corrupted command");
+> >                 goto drop;
+> >         }
+> >
+> > +       if (!cmd->ident) {
+> > +               if (cmd->code !=3D L2CAP_LE_CREDITS ||
+> > +                   len !=3D sizeof(struct l2cap_le_credits))
+> > +                       goto drop;
+> > +
+> > +               /* Credits have no response or identifier-matched trans=
+action. */
+> > +               l2cap_le_credits(conn, cmd, len, skb->data);
+> > +               goto drop;
+> > +       }
+> > +
+> >         err =3D l2cap_le_sig_cmd(conn, cmd, len, skb->data);
+> >         if (err) {
+> >                 struct l2cap_cmd_rej_unk rej;
+> >
+> > base-commit: 964430c038967fd06643e866f68115664e1a1bd1
+>=20
+> Sashiko flagged a problem with this:
+>=20
+> https://sashiko.dev/#/patchset/20261013031943.489829-1-cochcoder%40proton=
+.me
+>=20
+> --
+> Luiz Augusto von Dentz
 > 
-> On Thu, Oct 15, 2026 at 03:13:02PM +0100, Nikodem Sanecki wrote:
-> > Hello,
-> > 
-> > I'm reporting a Caps Lock LED issue on my Lenovo ThinkPad L13 Gen 2 AMD
-> > running Arch Linux. I found a workaround that completely fixes it, and I
-> > hope the findings might help implement a permanent kernel fix.
-> > 
-> > *A quick note:* This is my first time using Linux, and I'm a complete
-> > beginner when it comes to kernel development. I used ChatGPT (GPT-6) to
-> > guide the troubleshooting process, analyse my laptop's ACPI firmware, and
-> > interpret the results. I personally ran the diagnostic commands and
-> > verified the observed behaviour, but the technical explanation below is
-> > AI-assisted. Please correct me if any of the analysis is inaccurate.
-> > Problem
-> > 
-> > Under Linux, the physical Caps Lock indicator LED never illuminates, even
-> > though the Caps Lock key itself works normally.
-> > 
-> > The LED works correctly under Windows and during certain stages of boot, so
-> > the hardware itself is functional.
-> > 
-> > After investigating, GPT-6 identified what appears to be a conflict
-> > involving GPIO 11 on the AMD AMDI0030 controller.
-> > 
-> > Booting Arch Linux with this kernel parameter completely fixes the problem:
-> > 
-> > gpiolib_acpi.ignore_interrupt=AMDI0030:00@11
-> > 
-> > The Caps Lock LED now works normally, and I haven't noticed any other
-> > hardware issues.
-> > System information
-> > 
-> >    -
-> > 
-> >    Device: Lenovo ThinkPad L13 Gen 2 AMD
-> >    -
-> > 
-> >    DMI product name: 21AB004LSP
-> >    -
-> > 
-> >    DMI product version/family: ThinkPad L13 Gen 2a
-> >    -
-> > 
-> >    DMI vendor: LENOVO
-> >    -
-> > 
-> >    DMI product SKU: LENOVO_MT_21AB_BU_Think_FM_ThinkPad L13 Gen 2a
-> >    -
-> > 
-> >    Kernel: 7.2.9-arch1-1
-> >    -
-> > 
-> >    Distribution: Arch Linux
-> >    -
-> > 
-> >    BIOS: R1QET54W (1.40)
-> >    -
-> > 
-> >    BIOS date: 2026-04-14
-> >    -
-> > 
-> >    DSDT OEM ID: LENOVO
-> >    -
-> > 
-> >    DSDT OEM Table ID: TP-R1Q
-> > 
-> > Diagnostic findings
-> > 
-> > The following is GPT-6's analysis of the diagnostic output and decompiled
-> > ACPI tables.
-> > 
-> > *1. Linux sends the correct keyboard LED commands*
-> > 
-> > Using bpftrace, we observed that atkbd_set_leds() consistently returned 0.
-> > 
-> > Tracing ps2_command() for command 0x10ED produced:
-> > 
-> > SETLEDS: value=4, caps=1
-> > SETLEDS: value=0, caps=0
-> > SETLEDS: value=4, caps=1
-> > SETLEDS: value=0, caps=0
-> > 
-> > The driver reports success and sends the expected Caps Lock states, but the
-> > physical indicator stays off.
-> > 
-> > *2. The embedded controller tracks Caps Lock correctly*
-> > 
-> > The DSDT defines the CPLS field at EC offset 0x0F, bit 7.
-> > 
-> > Reading that byte through the read-only ec_sys interface showed it changing
-> > from 0x00 to 0x80 when Caps Lock was toggled.
-> > 
-> > Enabling dynamic debugging in drivers/acpi/ec.c confirmed that each Caps
-> > Lock press triggered EC query 0x78, which was scheduled, started and
-> > stopped successfully.
-> > 
-> > *3. Lenovo's firmware controls GPIO 11*
-> > 
-> > The DSDT contains:
-> > 
-> > Method (_Q78, 0, NotSerialized)
-> > {
-> >     If (CPLS)
-> >     {
-> >         WFIO (0x0B, 0x00)
-> >     }
-> >     Else
-> >     {
-> >         WFIO (0x0B, 0x01)
-> >     }
-> > }
-> > 
-> > The WFIO method writes bit 22 using WMEM(), targeting address 0xFED81500 +
-> > (11 * 4) = 0xFED8152C.
-> > 
-> > This appears to control the Caps Lock indicator using GPIO 11.
-> > 
-> > *4. The same GPIO is declared as an ACPI interrupt*
-> > 
-> > In SSDT12, _SB.GPIO._AEI declares GPIO 11 as an edge-triggered, active-low,
-> > exclusive wake interrupt.
-> > 
-> > Its _EVT handler includes:
-> > 
-> > Case (0x0B)
-> > {
-> >     MSTP (0x3911)
-> >     Notify (\_SB.PCI0.GPP1, 0x00) // Bus Check
-
-This looks like some GPIO related notification. I dunno what Windows driver does.
-Mario?
-
-> > }
-> > 
-> > This appears to conflict with the firmware's use of GPIO 11 as an output.
-> > 
-> > *5. GPIO registers confirm the suspected conflict*
-> > 
-> > Without the workaround, /sys/kernel/debug/gpio showed:
-> > 
-> > #11 ... input ... 0x457a00
-> > #11 ... input ... 0x057a00
-> > 
-> > Pressing Caps Lock changed bit 22, but bit 23 (output enable) remained
-> > cleared.
-> > 
-> > After booting with:
-> > 
-> > gpiolib_acpi.ignore_interrupt=AMDI0030:00@11
-> > 
-> > The result was:
-> > 
-> > #11 ... output ... 0xc50000
-> > 
-> > The output-enable bit was now set, and the physical Caps Lock LED worked
-> > flawlessly.
-> > 
-> > The system was already using atkbd.reset=1 for a separate
-> > keyboard-backlight problem. That parameter alone had not fixed the Caps
-> > Lock LED.
-> > Possible explanation
-> > 
-> > GPT-6's interpretation is that Linux's ACPI GPIO handling configures GPIO
-> > 11 as an interrupt input because of the firmware's _AEI declaration.
-> > 
-> > That disables the output driver, even though the firmware continues
-> > updating the GPIO output-value bit when Caps Lock changes.
-> > 
-> > Ignoring the interrupt allows the pin to remain configured as an output,
-> > restoring the indicator.
-> > Related upstream fix
-> > 
-> > This seems very similar to the Acer Nitro V 16S AI issue addressed by:
-> > 
-> > 6da1f3437435c82eaa15b121022474bb358ffe20
-> > 
-> > "gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V 16S AI"
-> > 
-> > https://lists.openwall.net/linux-kernel/2026/10/02/1029
-> > 
-> > However, there is an important difference.
-> > 
-> > On my ThinkPad, the GPIO 11 _EVT handler issues a PCIe bus-check
-> > notification. I therefore don't know whether permanently ignoring the
-> > interrupt could interfere with PCIe-related events, hot-plugging or wake
-> > behaviour.
-> > 
-> > So far, normal use with the workaround appears unaffected, but I haven't
-> > exhaustively tested those scenarios.
-> > Question
-> > 
-> > Would a DMI-specific gpiolib ACPI quirk be appropriate for this ThinkPad,
-> > or should the conflicting GPIO declaration be handled differently because
-> > of the PCIe notification?
-> > 
-> > I can provide the relevant decompiled DSDT/SSDT excerpts, additional
-> > diagnostic logs, or test a proposed fix if that would help.
-
-Please do via some kind of file sharing service and reply with an URL to that.
-
-> > Thanks very much for your time, and apologies if I've misunderstood any of
-> > the technical details. I'm happy to run further tests with guidance.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
