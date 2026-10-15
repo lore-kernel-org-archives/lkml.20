@@ -1,130 +1,212 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CDE5038E8
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086A9521224
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067098; cv=none; b=ME6kj3tTmpCz2jO350sYkmh20NTWJE8Yc8l7FyBCiXeV4aNlTLUficVqFuCkbCAoxZdyfrL0ydms7Oj6wDKBUg2kbD7FJ2N+EnPi6g0+AHkPhWDUbKoqCTi9dk5Tg5Smg1J7HbtJp2a9S9ecqfEuoNArnaCZg/OpqDZ/1xFk+aE=
+	t=1792067104; cv=none; b=V/4/NYFnEGKq9/PnPCD0QFyY0VOWKA1d74ODp1KCOYpI5FtYorRT5DrCs4XbHb7cA2tB1tiO2nAOuuJFV8AaGRdcz7UWiCCrvQv6Ibg6G4Eh3E3NnhRvZmYzGQYQ5T9Kvf5PwUmP5m46FUEaT0TGLglh+ggLydtgPFvOTd7/mHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067098; c=relaxed/simple;
-	bh=ZT5nfL5cWvVR+FVtK69hN39LbUZkLY55DyGOyx8pbbg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Hxj39WktxU0G5VLuBpUduu+lNcyz0qHSvMbEiiA8YzYWvGjVBjZiR+7/21vUT2x1U0kPUEcOI+qlv2AYzEUuhUFK6h8potRPTn4R4uckw+mTCkh66ndopUOgRHlEjhN9fXiQ/p4hssI0vbcfguSEf3yxioL9Ia9MT504sVjA3Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5e91e422859so2573380e0c.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:24:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792067095; x=1792671895;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gQc0B6ddBetoMPj6D5PkGmJUAko65vy6l7KddjggnuQ=;
-        b=1pM2I+MsPcfQTQCrgV9rJsVn/1zZhQZUsETyvi+9KUMhbVTX+n0ghMxO7hVvfBDbg5
-         AGDkFowMOuA/LE/ADu4Dds7UEjPyYG1drgl7E02OxJiLggJgoGfaqvjFigFFtYAH9oHS
-         FqNegz6JdlT3JJvya+160DS2/FKVwVDhJ6li63RFUkXw4GPPTmeqnRTC/dDHw3UIMXJX
-         BiGzFfbiVVq8wnROUIvIANtQ+BGnDsGa1X3gn4XZxQJ4KDti66LhPGJdtQrxF4lg14iC
-         jSg7FrevX780gLEnMRKmmUiZW7DhY4a9T9hwgHRNYJiDLC2Oxe5EUZ9M6gkKK2lwib8a
-         BmCw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJgKxD9yYDEIBd1ILfuu8Q9GeFZCyhHUpXa8M8slPVIrTlVur2wSGQ/aV6/XnICDc8vNzL9KzRH6unLUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/HLf8hjBj/i5u6rstZhVZAH/3oVEkm15nEsIvxgo8ez64iiTX
-	gCVDXIndaUxwmV2zOv0rK30HKp545i6OyoAVVLz5DY9wARE5vP7wUG5MxSq+sqFVaQw=
-X-Gm-Gg: AYBFou25M2H/AbmQYvLk25UWgjxVWggRduJ4xmhI8eXjOgWNAttKyj1n+Gv0ttMPFAP
-	sP8e+BY9MrL3zGHpLwr8TnIcxZuV4Y+M5DmattBxQFHsgdZ+6yFkR6QGtJxfICLYKmwhPdXTiCK
-	PlT+Mh6x/ra64RuZZac0yGFhNvlnLEKpIS1tceJ56r/uVOQhwiEA2je/GaxbxWlBPlZYRG9AOVI
-	70fmCC/mAyMnsoJ526O6M62SeeTaFG4IT4WxzdGJKIV7/QE2hoXP6LIqGP2lV4Eo0ARZ6x7wv9w
-	HinplqRn56Kg57TE0mBzohHIGSnVGcgcvApONHwBmApk8iIXyAqFixyqwZ+ayRU4GiVup+QHfyZ
-	1Z0ID9v2S7EdRhA3wNu7F7/S2TlFLyM+eMPSpz7IzO2BfqPSq/mSmrMRgzORTMHqpQhVGo5zMAw
-	0yvVBmkFsCLX+ahIyUz6lPWuJ9T3SY9A1SI7acxGnG9RPc2q3iqNDX1VoGgPXMVuUMwVQDuAvyq
-	8guqPpxkvzGUxVUBNe2cHULqVKqfkcY/dlCFVJi
-X-Received: by 2002:a05:6122:4892:b0:5dd:bc1:93da with SMTP id 71dfb90a1353d-5e91f537983mr6104633e0c.17.1792067095223;
-        Thu, 15 Oct 2026 05:24:55 -0700 (PDT)
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab8c40sm13803642e0c.3.2026.10.15.05.24.54
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 05:24:54 -0700 (PDT)
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5e9405fbc33so2277513e0c.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:24:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy9HriGWXllJAUfQYjoUu1BKkpZM0xwWd9d1CzyPSFjXvKRy0mnBiq9jHAabEKm19bHC43rfA+Oj5Io258=@vger.kernel.org
-X-Received: by 2002:a05:6102:5792:b0:7cb:288a:b68b with SMTP id
- ada2fe7eead31-7cb373ecaa6mr4423446137.37.1792067094049; Thu, 15 Oct 2026
- 05:24:54 -0700 (PDT)
+	s=arc-20240116; t=1792067104; c=relaxed/simple;
+	bh=/wfRzpEhzmKDk5Q1Tg0JL3kbB2zDdbSwGEi12JEc9jo=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bHDmYM1yyvJkh6CGLuAXBPg6V7OobvPpHkeCbhCNkTKVsW6+bUlC5X/9Qr0MbiHL4czft8L0y5y3+SVplh9a8z14enXOf8x+pnOP/XE+qayzyuPQLcbKo+RdV3i3enYa7+pnhNN2yd8hMBPhKCQscmVG5ZxtIeXaAdAgjOfeMrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oY2H1XZy; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oY2H1XZy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B5B1F000CA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:25:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792067102;
+	bh=XWBbbDlf4EIwAAVhrNOPgxfdQorqL6I+zOwc8slJsqA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=oY2H1XZyIbnqyuy9ZYrkW/bwtfEtmpmrrrPgH0gEKO4rjAbAF4Rr29YEmejrYxWkL
+	 vR1qzJK9JwqSwFkWuV75Vj6fRh2/a3c5qJw3kqhSYbJ1OybRZNmmBXeu0QKcm+UwSJ
+	 98U8hVMRPVTGDdXhpXuegBO/edEZfS+yzfys3I1AI/LC+PU+sCvYQvAAEfdb690GbB
+	 VBJbRGyUY7ESh4zEY//CizYpMIEsoqucX4/9700sly8oG0kJMARc0x+PA3xMCkQG5e
+	 vClriT9LqQzK4gxJwvP5C7xmmH6X8+3FyL3+jifzi7wEKb74FE3Z+NpFE/dJGluTJK
+	 jBN7s0IqI5qRA==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so3663460e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:25:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx9V0oLtnxrtN2LtZjlSK/B48ezZCDtACcLLu9k36BO/sPWRNFkwxxTaZqNY2MKlcN+mjTJavstpLlZobI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh2byuHW4VCXEqYhm9WA0In8ObbAyuBfoAnTxA2y70LEghttgu
+	4vGM42U0BA4MGLe6kGeybzJU8d5QRVzjgoAPfx4zV13lzNOsYkTDo5Ilb+jPF2q7Xgw/DUg7lCP
+	Wl4UnXwLpSqcFXblp2c4gdc0IemxHmdlMUYLxjw2/YQ==
+X-Received: by 2002:a05:6512:3989:b0:5ba:37c8:a485 with SMTP id
+ 2adb3069b0e04-5bcde6bdfd9mr6220298e87.22.1792067101328; Thu, 15 Oct 2026
+ 05:25:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 12:25:00 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 15 Oct 2026 12:25:00 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261014072109.1759502-9-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <1b1ca4208d725ae0bb834a61636e48728d79cf80.1791973171.git.geert+renesas@glider.be>
- <atAQAI0WWtwh8kvf@xhacker> <CAMuHMdWB+Aj7HK3YaHgo8VcypBamN9Yqi-M8WYtKpRu+ZG7yFA@mail.gmail.com>
- <atC9jZIF1T1x0w1X@xhacker>
-In-Reply-To: <atC9jZIF1T1x0w1X@xhacker>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 15 Oct 2026 14:24:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXkzgE7=n7MJ1-QS10y=f75vO7OribUgM3wb134LN+5kQ@mail.gmail.com>
-X-Gm-Features: AclHuK8AEmS4BjewOhDIhzzUqFg00oT4fEiD3JuX6PdEzowUpGV1zfOobCzXRp4
-Message-ID: <CAMuHMdXkzgE7=n7MJ1-QS10y=f75vO7OribUgM3wb134LN+5kQ@mail.gmail.com>
-Subject: Re: [PATCH] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 should depend on MMU
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Conor Dooley <conor.dooley@microchip.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-9-ghahramani.navid@gmail.com>
+Date: Thu, 15 Oct 2026 12:25:00 +0000
+X-Gmail-Original-Message-ID: <CAMRc=MfhnbwvM+c=e1=ga4wALCmj8Bi8LWkB_W4_0YHkK3Hikw@mail.gmail.com>
+X-Gm-Features: AclHuK8GH8etn3uUshACOzvmzHuZTS1r4ysvL-52dRD2_mweQZCACUKo2mAjagE
+Message-ID: <CAMRc=MfhnbwvM+c=e1=ga4wALCmj8Bi8LWkB_W4_0YHkK3Hikw@mail.gmail.com>
+Subject: Re: [PATCH v2 08/24] gpio: Add ZTE ZX279128S GPIO driver
+To: Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: arnd@arndb.de, stefandoesinger@gmail.com, krzk@kernel.org, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Jisheng,
-
-On Thu, 15 Oct 2026 at 14:08, Jisheng Zhang <jszhang@kernel.org> wrote:
-> On Thu, Oct 15, 2026 at 09:43:40AM +0200, Geert Uytterhoeven wrote:
-> > On Thu, 15 Oct 2026 at 01:48, Jisheng Zhang <jszhang@kernel.org> wrote:
-> > > On Wed, Oct 14, 2026 at 12:20:39PM +0200, Geert Uytterhoeven wrote:
-> > > > These options are irreleant for nommu systems.
-> > > >
-> > > > Fixes: 36de74049ec8cb1a ("riscv: introduce RISCV_ISA_SV48 and RISCV_ISA_SV57")
-> > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> >
-> > > > --- a/arch/riscv/Kconfig
-> > > > +++ b/arch/riscv/Kconfig
-> > > > @@ -605,7 +605,7 @@ config RISCV_ISA_SSQOSID
-> > > >
-> > > >  config RISCV_ISA_SV48
-> > > >       bool "Page-Based 48-bit Virtual-Memory System"
-> > > > -     depends on 64BIT
-> > > > +     depends on 64BIT && MMU
-> > > >       default y
-> > > >       help
-> > > >         Add support for the Page-Based 48-bit Virtual-Memory System.
-> > > > @@ -617,7 +617,7 @@ config RISCV_ISA_SV48
-> > > >
-> > > >  config RISCV_ISA_SV57
-> > > >       bool "Page-Based 57-bit Virtual-Memory System"
-> > > > -     depends on 64BIT
-> > > > +     depends on 64BIT && MMU
-> > >
-> > > hmm, I think we also need to make RISCV_ISA_SV57 depend on
-> > > RISCV_ISA_SV48. Otherwise, there's a case: RISCV_ISA_SV57 &&
-> > > !RISCV_ISA_SV48. Human won't make this wrong combination, but
-> > > the random config can.
-> >
-> > Is that really an issue?
-> > If I build a kernel for an SV57-system, do I really need to enable
-> > support for SV48, too? It builds fine without...
+On Wed, 14 Oct 2026 09:20:48 +0200, Navid Ghahremani
+<ghahramani.navid@gmail.com> said:
+> Expose the six banks using the generic GPIO implementation and enable
+> the register clock before accessing the bank.
 >
-> This is to align with the spec:
-> "implementations that support Sv57 must also support Sv48"
+> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
+> ---
+>  drivers/gpio/Kconfig          | 12 ++++++
+>  drivers/gpio/Makefile         |  1 +
+>  drivers/gpio/gpio-zx279128s.c | 79 +++++++++++++++++++++++++++++++++++
+>  3 files changed, 92 insertions(+)
+>  create mode 100644 drivers/gpio/gpio-zx279128s.c
+>
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index a48586bb8e..3ae51a3c10 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -902,6 +902,18 @@ config GPIO_ZEVIO
+>  	help
+>  	  Say yes here to support the GPIO controller in LSI ZEVIO SoCs.
+>
+> +config GPIO_ZX279128S
+> +	tristate "ZTE zx279128s GPIO support"
+> +	depends on ARCH_ZTE || COMPILE_TEST
+> +	select GPIO_GENERIC
+> +	help
+> +	  Say yes here to support the GPIO controller of the ZTE zx279128s
+> +	  SoC. It has several banks of 16 lines each, which boards such as
+> +	  the ZTE ZXHN H3600 use for LEDs, buttons and reset lines.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called gpio-zx279128s.
+> +
+>  config GPIO_ZYNQ
+>  	tristate "Xilinx Zynq GPIO support"
+>  	depends on ARCH_ZYNQ || ARCH_ZYNQMP || COMPILE_TEST
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index dc9e6d643b..a57ed7ec71 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -223,5 +223,6 @@ obj-$(CONFIG_GPIO_XLP)			+= gpio-xlp.o
+>  obj-$(CONFIG_GPIO_XRA1403)		+= gpio-xra1403.o
+>  obj-$(CONFIG_GPIO_XTENSA)		+= gpio-xtensa.o
+>  obj-$(CONFIG_GPIO_ZEVIO)		+= gpio-zevio.o
+> +obj-$(CONFIG_GPIO_ZX279128S)		+= gpio-zx279128s.o
+>  obj-$(CONFIG_GPIO_ZYNQ)			+= gpio-zynq.o
+>  obj-$(CONFIG_GPIO_ZYNQMP_MODEPIN)	+= gpio-zynqmp-modepin.o
+> diff --git a/drivers/gpio/gpio-zx279128s.c b/drivers/gpio/gpio-zx279128s.c
+> new file mode 100644
+> index 0000000000..71eb6b5d82
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-zx279128s.c
+> @@ -0,0 +1,79 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * ZTE zx279128s GPIO controller
+> + *
+> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/gpio/driver.h>
+> +#include <linux/gpio/generic.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +
+> +/*
+> + * Each bank has 16 lines, one bit per line in each register. The registers
+> + * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not supported
+> + * yet.
+> + */
+> +#define ZX279128S_GPIO_DIR	0x00	/* 1: output */
+> +#define ZX279128S_GPIO_DATA	0x14	/* line level */
+> +#define ZX279128S_GPIO_SET	0x18	/* write 1: drive high */
+> +#define ZX279128S_GPIO_CLEAR	0x1c	/* write 1: drive low */
+> +
+> +static int zx279128s_gpio_probe(struct platform_device *pdev)
+> +{
+> +	struct gpio_generic_chip_config config = { };
 
-IMO that is something different.
+Don't initialize it here, instead...
 
-Gr{oetje,eeting}s,
+> +	struct device *dev = &pdev->dev;
+> +	struct gpio_generic_chip *chip;
+> +	void __iomem *base;
+> +	struct clk *clk;
+> +	int ret;
+> +
+> +	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+> +	if (!chip)
+> +		return -ENOMEM;
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get the clock\n");
+> +
+> +	config.dev = dev;
+> +	config.sz = 4;
+> +	config.dat = base + ZX279128S_GPIO_DATA;
+> +	config.set = base + ZX279128S_GPIO_SET;
+> +	config.clr = base + ZX279128S_GPIO_CLEAR;
+> +	config.dirout = base + ZX279128S_GPIO_DIR;
+> +
 
-                        Geert
+... do:
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+	config = (struct gpio_generic_chip){
+		.dev = dev,
+		...
+	};
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +	ret = gpio_generic_chip_init(chip, &config);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to set up the GPIO chip\n");
+> +
+> +	chip->gc.ngpio = 16;
+> +
+> +	return devm_gpiochip_add_data(dev, &chip->gc, NULL);
+> +}
+> +
+> +static const struct of_device_id zx279128s_gpio_of_match[] = {
+> +	{ .compatible = "zte,zx279128s-gpio" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, zx279128s_gpio_of_match);
+> +
+> +static struct platform_driver zx279128s_gpio_driver = {
+> +	.probe = zx279128s_gpio_probe,
+> +	.driver = {
+> +		.name = "zx279128s-gpio",
+> +		.of_match_table = zx279128s_gpio_of_match,
+> +	},
+> +};
+> +module_platform_driver(zx279128s_gpio_driver);
+> +
+> +MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
+> +MODULE_DESCRIPTION("ZTE zx279128s GPIO controller driver");
+> +MODULE_LICENSE("GPL");
+> --
+> 2.55.0
+>
+>
+
+Looks pretty good, I love small drivers like this.
+
+Bart
