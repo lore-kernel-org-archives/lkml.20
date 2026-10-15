@@ -1,121 +1,71 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE19481640
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC5349E5FF;
+	Thu, 15 Oct 2026 07:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050209; cv=none; b=asSzOckbhsH1Pq0qyP4w01EAvrvklPr47beWPrjeN5RUzPN+Ku6pgJeZxXYMbP6HC+wqaR9V/UQVejFawol3KCXY6nc73Zs1Z4b2qi4iAwNXK1Cl180iCj82YhH2KVGwzC6VxxHT1NqKC+aZP7U0aj3tDjODN+cI4PLGlE6Edxk=
+	t=1792050222; cv=none; b=o8h/AmYaABVGtQBxgTAEUzRCW+iERCShE8vwBDYwEzrG0hdrlcIKb+sau2+3NigL+5fQ+lcuNTiLskyBMX9EnirWeuV/YBtWik6OO/bDYj5Vpc+4iK4r6J1j5YDRi+8iDBL++qWi0DBmZdP8Sv8mcC/TCRv+Mpl8O5QiFRKMsyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050209; c=relaxed/simple;
-	bh=YLJQp9WZ3BIAITm1NSeUvtEDfPL4hEVvl7lUXyrIuOc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=M+uuTIszZ+6ujf/Lhwps1agWwAdJbPjVIhKPAX8rBX5va6UWmmCDoibEocdjNByFNg4ewqGRvLi49DwSvq0SDyn3uRdEQPBW6pFuQ0mcQwnt/j6qh2CEFwAbERw1Ww63PIAnNp1G7uWJ+ctNUrrI8Nm9Kk5jDbs1e7UoUjBvrkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oPGQE9o2; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792050222; c=relaxed/simple;
+	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Q9mh1fYkN/uE9cdFw7YfUDV+KzG7deScYt8xsqa60gvAovAm6wTvUgck/RHAKUY/bLsOUBmYHXu5c98Sh4nTBYp+NQhLWkCC8uF3r4HzcgVdc/Gxd/r7I7wf/h+6E+Rot1+yFw7xmBY4FoqP62EVmpmS5OcfhyLtiIO89JeLVr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avxfbTMA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oPGQE9o2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 80405C63455;
-	Thu, 15 Oct 2026 07:44:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 33B4160360;
-	Thu, 15 Oct 2026 07:43:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C40741032869C;
-	Thu, 15 Oct 2026 09:43:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792050200; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=mXGPNaosFVQsfAd/lTLdcHqRv0MbTkP+44h/9Qmdp50=;
-	b=oPGQE9o22DWyG5MrX5/Dx6cE1yFNsrAINlgjyg3Mo6J7Cwb89AoA47oAe8AOkescjMsHXa
-	Fk0csLNol/R4VTt/X3ew1TfK7JNhEHTFKVt71aiLY/5pO8sY+T6xaSRCcpL8Xt/vqnR1xg
-	TH43CnJSTTXphAROeqIwsUZUdT54UGupuG6eLEFF/TQ45fyl6b4eGHM6LXMZOz81bfCtP6
-	SNmF9tB1r/Ei1aQGYLTEfrgTiizqh3ixswmS7eWNy+9JfX3UbkruWTgHt95uZAnsBEOQMy
-	x9PqsRfNYGgZtAZtMVdGdSjLeX5IVmqVbHHx7RuyDwvEyiWUxCG8rhX4bvspNQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 15 Oct 2026 09:43:09 +0200
-Subject: [PATCH] drm/bridge: ite-it66121: fix silent probe regression due
- to reset timing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avxfbTMA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BD61F000C4;
+	Thu, 15 Oct 2026 07:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792050219;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=avxfbTMANEBfzVLsIqD7E/Dd14H2HWAqfQi/N1vosEjCv0S/PveXsz5hsLUSNa6D8
+	 NzZUlZjDeYBAz/mZyBmTjF4nr3xrGeyPIcb+HgD8eDnvrSWLaWERdaBa/J0RxbQfsM
+	 S4J2hns8JpbaQmo3Wo3987UdC18YtCsbO5g5/z5gPwP1Va3yaqj3MmRgY1bI9oxt87
+	 Pc2n+8lujnrKYCSb2u201lQbONNahe8dsQxdGR8NNSdXkHyUnyvXE/SHdvOw5V3VNa
+	 Yt0vlTp1A/IGOnMrq0TITgqJbSgIn8PhuE4ncqJWp9jI+vAEpxJAjj//tICwL3Nkch
+	 MpqyX1ybZS82w==
+From: netdev-bot+sinfo@kernel.org
+To: Octavian Purdila <tavip@google.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Willem de Bruijn <willemb@google.com>,
+ Soheil Hassas Yeganeh <soheil@google.com>, Wei Wang <weiwan@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 0/2] tcp: clamp return value of tcp_wmem_schedule() to
+ non-negative
+Date: Thu, 15 Oct 2026 07:43:38 +0000
+Message-ID: <179205021846.408196.14808616314279740107@kernel.org>
+In-Reply-To: <20261015073736.2944215-1-tavip@google.com>
+References: <20261015073736.2944215-1-tavip@google.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CQAxFr0K6tgkdMoV4FeMCoWhJRNOOxoRwd
- 6ou3/95bwUXU3E4ViuYvNX1sQTQoYLh1i9XQR2DIdWJqaaMo91RS8yFmRLhpB80cSk4Ucu5yV3
- fMUP4T5M4f+3T+c/+uswylG8Qtm0HHQjkJ30AAAA=
-X-Change-ID: 20261015-drm-ite-it66121-fix-reset-f1765358a866
-To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Julien Chauveau <chauveau.julien@gmail.com>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-rightfully added code to make the reset pin really work instead of being a
-no-op, but that change introduced a regression making probe fail most of
-the times, at least on some hardware.
+Hi!
 
-On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of the
-times. This is because:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
- 1. the regmap_read() calls just after it66121_hw_reset() to read the ID
-    registers fail
- 2. there is no error checking for these regmap_read(), execution
-    continues silently
- 3. this results in not matching any of the IDs from it66xx_chip_info
- 4. and this results in silently returning -ENODEV
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Empirical tests showed a small delay after de-asserting reset fixes
-probing. Likely the device needs some ramp-up time after reset. No such
-requirement is mentioned in the docs I could find, so the amount of delay
-was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting a
-20 ms delay should provide a safe margin.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
-FYI For items 2 and 4 above, I'm sending separate patches to make those
-errors not silent. Those aren't fixes, so they would be for drm-misc-next,
-while this patch is for drm-misc-fixes.
----
- drivers/gpu/drm/bridge/ite-it66121.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 51fc68ffdf8f..692a85e1e2e8 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx)
- 	gpiod_set_value(ctx->gpio_reset, 1);
- 	msleep(20);
- 	gpiod_set_value(ctx->gpio_reset, 0);
-+	msleep(20);
- }
- 
- static inline int it66121_preamble_ddc(struct it66121_ctx *ctx)
-
----
-base-commit: 20b91781216dc693d862368b523e752525172176
-change-id: 20261015-drm-ite-it66121-fix-reset-f1765358a866
-
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
