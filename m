@@ -1,96 +1,121 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic305-3.consmr.mail.bf2.yahoo.com (sonic305-3.consmr.mail.bf2.yahoo.com [74.6.133.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6458B3B7744
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDFD31ED93
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.133.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030842; cv=none; b=TaLtScXhLINCfjFp1taGlyQHk8BaJdC8lNxV6+Fw4dvcfsHpbqxO0FVxYm08tbz6935HiXp2kI9Qt+CyQ+RrvLCjT7mplItedrI+BjBOkRfDT1iHQ6pluDd1YD33gQX2ddOYMvwpNDG3OlSSJ09iQ1me5fOPInfJmMF17RESDtc=
+	t=1792030872; cv=none; b=Ec4dqoSsiC6WrtsCP3QsFbPQbAqifm/MB4JJLQnCIGA0tXKuA53rgSnJI8iAoLfPm4KRDy3mODC0H5QJuXjYgZe/QZGxNjtB9xgvoSzVj7rgdYv6GSzRwlHM2zP56uP1aYDovTHepCuc7PKodLGiKPDQG2HRl9iLqJrA9T0cGyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030842; c=relaxed/simple;
-	bh=5p2AXnO5laIlxi2cNbijooQ6rI/ye0N+Lg69/IJEioY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bzfkA4/+/LBRlHygBK8TJ/QRcJ1hYSq2Nu87kgIyN0E3YqIWS+WG33uwNMU1rE8Lm7ZYIYZMfhpR7a37KnyGzBc1hMkSFVvMilekEHoVng2AUx6+u93JP3OPzuY/Pg5nP0AyH9IXFer/SpYpaf51gcB9vwaPOt3xHu0VITdWMqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: fd7f38c8c83e11f19a56ed5b684f684d-20261015
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:9899024b-92d8-4d91-9c66-4289ed14aa36,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:e8908782ca9b5cc8b382f0c1bd9ebbbd,BulkI
-	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
-	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: fd7f38c8c83e11f19a56ed5b684f684d-20261015
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yaolu@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1533390645; Thu, 15 Oct 2026 10:20:29 +0800
-From: yaolu@kylinos.cn
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: andrealmeid@igalia.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/amdgpu: Fix out-of-bounds write in amdgpu_debugfs_gfxoff_count_read()
-Date: Thu, 15 Oct 2026 10:20:24 +0800
-Message-Id: <20261015022024.49233-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1792030872; c=relaxed/simple;
+	bh=6iCNyIYIVE1txCcTSBFFp94PtgI/sJl9EiKwOEh1bss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b8PDgrR3gGhuG1Noa3cFSfpDMeE50XavQm28OJM4W3PkgiGTYX5RASy7YbXtRF02W+xQzBx2hqJUij0wbn/gW3kGSU9b4D6O2fHG+Jfj+iBaDzaiwbvAmRXtGLO+W6U/lX+4UyPzkZU00CXy8YWcECHOYF5ag53rm7Hydfp61uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=q7Karaiq; arc=none smtp.client-ip=74.6.133.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="q7Karaiq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792030870; bh=/mXmejL8yTKKnZA63ElBBljQ/vMiEe97CA820DaIQpE=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=q7KaraiqI59JGRNBnG+kSSffIIgNVXBjA3iRcSSfqG8dgCDa001ajW30qiGxU98OeHf7HWlUS8W0lHeaNoomx9QCRd+0aVCZY5/nQXXObazOCbqqI8UnQHkmUhHO1ZlbT05oh1PuYuMUyHTFoemIgLy/CpJxaXS/oa99XDJM4SqbXLmePa6EXC/TlFg/TmnI5ylleEyM9ICrqW9iOAlNoHIjvvymrtuXxjJw5bwDKYe3kk7tIiGnHtqpUbzdoE5rMgSTBg/QyVHhKvGOdtRKB+tX+s11GWNNp5uRvNgEyI+/kQqYu6IvLQ25hxvW+8+eDKSfVBbzcKQLVi3KoBMyLQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792030870; bh=FZIAGktlYMCz3h5LTp1ojVtYBAN0MzyaEQksavrNDyE=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=ZM5w4HW8DEcrWpIAr/KIWrM8ePSf38o9uno3cRZtM8jEmErT0eRjVuT7VrzDvTMT9Fey8rvwmpwCW25ahEdMtMMjvKO2krJqLEZpaI0eOcEbcP6zpNnNv9ciJIwb0b0DsRRNAg1bpwk2qhmrkSlWBgijUUC+x0/p0xRFns0GjIM+HjLIl9ejSR6Nl84cl67d4E0IhN5BkF7Z32MfH3jf0PHXHOWOm8hejrKUp5ew7MAzHOhTY6DqhmW9cJcCt2IY4zzfqoXsOi++2S4dj84E5vRRtHDS6yE543NbJ7hhILN774nWnzZZ39zXEIJWbyAgi2Lswh9V3DbsICeUaGC5Lw==
+X-YMail-OSG: XGWBACcVM1n0skbHV0a4WR8D8eHe8xirFJLp16jXthxuw2GEWL1wRg33KMn6let
+ 9iZzo8kUEeOB3P6ccoRuu9MwL58oo3b.SM.nbyuVqnB_maUQJyAoqLGI3rsljlHIZcAItNv_O0nJ
+ hHuUr0a1YWqm59qe41SNqOO388J8H3xKDpKA3mtD9FtetSV0mTlkaRscNSHAancIIwBgMNALNFFh
+ IAaCsk36VkbbesdUgkzlXYU.V0s0OdUaJC278Yg6JIcG27PqwZ9VQ08nb4GsEPiz6IMWm1yNH_eu
+ qRd_583WasTZ6TmbcJa_JIVgi1PixBhV1Sn5Cl2aUBtB33UfxAI0GGmcnnSl1uhamTY5pKwZ0u.6
+ tni6tnCpgl9la4UNNoOTuwGst0VYLMgRWtyqxIZZBED7NAeJavrPgt2WLqLnTUUGAeTVt2j2Zfox
+ yuBSkzKVPzTaX0ARuSsW5RHC1HApBkGuLZQArXD1iJ759njV9nW3.RfxWv3lKXDxV2Ozp6zSKaf2
+ 9tGJWo2p.XfydC5hXXA3sLqEiy0Ok3h6C_VReoyFg9dCWZRadUiH_KrlHfQiCr4o8TRrBPBQfM9y
+ tx6F7AKsfef_gpGgkKJtGR0KMGoM2AZ.9lgd_Xm88VplrXnplaNG9UGOQVD7SWIOva786LpGbgUt
+ fpre8kSWoENcKUZqpyDuVWjX.Ac.URAHNp7oOEo1ivROadUKSkptIvLlcHJtgI6i_T3wiV1czXUB
+ fsD8.1xaxXDpZxbFYhX7cSuXyC.tiUXPXXMyB76IyhPn7mEVhZRw3OnBKLI_f2l16mjKFG2dNsG1
+ RK.c0kumv1r2ezRHoNgmI_Ab3gdq2nDEblSovxnNKy1MA5qm7TU8slMt17ap58ZciiY7nTdI4nGt
+ qarT9cIsOndv3oy.3_PzBJLvy_fTCngolJ2nXfYhaDwQU_otSz1i2vEMwuwW24H7lPaFCr9v5grT
+ mBVqDAMcaF99chHZoAG2BllM2l55TPy1AbdPjts0oWuqIREI0svafh7Y5Q2eQON9Kh9Sd.gW65QE
+ ME1C80zfOa3N2AgucFtBaqc2qeZ__F2Nwzf_bvESqAAnaEv0Uih9FDznhXRFHyua77m0bmUEhY0A
+ oL1nBqhD1t00Rtmzqdlam8EsFjDR4.QmHvb4e3wTxviqL4CZqN7aXpZHCxwgHtn054rCawYD1Hyi
+ HfBnlzr3z6E3rT1EvPImS1yd9pmZZUGt3uF1avO8jH935Zb6qAx0VC7R7aM6XM75vdNqKBtsnr3z
+ f9q9lih1j0Qwu0fAMJhfpX2zXlSIDcN8WdThfRbMa4v5U_auUIq7EnF4ufb6am1gZDyQ3XUNNoXF
+ Uf3P8obPLOliMKXzJ67QfY18pnQB6KnsEu6T_ZtEGtv7UJRKoGq_v9P34oqJH4oDazzxg5.PGBWr
+ KhPhhCxUgk5nP5j9C34e0pvtGmcuzd3Wf4RjMOiYABCZlUpUOMMzRqbZJzkiCD_sYAazn_eRKoxO
+ dAFpM.URTcAn9pz0HKALJrrnBzyK3DK6EkjBZnakt4.nCmJVZ.SpW4dyOX8wtSJBXRXj.NFMMpFz
+ XWyTHL.byYbuV04iMUhhkYMByDjQdMQ4kHwQvVFnbgVMT0NwxmTp_sp4PRtHF5PGW2vVzY1FEIz5
+ ODYPQlOJyIMpiQ9IR.Uuhq.OxEUw815hHlSNPbC7f7vLBNIyQuNZhuoSV20hZ8..Yl7.vG7tJuJJ
+ flXG6D49XG7hvMTj_9480e2PlxW8awEGcVOfoRq3CFk1r6U4gGbZaKHqc1vhdBGKKzN41CL3FJAp
+ Aidvn1UliTKiUaJNw5Mc2D6lUPHkyBtfWPjSbmNiQdqzheig49K7jDOMDLYVkI3YW6mytLCBP8kS
+ a6pCi46NSK.tUmuFD7TKnVB_8Godao9HM9lM0FctD3Enju1xaK1sFALcJBZJSAaKr9gMTp7u8Dci
+ fHRSTpnXMBZcWEmT_H6HsoQCF._3C9darfdxowdNdaJsfYETJk_Snxa0leI.23SwUBm9uJEGDCQY
+ OZqYfwTbm6Z5S.g9uKulzZfyZcUnBAU2MGaP5CXbDJxBZgK1i9UiNFQSKoJ_Q6eDt.Xj46iH6lEc
+ S6UB0SjnubLJUlssD3wBvMdzjLvRnEDQfFREuHQR3JOyca3aWSBgcaM3zG9IRM_lIYdd3hnQm7OT
+ 7IpkOhjBMC00F5K6vfs2_rZq4R3oVnXADGkjiwigFIFJnZSk7zdT.2A9yBnlXdfya.La8ODWXxRl
+ UwkJ0T5JqimeZ9.5yvWysajiNAkWGNdzSub6EnEuf
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 8fac883a-483c-4b84-b963-3c23456837dc
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.bf2.yahoo.com with HTTP; Thu, 15 Oct 2026 02:21:10 +0000
+Received: by hermes--production-bf1-6d6877594b-4bzzg (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID c701c841d9d059b8a0836afa4f7a7bcc;
+          Thu, 15 Oct 2026 02:10:54 +0000 (UTC)
+Message-ID: <b19b8058-bfe9-4800-95c8-d2db889b43e6@yahoo.com>
+Date: Wed, 14 Oct 2026 20:10:49 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] staging: greybus: Remove unused header declaration
+ to_fw_mgmt_connection
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, outreachy@lists.linux.dev,
+ greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261014174248.97561-1-deaner92.ref@yahoo.com>
+ <20261014174248.97561-1-deaner92@yahoo.com>
+ <2d2106c-a2d2-2bec-b368-c03850cba9a7@inria.fr>
+Content-Language: en-US
+From: Jeremy Clifton <deaner92@yahoo.com>
+In-Reply-To: <2d2106c-a2d2-2bec-b368-c03850cba9a7@inria.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-From: Lu Yao <yaolu@kylinos.cn>
+On 10/14/26 7:46 PM, Julia Lawall wrote:
+ >
+ >
+ > On Wed, 14 Oct 2026, Jeremy Dean Clifton wrote:
+ >
+ >> Previous commit removing a function definition did not remove the
+ >> function prototype.
+ >
+ > Please use proper English.
+ >
+ > The commit 3228900f80c2 ("staging: greybus: Remove unused function
+ > 'to_fw_mgmt_connection'") removing a function definition did not remove
+ > the function prototype.
+ >
+ >>
+ >> commit 3228900f80c2 ("staging: greybus: Remove unused function
+ >> 'to_fw_mgmt_connection'")
+ >>
+ >> Function header declaration needs to be removed after definition
+ >> removal.
+ >
+ > This is saying what you did.  It should be in the imperative:
+ >
+ > Remove the prototype.
+ >
 
-amdgpu_debugfs_gfxoff_count_read() stores a 64-bit GFXOFF entry count with
-put_user(), but advances buf/pos/size by 4 bytes per iteration.
+"Remove the prototype." in the imperative has been changed.
 
-Fixes: 0ad7347a64ac ("drm/amd: Add detailed GFXOFF stats to debugfs")
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ >> There is no definition of this function nor is there any place where it
+ >> is called.
+ >
+ > Not sure this is needed, since the definition was removed previously.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index ab7ccfaea22a..aa44a3f0cdc4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1451,7 +1451,7 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
- 	ssize_t result = 0;
- 	int r;
- 
--	if (size & 0x3 || *pos & 0x3)
-+	if (size & 0x7 || *pos & 0x7)
- 		return -EINVAL;
- 
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
-@@ -1471,10 +1471,10 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
- 		if (r)
- 			goto out;
- 
--		result += 4;
--		buf += 4;
--		*pos += 4;
--		size -= 4;
-+		result += 8;
-+		buf += 8;
-+		*pos += 8;
-+		size -= 8;
- 	}
- 
- 	r = result;
--- 
-2.25.1
+It's been removed.
 
+The next revision is sent.
+
+Jeremy
