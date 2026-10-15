@@ -1,94 +1,160 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B797499F0E;
-	Thu, 15 Oct 2026 07:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E404078EB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049885; cv=none; b=Lpzyd1j5OUH7vNGPJKQQXATmCH1J/rI700e6qtrQSCuL6GFW/0c9SFwhzfa+fXwXIbdu0/OG877uwNPuoZSTJ/RrletmAFYgBxSWqXxdXoLtp6SBorE3Vo2WWE56P5uGwn05OIo2Mq0vR2+U2uhFWasw4pya0DsIw2Ht9nS91BM=
+	t=1792049919; cv=none; b=Ls/3H0UCcQPp0l71rokjOWgpZXh3Vcxt5r54/CfjKeruDDRb9ZhWwbg2SSu0MeosZD8HLvMCp7WyiBnDBA3MOy4zZX5jgAflWj23cxepY53Xk3lbKR/n9ioioaWGQ0XS0auHfZxBXWlK9PSx6jEQ7ly0Uqhhhf67EmszBozc6sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049885; c=relaxed/simple;
-	bh=/WBISo+oZz4wuqFDWBP8+OVw0WLhbmv1EqAVjjnSkHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I2jsy1PmUXlu+t7arG2Xe9ZZ2pZq0/XXp2h1luXUhL12cwTTqM/bQS03tJ71ti5gdd6MZUo6M3pya+1WBBwUhcF2WJWjExYy9AzQRJGtPHB7isVewp7tSwTQlinSK9KlmvN/twQcUIS7Kxp3GHPHl59+BDHf/1RaUJaU3/YxCME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=f9CGffsm; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1792049919; c=relaxed/simple;
+	bh=ApZFJkjaNlT/TsCEe2d8dQaEOVgyQLshFJC22PAsFRI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BdpPsJe2JUmYQ7GYhAcqrscMwgYTAPmWIujgcQYlJWs0Apzpsu002bFxUbKoUZgdbnlayIveGMY0jyGuhPYT3D6XLhg/2KrD4JKDJKUu9Y7xtrs6lnNHt97cWYrhd/uh6olEn7GZorP4YGwXRlljF1ozYWUcXpzZTx/CYHAyXoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nn3iLmtP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AdGEPp2F; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="f9CGffsm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+iNt1ZN1awP3QtLz+KT7PKyGu52nrjki8HDScJnxeYs=; b=f9CGffsmpBZgk184/KYxaw+Bbe
-	93Su0EHGd3mnDSKXruRYCRlYd8WS9b4xGrdMoy31P+t/z7uQl9Gm408NZ6iiHglhurjCv9Ct4hLaJ
-	7wQz1ZgJeI/Syj34a08aRcXvqBy5yu7kgLe9vd6Ps0JSTugSF49FreuQJ/HcU8E6RfwpqB3Ejy/IZ
-	/DOq1Ksc+krUahyGwbxJN+8k4k7y7SsWF7D3Uj6XL2k3baREjW+3+q5aRTMv1DSGTSszuHM8XwlXt
-	PnCP4tAjuQXHOlKhYfuh5GhXV/QcLdURpBpn4HWMRXX3YJCA6Wbqr4a69ZBw0NkL65dBLIb+tiKQo
-	mZE6PQnw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xHG2B-0000000BlKh-3lc4;
-	Thu, 15 Oct 2026 07:37:51 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 00B403006DD; Thu, 15 Oct 2026 09:37:50 +0200 (CEST)
-Date: Thu, 15 Oct 2026 09:37:50 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	Nicolas Palix <nicolas.palix@imag.fr>, linux-s390@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cocci@inria.fr
-Subject: Re: [PATCH] sched: Replace nr_iowait_cpu() with a bool accessor
-Message-ID: <20261015073750.GI4121339@noisy.programming.kicks-ass.net>
-References: <20261014134745.3032405-1-christian.loehle@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nn3iLmtP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AdGEPp2F"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6YHAG1682646
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Csz5ueyJ+/67ymuGuUM7rGGJRT/TQU1rQbsBSidkGiM=; b=nn3iLmtPP36d1A/G
+	GkhCDVglIPixP5GPIwE3+2EbJI6nx0mtFoPY2/YeudLGulEmVXa83PvTUTjh3KQ8
+	VcOmIl+YVKQPx7vEQYQqW6KgEBBBEyIkGlcssyuQSNTBOum4eN42Lw0cdS8W6on0
+	shue6VMgrY9ybywlggKqxHbIM2eUi/UFU0CZLIQ0xGzwoFjmpiFrx0Az9nDQ3yU9
+	XQI+GtrvLeqAFN+DyuMvzD1VvURy7N17VaAuR2B5GB5tQlmKZmebgTQMBhxOVmWT
+	wmUEHMMuDn07Di2Qo0o7rFTHdiU9pEaw3lpws/PsgpwCNbqGxAiqGrR+mygrbdDR
+	caKRhg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hacb03a2e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:38:36 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e61a48d5b7so47912365ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:38:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792049916; x=1792654716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Csz5ueyJ+/67ymuGuUM7rGGJRT/TQU1rQbsBSidkGiM=;
+        b=AdGEPp2FzhXS1afd1L1+fTtCAKWKkO8bqLfqg8+b86Vwx31SnYqlJEEL7N4UDzgjog
+         9V7QCkAxd1YbPpfcA0Ul7s42L7RlB6Y8Sh8Xg2diMzAS7VECVdWp4mHJA+406sxUn+8+
+         1NidrBoyuBr0fylNmb/fX/AD9qPVaiHcbEEQgN4ICdmREBnfMpDbEduOWrzgpV6aza6/
+         Z8SbeGgUBq2uv7uswqiBh14BMHj95AzSRWR7ey+DPaJJpqHlYcGbhSCWcH4afNOYcW9O
+         ilC1auKL9/BpotMaVTYH4rovpLp+h/CbwK9ujk7+35LbqJ4+4Q86h2CQaTK2JAd2ike2
+         on2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792049916; x=1792654716;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Csz5ueyJ+/67ymuGuUM7rGGJRT/TQU1rQbsBSidkGiM=;
+        b=WwJLTGn8c18tGpzpKU0fNPXl522pcCHmovxNyjPZ++qcXapFzEi0Q9GjqAPbNSjUOB
+         LwLUxYKi5b7mrVjZJGTk7YoslZ6G5BYdvF6gJ9alRGVkMThGxR5vRFPrEWTGZop9cSyw
+         AeXAVblBW+Y64FaCjEFLfQo1zJruS4ejRPONhvcLCPpOOfww3XrHk4KpCWUYbwmJBegG
+         skBUFHYv5QGoGoVNUWShYFJ8bh7FAHmgz5MGGI16BmZRFZrw+vLrfqxsJuQj5nDvaALX
+         S1VGbk/V8EYbrr1VE6pEIFvW2uXYamJFCbyMI7dk+GxKDSwuF13Epe711fI5IiHEOhkL
+         xbDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNbU0g5nT75H5n7wTDtcRjYB9ysrKlDF/8ipl3Oq/oz7pXtVRXia2lddzk79DY2/Jb2GiRzENisE0OgQY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgBxAVYBLamW5/VybYwO6ngBT5HSR8yumzZAteGEs9yiBoz0ds
+	jwRA4IU52heGaBEpjGalJoEJv4ue/kbDrB0kLRsKVVlH5CmAeBfbWu0C8Vw/mA5qgMWrteN1p5X
+	jQZ9JxUAjfTFpJwDSfdr7wJxedkla5PcSPf7lGaX9hGjZROi68zgF1Q/BL/hMIWJlSHk=
+X-Gm-Gg: AYBFou2Le9JKpxR9kd5HM4btHGihednzEnwxHCuYrCt1bwY6b+bVu5jN3Wfd0W45zeJ
+	f5o6gy396mtYf68bzInz3GN4zHtO+/2BzDP9ru5kzmJnaMfTY+3FBQ/yEzgKfoh6wJqV6lY/hN1
+	UyJ6YNLIAgFR/cfuZ/2vyGguU6EPswHxlV43ACWVJdtfG/YSZo7vTVOYTM3/US1x1mgpEmjCl5g
+	qq9cauPsWBl8wKD//7WwaWRoSkHxCS1oshe6arb1kTQ83fDRLSRU/c9v4wyyb+7LVF/Z47AgkIC
+	YqLfRL8cP0fdsH0mZov+/4zyeBRrWz/uH2eW4cGrkpssMcUaFkeVnzrAtm3qGJQjIpAoaGK/XM5
+	rAedM/Ih3cu+1Ifc7iB9vunqEDAAz3yqNnDiOij41H5QJ4XDA0bXdZ6PZHE83OT9/BvBbfOo=
+X-Received: by 2002:a17:903:2c08:b0:2e3:1e9e:fd80 with SMTP id d9443c01a7336-2e8404bbec7mr113398975ad.7.1792049915661;
+        Thu, 15 Oct 2026 00:38:35 -0700 (PDT)
+X-Received: by 2002:a17:903:2c08:b0:2e3:1e9e:fd80 with SMTP id d9443c01a7336-2e8404bbec7mr113398745ad.7.1792049915162;
+        Thu, 15 Oct 2026 00:38:35 -0700 (PDT)
+Received: from [10.133.33.32] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421a1de9sm79321965ad.26.2026.10.15.00.38.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 00:38:34 -0700 (PDT)
+Message-ID: <bc760367-4896-4626-8f5b-1bc3ef6cba22@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 15:38:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014134745.3032405-1-christian.loehle@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the
+ buffer
+To: Artem Dinaburg <artem@trailofbits.com>, stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sasha Levin <sashal@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+        ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261012165925.32575-1-artem@trailofbits.com>
+ <20261012165925.32575-3-artem@trailofbits.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261012165925.32575-3-artem@trailofbits.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=VKpIDNPX c=1 sm=1 tr=0 ts=6ad082fc cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=rP-kOlJ0AAAA:8 a=EUspDBNiAAAA:8 a=cZfKjUfnoN_5-lsrkKoA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22 a=A60uPr_FG5abr3nATN9e:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX+Odkof6mTSEK
+ Ykwb3vLqOwm1fuhXkTUTjnnl2fuDVa3r5bwtEeT5v46NIKLb7kn0TqR5PrG0FlUURn2nClJqmsY
+ IcnICtYi0S3Ra4UHLJaYpc8IijUAACo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfXyCtfLAsupNij
+ drhAVFdNuPkY2+c+cag+4hKSjyrDkKpn0jQHL2rZIN3GKLzxOrJ6osgDBOknY6WcEtBEjz7Y9Rr
+ yJ41qyBa5C2x3di3SaFpQgqsGwREKO/b1feiFo1IKaAMTERO5yAVrsm1Lq/opnNRqE+EDaJdBPM
+ PLkaM0WKzFztM3s5aov+oUZXh9+HIx/CthCLNbcNl7XBIGJopLsiEatr2hewEkaWBVnfODAqzex
+ hwkGHR+4KQqFKgBces1IagpCHRBHF5a4Mzz2mOfWE/cdWDLsCcWHONrPj01Be1wUzJBvybKUICj
+ l+LT7wS6IC/3jMPbBb2bwzEyybc6UAkGXiMNfgCCCbLMx5Vs1kR+bly539bMty5TB1pHZ1YmkHT
+ pHuz/NZya7p53Cw3mFSYkfhW3DVFC0NhiirWB6W/G0ZELNvY8/waftbgBaNiaHYjf/W9W4ytOJv
+ NG24TA9bpLGKH5oGNcQ==
+X-Proofpoint-ORIG-GUID: z_96m5vjaFEKa1RGbX3d7xAGNmq4sREq
+X-Proofpoint-GUID: z_96m5vjaFEKa1RGbX3d7xAGNmq4sREq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150030
 
-On Wed, Oct 14, 2026 at 02:47:45PM +0100, Christian Loehle wrote:
-> The menu governor was the last consumer of the per-CPU I/O-wait count
-> that needed its magnitude, apart from nr_iowait() summing it globally.
-> Commit 38f83090f515 ("cpuidle: menu: Remove iowait influence") removed
-> that use. All remaining per-CPU consumers only test for zero/nonzero.
-> 
-> Replace nr_iowait_cpu() with bool cpu_has_iowait() and update the generic
-> and s390 idle accounting callers. Have nr_iowait() read the counters
-> directly so that the global total and existing accounting are preserved.
-> Replace the stale menu comment with a description of the predicate.
-> 
-> Include the Coccinelle recipe for the code conversion, verified against
-> the original files. The helper's comment is updated manually. Reproduce
-> the conversion with:
-> 
->   make coccicheck COCCI=scripts/coccinelle/api/cpu_has_iowait.cocci MODE=patch
-> 
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> ---
->  arch/s390/kernel/idle.c                     |  4 +-
->  include/linux/sched/stat.h                  |  2 +-
->  kernel/sched/core.c                         | 13 ++---
->  kernel/sched/cputime.c                      | 10 ++--
->  scripts/coccinelle/api/cpu_has_iowait.cocci | 56 +++++++++++++++++++++
->  5 files changed, 69 insertions(+), 16 deletions(-)
->  create mode 100644 scripts/coccinelle/api/cpu_has_iowait.cocci
 
-So I like this; but I'm confused about including the cocci script. Why
-is this?
+
+On 10/13/2026 12:59 AM, Artem Dinaburg wrote:
+> This fixes my 6.6.y backport of upstream commit 05090ae82f44 ("wifi:
+> ath12k: check M3 buffer size as well whey trying to reuse it"). There is
+> no corresponding upstream commit, because upstream never had this bug.
+> 
+> When the existing M3 buffer is large enough for the new m3.bin, my
+> backport releases the firmware and returns early. The new image is never
+> copied, and m3_mem->size keeps the old length. Upstream instead jumps to
+> skip_m3_alloc, which copies the current image into the existing buffer
+> and records its length. As a result, after recovery or resume, 6.6.y
+> gives the firmware the previous M3 image whenever the new one is the
+> same size or smaller. A larger image is reallocated and loaded.
+> 
+> Replace the early return with the upstream goto skip_m3_alloc. The
+> previous patch, a backport of upstream commit 00575bb44b2c ("wifi:
+> ath12k: fix reusing m3 memory"), keeps the allocation size in
+> total_size. So copying a smaller image no longer changes the size passed
+> to dma_free_coherent().
+> 
+> Fixes: 9a38ba5561d9 ("wifi: ath12k: check M3 buffer size as well whey trying to reuse it")
+> Assisted-by: LLM
+> Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
