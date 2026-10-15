@@ -1,126 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EF535DA78;
-	Thu, 15 Oct 2026 19:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752CA372661
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792093555; cv=none; b=WiMHdi9fZSInMDi+xt0n3uGbuvB79Gu3ADWtObJoDrbPuGDHEH2MpCcAHgOjtzCl88kPNcodjmYp8l9xcMb4D80j0uvDGMwBOxcWfPUUHzYIvFQ1N2nWGk3ryiJNiKuWr7VyYrqu/3CdlNDkDVdnHgGkTDPYLomY39Q/s6e02Ok=
+	t=1792093659; cv=none; b=ux7ttXAfBmdP8lbtRd9cBP+qju/Vs0cxpZcPE8HgWSJLRHqfzWFEz/Pzrz4bR24QAJjHZ9cEvJhOfrxLDiNg3xPFW7pxEqOYjqGmZKrmCX9EktDWhjBDxZWCR5OULIzOPmJQvG5mkcWt9FDW3OKTnsLF2LZG5cANBus4MOocIZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792093555; c=relaxed/simple;
-	bh=aVl4fWIyCLg2R4ibK0RmkIrVXCYhIvuzQtwD9SP/mYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fOkcpSn+xqh5ZYdwFv6LVOoFQQCW712PP78TDvQWMd5QS/h/0jAgoU6BU3QD0xAEkt81HbTSH7gnuxHJ96HuMHPxtiwj/OO+R2qkFbDwzmTAT5je+8SRQRDGi1HYWjUwVZaXAxqiHydptBIUKb5per6UkfZ3nHv2aJRNnBM2myo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bcqd+HH2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792093659; c=relaxed/simple;
+	bh=rEzZFF3roU9aTVZ9/CO59TibiUooKjnCPKswifSLXUo=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=XXyLK0htswj4yGoPRi4vEfkwtgBTYc2zx9fr3ZGvetXmnpTQn/SmeGB+WK/sonklsuE/V/XC3Z8Jc+kkUjj5F37lehfPivJ1AadXJtEmpB1qBsNPha5IV4H28UCALOK8nlcxveAkDGmqpzwISK8ZZMi/5p92uNfiK1fq7HygueQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=j/xQ8388; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bcqd+HH2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10FC1F000C4;
-	Thu, 15 Oct 2026 19:45:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792093553;
-	bh=kTFEZ49kr33oEAdO5drlS9BF04qwOVSn+b6FDU6toc8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bcqd+HH2iwmj6Pwil0HmsygLrhCeYDX7C6OFeH/xUu7GGXjOwTO62tiPu/T2BjKw0
-	 7zPETfQ3FjJHaJwk5s5MWu1XcAo82trouQ8l9I9ysLxWyEMHYb7id1ROAoCL4ChnBH
-	 7NR9iyk5XjbQNPG4SRgGuEcRkY428k4lbCfWTmb4Xbgvs+nzR3D4B9nr6mBkLQpaXt
-	 EN1UIA5AuSL4WeeuREVvhml+oJLHggN50OtTAcwF3nxYJnGx+L/RSZCIN0pVqQSXfP
-	 l65/hfj7vA5XaZMeDO92UtYe7lXgWgnDaBKzS5xWQ/LXabdaW3TUp+hp1cSse8L0Ai
-	 Xs2k320TrAhOA==
-Date: Thu, 15 Oct 2026 20:45:46 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
-	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 09/10] mm/hugetlb: don't leave a uffd-wp marker when
- zapping an RWP entry
-Message-ID: <atEtMwg6_2KERFTr@gremlin>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="j/xQ8388"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 87A6A81043;
+	Thu, 15 Oct 2026 21:47:34 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 9Diwc9Re1lGn; Thu, 15 Oct 2026 21:47:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792093653; bh=rEzZFF3roU9aTVZ9/CO59TibiUooKjnCPKswifSLXUo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j/xQ8388pn3sZMK4saWSF55ZYjCUe16chydMwkSrSE2RGaeI3LK0MkCqwFisOYAJG
+	 BAfGhY0c+b29/Zj/Tz6AoErq2ZHYH1Zsb68FWk+w/Zl83M5fAzxMpsd1YdF0SQvQJM
+	 eE8LZO+IN80wShucwt+NZFAlJLDshvwqBIP/BeO7gWl8wkwsz8pYzVwuFVJDOsc2Yk
+	 ZZxeMpsA8j40Xznf4KRnh+TASBiLBN/wqc1yy2CdO3aABm1D2sbcNsauBIS9ij0Yri
+	 xf7jfjJf5q0q2Ou42AjodD6ewb+SGdOBePRZcUum2UNf85EXOO5HcTS3nG0QTWchSg
+	 8Cac7cSXGKugw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
+Date: Thu, 15 Oct 2026 19:47:33 +0000
+From: Rustam Adilov <adilov@disroot.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Stanley Chang <stanley_chang@realtek.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>, Manivannan Sadhasivam
+ <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v8 3/6] dt-bindings: phy: realtek,usb2phy.yaml: extend for
+ resets and RTL9607C support
+In-Reply-To: <1106b5dd-5453-46e4-90a4-7c7673cd4dd3@kernel.org>
+References: <20261012173739.36377-1-adilov@disroot.org>
+ <20261012173739.36377-4-adilov@disroot.org>
+ <1106b5dd-5453-46e4-90a4-7c7673cd4dd3@kernel.org>
+Message-ID: <d71a544ad34c34ac4db7dc8fd8004245@disroot.org>
+X-Sender: adilov@disroot.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 06:07:15PM +0200, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> An entry that is protected with UFFDIO_RWPROTECT is PAGE_NONE with the
-> uffd bit set, the bit that userfaultfd write protection uses too.  When
-> __unmap_hugepage_range() zaps an entry with that bit it leaves a
-> PTE_MARKER_UFFD_WP behind, whatever the VMA is registered for.
->
-> In a VMA registered with UFFDIO_REGISTER_MODE_RWP that marker means
-> nothing.  The next fault has hugetlb_no_page() turn it into a present,
-> read-only entry with the uffd bit.  That is not an RWP entry, since it is
-> not PAGE_NONE, and the VMA has no VM_UFFD_WP (the two modes can not be
-> registered together).  An earlier fix solved some side effects, now just
-> stop the zap from wrongly installing a marker.
->
-> Leave a marker only if the VMA is registered for write protection, both
-> for present and for non-present entries.  The zap of ordinary page
-> tables has the same test, in cond_install_uffd_wp_ptes(), and
-> hugetlb_change_protection() says that "uffd_rwp does not install markers".
->
-> After a zap the range of an RWP VMA is simply empty, as it is for
-> anonymous memory and shmem.  Nothing changes for VMAs with VM_UFFD_WP.  In
-> a VMA that is not registered at all a leftover uffd bit or marker is now
-> dropped by the zap and no longer kept alive.
->
-> Original fix generated by an LLM and sent in private by Josef.
->
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: a bit of description overhaul+simplification ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On 2026-10-13 06:05, Krzysztof Kozlowski wrote:
+> On 12/10/2026 19:37, Rustam Adilov wrote:
+>> Add the "realtek,rtl9607-usb2phy" compatible for USB2 PHY on the RTL9607C
+>> SoC series.
+>> 
+>> Add a resets property to properties to describe the usb2phy reset line.
+>> 
+>> In RTL9607C, USB2 PHY reset line is from "IP Enable controller" which is
+>> multipurpose and handle activating various SoC peripherals.
+>> 
+>> It is unclear whether RTD SoCs have something similar to that so set
+>> the resets to false for these devices.
+>> 
+>> RTL9607C requires the "resets" to be specified so add the corresponding
+>> if check for the "realtek,rtl9607-usb2phy" compatible.
+>> 
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+>> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+> 
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
+> 
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
+> 
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling. Performing review on untested code might be
+> a waste of time.
+> 
+> Please kindly resend and include all necessary To/Cc entries.
+> 
+> 
+> Please use subject prefixes matching the subsystem. You can get them for
+> example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+> your patch is touching. For bindings, the preferred subjects are
+> explained here:
+> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+> 
+> There is never "yaml" in any prefix. Don't come up with own style.
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Seems sensible to me so:
+Oi, i am very sorry about that. I am using the scripts/get_maintainers.pl
+command from [1] and it only covers the last commit which was not the one
+touching the realtek,usb2phy.yaml so it didn't get any of the device tree
+people. I don't exactly know if i can get it to output full maintainer list
+in the context of patch series in one swoop without running it across every 
+single commit and then manually combining all. I think that is what i did in
+v7 and prior versions and forgot to do it here.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+As for the yaml prefix, will remove it.
 
-> ---
->  mm/hugetlb.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 1548a6156206b..fb51f7d02cebf 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -5267,7 +5267,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  			 * drop the uffd-wp bit in this zap, then replace the
->  			 * pte with a marker.
->  			 */
-> -			if (pte_swp_uffd_any(pte) &&
-> +			if (userfaultfd_wp(vma) && pte_swp_uffd_any(pte) &&
->  			    !(zap_flags & ZAP_FLAG_DROP_MARKER))
->  				set_huge_pte_at(mm, address, ptep,
->  						make_pte_marker(PTE_MARKER_UFFD_WP),
-> @@ -5303,7 +5303,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  		if (huge_pte_dirty(pte))
->  			folio_mark_dirty(folio);
->  		/* Leave a uffd-wp pte marker if needed */
-> -		if (huge_pte_uffd(pte) &&
-> +		if (userfaultfd_wp(vma) && huge_pte_uffd(pte) &&
->  		    !(zap_flags & ZAP_FLAG_DROP_MARKER))
->  			set_huge_pte_at(mm, address, ptep,
->  					make_pte_marker(PTE_MARKER_UFFD_WP),
->
-> --
-> 2.43.0
->
+[1] https://kernelnewbies.org/FirstKernelPatch#SubmitPatch
 
---
-Cheers, Lorenzo
+Best,
+Rustam
