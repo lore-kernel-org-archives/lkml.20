@@ -1,139 +1,172 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865EB387375;
-	Thu, 15 Oct 2026 04:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4496B1BC08F;
+	Thu, 15 Oct 2026 04:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792037734; cv=none; b=S8TjK1Er/Ls5U4/+uc5y1OdNdkjcfElmJvEQ95E1qDMclpo+V+qYSM+FfF97bo+pVW40/eEw9t6ryZkh7PbptrfhqwJDm1bcnxi37ctQ0HNtL73l7FiZlFsIz6fuMKtmS7DbXkQ/86f6sqp/ndFXKDmvSYNbgGp92/Ni4E3FeNE=
+	t=1792037744; cv=none; b=ifkV6Uu/6tssGDi8oTYi2zNxMJIvGSJoGD3nequnodVvlFkPAWFpvmr0qx59wsmiNCvovf1DtYGdYqPpxpdHGmook9fJm8m45OG5um+Auzg7m7XyVG/+tpmuQ9lglC9+++PTvy+04mGdWUm4AWl0AaZ41q+RgiAAjgE2BYNlP2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792037734; c=relaxed/simple;
-	bh=XvfbHulgW7ti4Hv83+xhax/k+0K29kyiTtzQmOFEovQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ebob4XXrZsD8RMcdHEQbfAUvvVpVmsbVrtk5C3omQS+F18aYizvQ1lnYEky/sUhVGjwvYD9jGjwmXEv5QmA+G+pgLDR6+ARH65kaXrHA/abBTUsGQclU3v/frYpi9BAxegPHgTRYNdb7nYzomVPK1Vbi/eF+3YtRNfMgd6uYvMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TcXhPcv1; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792037744; c=relaxed/simple;
+	bh=hA01muG7iEcYzmpLrFnBB3b1bbamy/50nDdn74BMhW0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cb7dh5kL3xKO4Wtnx5EMe5dWMWODzyDGfXB8pVAT9CPGLdFq5P2cGQgNnM0yGcvhVo7MWuJ/eQ0t+Lpn47mfRKMWnZOYNACfN7NvUxED1Pn+ZVOeXosI2iDsQUZrOUMStHtHEvwmqyRi+sv41zCRphf7oLgLfuKjJ4QFbjwrnY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qo4mdSM5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TcXhPcv1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=+3
-	LWM48CSKuAAPnaNv8RlHrubR3A4bG/gaVhOMXwVHc=; b=TcXhPcv1RlpVRhUVTM
-	/Jwx1yabFcaYGA5xM4viZITnyh4AnX9j/SWxTlfkKbk4jvRUQPC1VZXrxpB+gzJB
-	n9tl9H/qJ52l6EKjKjFUZbbMtg1WUDGeGc+OoOLhQZN2BfNSAKPUHlOy4+U0dpWL
-	sAq2Mk7b8/ZI9n4KYbE47bM5w=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3PxgtU9BqXkqoAA--.9027S2;
-	Thu, 15 Oct 2026 12:14:38 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: jmaloy@redhat.com,
-	tung.quang.nguyen@est.tech,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v1] tipc: fix use-after-free of broadcast reception link at node release
-Date: Thu, 15 Oct 2026 12:14:35 +0800
-Message-ID: <20261015041435.33561-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qo4mdSM5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0A515C2BCFD;
+	Thu, 15 Oct 2026 04:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792037744;
+	bh=hA01muG7iEcYzmpLrFnBB3b1bbamy/50nDdn74BMhW0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qo4mdSM51Gzx2qipMjFExUpec/rEQas9cNmc7tIn/DgKuuuoN4ff0kluFJxzrQLuV
+	 YXpasZ99e1VaVHNsolJPc8svGEnTPfLzauyTX53cObZK09ZDRCRBGkALQLDG9c0IXx
+	 hmJ760XpmsBrAC9TK+NGKtCjuKtsoYSLIFsjkEfl9ziceRjFleiTS3UC9Un6J9VRKh
+	 BzRC+9GgreX9IzuKKSMX1FQ062OTIdoE3Q0vT3b05WQZzUQfJx4thWYbH0b/PCf1sg
+	 Fb6I/DhQIWnewmbHlLKvwCCAP89jr5mTS1ERKVgfzzHGhIOlhYwOvFDCGKBOrh5GC0
+	 kGWSfJ4LBUNAQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6D23CC6B1C;
+	Thu, 15 Oct 2026 04:15:43 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Thu, 15 Oct 2026 13:15:44 +0900
+Subject: [PATCH v3 3/7] nfsd: make the time limit of a layout recall work
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3PxgtU9BqXkqoAA--.9027S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGr1fCr18ZFyUtr13GFy8Krg_yoW5Kw4UpF
-	W3W39Iyr4DXr4F9r4kt3yxGa409F43XFW3G3409FsrArs8tr4Iqrn2gFy2gF9YkFs29FWU
-	tF4UK347CFs8ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U01v-UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+w6ukmrQUy7PsAAA3x
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-nfsd-layout-recall-v3-3-ba3269f8ca22@samsung.com>
+References: <20261015-nfsd-layout-recall-v3-0-ba3269f8ca22@samsung.com>
+In-Reply-To: <20261015-nfsd-layout-recall-v3-0-ba3269f8ca22@samsung.com>
+To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
+Cc: Christoph Hellwig <hch@lst.de>, 
+ Benjamin Coddington <bcodding@redhat.com>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792037741; l=4558;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=/GH0fdVr7CZZnz9hVRT0dwIdG3M4bfncvOpuTl/S4Jg=;
+ b=hQiAnkTWfIMeZ7L1xCBOpbiFLrPKVS6I8INDDmbscKeLIrPg1yBy/JfGBXzlt5R5ULDr+f0eM
+ v9aWF0bsaMcD5XfYL/kqgIx+h41veEYDqXAs7/+DB26uwpvqj2At1Ts
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-When the last reference to a tipc_node is dropped, the node itself is
-deferred to the RCU callback tipc_node_free(), but the nested broadcast
-reception link, n->bc_entry.link, is kfree()d synchronously in
-tipc_node_kref_release(), before call_rcu(), and the pointer is never
-cleared.  Readers that obtained the node from node_list and then
-dereference bc_entry.link deep into the link (tipc_link_name() in
-tipc_nl_node_reset_link_stats(), bcl->name/stats in
-tipc_nl_add_bc_link() on the link dump path) therefore touch freed
-memory although the enclosing node stays alive for a full grace period.
-The sibling per-bearer links get "kfree + NULL" under the node write
-lock in tipc_node_clear_links(); the broadcast entry was missed.
+From: Daejun Park <daejun7.park@samsung.com>
 
-The race is reachable through the node cleanup timer: once a peer has
-been unreachable for NODE_CLEANUP_AFTER (300 s), tipc_node_timeout() ->
-tipc_node_cleanup() unlinks the node under the write lock, and the
-final tipc_node_put() at the caller runs outside node_list_lock, so the
-kfree executes in timer softirq context, concurrently with genl dump/
-reset walkers that hold only rcu_read_lock().  (A netlink "peer remove"
-cannot race those walkers itself: tipc_genl_family has no parallel_ops,
-so all doit/dumpit calls serialize on the global genl lock.)
+nfsd4_cb_layout_done() polls a client that has answered CB_LAYOUTRECALL
+and still holds layouts, and is meant to give up after two lease
+periods: the recall then fails and the client is fenced. The limit is
+computed from task->tk_start. The poll restarts the RPC task from
+->rpc_call_done(), and rpc_exit_task() resets the statistics of a task
+that was restarted there, tk_start included. So tk_start is the time
+of the last poll, and the limit is never reached: a client that keeps
+answering is polled every 10 ms for as long as it holds the layout.
 
-Reproduced in a QEMU/KVM guest running v7.3.0 with KASAN and
-PREEMPT(full): 10 TIPC peer namespaces on veth bearers, bearer removal
-staggered so the 300 s node cleanup timers expire while other tasks
-loop link dumps with the broadcast filter and reset-link-stats lookups.
-KASAN hit within two cleanup cycles:
+Count the two lease periods from the first answer of the client, so that
+the time in which a callback could not be delivered is not taken from
+it, and take the time with ktime_get_boottime(), which goes on while the
+server is suspended, as the lease times of nfsd do. A layout stateid is
+recalled once in its life (ls_recalled is not cleared), so the time
+needs no reset.
 
-  BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
-  Read of size 1 at addr ffff88800b54a004 by task poc_eth/371
-   strlen+0x85/0xa0
-   tipc_nl_add_bc_link+0x2f9/0xd40
-   __tipc_nl_add_node_links+0x10c/0x140
-   tipc_nl_node_dump_link+0x8d5/0xd50
-  Freed by task 0:
-   kfree+0x121/0x380
-   tipc_node_timeout+0xa33/0xcf0
-   run_timer_softirq+0x144/0x250
-   sysvec_apic_timer_interrupt
+When the limit is reached, the existing failure path is taken. It does
+not look at the result of ->fence_client(), so a SCSI layout client
+whose fencing fails is treated as fenced there, and the layouts it drops
+also end the retries of a fence worker that a lease break has started.
+Before this patch a client from v6.8 on reached that path 10 ms after
+the recall.
 
-with the freed object being the kmalloc-1k tipc_link allocated by
-tipc_link_bc_create() during peer discovery.  The same defect fires in
-strcmp() called from tipc_nl_node_reset_link_stats().
+A Linux client before v6.8 answers every poll with NFS4_OK until its
+LAYOUTRETURN is prepared (read from the code, not run). If such a
+client does not return the layout, it was polled without end and is now
+fenced after two lease periods, which is what commit 6b9b21073d3b
+("nfsd: give up on CB_LAYOUTRECALLs after two lease periods") and
+commit 851238a22f3b ("nfsd: fix error handling for clients that fail to
+return the layout") set out to do.
 
-Move the kfree of n->bc_entry.link into the tipc_node_free() RCU
-callback so the broadcast link lives exactly as long as the enclosing
-node.  All readers are covered: the netlink walkers are inside
-rcu_read_lock(), and the packet reception path reaches the node via
-tipc_node_find(), whose kref defers kref_release itself.
+Found by reading the code. The limit could only be tested together with
+"nfsd: keep polling a layout recall answered with NFS4ERR_OLD_STATEID",
+because a current Linux client does not keep answering a recall with
+NFS4_OK or NFS4ERR_DELAY: a client writing through a block layout whose
+path to the device is cut for 70 seconds while it can still talk to the
+server, a lease time of 15 seconds, and a write to the file on the
+server. The recall fails 30 seconds after the first answer of the client
+and /sbin/nfsd-recall-failed is run. With the default lease time the
+limit is 180 seconds; a recall that comes from a lease break is not
+waited for that long: after fs.lease-break-time the breaker goes on,
+with the SCSI layout once the client is fenced (and, with a later patch,
+the block layout too).
 
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
-
-Fixes: d25a01257e42 ("tipc: fix crash during node removal")
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Fixes: 6b9b21073d3b ("nfsd: give up on CB_LAYOUTRECALLs after two lease periods")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 ---
- net/tipc/node.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nfsd/nfs4layouts.c | 15 +++++++++++----
+ fs/nfsd/state.h       |  1 +
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/net/tipc/node.c b/net/tipc/node.c
-index bd91378b7540..fdc679fe2d91 100644
---- a/net/tipc/node.c
-+++ b/net/tipc/node.c
-@@ -303,6 +303,7 @@ static void tipc_node_free(struct rcu_head *rp)
- #ifdef CONFIG_TIPC_CRYPTO
- 	tipc_crypto_stop(&n->crypto_rx);
- #endif
-+	kfree(n->bc_entry.link);
- 	kfree(n);
- }
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index 1f06478056..ab7340343a 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -312,6 +312,7 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
+ 		return NULL;
+ 	}
  
-@@ -310,7 +311,6 @@ static void tipc_node_kref_release(struct kref *kref)
- {
- 	struct tipc_node *n = container_of(kref, struct tipc_node, kref);
++	ls->ls_recall_start = 0;
+ 	ls->ls_fenced = false;
+ 	ls->ls_fence_inflight = false;
+ 	ls->ls_fence_stopped = false;
+@@ -834,12 +835,18 @@ nfsd4_cb_layout_done(struct nfsd4_callback *cb, struct rpc_task *task)
+ 			return 1;
  
--	kfree(n->bc_entry.link);
- 	call_rcu(&n->rcu, tipc_node_free);
- }
+ 		/* Poll the client until it's done with the layout */
+-		now = ktime_get();
++		now = ktime_get_boottime();
+ 		nn = net_generic(ls->ls_stid.sc_client->net, nfsd_net_id);
  
+-		/* Client gets 2 lease periods to return it */
+-		cutoff = ktime_add_ns(task->tk_start,
+-					 (u64)nn->nfsd4_lease * NSEC_PER_SEC * 2);
++		/*
++		 * Client gets 2 lease periods to return it, counted from its
++		 * first answer. task->tk_start cannot be used for this, it
++		 * is set anew each time the callback is restarted.
++		 */
++		if (!ls->ls_recall_start)
++			ls->ls_recall_start = now;
++		cutoff = ktime_add_ns(ls->ls_recall_start,
++				      (u64)nn->nfsd4_lease * NSEC_PER_SEC * 2);
+ 
+ 		if (ktime_before(now, cutoff)) {
+ 			rpc_delay(task, HZ/100); /* 10 mili-seconds */
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index b1f4c167ea..f05e256421 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -853,6 +853,7 @@ struct nfs4_layout_stateid {
+ 	struct nfsd_file		*ls_file;
+ 	struct nfsd4_callback		ls_recall;
+ 	stateid_t			ls_recall_sid;
++	ktime_t				ls_recall_start;
+ 	bool				ls_recalled;
+ 	struct mutex			ls_mutex;
+ 
+
 -- 
 2.43.0
+
 
