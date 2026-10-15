@@ -1,92 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB89F3D6CCF;
-	Thu, 15 Oct 2026 18:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22ABD57EDAD
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088236; cv=none; b=rMOFI2SGzYtq4k15V+kKhTzY5CRG/H/vH77ICkMSoQDYH11PhdjE1camSpV3s5XynMYdYKpMmhpkYDwWvla4UmRASMsAcKFgOdlegMqgOP3P98PXyoNFu1CtsOXw/R/pkChUXIsNDtY9czINskYNpdo0y6F354VO8eDr+i4BkIg=
+	t=1792088236; cv=none; b=MXAE5iZYSdHw7b8jgNWBPgsMWurbFz+juBBqpGqaoIex2wkCrIBVrwjgQkyCxx6QqARXQYhoVdEraTPmZCNYPfkvG/X/vTm3luvVqbgKRmUXjCxh2TJ0rBU7Ns8pVbQqpBFDAlcHD916Ml2Q281yDA9S0vFeS+0PelHaxCQUWTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792088236; c=relaxed/simple;
-	bh=4Wpd8ZaDIqKTRZJeEXKKKlTMACDQQ6OKalAajIFnFWE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y4wDHGWQvFDXeBdSdhFeAE1sNfdhbC9TSoFiZTXlYJY3HsEEbUQ9rHbK9dEQoOyO3/Jl7zNjiqqyC7LpaOnMDWmHFjvIkZrRogHmHbpLzppmxH4vpgdZ1suCLZLQMeAcoufqIv1kMXNJhM1Q+pEhbBtGSf5U6JDFLXgzcuAP+VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpsdpARh; arc=none smtp.client-ip=100.103.45.18
+	bh=YgEFANz5IReS6bL+UFnhRJl7X/aBjTgO68sstXUm6R8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f3TnZwvLXGz1r0f8at9GK4Vd6gXM0RUMf4AuvqymHz/8MX33Huyfb7u9kBWy3V7LTmTQB/Zqh3G87eq/G2U/MLGHwk8Lu1OqcYzd6pJoRyDnyfdZO5E+WFt4Blrw0NWjwV3eIwk707oeHQeg8b1ml0Sp2prxqHSQ7dHJxROhwWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ACO58B/h; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpsdpARh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FA21F000C4;
-	Thu, 15 Oct 2026 18:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792088223;
-	bh=4Wpd8ZaDIqKTRZJeEXKKKlTMACDQQ6OKalAajIFnFWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LpsdpARhGYr41eV1EMUdnUedxaFou091rS8T/+A9xI9vvMiuDo7Q7bm5AZ3zfwa4/
-	 /Nia4CIz5t5Pqq5sRM42kJz2JQ464mDT5N/7nt/a6WtfZVhAJThnsZuUgcGIC94Ea8
-	 lIiZJlIBRjd3GjqzzOuvmNji2D2WSHaPfBCdVFTjDe6Y9kPFY/KINkpzGW+hw0+Y9Y
-	 wBmonE1Q0sJBBQermpHDmPOmASiofJENOWA4KnMvCVREzqZ6VbUotRZgcaKFm//YPM
-	 6f+eajbxaQ6L2kaXprbfwzrzp6sdDlkhcJU+bYQrsJ4aTaurHlMSCygxFqHY3DK8we
-	 QRwe954fzEauw==
-Date: Thu, 15 Oct 2026 19:16:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	Ricardo =?iso-8859-1?Q?B=2E_Marli=E8re?= <rbm@suse.com>,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/7] kselftest/arm64: keep building and installing after
- a subdirectory fails
-Message-ID: <5527ee60-e0bd-46d5-b63e-8a39fbdf2ad7@sirena.org.uk>
-References: <20261014200115.1363363-1-sashal@kernel.org>
- <20261014200115.1363363-5-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ACO58B/h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=j3uzmkyuwzavpddxldaplsgq64.protonmail2; t=1792088218;
+	x=1792347418; bh=N9LMtZOebjYHWPKZQzw9MIx6tc/amNCTAQJOVpCbxmU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ACO58B/h45qE7EwgNT16jtGPmas2n7fDEtaQA/n6Oj+89lftWGdwxg+xA0FwuU9b9
+	 8dE0CJ1VJ5XZ0PHDico/YgK6yIgtbDspS+zkefsgScEw5ZyZCcriBqyWtSnd3vX+2E
+	 2UZ/lf6aiZ1PjKICvztFrQjeD1IU9t7jfgYoIxJzInniDOks7kGCrAKoWVpBsS7dSv
+	 qBWcaK6k7iyzHp0cv0Fbkf/7uSA6AGC8oruFVXQU6F4gwG6OKsq2ZQeIP1W939UYWa
+	 ViRP/JiOQvI4RtqM9eXebkAzvZ6Eo9PpYVhFu3EjvTCLWVn3VCV4r3kLDZmyt3431S
+	 0fGhAp46Qw+aQ==
+Date: Thu, 15 Oct 2026 18:16:53 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Johan Hedberg <johan.hedberg@intel.com>, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v3 1/2] Bluetooth: L2CAP: Keep credits from completing security upgrades
+Message-ID: <20261015181624.48318-1-cochcoder@proton.me>
+In-Reply-To: <20261015052751.137705-1-cochcoder@proton.me>
+References: <20261013031943.489829-1-cochcoder@proton.me> <20261015052751.137705-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: 492e499b2c59de9e6b06c55f45052ce3529a9ff6
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NYWNnkWlSL6zYjFJ"
-Content-Disposition: inline
-In-Reply-To: <20261014200115.1363363-5-sashal@kernel.org>
-X-Cookie: Tax and title extra.
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Credit indications can invoke resume on fixed or unready channels.
+Connected LE credit-based sockets can also resume during a security
+upgrade because credits and security share the socket suspend flag.
 
---NYWNnkWlSL6zYjFJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Validate the target mode and state for every identifier. Track pending
+LE/ECRED security upgrades and retain credits without sending queued
+data or resuming the socket until encryption meets the requested level.
+Drain queued data after security completes and keep credit-starved
+sockets suspended.
 
-On Wed, Oct 14, 2026 at 04:01:12PM -0400, Sasha Levin wrote:
-> The arm64 suite builds and installs its subdirectories in shell loops
-> whose status is that of the last subdirectory. A failure in an earlier
-> subdirectory is therefore lost unless FORCE_TARGETS is set, while a
-> failure in the last one fails "make all" and, through "install: all",
-> drops the installation of every other arm64 test as well.
+Fixes: fad5fc89594d ("Bluetooth: Add LE flow control discipline")
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+---
+Changes since the standalone security submission:
+- Wrap test notes to fix the GitLint B1 failures in series 1186119.
+- Refresh onto bluetooth-next ff8b09806b7b without a source delta.
+- Include this prerequisite as patch 1/2 of the credit RFC v3 series.
 
-> Make each loop fail only when no subdirectory succeeds, which matches
-> how the top-level selftests Makefile treats its targets, and keep
-> stopping at the first failure when FORCE_TARGETS is set. When a build
-> report is requested, record each subdirectory as arm64/<subdir> so that
-> a partially built suite is visible even though make succeeds.
+This security fix is independently useful. It does not accept identifier
+zero and can be considered without patch 2. The series uses an RFC prefix
+because patch 2 still requires agreement on a specification exception.
+Do not queue the dependent patch alone before this prerequisite lands.
 
-Reviewed-by: Mark Brown <broonie@kernel.org>
+The saved standalone CI report lists every job except GitLint passing,
+including the native L2CAP tester. This is not a CI result for this series.
 
-I can't help but think it might be less annoying to convert these into
-separate TARGETS but that disrupts everyone's results which isn't ideal.
+Earlier local runs on 397464709a20: nine focused security controls pass
+on security-only and combined guests. The 14 public credit controls pass
+13/14 security-only (expected positive zero-ID failure), 14/14 combined.
+There were no skips or captured kernel alerts in these focused runs.
+GCC W=3D1 changed objects and source-extracted fixtures also passed there.
 
---NYWNnkWlSL6zYjFJ
-Content-Type: application/pgp-signature; name="signature.asc"
+That base's full local attempt was incomplete: SCI Fast Mode timed out
+after an invalid HCI response length for opcode 0x20a3. The same failure
+reproduced unpatched; this patch does not claim to fix it. Initial spaced
+VM filters selected broader tests; corrected space-free focused runs are
+the results above. Historical older-base results of 133/134 and 134/134
+are not fresh full-suite results for this series.
 
------BEGIN PGP SIGNATURE-----
+The combined Arch trial is reported working, not isolated security or
+exhaustive lifetime coverage. No severity/CVE claim is made. The private
+reproducer and detailed private regression logs remain excluded.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRGJkACgkQJNaLcl1U
-h9DQFQf+LiGBnxMlC8Nft/57njPqtSr4IrbEOYXfDtnVtE8C/qIDTms81g1IsDl9
-ZsD5vzOSkVbGBsoFyWpurQfTf8ryWE0FlSxsSXC7S++ewunXZ+RLG5s7cVDHdqEt
-45DtK73sods62xPWOohEwTf3GWlxEupQs3GuRmbFbC4qsuUSRrygBDa74bGUMOdD
-v5LdfkpZmVnR71bi9zkcLkUPPhd7G6PfktHl9l9u4eN1U8c52tCYrgaqvkkoY+8f
-oWzMotzmNe2M7/GZ/yV9WNtAYwsWk11/3XLzpg0AdrvNzaqUrivQqKN1Wb1IRfaB
-amVPv/R1ZMmYwXbDArYC+mEi+syHtQ==
-=SPc5
------END PGP SIGNATURE-----
+ net/bluetooth/l2cap_core.c | 33 +++++++++++++++++++++++++++++++--
+ net/bluetooth/l2cap_sock.c |  9 +++++++--
+ 2 files changed, 38 insertions(+), 4 deletions(-)
 
---NYWNnkWlSL6zYjFJ--
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 4dd56e007..7a7f30531 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -5391,6 +5391,11 @@ static inline int l2cap_le_credits(struct l2cap_conn=
+ *conn,
+=20
+ =09l2cap_chan_lock(chan);
+=20
++=09if (chan->state !=3D BT_CONNECTED ||
++=09    (chan->mode !=3D L2CAP_MODE_LE_FLOWCTL &&
++=09     chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL))
++=09=09goto unlock;
++
+ =09max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
+ =09if (credits > max_credits) {
+ =09=09BT_ERR("LE credits overflow");
+@@ -5404,6 +5409,9 @@ static inline int l2cap_le_credits(struct l2cap_conn =
+*conn,
+=20
+ =09chan->tx_credits +=3D credits;
+=20
++=09if (test_bit(FLAG_PENDING_SECURITY, &chan->flags))
++=09=09goto unlock;
++
+ =09/* Resume sending */
+ =09l2cap_le_flowctl_send(chan);
+=20
+@@ -7967,6 +7975,8 @@ static void l2cap_security_cfm(struct hci_conn *hcon,=
+ u8 status, u8 encrypt)
+ =09mutex_lock(&conn->lock);
+=20
+ =09list_for_each_entry(chan, &conn->chan_l, list) {
++=09=09bool pending_le;
++
+ =09=09l2cap_chan_lock(chan);
+=20
+ =09=09lockdep_assert_held(&chan->conn->lock);
+@@ -7974,7 +7984,12 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
+, u8 status, u8 encrypt)
+ =09=09BT_DBG("chan %p scid 0x%4.4x state %s", chan, chan->scid,
+ =09=09       state_to_string(chan->state));
+=20
+-=09=09if (!status && encrypt)
++=09=09pending_le =3D hcon->type =3D=3D LE_LINK &&
++=09=09=09     (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
++=09=09=09      chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL) &&
++=09=09=09     test_bit(FLAG_PENDING_SECURITY, &chan->flags);
++
++=09=09if (!status && encrypt && !pending_le)
+ =09=09=09chan->sec_level =3D hcon->sec_level;
+=20
+ =09=09if (!__l2cap_no_conn_pending(chan)) {
+@@ -7984,7 +7999,21 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
+, u8 status, u8 encrypt)
+=20
+ =09=09if (!status && (chan->state =3D=3D BT_CONNECTED ||
+ =09=09=09=09chan->state =3D=3D BT_CONFIG)) {
+-=09=09=09chan->ops->resume(chan);
++=09=09=09if (pending_le) {
++=09=09=09=09if (!encrypt ||
++=09=09=09=09    !smp_sufficient_security(hcon, chan->sec_level,
++=09=09=09=09=09=09=09    SMP_ALLOW_STK)) {
++=09=09=09=09=09l2cap_chan_unlock(chan);
++=09=09=09=09=09continue;
++=09=09=09=09}
++
++=09=09=09=09clear_bit(FLAG_PENDING_SECURITY, &chan->flags);
++=09=09=09=09chan->sec_level =3D hcon->sec_level;
++=09=09=09=09l2cap_le_flowctl_send(chan);
++=09=09=09}
++
++=09=09=09if (!pending_le || chan->tx_credits)
++=09=09=09=09chan->ops->resume(chan);
+ =09=09=09l2cap_check_encryption(chan, encrypt);
+ =09=09=09l2cap_chan_unlock(chan);
+ =09=09=09continue;
+diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+index c396987c5..2d7f2935c 100644
+--- a/net/bluetooth/l2cap_sock.c
++++ b/net/bluetooth/l2cap_sock.c
+@@ -993,10 +993,15 @@ static int l2cap_sock_setsockopt(struct socket *sock,=
+ int level, int optname,
+ =09=09} else if ((sk->sk_state =3D=3D BT_CONNECT2 &&
+ =09=09=09    test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) ||
+ =09=09=09   sk->sk_state =3D=3D BT_CONNECTED) {
+-=09=09=09if (!l2cap_chan_check_security(chan, true))
++=09=09=09if (!l2cap_chan_check_security(chan, true)) {
++=09=09=09=09if (conn->hcon->type =3D=3D LE_LINK &&
++=09=09=09=09    (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
++=09=09=09=09     chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL))
++=09=09=09=09=09set_bit(FLAG_PENDING_SECURITY, &chan->flags);
+ =09=09=09=09set_bit(BT_SK_SUSPEND, &bt_sk(sk)->flags);
+-=09=09=09else
++=09=09=09} else {
+ =09=09=09=09sk->sk_state_change(sk);
++=09=09=09}
+ =09=09} else {
+ =09=09=09err =3D -EINVAL;
+ =09=09}
+
+base-commit: ff8b09806b7b18884ad8d3a2b3d702da534a4e21
+
