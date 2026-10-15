@@ -1,157 +1,152 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A109183CC3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4851C3B9D8B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045884; cv=none; b=V2y6oqAv51Dy+iS39IQYUAR6LFu8rKX6SU6l29100uwS1bBjyahpTJVVYVqFb/uA6D9khKyhcqOzbtnpQeojYsuWg4DjsSU/aDma24Mz9w01d+NqcnQ9nJ+7NmDtHHh72gKlb/OC1yKPoWQFMTm+9clDMLVvIHm5Jr5r6gheHRQ=
+	t=1792045909; cv=none; b=U2HB2lvCm9fEW4cWXgNjEtVhIdtRJghfJc1hfEN91x8ktjSbxqW2Q0bMX0EKf4/kW9bSdvKIe3U6D1VGnOmDjx5ruzkLyf9PXZkBSZ1hJBilm+xVqDFioVt7FvKVQvYpHqiAF5bTaj/1wQA9cfP8Z0VzepsJKr+YmfJpZaR0tYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045884; c=relaxed/simple;
-	bh=Xtw1FJ8iOOR37QXL3iy6kMoHVVICnPn0RaW5Wh+5go4=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=LzlIWLOYx9cBC3FomTKgwbu4ToJz1Vvrnv+yujXJIWe0b1p/Tb3lJ9S0gUK4E0Hha0bYN9dct+8M2R6lyzqaC0lDQUCsvpBQDDFf/qku4quuFBta5DKNTY3o9jHZVgsdKO45Y+mZUTiEWaWVSPYgKKL1iwyQmE3qUjW/n+VQOxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=JBzpLJGx; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=c/1rGlA0; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="JBzpLJGx";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="c/1rGlA0"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id CE6DF1D0012F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:31:20 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 02:31:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792045876;
-	 x=1792132276; bh=ASfHP8lqvduuVuTaNUF2AtMt1cgZoT5UrutKcXgZZrI=; b=
-	JBzpLJGx4unXTSh4T1vx04wcz4bVVKbQHmlAt/Ial/w4Iqa7U6EjedgObcaE979I
-	nMQOs+4L4fEu5IMK+JAPmGgzv7n7j4RLlMdhkDQR7fFemZyn4fwPhjRy/LumflAD
-	U0wF4JJ9MDhKi+tRlgfzLdmDS9nRiZdHlwYfeeFtNpiMOkETPuAxURraDEN74XfO
-	+TPdL9zfYYSxVcbvLCpYvyqQnWQ2CibKfVHDACqzM/BT9IJRoWtuf/dgzsB7dwax
-	PNmjEaf7ngIf0ARyr7vSw/h2SkRsX3QlMukZgPVgzQhSF78ss9KnM3RzfdUvkuWh
-	aRC4zkMlhqFfYDNmP9MWKA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792045876; x=
-	1792132276; bh=ASfHP8lqvduuVuTaNUF2AtMt1cgZoT5UrutKcXgZZrI=; b=c
-	/1rGlA0BfQEICnwx4uB6ByT/oDlLDXwgRCqHfWv6bihgdoUPx4FGhrlKCU0VEWT4
-	5KSGLoR+um8aCafnJPU9JDtX3p72f22FwSFU8aLCe8PU0tyrQ7W6g6u8XXjz071p
-	wvu6Wlf8BD4YAp4uhLclnEifbZxnklC+525XoGTftfQkMcc6ES4HewEN7thUsl4I
-	9SSj6wTGQQTKvKAR6T8CM7syNjfZlDnyaxoRRMiKNtbXpS8JJnR5tQv+TzfipzSn
-	5BNK3WR/ombQOlHOmOqgikZw17JhbffI+hL3HGNYtSHAhHO2jWtY98Nn8M5rqCC0
-	ghfmZa3fPJIxzNny+pt6A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792045876; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:FTbQj/Vb3pCVWbvIdjUCfR41kkphOPBy9pKAlLAR7Yph1Ip
-	R02xSXphI6JsAlIQN29eiP+Bvek7px1BjLvjtrXZhpg+NOd9RwhcL4QWe1lrol0F
-	h2cHqwIbKI7Fi2frnorJUwnUMmytis0dG0FEe9F8ufiie2jqHLMDyftZJmvRaQhN
-	VVU2WD1g6GuXWEZSLHpAtPuDZh+JoSSHysReXunpsUAtJAIdfvbxk+Xy8cwy1a6E
-	F6PvlSr5QCXb38X7Y5SxsXoW7DEu8paLi0DlqL/XOUoixICEivaswHPPd9HoK4G2
-	QZL5SHDhBnh/8dyhsCXShgUWTU1wa2KjLuDTe2g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:oY7JBQaeeJIR4EvE4kpQoX/1sfgEtGjG96RUtBHUbWc=:Xtw1FJ8iOOR37QXL3iy6kMoHVVICnPn0RaW5Wh+5go4=;
-X-ME-Sender: <xms:MHPQauxNtaUaHSQUayQ90rb2t1AvfCppepsuMartOGDUv5qT4RF7rQ>
-    <xme:MHPQalEJU8v3k0-gz16vTt22086tNmpW02Piwjj06CVXC1E6s8buw5Y2nwNvBksL8
-    M5B5GyikIdihgaHTMZ9F6cLJYqKb9v4UmE0bHBXpdUoWYTgdmCh88ISeQ>
-X-ME-Proxy-Cause: dmFkZTGlvaO+Ta+dZvvXovS0fV+Nw9WG4RYAsew5GiMaWbXaI6u2Q4MX/94ShSXCCrU9Qg
-    ehhR9MSXqF6AFntC4Rw1tOTfIRLVJ/UGHRpgk5DGqm2KmaUMd3tmI+RB+3D5HjqBt5kEnj
-    kR319spbI8ATKpPNl1um1TQCh0U9tLPkm3snOF9TtvQ32VjfnGh5T8LZTbYDVzZTEhyW2i
-    PioHgnoGadB9s8hvvnJLpgupxKMhLXmUmT4xfCPEBy19tnNvg7eri/hTkOF9P3eCxyF8c4
-    v3VjJHMPYPwKCjUDCjzIfsPjKUr9lc+plGgaq3qJm4oe6m1PhUFO39XsOqad1gjU8d7RWC
-    AmSOF7NXJSJ4Qi4v3z87h1SuVTuHNJ1EYMSSk87US/u/yL7dUVh0k+KLjlS3xwtAplSRf3
-    UxhOiSoY3QlV/O5s2b6SLML+h8ynZQrC5XCctp/jfB1xZ5UFpff8dtY8h1EhJbDrHwQ2ik
-    pNHong9JGNo8+pGFLg5aOPNEEj9C01xB/WRZaKPg715RiuiXqmZF3+0qAteX0oe4DOf7eB
-    Iw5LykC6MzXstoabYCCATsQ0GPt9wmiRsuGLYmmuEnGQ+h/h6yzVZx5qdLqLqEESl/JaHk
-    hVR2A00ei3BUOEz3oz3pIsryHjRvH8KlbHKwakttX3wmgfpXnfGxTB6C4VGg
-X-ME-Proxy: <xmx:MXPQau2DMPXFwA9dnxmtu2QA1i7JX3ct2ZXIL41r3L5vAzmkD7kxAQ>
-    <xmx:MXPQagIVFK-fmnRxaKeuLulxg2wBHEUP6-sibp1rwJ8Y15pklIqNUg>
-    <xmx:MXPQatF70UMwuEXCAENGK3Q2i1qR-GZdMvFh3d48o8IzSzlg-yXkww>
-    <xmx:MXPQasWbBO255_TmqV9scuufrVZ3SZnw6k14lyV3Lk4u_04H4bctIw>
-    <xmx:NHPQaqgfcbmmKXE_j9CtFdiYldFb3a_zILcyCiAVtWXAdI_QyA1U5Nzh>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 49C9D32A008E; Thu, 15 Oct 2026 02:31:12 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1792045909; c=relaxed/simple;
+	bh=B8S0LlkmJ7EjMISZNd7v7BcToBZJiQKXzNCR1/0gNH8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=dpDMtnYVzMDWWYh2UonNzp1Ro2ueS+Dj+7Qxzxrb9lAfmg9Je1EiDJaGfqhiM+f4lb0l5qPaJsnGt/uF8X/b63+3PFqgYwo+WCw/AYdQ2oOPE6VelQfG0HvSnNn60tYfk2JJUYd5g3e9IKazt49mEM8UtEgnBdf1FdUc1e/O1pE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so7977290b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 23:31:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792045907; x=1792650707;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3F35E4jPIx7RMMTCdlc4Vo4sGi0Ur0Tkpp/QXlSGOsg=;
+        b=TpHLJjg2ZcTkm3u32Bn2ot9Cy/9/dul69t/ufCuGLpOeiheUbif9AZVLqnppkv+5fe
+         iGshd3vwPT8YbI30Ot5lcn1DM79lVuMjhiSGlnl+ViD1gE4UHF3THYg2+PTzlrqEA/BY
+         YzL7x318HYZXLNdiJX8bG2ASTFF4oRPCcskfVaMh9PSKXlKGd52YVBl+xKjY8yVkIkua
+         xv0Po1xdCoSJRiN+YiXxmShU/gPEiCysiCdlfS27JQm+yOPpDKD45tE+N7vqS0Hk1mzy
+         xYjgAuaYLczbM+NDlh202e0FDoNKcY80QGRzKrYqpSJKrZgi/Apn9rUR/GtHyUQ2xvTX
+         PW7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzjs2AyRMjiw+LTyEgI+2YxeXZsQwgdosDPTlj5h8+JEecP/uvXa+FwR1IfHcLEsbsoOq7xzq6AA5+fDoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkkZkMEPbgRBovpLSJ6ATkd6K5xhDHCYNEir3I3qwkqeskxgWt
+	EKYiCyTLSNvUbYrA8p+bOOK1kH7XB7cPt1iVm/FVRWfYbZ1f//UYPZTlkasFGV8Dbnu1ZrKezEC
+	x3jQYVHNS7ydv6AAhRTNf3UvxupznB8Ur6/bjSko7lK8RhrxRyXUD/5R+EIM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AyGqpIRIZCcw
-Date: Thu, 15 Oct 2026 08:29:54 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Alexander Usyskin" <alexander.usyskin@intel.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, "Menachem Adin" <menachem.adin@intel.com>,
- "Andrzej Kacprowski" <andrzej.kacprowski@linux.intel.com>,
- "Karol Wachowski" <karol.wachowski@linux.intel.com>,
- "Reuven Abliyev" <reuvenab@gmail.com>
-Message-Id: <4253b355-9505-4854-8ee0-3c1db765d3d2@app.fastmail.com>
-In-Reply-To: <20261015-issei_pm_and_itf-v1-4-8212238a57a4@intel.com>
-References: <20261015-issei_pm_and_itf-v1-0-8212238a57a4@intel.com>
- <20261015-issei_pm_and_itf-v1-4-8212238a57a4@intel.com>
-Subject: Re: [PATCH char-misc-next 4/4] issei: add driver to driver interface
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:4f28:b0:4b3:7b31:8df7 with SMTP id
+ 5614622812f47-50c524711f0mr20489692b6e.14.1792045907183; Wed, 14 Oct 2026
+ 23:31:47 -0700 (PDT)
+Date: Wed, 14 Oct 2026 23:31:47 -0700
+In-Reply-To: <20261014220508.518772-1-dwmw2@infradead.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad07353.5f317f00.247b6.0062.GAE@google.com>
+Subject: [syzbot ci] Re: KVM: x86/xen: Don't drop event deliveries which race
+ memslot updates
+From: syzbot ci <syzbot+ci189dc6e331dcf349@syzkaller.appspotmail.com>
+To: dwmw2@infradead.org, dwmw@amazon.co.uk, fgriffo@amazon.co.uk, 
+	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, paul@xen.org, pbonzini@redhat.com, 
+	seanjc@google.com, vkuznets@redhat.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026, at 07:28, Alexander Usyskin wrote:
+syzbot ci has tested the following series
 
-> +	if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-> +		wait_event_interruptible_timeout(idev->wait_rst_state,
-> +						 idev->rst_state == ISSEI_RST_STATE_DONE,
-> +						 msecs_to_jiffies(ISSEI_DEVICE_CONNECT_TO_MS));
-> +		if (idev->rst_state != ISSEI_RST_STATE_DONE) {
-> +			dev_dbg(&idev->dev, "Device is in transition\n");
-> +			return -ENODEV;
-> +		}
+[v2] KVM: x86/xen: Don't drop event deliveries which race memslot updates
+https://lore.kernel.org/all/20261014220508.518772-1-dwmw2@infradead.org
+* [PATCH v2 01/11] KVM: pfncache: Return -EAGAIN for a lookup which hits an invalid memslot
+* [PATCH v2 02/11] KVM: pfncache: Add a 'wait' argument to the refresh and activate functions
+* [PATCH v2 03/11] KVM: x86/xen: Don't block on xen_lock within the vCPU's kvm->srcu section
+* [PATCH v2 04/11] KVM: x86/xen: Wait out memslot updates in the Xen attribute ioctls
+* [PATCH v2 05/11] KVM: x86/xen: Don't lose the timer event when delivery fails transiently
+* [PATCH v2 06/11] KVM: x86/xen: Retry event channel delivery which races a memslot update
+* [PATCH v2 07/11] KVM: x86/xen: Extract delivery of event to vCPU into a separate helper
+* [PATCH v2 08/11] KVM: x86/xen: Explicitly tag "shared info" page as never being dirty tracked
+* [PATCH v2 09/11] KVM: x86/xen: Don't dirty track "vCPU info" page
+* [PATCH v2 10/11] KVM: x86: Request the guest TLB flush from record_steal_time()
+* [PATCH v2 11/11] KVM: selftests: Add Xen evtchn vs memslot-update race test
+
+and found the following issue:
+WARNING: suspicious RCU usage in kvm_gpc_check
+
+Full report is available here:
+https://ci.syzbot.org/series/cde10220-9f8c-48fe-a62d-36d3df4d9a0b
+
+***
+
+WARNING: suspicious RCU usage in kvm_gpc_check
+
+tree:      kvm-next
+URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
+base:      d4b7fb647204f0c81dfeae2d1a708e4d858e0c94
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/dbdeec8a-a092-44d6-96b1-12ae99a6a0ce/config
+
+=============================
+WARNING: suspicious RCU usage
+syzkaller #0 Not tainted
+-----------------------------
+./include/linux/kvm_host.h:1094 suspicious rcu_dereference_check() usage!
+
+other info that might help us debug this:
 
 
-> +		wret = wait_event_interruptible_timeout(cl->write_wait,
-> +							issei_cl_check_write(cl) != 1,
-> +							msecs_to_jiffies(timeout));
-> +		if (wret <= 0) {
-> +			issei_cl_clean_all_wbuf(cl);
-> +			if (wret == 0) /* timed out */
-> +				return -ETIMEDOUT;
-> +			if (signal_pending(current))
-> +				return -EINTR;
-> +			return -ERESTARTSYS;
+rcu_scheduler_active = 2, debug_locks = 1
+locks held by syz.0.18064/14640: 3, last CPU#0:
+ #0: ffff8881133851a8 (&vcpu->mutex){+.+.}-{4:4}, at: kvm_vcpu_ioctl+0x27f/0xfd0
+ #1: ffff8880201d5d30 (&kvm->arch.xen.xen_lock){+.+.}-{4:4}, at: kvm_xen_vcpu_set_attr+0x4d/0x1250
+ #2: ffff8881133861e0 (&gpc->lock){....}-{3:3}, at: xen_get_guest_pvclock+0x29/0x260
 
-The wait logic is inconsistent here, the first one ignores the timeout
-and pending signal, the second one flips -ERESTARTSYS to -EINTR and
-everything else to -ERESTARTSYS, which is also questionable.
+stack backtrace:
+CPU: 0 UID: 0 PID: 14640 Comm: syz.0.18064 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150
+ lockdep_rcu_suspicious+0x140/0x1d0
+ kvm_gpc_check+0x325/0x380
+ xen_get_guest_pvclock+0x3e/0x260
+ kvm_xen_start_timer+0x160/0x5f0
+ kvm_xen_vcpu_set_attr+0xbb2/0x1250
+ kvm_arch_vcpu_ioctl+0x1485/0x23a0
+ kvm_vcpu_ioctl+0x7e3/0xfd0
+ __se_sys_ioctl+0xfc/0x170
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f3c49f9e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f3c4ae4a028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f3c4a226090 RCX: 00007f3c49f9e559
+RDX: 00002000000000c0 RSI: 000000004048aecb RDI: 000000000000000a
+RBP: 00007f3c4a0358b0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3c4a226128 R14: 00007f3c4a226090 R15: 00007ffed7dff5b8
+ </TASK>
 
-> +#if IS_ENABLED(CONFIG_INTEL_SSEI)
-> +
-> +void *issei_device_open(int (*match)(struct device *, const void *), 
-> const void *data);
-> +void issei_device_release(void *ctx);
-...
-> +#else
-> +
-> +void *issei_device_open(int (*match)(struct device *, const void *), 
-> const void *data)
-> +{
-> +	return ERR_PTR(-EOPNOTSUPP);
-> +}
 
-What is the intended use case for !CONFIG_INTEL_SSEI in the caller,
-and what do you expect to happen when CONFIG_INTEL_SSEI=m but the
-caller is configured as built-in?
+***
 
-      Arnd
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
