@@ -1,208 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010024.outbound.protection.outlook.com [40.93.198.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40F94E1C67;
-	Thu, 15 Oct 2026 08:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054666; cv=none; b=Oic+e3BRcPaeSTzX8bqQ9sk75J/ei29r7oALIeSUmRPP0l0ORT6qtSULEzq2UECuJSFcd5TLwAnBE55Ic5fWm8ggyUUWoXG9VTUIgg9uDZM7YcwOjsV6SsrLWaz9XJNgUzg26QqsSDOIrUFk80i6ZUy+XDD3hoCtPCAwX2jzaWY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054666; c=relaxed/simple;
-	bh=udyyd3dQdxeod5m2t8DdBAnDk5/RwP9vf/ZMiiTSNg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=euDPk2Z1JSs3yRK5UH2uqbsP8OIezMPi/t5rlgLEt418tzijMEquBGPfmz2jM8WEYGDhId4m7fTLq6mAZ2H+UcTOXB5V8qXgsASXoBcWLl0IgPgAtcC3QB2/evyGp+0mTS/58It1mXs1Z7k2WIWjtDAWrWt5+JgxGTmZnPgBPYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4LCJAtg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37AC2FE05C;
+	Thu, 15 Oct 2026 08:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792054702; cv=fail; b=UpkYC6MqxZ6XwCQ9Tjgzebt4EPprj+mOeJZWBU5GsRJe9Pe8ODofNf2w1vSIiXOX8jQ1Qk3SkJqcKAJ9Kc4TNUrcjqR6QpYXmtDujF2FCw8zhk4vAv5/+cw/DWV9URXU0zcyZqZrEqutuuNCHodvy9fuR/ZEdtTTmDbnoyA43Xo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792054702; c=relaxed/simple;
+	bh=gSg5z42E/V/FH5ehEo2dKsEArxFIHjFqC9N/JSZlTTc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nmuKVCIpOtuX5ZMoQfTPrd2rdPtl02SHrQ7iqV1R5/Rw8AhdVBQ0J6PuesefbmzAL2Ru1nTEPo3tJMLGG9eqWe6XETt47zlaYSrUQ2/ofVAs3A0ksTlVH8eFY5CxbvChPx+jbIFmMC21ObkW4YL28Z42zP0Mg+mJtJ9OPnZiFo8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RbH0PQ2G; arc=fail smtp.client-ip=40.93.198.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4LCJAtg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC181F000C7;
-	Thu, 15 Oct 2026 08:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054653;
-	bh=4KFyePyuep2GlaTPeORCG5nD0zpj6EWkzFQfEhk1QHk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P4LCJAtgg4EKIwkI53FJksrfhdhkBB9M9jJ8S+QFoypLzT+l2bJkYmQw1NW0OHqis
-	 SZav/tz8t/DF9Aie9Y8OmtvoGJjwuxgF1pq3TOBEdHH165+JiBzA8jJFI7P659k2ZM
-	 Bo5RofqDKNP6ZoLg6H+oxzIEspje4eWuFyhw+isg0CQ2CwMErwDZo9ZJSPt44UFACw
-	 9Ew26zXZ5l3Lj+hGzKSVMycAAqeeQVHMIGSfGcnymbRyqo/1DcmJf87nFB7v2rnrN4
-	 aQXetWA2j4SQyfkYZwyvCrS55bizbA0DwnnXSy2njaOgQYuLcdh5105iWDOCXSex0j
-	 v8KTR3gTAr1DA==
-Received: from mchehab by mail.kernel.org with local (Exim 4.99.5)
-	(envelope-from <mchehab+huawei@kernel.org>)
-	id 1xHHHH-00000000Miw-0tJF;
-	Thu, 15 Oct 2026 10:57:31 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: [PATCH 3/4] docs: test_doc_build: address pylint warnings
-Date: Thu, 15 Oct 2026 10:57:20 +0200
-Message-ID: <1a790b550a158bb3b00e5471ba7351eac5185ece.1792053090.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1792053090.git.mchehab+huawei@kernel.org>
-References: <cover.1792053090.git.mchehab+huawei@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RbH0PQ2G"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZZDnT+/bUXqC3yY4izJPbhIjKX8vcOsAmvZnQgbQZZdxrzZQ72/MkcQZmaXIOGU9dlmOSEKctzf0HD+3BDKlH97s9kBP8uJ1lnMjC7KV2a6qDilmWP/u8lcNXiNDhQvIWhx/7EYZn3n5vI1QTsbddZqW2cTEUlq7/u0y3Cy+ys7G4s1ilCbLit8xL4Rt8Vt6A/ugWQpQvVrz6xvXr3pJpjqeRtjG2o+Ecu59x4A7SyPlV14CWy6lFjphpls3DIyU7BvWSnwfNi+3ihJIGUKc96xF0pHuHqozeuKvKFuh+pgmhpvhv2MKzeF4HX1pdzuccfFvvbQEKdYBw/nkI/3VQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/WJ880jwdXlLoWGLEG9YmoqoO504ipl3spPVxwKA9oY=;
+ b=vAVuQFN2kges866zm7dfQWE2mIrGL/m2eiMXmRwtI3bZY4dQJMi9SyqEmupfjdRa9I+3tdHZt8KCFF/k1vNnYQNT7W4O1tZmfKiv9RHWaXbkzalSRwIbCTJ2RAyz6WtO8I1URoPVuBynSXpJqEsqTGuXbBpUYavuDdHRuLX4kviRHP/s1S08Gp5zjVnX3Fd3ZrIxc79NpzTN/6Ru9KWgw504FGUMUd78+5pBKIDOlvmiNiJQ0cnFwicZF8lKlUmKzwchfwtifmsspejuIU2UQLU58JgN5OiJybRDXq87HyFYbZiEJ5+NRZtheCYn3ygCj7Jx8xOHlMIkcJYkzSoESg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/WJ880jwdXlLoWGLEG9YmoqoO504ipl3spPVxwKA9oY=;
+ b=RbH0PQ2Gg81NYPAVfPf1oo62hfo0vXydRUU4sg5ZqLiK3DC67BF4GvlrACT6EdqClioC5JULtVmZbEYEjhrF9Ohj/l3jmay+tytaEtuiG5LHTsRN+c9BI3WORuMsZ2HfvCcsll+8tcNUDiPtvhctmv56iYZcRgQOfisKPo6D+M0wthcKmwQtMNzzy7FDAjm5jmnqNWlFKaHFOEWu5HMc/dPvZle82FEOHb1Cjf9DNUtL+W1jIPVy3IY0Z1It+lmM1a3eckDsB8ch5jSLhDOcAvdjj9EUGSFLSL2sdtssIbjoYknBfq6nGaXTfT+JrzGtfQl/G3mRp2cQObHUJIrPLw==
+Received: from CH5PR05CA0003.namprd05.prod.outlook.com (2603:10b6:610:1f0::16)
+ by SA1PR12MB6800.namprd12.prod.outlook.com (2603:10b6:806:25c::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 08:58:15 +0000
+Received: from CH3PEPF0002457C.namprd04.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::49) by CH5PR05CA0003.outlook.office365.com
+ (2603:10b6:610:1f0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 08:58:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ CH3PEPF0002457C.mail.protection.outlook.com (10.167.252.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 08:58:14 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 15 Oct
+ 2026 01:57:57 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 01:57:57 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 15 Oct 2026 01:57:53 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>, "open
+ list" <linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark
+ Bloch <mbloch@nvidia.com>, Moshe Shemesh <moshe@nvidia.com>, Roi Dayan
+	<roid@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drory
+	<shayd@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5e: rep, Fix races between devcom PAIR event and uplink close
+Date: Thu, 15 Oct 2026 11:57:44 +0300
+Message-ID: <20261015085744.1109107-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Sender: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0002457C:EE_|SA1PR12MB6800:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab2ef4d4-1bb9-4c9b-e482-08df2a9a72a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|18002099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	hfkWYPr7ZQ6Wt4JIX8YP2cCZ1urYdLuwOmSFMk27en2AoekhARiD6oG4VjUHrFVDccp+S8NvcfOipDMWNQ9dbXSds3fwSwfgMFcjG+Lb7EDrUwD0Y83zXtOx2My1NACc3qaA+dYTQIrNzMhRp2XJ1CxdEHxdONCdmA6e8Bmau/lhpbOAsfEC4Fob1Cdxad0h429eLSDpMTxZWnl/aLnzlotf7G+ReC99vAPLEDPrqQyoxLzZrX03A9sI8Mp8ZNV6PS4LxIhIzGT4RLpP4uWPeXhGBrydwUJ6pnrx9yGsRS8fFOEJRT4ztfNfMoibTFD/cnmNi4iJ+3CwxisMPpVD+wcM5dvdWtrpWsUsGCd1oLk9j/jGbW38AiEh6vvt32g+xMhJndCF0zi1piFAVBmMK1lxeNodtI2FKlAvr1OF97T82DYNSOMMBA1tcY02GkfJCayQpN38+Zn7HT8sWtC7+Qjt4tuPMyczU0T78jUv6XlWFP70KXz7Xg3xoWVRCtgdKSQ7MQIk7xPuBKOOaiX4y/SyafTI13GI0DmZJElW/NtEI3Y4yCr5uLVqZa8tHq1Qz5fkJGuPRBYlbzy25rqeVGEGbNxq5l+6YXjVwIaaTrzMzjEhAMPK9hPJAUP0KhM+5anaPPFVEIm4KTSyHOm0ZBDtQPF1EHNEFU0cJjEXNbpL+V6EFyd4nMENFpIEvt8Dgu71eSwoxU1ExHs2n7l04w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(18002099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9ZihcY0RC7Sdp5HhA8sTmo34YqGZyM4uimqnXoJrz2TGbFb1BLKXGwHN5DkQ0OdtBEis4a9KuiazbfcJO+NMSFn4XR5VAn1v7i3J0cdb9LxeAjqCPv0FKn2SjCzT5bhlZ+7lZ2y8ib9yE8jWIOV7KimjPt4X3a/oCDg4x36vDS4btYWnEqTxSAPn7apzPycrf2J1KCboEzl5d27D0to+u4CTApHeLo4fQ/XIuD3QdKaJYzjbNbnhZf6Bz1BQOtkQ/EZR1dHJWzN14YbUkENEa1I2bKJEUPpj/rYWI7xE6bpZSzi2gWC34lRgLhyEILqwE5iwt3krLYMyMrs7TTbKB6eSkN0FCM7I5bY3BZ6mTJ0CH+pXQhAeZAJ7CYL6ST9BNsGk3iYvpzzU8zovRNiwIjVfMZH+6iTWGqgnolGoFYInedZD2XUr0NniWoLfbl4X
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:58:14.5480
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab2ef4d4-1bb9-4c9b-e482-08df2a9a72a9
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0002457C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6800
 
-Address existing pylint issues.
+From: Shay Drory <shayd@nvidia.com>
 
-While here, adjust some line breaks using black suggestions.
+mlx5e_sqs2vport_stop() frees each rep_sq and its per-peer send-to-vport
+rules (rep_sq->sq_peer) while holding only the uplink's priv->state_lock
+(it runs from the ndo_stop -> mlx5e_deactivate_priv_channels ->
+mlx5e_rep_deactivate_channels path).
 
-No functional changes.
+The same rep_sq->sq_peer entries are inserted and erased by the devcom
+ESW_OFFLOADS PAIR/UNPAIR handler (mlx5e_vport_rep_event_pair/unpair),
+which runs under the devcom component write semaphore and takes no
+state_lock. The two lock sets are disjoint, so closing the uplink of one
+eswitch can run concurrently with a pairing/unpairing event driven by
+the peer eswitch, both mutating the same rep's vport_sqs_list / sq_peer.
+This is a use-after-free: one side frees rep_sq / sq_peer while the
+other walks the list or inserts/erases the xarray.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+The add side (mlx5e_sqs2vport_start) already guards the peer-rule work
+with mlx5_devcom_for_each_peer_begin(), i.e. the devcom read semaphore,
+which excludes the write-side event. The stop side did not. Take the
+same read side around the sq_peer teardown so it cannot race the event
+handler.
+
+Lock ordering is preserved: like the start path, stop already holds
+state_lock and then takes the devcom semaphore (state_lock ->
+comp->sem); the event handler takes comp->sem and never state_lock, so
+there is no inversion.
+
+Fixes: ed7a8fe71836 ("net/mlx5e: rep, store send to vport rules per peer")
+Signed-off-by: Shay Drory <shayd@nvidia.com>
+Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
- tools/docs/test_doc_build.py | 43 ++++++++++++++++++------------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en_rep.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/tools/docs/test_doc_build.py b/tools/docs/test_doc_build.py
-index 8b57d896c666..9db77ba9b6e2 100755
---- a/tools/docs/test_doc_build.py
-+++ b/tools/docs/test_doc_build.py
-@@ -2,7 +2,7 @@
- # SPDX-License-Identifier: GPL-2.0
- # Copyright(c) 2025: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
- #
--# pylint: disable=R0903,R0912,R0913,R0914,R0917,C0301
-+# pylint: disable=R0903,R0912,R0913,R0914,R0915,R0917,C0301
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+index 88a170e40bd9..7211faaffd8d 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+@@ -629,8 +629,12 @@ mlx5e_remove_sqs_fwd_rules(struct mlx5e_priv *priv)
+ 	struct mlx5_eswitch *esw = priv->mdev->priv.eswitch;
+ 	struct mlx5e_rep_priv *rpriv = priv->ppriv;
+ 	struct mlx5_eswitch_rep *rep = rpriv->rep;
++	bool devcom_locked;
  
- """
- Install minimal supported requirements for different Sphinx versions
-@@ -18,6 +18,8 @@ import sys
- import time
- import subprocess
- 
-+from textwrap import indent
-+
- MIN_PYTHON_SUBVER = 9  # Currently, Python 3.9 is the minimal supported version
- 
- RE_VERSION = re.compile(r"python3\.\d+$")
-@@ -45,6 +47,7 @@ def get_min_python_bin(min_subver):
- 
-     return sorted(bins, key=lambda x: (3, int(x.split(".")[1])))[0]
- 
-+
- # Minimal python versions. Please notice that for 3.4.3, older python
- # versions would work with Sphinx, but kernel doc build is not compatible
- # with them anymore, due to Sphinx extensions and kernel-doc.
-@@ -56,16 +59,16 @@ PYTHON_VER_CHANGES = {
++	devcom_locked = mlx5_devcom_for_each_peer_begin(esw->devcom);
+ 	mlx5e_sqs2vport_stop(esw, rep);
++	if (devcom_locked)
++		mlx5_devcom_for_each_peer_end(esw->devcom);
  }
  
- DEFAULT_VERSIONS_TO_TEST = [
--    (3, 4, 3),   # Minimal supported version
--    (5, 3, 0),   # CentOS Stream 9 / AlmaLinux 9
--    (6, 1, 1),   # Debian 12
--    (7, 2, 1),   # openSUSE Leap 15.6
--    (7, 2, 6),   # Ubuntu 24.04 LTS
--    (7, 4, 7),   # Ubuntu 24.10
--    (7, 3, 0),   # openSUSE Tumbleweed
--    (8, 1, 3),   # Debian 13
--    (8, 2, 3),   # Ubuntu 26.04 LTS / Fedora 44
--    (9, 1, 0),   # Latest version
-+    (3, 4, 3),  # Minimal supported version
-+    (5, 3, 0),  # CentOS Stream 9 / AlmaLinux 9
-+    (6, 1, 1),  # Debian 12
-+    (7, 2, 1),  # openSUSE Leap 15.6
-+    (7, 2, 6),  # Ubuntu 24.04 LTS
-+    (7, 4, 7),  # Ubuntu 24.10
-+    (7, 3, 0),  # openSUSE Tumbleweed
-+    (8, 1, 3),  # Debian 13
-+    (8, 2, 3),  # Ubuntu 26.04 LTS / Fedora 44
-+    (9, 1, 0),  # Latest version
- ]
- 
- # Sphinx versions to be installed and their incremental requirements
-@@ -76,7 +79,6 @@ SPHINX_REQUIREMENTS = {
-         "alabaster": "0.7.12",
-         "babel": "2.8.0",
-         "certifi": "2020.6.20",
--        "docutils": "0.16",
-         "idna": "2.10",
-         "imagesize": "1.2.0",
-         "Jinja2": "2.11.2",
-@@ -199,6 +201,7 @@ class AsyncCommands:
-         self.fp = fp
- 
-     def log(self, out, verbose=True, is_info=True):
-+        """Ancillary routine to output a message"""
-         out = out.removesuffix('\n')
- 
-         if verbose:
-@@ -227,7 +230,6 @@ class AsyncCommands:
- 
-     async def run(self, cmd, capture_output=False, check=False,
-                   env=None, verbose=True):
--
-         """
-         Execute an arbitrary command, handling errors.
- 
-@@ -326,8 +328,8 @@ class SphinxVenv:
- 
-         # Pip install succeeded. Write requirements file
-         if args.req_file:
--            with open(req_file, "w", encoding="utf-8") as fp:
--                fp.write(result.stdout)
-+            with open(req_file, "w", encoding="utf-8") as fout:
-+                fout.write(result.stdout)
- 
-         if args.build:
-             start_time = time.time()
-@@ -379,7 +381,7 @@ class SphinxVenv:
-         """
- 
-         if args.log:
--            fp = open(args.log, "w", encoding="utf-8")
-+            fp = open(args.log, "w", encoding="utf-8") # pylint: disable=R1732
-             if not args.verbose:
-                 args.verbose = False
-         else:
-@@ -440,15 +442,15 @@ class SphinxVenv:
-         if fp:
-             fp.close()
- 
-+
- def parse_version(ver_str):
-     """Convert a version string into a tuple."""
- 
-     return tuple(map(int, ver_str.split(".")))
- 
- 
--DEFAULT_VERS = "    - "
--DEFAULT_VERS += "\n    - ".join(map(lambda v: f"{v[0]}.{v[1]}.{v[2]}",
--                                    DEFAULT_VERSIONS_TO_TEST))
-+DEFAULT_VERS = indent("\n".join(map(lambda v: f"{v[0]}.{v[1]}.{v[2]}",
-+                                    DEFAULT_VERSIONS_TO_TEST)), "    - ")
- 
- SCRIPT = os.path.relpath(__file__)
- 
-@@ -493,6 +495,7 @@ MAKE_TARGETS = [
-     "xmldocs",
- ]
- 
-+
- async def main():
-     """Main program"""
- 
-@@ -540,8 +543,6 @@ async def main():
-     if not args.make_args:
-         args.make_args = []
- 
--    sphinx_versions = sorted(list(SPHINX_REQUIREMENTS.keys()))
--
-     if args.full:
-         args.versions += list(SPHINX_REQUIREMENTS.keys())
- 
+ static int
+
+base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
 -- 
-2.56.0
+2.44.0
 
