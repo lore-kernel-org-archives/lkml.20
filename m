@@ -1,67 +1,113 @@
-Received: from GVZP280CU018.outbound.protection.outlook.com (mail-swedencentralazon11022088.outbound.protection.outlook.com [52.101.82.88])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC1A3CA4B9;
-	Thu, 15 Oct 2026 14:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.82.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB64B3D45D5;
+	Thu, 15 Oct 2026 14:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075581; cv=fail; b=bjjF+aHC9Q06xMNk/LoXPk+5K2O9ixrRjRkVe2gu085lgaO5YlIGLB7BcQdet3NMBedJ4DU2Ne17OMkx9FRDFVHgnwJtw+u1umG5rhUe+5umcODv7CRHT1KpJ84zg3uz3CMy+pb09c49cypbqVn42uzZeU2J+LpDDkgCbD9286g=
+	t=1792075587; cv=fail; b=HUHfSptGlF1xU/T39C7IkaCJO6ahgXxrwBv1a3BO9eyH78u/P/9GnkKkq2rnQuZA9ptXp979GABvQgPZSiCfGZt3YAFJvcwYBKZV0WPbAT+WWSH+cGzpiG/CglS0DF4+hTCZickXC+TVrshdwY0jvumXxWY3akfDKmzGhX4Edt0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075581; c=relaxed/simple;
-	bh=VhzkggN50sEY60Q77XzZ+yoLP7iBt4pmpRCB4Xim/iQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rPjfI4AYtx09fxW47ieqnX+Njfojx24tQ1JK+KDWKYpaAL/LQAS0wpCeSW7LnbXXr7xhUzNOzKZpdwuM9EtQj5fzEA+UHxwv69NvbGZ74S87oiAY+CD1nHveclzvErGDJm/lbPkfC47KE6yXOlWBj8oa8FZM8xsSyC7X0x27Fuw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=T4iGG9F2; arc=fail smtp.client-ip=52.101.82.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
+	s=arc-20240116; t=1792075587; c=relaxed/simple;
+	bh=KsJEdRgWlV7guI+23QOfTlFpEMtat12HKtslrX5W8Tc=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rjjjlCQxNZttWuGVasKZTEO5wAvH4ix0CLCAb2kPoMY4Zbdb4QQ8mJTGDZdxtQZK6aPEOV9hlTKOA3FpKZBW5/1xU2Xpjs3hmqiHGWb1dCn7dhTBGhRzGVn9VbTV1moprpkpiGopF4T9jO7Hpkz1MJfcXitsYKMJs5zP/z7mrlk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KXnldm3l; arc=fail smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="T4iGG9F2"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KXnldm3l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792075585; x=1823611585;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=KsJEdRgWlV7guI+23QOfTlFpEMtat12HKtslrX5W8Tc=;
+  b=KXnldm3lcDFE85fcnWzmcf6wYceQWTGpveUJEYrvI0ayQ5AYws4iQTl3
+   n9wDiQIfdCzETxsmLJc5SKBz/yt2/Xvrn+5IzpiDoIc66+0D/cCX/K7xI
+   wQahwy5QCtJWUBMTty/Y8nuvq7fRSOt9iKczGRxSxC4qyi/l31YAHCnye
+   FBqPfeXaSQneKd8XBmThJrNXmhzuNwzra/EbxgbXFR4JJhAKRBaOM2sLd
+   jn8f/WtXOuF8Wm15LAqlfMdFu8Xl2NJBJUhgD+lm+B1zGf+MiQFJWLOI5
+   yvSu3pLFaMSsdHZi0JzyQ4aP0bOUdGVHO5j166GDQucdMcQe0L4ao0IJF
+   g==;
+X-CSE-ConnectionGUID: rJA+718CTZWOVWv/WXMddQ==
+X-CSE-MsgGUID: zwLIq+G/T/WimESeyx9w/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="880243"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="880243"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 07:46:23 -0700
+X-CSE-ConnectionGUID: jhOxyVdxSNWHIMVDwkQhpQ==
+X-CSE-MsgGUID: MPnc3KAtR7O1I50IAXzXdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="1624150"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 07:46:23 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 07:46:22 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 07:46:22 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.24) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 15 Oct 2026 07:46:22 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kSlHpM+0mNs2Ab5Ldy2s7B0Eu/GuF+85Eu3yeZJw/Hv6Z4pfEL27aTNs+9repQ+MFbwXab0PhYkYdCj0NwVOqUhif2EYxH3sL4PA1e50bmn69vX3bjDJNwMF6kdv90fbfWHhY4vw5WiB12cqpirirdslo+FUlciWkBb8mhZRyi15M37ifY2jmwhzMLxEiWwF+aQeg7txKQlJNxmPTfgza8jdtXKpOkNFD3qNPEls1RHq+kP3CsLHw1+m5YQAWqxcUroIxp+dS8Van1ljr/KNBedzUst3cI1lfxg80cAy07wZ4RAvRgvblid+gERsptByx3/pz2pRlmVxEDvxCR/Qbw==
+ b=NtTccqdE36JRUS5JC0qJy0nG7esZPa5wmeIhyYKqyOtnAhhT1LeGWrbYJnw+6M39hy3Z4GmCFxEmq6Vrl7opNqbmnRi6thB4/DICwpwcH9rmPPzhNBeoKyXtrkdoArqzlozerP/VV9qWmspylFESPxywNX8l92iE2RgBNI7oILfnO0/zX3bCJMFTKLQOecGoGPmlwjvtWYTMR/BVDgT3kNLdwwz6BwF8Qm+Rxirhb53NElDpkFbd85G83cvVEwDKAPT1ZldFa/hFO6FgyeCTb/9Pm6vmooN5n0dlmzWVwwECk2/SOE/cvtCeUo7P/JKSUw71shyyh/HC4xSmfa83Zw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oHPCH9con3JlISppVqJT2qapW7Am0X8wW4Im+ECd1cs=;
- b=DsVfYcKiv7X1ioBhZU2gTu6AB5HaY+NGBXmLT0F5dUfiKbEF54mA0SKZ3dEHk6r+z4fFUMlG32LkTqK9pOKmXsWFSaAu/KSzYkUJZx+lnHRr9JRDb8JrpzY5hEQArdV1Wk70NpHvL8/ihMsEyH9eH8z2JzOHdiw3lWi+JO+LeFxR1GwHdaUYBGHatBNnnnYU87EJwm5Do5p7ilIg2oD06B7+aD4lDWRUiZQ02tm16x183RvC5V/18uSh7Qjg13MH95MlcqNJVna5QB4PLE8pD6eAGAJ6hlfcQxv7njJyVLMPADc9CpN+T8F0b7H+YJDdxBvFJ8BlOMRzqSTKv2zJmw==
+ bh=dLd+0Xhfk8XyV0aFuoiaHsApX1sAivxsInPwQB/Z+sA=;
+ b=mcohhlIB86mUiX9cbmMhDjlYdWmK9wt5BB139vKShodqLsiquidFO5Cl75nYl6EK06e8NLiFGdwh8tI0AZSbRGVwsGxj4nR3vCGed2d5Cb6eNUw7k3fDox2A3oaJz5VNhY8odU+bqSfc0ZI+XYNwYXPEQl9OE4mFyxbaf96mNNW0GVQHY7VNJusqO8RO/4B+Q8kWna6+NcBNIXnqNQMucUonSYDD4zdz8F2prCUp6YanagLTiwGTlKNSGD3zqWFZ3Ug1Um4XVabZc9Pb+0O/rL0kLfLUxgwMINFThdyEsTwTbbMSQPM4BTl2UpillXBPoKO2Fk9hRUArdTXwLkqLUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
- dkim=pass header.d=gaisler.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oHPCH9con3JlISppVqJT2qapW7Am0X8wW4Im+ECd1cs=;
- b=T4iGG9F2GWdG9LqyUM839lR59d7X1kLqOVS50GSPFpUWP01PNB1P2bZLH/CJCv0YYBQ49oplWJVkNUVd8aU8A3l9rC+8HHdypC6HcNjaEnCWdWRoY4RxWfTBrTqjkwbIkTk86An4D/Z4xE+6XzLFKlq85Faz70tPbjPhKO2buEU23Gvb2c3vk3XcX673iWrRCBLyt+tf8sqfSAmlPPPDvz6TjZwHzhdD8G3PYKVCnIK8V5BShoymYek4WpYAsDiBMVOZk1TkJ86VLNxnKwktkrMZhAOzMmF7kfPGFeIeQLOAxikaiYOVo/fs5DVY8wXe8kvCKCGQ2Xi8iK9zfa86eg==
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=gaisler.com;
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
- by GV3P280MB0402.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:11::14) with
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by LVXPR11MB9780.namprd11.prod.outlook.com (2603:10b6:408:387::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:46:13 +0000
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Thu, 15 Oct 2026
- 14:46:13 +0000
-Message-ID: <61ab29d3-929f-49de-bb64-5a49318ede00@gaisler.com>
-Date: Thu, 15 Oct 2026 16:46:11 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
+ 2026 14:46:19 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 14:46:19 +0000
+Message-ID: <b3f44e74-dbb6-428d-a746-618b7288df5c@intel.com>
+Date: Thu, 15 Oct 2026 07:46:15 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] sparc64: flush only the aliased page, not its
- whole folio
-To: Imre Kaloz <kaloz@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, linux-mm@kvack.org
-References: <20260928132102.1707-1-kaloz@kernel.org>
- <20260928132102.1707-2-kaloz@kernel.org>
+Subject: Re: [PATCH v6 08/18] x86/resctrl: Register
+ RESCTRL_GLOBAL_ENABLE_PER_CPU when PLZA is available
+To: Babu Moger <babu.moger@amd.com>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<ben.horgan@arm.com>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <kas@kernel.org>,
+	<rick.p.edgecombe@intel.com>, <akpm@linux-foundation.org>, <rppt@kernel.org>,
+	<dapeng1.mi@linux.intel.com>, <elver@google.com>, <enelsonmoore@gmail.com>,
+	<jlayton@kernel.org>, <kuba@kernel.org>, <ebiggers@kernel.org>,
+	<seanjc@google.com>, <ewanhai-oc@zhaoxin.com>, <binbin.wu@linux.intel.com>,
+	<peterz@infradead.org>, <ashish.kalra@amd.com>, <superm1@kernel.org>,
+	<chang.seok.bae@intel.com>, <prathyushi.nangia@amd.com>,
+	<kim.phillips@amd.com>, <ackerleytng@google.com>,
+	<elena.reshetova@intel.com>, <naveen@kernel.org>, <darwi@linutronix.de>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>, <eranian@google.com>,
+	<peternewman@google.com>
+References: <cover.1790867441.git.babu.moger@amd.com>
+ <05717f15f11f9e11f6b2a2737f4ed2f01fd9733b.1790867441.git.babu.moger@amd.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
 Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20260928132102.1707-2-kaloz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <05717f15f11f9e11f6b2a2737f4ed2f01fd9733b.1790867441.git.babu.moger@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: OS6P279CA0008.NORP279.PROD.OUTLOOK.COM
- (2603:10a6:e10:30::9) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:2f::5)
+X-ClientProxiedBy: MW4PR03CA0139.namprd03.prod.outlook.com
+ (2603:10b6:303:8c::24) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,275 +115,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GV3P280MB0402:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42bd6355-af38-4de0-579e-08df2acb0f27
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|LVXPR11MB9780:EE_
+X-MS-Office365-Filtering-Correlation-Id: f469a17b-9f8d-48dd-a0e9-08df2acb12ef
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	uhxPIUbkyur4DIly43A+A3rvNVarG7wvB5BDACB9+UzhUqwtgIs9hkEVShAsKwK5nSgPeesErdvzF+/7h6vOVqY9lmp06ajWQqNJm67hUPYK145wDJPYpdx7+PLRGTCtvoW7tRgwCg8/cLOPtBe7rvW5AaNMiS0FCilQGBwMOj/pMDqHA7v2c4qW6Ibeo758jPZ1lEqOVFLY6M0DANYilaOKP+/R9MNirkHvLSjRaLnXmgliy2rSJ7Au5OZH/19TkliD/+Z85Ov9R9gAxB10xbOf7HaL/oDyFbxX3MmUnoOcJfEz8cd5v0rIjG7cBJqSWOqXkNh2gOGOmh+rF3JSWJN3/vCqpIuYR2q1edX5YIIfUQP7JBN1JG1wRcbP3F5CeOYDs/dUZX1ybBcsmbFtjFVOGzMWJsf8Rn1dqEmpCrGmD01h+833YzOvIrQiMxtAAL6fra1GpTHm7MzI8XzL+ebKA7IJdlFnBsYaCgvSwoTte0+bvPcdxzyBca4Vp764d36y6NLg/Jn59Od+x+oSrvuokdtykppyhyGCyBoUAEbvHZd0cK9yR3xLInwrimMgxybvZdIYNVTjcK+q/8lX2Q3rlCrEgnTriWa0SoSXM6C8VrmlslQD9rBbSxs1M+LJ8Kn1dNiomvF01yz23L27v46X1P7/aGtkGy+oe2eVZBE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|261009223027099003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: W/Q7uHL1Dl9KPf9IgnR3CjjubJYzWSxv4yGWheSYif9120itWkVWt+VKC1i1fv36nyS3NcNNlXLVbhkM1ss4i1+z9dGGNMhL4hfddRCJg23PaarL+0JsW1sYxTTlAYK8Q0yscObf/Y/l2ddSJz5Yv2djSWCrhTU0ngXzvnLDKpCr7k3uvrYn6Kk3vZolLD3Ftt4wfur//sa1V5eCoebHJONc8rkcxP0ODVNw/1mPiiE3UX3DhmApBpVa5lV/mbCCg44MzyDL5DHdqmNQCAzKWe5FNRwNd/Z8hG6h2KJ5uDb4QVdZpZ9lOBlmmnjqap+OKeq9XtUAg9CQA2aic/U9uaKJu8MsLl4763X4/5WS8llkwok5w3N3Ouwe+VzUWaeRGGOjoBWBRv/+0DgfVjTc9dpbKC0XGfAPlDPzG1lO7xDSXYvZl0FP+8WjMUf6R+OQNk40ORZ3w11qFc5Czb90I/S+KuoZ+SmxfgoexxvRp0Ktwt6a0NCxR7CQQjVxCdO0FbbMvvvcs7XOmRn6zsg8yizGDC7Ysgea7SW8pjMCKVrbbU4CYrwMcUTOPMCTQxUgZ9SGTLqGMXvpY8WZmMnddR06XOF0uvHoEieDsALgTiro2K2Nnlh8U3/UwK1p2dYhLqU+DoSs4MGwuR6hbjM8dY6B3FsnnBSWWdxPFwWdbws=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(261009223027099003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2g2T0dBY2xSaDRZb0NQUEtkbGNSblFBUzB4UUU4azdweUZkcE9jbWROUE5s?=
- =?utf-8?B?RG1RZEJsK2tGQUU3eEJ3REc0SGQyczAvVWlDS0xsT3F4djVCaFZld0lsVVcx?=
- =?utf-8?B?YmtObUdVbGtrbWIwcEV0aTdzVC9QMkRDSjFzWk9Wc1pYdkQxa2JmcUFTVmJq?=
- =?utf-8?B?QTJidVRNbG1FaEVQNVI2eldMTlhaNitSUGhiODNtZjhHUE8rZ0xRUzVnZytw?=
- =?utf-8?B?azhhRmd2N0I1N3hxdjRaYmE3cnE3bkVGTk00TWk0cUwwbm1tby9GSlJJcTI4?=
- =?utf-8?B?TTM0WGpwckRKdklUWVI0SXk4MEI5bGpxZmJ0UWtNdzZRRnlVbkxnUnBBTE4z?=
- =?utf-8?B?czBzSjF6YlFoVFdFRlZaZkx1ZmdiM0R1NnE5a0RJRXJib0NRWGlPNE5ic244?=
- =?utf-8?B?ZGg3QXhjcWdSKzUweXFqVjNRMEYvWkZvYlRocXBkNy9GbmpRZlZFelBpZnJW?=
- =?utf-8?B?UGpCYU5CcGtnKyswNjdvMkFXamFSZ04rNVFNNzdRb1FMMVFjYzV5TWRTN2R6?=
- =?utf-8?B?ekdSdlBDQXdiTkRiWHRHekhvTWFCMDhlTGl0NWkzUDl3ZlN1TnRLenJteXJy?=
- =?utf-8?B?SW9pTW8zUVhlYU5uVTg2dEI0Y08wc3JjMDlha3lwbTY4ays1WHJPRStlZGNH?=
- =?utf-8?B?YzdDaTQrWFVNRVlOQmhqK1FPM2JpTmlTdnlITDBtMkxUTE54TFdiTEd6OEdh?=
- =?utf-8?B?ZThJcENLalRBMHFoRVJJMXdjc3NJYVBTUmNhSUU3cndHOUd3ODB3VTc3ZlhP?=
- =?utf-8?B?QTJZOUZZNW9HSkhIaHduSUpLRW9QT3pMWUV3WDIrMU00VitXZFRvaVozWGdw?=
- =?utf-8?B?cXA2TjJpbFVTUUE4VzNuNitMekQyQUc0cVpST0MwdTY1R0dmMTdhVEowK2Yz?=
- =?utf-8?B?RktGODJENzFtNEwyY21aOE9tK0lCa2RZMGJHd1RHa2VnSXVwNlBhRkZ1Yy9W?=
- =?utf-8?B?YzdVaGMzNkVwLzkzMk9MNytxRng1aEZ3THgvOG82WUY0MGQ5MTJYOUt5SHdE?=
- =?utf-8?B?U2xsdjVFNzdnU0E4N1NwaUx1eUNsemFnbWc2OUUzOFFtMW81QkVpM3d5bjhr?=
- =?utf-8?B?U0xIVjZRcG84UHJQVmdSYUt5bG9VTnFHTkVqZk43K3FRZldqRmpjcjhHemx6?=
- =?utf-8?B?amI3RDBEUWpNZVdsMkVob2RRNVJhYk93WTZyQXcrczVJN3huU0JjRitpS2pl?=
- =?utf-8?B?aVJESlhTaGJhN1NlOHBRaDIwNUIwdFdlYWtEeVlYUkVNbGpuMFl2ek5jR2di?=
- =?utf-8?B?S0R1SHhVUFp1dHRNZ3FWZkFwRmsreEpJYlZIUFh5YWxwS3YwL3o5S2QxSDN4?=
- =?utf-8?B?ZFltRTFzdU1TUUpFNlJNZkJHdmhSSCtxWlJVV0Z1UmdpV2hHYlA3QkptUkMr?=
- =?utf-8?B?Ykt1TnNUSlBtNktlNDFvck9kNEcvVUFRZGhwbFVwd3F5UmtXeDQycWpDNldk?=
- =?utf-8?B?MzBnWjVCemFmSTFUMTRmdVZBTGhTWldPWk1YaDhBbitKYTFFMkc1cERwU1BW?=
- =?utf-8?B?QmoySFdLdms2clI2YThxdkVsb3JRTnpLNmtoVmx6Qi91QUxkc2Uxb1c3WXNi?=
- =?utf-8?B?d3lJYitEdTZXYU45TEx2RUx4ckh2Y3pFVWpGUnNUQW5FclJzZXhPbFF1RStC?=
- =?utf-8?B?MXo4QVlUUUtmTDZrdURUdEllQy9wVmEzc3RXeGFWc2o1dVFFUWVBUHFSODdP?=
- =?utf-8?B?TDlYZkhzaHJMNFltRVhDeVREUzVNd1VCdXdYVzhFbkVPV2Fyall5SXlvdEt4?=
- =?utf-8?B?Z29zbWZOdERJazJKMjdaUHhodnF1cFZDNStkV203Z0sxNTN5cE1GRHRVQWN3?=
- =?utf-8?B?YklmNFdob1FFWTJGSi92cUZmOXVDNVlFVXZwRjN3anpraUVTMXhVVzFyYkZO?=
- =?utf-8?B?L2ZJZ3YwaWhzZi9UMWRMRHlEM3pzUnd5REgzR3dOaWtERC9xS2xoV3hnQjlJ?=
- =?utf-8?B?TkVDWTVKN1hVTm5vT3RudFRXaFk3WElCdkVZL2tMenJOL0luZ2E1TlcwTUNx?=
- =?utf-8?B?b09yOWRUWjhZRmVMQ3A1VjQyT0hDdW9OQ0EyUHcxemRDOWM5bUtGN3Z2TDJS?=
- =?utf-8?B?YzZ3NGpPYzVuQjNkMzR4ZExMUnNsZEZKZXRmMkdHSFg0a0RSYnNMTmV2WXp1?=
- =?utf-8?B?dkgzY0hrNk1yb0pGTDVlSDdFREJZdjlSRjNXb2IyUWdJcXoxSCtlQjUxWHEr?=
- =?utf-8?B?Mjd4K1NJQ2VSaFdrVVBwVFJqSEd4RmMvdnB4WlVYSHNzcWd5eXlzWkRIUTh6?=
- =?utf-8?B?eWcwWjkwTkdFaldyMWpQbEQzOWo1QjlIb3JGUjBFcjNKd3ltb3QraHhyS3BQ?=
- =?utf-8?B?RHlvelJTUm1HNWRIMWd2UkMwanlJblBuYStwcUczZ1FQVHZBM1doZDRZeXJx?=
- =?utf-8?Q?2hhoU4j1FepiA5wI=3D?=
-X-OriginatorOrg: gaisler.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42bd6355-af38-4de0-579e-08df2acb0f27
-X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0lRYmFSRWgzR0JDdU1IUGVORU1YWWo0RCtTd1l6TDFwV2g4M0tGV0xrbmo2?=
+ =?utf-8?B?SGs3U25xWkNnR2hqakhTL0JOTllDWW9sMGZ2T0Z6Y1EzNjJjT204WWNyamVS?=
+ =?utf-8?B?UFBCb1VTK1kyMmdzVWVRL2NYWENEWjE2QzM1S2NEOUxXejJZM250ZDRaS0pX?=
+ =?utf-8?B?b1RCajdFM1VsUjZRYlpSTVhBLzhLM1lNeTFDY1JlMm42ZXVDVlZsVjRtRHkx?=
+ =?utf-8?B?NzBtN24xTWNSY3YxQWpJaGg5andtUDFGL0MxWVNsbExJdHhFZ1JZL3ZKcUps?=
+ =?utf-8?B?Vkl4eTFGZkhiMC90azRwMllrRDYzaGxQS0FZNGM5aDl3WnJjS1NDdGdJQUxP?=
+ =?utf-8?B?czFvc3hBS3BSMkFxK2VWYWt0MGwveU42THlLaTZBODlybjhKNSswM25YK282?=
+ =?utf-8?B?ZHczSXdmSG51WUFITXhZRmhSWGwxbk9mSFhNdnNWLzYyYmxwWmRjMjRUQ0lw?=
+ =?utf-8?B?RjFQL2RkSGV2aWlBNjJWL1YyZ3lRUEZEa2VNQlErT0R2eFVIMWFMZ3NNTytr?=
+ =?utf-8?B?aVB0ODg4Z2J3clVGZFVrUCtKb01XMTcvODBjcm13dG4zc3JKWUN6WElTTEVj?=
+ =?utf-8?B?QzhEeTY4UnV4MFBlUUtLUVdrckRrU210MTZxOUQ2MmtqUVpjMDNxa0ZMQXNJ?=
+ =?utf-8?B?bDhTY0VZQlVuMEZybnlwQndDL2RGQWxkWDJQOFhEb3RLUi8zRUdqYytUc0pQ?=
+ =?utf-8?B?RFRnMWl5SUhNWFRLNlBLMVVhY3lDUVNwZUVrb05ZeGxIRlRsalVwcnduY3Zj?=
+ =?utf-8?B?bG1SMXhHZnk5bFJjOE03dmdTMzNXajAwdEpqYTYwWStPRE80VnFGZ21Ja0Vs?=
+ =?utf-8?B?eUpxSUlsT0UxeVMyU1dQeVlkVkYwTzVDK0o4V2UxQ0NxcEk0SDI0RGZyQ0Jn?=
+ =?utf-8?B?dmtMUGMxanJ0VzkvRHE2cURzWituSXFaRXJ0eVBpV1lXU3JBZktCOEZ2Z0Qx?=
+ =?utf-8?B?amExYWk3UUFXdVpNUi9SZDdoUXJ2eWdKMGlEZFNKd2ZLWDAyMWFVMmJneDdz?=
+ =?utf-8?B?ZGZZYU1sNXN3bWZsNm5DZXBwenJwMDBuNlQreDF4ZnlKVlRpS3daNDQ3d2FV?=
+ =?utf-8?B?Tmx4MEZER1VESGJrK2tPMDZIaGJvSzgzN0k3VGwzeEhET3ExNkQ4Z0tXbzBO?=
+ =?utf-8?B?UUZmS2pjc0ZINDZQanY3aGJRMnZyakdkdm9LV1B5WUlHN2diSXhCUTFGN2Jl?=
+ =?utf-8?B?OS9Tbzg3cUR6TW9nZktoU1RuVk1Tb2ZnUkwrOHVJUFFjbUE4Q244VFNpTEtt?=
+ =?utf-8?B?cDg1TkFQNFIvd0tja0FPa2J0eW1tRDNyS21Wak1Tc3d6dWlkeDdBcXFtdGVs?=
+ =?utf-8?B?VW5mODgyQ0VoYzI3bVl4emVKMVlZSzBwU0hLRXpaVVdRWkNLL3E2ZFBBb3dz?=
+ =?utf-8?B?T3IwSTNYZ2lsejNsbXZhYmZhWjRWVmJhemE4a3JXL09JRzRQd1pEdUplK0M3?=
+ =?utf-8?B?NUNnR2RkRXVNS2t4R2h5K3Zxc2pEU0o4TFkvY1VXbjJLL29YZ0NFSXgwSzBz?=
+ =?utf-8?B?UmsxZWZ4NGVKMWkwQWdxN0R3b0VTdGZNanNSZ0VkZmJCcVRVMzAxVko0Nk9H?=
+ =?utf-8?B?Snd5RGF5OU9RZXdlVElaeFRIc2hmK2JEdEp6RWtIWXhZNW9QdmZ3K3llbkFn?=
+ =?utf-8?B?ZnRKK2t5T2FHNWprQm80dlYrN2tuRVErOUtEMGFYbXh3R2t5RTg1RzE1cmhC?=
+ =?utf-8?B?bURsamh4WVlUNXlTbWJxczhpaEJFV2RoTUdKVkJucjhBSEpBWnEzQk1saE4w?=
+ =?utf-8?B?Wm4yYkpxN1Vlak4xZXJ3b1ZnVkZyWVBEQys0QSsrWXJiWkdBY3ovckllV283?=
+ =?utf-8?B?OWR5dFBOSHVZZjRxaC9HZXlEVXE1Q2o3L3oyMS9taXpQdER1bkRLVFdqVlFM?=
+ =?utf-8?B?VDU3Zm5uVUJ2UC9aVUlHMDNrTFk2aVhtQW9MdDh0emxJR0U5bUtBL3ptTTkw?=
+ =?utf-8?B?M0NMd3A1Qm1OdzVrYzJKL3piOSs0Zkg2cUlnTXAreThsaEJyWnpOQjRDTGpO?=
+ =?utf-8?B?aFdCb2o0cVhRc0g0K3IrWjB3VlN0T09uNzBpUnBMZkJZUlBETU5Fb0VRdGEw?=
+ =?utf-8?B?RU1pbTFYeXM1MENkVWRkVE40NDhhY2hwWVBFUFdGOHFNMGNVUUZOQ1B6c1pG?=
+ =?utf-8?B?aEFZMGZtaE1XN0VpWXNEMFg3RGxkc1hTcGJYdE0yT21KSjJZbjV0TmtURVkw?=
+ =?utf-8?B?cWkvNEoyRWtUaEJqUHc5WlFyWGlNbmhscCs0WlFwRXA1b0RwQWFGclFYSjhk?=
+ =?utf-8?B?LzN1MmwwdVlKbTFtL1N5clpmYlhKVUJjOS91dk5PR1pxS0s5Ui9BYURaYXQx?=
+ =?utf-8?B?UExRZzFwWTdjelROQ29PalNCUjRranFvOC8ya1ZPRVBqTXA5WktnL1I4OFM5?=
+ =?utf-8?Q?2Ztps92GbTMpg8r0=3D?=
+X-Exchange-RoutingPolicyChecked: 4W8rWeQ9VhmQO4XKcwHcC56HhT4huD+j7xpi7cIdTlv/npWsEpZ8CAcAWbIMXflx9rXL0ED/SwIWvey5d+HUZkK92inXjYBbQaeAF1TYdJa/VOg1ftr89C8bBrodEN0EzUrzcMuGRL+Tpub0FnDQQB5cgXGNXucqHd9FaeMj8Bmq4wDjL58kNfnLY/MkiEcyGZ1LyRz7i7EbVFX3Tpm1ZTcGWNYs7AgCHkazh0fUBQbXp7ZrMAVJZiXjXixvm1/Zx2jORm7bIoXyvEQS6Vcdiqkq4ct0oprP4JOLHkMziZzLvXTT/vBGZQH3M/QuQIJe22dCE+0QoKruNhwTLVJK3w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: f469a17b-9f8d-48dd-a0e9-08df2acb12ef
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:46:13.1756
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:46:19.5917
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VInNPNVLr/bESJiP7U7al2EGl019UHrAtNoymfae+UhrHd7WurBIRdbK4XyrcR4rj0DGBQhjhnEpA+Gzo/OK2MlD34/033nXxtsg7d96pH4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV3P280MB0402
+X-MS-Exchange-CrossTenant-UserPrincipalName: f9utDxf2io67nRo8yGmukHNLt7CEpvjrxsVP60R6XeA8W60gDco9iUuuGrCQRpeJtwmJsxtexkGkX7OHtNtnPLInFBVCakjBiCIsu6hDgUA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVXPR11MB9780
+X-OriginatorOrg: intel.com
 
-Hi Imre,
+Hi Babu,
 
-On 2026-09-28 15:21, Imre Kaloz wrote:
-> Since the conversion to folios, move_pte() and tlb_batch_add() flush the
-> D-cache of every page in the folio a single PTE maps.  Both run once per
-> PTE, so moving or unmapping a range backed by a large folio flushes each
-> of its pages once for every PTE of that folio, and each page flush is a
-> cross-call to all other online CPUs.
-
-It would be good if the description of what the patch does uses present
-tense, but past tense for what was wrong before the patch, or was
-otherwise reworded to make it clear.
-
-The cross-call overhead is not true for all sparc64 machines and only
-for SMP configurations.
-
-
-> Only the page the PTE maps can hold lines at the old colour, so flush
-> just that page, as before the conversion.  flush_dcache_folio_all() has
-> no other users and becomes flush_dcache_page_all() again.
-
-This could perhaps be a bit misleading, as multiple PTEs in the range
-handled by the caller can hold the old colour, could it not? Rather it
-is the traversing of the whole range one by one in the caller that does
-the trick. What do you aim to add to the previous description with this
-paragraph?
-
-
-> On SMP QEMU guests, apt rebuilding its caches through mremap() triggers
-> RCU stalls and soft lockups in move_pte().
-
-Past tense or rewording here as well as this patch fixes this.
-
+On 10/1/26 8:10 AM, Babu Moger wrote:
+> PLZA (Privilege Level Zero Association) provides the global per-CPU kernel
+> mode, RESCTRL_GLOBAL_ENABLE_PER_CPU, allowing kernel work to use allocation
+> and monitoring associations that differ from user tasks.
 > 
-> Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> Add x86 support for this kernel mode and make it available through the
+
+nit: This patch does not add any support, it just registers the mode
+with resctrl fs (as the subject already indicates). Didn't patch #5 already
+claim to add support?
+
+> resctrl kernel-mode infrastructure.
+> 
+> Signed-off-by: Babu Moger <babu.moger@amd.com>
 > ---
->  arch/sparc/include/asm/cacheflush_64.h |  3 +--
->  arch/sparc/include/asm/pgtable_64.h    |  7 +++++--
->  arch/sparc/kernel/smp_64.c             | 24 +++++++++++++-----------
->  arch/sparc/mm/init_64.c                | 22 ++++++++++++++++++++++
->  arch/sparc/mm/tlb.c                    |  2 +-
->  5 files changed, 42 insertions(+), 16 deletions(-)
-> 
-> diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-> index 06092572c045..02c969417e7b 100644
-> --- a/arch/sparc/include/asm/cacheflush_64.h
-> +++ b/arch/sparc/include/asm/cacheflush_64.h
-> @@ -38,11 +38,10 @@ void __flush_dcache_page(void *addr, int flush_icache);
->  void flush_dcache_folio_impl(struct folio *folio);
->  #ifdef CONFIG_SMP
->  void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
-> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio);
->  #else
->  #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
-> -#define flush_dcache_folio_all(mm, folio) flush_dcache_folio_impl(folio)
->  #endif
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
->  
->  void __flush_dcache_range(unsigned long start, unsigned long end);
->  #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
-> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-> index 0837ebbc5dce..6712eac4baf1 100644
-> --- a/arch/sparc/include/asm/pgtable_64.h
-> +++ b/arch/sparc/include/asm/pgtable_64.h
-> @@ -946,6 +946,9 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->  	set_pte_at((mm), (addr), (ptep), __pte(0UL))
->  
->  #ifdef DCACHE_ALIASING_POSSIBLE
-> +/* Without pte_batch_hint(), move_ptes() calls this once per PTE, so
-> + * only the page this PTE maps can have lines at the old colour.
-> + */
 
-I'm not ecstatic about implementing a function that in the general API
-can be called for multiple ptes, even though this never happens on
-sparc64 as things stands right now. The code paths that saves us, from
-commit 0b5be138ce00 ("mm/mremap: avoid expensive folio lookup on mremap
-folio pte batch"), was "only" added as a performance regression fix.
-
-Perhaps the best logical solution would be if move_pte() got an added nr
-argument just as get_and_clear_ptes() has.
-
-Barring that, the comment should not describe why the change is ok, but
-rather descrive the code as it stands after this patch, that it depends
-on only being called for single pte's, and that this is accomplished by
-using the default pte_batch_hint().
-
-I would prefer the nr argument though, but that would go outside
-arch/sparc. Comments from mm people on this would be great.
-
->  #define __HAVE_ARCH_MOVE_PTE
->  #define move_pte(pte, old_addr, new_addr)				\
->  ({									\
-> @@ -955,8 +958,8 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->  									\
->  		if (pfn_valid(this_pfn) &&				\
->  		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
-> -			flush_dcache_folio_all(current->mm,		\
-> -				page_folio(pfn_to_page(this_pfn)));	\
-> +			flush_dcache_page_all(current->mm,		\
-> +					      pfn_to_page(this_pfn));	\
->  	}								\
->  	newpte;								\
->  })
-> diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-> index 371460e34484..18b6145da591 100644
-> --- a/arch/sparc/kernel/smp_64.c
-> +++ b/arch/sparc/kernel/smp_64.c
-> @@ -982,8 +982,9 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu)
->  	put_cpu();
->  }
->  
-> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
->  {
-> +	struct folio *folio = page_folio(page);
->  	void *pg_addr;
->  	u64 data0;
->  
-> @@ -996,7 +997,7 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
->  	atomic_inc(&dcpage_flushes);
->  #endif
->  	data0 = 0;
-> -	pg_addr = folio_address(folio);
-> +	pg_addr = page_address(page);
->  	if (tlb_type == spitfire) {
->  		data0 = ((u64)&xcall_flush_dcache_page_spitfire);
->  		if (folio_flush_mapping(folio) != NULL)
-> @@ -1007,18 +1008,19 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
->  #endif
->  	}
->  	if (data0) {
-> -		unsigned int i, nr = folio_nr_pages(folio);
-> -
-> -		for (i = 0; i < nr; i++) {
-> -			xcall_deliver(data0, __pa(pg_addr),
-> -				      (u64) pg_addr, cpu_online_mask);
-> +		xcall_deliver(data0, __pa(pg_addr),
-> +			      (u64)pg_addr, cpu_online_mask);
->  #ifdef CONFIG_DEBUG_DCFLUSH
-> -			atomic_inc(&dcpage_flushes_xcall);
-> +		atomic_inc(&dcpage_flushes_xcall);
->  #endif
-> -			pg_addr += PAGE_SIZE;
-> -		}
->  	}
-> -	__local_flush_dcache_folio(folio);
-> +#ifdef DCACHE_ALIASING_POSSIBLE
-> +	__flush_dcache_page(pg_addr,
-> +			    tlb_type == spitfire && folio_flush_mapping(folio));
-> +#else
-> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
-> +		__flush_icache_page(__pa(pg_addr));
-> +#endif
->  
->  	preempt_enable();
->  }
-> diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-> index 103db4683b16..8792e5d92517 100644
-> --- a/arch/sparc/mm/init_64.c
-> +++ b/arch/sparc/mm/init_64.c
-> @@ -214,6 +214,28 @@ inline void flush_dcache_folio_impl(struct folio *folio)
->  #endif
->  }
->  
-> +#ifndef CONFIG_SMP
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
-> +{
-> +	struct folio *folio = page_folio(page);
-> +
-> +	if (tlb_type == hypervisor)
-> +		return;
-> +
-> +#ifdef CONFIG_DEBUG_DCFLUSH
-> +	atomic_inc(&dcpage_flushes);
-> +#endif
-> +
-> +#ifdef DCACHE_ALIASING_POSSIBLE
-> +	__flush_dcache_page(page_address(page),
-> +			    tlb_type == spitfire && folio_flush_mapping(folio));
-> +#else
-> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
-> +		__flush_icache_page(page_to_phys(page));
-> +#endif
-> +}
-> +#endif
-> +
->  #define PG_dcache_dirty		PG_arch_1
->  #define PG_dcache_cpu_shift	32UL
->  #define PG_dcache_cpu_mask	\
-> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index 6d9dd5eb1328..1221814ca0e1 100644
-> --- a/arch/sparc/mm/tlb.c
-> +++ b/arch/sparc/mm/tlb.c
-> @@ -144,7 +144,7 @@ void tlb_batch_add(struct mm_struct *mm, unsigned long vaddr,
->  
->  		paddr = (unsigned long) page_address(page);
->  		if ((paddr ^ vaddr) & (1 << 13))
-> -			flush_dcache_folio_all(mm, folio);
-> +			flush_dcache_page_all(mm, page);
->  	}
->  
->  no_cache_flush:
-
-Thanks,
-Andreas
-
+Reinette
