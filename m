@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CA4509EE2;
-	Thu, 15 Oct 2026 20:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4345D58B6D7;
+	Thu, 15 Oct 2026 20:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096669; cv=none; b=iSIhIABJYasCbVJopJ2J9hixLgMDawTLO842HJnz3D/uOhtVllDEiaUUMCeeu8E/Tme/237x37Emk/atzRSv5+9AKvfsCRyokkpVInN/nq9RBqPeOkkzaOThzmddnxcYO5eMO8o6nC2YYgPHsCrcOxJwjuIqEDUGNN6HxTwO198=
+	t=1792096672; cv=none; b=uqswaTsj0xKvf1ESkq3dE7z2w+cl6QkVNBbw7muifbAtNxJNMjquvS4PBUnShkxG6twJxEVepNIEKlWtyeqf7wFf2P/g/PvfiRrg/pCnbgEh8mv/7krVEoG6BWAQw4MKKl5tRabbzWsIgiIGz2oFJ0uVnJMMeevjgAV2LXsaWY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096669; c=relaxed/simple;
-	bh=snf00trmk/+MUbUIaM/Vpcdlyba70rqBobTDQLmhMgA=;
+	s=arc-20240116; t=1792096672; c=relaxed/simple;
+	bh=g8tiiAW5MHg4PJW6ZTdkPSj3y7sW7tn9a/3HGjXUjhI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=R5YMVdEe/bVmCBsb1NceEBVhMzM4ICXIuSA3xzCYvtTASM2TqH6PN4fBp9VgpMCkdEVzJld2Y0E5qP8LjCsOxgFNQ07Gb/6+3rLk1dPed2fVchqBsNBBW+4jjbofHZ9lugNBwAQbModTJekofZnRsCQg3Rvu8y96hn7fVkkDFXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzVSB/1R; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=UID0hpImBoCxbtxdAvmY7mVG8KbY2MkNRAaJCO9QN6jy9TyYrxBxCCc654dZ5nQXGTzYKn/jqrg11O+Mxc9BBczOedc6v4tc86nUzt+tF6Z/qjzv89tFiVgWKTrgS7hk+EfCdHdC/MyiRqj5Kw2iOBED2jcGn1bCVTlq1i71qE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U00eo/dr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzVSB/1R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99C61F000C6;
-	Thu, 15 Oct 2026 20:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U00eo/dr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0338B1F000C7;
+	Thu, 15 Oct 2026 20:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096662;
-	bh=56BHpTKsHCG0wp5liSlmI1wXJyqDWh5vG/INsuaNzZ0=;
+	s=k20260515; t=1792096664;
+	bh=IPcKGbXXpZt96HRSZUitEgyU01sKJ5kUO6vq6O/gjKY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OzVSB/1RAd0AmKQxHjbpD52pY6Hvqwdp/yNKq2Mb13noY1rGNQGyjevgG77vTxUmB
-	 qNYOpyFnMF6FsjE2NRgNSA0x0eEKYP2xkcnPbk+YrRBxd1hwKS5misdDxACvlvkv/5
-	 evq/Ovkg77Uf4dZlZ6YN/oOEeeHxtaBQdwZ8ommxyAeCW7H39/vrtt6s+sHerYJyAa
-	 4L4mbSqa+/M1Lpb/AlU3T4fTFKE8rU9i4EXtATSBYdv30mQdtg3KUep5aSSJU3IK3R
-	 SM+o6zcCnH9m8acq/lb+9H8zd/JRkTteppm01LQN06UKcfsiGCtnA4J+a83ZpgF6Tg
-	 z7rnTVOo97YGQ==
-Subject: Re: [PATCH net-next v3 3/6] net: skbuff: replace skb_page_unref() and
- __skb_frag_unref() with skb_netmem_unref()
+	b=U00eo/drPeLtQSkFhXxvwj5+RVFaYPRfFc3gp9HqYjd5806izmcG5bWI6a/Pm7que
+	 Edfc/+7lwe6wEtY4it6T5y5rhzRZemQUAfnBrPWHQTLGRGGLelZRdPzp8AxsoOW/pT
+	 UO60ITIv6cvqrRT8UTii2pnqoFK+0jxLibB5eFEdh7jIpojNhh4LuqU1u7N/+roSOv
+	 sE/oshJLlMWMubBd9zGlzn5EpNns/ZUXvky4Zi/Tu5maOLo9MQzjDqX0sVQP5xZTo5
+	 Z9YcQ22L8tyHIaNYvl/WVOMB8pMzWMPMvLJSt+VfiMiyx5eI0O7kPM9KsG+FjJwr5I
+	 +mCZoC3TiLN8w==
+Subject: Re: [PATCH net-next v3 4/6] net: skbuff: replace __skb_frag_ref()
+ with symmetric skb_netmem_ref()
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -39,11 +39,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org,
  aleksandr.loktionov@intel.com, petrm@nvidia.com, u.kleine-koenig@baylibre.com,
  j.raczynski@samsung.com, wang.zhan@smartx.com, willemb@google.com
-Date: Thu, 15 Oct 2026 20:37:40 +0000
-Message-ID: <179209666051.434549.2929683677785392178@kernel.org>
-In-Reply-To: <20261014173945.373295-4-almasrymina@google.com>
-References: <20261014173945.373295-4-almasrymina@google.com>
-X-sashiko-severity: Low
+Date: Thu, 15 Oct 2026 20:37:42 +0000
+Message-ID: <179209666252.434549.1850964039919625643@kernel.org>
+In-Reply-To: <20261014173945.373295-5-almasrymina@google.com>
+References: <20261014173945.373295-5-almasrymina@google.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -53,176 +53,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [Low] This commit fixes a real refcount imbalance in
-  mlx4_en_complete_rx_desc()…
-- [Low] The commit message describes the mlx4 RX error-path bug as
-  "underflowing the page refcount".
-- [Low] At this commit, the new kernel-doc in include/linux/skbuff_ref.h
-  names ref-side counterparts that do not match the code.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit fixes reachable page_pool refcount imbalances but
+  has no Fixes: tag, so the fix will not be picked up for stable.
+- [Low] In the new skb_segment() linearize branch, the bytes being
+  linearized are counted twice in nskb->truesize: 1) The code does…
 
 --
 
-net: skbuff: replace skb_page_unref() and __skb_frag_unref() with skb_netmem_unref()
+net: skbuff: replace __skb_frag_ref() with symmetric skb_netmem_ref()
 
-This patch replaces skb_page_unref() and __skb_frag_unref() with a single
-skb_netmem_unref(netmem, recycle) helper. SKB-owned fragment unrefs in
-mlx4, sky2, tls_strp and skb_shift() now go through skb_frag_unref(), so
-they follow skb->pp_recycle. destroy_record() in tls_device now calls
-put_netmem() directly.
+This patch replaces __skb_frag_ref() with skb_netmem_ref(netmem, recycle).
+The new helper takes a pp_ref_count reference when recycle is set and the
+netmem is page_pool backed, so it mirrors skb_netmem_unref(). The patch
+also stops clearing skb->pp_recycle in skb_release_data() and propagates
+pp_recycle to the destination skb in the copy, split, shift and segment
+paths. It also linearizes skb_segment() output segments when frag_list
+skbs have different pp_recycle bits.
 
-> Unreferencing a page_pool fragment with recycle=false decrements the
-> non-pp backing refcount instead of pp_ref_count, underflowing the page
-> refcount when the fragment was owned via page_pool (as on mlx4's RX
-> error path).
+Link: https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-912fa72106f0@secunet.com/
 
-[Severity: Low]
-Is "underflowing the page refcount" the right description of the mlx4
-case?
+> Previously, __skb_frag_ref() and skb_frag_ref() unconditionally
+> incremented the non-pp backing refcount via get_netmem(), while
+> skb_frag_unref() decremented pp_ref_count whenever skb->pp_recycle was
+> set. Ref-ing a page_pool fragment into a pp_recycle=1 SKB (or clearing
+> pp_recycle=0 on an uncloned SKB while clones still held pp_recycle=1)
+> leaked the backing non-pp refcount and underflowed pp_ref_count across
+> IP-TFS, skb_split(), skb_shift(), and cloned unclone paths.
 
-Each mlx4 frag page holds one page reference owned by the pool
-(page_count == 1). Per-frag ownership is tracked in pp_ref_count via
-page_pool_fragment_page(page, 1) and page_pool_ref_page().
+[Severity: Medium]
+Should this patch have a Fixes: tag so stable picks it up?
 
-The old rollback in mlx4_en_complete_rx_desc() called put_page(). That
-takes page_count from 1 to 0 and frees the page while page_pool still
-counts it as in flight.
+In the base tree, iptfs_skb_add_frags() takes a raw page reference on
+each frag it adds. The destination skb only needs to have the same
+pp_recycle as the walk, so it can be a pp_recycle=1 skb:
 
-Without page checks enabled, free_pages_prepare() returns the page to
-the buddy allocator. With checks enabled, free_page_is_bad() reports a
-page_pool leak and the page is leaked.
+    __skb_frag_ref(tofrag);  ->  get_netmem()  ->  get_page()
 
-When release is false, the page also stays posted in the RX ring:
+Those references are later dropped through napi_pp_put_page(), which
+underflows pp_ref_count. The page can then go back to the pool while the
+source skb still points at it. That code came from:
 
-		if (release) {
-			frags->page = NULL;
-		} else {
-			page_pool_ref_page(page);
-		}
+Fixes: 5f2b6a909574 ("xfrm: iptfs: add skb-fragment sharing code")
 
-In that case the NIC can DMA into the freed page, and the underflow or
-double free only comes later, when page_pool releases the page.
+The commit message also covers only one direction of the imbalance.
+The reverse case is reachable through skb_split() from batman-adv:
 
-When release is true, the page is freed while pp_ref_count and the
-inflight accounting still include it. Page_pool shutdown would then
-stall, and no underflow happens at all.
+batadv_frag_create()
+    skb_fragment allocated with dev_alloc_skb()   /* pp_recycle = 0 */
+    skb_split(skb, skb_fragment, skb->len - fragment_size)
+        skb_split_inside_header()    /* moves frags, takes no refs */
 
-Could the commit message describe this as a premature free of a page
-that page_pool still considers in flight, rather than a refcount
-underflow?
+If the forwarded RX skb has pp_recycle=1, its page_pool frags end up in a
+pp_recycle=0 skb. When skb_fragment is freed, put_page() runs on them and
+drops a page reference that page_pool owns.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx4/en_rx.c b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> index 96f97fa0f5489..fe18606c2ab55 100644
-> --- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> +++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-> @@ -497,7 +497,7 @@ static int mlx4_en_complete_rx_desc(struct mlx4_en_priv *priv,
->  fail:
->  	while (nr > 0) {
->  		nr--;
-> -		__skb_frag_unref(skb_shinfo(skb)->frags + nr, false);
-> +		skb_frag_unref(skb, nr);
->  	}
->  	return 0;
->  }
+Both directions look like they can cause a use-after-free of the page,
+not just a refcount leak. Could the commit message describe the
+skb_split() case and its consequence more precisely?
 
-[Severity: Low]
-This fixes a real refcount imbalance in mlx4_en_complete_rx_desc().
-Should it carry a Fixes: tag?
-
-The fail path looks like it was missed by commit 82b023c97f60 ("eth:
-mlx4: use the page pool for Rx buffers"). That commit:
-
-- replaced page_ref_inc() with page_pool_ref_page()
-- started each page with page_pool_fragment_page(page, 1)
-- added skb_mark_for_recycle() in mlx4_en_process_rx_cq(), which runs
-  before mlx4_en_complete_rx_desc() is called
-
-The skb_mark_for_recycle() call is here:
-
-	skb = napi_get_frags(&cq->napi);
-	if (unlikely(!skb))
-		goto next;
-	skb_mark_for_recycle(skb);
-
-The rollback loop was left calling __skb_frag_unref(frag, false). So it
-dropped what are now pp_ref_count references through put_netmem(). With
-skb->pp_recycle set, the new skb_frag_unref() correctly goes through
-napi_pp_put_page().
-
-Right now the fix is folded into a tree-wide helper rename that touches
-esp4, esp6, tls_device, tls_strp, sky2 and skbuff.c, and the subject only
-mentions the helper replacement. Stable trees that contain 82b023c97f60
-need only this one-line change.
-
-Would it make sense to send the mlx4 change on its own with
-"Fixes: 82b023c97f60" for net, and the rename as a separate net-next
-patch?
-
-> diff --git a/include/linux/skbuff_ref.h b/include/linux/skbuff_ref.h
-> index 0441c220fdbdf..04114c64dad99 100644
-> --- a/include/linux/skbuff_ref.h
-> +++ b/include/linux/skbuff_ref.h
-> @@ -36,7 +36,16 @@ static __always_inline void skb_frag_ref(struct sk_buff *skb, int f)
->  
->  bool napi_pp_put_page(netmem_ref netmem);
->  
-> -static __always_inline void skb_page_unref(netmem_ref netmem, bool recycle)
-> +/**
-> + * skb_netmem_unref - release a fragment reference on a netmem
-> + * @netmem: netmem to unreference
-> + * @recycle: whether page_pool recycling is enabled (e.g. skb->pp_recycle)
-> + *
-> + * Drops pp_ref_count via napi_pp_put_page() if @recycle is true and @netmem
-> + * belongs to a page_pool; otherwise drops a non-pp backing reference via
-> + * put_netmem(). Counterpart to skb_netmem_ref().
-> + */
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 980bbe9166393..96088289c234d 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
 
 [ ... ]
 
-> - * skb_frag_unref - release a reference on a paged fragment of an skb.
-> + * skb_frag_unref - release a reference on a paged fragment of an skb
->   * @skb: the buffer
->   * @f: the fragment offset
->   *
-> - * Releases a reference on the @f'th paged fragment of @skb.
-> + * Drops a reference on the @f'th fragment of @skb via skb_netmem_unref()
-> + * (pp_ref_count if skb->pp_recycle and page_pool-backed, else non-pp
-> + * backing refcount), skipping managed zerocopy fragments. Counterpart to
-> + * skb_frag_ref().
->   */
+> @@ -5057,6 +5049,16 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
+>  
+>  		while (pos < offset + len) {
+>  			if (i >= nfrags) {
+> +				if (skb_shinfo(nskb)->nr_frags &&
+> +				    nskb->pp_recycle != list_skb->pp_recycle) {
+> +					nskb->data_len = pos - offset - hsize;
+> +					nskb->len += nskb->data_len;
+> +					nskb->truesize += nskb->data_len;
+                                        ^^^^
 
 [Severity: Low]
-Do these two counterpart references match the code at this commit?
+Are the linearized bytes counted twice in nskb->truesize here?
 
-The skb_netmem_unref() kernel-doc points to skb_netmem_ref(), which does
-not exist yet at this revision.
+nskb was allocated with only hsize + doffset + headroom, so
+__skb_linearize() will usually need to grow the head:
 
-The skb_frag_unref() kernel-doc calls skb_frag_ref() its counterpart.
-Here, though, skb_frag_ref() still goes through __skb_frag_ref():
+__skb_linearize()
+    __pskb_pull_tail()
+        pskb_expand_head(skb, 0, eat + 128, ...)
 
-static __always_inline void __skb_frag_ref(skb_frag_t *frag)
-{
-	get_netmem(skb_frag_netmem(frag));
-}
+nskb->sk is NULL during segmentation, so pskb_expand_head() also adds the
+head growth to truesize:
 
-That ignores skb->pp_recycle, while skb_frag_unref() now honours it.
+	if (!skb->sk || skb->destructor == sock_edemux)
+		skb->truesize += size - osize;
 
-The next patch in the series, "net: skbuff: replace __skb_frag_ref()
-with symmetric skb_netmem_ref()", fixes both. It adds
-skb_netmem_ref(netmem, recycle) and makes skb_frag_ref() pass
-skb->pp_recycle.
+If tailroom was already enough, the head was accounted at allocation time,
+so the explicit add over-counts in that case too.
 
-After that patch, the only remaining difference is that skb_frag_ref()
-has no skb_zcopy_managed() check. That difference predates this series,
-and the skb_frag_unref() doc already mentions the skip.
+hsize is reset after linearizing, so skip_fraglist only adds the remaining
+frag bytes. The final truesize then looks inflated by about the
+linearized byte count for each straddling segment.
 
-Could the counterpart wording move into that later patch, so the
-kernel-doc matches the code at every commit?
+Is the truesize update needed here? Would adjusting data_len and len be
+enough to keep the skb consistent for __pskb_pull_tail()?
+
+> +					if (__skb_linearize(nskb))
+> +						goto err;
+> +					hsize = pos - offset;
+> +					nskb_frag = skb_shinfo(nskb)->frags;
+> +				}
+>  				if (skb_orphan_frags(list_skb, GFP_ATOMIC) ||
+>  				    skb_zerocopy_clone(nskb, list_skb,
+>  						       GFP_ATOMIC))
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014173945.373295-1-almasrymina%40google.com
