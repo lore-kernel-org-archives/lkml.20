@@ -1,774 +1,262 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44C147F3BD;
-	Thu, 15 Oct 2026 11:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06FD4E2F1E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062148; cv=none; b=fRAps6aylEGeNTU8PWIE0KBbCACLJitks6zh/eIW/TV1H3vJ7h21znJ1S181oanUgCELiLzbjVMT+damVu+ITL/j7t9/iFcALq73Z29D8MUj5elBsleE+ljocZDd2TpacL2cUhVfCzeDaHSWrpm9C1GSK8ZmyNTDufNeuk1EmNE=
+	t=1792062154; cv=none; b=V+ap/WY++Lgq2zTmUdw2d7ZMwYuGGT1CjvSOTcz2WKYigKarYz+ZzGacE5rbY4g4QfQ1x/7RPO2dZ6Rl8T0A7y7/ypm9IwXAMqY6KeY/oq5z2JGbSIn7pNLYhAdeDGE8kBMEGkwwUtlyTgJ3AKJOpx6XUH9lxQSM4Q/tGaQAuN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062148; c=relaxed/simple;
-	bh=PBJUSZlp7EfHmsTbVGW+BDI4DdYxKJWTSJ9ArDxpqeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fV0tTATCRkMC2nHvCRVeofuB9QNONldpr5F7lC9A6Ny5V5CaeuTsezAa8PoDS9DbLVxXjObS/Cbr23k0RvT191L9g2YNHH1Vs+MzfMyWRV8Gi3cOlDZD6agPPzV6hiXrgkmkLEb2fNR0yGrQ60wWzDKfzx7h7eOAd4F//xejPp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bBBT7W+i; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792062154; c=relaxed/simple;
+	bh=euQQtVd/BkM8M86t1ev+NxS3ppr2DdnDQ0Zttt7cQ6g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OqxRen2mbozm8ihgnmIRzssg4aNmF1wi96yFPMugzNPbL8KgEyUBe+1waQY4VJIBWa/zMJJ/xjL2UhgZPCGYLfoK65VK8F9tW0XNuyO62VAp2uMD2rjZMWMkkNZ70wcAH7+9XGaN6t2E68CSk9aHJjF8ktiOkIn2LtJVCkimTzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VmkrhbI4; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bBBT7W+i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792062147; x=1823598147;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=PBJUSZlp7EfHmsTbVGW+BDI4DdYxKJWTSJ9ArDxpqeE=;
-  b=bBBT7W+itAf0991nodPiAyM6gatLkUsm7kze+0lIo0X/wRrhOhX0Q5TW
-   nRJN1qPmHQdE7b+9NCHQKP4wYFFVhavpcgvjDIN5R2BTQxyLr78Q7IN9m
-   sE8ocgeltP7nk7apFzpmmVhWnmiwSGYbDMV2qNAg4N2U3SygKMlR1Hfog
-   U6ztIIj9PTNun0FckGcOxW7x6RYEVNRTa0veGJ6U7jwVfQNo5PMgZk2jS
-   Nr0cMJlAWUxhtE6AcO7fHEtVCGHHUXUdyGXETzcBolPmUSlAUXnWIJd/M
-   HE4aKCmg5IBdzOq1go6JZ7+SMQPnwaXD0msEWoRNaaWo1J7Td5mnzlKZR
-   A==;
-X-CSE-ConnectionGUID: Y/ZIYXbERmyeoZec60Zzmg==
-X-CSE-MsgGUID: 76fjrevDRPu7orTcKnfj7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="723518"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="723518"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 04:02:26 -0700
-X-CSE-ConnectionGUID: 5qkUIzJCS0un1TQX+HiaZA==
-X-CSE-MsgGUID: Q7roDDL+RWGxBFo/WptfAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1549088"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa007.jf.intel.com with ESMTP; 15 Oct 2026 04:02:24 -0700
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v4 3/3] Bluetooth: btintel_pcie: Configure YoYo DBGC buffer allocations
-Date: Thu, 15 Oct 2026 14:02:18 +0300
-Message-ID: <20261015110218.22585-3-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015110218.22585-1-ajay.k.v@intel.com>
-References: <20261015110218.22585-1-ajay.k.v@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VmkrhbI4"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3db57938so446240e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:02:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792062151; x=1792666951; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vpF/gDsfow8fb+icnqCdMQxuKKuSB5DN8xtKyMVbhYg=;
+        b=VmkrhbI4JriTbbZ6RLmi0G4IIDO9UD0C6sUmS9w4k7qE/il6TT4JSd08nzrmMmj7xd
+         Xo9TMtQVnKHm1ohLfWeEUNLnqxwezWYXLqTZQFRdyeAGEDeOqjQo59fw7aZsnlMsK5uZ
+         tLYP8/zMXu7i62oATOW4jI4ajlV/RhedBF4TV+2ESEAhLL4abNcy3DSPRCW+T+miwHdX
+         ikbslJ0r1VBt2YS5ISBJItvgqbe+QEQHUD5mmLTeELfkyey/o2waTmSolvJ2gh5l/Hx/
+         AqVgWn2WX+cYF4lU/wY83JOcS4ACi+GZm3kbjBc0Sm3Em8FQYz72w8pDbnRcKJ5otC1h
+         bU0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792062151; x=1792666951;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vpF/gDsfow8fb+icnqCdMQxuKKuSB5DN8xtKyMVbhYg=;
+        b=GR7DVxFQ67vQYmiQo+7U2+xfA59ySUOFa5OYU+n/W0ntyI1MNgJn9j7WARUGmwSpYY
+         w5ilRxyfBnrPaDrkBlixVJjuUFVRW0VIF0VSYDGEbKE56NoFol046LrAR8AMyF4KM864
+         hoNhBb9Un/x3ppgltDcKququ86V/WwMqHZ4CH9wMRrCNq4npzeYoqU6+Fj0fjRSYvKaD
+         UrNZJes516cnseiSLvHVA1rS2nMMhNRNmZoLBytTBZA/ki8eYpXTBkHJ7lN7sBPbrGKn
+         XtbY6MyEMChWrU2wrBgWuyZh9zWJ/CATd5BitqcmiBYIWepj5H5WG1Iwv+9rxdXSmbtb
+         mtMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjcFAWmw6INsJwJhCAuIlCF1/wUPrY0uT9abxX2wua88m/orknR/RlhgwdJDEswozMhNsXLoYNp+tguT4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9YfCnl3Y4X7EnVc6qrerwBk7l13JrVYj8ewm9/PnbxWe09h2f
+	zrYuz3BfpmLoiQwjXLFXfvPHQwbVQG0N+ALXCAIZ8qtkcMuiqlkB6gSm
+X-Gm-Gg: AYBFou2mtM0E3HGZDrGlDe23mdRahydKA61ktZdU+t5aQEbkAjqDjSp6cwQ3pWZ/GlF
+	p+yfG8SL5W/pg6JxM1SaE6PWT2U+VdgUHjaNNHVUPM8Ck1aAV6qMKLhZ63TFWrmVdCDFIEMDOqP
+	D9qBfS2cvu5UC3WB4czAmh6Fb6N7zx3iy6UjbA209ARJc3W9TD+6vUC48LxWlZjGgayH/95KC5F
+	zQl6xyfecCCV6mF7qMl/C/p/qwYWc/dVzbbt9htFmEHF91l008K8fCqtxk9a/D0wmqLv2tNmS/F
+	SFOYkkkiW4FGm+oJll+aYqUxuELnfwCoR7cvBAT/MoClVX51JQRsGVS9jy97rnzRa7dS0sESHiT
+	wQSjpsjC1AAJbZSEXJJ5sjYwm4LlKBwOofEQFzQjLTF6XtN6RkGiv1XAycBgB9z03QwoGPgpkp6
+	vuAba5dG+IyzRTv4oeayYO0DwkYufBukbeqKfxUw5e8g97ev/Agh+1w2YSU1xhgYgaAxqYwKxwz
+	lDFANFgtZCIDz04k+0DREFH/OKDziVTHbn5nWn3zrVhoaQ+paw=
+X-Received: by 2002:a05:6512:3052:b0:5be:41af:8797 with SMTP id 2adb3069b0e04-5be41af88eamr376290e87.67.1792062150522;
+        Thu, 15 Oct 2026 04:02:30 -0700 (PDT)
+Received: from [192.168.1.135] (81-229-40-193-no2450.tbcn.telia.com. [81.229.40.193])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be3739b5d1sm905465e87.22.2026.10.15.04.02.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 04:02:29 -0700 (PDT)
+From: Marcus Folkesson <marcus.folkesson@gmail.com>
+Subject: [PATCH v13 0/8] I2C Mux per channel bus speed
+Date: Thu, 15 Oct 2026 13:01:47 +0200
+Message-Id: <20261015-i2c-mux-v13-0-778a12cfe93b@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XSy07DMBAF0F+psiZoZvwcVvwHYuHHpLVEW5RCV
+ FT133EqaKxmacvn+mo0l+4kY5FT97K5dKNM5VSOh3pA9bTp0i4cttKXXC86AjLAqPpCqd9/n/s
+ IYFUWCqJzV19/jjKU8y3q7b2ed+X0dRx/bskTzrd/GUT3jAl76Mkn1sEisILX7T6Uj+d03Hdzx
+ kR3hwCNo+qiZW+sTpmNfXSqcQSLU9Ux+JBMGmoR9ej0v7OA5Benq8simpOQs2nV0yyOmhlNpro
+ hUooDs+O4+s+2zi7Ozj2jkJc0ZCcr5xpHzX+uOknORELt0IdH5xenUC/O33qiUz7oPMDKceOoc
+ VydIaYIFjzpVU+EBTpoBopQJXBOAVTyAc1KYiPbkeK8M45i9GHwIj6tJLWSGzlvTTCAkC2pYFw
+ rr9frL69fuvsNAwAA
+X-Change-ID: 20250913-i2c-mux-b0063de2ae4d
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, Andi Shyti <andi.shyti@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
+ Peter Rosin <peda@lysator.liu.se>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Marcus Folkesson <marcus.folkesson@gmail.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6441;
+ i=marcus.folkesson@gmail.com; h=from:subject:message-id;
+ bh=euQQtVd/BkM8M86t1ev+NxS3ppr2DdnDQ0Zttt7cQ6g=;
+ b=owEBbQKS/ZANAwAKAYiATm9ZXVIyAcsmYgBq0LKdMyFsR7fqPper1zTmeTEdklbNmw1vy1al5
+ hX3IyJ3x1OJAjMEAAEKAB0WIQQFUaLotmy1TWTBLGWIgE5vWV1SMgUCatCynQAKCRCIgE5vWV1S
+ MnDbD/sHTPyzlN8rCAFJ5PJ89ack6FbZY7Zm1Ji8y7CJRlHbrJAiT9szD30+tvEsag4iDo74mhW
+ 0fG9D9jcHAsciDIWA9X75coeko85K3KbbPRv3k/FxeMj3svesXWgZPIfYRJhPG04HrrpRQyX2Cp
+ 6vlAL8YxGjxA1wIR+YaK+/TbHa9yz0uii8+n/GBfgzVEbKgQJ8T74cF1AXkxWjJKk3HR/rCiNr8
+ bYAsaVAQJS9dNY+j2IXa1ZFV+RsRQE8/26wSK+45N6r32tV+TfkSskwYcJ7V60b4yMfXettt/1J
+ omzEM5ZMQ/b13D59FbtcapBKgE7bXzTswCrXGnupiAPHaBpOhOIsBrpUp5xu9belfGSiEn/012b
+ yvQWHk7bOgeSFMrRxnIz9kyaTLlwNZWrN8IAlpM5e2SZMcHn5kMqjbD6oCpXpb8fS4bTsbWG9Fh
+ xj++zbzbhJw40m3lPg7mmil07QLlqrFd0mm66nBStUGfWrGPBMxe2fV8F+HCGmwkIrouJSfAoyv
+ vDrgz/eh63hiRAFi/0dtCpYv6RjGJBepsjzCSx9GIfxzYFACcRcIdfpM1NA+6iKhfOsKpNN8WnV
+ hOxrcSAZdo0GzLeAU/QBkLKtJKsGxHsOKU7jWZBi/21tahISAKvnE4E8VYCS3Pui0lAB4FbC0g5
+ BAALDZ+WbEGjdSQ==
+X-Developer-Key: i=marcus.folkesson@gmail.com; a=openpgp;
+ fpr=AB91D46C7E0F6E6FB2AB640EC0FE25D598F6C127
 
-From: Ajaykv <ajay.k.v@intel.com>
+This was a RFC on how to implement a feature to have different bus
+speeds on different channels with an I2C multiplexer/switch.
+As no major complaints on the design came up during the review, I
+decided to submit the series without the RFC tag.
 
-Parse DBGC buffer allocation TLVs for DBGC1 through DBGC3. Validate the
-allocation ID, DRAM location, fragment count, requested size, and
-minimum fragment size before storing each allocation.
+The benefit with this feature is that you may group devices after
+the fastest bus speed they can handle.
+A real-world example is that you could have e.g. a display running @400kHz
+and a smart battery running @100kHz using the same I2C controller.
 
-Use configured fragment counts and sizes for DMA buffers, firmware
-context descriptors, and coredump collection. On MDBGC devices, omit
-unconfigured buffer IDs when YoYo is enabled; retain legacy allocations
-when YoYo configuration is absent or invalid. Single-DBGC devices use
-DBGC1.
+There are many corner cases where this may cause a problem for some
+hardware topologies. I've tried to describe those I could think of
+in the documentation, see Patch #5.
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+E.g. one risk is that if the mux driver does not disconnect channels
+when Idle, this may cause a higher frequency to "leak" through to
+devices that are supposed to run at lower bus speed.
+This is not only a "problem" for changing bus speed but could also be
+an issue for potential address conflicts.
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 313789cb290e..8d168f08200a 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -320,7 +320,8 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
- 				       void **v_addr,
- 				       struct btintel_pcie_dbgc_ctxt_buf *frag,
- 				       u32 buf_index,
--				       u32 buf_count)
-+				       u32 buf_count,
-+				       u32 per_buf_size)
- {
- 	struct data_buf *b;
- 	int i;
-@@ -333,8 +334,7 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
- 	}
- 
- 	*v_addr = dmam_alloc_coherent(&data->pdev->dev,
--				      buf_count *
--					BTINTEL_PCIE_DBGC_BUFFER_SIZE,
-+				      buf_count * per_buf_size,
- 					p_addr,
- 					GFP_KERNEL | __GFP_NOWARN);
- 	if (!*v_addr) {
-@@ -344,16 +344,40 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
- 
- 	for (i = 0; i < buf_count; i++) {
- 		b = &(*buf)[i];
--		b->data_p_addr = *p_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
--		b->data = *v_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		b->data_p_addr = *p_addr + i * per_buf_size;
-+		b->data = *v_addr + i * per_buf_size;
- 		frag[i].buf_addr_lsb = lower_32_bits(b->data_p_addr);
- 		frag[i].buf_addr_msb = upper_32_bits(b->data_p_addr);
--		frag[i].buf_size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		frag[i].buf_size = per_buf_size;
- 	}
- 
-+	BT_INFO("dbgc buf %u allocated: frag_num=%u per_buf_size=%u total_size=%u",
-+		buf_index + 1, buf_count, per_buf_size, buf_count * per_buf_size);
-+
- 	return 0;
- }
- 
-+/* Returns false if YoYo is enabled and @alloc_id is not configured */
-+static bool btintel_pcie_get_mdbgc_cfg(struct btintel_pcie_data *data,
-+				       u32 alloc_id, u32 *count, u32 *size)
-+{
-+	const struct btintel_pcie_buf_alloc *ba;
-+
-+	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo, alloc_id);
-+	if (ba) {
-+		*count = ba->max_num_frags;
-+		*size = ba->req_buf_size / ba->max_num_frags;
-+		return true;
-+	}
-+
-+	if (data->yoyo.enabled)
-+		return false;
-+
-+	*count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	*size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+	return true;
-+}
-+
- /* This function initializes the memory for MDBGC buffers and formats the
-  * DBGC fragment which consists header info and DBGC buffer's LSB, MSB and
-  * size as the payload
-@@ -363,10 +387,9 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
- 	struct btintel_pcie_mdbgc_ctxt db_frag;
- 	u32 frag_size = sizeof(db_frag);
- 	void *frag_v_addr;
-+	u32 buf_count, buf_size;
- 	int err;
- 
--	data->mdbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
--
- 	/* Allocate fragment context structure */
- 	frag_v_addr = dmam_alloc_coherent(&data->pdev->dev, frag_size,
- 					  &data->mdbgc.frag_p_addr,
-@@ -385,46 +408,71 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
- 	db_frag.ver = BTINTEL_PCIE_MDBGC_FRAG_VERSION;
- 
- 	/* Allocate DBGC buffer 1 */
--	db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
--	db_frag.buf1_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf1,
--					  &data->mdbgc.buf1_p_addr,
--					  &data->mdbgc.buf1_v_addr,
--					  db_frag.buf1,
--					  0,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC1,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
-+		data->mdbgc.buf1_count = buf_count;
-+		data->mdbgc.buf1_size = buf_size;
-+		db_frag.buf1_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf1,
-+						  &data->mdbgc.buf1_p_addr,
-+						  &data->mdbgc.buf1_v_addr,
-+						  db_frag.buf1,
-+						  0,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Allocate DBGC buffer 2 */
--	db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
--	db_frag.buf2_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf2,
--					  &data->mdbgc.buf2_p_addr,
--					  &data->mdbgc.buf2_v_addr,
--					  db_frag.buf2,
--					  1,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC2,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
-+		data->mdbgc.buf2_count = buf_count;
-+		data->mdbgc.buf2_size = buf_size;
-+		db_frag.buf2_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf2,
-+						  &data->mdbgc.buf2_p_addr,
-+						  &data->mdbgc.buf2_v_addr,
-+						  db_frag.buf2,
-+						  1,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Allocate DBGC buffer 3 */
--	db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
--	db_frag.buf3_count = data->mdbgc.count;
--	err = btintel_pcie_alloc_dbgc_buf(data,
--					  &data->mdbgc.buf3,
--					  &data->mdbgc.buf3_p_addr,
--					  &data->mdbgc.buf3_v_addr,
--					  db_frag.buf3,
--					  2,
--					  data->mdbgc.count);
--	if (err)
--		return err;
-+	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC3,
-+				       &buf_count, &buf_size)) {
-+		db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
-+		data->mdbgc.buf3_count = buf_count;
-+		data->mdbgc.buf3_size = buf_size;
-+		db_frag.buf3_count = buf_count;
-+
-+		err = btintel_pcie_alloc_dbgc_buf(data,
-+						  &data->mdbgc.buf3,
-+						  &data->mdbgc.buf3_p_addr,
-+						  &data->mdbgc.buf3_v_addr,
-+						  db_frag.buf3,
-+						  2,
-+						  buf_count,
-+						  buf_size);
-+		if (err)
-+			return err;
-+	}
- 
- 	/* Copy fragment to DMA coherent memory */
- 	memcpy(data->mdbgc.frag_v_addr, &db_frag, sizeof(db_frag));
-+	BT_INFO("MDBGC: buf1 frag=%u size=%u; buf2 frag=%u size=%u; buf3 frag=%u size=%u",
-+		db_frag.buf1_count, db_frag.buf1_count * db_frag.buf1[0].buf_size,
-+		db_frag.buf2_count, db_frag.buf2_count * db_frag.buf2[0].buf_size,
-+		db_frag.buf3_count, db_frag.buf3_count * db_frag.buf3[0].buf_size);
- 	return 0;
- }
- 
-@@ -436,9 +484,21 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
- {
- 	struct btintel_pcie_dbgc_ctxt db_frag;
- 	u32 frag_size = sizeof(db_frag);
-+	const struct btintel_pcie_buf_alloc *ba;
-+	u32 buf_count, buf_size;
- 	int err;
- 
--	data->dbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo,
-+					     BTINTEL_PCIE_ALLOC_ID_DBGC1);
-+	buf_count = ba ? ba->max_num_frags : BTINTEL_PCIE_DBGC_BUFFER_COUNT;
-+	buf_size = ba ? ba->req_buf_size / ba->max_num_frags :
-+		BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+
-+	BT_INFO("dbgc setup: frag_num=%u per_buf_size=%u total_size=%u",
-+		buf_count, buf_size, buf_count * buf_size);
-+
-+	data->dbgc.count = buf_count;
-+	data->dbgc.buf_size = buf_size;
- 
- 	/* Allocate fragment context structure */
- 	data->dbgc.frag_v_addr = dmam_alloc_coherent(&data->pdev->dev,
-@@ -456,8 +516,9 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
- 	memset(&db_frag, 0, sizeof(db_frag));
- 	db_frag.magic_num = BTINTEL_PCIE_MAGIC_NUM;
- 	db_frag.ver = BTINTEL_PCIE_DBGC_FRAG_VERSION;
--	db_frag.total_size = BTINTEL_PCIE_DBGC_FRAG_PAYLOAD_SIZE;
--	db_frag.num_buf = BTINTEL_PCIE_DBGC_FRAG_BUFFER_COUNT;
-+	db_frag.total_size = sizeof(db_frag.num_buf) +
-+			     buf_count * sizeof(db_frag.bufs[0]);
-+	db_frag.num_buf = buf_count;
- 
- 	/* Allocate DBGC buffers */
- 	err = btintel_pcie_alloc_dbgc_buf(data,
-@@ -466,7 +527,8 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
- 					  &data->dbgc.buf_v_addr,
- 					  db_frag.bufs,
- 					  0,
--					  data->dbgc.count);
-+					  buf_count,
-+					  buf_size);
- 	if (err)
- 		return err;
- 
-@@ -959,7 +1021,8 @@ static u32 btintel_pcie_dump_list_total_size(struct list_head *list)
- }
- 
- static int btintel_pcie_dump_dram(struct list_head *list,
--				  u8 count, struct data_buf *bufs,
-+				  u8 count, u32 buf_size,
-+				  struct data_buf *bufs,
- 				  u32 write_ptr, u32 wrap_ctr, u32 cur_frag,
- 				  u32 region_id, const char *name)
- {
-@@ -971,7 +1034,7 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 	int i;
- 
- 	mon_hdr_size = sizeof(*mon_dump);
--	ranges_size = count * (sizeof(*range) + BTINTEL_PCIE_DBGC_BUFFER_SIZE);
-+	ranges_size = count * (sizeof(*range) + buf_size);
- 	payload_size = mon_hdr_size + ranges_size;
- 	total_size = sizeof(*dump_data) + payload_size;
- 
-@@ -1000,12 +1063,10 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 
- 	range = (void *)mon_dump->data;
- 	for (i = 0; i < count; i++) {
--		range->range_data_size =
--			cpu_to_le32(BTINTEL_PCIE_DBGC_BUFFER_SIZE);
-+		range->range_data_size = cpu_to_le32(buf_size);
- 		range->dram_base_addr = cpu_to_le64(bufs[i].data_p_addr);
--		memcpy(range->data, bufs[i].data,
--		       BTINTEL_PCIE_DBGC_BUFFER_SIZE);
--		range = (void *)range->data + BTINTEL_PCIE_DBGC_BUFFER_SIZE;
-+		memcpy(range->data, bufs[i].data, buf_size);
-+		range = (void *)range->data + buf_size;
- 	}
- 
- 	list_add_tail(&entry->list, list);
-@@ -1014,7 +1075,8 @@ static int btintel_pcie_dump_dram(struct list_head *list,
- 
- static int
- btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
--			       struct list_head *list, u8 count,
-+				       struct list_head *list, u8 count,
-+				       u32 buf_size,
- 			       struct data_buf *bufs, u32 status_reg,
- 			       u32 wrap_reg, u8 allocation_id, u32 region_id,
- 			       const char *name)
-@@ -1022,6 +1084,9 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
- 	u32 allocation_offset, write_ptr, wrap_ctr, wr_ptr_status;
- 	u8 cur_frag;
- 
-+	if (!count)
-+		return -ENOENT;
-+
- 	allocation_offset = allocation_id *
- 			    BTINTEL_PCIE_DBGC_ALLOCATION_OFFSET;
- 	wr_ptr_status = btintel_pcie_rd_dev_mem(data, status_reg +
-@@ -1043,8 +1108,8 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
- 		   "allocation=%u wr_ptr_status=0x%08x write_ptr=0x%06x cur_frag=%u wrap_ctr=0x%08x",
- 		   allocation_id, wr_ptr_status, write_ptr, cur_frag, wrap_ctr);
- 
--	return btintel_pcie_dump_dram(list, count, bufs, write_ptr, wrap_ctr,
--				      cur_frag, region_id, name);
-+	return btintel_pcie_dump_dram(list, count, buf_size, bufs, write_ptr,
-+				      wrap_ctr, cur_frag, region_id, name);
- }
- 
- static int btintel_pcie_dump_target_region(struct btintel_pcie_data *data,
-@@ -1325,6 +1390,7 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 	u8 hw_variant;
- 	u32 file_len;
- 	u8 count;
-+	u32 buf_size;
- 	int ret;
- 	LIST_HEAD(dump_list);
- 
-@@ -1333,10 +1399,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 
- 	if (btintel_pcie_is_mdbgc_supported(data)) {
- 		mdbgc = &data->mdbgc;
--		count = mdbgc->count;
-+		count = mdbgc->buf1_count;
-+		buf_size = mdbgc->buf1_size;
- 	} else {
- 		dbgc = &data->dbgc;
- 		count = dbgc->count;
-+		buf_size = dbgc->buf_size;
- 	}
- 
- 	hw_variant = INTEL_HW_VARIANT(data->cnvi);
-@@ -1356,7 +1424,9 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 	}
- 
- 	if (btintel_pcie_is_mdbgc_supported(data)) {
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf1_count,
-+						     mdbgc->buf1_size,
- 						     mdbgc->buf1, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
-@@ -1365,10 +1435,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR1);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf1: %d", ret);
- 
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf2_count,
-+						     mdbgc->buf2_size,
- 						     mdbgc->buf2, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_2,
-@@ -1377,10 +1449,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR2);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf2: %d", ret);
- 
--		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
-+		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
-+						     mdbgc->buf3_count,
-+						     mdbgc->buf3_size,
- 						     mdbgc->buf3, status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_3,
-@@ -1389,11 +1463,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
- 		if (!ret)
- 			regions_mask |=
- 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR3);
--		else
-+		else if (ret != -ENOENT)
- 			bt_dev_warn(hdev, "Failed to dump DRAM buf3: %d", ret);
- 	} else {
- 		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
--						     dbgc->bufs, status_reg,
-+						     buf_size, dbgc->bufs,
-+						     status_reg,
- 						     wrap_reg,
- 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
- 						     BTINTEL_PCIE_INI_ID_DRAM_MONITOR1,
-@@ -3285,7 +3360,7 @@ static int btintel_pcie_alloc(struct btintel_pcie_data *data)
- 		err = btintel_pcie_setup_dbgc(data);
- 	}
- 	if (err)
--		goto exit_error_txq;
-+		goto exit_error_rxq;
- 
- 	/* Setup Context Information */
- 	data->ci = v_addr;
-@@ -3298,6 +3373,9 @@ static int btintel_pcie_alloc(struct btintel_pcie_data *data)
- 
- 	return 0;
- 
-+exit_error_rxq:
-+	/* RX setup succeeded, so release its buffers before the shared unwind. */
-+	btintel_pcie_free_rxq_bufs(data, &data->rxq);
- exit_error_txq:
- 	btintel_pcie_free_txq_bufs(data, &data->txq);
- exit_error_pool:
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 7bfb7615ed0d..35c6f271eee5 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -468,6 +468,7 @@ struct rxq {
-  */
- struct btintel_pcie_dbgc {
- 	u16		count;
-+	u32		buf_size;
- 
- 	void		*frag_v_addr;
- 	dma_addr_t	frag_p_addr;
-@@ -479,7 +480,12 @@ struct btintel_pcie_dbgc {
- };
- 
- struct btintel_pcie_mdbgc {
--	u32		count;
-+	u32		buf1_count;
-+	u32		buf1_size;
-+	u32		buf2_count;
-+	u32		buf2_size;
-+	u32		buf3_count;
-+	u32		buf3_size;
- 
- 	void		*frag_v_addr;
- 	dma_addr_t	frag_p_addr;
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index 615996232cdf..5af00784bf96 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -64,6 +64,76 @@ static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
- 	return 0;
- }
- 
-+static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
-+					     const struct btintel_pcie_tlv_buf_alloc *tlv,
-+					     u32 len)
-+{
-+	u32 alloc_id, buf_location, domain, idx, max_num_frags, min_buf_size;
-+	u32 req_buf_size, version;
-+
-+	if (len != sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
-+		BT_WARN("YoYo: unexpected buf alloc TLV length %u", len);
-+		return -EBADMSG;
-+	}
-+
-+	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
-+	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported buf allocation domain/version (%u/%u)",
-+			domain, version);
-+		return -EINVAL;
-+	}
-+
-+	alloc_id = get_unaligned_le32(&tlv->alloc_id);
-+	if (alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
-+	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3) {
-+		BT_WARN("YoYo: invalid buf allocation id %u", alloc_id);
-+		return -EINVAL;
-+	}
-+
-+	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
-+	buf_location = get_unaligned_le32(&tlv->buf_location);
-+	max_num_frags = get_unaligned_le32(&tlv->max_num_frags);
-+	min_buf_size = get_unaligned_le32(&tlv->min_buf_size);
-+	req_buf_size = get_unaligned_le32(&tlv->req_buf_size);
-+
-+	if (buf_location != BTINTEL_PCIE_BUF_LOC_DRAM) {
-+		BT_WARN("YoYo: buf allocation id=%u unsupported buffer location %u",
-+			alloc_id, buf_location);
-+		return -EINVAL;
-+	}
-+
-+	if (!max_num_frags || max_num_frags > BTINTEL_PCIE_MAX_BUF_FRAGS ||
-+	    min_buf_size < BTINTEL_PCIE_MIN_BUF_SIZE ||
-+	    min_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
-+	    req_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
-+	    req_buf_size % max_num_frags ||
-+	    req_buf_size / max_num_frags < min_buf_size) {
-+		BT_WARN("YoYo: buf allocation id=%u req size=%u max frags=%u min size=%u",
-+			alloc_id, req_buf_size, max_num_frags, min_buf_size);
-+		return -EINVAL;
-+	}
-+
-+	ctx->buf_alloc[idx].alloc_id = alloc_id;
-+	ctx->buf_alloc[idx].buf_location = buf_location;
-+	ctx->buf_alloc[idx].req_buf_size = req_buf_size;
-+	ctx->buf_alloc[idx].max_num_frags = max_num_frags;
-+	ctx->buf_alloc[idx].min_buf_size = min_buf_size;
-+	ctx->buf_alloc[idx].present = true;
-+
-+	if (idx + 1 > ctx->num_buf_allocs)
-+		ctx->num_buf_allocs = idx + 1;
-+
-+	BT_DBG("YoYo: buf allocation id=%u loc=%u req size=%u max frags=%u min size=%u",
-+	       alloc_id, ctx->buf_alloc[idx].buf_location,
-+	       ctx->buf_alloc[idx].req_buf_size,
-+	       ctx->buf_alloc[idx].max_num_frags,
-+	       ctx->buf_alloc[idx].min_buf_size);
-+
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -98,14 +168,16 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 							       (const void *)tlv, len);
- 			if (ret) {
- 				ctx->dbg_info_present = false;
--				return ret;
- 			}
- 			break;
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
-+			ret = btintel_pcie_yoyo_parse_buf_alloc(ctx,
-+								(const void *)tlv, len);
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
--		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
- 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
- 			break;
-@@ -116,6 +188,12 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 
- 		ptr += tlv_size;
- 		remaining -= tlv_size;
-+
-+		if (ret) {
-+			BT_ERR("YoYo: error parsing tlv type 0x%x (ret=%d)", type, ret);
-+			return ret;
-+		}
-+
- 		count++;
- 	}
- 
-@@ -124,6 +202,10 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
- 		return -EBADMSG;
- 	}
-+	if (!ctx->num_buf_allocs) {
-+		BT_ERR("YoYo: mandatory buffer allocation TLV missing");
-+		return -EBADMSG;
-+	}
- 
- 	BT_DBG("YoYo: parsed %u tlv's", count);
- 	return 0;
-@@ -162,6 +244,8 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 
- 	ctx->enabled = false;
- 	ctx->dbg_info_present = false;
-+	ctx->num_buf_allocs = 0;
-+	memset(ctx->buf_alloc, 0, sizeof(ctx->buf_alloc));
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-@@ -218,5 +302,30 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
- 
-+/**
-+ * btintel_pcie_yoyo_get_buf_alloc - Query buffer allocation config for a DBGC
-+ * @ctx: YoYo context
-+ * @alloc_id: Allocation ID (1=DBGC1, 2=DBGC2, 3=DBGC3)
-+ *
-+ * Return the parsed configuration, or NULL if no matching TLV was present.
-+ */
-+const struct btintel_pcie_buf_alloc *
-+btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id)
-+{
-+	u32 idx;
-+
-+	if (!ctx || !ctx->enabled ||
-+	    alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
-+	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3)
-+		return NULL;
-+
-+	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
-+	if (!ctx->buf_alloc[idx].present)
-+		return NULL;
-+
-+	return &ctx->buf_alloc[idx];
-+}
-+EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_get_buf_alloc);
-+
- MODULE_DESCRIPTION("Intel Bluetooth yoyo debug framework");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index 717e8838c4d5..5ed368fb13d1 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -28,10 +28,16 @@
- 
- /* Supported TLV type versions */
- #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
-+#define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
- /* Debug Info TLV */
- #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
- #define BTINTEL_PCIE_DOMAIN_BT			0
- #define BTINTEL_PCIE_CORE_TYPE_BT		1
-+/* Buffer allocation TLV */
-+#define BTINTEL_PCIE_MAX_BUF_ALLOC		3
-+#define BTINTEL_PCIE_MAX_BUF_FRAGS		16
-+#define BTINTEL_PCIE_MIN_BUF_SIZE		(32 * 1024)
-+#define BTINTEL_PCIE_MAX_BUF_SIZE		(4 * 1024 * 1024)
- 
- enum btintel_pcie_image_tlv_type {
- 	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-@@ -39,6 +45,24 @@ enum btintel_pcie_image_tlv_type {
- 	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
- };
- 
-+/* Allocation IDs */
-+enum btintel_dbg_alloc_id {
-+	BTINTEL_PCIE_ALLOC_ID_INVALID	= 0,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC1		= 1,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC2		= 2,
-+	BTINTEL_PCIE_ALLOC_ID_DBGC3		= 3,
-+	BTINTEL_PCIE_ALLOC_ID_MAX,
-+};
-+
-+/* Buffer locations */
-+enum btintel_dbg_buf_location {
-+	BTINTEL_PCIE_BUF_LOC_INVALID		= 0,
-+	BTINTEL_PCIE_BUF_LOC_SRAM		= 1,
-+	BTINTEL_PCIE_BUF_LOC_DRAM		= 2,
-+	BTINTEL_PCIE_BUF_LOC_NPK		= 3,
-+	BTINTEL_PCIE_BUF_LOC_MAX,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -76,6 +100,38 @@ struct btintel_pcie_tlv_dbg_info {
- 	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
- } __packed;
- 
-+/*
-+ * struct btintel_pcie_tlv_buf_alloc - YoYo buffer allocation TLV
-+ * @hdr: Common TLV header
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @alloc_id: DBGC allocation identifier (DBGC1..DBGC3)
-+ * @buf_location: Requested buffer location (SRAM / DRAM / NPK)
-+ * @req_buf_size: Total requested allocation size in bytes
-+ * @max_num_frags: Maximum number of buffer fragments (1..16)
-+ * @min_buf_size: Minimum buffer size in bytes
-+ *
-+ * Describes the buffer sizing override for one DBGC allocation.
-+ */
-+struct btintel_pcie_tlv_buf_alloc {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 alloc_id;
-+	__le32 buf_location;
-+	__le32 req_buf_size;
-+	__le32 max_num_frags;
-+	__le32 min_buf_size;
-+} __packed;
-+
-+/* Parsed buffer allocation entry in the YoYo context */
-+struct btintel_pcie_buf_alloc {
-+	u32	alloc_id;
-+	u32	buf_location;
-+	u32	req_buf_size;
-+	u32	max_num_frags;
-+	u32	min_buf_size;
-+	bool	present;
-+};
-+
- /*
-  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-@@ -83,6 +139,8 @@ struct btintel_pcie_tlv_dbg_info {
-  * @trigger_list: Parsed debug-trigger entries
-  * @hcmd_list: Parsed HCI command entries
-  * @config_set_list: Parsed configuration-set entries
-+ * @buf_alloc: Parsed buffer allocation entries
-+ * @num_buf_allocs: Number of parsed buffer allocation entries
-  * @hdev: Associated HCI device; NULL until successful HCI registration
-  *
-  * Stores the validation state and parsed TLV data for the optional YoYo
-@@ -95,6 +153,8 @@ struct btintel_pcie_yoyo_ctx {
- 	struct list_head	 trigger_list;
- 	struct list_head	 hcmd_list;
- 	struct list_head	 config_set_list;
-+	struct btintel_pcie_buf_alloc buf_alloc[BTINTEL_PCIE_MAX_BUF_ALLOC];
-+	int			 num_buf_allocs;
- 	struct hci_dev		 *hdev;
- };
- 
-@@ -105,4 +165,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx);
- int  btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 				      struct device *dev);
- 
-+const struct btintel_pcie_buf_alloc *
-+btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id);
-+
- #endif /* __BTINTEL_PCIE_DEBUG_H__ */
--- 
-2.53.0
+This patchset has been used and tested heavily the last months
+on a custom board based on a da850 (DaVinci) platform.
+
+The implementation is split up into several patches:
+
+Patch #1 Introduce a callback for the i2c controller to set bus speed
+Patch #2 Introduce functionality to adjust bus speed depending on mux
+         channel.
+Patch #3 Cleanup i2c-davinci driver a bit to prepare it for set_clk_freq
+Parch #4 Implement set_clk_freq for the i2c-davinci driver
+Parch #5 Update documentation with this feature
+
+Signed-off-by: Marcus Folkesson <marcus.folkesson@gmail.com>
+---
+Changes in v13:
+- Rebased on i2c-next (7.3-rc7)
+- Corrected gramatics and wordings
+- Move set_clk_freq callback to its own structure (i2c_bus_ops)
+- Fix style issus
+- Don't leak childs anymore
+- Link to v12: https://patch.msgid.link/20260719-i2c-mux-v12-0-a5010d623a57@gmail.com
+
+Changes in v12:
+- Defined new idle states in i2c-mux.h
+- Replaced _hz with _Hz where appropriate
+- Reword comment and commit message about idle states
+- Link to v11: https://patch.msgid.link/20260713-i2c-mux-v11-0-72bb8af8ee8c@gmail.com
+
+Changes in v11:
+- Rebased on i2c-next
+- Use _Hz instead of _hz for local variables in i2c-davinci.c.
+- Link to v10: https://patch.msgid.link/20260708-i2c-mux-v10-0-09dca03c8a15@gmail.com
+
+Changes in v10:
+
+- Fix gramatics in documentation
+- Move {__,}i2c_adapter_set_clk_freq() to i2c-mux.c
+- Make set_clk_freq() return actual frequency
+- Reimplement idle_state (from earlier version)
+- Implement example on idle_state for ltc4306
+- Link to v9: https://lore.kernel.org/r/20260324-i2c-mux-v9-0-5292b0608243@gmail.com
+
+Changes in v9:
+- Fix stray blank line
+- Link to v8: https://lore.kernel.org/r/20260314-i2c-mux-v8-0-fb1738a4df0a@gmail.com
+
+Changes in v8:
+- Fix gramatics and change %d to %u were appropriate
+- Link to v7: https://lore.kernel.org/r/20260223-i2c-mux-v7-0-ec75b214718a@gmail.com
+
+Changes in v7:
+- Remove code for finding first mux-locked ancestor
+- Introduce a unlocked (i2c_adapter_set_clk_freq) and unlocked
+  (__i2c_adapter_set_clk_freq) variant
+- Let the locking be handled in __i2c_adapter_set_clk_freq
+- Use I2C_MAX_STANDARD_MODE_FREQ instead of magic numbers where
+  appropriate 
+- Link to v6: https://lore.kernel.org/r/20260216-i2c-mux-v6-0-9be28ecfd7e3@gmail.com
+
+Changes in v6:
+- Change logic to find which ancestor to lock with I2C_LOCK_ROOT_ADAPTER
+  It now find the first mux-locked ancestor and then lock its parent.
+
+- Remove bus_freq_hz in i2c-davinci and only use clock_hz instead
+- Mention in commit message that clock_hz can be used to store frequency in an uniform way
+
+- Swap order for change freq/deselect to keep symmetry
+- Only allow bus frequency to be lowered in select()
+  This to not allow an intermediate frequency to be set when it is not
+  supposed to
+
+- check if(ret) instead of ret(<0) where appropriate
+- Fix typos in documentation
+- Change i2c_adapter.clock_hz from int to u32
+- Simplify i2c_adapter_set_clk_freq() by removing 'ret'
+- Link to v5: https://lore.kernel.org/r/20260213-i2c-mux-v5-0-fb2cbf9979b3@gmail.com
+
+Changes in v5:
+- Take the lock of the top-most mutex locked mux to make sure that the
+  root is locked
+- Link to v4: https://lore.kernel.org/r/20260128-i2c-mux-v4-0-dee49ce276c0@gmail.com
+
+Changes in v4:
+- Rebase on master
+- Swap order for printing warning about "channel %u is slower than
+  parent on a non parent-locked mux\n"
+- Fix typo in comment, adaper->adapter
+- Link to v3: https://lore.kernel.org/r/20251020-i2c-mux-v3-0-908ac5cf9223@gmail.com
+
+Changes in v3:
+- Return -EINVAL if channel is faster than parent (kernel test robot)
+- Link to v2: https://lore.kernel.org/r/20251002-i2c-mux-v2-0-b698564cd956@gmail.com
+
+Changes in v2:
+- Changed bus_freq field to bus_freq_hz in davinci_i2c_dev (Bartosz Golaszewski)
+- Removed idle_state from mux core (Peter Rosin)
+- Link to v1: https://lore.kernel.org/r/20250922-i2c-mux-v1-0-28c94a610930@gmail.com
+
+To: Andi Shyti <andi.shyti@kernel.org>
+To: Peter Rosin <peda@lysator.liu.se>
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Michael Hennerich <michael.hennerich@analog.com>
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+
+---
+Marcus Folkesson (8):
+      i2c: core: add callback to change bus frequency
+      i2c: mux: add idle_state property to i2c_mux_core
+      i2c: mux: add support for per channel bus frequency
+      i2c: davinci: calculate bus freq from Hz instead of kHz
+      i2c: davinci: add support for setting bus frequency
+      i2c: mux: ltc4306: set correct idle_state in i2c_mux_core
+      docs: i2c: i2c-topology: add section about bus speed
+      i2c: mux: pca954x: use idle state from i2c_mux_core
+
+ Documentation/i2c/i2c-topology.rst  | 180 +++++++++++++++++++++++++++++++++
+ drivers/i2c/busses/i2c-davinci.c    |  39 +++++--
+ drivers/i2c/i2c-mux.c               | 196 +++++++++++++++++++++++++++++++++---
+ drivers/i2c/muxes/i2c-mux-ltc4306.c |   5 +
+ drivers/i2c/muxes/i2c-mux-pca954x.c |  76 +++++++++-----
+ include/linux/i2c-mux.h             |  57 +++++++++++
+ include/linux/i2c.h                 |  12 +++
+ 7 files changed, 518 insertions(+), 47 deletions(-)
+---
+base-commit: a1844c195998e764ed89ceb29a234d2be690f404
+change-id: 20250913-i2c-mux-b0063de2ae4d
+
+Best regards,
+--  
+Marcus Folkesson <marcus.folkesson@gmail.com>
 
