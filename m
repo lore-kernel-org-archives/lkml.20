@@ -1,160 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8713EC833;
-	Thu, 15 Oct 2026 16:41:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E153D52B1EC
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082490; cv=none; b=fFXocG/bpKMvGRkw2xfPhv6Gh+ume355jJhxnZTu7ssh1pRoEeSdMuSjG3GCjoagKjo31Wg3BWGmL5iHAOEfVMkRzrKsvMHsgGWRJOaVntMRmfNil5wnEYMcP5hMSrDt/j8nN/4G26VgLn3YMVy41MQc82p4IIyUG3iZw0yJ9cc=
+	t=1792082525; cv=none; b=qeRypWoFj8lhgzqsjyV5vSIFe52jwlLohSgQ9ogLL+GT7gu+tpP+gb9JGnmTEg/kIvVyWVSdTrIcQSaWrhNyavYb/xgdswCOXkou0XHT6fW+vBPzL92cpYjq/+t5TO7yBYF5+QfeKW6V9Q1oV72oYtBR9ZOec6iEv0tgAiuHNgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082490; c=relaxed/simple;
-	bh=Rcj7dhPr9rDDor7byhGnm5H0KVxtVvI8oKtdcWRBovI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V7mL/mA+l09HeetevJ1OSwUUh/KZeb04t2bkur+0sZanlkWVXtrwVKkPquXRPC5tA6Bh/g2rYDgwP8lultJP0JzO/4YWmRXznYP+9nU+6+tziZME/J5z9kvo1eIXZAACKKWPCLHtvIytJWP911T5mhyn5diIoVzySdcAyQhf9iE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJHxIYDa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792082525; c=relaxed/simple;
+	bh=odYsqb6qlvwr9ql2stmc54Jy9XrBQEgexBY+u0gq+rY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=PqTV7XF8r9vT/KVr9CKCz34PX81FxlOfYkhMZyNerO0LaIoLUVTG6fqtsjf8EKFEeT5O6EuNf/L7DOnmWkHzbBmdAJV6HhLW3fEjVuzb7iHBGvChW1oDLW0DOqZYy3M5kq/0NtjZHI+9hCQMq6uCaNkuzms493SfZaSjV6Omsds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1kOCeiW; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJHxIYDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A601F000C4;
-	Thu, 15 Oct 2026 16:41:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792082479;
-	bh=henc3B1x6U66Cc4wCHQGaVrAN5txXPadaIqIa3phigg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NJHxIYDaSvcn1zskfakCyzzkc4KWk3YVFRCCFczSgr9+0yFWlKhBdpJBkyXq9TYCm
-	 UpnV/NdQv/Uai4CJwhme57ZoMqNE+fi6g2DBo1JuZ+tKOI2rlzyrappiw537FK2L/M
-	 +cxsHhaQTaDhaqT48R/MhPUHuIP3m2djDD55Pe4CvQFroaLfCf7ZmNc1mfSah1HBh6
-	 TGVgaDxGN65O5ma+wW77JN8Eojz79vvI4xLTEcgznOKA1DrNqgYuCxpdp8QvEwq1h2
-	 97xsMCBod6WJ+hYnrGuGLMrVJNPQ3PMwcuusePSij0E6VG5N/y+xCbs5rYOKrR4Es6
-	 Z44/hp0IG1asg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xHOW4-00000003OzH-2KmN;
-	Thu, 15 Oct 2026 16:41:16 +0000
-Date: Thu, 15 Oct 2026 17:41:16 +0100
-Message-ID: <86h5im29xv.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: arm64: Only enable S1PIE and S1POE for a guest with TCR2 and ATS1A
-In-Reply-To: <20261015153041.3770032-1-fuad.tabba@linux.dev>
-References: <20261015153041.3770032-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1kOCeiW"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e5fb79ce82so31803255ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792082514; x=1792687314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y81tg7aS+OL7WL9uwzHmpXBtWhblGVNn9iU+ZHCLidI=;
+        b=U1kOCeiWGVEsi5XJcXB/HbizsgiaS5Fe307yt7SYCR63orXCfuaGf9JnLbMsJhUHtC
+         0jbMVfEl1TLP14QqVDB0OMjT4TytPOFAK4VEMh+3/D78j9xE4oev6zaB0xHtEVuoSXz7
+         VM92aINRuZ4t/JV0l+txt3/+t41/pUynFIadugzXG7sxCzaLWiZNsUWMKrfzaSz9vvlr
+         bAUnOpNQgcm6oksYf4iXRFUFan7wtnaF22GZHgdgVXchYtTt3nVp2UgMmrPRegODVcqp
+         JpbC38xlgIQKGM5NKHDYM3+6/GnOS75shvalz+a9rR5Mtf2f3ATZ6BlxtxW8EnyVoMUf
+         h5/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082514; x=1792687314;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y81tg7aS+OL7WL9uwzHmpXBtWhblGVNn9iU+ZHCLidI=;
+        b=xoP23Um1WDebricRjFXiMmnzta22WjtWZOv4I5QHAV8n6HTkZow2a90BDjTpdEfvjR
+         +zCPoOQjR95u6YjwWSh50GZQnyR3o0YZtbsgBfdEG5cDRp9dRY+f9WmmzRrKgX5X9O++
+         OTAINq21RpRKHdPXXVIbHws8U0/g6tTzWVBBvy2nxDPvHyjbk8QHX6tMEQapGbRzGdHK
+         KAT4rwNGKuUNsqpKYvdSBjw7mukATdbTTqbpNDB3ii4DNuWb1cZoKhjlJnKtrZSMesSj
+         Xs5anfCTCeLRztxAj6JdQQo6rDFd84suyLP/iMSNYAU8shToIxmPdmDFvx/5aa3x6+Qp
+         p3dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxIlD8cGJ4g+PPdhgeTesRV2rncxQBPWMsti39/fqR3n23hxHTW5Tw/KbeSk0y53a4iN/7qnyd8bKjNPE4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4uw8XHlHtmuBc+0JhmzaxXROVVCAZwiJbdP07TsGV4DH47fhZ
+	seABXiZVcUe27ZVk/t/fokxPnczTuSK4XTt2gI2anhDzmk9paquo45zD
+X-Gm-Gg: AYBFou0knhqI0AMv7mWrktwyaZIHwbX6cB0DWCxi1f1zULMA5beFzDkZDnlYuoTeybB
+	b1RSye41/4ZztaUjivBIn/XGMcLqW7lF2XbByQ8Y6yiT3PlGAult87Di4i2IfLtq2iWEhyizYQN
+	2BOI84812ErLbUR14ha9rQ/ujqhQOKjEOeD9To4xtEa8/CU6kHnU+UXSgDrtfRcKJUHczxKko/P
+	jVjEsNeTPr2Nyq94H4arfEJKNIcakPPObBSPtX5nz+IaHZW5x1tBB61Lmkllm48roEM0HW7F42H
+	cKFe/BwnpkQbKH5sfdUwvSi6nTDITWebG65050MxjfkD0FM/+3+TLM7s96caGEaQtHuQ7vynuCa
+	+G9hwonrzsNhKAPzBPPbXRLBFTml6ylNplI9JsEZ7rewJ9bNxx0TYWaWvWdK9fox4DFV8lCoUob
+	KegmxAmFXHigqGjaxTXZDwgwUHJBn9UzPMQprH7d1nuNIBlw5Y7g0/Q5ruLDzZ3kbkJww=
+X-Received: by 2002:a17:903:38cd:b0:2e9:660a:793a with SMTP id d9443c01a7336-2e9660a7b0bmr21795855ad.36.1792082514044;
+        Thu, 15 Oct 2026 09:41:54 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e95cf92dfesm11245915ad.11.2026.10.15.09.41.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 09:41:53 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	nathan@kernel.org,
+	ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	johan.hedberg@nokia.com,
+	padovan@profusion.mobi
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com,
+	lkp@intel.com
+Subject: [PATCH v2] Bluetooth: MGMT: Serialize power-on with power-off completion
+Date: Fri, 16 Oct 2026 00:41:46 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0063-v11-a70581b6877e5fe118a3@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, broonie@kernel.org, ljs@kernel.org, tabba@google.com, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 16:30:41 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> The world switch skips PIR_EL1, PIRE0_EL1 and POR_EL1 for a guest
-> without TCR2, but KVM doesn't trap them for a guest with S1PIE or
-> S1POE. Userspace can hide TCR2 while leaving either visible, and such a
-> guest then accesses registers that are neither trapped nor switched.
-> 
-> Under VHE, that leaks values between guests. POR_EL1, which the host
-> kernel doesn't use, leaks between guests in every mode. On nVHE and
-> hVHE, pKVM included, the host's own EL1 registers are saved and restored
-> according to the running guest's features, so the host kernel resumes
-> with its stage-1 permissions taken from the guest's PIR_EL1 and
-> PIRE0_EL1.
-> 
-> As per the architecture, S1PIE and S1POE imply TCR2 and ATS1A. Only
-> enable them for a guest that has both. A guest that has S1PIE or S1POE
-> without TCR2 or ATS1A still sees the feature in its ID registers, but
-> its accesses to that feature's registers UNDEF.
-> 
-> Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
-> Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
-> Reported-by: Mark Brown <broonie@kernel.org>
-> Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Link: https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> I'm sending this on its own because it affects the host on nVHE and in
-> pKVM, so that it can go to kvmarm/fixes and stable rather than land
-> with the GCS series. It's the data-driven fix Marc asked for on Mark's
-> v21 02/15 [1].
-> 
-> Following Mark's point on Lorenzo's draft [2], only feat_s1pie() and
-> feat_s1poe() test TCR2 and ATS1A, so kvm_has_s1pie() and the world
-> switch are unchanged. I've left the guest's ID registers alone, since
-> updating them is the larger rework Mark described.
-> 
-> I've got a reproducer showing the host's PIR_EL1 overwritten on nVHE
-> and in pKVM, and can share it privately.
-> 
-> Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm/fixes
-> 71cc2c67fb8f8).
-> 
-> [1] https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
-> [2] https://lore.kernel.org/r/ae24e80c-1b34-4827-9c93-e80b987e9cd7@sirena.org.uk
-> 
->  arch/arm64/kvm/config.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-> index 1053676551aff..5e5277c721d52 100644
-> --- a/arch/arm64/kvm/config.c
-> +++ b/arch/arm64/kvm/config.c
-> @@ -280,6 +280,21 @@ static bool feat_anerr(struct kvm *kvm)
->  		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
->  }
->  
-> +/* S1PIE and S1POE imply TCR2 and ATS1A, but userspace can set them independently */
-> +static bool feat_s1pie(struct kvm *kvm)
-> +{
-> +	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
-> +		kvm_has_feat(kvm, FEAT_TCR2) &&
-> +		kvm_has_feat(kvm, FEAT_ATS1A));
-> +}
-> +
-> +static bool feat_s1poe(struct kvm *kvm)
-> +{
-> +	return (kvm_has_feat(kvm, FEAT_S1POE) &&
-> +		kvm_has_feat(kvm, FEAT_TCR2) &&
-> +		kvm_has_feat(kvm, FEAT_ATS1A));
+mgmt_set_powered_complete() must only consume the pending command for
+its own request. However, __mgmt_power_off() removes and frees the
+SET_POWERED command before the request's destroy callback runs, and
+mgmt_pending_valid() identifies outstanding commands only by address.
 
-Where's what the relevant bits of the JSON say:
+When a powered controller is switched off and another management socket
+requests power-on, the allocator can reuse the old command's address:
 
-(FEAT_S1POE ==> FEAT_TCR2)
-(FEAT_S1POE ==> FEAT_ATS1A)
-(FEAT_S1POE ==> FEAT_HPDS)
+  Power-off request worker          Power-on management handler
+  ------------------------          ---------------------------
+  __mgmt_power_off(): free cmd
+  hci_dev_close_sync(): unlock
+  set_powered_sync(): return
+                                    set_powered(): lock hdev
+                                    allocate and link replacement
+  mgmt_pending_valid(): unlink
+    replacement at old address
+  read replacement's cp->val = 1
+  wait for hdev->lock
+                                    submit fails: remove/free cmd
+                                    unlock hdev
+  acquire hdev->lock
+  read freed cmd->opcode
 
-So this is missing an additional check on FEAT_HPDS, which is advertised
-as:
+The old callback can respond through and free the new command instead of
+completing its own request. If hci_cmd_sync_submit() fails to allocate
+its work entry after the callback has unlinked the replacement,
+set_powered() removes and frees it again while still holding hdev->lock.
+The old callback then acquires that lock and reads the freed command.
 
-(FEAT_AA64EL1 ==> (FEAT_HPDS <=> (UInt(ID_AA64MMFR1_EL1.HPDS) >= 1)))
+Serialize power-on publication with the existing request mutex, which
+hci_cmd_sync_work() holds across the request function and its destroy
+callback. Hold it through submission and error cleanup so the
+replacement cannot be published before the old callback finishes.
+Acquire it before hdev->lock to preserve the worker's lock order.
+Power-off retains its existing cancellation path.
 
-Thanks,
+Put the shared command path in a helper and acquire the request mutex
+unconditionally around the power-on call. Keeping acquisition and
+release in the same control-flow path also allows Clang context analysis
+to verify balanced locking.
 
-	M.
+KASAN report as below:
 
--- 
-Without deviation from the norm, progress is not possible.
+        BUG: KASAN: slab-use-after-free in
+    mgmt_set_powered_complete+0x450/0x4d0
+    Read of size 2 at addr ffff88810921ab10 by task kworker/u17:0/500
+
+    Workqueue: hci0 hci_cmd_sync_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     kasan_report+0xe0/0x110
+     ? mgmt_set_powered_complete+0x450/0x4d0
+     mgmt_set_powered_complete+0x450/0x4d0
+     ? __pfx_mgmt_set_powered_complete+0x10/0x10
+     hci_cmd_sync_work+0x207/0x450
+     ? __pfx_mgmt_set_powered_complete+0x10/0x10
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+    Allocated by task 531:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     mgmt_pending_new+0x60/0x230
+     mgmt_pending_add+0x3b/0x180
+     set_powered+0x2a8/0x7e0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 531:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     set_powered+0x336/0x7e0
+     hci_sock_sendmsg+0x128b/0x22e0
+     __sys_sendto+0x425/0x470
+     __x64_sys_sendto+0xe5/0x1c0
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    ==================================================================
+
+Fixes: eec8d2bcc841 ("Bluetooth: Add support for set_powered management command")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v2:
+- Move the common set_powered command path into a helper and acquire
+  req_lock in the explicit power-on branch, fixing Clang context-analysis
+  errors.
+- Preserve req_lock -> hdev->lock ordering and keep power-off cancellation
+  outside req_lock.
+- Rebase onto current bluetooth-next.
+
+Link to v1: https://lore.kernel.org/r/pm-bluetooth-objects-candidate-0063-v7-35a6680c94a332fea155@gmail.com
+
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 3b9c82bd2f027..90686ebec2399 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -1395,19 +1395,13 @@ static int set_powered_sync(struct hci_dev *hdev, void *data)
+ 	return hci_set_powered_sync(hdev, cp.val);
+ }
+ 
+-static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
+-		       u16 len)
++static int __set_powered(struct sock *sk, struct hci_dev *hdev,
++			 void *data, u16 len)
+ {
+ 	struct mgmt_mode *cp = data;
+ 	struct mgmt_pending_cmd *cmd;
+ 	int err;
+ 
+-	bt_dev_dbg(hdev, "sock %p", sk);
+-
+-	if (cp->val != 0x00 && cp->val != 0x01)
+-		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
+-				       MGMT_STATUS_INVALID_PARAMS);
+-
+ 	hci_dev_lock(hdev);
+ 
+ 	if (!cp->val) {
+@@ -1454,6 +1448,32 @@ static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
+ 	return err;
+ }
+ 
++static int set_powered(struct sock *sk, struct hci_dev *hdev, void *data,
++		       u16 len)
++{
++	struct mgmt_mode *cp = data;
++	int err;
++
++	bt_dev_dbg(hdev, "sock %p", sk);
++
++	if (cp->val != 0x00 && cp->val != 0x01)
++		return mgmt_cmd_status(sk, hdev->id, MGMT_OP_SET_POWERED,
++				       MGMT_STATUS_INVALID_PARAMS);
++
++	if (!cp->val)
++		return __set_powered(sk, hdev, data, len);
++
++	/*
++	 * Wait for the previous power-off completion before publishing a
++	 * new command that could reuse its freed pending-command address.
++	 */
++	hci_req_sync_lock(hdev);
++	err = __set_powered(sk, hdev, data, len);
++	hci_req_sync_unlock(hdev);
++
++	return err;
++}
++
+ int mgmt_new_settings(struct hci_dev *hdev)
+ {
+ 	return new_settings(hdev, NULL);
