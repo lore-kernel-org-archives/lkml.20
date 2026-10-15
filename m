@@ -1,806 +1,366 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC322554083;
-	Thu, 15 Oct 2026 14:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074423; cv=none; b=KqWKe8LGiQuZqrfMSndWTb9CbUsTtap+Qu/YNYM5oEFXv8qrUj2FgCIpdF3BnxY/fXuVJqU/JdtARTCWvjW1rawyG0kfOqpp4cQZTG7bda/1qWsgDS/Lb5fa+aqYUQ5iEtUe/+l0z2Z2xd8QwcxVfeeydp6U9umtHBgaTMjxQME=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074423; c=relaxed/simple;
-	bh=6zJkdln/lwFAx0j11y2Tqo0Fge5mRgoV7t4ssd1rzXg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aIg9/Q/Bzuee4fcPFWRNuLC09/9MUL2x4AjSD+AXy3Zzp+nOnZVggWhd3I9XL2CDmuGVkuC5apBkuI28mKA/yIrgffAxI04yax4W7BykSiYzBo5UUFSmaaVRK8bdhOJ8sIQFznExGsln4U8s6gZ9ldXlQIFsJvuXhEpivQouPEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cfBWzX7Y; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020083.outbound.protection.outlook.com [52.101.229.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CACE5304A6;
+	Thu, 15 Oct 2026 14:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792074451; cv=fail; b=kyTYAgBgheZaKnonvRXl9YFoZw5GXI8F5UIr8MbC0KoJfqdxr9CFN+F4Ab1/mzcLAB+XfsTV4qqfE8yakLOloGjD8P1QdYwkSnBipzyGOvOPwSltkyQErsGGcnAAlOOOSkM1R7psPZfCpqs769w99H43mWy8lsLOah/klu3ykME=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792074451; c=relaxed/simple;
+	bh=6aHz5YmXmZNB3fkUYBntdSj9chmNeTKYKTMrd1X8Z0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SkkdxRYqenPLnZsWbsmf8AL6DMY+RIAp7MVdcZV9c7PewNW7V+nbjLhhEgBwjlEh3HnkRE+0rO0OrCXJoSHV7JSIODRL5xBh4KsuDrxOaBZydLFbZDLAbFHvwxORmfwaBAYdHPyD5K439x21ZIlx+ps38oyHcOFwqWZcfCKjNag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=NuNxrbCE; arc=fail smtp.client-ip=52.101.229.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cfBWzX7Y"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C81816F8;
-	Thu, 15 Oct 2026 07:26:52 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FB6E3F871;
-	Thu, 15 Oct 2026 07:26:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792074415; bh=6zJkdln/lwFAx0j11y2Tqo0Fge5mRgoV7t4ssd1rzXg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cfBWzX7YPsIAlT14io4tMDz1ApqxSWGQAponpdxy92FR0NicTQ6CvbEAXL0Snq6VR
-	 npc9Am0ZYDfuvMJaqXoltnafkNQU4MUvyeECZEJdiKCeICKnEZAcfC+WBY+3gGeECa
-	 YLoJCi0InAcmjyCJ5ixTEw7KaLM2Owbk2D/l14UM=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org
-Subject: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-Date: Thu, 15 Oct 2026 15:25:49 +0100
-Message-ID: <20261015142552.4128028-16-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="NuNxrbCE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=obp5arQYX4P5vF3WKIK/3II+i/CmS2S1kHHBkdeGMO5Ric2s0XWeF4eNvnb9zusYlJm+Gkk4d2Vh6SdO90amih5VvLcXYdi63VtrO6Gg2NRMWjOwmUe4gKm8RlwisGfj7KsILbBc7rxU+AEan4h1MDF6m4uuw1ptmxwVeaE3xjoW4hkkuGKL2dGWOHUwzZ4oAEQyRrbnkMwpn4lUFJo4EGTiNFQlfxJTXRm2WRdJXMot61VoxLpnvTzADPDXQ+VRTGBuRzrlOH8pX+YoM89FC24GoIXb7MyhUn9/IkhRgpfj5o5p42c7m6gXQTDetbM2FGi5c9eGMePrylHMfF11XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xoniFQymjLkXyf8eQ0KquXRJBd6EprL+CrKJXPzd97U=;
+ b=cxuOvEoBbT8FZ/InLx8Qr8vZiyHIeh5qAVHF8jHLppHIo3mQkymgKYSL5r1sXSmaSX3tMgjp9mnsdeU8/Ifbg6+qtVShJ3O+6iKS8S9GEcRQxj2nSXDaMpJL0n71zAkQJSiLQdMMPFtvM/AV9dFRpupdFQLL1BaCRnUZxfjjCFB7pbkMolkFPf2tMxSKOgfXS4x6auW6KsnjRWTjOJ1568VFILay2CFhhbhNLGHE/csOP8Ky+KUuMaZGm9Ms8GdxLwZEYBaRQ8RtiG/CvafA23rGHcV+WO/MnpMJGUjdBVH7NEF7XzbximZ8bAEMDlxOKh0cE18cHOi6UjbdlrTTnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xoniFQymjLkXyf8eQ0KquXRJBd6EprL+CrKJXPzd97U=;
+ b=NuNxrbCEDRSiNJxQ+jITkKuxjJ2h9keKTCvGdDbkeW+TLoAYNgy9cUo9oNmM3NcvIquPV1jTP9x9+tCa/JL94V/mj9mm7AsHWb+xdlJLCiyRRNBhnpG7n2gKcjx3d6Z7HUpj7CZPqhQwQ9IZCr59nG/hBismaXWH4R7csaBjJ/E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS7P286MB6240.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:421::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 14:27:25 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 14:27:25 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Allen Hubbe <allenbh@gmail.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] PCI: endpoint: pci-epf-vntb: Track link state from both sides
+Date: Thu, 15 Oct 2026 23:27:16 +0900
+Message-ID: <20261015142716.3452900-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY6PR01CA0042.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bd::19) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS7P286MB6240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6fc4d883-d587-46ce-9764-08df2ac86ed7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10070799003|6133799003|3023799007|10067099003|18002099003|5023799004|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	DTC0v6PidktqW/sscPPi5+yDgqbys3jTDFy2SmdW3orUrsgqyyiXC2RsQyAdYY/EO+uE81ylNFzOw2C+AA0vAy7IQSptQPn/Q7fm6eU5gPIQSzGSiaweDM3P4e+jmbRlmanqin2oXJPDWpqXjLZ3b6llPbeGkgJMsW/KCrfn0YXKVZ+MZjGl9b8tKxwmEn6F/Jh/8BLQeBXKs3GYAtDdNh2/crX9Jn/ozEShqWH7OB3Y56+KFjl/8/DUnKvSYBWhKYtmnKUdiY/VFes9atTlV8SWz2ufcXAzUtOSCWeY7zSBxjX3LypDXf67lmzhuoLiUifiM63J9djXVhtiUjOvQLvJ10dUsluRQoYQs8M8CMLy+KTtETsG7ThlWXZbMq1PNXHNqXNS7XZ/dH8djBoCjLpjScOM7Lh8W9dTJ4ej5AWzjG6pFL5Kt4ACuqtvCFLdgBCNmA8XOGxzMp0rjVfWr0eTsXQg2xXp5KQrlu6rTdjaJWUWr7y6kgiYDzYIIjnuC+hf/TuO8bo65xOjN4RejbtwSkOmQ1iagNHhwoNTZ5IWCgi5ex5myEWJlrxJh/cJkHwTZMQiS4OwLoUTkr9pxWqEjExpmJzRKD5lVdAFFdRznJqX81BxEN/DLUc51IFR
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10070799003)(6133799003)(3023799007)(10067099003)(18002099003)(5023799004)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ignLGYTwMzY0iLo/8Ugeex4z1GpHUi6s8tu0W+YBXgujBwZJH3HuAq0RAktv?=
+ =?us-ascii?Q?ZcRdD2/ZlwIjkbSbkHNJdfgr17r0wzzV73MRbUC9tf67mHdctOeEpOSXK645?=
+ =?us-ascii?Q?bdW6w6nMHWXPynquw4WA0zFM/I6KURhj2pX7Oc2frZ6DyISi4weTc1Tf7/jL?=
+ =?us-ascii?Q?EzrLGvJQAYyDsnTDLZZZqmI9Y4fx5gjW8q5Bg+Gy1l1XQaErJhnaIGUDNXv+?=
+ =?us-ascii?Q?Z222zB32HU6x9UHcocpzgx1/pcBn/PTY3eri3let4KzfIRDDMlM6PelhVyNv?=
+ =?us-ascii?Q?l8in+j/w8bUhKPfrKYzWoAkXS/nYAHyK7CHGWc7utc4Av44uQBuWXNHomMPI?=
+ =?us-ascii?Q?hIdVFujivQO0CUZtuCb8dLnVr7tufwkAMbSVdMBg5XXdMHGEiSiAB9vvPFLK?=
+ =?us-ascii?Q?9RjddJ+HrXEG4uNtjzpR0o0u07wA4ANyNMydg8d+ao9wI0B/aNk8957H0SiR?=
+ =?us-ascii?Q?vWRzTUYJQKLHjwZ6O10yygFsaK33fKkDYkIstUAI2oU58RRymknstkRUoJVl?=
+ =?us-ascii?Q?9gV/fhrWYGcUJ2yJZAYfP6Ka+KzQ4LVrQEwyh2kjy/SAq3AO2GyAkwXlytFf?=
+ =?us-ascii?Q?E7C6Ucoo31K5tq4cH/AwIA4hNkmxCtH6xdp7Eh2cRfwNcmXHfb1YskN1DnIZ?=
+ =?us-ascii?Q?LmFCD8TUB8GLjtW+m8yTTKhxMQcHjM91gitKHaEIkxuz7ylzuYMWMBOfeBHL?=
+ =?us-ascii?Q?Zvs6lAMBV78+PzzPS549cZ9UJNeteR834gKLL/XhjBl0fdOl0EzSqI8gqtsU?=
+ =?us-ascii?Q?BBKg/mVGDmXrjS2o1ho8IadoprMoJnHXj7ZldCNabB5H76i3kGrEGpqoUWTp?=
+ =?us-ascii?Q?IVph+r4hzp4OroM2TM8JAfd/CEj1NpgSbsfUULUKWtGy1jXEhHVK3xfil978?=
+ =?us-ascii?Q?7fzww9xgsks1EYP/100ZgcCpBfGt6e1kKOVZEEXVGUMLmck3GkwzH2ryN4+k?=
+ =?us-ascii?Q?99S6UiPFsF7R9QxSd4vRSCkjbEhXeQy8XNRNQearWNcWFYyg4a2pYaqy9WkF?=
+ =?us-ascii?Q?NL1g6tCplo2WX2sR2LYDrJSXr9OnV6tNNNL+XXI5Ii1JzGrfqDQRsTdNnUWM?=
+ =?us-ascii?Q?NoaeL1maBjRLfHkwCiyxWNisY66CSXR5ahPIK7S94TOTK4HsyUU+978EpjO+?=
+ =?us-ascii?Q?goFj/jZ1WZd/J+N0inHwW/pUlul/PRqz5QoQP/E73jtXUmUbZsvR4bUTAbPc?=
+ =?us-ascii?Q?gef1Z1+eHUlP4pUdnkhQ2lTWztLKMGOurclTpUDR3Ly2+IoNlZl9vvYhdFY2?=
+ =?us-ascii?Q?Ag7dnLlfLYAppLqdbmdLvIFKO91MoaqxI1V18cl+awjpuiBcyqGyoPD4Ujsb?=
+ =?us-ascii?Q?LjC3xcRGyNRfM/pGjGYZpy0o5p6eoJ/78qVEd2ZqdMQ1b0zasjoAG8tj4EnY?=
+ =?us-ascii?Q?TNKGBUCfX5CdK62U06BDH89hxsjdOdkX57BIuPDmBfvX7hhk0l+nCI7/gQHh?=
+ =?us-ascii?Q?VXp34jcsWSPTahIrAupzNNfNzIFZce0KrVoI7Ubq1gjuFN2vdxMnvIx0x56G?=
+ =?us-ascii?Q?FbmHEhZv/0WePtvMTs2sdRWoeyvXWNglp2ElgD43HYmQNkbUWRwqWAG4vDB4?=
+ =?us-ascii?Q?F6myCVs34Ayksu/LdnnrdT65xmz6wYWkxY4M/3AiGQBRXg37RsyTfEmXn4bq?=
+ =?us-ascii?Q?mGoWT/olOV28SS7arJMXia4kx4hDNIHq5pSeWsrEdyIFiKBwnRwzfMZPTS7i?=
+ =?us-ascii?Q?P4+9fU4CMehiOyMBvxDynrklR20Uuev4+jeYYGc773mDMKKZ7PWZiCgrTnnA?=
+ =?us-ascii?Q?Yk5pXKUzut81BG6VRwjXsa0mlH9YLsYMkax4B2jlxIWRNSConeal?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6fc4d883-d587-46ce-9764-08df2ac86ed7
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:27:25.2428
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MW2ny73OrQJEao1/2SovetspzfhgehuqQK3jzZ7vSO14FYLmXvye1foSaRH6D60iwLsKANduqsJAoiNy16Beqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6240
 
-From: Jean-Philippe Brucker <jpb@kernel.org>
+The control-region link status is currently updated only by
+COMMAND_LINK_UP and COMMAND_LINK_DOWN from the HOST. The virtual
+NTB link callbacks are empty. Consequently, the HOST can see the link as
+up before the VHOST has enabled it, and ntb_link_disable() on the VHOST
+leaves LINK_STATUS_UP set without notifying either NTB client.
 
-Implement an interface to assign CLA devices to KVM guests. To creates a
-CLA instance:
+ntb_netdev can hide this device-level state bug because ntb_transport uses
+a separate per-QP LINK_DOWN_FLAG message. Use ntb_tool to observe the
+device link state directly:
 
-    uuid=$(uuidgen)
-    echo $uuid > /sys/class/mdev_bus/<pdev>/mdev_supported_types/arm-cla-pl1/create
-    cla_cpu=$(< /sys/bus/mdev/devices/$uuid/cpu)
+After bringing both sides up, start one waiter on each side:
 
-This creates a user interface in /dev/vfio: a VFIO group in
-/dev/vfio/<n>, discoverable by reading the symlink
-/sys/bus/mdev/devices/$uuid/iommu_group. Although CLA does not use an
-IOMMU, VFIO relies on IOMMU groups as an assignable unit. Here they
-correspond to CLA domains, whose devices communicate through a private
-bus.
+  HOST# echo N > /sys/kernel/debug/ntb_tool/<H-device>/peer0/link_event
+  VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/peer0/link_event
 
-The CLA device gets assigned exclusively to the first VMM that opens the
-VFIO group and device. To launch a VM with a CLA attached to vCPU #4,
-with kvmtool:
+While both waiters are blocked, disable the link on the VHOST:
 
-    lkvm run -k Image --console virtio -c 8
-	--vfio-platform $uuid,type=arm-cla,vcpu=4
-	--vcpu-affinity 4=$cla_cpu	# Bind vCPU 4 to the CLA's CPU
+  VHOST# echo N > /sys/kernel/debug/ntb_tool/<V-device>/link
 
-Opens the group, gets the device fd, mmaps the frame, and launches the
-guest. The given vCPU thread is pinned to the CLA's CPU.
+Without this patch, the link-disable command succeeds, but peer0/link
+remains Y on both sides and neither waiter returns.
 
-Pinning vCPUs is not guaranteed. If the host decides to power off the
-CPUs with assigned CLAs, the guest application can't access the assigned
-device anymore. It would now access a RAZ/WI memory region.
+Track HOST and VHOST enablement separately and report the effective link
+as up only when both sides have enabled it, as pci-epf-ntb does for its
+two physical hosts. Both NTB clients observe this effective state, so
+notify both sides only when it changes, including the side whose request
+completes the transition. Serialize the two paths because HOST commands
+run from delayed work while the VHOST callbacks may run concurrently.
 
-For DMA, because the TLB entries tagged with VMID+ASID are shared
-between CPU and accelerator, we pin the VMID. The stage 2 page tables
-are shared between CPU and CLA. CLA reports DMA page faults directly to
-the user, who performs the access from the CPU to handle both stage 1
-and stage 2 faults.
+With this patch, peer0/link changes to N on both sides and both waiters
+return.
 
-Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- drivers/misc/arm-cla/Kconfig        |  16 +
- drivers/misc/arm-cla/Makefile       |   2 +
- drivers/misc/arm-cla/arm-cla.h      |  48 +++
- drivers/misc/arm-cla/cla-init.c     |  11 +-
- drivers/misc/arm-cla/cla-mdev.c     | 469 ++++++++++++++++++++++++++++
- drivers/misc/arm-cla/cla-topology.c |   9 +-
- 6 files changed, 553 insertions(+), 2 deletions(-)
- create mode 100644 drivers/misc/arm-cla/cla-mdev.c
+Changes in v4:
+  - No functional changes, but:
+    * Rename link state flags and helpers for clarity. (Mani)
+    * Make the *_set_link_enabled() return patterns symmetric.
+  - Add Frank's Reviewed-by tag from v3.
+  - Retest using ntb_tool.
+  - Link to v3: https://lore.kernel.org/r/20261014071448.2473208-1-den@valinux.co.jp/
 
-diff --git a/drivers/misc/arm-cla/Kconfig b/drivers/misc/arm-cla/Kconfig
-index f8436a12c1e6..5def727b7a34 100644
---- a/drivers/misc/arm-cla/Kconfig
-+++ b/drivers/misc/arm-cla/Kconfig
-@@ -8,3 +8,19 @@ config ARM_CLA
- 	  accelerators. It is only accessible from its associated CPU.
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 98 +++++++++++++++----
+ 1 file changed, 78 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index 07ba338732d4..bebdd93a067c 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -41,6 +41,7 @@
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
  
- 	  If unsure, say N.
-+
-+config ARM_CLA_MDEV
-+	bool "Mediated device for Arm CLA"
-+	default y
-+	depends on KVM
-+	depends on VFIO
-+	depends on ARM_CLA
-+	depends on VFIO_GROUP
-+	select VFIO_MDEV
-+	help
-+	  Enable the VFIO mediated device interface for assigning Arm Core Local
-+	  Accelerators (CLAs) to KVM guests. Guests can access the CLA PL0 and
-+	  PL1 registers, while the host controls stage 2 address translation.
-+	  Devices in the same CLA domain can only be assigned to the same guest.
-+
-+	  If unsure, say N.
-diff --git a/drivers/misc/arm-cla/Makefile b/drivers/misc/arm-cla/Makefile
-index f848c608e8f1..973390d0b428 100644
---- a/drivers/misc/arm-cla/Makefile
-+++ b/drivers/misc/arm-cla/Makefile
-@@ -11,3 +11,5 @@ arm-cla-y := \
- 	cla-user.o
+ #include <linux/pci-ep-msi.h>
+@@ -147,7 +148,10 @@ struct epf_ntb {
+ 	u16 vntb_pid;
+ 	u16 vntb_vid;
  
- obj-$(CONFIG_ARM_CLA) += arm-cla.o
-+
-+arm-cla-$(CONFIG_ARM_CLA_MDEV) += cla-mdev.o
-diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cla.h
-index 43a58a329525..93365f525abb 100644
---- a/drivers/misc/arm-cla/arm-cla.h
-+++ b/drivers/misc/arm-cla/arm-cla.h
-@@ -14,6 +14,7 @@
- #include <linux/kref.h>
- #include <linux/kthread.h>
- #include <linux/list.h>
-+#include <linux/mdev.h>
- #include <linux/mm.h>
- #include <linux/mm_types.h>
- #include <linux/mutex.h>
-@@ -51,6 +52,11 @@ struct cla_accel_desc {
- 	u64 revidr;
+-	bool linkup;
++	/* Serialize HOST and VHOST link state changes. */
++	struct mutex link_lock;
++	bool host_link_enabled;
++	bool vhost_link_enabled;
+ 
+ 	/*
+ 	 * True when doorbells are interrupt-driven (MSI or embedded), false
+@@ -183,24 +187,55 @@ static struct pci_epf_header epf_ntb_header = {
+ 	.interrupt_pin	= PCI_INTERRUPT_INTA,
  };
  
-+enum cla_mdev_type {
-+	CLA_MDEV_TYPE_PL1,
-+	CLA_MDEV_NUM_TYPES,
-+};
++static void epf_ntb_update_link(struct epf_ntb *ntb)
++{
++	u16 link_status = READ_ONCE(ntb->reg->link_status);
++
++	/* The link is usable only after both sides have enabled it. */
++	if (ntb->host_link_enabled && ntb->vhost_link_enabled)
++		link_status |= LINK_STATUS_UP;
++	else
++		link_status &= ~LINK_STATUS_UP;
++
++	WRITE_ONCE(ntb->reg->link_status, link_status);
++}
++
++static int epf_ntb_notify_link(struct ntb_dev *ndev)
++{
++	struct pci_epf *epf = ntb_ndev(ndev)->epf;
++	int ret;
++
++	ntb_link_event(ndev);
++
++	ret = pci_epc_raise_irq(epf->epc, epf->func_no, epf->vfunc_no,
++				PCI_IRQ_MSI, EPF_IRQ_LINK + 1);
++	if (ret)
++		dev_err(&epf->dev, "Failed to raise link event IRQ: %d\n", ret);
++
++	return ret;
++}
 +
  /**
-  * struct cla_dev - CLA device
+- * epf_ntb_link_up() - Raise link_up interrupt to Virtual Host (VHOST)
++ * epf_ntb_set_link_enabled() - Set HOST link enablement
+  * @ntb: NTB device that facilitates communication between HOST and VHOST
+- * @link_up: true or false indicating Link is UP or Down
+- *
+- * Once NTB function in HOST invoke ntb_link_enable(),
+- * this NTB function driver will trigger a link event to VHOST.
++ * @enabled: true when the HOST has enabled the link
   *
-@@ -71,6 +77,11 @@ struct cla_accel_desc {
-  * @broken:		Hardware failure.
-  * @worker:		CPU-bound worker to communicate with CLA.
-  * @call:		Scheduling work.
-+ *
-+ * Other mutable state:
-+ * @mdev_parent:	Mdev structure for the VFIO interface.
-+ * @mdev_types:		Mdev types that can be created from this device.
-+ * @mdev_types_ptr:	Pointers to @mdev_type.
+  * Returns: Zero for success, or an error code in case of failure
   */
- struct cla_dev {
- 	unsigned int cpu;
-@@ -88,6 +99,12 @@ struct cla_dev {
- 	bool broken;
- 	struct kthread_worker *worker;
- 	struct cla_call_on_cpu call;
-+
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+	struct mdev_parent mdev_parent;
-+	struct mdev_type mdev_types[CLA_MDEV_NUM_TYPES];
-+	struct mdev_type *mdev_types_ptr[CLA_MDEV_NUM_TYPES];
-+#endif
- };
- 
- /**
-@@ -100,6 +117,7 @@ struct cla_dev {
-  * @pg_offset:		Mmap offset of the first device.
-  * @nr_devs:		Number of devices in the domain.
-  * @devs:		Devices.
-+ * @iommu_group:	Handle for VFIO group.
-  *
-  * Mutable, only accessed under @lock:
-  * @lock:		Protects the following members.
-@@ -127,6 +145,10 @@ struct cla_domain {
- 	struct cla_ctx *assigned_ctx;
- 	struct kthread_worker *worker;
- 	struct kthread_delayed_work reassign;
-+
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+	struct iommu_group *iommu_group;
-+#endif
- };
- 
- /**
-@@ -187,6 +209,12 @@ struct cla_ctx_key {
- 		.file = (_file),		\
- 	}
- 
-+#define CLA_CTX_KEY_PL1(_kvm)			\
-+	{					\
-+		.type = CLA_CTX_PL1,		\
-+		.kvm = (_kvm),			\
-+	}
-+
- /**
-  * struct cla_ctx - Domain context
-  *
-@@ -342,4 +370,24 @@ int cla_user_init(void);
- void cla_user_exit(void);
- u8 cla_user_accels(struct cla_dev *dev, struct file *file);
- 
-+#if IS_ENABLED(CONFIG_ARM_CLA_MDEV)
-+int cla_mdev_init(void);
-+void cla_mdev_exit(void);
-+void cla_mdev_enable(void);
-+int cla_domain_mdev_init(struct cla_domain *domain);
-+void cla_domain_mdev_exit(struct cla_domain *domain);
-+#else
-+static inline int cla_mdev_init(void)
-+{
-+	return 0;
-+}
-+static inline void cla_mdev_exit(void) {}
-+static inline void cla_mdev_enable(void) {}
-+static inline int cla_domain_mdev_init(struct cla_domain *domain)
-+{
-+	return 0;
-+}
-+static inline void cla_domain_mdev_exit(struct cla_domain *domain) {}
-+#endif
-+
- #endif /* _ARM_CLA_H_ */
-diff --git a/drivers/misc/arm-cla/cla-init.c b/drivers/misc/arm-cla/cla-init.c
-index 1afe20aa877f..a0067240809a 100644
---- a/drivers/misc/arm-cla/cla-init.c
-+++ b/drivers/misc/arm-cla/cla-init.c
-@@ -393,6 +393,7 @@ static struct cla_dev *cla_dev_alloc(struct device *parent, int cpu,
- 	dev->regs = cla_get_regs(regs, cla_kernel_pl);
- 	dev->cpu = cpu;
- 	dev->dev = parent;
-+	dev_set_drvdata(parent, dev);
- 
- 	kthread_init_work(&dev->call.switch_ctx, cla_dev_switch_ctx_work);
- 
-@@ -519,13 +520,20 @@ static int __init cla_module_init(void)
- 		cla_cpuhp_state = ret;
- 	}
- 
-+	ret = cla_mdev_init();
-+	if (ret)
-+		goto err_hardware;
-+
- 	/* Must be last fallible step; see cla_user_init(). */
- 	ret = cla_user_init();
- 	if (ret)
--		goto err_hardware;
-+		goto err_mdev_exit;
- 
-+	cla_mdev_enable();
- 	return 0;
- 
-+err_mdev_exit:
-+	cla_mdev_exit();
- err_hardware:
- 	cla_domains_sched_exit();
- 	if (cla_cpuhp_state >= 0)
-@@ -539,6 +547,7 @@ static int __init cla_module_init(void)
- static void __exit cla_module_exit(void)
+-static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
++static int epf_ntb_set_link_enabled(struct epf_ntb *ntb, bool enabled)
  {
- 	cla_user_exit();
-+	cla_mdev_exit();
- 	cla_domains_sched_exit();
- 	cpuhp_remove_state(cla_cpuhp_state);
- 	cla_domains_free();
-diff --git a/drivers/misc/arm-cla/cla-mdev.c b/drivers/misc/arm-cla/cla-mdev.c
-new file mode 100644
-index 000000000000..66c5dd197542
---- /dev/null
-+++ b/drivers/misc/arm-cla/cla-mdev.c
-@@ -0,0 +1,469 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Arm CLA driver - vfio-mdev interface
-+ *
-+ * Copyright 2026 Arm Limited.
-+ */
+-	if (link_up)
+-		ntb->reg->link_status |= LINK_STATUS_UP;
+-	else
+-		ntb->reg->link_status &= ~LINK_STATUS_UP;
++	bool notify;
 +
-+#include <linux/cpuhplock.h>
-+#include <linux/vfio.h>
-+#include <linux/mdev.h>
-+
-+#include "arm-cla.h"
-+
-+struct cla_mdev {
-+	struct vfio_device vdev;
-+	struct cla_dev *dev;
-+	enum cla_mdev_type type;
-+};
-+
-+static bool cla_mdev_ready;
-+
-+/*
-+ * Logical CPU number. After mdev creation, this attribute appears in
-+ * /sys/bus/mdev/devices/$uuid/cpu
-+ *
-+ * This information is crucial to the user, because the device is only
-+ * accessible from this CPU.
-+ */
-+static ssize_t cpu_show(struct device *dev, struct device_attribute *attr,
-+			char *buf)
-+{
-+	struct cla_mdev *mdev = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "%u\n", mdev->dev->cpu);
-+}
-+DEVICE_ATTR_RO(cpu);
-+
-+static const struct attribute *const cla_mdev_sysfs_attrs[] = {
-+	&dev_attr_cpu.attr, /* CPU ID */
-+	NULL,
-+};
-+ATTRIBUTE_GROUPS(cla_mdev_sysfs);
-+
-+static const struct mdev_type cla_mdev_types[CLA_MDEV_NUM_TYPES] = {
-+	/*
-+	 * Assign the PL0 and PL1 registers, with PL2 controlled by the
-+	 * kernel (or hypervisor)
-+	 */
-+	[CLA_MDEV_TYPE_PL1] = {
-+		.sysfs_name = "pl1",
-+		.pretty_name = "CLA PL1 and PL0 registers exclusively owned",
-+	},
-+};
-+
-+static int cla_mdev_switch_ctx(struct cla_dev *dev, struct cla_ctx *prev,
-+			       struct cla_ctx *next)
-+{
-+	struct cla_call_on_cpu *call = &dev->call;
-+
-+	lockdep_assert_cpus_held();
-+
-+	/*
-+	 * No race with reassignment work because we're holding the domain lock
-+	 * and we're domain->assigned_ctx.
-+	 */
-+	call->sched.prev_ctx = prev;
-+	call->sched.next_ctx = next;
-+	call->ret = 0;
-+	if (dev->worker && !dev->broken)
-+		kthread_queue_work(dev->worker, &call->switch_ctx);
-+
-+	kthread_flush_work(&call->switch_ctx);
-+
-+	return call->ret;
-+}
-+
-+/*
-+ * Perform a RESET on all accelerators for this dev and clear the CLA
-+ * regs. The VMM calls this when rebooting a VM. It doesn't need to be
-+ * efficient. Other devices in the domain are not reset.
-+ */
-+static int cla_mdev_reset(struct cla_mdev *mdev)
-+{
-+	int ret = 0;
-+	struct cla_ctx *ctx;
-+	struct cla_dev *dev = mdev->dev;
-+	struct cla_domain *domain = dev->domain;
-+
-+	/* Hotplug callbacks may take domain->lock, so acquire this first. */
-+	cpus_read_lock();
-+	mutex_lock(&domain->lock);
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto out_unlock;
++	scoped_guard(mutex, &ntb->link_lock) {
++		notify = ntb->host_link_enabled != enabled &&
++			 ntb->vhost_link_enabled;
++		ntb->host_link_enabled = enabled;
++		epf_ntb_update_link(ntb);
 +	}
 +
-+	ctx = domain->assigned_ctx;
-+	/*
-+	 * This function is only reachable when a valid PL1 ctx corresponding to
-+	 * the VM is assigned to the domain: cla_mdev_open_device() waits for
-+	 * the ctx to be assigned, and the ctx only gets deassigned when the
-+	 * file has no reference anymore (no ioctl possible). So the following
-+	 * are all bugs.
-+	 */
-+	if (WARN_ON(!ctx) ||
-+	    WARN_ON(!cla_ctx_is_pl1(ctx)) ||
-+	    WARN_ON(ctx->key.kvm != mdev->vdev.kvm)) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	/*
-+	 * This provides a clean config. The stage 1 MTC is clear. The
-+	 * accelerators and CLA regs are reset.
-+	 */
-+	ret = cla_mdev_switch_ctx(dev, ctx, NULL);
-+	if (ret)
-+		goto out_unlock;
-+
-+	ret = cla_mdev_switch_ctx(dev, NULL, ctx);
-+out_unlock:
-+	if (ret)
-+		cla_domain_set_broken(domain);
-+	mutex_unlock(&domain->lock);
-+	cpus_read_unlock();
-+	return ret;
-+}
-+
-+static int cla_mdev_open_device(struct vfio_device *vdev)
++	if (notify)
++		return epf_ntb_notify_link(ntb->ntb);
+ 
+-	ntb_link_event(ntb->ntb);
+ 	return 0;
+ }
+ 
+@@ -325,16 +360,14 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+ 		ctrl->command_status = COMMAND_STATUS_OK;
+ 		break;
+ 	case COMMAND_LINK_UP:
+-		ntb->linkup = true;
+-		ret = epf_ntb_link_up(ntb, true);
++		ret = epf_ntb_set_link_enabled(ntb, true);
+ 		if (ret < 0)
+ 			ctrl->command_status = COMMAND_STATUS_ERROR;
+ 		else
+ 			ctrl->command_status = COMMAND_STATUS_OK;
+ 		goto reset_handler;
+ 	case COMMAND_LINK_DOWN:
+-		ntb->linkup = false;
+-		ret = epf_ntb_link_up(ntb, false);
++		ret = epf_ntb_set_link_enabled(ntb, false);
+ 		if (ret < 0)
+ 			ctrl->command_status = COMMAND_STATUS_ERROR;
+ 		else
+@@ -1472,11 +1505,29 @@ static int vntb_epf_peer_mw_get_addr(struct ntb_dev *ndev, int idx,
+ 	return 0;
+ }
+ 
++static int vntb_epf_set_link_enabled(struct ntb_dev *ndev, bool enabled)
 +{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	struct cla_domain *domain = mdev->dev->domain;
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL1(vdev->kvm);
-+	struct cla_ctx *ctx;
-+	int ret;
++	struct epf_ntb *ntb = ntb_ndev(ndev);
++	bool notify;
 +
-+	/*
-+	 * The user registers a KVM instance with this VFIO group. We use it to
-+	 * program the stage-2 MTC. stage-1 MTC is managed by the user/guest.
-+	 * KVM, if present, is valid for the lifetime of the vfio device file.
-+	 */
-+	if (!vdev->kvm)
-+		return -EINVAL;
-+
-+	/*
-+	 * Obtain a context for exclusive assignment. If other contexts exist
-+	 * for this domain, this returns an error. Other devices assigned to the
-+	 * same VM within the same domain get the same context.
-+	 */
-+	ctx = cla_ctx_create(domain, &key);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	mutex_lock(&domain->lock);
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto err_destroy;
++	scoped_guard(mutex, &ntb->link_lock) {
++		notify = ntb->vhost_link_enabled != enabled &&
++			 ntb->host_link_enabled;
++		ntb->vhost_link_enabled = enabled;
++		epf_ntb_update_link(ntb);
 +	}
 +
-+	/* Not assigned and not queued, assign it. */
-+	if (domain->assigned_ctx != ctx && list_empty(&ctx->queue_node)) {
-+		list_add_tail(&ctx->queue_node, &domain->queued_ctxs);
-+		cla_domain_schedule_reassignment(domain);
-+	}
-+	mutex_unlock(&domain->lock);
++	if (notify)
++		return epf_ntb_notify_link(ndev);
 +
-+	ret = wait_event_interruptible(ctx->waitq,
-+				       READ_ONCE(domain->assigned_ctx) == ctx ||
-+				       READ_ONCE(domain->broken));
-+
-+	mutex_lock(&domain->lock);
-+	/*
-+	 * At this point the context is either assigned or still in the queue
-+	 * (if we were interrupted). In case of error, cla_ctx_destroy() kills the
-+	 * context and deassigns it.
-+	 */
-+	if (ret)
-+		goto err_destroy;
-+
-+	if (domain->broken) {
-+		ret = -EIO;
-+		goto err_destroy;
-+	}
-+	mutex_unlock(&domain->lock);
-+	return 0;
-+
-+err_destroy:
-+	mutex_unlock(&domain->lock);
-+	cla_ctx_destroy(domain, &key);
-+	return ret;
-+}
-+
-+static void cla_mdev_close_device(struct vfio_device *vdev)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	struct cla_ctx_key key = CLA_CTX_KEY_PL1(vdev->kvm);
-+
-+	cla_ctx_destroy(mdev->dev->domain, &key);
-+}
-+
-+static long cla_mdev_ioctl(struct vfio_device *vdev, unsigned int cmd,
-+			       unsigned long arg)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	unsigned long minsz;
-+
-+	switch (cmd) {
-+	case VFIO_DEVICE_GET_INFO:
-+	{
-+		struct vfio_device_info info;
-+
-+		minsz = offsetofend(struct vfio_device_info, num_irqs);
-+
-+		if (copy_from_user(&info, (void __user *)arg, minsz))
-+			return -EFAULT;
-+
-+		if (info.argsz < minsz)
-+			return -EINVAL;
-+
-+		info.flags = VFIO_DEVICE_FLAGS_PLATFORM |
-+			     VFIO_DEVICE_FLAGS_RESET;
-+		info.num_regions = 1;
-+		info.num_irqs = 0;
-+
-+		if (copy_to_user((void __user *)arg, &info, minsz))
-+			return -EFAULT;
-+
-+		return 0;
-+	}
-+	case VFIO_DEVICE_RESET:
-+		return cla_mdev_reset(mdev);
-+	case VFIO_DEVICE_GET_IRQ_INFO:
-+	case VFIO_DEVICE_SET_IRQS:
-+	default:
-+		return -EINVAL;
-+	}
-+	return -ENOTTY;
-+}
-+
-+static int cla_mdev_get_region_info_caps(struct vfio_device *vdev,
-+					  struct vfio_region_info *region_info,
-+					  struct vfio_info_cap *caps)
-+{
-+	if (region_info->index != 0)
-+		return -EINVAL;
-+
-+	region_info->offset = 0;
-+	region_info->size = 2 * CLA_REG_SIZE;
-+	region_info->flags = VFIO_REGION_INFO_FLAG_MMAP |
-+			     VFIO_REGION_INFO_FLAG_READ |
-+			     VFIO_REGION_INFO_FLAG_WRITE;
 +	return 0;
 +}
 +
-+/* Mmap PL0 + PL1 frames. */
-+static int cla_mdev_mmap(struct vfio_device *vdev, struct vm_area_struct *vma)
-+{
-+	struct cla_mdev *mdev =
-+		container_of(vdev, struct cla_mdev, vdev);
-+	unsigned long vm_flags_required = VM_SHARED | VM_READ | VM_WRITE;
-+	size_t map_size = vma->vm_end - vma->vm_start;
-+	size_t region_size = 2 * CLA_REG_SIZE;
+ static int vntb_epf_link_enable(struct ntb_dev *ntb,
+ 			enum ntb_speed max_speed,
+ 			enum ntb_width max_width)
+ {
+-	return 0;
++	return vntb_epf_set_link_enabled(ntb, true);
+ }
+ 
+ static u32 vntb_epf_spad_read(struct ntb_dev *ndev, int idx)
+@@ -1636,7 +1687,7 @@ static u64 vntb_epf_link_is_up(struct ntb_dev *ndev,
+ {
+ 	struct epf_ntb *ntb = ntb_ndev(ndev);
+ 
+-	return ntb->reg->link_status;
++	return READ_ONCE(ntb->reg->link_status);
+ }
+ 
+ static int vntb_epf_db_clear_mask(struct ntb_dev *ndev, u64 db_bits)
+@@ -1654,7 +1705,7 @@ static int vntb_epf_db_clear(struct ntb_dev *ndev, u64 db_bits)
+ 
+ static int vntb_epf_link_disable(struct ntb_dev *ntb)
+ {
+-	return 0;
++	return vntb_epf_set_link_enabled(ntb, false);
+ }
+ 
+ static struct device *vntb_epf_get_dma_dev(struct ntb_dev *ndev)
+@@ -1797,6 +1848,10 @@ static int epf_ntb_bind(struct pci_epf *epf)
+ 		goto err_bar_alloc;
+ 	}
+ 
++	ntb->host_link_enabled = false;
++	ntb->vhost_link_enabled = false;
++	ntb->reg->link_status = 0;
 +
-+	if (vma->vm_pgoff != 0)
-+		return -EINVAL;
-+
-+	if (vma->vm_end < vma->vm_start)
-+		return -EINVAL;
-+	if (map_size != region_size)
-+		return -EINVAL;
-+	if ((vma->vm_flags & vm_flags_required) != vm_flags_required)
-+		return -EINVAL;
-+	if (vma->vm_flags & VM_EXEC)
-+		return -EINVAL;
-+
-+	vm_flags_mod(vma, VM_DONTCOPY | VM_DONTDUMP | VM_DONTEXPAND |
-+			  VM_IO | VM_PFNMAP, VM_MAYEXEC);
-+	vma->vm_page_prot = pgprot_device(vma->vm_page_prot);
-+
-+	return remap_pfn_range(vma, vma->vm_start, mdev->dev->pfn, map_size,
-+			       vma->vm_page_prot);
-+}
-+
-+static const struct vfio_device_ops cla_mdev_pl1_ops = {
-+	.name = "vfio-arm-cla-pl1",
-+	.open_device = cla_mdev_open_device,
-+	.close_device = cla_mdev_close_device,
-+	.ioctl = cla_mdev_ioctl,
-+	.get_region_info_caps = cla_mdev_get_region_info_caps,
-+	.mmap = cla_mdev_mmap,
-+};
-+
-+/*
-+ * Admin creates an mdev device
-+ *
-+ *	uuid=$(uuidgen)
-+ *	echo $uuid > /sys/class/mdev_bus/<pdev>/mdev_supported_types/arm-cla-pl1/create
-+ */
-+static int cla_mdev_probe(struct mdev_device *mdev)
-+{
-+	int ret = -ENODEV;
-+	struct cla_dev *dev;
-+	enum cla_mdev_type type;
-+	struct cla_mdev *cla_mdev;
-+
-+	/* Ensure the module isn't being removed */
-+	if (!try_module_get(THIS_MODULE))
-+		return -ENODEV;
-+
-+	/* Ensure the module has finished initializing */
-+	if (!smp_load_acquire(&cla_mdev_ready))
-+		goto err_put_module;
-+
-+	dev = dev_get_drvdata(mdev->dev.parent);
-+	type = mdev->type - dev->mdev_types;
-+
-+	ret = -EINVAL;
-+	if (WARN_ON(type < 0 || type >= CLA_MDEV_NUM_TYPES))
-+		goto err_put_module;
-+
-+	cla_mdev = vfio_alloc_device(cla_mdev, vdev, &mdev->dev,
-+				     &cla_mdev_pl1_ops);
-+	if (IS_ERR(cla_mdev)) {
-+		ret = PTR_ERR(cla_mdev);
-+		goto err_put_module;
-+	}
-+
-+	cla_mdev->dev = dev;
-+	cla_mdev->type = type;
-+
-+	dev_set_drvdata(&mdev->dev, cla_mdev);
-+
-+	ret = iommu_group_add_device(dev->domain->iommu_group, &mdev->dev);
-+	if (ret)
-+		goto err_put_vdev;
-+
-+	ret = vfio_register_cpu_mmu_dev(&cla_mdev->vdev);
-+	if (ret)
-+		goto err_put_group;
-+
-+	return 0;
-+
-+err_put_group:
-+	iommu_group_remove_device(&mdev->dev);
-+err_put_vdev:
-+	dev_set_drvdata(&mdev->dev, NULL);
-+	vfio_put_device(&cla_mdev->vdev);
-+err_put_module:
-+	module_put(THIS_MODULE);
-+	return ret;
-+}
-+
-+/*
-+ * Admin removes an mdev device
-+ *
-+ *	echo 1 > /sys/bus/mdev/devices/$uuid/remove
-+ */
-+static void cla_mdev_remove(struct mdev_device *mdev)
-+{
-+	struct cla_mdev *cla_mdev = dev_get_drvdata(&mdev->dev);
-+
-+	vfio_unregister_group_dev(&cla_mdev->vdev);
-+	iommu_group_remove_device(&mdev->dev);
-+	dev_set_drvdata(&mdev->dev, NULL);
-+	vfio_put_device(&cla_mdev->vdev);
-+	module_put(THIS_MODULE);
-+}
-+
-+static struct mdev_driver cla_mdev_driver = {
-+	.device_api = VFIO_DEVICE_API_PLATFORM_STRING,
-+	.max_instances = 1,
-+	.driver = {
-+		.name = "arm-cla-mdev",
-+		.owner = THIS_MODULE,
-+		.mod_name = KBUILD_MODNAME,
-+		.dev_groups = cla_mdev_sysfs_groups,
-+	},
-+	.probe = cla_mdev_probe,
-+	.remove	= cla_mdev_remove,
-+};
-+
-+/* Allocate IOMMU groups so VFIO can create its groups based on CLA domains */
-+int cla_domain_mdev_init(struct cla_domain *domain)
-+{
-+	struct iommu_group *iommu_group;
-+
-+	if (cla_kernel_pl < 2)
-+		return 0;
-+
-+	iommu_group = iommu_group_alloc();
-+	if (IS_ERR(iommu_group))
-+		return PTR_ERR(iommu_group);
-+
-+	domain->iommu_group = iommu_group;
-+	return 0;
-+}
-+
-+void cla_domain_mdev_exit(struct cla_domain *domain)
-+{
-+	iommu_group_put(domain->iommu_group);
-+}
-+
-+int __init cla_mdev_init(void)
-+{
-+	int i, j;
-+	int ret;
-+	struct cla_dev *dev;
-+
-+	if (cla_kernel_pl < 2)
-+		return 0;
-+
-+	ret = mdev_register_driver(&cla_mdev_driver);
+ 	ret = epf_ntb_epc_init(ntb);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to initialize EPC\n");
+@@ -1882,7 +1937,7 @@ static int epf_ntb_probe(struct pci_epf *epf,
+ {
+ 	struct epf_ntb *ntb;
+ 	struct device *dev;
+-	int i;
++	int ret, i;
+ 
+ 	dev = &epf->dev;
+ 
+@@ -1893,6 +1948,9 @@ static int epf_ntb_probe(struct pci_epf *epf,
+ 	epf->header = &epf_ntb_header;
+ 	ntb->epf = epf;
+ 	ntb->vbus_number = 0xff;
++	ret = devm_mutex_init(dev, &ntb->link_lock);
 +	if (ret)
 +		return ret;
-+
-+	for (i = 0; i < cla_nr_devs; i++) {
-+		dev = cla_lut_pg[i];
-+
-+		/*
-+		 * mdev_type is a kobj in sysfs, so it cannot be shared between
-+		 * CLAs. Each CLA needs its own instance.
-+		 */
-+		BUILD_BUG_ON(sizeof(cla_mdev_types) != sizeof(dev->mdev_types));
-+		memcpy(dev->mdev_types, cla_mdev_types, sizeof(cla_mdev_types));
-+		for (j = 0; j < CLA_MDEV_NUM_TYPES; j++)
-+			dev->mdev_types_ptr[j] = &dev->mdev_types[j];
-+
-+		ret = mdev_register_parent(&dev->mdev_parent, dev->dev,
-+					   &cla_mdev_driver, dev->mdev_types_ptr,
-+					   CLA_MDEV_NUM_TYPES);
-+		if (ret)
-+			goto err_unregister;
-+	}
-+
-+	return 0;
-+
-+err_unregister:
-+	for (i--; i >= 0; i--) {
-+		dev = cla_lut_pg[i];
-+		mdev_unregister_parent(&dev->mdev_parent);
-+	}
-+	mdev_unregister_driver(&cla_mdev_driver);
-+	return ret;
-+}
-+
-+/* Enable the interface, once the module initialization is complete */
-+void __init cla_mdev_enable(void)
-+{
-+	/* Synchronize with cla_mdev_probe() */
-+	smp_store_release(&cla_mdev_ready, true);
-+}
-+
-+void cla_mdev_exit(void)
-+{
-+	int i;
-+
-+	if (cla_kernel_pl < 2)
-+		return;
-+
-+	for (i = 0; i < cla_nr_devs; i++) {
-+		struct cla_dev *dev = cla_lut_pg[i];
-+
-+		mdev_unregister_parent(&dev->mdev_parent);
-+	}
-+	mdev_unregister_driver(&cla_mdev_driver);
-+}
-diff --git a/drivers/misc/arm-cla/cla-topology.c b/drivers/misc/arm-cla/cla-topology.c
-index ed7acec70019..ead6c25c6391 100644
---- a/drivers/misc/arm-cla/cla-topology.c
-+++ b/drivers/misc/arm-cla/cla-topology.c
-@@ -51,12 +51,18 @@ static struct cla_domain *cla_domain_alloc(struct cla_dev *dev, unsigned int fwi
- 	}
- 	domain->devs[0] = dev;
  
--	ret = cla_domain_sched_init(domain);
-+	ret = cla_domain_mdev_init(domain);
- 	if (ret)
- 		goto err_free_devs;
- 
-+	ret = cla_domain_sched_init(domain);
-+	if (ret)
-+		goto err_exit_mdev;
-+
- 	return domain;
- 
-+err_exit_mdev:
-+	cla_domain_mdev_exit(domain);
- err_free_devs:
- 	kfree(domain->devs);
- err_free_id:
-@@ -187,6 +193,7 @@ void cla_domains_free(void)
- 	cla_lut_cpu = NULL;
- 	cla_lut_pg = NULL;
- 	xa_for_each(&cla_domains, fwid, domain) {
-+		cla_domain_mdev_exit(domain);
- 		xa_erase(&cla_domains, fwid);
- 		kfree(domain->devs);
- 		kfree(domain);
+ 	INIT_WORK(&ntb->peer_db_work, vntb_epf_peer_db_work);
+ 	disable_work(&ntb->peer_db_work);
+
+base-commit: 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932
 -- 
-2.43.0
+2.54.0
 
