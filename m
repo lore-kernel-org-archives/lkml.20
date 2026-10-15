@@ -1,203 +1,110 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E38255D86E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:17:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533FE529417;
+	Thu, 15 Oct 2026 17:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792084680; cv=none; b=nOmKLRZOdlE/ekJLpbNkiJXERZjw53K+kn6k4mTjfBW8WJ0s0dVKUvMca6lYflT/ottmXC54kFnyxe8oQNm7O3gj/GkBLI/6O18YwfOLqs7CS8rCTBgKW/5vyKVVWo3lGmDdV0kGzZhglLIBeoHn09inwEDveMdhKtBaGNCJ/5E=
+	t=1792084698; cv=none; b=bKY3e6EcWLznsqHbTn/txaWvvm2a85KwVQYbHwb/HBbmE0rEKA7ppuJt2+P+TJ0LLFWIGv2SAhuCh9zp0l+SGUikgoxjtBVGcu0RNa975xDo1TDUqfkZ+hU5ngNu98+W0eByX2jrP4id7D88ZwXxYMrkVu7nrxUr+C8+9dhuIGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792084680; c=relaxed/simple;
-	bh=97nz3x4cCT7jJVkf7khGZ92jWq9O4MzPPIoGZFfCE3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uie5HSTGYTaZw9HMrdwwTcmGgGfQxWS2T95hJCyX//CpTSGgp0I9HNj1HFNvFmn8i/ACYUbabQs52BFgoCBHl1MXZyJTtAV4jZkuh1nN5Wt5KNALyhBX/z3WWA+5scAQzSTYQQaYGdG2FdtGAMUDx7vPoSzySnZoYXEcvk63VC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LGHjnZQ2; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792084698; c=relaxed/simple;
+	bh=DRguH0xaQl04xtBKffn8Nb3MdWdMreek8/1o6KIVta8=;
+	h=Date:From:To:Cc:Message-ID:Subject; b=mCOBspkx9QqWJlQnq+LzgGGeHZz0d1LGWugOOUzQneahf14JLqREDjs1qDKVcaZB3YWsZ8151mpibM0I5+3mpzM+xNxXbpLhf2JFzCpA/wpPfR99jy0CczXCS6OuB/2wcixy3UkDM0tCdnCt6vkC9+Br89MkRHMafLRQdpirHEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeiejSEe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LGHjnZQ2"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1130748f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:17:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792084669; x=1792689469; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nUb4cagls44kE5et9qrliHAU76p7w/thb7bKXpN7Lxs=;
-        b=LGHjnZQ2i3mxf4ZTcid18hLmSzPCcPavgFPgZXktiYaRW1loWCVGAx9MKQnl/QcRCf
-         ehi71GtHRfcunwNyEobfohUWmkeA9mNpHK4FLA4407u/3wMFSFhlWGMhG5S2neNoRtEJ
-         zbkFGb+xPzgYcG8N/dR2fxLkkuMk7YYGP73vQni7JEphDT8lsWRDGrTYwq7CHBDrCojT
-         GASpge4oiIj0VCC1VtwWK2UYDpvGJzquN+0TjRWAufqxK1f4pkXz2DlI5Y4bHumxbJ/u
-         Vu9hHXOCPX9rWAqEaf2aAporaEoq3Dq13KZi0t2lBQOo7uWkK1mx2b7X/TcgLYg3LcCj
-         I20A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792084669; x=1792689469;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nUb4cagls44kE5et9qrliHAU76p7w/thb7bKXpN7Lxs=;
-        b=1Wxbgexa1JlxfVt+VGwS42wwXQ9NdnRi3Yr78kuqxPJ2z8GvuF17XKEvccks4d/Cw4
-         gWXwywxhOMP8NKDXEY3cCrv813CosanKOjRWNGP3A+5qwJSgyUom5qNCupSzAwtE0fTW
-         yM5eTKEJ+NvCGzbHJQZ+Q2phn6/yvEpB7QFMgyavYvOM8OPu8OLVS/J/IczYRZlRxPl2
-         AOg+m1BsOsT7ixa3v9LB/O5HMKhWtlN4pWmgM/pa/SyIarCRDwFgJ6Zh9t3KAvGlpK0B
-         Vihu4I6bai6Q79KxuKJeEzjmphDthYXu3HXJKDWXDToQN3uyXkp1qgt5zFR34xzxkcyr
-         d5Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7dNjALgJAdEqDv35EHs+Lsz9FcMEdLYTU+kQH8J2ujcSZNuCe/PXFB4ZyhfDOH0vfFvb58z0YmVp9hdA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiH4uMPjbOn8M58ODOaVYpiCrtlUtHVoLHRcEp8QEw6lOyBD/o
-	/we1P7SjZ91tVTLmEnmyag6ayOLJNWtV+sd7p5cxPEpNTdJws0mTz72V
-X-Gm-Gg: AYBFou3D2m74w3d43uapqYo+DlwFauZzSrWrupx+0ANs4tCwqCt2my35ZdmuT1DhTx0
-	ux6PIlb39A8uJjDpdxNs/WjwraJp7XweA0Yp/rcWc7L0zupzf8oc1i5btVpR4Q2ByPj4zYIJDQJ
-	N39/hts5Pb3HSUOtrHr8oEIB3vG+fdG1qN0DLIbta3MtGQvUK9mc0cadDNAQkQa+PLXqyJYxTOf
-	wc32y9MjfOCrqpo/InZCjrPpU67jklyCLZcqugh3VIegjQDhcTgXQZ3/RUnx2bu2uaHmh62KYvw
-	oZw+3KUnku/HVdUc+OksAHdJlihFLNcn+9Um3qWIcV1hSt8cVqeR3kVWhKZcoYMBSPr7A2vMJYp
-	t/IiBMbkuH/E50BGQ4ct5oGUaH8BH7AMgPuQR382U/tbwSDTYMMr0yS+jnCM0xSn/iF1MrO2kYV
-	8FzEVbN6Ld6wY/1PgSXUcTrhfbGdJ+f1/NHuvLg814L3DKuSaYRB5EAfbDR/LGoyeF6D60bjC3A
-	9VM9gAoDDVEgjLGHuQ0/d+DsRbpFxb/1IHEi7UymmbQGoIh/JjUZlKUuOmZPjRZ42I7hSlMMGq9
-	QW8ozhYsqKIJDtP7bqwsJcWhWb5tAiaTeVU=
-X-Received: by 2002:a5d:44cd:0:b0:488:89e4:c3af with SMTP id ffacd0b85a97d-48dbaae4869mr30499724f8f.45.1792084668569;
-        Thu, 15 Oct 2026 10:17:48 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfaf1acd7sm1180327f8f.1.2026.10.15.10.17.46
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 10:17:48 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Ackerley Tng <ackerleytng@google.com>
-Cc: David Woodhouse <dwmw2@infradead.org>,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
-Date: Thu, 15 Oct 2026 17:17:46 +0000
-Message-ID: <20261015171746.51538-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAEvNRgHtB8j6=9r=txjsKvQM0F85nRN4KW5sdnuv_-Og=cWEfg@mail.gmail.com>
-References: <20260720111259.122911-1-dwmw2@infradead.org> <20261006183235.16576-1-griffoul@gmail.com> <CAEvNRgEseLO+LbkwXrEit0H2LH5Wx-srSvHEMpt0=upPL3tF=g@mail.gmail.com> <20261014095702.39676-1-griffoul@gmail.com> <CAEvNRgHtB8j6=9r=txjsKvQM0F85nRN4KW5sdnuv_-Og=cWEfg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeiejSEe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CD6B1F000C6;
+	Thu, 15 Oct 2026 17:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792084686;
+	bh=805FUkdxNGNay9RfFRN7XUZGYeEbVg/yYMLfW8xKPSc=;
+	h=Date:From:To:Cc:Subject;
+	b=QeiejSEeXRzZFCMlvHtn0rZq3ICsvN25lxt69LhAk90OSL2BTjvlpCxdO3+e5/xl2
+	 o9WaJZMTtml9MR90a4Q1cJ1U1WHtd0f5B6VCJYmaqpzDGFZpVEwY92qRmWqD02db5S
+	 2z7dk6aA2rsm/lzBfIXiFPVkCwrKPXhcoSJK/ZKcwouMbz7JZrOjtKL9RhsSTZkCyq
+	 qvMBpjmYJCfd+ve6+97h3k6rgrDVRuBE6HATMWym+EVY+geCNDalBKvEHWwZ0IIH7V
+	 ryrBBD4Kra2aZPMxaxduYd7jmgemrPntyzmmoMG2WFADloASpA523TExaiPeaglSAo
+	 zozT1cjKi1kPQ==
+Date: Thu, 15 Oct 2026 07:18:05 -1000
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-ID: <20261015171628.714661316-1-tj@kernel.org>
+Subject: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix use-after-free of a local reenq node left on an inactive cpu
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Ackerley Tng <ackerleytng@google.com> writes:
+A local DSQ reenq is queued on the rq through a per-sched node and run from
+deferred work. When the reenq is requested from dispatch, the work is a
+balance callback queued once dispatch is done. A cpu going down installs
+balance push early in its teardown, and queue_balance_callback() refuses new
+callbacks from then on. ops.dispatch() keeps running on that cpu until the
+rq goes offline after an RCU grace period, so a reenq it requests in that
+window may never run. The IMMED handling in dispatch_one() requests one the
+same way.
 
-> To borrow David's words, the part about this that makes me itch is
-> conversion. We have to support conversions. Even if it doesn't merge in
-> the first patch series, we have to have line of sight to how conversions
-> would work.
->
-> Conversion requests originate from the guest and then the host handles
-> the guest request by making calling an ioctl on guest_memfd. Hopefully
-> this part doesn't change with alternative provider support.
+A reenq requested from elsewhere for a cpu that is already offline goes
+through irq_work_queue_on(), which warns, and its work doesn't run until the
+cpu comes back.
 
-Agreed, and it doesn't change. Conversions still go through
-guest_memfd. It is the only one that knows which pages are private.
+Either way the node stays on the rq's list. When the scheduler is freed,
+scx_sched_free_rcu_work() warns and frees the pcpu with the node still
+linked, and the list is walked again once the cpu comes back.
 
-> Suppose guest_memfd still gets the conversion request first, in RFCv2,
-> to reach all the mappings in various page tables, it would have to be
->
-> + [GUEST_MEMFD] -> [KVM], [USERSPACE]
-> + [GUEST_MEMFD] -> [PROVIDER] -> [IOMMU]
->
-> since guest_memfd must ensure no IOMMU mappings to guest private pages?
-> There's that extra step through the [PROVIDER]...
+An inactive cpu's local DSQ holds only tasks that are bound to it or are
+being moved off, so the reenq is pointless. Ignore reenqs of an inactive
+cpu's local DSQ.
 
-Right, there is a step through [PROVIDER]. But it can be a step through
-the mem_provider code in mm, which every provider shares, rather than
-through each provider driver. Then guest_memfd doesn't need to know who
-else maps the frames, and providers don't have to get it right one by
-one.
+The test is lockless. The hotplug thread of a cpu going down runs on that
+cpu, and it marks the cpu inactive before it installs balance push. A
+dispatch on the cpu runs to completion before that thread can run there, so
+a dispatch that saw the cpu active has queued its callback by then. Requests
+from outside dispatch run from the wakeup path or through irq_work, which
+balance push doesn't affect. The grace period after the cpu goes inactive
+waits for any requester that saw it active, so that irq_work is queued while
+the cpu is online.
 
-Here is the idea, on top of your in-place conversion. The VMM gives the
-same provider file to guest_memfd and to iommufd, as in v2. When
-guest_memfd converts a range to private, it claims the range:
+Fixes: 238eba8c210d ("sched_ext: Use schedule_deferred_locked() in schedule_dsq_reenq()")
+Fixes: 76edc2761ab8 ("sched_ext: Use irq_work_queue_on() in schedule_deferred()")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c |   15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-  int mem_provider_claim(struct mem_provider_attachment *att,
-                         loff_t offset, loff_t len);
-  void mem_provider_unclaim(struct mem_provider_attachment *att,
-                            loff_t offset, loff_t len);
-
-The claim revokes the range for every other consumer of the file. After
-that, get_page() returns a hole to them. So iommufd unmaps the pages
-and can't map them again, and nothing changes on the iommufd side.
-guest_memfd zaps its own mappings, as it does today.
-
-Going back to shared is the reverse. guest_memfd returns the frames to
-the host first, then unclaims the range. The other consumers then map
-the frames again. So a conversion looks like:
-
-  [GUEST_MEMFD] -> [KVM], [USERSPACE]
-  [GUEST_MEMFD] -> [PROVIDER] -> [IOMMU]
-
-That is your second chain, but the [PROVIDER] step is the common code
-in mm/mem_provider.c. It does the revokes and hands out the holes. The
-provider driver itself only gets one callback, and it can refuse a
-claim. For example, it would refuse if it also lends those frames
-through another file. Conversions can already fail, so this fits. If a
-later step fails, guest_memfd just unclaims the range.
-
-This also answers your earlier question. The provider doesn't need to
-know what is shared or private. It only needs to know which ranges are
-claimed, so that it doesn't move or share them, and only takes them
-back once the guest has given them up.
-
-I haven't implemented this yet. My plan is to rebase on kvm-x86 next,
-which has your conversion code. Then I'd demo it with a
-KVM_X86_SW_PROTECTED_VM and the sample provider. A device sees a shared
-page, loses it when the page becomes private, and sees the same frame
-again when it goes back to shared.
-
-Does that match what you have in mind?
-
-> Thanks, I will prototype what I have in mind too to make sure things
-> work as I think they will :)
-
-Thanks, that would really help. The sample provider and the KVM
-selftest in the series could be a starting point.
-
-Thanks,
-Fred
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1103,6 +1103,18 @@ void schedule_dsq_reenq(struct scx_sched
+ 		rq = container_of(dsq, struct rq, scx.local_dsq);
+ 
+ 		/*
++		 * An inactive cpu's local DSQ holds only tasks that are bound
++		 * to it or are being moved off, so a reenq of it is pointless.
++		 * Once balance push is installed, queue_balance_callback() also
++		 * drops the callback that would run a reenq requested from
++		 * dispatch, and irq_work_queue_on() can't reach an offline cpu.
++		 * The reenq's node would then stay on this rq's list after
++		 * @sch's pcpu is freed.
++		 */
++		if (unlikely(!cpu_active(cpu_of(rq))))
++			return;
++
++		/*
+ 		 * A sub-sched lacking baseline access on the target cid has no
+ 		 * business triggering IPIs. The lockless test is fine: slipping
+ 		 * through right after a revoke is harmless and a wrong denial
+@@ -10020,7 +10032,8 @@ __bpf_kfunc struct task_struct *scx_bpf_
+  * - Local DSQs (%SCX_DSQ_LOCAL or %SCX_DSQ_LOCAL_ON | $cpu)
+  * - User DSQs
+  *
+- * Re-enqueues are performed asynchronously. Can be called from anywhere.
++ * Re-enqueues are performed asynchronously. Can be called from anywhere. A
++ * re-enqueue of an inactive cpu's local DSQ is ignored.
+  *
+  * %SCX_DSQ_LOCAL resolves to the local DSQ of the rq the current scheduler
+  * operation is locked to - e.g. the rq being dispatched for in ops.dispatch() -
