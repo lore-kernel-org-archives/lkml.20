@@ -1,56 +1,56 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A66497B79
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9434A6892
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094965; cv=none; b=Ed3SLDRikQSFEWJgNu/+mXOfUbg0wHiG9tOryhW+hmbEL/bWFXv0MfslY9yUBFbzy4NswBUnRSS2BYuyAEHxrhxnvPYSmY5cSnMIMv1saTk5Z/mW1+XBpLtYc0funbHUD7/dvKfRExfiSWTGKMfgGWN3d4pqrD/EzM7gvS/KNVA=
+	t=1792094969; cv=none; b=lUVWJA/0JGrAqAd2LfCUXtLfrxj7mWYbl5gEwPkzTfOWCpe6MRBgiJalBJ4LFnxJAOOHqigDUWU+Tjm/id/OWqwa3Tmu+1qF88VdTjZWtmAK72vlpnwVqsMpfFx1KWaECJMi/XVSrDOL8DVHLB5oi1JkJdL4pODRH/xP0W4A/a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094965; c=relaxed/simple;
-	bh=jGofXRdQWlPPjp83OqunXoF5r7Bgh7n8Ru/myPqaSqo=;
+	s=arc-20240116; t=1792094969; c=relaxed/simple;
+	bh=v96PErYEvvh2sXqT5nhrigxoy5ACRjUIgyH+xbGOyoU=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=J9v+7XsRjM7uXvSQp72BJtdv1zjfitoFwDUZ9zVoVX/PRn7yaJEHvXqgWGFoiSCnatxC2dIVF2JqU8u3pFsIsp+s51OQx0pcj3XNuytSO4oE3fg6SOoAzHFUAaK224Y63qJUX4PkZXeyu2J+sq2sxyS/1IuDdNYSauFVTsdriRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FlX+DHjP; arc=none smtp.client-ip=209.85.221.70
+	 To:Cc:Content-Type; b=APqxl2hmTDoukR3SwNVlspSNuzhYoGHnqenanN+yXlMUTNs/IJHBsG9ZjUp0m8OKMtXtxAioZ+amYUGB5JafmQvY4LS68mA7sLMp2GxkAv6zcozuB3xSFw1Gr0LpjZrF/GGzRnIAmGPoEDWpR8RyhREoPO9q7ou6xJ/ExkQoK9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=suHdEnS0; arc=none smtp.client-ip=209.85.208.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--smostafa.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FlX+DHjP"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c437ae81eso1354224f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:09:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="suHdEnS0"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b1d6c10725so4994461a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:09:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792094957; x=1792699757; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792094965; x=1792699765; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z8Ak1AjyYrSkoTMkJRUpVV8BvgfNONKVLHUTW1w7Yqc=;
-        b=FlX+DHjP0i6r1oedYocqIylboWX92Cy3FHm+klLH+fDociPrQxW8ijF2Boko7hyhQC
-         Bc8Nq1gVzn+coc0i1Foa6NV/o722jLD0LFKXDpsm5UGJuYNWEFQTpnPXU9YnU60fpHqq
-         w27dkQexjGwkyuNCvLDtdD3Rf1JK7CPYpXZ8ACNTW8w431VWYPeaIGFVfkl9W5Oyd04t
-         Nph0t4xTiodUO7hsrIJZT/UliaS4l6wPUySyf19YnnJ7DR+TlIpIA/hbt2/BdJBWKaTl
-         OgYlNJjP7aMTovS6A8yTB2pCBSzpmZbnp0eUJAeLQaxA2DKmjZrkg0Rd1by78M4jGQe2
-         l9PQ==
+        bh=20qKmJOpxWxZsYx6berl9FrHJn60ekVP6T05FryarsM=;
+        b=suHdEnS0yrBvXeY7qOneV4ApVJZnO9jXDkxXBKcHpQ9UR4wVc0lYhdqkXbIR6XVQnE
+         LkN2s/TRofDZB8oCpmThQ3x9mORcVRv7Kncs6JuD2iSshc86rEmfHe5MFEnr/GYOqh4R
+         9jmEVaWkwY/t7RflKMhLuiOz/upYAY8mm/eOQfoWQmwgga1WFeqEUc4XwOUEOIZb4Fw8
+         1XVjUrHtXugxUlozSIV9iFtTo8E/OdOkhukoUg0vQpU332cQR/qFOpwJFbNJ+k58OEbc
+         eJ8G1yV9Elo6OSacl+DqPV3N9rhipOtPbj+TyUGyRWHIHfhZXGZriT/P/XhOoCXloWBx
+         CbGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792094957; x=1792699757;
+        d=1e100.net; s=20260707; t=1792094965; x=1792699765;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z8Ak1AjyYrSkoTMkJRUpVV8BvgfNONKVLHUTW1w7Yqc=;
-        b=ON+cBdYA2sbkKIRtuxU4VYbaVqrxefT96qeA/Az638AVUaI1B06hTCVWRJUjeFLMSf
-         zFpOdG86CYJfd9CQDvUraDFBa0pezQFOTOWWea3N0M82GNqKMja3V0Ytut1hKWx58hr0
-         DLl5heWt/J7Vk2ILiotrRsQGTOmyszX+9f0UZ1HPy3AnHpMrNeF/+VGZTK+WF7hs/gva
-         kZYr+b8q4ymZigfNMqMFsUabmdUkbi8ImHp/wp/W/mJskm1OU0NpDRsYmsswY3SXfoPh
-         +50KE7vl64pUQ4fyf1uaI4cqpkoZU595JXA4chvB6BcWWL3ZQsRdMSymr6yzxGdXL4RS
-         2bkQ==
-X-Forwarded-Encrypted: i=1; AKwUvByoPvGaDDzMCdncRLCYQFH8MUfdUSAElvO//z4qI79y7f4RGyfOu3fbg39526oXWWw48BMU5LrbbYlb/88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHZEJzdgmqy3AbG9XXulUiOowqRp5HXD82mUsymBVyJl0fvgS+
-	Qjb0iw/UmeBiGl38i1n03K7yBTmLjabQbwZ4OTHzvZPfci6Kc8hL4AYOjjMt7vT5nNhzhtxg7rO
-	j5eaYrp3E5IB4yQ==
-X-Received: from wrvs12.prod.google.com ([2002:a5d:4ecc:0:b0:48d:ed95:6614])
+        bh=20qKmJOpxWxZsYx6berl9FrHJn60ekVP6T05FryarsM=;
+        b=zOjmTwjM4iO2nK0Xjr2j555W/kwr+e4tMTU6l/lObZ28/yIRvnf2lJeYhKNIXVCm1s
+         6U8KyTcmgQPOR01CJm6NcEW6V2FWbG7Ylef77ozYdxfiI2hPwUDnP8LWV8uS/uADqsov
+         G7wPHny1rdcczVZ4xkbH+zQ9lYqtAE6CcXpxuTJ054VxdZfkyBQULMHCgmcB2yNCzVm9
+         s3AoM43lltTe/YF51B1Rp/dOGRVb0+Way7T+MocMI/iErVckyiHDhvLclqLfFEvPM1YY
+         h1DnrNKZNvC91UaHAr/BMkpU1m/2emy0l6vq+ZM7PldPU6Icr1aKiPr8s2UPFBGS6YkI
+         9AoA==
+X-Forwarded-Encrypted: i=1; AKwUvBySE8j6sYq3cGl0RQN4xuD/yyvsTpa/0wsDAlUSc1YRy+3zUEnaoaVjfhMdfPhx2J1q6Xmb3+NzrixVpPg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLb00kBbONWCzrigpWOtKiUk3kn61N/qqtFebCogDdlilzCiic5
+	CetXTMdd5Zubaaj3QSydP8PUE5ejC4RDkX2EAglV+OTNYuxgU/HMf0HX0Gt9f4N5ys7PyAlMvtZ
+	Ph+/CWcPk0xKboA==
+X-Received: from edai29.prod.google.com ([2002:a05:6402:f1d:b0:6b1:d940:d8b8])
  (user=smostafa job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:644a:0:b0:486:f42f:6860 with SMTP id ffacd0b85a97d-48dbaaefc28mr30540044f8f.56.1792094956572;
- Thu, 15 Oct 2026 13:09:16 -0700 (PDT)
-Date: Thu, 15 Oct 2026 20:08:36 +0000
+ 2002:a05:6402:4554:b0:6b1:ced2:dfd4 with SMTP id 4fb4d7f45d1cf-6b1ced2e477mr7043030a12.21.1792094964923;
+ Thu, 15 Oct 2026 13:09:24 -0700 (PDT)
+Date: Thu, 15 Oct 2026 20:08:43 +0000
 In-Reply-To: <20261015200903.2735565-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261015200903.2735565-1-smostafa@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261015200903.2735565-6-smostafa@google.com>
-Subject: [PATCH v9 05/25] iommu/arm-smmu-v3: Move RangeInval to common code
+Message-ID: <20261015200903.2735565-13-smostafa@google.com>
+Subject: [PATCH v9 12/25] iommu/arm-smmu-v3-kvm: Probe SMMU HW
 From: Mostafa Saleh <smostafa@google.com>
 To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	kvmarm@lists.linux.dev, iommu@lists.linux.dev
@@ -72,367 +72,86 @@ Cc: catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
 	nicolinc@nvidia.com, Mostafa Saleh <smostafa@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Move arm_smmu_tlbi_calc_range() to the common code shared with the
-hypervisor as it will use it later to populate TLBIs for the SMMUv3
-stage-2 page table.
+Probe the SMMU features from the IDR registers with the functions shared
+with the kernel driver. SubstreamID bits and queue sizes are not needed
+here: CDs are not shadowed and the command queue is set up later.
+
+The hypervisor requires two things the kernel driver does not:
+- Coherent table walks, reported by both firmware and IDR0.COHACC, as
+  it does no cache maintenance on its tables.
+- Nested translation, as the host keeps stage-1 and the hypervisor adds
+  stage-2.
 
 Signed-off-by: Mostafa Saleh <smostafa@google.com>
 ---
- .../arm/arm-smmu-v3/arm-smmu-v3-common-lib.c  | 160 ++++++++++++++++++
- .../arm/arm-smmu-v3/arm-smmu-v3-common-lib.h  |   2 +
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 160 ------------------
- 3 files changed, 162 insertions(+), 160 deletions(-)
+ .../arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.c    | 46 ++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.c
-index cf9287cdbd19..8c15ed04ccdb 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.c
-@@ -484,3 +484,163 @@ void arm_smmu_write_entry(struct arm_smmu_entry_writer *writer, __le64 *entry,
- 	}
- }
- EXPORT_SYMBOL_IF_KUNIT(arm_smmu_write_entry);
-+
-+/*
-+ * Check address alignment for TTL hint per SMMUv3 H.a Section 4.4.1. Address
-+ * bits below the alignment must be zero, otherwise UNPREDICTABLE.
-+ */
-+static bool arm_smmu_ttl_addr_aligned(u64 address, unsigned int tg,
-+				      unsigned int ttl)
-+{
-+	unsigned int pgsz_lg2 = arm_smmu_pt_level_to_lg2sz(tg, 3 - ttl);
-+
-+	return !(address & GENMASK_U64(pgsz_lg2 - 1, 0));
-+}
-+
-+struct arm_smmu_range_inv {
-+	u64 start_tg;
-+	/* Normal integer, not encoded. 0 means 0.*/
-+	u64 num;
-+	unsigned int scale;
-+};
-+
-+static unsigned int arm_smmu_range_inv_calc_scale(u64 num_tg)
-+{
-+	return fls64((num_tg - 1) / (CMDQ_TLBI_RANGE_NUM_MAX + 1));
-+}
-+
-+static u64 arm_smmu_range_inv_calc_num(u64 num_tg, unsigned int scale)
-+{
-+	return DIV_ROUND_UP_ULL(num_tg, 1ULL << scale);
-+}
-+
-+/*
-+ * Initialize the smallest range invalidation covering num_tg and ending at
-+ * last_tg.
-+ */
-+static struct arm_smmu_range_inv arm_smmu_range_inv_init_end(u64 last_tg,
-+							     u64 num_tg)
-+{
-+	struct arm_smmu_range_inv range_inv = {};
-+
-+	if (!num_tg)
-+		return range_inv;
-+
-+	range_inv.scale = arm_smmu_range_inv_calc_scale(num_tg);
-+	range_inv.num = arm_smmu_range_inv_calc_num(num_tg, range_inv.scale);
-+	range_inv.start_tg = last_tg - ((range_inv.num << range_inv.scale) - 1);
-+	return range_inv;
-+}
-+
-+static void
-+arm_smmu_tlbi_add_range_cmd(struct arm_smmu_tlbi *tlbi,
-+			    const struct arm_smmu_range_inv *range_inv, u8 ttl,
-+			    u8 tg_enc)
-+{
-+	struct arm_smmu_cmd *cmd = &tlbi->range.cmds[tlbi->range.num_cmds++];
-+	unsigned int tgsz_lg2 = tg_enc * 2 + 10;
-+	u64 iova = range_inv->start_tg << tgsz_lg2;
-+	unsigned int num = range_inv->num - 1;
-+
-+	/* 16K granule TTL=1 is reserved (Section 4.4.1) */
-+	if (WARN_ON(tgsz_lg2 == 14 && ttl == 1))
-+		ttl = 0;
-+
-+	/* Verify address alignment for the TTL hint */
-+	if (ttl && !arm_smmu_ttl_addr_aligned(iova, tgsz_lg2, ttl))
-+		ttl = 0;
-+
-+	/*
-+	 * SMMUv3 H.a Section 4.4.1: TG!=0, NUM==0, SCALE==0, TTL==0 is Reserved
-+	 * and causes CERROR_ILL. Single tg uses NUM=0, SCALE=0 with a TTL hint
-+	 * to target only the exact leaf entry.
-+	 *
-+	 * For a single tg invalidation a 0 TTL can come from places like the
-+	 * SVA path that don't have enough information to get a TTL, or as a
-+	 * side of effect of the splitting.
-+	 *
-+	 * A single-TG invalidation cannot reach this point if it is part of a
-+	 * CONT group, so it is safe to transform it into a single invalidation.
-+	 * The ARM_SMMU_OPT_FULL_CONT_RANGE_INV errata does not apply.
-+	 */
-+	if (!num && !range_inv->scale && !ttl)
-+		tg_enc = 0;
-+
-+	cmd->data[0] = FIELD_PREP(CMDQ_TLBI_0_NUM, num) |
-+		       FIELD_PREP(CMDQ_TLBI_0_SCALE, range_inv->scale);
-+	cmd->data[1] = FIELD_PREP(CMDQ_TLBI_1_LEAF, tlbi->leaf_only) |
-+		       FIELD_PREP(CMDQ_TLBI_1_TTL, ttl) |
-+		       FIELD_PREP(CMDQ_TLBI_1_TG, tg_enc) | iova;
-+}
-+
-+/*
-+ * Generate up to two range TLBI command payloads covering [iova, iova+size).
-+ * Sets use_full_inv if the range is too large to represent.
-+ *
-+ * Normally the first range invalidation is the largest representable span which
-+ * does not exceed the requested range. If necessary, the second range
-+ * invalidation is the smallest representable range covering the remainder and
-+ * is anchored at the end. Any excess coverage from the second range
-+ * invalidation overlaps the first instead of exceeding the requested range.
-+ *
-+ * For SVA on an invs containing an SMMU with ARM_SMMU_OPT_FULL_CONT_RANGE_INV,
-+ * produce only a single range invalidation and overinvalidate so any potential CONT is
-+ * covered by one command.
-+ */
-+void arm_smmu_tlbi_calc_range(struct arm_smmu_tlbi *tlbi,
-+			      bool single_range_inv)
-+{
-+	u8 tgsz_lg2 = tlbi->tgsz_lg2;
-+	struct arm_smmu_range_inv first = { .start_tg = tlbi->iova >>
-+							tgsz_lg2 };
-+	u64 last_tg = (tlbi->iova + tlbi->size - 1) >> tgsz_lg2;
-+	u64 num_tg = last_tg - first.start_tg + 1;
-+	u8 tg_enc = (tgsz_lg2 - 10) / 2;
-+	struct arm_smmu_range_inv trail;
-+	u8 ttl = 0;
-+
-+	/*
-+	 * Determine what level the granule is at. For non-leaf, both io-pgtable
-+	 * and SVA pass a nominal last-level granule because they don't know
-+	 * what level(s) actually apply, so leave TTL=0.
-+	 */
-+	if (tlbi->leaf_only)
-+		ttl = 4 - ((ilog2(tlbi->iopte_size) - 3) / (tgsz_lg2 - 3));
-+
-+	/*
-+	 * The spec defines the invalidated range as:
-+	 *   Range = ((NUM+1) * 2^SCALE) * Translation_Granule_Size
-+	 * NUM is 5 bits, so (NUM+1) covers 1..32 granules. Find the smallest
-+	 * SCALE at which a single command could cover num_tg.
-+	 *
-+	 * Unlike other IOMMUs the spec has no alignment requirement on the
-+	 * address beyond alignment to tg (so long as TTL=0).
-+	 */
-+	first.scale = arm_smmu_range_inv_calc_scale(num_tg);
-+	if (first.scale > 31) {
-+		/* Range too large for a single command do full invalidation */
-+		tlbi->range.use_full_inv = true;
-+		return;
-+	}
-+
-+	if (single_range_inv) {
-+		/*
-+		 * Produce a single invalidation by rounding up and disabling
-+		 * the trailer.
-+		 */
-+		first.num = arm_smmu_range_inv_calc_num(num_tg, first.scale);
-+		trail.num = 0;
-+	} else {
-+		/*
-+		 * Produce two invalidations by rounding down and adding a
-+		 * second trailing range invalidation anchored at the end.
-+		 */
-+		first.num = num_tg >> first.scale;
-+		trail = arm_smmu_range_inv_init_end(
-+			last_tg, num_tg - ((u64)first.num << first.scale));
-+	}
-+	arm_smmu_tlbi_add_range_cmd(tlbi, &first, ttl, tg_enc);
-+
-+	if (trail.num)
-+		arm_smmu_tlbi_add_range_cmd(tlbi, &trail, ttl, tg_enc);
-+}
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.h
-index 55ffa880b093..9f6949a60fe8 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-common-lib.h
-@@ -42,4 +42,6 @@ void arm_smmu_get_ste_update_safe(const __le64 *cur, const __le64 *target,
- void arm_smmu_write_entry(struct arm_smmu_entry_writer *writer, __le64 *cur,
- 			  const __le64 *target);
- 
-+void arm_smmu_tlbi_calc_range(struct arm_smmu_tlbi *tlbi, bool single_range_inv);
-+
- #endif /* __ARM_SMMU_V3_COMMON_LIB_H */
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 5d7de893865e..c2ec33c763a0 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -2182,166 +2182,6 @@ static void arm_smmu_tlb_inv_context(void *cookie)
- 	arm_smmu_domain_inv(smmu_domain);
+diff --git a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.c b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.c
+index ba209951039f..2b4a0f961a66 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.c
++++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.c
+@@ -31,6 +31,47 @@ static void smmu_deinit_device(struct hyp_arm_smmu_v3_device *smmu)
+ 	smmu->base = NULL;
  }
  
--/*
-- * Check address alignment for TTL hint per SMMUv3 H.a Section 4.4.1. Address
-- * bits below the alignment must be zero, otherwise UNPREDICTABLE.
-- */
--static bool arm_smmu_ttl_addr_aligned(u64 address, unsigned int tg,
--				      unsigned int ttl)
--{
--	unsigned int pgsz_lg2 = arm_smmu_pt_level_to_lg2sz(tg, 3 - ttl);
--
--	return !(address & GENMASK_U64(pgsz_lg2 - 1, 0));
--}
--
--struct arm_smmu_range_inv {
--	u64 start_tg;
--	/* Normal integer, not encoded. 0 means 0.*/
--	u64 num;
--	unsigned int scale;
--};
--
--static unsigned int arm_smmu_range_inv_calc_scale(u64 num_tg)
--{
--	return fls64((num_tg - 1) / (CMDQ_TLBI_RANGE_NUM_MAX + 1));
--}
--
--static u64 arm_smmu_range_inv_calc_num(u64 num_tg, unsigned int scale)
--{
--	return DIV_ROUND_UP_ULL(num_tg, 1ULL << scale);
--}
--
--/*
-- * Initialize the smallest range invalidation covering num_tg and ending at
-- * last_tg.
-- */
--static struct arm_smmu_range_inv arm_smmu_range_inv_init_end(u64 last_tg,
--							     u64 num_tg)
--{
--	struct arm_smmu_range_inv range_inv = {};
--
--	if (!num_tg)
--		return range_inv;
--
--	range_inv.scale = arm_smmu_range_inv_calc_scale(num_tg);
--	range_inv.num = arm_smmu_range_inv_calc_num(num_tg, range_inv.scale);
--	range_inv.start_tg = last_tg - ((range_inv.num << range_inv.scale) - 1);
--	return range_inv;
--}
--
--static void
--arm_smmu_tlbi_add_range_cmd(struct arm_smmu_tlbi *tlbi,
--			    const struct arm_smmu_range_inv *range_inv, u8 ttl,
--			    u8 tg_enc)
--{
--	struct arm_smmu_cmd *cmd = &tlbi->range.cmds[tlbi->range.num_cmds++];
--	unsigned int tgsz_lg2 = tg_enc * 2 + 10;
--	u64 iova = range_inv->start_tg << tgsz_lg2;
--	unsigned int num = range_inv->num - 1;
--
--	/* 16K granule TTL=1 is reserved (Section 4.4.1) */
--	if (WARN_ON(tgsz_lg2 == 14 && ttl == 1))
--		ttl = 0;
--
--	/* Verify address alignment for the TTL hint */
--	if (ttl && !arm_smmu_ttl_addr_aligned(iova, tgsz_lg2, ttl))
--		ttl = 0;
--
--	/*
--	 * SMMUv3 H.a Section 4.4.1: TG!=0, NUM==0, SCALE==0, TTL==0 is Reserved
--	 * and causes CERROR_ILL. Single tg uses NUM=0, SCALE=0 with a TTL hint
--	 * to target only the exact leaf entry.
--	 *
--	 * For a single tg invalidation a 0 TTL can come from places like the
--	 * SVA path that don't have enough information to get a TTL, or as a
--	 * side of effect of the splitting.
--	 *
--	 * A single-TG invalidation cannot reach this point if it is part of a
--	 * CONT group, so it is safe to transform it into a single invalidation.
--	 * The ARM_SMMU_OPT_FULL_CONT_RANGE_INV errata does not apply.
--	 */
--	if (!num && !range_inv->scale && !ttl)
--		tg_enc = 0;
--
--	cmd->data[0] = FIELD_PREP(CMDQ_TLBI_0_NUM, num) |
--		       FIELD_PREP(CMDQ_TLBI_0_SCALE, range_inv->scale);
--	cmd->data[1] = FIELD_PREP(CMDQ_TLBI_1_LEAF, tlbi->leaf_only) |
--		       FIELD_PREP(CMDQ_TLBI_1_TTL, ttl) |
--		       FIELD_PREP(CMDQ_TLBI_1_TG, tg_enc) | iova;
--}
--
--/*
-- * Generate up to two range TLBI command payloads covering [iova, iova+size).
-- * Sets use_full_inv if the range is too large to represent.
-- *
-- * Normally the first range invalidation is the largest representable span which
-- * does not exceed the requested range. If necessary, the second range
-- * invalidation is the smallest representable range covering the remainder and
-- * is anchored at the end. Any excess coverage from the second range
-- * invalidation overlaps the first instead of exceeding the requested range.
-- *
-- * For SVA on an invs containing an SMMU with ARM_SMMU_OPT_FULL_CONT_RANGE_INV,
-- * produce only a single range invalidation and overinvalidate so any potential CONT is
-- * covered by one command.
-- */
--static void arm_smmu_tlbi_calc_range(struct arm_smmu_tlbi *tlbi,
--				     bool single_range_inv)
--{
--	u8 tgsz_lg2 = tlbi->tgsz_lg2;
--	struct arm_smmu_range_inv first = { .start_tg = tlbi->iova >>
--							tgsz_lg2 };
--	u64 last_tg = (tlbi->iova + tlbi->size - 1) >> tgsz_lg2;
--	u64 num_tg = last_tg - first.start_tg + 1;
--	u8 tg_enc = (tgsz_lg2 - 10) / 2;
--	struct arm_smmu_range_inv trail;
--	u8 ttl = 0;
--
--	/*
--	 * Determine what level the granule is at. For non-leaf, both io-pgtable
--	 * and SVA pass a nominal last-level granule because they don't know
--	 * what level(s) actually apply, so leave TTL=0.
--	 */
--	if (tlbi->leaf_only)
--		ttl = 4 - ((ilog2(tlbi->iopte_size) - 3) / (tgsz_lg2 - 3));
--
--	/*
--	 * The spec defines the invalidated range as:
--	 *   Range = ((NUM+1) * 2^SCALE) * Translation_Granule_Size
--	 * NUM is 5 bits, so (NUM+1) covers 1..32 granules. Find the smallest
--	 * SCALE at which a single command could cover num_tg.
--	 *
--	 * Unlike other IOMMUs the spec has no alignment requirement on the
--	 * address beyond alignment to tg (so long as TTL=0).
--	 */
--	first.scale = arm_smmu_range_inv_calc_scale(num_tg);
--	if (first.scale > 31) {
--		/* Range too large for a single command do full invalidation */
--		tlbi->range.use_full_inv = true;
--		return;
--	}
--
--	if (single_range_inv) {
--		/*
--		 * Produce a single invalidation by rounding up and disabling
--		 * the trailer.
--		 */
--		first.num = arm_smmu_range_inv_calc_num(num_tg, first.scale);
--		trail.num = 0;
--	} else {
--		/*
--		 * Produce two invalidations by rounding down and adding a
--		 * second trailing range invalidation anchored at the end.
--		 */
--		first.num = num_tg >> first.scale;
--		trail = arm_smmu_range_inv_init_end(
--			last_tg, num_tg - ((u64)first.num << first.scale));
--	}
--	arm_smmu_tlbi_add_range_cmd(tlbi, &first, ttl, tg_enc);
--
--	if (trail.num)
--		arm_smmu_tlbi_add_range_cmd(tlbi, &trail, ttl, tg_enc);
--}
--
- /*
-  * One TLBI command per IOTLB entry, assuming the entries are all at least
-  * iopte_granule sized. Sets use_full_inv if too many commands would be needed
++/*
++ * Mini-probe and validation for the hypervisor.
++ */
++static int smmu_probe(struct hyp_arm_smmu_v3_device *smmu)
++{
++	u32 reg;
++	int ret;
++
++	/* Not supported yet. */
++	if (!(smmu->features & ARM_SMMU_FEAT_COHERENCY))
++		return -ENXIO;
++
++	ret = arm_smmu_device_idr0_probe(smmu, true, &reg);
++	if (ret)
++		return ret;
++
++	/*
++	 * Core code clears FEAT_ATS with !CONFIG_PCI_ATS, but the hypervisor
++	 * must know if it is actually supported for CR0 emulation.
++	 */
++	if (reg & IDR0_ATS)
++		smmu->features |= ARM_SMMU_FEAT_ATS;
++
++	/* Firmware says coherent, the hardware must agree. */
++	if (!(reg & IDR0_COHACC))
++		return -ENXIO;
++
++	ret = arm_smmu_device_idr1_probe(smmu, &reg);
++	if (ret)
++		return ret;
++
++	arm_smmu_device_idr3_probe(smmu);
++	arm_smmu_device_idr5_probe(smmu);
++	arm_smmu_device_iidr_probe(smmu);
++
++	if (!(smmu->features & ARM_SMMU_FEAT_NESTING))
++		return -ENXIO;
++
++	return 0;
++}
++
+ static int smmu_init_device(struct hyp_arm_smmu_v3_device *smmu)
+ {
+ 	unsigned long haddr;
+@@ -45,8 +86,11 @@ static int smmu_init_device(struct hyp_arm_smmu_v3_device *smmu)
+ 		return ret;
+ 
+ 	smmu->base = (void __iomem *)haddr;
++	ret = smmu_probe(smmu);
++	if (ret)
++		smmu_deinit_device(smmu);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /* Called while the host is still trusted. */
 -- 
 2.56.0.176.g3575e65682-goog
 
