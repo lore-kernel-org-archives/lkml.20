@@ -1,126 +1,142 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A90237106E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792107742; cv=pass; b=gizKgPu7Bp5E2rXWI6XLO4PXdmarFxNH9eprnQNnYp23uzLCyyLqjmlQZ1/YDB6Z55aciU0LQWcSd6s5VqHCmCxbP5YfiLoHcKGXHMRnIp9T4oJU7OciH5IYvDH3T4dhfvzpFxAgmJj+Ev18/+WaabIVjQNaojrei+QX7Y8F2z8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792107742; c=relaxed/simple;
-	bh=qnYBvLu3wP+0deufjLD9NX37QLMFMQZ9+Pr7pKVdW5g=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A93133993
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:42:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792107753; cv=none; b=bH5ipd0vQq3SzV9HuIJzs9N3ApMAPr6Swn2VwgyTbyowigku3GeWEhxABFiQAgphAplQNyitdvIjb9DrI6Ics173h9bf42OOhLeH+8tXq090fP5QAGNLqPnWZ1fOWBp19e6l5CkVHySp+Mw3Vwkqt30VyagXv3XB8fZrhq/YZJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792107753; c=relaxed/simple;
+	bh=zIfQfyWdm/mRO86YRBRJEHuDEG9JavTCbhEpWUpQpQ8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qcTIRa1Baf35z9ozhoX7ObOENBgU021u3HdyhdOltiRbUbapNkPK+Cfb2+upVQRoI3xdaX84ByJPsOcApusNNbqTJy2NRMyJU0cKz6RXkRP2bSDn5dryE69TjOjPcSWbm2kRRlffckkqoRPQspCvVCUnwDkg3jBqW+sYTnGEl3c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hEBOcK5h; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=klokfx+q4KxxCKSYWEZA4A+ODkKigDJx/Jnu+W8TT4yUOcGn0JCfncxKOMy66fKmmhl1dRQaBhshid8tCrXYx/lsFb+x7MGCn7OkI+4Smon3WzaQ1FyAJ1WAbBd2Dv1XlX9S1wz6OrcoOQc8h4zv747fsAIOcXs2x8mJusTBPzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAwJgXGe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hEBOcK5h"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2585a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792107739; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qkm9kRsmjfAHIE1tITOaI6t5G68xCpfP34V1o975mNAbMAnZS4q5U+co9wqtSb/cG3
-         Cp8IDL409+PNodcqJOMznB8KB0GoznzeMS5MJEpHi6XUNLlbHKvQvFFQBCTjtMMMi9lE
-         VvfORJEax+zv8NS8YppVQu9UkouTuf398BsoyFTXcdrXb59Bew/8pQn/Q1WrqT8XxSEI
-         w6JOck7JhykhmDrDxhwWLKzYeTpavU7rkSq388qSaNm8jFy6QVh5DSo3j4vuhuXYN8ln
-         Um8r/kusr9UJgR4Tt8bWRCkDIPjIr7lq+lUMTMjbaVzMUrsxFegVir/Oplh9q0XnJryK
-         30ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qnYBvLu3wP+0deufjLD9NX37QLMFMQZ9+Pr7pKVdW5g=;
-        fh=obCCBGV3F64WmkR+mPoyQhL5gYe4BgP8Ibq1/e9bhtE=;
-        b=K4M4EIy8DQP94X8irYbVfT1+nFTADOFrkqFklt9zghJV6ohHNoUQpP5n1W9S2Lydas
-         utarWXHSmc+UZS5NBVNbXKufCs+EU6rVLfU+DX6mJaj4b9soZuSw1AxeZPxloZz6iWJ7
-         XEUy+evxjeHdk8Xx+YbADRBC9aY4GYd2beXLTWj1r4UbmpAw9bKj6FylbHRE3YFuhbB0
-         0JjUWoxqaDld9ujbWJpy186eggk25Mrlfehm4vfUFA1io/jhv8wFhVbZ7DwuKWJMoVXe
-         iehZt3vhxcU/QDdIxrCsPrmtBHAnJB2EvShVzDhprjRqZqRit9pIcHIqAE8gGA7pxls3
-         Ygkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792107739; x=1792712539; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qnYBvLu3wP+0deufjLD9NX37QLMFMQZ9+Pr7pKVdW5g=;
-        b=hEBOcK5h+YyuWf6MFgtpAED/I0v0qKG/gwEAVyG8EWe3CIbyqsjyGmqZ78+A4tAAd0
-         4cUtYTsnYOme9zkeXo79vdVtnLWcgj7ZXO2uKGsM8e9l+d6uu591vFNkwG5KdW/ys1aa
-         DYtLwi2M5X2HLLZGZkWZeqDNMoTRMPI2aah7QdYQbenLtavr64Oyb7sjyGQX8/OW5SUD
-         +kbTmCvIF+pymAezP7LBdBFj/KrOAsQ1FxHCv9QiMAKDjJV3xpMiR4gFY+mtrv9wMHtQ
-         /0l51XDk4r+SjSEVhJRlE3FALN4zdgov+vkxtOD3R6uCERt/MyjuW/GgCqFIDMTAKJ5s
-         qFmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792107739; x=1792712539;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qnYBvLu3wP+0deufjLD9NX37QLMFMQZ9+Pr7pKVdW5g=;
-        b=vSfAMuZT+QBnJjJ/KXlOxUOeWh+k+2plvnxQcBXaYHBde6jQXUUFW6JbLa3txtVVKx
-         zKaLqsmY9fQSyVZrMHLOMbEs6B1maijMXuud/+A0AebrMz+wtQWAfzEP455Q0xxLFCpF
-         FOoXCVLey25Esc6m9ihd4MBSvxdzH4t2c64K42qmSAVFNj3R6+RH3dQUR9D0jx2I26Om
-         32Pjt30mCwPWYPjCoBVCzHKRWteBcN7ot35vWlAHZSB/OXFQ8iskxrW2oy84wM4ydf/N
-         +pvj4Uf6C1dQ00iRF+k7qMc/V0dBhswugziihk+0frYzNKJAO5nQHClwLSGdYTxk2T56
-         mpqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzqLZ2P2VdUOg3GohQTTjCv9r+3urftEs2lX87kL5wrcNV0/BBINnhL9qtWWdDgeEvR2G5bJGKvlsFlgO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwoTEmzRQRLexNsSUeHEBcW1I5MCXLL9gZGVFre5S1CdlzaBtG
-	ZOB7cj5z15A1QorI/RViyvnlcqOK5kgSc6lVyf4a1QgDL9ytNz2235en6mzaTA/tquMfKrRmUik
-	pTmJ3WLn0yTi26neb467v+tBivcYHlFqxJS43OzLx
-X-Gm-Gg: AYBFou2s/fyR38yPA2LV3oSA5P12Gh5RwkV818UT9DxxUTUUvXJJWNal5MfLS0EBUBS
-	HBLiwXCaL+1gplyJspvvFmozPPnZD7vKe+9Mt2HcTut46FVKZU+SskRuaFkJh0tN6Fd+HuJvHLP
-	eXZtDzGZGgonSo8mvFJ7GzjMtNjVG/TJxotXLpsPtBXHPflOpx1RvSPXrGGLZCyROMIcM6PesLY
-	QJsGzN2K260o1g3avMBHNlR40xXEupi++zhfUONR7fzdLWMlxW3oe48Y61jjVI2sVdCcChul5hC
-	Q2rRW2GzL3sjta9yytHtOrn9tNg0Wo5YvinS+7QZQpVbBCr1C6U5UFkJG0bXxGkQKoBYRvsscJp
-	ReX190JZlVdx2SkFh7nceFsLyxK8odzP3no7h
-X-Received: by 2002:aa7:c2c3:0:b0:6aa:128c:36ad with SMTP id
- 4fb4d7f45d1cf-6b38c1d2c27mr13029a12.10.1792107738186; Thu, 15 Oct 2026
- 16:42:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAwJgXGe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2456D1F000C6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:42:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792107751;
+	bh=MHyrrK0NSeUKokoxsXxbF8iSiJx7KDQFcgTZU79vtrA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HAwJgXGen3GLw6mh0Kp9pZwu7fL6uR4Lzqex4eQRRqNNdmAYRrbLSdUnHahUjZZaA
+	 1XTmTnrVF6hE/5cbDenaQPbKsWCmYj5Gxjh7m+18vjt6RSqUGalqtrM/5t4JlwxuGj
+	 8g8pUJ/XzoPqS280RiwIuMR4MpVuZ4rDY5I+lXmM/qUMybFNz3Usym4FMxdQcNWFCy
+	 fzm5bhRME3KKo70xT11vQS6v+I24ZZvzcmNND2DLcO7mFu6hocs6Z7+vaCgUpxkJjs
+	 SnDG1d2KXej8FIuxwpfLjEfGDFYCmVyt+fmMTmLYuzKIkBgePJ3CcqcphQgqWzfNwB
+	 JDsynq1RlYYfA==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e6df2742cso892798966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:42:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByhlolHcwDmee5nAdhK7o2AaGaq8dSTTiRNe1nfACq/X1A3hnXrLzU39R++sC9pgkh0OS1hYlHlSMf84ZU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNlzn3l77XnWr8xjPuJoXHaje8eeaHUbW9gMOGqDgHJcIIVgY/
+	g98KCkQdQz+Cx7ScSOX5x/y+zcjIJSCJ5JDilPR2xkeqVkMJanm14XxVN7OGRoVk0qtugL9S4CU
+	PXtm3S6yG38PpbLAOh0Al7QvCRMyigYc=
+X-Received: by 2002:a17:907:3da8:b0:c25:2d27:5652 with SMTP id
+ a640c23a62f3a-c31a9fa18b8mr2025050866b.11.1792107749989; Thu, 15 Oct 2026
+ 16:42:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-26-yosry@kernel.org>
-In-Reply-To: <20261012233638.2546339-26-yosry@kernel.org>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 15 Oct 2026 16:42:05 -0700
-X-Gm-Features: AclHuK8zmX5F0uZUL3_9yaYG8YILbTZauumuUb9eWsw9lpIUhMqrbcaBGQMe4t8
-Message-ID: <CALMp9eQB_9UQ_qy8RNQUc16XhznasacBZxKQ-VNRrMOmyva49w@mail.gmail.com>
-Subject: Re: [PATCH v3 25/27] KVM: nSVM: Flush the ASID on nested transitions
- if shared by L1 and L2
-To: Yosry Ahmed <yosry@kernel.org>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-25-yosry@kernel.org>
+ <CALMp9eRb3ExsQ0g24YQyo85sV1fnHZadh33hBChUY=ZGUaT7jA@mail.gmail.com>
+In-Reply-To: <CALMp9eRb3ExsQ0g24YQyo85sV1fnHZadh33hBChUY=ZGUaT7jA@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 15 Oct 2026 16:42:16 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zMt5ZNwr3Y+NfFcAW5Cf4JaerCScSsLxcvsvHYR=DoYBw@mail.gmail.com>
+X-Gm-Features: AclHuK_BxDLZx_69rvrkhE3klfjCf7dhg2cmw_bJjPWnJRq4Cq4UBgg350NqnWY
+Message-ID: <CAO9r8zMt5ZNwr3Y+NfFcAW5Cf4JaerCScSsLxcvsvHYR=DoYBw@mail.gmail.com>
+Subject: Re: [PATCH v3 24/27] KVM: nSVM: Flush L2's ASID when emulating INVLPGA
+To: Jim Mattson <jmattson@google.com>
 Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
 	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
+On Thu, Oct 15, 2026 at 4:37=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
 >
-> If L1 and L2 use the same ASID in hardware, always flush it on nested
-> transitions to avoid using L1 TLB entries for L2 or vice versa, since
-> from L1's perspective they are two different TLB domains.
+> On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > KVM currently handles INVLPGA in the same way as INVLPG, flushing L1's
+> > own ASID. This is currently correct because L1 and L2 share an ASID, bu=
+t
+> > it doesn't work once they have separate ASIDs.
+> >
+> > If L1 is flushing a different L2 ASID than the one KVM is tracking, do
+> > nothing, as KVM will flush L2's ASID in hardware (and sync the MMU if
+> > needed) when L1 switches to the target ASID.
+> >
+> > If L1 is flushing the tracked L2 ASID, flush the L2 ASID in hardware
+> > using INVLPGA if running on the same CPU as L2. If not, fallback to a
+> > VMCB-based ASID flush. Note that if L2 then runs on a different CPU KVM
+> > will flush the ASID anyway.
+> >
+> > If NPT is disabled, also free L2's roots, as they may have stale
+> > translations for the flushed address. Do not try to sync the mappings
+> > for the flushed address as it involves walking L2's shadow page tables
+> > with L1's MMU context. This is similar to INVVPID handling in with nVMX=
+.
 >
-> This is currently always the case, but KVM will start using separate
-> ASIDs for L1 and L2 in most cases soon.
+> Nit: s/in with/with/
 >
-> Note that KVM_REQ_TLB_FLUSH_CURRENT is required here, not
-> KVM_REQ_TLB_FLUSH_GUEST (used for L1 TLB flush requests). This is
-> because KVM could be switching between different NPT roots on the same
-> ASID. While this generally requires an ASID flush in the VMCB, which is
-> done by both KVM_REQ_TLB_FLUSH_CURRENT and KVM_REQ_TLB_FLUSH_GUEST, it
-> also requires a hypercall to specifically flush NPT mappings when
-> running on Hyper-V, which is only done with KVM_REQ_TLB_FLUSH_CURRENT
-> (as KVM_REQ_TLB_FLUSH_GUEST is only meant to flush translations created
-> by the guest).
+> >
+> > Note: If L1 is flushing its own ASID, it remains handled the same way a=
+s
+> > INVLPG. Additionally, if INVLPGA is executed by L2 (and not intercepted
+> > by L1), also handle it like INVLPG. Technically, L2 could be flushing a=
+n
+> > untracked ASID, in which case KVM doesn't need to do anything. However,
+> > kvm_mmu_free_guest_mode_roots() does not handle being invoked in guest
+> > mode, so using kvm_mmu_invlpg() in guest mode side-steps this, and
+> > should not happen with a well-behaved L1 anyway.
+> >
+> > Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> > ---
+> >  arch/x86/kvm/svm/svm.c | 48 ++++++++++++++++++++++++++++++++++++++++--
+> >  1 file changed, 46 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> > index 8f2542357e78d..436d13f106369 100644
+> > --- a/arch/x86/kvm/svm/svm.c
+> > +++ b/arch/x86/kvm/svm/svm.c
+> > @@ -2468,17 +2468,61 @@ static int clgi_interception(struct kvm_vcpu *v=
+cpu)
+> >
+> >  static int invlpga_interception(struct kvm_vcpu *vcpu)
+> >  {
+> > +       struct vcpu_svm *svm =3D to_svm(vcpu);
+> >         /* FIXME: Handle an address size prefix. */
+> >         gva_t gva =3D kvm_rax_read(vcpu);
+> >         u32 asid =3D kvm_ecx_read(vcpu);
+> > +       int cpu;
+> >
+> >         if (nested_svm_check_permissions(vcpu))
+> >                 return 1;
+> >
+> >         trace_kvm_invlpga(to_svm(vcpu)->vmcb->save.rip, asid, gva);
+> >
+> > -       /* Let's treat INVLPGA the same as INVLPG (can be optimized!) *=
+/
+> > -       kvm_mmu_invlpg(vcpu, gva);
+> > +       /*
+> > +        * INVLPG on a non-canonical address is a NOP according to the =
+SDM,
+> > +        * assume the same behavior from INVLPGA since the APM doesn't =
+specify.
+> > +        */
+> > +       if (is_noncanonical_invlpg_address(gva, vcpu))
+> > +               return kvm_skip_emulated_instruction(vcpu);
 >
-> Note that this is currently a noop as KVM requests
-> KVM_REQ_TLB_FLUSH_CURRENT unconditionally on nested transitions, but
-> this will soon be removed in favor of conditional flushes.
->
-> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+> If L1 is in 32-bit mode with junk in RAX[63:32] (e.g. bits left over
+> from long mode), the full 64-bit value may not be canonical. Should
+> the kvm_rax_read(vcpu) above be kvm_register_read(vcpu,
+> VCPU_REGS_RAX)?
+
+Doesn't kvm_rax_read() already use kvm_reg_mode_mask() as per
+__BUILD_KVM_GPR_ACCESSORS()?
