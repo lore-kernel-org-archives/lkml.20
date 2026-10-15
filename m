@@ -1,191 +1,82 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FCC3B2D0D;
-	Thu, 15 Oct 2026 17:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D58566C58;
+	Thu, 15 Oct 2026 17:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086884; cv=none; b=HRBkTvswg15PtVZ4OiyGqTkF8es/Wx7ozxrYgX2IghdLXKBhMZSnJ/hoSrDevxh6c18QrdJcAdR3oqkGNs4fs9udjEz//hrXMURVNbp3QRWmjIv5Km4i7rGeJDcvNKDZJWGLds2DcWKD/J9s8w3spe5L9rvFYwIWggA7Hfwiht0=
+	t=1792086903; cv=none; b=jMWq6dm9uweWHqcwVnHTbzh2mxCQBuC8Um5AXFPMLCvwEyAQB4aJhOLGf6ief9fxahKvBl7zK5zaPxKudFmwMvOXIDRewjehShbKICdYK+XK195LMaMDXRVUOqE0xTMUJ3bdPTdwxiLco4PtNVXEIAazSkEtcRqYkSG4ByDSLmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086884; c=relaxed/simple;
-	bh=ZjXSCzqksHcLTG5oc1+4fUUYcNegUbxI3yrjKqdg17I=;
+	s=arc-20240116; t=1792086903; c=relaxed/simple;
+	bh=jaqMRdxmRjsJU5dgnPTNECDUEUU1Qn26k41+D4Futnc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U1M7VnQjswa6mf5xieCm/7r//u6q4TJfxcI+IzzVByxVkchDNmTRP8dZfZyfjjKbscX2CNZJepH43rI7luav/cPsVHWgfTE5g6J3FCCVBLk9YuyH0MqSbQq905uT4gFgOAk8Pf3IHJpH71OBnNurnN/fBWCjdfNO/fAlEGa1gsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eXpwTksI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iTxD0LdA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eXpwTksI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iTxD0LdA; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=M6QEL6h6zjFrNPcGgXnVcMvS6vdCS8xUzK5ipoOk9g+vvf27Cyh/yzLv5qmfz35iCUt1tayQdcaX9pK3I0QJX9SM3Hsrt7376ZdYiQEjX0eUXHrEoGwb17jiV+TlfzwGNJLSku1PV0oLV4APO26QgtcseVtVRPxUGGBakRj+K0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GvdCHza6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eXpwTksI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iTxD0LdA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eXpwTksI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iTxD0LdA"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 02F50223AB;
-	Thu, 15 Oct 2026 17:54:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792086876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
-	b=eXpwTksIT9/Go1ofbOmdU0GZvbkw5AyX5pLHwi+2EKjRB6sOz9eGvgakUD8O5a7D5/19ut
-	4nm4lk/n01AwoZscIQIgq0wHxQNi5kf0X7qhAhpzIZHgiY2Hw2yiLHg2d/EG4MV5CfmS46
-	FvzsWCQrEs3nPP7g/iIOz1rWsSk8mo4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792086876;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
-	b=iTxD0LdA1j7nQ1dEwmMrePAU7KHf4w37NgNPespccr/3SWDTWNo2jSNk71iguUOzjHCTXZ
-	2jnCQ36Nk+Cbh1Dg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eXpwTksI;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=iTxD0LdA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792086876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
-	b=eXpwTksIT9/Go1ofbOmdU0GZvbkw5AyX5pLHwi+2EKjRB6sOz9eGvgakUD8O5a7D5/19ut
-	4nm4lk/n01AwoZscIQIgq0wHxQNi5kf0X7qhAhpzIZHgiY2Hw2yiLHg2d/EG4MV5CfmS46
-	FvzsWCQrEs3nPP7g/iIOz1rWsSk8mo4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792086876;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUX/20c9gzfr6HYGt27BVt9vlp/ySlxzUbbSfr+xZUI=;
-	b=iTxD0LdA1j7nQ1dEwmMrePAU7KHf4w37NgNPespccr/3SWDTWNo2jSNk71iguUOzjHCTXZ
-	2jnCQ36Nk+Cbh1Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29F6413223;
-	Thu, 15 Oct 2026 17:54:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id p1Q4L1kT0WqZYQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 15 Oct 2026 17:54:33 +0000
-Date: Thu, 15 Oct 2026 18:54:32 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
-	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 01/10] mm/vma: don't leak the commit charge on mmap
- failure
-Message-ID: <atERwRzzAdCSXaPM@pedro-suse.lan>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-1-42796911043b@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GvdCHza6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3609C1F000C4;
+	Thu, 15 Oct 2026 17:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792086896;
+	bh=uqjl8P/1C6J6qZp0U3fth0vu1NJId71zBoeCHtYpV1o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GvdCHza6jISI3u73/mEN6oTUfZD1LSc8g2bkldBoZXG17W6EDPP29x1urT1HlBkuJ
+	 sRuAzVYN/ZNKOS5XP83OTirmEhMARcpdsu2mp1QUPl9Zy2QajGBoxoqxEmG+kXPvcH
+	 o28JVSXVhbWllYZ3U82UBn0hkIVZwvXjYA3dtb/eFuePj18TD8fyrCK5ObHEMC51o1
+	 ECAmH6Ia+3e0uwaepbwecFqQz9GhC1d5EXRG/fDyt0EK4ZZXyKmSQFy9R5oG6/yDfn
+	 +7G4pKfDzdeY8CeBLhoVCUZGd+PULW1IwaqQg3jeq00OjiOkNOKcN+iGM8joGUuR0d
+	 p88TqU1usfYHg==
+Date: Thu, 15 Oct 2026 18:54:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codecs: wsa884x: Add mute control knob
+Message-ID: <60cd552f-1de0-4304-8e84-bb307cdea45f@sirena.org.uk>
+References: <20261014-wsa884x-mute-support-v1-1-74d98d79e635@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rGybbNyIWZeQcPR1"
+Content-Disposition: inline
+In-Reply-To: <20261014-wsa884x-mute-support-v1-1-74d98d79e635@collabora.com>
+X-Cookie: Tax and title extra.
+
+
+--rGybbNyIWZeQcPR1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-1-42796911043b@kernel.org>
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,linux.dev,suse.de,huawei.com,gmail.com,us.ibm.com,csn.ul.ie,surriel.com,redhat.com,toxicpanda.com,kvack.org,vger.kernel.org];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,toxicpanda.com:email]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 02F50223AB
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Thu, Oct 15, 2026 at 06:07:07PM +0200, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> When an accountable mapping replaces existing mappings (MAP_FIXED),
-> __mmap_setup() only charges the difference between the size of the new
-> mapping and the VM_ACCOUNT pages it replaces. It then zeroes
-> vms->nr_accounted so that unmapping the old VMAs does not return their
-> charge, which now backs the new mapping.
-> 
-> If the operation fails after that point, the error path returns
-> map->charged, i.e. only the difference. By then vms_clean_up_area() has
-> zapped the page tables and closed the old VMAs, so
-> vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
-> finishes the unmap with vms_complete_munmap_vmas(), which uncharges
-> vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
-> never created, and the charge of the old ones is never returned, not
-> even when the process exits.
-> 
-> No privilege is needed to hit this, only a file whose mmap hook fails,
-> for example a socket (sock_no_mmap() returns -ENODEV):
-> 
-> 	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
-> 		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> 	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
-> 	     socket_fd, 0);
-> 
-> Every iteration adds len to Committed_AS for good. With
-> vm.overcommit_memory=2 this lets any user make all further accountable
-> allocations in the system fail with -ENOMEM.
+On Wed, Oct 14, 2026 at 07:02:54PM +0200, Sebastian Reichel wrote:
+> This codec is typically used with ALSA UCM, which right now falls back
+> to handling mute in software. Expose proper hardware mute control
+> considering the driver already handles it internally anyways, which
+> allows UCM to bind speaker mute LED to the new control knob.
 
-I don't think is urgent nor does it have security implications. You can
-already broadly screw up the system from any user when overcommit_memory=2.
-This just goes around the single-process user_reserve_kbytes AFAICT.
-Am I missing something?
+The reason we have the mute control in stream startup is to mask
+glitches caused by the hardware during startup, for example clocking
+random things out of FIFOs.  Are we sure that this isn't an issue?
 
-Just looks like a good old bug to me.
+--rGybbNyIWZeQcPR1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> Once the new mapping has taken over the charge of the mappings it
-> replaces, it owns the charge for all of its pages. Record that in
-> map->charged, so that the error path returns all of it.
-> 
-> A failure in __mmap_setup() itself is not affected: it happens before
-> the charge is taken over and the old VMAs are reattached with their
-> charge intact.
-> 
-> Original fix generated by an LLM and sent in private by Josef.
-> 
-> Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: call variable "uncharged" and make it const, adjust/simplify comments ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+-----BEGIN PGP SIGNATURE-----
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrRE2sACgkQJNaLcl1U
+h9Cn1wf/Slq1y4Lm483XDuKVG3SRy1PXcUpORrcXVkeIpS/c37hp9Yl7MkJF4vId
+/aqM2eA7ziot50gQQqCID+y3mgpENg9APR8KyGoVRbat2rPhIF/u43DwhYL5oPH9
+VqhfXeyn+P/rTu8bCaHeEAL1XPuVEQVPP8K0d6vsx3FEwK1KMv3hY3PlVtbhaYfo
+nItyCkaAewIPRiEPoPYR1zQZj4PQLq3Lz23h1tOP0t1v4RrZqhUmaoI8g7NkAcXD
+0Z41yjJn6d3ip3CFfGqkAS8MCjBMprD98wEK2QNmnQYNZbiSOaQR3tzBgsFgwvuG
+8NMeyGCQH7l3SBFt1PCB96Q/zmL1dQ==
+=qF5u
+-----END PGP SIGNATURE-----
 
--- 
-Pedro
+--rGybbNyIWZeQcPR1--
