@@ -1,40 +1,64 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322D73B5314;
-	Thu, 15 Oct 2026 02:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B131C3AB5C3;
+	Thu, 15 Oct 2026 02:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030376; cv=none; b=WSdAkkHZ1btVOrNoXPTWvUyeVOX+Mq4NJiPWsSoiyihCOu2yI9vT456wEOd3oTxe2+uuZ4tN0fv00j50MSydXTYep+7h4GtGTvIySdD7ei7enps4wq1tMTbuNcscBcnMqc7+GVAb/Kf5Cy/CSK9831YT1dNsfkly6T2G12TtolQ=
+	t=1792030396; cv=none; b=SgwsYx3+JMhbAMkgL5iDBlYyDFgImtMC1DUFcTEHM/3PKmGfynD3zAWnciNb1bHDrl7tXDdxmLoTk5z4d4Ms0uQRzi4O0WO1iERtNC10nGM50Ymg7ANMT4sk3/ZZmh5T6b+i8rd8EwGNIWLxNu2F1/K7peDdki47T8G0iYkgqp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030376; c=relaxed/simple;
-	bh=XYNbB6cQO1CmStFe0RCQDlPRgWVXev5Kqq1wi6EjdzA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Wlns1VGwdVgdMxNsUnf5HPt86cBTzvuHjKxl7eIBOcNCFf6oh+V0XDIO+vEYDq4BEe1GDHEdellWIFmYqiUtLhoZHCDZ9vYgqh9i/nEvFSylX0exYTQwBX6fXYMeTPQN5FHFSUdaeF70OLY/SRZhxFd788TA6SRAc4X8Jqg/nI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JsZAufML; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792030396; c=relaxed/simple;
+	bh=FKA2jSXqX0dagfIFgcM698bHdO4XEa7qsIc/R/FB9Xs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=urzV9mWt0lS0w4Os2LVgEkJb+df7CuvN2VohVgFuH1zvoTXaSmEqvygpzwvawNeq3LMX9bbrvmbbeoO0EAxnHtZQoXpOykvRuskFa4cczsHQcRl2oAHhc6j1N7hsfkPyiruYvN1sa2DzNZIg6tEGJWPtK2iB0dp5JM91Qi7obFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vD0/0J66; arc=none smtp.client-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JsZAufML"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0j
-	ET81PnFNgNqpKzJuA5wHASKLaxhr+lBNloSaPkHyc=; b=JsZAufMLItjlzZHO3E
-	z1mH+SROF3tYQq6hyZeDv4kP4hvRHTOAoBNTywZ6oyyM91B8TpmH1bbIaBYqDXZH
-	tMycVGbbRs91ljH08SMjMCr4OJwJg6aMy4fbwKE14NjYNwRKLgOC1mnvX88ttB1H
-	kYqno6Cc0a/uY6vTVYuOPGUxQ=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnfyaBNtBqXMiMAA--.64967S2;
-	Thu, 15 Oct 2026 10:12:19 +0800 (CST)
-From: wangdich9700@163.com
-To: tiwai@suse.com,
-	wangdich9700@163.com,
-	perex@perex.cz
-Cc: wangdicheng@kylinos.cn,
-	linux-sound@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vD0/0J66"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792030388; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=fmE+Ta62ZCw4xFw2n1IQJCmp7u5EmXNXXoXF3v2gT1Q=;
+	b=vD0/0J66FDnfVABLLXRqe7I4corEEyoHcHMp60VVbyftKDSsJ3lzQs9UUjvh7WsV4J0f4XwaQlembW1HsISYQyHcnATO/ttWrNSfF/AzjpoNAOLl+TAhtClvLcWuy6v3+taJxtoJbeRd6PEclJY+n4dc9XFdhqzLjJ/ofYzS3Bg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XCqJ087_1792030385;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XCqJ087_1792030385 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 10:13:06 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	luke.r.nels@gmail.com,
+	xi.wang@gmail.com,
+	shuah@kernel.org,
+	rgbi3307@gmail.com,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ALSA: hda/realtek: Limit Line In boost and ADC gain on DECENTA MATX03
-Date: Thu, 15 Oct 2026 10:12:10 +0800
-Message-Id: <20261015021210.106392-1-wangdich9700@163.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH bpf-next 2/3] selftests/bpf: Enable private stack tests for riscv64
+Date: Thu, 15 Oct 2026 10:12:37 +0800
+Message-ID: <20261015021238.5657-3-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015021238.5657-1-cp0613@linux.alibaba.com>
+References: <20261015021238.5657-1-cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,99 +66,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnfyaBNtBqXMiMAA--.64967S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF4fKF1kWrWDWr1xWry3Jwb_yoW5tw4rpF
-	1Sy3W5CFs3WryIyrsxtr1UZw1rGa48Jr1rGay3t34Svan8Ar1kGayavrW5tF15Jr1rKF1S
-	vr9aqa45KrnxZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRfM3iUUUUU=
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbC5wN8y2rQNoNPXgAA3N
 
-From: wangdicheng <wangdicheng@kylinos.cn>
+The RV64 JIT now supports the private stack. Allow the existing
+verifier and struct_ops private-stack tests to run on riscv64 and add
+the expected RV64 JITed instruction patterns.
 
-The DECENTA MATX03 (ALC897, SSID 1e0b:1297) exposes a high gain
-range on both the Line In pin boost and the ADC input amp. Pin 0x1a
-reports nsteps=0x03 with stepsize=0x27, that is 0, 9.75, 19.5 and
-29.25 dB. ADC 0x08 reports nsteps=0x3f with stepsize=0x02, that is
-0 to 31.5 dB in 0.5 dB steps, and defaults to 0x3f (maximum). The
-combined 60.75 dB analogue cascade overloads the front-end when the
-source level is high, producing audible noise during Line In
-monitoring.
-
-Add a new fixup alc897_fixup_limit_linein_boost that overrides the
-amp capabilities of pin 0x1a to nsteps=1 (max ~11.75 dB) and ADC
-0x08 to nsteps=1 (max ~0.5 dB). The total gain drops from 60.75 dB
-to ~12.25 dB, eliminating the clipping.
-
-Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 ---
+ .../bpf/prog_tests/struct_ops_private_stack.c |  3 +-
+ .../bpf/progs/verifier_private_stack.c        | 41 ++++++++++++++++++-
+ 2 files changed, 42 insertions(+), 2 deletions(-)
 
-v1->v2:
-- Simplify the fixup function to use hard-coded NIDs (0x1a, 0x08)
-  instead of generic pin/ADC iteration.
-- Move the SND_PCI_QUIRK entry to the proper position sorted by
-  PCI SSID order.
-- Drop the model name addition from alc662_fixup_models[] since it
-  is not needed.
----
- sound/hda/codecs/realtek/alc662.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662.c
-index eff7c83b9c59..c1c7277b6754 100644
---- a/sound/hda/codecs/realtek/alc662.c
-+++ b/sound/hda/codecs/realtek/alc662.c
-@@ -198,6 +198,24 @@ static void alc897_fixup_lenovo_headset_mode(struct hda_codec *codec,
- 	}
- }
+diff --git a/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c b/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
+index 2b3ec2b79091..103179ff8733 100644
+--- a/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
++++ b/tools/testing/selftests/bpf/prog_tests/struct_ops_private_stack.c
+@@ -6,7 +6,8 @@
+ #include "struct_ops_private_stack_recur.skel.h"
+ #include "struct_ops_private_stack_large.skel.h"
  
-+static void alc897_fixup_limit_linein_boost(struct hda_codec *codec,
-+					    const struct hda_fixup *fix, int action)
-+{
-+	if (action != HDA_FIXUP_ACT_PROBE)
-+		return;
-+
-+	snd_hda_override_amp_caps(codec, 0x1a, HDA_INPUT,
-+				  (0x00 << AC_AMPCAP_OFFSET_SHIFT) |
-+				  (0x01 << AC_AMPCAP_NUM_STEPS_SHIFT) |
-+				  (0x2f << AC_AMPCAP_STEP_SIZE_SHIFT) |
-+				  (0 << AC_AMPCAP_MUTE_SHIFT));
-+	snd_hda_override_amp_caps(codec, 0x08, HDA_INPUT,
-+				  (0x00 << AC_AMPCAP_OFFSET_SHIFT) |
-+				  (0x01 << AC_AMPCAP_NUM_STEPS_SHIFT) |
-+				  (0x02 << AC_AMPCAP_STEP_SIZE_SHIFT) |
-+				  (0 << AC_AMPCAP_MUTE_SHIFT));
-+}
-+
- static const struct coef_fw alc668_coefs[] = {
- 	WRITE_COEF(0x01, 0xbebe), WRITE_COEF(0x02, 0xaaaa), WRITE_COEF(0x03,    0x0),
- 	WRITE_COEF(0x04, 0x0180), WRITE_COEF(0x06,    0x0), WRITE_COEF(0x07, 0x0f80),
-@@ -326,6 +344,7 @@ enum {
- 	ALC897_FIXUP_HEADSET_MIC_PIN3,
- 	ALC662_FIXUP_CSL_GPIO,
- 	ALC897_FIXUP_BEELINK_SER6_AMP,
-+	ALC897_FIXUP_LIMIT_LINEIN_BOOST,
- };
+-#if defined(__x86_64__) || defined(__aarch64__) || defined(__powerpc64__)
++#if defined(__x86_64__) || defined(__aarch64__) || defined(__powerpc64__) || \
++	(defined(__riscv) && __riscv_xlen == 64)
+ static void test_private_stack(void)
+ {
+ 	struct struct_ops_private_stack *skel;
+diff --git a/tools/testing/selftests/bpf/progs/verifier_private_stack.c b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
+index 3d9994a52464..d9cebbc7355d 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_private_stack.c
++++ b/tools/testing/selftests/bpf/progs/verifier_private_stack.c
+@@ -8,7 +8,8 @@
+ /* From include/linux/filter.h */
+ #define MAX_BPF_STACK    512
  
- static const struct hda_fixup alc662_fixups[] = {
-@@ -787,6 +806,10 @@ static const struct hda_fixup alc662_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_gpio4,
- 	},
-+	[ALC897_FIXUP_LIMIT_LINEIN_BOOST] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc897_fixup_limit_linein_boost,
-+	},
- };
+-#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64)
++#if defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || \
++	(defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64)
  
- static const struct hda_quirk alc662_fixup_tbl[] = {
-@@ -857,6 +880,7 @@ static const struct hda_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1b35, 0x1234, "CZC ET26", ALC662_FIXUP_CZC_ET26),
- 	SND_PCI_QUIRK(0x1b35, 0x2206, "CZC P10T", ALC662_FIXUP_CZC_P10T),
- 	SND_PCI_QUIRK(0x1c6c, 0x1239, "Compaq N14JP6-V2", ALC897_FIXUP_HP_HSMIC_VERB),
-+	SND_PCI_QUIRK(0x1e0b, 0x1297, "DECENTA MATX03", ALC897_FIXUP_LIMIT_LINEIN_BOOST),
- 	SND_PCI_QUIRK(0x1e63, 0x6d9a, "F+ FLAPTOP r", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x1f66, 0x0202, "Beelink SER6 Max 6900", ALC897_FIXUP_BEELINK_SER6_AMP),
- 
+ struct elem {
+ 	struct bpf_timer t;
+@@ -42,6 +43,14 @@ __jited("	mov	x0, #0x2a")
+ __jited("	str	x0, [x27]")
+ __jited("...")
+ __jited("	ldp	x25, x27, [sp], {{.*}}")
++__arch_riscv64
++__jited("	addi	sp, sp, -0x20")
++__jited("...")
++__jited("	sd	s5, 0x10(sp)")
++__jited("...")
++__jited("	sd	a0, -0x100(s5)")
++__jited("...")
++__jited("	ld	s5, 0x10(sp)")
+ __naked void private_stack_single_prog(void)
+ {
+ 	asm volatile ("			\
+@@ -60,6 +69,10 @@ __jited("	subq	$0x8, %rsp")
+ __arch_arm64
+ __jited("	mov	x25, sp")
+ __jited("	sub	sp, sp, #0x10")
++__arch_riscv64
++__jited("	addi	sp, sp, -0x30")
++__jited("...")
++__jited("	addi	s5, sp, 0x10")
+ __naked void no_private_stack_nested(void)
+ {
+ 	asm volatile ("			\
+@@ -113,6 +126,14 @@ __jited("	str	x0, [x27]")
+ __jited("	bl	{{.*}}")
+ __jited("...")
+ __jited("	ldp	x25, x27, [sp], {{.*}}")
++__arch_riscv64
++__jited("	addi	sp, sp, -0x20")
++__jited("...")
++__jited("	sd	s5, 0x8(sp)")
++__jited("...")
++__jited("	sd	a0, -0x200(s5)")
++__jited("...")
++__jited("	ld	s5, 0x8(sp)")
+ __naked void private_stack_nested_1(void)
+ {
+ 	asm volatile ("				\
+@@ -183,6 +204,16 @@ __jited("	bl	0x{{.*}}")
+ __jited("	mov	x8, x0")
+ __jited("	mov	x8, #0x0")
+ __jited("	ldp	x25, x27, [sp], {{.*}}")
++__arch_riscv64
++__jited("func #1")
++__jited("...")
++__jited("	addi	sp, sp, -0x20")
++__jited("...")
++__jited("	sd	s5, 0x8(sp)")
++__jited("...")
++__jited("	sd	a0, -0x200(s5)")
++__jited("...")
++__jited("	ld	s5, 0x8(sp)")
+ __naked void private_stack_callback(void)
+ {
+ 	asm volatile ("			\
+@@ -313,6 +344,10 @@ __arch_arm64
+ __jited("	mrs	x10, TPIDR_EL{{[0-1]}}")
+ __jited("	add	x27, x27, x10")
+ __jited("	add	x25, x27, {{.*}}")
++__arch_riscv64
++__jited("	addi	sp, sp, -0x20")
++__jited("...")
++__jited("	sd	s5, 0x8(sp)")
+ int private_stack_async_callback_1(void)
+ {
+ 	struct bpf_timer *arr_timer;
+@@ -342,6 +377,10 @@ __arch_x86_64
+ __jited("	subq	$0x100, %rsp")
+ __arch_arm64
+ __jited("	sub	sp, sp, #0x100")
++__arch_riscv64
++__jited("	addi	sp, sp, -0x120")
++__jited("...")
++__jited("	addi	s5, sp, 0x100")
+ int private_stack_async_callback_2(void)
+ {
+ 	struct bpf_timer *arr_timer;
 -- 
-2.25.1
+2.50.1
 
