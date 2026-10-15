@@ -1,145 +1,220 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011070.outbound.protection.outlook.com [52.101.125.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA30E2571B8;
-	Thu, 15 Oct 2026 02:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031746; cv=fail; b=FtYag56u9CKIZ33JDIrprXrULG9gqgSttr+MGoAt5kAibTA3VUjyZz0YEOTLPoyw6jJerFpawlRvizp6JP9IA9EJt0MBLHysBfD5sO2eKgdPSNQXce/PhTOVG/0JcjPWJoG56tWEy5C6uQSuLtRv4/LMTtabwb33a1WpeDIXVis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031746; c=relaxed/simple;
-	bh=jvuQwC+NJbPPMVOxFe1QKVtdPALZ5ef6Mrkcrdam4Eg=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Xa787e10icIpy5T7jNZHLbVMKfNRKCLy6rdTNaBl4xmOVD55928AvI7yIA9i3UcmV8FXf3RZ6zkVretRPEf9zUKtDi0ALzZ6kXF1HNw93wko2JlITIPLhnyOAOjwddwCrUutOFjRPBXl3ltaObnuX67lXPR4HnbNtK+pl+ySex8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=l4ZQ1igC; arc=fail smtp.client-ip=52.101.125.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38813D1702
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792031781; cv=none; b=btW2u68kE2wZuRoB4j1y6Lgtw8ZaETV2w1S8JLqjf09JdrREWhC2eRdPQTGE/AfVrkTeCDxYv4fUaPLDxXKgcef1mzdqjjH/azX42jl+mx9f8FPWiPMWlvF+UDqRdqYpeEoREJ8zC2Bw+Ap1Hfyk0xYZSA6l6TO8oESG0WQRjfs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792031781; c=relaxed/simple;
+	bh=nv5ZXXeoddKBBKKZMh1sJM6onE/5yXh7OuyadN7InYY=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=F9mi9tvGUEGBr9hPfV7ZH4s6erSlbRY8fpIUo5oWtbh1y7T40M6tww9wWXcY6BFtUaiE6C+g20VbJwY2rCjJSiLJcWbuPSlTwLOIZrwhI6bkWTvefy8bqfAdIoF5/7mIWvLCbVgwE4HM2HZtp+i2nvQh7s2508ZbUs0sYpHt7cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PlofQ6bB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="l4ZQ1igC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GtnihWP3OAyL5xg5nlrIrXjdYMNThmaUgatKZEcWn45K2DHAQWPIL1YgD6Bx/XxzhrCul16X2qV+QZyq5o72Nil+TlgVPv9FvhRHY/kV6aZbejibc3ik58NJalYhFeimGDyE9OaCUMiDdhMm8eWAt8rSm0jajRtCJuHKNMsW4jSJIW3WR7l0wC2fNa3LCdPqhowNTWGoV5vn/PNht//3I06P3lWYQKZTEBLbJjYJKjcixbznBo94/4jpTrT1v4ZKAg/ym+Y9Kxv3j+8j6QqVy3EZx3UBhBpFIzPWl7dqmAWow8zN0TOK1hgwhyIppbfKzE5LoFelFFpz1yln8vPdbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YTogCn0JSYB6w/kPzwjYV9roTsldqHaPF05rTRPF7YY=;
- b=Uy5keP2sPVAQ3qWvAePnL+O9ynsI/SNyf0yG6OTrzSvUXWxB5UgPadKAKGHr1gGumJBkuSL+MjrqbQzlN+Td1C27/uA5v2JfHT8vxSLRGcQirRW7OzEmN4NxNDIA9xkF/IDs8/gCo1ECoU6BjT9fWpHNF6mdAHxHFwukkjSjO/QMB9o5Ne43ilh6z7b78gqMWE3h5+/lJ/ykU+vF0vswXdvz0XgfujyaWd7X2RpHFohKcMPUVzvwfdDccrPq2PmXAOnMnJa5Qn25nOepSg59PzqTPoCABphSHUouf6t/bzUPP3UyUpuPHwmiBCKWKi02yDTf9WgoB0cvublnufVrmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YTogCn0JSYB6w/kPzwjYV9roTsldqHaPF05rTRPF7YY=;
- b=l4ZQ1igCNEcKXw+MDDFXWQP6UhozbmmbOqA7qLfqE0caNDrgUUcMRZzcdRt2cWZRozIqCxY5TW35KYMufDUtyowQieDsiiHlyE2F9qAcQJ2mvu/NnkpdB3H3uoNYMEv1V2HzPwDSriHuqttidU9TeXSWxt78+jk9j3rt5zq1aCY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14) by TYWPR01MB11147.jpnprd01.prod.outlook.com
- (2603:1096:400:3f4::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
- 2026 02:35:42 +0000
-Received: from OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294]) by OS9PR01MB820914.jpnprd01.prod.outlook.com
- ([fe80::12e4:c507:3730:2294%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 02:35:42 +0000
-Message-ID: <878q3zd72a.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	<linux-sound@vger.kernel.org>,
-	<tiwai@suse.com>,
-	<perex@perex.cz>,
-	<amade@asmblr.net>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/7] ASoC: core: Create new components in sane state
-In-Reply-To: <eb66c781-0c7f-4e37-bde7-658355f87428@intel.com>
-References: <20261007133353.455185-1-cezary.rojewski@intel.com>
-	<87pkxexyr6.wl-kuninori.morimoto.gx@renesas.com>
-	<ed059f1e-2390-4e1d-bd1a-cff08a3441ad@sirena.org.uk>
-	<40696247-e763-40d8-9d4e-338047cdd4fe@intel.com>
-	<875wz5yo67.wl-kuninori.morimoto.gx@renesas.com>
-	<eb66c781-0c7f-4e37-bde7-658355f87428@intel.com>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 15 Oct 2026 02:35:42 +0000
-X-ClientProxiedBy: TYCP286CA0018.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263::9) To OS9PR01MB820914.jpnprd01.prod.outlook.com
- (2603:1096:604:50f::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PlofQ6bB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD811F000C4;
+	Thu, 15 Oct 2026 02:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792031779;
+	bh=6eW/eHF/I8EA6tsRH9MahpuPY32W/n9xdRW5mp5dtXg=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=PlofQ6bBIUNPxuhxtAybTA/7SR3VM+2YPFHXWUOzLJLJxYiNWwjYmr3s7gpWZgGOo
+	 FpWPYubVSYEytqB9fkkeHG6HlYdNC/ZT/GreDJkrnOB8LSjWEx4JaSxzxVwbqR/44n
+	 vGIxNcvueLQRhd6NDln963Y/oygcYIyb8zelLkSciuhufW9ury2Z614tJP7Zt1ygFS
+	 hFjmKSSWepR6f9YzDw5zcKCRHuJaheMrGfIx7p7BfZqFCq2rKu5N10C/Zx05IvbHNe
+	 0HPSYtfS2rCHnZB4g5b89Bnpm41Z/gopD0qquqQZueP3Ohvdy/q7x/J/iMlFdSAotV
+	 zXcBgeJI7Zqog==
+Message-ID: <51e9b2c1-6e99-4d5b-992d-02294ab2b384@kernel.org>
+Date: Thu, 15 Oct 2026 10:36:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS9PR01MB820914:EE_|TYWPR01MB11147:EE_
-X-MS-Office365-Filtering-Correlation-Id: 885fc4c6-e0e7-4fb8-6fe2-08df2a650204
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|52116014|376014|6133799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	+fkQytaH1bNhXY7r0+XATqMJk9w1hsklSGe4p5V9vmZ1APXSPypBzS0H8zZL9cEAiPy1l3s0KnTuQ8mTX1pumGP0oOl+ZCncKLZsp5ka358ZSxn4oJq2jWfhi+xEsuhSwYADrQ7rzTxkiCbJHwe0+BAG8OxFioA5DrYhSqU2ebdMzHvoI4VgpOJJy8qfFIga4UFMZ0NpbBs/dI1aOHUDAVyVsM3wsWD2EtnOKA3FJa+bFgso7cEo2FFctaXvWNzi9QMhmNrQxvPTTRyTXJaU0zVRIMTncD7A8TG5YX00IX3pP8NH7iGES+8OFHl268nwF0OooxkpWJgewanhrUvI/7Aqjf00ET0tvBrEEbi9WkOAp9cLy8rhm8kLM5qAhrVJ4JW6RI1wXJfCJ6Jl47aeQfCd7pDyWBisQgvJCIcCDwe6u9LH8A+2DHgzNrrp++pz0v6BClKNCpSBnI19fjlxhReQyrAGDZM3KvHtux7kpSThaXKwfeigzZFDaqCQcwRj7PiKP7YAxbRIkgUWMZpCkggvLIhTXUYe+SUzQqV1syDRytZwlzdXKHrloF+mpCve/nHT6oI1Uy/teLS834pWpHqfYlus8E0QosObNWL9VQXrNg6a7dtlSTLLnejuzGoG5sFRgm6GNB8U+qI0Hgmp8e0Gxj2vxMpAFyiA+O/w2FbkigzWJ5536cm02wUBfvrlogR4fjpewThvKfoaL4iC8Ja4bzS3Vp4om1seFHcGrJo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9PR01MB820914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(52116014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VNMTyR30cKzRI8hRLQEMfa3fulxf+A+wf07li9IPI+vAlI+vZu5J7FbQqZp9?=
- =?us-ascii?Q?NP+hxNi1Utn42Ek9iRCpI3kNtllmvJOe/T/8DyIkPTY95rB5DT4dP+HJXGTl?=
- =?us-ascii?Q?3vLxet4XL0yIpStbU2+YvVJ2kDYkz63vwuNgTbOzoUqM0gptxtFPV4xWEbFl?=
- =?us-ascii?Q?ZMwqHeNM48GZCVuSwjuQVf3ykdNKczFc5BoU5aSGrSinBqaS6AvFN8xnM23y?=
- =?us-ascii?Q?cJAN8Zkm+OWUERPdyE+eJMJ0gjFZoz4LQHvzxSk2uI38YjYc5RlBuvJDvjeN?=
- =?us-ascii?Q?l9sNuquLDIT4bKE+POFTZz31sa9hmaUKO7P/kjDxcCiuc+ZZFWj6HUE1RPL3?=
- =?us-ascii?Q?p5P0zf0bwR0K5mn6N6RkQ6Tuqatnag5Ukt6tnUNRcqnEcAdL1Du2H2bR66CQ?=
- =?us-ascii?Q?rLJ/lY67H9YqlyixKXPN8H8zgTfOt5XVua7OBZ75XStu2D/P0FL1BSGjIVwA?=
- =?us-ascii?Q?yGOTy0X6OvrzdihgFkf8qD48QYhxLUJ/0Gi69nY0hW2PYPob50pDayu5jwjt?=
- =?us-ascii?Q?YFs88Q+42KqKAtIo0S8gXiwOrPYfMlVGDOxl3UG4GeK91IGj0PfEn/7IK8nT?=
- =?us-ascii?Q?+gCcB9QtHNAvXfCa510WfexZDDB9fzK5PGUTgSTPRQx4PfSUtXReJkCLV7tX?=
- =?us-ascii?Q?YUN8M4LIMfQwnmLeOmqH9UJ+WH75JeZdeLv2KUxsjlhxuDUqmcZMnLJO6fm1?=
- =?us-ascii?Q?gwrfFvD8MH1pRhlxSrXBL4dRbpX6NXGxaEXyD8IYnRnZKPya0tlL5ZP79HZi?=
- =?us-ascii?Q?S7MQFqDzwW6zr0eVCzpewnLTKtHaUhU1/Aol3VPug+qV5jH4C34L9WKUSSfZ?=
- =?us-ascii?Q?fFtvJsCneJxfntUqTCjg/Y+hqRX7/x8KIGSumjk2qQUAKquLp4CYqi+cfqOh?=
- =?us-ascii?Q?JbrEFwhWh2Q/O+1x/zHcuRksGMuH8H4YmXtQYnPgw6gh9U9rcwLQ56b8dnjd?=
- =?us-ascii?Q?5cnCRZi48BY1ByMwdRmxASpa6h/7cBg3ND6BjGhRIWuDW2lKAcsVZihs/LKt?=
- =?us-ascii?Q?nYhW4QzGaFiu4jjsXP98uzWSvJ3Cufl4fSels4WrTh1O9aK/2stqN/B+SE0F?=
- =?us-ascii?Q?pTCjDPXm5UgwUbK2hpYDm+eEkaR6gZ1a84qDKwOFZWg/yVYdTvWxN3GfC17k?=
- =?us-ascii?Q?dg2Y3trqGoQtP5fTyQNKkN4e/JBQVl671NhtGZtA2zo5r1ZCC5xTt/LiTV/u?=
- =?us-ascii?Q?ORLJf2ASEX/75SNZCqNkrhlLqNLsBpvxsNbaBXag0FwM4rv8gOr+moglU6V6?=
- =?us-ascii?Q?FWDtxzsFIAYCXxBNUVBdIgX1lem0ui+zEWVJIsrZOq3mo5xGBoAYMwsKVzYy?=
- =?us-ascii?Q?HZjioeQbc3sPHDQUVMdqcUnEsSAaHND0/p511GgN+rFb5GO9NDF5nh/qFeM3?=
- =?us-ascii?Q?b8nuK3eeEslw/jaHUAyGG9FrOomwnwnukT7+PBUSVUajuhUZ+b7CXk4ul2Ux?=
- =?us-ascii?Q?gs1khrOuIyMG75G3G8AgrnEDGXC8076qM18Tis+zZQvI8IbF16w6VnpAwsy3?=
- =?us-ascii?Q?Dufs8Sc8eq+PCtVbcOdB6eKNX59AlKk2kxGbE6P9z3zqMeJO77IaU4KtYw6a?=
- =?us-ascii?Q?8m3gLmdmCL6gbZt3TUpBuHcDM50l+oEQbkcHPm017aF1hDbhJsE+rUR6MGMG?=
- =?us-ascii?Q?6prdEVKh3owM2OVrFEtJjXWbPMC8eANqTNCAJN7X/lis9clrU7jlf3pmjupu?=
- =?us-ascii?Q?VANVGUSvwqQxkmg473L+7SXHZspr3fam4AhMC2iaxV6AhJWQ6EEP49gnagHz?=
- =?us-ascii?Q?LQOGW+BqOoM1R7y/x1FH6v+E5dn5gjTAB2bf26WOcpFBdQAhpOSc?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 885fc4c6-e0e7-4fb8-6fe2-08df2a650204
-X-MS-Exchange-CrossTenant-AuthSource: OS9PR01MB820914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 02:35:42.4813
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kOVDUyg7Na95unNZ4pvy/9CwAMoMB6xU7hErd/DYC8IuNRM/oFhLaSkcSTVIAy0no/0t1aqCeH4JfTF+k1CF9e6QWiSrU1faKVMoIVFj5591vnY5D50dCo2eEn1fV2TJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11147
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org
+Subject: Re: [f2fs-dev] [PATCH v5 00/16] f2fs: support & optimize large folios
+ for writable files
+To: Jaegeuk Kim <jaegeuk@kernel.org>, Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+ Barry Song <baohua@kernel.org>, Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ Juan Yescas <jyescas@google.com>, Daeho Jeong <daehojeong@google.com>,
+ linux-kernel@vger.kernel.org, Dev Jain <Dev.Jain@arm.com>,
+ David Hildenbrand <David.Hildenbrand@arm.com>,
+ Pengfei Li <lipengfei28@xiaomi.com>, Bo Zhang <zhangbo56@xiaomi.com>,
+ Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Ryan Roberts <Ryan.Roberts@arm.com>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <atAO6ykqwGgZq77y@google.com> <atA24UMtAqkmz_R8@google.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <atA24UMtAqkmz_R8@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Nanzhe,
 
-Hi Cezary
+It needs to set .folio_blkcnt = 1 in move_data_page()
+in "f2fs: carry subpage offset and count in write IO" rather than
+in "f2fs: make GC migration large-folio aware"
 
-> > We would like to keep snd_soc_component_xxx() naming.
-(snip)
-> I disagree about the naming part.  IMHO there should be a clear division
-> between object-level and general-level functions.
+On 10/15/26 10:13, Jaegeuk Kim via Linux-f2fs-devel wrote:
+> Ok, this comes when applying "f2fs: carry subpage offset and count in write IO".
+> 
+> On 10/14, Jaegeuk Kim via Linux-f2fs-devel wrote:
+>> Hi Nanzhe,
+>>
+>> Could you please check IO submission path for Zoned block device?
+>> I hit this.
+>>
+>> [   93.100225] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.100420] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.100551] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.100948] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.101432] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.101762] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.101907] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.102564] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.103054] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.103447] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.103667] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.104294] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.104373] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.104449] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105220] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105253] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105532] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105575] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105606] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.105985] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.106192] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.106692] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.106799] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107015] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107090] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107113] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.107268] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107288] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.107499] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107511] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.107707] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107724] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.107770] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107781] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.107929] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.107941] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.108040] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.108050] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.108166] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.108179] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.108322] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443312; zone offset 19056; I/O scheduler (none); rq 00000000653b6a70 {.op=WRI
+>> [   93.108341] sd 0:0:0:4: Retrying unaligned write for zone 2639; offset 259443320; zone offset 19064; I/O scheduler (none); rq 00000000ea98b61b {.op=WRI
+>> [   93.108582] sd 0:0:0:4: [sde] tag#31 UNKNOWN(0x2003) Result: hostbyte=0x00 driverbyte=DRIVER_OK cmd_age=0s
+>> [   93.108588] sd 0:0:0:4: [sde] tag#31 Sense Key : 0x5 [current]
+>> [   93.108595] sd 0:0:0:4: [sde] tag#31 ASC=0x21 ASCQ=0x4
+>> [   93.108605] sd 0:0:0:4: [sde] tag#31 CDB: opcode=0x8a 8a 00 00 00 00 00 01 ee d9 4e 00 00 00 01 03 00
+>> [   93.108607] critical target error, dev sde, sector 259443312 op 0x1:(WRITE) flags 0x800 phys_seg 1 prio class 0
+>> [   93.108612] sde: zone 2639: Aborting plugged BIOs
+>> [   93.108626] CPU: 1 UID: 1000 PID: 1831 Comm: CachedAppOptimi Tainted: G        W  O       6.12.81-android16-6-maybe-dirty-4k #1 de5ea2c0fc3867082493fabcae9896176e2e435e
+>> [   93.108630] Tainted: [W]=WARN, [O]=OOT_MODULE
+>> [   93.108631] Hardware name: KODIAK DVT 1.0 based on MALIBU (DT)
+>> [   93.108632] Call trace:
+>> [   93.108633] dump_backtrace+0xec/0x128
+>> [   93.108641] show_stack+0x18/0x28
+>> [   93.108645] dump_stack_lvl+0x40/0xb8
+>> [   93.108649] dump_stack+0x18/0x28
+>> [   93.108652] f2fs_stop_checkpoint+0x1f0/0x2d8
+>> [   93.108654] f2fs_write_end_bio+0x50/0x694
+>> [   93.108657] f2fs_write_end_io+0x80/0x94
+>> [   93.108660] bio_endio+0x114/0x224
+>> [   93.108662] __dm_io_complete+0xf4/0x278
+>> [   93.108665] clone_endio+0xc0/0x26c
+>> [   93.108669] bio_endio+0x114/0x224
+>> [   93.108671] blk_zone_write_plug_bio_endio+0x104/0x334
+>> [   93.108674] bio_endio+0x160/0x224
+>> [   93.108676] blk_update_request+0x17c/0x218
+>>
+>> On 10/14, Nanzhe Zhao wrote:
+>>> This series supports large folios for most readable/writable files
+>>> in buffered I/O paths, including normal files, block-layer encrypted
+>>> files, and atomic files except for inline-data files, compressed files,
+>>> and quota files.
+>>>
+>>> It also extends f2fs_folio_state to coexist with f2fs page-private
+>>> flags and to handle large folio write path and partial truncate of
+>>> large folios correctly.  A valid large folio always carries a
+>>> f2fs_folio_state at its folio->private in the current implementation.
+>>>
+>>> Benchmark details can be found in the RFC v2 cover letter [1].
+>>>
+>>> Changes in v5:
+>>> - Rebased onto the f2fs dev-test branch (d1685c24b6c3).
+>>> - Dropped the two prerequisite bug fixes, which are now merged:
+>>>     c04f209773ec ("f2fs: read i_size once in f2fs_vm_page_mkwrite")
+>>>     b3c984358925 ("f2fs: remove mappedtodisk flag usage in mmap write path")
+>>> - Link to v4: [2]
+>>>
+>>> Many thanks to Chao and Daeho for your extensive reviews and valuable
+>>> suggestions!
+>>>
+>>> [1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+>>> [2] https://lore.kernel.org/linux-f2fs-devel/20261013115621.968742-1-nzzhao.sigma@gmail.com/
+>>>
+>>> Nanzhe Zhao (16):
+>>>   f2fs: extend folio state for large folio write path
+>>>   f2fs: carry subpage offset and count in write IO
+>>>   f2fs: support regular file buffered writes on large folios
+>>>   f2fs: support atomic file large folios buffered write
+>>>   f2fs: support large folio writeback
+>>>   f2fs: account large folio dirty data at block granularity
+>>>   f2fs: prepare mmap write faults for large folios
+>>>   f2fs: make GC migration large-folio aware
+>>>   f2fs: optimize small block size large folio read
+>>>   f2fs: support partial uptodate large folio read
+>>>   f2fs: handle partial truncate of large folio dirty subpages
+>>>   f2fs: wait for folio writeback before ffs_detach_free
+>>>   f2fs: fix zeroing paths for large folios
+>>>   f2fs: handle block cloning within the same large folio
+>>>   f2fs: allow large folio support to writeable files
+>>>   f2fs: make compressed files compatible with large folio
+>>>
+>>>  Documentation/filesystems/f2fs.rst |   10 +
+>>>  fs/f2fs/checkpoint.c               |   40 +-
+>>>  fs/f2fs/compress.c                 |    7 +-
+>>>  fs/f2fs/data.c                     | 1467 +++++++++++++++++++++++++---
+>>>  fs/f2fs/dir.c                      |    2 +-
+>>>  fs/f2fs/f2fs.h                     |  170 +++-
+>>>  fs/f2fs/file.c                     |  226 +++--
+>>>  fs/f2fs/gc.c                       |   38 +-
+>>>  fs/f2fs/inline.c                   |    9 +-
+>>>  fs/f2fs/inode.c                    |    4 +-
+>>>  fs/f2fs/namei.c                    |    1 +
+>>>  fs/f2fs/node.c                     |    2 +-
+>>>  fs/f2fs/segment.c                  |    5 +-
+>>>  13 files changed, 1716 insertions(+), 265 deletions(-)
+>>>
+>>> -- 
+>>> 2.43.0
+>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> Linux-f2fs-devel mailing list
+>>> Linux-f2fs-devel@lists.sourceforge.net
+>>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+>>
+>>
+>> _______________________________________________
+>> Linux-f2fs-devel mailing list
+>> Linux-f2fs-devel@lists.sourceforge.net
+>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
 
-Yeah, I agree.
-
-I will update my branch patches which will be posted to ML
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
