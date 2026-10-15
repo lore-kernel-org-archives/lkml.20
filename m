@@ -1,63 +1,63 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F98F49B440
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BF44FECD3
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075883; cv=none; b=nfj4FKqR+aFqF72+RlRAdadPjTLfFWfnSgCPfEsVM8fJpsOEEctk7/JrfVb062OyReceYp4TqvOVaLrA24JIx3tJGH6txrxhy7EFLgndGFxxzkOgnX6VvaQs1QUrultiT2ripVMo3EIMaJGdr9PrsiU+Sd4Gu5FGT8VYk9U5HVA=
+	t=1792075887; cv=none; b=N+hgUdFsbaIlnDvdoozd9FTOVOzjdDlCJZz4Dv7eGPJPrBKb44R6xoMeddM4aIkoWbf8Z7sdcLPkQuV2/QsjmFq1rnyumYFLdaW91VdwLc0iFTwDBBDgiNopYrQZOPVb+dtIBVq1KtZn8kzQt8TiqrH/qJ4JxbxlTcrVzDSPK5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075883; c=relaxed/simple;
-	bh=8P88TDWcLU2T5sp60zKqcEwwViVU5e6P5+MjZlW3mRI=;
+	s=arc-20240116; t=1792075887; c=relaxed/simple;
+	bh=3tXKV3O+SM5S3xVaNMyMUHBuBaaf916l7riTXvX9JJY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=efZeHjHzPOMCzVx5BYGVV9lEC7uKIrw3/ShsPJQt7cw+gEaI3di1hdR4HqagXu1HQ6tJMcmwgojWBJdi5UkQvyyYf4q8/W6h2TiOUqoSKBA2c4gOpwbWWNRvKl83G5tSsDYil7a4jVPbs3VbJRTpK0/9uo4Tdhu8O4iK2dtiXZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=nOzAYWja; arc=none smtp.client-ip=209.85.208.46
+	 MIME-Version; b=NbiQFU76I3rAhjrGKpLPxMZW7Md9pKJLN5tbve4yMVLJBWbhqUHEbN4lpx4UlAoWUMvNwMMWOr/fdnJr/D6x7D88ctc8pgTCcFvqBtM/75syyjOmHKsTgskQ8/p6Bi7RGA0yG/pxfjnYdUgLhn2UQZwNky4zELQaUS/YhMsf6RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=KNUvjbFq; arc=none smtp.client-ip=209.85.208.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="nOzAYWja"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so6113469a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="KNUvjbFq"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so7853786a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075875; x=1792680675; darn=vger.kernel.org;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075882; x=1792680682; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d2POWb4ys/IIoQxq5/DzLsmv5CwB+vOp4AJoMJxmqNI=;
-        b=nOzAYWjabjo4ugi9lP5F10DR933S0/KPlXi/pef1YyvSbZnJyTqkx4s4M8xMHajFI8
-         eA+TeVot3J0FzIiplVkLHiPgh56TP5d02NL2yb0QEYhkpX8noR0fjla5keG0TMHznv0E
-         j1xc9BmpxL27MSKzLijE3esycpV+x2/11c6hgyyvyN4HAh3CF9VuDg831hFJju8gSQda
-         7cbzWD4PpUkfWMwDjVevS4P+REh8PiyMjGmP4FjijwcN+6aZEn8oS0trO4CO9or1ktEn
-         x6wWabDDoB3pyqQzC7bozDKv5u9fQweEw8/v/bFISc0fsspCDWvAeqf6Vcctw0H4N5xc
-         DjmA==
+        bh=phQE5XZpDF7O/SOQ2cm+fhLwFnJJJa0idmGaps/4bII=;
+        b=KNUvjbFquVNplnmuXHkg6FHL9Mty306+VlctLRacuQqfQOnbFqDlPgSq52kNl/asSd
+         pWEEg9FV3myLuw3ih+WelFikaLO12V1dgn0J8qCfVZga5yUdHIzekGQYvVuZ21kXIt2W
+         BOgaVZjyDR4Wc++ZTCNhaIP9Un4zAIuw4U1e15n8E+1WoTKJQtonHWqNU24EmjmaHpIf
+         2rh+75M4kaxMM8m+m+HvJAwDGFd2kCybKBztSjSaPkOx5C69pKwd1IRABCUQYyJGg2lB
+         eYnKM5YRePKZGEr19RgqAawINQ4HoEJHgY0YzPxCtwkk4ixGKIyF9p1fxA7tHqbz+8Fu
+         zLdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075875; x=1792680675;
+        d=1e100.net; s=20260707; t=1792075882; x=1792680682;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d2POWb4ys/IIoQxq5/DzLsmv5CwB+vOp4AJoMJxmqNI=;
-        b=VQO2WEDrjICbB8Q4xeeN0QN8jJUmoxknDB61rFLUz/MdwUCJbrzPqfHoIQbEUHf7Jm
-         VlziZ/eXiSBa9y6oqTIKPfU/cbNLTiYI2/nkpcX3aRfo64G2TTdKtUuoneiXBO0OdvIX
-         ac9KJRcihbYvZkYXp3ty6HF8uVkZq6YDiLZD+4xQQBp1tIqsbE/Tyyiqi1dJyEkyjZf6
-         tzFZ6OZPT5y8ia63sobEH4reTj2eVBdwfYbSRNsNrq7Co4+v9VGRPuesiYjsNco/F3Qw
-         Jo6C2Lwb6iLwV0r7YYMSp/Wu3+ewj1d//MrYiuWUvhGMJUsh6OKquX7WcI8KljGezPTR
-         JutA==
-X-Gm-Message-State: AFq9FYJvF6UrXKZnRWFyZ6k8FxKE/ex5wfyQmkOp1+CKu6okmqPJ8T0u
-	XkAY5SjXX51u2+0+Og3c4Ncb2khrOxyidI+HiRkcc5Pw/ejUr1xg2U3jd4ZFpZgtTjM=
-X-Gm-Gg: AYBFou0tIS9dI1ATfUpGGsCROnLy00ruMm83KTV1+mglB2ZFboS2jFlpbx+EJ9L6sL/
-	zU3JYlOagSu8oeUvgqI3qlnYdLib+5xOcBsvJAfDMaktGGDM/aLr6ioTRgT1NhFy4cE4jhR4hEX
-	m7z7n/M/aQDslhPOcyrHtqHeU8LZe0qIkY7MRcg+Z1ffTsg8oEUToR4nBWhT/80WnLK/pWeSmvR
-	JTig4s8MoVK//6ir0D7Jy5cyqOYXtuIJFp2X/R0eliTNJbUm6v0iE6L9JOkCIN7XdldSdJoyQVO
-	tdHUP4HjAEqOdmXvjt2YTG0Ptn3RKve53axjhkpbqeYN6iEgN9vWa1XysgqxGmYjLIzhxrsQkSp
-	MrXiylAnoMVdZfzQPPU7eA4bGP1+zJd8g3flCcX+4w2FkWTtrEBaoD/8Wzeww/4+lwXLHQMMRkf
-	gXfGhk/x/lcLau9LnHpXPT95Va7Ol6H9YaLk/2k0XBsLywM4h8cIlgVU6zq7Z6HCDtsNi5UxSqq
-	Jz5/Jjuug==
-X-Received: by 2002:a05:6402:3548:b0:6b1:d8fe:5303 with SMTP id 4fb4d7f45d1cf-6b1d8fe648bmr9296169a12.19.1792075874217;
-        Thu, 15 Oct 2026 07:51:14 -0700 (PDT)
+        bh=phQE5XZpDF7O/SOQ2cm+fhLwFnJJJa0idmGaps/4bII=;
+        b=k5bSw9gMRfbpuVaHoPqSo5zpeEdexuuytom/ESMA2UcBZ4/YOIwjPgShts/18WS31w
+         mgC6VKP8WNjzhazvCke1nJUjlFS0fCHe2vB4l0aTYHatl4cubabqSPU2tZkVcDbvFpQT
+         ma/21e93s5qoOMxNF6Jw/CdRm5WjEFOBmDUf4oMAD4C9roUefQWRkvH4tsAoJ/GhAvLg
+         dTXmaN0v4HGtlFzOOLRDguLnnM9GTuiuCFP3TjpwMyuKqJovOuv74ilwpffWEJ0e9IpX
+         GOTNERWX+rxEF5sQRO/lYoAv+A/g1yR7N/abl1Orz9ZROyGJiML8OAm+gB2EOQo9+fOB
+         amdg==
+X-Gm-Message-State: AFq9FYJgscBV3Q3siHDS5oVzL63L2sOq2GuyDZrLm8bNCyw2lNgbRiB4
+	aqGSfrgL94UO4tD8NfWF3UONrb83HlBR2Fh0XLok5v7SBBNsASmVRQbdXmkzawGCXe4=
+X-Gm-Gg: AYBFou0DJu0SODXs6zaWhlCKbg+a7x0RoP5Mel9nKwSlVg8jMqZiPdw5e9yMhnU09Bt
+	DOOiVuaRZYZQbEoc9jId7MTxNucP/gDzbxNE1dh8PE1P3fVSib6o4F7jGg3p8NtFJq98ty5bTp+
+	4EZ1Nj3T+nvdtbS15ev0dNNHxx2JMtVv8qbyNwmoXeRY2k1XjhZuzmkP7IMOT+ra9KA3c3CQFfs
+	56tesGeX1X6yIpDiv0HPYWggiIb8kmXKKMiUahYqEhemVLB3NSsgb4Fnkus98JV+l0mKoFhxB8f
+	lrVHtCokUZ5nx2v+ch+FyDMcMtXRak83nSzLKFRh3XkgkEnEG2u8dp7UpZjgjNs047BZru1DeaK
+	SHLFcGhjPJg0Iwq+/8G3mLryYVgongC2/dBx2Rk7Gvd8Hsj5xhkLmrlaeyYMF1YfIzBWYEPlB16
+	XS8ufVZ1X/rC+Gh1o9dxv2F6iSbt7/VlWwSoxjEQxwRKIyVd0nx7uAVoRVZPx8Cs3ukTBdDpMaO
+	Lo6WlUr
+X-Received: by 2002:a05:6402:448d:b0:6ac:c1fc:8a98 with SMTP id 4fb4d7f45d1cf-6b17c28e3camr16310351a12.42.1792075881295;
+        Thu, 15 Oct 2026 07:51:21 -0700 (PDT)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038aa1aesm2506377a12.32.2026.10.15.07.51.13
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b2038ac6c1sm2695758a12.35.2026.10.15.07.51.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:51:13 -0700 (PDT)
+        Thu, 15 Oct 2026 07:51:20 -0700 (PDT)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.hansen@linux.intel.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	peter.fang@intel.com
-Subject: [PATCH RFC 03/20] ctlv: Add the root family specification and generated files
-Date: Thu, 15 Oct 2026 16:50:36 +0200
-Message-ID: <20261015145053.3664509-4-jiri@resnulli.us>
+Subject: [PATCH RFC 05/20] ctlv: Prepare message input handling
+Date: Thu, 15 Oct 2026 16:50:38 +0200
+Message-ID: <20261015145053.3664509-6-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
@@ -104,1344 +104,795 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Define the root family used by every CTLV device. Add its ABI snapshot,
-registry and manifest entries, and generated outputs.
+Add wire walking, request indexing and validated input accessors for
+generated family readers.
 
-The generated kernel descriptor is preparatory and is linked after its
-handlers arrive with device and operation dispatch.
+Keep CONFIG_CTLV unwired until dispatch completes the module.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
- Documentation/ctlv/abi/ctlv.yaml              | 186 +++++++++
- Documentation/ctlv/abi/families.registry.yaml |   7 +
- Documentation/ctlv/families.yaml              |  13 +
- Documentation/ctlv/generated-files.yaml       |  17 +
- Documentation/ctlv/specs/ctlv.yaml            | 379 ++++++++++++++++++
- drivers/ctlv/ctlv_gen.c                       | 229 +++++++++++
- include/linux/ctlv_gen.h                      | 137 +++++++
- include/uapi/linux/ctlv_families_gen.h        |  15 +
- include/uapi/linux/ctlv_gen.h                 | 271 +++++++++++++
- 9 files changed, 1254 insertions(+)
- create mode 100644 Documentation/ctlv/abi/ctlv.yaml
- create mode 100644 Documentation/ctlv/abi/families.registry.yaml
- create mode 100644 Documentation/ctlv/families.yaml
- create mode 100644 Documentation/ctlv/generated-files.yaml
- create mode 100644 Documentation/ctlv/specs/ctlv.yaml
- create mode 100644 drivers/ctlv/ctlv_gen.c
- create mode 100644 include/linux/ctlv_gen.h
- create mode 100644 include/uapi/linux/ctlv_families_gen.h
- create mode 100644 include/uapi/linux/ctlv_gen.h
+ MAINTAINERS                 |   1 +
+ drivers/ctlv/Kconfig        |  12 ++
+ drivers/ctlv/Makefile       |   4 +
+ drivers/ctlv/internal.h     |  66 ++++++
+ drivers/ctlv/message.c      | 403 ++++++++++++++++++++++++++++++++++++
+ drivers/ctlv/message.h      |  92 ++++++++
+ include/linux/ctlv_family.h | 138 ++++++++++++
+ 7 files changed, 716 insertions(+)
+ create mode 100644 drivers/ctlv/Kconfig
+ create mode 100644 drivers/ctlv/Makefile
+ create mode 100644 drivers/ctlv/internal.h
+ create mode 100644 drivers/ctlv/message.c
+ create mode 100644 drivers/ctlv/message.h
 
-diff --git a/Documentation/ctlv/abi/ctlv.yaml b/Documentation/ctlv/abi/ctlv.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 882836d85125..b308e3a5f0b6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7007,6 +7007,7 @@ L:	linux-kernel@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/ctlv/
+ F:	Documentation/userspace-api/ctlv.rst
++F:	drivers/ctlv/
+ F:	include/linux/ctlv*.h
+ F:	include/uapi/linux/ctlv*.h
+ F:	tools/ctlv/
+diff --git a/drivers/ctlv/Kconfig b/drivers/ctlv/Kconfig
 new file mode 100644
-index 000000000000..fa11bce98f46
+index 000000000000..aed3243c55fd
 --- /dev/null
-+++ b/Documentation/ctlv/abi/ctlv.yaml
-@@ -0,0 +1,186 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Checked-in ABI snapshot of the ctlv family, written by
-+# "make -C tools/ctlv abi-update".
-+#
-+# The checker compares this family's declarations and inherited stub fills
-+# against this file. Updating it is how a UAPI change gets reviewed; an update
-+# that removes or renumbers anything, narrows a bound, or makes a placement
-+# required is an ABI break, whatever this file says afterwards.
-+family: {name: ctlv, id: 0}
-+enums:
-+  op-type: {action: 1, query: 2, event: 3}
-+  op-availability: {fixed: 1, dynamic: 2}
-+  blob-type: {va: 1}
-+  blob-direction: {input: 1, output: 2, inout: 3}
-+  validation-reason: {malformed-message: 1, unknown-attr: 2, unknown-flag: 3,
-+                      nesting-too-deep: 4, missing-attr: 5,
-+                      too-many-occurrences: 6, value-out-of-range: 7,
-+                      bad-length: 8, bad-string: 9, bad-blob-descriptor: 10,
-+                      stale-generation: 11, noncontiguous-attr: 12}
-+  op-fd-access: {read: 1, read-write: 2}
-+attr-groups:
-+  family:
-+    id: 1
-+    attrs:
-+      id: {id: 1, type: uint}
-+      name: {id: 2, type: string, max-length: 63}
-+      entry: {id: 3, type: nested, max-occurrences: unlimited}
-+  blob:
-+    id: 2
-+    attrs:
-+      type: {id: 1, enum: blob-type}
-+      address: {id: 2, type: uint}
-+      fd: {id: 3, type: uint, max: 2147483647}
-+      offset: {id: 4, type: uint}
-+      length: {id: 5, type: uint, min: 1}
-+  error:
-+    id: 3
-+    attrs:
-+      reason: {id: 1, enum: validation-reason}
-+      message: {id: 2, type: string, max-length: 255}
-+      bad-attr-offset: {id: 3, type: uint}
-+      nest-offset: {id: 4, type: uint}
-+      missing-attr-id: {id: 5, type: uint}
-+      expected-generation: {id: 6, type: uint}
-+      current-generation: {id: 7, type: uint}
-+  op:
-+    id: 4
-+    attrs:
-+      id: {id: 1, type: uint, min: 1}
-+      type: {id: 2, enum: op-type}
-+      availability: {id: 3, enum: op-availability}
-+      disabled: {id: 4, type: bool}
-+      request-max-len: {id: 5, type: uint}
-+      action-reply-max-len: {id: 6, type: uint}
-+      query-reply-min-len: {id: 7, type: uint}
-+      query-reply-suggested-len: {id: 8, type: uint}
-+      event-record-max-len: {id: 9, type: uint}
-+      state-generation: {id: 10, type: uint}
-+      entry: {id: 11, type: nested, max-occurrences: unlimited}
-+      fd-access: {id: 12, enum: op-fd-access}
-+  schema:
-+    id: 5
-+    attrs:
-+      attr-id: {id: 1, type: uint}
-+      kind: {id: 2, type: uint}
-+      max-occurrences: {id: 3, type: uint}
-+      min: {id: 4, type: uint}
-+      max: {id: 5, type: uint}
-+      min-length: {id: 6, type: uint}
-+      max-length: {id: 7, type: uint}
-+      flags-mask: {id: 8, type: uint}
-+      unit: {id: 9, type: uint}
-+      scale: {id: 10, type: sint}
-+      blob-direction: {id: 11, enum: blob-direction}
-+      blob-backings: {id: 12, type: uint}
-+      blob-max-length: {id: 13, type: uint}
-+      blob-alignment: {id: 14, type: uint}
-+      reenters: {id: 15, type: uint, min: 1}
-+      attrs: {id: 16, type: nested, max-occurrences: unlimited}
-+      optional-attrs: {id: 17, type: nested, max-occurrences: unlimited}
-+      request: {id: 18, type: nested}
-+      reply: {id: 19, type: nested}
-+  event:
-+    id: 6
-+    attrs:
-+      op-id: {id: 1, type: uint, min: 1, max-occurrences: 256}
-+      queue-len: {id: 2, type: uint, min: 1, max: 16777216, unit: bytes}
-+      queue-used: {id: 3, type: uint, unit: bytes}
-+      first-sequence: {id: 4, type: uint}
-+      last-sequence: {id: 5, type: uint}
-+      dropped-count: {id: 6, type: uint}
-+attr-sets:
-+  family-entry: {id: 1}
-+  op-entry: {id: 2}
-+  op-schema-request: {id: 3}
-+  schema-node: {id: 4}
-+  op-schema-info: {id: 5}
-+  op-change-info: {id: 6}
-+  error-info: {id: 7}
-+  event-subscription: {id: 8}
-+  event-queue-limit: {id: 9}
-+  event-queue-state: {id: 10}
-+  event-overflow-info: {id: 11}
-+ops:
-+  families-dump:
-+    abi: {id: 1, type: query, fd-access: read}
-+    reply:
-+      attrs:
-+        - family.entry: {attrs: [family.id, family.name]}
-+  ops-dump:
-+    abi: {id: 2, type: query, fd-access: read}
-+    reply:
-+      attrs:
-+        - op.entry:
-+            attrs: [op.id, op.type]
-+            optional-attrs: [op.availability, op.disabled, op.request-max-len,
-+                             op.action-reply-max-len, op.query-reply-min-len,
-+                             op.query-reply-suggested-len,
-+                             op.event-record-max-len, op.fd-access]
-+  op-schema-get:
-+    abi: {id: 3, type: query, fd-access: read}
-+    request: {attrs: [op.id]}
-+    reply:
-+      optional-attrs:
-+        - schema.request:
-+            attrs: [schema.attr-id, schema.kind, schema.max-occurrences]
-+            optional-attrs:
-+              - schema.min
-+              - schema.max
-+              - schema.min-length
-+              - schema.max-length
-+              - schema.flags-mask
-+              - schema.unit
-+              - schema.scale
-+              - schema.blob-direction
-+              - schema.blob-backings
-+              - schema.blob-max-length
-+              - schema.blob-alignment
-+              - schema.reenters
-+              - schema.attrs:
-+                  reenters: schema-node
-+              - schema.optional-attrs:
-+                  reenters: schema-node
-+        - schema.reply:
-+            attrs: [schema.attr-id, schema.kind, schema.max-occurrences]
-+            optional-attrs:
-+              - schema.min
-+              - schema.max
-+              - schema.min-length
-+              - schema.max-length
-+              - schema.flags-mask
-+              - schema.unit
-+              - schema.scale
-+              - schema.blob-direction
-+              - schema.blob-backings
-+              - schema.blob-max-length
-+              - schema.blob-alignment
-+              - schema.reenters
-+              - schema.attrs:
-+                  reenters: schema-node
-+              - schema.optional-attrs:
-+                  reenters: schema-node
-+  subscriptions-add:
-+    abi: {id: 4, type: action, fd-access: read}
-+    request: {attrs: [event.op-id]}
-+  subscriptions-remove:
-+    abi: {id: 5, type: action, fd-access: read}
-+    request: {attrs: [event.op-id]}
-+  event-queue-get:
-+    abi: {id: 6, type: query, fd-access: read}
-+    reply: {attrs: [event.queue-len, event.queue-used]}
-+  event-queue-set:
-+    abi: {id: 7, type: action, fd-access: read}
-+    request: {attrs: [event.queue-len]}
-+  op-changed:
-+    abi: {id: 8, type: event}
-+    reply: {attrs: [op.id, op.disabled, op.state-generation]}
-+  event-overflow:
-+    abi: {id: 9, type: event}
-+    reply:
-+      attrs: [event.first-sequence, event.last-sequence, event.dropped-count]
-+  device-removed:
-+    abi: {id: 10, type: event}
-+    reply: {}
-diff --git a/Documentation/ctlv/abi/families.registry.yaml b/Documentation/ctlv/abi/families.registry.yaml
++++ b/drivers/ctlv/Kconfig
+@@ -0,0 +1,12 @@
++# SPDX-License-Identifier: GPL-2.0-only
++menuconfig CTLV
++	tristate "CTLV character device TLV UAPI"
++	help
++	  CTLV provides character device UAPIs described by a checked-in YAML
++	  specification. It owns the character device lifetime, the strict TLV
++	  message format, request validation, reply serialization, the large
++	  payloads a request describes rather than carries, per-open event
++	  queues and runtime schema introspection, so families only implement
++	  semantics.
++
++	  If you don't know what to do here, say N.
+diff --git a/drivers/ctlv/Makefile b/drivers/ctlv/Makefile
 new file mode 100644
-index 000000000000..2c9b9e7eee15
+index 000000000000..4f0fe41bc9e1
 --- /dev/null
-+++ b/Documentation/ctlv/abi/families.registry.yaml
-@@ -0,0 +1,7 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Checked-in ABI baseline of the ordered CTLV family registry.
-+# Updated deliberately by "make -C tools/ctlv abi-update".
-+families:
-+  - ctlv
-diff --git a/Documentation/ctlv/families.yaml b/Documentation/ctlv/families.yaml
++++ b/drivers/ctlv/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0
++obj-$(CONFIG_CTLV) += ctlv.o
++
++ctlv-y += message.o
+diff --git a/drivers/ctlv/internal.h b/drivers/ctlv/internal.h
 new file mode 100644
-index 000000000000..bf1dabdba5c9
+index 000000000000..7d2b43857299
 --- /dev/null
-+++ b/Documentation/ctlv/families.yaml
-@@ -0,0 +1,13 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Append-only registry of CTLV family names, indexed by family ID: the entry at
-+# index N has family ID N, up to 65535. The root family owns ID 0 and heads the
-+# list, and every other entry comes after the entry of the family it inherits.
-+# An entry may be marked deprecated, but never reordered, removed, renamed or
-+# reused, its position being its wire identity. Every entry must have a
-+# specification in specs/<name>.yaml, and is added by the change that adds the
-+# implementation. Fixtures under tools/ctlv/tests/ are not registered.
-+
-+families:
-+  - ctlv
-diff --git a/Documentation/ctlv/generated-files.yaml b/Documentation/ctlv/generated-files.yaml
-new file mode 100644
-index 000000000000..6773e0be0883
---- /dev/null
-+++ b/Documentation/ctlv/generated-files.yaml
-@@ -0,0 +1,17 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# Generated files for registered families.
-+version: 1
-+registry:
-+  source: Documentation/ctlv/families.yaml
-+  outputs:
-+    uapi-header: include/uapi/linux/ctlv_families_gen.h
-+
-+families:
-+  - name: ctlv
-+    source: Documentation/ctlv/specs/ctlv.yaml
-+    outputs:
-+      uapi-header: include/uapi/linux/ctlv_gen.h
-+      kernel-header: include/linux/ctlv_gen.h
-+      kernel-source: drivers/ctlv/ctlv_gen.c
-diff --git a/Documentation/ctlv/specs/ctlv.yaml b/Documentation/ctlv/specs/ctlv.yaml
-new file mode 100644
-index 000000000000..d58f02747e0f
---- /dev/null
-+++ b/Documentation/ctlv/specs/ctlv.yaml
-@@ -0,0 +1,379 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+%YAML 1.2
-+---
-+# The root CTLV family, family ID 0 and the first entry in families.yaml. It
-+# inherits nothing, and every other family name begins with "ctlv-". Every CTLV
-+# device answers these ops in addition to its own family's, and the attrs
-+# declared here appear inside family messages: the blob group is the descriptor
-+# nest of every family blob attr, the error group the error information written
-+# on failure. Nothing here may be reordered or removed.
-+
-+family:
-+  name: ctlv
-+
-+enums:
-+  - name: op-type
-+    values:
-+      - action
-+      - query
-+      - event
-+
-+  # A permission, not a state: what a device currently allows is op.disabled.
-+  - name: op-availability
-+    values:
-+      - fixed
-+      - dynamic
-+
-+  - name: blob-type
-+    values:
-+      - va
-+
-+  - name: blob-direction
-+    values:
-+      - input
-+      - output
-+      - inout
-+
-+  - name: validation-reason
-+    values:
-+      - malformed-message
-+      - unknown-attr
-+      - unknown-flag
-+      - nesting-too-deep
-+      - missing-attr
-+      - too-many-occurrences
-+      - value-out-of-range
-+      - bad-length
-+      - bad-string
-+      - bad-blob-descriptor
-+      - stale-generation
-+      - noncontiguous-attr
-+
-+  - name: op-fd-access
-+    values:
-+      - read
-+      - read-write
-+
-+attr-groups:
-+  # One record per family of the chain a device answers, as reported by
-+  # families-dump.
-+  - name: family
-+    attrs:
-+      - name: id
-+        type: uint
-+      # The registry name, also what a uevent carries. Bounded here, this being
-+      # the only place a family name is on the wire.
-+      - name: name
-+        type: string
-+        max-length: 63
-+      - name: entry
-+        attrs: family-entry
-+        max-occurrences: unlimited
-+
-+  # The nest carried by every family blob attr. va uses address; fd and offset
-+  # are reserved for later fd-backed types.
-+  - name: blob
-+    attrs:
-+      - name: type
-+        enum: blob-type
-+      - name: address
-+        type: uint
-+      - name: fd
-+        type: uint
-+        max: 2147483647
-+      - name: offset
-+        type: uint
-+      - name: length
-+        type: uint
-+        min: 1
-+
-+  # Error information: only what describes the first failure is present.
-+  - name: error
-+    attrs:
-+      - name: reason
-+        enum: validation-reason
-+      - name: message
-+        type: string
-+        max-length: 255
-+      - name: bad-attr-offset
-+        type: uint
-+      - name: nest-offset
-+        type: uint
-+      - name: missing-attr-id
-+        type: uint
-+      - name: expected-generation
-+        type: uint
-+      - name: current-generation
-+        type: uint
-+
-+  # One entry per effective op, as reported by ops-dump. Length members that do
-+  # not apply to an entry's op type are absent, as are fd access, availability
-+  # and disabled for an event.
-+  - name: op
-+    attrs:
-+      - name: id
-+        type: uint
-+        min: 1
-+      - name: type
-+        enum: op-type
-+      - name: availability
-+        enum: op-availability
-+      - name: disabled
-+        type: bool
-+      - name: request-max-len
-+        type: uint
-+      - name: action-reply-max-len
-+        type: uint
-+      - name: query-reply-min-len
-+        type: uint
-+      - name: query-reply-suggested-len
-+        type: uint
-+      - name: event-record-max-len
-+        type: uint
-+      # Advances once per op state change on one device.
-+      - name: state-generation
-+        type: uint
-+      - name: entry
-+        attrs: op-entry
-+        max-occurrences: unlimited
-+      - name: fd-access
-+        enum: op-fd-access
-+
-+  # One node of an op's request or reply tree, as reported by op-schema-get. A
-+  # node describes a node, so attrs and optional-attrs hold these same members
-+  # one level further in. Nothing here is a name: a caller matches the family
-+  # chain from families-dump to find the generated UAPI.
-+  - name: schema
-+    attrs:
-+      # Zero in a message root node, as on the wire.
-+      - name: attr-id
-+        type: uint
-+      # enum ctlv_schema_kind.
-+      - name: kind
-+        type: uint
-+      # Zero where the placement may repeat as often as the message has room.
-+      - name: max-occurrences
-+        type: uint
-+      # Inclusive bounds of an integer or enum payload, raw 64-bit values read
-+      # according to kind. An enum's values are numbered without gaps.
-+      - name: min
-+        type: uint
-+      - name: max
-+        type: uint
-+      # Payload length bounds of a string or binary attr, a string's
-+      # terminator excluded.
-+      - name: min-length
-+        type: uint
-+      - name: max-length
-+        type: uint
-+      - name: flags-mask
-+        type: uint
-+      # enum ctlv_unit, absent when the payload is dimensionless, and a scale
-+      # only ever accompanies a unit.
-+      - name: unit
-+        type: uint
-+      - name: scale
-+        type: sint
-+      - name: blob-direction
-+        enum: blob-direction
-+      # Mask of BIT(enum ctlv_blob_type): the backings this placement takes.
-+      - name: blob-backings
-+        type: uint
-+      # Maximum external payload length, unrelated to the inline message limit.
-+      - name: blob-max-length
-+        type: uint
-+      - name: blob-alignment
-+        type: uint
-+      # Levels to climb to the node whose members are this one's as well, one
-+      # meaning the node this one is a member of. A node that carries it lists
-+      # no members itself.
-+      - name: reenters
-+        type: uint
-+        min: 1
-+      # The nodes one level in; required and optional are different attrs.
-+      - name: attrs
-+        attrs: schema-node
-+        recursive: true
-+        max-occurrences: unlimited
-+      - name: optional-attrs
-+        attrs: schema-node
-+        recursive: true
-+        max-occurrences: unlimited
-+      # The root of each of an op's two trees, a node like any other.
-+      - name: request
-+        attrs: schema-node
-+      - name: reply
-+        attrs: schema-node
-+
-+  - name: event
-+    attrs:
-+      - name: op-id
-+        type: uint
-+        min: 1
-+        max-occurrences: 256
-+      - name: queue-len
-+        type: uint
-+        unit: bytes
-+        min: 1
-+        max: 16777216
-+      - name: queue-used
-+        type: uint
-+        unit: bytes
-+      - name: first-sequence
-+        type: uint
-+      - name: last-sequence
-+        type: uint
-+      - name: dropped-count
-+        type: uint
-+
-+attr-sets:
-+  - name: family-entry
-+    attrs:
-+      - family.id
-+      - family.name
-+
-+  - name: op-entry
-+    attrs:
-+      - op.id
-+      - op.type
-+    optional-attrs:
-+      - op.availability
-+      - op.disabled
-+      - op.request-max-len
-+      - op.action-reply-max-len
-+      - op.query-reply-min-len
-+      - op.query-reply-suggested-len
-+      - op.event-record-max-len
-+      - op.fd-access
-+
-+  - name: op-schema-request
-+    attrs: op.id
-+
-+  # Only the members the node's form has are present.
-+  - name: schema-node
-+    attrs:
-+      - schema.attr-id
-+      - schema.kind
-+      - schema.max-occurrences
-+    optional-attrs:
-+      - schema.min
-+      - schema.max
-+      - schema.min-length
-+      - schema.max-length
-+      - schema.flags-mask
-+      - schema.unit
-+      - schema.scale
-+      - schema.blob-direction
-+      - schema.blob-backings
-+      - schema.blob-max-length
-+      - schema.blob-alignment
-+      - schema.reenters
-+      - schema.attrs
-+      - schema.optional-attrs
-+
-+  # The two trees of one op, each absent when the op has no such message. An
-+  # event's one tree is reported as the reply.
-+  - name: op-schema-info
-+    optional-attrs:
-+      - schema.request
-+      - schema.reply
-+
-+  # What changed about one op, in the same attrs a dump entry uses.
-+  - name: op-change-info
-+    attrs:
-+      - op.id
-+      - op.disabled
-+      - op.state-generation
-+
-+  # The root of an error information message.
-+  - name: error-info
-+    optional-attrs:
-+      - error.reason
-+      - error.message
-+      - error.bad-attr-offset
-+      - error.nest-offset
-+      - error.missing-attr-id
-+      - error.expected-generation
-+      - error.current-generation
-+
-+  - name: event-subscription
-+    attrs: event.op-id
-+
-+  - name: event-queue-limit
-+    attrs: event.queue-len
-+
-+  - name: event-queue-state
-+    attrs:
-+      - event.queue-len
-+      - event.queue-used
-+
-+  - name: event-overflow-info
-+    attrs:
-+      - event.first-sequence
-+      - event.last-sequence
-+      - event.dropped-count
-+
-+ops:
-+  # The families this device answers, this one first and the device family
-+  # last. The only names any reply of this family carries.
-+  - name: families-dump
-+    type: query
-+    fd-access: read
-+    reply:
-+      attrs: family.entry
-+
-+  - name: ops-dump
-+    type: query
-+    fd-access: read
-+    reply:
-+      attrs: op.entry
-+
-+  # The request and reply ABI of one op, whether or not it can be called right
-+  # now. A removed op answers as one that was never declared.
-+  - name: op-schema-get
-+    type: query
-+    fd-access: read
-+    request:
-+      attrs: op-schema-request
-+    reply:
-+      attrs: op-schema-info
-+
-+  - name: subscriptions-add
-+    type: action
-+    fd-access: read
-+    request:
-+      attrs: event-subscription
-+
-+  - name: subscriptions-remove
-+    type: action
-+    fd-access: read
-+    request:
-+      attrs: event-subscription
-+
-+  - name: event-queue-get
-+    type: query
-+    fd-access: read
-+    reply:
-+      attrs: event-queue-state
-+
-+  - name: event-queue-set
-+    type: action
-+    fd-access: read
-+    request:
-+      attrs: event-queue-limit
-+
-+  # A dynamically available op was enabled or disabled. The name is not about
-+  # availability: a later mutable op property reports its state here too.
-+  - name: op-changed
-+    type: event
-+    reply:
-+      attrs: op-change-info
-+
-+  - name: event-overflow
-+    type: event
-+    reply:
-+      attrs: event-overflow-info
-+
-+  # Payload-free: the record itself is the whole indication.
-+  - name: device-removed
-+    type: event
-diff --git a/drivers/ctlv/ctlv_gen.c b/drivers/ctlv/ctlv_gen.c
-new file mode 100644
-index 000000000000..daf54495658f
---- /dev/null
-+++ b/drivers/ctlv/ctlv_gen.c
-@@ -0,0 +1,229 @@
-+// SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
-+/*	Documentation/ctlv/specs/ctlv.yaml */
-+/* CTLV-GEN kernel source */
-+
-+#define _CTLV_GENERATED_METADATA_ONLY
-+#include <linux/array_size.h>
-+#include <linux/build_bug.h>
-+#include <linux/ctlv_family.h>
-+#include <linux/export.h>
-+#include <linux/limits.h>
-+
-+#include <uapi/linux/ctlv_gen.h>
-+
-+#include <linux/ctlv_gen.h>
-+
-+static const struct ctlv_node_schema families_dump_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(0, 0, 0),
-+};
-+
-+static const struct ctlv_node_schema families_dump_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_NEST(CTLV_ATTR_FAMILY_ENTRY, CTLV_NODE_SCHEMA_UNLIMITED, 2, 2, 2),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_FAMILY_ID, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_STRING(CTLV_ATTR_FAMILY_NAME, 1, 0, 63),
-+};
-+
-+static const struct ctlv_node_schema ops_dump_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(0, 0, 0),
-+};
-+
-+static const struct ctlv_node_schema ops_dump_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_NEST(CTLV_ATTR_OP_ENTRY, CTLV_NODE_SCHEMA_UNLIMITED, 2, 10, 2),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_ID, 1, 1, U64_MAX),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_OP_TYPE, 1, 3),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_OP_AVAILABILITY, 1, 2),
-+	CTLV_NODE_SCHEMA_BOOL(CTLV_ATTR_OP_DISABLED, 1),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_REQUEST_MAX_LEN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_ACTION_REPLY_MAX_LEN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_QUERY_REPLY_MIN_LEN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_QUERY_REPLY_SUGGESTED_LEN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_EVENT_RECORD_MAX_LEN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_OP_FD_ACCESS, 1, 2),
-+};
-+
-+static const struct ctlv_node_schema op_schema_get_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_ID, 1, 1, U64_MAX),
-+};
-+
-+static const struct ctlv_node_schema op_schema_get_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 2, 0),
-+	CTLV_NODE_SCHEMA_NEST(CTLV_ATTR_SCHEMA_REQUEST, 1, 3, 17, 3),
-+	CTLV_NODE_SCHEMA_NEST(CTLV_ATTR_SCHEMA_REPLY, 1, 20, 17, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_ATTR_ID, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_KIND, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX_OCCURRENCES, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MIN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MIN_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_FLAGS_MASK, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_UNIT, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_SINT(CTLV_ATTR_SCHEMA_SCALE, 1, S64_MIN, S64_MAX),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_SCHEMA_BLOB_DIRECTION, 1, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_BACKINGS, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_MAX_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_ALIGNMENT, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_REENTERS, 1, 1, U64_MAX),
-+	CTLV_NODE_SCHEMA_NEST_REENTERS(CTLV_ATTR_SCHEMA_ATTRS, CTLV_NODE_SCHEMA_UNLIMITED, 3, 17,
-+				       3),
-+	CTLV_NODE_SCHEMA_NEST_REENTERS(CTLV_ATTR_SCHEMA_OPTIONAL_ATTRS, CTLV_NODE_SCHEMA_UNLIMITED,
-+				       3, 17, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_ATTR_ID, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_KIND, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX_OCCURRENCES, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MIN, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MIN_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_MAX_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_FLAGS_MASK, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_UNIT, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_SINT(CTLV_ATTR_SCHEMA_SCALE, 1, S64_MIN, S64_MAX),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_SCHEMA_BLOB_DIRECTION, 1, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_BACKINGS, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_MAX_LENGTH, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_BLOB_ALIGNMENT, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_SCHEMA_REENTERS, 1, 1, U64_MAX),
-+	CTLV_NODE_SCHEMA_NEST_REENTERS(CTLV_ATTR_SCHEMA_ATTRS, CTLV_NODE_SCHEMA_UNLIMITED, 20, 17,
-+				       3),
-+	CTLV_NODE_SCHEMA_NEST_REENTERS(CTLV_ATTR_SCHEMA_OPTIONAL_ATTRS, CTLV_NODE_SCHEMA_UNLIMITED,
-+				       20, 17, 3),
-+};
-+
-+static const struct ctlv_node_schema subscriptions_add_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_EVENT_OP_ID, 256, 1, U64_MAX),
-+};
-+
-+static const struct ctlv_node_schema subscriptions_remove_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_EVENT_OP_ID, 256, 1, U64_MAX),
-+};
-+
-+static const struct ctlv_node_schema event_queue_get_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(0, 0, 0),
-+};
-+
-+static const struct ctlv_node_schema event_queue_get_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 2, 2),
-+	CTLV_NODE_SCHEMA_UINT_UNIT(CTLV_ATTR_EVENT_QUEUE_LEN, 1, 1, 16777216, CTLV_UNIT_BYTES, 0),
-+	CTLV_NODE_SCHEMA_UINT_UNIT(CTLV_ATTR_EVENT_QUEUE_USED, 1, 0, U64_MAX, CTLV_UNIT_BYTES, 0),
-+};
-+
-+static const struct ctlv_node_schema event_queue_set_request_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 1, 1),
-+	CTLV_NODE_SCHEMA_UINT_UNIT(CTLV_ATTR_EVENT_QUEUE_LEN, 1, 1, 16777216, CTLV_UNIT_BYTES, 0),
-+};
-+
-+static const struct ctlv_node_schema op_changed_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 3, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_ID, 1, 1, U64_MAX),
-+	CTLV_NODE_SCHEMA_BOOL(CTLV_ATTR_OP_DISABLED, 1),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_OP_STATE_GENERATION, 1, 0, U64_MAX),
-+};
-+
-+static const struct ctlv_node_schema event_overflow_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 3, 3),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_EVENT_FIRST_SEQUENCE, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_EVENT_LAST_SEQUENCE, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_EVENT_DROPPED_COUNT, 1, 0, U64_MAX),
-+};
-+
-+static const struct ctlv_node_schema device_removed_reply_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(0, 0, 0),
-+};
-+
-+static const struct ctlv_node_schema error_info_node_schemas[] = {
-+	CTLV_NODE_SCHEMA_ROOT(1, 7, 0),
-+	CTLV_NODE_SCHEMA_ENUM(CTLV_ATTR_ERROR_REASON, 1, 12),
-+	CTLV_NODE_SCHEMA_STRING(CTLV_ATTR_ERROR_MESSAGE, 1, 0, 255),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_ERROR_BAD_ATTR_OFFSET, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_ERROR_NEST_OFFSET, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_ERROR_MISSING_ATTR_ID, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_ERROR_EXPECTED_GENERATION, 1, 0, U64_MAX),
-+	CTLV_NODE_SCHEMA_UINT(CTLV_ATTR_ERROR_CURRENT_GENERATION, 1, 0, U64_MAX),
-+};
-+
-+const struct ctlv_schema_tree ctlv_error_info_schema = {
-+	.node_schemas = error_info_node_schemas,
-+	.node_schemas_count =
-+		ARRAY_SIZE(error_info_node_schemas),
-+};
-+
-+static_assert(CTLV_ERROR_INFO_MAX_LEN <= CTLV_MAX_ERROR_LEN);
-+
-+/* The ops this family declares, in declaration order. */
-+const struct ctlv_op_schema ctlv_op_schemas[] = {
-+	CTLV_OP_SCHEMA_QUERY(CTLV_OP_FAMILIES_DUMP, CTLV_OP_FD_ACCESS_READ,
-+			     CTLV_OP_AVAILABILITY_FIXED, 16, 112, 65536,
-+			     CTLV_SCHEMA_TREE(families_dump_request),
-+			     CTLV_SCHEMA_TREE(families_dump_reply)),
-+	CTLV_OP_SCHEMA_QUERY(CTLV_OP_OPS_DUMP, CTLV_OP_FD_ACCESS_READ, CTLV_OP_AVAILABILITY_FIXED,
-+			     16, 56, 65536, CTLV_SCHEMA_TREE(ops_dump_request),
-+			     CTLV_SCHEMA_TREE(ops_dump_reply)),
-+	CTLV_OP_SCHEMA_QUERY(CTLV_OP_OP_SCHEMA_GET, CTLV_OP_FD_ACCESS_READ,
-+			     CTLV_OP_AVAILABILITY_FIXED, 40, 552, 65536,
-+			     CTLV_SCHEMA_TREE(op_schema_get_request),
-+			     CTLV_SCHEMA_TREE(op_schema_get_reply)),
-+	CTLV_OP_SCHEMA_ACTION(CTLV_OP_SUBSCRIPTIONS_ADD, CTLV_OP_FD_ACCESS_READ,
-+			      CTLV_OP_AVAILABILITY_FIXED, 6160, 0,
-+			      CTLV_SCHEMA_TREE(subscriptions_add_request), CTLV_SCHEMA_TREE_NONE()),
-+	CTLV_OP_SCHEMA_ACTION(CTLV_OP_SUBSCRIPTIONS_REMOVE, CTLV_OP_FD_ACCESS_READ,
-+			      CTLV_OP_AVAILABILITY_FIXED, 6160, 0,
-+			      CTLV_SCHEMA_TREE(subscriptions_remove_request),
-+			      CTLV_SCHEMA_TREE_NONE()),
-+	CTLV_OP_SCHEMA_QUERY(CTLV_OP_EVENT_QUEUE_GET, CTLV_OP_FD_ACCESS_READ,
-+			     CTLV_OP_AVAILABILITY_FIXED, 16, 40, 65536,
-+			     CTLV_SCHEMA_TREE(event_queue_get_request),
-+			     CTLV_SCHEMA_TREE(event_queue_get_reply)),
-+	CTLV_OP_SCHEMA_ACTION(CTLV_OP_EVENT_QUEUE_SET, CTLV_OP_FD_ACCESS_READ,
-+			      CTLV_OP_AVAILABILITY_FIXED, 40, 0,
-+			      CTLV_SCHEMA_TREE(event_queue_set_request), CTLV_SCHEMA_TREE_NONE()),
-+	CTLV_OP_SCHEMA_EVENT(CTLV_OP_OP_CHANGED, 112, CTLV_SCHEMA_TREE(op_changed_reply)),
-+	CTLV_OP_SCHEMA_EVENT(CTLV_OP_EVENT_OVERFLOW, 112, CTLV_SCHEMA_TREE(event_overflow_reply)),
-+	CTLV_OP_SCHEMA_EVENT(CTLV_OP_DEVICE_REMOVED, 40, CTLV_SCHEMA_TREE(device_removed_reply)),
-+};
-+
-+/* The family ID is its position in the central registry. */
-+const struct ctlv_family_schema ctlv_schema = {
-+	.name = "ctlv",
-+	.family_id = 0,
-+	.ops = ctlv_op_schemas,
-+	.ops_count = ARRAY_SIZE(ctlv_op_schemas),
-+};
-+
-+/* Maximum uevent cost for this family chain. */
-+static_assert(60 <= CTLV_UEVENT_MAX_LEN);
-+static_assert(3 <= CTLV_UEVENT_MAX_VARS);
-+
-+/* Guards for generated maxima. */
-+static_assert(65536 <= CTLV_MAX_INLINE_MESSAGE_LEN);
-+static_assert(112 <= CTLV_MAX_EVENT_QUEUE_LEN);
-+static_assert(2 <= CTLV_MAX_DECLARED_NEST_DEPTH);
-+
-+/* Local action and query bindings in declaration order. */
-+static const struct ctlv_op ctlv_ops[] = {
-+	CTLV_OP_QUERY(ctlv_families_dump),
-+	CTLV_OP_QUERY(ctlv_ops_dump),
-+	CTLV_OP_QUERY(ctlv_op_schema_get),
-+	CTLV_OP_ACTION(ctlv_subscriptions_add),
-+	CTLV_OP_ACTION(ctlv_subscriptions_remove),
-+	CTLV_OP_QUERY(ctlv_event_queue_get),
-+	CTLV_OP_ACTION(ctlv_event_queue_set),
-+};
-+
-+/* Root-family descriptor used by the CTLV core. */
-+const struct ctlv_family ctlv_family = {
-+	.schema = &ctlv_schema,
-+	.ops = ctlv_ops,
-+	.ops_count = ARRAY_SIZE(ctlv_ops),
-+	.pre = ctlv_op_pre,
-+	.post = ctlv_op_post,
-+	.priv_size = ctlv_priv_size,
-+	.init = ctlv_init,
-+	.fini = ctlv_fini,
-+};
-+EXPORT_SYMBOL_NS_GPL(ctlv_family, "CTLV");
-diff --git a/include/linux/ctlv_gen.h b/include/linux/ctlv_gen.h
-new file mode 100644
-index 000000000000..e389803449a0
---- /dev/null
-+++ b/include/linux/ctlv_gen.h
-@@ -0,0 +1,137 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
-+/*	Documentation/ctlv/specs/ctlv.yaml */
-+/* CTLV-GEN kernel header */
-+
-+/* Kernel metadata and family API of the ctlv CTLV family. */
-+
-+#ifndef _LINUX_CTLV_GEN_H
-+#define _LINUX_CTLV_GEN_H
++++ b/drivers/ctlv/internal.h
+@@ -0,0 +1,66 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
++ *
++ * CTLV core internals.
++ */
++#ifndef _CTLV_INTERNAL_H
++#define _CTLV_INTERNAL_H
 +
 +#include <linux/ctlv_family.h>
++#include <linux/types.h>
++
++#include <uapi/linux/ctlv.h>
++
++#include "message.h"
++
++#define CTLV_ERROR_MESSAGE_LEN 256
++
++/* An op that is always enabled has no per-device availability state. */
++#define CTLV_OP_STATE_NONE U32_MAX
++
++struct ctlv_op_entry {
++	const struct ctlv_op_schema *schema;
++	const struct ctlv_op *binding;
++	void *priv;
++	struct ctlv_op_sizes sizes;
++	u32 state_index;
++	bool absent;
++};
++
++struct ctlv_error {
++	u32 reason;
++	char message[CTLV_ERROR_MESSAGE_LEN];
++	u32 bad_attr_offset;
++	u32 nest_offset;
++	u64 missing_attr_id;
++	u64 expected_generation;
++	u64 current_generation;
++};
++
++struct ctlv_query_fragment {
++	u64 generation;
++	u64 cursor;
++	u64 reported;
++	u64 next_cursor;
++	bool progress;
++	bool answered;
++	int result;
++};
++
++struct ctlv_op_ctx {
++	const struct ctlv_family *family;
++	const struct ctlv_op_entry *op;
++
++	struct ctlv_msg request;
++	struct ctlv_cursor request_root;
++
++	struct ctlv_msg output;
++	struct ctlv_cursor output_root;
++	struct ctlv_cursor *deepest;
++
++	struct ctlv_query_fragment frag;
++	struct ctlv_error error;
++};
++
++#endif /* _CTLV_INTERNAL_H */
+diff --git a/drivers/ctlv/message.c b/drivers/ctlv/message.c
+new file mode 100644
+index 000000000000..7e5742ba8f70
+--- /dev/null
++++ b/drivers/ctlv/message.c
+@@ -0,0 +1,403 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
++ *
++ * Message walking, indexing, and generated-accessor primitives.
++ */
++#include <linux/align.h>
++#include <linux/bits.h>
++#include <linux/bug.h>
++#include <linux/ctlv.h>
 +#include <linux/err.h>
 +#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/string.h>
++#include <linux/types.h>
 +
++#include <uapi/linux/ctlv.h>
 +#include <uapi/linux/ctlv_gen.h>
 +
-+/* Ops this family declares, in declaration order. */
-+extern const struct ctlv_op_schema ctlv_op_schemas[];
++#include "internal.h"
++#include "message.h"
 +
-+extern const struct ctlv_family_schema ctlv_schema;
++enum ctlv_message_step ctlv_message_next(const struct ctlv_attr *nest,
++					 const struct ctlv_attr **child)
++{
++	const u8 *end = (const u8 *)nest + nest->len;
++	const u8 *next;
++	size_t room;
 +
-+/* The error-info message, built by the core. */
-+#define CTLV_ERROR_INFO_MAX_LEN 432
++	if (nest->len < sizeof(*nest))
++		return CTLV_MESSAGE_STEP_BAD;
++	if (*child)
++		next = (const u8 *)*child + ALIGN((size_t)(*child)->len, CTLV_ALIGNTO);
++	else
++		next = (const u8 *)(nest + 1);
++	if (next >= end)
++		return next == end ? CTLV_MESSAGE_STEP_END : CTLV_MESSAGE_STEP_BAD;
 +
-+extern const struct ctlv_schema_tree ctlv_error_info_schema;
++	room = end - next;
++	if (room < sizeof(**child))
++		return CTLV_MESSAGE_STEP_BAD;
++	*child = (const struct ctlv_attr *)next;
++	/*
++	 * Length before alignment, so that aligning a length this nest could
++	 * never hold is not what overflows.
++	 */
++	if ((*child)->len < sizeof(**child) || (*child)->len > room)
++		return CTLV_MESSAGE_STEP_BAD;
++	if (ALIGN((size_t)(*child)->len, CTLV_ALIGNTO) > room)
++		return CTLV_MESSAGE_STEP_BAD;
++	return CTLV_MESSAGE_STEP_ATTR;
++}
 +
-+/* Implemented by the CTLV core, one per action and query it declares. */
-+int ctlv_families_dump_query(void *priv, struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
-+			     struct ctlv_cursor *reply);
-+int ctlv_ops_dump_query(void *priv, struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
-+			struct ctlv_cursor *reply);
-+int ctlv_op_schema_get_query(void *priv, struct ctlv_op_ctx *ctx, const struct ctlv_cursor *request,
-+			     struct ctlv_cursor *reply);
-+int ctlv_subscriptions_add_action(void *priv, struct ctlv_op_ctx *ctx,
-+				  const struct ctlv_cursor *request, struct ctlv_cursor *reply);
-+int ctlv_subscriptions_remove_action(void *priv, struct ctlv_op_ctx *ctx,
-+				     const struct ctlv_cursor *request, struct ctlv_cursor *reply);
-+int ctlv_event_queue_get_query(void *priv, struct ctlv_op_ctx *ctx,
-+			       const struct ctlv_cursor *request, struct ctlv_cursor *reply);
-+int ctlv_event_queue_set_action(void *priv, struct ctlv_op_ctx *ctx,
-+				const struct ctlv_cursor *request, struct ctlv_cursor *reply);
++u32 ctlv_message_offset(const struct ctlv_msg *msg, const struct ctlv_attr *attr)
++{
++	return (const u8 *)attr - (const u8 *)msg->root;
++}
 +
-+/* Root-family hooks around every core action or query. */
-+int ctlv_op_pre(void *priv, struct ctlv_op_ctx *ctx);
-+void ctlv_op_post(void *priv, struct ctlv_op_ctx *ctx);
++void ctlv_message_root(struct ctlv_cursor *cursor, struct ctlv_msg *msg)
++{
++	*cursor = (struct ctlv_cursor){
++		.msg = msg,
++		.attr = msg->root,
++		.tree = msg->tree,
++		.index_nest_scope = CTLV_MESSAGE_INPUT_INDEX_NONE,
++		.index_scope = CTLV_MESSAGE_INPUT_INDEX_NONE,
++	};
++	if (msg->request && msg->index)
++		cursor->index_nest_scope = msg->index->nests[0].first_scope;
++}
 +
-+/* Core-allocated family priv lifecycle. */
-+size_t ctlv_priv_size(void);
-+int ctlv_init(struct ctlv_device *ctlvdev, const void *init_info, void *priv);
-+void ctlv_fini(struct ctlv_device *ctlvdev, void *priv);
++static bool ctlv_message_nest_index_ok(const struct ctlv_cursor *nest)
++{
++	const struct ctlv_message_input_index *index = nest->msg->index;
++	const struct ctlv_message_input_nest *indexed;
++	const struct ctlv_message_input_scope *scope;
++	const struct ctlv_attr *attr;
 +
-+extern const struct ctlv_family ctlv_family;
++	if (WARN_ON_ONCE(!nest->msg->request || !index ||
++			 nest->index_nest_scope >= index->scopes_count))
++		return false;
++	scope = &index->scopes[nest->index_nest_scope];
++	if (WARN_ON_ONCE(scope->nest >= index->nests_count))
++		return false;
++	indexed = &index->nests[scope->nest];
++	attr = (const void *)((const u8 *)nest->msg->root + indexed->offset);
++	if (WARN_ON_ONCE(attr != nest->attr))
++		return false;
++	return !WARN_ON_ONCE(scope->tree != nest->tree || scope->node != nest->node);
++}
 +
-+#ifndef _CTLV_GENERATED_METADATA_ONLY
++static bool ctlv_message_input_scope_ok(const struct ctlv_message_input_index *index,
++					const struct ctlv_message_input_scope *scope)
++{
++	return !WARN_ON_ONCE(scope->first_slot > index->slots_count ||
++			     scope->slots_count > index->slots_count - scope->first_slot);
++}
 +
-+/* Reading a validated message. A blob has a resolver instead of a getter. */
-+CTLV_IN_REF(ctlv_op_schema_get_op_id, &ctlv_op_schemas[2].request, CTLV_ATTR_OP_ID, 0, 0,
-+	    CTLV_SCHEMA_UINT)
-+CTLV_IN_HAS(ctlv_op_schema_get_op_id)
-+CTLV_IN_U64(ctlv_op_schema_get_op_id)
-+CTLV_IN_REF(ctlv_subscriptions_add_event_op_id, &ctlv_op_schemas[3].request, CTLV_ATTR_EVENT_OP_ID,
-+	    0, 0, CTLV_SCHEMA_UINT)
-+#define ctlv_subscriptions_add_event_op_id_for_each(_attr, _nest) \
-+	CTLV_IN_FOR_EACH(ctlv_subscriptions_add_event_op_id, _attr, _nest)
-+CTLV_IN_EACH_U64(ctlv_subscriptions_add_event_op_id)
-+CTLV_IN_REF(ctlv_subscriptions_remove_event_op_id, &ctlv_op_schemas[4].request,
-+	    CTLV_ATTR_EVENT_OP_ID, 0, 0, CTLV_SCHEMA_UINT)
-+#define ctlv_subscriptions_remove_event_op_id_for_each(_attr, _nest) \
-+	CTLV_IN_FOR_EACH(ctlv_subscriptions_remove_event_op_id, _attr, _nest)
-+CTLV_IN_EACH_U64(ctlv_subscriptions_remove_event_op_id)
-+CTLV_IN_REF(ctlv_event_queue_set_event_queue_len, &ctlv_op_schemas[6].request,
-+	    CTLV_ATTR_EVENT_QUEUE_LEN, 0, 0, CTLV_SCHEMA_UINT)
-+CTLV_IN_HAS(ctlv_event_queue_set_event_queue_len)
-+CTLV_IN_U64(ctlv_event_queue_set_event_queue_len)
++static const struct ctlv_node_schema *ctlv_message_input_ref_node(struct ctlv_input_ref ref)
++{
++	const struct ctlv_node_schema *parent;
++	const struct ctlv_node_schema *node;
 +
-+/* Writing a reply. An append is atomic; a nest ends with ctlv_nest_end(). */
-+CTLV_PUT_U64(ctlv_family_id, CTLV_ATTR_FAMILY_ID, CTLV_SCHEMA_UINT)
-+CTLV_PUT_STRING(ctlv_family_name, CTLV_ATTR_FAMILY_NAME, CTLV_SCHEMA_STRING)
-+CTLV_NEST_START(ctlv_family_entry, CTLV_ATTR_FAMILY_ENTRY, CTLV_SCHEMA_NEST)
-+CTLV_PUT_U64(ctlv_blob_type, CTLV_ATTR_BLOB_TYPE, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_U64(ctlv_blob_address, CTLV_ATTR_BLOB_ADDRESS, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_blob_fd, CTLV_ATTR_BLOB_FD, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_blob_offset, CTLV_ATTR_BLOB_OFFSET, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_blob_length, CTLV_ATTR_BLOB_LENGTH, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_error_reason, CTLV_ATTR_ERROR_REASON, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_STRING(ctlv_error_message, CTLV_ATTR_ERROR_MESSAGE, CTLV_SCHEMA_STRING)
-+CTLV_PUT_U64(ctlv_error_bad_attr_offset, CTLV_ATTR_ERROR_BAD_ATTR_OFFSET, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_error_nest_offset, CTLV_ATTR_ERROR_NEST_OFFSET, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_error_missing_attr_id, CTLV_ATTR_ERROR_MISSING_ATTR_ID, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_error_expected_generation, CTLV_ATTR_ERROR_EXPECTED_GENERATION, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_error_current_generation, CTLV_ATTR_ERROR_CURRENT_GENERATION, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_id, CTLV_ATTR_OP_ID, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_type, CTLV_ATTR_OP_TYPE, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_U64(ctlv_op_availability, CTLV_ATTR_OP_AVAILABILITY, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_BOOL(ctlv_op_disabled, CTLV_ATTR_OP_DISABLED, CTLV_SCHEMA_BOOL)
-+CTLV_PUT_U64(ctlv_op_request_max_len, CTLV_ATTR_OP_REQUEST_MAX_LEN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_action_reply_max_len, CTLV_ATTR_OP_ACTION_REPLY_MAX_LEN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_query_reply_min_len, CTLV_ATTR_OP_QUERY_REPLY_MIN_LEN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_query_reply_suggested_len, CTLV_ATTR_OP_QUERY_REPLY_SUGGESTED_LEN,
-+	     CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_event_record_max_len, CTLV_ATTR_OP_EVENT_RECORD_MAX_LEN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_op_state_generation, CTLV_ATTR_OP_STATE_GENERATION, CTLV_SCHEMA_UINT)
-+CTLV_NEST_START(ctlv_op_entry, CTLV_ATTR_OP_ENTRY, CTLV_SCHEMA_NEST)
-+CTLV_PUT_U64(ctlv_op_fd_access, CTLV_ATTR_OP_FD_ACCESS, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_U64(ctlv_schema_attr_id, CTLV_ATTR_SCHEMA_ATTR_ID, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_kind, CTLV_ATTR_SCHEMA_KIND, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_max_occurrences, CTLV_ATTR_SCHEMA_MAX_OCCURRENCES, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_min, CTLV_ATTR_SCHEMA_MIN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_max, CTLV_ATTR_SCHEMA_MAX, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_min_length, CTLV_ATTR_SCHEMA_MIN_LENGTH, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_max_length, CTLV_ATTR_SCHEMA_MAX_LENGTH, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_flags_mask, CTLV_ATTR_SCHEMA_FLAGS_MASK, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_unit, CTLV_ATTR_SCHEMA_UNIT, CTLV_SCHEMA_UINT)
-+CTLV_PUT_S64(ctlv_schema_scale, CTLV_ATTR_SCHEMA_SCALE, CTLV_SCHEMA_SINT)
-+CTLV_PUT_U64(ctlv_schema_blob_direction, CTLV_ATTR_SCHEMA_BLOB_DIRECTION, CTLV_SCHEMA_ENUM)
-+CTLV_PUT_U64(ctlv_schema_blob_backings, CTLV_ATTR_SCHEMA_BLOB_BACKINGS, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_blob_max_length, CTLV_ATTR_SCHEMA_BLOB_MAX_LENGTH, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_blob_alignment, CTLV_ATTR_SCHEMA_BLOB_ALIGNMENT, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_schema_reenters, CTLV_ATTR_SCHEMA_REENTERS, CTLV_SCHEMA_UINT)
-+CTLV_NEST_START(ctlv_schema_attrs, CTLV_ATTR_SCHEMA_ATTRS, CTLV_SCHEMA_NEST)
-+CTLV_NEST_START(ctlv_schema_optional_attrs, CTLV_ATTR_SCHEMA_OPTIONAL_ATTRS, CTLV_SCHEMA_NEST)
-+CTLV_NEST_START(ctlv_schema_request, CTLV_ATTR_SCHEMA_REQUEST, CTLV_SCHEMA_NEST)
-+CTLV_NEST_START(ctlv_schema_reply, CTLV_ATTR_SCHEMA_REPLY, CTLV_SCHEMA_NEST)
-+CTLV_PUT_U64(ctlv_event_op_id, CTLV_ATTR_EVENT_OP_ID, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_event_queue_len, CTLV_ATTR_EVENT_QUEUE_LEN, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_event_queue_used, CTLV_ATTR_EVENT_QUEUE_USED, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_event_first_sequence, CTLV_ATTR_EVENT_FIRST_SEQUENCE, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_event_last_sequence, CTLV_ATTR_EVENT_LAST_SEQUENCE, CTLV_SCHEMA_UINT)
-+CTLV_PUT_U64(ctlv_event_dropped_count, CTLV_ATTR_EVENT_DROPPED_COUNT, CTLV_SCHEMA_UINT)
++	if (WARN_ON_ONCE(!ref.tree->node_schemas || ref.node >= ref.tree->node_schemas_count))
++		return NULL;
++	parent = &ref.tree->node_schemas[ref.node];
++	if (WARN_ON_ONCE(ref.slot >= parent->children_count ||
++			 parent->first_child + ref.slot >= ref.tree->node_schemas_count))
++		return NULL;
++	node = &ref.tree->node_schemas[parent->first_child + ref.slot];
++	if (WARN_ON_ONCE(node->attr_id != ref.attr_id || node->kind != ref.kind))
++		return NULL;
++	return node;
++}
 +
-+/* Building one event, passed to ctlv_event_emit() or ctlv_event_abort() once. */
-+CTLV_EVENT_CREATE(ctlv_op_changed, CTLV_OP_OP_CHANGED)
-+CTLV_EVENT_CREATE(ctlv_event_overflow, CTLV_OP_EVENT_OVERFLOW)
-+CTLV_EVENT_CREATE(ctlv_device_removed, CTLV_OP_DEVICE_REMOVED)
-+#endif /* _CTLV_GENERATED_METADATA_ONLY */
++static const struct ctlv_message_input_slot *
++ctlv_message_cursor_index(const struct ctlv_cursor *cursor)
++{
++	const struct ctlv_message_input_index *index;
++	const struct ctlv_message_input_scope *scope;
++	const struct ctlv_node_schema *parent;
++	const struct ctlv_node_schema *node;
++	const struct ctlv_message_input_slot *slot;
++	const struct ctlv_message_input_nest *nest;
++	u32 local_slot;
++	u32 offset;
 +
-+#endif /* _LINUX_CTLV_GEN_H */
-diff --git a/include/uapi/linux/ctlv_families_gen.h b/include/uapi/linux/ctlv_families_gen.h
-new file mode 100644
-index 000000000000..a649483ab3f5
---- /dev/null
-+++ b/include/uapi/linux/ctlv_families_gen.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
-+/*	Documentation/ctlv/families.yaml */
-+/* CTLV-GEN uapi header */
++	if (WARN_ON_ONCE(!cursor->msg || !cursor->tree || !cursor->msg->request ||
++			 !cursor->msg->index))
++		return NULL;
++	index = cursor->msg->index;
++	if (WARN_ON_ONCE(cursor->index_scope >= index->scopes_count))
++		return NULL;
++	scope = &index->scopes[cursor->index_scope];
++	if (!ctlv_message_input_scope_ok(index, scope))
++		return NULL;
++	parent = &scope->tree->node_schemas[scope->node];
++	if (WARN_ON_ONCE(scope->tree != cursor->tree || cursor->node < parent->first_child ||
++			 cursor->node >= parent->first_child + scope->slots_count))
++		return NULL;
++	local_slot = cursor->node - parent->first_child;
++	node = &cursor->tree->node_schemas[cursor->node];
++	slot = &index->slots[scope->first_slot + local_slot];
++	if (!cursor->attr)
++		return slot;
++	if (WARN_ON_ONCE(cursor->attr->attr_id != node->attr_id))
++		return NULL;
++	if (WARN_ON_ONCE(scope->nest >= index->nests_count))
++		return NULL;
++	nest = &index->nests[scope->nest];
++	if (WARN_ON_ONCE(cursor->parent !=
++			 (const void *)((const u8 *)cursor->msg->root + nest->offset)))
++		return NULL;
++	offset = ctlv_message_offset(cursor->msg, cursor->attr);
++	if (WARN_ON_ONCE(offset < slot->first_offset || offset >= slot->end_offset ||
++			 offset + ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO) >
++				 slot->end_offset))
++		return NULL;
++	if (node->kind == CTLV_SCHEMA_NEST) {
++		const struct ctlv_message_input_scope *nest_scope;
 +
-+/* CTLV family numbers. */
++		if (WARN_ON_ONCE(cursor->index_nest_scope >= index->scopes_count))
++			return NULL;
++		nest_scope = &index->scopes[cursor->index_nest_scope];
++		if (WARN_ON_ONCE(nest_scope->nest >= index->nests_count ||
++				 index->nests[nest_scope->nest].offset != offset ||
++				 nest_scope->tree != cursor->tree ||
++				 nest_scope->node != cursor->node))
++			return NULL;
++	} else if (WARN_ON_ONCE(cursor->index_nest_scope != CTLV_MESSAGE_INPUT_INDEX_NONE)) {
++		return NULL;
++	}
++	return slot;
++}
 +
-+#ifndef _UAPI_LINUX_CTLV_FAMILIES_GEN_H
-+#define _UAPI_LINUX_CTLV_FAMILIES_GEN_H
++bool ctlv_message_input_rebind(struct ctlv_cursor *nest, const struct ctlv_schema_tree *tree,
++			       u32 node)
++{
++	const struct ctlv_message_input_scope *bound_scope;
++	const struct ctlv_message_input_nest *indexed;
++	u32 i;
 +
-+enum _ctlv_family {
-+	CTLV_FAMILY_ROOT,
-+};
++	if (WARN_ON_ONCE(!nest->attr || !nest->msg || !nest->msg->index))
++		return false;
++	if (!ctlv_message_nest_index_ok(nest))
++		return false;
++	bound_scope = &nest->msg->index->scopes[nest->index_nest_scope];
++	indexed = &nest->msg->index->nests[bound_scope->nest];
++	for (i = 0; i < indexed->scopes_count; i++) {
++		u32 scope_index = indexed->first_scope + i;
++		const struct ctlv_message_input_scope *scope =
++			&nest->msg->index->scopes[scope_index];
 +
-+#endif /* _UAPI_LINUX_CTLV_FAMILIES_GEN_H */
-diff --git a/include/uapi/linux/ctlv_gen.h b/include/uapi/linux/ctlv_gen.h
-new file mode 100644
-index 000000000000..64eba093a6d4
---- /dev/null
-+++ b/include/uapi/linux/ctlv_gen.h
-@@ -0,0 +1,271 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* Do not edit, regenerate with tools/ctlv/ctlv-regen.sh, from: */
-+/*	Documentation/ctlv/specs/ctlv.yaml */
-+/* CTLV-GEN uapi header */
++		if (scope->tree != tree || scope->node != node)
++			continue;
++		nest->tree = tree;
++		nest->node = node;
++		nest->index_nest_scope = scope_index;
++		return true;
++	}
++	return false;
++}
++
++struct ctlv_cursor *ctlv_input_attr(struct ctlv_cursor *cursor, const struct ctlv_cursor *nest,
++				    struct ctlv_input_ref ref)
++{
++	const struct ctlv_message_input_index *index;
++	const struct ctlv_message_input_scope *scope;
++	const struct ctlv_message_input_slot *indexed;
++	const struct ctlv_node_schema *schema;
++
++	*cursor = (struct ctlv_cursor){
++		.index_nest_scope = CTLV_MESSAGE_INPUT_INDEX_NONE,
++		.index_scope = CTLV_MESSAGE_INPUT_INDEX_NONE,
++	};
++	if (WARN_ON_ONCE(!nest->attr || !nest->msg))
++		return cursor;
++	if (!ctlv_message_nest_index_ok(nest))
++		return cursor;
++	index = nest->msg->index;
++	if (WARN_ON_ONCE(nest->index_nest_scope >= index->scopes_count))
++		return cursor;
++	scope = &index->scopes[nest->index_nest_scope];
++	if (!ctlv_message_input_scope_ok(index, scope))
++		return cursor;
++	if (WARN_ON_ONCE(scope->tree != ref.tree || scope->node != ref.node ||
++			 nest->tree != ref.tree || nest->node != ref.node ||
++			 ref.slot >= scope->slots_count))
++		return cursor;
++	schema = ctlv_message_input_ref_node(ref);
++	if (!schema)
++		return cursor;
++	indexed = &index->slots[scope->first_slot + ref.slot];
++	*cursor = (struct ctlv_cursor){
++		.msg = nest->msg,
++		.parent = nest->attr,
++		.attr = indexed->count ? (const void *)((const u8 *)nest->msg->root +
++							indexed->first_offset) :
++					 NULL,
++		.tree = ref.tree,
++		.node = ref.tree->node_schemas[ref.node].first_child + ref.slot,
++		.depth = nest->depth + 1,
++		.index_nest_scope = CTLV_MESSAGE_INPUT_INDEX_NONE,
++		.index_scope = nest->index_nest_scope,
++	};
++	if (indexed->count && schema->kind == CTLV_SCHEMA_NEST) {
++		if (WARN_ON_ONCE(indexed->first_nest >= index->nests_count))
++			return cursor;
++		cursor->index_nest_scope = index->nests[indexed->first_nest].first_scope;
++	}
++	return cursor;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_input_attr, "CTLV");
++
++bool ctlv_input_cursor(const struct ctlv_cursor *cursor, struct ctlv_input_ref ref)
++{
++	const struct ctlv_message_input_scope *scope;
++	const struct ctlv_node_schema *schema;
++
++	if (!ctlv_message_cursor_index(cursor))
++		return false;
++	schema = ctlv_message_input_ref_node(ref);
++	if (!schema)
++		return false;
++	scope = &cursor->msg->index->scopes[cursor->index_scope];
++	return !WARN_ON_ONCE(scope->tree != ref.tree ||
++			     scope->node != ref.node ||
++			     cursor->tree != ref.tree ||
++			     cursor->node !=
++				     ref.tree->node_schemas[ref.node].first_child +
++					     ref.slot);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_input_cursor, "CTLV");
++
++void ctlv_attr_next(struct ctlv_cursor *cursor)
++{
++	const struct ctlv_message_input_slot *slot;
++	const struct ctlv_message_input_scope *scope;
++	const struct ctlv_node_schema *node;
++	const struct ctlv_attr *next;
++	u32 next_nest;
++	u32 next_offset;
++
++	slot = ctlv_message_cursor_index(cursor);
++	if (!slot || WARN_ON_ONCE(!cursor->attr))
++		return;
++	next = (const void *)((const u8 *)cursor->attr +
++			      ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO));
++	next_offset = ctlv_message_offset(cursor->msg, next);
++	if (next_offset == slot->end_offset) {
++		cursor->attr = NULL;
++		cursor->index_nest_scope = CTLV_MESSAGE_INPUT_INDEX_NONE;
++		return;
++	}
++	if (WARN_ON_ONCE(next_offset > slot->end_offset))
++		return;
++	cursor->attr = next;
++	node = &cursor->tree->node_schemas[cursor->node];
++	if (node->kind == CTLV_SCHEMA_NEST) {
++		if (WARN_ON_ONCE(cursor->index_nest_scope >= cursor->msg->index->scopes_count))
++			return;
++		scope = &cursor->msg->index->scopes[cursor->index_nest_scope];
++		if (WARN_ON_ONCE(scope->nest >= cursor->msg->index->nests_count))
++			return;
++		next_nest = cursor->msg->index->nests[scope->nest].next;
++		if (WARN_ON_ONCE(next_nest == CTLV_MESSAGE_INPUT_INDEX_NONE ||
++				 next_nest >= cursor->msg->index->nests_count))
++			return;
++		cursor->index_nest_scope = cursor->msg->index->nests[next_nest].first_scope;
++	}
++	WARN_ON_ONCE(!ctlv_message_cursor_index(cursor));
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_next, "CTLV");
++
++bool ctlv_attr_ok(const struct ctlv_cursor *cursor)
++{
++	return cursor && cursor->attr && ctlv_message_cursor_index(cursor);
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_ok, "CTLV");
++
++/* The payload, checked against the kinds a reader of this C type accepts. */
++static const void *ctlv_message_cursor_payload(const struct ctlv_cursor *cursor, u32 kinds,
++					       u32 *len)
++{
++	const struct ctlv_node_schema *node;
++
++	if (!ctlv_message_cursor_index(cursor) || WARN_ON_ONCE(!cursor->attr))
++		return NULL;
++	node = &cursor->tree->node_schemas[cursor->node];
++	if (WARN_ON_ONCE(!(kinds & BIT(node->kind))))
++		return NULL;
++	*len = ctlv_message_attr_payload_len(cursor->attr);
++	return ctlv_message_attr_payload(cursor->attr);
++}
++
++/* A length disagreeing with a validated kind is this core's mistake. */
++static const void *ctlv_message_cursor_fixed(const struct ctlv_cursor *cursor, u32 kinds,
++					     u32 expected)
++{
++	const void *payload;
++	u32 len;
++
++	payload = ctlv_message_cursor_payload(cursor, kinds, &len);
++	if (!payload || WARN_ON_ONCE(len != expected))
++		return NULL;
++	return payload;
++}
++
++u64 ctlv_attr_u64(const struct ctlv_cursor *cursor)
++{
++	const u64 *value = ctlv_message_cursor_fixed(cursor,
++						     BIT(CTLV_SCHEMA_UINT) | BIT(CTLV_SCHEMA_ENUM) |
++							     BIT(CTLV_SCHEMA_FLAGS),
++						     sizeof(u64));
++
++	return value ? *value : 0;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_u64, "CTLV");
++
++s64 ctlv_attr_s64(const struct ctlv_cursor *cursor)
++{
++	const s64 *value = ctlv_message_cursor_fixed(cursor, BIT(CTLV_SCHEMA_SINT), sizeof(s64));
++
++	return value ? *value : 0;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_s64, "CTLV");
++
++bool ctlv_attr_bool(const struct ctlv_cursor *cursor)
++{
++	const u8 *value = ctlv_message_cursor_fixed(cursor, BIT(CTLV_SCHEMA_BOOL), sizeof(u8));
++
++	return value ? *value : false;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_bool, "CTLV");
++
++const char *ctlv_attr_string(const struct ctlv_cursor *cursor)
++{
++	const char *value;
++	u32 len;
++
++	value = ctlv_message_cursor_payload(cursor, BIT(CTLV_SCHEMA_STRING), &len);
++	if (!value || WARN_ON_ONCE(!len || value[len - 1]))
++		return NULL;
++	return value;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_string, "CTLV");
++
++const void *ctlv_attr_binary(const struct ctlv_cursor *cursor, u32 *len)
++{
++	const void *value;
++
++	*len = 0;
++	value = ctlv_message_cursor_payload(cursor, BIT(CTLV_SCHEMA_BINARY), len);
++	if (!value)
++		*len = 0;
++	return value;
++}
++EXPORT_SYMBOL_NS_GPL(ctlv_attr_binary, "CTLV");
 +
 +/*
-+ * Constants of the ctlv CTLV family. Attr and op IDs are complete; the wire format carrying them is
-+ * in <linux/ctlv.h>.
++ * The room is measured before anything is written, which is what leaves a
++ * refused attr's message exactly as it was, padding included.
 + */
+diff --git a/drivers/ctlv/message.h b/drivers/ctlv/message.h
+new file mode 100644
+index 000000000000..efd781af9b37
+--- /dev/null
++++ b/drivers/ctlv/message.h
+@@ -0,0 +1,92 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
++ *
++ * Private message representation and nest walking.
++ */
++#ifndef _CTLV_MESSAGE_H
++#define _CTLV_MESSAGE_H
 +
-+#ifndef _UAPI_LINUX_CTLV_GEN_H
-+#define _UAPI_LINUX_CTLV_GEN_H
++#include <linux/ctlv_family.h>
++#include <linux/types.h>
 +
-+#include <linux/ctlv.h>
-+#include <linux/ctlv_families_gen.h>
++#include <uapi/linux/ctlv.h>
 +
-+/* enum op-type */
-+enum _ctlv_op_type {
-+	CTLV_OP_TYPE_ACTION = 1,
-+	CTLV_OP_TYPE_QUERY,
-+	CTLV_OP_TYPE_EVENT,
++#define CTLV_MESSAGE_INPUT_INDEX_NONE U32_MAX
++
++/* Attr identity remains in the generated schema, not in this request index. */
++struct ctlv_message_input_slot {
++	u32 first_offset;
++	u32 end_offset;
++	u32 count;
++	u32 excess_offset;
++	u32 first_nest;
++	u32 last_nest;
 +};
 +
-+/* enum op-availability */
-+enum _ctlv_op_availability {
-+	CTLV_OP_AVAILABILITY_FIXED = 1,
-+	CTLV_OP_AVAILABILITY_DYNAMIC,
++struct ctlv_message_input_scope {
++	const struct ctlv_schema_tree *tree;
++	u32 nest;
++	u32 node;
++	u32 first_slot;
++	u32 slots_count;
++	bool optional;
 +};
 +
-+/* enum blob-type */
-+enum _ctlv_blob_type {
-+	CTLV_BLOB_TYPE_VA = 1,
++struct ctlv_message_input_nest {
++	u32 offset;
++	u32 first_scope;
++	u32 scopes_count;
++	u32 next;
 +};
 +
-+/* enum blob-direction */
-+enum _ctlv_blob_direction {
-+	CTLV_BLOB_DIRECTION_INPUT = 1,
-+	CTLV_BLOB_DIRECTION_OUTPUT,
-+	CTLV_BLOB_DIRECTION_INOUT,
++struct ctlv_message_input_index {
++	struct ctlv_message_input_nest *nests;
++	struct ctlv_message_input_scope *scopes;
++	struct ctlv_message_input_slot *slots;
++	u32 nests_count;
++	u32 nests_capacity;
++	u32 scopes_count;
++	u32 scopes_capacity;
++	u32 slots_count;
++	u32 slots_capacity;
 +};
 +
-+/* enum validation-reason */
-+enum _ctlv_validation_reason {
-+	CTLV_VALIDATION_REASON_MALFORMED_MESSAGE = 1,
-+	CTLV_VALIDATION_REASON_UNKNOWN_ATTR,
-+	CTLV_VALIDATION_REASON_UNKNOWN_FLAG,
-+	CTLV_VALIDATION_REASON_NESTING_TOO_DEEP,
-+	CTLV_VALIDATION_REASON_MISSING_ATTR,
-+	CTLV_VALIDATION_REASON_TOO_MANY_OCCURRENCES,
-+	CTLV_VALIDATION_REASON_VALUE_OUT_OF_RANGE,
-+	CTLV_VALIDATION_REASON_BAD_LENGTH,
-+	CTLV_VALIDATION_REASON_BAD_STRING,
-+	CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR,
-+	CTLV_VALIDATION_REASON_STALE_GENERATION,
-+	CTLV_VALIDATION_REASON_NONCONTIGUOUS_ATTR,
++struct ctlv_msg {
++	struct ctlv_attr *root;
++	size_t len;
++	const struct ctlv_schema_tree *tree;
++	const struct ctlv_family *family;
++	struct ctlv_op_ctx *ctx;
++	struct ctlv_message_input_index *index;
++	bool request;
++	int poison;
 +};
 +
-+/* enum op-fd-access */
-+enum _ctlv_op_fd_access {
-+	CTLV_OP_FD_ACCESS_READ = 1,
-+	CTLV_OP_FD_ACCESS_READ_WRITE,
++enum ctlv_message_step {
++	CTLV_MESSAGE_STEP_ATTR,
++	CTLV_MESSAGE_STEP_END,
++	CTLV_MESSAGE_STEP_BAD,
 +};
 +
-+/* attr groups */
-+enum _ctlv_group {
-+	CTLV_GROUP_FAMILY = 1,
-+	CTLV_GROUP_BLOB,
-+	CTLV_GROUP_ERROR,
-+	CTLV_GROUP_OP,
-+	CTLV_GROUP_SCHEMA,
-+	CTLV_GROUP_EVENT,
-+};
++enum ctlv_message_step ctlv_message_next(const struct ctlv_attr *nest,
++					 const struct ctlv_attr **child);
++u32 ctlv_message_offset(const struct ctlv_msg *msg,
++			const struct ctlv_attr *attr);
++void ctlv_message_root(struct ctlv_cursor *cursor, struct ctlv_msg *msg);
++void ctlv_message_index_free(struct ctlv_msg *msg);
++bool ctlv_message_input_rebind(struct ctlv_cursor *nest,
++			       const struct ctlv_schema_tree *tree, u32 node);
 +
-+#define _CTLV_ATTR(_group, _attr) CTLV_ATTR(CTLV_FAMILY_ROOT, (_group), (_attr))
++static inline u32 ctlv_message_attr_payload_len(const struct ctlv_attr *attr)
++{
++	return attr->len - sizeof(*attr);
++}
 +
-+/* attrs of group family */
-+#define _CTLV_ATTR_FAMILY(_attr) _CTLV_ATTR(CTLV_GROUP_FAMILY, _CTLV_ATTR_FAMILY_##_attr)
++static inline const void *
++ctlv_message_attr_payload(const struct ctlv_attr *attr)
++{
++	return attr + 1;
++}
 +
-+enum _ctlv_attr_family {
-+	_CTLV_ATTR_FAMILY_ID = 1,
-+	_CTLV_ATTR_FAMILY_NAME,
-+	_CTLV_ATTR_FAMILY_ENTRY,
-+};
++#endif /* _CTLV_MESSAGE_H */
+diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
+index 1ae4d3a536f7..eae690b9c1d5 100644
+--- a/include/linux/ctlv_family.h
++++ b/include/linux/ctlv_family.h
+@@ -313,4 +313,142 @@ struct ctlv_family {
+ 
+ extern const struct ctlv_family ctlv_family;
+ 
++struct ctlv_cursor *
++ctlv_input_attr(struct ctlv_cursor *cursor, const struct ctlv_cursor *nest,
++		struct ctlv_input_ref ref);
++bool ctlv_input_cursor(const struct ctlv_cursor *cursor,
++		       struct ctlv_input_ref ref);
++void ctlv_attr_next(struct ctlv_cursor *cursor);
++bool ctlv_attr_ok(const struct ctlv_cursor *cursor);
++u64 ctlv_attr_u64(const struct ctlv_cursor *cursor);
++s64 ctlv_attr_s64(const struct ctlv_cursor *cursor);
++bool ctlv_attr_bool(const struct ctlv_cursor *cursor);
++const char *ctlv_attr_string(const struct ctlv_cursor *cursor);
++const void *ctlv_attr_binary(const struct ctlv_cursor *cursor, u32 *len);
 +
-+#define CTLV_ATTR_FAMILY_ID _CTLV_ATTR_FAMILY(ID)
-+#define CTLV_ATTR_FAMILY_NAME _CTLV_ATTR_FAMILY(NAME)
-+#define CTLV_ATTR_FAMILY_ENTRY _CTLV_ATTR_FAMILY(ENTRY)
++#define CTLV_IN_REF(_name, _tree, _attr_id, _node, _slot, _kind) \
++static inline struct ctlv_input_ref _name##_ref(void)		\
++{								\
++	return (struct ctlv_input_ref){				\
++		.tree = (_tree),					\
++		.attr_id = (_attr_id),				\
++		.node = (_node),					\
++		.slot = (_slot),					\
++		.kind = (_kind),					\
++	};							\
++}
 +
-+/* attrs of group blob */
-+#define _CTLV_ATTR_BLOB(_attr) _CTLV_ATTR(CTLV_GROUP_BLOB, _CTLV_ATTR_BLOB_##_attr)
++#define CTLV_IN_FOR_EACH(_name, _attr, _nest)			\
++	for (struct ctlv_cursor *__ctlv_attr =			\
++		ctlv_input_attr(_attr, _nest, _name##_ref());	\
++	     ctlv_attr_ok(__ctlv_attr);				\
++	     ctlv_attr_next(__ctlv_attr))
 +
-+enum _ctlv_attr_blob {
-+	_CTLV_ATTR_BLOB_TYPE = 1,
-+	_CTLV_ATTR_BLOB_ADDRESS,
-+	_CTLV_ATTR_BLOB_FD,
-+	_CTLV_ATTR_BLOB_OFFSET,
-+	_CTLV_ATTR_BLOB_LENGTH,
-+};
++#define CTLV_IN_HAS(_name)					\
++static inline bool _name##_present(const struct ctlv_cursor *nest) \
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_ok(&attr);				\
++}
 +
-+#define CTLV_ATTR_BLOB_TYPE _CTLV_ATTR_BLOB(TYPE)
-+#define CTLV_ATTR_BLOB_ADDRESS _CTLV_ATTR_BLOB(ADDRESS)
-+#define CTLV_ATTR_BLOB_FD _CTLV_ATTR_BLOB(FD)
-+#define CTLV_ATTR_BLOB_OFFSET _CTLV_ATTR_BLOB(OFFSET)
-+#define CTLV_ATTR_BLOB_LENGTH _CTLV_ATTR_BLOB(LENGTH)
++#define CTLV_IN_U64(_name)					\
++static inline u64 _name##_get(const struct ctlv_cursor *nest)	\
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_u64(&attr);				\
++}
 +
-+/* attrs of group error */
-+#define _CTLV_ATTR_ERROR(_attr) _CTLV_ATTR(CTLV_GROUP_ERROR, _CTLV_ATTR_ERROR_##_attr)
++#define CTLV_IN_S64(_name)					\
++static inline s64 _name##_get(const struct ctlv_cursor *nest)	\
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_s64(&attr);				\
++}
 +
-+enum _ctlv_attr_error {
-+	_CTLV_ATTR_ERROR_REASON = 1,
-+	_CTLV_ATTR_ERROR_MESSAGE,
-+	_CTLV_ATTR_ERROR_BAD_ATTR_OFFSET,
-+	_CTLV_ATTR_ERROR_NEST_OFFSET,
-+	_CTLV_ATTR_ERROR_MISSING_ATTR_ID,
-+	_CTLV_ATTR_ERROR_EXPECTED_GENERATION,
-+	_CTLV_ATTR_ERROR_CURRENT_GENERATION,
-+};
++#define CTLV_IN_BOOL(_name)					\
++static inline bool _name##_get(const struct ctlv_cursor *nest)	\
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_bool(&attr);				\
++}
 +
-+#define CTLV_ATTR_ERROR_REASON _CTLV_ATTR_ERROR(REASON)
-+#define CTLV_ATTR_ERROR_MESSAGE _CTLV_ATTR_ERROR(MESSAGE)
-+#define CTLV_ATTR_ERROR_BAD_ATTR_OFFSET _CTLV_ATTR_ERROR(BAD_ATTR_OFFSET)
-+#define CTLV_ATTR_ERROR_NEST_OFFSET _CTLV_ATTR_ERROR(NEST_OFFSET)
-+#define CTLV_ATTR_ERROR_MISSING_ATTR_ID _CTLV_ATTR_ERROR(MISSING_ATTR_ID)
-+#define CTLV_ATTR_ERROR_EXPECTED_GENERATION _CTLV_ATTR_ERROR(EXPECTED_GENERATION)
-+#define CTLV_ATTR_ERROR_CURRENT_GENERATION _CTLV_ATTR_ERROR(CURRENT_GENERATION)
++#define CTLV_IN_STRING(_name)					\
++static inline const char *					\
++_name##_get(const struct ctlv_cursor *nest)			\
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_string(&attr);				\
++}
 +
-+/* attrs of group op */
-+#define _CTLV_ATTR_OP(_attr) _CTLV_ATTR(CTLV_GROUP_OP, _CTLV_ATTR_OP_##_attr)
++#define CTLV_IN_BINARY(_name)					\
++static inline const void *					\
++_name##_get(const struct ctlv_cursor *nest, u32 *len)		\
++{								\
++	struct ctlv_cursor attr;				\
++								\
++	ctlv_input_attr(&attr, nest, _name##_ref());		\
++	return ctlv_attr_binary(&attr, len);			\
++}
 +
-+enum _ctlv_attr_op {
-+	_CTLV_ATTR_OP_ID = 1,
-+	_CTLV_ATTR_OP_TYPE,
-+	_CTLV_ATTR_OP_AVAILABILITY,
-+	_CTLV_ATTR_OP_DISABLED,
-+	_CTLV_ATTR_OP_REQUEST_MAX_LEN,
-+	_CTLV_ATTR_OP_ACTION_REPLY_MAX_LEN,
-+	_CTLV_ATTR_OP_QUERY_REPLY_MIN_LEN,
-+	_CTLV_ATTR_OP_QUERY_REPLY_SUGGESTED_LEN,
-+	_CTLV_ATTR_OP_EVENT_RECORD_MAX_LEN,
-+	_CTLV_ATTR_OP_STATE_GENERATION,
-+	_CTLV_ATTR_OP_ENTRY,
-+	_CTLV_ATTR_OP_FD_ACCESS,
-+};
++#define CTLV_IN_NEST(_name)					\
++static inline void _name##_get(struct ctlv_cursor *nested,	\
++			       const struct ctlv_cursor *nest)	\
++{								\
++	ctlv_input_attr(nested, nest, _name##_ref());		\
++}
 +
-+#define CTLV_ATTR_OP_ID _CTLV_ATTR_OP(ID)
-+#define CTLV_ATTR_OP_TYPE _CTLV_ATTR_OP(TYPE)
-+#define CTLV_ATTR_OP_AVAILABILITY _CTLV_ATTR_OP(AVAILABILITY)
-+#define CTLV_ATTR_OP_DISABLED _CTLV_ATTR_OP(DISABLED)
-+#define CTLV_ATTR_OP_REQUEST_MAX_LEN _CTLV_ATTR_OP(REQUEST_MAX_LEN)
-+#define CTLV_ATTR_OP_ACTION_REPLY_MAX_LEN _CTLV_ATTR_OP(ACTION_REPLY_MAX_LEN)
-+#define CTLV_ATTR_OP_QUERY_REPLY_MIN_LEN _CTLV_ATTR_OP(QUERY_REPLY_MIN_LEN)
-+#define CTLV_ATTR_OP_QUERY_REPLY_SUGGESTED_LEN _CTLV_ATTR_OP(QUERY_REPLY_SUGGESTED_LEN)
-+#define CTLV_ATTR_OP_EVENT_RECORD_MAX_LEN _CTLV_ATTR_OP(EVENT_RECORD_MAX_LEN)
-+#define CTLV_ATTR_OP_STATE_GENERATION _CTLV_ATTR_OP(STATE_GENERATION)
-+#define CTLV_ATTR_OP_ENTRY _CTLV_ATTR_OP(ENTRY)
-+#define CTLV_ATTR_OP_FD_ACCESS _CTLV_ATTR_OP(FD_ACCESS)
++#define CTLV_IN_EACH_U64(_name)					\
++static inline u64 _name##_get(const struct ctlv_cursor *attr)	\
++{								\
++	if (!ctlv_input_cursor(attr, _name##_ref()))		\
++		return 0;					\
++	return ctlv_attr_u64(attr);				\
++}
 +
-+/* attrs of group schema */
-+#define _CTLV_ATTR_SCHEMA(_attr) _CTLV_ATTR(CTLV_GROUP_SCHEMA, _CTLV_ATTR_SCHEMA_##_attr)
++#define CTLV_IN_EACH_S64(_name)					\
++static inline s64 _name##_get(const struct ctlv_cursor *attr)	\
++{								\
++	if (!ctlv_input_cursor(attr, _name##_ref()))		\
++		return 0;					\
++	return ctlv_attr_s64(attr);				\
++}
 +
-+enum _ctlv_attr_schema {
-+	_CTLV_ATTR_SCHEMA_ATTR_ID = 1,
-+	_CTLV_ATTR_SCHEMA_KIND,
-+	_CTLV_ATTR_SCHEMA_MAX_OCCURRENCES,
-+	_CTLV_ATTR_SCHEMA_MIN,
-+	_CTLV_ATTR_SCHEMA_MAX,
-+	_CTLV_ATTR_SCHEMA_MIN_LENGTH,
-+	_CTLV_ATTR_SCHEMA_MAX_LENGTH,
-+	_CTLV_ATTR_SCHEMA_FLAGS_MASK,
-+	_CTLV_ATTR_SCHEMA_UNIT,
-+	_CTLV_ATTR_SCHEMA_SCALE,
-+	_CTLV_ATTR_SCHEMA_BLOB_DIRECTION,
-+	_CTLV_ATTR_SCHEMA_BLOB_BACKINGS,
-+	_CTLV_ATTR_SCHEMA_BLOB_MAX_LENGTH,
-+	_CTLV_ATTR_SCHEMA_BLOB_ALIGNMENT,
-+	_CTLV_ATTR_SCHEMA_REENTERS,
-+	_CTLV_ATTR_SCHEMA_ATTRS,
-+	_CTLV_ATTR_SCHEMA_OPTIONAL_ATTRS,
-+	_CTLV_ATTR_SCHEMA_REQUEST,
-+	_CTLV_ATTR_SCHEMA_REPLY,
-+};
++#define CTLV_IN_EACH_BOOL(_name)				\
++static inline bool _name##_get(const struct ctlv_cursor *attr)	\
++{								\
++	if (!ctlv_input_cursor(attr, _name##_ref()))		\
++		return false;					\
++	return ctlv_attr_bool(attr);				\
++}
 +
-+#define CTLV_ATTR_SCHEMA_ATTR_ID _CTLV_ATTR_SCHEMA(ATTR_ID)
-+#define CTLV_ATTR_SCHEMA_KIND _CTLV_ATTR_SCHEMA(KIND)
-+#define CTLV_ATTR_SCHEMA_MAX_OCCURRENCES _CTLV_ATTR_SCHEMA(MAX_OCCURRENCES)
-+#define CTLV_ATTR_SCHEMA_MIN _CTLV_ATTR_SCHEMA(MIN)
-+#define CTLV_ATTR_SCHEMA_MAX _CTLV_ATTR_SCHEMA(MAX)
-+#define CTLV_ATTR_SCHEMA_MIN_LENGTH _CTLV_ATTR_SCHEMA(MIN_LENGTH)
-+#define CTLV_ATTR_SCHEMA_MAX_LENGTH _CTLV_ATTR_SCHEMA(MAX_LENGTH)
-+#define CTLV_ATTR_SCHEMA_FLAGS_MASK _CTLV_ATTR_SCHEMA(FLAGS_MASK)
-+#define CTLV_ATTR_SCHEMA_UNIT _CTLV_ATTR_SCHEMA(UNIT)
-+#define CTLV_ATTR_SCHEMA_SCALE _CTLV_ATTR_SCHEMA(SCALE)
-+#define CTLV_ATTR_SCHEMA_BLOB_DIRECTION _CTLV_ATTR_SCHEMA(BLOB_DIRECTION)
-+#define CTLV_ATTR_SCHEMA_BLOB_BACKINGS _CTLV_ATTR_SCHEMA(BLOB_BACKINGS)
-+#define CTLV_ATTR_SCHEMA_BLOB_MAX_LENGTH _CTLV_ATTR_SCHEMA(BLOB_MAX_LENGTH)
-+#define CTLV_ATTR_SCHEMA_BLOB_ALIGNMENT _CTLV_ATTR_SCHEMA(BLOB_ALIGNMENT)
-+#define CTLV_ATTR_SCHEMA_REENTERS _CTLV_ATTR_SCHEMA(REENTERS)
-+#define CTLV_ATTR_SCHEMA_ATTRS _CTLV_ATTR_SCHEMA(ATTRS)
-+#define CTLV_ATTR_SCHEMA_OPTIONAL_ATTRS _CTLV_ATTR_SCHEMA(OPTIONAL_ATTRS)
-+#define CTLV_ATTR_SCHEMA_REQUEST _CTLV_ATTR_SCHEMA(REQUEST)
-+#define CTLV_ATTR_SCHEMA_REPLY _CTLV_ATTR_SCHEMA(REPLY)
++#define CTLV_IN_EACH_STRING(_name)				\
++static inline const char *					\
++_name##_get(const struct ctlv_cursor *attr)			\
++{								\
++	if (!ctlv_input_cursor(attr, _name##_ref()))		\
++		return NULL;					\
++	return ctlv_attr_string(attr);				\
++}
 +
-+/* attrs of group event */
-+#define _CTLV_ATTR_EVENT(_attr) _CTLV_ATTR(CTLV_GROUP_EVENT, _CTLV_ATTR_EVENT_##_attr)
++#define CTLV_IN_EACH_BINARY(_name)				\
++static inline const void *					\
++_name##_get(const struct ctlv_cursor *attr, u32 *len)		\
++{								\
++	if (!ctlv_input_cursor(attr, _name##_ref())) {		\
++		*len = 0;					\
++		return NULL;					\
++	}							\
++	return ctlv_attr_binary(attr, len);			\
++}
 +
-+enum _ctlv_attr_event {
-+	_CTLV_ATTR_EVENT_OP_ID = 1,
-+	_CTLV_ATTR_EVENT_QUEUE_LEN,
-+	_CTLV_ATTR_EVENT_QUEUE_USED,
-+	_CTLV_ATTR_EVENT_FIRST_SEQUENCE,
-+	_CTLV_ATTR_EVENT_LAST_SEQUENCE,
-+	_CTLV_ATTR_EVENT_DROPPED_COUNT,
-+};
-+
-+#define CTLV_ATTR_EVENT_OP_ID _CTLV_ATTR_EVENT(OP_ID)
-+#define CTLV_ATTR_EVENT_QUEUE_LEN _CTLV_ATTR_EVENT(QUEUE_LEN)
-+#define CTLV_ATTR_EVENT_QUEUE_USED _CTLV_ATTR_EVENT(QUEUE_USED)
-+#define CTLV_ATTR_EVENT_FIRST_SEQUENCE _CTLV_ATTR_EVENT(FIRST_SEQUENCE)
-+#define CTLV_ATTR_EVENT_LAST_SEQUENCE _CTLV_ATTR_EVENT(LAST_SEQUENCE)
-+#define CTLV_ATTR_EVENT_DROPPED_COUNT _CTLV_ATTR_EVENT(DROPPED_COUNT)
-+
-+/* metadata of group event */
-+enum _ctlv_attr_event_metadata {
-+	CTLV_ATTR_EVENT_QUEUE_LEN_UNIT = CTLV_UNIT_BYTES,
-+	CTLV_ATTR_EVENT_QUEUE_LEN_SCALE = 0,
-+	CTLV_ATTR_EVENT_QUEUE_USED_UNIT = CTLV_UNIT_BYTES,
-+	CTLV_ATTR_EVENT_QUEUE_USED_SCALE = 0,
-+};
-+
-+/* attr sets */
-+enum _ctlv_set {
-+	CTLV_SET_FAMILY_ENTRY = 1,
-+	CTLV_SET_OP_ENTRY,
-+	CTLV_SET_OP_SCHEMA_REQUEST,
-+	CTLV_SET_SCHEMA_NODE,
-+	CTLV_SET_OP_SCHEMA_INFO,
-+	CTLV_SET_OP_CHANGE_INFO,
-+	CTLV_SET_ERROR_INFO,
-+	CTLV_SET_EVENT_SUBSCRIPTION,
-+	CTLV_SET_EVENT_QUEUE_LIMIT,
-+	CTLV_SET_EVENT_QUEUE_STATE,
-+	CTLV_SET_EVENT_OVERFLOW_INFO,
-+};
-+
-+/* ops */
-+enum _ctlv_op {
-+	_CTLV_OP_FAMILIES_DUMP = 1,
-+	_CTLV_OP_OPS_DUMP,
-+	_CTLV_OP_OP_SCHEMA_GET,
-+	_CTLV_OP_SUBSCRIPTIONS_ADD,
-+	_CTLV_OP_SUBSCRIPTIONS_REMOVE,
-+	_CTLV_OP_EVENT_QUEUE_GET,
-+	_CTLV_OP_EVENT_QUEUE_SET,
-+	_CTLV_OP_OP_CHANGED,
-+	_CTLV_OP_EVENT_OVERFLOW,
-+	_CTLV_OP_DEVICE_REMOVED,
-+};
-+
-+#define _CTLV_OP(_op) CTLV_OP(CTLV_FAMILY_ROOT, _CTLV_OP_##_op)
-+#define CTLV_OP_FAMILIES_DUMP _CTLV_OP(FAMILIES_DUMP)
-+#define CTLV_OP_OPS_DUMP _CTLV_OP(OPS_DUMP)
-+#define CTLV_OP_OP_SCHEMA_GET _CTLV_OP(OP_SCHEMA_GET)
-+#define CTLV_OP_SUBSCRIPTIONS_ADD _CTLV_OP(SUBSCRIPTIONS_ADD)
-+#define CTLV_OP_SUBSCRIPTIONS_REMOVE _CTLV_OP(SUBSCRIPTIONS_REMOVE)
-+#define CTLV_OP_EVENT_QUEUE_GET _CTLV_OP(EVENT_QUEUE_GET)
-+#define CTLV_OP_EVENT_QUEUE_SET _CTLV_OP(EVENT_QUEUE_SET)
-+#define CTLV_OP_OP_CHANGED _CTLV_OP(OP_CHANGED)
-+#define CTLV_OP_EVENT_OVERFLOW _CTLV_OP(EVENT_OVERFLOW)
-+#define CTLV_OP_DEVICE_REMOVED _CTLV_OP(DEVICE_REMOVED)
-+
-+#endif /* _UAPI_LINUX_CTLV_GEN_H */
+ #endif /* _LINUX_CTLV_FAMILY_H */
 -- 
 2.56.0
 
