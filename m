@@ -1,50 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2762F4FE2E2;
-	Thu, 15 Oct 2026 20:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A026259B663;
+	Thu, 15 Oct 2026 20:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096198; cv=none; b=rEgHsP2yQT7obSUwr1cH9thTBPpQwEYtlZ9n1qSrqbkGoHeZyiJ/0dViXQN3vmCEFML9ml4ZEg7BpO5OmDwc3zm75TSUwT8VZhULzgcgVPbBDUuDmWY4inHOnqhwD5Rv2MmR51VluUw2HnbXgJu5Y4SCnwP2LX2IsJ1c3zwluyM=
+	t=1792096247; cv=none; b=ONGOesYCLxNbNswz70ZzCMzIczK6mjUptpObX423qq3+aWTSk3yCqOP5dlRGW3G+lpoxzE7zcRgTPNNAdfjzjBhZyIw1+Oh8mgVl+THUyQlISI/ojhbkiWwd7LLrqtvRE3yfxfSzlqZEMAeTdJYXRcu/XKaY1f1BVK4rsyzL4ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096198; c=relaxed/simple;
-	bh=ch7EG77qjowXD41xAEl9Or0RS8Oy8VfIQ8MTG26w4Po=;
+	s=arc-20240116; t=1792096247; c=relaxed/simple;
+	bh=Llya/iCUXE9QBGzYm70nguitOlGi8JAaUxBlY6NGYnw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dW5gVlnDNyeOPxyJ2vnHq0kmqa2/CdOFN1eTA3Q7Y+GWirQXU+0FFZ2H2sUcl6/+NWaSV6kF9zLx/wnGfZQVAvBvGJjDd13DR+kxyWmUViqwqAAWpiXOvnsOT0dc23Wnw54ofZZVrMOK1ciRcMY+MfIXe2msW9CjOtHy9hkLfJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SydBT73Q; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tV+booaGqvpODLQYv561yuTxoJ615u3ouEictHbMrPdKy+Kke47++VF86fCdBqIquxmgGF3jAO3CJnIyqRHCf7AaVr0Z/Yj9HiupsgNRFE9ytaMTQCKZtBB5LLQ+M+ECNC4aPA8Ceo7t7C311vMEW9bJnsb+YgFrDai/CEH6emM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aM3qhn2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SydBT73Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BF81F000C4;
-	Thu, 15 Oct 2026 20:29:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aM3qhn2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0211F000C4;
+	Thu, 15 Oct 2026 20:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096196;
-	bh=paziipE/XgaTDQwZRgtVHzDUAZZwAvePegn9nlvyFOo=;
+	s=k20260515; t=1792096245;
+	bh=URfziB+RyIP02hVDIQqdBJwppVeDD9L3S3oe92U9tBM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SydBT73QOm7ADkQtzSTlALUHTDfIvqukcaSkwd7aHkz0jLCygKgZu2nSIXcsFi1zc
-	 ieWRF/jdQ/ru9sBRexMtit3utKEYfZEhPX24n5z9xTi9WI1AAhOW3fLMhbzsr2x9/l
-	 Rv25FXKNX0HB2tGMFPd9io+7IaJJW0zisPg8WqwJunWwJmsrokagurzyUrRmDVhEn7
-	 c07ctjZXRmn/h8T1otEGBU2WDbFJ1h3zppNywtI974u2iWH5esPOX0iM8vyG2sHPQ7
-	 ag6FvCyOrRuVKtBmuPlbw3eVLhpbCgtlKd747tGsoxgZpweUdUolLYpgN1LVj9SKJx
-	 oZ1qLt8bUwsdQ==
-Date: Thu, 15 Oct 2026 15:29:54 -0500
+	b=aM3qhn2Jv+MxF6pn7Q4eodY6rAS2Po1i2tj5SPhIJm0gS9XpOBBbFW6QEMTtijmdt
+	 7v24a2QT3fUgwCkOYOrSFov1KInJHvfA8VAi9x5ir2tLUqaSRWmF4ya4vDRQCcRxZ4
+	 pouQM2nkBItybpN3NZrV9m6KxDPzb3/bxllCOjwF9IoO5FaYOnRKMq72iCWQZ3C9Lg
+	 sfEG3SV3R7JT/0+vPLEmabT0isItZ4eO4Ohf/pdqONpirZlLm6X3pa3l/Ml/yGhxjM
+	 WBRBp7bL7fg1yJ8KGA90V9PHvqq0bxF1sVh+LZTb8kgvLoMJGaNCWcM4TCWTC2Zdon
+	 iZjik/DiI4/vA==
+Date: Thu, 15 Oct 2026 15:30:43 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, linux-i2c@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
-	linux-gpio@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v3 05/11] dt-bindings: i2c: Add Cortina Systems CS7542
- I2C controller
-Message-ID: <179209619291.3075035.14291560826684213892.robh@kernel.org>
-References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
- <20261013-b4-cs75xx-s2-v3-5-181bb0d23f4c@gmail.com>
+To: Luo Liu <Luo.Liu@cixtech.com>
+Cc: vkoul@kernel.org, linux-arm-kernel@lists.infradead.org,
+	EastLake.Yang@cixtech.com, cix-kernel-upstream@cixtech.com,
+	mani@kernel.org, linux-kernel@vger.kernel.org, conor+dt@kernel.org,
+	gary.yang@cixtech.com, krzk+dt@kernel.org, p.zabel@pengutronix.de,
+	Wuyi.Shen@cixtech.com, devicetree@vger.kernel.org,
+	neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
+	fugang.duan@cixtech.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: phy: Add CIX Sky1 DP PHY
+Message-ID: <179209624254.3079823.9194269374126037719.robh@kernel.org>
+References: <20261013095900.758464-1-Luo.Liu@cixtech.com>
+ <20261013095900.758464-2-Luo.Liu@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,17 +48,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013-b4-cs75xx-s2-v3-5-181bb0d23f4c@gmail.com>
+In-Reply-To: <20261013095900.758464-2-Luo.Liu@cixtech.com>
 
 
-On Tue, 13 Oct 2026 09:07:15 +0300, Fil Dunsky wrote:
-> Add a binding for the I2C ("Bi-Wire") controller of the Cortina Systems
-> CS75xx SoCs.
+On Tue, 13 Oct 2026 17:58:58 +0800, Luo Liu wrote:
+> Document the dedicated DisplayPort PHY on CIX Sky1, including the
+> optional cix,edp board property to select the eDP swing table.
+> Add a MAINTAINERS entry for the binding and driver.
 > 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 > ---
->  .../bindings/i2c/cortina,cs7542-i2c.yaml           | 56 ++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
+>  .../bindings/phy/cix,sky1-dp-phy.yaml         | 56 +++++++++++++++++++
+>  MAINTAINERS                                   |  8 +++
+>  2 files changed, 64 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
