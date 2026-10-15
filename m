@@ -1,161 +1,334 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8B14D9548
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066400; cv=pass; b=qg62taumh3Fxw5wBl2tt7FmyN89tI4A9weFD8CXzM+f/QdvHzcTHWZdDWgPMdMpJrfgegITmD3SvvnqvoDxfJQBKGEjhEbYBiTdUu++9U/9+6Tkp4PcBJWai6V2IVlWmeNNHtakkqr2eiI9hY5WEIe1jcoQSSqoPWag6+F/cpEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066400; c=relaxed/simple;
-	bh=PfWD4VpdWtdSjVgCMYbGy7PflI7LLghvMi+QrsP2eAY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UFz2VIZqyReJqr36irVKGaDMDXSWtWL3V9ufCnaTGkpIcqPSh+QXDUsxVb2/ZzuZLblSay1U2CrQvUsAC2b0hvmQZYewiIzTyH/Ptts9GKlNlzPhZw/xbQlA8XPSwFS12Tiz2vG2I+cVLmxxaP5y4zN8p6t6V6VQ7kajshujwQc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFUv0rFw; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC07349F115
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792066407; cv=none; b=bMSLlYC+JXmFjTXOFHa9z7bp8L+9azBCFKvjt4PkR47wJukyMhMAx95LqfX5AO3khvK4KJ91xarOxtH0PnQP3EnEZpzb08kkvHGbnfFYSnm5XQ7uyeYGfCNKfbtkSsH1Tx3khLXsEefmrPYvenTeBcua2npXFU7ADwNvgHAa++I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792066407; c=relaxed/simple;
+	bh=zdH+IOOBV2baj5d9rZ4dm40njWgoiWrQrN/U10L+YbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E2O4gWIMGSnmY7ozADRM987qlYcl/lXwpIQ1y41vcwpa5GFzH6JTxXrKGjYu2Zry4QbmfGA7nhF1RKwKwpCkb025VThQqOJjqOV6ZULQgG5zsgJmKEnEzowcoIb/v8NlxKYxMHTgCa2R/jTltg0aC9UsLr5bsmc4UGLN+S7mV4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=REnWExzR; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFUv0rFw"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bccc73eea4so2712724e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:13:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792066397; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JvpInNI3TvlFp5zZvqejFmA2bxtM+VvQ59mSuOEnWTChqhVAyKEzyyyysVf6CoBF40
-         kYm0ppNsyC7YVORG2IvsAkHfVH04E7OX25yApmjo10DDairQ314gJCoCytrPtIi3/5bg
-         D6XkZayhU+QmZdkLNOzNGoh+e06krKBqV6nSzgrLhZLrYXf/7vmVeQqa+MgQnajKHzmm
-         fC8Zxo24taHNSJ/Kbh33B/KZJCWypFwC6PKynGSMwMIOgXDxxX7NsFEwPbESLkZpMFmp
-         W+DqldLt9+g8gPISpZjmeP0vzdq536UeCBzBG/r/2HbsVlXuZM11cFTJU9PsyfDy0ZcG
-         dbyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PfWD4VpdWtdSjVgCMYbGy7PflI7LLghvMi+QrsP2eAY=;
-        fh=/1+l813R+LVD5SZvpjexiyhtima3ubhgZeQrYJPMlrc=;
-        b=WKL+p0b4GYyLdQvUd0ErkFTVIlEAxcx/xkRQzUgWlb12yaN4wrVV+4Nxr6au60NfEN
-         BUdR2gucy7STloQ9uEipHQsCyDvWrNP+l8/GTi+lz3+TVpXJ9ujPhSAuTPcDAdMp02aj
-         a9Jr0+P7O2UHxe7PKXANzI4KkNER9gtvGI7qAWK9WThP6v09F+TRsVkCBwpQD3Q3GamB
-         5uI4qZJ81OBt7ZDgWDU7YGRH5W1VNmiyrKOyZIs4IsT1J1tMSt4i2CmrXN+Gr1zcLweD
-         HpXPGs37mzdaSnycCOICeSpFDMrMQMTYIESE9VXW6SJddjat+3hpn/mMzjl/fvvlaNjS
-         l4hw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="REnWExzR"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93e63ee7b4cso438738985a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:13:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792066397; x=1792671197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PfWD4VpdWtdSjVgCMYbGy7PflI7LLghvMi+QrsP2eAY=;
-        b=MFUv0rFwkY46TMBt7X8wNlMgYfH2YjM20arVDogzgWTSRu/Y6LyM+DTrbXsuUU4IIM
-         KMefd9j1ptRsfqlo0pBgpWwYnuwS7fgCGXKEckghBS+1MbY5V0k43XFCPQfNBRIo7rqn
-         7ogA4wk4yI3JLiTiW/wgvj+yXuLzs7al5YO7pu1bm4MGoB+M3Ehh8qJsKATWAJkHuduv
-         PK7Sw7a+CUJ3u0rQgaaMXwZoRqciyvgFJdV9v6dr96LtRVBOr1510olmTRyInjU3Gj5i
-         ycB+cHUT0QzW4clXhHZ1Tr619ClxvRi78UB0NIs+BHrDyy9A1FwE0I9Iucm1YJ3qhBiM
-         Q9vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792066397; x=1792671197;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=ieee.org; s=google; t=1792066404; x=1792671204; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PfWD4VpdWtdSjVgCMYbGy7PflI7LLghvMi+QrsP2eAY=;
-        b=IX7DwJpB9bv+VcjWx/PlQ/qI+VcjJHJjOacHKlZKop7g3Qwssi3c2BLLZgt8z10edo
-         uhMPw/nsnI1s0HEWV78ZwetvMaQpDbC58LIIpq2TVEZm0wIi32wdUGrFxhLhZdAIWRY/
-         RaNQWfRzmbHbHnfahYUEMThaokaeKKIiTLH0zPb5o4IYl9/0s2Sm8iuQonwZfTJ7qmjX
-         yPBe3qY8eaMSgTu9jNnM0Xp1T+W8dUof1Q5HEFlxex8B15+Ha3hgOsIzy20bFHRwaXJI
-         HLYwgdOoSEsrW2VH3TkDjPvhcMtusffOsHmAqoOWzF09LYhB620/0uIuKdS3MXvIbvze
-         jFXA==
-X-Forwarded-Encrypted: i=1; AKwUvBw551GvZpX+Cmh/fGGhx3L94DOAir3klOw/Udv2UpxX4DGkfolKGq/2/Jj/MdwmFzq5D4E19JfAOsf6DUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrlBx6lXIQIRkk29vGBsMSKS5eI3lQGZ0l1m/b93ukiKB1O86J
-	QrY2y2+pZKHkUUfNGXEAk/cMAtU4WwiVcw8ev2VzsTDYmJ/u87VRwNDKlehsWCR7UkuslS8qSbJ
-	1LSF9OyBlsSmAbwXJLjRUxMuFS/ye8Us=
-X-Gm-Gg: AYBFou0uLhTwkPRxDqUHfwmh6o27kEj2mwYIztf6IoZpcuE5wvNq1r4sAKt4HGTHSMS
-	RbuC4URWg5TgjvFWMBtkv2f5LrAmiZwVQAHZ4U7P9cx7kPTWa4c17Q9168xoNs3kVxuE1O74V69
-	zIcnRf+5JPlZcP0E07wDE7HzkY2Oj5ipdnnY8MwLB8SjGcvjnpHc9wC0x0fVrpZyYcl0ucfMzGE
-	14HjI+EHfKcza4y0jvEdqaA8dzY/jRv/EHoNNHQz663AikdMYRMsMpw5yKws4kA11nAQmANadBZ
-	kF/tYcNwAtWfILSzYlBl6tVoEUFL7CWQ+D5wXpWGdbXBqprCVbIzHF+4Q3ph9fyFtzc8UGpPQZj
-	PUtdPMGkfK5Q5188W0XXSGJ1LooqA93+TMGS5vWtqoHQT7MYs2fEacInq5lPZ6Jt8QaGLDw==
-X-Received: by 2002:a05:6512:b1c:b0:5b8:e9cf:daa6 with SMTP id
- 2adb3069b0e04-5bcdd4f080cmr6853474e87.10.1792066396625; Thu, 15 Oct 2026
- 05:13:16 -0700 (PDT)
+        bh=Nvo89qAGwSb+Yzea1kpe4OCQr5Gc5wnVwAn3hnKuGGw=;
+        b=REnWExzRsfK8bTDY3YnFKE3CVUEHa2aLoso8+DNAzDd7GZ4ykq8zJC0KZ9S0kiRyTv
+         x+k3WyDZ+5ywdExZy4FGdB7ZBofx1uT40MnjH90PEaO7dWLbPPyOjmbxRdi+xtpDPvgN
+         YgOLNffx5O+7ka0Bv3hgKjXPY0FRwizvgHF88=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792066404; x=1792671204;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nvo89qAGwSb+Yzea1kpe4OCQr5Gc5wnVwAn3hnKuGGw=;
+        b=QDatF/2/9oAzQAHXKTp5R1NaHRwzkeL4/dwGk9hpAOWaSeESXkTnYGYMd5XefpV9+N
+         6rKu7UEmGwreOXYGbxixbveJg2lMCAiztTTNBN9HCBtCXBaS363OCW9bcrkvB4PFGcGm
+         MULLfVwlHRI0mbgUY3n7l8Du/NZx96K5SdY2Du4U3fhfSJGJd5FyGjgB9y6vPbx8actY
+         NEot3eLCBtGDZ9vB+lHLdhGtMoDDz4eiqrhTzDnpe22hGzuzKrxnSayZSJicFyC228EQ
+         fnYm7o/svmzgN/2+IbgU+MJd/F9CAuw5RBK38fWmlPcz28F3RdIY3Kx6vfGc1kNvt8zf
+         Ffjg==
+X-Forwarded-Encrypted: i=1; AKwUvByaKUve1W/hlCe1tPNTiYvvYgK9vc2tRVQMdQnXPsnfxltljxqFBOm05H8/Sdq9pvhbFuK6DA2GoJbxx8k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBZt1LRLeqE9cAKKIg5XtBtZQGsAWcvGLkdO9nk0OAR73EJbYG
+	vvX0wbkgWRT04EgvVUagOhjrP2lzaMIVEE0+wjZDsenGKKz8sDRPe/0Uhp9X+VgyRw==
+X-Gm-Gg: AYBFou12iGdiLH5qMHV8nAgmpRHpnRMvUrsBHp7DzNk7X4kbZvZ5hr6pgnVSmxjmL/h
+	U1Ljp6IaChWG6X9Ig2eiJZgRg6yXXQK94VRafzgBPvKjBs9jKKJslnbJrfYNuj6kzuVscQHZT+x
+	5A+TWnPx9gGcq2S5BKorps30sQUPrrdk0Oqdskg+nopVJabnZFKA56O4ofJtYimLYqnBQbe01fV
+	Rj7e1cVXTNrgEZRPhBDywcjPdL5+4bPda05kgy8SPCGPpaQs7uhjqd7xfGAuRNW2h5rzXxq99XY
+	uVzGWQjmivRgeAgpV3Qc8WY4E+XqyLgodlz+RxnAD2gWizG5+uN2XML3edNBpljlBv0ppfQDzjb
+	U8on0yQvN1Ke3ET0nNDr0oY4Q4lnO8fekr4+mz2n5fpQDEmbm6uZ6AdEtHJdSNKhVmgCD1X52HK
+	ynaLLX4dDdwQqcRYXO0u7F/T867cXYOzBLufJlW8bA7fb8XU1hGv4ABt1xWHDmTvySpw==
+X-Received: by 2002:a05:620a:4407:b0:939:a199:45b4 with SMTP id af79cd13be357-93ebd208f11mr3093274985a.39.1792066403617;
+        Thu, 15 Oct 2026 05:13:23 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id af79cd13be357-93f13fff574sm78712285a.13.2026.10.15.05.13.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 05:13:22 -0700 (PDT)
+Message-ID: <99cd529b-dffd-4315-b9be-9b0029973497@ieee.org>
+Date: Thu, 15 Oct 2026 07:13:21 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013103906.2660384-1-wferguson@cloudflare.com>
- <20261013103906.2660384-3-wferguson@cloudflare.com> <877bjk893u.fsf@cloudflare.com>
-In-Reply-To: <877bjk893u.fsf@cloudflare.com>
-From: Jason Xing <kerneljasonxing@gmail.com>
-Date: Thu, 15 Oct 2026 20:12:39 +0800
-X-Gm-Features: AclHuK9xypnzrrqwCcprd2CwQO7kzSIQ141D-bgf0CuqS7x-S8jo7RzifyoP-go
-Message-ID: <CAL+tcoBjfDEVGvvSXZHkiMjq5jat+5OJE-7uJr3MvtFyzn+KUg@mail.gmail.com>
-Subject: Re: [RFC PATCH net-next 2/4] tcp: add BPF_SOCK_OPS_TCP_TS_ID_CB to
- assign a TSval identifier
-To: Jakub Sitnicki <jakub@cloudflare.com>
-Cc: Willem Ferguson <wferguson@cloudflare.com>, netdev@vger.kernel.org, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ncardwell@google.com, 
-	bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	eddyz87@gmail.com, memxor@gmail.com, linux-doc@vger.kernel.org, 
-	corbet@lwn.net, linux-kselftest@vger.kernel.org, shuah@kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] staging: greybus: replace PTR_ERR() with %pe in error
+ messages
+To: pavankumaryalagada@gmail.com, johan@kernel.org, gregkh@linuxfoundation.org
+Cc: vireshk@kernel.org, elder@kernel.org, greybus-dev@lists.linaro.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ outreachy@lists.linux.dev
+References: <20261015082238.65187-1-pavankumaryalagada@gmail.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20261015082238.65187-1-pavankumaryalagada@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 15, 2026 at 1:51=E2=80=AFAM Jakub Sitnicki <jakub@cloudflare.co=
-m> wrote:
->
-> On Tue, Oct 13, 2026 at 10:39 AM GMT, Willem Ferguson wrote:
-> > Let a sock_ops program pick the identifier that the previous patch
-> > encodes in the low bits of TSval, for passively opened connections.
-> >
-> > The width is set per network namespace by the new tcp_ts_id_bits sysctl
-> > (0 to 8, default 0). A listener opts in by setting
-> > BPF_SOCK_OPS_TCP_TS_ID_CB_FLAG, typically from BPF_SOCK_OPS_TCP_LISTEN_=
-CB.
-> > tcp_conn_request() then runs BPF_SOCK_OPS_TCP_TS_ID_CB once the request
-> > socket exists and before the SYN-ACK is built, so the SYN-ACK already
-> > carries the identifier. The program sees the request socket, the SYN
-> > (bpf_load_hdr_opt() works on it) and the available width in args[1]. A
-> > reply that fits in that width is stored with the width in the request
-> > socket and is inherited by the child, including Fast Open children; any
-> > other reply leaves the connection unencoded.
-> >
-> > The callback is not run for SYN cookies, which have nowhere to keep the
-> > identifier, or when the peer did not negotiate timestamps. It is skippe=
-d
-> > for connections using microsecond timestamps and while the sysctl is 0.
-> > The width is captured per connection, so changing the sysctl does not
-> > affect existing connections.
-> >
-> > New /proc/net/netstat counters report how often an identifier was
-> > assigned, declined by the program or skipped. TCPTSIdEchoMismatch count=
-s
-> > third ACKs whose TSecr no longer carries the identifier, which shows th=
-e
-> > echo was rewritten in flight.
-> >
-> > BPF_SOCK_OPS_ALL_CB_FLAGS grows from 0x7f to 0xff. The tcpbpf selftest
-> > used 0x80 as an example of an unsupported flag, so move it to 0x100.
-> >
-> > Encoding makes the timestamp clock appear 2^bits times faster to the
-> > peer. That shrinks the real-time span of the peer's PAWS window, and
-> > peers that keep ts_recent for the RFC 7323 24 days stall connections
-> > idle for longer than 24.8/2^bits days. ip-sysctl.rst documents both,
-> > along with the lack of TCP_REPAIR support.
-> >
-> > Signed-off-by: Willem Ferguson <wferguson@cloudflare.com>
-> > ---
->
-> I think SOCK_OPS are considered legacy.
-> We probably want bpf_tcp_ops struct_ops.
-> See [1] for an example.
->
-> [1] https://lore.kernel.org/all/20261006192601.1875100-11-kuniyu@google.c=
-om/
->
+On 10/15/26 3:22 AM, pavankumaryalagada@gmail.com wrote:
+> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> 
+> Use %pe to print error pointers directly and display their
+> error names.
+> 
+> Keep PTR_ERR() calls when the numeric error value is needed
+> for returning the error code.
+> 
+> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-Exactly!
+In a few places you are *adding* the error value where it was
+missing (which I think is an improvement).  I assume that the
+return values in this case are negative errnos.
 
-Thanks,
-Jason
+It would have been worth mentioning this other type of change
+in the patch description too.  But it's not worth doing a new
+version for that.  I trust you found all the spots, and fixed
+them this way.  This looks good to me.
+
+Reviewed-by: Alex Elder <elder@riscstar.com>
+
+> ---
+> v4:
+> - Return error codes directly instead of storing them in ret,
+>    as suggested by Julia Lawall.
+> - Remove the unused ret variable.
+> 
+> v3:
+> - Extend the %pe conversion throughout Greybus, as suggested by Alex Elder.
+> 
+> v2:
+> - Use %pe in the firmware management case, as suggested by Jeremy Clifton,
+>    to match the other cases.
+> 
+> v1: https://lore.kernel.org/outreachy/as0nhVbagZa8Birm@user/T/#t
+> ---
+>   drivers/staging/greybus/arche-apb-ctrl.c | 37 ++++++++++--------------
+>   drivers/staging/greybus/arche-platform.c | 26 +++++++----------
+>   drivers/staging/greybus/fw-core.c        | 16 +++++-----
+>   drivers/staging/greybus/uart.c           |  2 +-
+>   4 files changed, 35 insertions(+), 46 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/arche-apb-ctrl.c b/drivers/staging/greybus/arche-apb-ctrl.c
+> index 4302c2226126..d30174310828 100644
+> --- a/drivers/staging/greybus/arche-apb-ctrl.c
+> +++ b/drivers/staging/greybus/arche-apb-ctrl.c
+> @@ -144,10 +144,9 @@ static int fw_flashing_seq(struct platform_device *pdev)
+>   
+>   		apb->spi_en = devm_gpiod_get(dev, "spi-en", flags);
+>   		if (IS_ERR(apb->spi_en)) {
+> -			ret = PTR_ERR(apb->spi_en);
+> -			dev_err(dev, "Failed requesting SPI bus en GPIO: %d\n",
+> -				ret);
+> -			return ret;
+> +			dev_err(dev, "Failed requesting SPI bus en GPIO: %pe\n",
+> +				apb->spi_en);
+> +			return PTR_ERR(apb->spi_en);
+>   		}
+>   	}
+>   
+> @@ -318,43 +317,37 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>   				struct arche_apb_ctrl_drvdata *apb)
+>   {
+>   	struct device *dev = &pdev->dev;
+> -	int ret;
+>   
+>   	apb->resetn = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+>   	if (IS_ERR(apb->resetn)) {
+> -		ret = PTR_ERR(apb->resetn);
+> -		dev_err(dev, "Failed requesting reset GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "Failed requesting reset GPIO: %pe\n", apb->resetn);
+> +		return PTR_ERR(apb->resetn);
+>   	}
+>   
+>   	apb->boot_ret = devm_gpiod_get(dev, "boot-ret", GPIOD_OUT_LOW);
+>   	if (IS_ERR(apb->boot_ret)) {
+> -		ret = PTR_ERR(apb->boot_ret);
+> -		dev_err(dev, "Failed requesting bootret GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "Failed requesting bootret GPIO: %pe\n", apb->boot_ret);
+> +		return PTR_ERR(apb->boot_ret);
+>   	}
+>   
+>   	/* It's not mandatory to support power management interface */
+>   	apb->pwroff = devm_gpiod_get_optional(dev, "pwr-off", GPIOD_IN);
+>   	if (IS_ERR(apb->pwroff)) {
+> -		ret = PTR_ERR(apb->pwroff);
+> -		dev_err(dev, "Failed requesting pwroff_n GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "Failed requesting pwroff_n GPIO: %pe\n", apb->pwroff);
+> +		return PTR_ERR(apb->pwroff);
+>   	}
+>   
+>   	/* Do not make clock mandatory as of now (for DB3) */
+>   	apb->clk_en = devm_gpiod_get_optional(dev, "clock-en", GPIOD_OUT_LOW);
+>   	if (IS_ERR(apb->clk_en)) {
+> -		ret = PTR_ERR(apb->clk_en);
+> -		dev_err(dev, "Failed requesting APB clock en GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "Failed requesting APB clock en GPIO: %pe\n", apb->clk_en);
+> +		return PTR_ERR(apb->clk_en);
+>   	}
+>   
+>   	apb->pwrdn = devm_gpiod_get(dev, "pwr-down", GPIOD_OUT_LOW);
+>   	if (IS_ERR(apb->pwrdn)) {
+> -		ret = PTR_ERR(apb->pwrdn);
+> -		dev_warn(dev, "Failed requesting power down GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_warn(dev, "Failed requesting power down GPIO: %pe\n", apb->pwrdn);
+> +		return PTR_ERR(apb->pwrdn);
+>   	}
+>   
+>   	/* Regulators are optional, as we may have fixed supply coming in */
+> @@ -368,12 +361,12 @@ static int apb_ctrl_get_fw_data(struct platform_device *pdev,
+>   
+>   	apb->pinctrl = devm_pinctrl_get(&pdev->dev);
+>   	if (IS_ERR(apb->pinctrl)) {
+> -		dev_err(&pdev->dev, "could not get pinctrl handle\n");
+> +		dev_err(&pdev->dev, "could not get pinctrl handle: %pe\n", apb->pinctrl);
+>   		return PTR_ERR(apb->pinctrl);
+>   	}
+>   	apb->pin_default = pinctrl_lookup_state(apb->pinctrl, "default");
+>   	if (IS_ERR(apb->pin_default)) {
+> -		dev_err(&pdev->dev, "could not get default pin state\n");
+> +		dev_err(&pdev->dev, "could not get default pin state: %pe\n", apb->pin_default);
+>   		return PTR_ERR(apb->pin_default);
+>   	}
+>   
+> diff --git a/drivers/staging/greybus/arche-platform.c b/drivers/staging/greybus/arche-platform.c
+> index de5de59ea8ab..8e75accc34b6 100644
+> --- a/drivers/staging/greybus/arche-platform.c
+> +++ b/drivers/staging/greybus/arche-platform.c
+> @@ -444,35 +444,32 @@ static int arche_platform_probe(struct platform_device *pdev)
+>   
+>   	arche_pdata->svc_reset = devm_gpiod_get(dev, "svc,reset", flags);
+>   	if (IS_ERR(arche_pdata->svc_reset)) {
+> -		ret = PTR_ERR(arche_pdata->svc_reset);
+> -		dev_err(dev, "failed to request svc-reset GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "failed to request svc-reset GPIO: %pe\n", arche_pdata->svc_reset);
+> +		return PTR_ERR(arche_pdata->svc_reset);
+>   	}
+>   	arche_platform_set_state(arche_pdata, ARCHE_PLATFORM_STATE_OFF);
+>   
+>   	arche_pdata->svc_sysboot = devm_gpiod_get(dev, "svc,sysboot",
+>   						  GPIOD_OUT_LOW);
+>   	if (IS_ERR(arche_pdata->svc_sysboot)) {
+> -		ret = PTR_ERR(arche_pdata->svc_sysboot);
+> -		dev_err(dev, "failed to request sysboot0 GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "failed to request sysboot0 GPIO: %pe\n", arche_pdata->svc_sysboot);
+> +		return PTR_ERR(arche_pdata->svc_sysboot);
+>   	}
+>   
+>   	/* setup the clock request gpio first */
+>   	arche_pdata->svc_refclk_req = devm_gpiod_get(dev, "svc,refclk-req",
+>   						     GPIOD_IN);
+>   	if (IS_ERR(arche_pdata->svc_refclk_req)) {
+> -		ret = PTR_ERR(arche_pdata->svc_refclk_req);
+> -		dev_err(dev, "failed to request svc-clk-req GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "failed to request svc-clk-req GPIO: %pe\n",
+> +			arche_pdata->svc_refclk_req);
+> +		return PTR_ERR(arche_pdata->svc_refclk_req);
+>   	}
+>   
+>   	/* setup refclk2 to follow the pin */
+>   	arche_pdata->svc_ref_clk = devm_clk_get(dev, "svc_ref_clk");
+>   	if (IS_ERR(arche_pdata->svc_ref_clk)) {
+> -		ret = PTR_ERR(arche_pdata->svc_ref_clk);
+> -		dev_err(dev, "failed to get svc_ref_clk: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "failed to get svc_ref_clk: %pe\n", arche_pdata->svc_ref_clk);
+> +		return PTR_ERR(arche_pdata->svc_ref_clk);
+>   	}
+>   
+>   	platform_set_drvdata(pdev, arche_pdata);
+> @@ -483,9 +480,8 @@ static int arche_platform_probe(struct platform_device *pdev)
+>   	arche_pdata->wake_detect = devm_gpiod_get(dev, "svc,wake-detect",
+>   						  GPIOD_IN);
+>   	if (IS_ERR(arche_pdata->wake_detect)) {
+> -		ret = PTR_ERR(arche_pdata->wake_detect);
+> -		dev_err(dev, "Failed requesting wake_detect GPIO: %d\n", ret);
+> -		return ret;
+> +		dev_err(dev, "Failed requesting wake_detect GPIO: %pe\n", arche_pdata->wake_detect);
+> +		return PTR_ERR(arche_pdata->wake_detect);
+>   	}
+>   
+>   	arche_platform_set_wake_detect_state(arche_pdata, WD_STATE_IDLE);
+> diff --git a/drivers/staging/greybus/fw-core.c b/drivers/staging/greybus/fw-core.c
+> index 2016a74f137f..78321be80013 100644
+> --- a/drivers/staging/greybus/fw-core.c
+> +++ b/drivers/staging/greybus/fw-core.c
+> @@ -93,8 +93,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>   			if (IS_ERR(connection)) {
+>   				ret = PTR_ERR(connection);
+>   				dev_err(&bundle->dev,
+> -					"failed to create management connection (%d)\n",
+> -					ret);
+> +					"failed to create management connection (%pe)\n",
+> +					connection);
+>   				goto err_destroy_connections;
+>   			}
+>   
+> @@ -112,8 +112,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>   			connection = gb_connection_create(bundle, cport_id,
+>   							  gb_fw_download_request_handler);
+>   			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create download connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create download connection (%pe)\n",
+> +					connection);
+>   			} else {
+>   				fw_core->download_connection = connection;
+>   			}
+> @@ -131,8 +131,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>   			connection = gb_connection_create(bundle, cport_id,
+>   							  NULL);
+>   			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create SPI connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create SPI connection (%pe)\n",
+> +					connection);
+>   			} else {
+>   				fw_core->spi_connection = connection;
+>   			}
+> @@ -149,8 +149,8 @@ static int gb_fw_core_probe(struct gb_bundle *bundle,
+>   			connection = gb_connection_create(bundle, cport_id,
+>   							  NULL);
+>   			if (IS_ERR(connection)) {
+> -				dev_err(&bundle->dev, "failed to create Authentication connection (%ld)\n",
+> -					PTR_ERR(connection));
+> +				dev_err(&bundle->dev, "failed to create Authentication connection (%pe)\n",
+> +					connection);
+>   			} else {
+>   				fw_core->cap_connection = connection;
+>   			}
+> diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+> index 172cf900eaf0..59a112cf47a0 100644
+> --- a/drivers/staging/greybus/uart.c
+> +++ b/drivers/staging/greybus/uart.c
+> @@ -951,7 +951,7 @@ static int gb_tty_init(void)
+>   					 TTY_DRIVER_DYNAMIC_DEV |
+>   					 TTY_DRIVER_RESET_SAVED_TERMIOS);
+>   	if (IS_ERR(gb_tty_driver)) {
+> -		pr_err("Can not allocate tty driver\n");
+> +		pr_err("Can not allocate tty driver: %pe\n", gb_tty_driver);
+>   		retval = PTR_ERR(gb_tty_driver);
+>   		goto fail_unregister_dev;
+>   	}
+
