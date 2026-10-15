@@ -1,212 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8BEC51814F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 12:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068433; cv=fail; b=JdsHXITbG5p8s+9+DkOuU5GupzALPLJvRtt2sHM5DIS5Cvtum4DBt3kv/XblJL5t37gHIb4n4vcqKJrmg5MrPR/twIXg2vbByVopcao+9Oym9Y/sMMEagWMteUdkoaxQYJm5rychVcl08EQfLVt+IxHM2oQIx+kFdeTHW0klvaU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068433; c=relaxed/simple;
-	bh=bvXFTVevT/4siiiX7VkmbMmYCZE/7GqmyTvQg8diYYc=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=eIlYj78WPjblMF2733dVyOoHltwEQGzneMeE77ZqRVVrnj/q31cemjKunAeDghF+Y57Fbw/Sl8UssjzO4d+/ImzsMcCisabj/JEMrI0vAUjXnvmHVxDfrrqeTzTnNcfI3rG5qIJzUr77LM78HlWgpZvjsRhLTMxAkUZTpy8+sVw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=le3R4SXc; arc=fail smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4B051812D;
+	Thu, 15 Oct 2026 12:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792068436; cv=none; b=aWx5dlfAXKGllvezlIa1tDGNyWj87qGV1vgjmZxRVNkrhq1QLE5YTrhvdL4qmesjuFjWTM9fDRAXkgMqPSTvku+QpsNJkKtkqauAGIEsHDV2TH5xxvzRXJdIkiH8reVInkiAXzY6JMs77ihCPgJMKF3ZMJU29hsODq06YsHvRQI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792068436; c=relaxed/simple;
+	bh=2GjxL018+S0bBWJ3yt4EvK7GDpzkncbRDHcSopY91xA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NfhOZ2LVFSZWGEHdDE9xSVdNKo4iSwot4emihlErebkh9KJ53FYECUDRtpaafLFXmwOkJb2DUwOlKNMkGfYgPLNOWZNf8szsHpdSYQbVqBFz5U3fftpPqCFroDRsK6g8zzlz/00vblG6wti8o2iXFmadmKkSa4Jqap7SsaVr24Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=TDpuDTk9; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="le3R4SXc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792068431; x=1823604431;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=bvXFTVevT/4siiiX7VkmbMmYCZE/7GqmyTvQg8diYYc=;
-  b=le3R4SXcrCwVo4XNvwe4DNVo8ZqKAO+ybmI88pMGWTkJGH/Wy8bYR/Hs
-   9ZgcgP2tFCD4ziq9+s4QVww6wtB4vLni+dC8RAjSqHumqXbRE2Bq8E81v
-   hmoEBDXSUmMzs3adR0e6/d3mANDVDo1q5LUutMrbWGNGF3ii1Sdl9GhnE
-   PqpGRchJnWXQzXPBeQ+J9uaxM4/bwGPGAhbf85FOy05zy5t3rZJK+WKLL
-   zgiBj60+BpQ6RzSZVx9B6Cr/31p2Lgt8u+6ZWkhz8LrrjoiiKKW3yd+S1
-   lJsopFJ6RZ8wqFURg7CNCDsJHxJ1JgCPDPUgEAycwnjpORiJPlgSRZhNN
-   A==;
-X-CSE-ConnectionGUID: QahGL8zESqKjIuzgFV5hhQ==
-X-CSE-MsgGUID: wj7TKd4wQQ+BxH2q9YryJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="837920"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="837920"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 05:47:11 -0700
-X-CSE-ConnectionGUID: aIks1wlFQjK7vLD7HXIubw==
-X-CSE-MsgGUID: 1CpjhlChSaqAWgFyZK56LQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="2152839"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 05:47:11 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 05:47:10 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 05:47:10 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.49) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 05:47:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HFxXH+WvsTS+RviKoaMbj989CIRGnZF1fusUTUFi7iq4LrOwpwWrM6SDxBsdvHXNmxJH8uk2TYncHKSLRX19M4EGGVnfcjUDmInbsPvR+3kpg7RmMm9tKUMkWungF1H+TjCiId7i5mXY1CuBfem6E0dPVPDMJbqd9z1Tup5/v7bQmh7zuyy9UbkDLve4GvwrKrwUcsBtBO3S1BrZdAyjMtvJJWxMCwZkwhnWVKxem2B9qCWGBnBVSvdYqOQDkd9xOn376W3VRYXwuUbiIijHqQi0MxGj6JUxnu/Eb1iORJB57SI/yHdcvsMgx8o/xu7aKqRdKBGh4NH4IQJo10YS1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qd4kPVnDSKV9I1knnqvzy6Okou+LUAVYhigLvTNDcqc=;
- b=xfHr+BYbICytt/nGdXWf4VT5KafrN0YeV/s/vyunK8EGn6CmbiIwfltZwAvnoPCVt8/yWsjvtTJ41mnPAKo/Mcg2M8DJf8Vz4z/UIvUYAS94kKuRnet51TAjBxX2c1e0vI81MNkRDHRfApsdY/JBr19ZkZyKui5ftjbLKMUm3PRVeD/mLOZkkVmFG4XBMS9aZW0K/kauEXvHW68so3k79BZHbAp4PL+z5eRcsNgbxblu8fTv6z/u3eLs1YNJLQuMY5XYI2iFew09cyZ7KUp9vSDhy8uvnmj1rFCzb8EeuGvUiz4Lw39zg/O7zqNxKkaIu7Rv77zTKwNKe72dIxzY7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB7181.namprd11.prod.outlook.com (2603:10b6:8:113::13)
- by DM4PR11MB7757.namprd11.prod.outlook.com (2603:10b6:8:103::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
- 2026 12:47:06 +0000
-Received: from DM4PR11MB7181.namprd11.prod.outlook.com
- ([fe80::89ec:90c8:3170:5f0a]) by DM4PR11MB7181.namprd11.prod.outlook.com
- ([fe80::89ec:90c8:3170:5f0a%4]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 12:47:06 +0000
-Date: Thu, 15 Oct 2026 08:47:00 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Simon Richter <Simon.Richter@hogyros.de>, <karthik.poosa@intel.com>,
-	Zongyao Bai <zongyao.bai@intel.com>, <anshuman.gupta@intel.com>
-CC: Constantinos Chalkias <cch@e-psn.eu>, Bata Roland
- =?iso-8859-1?Q?Kriszti=E1n?= <batarolandkrisztian@gmail.com>,
-	<intel-xe@lists.freedesktop.org>, <matthew.brost@intel.com>,
-	<thomas.hellstrom@linux.intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
- force-wake
-Message-ID: <atDLRDvuDES7u00Q@intel.com>
-References: <20261012104245.2108030-1-cch@e-psn.eu>
- <as_iOd6A_Yncj8Gt@intel.com>
- <55cba965-208a-44cd-a644-e664410af8a5@hogyros.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <55cba965-208a-44cd-a644-e664410af8a5@hogyros.de>
-X-ClientProxiedBy: SJ0PR13CA0148.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::33) To DM4PR11MB7181.namprd11.prod.outlook.com
- (2603:10b6:8:113::13)
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="TDpuDTk9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=5t7ujz0LRKmYSDnSpxRV4FUu+VgcIx5vzGaUrJmUsOs=;
+	t=1792068434; x=1793278034; b=TDpuDTk9Qeh0C8t/h1N/f5hzpRDVJIpwmb8hqpEzi9jZ2aP
+	B96gjIXsc91vmuMw4VBkpdrMa0hbyK6Ju/KZdgt84UeE1dq0FysXcR+mXxhPsGgL6F1a0MwLG/yZc
+	cg4ki63X7P5A9CKC5DJy2xRvLOakkg9VMI5vs+FnCrB/mN/U+yYss1U5DlpIB0Zhjb3TlXQ6rri5M
+	4YQ5+PnlrPQXhIkpsraOPv20+pRSnZs45avKBGjag3ZHqZ2TbiNqeUD55Fo5BqNk/hbPMGlTyIhZs
+	w75t2TGikbKQWTPjmNBgQC4jj+Fe5hVOzgkTpKjiM+vLAv7rTPiz1tDSRHd3AB1Q==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xHKrO-00000003auM-2yCv;
+	Thu, 15 Oct 2026 14:47:03 +0200
+Message-ID: <8420ba1fe84fc7d105825026802d4ad10d44af71.camel@sipsolutions.net>
+Subject: Re: [PATCH net-next v2 2/7] um: vector: honor virtio net hdr
+ conversion failures
+From: Johannes Berg <johannes@sipsolutions.net>
+To: "Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jason Wang	
+ <jasowangio@gmail.com>, Eugenio =?ISO-8859-1?Q?P=E9rez?=
+ <eperezma@redhat.com>,  Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller"	 <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski	 <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	virtualization@lists.linux.dev, Rusty Russell <rusty@rustcorp.com.au>, Max
+ Krasnyansky <maxk@qualcomm.com>, Richard Weinberger <richard@nod.at>, Anton
+ Ivanov	 <anton.ivanov@cambridgegreys.com>, linux-um@lists.infradead.org
+Date: Thu, 15 Oct 2026 14:47:01 +0200
+In-Reply-To: <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
+References: <cover.1792067836.git.mst@redhat.com>
+	 <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB7181:EE_|DM4PR11MB7757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b5afc20-93a8-46f3-895a-08df2aba6b01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|18002099003|22082099003|3023799007|5023799004|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: znW+isJxze7vr7+vD+yPdyMSqC6iVziTy/Pur4r34rMc1xmtHmqfntX1+RA5GcaI05PPFWMGz/jE/PNZ0wTn6eBKzC8wW7TDgnsL4evL/04+nSxgPLbCHulI5l0Es+ZUnMeTu5+pzC53/3OQrFP9YVJN3K+51WZb0bWcqZCoqcjzrRaS+rMozlzXYS6JipgzTMDzPA6oUpbYdnqggfa1mTfEa+050FBR0TLzpq1LmUZuzVK9hdR1EA6gnUNxW1lO7FFbkUjnPE1vqvASgClBHW1c5yesVya73H2mWp4e4TZZY9JryH8D46tT8ApTAf1Y+iHU+GQS+xVqY4H3nQAG5cKynQBruAZNfT8Vf8yZoU0JD2XG006VXI9rPi8gMJiH7xdxHhyUAsCMkSCgPNPMQU9zQ1TMTYVW+2Ut/l3WFl8I40bL/zYCwvxeIMwlrqdSB/BFN9yoLIHfg59TqyGR4nVWLZGbub3qDZLiAhNLwDwkf/2odUwcVJKv+2bSEz2F0TphyP+E2ZFq+JEp2QSd/s2AcSltZy10OfsmpZlvRffYYdnbDg+/799+WxIPOB7d2GA6F2hDu/bEkNsZCc/fRoSxkRvqTs7Jg1bJb/KeciAn8YDqCwXL3AC9d989xamO
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB7181.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(18002099003)(22082099003)(3023799007)(5023799004)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ga9FuEp8fZuhscHLVYd4iIJyyb1eAHsL8980faMyQZgeUF/79aTh8SZa/rla?=
- =?us-ascii?Q?2FR4vNgm9MBlGZJn+QEkye6SYw9B9nLZZY+HdcfrZNUeBnIo1L0XfWO8fr++?=
- =?us-ascii?Q?b+H7TuX7KNr3qkZ0DzMnj9ee2ZfSdat8feJ3atehOSfLdPQyy5tZ0WZDyjfE?=
- =?us-ascii?Q?vZP8AtUmzrjsqRfhW16SvkVTzrMPljQlJ5nH1wo9kT2tL+m9S9F5tvnhoUSi?=
- =?us-ascii?Q?XQh440ptvUCvsjjFd7nIv0D88jagxftixYe8yF+5N1v6PsYGsRgFO82Spb0i?=
- =?us-ascii?Q?ezEXTmh5B4KdCCpuUZ7x7a8ato02WH838keV/neU9OQ/EhzZ9ag2eXrKIsRK?=
- =?us-ascii?Q?bMvW+ocoq7Ra74zBIs9Wc/l2ZUXdIiZE4CComqarzUFpirJmkcnT5/3Bf8gx?=
- =?us-ascii?Q?hwlJzp7woNHJveQunUpvjaTA+6R6L27ZE5GZY4J4+bWwOEm9qkdtQig0s8hi?=
- =?us-ascii?Q?dZZz5MUAY7UNytlVNpANnkFnX+OcBsGxO5Vh60MrI7bF5A9KGD4gTMh53/zL?=
- =?us-ascii?Q?efFcLhiNDAidtLqPD8pX/p+AJpESAbNUVtoQjHpz50aoM75d1bjHoHnmE3ZF?=
- =?us-ascii?Q?zEw6VKiXBAXA09oi7x3RvLh7VtauxgpTRlr7V+OeLH3qMUE6ZkvUs6DcSLMv?=
- =?us-ascii?Q?BAMJElrsn+C1MLWdc6dBtnBeEkNJ7O67nVM0nAAPdph4/IF8FHhczCq5FhuD?=
- =?us-ascii?Q?kSTujjRQ8IlcUfcO+AlV8otT5HRSeUp5rwLSFE3tJls9/KQFdk1lbKhJ9aws?=
- =?us-ascii?Q?Vzif2bIxu8nhKIbyO7U8O+a+ByDiEjKacRPdxTWW4GZNvlRQepS6h2Cog7Xw?=
- =?us-ascii?Q?82GLwOJuCSd/s5dh25BmwouwJSD7Bon/AfWj3jz69Mj3OKwDEIPA9Hvd7ge2?=
- =?us-ascii?Q?lQuVAcYWlvAC7235XHXblGoWthM1SUIPmU0nNnSAZqBBFO8krVZaiEgkCZMS?=
- =?us-ascii?Q?d0CErF37boc9/1JnrqIaAjp+LU+tBXO3ubd1p5iQ1iI91WcM8aEdjRy6UQge?=
- =?us-ascii?Q?mreDNrkKDIX/S1Nlind2A+DtuOKV1SE6QXl+lbmt32rRFY3CE5qqDf/c0C5g?=
- =?us-ascii?Q?HvrepME8uPKJf2xOvPcS9zth51RjJwzyA47TLViiA0brlGaFl8fk8xOraBNq?=
- =?us-ascii?Q?xdLGGKWnAp7mt2lOPa0ac1Pti8Sf1+1jTd7A0v/wFNm8By8tUUny0imArVm7?=
- =?us-ascii?Q?wvxm1UfRj6iCsP3zAj8j9H9lIWwMyzbDQ0SH3NJuspAw/lya1Ue3E8OwdiVW?=
- =?us-ascii?Q?krolbYJ42X+OHE6gICAIWqgJwurBKhlnndzOydRLngdrkNQRLOX/A8RlafxM?=
- =?us-ascii?Q?fMWUmtW+gNqhNNu8BvfsvH6Tk7ePT9WIHoU0lvrra/M3XoOtTCSP+cTKWnGG?=
- =?us-ascii?Q?btrZT8wTDLDs1yutMLBAPiY10HyFxYETQCNiGy00ac+3w6END//5ctc87qTS?=
- =?us-ascii?Q?zgjX7tIx2cLRZCmt7HYhgbCTYm86My6CTZ+eS3g1uprA+Olxsa49STDDOWO6?=
- =?us-ascii?Q?1nDlpnyavEgbmd7WrGfmBflVxmRQMbJh8SRlXQR9fKU2iBYLvIgG6McH9f9S?=
- =?us-ascii?Q?Ga4tTjoE/pzuQjlWzZ3djWYmEtzD8B/IUSeotfNntU53Cg8MWSmnrzniX4Wu?=
- =?us-ascii?Q?GrCcG/XpIsfLIZcPhSNAtZi+Ipzjyz3wdKxgOep1ROWxWvyP0PN3HOLvpBDs?=
- =?us-ascii?Q?JPbQr+dR5hJ5YQh4rakN2610ylFD/czbWJYgM2e/yg81njGrBkRr3yR5VUhK?=
- =?us-ascii?Q?6rRTTcmvOg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: nZXgR/S4hl77uz5NcTb7KHGPVK/SGmdAc2HngqFjmLJV4pdIT9YBm5AOsrCoOQh3tRKlQD/ov6D2TP+DJLciwUy1xG4JetXINWT0n1Q+jg8Ed735/4Srv+s+cR5oZH5eKJXo+lC3kCyUQ5GWYi2L7mYN998dDD4KSg9Kf8PC015ldQJbNdTpBgDD9509oRDTcI/VlEnfOqZWRS8PXK3/Itdd9t5KWCH4sfFRn8xtBy69SVsiUD/PPE2WWjWenjrjd9wRBCengaFagy28Y++ES8sGifBR/stad7nyM3EKVouklUod+ld4ha+q83hf4HIWXSFm1vKyDbbIvfGrk6uECw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b5afc20-93a8-46f3-895a-08df2aba6b01
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB7181.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 12:47:06.0547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0gtuoiVXedntv3JAsO5GpcZsF6cVKojWTtlRLzdtrQgg0l1MhFkweKeaByDG6lEBNxIqn4PwP8UXboybC5GzXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7757
-X-OriginatorOrg: intel.com
+X-malware-bazaar: not-scanned
 
-On Thu, Oct 15, 2026 at 11:29:37AM +0900, Simon Richter wrote:
-> Hi,
-> 
-> On 10/15/26 5:12 AM, Rodrigo Vivi wrote:
-> 
-> > If the consensus is that we need this forcewake, let's do it.
-> It feels like we haven't really understood the problem yet, we just know
-> something that appears to work.
+On Thu, 2026-10-15 at 08:41 -0400, Michael S. Tsirkin wrote:
+> virtio_net_hdr_to_skb() refuses packets whose checksum metadata
+> it cannot make sense of, but the vector raw transport ignored
+> its return value: rejected packets went on into the stack with
+> their metadata unvalidated.
+>=20
+> Propagate the failure.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>  arch/um/drivers/vector_transports.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/arch/um/drivers/vector_transports.c b/arch/um/drivers/vector=
+_transports.c
+> index e1fb2a76fdff..8b7548458663 100644
+> --- a/arch/um/drivers/vector_transports.c
+> +++ b/arch/um/drivers/vector_transports.c
+> @@ -210,7 +210,9 @@ static int raw_verify_header(
+>  		return 1;
+> =20
+>  	skb_set_network_header(skb, ETH_HLEN);
+> -	virtio_net_hdr_to_skb(skb, vheader, virtio_legacy_is_little_endian());
+> +	if (virtio_net_hdr_to_skb(skb, vheader,
+> +			virtio_legacy_is_little_endian()) < 0)
+> +		return -1;
+>  	return 0;
+>=20
 
-Cc: karthik.poosa@intel.com
-Cc: anshuman.gupta@intel.com
+Seems it'd be simpler to just
 
-Do we have a gitlab issue filed on this already? It should be good to
-consolidate all the view there. Furthermore, perhaps we can get some internal
-help from FW teams to assist in here.
+	return virtio_net_hdr_to_skb(...);
 
-> 
-> If I run
-> 
->     while true; do sleep 5 >forcewake_all; sleep 5; done & watch sensors
-> 
-> then the temperature sensors *do* update, but several of the VRAM channels
-> take over a minute, so the long forcewake does not solve the problem. If
-> shorter ones do, then I'd really like to understand why; my theory is that
-> it's not the forcewake itself that does the job, but the fact that it's
-> toggling, and possibly generating some events in some microcontroller. It
-> may be sufficient to send some no-op commands instead of playing with the
-> power rails.
+As far as I can tell, the function only returns -EINVAL or 0 (never a
+positive value), and the caller only cares about negative (error) or
+positive (no checksum needed), so that'd be equivalent?
 
-I wonder if some forcewake histeresis might help on this case as well...
-
-Cc: Zongyao Bai <zongyao.bai@intel.com>
-https://lore.kernel.org/intel-xe/20260601213804.707256-1-zongyao.bai@intel.com/
-
-> 
-> Starting the loop above with pretty much everything at a nice toasty
-> equilibrium temperature of 82 degrees (which is way too much IMO for a card
-> that has no client connected and is just displaying a console login), the
-> fans immediately come on, and apparently every ten seconds one of the VRAM
-> channels updates to a lower temperature, so one forcewake event pretty much
-> exactly corresponds to one sensor update.
-> 
-> That would explain why the patch works -- it generates the same number of
-> forcewake events as sensor reads, and the delay makes sure they are
-> registered as separate events. However, there is no correspondence between
-> the event and the sensor, so if I do my normal telemetry recording (every
-> sensor once every ten seconds) I can still get data that is ten seconds old,
-> and I also wake up the GPU once every ten seconds even if there is nothing
-> to do.
-> 
-> That is an improvement over the status quo, but my concern is that it will
-> push us over into "good enough" territory where the actual problem is never
-> addressed.
-> 
->    Simon
+johannes
