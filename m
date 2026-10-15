@@ -1,43 +1,74 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96B64C6531;
-	Thu, 15 Oct 2026 08:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5744AB3C8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052276; cv=none; b=r+UTcPCGsGJaRNf0nRCachWRCDqRKLUhM3UhsdAgPXdRTIn88qF2bx5RRRpQ07co/RC47NhjEV4TNv+aQtFL+1cSrKEWKE/01YQod/o0RLu3b1DPySgo/xHL6obHs41b6opAl3NwHBLoRb96RZQxpFZWZH8LT6xIX8HHOvODY2g=
+	t=1792052389; cv=none; b=K6g9yXOqnLO5TFuwzIm94O3Urfol4zg9GXKLwBhdYfVYWnt0kzpn42425MqPyCydPANB8KgjXsVUl0iMnYrYZW4wbqBobirULEP4CT3rZ3u9cjX1bupVqy10iXjodWs1XSpzLE9IzUPa6z8sZJvGi+0Q6fEWD30BjrVwFIyQwXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052276; c=relaxed/simple;
-	bh=RKCtN1wXI2cvgrqNsXUwB6m/9sTuEtwUbZ0OanR6nZU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nGA50ILCBwEOc1aMA7Whuo120Q8s90EivqdU5XCBw8To/bKx1QnW5OmCL9G3cwCozdh3RHr+8LQyqMdzhcFR1yhD+X0c53TMqg+KjDOJyj3IOoT9Cv9MjI3eg4HnDz0Wz7PfH/4BbW1N5lUnQk2NHOueXVDwAyYCS0NPb1nTTC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=d/azfDLx; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792052389; c=relaxed/simple;
+	bh=6DHO4Va2w8tFmmBGFpjKQ98+TYZ/Yg9DyQqg582/Cdw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dlcQS4EwOHX4yUIe0Uus5e7NMBzg2LINMUfr2HaEOvRfjDESx1ze/YMevy7l9OYU934NYUd34F4fLO86kvq8vSDG6nsjvVdLmqhqPyQXbDdGlJIU42NRW9Y20y9JRzF+SFUt/7Y7cJEuatKKUiUcF6PyZ76i8pXKS/VHN3Vdvws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=sIRrvJ7p; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="d/azfDLx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yV
-	uQanL4K+S38cQaMBb2N0Tzj0/cdnYmNCO8ZHjJ8s4=; b=d/azfDLxHItVaUtVk5
-	uQB5jCqS501sX/c6pcuPbpOZ/1egRswKgdwATL799G1A2hl+8Z/mJlu4LGgE2lPR
-	p3Q1t553hyyixMxYEVorbWaZkuCUsw5DOvYKn+WnGbLGdkQRzOaIfIlVCIF1my4t
-	WxqC1R1JveUsaa66lMgrKwPKg=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3P74EjNBqLkvpAA--.28339S2;
-	Thu, 15 Oct 2026 16:17:09 +0800 (CST)
-From: Yongxin Yang <yangyongxin@kylinos.cn>
-To: rafael@kernel.org
-Cc: lenb@kernel.org,
-	pavel@kernel.org,
-	linux-pm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="sIRrvJ7p"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so4348489a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:19:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792052387; x=1792657187; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cdMIhumT/Dh09O4oOrTO+0XHCJ1oiMJHbsxrI+Sf4R0=;
+        b=sIRrvJ7pSESoBeSW+WiqlVSGXSWo++zPek/Yapzdq9kyGeH6BRbOqbUCg/DqqQ2Jpn
+         7XmCCTNqaP6K+FEPQR06pYZ4LD6kb8spJ2JGDego9Pjz1Fuxi7I4m/xeuY5aNTMQTzKN
+         XGZz7AH1KKVG+M+dNXDZKyxjE9ZimGdXBRNTMoq1RWTFd9RX3y4RNuHxeIEL2fadYDOo
+         HpkElZRQebsnzBgIUigkkfTWUUzrU2PpnxX+j4YU96Uvb+sp1rTx6dtCYXDmwtOmihjN
+         hvDRCilyXdS6U2avpMEVyIyQAoMes12Ay9aYJ9EW7L89CUCu4Yy3EmjZtvv8S6WPeIIc
+         Rorg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792052387; x=1792657187;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cdMIhumT/Dh09O4oOrTO+0XHCJ1oiMJHbsxrI+Sf4R0=;
+        b=1tqntoNPoPyYQ8qyYHDJ6xZgA752dgrLb5ILTuPskzDQSLjZGvWvJfuUlP7mc0uFLg
+         liOqT6NXZACdEMCbE+wPAH2Y5ha+EPuzBdsLx/t+HrEh6BOwXn4yaL/v64augflOwdkM
+         ccpC9q8avmFeb3Ohb5VIxqq0whuIxQhT4HrwUQQxgFOnQIeCZh9ZkMLY7a470zKqoS1Y
+         kCWSTUAKclhfd45AWERDoxd3Tf/KT/NkbnmUWypzjW/bJcEuzGbQCH35lGMCGjQw7OQG
+         dgtBw4XYqAgHlpNECyoWOLOYc1V+q6WriDhNdxF8iIHQ/EThrocMQdlYLZbaRrrQ/hRd
+         jVnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzW6+7zgsv/a4wWtNSL2YMZlkZOgzu3wbLHaKlYfQnc/DJL/DsendtC5zzqd9qbAjx+0Qt1bNxBRlHEFqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaAhzsoU56jseh6MKZ/p9gg+kJ8+JKy5V5xvCP+N308d+Cki4Q
+	GRpBRCFZz6g6TeTrHhBt1+/D8BBhc3/cdgmhmfU8TEth304WqPfc6+Fi3hdX8TBH2V9wQObQR/A
+	n5XSQ
+X-Gm-Gg: AYBFou3/uUG1Ak18nH3Q9HEh85d0MOFfusDxuiV4f/dN4MiRa1xNKRRdKzZRTHYFJRG
+	BwfABaqXM2pqKOjjUevsHFGGvMPSnbmTjRVIFcjKygGfafkVxaiQVOPj27mINz0xOcWnv5jtcIh
+	Kh2M5Pu/zGosJ5EGes1uRVjyzMX1DYGfWqkAXtLrkEK++yuogDvGcg+lj1yoYqJbi+EEwyt5NaA
+	LL60LFvGc6TWVrIyE/75QhYikucYg7s3l06RxTpw4bx34JX2meFR0fTRIB/dJ2E0u6EMyhMheSU
+	OYxCae2KjjKkLSLyeNNDwdkA/6vRMK0+1PO4Ka4PQh8C2mZuuHHCLpZICUu0NASWvvtuqNgXiPJ
+	EWX+3mHAc6EGF67nXwH2tKpZRMik65dyfmQjOJNGkBsnTSY8oJs/CCtK5BqjOR0lqKUca6JTRxk
+	/WcdHvreFBQPeWCC8P51+wVuXeaC+lDxwZ5AQ+Pv+gve9YNHGRfqND88p0pSvq68i4FNlXfBDFu
+	ciudA==
+X-Received: by 2002:a17:90b:1a82:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3ab3ab209f3mr9436183a91.25.1792052386864;
+        Thu, 15 Oct 2026 01:19:46 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e755bsm3319784a91.2.2026.10.15.01.19.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:19:46 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yongxin Yang <yangyongxin@kylinos.cn>
-Subject: [PATCH v4] PM: hibernate: Log the hibernation mode on entry
-Date: Thu, 15 Oct 2026 16:16:44 +0800
-Message-Id: <20261015081644.1353321-1-yangyongxin@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261013023411.1364546-1-yangyongxin@kylinos.cn>
-References: <20261013023411.1364546-1-yangyongxin@kylinos.cn>
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2 0/5] scsi: aic94xx: validate the indices the sequencer supplies
+Date: Thu, 15 Oct 2026 17:19:29 +0900
+Message-ID: <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,88 +76,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P74EjNBqLkvpAA--.28339S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZrykKFyrXF43WF43WF4fGrg_yoW5XF18p3
-	97Xrs3ta4DA3W2vayrJrW5JF93Z392ga13JFnFgrZrArnrta90yr40qF1IyryYk3s7Wa1F
-	gF1Dt34UJF43WF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5o7tUUUUU=
-Sender: yang_yongxin123@163.com
-X-CM-SenderInfo: 51dqwsp1rqw5tlqrjji6rwjhhfrp/xtbC-wXykGrQjAVZJQAA3X
 
-The hibernation flow is the only place where the kernel decides what
-to do after a successful image write: hand over to the platform
-firmware (ACPI S4), power the system off, reboot it, or resume from
-the image right away. That decision leaves no trace in the log. If the
-resume path later fails or hangs, the tester cannot tell which outcome
-was requested, so a report of "the system rebooted instead of powering
-off" cannot be attributed to configuration or to platform behavior.
+This supersedes
 
-The mode is selected through /sys/power/disk and stored in
-hibernation_mode. Append its name to the existing "hibernation entry"
-message, so that the line reads "hibernation entry (platform)",
-"hibernation entry (shutdown)", "hibernation entry (reboot)",
-"hibernation entry (suspend)" or "hibernation entry (test_resume)"
-instead of a bare "hibernation entry".
+  [PATCH 0/3] scsi: aic94xx: validate the sequencer-supplied EDB index
+  <20261015072612.4144043-1-yhlee@isslab.korea.ac.kr>
 
-The name comes from hibernation_modes[], the same table that
-/sys/power/disk uses, looked up directly by mode index.
+which should be dropped: its patch 2 was wrong in a way worth stating
+plainly.
 
-No functional change.
+aic94xx takes two numbers out of the done list the sequencer writes and
+uses both without looking at them.  One is the empty data buffer index,
+which v1 bounded in three places.  The other is the transaction context
+index, which v1 did not touch, and which turns out to be the same class of
+problem one level up.
 
-Signed-off-by: Yongxin Yang <yangyongxin@kylinos.cn>
----
- kernel/power/hibernate.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ 1  escb_tasklet_complete() already noticed a bad EDB index and printed
+    about it, then fell through and used it anyway.  Add the missing
+    return.  Unchanged from v1.
+ 2  asd_get_response_tasklet() never looked.  Bound it -- and, new in v2,
+    report SAS_INTERRUPTED on the way out.
+ 3  asd_get_tmf_resp_tasklet() never looked either.  Unchanged from v1.
+ 4  asd_tc_index_find() indexes tc_index_array[] with the number the
+    sequencer echoes back, in all three of its callers, without a bound.
+    New in v2.
+ 5  the pointer that comes back is used as an Empty SCB without checking
+    that it is one, and struct scb is a union.  New in v2.
 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index e365e440cd52..2bbfd7ffafe5 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -72,6 +72,16 @@ enum {
- #define HIBERNATION_MAX (__HIBERNATION_AFTER_LAST-1)
- #define HIBERNATION_FIRST (HIBERNATION_INVALID + 1)
- 
-+static const char * const hibernation_modes[] = {
-+	[HIBERNATION_PLATFORM]	= "platform",
-+	[HIBERNATION_SHUTDOWN]	= "shutdown",
-+	[HIBERNATION_REBOOT]	= "reboot",
-+#ifdef CONFIG_SUSPEND
-+	[HIBERNATION_SUSPEND]	= "suspend",
-+#endif
-+	[HIBERNATION_TEST_RESUME]	= "test_resume",
-+};
-+
- static int hibernation_mode = HIBERNATION_SHUTDOWN;
- 
- bool freezer_test_done;
-@@ -794,7 +804,8 @@ int hibernate(void)
- 		goto Unlock;
- 	}
- 
--	pr_info("hibernation entry\n");
-+	pr_info("hibernation entry (%s)\n",
-+		hibernation_modes[hibernation_mode]);
- 	pm_prepare_console();
- 	error = pm_notifier_call_chain_robust(PM_HIBERNATION_PREPARE, PM_POST_HIBERNATION);
- 	if (error)
-@@ -1130,17 +1141,6 @@ static int __init software_resume_initcall(void)
- }
- late_initcall_sync(software_resume_initcall);
- 
--
--static const char * const hibernation_modes[] = {
--	[HIBERNATION_PLATFORM]	= "platform",
--	[HIBERNATION_SHUTDOWN]	= "shutdown",
--	[HIBERNATION_REBOOT]	= "reboot",
--#ifdef CONFIG_SUSPEND
--	[HIBERNATION_SUSPEND]	= "suspend",
--#endif
--	[HIBERNATION_TEST_RESUME]	= "test_resume",
--};
--
- /*
-  * /sys/power/disk - Control hibernation mode.
-  *
+On patch 2, the correction.  v1's bail returned without touching ts->stat,
+and asd_task_tasklet_complete() has already set ts->resp to
+SAS_TASK_COMPLETE and ts->stat to SAS_PROTO_RESPONSE by then.  That status
+is a promise that this function will fill in the real one.  For SSP,
+sas_end_task() starts from DID_OK and SAS_SAM_STAT_GOOD and its
+SAS_PROTO_RESPONSE arm only prints a notice, so the command completes as a
+success.  For STP, sas_ata_task_done() takes SAS_PROTO_RESPONSE to mean the
+ending FIS holds the status and copies ATA_RESP_FIS_SIZE out of a ts->buf
+that was never written.  So a hardening patch turned a bad index into a
+silently successful command, which is worse than what it was fixing.  v2
+reports SAS_INTERRUPTED instead, which is what this driver already uses for
+a response that arrived and could not be used, and it does the same for the
+lookup failure above it, which had the same hole before this series
+existed.
+
+Patches 4 and 5 finish the class rather than leaving half of it.  The index
+in question is one the driver itself allocated and handed to the sequencer
+in scb->header.index, so it comes back echoed; asd_tc_index_find() reads
+tc_index_array[] with it, the array has hw_prof.max_scbs entries, and
+max_scbs cannot exceed 5957 while the field is a __le16.  All three callers
+of that helper already handle a NULL return, so the bound needs no caller
+changes.  Patch 5 adds the opcode check that asd_dl_tasklet_handler()
+already does.
+
+I have not reproduced any of this on a controller.  Injecting the three bad
+values through a KUnit test on a KASAN kernel does reach
+seq->edb_arr[-1] and tc_index_array[] past its end, and does leave a
+non-Empty SCB modified, which shows the arithmetic and the missing checks
+are real; it does not show that the sequencer emits those values, and
+nothing in the tree answers that, since it is firmware loaded with
+request_firmware() and there is no Documentation/ file or MAINTAINERS entry
+for this driver.  The commit messages are written on that basis and claim
+no reachable memory error.
+
+Patch 1 keeps Cc: stable, as in v1.  Patches 4 and 5 carry it too: unlike
+the EDB bound, those two are an unchecked array index and a union
+reinterpretation that the driver never guarded at all.  Patches 2 and 3
+still do not, and I would rather a maintainer decide.
+
+Yehyeong Lee (5):
+  scsi: aic94xx: bail out of escb_tasklet_complete() on a bad EDB index
+  scsi: aic94xx: validate the EDB index in asd_get_response_tasklet()
+  scsi: aic94xx: validate the EDB index in asd_get_tmf_resp_tasklet()
+  scsi: aic94xx: bound the transaction context index from the sequencer
+  scsi: aic94xx: check that an ESCB lookup returned an ESCB
+
+ drivers/scsi/aic94xx/aic94xx_hwi.h  |  2 ++
+ drivers/scsi/aic94xx/aic94xx_scb.c  |  1 +
+ drivers/scsi/aic94xx/aic94xx_task.c | 16 ++++++++++++++++
+ drivers/scsi/aic94xx/aic94xx_tmf.c  | 13 +++++++++++++
+ 4 files changed, 32 insertions(+)
+
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
 -- 
-2.25.1
+2.43.0
 
