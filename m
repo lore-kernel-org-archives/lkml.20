@@ -1,129 +1,159 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EFE2DC350
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9CB155C87
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025781; cv=none; b=l3qTrpNMs3OCDg/bWZgWM6Y8J9Pm/l/k6tOsJ7MoBAmvKVPjrmZFTi4781odAqx8UORgy5qIEZFLWmWPeen6UpFzINaSqGlV1YVikS+vJIyyQ6lwJF4ePpzA228S09tBENHumVbsfXhFMun4zAotVN+s9p3ueueOxIRHbWWC7EM=
+	t=1792025856; cv=none; b=sKY9mzkriPXGp3pRekhRWWFKyGfKBz/BDyRpIvKH+x6f2xHnEQpCT2C2Vw4a7fWJLfQ7BGuatgdJCVOGtxdaP5nal/GwspdbSiWLpp7VmXNXa8K8qUqSWlkzqO4UW1RiiL2NzFJOZlCMjjJNiNirgxk8XO8h8MTsW4TpgFBRwF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025781; c=relaxed/simple;
-	bh=q/5JUGSHxQEcGfb5zJ8nWWv2tTCa6ZzCCN+qIAsk18Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=amQ72k2Y3RXvTTH6iecHbc38GAeRjDdd4pIGCYEwQuKthXlpLFWAKUvXemeP49PV5Gi0apnsuNoZZMhxE7WdwRkh56FU4TsMVDiPomw6GulQgtEaj5ql/AVCe+Am70TBgSNWn5WbIovzIBPodVjoOzdmM/cmPaM0aQicEJnMNpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=H7+atuVu; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792025856; c=relaxed/simple;
+	bh=+3i7Wp7Gn/4DZGvC1EVgE1GhLA3S8VEmkTXIlU2Cf/U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UIrY47R3aY5jd56ExwB1hTIw3obsphcpW01M94C7/+Tvs5rLENDdM9Qwlz6PuLFwMDqDLB/pNUiLyRQx013Ayrk4cg937JTbXqkhrzPK83JI0aMg8Q8Z31FuV6nsB9ptrHhniKMV5H4aw9btUypb5NvmeDhy+1BQsNlOuGsaBeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=NRJxcOOp; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="H7+atuVu"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792025769; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Xc2/quJBTUOfJC1n3uvaie/5AYgyo8YZ90+dymiITHI=;
-	b=H7+atuVulOXfMcVm3OE3aYrdI1d4/QpRNyOgyR3j5Amd1FuYImC0fsfnA+A/CtXJI4SbdzbshHnuBhcF6xZZ4O3n8qJjlxt9OIFVfNEbb/u565t805w4Lz/z/TjCu0z7rrYZtz+8Cz/YKtqQaq7OOxrPn4e4jdTT4iCHHoZBEXY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R611e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XCpy1O7_1792025768;
-Received: from 30.221.144.234(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCpy1O7_1792025768 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 08:56:08 +0800
-Message-ID: <93e4c76b-a855-469e-a210-eccb9da855c2@linux.alibaba.com>
-Date: Thu, 15 Oct 2026 08:56:07 +0800
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="NRJxcOOp"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso725119a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792025853; x=1792630653; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zt7nr09wwJI5ybhKtyoQzAr8Sit4cQO0NLg28SvC2Y4=;
+        b=NRJxcOOpuogDdeeZmosRTOvDihxDEgGXD0dkWSNcPVASYUGnB0V1mcd6k7HRKuEJH7
+         AvCTiJR4Bm97Gm4S4r538vqPzL7AwA72qULTAauA0eUDJwsj88KkE0cuWpjP9VBfJWux
+         kq2lfzvYv8uy0UBWFQDZdNzp/mlEG6QJs1eX3p/0wyCoNclm57bdYKUNM+wuajJrfSh8
+         bjlxRaUe8MrO+WXTNiuhY9hZaBQI2zLNKVoY188YT9TCDR6tTUQx5SfgK0tvCI5iLKhN
+         aEWG2SfZJDlRNv8wpNHGt4TqElE7U2PWobr5/VMZ2SAF1ICExiq4tFVRxJ+iUHvonqUn
+         O6Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792025853; x=1792630653;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zt7nr09wwJI5ybhKtyoQzAr8Sit4cQO0NLg28SvC2Y4=;
+        b=VuHegWlSSwcfHE6AOMJP/0pFvbc7kTTp0r0jGnUiljI3Xl23kr2LkFfC+9MeTickGN
+         zy1Y37jA9cW4J0yAi5Hsh3gCxugEm6FLlcWbEFbAenwgaLhX5eldVYMyAws7opHxkiQ4
+         1tCfnb+7hNsIcHArbA6vRhuu31ffZtNitJm5Bp3da9i6QluuP2H7H0GII+tpuu0yjAcF
+         Roie1LKcSxzhocFK7tE6qWi4gpHh63xvtTvrCV7fn7W+NSka3CAeRPZ6jWEE9lH709Tj
+         t+xil3GrbaXC+YLmjBhdh7vDjFbCWufLenNhXRfF+Oby6urOCrtbGlonLU/STF5fnEHn
+         9vAA==
+X-Forwarded-Encrypted: i=1; AKwUvBywl6edZBM7eenWMBjMsut3HPPPtd4PeNDQtg2s//vlrgNG3/W6hfQOzyXQY8dB1q+CDZipYe8vo2/n3BY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3p+hD8isiNT2XL0dnHnBO61MC2Wp+D6zBShnkIKFe83ln3IBE
+	eQaz7BhK6DzZ5UJRRdAlhrz5hWZGxy5NiQh9Ruieuw6Hx0ftTJ6xIylHIMSGR/4jyPc=
+X-Gm-Gg: AYBFou3r+Z40AqPyTnGaaO99yn1f9BMdiyiQU742CMoC3EBZrC8AsFkrJ8rhP1hPKic
+	4B47Jw8/7qrirflCDE2C7M1Gh761y8FD6qnRt3/soGSrFZmZRELsVmfuB1ZVY7hXSkUWiF4uED5
+	sZ51q8nH1R8lrUgGGHQYdZSiiSvy1n21Y3NZZzTOXQKPi8ADrir2CI6S6k4Gsa1boO3oiG69SIP
+	nL8eShLIAB6kAx4EPWLPfawOLs20b4eJasBGkAfY/xMwWFNMf2LfmtBghVIhAWrAai+EmUQPw7M
+	3wDUEOZHrwE+p/6zaC6m6IVxEEfIp8tQIqyVC5Zsa0vWg49stkOfglCBaoZ3CrrugjBMDHjUbmK
+	/6qD3E0kBuoMcHM3U3eXyV/AMDRKfCapIT5sS33v2CZKr+YkmZTlRVu8pe8/n+A4qMfCE17Km3j
+	s793bepKvKKdRC3gyoLHtwMByQhDzhExHGDAUNz4md9gQLBdnirstaVRdNLgUOPQ7qL0ONURXOG
+	gAIMQ==
+X-Received: by 2002:a17:90b:2b48:b0:3a0:4146:295b with SMTP id 98e67ed59e1d1-3ab3a90e8c1mr12250770a91.17.1792025853163;
+        Wed, 14 Oct 2026 17:57:33 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac92a43d98sm999198a91.0.2026.10.14.17.57.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 17:57:32 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v7 0/7] scsi: mvumi: bound the values the firmware supplies
+Date: Thu, 15 Oct 2026 09:57:10 +0900
+Message-ID: <20261015005717.3719956-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2/dlm: hold the lookup reference across convert AST
- enqueue
-To: Heming Zhao <heming.zhao@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261014112321.2955584-1-joseph.qi@linux.alibaba.com>
- <as-cs6Pxot8LavVG@p15>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <as-cs6Pxot8LavVG@p15>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+This supersedes
+
+  [PATCH v6 0/5] scsi: mvumi: bound the values the firmware supplies
+  <20261014162413.3649841-1-yhlee@isslab.korea.ac.kr>
+
+which can be dropped.
+
+Everything the firmware writes reaches the driver either through the
+handshake page, through the event buffer, or through a response frame in
+the outbound list.  The patches follow that split, with one at the end that
+is unrelated:
+
+ 1  event buffer: param_count and sense_data_length index fixed arrays in
+    mvumi_show_event().
+ 2  handshake page: frame_length drives the checksum walk, whose counter is
+    an unsigned char, so 256 or more never terminates.
+ 3  event buffer: the hotplug bitmap size drives two walks with nothing
+    holding it inside what the firmware was asked for.
+ 4  event buffer: those walks cast a four-byte-aligned bitmap to
+    unsigned long *.
+ 5  handshake page: the entry sizes and max_io size three allocations, the
+    list depth drives the ring index, the device count has to fit the byte
+    mvumi_build_frame() gives it, a reset reports all of them again without
+    reallocating anything, and every field is read once.
+ 6  response frame: the tag indexes tag_cmd[], and the value that is
+    checked and the value that is used are separate fetches of
+    firmware-writable memory.
+ 7  unrelated to the above: mvumi_delete_internal_cmd() rebuilds a DMA
+    address with a shift that evaluates to zero.
+
+I have no mvumi hardware, so none of this is tested on a controller.  Each
+patch's reasoning is from the source, and I modelled the arithmetic, the
+loop bounds, the index ranges and the bit numbering of every case in
+userspace, including the values that should still be accepted.
+
+One thing in mvumi_proc_msg() I could not settle and did not touch: the
+second bitmap starts at param->bitmap[size >> 3].  If the firmware packs
+the two bitmaps back to back with no padding, bit 0 of the second one is at
+bit size % 8 of that byte, and the code reads it as bit 0.  If instead each
+bitmap starts on a byte boundary, the second one starts at
+DIV_ROUND_UP(size, 8) and the code is a byte early.  Either way the code is
+only self-consistent when size is a multiple of 8, and I found nothing in
+the tree that says which layout the firmware uses -- no documentation, no
+MAINTAINERS entry, and this is the only place in the kernel with this
+shape.  Rather than guess I left it, and patch 4 keeps the existing
+numbering exactly.
+
+v7:
+- patch 5 reads every field of the handshake page with READ_ONCE(), not
+  just the three shift counts, so a rematerialized load cannot slip a
+  device count above 255 past the bound that rejects it.
+- patch 6 re-checks request_id against the command the copied tag selects,
+  where the controller provides one.  A tag changed between the check and
+  the copy can land on a different live command, and then only request_id
+  tells the two apart.
+- new patch 4: walk the hotplug bitmap a byte at a time instead of casting
+  it to unsigned long *, which the four-byte bitmap offset does not align.
+- new patch 7: mvumi_delete_internal_cmd() shifted a u32 by 16 twice, so
+  the upper half of the buffer address was dropped before
+  dma_free_coherent() saw it.
+- patches 1, 2 and 3 are unchanged.
+
+Yehyeong Lee (7):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
+  scsi: mvumi: bound the hotplug event bitmap
+  scsi: mvumi: walk the hotplug event bitmap a byte at a time
+  scsi: mvumi: reject handshake sizes that overflow the list allocations
+  scsi: mvumi: validate the response frame tag before using it
+  scsi: mvumi: fix the DMA address rebuilt in
+    mvumi_delete_internal_cmd()
+
+ drivers/scsi/mvumi.c | 238 ++++++++++++++++++++++++++++++++++---------
+ drivers/scsi/mvumi.h |   9 ++
+ 2 files changed, 197 insertions(+), 50 deletions(-)
 
 
-
-On 10/14/26 11:18 PM, Heming Zhao wrote:
-> On Wed, Oct 14, 2026 at 07:23:21PM +0800, Joseph Qi wrote:
->> dlm_convert_lock_handler() drops the reference it took when it found the
->> lock on res->granted at its leave label, one statement before it calls
->> dlm_queue_ast().  dlm_free_dead_locks() takes res->spinlock and drops the
->> list and base references, so a peer death landing in that gap leaves the
->> handler's own put as the one that frees the lock, and __dlm_queue_ast()
->> then reads lock->lockres from freed memory.
->>
->> The handler is registered next to dlm_create_lock_handler(), so a convert
->> message buffered on a dying peer's socket arrives on the same o2net
->> receive work that o2net_disconnect_node() does not wait for.  The two can
->> interleave as follows, with the reference counts as they are before this
->> fix:
->>
->>   Socket data-ready       Node-down thread      Receive worker
->>   -----------------       ----------------      --------------
->>   o2net_data_ready()
->>     select sc under
->>     callback read lock
->>                           o2net_disconnect_node()
->>                             queue shutdown
->>                             begin flush; new color
->>     queue sc_rx_work
->>     in the new color
->>     release callback lock
->>                             shutdown socket
->>                             flush returns
->>                                                 read buffered convert_lock
->>                                                 dlm_convert_lock_handler()
->>                                                   find lock on res->granted
->>                                                   dlm_lock_get()  refs = 3
->>                                                   lock res->spinlock
->>                                                   __dlmconvert_master()
->>                                                     call_ast = 1
->>                                                   unlock res->spinlock
->>                           DLM node-down cleanup
->>                             lock res->spinlock
->>                             dlm_free_dead_locks()
->>                               unlink lock
->>                               put list ref  refs = 2
->>                               put base ref  refs = 1
->>                             unlock res->spinlock
->>                                                 dlm_lock_put()  refs = 0
->>                                                   free lock
->>                                                 dlm_queue_ast()
->>                                                   __dlm_queue_ast()
->>                                                   read lock->lockres
->>                                                   (use-after-free)
->>
->> __dlmconvert_master() only moves the lock between lists, so the count
->> entering the gap is base, list and lookup.  Drop the lookup reference
->> after the AST is queued instead of before it and the race ends with the
->> one __dlm_queue_ast() took, which dlm_flush_asts() releases later with
->> ast_pending cleared and ast_list unlinked.  No extra get is needed, and
->> the normal case ends with the same count as before.
->>
->> dlmconvert_master() has the same shape but is only reached from dlmlock()
->> for a lock this node owns, which dlm_free_dead_locks() never matches.
->>
->> Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> 
-> The code looks good to me.
-> Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> 
-> btw, how do you find the issue?
-> 
-
-This is found when I review patch:
-  ocfs2/dlm: hold a lock reference across grant AST enqueue
-
-Since they address difference flow, so I send it as a separate patch.
-
-Thanks,
-Joseph
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
 
