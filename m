@@ -1,161 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BBC3C1D66;
-	Thu, 15 Oct 2026 05:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EC8306775
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040936; cv=none; b=UgUr0Il9GODc9PJgtDV4NT7oEWxJRPX+OYRQNu3eT62H0vgUelZFeEI/jHpslmpEutGHwKe5yBtCMT4fGOwu3UJhF0ccFOM52RYmvT7SMWwupizMCkTO44q9P6RkP95kBCs9QEoySNBbFvI9vrBugQTNJ+SMjZteaMOuEqM/uJo=
+	t=1792041042; cv=none; b=kUgUbgidBEN1iK4grULgf5kO4HqK1dzkHt4mpVdX6UhUVg2D+231JB8BnYWtcwhjH9PqWZxJVACY/UNhPFvDFKiZ5oY14m50urGzv/1JlabOPfnnX+9deYzIneIm1Z9wQ2DKwYddMiTCHXnI0+3QzbOe8jCpSutUDCqoNJ23g94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040936; c=relaxed/simple;
-	bh=97Vu4jpYp2aks4nbaPyPADJJAJoPLb1W/mjp/r2Niuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CfRPV9PabRvC3cFv8//wYIsLEP5P3uT1JT4h8YRo3exXaaDin/g+0ZNjpNoPn5tP7yzmTzkf7tknDGvuHuUG8F/GzkTDjq4oJ/tRtSXQxPLAD9ca+pcw/JG63rXgcalmlXFSF1fActf9H6+IJ120w49SVE5h0OakIwLko0bYs74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gDsAs7Zq; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792041042; c=relaxed/simple;
+	bh=sssIOgXcZE2/24fknlxXJ3s5eJ/OoslnpIdFTEo50tI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Nik5+Cszud9xPjd3bGoip56x09QHV+Ea6B+axT2s2psQzxy2jSU0o9TKgaUTmTSlvwrGNIijDpQ/tg1m1JNznRYrYoXkMjZajz6YaePOgYJWQfwuvp01l8UkzdFF5SBwra0CfYJMfTQix7O2ae1oNbmkCU+jVThvAcryIiM/b4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jfLGB4yK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LTby6h4T; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gDsAs7Zq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792040934; x=1823576934;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=97Vu4jpYp2aks4nbaPyPADJJAJoPLb1W/mjp/r2Niuo=;
-  b=gDsAs7Zqm8nJS526bla2ERKp/KUcU4mwWxu5awYHA5pT6WtD8UTA3yjO
-   0B7qAa/CJMUjVIaprCbdmREnE3goG6czJ5FOysOhFK/MukysZbY+2boil
-   UKeeFuWHdx+XgKO5YwH006N/W1H2eXR5dzN6NpQWvza6L6DpuOEXfiLh5
-   P25keYLEcx4vr8DUMuyv/irct9XqlFTWB6JuZUt36kqkgI/6haGdfsVLd
-   a/lWv/HMRkm8R1wjrJgrsNhjY41IvX7/RFJtjwBQ/8MI87Vbd1knPj1nc
-   PrMz4mC4CUgvq+6HoHbmRVmsz/dBh7CF7rKt2S0Cje/y5G7gB3GlVpFNj
-   w==;
-X-CSE-ConnectionGUID: IenMmaolTvm6WO928LXIvA==
-X-CSE-MsgGUID: QmnAZyy+SmuLZRq9gJRVgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="705813"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="705813"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:08:52 -0700
-X-CSE-ConnectionGUID: ggnnewxAQhOvKlDMXWFanw==
-X-CSE-MsgGUID: t9OZU+hVS8q9thcdNllcrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="1518909"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 14 Oct 2026 22:08:49 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xHDht-00000000FqR-1LPb;
-	Thu, 15 Oct 2026 05:08:45 +0000
-Date: Thu, 15 Oct 2026 13:07:45 +0800
-From: kernel test robot <lkp@intel.com>
-To: Li Zhe <lizhe.67@bytedance.com>, akpm@linux-foundation.org,
-	david@kernel.org, ljs@kernel.org, gourry@gourry.net,
-	joshua.hahnjy@gmail.com, ziy@nvidia.com, mingo@redhat.com,
-	peterz@infradead.org, mgorman@suse.de, riel@redhat.com,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	vschneid@redhat.com, kprateek.nayak@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Li Zhe <lizhe.67@bytedance.com>
-Subject: Re: [PATCH 5/6] sched/numa: do not feed tiering promotions into task
- placement stats
-Message-ID: <202610151319.LxjGvN6y-lkp@intel.com>
-References: <20261014094347.99157-6-lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jfLGB4yK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LTby6h4T"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ENQ1kd584290
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:10:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OzATJjicdxKOoPMvx85ZokhsKNViTN7VDVAgDDyZFsw=; b=jfLGB4yKrVfnzO9N
+	8uAqBkNe/EAfG0ufL9LX5rnszgjbNd+r6/5itF9HELLaBJK3PPrN8x1/YEHMy0Os
+	s67f/JAOwAu7P83+ARCGL5sih93mIWkEWGs9TvJqRgYNTrpj1vH+J34+ovfOeMaf
+	CgM9bhfbqatfCJLke/ON5uy75E2YX/JVAC4LikbwE6DPCNxQdPIdrjwIjSHwv5IO
+	GrOnVMRbxPoCNny3W1mkELYun02QEhv8Mk+JbL8Nxg05zoumW7OLuMg8/IiWIMn4
+	xK/1emLDGNeNLfQd9nKxuWTKx1alP2Fu4/1vhvHY77PJkoumtkSrinesEHxB/orN
+	He8Fcw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdes170-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:10:39 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89b52a188c1so474800b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:10:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792041039; x=1792645839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OzATJjicdxKOoPMvx85ZokhsKNViTN7VDVAgDDyZFsw=;
+        b=LTby6h4TLT6IAmx/Ae+efqx2Snz2AXhsM5jkXT5O1gvUz3WHsUn7zSsa8EnPzmaWf5
+         WSC454L4ioSKgKdczedIXU/V8r105lX6VMGWrZQUEHRT9DbRD7d3IxqDtONLFdelK/ib
+         7Fnny7H/B2v+R/SaLa1W90Au3chcFtLtSpJwzJYiYdSbXsD8Qi5nJ2gO/K2Cbqq0QAqc
+         PBDsSXvoo936o5lqprti9y7FcMJrFbrSEj7xeUkIu3TmbDfOkl+Q5Sq7LKja9DQY76M7
+         xw6O1R04C1VfGGkVzcUJkKlWnEMF0nFBkcTZcz7f1VKrdLpbyye9f9PLNjk3WX8kh+KL
+         RJ4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792041039; x=1792645839;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OzATJjicdxKOoPMvx85ZokhsKNViTN7VDVAgDDyZFsw=;
+        b=KsAKrR0utBbl01pGeHHeBJwli6mLLTMcvY4rBBYtOZwkV1GFbCRkaO+CIftirDQ/fS
+         ZKvV9hpcxqMAUTQ/YJElWhYXS4yoIa/NwJG/5M+1s/73SPuqye6/rCxMH66O/eRCEAaA
+         eN9G2Gv8/cEGLd7q6XNqHm1xKicDbjGRlucq2Ptmf5ZSFhn/2WbI9STiG7MJo60aqVKI
+         NYIWiegtKBJtE1199S1wyLOOkZJ1SMa/RhCDyzs4A8sNbrgqjpq4c0q8oJwNiCgHCvBt
+         pahKHvUF9yIy83gCNCSbEaEj67h1O17C30lNMjMN0cm5vlSLeTZU/92TXarn03DwXntt
+         JfeA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9pklCDS3aSuMuv7GVgz1AYEApvp9zXIFHaggmLTHnwKcxeAaUpm9XyejuPLLcxBoNiBPSvYkYZ+EFm/A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/RB4Z0m2OJp07LE0YLMB8kW5UhNkZ1AbZyM9d1dvSYT3Jxfi3
+	pY9D51r3DwaQYGbf0K1hfOtXezL7j4deQImltMjFghf2F7jSAu6LAXhq4qR5iSAzcKRbIddo6m0
+	0z3J/JlHy2IFMyQZ++pQTOlfA3xrsx/lc3Usmxb6D5xUaIOEW3brAIzfHsYgO5ma1VpU=
+X-Gm-Gg: AYBFou1twPxZ7AygFt+IQhqhgvubAHfO9BDdHMFBKrqeWiMb7CTnWW+EWpPn8+vMOCQ
+	YmWDen9z+vsP/I1mijd2XqF6MuIwW8oCLnrNWYk0a8vsNad9GCLe7ac/VQWTfU5Tw7CB6gk0FGd
+	bz7mueSnQ6l/RzVD2xPVNkkGRu2BUnQFxNgIl0RFNV1IXM9nxxI1OcCFo+lzRfWWIMyxHTs52Jm
+	HssBMqsvVJcUu1IJZ8BixDFRdx5gpNxEftIGraj3MbIG/qlA4ZsyZUqd0l3pBlIeViOU7SgijhO
+	0pt3JlgYXcuQLNQenNgdbols+RxDYmDxdbH/qtU9QKIllYd0YciXdTVijrr40I40jhLsGnuC0W4
+	QYOwoviqs7oeRMWt0UQCaY6ZCiao=
+X-Received: by 2002:a05:6a00:811:b0:883:54dc:7892 with SMTP id d2e1a72fcca58-897c86a3c91mr16386197b3a.52.1792041038784;
+        Wed, 14 Oct 2026 22:10:38 -0700 (PDT)
+X-Received: by 2002:a05:6a00:811:b0:883:54dc:7892 with SMTP id d2e1a72fcca58-897c86a3c91mr16386162b3a.52.1792041038316;
+        Wed, 14 Oct 2026 22:10:38 -0700 (PDT)
+Received: from [10.204.66.72] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80508d5dsm1800223b3a.50.2026.10.14.22.10.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 22:10:38 -0700 (PDT)
+Message-ID: <df8d5a9a-b1c1-4346-bac4-c2c028678d91@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 10:40:29 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014094347.99157-6-lizhe.67@bytedance.com>
+User-Agent: Mozilla Thunderbird
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/8] dt-bindings: media: Add CAMSS device for Hawi
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org
+References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
+ <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
+ <20261014-fast-swinging-dormouse-26b5bf@quoll>
+Content-Language: en-US
+In-Reply-To: <20261014-fast-swinging-dormouse-26b5bf@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad0604f cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=m9Dd15Dd7eNj5BCxSOQA:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: VtinH5a2_VC9N_YX0VF-9aPOerJ0raEi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAyMCBTYWx0ZWRfX7/pIPqibbh3+
+ GEKwxGP0aH2FbOGPUU2nzasHoT+zkA5JjWSRKa95MAR2o+FUkVUKDU7BL+ZY5J03qhDSHi2nKUv
+ 5mSv+/qEU9J95JhFp8a2lE6MmTcHq2/e6GMzyifhHa/IB3ixk8IGqP3ktHkWlAUqVcd9bDR2M3V
+ tTJCwjymS6tTGAHUQOrbe6/TcO9MHNl3vjmXLumkDoNYxdPKze3ShE4ZNSikUwObKFmgum+FHfb
+ jHg0uEXoFwp/owMngUxWi2TN0pVJ7W4ywmCCTA1uyZuEkW/iIjAb/M+gIPXVvDilUbUFm4wtlwQ
+ RnW6t9tRHrNmevU+tpFNbab4IevVu2QC4cYZRvv6kjPDgGUlHoez/MFlS8O4YbzXbUtKJ8Z9TpI
+ 4DYmxsDxJ4/8QUe/N5fvzhmJ9RVfwIc4zxT0V0g0fKeKOJ0u1Id6wwwuMtv+LIbC4zVOhOxwvgL
+ XeAAFkMm75Jzwoo2HXw==
+X-Proofpoint-GUID: VtinH5a2_VC9N_YX0VF-9aPOerJ0raEi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAyMCBTYWx0ZWRfXzHEZtKU9jD23
+ yCGb27QPFqBTdSKOznDu/FOT38DRfSYGUiGGrnw2Re20VbE1dmitaMB4FfsPJBv3gjbT7uPRphu
+ YuWUshruaNWZwU89HUH/bKYaenhcYPo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150020
 
-Hi Li,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on tip/sched/core]
-[also build test ERROR on akpm-mm/mm-everything peterz-queue/sched/core linus/master v7.3-rc7 next-20261012]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Li-Zhe/sched-numa-clear-fault-locality-state-on-execve/20261014-174342
-base:   tip/sched/core
-patch link:    https://lore.kernel.org/r/20261014094347.99157-6-lizhe.67%40bytedance.com
-patch subject: [PATCH 5/6] sched/numa: do not feed tiering promotions into task placement stats
-config: csky-allnoconfig (https://download.01.org/0day-ci/archive/20261015/202610151319.LxjGvN6y-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151319.LxjGvN6y-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610151319.LxjGvN6y-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   mm/memory.c: In function 'numa_migrate_check':
->> mm/memory.c:6176:32: error: 'LAST_CPUPID_ACCESS_TIME' undeclared (first use in this function)
-    6176 |                 *last_cpupid = LAST_CPUPID_ACCESS_TIME;
-         |                                ^~~~~~~~~~~~~~~~~~~~~~~
-   mm/memory.c:6176:32: note: each undeclared identifier is reported only once for each function it appears in
 
 
-vim +/LAST_CPUPID_ACCESS_TIME +6176 mm/memory.c
+On 14-10-2026 16:48, Krzysztof Kozlowski wrote:
+> ... so here is the missing file from next patch, so just squash these
+> two.
+> 
+> Don't add new device piece by piece.
+Our earlier plan was to send Hawi and Maili as separate series.
+However, since Maili uses Hawi as a direct fallback, we combined
+both in the same series.
 
-  6147	
-  6148	int numa_migrate_check(struct folio *folio, struct vm_fault *vmf,
-  6149			      unsigned long addr, int *flags,
-  6150			      bool writable, int *last_cpupid)
-  6151	{
-  6152		struct vm_area_struct *vma = vmf->vma;
-  6153	
-  6154		/*
-  6155		 * Avoid grouping on RO pages in general. RO pages shouldn't hurt as
-  6156		 * much anyway since they can be in shared cache state. This misses
-  6157		 * the case where a mapping is writable but the process never writes
-  6158		 * to it but pte_write gets cleared during protection updates and
-  6159		 * pte_dirty has unpredictable behaviour between PTE scan updates,
-  6160		 * background writeback, dirty balancing and application behaviour.
-  6161		 */
-  6162		if (!writable)
-  6163			*flags |= TNF_NO_GROUP;
-  6164	
-  6165		/*
-  6166		 * Flag if the folio is shared between multiple address spaces. This
-  6167		 * is later used when determining whether to group tasks together
-  6168		 */
-  6169		if (folio_maybe_mapped_shared(folio) && (vma->vm_flags & VM_SHARED))
-  6170			*flags |= TNF_SHARED;
-  6171		/*
-  6172		 * For memory tiering mode, cpupid of slow memory page is used
-  6173		 * to record page access time.  So use default value.
-  6174		 */
-  6175		if (folio_use_access_time(folio))
-> 6176			*last_cpupid = LAST_CPUPID_ACCESS_TIME;
-  6177		else
-  6178			*last_cpupid = folio_last_cpupid(folio);
-  6179	
-  6180		/* Record the current PID accessing VMA */
-  6181		vma_set_access_pid_bit(vma);
-  6182	
-  6183		count_vm_numa_event(NUMA_HINT_FAULTS);
-  6184	#ifdef CONFIG_NUMA_BALANCING
-  6185		count_memcg_folio_events(folio, NUMA_HINT_FAULTS, 1);
-  6186	#endif
-  6187		if (folio_nid(folio) == numa_node_id()) {
-  6188			count_vm_numa_event(NUMA_HINT_FAULTS_LOCAL);
-  6189			*flags |= TNF_FAULT_LOCAL;
-  6190		}
-  6191	
-  6192		return mpol_misplaced(folio, vmf, addr);
-  6193	}
-  6194	
+Sure, I will squash the patches. 
+In a single series, it does not make sense to add the device piece by piece.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Regards,
+Nihal Kumar Gupta
+
