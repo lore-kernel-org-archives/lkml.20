@@ -1,224 +1,143 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10AA47A883;
-	Thu, 15 Oct 2026 22:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792102796; cv=none; b=bdQtYI14yDQVb7uhO7KI/BtAqzzFUHd0s5iJAPRAHG40tDnfQpVKnQWVVWH4Kl57WXh7PeR127NaM2YPLsDLjxx4Dx2CgDixXvN4leD6GmTwcYRL+tdp5scBd8CzEi4/d33VkbEHgYmBv1CTI4WGzgR26v7nAnqB5VtvtVIBgY4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792102796; c=relaxed/simple;
-	bh=BSYM8EWDO3nTSgyqSnxL308DKtwjLPf2imLcU7vudTw=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=Mpwi0FBLgQTHx//KV4+8ghKwcnlLKghh55nnFyEAynRZwJQwjKpCgbyFYy1yrx5dtNbQ8/2Y9yYx5D38t8XNRgpVQmlHU2yFWI0ZRsVIUgW2xPfXlFYJUUIDCCDwzgFLNTOb+42+zjZn6OxOWYNB7OR5pcffmQNwIl8Q0walhqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uWe1NS49; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=f3TCkhq7; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEDB417D99
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:20:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792102804; cv=pass; b=Brsf2PQPSNTFJh2xYbhvdvKDhmtELvfSVxXBfR7+gu/OMju4+5UAvhytzbcfekaMyiYf5+M3w6wbgNLf9nfiPS4viCPRPOSRPwlO/ORpm9eHQ20jjaMtvLljJsUWteMXBZf5sjiPpcfWh6eMS2vtuVWciQMIwEDEbpTc7W7eV74=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792102804; c=relaxed/simple;
+	bh=1GkfmmTRxWbu/MUtgXkR/+YBy+TL6aN5OmAB8cTrNrk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QOfDhuSYbhF8Gyluxnv8QIsauC7c8mGbGJlPTLZ5mB/+zfACsmjZbRO3FvSl4ctX9aJvsJzkSp8hnEANgwdBAeuw9sOFEv6vjChq5W8rZZdiFfpShk7Z/yBptFISmC3EPLQy/5ImTebeTeM+xylzsc9y/inkQcVpntX6SCi2zis=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kV6R6a9F; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uWe1NS49";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="f3TCkhq7"
-Date: Thu, 15 Oct 2026 22:19:46 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792102788;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aJfVdQSJQBqc68NqEU+LtDuJ6FpCSe+YFJzXv7LjqIs=;
-	b=uWe1NS49DeBf7cbyLZ32c/1BwiZauWnqEmQBE0Nt19c4i2KBLTb7kjZ93Njt7D7gbACAmZ
-	osXZ/NzTGDTFozbq13MHgBiKUO26gkVg1Z8djfzCNtO8CYjR/O5bTsxw1sr0wsjg2bPXnB
-	0YoA5UtZ2BvdUy4YGIQNyghV67k1zuN2JK+iQI0Jd/D9T+Uau3Oe1er9PyaYpVvw6pRxWW
-	RZuum4XmoqEfAJiE26LHtEPNCMf8WIsjXGZjD+r+crJ7BZJgjVvfrTH+P4vbt/K1jMHsml
-	vruG5iNBXhIe9INanN4cLXGqAxb4RPStPpe11UjL6ULQ1mHXmqAKtQCLSNRTGA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792102788;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aJfVdQSJQBqc68NqEU+LtDuJ6FpCSe+YFJzXv7LjqIs=;
-	b=f3TCkhq725OzNTBIsq8+Emg9uceNmLroQasUKkRn1MgMeg+L0TPd0hyLyBHi4OtnmBsPBC
-	iZ8HWKY6XgEFQnAQ==
-From: "tip-bot2 for Richard Patel" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] genirq: Defer kfree(irqaction) until
- irq_thread_dtor() finishes
-Cc: Richard Patel <ripatel@wii.dev>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261009145842.1616117-2-ripatel@wii.dev>
-References: <20261009145842.1616117-2-ripatel@wii.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kV6R6a9F"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-533202fe429so118431cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:20:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792102801; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lat0FFSzqcHWFscA9bHSHnLp7dZyMy5/eW/cquVYqsM1N9yJseXHuk4+yMy7W+ivWJ
+         n8e3fdst2eYfBGgUw0u1cZB9MeDe4aDFQskLfMEgvtEMxMCJP85rWHEsUNraSnZ58RbA
+         g5jMeOpq+CkpJdo7FT5VTSHo8P7mSXFwk/SezQuX28tLQG18e3+z4RFdui+HBIhoOeh0
+         fpXOIz9VOI0WWym/Kbv0APO8/vCStRfmj8fqO3YBwTD4MyfVxvDxvG5aC/37Or95LWTc
+         qHNLrvGbmjuS/fgrlHlbVNxTfX1KOlQc6qnbHt2YGZnnWMLj1QQ2MQKRnYalF7jPa7la
+         mtfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=szmjy0cblE8XnXn4Fw1g4VyNcoow3dCxiKswAyvRGYg=;
+        fh=REwRJplJGujIHLgF8yU0gC+99O2ApWOT2xDJukJslEc=;
+        b=C2dF5AtPFmhNGfVfS1Qh0BciCwWc4SlKtbJtsY+6x75IQIYIIKHDTnxrmJORgmJlhI
+         +VFBiXyc0hhDrW9a/zKgEbS0wngB+5z2FIZj7V45STmysQdPCtzoEF4tg6KQoDI9AmkT
+         F3hi58FxikSWSpq8EPigkvUNaRAK4xLRf1NkhrzwLdRgUkwVB1Hyj0YRCLF8/xM/MVEi
+         4k1NKsPEnhudyxq7US1ndChOjpFmYzbqwTu9rMnrFFFhNFjRZN3Nv0yZfUgyGbNvIEXV
+         0BL8fgi3TtefIrgVaGnispx01xMwj3rQDC3BVG2vKaQsxBNsjhJ9Yd6rEzjlLt626KrJ
+         7uJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792102801; x=1792707601; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=szmjy0cblE8XnXn4Fw1g4VyNcoow3dCxiKswAyvRGYg=;
+        b=kV6R6a9F8W5UHaSlBLbrUXvBx70yCuuGkIGqzVtSMC8/p1oTPtAme1glPLaATs+c4m
+         bpwAlu9ZvjD3hNGqQO/21GbGQmBSQeClhrtfNl/RrKkmO3m1LImzJXjvBokBH48RU835
+         2gG2jwL449kkBvH/rMRpKsLLI6P51Ru2dxYzR7DHYfNtmcQ5d7IvzZqS6s5Kl6XmqCU2
+         6i3fYBEXmy+IwNIP4dimhjlGjLDyvFPi2srAslJ3dYtRrCQqQCUT+S02BXILS5ur6WZH
+         3DBYUEp/YJhoVIhm8LhGBardC+55FBFW4kHscv6nO7bZtxSBX2YwN/RfY39iK9UH0zYR
+         hpIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792102801; x=1792707601;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=szmjy0cblE8XnXn4Fw1g4VyNcoow3dCxiKswAyvRGYg=;
+        b=YAHOjGVu85XMg0cA9NoyKyQyAX+Bg9NBaaMQa3Ixn1Qy07mpXfFCBqOiHM8HKwqkih
+         hG+nlDSnyTNQHxGeR6uaXiIKCBCWzvKbS+uMpLpzVpPUkGBI11nxBKUzg81BAqkJujYp
+         C8gZDEQHbaNUNDCNsNctdE5b/UEeiJHun8PaReOdyqPXoGlESTIvpGqG0WYQKl/34Ki9
+         lvqeWdQgudUx40HnYCa0pXgJxQo8pNAe+NMQig5HDkFUhT63RT+CjpKNSPMZZCJNGBTq
+         nfDUW7QJll0WY2EJl31WwVmdsHLdNSWJrjqYSnf6tLOzm/IMCMJ7QxzNULMU6DfX+UAO
+         dH4g==
+X-Forwarded-Encrypted: i=1; AKwUvBwa1kx9Uk6ZVw6wt9ZO9YR522XC/C6J840F7HsoNAm68/jYXcCW9Bti60HtDysbEP9ctJ2eAPbbrpfp+bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcd5nzskp3505a2cvoKuePXesE/atupbopJFrYR75f+ZdHhC5V
+	H+MNJaf7c2UAUtkIdkEx26N8L5JRk5hTHRQ3NbhoH+BIwo28USRFirMbYTALRWqTuxyHJCmUKcv
+	AIpqIZUyku6Pos8y45o6ArVpLU3CJ7RwwT3mMxAHa
+X-Gm-Gg: AYBFou3yP3K10Edmwt9zBP/oUOVf2cstW8IFOQLga9w3L4AYt8KlccP4r+54AdsQmTA
+	vPG6UMLhe72b1n5w5zOuSSQZMcI86bUKWDTBrezoBb8OpKffRzzVhTK6dpa2trB1cVf2ok2fJwY
+	KW2x/4vLuxOD8rcnXi8LgPf5uB2kmXkBoH7gske5nE+CyXz4b99XdauRpDazSFos9PgZabFbNix
+	UZ3T3WMy4Ze+F8I1gQCSbxATC8w4Ep5kRhFMfalmICFaQiCUtV/WjOyvT2WIiAWQL9xbAQK5+KW
+	6Yz7H+1AMmlZW0Yz5BBsWv2hcFhGhN3P9BrIeReiaitR2yq5oJ8mC2A=
+X-Received: by 2002:a05:622a:c05:b0:536:d46:ffa7 with SMTP id
+ d75a77b69052e-5362b40f017mr3315281cf.12.1792102800408; Thu, 15 Oct 2026
+ 15:20:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179210278684.2666988.17460128160267495885.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-20-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-20-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 15:19:47 -0700
+X-Gm-Features: AclHuK9pn6iw2-XSdhvtKYxB1Jis-OaHm0rG-azDJVuUxSdzBjHfIalhoskrHxY
+Message-ID: <CALMp9eRd3COQijFU8AdcJKo+usr4A7dC6GOYT3YS93UBZ0yHRA@mail.gmail.com>
+Subject: Re: [PATCH v3 19/27] KVM: nSVM: Service local TLB flushes before
+ nested transitions
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the irq/core branch of tip:
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Service pending TLB flushes for a specific context (L1 vs. L2) before
+> entering/leaving guest mode, as KVM does not track TLB flush requests
+> for L1 vs. L2. This is not currently required as KVM always flushes the
+> TLB on nested transitions, but it is a requirement to drop the
+> unconditional flushes.
+>
+> TLB flushes are performed through the VMCB's TLB_CONTROL field, so
+> service the flushes before every VMCB switch (except the precautionary
+> switch in svm_free_nested()). Servicing flushes may end up purging the
+> relevant HV TLB flush FIFO, which is based on guest_mode, so make sure
+> local TLB flushes are handled before calling {enter/leave}_guest_mode().
+>
+> This is conceptually similar to how nVMX calls
+> kvm_service_local_tlb_flush_requests(), except that the VMX calls only
+> have ordering requirements on {enter/leave}_guest_mode(), and not
+> switching the VMCS, because VPID used for TLB flushes depends on
+> guest_mode, and flushes are not VMCS-based.
+>
+> Note that nested_svm_{entry/exit}_tlb_flush() must be called after
+> kvm_service_local_tlb_flush_requests(), otherwise the TLB flushes will
+> be immediately applied on the outgoing VMCB rather than the incoming
+> one.
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+>  arch/x86/kvm/svm/nested.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 
-Commit-ID:     d04adff6860587e843948b0c31174f8ae11b8dfe
-Gitweb:        https://git.kernel.org/tip/d04adff6860587e843948b0c31174f8ae11=
-b8dfe
-Author:        Richard Patel <ripatel@wii.dev>
-AuthorDate:    Fri, 09 Oct 2026 14:58:41=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Fri, 16 Oct 2026 00:18:40 +02:00
+[ ... ]
 
-genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
+> @@ -1549,6 +1567,8 @@ void svm_leave_nested(struct kvm_vcpu *vcpu)
+>                 vcpu->arch.nested_run_pending =3D 0;
+>                 svm->nested.vmcb12_gpa =3D INVALID_GPA;
+>
+> +               nested_svm_service_local_tlb_flushes(vcpu);
+> +
 
-When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
-handler oopses) without returning from irq_thread(), a concurrent call to
-free_irq() could free the irqaction before the irq_thread_dtor() exit task
-work runs.
-
-  irq thread (oopsed)                 free_irq()
-  -------------------                 ----------
-  do_exit()
-    exit_mm()
-      complete_vfork_done()  -------> kthread_stop() returns
-    exit_files() ...                  kfree(action)
-    exit_task_work()
-      irq_thread_dtor()
-        action->...                   <- use-after-free
-
-Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
-__free_irq() wait for the bit to clear before kfree().
-
-irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
-faults, free_irq() will hang indefinitely, but double IRQ thread faults
-require a reboot anyways.
-
-[ tglx: Add missing include ]
-
-Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
-Signed-off-by: Richard Patel <ripatel@wii.dev>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
----
- kernel/irq/internals.h |  2 ++
- kernel/irq/manage.c    | 26 ++++++++++++++++++++------
- 2 files changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 0ce21dd..2c30e75 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -36,6 +36,7 @@ extern struct irqaction chained_action;
-  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
-  * IRQTF_FORCED_THREAD  - irq action is force threaded
-  * IRQTF_READY     - signals that irq thread is ready
-+ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
-  */
- enum {
- 	IRQTF_RUNTHREAD,
-@@ -43,6 +44,7 @@ enum {
- 	IRQTF_AFFINITY,
- 	IRQTF_FORCED_THREAD,
- 	IRQTF_READY,
-+	IRQTF_EXIT_WORK,
- };
-=20
- /*
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index 57eff26..87a2476 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -21,6 +21,7 @@
- #include <linux/sched/isolation.h>
- #include <uapi/linux/sched/types.h>
- #include <linux/task_work.h>
-+#include <linux/wait_bit.h>
-=20
- #include "internals.h"
-=20
-@@ -1176,17 +1177,14 @@ void wake_threads_waitq(struct irq_desc *desc)
- 		wake_up(&desc->wait_for_threads);
- }
-=20
--static void irq_thread_dtor(struct callback_head *unused)
-+static void __irq_thread_dtor(struct irqaction *action)
- {
- 	struct task_struct *tsk =3D current;
- 	struct irq_desc *desc;
--	struct irqaction *action;
-=20
- 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
- 		return;
-=20
--	action =3D kthread_data(tsk);
--
- 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
- 	       tsk->comm, tsk->pid, action->irq);
-=20
-@@ -1203,6 +1201,14 @@ static void irq_thread_dtor(struct callback_head *unus=
-ed)
- 	irq_finalize_oneshot(desc, action);
- }
-=20
-+static void irq_thread_dtor(struct callback_head *unused)
-+{
-+	struct irqaction *action =3D kthread_data(current);
-+
-+	__irq_thread_dtor(action);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
-+}
-+
- static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *acti=
-on)
- {
- 	struct irqaction *secondary =3D action->secondary;
-@@ -1263,6 +1269,7 @@ static int irq_thread(void *data)
- 	else
- 		handler_fn =3D irq_thread_fn;
-=20
-+	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	init_task_work(&on_exit_work, irq_thread_dtor);
- 	task_work_add(current, &on_exit_work, TWA_NONE);
-=20
-@@ -1283,6 +1290,7 @@ static int irq_thread(void *data)
- 	 * oneshot mask bit can be set.
- 	 */
- 	task_work_cancel_func(current, irq_thread_dtor);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	return 0;
- }
-=20
-@@ -1853,6 +1861,12 @@ out_mput:
- 	return ret;
- }
-=20
-+static void irq_stop_thread(struct irqaction *action)
-+{
-+	kthread_stop_put(action->thread);
-+	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
-+}
-+
- /*
-  * Internal function to unregister an irqaction - used to free
-  * regular and special interrupts that are part of the architecture.
-@@ -1958,9 +1972,9 @@ static struct irqaction *__free_irq(struct irq_desc *de=
-sc, void *dev_id)
- 	 * the same bit to a newly requested action.
- 	 */
- 	if (action->thread) {
--		kthread_stop_put(action->thread);
-+		irq_stop_thread(action);
- 		if (action->secondary && action->secondary->thread)
--			kthread_stop_put(action->secondary->thread);
-+			irq_stop_thread(action->secondary);
- 	}
-=20
- 	/* Last action releases resources */
+When called from svm_vcpu_free() during teardown,
+kvm_service_local_tlb_flush_requests() will be called for a vCPU that
+is being destroyed--and isn't loaded. By that point, the MMU has
+already been unloaded. Is that safe?
