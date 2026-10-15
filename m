@@ -1,185 +1,253 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021078.outbound.protection.outlook.com [52.101.95.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFAA1A704B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792034036; cv=none; b=tNIG0DPeO/Bsxr7bOj5CX0AwlfA3jMjf7MlmDMZbuTDMGsPEtFB7YKazv4eu7yy6DJvPbVh/Ry44yFTAT15lbyasGrToEg/6Cvj8RIjrVB634CJp/ZsGt7Q+fD92CQwU8YZZrCFwVF3+UJ09ldTiHI4E5NoQfn7o/n47WDaOTMU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583CD183CC3;
+	Thu, 15 Oct 2026 03:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792034036; cv=fail; b=AvV62y5I7pdr5GrTW4FV2oYrlj8KxiB0QpeUhmljADSxXeruq/UtGto/fEUUuiwkSpuiKapuKsGrIN2XLRxghUO4AsKuPbHa1p2kkYiHwbua0KR44Amw22OxBnA6xZnTOn3TK+cvrmr8nJVD88bXep/MwINRRTuli2k4KQLXSqM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792034036; c=relaxed/simple;
-	bh=U6fz9yy/5dZQcmsuAG/v7+Up68qWI8bHAFhOPGGGupY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tFxPzMbRtLNc0L+jez0RrIUQ//ruU4cN3Of68XS6rrVLuUoecDl8RJoWqIf5Z8dyEKwDUYbTALChG+ieUXKhDU+rhw6e9Jd8dLPl2QeuzO3+9QBq2CiSvCNME6vOghT2ircHk/7tlTeV+tLPbCZEoEn3q0OG4RyY6qR8n/kW5qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/EwqOs6; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/EwqOs6"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b63bd2030so58370956d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:13:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792034033; x=1792638833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=153R+e1jrYKRH+HNspTdkqqncAprD2wZmZQfnSo2QmQ=;
-        b=b/EwqOs6Nazh4TalBTv4Id7YzY28K9mfNeUgma4IyZPx5iPzf57xssIxbk2AZZ+xO6
-         Y6Sd3lQ4ocdLocPIpDIdhoqSwpeJExgyQ8ErINO92WFzAT4HdZxS6oryKVtBAu5MA01T
-         g2o7tFiRgKYJQrbb5MTQd2rLvdbNr93WS4m9dpDBejBX9R47pr2VqT08xZrSs0pzbe2j
-         RVkI4uUAFHr4JR6goPRQUguzE2c9PKAbsUJXDu0oDnEdVGKt+t4E10aZNvRR7n5y3cdk
-         FwBZ+0WkcwYoU+QihyZmYiPEW9/16fjCFsWxKVg/haaaGVW7kmP+xtB/c94K+xsUHlkY
-         FbyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792034033; x=1792638833;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=153R+e1jrYKRH+HNspTdkqqncAprD2wZmZQfnSo2QmQ=;
-        b=07hGLfme+uX2ZqRWlNSkvR/Impr3g7KUfUJ0LS5VcQeFksV+P67B0j3CIO9rzyCGss
-         XTTMHfQRDfIcctHx5UaSCwBj5+rgkmfKL5eAbSgUPnSoEV5zNBNZOWBF3in0k69giz1J
-         Xk7QwSOoa6W663HeOkRVmZWVscViFycmtgEKSg6bCG/iPofOOdE2QWsFd87btlFsj/rx
-         Q+n8t4topIwyh1UiUMYTucBmZXo3I3172oFTXV01+Jt5c+ZxdPW40MXhrHVYSq6+Qd+N
-         NjeI4BhFsqTINmvErKIiDRtV2A/sV9wOTAOnlPprFdBm+NfUk5cT3TURfnp7/2F7k8Ja
-         g5iA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaaCVNp+AsWgKbVcrYYPDOrDGkYoNEW62XVh5SDWHSJjsHTHfeXCQ6GqslLL6p5cZUBYNUStNLW68g/S4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKq12wcQyaiEZyNV6yNwwgre/6Q8kpxyIM6Zgryg0UM3b4lpO3Y
-	CAms0yEMOam66GDDcmF9Ma7HkBqE4wv5ShW8v765gY2Q5s3Ll5y6EmQ=
-X-Gm-Gg: AYBFou05GJvhvirQ4QMxJM7nXYtCbq1KwCfcd/2j1GlsfxzMPOXbDoEcr63vlMW9s5A
-	B7cEn6zVUZSgkHFKgN6ikcHwuPFjjbu8ulMiQ4t+jrILE7FthqTPhDm3ncZNQd/NtfLrATUew5h
-	ZZdLPG5YZQhEKuX4Ecoc1tDWY31rA82g7+d3kgHcUSWFIMGWxck+lWq8mimRUS6Aaoa/6QYRfkb
-	0Buvs+L2iK7F/VuJxcll0b/PQcfhXmJKfiZjbEeWLGnX6ehnvTCEVbWHoIssNDRyVlXOGDpUzAK
-	5cUOxJPQJooLveRiUlu6zL6trfE+oHnKiKuM+cn4pKP9dI0Znzr7QmbCQe8j+9QFYfvVLXCDGqz
-	dLiLU/r3Q4icLQIsplNrk6nlwEzmtxSylD1FEz+kpdQnM3xWPyh4socXo1JT4CqJuTgBeidquhw
-	WlSxVM+jGm3g3kRJ3bPa7XNzfzQbq/BzdTfApThtdQ6MUjXulK700ZX9mxTHzuZiUhokvgt7BlQ
-	8B6yTPiz9q4uBrEMln57FtmpEbmYjH9B+rB0b9ksgAVDf5RYtobUJosmQ5K5UVpevDChfi0nj0C
-	fwHn+LFSjp1fMrBuHUEnvQsLrpip
-X-Received: by 2002:a05:6214:1d28:b0:91b:87cc:6d52 with SMTP id 6a1803df08f44-91b87cc7740mr169108536d6.0.1792034033319;
-        Wed, 14 Oct 2026 20:13:53 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b387e0sm69717646d6.12.2026.10.14.20.13.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:13:52 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Paul Kocialkowski <paulk@sys-base.io>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] drm/logicvc: keep the IRQ within the display resource lifetime
-Date: Wed, 14 Oct 2026 23:13:48 -0400
-Message-ID: <179203400409.2736079.4502160101423826217.G31.logicvc-irq@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	bh=EUiJKL4sXDSSjX3LgxYLVEhlKWjLpXqaoQsPsjtzfRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MNHFvTEqCQNsXRISI9kEC9teaK1txIeqNhxGBVe3ktxuar3Ni0pG49Uxwwp1EnnF1z0h9xEcH70N5Z3w9EMcNI9boNQVfda+AMWAynhax/c7k6vsGhkvdr3I9UHZi9sDAy1f3/EJJ2dMeOZEgk5J6iooagHqsaZr6UBXSKCo0Pg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oV2miEhzrRVlWWtzmz/KsgTE7ZPyPvFfj4nob53Ywc7zZIMGOVH/Kbpd3eKLNjgpEmH0Uah4hy4Bcjc+qMgOsswVjAwvOeZoTuA7pSPITurwfvl0GPj4pP3CNDGR9G6w5CUVroCpu7rUlvISZ00GQYNBN/HTz2xNpkTav9LvjzeNZF2gbUNYkHmUW8DbPmsp8oJTsgOvr9WvWogVCYLY3gpQzFObPQLIckGg1vEZaKYfahgMFLg6qkX1pkeDJTWl65b1qbtxUt+YoAV6zFFv30TcItkbWEm1yMOyEc+SWJer4KN+KIDS02HemDVHK1AnC/HYinnQzrbUGR8RUs9yZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=slrQzxZJL//Undy73aEAf+CLdYf5GsmWTELOlXRCQDA=;
+ b=PpH8YbhzZpc8lrTwPzmuyLMuzvoTzXtmezhBXMFys5AZWYmcK5BSHPpCe79kUjiMVx8uhYlX2HWpKo6ex35MV/+zznCqW2xIQb6UDeOTD/nv2tU82WW5+ErELB3P8kY0WIg2KoI63qnsh6m8Y611Bw1JZU3GG92J3LfkgZOLElMgXB1847nmVBfMdXa32ozt99cjqep08sFEoRGMPS38nZOQ+xFKGRMflxwvorG0NlixlN/xeoltEAFbkhVjR39fGpu3z326MCu+XRfr6rymSLtWCJ4zBy2YvOvYq/CwbcSJvmwB07M4G1sEml0CJSsiMMuXI8WWfSRChAcF74hmtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2b2::11)
+ by CWXP123MB2789.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:41::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 03:13:49 +0000
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383]) by LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 03:13:49 +0000
+Date: Wed, 14 Oct 2026 23:13:45 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: axboe@kernel.dk
+Cc: tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
+	frederic@kernel.org, tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <oedptybqueluvi7abnerr4zn4t7lnh7telsen75lvkzyp52nee@6jkbqf6gb33s>
+References: <20261015020225.422107-1-atomlin@atomlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015020225.422107-1-atomlin@atomlin.com>
+X-ClientProxiedBy: BN9PR03CA0076.namprd03.prod.outlook.com
+ (2603:10b6:408:fc::21) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO6P123MB6616:EE_|CWXP123MB2789:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab39b4a2-48f3-4fdf-e1c9-08df2a6a5500
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|6133799003|10067099003|22082099003|18002099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9ZWw2pAsJ8vltiRO3tlZhAWfJ0UQl8iEqdGnJMtVL3OH56T7AFumsdczcVHOrocGc8QRe2ScbRdFy8VRuZIEXBLVr9CbUlLmYPryFwd+TyjdUUqzEar8daWtzEltBsrXw320c0YiNBh4LruZEKQ/El9SCoLIZePzNa4PFu5eaIOA6PFXHLxJgmN5IQGWVHWrnOVjOlx5YqoLtcyYMVLUfNspkAJuw4XpjB/r6hX4zAL6dE3P2S7V9jAxET4g1KpmU03OTFltwREi1ndA5lp3atpBTYePdwm4AGhyoJIAZnRZb75dyVHpPJCyJiHgUC/PWeSk6g+7hY5d0HsqiyclkCsOSoS0VWYsabZW5guYvXXFc7dH1hVg8fbRx+b1muDYO1O6gq/94IWRqJhq8hYq5mT1evfivp4yeTBAPJWLyiLIDsdwDRO8ZnKOor2xpdzvB4uAxpAhLWQ+1AEXZY1udVnObKgmQdGpzbvYrl4K/jBKBQPhVcOMFbzkNxlOodA8eE75Rqk4YnfpYwOLXEO+erpsuPPZvFJw0IM1lNmM8XAoCsov7zdAiRam7KNCQv9wi4WzVyVOUgVjSEqwhjCsO9KATX/0awGd1g+ebO9cfF8YlC8gcrWX8C5ApWLcvYYj
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(10067099003)(22082099003)(18002099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?clNBdGczOUxrUy93eEFiMkxzSzZTYzBmT2YrdlJoTXlxRTN3NnJUU1h4YVNO?=
+ =?utf-8?B?QUNMNkpZSUZyc2k4cm9iVEdhY1lXTHB0bzd2NG91T2x5M01NMkJRdzF4N0or?=
+ =?utf-8?B?SmZtOVA2ZHBEV2FOWTVubEt5TnB2bzluMElzOHJGQ2svdXNBcGRVQklaV0Vi?=
+ =?utf-8?B?ZDhmMDE2aWw2VkI3WTZJb0FzQVdMcjNSWERKN0ZpWkt1WEVha3pUU3hNNEhq?=
+ =?utf-8?B?OHk5T3RKWHU0U2YzdFdiTHU0dys1Y0lnQ2lKeEdxM3R3a0VaR25yZ2FqUTBJ?=
+ =?utf-8?B?d2g3NFlQSnVYVUVaV0h3SXVtT0dqeWxUdlB1Y0ZoZDloK3EzUWluQStyUERn?=
+ =?utf-8?B?bklyRkJUdnBvdE9ZTXpHc1ZpTDBxUkRXdkl0aHU5Y1g1c3ZzTVV1c3BMVnlw?=
+ =?utf-8?B?TEdiMUJhbytVQWhOc2oxVEhQZEQ4MFFLMDRQT0pYQm9tZDdIcVpHMmdNVVV0?=
+ =?utf-8?B?YWYzYmx6NmVUdVhKTnZRRk9LQ2JhTWdkQ3lncXMrd25tdGFyc0RYVUpFdGpL?=
+ =?utf-8?B?WEl0YjJYR2UwWVFpVlI1c2Y5M093UkFzenJvVCtQVURsU2tnWDNLT0g4ZjFj?=
+ =?utf-8?B?eGVjdUt4b3NNY2ltTG9zYXhKWjdOV29IYm4xSmFTZ24xRkoyNkRvR1JKUFN1?=
+ =?utf-8?B?RzRHQVJ3MVFwU09qRnV6cmc3UkJDbVR0YUlTVDcwemxzaFJrNE1zbGdxejY5?=
+ =?utf-8?B?aythSmxUbGFGUVAvNmxtWWFoV3ZzZVllM1RaYzhuN1IxSHhhdktEa2VsMW82?=
+ =?utf-8?B?bWNqbm1xTk1NTnVtdE8xMG8rVm0rdGR6Vkc0bkZmQWN2Z09NOGlnRWJ0T1cr?=
+ =?utf-8?B?VUNFWUI5YXFQRlc1TzVrT0t2YUl3L0hhckFsaDdHVTNTaDQ5ZFJhdVUrNmZr?=
+ =?utf-8?B?UzVERDA4bkJRN1VlYzI2NGlMTXg1aFFCRVpBMy9hYlN5OUwvUmJzc0FrSGEr?=
+ =?utf-8?B?VHl0WDR4UHB1Tk1WZzV0U3hSaWU1cE01dXVEeWJyV2NxaUpBelBRTmFtdjJ0?=
+ =?utf-8?B?RGZtdExGRkd1ZjRGMW1VNURJSnNWUzErSHQzcmxyZHpKeGRBVzJhL0ZoZEJr?=
+ =?utf-8?B?ZGk0SWVNVkV0bSs1cXVlZ0o1VGNLV2J4alg4WDk2aVBkQ2JWSzdpcFRvWWhp?=
+ =?utf-8?B?RGUzRXNnRVpNMEJkSEoyWVNNNVFjOFlCazhVTHlCUzh1ZmRhSi84Tll4VU00?=
+ =?utf-8?B?WEtpVDN3OTdyMk0ybkt0RnFPcGI3ZmU4SjJxV3JPbE1jTFJNdy9FUTNrZTl6?=
+ =?utf-8?B?bldHZFBWeWl0S0Nid3kyVnlqeWVOeWV5Q25mTVVaV1l2MlZOdjVtQlZmWGRB?=
+ =?utf-8?B?by9qZWZ2OTdPb3p0TC9KMThKWHZYRkhrbHlZR1RrWktVdStHT3BtNDA2SEk2?=
+ =?utf-8?B?WEh4NExhbm9DTy84UmZZd2drSHRWMUt2Z1ZtYUhqVkh4ODlIOVdxTzhlZmJZ?=
+ =?utf-8?B?aS84NGJoUjNxeUhBbmlDelA4WC9aTG9HQnNKdFY0SmpzUzI1Y2MrSkRkQkhG?=
+ =?utf-8?B?Y2hmTlpZMXNDTW16SkdHRXM0NE0zZklSTTdxU0VOQ0k1Ykh4ZGxvbk5RYUZB?=
+ =?utf-8?B?Y0ZrZjAwR1BRREhuaTNMaittS0Z1SFdoSm83eDM1elVhem5JWGlobmpYVU1X?=
+ =?utf-8?B?NHQ5MWVtUVg5NENMRVJYWkZsYm91TE51Y1c3WXViRE0wRE00Sm1UTmxSdlpV?=
+ =?utf-8?B?eTR0ZW5DSjlGKzUwRm9DcXlmMmV6WlNBYnJ5WVYrbWhMQ0xyVENjc0lkUEti?=
+ =?utf-8?B?eHovSWFSd1JzNkxZQWl3NnJQZmlwdFBTeFBSQUtFVDFYYi9FY016dU53eTQ3?=
+ =?utf-8?B?QnNHSGVNbjdHdWFBWmR1NWQzZjllK3h5WVB3VTRGUjF2SzA3QW1CZEpmK3Qv?=
+ =?utf-8?B?Q2lnMHNjY0lMbzd2UmVBdlNvS1VzeUFSY2FLZ2hmUVA5RU5iVjd1RWZKaVd6?=
+ =?utf-8?B?UmVCMGFsYmxJZ0kvTklqajJRTXBWYndoZHhOOW90U3JDb1gwSmJHN0Q4ak9T?=
+ =?utf-8?B?b2ZCNmc3WmhhSHc3NWMxcHFXT1NNVG53RGdzcCtzNGw1dmg1bDM4SmlHcFNt?=
+ =?utf-8?B?VjNic3BycFh0S01WUUZOck02TThaM2c4MjJHckhkT0tQNUZsZ3VsdXF4Qis1?=
+ =?utf-8?B?VmRrVkVJTkhETzNNV3dzYUxOSGhWNHgxc3A0UmVPeEx4R2RjTXJJRGlHOERQ?=
+ =?utf-8?B?R1VudEhYcjAvZVpsWTNsWlpuTjAxUE8zSHk2bXZJc0xxK2VmZjUvNHZWaGlh?=
+ =?utf-8?B?VENsK2MvdjZkZDZiZktaNyt5aVN6U05lWWlJUzRqZWFlOURuWXdEb1hSL1c2?=
+ =?utf-8?B?Wm1qNmx5dVFyTC9xZldwWkVHd0RjMk1JaFROaSs4OWZtcWovU05CZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab39b4a2-48f3-4fdf-e1c9-08df2a6a5500
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 03:13:49.4358
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ntv4EQm+GZU+oA/iazTkGNd4wmOgL1nAJsAQwintnProAIeO2F/AOWDOnKb6iSJuJE5/RYE8TAOogLdtG76juA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB2789
 
-The interrupt handler accesses the CRTC and the register map. Its
-device-managed release currently happens after remove has unprepared
-the clocks, and the CRTC is allocated after the interrupt is requested.
-Consequently a running handler can outlive the resources it uses, both
-on removal and when probe unwinds.
+On Wed, Oct 14, 2026 at 10:02:25PM -0400, Aaron Tomlin wrote:
+> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> threads from executing block work on isolated CPUs. When all CPUs mapped
+> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> the intention of offloading execution.
+> 
+> However, kblockd_workqueue is allocated as a per-CPU workqueue
+> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> workqueue core resolves the target CPU via raw_smp_processor_id().
+> Consequently, if a task executing on an isolated CPU submits I/O and
+> triggers an asynchronous queue dispatch with zero delay (e.g. upon
+> hardware queue congestion, tag/resource exhaustion returning
+> BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
+> the local isolated CPU's worker pool. This causes the local per-CPU
+> high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
+> the isolated CPU. In real-time environments, an active SCHED_FIFO workload
+> will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
+> in addition to introducing unwanted latency jitter on nohz_full cores,
+> thereby defeating the original objective of commit a46c27026da1.
+> 
+> Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
+> via housekeeping_any_cpu(HK_TYPE_TIMER) when executing on an isolated
+> CPU, and otherwise fall back to WORK_CPU_UNBOUND. Use this helper across
+> the unbound fallback paths in blk_mq_hctx_next_cpu().
+> 
+> This ensures that:
+>     1.  When executing on an isolated CPU, deferred queue work is
+>         cleanly offloaded to an online housekeeping CPU across single-queue
+>         devices, hardware queues with empty cpumasks, and offline CPU
+>         fallback paths.
+> 
+>     2.  The per-CPU high-priority kworker on the isolated CPU is not
+>         scheduled, avoiding priority inversion and latency jitter.
+> 
+>     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
+>         preserved, maintaining optimal local execution with zero CPU
+>         bouncing.
+> 
+> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+> Cc: Ming Lei <ming.lei@redhat.com>
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> ---
+> Changes since v1:
+> 
+>  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
+>    to an online housekeeping CPU only when executing on an isolated
+>    core, preserving WORK_CPU_UNBOUND and local cache locality for
+>    housekeeping cores
+> 
+>  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
+>    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
+>    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
+>    CPU fallback path.
+> 
+>  - Elaborate in the commit log on the triggers for asynchronous queue
+>    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
+>    plugging) and the SCHED_FIFO worker starvation hazard on isolated
+>    cores
+> 
+>  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
+> ---
+>  block/blk-mq.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index 025a799f35b9..df6103b91e60 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -2241,6 +2241,13 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+>          return hctx->next_cpu >= nr_cpu_ids;
+>  }
+>  
+> +static inline int blk_mq_hctx_unbound_cpu(void)
+> +{
+> +	if (cpu_is_isolated(raw_smp_processor_id()))
+> +		return housekeeping_any_cpu(HK_TYPE_TIMER);
+> +	return WORK_CPU_UNBOUND;
+> +}
+> +
+>  /*
+>   * It'd be great if the workqueue API had a way to pass
+>   * in a mask and had some smarts for more clever placement.
+> @@ -2254,7 +2261,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+>  
+>  	/* Switch to unbound if no allowable CPUs in this hctx */
+>  	if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+> -		return WORK_CPU_UNBOUND;
+> +		return blk_mq_hctx_unbound_cpu();
+>  
+>  	if (--hctx->next_cpu_batch <= 0) {
+>  select_cpu:
+> @@ -2281,7 +2288,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+>  		 */
+>  		hctx->next_cpu = next_cpu;
+>  		hctx->next_cpu_batch = 1;
+> -		return WORK_CPU_UNBOUND;
+> +		return blk_mq_hctx_unbound_cpu();
+>  	}
+>  
+>  	hctx->next_cpu = next_cpu;
+> -- 
+> 2.55.0
+> 
 
-Request the interrupt after initializing the display objects, and
-release it explicitly before tearing down the mode state and clocks.
-Keep it available through drm_atomic_helper_shutdown(), which may need
-vblank completion. Also release it on drm_dev_register() failure before
-unwinding the display resources.
+Apologies.
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+The proper approach is to query housekeeping_cpumask(HK_TYPE_TIMER)
+directly and select an online core via cpumask_any_and_distribute(). This
+avoids invoking smp_processor_id() altogether, and round-robins delayed
+work cleanly across available housekeeping cores. Furthermore, because CPU
+hotplug explicitly enforces that at least one housekeeping core must remain
+online on a running system, the intersection is guaranteed never to be
+empty:
 
-Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with GCC, W=1 (arm64). No runtime testing.
 
- drivers/gpu/drm/logicvc/logicvc_drm.c | 21 +++++++++++++--------
- drivers/gpu/drm/logicvc/logicvc_drm.h |  1 +
- 2 files changed, 14 insertions(+), 8 deletions(-)
+    static inline int blk_mq_hctx_unbound_cpu(void)
+    {
+        if (cpu_is_isolated(raw_smp_processor_id()))
+            return cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_TIMER),
+                                              cpu_online_mask);
+        return WORK_CPU_UNBOUND;
+    }
+      
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logicvc/logicvc_drm.c
-index bbebf4f..cf60bbb 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
-@@ -366,6 +366,7 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 	drm_dev = &logicvc->drm_dev;
- 
- 	logicvc->regmap = regmap;
-+	logicvc->irq = irq;
- 	INIT_LIST_HEAD(&logicvc->layers_list);
- 
- 	caps = logicvc_drm_caps_match(logicvc);
-@@ -385,13 +386,6 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		goto error_reserved_mem;
- 	}
- 
--	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
--			       dev_name(dev), logicvc);
--	if (ret) {
--		drm_err(drm_dev, "Failed to request IRQ\n");
--		goto error_clocks;
--	}
--
- 	ret = logicvc_drm_config_parse(logicvc);
- 	if (ret && ret != -ENODEV) {
- 		drm_err(drm_dev, "Failed to parse config\n");
-@@ -434,16 +428,26 @@ static int logicvc_drm_probe(struct platform_device *pdev)
- 		goto error_clocks;
- 	}
- 
-+	ret = devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
-+			       dev_name(dev), logicvc);
-+	if (ret) {
-+		drm_err(drm_dev, "Failed to request IRQ\n");
-+		goto error_mode;
-+	}
-+
- 	ret = drm_dev_register(drm_dev, 0);
- 	if (ret) {
- 		drm_err(drm_dev, "Failed to register DRM device\n");
--		goto error_mode;
-+		goto error_irq;
- 	}
- 
- 	drm_client_setup(drm_dev, NULL);
- 
- 	return 0;
- 
-+error_irq:
-+	devm_free_irq(dev, irq, logicvc);
-+
- error_mode:
- 	logicvc_mode_fini(logicvc);
- 
-@@ -466,6 +470,7 @@ static void logicvc_drm_remove(struct platform_device *pdev)
- 	drm_dev_unregister(drm_dev);
- 	drm_atomic_helper_shutdown(drm_dev);
- 
-+	devm_free_irq(dev, logicvc->irq, logicvc);
- 	logicvc_mode_fini(logicvc);
- 
- 	logicvc_clocks_unprepare(logicvc);
-diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.h b/drivers/gpu/drm/logicvc/logicvc_drm.h
-index e0f4787..f69538e 100644
---- a/drivers/gpu/drm/logicvc/logicvc_drm.h
-+++ b/drivers/gpu/drm/logicvc/logicvc_drm.h
-@@ -53,6 +53,7 @@ struct logicvc_drm {
- 	struct drm_device drm_dev;
- 	phys_addr_t reserved_mem_base;
- 	struct regmap *regmap;
-+	int irq;
- 
- 	struct clk *vclk;
- 	struct clk *vclk2;
+Kind regards,
+-- 
+Aaron Tomlin
