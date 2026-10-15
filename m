@@ -1,160 +1,113 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369374A483E;
-	Thu, 15 Oct 2026 07:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810114A4EE5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:03:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792047785; cv=none; b=OQy/lb/iXVzLGbTgJdUQL+/WdsBCEh+COGg+MA4p5QszufpRMJnyVlFKmPBbxS9PJukFjVNV+QvjnLUFZDsF83tgG4og56IAVKVC01DSYgf+IuAjVYKqD1pVkY7+h+30eNSa9Svs0wu3mtBwJmCP9LVyCeybPG4ynSyRuAAxJeI=
+	t=1792047839; cv=none; b=tx9CGNSCnf7X7BkSopjCN4/tpyfiHlNxyrv0L4NNkgOPxWz6etUTDAM1i76JExaxFkOiOufH+VRJXkywGZ++rLFVa0Tmh7h3lGExmmQ/TqX2BW3Zx1NzmcXqgcY46BVlFqWtF/LTtknFjjYJaRGdi54M2ZSKLLtcc9dXSBq7mQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792047785; c=relaxed/simple;
-	bh=4lzXBUcyTaSG7VDzl4/QKL5wIysU87ym0aR2Y7KYb4s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=l7TkU2xp/3kR5xRxzDVly1nWlAdtlE1cerQMjlfayPTA45asHw9d+n4r9btEW26ZQgKeA6K74vB0ftdB8nCIR+xiwCmvo7YXsQdfC6UP7apOqYRkFJ/9b2kxvcVod7uIvLAXg8B73IxfkZNB6KJdgas05e32ZUtYA+NzrSSZF5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=AsZGOelY; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1792047839; c=relaxed/simple;
+	bh=YH+ljlbj+7YXt8V/106ea4EkaH6+7QTpER8ynX/uKVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZBMEr2Uoy4BWZiUs7JHYYljw1++RrBZszPriChC5SepvD23blYuj85JscNX+f8WNxr15nw/yuaEVmJJJFSMkk0+EDnBV/KIa5sLQyWyBh3ULJ0HKKL/vL6+0Ksns7tNBOEqTutqLWyjpM+FJDHxqliv2U4axMgiy66kKj/YrFao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=spKdn0e0; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="AsZGOelY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1792047689;
-	bh=Zzp0L9M7LCZLAz1+fyG+z2Ldl+Dr8gXyzVSa/cx+BAI=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=AsZGOelYNpNtHSIqZXhUVXZuQ24YNNYApzhxYmlF04bH/7bQ0fXkXLPu7XvjSWkoC
-	 m2GmZSimDs9F2JvjZM+/0tAIdcdL07VYVmUewyZ15dx38rXz+JaHsyx5ouGZPOc1zd
-	 ppDTVJCaZ77iKepnfFf3KYNxz6vCWNHLSdZwH2sU=
-X-QQ-mid: zesmtpsz2t1792047681t67a10fc5
-X-QQ-Originating-IP: cWp66OV/6Aggbj6coctuU/KnlwtlAhnPiyugqKJoQmU=
-Received: from LT-LIANGBAIHUI.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 15 Oct 2026 15:01:17 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15740401673765768943
-EX-QQ-RecipientCnt: 18
-From: Baihui Liang <liangbaihui@linux.spacemit.com>
-Date: Thu, 15 Oct 2026 15:00:48 +0800
-Subject: [PATCH] dt-bindings: gpu: img,powervr-rogue: add spacemit,k1-gpu
- and spacemit,k3-gpu
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="spKdn0e0"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a17baef589so15081425e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:03:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792047829; x=1792652629; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oRc1d4pt3qQo/WdkDK7cDhZYT5ZdWLtpTnmXMIrJlP4=;
+        b=spKdn0e0uG/N550Z4RIZg/YsgMqHf2RWuTc2FoZoJXOIQrdTW51uUzrXS6bQnqoK5r
+         WXLOfB7Z1cRcvyI6q+QprmeTQ+wOhP59B7Fmspvcv8sk50ge4O4FlJbUIMbKZgVZClQ0
+         bTTDwwMsgHblIP3ydPHD4ViQucc9uFeDhYDb1dJrjEaDruJeW/fDjrqzUO2MD6ZB477w
+         i+oE6f/iayQkQhx/KlM9zvqJcHtUHLONT8hF/jC51GW8Ko6mULdEVSFE+Obn6OPoRdhQ
+         CupdlgjQxNH7P/U8S53OisBiBs4D9RI6PIikG4dNsGwkPieDCkPAjiAs61xnCa5iDL9+
+         iKaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792047829; x=1792652629;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oRc1d4pt3qQo/WdkDK7cDhZYT5ZdWLtpTnmXMIrJlP4=;
+        b=Q4jMoNXkxVLXUFNWC9egNtePZzuJpXpRpXMyLjokN4D0Thu5V61Na1jNdhkL3BG9FF
+         cHd/9W/9XEDWIamrai9TDxbpqRNQr7mmM6IjCtlbcl1qL1CajXQiKILCWnlEvNvNwnnZ
+         xbBoMMmoImAnwVCzONAY6pCOyenEoLOc9oz2ywpPoS24NNRAvNgmn1jBCjfKezQGRllS
+         ISDXQ3jcxWke0iKAVaw+c30oB9cqRg37SWluucQiFpPAm6UI5HBBwnhnyfoM+sQLgKmV
+         M32dJIXhljs5ac5l8UoIth8TkrtCbqmABPzF53x3rtLog5DRMtEd14DrtDnqsWehFI+T
+         yL7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxu1wSJSPGHQCPWEt2625HppzeffCOuMqz5P1nwArUUu8fGKfWGncJdQVdiNWSNUgxNhg9kPS/JrHLTZbE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9WWM+oUr083Gd96xTBOR5YlEct44rQFB8zFKeBCF8Z11BEjqe
+	HwMQ8H3GBohGp5RqRZ6lRUpDhSZhlIDNkZefpfJqvpHDvwAFE69f0bdM
+X-Gm-Gg: AYBFou33r/ugtR8b/MuO1VJV7HqbOEKUIgD6fygtJtPWQzCmkfwWI19J7/KAKNpQOLI
+	1327QzccN1Qx7kXyQObfq1QCsQ5QE8tzOdCVBUdVBTwgPDD4daLQ9p93bRBiY3vgwTJETxJRpG4
+	ahvgwTMKXaaiJCnv3UYwEkbAPNTBkogvVo0qQuhGMbHU8oG/DLHCk3QEFgGh1pj6lmbiOEj/fsw
+	/Mc2MMaY3cUEWxeVEt80iBQXxjkQ69lP7h+6PwTQJ1gNY323FbHgLUgS5PnmoEFelQjkRdAyphx
+	x7XPxhfvfT8MmnPHS0uF9vUQM2rlydm6B36ZcmfafqnjW9DrUS6Vs3ZUZvjjFLoGi5f48KFQx/o
+	ffI3ow3bYCJzFwyEWuJoIC6OFYp1CzBUtdwdaejHjIcbasUpsUDOlei03Dd5eeHRSmFZ0ev1+xd
+	PJ6omdKnnh8oM4RbTO/Jty3G9ztEmLdcTNL9tLDYNWkJ4ErQIaGNoV++UnVgiHncHCmGtrGlzMh
+	vvS94iUCj90to7snqICABPqlRCR/TaeSEua3CtJxZOjgwa/3B6Ke8AgIOZZfHTW2xut0atrgi8+
+	Wkapn0GWr9/HseVCBYhlaElsv0P8M+j0V4428JvUW0MxkDyP1wDnbO9P50wD5o8peKEeXeK8Rhg
+	=
+X-Received: by 2002:a05:600c:1549:b0:4a0:25c:8af2 with SMTP id 5b1f17b1804b1-4a18e491051mr404160705e9.17.1792047828269;
+        Thu, 15 Oct 2026 00:03:48 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-aeb3-cd01-f139-812c-65df-b930.310.pool.telefonica.de. [2a02:3100:aeb3:cd01:f139:812c:65df:b930])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9a8a15sm48374825e9.4.2026.10.15.00.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 00:03:47 -0700 (PDT)
+Date: Thu, 15 Oct 2026 09:03:45 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Jakub Kicinski <kuba@kernel.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] docs: kerneldoc.py: preserve headings in kernel-doc
+ output
+Message-ID: <atB0hpxP2UwKCUF4@gmail.com>
+References: <20261002230114.39651-1-kmehltretter@gmail.com>
+ <8733u8w6p4.fsf@trenco.lwn.net>
+ <20261014233956.605e0960@foz.lan>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-spacemit-gpu-binding-v1-1-a7a23c7e7788@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAB960GoC/yXMywrCMBBG4Vcps3YgKbWgryIucvkbRzCGTFsKp
- e9u1OW3OGcnRRUoXbudKlZReecGe+ooPFxOYInN1Jt+tMYa1uICXjJzKgt7yVFyYkSH82VwcfQ
- TtbRUTLL9trf737r4J8L8fdFxfACERUukeAAAAA==
-X-Change-ID: 20261010-spacemit-gpu-binding-edae594ad6bf
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- Baihui Liang <liangbaihui@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792047678; l=2486;
- i=liangbaihui@linux.spacemit.com; s=20261015; h=from:subject:message-id;
- bh=4lzXBUcyTaSG7VDzl4/QKL5wIysU87ym0aR2Y7KYb4s=;
- b=T7UNM2+erl662vpWbMH+VuS+cHUxBjWDJJZYbdPe16Jl4P6ELNEUlES5jj5Pg8Iyg8c6rnCVp
- sBFwWDugRZ9DePWoJM11FWC5i35SdCAe1w5+AIXbg18wgL23a5g0yvU
-X-Developer-Key: i=liangbaihui@linux.spacemit.com; a=ed25519;
- pk=L9Pa1YBHFuJrRPNu/FfSW/likBvv9j2dUrR3r+YyJ5M=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NAtipnnbTPeap8sin7gfhxxovHr8IfZftexpwPT+F3DB2S7/lKFHwOjX
-	FtuoMHzWxoMOY3XXO2LoIy7zjO3V8itb7CGM2RyezL8YiW/vhqbeBAWepAMQjLruUQm6iDk
-	ujYMIBE5OgZ6EMPpUfMnzo3BgDkVnx57lzBQY+ifR6rFWgj19TR67xiTmOpS2oJo2xmIsI6
-	x6aYkpSDlSXiB6PRM31/HTwWVa3mzRB1R1Nyy9oSoTNxFORwssZHYIWYJ6hb2/ZVEOi7zen
-	q+mmsFcKKEERkwDO7x520uAvzBR4W8aI9X1fFik2fG8sHBQPmm29ASHyOncDSDG7mePdZop
-	FOYvN1ZCL2NTztkNhFf7Y6Sw3k4OXitUcrVkoZE7PSkh1WYZ+Q7KiCsBiSNuAaxgozYH3tL
-	EtumW0PiQSBP/LOdRYpXLeBBYBX51jbTFvV/CcPnpBEGWpKdXePBqpceE2MD7qUqVyJROJG
-	CpsZ1+L5bd39PhDBtDnITX5Gf5wvuoAnxMFQJmBqNamHBhvXa4FPYg1EWofPB20jP0bZFwB
-	U+yh9zTx6mTeXl48esd1Yp7tjVbSHjQCt43rwDsSkHjiUh9Yh2JYEWzFPhp2kvnBM1Adb7F
-	LoHVcd8UbkuY0FOh5gV4ObC9Wp81g4uiF/HkebPneRFx3W7mNmh7u/ShFC78tEQXon+bGBQ
-	5/dl0EGoQK7I3qknLsqoSHpa4lVIAE/U6sezQg4D6t6ZZU2vtfsW52BGdTZMTeNQ0HOz2hx
-	jdG85dTUi6IKKQF5llKHL5G1PtY62nQTGO/G6JA2rwbZ65Zzk1X3tJ1tKf1COgoETIgi0Cu
-	VnQlz5Y2ouOwa72twaMoj0DTQrH7TMs/iJrWmmmajxvn5GYS5d+bT0JzJcQd7eA3SH77n/B
-	Sqx5Nw3ukJA1eHd+SrD/RCvUZgcbTsyIfk5e3fCMdTOngH8vGgk2B1igOICc5Lyu6pdeFSJ
-	QeYvytwE4kNxVNYwRrZVWXG9r0EJe9OMqcYvE0FNAWdCceKCaQCdM4ANBmW7x5OrhFmhRGY
-	g/stjM9w==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014233956.605e0960@foz.lan>
 
-Add compatible strings for the IMG GPUs in SpacemiT K1 and K3 SoCs:
-- K1: IMG BXE-2-32 (adds a dedicated entry for a single core
-  clock and power domain).
-- K3: IMG BXM-4-64 (shares the same configuration and entry as
-  the T-Head TH1520).
+On Wed, Oct 14, 2026 at 11:46:13PM +0100, Mauro Carvalho Chehab wrote:
+> e.g. the ones found on distros up to Fedora 42 and the latest version
+> on that time.
+> 
+> to be really sure, use "-f" to test all possible versions.
+> 
+> (*) even with the simplified version checks, ti runs for quite a while: 
+> some versions take ~20 mins to build docs.
+> 
 
-Both SoCs require a single power domain provided by the APMU driver
-(currently pending mainline):
-Link: https://lore.kernel.org/all/20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org/
+Thanks. To be really sure, I am running the full A/B matrix from
+tools/docs/test_doc_build.py -f, also newer Sphinx versions and the
+Sphinx 9.1.0/Docutils 0.21.2 combination mentioned earlier.
 
-Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
----
- .../devicetree/bindings/gpu/img,powervr-rogue.yaml      | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+The endpoint tests have passed:
 
-diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-index e9218e0f363..600445cd506 100644
---- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-+++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-@@ -37,6 +37,12 @@ properties:
-           - const: img,img-rogue
-       - items:
-           - enum:
-+              - spacemit,k1-gpu
-+          - const: img,img-bxe-2-32
-+          - const: img,img-rogue
-+      - items:
-+          - enum:
-+              - spacemit,k3-gpu
-               - thead,th1520-gpu
-           - const: img,img-bxm-4-64
-           - const: img,img-rogue
-@@ -102,6 +108,8 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - spacemit,k1-gpu
-+              - spacemit,k3-gpu
-               - ti,am62-gpu
-               - ti,am62p-gpu
-               - ti,j721s2-gpu
-@@ -162,13 +170,16 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: thead,th1520-gpu
-+            enum:
-+              - spacemit,k1-gpu
-+              - spacemit,k3-gpu
-+              - thead,th1520-gpu
-     then:
-       properties:
-         power-domains:
-           items:
--            - description: The single, unified power domain for the GPU on the
--                TH1520 SoC, integrating all internal IP power domains.
-+            - description: The single, unified power domain for the GPU,
-+                integrating all internal IP power domains.
-         power-domain-names: false
-       required:
-         - power-domains
+  - Sphinx 3.4.3 / Docutils 0.16
+  - Sphinx 9.1.0 / Docutils 0.22.4
 
----
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-change-id: 20261010-spacemit-gpu-binding-edae594ad6bf
+Both builds complete successfully. There are no unexpected diagnostic or
+output differences. Changes are limited to the intended heading
+restoration and warning removal.
 
-Best regards,
---  
-Baihui Liang <liangbaihui@linux.spacemit.com>
+The remaining matrix is running. I will report the full results.
 
+Karl
