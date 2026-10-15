@@ -1,88 +1,88 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711C0396B6F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395653AAF42
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075414; cv=none; b=sc7ZQ7gbVIc+22ViG0PdWlhJl21qN1KH5s5JN9a6IE+JP++XhEI41Sx3mXOgCgGztecO9ml6gd0bxkPtSb3ph6L+DPovqeQ01BTV/WHqoGhstEQaw+nogYlvHpYFkTm9QoO9JhDGIAp4Jm8tWWjkGHuHeNlgJqG0XlI0xsGYxDE=
+	t=1792075416; cv=none; b=uuUaMxQhYGetbiy45oUUTn/lod0mPt9TsDl2lApRfuJAtzWpqxnvyrraxgucUycyIDVQxKjHMwGxxO0f5ia17NhGlMRfn0GrurPq6dWQhFLVGNjnnu+FIxPCLBTfnhOVXfd8W23Dd8NWnCS3jDJid4YZ2xHSe33VNowi1+2Hc4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075414; c=relaxed/simple;
-	bh=/YVchR5S3fOPoSd+UmzY7VKVC0VbZwLGaXSm4yMwpNo=;
+	s=arc-20240116; t=1792075416; c=relaxed/simple;
+	bh=7N0boFm4UgABe/w22qf1vHvkOKH3/KVQts/XUigHtYM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZBFVquos7JdQ0oDDfB+4rY9zD78m0HHbou1jffcjzsFhf0igyqUF3A3mPdedrNNzC6I0tKBxK4ugZZFmDwU+i9ZlODETvJ24LRUtFLnFFMSw5q4NohXDiSGMZmXT8adZvZlxRbaiivXddsL2h97MAhS3sXdP0W4TOhZ18EBEzvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Zo8VbI2x; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=MNlwPPsE; arc=none smtp.client-ip=148.163.135.74
+	 In-Reply-To:To:Cc; b=AtFzumGk4dTDzyezbYIyVYEufpy5uzt+I/iMThiyoI6kI28SY7dprZrEWanqXEwg0qP2peUWo6X7RavWzbdsMQ+TzHkCJ7D5Z2b6IKhZWCo26uTRs11WtFbdtLEpujs2reW2XFWrki+dL3MH8665lG6CPDEA9KW62zbJRlCn9qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=YPGIALys; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=dOJ2WnGv; arc=none smtp.client-ip=148.163.139.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Zo8VbI2x";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="MNlwPPsE"
-Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FEY9HN1943529
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:32 -0400
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="YPGIALys";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="dOJ2WnGv"
+Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FEYBIG854780
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=1Vlj
-	D14SGV60YqPS66evjcrTKWDc5maRvVHUTEkO6jo=; b=Zo8VbI2xIm4X55ggdmxn
-	doLs5FP2WenkB+5Vc9WdtJFEJQV/C3Q9jc2nC/vizJgfBwTVQfY2sPt61e6YbNzZ
-	eW5d+2aZL/9PxqBi22AuQhkLtYcOVsXFx05rCUX6fXVqJFE0M2+UgoM+q+zYRdAw
-	tcMPROvt3i6HTfCZQDMVmLf6kEsplzqRPobymrQeGZfnLjUO2UeJ0gOXRG2AGzsf
-	Ni6tBB/Z/7jjl6BdYahua0zoWYT6LRbfexUfqefgOt/IP1hBTr9XA4NMKDcFsOaZ
-	DBBhfX6TljPDTOTWVoPFZ2cTzwqMb99MoI/mMyykgq5ADBfwittehgs7ynpz5vPj
-	Sg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hb0dug92f-1
+	:message-id:mime-version:references:subject:to; s=pps01; bh=3Rf8
+	JnmeRK93mEgyVPUqenEJOl6UTxjmJdOdcJbWSSo=; b=YPGIALyskNxKRzjenaww
+	1NQnsj9X7KNfcP8qrkCP84g3qyJ6PR0jbBb8ctvImaMBtzPJch3JIr/ADnxpzbn2
+	egYaqPBsIuORMSyYyxGnypIZmcz8Hm42ZAoWUFPAKsztlpx6Gqo/tSd90cRz5x/3
+	zBT/ygXJe1m9vmTbWAiiPMI3KWPS5gsZdWcaoclG5nVGk/SDMPdb9d09vrFGk36L
+	XlL6yuQXPlK+PzilhpTV7PfrNAQ4klCbXdO7wcBk8AlKzkonz90vQAvQfENO2r/f
+	hNRL3Vm1GcdE4Pcv6vWhEaY22IDusNKCOCJKtDPE0DuapKnWWg+A3woun5+4K+P9
+	MQ==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hatthjc9b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:32 -0400 (EDT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9106fce784dso133601776d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:32 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:43:33 -0400 (EDT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91961374299so156851076d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:43:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1792075411; x=1792680211; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1792075413; x=1792680213; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1VljD14SGV60YqPS66evjcrTKWDc5maRvVHUTEkO6jo=;
-        b=MNlwPPsEYNktOVlT1dywwzVanlXBGStyWXQyaxqXHMdECXr5vA+zNShSwNbo+hN6C4
-         Lift4umWLGqcewCHYJdwMDCCOjeztvsJJMVnTQ3BJP4UJYm7/tDL9xGT2RmavFf34lVI
-         c1RHatpYCJ1RpYbaUaw6WVVbJiYvIercmOv6Wn0W8DZ1wiFxD58UQn2W3vIungZq5eNr
-         krxpih+Rpu+OUxQ30vt70ZFQcQXlPoTTioZb8tizoIoP7nGePt0z9H9N2I2NQXMKCo4Y
-         /YKlTG1JW4zct2DHnvvh+gW97/cWSFnn/DDAK5cPYw0gL/MoN9ur+vi8mqxn8g8HpyZC
-         aD4g==
+        bh=3Rf8JnmeRK93mEgyVPUqenEJOl6UTxjmJdOdcJbWSSo=;
+        b=dOJ2WnGvIycM759yGIPsBvTcMZQ63aOSKecOh86a5tFluEV64H09CpM5ACNh2sa5vL
+         01cEtiCYuThbyjH+XxW1gPnoyIHI7kK3KW2QmQEXwKiYFU19v1sJqjE/H/tZb20o7Dwf
+         4qMVOuGcai0rVxR3aR6AIHi1IWA2o1zucy0yiR0Gfhl4eGID9RQfByz5GFFonvGsUcix
+         c/mpUH73YLli0/AdPSJ0nEDwfKdZvH6HbjbhNDEUn7EcwaeVVkZjPSUhKT6WOjnO/0pb
+         jgb6QDc6gB+OWXDSZ16wn+rk23Rd/RQdrLbGHRqBNFMTGkx5o7lh7pUq3HKdbWMWbinC
+         P9hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075411; x=1792680211;
+        d=1e100.net; s=20260707; t=1792075413; x=1792680213;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1VljD14SGV60YqPS66evjcrTKWDc5maRvVHUTEkO6jo=;
-        b=JTI7H590cArpL36hy7ardQS/9oe/JRs/4ShU7UnAKbrf7LEyXaeBM28aJ5yEkYSuxO
-         wEThQodh/NdKQiPS84l5u2dVuGirgXuZSa85nA8qUSwxZ/n/foNRoGGrABBnzJSzVxhW
-         Y5CptG9fZ2lXd30FH3a45ivZz57HnfVTrD6+tB2UhTmhSmPLhXEjOi1BtmsVtTFvAT+B
-         vcwTxobS5k1oi4gssCnQN6uGgaCMx6elvbhRtSA04ymXlHCt7Bkey30BrmjGrZDWhtFf
-         L3gE6wUsaBy2UFI6ptdQpqTVrfPQdVe4XxeMBDY0d1iNRebLJgtKWQks3Bw2IIX76E3w
-         dgnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNODWxEmeaAJc9i9jgysVtHAFde7DMVx22uraRBodgbmhml0Mh5pzMZmNJV4YmYIIeMOUf3iAqinSy1io=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJm6rjl8ubhtafNDPpQ++iS6QM7mJ+HaFcY8XPjInVP5jrCc9TN
-	lReO/01JlngOqeLpmTuYV1vVQ+BOYEDvXHjoOceAMGNdlIefCb2FI6vbzY/InrM78XRuP1a/LgZ
-	wlpnqUNCmzmXrYUJS4NlYzvcO2oZvg89BajsZkZL3G0mTL4Jq1he58LJ5ok1oL26UmqoGqQ==
-X-Gm-Gg: AYBFou0YWk4tojhby7B34/8X0OIBKWKa6eAJ84lMaRG9vZGT5ZnlUvnqGiyzRHhTfUK
-	G2AkjjIKb2buioLMNPVL6wcngUyA1JoFjHY+dRID/brHMryCAGlEQBjKL2KKAzVBtt5yoWwnAs4
-	kv61QBWxYK9Pgf0tMPb9jx4F7WreqAvQdEOUXPXoKHabA6qjrzV8ExuGRkxJls2wqCrDI0JX0ls
-	a+Snid485M0KG0pQkIi6m3/7qwtClXTHkoqE+Afcmu3/YaYg++37UzRUdKzd+LqvXGyjMzIJ1j8
-	T6dy6cUn60Gcjg648hUcZ+rqJd5R+f9NYddTeUcBFjrtIS2Gkob0mEAg4OBLuLjyaS5dgRAVPpr
-	M3YTc4CjxcAEjRX5A61lBtNEeazJ4309RvXM4onp6+OiJ
-X-Received: by 2002:a05:6214:c68:b0:919:557c:f0a1 with SMTP id 6a1803df08f44-91b554d5321mr342797246d6.24.1792075410817;
-        Thu, 15 Oct 2026 07:43:30 -0700 (PDT)
-X-Received: by 2002:a05:6214:c68:b0:919:557c:f0a1 with SMTP id 6a1803df08f44-91b554d5321mr342796296d6.24.1792075409414;
-        Thu, 15 Oct 2026 07:43:29 -0700 (PDT)
+        bh=3Rf8JnmeRK93mEgyVPUqenEJOl6UTxjmJdOdcJbWSSo=;
+        b=dbeQHpBHtOZw1yFvMBVQBNBweBFxue/sT28IFtx7DSAn58N/kl4W72TN/viXqjt/pH
+         BbneK4Nd/Hx9ga9oPmyPnYLO1QzKDPbCLq3WMRDhAtlc7ysWU4otK4NU0t3nNEJLG1Xm
+         AuSe73S7APDuFP9Rc4c0hrZ+gLT4oHlPo6uA/RyHsxFq1e0agumBiiIxxV55eSDsQQpJ
+         txk+URcIrXyu2jPkCNVysjrFK8esghLDWrKh1VY4bp6pppvoik7xvS5PK8dGCTZ0qpWh
+         7dTupJ0XAMYqB2ygAPIZNgzlLai/YsdwboyRipINbFArqKfMcqUOzAITfKg8uPW/4Jwa
+         xiRg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZN9u+lzJL67l7GeTXmoS/PHCZXPX3ddOGKxpsy8r32JuJeAoYUkHAgQaRxlP4E/+L/e/utpJmZlY4X8A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKA0vhWGjLRumSnaB9m9PxSe4K8WVn6oAbXqXrhI8B8OqQixT7g
+	GgGDv8lr6fJinJS5gVaHNlrw4yBSMMu0AVnkM/lxv9FpyYx9E7Gku0qdPJ4RLF2oHED3oEm223Q
+	k1ZzVDkzIEIlb2WPHBR3WdsW0LD/167oQuRN4aWWqyxekmmzxXoGvqWydKPRk1A==
+X-Gm-Gg: AYBFou2LR6MglSKoS6x6XT1imk1b/wJ8sM3sISVMhWTReC4pN9nj6WDxhLlsX/DGM7F
+	ovMS0qbG3QwqJcHA9tzmM2sM7w7JUxnBHX6mwA6LOwdGJWz0E9b++nNTy/hy07AOXz35n/5GWVV
+	CoH4F9ZyH66q3nDW9DctAB0mfGapM36Cd4a05n+wkSI5U9HEmhCEonGqNKW/JSKcIclHHPT4yJv
+	8juHL6+/icXp2vXt7cO99V9twM42Wq7SBVg40bgwnDtObIo2b+n61iSRIJQtxrSrI66NRi5AGmU
+	B0/2JjPKQjm7mkqwRgAABIKONt4cQPw+6/HdUKAfzMFKRn5VCQ//b3AD91k9dNJaPjHZjwLtQpv
+	yM9SXERzQU2KUP1beC5ozW8ErUa+mIWjnOnjLToGCnPyb
+X-Received: by 2002:a05:6214:2b8b:b0:917:924a:d4eb with SMTP id 6a1803df08f44-91b55575e40mr325475036d6.36.1792075413333;
+        Thu, 15 Oct 2026 07:43:33 -0700 (PDT)
+X-Received: by 2002:a05:6214:2b8b:b0:917:924a:d4eb with SMTP id 6a1803df08f44-91b55575e40mr325474606d6.36.1792075412885;
+        Thu, 15 Oct 2026 07:43:32 -0700 (PDT)
 Received: from [127.0.1.1] (nat-128-59-176-51.net.columbia.edu. [128.59.176.51])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5f323sm83026476d6.20.2026.10.15.07.43.27
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5f323sm83026476d6.20.2026.10.15.07.43.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:43:27 -0700 (PDT)
+        Thu, 15 Oct 2026 07:43:31 -0700 (PDT)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Thu, 15 Oct 2026 10:43:15 -0400
-Subject: [PATCH v5 02/19] btrfs: update the inode item when removing a free
- space inode
+Date: Thu, 15 Oct 2026 10:43:16 -0400
+Subject: [PATCH v5 03/19] btrfs: stop enabling the v1 space cache from the
+ on-disk state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-btrfs-remove-v1-space-cache-v5-2-6b31347d9998@columbia.edu>
+Message-Id: <20261015-btrfs-remove-v1-space-cache-v5-3-6b31347d9998@columbia.edu>
 References: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
 In-Reply-To: <20261015-btrfs-remove-v1-space-cache-v5-0-6b31347d9998@columbia.edu>
 To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
@@ -99,114 +99,124 @@ To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
 Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792075404; l=3386;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792075404; l=3785;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=/YVchR5S3fOPoSd+UmzY7VKVC0VbZwLGaXSm4yMwpNo=;
- b=73vndTBFmmKrcX/0t5Ui4FucgAi84ospKylKF7iKPRNV1TEuTPM6xNeZPwCuLc0VUcEYnHTQl
- 9/jAJCp4FHoDTrOS+In2JaVndjXraBsT4OcbQxs1eIZpovsvyi2BD+c
+ bh=7N0boFm4UgABe/w22qf1vHvkOKH3/KVQts/XUigHtYM=;
+ b=/diXBcaswzDmvJGVMEtWFaCDCvpMABrBOsVAmGdUVyguAyyjnlpvGQjhvEc2ooqGCuhiNcA4A
+ 1o+bxmgaa8RBPoohwfm2t6Ce8OCg0ojfNOwsRSIn21WfU77KTaypQyI
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: OUxgu2TKlRTfR_lk7y7qC9JhBi3FisIt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX0gmuCuRv61ju
- NrLQWwAGFXqX3md9oZyvebqPMOYTHsWZJvsiKX3/32n5QIRO57nkrRYZfGJWfbSpZ1BfQSfQ4PD
- Hj9zDG4xoWAIZi0BIti94z7nBVjQRMdfBSb/kJrAF909naIxrF05LKhzm2Ji5CTHrjIQS1RSyHT
- D6+6CvjnC+YcTLhcdezEXa+DPl1EasEVQ2COREO95/JzpuvbWLHZ8iLcnLRubzTtAgnXWCCUOde
- uwidaPZIrdOkh2eQmOHN7exVYWCFfjyvSerIwuAqkkFXb3lw14lCdUSGbPISsDkj0KpagLK4P33
- 8SNFCS1JfXSbA9XpG97u2E1DWn2c7OjZpnaWF0Fnyk7sfgTL2d4rj8DN9gNqqFKkEvCuG/QefSk
- D7yQzlWmm1eMGov3Hkvq7JnNG8k3Ma0tipIz7F9f0rZ2dD4pi+16hbWZR+RG6Ryw13m1uRSxNUy
- PvorC+Q+hE+qhQJhaaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX2T3z+sQU5JFh
- r0jnbSUu8hfyYQaPHmbu5f1fNXsrUDrxO1UVJWdWEQhyHq49OsJV2K/Ier6Yhex9pivaV9FpbFv
- Q/uOZHd1/qvhONdQaq2ol9QpPUBTcoyDvd3VNMZcW+2oEa6iMUj3
-X-Authority-Analysis: v=2.4 cv=PPOaavqC c=1 sm=1 tr=0 ts=6ad0e694 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=NKoNGjn6KhAaSQkl0TXC/A==:17
+X-Proofpoint-GUID: VOPkA_mfLg9_GrMXtBe4jNhe5xN4Oe0g
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX1eAu6vSiUuNZ
+ LN8LzO2URNdlQqrMaoczIkA0owT9wsaETOr24+4noVdHuavBhuQaKBrcskfKyie7Uayw6z6ieFk
+ d2z8rRnk0jEYl76vk5nN5Pv4oKfI9eUNvz7cjhdisO09eYItJmP0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NyBTYWx0ZWRfX4T9XnUKIMZg7
+ AyCEhFuIG5TUl+6f9gVmcY3y5Urz57txLkuF2hvnGyQcpiXabkiuas5v4aRx7j1LGl3yBR/ktz+
+ YHTS4Q8CAjX2tY+f1aHtV1RxvPj09poEAmJKwBIu267T17yhyvcO+TZ8XCW075n+KxRKmrCzea7
+ zNJ69LVy4yl2WqaDl0f6PRF9fcfoK8XxxOOQHtidr1NMvjtk2FoIu/iEpyc2eeWgoz2a6mkBMbk
+ 0P92EJJ9G9Zp4XMkW8pGWeVM/s+0yN7BHKiYztZ4JdrAjoRoZ3HsyzhB/gGhmDw1PKgs0ErAIOI
+ cLFgtMRBYW8t7ZyUPTVGFRsu9t5/lKuED+vV9I0EqjnPN22nzf1bSMCdewmH7LyPEPwzafDeZ8v
+ /OWDjB08oUHjfrkm7sY621S2Fa8ywZ+5/YN53v8cddVAugJU9qa/l+Qi1Mg/nDY0jPHCbenTqQf
+ sJcXlgnBwSrr/QHRQUQ==
+X-Authority-Analysis: v=2.4 cv=WJvqzXsR c=1 sm=1 tr=0 ts=6ad0e695 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=NKoNGjn6KhAaSQkl0TXC/A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
- a=ETvl6l8LCy5A8MvIX8EA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: OUxgu2TKlRTfR_lk7y7qC9JhBi3FisIt
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=Qm0qsxP7aFY2tkT6R2MF:22
+ a=6xji9QrKO1GPOBtlZsEA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: VOPkA_mfLg9_GrMXtBe4jNhe5xN4Oe0g
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11936
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=10 impostorscore=10 spamscore=0 bulkscore=10 adultscore=0
- suspectscore=0 priorityscore=1501 malwarescore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150057
+ suspectscore=0 malwarescore=0 impostorscore=10 lowpriorityscore=10
+ bulkscore=10 priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150057
 
-btrfs_remove_free_space_inode() adds an orphan item for the free space
-inode and clears its link count in memory, but never writes the inode
-item. The item is only removed once the delayed iput evicts the inode,
-which happens in a later transaction, from the cleaner thread or a
-throttled transaction end.
+Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
+options can no longer request the v1 space cache, but a filesystem with
+an active v1 cache and no free space tree still enables it from
+cache_generation, and remount does the same. Drop both, so SPACE_CACHE
+can never be set.
 
-If we crash in between, or if evict can't reserve space for the
-truncation and leaves the orphan item for the next mount, the on-disk
-inode still has a link count of 1. btrfs_orphan_cleanup() then treats it
-as an inode with links and only deletes the orphan item. The free space
-header item is already gone at that point, so nothing ever finds the
-inode again, and its data extents are leaked.
+btrfs_start_pre_rw_mount() then sees the on-disk cache as active but
+unwanted and cleans it up, as -o nospace_cache does today. That covers
+the read-only to read-write remount as well, so drop the toggle in
+btrfs_remount_cleanup(), which would otherwise start a transaction on
+remounts of a read-only filesystem with an old cache.
 
-Write the zero link count to the inode item in the same transaction as
-the orphan item, so the orphan cleanup evicts the inode instead. Account
-for the extra tree root item update when removing a block group.
+When a remount that isn't read-only to read-write asks to change the
+free space tree, btrfs_reconfigure() warns and keeps the on-disk state,
+but the fixup that resets the options only ran for a filesystem with a
+free space tree or an active v1 cache. On one with neither, a requested
+FREE_SPACE_TREE stayed set and the next read-write remount created the
+tree. Clear it whenever the tree is not on disk, which also covers a v1
+filesystem once its cache has been cleaned up.
 
-Fixes: 455757c322cc ("Btrfs: delay iput when deleting a block group")
+The cleanup is now unconditional, and the first read-write mount fails
+if it fails, as it did with -o nospace_cache. This also lets an old
+filesystem mount without options when the page size is larger than the
+sector size, which btrfs_check_features() rejected once SPACE_CACHE was
+set from the superblock.
+
 Assisted-by: LLM
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/btrfs/block-group.c      |  6 ++++--
- fs/btrfs/free-space-cache.c | 10 ++++++++++
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ fs/btrfs/super.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/fs/btrfs/block-group.c b/fs/btrfs/block-group.c
-index 8ff21dde9a46..c6caf63b6807 100644
---- a/fs/btrfs/block-group.c
-+++ b/fs/btrfs/block-group.c
-@@ -1397,12 +1397,14 @@ struct btrfs_trans_handle *btrfs_start_trans_remove_block_group(
- 	ASSERT(map->start == chunk_offset);
+diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
+index 7fabb775d4e3..af7aa9adbfc3 100644
+--- a/fs/btrfs/super.c
++++ b/fs/btrfs/super.c
+@@ -777,12 +777,12 @@ void btrfs_set_free_space_cache_settings(struct btrfs_fs_info *fs_info)
  
  	/*
--	 * We need to reserve 3 + N units from the metadata space info in order
-+	 * We need to reserve 4 + N units from the metadata space info in order
- 	 * to remove a block group (done at btrfs_remove_chunk() and at
- 	 * btrfs_remove_block_group()), which are used for:
- 	 *
- 	 * 1 unit for adding the free space inode's orphan (located in the tree
- 	 * of tree roots).
-+	 * 1 unit for updating the free space inode's item (located in the tree
-+	 * of tree roots).
- 	 * 1 unit for deleting the block group item (located in the extent
- 	 * tree).
- 	 * 1 unit for deleting the free space item (located in tree of tree
-@@ -1415,7 +1417,7 @@ struct btrfs_trans_handle *btrfs_start_trans_remove_block_group(
- 	 * more device items and remove one chunk item), but this is done at
- 	 * btrfs_remove_chunk() through a call to check_system_chunk().
+ 	 * At this point we don't have explicit options set by the user, set
+-	 * them ourselves based on the state of the file system.
++	 * them ourselves based on the state of the file system. An existing
++	 * v1 space cache is no longer used and gets cleaned up once the
++	 * filesystem is mounted read-write.
  	 */
--	num_items = 3 + map->num_stripes;
-+	num_items = 4 + map->num_stripes;
- 	btrfs_free_chunk_map(map);
+ 	if (btrfs_fs_compat_ro(fs_info, FREE_SPACE_TREE))
+ 		btrfs_set_opt(fs_info->mount_opt, FREE_SPACE_TREE);
+-	else if (btrfs_free_space_cache_v1_active(fs_info))
+-		btrfs_set_opt(fs_info->mount_opt, SPACE_CACHE);
+ }
  
- 	return btrfs_start_transaction_fallback_global_rsv(root, num_items);
-diff --git a/fs/btrfs/free-space-cache.c b/fs/btrfs/free-space-cache.c
-index e2af75a205ea..4572b3d64210 100644
---- a/fs/btrfs/free-space-cache.c
-+++ b/fs/btrfs/free-space-cache.c
-@@ -266,6 +266,16 @@ int btrfs_remove_free_space_inode(struct btrfs_trans_handle *trans,
- 		return ret;
+ static void set_device_specific_options(struct btrfs_fs_info *fs_info)
+@@ -1285,8 +1285,6 @@ static inline void btrfs_remount_begin(struct btrfs_fs_info *fs_info,
+ static inline void btrfs_remount_cleanup(struct btrfs_fs_info *fs_info,
+ 					 unsigned long long old_opts)
+ {
+-	const bool cache_opt = btrfs_test_opt(fs_info, SPACE_CACHE);
+-
+ 	/*
+ 	 * We need to cleanup all defraggable inodes if the autodefragment is
+ 	 * close or the filesystem is read only.
+@@ -1303,10 +1301,6 @@ static inline void btrfs_remount_cleanup(struct btrfs_fs_info *fs_info,
+ 	else if (btrfs_raw_test_opt(old_opts, DISCARD_ASYNC) &&
+ 		 !btrfs_test_opt(fs_info, DISCARD_ASYNC))
+ 		btrfs_discard_cleanup(fs_info);
+-
+-	/* If we toggled space cache */
+-	if (cache_opt != btrfs_free_space_cache_v1_active(fs_info))
+-		btrfs_set_free_space_cache_v1_active(fs_info, cache_opt);
+ }
+ 
+ static int btrfs_remount_rw(struct btrfs_fs_info *fs_info)
+@@ -1557,10 +1551,8 @@ static int btrfs_reconfigure(struct fs_context *fc)
+ 		if (btrfs_fs_compat_ro(fs_info, FREE_SPACE_TREE)) {
+ 			btrfs_set_opt(fs_info->mount_opt, FREE_SPACE_TREE);
+ 			btrfs_clear_opt(fs_info->mount_opt, SPACE_CACHE);
+-		}
+-		if (btrfs_free_space_cache_v1_active(fs_info)) {
++		} else {
+ 			btrfs_clear_opt(fs_info->mount_opt, FREE_SPACE_TREE);
+-			btrfs_set_opt(fs_info->mount_opt, SPACE_CACHE);
+ 		}
  	}
- 	clear_nlink(inode);
-+	/*
-+	 * Persist the zero link count, so that if the delayed iput below
-+	 * doesn't get to evict the inode, the orphan cleanup on the next mount
-+	 * evicts it instead of only deleting the orphan item.
-+	 */
-+	ret = btrfs_update_inode(trans, BTRFS_I(inode));
-+	if (ret) {
-+		btrfs_add_delayed_iput(BTRFS_I(inode));
-+		return ret;
-+	}
- 	/* One for the block groups ref */
- 	spin_lock(&block_group->lock);
- 	if (test_and_clear_bit(BLOCK_GROUP_FLAG_IREF, &block_group->runtime_flags)) {
+ 
 
 -- 
 2.39.5
