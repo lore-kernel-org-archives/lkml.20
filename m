@@ -1,184 +1,154 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6285F4756C1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667E04756C1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055860; cv=none; b=ARAM1S/0MbBzo0r3kjVkBQT5KfEwamWW5nNC9O80QB0WG36o1m1sKyBpqrpZ6LyWk+5e7A08yGcA+l3b2L/ivWlqwfYy5HWQarQHVPVukA1h5NYh87aTxHZY5MsCeU/dGS3TsCvgK1QzytEbzQSjPmlvOhgF1CzaJkTVAQlPTGk=
+	t=1792055883; cv=none; b=tjNjuwdWu2ZLOugweDt8YUCFT77Azt8nnpsplZhiYLnRoRPB4u5zF2RvVWgI9+ZHD6VXHtWHpM5OGapppdPpuaKu4cbBjPv0334nquUXVfl+gUgosQZNR3mxRBsaO1/wD00Rz5JRozskrRN9jrHcstHXSyhblQdY3FusbNck63Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055860; c=relaxed/simple;
-	bh=IyAZ5pkLnMxh94MB73YiJMR++H7wpdk5msxW3CzpIr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O2cKTaTmnQkJXiVRW/v1NPVGBwqVw3Kd/s08UUTppGRoAAdaPgVzbSpPYIH3YfZBGJcAhi9wTyFCT0LM/3x7qWnvjLK6TuhzdGP000MjvXmW4I0H2aGI84i0g6RYl4T0/jSeSKJNSSRRhlbeydO43sR+/2lOErIOldFefEl3U7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flDoxF/L; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792055883; c=relaxed/simple;
+	bh=I+Sej2zsaou8ZC5bWE8uIdgpps4InDWrIMdzXaw5pRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pDLknW3/2FzVhyJVqCA2IVN4CiPx3h22eXfDQExMQo5FiVR0YzrNCI0ZQ27DcMBgHvhlVhSwmo3jS5xj6TZBIr1WBhLLx162SDdxp3YGdryCb81MpPgjHrNZvdq+rwSKErDKmE84p5x1N5BoeOULlh4/Z89Y9donA2gbdSdv5pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Lvi9H91y; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flDoxF/L"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso15265705e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:17:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Lvi9H91y"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so2870037a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:18:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792055857; x=1792660657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ylxkGWPRhbu3wMGo/t9b6unbwGCeSJctOEWu1P2KuE8=;
-        b=flDoxF/LpcIqI0znL5gDzl8mSaP/F2cVRDzFPmsH+Z0PoO75VrN87kYckUGBhHuF6j
-         ULyWq3oXGZ4GBIa2HztDtxbSiY2aI3NIUqySMdCH4uF5kdEbtex/7qLcq98iDBm1QIoj
-         wbl0D/BiAhGbE6XbBuX7g7EgjRRTKX4bmZiTbc8mJfMrBqZZZfufaFXqsZJa72tNd/6B
-         rqqDFwd2BB+6x9tztoOHIMifZsW5/cqoccGXrVBtF7EH8lymZoh9VRnMTvRyRNsna3Kj
-         woG4PtvWWALQ+xgmIgiSfDUBJU4d64Uf3AfUnGAVJ7pKxbiAbeZFeA9/Q+916wCdWkDz
-         E7lg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792055881; x=1792660681; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n4F9I43MamT/SxqYA1QZ+SX7IAOsbvvA++4GPflnXnM=;
+        b=Lvi9H91yD+0nf05Jn+od8ZyjhZVBTZ+YzRY3rCcfAedJmUDjbxyEY0NDAi0sDk9AZ8
+         lNc3F36U/DE2vCj0RjHoofCQwxQO68WfPqU0S2Ia1fp01UH9YhZl1I0NllrNKuA97Qo8
+         6WWfTwUG1/xHT4LBESEn04YBMX2UK9o9PcRGpApc9OgxGuzvzp9Mqxox4a93gvkbzKef
+         f71jhPJenzg0963zZNfgR2ujl0YdjBTxQIeGu/cYtELof8dzeaA8pSJfsque6J2eoDGY
+         YRpYHXoT3E0fa/dR7P/+4FHmp44ZG1+o+sAJCbL7FU4414yIQR3XufE8LhP5RGDTB6wk
+         idcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792055857; x=1792660657;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ylxkGWPRhbu3wMGo/t9b6unbwGCeSJctOEWu1P2KuE8=;
-        b=f8tKR2AfZQzW7YYMnXRGeIXBOA7hIYxd3PEKJolvSaS+TQfFx//l3CnQWiU8LCq+Ut
-         oThz1gZ2gZ9xt9iW0uVyD+u9uRWlUjBGkWmYtDopdRL9JZbPRSehKMRlGMBN8WkJAMIN
-         cpPfasM4BgfMgg2e9+kUc9nwzZ+oN2UMEsRL8BH7nkiAaTKl7gr9NFATeyzlzFK70kRW
-         ivMN7gcg9DL5wy07HQVqd5pDI11JEDN8bPOySsN0wrqS5h+JVjaGGs43Gro9/JfswKna
-         n+t13pfIh0ZqxiQV54iiFqeJy8zbLJo/1L0AvWnoD+v4uYw2DWk43387z3QJhWupQZkq
-         /zvw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1L0ClmyVKCViGh0ts1jqoBDE9Mjq6sRvyM4VSoYs7qsVXdkD7KlpHs2CRQMrLTuE0F7gAluRXlI8nYVc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvHdLtELDW0FLeQYvmPz8xwpRAXLaU9ZlBtuhlXfAO/wJxQ8DP
-	VsnSFxg0wSanUkTccwnWpcX2xtHxVJ8kRsKVGa2hVyTUVvKnwOEs4Ohz
-X-Gm-Gg: AYBFou0ZV8kXAj6TcdqDBs+pj7WRedIoHZwdO2gCqujleevoXFKXj4eW1sK/HH+gvoo
-	lDDBCfN4gPx1B+G/27oQ9amXpWMn8RssvcGmhBgHVh3MzfYapHafMDjoHp4Ctua0YUaK/m9HodM
-	NlQNaf7v4Wy79TKX/hhKwga9ez31/67kbdq5KG4xnQpGbLDVI/RSTZiroKfwUs3DL1jlBdotldf
-	Hz4ZHyYaCLdILiVS1csbX+cFtcNC/SI/3auYHy2HRGXbM5CESy17zszYd+2b8OoxGbamOtHF1M8
-	ofRh/BqBOawhAXYDBoDeLtztk2HaiVocnnf3m3slHgHKqyO9jFT+f5V7OQJ3Xvkl6aF2nZEZfM2
-	AQ7SJtCkttASibpKTEN7w/Oxg4tXrNxnkdQqtK7D4qSRkfMKuTNP5kF8nq9RV5lfWQvZi2cr7EY
-	FukAyH8j05vrIBcDOezMunzDU5OHeancCDf2q+5lYuK3UfTMoJfti7UBbqIRz3RqFmTeY2zH/tn
-	5CJFoRYuyQ=
-X-Received: by 2002:a05:600c:3111:b0:4a0:159b:d2a2 with SMTP id 5b1f17b1804b1-4a18e4e14e8mr351253395e9.29.1792055857375;
-        Thu, 15 Oct 2026 02:17:37 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de72d2b13sm12304181f8f.55.2026.10.15.02.17.36
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 15 Oct 2026 02:17:37 -0700 (PDT)
-Date: Thu, 15 Oct 2026 11:17:33 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Mario Limonciello <superm1@kernel.org>
-Cc: Rishabh Jain <rishabh.jain1198@gmail.com>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
-Message-ID: <20261015111733.5ead367c.michal.pecio@gmail.com>
-In-Reply-To: <7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
-References: <20260902052631.75c6068b.michal.pecio@gmail.com>
-	<178832755831.50581.1058201741431375556@gmail.com>
-	<7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
+        d=1e100.net; s=20260707; t=1792055881; x=1792660681;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n4F9I43MamT/SxqYA1QZ+SX7IAOsbvvA++4GPflnXnM=;
+        b=b3BE0joggILmOtpvoBnOSd/qwCSOeYpBj7riQaQvTAFO8s/ti6u9mNADlO98IRmbVq
+         tJPOL43TwzZWdXvhrLn1Jh1XhiSum6xHHgP9RC/4M7cJP/PUJtQ3kqT+5XWJH49M7aaM
+         wetFfrLG1vtO/vDZeikcQLfX5UCp7P7t9rD1wAyzwUPZj9f5cSaJZyXMJTQL3UPJyW3P
+         qUpWjP4f4XMni85Fm/ign+D1U7XUBkFB/Q1KWKD2h5sAq+V+UavNZ7zzssjiYGNrLMNf
+         cgpKIqc0N7+UkO8P3VJWEu/gYQkfrf0q6FMWkg944yuLhgyndA0fUdGzfPnte8q1xFSK
+         2t6g==
+X-Forwarded-Encrypted: i=1; AKwUvByIH8jSn1EdDJDpqfniU6KbQEYVTTYkB+dwBg25YjgXeDxsyXXNlCN7bHOIS1L8BGuNUbWe1GmPRAbCS0g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbSU0dLEkDSG3uMTDa2yZlLCZmTWBZSO90VggE5p1ulatdqy1O
+	ejXt1K3Lbd2BUyccPI7SepMKFrXIqs5kapefZy/PPC3Th0zfOqzynEEgxoNNhZOjSnQ=
+X-Gm-Gg: AYBFou0VVgKLG7V3u8EH8sJxVu+EuAm0BG6zBe7YvNzOqeVIEf/HajB0P89UXPbYxl7
+	qSCHo/Afmw2cbFtxqI7DiqPAzAgc+J/CfG6taC/S9fbDP1/8o4Xejg56iUSf2kU8oxMNYi4IN9K
+	G6iuYINV+5y4A4nFzt9BwpQO5P4Ow5ejB4Tih0KY16ZJu63QNcRs9v174zs2YnUnxvoYjMIlUaZ
+	XzphHvZ7vv6UJi8ewN2YmD83rz2TjcDPq0M+kgDOcLvfhygfH5ez3RvYjrp3A16da3XBCVlMVAd
+	30aCWg851ti59UKpg7zohizc2YPymulFcgDkcPKpuLoStXVAGYjM5XcnedaD7Z+KjrdePdmG0nU
+	W3jsyRwXopP8455moBHMohIfKuBYzByxS7zoZRmiZO+uwxuCiJiQDgl6bSuI1y/mHzyL4K71U0H
+	MR87WX6pCx9CtD16L1FdfzPJpzQkpdBdtmsBcijAXhZ2SUjGftzzuWlIXzdl+0ypvo0KguB38tc
+	eSfXiMSDI7adgbp
+X-Received: by 2002:a17:90b:35d0:b0:3ac:450a:fa46 with SMTP id 98e67ed59e1d1-3ac450b7738mr6163126a91.10.1792055880554;
+        Thu, 15 Oct 2026 02:18:00 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e821csm3412408a91.8.2026.10.15.02.17.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 02:18:00 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3 0/5] scsi: aic94xx: validate the indices the sequencer supplies
+Date: Thu, 15 Oct 2026 18:17:42 +0900
+Message-ID: <20261015091747.4184349-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 15:14:14 -0500, Mario Limonciello wrote:
-> On 9/2/26 00:39, Rishabh Jain wrote:
-> > The xHCI ownership protocol requires the OS driver to assert the HC OS
-> > Owned semaphore before using the host controller, then wait for HC BIOS
-> > Owned to clear if firmware owns it.
-> > 
-> > quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-> > is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-> > while both ownership semaphores remain clear.
-> > 
-> > The timeout fallback also clears BIOS Owned using the original register
-> > value, which can clear OS Owned at the same time.
-> > 
-> > On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-> > resume to terminate Controller Restore State with USBSTS 0x401. Linux
-> > then reset the host controller, both root hubs and the USB Bluetooth
-> > adapter.
-> > 
-> > The controller entered resume ready and halted with USBSTS 0x1.
-> > Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-> > device contexts and command, event and transfer rings were verified not
-> > to cause the restore error.
-> > 
-> > Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
-> > 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
-> > included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
-> > using a test module that set the HC OS Owned semaphore. The same test
-> > was repeated after review with the same result. Clearing USBLEGCTLSTS
-> > was independently verified to be unnecessary.
-> > 
-> > Always assert OS Owned for controllers using the standard xHCI handoff,
-> > and leave the existing TI/Renesas forced handoff unchanged. Keep OS
-> > Owned asserted after the standard handoff, including when forcing BIOS
-> > Owned clear after a timeout, to prevent firmware from reclaiming the
-> > controller during subsequent suspends.
-> > 
-> > Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-> > ---  
-> 
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+This supersedes
 
-Yes, this fixes a legit issue and would be worth getting in mainline.
-Two users confirmed the patch works for them, though no one could be
-bothered to post proper Tested-by here :(
+  [PATCH v2 0/5] scsi: aic94xx: validate the indices the sequencer supplies
+  <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
 
-https://lore.kernel.org/linux-usb/P1FsfbW--F-9@tuta.io/
-https://lore.kernel.org/linux-usb/CY8PR14MB59803EC0F6C7FD39A6D3C42FA0BF2@CY8PR14MB5980.namprd14.prod.outlook.com/
+which should be dropped.  Patches 1 to 4 are the same commits; only patch 5
+changed.
 
-> 
-> > I kept val unchanged for the error log, restored the original handshake
-> > formatting, and explicitly preserve OS Owned when forcing BIOS Owned
-> > clear after a timeout. Documented timeout issue in commit message.
-> > 
-> > I repeated the same S3 test on the unmodified
-> > 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
-> > the same successful result.
-> > 
-> > Changes in v5:
-> > - Preserve the original ownership value for error logging.
-> > - Restore the original handshake formatting.
-> > - Explicitly retain OS Owned in the timeout fallback.
-> > 
-> >   drivers/usb/host/pci-quirks.c | 13 ++++++++-----
-> >   1 file changed, 8 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> > index 0404489c2f6a..2b12a35e6f10 100644
-> > --- a/drivers/usb/host/pci-quirks.c
-> > +++ b/drivers/usb/host/pci-quirks.c
-> > @@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
-> >   			 && pdev->device == 0x0014)) {
-> >   		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
-> >   		writel(val, base + ext_cap_offset);
-> > -	}
-> > -
-> > -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
-> > -	if (val & XHCI_HC_BIOS_OWNED) {
-> > +	} else {
-> > +		/*
-> > +		 * Perform the standard handoff and leave OS ownership set to
-> > +		 * keep the BIOS at bay during subsequent suspends.
-> > +		 */
-> >   		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
-> >   
-> >   		/* Wait for 1 second with 10 microsecond polling interval */
-> > @@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
-> >   			dev_warn(&pdev->dev,
-> >   				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
-> >   				 val);
-> > -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
-> > +			writel((val | XHCI_HC_OS_OWNED) &
-> > +			       ~XHCI_HC_BIOS_OWNED,
-> > +			       base + ext_cap_offset);
-> >   		}
-> >   	}
-> >     
-> 
+Review of v2 5/5 asked whether reading escb->scb->header.opcode outside
+tc_index_lock races with a concurrent free of the aSCB the index landed on.
+It does, so v3 moves the check inside the critical section the lookup
+already takes, and clears escb on a mismatch so the existing "no escb for
+this dl" bail handles it.  That is sound for a specific reason:
+asd_ascb_free() clears the array slot under tc_index_lock and only then
+frees ascb->scb and the aSCB, so a slot seen non-NULL while the lock is
+held belongs to an aSCB whose free has not started.  It also makes the
+patch smaller -- two lines per file instead of a separate bail block in
+each, because the NULL path was already there.
+
+Worth saying, since the review framed it as introduced by the patch: the
+driver already uses that pointer after the unlock.  Base reads
+escb->edb_index and calls asd_invalidate_edb(), which dereferences
+escb->scb and writes eb->flags and escb->num_valid, all outside the lock.
+v2's opcode read sat in the same window, and in the case it is about it
+bailed before those, so it narrowed the lockless use rather than widening
+it.  That older and wider window is still there after this series; closing
+it means either holding the lock across asd_invalidate_edb(), which reaches
+MMIO through asd_post_escb_list(), or giving aSCBs a refcount.  Neither
+belongs in this series, and I did not want to bundle it silently.
+
+The series as a whole: aic94xx takes two numbers out of the done list the
+sequencer writes and uses both without looking at them.
+
+ 1  escb_tasklet_complete() already noticed a bad EDB index and printed
+    about it, then fell through and used it anyway.  Add the missing
+    return.
+ 2  asd_get_response_tasklet() never looked.  Bound it, and report
+    SAS_INTERRUPTED on the way out rather than leaving the command looking
+    successful.
+ 3  asd_get_tmf_resp_tasklet() never looked either.
+ 4  asd_tc_index_find() indexes tc_index_array[] with the number the
+    sequencer echoes back, in all three of its callers, without a bound.
+ 5  the pointer that comes back is used as an Empty SCB without checking
+    that it is one, and struct scb is a union.
+
+I have not reproduced any of this on a controller.  Injecting the bad
+values through a KUnit test on a KASAN kernel does reach seq->edb_arr[-1]
+and tc_index_array[] past its end, and does leave a non-Empty SCB
+modified, which shows the arithmetic and the missing checks are real; it
+does not show that the sequencer emits those values, and nothing in the
+tree answers that, since it is firmware loaded with request_firmware() and
+there is no Documentation/ file or MAINTAINERS entry for this driver.  The
+commit messages are written on that basis and claim no reachable memory
+error.
+
+Patches 1, 4 and 5 carry Cc: stable.  Patches 2 and 3 do not, and I would
+rather a maintainer decide.
+
+Yehyeong Lee (5):
+  scsi: aic94xx: bail out of escb_tasklet_complete() on a bad EDB index
+  scsi: aic94xx: validate the EDB index in asd_get_response_tasklet()
+  scsi: aic94xx: validate the EDB index in asd_get_tmf_resp_tasklet()
+  scsi: aic94xx: bound the transaction context index from the sequencer
+  scsi: aic94xx: check that an ESCB lookup returned an ESCB
+
+ drivers/scsi/aic94xx/aic94xx_hwi.h  |  2 ++
+ drivers/scsi/aic94xx/aic94xx_scb.c  |  1 +
+ drivers/scsi/aic94xx/aic94xx_task.c | 10 ++++++++++
+ drivers/scsi/aic94xx/aic94xx_tmf.c  |  8 ++++++++
+ 4 files changed, 21 insertions(+)
+
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+-- 
+2.43.0
+
