@@ -1,119 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C291DEFE8;
-	Thu, 15 Oct 2026 04:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2A1DEFE8;
+	Thu, 15 Oct 2026 04:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039629; cv=none; b=Ffhnmd+XK98xs9QajJUQm57irCNEKXpqFqlZ8U1J83/nmim9TJqES66SvgMLL9Hh0ZCE+ewu6spmw8g2Hb711Kqa5ikvHrT4gQ0l/2HpXTEKvRTUuk2N5Vvwsk3Na9NZE1ZoTMiusDHEjhLzs6JbKFlae11wLAc26FfBXJkrxWk=
+	t=1792039677; cv=none; b=E1vksdhM5sDH7pFuCYs7yWUjosffnGjgTo8QrAcZLXA3MHLLGqxptuYaxIZY8GUoShBVDy4l8YVFHKC+ByfOS+Jnmt5TmpOPGDBFq6Dl18TokYJNEj6pHkPQ9cxSORT0zZJ54hdGU6BUlCHZ7WtcBvAhJVl33mUuDG9XFXaQMXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039629; c=relaxed/simple;
-	bh=SOLAHGv8YI5B1XPV2y9FoUywMT1crTijEPj56jqv/Ks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=auX+DWepg/4Z3B3RQdssuNlTurIuVnjzattKZoB0hCix4SAJ60WLxMPY5pnzxgw18j07ktvDToff/+1Dwqc47jlbKTdcAyRaQn3m2xeaURL6lm2Pdof9Gu01kuYrjLpxgPly2m8OwSWi160mCiVr6aJNlKR+2MhylXOUXAQoEJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9zOiDWm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792039677; c=relaxed/simple;
+	bh=C45WphjiOFWOK7REO4Jpzo8oL8N6ntkmcBbq5zVWzOw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=XYHgyiCl+byAvBXIyiF2iLblQUizRW9y2obcshQvnS6hwgGQBRrA0Q/PUo5NpGf/KlTI8DmA8S3stvg3QjC2Dr1Ubl5j18qR5EktXDp2OBmQBOKaBEjTNB0v3e61hub8PZKjiKJFEObmuacYnPIXiqAIxfQs+F9CPysVvdMa+II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=dGxeTv7z; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9zOiDWm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5487F1F000C4;
-	Thu, 15 Oct 2026 04:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792039628;
-	bh=2qUN2dn+UdIt7G2FXNfytZpTzNCQoVGJzHQ0Niz3D8E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W9zOiDWmt3r7a1pEH9LVNDElXl1rsDMfFZmoMQ179ppBA6xpFs0FhcfehBnK0vhtW
-	 M8XqC38BAcsmq6BHhrusfLWlVDgi4QTb1A+/oA9QkfQu9sjTXZLipaNPnDahkokiK1
-	 9XsZthxRtScJlS/hE1jLbVS/Jd1pS72rx7MNkdanKZpYQvBl4UpyhPYagN4YxnF/iO
-	 imyOWQbHg/mqsai1tDMNG5GRG8/B88MMMThA9aB5qhMsJD1f5WsIS2Q5+fW13dpeZL
-	 HjLWZs/smlTWXc8XU/0v8b4JvQSz1bNruSOhzCiDsQbAVMDH/dp6+oidCOuyV3bYNd
-	 Cy5s3B43OZ93w==
-Date: Thu, 15 Oct 2026 12:27:05 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Roman Storozhenko <romeusmeister@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>
-Subject: Re: [PATCH v2] riscv: mm: Trace TLB flush path selection
-Message-ID: <atBWGQ2iWpm2VKcY@xhacker>
-References: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
- <ar_Rathmoj2aP-H7@xhacker>
- <CALsPMBOYQbro2gZTQR=DSUowmVDs9kujH4ua2UzCoHAQrncuiw@mail.gmail.com>
- <asm95GdbmMpc81p3@xhacker>
- <CALsPMBPMHc7q-YZvqLLYDSr5RfLmDRwBSq-TFeB8Fc8bPBjQGg@mail.gmail.com>
- <as8NpaT0g9Tsl6PS@xhacker>
- <CALsPMBOdy4ZDWfnkYokUFuB3UYPV27wTUpBCZaxLWEV10ZuS=A@mail.gmail.com>
- <atAROTefufggiFPO@xhacker>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="dGxeTv7z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
+	content-type:references:reply-to;
+	bh=EJ4GS294BFMbgOzCdOvoW9Apflv3PDnamA531T32wac=; b=dGxeTv7zY9gBdQ+t9q9tli4/KL
+	mGoHjEiz3y+aaf5KP/S22wKMUHBd4IizEcJk8Kdjv51zVd/xJxHe/xuOeEG16AIxzt/ZayHCqYUki
+	hK7A42VerfL2cWqywzf9HpMbDmwo6uDJRYRdo3NgFy81Z1y3n09yXRTJ4oSnId6jjmDViXGB/oYMO
+	BTQaQG2mLRVfSfn3+2tfrG75RmN7HW8cIBy4ngvLPfWtFMR9lebLuCGJ/+4e4cD5BmTeQN1yKY10M
+	6WJAtIguttf52n6Ds91V2IyUhO7ERSIbai5fHSVDGFmoijvatSyE0hs4cRC6jkeQdtFHhK2/CfwZu
+	qCoNP3HQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHDNX-000000042jD-2MmV;
+	Thu, 15 Oct 2026 12:47:44 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 15 Oct 2026 15:47:43 +1100
+Date: Thu, 15 Oct 2026 15:47:43 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Cc: ebiggers@kernel.org, ardb@kernel.org, Jason@zx2c4.com,
+	skhan@linuxfoundation.org, me@brighamcampbell.com,
+	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, raizudeen.kerneldev@gmail.com
+Subject: Re: [PATCH] lib/crypto: md5: correct header inclusions
+Message-ID: <atBa776tU-O1Qg-T@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atAROTefufggiFPO@xhacker>
+In-Reply-To: <20261015033843.6056-1-raizudeen.kerneldev@gmail.com>
+X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
 
-On Thu, Oct 15, 2026 at 07:33:13AM +0800, Jisheng Zhang wrote:
-> On Wed, Oct 14, 2026 at 05:58:42PM +0200, Roman Storozhenko wrote:
-> > Hi Jisheng,
-> > 
-> > Thanks for the clarification.
-> > 
-> > Since Radim's tracepoint code-generation results are now part of this
-> > discussion, I've added him to Cc in case I misinterpret any aspect of
-> > that issue.
-> > 
-> > I agree with you on one point regarding the compiler overhead. Since
-> > the kernel supports older GCC versions, we have to take the code
-> > generated by those supported compilers into account today. So
-> > describing the issue simply as temporary was too strong.
-> > 
-> > However, I think there are two separate questions here: whether the
-> > event exposes useful information, and whether the disabled-path cost
-> > of its current implementation is acceptable.
-> > 
-> > Regarding kprobes, most of the raw fields in this event are indeed
-> > already arguments of `__flush_tlb_range()`. My point is not that these
-> > values are impossible to obtain dynamically.
-> > 
-> > Kprobes can be used to observe a very large part of the kernel. If the
-> > ability to reconstruct an event with kprobes were by itself sufficient
-> > reason not to add a tracepoint, the same reasoning would apply to many
-> > existing tracepoints.
-> > 
-> > The distinction I see here is between observing implementation details
-> > and exposing the semantic event directly.
-> > 
-> > For this case, the interesting information is not only `start`,
-> > `size`, `stride`, `cmask`, etc., but their correlation with the path
-> > Linux selected for that particular request:
-> > 
-> >         local
-> >         SBI RFENCE
-> >         cross-CPU call
-> > 
-> > Calculating the local case from `cmask` may be simple with the current
-> > implementation, but the tracing program still has to reproduce
-> > knowledge of the selection logic. Likewise, observing downstream
-> > functions ties the tracing program to the current call graph.
-> > 
-> > I also don't think `/proc/interrupts` provides equivalent information here.
-> > 
-> > The RISC-V IPI statistics are aggregate counters. In particular, Linux
-> > accounts `IPI_CALL_FUNC` as "Function call interrupts", while SBI
-> > RFENCE is handled below Linux by firmware; for example, OpenSBI
-> > implements the remote TLB operation using its own `IPI_TLB` event.
+Mohamad Raizudeen <raizudeen.kerneldev@gmail.com> wrote:
+> The file uses 'rol32()' inline function (inside the MD5STEP macro) but
+> does not explicitly include `<linux/bitops.h>`, currently relying on
+> indirect includes.
 > 
-> I think you misunderstood something. A riscv platform uses either
-> SBI RFENCE or IPI for tlb shootdown, and won't change. So you can
-> know whether the system is SBI RFENCE powered or IPI powered by
-> cat /proc/interrupts. It's much simpler.
+> Also, `<linux/unaligned.h>` is included but never used, as the code
+> relies on direct pointer casts.
+> 
+> Add the missing `<linux/bitops.h>` and remove the unused
+> `<linux/unaligned.h>`.
+> 
+> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> ---
+> lib/crypto/md5.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/lib/crypto/md5.c b/lib/crypto/md5.c
+> index 3d2b017a0525..a838bb90103f 100644
+> --- a/lib/crypto/md5.c
+> +++ b/lib/crypto/md5.c
+> @@ -13,10 +13,10 @@
+> #include <crypto/hmac.h>
+> #include <crypto/md5.h>
+> #include <linux/export.h>
+> +#include <linux/bitops.h>
+> #include <linux/kernel.h>
 
-Aha, I missed aclint sswi case, if sswi, no explict /proc/interrupts
-difference between sswi and traditonal plic. However, whether TLB is
-powered by SBI RFENCE or IPI can still be known by checking
-"providing IPIs using SBI IPI extension" in dmesg.
+bitops.h is redundant because kernel.h already includes it.
+
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
