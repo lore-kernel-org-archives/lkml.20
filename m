@@ -1,189 +1,232 @@
-Received: from esa5.hc1455-7.c3s2.iphmx.com (esa5.hc1455-7.c3s2.iphmx.com [68.232.139.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CB43EF0BE;
-	Thu, 15 Oct 2026 06:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285FB4A3D4C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792047513; cv=none; b=DLJzJkorJNq1npC8zvWvinS7GguDgzmCdpm1dN3MAKvi4X8UsZGx8kpafLyUuSpr30RfLqey/CLndcQSCP633EozIDGHEfHCF9MsAl9JQmxCT0sEmPci+E5SbiIT1mgxtVq6Y/a4ocqlTbFC1dOqSVmKY0V10GHMotKiq9SJ4WM=
+	t=1792047687; cv=none; b=IRn88odHxkN7KsxNUsGreRrIn4HlVqUFi1SortEiHdRkaz/yvfOY1hKWdi5hpzJaVAxOrRZCNJ8QXRsGtX6WrOHhUPXmJPPx7FCW9dpNskOZbRZcyGwojW1qDfg7lxdAfCudinAfmtQzSfdY3XY6DKXBroiCryamvak9G3SsN98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792047513; c=relaxed/simple;
-	bh=6crGBfKNi73PeQjC9z/ZUIYzlXDzPo55Yd+1Y0VGCww=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T9au/Xm59un50wfQcK/EGaEmjvZt4t1ZTsBopOMCWPSH/mpglQ8CcGhfdQw6d1T8cg4XCBYubYsG2v5hdFpuPyqDYOFZDoU2x8zUB1Zd7WxNa2Agh6LY+x3Q09dcQmJXg+LTw0Uv8+1eQcDybHi2n3l7bNCGkHQev63cxPb1/yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=Wb6s3g5C; arc=none smtp.client-ip=68.232.139.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1792047687; c=relaxed/simple;
+	bh=Hq6KJLr4R/Nqag6PG8WCVWWjTklXxXlVNn5qbL1pzNM=;
+	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Date:Subject; b=QQ9fG/xnCF07k5x//2GB9mO3PsEF5tpt/gwSsfdsj0Yp0tgf7Qi/AbfyWYap0HSiK8Q6qWPkjnoZlG1vlXER2FtZR+5CFjOO3jZ5GotCS1JukLWezyhDwZPO4efKY11Wn56qSvXntgbu+JnsClpRccaxpMQoIDd/g2JTwEM5w/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWseKioA; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="Wb6s3g5C"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1792047507; x=1823583507;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6crGBfKNi73PeQjC9z/ZUIYzlXDzPo55Yd+1Y0VGCww=;
-  b=Wb6s3g5CVHWNagJTWn1Rrsw8AxuBUHsQJndI3wrbk2DkS12O7P2pufYx
-   5FSgTcezsJ9FodHjwRmi9f10qRa0YdNRTI56QF52gbE2lRNyzHa4lAW43
-   ACMkc+4qeVBer8CnoDiIzLcm98fi+RiVaVXCcR5JIsGSlmjroAhrG2zcY
-   Kzs78gTsi7bea7K7e5oqsMLlhWqWBpmEYnQ97h2eD+0E5M9OQK48pYfQh
-   Bl8hO2iUbp7vGA62VmowVh/BQESR7cfR1MJ8w6ho7jr0FuFwU1urahg+V
-   U7woLghvWcvI9FkbRlVNHVRquC/KK7UIMIdCSG1AWkssk0gsJ0mKdp54R
-   A==;
-X-CSE-ConnectionGUID: 5Qx/URfMSRmFPn37IyxpTQ==
-X-CSE-MsgGUID: VTcKqDlwT2+h/GVTyJP2Aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="256490962"
-X-IronPort-AV: E=Sophos;i="6.27,159,1786978800"; 
-   d="scan'208";a="256490962"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa5.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 15:58:24 +0900
-Received: from az2uksmgm1.o.css.fujitsu.com (unknown [10.151.22.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 77715C023E8;
-	Thu, 15 Oct 2026 06:58:24 +0000 (UTC)
-Received: from az2uksmom2.o.css.fujitsu.com (unknown [10.151.22.203])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id 2D27792675F;
-	Thu, 15 Oct 2026 06:58:24 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.129.144])
-	by az2uksmom2.o.css.fujitsu.com (Postfix) with SMTP id 2DA60140011B;
-	Thu, 15 Oct 2026 06:58:18 +0000 (UTC)
-Date: Thu, 15 Oct 2026 15:58:16 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
- erratum E#030003
-Message-ID: <atB4BkUqPnGJs7yR@FCCLS0092175.localdomain>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
- <20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
- <86tsn42sqr.wl-maz@kernel.org>
- <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
- <878q4b2mj5.wl-maz@kernel.org>
- <asX5CiaDodoFrn0q@FCCLS0092175.localdomain>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWseKioA"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so2617385a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792047677; x=1792652477; darn=vger.kernel.org;
+        h=subject:date:cc:to:from:content-transfer-encoding:mime-version
+         :content-type:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hq6KJLr4R/Nqag6PG8WCVWWjTklXxXlVNn5qbL1pzNM=;
+        b=rWseKioAAM/j8jla3KKQAPskBSY+8X3LVVlOwBdcgqtC/fHLaeUHfLcBsCC3Ipg3mL
+         W4fMPFzEmddl/iV2aJ67qSufhLXN4SQZcbSEf7DnrpfdO3s3HXggYfo9mgKMQP3iyJev
+         nPRM7vyIvAQ4chWW5WRDQ5Bf6nscHz+/OqDG++z6lX5mDEliOfx9TD9kgfiNLmqURCvo
+         vdtuq2B2g4kSSFsSj5KhZnUJyBVcGxQRIeYu9fDdSXMeNRLboIk7qkqGjkmrIz7qsREw
+         VVJ9BPzPBzT9gpwnO4zfq11bUmNVtBr917HzcCMuPDRie0yGfWkZ0f15o3O3qI2DRFzp
+         XP4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792047677; x=1792652477;
+        h=subject:date:cc:to:from:content-transfer-encoding:mime-version
+         :content-type:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Hq6KJLr4R/Nqag6PG8WCVWWjTklXxXlVNn5qbL1pzNM=;
+        b=zxWozDDqdzscyX8Z3viJrPfFB+B7Xvz8G3hPlZprFlLEuhvyOh5vGt0CrKh8dpwd/l
+         MaXvkqI26vPVVPNUKLw29tU5Ka+R+hrsnOyeKhyy5rtoa15GkK27sJ6ltXSGNxQ/Ofl6
+         86YDdBRkTwVBIARtXJThNzQzNxJj/vWArP/UIT1RO9jY72zaiLnVzQyWFxRfr6e1tW+J
+         1HKTUdV/fbOrIMSyZgAaGK9e7pG2t9PMGKfO94sBv+GHm3kmoL8BE0Vaxo8TtirtLBPk
+         uSaWAGm2w4WCHSDuku2SApBrmSYEHu0Fg/zjTCaB+7BBz5FSWllp+EhJx49sFQoEOFTr
+         Kd2Q==
+X-Gm-Message-State: AFq9FYItodJXGWbbHvTxXGcoG9M2ZZIyl4+VP8m7sdYLlUjXUK/l/lcx
+	/dg4/fL1aF8kTEwOis2GKGctCvGVzi1SkkZBQRC/L18u15LwCHGzVigl
+X-Gm-Gg: AYBFou2euqdI23k0B0h1DpFABO6CpdzWT/R3EfcDXYYhgDtFdGmXyr4DYbWhH7x3t9Y
+	n+zjcjAYVT8FfCk538jreiwobKcK9cwLsySNbr4o/5biKrdTcODc/MPaSYb7Tm03I6FqINHQ78J
+	mrYrDKcF4dcCo0tU07mHHjPo0WlGxIk9M8FlUCKUz+vMjQvZ/NoOuBXUFrzhQBUpQ2CE6cCyP63
+	EAdJ4WYJXYip+wOBNBpWx3YGeZXTUx7foZzC3ehV6RwA78Swnc+DMf9EuwljD0QZ2fJmiqX8f+2
+	fRa8rIxEd9SpGmh8iThhOxQt5/2erpW5oz6451IINa5L/+r/cqVihWFiswoZLemrvoNxgpHSbpA
+	BD/jEUhgS7fJtr8pR90akX21atBsaQ1QcobHqM8NU7K7zMEjsGCtZPwq43fTacltxMlt2/1QJjm
+	VwM2xPjy/RoSJ3AlEvRHxM4yKI+IwN73jAqB7ghLzwIW9ADABv7/VmgFzGrOnArOcWTI3x16w3u
+	QpYHYk=
+X-Received: by 2002:a17:90b:1d4f:b0:3a8:c0cd:57f3 with SMTP id 98e67ed59e1d1-3ab3a94ff23mr14037541a91.18.1792047676952;
+        Thu, 15 Oct 2026 00:01:16 -0700 (PDT)
+Received: from [58.206.202.11] ([104.28.215.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9449ae48sm3037548a91.13.2026.10.15.00.01.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 00:01:16 -0700 (PDT)
+Message-ID: <6ad07a3c.6e2bf4e6.f29cc.dd67@mx.google.com>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asX5CiaDodoFrn0q@FCCLS0092175.localdomain>
+Content-Transfer-Encoding: base64
+From: Haoran Wang <haoranwangsec@gmail.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com, security@kernel.org, haoranwangsec@gmail.com
+Date: Thu, 15 Oct 2026 15:01:08 +0800
+Subject: [BUG] tracing: __copy_from_user without access_ok leaks kernel memory in syscall fault tracing
 
-On 10/07 17:17, Kohei Enju wrote:
-> Hi Marc,
-> 
-> On 10/06 10:42, Marc Zyngier wrote:
-> > On Tue, 06 Oct 2026 10:08:19 +0100,
-> > Kohei Enju <enju.kohei@fujitsu.com> wrote:
-> > > 
-> > > On 10/02 13:26, Marc Zyngier wrote:
-> > > > On Fri, 02 Oct 2026 11:26:52 +0100,
-> > > > Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
-> > > > > 
-> > > > > From: Kohei Enju <enju.kohei@fujitsu.com>
-> > > > > 
-> > > > > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
-> > > > > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
-> > > > > operation races with CPU interface processing triggered by the arrival
-> > > > > of a higher-priority interrupt, an update to a pending interrupt, or a
-> > > > > transition of the PE to the Sleep state. When this occurs, the system
-> > > > > register write does not complete, causing the issuing core to hang.
-> > > > >
-> > > > 
-> > > > Is the SGI lost? Or is the sender core hanging?
-> > > 
-> > > Both: the SGI is lost, and the sysreg write does not complete, causing
-> > > the sending core to hang.
-> > 
-> > I don't think the two are distinguishable. You might want to simplify
-> > the commit message to simply say that the CPU hangs.
-> > 
-> > [...]
-> > 
-> > > > > +		 */
-> > > > > +		for_each_cpu(cpu, mask)
-> > > > > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
-> > > > > +
-> > > > > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
-> > > > > +		dsb(st);
-> > > > 
-> > > > This doesn't force things to be executed. This is about completion of
-> > > > the access, and with an nGnRE mapping, it doesn't enforce that the
-> > > > stores actually reach the RDs, only an arbitrary point in the memory
-> > > > subsystem.  The only way to guarantee this is to perform a read-back.
-> > > 
-> > > Understood.
-> > > 
-> > > I hadn't considered this when writing v1, but on further reflection, I
-> > > don't think gic_ipi_send_mask() needs to wait for the target CPUs to
-> > > handle the IPIs.
-> > 
-> > It's not about the target CPU handling the IPI, that'd be crazy. It is
-> > about making sure that the IPI request has been observed by the HW and
-> > that it is not going to race with something else.
-> > 
-> > > Given that the GICv2 driver does not wait for MMIO
-> > > write completion either, I don't think we need to ensure completion of
-> > > these writes before returning.
-> > 
-> > GICv2 has different architectural requirements (i.e. none). GICv3 is a
-> > bit clearer, see the requirements at the end of 12.1.3 in IHI0069H.b.
-> > 
-> > > 
-> > > If my understanding is correct, I'll remove the dsb(st) in v2.
-> > >
-> > 
-> > As indicated in the spec, you either need nGnRnE+DSB, or a read-back.
-> > Given that Linux uses nGnRE for all device mappings, read-back is the
-> > only option here.
-> 
-> I understand that section 12.1.3 describes how software can guarantee
-> completion of a memory-mapped GIC write. With an nGnRE mapping, if the
-> GICR_ISPENDR0 writes must complete before gic_ipi_send_mask() returns, a
-> read-back from each target Redistributor is needed.
-> 
-> What I am trying to understand is whether completion at this point is an
-> architectural requirement for this particular write, or a requirement of
-> Linux's ipi_send_mask() interface.
-> 
-> I could not find an explicit completion requirement for ipi_send_mask()
-> itself. The normal GICv3 path also appears to return after an ISB,
-> without the DSB described in section 12.1.6 as necessary to guarantee
-> that the associated Redistributor has observed the write. This is why I
-> am unsure what completion guarantee is required here.
-> 
-> More specifically, I would like to understand:
-> - What could an outstanding IPI request race with?
-> - Which component must have observed the request before
->   gic_ipi_send_mask() returns: the CPU interface, the sending PE's
->   Redistributor, or the target Redistributor?
-> 
-> A pointer to the relevant architectural requirement or an example of
-> such a race in Linux would help me understand why completion is needed
-> here.
-
-Hi Marc,
-
-A gentle ping on this question. I am preparing v2 with the other review
-comments addressed.
-
-I would like to better understand the completion requirement so that I
-can address this correctly in v2. In particular, could you clarify what
-an outstanding IPI request could race with, and which component must
-have observed the request before gic_ipi_send_mask() returns?
-
-Any clarification would be appreciated.
-
-Thanks,
-Kohei
+SSdkIGxpa2UgdG8gcmVwb3J0IGFuIGlzc3VlIGluIGtlcm5lbC90cmFjZS90cmFjZV9zeXNjYWxs
+cy5jOjY4NiAoZnVuY3Rpb24Kc3lzY2FsbF9jb3B5X3VzZXJfYXJyYXkpLCBmb3VuZCB2aWEgc3Rh
+dGljIGFuYWx5c2lzIG9mIExpbnV4IDcuMC4xMSBhbmQKdmVyaWZpZWQgYWdhaW5zdCB0aGUgNy4y
+LjEwIHNvdXJjZSB0cmVlLiBJIGhhdmUgcmVwcm9kdWNlZCB0aGUgbGVhayBvbiBhbgo3LjIuMTAg
+a2VybmVsLgoKMS4gU3VtbWFyeQpUaGUgInN5c2NhbGwgZmF1bHQgdHJhY2luZyIgZmVhdHVyZSAo
+YWRkZWQgaW4gNy4wLCBDT05GSUdfRlRSQUNFX1NZU0NBTExTKQp0cmVhdHMgdGhlIHJhdyBzeXNj
+YWxsIGFyZ3VtZW50IGFyZ3NbMV0gKHRoZSBidWZmZXIgcG9pbnRlcikgb2YgZmF1bHRhYmxlCnN5
+c2NhbGxzICh3cml0ZS9wd3JpdGU2NC8gbXFfdGltZWRzZW5kKSBhcyBhIHVzZXIgYWRkcmVzcyBh
+bmQgY29waWVzIGl0CndpdGggX19jb3B5X2Zyb21fdXNlcihidWYsIGFyZ3NbMV0sIHNpemUpIHdp
+dGhvdXQgYW4gYWNjZXNzX29rKCkgY2hlY2suCldoZW4gYSB0cmFjZWQgcHJvY2VzcyBjYWxscyB3
+cml0ZShmZCwgPGtlcm5lbCBhZGRyZXNzPiwgY291bnQpLCB0aGUKc3lzX2VudGVyIHRyYWNlcG9p
+bnQgZmlyZXMgYmVmb3JlIHZmc193cml0ZSdzIGFjY2Vzc19vayBhbmQKX19jb3B5X2Zyb21fdXNl
+ciBjb3BpZXMgdXAgdG8gMTY1IGJ5dGVzIGZyb20gdGhhdCBrZXJuZWwgYWRkcmVzcyBpbnRvIHRo
+ZQpwZXItQ1BVIHRyYWNlIGJ1ZmZlciwgd2hpY2ggaXMgYXBwZW5kZWQgdG8gdGhlIHN5c19lbnRl
+cl93cml0ZSBldmVudCBhbmQKcmVhZGFibGUgZnJvbSAvc3lzL2tlcm5lbC90cmFjaW5nL3RyYWNl
+LiBUaGUgd3JpdGUoKSBpdHNlbGYgdGhlbiByZXR1cm5zCkVGQVVMVCwgYnV0IHRoZSBsZWFrIGlz
+IGFscmVhZHkgY29tcGxldGUuIGNvcHlfZnJvbV91c2VyKCkgd291bGQgaGF2ZQpyZWplY3RlZCBh
+IGtlcm5lbCBhZGRyZXNzIHZpYSBhY2Nlc3Nfb2soKTsgX19jb3B5X2Zyb21fdXNlcigpIGRvZXMg
+bm90LgoKMi4gVnVsbmVyYWJsZSBjb2RlCi0gRmlsZToga2VybmVsL3RyYWNlL3RyYWNlX3N5c2Nh
+bGxzLmM6Njg2IChMaW51eCA3LjAuMTE7IDo2ODUgaW4gNy4yLjEwKQotIEZ1bmN0aW9uOiBzeXNj
+YWxsX2NvcHlfdXNlcl9hcnJheQotIE1pc3VzZWQgQVBJOiBfX2NvcHlfZnJvbV91c2VyCgpgYGBj
+Ci8qIHN5c2NhbGxfY29weV91c2VyX2FycmF5KCkgLSBzeXNjYWxsIGZhdWx0IHRyYWNpbmcgKi8K
+X19jb3B5X2Zyb21fdXNlcihidWYsIHB0ciwgc2l6ZSk7ICAgLyogcHRyID0gYXJnc1sxXSAocmF3
+IHN5c2NhbGwgYnVmZmVyIGFyZyksIG5vIGFjY2Vzc19vaygpICovCmBgYAoKMy4gUm9vdCBjYXVz
+ZQpfX2NvcHlfZnJvbV91c2VyKCkgaXMgdGhlIGFjY2Vzc19vaygpLXNraXBwaW5nIHZhcmlhbnQg
+b2YKY29weV9mcm9tX3VzZXIoKS4gVGhlIHN5c2NhbGwgZmF1bHQgdHJhY2luZyBmZWF0dXJlIG1h
+cmtzCndyaXRlL3B3cml0ZTY0L21xX3RpbWVkc2VuZCBhcyBmYXVsdGFibGU6IGNoZWNrX2ZhdWx0
+YWJsZV9zeXNjYWxsKCkgc2V0cwp1c2VyX21hc2sgPSBCSVQoMSkgKHRoZSBidWZmZXIgYXJndW1l
+bnQpIGFuZCB1c2VyX2FyZ19zaXplID0gMiAodGhlIGNvdW50CmFyZ3VtZW50KS4gV2hlbiBzdWNo
+IGEgc3lzY2FsbCBpcyBmdHJhY2UtdHJhY2VkLCBzeXNfZmF1bHRfdXNlcigpIHRha2VzCnRoZSBz
+eXNjYWxsJ3MgKnJhdyogYXJndW1lbnQgYXJnc1sxXSAodGhlIGJ1ZmZlci1wb2ludGVyIHJlZ2lz
+dGVyIHZhbHVlKQphcyBhIHVzZXIgYWRkcmVzcyBhbmQsIHZpYSBzeXNjYWxsX2NvcHlfdXNlcl9h
+cnJheSgpLCBjYWxscwpfX2NvcHlfZnJvbV91c2VyKGJ1ZiwgYXJnc1sxXSwgc2l6ZSkgd2l0aCBu
+byBhY2Nlc3Nfb2soKS4gQmVjYXVzZSBhcmdzWzFdCmlzIHRoZSByYXcgcmVnaXN0ZXIgdmFsdWUg
+Y2FwdHVyZWQgYXQgdGhlIHN5c19lbnRlciB0cmFjZXBvaW50IChiZWZvcmUKdmZzX3dyaXRlIHBl
+cmZvcm1zIGl0cyBvd24gYWNjZXNzX29rIG9uIHRoZSBidWZmZXIpLCBhIHRyYWNlZCBwcm9jZXNz
+IGNhbgpzdXBwbHkgYSBrZXJuZWwgYWRkcmVzcyB0aGVyZTsgX19jb3B5X2Zyb21fdXNlciBkZXJl
+ZmVyZW5jZXMgaXQgZGlyZWN0bHkKYW5kIGNvcGllcyB1cCB0byBTWVNDQUxMX0ZBVUxUX1VTRVJf
+TUFYICgxNjUpIGJ5dGVzIG9mIGtlcm5lbCBtZW1vcnkgaW50bwp0aGUgcGVyLUNQVSB0cmFjZSBi
+dWZmZXIuIFRoZSBjb250ZW50IGFwcGVhcnMgaW4gdGhlIHN5c19lbnRlcl93cml0ZSB0cmFjZQpl
+dmVudCBhbmQgaXMgcmVhZGFibGUgZnJvbSAvc3lzL2tlcm5lbC90cmFjaW5nL3RyYWNlLiBUaGUg
+YWN0dWFsIHdyaXRlKCkKdGhlbiBmYWlscyB3aXRoIEVGQVVMVCAodmZzX3dyaXRlJ3MgYWNjZXNz
+X29rIHJlamVjdHMgdGhlIGtlcm5lbCBhZGRyZXNzKSwKYnV0IHRoZSBsZWFrIGhhcyBhbHJlYWR5
+IGhhcHBlbmVkIGluIHRoZSB0cmFjZXBvaW50LgoKVGhpcyBkaWZmZXJzIGZyb20gdGhlIHRyYWNl
+LmM6NjgzNiBzaXRlICh0cmFjaW5nX21hcmtfd3JpdGUpLCB3aGVyZSB0aGUKVkZTIGxheWVyJ3Mg
+YWNjZXNzX29rICh2ZnNfd3JpdGUgYXQgZnMvcmVhZF93cml0ZS5jOjY3NikgZ3VhcmRzIHRoZSBi
+dWZmZXIKYmVmb3JlIHRoZSBmdHJhY2UgLndyaXRlIGhhbmRsZXIgcnVucy4gSGVyZSB0aGUgbGVh
+ayBoYXBwZW5zIGF0IHRoZQpzeXNfZW50ZXIgdHJhY2Vwb2ludCwgd2hpY2ggZmlyZXMgKmJlZm9y
+ZSogdmZzX3dyaXRlJ3MgYWNjZXNzX29rLCBzbyB0aGVyZQppcyBubyB1cHN0cmVhbSBndWFyZCBv
+biBhcmdzWzFdLgoKNC4gQWZmZWN0ZWQgdmVyc2lvbnMKUHJlc2VudCBpbjogTGludXggNy4wLjEx
+LiA3LjIuMTA6IHN0aWxsIHByZXNlbnQsIHVuZml4ZWQgLS0gcmVwcm9kdWNlZCBvbgphbiA3LjIu
+MTAga2VybmVsLgoKNS4gVHJpZ2dlciAvIFByZWNvbmRpdGlvbnMKcm9vdCAvIENBUF9TWVNfQURN
+SU4gLyBDQVBfUEVSRk1PTiAobmVlZGVkIHRvIGVuYWJsZSBzeXNjYWxsIHRyYWNpbmcgdmlhCnRy
+YWNlZnM7IG9uIHRoZSB0ZXN0IG1hY2hpbmUgL3Byb2Mvc3lzL2tlcm5lbC9wZXJmX2V2ZW50X3Bh
+cmFub2lkID0gMiBhbmQKdHJhY2VmcyBpcyByb290LXdyaXRhYmxlKSwgcGx1cyBDT05GSUdfRlRS
+QUNFX1NZU0NBTExTLiBUaGUgdHJhY2VkIHByb2Nlc3MKY2FsbHMgd3JpdGUoZmQsIDxrZXJuZWwg
+YWRkcmVzcz4sIGNvdW50KSB3aGlsZSBzeXNfZW50ZXJfd3JpdGUgdHJhY2luZyBpcwplbmFibGVk
+LgoKNi4gUHJvb2Ygb2YgQ29uY2VwdApSZXByb2R1Y2VkIG9uIGEgcHJpc3RpbmUgTGludXggNy4y
+LjEwIGtlcm5lbAooQ09ORklHX0ZUUkFDRV9TWVNDQUxMUz15LCBjb25maWctb25seSkuIFRoZSB0
+cmFjZWQgcHJvY2VzcyBjYWxscwp3cml0ZShkZXZudWxsLCBsaW51eF9iYW5uZXJfYWRkciwgMjAw
+KTsgdGhlIHN5c19lbnRlcl93cml0ZSB0cmFjZSBldmVudAp0aGVuIGNvbnRhaW5zIHRoZSBsZWFr
+ZWQgbGludXhfYmFubmVyIHN0cmluZy4KCkNvbmNyZXRlIHJlcHJvZHVjZWQgZXZpZGVuY2UgKHZl
+cnNpb24gNy4yLjEwKToKLSBUaGUgc3lzX2VudGVyX3dyaXRlIHRyYWNlIGV2ZW50IGNvbnRhaW5z
+IHRoZSBsZWFrZWQgbGludXhfYmFubmVyIGhleAogIGJsb2IgYW5kIEFTQ0lJIHN0cmluZzsgZGVj
+b2RpbmcgbWF0Y2hlcyAvcHJvYy92ZXJzaW9uLgotIERlY29kZWQgbGVha2VkIGNvbnRlbnQgYmVn
+aW5zOiAiTGludXggdmVyc2lvbiA3LjIuMTAgKHJvb3RAeHh4KSAoZ2NjCiAgKFVidW50dSAxNS4y
+LjAtMTZ1YnVudHUxKSAuLi4iLCB3aGljaCBleGFjdGx5IG1hdGNoZXMgL3Byb2MvdmVyc2lvbiBv
+bgogIHRoZSB0ZXN0IGtlcm5lbC4KLSB3cml0ZSgpIGl0c2VsZiByZXR1cm5zIEVGQVVMVCAodmZz
+X3dyaXRlIGFjY2Vzc19vayByZWplY3RzIHRoZSBrZXJuZWwKICBhZGRyZXNzKSwgYnV0IHRoZSBr
+ZXJuZWwtbWVtb3J5IGNvcHkgaW50byB0aGUgdHJhY2UgYnVmZmVyIGhhcyBhbHJlYWR5CiAgY29t
+cGxldGVkIGluIHRoZSBzeXNfZW50ZXIgdHJhY2Vwb2ludC4KLSBLQVNBTiBkb2VzIG5vdCBjYXRj
+aCBpdCAoX19jb3B5X2Zyb21fdXNlciBwZXJmb3JtcyBubyBfX2FzYW5fbG9hZE4gb24KICB0aGUg
+c291cmNlKS4KCmBgYGMKLyoKICoKICogQnVpbGQ6IGdjYyAtTzIgLW8gcG9jX3N5c2NhbGxfZmF1
+bHRfbGVhayBwb2Nfc3lzY2FsbF9mYXVsdF9sZWFrLmMKICogUnVuOiAgIHN1ZG8gLi9wb2Nfc3lz
+Y2FsbF9mYXVsdF9sZWFrCiAqLwoKI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8c3RkaW8u
+aD4KI2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVkZSA8c3RyaW5nLmg+CiNpbmNsdWRlIDx1bmlz
+dGQuaD4KI2luY2x1ZGUgPGZjbnRsLmg+CiNpbmNsdWRlIDxlcnJuby5oPgojaW5jbHVkZSA8c3lz
+L3N5c2NhbGwuaD4KI2luY2x1ZGUgPHN5cy93YWl0Lmg+CiNpbmNsdWRlIDxzdGRpbnQuaD4KCiNk
+ZWZpbmUgVFJBQ0VGUyAiL3N5cy9rZXJuZWwvdHJhY2luZyIKI2RlZmluZSBFVlQgICAgIFRSQUNF
+RlMgIi9ldmVudHMvc3lzY2FsbHMvc3lzX2VudGVyX3dyaXRlIgoKc3RhdGljIGludCB3cml0ZV9m
+aWxlKGNvbnN0IGNoYXIgKnBhdGgsIGNvbnN0IGNoYXIgKnZhbCkKewoJaW50IGZkID0gb3Blbihw
+YXRoLCBPX1dST05MWSk7CglpZiAoZmQgPCAwKQoJCXJldHVybiAtMTsKCWlmICh3cml0ZShmZCwg
+dmFsLCBzdHJsZW4odmFsKSkgPCAwKSB7CgkJY2xvc2UoZmQpOwoJCXJldHVybiAtMTsKCX0KCWNs
+b3NlKGZkKTsKCXJldHVybiAwOwp9CgpzdGF0aWMgdW5zaWduZWQgbG9uZyBsb29rdXBfc3ltKGNv
+bnN0IGNoYXIgKnN5bSkKewoJRklMRSAqZiA9IGZvcGVuKCIvcHJvYy9rYWxsc3ltcyIsICJyIik7
+CglpZiAoIWYpCgkJcmV0dXJuIDA7CgljaGFyIGxpbmVbMjU2XSwgbmFtZVsxMjhdOwoJdW5zaWdu
+ZWQgbG9uZyBhOwoJY2hhciB0OwoJd2hpbGUgKGZnZXRzKGxpbmUsIHNpemVvZihsaW5lKSwgZikp
+CgkJaWYgKHNzY2FuZihsaW5lLCAiJWx4ICVjICUxMjdzIiwgJmEsICZ0LCBuYW1lKSA9PSAzICYm
+IGEgJiYgIXN0cmNtcChuYW1lLCBzeW0pKSB7CgkJCWZjbG9zZShmKTsKCQkJcmV0dXJuIGE7CgkJ
+fQoJZmNsb3NlKGYpOwoJcmV0dXJuIDA7Cn0KCnN0YXRpYyBjaGFyICpyZWFkX2ZpbGUoY29uc3Qg
+Y2hhciAqcGF0aCwgY2hhciAqYnVmLCBzaXplX3QgY2FwKQp7CglpbnQgZmQgPSBvcGVuKHBhdGgs
+IE9fUkRPTkxZKTsKCWlmIChmZCA8IDApCgkJcmV0dXJuIE5VTEw7CglzaXplX3QgdG90YWwgPSAw
+OwoJc3NpemVfdCBuOwoJd2hpbGUgKHRvdGFsIDwgY2FwIC0gMSAmJiAobiA9IHJlYWQoZmQsIGJ1
+ZiArIHRvdGFsLCBjYXAgLSAxIC0gdG90YWwpKSA+IDApCgkJdG90YWwgKz0gbjsKCWJ1Zlt0b3Rh
+bF0gPSAwOwoJY2xvc2UoZmQpOwoJcmV0dXJuIGJ1ZjsKfQoKaW50IG1haW4odm9pZCkKewoJaWYg
+KGdldHVpZCgpICE9IDApIHsKCQlmcHJpbnRmKHN0ZGVyciwgIlstXSBtdXN0IHJ1biBhcyByb290
+ICh0cmFjZWZzIGlzIHJvb3Qtb25seSwgcGVyZl9ldmVudF9wYXJhbm9pZD0yKVxuIik7CgkJcmV0
+dXJuIDE7Cgl9CgoJdW5zaWduZWQgbG9uZyBrYWRkciA9IGxvb2t1cF9zeW0oImxpbnV4X2Jhbm5l
+ciIpOwoJaWYgKCFrYWRkcikgewoJCWZwcmludGYoc3RkZXJyLCAiWy1dIGNhbm5vdCByZXNvbHZl
+IGxpbnV4X2Jhbm5lciBmcm9tIC9wcm9jL2thbGxzeW1zXG4iKTsKCQlyZXR1cm4gMTsKCX0KCXBy
+aW50ZigiWytdIHRhcmdldDogbGludXhfYmFubmVyIEAgMHglbHhcbiIsIGthZGRyKTsKCXByaW50
+ZigiWytdICAgKGtlcm5lbCBzdHJpbmc6IFwiTGludXggdmVyc2lvbiA3LnggKHJvb3RALi4uKSAu
+Li5cIilcbiIpOwoJcHJpbnRmKCJbK10gdnVsbiBzaXRlOiB0cmFjZV9zeXNjYWxscy5jOjY4NiBz
+eXNjYWxsX2NvcHlfdXNlcl9hcnJheSAtPiBfX2NvcHlfZnJvbV91c2VyIChubyBhY2Nlc3Nfb2sp
+XG5cbiIpOwoKCWludCBkZXZudWxsID0gb3BlbigiL2Rldi9udWxsIiwgT19XUk9OTFkpOwoJaWYg
+KGRldm51bGwgPCAwKSB7CgkJcGVycm9yKCJvcGVuIC9kZXYvbnVsbCIpOwoJCXJldHVybiAxOwoJ
+fQoKCWlmIChhY2Nlc3MoRVZUICIvZW5hYmxlIiwgV19PSykgIT0gMCkgewoJCWZwcmludGYoc3Rk
+ZXJyLCAiWy1dICVzL2VuYWJsZSBub3Qgd3JpdGFibGUgKCVzKVxuIiwgRVZULCBzdHJlcnJvcihl
+cnJubykpOwoJCWZwcmludGYoc3RkZXJyLCAiICAgIC0+IENPTkZJR19GVFJBQ0VfU1lTQ0FMTFMg
+b2ZmLCBvciB0cmFjZWZzIG5vdCBtb3VudGVkXG4iKTsKCQlyZXR1cm4gMTsKCX0KCgl3cml0ZV9m
+aWxlKFRSQUNFRlMgIi90cmFjZSIsICJcbiIpOwoKCWludCBwaXBlZmRbMl07CglpZiAocGlwZShw
+aXBlZmQpIDwgMCkgewoJCXBlcnJvcigicGlwZSIpOwoJCXJldHVybiAxOwoJfQoKCXBpZF90IGNo
+aWxkID0gZm9yaygpOwoJaWYgKGNoaWxkIDwgMCkgewoJCXBlcnJvcigiZm9yayIpOwoJCXJldHVy
+biAxOwoJfQoJaWYgKGNoaWxkID09IDApIHsKCQljbG9zZShwaXBlZmRbMV0pOwoJCWNoYXIgYzsK
+CQlyZWFkKHBpcGVmZFswXSwgJmMsIDEpOwkvKiB3YWl0IHVudGlsIHBhcmVudCBmaW5pc2hlZCBl
+bmFibGluZyAqLwoJCWNsb3NlKHBpcGVmZFswXSk7CgkJLyoKCQkgKiBUSEUgVFJJR0dFUjogd3Jp
+dGUoZmQsIEtFUk5FTF9BRERSLCAyMDApLgoJCSAqIFRoZSBidWYgYXJndW1lbnQgaXMgYSBrZXJu
+ZWwgYWRkcmVzcy4gVGhlIHN5c19lbnRlciB0cmFjZXBvaW50CgkJICogZmlyZXMgYmVmb3JlIHZm
+c193cml0ZSdzIGFjY2Vzc19vaywgYW5kIF9fY29weV9mcm9tX3VzZXIgY29waWVzCgkJICogZGly
+ZWN0bHkgZnJvbSB0aGF0IGtlcm5lbCBhZGRyZXNzIC0+IGtlcm5lbCBtZW1vcnkgZW50ZXJzIHRo
+ZSB0cmFjZS4KCQkgKiB3cml0ZSgpIHRoZW4gcmV0dXJucyBFRkFVTFQsIGJ1dCB0aGUgbGVhayBp
+cyBhbHJlYWR5IGNvbXBsZXRlLgoJCSAqLwoJCXN5c2NhbGwoX19OUl93cml0ZSwgZGV2bnVsbCwg
+KHZvaWQgKilrYWRkciwgMjAwKTsKCQlfZXhpdCgwKTsKCX0KCWNsb3NlKHBpcGVmZFswXSk7CgoJ
+Y2hhciBmaWx0ZXJbNjRdOwoJc25wcmludGYoZmlsdGVyLCBzaXplb2YoZmlsdGVyKSwgImNvbW1v
+bl9waWQgPT0gJWQiLCBjaGlsZCk7CglpZiAod3JpdGVfZmlsZShFVlQgIi9maWx0ZXIiLCBmaWx0
+ZXIpIDwgMCkKCQlmcHJpbnRmKHN0ZGVyciwgIlshXSBzZXQgZmlsdGVyIGZhaWxlZDogJXNcbiIs
+IHN0cmVycm9yKGVycm5vKSk7CgoJaWYgKHdyaXRlX2ZpbGUoRVZUICIvZW5hYmxlIiwgIjEiKSA8
+IDApCgkJZnByaW50ZihzdGRlcnIsICJbIV0gZW5hYmxlIGV2ZW50IGZhaWxlZDogJXNcbiIsIHN0
+cmVycm9yKGVycm5vKSk7CgoJd3JpdGUocGlwZWZkWzFdLCAieCIsIDEpOwoJY2xvc2UocGlwZWZk
+WzFdKTsKCXdhaXRwaWQoY2hpbGQsIE5VTEwsIDApOwoKCXdyaXRlX2ZpbGUoRVZUICIvZW5hYmxl
+IiwgIjAiKTsKCXdyaXRlX2ZpbGUoRVZUICIvZmlsdGVyIiwgIjAiKTsKCgljaGFyIGJ1Zls2NTUz
+Nl07CglpZiAoIXJlYWRfZmlsZShUUkFDRUZTICIvdHJhY2UiLCBidWYsIHNpemVvZihidWYpKSkg
+ewoJCWZwcmludGYoc3RkZXJyLCAiWy1dIGNhbm5vdCByZWFkIHRyYWNlXG4iKTsKCQlyZXR1cm4g
+MTsKCX0KCgljaGFyICpsaW5lID0gc3Ryc3RyKGJ1ZiwgIndyaXRlKGZkOiIpOwoJaWYgKCFsaW5l
+KSB7CgkJcHJpbnRmKCJbLV0gbm8gc3lzX2VudGVyX3dyaXRlIGV2ZW50IGNhcHR1cmVkLlxuIik7
+CgkJcHJpbnRmKCItLS0gdHJhY2UgZHVtcCAtLS1cbiVzXG4iLCBidWYpOwoJCXJldHVybiAxOwoJ
+fQoJY2hhciAqZW9sID0gc3RyY2hyKGxpbmUsICdcbicpOwoJaWYgKGVvbCkKCQkqZW9sID0gMDsK
+CglwcmludGYoIlsrXSBjYXB0dXJlZCBzeXNfZW50ZXJfd3JpdGUgZXZlbnQ6XG4gICAgJXNcblxu
+IiwgbGluZSk7CgoJaWYgKHN0cnN0cihsaW5lLCAiTGludXggdmVyc2lvbiIpKSB7CgkJcHJpbnRm
+KCJbIV0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09XG4iKTsKCQlwcmludGYoIlshXSBLRVJORUwgTUVNT1JZIExFQUsgQ09ORklSTUVE
+IGF0IHRyYWNlX3N5c2NhbGxzLmM6Njg2XG4iKTsKCQlwcmludGYoIlshXSB0cmFjZSBldmVudCBj
+b250YWlucyB0aGUga2VybmVsIGJhbm5lciBzdHJpbmcsXG4iKTsKCQlwcmludGYoIlshXSByZWFk
+IGZyb20gMHglbHggdmlhIF9fY29weV9mcm9tX3VzZXIoKSBXSVRIT1VUIGFjY2Vzc19vaygpXG4i
+LCBrYWRkcik7CgkJcHJpbnRmKCJbIV0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09XG4iKTsKCQlyZXR1cm4gMDsKCX0KCgljaGFyICpx
+MSA9IHN0cmNocihsaW5lLCAnIicpOwoJaWYgKHExKSB7CgkJY2hhciAqcTIgPSBzdHJyY2hyKGxp
+bmUsICciJyk7CgkJaWYgKHEyID4gcTEpIHsKCQkJcHJpbnRmKCJbIV0gbGVha2VkIEFTQ0lJIHNl
+Z21lbnQ6IFwiJS4qc1wiXG4iLCAoaW50KShxMiAtIHExIC0gMSksIHExICsgMSk7CgkJCWlmIChz
+dHJzdHIocTEsICJMaW51eCIpIHx8IHN0cnN0cihxMSwgInZlcnNpb24iKSkgewoJCQkJcHJpbnRm
+KCJbIV0gS0VSTkVMIE1FTU9SWSBMRUFLIENPTkZJUk1FRFxuIik7CgkJCQlyZXR1cm4gMDsKCQkJ
+fQoJCX0KCX0KCXByaW50ZigiWz9dIG5vIHJlY29nbml6YWJsZSBrZXJuZWwgc3RyaW5nIC0gaW5z
+cGVjdCB0aGUgaGV4IGJsb2IgaW4gdGhlIGV2ZW50IGxpbmUgYWJvdmUuXG4iKTsKCXJldHVybiAy
+Owp9CmBgYAoKNy4gSW1wYWN0Cktlcm5lbCBtZW1vcnkgaW5mb3JtYXRpb24gbGVhazogdXAgdG8g
+MTY1IGJ5dGVzIHBlciBmYXVsdGFibGUtc3lzY2FsbAppbnZvY2F0aW9uIHZpYSBfX2NvcHlfZnJv
+bV91c2VyKCkgd2l0aCBubyBhY2Nlc3Nfb2soKSwgcmVhZGFibGUgZnJvbQovc3lzL2tlcm5lbC90
+cmFjaW5nL3RyYWNlLiAKClBsZWFzZSBsZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFp
+bC4KCkJlc3QgcmVnYXJkcywKSGFvcmFuIFdhbmcgPGhhb3JhbndhbmdzZWNAZ21haWwuY29tPgo=
