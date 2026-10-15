@@ -1,136 +1,136 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1703F4DC7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1833B3B83E0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103369; cv=pass; b=nUbi+13m+jwbxCZGK/JRAZ6B2A/ZxtW6cvAZl80GLjw//htYwsLWTjmvUIe3zRYsEOtNsMsL8n5mVw/lyTDOkEDo6EsA1bnXFtkbGoBhKiAJ9LJjT1SPf4mSTNYSfeeiJ2CguzVxYPS7eNGEQ169pyAnKL4Gb2QErlNgAJ7ZI6Q=
+	t=1792103610; cv=pass; b=SMTcgxh1oVC9RjZNegXezX5yimMae3SdSiRBd5nYOhQt9UEVxBKrKylKv4Ee1hr1nP6H+4YBMD2SPlSZkrF4fnAS1OgFbNdg06YYkina+UTH8LkuXag0Wz14PaI2I3ef8IqAFLqABTFQaUlatqMZVvuE3PdKgwO6PPVYQidKLug=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103369; c=relaxed/simple;
-	bh=AXRRS22uutXkOu3guPUe2GbkmsWxR1BXKHyZbsJzLy4=;
+	s=arc-20240116; t=1792103610; c=relaxed/simple;
+	bh=BibMPohthJhTfbXcbpwdRGzuy13tYrFhPSpi/AgmBSg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TWT562wexlkLOLVi/xKODlDntsalpRiKfavLz3sM4IHi86jgl0yEZBQoijd4J0SeZOjtkAedGjulrwzZJx9pjAyMsZNbprljsJr1+jKOKsr3W3jmFUcJEh/jDOA8uJYIyLpOnz0DpWSa/4HxyUo2msgImt8dSNQrd3ZE+5lErR4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NRVAjXEt; arc=pass smtp.client-ip=209.85.160.176
+	 To:Cc:Content-Type; b=POAMQ3LNP4tHomlrXcWQGoZgTAThwC89ymuVVh5fmAqW0WiqwZFojmHTvQHcPEVZSIYGsJVD+8Lt/CUlmoWzDEHJ7VLdKAwTveNfySswMpTw/Wiha1G3psjT3blEOyQcm+lkgEDgDdxxidWjAAxHYyQnYM+9b9CBVAyH/MWbIhI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KlvJ0ufi; arc=pass smtp.client-ip=209.85.160.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NRVAjXEt"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-535f598d126so53561cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:29:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792103367; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KlvJ0ufi"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5337c7b9937so103321cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792103608; cv=none;
         d=google.com; s=arc-20260327;
-        b=rFs+mJDjA4MP1sptV/5CRC2x5xZiYkdthxeldeHmKrbAC2i5tphcOeDPKVP2dGViD1
-         t3v45HRC+g5D/Tb/8VzojwKwe+pk9GzIgih+1p3zQoL/pQzmrrN16KEaGzGsOukik4Cn
-         4LkGWJ1Qpb1Pb+DvLwzH/t5DMWRHIYQlZHcAfJgndb9LrC2ezrKxK1bGE8CNoQgKuteK
-         bmwhMxQr3EW3QKopU3x99zM1eCLpWmeaCslUYvaDoCAKIfOy0JdrxyBtc92Yu7J2KqRw
-         rUBGdpQA8Ca2/BniUmcWgb845u1R3XXiAV4wdSk9lLCDB870gT5XzKJDyIfS50s8yYJ2
-         1kHA==
+        b=PZMlSn6ZL57FE+xGIsfzogsgzBpQhA7zcZZAxI/a0wgA98onSWT3xhbtJirWc0Sox3
+         0xlFUDBpYcVNjNlAJFClwgiVzE0ndRXAHNlkK8uAsVaF1sRRtqUwCQJiCEZiMY3qpMxb
+         wrmtz0GYUYk1x0p6VFA6Ri6iTz5C1golfm7ZBu5o3o54jEPAsfTkyBupbodwyUQu3LkF
+         L9ua5pT/WZuQrCCeLNY2aN11iQo71sJI4zz8o4L8Ndre28Pf/48Y49nfksr3iD03rqlM
+         fRVQ0brflzxKNqwM6/8FqnTkH6VXoBArwftrZ5CArdJ/i+4+htvLXLZT6Ebz2ebbJ2WN
+         KSrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
-        fh=dezZwRKMM2I4XL1aOuyabO+bvFDN2BzI37E1KpIy9RQ=;
-        b=OmtQ35JADYAm81ml9ZRTK/bsksHO4UdYpb+e3nUsFXZYbYQGsyeYANWA68ben8ZQ/Q
-         Vjy47M88I/gUSu5iwUuR7V76JWdBjZjTknLbz03bChknuQxkX4FcTiTNspC3J9au5/DN
-         fQDsd2uaKrb5XZaBqtuwaWVosKXgaR1UU6TxxloqIP+36hsLAzz9PUzrazeI9hOJuPO7
-         x85OeH6vKG5ny/5Gr3PF74vb4UZif3lACmqVO8sLPG6NYnfYXLIT2eynb7wjPAfAL7Ma
-         EqIccqZ3eIqSbbIzHnM3Nwncb1gnoIxieD/0b0H5ANZp0PSgNspI1WjwfP0FsZjifa1K
-         VMmg==;
+        bh=BibMPohthJhTfbXcbpwdRGzuy13tYrFhPSpi/AgmBSg=;
+        fh=+T05mF91CFLNDHnGxPwOkNoWJ8lIo7DAToJZ802k4Ao=;
+        b=d9i2xO9WHNpL+iOLem3gCKuYUhxmbX6dNEi01RnyDHoUZ7G12MGrFOy2PW95+j3WLe
+         wDY5AN09qyyhYxifctEre5Xm75JfI7EB23gW+0IwIwagov+pIcwNTUYMJzPFhVcOL5tU
+         eeSo/Gq7o4lFPnqqnLq5fgk4VEGy8m26qpYfCBhnlNgwZvhw++iAfgS2q1kiAzP6KVIZ
+         syA44Ew1d7cx4SIw5hGfzHgXd2rreml9NTS+5ZesGlvD3EoUY2IYUJmjzdKAAz3ZiVv9
+         8I5O0rE75g7QYZZ620Lfrm7qxf+a0Lo6a7YFIIzjQ6kPo6ieWagQXnIH/o+myyYfHJ6o
+         +ZSg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792103367; x=1792708167; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792103608; x=1792708408; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
-        b=NRVAjXEt20dCgTC1AdDpGbOXmNtHTqK3ykULgg9QQmKY3yCKHMT8KPw2ao7Ln27DBR
-         Usl+Y3wt2Y7k8Z8uCzEoetaxmOLL0n+g8rrjsfVsJKFzRVYCxZIDLHRTnMkNJtSydYxt
-         fCESTcbCsNXnZ92hd1VUi5dPtA1i8Fz0vcM9tsGzkJ/HKu/4gr7IElT9ybmcdhSFirj8
-         s6Tx+j3LWwMODjwNeKBx2JLnVi3H7JT2FacHoYXd5/jwj8tQyrm5tYxTvrNrs1jFekNI
-         hpHBcfHiXfMf5jqLLoT8gAmtkjsXSHJFXTQWtLz9Mut6QpoYOieEhcyn9fBoN6juG3oL
-         zNZA==
+        bh=BibMPohthJhTfbXcbpwdRGzuy13tYrFhPSpi/AgmBSg=;
+        b=KlvJ0ufiX/1gevjOITkMVNOJSz9KUFbEN6M/OMYcqedSAs/JeUZ4gpTTLkdrTqbHaz
+         Y2oIdzdQzMxW47JCSa3HAA76lkR8HpJJ1FyUDA6yskFxtDvAPA0TdqsPlkta/OUzYMGn
+         IKYtOB7kuOYLY/TJLm2YioBapalxOpgOVgzfG9GKKTJwEm7FqllP25uDhskMhC34UYn7
+         t2jF0JNqNiPCM5l22HIUbxZ3Unp5qiRlzEj0meyK+1fnWbBgF9z95hiYLn0wVCXv0Qnl
+         lg0XbZ1j7OZJLP28PYPEZdTSy3kcv968Gk6JJuVSQBUy2hjd0TTRo5UfYUSQCe496tHz
+         GdTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792103367; x=1792708167;
+        d=1e100.net; s=20260707; t=1792103608; x=1792708408;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
-        b=rDKGhyJ57o/HQJByqfje54AwIaaOswWcv04T9/EtqVgTZGSMIKDBWocKx+kPVDz+Sh
-         CuDhjYyFj4bCmaxKKhMsaAUn6aCJOCVdCytsu82Xypc1s3qjesvMGTgQyvUNFHLiDzGE
-         lyLkWdi1xVzFGBASkXmxZDAAHATqHHm2Im0LepkAw+86QJTPS97w1cx3RUulrcwdm5A5
-         0D0WjAUKblGRYgLsuemtf42HEvf9F/VDj6GnNPnqmiuoK8kiChIFq52/K7+kBDvHngTP
-         PEDc+h+NqyExwp3lpt5wXsaVsnzxwo6rbKrDfyWjkeOMqoH6++yxYZtHeuOAGH0CDnXn
-         WSkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFWulpqzurHdjVWX18ytYqC6CXSNerqIDvom5RBWOBiZdMK1Nb4Ab4+YnmOutuaVZCEgbnkoHUsp7STPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2sRo0yGHX/UTpGEOJ8JT5fNSW1U4DHPj1BWc/Jfao+d3RRPjE
-	fr3+Dcqd9N5JJDlwxl7DuZUTO0NXcvdD3xkk5xP2LlO0n/upvlDfCNDe6w6nS3NIIP1LQ/cvgVf
-	zYbkkQZU/uGtboqZnFWPN/xhjbuSI/B3saG0Zd6Jl
-X-Gm-Gg: AYBFou3gHZzLjM6d2Xm24F2IJQ24CxKFJM4K9Oa6PTEyvtvTrgfjOOzY4jaHWDMqhfG
-	8AW9WbUIknCdLbo6nphOUAOkvwnA5ISW4/90QN9LKpiOc5jBLHUylHJeUqRh3lXol5RFU37m4k+
-	Pa6113Ymz/vPd244vb3reFU77Kd7u6jrliv5JLL5WA1p/WbDoTwemgcdJpaKpQttgyYSJQQzAym
-	F4qmfVf1CZdY1N5mYBvhCM9XMNeHHf5dMt6TxSAOEsMAXOzbkLImaRUltcitv7XNgScRxzxnjOO
-	nVQRY6Kn5OUJ8vJ/n3XIB1dJg7Jsr8Rzi7FR08+TZ1eWJIXSfYzxUmjrK8jHZ62/gfHJQZwsx6m
-	Pehs69zXCtA==
-X-Received: by 2002:a05:622a:1a89:b0:535:30a:76c7 with SMTP id
- d75a77b69052e-536297d3336mr5010261cf.3.1792103366183; Thu, 15 Oct 2026
- 15:29:26 -0700 (PDT)
+        bh=BibMPohthJhTfbXcbpwdRGzuy13tYrFhPSpi/AgmBSg=;
+        b=lqgnqtAO+PVUh/DBmdwF6QyfhGwK7R9DURqhUyBcSqcQSDur1aKbBM+OYBFt1RyNhM
+         YD7zb9tUqDSYRkR5LzT9GnTaI1yd45z2gBZ8jj/iAZAQeJcLLmWafZHvttj8Un08Zy6n
+         V51nX3niHkoSgKZVlZTxz6x0iaU34kZpeZ6FIUvg05V9cTDNGtuiwz8nQHdL25+ijGG0
+         fI8IbltYbCj7miL0VVX/RpLM1BHpY8b5qXKSJX824LBwdnWaQRtYDGyRquLXivyOAnjI
+         VVBmw/hjSnEEd2GeEUjRS4TMZGMIB7uYpz8Fga+h3VBrklu++8ueaUKXx4bOmOqMqpX1
+         mrZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJR/y5jWroRkLa0Li+OMQJ9IsS15CqMiy5VJf5JwXSUnKh65BhHnP8jMn9B7eaIS05a1pT/eCk3k2oDfM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUATmgzK8aODhZvomRO6yRaTUZYCiBuNUDAGVH0DbpaIsK24KE
+	lLQmSsR0BIIXSW/RF1n3B9sX9SvorVTmj8XDwXxXsLLn0eViDrp5JkCqg86yv0eKK773Pgu9q/m
+	0ifThJHk34N3JxiyQi3egAKrrBphxcDKec4CXuznG
+X-Gm-Gg: AYBFou2JGerX5bcXLgdPN11psIX2TPgyJWO1N5++tpzq1OC3NlZSkF/ZIdTCopl1LwL
+	atvUIRhI8rJbPrE+qfrdi1HBkX47LrWGYY6QzsKhDh4nq+D9MoLLeefJ7/gaL5Xg0NkM3/i8Xw6
+	6Jbg0clZfEXn7BEIPn4MnqeMXtIN2FEMExROfXu5cQYSaZ+AvGpmRR/GoGBvvV4TOqSeoDWO9Xa
+	V96sa4aTxieaZSsjWLZ1L+k+JPfEVY84CfTOarfeAV3cm+19oN73TQ3NREy2SQ/sN0Pn2fbMnkO
+	MPwbpXhFjRp0V282lAVOaem1mkQyrEnp4TYmDLaEoGawISMIROy3Cd+F49d+yjDfhjC57Cr4EU7
+	L1H78NYS4bXvUqXQkVphIdZrdlWrTxN7WlySg2ldKYDchIGYvINoIyXh/hQ==
+X-Received: by 2002:ac8:574c:0:b0:532:d36c:7094 with SMTP id
+ d75a77b69052e-53629899acemr5292911cf.4.1792103607214; Thu, 15 Oct 2026
+ 15:33:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014225811.i.852-kees@kernel.org> <20261014225818.3457479-2-kees@kernel.org>
- <2026101517-profane-opponent-4523@gregkh> <CANiq72m_iyquf4Lc8AWvbsBp++ASz4+C_MQ5iYQW-fHd_MNDxA@mail.gmail.com>
- <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org> <2026101532-fantastic-deafness-e04c@gregkh>
- <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com> <2026101515-oversleep-related-e4dd@gregkh>
-In-Reply-To: <2026101515-oversleep-related-e4dd@gregkh>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 15 Oct 2026 15:29:13 -0700
-X-Gm-Features: AclHuK_bhqpBXC-6cMMrPjeFLsPs6nuRXrMV9IFwDJ4QNHEyGqQj-Q86H0SV0Zk
-Message-ID: <CAP-5=fX72cGXtOVYFK0Fr-XMWtr5nfmdr0y3dwVeUcuAueW3Xg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] seq_file: Require explicit initialization of struct seq_operations
-To: Greg KH <greg@kroah.com>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Kees Cook <kees@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-fsdevel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-22-yosry@kernel.org>
+In-Reply-To: <20261012233638.2546339-22-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 15 Oct 2026 15:33:10 -0700
+X-Gm-Features: AclHuK9gItNgiMo4HaNu3uew9VFJbrQSsU2AIuA_LVIEA02ZBc73weCPD4MgjW8
+Message-ID: <CALMp9eRa2TYPEK2Y4bVkQq1SD6U2kQ0bZ+magc_EnhASL3jZbg@mail.gmail.com>
+Subject: Re: [PATCH v3 21/27] KVM: nSVM: Handle nested TLB flush requests
+ through TLB_CONTROL
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 1:50=E2=80=AFAM Greg KH <greg@kroah.com> wrote:
+On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
 >
-> On Thu, Oct 15, 2026 at 09:47:34AM +0200, Miguel Ojeda wrote:
-> > On Thu, Oct 15, 2026 at 9:11=E2=80=AFAM Greg KH <greg@kroah.com> wrote:
-> > >
-> > > __must_init might be smaller?
-> >
-> > That sounds fine too. I like that it says that something *has* to be
-> > done (like the original name did). Hmm... On the other hand, I guess
-> > "must" could sound like one has to initialize the field "somehow",
-> > i.e. writing:
-> >
-> >   struct S s =3D {};
-> >
-> > definitely initializes it, yet the compiler would warn. Would
-> > "explicit" hint a bit more at the fact that one has to actually
-> > "write" the field, even if it may have been initialized anyway?
+> Handle L1's requests to flush L2's TLB through the TLB_CONTROL field of
+> VMCB12. According to the APM, TLB_CONTROL is not modified by VMRUN, so
+> only read the field from VMCB12 but do not clear it.
 >
-> "explicit" is a description, "must" is an action that tells the reader
-> what they have to do, so maybe "must" is better?
+> On nested VM-Enter, flush L2's ASID if any flush is specified in
+> TLB_CONTROL. This handles TLB_CONTROL_FLUSH_ASID and
+> TLB_CONTROL_FLUSH_ASID_LOCAL equally for simplicity.
 >
-> Anyway, I don't care, naming is hard, either is fine with me, I'll let
-> the authors of the patch here pick what they want :)
-
-Fwiw, I like __must_init for being both short and intention revealing.
-I'll hold off sending my v2 for kobject::release to avoid renaming the
-attribute.
-
-Thanks,
-Ian
+> On nested VM-Exit, flush L1's own ASID if L1 requested a *full* TLB
+> flush (i.e. TLB_CONTROL_FLUSH_ALL_ASID).
+>
+> Essentially, TLB_CONTROL_FLUSH_ASID[_LOCAL] cause a TLB flush on nested
+> VM-Enter only, while TLB_CONTROL_FLUSH_ALL_ASID causes a TLB flush on
+> both nested VM-Enter and nested VM-Exit.
+>
+> Additionally, sync the nested NPTs on nested VM-Enter on an ASID flush,
+> as ASID flushes also invalidate guest-physical translations on SVM
+> (unlike VMX, which has separate VPID-based and EPT-based flushing). Sync
+> all roots, as shadow mappings are not tagged with an ASID, and there
+> could be translations belonging to the outgoing or flushed ASID in
+> previous roots.
+>
+> All TLB_CONTROL values can be handled by KVM regardless of FLUSHBYASID
+> support on the underlying CPU, so keep advertising FLUSHBYASID to the
+> guest unconditionally.
+>
+> Note, TLB_CONTROL_FLUSH_ALL_ASID is never propagated from the vmcb12 to
+> the vmcb02 (unless FLUSHBYASID is not available), as this gives the
+> guest the power to flush the entire physical TLB (including translations
+> for the host and other VMs).
+>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
