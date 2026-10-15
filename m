@@ -1,653 +1,124 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B8C1A0BF3
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B317B4908AF
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056194; cv=none; b=VUhmF99bH4k93vcTKs1Q+qGD7Oc3FEjHhYWYwxjQqVqswr78RQKU218/yjHZWkRrjI1QxG+rxbwU6e4yln7XjCHTrsxj1rU3g9mJC7o6lUujRK8Hm6YBPaDmAHLq3jyGuV/z7bDOgNvkrtPgB957nvoHsN5lYEQt3b4/w36ockM=
+	t=1792056251; cv=none; b=j5i1Fenyre1kPPhMBmy1rYbAL8O4Hht30JdyNDVC3AfyXmAKWAqy5K/fTd8BI8ofImTiO/4JAnnt4g/tElOx8VxFKh+oUVZNvHCbj0dJG8HAXC0oyuUBfXk/9LemWnzK6rVuEsch4Mc+sKOQh/qE6PD5+8XZuzyAodOTgP98tys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056194; c=relaxed/simple;
-	bh=vCXH+a54zAXXh60RPMF1wga14je8rcctAlWjaNXEF4A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c9ZpgFJsThdhFquVnyx2UulIp14JjHdwBMLcqkbYJ1lJwuk75CZ4a+ZiC7r5tviGM4HkCVkknujk0lS79HD31pQqCmePaG3I4OSokSzQpI89QU8GMlaz4/uFgQnaCGrT2cBFEze/Czxs6AI0f9YgVFy2K66DdQV5zbNaliYMuR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UnL71Fn6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VwEo3mK1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792056251; c=relaxed/simple;
+	bh=+Os2SIm5LSoB8spju0ohIiU91kZIZSkIeuXDrurEVfk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=JhRJJ+0wYDsj1cUEKINFwgtjqgVACD5dtjHPw4TjnXU3QPKPuhQFwe4yXFc7T/KLGE02gwk+H69hSA752cT+aCeS6AzuDiHWjtMzYQtsNtsKLBnH9afFBMjA9+BOzv64k9MtX0itDL3epsD0D4C18fXhnGrKOFv9Lp7DpCesRgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=U2zdJ+NR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gbTK45w8; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UnL71Fn6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VwEo3mK1"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F65W7W644567
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:23:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tNi9jaAuFI9byYADlkcADIMnvw/6XhRkOuQ2x8Rb5TU=; b=UnL71Fn6CVkALbCc
-	idJs5bFjC1cbb+HfAl5sHxWFxkbOwvQhkB5BAU2i+5gD8I8h3em6RDKSZPlMKadv
-	yKMJ0gIrR9xhvpucqzvc0l7soreqKiKlq1bL/EXRlEtxM5MEBuZTv3zLzJLF9ir6
-	Fogz3rcTCFAZYKA/G4W0VYWlzkjqpQWBxoEjjBZdVWreqJc//t4Nc+ZaEuUAZdLZ
-	d9vJWZk4xoumeb+kI65rteRjEZFDAzEUDsFJNb99v4E9/SKdOtuDsbhmLRrpPTdO
-	EgrDlu+E2tiDXtRgZU3gNRaeDIj7opBLXMcu6MbEWknit4/9dXhRA0d7Vbj4rqhw
-	gaeMtQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmya8qt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:23:12 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e92aad34aso934391285a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792056191; x=1792660991; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tNi9jaAuFI9byYADlkcADIMnvw/6XhRkOuQ2x8Rb5TU=;
-        b=VwEo3mK11H0fW4je1jsA90u+Mm+BHMomr7KgvdB6gBWwwKR2MwYKy1zBbySj1uAoOf
-         s9IvO1pDDeeNqf9bhEdHahTwhCw1JKmjBApoIXIJGnPQJz0eWplXjigQ0BmWSosMmUy6
-         jMjcYCJ6mgsAZhv5cKY1Q2NtOuLawwDmQwCJA0SSsdRxv7fsk2PMfMiinbiWIbHCEj/s
-         Xv8gSfm/CZumyzFlbBPmw1rxj2I/2tVjevYmEaiUMChEXzngtMBO3qO4WwD6/SzmcEI3
-         X/oza8cWeiADiD8EHGHXRxOpfzZ6kQViHKmtOiYtB1JMjNXnrk0GtCARfQpwJODuG1Yf
-         fp4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792056191; x=1792660991;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tNi9jaAuFI9byYADlkcADIMnvw/6XhRkOuQ2x8Rb5TU=;
-        b=cWn8brc+LKFBWJHQi9jiyM0y3GV5rs/dFDeCOVprPcgV1v6tBR7kmFHqh0pbRxBwD9
-         0zV4hfjyF50Y0KLqRTiuOF6vVykjDBFAmKMkTiuGPZgVVTzWoU791V7S5OK2hr9f5MkF
-         xH6O9tS0e2DNNq9upKgX5NCDuMBza65bhemU3saiOA+y1pg7OrjhXU9WhmiQhDVlAd0S
-         7mi5MU2xNgocWvzsISRLUokGdTMwkK0oaHZkxG632sM+G7hX0+A203zqwJt+A+LJ+jWe
-         lQleLyaPFX7m8rcclv3YD46susarkjUu+SY1swk7NwnK4UIyLZslRlZ05HZ6C9lrY4L6
-         aKvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByVMDEh6E3O6wWsAvt361/abGEI0oiDJ1f97Gn/Ku0eQB6xjdSAXJj616AtGsmQYwaWotSN8zZ5c4YD4oA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3goMtub7ieHqmKOv3If4ist6X0H8bug5DdnVBe6oQFJyX/m+p
-	CSe7w3VSG/VKZ6Zl54/MyNS9C2/0GAPhePxBGYZNHqPeid/Vezc1UKYIki455Nff6bWgl+dDyzv
-	oNc91TWcSBHxh9fma5k80WqtRUukv4kswyu3zu+EiSQOmh73EFjLsQ7HkdU3X5U7Cb0g=
-X-Gm-Gg: AYBFou1FYMVCkPX8BP2H8lsrLoY7oxYJnjzTi0Zt0awYTw1Gs31Cqncb0uroVa+KUBz
-	X7WtPiC2CRYeMq0wlvyx7BEr7ZBGPfH4oEIhtKsai+XVoJ5KDMOOzdc/u+SvwfEBHUHKCjlUEod
-	gUKGeoexC1mb4xfOr33mb9A4Ff2EN+HVvyAIufVLdZUvZEDQd/swTqpGgKSCqMaEwUFupa1XhF5
-	8792gU92tgBWCQP3j/1qJo+3UwqsxcAPcAGVNn+kZkGKZUIkfDQB7nJ0wB9c2ev8nQhAyjKv+4p
-	sQ1eocmr5G1voUkuikwUeq8AemLZhjI15B6jPFsjg1dA92MpJieKAM8WHOwzLqAQ2NomEQUPpYD
-	kzyyHv8F4RjEaLCZSpOBgfoJHrQ==
-X-Received: by 2002:a05:620a:199e:b0:93c:ca3e:7230 with SMTP id af79cd13be357-93ebd259ae7mr2760641285a.52.1792056190932;
-        Thu, 15 Oct 2026 02:23:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:199e:b0:93c:ca3e:7230 with SMTP id af79cd13be357-93ebd259ae7mr2760638685a.52.1792056190245;
-        Thu, 15 Oct 2026 02:23:10 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1bd5ec195sm53311315e9.0.2026.10.15.02.23.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 02:23:09 -0700 (PDT)
-Message-ID: <aa6bc804-d84d-4354-bffd-9d67ff3f654b@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 10:23:08 +0100
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="U2zdJ+NR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gbTK45w8"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 679687A00FF
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:24:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:24:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792056245;
+	 x=1792142645; bh=9EMwPwk8ol1gS1BNzaaMpnTmbyLlTztA/AFWJQknBnM=; b=
+	U2zdJ+NRscGHm75cbFwI5yAOZCdyja30NRsCSeHnfcZqtEbWjkf2eG2ErP5v2BqI
+	2FGa7gyyON+FU9BL0V/XUrUo3WSTWe+8U188IKL/OGS1F16c0ht+GQviiHmGz5xd
+	Zx8a/98OCTbbaQK2mG2jO5XK2u6XVFTEQKvyMC1SGBTX4CKM2vt06Dh375VxcCiz
+	j7k8uAFaWWV87sfu6izfMXp/ncU39uM+GnXPHhMEa/hKc6ZJGJI2pZxhy+VroZMh
+	l+f4daPo4Z/pXrEbZtDdz0bCVGpvo9/xWp4ocCUbTNMZwmdYwh+a3i2xzyXfUELX
+	12RIpAA36VV/H2ygGd+6JA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792056245; x=
+	1792142645; bh=9EMwPwk8ol1gS1BNzaaMpnTmbyLlTztA/AFWJQknBnM=; b=g
+	bTK45w8Avb4sVDU5/lK92TlnO6wOSmELKEQRGhrS9MjTJTQMYquK4ACEtpJNKVll
+	1YF/sgwqMmHYcplxriRRUcF92SJSAV5AumCzPi0gHfmFsNJy3D2tZgUZnV/ETJj2
+	qNDPu+ZChKamF83RmskKsH188JJhYtLBZA6mkmDu4dckVnZwvEixrEKLRzSDrsGX
+	Cf8qOBXMz0+6Zn0OVny/gOom2wGJtj2+ySQmyOeXiFEfACUhYQdPO9i2IXkKfRfz
+	pGPfpGNRji39f/cWqWhWElTAZ+CimDpvIm7MGcM4DPl26H31nSpDA3EGyMO3amV1
+	V1ILKsF6lvOPv37rgYeRQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792056245; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Z7anmNuiMey1pfzfximNc5RPq2l+1Q4JW9FcfBGoJtCGHcP
+	q0cne2msPTJSddqFKRwJoFmstCHJsfN33JxgLkr3ppiPk5ZlGH1ONyWbs3IZMkTc
+	aizWcCjNldgIy5hCZzt8dU986KUX1ioCBVr3wgYEvMcUO4eZwtQzfbSWSfR+Urm/
+	tPGHTBGlOLvB4KJbI8/JJcu1wFFLGqSxGwxxufEUX+gSJuU4ys57etkbsTTF5vNR
+	o1R0eF44BXhZdhD4fwaesCx6v01G0ugpY0gOvHmZmpObeKHCEq+oHxmKfT9usvN3
+	2VDWKJAgCkcu84GbojshfNr+jMv6lscvsfuikOw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DegfGnrqa/jQ+z4Fvt8btUFRAUJpDxoWRViD6af4zZs=:+Os2SIm5LSoB8spju0ohIiU91kZIZSkIeuXDrurEVfk=;
+X-ME-Sender: <xms:spvQasmEfTexOeek3k_JDBpqgIOO6vaI61A5rr2_bkCOSGtZ3MA9LA>
+    <xme:spvQamrzmPgrZxBsi5auXeMwaGQnyDKaT6ygjCx9mdlYPGI88S1-xhy0QRzdnJ45H
+    XDNrS-QIby5GG9LW3Isv1B5ZLfaryEY-zLoz9tx3I0vxnJ-Y38T6otC>
+X-ME-Proxy-Cause: dmFkZTGXJXAva6kYy3lYkl74h5at3a6q449Ls9YHnShq7L9OKpjv37Z62ELCfsQp4izh0U
+    d0Ab/ynVhd4deqOad74UwlFKZEbdRfmB6VnxeHTnhEWOj3Mw/GFLq4rTisO/M336yumlSW
+    pV9g3V0mepq2AsmMYd6exZ1b6t71jS5UPmzPlI99Vri9xd+WG4HF9+eK9wbV/D/Nu8RVhL
+    MeG3Pw1Vx5gIeNTY9tzDdrv4R9END9oZc2cuFbCK7RBLKTh3IRQCwkXWMPF9+8cYMFRDhZ
+    iwvCJeV3i/j1jGBHRpYl/x2rXFruahXLBtrSNQ0TBeSBLwYB2VBgvdfszShka0bld0PpEp
+    GmQa9N/iGa9Oq1Bx6ekNGTJoIbzh6p4i2r9lVVJf0MK5zZOpHIluW9qZ5/moEcyrnHSosP
+    rle1wl3+Hej9e00G169BrdcnEOtHNnx+fv3KIGfbvXYEORzIBXvctqA0aJAMp0KIYTSMns
+    /lCnte/YnyA8cV3rxKCZOS9tpuzcCIHGmCfmvSTDy6fLORclB7y/EamqAUVZwH+jcHsoz9
+    3tDB2aRNKMjhDThI/RR2rWJ+YqOII488StTZq9xRwE5nHs+CCMklZhLSZ4te5QMrmgH1KP
+    ADDf2GUuSVGddiaPnG1sdcxSIv/uZ/Rs1N31z9TVpghT3ky2bNZD1UzIQ6bg
+X-ME-Proxy: <xmx:s5vQahENf_2Hk_A3JGU7VCzganvQaxDZIumorJYXYd0G8dvZuq_lqg>
+    <xmx:s5vQaiXUOb-pCs9PszetlL-DopI0HUEqdCoAw6k6eaMO8q30PGVJiw>
+    <xmx:s5vQalXiF4v8caTSRseU4628IZFhqbmRCZpKkobjSCkJk2Gaw9HOHQ>
+    <xmx:s5vQaoKckz2sQwwiG334OsgXXSZqNpXTZ1541qoycN5u0DBFgp5p9g>
+    <xmx:tZvQavvgu9z7I6TVnGjZB_j-EnGv9bOp4p0ydOwMkoGKf09LcvnxmYm8>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5DA1F32A0093; Thu, 15 Oct 2026 05:24:02 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 07/10] ASoC: qcom: Add QAIF PCM operations
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
- <20261013-b4-qaif-shikra-audio-v9-7-f3022e28f2fd@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-7-f3022e28f2fd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: AZUAoEL-p1MZ
+Date: Thu, 15 Oct 2026 11:23:42 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
+ "Andreas Larsson" <andreas@gaisler.com>,
+ "David S . Miller" <davem@davemloft.net>
+Cc: "Thomas Gleixner" <tglx@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>,
+ "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <7334b77c-2ec7-4678-8296-f187e0304f49@app.fastmail.com>
+In-Reply-To: <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
+References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
+ <20261015085545.3246951-4-ramin.moussavi@yacoub.de>
+Subject: Re: [PATCH 3/4] sparc32: implement futex atomics, with casa detected at run
+ time
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: JEZpeEPrN7OyCe7CQln_Z0VNkqf1uFlk
-X-Proofpoint-ORIG-GUID: JEZpeEPrN7OyCe7CQln_Z0VNkqf1uFlk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNyBTYWx0ZWRfXy6UPLFMGidtw
- n2a423Ekd1ZkFdaOl59GVHaIyIDAukLx+4umTnRixnwXrVzhC6pm4KPFDAaPHcHX8ewg2Cg8D/T
- pK+F0IKtmsbY6o1AiElJJ5no8PIkygs=
-X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad09b80 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=23ijev90tiKKSBFg3Y8A:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNyBTYWx0ZWRfXw7DPtFWsx/L6
- WY9/FptOgWMOix5QrUE+0BYcbga7+kEmaN4NbQxd2P4idQ+CIAYaJtE+/JT7Yo7v9o/KZRqfQpg
- 3G0vFKvJdX95pBz0HO/nM+RepDYB6Ecv6AYAbRZv5RQaVcNQbF7KIIXLTVB+QCXc89H83CQ+piM
- nf+/P/xKCRAc5B8sQJMNMSnhWLRpSj04Ds+I72srQ701MdUkCAPGyh4yXmL0g/YpSnP7n0ualUt
- qcPf+HZkYpEDkWnmEpzA+OGhxn5ESaDds7Ia7tTL3ReBVDCDsg0y1QzrakC0qeGsrgLAw5fUy5t
- HHaVDBW+c2HWBz0WAfvwNiIWYKfhEmGJBSBDgdp5ROciTxoWhdkiU8rGhjMHfu85kdCPAvWyIj2
- JVpye1B1zELKCDhqDOUI1VCQyrjIzqvqo6nYLdeVUcCThZhElIRyN3sam6wD8FVSJIruSIS8jzf
- vMRX+5Xui99r4SGpGGw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150037
 
-On 10/13/26 6:51 AM, Harendra Gautam wrote:
-> Add the PCM platform callbacks needed to use QAIF DAIs for playback
-> and capture.
-> 
-> Pre-allocate the DMA buffer via snd_pcm_set_fixed_buffer_all() in the
-> .pcm_new callback. In open(), reserve a stream DMA index and perform
-> the one-time QAIF hardware initialization. Program the DMA configuration
-> in hw_params(), set the DMA clock rate and program the DMA base, buffer
-> and period registers in prepare(), and report the current DMA position
-> from pointer(). Release all resources in close().
-> 
-> The DMA clocks themselves are prepared and enabled by the CPU DAI
-> driver's startup and shutdown callbacks.
-> 
-> Support mmap() for CIF and AIF paths.
-> 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
->  sound/soc/qcom/qaif-platform.c | 464 +++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 464 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platform.c
-> new file mode 100644
-> index 000000000000..e24c4252825e
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-platform.c
-> @@ -0,0 +1,464 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * qaif-platform.c -- ALSA SoC PCM platform driver for the Qualcomm Audio Interface (QAIF)
-> + */
-> +
-> +#include <linux/dma-mapping.h>
-> +#include <linux/export.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc.h>
-> +#include "qaif-reg.h"
-> +#include "qaif.h"
-> +
-> +#define DRV_NAME "qaif-platform"
-> +
-> +/* period: 5ms @ 48kHz/1ch/S16 min, 20ms @ 48kHz/8ch/S32 max */
-> +#define QAIF_PLATFORM_PERIOD_BYTES_MIN		(48 * 5 * 1 * 2)	/* 480 B */
-> +#define QAIF_PLATFORM_PERIOD_BYTES_MAX		(48 * 20 * 8 * 4)	/* 30720 B */
-> +#define QAIF_PLATFORM_PERIODS_MIN		2
-> +#define QAIF_PLATFORM_PERIODS_MAX		4
-> +/* QAIF_PLATFORM_PERIODS_MAX * QAIF_PLATFORM_PERIOD_BYTES_MAX = 122880 B */
-> +#define QAIF_PLATFORM_BUFFER_BYTES_MAX		\
-> +	(QAIF_PLATFORM_PERIODS_MAX * QAIF_PLATFORM_PERIOD_BYTES_MAX)
-> +
-> +/* DMA CFG register bit positions */
-> +#define QAIF_DMACFG_SHRAM_WM_MASK	GENMASK(11, 0)
-> +#define QAIF_DMACFG_BURST4_BIT		BIT(18)
-> +#define QAIF_DMACFG_DYNCLK_BIT		BIT(24)
-> +
-> +/* DMA CTL register bit positions */
-> +#define QAIF_DMACTL_ENABLE_BIT		BIT(0)
-> +#define QAIF_ALL_CLIENTS_MASK		(QAIF_BITMASK_AIF_RDDMA_WRDMA | \
-> +					 QAIF_BITMASK_CIF_RDDMA_WRDMA)
-> +
-> +static const struct snd_pcm_hardware qaif_platform_hardware = {
-> +	.info			=	SNDRV_PCM_INFO_MMAP |
-> +					SNDRV_PCM_INFO_MMAP_VALID |
-> +					SNDRV_PCM_INFO_INTERLEAVED |
-> +					SNDRV_PCM_INFO_PAUSE |
-> +					SNDRV_PCM_INFO_RESUME,
-> +	.formats		=	SNDRV_PCM_FMTBIT_S16 |
-> +					SNDRV_PCM_FMTBIT_S24 |
-> +					SNDRV_PCM_FMTBIT_S32,
-> +	.rates			=	SNDRV_PCM_RATE_8000_192000,
-> +	.rate_min		=	8000,
-> +	.rate_max		=	192000,
-> +	.channels_min		=	1,
-> +	.channels_max		=	8,
-> +	.buffer_bytes_max	=	QAIF_PLATFORM_BUFFER_BYTES_MAX,
-> +	.period_bytes_min	=	QAIF_PLATFORM_PERIOD_BYTES_MIN,
-> +	.period_bytes_max	=	QAIF_PLATFORM_PERIOD_BYTES_MAX,
-> +	.periods_min		=	QAIF_PLATFORM_PERIODS_MIN,
-> +	.periods_max		=	QAIF_PLATFORM_PERIODS_MAX,
-> +	.fifo_size		=	0,
-> +};
-> +
-> +static int qaif_map_ee_resource(struct qaif_drv_data *drvdata)
-> +{
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct regmap *map = drvdata->audio_qaif_map;
-> +	int ret;
-> +
-> +	ret = regmap_write(map, QAIF_EE_RDDMA_MAP_REG(v), GENMASK(v->num_rddma - 1, 0));
-> +	if (ret)
-> +		return ret;
-> +	ret = regmap_write(map, QAIF_EE_WRDMA_MAP_REG(v), GENMASK(v->num_wrdma - 1, 0));
-> +	if (ret)
-> +		return ret;
-> +	if (v->num_intf > 0) {
-> +		ret = regmap_write(map, QAIF_EE_INTF_MAP_REG(v), GENMASK(v->num_intf - 1, 0));
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	ret = regmap_write(map, QAIF_EE_CODEC_RDDMA_MAP_REG(v),
-> +			   GENMASK(v->num_codec_rddma - 1, 0));
-> +	if (ret)
-> +		return ret;
-> +	return regmap_write(map, QAIF_EE_CODEC_WRDMA_MAP_REG(v),
-> +			    GENMASK(v->num_codec_wrdma - 1, 0));
-> +}
-> +
-> +static int qaif_map_dma_path(struct qaif_drv_data *drvdata)
-> +{
-> +	struct regmap *map = drvdata->audio_qaif_map;
-> +	int ret;
-> +
-> +	if (drvdata->variant->qxm_type != QAIF_QXM0) {
-> +		dev_err(regmap_get_device(map),
-> +			"only QXM0 is supported, qxm_type=%d\n",
-> +			drvdata->variant->qxm_type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = regmap_write(map, QAIF_RDDMA_MAP_QXM, QAIF_QXM0);
-> +	if (ret)
-> +		return ret;
-> +	ret = regmap_write(map, QAIF_WRDMA_MAP_QXM, QAIF_QXM0);
-> +	if (ret)
-> +		return ret;
-> +	ret = regmap_write(map, QAIF_CDC_RDDMA_MAP_QXM, QAIF_QXM0);
-> +	if (ret)
-> +		return ret;
-> +	return regmap_write(map, QAIF_CDC_WRDMA_MAP_QXM, QAIF_QXM0);
-> +}
-> +
-> +static int qaif_config_shram(struct qaif_drv_data *drvdata)
-> +{
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct regmap *map = drvdata->audio_qaif_map;
-> +	u32 start_addr, shram_len;
-> +	int ret, i;
-> +
-> +	if (v->qxm_type != QAIF_QXM0) {
-> +		dev_err(regmap_get_device(map),
-> +			"only QXM0 is supported, qxm_type=%d\n",
-> +			v->qxm_type);
-> +		return -EINVAL;
-> +	}
-> +
-> +	start_addr = v->rddma_shram_start_addr[QAIF_AIF_DMA];
-> +	shram_len = v->rddma_shram_len;
-> +	for (i = 0; i < v->num_rddma; i++) {
-> +		ret = regmap_write(map, QAIF_RDDMA_QXM0_SHRAM_ST_ADDR(i),
-> +				   start_addr + (shram_len * i));
-> +		if (ret)
-> +			return ret;
-> +		ret = regmap_write(map, QAIF_RDDMA_QXM0_SHRAM_LEN(i), shram_len);
-> +		if (ret)
-> +			return ret;
+On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
+> sparc32 has no futex_atomic_cmpxchg_inatomic() or
+> arch_futex_atomic_op_inuser() of its own. The generic versions only
+> work on UP, so FUTEX depends on !(SPARC32 && SMP) and an SMP kernel
+> has no futexes at all; NPTL cannot run on it.
 
-we have 4 identical loops here, maybe some helper here?
-> +	}
-> +
-> +	start_addr = v->wrdma_shram_start_addr[QAIF_AIF_DMA];
-> +	shram_len = v->wrdma_shram_len;
-> +	for (i = 0; i < v->num_wrdma; i++) {
-> +		ret = regmap_write(map, QAIF_WRDMA_QXM0_SHRAM_ST_ADDR(i),
-> +				   start_addr + (shram_len * i));
-> +		if (ret)
-> +			return ret;
-> +		ret = regmap_write(map, QAIF_WRDMA_QXM0_SHRAM_LEN(i), shram_len);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	start_addr = v->rddma_shram_start_addr[QAIF_CIF_DMA];
-> +	shram_len = v->rddma_shram_len;
-> +	for (i = 0; i < v->num_codec_rddma; i++) {
-> +		ret = regmap_write(map, QAIF_CDC_RDDMA_QXM0_SHRAM_ST_ADDR(i),
-> +				   start_addr + (shram_len * i));
-> +		if (ret)
-> +			return ret;
-> +		ret = regmap_write(map, QAIF_CDC_RDDMA_QXM0_SHRAM_LEN(i), shram_len);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	start_addr = v->wrdma_shram_start_addr[QAIF_CIF_DMA];
-> +	shram_len = v->wrdma_shram_len;
-> +	for (i = 0; i < v->num_codec_wrdma; i++) {
-> +		ret = regmap_write(map, QAIF_CDC_WRDMA_QXM0_SHRAM_ST_ADDR(i),
-> +				   start_addr + (shram_len * i));
-> +		if (ret)
-> +			return ret;
-> +		ret = regmap_write(map, QAIF_CDC_WRDMA_QXM0_SHRAM_LEN(i), shram_len);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int qaif_init(struct snd_soc_component *component)
-> +{
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	int ret;
-> +
-> +	if (drvdata->qaif_hw_configured)
-> +		return 0;
-Who is resetting this flag, this is broken,
-> +
-> +	ret = qaif_config_shram(drvdata);
-> +	if (ret) {
-> +		dev_err(component->dev, "failed to config shram: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = qaif_map_ee_resource(drvdata);
-> +	if (ret) {
-> +		dev_err(component->dev, "failed to map EE resources: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = qaif_map_dma_path(drvdata);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drvdata->qaif_hw_configured = true;
-> +	return 0;
-> +}
-> +
-> +static int qaif_platform_pcmops_open(struct snd_soc_component *component,
-> +				     struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +	struct qaif_pcm_data *data;
-> +	int ret, stream_dma_idx, dma_reg_idx, dir = substream->stream;
-> +
-> +	dma_reg_idx = v->get_dma_idx(dai_id);
-> +	if (dma_reg_idx < 0) {
-> +		dev_err(component->dev, "invalid DMA register index for DAI %u: %d\n",
-> +			dai_id, dma_reg_idx);
-> +		return dma_reg_idx;
-> +	}
-> +
-> +	data = kzalloc(sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +	runtime->private_data = data;
-> +
-> +	mutex_lock(&drvdata->stream_lock);
-> +	stream_dma_idx = v->alloc_stream_dma_idx(drvdata, dir, dai_id);
-> +	mutex_unlock(&drvdata->stream_lock);
-> +	if (stream_dma_idx < 0) {
-> +		ret = stream_dma_idx;
-> +		goto err_free_data;
-> +	}
-> +
-> +	data->stream_dma_idx = stream_dma_idx;
-> +	data->dma_reg_idx = dma_reg_idx;
-> +
-> +	if (qaif_is_cif_port(dai_id))
-> +		WRITE_ONCE(drvdata->cif_substream[stream_dma_idx], substream);
-> +	else
-> +		WRITE_ONCE(drvdata->aif_substream[stream_dma_idx], substream);
-> +
-> +	snd_soc_set_runtime_hwparams(substream, &qaif_platform_hardware);
-> +
-> +	/*
-> +	 * The DMA buffer/period length registers are programmed in 64-bit
-> +	 * (8-byte) words, so constrain buffer and period sizes to that step
-> +	 * to keep the ALSA and hardware sizes identical.
-> +	 */
-> +	ret = snd_pcm_hw_constraint_step(runtime, 0,
-> +					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-> +					 BIT(QAIF_DMA_BYTES_TO_WORDS_SHIFT));
-> +	if (ret >= 0)
-> +		ret = snd_pcm_hw_constraint_step(runtime, 0,
-> +						 SNDRV_PCM_HW_PARAM_PERIOD_BYTES,
-> +						 BIT(QAIF_DMA_BYTES_TO_WORDS_SHIFT));
-> +	if (ret >= 0)
-> +		ret = snd_pcm_hw_constraint_integer(runtime,
-> +						    SNDRV_PCM_HW_PARAM_PERIODS);
-> +	if (ret < 0) {
-> +		dev_err(soc_runtime->dev, "setting constraints failed: %d\n", ret);
-> +		if (qaif_is_cif_port(dai_id))
-> +			WRITE_ONCE(drvdata->cif_substream[stream_dma_idx], NULL);
-> +		else
-> +			WRITE_ONCE(drvdata->aif_substream[stream_dma_idx], NULL);
-> +		mutex_lock(&drvdata->stream_lock);
-> +		v->free_stream_dma_idx(drvdata, stream_dma_idx, dai_id);
-> +		mutex_unlock(&drvdata->stream_lock);
-> +		goto err_free_data;
-> +	}
-> +	return 0;
-> +
-> +err_free_data:
-> +	kfree(data);
-> +	return ret;
-> +}
-> +
-> +static int qaif_platform_pcmops_close(struct snd_soc_component *component,
-> +				      struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct qaif_pcm_data *data = substream->runtime->private_data;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +
-> +	if (qaif_is_cif_port(dai_id))
-> +		WRITE_ONCE(drvdata->cif_substream[data->stream_dma_idx], NULL);
-> +	else
-> +		WRITE_ONCE(drvdata->aif_substream[data->stream_dma_idx], NULL);
-> +
-> +	mutex_lock(&drvdata->stream_lock);
-> +	v->free_stream_dma_idx(drvdata, data->stream_dma_idx, dai_id);
-> +	mutex_unlock(&drvdata->stream_lock);
-> +
-> +	substream->runtime->private_data = NULL;
-> +	kfree(data);
-> +	return 0;
-> +}
-> +
-> +static int qaif_platform_pcmops_hw_params(struct snd_soc_component *component,
-> +					  struct snd_pcm_substream *substream,
-> +					  struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct qaif_pcm_data *data = substream->runtime->private_data;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +	int idx = data->dma_reg_idx;
-> +	int ret;
-> +
-> +	mutex_lock(&drvdata->stream_lock);
-> +	ret = qaif_init(component);
+I believe there are existing patches for LEON with CASA that
+should just be merged, I would not worry about supporting broken
+CPUs that never had this.
 
-Why are we doing it in hw_params? SHould this be done in probe or prepare
-> +	mutex_unlock(&drvdata->stream_lock);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "qaif_init failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_update_bits(drvdata->audio_qaif_map,
-> +				 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACFG_SHRAM_WM_MASK,
-> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACTL_WM_5);
-> +	if (ret)
-> +		dev_err(soc_runtime->dev, "error updating DMA CFG: %d\n", ret);
-> +	return ret;
-> +}
-> +
-> +static int qaif_platform_pcmops_hw_free(struct snd_soc_component *component,
-> +					struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct qaif_pcm_data *data = substream->runtime->private_data;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +	int idx = data->dma_reg_idx;
-> +	int ret;
-> +
-> +	ret = regmap_update_bits(drvdata->audio_qaif_map,
-> +				 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-> +				 QAIF_DMACTL_ENABLE_BIT, 0);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error disabling DMA: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_write(drvdata->audio_qaif_map,
-> +			   qaif_dmacfg_reg(v, idx, substream->stream, dai_id), 0);
-> +	if (ret)
-> +		dev_err(soc_runtime->dev, "error clearing DMA CFG: %d\n", ret);
-> +	return ret;
-> +}
-> +
-> +static int qaif_platform_pcmops_prepare(struct snd_soc_component *component,
-> +					struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct regmap *map = drvdata->audio_qaif_map;
-> +	struct qaif_pcm_data *data = runtime->private_data;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +	int idx = data->dma_reg_idx;
-> +	int ret, dir = substream->stream;
-> +
-> +	ret = clk_set_rate(drvdata->aud_dma_clk, QAIF_DMA_CLOCK_FREQ);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error setting aud_dma_clk rate: %d\n", ret);
-> +		return ret;
-> +	}
-> +	ret = clk_set_rate(drvdata->aud_dma_mem_clk, QAIF_DMA_CLOCK_FREQ);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error setting aud_dma_mem_clk rate: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-All these clocks are prepared and enabled in startup, why are we settig
-the clocks once again here?
-
-> +	ret = regmap_write(map, qaif_sid_map_reg(dir, dai_id), drvdata->smmu_csid_bits);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error writing to SID MAP reg: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_write(map, qaif_dmabase_reg(v, idx, dir, dai_id),
-> +			   lower_32_bits(runtime->dma_addr));
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error writing to dma base reg: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = regmap_write(map, qaif_dmabuff_reg(v, idx, dir, dai_id),
-> +			   (snd_pcm_lib_buffer_bytes(substream) >>
-> +			    QAIF_DMA_BYTES_TO_WORDS_SHIFT) - 1);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error writing to dma buf reg: %d\n", ret);
-> +		return ret;
-> +	}
-
-All the error handling is broken here, what happens if we fail in the
-middle is the dma setup cleared?
-
-> +
-> +	ret = regmap_write(map, qaif_dmaper_len_reg(v, idx, dir, dai_id),
-> +			   (snd_pcm_lib_period_bytes(substream) >>
-> +			    QAIF_DMA_BYTES_TO_WORDS_SHIFT) - 1);
-> +	if (ret)
-> +		dev_err(soc_runtime->dev, "error writing to dma period reg: %d\n", ret);
-> +	return ret;
-> +}
-> +
-> +static snd_pcm_uframes_t qaif_platform_pcmops_pointer(struct snd_soc_component *component,
-> +						      struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
-> +	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
-> +	const struct qaif_variant *v = drvdata->variant;
-> +	struct regmap *map = drvdata->audio_qaif_map;
-> +	struct qaif_pcm_data *data = substream->runtime->private_data;
-> +	unsigned int dai_id = cpu_dai->driver->id;
-> +	unsigned int base_addr, curr_addr;
-> +	int idx = data->dma_reg_idx;
-> +	int ret, dir = substream->stream;
-> +
-> +	ret = regmap_read(map, qaif_dmabase_reg(v, idx, dir, dai_id), &base_addr);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error reading from rdmabase reg: %d\n", ret);
-> +		return SNDRV_PCM_POS_XRUN;
-> +	}
-> +
-> +	ret = regmap_read(map, qaif_dmacurr_reg(v, idx, dir, dai_id), &curr_addr);
-> +	if (ret) {
-> +		dev_err(soc_runtime->dev, "error reading from rdmacurr reg: %d\n", ret);
-> +		return SNDRV_PCM_POS_XRUN;
-> +	}
-> +
-> +	return bytes_to_frames(substream->runtime,
-> +			       (curr_addr - base_addr) %
-what happens if dma has not started yet?
-
-> +			       snd_pcm_lib_buffer_bytes(substream));
-> +}
-> +
-> +static int qaif_platform_pcmops_mmap(struct snd_soc_component *component,
-> +				     struct snd_pcm_substream *substream,
-> +				     struct vm_area_struct *vma)
-> +{
-> +	struct snd_pcm_runtime *runtime = substream->runtime;
-> +
-> +	return dma_mmap_coherent(component->dev, vma,
-> +				 runtime->dma_area, runtime->dma_addr,
-> +				 runtime->dma_bytes);
-> +}
-
-This is dead code as fixed_buffer_all does this,
-
-> +
-> +static int qaif_platform_pcm_new(struct snd_soc_component *component,
-> +				 struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_pcm *pcm = rtd->pcm;
-> +
-> +	return snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
-> +					    component->dev,
-> +					    QAIF_PLATFORM_BUFFER_BYTES_MAX);
-> +}
-> 
-
+      Arnd
