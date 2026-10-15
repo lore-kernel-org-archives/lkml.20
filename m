@@ -1,62 +1,64 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0675629BD9A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E95D3D953B
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:53:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032827; cv=none; b=g5PoErarNylKAAU87zfFXh/zZhdg0W+K0wIvdNjqEZEqfNNjfFYDecsKl4HiZcqzz80ZYqyci164aA/R/NFvW9ofYaDpkxQXNqXTZhZhI6wfqGpEQTvVjQmngBIU07zid2sYtXr5QVg4xLuaTiVBQBMhqrGEtPItvTSSFpn3ldI=
+	t=1792032829; cv=none; b=YjFkkFpSb7KqQkblg4N4wJm4Jx9fU/qByeg3MEdrw/5y0YM5/xrFlCisaPFtgFgIgXW4TRl8WX+iymyHY+SMIy36NQNv3Iq/sgEDXfJzpWX96VgJeN6GfYmhTt1FzSpBkIC9t6wGXXmEWvF6tn5J4vKjV0AFXQZ3awhDPsC/6VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032827; c=relaxed/simple;
-	bh=+goexvJ0rwrjMhmWxwsLRC9mJ3wlevf0fb07kJ0niV0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l1hG+5JYZOLV31J8g5TKek5qK2TOVPx5UfL1JYE+DUHX9fAq2TFllDa4cOr43B4/z1luoLrnbryYjKU/WdMaFFgzI/0M9FC1FSQ2zE0+ll4CNtEdt3ZNjAaNS88/AlErQGENRA3KqarXYgDGEStWxOgB0Zf2yVI2H9J4AUZ4kG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tB9v/yjZ; arc=none smtp.client-ip=209.85.210.171
+	s=arc-20240116; t=1792032829; c=relaxed/simple;
+	bh=iU9ZRLyySo74AB9A1zhSn36j6jhUhvpNTo1u5XM2BtM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lt72iKUXYsdrbu92vAJ7lY4sEKdtEv0yzZ7ig/ylLJS0ARRe7M/Jz4EraVtpBOEF8Qrp5LiybPrV5b5Ou9VRAt/9IN2oz+w7hm/4o1PGcrqPla13IqQXxkpkwawQemn9baQ+sqmYRutxHPt+yCiXYC0QfHEAUBbovj0JU001hho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=byssasUj; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tB9v/yjZ"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso572063b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="byssasUj"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8897e83332fso3074728b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792032825; x=1792637625; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gZigGVShNXb8M9xxdtd/aausWvbyL1B/6pZf5rZeo2w=;
-        b=tB9v/yjZmcH/I1MHTb5y+bFI+7MxChRpzybJPeenrCCVSm7jDvvS48hi0TGYRw71VS
-         jaHu0g64uyww20zrybUtTwhm1PMxHwx7TWZ8WYk+fs5p853IgVM7NnzSPsS5RcMyDII1
-         b+JWZfEyaKgo2ocfkB4UhuZ7AeVasHY00HRnRB1tUHGFJyLpOaMzbxrFu+Ud/RafWGyq
-         BYgwojs5L0zIl+MfD82In8Mf3/vNKTXnBGMMAj5LdUOpKX58drIn0r97OqTyYgI9azfS
-         SsUyqxRiMPAfpc2qig1P987U2rucjZx8PLenI2c1C2GpBeGnXCYzYQNTutd6vKxSHa07
-         Kgaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792032825; x=1792637625;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792032828; x=1792637628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gZigGVShNXb8M9xxdtd/aausWvbyL1B/6pZf5rZeo2w=;
-        b=YEB+9wumOEL1nKAPshSzDp+TZK89dkOpZgNBWBSCyz5agqxCpHMkA2tRyZvLpClZHY
-         OoDgSquLOYphyMxBMhvbZgKL2NmEoVMVQvHMoQD04n6u9EPIwpRwpSEjakVv6DvRkzxK
-         rS+C9aYqz4iOdpMEQhXUmd9XFrYTFxd+9l8SQ4SznpMvpYz0igdGIx7GmT9PvhdZ6Zna
-         ngb9PGfepe7suOsK1NGeov2XF2FLkvWq1I9sWQEOVO/9N7u9guOyVGU9kjdrq1KBkli7
-         jqHgvV1tXRPW8CcphzdLKFX/7k2YbcufDSz2CrlekH9sWK3BelrIWQ9UTv3/haZIX9Z/
-         9OxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhrQcxn677IuHvszAdFrHidk+In5MGxJhNaEJL+mt7EdRCb14E4UwsxW8t+ZhlmVVv1uDy9b3Ubl6RxbM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDjQ+GUaIsoVSwh8nt6Yj5yOz7pSN284RU2YXX2J5npSTX3i0W
-	UNVi/gnQxGfDcDsRAuTINUulwQAGfEOc9YG1ejvq5A7ka0fS7ThTBQ5a
-X-Gm-Gg: AYBFou1NyUOXjU/o2NxnmRNAQWdrRAq4CI7RRoIeLntw1URA32mwO8UTenlTL9nlfQU
-	vSEIYgfZ5/p87S1/HGcC++cq79grY5NAT3Zs0jI+g71VBDJr7/Yxj8yxnsRn4NAN9ARhrFi/N8F
-	7n6s/a23BjaFk8tu37id+wokiG/vaFmJQ9vHaBtIkcde9Vine60Fl3A0+IbbGHP3bkRVzGeod3+
-	JWadcuRHhvENkSF71Fs4HG16Sl6e2CYPJ6i0PLolrA/tkJSWMZmkWWhuqmNw0XyIYkP93a2Jqjk
-	GE/4cZOMc7DhP/tj1fYFHGn9Q4gj08pBMa2PnITUH9EdaC5oA2yOJjOkDuQb0J8ZfdaceIyzuwI
-	uz3mR+qxA9EYUZYZPd/0ibecUduPvsZX492/fWofCq7uHlk7cLr+F3dlnpsPX86ZrCtEZMVDlhI
-	qHWqslKg5cHhNIRzXML42Y8UEpnZUl9132sNY6ZdmudsoPS8DIghvfXNBDTb756i4Bta5q+nKa5
-	QTcpvSIZHIWFYG8shCBti/zB2/lPTEW+rWLbrpL+jUro/ui4HN1RuP/Dife8Pc=
-X-Received: by 2002:a05:6a00:148b:b0:886:5f48:3fca with SMTP id d2e1a72fcca58-897c76e308bmr15340019b3a.37.1792032825083;
-        Wed, 14 Oct 2026 19:53:45 -0700 (PDT)
+        bh=X0jwQSa7/KFwBhQ0eU8j/tY9IdNhu+VSiabnKKJdx54=;
+        b=byssasUjKSFFgorwMItuhyRSj4MWXnZagWcWw4Zkxw6NeWeXwRvloX7VKhv0VX193V
+         IJO2SxuHz62FA9EtfPXp7qQGEaqZ79gOxrklNx9r0DRVyXbySQ0BbnbiOJh+03vaUgx9
+         bbEOHIvgAuFi4vXhUu+/oVBLiK0OMkJJhoGmy6ZVIwbQt5z56jiX6rrRE7yRCJVHSlgF
+         vPSNbIMC+YvDGuMO/++OyR/zJ2bLQxy+kJv6jBZdgv1HiEzd2ATQcUngAwTQOt/CKpeX
+         ej9Q6rAdTSuZ29s6Gg5dP5pQz8lwoOQasHVLXC1CqkTSWHTOzjv1CPeY1Lmo9WKLFMU8
+         +3dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792032828; x=1792637628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X0jwQSa7/KFwBhQ0eU8j/tY9IdNhu+VSiabnKKJdx54=;
+        b=CZErB13FDzwZsJHPjh/VY3a54crMZQIkLxf73N2PT4eCNgFXHr+m5sVYPAsPIk4ux7
+         zXpuichlRCrHxd2hQC/q6rc1+PJ8kArdzk5xRcEjwW/lqxpHirfxk5zzvw95+unlTpmN
+         aWLG6LjbLa0Om5QVGmOOQL8kP4q8NQcOOoOLSFknnotgcKiix+ahkN/Z6WZrjtrK3Hh/
+         U6Mr4lU5TiX2tLnQJqf/hccaM939eCz4X8kDRbhuLrj6NhwwMv5kRet6xVernZu5SISc
+         eXI3bzju/8GK3mBxGpRJLqh1sS+dbq/xBF/Ny1xnRYDIoVgpKcAWpZO39Lh8CvchKfFP
+         FpFg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0+Y0+kJPSxxVzchm7f3S6UOYEOigYnztMTAdTTKuIYtTStUrPKxcE2X6BkJGc27uyOl0MqmxPLNhb7kI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS8zqEHHCbJDlHqgN6x29D2z61QrHkIB1PbMmmrW7zv+nQ+96A
+	aaWADfQmHoRdix1EoC3zeoM0blHh1KV0UGxgFOw7+P4TtdIosJTP78mM
+X-Gm-Gg: AYBFou3aoSy+ApgyQxv0+/Ygd5+MZZ/l/ygEvRLwBIfuXQCqKRg2JC9Y/h41V/lnZod
+	MFojQkyf3Q/yODwLkZwPJzCPJXX6kd2/bypp6WcBVa4/NBvDgiDlevyxZKsC6jzgrDnenBpzpBX
+	8frXndWOs13eS/lg+TbBWWO8hHABbZH7HnI+oSy2ufWJFpx/K7+xnS7uDK1bZUZWznQZYjlbtHy
+	8F4ATfk9Y8+P0Hyv9QWHzqvnyY70e9SwbLP2itV6jq1ujyPSfy5MZ5gZ73JaErpjZbgPFCzJYrw
+	RYHcAb+Hw19IxhWUFfrH7cvDsT8rbkD+2jwF5y8UOHJj960FKUCKo2M+01IGlYnK5Tkua0ztOcd
+	n1BZrDGJrkIVY3T88v2+B+RdqcqIO19BGGH+wis8zAzvcikzvgCzxB/BBuI+kueCbsKGIBL5ufE
+	ehFZ8+eltmRg98NQXVaHUO576FwJ2kNr1wSndzZzHFIlM+GfD3N5IRwyUOg/fXPyWIDUaTctnZm
+	eWv6vy89r01temrGBwyMbUlv/59FOQHNKy3mAxqWCzDFig+0+JjjspUWkGg1SCJ
+X-Received: by 2002:a05:6a00:c4c6:b0:88b:7e32:d91 with SMTP id d2e1a72fcca58-897d316cdbfmr7112036b3a.6.1792032827798;
+        Wed, 14 Oct 2026 19:53:47 -0700 (PDT)
 Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802d10besm1706735b3a.28.2026.10.14.19.53.43
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802d10besm1706735b3a.28.2026.10.14.19.53.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:53:44 -0700 (PDT)
+        Wed, 14 Oct 2026 19:53:47 -0700 (PDT)
 From: Ivy Lopez <skunkolee@gmail.com>
 To: akpm@linux-foundation.org
 Cc: david@kernel.org,
@@ -69,11 +71,14 @@ Cc: david@kernel.org,
 	fvdl@google.com,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>
-Subject: [PATCH v2 0/2] mm/cma: fix range selection in cma_declare_contiguous_multi()
-Date: Wed, 14 Oct 2026 20:53:39 -0600
-Message-ID: <cover.1792032699.git.skunkolee@gmail.com>
+	Ivy Lopez <skunkolee@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] mm/cma: fix list_insert_sorted() ordering
+Date: Wed, 14 Oct 2026 20:53:40 -0600
+Message-ID: <55118c45ec8251d7be2eaab87d9c0af4b8513161.1792032699.git.skunkolee@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1792032699.git.skunkolee@gmail.com>
+References: <cover.1792032699.git.skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,44 +87,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These two patches fix two independent bugs in the multi-range selection
-of cma_declare_contiguous_multi(), found by code inspection with the
-help of an LLM (both patches carry Assisted-by: LLM).
+cma_declare_contiguous_multi() uses list_insert_sorted() to keep its
+candidate ranges sorted by size, largest first (revsizecmp()), and by
+base address, lowest first (basecmp()). Both comparators return true
+when the first argument sorts before the second.
 
-Patch 1 fixes list_insert_sorted(), which does not actually sort: it
-stops at the wrong entry and, when no entry matches, inserts before the
-last entry instead of appending. The caller assumes the list tail is the
-smallest recorded range and that the list is walked largest first.
+The helper stops at the first existing entry for which cmp(entry, new)
+is true and inserts the new range before it, which is the reverse of
+what is needed. If no entry matches, mlp is left pointing at the last
+entry and the new range is inserted before it instead of being
+appended. With revsizecmp(), inserting sizes 1 2 3 4 yields 2 3 4 1
+and inserting 4 3 2 1 yields 1 2 3 4. The first range inserted stays
+at the tail until it is evicted.
 
-Patch 2 fixes sizesum counting the size of ranges that were skipped
-because the list was full, so the sizesum < total_size check can pass
-when the recorded ranges cannot cover the request, and the function
-returns 0 having reserved less than asked for.
+The caller relies on list_last_entry() being the smallest recorded
+range when deciding whether to skip or replace a candidate, and on
+walking the list largest first when picking the final ranges. With the
+list misordered, a candidate larger than some recorded ranges can be
+skipped because it is smaller than the first range found, so the
+function can fail or reserve less than requested where a valid layout
+exists. For example, free ranges of 4G, 7 x 1G and 2G, in address
+order, with a request of 12G: the 2G range is dropped instead of
+replacing a 1G one.
 
-Each patch fixes a distinct failure and neither depends on the other.
-No kernel-level reproducer was produced and nothing was tested beyond
-compiling; the examples in the commit messages come from a userspace
-copy of the helper and the selection loop, written from the source.
+Insert before the first entry the new range sorts before, and append
+when there is none.
 
-Changes in v2:
-- resend as a series with a cover letter, as requested by Lorenzo
-- commit messages now state how the bugs were found and that they were
-  not tested on hardware or in a booted kernel
-- add Assisted-by: LLM
-- patch 1: correct the sentence about the first inserted range staying
-  at the tail (only until it is evicted)
-- rebased on the current akpm/mm-new
-- no code changes
+Found by code inspection with the help of an LLM. No kernel-level
+reproducer was produced and this was not tested on hardware or in a
+booted kernel. The example above comes from a userspace copy of the
+helper and the selection loop, written from the source.
 
-v1: https://lore.kernel.org/all/20261011003059.169430-1-skunkolee@gmail.com/
+Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
+Cc: <stable@vger.kernel.org> # 6.15+
+Assisted-by: LLM
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+ mm/cma.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-Ivy Lopez (2):
-  mm/cma: fix list_insert_sorted() ordering
-  mm/cma: do not count skipped ranges in cma_declare_contiguous_multi()
-
- mm/cma.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
-
+diff --git a/mm/cma.c b/mm/cma.c
+index a10ea37a261d..527b2d894f3e 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -348,16 +348,12 @@ static void __init list_insert_sorted(
+ 	struct list_head *mp;
+ 	struct cma_init_memrange *mlp;
+ 
+-	if (list_empty(ranges))
+-		list_add(&mrp->list, ranges);
+-	else {
+-		list_for_each(mp, ranges) {
+-			mlp = list_entry(mp, struct cma_init_memrange, list);
+-			if (cmp(mlp, mrp))
+-				break;
+-		}
+-		__list_add(&mrp->list, mlp->list.prev, &mlp->list);
++	list_for_each(mp, ranges) {
++		mlp = list_entry(mp, struct cma_init_memrange, list);
++		if (cmp(mrp, mlp))
++			break;
+ 	}
++	list_add_tail(&mrp->list, mp);
+ }
+ 
+ static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
 -- 
 2.56.0
 
