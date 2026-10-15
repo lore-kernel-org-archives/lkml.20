@@ -1,241 +1,295 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012065.outbound.protection.outlook.com [40.107.200.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708773A6F11
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:46:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086401; cv=none; b=R1eyONElACns6tTOUq7LCCMoVgBCRw2ikFRY5ZLxs9Rzec3CcIKTYGJsALPsxqepC/9lhlEJpmgeoJezs5L3BM9t01BHUtv0iYQPE4dXM71Bhda6UeUtxm/g7STlNG8d8elL7anroJLF8iK8Ql9vXUb21WaMSOo11L2i+qZRnkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086401; c=relaxed/simple;
-	bh=3ucozJp1Vb41Q178Z0Uce4IWui2IT+J8Bb+v709B0LE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HdKM9eTxTFCnIZl8SFcLTkwUfL5TdbuSzYOcFFMK1dq6okYRiypCJ1yHCb7U9CGV4VjxCbTugVt3re0vHP/dMWonZc+IimbGFxR3ivFHEjUxv2jTMdajAyD9AUKHtkUiLoR3tGMCFxSfGWWSRva3+cNAPT1s9uFSdLkDpOuOfJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FGT1PNXB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fn0/0OMx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0CD3B6C00
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792086444; cv=fail; b=S7iiwfTglCbVzFUt2OZ2eE74Mdvdq/VT7iSlPIYlVyCtkUTpk2GbXhiZCN+vddyRc7u3vOSsDAdKBsl4YDX+QaI3Uwoh3yg7NPkQS0rSRZRroRx8UXKWS0y1qYm+imO3ks8niaRmzwyl5f9474DpdldGoeys0X99qAuS9rFtZyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792086444; c=relaxed/simple;
+	bh=VcyHddYBHqJ6e/TZAmrv6oBM5qISJ8RO9JgbvEjqMjw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=b67GGn8c27ierLcGdGiZgZcCCibVmyR/kKdK+GLUuJXPS2yNKx9UutNXMjmver3YjSA8HMvhIozGNYjILvkFxWOhop4P5iFYzZSBG7D7JELrty54fgIMmjZuM9LfAqea7otIUpYdN7ooHsoKw5/9eWPEea9ZuxkK0qadrD3MPgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AiLo8NRt; arc=fail smtp.client-ip=40.107.200.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FGT1PNXB";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fn0/0OMx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792086393;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=LQyA1+wc/ZZYzITRZkdnU2lflpO2io/1YEZU0uiNRh8=;
-	b=FGT1PNXBf7ZBg/r1WSU3ivnVoTcsO7bx+Zq1ckBTst89Y4FopPMbE/hMnUnLO4VGjS6YVV
-	+jHpWSW7vfKwdo31NWwigsAv44Ev2n1cvNZ6FspQ6Z0xkJF3YVPPPPtoT4eZWgNqhu+ug0
-	HeU9qy1ApfYfQPQEqdafWNpsrVNuobw=
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
- [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-194-R9nj1-DQPC6-1IynOwOc1w-1; Thu, 15 Oct 2026 17:46:31 +0000
-X-MC-Unique: R9nj1-DQPC6-1IynOwOc1w-1
-X-Mimecast-MFC-AGG-ID: R9nj1-DQPC6-1IynOwOc1w_1792086390
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-151ba226e1bso6754045c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792086390; x=1792691190; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LQyA1+wc/ZZYzITRZkdnU2lflpO2io/1YEZU0uiNRh8=;
-        b=fn0/0OMx0r9SoQ7utO37ulxRK0wjSNj4krFE7fx8RSd1kXghp9nbCZBrGLWbj6/X/M
-         SSDdFdXhqMz83Tv8OKAHOV0F+dnidacdDAJPD/IsHzqsnIIn1MfKqKnk0bxD6Xq+Pfda
-         ik1ljt/KOWtD1kjKLYiQDu3O94nKoD4okE5FiJsTbDbrW9fFiUyEdznPIRfDR7Qjrx/j
-         pSFsImU1dom+KyQQT6V45fLmNygKM5WNLbosUZy3KnSOedDofN7GsFtoy4pPd+D3H87d
-         NYBniJcdveNY9eiFHqcEswbH4zNWUv1SXHvXHpvk1HlvaD0ScivupTK36wXPukP+9KsW
-         zo3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792086390; x=1792691190;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LQyA1+wc/ZZYzITRZkdnU2lflpO2io/1YEZU0uiNRh8=;
-        b=PeMIkLKeH6zlCtWlLMWr075Bdaw/UJQQ6J/d3FiqHKXzYpvg6qj+UFw3OiHc3VTl5t
-         OZqePUC3Gah83ACOMtX5HavUtlFQ8p0OyMDtA8v6c5Z8jqjtfCqixSDi7zEggjz6xURa
-         ztlq4VYIl1dn6PMGIWV2OFlHZc5vFWrmXNt2ByAeDShodHOLgRfGvRhe/NOBTPby3eeI
-         Q8VD/QxqNpVbMtc17lmBhOhN5QxvAubbr19SfoO1Yy04Uf/yj1y3TAws13L465Mg9uAw
-         zRCM9S+GIj9d+XJO7V/Wc/+yX60Bt7m5o7rY+3WeZVCwCwXOyFi/tr/3i0nCh9JN+CQn
-         Pfrg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7HuQ9yj13R1QNLJevhW2LyHu8LxDIyc56t7sRgE4WzOonGnRkGaBOaSCmptJy9f+ifLxCrbFYSYVDpLM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3uuRVeKov8AoBljfajoEuxnr9CXXAvajOW+Oa8COhUssPcPIU
-	eJ+fp2eB4M1M0DykkH5hrdQ5UZaraGGCQv8pDa6eowfbmPF1sFLp5kJ3V571xL4XD04cRRN1+1v
-	SOBTdVzpBeNvab3w/cwSlHUrxqZNqOCMN3lbuOqs9mq65JNeV+6HIMJ5rKfpduCVOBA==
-X-Gm-Gg: AYBFou1pjd+mm8+gUPl4HCl2SQOTh+gWwf/UYjl7OmsXIL22JUI18JDB8cLv2CkiKiI
-	yjAKMfbSCeao7Wa8szb4A4WK03bQWWWreIDF952sdCZj1RicrHfjGwAsnuXu3uYRWGzE8KIlW3k
-	/cZT3K8bde7t6fxC9e5Dy6rw7ip101dhFqAUESr6BtF/XtaTrU8Q0+EpbOqsWNmDKhspjQP1pD3
-	GwnMDxsON0SY77H+IVdA1/MDs8ZRXcEOGaqq2Cfbpv5lxPUZJWnp7N/yytkQWK7Y9oxPkxy/rPz
-	2BEC2/K9/BUF+bN2tqgAbOiMAOEFm3njF2dp18nRAswSWI/ubQ/8EQWgbROehjc4NtAwA9oPjDF
-	oTAUSs833ZUcKfWCFJu2BRsXhhIHPcbTvVSwJ0lzwLTKyouZV6nVS5tGgypXKU0GVzXMD7Xb6+m
-	jA/WcoI7BpnfKoHydUidxTcuv0n7MUlY79RSLl9JBUT++leMjolmn2LyR5yWanIzCkjH0H/QV56
-	vI=
-X-Received: by 2002:a05:7022:b0d4:b0:15b:7f7a:730d with SMTP id a92af1059eb24-16a603445b0mr27652552c88.28.1792086390204;
-        Thu, 15 Oct 2026 10:46:30 -0700 (PDT)
-X-Received: by 2002:a05:7022:b0d4:b0:15b:7f7a:730d with SMTP id a92af1059eb24-16a603445b0mr27652495c88.28.1792086389268;
-        Thu, 15 Oct 2026 10:46:29 -0700 (PDT)
-Received: from cluster.. (4f.55.790d.ip4.static.sl-reverse.com. [13.121.85.79])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a164a7f3sm452719c88.1.2026.10.15.10.46.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:46:28 -0700 (PDT)
-From: Alex Markuze <amarkuze@redhat.com>
-To: linux-fscrypt@vger.kernel.org
-Cc: Alex Markuze <amarkuze@redhat.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	ceph-devel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AiLo8NRt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q7YsjG+w7o7mt12fNt3B7nx1R3N7YsUzUZh0df81FD0lUbpZolNwsYo12OBE0QriBjnqrMITWMC/RzPPXiiSTVQTekEn/KFQ1eVJV6wf8kcAsIsLJ6/qHye3V+1ysHcDWbr7cXv4M1QUedf1WVmfod2Uk/BLUigl+7dU5Ta7tmUQXkMLNOWKPX2I82ryc6mtnhxAMMcGxczyC+yEBCtYvgYL2C2a5t+SK4h92/H809wOGPs8bIjoQX9fErRWAdLLSL50LHPIzD4scYrzSBccZ1I97C0E9Z56SYVryHRuSWPBHkIgGmU8glrM9AM2ijp1nMRVcWf1CX/yVwiPDWYQQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZKAOu1UHpHBX1M3TtTidxJLm8+Z29fkGSm4YqBUIXJ8=;
+ b=Zo5DYHtAZ9p3I8u4QT/UXsBXNpkV+4iOhWhDZVeYrgTDG57ooEFegdUcBAy3sgwSksNwVrdgo52J6jgm6PIwcITLRxCPqylOKdXsGhpAuM62RD3jNYwQKgXLTl6GaXGL385a8tch1Mcdf7Z+g4/ckf4lQWqC+sI9RA+v7LQ138mEGBR50oR/tXv04iLqTnW8jA8xKEzgGSJcRnWixwjoIwpZVUt4ubtuqr5X75mqImOu2KEAE2xMrqoNzK35n+5O4T6FEJbF0MG4uq+3AaWRJl74dFTym3drDfxMLHNWZ7mQ2BGhGT07uAlXlTLGRSaOJa0E11t+sepsNVKm0YaUSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZKAOu1UHpHBX1M3TtTidxJLm8+Z29fkGSm4YqBUIXJ8=;
+ b=AiLo8NRtJb2qfoak7m4WCMEKw1+bz0/PH+elaR4kVV5yqBqjxlgyyepbFPYsCEt4pkqRCFfqNqCd0ZyzaIp7STAyvZiwRhw+BQJpj6H23PXk8/3jDSKK6nx4YpUxDd99ni+zTwo1lgidIBSye4GAsIeU5AFwcTDkIxxJ1S3QbU1091+c10MCg3FehOk0Rp3MJsm83dPG8uiohHF4uZOgq5zIjoafxf8ALU5Xqzb2gVDb5/wfp7rPCrl76RJDU7ieDLoSHXbdwyP7U4YFt/WpJpNsE9459SpaERSFEkZ8ZPauSuGIAzFjjBt3L/flsUUPa9y/33u9G4sIjZb/K2KUeg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CH2PR12MB4214.namprd12.prod.outlook.com (2603:10b6:610:aa::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 17:47:15 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 17:47:15 +0000
+Date: Thu, 15 Oct 2026 19:47:06 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] fscrypt: allow filesystems to disable symlink target caching
-Date: Thu, 15 Oct 2026 17:46:24 +0000
-Message-Id: <a01d0a297a3e174d21741a3ad586ce546327603e.1792081664.git.amarkuze@redhat.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Fix use-after-free of
+ a local reenq node left on an inactive cpu
+Message-ID: <atERmiNFIgyR2ykL@gpd4>
+References: <20261015171628.714661316-1-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015171628.714661316-1-tj@kernel.org>
+X-ClientProxiedBy: MI1P293CA0018.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::12) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CH2PR12MB4214:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5d526ec-206d-4e8a-5714-08df2ae459a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|6133799003|18002099003|22082099003|10067099003|261009223027099003|11063799006|261009221227099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	m4ugHU1NPzN7briggMB+SAud1JvR1gFx/+VQbUlZ+EYWFL4s2I+GWWt+yh+sQ1yl706YNNc2HTbhh2y9nVBzzxBiUE1IYphJ6oDMaDs4nwxySuiW8d61Mi32+zaE4VJ4BPt39JzQ6xLMfTkNT/13Fjtt9S3G0pk93srxW/RZrSXT9Nl1J26lN4mhut3BrwpixNB3e/mInVugSK4tnndFFjyX+DTfL9TCdMyNyLNNnsM0+ZRHzTDDYCjQHd5+OLhDhPEWWMEP3+zv+gcTKoK+ORnr5+aoINf2c3uy2GChh7NF2+2OxUSUEotudoRvDzA4fDG9Xm66BoSvO35dGhLr2Tb3MB0SmSY6nczdET1WUiou7Rhyksntk3Vc16Zx/i+jhtYmeEWjaV0/Frstsx73D3WaP++ImGITolunsVc3vRxi07yoI+ZcHYKIyXPC2dAFv2Hl0RcYXIh3eDk+cncGGRJ3N9RM7gKnvgJsgzUeglcstvMIoaeDU/aqDo7qh2Zcf5s6Xx/RV53TMez4PYyCFjWU7eTO5LE0Ks724/3lACror+DRFp81V7VFe5KdFZth0U6Q8rZVPo16HGw7kPrGk2HIe2Hn5JpFJ47Pli8gHLiZavYhyg/YX4oxNTpNMOs7Qv62HDEIjcG4PSLrwtT+jdAGiMkOo1P33ENZy12AVXw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HMF77+7GocqBlYV+cg/TcZgdKi2Kv5AWFtTHkTXkiFtLPL69O8ZFhKa+IPcS?=
+ =?us-ascii?Q?wE4yFAwjVnFXdVi5XgEGxYU6I3luUZExa46ImTi5qi398S9wyKkxn7Lqzdoe?=
+ =?us-ascii?Q?FGzsd6nZGjdJkWUahcgqyWtmfY23oDlPBrjHsM8PxjC27od2Drc0M3Qh80M0?=
+ =?us-ascii?Q?YbcqIT22ZTL3CMC+1fGvC7tM6V1saxqwrNDBQXrRXC+XF4gpDTJqC3XNdFBP?=
+ =?us-ascii?Q?6mLWBmnoTultc6+5g082KOP7R8I+jZnLR7Bo8ZJbqTp2a3HSuwopQL5VnCuw?=
+ =?us-ascii?Q?0Eibd4+Q0kSma9yL8OGb3LLn9kYesJcJ6gncq4mgrPDKrOXy7hiUzQ9X7tC1?=
+ =?us-ascii?Q?hQ7JQ9bPA/4dflpRtThOA0VjYdHJfG1ASRx+/OhMSfNN/Sgq+f8pjnzCZNKP?=
+ =?us-ascii?Q?ULK93kkgjIC7bWWqxIRosjNIuwwSW0Rw/TtruNDTglLoWQqbYycnq36jAUcv?=
+ =?us-ascii?Q?KapCUwDiKqGs0PaE81h/5fs6HDqonzSV5lmLWpdlNhJvmnbKQ3gAX1Dv5JRq?=
+ =?us-ascii?Q?1c8UFoAKutNUl86FN3pws0T/N0AfkpQ01F1a9/1UyuZZOY9/KnBAnMv0IlqZ?=
+ =?us-ascii?Q?Nfy3wp/EUlFbxAbR1PTMFbkaaInXcExxH0Fcl56DN+6t0B1hS0s6Zz26r6g/?=
+ =?us-ascii?Q?dNQ55hs6lPWznb7v/LtPX2ba4VticZx1/ECDR31y7BbjXjqKYyNRQ0YkDY1q?=
+ =?us-ascii?Q?QeYc5Sjz5r3khUfSKukdnqlYwvZ+BUdatDiow5zIbH696HjuLXVRv1lP0vt0?=
+ =?us-ascii?Q?vtvZfjp/Nx4L2B4RXVyEtJ3nWc38mkpUUwtOnr7mMbakb2cF6aLwmWdrgddE?=
+ =?us-ascii?Q?OfVBcwi58jipYugvBMiyL9CxO7XKHeFSJOitna9TbRAGb2w4ZCfc7TB0sajZ?=
+ =?us-ascii?Q?Tt0NwkkfYZxrh36rHm16Q4cfUbJe++rcSONOizaO854BnFVWiGjb54/ISq+a?=
+ =?us-ascii?Q?c4Btnwfe4jh1WaFFOEjAgs4eSnf4Z3VBlbJ3hlNtp0g58lrsCafa1AmM84pL?=
+ =?us-ascii?Q?9RL/0WkixhDF7/g/oTHXpwu38cSPlxgJswVMbSC92oOOS1PMBAMR0LlfGHtB?=
+ =?us-ascii?Q?G2tQbQZlh2m2T8Nyl9s8AukWArzPe1ET8i6mG30MudqZY8k7JHY78I9iENo1?=
+ =?us-ascii?Q?IpebWrvM7B4r01ko+7rKAysm0tzis/40oDKBZHldE5xYfLEFcOHuW3MLuJFO?=
+ =?us-ascii?Q?uUXvto3uYQCAHn1J0KyFce8UCRlq4bG9IKck/Xg7FbBBsq0r+7V5Odm+2UKm?=
+ =?us-ascii?Q?itUmAePP+nXMV0Cy9Iwc9izNMMl0LVnpR1vjksHgv5Sh7HEa2yUHdDT9h0JC?=
+ =?us-ascii?Q?ZixbJmMC+QrsqHa5UGo9QiLa/45bUxY6yqWTpvBMOvWZobPlwcKS4n/tOOe0?=
+ =?us-ascii?Q?jq8EOtvqGizAPzWDirmOVh1qXeFta3swMH3DL/DJQGBJVDqniQuOgHklvDwR?=
+ =?us-ascii?Q?bPBGKaM5WaAuzdOvTg1t3RvLJtCQyAwJf86F/bzjV8Ufg2DMHYhBCX6q6ADT?=
+ =?us-ascii?Q?w5QjpNY828knFcLsO6bWpYIr9z/Z7YMrTYt5YVws9wKdQROvZvD6UaF3qfjt?=
+ =?us-ascii?Q?yjR3DRzc0skj9sqVROaar87y/r0RSNjE2vBHbilzZHvCOogbPTuX/h0B/YH2?=
+ =?us-ascii?Q?XNApymq7qhvqThRk8ivD55VVY9otM0kZLQZ1CNLU/nmLo5Sw9Gr3TFwMqZod?=
+ =?us-ascii?Q?AXvf39h/j6HkVJOM8pAR7E1xQSnKmK4f1gTyCAyTCB34I4jY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5d526ec-206d-4e8a-5714-08df2ae459a9
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 17:47:15.6113
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AZeLcHPwzojazpEP5/CAHUx9m721COuO9yofrS0+TQViYhyDPabdgUHThYIgwhU7VuRaS5VZ+TxU1JCQ2MeKvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4214
 
-fscrypt stores decrypted symlink targets in inode->i_link. The VFS can
-use this field without calling the filesystem's ->get_link() callback.
-The target can remain valid after the access policy changes.
+Hi Tejun,
 
-The CephFS subvolume quarantine series adds access checks to
-->get_link(). Quarantine can revoke access after a target is cached. The
-VFS cache can bypass these checks.
+On Thu, Oct 15, 2026 at 07:18:05AM -1000, Tejun Heo wrote:
+> A local DSQ reenq is queued on the rq through a per-sched node and run from
+> deferred work. When the reenq is requested from dispatch, the work is a
+> balance callback queued once dispatch is done. A cpu going down installs
+> balance push early in its teardown, and queue_balance_callback() refuses new
+> callbacks from then on. ops.dispatch() keeps running on that cpu until the
+> rq goes offline after an RCU grace period, so a reenq it requests in that
+> window may never run. The IMMED handling in dispatch_one() requests one the
+> same way.
+> 
+> A reenq requested from elsewhere for a cpu that is already offline goes
+> through irq_work_queue_on(), which warns, and its work doesn't run until the
+> cpu comes back.
+> 
+> Either way the node stays on the rq's list. When the scheduler is freed,
+> scx_sched_free_rcu_work() warns and frees the pcpu with the node still
+> linked, and the list is walked again once the cpu comes back.
+> 
+> An inactive cpu's local DSQ holds only tasks that are bound to it or are
+> being moved off, so the reenq is pointless. Ignore reenqs of an inactive
+> cpu's local DSQ.
+> 
+> The test is lockless. The hotplug thread of a cpu going down runs on that
+> cpu, and it marks the cpu inactive before it installs balance push. A
+> dispatch on the cpu runs to completion before that thread can run there, so
+> a dispatch that saw the cpu active has queued its callback by then. Requests
+> from outside dispatch run from the wakeup path or through irq_work, which
+> balance push doesn't affect. The grace period after the cpu goes inactive
+> waits for any requester that saw it active, so that irq_work is queued while
+> the cpu is online.
+> 
+> Fixes: 238eba8c210d ("sched_ext: Use schedule_deferred_locked() in schedule_dsq_reenq()")
+> Fixes: 76edc2761ab8 ("sched_ext: Use irq_work_queue_on() in schedule_deferred()")
+> Cc: stable@vger.kernel.org # v7.1+
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-The no_symlink_cache option in fscrypt_operations gives filesystems
-control of this cache. It applies during target creation, lookup and
-getattr. With this option set, the helpers do not read or update
-->i_link. The filesystem callback can then revalidate access.
+Looks good and validated in virtme-ng with the following AI-generated
+reproducer.
 
-Uncached targets use the existing delayed-free callback. Each uncached
-lookup allocates a temporary buffer and decrypts or encodes the target.
-This lets Ceph reuse fscrypt's target validation and buffer ownership.
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Tested-by: Andrea Righi <arighi@nvidia.com>
 
-The default setting keeps the current cache behavior for other
-filesystems. Ceph selects the option so cached targets cannot bypass its
-->get_link() checks.
+Thanks,
+-Andrea
 
-Signed-off-by: Alex Markuze <amarkuze@redhat.com>
----
- fs/ceph/crypto.c        |  1 +
- fs/crypto/hooks.c       | 37 ++++++++++++++++++++++---------------
- include/linux/fscrypt.h |  7 +++++++
- 3 files changed, 30 insertions(+), 15 deletions(-)
-
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index 9e0ebb071840..de786a0e626c 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -92,6 +92,7 @@ static struct fscrypt_operations ceph_fscrypt_ops = {
- 	.inode_info_offs	= (int)offsetof(struct ceph_inode_info, i_crypt_info) -
- 				  (int)offsetof(struct ceph_inode_info, netfs.inode),
- 	.needs_bounce_pages	= 1,
-+	.no_symlink_cache	= 1,
- 	.get_context		= ceph_crypt_get_context,
- 	.set_context		= ceph_crypt_set_context,
- 	.get_dummy_policy	= ceph_get_dummy_policy,
-diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
-index a7a8a3f581a0..e1eb0fce7948 100644
---- a/fs/crypto/hooks.c
-+++ b/fs/crypto/hooks.c
-@@ -321,11 +321,13 @@ int __fscrypt_encrypt_symlink(struct inode *inode, const char *target,
- 	 */
- 	sd->encrypted_path[ciphertext_len] = '\0';
- 
--	/* Cache the plaintext symlink target for later use by get_link() */
--	err = -ENOMEM;
--	inode->i_link = kmemdup(target, len + 1, GFP_NOFS);
--	if (!inode->i_link)
--		goto err_free_sd;
-+	/* Cache the plaintext symlink target if the filesystem allows it. */
-+	if (!inode->i_sb->s_cop->no_symlink_cache) {
-+		err = -ENOMEM;
-+		inode->i_link = kmemdup(target, len + 1, GFP_NOFS);
-+		if (!inode->i_link)
-+			goto err_free_sd;
-+	}
- 
- 	if (!disk_link->name)
- 		disk_link->name = (unsigned char *)sd;
-@@ -358,17 +360,21 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
- {
- 	const struct fscrypt_symlink_data *sd;
- 	struct fscrypt_str cstr, pstr;
--	bool has_key;
-+	bool has_key, cache;
- 	int err;
- 
- 	/* This is for encrypted symlinks only */
- 	if (WARN_ON_ONCE(!IS_ENCRYPTED(inode)))
- 		return ERR_PTR(-EINVAL);
- 
-+	cache = !inode->i_sb->s_cop->no_symlink_cache;
+diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
+index af919a56a4f4f..f0af0c3b32076 100644
+--- a/tools/testing/selftests/sched_ext/Makefile
++++ b/tools/testing/selftests/sched_ext/Makefile
+@@ -184,6 +184,7 @@ auto-test-targets :=			\
+ 	allowed_cpus			\
+ 	peek_dsq			\
+ 	prog_run			\
++	reenq_offline			\
+ 	reload_loop			\
+ 	select_cpu_dfl			\
+ 	select_cpu_dfl_nodispatch	\
+diff --git a/tools/testing/selftests/sched_ext/reenq_offline.bpf.c b/tools/testing/selftests/sched_ext/reenq_offline.bpf.c
+new file mode 100644
+index 0000000000000..a3fff2c0e0de6
+--- /dev/null
++++ b/tools/testing/selftests/sched_ext/reenq_offline.bpf.c
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <scx/common.bpf.h>
 +
- 	/* If the decrypted target is already cached, just return it. */
--	pstr.name = READ_ONCE(inode->i_link);
--	if (pstr.name)
--		return pstr.name;
-+	if (cache) {
-+		pstr.name = READ_ONCE(inode->i_link);
-+		if (pstr.name)
-+			return pstr.name;
-+	}
- 
- 	/*
- 	 * Try to set up the symlink's encryption key, but we can continue
-@@ -411,12 +417,12 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
- 	pstr.name[pstr.len] = '\0';
- 
- 	/*
--	 * Cache decrypted symlink targets in i_link for later use.  Don't cache
--	 * symlink targets encoded without the key, since those become outdated
--	 * once the key is added.  This pairs with the READ_ONCE() above and in
--	 * the VFS path lookup code.
-+	 * Cache decrypted symlink targets in i_link if the filesystem allows it.
-+	 * Don't cache symlink targets encoded without the key, since those
-+	 * become outdated once the key is added.  This pairs with the
-+	 * READ_ONCE() above and in the VFS path lookup code.
- 	 */
--	if (!has_key ||
-+	if (!cache || !has_key ||
- 	    cmpxchg_release(&inode->i_link, NULL, pstr.name) != NULL)
- 		set_delayed_call(done, kfree_link, pstr.name);
- 
-@@ -460,7 +466,8 @@ int fscrypt_symlink_getattr(const struct path *path, struct kstat *stat)
- 	 * decrypted target or the no-key encoded target), we can just get it in
- 	 * the same way the VFS does during path resolution and readlink().
- 	 */
--	link = READ_ONCE(inode->i_link);
-+	link = inode->i_sb->s_cop->no_symlink_cache ?
-+		NULL : READ_ONCE(inode->i_link);
- 	if (!link) {
- 		link = inode->i_op->get_link(dentry, inode, &done);
- 		if (IS_ERR(link))
-diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 28f2108e29f3..faeff5812885 100644
---- a/include/linux/fscrypt.h
-+++ b/include/linux/fscrypt.h
-@@ -107,6 +107,13 @@ struct fscrypt_operations {
- 	 */
- 	unsigned int supports_subblock_data_units : 1;
- 
-+	/*
-+	 * If set, don't cache decrypted symlink targets in ->i_link.  This
-+	 * ensures that the VFS calls ->get_link() for every access, allowing
-+	 * the filesystem to revalidate the symlink before returning its target.
-+	 */
-+	unsigned int no_symlink_cache : 1;
++char _license[] SEC("license") = "GPL";
 +
- 	/*
- 	 * This field exists only for backwards compatibility reasons and should
- 	 * only be set by the filesystems that are setting it already.  It
-
-base-commit: ed0502cb11f84fff29f374238e526ae94d9bdfde
--- 
-2.34.1
-
++volatile bool trigger_reenq;
++volatile u64 reenq_attempts;
++
++void BPF_STRUCT_OPS(reenq_offline_enqueue, struct task_struct *p, u64 enq_flags)
++{
++	if (trigger_reenq) {
++		scx_bpf_dsq_reenq(SCX_DSQ_LOCAL_ON | 1, 0);
++		__sync_fetch_and_add(&reenq_attempts, 1);
++	}
++
++	scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
++}
++
++void BPF_STRUCT_OPS_SLEEPABLE(reenq_offline_cpu_offline, s32 cpu)
++{}
++
++SEC(".struct_ops.link")
++struct sched_ext_ops reenq_offline_ops = {
++	.enqueue = (void *)reenq_offline_enqueue,
++	.cpu_offline = (void *)reenq_offline_cpu_offline,
++	.name = "reenq_offline",
++};
+diff --git a/tools/testing/selftests/sched_ext/reenq_offline.c b/tools/testing/selftests/sched_ext/reenq_offline.c
+new file mode 100644
+index 0000000000000..739d5b4e22cf7
+--- /dev/null
++++ b/tools/testing/selftests/sched_ext/reenq_offline.c
+@@ -0,0 +1,76 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <bpf/bpf.h>
++#include <scx/common.h>
++#include <sched.h>
++#include <unistd.h>
++
++#include "reenq_offline.bpf.skel.h"
++#include "scx_test.h"
++#include "util.h"
++
++#define CPU1_ONLINE "/sys/devices/system/cpu/cpu1/online"
++
++static enum scx_test_status run(void *ctx)
++{
++	struct reenq_offline *skel = NULL;
++	struct bpf_link *link = NULL;
++	cpu_set_t mask, original_mask;
++	enum scx_test_status status = SCX_TEST_FAIL;
++	int i;
++
++	if (access(CPU1_ONLINE, W_OK) || file_read_long(CPU1_ONLINE) != 1)
++		return SCX_TEST_SKIP;
++
++	if (sched_getaffinity(0, sizeof(original_mask), &original_mask))
++		return SCX_TEST_SKIP;
++
++	CPU_ZERO(&mask);
++	CPU_SET(0, &mask);
++	if (sched_setaffinity(0, sizeof(mask), &mask))
++		return SCX_TEST_SKIP;
++
++	skel = reenq_offline__open();
++	if (!skel)
++		goto out;
++	SCX_ENUM_INIT(skel);
++	if (reenq_offline__load(skel))
++		goto out;
++
++	link = bpf_map__attach_struct_ops(skel->maps.reenq_offline_ops);
++	if (!link)
++		goto out;
++
++	if (file_write_long(CPU1_ONLINE, 0))
++		goto out;
++
++	skel->bss->trigger_reenq = true;
++	for (i = 0; i < 1000 && !skel->bss->reenq_attempts; i++)
++		usleep(1000);
++	skel->bss->trigger_reenq = false;
++
++	if (!skel->bss->reenq_attempts) {
++		SCX_ERR("No enqueue reached the offline CPU reenqueue request");
++		goto out;
++	}
++
++	status = SCX_TEST_PASS;
++out:
++	/* Detach while CPU 1 is offline to expose a stranded reenq node. */
++	bpf_link__destroy(link);
++	if (link)
++		sleep(1);
++	if (file_read_long(CPU1_ONLINE) == 0 &&
++	    file_write_long(CPU1_ONLINE, 1))
++		status = SCX_TEST_FAIL;
++	if (sched_setaffinity(0, sizeof(original_mask), &original_mask))
++		status = SCX_TEST_FAIL;
++	reenq_offline__destroy(skel);
++	return status;
++}
++
++struct scx_test reenq_offline = {
++	.name = "reenq_offline",
++	.description = "Reenqueue an offline CPU local DSQ and detach",
++	.run = run,
++};
++REGISTER_SCX_TEST(&reenq_offline)
