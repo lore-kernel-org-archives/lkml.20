@@ -1,240 +1,181 @@
-Received: from host3.o27bbn.ondsl.gr (host3.o27bbn.ondsl.gr [79.129.74.131])
+Received: from mail3-164.sinamail.sina.com.cn (mail3-164.sinamail.sina.com.cn [202.108.3.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03A7175A79
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.129.74.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7AE248880
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792024665; cv=none; b=YNUDRR6Nr2HZ4jMgi+t3fg3zH/U+TU3m/PT5QHA3UcEP/TRBWtXz5DhLB9ZzDiQMIJHs62C4cF1NYoztXKBdDQ0rxmtCs8r7Usn6s66Sn45rIMSAJwv4vNs2AWsYqhm+JHdJxpGvihsIyhYD73k88Fq5QCOtoriyKextfjFF1yE=
+	t=1792024790; cv=none; b=o2UB/Za+CxJcleIeXpLP77fBzazY7kZ34tPqDanN8WQeA98Op37Ij6Rwf7+8IRtvi91IKcv2PAIixO7qgIQJFEDwprkYDPXRvCp6T/jZV8EXw6sO8xVD6YwkwxXk6XlgkZ5dIqa92e1Zwr6au6ayqCme+2SWjzZueU/1PHoK3r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792024665; c=relaxed/simple;
-	bh=B0rDGrhxz2rJTBHwoJAdwKmOUNtaijOxLBA/nTn8klo=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=gS+YMMALmvHukCNcYWaQX9iWl9ypzxLiBh+IUZ0xRDYalfjP/FzuWen72VTMiAbt0DMBlPgK0S92tITPYCdR4z1pzCoj5wEQcEZBj401YybWCHFsfoiwRXYjw/mW2yLL3rOWIpYDOZvRDLBQ5dXZ//8EqsxUS94SB6Mvtkn6GCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=e-psn.eu; spf=pass smtp.mailfrom=e-psn.eu; dkim=pass (2048-bit key) header.d=e-psn.eu header.i=@e-psn.eu header.b=ExdDwVWf; arc=none smtp.client-ip=79.129.74.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=e-psn.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=e-psn.eu
+	s=arc-20240116; t=1792024790; c=relaxed/simple;
+	bh=idH0hCK9+Ac1zzsSvHM2DzrFyVKzPYMIMe9FcJ3Fnxw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q5Odg+KQNWaIx8P8racLvc5Ss+O2gC8Q3K6aoBjVJ2EbfRrqihmludnizBI5eazidq7q4T7VoMmN1Rglr/LALhb3i6/hq7N4D8jkJgW9HTYpzIOG+yhhU0CE6XxiNx6medWUO2YiFBp4ijqwqhcS50LBYQfoDsKIwJlxOwOfvaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=kZVjzFq1; arc=none smtp.client-ip=202.108.3.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=e-psn.eu header.i=@e-psn.eu header.b="ExdDwVWf"
-Received: from mail.e-psn.eu (cluster-localnode [10.200.210.1])
-	by mail.e-psn.eu (Postfix) with ESMTPA id 8F3173A537AA;
-	Thu, 15 Oct 2026 00:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=e-psn.eu; s=default;
-	t=1792024651; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ingnB9AcWDf+xSzk/JYpaVyHALuYuvn8bSdf+q+dJRo=;
-	b=ExdDwVWf3kjOzu1Sv0Gc27ZL7YUH8sgPj/EvPF1eEeE1KcxYQMaT0T5Y+zs4qQXb9b0Up6
-	+lh11Kr724DOPQDjKaMOqjFfllPbE78DXNeajygFHNtvtDlFKhJwHTA5KxFdkq5hdT2UHl
-	OhT+1taOwaz3L2EkxXsrRy8WWVNCwKA/cjf+1rsBmkTaeKJ/w6Mix7wQrgoowke9HCnzYq
-	c7CrEfT7IhJDenNIP+wFSXBr32irsMTceqOt9M02E6cUKIfHyMk5zlvwRXA17X72hBSrPJ
-	jnSiLU87Dansia8i1N4Oi/1OBkRw9UHAuy4OBETGNGDJt89s0ousKcAiRZuhtw==
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="kZVjzFq1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792024786;
+	bh=qo6CsvOfDb2LpVW3di2AIauLJii7seDt0kp6m0r013o=;
+	h=From:Subject:Date:Message-ID;
+	b=kZVjzFq1WHTQ+gbv0ahor7uFK4bnWTI1u4aleQyD7oMFK7AwqfGTUHmqSovUz2YM/
+	 Iqj2BM+chohdbxgZcXR4SV4++PQXDpSJ10/SoutC2xfh2mWhCjseFULiThjKopRcas
+	 +fsbZqXcFnFRhw0RL3pS5K1VcQkcM13G0xnz3jOY=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AD020A6000010D5; Thu, 15 Oct 2026 08:39:05 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 6215844456923
+X-SMAIL-UIID: C02280566B0F444891C475ABBE904BB3-20261015-083905-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com>
+Cc: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Igor Putko <igorpetindev@gmail.com>
+Subject: Re: [PATCH] Bluetooth: mgmt: Fix UAF in mesh_send_sync caused by race in mesh queue
+Date: Thu, 15 Oct 2026 08:38:51 +0800
+Message-ID: <20261015003852.532-1-hdanton@sina.com>
+In-Reply-To: <20261014160504.42527-1-igorpetindev@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 03:37:31 +0300
-From: Constantinos Chalkias <cch@e-psn.eu>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: =?UTF-8?Q?Bata_Roland_Kriszti=C3=A1n?= <batarolandkrisztian@gmail.com>,
- intel-xe@lists.freedesktop.org, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
- force-wake
-Reply-To: cch@e-psn.eu
-Mail-Reply-To: cch@e-psn.eu
-In-Reply-To: <as_iOd6A_Yncj8Gt@intel.com>
-References: <20261012104245.2108030-1-cch@e-psn.eu>
- <as_iOd6A_Yncj8Gt@intel.com>
-Message-ID: <046ad11178ef5ab04364e14a0211a68c@e-psn.eu>
-X-Sender: cch@e-psn.eu
-Organization: E-PSN
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Flag-Threshold: 6
 
-Hi Rodrigo,
-Thanks for pointing this out. Yes, this appears to be the same issue, 
-and I agree we should avoid parallel fixes.
-My follow-up testing independently converged on a very similar result. I 
-narrowed the workaround to CHANNEL_PKG only. A 500-1000 us GT force-wake 
-interval was not reliable, while 3000-3500 us was.
-In the most controlled test I disabled both hwmon pollers, stopped the 
-inference workload, and the physical blower remained latched at high 
-speed for more than five minutes while the GPU was otherwise idle. A 
-single package-temperature read using XE_FW_GT with a 3000-3500 us 
-interval immediately caused the blower to return to normal.
-I also saw the later RFC follow-up showing that both GT-only and 
-RENDER-only longer pulses could refresh the telemetry and were followed 
-by fan slowdown, which seems consistent with this result.
-I won't send a competing v2. I'm happy to contribute these measurements 
-to the existing RFC effort and help test whatever implementation you 
-prefer to converge on.
-Thanks,
-Constantinos
+#syz test upstream  master
 
-On 2026-10-14 23:12, Rodrigo Vivi wrote:
-> On Mon, Oct 12, 2026 at 01:42:45PM +0300, Constantinos Chalkias wrote:
->> On Battlemage, thermal telemetry can remain stale after the GT returns
->> to RC6 following sustained workloads.
->> 
->> On an Intel Arc Pro B70, package and VRAM temperature telemetry may 
->> stop
->> refreshing after a long inference workload. Fan telemetry can also
->> become invalid while the physical blower remains elevated.
->> 
->> Acquire the GT force-wake domain around Battlemage thermal MMIO reads
->> and allow a short settling interval before reading the register. Route
->> package, VRAM and VRAM-channel availability reads through the helper.
->> 
->> Testing showed that an immediate read, as well as a 100-300 us delay,
->> could leave telemetry stale. A 500-1000 us delay recovered correctly
->> across repeated inference-to-idle cycles.
->> 
->> The change is restricted to Battlemage, where the behavior has been
->> reproduced and validated.
->> 
->> Signed-off-by: Constantinos Chalkias <cch@e-psn.eu>
-> 
-> Cc: Bata Roland Krisztián <batarolandkrisztian@gmail.com>
-> 
-> https://lore.kernel.org/intel-xe/179041811564.526373.13204522833274380927.b70-hwmon-rfc@gmail.com/
-> 
-> I believe you guys are facing the same dificulties and arriving to 
-> similar
-> conclusions.
-> 
-> If the consensus is that we need this forcewake, let's do it.
-> 
-> Let's just avoid duplication of efforts in here.
-> 
-> And thank you all for the contributions.
-> 
->> ---
->>  drivers/gpu/drm/xe/xe_hwmon.c | 51 
->> ++++++++++++++++++++++++++++++-----
->>  1 file changed, 45 insertions(+), 6 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/xe/xe_hwmon.c 
->> b/drivers/gpu/drm/xe/xe_hwmon.c
->> index 5edeac961ec3..fee358ab9a6b 100644
->> --- a/drivers/gpu/drm/xe/xe_hwmon.c
->> +++ b/drivers/gpu/drm/xe/xe_hwmon.c
->> @@ -3,6 +3,7 @@
->>   * Copyright © 2023 Intel Corporation
->>   */
->> 
->> +#include <linux/delay.h>
->>  #include <linux/hwmon-sysfs.h>
->>  #include <linux/hwmon.h>
->>  #include <linux/jiffies.h>
->> @@ -14,6 +15,7 @@
->>  #include "regs/xe_mchbar_regs.h"
->>  #include "regs/xe_pcode_regs.h"
->>  #include "xe_device.h"
->> +#include "xe_force_wake.h"
->>  #include "xe_hwmon.h"
->>  #include "xe_mmio.h"
->>  #include "xe_pcode.h"
->> @@ -946,14 +948,43 @@ static void xe_hwmon_get_voltage(struct xe_hwmon 
->> *hwmon, int channel, long *valu
->>  	*value = DIV_ROUND_CLOSEST(REG_FIELD_GET(VOLTAGE_MASK, reg_val) * 
->> 2500, SF_VOLTAGE);
->>  }
->> 
->> -static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int 
->> channel)
->> +static int xe_hwmon_temp_mmio_read(struct xe_hwmon *hwmon,
->> +				   struct xe_reg reg, u32 *reg_val)
->>  {
->>  	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
->> +
->> +	if (hwmon->xe->info.platform == XE_BATTLEMAGE) {
->> +		struct xe_gt *gt = xe_root_mmio_gt(hwmon->xe);
->> +
->> +		CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
->> +
->> +		if (!xe_force_wake_ref_has_domain(fw_ref.domains, XE_FW_GT))
->> +			return -ETIMEDOUT;
->> +
->> +		/*
->> +		 * Allow thermal telemetry to refresh after leaving RC6
->> +		 * before reading the temperature register.
->> +		 */
->> +		usleep_range(500, 1000);
->> +
->> +		*reg_val = xe_mmio_read32(mmio, reg);
->> +		return 0;
->> +	}
->> +
->> +	*reg_val = xe_mmio_read32(mmio, reg);
->> +
->> +	return 0;
->> +}
->> +
->> +static inline bool is_vram_ch_available(struct xe_hwmon *hwmon, int 
->> channel)
->> +{
->>  	int vram_id = channel - CHANNEL_VRAM_N;
->>  	struct xe_reg vram_reg;
->> +	u32 reg_val;
->> 
->>  	vram_reg = xe_hwmon_get_reg(hwmon, REG_TEMP, channel);
->> -	if (!xe_reg_is_valid(vram_reg) || !xe_mmio_read32(mmio, vram_reg))
->> +	if (!xe_reg_is_valid(vram_reg) ||
->> +	    xe_hwmon_temp_mmio_read(hwmon, vram_reg, &reg_val) || !reg_val)
->>  		return false;
->> 
->>  	/* Create label only for available vram channel */
->> @@ -1025,15 +1056,19 @@ xe_hwmon_temp_is_visible(struct xe_hwmon 
->> *hwmon, u32 attr, int channel)
->>  static int
->>  xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 attr, int channel, 
->> long *val)
->>  {
->> -	struct xe_mmio *mmio = xe_root_tile_mmio(hwmon->xe);
->> -	u64 reg_val;
->> +	u32 reg_val;
->> +	int ret;
->> 
->>  	switch (attr) {
->>  	case hwmon_temp_input:
->>  		switch (channel) {
->>  		case CHANNEL_PKG:
->>  		case CHANNEL_VRAM:
->> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, 
->> channel));
->> +			ret = xe_hwmon_temp_mmio_read(hwmon,
->> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
->> +						      &reg_val);
->> +			if (ret)
->> +				return ret;
->> 
->>  			/* HW register value is in degrees Celsius, convert to 
->> millidegrees. */
->>  			*val = REG_FIELD_GET(TEMP_MASK, reg_val) * MILLIDEGREE_PER_DEGREE;
->> @@ -1043,7 +1078,11 @@ xe_hwmon_temp_read(struct xe_hwmon *hwmon, u32 
->> attr, int channel, long *val)
->>  		case CHANNEL_PCIE:
->>  			return get_pcie_temp(hwmon, val);
->>  		case CHANNEL_VRAM_N...CHANNEL_VRAM_N_MAX:
->> -			reg_val = xe_mmio_read32(mmio, xe_hwmon_get_reg(hwmon, REG_TEMP, 
->> channel));
->> +			ret = xe_hwmon_temp_mmio_read(hwmon,
->> +						      xe_hwmon_get_reg(hwmon, REG_TEMP, channel),
->> +						      &reg_val);
->> +			if (ret)
->> +				return ret;
->>  			/*
->>  			 * This temperature format is 24 bit [31:8] signed integer and 8 
->> bit
->>  			 * [7:0] fraction.
->> --
->> 2.56.0
->> 
+A race condition between mesh_send() and mesh_next() can lead to the
+same struct mgmt_mesh_tx object being queued twice into the cmd_sync
+work list.
+
+Specifically, mesh_send_done_sync() and mesh_send_start_complete() clear
+the HCI_MESH_SENDING flag before mesh_next() is executed or without
+holding hci_dev_lock. If a concurrent mesh_send() arrives during this
+window, it observes HCI_MESH_SENDING as cleared, adds the new mesh_tx
+to hdev->mesh_pending, and queues it via hci_cmd_sync_queue().
+Immediately thereafter, mesh_next() executes without holding
+hci_dev_lock, inspects hdev->mesh_pending with mgmt_mesh_next(), and
+queues the very same mesh_tx a second time.
+
+When the first queued entry finishes, its completion callback invokes
+mesh_send_complete(), which frees the mesh_tx structure. When the worker
+subsequently picks up the duplicate second entry, mesh_send_sync()
+attempts to access fields in the already freed mesh_tx, triggering a
+KASAN slab-use-after-free read.
+
+Fix this by:
+1. Synchronizing mesh_next() under hci_dev_lock and checking if
+   HCI_MESH_SENDING is already set before queueing.
+2. Holding hci_dev_lock when modifying HCI_MESH_SENDING and completing
+   mesh transactions in mesh_send_done_sync() and
+   mesh_send_start_complete().
+3. Unconditionally removing mesh_tx if hci_cmd_sync_queue() fails in
+   mesh_send().
+
+Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
+Reported-by: syzbot+f20755f37da70df33a16@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?id=d2762f31ce58dfcb900c2db500bf361f165c07bc
+Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+---
+ net/bluetooth/mgmt.c | 37 ++++++++++++++++++++++++++-----------
+ 1 file changed, 26 insertions(+), 11 deletions(-)
+
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 251a896babd5..0dda38af00ec 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -1094,13 +1094,15 @@ static int mesh_send_done_sync(struct hci_dev *hdev, void *data)
+ {
+ 	struct mgmt_mesh_tx *mesh_tx;
+ 
+-	hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
+ 	if (list_empty(&hdev->adv_instances))
+ 		hci_disable_advertising_sync(hdev);
+-	mesh_tx = mgmt_mesh_next(hdev, NULL);
+ 
++	hci_dev_lock(hdev);
++	mesh_tx = mgmt_mesh_next(hdev, NULL);
+ 	if (mesh_tx)
+ 		mesh_send_complete(hdev, mesh_tx, false);
++	hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
++	hci_dev_unlock(hdev);
+ 
+ 	return 0;
+ }
+@@ -1109,18 +1111,30 @@ static int mesh_send_sync(struct hci_dev *hdev, void *data);
+ static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err);
+ static void mesh_next(struct hci_dev *hdev, void *data, int err)
+ {
+-	struct mgmt_mesh_tx *mesh_tx = mgmt_mesh_next(hdev, NULL);
++	struct mgmt_mesh_tx *mesh_tx;
++	int ret;
+ 
+-	if (!mesh_tx)
++	hci_dev_lock(hdev);
++
++	if (hci_dev_test_flag(hdev, HCI_MESH_SENDING)) {
++		hci_dev_unlock(hdev);
+ 		return;
++	}
+ 
+-	err = hci_cmd_sync_queue(hdev, mesh_send_sync, mesh_tx,
+-				 mesh_send_start_complete);
++	mesh_tx = mgmt_mesh_next(hdev, NULL);
++	if (!mesh_tx) {
++		hci_dev_unlock(hdev);
++		return;
++	}
+ 
+-	if (err < 0)
++	ret = hci_cmd_sync_queue(hdev, mesh_send_sync, mesh_tx,
++				 mesh_send_start_complete);
++	if (ret < 0)
+ 		mesh_send_complete(hdev, mesh_tx, false);
+ 	else
+ 		hci_dev_set_flag(hdev, HCI_MESH_SENDING);
++
++	hci_dev_unlock(hdev);
+ }
+ 
+ static void mesh_send_done(struct work_struct *work)
+@@ -2309,9 +2323,12 @@ static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err)
+ 	/* Report any errors here, but don't report completion */
+ 
+ 	if (mgmt_err) {
++		hci_dev_lock(hdev);
+ 		hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
+ 		/* Send Complete Error Code for handle */
+ 		mesh_send_complete(hdev, mesh_tx, false);
++		hci_dev_unlock(hdev);
++
+ 		if (err != -ECANCELED)
+ 			mesh_next(hdev, NULL, 0);
+ 		return;
+@@ -2541,10 +2558,8 @@ static int mesh_send(struct sock *sk, struct hci_dev *hdev, void *data, u16 len)
+ 		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_MESH_SEND,
+ 				      MGMT_STATUS_FAILED);
+ 
+-		if (mesh_tx) {
+-			if (sending)
+-				mgmt_mesh_remove(mesh_tx);
+-		}
++		if (mesh_tx)
++			mgmt_mesh_remove(mesh_tx);
+ 	} else {
+ 		hci_dev_set_flag(hdev, HCI_MESH_SENDING);
+ 
+-- 
+2.47.3
