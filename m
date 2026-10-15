@@ -1,82 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44AA34DCCD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E7F36C5BB
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103283; cv=none; b=ep98OQAN75aN46ye+gUPlUiFdpTpX1w0W2KbJshlko5S69MBL7VCYz8j3L1e3vOJNMmmCPEuDom5dk7K5UiLLqf8gRZmTAdtNNjG9CiV4C484WJjG4rTq+0wDy0p/hIWGpp3P/Vi74WWKeFxg3H2LHKTBu5G1lwW6cITopzvr2Y=
+	t=1792103284; cv=none; b=HUghRNwwWptj67FbRvT/+RITSQWdSr8FjzYAOnccaYRmw4LtmYFN9hYll5C3pKFivRl7ElOay2jQS2MtTVPglpeqEJLHhS7Vz/lQDy8OLGT6TX061Qr6ku9aTvu7rKwwH+wJzqmj1B8tuIrVAtqly0xnIPcKWTNBSeNZJLV7RtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103283; c=relaxed/simple;
-	bh=z52xkpXbzQ1vnhmTzhfHs3B1+lTsbX6VtcStepi2cU0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f6z71gDg4lbQCfQwmxiT2JlTEp5pUeYGMiud8O/R046oFHVsxwHPL3bizOCIrYsLSPjpCG9/CbexZFHf42SuB5BHomIrLd6gdMD6mwjRuzS411eLkhBes5Pcx9gNw9OXlh2FlYhm8IRFg40kszVjj5gbb8afb0iVZkg8lBGzDRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0C7m9nb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792103284; c=relaxed/simple;
+	bh=/uz/mgNzqCCdIWB+lfcRdHFZzkBpQy210rPi/3Saxps=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PXioI+GGRagYYUnaHhTuoa1O3la7D9jUcDmwTgcr7syXTDYp4XlFfqI1Il9u7A82X9p5Z6LocihhZBB4dZTTsW0yiTyJsCurxIcP3cEGYbqUJUKpaLuDTQG4RLA1fh4dOydGFDazO5zUoCZzfmdVxz7MpHaaDlsZAWOyFtmRZXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YqSyE5kV; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0C7m9nb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D8C1F000C7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:28:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792103282;
-	bh=ChM6vFdBwc9E1qUfGLxr+avpPsZ9ryaGETVPJr3T6IQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=T0C7m9nb7OBGaYNPbvUrvWBqfTXFEQDfdPwtn0VOyWPAHyDR3Vl9x7onFQMBK+8VM
-	 UuTGLb5gfY69C1zMGflMWuKhy+/5/pJ3ytTiTpUFSf8j1xZVvoK8Lw5QO4QzVzf0GH
-	 o8aapAHttOH+e0D2JWyTwX5z5sEgu3ydHv97woJShR+wJleSF8VbQfrqgjK0PLRRTv
-	 736nwKgZml70G6MdTtfdOyhyXt8nMM8+YzSQ7qtrCrAH+H8TPG2PyNKwcadpK1Scil
-	 /NwZ9zY+R7gcTNw8VwJOaeWmKYzodD6lS99zh6a5aDPcVSj8sWEKKDJc/JI+sgIUkh
-	 uxbkOaLmnQ+Vw==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2e8c710847so730031366b.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YqSyE5kV"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so953611eec.0
         for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:28:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxQAiDpc2TrPxOaYeKrJj8YaV4vYw/JySOyAhje1J9JUVprz7fnOKQbp6/qQ9A6Ad+zBprGkINyiQuvg3o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOr9Aik4TaagZHooj+7QdCz2Fko1jJPNPR8p3bZOlGylDZnvAa
-	jgRYKKbryB6HocTOqgrBhxy13W/ENgYyvAF7TmkX7/Gd5fvPdhxCiJuGG40Qbv/r4V8bmtKDaRq
-	x2RaBxVDY+ljPXzwkMYcW8Na1gSZyUp0=
-X-Received: by 2002:a17:907:7213:b0:c2d:d408:5da6 with SMTP id
- a640c23a62f3a-c31aa02805amr1855139366b.49.1792103281310; Thu, 15 Oct 2026
- 15:28:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792103282; x=1792708082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rH7qDh5A3FEMtgpSQimqE0vvF6ppC/OBh5O5bMiH+AE=;
+        b=YqSyE5kVy4VlfivzUqDS/Nh6JHmyGBspr53LNHyeqbxOP+2TJR7CO6wGqikTxv+Wp0
+         JPotpxbNPBTwvYZfFBwqjiOlQWAUiBul9o3wOopmgYlf3GmvPRV00qOgqHLw60foDKSR
+         q3MBN41ZSdLS3JQyani6W3FYgva1M+9fL4HsIgIs1jlF1v5Hy0ZUurjfi6tQzaDv4kQZ
+         sGFxHUqHFhzDdYvi73itUZGKD2N831eZZ0bxcobRMqsdMQAIaYGxPpd1NHvv9sHthlLD
+         wMjyeJp5rfeHbG+9HgKf78w5sVF5tyEXJNnixZrQ4mMjRpM/OaANXCQ6Auk3sRtsXFje
+         //tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792103282; x=1792708082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rH7qDh5A3FEMtgpSQimqE0vvF6ppC/OBh5O5bMiH+AE=;
+        b=wUqyEQWBTsZul2wQMjzIm9UlsDhdHup9MyqGoh4dFlbHEAS/KwM24x/VoTNyPVyBHj
+         tf3LM4ToTfjgQCBFNMpIrA4pBuIII1HxlbSFcu0BHWCU8cZxFHhexLCtWWcbVjWe1TTJ
+         yTOlgkSts2Iv2+m7+NR4JSKopQYZg3l6O1OC79EPmuIp8Z4GuSNlHg/74g5xPqoZ+T0l
+         IYGFgLFjiNB9Ge2WorYnMRrYoQz/rg2MHzjbpZJk1icGHCSb1eDu2BLk6pw9YCnPgWrM
+         94InvoIY9XZigf/YQSg/ytqL1Am4wN3x453S1m0pKSEG/AkHDh5BK7gD9VL5ZPQmaRE5
+         KhXw==
+X-Forwarded-Encrypted: i=1; AKwUvByl3ZpDAXRjYKMrkz5wCK05GBXhyeEyiWiCJPNfMWMeKPkxBQ0YGgV+/IB2YiDfFj8LQ754FshkKvG76Es=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2ZJGbAtHU2MKN6fqBcmknyax5x08s8EtljDt417VpXXwHsUiv
+	snpQPDgJvJoAFBoPaYgnWRXW2SxBqjN0Z2N0b3tIdzhjsCfz0+FCvFbJ
+X-Gm-Gg: AYBFou16mE2lgKtJSCVxq1zHgB6b3IlGJmblakkaRCtPGT/YXqDCT/aSh4hk30XPfHw
+	DNC6zY/CECHf+oqRb5Zg1ZOOzwB7vSoycxqH3CnZzTss8OyKD7L8tBMb676Fs1RZoRvnhblpmIO
+	cPsjMkCkWjpXv9JRNACifRh3nd248fRCulNMY/hagi97k8l1urFopK3erlwlutKZHTioAs5Q4QL
+	qzez8mzmi558BRUx5mCbhAsFiBjVqI8UWk+57vqhs23+3Bxv8/PZbCD7aiK2MSmTRYdEPJ0nUng
+	e9pXkXXnQ6ur0JtfswdVGvSlxnupGgWqrdfMxf2f1SE0C0pqxXx3ZP5S9jpHWporOuG/Hg9Hgbk
+	7Y+DAKjp13YrhuAeqAv+EsyriemvgZQez6QB3bXK4Z7LT9hv1cEHDFILa9XIL3IYmMsBc1FXimw
+	Cr7FVAvcC3xVz4jh6xhefB0npm/JtvfCFBYYzfsMvUT7es/kJrd+PUwOCEvTHQ9wNnG/ITgVLYS
+	EDGhGsrC707EE524K9D6UxJDQeAWf6gEly3pyxrNSCElQH7Z3fBV1FOBkQgjEdN0drPKHGmSOU=
+X-Received: by 2002:a05:7301:e10e:b0:35c:707b:acba with SMTP id 5a478bee46e88-35c707baed8mr12276609eec.3.1792103281885;
+        Thu, 15 Oct 2026 15:28:01 -0700 (PDT)
+Received: from yibos-mbp.3500.dhcp.asu.edu ([2620:d8:8000:8078:404b:acf5:562d:50f2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081fa5a6esm873307eec.16.2026.10.15.15.28.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 15:28:01 -0700 (PDT)
+From: Yibo Liu <yiboliume@gmail.com>
+To: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Liu <yiboliume@gmail.com>
+Subject: [PATCH 0/2] drbd: validate payload sizes received from the peer
+Date: Thu, 15 Oct 2026 15:27:58 -0700
+Message-Id: <20261015222800.85928-1-yiboliume@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-14-yosry@kernel.org>
- <CALMp9eSV0ikZ8CDoah_vCKYFXEm5syYh_sCMQ8wXhGB0+E=vcg@mail.gmail.com>
- <CAO9r8zOUjXMvhmK7TBmgKkbs+JjFMEmcLgW589_N_smC6k-hrw@mail.gmail.com> <CALMp9eQ_RJV4-+FKewTFdFacY=LJbn7Pd2T-ET_cDU+-HXHd7g@mail.gmail.com>
-In-Reply-To: <CALMp9eQ_RJV4-+FKewTFdFacY=LJbn7Pd2T-ET_cDU+-HXHd7g@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 15 Oct 2026 15:27:49 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMyHenA1DLfs==fsmnztaSWPr0s_v4JoTYkkSbrA16LWw@mail.gmail.com>
-X-Gm-Features: AclHuK-6tMbZOYJ3-5QXnquHKM-Sp93SMRanOLxzB5GfkXzNyT8WXbFetoA1WP0
-Message-ID: <CAO9r8zMyHenA1DLfs==fsmnztaSWPr0s_v4JoTYkkSbrA16LWw@mail.gmail.com>
-Subject: Re: [PATCH v3 13/27] KVM: nSVM: Add a placeholder ASID for L2
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> > > > diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> > > > index bfb297b7d71ab..780132725bb79 100644
-> > > > --- a/arch/x86/kvm/svm/nested.c
-> > > > +++ b/arch/x86/kvm/svm/nested.c
-> > > > @@ -701,7 +701,6 @@ static void nested_svm_transition_tlb_flush(struct kvm_vcpu *vcpu)
-> > > >          *  - Honor L1's request to flush an ASID on nested VMRUN
-> > > >          *  - Sync nested NPT MMU on VMRUN that flushes L2's ASID[*]
-> > > >          *  - Don't crush a pending TLB flush in vmcb02 on nested VMRUN
-> > > > -        *  - Flush L1's ASID on KVM_REQ_TLB_FLUSH_GUEST
-> > >
-> > > Um...How does this patch either do this TODO or render it moot?
-> >
-> > L1 now has a separate ASID from L2, and it's the one we're already
-> > flushing with KVM_REQ_TLB_FLUSH_GUEST. It's kinda already moot because
-> > we already flush L1's ASID on KVM_REQ_TLB_FLUSH_GUEST.. or maybe it's
-> > actually *wrong* because KVM_REQ_TLB_FLUSH_GUEST needs to flush the
-> > current ASID, not always L1's ASID.
-> >
-> > I can drop it separately if that helps.
->
-> You could just explain it in the commit message.
+Two places in the DRBD receive path take a payload size from the peer's
+packet header and use it without comparing it to the size they expect.
+Commit bd910a7660d2 ("drbd: reject data replies with an out-of-range
+payload size") already rejects negative sizes in recv_dless_read();
+these patches cover the remaining cases:
 
-Will do.
+1/2 rejects a P_DATA_REPLY whose size differs from the read request.
+    A short reply currently completes the read successfully with part
+    of the bio never written.
+
+2/2 rejects P_CSUM_RS_REQUEST and P_OV_REPLY packets whose digest
+    length does not match the configured algorithm, and makes the
+    worker compare digests only when their sizes match. A short digest
+    currently causes an out-of-bounds read in memcmp(), and a huge one
+    triggers a page allocator warning.
+
+Like the earlier fixes, this only matters for a peer that does not
+follow the protocol; a correct peer always sends the expected sizes.
+
+The problems were found with the help of an AI coding assistant and
+were reproduced on block-7.3 before posting (details below the "---" of
+each patch). Testing:
+- before/after runs of the reproducer in an arm64 virtme-ng KASAN guest
+- a complete csums-alg resync and an online verify as regression tests
+- each patch built with W=1 and sparse (C=2), arm64, gcc 13.3: no new
+  warnings
+- checkpatch.pl --strict clean
+Not built with clang or for other architectures.
+
+Yibo Liu (2):
+  drbd: reject data replies whose size does not match the request
+  drbd: validate digest size in checksum resync and verify requests
+
+ drivers/block/drbd/drbd_receiver.c | 14 ++++++++++++--
+ drivers/block/drbd/drbd_worker.c   |  8 ++++----
+ 2 files changed, 16 insertions(+), 6 deletions(-)
+
+
+base-commit: 41cab3a71dc7be62114d91cc849424879062d324
+-- 
+2.39.5 (Apple Git-154)
+
