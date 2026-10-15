@@ -1,116 +1,80 @@
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C551B4A4EFD
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24D74A2A6E;
+	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069209; cv=none; b=f8/73BlRlUbHhv0WkLi20OCxrIXfTFfmVtNpdVQ4kGTb9RHw05GSfO7hpSJJGMqeZqDYl/C1uMc1+0/4KNu1jbfF4EYMeH3XfenowjQKFmABeo/QGzNz/9tOPdT125ejgtaf1bAZUxSUYTtwfVVGxzaJ9YsRzx7juqmKFMLVgyU=
+	t=1792069210; cv=none; b=R1zwoT4B06kHa8F6PTK0T+pj+ZTsWk6dSOMM9nk9jUpTbKbMszMeDBGiYmUS6upk1S0/FQrkFIyELW9dsfKv6R2hWoYomd7jHpkCTCxqkc3sS6v4F6YTM9pFHZZOF5L+ihBMFv3UDG7bQ4oQHF1pU8AHou/HmvrR5XVsgN8P3kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069209; c=relaxed/simple;
-	bh=16EuTssqwYcY7F70h/BUM8kp38l/Q6N8yPmq7gB2Px0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gZrlY1r3O1f2nU9UqVf7Z3SOzueeR1q50BAd4WvEON/WDdpEk/fSFKta/2Ygd9olc/NyYVPy05K3N3QyEvhQAjbtkouO0R+dVx8OWfdtk0QeeFyZ1gzPceWbBRPjK6AjtyhbaPSM62Pt+Ra6It2uQ3wA8Y6J+XNe5/PcTUJTA3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TvO/4yHX; arc=none smtp.client-ip=209.85.161.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1792069210; c=relaxed/simple;
+	bh=ucz/F/R4tKXfbA2slqJIp4UhMivOpvFyAlmYB5GhpTg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=RTvxmthDEvEEHKt5WFBnms3pK5JjWSYbiC9yMvuCelOuzjg7/EcdXmX8TlFa378bEr2GABreFq6ryn455GTAOZ4UwQV6r7VJTQ/7XUHWdx/E/xCJKXRm97gX2hrqgHQ3k5n5Dcpa/N06GosM0OE+V3f3lON5g6il9wRJ6Xlqfqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RumX4an3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TvO/4yHX"
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6fe4372c5f3so762218eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:00:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792069206; x=1792674006; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bRJz94p2M/MzIGOAR59y6E7XPhv7pLCszJw1BEP/IR8=;
-        b=TvO/4yHXA4OYdh5SQcaK6R5Bn9Qi9vl2PjcTbl6wQvPmV/PSRkz7MjIThjaCn7ol9T
-         zlj7R82L5SpHI3EdrqgdWeL8CI0gAF/6T6ZGyelr9euzBwuTrg2BIPmVRobgNNB9APiC
-         rl8OCnvLpTWblzG7Bk9GP1ABjPPq/Oo1tjigrnQ997aO4wSwNWHI+SKiTeg5t8DlN5hD
-         uNQQmHVkpmPATcZ9dpe5LB+1p2OgNaP4XOS5E3rFGNjdQt/R7PLX3k6EBDVRb9NQYKzm
-         RL8E4u84xry9F1drlBGRrqIMuaFyx96myNbz2Eitosb/hA9mkK0L/5+6Cb37J3aIfwEY
-         QK7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069206; x=1792674006;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bRJz94p2M/MzIGOAR59y6E7XPhv7pLCszJw1BEP/IR8=;
-        b=GO38o9HUahR5yDRSYQvGR+ewN4TGtw1QIU1860ZlgVugQ2oA25W047k8Ed8RqK96w/
-         JHCrgINRFcVHpg+BcfADzky3rHyKJKA2HCwVqPAvI8VkiXOBl2FlDAwgAyJ7/eSsTHEb
-         k8V59/oaZLbarhJddjQrehrs2GI3tIZnCGHBgDdTaplGtKkc6Gt/KrBNwAi96xxuXl1A
-         ybM3lh8F7pkBrFcbxsbs8MC5+PhT6WkoKr5Pdi+PZ2alrfr9WPyplrBdF/xb/DYQWhKY
-         qs6ydymh6tU8WNXbl4WMu3NrZnrdgjsABiRWHRqNU5Dc5CCDzMML7hdU/39FkIOpCXsx
-         8xIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBydLqAb+czeqgPDEMUBB42TvEHbSu2T9u1DwgckaBYMXEawi6KianIyAuuVJjJBmxtsAZE5vwvqE8X0HmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqfragRoFNH37jrUqW5jf23KZqWFhvtqLt5WN+L6j5+aHv3FtE
-	xwF4SFKu1cDjqV1EHmsD2ACocvXn2EaWVfNX/u6V9I9Db6GDLgFoJKFXvyHc8wOk1Ic=
-X-Gm-Gg: AYBFou1yzUkdM1/cdCR47zxiKYxWa4FprkWOBEb/PmK76cnSxfiVFzC7nmOoVDCgPpd
-	OsEMEeiZJn2L+NQ1nxQ19Ho1xKFVIl6VknS77ny6Tio5nHoshW0A93RTS28akDjgYJ9vgzWHx5a
-	UNGLlFlxkYvNWHUTsnyS9FGtLGMgrTm+wN0vnL1svdN3YczEvXiMj2WoSyfEKzkcgD6C4Hj7SeK
-	2uMIMXoEEwpb+NtdiQ4C+qUA3MLGavNoDCa3ff6gE4Lr5GPTl3kQWyNFy7glZVVuJP9WBEdyjgc
-	lZzejjMbbgehGcxSqhYrZC7vaKJZKxNpCKP2SOuVPRbul0pBFAScwEyjyVUdVQqFWvMa4Vr22jf
-	9eVaH7rr9yME4MUOe915jfu6zS90OEAGUt6Iz1MAN2sYR5TYL2eu1T4XJdaUISAbz5KlWazxtVZ
-	TmTRpRuQoLlbNb0/ceMx/0D6xg6traK525FcO7nzFMg0Euj4Jo2lbq6dh6G+jJPqB85QyPrf6vS
-	dUVi4w+KucuF8NobrJ1khmunOp2iULj6HnUOiSRCyhJ5oM=
-X-Received: by 2002:a05:6820:1791:b0:6dc:5ccd:a0bd with SMTP id 006d021491bc7-6ef0dcff9dcmr15609717eaf.33.1792069206163;
-        Thu, 15 Oct 2026 06:00:06 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:7a64:39ea:e5ac:f974? ([2600:8803:e7e4:500:7a64:39ea:e5ac:f974])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6f4a1303572sm10651029eaf.12.2026.10.15.06.00.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:00:05 -0700 (PDT)
-Message-ID: <f8b97c1c-7dae-4eea-9d64-c2c81ab4ef49@baylibre.com>
-Date: Thu, 15 Oct 2026 08:00:04 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RumX4an3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E871F000C4;
+	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792069207;
+	bh=HWTfC5K89lkNZnNgOaqM40wk6WYWlsj4gyMe+x+8pqM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=RumX4an3dTCHK4ViRVTayHHYmg5HJtRca1lrJQj825qt7U67pZT1FVF2jteowr+t8
+	 2tC95Crv910KGDMzgmKkHjNh367CJOlHUOrT1jmTzi5yolLtKRPj9gV6Yz4r7l1Vvx
+	 afZ2Fk+PlCcLHuTOrq1huWtD2+FbB9BoEw/LPrbM/QJKkueuaGHGYz7xDngZO2Ol8S
+	 V0bSkZAEtCVKW6dmv8cU9V43TEzA097Qj47Ow38Cms7FgPBKt/6ebQzAmD3hbzHtl0
+	 VvP0NUkvy8j08wtRp50850wnx+l4GiPka3UyMtW6LaA8Hm/VQ1vCF0Do4dUW6uEhb6
+	 XIcIQsnB9km6w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A30B392EA77;
+	Thu, 15 Oct 2026 13:00:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: ti-ads112c14: add gpio support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>
-References: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
- <arom9T0azKX9jV5m@ashevche-desk.local>
- <f4ddbc02-1fdd-4205-b511-fb39329fa5f3@baylibre.com>
- <as46JtMAij8yqcVQ@ashevche-desk.local>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <as46JtMAij8yqcVQ@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4] net: stmmac: dwmac1000: clear the RGMII status
+ interrupt
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179206920579.3420246.7646480278225164720.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 13:00:05 +0000
+References: <20261009201709.1917585-1-iav@iav.lv>
+In-Reply-To: <20261009201709.1917585-1-iav@iav.lv>
+To: Igor Velkov <iav@iav.lv>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ rmk+kernel@armlinux.org.uk, daniel.machon@microchip.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 
-On 10/13/26 9:03 AM, Andy Shevchenko wrote:
-> On Fri, Oct 09, 2026 at 06:04:21PM -0500, David Lechner wrote:
->> On 9/28/26 3:36 AM, Andy Shevchenko wrote:
->>> On Fri, Sep 25, 2026 at 04:50:47PM -0500, David Lechner (TI) wrote:
-> 
-> ...
-> 
->>>> +static int ads112c14_gpio_init(struct iio_dev *indio_dev)
->>>> +{
->>>> +	struct ads112c14_data *data = iio_priv(indio_dev);
->>>> +	struct device *dev = indio_dev->dev.parent;
->>>> +
->>>> +	for (unsigned int i = 0; i < ADS112C14_NUM_GPIO; i++) {
->>>> +		data->gpio_names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s:GPIO%u",
->>>> +						     dev_name(&indio_dev->dev), i);
->>>> +		if (!data->gpio_names[i])
->>>> +			return -ENOMEM;
->>>
->>> Wondering if you can utilise devm_kasprintf_strarray().
->>>
->> That uses "%s-%zu" internally, so would add a "-" where I don't want it.
-> 
-> What's the problem with a dash?
-> 
+Hello:
 
-I want to match the datasheet pin name.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Fri,  9 Oct 2026 23:17:09 +0300 you wrote:
+> Since commit 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII
+> interrupt handling") nothing on the RGMII path reads GMAC_RGSMIIIS, so
+> RGSMIIIS stays pending behind GMAC_INT_MASK from the first link change
+> on. stmmac_resume() resets the MAC in stmmac_hw_setup(); the reset sets
+> GMAC_INT_MASK to 0 until dwmac1000_core_init() writes the mask again,
+> and the pending status storms the line:
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v4] net: stmmac: dwmac1000: clear the RGMII status interrupt
+    https://git.kernel.org/netdev/net/c/aa07285705f8
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
