@@ -1,275 +1,278 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013036.outbound.protection.outlook.com [52.101.83.36])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012042.outbound.protection.outlook.com [52.101.43.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074EA531614;
-	Thu, 15 Oct 2026 16:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3C92E5B29
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083113; cv=fail; b=ZhYuKF0P9t1ZWWtPxUuD2lf66K55J1z3PvxNO8Jc6I6yThh638BgiBlQIJhJgT5NVzBqjn8H5x8GwgQCHHA4BWYlPWpl7hCxNp9n8PEW64ae//NNnF0cJXwHkztMIjF88B64m/NSNsKfXgWqAJOMdamQMKp5vICy4OQT5GfhzO8=
+	t=1792083230; cv=fail; b=V0E3elXUnkvMYUrkVZK0DVTuexUYFNWpUd8p4FVnzv8nfX87InwA1nNpn1MSIjTAxuxfCdKlDAQegnM23zNROMCjQzBOBHR05D32yxI8fkB1mbwW4axzIbd0rezDIvx5Vl42Yf92XqsZiUQiF3q/2ZUYVcZ1/pO4cYl3mc+rMnw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083113; c=relaxed/simple;
-	bh=hyD5+s9fXVSWDSibI0EJt0j8/2Vtg9znM1cPZhzgefw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nmEVgmvwOi1kVTsRA96sz9Sw23M2hYjF5vWdS0cUWkhuxedfmT/QwmuzP7qg8Cr/0Y5gTJ5VFoINBnRz9uNmqCxrffXIPzLexU0QSg5i2CpOQwfxqDTRLUkVuhA66d/K/1958ZDV8/LYZMnSGC1PTSImTYz4fLAcRWrdXsexw6I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b5olMHoF; arc=fail smtp.client-ip=52.101.83.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1792083230; c=relaxed/simple;
+	bh=h41v+hZMkmEc/3qF1Ax2kUu5ucTiCsQubQQONbd2X4k=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=IjbpU6RrnA4/lsI+k8cgyzhOcfUajUyZYF1uR8aHsiSoCQZUYIxvnWk+BRewkigRSDwl7Der6iYfeCdrwhDERnOFomKxQyTxENEQaI2cUH5qvlzTbd0/fDBaQZhHpFRUdeRoz5SLdSnFf5fXrqbj0iJ2qRaEIHg9ZTUuXNajBWg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wZ/KxLXa; arc=fail smtp.client-ip=52.101.43.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b5olMHoF"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wZ/KxLXa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bP9iWcVD3RkaHPgFjtYLGFhp0sJNA/199e4Q+avW9GV79fWt1pK286pOSbM4C0nw0BMVB6gaV8Koo6zfC8dswUqg2ENu2n5t5U6PcOsJERd1sltl32OU5srHEfL21zzVNOhnadmF1WGp256rQliy0wYrJ2gvpDH7Yhd9usknTywwu4cIdmiN8jZ3D8D60vMnfFkCDsc2W2w8QTekzP+rYC7kSO18P1p4o75TvMtjcpbznZhqGZ8YkcW2mmbC46EgC8ejztPPugsJGLtV0abURZJOfDvLwmysdyOfLwBspQcGIzoeUa17NPkk+TNu5BE5+xWkWs5Pr/fxXQL2CieKcg==
+ b=SXHVxtgCjLNLJEjCHOMhuSQx4kfCOmtY43JqokwnWT4hwaehWKXeBysEGrpxmNjutZn5/bNgcZtE0CKWRy6oXhOHgKGiFUCfX0/qddO0qWormLglRRHBVWLRMKfyO5jZRitpyA2SzAye/FOgML2BYQI9t8M5WdYt25X+SSVEpJRAD7mgQ/kkBY8cV/k9NeDi21LZcvfIRM6+SlGwolewgVmOxpb8f8WUY3zS1SUf4M5BpmrtZ4s0lexqeO5NrVR+UraiGOK9BBl7NRRRWWfDCtuc8+JKDfgKdOWQdkelqAQwBl2+o+rsT1waDvewAQgnN4/RZ7yitCCvC0TYVPcTHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v5BXO0F6DGvkNh3BxJBTTwUUy8sY6MLt9a5etag1P20=;
- b=BreyFmLjPv4avtAMRSuuALkdL8kqLARzFOM9vWtRgnrogqNwtIykUDtnrPpepFMwmGQllIjMpYqvS+rzo4ERYr4ZL5YsokoYKo+8iB9VzpAebCDLqb2MceqmpvlaHO/2yD66mZSu6tlfNPDer9AttsKI2Kiw1PD3sHQVIWVQkvzNehPdRjIxTbBRrSURsvTTBJNvfhi0+cAXtj/IqrZHnS5tLb1yiBf3J9m29VX1ocpVlNQ4BrTXwo0nod5at3wWD2nwgjDDNQ6VoAvC/c8ylf3O5nOlsewGOtUyC/j9+hguOvhoRLe8YramgMCAkQpzzqsMmOqyqp/T+dTpSbfnow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=Q2CM+KPv1QSF67wvryma+Cgy12MkjUyfADq3WYyUN6U=;
+ b=LzKCuO27QFyeLW7hzTQa/TodiUulB3NgSykrYzWGR48TGQA2s0XRYt9N0SyBW1ZQjVFsdH8Fhn5EQs0vFffHYqxpLpqZjNDbEwvYIqK8wTpv5ffkuKsjlBuRtrtohW6gSNZdRqy7XPr5Rj1DEQCon7axg1u1Uza3hg9mCImu4qOWUj3J2VbvFLGPksfbbkM4UJnWTfxEujMJt7NjKSgRiDl2YwuT7v0WDEMKTr5j9EAJEkeo38ocAtbnpy2ZJatGJ0Cv73L9EilckW4LQIJY7myLavf6rpEeVXnafu8zf3g/l+k/pPOTRYgwufMsLadFzlY3E4jJ5ZUQWWYsQyDRbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v5BXO0F6DGvkNh3BxJBTTwUUy8sY6MLt9a5etag1P20=;
- b=b5olMHoFFpOCxD39kFxwO6jlY6vLWOjtzrgb42EN0itFHTTJ6B3jHs2erR71UbUa+8+NOeMplGwFEzsDJgqJFDpmV23IfBkYEXUvD3TjeU4QYsz1siUMxkTXj3plFyVYDq5sdXbjL1MNXwuVAaKv5XoYeKMV5PpNWjKMJ32CiuRaxdtHAE3nzah1XI0fgno2i9rleBgdEykPloDcLEHtvqEIGj3J0Xvjm6mHGR2Bkeo8GnWVeIr97bP868enjMvkgm9IjqIHY/Z3m+6xOQuAGWV765GZ1AjAU69TGPT5O5s3tUEteQ/WkfPKoRGDVBHE1SXRBy+TU3BFVsNT38cZTQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV2PR04MB475645.eurprd04.prod.outlook.com (2603:10a6:150:39b::11) with
+ bh=Q2CM+KPv1QSF67wvryma+Cgy12MkjUyfADq3WYyUN6U=;
+ b=wZ/KxLXaj+7+N6DazjJAc6pBABA/zTz06TEjz5TKT4gGBPki2VJECEPVVrGaWo5HUi8HGLjRJh+WLzOKf5VCAfV08yAbGbSfduDnFAoKn4SVz5ehA+G7I8DVUdOPkFTtfXhp3bM7+b4HSVrt6JIYs/l0LtpnN6enkGO8EZqz9eo=
+Received: from CH0PR03CA0107.namprd03.prod.outlook.com (2603:10b6:610:cd::22)
+ by LV8PR12MB9229.namprd12.prod.outlook.com (2603:10b6:408:191::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 16:51:34 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 16:51:31 +0000
-Date: Thu, 15 Oct 2026 12:51:23 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Mizuno Miotsuki <founder@crepuse.com>
-Cc: vkoul@kernel.org, dmaengine@vger.kernel.org, krzk@kernel.org,
-	ulfh@kernel.org, Frank.Li@kernel.org, m.szyprowski@samsung.com,
-	huibin.hong@rock-chips.com, rmk+kernel@arm.linux.org.uk,
-	sugar.zhang@rock-chips.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dmaengine: pl330: Fix unbalanced runtime PM
-Message-ID: <atEEi7Uc7DI2pkg5@lizhi-Precision-Tower-5810>
-References: <1650450456-34351-1-git-send-email-sugar.zhang@rock-chips.com>
- <20261015-review-pl330-pm-original-v3-v3-1-5be09f37df77@crepuse.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-review-pl330-pm-original-v3-v3-1-5be09f37df77@crepuse.com>
-X-ClientProxiedBy: DS7PR03CA0009.namprd03.prod.outlook.com
- (2603:10b6:5:3b8::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 16:53:27 +0000
+Received: from BN6PEPF0000006F.namprd03.prod.outlook.com
+ (2603:10b6:610:cd:cafe::9) by CH0PR03CA0107.outlook.office365.com
+ (2603:10b6:610:cd::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Thu, 15
+ Oct 2026 16:53:27 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN6PEPF0000006F.mail.protection.outlook.com (10.167.248.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Thu, 15 Oct 2026 16:53:27 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 15 Oct
+ 2026 11:53:20 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 15 Oct 2026 11:53:20 -0500
+Message-ID: <5b6115a9-e316-f697-0106-17f297eb4b55@amd.com>
+Date: Thu, 15 Oct 2026 09:53:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V4 14/19] accel/amdxdna: Move HMM invalidate wait into
+ common GEM code
+Content-Language: en-US
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Hayden Laccabue
+	<Hayden.Laccabue@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261009225343.3079074-1-yidong.zhang@amd.com>
+ <20261009225343.3079074-15-yidong.zhang@amd.com>
+ <ccabdb48-f7a6-d6ce-d148-b4e2827aec17@amd.com>
+In-Reply-To: <ccabdb48-f7a6-d6ce-d148-b4e2827aec17@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB475645:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3660f371-c988-479a-7b06-08df2adc905c
+X-MS-TrafficTypeDiagnostic: BN6PEPF0000006F:EE_|LV8PR12MB9229:EE_
+X-MS-Office365-Filtering-Correlation-Id: b444a3c2-d581-417f-2e72-08df2adcd586
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|366016|376014|23010399003|1800799024|22082099003|18002099003|10067099003|260925022911599003|260925021311599003|260925021911599003|4143699003|11063799006|261009223027099003|261009220027099003|261009221727099003|261009221227099003|261009223327099003|56012099006;
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	M7uqEy0Pkv/1cbZPjAA4M7N+JN5YfgKH1Shhq04Yz3OnBwPj2lbOFtIZ3fWH+zOgB3y3SlnR5SdEUJDve6kOzjVIzxWo+BuYoqV0OrBHBSkEBO1+heF/65jhJD85KWjTg85lpynvyMXDwW/2gDX3jUJaPbjHxjKbP8QXFYLX5NiogXshxIuFlmK0qjEM7dDGqeSkX7/+Z99ClLbrmr5F/77JMVXDaR5S81uaGsHEQCqTMpVgg67j1oMgLgWqt/+0xcE0dYmmqxENYjpot1/oHQ/PiOpdvrv/CO48ijsID4n3r7nOzW/15rQZ+S6PZCJjwAcPTOsCnDznQnUufngxrIWfWEtdgVjAcn/h9httYTFXT04PbIqOD+Au1wnv9VxX0xs+L1eIGc+aZpHyAep7sZAhidmKKfznHx7NxFxUtXoeQDiyUp4gkfFpF2P+ukwy88fNPDt/HfSsgG2xjJeGBC/QyPvyTnLGGI5jcSRD48SjSB7WyMI0f/FuP4RTtSNXXnS9NzrUMSUReU3sODeARXzti7udDOBqWEqUwDL+TCLk6BfSW4f8AXrJT74mBC1GAnjBMeFnRyL5O834vDMwIYcDB0R9KE6NFf4r1URJ7j0JVHNFbniHSeSzP6x1f9fV
+	LVThJtlHfGS2Nf+WepGAsQb0avYDyHvaWcafKj3rdY0qKTToL4dI6mQX8pDog2z7V3AWmLxbzGw7gq7OV1g+fPq9qZH5rZbYTILBij67gvh6obZkGl98UViXHu2aY1pTwBYlEkyUKdArXqIm+QhFIDKyiVIbtW5bsse36RC6eu4iDC3f6OE0IPqkcZwRtYyT9BiCQ8uAkaPn4Z4BrUe3mu79Mc/z7iyQwcltV5UM7vZaU2iK9qXSgWQPi2sketdn3/d2l+M4z9TtoP0j7/aIj6sLfQQ8aMyO4b+4hBgZhigyUsJDiIpXv42Pg/90NkIrcdP3aU26xQX9UusA1hLuG2EWjMS6N2jB2V0G8KWGpciP0g9Kd2RcY96HNHkrTYjgEbrhdT8ZmURwM5n2N5K+mYFSUjT4M61Rx+5/mmp629uTrCYfMKTaPe4j+g3S7mMjI0k9kj2DbSrZp8mE/GhrH1KHGm5so6G9O4Gt8s93mPwdImDefcdEXnlTh2p3YuvSOII4doQedEEsi/f9ozhfyjweCl5b+Fw2PDnqALUCgDMwM6J5KtuwUSgmBdEvnCnn71UF9JzYCr6U5q9OCcmYTCAtaomn+oegyWVc168Fk80pR/7az3sEEYUNrL4PNObdsm9MscIpjL0/g5OvEXcFCXEv6nfZ/9vthsDVkQImx9Q=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(4143699003)(11063799006)(261009223027099003)(261009220027099003)(261009221727099003)(261009221227099003)(261009223327099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?U1YZo1RciVk3+sXtnmrOSnRE73PUQdX1JU4sgWfrsl0xScz0dXkJ7tCsJzpw?=
- =?us-ascii?Q?i6OYaaEC9fRWikp56H3G0swctMZTx2HOd2fcNO5xBhREUKm7YfGUsmTou1Dj?=
- =?us-ascii?Q?TTvQGlzWbhxiqEl/DgQYXMAlFN35Waiz7hv5WU6sXPPh8p6QsZzr69gB8TJ/?=
- =?us-ascii?Q?H33BKjR2knHWCPBNYgi/Qr93LPzfGMZ9iYz6U5uEAxqoUZRK+kSeN1lZO47Z?=
- =?us-ascii?Q?1GyzBNJ3CnoN3b5hh51VVGklXZT/h6LGgFNMl9dhcuhmwc2YvKUImJlvXx4X?=
- =?us-ascii?Q?uCqq7aqI8paTNZSfaevbLlYnb0NlfYIycqcLwVdD8hVrMeiROXwP59aOQA/n?=
- =?us-ascii?Q?QYby/s9WED9bbxaoVfMQ8UfZ5c57ov6LpK9DkMxsQqzgjr1R9644L/Ryfc6N?=
- =?us-ascii?Q?v7fZhnxGPr1ktrv+KP56Q+ybO+8X3dVhDQMZVqaAe3KhwqBWDpiGufze1QwY?=
- =?us-ascii?Q?1CHnwgGraakKVZ4FJcEtQotrUHI9r2i/3WkhcGbMV6CyuV6o0Pz0g/YdMpb0?=
- =?us-ascii?Q?BlKpzvdoKGc6N+n2u8r10SbqDbLLg+TOvbsPvZfc4P62cwcUCNqfbIDu+Krb?=
- =?us-ascii?Q?4SW2pJMWwamEt2LQCS98m1Q3Fhun5HS78oU70lcYqGTcIJGbolbkh0GHOzmI?=
- =?us-ascii?Q?vVA15MLZD9sN/rySEm6F7fkU+e9TSoIa2dZsHqfDY+W1vJRq43EoMgLVbNJJ?=
- =?us-ascii?Q?tldnUWhMGMJKqGl+W8DxnjGRmBCj0WbSrVwxzfCxIPVXzXNLAIvICDptxW13?=
- =?us-ascii?Q?dcMqQ3rJHS42lpComFnH8YChbK+5l6lSwEXIfd0vzSK9Y0WHcfpE3Fz/eLHT?=
- =?us-ascii?Q?5oh/B5iN6zEgEV7nDyZgmqa5a/UsjVb+ObnjgiXPkOlOLrkfU/IgHSMIniFh?=
- =?us-ascii?Q?hEERDpxS6EAXJ1vGUogqtpZDMLM+9M0ovMFLzb5UtyMLdrh/clnRaWRwJMRR?=
- =?us-ascii?Q?/mFD5DLycmUPa960cbYl5ZrorD1lvpc3j2mRur+yCA035yxKaVWd+e6SpWJK?=
- =?us-ascii?Q?cciIKXEVCusgp25EG+PjUhfNAhnX1PJY9TImHykqeNH2QVBqrGwpjcdd3VFJ?=
- =?us-ascii?Q?Ptg01NUQZsq4dBOhGL7EGqyMfKb/WkkjbiAQJuQ6aWUvsS0Gt0VkK9UxfDpl?=
- =?us-ascii?Q?p6a8ZmsiuvGvtScTonO4eEoaWwR1fTHwV6z2e9FBUnZHxYfsiGUG8RU7zJfG?=
- =?us-ascii?Q?VA+CU8Iu+NvY80zTF5SJ8mt9n2uS+dbWWpHmCrFSKHhB+I9qGax63Ka+YHGb?=
- =?us-ascii?Q?VdQEBAD9S3aQqDInjLuCGn1Up2nhAsPOq1xhf12ahna86qJ4kWTvgLui82S2?=
- =?us-ascii?Q?RdeyprP0MZu7QZNpVJ+FWn/NqkGUH2R3FJ7ZMqivxk6Wk7nVWBio3ECVmrNR?=
- =?us-ascii?Q?TkdbIeYI1Rk/dfL3rwILRWsBk/JfPvdaAMvYJ53MQhJA9jbn9+eevU+wVbPl?=
- =?us-ascii?Q?McUI1cfcCDgMM9K8ruXIj5f7llgsRNe7RRCIfSArotaa1zmWObZ18NjdisHl?=
- =?us-ascii?Q?3wRVIhidUm/BdmmG4f9E7l9QMjVHclSNR4lkzMSV7on880EkoBOdAsp0AARM?=
- =?us-ascii?Q?JqXk0ciGipVTgWsSjH3A+GDPLpZqHNcEqWCWr2A65zc3+jKUZCi0mOZy8KB1?=
- =?us-ascii?Q?StsvmpQFaXvbLsaW+aO5sLW1RHnfX2j05YdOEjsJxM/CrAk3A1wDpYxpdxKK?=
- =?us-ascii?Q?kxPcIBzTUZJtSiV4E5Sppjtbebptu9evwzrLhWehpM+/xgHMJg0fuJUJN2k+?=
- =?us-ascii?Q?npXVXHnfdNwHfdAX38vFtO7bAd+wuCwpmVXBgS5yuPvaTxAUXaOt?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3660f371-c988-479a-7b06-08df2adc905c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 16:51:31.4986
+	b3rq/GH4rmFesBXI57lLMdvqs79OATKGBQwSKocB/EIFWnCF46pmHY1tw9SeF1b+u7tw4PL+ZbplxxwnpwC9EM14CrTKtWYkltS605fcQTJnOVieD0UALvRd5av8qkh4h0S1Vqhxw2cGkxoP5cLABPNldUXskowz7kUZY5xh4IqLMlo3/tPkEYWWtFOfr+brqAO4HQiWnJIGbNJRzbkzaQIzlcAuory9u/7LyDnta1arr3hYUROX40NNKfGG7AgrmX5vhFAyY5aGey2gv00W/yDbYOz38LIxvGm7guJdG0mV25LKBIiBOqEjmxuvJZe6HMrDiyp2UbA7vS/xSXOpY6u2akP34rFX+RI3Bsscvhij2bsaDklaw6LDIyWzPtm4GCyzthV+oR41LBbCsGtKSFO8Fp0QqRl4nnFaBilsQdyssNRhc3bkCcKb2snux3bb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 16:53:27.2965
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tQA1LjS8EdX+5o5mWHOqDmnV75xAla4kEv8vpAdrc+euUrEE/UMBCCNYWzM+7M4ppX5FY0YIGSGOa6/6sQePIntNrALbJKwNQM1wnxCBb9w32eNjjyBpS9gj75DkL/hI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB475645
-
-On Thu, Oct 15, 2026 at 07:58:08AM +0800, Mizuno Miotsuki wrote:
-> From: Sugar Zhang <sugar.zhang@rock-chips.com>
->
-> This driver use runtime PM autosuspend mechanism to manager clk.
->
->   pm_runtime_use_autosuspend(&adev->dev);
->   pm_runtime_set_autosuspend_delay(&adev->dev, PL330_AUTOSUSPEND_DELAY);
->
-> So, after ref count reached to zero, it will enter suspend
-> after the delay time elapsed.
->
-> The unbalanced PM:
->
-> * May cause dmac the next start failed.
-> * May cause dmac read unexpected state.
-> * May cause dmac stall if power down happen at the middle of the transfer.
->   e.g. may lose ack from AXI bus and stall.
->
-> Considering the following situation:
->
->       DMA TERMINATE               TASKLET ROUTINE
->             |                            |
->             |                       issue_pending
->             |                            |
->             |                     pch->active = true
->             |                       pm_runtime_get
-
-Look like need lock between terminate and issue_pendings. There are should
-other problems if interfere each others.
-
-terminate should wait issue_pending finish and block queue new request.
-
-And
-
-https://docs.kernel.org/driver-api/dmaengine/provider.html
-
-device_issue_pending
-
-Takes the first transaction descriptor in the pending queue, and starts the
-transfer. Whenever that transfer is done, it should move to the next
-transaction in the list.
-
-This function can be called in an interrupt context
-
-call pm_runtime_get() is risk, which may sleep.
-
-Frank
+X-MS-Exchange-CrossTenant-Network-Message-Id: b444a3c2-d581-417f-2e72-08df2adcd586
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN6PEPF0000006F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
 
 
->   pm_runtime_put(if active)              |
->     pch->active = false                  |
->             |                      work_list empty
->             |                            |
->             |                     pm_runtime_put(unconditional)
->             |                            |
+On 10/13/26 11:45, Lizhi Hou wrote:
 >
-> At this point, it's unbalanced(1 get / 2 put).
+> On 10/9/26 15:53, David Zhang wrote:
+>> When a user mapping of a BO is invalidated, the driver must wait for
+>> the BO's reservation fences before the pages are released. AIE2 does
+>> this in aie2_hmm_invalidate() through the .hmm_invalidate callback,
+>> and AIE4 needs the same wait.
+>>
+>> Do the wait directly in amdxdna_hmm_invalidate() in amdxdna_gem.c and
+>> remove the .hmm_invalidate callback and aie2_hmm_invalidate(). Devices
+>> that do not attach fences to user BOs return from the wait at once.
+>>
+>> Make the wait uninterruptible. With an interruptible wait, a pending
+>> signal, such as SIGKILL during process exit, ends the wait early and
+>> the pages can be freed while the NPU may still access them.
 >
-> After this patch:
+> This is a bug fix. Please add "Fixes" tag and change the title to 
+> reflect the fix.
+
+It is actually better to separate the bug fix and the movement to common 
+code.
+
+I would take the fix:
+
+https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/dfa1a332824421f1713388a86331a4c4d84f680f
+
+Then moving to common code on top.
+
+Thanks,
+
+Lizhi
+
 >
->       DMA TERMINATE               TASKLET ROUTINE
->             |                            |
->             |                       issue_pending
->             |                            |
->             |                     pch->active = true
->             |                       pm_runtime_get
->   pm_runtime_put(if active)              |
->     pch->active = false                  |
->             |                      work_list empty
->             |                            |
->             |                   pm_runtime_put(if active)
->             |                            |
+> Lizhi
 >
-> Now, it's balanced(1 get / 1 put).
->
-> Fixes: 5c9e6c2b2ba3 ("dmaengine: pl330: Fix runtime PM support for terminated transfers")
-> Fixes: ae43b3289186 ("ARM: 8202/1: dmaengine: pl330: Add runtime Power Management support v12")
->
-> Link: https://lore.kernel.org/r/1650450456-34351-1-git-send-email-sugar.zhang@rock-chips.com
-> Signed-off-by: Huibin Hong <huibin.hong@rock-chips.com>
-> Signed-off-by: Sugar Zhang <sugar.zhang@rock-chips.com>
-> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
-> ---
-> Hi Vinod, Sugar and Huibin,
->
-> I am forwarding Sugar's April 2022 v2 as v3, with the same one-line
-> change, original authorship and original Signed-off-by chain. The
-> original submission is linked in the commit message. I found no mainline
-> merge or revert of this change; current dmaengine fixes, next and master
-> still use the unconditional assignment.
->
-> Our SaneBSP investigation on an RK3308B UNIHIKER M10 independently
-> rediscovered the same accounting issue. The experimental G-only kernel
-> logged:
->
->   dma-pl330 ff2c0000.dma-controller: Runtime PM usage count underflow!
->
-> The subsequent H kernel, which included this gate, did not report the
-> warning during a four-rate 62.625 MiB qualification and a bounded serdev
-> regression. H also contains other changes, and G/H were experimental
-> kernels. This is additional runtime evidence, not an isolated hardware
-> proof of this one-line fix on upstream. None of the experimental cyclic
-> DMA modifications is included here.
->
-> A source-anchored reference-count model reproduces the extra put after
-> termination in the old path and balances the active-gated path, including
-> cyclic requeue. That is a model, not a compiled-kernel race reproducer.
->
-> Validation of this rebased patch:
-> - ARM64 W=1 drivers/dma/pl330.o build on dmaengine/fixes.
-> - Strict checkpatch, including the two historical Fixes IDs.
-> - Clean application on current dmaengine fixes/next/master and mainline.
->
-> Would you reconsider the outstanding patch? Please let us know if there
-> was an objection or an alternative fix outside the archived discussion.
->
-> Changes in v3:
-> - Rebase the unchanged code change onto dmaengine/fixes, Linux 7.3-rc4.
-> - Add an archival Link to the original v2.
-> - Preserve the original author, commit explanation, Fixes and DCO trailers.
-> - Add the bounded new evidence and validation here, outside the commit.
->
-> Changes in v2 (Sugar, 2022):
-> - Update the commit message following Vinod's suggestions.
->
-> Regards,
-> Mizuno Miotsuki
-> ---
->  drivers/dma/pl330.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
-> index 6214d9000..17264a05d 100644
-> --- a/drivers/dma/pl330.c
-> +++ b/drivers/dma/pl330.c
-> @@ -2090,7 +2090,7 @@ static void pl330_tasklet(struct tasklet_struct *t)
->  		spin_lock(&pch->thread->dmac->lock);
->  		_stop(pch->thread);
->  		spin_unlock(&pch->thread->dmac->lock);
-> -		power_down = true;
-> +		power_down = pch->active;
->  		pch->active = false;
->  	} else {
->  		/* Make sure the PL330 Channel thread is active */
->
-> ---
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> change-id: 20261015-review-pl330-pm-original-v3-be881d29c3bf
->
-> Best regards,
-> --
-> Mizuno Miotsuki <founder@crepuse.com>
->
+>>
+>> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie2_ctx.c        | 15 ---------------
+>>   drivers/accel/amdxdna/aie2_pci.c        |  1 -
+>>   drivers/accel/amdxdna/aie2_pci.h        |  1 -
+>>   drivers/accel/amdxdna/amdxdna_gem.c     | 14 ++++++++++++--
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 -
+>>   5 files changed, 12 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>> b/drivers/accel/amdxdna/aie2_ctx.c
+>> index d927c8c9d557..8c1b29964f8f 100644
+>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>> @@ -1277,21 +1277,6 @@ int aie2_cmd_submit(struct amdxdna_hwctx 
+>> *hwctx, struct amdxdna_sched_job *job,
+>>       return ret;
+>>   }
+>>   -void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo,
+>> -             unsigned long cur_seq)
+>> -{
+>> -    struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
+>> -    struct drm_gem_object *gobj = to_gobj(abo);
+>> -    long ret;
+>> -
+>> -    ret = dma_resv_wait_timeout(gobj->resv, DMA_RESV_USAGE_BOOKKEEP,
+>> -                    true, MAX_SCHEDULE_TIMEOUT);
+>> -    if (!ret)
+>> -        XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
+>> -    else if (ret == -ERESTARTSYS)
+>> -        XDNA_DBG(xdna, "Wait for bo interrupted by signal");
+>> -}
+>> -
+>>   int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx,
+>>                  struct amdxdna_gem_obj *heap)
+>>   {
+>> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
+>> b/drivers/accel/amdxdna/aie2_pci.c
+>> index 1b029d33a24b..690ad035463c 100644
+>> --- a/drivers/accel/amdxdna/aie2_pci.c
+>> +++ b/drivers/accel/amdxdna/aie2_pci.c
+>> @@ -1228,7 +1228,6 @@ const struct amdxdna_dev_ops aie2_ops = {
+>>       .hwctx_config = aie2_hwctx_config,
+>>       .hwctx_sync_debug_bo = aie2_hwctx_sync_debug_bo,
+>>       .cmd_submit = aie2_cmd_submit,
+>> -    .hmm_invalidate = aie2_hmm_invalidate,
+>>       .get_array = aie2_get_array,
+>>       .get_dev_revision = aie2_get_dev_rev,
+>>       .hwctx_heap_expand = aie2_hwctx_heap_expand,
+>> diff --git a/drivers/accel/amdxdna/aie2_pci.h 
+>> b/drivers/accel/amdxdna/aie2_pci.h
+>> index 709e7545c65f..13391275df31 100644
+>> --- a/drivers/accel/amdxdna/aie2_pci.h
+>> +++ b/drivers/accel/amdxdna/aie2_pci.h
+>> @@ -272,7 +272,6 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx 
+>> *hwctx, u32 debug_bo_hdl);
+>>   void aie2_hwctx_suspend(struct amdxdna_client *client);
+>>   int aie2_hwctx_resume(struct amdxdna_client *client);
+>>   int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct 
+>> amdxdna_sched_job *job, u64 *seq);
+>> -void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo, unsigned long 
+>> cur_seq);
+>>   int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx, struct 
+>> amdxdna_gem_obj *heap);
+>>     #endif /* _AIE2_PCI_H_ */
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index f4832337ec31..e1b72cef51bd 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -12,6 +12,7 @@
+>>   #include <drm/gpu_scheduler.h>
+>>   #include <linux/dma-buf.h>
+>>   #include <linux/dma-direct.h>
+>> +#include <linux/dma-resv.h>
+>>   #include <linux/iosys-map.h>
+>>   #include <linux/pagemap.h>
+>>   #include <linux/swap.h>
+>> @@ -232,6 +233,7 @@ static bool amdxdna_hmm_invalidate(struct 
+>> mmu_interval_notifier *mni,
+>>       struct amdxdna_umap *mapp = container_of(mni, struct 
+>> amdxdna_umap, notifier);
+>>       struct amdxdna_gem_obj *abo = mapp->abo;
+>>       struct amdxdna_dev *xdna;
+>> +    long ret;
+>>         if (!mmu_notifier_range_blockable(range))
+>>           return false;
+>> @@ -249,8 +251,16 @@ static bool amdxdna_hmm_invalidate(struct 
+>> mmu_interval_notifier *mni,
+>>       mmu_interval_set_seq(&mapp->notifier, cur_seq);
+>>       up_write(&xdna->notifier_lock);
+>>   -    if (xdna->dev_info->ops->hmm_invalidate)
+>> -        xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
+>> +    /*
+>> +     * Wait uninterruptibly. Returning early on a signal would let the
+>> +     * pages be freed while the NPU may still access them. This relies
+>> +     * on job fences signaling in finite time; job timeout detection
+>> +     * and recovery (TDR) for AIE4 will be added in a separate change.
+>> +     */
+>> +    ret = dma_resv_wait_timeout(to_gobj(abo)->resv, 
+>> DMA_RESV_USAGE_BOOKKEEP,
+>> +                    false, MAX_SCHEDULE_TIMEOUT);
+>> +    if (!ret)
+>> +        XDNA_ERR(xdna, "Failed to wait for bo, ret %ld", ret);
+>>         if (range->event == MMU_NOTIFY_UNMAP) {
+>>           down_write(&xdna->notifier_lock);
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h 
+>> b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> index 11f46ec738d7..2a1d6b33363c 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> @@ -63,7 +63,6 @@ struct amdxdna_dev_ops {
+>>       int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 
+>> value, void *buf, u32 size);
+>>       int (*hwctx_sync_debug_bo)(struct amdxdna_hwctx *hwctx, u32 
+>> debug_bo_hdl);
+>>       int (*hwctx_heap_expand)(struct amdxdna_hwctx *hwctx, struct 
+>> amdxdna_gem_obj *heap);
+>> -    void (*hmm_invalidate)(struct amdxdna_gem_obj *abo, unsigned 
+>> long cur_seq);
+>>       int (*cmd_submit)(struct amdxdna_hwctx *hwctx, struct 
+>> amdxdna_sched_job *job, u64 *seq);
+>>       int (*cmd_wait)(struct amdxdna_hwctx *hwctx, u64 seq, u32 
+>> timeout);
+>>       int (*get_aie_info)(struct amdxdna_client *client, struct 
+>> amdxdna_drm_get_info *args);
