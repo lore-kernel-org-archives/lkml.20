@@ -1,111 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4361749B5A4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478FA3438A1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792101984; cv=none; b=kY3HRifJHW1Yn8C09kU8BY9dsOWsHV9lybjtIZma2Q+4NkehuuiikiuL47xJjcnXJmiOquFjeBYNt25FtXvMn4kYqS8MWrhyG64lA3AFI6lLU670pcCMr8lcZvz+lMgSsT1vRIYGYbE5/1wZ1vCAGysYoUwVB8Gq7yD50/DozM8=
+	t=1792102014; cv=none; b=pMQfPo5os5A7NdUNL0wU9EaznosgeFTqlaA06CKQl1TOjTjQooBwCdQkWhSk4I7LFGes2h/mrru8WwWEkLdqSVBAQfy7tRgr1f4X3/E2Xi2nVqRlI/dXhRRp20JBCpEu+JYL6yszeuyU5Bbvqm5vwUoejisgRCKvNIE7TXBflwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792101984; c=relaxed/simple;
-	bh=nrAOSkpfvvC53d8wyV+4GEFbopuHgXUDky8Zx5ZxtII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AoDlHZigcjzz9KGWkBeypzKluWDwVxuvzlGRVbVhuO2M8N7zmp5ULmVJBJDw3R/m8/zQaAu8HbosZV2uToHlaYNryvsOzq0zSr0NYUg1gjysynDBLdjrU8n3uAeP4UqhC0xmLD06+itOqZxEHYY8xk5bqVz1eV2VjjHWrqO3UvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itmch/aA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792102014; c=relaxed/simple;
+	bh=qQRNTwC1sH59jj2rLO5uPdIkI0r2Rw9NSK6n3QX0Zxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rrsPsjiXNkh5GEjReY2NGZa9a4AYSLIHo6a+hSbeKV0L6IaD3Wx9EP9qTSieGvTGVvXeFudxm8B5cuFs6uqWJuqW0u8NsMeUBs2VVAYAw07LqWrVAzRC/wpn5rbPyNGLzbLG9iGm17C6DGw+1Y6BKyE8HZ5BsiC/dJjjNK9JnT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=Q32kCPD4; arc=none smtp.client-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itmch/aA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90BE1F000C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792101982;
-	bh=mJbsb6dU/XznSRrcG1GSuxTRuvW4/61fnYkUcg+ByiM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=itmch/aArHNeBR/ur+BnCI+m882cF1KxHAM9x0OT8uMYRvdLvVM1x0/qIeS151x5L
-	 Fyoo6cz7VRpbhDZKe915EUj0SEQmP9ybIJeRc0PFePcvDsOkr9Vp4CPO3d1xGYscXF
-	 dbfazzin059JqRPz3VadX8oAMj3XjSxudqglgs1/2e6P8WvVvJUi1DsKmNkiwdEjty
-	 NEouf7vKm/ktaNHDjyjQ3SOVQcRcHQ8iW/KPBaddWhbyemcvbzDeVFV419KEhJ1KeS
-	 M8ntuHWI6hkqyNPOCcAOVXFVhrJO4TJWxjMZt75aEm0U7ve0+2/aJE4ClWgWI3zSip
-	 MKTC1HRN8MPYQ==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2055573c8cso749198566b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:06:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzlfqfM39B3j2hH6QlcRN5Dyoc4xDXqJJea0FgcdEaJF6rfR3S03SswNpjDoi7AqB/UortfhqT+0Kqzs+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHoNbyUT+OPJAU3812Uzs2nBz1BTjKG51D0lMWlA/wGZeSW8qS
-	34bCxjJcB+hMmeICjXfaYVtOId84KmnpK7bGeJlQW1VBlQ+LBfRXuI8ogvRM3TPI28xsc1ruSB+
-	GBt11ddBFFcxpxs6lMISCgKPmswduCHg=
-X-Received: by 2002:a17:907:8692:b0:c2e:2720:8f68 with SMTP id
- a640c23a62f3a-c31aa01b41fmr1817223366b.46.1792101981739; Thu, 15 Oct 2026
- 15:06:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="Q32kCPD4"
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so1283211eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:06:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blockcast.net; s=google; t=1792102012; x=1792706812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TNgp/c86/ZKLgnujG+HEseMTgr1ylCvyZ0rmiKzxDa4=;
+        b=Q32kCPD42OVoexI8oeKnQGYGw6KgPgGYu3CuOY/X8TToHErZth0mVIdd1fPB6skHGJ
+         ExmaUZ7csVqYcbeHKRibyAZCYkGkxtm1RH/QF8kA5/YGKeZxBqFoxJIvSmRcvjmskSum
+         O/q4cfxXRRDJknrR5Bpl7FStyFCT+nOmoAbQr1CcozeT2wk3orOHqaphx31YJ/fOUumb
+         dBv5yIpryV+VxhgjF3ApMBStUuRkx7+qaOkVHevsluhFu8yf308GJRW89tv5ImCMVlh0
+         JQ7qzkyF0nMMzzJYsYbqou+8trZVzJeE2+1XbHaZLXTZeFbqrL1Hl4EtXw7YYL1IfeB9
+         2Q7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792102012; x=1792706812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TNgp/c86/ZKLgnujG+HEseMTgr1ylCvyZ0rmiKzxDa4=;
+        b=qKrPyeaI4rcEBlMZChauEmsmOfwfmpM/+iEQOSJmUGYx4aA58lCbGrs2iLEBQKKc3t
+         xe3ZPn20d0aXxQGUkZOirZkbxk8RE0A2FHPu7OATEZ9QIgYrNq+7fToLjaTYBH5RIEKh
+         REx2ClgCUNF9MUjEpV4XbSnCWzBwz/34JVSYJ98jYaGoNZPZ/1HY/y7Q++k3vnn42ZMI
+         We5pP8VYJjNTljBL08Sy6iNaknBWUM3DCoXAZ2oIvl+nhpy4LOL7MdWdrpYcJQFqpZWw
+         m2ZRQ8GHg7Kw/ThfZYpE5kp/0MiAYqJhZ/MP3f51k6q+JdZ1KiqTC864DSFCu2/CaWrV
+         Wlzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcMY2bWQcam0DJFEfwxxW+Sj0Ncvux/uxAZEQHQmAlSwU9b/m00PLVVRb8EnIb84wT0w+JezXowMyi0Ms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsJh53oHIe1CGXK4az95/xJ7PjsHm+zhVC/PbfT95NVQcLGD2L
+	27XIN+5nflkI0Ek3ZlMNHXyYnMcDqTHwOlCL3XUp4mUHc3N3pXVYWFLOPENSvcdVI1g=
+X-Gm-Gg: AYBFou0MC6rsJIlRkzOyYu8oyhojIJ5KPiKVIFJM8RbB5H21kU0JVaSec0cHxXSK4eT
+	i5ohzfukLOUahyRZNu3tyo6InMlAtyCKj410zP0MaiWsOfZZXUVwEge6qBV5trDV5N4SA1BVOoS
+	lOeBKKZVe8ovlkwOa0bjK4y0CD1eTI3DGvFEnQSP8MUmanvfHxiCXscu05KqSgUKgR/jDadm6X3
+	jEm1ovu1TJ/Dl99eAQbaxjNEksk8frs4oHYdL26ynVYBiROPLoLScG0eF55KCMubMwLtckEQEJG
+	SEcAm5Szl/kC2tZEUjBzge78jxMaJJ5KTqZ8h1FLvwU1VmVaV4lyHOEMpoXyPN343hmzUYzR6HD
+	ACYRkq4EeNdyXG8f8jBDvMEqDXmw5edJpCdIVjvo1e4DKU7kcqIY5M2X2dBIPn762TC4eENlzAx
+	pxnZGqlLb6rMZae+dtogAihKWUfP41CPDUIz3lWBN3Gc4wdEVpr8urbenIPBPM0uK6zYY08XXdf
+	JEL0Ga0T4RDAu7cjj6Ny67k74t0YhSn4oADTw2J
+X-Received: by 2002:a05:7300:881a:b0:351:29c8:643 with SMTP id 5a478bee46e88-3537dfb8649mr33208157eec.18.1792102012004;
+        Thu, 15 Oct 2026 15:06:52 -0700 (PDT)
+Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm1016445eec.3.2026.10.15.15.06.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 15:06:50 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH net v4 0/5] amt: relay tunnel lifetime, validation and request-path hardening
+Date: Thu, 15 Oct 2026 22:06:43 +0000
+Message-ID: <20261015220648.1545576-1-omar@blockcast.net>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
- <20261008182814.27450-8-kanchanapsridhar2026@gmail.com> <as-izeIj5bP01bna@google.com>
- <CACpmpof++tM9MUYgqgenwEBfaaJ60VsDwptK7Ne_-b+-DKMRZg@mail.gmail.com>
-In-Reply-To: <CACpmpof++tM9MUYgqgenwEBfaaJ60VsDwptK7Ne_-b+-DKMRZg@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 15 Oct 2026 15:06:09 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPpmLyMHF+yDb2ZHRmSdAHFTNvsu8PZsQ2Z-EVvF-dc3g@mail.gmail.com>
-X-Gm-Features: AclHuK-S4zsk6EqmhjsVui6ifjRKos1ouVvuuztrm3peIKBuRi4LD8-5u9AW2Mg
-Message-ID: <CAO9r8zPpmLyMHF+yDb2ZHRmSdAHFTNvsu8PZsQ2Z-EVvF-dc3g@mail.gmail.com>
-Subject: Re: [PATCH v1 7/8] mm: zswap: Optimally place members of struct
- zswap_pool, struct zswap_entry.
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 2:49=E2=80=AFPM Kanchana P. Sridhar
-<kanchanapsridhar2026@gmail.com> wrote:
->
-> On Wed, Oct 14, 2026 at 8:43=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> >
-> > On Thu, Oct 08, 2026 at 11:28:13AM -0700, Kanchana P. Sridhar wrote:
-> > > Place and align the members of struct zswap_pool and struct zswap_ent=
-ry
-> > > such that members used together in compress/decompress hot paths are
-> > > able to share the same cacheline. Minimize holes within these structs
-> > > while doing so.
-> > >
-> > > Signed-off-by: Kanchana P. Sridhar <kanchanapsridhar2026@gmail.com>
-> > > ---
-> > >  mm/zswap.c | 10 +++++-----
-> > >  1 file changed, 5 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/mm/zswap.c b/mm/zswap.c
-> > > index 8ae67fd10522..ade84ac4076e 100644
-> > > --- a/mm/zswap.c
-> > > +++ b/mm/zswap.c
-> > > @@ -160,11 +160,11 @@ struct crypto_acomp_ctx {
-> > >  struct zswap_pool {
-> > >       struct zs_pool *zs_pool;
-> > >       struct crypto_acomp_ctx __percpu *acomp_ctx;
-> > > -     u8 compr_batch_size;
-> > >       struct percpu_ref ref;
-> > > -     struct rcu_work release_rwork;
-> > > -     struct hlist_node node;
-> > >       u8 idx;
-> > > +     u8 compr_batch_size;
-> > > +     struct hlist_node node;
-> > > +     struct rcu_work release_rwork;
-> >
-> > compr_batch_size is added by this series, why not just add it before id=
-x
-> > to begin with?
->
-> In patch 0006, where compr_batch_size is introduced, I was attempting
-> to place it in the same cacheline as the acomp_ctx. This increased the
-> size of struct zswap_pool to 248 bytes. I later optimized this in
-> patch 0007, bringing back the size to 240 with the addition of
-> compr_batch_size.
+This series hardens AMT relay tunnel lifetime, validates gateway input, and
+keeps unauthenticated Requests from consuming relay state. The fixes were
+found while reviewing the AMT IPv6 outer transport work; that work is not
+included here.
 
-This doesn't make much sense, and the size of zswap_pool is not that
-important (usually only one globally). I would drop the patch and add
-compr_batch_size directly where it needs to end up.
+The first patch closes the gc_wq re-arm use-after-free and makes device-stop
+teardown safe for RCU readers and concurrent delayed work. The second rejects
+Queries and Data from 0.0.0.0 before relay discovery. The third requires
+exactly four bytes for IPv4 netlink address attributes. The fourth makes
+pre-Query drops visible, avoids counting successful reports as drops, and uses
+concurrent-safe TX statistics. The fifth keeps Requests stateless, authenticates
+Membership Updates before allocation, keys state by address and port, bounds
+per-source admission, and closes group-worker and post-stop teardown races.
+
+v4 changes:
+- Add dead-state checks and RCU protection for group and source timer workers;
+  retain exactly-once device-reference release on group timer exits.
+- Revalidate deferred gateway Queries against the current relay address.
+- Use DEV_STATS_INC() for all AMT TX error and drop counters.
+- Fold endpoint keying into authenticated allocation and keep four secret
+  generations, with silent refusal at global or per-source limits.
+- Document the Request-only timer lifetime in the intermediate patch and wrap
+  the new comments for the netdev linter.
+
+Validation: GCC W=1 object builds with IPv6 enabled and disabled, Clang W=1
+object build, and a KASAN + lockdep + PROVE_RCU AMT selftest soak. The KASAN
+guest passed discovery, IPv4/IPv6 forwarding, query egress, and completed the
+IPv4 torture run; the IPv6 torture run was still active when the session was
+interrupted.
+
+v3: https://lore.kernel.org/netdev/20261012125943.558629-1-omar@blockcast.net/
+v2: https://lore.kernel.org/netdev/20261009201455.1904698-1-omar@blockcast.net/
+v1: https://lore.kernel.org/netdev/20261008003606.3666617-1-omar@blockcast.net/
+
+Assisted-by: LLM
+
+Omar Ramadan (5):
+  amt: fix use-after-free when a Membership Update re-arms a freed
+    tunnel
+  amt: reject a gateway Query or Data from 0.0.0.0 before a relay is
+    learned
+  amt: require an exact IPv4-sized IFLA_AMT_{LOCAL,DISCOVERY}_IP
+  amt: make pre-query report drops visible
+  amt: harden relay authentication and teardown
+
+ drivers/net/amt.c | 477 ++++++++++++++++++++++++++++++++++------------
+ include/net/amt.h |  28 ++-
+ 2 files changed, 376 insertions(+), 129 deletions(-)
+
+-- 
+2.43.0
+
