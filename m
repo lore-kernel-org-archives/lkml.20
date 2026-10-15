@@ -1,124 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4714DD3B7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E012B4E1414;
+	Thu, 15 Oct 2026 09:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055130; cv=none; b=SiUXTZ2LL2eZfJoGinvLI8QI49c78m6cSaVyxsAfCziTRQWUVtvk40eiFf81HhgHOaa8zzeSlCOdoSPXuewyBQCJ/s2+ychHdpSRqO5lucY6Rv2mySMell9qttwb9RLh+TUWETAsc/7quT0kzFfmwtVvYXU8DY8ZSqob9R6vFjU=
+	t=1792055132; cv=none; b=RpaM0Cdxoyy1CsSZVJa6qo3eZk9AISlyrm9iL5SM4znP9JVnXUgs3R08ZfotEBC+ty3cMofui8mvUIw0UxOwd6RF9opuOQDymv64lDhPBeXYphUKcvIrokfoYOoQG8np/nQgewnl3FS711eQpcoBEt6yX8meVu2J+3Jcyz64EG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055130; c=relaxed/simple;
-	bh=kAFt08Apr/uOudwsprYUZF48EunqqD3S/1hAH/L5jRg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oc6shm+LYaJzZ2+40Mbg0OjPGqzONPfzP0LBE53vhQt7PTjKniJ1SIQupoPyopwEdBkA9cqhc6D8MPj3p1REralppqktU/GtUH+/zZeADQftA3IwtT5RYcBAQpvmb+KHOyDJebFboZOyWaSoQ6iATKl+5pLzobsbEbTtdnV87Aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbVUxeKI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792055132; c=relaxed/simple;
+	bh=i3Iy2xLXR2x993pIXgHnMySyaQglTta+do5lmMI7ybk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dJRTjHZkBVOUsq4CMXMI0nwtgxvfUTJC0bv0rdm9WuDCpFVs5V+Lh+NCNVl6HC4HiaXrrHNWORfdcbHev7eRobinEv6LfkPAtT+psLAkZbgxhq55YlDj0lHElMThPENERf9ItkM+3diejnqRrSmFsKLtFljaxJ+UVsJQmjJCaJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BjxGIpPy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbVUxeKI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FB41F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BjxGIpPy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99B41F000C5;
 	Thu, 15 Oct 2026 09:05:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792055129;
-	bh=47/p8YmQs+5a2RqOu3MNEr5/73AtKBVmpsZc2mAhwlE=;
-	h=From:To:Cc:Subject:Date;
-	b=GbVUxeKItyZs5BqitpaPbAi07yjmNB8r8R3QyYSL0J4yNcxYnXAzy+z/WQwXuoCTh
-	 /P7C/t/tznqE6So+VI2sw3PmFClQDsAXERCW8B3n24ertx/vMadQNo9jZOZ6o6YN8E
-	 86DwMfqkCQvzdPYu0J82/pbBC3ZWSb+gGtbXbJLTZwAa4jhEn4G+pKjJdpy40uWxle
-	 XTR634UlOIq2qAkvVKicMmX8jQWenFrC4qupR6MuZOY2UV3mBImXAgEZ0Pt1eSub6s
-	 0dc+9J968qprjlrccgjAi6MfY5OgWs/yk2JbESxvMpU+k/qK/hTFcTwUVrVdIupwfP
-	 U2/B3tR0yOr7A==
-From: Michael Walle <mwalle@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	David Laight <david.laight.linux@gmail.com>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: spi-nor: sfdp: reduce stack usage in spi_nor_parse_sfdp()
-Date: Thu, 15 Oct 2026 11:01:28 +0200
-Message-ID: <20261015090516.924703-1-mwalle@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1792055131;
+	bh=i3Iy2xLXR2x993pIXgHnMySyaQglTta+do5lmMI7ybk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BjxGIpPytUDCjf3oHieq1z2xj+WqtcBnVttFrOgOeGtnR4dXibxnqiymN9qUS4FVQ
+	 UZcwaO9d5rTLZcjDX8/WxaJ0OPnfXjEwQbP4YTJaQISyEupwW2HCHUydxT2PUolM3T
+	 E91G+9KoXO+i+UtEff3VNmqcGtiqf5oiA59PYznQqEJGTo45KIvOBSUpd59/jgc60N
+	 cpudvdzDyKTz3G0wt6wK2dboL19osEtYvZbZMPQ2aLGuRfeyxxOft7bF+wspbZO6Zl
+	 BasBxay/SBgmeCqOzjjzapcDi7ghmQlto+QvjvuIEvoKzBxtuCCsxhZZJjeG+SKwJT
+	 8D2smjU76jMdQ==
+Date: Thu, 15 Oct 2026 10:05:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Lokesh Gidra <lokeshgidra@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Message-ID: <atCUhtQ2v1WtNKwf@gremlin>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+ <as99gyi-NUprRK6e@gremlin>
+ <a5c6edb4-9e8d-47f1-a316-6627e518fa7a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a5c6edb4-9e8d-47f1-a316-6627e518fa7a@kernel.org>
 
-Two large spi_nor_flash_parameter structures on a function stack
-are really too much, and this can exceed an otherwise reasonable
-frame limit:
+On Wed, Oct 14, 2026 at 08:29:35PM +0200, David Hildenbrand (Arm) wrote:
+> > Hmm really? Is it possible to do that without the hugetlb lock?
+>
+> Yes, we don't have to sync against PMD sharing if PMD sharing is impossible.
 
-drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
-drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
+Ahhh I see.
 
-Allocate both rollback copies on the heap and use structure copies
-for type safety.
+> Will send that out for the next cycle.
 
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Suggested-by: David Laight <david.laight.linux@gmail.com>
-Fixes: d20029474a76 ("mtd: spi-nor: push the rollback mechanism into the sfdp module")
-Signed-off-by: Michael Walle <mwalle@kernel.org>
----
- drivers/mtd/spi-nor/sfdp.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Looks sane!
 
-diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-index beb0f5c66212..e30cdb5b18ed 100644
---- a/drivers/mtd/spi-nor/sfdp.c
-+++ b/drivers/mtd/spi-nor/sfdp.c
-@@ -1535,9 +1535,9 @@ int spi_nor_check_sfdp_signature(struct spi_nor *nor)
-  */
- int spi_nor_parse_sfdp(struct spi_nor *nor)
- {
-+	struct spi_nor_flash_parameter *save_params __free(kfree) = kmalloc_objs(*save_params, 2);
- 	const struct sfdp_parameter_header *param_header, *bfpt_header;
- 	struct sfdp_parameter_header *param_headers = NULL;
--	struct spi_nor_flash_parameter params, params2;
- 	struct sfdp_header header;
- 	struct device *dev = nor->dev;
- 	struct sfdp *sfdp;
-@@ -1549,7 +1549,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
- 	 * Get a backup of all the parameter to roll back to in case of an
- 	 * error.
- 	 */
--	memcpy(&params, nor->params, sizeof(params));
-+	if (!save_params)
-+		return -ENOMEM;
-+	save_params[0] = *nor->params;
- 
- 	/* Get the SFDP header. */
- 	err = spi_nor_read_sfdp_dma_unsafe(nor, 0, sizeof(header), &header);
-@@ -1665,7 +1667,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
- 
- 	/* Parse optional parameter tables. */
- 	for (i = 0; i < header.nph; i++) {
--		memcpy(&params2, nor->params, sizeof(params2));
-+		save_params[1] = *nor->params;
- 		param_header = &param_headers[i];
- 
- 		switch (SFDP_PARAM_HEADER_ID(param_header)) {
-@@ -1703,7 +1705,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
- 			 * spi_nor_flash_parameter data.
- 			 */
- 			err = 0;
--			memcpy(nor->params, &params2, sizeof(*nor->params));
-+			*nor->params = save_params[1];
- 		}
- 	}
- 
-@@ -1724,7 +1726,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
- free_param_headers:
- 	kfree(param_headers);
- 	if (err)
--		memcpy(nor->params, &params, sizeof(*nor->params));
-+		*nor->params = save_params[0];
- 
- 	return err;
- }
--- 
-2.47.3
+>
+> > It'd be good in general if we could get rid of that lock as a whole :) but maybe
+> > dreaming.
+>
+> Yeah :)
 
+I will probably have to go and look at that more deeply for
+mmap_prepare/scalable CoW reasons. I will wear goggles... :)
+
+--
+Cheers, Lorenzo
