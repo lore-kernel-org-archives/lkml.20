@@ -1,180 +1,100 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0611B36AB4D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A7536AB4D;
+	Thu, 15 Oct 2026 11:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792064592; cv=none; b=qt506nU/kRFSp/ZFNYySXtuXKOaYmKJP5EVyhdRh5tr8Sl4ivxVEnxuZMABwEIS6ksrYf04te9V4YKNhxs4c06Rbk3Ul/abJnBigeQ78Ys0KCMducyrjL9p1Tzej5YDPLNp1IBLwLPjH6cdrXGwwidQVHDHFpJgPdDYxh7yGCD8=
+	t=1792064648; cv=none; b=Pqk8zFl7/tQb8QTtAwocqdHaFH0WuXuDMRxsIb5D/fA3qDsK7tyzUqId3/Wbxws7/kLua0fBegAL8j9b4TQA5FrE5EG4njIFI9RsAn/WtimbJ9N12GbTkoE5C8V6XYQlJDu5wlvpDxWZkVoqd0kv21qZDtsP6M4sGAKlMgpAq8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792064592; c=relaxed/simple;
-	bh=J+O17Ew/SQxYOGMzCNRKgNxjyQ5hnOTejFZPyCodR6g=;
-	h=From:Subject:Date:Message-ID:MIME-Version:To:Cc:Content-Type; b=GIPyBWX8mrWOC0SC6kF+UqXqE1cB314soy2xjmn8FBbmZn1fhP6xOOO7zrIY7OuOwE4TXI7/VAw7hro7wEfFkiskigStaCSqjHvisd34JUdfZW8YXh+p2Ug2E8Bqr3uitIyBisEoVyJsR93bsvJeTgsGB6c9Eb2S8/3/ca68/uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=oie2kMyF; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1792064648; c=relaxed/simple;
+	bh=9c6JEiSgFPakxmdJs0ZAkTrShsy5QShGFbTtNBf+F0Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h5SucFqtV2u1542kfBA+xd//9KXnBvCozS6diqwddORrjKyXU+yeuuMpgQwGrcqS4vFsHLfw8lt6qqbCWsNStTkNXUqpcwtjcqCOp9JkGmMfE63qzKoP78cMkkSRS/8t9Jt9sKVlWGYNEXwbe3Y5YFuPoPQqjbzbtUqzBrN/bpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=CArCQ/vg; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="oie2kMyF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:mime-version:to:cc:content-transfer-encoding:
-	content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1792064589;
-	bh=YDGQhlGINpSPM53EPb5WQDPiXIGq0eajS/04uEiHt3I=;
-	b=oie2kMyFov1hla3mld0T4ApOwSy72MrCr1e3xqtwc1ASEmmv5ZDbyWPmePcf2LO3rlqa
-	hL8jMODArPU80MFo2yyeGmp90iA7wVZWZJ0g6RIzeoDGnEr0wNuUlwUtEqH2l+JsEEZV8a
-	v0lugJ3N5qPQSfdI9nSPN8bw/+JyjiegKgbQQfMJOfp1kjv8+a1FMrNksBWmJIC8nfVlzi
-	gLIuHM9ia5ELs2GH92oq8HuLgeiAcGd7R+SVwEl7ZrcEJCd0APAuVbTK+hCZp6e6k+Y8Uk
-	dUTDAquv15AbJCFm9w3QTKOrShy7tHlxLe3YQWom1mKpEG+VOFKgqp2FmytANYnw==
-Received: by recvd-canary-58784594b9-s44q6 with SMTP id recvd-canary-58784594b9-s44q6-1-6AD0BC4D-14
-	2026-10-15 11:43:09.292501886 +0000 UTC m=+1363369.825756546
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-83 (SG)
-	with ESMTP
-	id HHz3NpWqQwq5869tmBL4PQ
-	Thu, 15 Oct 2026 11:43:09.124 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: [PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs
-Date: Thu, 15 Oct 2026 11:43:09 +0000 (UTC)
-Message-ID: <20261015114307.1041273-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="CArCQ/vg"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1792064636;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=T/Iqe0SLMtqQgTZdOI0rXsVX8Tkc2D9TkdCWhyGDXxY=;
+	b=CArCQ/vg7LuJMn9XFKEHtq0t4q40OWShqm3W3oyXygsqPgjEM4YlPnL3J2uRIQVe8DtgYq
+	BEXSCYqNSuiZCoHQrEg3vNWb7aoWoUg4G7LiVX/XWQz2oLFymveQTjwG7M/UOshROPLHLB
+	wb23tJt2X1lrqSu/3QsIS7ArlSxw5ME=
+To: Sean Anderson <seanga2@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: sunhme: fix infinite loop in unmap_partial_tx_skb()
+Date: Thu, 15 Oct 2026 14:43:54 +0300
+Message-ID: <20261015114355.14906-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmee6tjAzEd4N6?=
- =?us-ascii?Q?h5hjz4W8xyC5g=2F6dVBEu2QNVvEvYnKd7+KOyPIL?=
- =?us-ascii?Q?xLHG5pUwOvvkK=2FT5OdJf55Js6Vqu0q9rSFliePW?=
- =?us-ascii?Q?KDO3QchBYTqCr8kl3lhNILZfnPyyp26zSCuD3YF?=
- =?us-ascii?Q?4irnoSOq+Rrz0mcVoCY2s9EXODcdP1Pexn3fZws?=
- =?us-ascii?Q?5VckSHYBAubKbVYBS2ovb1wNsA=3D=3D?=
-To: Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>, Christian Brauner
-	<brauner@kernel.org>
-Cc: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>, Roman Gushchin
-	<roman.gushchin@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
-	<lizf@honeycomb.io>
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-On a filesystem mounted with lazytime, sync() and syncfs() can return
-without persisting timestamp updates (atime, mtime, ctime) of inodes
-attached to a cgroup writeback that is being cleaned up after its
-memory cgroup was removed. A crash after the sync loses them, contrary
-to the lazytime guarantee that sync persists them. File data and sizes
-are not affected.
+unmap_partial_tx_skb() walks the TX ring entries between first_entry
+and entry to release the DMA mappings of the fragments that were
+mapped successfully before a mapping error, but it never advances
+first_entry inside the loop. Whenever the failed fragment is not
+the first one, entry is ahead of first_entry and the loop condition
+first_entry != entry never becomes false, so the function spins
+forever.
 
-Trigger: a wb has lazytime-dirty inodes on b_dirty_time when a sync
-starts, an inode on it gets a timestamp update after the sync's cutoff,
-and then its memcg (or, if the wb is already dying, any memcg) is
-removed, which runs cleanup_offline_cgwb() on it before the sync work
-queues inodes.
+The function is called from happy_meal_start_xmit() with
+hp->happy_lock held and interrupts disabled, so the infinite loop
+leads to a hard lockup.
 
-Since commit f6988c90671e ("writeback: bound cleanup_offline_cgwb()
-rescans by rotating scanned inodes"), isw_prepare_wbs_switch() moves
-every inode it walks, prepared or not, to the newest end of the list.
-Once an isw fills before the scan reaches a newer inode, or a later pass
-walks past it, older inodes land in front of it on b_dirty_time. A
-for_sync queue_io() expires b_dirty_time with the sync's fixed cutoff
-and stops at the first newer inode, so it never reaches them. The
-switches themselves already wait for the sync on wb_switch_rwsem; the
-scan does not.
+Now that the loop lockup is fixed, a secondary bug becomes reachable:
+the function unmaps the pages but leaves the descriptors in the ring
+with the TXFLAG_OWN bit still set. When the driver subsequently
+processes a new linear packet, the hardware MAC will advance into these
+stale descriptors, causing IOMMU faults, TX ring desynchronization.
 
-Take wb_switch_rwsem for read across the scan, as
-process_inode_switch_wbs() does for the switches.
+Fix both issues by advancing the entry pointer using NEXT_TX() at the
+end of the loop, and clearing each descriptor via hme_write_txd()
+immediately after performing the DMA unmap.
 
-Tejun spotted this reordering racing with a sync on b_dirty in a patch
-under review and suggested holding wb_switch_rwsem for read across that
-scan [1]. cleanup_offline_cgwb()'s scan of b_dirty_time needs the same.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Test, with a debug-only delay holding a syncfs's work on the wb between
-its cutoff and queue_io(): 300 files on a cgroup's wb with lazytime
-atime updates, a syncfs held after its cutoff, one more read, then the
-cgroup removed so the cleanup ran. Without this patch, syncfs() queued
-48 of the 300 and after a crash 252 atime updates were lost, on ext4
-(-I 4096, so neighbours' timestamps are not written along) in 3 of 3
-runs and on XFS in 1 of 1. With it, the scan waited for the sync, which
-queued all 300, and none were lost.
-
-Fixes: f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes")
+Fixes: ec1f1276022e ("sunhme: Add DMA mapping error checks.")
 Cc: stable@vger.kernel.org
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/ [1]
-Assisted-by: Claude:claude-opus-5-5 checkpatch
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
-This came up while answering Tejun's review of my series "writeback: let
-foreign flushes reach dying cgwbs" [1], whose patch 3 had the same
-problem on b_dirty in its own scan; v7 of that series [2] takes the same
-read lock there. This patch is independent of the series and applies to
-7.3-rc7 on its own; both together apply cleanly.
+Changes since v1:
+- Also clear the stale TX descriptors (hme_write_txd(hp, this, 0,0)) after unmapping them.
+v1: https://lore.kernel.org/all/20261013103228.37430-1-arefev@swemel.ru/
+---
+ Compile tested only
+ drivers/net/ethernet/sun/sunhme.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Impact is limited to lazytime timestamps on inodes attached to a cgroup
-wb while it is cleaned up after its memcg is removed. On ext4 with the
-default inode size, a write to any inode in the same inode-table block
-also writes the neighbours' timestamps, so fewer are lost there; the
-test used -I 4096 to rule that out. XFS has no such rescue.
-
-The debug knob used for the test, applied to wb_writeback() and not part
-of this patch: when /sys/module/kernel/parameters/wb_debug_sync_delay_ms
-is set, a WB_SYNC_ALL work on a non-root wb sleeps that long once, after
-dirtied_before is fixed and before queue_io(); it also skips sync's
-best-effort WB_SYNC_NONE pass on cgroup wbs, which had nothing to write
-here. Steps: mount -o lazytime,strictatime; a cgroup writes 300 small
-files and one more, syncfs twice; read the 300 in order (each goes to
-b_dirty_time); set the knob to 10s and start syncfs; 1s later read the
-extra file; 1s later remove the cgroup; after syncfs returns, crash with
-sysrq-b and compare atimes on disk in a second boot. The scripts are
-available if useful.
-
-Tested on arm64 KVM guests (virtme-ng) with ext4 and XFS on virtio, on
-7.3-rc7. Not tested: x86, production.
-
-Developed with Claude Opus 5.5 and Claude Fable 5.1. Fable spotted that
-cleanup_offline_cgwb()'s scan of b_dirty_time was exposed the same way
-while checking Tejun's analysis, and reviewed the fix and the claims
-here; Opus wrote the fix, the reproducer and this text, and ran the
-tests. I directed the investigation and reviewed the analysis, code and
-results.
-
-[1] https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/
-[2] https://lore.kernel.org/all/20261015-wb-dying-cgwb-flush-v7-0-9278d9ebaf5d@honeycomb.io/
-
- fs/fs-writeback.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index ea3eb40bf828..99570aacdd18 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -789,6 +789,11 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+diff --git a/drivers/net/ethernet/sun/sunhme.c b/drivers/net/ethernet/sun/sunhme.c
+index a70f704eb9f3..dace94841a6f 100644
+--- a/drivers/net/ethernet/sun/sunhme.c
++++ b/drivers/net/ethernet/sun/sunhme.c
+@@ -1965,6 +1965,8 @@ static void unmap_partial_tx_skb(struct happy_meal *hp, u32 first_mapping,
+ 		len = hme_read_desc32(hp, &this->tx_flags);
+ 		len &= TXFLAG_SIZE;
+ 		dma_unmap_page(hp->dma_dev, addr, len, DMA_TO_DEVICE);
++		hme_write_txd(hp, this, 0, 0);
++		first_entry = NEXT_TX(first_entry);
+ 	}
+ }
  
- 	nr = 0;
-+	/*
-+	 * The scan reorders b_dirty_time.  Keep it out of a sync's way, which
-+	 * could otherwise miss timestamps moved past its cutoff.
-+	 */
-+	down_read(&wb->bdi->wb_switch_rwsem);
- 	spin_lock(&wb->list_lock);
- 	/*
- 	 * In addition to the inodes that have completed writeback, also switch
-@@ -803,6 +808,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
- 						 &nr);
- 	spin_unlock(&wb->list_lock);
-+	up_read(&wb->bdi->wb_switch_rwsem);
- 
- 	/* no attached inodes? bail out */
- 	if (nr == 0) {
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.53.0
+2.43.0
 
