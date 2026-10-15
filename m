@@ -1,226 +1,304 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013026.outbound.protection.outlook.com [52.101.72.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ADB38E8D0;
-	Thu, 15 Oct 2026 14:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075176; cv=fail; b=dker6c2veVoFX+HunupgBHsJ2KeUVZmgKUwM1yDS3xL2ln2ZaEsVmSEik6dEwvpUHe/073caMzVBvhexmf9XsUI+qNNT6zVAJLOQcBs5zZ3n8yRpOLK9zlykb66bOYDSehwgfUIM81aXynHkNkDCIDSt2lza4WMqdUWkktvqyLE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075176; c=relaxed/simple;
-	bh=q5xGx+tn23zBqcJ9hlTBG0wRKneYkrFas7q40HFZ2p8=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=nmAtmB7Sx1EP142h+Od23mpdmCJIm2o6+L2mdtPapxstLsWGVnIy4vH0jqkxUVV8OdRaYn3tdSer4rzBeZ+h3DteVcm7fd+nGZLMI5h46KvdAxUCuXEq7ECSoSVvW7/h9ZDIe9VX+nL/SEZpc2JPk8mhoYGMRXpCHF7qiAOtmEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vu0snf6F; arc=fail smtp.client-ip=52.101.72.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEC13AA518
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075177; cv=none; b=jJ56sOztijJvnMHRDYxpO6LPxUnIydnZUv7HOsRPGKBJDtVMOEViaY2XlN8ImEJQIPXv81G/5kLAnSJ/Z69EzC0NjlNAz/8hH9mf7wG4Hbx1PveANjmhaU0I8hY+3Zqq68BMnKe+M0APO5cMSbDKR/fQz25DpnCjkTg4fwBxAEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075177; c=relaxed/simple;
+	bh=hx7uNu0SUH+5t/qSITXY6QrEBrA3jRbqsbGUSfGxVw0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WA5VAcnOsjtPLbBNR/2EvVLGjmXdUeAW6aEYQp3M6qnbBX4k4OVTNbdcBU9d5MmKiAFuV2LKx0klTAkuhRkmxhlEXuzJUTgrors3Zyc+07aT7CfTfob9ab1OGPTAPSLd1zAk6UZvOIaTDm2WY/PwE0yubgVQg8DEzsSnIopN8yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KM/qKg0J; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vu0snf6F"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wR3Ef0Lz6X76w3ZGYpMp2vYiEkOPQizt//v+wCfXmNm5n3E6G0JAN31M6E5vh0hZ3wHWkxX1zHj5DUFdwKP2wn7kQzYTKLgfpg8QTHxn6ZmSsNH5T9GjEGbb0qDgl4V63UMlsEquk7NCr3AosCphNJWlPvcRQLonu0PCbDjQz+guKsgpbycbSwqToXuCBSXP1W8t/6SWmBSrG2LOzjeFbhaZPg3TU1bajdaAYOQRVlZ1u3S+nXa3wE+wq7nNLMWaiD2dxV4b5SuHSplg7MqakusaBwDA4GyT7I1rsxBsriM60EelEX7zIE8f4o3Dh7FLdmFnIijofypwPk9SlpEhYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MEb2Ph0vd+OANpH0/6hBcRYs6jC6LiXNsqQkv2LF4u0=;
- b=LUyl6BKdRHml1sat1/ABayoXFRJEk6QX3BCeN4u5J75/drpMgcjoZDtH5qGTJ0P/GNBaaJHztSXANuSg/hNof6uKxhMocEhRg8hPaoYK9lzkceJFpjTe4SBdeEAETp+egyiSEVR2iukeyvQcJlGOFncBKaDr52E+kDt9NS7a2g432GBSf3vLGwV0UHGtt9NdxlKUOhalRyxdJdE4FhH1FcJD/HMgagh2uGgALuYWJcQzJDstVVgMLYra5ohP4EgOe5EUV4URck8FgViM1PJomx6Bwj1g7wFp2GQsOmP0eoTsCWB5KPVTeEPtCHEbpOqnQP82p0h1wb0Ujn/PVd7QDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MEb2Ph0vd+OANpH0/6hBcRYs6jC6LiXNsqQkv2LF4u0=;
- b=vu0snf6F3NvVkCiGF4l9ir38UlKDY2Px54XVIXqWtor9wWrqCYY4lgEx98u/skxhGCLupmEoI2kjxzfdcSJZjq6LFD/Q9Nc0yhGGag0a9OcxdNaAbSO8DQqItVCFyIjBQfSTnLtchwEkC1QayoW7DtHm3vT4YVyG5TEDtmO6uJHRj0djV6NSG0kCkIyhBUrOBVbRLxFohpLyw+x+VuIHtVyMZwxWw3wJvl2GJpr1YbrMJUmIv67dXIvn/gopj1romu3JflgM3gM3aT15e6CLYhzBd6fAhCmTMLtCub0LPAP9qQn32x7jii6AoK+JXEutgoylO/V3Kytph+pCdg2ytw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB6881.eurprd04.prod.outlook.com (2603:10a6:208:18b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:39:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 14:39:31 +0000
-From: Frank.Li@oss.nxp.com
-Subject: [PATCH v5 0/3] remoteproc: imx_rpoc: use memory-region-names to
- avoid hidden ABI.
-Date: Thu, 15 Oct 2026 10:39:21 -0400
-Message-Id: <20261015-memory-region-name-v5-0-abc358b39a96@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJnl0GoC/22NQQ6CMBBFr0Jm7ZjaUCuuuIdhUcoANWkhLTYYw
- t1tMe5cvsyb/zYI5A0FuBcbeIommMklEKcC9KjcQGi6xMAZv7LqItCSnfwbPQ3JRKcsYV8JRqR
- 4K28dpMfZU2/WY/TRfDm82ifpJS9lYzRhSStHNZbZ+wXkv0AskWE6SyEqzqjta7fOZz1ZaPZ9/
- wD7r+7pxAAAAA==
-X-Change-ID: 20260915-memory-region-name-f950eea2b78d
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>, 
- Frank Li <Frank.Li@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792075166; l=2748;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=q5xGx+tn23zBqcJ9hlTBG0wRKneYkrFas7q40HFZ2p8=;
- b=cGxitOq1XQkze3PM1zpGspRzx1JPNH1nvXbCwuLOEY681R+fTVnacAN38SG3KqCqYNVnF9sey
- e0iT4JGl2AYD8YHREklvg1BhDhkwelsW4y4/CV4s6N+VzTVnM8os+fu
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: DM6PR03CA0083.namprd03.prod.outlook.com
- (2603:10b6:5:333::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KM/qKg0J"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso2991398a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:39:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792075174; x=1792679974; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=36MKAMMTovOY0fK0KjZHqZO9o0sMQ+Q/sWNJ0tayxqQ=;
+        b=KM/qKg0J0oF84V7eNg7BW/03bhrgaAq86Layu30enLOw2BxTuCmjf5rwpQAwKsvJl2
+         1ehiRC/JKdtIgJQr5sctqmy2LfUKbH5JwHXljdfeyShpI+n+MK6nTXq/Qsi9g8kQX03H
+         c5XqtewJq7K88ecDduVPNTO9DX0Aqt0iIiAF8p8+d27oKYHoveYNMjj2/sfEbqJvBEnR
+         RO+epZ8YJEiyXzGX+9GVdprQAvKcHHs4inaRwTcslAXCyfMkXo0WrvZf5KpU5X+G5SS+
+         AhVbvzNGh7jNtSr44X+b/FWgErWpfiFfwnVGV/n1no70m8PNloXrjXHszckIoVf+ndgC
+         cObA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075174; x=1792679974;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=36MKAMMTovOY0fK0KjZHqZO9o0sMQ+Q/sWNJ0tayxqQ=;
+        b=QnLJIlkhKUSc4Jw/XSGCW0rJssjJPm0OyEcF3e9LooReIggjbtMY/3Dt7hlzgrhYlD
+         rKgLFWHSix5jiUVnMDFJFGEiOcogQ86eJ5N+O1/lF0Nmrocz+pycmNIcBcYM1j7cL8HV
+         icO0jTuUdgfp+9atBC8BfYS3AdwJ2lUVjG2tdm6ZlWBQO5SfHkRhDxkQGOIkW2OxZzKP
+         CXkAJLby6l624ys4yAGNkrINnwCazjD2iDMDWG6nSKVGm7kWzZHqMvfje8ThXGW5G3Pn
+         3JxQMq1Yc/qXo2y1blwq+UyCNS1JUrPDXMCef7T0qeul3T0ojvO16xS+Q3YbADWTBGEE
+         yj2g==
+X-Forwarded-Encrypted: i=1; AKwUvBy/ni8imJFam/8aS0XSOLy+EpPjKa6VWrCoDqlf/BHDakAZn/x7Nx/Z1NUpcFgA9mSVaSzR+B2JiAijMDw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnU8Jxm/fnW8aD2HmB4hrd3Bkt+Kp9tD88yvyxrEjmQRK/EYHP
+	FTtudcOw1qGbctsqJVGgkKyH93T/0CmRiQ3o5ivDxkpjJvedr1Dx5rhh
+X-Gm-Gg: AYBFou1TlUJvyqg9YvUAp8f8bckbSJ6nDPyXpdnUglFFh8fttnYU9IdAX3ljywtOpuv
+	RnMHsto97vLqfmxj8HPCXeqQbOdqNSixeQ1VC74G9J5PXYXCitgbkE9LM7Z65nZLDa6pYa7n6F2
+	FwXZumN5P2u9ConNLb37HOCUGTB2RHxlyIgFwmGl9a014p9vnX4mrW1cwH/IfvggQsqlADiva2L
+	ZEbhmaDVQtexCXPZUNxZEw4cKkLmchNNhl5nlJoP9NQJsS9V/RnF7cgrbv4MkTlg8JYANnVB/ey
+	iz+Q5h+o6HJTK60R69C1ruQOnDpmm7rOAAN/ca8yRlfav8N1Jius5D0lLcbU+I1699LHiE9FhYf
+	8t72EbDftcjNKPIH8BMwTVDeWc/yJDlniSVPgVLfZZ9X3HMqnp3ws1q/GPo+feu0q16ihUJObiL
+	L0rRqIS6TheRVzXDImd2CrhjYWa+Y0iPUgXZjy+Vi2X1Xo4LWOdfwCPFBzmA+di2ILttfLBSg=
+X-Received: by 2002:a17:90b:164c:b0:3ac:9599:a689 with SMTP id 98e67ed59e1d1-3ac9599aaa3mr2306907a91.34.1792075174128;
+        Thu, 15 Oct 2026 07:39:34 -0700 (PDT)
+Received: from dev.local ([163.43.243.221])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9377fe6esm2583465a91.3.2026.10.15.07.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:39:33 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Date: Thu, 15 Oct 2026 23:39:27 +0900
+Subject: [PATCH net-next v3 1/2] seg6: skip the route refcount in seg6local
+ IPv6 lookups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6881:EE_
-X-MS-Office365-Filtering-Correlation-Id: 622efe12-ce62-46cb-4d2d-08df2aca1fa3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|7416014|19092799006|366016|5023799004|56012099006|11063799006|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	kF/Q+hD8Z4bXDnCmnBwjSNzTXE9Saa9z9GCJL4rvY3ZIrb0rhIQ90U7JnpcN/YLQNgtDpTnxmFnLSlvzVtjoPK6M1p9P7ItnzlRyMaaYAbNMemisRem5bRdmnXP3XOSDlDIWOM32yTpXOTROLEsShLQeYiuVl92okdr3EF1LxDEC1rO73DCQx4eVZkkw+dYh1IYidI5reFGxT/z5nE4FnB3TOGpLBu5iT/8YI181V8I6WDs9j2PwoI7IKgAPUEGM1/p3dPUMAe9CE3TuLGwzUvXww+MIjYBeFZq/9txqkA6vlrlaekYMts+pIXtbCETAff8q8UYOcB55skY+piaKHsXGd+kh4usPtljv3PZgd7xamGT9Zg5M/MBThMmJDJoaL2jmOdLUM6KGXfBhc6YmJ/CVEG1JbC8GWd4tYeJbUqPHyKvlJsK515ZnLdBCTATr81aD4ykxmaOVHhtdhG2EpKOTqzO6HDrgXqFfOzsiEFU2RTjAz2evOpjzkVodtfHZkJU2BkXzMwHWdahtFzosE4+BOFgBT6qU6IE+jvSBYSMuubLl3xdgVAdjf1q9A+C1jnJE0aJyuGtvp5Yd/qaDSTtsINiHvPsh9BxRg2bxOPBa14dj1Wurv/99AMc5WLfs
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(19092799006)(366016)(5023799004)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXIyNG9JaUYwNnNWUFlOU1dPeVhMS09KRXR2RTVtV2o2bUZUOE5oSzhsdzZR?=
- =?utf-8?B?ODV2TkVnTmRWeXBXU3BjTkhKVWZQNEJMWkVoV0FhT2dUUEk1SFpJRnhVRU55?=
- =?utf-8?B?ZmJEaDh1cHRHcmZRM0xhNzlQNWw0TXFaYnNrZkRmRTN4N0toQ01LZDdhR0Va?=
- =?utf-8?B?U0NHMFk2a1JFVWVXWUpNcUEwRXRIdXkvVWM1NTBaZ2dVU0o3V1ZSbHU1RFZq?=
- =?utf-8?B?TEt1bFZhakFQZzVDalNSaG4xVTVKVjM4MXhVa2FzMXkrQXZEUHBEYWJZS2p5?=
- =?utf-8?B?Nit1TENVaXc1TUgwTXlwejlpZDhvUVlPRjl1Y0NERHN2ZVNpZEpSSWRkaXRD?=
- =?utf-8?B?L3NSbmlqR0J0aGNmUnNGRklLQlNYQkQvY3ZmL21PejhiV0ptVkFwRUdxUUt0?=
- =?utf-8?B?dVJ0dCtCNm9MbXVuQVBEZzJpSlNKQzdZQnRLd3hpL0d0L041SHNyOUpCRzg1?=
- =?utf-8?B?cVVTVlhmSHdOWkJpVzdTcEtNYXgrRjZEVVBYb0xiaEQvcnNWOVBXeTB3Y25a?=
- =?utf-8?B?OWtpVExvOU1Rek5YREtJR1l2dHFZaEdCeUdaUnB1ZGZVbW9ac3MrbjBwQUdt?=
- =?utf-8?B?Z1M1RXBaQVIxUjVQbVFmQm15VS9xaG9ML21BZFNYd3MyWW0zd0RyMXVTbmM2?=
- =?utf-8?B?QjZHMnpLZUt4RzVwcUd0QVF0MVFkUXhIa0pIT0VNYXIwY3pBcWxmSnBUUjNB?=
- =?utf-8?B?blI0YjVPTnQ2a1oxNXZKTFl1QnN1RGVSVGl2ZXkycjlORHhkUkVrcThKQTV2?=
- =?utf-8?B?TnJ0dkRFalhZMWVyLzZ0YUxFZ2JOWkNHaGxheFd1SnBaZkYzSElMV3c4QXNn?=
- =?utf-8?B?aEM1M0xTbHVpTmlCQWU1WVAxeFY4ZXdtTHBYTUN1QklIeFBxNno1NzFjL296?=
- =?utf-8?B?dmlGY0FsMHpxVHAybDdlSlVJdkp1dDZZVGdFMUV2UUk5S2JzdUZVaVNuZjU2?=
- =?utf-8?B?MkVBVUV5cTJKVnZuN3JtSVZ1UWdWUlFBSUNGMHE2N3JlaU5majRjWTN0RFlF?=
- =?utf-8?B?WTh5ck1Xbk9ydEJhYlpHNnVZTys1bGtRaE1DdFRXeHpjV2NpdlBWOWdpbUhr?=
- =?utf-8?B?YnlHYU9qWGRZN1dNQnhBdWo4Zkk0UkFTb0M5c3lZNEhQb3JZeEt5Y2NpRHZl?=
- =?utf-8?B?TXNNRDRxNHIzdzdFM0Q2UUdueS92MjMvM2VIUDFEeXBFdUVxSDFZRnRtZ0k1?=
- =?utf-8?B?Q3Yra2VpWUxWa0NaSWtEOUJVeThrQzBVSTlXc2RndXdObEVkSGk5dmRVUHFY?=
- =?utf-8?B?MFJPcmgvWFVYME5tUUxFMGUvWGdYMUpqQ05Ga05RSkhEVUtPb1FRdnhNQ29a?=
- =?utf-8?B?M1lxVmN1cmMwSjdhd1lUMnZYczdVRkUwZTN1d1F5ajRydllSN09MZHFsdkla?=
- =?utf-8?B?QTMzNnpxTjZrbmpKT1pSLzRrRlYvbVNPWGhWQWU5L1A2T0h6eFBKTCt0QThs?=
- =?utf-8?B?bktJYUtnUUQ0bWpPZUU3M2xQQzIwTk1FRTdEVWZiOFJWZFhUckNpNFhLVjBE?=
- =?utf-8?B?MVh3VUcxeUZ2YnhYeC90M3N2Y0c2N3VWeWxiK05GUjg4bHJLOGJqQnlaT2dE?=
- =?utf-8?B?MzRqbHFrSlczc3VnU3o1TUtLd2dmbEwyRDNoUEJlbEJEeXhpOFRWbFp5ZlFF?=
- =?utf-8?B?dUl4RENWck81MXA3eVhqbGZMMGcrd015Q0taR1d4N1NTeUpXckR4SXZFN0pa?=
- =?utf-8?B?V1RwNU02Y3hLL3RUR3RiaU5SRzNuaGZlNHd3ZFl4L0pEaXVtNlF4NGRkVGFR?=
- =?utf-8?B?d1ltZWVJblIvMzl1RmtXOGQybWVuQlloWmw1djJ4TVB3Rk1ndjVqdEpNK3p0?=
- =?utf-8?B?Rml4TXY4V01Cb3RMZDZIYmZ5Z1ZZc2pyMkptbFU3YjFJQXJtVjNYYm1XaXJq?=
- =?utf-8?B?NkRWdkVWbks0QlB5MmZ3Q3Z3Rk4vdUdDTk1WaFp0aHlBUzdlZkJVODJqMXQv?=
- =?utf-8?B?Q3FEb05IZEtHOVdFSmV0SDV4Z3RCKzY1SWhBaW1Zc0ZnOGxFY1NJRXNmeGg4?=
- =?utf-8?B?Ymk4YS9FSGxHQnJyUTNPOTFsTGFUSEc0Wm9xanpsdTNSUTV5RFJUR0pZWUkz?=
- =?utf-8?B?bHdST1VKT3VPTVB2SHlzY0xaK2xJeXNZd0I3eXoweXdOWDdPVTUxckd3UFVr?=
- =?utf-8?B?eEVXd1BXaEhWaVFFdjFpM1FGcFFxVG5WeDEzaitOWUVMaHlVc1BSUSsxSm9O?=
- =?utf-8?B?VjJlWi9YNlJ5NW5zT2tRM3BzSmU5SkxQdUxibTVUVDVrTGtvRHFtVFFqQWgy?=
- =?utf-8?B?R09QMzluY0dwejRXS1lRNDdkdVpEMXBveVNTOWEybTNZVVVLZmMvWml0eVYw?=
- =?utf-8?B?UW1hZC8vOTdMaGJtb2lrci9JcitkQzYyRzJuM3NqaW5UNDRMUjArbzlwS0xa?=
- =?utf-8?Q?wVf8xR+HdeG4xMT8v90fAEVBZC1auKh0X9IAT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 622efe12-ce62-46cb-4d2d-08df2aca1fa3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:39:31.4324
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kp7N81n1OTbtf2HP10OQg4KSb+mxH8d8s9ZfMS29NWMCoitn25MZh5EGxQ8OPdV2x4sfY75eIY95vNKKXOTbsn9B7A0nHLnBnV7FCdFdxPiLbWZe2XLEeiwBEwaFbMMA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6881
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-seg6-lookup-noref-v3-1-6d51a60a67d3@gmail.com>
+References: <20261015-seg6-lookup-noref-v3-0-6d51a60a67d3@gmail.com>
+In-Reply-To: <20261015-seg6-lookup-noref-v3-0-6d51a60a67d3@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabriel Goller <g.goller@proxmox.com>, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7301;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=hx7uNu0SUH+5t/qSITXY6QrEBrA3jRbqsbGUSfGxVw0=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBq0OWfytdRTqhPUHh9Kzi8vLKMVdHP0irAdQDBI
+ +/5o9YIvNCJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCatDlnwAKCRAq19F1Kl0b
+ TZjCEACxO+PrBbAPQRv6JkT5w0KTH4kZwCejjZAIVOF+EQwSKzUgsdh/NF5qudoz+PzNMpxk1Qa
+ g4BZoB+7UPxRQndQXztwyVDRFi1w+oWy+c1LfO+TqZn3Mo45mOD4xFzHrl6c+Of7CMcu4meZlMZ
+ SuwIkyeHFBbKjD0FLouEpIeUrnqNKxIUB5B+n8jQqL4UNsJ8a9ahrWqe+4IRgqx2DBcAXwDauvp
+ TMthDckeshSyGjwfVLGIbh2160ca5GJt6UEewKxkktlMlEuVCMVHD45zf4LUfw49vAc8LTthaeh
+ 4kASsiJajBuN/UdAsom9Z8TySG2S3wGdpgromW19L67OnOKAvQgFhzKzB3Ew0b/cjqyhJlTwzyN
+ 2JPrtoFsu4zuvZGXscOAFyEPlao+JaFv0ocCVFLKBYYiC6yoGpbkvd/sB7C2wSVqMicVQr4t2rw
+ AWODbF1bZiU7UBjedverrrYCjQAtnuqDerIzCgQMl/nD8ky4bMO7yPUy4uAEh+t4DHkrXbebgmF
+ 5QCgd8nyW4UWe17pXERHEakdRfHjUOJQzGVA9AW+MrF8hg/9dEt4EdLGHv66g0D3oBD5Uk3oR/O
+ 0ezWB5Sjzfqm2c3QFwCdHbNK33YRwjhtq2r3Q3EZyCV+fSkIiJxxqokHjeqeo+63/1LNQC8kXyZ
+ pnRo/hVUqwRNozA==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
-The driver currently derives the memory region type from the referenced
-memory node name, creating a hidden DT ABI.
+ip6_route_input() attaches the input route to the skb without taking a
+reference, relying on the RCU read-side section the lookup runs in.
+The seg6local input actions also look the route up and hand the skb to
+dst_input() within one RCU read-side section: the one of the receive
+path, or that of the nfnetlink verdict handler for a packet reinjected
+from NFQUEUE.  Yet seg6_lookup_any_nexthop() takes and drops a route
+reference for every packet.
 
-rsc_table: rsc-table@90000000
-           ^^^^^^^^
-{	ret  = <0x90000000>;
-	no-map;
-}
+Give seg6_lookup_any_nexthop() a noref argument, and set it for the
+input and table lookups of those actions, as ip6_route_input() does.
+A packet that races with the release of its route can then be dropped
+without an ICMPv6 error, where ip6_hold_safe() used to send it on to
+the next rule or to ip6_null_entry; ip6_route_input() has the same
+window.  seg6_lookup_nexthop(), which the BPF LWT helpers also call,
+keeps the refcounted lookup: BPF_PROG_TEST_RUN runs them repeatedly on
+the same skb and may leave the RCU read-side section between runs.
 
-m4 {
-	...
-	memory-region = <&rsc_table>;
-}
+Throughput at 0.5% packet loss of 94-byte End packets (two-segment
+SRH, no payload), spread by RSS on an ixgbe 82599ES across two 2.30 GHz
+Xeon E5-2650 v3 with 10 cores each, offered by TRex and binary-searched
+over 10 runs of 10 s, in Mpps:
 
-Current require node name have to be rsc-table, but no any binding doc
-to restrict it.
+  queues  cores                   before   after
+  1       1                        0.740   0.756  (+2.2%)
+  10      10 on the NIC's socket   6.404   6.950  (+8.5%)
+  16      10 + 6 on two sockets    6.550  10.124  (+54.6%)
 
-Since memory node names are not constrained by the binding, incorrect names
-can silently pass DT validation, as seen in examples using "vdevbuffer"
-instead of "vdev0buffer" ([1] and [2]).
+With the default rules, fib6_rule_lookup() tries the local table
+first, and the miss takes and drops a reference on ip6_null_entry,
+one route shared by every CPU.  At 16 queues that cache line bounces
+between the sockets, and ip6_hold_safe() and dst_release() together
+take about a third of the cycles.
 
-Add optional memory-region-names property to define such ABI. To keep
-back compactiblity, use "optional".
-
-Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
-Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
-
-Prevous version
-https://lore.kernel.org/imx/ail0sH1UhnQBPRkr@SMW015318/
-
+Assisted-by: LLM
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
 ---
-Changes in v5:
-- fix binding region-memory-names's pattern
-- add vdev1vring0 and vdev1vring1 at dts
-- collect pan peng's review by tags
-- Link to v4: https://patch.msgid.link/20260917-memory-region-name-v4-0-260755920ebf@nxp.com
+ net/ipv6/seg6_local.c | 48 +++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 35 insertions(+), 13 deletions(-)
 
-Change in v3
-- rephrase commit message and cover letter to correct descritpion and
-reasons.
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 0c3d1be7f129..965263ff65d3 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -319,7 +319,7 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
+ 
+ static int
+ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+-			u32 tbl_id, bool local_delivery, int oif)
++			u32 tbl_id, bool local_delivery, int oif, bool noref)
+ {
+ 	struct net *net = dev_net(skb->dev);
+ 	struct ipv6hdr *hdr = ipv6_hdr(skb);
+@@ -342,6 +342,8 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		fl6.flowi6_flags = FLOWI_FLAG_KNOWN_NH;
+ 
+ 	if (!tbl_id && !oif) {
++		if (noref)
++			flags |= RT6_LOOKUP_F_DST_NOREF;
+ 		dst = ip6_route_input_lookup(net, skb->dev, &fl6, skb, flags);
+ 	} else if (tbl_id) {
+ 		struct fib6_table *table;
+@@ -350,6 +352,8 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		if (!table)
+ 			goto out;
+ 
++		if (noref)
++			flags |= RT6_LOOKUP_F_DST_NOREF;
+ 		rt = ip6_pol_route(net, table, oif, &fl6, skb, flags);
+ 		dst = &rt->dst;
+ 	} else {
+@@ -363,7 +367,7 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		dev_flags |= IFF_LOOPBACK;
+ 
+ 	if (dst && (dst_dev(dst)->flags & dev_flags) && !dst->error) {
+-		dst_release(dst);
++		ip6_rt_put_flags(dst_rt6_info(dst), flags);
+ 		dst = NULL;
+ 	}
+ 
+@@ -372,17 +376,35 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		rt = net->ipv6.ip6_blk_hole_entry;
+ 		dst = &rt->dst;
+ 		dst_hold(dst);
++		flags &= ~RT6_LOOKUP_F_DST_NOREF;
+ 	}
+ 
+ 	skb_dst_drop(skb);
+-	skb_dst_set(skb, dst);
++	if ((flags & RT6_LOOKUP_F_DST_NOREF) && !dst->rt_uncached_list)
++		skb_dst_set_noref(skb, dst);
++	else
++		skb_dst_set(skb, dst);
+ 	return dst->error;
+ }
+ 
++static int
++seg6_lookup_any_nexthop_noref(struct sk_buff *skb, struct in6_addr *nhaddr,
++			      u32 tbl_id, bool local_delivery, int oif)
++{
++	return seg6_lookup_any_nexthop(skb, nhaddr, tbl_id, local_delivery, oif,
++				       true);
++}
++
++static int seg6_lookup_nexthop_noref(struct sk_buff *skb,
++				     struct in6_addr *nhaddr, u32 tbl_id)
++{
++	return seg6_lookup_any_nexthop_noref(skb, nhaddr, tbl_id, false, 0);
++}
++
+ int seg6_lookup_nexthop(struct sk_buff *skb,
+ 			struct in6_addr *nhaddr, u32 tbl_id)
+ {
+-	return seg6_lookup_any_nexthop(skb, nhaddr, tbl_id, false, 0);
++	return seg6_lookup_any_nexthop(skb, nhaddr, tbl_id, false, 0, false);
+ }
+ 
+ static __u8 seg6_flv_lcblock_octects(const struct seg6_flavors_info *finfo)
+@@ -446,7 +468,7 @@ seg6_next_csid_advance_arg(struct sk_buff *skb,
+ static int input_action_end_finish(struct sk_buff *skb,
+ 				   struct seg6_local_lwt *slwt)
+ {
+-	seg6_lookup_nexthop(skb, NULL, 0);
++	seg6_lookup_nexthop_noref(skb, NULL, 0);
+ 
+ 	return dst_input(skb);
+ }
+@@ -497,7 +519,7 @@ static int end_next_csid_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ static int input_action_end_x_finish(struct sk_buff *skb,
+ 				     struct seg6_local_lwt *slwt)
+ {
+-	seg6_lookup_any_nexthop(skb, &slwt->nh6, 0, false, slwt->oif);
++	seg6_lookup_any_nexthop_noref(skb, &slwt->nh6, 0, false, slwt->oif);
+ 
+ 	return dst_input(skb);
+ }
+@@ -939,7 +961,7 @@ static int input_action_end_t(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ 		goto drop;
+ 	}
+ 
+-	seg6_lookup_nexthop(skb, NULL, slwt->table);
++	seg6_lookup_nexthop_noref(skb, NULL, slwt->table);
+ 
+ 	return dst_input(skb);
+ 
+@@ -1023,7 +1045,7 @@ static int input_action_end_dx6_finish(struct net *net, struct sock *sk,
+ 	if (!ipv6_addr_any(&slwt->nh6))
+ 		nhaddr = &slwt->nh6;
+ 
+-	seg6_lookup_nexthop(skb, nhaddr, 0);
++	seg6_lookup_nexthop_noref(skb, nhaddr, 0);
+ 
+ 	return dst_input(skb);
+ }
+@@ -1383,7 +1405,7 @@ static int input_action_end_dt6(struct sk_buff *skb,
+ 	/* note: this time we do not need to specify the table because the VRF
+ 	 * takes care of selecting the correct table.
+ 	 */
+-	seg6_lookup_any_nexthop(skb, NULL, 0, true, 0);
++	seg6_lookup_any_nexthop_noref(skb, NULL, 0, true, 0);
+ 
+ 	return dst_input(skb);
+ 
+@@ -1391,7 +1413,7 @@ static int input_action_end_dt6(struct sk_buff *skb,
+ #endif
+ 	skb_set_transport_header(skb, sizeof(struct ipv6hdr));
+ 
+-	seg6_lookup_any_nexthop(skb, NULL, slwt->table, true, 0);
++	seg6_lookup_any_nexthop_noref(skb, NULL, slwt->table, true, 0);
+ 
+ 	return dst_input(skb);
+ 
+@@ -1446,7 +1468,7 @@ static int input_action_end_b6(struct sk_buff *skb, struct seg6_local_lwt *slwt)
+ 
+ 	skb_set_transport_header(skb, sizeof(struct ipv6hdr));
+ 
+-	seg6_lookup_nexthop(skb, NULL, 0);
++	seg6_lookup_nexthop_noref(skb, NULL, 0);
+ 
+ 	return dst_input(skb);
+ 
+@@ -1482,7 +1504,7 @@ static int input_action_end_b6_encap(struct sk_buff *skb,
+ 
+ 	skb_set_transport_header(skb, sizeof(struct ipv6hdr));
+ 
+-	seg6_lookup_nexthop(skb, NULL, 0);
++	seg6_lookup_nexthop_noref(skb, NULL, 0);
+ 
+ 	return dst_input(skb);
+ 
+@@ -1571,7 +1593,7 @@ static int input_action_end_bpf(struct sk_buff *skb,
+ 	local_unlock_nested_bh(&seg6_bpf_srh_states.bh_lock);
+ 
+ 	if (ret != BPF_REDIRECT)
+-		seg6_lookup_nexthop(skb, NULL, 0);
++		seg6_lookup_nexthop_noref(skb, NULL, 0);
+ 
+ 	return dst_input(skb);
+ 
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-To: Pengutronix Kernel Team <kernel@pengutronix.de>
-To: Fabio Estevam <festevam@gmail.com>
-To: Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
-
----
-Laurentiu Mihalcea (3):
-      dt-bindings: remoteproc: imx_rproc: document memory-region-names to avoid hidden ABI
-      remoteproc: imx_rpoc: use memory-region-names to avoid hidden ABI
-      arm64: dts: freescale: add DT overlay for MX95-15x15-FRDM RPMSG usage
-
- .../bindings/remoteproc/fsl,imx-rproc.yaml         | 11 +++
- arch/arm64/boot/dts/freescale/Makefile             |  3 +
- .../boot/dts/freescale/imx95-15x15-frdm-rpmsg.dtso | 81 ++++++++++++++++++++++
- drivers/remoteproc/imx_rproc.c                     | 13 +++-
- drivers/remoteproc/imx_rproc.h                     | 21 ++++++
- 5 files changed, 127 insertions(+), 2 deletions(-)
----
-base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-change-id: 20260915-memory-region-name-f950eea2b78d
-
-Best regards,
---  
-Frank Li <Frank.Li@nxp.com>
+-- 
+2.50.1
 
