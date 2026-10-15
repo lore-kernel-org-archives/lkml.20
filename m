@@ -1,185 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072084E2F3A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAB6524B14
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080392; cv=none; b=RD9eXMFVYQ54qMCUo3ARR9TLDaqqawUQBk1zT6HmCK92Or22GdiPomC3z0jHzqn+sjyrdA1YykS2eGzlBqulTtXAOoeqzf+CCqoBeSF6Po+R8jsUxvqfXNrWr+neToeQ4ylHiPA/lMf28Pb+fh5QNMwwBsZdyRxZbtkxxwC2kP0=
+	t=1792080426; cv=none; b=ftKNoFk0jFHQ1Psk2SEY7fsD01BS8lzYDMfdZn1K/h0Hl73NCYh6tvmRRpJqmfptXhaNvRg4Pv7wYsfNzmKN25aeVeszJ/XjuGuyge72kukPCogRideiuCfrkYKBCnJ2wL5ZXrDWfEW1NCMzpSQLAp6mlhexPOXy1FVVVzDVeCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080392; c=relaxed/simple;
-	bh=JRy8WuV4exW7p4qIs/BOc/PGDmmlLPaMWFRApWxRLWY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hk0QFaJxnCg5ckxPTPNzM1EPXXl25j4eRYB5DNTEE2CkVtSg+Z9y8oKYcgdEHb41ZV6IVGTe+z6f6E91+coDWREiNqlcuv2JaeYxlPo5cu3pzKSj3/5m98vVoCS3nKHvHqKEntX6A5izCKpIp02g9SGOC7uKDNDVSEXkJHI8YaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAMFybCC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792080426; c=relaxed/simple;
+	bh=cgzukAc9Wbn+afAesZp4FrqrR57tNf1rIQwqHfU+Zmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=innp4xNCFhB3mWbqsuFiVV+DZRcQ/vwQh1hmI8ku3uNKEUVFewqowAicBTDBd1+S9PPH7JUP0fbQbfSBz/fwLArLJ0YPNw9LBLAnjesFur7r6Jc03YRT6AyvOH3zi+ruDswi7BQ869ZHPQEw569HCkCwggYGklccI3rH4vJzM4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IcfjdtaJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dtQxfRiO; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAMFybCC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57BB1F000C6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792080379;
-	bh=hI8KOglwVfLjpgYGNPmiWMcfPdIInUXk4KoNDHDeaws=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iAMFybCCwwE+PSJQ7UTFD17I4XIqv7Y69ijYNpN277MGbvchBZHg0WB4nZOENpIHe
-	 ni6T2o5Xqi/8cTTXZgzWBCt1aKgI30D4RzFAZhSM9JYzbzl9ll3gHMe4Zr6AldZG21
-	 348G9Xnjjv6lmBytgIzJh51F42iUNcoL3KR5GqPw3pzo29sBGC2kUr9mVVcX8UDu3h
-	 SryDnxJGS6k2w/wjeo++42mhFku1VI/xJuC4txTdmYonjBOLbYZ3fj8MFG7cdFZqAV
-	 7kvyEjd7YB2hfhMAhI8YNSyvNs+e56hRNUe2EUNnI4ePaK5l7YD4AIDsn/zJY/K51j
-	 +PFG0OGL0b+MA==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so4419732e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:06:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzyh9jARIxjvFPW9HCMeUwgKyZbQzxADw9cIdMKqK5tfirHcQ46OYcASmSfNkpb0o/N/uIMOr2dXQB8bCs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuBt0YTz1SnfyXtW4MNtQn7D9lSiph/riYL54kBFcWaz/3Rhr1
-	uFp6r53+xUPH84D2tEm57sZ3mzbiAWOQr0ndUf1rcDEK8Q8Ag7QbwwNieTPTOfeUuTB80V0tcI4
-	ZpEneiwG75dLwIZUfbRjPZxOreKWDbeg=
-X-Received: by 2002:a05:6512:12d0:b0:5bc:a9f9:b641 with SMTP id
- 2adb3069b0e04-5bcde8d8464mr6434245e87.67.1792080378235; Thu, 15 Oct 2026
- 09:06:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IcfjdtaJ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dtQxfRiO"
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792080412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UzV3+yxSJYix+P3p0zfv2cPKeIhE5EjBIUBKuaxC5KE=;
+	b=IcfjdtaJjFR8go+F1rLsfNqWgWXpwn0QG0CVnU8DV2e1X2MZ/ignlL741h3Oqj/ls00BwX
+	TtxWAabOHWPCShbNxD+Dr1hZotaliC9nV4p9d3m1n2Y172Ni1I3ursM0O0daAeLDBmDFMO
+	URB/RIc9OCXvl2KzZq0aQ+Ox7yr0WT7JimcD5hd5vtunewy6TW9BLEUBBY3A4n7XP8dZZP
+	uraE+PUS1e5ncemPTdkwGPWgnlkRK1PgJtq6Lm6ezS8sywdZVFPjCyH+62ZCM3Rc5hzkeL
+	LLyqTTmBXWTpx5pfENTTe65CtkMgSoNCRgFTkPgau8oZNZUOFYljwhp/gcj1mg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792080412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UzV3+yxSJYix+P3p0zfv2cPKeIhE5EjBIUBKuaxC5KE=;
+	b=dtQxfRiOwf258V5fd79IfNmOpDoI3pIq5b92YpbRFuuqvHc+3e1V4QD1gykRp6qWIWlXKD
+	isFkGbzgJqbtG0Dw==
+To: linux-kernel@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Namhyung Kim <namhyung@kernel.org>
+Subject: [PATCH v3 0/2] vsprintf: Don't leak pointers
+Date: Thu, 15 Oct 2026 18:06:47 +0200
+Message-ID: <20261015-vsprintf_kallsym-v3-0-c175c27f38b7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAOx7e9+Vv8Pdyks=AbE5XG0ZyDgtKToKyBLTnt+H5RPn6VymVg@mail.gmail.com>
-In-Reply-To: <CAOx7e9+Vv8Pdyks=AbE5XG0ZyDgtKToKyBLTnt+H5RPn6VymVg@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 15 Oct 2026 18:04:08 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jtuTdGckoMQMauPDrn1KZ9_-EyLx5LjD1Ndqj50pC7-g@mail.gmail.com>
-X-Gm-Features: AclHuK_vMeKHThNLYW_RgnbUq11vQH6_X7jpU9aX6o1NklQD-30YX5Igk_rVtcs
-Message-ID: <CAJZ5v0jtuTdGckoMQMauPDrn1KZ9_-EyLx5LjD1Ndqj50pC7-g@mail.gmail.com>
-Subject: Re: [PATCH] ACPICA: Fix parse tree memory leak on AML execution error unwind
-To: Iurii Trukhin <yuri@trukhin.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Robert Moore <robert.moore@intel.com>, Erik Kaneda <erik.kaneda@intel.com>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-	Pawel Chmielewski <pawel.chmielewski@intel.com>, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261015-vsprintf_kallsym-73d5ed6f800e
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 15, 2026 at 3:28=E2=80=AFAM Iurii Trukhin <yuri@trukhin.com> wr=
-ote:
->
-> acpi_ps_complete_this_op() decides whether to defer deletion of an
-> AML_CLASS_ARGUMENT parse object to its enclosing parent by checking
-> walk_state->op_info->class instead of the opcode class of the op being
-> completed.
->
-> When acpi_ps_complete_op() or acpi_ps_complete_final_op() unwinds open
-> parser scopes on AE_CTRL_TERMINATE or an execution error (such as
-> AE_NOT_FOUND when resolving a missing symbol inside a control method),
-> it pops each enclosing parent op and passes it to
-> acpi_ps_complete_this_op() while walk_state->op_info still points to the
-> last child op that failed. If that failing child op was of class
-> AML_CLASS_ARGUMENT (for example, AML_INT_NAMEPATH_OP when
-> acpi_ps_get_arguments() fails to resolve a method call or predicate
-> operand), acpi_ps_complete_this_op() sees AML_CLASS_ARGUMENT for every
-> popped parent op and returns AE_OK early without deleting any of the
-> enclosing parent subtrees.
->
-> For nested control methods invoked via acpi_ds_call_control_method(),
-> the walk state is initialized with root_op =3D NULL, so top-level ops in
-> the called method (such as AML_IF_OP) have op->common.parent =3D=3D NULL
-> and are never attached to a root scope op. Skipping
-> acpi_ps_delete_parse_tree() during error unwind leaks the entire parse
-> subtree (both Acpi-ParseExt and Acpi-Parse objects, the latter merged
-> by SLUB into the 80-byte Acpi-State kmem_cache on 64-bit kernels) on
-> every failed GPE or method evaluation.
->
-> Look up the opcode info of op->common.aml_opcode directly in
-> acpi_ps_complete_this_op() and only defer deletion of
-> AML_CLASS_ARGUMENT ops when op->common.parent is non-NULL, without
-> mutating walk_state->opcode during error unwind (which acpi_ps_parse_loop=
-()
-> still inspects when skipping failed module-level scopes). Remove the
-> now-redundant acpi_ps_delete_parse_tree(*op) inside the AML_REGION_OP /
-> AML_DATA_REGION_OP error block in acpi_ps_complete_op(), which previously
-> worked around this bug only for region ops and caused a double-free when
-> region creation failed on a non-argument child op. Also use
-> acpi_ut_delete_generic_state() instead of ACPI_FREE() when draining
-> walk_state->control_state in acpi_ps_parse_loop().
->
-> Fixes: 5088814a6e93 ("ACPICA: AML parser: attempt to continue loading
-> table after error")
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D221241
-> Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
+It is possible to leak pointers via %ps without KALLSYMS enabled.
+With KALLSYMS pointers can be leaked if they can not be resolved.
 
-Please submit this change as a pull request to the upstream ACPICA
-project on GitHub.  The kernel will pick it up from there as per
+The tiny series has two patches, one for each issue.
+I do follow the %p format instead of printing "(unknown)" since I care
+more about getting it out of the way than the actual content (as long as
+it is not the leaked pointer). Last time the discussion added the h:
+prefix to a hashed pointer to identify it as such. I would like to keep
+this part out of the series since there are few users that expect a
+certain pointer width and adding two extra characters would break that
+(we could strip the two 0 on 64bit but again, not related to this
+problem here).
 
-Documentation/driver-api/acpi/linuxized-acpica.rst
+v2=E2=80=A6v3: https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy=
+@linutronix.de/
+ - Instead of "(unknown)" the hashed pointer is printed. This follows
+   the generic %p flow.
+ - In v2 I argued that it is better so print the actual pointer instead
+   hiding it for post-mortem analysis. After looking at some backtraces
+   with invalid pointers (not part of the kernel image) I realised the
+   the PC is already part of the register dump. There I changed it back
+   to what %p would do if it can't resolve a pointer. Again, following
+   %p flow so it can be overridden at boot.
 
-> ---
->  drivers/acpi/acpica/psloop.c   | 5 +++--
->  drivers/acpi/acpica/psobject.c | 1 -
->  drivers/acpi/acpica/psparse.c  | 7 +++++--
->  3 files changed, 8 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/acpi/acpica/psloop.c b/drivers/acpi/acpica/psloop.c
-> index 24a57f971c96..0b672a531907 100644
-> --- a/drivers/acpi/acpica/psloop.c
-> +++ b/drivers/acpi/acpica/psloop.c
-> @@ -464,8 +464,9 @@ acpi_status acpi_ps_parse_loop(struct
-> acpi_walk_state *walk_state)
->                                                 walk_state->aml =3D
->                                                     parser_state->aml;
->                                         }
-> -                                       ACPI_FREE(acpi_ut_pop_generic_sta=
-te
-> -                                                 (&walk_state->control_s=
-tate));
-> +                                       acpi_ut_delete_generic_state
-> +                                           (acpi_ut_pop_generic_state
-> +                                            (&walk_state->control_state)=
-);
->                                 }
->                                 op =3D NULL;
->                                 continue;
-> diff --git a/drivers/acpi/acpica/psobject.c b/drivers/acpi/acpica/psobjec=
-t.c
-> index 629cafab1930..f1425b98087b 100644
-> --- a/drivers/acpi/acpica/psobject.c
-> +++ b/drivers/acpi/acpica/psobject.c
-> @@ -559,7 +559,6 @@ acpi_ps_complete_op(struct acpi_walk_state *walk_stat=
-e,
->                                                                 node);
->                                         acpi_ns_remove_node((*op)->common=
-.node);
->                                         (*op)->common.node =3D NULL;
-> -                                       acpi_ps_delete_parse_tree(*op);
->                                 }
->
->                                 status2 =3D
-> diff --git a/drivers/acpi/acpica/psparse.c b/drivers/acpi/acpica/psparse.=
-c
-> index 42ec8abef626..b5110d43ab7a 100644
-> --- a/drivers/acpi/acpica/psparse.c
-> +++ b/drivers/acpi/acpica/psparse.c
-> @@ -108,6 +108,7 @@ acpi_ps_complete_this_op(struct acpi_walk_state *walk=
-_state,
->  {
->         union acpi_parse_object *prev;
->         union acpi_parse_object *next;
-> +       const struct acpi_opcode_info *op_info;
->         const struct acpi_opcode_info *parent_info;
->         union acpi_parse_object *replacement_op =3D NULL;
->         acpi_status status =3D AE_OK;
-> @@ -124,9 +125,11 @@ acpi_ps_complete_this_op(struct acpi_walk_state
-> *walk_state,
->
->         /* Delete this op and the subtree below it if asked to */
->
-> +       op_info =3D acpi_ps_get_opcode_info(op->common.aml_opcode);
->         if (((walk_state->parse_flags & ACPI_PARSE_TREE_MASK) !=3D
-> -            ACPI_PARSE_DELETE_TREE)
-> -           || (walk_state->op_info->class =3D=3D AML_CLASS_ARGUMENT)) {
-> +            ACPI_PARSE_DELETE_TREE) ||
-> +           ((op_info->class =3D=3D AML_CLASS_ARGUMENT) &&
-> +            op->common.parent)) {
->                 return_ACPI_STATUS(AE_OK);
->         }
->
-> --
-> 2.56.0
->
+v1=E2=80=A6v2: https://lore.kernel.org/all/20260814144854.746840-1-bigeasy@=
+linutronix.de/
+ - For %ps and !KALLSYMS no_hash_pointers is used to decide if the
+   pointer should be written or not. This aligns with the %p policy.
+ - For %ps and KALLSYMS, unresolved pointer continue to be leaked. It
+   has been pointed out it might be useful to see them in backtraces/
+   crashes if the return address became invalid.
+
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Petr Mladek <pmladek@suse.com>
+Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Tycho Andersen <tycho@tycho.pizza>
+To: linux-kernel@vger.kernel.org
+
+Sebastian
+
+---
+Sebastian Andrzej Siewior (2):
+      vsprintf: Don't leak pointers for %ps without KALLSYMS enabled
+      kallsyms: Don't leak pointers for unresolved symbols
+
+ include/linux/sprintf.h |  1 +
+ kernel/kallsyms.c       |  3 ++-
+ lib/vsprintf.c          | 27 ++++++++++++++++++++++++++-
+ 3 files changed, 29 insertions(+), 2 deletions(-)
+---
+base-commit: ec8bf8280261294a9b9b4520414b42704c7f9f6b
+change-id: 20261015-vsprintf_kallsym-73d5ed6f800e
+
+Best regards,
+--=20=20
+Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
