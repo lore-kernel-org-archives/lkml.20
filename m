@@ -1,156 +1,74 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D6858B6BB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054EA58B6D0
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095982; cv=none; b=XdKDbMblZXFaaVnvm3zT1xs1UQmxmU6BF95JXy2+CrKFXaVlt1XqqcT/e0L3A3ctHLPkQ3Zv638rE0zl2DCP9Hzgy/P7rJXHw+QGmJmb890aytONZrSaqnl3voPKkGwZYnQC8sCkHEXWeYXiuxhiMe0Vc+oV7gYiYZCoNux2h6s=
+	t=1792095989; cv=none; b=DS5mIGVgxEGYI8iNRxt6Jh2AshUDfWgnmgFq2ELkDearPb1DQZFWd9eSDerb2Ge4x6cjtFBVBKbNNzESjCJZPG2JLOll++4d17AwEM0bGCIZ9OSmbWg5Hmd/kqXPLdiqDGZx8Cbih2PyjTnNjuzp2CA3m3gO+hIFhn7VXt5OJQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095982; c=relaxed/simple;
-	bh=x7QwnD24yRUaqKk60dVJEyM7aNVWVX1BjN/KEWCUOus=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h764Edzr9IdGsDATded6r8yWqXnxZJYSWwZYjl5m2Aj5V5i8BgJaJeLnkUD6ioNXSZoVZ7LQcda8+1ZHgNToR/0jKkxPtZZpguIZ5/+znJ0esjJrG0VQ0ySza/D6j1Dj3dYnh1uBNiG0KO1+kGOvlnDl7qFxJB/dmsaJrCVUTZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=boGXDps6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IyCELeOP; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="boGXDps6";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IyCELeOP"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 13DCC7A00DB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:26:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Thu, 15 Oct 2026 16:26:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792095978;
-	 x=1792182378; bh=2RRIztZOszEgtU5KRM+EoAHa0heTyt/EU7Fc7IB6D2g=; b=
-	boGXDps6z9yIfkCo6VBFj1kB192C1skTP3WndE/BRQm36ETwiSnLg6cRPj7mu2OS
-	pRLqpd7r1yNY6PUaRKD64hi2tAC/98B0mf6lQHlNo2MNsud13MtIQ6v5eC+05kYH
-	dq9mYRm9lp+hkfQ45R8KBWFdBsgZm476d7lDSAg5o2UG2UzR+fRNh5JNgWkrE8Iz
-	CBFapBsoxgYM2nFevj5Kn2r+fkBKH26ucFmILiAnFJoOeNpLZdERRx50271vcPGx
-	Nw17UfCHzS4ERg1XmwnU6zF0ncYzpIyZFhgwv948+SYySrKleZqIrlXYuOn/FDbx
-	BoXf3qh1ec7mdcP7EIKlbA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792095978; x=
-	1792182378; bh=2RRIztZOszEgtU5KRM+EoAHa0heTyt/EU7Fc7IB6D2g=; b=I
-	yCELeOPCiDRkoOwUTJPxmfeqH8oGbOIq7U4l7Ii73g+rpVMUybKqJG/dFX+kYant
-	rVBPOmXQnE6/eXA1kwK4FWZLz30aUkYLlYIxazuKLqZwIEsgkOACwcFqYUOMMy1a
-	plHJLFVpYXn5NKspWMIX0q24Lm8n7lMu8qwU9haDmnhxGJgB7jZtH7/26T2x6ahz
-	hDiC0Y2fARcIwfvYCdZIZy8DpcZ5hQPh4Gjmd2g5sfJCNjsXW5eLrEvEwALtBKaJ
-	YNQqR8uppr8URDjQBgQASLajhmat9oDWHlpR0CesW1wRQCnmScnx4l3iDjUnWsmL
-	hqracyR2Ea7B2OblZZLUA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792095978; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fCRjusEobT1nVDkbI1aC3pf1/kSbx2qBaIn1OQ4bbG/2z6n
-	IZapbr9UgTvKSny6LJXwjmEqSnk7hFKlFo+yKuL7UXUdG7jSFKVN7by9PXitwZkt
-	tgnfXk0ZX8/pLfXSJsiMVOBY1HyN0/AtJ2/gby7/5XDTGRtGYMHqHPVEkYzMI8/S
-	hyX4sfyXnBejqremuDpFX/be0kDkvMrPD51H/gxK78V32TR+a3yOxgmM3aRsM/5+
-	wYA9LKrh2RqFQ7w4tHVwWxxT3nbCTGZ/KdAFrZq4xMJRKSsqbZd6wgZj7QPFpeBt
-	8+rn/BwUHB2M42S6tBi56xeLZoMgL4CXNZBWcMw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:5d27a61I+Y3ZQRIEAgtTeNjwfjhCV+RAkyi02Z1AxqQ=:x7QwnD24yRUaqKk60dVJEyM7aNVWVX1BjN/KEWCUOus=;
-X-ME-Sender: <xms:6jbRana52w3L7o3zJF3Ge9ttQSQEQo3Z2-y0NVVBM-pjHRVtqNIiDA>
-    <xme:6jbRasZy-HRBwQyyuY7PRo4gwS0z5ASIiYNxSqMEikO1qr3NeAFkZVbsrf_MpqOXl
-    0-c_kATvnBRAAbXpr8YnbZvkOQGRcUSB9cNuuAFoBSmzn8JoxZvtAc>
-X-ME-Received: <xmr:6jbRakwrLxupMOBm86kbOPch3OcWna0aAVIWBezHqBxQX-OvsCMdDOCmHztvzQ>
-X-ME-Proxy-Cause: dmFkZTE1b+N8kGGpUk13ieyPlVE5FAmIlfPgy+YxTXBBm9ekOGZjEXT6yIuYwplMn2dscS
-    WLp1YY5w7dgFcPnlXnKeiMRT6HKE8tpI7sfYrftO5G3NK+ZYEHbWgK3C0IuhTPI1vnEHKo
-    iHPqsRhiJbD4Vd921Kqyh7t+IybxtF6YFY2CRYEIx3ABwEIwJIzDSdKkBlRJ4qqsDtFgbM
-    wkinftxPmJ+5Db7uJy7rxBfKbXhCGIIB0P6CLtvQw1/ilyQAlywhsxZb4vJvpRANnXeOqG
-    Ck0Y2N75AJWwe2bj9j7VGyMaG2Y+dwqlXqUDJd3USnV9F0paO2lDDHSE9qEnW4OUdOAhqV
-    WVvbyfotMt2ED7PhEO8sjZZPn0bgik8tKTTIV8zEr44vIFoVy9AMrZzuPVmDpRl0ahjjv6
-    d7mwjZVMTbRZ0MuKtUDwulmFU9woGU79l5Z7WsBl/dkKkKJTr7opGj0cv4lPtP1jmGhbZJ
-    XviqULnYkfff+mgVerf6RVILnMVVVBWnEdmW3i6nuao1k8hjzUKIk6jUOmGDqLDsJkMNcK
-    6ioQg6d6NuVN0b764YCSJaIACUjuolDXB76PT/fRH9599KTTgDduyzTxd+pqMwRtmfO0W8
-    KkYXsjB+J8t6vjLvVPcYEl2umQ5cUDiz5xCueRuJ6FithsAxHtYZ3FTCLp1w
-X-ME-Proxy: <xmx:6jbRagfIfYiydrtja_z5x-8GUX2AWR7gFhRdzhRVhW8tvkPZGnza3g>
-    <xmx:6jbRah43MyFseVVH6uqpjenLRG3UpDy28mDWWKd9JZ1mMKw-U-bYHA>
-    <xmx:6jbRatLxc1ynLzIERu5IL5va_Ji6LBk02Yub-r8hzqV9NQYHMBBkYQ>
-    <xmx:6jbRahzmholD6nmakHVjxCeicEe28Dzo7WaGpND3CU2mhaF3BEid-Q>
-    <xmx:6jbRakI1kB02K5nqhaDs6o7cIwH1aMwXqr_aRzslAfk6-B5n4eQKJmSd>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 16:26:17 -0400 (EDT)
-Date: Thu, 15 Oct 2026 14:26:16 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-Cc: kvm@vger.kernel.org, =?UTF-8?B?TWljaGHFgg==?= Winiarski
- <michal.winiarski@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas
- <yishaih@nvidia.com>, Shameer Kolothum <skolothumtho@nvidia.com>, Kevin
- Tian <kevin.tian@intel.com>, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH] vfio/xe: Add CRI and NVL device IDs
-Message-ID: <20261015142616.2811a3a7@shazbot.org>
-In-Reply-To: <20261014131849.157593-2-satyanarayana.k.v.p@intel.com>
-References: <20261014131849.157593-2-satyanarayana.k.v.p@intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1792095989; c=relaxed/simple;
+	bh=r45KSusXqz881uTsMcj2/0HKdIv145AopWNA1DLEUOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q3J8CUltfna2zoDutLfsf1mTNLxeJOP3cVhV2DZ4h4jfA1NqxUuyg8/AfrynROR7ds0juVMSTBfgXOpd/MN1JrxoUjWjsY4BEy8I/Jqaatelg9pGXVng5Cgw6iSZio72tXkI2yfZ5HMJl8C3YOE2vcpNJGp0nP9+a5f7nkBsx98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout2.hostsharing.net (Postfix) with ESMTPS id 07AE010DF8;
+	Thu, 15 Oct 2026 22:26:16 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id D29636295735; Thu, 15 Oct 2026 22:26:15 +0200 (CEST)
+Date: Thu, 15 Oct 2026 22:26:15 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Aditya Garg <aditya.garg@linux.dev>
+Cc: vasilij.kernel@tototo.si, Aun-Ali Zaidi <admin@kodeit.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	Kerem Karabay <kekrby@gmail.com>,
+	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Subject: Re: [PATCH v2] drm/appletbdrm: Add suspend and resume support
+Message-ID: <atE25_ZrIQct41wt@wunner.de>
+References: <586d0b39-40c8-4f3d-a786-c1085f87b858@linux.dev>
+ <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <E1AEF567-3705-4AE7-B409-6E6D70C505AC@linux.dev>
 
-On Wed, 14 Oct 2026 18:48:50 +0530
-Satyanarayana K V P <satyanarayana.k.v.p@intel.com> wrote:
+On Wed, Oct 07, 2026 at 07:50:38PM +0530, Aditya Garg wrote:
+> > On 4 Oct 2026, at 5:36???PM, Aditya Garg <aditya.garg@linux.dev> wrote:
+> > The driver has no USB power management callbacks, so the USB core
+> > unbinds it before system suspend and binds it again on resume. The DRM
+> > device is unregistered and registered again on every suspend and resume
+> > cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+> > loses its device, and the Touch Bar stays dark after resume.
+> > 
+> > Implement suspend and resume with drm_mode_config_helper_suspend() and
+> > drm_mode_config_helper_resume(), so the device stays registered and the
+> > last committed state is restored on resume. If the device was reset
+> > while suspended, repeat the probe-time handshake first.
+[...]
+> Could anyone please merge it if they are ok with it? Thanks.
 
-> Crescent Island (CRI), Nova Lake-S (NVL-S) and Nova Lake-P (NVL-P)
-> support SR-IOV in the Xe driver. Add their PCI IDs to the xe-vfio-pci
-> device table, so that the generated vfio_pci module aliases allow
-> userspace to select this variant driver for their VFs.
->=20
-> Also reordered the table entries.
->=20
-> Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-> Cc: Micha=C5=82 Winiarski <michal.winiarski@intel.com>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> Cc: Yishai Hadas <yishaih@nvidia.com>
-> Cc: Shameer Kolothum <skolothumtho@nvidia.com>
-> Cc: Kevin Tian <kevin.tian@intel.com>
-> Cc: Alex Williamson <alex@shazbot.org>
-> Cc: kvm@vger.kernel.org
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/vfio/pci/xe/main.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/vfio/pci/xe/main.c b/drivers/vfio/pci/xe/main.c
-> index cbff5af385ef..8f1237751d51 100644
-> --- a/drivers/vfio/pci/xe/main.c
-> +++ b/drivers/vfio/pci/xe/main.c
-> @@ -574,9 +574,12 @@ static void xe_vfio_pci_remove(struct pci_dev *pdev)
->  }
-> =20
->  static const struct pci_device_id xe_vfio_pci_table[] =3D {
-> +	INTEL_BMG_IDS(INTEL_PCI_VFIO_DEVICE),
-> +	INTEL_CRI_IDS(INTEL_PCI_VFIO_DEVICE),
-> +	INTEL_NVLS_IDS(INTEL_PCI_VFIO_DEVICE),
-> +	INTEL_NVLP_IDS(INTEL_PCI_VFIO_DEVICE),
->  	INTEL_PTL_IDS(INTEL_PCI_VFIO_DEVICE),
->  	INTEL_WCL_IDS(INTEL_PCI_VFIO_DEVICE),
-> -	INTEL_BMG_IDS(INTEL_PCI_VFIO_DEVICE),
->  	{}
->  };
->  MODULE_DEVICE_TABLE(pci, xe_vfio_pci_table);
+I'd love to, but both v1 and v2 have sashiko findings that nobody bothered
+to debunk or fix.  (The fix for v1 consisted of removing a callback, which
+triggered other sashiko findings.)  I'm neither an expert on this driver
+nor the tiny drm library, but I'd like to help improve Linux Mac support.
+Please help me understand whether the sashiko findings are valid.
 
-LGTM.  Micha=C5=82?  Thanks,
+Thanks,
 
-Alex
+Lukas
