@@ -1,52 +1,52 @@
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013064B44BE;
-	Thu, 15 Oct 2026 08:06:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4BB4C33D1;
+	Thu, 15 Oct 2026 08:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051574; cv=none; b=DjGGJ5wMHLlSWvlYN8UgSz/86S3Oz1vus8MsEDbiEryrcNPuiQDJJqsz/yYjIwFdbvS2J8bxtqSBiMbTEVWGpF13qxgoNigKZXRs5CANN8zXnuBuemzuUZ4DJZ/MSJACnzFQ1YScGVj09HuxFavEYF5GY5KbNYna2KbVs+7YC/M=
+	t=1792051593; cv=none; b=XnqctZmn7kgKRv4Jrg6Nb7kBoXV8viG/Es4k9cPF7HrGqw/WOTCFkUzU1E9rnUlaZsnCIw3Aax+cKEtklSHAjDP9EpPGKBVvngAVBNto7U4maLIHS6Iiv8wZMPHdFDrKvrD/3Z3jk2lD1kv5G8JiTOIU8xgLIyZkyHpIZCeVAL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051574; c=relaxed/simple;
-	bh=b6EXASRIzbS/M4et5ip4BXXlUwMVXDCTbqXfDN78PGI=;
+	s=arc-20240116; t=1792051593; c=relaxed/simple;
+	bh=xA5gc0agyNEYI8zd9Te1fiN5lgSG0+tnrmo7+uG2oa0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Cnihj3Kp4i/7YAfYM2OMgFVncG08WZB9Ln3s36IhygKjz7o+d2JqDFiz9O9duCOELwJJ7rJ8lPqPb6cfmhErqAIa0FRQSbBwTolP5fKG4u9YRwkHcDq8xNmlQkY1qceQFUbPUKSBAth1eGnLW4JqzqwIiDTNVljWx3Hs1jcrW3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ATyxSLrl; arc=none smtp.client-ip=68.232.153.233
+	 In-Reply-To:To:CC; b=Vw/WKKNSgTkPbeAQRmd5pfomG+2pqZOzIBbjcFu1bTaRToODJ0HoI4kGxPyuMiQP1a0oT3L248sxEEWGyPm0SdHTiPC1Vh6zeHXdCPCMO4QZojc3wF/q6i3A0zECMWJNJqKGhIxTcB9abcwiRxH/S7n3fapulkUMLEJXps1mgjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=1szRDHgE; arc=none smtp.client-ip=68.232.153.233
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ATyxSLrl"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="1szRDHgE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792051572; x=1823587572;
+  t=1792051597; x=1823587597;
   h=from:date:subject:mime-version:content-transfer-encoding:
    message-id:references:in-reply-to:to:cc;
-  bh=b6EXASRIzbS/M4et5ip4BXXlUwMVXDCTbqXfDN78PGI=;
-  b=ATyxSLrlzt7bYxF79lKlgPmCzfHvBUQA9fSoI9D9wX8ccioBu5XQXBIU
-   WsNuQEu8U75xQxQzFDmudyfjIWZEF4N2o/oCb9jPMHbXFEqgBAN1GuZsp
-   8WViLpcmRZY5x0a50si6PivUZPM0D7qNpagQ4Ud18s+zEDu9JJsCcV3/c
-   PWf26ToLKApvb501Rp5jPT/1pxORk7pnuLqlOTifu6swVZiNCxSv5xWfE
-   Pkmj9TDdxlaX0QcUiRp8y7WW3A9Pz3t7um6sjbhtY6IH8QMRW7Ab2M9QD
-   /0kmhoK7TgA8bDwX9E9o+YnBH9kcewrvcKKRw5RJx7cvrKd5ZPSs/5KEi
+  bh=xA5gc0agyNEYI8zd9Te1fiN5lgSG0+tnrmo7+uG2oa0=;
+  b=1szRDHgEb/iLOtA11GwmoR8l4KHhgxuQQuvHzElyz1mvodZnCL6s1kMi
+   NICfLwlAVhYFff/TWgCsPZIbHH+XL1acYpfPggER5VVTc5txPbdHV7cBu
+   0wKl+sm0D7RFEJu50enIu9epReErG0A4eP1Dqu2BSibfSYke18B1Vitr+
+   J+xqLcqlBX5eHxZBRUNkBh5bQmy6oAQHd+sEf95kS6azuCS6vuCeEdgOm
+   dnUWSmIh+00J+lMnDfYeRRWjIkIbDhT4n27qW5arEuw+wierxwrvYVLoN
+   zijeeyaPtDX7GPb3uuvrX/8QBmy/RY/2c97J+FJTtwah9Qb1X0nqY9J4i
    A==;
-X-CSE-ConnectionGUID: 8dbAcpaMRJSIPYiOtYHRAQ==
-X-CSE-MsgGUID: uj3CwUQ9RZymu1oVCYBhPA==
+X-CSE-ConnectionGUID: 8Rh0mPZYTZypalAZwPKx5Q==
+X-CSE-MsgGUID: m9ATKFF3TWCT2kBztz2kWw==
 X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="65077866"
+   d="scan'208";a="296490685"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:06:10 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 15 Oct 2026 01:06:36 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Thu, 15 Oct 2026 01:06:09 -0700
+ 15.1.2507.58; Thu, 15 Oct 2026 01:06:29 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
  (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 15 Oct 2026 01:06:05 -0700
+ Transport; Thu, 15 Oct 2026 01:06:25 -0700
 From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
 	<jensemil.schulzostergaard@microchip.com>
-Date: Thu, 15 Oct 2026 10:05:55 +0200
-Subject: [PATCH net-next v15 1/9] net: dsa: add tag driver for LAN9645X
+Date: Thu, 15 Oct 2026 10:05:59 +0200
+Subject: [PATCH net-next v15 5/9] net: dsa: lan9645x: add vlan support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261015-dsa_lan9645x_switch_driver_base-v15-1-562f316f78b9@microchip.com>
+Message-ID: <20261015-dsa_lan9645x_switch_driver_base-v15-5-562f316f78b9@microchip.com>
 References: <20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9@microchip.com>
 In-Reply-To: <20261015-dsa_lan9645x_switch_driver_base-v15-0-562f316f78b9@microchip.com>
 To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
@@ -75,828 +75,754 @@ CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
 	<jensemil.schulzostergaard@microchip.com>
 X-Mailer: b4 0.15-dev
 
-Add tag driver for LAN9645x using a front port as CPU port. This mode
-is called an NPI port in the datasheet.
-Use long prefix on extraction (RX) and no prefix on injection (TX). A
-long prefix on extraction helps get through the conduit port on host
-side, since it will see a broadcast MAC.
+Add VLAN support for VLAN-aware and VLAN-unaware bridges.
 
-The LAN9645x chip is in the same design architecture family as ocelot
-and lan966x. The tagging protocol has the same structure as these chips,
-but the particular fields are different or have different sizes.
-Therefore, this tag driver is similar to tag_ocelot.c, but the
-differences in fields makes it hard to reuse.
+VID 4095 (HOST_PVID) is reserved and used internally as the port
+VLAN for standalone (non-bridged) ports so their FDB domain is
+isolated from bridged traffic.
 
-LAN9645x supports 3 different tag formats for extraction/injection of
-frames from a CPU port: long prefix, short prefix and no prefix.
+VID 0 is used internally as the port VLAN for VLAN-unaware bridge ports
+(UNAWARE_PVID).
 
-The tag is prepended to the frame. The critical data for the chip is
-contained in an internal frame header (IFH) which is 28 bytes. The
-prefix formats look like this:
+The VLAN table and the per port VLAN configuration are serialized with
+fwd_domain_lock, since .port_setup runs without rtnl held.
 
-Long prefix (16 bytes) + IFH:
-- DMAC    = 0xffffffffffff on extraction.
-- SMAC    = 0xfeffffffffff on extraction.
-- ETYPE   = 0x8880
-- payload = 0x0011
-- IFH
+There are two chip limitations. Only one egress-untagged VLAN is
+supported on a port that also has tagged VLANs. The rewriter can exempt
+a single PORT_VID from tagging, so adding a second untagged VLAN
+alongside tagged ones is rejected with -EBUSY.
 
-Short prefix (4 bytes) + IFH:
-- 0x8880
-- 0x0011
-- IFH
+Both TPIDs are recognized as VLAN tags unconditionally. There is no per
+port control to classify one TPID as tagged while treating the other as
+untagged customer data.
 
-No prefix:
-- IFH
+Only bridge vlan_protocol 802.1Q is offloaded. Enabling VLAN filtering
+on an 802.1ad bridge is refused, which also covers joining a VLAN-aware
+802.1ad bridge. DSA does not pass SWITCHDEV_ATTR_ID_BRIDGE_VLAN_PROTOCOL
+to drivers, so a protocol change on a bridge that is already VLAN-aware
+is not seen.
 
-The format can be configured asymmetrically on RX and TX.
+The port VLAN awareness is only applied to hardware while the port is
+bridged, and is otherwise only changed by .port_vlan_filtering, so it
+matches the VLAN filtering state DSA has cached for the port.
 
-The IFH get/set functions are declared as inline. All the field
-constants are compile-time known, so when these calls are inlined
-efficient code is generated with branches pruned and loops unrolled.
-During testing it was observed that without explicit inlining GCC would
-have trouble inlining the functions, which hurt performance.
+S-tag and C-tag are always treated as interchangeable. Full C-component
+conformance would need S-tagged frames treated as untagged by a VLAN
+aware bridge, dropped on a port without a pvid and classified to the
+pvid on a port with one.
 
-A frame extracted from a VLAN-aware port arrives without its VLAN tag.
-REW_PORT_CFG.NO_REWRITE is clear on the NPI port, so the rewriter applies
-the classified VLAN_POP_CNT, and the classified VID reaches the CPU only
-through the IFH. The tagger restores it as a hwaccel tag when the IFH
-reports that a tag was popped. An untagged frame is classified to the
-port pvid without a pop and is delivered untagged, which the bridge also
-classifies to the pvid.
+Of those, only the drop is expressible, through
+ANA_DROP_CFG.DROP_S_TAGGED_ENA. The reclassification needs the VCAP to
+match on tag type and overwrite the classified VID, see
+ocelot_update_vlan_reclassify_rule().
 
-The restored tag is always a C-tag, not the TPID the IFH TAG_TYPE reports.
-Both TPIDs are recognized as VLAN tags unconditionally, with no per port
-control to treat one as untagged customer data, so an S-tag is already
-consumed as the VLAN tag before extraction. Restoring 802.1AD would make
-the bridge push the tag back into the payload and reclassify the frame to
-the port pvid, placing it on a different VID than the one the hardware
-forwarded it on. Normalizing to a C-tag keeps the terminated path
-consistent with the forwarded path, at the cost of not preserving the
-S-tag TPID towards the CPU. This assumes a bridge vlan_protocol of
-802.1Q, which is the only protocol the driver offloads.
-
-On injection the IFH carries the classified VID used by the rewriter
-to decide whether to add a port tag. On a VLAN-aware port, a VLAN tag
-with a non-zero VID is moved from the payload into the IFH. Untagged
-and priority tagged frames are injected with classified VID 0 and left
-as they are, so the rewriter adds no tag to them.
+We program neither, since dropping without reclassifying is less
+consistent than treating both tag types alike.
 
 Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
 Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 ---
+Changes in v15:
+- Refuse VLAN filtering on bridges with vlan_protocol other than 802.1Q.
+- Do not clear vlan_aware when a port leaves the bridge. Apply VLAN
+  awareness only while the port is bridged, so a later join to a
+  VLAN-aware bridge is configured correctly when DSA skips
+  .port_vlan_filtering.
+
 Changes in v14:
-- Classify untagged and priority tagged frames to VID 0 on xmit instead
-  of the bridge pvid, and leave priority tags in the payload.
-- Restore the VLAN tag on rcv whenever the rewriter popped one, instead
-  of only when the VID differs from the port pvid.
-- Add a .flow_dissect callback that accounts for the gap left by VLAN
-  tags popped on extraction. The generic dissector assumes the tag length
-  is needed_headroom.
-- Pull the VLAN header with pskb_may_pull() before reading it on xmit,
-  so a tag in paged data is handled like a linear one, and drop the
-  frame if the pull fails.
+- Use TAG_NO_UNAWARE instead of TAG_ALL on ports with only tagged
+  VLANs, so frames injected with classified VID 0 are not tagged.
 
 Changes in v12:
-- Move an out-of-band VLAN tag into the payload with
-  __vlan_hwaccel_push_inside() before reading it, rather than relying on
-  the conduit never advertising NETIF_F_HW_VLAN_CTAG_TX or
-  NETIF_F_HW_VLAN_STAG_TX in vlan_features.
-- Return the skb from lan9645x_xmit_get_vlan_info(), since
-  __vlan_hwaccel_push_inside() may reallocate and frees the skb on
-  failure.
-- Annotate the IFH field defines with injection/extraction
-  applicability
-- Drop IFH_TIMESTAMP because it is 38 bits wide. Rely on NS/SUB_NS
-  subfields.
-- Document how HW derives the DMAC offset from pop_cnt and etype_ofs,
-  and drop frames whose encoding only a tag push could produce.
-- Drop unncessary IFH_SRCPORT on injection.
-- Drop the WARN_ON_ONCE() when the source port does not resolve to a
-  user port.
-- Move the IFH field position and size defines from
-  include/linux/dsa/lan9645x.h into net/dsa/tag_lan9645x.c.
-- Rename LAN9645X_IFH_LEN to LAN9645X_IFH_LEN_BYTES, so it does not read
-  as the position of the IFH LEN field.
-- Use skb_vlan_eth_hdr() in lan9645x_xmit_get_vlan_info().
-- Drop BTM_MSK() TOP_MSK() helpers for GENMASK().
-- Rename set_merge_mask() to lan9645x_ifh_merge_byte().
-- Name the vendor in the Kconfig prompt, spell the part LAN9645x, and
-  move the entry to its sorted position after NET_DSA_TAG_KSZ.
-- Clamp the classified QoS class to the width of IFH_QOS_CLASS. A
-  skb->priority above 7 aliased down onto an unrelated class.
-- Comment why needed_headroom covers the extraction prefix.
-- Restore the classified VLAN as a C-tag rather than following the IFH
-  TAG_TYPE, so a terminated S-tagged frame lands on the same VID the
-  hardware forwards it on.
-
-Changes in v11:
-- Update comment about vlan tag hwaccel use in tag driver.
-- Bump DSA_TAG_PROTO value in include/net/dsa.h.
-
-Changes in v10:
-- Update tag driver after skb ownership model change in DSA taggers.
-  Explicitly freeing the skb at rcv/xmit return points.
+- Serialize the VLAN table with fwd_domain_lock, and assert it in the
+  lan9645x_vlan.c entry points. .port_setup runs outside rtnl, so a
+  registered user port can be bridged while a later port is still being
+  set up.
+- Move this patch before bridge support. It now carries bridge_mask,
+  fwd_domain_lock and lan9645x_port_is_bridged().
+- Move lan9645x_vlan_clear_hostmode() to the bridge patch, together with
+  its only caller.
+- Describe the untagged VLAN limit, and why S-tag and C-tag are treated
+  as interchangeable.
+- Say that only bridge vlan_protocol 802.1Q is offloaded.
+- lan9645x_teardown(): destroy fwd_domain_lock before the NPI port deinit,
+  so teardown unwinds in reverse order of setup.
+- Drop the six unused lan9645x_vlan bitfields.
+- Spell VLAN in upper case in the two dev_err() strings.
+- Split the extack in lan9645x_vlan_port_add_vlan(). The condition also
+  fires when a tagged VLAN is added to a port with several untagged ones,
+  where there is no native VLAN to report.
 
 Changes in v8:
-- Drop the cpu_port local and use ds->num_ports directly as the IFH
-  source port (the CPU port module index).
-- Reword the reflection comment to refer to "the CPU".
-
-Changes in v7:
-- Introduce cpu queue based frame classification, and refactor to the
-  categories default, trap and copy, which mirrors usage instead of
-  being based on frame types.
-
-Changes in v6:
-- rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 34
+- Use lan9645x->num_phys_ports instead of CPU_PORT for the CPU port
+  module, and reword the portmask comment.
 
 Changes in v5:
-- Undo offset fix in postpull_rcsum. The original logic was correct for
-  CHECKSUM_COMPLETE host NICs
-- Use __always_inline in lan9645x_ifh_{get,set}
-- remove double space after = in set_merge_mask
+- switch -EBUSY to -EINVAL for vlan add/del in the reserved range.
+- remove reserved HSR vlan
+- update commit message
 
 Changes in v4:
-- Fix offset in postpull_rcsum so prefix eth header is cleared, not
-  actual eth header, so tag driver works with CHECKSUM_COMPLETE host
-  NICs
-- Fix untagged rx on vlan aware port with pvid
+- fix clear HOST_PVID vlan membership when a port joins a bridge
+- explicit default value write to tag type register for untagged frames
+- use lan_rmw for ANA_DROP_CFG
+- add comment for error path in lan9645x_vlan_hw_wr
+- use dsa_switch_for_each_user_port to iterate ports
 
 Changes in v3:
-- guard vlan_remove_tag behind skb_headlen(skb) >= VLAN_ETH_HLEN on xmit
-- add pskb_may_pull checks in rx path
+- use SET register macros in vlan_hw_wr
+- add vlan id bounds check to vlan_del
+- return vlan_hw_wr timeout err on init
+- move cpu vlan action after bounds check
 
 Changes in v2:
-- sorting in net/dsa/Kconfig
-- sorting in net/dsa/Makefile
-- remove default zero promisc_on_conduit
-- move functions to to .c file
-- add justification for inline usage to commit message
-- add __skb_put_padto on xmit path
-- fix hwaccel_put_tag
+- redesign based on selftests which rely on changing vlan_default_pvid.
+  Our HW limitations were too forward. Following Vladimirs changes to
+  ocelot VLAN implementation, we now dynamically change egress tag
+  configuration, allowing more states.
+- selftests are passing, except an expected failure w.r.t ctag/stag
+  conformance, which is a hw limitation.
 ---
- MAINTAINERS                  |   8 +
- include/linux/dsa/lan9645x.h |  54 +++++
- include/net/dsa.h            |   2 +
- net/dsa/Kconfig              |  11 +
- net/dsa/Makefile             |   1 +
- net/dsa/tag_lan9645x.c       | 514 +++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 590 insertions(+)
+ drivers/net/dsa/microchip/lan9645x/Makefile        |   1 +
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.c |  76 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.h |  40 ++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_port.c |   6 +
+ drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c | 402 +++++++++++++++++++++
+ 5 files changed, 525 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 509b35b5a0e7..ef705ac0cc60 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17814,6 +17814,14 @@ L:	netdev@vger.kernel.org
- S:	Maintained
- F:	drivers/net/phy/microchip_t1.c
+diff --git a/drivers/net/dsa/microchip/lan9645x/Makefile b/drivers/net/dsa/microchip/lan9645x/Makefile
+index 7cc0ae0ada40..e049114b3563 100644
+--- a/drivers/net/dsa/microchip/lan9645x/Makefile
++++ b/drivers/net/dsa/microchip/lan9645x/Makefile
+@@ -6,3 +6,4 @@ mchp-lan9645x-objs := \
+ 	lan9645x_npi.o \
+ 	lan9645x_phylink.o \
+ 	lan9645x_port.o \
++	lan9645x_vlan.o \
+diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+index c7de3836e696..cddd10cfb45a 100644
+--- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
++++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+@@ -74,6 +74,7 @@ static void lan9645x_teardown(struct dsa_switch *ds)
+ {
+ 	struct lan9645x *lan9645x = ds->priv;
  
-+MICROCHIP LAN9645X ETHERNET SWITCH DRIVER
-+M:	Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
-+M:	UNGLinuxDriver@microchip.com
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	include/linux/dsa/lan9645x.h
-+F:	net/dsa/tag_lan9645x.c
-+
- MICROCHIP LAN966X ETHERNET DRIVER
- M:	Horatiu Vultur <horatiu.vultur@microchip.com>
- M:	UNGLinuxDriver@microchip.com
-diff --git a/include/linux/dsa/lan9645x.h b/include/linux/dsa/lan9645x.h
-new file mode 100644
-index 000000000000..e774aa137092
---- /dev/null
-+++ b/include/linux/dsa/lan9645x.h
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ * Copyright (C) 2026 Microchip Technology Inc.
-+ */
-+
-+#ifndef _NET_DSA_TAG_LAN9645X_H_
-+#define _NET_DSA_TAG_LAN9645X_H_
-+
-+#include <linux/bits.h>
-+#include <linux/types.h>
-+
-+/* LAN9645x supports 3 different formats on an NPI port, long prefix, short
-+ * prefix and no prefix. The format can be configured asymmetrically on RX and
-+ * TX. We use long prefix on extraction (RX), and no prefix on injection.
-+ * The long prefix on extraction helps get through the conduit port on host
-+ * side, since it will see a broadcast MAC.
-+ *
-+ * The internal frame header (IFH) is 28 bytes.
-+ *
-+ * Long prefix, 16 bytes + IFH:
-+ * - DMAC    = 0xFFFFFFFFFFFF on extraction.
-+ * - SMAC    = 0xFEFFFFFFFFFF on extraction.
-+ * - ETYPE   = 0x8880
-+ * - payload = 0x0011
-+ * - IFH
-+ *
-+ * Short prefix, 4 bytes + IFH:
-+ * - 0x8880
-+ * - 0x0011
-+ * - IFH
-+ *
-+ * No prefix:
-+ * - IFH
-+ *
-+ */
-+#define LAN9645X_IFH_TAG_TYPE_C		0
-+#define LAN9645X_IFH_TAG_TYPE_S		1
-+#define LAN9645X_IFH_LEN_U32		7
-+#define LAN9645X_IFH_LEN_BYTES		(LAN9645X_IFH_LEN_U32 * sizeof(u32))
-+#define LAN9645X_IFH_BITS		(LAN9645X_IFH_LEN_BYTES * BITS_PER_BYTE)
-+#define LAN9645X_LONG_PREFIX_LEN	16
-+#define LAN9645X_TOTAL_TAG_LEN \
-+	(LAN9645X_LONG_PREFIX_LEN + LAN9645X_IFH_LEN_BYTES)
-+
-+/* Chip has 8 cpu queues. The cpu queues used by a frame are passed as a mask in
-+ * the IFH on extraction. We use this to avoid classifying BPDU, IGMP and MLD
-+ * frames in the tag driver.
-+ */
-+enum {
-+	LAN9645X_CPUQ_DEF = 0,
-+	LAN9645X_CPUQ_TRAP = 1,
-+	LAN9645X_CPUQ_COPY = 2,
-+};
-+
-+#endif /* _NET_DSA_TAG_LAN9645X_H_ */
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..09f3043d57f0 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -62,6 +62,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_KSZ8463_VALUE		34
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
-+#define DSA_TAG_PROTO_LAN9645X_VALUE		37
++	mutex_destroy(&lan9645x->fwd_domain_lock);
+ 	lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
+ }
  
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
- 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
- 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
-+	DSA_TAG_PROTO_LAN9645X		= DSA_TAG_PROTO_LAN9645X_VALUE,
- };
+@@ -157,6 +158,11 @@ static int lan9645x_setup(struct dsa_switch *ds)
+ 		return err;
+ 	}
  
- struct dsa_switch;
-diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-index 4f44bf3ede23..bdeb60af764b 100644
---- a/net/dsa/Kconfig
-+++ b/net/dsa/Kconfig
-@@ -137,6 +137,17 @@ config NET_DSA_TAG_KSZ
- 	  Say Y if you want to enable support for tagging frames for the
- 	  Microchip 8795/937x/9477/9893 families of switches.
++	mutex_init(&lan9645x->fwd_domain_lock);
++	err = lan9645x_vlan_init(lan9645x);
++	if (err)
++		goto err_mutex;
++
+ 	/* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
+ 	lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
+ 	       ANA_AGGR_CFG_AC_DMAC_ENA,
+@@ -288,6 +294,11 @@ static int lan9645x_setup(struct dsa_switch *ds)
+ 		 lan9645x->num_phys_ports - lan9645x->num_port_dis);
  
-+config NET_DSA_TAG_LAN9645X
-+	tristate "Tag driver for Microchip LAN9645x switches"
-+	help
-+	  Say Y or M if you want to enable NPI tagging for the Microchip
-+	  LAN9645x switches. In this mode, the frames over the Ethernet CPU
-+	  port are prepended with a hardware-defined injection/extraction frame
-+	  header. On injection a 28 byte internal frame header (IFH) is used.
-+	  On extraction a 16 byte prefix is prepended before the internal frame
-+	  header. This prefix starts with a broadcast MAC, to ease passage
-+	  through the host side RX filter.
+ 	return 0;
 +
- config NET_DSA_TAG_NETC
- 	tristate "Tag driver for NXP NETC switches"
- 	help
-diff --git a/net/dsa/Makefile b/net/dsa/Makefile
-index 1f9cc30e9988..3cd53124448d 100644
---- a/net/dsa/Makefile
-+++ b/net/dsa/Makefile
-@@ -28,6 +28,7 @@ obj-$(CONFIG_NET_DSA_TAG_HELLCREEK) += tag_hellcreek.o
- obj-$(CONFIG_NET_DSA_TAG_KS8995) += tag_ks8995.o
- obj-$(CONFIG_NET_DSA_TAG_KSZ) += tag_ksz.o
- obj-$(CONFIG_NET_DSA_TAG_LAN9303) += tag_lan9303.o
-+obj-$(CONFIG_NET_DSA_TAG_LAN9645X) += tag_lan9645x.o
- obj-$(CONFIG_NET_DSA_TAG_MT7628) += tag_mt7628.o
- obj-$(CONFIG_NET_DSA_TAG_MTK) += tag_mtk.o
- obj-$(CONFIG_NET_DSA_TAG_MXL_862XX) += tag_mxl862xx.o
-diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-new file mode 100644
-index 000000000000..00339daecfcb
---- /dev/null
-+++ b/net/dsa/tag_lan9645x.c
-@@ -0,0 +1,514 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (C) 2026 Microchip Technology Inc.
-+ */
-+
-+#include <linux/dsa/lan9645x.h>
-+
-+#include "tag.h"
-+
-+#define LAN9645X_NAME "lan9645x"
-+
-+/* The internal frame header (IFH) is 28 bytes, and the fields are documented
-+ * below. Some fields are only used on either injection or extraction.
-+ *
-+ * Injection header
-+ */
-+#define IFH_INJ_TIMESTAMP		192
-+#define IFH_BYPASS			191
-+#define IFH_MASQ			190
-+/* Extraction header */
-+#define IFH_TIMESTAMP_NS		194
-+#define IFH_TIMESTAMP_SUBNS		186
-+/* Injection header */
-+#define IFH_MASQ_PORT			186
-+#define IFH_RCT_INJ			185
-+/* Extraction header */
-+#define IFH_LEN				171
-+#define IFH_WRDMODE			169
-+/* Extraction/Injection header */
-+#define IFH_RTAGD			167
-+/* Extraction header */
-+#define IFH_CUTTHRU			166
-+/* Extraction/Injection header */
-+#define IFH_REW_CMD			156
-+#define IFH_REW_OAM			155
-+#define IFH_PDU_TYPE			151
-+#define IFH_FCS_UPD			150
-+#define IFH_DP				149
-+/* Reserved */
-+#define IFH_RTE_INB_UPDATE		148
-+/* Extraction/Injection header */
-+#define IFH_POP_CNT			146
-+#define IFH_ETYPE_OFS			144
-+/* Extraction header */
-+#define IFH_SRCPORT			140
-+/* Extraction/Injection header */
-+#define IFH_SEQ_NUM			120
-+#define IFH_TAG_TYPE			119
-+#define IFH_TCI				103
-+#define IFH_DSCP			97
-+#define IFH_QOS_CLASS			94
-+#define IFH_CPUQ			86
-+/* Extraction header */
-+#define IFH_LEARN_FLAGS			84
-+/* Extraction/Injection header */
-+#define IFH_SFLOW_ID			80
-+#define IFH_ACL_HIT			79
-+#define IFH_ACL_IDX			73
-+#define IFH_ISDX			65
-+#define IFH_DSTS			55
-+/* Extraction header */
-+#define IFH_FLOOD			53
-+/* Extraction/Injection header */
-+#define IFH_SEQ_OP			51
-+#define IFH_IPV				48
-+/* Injection header */
-+#define IFH_AFI				47
-+/* Reserved */
-+#define IFH_RTP_ID			37
-+#define IFH_RTP_SUBID			36
-+#define IFH_PN_DATA_STATUS		28
-+#define IFH_PN_TRANSF_STATUS_ZERO	27
-+#define IFH_PN_CC			11
-+/* Extraction/Injection header */
-+#define IFH_DUPL_DISC_ENA		10
-+/* Extraction header */
-+#define IFH_RCT_AVAIL			9
-+
-+#define IFH_INJ_TIMESTAMP_SZ		32
-+#define IFH_BYPASS_SZ			1
-+#define IFH_MASQ_SZ			1
-+#define IFH_TIMESTAMP_NS_SZ		30
-+#define IFH_TIMESTAMP_SUBNS_SZ		8
-+#define IFH_MASQ_PORT_SZ		4
-+#define IFH_RCT_INJ_SZ			1
-+#define IFH_LEN_SZ			14
-+#define IFH_WRDMODE_SZ			2
-+#define IFH_RTAGD_SZ			2
-+#define IFH_CUTTHRU_SZ			1
-+#define IFH_REW_CMD_SZ			10
-+#define IFH_REW_OAM_SZ			1
-+#define IFH_PDU_TYPE_SZ			4
-+#define IFH_FCS_UPD_SZ			1
-+#define IFH_DP_SZ			1
-+#define IFH_RTE_INB_UPDATE_SZ		1
-+#define IFH_POP_CNT_SZ			2
-+#define IFH_ETYPE_OFS_SZ		2
-+#define IFH_SRCPORT_SZ			4
-+#define IFH_SEQ_NUM_SZ			16
-+#define IFH_TAG_TYPE_SZ			1
-+#define IFH_TCI_SZ			16
-+#define IFH_DSCP_SZ			6
-+#define IFH_QOS_CLASS_SZ		3
-+#define IFH_CPUQ_SZ			8
-+#define IFH_LEARN_FLAGS_SZ		2
-+#define IFH_SFLOW_ID_SZ			4
-+#define IFH_ACL_HIT_SZ			1
-+#define IFH_ACL_IDX_SZ			6
-+#define IFH_ISDX_SZ			8
-+#define IFH_DSTS_SZ			10
-+#define IFH_FLOOD_SZ			2
-+#define IFH_SEQ_OP_SZ			2
-+#define IFH_IPV_SZ			3
-+#define IFH_AFI_SZ			1
-+#define IFH_RTP_ID_SZ			10
-+#define IFH_RTP_SUBID_SZ		1
-+#define IFH_PN_DATA_STATUS_SZ		8
-+#define IFH_PN_TRANSF_STATUS_ZERO_SZ	1
-+#define IFH_PN_CC_SZ			16
-+#define IFH_DUPL_DISC_ENA_SZ		1
-+#define IFH_RCT_AVAIL_SZ		1
-+
-+static __always_inline void lan9645x_ifh_merge_byte(u8 *dst, u8 src, u8 mask)
++err_mutex:
++	mutex_destroy(&lan9645x->fwd_domain_lock);
++	lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
++	return err;
+ }
+ 
+ static void lan9645x_port_phylink_get_caps(struct dsa_switch *ds, int port,
+@@ -296,6 +307,66 @@ static void lan9645x_port_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	lan9645x_phylink_get_caps(ds->priv, port, config);
+ }
+ 
++static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int port,
++					bool enabled,
++					struct netlink_ext_ack *extack)
 +{
-+	*dst = *dst ^ ((*dst ^ src) & mask);
-+}
++	struct net_device *br = dsa_port_bridge_dev_get(dsa_to_port(ds, port));
++	struct lan9645x *lan9645x = ds->priv;
++	struct lan9645x_port *p;
 +
-+/* The internal frame header (IFH) is a big-endian 28 byte unpadded bit array.
-+ * Frames can be prepended with an IFH on injection and extraction. There
-+ * are two field layouts, one for extraction and one for injection.
-+ *
-+ *    IFH bits go from high to low, for instance
-+ *    ifh[0]  = [223:216]
-+ *    ifh[27] = [7:0]
-+ *
-+ * Here is an example of setting a value starting at bit 13 of bit length 17.
-+ *
-+ * val    = 0x1ff
-+ * pos    = 13
-+ * length = 17
-+ *
-+ *
-+ * IFH[]   0                         23       24       25        26      27
-+ *
-+ *                                           end_u8           start_u8
-+ *      +--------+----------------+--------+--------+--------+--------+--------+
-+ *      |        |                |        |        |        |        |        |
-+ * IFH  |        | ....           |        |  vvvvvvvvvvvvvvvvvvv     |        |
-+ *      |        |                |        |  |     |        |  |     |        |
-+ *      +--------+----------------+--------+--+-----+--------+--+-----+--------+
-+ * Bits  223                       39    32 31|   24 23    16 15|    8 7      0
-+ *                                            |                 |
-+ *                                            |                 |
-+ *                                            |                 |
-+ *                                            v                 v
-+ *                                        end       = 29       pos        = 13
-+ *                                        end_rem   = 5        pos_rem    = 5
-+ *                                        end_u8    = 3        start_u8   = 1
-+ *                                    GENMASK(5, 0) = 0x3f  GENMASK(7, 5) = 0xe0
-+ *
-+ *
-+ * In end_u8 and start_u8 we must merge the existing IFH byte with the new
-+ * value. In the 'middle' bytes of the value we can overwrite the corresponding
-+ * IFH byte.
-+ */
-+static __always_inline void lan9645x_ifh_set(u8 *ifh, u32 val, size_t pos,
-+					     size_t length)
-+{
-+	size_t end = (pos + length) - 1;
-+	size_t end_rem = end & 0x7;
-+	size_t pos_rem = pos & 0x7;
-+	size_t start_u8 = pos >> 3;
-+	size_t end_u8 = end >> 3;
-+	u8 end_mask, start_mask;
-+	size_t vshift;
-+	u8 *ptr;
-+
-+	BUILD_BUG_ON_MSG(length > 32, "IFH field size wider than 32.");
-+	BUILD_BUG_ON_MSG(length == 0, "IFH field size of 0.");
-+	BUILD_BUG_ON_MSG(pos + length > LAN9645X_IFH_BITS,
-+			 "IFH field overflows IFH");
-+
-+	end_mask = GENMASK(end_rem, 0);
-+	start_mask = GENMASK(7, pos_rem);
-+
-+	ptr = &ifh[LAN9645X_IFH_LEN_BYTES - 1 - end_u8];
-+
-+	if (end_u8 == start_u8)
-+		return lan9645x_ifh_merge_byte(ptr, val << pos_rem,
-+					       end_mask & start_mask);
-+
-+	vshift = length - end_rem - 1;
-+	lan9645x_ifh_merge_byte(ptr++, val >> vshift, end_mask);
-+
-+	for (size_t j = 1; j < end_u8 - start_u8; j++) {
-+		vshift -= 8;
-+		*ptr++ = val >> vshift;
-+	}
-+
-+	lan9645x_ifh_merge_byte(ptr, val << pos_rem, start_mask);
-+}
-+
-+static __always_inline u32 lan9645x_ifh_get(const u8 *ifh, size_t pos,
-+					    size_t length)
-+{
-+	size_t end = (pos + length) - 1;
-+	size_t end_rem = end & 0x7;
-+	size_t pos_rem = pos & 0x7;
-+	size_t start_u8 = pos >> 3;
-+	size_t end_u8 = end >> 3;
-+	u8 end_mask, start_mask;
-+	const u8 *ptr;
-+	u32 val;
-+
-+	BUILD_BUG_ON_MSG(length > 32, "IFH field size wider than 32.");
-+	BUILD_BUG_ON_MSG(length == 0, "IFH field size of 0.");
-+	BUILD_BUG_ON_MSG(pos + length > LAN9645X_IFH_BITS,
-+			 "IFH field overflows IFH");
-+
-+	end_mask = GENMASK(end_rem, 0);
-+	start_mask = GENMASK(7, pos_rem);
-+
-+	ptr = &ifh[LAN9645X_IFH_LEN_BYTES - 1 - end_u8];
-+
-+	if (end_u8 == start_u8)
-+		return (*ptr & end_mask & start_mask) >> pos_rem;
-+
-+	val = *ptr++ & end_mask;
-+
-+	for (size_t j = 1; j < end_u8 - start_u8; j++)
-+		val = val << 8 | *ptr++;
-+
-+	return val << (8 - pos_rem) | (*ptr & start_mask) >> pos_rem;
-+}
-+
-+static struct sk_buff *lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-+						   struct net_device *br,
-+						   u32 *vlan_tci,
-+						   u32 *tag_type)
-+{
-+	struct vlan_ethhdr *hdr;
-+	u16 proto, tci;
-+
-+	/* If the VLAN tag is in the hwaccel area, move it to the payload so
-+	 * that both cases are handled uniformly below, and so that the conduit
-+	 * cannot insert it into the middle of the IFH we are about to prepend.
-+	 */
-+	if (unlikely(skb_vlan_tag_present(skb))) {
-+		skb = __vlan_hwaccel_push_inside(skb);
-+		if (!skb)
-+			return NULL;
-+	}
-+
-+	if (!br || !br_vlan_enabled(br)) {
-+		*vlan_tci = 0;
-+		*tag_type = LAN9645X_IFH_TAG_TYPE_C;
-+		return skb;
-+	}
-+
-+	br_vlan_get_proto(br, &proto);
-+
-+	*vlan_tci = 0;
-+	if (skb->len >= VLAN_ETH_HLEN) {
-+		if (unlikely(!pskb_may_pull(skb, VLAN_ETH_HLEN))) {
-+			kfree_skb(skb);
-+			return NULL;
-+		}
-+
-+		hdr = skb_vlan_eth_hdr(skb);
-+		if (ntohs(hdr->h_vlan_proto) == proto &&
-+		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
-+			vlan_remove_tag(skb, &tci);
-+			*vlan_tci = tci;
-+		}
-+	}
-+
-+	*tag_type = (proto != ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-+					     LAN9645X_IFH_TAG_TYPE_C;
-+
-+	return skb;
-+}
-+
-+static void lan9645x_offload_fwd_mark(struct sk_buff *skb, u32 cpuq)
-+{
-+	/* Trapped frames must be forwarded by the stack. */
-+	if (cpuq & BIT(LAN9645X_CPUQ_TRAP)) {
-+		skb->offload_fwd_mark = 0;
-+		return;
-+	}
-+
-+	dsa_default_offload_fwd_mark(skb);
-+}
-+
-+static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
-+				     struct net_device *ndev)
-+{
-+	struct dsa_port *dp = dsa_user_to_port(ndev);
-+	u32 vlan_tci, tag_type;
-+	u32 qos_class;
-+	void *ifh;
-+
-+	skb = lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp),
-+					  &vlan_tci, &tag_type);
-+	if (!skb)
-+		return NULL;
-+
-+	/* We need to make sure frame has the proper size after IFH is stripped
-+	 * by hw.
-+	 */
-+	if (skb_put_padto(skb, ETH_ZLEN))
-+		return NULL;
-+
-+	qos_class = netdev_get_num_tc(ndev) ?
-+		    netdev_get_prio_tc_map(ndev, skb->priority) :
-+		    skb->priority;
-+	qos_class = min_t(u32, qos_class, GENMASK(IFH_QOS_CLASS_SZ - 1, 0));
-+
-+	/* Make room for IFH */
-+	ifh = skb_push(skb, LAN9645X_IFH_LEN_BYTES);
-+	memset(ifh, 0, LAN9645X_IFH_LEN_BYTES);
-+
-+	lan9645x_ifh_set(ifh, 1, IFH_BYPASS, IFH_BYPASS_SZ);
-+	lan9645x_ifh_set(ifh, tag_type, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ);
-+	lan9645x_ifh_set(ifh, vlan_tci, IFH_TCI, IFH_TCI_SZ);
-+	lan9645x_ifh_set(ifh, qos_class, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
-+	lan9645x_ifh_set(ifh, BIT(dp->index), IFH_DSTS, IFH_DSTS_SZ);
-+
-+	return skb;
-+}
-+
-+static int lan9645x_ifh_gap_len(const u8 *ifh)
-+{
-+	u32 popcnt = lan9645x_ifh_get(ifh, IFH_POP_CNT, IFH_POP_CNT_SZ);
-+	u32 etype_ofs = lan9645x_ifh_get(ifh, IFH_ETYPE_OFS, IFH_ETYPE_OFS_SZ);
-+
-+	/* Tag pushing is disabled on the NPI port via REW_TAG_CFG, so if this
-+	 * fires REW_TAG_CFG is misconfigured.
-+	 */
-+	if (popcnt == 1 ||
-+	    (popcnt == 0 && etype_ofs > 0))
++	if (enabled && !lan9645x_bridge_vlan_proto_ok(br)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Only 802.1Q VLAN-aware bridges are supported");
 +		return -EINVAL;
++	}
 +
-+	/* Since REW_PORT_CFG_NO_REWRITE=0 is required on the NPI port, we need
-+	 * to account for any tags popped by the hardware, as that will leave a
-+	 * gap between the IFH and DMAC. Tag pushing is disabled.
-+	 *
-+	 * The IFH fields do not have intuitive values. This is how HW does the
-+	 * calculation:
-+	 *
-+	 * DMAC_DT = (ifh.pop_cnt == 0 && ifh.etype_ofs == 0) ? 4 : ifh.pop_cnt
-+	 * DMAC_OFFSET = TAG_SIZE + 4*(DMAC_DT - 2)
-+	 *
-+	 * With tag pushing disabled we have either
-+	 *
-+	 * popcnt=0 and etype_ofs=0     => 2x pop
-+	 * popcnt=3 and etype_ofs=*     => 1x pop
-+	 * popcnt=2 and etype_ofs=*     => no pop
-+	 *
-+	 * The remaining combinations indicate a push and will not occur.
-+	 */
-+	if (popcnt == 0 && etype_ofs == 0)
-+		return 2 * VLAN_HLEN;
-+	if (popcnt == 3)
-+		return VLAN_HLEN;
++	/* DSA core does not call this for the CPU port */
++	p = lan9645x_to_port(lan9645x, port);
++	mutex_lock(&lan9645x->fwd_domain_lock);
++	p->vlan_aware = enabled;
++	lan9645x_vlan_port_apply(p);
++	mutex_unlock(&lan9645x->fwd_domain_lock);
 +
 +	return 0;
 +}
 +
-+static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
-+				    struct net_device *ndev)
++static int lan9645x_port_vlan_add(struct dsa_switch *ds, int port,
++				  const struct switchdev_obj_port_vlan *vlan,
++				  struct netlink_ext_ack *extack)
 +{
-+	u32 src_port, qos_class, vlan_tci, cpuq;
-+	struct dsa_port *dp;
-+	int ifh_gap_len;
-+	u8 *ifh;
++	struct lan9645x *lan9645x = ds->priv;
++	struct lan9645x_port *p;
++	bool pvid, untagged;
++	int err;
 +
-+	/* Conduit already consumed DMAC,SMAC,ETYPE from long prefix. Go back
-+	 * to beginning of frame.
-+	 */
-+	skb_push(skb, ETH_HLEN);
++	p = lan9645x_to_port(lan9645x, port);
++	pvid = !!(vlan->flags & BRIDGE_VLAN_INFO_PVID);
++	untagged = !!(vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED);
 +
-+	if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN))) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
++	mutex_lock(&lan9645x->fwd_domain_lock);
++	err = lan9645x_vlan_port_add_vlan(p, vlan->vid, pvid, untagged, extack);
++	mutex_unlock(&lan9645x->fwd_domain_lock);
 +
-+	/* IFH starts after our long prefix */
-+	ifh = skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
-+
-+	src_port = lan9645x_ifh_get(ifh, IFH_SRCPORT, IFH_SRCPORT_SZ);
-+	vlan_tci = lan9645x_ifh_get(ifh, IFH_TCI, IFH_TCI_SZ);
-+	qos_class = lan9645x_ifh_get(ifh, IFH_QOS_CLASS, IFH_QOS_CLASS_SZ);
-+	cpuq = lan9645x_ifh_get(ifh, IFH_CPUQ, IFH_CPUQ_SZ);
-+
-+	ifh_gap_len = lan9645x_ifh_gap_len(ifh);
-+	if (ifh_gap_len < 0) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Set skb->data at start of real header */
-+	skb_pull(skb, LAN9645X_IFH_LEN_BYTES);
-+
-+	if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN))) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	skb_pull(skb, ifh_gap_len);
-+	skb_reset_mac_header(skb);
-+	skb_set_network_header(skb, ETH_HLEN);
-+	skb_reset_mac_len(skb);
-+
-+	/* Reset skb->data past the actual ethernet header. */
-+	skb_pull(skb, ETH_HLEN);
-+
-+	/* We must deliver the skb so skb->csum only covers the data beyond the
-+	 * real ethernet header. The fake ethernet header in the prefix is
-+	 * not part of skb->csum already. We must subtract what remains of the
-+	 * prefix, the ifh and the gap. The start is derived from the current
-+	 * skb->data rather than saved on entry, because the pskb_may_pull()
-+	 * calls above may have reallocated skb->head.
-+	 */
-+	skb_postpull_rcsum(skb,
-+			   skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len,
-+			   LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
-+
-+	skb->dev = dsa_conduit_find_user(ndev, 0, src_port);
-+	if (!skb->dev) {
-+		/* Reflection is disabled for frames from the tag driver itself,
-+		 * however it is possible that a frame sent directly on the
-+		 * conduit gets reflected, so we drop it here.
-+		 */
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	lan9645x_offload_fwd_mark(skb, cpuq);
-+
-+	skb->priority = qos_class;
-+
-+	/* While we have REW_PORT_CFG_NO_REWRITE=0 on the NPI port, we still
-+	 * disable port VLAN tag pushing with REW_TAG_CFG. A frame ingressing
-+	 * on a vlan aware port, which is forwarded to the CPU, will not carry
-+	 * vlan info in the frame data, because the tag is popped. The
-+	 * classified VID is only communicated via the IFH, never in the
-+	 * payload. We therefore restore it via hwaccel and must not pop an
-+	 * in-band tag here.
-+	 */
-+	dp = dsa_user_to_port(skb->dev);
-+
-+	if (dsa_port_is_vlan_filtering(dp) && ifh_gap_len) {
-+		/* The tag is restored as a C-tag, not as the TAG_TYPE the IFH
-+		 * reports. The classifier recognizes both TPIDs as VLAN tags,
-+		 * so an S-tag has already been used for classification by the
-+		 * time we get here. Restoring it as 802.1AD would make the
-+		 * bridge push it back into the payload and reclassify the frame
-+		 * to the port pvid, on a different VID than the one the
-+		 * hardware forwarded it on.
-+		 */
-+		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vlan_tci);
-+	}
-+
-+	return skb;
++	return err;
 +}
 +
-+static void lan9645x_flow_dissect(const struct sk_buff *skb, __be16 *proto,
-+				  int *offset)
++static int lan9645x_port_vlan_del(struct dsa_switch *ds, int port,
++				  const struct switchdev_obj_port_vlan *vlan)
 +{
-+	u8 ifh_buf[LAN9645X_IFH_LEN_BYTES];
-+	const __be16 *encap_proto;
-+	__be16 proto_buf;
-+	const u8 *ifh;
-+	int tag_len;
++	struct lan9645x *lan9645x = ds->priv;
++	struct lan9645x_port *p;
++	int err;
 +
-+	*proto = 0;
-+	*offset = 0;
++	p = lan9645x_to_port(lan9645x, port);
 +
-+	ifh = skb_header_pointer(skb, LAN9645X_LONG_PREFIX_LEN - ETH_HLEN,
-+				 LAN9645X_IFH_LEN_BYTES, ifh_buf);
-+	if (!ifh)
-+		return;
++	mutex_lock(&lan9645x->fwd_domain_lock);
++	err = lan9645x_vlan_port_del_vlan(p, vlan->vid);
++	mutex_unlock(&lan9645x->fwd_domain_lock);
 +
-+	tag_len = lan9645x_ifh_gap_len(ifh);
-+	if (tag_len < 0)
-+		return;
-+
-+	tag_len += LAN9645X_TOTAL_TAG_LEN;
-+
-+	encap_proto = skb_header_pointer(skb, tag_len - sizeof(proto_buf),
-+					 sizeof(proto_buf), &proto_buf);
-+	if (!encap_proto)
-+		return;
-+
-+	*proto = *encap_proto;
-+	*offset = tag_len;
++	return err;
 +}
 +
-+static const struct dsa_device_ops lan9645x_netdev_ops = {
-+	.name			= LAN9645X_NAME,
-+	.proto			= DSA_TAG_PROTO_LAN9645X,
-+	.xmit			= lan9645x_xmit,
-+	.rcv			= lan9645x_rcv,
-+	.flow_dissect		= lan9645x_flow_dissect,
-+	/* Covers the extraction prefix too, since dsa_tag_protocol_overhead()
-+	 * sizes the conduit MTU from this.
-+	 */
-+	.needed_headroom	= LAN9645X_TOTAL_TAG_LEN,
+ static const struct dsa_switch_ops lan9645x_switch_ops = {
+ 	.get_tag_protocol		= lan9645x_get_tag_protocol,
+ 
+@@ -309,6 +380,11 @@ static const struct dsa_switch_ops lan9645x_switch_ops = {
+ 	/* MTU  */
+ 	.port_change_mtu		= lan9645x_change_mtu,
+ 	.port_max_mtu			= lan9645x_get_max_mtu,
++
++	/* VLAN integration */
++	.port_vlan_filtering		= lan9645x_port_vlan_filtering,
++	.port_vlan_add			= lan9645x_port_vlan_add,
++	.port_vlan_del			= lan9645x_port_vlan_del,
+ };
+ 
+ static int lan9645x_request_target_regmaps(struct lan9645x *lan9645x)
+diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
+index 3a4abedafa2c..73a91087824a 100644
+--- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
++++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.h
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/dsa/lan9645x.h>
+ #include <linux/if_bridge.h>
++#include <linux/if_vlan.h>
+ #include <linux/regmap.h>
+ #include <net/dsa.h>
+ 
+@@ -171,6 +172,11 @@ enum lan9645x_vlan_port_tag {
+ 	LAN9645X_TAG_ALL = 3,
+ };
+ 
++struct lan9645x_vlan {
++	u32 portmask: 10, /* ports 0-8 + CPU port module */
++	    untagged: 9; /* ports 0-8 */
 +};
 +
-+MODULE_DESCRIPTION("DSA tag driver for LAN9645x family of switches, using NPI port");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_LAN9645X, LAN9645X_NAME);
+ struct lan9645x {
+ 	struct device *dev;
+ 	struct dsa_switch *ds;
+@@ -182,7 +188,15 @@ struct lan9645x {
+ 	u8 num_phys_ports;
+ 	struct lan9645x_port **ports;
+ 
++	/* Forwarding Database */
++	u16 bridge_mask; /* Mask for bridged ports */
++	/* lock forwarding configuration and vlan table */
++	struct mutex fwd_domain_lock;
 +
-+module_dsa_tag_driver(lan9645x_netdev_ops);
+ 	int num_port_dis;
++
++	/* VLAN entries */
++	struct lan9645x_vlan vlans[VLAN_N_VID];
+ };
+ 
+ struct lan9645x_port {
+@@ -190,6 +204,9 @@ struct lan9645x_port {
+ 
+ 	u8 chip_port;
+ 
++	bool vlan_aware;
++	u16 pvid;
++
+ 	bool rx_internal_delay;
+ 	bool tx_internal_delay;
+ };
+@@ -238,6 +255,19 @@ static inline struct lan9645x_port *lan9645x_to_port(struct lan9645x *lan9645x,
+ 	return lan9645x->ports[port];
+ }
+ 
++static inline bool lan9645x_port_is_bridged(struct lan9645x_port *p)
++{
++	return p->lan9645x->bridge_mask & BIT(p->chip_port);
++}
++
++static inline bool lan9645x_bridge_vlan_proto_ok(const struct net_device *br)
++{
++	u16 proto;
++
++	return !br || !br_vlan_enabled(br) || br_vlan_get_proto(br, &proto) ||
++	       proto == ETH_P_8021Q;
++}
++
+ static inline struct regmap *lan_tgt2rmap(struct lan9645x *lan9645x,
+ 					  enum lan9645x_target t, int tinst)
+ {
+@@ -345,4 +375,14 @@ void lan9645x_phylink_get_caps(struct lan9645x *lan9645x, int port,
+ 			       struct phylink_config *c);
+ void lan9645x_phylink_port_down(struct lan9645x *lan9645x, int port);
+ 
++/* VLAN lan9645x_vlan.c */
++int lan9645x_vlan_init(struct lan9645x *lan9645x);
++u16 lan9645x_vlan_unaware_pvid(bool is_bridged);
++void lan9645x_vlan_port_apply(struct lan9645x_port *p);
++int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool pvid,
++				bool untagged,
++				struct netlink_ext_ack *extack);
++int lan9645x_vlan_port_del_vlan(struct lan9645x_port *p, u16 vid);
++void lan9645x_vlan_set_hostmode(struct lan9645x_port *p);
++
+ #endif /* __LAN9645X_MAIN_H__ */
+diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+index 4d2d922bacba..2571380f2c02 100644
+--- a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
++++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+@@ -162,5 +162,11 @@ int lan9645x_port_setup(struct dsa_switch *ds, int port)
+ 		ANA_PORT_CFG_PORTID_VAL,
+ 		lan9645x, ANA_PORT_CFG(p->chip_port));
+ 
++	if (p->chip_port != lan9645x->npi) {
++		mutex_lock(&lan9645x->fwd_domain_lock);
++		lan9645x_vlan_set_hostmode(p);
++		mutex_unlock(&lan9645x->fwd_domain_lock);
++	}
++
+ 	return 0;
+ }
+diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+new file mode 100644
+index 000000000000..effb0104a602
+--- /dev/null
++++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+@@ -0,0 +1,402 @@
++// SPDX-License-Identifier: GPL-2.0+
++/* Copyright (C) 2026 Microchip Technology Inc.
++ */
++
++#include "lan9645x_main.h"
++
++#define VLANACCESS_CMD_IDLE		0
++#define VLANACCESS_CMD_READ		1
++#define VLANACCESS_CMD_WRITE		2
++#define VLANACCESS_CMD_INIT		3
++
++struct lan9645x_vlan_port_info {
++	int untagged;
++	int tagged;
++	u16 untagged_vid;
++};
++
++/* Calculate VLAN state of a port, across all VLANS. */
++static void lan9645x_vlan_port_get_info(struct lan9645x *lan9645x, int port,
++					struct lan9645x_vlan_port_info *info)
++{
++	u16 vid;
++
++	info->untagged = 0;
++	info->tagged = 0;
++	info->untagged_vid = 0;
++
++	for (vid = 1; vid <= VLAN_MAX; vid++) {
++		struct lan9645x_vlan *v = &lan9645x->vlans[vid];
++
++		if (!(v->portmask & BIT(port)))
++			continue;
++
++		if (v->untagged & BIT(port)) {
++			info->untagged++;
++			info->untagged_vid = vid;
++		} else {
++			info->tagged++;
++		}
++
++		/* VLAN composition is invalid, so break early. */
++		if (info->untagged > 1 && info->tagged)
++			break;
++	}
++}
++
++static int lan9645x_vlan_wait_for_completion(struct lan9645x *lan9645x)
++{
++	u32 val;
++
++	return lan9645x_rd_poll_timeout(lan9645x, ANA_VLANACCESS, val,
++					ANA_VLANACCESS_VLAN_TBL_CMD_GET(val) ==
++					VLANACCESS_CMD_IDLE);
++}
++
++static int lan9645x_vlan_hw_wr(struct lan9645x *lan9645x, u16 vid)
++{
++	struct lan9645x_vlan *v = &lan9645x->vlans[vid];
++	bool cpu_dis = !(v->portmask & BIT(lan9645x->num_phys_ports));
++	u32 val;
++	int err;
++
++	val = ANA_VLANTIDX_VLAN_PGID_CPU_DIS_SET(cpu_dis) |
++	      ANA_VLANTIDX_V_INDEX_SET(vid);
++
++	lan_wr(val, lan9645x, ANA_VLANTIDX);
++	lan_wr(ANA_VLAN_PORT_MASK_VLAN_PORT_MASK_SET(v->portmask),
++	       lan9645x, ANA_VLAN_PORT_MASK);
++	lan_wr(ANA_VLANACCESS_VLAN_TBL_CMD_SET(VLANACCESS_CMD_WRITE),
++	       lan9645x, ANA_VLANACCESS);
++
++	/* The VLAN access engine completes in a fixed ~1us vs the polling
++	 * timeout of 100_000 us. A timeout here therefore likely means the
++	 * register bus itself is dead, not that the VLAN op failed. There is no
++	 * meaningful recovery at runtime, so this function logs via dev_err()
++	 * and runtime callers discard the return value. Only
++	 * lan9645x_vlan_init() treats this as fatal so that probe fails early
++	 * on a broken bus.
++	 */
++	err = lan9645x_vlan_wait_for_completion(lan9645x);
++	if (err)
++		dev_err(lan9645x->dev, "VLAN set mask failed\n");
++
++	return err;
++}
++
++u16 lan9645x_vlan_unaware_pvid(bool is_bridged)
++{
++	return is_bridged ? UNAWARE_PVID : HOST_PVID;
++}
++
++static u16 lan9645x_vlan_port_get_pvid(struct lan9645x_port *port)
++{
++	bool is_bridged = lan9645x_port_is_bridged(port);
++
++	if (is_bridged && port->vlan_aware)
++		return port->pvid;
++	else
++		return lan9645x_vlan_unaware_pvid(is_bridged);
++}
++
++/* Dynamically choose the egress tagging mode based on the port vlan state:
++ *
++ * Standalone:
++ * TAG_NO_PVID_NO_UNAWARE with PORT_VID=HOST_PVID. This avoids leaking the
++ * internal HOST_PVID tag on ingress mirrored frames while leaving normal
++ * egress frames untagged.
++ *
++ * Bridged, VLAN-aware:
++ *  - N untagged, 0 tagged: TAG_DISABLED
++ *  - 1 untagged, N tagged: TAG_NO_PVID_NO_UNAWARE
++ *  - 0 untagged, N tagged: TAG_NO_UNAWARE
++ *
++ * Bridged, VLAN-unaware:
++ *   TAG_DISABLED
++ */
++static void
++lan9645x_vlan_port_apply_egress(struct lan9645x_port *p,
++				struct lan9645x_vlan_port_info *info)
++{
++	struct lan9645x *lan9645x = p->lan9645x;
++	enum lan9645x_vlan_port_tag tag_cfg;
++	u16 port_vid = UNAWARE_PVID;
++
++	if (!lan9645x_port_is_bridged(p)) {
++		tag_cfg = LAN9645X_TAG_NO_PVID_NO_UNAWARE;
++		port_vid = HOST_PVID;
++	} else if (p->vlan_aware) {
++		struct lan9645x_vlan_port_info _info;
++
++		if (!info) {
++			lan9645x_vlan_port_get_info(lan9645x, p->chip_port,
++						    &_info);
++			info = &_info;
++		}
++
++		if (info->untagged == 1 && info->tagged) {
++			tag_cfg = LAN9645X_TAG_NO_PVID_NO_UNAWARE;
++			port_vid = info->untagged_vid;
++		} else if (info->untagged) {
++			tag_cfg = LAN9645X_TAG_DISABLED;
++		} else {
++			tag_cfg = LAN9645X_TAG_NO_UNAWARE;
++		}
++	} else {
++		tag_cfg = LAN9645X_TAG_DISABLED;
++	}
++
++	/* TAG_TPID_CFG encoding:
++	 *
++	 * 0: Use 0x8100.
++	 * 1: Use 0x88A8.
++	 * 2: Use custom value from PORT_VLAN_CFG.PORT_TPID.
++	 * 3: Use PORT_VLAN_CFG.PORT_TPID, unless ingress tag was a C-tag
++	 *    (EtherType = 0x8100)
++	 *
++	 * Use 3 and PORT_VLAN_CFG.PORT_TPID=0x88a8 to ensure stags are not
++	 * rewritten to ctags on egress.
++	 */
++	lan_rmw(REW_TAG_CFG_TAG_TPID_CFG_SET(3) |
++		REW_TAG_CFG_TAG_CFG_SET(tag_cfg),
++		REW_TAG_CFG_TAG_TPID_CFG |
++		REW_TAG_CFG_TAG_CFG,
++		lan9645x, REW_TAG_CFG(p->chip_port));
++
++	lan_rmw(REW_PORT_VLAN_CFG_PORT_TPID_SET(ETH_P_8021AD) |
++		REW_PORT_VLAN_CFG_PORT_VID_SET(port_vid),
++		REW_PORT_VLAN_CFG_PORT_TPID |
++		REW_PORT_VLAN_CFG_PORT_VID,
++		lan9645x, REW_PORT_VLAN_CFG(p->chip_port));
++}
++
++static void lan9645x_vlan_port_apply_ingress(struct lan9645x_port *p)
++{
++	bool aware = lan9645x_port_is_bridged(p) && p->vlan_aware;
++	struct lan9645x *lan9645x = p->lan9645x;
++	u16 pvid;
++	u32 val;
++
++	pvid = lan9645x_vlan_port_get_pvid(p);
++
++	/* Default vlan to classify for untagged frames (may be zero), and set
++	 * their tag type to C-tag.
++	 */
++	val = ANA_VLAN_CFG_VLAN_VID_SET(pvid) |
++	      ANA_VLAN_CFG_VLAN_TAG_TYPE_SET(0);
++	if (aware)
++		val |= ANA_VLAN_CFG_VLAN_AWARE_ENA_SET(1) |
++		       ANA_VLAN_CFG_VLAN_POP_CNT_SET(1);
++
++	lan_rmw(val,
++		ANA_VLAN_CFG_VLAN_VID |
++		ANA_VLAN_CFG_VLAN_AWARE_ENA |
++		ANA_VLAN_CFG_VLAN_POP_CNT |
++		ANA_VLAN_CFG_VLAN_TAG_TYPE,
++		lan9645x, ANA_VLAN_CFG(p->chip_port));
++
++	val = 0;
++	if (aware && !pvid)
++		/* If port is vlan-aware and tagged, drop untagged and priority
++		 * tagged frames.
++		 */
++		val = ANA_DROP_CFG_DROP_UNTAGGED_ENA_SET(1) |
++		      ANA_DROP_CFG_DROP_PRIO_S_TAGGED_ENA_SET(1) |
++		      ANA_DROP_CFG_DROP_PRIO_C_TAGGED_ENA_SET(1);
++
++	lan_rmw(val,
++		ANA_DROP_CFG_DROP_UNTAGGED_ENA |
++		ANA_DROP_CFG_DROP_PRIO_S_TAGGED_ENA |
++		ANA_DROP_CFG_DROP_PRIO_C_TAGGED_ENA,
++		lan9645x, ANA_DROP_CFG(p->chip_port));
++}
++
++void lan9645x_vlan_port_apply(struct lan9645x_port *p)
++{
++	lockdep_assert_held(&p->lan9645x->fwd_domain_lock);
++
++	lan9645x_vlan_port_apply_ingress(p);
++	lan9645x_vlan_port_apply_egress(p, NULL);
++}
++
++static struct lan9645x_vlan *lan9645x_vlan_port_modify(struct lan9645x_port *p,
++						       u16 vid, bool pvid,
++						       bool untagged)
++{
++	struct lan9645x_vlan *v = &p->lan9645x->vlans[vid];
++
++	if (untagged)
++		v->untagged |= BIT(p->chip_port);
++	else
++		v->untagged &= ~BIT(p->chip_port);
++
++	if (pvid)
++		p->pvid = vid;
++	else if (p->pvid == vid)
++		p->pvid = 0;
++
++	return v;
++}
++
++static int lan9645x_vlan_cpu_add(struct lan9645x_port *p, u16 vid)
++{
++	struct lan9645x_vlan *v = &p->lan9645x->vlans[vid];
++
++	v->portmask |= BIT(p->lan9645x->num_phys_ports) | BIT(p->chip_port);
++	lan9645x_vlan_hw_wr(p->lan9645x, vid);
++
++	return 0;
++}
++
++int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool pvid,
++				bool untagged, struct netlink_ext_ack *extack)
++{
++	struct lan9645x *lan9645x = p->lan9645x;
++	struct lan9645x_vlan_port_info info;
++	struct lan9645x_vlan old_vlan;
++	struct lan9645x_vlan *v;
++	u16 old_pvid;
++
++	lockdep_assert_held(&lan9645x->fwd_domain_lock);
++
++	/* Kernel VLAN core adds vid 0, which collides with our UNAWARE_PVID.
++	 * Hardware needs no entry for it: basic VLAN classification replaces a
++	 * VID of 0 with VLAN_CFG.VLAN_VID, keeping the frame's PCP and DEI, so
++	 * a priority tagged frame is classified to the port pvid. Ports with no
++	 * pvid instead drop it, see lan9645x_vlan_port_apply_ingress().
++	 */
++	if (!vid)
++		return 0;
++
++	if (vid > VLAN_MAX) {
++		NL_SET_ERR_MSG_MOD(extack, "VLAN 4095 reserved");
++		return -EINVAL;
++	}
++
++	if (p->chip_port == lan9645x->npi)
++		return lan9645x_vlan_cpu_add(p, vid);
++
++	old_vlan = lan9645x->vlans[vid];
++	old_pvid = p->pvid;
++
++	v = lan9645x_vlan_port_modify(p, vid, pvid, untagged);
++	v->portmask |= BIT(p->chip_port);
++
++	lan9645x_vlan_port_get_info(lan9645x, p->chip_port, &info);
++
++	if (info.untagged > 1 && info.tagged) {
++		*v = old_vlan;
++		p->pvid = old_pvid;
++		if (untagged)
++			NL_SET_ERR_MSG_MOD(extack,
++					   "Port with egress-tagged VLANs cannot have more than one egress-untagged VLAN");
++		else
++			NL_SET_ERR_MSG_MOD(extack,
++					   "Port with more than one egress-untagged VLAN cannot have egress-tagged VLANs");
++		return -EBUSY;
++	}
++
++	lan9645x_vlan_hw_wr(lan9645x, vid);
++	lan9645x_vlan_port_apply_ingress(p);
++	lan9645x_vlan_port_apply_egress(p, &info);
++
++	return 0;
++}
++
++static int lan9645x_vlan_cpu_del(struct lan9645x_port *p, u16 vid)
++{
++	struct lan9645x_vlan *v = &p->lan9645x->vlans[vid];
++
++	v->portmask &= ~(BIT(p->lan9645x->num_phys_ports) |
++			 BIT(p->chip_port));
++	lan9645x_vlan_hw_wr(p->lan9645x, vid);
++
++	return 0;
++}
++
++int lan9645x_vlan_port_del_vlan(struct lan9645x_port *p, u16 vid)
++{
++	struct lan9645x *lan9645x = p->lan9645x;
++	struct lan9645x_vlan *v;
++
++	lockdep_assert_held(&lan9645x->fwd_domain_lock);
++
++	if (!vid)
++		return 0;
++
++	if (vid > VLAN_MAX)
++		return -EINVAL;
++
++	if (p->chip_port == lan9645x->npi)
++		return lan9645x_vlan_cpu_del(p, vid);
++
++	v = lan9645x_vlan_port_modify(p, vid, false, false);
++	v->portmask &= ~BIT(p->chip_port);
++	lan9645x_vlan_hw_wr(lan9645x, vid);
++	lan9645x_vlan_port_apply(p);
++
++	return 0;
++}
++
++void lan9645x_vlan_set_hostmode(struct lan9645x_port *p)
++{
++	lockdep_assert_held(&p->lan9645x->fwd_domain_lock);
++
++	p->lan9645x->vlans[HOST_PVID].portmask |= BIT(p->chip_port);
++	lan9645x_vlan_hw_wr(p->lan9645x, HOST_PVID);
++	lan9645x_vlan_port_apply(p);
++}
++
++int lan9645x_vlan_init(struct lan9645x *lan9645x)
++{
++	u32 all_phys_ports, all_ports;
++	struct dsa_port *dp;
++	u16 vid;
++	int err;
++
++	all_phys_ports = GENMASK(lan9645x->num_phys_ports - 1, 0);
++	all_ports = all_phys_ports | BIT(lan9645x->num_phys_ports);
++
++	/* Clear VLAN table, by default all ports are members of all VLANS */
++	lan_wr(ANA_VLANACCESS_VLAN_TBL_CMD_SET(VLANACCESS_CMD_INIT),
++	       lan9645x, ANA_VLANACCESS);
++
++	err = lan9645x_vlan_wait_for_completion(lan9645x);
++	if (err) {
++		dev_err(lan9645x->dev, "VLAN clear table failed\n");
++		return err;
++	}
++
++	for (vid = 1; vid < VLAN_N_VID; vid++) {
++		err = lan9645x_vlan_hw_wr(lan9645x, vid);
++		if (err)
++			return err;
++	}
++
++	/* Set all the ports + cpu to be part of HOST_PVID and UNAWARE_PVID */
++	lan9645x->vlans[HOST_PVID].portmask = all_ports;
++	err = lan9645x_vlan_hw_wr(lan9645x, HOST_PVID);
++	if (err)
++		return err;
++
++	lan9645x->vlans[UNAWARE_PVID].portmask = all_ports;
++	err = lan9645x_vlan_hw_wr(lan9645x, UNAWARE_PVID);
++	if (err)
++		return err;
++
++	/* Configure the CPU port module to be vlan aware */
++	lan_wr(ANA_VLAN_CFG_VLAN_VID_SET(UNAWARE_PVID) |
++	       ANA_VLAN_CFG_VLAN_AWARE_ENA_SET(1) |
++	       ANA_VLAN_CFG_VLAN_POP_CNT_SET(1),
++	       lan9645x, ANA_VLAN_CFG(lan9645x->num_phys_ports));
++
++	/* Set vlan ingress filter mask to all ports */
++	lan_wr(all_ports, lan9645x, ANA_VLANMASK);
++
++	dsa_switch_for_each_user_port(dp, lan9645x->ds) {
++		lan_wr(0, lan9645x, REW_PORT_VLAN_CFG(dp->index));
++		lan_wr(0, lan9645x, REW_TAG_CFG(dp->index));
++	}
++
++	return 0;
++}
 
 -- 
 2.52.0
