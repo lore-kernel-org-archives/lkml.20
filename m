@@ -1,135 +1,124 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB21651CF4D
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CFE4A2638
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792063021; cv=none; b=KsGH1MONEsSSK/cs+ZoylTGkq4bLjIKZYZJSMaVRGcrIt7rI3RPWxx7ZCng1EBuZHq5Vf7abrI9liyO3pjjUD1l+ywalgv+vTdSDNTxVC81/MzI3VljghoTyuskMJ+feShqKtlcit7Njq9At46xREtdeEnK6GjIoQlRGZjdPAwc=
+	t=1792063089; cv=none; b=OZy6A+36SunGY5R5pQJt24x7buwhS9iY9ZHWXBPF30qn0ZmapQ6wLuVpN/77mshQuuR7jZn3YnPMcQq3pg5cDjmP1G0kno3Z9A/AqgJ8MYe/ZEcSb1U+479eizxLvocmR6cKw6jX4ZsYP5sR71u0ObvnLDNGN2U9a4cbY+kWJ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792063021; c=relaxed/simple;
-	bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MNbi4MF7/FqlB/1mYCJ7YN0+NBdaVqzpg0GEaF9fg5cJNO7im+j7xXo9h4uQztqa/bSiJ6XqTQ2/l3Fx4uL/MOYxepLb8Vs/dcajZiVqcE0QzA1FEOld9PoTFzy5BFijuSzRFmZKECXqQtDgrJE82gIxMeGHfbFMwmuSDfCtUrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IAKAZ04o; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IAKAZ04o"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 677C21D12;
-	Thu, 15 Oct 2026 13:14:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792062877;
-	bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=IAKAZ04oU9Cj45/XYdJq2WgcKmUagAlI6Qo/W2mZcTnIlQSYNes1hRAgqT2V1fWLt
-	 x15Iq018Kfhi0421pnVzMpfUZBZlQqWq/+bzmkRVsF+otS1AKJt2jwU7I/hgfg4sCg
-	 zlVScb2t4qpZOA6bo3hFpR12oHid9YJB4V5QAEqc=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 15 Oct 2026 14:16:04 +0300
-Subject: [PATCH v5 13/13] drm/panel-simple: Fix powertip,ph800480t013-idf02
- timings
+	s=arc-20240116; t=1792063089; c=relaxed/simple;
+	bh=4Jq657e1rt+YqI41Xo68/ctWVUVpPaDwJJON8tVbDf8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=f3o+Gu5tK9MTkk9Z6XOwgB0V1a9BnERvcu04LSzuq8PjQDHtAz39kqRAouzGj9M0i/oUNL+LkYPQIBcqYkM1k3fnMmaRxW5Y99S/sUrTZ9HiWEnj/Mcj873GAnctnbISXeNx+zq7ETMWIq27PZE7QNghnKQm8IyFYJl0bsrU7W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69FBI3I3013890
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:18:03 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69FBI3g1013887
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:18:03 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <06cd882d-7f4e-4697-b6b1-ba140f8ad4dd@I-love.SAKURA.ne.jp>
+Date: Thu, 15 Oct 2026 20:18:04 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v6] block: avoid long sync_blockdev() under disk->open_mutex
+ during parallel close
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: LKML <linux-kernel@vger.kernel.org>
+References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
+ <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
+ <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
+ <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
+ <8d188283-b5c7-4b16-95ee-6d985472c120@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <8d188283-b5c7-4b16-95ee-6d985472c120@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-tc358762-fixes-v5-13-7cd721a6451b@ideasonboard.com>
-References: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-In-Reply-To: <20261015-tc358762-fixes-v5-0-7cd721a6451b@ideasonboard.com>
-To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2487;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=fw6HWt4qWZk1Je5fhTr7Rh66OKoDT2cP4tY+lFPvw1k=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq0LYJeY5qBXBVVYD3iUA8UgrkzdfZ3PZisDw3t
- o1904SKUzOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCatC2CQAKCRD6PaqMvJYe
- 9XdDD/9qK1ytb75oiW/t5TnfgzdOhN8/UAMzVq/j87Gwthv2RhGjEnOHisf2M9U3cFXvmomnF3h
- DnYA+sJ+/hjdLx8lxZqdrvUrrbRwLdZoIJGKTaDQDoQgDxyiyNJoB6cU9/SNCjvaU9he73C2IcH
- lFyeJZJvdyYvc77SI6st01RonGmshtYyP3m/1+TikFa+LyDTYh/bPIXKG0Zi1RDV9HXI1OBNCFt
- 6xXxT9/vL8h0rKoQb9E6zaobfavDWv/Drxq8KMoL7lW0oEaZ6Paq9VGRQuh/E9bQjSLLpu+pHNW
- D9ApslFVP2UvADmABiRWMGTIhB6J7wAvbpWfp9meSqwlf5GOxyJ+tGhPg+wY6hNQOQ2UVaeBRBF
- BTmAet9xNEeBreUGunB3qieD2roaHFs7cU0YStlPMu94jxfZiNgVJoqqVOcyk2XTUXd7Ny9B3pS
- aPY2HzbYfpX5HdxBYk756Q+3I2PsfrnSxQIi154UAsnDJNTmGmt21PW1hN6uGFW+qkKwP1Y258J
- K9a10T6xLaOru5CHD6FHZqZrlruEAE5BcOqHO/aLIl5q7Iq6DTiEkub1aEjVHizZ6BsWfHkWDFc
- DmBWtwKXJrTtLfqY0SsT341X1ajb/9xk8o83a4TZnL2PTaUYF0zMVeefUUeZAogcdoJccFuQkAY
- /4YIHs0BUM4BybA==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+X-Anti-Virus-Server: fsav113.rs.sakura.ne.jp
+X-Virus-Status: clean
 
-The powertip,ph800480t013-idf02 panel was added to panel-simple, and
-with the tc358762 driver, enabled the use of RaspberryPi 7" DSI display.
+Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
+blkdev_close()") introduced a sync_blockdev() call immediately before
+holding disk->open_mutex. But this check was racy and best-effort basis.
 
-I have been testing the RaspberryPi 7" DSI display module with TI's
-BeagleY-AI, and I can't get a good image with the current panel timings.
+If more than one thread concurrently called bdev_release() and saw
+atomic_read(&bdev->bd_openers) > 1, the thread which actually hit
+the atomic_dec_and_test(&bdev->bd_openers) condition will call
+sync_blockdev() from blkdev_flush_mapping() (which could take several
+minutes) with disk->open_mutex held.
 
-It's been quite difficult to figure out exactly what are the issues.
-Possibly RPi DSI TX and TI DSI TX have their own quirks which affect
-this also. However, now that the tc358762 driver has been fixed wrt. the
-signal timings it sends, this patch makes the panel work fine on
-BeagleY-AI.
+Kill this race window and make sync_blockdev() always be called before
+holding disk->open_mutex, by using a counter that tracks how many threads
+are calling sync_blockdev() from bdev_release() without disk->open_mutex
+held.
 
-Fix the timings according to the datasheet:
-
-- hsw + hbp must equal to 46. This was correct in the timings, but the
-  hsw was very tight, and at least Cadence DSI has trouble with such
-  short hsync. Increase hsw to the middle of the hsw range from the
-  datasheet, and decrease hbp accordingly.
-- vsw + vbp must equal to 23. This was 24, resulting in slight shift in
-  the image.
-- The upstream timings seemed to aim for 50 fps, but this is a normal 60
-  fps panel, so adjust the timings to get 60 fps. As there's no strict
-  rule what numbers to pick here, I used the "typical" values from panel
-  datasheet for pclk, hfp and vfp. However, vfp of 23 instead of the
-  datasheet's 22 give us a closer match to 60 fps, so I used that.
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 ---
- drivers/gpu/drm/panel/panel-simple.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ block/bdev.c              | 24 ++++++++++++++++++++++--
+ include/linux/blk_types.h |  1 +
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index c95964ba25a9..2e84a8ea518f 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -4191,15 +4191,15 @@ static const struct panel_desc powertip_ph128800t006_zhc01 = {
- };
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..cc16f0d7d496 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1167,10 +1167,30 @@ void bdev_release(struct file *bdev_file)
+ 	 * of the world and we want to avoid long (could be several minute)
+ 	 * syncs while holding the mutex.
+ 	 */
+-	if (atomic_read(&bdev->bd_openers) == 1)
++	mutex_lock(&disk->open_mutex);
++	if (atomic_read(&bdev->bd_openers) == 1 + bdev->bd_closers) {
++		struct block_device *whole = bdev_is_partition(bdev) ?
++			bdev_whole(bdev) : NULL;
++
++		bdev->bd_closers++;
++		if (whole)
++			whole->bd_closers++;
++		mutex_unlock(&disk->open_mutex);
+ 		sync_blockdev(bdev);
++		/*
++		 * Always sync the whole disk when closing a partition despite
++		 * we need to sync the whole disk only when we're also closing
++		 * the whole disk, for we can't serialize concurrent closing of
++		 * partitions using disk->open_mutex.
++		 */
++		if (whole)
++			sync_blockdev(whole);
++		mutex_lock(&disk->open_mutex);
++		bdev->bd_closers--;
++		if (whole)
++			whole->bd_closers--;
++	}
  
- static const struct drm_display_mode powertip_ph800480t013_idf02_mode = {
--	.clock = 24750,
-+	.clock = 33333,
- 	.hdisplay = 800,
--	.hsync_start = 800 + 54,
--	.hsync_end = 800 + 54 + 2,
--	.htotal = 800 + 54 + 2 + 44,
-+	.hsync_start = 800 + 210,
-+	.hsync_end = 800 + 210 + 20,
-+	.htotal = 800 + 210 + 20 + 26,
- 	.vdisplay = 480,
--	.vsync_start = 480 + 49,
--	.vsync_end = 480 + 49 + 2,
--	.vtotal = 480 + 49 + 2 + 22,
-+	.vsync_start = 480 + 23,
-+	.vsync_end = 480 + 23 + 2,
-+	.vtotal = 480 + 23 + 2 + 21,
- 	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
- };
+-	mutex_lock(&disk->open_mutex);
+ 	bdev_yield_write_access(bdev_file);
  
-
+ 	if (holder)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 98e21b4cbf32..04d378818c76 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -74,6 +74,7 @@ struct block_device {
+ #ifdef CONFIG_SECURITY
+ 	void			*bd_security;
+ #endif
++	int			bd_closers;
+ 	/*
+ 	 * keep this out-of-line as it's both big and not needed in the fast
+ 	 * path
 -- 
-2.43.0
+2.56.0
 
