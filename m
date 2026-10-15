@@ -1,116 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAB1463B69;
-	Thu, 15 Oct 2026 20:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4A47F3DE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095229; cv=none; b=rfcC398arCR4l9aGx07n37OddoTd7AiRZYrS2dN4p4x4/tMpagnktJLTUz7isbUUbaay8p8gqUAbccivkvPZLDfZPX1tfZg4fAdGmGN1tPcvtmsxb23rO3k7MZQYhAaci4Qbx1bnW0v+KI0zevoAIbdq2f7hftLKMVuVr3UJhV0=
+	t=1792095244; cv=none; b=R1SPGKFBhlGUHjHb6TwChd4MKHJU+bkvm6E/ZzpGvVzcrc2A/SWopOjxYuT+Krwc0zqRnjl5f3H6oq2v2DkcYQx9+xlx+GXgq62/8qz+OBoXEZlRuglspFGa69SXF0+ObstSEtK7I/6gntRU7pOrh3AQyeG4sjj2dwXoKzWCiXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095229; c=relaxed/simple;
-	bh=LelcTQpGfDAYxPDNWTt+0DVq5zuw61As++YgO8deqFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=reJ2v4TQtvt+XqoKDjOaHoZHQkTq8QN1Mbh6PwpTcpDmxWou+J7pa4mgL8BQ6GgEh1NqFkuB6iMEZhCXTE/U3vjvCLCpWyzAMS8BmwFQwZlFFCPu6vUl2j1N29xmTYcYzJcSngBxXhhMqvILYQgg01oQtzlYhg7O/gAVTFzXvDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFBprGoa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792095244; c=relaxed/simple;
+	bh=SnbfDLY4tTJqB1v8LhA/WdScgHkhh06wd2LjFSIubrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hKEZ2cjdnVpGp5H83yFSP138Cs94AM4DuPglz6xM5W3OXtAQ7cX2j50wz1DSyj7zTXhiZSckF43MvG9U8Yw4ykpKfP4G6ws4p8Wv5SEGAvYYK8Xt6ew9IgUlYQoi7/paxo9ot2kekFWWrG2F7GPwmC0QCMckJIArqgxu1f7iSYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=heqTmse4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFBprGoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4BB1F000C4;
-	Thu, 15 Oct 2026 20:13:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095228;
-	bh=oeu7IPs+bOeo1bu+3Qb1TsSjju14FLD65wrejrRGqiQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bFBprGoarmRriOKc11aeVf8OYnVppRM1CFkjd33Eiv7bO3CB4iTshpHO3W/nl33mW
-	 c1x2ipeUrJ00b274FY2h1kpGmqoQEtTXdf1jefMU3D5kXzokz0vphK6t+Lvpv5tSXx
-	 rNyo49R4YycPTkZ/EuM0zMbHZqYhmqTvdHa4Rc9D5wUI5AUiGWyOgEXle3502b8XrE
-	 LDRY0yguY16AI8hSdELHV6JmJPCmBhBVc9Ya6n8WNDXnS0ccoWhIwmZ6+C6KlBUpqH
-	 hDoGxaHy0YwdQf7AhEZtfYksTHJ7afF9RhqWmINWY27FOrzVZh2Il6RWQPdO0o6Q+1
-	 w1cIAOXO2unmw==
-Date: Thu, 15 Oct 2026 21:13:40 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
-	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 07/10] mm/hugetlb: tolerate uffd bits set without uffd
- for PROT_NONE PTEs
-Message-ID: <atEzjnc734DMvFd9@gremlin>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="heqTmse4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792095241;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UYRSFyiULvh6szKRePAOtHKD+7/o0oF90IjOubYIGB4=;
+	b=heqTmse4IcYcxajpUHFO5NfmHq45vspk7SJEh7yI5uWAQF/Q7MV1MGN/4EYI4t5lyQXOAw
+	8hLacwH5qhmwIBBpy2po31mZgoSB366sQomyd0JdUYRle6wgmhoL3Vaa8QFdBCZxIdfgaT
+	RQWUpHh1uoo3+F2GpJDj/xhcPYM7k5k=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-600-IdpI9AU0N62UZVqT0kj7fQ-1; Thu,
+ 15 Oct 2026 20:13:56 +0000
+X-MC-Unique: IdpI9AU0N62UZVqT0kj7fQ-1
+X-Mimecast-MFC-AGG-ID: IdpI9AU0N62UZVqT0kj7fQ_1792095234
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A9BBB1955F1A;
+	Thu, 15 Oct 2026 20:13:53 +0000 (UTC)
+Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6D8397C6;
+	Thu, 15 Oct 2026 20:13:50 +0000 (UTC)
+Message-ID: <f12ad8ee-4cad-4c7e-a0c9-c22fe894f14c@redhat.com>
+Date: Thu, 15 Oct 2026 16:13:49 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 0/2] tick/nohz: Add runtime control of non-idle tick
+ suppression
+To: Peng Wang <peng_wang@linux.alibaba.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>,
+ He Rongguang <herongguang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, cgroups@vger.kernel.org
+References: <cover.1792067271.git.peng_wang@linux.alibaba.com>
+ <8d10bb84-d312-4be0-8c43-ddd602850a1d@redhat.com>
+ <atER8P0ws6Gg4GWE@MacBook-Pro.local>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <atER8P0ws6Gg4GWE@MacBook-Pro.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Thu, Oct 15, 2026 at 06:07:13PM +0200, David Hildenbrand (Arm) wrote:
-> The whole uffd handling when a VMA is unregistered from UFFD is shaky:
-> there are still some scenarios where we might have stale uffd PTE bits
-> in VMAs no longer registered for UFFD, which confuses other code.
+On 10/15/26 1:48 PM, Peng Wang wrote:
+> On Thu, Oct 15, 2026 at 12:00:25PM -0400, Waiman Long wrote:
+>> On 10/15/26 8:43 AM, Peng Wang wrote:
+>>> Workloads and their need for periodic ticks can change after boot.
+>>> This series lets userspace choose at runtime which CPUs in the boot-time
+>>> nohz_full set retain the non-idle scheduler tick and which are permitted
+>>> to stop it, while preserving the existing isolation configuration.
+>>>
+>>> The first patch adds a per-CPU tick dependency; the second exposes a
+>>> sysfs CPU list. Permission defaults to all nohz_full CPUs. Revocation
+>>> uses the existing asynchronous kick. Idle tick suppression is unchanged,
+>>> and policy persists across hotplug.
+>> So you are basically setting up more nohz_full CPUs than the system actually
+>> needs to use at the moment and so want to disable nohz/tick part of
+>> nohz_full CPUs that don't need it. Can you elaborate more about the problems
+>> solve by introducing this new behavior?
+> Hi Waiman,
 >
-> Let's just tolerate that for now and simply clear the PTE bit. Add a
-> TODO to really clean up any uffd leftovers when unregistering a VMA from
-> userfaultfd.
+> Yes. We have CPU-pinned workloads that benefit from reduced periodic
+> tick interference. The desired tick policy changes with CPU allocation.
 >
-> The handling is now more similar to what we have in handle_pte_fault().
+> With spare capacity, we allow selected nohz_full CPUs to stop their
+> tick. When capacity is fully allocated, we prefer to retain the
+> non-idle periodic tick across CPUs, avoiding an additional difference
+> in tick interference between housekeeping and nohz_full CPUs.
+What problem does that cause?
+> A CPU may still have only one runnable task in either case, so the
+> existing tick dependencies do not express this policy.
 >
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> This series keeps the boot-time nohz_full CPU set, context tracking,
+> RCU offloading and housekeeping configuration unchanged. It only
+> controls whether those CPUs may stop their non-idle tick. The policy
+> can be changed without taking CPUs offline.
 
-Ugh what a mess. It seems like bad code makes any edits going forward
-problematic because of the labyrinth of bailing wire and chewing gum left
-behind.
+So the policy is to make the tick keeps running when there is only one 
+running task. Right? I am just not clear about the advantage of doing 
+that. Is there a use case that will require this particular feature? I 
+doubt this will get accepted unless there is a compelling reason to show 
+why we will want to have this feature.
 
-Anyway seems sensible to me so:
+Cheers,
+Longman
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/hugetlb.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index c3823f1958568..ba6860b9b7f4c 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -6127,16 +6127,20 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
->  	 * NUMA hinting), so let normal hugetlb fault handling proceed.
->  	 */
->  	if (pte_protnone(vmf.orig_pte) && vma_is_accessible(vma) &&
-> -	    userfaultfd_rwp(vma) && huge_pte_uffd(vmf.orig_pte)) {
-> +	    huge_pte_uffd(vmf.orig_pte)) {
->  		spinlock_t *ptl;
->  		pte_t pte;
->
->  		/* Sync: drop hugetlb locks before blocking in handle_userfault() */
-> -		if (!userfaultfd_rwp_async(vma))
-> +		if (userfaultfd_rwp(vma) && !userfaultfd_rwp_async(vma))
->  			return hugetlb_handle_userfault(&vmf, mapping, VM_UFFD_RWP);
->
->  		ptl = huge_pte_lock(h, mm, vmf.pte);
->  		pte = huge_ptep_get(mm, vmf.address, vmf.pte);
-> +		/*
-> +		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
-> +		 * are no longer registered with uffd.
-> +		 */
->  		if (pte_protnone(pte) && huge_pte_uffd(pte)) {
->  			unsigned int shift = huge_page_shift(h);
->
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
