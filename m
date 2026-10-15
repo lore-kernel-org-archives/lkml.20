@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35394B5CD0;
-	Thu, 15 Oct 2026 09:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017E74FB9BA
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054903; cv=none; b=UXkJRAb1k8pO58pJhrTdxWkTVI0823tbqdQuZHq4JgBnsSG4KOayQ45oHuI75Ws4kjI9Se3XG9pj6VFPMX6NZvFR+exYrdBaA/W2x8k8Laiw0JSuw+ppqSedhdm4QeldQI9mEZUutd0u169FStrF83onubDRTMho47lXtnVf8KU=
+	t=1792054936; cv=none; b=gNViTFgHnmkXE2IgS0SwZkUlmhgY6XFks8f1eQe6BRHRUGgcOSTKsTvjQp8lsj/ccSkQBTebecxE+QFoTifQqPerXNY1pTA03/keEXFvrLm8TFnIIO9HSbyBqADAA4SAxXFWJbXhb9+KtUc4kdvsRgINM2NsAGfoWHq9GXlcf5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054903; c=relaxed/simple;
-	bh=mCJPH7EVD7s1ESUMTj9hagGTQte0u7kusN/qyF5/Vp8=;
+	s=arc-20240116; t=1792054936; c=relaxed/simple;
+	bh=0/WLtgt8hKK9/6UbZbHkNnQAX0izmZ5zFr4Skps/vz4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f5TGJUDfxo1haNG43+eaF0qCKEy8iBqw8imyvRjcJaiu5MuWxPXPUFxKETD3K/2yzPLHKmKrkD6ExlSUDdk6kHNe0ttzSrimQkK3PduFJbCiwI+jhPGmboU8TpfmlQwD831KHmJLYgH6My4e161Z4c6a6mQrxh1or5p7wPHGODo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCXWMLF/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Z8q1tF02amZMzu6OoLkYr6bg9IOyQuok+RGMVZRs00TVdG3yruKuXfeTlh0wja5p3gg7egs+w1mg8gtt6dLf41RoUS/FU9PYZCoNbS+UfXyTbomM3frLAz9CbFZGEWxD6A3x/tC047HOK5Hkx4EiSUDFpdG+ugEBapoNBxsE+4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=QwplHTDA; arc=none smtp.client-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCXWMLF/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053AB1F000C4;
-	Thu, 15 Oct 2026 09:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792054899;
-	bh=flxF3rEmn6hNkTmfUMkUgpxI5WcrtuidvkUAWlOf0kc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VCXWMLF/zjyojYl/CmFruqvkR5Q+nChMaz4BADPhH6ds+9uMugdjdr39QvbGnJitw
-	 28d9bZIeP/KeuuCb3+TsUESqOd3BEw2uv2gAfnrVCnAcWK8ZiOSgs4ZEB+KgmSW8ik
-	 jFPPuTe7pxs5cwqNBk2SG4pgHDHyBBWaaVaFyuCfJAYYMV1ibLM/0O28AEKw+2lHv7
-	 KtGbxfSyVOXBohu0hjyQ+HCRmy0AB/g6O4E3bxCyFltWhonkPWjL+Bvw8TXll+GvuE
-	 XYhx4jaZG6HOxmjqJPnWhJyWLnki+SD12ovI6J03WvIRmhQdU6gkT6U9zUqrZg872b
-	 tFtn1cVmHVfAg==
-Message-ID: <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
-Date: Thu, 15 Oct 2026 11:01:29 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="QwplHTDA"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab01c46697so3357351fa.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1792054933; x=1792659733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gCzb5Jpho3eEfUXrbXcsB7wXdosyNE0+dqqyroWERu4=;
+        b=QwplHTDAmcBD3So4wLTGADhp1YscyFzy/j18sphTljBmRYhgBdagx+BO4q7hrbd4bL
+         E8w1nQy3lXAH12nHJ1u06eGcDgRIlbpuYhAFPI2Q9xro6PMMd7cq1R2UPMoM+NNdrtGa
+         /5z2QDhZl6mLAlh0C38ed4rfVm6XImJp8D55xBb7MU7Y+yZMJw76ue804WcEBwY5SuL9
+         ByCZK+FzGZEkSWnRdewG+ddLMFVXQP2EE7PaqSoidknd9EHwS8pUHPnrY34TJ5pet1Bv
+         yZfdgyFq1lqLgb+Wx50e/3nfX/ZfQFILq/jzuzHhXwPq77Bpj94kL+LkW8XP/n0TZMlt
+         Abfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792054933; x=1792659733;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gCzb5Jpho3eEfUXrbXcsB7wXdosyNE0+dqqyroWERu4=;
+        b=PKLG9doIkhFGXQ9e/gPFlN3J8fCLENQK46meQqFTwb0MhQHiapKkbI7yzlozI2ehNK
+         7oU43sxviakPfV5E990MrnV+oCd0dwsmNUD6EBHpD++0K218pyTb5aPgElUMxTOWp/bI
+         T5NXrLnlTettrAlPa/pfJ81NuiDk3EDr+6XMl/3UkCaDpOdaeF4gm+mXHz0VDNWqtixI
+         lfnfCWnKexLw4ruNiUX2BnTu87+wZCGegI+dwWqoDMHoFRd7azAuy9GTzB0StAkaLl4l
+         ibLtWeMoXAfvUj544rt0FRkLG1KBp7J5uKKK7EF5uLIOUK/qrcymIh2yr4ou0jVeybcN
+         W3SA==
+X-Forwarded-Encrypted: i=1; AKwUvBxg4DXGo+DKakwPTZC7uJ8aFW8uU9o41tMLrdnn5hdnwyhBThYe6ZtU3W/WQ8TMczo4iiw+5brXtHy2Tyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXv29sad3c8WVhnJYmcIxQu29s+o+zNEwALshmnNB4SuQptxuc
+	ESPBnngepVkOjXh2l5gnzionfk5B1hcBtQF6X4wQrtclHKs9wPHPWcGqeGUUIxf/dzZ1f20k+56
+	NoHEozJkIng==
+X-Gm-Gg: AYBFou3Mg0Bi++U+8XZYWoztWhpjpaYs7nA6TqV1AUZW7P8xaoRx9OYNJpknnyiPph/
+	D7/Fkry2800wnO2Ve+7HUuLihlW3XfRcOLsFhxWdmro33iyeBegy1Jkfpvm9J3k0keC20k8309l
+	C90HV5XoYmwRMKpGAE3bd5o7gdINLPIsfq6MhlRmjxeEx1DXBNGPWtI8XGwU/Rlw2u9NnW7l/wv
+	eV6QbwhLk7V7Edvz4w2JOPFlPxqdDa7v0zShrFisrYCtoN9xiErUPPLpGQW0AG27PLRS9BwHrtD
+	eb63bkavA3rpoWJD0DzGbeVgWbQyo1djQTLodSa5m9aId0LZdl3ne0X/itNJuuop3t/hrXQQN1J
+	B6GPvxP/W0/8LSJBws2fmgzdMimHwrFlg65RSdwzrG5qizxfW3iKSRQBUqpp2ShBErfhuiGq29G
+	V+JYb+NE2EFnA5QIVF6wgXubgm7Nv4/+exltUGakr4HMMqYHHN83XxoUvdOtn1gAZ+6Ag5zQUM
+X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id 38308e7fff4ca-3a9c539343dmr49621261fa.20.1792054932846;
+        Thu, 15 Oct 2026 02:02:12 -0700 (PDT)
+Received: from [10.86.129.46] ([149.22.87.44])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9376ea64sm1558364a91.2.2026.10.15.02.02.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 02:02:11 -0700 (PDT)
+Message-ID: <e3321d2d-d8dc-43e5-8501-31b2d5ae1146@suse.com>
+Date: Thu, 15 Oct 2026 19:32:06 +1030
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,81 +70,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-To: Hal Feng <hal.feng@starfivetech.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261014110429.52762-1-hal.feng@starfivetech.com>
- <20261014110429.52762-2-hal.feng@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] btrfs: verity: return error from btrfs_orphan_add in
+ begin_enable_verity
+To: guolingxing <guolingxing@tju.edu.cn>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>, Boris Burkov <boris@bur.io>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261015071128.3319350-1-guolingxing@tju.edu.cn>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261014110429.52762-2-hal.feng@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20261015071128.3319350-1-guolingxing@tju.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 14/10/2026 13:04, Hal Feng wrote:
-> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
-> will not be released.
-> 
-> Change the register size in examples to 0x10, since an OpenCores PTC IP
-> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
-> 
-> I will maintain this pwm module in place of William.
-> 
-> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 
-Drop, did not happen. Is it so tricky to respond to the one patch here,
-where the tag would be applicable, instead of replying to cover letter?
 
-Best regards,
-Krzysztof
+在 2026/10/15 17:41, guolingxing 写道:
+> btrfs_begin_enable_verity() ignores the return value of
+> btrfs_orphan_add() and unconditionally returns 0. When inserting the
+> orphan item fails (e.g. -ENOMEM), the error is swallowed and the
+> caller continues to build the Merkle tree even though the orphan item
+> was never written and BTRFS_INODE_VERITY_IN_PROGRESS was not set,
+> leaving the on-disk state inconsistent.
+
+This conflicts with your statement just lines below:
+
+"The transaction is already aborted inside btrfs_orphan_add() on failure"
+
+So why the on-disk state can still be inconsistent?
+
+> 
+> Propagate the error to the caller so that fsverity_ioctl_enable()
+> aborts before building the Merkle tree. The transaction is already
+> aborted inside btrfs_orphan_add() on failure and released by the
+> unconditional btrfs_end_transaction(), so only the return value needs
+> to change.
+> 
+> Fixes: 705242538ff3 ("btrfs: verity metadata orphan items")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+> ---
+>   fs/btrfs/verity.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
+> index 600337a84fbe..d92c9dab0293 100644
+> --- a/fs/btrfs/verity.c
+> +++ b/fs/btrfs/verity.c
+> @@ -615,7 +615,7 @@ static int btrfs_begin_enable_verity(struct file *filp)
+>   		set_bit(BTRFS_INODE_VERITY_IN_PROGRESS, &inode->runtime_flags);
+>   	btrfs_end_transaction(trans);
+>   
+> -	return 0;
+> +	return ret;
+>   }
+>   
+>   /*
+
