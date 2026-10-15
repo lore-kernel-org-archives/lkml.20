@@ -1,175 +1,133 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98234CE68E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792099965; cv=pass; b=Lxj8gsldSw48UyX4l5PxFen6NuWoTzLvsi8GhcIYxRObuJXKv7k2YYU1gHtMoUY5OgMa9PO18NrY/5xrdcZMgrW8V/2OTV0g6pyB8+1YFS45EfmkqxSA8s0QjJx+2pPCaEdkLH1EiGBY1835n3H+BKUs/zOxicefdFtBFPoyEr8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792099965; c=relaxed/simple;
-	bh=YjXK6BgOQPsgC6R00beChvNdVm49sWujUHpCNdRld+c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BB3je8deipGSYGq9CbR0tjlO8gN6p+Vvrcwor5I2p3GFJIUUFNi9Y6aREwNs0fufiirJqm+FWN3wS7EwpfFd5jbXDkbuoJ9XoEv72K4eVqesGA37BZehgcoGw6faIq/kZS5RvOUBEdDS4OSV0ehWPzgHP4fkbNzfNtY8oCtvHWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rwfwhj4V; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2D34CE68E;
+	Thu, 15 Oct 2026 21:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792099980; cv=none; b=KVUNs+pqXWwCZAdKT41JgsHAHHdRQUw2lG49d91yldslaX6DsX9GR+4oxa4t3Z04lBZ3DmvzAax6pCPX4308PgZU/yxbA1E2l7wPdVGdEySHzeuHr7N/CV0HrLilOuyOEjbckCNFpuY/0Ja6EefU2xuu/4J3xKezh0Rrv/23Gro=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792099980; c=relaxed/simple;
+	bh=iZ/fpEfpiKYGqhm90uOi4vCX3SZbYmvwnQ5nVGT2LWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eukJdBPltdzhgWf5pMApMG2saFeOH/Fza8sGtUPfOtMiUXd8+mdVbztfXA2QdtJYjV3I04EFktnn5cAMlqaTRUlCg/bDGan656hQT5ewCIo9oohEEjfDGcB5/NIlZj/kSx1mUtAv4Ye7serntbieM/o7k7gfz40ePdWHLL+Y3tQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ih+6EEG1; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rwfwhj4V"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1453a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:32:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792099962; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ftfSn+tCsjnvvkjU9pwrYYxF26h4QzNAyD1ptaKE1V7zdsyWQ0Qu3/evoK4MYuUqCU
-         pVIjHY5qlR4BY3oaGNyGi/VgVxHxHMD2lEpCtFCW3G2K9w0+CphbidCuuHLRyV6CVHMh
-         kREY/JyKIR4gh0Nn+0Vs6WZ0zuvVkNi1iICHA5B3dDUtLLla76FUsi2BsIQpBbGVlDhX
-         kEXxHMUpYt8SjbTRoYHpLfL1IUHKwvZ/F20xXfj5rosYRAmOwzfUsDywEbEwH3G1Fvav
-         2IgaUwYE6qTTWcYm6I9QJZGbeFgrEKpXJabAETzOKxb1YhBdl8Heorcpu/kogdBQg3wN
-         2pww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F9EW3y40s5N/1pz2rYlIzPCqkKsyouo5NVLiPakQV0A=;
-        fh=kZP3abH6dTBZDhYCtkzw8eGUVT0cV0yV0SeU+d861Ys=;
-        b=o8EDEM66juJ2UeEvV70aWCRRpTcXubBb42kGnIcN6t7kYLO/pLh1zJt8BHEnP2CXeb
-         OK1BjL/2wLic1ukm5763KCD2qvXTK7ni2uSPle/UGL95CTU7cas0U3bet3DEFJYXWvkV
-         iIT3w0WIyxh+CMfFnaaHqAtn5rFm10B5zyG2YaK5btvwerBN7C83pLYPlR36LKMQHdjp
-         uVUZZCjXzz5Ev/QwMaJbQxgNwhwOGLiemP0MqwVBOOQN7Lt/9HOLFMk3euq5WzR6At+z
-         hJhVr1hFnK2+tpWznMBCCFOBPKXXuEyjQC02Jvh4ZIwqFfLK8PElwl7qsaSYrs3q+D34
-         PoCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792099962; x=1792704762; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F9EW3y40s5N/1pz2rYlIzPCqkKsyouo5NVLiPakQV0A=;
-        b=rwfwhj4VJCsrL5qvq66Wlr2SQg8D1u671ODcpczPQNa5EXT9QwgjLTc8MGEJboftze
-         CzH7YgLJDpsRdiwOVO0fw1qmvY2DjZGSCAiI/ZRFAdry4YmInfjvzntmhh5QMt4F3l4G
-         UtXVtMLVZVX6p833RG/WbYbKiYqABPCKH84Qnt/Zg/dnqTM1W8ErxPQF76DflDzREFi6
-         fDZhAJsJIHYz1P+3+OiEh1sct0zKVYkzv90QrAzPhQt7t1VWomAHnUwNTRIqpIO8boGl
-         mccZKco4YV92piRvaToAWeNHjn2IGQzcYwPlhVKxKuyyjg20Kt4cvliKaH/rsMLzQvFE
-         Dq+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792099962; x=1792704762;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F9EW3y40s5N/1pz2rYlIzPCqkKsyouo5NVLiPakQV0A=;
-        b=FJ9m9oRkPVf486hWY7HKF+fJFKv6b9LMamVS4wuGFMeoPKPkhjC+t9F75XbTM2CIh3
-         96+v3fjiAc2YwPmvKS4/0G/nNU6hjNaSHkQZZkaQI0WrBN7HXIx3FLD+Bmjh5QiLYZKG
-         uZPpy902Zf2Ce1vJqdBx7hD3H0lhJ2dd9SW6z+UCQKZxM7y/SZ66/ecHqoKqbqiydxJ9
-         CplBQQimP9tPlGCOb2atAMsGqVk8p7fNG1Be1GG3jIhKLstQDfzxsllE7t2H9prPWMh9
-         l7/8qwsnbJ8T0lkGs0ovwgu9YvZVxTmvkgFby+4YPfmqZtlpgyW5BJ3Z5xcEVB5TNeXz
-         33zg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ6lIcjkknHOLc58OrOuqtYIPKjS7ErxbmVuJ3nGxl/jK61NeYlV3DxUuorXc2aA42E/eXoLClGXM/1cU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgH4XaYPBzm12RXtJuflovgMz69FWuq9jugsPPsVtAJ+bB42Mh
-	+rl70y+UeF0NrGcMCIUco3HkKJkyEkAKVDEx7PiM80cxKhM86VjVeKr8b5+VngX+ouL9cMtP7Ac
-	Svw3OXHEFqlmd97M7oXhLMvauJaM88KPu28ZQ8IQp
-X-Gm-Gg: AYBFou0OB1BmlhYGnXdvvrmsSv0XVlh25zuFdG1SYYoSuC4y1Zh44iIu3j9qukJ03Vb
-	b83LkEyExBTqbyFwmxbqcRSoglsELfBCS5DCgADzgsI93cGaDbC7prIPoSMg46We7cjjhdGKcXf
-	MRV1ZbN0UR4Hx2OBtWcjJ27yJ5xe13ucoyX3alU4cOvdKd3CoStlLWMGN41WQhMGMi9SVEq+LYm
-	Wt9PZfpjGdQFwUvaxwZydH4F572lPy/pQ43f62IXRFBDXj0QK9dQkbAbOlFN37Bx5GbAk/Gdd3D
-	Oc7pF/JhJUYcNIr2an+GKcAF1Inmu6axaaLT8cj6mR4GbauuOsqGVE8=
-X-Received: by 2002:aa7:cccd:0:b0:6a6:8513:7e14 with SMTP id
- 4fb4d7f45d1cf-6b389316e80mr23741a12.9.1792099961542; Thu, 15 Oct 2026
- 14:32:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ih+6EEG1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792099977; x=1823635977;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=iZ/fpEfpiKYGqhm90uOi4vCX3SZbYmvwnQ5nVGT2LWw=;
+  b=Ih+6EEG1gIHBUrvcCxaS7DpIIwRASBWl1vxsEzNjVjZT6gOFPVQzpWhZ
+   5dpVO24Pdmp06Sm5e06WVWU5UiOir3pCLWl9CnIissy2xydyYjBfNrzK8
+   mk2f2EmmnzBebUKm5O46TuNGLlr67c9shDWL4THY2cGN6cdVLYUzrIdGu
+   YWXsQH0C6WXGr5Bq9cg2dMvGJEqmmhI8nz4LRXTRe8zUtC9YnHlk4f4+e
+   Ym8OnpoCIX4+/UkM/nGKSZuP4rYJ6kxazOxcF1c2UKcSJR3C3/VEpwVTv
+   d/qmbahwTbSqUIAGPaelBqr549fYXsM1gow35+RfEn4N04AYjQw9yqkAB
+   A==;
+X-CSE-ConnectionGUID: 7rnVNoChRwiL+0Zh5TcweA==
+X-CSE-MsgGUID: tt7z+p1mTu6XQ0wrqEz/Xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="891521"
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="891521"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:32:57 -0700
+X-CSE-ConnectionGUID: /G5zkxSqTb6j5ZVBxzOT2g==
+X-CSE-MsgGUID: 6rUHKrOTSpqk7g78LyDKGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
+   d="scan'208";a="3617409"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by fmviesa011.fm.intel.com with ESMTP; 15 Oct 2026 14:32:56 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	christina.joos@intel.com,
+	stephan.rohr@intel.com,
+	chang.seok.bae@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/fpu: Fix PKRU state saving for coredump
+Date: Thu, 15 Oct 2026 21:05:44 +0000
+Message-ID: <20261015210545.48208-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015060430.5877-1-ravi.bangoria@amd.com> <20261015060430.5877-4-ravi.bangoria@amd.com>
-In-Reply-To: <20261015060430.5877-4-ravi.bangoria@amd.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 15 Oct 2026 14:32:27 -0700
-X-Gm-Features: AclHuK_p27UYc0NrEirae72lDoPwVkg8nyO4-1bdkKyLQyhcreyw4plaer2PY6E
-Message-ID: <CALMp9eRTG=uLkAWohYW0HOoS1xvNc_0brovYsfbCUS_mf4H3Kw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] perf/amd/ibs: Simplify event state handling with IBS_CAPS_DIS
-To: Ravi Bangoria <ravi.bangoria@amd.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Jayapal Ashwin Nair <janair@amd.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Ian Rogers <irogers@google.com>, x86@kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Santosh Shukla <santosh.shukla@amd.com>, 
-	Ananth Narayan <ananth.narayan@amd.com>, Sandipan Das <sandipan.das@amd.com>, 
-	Manali Shukla <manali.shukla@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 11:05=E2=80=AFPM Ravi Bangoria <ravi.bangoria@amd.c=
-om> wrote:
->
-> The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped withou=
-t
-> a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
-> require the IBS_STARTED and IBS_STOPPED states used to coordinate control
-> MSR updates with late NMIs.
+Christina reported mismatched PKRU values from GDB coredump tests [1].
 
-CTL2[Dis] doesn't make late NMIs go away. Hence, this patch needs a
-50us poll. With the two-line fix in my original patch, the existing
-scheme handles late NMIs indefinitely: IBS_STOPPED remains set until a
-late NMI consumes it, even if the event has been restarted in the
-meantime. This patch trades that for a 50us window, after which a late
-NMI is unknown (which *is* fatal with unknown_nmi_panic). Moreover,
-since we still have to handle hardware without IBS_CAPS_DIS, we now
-have two state machines instead of one.
+PKRU is stored in thread.pkru rather than in fpstate. Then the coredump
+path currently syncs fpstate only and hands thread.pkru to
+copy_xstate_to_uabi_buf(), so a task that still owns the register state
+can end up dumping a stale PKRU value.
 
-> Add a separate stop path for these systems. Preserve Val while disabling
-> the event so that a delayed NMI can be identified and consumed, and wait
-> briefly for such an NMI before restarting the event.
->
-> Leave the existing handling unchanged on systems without IBS_CAPS_DIS.
->
-> Reported-by: Jim Mattson <jmattson@google.com>
-> Closes: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@googl=
-e.com
-> Fixes: efa5700ec0da ("perf/amd/ibs: Support IBS_{FETCH|OP}_CTL2[Dis] to e=
-liminate RMW race")
-> Signed-off-by: Ravi Bangoria <ravi.bangoria@amd.com>
-> ---
->  arch/x86/events/amd/ibs.c | 145 ++++++++++++++++++++++++++++++++------
->  1 file changed, 122 insertions(+), 23 deletions(-)
+Save PKRU from the register when the target is the current task.
 
- [ ... ]
+Fixes: e84ba47e313d ("x86/fpu: Hook up PKRU into ptrace()")
+Closes: https://sourceware.org/bugzilla/show_bug.cgi?id=34646 # [1]
+Reported-by: Christina Joos <christina.joos@intel.com>
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Tested-by: Christina Joos <christina.joos@intel.com>
+Cc: stable@vger.kernel.org
+---
+Testing:
+Christina verified the fix through the GDB tests that originally exposed
+the issue. Also a simple test that sets PKRU and triggers a coredump by
+dereferencing a NULL pointer can verify the saved PKRU from the corefile
+read.
 
-> +/* ->stop() for platforms with additional CTL2[Dis] bit. */
-> +static void perf_ibs_stop_dis(struct perf_event *event, int flags)
-> +{
-> +       struct hw_perf_event *hwc =3D &event->hw;
-> +       struct perf_ibs *perf_ibs =3D container_of(event->pmu, struct per=
-f_ibs, pmu);
-> +       struct cpu_perf_ibs *pcpu =3D this_cpu_ptr(perf_ibs->pcpu);
-> +       u64 config;
-> +       u64 ctl2;
-> +
-> +       WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
-> +
-> +       set_bit(IBS_STOPPING, pcpu->state);
+The existing ptrace selftests cover most of this path but not completely,
+e.g. not checking back from a corefile. So it may worth adding coredump
+tests for XSTATEs in general. I'd follow up on this separately.
 
-This function needs to be reentrant. If an IBS event is a sibling in a
-group led by a core PMU event, and the leader is throttled,
-perf_event_throttle_group() will stop the IBS sibling from the core
-PMU's NMI handler:
+Code changes:
+The PKRU saving could be folded into sync_fpstate() similar to
+restore_fpregs_from_init_fpstate(). Instead, since this is on the saving
+path and PKRU storage is separate, sync_pkru() makes that dinstinction
+more explicit along with the fix.
+---
+ arch/x86/kernel/fpu/regset.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-    amd_pmu_v2_handle_irq() ->
-      perf_event_overflow() ->
-        __perf_event_overflow() ->
-          __perf_event_account_interrupt() ->
-            perf_event_throttle_group() ->
-              perf_event_throttle() ->
-                perf_ibs_stop() ->
-                  perf_ibs_stop_dis()
+diff --git a/arch/x86/kernel/fpu/regset.c b/arch/x86/kernel/fpu/regset.c
+index 0986c2200adc..213a06fd72f3 100644
+--- a/arch/x86/kernel/fpu/regset.c
++++ b/arch/x86/kernel/fpu/regset.c
+@@ -49,6 +49,13 @@ static void sync_fpstate(struct fpu *fpu)
+ 		fpu_sync_fpstate(fpu);
+ }
+ 
++/* Keep the same invocation context with sync_fpstate() */
++static void sync_pkru(struct task_struct *target)
++{
++	if (target == current)
++		target->thread.pkru = read_pkru();
++}
++
+ /*
+  * Invalidate cached FPU registers before modifying the stopped target
+  * task's fpstate.
+@@ -135,6 +142,9 @@ int xstateregs_get(struct task_struct *target, const struct user_regset *regset,
+ 
+ 	sync_fpstate(x86_task_fpu(target));
+ 
++	/* copy_xstate_to_uabi_buf() takes PKRU from thread.pkru */
++	sync_pkru(target);
++
+ 	copy_xstate_to_uabi_buf(to, target, XSTATE_COPY_XSAVE);
+ 	return 0;
+ }
+-- 
+2.53.0
 
-[ .. ]
-
-> +       if (in_nmi())
-> +               wrmsrq(hwc->config_base, config);
-
-As we saw above, in_nmi() doesn't mean that we're in
-perf_ibs_handle_irq() for this sample. If IBS Val=3D1 and the IBS NMI is
-still pending, this clears Val. When the IBS NMI arrives,
-perf_ibs_handle_irq() finds CTL2[Dis]=3D1 and Val=3D0, and therefore
-returns 0, leading to an unknown NMI.
