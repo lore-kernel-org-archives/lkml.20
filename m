@@ -1,148 +1,514 @@
-Received: from mail-vs2-f0.google.com (mail-vs2-f0.google.com [74.125.227.0])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05BE3E00A5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C3E3E2AD1
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792041819; cv=pass; b=HgmxzUYsDVVA+Hfba1g8HTagNo0wmAF0eUPiZZyg+Fk2/3Sjh+IeqXKR0wJK8/dthQ4KbYbstuqZ7AjWMoRXpJ9GNbvw2zUmi6+b5gkxYU9YV/DSueLnIrY33mvgrmuluqO8re++ckqEQKaPWDKmfmBpLts1XtB2wmXZNb78FCc=
+	t=1792041819; cv=pass; b=GG09aYwseG1u/uP/woztILjuMxYG2qUpySvhYMKj/bv4IThigCSDXYWzunyjdYtgu4CSiIKZSx54a24EcFhZuLW+QBRh7diHQX9igD4iF83YdKr3DD0OscRaKeq2cL4U5ObevaJIeNzAi6kTPbFB9mbu/6vSoktEuNezG9RzTHg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792041819; c=relaxed/simple;
-	bh=wT0s5EB9ctm1xuUw4zYNpW2sr7V/a+FHygJ9Zzmu2oA=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=Rzwll8CcYtFkYN9tiv8bp1Dyv7FfstMbbtWEkiubYSnj9rKTL4iy0nZsnwbax/XMZI9xZnj86mjtk78KMnPjj5ecCVamXPvnbeIlH6w4E0H9mrFndrwi4Gq9rYIW/OeTHOs9TWP5c32yQrxj5wdCfXHofIQQT9WLQFu3XXX6FHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com; spf=pass smtp.mailfrom=trukhin.com; dkim=fail (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b=TTzVEVVz reason="key not found in DNS"; arc=pass smtp.client-ip=74.125.227.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=trukhin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trukhin.com
+	bh=awMAfsFkqpRY7o2XV7Ve+03jVThwxCOQUyl8p+8mxik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kEMy4BgACUiSJDuRkU5EjANghITANL6iWNWwEpLGDwelqAZZtaarwO7FvWFn8HdHDH5k0Gdq6IuLzqSLgwLRC3cfglbio6md65GgtZea8ZSR3BXEDe0tCo/937mQ9Ix0RMLhgRxR7kt8plOd0ycyP+VrYdL8OGHYWo/Cmp+i4Wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jXwaxwzq; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=trukhin.com header.i=@trukhin.com header.b="TTzVEVVz"
-Received: by mail-vs2-f0.google.com with SMTP id ada2fe7eead31-7565f2f85c5so1179740137.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jXwaxwzq"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso3118683a12.3
         for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:23:37 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1792041816; cv=none;
         d=google.com; s=arc-20260327;
-        b=EIDjg9vw6zUi3D4J90Mc1XeiMDTSORTSAbvQM1yutJnu3oYqACbS8Mfb7SiBbHPwCC
-         EjRSnHgyVn8dyeCsikpW5LpEBVXENEAw5ytEbLpy2H2mAzgv0IwyvTjirYPQ8oDrBf2v
-         8ZCCY4jw+TQq1tlCEx0OHKehT0hr7xwJHvI7oVaSODdH/AaBPQsgYdCmAaP1MFFVRGkg
-         7xVVw4vyXegqACkNT+kPqCWb6HI71PwOGa9Qp114JcxNUqNtXmVzwzKMZpcR/18glnvU
-         TY20OQMS6JffbEpB9/WhtZ6ybrx47tbFY28jAs5blY9AXCSn7pFmorG8tU/5mkkwA41t
-         5zSQ==
+        b=H5PNAEURDRL6d7WglRX5WQ8RSfuN3I4V4L/CZWD0oZZolRw63yhEnmbVXjGiWBHkKa
+         X4c9x5U/qqPPiARAb2fFro83mHan33Nrvm/ZOqp4BArlxLUXlyF8K+qmu9ZXbaLjlB5X
+         Od+CzRHDHWixSY7G4hnscHHxM3G1J2wWSEhW9QkHPvJaLVRJ6dets73nvFBCTS1MwSXD
+         +2V7fj+JOZ7IBKdv5yULLgAe90F1OOX5Z/sQLqU7LbYaSqzeiezEUyTOgyHB0llAcTbb
+         tMjIJOC7BkkgaMgqxgL3dRVvWRvpJRoJGTw5C1k4l8k+JBBv1lVfQJsDeAGhBxzprCqp
+         pwdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
-        fh=omvkeFBEv02VqzJoqon4rJpsvM2MMntyuPd4qK8TNYM=;
-        b=aeBnBqhvrr2oYFuBWHSeteLdah4/iynn6igMjSDNcEqS4Mk4oZHLu6f4BhuAfIxglr
-         +c5YIWuoekLFomwKEPy4Ond/Ox4Gazoa8TaVAjLiJnNbXfDC55E0gczudvAOyxGLN4nJ
-         /7xXqjrZao22lIjMStoG7+IkUaqRz25gUjShi0NdkKRMWJw93IuujU7VvmA2sz6z0Xh6
-         HcMGoGb3dJXLVZzARXXKP7ZDR2bJfXBs0O0JU7aLPWnJxuN02gA6DG+G5GzTzj+74G+v
-         W8KZFyXuLQF7pSM5otcxO1xA7ojTUwZuegSwWlWYa1Qj2sCdPywmzg+efedsL8pu6+I5
-         oxTw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=E6aeHeVxV+o0un92iC0kKz3jU43uWRLwVZTmwMJ4zy8=;
+        fh=C4eJFmyfd//gp56H/F7nnM2VTRj4O3tKs1OnHLnBmiU=;
+        b=gbDC33SQ30tFsZ5ZhKphQUbiyi/IXM695MV4LDasoSNbjXn7DazfmeCGp1LxDnaX4P
+         K4lX0LKZPd7ZJOFSplkU1WK2JC9OebAy5ClhZ2cgBO+P6V+pFu962sxL66Hxbdxzw3+r
+         caeddy81MFQTqkQvjea6tYH5w5isVxC2BDepOtaYDGczfyqxLQDpMUUtCKdtDhoY5PJL
+         wpCRXvaR2064ed7SUBvlvLJkK7KRek95dTJI6x5h92Lcqa42sDC/ecANiR2RejB8h4a2
+         oInWMQg8V1pNzPrXvlewy5m6HPW9M7zA3d1STRkJhRPN0GUxa6XO4hrjF2IDJG6mQAfr
+         wCcQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trukhin.com; s=google; t=1792041816; x=1792646616; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
-        b=TTzVEVVz7CCwHCsnQnrJb/QG0wXgiVTR+P/R5OATRyo0kS91ljPygoINKfSTP3Di18
-         jHIDsl1gOhJ4HVVnEWdMjQxcVzolsL2tl/4wooxz8hMmDDZT5JcgB8msjQ5J5IZTMssc
-         rIPcMDSFpssT/HI0/ShHvUyG86ki/n0+ywji22uqWgC87vWuY5Ji0PmAVn0e1Y2kdzwA
-         scjtKG0t4tYQN1d4JLZi2utnG+6x5lNG6TMDwKNngjjlbjqBVIIUp/XqsJh/mO06ZUx8
-         4lFsk2BWriwsTfkGykJSLrZHKRFAKU5M1ygo7+QoBYbcbdBSogyDfYs203x8zDEHP21T
-         80ug==
+        d=gmail.com; s=20251104; t=1792041816; x=1792646616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E6aeHeVxV+o0un92iC0kKz3jU43uWRLwVZTmwMJ4zy8=;
+        b=jXwaxwzq/ZBbOihlL8a1pxoKfB/cWOKriKm10wRUSvY2CCvFZ15sR4mpZC0LYYwJE9
+         uCngImbAwKJpZ4T3lohXqBQpdsqfX7VY8AGNa2vc8Rc0PoNVQ/eIgpdcApCAFF+vkeUU
+         l6A919V+dgwT0Kjo8+kLmC9qVznAUMnfntlZiXddF6Ff1ObUx8wWamWp3PQjL3gc0RR8
+         EgGhkWs/4JTpFav9uiWwZjyyhFrPI/UVQxAoAV0Z2q7Q6QgaWbnwuPYpZlwlsLyH/So4
+         B8//CbIDzB/lQGI5x9n8iPZWmyQfDS3J/EjhFTpHBPJbFgDNhEMEptkX6pXWZbhcCRkk
+         W2Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792041816; x=1792646616;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SrK6FyhBTZnEQlLogJ3NQ2zWDChbZG9raJxAdO0+bRA=;
-        b=sX+ShDxMjO4ei9olZSzeH3e3mFCjNvwLRHqKtwXc4pvvoSxaFYN7JKWJa0aJAp84QA
-         6JPb10NU2pd2x7XoLsAwZjTHni/3EaT/x+nJSXhn3gKXtp4mHJugb+beq9BWYG1QljdO
-         6TAx3ph6STwSqM90K/zscBk4fAo9J/i96Em4glev+Dv2A7Wk+HW7K/vubwr+Giz1tVDD
-         8SHtA7ux4sDdAhry/UfyC92ClB7xX1IKhENcETDj3HE288XBr09Ga7wJ+Xyz/b5Fr0I3
-         B8CnfyuUy8Y//B7uMiochpq481XpWXXLq52QTmnN5527I4QBXLy7C2hPiMtX5bhpV2da
-         uw0w==
-X-Forwarded-Encrypted: i=1; AKwUvBymK6EafsSg45nsUWlvFldy3fSl1YpDyOdday7XBn8bSd1Hxpz/Mqft7gwyYw11N0yLkdY9pUxs+N8fJww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4ZYcQXrNV2YN25rsSNV8IZrnTNgu0AzGFILQ7zjgZUb/poaPK
-	scdcbU/AI00osVgKhf5MCME3+JnaZaU2z0Z5rXaIJBmoiseyLF5s73xyavwHyWnRe3jonbLZg9v
-	LOwM7RjKea7iUH3SVPHI2x6MjRQKXbXbkyTSl9LY3Sg==
-X-Gm-Gg: AYBFou2MzMLycKtN1wVfPV9ppdbU7CZkHayo3UVAFg5C4fDzq6tqaR3hN+PwLj8a3z0
-	O2h2t5QbsNTbbh6X13SboeovW/91MVJz7ZvbmyqnXBK3SW3LrIvR/U8HK8W1HLxQi7MF6yVMiEp
-	t8QwAz0eiIjkeQyJHNDHgBRg3CgxqPIzo5HDW8brKlDzPPMYcIBF79MARDn0VYj9N9+V27zf/ND
-	iueu2QNnVGQabVTaymYchmouTUqXBGFtufqj00UuGWPkpjQhw60o6Q1+ZN1Yl2yUdabXEPZNW9z
-	9lqE7Lk1TAgGX6/gqq70EpygPdiSLu/xmV7l44yOHAlsJKbznZdpWzTsfuPq3inrd0Rq54wNqEb
-	6Ellyk9WL6YeRED7Q3UzSV42bsh/5tiRKDQ==
-X-Received: by 2002:a05:6102:370d:b0:7c3:9464:efaa with SMTP id
- ada2fe7eead31-7cb36590225mr4707868137.2.1792041816136; Wed, 14 Oct 2026
- 22:23:36 -0700 (PDT)
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 22:23:35 -0700
-Received: from 121308794542 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 14 Oct 2026 22:23:35 -0700
-From: Iurii Trukhin <yuri@trukhin.com>
-X-Mailer: git-send-email 2.56.0
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E6aeHeVxV+o0un92iC0kKz3jU43uWRLwVZTmwMJ4zy8=;
+        b=EUjHfPIFYV9L6b4/ATGa0iqanprlDwHDtsXJpnnIoTMMQzqQYj4zds6EOYDP2L/jE3
+         jZyShPEYeCLWxKMIK9L0H2M/pbXqnKGfg5xJ46frMXod7GYOSqwHJU6jie2+KXUZdxYX
+         +jREIpesOL7I82k9mn41ES9SQIoCmgiQQahD7fBNCr2l9xU+S6CJp3goSN4VxuFr/p23
+         llii/7N3dMsmTXdlWC72RXsltg6wMr4mnzK3MRBLozyYlNWflQjEPfks/LGEhRCyKu9j
+         BWKPjAg69b8N17KxobDuc3kk+RoR58qc6rAHDaAd1zWgjnkePy2baSTpV1a4a11+Ak6y
+         /dng==
+X-Forwarded-Encrypted: i=1; AKwUvBz81F8XSO571a0dw7a08BHiJ72TL9pL9QRKjVUella5wJjvlczhvd3OBrW2hrF1pv+EZ/9jaoNF61LwWvM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOKLV6Uovv1vWHaIMiLm9un5Y48/nuNKwApFvhFYXbYW8HR2TV
+	oRqpUz6r/M/bLy4C5Zn/L+i2aOdYRv3q8N+cJfZRVs6CNvLDPpIwD1iRNd+donuOPVwhBZ+shaw
+	04/29/pGHP0A9YnhKjoU9l08Jm4QKDlI=
+X-Gm-Gg: AYBFou1ZXt+AZWqFKjvkd5M3b/yrziFhIpTOcTUqC/o9E56ClBJ8o1xScOGo8HziyCq
+	D6uw87iS6NVblJcGLb7NifcEX8oLE0weoE5nUPdYt3BfhfAZuIyRYCwfZbWdjkq1hoqvoYc1QJk
+	AKMuCa3R6eb/i96i46zb9tzuCX4xQUeyyX8ZOV8Vc7gjHPFK/P/zmhoU/OD2PxfK/fM0eihlE3W
+	ruTwYq0NZp5KTix6lr6bWj+2yiHI1NxhxDugqop7JKiL2RuMhe2Si/NalCSjVJlpiW21kCRQXQi
+	Ish0bgTPhOtAWBb2JRioNpeLiOCaT2CDslcrGw9yV+E1WLFsWD6JnWdTjtjETTpeDmVzkbZohIe
+	b8bFCor8f+ls=
+X-Received: by 2002:a05:6402:5cf:b0:6ac:afa3:6f72 with SMTP id
+ 4fb4d7f45d1cf-6b17c1ffa7cmr12778263a12.5.1792041815465; Wed, 14 Oct 2026
+ 22:23:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 22:23:35 -0700
-X-Gm-Features: AclHuK_YYfxnldX7Bh0B9i3Tow6J5A6qSw_Ioe7q5Yt1rETlptfRJUA_JUSnfjQ
-Message-ID: <CAOx7e9K5sgNcWNj4CemyZd0Ar1ZjR4o44B4nryohq-Ue6TNdKA@mail.gmail.com>
-Subject: [PATCH v2] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit and
- 52-bit VA
-To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Kees Cook <kees@kernel.org>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Iurii Trukhin <yuri@trukhin.com>
+References: <20260928011123.450800-1-alistair.francis@wdc.com> <as_r8n7p_wdbChuQ@google.com>
+In-Reply-To: <as_r8n7p_wdbChuQ@google.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Thu, 15 Oct 2026 15:23:08 +1000
+X-Gm-Features: AclHuK9TlPmrIXCDTZxdpsBCyi7AYS4bwnhhJs76xIjIBGjWm4Rnm4ha0NayYvA
+Message-ID: <CAKmqyKOkmwompJqaP2k-oJicmXmqHY4E0wuLcrvkHLx+oauQ2Q@mail.gmail.com>
+Subject: Re: [PATCH v4 00/22] lib: Rust implementation of SPDM
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: lukas@wunner.de, linux-cxl@vger.kernel.org, akpm@linux-foundation.org, 
+	Jonathan.Cameron@huawei.com, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jic23@kernel.org, bhelgaas@google.com, 
+	alistair@alistair23.me, djbw@kernel.org, linux-pci@vger.kernel.org, 
+	wilfred.mallawa@wdc.com, a.hindborg@kernel.org, gregkh@linuxfoundation.org, 
+	alex.gaynor@gmail.com, benno.lossin@proton.me, boqun.feng@gmail.com, 
+	bjorn3_gh@protonmail.com, tmgross@umich.edu, gary@garyguo.net, 
+	ojeda@kernel.org, Alistair Francis <alistair.francis@wdc.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
-setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
-bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
-for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
-still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
-was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
-when 39-bit VA was the 4K default.
+On Thu, Oct 15, 2026 at 6:54=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> w=
+rote:
+>
+> On Mon, Sep 28, 2026 at 11:11:01AM +1000, alistair23@gmail.com wrote:
+> > From: Alistair Francis <alistair.francis@wdc.com>
+> >
+> > Security Protocols and Data Models (SPDM) [1] is used for authenticatio=
+n,
+> > attestation and key exchange. SPDM is generally used over a range of
+> > transports, such as PCIe, MCTP/SMBus/I3C, ATA, SCSI, NVMe or TCP.
+> >
+> > From the kernels perspective SPDM is used to authenticate and attest de=
+vices.
+> > In this threat model a device is considered untrusted until it can be v=
+erified
+> > by the kernel and userspace using SPDM. As such SPDM data is untrusted =
+data
+> > that can be mallicious.
+> >
+> > The SPDM specification is also complex, with the 1.2.1 spec being almos=
+t 200
+> > pages and the 1.3.0 spec being almost 250 pages long.
+> >
+> > As such we have the kernel parsing untrusted responses from a complex
+> > specification, which sounds like a possible exploit vector. This is the=
+ type
+> > of place where Rust excels!
+> >
+> > This series implements a SPDM requester in Rust.
+>
+> So I looked a bit at this, and here are some comments. I will not repeat
+> what Alexandre has already said.
+>
+> First, I'd like to say that it's good to see that all wire-format
+> parsing in lib/rspdm/validator.rs is written in completely safe Rust.
+> That's exactly what we want to see for parsing in Rust. We want the code
+> to have basically no unsafe code whatsoever so that we really get to
+> rely on the bullet-proof guarantees about bugs being caught at compile
+> time, or at least at runtime.
+>
+> Unfortunately it looks like the same cannot be said for the state
+> machine in lib/rspdm/state.rs, which has way too much unsafe code in its
+> interaction with the rest of the kernel. There needs to be more
+> intermediate Rust abstractions here. This file should not have *any*
+> unsafe code, except maybe 1-2 blocks for using the C transport and
+> validate function pointers.
 
-Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
-pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
-randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
-ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
+Yeah, it's the crypto functions. There are currently no bindings, so
+it's just directly calling the C functions.
 
-Closes: https://github.com/KSPP/linux/issues/371
-Reviewed-by: Kees Cook <kees@kernel.org>
-Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
----
-Changes in v2:
-- Add a comment above ARCH_MMAP_RND_BITS explaining the 1 TiB default
-  for 48/52-bit VA and the fallback to ARCH_MMAP_RND_BITS_MIN in
-  arch/Kconfig for smaller VA sizes (Anshuman Khandual).
-- Collect Reviewed-by from Kees Cook.
-- Link to v1: https://lore.kernel.org/r/CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com
- arch/arm64/Kconfig | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Without the crypto functions it's just a single unsafe call to
+`transport_function()` in `state.rs` and a few in `lib.rs` to handl
+the C <-> FFI boundy.
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index cab741a695f5..7bca47269dd5 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -313,6 +313,14 @@ config ARCH_MMAP_RND_BITS_MAX
- 	default 16 if ARM64_16K_PAGES
- 	default 18
+I was trying to avoid adding crypto and X.509 bindings in this series,
+as that's a few more subsystems this ends up touching. We need to add
+PQC as well, so crypto bindings are next on the todo list once this is
+merged.
 
-+# default to 1 TiB (5 bits below ARCH_MMAP_RND_BITS_MAX) on 48-bit and
-+# 52-bit VA; smaller VA sizes fall back to ARCH_MMAP_RND_BITS_MIN in
-+# arch/Kconfig
-+config ARCH_MMAP_RND_BITS
-+	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
-+	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
-+	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
-+
- config ARCH_MMAP_RND_COMPAT_BITS_MIN
- 	default 7 if ARM64_64K_PAGES
- 	default 9 if ARM64_16K_PAGES
--- 
-2.56.0
+Is this going to stall on adding crypto bindings?
+
+>
+> I've also asked my LLM to take a look, please see below. I looked over
+> the LLM report myself, and while it's more strongly worded than I would
+> have said myself, its feedback seems more or less valid to me.
+
+Ha, it is pretty strongly worded. I think I addressed everything below
+
+>
+> Alice
+>
+>
+>
+>
+> #### 1. Bugs & Memory Safety / Soundness Issues
+>
+> - **UB in `shash_desc` allocation and deallocation in `SpdmState::update_=
+response_algs` and `SpdmState::free_desc` (Patch 17)**:
+>   - `update_response_algs` allocates a `KVec<u8>` via `KVec::from_elem(0u=
+8, desc_len, GFP_KERNEL)`, calls `into_raw_parts()`, discards `_capacity`, =
+and stores `desc_buf as *mut bindings::shash_desc`.
+>   - In `free_desc`, it reconstructs `KVec::<u8>::from_raw_parts(self.desc=
+ as *mut u8, desc_len, desc_len)`, passing `desc_len` as the capacity even =
+though `KVec::from_elem` does not guarantee `capacity =3D=3D len`.
+>   - Casting a `*mut u8` from `KVec<u8>` to `*mut bindings::shash_desc` on=
+ly relies on `kmalloc` minimum alignment by accident, rather than properly =
+allocating a dynamically-sized type or wrapping `crypto_shash` in a safe ke=
+rnel abstraction.
+
+Good point, fixed
+
+>
+> - **Mismatched `ForeignOwnable` types in `lib/rspdm/lib.rs` (Patch 10)**:
+>   - `spdm_create` creates a `Pin<KBox<Mutex<SpdmState<'_>>>>` via `KBox::=
+pin_init` and calls `.into_foreign()`.
+>   - `spdm_authenticate` borrows it as `<Pin<KBox<Mutex<SpdmState<'_>>>> a=
+s ForeignOwnable>::borrow(...)`.
+>   - `spdm_destroy`, however, calls `KBox::<Mutex<SpdmState<'_>>>::from_fo=
+reign(...)` (without `Pin`). It should use `Pin::<KBox<Mutex<SpdmState<'_>>=
+>>::from_foreign(...)` to match `into_foreign()`.
+
+Shasiko caught this one
+
+>
+> - **Unchecked transport return length in `spdm_exchange` and callers**:
+>   - In `spdm_exchange`, `Untrusted::new(&response_buf[..]).validate(&*sel=
+f)` validates the entire pre-allocated `response_buf` instead of `&response=
+_buf[..length as usize]`.
+>   - Only `get_version` checks `if rc > response_vec.len()` before `respon=
+se_vec.truncate(rc)`. None of `get_capabilities`, `negotiate_algs`, `get_di=
+gests`, `get_cert_exchange`, or `challenge` check if `rc > response_vec.len=
+()`; if a transport returns a size larger than the buffer, `truncate(rc)` i=
+s a no-op. Better yet, `spdm_exchange` itself should enforce `(length as us=
+ize) <=3D response_buf.len()` and return `usize`.
+
+The next version handles this better, but I don't think this is an
+actual issue. If `transport_function` returns a wrong length we will
+just check the entire `response_buf`. It's not a soundness or safety
+issue, just a logic bug in `transport_function`. That's just up to
+`transport_function` to tell us how much data we received.
+
+>
+> #### 2. Design & Abstraction Issues
+>
+> - **`Untrusted<T>` / `Validate` Usage Defeats Its Own Purpose (Patches 3=
+=E2=80=934, 10, 15=E2=80=9322)**:
+>   - The motivation for `Untrusted<T>` is that I/O boundaries (such as `sp=
+dm_exchange`) accept or return `Untrusted` data so the caller cannot touch =
+the bytes without going through `Validate`.
+>   - Instead, `spdm_exchange` takes a plain `response_buf: &mut [u8]`, and=
+ every caller manually wraps the slice and validates it in a single express=
+ion:
+>     ```rust
+>     let response: GetVersionRsp =3D Untrusted::new(response_vec.as_slice(=
+)).validate(&*self)?;
+>     ```
+>     Wrapping a plain `&[u8]` in `Untrusted::new(...)` only to immediately=
+ call `.validate(...)` on the same line provides no type-level guarantee th=
+at untrusted buffers aren't read elsewhere (and in fact, `response_vec` is =
+indexed directly right after `validate()` to extend `self.transcript`).
+>   - Furthermore, adding `type Context` with a lifetime parameter `'c` to =
+`Validate<'c, Input>` makes the general `Validate` trait much heavier when =
+a normal parsing method `FromBytes` / `try_from_bytes(buf: &[u8], state: &S=
+pdmState)` would be simpler and more idiomatic.
+
+Yeah, I caught this already
+
+>
+> - **Abuse of `CString` and `CString::into_vec` (Patches 21 & 22)**:
+>   - Patch 21 adds `CString::into_vec` solely so `verify_signature` in Pat=
+ch 22 can format the 64-byte ASCII `spdm_prefix` using `CString::try_from_f=
+mt(...)`.
+>   - Because `CString`'s internal `KVec<u8>` includes the trailing NUL ter=
+minator (`\0`), `prefix.into_vec()` actually returns **65 bytes** (64 ASCII=
+ bytes + 1 NUL byte), which then forces line 1013 to compensate for the ext=
+ra NUL byte by subtracting `1` from `zero_pad_len`:
+>     ```rust
+>     let zero_pad_len =3D SPDM_COMBINED_PREFIX_SZ - SPDM_PREFIX_SZ - SPDM_=
+CONTEXT.len() - 1;
+>     ```
+>   - Not only is `CString::into_vec` a footgun, `verify_signature` doesn't=
+ need `CString` or heap allocation at all: `m` is already allocated right a=
+bove on line 981, or it can format directly into a fixed-size stack buffer =
+`[0u8; SPDM_COMBINED_PREFIX_SZ]`.
+
+Fixed
+
+>
+> - **Direct `unsafe` C FFI Calls in Driver/Library Code (`lib/rspdm/state.=
+rs`)**:
+>   - `lib/rspdm/state.rs` directly manipulates raw C pointers (`*mut bindi=
+ngs::device`, `*mut bindings::crypto_shash`, `*mut bindings::shash_desc`, `=
+*mut bindings::x509_certificate`, `*mut bindings::public_key`) and makes ra=
+w `unsafe` calls to `crypto_alloc_shash`, `crypto_shash_digest`, `x509_cert=
+_parse`, `public_key_verify_signature`, and `get_random_bytes`.
+>   - Per Rust-for-Linux conventions, C subsystem bindings (`crypto_shash`,=
+ `x509_certificate`, `public_key`, `get_random_bytes`) should be wrapped in=
+ safe abstractions under `rust/kernel/`, and `dev` should use `device::Devi=
+ce` rather than a raw `*mut bindings::device` with no lifetime or reference=
+-count guarantee.
+>   - Note also in `validate_cert_chain`: `let cert =3D unsafe { *cert_ptr =
+};` copies the entire C `struct x509_certificate` by value onto the stack j=
+ust to read fields (`cert.unsupported_sig`, `cert.blacklisted`, `cert.sig`)=
+.
+
+Fixed the device::Device part, crypto still doesn't have bindings (see abov=
+e)
+
+>
+> - **Useless lifetime `'a` on `SpdmState<'a>` (`state.rs:136`)**:
+>   - `SpdmState<'a>` has a lifetime parameter `'a` only used for `base_asy=
+m_enc: &'a CStr` and `base_hash_alg_name: &'a CStr`, which only ever point =
+to `'static` string literals (`c_str!("pkcs1")`, `c_str!("sha256")`, etc.).=
+ Using `&'static CStr` (and `c"..."` instead of `CStr::from_bytes_with_nul(=
+b"...\0")?`, which also eliminates the need for Patch 9!) removes the `'a` =
+lifetime parameter from `SpdmState` entirely.
+
+Outdated with Device lifetimes, although good point about patch 9
+
+>
+>
+>
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+>
+>
+>
+>
+> While `lib/rspdm/validator.rs` is a step up from earlier versions in that=
+ it contains **zero `unsafe` blocks** and uses `.get(...)` instead of `[]` =
+indexing, the implementation is very unidiomatic, does a lot of wasted heap=
+ allocations, and still has bugs (including a kernel panic / underflow vect=
+or).
+>
+> Here is a breakdown of the issues in `validator.rs`:
+>
+> ---
+>
+> ### 1. Kernel Panic / Integer Underflow & Range Bug in `SpdmCertChain::va=
+lidate`
+> Even without `unsafe`, safe Rust in the kernel must not panic on untruste=
+d input when `CONFIG_RUST_OVERFLOW_CHECKS` is enabled. Look at lines 849=E2=
+=80=93872:
+>
+> ```rust
+> let length =3D u16::from_le_bytes(
+>     unvalidated
+>         .get(0..2)
+>         .ok_or(EIO)?
+>         .try_into()
+>         .map_err(|_| EINVAL)?,
+> );
+>
+> let root_hash_end =3D SPDM_CERT_CHAIN_HDR_SZ + context.hash_len;
+> ...
+> let cert_chain_end =3D length as usize - root_hash_end;
+> let mut certificates =3D KVec::new();
+> certificates.extend_from_slice(
+>     unvalidated.get(root_hash_end..cert_chain_end).ok_or(EIO)?,
+>     GFP_KERNEL,
+> )?;
+> ```
+> - **Arithmetic underflow**: `length` comes directly from the first 2 byte=
+s of the untrusted certificate chain before `state.rs` compares it to `tota=
+l_cert_len`. If a responder sends `length < 4 + hash_len`, `length as usize=
+ - root_hash_end` underflows (panicking with overflow checks enabled, or wr=
+apping to `usize::MAX - ...`).
+> - **Wrong slice end**: `length` in the SPDM Certificate Chain format (SPD=
+M 1.0 Table 15) is the *total* length of the chain including `root_hash_end=
+` (`4 + H`). Subtracting `root_hash_end` gives the *number of certificate b=
+ytes*, not the end index. Using it as the end index of `root_hash_end..cert=
+_chain_end` slices `[4+H .. length-(4+H)]`, dropping the last `4 + H` bytes=
+ of the certificate chain (or returning `Err(EIO)` if the certificates are =
+smaller than `4 + H` bytes).
+
+Shasiko caught this too
+
+>
+> ---
+>
+> ### 2. Allocating and Copying into `KVec`s Only to Immediately Drop Them =
+(`#[expect(dead_code)]` Everywhere)
+> Almost every response struct in `validator.rs` (`GetVersionRsp`, `RespAlg=
+Struct`, `SupportedAlgorithms`, `GetCapabilitiesRsp`, `NegotiateAlgsRsp`, `=
+GetDigestsRsp`, `SpdmCertChain`, `ChallengeRsp`) is annotated with `#[expec=
+t(dead_code)]`.
+>
+> Why? Because `validate()` heap-allocates `KVec`s and copies payload data =
+out of the response buffer into fields that **are never read anywhere in th=
+e crate**:
+> - **`GetDigestsRsp::validate`**: Allocates up to 8 `KVec<u8>`s (`digests:=
+ [KVec<u8>; SPDM_SLOTS]`) and copies every digest into the heap. Then `Spdm=
+State::get_digests` only reads `response.header.param1` and `response.heade=
+r.param2` and immediately drops `response` (freeing all 8 `KVec`s without e=
+ver looking at the digests).
+> - **`SupportedAlgorithms::from_bytes`**: Allocates `ext_asym: KVec<u32>`,=
+ `ext_hash: KVec<u32>`, and `alg_struct: KVec<RespAlgStruct>` (each contain=
+ing 2 more `KVec`s). `SpdmState::get_capabilities` never accesses `response=
+.supported_algorithms` at all.
+> - **`NegotiateAlgsRsp::validate`**: Loops over `ext_asym_sel_count`, `ext=
+_hash_sel_count`, and `header.param1` (`RespAlgStruct`), allocating `KVec`s=
+ for all of them. Then, as soon as `validate()` returns to `SpdmState::nego=
+tiate_algs`, `state.rs` checks:
+>   ```rust
+>   || response.ext_asym_sel_count !=3D 0
+>   || response.ext_hash_sel_count !=3D 0
+>   || response.header.param1 > request.header.param1 // request.header.par=
+am1 is always 0!
+>   ```
+>   So any non-empty `ext_asym`, `ext_hash`, or `resp_alg_struct` is **alwa=
+ys rejected** in `state.rs`=E2=80=94yet `validator.rs` has 45 lines of code=
+ to heap-allocate and populate those vectors from untrusted counts *before*=
+ `state.rs` rejects them!
+> - **`SpdmCertChain::validate`**: Heap-allocates `root_hash: KVec<u8>` and=
+ `certificates: KVec<u8>`. `SpdmState::get_certificate` only checks `certs.=
+length`, drops `certs`, and stores the original unsplit `certs_buf` in `sel=
+f.certs[slot]`.
+> - **`ChallengeRsp::validate`**: Heap-allocates `cert_chain_hash: KVec<u8>=
+` and `opaque_data: KVec<u8>`, neither of which is ever read or verified.
+> - **Even fixed-size requests heap-allocate**: `SpdmHeader::to_bytes()` (4=
+ bytes), `GetVersionReq::to_bytes()` (4 bytes), `GetDigestsReq::to_bytes()`=
+ (4 bytes), `GetCertificateReq::to_bytes()` (8 bytes), `NegotiateAlgsReq::t=
+o_bytes()` (32 bytes), and `ChallengeReq::to_bytes()` (36 or 44 bytes) all =
+allocate a `KVec<u8>` (without `with_capacity`, causing multiple reallocati=
+ons as `.push()` / `.extend_from_slice()` are called) instead of returning =
+a fixed-size byte array `[u8; N]` or implementing `AsBytes`.
+>
+> Why copy slices out of `unvalidated: &'a [u8]` into newly allocated `KVec=
+<u8>`s at all, when the parsed response struct can either borrow `&'a [u8]`=
+ sub-slices directly from the response buffer or validate in-place?
+
+I replied to Alexandre about this as well.
+
+The SPDM responses are a bit complex. For example NegotiateAlgsRsp has
+multiple dynamically sized arrays, and the fields change based on the
+version.
+
+The current approach has the obvious downside of copying the data, but
+the buffers are small in the scheme of things. Copying it allows us to
+use nice Rust structs (not packed), ensure the data is in the correct
+endianes and check and validate the entire message. It also means that
+the Rsp structs contain all of the information. As your LLM points
+out, it currently isn't all read, but this is a basic starting point.
+
+In terms of the allocations, it is only a few bytes, so I don't think
+it matters that much.
+
+In terms of unused elements, there are only a few unused, most of the
+elements aren't dead code
+
+Maybe in the future zerocopy could be a performance improvement, but I
+think right now it's a large complexity overhead in this case.
+
+>
+> ---
+>
+> ### 3. Magic Byte Offsets Instead of a Cursor/Reader or `FromBytes`
+> Because the author moved away from `#[repr(C, packed)]` structs in v4, th=
+ey replaced struct definitions with hardcoded byte offsets. Look at `Suppor=
+tedAlgorithms::from_bytes` and `NegotiateAlgsRsp::validate`:
+>
+> ```rust
+> let alg_struct_count =3D *buf.get(0).ok_or(EIO)?;
+> let length =3D read_le16(2)?;
+> let measurement_specification =3D *buf.get(4).ok_or(EIO)?;
+> let other_params_support =3D *buf.get(5).ok_or(EIO)?;
+> let base_asym_algo =3D read_le32(6)?;
+> let base_hash_algo =3D read_le32(10)?;
+> let ext_asym_count =3D *buf.get(26).ok_or(EIO)?;
+> let ext_hash_count =3D *buf.get(27).ok_or(EIO)?;
+> let mel_specification =3D *buf.get(29).ok_or(EIO)?;
+>
+> let mut offset =3D 30;
+> ```
+> - **Hard to audit against the spec**: Jumping from offset `10` to `26` (s=
+kipping 12 reserved bytes) or `27` to `29` with magic numbers makes it very=
+ easy to miscount offsets, and `read_le16` / `read_le32` closures are copy-=
+pasted across multiple functions.
+> - **What would be much cleaner**:
+>   1. For fixed-size layouts, use `FromBytes::from_bytes_copy_prefix` (or =
+`zerocopy`) on `#[repr(C)]` structs with explicit reserved fields (`_reserv=
+ed: [u8; 12]`) and little-endian integer wrappers, **or**
+
+I don't think this would be cleaner, it actually sounds much less
+clean. Also, there aren't that many fixed size structs
+
+>   2. Use a small sequential reader struct wrapping `&'a [u8]` (e.g., `r.r=
+ead_u8()?`, `r.read_le16()?`, `r.read_le32()?`, `r.skip(12)?`, `r.read_slic=
+e(len)?`). That eliminates manual offset arithmetic, cannot underflow/overf=
+low `offset`, and reads top-to-bottom like the spec table.
+>
+> ---
+>
+> ### 4. Inconsistent Split of Responsibilities Between `validator.rs` and =
+`state.rs`
+> The boundary between what is validated in `Validate::validate` (`validato=
+r.rs`) vs. what is checked in `SpdmState` (`state.rs`) is arbitrary:
+> - **Duplicated checks**: `GetCapabilitiesRsp::validate` checks `if data_t=
+ransfer_size < SPDM_MIN_DATA_TRANSFER_SIZE` (`validator.rs:456`), and then =
+`SpdmState::get_capabilities` checks `if response.data_transfer_size < 42` =
+(`state.rs:508`) again.
+> - **Misplaced checks**: `GetDigestsRsp::validate` checks `header.param2 =
+=3D=3D 0` inside `validator.rs`, whereas `NegotiateAlgsRsp` and `GetCertifi=
+cateRsp` leave basic structural checks (`ext_asym_sel_count !=3D 0`, `respo=
+nse.header.param1 & 0xF !=3D slot`, `total_cert_len !=3D cert_chain_length`=
+) to `state.rs`.
+> - **Inconsistent error codes**: Within `validator.rs`, out-of-bounds buff=
+er slices return `EIO`, wrong response codes return `EINVAL`, and wrong ver=
+sions or lengths return `EPROTO`. In `spdm_exchange`, if a truncated packet=
+ is `< 4` bytes (header size), `spdm_exchange` returns `Ok(length)` and let=
+s the caller's `validate()` fail with `EIO`.
+>
+> ---
+>
+> ### Summary
+> The move to safe code in `validator.rs` achieved the goal of removing `un=
+safe` pointer casts, but it was done in the most mechanical way possible: r=
+eplacing struct field accesses with hardcoded `.get(offset..offset + N)` ca=
+lls and copying every variable-length region into throwaway `KVec`s.
+>
+> Replacing the manual offset indexing with either `FromBytes` / `zerocopy`=
+ (for fixed headers) + a tiny slice cursor (borrowing `&'a [u8]` slices ins=
+tead of allocating `KVec`s) would probably cut `validator.rs` in half, remo=
+ve ~15 unnecessary heap allocations per authentication, and fix the `SpdmCe=
+rtChain` underflow/range bug.
+
+That won't handle endian conversion though. A slice cursor is an
+interesting idea though, I might add that as a followup
+
+Alistair
