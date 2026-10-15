@@ -1,128 +1,173 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B8C31716E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792073333; cv=pass; b=ZdHxyn7IGMEsYhfRIBnq6mlGqhomc5OQt5wPgkTcz8s3DKHg82PxVT674Y//qHfLSj8EGdIYqDTCv0GvRD3AsfJpm+yZA4uuo3Wj6GoHjPDRcFidemLpLH1viwqbYK1IuVjZCb/636DkfvfrHhmPCwAgEoZnisr2Df/wZWjbjCE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792073333; c=relaxed/simple;
-	bh=vbxoAbT3rNtvD7wTtzYhonXLa4aLnuYbiHskZUjD5mE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V0tvZfIQVMngWDAOEst/u+HBY52CWDtnQot8uWVMlOxVOCeSY7RWvgZeIz2Led49o+ZynQRrbZHlfYn0mRNtZu2JW1nQR+pztGxRYvCDWVYB9uA8jD4QFSJccv/IEFeAIbTu9X3RUvjLju+NMiVq37rXNucM9l/iCZDna9btI9Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pEKU9M2W; arc=pass smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F184849CF54;
+	Thu, 15 Oct 2026 14:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792073375; cv=none; b=EW1LrqjgYkAbCb6MtT8lm/H5CuZwFDLF+CcLjfRi6e5/F7UZxVfD2SPPTVuNs/sUgQ4GPIkKTT4bBR8XtTqjeuc9YDOy3qsjWnukCI1+tkcfKiVt8ZSYfRbzgU4M6wi+uuGrgbfUfMVf+V6qVlTi3jJBTjA+kNu3RIsFR8QhzEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792073375; c=relaxed/simple;
+	bh=F43T2h7luc9hlO61Z8r3rxY3D2qU9IwwZ5rfSOveO9M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6D+CFCsp3LezDYczg7EK5wtMTL7BMrl4SGmPDUhsys2kTU5grJ698f3u4gpq+DiXXR0bgoUwb+DPqbGhKGmbgGggQ+rK1wJ4UJzwJeECFISIjDBpMgiVIqDHbpjLAuHcpdqJjHuV2UokgayHGGt8FOpaK04o29UdxL/onXbDlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=thZIntwS; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pEKU9M2W"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35e8253292cso136893eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:08:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792073332; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lv1ajCa+qQggMfhIAzl0/Q+tx5s/R7VOjklLI7OyE8t+iC2DHnnAfedonm2rPqnYxB
-         m38h+Yqu6znC+cZlNx66VgGv33VZ+w4yNyg8NooBEeFBLJX5JHWVN/GoEz7yria2QkOO
-         YtPE0FlQ5F7WYXgp1fjyFQsv7EVddc4xy+ZeCN12CENWcEBpsLz7m54SKf1RTckfRoVG
-         RhhNKMsXqy7b9+DIuU28QmcVeq9w1YCHI1UDeP3pqcaFPer3XbscOMsSQa8wYrmz0tRh
-         r41VYJR//15l+3bevDkJmK4QqviYxODcQF+ApuUDHo2eftcFiah49aqbxV7xlOM5pjAX
-         JPbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vbxoAbT3rNtvD7wTtzYhonXLa4aLnuYbiHskZUjD5mE=;
-        fh=5l7qWaIZU7p09CEPqJMnidGW3F6lcu0hjxkWtSUtIFE=;
-        b=ruj81KYjv3twy5vBGWPww0xIYQ6KLX1z0y60PBdwHMOkU0u9FcrXVQx1Ki8Wobt4od
-         I+hoGG18mUhYEECfd1R6/7mKozOJ7jNN0t9fUD6cQ2DYYosi3MkbmfMjqdqn/HjqQsL5
-         PsliuJ3V8HkDOZOyHDbPuDkc5xpKt+zYrK8VHSCr1/ufBLJsSnSqCJnnv7xgpKfJit7R
-         WIUypYBBfUGCmw1QA8A1nCaqKN6FlryVs2Ux+BEvkfBcmdjEYbCYGRj68ZMd3l5KpxLV
-         c00dIJmFoPf/Q7y7TWS+KTzWaVtQnOAt7oBc9S0SwU9QXzhkTaqIL3BMZLRylPy8nqgg
-         JbRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792073331; x=1792678131; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vbxoAbT3rNtvD7wTtzYhonXLa4aLnuYbiHskZUjD5mE=;
-        b=pEKU9M2WV0pc0Vuw4GJkgi/BgZ+C2N5ptSa864aHjFmIpWokgQ4T4i/7zPD1wqQ1w+
-         KZ501+IKD4slSCehDChGRuUgdlm6qedg1yqCsIkN2S+VybYD3azPaxe+0+FhYpa30x1X
-         v4yzDyYbunmUwLRI5Qo8XWoo846CegDr03ktJ0YzOudNsiTV+JdbWEf+AAzOyQAUUGdd
-         OwmXPUmGbE7QsZQKrIs2B6YVoqLquC9iqh3GRnmN70JjXXwoa2EVpFBn9yhDJLiC+ghb
-         3OcNrXqErS7FRwoTCRAB/4udVVOKoWQ0qyo8YO9qu9Zz8ZGRDodNESHR5b6crP0H230t
-         uVHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792073331; x=1792678131;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbxoAbT3rNtvD7wTtzYhonXLa4aLnuYbiHskZUjD5mE=;
-        b=xQb+8Lc6fmIpC/nW9jE4gtS9uKN07iwA8Rr+WGfmIyl/4jPr5YmIwcadsOxWihQBoZ
-         o6UABqdDXc8T2F5Dmho6MeQxVAGUp7qCxMrLgzhIXNnGyh1i7WFBbqLrQv2v/RW517Aw
-         BEuDKGDcuv02eQWVxwv1rlELQquyn+JnDPKtM5sEhY6P7OQYC4q61G3MaesFHZgVPtkt
-         AAY0q0BOXamESY65SCYMkW0UQcDONoR66cNfsUdcbRMAFWm1kGr+HkB5U74RFrtdG9Ic
-         mqOpKJjICSK3GEZEkG6fu2H60pTN3ZaT6pUGSdzKslSijAFfgjw+op3QiM44RBJpAjLs
-         PDPg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4KSLU/H/j4yNfHEGYUeMSluzABPxDYufNaX+Kkh4Oeki++ZaJ5OlfVRVEaQn3ZMTq2+uBpNVxzgrGif8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJa0z2SaBTXlThKiBrCKhgAtqZYapTmADS2VdekpMdBdpXxWGer
-	DakdM9iOjuVsowSS4P5mZBZqtZRU5e6QQ0LlTmGLRRqXsADXaPe9r/KY684M/s9H8xv1Tvwauey
-	Eu1rEQ8JVSXQy3pBaRzVfD/xM8DbV2SQ=
-X-Gm-Gg: AYBFou2u8EMZEg6GqEuYG0wnM9kySJfP+CTpr7WXD5hMd15o7qwuddrttQiQrE5Vx2k
-	hCI5PB85WvSbuqX3Y72Pn3JvU7fzFiKCf9qcv6SSFMUcVMXl+K6lJ8WVoSd6U88I90lShvq4qJn
-	/QsCs6brMXi/zI6ZAqE4Z+aYIWfpnQBmwNUqeqT7P3/VMZCRJK1YAXiQkSy+hHHcyMrYGXPt2wA
-	G+gC/9oHbtKGB4AXcHNMWga2VU5l2PIYb6uIrQjArc0HuW81WanR8qB0+54G2JigcoGv695y1LT
-	nHYHU7LoKIR+xfKQtuBKwdsF8qz01GmHEet+J8WVlWgKavUmPpxTSBIKuyfNNfqXM9AIs1vmUNb
-	Sv1bADXqDPiLILWlcSLdtu21D+nvR6EfQyR7dl7mtLu1IYKUcq+vVnky+UgxsKoG6VU0U4xyzAi
-	s/r/Z27b+pbTw4tqc6SsomIDx5lzqyR/yqDdzHBf/NrqmnDhmUTBjPFi/klAbY3w==
-X-Received: by 2002:a05:693c:6215:b0:35b:cb8a:8ce7 with SMTP id
- 5a478bee46e88-35bcb8a919dmr21911265eec.1.1792073331421; Thu, 15 Oct 2026
- 07:08:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="thZIntwS"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kJvr668033;
+	Thu, 15 Oct 2026 14:09:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=zfy9vemsVssNeNXQlK9X7cjZ8WVP1J
+	7iteS8xAupKCQ=; b=thZIntwSLRTriE0bVuDEjL/vTOOn2Q266mk/QKhBKGDNda
+	+1VbGbkC3byvYJcCVSuVQqOvxtoHXinHLAT8zceMdv8lg/RmtXa5ZwDlvew7D6Nj
+	AAThSy6kvu/sJzb9aXj3s4QRziWZpZroAYaV7lyX8awcVmlzyTV7gqcRjNZDHCOo
+	CXyT3vD8KOfxXVF1eK04RpiuVpXVDSAbbUqIJ/1aYbuIvC5VMnI+9H5t/dxf6Tvu
+	quQSb66pSzNI0qTpVpfRMVpRe8N3+w/vKQUV4Zf2EtBD53GK1+89UFF5WftIx3/b
+	ePN862znLkgY1vctlpyj/kGHeIdN4/ZVj6J65maA==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugtcgj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 14:09:13 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FE1CJC1929675;
+	Thu, 15 Oct 2026 14:09:12 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h9pb3t30u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 14:09:12 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FE9Axf39453026
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 14:09:10 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9C4282004B;
+	Thu, 15 Oct 2026 14:09:10 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6863320043;
+	Thu, 15 Oct 2026 14:09:10 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 15 Oct 2026 14:09:10 +0000 (GMT)
+Date: Thu, 15 Oct 2026 16:09:09 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+        Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+        Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Mark Brown <broonie@kernel.org>,
+        Fuad Tabba <tabba@google.com>, linux-arm-kernel@lists.infradead.org,
+        kvmarm@lists.linux.dev, linux-perf-users@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] arm64: sysreg: Mark fields the architecture dropped
+ as RES0
+Message-ID: <20261015140909.1310928-B-seiden@linux.ibm.com>
+References: <20261013130247.4135515-4-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-nonempty-slice-v3-0-4463cc0338f8@proton.me>
- <20261013-nonempty-slice-v3-1-4463cc0338f8@proton.me> <CANiq72nok4xoA6j1SXVdWKLEKAqj3MfzCa-Sse7NNbkrn2MXiw@mail.gmail.com>
- <DM4MPF17NSQL.2IOMXIQEVINKR@garyguo.net>
-In-Reply-To: <DM4MPF17NSQL.2IOMXIQEVINKR@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 15 Oct 2026 16:08:38 +0200
-X-Gm-Features: AclHuK_XlicioiXGWwQvETod_9jtUxSCTVPxmzKPQqf2uV7O5F-LYF4JPjoHY_I
-Message-ID: <CANiq72mn2Nu=j5xynujtRvRnCV+vrUxqYi3wYj34kBKySZX+TA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] rust: non_empty: add NonEmpty
-To: Gary Guo <gary@garyguo.net>
-Cc: Lorenzo Delgado <lnsdev@proton.me>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Thorsten Blum <blum@kernel.org>, Francis Laniel <laniel_francis@npnm.eu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013130247.4135515-4-fuad.tabba@linux.dev>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ad0de89 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=w5e04ufaKOuyffdHz6kA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: WOB7SUQw6dbnOqShCuje0_HJogeFUsiG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1NCBTYWx0ZWRfX/slBZRzzKrCc
+ qkWsuFFdcn3K3qG4AY/SLBJ2yKzghsQ8Nvcvfv5XgLLbI3DwOrac5I6jAysw+w6oY92VgNsFvYT
+ KzCTLymCaJMYUAmXRfJ5HUcXkO0+5KB3B4N9B/LWt+Uv0DW6LOB8zvm0Kx95qajntk0PYyDwp6+
+ iiwXwGUQ4Vg98obDt/ZusYE86ZiQ7AJuyAR1lsf/uHFNztF6ktfzz8/MsUnS9090NXLPQJMgfi2
+ AB1Nc57qGgtswwbX5FUpsuR8srOj3qB7ElW3/DEbY6GWugkNMDJ1OPRut6CxQVQfSPsMseQKpPP
+ UwndLFhhBvTc/KMSsjjpORuYwwYpZHbt6H+GK37CgLVjCU8voewYx3uSX6BYbidymQAmY6o3fCL
+ iMMYxUs+42KHgSxRe3fsvqsx28uGFl/pjoflxGR/I5qFTBNyQVnM7v5b0dK0s/9vNfJX9WwH6bv
+ U6AtSif3KkjrvMnzQiQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1NCBTYWx0ZWRfX6dv9X+DNYoAP
+ tnIwkFTQgKEUG1Vt50i4zyh1MlmE1652CEyQtEvQ8aPoMdDOIXoM7yXNiq6JiYXKz+YTbFeMQpr
+ ZqpHzjXheO40ysrgZ2j4MyNytLOKiuc=
+X-Proofpoint-ORIG-GUID: wpWH6tnocVE3X2SwIAMSgGqzHAI2880y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150054
 
-On Wed, Oct 14, 2026 at 4:25=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> I think in this case the meaning of "empty" depends on the container itse=
-lf.
-> Unsafe code that relies on "is_empty" would be the `NonEmpty<Container>` =
-itself,
-> so it just needs to trust itself (as boundary of unsafe is module level).
->
-> I think of almost all of the text above can be removed. The invariant of
-> `NonEmpty` can just be "`IsEmpty::is_empty` has returned true" and how it=
- is
-> interpreted is up to the container type.
+On Tue, Oct 13, 2026 at 02:02:46PM +0100, Fuad Tabba wrote:
+> Commit d65bf6e317e7 ("KVM: arm64: Remove all traces of FEAT_TME")
+> turned the TME fields of SCTLR_EL1 into RES0, but left their copies in
+> SCTLRMASK_EL1. PMICFILTR_EL0.T and BRBFCR_EL1.LASTFAILED have gone from
+> the architecture as well. All six fields are RES0 in DDI0601 2026-09.
+> 
+> Mark them RES0 to match the spec. Nothing in the tree refers to them.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-That sounds good to me, i.e. my main concern was the invariant text.
+Verified values with DDI0601 2026-09.
 
-(Though we still mark things as `unsafe` even if private and within a
-module, so if we are actually trusting it, shouldn't we mark it?)
+While checking I noticed that Bit 58 of PMICFILTR_EL0 is also defined as
+RES0 in DDI0601 2026-09 but is defined as SYNC in tools/sysreg. Not sure
+if this demands a separate patch or can be folded into this one as you
+already are touching this reg. This field is unused as well.
 
-Cheers,
-Miguel
+Anyways, 
+
+Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
+
+Steffen
+
+> ---
+>  arch/arm64/tools/sysreg | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
+> index 341db8e9b6c37..99af1c39478be 100644
+> --- a/arch/arm64/tools/sysreg
+> +++ b/arch/arm64/tools/sysreg
+> @@ -1420,8 +1420,7 @@ Field	17	DIRECT
+>  Field	16	EnI
+>  Res0	15:8
+>  Field	7	PAUSED
+> -Field	6	LASTFAILED
+> -Res0	5:0
+> +Res0	6:0
+>  EndSysreg
+>  
+>  Sysreg	BRBTS_EL1	2	1	9	0	2
+> @@ -2663,11 +2662,7 @@ Field	57	EPAN
+>  Field	56	EnALS
+>  Field	55	EnAS0
+>  Field	54	EnASR
+> -Field	53	TME
+> -Field	52	TME0
+> -Field	51	TMT
+> -Field	50	TMT0
+> -Res0	49:47
+> +Res0	53:47
+>  Field	46	TWEDEL
+>  Field	45	TWEDEn
+>  Field	44	DSSBS
+> @@ -2985,7 +2980,7 @@ Field	27	NSH
+>  Field	26	M
+>  Res0	25
+>  Field	24	SH
+> -Field	23	T
+> +Res0	23
+>  Field	22	RLK
+>  Field	21	RLU
+>  Field	20	RLH
+> -- 
+> 2.39.5
+> 
