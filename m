@@ -1,313 +1,304 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020141.outbound.protection.outlook.com [52.101.69.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE8838553F;
-	Thu, 15 Oct 2026 15:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EA853C3CC
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079392; cv=fail; b=ORgn+1mdf0g2C7X66Yp5zk/lvFYQB5gTWECblW/8Wem/KpC1LfOj1gmTZCjecj3vecFcBqEo22EM9jlyzslPfKcfY3VPPQkvjxcI2AkQdAU5Ta7e5kZ477PVKqURJ2rPrktozwcbY/ezqYM0ZtL+FldQ/TyT6OYa4r/OJtR2iP4=
+	t=1792079395; cv=pass; b=Pq2Qng1M9MWRBIG1S59rWLRLxDrr6gIHJHcn9gLUBWMywpG/WuHki7YIRMwr+e2bad259HW7Kc7+fGgMfDrH1TmoOY7E6qGMvf1zeZvNmG9HPdiFMMXDerJ9i39+TxP6rLt5o0iyiAWuuH9HbMb9KtxTEV1h7WfRw4lW06wksUk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079392; c=relaxed/simple;
-	bh=bb9HX7mHWR3jCQzrRAm3Bq3akNDsE8X1Kuip5r+x9bY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Iliw1YeRjRrvc8APtqzRY32lBakPsT41AzpGI0Dfqyq6pUWKMCEk7Ep2qEeos8xWc0VvW1aM/28SYjvSBSXuMGIe3tNdyZ7DqOlz2+a/1YUYbgg1ujitByrqz9w5uPYebDWa1Bxh0C9lOwGn4oi5Orb/tV2ZupG/hfesUoQZsgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=DW50Env9; arc=fail smtp.client-ip=52.101.69.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	s=arc-20240116; t=1792079395; c=relaxed/simple;
+	bh=R1mYwX3yRkvDLzWYsC4r/yr2yIVVfIoanYUcIYYcjzo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CfBe3+UtD6tSGYHeDkKzKllAW5xIvjclKcjz+pdHRSCNJDQzP93tGcNvJnzcixcxqvPNdifiyxo9adAlo2q2xvgD31zuEqau49/y1UlWH0mcqpqYcYQ4P9B/JN+LNt37af1hunfOYT8L3NNVg8ViQEbQWWqoC5ul71lDAQCBOvE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WzBXHsfD; arc=pass smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="DW50Env9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K/P4LyVqSQUfpWHnq01k1sV5at52SwbUV9/6miVtOUrmPExb2/THSAHfxmyxfnpiGZZMGKpKX+74JJ28u1tX5lxHGqVRq3pTa3m72SYuL5C14kBlb/XcdQ/pbGDKSJmeUK6mLN6+Ioop//8elHL4CMsN0QM5PRZIZAhQ90iMfFg18c+uxm5rhPLWlJ/pjP/XwswZiz7Jgsegs35dfzd5wJNkdyJVfQuSlXbyGwW+KS0z1qbqAL6db4/qh7FeP8NLV1jG9cfZgVOVl0il2Km5iv+AlyKa3X3rPUmwL9VY0puPoawwVmq7oLnJERyZxhbHGXqP4ymMJ9FwZE73MFn4UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Eb+ioIJ6koMi8PYOYtb5A2A3EDqhMlbHdIz4GNC49jk=;
- b=B9cyNjCth90gtyFrbBzkheZy4oiMIwMInasC9kEKfSx5s4w36sLFutqyOrnunPFmmHcaaLoYrCW4hROw7N26dl+wXyjFQgRdqOGD00f/0jLmulwfQ5E70/A5Gy2KWhzpyOlof2yDTDHqQDiyrI/8plo194ZMNII/pFbuKcz9ibXElvr2UC/amGUcFFTWu2l2TJJV6wICXBPEFvFdhzSyk5N086mGlS1rM5vkZMNSonPGIEPM+1yh87tdkhv/b5Vrz1QwcxK8vDABOwz5PXR+0pdLffATKQIbHDaZW+z9Fuf+zySgZUR1BHGh93ygypi0pLpE382BvRuTWol8B7t0WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Eb+ioIJ6koMi8PYOYtb5A2A3EDqhMlbHdIz4GNC49jk=;
- b=DW50Env9MuO3ncaoYDV7S7vIGxnITJZQSqZjF90YuY3HVW0mRaSl0a1j8sTaj6KXoUpz4t+i+jxyqCmCzA5PXH6XxKQ2bMDQPkduCDjBlVaLIxn/o6zL2/zWuE8eQC0Ez9he+uOlt7xwppli25yh3pMdvWWAMI5GBB/+9ZTgZO0dVcUELORBVqb5sN5g7aKD0aruxhaYD8muyrjJUgTB0M7eI18wDMOIBkDgq0Lm3TTcOpePENEpqX3mBYsIkCQ3qH+xVZBgI9wrg++x9FWGMHQN9quYCI6J7oE9YZlLhM8d/mQXwfRociXP+Ti+BUkyHeX6wbmUbh1tXgioz+VaWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by GVXPR08MB10576.eurprd08.prod.outlook.com
- (2603:10a6:150:14a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.7; Thu, 15 Oct
- 2026 15:49:31 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.006; Thu, 15 Oct 2026
- 15:49:31 +0000
-Message-ID: <2f6b72c5-9068-446c-a35c-188b603542cf@virtuozzo.com>
-Date: Thu, 15 Oct 2026 17:49:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] binfmt_elf: return the real error when program headers
- cannot be loaded
-To: Kees Cook <kees@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Paul Burton <paulburton@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20261014-b4-prep-vstor-149847-binfmt_elf-enomem-load-elf-phdrs-v1-1-f39c74d55e42@virtuozzo.com>
- <202610142140.D483AE26DF@keescook>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <202610142140.D483AE26DF@keescook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0152.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::19) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WzBXHsfD"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba3fba0080so3868734e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:49:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792079380; cv=none;
+        d=google.com; s=arc-20260327;
+        b=egYHnZoOxsPY6r8PxsUn89QCdk+xbBRfQvacig6RDqTfB4dBsrLf8lchyQy9S5gwf8
+         S9mS0kHlQkjWhiJidODvUJvJ85R3XQbGDZ3j6tvY7etcWSZ049GcDagEA8UgzzyC0uZY
+         QCJ4E3AmVH6FaC+HxwadFcylif8ff8TeTQ5X62pZQHlCI5F5ROnFUkXbaXOvuYJ3kA2u
+         cyop+evVCHK87UZPMKRTf/YJzRdMF6kK4LqrBoISU20VeQ7O0xKMBCqSPHqtTvcBfIO7
+         oiYwiO/ki54L3+dBOOq5T6Rod5YpwmzYphmbbt8WNUW0KJZAnN8OyDeQNSyqWHehEMVm
+         teiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dlFmbbSkYOSwwkrWf1csOPu5k7fva5x/XQQTAYQQ+4w=;
+        fh=CDxMcNPojesyTMB2KCHHXqCJM/USU/h+Tb+jAu09628=;
+        b=LKUZjGOVbvrfhT3eG3NhV2uI+3LzkDt7X7O6WUWbxKFQRN/xv0gtITNoCJHrFP5XBy
+         5Y+w8QgD9yofLQdsMGyVN6Qn5kVDUYElajAlOhQqKh3BM2co9Q75uIm7k0B2nVc23hEN
+         VbByh1CSbSFows0IFARZJ3BFR8K2EdVd++Dcs0MrCyERTW4FXXNa+i1l2CbOzBG+N1b+
+         f0S2q4gp1dYbo2U3VroVGb1DH10OKzk1irnsc0lLOAP/VXSXQGtWrYHZv8E+feGVZPBL
+         UVxIVwOQk3rWROrT6VzqJ3d+8srH2c9jMCGijtRwoWpph9i73pRYoRpuZqFrfRtwk2bc
+         no+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792079380; x=1792684180; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dlFmbbSkYOSwwkrWf1csOPu5k7fva5x/XQQTAYQQ+4w=;
+        b=WzBXHsfD0AHvZ1SWNPVkN6jXHHuxkOZR9voFgohzjbiXTNCQK2Vmr6HCCJaDkYU/NF
+         SwbKMFi5QWRHOGXlunnCsLx9OlxZ1I9IHaQkLnwDGh/hWtOUFr+jMgujyj4/1cBEvdh3
+         JlwEa9qIgAYqUX7iWJj+KSbCXGI1fJ98uNXWv1U93FSa+UtaokvYTvox7evigPpcqny5
+         vt/VOZWPGf3fp0wlgVu4Jwe4FolU4ioyqrn1cXZaXcTL+oN23xXnhcTn1UClRcmrC5r4
+         y9olkHMFCurtrEkcPyUKV7wBp3haqUumzqHasUWwWeooBB93lPgxf1MUGfKB8gIVrAX5
+         LSyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792079380; x=1792684180;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dlFmbbSkYOSwwkrWf1csOPu5k7fva5x/XQQTAYQQ+4w=;
+        b=YX45hNZ52h5Gp/iebamx7trV7XD4b37V2yVGUeqRi6XsxcPeTtZj/ByGC1ku8rlL2I
+         O0/371GJjLvRBTxtY3VJBmQYYNnn0LdmbjrjAwnrTSRSD2ZNHsXKmUaRXqsJcbj7CGMQ
+         2cnLfGxlNCbRYkarH9RE1CRdHm6wXsS8lB8c07prQ0UkEosGGbaDY+M/4DeUMc7G9qHz
+         PvGS6vFzbxT7Ry8gYuMpzwUf8E8m6spSI/rdBWJn0eL88Fle5ND0AxwcJ9MVfu0pifui
+         37iHm/KhMqB4EOsK+0mTOfSz3mc4CDZ0d+rPq+jY5kkmmalKs2+s4dEcHMgx7Bgh0xaA
+         Rl4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzwalTDJeBtxn22ujJ8x17lbE1PA1Wyi2xMZ82jsmRZxunYrW58hHw0p5SpSoglfBzgt2xhfXe58xR1ugM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLivCtE3Z51ZIZ67cPPgv7u1Bbg/wHD4wJKvpGg1Bw0Do1Z/VdX
+	PzxvRFxTMo/Ekir2ZK0YmEalnVZJOcbkU/J4Q3MZlfAyAvI1ygvI+Lyr9kk8U0vf0Z2xng9wEtF
+	EU/pVcQDyskK/zASaCwspHpUPEFBrwuw=
+X-Gm-Gg: AYBFou0aA2Ar5jePa4CefuyzkEMHaO0T/N5EvvFVP2eTIigcam5Zasr0f+i3/gLNCAF
+	H3IeCS1gSntuWNjBpib7cEO/POs18qFl1xSzLUriGwiXIFb3pfCTQNGeZjyDX3m8B5BuDLzvW2n
+	XQny3406uu7uS86mQeHAOCsaFJSyP6F26mP7xwq4VyVFJi1gw2WlwNcORCZPLmQ0KUyaxQ9NnTr
+	3vkqU96Ym1Ws2nSlQJ7igh159jQZQMdDnbVQX/QSHEUUEMxwb6CvZJMopep42lkpzW002ArGTCa
+	A97QQFouY1sWSUl4nb4zN9r6Cfm43v/vg03CHIl3NqTxZ+ZUUvCLANQdJhdOy5qDM0RD1u59/+6
+	KXs4L6K7jDd1vh1pLkjGdh1X7MONUb0WqyqUZEb2dMA==
+X-Received: by 2002:a05:6512:3b24:b0:5bb:7c09:d15e with SMTP id
+ 2adb3069b0e04-5bcde6c9b6amr7718643e87.34.1792079379478; Thu, 15 Oct 2026
+ 08:49:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|GVXPR08MB10576:EE_
-X-MS-Office365-Filtering-Correlation-Id: b145de95-90a0-4d9f-beb4-08df2ad3e6c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|56012099006|4143699003|260925022911599003|260925021311599003|260925021911599003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	jbMknfOMKVqrm6iQ3qoL41GSeQH923bHCRHuCVmhPV5+29uyXkDADCWQKFZ6pVxWtYyzgIytfUR4Z0RnAKnqqq5Mn7popo0c/+3n+JF/LenLDycOFqmXE6HWH8TrIoz04pN12WOVVKqC3Ho4LL10wVFpy3PX7S0xDaVfRT7p+pPPJgo70B+lrr6vRM02jJcS3OupTVbMEZPnFo2lggQmAMkbxw1lSfVwLftaqau1tajy7e6TErw11q69DiWwd324Vy/LVAGcbOL23CcHM2bIsBle9/nZ5hnghOLEPycaY/jJno0+4tDVPxiFtQRxw/Bv1cJC5YCslFx5tNjFvpYOWBiBIGJ7WbC/q0G03TacG8mirUyb71EVqgNUw6sZ9wWa0KG9nUsrXP6MXAv8vTlKQUEtUiM9OchcLpjyOmr3PTorhED+unzR5uja2m2oSiOBYDHA1LizXpAk4Up+a7AaDOtHyjAZYikqQ8kjPPMS47Z8tQGPga28qJxV4TfI6SHjCOGVuhBjbionMN556owflgmfiJQ2GR6rp2ACMIVYZjLsbHZCajwkuvEUvbSJg+OmwzJBth/pzxWZc1W4IE7Z4hwGtV+F/K+mBK7THKUlYq0hieJUenuWvMSjClqjURrRKJO6eNXaXvkXSFNP79nQs4sqBeUTpqyGMyf3c6L4E6I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(260925022911599003)(260925021311599003)(260925021911599003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZGZFOVVEdTZyUXpwTVJ3LzVOQkpDQStPMXVNeXZ0b3EycVh1NFJJeW5DWEZJ?=
- =?utf-8?B?VHkrb0VlOUtacGRJMld4V3NoQUhVem91a2tiS01rZCttOUdTU09yb1VhcjI3?=
- =?utf-8?B?dDNyWE5rblJEcDZ5VXlWK1lOQ08rbUdWcWEra3c0SVoxWWJmbjZTV0tCVzFl?=
- =?utf-8?B?T3FjS1VmeVZ5YmZBZU9OdHV1cW1pWUxnR0w3bUVqdDZPUlJaWkUzM2N0emt6?=
- =?utf-8?B?T2RuR0xST0Fmd2Y4L01yUTdhM2t2Mmw4eU1YalBVK2E3VUVtZEpQZTM0MDls?=
- =?utf-8?B?c2xaeWdZeVRuZDlxUlhyUWhoZW9xbUNzeVk5cEdFQnNuMzJRb1VHbmZZWEdi?=
- =?utf-8?B?cnNodlBkWVJmZlZ4RGFhQW95TFdhZDFXN2lxQUFkemxvdENJbDVFbjd2MVJm?=
- =?utf-8?B?Z0xpUExzMS9mL1A5a0RsQzJKeGhBRGZ5cUFUMDY5d20vakREVURrOVFURUdn?=
- =?utf-8?B?Zk1wOFRFcU1hdEtTMlVwMGZIWGNtZk1iMGI2cU9NTVIrR0JBbFV4b2pZalph?=
- =?utf-8?B?Sit4NkF6cUhOYnBVVjNoV29PeTJNRDIvTGYxK2x5NFpCYy9Nd3F2c3Q1bnVC?=
- =?utf-8?B?VlpocCtOZEt1a1VQSThhWHJTQXR5bHlqdytxZVNOL3RWQk5lZ3VBck0rODZk?=
- =?utf-8?B?Y0JBcHptb3c0NkJXRjFnaitNeUZOU2E3NzFiRWF4bXYxVEZHSzdhODFQNGRi?=
- =?utf-8?B?ZStoY2pzVDl0MXhCUHRoZ2JHVGVZVWlYNUxMRWpWcFh6OXVCbnIwdGp6YVBh?=
- =?utf-8?B?Q00yS2FFS0xkR3AySThTaWhDQ2ZIN0xaaEV6a2lOUlhUaUQxMHpBNHJ5MnBG?=
- =?utf-8?B?ZUNMWGc1M2haRW95WlhWbGc3Z0crWGJkYVlmdkNOMFpsejFEcWRPaXFaQ3ZC?=
- =?utf-8?B?VkRDYzdaZXNWWlE2a2NRdzcxTEdFMlRORllodnloVm5DOFJwbHdOcmV4cmJs?=
- =?utf-8?B?ZWJrR2Vnb0lxeWZBZW9qM1ljNTkrRDRwMWhRNVlKdmJnTk5JbEFpRExSTkZn?=
- =?utf-8?B?TTR5czJtYW5GbTNhTW11MlVJMmNvbkNQM0xVT1prdXViWGVaOVR4SnRncGVI?=
- =?utf-8?B?UzRTc20ydUJId2hjc0pTZW95TFZFL3ZSWkpNY2Q4R0FhSUNOalR3WTlCWWF6?=
- =?utf-8?B?UjNuNTJORzdhMnJqSzRrMVdUdUgzbmJZTndWR1Z6bGpBWE1QS203SWcrcHh1?=
- =?utf-8?B?VkREYVFnTjIyalkvazNwMUovNkgzWUhTWDRpUThZWkV4WjRxWmlTV1hZQ2VW?=
- =?utf-8?B?VXZNZklDTTcvQ3dVd2NrcjV3UmtZMmF3WktybWVZQnVMTkdpWldWUGsrYmNh?=
- =?utf-8?B?MXY1TmpaTUNyVUF2T05DYmpjSjNLQjcvcGVYbHRDVHdJaWhXSHBubGNCV2to?=
- =?utf-8?B?eE1FSjhsQXN0SnN3eEhVaUMvbFdKa0pMRmNDMzJGOURyTW5uL1ZIbjMzVGFR?=
- =?utf-8?B?OU9UVGVwUk8vZkVjNC9vRXcyN0xyYlFCdGZycCs5b015ck1TOW9oREptVWJL?=
- =?utf-8?B?dnBtdkNlTiswdjJiVXlEZzNpLzlyZXZZeEFPaDhKMDdSTVF4b2pTZ0djVUZm?=
- =?utf-8?B?UzFQYWVmTW5jTnJtTlBXR2pCRDNlZUtwQXZ4bXpvOWtCYjVHQnl3aktyZXpi?=
- =?utf-8?B?WHVDb2I2UGxMWk5hdG1GVVlZdXR5ZnFBRUYzS3dwK2RzamVLS0tnMmd0K0VT?=
- =?utf-8?B?TmpmRW9tdjhHemtydkJDc2NjTFpYQkQwTFd1WTFQWEtGVG1PSW1uNmovYWRM?=
- =?utf-8?B?VHh3SXhPVld5SHFta2dDOFg4RmM3T0E0K3dOOFlPbTIwRUl4b1VTOEtsTXEr?=
- =?utf-8?B?ek1rbHlpYTV2WkVNemZTYnVtMzlGSThnWXBMaHh0TFlJV3pCWXB6SjJEUnBJ?=
- =?utf-8?B?ZDVxbG1LNlUzUWJPNm1mSXN4YUp3QkpwOUZlTzJhbUdVV0tqMndERCtFMmNN?=
- =?utf-8?B?cUtuOFdHdmd6REMzeXY1MkROUjAxZ3lBTytlQ0tRQWFwVTR2N2RNRlllZHow?=
- =?utf-8?B?bzQ5Nmx3aEh6TDl2SHNoaHJJTTF5aERsVXFZQkNldGdxb2pnbUc3bXRNdjFy?=
- =?utf-8?B?blVOUUsrUWYyaUJ6U3RKaE9leEdlVWFDQ3orcWc3cmhjWjJJMlBvZ3RMVXY0?=
- =?utf-8?B?ckNKMU0yK01kczFLZzROMVhzVHFzWExic1lyMk5wYlR2UW1ITzN5TjJCN2pN?=
- =?utf-8?B?UWRibXJSMmtTZDBRdTMzM2xLak1BMkVZTk9XU1pnL2pqd1M1VnI1Tk40TExK?=
- =?utf-8?B?dGVGVW8zVVZmZXo3QTQ5WnIwRC9xSG8wMGZEM1dKUy9HWmErbnBqMWxBVXQx?=
- =?utf-8?B?Nzd1RjdYenNwQzh5NUU0eUpsV0ZGbXNkWmloSU4xL0NQWHZvYXJtZz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b145de95-90a0-4d9f-beb4-08df2ad3e6c2
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:49:30.9173
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: macqZ6sMWQmyt8dDLSZtMaGEgx+FV1UUCxVSiQ6t7v0Bx3Bi6mBD4TGi+HW3UcLJ+f6slW2lgJhSIJk0Bq3sXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB10576
+References: <cover.1792050467.git.qiwenjie@xiaomi.com> <eaed01c69f5af16df36a6df9be3f6615e4818d29.1792050467.git.qiwenjie@xiaomi.com>
+In-Reply-To: <eaed01c69f5af16df36a6df9be3f6615e4818d29.1792050467.git.qiwenjie@xiaomi.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Thu, 15 Oct 2026 08:49:24 -0700
+X-Gm-Features: AclHuK-PTTNkxPHCWQFd1oV1FoNaiW6ZIk2ttr8zr3Gv_UTMVbeUtseLk_NlQZM
+Message-ID: <CACOAw_yFv9ht_Hbg5a3hdx0+-=L7YXqzx8NhddbZ0Vjj2tNJLw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] f2fs: refresh pinned allocation boundary after resize
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Daeho Jeong <daehojeong@google.com>, Qiuyang Sun <sunqiuyang@huawei.com>, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/15/26 06:48, Kees Cook wrote:
-> On Wed, Oct 14, 2026 at 02:30:33PM +0200, Konstantin Khorenko wrote:
->> Problem
->> =======
->>
->> load_elf_phdrs() returns NULL on any failure, and load_elf_binary()
->> turns that into a fixed error: -ENOEXEC for the executable, -ELIBBAD
->> for its interpreter. The real cause is lost:
->>
->>   cause                                  really      execve() returns
->>   -------------------------------------  ----------  ----------------
->>   bad e_phentsize, e_phnum 0 or too big  bad file    ENOEXEC (right)
->>   file ends before the header table      bad file    ENOEXEC (right)
->>   kmalloc() of the table fails           ENOMEM      ENOEXEC (wrong)
->>   kernel_read() fails                    EIO/ENOMEM  ENOEXEC (wrong)
->>
->> For the interpreter every row gives ELIBBAD.
->>
->> Consequences
->> ============
->>
->> ENOEXEC says the file is not an executable, which is a property of the
->> file, not a transient failure:
->>
->> - glibc's execvp() and execlp() take ENOEXEC as "not a binary" and run
->>   the ELF file with /bin/sh, which reports a binary it cannot execute
->>   instead of the ENOMEM or EIO.
->> - search_binary_handler() tries the next binary format instead of
->>   returning the error.
-> 
-> Isn't that what we want? If one handler can't load it, move on to find
-> one that does.
+On Thu, Oct 15, 2026 at 1:35=E2=80=AFAM Wenjie Qi <qwjhust@gmail.com> wrote=
+:
+>
+> Online shrink updates MAIN_SECS() but leaves resizable_tail_secno and
+> pinned_area_max_secno unchanged. The pinned allocation limit can exceed
+> the new main area when shrinking beyond the reserved tail.
+>
+> Consume the reserved tail by the number of removed sections, clamping
+> it to zero, before refreshing the shared pinned allocation boundary.
+> This preserves the boundary while shrinking within the reservation and
+> limits it to the new main area otherwise, retaining the zoned limit.
+>
+> Save the old tail count and restore it before rolling back the geometry
+> if the final checkpoint fails.
+>
+> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
+ed allocation")
+> Suggested-by: Daeho Jeong <daehojeong@google.com>
+> Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> ---
+> Changes since v2:
+> - Consume the tail reservation instead of keeping its old size.
+> - Restore the saved tail before geometry and boundary rollback.
+> - Document the remaining-reservation semantics.
+>
+>  Documentation/filesystems/f2fs.rst |  3 ++-
+>  fs/f2fs/gc.c                       |  6 +++++-
+>  fs/f2fs/segment.h                  | 11 +++++++++++
+>  fs/f2fs/super.c                    | 15 ++-------------
+>  4 files changed, 20 insertions(+), 15 deletions(-)
+>
+> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesyste=
+ms/f2fs.rst
+> index 771216f45207a..55798421f2c45 100644
+> --- a/Documentation/filesystems/f2fs.rst
+> +++ b/Documentation/filesystems/f2fs.rst
+> @@ -421,7 +421,8 @@ resizable_tail_secno=3D%u  Control the number of sect=
+ions at the tail of the
+>                          (MAIN_SECS - resizable_tail_secno) - 1. If set t=
+o 0
+>                          (default), there is no tail restriction unless r=
+unning
+>                          on a zoned block device where conventional zones=
+ are
+> -                        used.
+> +                        used. Online shrink consumes this reservation, r=
+educing
+> +                        the value by the number of removed sections, dow=
+n to zero.
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>  Debugfs Entries
+> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> index 926e6976bc22a..540769ad58acc 100644
+> --- a/fs/f2fs/gc.c
+> +++ b/fs/f2fs/gc.c
+> @@ -2342,6 +2342,7 @@ static void update_fs_metadata(struct f2fs_sb_info =
+*sbi, int secs)
+>         SM_I(sbi)->segment_count =3D (int)SM_I(sbi)->segment_count + segs=
+;
+>         MAIN_SEGS(sbi) =3D (int)MAIN_SEGS(sbi) + segs;
+>         MAIN_SECS(sbi) +=3D secs;
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>         if (sbi->allocate_section_hint > MAIN_SECS(sbi))
+>                 sbi->allocate_section_hint =3D MAIN_SECS(sbi);
+>         FREE_I(sbi)->free_sections =3D (int)FREE_I(sbi)->free_sections + =
+secs;
+> @@ -2373,7 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>         struct f2fs_lock_context lc;
+>         struct f2fs_lock_context glc;
+>         struct f2fs_lock_context clc;
+> -       unsigned int secs;
+> +       unsigned int secs, old_tail;
+>         int err =3D 0;
+>         __u32 rem;
+>
+> @@ -2482,6 +2483,8 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>                 goto recover_out;
+>         }
+>
+> +       old_tail =3D F2FS_OPTION(sbi).resizable_tail_secno;
+> +       F2FS_OPTION(sbi).resizable_tail_secno -=3D min(old_tail, secs);
+>         update_fs_metadata(sbi, -secs);
+>         clear_sbi_flag(sbi, SBI_IS_RESIZEFS);
+>         set_sbi_flag(sbi, SBI_IS_DIRTY);
+> @@ -2489,6 +2492,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_c=
+ount)
+>         stat_inc_cp_call_count(sbi, TOTAL_CALL);
+>         err =3D f2fs_write_checkpoint(sbi, &cpc);
+>         if (err) {
+> +               F2FS_OPTION(sbi).resizable_tail_secno =3D old_tail;
+>                 update_fs_metadata(sbi, secs);
+>                 update_sb_metadata(sbi, secs);
+>                 f2fs_commit_super(sbi, false);
+> diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
+> index 526764ba31ae5..918bc4452ad09 100644
+> --- a/fs/f2fs/segment.h
+> +++ b/fs/f2fs/segment.h
+> @@ -91,6 +91,17 @@ static inline void sanity_check_seg_type(struct f2fs_s=
+b_info *sbi,
+>  #define GET_ZONE_FROM_SEG(sbi, segno)                          \
+>         GET_ZONE_FROM_SEC(sbi, GET_SEC_FROM_SEG(sbi, segno))
+>
+> +static inline void f2fs_adjust_pinned_area_boundary(struct f2fs_sb_info =
+*sbi)
+> +{
+> +       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
+> +       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
+ULL_SEGNO)
+> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> +                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
+_segno));
+> +       if (F2FS_OPTION(sbi).resizable_tail_secno)
+> +               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> +                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
+le_tail_secno);
+> +}
+> +
+>  #define GET_SUM_BLOCK(sbi, segno)      \
+>         (SM_I(sbi)->ssa_blkaddr + (segno / (sbi)->sums_per_block))
+>  #define GET_SUM_BLKOFF(sbi, segno) (segno % (sbi)->sums_per_block)
+> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> index 773b12ea29c0c..f323d9705aebe 100644
+> --- a/fs/f2fs/super.c
+> +++ b/fs/f2fs/super.c
+> @@ -554,17 +554,6 @@ static inline void adjust_unusable_cap_perc(struct f=
+2fs_sb_info *sbi)
+>                         F2FS_OPTION(sbi).unusable_cap_perc);
+>  }
+>
+> -static inline void adjust_pinned_area_boundary(struct f2fs_sb_info *sbi)
+> -{
+> -       sbi->pinned_area_max_secno =3D MAIN_SECS(sbi);
+> -       if (f2fs_sb_has_blkzoned(sbi) && sbi->first_seq_zone_segno !=3D N=
+ULL_SEGNO)
+> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> -                               GET_SEC_FROM_SEG(sbi, sbi->first_seq_zone=
+_segno));
+> -       if (F2FS_OPTION(sbi).resizable_tail_secno)
+> -               sbi->pinned_area_max_secno =3D min(sbi->pinned_area_max_s=
+ecno,
+> -                               MAIN_SECS(sbi) - F2FS_OPTION(sbi).resizab=
+le_tail_secno);
+> -}
+> -
+>  static void init_once(void *foo)
+>  {
+>         struct f2fs_inode_info *fi =3D (struct f2fs_inode_info *) foo;
+> @@ -3103,7 +3092,7 @@ static int __f2fs_remount(struct fs_context *fc, st=
+ruct super_block *sb)
+>         sb->s_flags =3D (sb->s_flags & ~SB_POSIXACL) |
+>                 (test_opt(sbi, POSIX_ACL) ? SB_POSIXACL : 0);
+>
+> -       adjust_pinned_area_boundary(sbi);
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>         limit_reserve_root(sbi);
+>         fc->sb_flags =3D (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYT=
+IME);
+>
+> @@ -5440,7 +5429,7 @@ static int f2fs_fill_super(struct super_block *sb, =
+struct fs_context *fc)
+>         /* get segno of first zoned block device */
+>         sbi->first_seq_zone_segno =3D get_first_seq_zone_segno(sbi);
+>
+> -       adjust_pinned_area_boundary(sbi);
+> +       f2fs_adjust_pinned_area_boundary(sbi);
+>
+>         sbi->reserved_pin_section =3D f2fs_sb_has_blkzoned(sbi) ?
+>                         ZONED_PIN_SEC_REQUIRED_COUNT :
+> --
+> 2.43.0
+>
 
-For a malformed file, yes, and the patch keeps -ENOEXEC for every
-malformed case. For a failed allocation or read it does not help: the
-file has already matched the ELF magic, so the other handlers decline
-it too, and the loop ends with -ENOEXEC anyway. Moving on only loses
-the error.
+One minor thing, not introduced by this patch:
 
+free_segment_range() temporarily reduces MAIN_SECS() and relocates
+cursegs including CURSEG_COLD_DATA_PINNED, but get_new_segment() still
+uses the old pinned_area_max_secno as the upper bound for pinning. So,
+when shrinking beyond the reserved tail (or with no tail), the pinned
+curseg can be re-allocated inside the range being removed.
 
->> - For the interpreter the caller gets ELIBBAD, "Accessing a corrupted
->>   shared library", about an ld.so that is fine.
->> - A caller that would retry on ENOMEM or report EIO gives up on the
->>   file instead.
->>
->> When it happens
->> ===============
->>
->> - The allocation fails under fault injection. Since commit
->>   8030790477e8 ("binfmt_elf: remove the 4k limitation of program header
->>   size") the table may be up to 64K; above 32K that is an order-4
->>   allocation on 4K-page kernels, which can fail on a fragmented system.
-> 
-> I would not want to risk changing established userspace error message
-> interactions to make fault injection happy.
+e.g. MAIN_SECS =3D 1000, resizable_tail_secno =3D 0, shrinking by 100:
+MAIN_SECS is temporarily 900, but pinned_area_max_secno is still 1000.
 
-Fault injection is just how I found it, not why it matters.
+Before c966d29e01bb, MAIN_SECS() was used as the bound, so it was safe.
+Could you bound it by MAIN_SECS() in get_new_segment()?
 
-The case that matters is execvp().
-glibc runs a file with /bin/sh when execve() fails with ENOEXEC.
-That exec of the shell succeeds, so the caller's process image is gone,
-and the shell then exits with "cannot execute binary file".
+if (pinning) {
+- max_secno =3D sbi->pinned_area_max_secno;
++ max_secno =3D min(sbi->pinned_area_max_secno, MAIN_SECS(sbi));
+hint =3D 0;
 
-For example, QEMU's cpr-exec live update does exactly this:
-it re-execs itself with execvp(), and on an error it resumes the VM.
-If reading the program headers fails with EIO, or with ENOMEM from
-the page cache, the guest is killed by /bin/sh instead of resuming.
+Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify
+pinned allocation")
 
-
->> - The read fails with an I/O error, or with -ENOMEM when the page cache
->>   cannot take the pages.
-> 
-> This is kind of a bad failure case -- I don't think the "right" error
-> code is going to help much there. ;)
-
-It helps execvp() callers: with EIO or ENOMEM they get the error back
-and can retry or report it. With ENOEXEC they never get the error,
-because the shell has replaced them.
-
->>
->> Where it came from
->> ==================
->>
->> - Until commit 6a8d38945cf4 ("binfmt_elf: Hoist ELF program header
->>   loading to a function") load_elf_binary() returned -ENOMEM and the
->>   read error. That commit documented an ERR_PTR return but returned
->>   NULL; commit cfc46ca4fdca later fixed the comment, not the code.
->> - Commit a9d9ef133f44 ("binfmt_elf: load interpreter program headers
->>   earlier") gave the interpreter's headers the same NULL check, and with
->>   it -ELIBBAD.
-> 
-> So it's been like this for 12 years? :)
-
-Yes, since v3.19. :)
-
-It needs an allocation or read failure at exactly this point to show,
-which is why it went unnoticed.
-So yes, the chances are low, but the price might be a killed VM.
-
->> [...]
->>   kernel                errors returned by execve()
->>   7.3-rc7               ENOMEM 17, ENOEXEC 1, ELIBBAD 1, E2BIG 2
->>   7.3-rc7 + this patch  ENOMEM 19, E2BIG 2
-> 
-> ... so there are _fewer_ distinct failure codes with the patch?
-
-Well, this part was not clear enough, sorry for that.
-
-The truth is those runs i did injected only allocation failures, so every
-failure is ENOMEM.
-The ENOEXEC and ELIBBAD in the first row were allocation failures reported
-as a bad file.
-(E2BIG comes from copy_strings(); that is a separate issue, left alone.)
-
-
-On the userspace side: the patch adds no errno that execve() cannot
-return today. The same file is read in two other places on the same
-exec, and both pass the kernel_read() error through:
-
-- prepare_binprm() reads the first BINPRM_BUF_SIZE bytes of the binary
-  and returns the kernel_read() result as it is.
-- elf_read() reads the PT_INTERP path and the interpreter's ELF header.
-  It returns the kernel_read() error as it is, and -EIO for a short
-  read.
-
-load_elf_phdrs() itself reads the table with elf_read() too, then drops
-whatever it returned and reports NULL. So a read error on the program
-header table is the only read error of an ELF exec that reaches
-userspace as ENOEXEC. The patch makes it behave like the reads around
-it.
-
->> +	/*
->> +	 * Read in the program headers. A read that fails part way returns
->> +	 * what it got, so read on to see the error or the end of the file.
->> +	 */
->> +	pos = elf_ex->e_phoff;
->> +	for (done = 0; done < size; done += rv) {
->> +		rv = kernel_read(elf_file, (char *)elf_phdata + done,
->> +				 size - done, &pos);
->> +		if (rv <= 0) {
->> +			kfree(elf_phdata);
->> +			return ERR_PTR(rv ? rv : -ENOEXEC);
->> +		}
->>  	}
-> 
-> This is a behavioral change mixed into the errno handling change to
-> support partial reads??
-
-Yes, I missed this point, thank you for pointing it out!
-
-Yes, previously in case we get a partial read we consider the exec failed
-with no other options and now (with the patch), we try to read again and
-the new read may succeed or whatever - yes, it's a behavioral change.
-
-My idea was: in case we get a partial read, we still don't know the
-reason - the error code (which will be returned only on the next read),
-so read once again, get that error code and return IT to the userspace.
-
-But definitely it's a more complex thing here and it should not go along
-with this patch. If we decide - I can create another patch for that,
-or we can just drop this hunk at all.
-
-
-> I could be convinced that errnos need to be fixed, but the rationale
-> here doesn't really make me think it's worth potential disruption to
-> userspace. I'd need a pretty comprehensive survey of what would change
-> there and then a clean patch that made zero other behavior changes...
-
-Understood, will try my best.
-I can create a v2 which will change only the errno, for two cases:
- - the kmalloc() of the table fails: -ENOMEM instead of -ENOEXEC;
- - kernel_read() returns an error: that error instead of -ENOEXEC.
-
-Short reads case keep -ENOEXEC.
-
-Sounds good?
-
---
-Cheers, Konstantin.
+Thanks,
