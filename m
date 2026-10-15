@@ -1,226 +1,110 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44664A4835;
-	Thu, 15 Oct 2026 09:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AF34DD3B7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055264; cv=none; b=lANvpV9LkYuY7sf5AIxbs6g6Xx2hU0VEgdzXSR0/4E2zyZpW+kIVHCu88xTpWu/NocRaN0p4RVuuizX10UNqlRf+408HYpLkaAnFyrei/KDqeDEHSVZxKyn9eFh6DVf5U1app7TqVva7fg/9TuG9tXFVuQ6GC1A9/pp+lNbRDZc=
+	t=1792055287; cv=none; b=LTI408xYcv2MI6Kim3lCtXzpDkoqGEclEgSUdbpW14d/eXqD02vtOkxaxeaXJXeHpqnIc5tzsUFFiUFxhYaDos7YAdk60lhRJqeQ6GL8o61SfHjOiksJjTa8FSRc0xJc55BVfrgJP47mnCgNhf4lVTeyx9hjtMYN2c4P5iQ1TN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055264; c=relaxed/simple;
-	bh=eZw9m0c/QAvRL5UXYsVixkm4FNoo5gHZ4L09f2+kZGg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QZxr4ZyDGhsb3EiedVXYaXl6PO4H2A3G9LNdKCZl9h5mma/T4ARd+MPph0fZbP8XWJTlHpnBozLYfLjccbG8dv7fl5EE8/WFfIjHWkKceOu6lxGLoeUyf0UdAA9kcSIffzrcJ5WdYgkck3GKj2VZUugos42EJcyaOGLYnNr5pfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ja1AfWLm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hZcuI2h0; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ja1AfWLm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hZcuI2h0; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792055287; c=relaxed/simple;
+	bh=UmmPnWITwwuejqvLNFKB87tCxE8Nz/bViqOo4tLzpFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SxQvhiy7ifHryfyClQIeIbw1JQwJkTIv8JDxcmBvQghWRPJRcg0h0xje+H/S9a0JC8+01mYhG2Lvd7tLs2ZezqjQ66uLuK5LRADioigsCbg8FkhP8oHfkIIPx1YBNIlKAvoDnd/DtfGl5oOt9AMMuaybWCFk8zSFVC7sKgfArW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pK4ofho4; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ja1AfWLm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hZcuI2h0";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ja1AfWLm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hZcuI2h0"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 63D5F1F7EF;
-	Thu, 15 Oct 2026 09:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792055257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lYMwZ+Fgmcnaf42YiU+5DZVFEVKAyChCqxQwFCkXZMo=;
-	b=Ja1AfWLmCAw6sP/MnQ1FgDzoR2WsFZf8BL1FoKMyQ7WmH+A3PnMtbFxXBG3+sfLYCboiYt
-	YpaoN5Mjc7CAhrQACR9lfypX1wkDdqYsa7gW0V+Pjx3JbIiFg51Al7SJ04XhCQYeaqHaOn
-	OLj4W66dHzQbHFLuNBd+bA5dQdyBTkk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792055257;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lYMwZ+Fgmcnaf42YiU+5DZVFEVKAyChCqxQwFCkXZMo=;
-	b=hZcuI2h02cm67XfwdUnfUAdodQahH2sPmTVf4zw63yTjO/yHa5+edMPcl0PJALdIHfqif+
-	fM31BmklQK1ytJBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Ja1AfWLm;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hZcuI2h0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792055257; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lYMwZ+Fgmcnaf42YiU+5DZVFEVKAyChCqxQwFCkXZMo=;
-	b=Ja1AfWLmCAw6sP/MnQ1FgDzoR2WsFZf8BL1FoKMyQ7WmH+A3PnMtbFxXBG3+sfLYCboiYt
-	YpaoN5Mjc7CAhrQACR9lfypX1wkDdqYsa7gW0V+Pjx3JbIiFg51Al7SJ04XhCQYeaqHaOn
-	OLj4W66dHzQbHFLuNBd+bA5dQdyBTkk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792055257;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lYMwZ+Fgmcnaf42YiU+5DZVFEVKAyChCqxQwFCkXZMo=;
-	b=hZcuI2h02cm67XfwdUnfUAdodQahH2sPmTVf4zw63yTjO/yHa5+edMPcl0PJALdIHfqif+
-	fM31BmklQK1ytJBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0AB7132C9;
-	Thu, 15 Oct 2026 09:07:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id f2L6G9iX0Gr4OAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 15 Oct 2026 09:07:36 +0000
-Message-ID: <b8b52ffd-ecec-4fba-b432-ba32135c2f99@suse.de>
-Date: Thu, 15 Oct 2026 11:07:35 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pK4ofho4"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49e73611928so43878655e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792055282; x=1792660082; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dWuTpLIpZhuW1BW/fT7Wvm1TL1EsBWcKdEk29mnqjRw=;
+        b=pK4ofho46P4msiRi/9IXCc+n/FoTtM8TupKGpNUsJRhOc/Y4ApHZJZqewVyOeN+m70
+         z8bTsxCsrygkDMKS3UY9LTdxI1CgTfY0yu6ytUcQ3XXMVVvex0CjGYCEGZ6mjptryW8t
+         aJznWkifTpiS/OV68duMk/AeYLOw25+woyyhE+lr6jHr6yP3gRLc+O5QXUmkBTUctwHi
+         nhUmG0uGI0mxWjeOgMlW9G1OKpvKBwvNbFG2v1pJ/wFBYd7XMhqMP9K2GvOgb4md/xwJ
+         KdsFsXTRD6n2BsDv9X88eJoHUKvMdmLJ9cosKZza+ovfaRuUIAREyMTRnaC68i4oGowR
+         hT0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792055282; x=1792660082;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dWuTpLIpZhuW1BW/fT7Wvm1TL1EsBWcKdEk29mnqjRw=;
+        b=uILAVUEeVqd10Coh2/De2mYLF/xognGiNWYeOBfH7l0Hj2OnJTJY4JNG7bQ/IFgq7F
+         vHR/8IqERasjJL+Jh/BYxT4otU/5dvMS8BLAcyklWGF4pqBGbkwA79xTW2vQi0JqQLMb
+         W7Tr09MKEZE9kNjj9Wk4u6LWAIYZVbbs1nL/bVvIRGXInzADju+9SfiMp6gRhP3M6/xE
+         p93vPe9WiP8uQ3zwoUVlTzLb+XY+jO39xsMUeiP81yrmDgq0xk//oJmgdGJfuB58o6NE
+         284pgaQQIYWoz0ORvxgo6sUXkFXKrsyfBGzphDFmhfhKY/ZTncQtSNDA8GY5XrlA4aVm
+         CgGg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8SW38cLMbQ61HM0ObQRscM+8VsAz050N3SNRJV6R7iedCgZjFq7I9eCQvE+hh9YYx53B+Tg3nCLiOp3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo7g4evrS0RqOSUIlKvyKo+ZQCaDXmZAhjECN5gWL3xRszB7Vx
+	wCksrAQib33LxPenzU4nJJtwSZbw+oY5QTa6xJ9fe7RAgq1qN/JTlyJk
+X-Gm-Gg: AYBFou31k/Rn/y7yEXEJRxrSZ9v3hVHyCJp2W4UD5nhPWZeNol2sV7gUhvXL9cAzxyh
+	GSZ2/XT6EtL6QA5j7m7b4TBkGldkYqD8Bc0rWBIQMSrveSZwxXQR5ZH5EVT0+cYOmw8SEVcgsWI
+	Rm1L28HxWOs1n2caKD/PQBT9iGr2qdAuZAQPoiMJSqZ31H+tkA3bV56bjeRh3kK0/V+Ms5Efenz
+	8bBNh6jZprvx2jlEM0defaS83UfNjP4k3x30W7Fc3pb6Yoc5y5SKoUh0WtjPeO+YGNSwze8kGNU
+	4L8SUf6k+cW4IrfbCuDMpQ86qWIv+xVarV8V9yFYPjtiaJIBeeVvVvT6LKtheD9auYgEjEDGddO
+	LMRwdCA64wHjKHnmFcZpqhtv+cFZr5alP+dS0jd6hpDt4c6+d3F05nBCkcIVWdFmUZkkJHHNWfM
+	hh1JVzzRWbmgufQSwqYauU620TjXbfZdkcA96lYLQkyCieqoDsgh0mSgItkN7K9zjJEom6rdbY5
+	ABI4054dzsDJ9n6yOn9/WMow/q9Lc/VcDfeweadlPGAyyOjtyICDowywW3xUpAVCTJVKIxYN4Kn
+	cWvA8SK8WaspGB+SFAC+syoGF/nlA5O/VEv0miYnNXLk2/w5zcZv0QEqWD2NawzeN0W89rReE42
+	8bCLn9IDCm+rzrWyjNgatTYKZVXiztNSIbOjBFwo52xgv+YG8G/6wHt+2ZYCK0Syqv34k0+IvVJ
+	NVYbaLtw==
+X-Received: by 2002:a05:600c:16ca:b0:4a1:877b:d4e0 with SMTP id 5b1f17b1804b1-4a18dcc911fmr255389955e9.12.1792055281754;
+        Thu, 15 Oct 2026 02:08:01 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm17292841f8f.43.2026.10.15.02.08.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 02:08:01 -0700 (PDT)
+Date: Thu, 15 Oct 2026 11:07:58 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Viral Patel <viral8854@gmail.com>
+Cc: Dixit Parmar <dixitparmar19@gmail.com>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: magnetometer: tlv493d: fix magnetic field scale
+Message-ID: <20261015110758.00002539@gmail.com>
+In-Reply-To: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
+References: <20261014-tlv493d-scale-fix-v1-1-69a722176c06@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fbdev: Add bounds checking in bit_putcs to fix
- vmalloc-out-of-bounds
-To: Helge Deller <deller@gmx.de>,
- Albin Babu Varghese <albinbabuvarghese20@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: syzbot+48b0652a95834717f190@syzkaller.appspotmail.com,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20251003073210.48501-1-albinbabuvarghese20@gmail.com>
- <b4af6e84-6555-4629-8291-fc4c2c99390b@gmx.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <b4af6e84-6555-4629-8291-fc4c2c99390b@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 63D5F1F7EF
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmx.de,gmail.com,ffwll.ch];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[48b0652a95834717f190];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,appspotmail.com:email,suse.de:dkim,gmx.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,syzkaller.appspot.com:url]
-X-Spam-Flag: NO
-X-Spam-Score: -3.00
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi
+On Wed, 14 Oct 2026 23:07:36 +0530
+Viral Patel <viral8854@gmail.com> wrote:
 
-Am 04.10.25 um 02:43 schrieb Helge Deller:
-> On 10/3/25 09:32, Albin Babu Varghese wrote:
->> Add bounds checking to prevent writes past framebuffer boundaries when
->> rendering text near screen edges. Return early if the Y position is 
->> off-screen
->> and clip image height to screen boundary. Break from the rendering 
->> loop if the
->> X position is off-screen. When clipping image width to fit the 
->> screen, update
->> the character count to match the clipped width to prevent buffer size
->> mismatches.
->>
->> Without the character count update, bit_putcs_aligned and 
->> bit_putcs_unaligned
->> receive mismatched parameters where the buffer is allocated for the 
->> clipped
->> width but cnt reflects the original larger count, causing 
->> out-of-bounds writes.
->>
->> Reported-by: syzbot+48b0652a95834717f190@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=48b0652a95834717f190
->> Suggested-by: Helge Deller <deller@gmx.de>
->> Tested-by: syzbot+48b0652a95834717f190@syzkaller.appspotmail.com
->> Signed-off-by: Albin Babu Varghese <albinbabuvarghese20@gmail.com>
->> ---
->> Changes in v2:
->> - Partially render when height exceeding screen boundaries instead of 
->> skipping
->> - Update character count when width is clipped to prevent buffer 
->> mismatch
->>
->> Link to v1:
->> https://lore.kernel.org/all/20250927075010.119671-1-albinbabuvarghese20@gmail.com/ 
->>
->> ---
->>   drivers/video/fbdev/core/bitblit.c | 20 ++++++++++++++++++++
->>   1 file changed, 20 insertions(+)
->
-> applied.
+> The TLV493D-A1B6 datasheet specifies a magnetic resolution of
+> 98 uT/LSB (0.098 mT/LSB). IIO reports magnetic field in Gauss
+> (1 mT = 10 G), so the scale should be 0.98 G/LSB.
+> 
+> The driver currently reports 98/1000 = 0.098 G/LSB, which
+> under-reports the magnetic field by a factor of 10. The comment
+> also gives the resolution as 0.0098 mT (9.8 uT), mixing up units.
+> 
+> Correct the scale value and the comment.
+> 
+> Fixes: 106511d280c7 ("iio: magnetometer: add support for Infineon TLV493D 3D Magentic sensor")
+> Signed-off-by: Viral Patel <viral8854@gmail.com>
+> ---
 
-This patch mangles fbcon output on fbdev HW drivers. It's reproducible 
-on matroxfb and sisfb. Reverting the change restores these driver's 
-functionality.
+Good find.
 
-Fbcon from within DRM's fbdev emulation works.
-
-Best regards
-Thomas
-
-
->
-> Thanks!
-> Helge
->
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Kind regards,
+Joshua Crofts
