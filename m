@@ -1,225 +1,157 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F27033F8A6;
-	Thu, 15 Oct 2026 03:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E49D3E0C59
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033685; cv=none; b=G1cBktL3hCsZzRVVSx0V9f6V77S8rS50ma8JEx6zodrlXWcKkK9GvVH8nyN+OISD0y9meyQuW9iXKf2LJeYWyBngANggZeG7uH15NcBSwWS2VKQcY95uUSMVka7giLAywxW5C052A0DCv/EZqmsUq8rG7e1E6CckaCh7QBRHMQ8=
+	t=1792033698; cv=none; b=AUM0WB/LPFxEFyTKD0Ud3voUst9YLi7/JLki//cVBqCDUbAky2cw5/smT4WOILr6b8Kfa3m+cSTz6U669bi49+N5ugUNSCDqeaT3SYM95pjozr+bVBp55yQpU5XYHv5MnNK6yTHTuItDSKdqaKMaDtC6y/cEtFk2lU69AZP0/qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792033685; c=relaxed/simple;
-	bh=Gr8bvZjonjpuKPPLEESkDDRjyQuYoWcxa67/eUFrMGA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dXOgH46uAihOycJC6MsQw32Swjis2qCaaq9cW1xvGyigIzcbi3tP5hWUdYysOiUQVKOv6+dbaIpjSzixbvMSQ4wE2eIqtV0E6TAMLZMEy20JuZS8Aqc4fpH8X76sVwweltC5JuQIPNb5itqHKQJnSaACPVghURo7feXSK+3F8ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Ae6k0kcf; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792033698; c=relaxed/simple;
+	bh=1TlJxRh8RdYotvgR2AMuiX7apQgW6YJvRr7xE4/eEBY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iMCZPlrkHWYq6SIdPRz88NRu7OnbA3xquE6e48B+pvMhF0WowDIzDbfQKjSNENdHERVgMADCO6jv16lSgj+A9k49fUljeXsKDfaBeNP1GoI9bnj0Dl+5fMud4v/pZYTAwOosVJDs3QMidK/NHF48hUHmS+LpKfAk+AdbUTySW74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcHxaGhj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Ae6k0kcf"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792033678; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=X7/2qcsTlbXyBMa1huct+zwum1m1Lw9DoZkGyhEg03E=;
-	b=Ae6k0kcfUAan55LkwKeZOCdBd19p1d+HI1/ebYj06f+2JQ3JwXSRBnQNPZMjgXtEGXc+2KRVdU93Zgb/xQV7JODPkThiZU2wp6jH8RY43K2WEHpHXvJnu6FD6FIr3H634zbCdgUpXPewFuDpAS9QqD1KaeHAt2vmrkH/jitnVXg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R331e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCqJIKb_1792033677;
-Received: from 30.221.144.234(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCqJIKb_1792033677 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 11:07:58 +0800
-Message-ID: <99dbb221-394b-4431-b8c3-9a6350b7d006@linux.alibaba.com>
-Date: Thu, 15 Oct 2026 11:07:56 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcHxaGhj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D21A1F000C8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792033697;
+	bh=SfjT8DL/Dv2LApscBO6xU+3PTsbFZ4cSEcwNALvRMr8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fcHxaGhjtuMUc1GxzM/2dyMibXfxRL8Z/3zDHXRZo5jDoC/+esAnHcl9TWOIaz/r7
+	 +2k4GEDZOUMfgSgVgStOeyxwM9pmske2+nfoO7Eky8x1tIVaJFhZYFZueLt9SoD6fg
+	 N1YFn0/SQYg5OCmDPwN2Db558/icD9XlKJKLPX2lnlzCfeIf5WAs9Co7TgvPS6hHUS
+	 nC4T42ep7UdLmdItg/FpQSMSmHP9Svy4pKa5WJWSRoxzQqFLldqA1HnX/ormWcI43v
+	 yp5TWkaiufOSUwGt7Kq+ltGwtkSbbBcCAAb/97+WRLKCqd/y8/8D6v/vUu4SYpT7f7
+	 U0adJTUaO96GA==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso7201793a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:08:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwbXPA0cKEu/lZFeRFw0/DKgsmXIH9IsQOl4R4MnwgknaPyGZjpU/QwTcsIggdq5mj9FNefdb0Z6nmEzLQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNa47v5CuRGoJPdSnfYM3gVRewZOG0h1RVe00Llm6AO3jcGgh1
+	rxH78jssFlJgAq5WfRFsItMiFoCCOKJlsoRgEn22WNsi9HBO24aOFe/BlM+3/48H6YOA0xiA/Oj
+	Nt9ipgG/58GzwS+ij+wl293DCAHHgM18=
+X-Received: by 2002:a05:6402:4056:10b0:6b1:e034:7e88 with SMTP id
+ 4fb4d7f45d1cf-6b1e03482c2mr5454411a12.17.1792033695707; Wed, 14 Oct 2026
+ 20:08:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: dlmfs: Hold l_lock through the unlock wakeup
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, kurt.hackel@oracle.com,
- heming.zhao@suse.com, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261014052933.723303-1-cui.tao@linux.dev> <20261014052933.723303-4-cui.tao@linux.dev>
+ <CAAhV-H5SDKsifd1GwMLU_YMny8PqwHdyuvujrAiuvkALoi3+8A@mail.gmail.com> <4c6f8e4a-93c9-4ba7-b66b-b294ffd70bf9@linux.dev>
+In-Reply-To: <4c6f8e4a-93c9-4ba7-b66b-b294ffd70bf9@linux.dev>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 15 Oct 2026 11:08:04 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6pWaMguJYLaFTobW_XP10h_C243YeLnnbd24qjbYV5TA@mail.gmail.com>
+X-Gm-Features: AclHuK-KJSed2cijEAX7OSiLO1HgwjY17-zsTh-CCoBr53iyxwCNWrskbTl0ThQ
+Message-ID: <CAAhV-H6pWaMguJYLaFTobW_XP10h_C243YeLnnbd24qjbYV5TA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
+To: Tao Cui <cui.tao@linux.dev>
+Cc: maobibo@loongson.cn, gaosong@loongson.cn, zhaotianrui@loongson.cn, 
+	loongarch@lists.linux.dev, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@xen0n.name, nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-+ akpm
+On Wed, Oct 14, 2026 at 4:37=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wrote:
+>
+> Hi, Huacai
+>
+> =E5=9C=A8 2026/10/14 15:37, Huacai Chen =E5=86=99=E9=81=93:
+> > Hi, Tao,
+> >
+> > On Wed, Oct 14, 2026 at 1:30=E2=80=AFPM Tao Cui <cui.tao@linux.dev> wro=
+te:
+> >>
+> >> From: Tao Cui <cuitao@kylinos.cn>
+> >>
+> >> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
+> >> invocation: every call overwrites pch_pic_base and registers the same
+> >> kvm_io_device on the MMIO bus at the new address, while
+> >> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeate=
+d
+> >> init, MMIO to the stale ranges computes its register offset against th=
+e
+> >> new base and silently reads 0 / drops writes, and the leftover bus
+> >> entries persist until the VM is destroyed.
+> >>
+> >> Reject repeated initialization with -EEXIST, using the initialized
+> >> state of the kvm_io_device as the indicator.  The MMIO base is only
+> >> committed after a successful bus registration, and the real
+> >> registration error is propagated instead of being replaced with
+> >> -EFAULT.
+> >>
+> >> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and wr=
+ite functions")
+> >> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> >> ---
+> >>  arch/loongarch/kvm/intc/pch_pic.c | 12 +++++++++---
+> >>  1 file changed, 9 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/in=
+tc/pch_pic.c
+> >> index 51e4a6a39dc0..7979466de729 100644
+> >> --- a/arch/loongarch/kvm/intc/pch_pic.c
+> >> +++ b/arch/loongarch/kvm/intc/pch_pic.c
+> >> @@ -281,16 +281,22 @@ static int kvm_pch_pic_init(struct kvm_device *d=
+ev, u64 addr)
+> >>         struct kvm_io_device *device;
+> >>         struct loongarch_pch_pic *s =3D dev->kvm->arch.pch_pic;
+> >>
+> >> -       s->pch_pic_base =3D addr;
+> >>         device =3D &s->device;
+> >> +       mutex_lock(&kvm->slots_lock);
+> > Why move the mutex_lock()?
+> >
+>
+> Thanks for the question.
+>
+> The intent is to keep the repeated-init check mutual-excluded with the
+> bus registration.  The set_attr ioctl path holds no other lock, so with
+> the check outside slots_lock, two concurrent CTRL_INIT calls could both
+> see device.ops =3D=3D NULL and both register the same device on the MMIO
+> bus.  Holding the lock across the check, the registration and the base
+> commit makes them exclusive.
+>
+> That said, if you prefer the check before the lock, I can respin --
+> please let me know.
+OK, moving the lock is reasonable, but I don't think updating
+pch_pic_base conditionally is necessary. So just move it before
+kvm_iodevice_init() is fine.
 
-On 10/15/26 10:22 AM, Cen Zhang wrote:
-> The user_lock_res embedded in a DLMFS inode must remain alive until the
-> final unlock AST finishes accessing it. user_unlock_ast() clears
-> USER_LOCK_BUSY under l_lock, but releases that lock before calling
-> wake_up() on the embedded l_event. user_dlm_destroy_lock() waits only
-> for BUSY to clear, so it can return before the callback's last access.
-> 
-> With the native userspace stack, fs/dlm dispatches the unlock AST
-> asynchronously. Unlinking an attached lock with no remaining local
-> holders can therefore reach the following order while the parent domain
-> stays mounted:
-> 
->   Unlink and inode release          Native unlock AST
->   ------------------------          -----------------
->   submit final unlock
->   prepare_to_wait_event(): enqueue
->                                     clear BUSY under l_lock
->                                     release l_lock
->                                     delay before wake_up()
->   test BUSY: already clear
->   finish_wait(): remove waiter
->   return from the destroy wait
->   unlink and evict the child
->   RCU callback frees the inode
->                                     wake_up(&lockres->l_event)
-> 
-> The queued waiter can observe BUSY already cleared, leave the wait loop
-> and run finish_wait() without waiting for the AST's wake_up(). The
-> callback holds no inode reference, and keeping the parent domain alive
-> avoids disconnect draining the callback workqueue. The delayed wakeup
-> then accesses freed inode storage, causing a use-after-free in
-> waitqueue locking.
-> 
-> Keep l_lock held through wake_up(), as ocfs2_unlock_ast() already does.
-> user_check_wait_flag() takes the same lock, so teardown cannot observe
-> the cleared BUSY flag until the wakeup has finished. The callback and
-> its wrappers do not access the lock resource after this final unlock.
-> The waitqueue lock is released before wait_event() tests BUSY, so
-> extending the critical section does not invert their lock order.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3d/0x60
->     Read of size 1 at addr ffff888117dc93c0 by task kworker/u17:0/871
-> 
->     CPU: 2 UID: 0 PID: 871 Comm: kworker/u17:0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Workqueue: dlm_callback dlm_callback_work
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      kasan_report+0xe0/0x110
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      __kasan_check_byte+0x36/0x50
->      lock_acquire+0x113/0x300
->      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
->      ? pmbd_probe_hit_cookie+0xee/0x1c0
->      _raw_spin_lock_irqsave+0x3d/0x60
->      ? __wake_up_common_lock+0x27/0xb0
->      __wake_up_common_lock+0x27/0xb0
->      user_unlock_ast+0x21a/0x490
->      ? __pfx_user_unlock_ast+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? process_one_work+0x7c8/0x1b40
->      fsdlm_lock_ast_wrapper+0xf2/0x130
->      dlm_do_callback+0x2e9/0x6c0
->      ? __pfx_fsdlm_lock_ast_wrapper+0x10/0x10
->      process_one_work+0x9a8/0x1b40
->      ? __pfx_process_one_work+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? lock_is_held_type+0x8f/0x100
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      worker_thread+0x65c/0xe40
->      ? __pfx_worker_thread+0x10/0x10
->      kthread+0x351/0x460
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork+0x659/0x940
->      ? __pfx_ret_from_fork+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __switch_to+0x74f/0xf70
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork_asm+0x1a/0x30
->      </TASK>
-> 
->     Allocated by task 492:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_slab_alloc+0x89/0x90
->      kmem_cache_alloc_lru_noprof+0x205/0x5c0
->      dlmfs_alloc_inode+0x2a/0x50
->      alloc_inode+0x69/0x230
->      new_inode+0x23/0x1a0
->      dlmfs_get_inode+0x47/0x2d0
->      dlmfs_create+0x18f/0x2f0
->      lookup_open+0x88f/0x13e0
->      path_openat+0x95e/0x2020
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 0:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kmem_cache_free+0x242/0x580
->      dlmfs_free_inode+0x25/0x60
->      i_callback+0x4b/0x80
->      rcu_core+0x6be/0x1ed0
->      handle_softirqs+0x1fa/0x8d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
-> 
->     Last potentially related work creation:
->      kasan_save_stack+0x33/0x60
->      kasan_record_aux_stack+0xa7/0xc0
->      __call_rcu_common.constprop.0+0x80/0x280
->      destroy_inode+0x131/0x1b0
->      evict+0x543/0x9f0
->      iput+0x680/0xb80
->      filename_unlinkat+0x36d/0x660
->      __x64_sys_unlinkat+0xb0/0x110
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888117dc92c0
->      which belongs to the cache dlmfs_inode_cache of size 1464
->     The buggy address is located 256 bytes inside of
->      freed 1464-byte region [ffff888117dc92c0, ffff888117dc9878)
-> 
-> [Physical-page and shadow-memory dumps omitted.]
-> 
-> Fixes: 8df08c89c668 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: <stable@vger.kernel.org>
-> Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
-> ---
-> Changes in v2:
-> - Clarify the queued-waiter interleaving through finish_wait() before the
->   unlock AST wakeup.
-> - Correct Fixes to the original dlmfs introduction.
-> - Add Joseph Qi's Reviewed-by; keep the code change unchanged.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0055-v4-c1574edc9949e3a22edf@gmail.com
-> 
-> diff --git a/fs/ocfs2/dlmfs/userdlm.c b/fs/ocfs2/dlmfs/userdlm.c
-> index 617c92e7b925..60653db7b411 100644
-> --- a/fs/ocfs2/dlmfs/userdlm.c
-> +++ b/fs/ocfs2/dlmfs/userdlm.c
-> @@ -253,9 +253,9 @@ static void user_unlock_ast(struct ocfs2_dlm_lksb *lksb, int status)
->  
->  	lockres->l_flags &= ~USER_LOCK_BUSY;
->  out_noclear:
-> -	spin_unlock(&lockres->l_lock);
-> -
-> +	/* Complete the wakeup before a BUSY waiter can free lockres. */
->  	wake_up(&lockres->l_event);
-> +	spin_unlock(&lockres->l_lock);
->  }
->  
->  /*
+Huacai
 
+>
+> Thanks,
+> Tao
+>
+> > Huacai
+> >
+> >> +       if (s->device.ops) {
+> >> +               ret =3D -EEXIST;
+> >> +               goto out;
+> >> +       }
+> >>         /* init device by pch pic writing and reading ops */
+> >>         kvm_iodevice_init(device, &kvm_pch_pic_ops);
+> >> -       mutex_lock(&kvm->slots_lock);
+> >>         /* register pch pic device */
+> >>         ret =3D kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_P=
+IC_SIZE, device);
+> >> +       if (!ret)
+> >> +               s->pch_pic_base =3D addr;
+> >> +out:
+> >>         mutex_unlock(&kvm->slots_lock);
+> >>
+> >> -       return (ret < 0) ? -EFAULT : 0;
+> >> +       return ret;
+> >>  }
+> >>
+> >>  /* used by user space to get or set pch pic registers */
+> >> --
+> >> 2.43.0
+> >>
+>
