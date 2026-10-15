@@ -1,117 +1,132 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFE8283FD9
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E42B38DD3
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025606; cv=none; b=Hun+udRSl3j/WlUDcoJma1tyMNCy/RwhAy1gjTQayRgkCnCJeX7lB1DSxqbd7SpUfRXMko5ZC5xa1BQDJnyEFEtXvQ3kKdsj5REYNM3+JIZK7WpENscwTSUvmKpP0a/9ZS/2vb8GXcGYSgZ8HNhoFW6MqaD6kRUlxUunFi+ePsU=
+	t=1792025682; cv=none; b=hhoihpU0Q3QrWYhucsHXAEVtnmy9QQWoRabh/3NirJahH5vOacsdi2ImdwZUVxd6GN9cpwJDQbZMrBnbKD8lxnMm4ZAvdQuqQdTGXDQQ04mncDEmHrjU9QWxj45QsbEBaFUP28O/hOH6dri1jSYSAGBCRRUOGMxDCaO2v/26A2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025606; c=relaxed/simple;
-	bh=a8W4R8N2Yi0O8FvasCemaSpedschVfQtJkWTvtZgMGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bPWBchQhqGKEnSsBXnSxpFNQM+ze0erhP5YKI1IID5tfB017jJ2nG8VwHMdVofkJ9heszFH7F3sawYoRs1dacgXgp8LkRJ1hK3cVOM4YJ0Hcs93iIJUpyXQkepFwx9LSQe+4pn4youshfk71x50h3VhWYJyT3RGyrVoJ14ywQMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dh789iPk; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792025682; c=relaxed/simple;
+	bh=r247dczbk+8j7HVrazYqB4jq4GEyWT/BBF98AxWtuB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TEJcrUioOFRU3NGDIjnAveMPlMi6rvAas3LFgkmDqJqe42soyARryj4vkp/6fZecKmNdOlM8YV97J1BJGC7dQFe41m8v8lISHMupoDN0YMTiMIuxz467+Yze6I/0K7ckdjs67bvc9hF12qjwFj8F7aYkEBU0hpf0U0EruTvu+ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SE4RzuVO; arc=none smtp.client-ip=91.218.175.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dh789iPk"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df3912dd2so43690f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792025603; x=1792630403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IUyEEtX7OMRFle7IW+soIgHuWHTH1MKpFrWXShCimnU=;
-        b=Dh789iPkA2v+Kvbl6GvvN5bnswe05umOMJBKQw9ChdSusk8tV8F8WLTLFl7dpINoQt
-         V087YXfESZNYg7KgVF7azhekSLaaWFTuNXytKRBVXtVi414Ae6NNv2rJqvyK0Wo59L7+
-         z6koyzxMFH18hYgnP5N5az6N2V0jOUSPxz/1IDGr91B3qomFSePSJitQbUhfhf58LDSp
-         8i1ls2/EyAjb6oz5j7zmK18Gh7bnMKkOzbGlm6Fm0DpNrirjjWsPH3mxBRhi9jttJ4F3
-         OKc6jro/jhhmP8XUZSOyPDDYAeg3216zJE5ILrMHMJJz442zyuLDzx0fkG138yY46qwb
-         kZZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792025603; x=1792630403;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IUyEEtX7OMRFle7IW+soIgHuWHTH1MKpFrWXShCimnU=;
-        b=jS+78Az8I61V5eB21QmdDDAe7n8ucCfLhi2W2ct3Bj+vBCro7IynNtem75ZNT0msva
-         Et6RvvRDg1jCTcjr4Ll4LdEnxDmEayffKgWKWAFLkCL2UEcbNMzS5P6qFKzE84Hlr+cw
-         nbiBoeDrP9t+vlkVIkWgoguUayxxOEt7tBsIFBV3eUkjRtCH7B44ASQVLAawjMCes3uD
-         v3wmegPkZr+NBIIm2O+eZrbERWKC2tbnfhz+55bYe+Yb+0KdEjXydeCE3+TjwKR1CytJ
-         q100AYEbocaU0pPu/q5p1vfkD2ZuyAmpP1FpAaRyvgWPnOB5gYFGwpzLj/Puj8UUNLUg
-         QQEw==
-X-Forwarded-Encrypted: i=1; AKwUvBytapsl4w8YnLOBClcnfrtJmOl0kAIlY2T0cH/3jBxLMCzwVfVDdVxtpF0gsikGXwpn3ZhhixWUpKnPo/M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIdKW2HQ3/36isHEo5k+6WPxN3wmmAiJ9hCfC8txjU++bML1R4
-	nC477DjF2hqiePYxHZV5GqFnAA7XbRhEnxrkp2lj/On4mcPAB6OkFLNH
-X-Gm-Gg: AYBFou1Tp5ThlRabrZyuwweUlUobxQeFeY0e9uSs8lZWAxcem+LP7JDp0hYgNTZ8DNg
-	gVycOKQt45c2HPSDazu+KHRR5zTOHE7YBofpOShGc0MgO2jE1GsNo1/kznefTz5da99lKO7ZY9O
-	fhU3hSYxn9APYeuEjqetGizx9FGrPZxBCV50g/Aw80A9001u4H5/N0rfWbJ0tBu9+Iss5Ev9hYU
-	w+H0AHxiCNKnHcpdzg+y7zNNogkwub2e3ptPF38NVPZQERgwYx80vPsKczhpKlbooV2gmuBctMI
-	TFjav66U83pBDBMEW7sDvAJ2LU46E8IQJXNCMblZQyyIGrAGw65PhnHMPpgWzrNkVSb37Eopj3T
-	+HHFEzIXlb+du2qVTJ96G8A9TI/ScS57NFVXsq3rP6EnmVkcZAGsVxHlmrkezteboLnkoMHWpMY
-	RxFylqlIGf03CgJRIc+Ysm2mhronXC3uZK/r6WyEdPjixNwbwPRdnXVeHDM/YGqqNEZktN9B3EY
-	CjTgTf/am7X6d22WYk=
-X-Received: by 2002:a05:6000:4106:b0:48d:f14a:9186 with SMTP id ffacd0b85a97d-48df14a92e3mr3433584f8f.6.1792025602873;
-        Wed, 14 Oct 2026 17:53:22 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.9.157])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5262sm14895048f8f.22.2026.10.14.17.53.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 17:53:22 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	mchehab@kernel.org,
-	aleksandr.loktionov@intel.com,
-	bvanassche@acm.org,
-	tudor.ambarus@linaro.org,
-	emmaonana18@gmail.com
-Subject: Re: [PATCH] docs: kdoc: strip DOMAIN_NS() wrapper in function prototypes
-Date: Thu, 15 Oct 2026 01:53:14 +0100
-Message-ID: <20261015005314.7195-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014224714.16922-1-emmaonana18@gmail.com>
-References: <20261014224714.16922-1-emmaonana18@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SE4RzuVO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=r247dczbk+8j7HVrazYqB4jq4GEyWT/BBF98AxWtuB8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792025678; v=1; x=1792630478;
+ b=SE4RzuVOWBfqDbbWmdLh+Oxecw401ihk60GUM7rm7cXZyltp45UG3LSkJ3Ju3W8/aF6xrw9l
+ jEBYhbzYoACrrOHpXccNirXLrIsOQqOSazOQLXlrJu2mmiKwjT5CvutLfDA7ytOxK7vVwmWaJwD
+ uVSFpBAh+9MA8QRZqrwokSmE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 57c161504278a604;
+	Thu, 15 Oct 2026 00:54:37 +0000
+X-Mizu-Trace-ID: 57c161504278a604
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 15 Oct 2026 08:54:30 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Ahmed Abdelsalam <ahabdels@cisco.com>,
+	Stefano Salsano <stefano.salsano@uniroma2.it>,
+	andrea@common-net.org
+Subject: Re: [PATCH net-next 3/5] seg6: apply the PSP flavor together with
+ NEXT-C-SID in SRv6 End
+Message-ID: <atAkRpVssWDpyx9-@fedora>
+References: <20261011192310.55-1-andrea.mayer@uniroma2.it>
+ <20261011192310.55-4-andrea.mayer@uniroma2.it>
+ <asyXpWXMeKnPw9U6@fedora>
+ <20261015000052.7731f972b28eb12ab57dd93c@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015000052.7731f972b28eb12ab57dd93c@uniroma2.it>
 
-On Wed, 14 Oct 2026 11:22:02 -0600, Jonathan Corbet <corbet@lwn.net> wrote:
->> Neither of these patches applies to docs-next...what did you base them
->> on?
->
-> Hi Jon,
->
-> I had mistakenly based both patches on mainline rather than docs-next.
-> I have rebased both on top of docs-next and sent a v2 for each:
->
-> - docs: kdoc: handle TRACE_EVENT_FN() family in tracepoint parser:
->   https://lore.kernel.org/all/20261014223134.14772-1-emmaonana18@gmail.com/
->
-> - docs: kdoc: strip DOMAIN_NS() wrapper in function prototypes:
->   https://lore.kernel.org/all/20261014223437.16164-1-emmaonana18@gmail.com/
->
+On Thu, Oct 15, 2026 at 12:00:52AM +0200, Andrea Mayer wrote:
+> On Mon, 12 Oct 2026 16:17:41 +0800
+> Hangbin Liu <hangbin.liu@linux.dev> wrote:
+> 
+> > [snip]
+> > > +static bool seg6_flv8986_enabled(__u32 fops)
+> > > +{
+> > > +	return fops & SEG6_LOCAL_FLV8986_SUPP_OPS;
+> > > +}
+> > > +
+> > > +/* check whether the NEXT-C-SID processing has to be used for the packet,
+> > > + * instead of the RFC8986 flavors set for the given SRv6 End* behavior
+> > > + * instance.
+> > > + *
+> > > + * This function returns:
+> > > + *  - true, when the packet has to go through the NEXT-C-SID processing;
+> > > + *  - false, when NEXT-C-SID is not configured or the packet has to be
+> > > + *    processed on the basis of the RFC8986 flavors.
+> > > + */
+> > > +static bool seg6_use_next_csid(struct sk_buff *skb,
+> > > +			       const struct seg6_flavors_info *finfo)
+> > > +{
+> > > +	const struct in6_addr *addr;
+> > > +	__u32 fops = finfo->flv_ops;
+> > > +
+> > > +	if (!seg6_next_csid_enabled(fops))
+> > > +		return false;
+> > > +
+> > > +	addr = &ipv6_hdr(skb)->daddr;
+> > > +
+> > > +	/* NEXT-C-SID and the RFC8986 flavors combine according to the
+> > > +	 * DA.Argument (see RFC9800, sections 4.1.1 and 4.1.7):
+> > > +	 *
+> > > +	 *       DA.Argument   RFC8986 flavors   processing
+> > > +	 *   (1) != 0          any               NEXT-C-SID only, SL unchanged
+> > > +	 *   (2) == 0          none              the behavior, e.g. End
+> > > +	 *   (3) == 0          one or more       the behavior with its flavors,
+> > > +	 *                                       e.g. End with PSP
+> > > +	 *
+> > > +	 * In (2), the packet still goes through the NEXT-C-SID processing,
+> > > +	 * which runs the behavior (e.g. End) when the DA.Argument is zero.
+> > > +	 */
+> > > +	return !seg6_flv8986_enabled(fops) ||
+> > > +	       !seg6_next_csid_is_arg_zero(addr, finfo);
+> > 
+> > nit: based on the comment, maybe we can change the order to
+> > 
+> > 	return !seg6_next_csid_is_arg_zero(addr, finfo) ||
+> > 	       !seg6_flv8986_enabled(fops);
+> > 
+> > No need to change if there is no new version patch.
+> > 
+> > > +}
+> > 
+> > [snip]
+> 
+> Hi Hangbin,
+> 
+> thanks for the review and for the suggestion. I would prefer to keep
+> this order. The table in the comment is meant to describe the cases
+> rather than the order of the checks. Since testing the 32-bit flavor
+> mask can be cheaper than checking the DA.Argument, I just put the mask
+> test first.
+> 
+> Let me know if you see it differently.
 
-I just noticed another mistake on my part, because I prepared
-the two v2 patches on separate independent branches off docs-next, both
-patches add their regression test at the exact same location in
-tools/unittests/test_kdoc_parser.py (line 444). Applying them sequentially will
-cause a merge conflict
+Yes, putting the mask test first makes sense to me.
 
-I didn't realize that patches modifying the exact same context in a file
-should be stacked sequentially on a single branch as a patch series
-rather than developed on separate branches.
-
-Should I respin them as a 2-patch series against docs-next,
-or would you prefer to resolve when applying?
-
-Thanks,
-Omokefe
+Thanks
+Hangbin
