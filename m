@@ -1,80 +1,74 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE1B3D1AA4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7755341D4FE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074873; cv=none; b=pt44FY081vRCuDpXfCwz9aexIJu/mSAXkqOHISmvp/L0Nvip0bS/YMKVdvcGJuLPsNbTM8kAIGdU45C+PzgPGrMr3QLsdi+FAosRR4DvzDsLZ+PoOS1BUR/bPgZMHtVoarmwFdviY52pZzwNzFJEM1nGLBhlbE6BIxFbl5wQd7E=
+	t=1792074882; cv=none; b=sGxcjkmAUJsu5J9mhDJz1h1t+wNv9Eq3y8NdIyKAr0L5e0ect7EQcmAzyiNFMUtAo/Gd4Xei3m8iYSJRvsEIZxWl1471LSs5JgwDayACT8apqZl0TjOLWwpbWjMPNkSKAQ9zofpefkLtuGg8X7axm7Het3Gdd+ocyeSdOLYyAC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074873; c=relaxed/simple;
-	bh=CQ4xayDEoFvr1jT9OHWxpjAmKzgZYc3hdWOA8DdGpNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ux9XBNcJxfnw0FOx2Xj2s3HLp7sYPI3ZGE9F4fWUzY5T1Ge+RARelaEnr7dfzfoTj+SpsZPajt5RmWdgMepeJZ8NP1ViSDhAC8DFJPsvqYhH8XBWLzfCIXO2JpcOjhRfT9psZy3rnSqkC0nFj1zhrigzHUqcZTIHvik0vQ+uObY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UeWsgo6W; arc=none smtp.client-ip=74.125.229.5
+	s=arc-20240116; t=1792074882; c=relaxed/simple;
+	bh=MeLprhUAZMvvtaG2SQyYdpCUNDDVZn+Gy7G5TywqqHA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=He54KAFgD4mJKoUNwfJ4dXgxBOb8XdHbtAXu6J8m0Xq75dZmGdNl/cSeEitzJc3mI3LRDWG3JUy0uCjy1qPvx+UFha6eL3QKdg8Q9hQphSBtcezqCiTAu+d+IODv8CzYlx+frSNb5Li2IgimBZ//83XsCuWvgtX6vZ/hZDCMLDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RT7/VOLd; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UeWsgo6W"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35de2661992so984956eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:34:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RT7/VOLd"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e95bd1c14cso7887845ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:34:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792074871; x=1792679671; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792074880; x=1792679680; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8neBvXrJ3PxtaBrYkVCU0EsbaYcYW7zqj6dnSnPhyTE=;
-        b=UeWsgo6W8k3ihlyGUhMs/xIqPgvrEsbgmJjvEprAtB05UFaqyjeswMdWjZOoug+3YR
-         fFbf3v+UZDECbEn/SHBg3LCqWIDS1PVcDEy/30thn8bNiRENpP3o2jKzNoMRWg3U65kL
-         OpQs2FJzjnpEuZ0BhH1UFT2ymANbco05SjB3FsnBUJJtGK/WrzU2Wud4PrDlNqHs16wt
-         OJbnPSILL27mY358jus398kfBHj+HyqZ31AjjR0QJ9y1ykAkWiDsgmQGb1fwtTJi4eVI
-         cu8JkaKUxyDhsBtcPb53zpSboVxtUL9lHhrGFZbygcVF9idYNNKWNS96pKraC5ZY5clR
-         Yc6g==
+        bh=DwKCN+cdZZKyFrwaQPyGpZEBhl46V22LLAfT1wOQ0EY=;
+        b=RT7/VOLdqOmwHsYpvntbPzjo3dvLOKd5UFsrxmpF3KHg+1/EjLmXaeD+m7sDwKBcgm
+         vObubCQzA1iVDSIjIFSei4MPS0fjs0c990YLy5r7Gb30TYDXHmh2dQt9sFoLSRC1l5RW
+         pRwOtVi7D24b5hUwatqXLybb9TzVLUYV2FhKn2/5JQGPMPlrTErtYbZt5gbJ01AwevkH
+         QoLIkxxYwophsP0fr1xNHHv3iR6WwB1FvfWAv8YS5TxLkt85fs3n2LVSDeM5CNNy/XFj
+         2riJwx7Z2ZpD8lZggYCYTnZb0p8/7ytrMRUbXItEINVAfYJghOFFBmJA88kdOG2kBoEh
+         vWgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792074871; x=1792679671;
+        d=1e100.net; s=20260707; t=1792074880; x=1792679680;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8neBvXrJ3PxtaBrYkVCU0EsbaYcYW7zqj6dnSnPhyTE=;
-        b=HUt1+JydmGiG+L988pC0zZ/gCCpQdWyjVstNScqQR0ayiygkAN+Ahuz3h3EF+Gn5kp
-         TESmrejs7bdQi4gCZkb8qUXY0Nppn7fYLA90mmzXsn7jp76gWR0PYxQgM4lvUrh+d2dC
-         IJ+GkCr0IP8hB6l8IiODap8+2w1NKAkris9Qxk8gwf+63us9wPFMX0B0VQem+NTPjH87
-         OJNpckn1rrvCmQytvD8zhmmKcP4Bm4e+rnLpqTq7WkJgDZ/nKjIgTv/ud8iltqMkTDPE
-         Xp1NrzhQkKCpeKLBxZid4tLUAV/1g9sUaIq6o2SJjlKSZcC2YVcn+G8of02OjHM7VvFL
-         CktA==
-X-Gm-Message-State: AFq9FYK2lumnCqgdsqXtyQaEYinGfgH+kTeithFuweY8zJyABRu5JP//
-	xklXer9H/j9gLZvXyoMT8NM/JGEWIj/nvdOPHuWiDIDtkQiLrBL20F3DHxuXh4UgKLiM/8dU
-X-Gm-Gg: AYBFou2zYssqjzOO5hyta9Zenr02UrrTgrCkbIwBMUdYb4I9O9Mz+6i4RvQIeM9PMr1
-	LPXmbTQKs2TKprqRTJAsY1D4h3wu167z4LPg+nQnwWEghUv0hpd9gjQPhxMINh1i+LqerVBNcAa
-	igJit3f1PLA91I7SJ5/UV2tO3t63xGVSChkQSy3VE0xd7W3Kc01vMVgsZKXRX739M7dnA5YwUQw
-	TjdHPCYB4JRsjHK5C6GPLnHZVbiqsXhefdI0q9gJv2dK1+qNFHue4IPCPcUHdJT6/i32Kv72lNl
-	BL27bnxb9cRH1tHPxoa8dyk/su0s58uzPc/FzbHi4JLyealFSsv4JzOi9e/pJU32bZNMLWNWlGK
-	3iqJX50Pc7ct70ptUX42P8FC21EF4zmuR/U0wlcfFFEnGI+uXxmsr5sWbi8dNdgNNA7CWXNzF+a
-	mPKQuywwxE/u679aRBl4XN37ospjCA6gFB/fQ1YGqDrDM1FMCWH/+OAqzHh2qC0KuVawGazbXEs
-	VjgDpi4m0yRCnsx8GMNIIOL55TYsssAPBiY4KEBlucEVH/HyADnbWZkdJ9Vi3gv+MagerFAOP+v
-	23XSwapg1QVOcdX33+ucxU715RnRwgVKUA==
-X-Received: by 2002:a05:7301:1a05:b0:358:eccb:af7c with SMTP id 5a478bee46e88-358eccbc89dmr21550282eec.33.1792074871413;
-        Thu, 15 Oct 2026 07:34:31 -0700 (PDT)
-Received: from localhost (ec2-18-163-127-16.ap-east-1.compute.amazonaws.com. [18.163.127.16])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca6d202sm61569751eec.13.2026.10.15.07.34.30
+        bh=DwKCN+cdZZKyFrwaQPyGpZEBhl46V22LLAfT1wOQ0EY=;
+        b=JpBHvITS2G5nkyvO9dh5Qx9eV9fhxOnUhaQwustLlssdjtnBbvR+G5bmUpP5PRwTSN
+         ovWkAPff9+CyfvKIrfkZNc8nJNbPZKRkLpbYz1ab4KXlIBP7XdZQyhwFj5hJj4Ub/W7A
+         B9AOdDKSbEbzw4vpKlCtTsGIKHY6y2tMre8atfSAq4JDvIS9cBNBZ8t3FoxYtrk6v0Gd
+         hs7MhePfaQV25Stl1g14jOGbKm3Sahz/SiwLKgJOkxH3cVKfwn24fwH2WAvfpbSM0Z8E
+         IefkCWpTUeMHx5TsV5pmC5avfuui9vHKzYeeWbJZ5bYsOcLjZNsXDziyCZh6uZ2oktLj
+         7rIw==
+X-Forwarded-Encrypted: i=1; AKwUvBzM2Ynpv75Z+wldcqIo+TXkjJHm6pfrp92+DaLM7VnuMC/5ysh1u6AnkJbx8PWqsOq3+DOJWmIXtxnmni8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGArOB8XPH1VoPGMVeHLHRslVui45WZ+jNm0SstVJRHQam6DLD
+	rpEdcPeWE1WCyC8sLXQy8lm//EZSWwqdD7wWlZ5kHQDFzIWGoKIW9uVj
+X-Gm-Gg: AYBFou1c+oeht1o4GFN7K3XkxoDJjnKVQ/spXQyqxOmAoG005VS/DbcL9sCGtYqD9v2
+	lNRcfznw70kQ4BvonmftdRXwe7PDyojmMaoSahuw3t2QUKoG5Z8Cwz2dasOQBITK5fYVkFLZABF
+	Xklu2vsNP1xzSIKH4Ay/PyUPrSu0C7FAPxB4ForplZE7FGVzBLprZPxmZKcoCjZUhKGASAPBRE4
+	jwIR292zfL9tqsiVrEvgZFLDBmm9u76WQf3FEIdWfw1Eiuk5H4DIUknGi3fNOvOIu9EbqjjFVjA
+	jfW/I5lBxZ/aGnmaeOXBeLNylx0JDu9PLgG8Gao37aU2WfrsMZGcxO4Snx3SpEyxWH4loHxVNYs
+	Wj+P0Mffn/cOjsSt8AIQdm/bJlZouOVuR8whb+HK5NkFjY/WQzfluEeQj5Z1n/62TnI4BqMzZM0
+	43r6dPSRKK7qk7k/qp5U0wnTckj4E1X7NYHvHxlvqiZcs4O/bSUX/leuR9PCoWQoFhngZePH5P
+X-Received: by 2002:a17:902:ec8d:b0:2e8:3cab:3af1 with SMTP id d9443c01a7336-2e842cfbc69mr174591995ad.23.1792074879630;
+        Thu, 15 Oct 2026 07:34:39 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16c8::245:c9])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8484c1641sm79933765ad.15.2026.10.15.07.34.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:34:31 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
-	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
-Subject: [PATCH v3] dax: fix wrong error code returned from dax_dedupe_file_range_compare()
-Date: Thu, 15 Oct 2026 22:34:25 +0800
-Message-Id: <20261015143426.17620-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 15 Oct 2026 07:34:38 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Harald Brinkmann <hbrinkmann@braincalibration.de>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: saitek: don't dereference a NULL hidinput in saitek_event()
+Date: Thu, 15 Oct 2026 21:34:33 +0700
+Message-ID: <20261015143433.129525-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,45 +77,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+hid_process_event() calls the driver's ->event() for every usage of a
+report, including fields that hidinput did not map to any input device,
+e.g. a constant input item. For those fields field->hidinput is NULL,
+and saitek_event() loads field->hidinput->input unconditionally:
 
-When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-positive return value from iomap_iter() indicating more iterations remain.
-This positive value leaks to the caller, where vfs_dedupe_file_range()
-interprets it as success (bytes_deduped = len), causing userspace to
-incorrectly believe deduplication completed.
+  KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
+  RIP: 0010:saitek_event+0x51/0x2b0 drivers/hid/hid-saitek.c:154
+   hid_process_event drivers/hid/hid-core.c:1572
+   hid_report_raw_event drivers/hid/hid-core.c:2109
+   hid_input_report drivers/hid/hid-core.c:2180
+   hid_irq_in drivers/hid/usbhid/hid-core.c
 
-Return 'status' instead to propagate the actual error code.
+A device that claims to be a Saitek MMO7 and uses such a descriptor
+triggers it with a single input report.
 
-Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
+Bail out early when the field has no input device, as the other HID
+drivers implementing ->event() already do.
+
+Fixes: 37c492c8f6a9 ("HID: quirk for Saitek RAT7 and MMO7 mices' mode button")
+Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
 Cc: stable@vger.kernel.org
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
-Changes in v3:
-- Fix the Fixes tag to point to the commit that actually introduced
-  the bug (0e79e3736d54), not the one that renamed the variable
-- Add Reviewed-by from Darrick J. Wong
+ drivers/hid/hid-saitek.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Link: https://lore.kernel.org/lkml/20261012144925.6728-1-jianyungao89@gmail.com/ # v2
- fs/dax.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/dax.c b/fs/dax.c
-index 6ba50142eeb2..1f6a4fbb97bd 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
- 		status = dax_range_compare_iter(&src_iter, &dst_iter,
- 				min(src_iter.len, dst_iter.len), same);
- 		if (status < 0)
--			return ret;
-+			return status;
- 		src_iter.status = dst_iter.status = status;
- 	}
- 	return ret;
+diff --git a/drivers/hid/hid-saitek.c b/drivers/hid/hid-saitek.c
+index 6fe7c087c594..2a9e07a4fc77 100644
+--- a/drivers/hid/hid-saitek.c
++++ b/drivers/hid/hid-saitek.c
+@@ -151,7 +151,12 @@ static int saitek_event(struct hid_device *hdev, struct hid_field *field,
+ 		struct hid_usage *usage, __s32 value)
+ {
+ 	struct saitek_sc *ssc = hid_get_drvdata(hdev);
+-	struct input_dev *input = field->hidinput->input;
++	struct input_dev *input;
++
++	if (!field->hidinput)
++		return 0;
++
++	input = field->hidinput->input;
+ 
+ 	if (usage->type == EV_KEY && value &&
+ 			(((ssc->quirks & SAITEK_RELEASE_MODE_RAT7) &&
 -- 
-2.34.1
+2.43.0
 
