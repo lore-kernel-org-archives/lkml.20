@@ -1,116 +1,113 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC67B443AAF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49550456DED
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059923; cv=none; b=LWnVAQbXg/z4twH69CVfHad1pQgsTvHrWeIrjNgWC+G/Wagg78i6fv1k4gmIP5GA4jYnG437kZJKHXEDUgtRfD6ie2i1tZJN54vPfQ9ixCMAAr2LlrFCf/zGJVfPUufww2IV+fnXO2bpUBvDEPiicKuqiuXJ2IPDyeuhn/fsDkU=
+	t=1792059962; cv=none; b=HzH1SkEayKZUDsRfusRAOSNJYzj/sRMD7Ukk08ZfndPPf9KHiXgClPN0Y8FvdNAAIoXsbYSHzGR+Vsw1EgbHSHMMnfc9xBdb9Cm80mYrZWJoVeINcceySQ9lXCIeEQ/Qt+z03F7VL+MZG1Mp9xXkQodCGjG6dQroVFR6474f/xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059923; c=relaxed/simple;
-	bh=YQcQawWYqHOvml3k1jZz3YKNnacdJjF7PoSnWLXiO8g=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=tVxV4wZkmefRpoqGUFv3OuX7sub6IkPT93DRPPoEysT+w5AAwvcXfJtGzVEJ00wA87vKBEt1D1aVFDF6HlhkEiC6yvnCn/6xEytOuMcd/N6PJb/bhtXIRAopc9fblY7kJnSjx1/RjI6F5J/hGAdolrmiwhthZ9DdX5aJPNgGSpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69FAPIeE002685
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:25:18 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69FAPIq2002681
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:25:18 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <8d188283-b5c7-4b16-95ee-6d985472c120@I-love.SAKURA.ne.jp>
-Date: Thu, 15 Oct 2026 19:25:19 +0900
+	s=arc-20240116; t=1792059962; c=relaxed/simple;
+	bh=joXwYCLDFBRvtST9liA7y5l07Dl0QlRsfc0qKdtSK8Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UTa1Ud2SjzlroJ/b8QWEWP1cbNjR0Zgn/N2+Rvzq1qGMfRZeTcfxhbpYJQ8mZ2czXcNH1Yhk/qgF+XWDjM82J9R0Xwe0s3HQ36urspYOnTJDAAjm/sKFcasQs5tiEw69y4k7qQCLv0u0xVAEL575t4JouejyoGIXxhAcuGSblE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q+dWSwe2; arc=none smtp.client-ip=74.125.225.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q+dWSwe2"
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48c688a7cd9so1517773f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792059958; x=1792664758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AAVLJelNLtLTgKVSCHdzfg2BmtJf7plaW7j80dNRMSk=;
+        b=q+dWSwe2eO1L87Rr1awwzL8Q5/9hthKyIigVLWdyMXPkIC7Ca7Sw+GqthB7x6p6FjJ
+         a6mezH7+4DTzWUmADw/r+Jp/xh4a/hDfN1TFGrUCLDxYag08Td1kiZnfIEXFgmastFXQ
+         YfcVe6Ptpp3JOTqBb7wsGC+oJj/WE+DGFZ0u7/uxdc53WAivHcXg4gUDH8+8cESCtliR
+         8wREf7tY6vbQ+VL/haVpP8TbE6wYBa+kXuc5+Mt13WaLfoHbIIBoTByEm6H84n57TV5X
+         Wi/phZm9V9p3YuhQS5YFatX6tb3M5zmHCNdkwi3X1LqbVtl0RpmqiQzbyBXzASKIU7sQ
+         E8Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792059958; x=1792664758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AAVLJelNLtLTgKVSCHdzfg2BmtJf7plaW7j80dNRMSk=;
+        b=cqjtHONk/r6dbaXUpXD/69vBdUgSS3VcmmcSLk450pOkff/OG9jwy15u4bNSwtMmK5
+         3Vyq5L3AqoV+Sz8+3ZKnuwGqSvfMLBjEKObqHjrJgSmUQPFBPzvOlDvCm8DdZqarDuMJ
+         K5KzV4fQ/vt67ccLBTDbxfv+Y/MdB62750vsGwz+aRdNMAWtg/EiBZgIba6hMXYMqnxB
+         JZ16WCiaJ19UQb32c066KivczZfp18WL/x4AmWLqVY4MahTBjUWt7bSqP9rSd981sOic
+         BVFVyHD1drjvopnBWf/HA1uYt6Y47dt+Gw7pbplg9m1SmLFKSVAWhszlsiYBx1jaFdcu
+         SQiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxslcghgXtmIUorZnm6lLqi+CfJvQ779G1/MC+yBQ/0oKiS0mSGu2w4I/LHvRcQbb+504VuD4LtMBO9vk0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8pCWooIuMjtC+gMMJGIBZNInnugg7Qsei20f+jj+SE8wxzING
+	Ih156nXrdSm4KwYjQYorRgb/PaTxw8ap+7ThrY2z5+6d73SZS4KBDcHH
+X-Gm-Gg: AYBFou1jF5UctV1yRLw8Ld7gf51Hny53NWv9vbra3cLSYht+8zHZyK9Afw4XQyLpNdj
+	3nFsLE5TPgobM+GCTj/19kaGdtZBg2S5IhzJzrBlWVaECbj0s2agkjfDZ4/yieMcGyu9gI22wCQ
+	8xzSMOKED/nIyGnmm/U5MvoXDSWgIkzMC2u77QnukodWYEPrFILAcADm77eSh7aTMNy6OSQX1Od
+	O/biWDt1tFZS/GD147m8eEp0oaDUrhf1DykASL2VD7aGLcGNmzgIpNItTfxkIfit2y9z86A+yei
+	rzIxUXRK+ltY1d4v0XPdAouOUpLFgqCLa8NstLdnLJgY2x2hLpns1m0pz8gJehw1pOfEk9+Fw5O
+	6o9/sYcQdQvWDgbv7jKBlBkL9gYWdkEiuNJt5EAY+eFtMk/nduOxXwVDTwrtDzrfpXIEI/XQSL8
+	4E4xKOW186Ee5O3W7qKM3AqOvT4RVP+GMoXRCbgeA0b32NTUNla3wty+UlzF1p7hlBYQ7kH5rcc
+	Fattjop2/mJgg==
+X-Received: by 2002:a05:6000:298d:20b0:48c:43e1:a332 with SMTP id ffacd0b85a97d-48dba7828c9mr28324592f8f.7.1792059958315;
+        Thu, 15 Oct 2026 03:25:58 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.205.12])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc6b82sm18387264f8f.51.2026.10.15.03.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 03:25:57 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	linux-rdma@vger.kernel.org
+Cc: Kaike Wan <kaike.wan@intel.com>,
+	Mike Marciniszyn <mike.marciniszyn@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] IB/rdmavt: Fix error unwind path for qp_priv_init() in rvt_create_qp()
+Date: Thu, 15 Oct 2026 13:25:18 +0300
+Message-ID: <20261015102518.15780-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5] block: avoid long sync_blockdev() under disk->open_mutex
- during parallel close
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: LKML <linux-kernel@vger.kernel.org>
-References: <17fb5b42-4f54-41db-8bcb-2c13e05c6137@I-love.SAKURA.ne.jp>
- <d52496da-fb19-4b60-91bc-76402822c6b7@I-love.SAKURA.ne.jp>
- <450c6828-9187-487e-a219-f64e56d34fe7@I-love.SAKURA.ne.jp>
- <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <f9f521a6-2132-4eb7-ad74-28363366e6a8@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav412.rs.sakura.ne.jp
-X-Virus-Status: clean
+Content-Transfer-Encoding: 8bit
 
-Commit b849dd84b6cc ("bdev: Reduce time holding bd_mutex in sync in
-blkdev_close()") introduced a sync_blockdev() call immediately before
-holding disk->open_mutex. But this check was racy and best-effort basis.
+If driver_f.qp_priv_init() fails, execution jumps to bail_rq_wq, which
+bypasses bail_qpn. Because alloc_qpn() has already succeeded at this point,
+the allocated QP number is left unreleased.
 
-If more than one thread concurrently called bdev_release() and saw
-atomic_read(&bdev->bd_openers) > 1, the thread which actually hit
-the atomic_dec_and_test(&bdev->bd_openers) condition will call
-sync_blockdev() from blkdev_flush_mapping() (which could take several
-minutes) with disk->open_mutex held.
+Jump to bail_qpn instead to ensure the QPN is properly freed via
+rvt_free_qpn().
 
-Kill this race window and make sync_blockdev() always be called before
-holding disk->open_mutex, by using a counter that tracks how many threads
-are calling sync_blockdev() from bdev_release() without disk->open_mutex
-held.
-
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Fixes: 5190f052a3654 ("IB/hfi1: Allow the driver to initialize QP priv struct")
+Assisted-by: LLM
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
 ---
- block/bdev.c              | 17 +++++++++++++++--
- include/linux/blk_types.h |  1 +
- 2 files changed, 16 insertions(+), 2 deletions(-)
+found while investigating smatch warning:
+- drivers/infiniband/sw/rdmavt/qp.c:1182 rvt_create_qp() warn: missing unwind goto? 
 
-diff --git a/block/bdev.c b/block/bdev.c
-index cd8323083740..309c49842ddc 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -1167,10 +1167,23 @@ void bdev_release(struct file *bdev_file)
- 	 * of the world and we want to avoid long (could be several minute)
- 	 * syncs while holding the mutex.
- 	 */
--	if (atomic_read(&bdev->bd_openers) == 1)
-+	mutex_lock(&disk->open_mutex);
-+	if (atomic_read(&bdev->bd_openers) == 1 + bdev->bd_closers) {
-+		bdev->bd_closers++;
-+		mutex_unlock(&disk->open_mutex);
- 		sync_blockdev(bdev);
-+		/*
-+		 * Always sync the whole disk when closing a partition despite
-+		 * we need to sync the whole disk only when we're also closing
-+		 * the whole disk, for we can't serialize concurrent closing of
-+		 * partitions using disk->open_mutex.
-+		 */
-+		if (bdev_is_partition(bdev))
-+			sync_blockdev(bdev_whole(bdev));
-+		mutex_lock(&disk->open_mutex);
-+		bdev->bd_closers--;
-+	}
+ drivers/infiniband/sw/rdmavt/qp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/sw/rdmavt/qp.c b/drivers/infiniband/sw/rdmavt/qp.c
+index d8ee485c49a6..3602b9ff2196 100644
+--- a/drivers/infiniband/sw/rdmavt/qp.c
++++ b/drivers/infiniband/sw/rdmavt/qp.c
+@@ -1173,7 +1173,7 @@ int rvt_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *init_attr,
+ 		if (rdi->driver_f.qp_priv_init) {
+ 			ret = rdi->driver_f.qp_priv_init(rdi, qp, init_attr);
+ 			if (ret)
+-				goto bail_rq_wq;
++				goto bail_qpn;
+ 		}
+ 		break;
  
--	mutex_lock(&disk->open_mutex);
- 	bdev_yield_write_access(bdev_file);
- 
- 	if (holder)
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 98e21b4cbf32..04d378818c76 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -74,6 +74,7 @@ struct block_device {
- #ifdef CONFIG_SECURITY
- 	void			*bd_security;
- #endif
-+	int			bd_closers;
- 	/*
- 	 * keep this out-of-line as it's both big and not needed in the fast
- 	 * path
 -- 
-2.56.0
+2.53.0
 
