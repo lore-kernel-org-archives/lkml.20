@@ -1,58 +1,104 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E5112857EA;
-	Thu, 15 Oct 2026 13:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B270F3EFFA6
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.187.169.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069765; cv=none; b=P0WOH6FuQk7s6EgzTmS1RY/ENIU3la0gYpUzTWOb9VtxwIDKPbhIlTwyxVyTRvyof5c5GAP6Qkga486TO1n+c9YFHJY+3RoIai1aTNYr4TORfTSh+u68hVR9H+1w01S2w84HhLdOvnQUDjsDmo+z73DY1mFl06+NR0RWF8IGXMc=
+	t=1792069802; cv=none; b=LzBL/16crwFb2gDQVN8YLxHlVo/Y+kUHZdBi6oeumpzRYX8YxOenWAuDje6V75Wi+kO82B7J9HGTxlhjiRy83X9jyaNvN8i+qMjGYF8mNHemrMvPxRWS+aOkGldwu5EaOsZgq3io3aXMYU6OrOFR9ByLzHmeZijdIgEfFsSKN1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069765; c=relaxed/simple;
-	bh=b4vVqbSINl0VRvzZ4loVfPTmK7lAQeb1uFkSO4a3r+8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=kQ6D4OreCdi19xm026CImnwAFPd/ffbRbigzfE6WFbIeBDDmu12pGhZOfwYvf2q7DQAJpngKeHMfMF+KGij5PStH/nSqjpaX5M9UuToEQ92oLCL+V2tiMJA+T/kSpFECGz8znAtEyUyDaH16iWTMiukpSOV4KFRqZ2GgxoOMdck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 774CE92009C; Thu, 15 Oct 2026 15:09:19 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 7139892009B;
-	Thu, 15 Oct 2026 14:09:19 +0100 (BST)
-Date: Thu, 15 Oct 2026 14:09:19 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Matt Turner <mattst88@gmail.com>
-cc: Lasse Collin <lasse.collin@tukaani.org>, 
-    Richard Henderson <richard.henderson@linaro.org>, 
-    Magnus Lindholm <linmag7@gmail.com>, Nick Terrell <terrelln@fb.com>, 
-    David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
-    linux-alpha@vger.kernel.org
-Subject: Re: [PATCH 0/3] alpha: self-extracting compressed kernel images
-In-Reply-To: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
-Message-ID: <alpine.DEB.2.21.2610120106400.55767@angie.orcam.me.uk>
-References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1792069802; c=relaxed/simple;
+	bh=O4y14nAEA6mXE15roq59xAB/HvwyVk29/R5tLlRP/tw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GwP5VABDmTMT5GrkUpzaUDMk6DaII3HoXTacbezCpAtsO7S8C2biflQf9CPLeU5+WUSnQS1wXCx/dZ9rPBB+UopOZHg2gUKjSOzOJVaiiLtzqH2Ghg8GOUQUQ/ID9Zl8VWYDGubRg34o6gyb5DHhpOQ4wLUfzlIA63Otd6wEMSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hogyros.de; spf=pass smtp.mailfrom=hogyros.de; arc=none smtp.client-ip=185.187.169.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hogyros.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hogyros.de
+Received: from [IPV6:2400:2410:b120:f200:9e5c:8eff:fec0:ee40] (unknown [IPv6:2400:2410:b120:f200:9e5c:8eff:fec0:ee40])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by psionic.psi5.com (Postfix) with ESMTPSA id A23D73F072;
+	Thu, 15 Oct 2026 15:09:45 +0200 (CEST)
+Message-ID: <55218956-0520-4c26-b238-11747ba5ea9e@hogyros.de>
+Date: Thu, 15 Oct 2026 22:09:28 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
+ force-wake
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, karthik.poosa@intel.com,
+ Zongyao Bai <zongyao.bai@intel.com>, anshuman.gupta@intel.com
+Cc: Constantinos Chalkias <cch@e-psn.eu>,
+ =?UTF-8?Q?Bata_Roland_Kriszti=C3=A1n?= <batarolandkrisztian@gmail.com>,
+ intel-xe@lists.freedesktop.org, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261012104245.2108030-1-cch@e-psn.eu>
+ <as_iOd6A_Yncj8Gt@intel.com>
+ <55cba965-208a-44cd-a644-e664410af8a5@hogyros.de>
+ <atDLRDvuDES7u00Q@intel.com>
+Content-Language: en-US
+From: Simon Richter <Simon.Richter@hogyros.de>
+In-Reply-To: <atDLRDvuDES7u00Q@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------AJGqKuh09DWkZ2cOqjycczmr"
 
-On Sat, 12 Sep 2026, Matt Turner wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------AJGqKuh09DWkZ2cOqjycczmr
+Content-Type: multipart/mixed; boundary="------------UxeokOPhNA9QHJ4YWd1LtkFA";
+ protected-headers="v1"
+From: Simon Richter <Simon.Richter@hogyros.de>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, karthik.poosa@intel.com,
+ Zongyao Bai <zongyao.bai@intel.com>, anshuman.gupta@intel.com
+Cc: Constantinos Chalkias <cch@e-psn.eu>,
+ =?UTF-8?Q?Bata_Roland_Kriszti=C3=A1n?= <batarolandkrisztian@gmail.com>,
+ intel-xe@lists.freedesktop.org, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-ID: <55218956-0520-4c26-b238-11747ba5ea9e@hogyros.de>
+Subject: Re: [PATCH] drm/xe/hwmon: refresh Battlemage thermal telemetry under
+ force-wake
+References: <20261012104245.2108030-1-cch@e-psn.eu>
+ <as_iOd6A_Yncj8Gt@intel.com>
+ <55cba965-208a-44cd-a644-e664410af8a5@hogyros.de>
+ <atDLRDvuDES7u00Q@intel.com>
+In-Reply-To: <atDLRDvuDES7u00Q@intel.com>
 
-> The SRM netboot path (bootpz.c) has its own boot protocol and keeps
-> using gzip.
+--------------UxeokOPhNA9QHJ4YWd1LtkFA
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
- Reminds me to dust off and upstream patches for making an image suitable 
-for netbooting via MOP, which is the only protocol supported by all SRM 
-revisions, since earlier ones lack BOOTP/TFTP handling, such as with one I 
-have in one of my Alpha systems.
+SGksDQoNCk9uIDEwLzE1LzI2IDIxOjQ3LCBSb2RyaWdvIFZpdmkgd3JvdGU6DQoNCj4gRG8g
+d2UgaGF2ZSBhIGdpdGxhYiBpc3N1ZSBmaWxlZCBvbiB0aGlzIGFscmVhZHk/IEl0IHNob3Vs
+ZCBiZSBnb29kIHRvDQo+IGNvbnNvbGlkYXRlIGFsbCB0aGUgdmlldyB0aGVyZS4gRnVydGhl
+cm1vcmUsIHBlcmhhcHMgd2UgY2FuIGdldCBzb21lIGludGVybmFsDQo+IGhlbHAgZnJvbSBG
+VyB0ZWFtcyB0byBhc3Npc3QgaW4gaGVyZS4NCg0KWWVzLCBodHRwczovL2dpdGxhYi5mcmVl
+ZGVza3RvcC5vcmcvZHJtL3hlL2tlcm5lbC8tL3dvcmtfaXRlbXMvNDU2MA0KDQogICAgU2lt
+b24NCg==
 
- There's also a fix I already posted for cross-compilation support that is 
-required to avoid relying on a.out support in the build machine, which may 
-not be there; I've come up with a better way to handle that and will share 
-the outcome hopefully sometime soon.
+--------------UxeokOPhNA9QHJ4YWd1LtkFA--
 
- Thank you for your ongoing maintenance effort overall.
+--------------AJGqKuh09DWkZ2cOqjycczmr
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-  Maciej
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEtjuqOJSXmNjSiX3Tfr04e7CZCBEFAmrQ0JMACgkQfr04e7CZ
+CBEXGAf/XBBpS2sO4gmzGdVzb9m3KGs03e1hFEjwiaCzxlwexmFFYf9NTLtRp13h
+NGwKrgxR0XWf+g6GGJ+yejsu8IPTwBBsngLvlfjUiL/Si/d7evAhpfqoSC+Xifx8
+R3wuaefXw6WE/vPRbIL/yDd6zzM8WYIn8Sbf6rbNMqssZopt8T6RqBjk2vkIKXcc
+gwmnDv5nBmBBdxJh0IiK2Igj5TmRFX/HLUl5yhG6lAPsHsgwqrKinJqhUBhlwR0+
+v5ecThavBk5mSGZCN7SdXsjuBy7NJsihdoOaqnsZa2oP2jodeCnHtkupTaPGNgf1
+XrEOLTtF/Fn7U+TvJtkGP+vQSLs3WA==
+=sWty
+-----END PGP SIGNATURE-----
+
+--------------AJGqKuh09DWkZ2cOqjycczmr--
