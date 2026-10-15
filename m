@@ -1,126 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8664A7CA7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67354E06F8
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057756; cv=none; b=bDhMmbuqz9wmc6g4lISDlCl6b9eVKkkCav5BaOz96WZxrbJ4WCfbNZsuLf4jT1d6dN7qDPoXrkO7aBGmIPuO+80LvNyrxwABM1ir/wwJvMMwfJ68R81zfsalb7cho8AWvO2q8Jkz5XWdtIztOssYyh3IG1AspeF+DQukZXEDDvQ=
+	t=1792057766; cv=none; b=nzORgbmSseht1S3Q7lrGnLMkwzK/pBmuaA4zhAX3MSoL4XmTPJTDdleQSZ5l/xTYGjTU3FquDRjJb+ZDhZIe/vgPNrBLSZGA01xhPGCMIiTXqX3gtJiWQY8fZzo/DvjBQ6C5u9emL5MqT1jNGPbD4p6RCQlbTeoWzdtZtth40mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057756; c=relaxed/simple;
-	bh=HZ5/ZTe0o0stFkn0v+Skv9Pkz8EPR2PjgVLVSSpSrbc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XGhtLzlXMypnTF+sfWjphv1CJ8j3W3gQEliDdceMz6fMN9JvyouOio0GDOGgFwkuhmQANHjhJCc4V4ZteUnxgfRPgD30b/GoHFbQsBvLN783ft4H04JSdySvuQ/hBLhVKWy1SQyBJEMoNXdTve5goyZn5KRL0PIrEtU0KmTT/Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lF3gu2so; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792057766; c=relaxed/simple;
+	bh=h/zeN9abQchJxblD3VwFflOV2nY/5MWFgqGJDt6HPqs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iybWqDMZQOnJ2mV8QmGsbeupEkqv2kaNod/cifaPhx35STtvabfsFSDZQIc9B7OEpdc2Wh1RBblpxgfvJ9pt2ayX8vpUgtgvGwtgvL+he+k0dXQ3P8SATV0jixK4X+Vw+MQnDRbFhF8lIlKQns5FcG/xlmzYGUlfvbwR12MRwJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=s0b1vB3X; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lF3gu2so"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF371F000D1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792057754;
-	bh=nT9Oo7iXgADtYp5co9OiTR6UXXfzH97xvsCw4wzlKqs=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=lF3gu2soNC+q+EeSdcAbmkjoxP2rczlnyJdeTtIv8syw6vTsK1WSEueFu7cjOcWR0
-	 f+3yhO3h2+A3bh9Vv3lOX2x0porx8pNVVPGDq9AJqGKZOQ11iS2nqiCH62zhuYaF3E
-	 GKKuR841MQ0n0hBYXU1A1crNuiDruFnqyVFDxKqCVUawcRrJko7c7rNgw+QMf3yN3q
-	 TBsa9cc15BoCxmj3VugGNcaziCrkwdCP9bdEJIYCYGv8ZQQMy5tIPMHtIeYmtcwufc
-	 14e+BF0JDzmG2aLym5ZMGmxYc0FPc+xSOeDq01WWFA8Sv1wW+cPmIOrv4SjKNNTFiQ
-	 iFbY1XEyNiDaw==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a75f960be4so38915581fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:49:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5qpvX3+nawurHtd+ulIYwge4aVrHFYUGKE/tSFJVvWvrJGt9unADemmZH/D3TUaMzsXjPqmv80TgFFGI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvRGMlXDS4osqsnlBp/x2dmuNBrcnSq6X6tjzMp5zpE9S4IXKn
-	kq5WQattw2nAcAKHH2KJ1N7zCVVwOr54izx6ZjLPjMtfeI/6Le5I9YmmsxfrupDCdHabwcC/8VR
-	tRZLiTOVgYPfl7lHgENyFvAFDh2EkgEQSfXY70VORdQ==
-X-Received: by 2002:a05:651c:510:b0:3a7:8372:61b7 with SMTP id
- 38308e7fff4ca-3a9c56e47e1mr41776871fa.25.1792057753228; Thu, 15 Oct 2026
- 02:49:13 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:49:12 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 05:49:11 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261011121246.162759-6-tzungbi@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="s0b1vB3X"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D097C4E41246;
+	Thu, 15 Oct 2026 09:49:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9C05460360;
+	Thu, 15 Oct 2026 09:49:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2FD9210328BBA;
+	Thu, 15 Oct 2026 11:49:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792057759; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=FWcYHpK8CdG5em5BjygV1FcmzuhmkAxaHza1OitPJpE=;
+	b=s0b1vB3X8OGEInO9qWhWKrGDdPDH+RomF9eS9eCha6LbN7XZmmU7ZSd8PfTAimpAziRBTO
+	pumhXgDh52+rDOWBx4bJtSqB3hRjBb/nOW3NCwZUYiYKn3OxlvxXPCGS9TMvWmDZ7uzrOp
+	eUz9PihlAHcXJPY+DEZOOT9IA4B968Qjsbuzdj2ezEtSfbE+n+GW/QyopVLKmBKwPJ6K4a
+	BliDRPa1gI6STMudISStt27l/b8/jyGQmGp520erto+J1IEi4gT5NueRjkUcG0xGsqWiQj
+	JZfALh49dqjzl9j2gxmFtcilLh8BJ58ieVGf7Mw+jmcIrUMWu+tme53E1JvfKA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH 0/3] drm/bridge: ite-it66121: use bulk read, improve probe
+ logging
+Date: Thu, 15 Oct 2026 11:48:45 +0200
+Message-Id: <20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011121246.162759-1-tzungbi@kernel.org> <20261011121246.162759-6-tzungbi@kernel.org>
-Date: Thu, 15 Oct 2026 05:49:11 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MeWy7UQrGEr7MG5KT1b_NeLeEc9cYb+sAWuzU3shw620A@mail.gmail.com>
-X-Gm-Features: AclHuK8brzPusY-1WAKnXNkeI2Aw9WKzMjJ4dsJ9Vf8cnHI3dHP0eQKp8_TPFsE
-Message-ID: <CAMRc=MeWy7UQrGEr7MG5KT1b_NeLeEc9cYb+sAWuzU3shw620A@mail.gmail.com>
-Subject: Re: [PATCH v14 5/5] reset: Leverage revocable for accessing struct reset_controller_dev
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CQAyF4auQrm1CJ3FAr2JcwNDBGmVIOxgSw
+ t0Zdfm9xf82MFZhg2u1gfJHTNJUQKcKwqObRkYZisHVzlNNZxz0jZLLnL0nR/hKI86aekZWTWp
+ 4CW2IHNuuiQ2UzKwcZf1d3O5/29I/OeRvF/b9AAvraBOEAAAA
+X-Change-ID: 20261015-drm-ite-it66121-log-probe-errors-9c8cfef8a7f7
+To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Julien Chauveau <chauveau.julien@gmail.com>
+Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 11 Oct 2026 14:12:45 +0200, Tzung-Bi Shih <tzungbi@kernel.org> said:
-> Commit 78ebbff6d1a0 ("reset: handle removing supplier before consumers")
-> protected the `rcdev` pointer in `struct reset_control` with SRCU so
-> that the reset core can handle suppliers unbinding while consumers still
-> hold reset control handles.
->
-> Because `struct reset_control` handles can outlive `rcdev`, each of the
-> N handles had to embed its own `srcu_struct` and call synchronize_srcu()
-> on release, and reset_controller_unregister() had to call
-> synchronize_srcu() N times in a loop.
->
-> Leverage dynamic revocable to allocate a single reference-counted
-> `struct revocable` for `rcdev` shared across all N `struct reset_control`
-> handles (1-to-N).  This reduces N `srcu_struct` instances per controller
-> to 1, drops synchronize_srcu() from reset_control_put_internal(), and
-> replaces the N synchronize_srcu() calls on unregistration with a single
-> revocable_revoke().
->
-> In addition, calling revocable_revoke() outside `rcdev->lock` avoids an
-> ABBA lock inversion between `rcdev->lock` and SRCU, as
-> reset_control_acquire() and reset_control_put_internal() acquire
-> `rcdev->lock` inside the SRCU read-side critical section.
->
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
-> ---
-> v14:
-> - New to the series.
-> ---
->  drivers/reset/core.c             | 93 ++++++++------------------------
->  include/linux/reset-controller.h |  3 ++
->  2 files changed, 26 insertions(+), 70 deletions(-)
->
-> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-> index 38e189d04d09..788a235c3965 100644
-> --- a/drivers/reset/core.c
-> +++ b/drivers/reset/core.c
-> @@ -24,8 +24,8 @@
->  #include <linux/property.h>
->  #include <linux/reset.h>
->  #include <linux/reset-controller.h>
-> +#include <linux/revocable.h>
->  #include <linux/slab.h>
-> -#include <linux/srcu.h>
->
->  static DEFINE_MUTEX(reset_list_mutex);
->  static LIST_HEAD(reset_controller_list);
-> @@ -37,9 +37,7 @@ static DEFINE_IDA(reset_gpio_ida);
->
->  /**
->   * struct reset_control - a reset control
-> - * @rcdev: a pointer to the reset controller device
-> - *         this reset control belongs to
-> - * @srcu: protects the rcdev pointer from removal during consumer access
-> + * @rev: revocable handle for accessing the reset controller device
+This small series improves it66121_probe() in various ways:
 
-Please call it "revocable". The name "rev" does not indicate what it is at all.
-Same elsewhere if you call it the same.
+ * use a bulk read for reading the vendor and device ID registers
+ * log errors in ID reading and matching instead of failing silently
+ * on successful probe be quiet on !DEBUG, more informative on DEBUG
 
-Otherwise looks good to me and nicely shrinks the code! We still don't know
-what the fate of that series will be though, right?
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Luca Ceresoli (3):
+      drm/bridge: ite-it66121: improve reading IDs and log on errors
+      drm/bridge: ite-it66121: log an error if the IDs do not match
+      drm/bridge: ite-it66121: make successful probe quiet
 
-Bart
+ drivers/gpu/drm/bridge/ite-it66121.c | 36 +++++++++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
+---
+base-commit: 49477cc277e0a432a8c08766b8ec764ee69622a7
+change-id: 20261015-drm-ite-it66121-log-probe-errors-9c8cfef8a7f7
+
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
