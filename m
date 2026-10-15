@@ -1,73 +1,93 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBCD37FF76;
-	Thu, 15 Oct 2026 11:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B03A51C047
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065465; cv=none; b=K0GCobnglQHWB2yKhGMWbZSn0PFl2tEIh2muQgmPkrLOt9jws9ZZWIp/t5Mp//MIdGCQwzF3FIu+3oPqlbCAY4ICWH0RH8PcOGcDWAChrMjcNXALmTlivOH+A9wx5qmLgNH+nJ9/rBT+3NWsXQ3XOCH8m/tUHFrWP8SSx8OCajA=
+	t=1792065468; cv=none; b=gehtr2d2zP7u2PkTGaIl4xhPAQuuVp4G5PWbP1F18aCSnsBU9fIewv+Cjb/FzPxd5qDA2ZqMGW3F/n5z88+zfMg8g/fNrXGFAfqwmqa8Gm5tkmT+5Yt5CeB4Ep90W/fbRLfAIWlP7lrC5TEbtn1TM7MPMx4IDpYrnnNKitRcCrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065465; c=relaxed/simple;
-	bh=JvXuenLF+b4xhhHq/Bj6Qgdd2Ert0xvkhcOU/N1WslE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PcXmnvpHeLiZJgzryxqS/dnTfgg91LCHhOZ7/CS/ppWLckpYsdkz5HVYsHlKIFz8erzaxdFZ9Jn5MGIJT7K+VZHwbOTUWg9Qs3X1GqA0fuOjeTN/2pJiwRieXrM1yYdwgEnSQD4qnbfX09yVh9OzMAUhF+MQh+T5+v2tiHlNuZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=xca9RJb7; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1792065468; c=relaxed/simple;
+	bh=VGToypjARbE0U7psVsR+le/XXqP1p7U8tiE+d5jRnpM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uC5Q53tfPgmkMsV09kr4QVf1cvba/yMKFFXtg3CsvbudhoqOrC/p4c4Ur2wtXZfB2t+WifHv15dhSjAA82+xq24rtQwKys9LyEtaIoPzUVikjej60f1TGvqFpmeniIwXkC9uT4RjRhehP/MGlEhz8uP7nK106WaBb8eZhbzO2l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j01g+Fhc; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="xca9RJb7"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id ED9694096A;
-	Thu, 15 Oct 2026 11:57:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id 3034B20028;
-	Thu, 15 Oct 2026 11:57:34 +0000 (UTC)
-Date: Thu, 15 Oct 2026 07:57:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Haoran Wang <haoranwangsec@gmail.com>
-Cc: mhiramat@kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com
-Subject: Re: [PATCH] tracing: guard trace_event_get_offsets() against an
- empty fields list
-Message-ID: <20261015075732.1a0e9bc6@226.227.38.69.naturalwireless.com>
-In-Reply-To: <6ad09433.a938ce27.3282d8.5f98@mx.google.com>
-References: <6ad09433.a938ce27.3282d8.5f98@mx.google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j01g+Fhc"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a02718da81so41618415e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 04:57:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792065465; x=1792670265; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8sdIV0UTb1SAAI8e5ZPa5eDGFk/H/3IVRF9TyC1rxg8=;
+        b=j01g+FhcpU9HYCXQHBbEdJms1snarYkWtvoxDwCAiI/d2AhenTMGcO+m93LnSJrMDk
+         LrfpYgNRG5bwpAK3Orw5QkyM9wlRZayNPLbmLmU2ZAkgS0Lam8pTFJqRFp5biSvAvgxY
+         Ddx420RtzAD1DbF61eqWd9QJiJCPU7wY40Y9dVG1jkUxTj2Ji43QvIiaJS3UdzZCAdP2
+         UTYKdmAursuTfwCTGDdcEXVQTJk2+LqRMiNAVRG2Me1wKk9C3jy1UJjM/bmmfKMIfcln
+         Nlo314c+GhSUMcCeWe0dvKooUAG/Laes2sQCQvw7hERlAoGNH1+v7vxELFVh+ca8ZSVz
+         E1aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792065465; x=1792670265;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8sdIV0UTb1SAAI8e5ZPa5eDGFk/H/3IVRF9TyC1rxg8=;
+        b=vTVEdb7iiWmKkuVTzyppzxcq+HWkYyrB6AbdzMnxzcBfrn10R2DzLOpVxSGcj3PO9d
+         rf1M4t/SZqev2jZAIkGfShbHGc9E07Yal8hJZym2Y38KTMXgIxHxMQkGnAU33E0863/5
+         +Blqt6Gb9qmepgXfG+xZ9p8Fb/0Ado5FQXGIyKR2CS7q67cufiZI8e89zO+cO7+uXTJe
+         rqGu3RtxBgAiBxEUVxVoGFEiNbgfn6KzTKB2GwVyzQC2imq/Q9+mi90gv64sAfOsPC5g
+         BYp8XidqQQcC63R7XYmZqtg2ldB/Db2IesjFsQ/g+ND+VwkGgVVj3/hXvI1KDhTrQKjV
+         0q5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxSY0nePsuVrB68qe/JtssvUkDdan9v8bNhKBDyfjp6NLE86sdd4ZRAj2/fQG6bYtuM0choPjcxo2pWlC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWEpkcps6VmU3HPE1hipTFVXaKzkJUBAZZASDFmnOCMq81YCRO
+	5QEK4jTX3WeF+P4Jxg7h6lSqKs2Mgl0NZmitbyyEJfr52BRbFiCFBRhO
+X-Gm-Gg: AYBFou0H5+gxYp4KCEzuj0lvfa5z0bKpSPjvsUaOvf588Xg+JQWuTK7+OYzNDnkDLqX
+	okz0RVpBEzfZLOAslP24t4F4Nw9POnQbhHqbzj86WCkSmX4C2GVA9+UpCaqKJu2Wii0eYzZSu8d
+	8fx+Wrf9BeF02fZrORkszE9DhvdujtORu5Ci5Oyhy8WHitNP4hp0kl20PyekL7WabuZSO4BM1Qd
+	FzaaSShmfjTT4QrA9xrZvG51fOdQt9VP8z19CIqJd8YBddN27rDjykFVszFxa4vOeTtIWRZr+mV
+	/2E7ZWOqBiUbVx8pM37kTK7YuUcvENY3jt10pPXraJZkymjKOTj17p6If5zfPrANS+uJxH6gca0
+	V+lJ31aFz2V69XBOF4plhiOU8HQu3p5pWLqGg+GS07oSBH9aw09Rhrsb+hMrZOjW2J9eAjFqElv
+	aQRaRPMA5diAnKW0SIY1tCbYkI/Pl3EF/t1lEgi3h0xdMCSk6Rg60uad3lsUtPfWQCREA=
+X-Received: by 2002:a05:600c:6388:b0:4a1:6f78:8419 with SMTP id 5b1f17b1804b1-4a18e3ee8f9mr379768385e9.0.1792065464664;
+        Thu, 15 Oct 2026 04:57:44 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm14406930f8f.29.2026.10.15.04.57.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 04:57:43 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:57:39 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Mohammed Sohail <mohd.sohail.biz@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: remove comparisons to true/false in
+ rtw_mlme_ext.c
+Message-ID: <atC_s6Us6nk3hRaC@stanley.mountain>
+References: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 3034B20028
-X-Stat-Signature: ejoof7f6f8oqzac41io641x48esrfp15
-X-Rspamd-Server: rspamout01
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19OUN7WkzHlOs53F9zVA40E+/55SaVuZtI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=j7W61aF5OzwBAsCJAucTc4mWUWmR61vJ7Wwj6/Y+xpk=; b=xca9RJb7FGXBzPM2xn+iE6xX7RM2QDkKZ5B0/i0+06Wh/UabElyQl4jdo3xoQ+P/GAxVZLH6DIgCaHLoxA8+nzUH3bT149qF15LouOSFEnt9G3p8pNWA7XBNCElhoOPUfZ0V39vIzbQDp99aJV/KgP/IVONpcRVwXebNaW9lMcQ=
-X-HE-Tag: 1792065454-742779
-X-HE-Meta: U2FsdGVkX1+k4SgGr+Hy7+Z4GV43WpU5PzMjsKwYWvsKIwanR3dadvwKMQy02EaV7sDkY9E6YWdIatGTWBvQ9pPTlFXzjgSqTVui/Af8e4UYTQjy5vfQ4YfSt9XDioUkqW1WUgBF/sdttays6ZmYRY+788RHMCpZaX8o0ah9GFr9Ow0NTt09aVaFoav+GpUJ24poPRogaN+iOm2NnG9beNqvGZ+K4ZTgHmo2xPQRW2QPu896iuPUDyRWGXkwpjJN2hiLIZ4ULdJPbxUwHpNIji+iE1wnm7TrbQlHMOlKOwLbu2RsDLU5fucyfFr4kd3ZICYZojp2oBLoh0aaBNph1Efl71eoehUH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007162114.138541-1-mohd.sohail.biz@gmail.com>
 
-On Thu, 15 Oct 2026 16:51:58 +0800
-Haoran Wang <haoranwangsec@gmail.com> wrote:
+On Wed, Oct 07, 2026 at 09:51:14PM +0530, Mohammed Sohail wrote:
+> @@ -3868,7 +3868,7 @@ u8 collect_bss_info(struct adapter *padapter, union recv_frame *precv_frame, str
+>  	bssid->configuration.atim_window = 0;
+>  
+>  	/* 20/40 BSS Coexistence check */
+> -	if ((pregistrypriv->wifi_spec == 1) && (false == pmlmeinfo->bwmode_updated)) {
+> +	if ((pregistrypriv->wifi_spec == 1) && (!pmlmeinfo->bwmode_updated)) {
 
-> 6. Proof of Concept
-> 
-> The reproduction runs on 7.2.10 kernel. A custom-tracepoint module
-> (zerofield_mod) registers a zero-field tracepoint (empty TP_STRUCT__entry)
+Get rid of the extra parentheses around (!pmlmeinfo->bwmode_updated).
 
-The real fix is to reject any event with an empty TP_STRUCT__entry.
-
--- Steve
-
-
-> and places an inert 64-byte 0x53 sentinel in .ref.data right after the
-> 72-byte event_class global (GCC lays out same-section statics by
-> descending size), so the kernel's OOB read of class+84/class+88 picks up
-> 0x53535353 instead of zero section padding. The sentinel is inert data --
-> it does not change kernel control flow or inject a bug; it only makes the
-> pre-existing OOB read's effect observable (off becomes non-zero instead of
-> silently zero, the latter being indistinguishable from a fixed kernel
-> returning 0).
+regards,
+dan carpenter
 
