@@ -1,101 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908442561A7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439DB52BE35
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072469; cv=none; b=McQea5bHDUnaRvWu2q/hCgcPH93yJeiA033JgJY6BsD3gWHi52tLjhkvcJ8bdiz0IeDsIMW6pRJlS/i2P1RYjRMQjaHgfgl29JzhF5WM2pn/np+KZ8YzCg70bLMxj5C8A0Dd36CZsSq4jc1aaFM95yW6IhY5gUflZHSLEpRFTmA=
+	t=1792072477; cv=none; b=aXz73viTcQErYmUq+Ki30cU99QiP05IGJxl8YnRjsAfsF3zNxLqG5eimHhpKWzu4I13RW5KkR7deh/xexMGSHysOn5TnyUd5vF7C97/OXglugBJEhbN/Usbodx5MaINJn7pLhu+NBfd5JvXyzr52Ym+A5qMq4mhiaxp85fUOfa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072469; c=relaxed/simple;
-	bh=RKoNVOXCp8qsN4DcHk+1UC1jFMXL7m4Hi10xFI2EHN0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VYzPn/TDvSZoc8zstdhvW+wLV+YiqF9icNAysZ9nQ2jgkpjQPR3rxwOfip42N1SxcUJ/NdnT6EWgEEU58njyzNIP228C39IeVyT8CiUhVRuEdxgqqE75+0NchNWkkFdM3ZrVgIXvrbVswwyoWSA2+Ucs6cHvb/VBK9SJ1WRrqPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSzo+eaN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792072477; c=relaxed/simple;
+	bh=roCHEo9T84B3BuUK2KtwJU1fy+x+4MIvdY6RkXdyDtg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=j21gR6j3SK79WWtsCkr7scSlil3XB+AP/ypLZDcYHV4CKYuNFccIPHpp8mBPEp9Lr9fvV9NRUh0jM1gwJt/BHHpNWBvTiw+ehzbbkMfkWTHzDcCzqJww+HGfkFhRKHwn8nBitcjDprJsxnjL98iJOKeR5yF0gBKLm2gqFQSZC/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qQvEr2/t; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSzo+eaN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FA51F000C4;
-	Thu, 15 Oct 2026 13:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792072468;
-	bh=BFPdqutyanNb6ILkvXDEkcFQ0NvuKB2CJGvrxzH7h7k=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=cSzo+eaNYyXzy7OgN2PteT5GAqWLpHj4Ka2swm+80ueO+rX/EAfziENw95QkE5VKY
-	 K6gLAINdaYSFSfuZZk4Frntf1DBWSOYiFYkLmOH4VQC1XR7YnOnR9twZ4Gfh3S8yBK
-	 Xp17u9ZW/YyHyMl9fpEfTKqS9moWiRc/Rk0VBfwZiwFbb96f5bYLoGRGFt5xOZbROP
-	 mYqX/I33l/QidkJvz6HwMkO77si5SGG85kQ/xc6bEjQ0yvOT3w3C5yjQpX/TxDOmIr
-	 VhJ7nA9GGZsExeV4i7BhoIxJ9tgfCrEc6GnjlecxQZPCI/jb9qvzMtYlLBPrF4kHRL
-	 HTo2KWDO6exuw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Thomas =?utf-8?Q?Wei=C3=9Fsc?=
- =?utf-8?Q?huh?=
- <thomas.weissschuh@linutronix.de>
-Cc: Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Andy Lutomirski <luto@kernel.org>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>, David Laight
- <david.laight.linux@gmail.com>, linux-kernel@vger.kernel.org, Zhan Xusheng
- <zhanxusheng@xiaomi.com>, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v7 5/5] vdso/gettimeofday: Assert that the clockid fits
- into the u32 bitmask
-In-Reply-To: <20261002153104.1347978-6-zhanxusheng@xiaomi.com>
-References: <20261002153104.1347978-1-zhanxusheng@xiaomi.com>
- <20261002153104.1347978-6-zhanxusheng@xiaomi.com>
-Date: Thu, 15 Oct 2026 15:54:24 +0200
-Message-ID: <87ik33dq7j.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qQvEr2/t"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 98456C62203;
+	Thu, 15 Oct 2026 13:55:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2CA8B60360;
+	Thu, 15 Oct 2026 13:54:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6094210328B3C;
+	Thu, 15 Oct 2026 15:54:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792072470; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=C6uzUWvcmfL5gq9OV74KgZectQ/GqRFjGKtoI9/JweE=;
+	b=qQvEr2/tW2TzEyxG91ETD2GV+RWxEqJ6PO3jYu/cNJj8nwhFIePNuQI7T5cVR6kwSdkO8D
+	K911Jx/ctKhI/qWiUr2uVd++3eXB5m9eqn1HO5phrc4kl92U22UVOleJv+sqhVU5qSdip+
+	/CgQAaaU2WWLNnlhlRkLsU6e+PeIJoDiEJ/qsHrlVyeTcdEDKmRkDhETCEBTLdBQRJxmyU
+	tpvfRxO1if2hUfysD4zI14fd4tBrTANJg41DFpiG87bXSfbJt70V9TaOFzcAluMmylZSEn
+	lkYOGG4L2ul1yrAVAVjs1JnddG6xcQhVwB8DDOEkhVXLtGEAdVTcPtcwx1Ux2g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RESEND v4 2/4] drm/bridge: nwl-dsi: Limit LCDIF
+ specific sync override
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261014-nwl-dsi-fixes-v4-2-b9138ea5e12c@geanix.com>
+References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+ <20261014-nwl-dsi-fixes-v4-2-b9138ea5e12c@geanix.com>
+Date: Thu, 15 Oct 2026 15:54:18 +0200
+Message-Id: <179207245897.1117464.4076524155285133478.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 02 2026 at 23:31, Zhan Xusheng wrote:
-> __cvdso_clock_gettime_common() and __cvdso_clock_getres_common() convert
-> the clockid into a bitmask and match it against VDSO_HRES, VDSO_COARSE,
-> VDSO_RAW and VDSO_AUX:
->
-> 	msk = 1U << clock;
->
-> vdso_clockid_valid() rejects anything above CLOCK_AUX_LAST beforehand,
-> and CLOCK_AUX_LAST is 23, so the shift count is in range.  Nothing
-> records that dependency though.  Raising MAX_AUX_CLOCKS beyond 16 moves
-> CLOCK_AUX_LAST to 32 and makes the shift undefined.
->
-> Add a BUILD_BUG_ON() at both conversion sites.  The condition is on a
-> function parameter rather than a constant, so it relies on the compiler
-> deriving the range from the vdso_clockid_valid() bail-out above it.  gcc
-> 13 and clang 18 both do: the x86 vdso64 and vdso32 builds stay clean, and
-> raising MAX_AUX_CLOCKS to 17 trips the assert.
+On Wed, 14 Oct 2026 09:44:43 +0200, Esben Haabendal <esben@geanix.com> wrote:
+> When using DCSS with NWL, overriding the mode flags to enforce active high
+> sync is preventing the use of active low with downstream bridges, such as
+> ti-sn65dsi83, which will not see such mode flags set by the panel.
 
-But using 'clock' for the assert is fragile as it relies on the compiler
-to defer the maximum 'clock' value from vdso_clockid_valid().
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Checking for CLOCK_AUX_LAST >= BITS_PER_TYPE() should be sufficient, no?
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-> diff --git a/lib/vdso/gettimeofday.c b/lib/vdso/gettimeofday.c
-> index f7a591aba59f..ef4dcc614489 100644
-> --- a/lib/vdso/gettimeofday.c
-> +++ b/lib/vdso/gettimeofday.c
-> @@ -285,6 +285,7 @@ __cvdso_clock_gettime_common(const struct vdso_time_data *vd, clockid_t clock,
->  	 * Convert the clockid to a bitmask and use it to check which
->  	 * clocks are handled in the VDSO directly.
->  	 */
-> +	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
->  	msk = 1U << clock;
->  	if (likely(msk & VDSO_HRES))
->  		vc = &vc[CS_HRES_COARSE];
-> @@ -438,6 +439,7 @@ bool __cvdso_clock_getres_common(const struct vdso_time_data *vd, clockid_t cloc
->  	 * Convert the clockid to a bitmask and use it to check which
->  	 * clocks are handled in the VDSO directly.
->  	 */
-> +	BUILD_BUG_ON(clock >= BITS_PER_TYPE(msk));
->  	msk = 1U << clock;
->  	if (msk & (VDSO_HRES | VDSO_RAW)) {
->  		/*
-
-Aside of that why do we need the same BUILD_BUG_ON() in two functions?
-
-Thanks,
-
-        tglx
