@@ -1,150 +1,122 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013070.outbound.protection.outlook.com [40.107.162.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43D14A0147
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051895; cv=fail; b=BBZt4idLx8bOCnJfEQmnCT1+PnpaPTd4i6ksNmT+3b3dT+Cni8fnK+8NohX3HJZdfW/91N+rChvK8qmeASldDVl8WV322SFZ3cZRlOe6/td1u6J2Z7XNMAmaEsfLDfbZGftOec1HtnF7c/yJ+/fbu+ph0ZgsMun5jbzGe837Vhk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051895; c=relaxed/simple;
-	bh=CuqmN+hEV1X2+dF6XQ8Oe3cQ/ddGVX4cIjnEuIhMWaM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qfu9aT7ZIyhZoA+V+mfS/aKgaOE2/YwGxTITJW+hqH7ovt0n22xMq2U/y5mrLKbmRE6cfaS+DLfxEXaABB8RstrJnJCqKtOhewQlZdBS37zW3muXIsRHVlws3Qi0tOxTtLHrjP4QcYz/+z7unv7LsibUlZd682guPUoc/EcyovE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com; spf=pass smtp.mailfrom=mobileye.com; dkim=pass (1024-bit key) header.d=mobileye.com header.i=@mobileye.com header.b=Lr9OrUZj; arc=fail smtp.client-ip=40.107.162.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031D34A0147
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792051900; cv=none; b=HyeWIhbG/Up13PgnuuaayZ2waFBXmk+rppFQ/cAjrXnzfElZ1D06LF86WBTWZH1TXM79AjgkzXZvhym1HeTehHKXMrt7jdToaecCMeOkg3q8f5upHzPbmi+LDBb7uvdpTTZ1D6PvEEtXRgDk2kG0FxVRs1OOrzUXTJuI94KAi/E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792051900; c=relaxed/simple;
+	bh=2r3UVH+gyPAGLc1KXm+ystOLHCuv31r4fdl346qvDdw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YI/668/KldvyMCjhyiDY4e3SYcxDGYw4BPiV47SKDAgOyiOjmM66ihs4dyU4OyCteFn+oFKXYQxqaTeWFeDA+7ERSE7wtTBSmjqF3Z6TGn0JsYuvnqb1QzDyaARLPWEqIMqZGucKaAHg953oRnDkgignWAT4hFzQ1SI6q2o+g78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hydLT4e3; arc=none smtp.client-ip=74.125.228.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mobileye.com header.i=@mobileye.com header.b="Lr9OrUZj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xfCSQojybMVALvA27Gm16vTRe17IRNgzgn8GYPDykIU3UXlJA7gv9Jv1agDECv4Rwjwj6EmfgoEHzRfGeqN/XJRiGhMmAF3v0zxCMnnjjmsAEVaDEiOdN5lxQAypY40NA5ZqHIce2wpc2BmJN1k862DlQtTlJFv+qlSh680sAX9ELzEBdeyH2NYV5gQFcV/1etkT/xAHEwvj9bM8lz3iyv7nAV4dC/+2ncrpmSxi3l1jSW77et1JoloVix9sV+pQM1FPrZ4ZixXHQwHqwmpo6tH+SB3TadHOnmX/UHQP+wLjzJ5OzXPh/tGJ/YsuTdnNZD98/1R5O6J+vmvHqx4+5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CuqmN+hEV1X2+dF6XQ8Oe3cQ/ddGVX4cIjnEuIhMWaM=;
- b=JacR/ea1ntIWeJHoRjagOqk5ZKMd+TvnoZ5EoYhx40R82mHekzo7XPVRsGeINEs1uFtzrF1RPoY1acPgFVzrXeCN6Wfr+K4QZrvEMKoPURmrsP19s5wQ2v+BFKm4YP4f/qTXXLR7whgyjLHcuG9VDQc/sioDVQNB3LQTCLmSjYU4y1wTUxjyzPmM5JxkF2HgcmdYLytvLOwu3tbzQn3LVdcnFZ3wBim8oLDMRF1h416RFq6CySbeDzrSt71Ethm2ypMAL9W9vz21t8U8T4vIPRKpE6HmLSUVFk/9yms0Vedi+l/laA5C5sAx7wkRVAagX73kDqBvN8dRzAjOgPKm/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mobileye.com; dmarc=pass action=none header.from=mobileye.com;
- dkim=pass header.d=mobileye.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mobileye.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CuqmN+hEV1X2+dF6XQ8Oe3cQ/ddGVX4cIjnEuIhMWaM=;
- b=Lr9OrUZjXlVicBRX+AQ8h6m4MiATCSZVzx7SpX6YNAcush/puWI0q8GYezyPOaeIYTX0ljoGDf4ducO6166BFo3X3pKDicjnl1a8bbmTx5euf9vO6xJi+MMrUSAzA+X0uUkhMxqBncZAvE907/IDV8MNK0l9fee2atwYQL9Xpi8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mobileye.com;
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22) by VI0PR09MB7045.eurprd09.prod.outlook.com
- (2603:10a6:800:242::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 08:11:27 +0000
-Received: from ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2]) by ZR6PR09MB889505.eurprd09.prod.outlook.com
- ([fe80::9006:1164:b51f:23a2%4]) with mapi id 15.21.0522.011; Thu, 15 Oct 2026
- 08:11:27 +0000
-Message-ID: <9bb6f315-c668-4f90-9fee-920f115a3dcd@mobileye.com>
-Date: Thu, 15 Oct 2026 11:11:24 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] irqchip/riscv-aplic: fix asynchronous probing
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Clark Williams <clrkwllms@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Jessica Liu <liu.xuemei1@zte.com.cn>,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-References: <20261012-aplic-async-probe-v3-1-5cf52dc28690@mobileye.com>
- <20261013152727.2cUDX3l0@linutronix.de>
- <5a8048ef-a241-4486-adc1-440721d3606a@mobileye.com>
- <20261014105312.xNkvgkGg@linutronix.de>
- <46eaa0f0-ff72-4a72-91c8-b610be2d893a@mobileye.com>
- <20261015063227.GBjyN6LZ@linutronix.de>
-Content-Language: en-US
-From: Vladimir Kondratiev <Vladimir.Kondratiev@mobileye.com>
-In-Reply-To: <20261015063227.GBjyN6LZ@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0028.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::10) To ZR6PR09MB889505.eurprd09.prod.outlook.com
- (2603:10a6:910:e0::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hydLT4e3"
+Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d790cce1so1019616a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:11:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792051897; x=1792656697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJuw0HG6b0/g50rFnImD3mqXWKPn47lEKfqXU/zgoNc=;
+        b=hydLT4e3jIk9K5ebHmQFcBnmPtkptiadJmX5UPwOQ3/iar+5t6lhwuJVEtEeyoHCew
+         tpK+a6WpQZSo3/hvxgpyFed1mAUxItUOa78+9ROM7XGxs6jTwq05HIqQNC/ryp1TnELE
+         1OjyNMDWdmrgHLa3XkPoW40ZGt8AOdpxfHKFc5g2Qq1dDxziuy0L/sh/r1lTMuSntuVU
+         n4Tl3A4br3ik8zGRRVuwJ9HfoPPeGdC8YVmXVsxng6agyGvfjCtXe6Is/aDdA2UtVbUu
+         MaXgMdAC7+nemxUIv5jhG+FwdnHctVxSyHoyZOIiP1oH6Mtn1UMXvNUF0gSCAlSBgFrU
+         29Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792051897; x=1792656697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tJuw0HG6b0/g50rFnImD3mqXWKPn47lEKfqXU/zgoNc=;
+        b=WvhVSEDrxw0U2+vTRCOfNCxmyAfy7p03xcHevO6YMZquFhTbecB0UBddjvSDWiN0Vs
+         pLpNjDraw6owV+tOxHppDuBNSNsgxh9fkq0KDIEYgb0wq1od0LPWF33uaRPRLmZXBNnm
+         WcEB9JD4Mcl2l4KfonHYWzvWHCCCCEs9NymaKLxwE1cPXs7RfaPTMVVIXp+/xkaKaFbv
+         z+u+OnbZ9unuHeBmyEyZIs6Yt982dpIcAGcP8KFLQ+eT1D+1exkSa7CP1PTzYXvbHyc/
+         a01GtwpjGocNoubLeB3BxYedq2g0fcd9Ne7ACmZm0jnClNP7b5D9LkQLSl4gAD0YRHAu
+         xAgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqLcRSdCBQjgbcEQpORh+bf2TT3hCnVFW67xv+yyL8XsoaN23dxJYm6TvWPK5kFRk/gQl43zWt34QBAh8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKag1pJ6Fu266YbW7uRqcN1yGxOZtqLoUSvH7vqdykMrZpaJL0T
+	IBHD8rt9eEWYC4QPx2K0NyZxiPpmCs+4EZaXOrLT0xiTCwiXkaHsylLSdtyLRTvf
+X-Gm-Gg: AYBFou0AwsyIrZtUjsv2AvOsh0ezOJyBS7Lu3ACUsz3Q+xo6iAH3LRS8lYuEpxv2kbV
+	tlT5g0Mgtny/LK/ce4YlawEUcyaPuGD/gr7NcsCUuAbDaIr0E3atMUJ6Jq+3r/eMtnHkIaUOgcs
+	7hVdkPcguYpDtRfgnPiQTLvkl3dyE0NRjEP/vtVKNlQY6yXgvOGzb+JIg+B8Yqv7SzFaOyUMTO0
+	QtcYhCHDho4cFNTRxOkA250HQb+dBGGzYt1+koZsoBytsed6UEYqhB39JLnwo0c3G+WEszlER9k
+	IPwyRphs0OQ/zqGWr+OJLhVEQjv/042rRa83mxS6u1t/ruQh8t9twdFfQ2hGTAn0ohFeocG/5UK
+	lDHN+m/Pmz87KhQV7TrA8b8S6wAsP3JTUb72yqAfa8Inm7CLOXrZHEx+tKSGf571skt6gWDXnmY
+	MDv7rSovsRfoM+0XN8k2YiK1p476M2VtPGSjY5UfLcF+WyybCDc5DNq4C48IlaTFdflWC4/Wi13
+	l8v4tXS8ogxwT7BYE3bGGnEZbmjdjJ0stRxThAp+V1Vqk32Z9jTkmJGwYWcnLtN7xZw2bSBnn+z
+	+MtebjN/42YuiMJ6kQbzGJNBtQ==
+X-Received: by 2002:a17:907:3f87:b0:c2e:2e1b:30e3 with SMTP id a640c23a62f3a-c31aa00e12fmr1974043666b.21.1792051896835;
+        Thu, 15 Oct 2026 01:11:36 -0700 (PDT)
+Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3eda5297b0sm96080666b.63.2026.10.15.01.11.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:11:36 -0700 (PDT)
+From: Thilo Zirnstein <thi.zirnstein@gmail.com>
+To: michal.simek@amd.com,
+	andi.shyti@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thilo Zirnstein <thi.zirnstein@gmail.com>
+Subject: [PATCH v2 0/1] i2c: i2c-xiic: fix clearing of bnb irq
+Date: Thu, 15 Oct 2026 10:11:26 +0200
+Message-ID: <20261015081127.1566244-1-thi.zirnstein@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR6PR09MB889505:EE_|VI0PR09MB7045:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5dd39b6-7b60-43fb-ae80-08df2a93e986
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|10067099003|18002099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Cd1Gmuo4UlJzOPNoADBfVI7IBtVejVT2DR2LmMX2WInTt315D/DlPxlniMIYw0AlswBZhYvZRC1EDqXESviMomuCSTRI6NrWamP6ACpkLLJrClkjK/tg8EgZKJcTLozwHbCqu8sP2W2PHDs2SqnbjpPgfPXvHRfSnzOmEcNEWxBCaR6Jevz4xdb1kT9N9gnTCHNVSXhKxSiEIvP8Y8Dkfd1ON2cq88sG+87wLaMxyJBFOsmUi5SOjjcUakJi4Fms48D8OBgCb9HY3EkrsLHKbIJQAOkGpWMZaAiktfyoe+VU3dCjjr7RUkfuJct4elaCsf1un7TbeZv4NX0j29pPCckRNg8ube32eWJLcw+xzADQH9Atvj1MNhMvHQ0WDnfkLdWtbahzcfllVsSHfsjy9fxUNATXqBcf/5ZSsA1EbXriDYcLCgXcYoFnJFXxg3/TPeQvJgW9VZDVeU67zL6obLDdnsO+QAO5wD5lFJpiI+mCIvuBDkEcZVBAcJC+nud4eFmmF28IoewPaco8YS6aek2aClxnSMR7A0dq8PrgLiV9Gt8zAb69NPA9Z9bzFo/nE6mo+Za97oLXiMybc16KA7jMxH/hqXHSzRxC+KGp9uneIPfHQlkSJI36d2zZ3rfFyf55XTivPyvX5zVJaZoVspVoxxwE1iEwJkyh4QBDK0c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZR6PR09MB889505.eurprd09.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmkwUlpITXpTUW40akpaeWxiVThwSk85NHRyUm9jOUxucmpaVDBtK0pWKy92?=
- =?utf-8?B?ZHYrREFueG5qblVDN2g5M1lSd2RPWCtyVUtXaXNqUitkZE0zaVk0aW9ib2Vn?=
- =?utf-8?B?Z2V0cVA3WnhTSjBVYUJUZ0tQRWNkT2toZWp1bHhTeFdZMWo5VVo3Yy9jZlNI?=
- =?utf-8?B?Y0hkMEpRWnhCSkJ1Ykl3NmdzaVNTdXJpZlk5RU5uMGgzVUVmdGNya0ZwMGFT?=
- =?utf-8?B?aENTa1JsbU52aFJmRXZGV24wUDIwR2VUcWoraEpsb0w0RDNoV3JBT3pQVCtP?=
- =?utf-8?B?VWpYRS9XWHNnckJnUnYraSt5L1ZvTC9qaU8zSS8ybS9seWxTMW1KVzFXVzM2?=
- =?utf-8?B?QTJ4d3RFN2x1VTF5QWxHSFBnM25aUXVINU5FbndDczdqVUZPbTBlUW5janNw?=
- =?utf-8?B?eC9adEZhai8yZDJZQUJaaFZxZzErVE9NZmF6d1NQUXc4S2xwOFFnNmxzUWFL?=
- =?utf-8?B?YTNDc3hIa0RvTlhmeVRndHFIT1g1QUlBVUQvWEtmV1ZoTmFyZ2NDNXVkOW1M?=
- =?utf-8?B?cmtYWE0yaGo2M0ozdGRMT0pibDRZTnBNbWVFYjRlalVlV3hjUzFqY1N5ZXlC?=
- =?utf-8?B?eXZtSVlhdjlPWmxXZkluYVdOenBiaXFLSVZzOGc0T2kzeXM4bTZKbjNvU2VN?=
- =?utf-8?B?UlBXWklUaUR2a1d2WDlrTmJjRFA2WjNxYkdmQ3N2TU1wNXhvNXZKejdsYmZ3?=
- =?utf-8?B?Z2pDSUg4cUJUV2tpL2cwSi90aUlxTDllcGQwdHlzallJNEZRQ21NRkJjUitm?=
- =?utf-8?B?dVk0M3lhT1lkMVp5UVh6UFNmNDlHbVJpN0VlSzNXTVB2WEM0WWI1WW5XVWRR?=
- =?utf-8?B?dlBSQkVnNW9yOG1RSllWdTdhYzYyK0RhVDNnQmFTOVdYYzFsMkJlUzZNMGNi?=
- =?utf-8?B?YkRpR1VZdmtzd1N0Z3BuaFM3MnBaTjZIdXcvancyYVZQTHR6MjEzVTRacnBX?=
- =?utf-8?B?UjNpUVhyWG1ZM0NKajc4bnpmQUlpU1V0SjRreHRBRUMrN3pVNWFWUTRhcDlZ?=
- =?utf-8?B?OUZXbDIwcUliNVFwQ2ZZODhyT3R4WVZPOXgzamlzSTlVeWtWdWszWjFwbEo4?=
- =?utf-8?B?a0YxQkc0a2pMbXMxdXB2UTVmemxDR2FnNEFzby9YTFZkR3ZGd0ZnVHhnZXBT?=
- =?utf-8?B?SE4zYmowRmpnVDNNMDEwcm96azZpb2lUdEZqWWdYY3ZRMFJEMCt4VmJheUNM?=
- =?utf-8?B?ZUNOVFV4M1F6c3o2K3Z2MUZLUjJhZElhRjVHQVVzY1Y5Tmx5c09TblJqSzFu?=
- =?utf-8?B?UkdWcExDa3hGblQyVkpxeU1BQnFJMkpXc3h3V0xZT0R5NnpkRlNVQlZhU0tr?=
- =?utf-8?B?SWVMY0laZVVMdllLSWY5MWl5dGd2bVVQZnFuY2FaZ081WnNEMEhYOGk0amIx?=
- =?utf-8?B?aU5ROFJMV0RVNlJSNkorRTFTSkdtR3FvK0V5T1hETnlBR3lNa1haSTEzMFAr?=
- =?utf-8?B?OFlsdEVvREI0YzAzbVhSWTB3Skl2aktIMGNIRWt6Y1dVZzBjYllOcWpIQ1Z2?=
- =?utf-8?B?cXVRNXRadmx4dWVQbFlES09oWWo4UTducE9GMjBxMXJXREtzZTlCNDJwY0hV?=
- =?utf-8?B?eWlPZEZ5Z0NjUlBnUnk0bG1sdE1BN29zekxPanJzYlF3Qm5Kbkt0c09vSWVX?=
- =?utf-8?B?QW43S0dYVXprM1ZqN3ovSW5hck1TNUN1cWJ6UG00NEZ0cHpXUVhJNm16MnJl?=
- =?utf-8?B?eHdJZGRqMXVDY2JFdWhFVmZ6cHNQTUhjMmdSeTl0SUNkY0gwekJjQ1c1V0U3?=
- =?utf-8?B?Wm1JeFA3bThndlVGdXpWcEVYeHQvL3pUSXV2bERsaGFSbmFTQ0g3MmtISzVH?=
- =?utf-8?B?bUlaem9RL2JRY3FBODJQK2RLWTgrazVrVjI0b0tFcERQVm5vTWhMUmppL2dQ?=
- =?utf-8?B?dzRMOTFkMStsamE5akZ3ZmNVWnFDVExJT2U4UnhlYTROZWwxdmhDMzZKbnJI?=
- =?utf-8?B?cTVEZTgyMlYwWEVpa09WcEQ2TXFtZ0E3amhEWHF2U3RaVEYyTXgxL2tURUcv?=
- =?utf-8?B?RGR5N08yTWw1eUpPWmR1bUpMY3JEOGNuUE8wbHpPSFFvSE90aE04QmhQK1Nh?=
- =?utf-8?B?Njg2TkpUQVFsRlR1OU9OY1VqcVN6Y0dEcDc3elBUQjhVNkhWNm1IdHJ0cTlT?=
- =?utf-8?B?K3pWc09rZHM5TFQ0b0hmalVYQjhLY0RmUEpMN2YvSUV5WGlIUUxTSHpubjZl?=
- =?utf-8?B?bGNFa1p0U1NmQjBZQjdPR3pJVGNyeWlJd2E3enkvYW1nK1JZeWx0SnlQVUJs?=
- =?utf-8?B?dmpzbHkwS0dQckxuU25sVWZlaVVEbFE1ZjY0NjRxRk9SalV3Y2xmRmZrMUR0?=
- =?utf-8?B?TEtJMGVLeHlESEpscU50bTQwNnBoWUIyalVSMFJDTWkyM1MwbmRnQT09?=
-X-OriginatorOrg: mobileye.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5dd39b6-7b60-43fb-ae80-08df2a93e986
-X-MS-Exchange-CrossTenant-AuthSource: ZR6PR09MB889505.eurprd09.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:11:27.7315
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f85ba13-6953-46a6-9c5b-7599fd80e9aa
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LqagKNtVBnk/nopBK+R3C3rnmbW1jM3616GrLzz6PGcs3tZOxOe2Y/j67d3eet5MXbd8RLRynBc7hw4uwcJ57w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR09MB7045
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 09:32, Sebastian Andrzej Siewior wrote:
-> The driver providing MSI capabilities (the MSI domain for this device)
-> must a module. This is the requirement so that _this_ driver returns
-> EPROBE_DEFER and *then* once the MSI domain driver is loaded as a module
-> (after boot) this driver is probed again and succeeds.
-Why module? for "riscv-aplic", "msi-parent" shall be "riscv-imsic" and
-it is "builtin_platform_driver", see
-drivers/irqchip/irq-riscv-imsic-platform.c
+Dear all,
 
-Thanks, Vladimir
+This patch fixes the clearing routine for the bus not busy (bnb) irq.
+The bnb is used to indicate that the current transfer is done.
+A high level view of the software flow for tx:
+
+* init i2c controller
+* prepare all registers ( fill fifo, enable irqs, ... )
+* start i2c txfer
+* clear and enable bnb
+* wait for completion
+* ( serve interrupts )
+* ( bnb interrupt ): complete completion
+
+The datasheet ( pg090-axi-iic, Interrupt-Status-Register ISR)
+states that the bnb bit can only be cleared if
+the bus busy bit in the status register is set.
+So the iic controller must have recognized that their is some activity
+on the bus. ( Start condition )
+
+Currently the bnb bit is cleared without checking or waiting for this
+condition. This can lead to spurious bnb interrupts.
+
+I am kind of unsure which branch to use for handing in my patch, 
+this one is based i2c/i2c-fixes. 
+
+Kind regards, 
+
+Thilo Zirnstein
+---
+
+Changes in v2: 
+- Unintentional changes removed .
+
+Thilo Zirnstein (1):
+  i2c: i2c-xiic: fix clearing of bnb irq
+
+ drivers/i2c/busses/i2c-xiic.c | 42 +++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
+
