@@ -1,262 +1,206 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5232654CF55
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC05542EC5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090297; cv=none; b=k4W/J/725oYaRoGUvp+zyGnn4RKm3vfpM4MzpbJTmAgYGvPKttAcFIz8YHAQSMDMKRhqMPB5MSHonzGguYnt2MP5/dLLx2jE1DwOfBdITHLWwkTmW+5IOZtIJObOONkSPf6O8zozAPXKFPFv74AijlUsbYvpLVOLoyhTOvA7R5w=
+	t=1792090316; cv=none; b=TfsxtcHlcEpPXl+vjvlebie7wYligGOi0HUwvLkt1lqyhiMPVBv9kBsHiQy0GuFhsWPs6QGClQS6m1vccKtmQqxE0vUKp85DI7Rfe2/mABrxAhNpycfUzqfZh2PwMMsIE4wK+ls5tJwFd/ac+J9WTHihYkXFgLOS9cV7xh/1gf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090297; c=relaxed/simple;
-	bh=HO1HSxlzu9A5G2X9wPBaDiKRVbCJ2afCF/bqWtwhDas=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Qs/wjraBjYNFQd90A9N1OQHs/CrYazoQWHjno784mtKoZNppgOsnbGjkUuSDyiEFGpOcimQa/5oGByK5XdApScm4Qkrt76GWmkt+SfLuCS3IOhliQsMDXiXeaH7Bgcb+9JWKb0jYeQ0TnPLkrD455hzLRisEesVZX7tVzjQbwNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=Aqv7ZblO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=K8iVxa37; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1792090316; c=relaxed/simple;
+	bh=1dzvgxln+eWwNsg9VVLAQoObHp1kZXAmcMPbWrIWUGI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Umhif2sX98XXDDCsGplVvlO1kDUmzthX3ht8Cg8/ri+bpU6WqoRwU+7uUn7Z2o4kq/Hh9BLkMOiFs47veyzNdRrVMKw/8DH+RzSNRz1s+6CK2KaOI2uA9/RT3MnVsybDwJS1NZDPdRjfQoXf3WIg6/R6a20d00yf1cr5MXJHscs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDtQ/H92; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="Aqv7ZblO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="K8iVxa37"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfout.stl.internal (Postfix) with ESMTP id A7A7C1D000C4
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:30 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 14:51:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1792090290;
-	 x=1792176690; bh=Ak/8qLCT2PjpEnH+ZxC6P3NqP2TXS/ckhKWICHxOvgU=; b=
-	Aqv7ZblO+0cPVPEaiLnbQ8QpJhd8290zA3l0wST60vrThluQxdsZj6dxqE6B+dgF
-	rdwBhI+7Pm+GKEb9RauV0y4oOnjMHVlRkrtugV7440aBvjb3mSBkuz6cG+Q83cJ5
-	CymWp/BKQBbEIgmsvNsjGtwZwYAHJnQz0qjnu3rzinDJ7Jx1sDT2Zas44i2aBHwy
-	CE+ak+UHAm5SxbhftKUWVs6rcMAlvUleE1C4AhNcN/Yd0KNZO+RCjY6FB2QgSQzy
-	cHUx/iNs5omgnfCvRUWnKYg0pSoraZDzFQ3RMAEdLZ08AMbrSlI706kTwHEDD+NB
-	V96KIEx9YB1HW8LDC63UHA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792090290; x=
-	1792176690; bh=Ak/8qLCT2PjpEnH+ZxC6P3NqP2TXS/ckhKWICHxOvgU=; b=K
-	8iVxa37fp76mqum9WD7lFtWQZuxH8XgckFftkDK0xFR5nDmrceOgmg4C6WfYBK0V
-	TT9meq+3jNPEMGI1xtmwrMo/KrpO4BQCbRYlbSOEhx1De1xe9s8S9yzvh6JqyjJ7
-	X+HSpttp9BmGDe18qmkb7q48c25F7gEmmguJfcN0oENzRWAefigFcnoOOUPUk9Vf
-	OWGx50okiqdnIq16UI/54jWzJAI/yuJVS8o0xp3Vt8NvLv2IMh2mXs7KmpGSjQkC
-	sGZSxN2D+Jd6IU3A9V/hO4I7nbq7njabs+o51XSMlvn7BKkJ631p/CHYAOU82YAW
-	7bKbH3iyQ19hb1YuB/URQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792090290; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:bXhDD6vNOkPTisD9TASk0dPQmY46EkJyolqesOYiMO899En
-	eDolP46yeYiIb9/m/AMXG0DJOt9SZzbz9t1ZXjpr2MwHHdPrX7yAPJNPsudKY81N
-	UcIXc/323bmRfv0vpu3rPsXNJy2ZD9aGD6jWHpFT02Ba0lxOxvTlco5u5NIbkXTC
-	7XFiB5QwxHyO8FQRnOr68qAA2kes/zV7HWV7jRTvWyT3PwUADansY34ifvfz175H
-	qG8D5NUYV+defokq9nVhWGGv80MwAeqqKiz9md0DbxftlPmS/ik5/ITX6P36S9XW
-	rAD5B3M1A9MKRJ64bTHJkVEF6GHLXuVqsYho7IQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:icwcS713CIvdgv3vuK+D6MjjIcy6OKrWK6NTgWXlmQI=:HO1HSxlzu9A5G2X9wPBaDiKRVbCJ2afCF/bqWtwhDas=;
-X-ME-Sender: <xms:siDRaoqHhn622_yJV3Ckw2PV9-C1BdhCuWk5WYjWRZU79esxvLWU_w>
-    <xme:siDRapeF1DcjK_QfAttec-XHEToNSZYddXklKCUr54D2X0_Pmr_c8hDvLpnLYmg-Z
-    k5OW8X5SCu7VOuDsC-r53UwoF2wiTbHJ00w6gIIUJ5YiFJBpo5_zo4>
-X-ME-Proxy-Cause: dmFkZTE53mLJCWNWPmDHNOcqMbRTaWDW8YKjRyQvGoaiKC/D9+WY1ugvGuGxpIjuTxaCJl
-    eCWGV0NpTv1mTsFZOzFOz64H6B9hK6WJ1hatDkyQcD4Tqvp1Drk05Yl46YlBgvsTTRmbJf
-    hvHluibKE6T3PLcHTd1gJMWboCdio6JuLc1BW/dxOk6lrSfHXgx2bkzUqU8nvt2Lak/N7c
-    QG9cjAD4rxTzojuyzLA5gnfUA4MEAYa0xYkPn/SsyKG6boRekM7gwR+gFH1WEfGRRzQVdt
-    8Pwtwzy6q2IC088nGXZM2jG8DMPttySbWEzhI4qHCuGs4zjnLVYoIu2ZG5GI2fEbNMzyMn
-    mI267HD/AsJJO6K6CJ5QCjzkobxXOKBtDHoarzTtPVt9hUAuzotAQPSoKNRSQAE7kWk5kE
-    sCJZt19GZ5V3aSKiwbgyamfn3Nt9DWcjSS9m4ZwsUpZH9HmJY3IjFpajRH4jgQQIh4kInX
-    YT7vrGKb6vftxF9EfaMyCAaxXWYTP1OL8gW1g5XmLJSDdL3Hfj+1h3A/5qUdMS9zHYzNED
-    Mxu/rqUoxgw4OvfjUXSOXuDscvHFywXRG6yDmGAucWl4SteLA2RHhRqEJK6pUoSOhLy1Ao
-    jsfIDDjzoaBW3tsnBs7s2Ir0LRNZxhCLo4+ps+XCNF7/H831BV591R2+BJ7A
-X-ME-Proxy: <xmx:siDRanI391SV3Ij-9Lt_o8e9UxK2uaO1AQMme5UXN5sIYrwmwy962w>
-    <xmx:siDRanvu9rm7eUlPJmyhflNqXx3XZppPzWIQAICLlLaVt5UlGmzdpg>
-    <xmx:siDRakJFcP-IjAyWD3a3KCjMLWR8zVc2_oL3P5kpu0iIbMP3wp39Sw>
-    <xmx:siDRanPKU-ZXZ1D7y4A26jmeoUtU3KMj2vFRL3NwZuo85vtz7UULAQ>
-    <xmx:siDRau1OtH5RMRzqVDsnn4o2l1evxlcdQ74ls_xfzWFd2DcfUSTnzMaT>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id EDB842C0007C; Thu, 15 Oct 2026 14:51:29 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDtQ/H92"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D63CC2BCF4;
+	Thu, 15 Oct 2026 18:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792090316;
+	bh=1dzvgxln+eWwNsg9VVLAQoObHp1kZXAmcMPbWrIWUGI=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BDtQ/H9240qHfpFhXPRul95ldjWLptYIs6WjJgpPhdaSF9HWvF+SPS2lXl3VEO5sc
+	 znwXDqxFYdsomh0zh/Fz3yaANgn8UOocEkEziNgKdjqN2OKF3FXwOvo1VVlPPLSEwW
+	 mQlcBqytx+Uo+6f4EKL8/fhIxrYR6G89V0i9P50rBxfQJTVCxobg/fe/b5SzaUy2cG
+	 ZFh8oJsd0+QIUyB+GJEkQGzG1fEniam95t75cat8uUZPZKGKS+6X7pYrmQUUWV5piT
+	 EaA+hUAIHRQDGQrAXUvIzZDPqcsclNxZ6zJ48NVfVq4Oo69Bkat+R+zlB1ro3m76aN
+	 RZv8LWF1AGHJg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A4EACCA465;
+	Thu, 15 Oct 2026 18:51:56 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Thu, 15 Oct 2026 21:51:50 +0300
+Subject: [PATCH v2] genirq/kexec: Do not take the bus lock of an interrupt
+ chip on the crash path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AAiu7TaDoMPk
-Date: Thu, 15 Oct 2026 14:51:09 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Armin Wolf" <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>,
- "Navon John Lukose" <navonjohnlukose@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <4362df6c-329a-4419-8c1c-7202cf934dc4@app.fastmail.com>
-In-Reply-To: <20261014-lwmi-wmi-new-api-v3-7-e1032bed1c81@rong.moe>
-References: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
- <20261014-lwmi-wmi-new-api-v3-7-e1032bed1c81@rong.moe>
-Subject: Re: [PATCH v3 07/12] platform/x86: lenovo-wmi-capdata: Adopt new WMI API
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAMUg0WoC/32NQQ6CMBBFr0Jm7Zi2lEZceQ/DAuhUJhDAVhsM6
+ d2tHMDle8l/f4dAninAtdjBU+TAy5xBnQroh3Z+ELLNDEooI4WocKSNemT/xO4dcFr6EZ2+2Ko
+ 2RuvSQh6unhxvR/TeZB44vBb/OT6i/Nm/uShRoqid6apSldqIG7fxPEVoUkpfIn/K67EAAAA=
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>, Marc Zyngier <maz@kernel.org>, 
+ Eliav Farber <farbere@amazon.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Heiko Stuebner <heiko@sntech.de>, kexec@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4880; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=WElKsqp4WDpVY7lXmV1kTAIN6zD/+3FmBNHjKTykQeU=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkXFY7N/8PFuXRta+C1bq24OsHXr/0+nHew+X7/qsvLB
+ EXtxtX3OkpZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEQqIZGToOulXNq9tV/mnJ
+ QY0v0l7PFZpXZJiyGopfF2P7qmNV58/wv1ppX4hiS4gID8/X27mvzI/9sGHfvFCtw3TZpd/aKp8
+ WMwIA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+
+From: Igor Velkov <iav@iav.lv>
+
+machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
+started interrupt. That function takes the bus lock of the chip and
+desc->lock, and syncs the chip when it drops them. On the crash path
+interrupts are off and the other CPUs are stopped, so a chip whose bus
+transfer is completed by an interrupt never returns from the sync.
+
+On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
+the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
+init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
+every unlock, and the I2C controller needs its own interrupt to finish
+the transfer. A panic with a crash kernel loaded prints
+
+  SMP: stopping secondary CPUs
+
+and then nothing until the watchdog resets the board.
+
+machine_kexec_mask_interrupts() takes neither lock for the other
+operations on the descriptor. Move the search for the chip that
+implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
+takes no locks, and call it from machine_kexec_mask_interrupts().
+
+Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested with sysrq-c and kdump-tools on Kobol Helios64 (RK3399, RK808),
+7.3-rc7: the dump is saved 3 of 3. Without a fix it hangs 3 of 3 (7.3-rc5).
+---
+Changes in v2:
+- Clear the active state through a lockless __irq_set_irqchip_state()
+  instead of skipping chips with irq_bus_lock. The manage.c part is
+  Thomas' proposal from the v1 thread.
+- Link to v1: https://lore.kernel.org/r/20261005-kexec-irq-bus-lock-v1-1-09f6b5323460@iav.lv
+---
+ kernel/irq/internals.h |  1 +
+ kernel/irq/kexec.c     |  2 +-
+ kernel/irq/manage.c    | 43 ++++++++++++++++++++++++-------------------
+ 3 files changed, 26 insertions(+), 20 deletions(-)
+
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 2c30e7537987..703a062be878 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -83,6 +83,7 @@ enum {
+ #include "settings.h"
+ 
+ extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
++extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
+ extern void __disable_irq(struct irq_desc *desc);
+ extern void __enable_irq(struct irq_desc *desc);
+ 
+diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
+index 1a3deffe6b5b..f245b9876422 100644
+--- a/kernel/irq/kexec.c
++++ b/kernel/irq/kexec.c
+@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
+ 			 * First try to remove the active state from an interrupt which is forwarded
+ 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
+ 			 */
+-			check_eoi = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
++			check_eoi = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
+ 		}
+ 
+ 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 4fbb8f960dbf..94c2e13ddf8d 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -2747,6 +2747,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool *
+ }
+ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+ 
++int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
++{
++	struct irq_data *data = irq_desc_get_irq_data(desc);
++	struct irq_chip *chip;
++
++	do {
++		chip = irq_data_get_irq_chip(data);
++
++		if (WARN_ON_ONCE(!chip))
++			return -ENODEV;
++
++		if (chip->irq_set_irqchip_state)
++			break;
++
++		data = irqd_get_parent_data(data);
++	} while (data);
++
++	if (data)
++		return chip->irq_set_irqchip_state(data, which, val);
++	return -EINVAL;
++}
++
+ /**
+  * irq_set_irqchip_state - set the state of a forwarded interrupt.
+  * @irq:	Interrupt line that is forwarded to a VM
+@@ -2761,25 +2783,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+  */
+ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
+ {
+-	scoped_irqdesc_get_and_buslock(irq, 0) {
+-		struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
+-		struct irq_chip *chip;
+-
+-		do {
+-			chip = irq_data_get_irq_chip(data);
+-
+-			if (WARN_ON_ONCE(!chip))
+-				return -ENODEV;
+-
+-			if (chip->irq_set_irqchip_state)
+-				break;
+-
+-			data = irqd_get_parent_data(data);
+-		} while (data);
+-
+-		if (data)
+-			return chip->irq_set_irqchip_state(data, which, val);
+-	}
++	scoped_irqdesc_get_and_buslock(irq, 0)
++		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
+ 	return -EINVAL;
+ }
+ EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
+
+---
+base-commit: 4351cc74202857f5b85b3573c477c9f798f5cd88
+change-id: 20261005-kexec-irq-bus-lock-f48d5966443d
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
 
-On Tue, Oct 13, 2026, at 3:21 PM, Rong Zhang wrote:
-> The new WMI API supports multiple ACPI types by converting them into a
-> unified buffer that satisfies alignment and size requirements.
->
-> Adopt it to make our life easier.
->
-> Note that the new WMI API only accepts a few ACPI types to conform to
-> the behavior of the Windows WMI-ACPI driver. By adopting the new API, we
-> intentionally rejects improper ACPI types instead of silently ignoring
-> them.
->
-> Meanwhile, considering that `struct_size(block, data, count * 3)' may
-> overflow when calculating `count * 3', ignore Fan Test Data with count >
-> U8_MAX instead of caping `count'.
->
-
-Minor typo: caping -> capping
-
-> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
-> Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Changes in v3:
-> - Leave struct cd_fan_block's __packed attribute as is (thanks Armin
->   Wolf)
-> ---
->  drivers/platform/x86/lenovo/wmi-capdata.c | 70 ++++++++++++++-----------------
->  1 file changed, 31 insertions(+), 39 deletions(-)
->
-> diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c 
-> b/drivers/platform/x86/lenovo/wmi-capdata.c
-> index 3c09bb9e3d46..abf5ffda7163 100644
-> --- a/drivers/platform/x86/lenovo/wmi-capdata.c
-> +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-> @@ -626,17 +626,19 @@ static int __lwmi_cd_cache(struct lwmi_cd_priv 
-> *priv)
->  	}
-> 
->  	for (idx = 0; idx < priv->list->count; idx++, p += size) {
-> -		union acpi_object *ret_obj __free(kfree) = NULL;
-> +		struct wmi_buffer wbuf;
-> +		int ret;
-> 
-> -		ret_obj = wmidev_block_query(priv->wdev, idx);
-> -		if (!ret_obj)
-> -			return -ENODEV;
-> -
-> -		if (ret_obj->type != ACPI_TYPE_BUFFER ||
-> -		    ret_obj->buffer.length < size)
-> +		ret = wmidev_query_block(priv->wdev, idx, &wbuf, size);
-> +		if (ret == -ENODATA) /* The block is too short, probably stubbed. */
->  			continue;
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* Capdata 01 is an extension to capdata 00. */
-> +		struct capdata00 *capdata __free(kfree) = wbuf.data;
-> 
-> -		memcpy(p, ret_obj->buffer.pointer, size);
-> +		memcpy(p, capdata, size);
->  	}
-> 
->  	return 0;
-> @@ -678,43 +680,34 @@ static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
->   */
->  static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
->  {
-> +	struct wmi_buffer wbuf;
->  	struct cd_list *list;
-> -	size_t size;
-> +	int ret, idx;
->  	u32 count;
-> -	int idx;
-> 
-> -	/* Emit unaligned access to u8 buffer with __packed. */
->  	struct cd_fan_block {
->  		u32 nr;
->  		u32 data[]; /* id[nr], max_rpm[nr], min_rpm[nr] */
-> -	} __packed * block;
-> +	} __packed;
-> 
-> -	union acpi_object *ret_obj __free(kfree) = wmidev_block_query(priv->wdev, 0);
-> -	if (!ret_obj)
-> -		return -ENODEV;
-> +	ret = wmidev_query_block(priv->wdev, 0, &wbuf, sizeof(struct cd_fan_block));
-> +	if (ret == -ENODATA) /* The block is too short, probably stubbed. */
-> +		return 0;
-> +	if (ret)
-> +		return ret;
-> 
-> -	if (ret_obj->type == ACPI_TYPE_BUFFER) {
-> -		block = (struct cd_fan_block *)ret_obj->buffer.pointer;
-> -		size = ret_obj->buffer.length;
-> +	struct cd_fan_block *block __free(kfree) = wbuf.data;
-> 
-> -		count = size >= sizeof(*block) ? block->nr : 0;
-> -		if (size < struct_size(block, data, count * 3)) {
-> -			dev_warn(&priv->wdev->dev,
-> -				 "incomplete fan test data block: %zu < %zu, ignoring\n",
-> -				 size, struct_size(block, data, count * 3));
-> -			count = 0;
-> -		} else if (count > U8_MAX) {
-> -			dev_warn(&priv->wdev->dev,
-> -				 "too many fans reported: %u > %u, truncating\n",
-> -				 count, U8_MAX);
-> -			count = U8_MAX;
-> -		}
-> -	} else {
-> -		/*
-> -		 * This is usually caused by a dummy ACPI method. Do not return an error
-> -		 * as failing to probe this device will result in sub-master device being
-> -		 * unbound. This behavior aligns with lwmi_cd_cache().
-> -		 */
-> +	count = block->nr;
-> +
-> +	if (count > U8_MAX) {
-> +		dev_warn(&priv->wdev->dev,
-> +			 "too many fans reported: %u > %u, ignoring\n", count, U8_MAX);
-> +		count = 0;
-> +	} else if (wbuf.length < struct_size(block, data, count * 3)) {
-> +		dev_warn(&priv->wdev->dev,
-> +			 "incomplete fan test data block: %zu < %zu (%u fans), ignoring\n",
-> +			 wbuf.length, struct_size(block, data, count * 3), count);
->  		count = 0;
->  	}
-> 
-> @@ -729,11 +722,10 @@ static int lwmi_cd_fan_list_alloc_cache(struct 
-> lwmi_cd_priv *priv)
->  	priv->list = list;
-> 
->  	for (idx = 0; idx < count; idx++) {
-> -		/* Do not calculate array index using count, as it may be truncated. */
->  		list->cd_fan[idx] = (struct capdata_fan) {
->  			.id      = block->data[idx],
-> -			.max_rpm = block->data[idx + block->nr],
-> -			.min_rpm = block->data[idx + (2 * block->nr)],
-> +			.max_rpm = block->data[idx + count],
-> +			.min_rpm = block->data[idx + (2 * count)],
->  		};
->  	}
-> 
->
-> -- 
-> 2.55.0
-
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Mark
