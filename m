@@ -1,124 +1,216 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009293E2AD1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0003E00A5
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:20:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792041663; cv=none; b=T7L2d4i/+LSd8CYpB2v9EgfVqqtKvWkC9Vh0SCiVcjjGsFwjyP66c+IYwebsxmoAIcnXxy1fitqTDUCurhJVXtrrGWlx4uc8oYGb/NJ3UpUtlPVLmaM+6BNNbWGM5IZvKlMvILARugGJXWkAMReW43p7Ia2JYcKCxWixC+pJCjQ=
+	t=1792041647; cv=none; b=kJvp9ivG16qHhQ1Dl3Xndaf9mh2VeAVZETgMbaMR8JFkahucumfO9O7xg++3dBIkDmqA9HA+jhtuaU2gt41tkZV8TtzDSUA8kWyUzRi2HCdFNAPufRo7VSV82waPf7wLddmuqidoVsS9a7QKDSzTXIntAS+L74n+r8hQ6bDICwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792041663; c=relaxed/simple;
-	bh=0S9ZiRaNeD0ONuhBWck3LZ15qfVQqVd9GHb68v++sEM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GHqiku1GmA0VCeYK0UxKcHKk04UL+VsufeHvPtaH3MTY84RuPsjJTk5UqJ60O5Nj/w5sdSn7/jh0JxpYL72ebIwhrllAJbfEU94xTYVBP8iQriKj85UXsYltKQWMejbr8Q+xH+JufzVpzzadVuNNme7+JPJnT3wRQW63L1i99X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rOKD6Gr6; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792041647; c=relaxed/simple;
+	bh=o78/8ZgMwQ+c3Jml1c//wS7cCcxmyFPAi/4GoyOBxio=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=g8uv11Ieq6ANBvcyX5Cb/PDjAGNoH3WaVm8lsqEV5vvS/YORpFrpOmgB3DwOo3+HYKaVed/Ex0tAGYp7SUp9QciyWm7oGXerC4epreiSuKfBFDq3cdlx3Vpp6gbED8jEPGdu0vrmXHipVxHALvdoPSCRQQTVgYJTW3ZTTbvwwc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=At8cY24u; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rOKD6Gr6"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35f036b17easo1585398eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:21:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792041661; x=1792646461; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=soaPR79MMoowv6/4e0ZCsyZJkdHPPam+XR34R/7HHt4=;
-        b=rOKD6Gr6B9cKASFZKkpoO0knCcBMFoWivRGhQI7EMtT8PxvUVMicfWU8FeuERHfksr
-         kV5mJ+lTv/QK8zY0G5af5Hqkk3iF4zLNQPhMszW2fzmyMohgZJUfWMPLOHlBNqBOsfV1
-         4GdMjJgi4m+21sN5VZhtDSjzn2e27MQQpLaAo/eKvmWOdiVKplmiWGdrbQl4NpLAYmWO
-         NAdqyUx7gk+l566C1UHDVXld6+IcdrBSYBTnBuHRqoF5Gp+2/k6mC5SDmAwEevvF0ZFm
-         JEsBFUwYTm4CKD845YV8BSpMYj+9wQpxlY70v7Mi2/1hJxR6oEkeqwY5076k9N+Zjuao
-         YTJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792041661; x=1792646461;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=soaPR79MMoowv6/4e0ZCsyZJkdHPPam+XR34R/7HHt4=;
-        b=NvYQAE/oWOFdl65eKMry1d4+/o+VYx1J3YLfwAMLqyvms+KQKxwmo2pMrVD9/orYUe
-         R8eHlPPjC9rTsuNPLV7AqIoyJ+Uq7Xse6p5nxxJKXKC/o/uFKJgPqZYdyQoG2+YVbsJf
-         p5gdZhXGQxuTcEjlPzhskclq0JpkccmSymHPXEXN5wGlK5DaXEqpPJLwHSAhhTZ/VTVA
-         UmuGG5IbjCyflyKEXV2iZFppjOFL/8063gAZqWdOz7FoiRN3ZXurcngzmnnsNNsGJEOx
-         DOPDDSe5cJm+rowKjQk1S/jdbrlT65BJl9kbkvO4Ik4LsD80wjHjHsQXwTdZOJ7lp7eC
-         Nz4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwXtApUKJ+jmTBanTvF8Z44x7Q4Rg4ybHb6uXGPmkX+roQfs2RherbpATj+OX2uw6rbAaHgav/2K+grhuw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7CqXBRe3Wz97ihVhZdJykuI4suRJW6blXBGQIvBxv9IRgGyZw
-	kGySoVJy6ujFqoOrL4qn6hgSL2aoqoRWmxMQ7YSQiM7B3iKr3cJM5rvo
-X-Gm-Gg: AYBFou1H+qe4LeJnDjBnl8rYSElFPgf7h7IJZxr3t5qs5636xHlvDoX206sRsie1Dlp
-	ayPwI53SuD8eZZ/4HfvnBrfOOg3xleBsZVerpBDFL4eOgibNUywMx3gTfJOXWl+uYQ+h4AgwugB
-	7mKtc8m6bDZ5lSP8JicN7xpzkOUiKdKILVtl6RjBes4f1cisjErMAwVeAosAtbm2F9A02dWEpAv
-	WCJQJRwM+bBy+I6Wor7dLP9GaJxHhguyMCIBKrrMccS47i4HCT3vMnw5KQsXg09MUd+i1BmPOg2
-	fnDSRanE6k1q9R9YcuWPnrlrxUFqJEdQE6gQwGuqNgJGqOOHRi9d5hvDcYwB6bpnQp9J22SMCuO
-	+Rh2VK1Vhqf/3VSpLxKqH07c9tdqlZuF/nun/mhCuohjgcY4u3uGEdp0XWwvW/qPhW+xtBgL4v5
-	tH3NUJS0LoqCWOh618cPB1Z6cuExv457mV0D+CyM9uK0g06ANhBBHf1+qQl8qxoB2ggM1GJlaTu
-	ge7SH7Zknfm+PXzd8m/WUKRMtiPnCIF8+Uhf39qi2Ad7VPJ1ZlUCmQ=
-X-Received: by 2002:a05:7300:e5c2:b0:355:cd68:6f03 with SMTP id 5a478bee46e88-355cd687760mr24635134eec.33.1792041660810;
-        Wed, 14 Oct 2026 22:21:00 -0700 (PDT)
-Received: from localhost.localdomain ([152.59.223.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35de709d928sm12923112eec.25.2026.10.14.22.20.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:21:00 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-To: andersson@kernel.org,
-	sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	rafael@kernel.org,
-	viresh.kumar@linaro.org,
-	konradybcio@kernel.org,
-	tglx@kernel.org
-Cc: radu@rendec.net,
-	danila@mainlining.org,
-	davidwronek@gmail.com,
-	mani@kernel.org,
-	robimarko@gmail.com,
-	linux@gurudas.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v10 5/6] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
-Date: Thu, 15 Oct 2026 05:19:25 +0000
-Message-ID: <20261015051926.13752-6-sreeshankar0910@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015051926.13752-1-sreeshankar0910@gmail.com>
-References: <20261015051926.13752-1-sreeshankar0910@gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="At8cY24u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1792041638; x=1792300838;
+	bh=PcmXnfmK8y2euY70mI2xAIXpNV9stQYYQjVINHKgyuI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=At8cY24ue5JIo+LLyvoGQGnI2dI5VTpjcYRvUNMGW4AA8xO+j3anqetii/Ni/Ot0o
+	 C2g+9ZQrjOOctkKL+kE6PWaFlJZ7uAiX2Y5QsC52KbKzV36DuqReDu55MWihqJtrSq
+	 8T3TOD5QmNQ+HVxvVj0bkW+khyge02hN3anbiynsJj++Uz+9UQZXJL2JQzFlz0XP7b
+	 RCjPL5oUwO6iBX1d3W2rs3zYsex8/PHE5ToPHQWqcUUAtcFeNYXGyPkKur0NNNPYsH
+	 SpYG1ty3ek69Mq305CC5qyR1Cq4vkdNOyVQHjv+3UnQuzLem0OJK6mrDYNr483puaU
+	 9bkHzKX+HFYuw==
+Date: Thu, 15 Oct 2026 05:20:33 +0000
+To: linux-bluetooth@vger.kernel.org
+From: Kyle Pepper <cochcoder@proton.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] Bluetooth: L2CAP: Keep credits from completing security upgrades
+Message-ID: <20261015052018.129971-1-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: d3fd2344d0b46055654193950ccb3c168efe5603
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Document the cpufreq hardware on the SM7250 SoC.
+Credit indications can invoke resume on fixed or unready channels.
+Connected LE credit-based sockets can also resume during a security
+upgrade because credits and security share the socket suspend flag.
 
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Validate the target mode and state for every identifier. Track pending
+LE/ECRED security upgrades and retain credits without sending queued
+data or resuming the socket until encryption meets the requested level.
+Drain queued data after security completes and keep credit-starved
+sockets suspended.
+
+Fixes: fad5fc89594d ("Bluetooth: Add LE flow control discipline")
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Kyle Pepper <cochcoder@proton.me>
 ---
- Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 1 +
- 1 file changed, 1 insertion(+)
+New standalone security/target-state fix, not a resend of the zero-identifi=
+er
+interoperability RFC. The zero-ID revision will be submitted separately and
+depends on this fix; this patch does not accept identifier zero.
 
-diff --git a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-index 98eb36bff..2dc2c265c 100644
---- a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-+++ b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-@@ -29,6 +29,7 @@ properties:
-               - qcom,sdm845-cpufreq-hw
-               - qcom,sm6115-cpufreq-hw
-               - qcom,sm6350-cpufreq-hw
-+              - qcom,sm7250-cpufreq-hw
-               - qcom,sm8150-cpufreq-hw
-           - const: qcom,cpufreq-hw
- 
--- 
-2.43.0
+Refreshed without functional changes from the reviewed candidate onto curre=
+nt
+bluetooth-next 397464709a20. The referenced Fixes commit's full ID and subj=
+ect
+were verified from its Git object:
+fad5fc89594de31388572a26f33caa7c30a23782
+
+On this refreshed base, both security-only and security+compatibility guest
+kernels build with KASAN/lockdep and pass all nine focused security control=
+s.
+The 14 public credit controls pass 13/14 with this patch alone: the sole fa=
+ilure
+is the intentionally unsupported positive zero-ID case. With the separate
+compatibility patch they pass 14/14. No skips or captured KASAN/lockdep ale=
+rts
+occurred in these focused runs. GCC W=3D1 changed objects and source-extrac=
+ted
+target/security and zero-ID fixtures pass.
+
+The refreshed full-suite attempt is NOT a pass: SCI Fast Mode times out aft=
+er
+an invalid HCI Read Connection Interval response length for opcode 0x20a3, =
+and
+the runner reaches its outer timeout without a complete summary. The same S=
+CI
+failure reproduces on the unpatched current-base guest. It is not diagnosed=
+ as
+a credit regression or claimed fixed here. An initial filter containing spa=
+ces
+was split by the VM runner; corrected space-free filtered runs are reported=
+ above.
+
+Earlier reference-base results were security-only 133/134 (the expected zer=
+o-ID
+failure) and combined 134/134; those are historical, not fresh full-suite r=
+esults.
+The combined Arch integration was built and is reported working on hardware=
+,
+but that is not isolated attribution, over-the-air exploit evidence, comple=
+te
+security/lifetime coverage or a remote-CI pass. No severity/CVE claim is ma=
+de.
+The private reproducer and detailed private regression logs are not include=
+d.
+
+ net/bluetooth/l2cap_core.c | 33 +++++++++++++++++++++++++++++++--
+ net/bluetooth/l2cap_sock.c |  9 +++++++--
+ 2 files changed, 38 insertions(+), 4 deletions(-)
+
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 4dd56e007..7a7f30531 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -5391,6 +5391,11 @@ static inline int l2cap_le_credits(struct l2cap_conn=
+ *conn,
+=20
+ =09l2cap_chan_lock(chan);
+=20
++=09if (chan->state !=3D BT_CONNECTED ||
++=09    (chan->mode !=3D L2CAP_MODE_LE_FLOWCTL &&
++=09     chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL))
++=09=09goto unlock;
++
+ =09max_credits =3D LE_FLOWCTL_MAX_CREDITS - chan->tx_credits;
+ =09if (credits > max_credits) {
+ =09=09BT_ERR("LE credits overflow");
+@@ -5404,6 +5409,9 @@ static inline int l2cap_le_credits(struct l2cap_conn =
+*conn,
+=20
+ =09chan->tx_credits +=3D credits;
+=20
++=09if (test_bit(FLAG_PENDING_SECURITY, &chan->flags))
++=09=09goto unlock;
++
+ =09/* Resume sending */
+ =09l2cap_le_flowctl_send(chan);
+=20
+@@ -7967,6 +7975,8 @@ static void l2cap_security_cfm(struct hci_conn *hcon,=
+ u8 status, u8 encrypt)
+ =09mutex_lock(&conn->lock);
+=20
+ =09list_for_each_entry(chan, &conn->chan_l, list) {
++=09=09bool pending_le;
++
+ =09=09l2cap_chan_lock(chan);
+=20
+ =09=09lockdep_assert_held(&chan->conn->lock);
+@@ -7974,7 +7984,12 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
+, u8 status, u8 encrypt)
+ =09=09BT_DBG("chan %p scid 0x%4.4x state %s", chan, chan->scid,
+ =09=09       state_to_string(chan->state));
+=20
+-=09=09if (!status && encrypt)
++=09=09pending_le =3D hcon->type =3D=3D LE_LINK &&
++=09=09=09     (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
++=09=09=09      chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL) &&
++=09=09=09     test_bit(FLAG_PENDING_SECURITY, &chan->flags);
++
++=09=09if (!status && encrypt && !pending_le)
+ =09=09=09chan->sec_level =3D hcon->sec_level;
+=20
+ =09=09if (!__l2cap_no_conn_pending(chan)) {
+@@ -7984,7 +7999,21 @@ static void l2cap_security_cfm(struct hci_conn *hcon=
+, u8 status, u8 encrypt)
+=20
+ =09=09if (!status && (chan->state =3D=3D BT_CONNECTED ||
+ =09=09=09=09chan->state =3D=3D BT_CONFIG)) {
+-=09=09=09chan->ops->resume(chan);
++=09=09=09if (pending_le) {
++=09=09=09=09if (!encrypt ||
++=09=09=09=09    !smp_sufficient_security(hcon, chan->sec_level,
++=09=09=09=09=09=09=09    SMP_ALLOW_STK)) {
++=09=09=09=09=09l2cap_chan_unlock(chan);
++=09=09=09=09=09continue;
++=09=09=09=09}
++
++=09=09=09=09clear_bit(FLAG_PENDING_SECURITY, &chan->flags);
++=09=09=09=09chan->sec_level =3D hcon->sec_level;
++=09=09=09=09l2cap_le_flowctl_send(chan);
++=09=09=09}
++
++=09=09=09if (!pending_le || chan->tx_credits)
++=09=09=09=09chan->ops->resume(chan);
+ =09=09=09l2cap_check_encryption(chan, encrypt);
+ =09=09=09l2cap_chan_unlock(chan);
+ =09=09=09continue;
+diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
+index c396987c5..2d7f2935c 100644
+--- a/net/bluetooth/l2cap_sock.c
++++ b/net/bluetooth/l2cap_sock.c
+@@ -993,10 +993,15 @@ static int l2cap_sock_setsockopt(struct socket *sock,=
+ int level, int optname,
+ =09=09} else if ((sk->sk_state =3D=3D BT_CONNECT2 &&
+ =09=09=09    test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) ||
+ =09=09=09   sk->sk_state =3D=3D BT_CONNECTED) {
+-=09=09=09if (!l2cap_chan_check_security(chan, true))
++=09=09=09if (!l2cap_chan_check_security(chan, true)) {
++=09=09=09=09if (conn->hcon->type =3D=3D LE_LINK &&
++=09=09=09=09    (chan->mode =3D=3D L2CAP_MODE_LE_FLOWCTL ||
++=09=09=09=09     chan->mode =3D=3D L2CAP_MODE_EXT_FLOWCTL))
++=09=09=09=09=09set_bit(FLAG_PENDING_SECURITY, &chan->flags);
+ =09=09=09=09set_bit(BT_SK_SUSPEND, &bt_sk(sk)->flags);
+-=09=09=09else
++=09=09=09} else {
+ =09=09=09=09sk->sk_state_change(sk);
++=09=09=09}
+ =09=09} else {
+ =09=09=09err =3D -EINVAL;
+ =09=09}
+
+base-commit: 397464709a204da9b8dc3b01d6ea42539d951cd2
 
