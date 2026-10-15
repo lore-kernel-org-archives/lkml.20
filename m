@@ -1,195 +1,221 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8BB349CC3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69306348C7D
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792028168; cv=none; b=UXGpaBNVFsVoEtO3sNj2N4MhgOx4gbX313FYBVWKh9v2Qoa7dLeLH0e8DXD8b1wkUYB5XeLxWimx1Lel01GWkqd9G3D7rnunnxkI5DwlRnKjFHuPm1QlHaw7VeERgdqXv02+vDthWmT8j/MojtKu/E4PaWSzNZ9R6u73p7kOliw=
+	t=1792028168; cv=none; b=N3fciJ9p50LXP0ekMnmAIa972iGaGbhSdjjaWCKYMx46pOJqns7NzrCBniSoVY7KAnkC6jI2jF1jDzRNj4WYvthsk51wQkcfauMxWl9g1+4AhybQICi76EbongJ9KAsY5BKpEE3BgVpYBvdcP1tV6dRK7PHMZ9dLMtwfy23UzKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792028168; c=relaxed/simple;
-	bh=6eZ8KqtTI7nGGFGyx9EmRFcr1jbs87z4iOgBcNhhi24=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=ALJCU6FnBXFd3Pbb9QBvSiKLJzs5g8QEkmWnfAgifVbD6MuDdgXZ/7rFEIrxcUKTDbqrH8LfR1WEeYryWcjnybDB3Zo5h6pxBIUtcElzcqHTvrAz2sp7oEBWOdDzicBUKP3E90joQ9/lklje4iw2Z984gLfkgV9EbOo81UJh1Yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WIKd5Ed1; arc=none smtp.client-ip=74.125.82.180
+	bh=6Ib9/3TAiZ5uh1YJF6IxWNpmxmLNwQ08hjbdiSyCHMM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tovH8o259WhZGXs/VsDWi2Wb6LI4G3KdP+IIyxT61A1LSRAW1RaaTyy4fgTZS/2r+bND4se8WE2wqMtGJUBNAI1CKK7Su0PKD+RUstYbjKqYG4EuPiZBYqb3T/krwEfrcLG3sy6bRzx4rM0HQ9fJiN0gSy8NWAs10cTxWPXBEO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sW/X9gJT; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WIKd5Ed1"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35b2c599f43so6431909eec.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sW/X9gJT"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-354ba08cfd1so7934414eec.1
         for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 18:36:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792028166; x=1792632966; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XJG9txNnza//TtpkrySkjqN6i4M0EXuWDnYB2FshnIs=;
-        b=WIKd5Ed1K0HEUES22Cria2gvdzbe2NbGq3YV1xsmPg9FkVW9Qj2xdQXPOcprzdP60f
-         SCRlioUrSENYuBDZ2Ka/Ddi2i/Ed2OQCFvhclrX32KcwGl2Jv8nOmfpB+7e1aWLtLiqN
-         F+nCHS6ednyzQDA76Bu74q/LYUhISGqahN+gl6boEAmnl3+ZQ4ai9i+TpA6emTa4mXaL
-         b1Xcg0zSRJru1VMXuLClC3U/IVQQrhc4swlCa1BRhyqa7fYcan3ekEBMitdiwe5sDH8j
-         d3c589TRqYms7c9bjzZgUx6XkZBRvWzVDUezaIqn6M865yFs83BKk9ScifxY1sE8tlD/
-         PYuw==
+        d=gmail.com; s=20251104; t=1792028165; x=1792632965; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IGx9VJI94ETrm3YJBJ7sXJGNSawHPsY7ho7tP+XWN54=;
+        b=sW/X9gJTpXXG7EnWw9pT69m3E9acn6urOVZVm1Csd5X4fQJ6BsTGM64l/aRXaFheNP
+         UH2JbvURo6/eLq4FPiFauge74E8Aj1HuwbHe0vovphsUqNk4xVdoyhPh2o53dCPAwbHo
+         w8j+Lf6f7K9qMrFk/jCtaDnov3Ejh3Hf9rTggEz0MtntGmL4J+eir0um7jlSL6zACRhS
+         yTUNJg8H15J2Db0KNtKEY3B0KDWntVuj1q6/W3BRPpUv0rKdncs2UJaxhk0yIef4vxGB
+         pvGEvQMMWaOXAu2AsoQHFDfp+c3DGgTpgfQpmqMHqrdp2HRfqra3mkOe/AKi5uxNkG9s
+         Y+7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792028166; x=1792632966;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XJG9txNnza//TtpkrySkjqN6i4M0EXuWDnYB2FshnIs=;
-        b=2w+IBqf72bVmtmC/YciCT3iVXd13dE9rr/uc82Ql50WjstNBQMDaYEijBgj5LS1XIE
-         T52IFIMMMSHrajs5cW0Ab7hw/IWwNZXMsUAJiGUiz4qVnpwH1NOcd6FBWltcYfCEtUef
-         rCgdA2D2mscjaDqlmTBwolojgrqBFCG+vOY6OSWZUSOyxLd2SvumgS7CmpBsmFIUcV5e
-         38ax+UlZxWdlB3kZLOAWif+yUXCYE/nM3N8kFP2fLdRA7ptVKGfhJXvtM8wBVv9vuCmh
-         blNsIhM144iLIsPeY44dZKXLSuZd05sU86M/qav7L4+jou8AfgBSsyLUgi5BcuvMIGut
-         IFcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlIbz5fOjPefe1r4v6AR6ZZKrI7haRGLvVmEclz45TJ+bQ3y0HqR/zdLpN1xk67DScfW8gCB4aWWkAC5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIrOETfHdZmQLHzeQ93XzGbflSYCM5Fezx1sYHH7mYPDm0mTrR
-	YMfmOjje+QSw8tUXVNKk0oTWr+RuLQhUrrZLHIufWKjLXab6MlBYX1DT
-X-Gm-Gg: AYBFou2oaHwZDmkFEbZ8Nr8VesftbHsQfEALup7oAlstDZF4rJmtvnAF5wfK/2jsfe6
-	nffp+lweVYJ0iJkkM1NgRxKZAErYxSHrdLwutYgkfM07XSPyqMDrVu1jBc+1BbTaAwLY6Ix7E7A
-	BwE+EpuaUqlh9rpiDHSPQSEWsU0N4MoqlxugCu3a2QhiABsJG+edeJwVUJceVKBpMiXRtnQjD9t
-	ry6Un11RVg3OQKB0bIV5+PGq1+5KMbl0+G3lyBsANHeVWnkAuM3Gp1NhA7/WdOhMLrdOi2v8Atd
-	nOgHA4vpPe7OIYjsc853EdEPYNbXLIDIMh0NFCIPh1tiAv6Wz8rnBkOAo3fHOTKldxHuPeBmoBP
-	OQBC0qUuM4jEoCPUcZMQr+6opyhvA/oog5nJOdV3LjxaVALSMd5wQsErgLvLMPsYHjOQbItG3cD
-	87buimffAnqk1Di2NPrY3ArhcoEauF/WG196P9t/GXqFeHUQ4Ib67dkBtz9u3WIxMoT/ASrHDKb
-	RYvxQ+4L8QlfAwaSj8FxBkRkoBYjzt6ctEHCadhYRQGIlim
-X-Received: by 2002:a05:7301:305:b0:35c:4800:4da with SMTP id 5a478bee46e88-35c48000c80mr10468242eec.41.1792028165484;
+        d=1e100.net; s=20260707; t=1792028165; x=1792632965;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IGx9VJI94ETrm3YJBJ7sXJGNSawHPsY7ho7tP+XWN54=;
+        b=ps5+YQX0XKObd6Dt+UTpuDANj2Cdkf0710TKqMCePjRMukxhI2TfnDy2N6fZIPdlU+
+         +GMSzGlObPgjW5AuvOSSDyhZI/76YJRZHz3uWVBKYUrhUQV04DTwBdyv5AR+D0VHS7al
+         N/uL7kEsOTUTbjd5vp1owqbiCJZZNUKeoRC66gt+HcOJ5BiQ6RLUFcTuc5jMgmuz+pUW
+         He7KMM/cjNs59I6cy+Pu51oVr5JBki5+Gc4ZtCTmehmjwZMGl+9deTiTdAQlULK7xGJQ
+         jThFVqRK7lIhnQO6hYwXhujoE/bxUamu/tWT1H+VpQibfeomhVqmaURqrSaVNHy6U1Ro
+         XbpA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/KFx2HOMFDSwY0DtScl6AtRWmEuv+daoshOdVnRbVlTFB4M6PTPs0SWHPZK6JvIFrmkOFchXRe/Pk1FQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiXtYqOKVIeVcqFFf2GI4+k8TDmKNu2EmIC7+7jDQIrYRDr5wY
+	OhBOeCFz6p809piPu+1DvmZx7WKNJyzY3xyvYhwXmr4aUxa0FL8UMH/Y
+X-Gm-Gg: AYBFou3TCqffzuMVnO4lxjZsi4sbxV0zFHR6z6AB4cTq0zFt0heli0ZeDD9rs9o4F8X
+	UbM+rRF3DoIsPOC6333m0XIfQMHWJvGK/hn89moMuDLfX/H04txWTEKs9N96dFa/UVUFvtddIg4
+	MlIsw2XY+4rpwnsek0j5YoNzIN5wG9dF1ZJIbRYT0DuqnrvS9cFGtmNXpkqT8T0ftB7R9W4SL4k
+	L2HMVQ5se5QBRWSd4ckH678+/8FcB5s0b7cSmHglCef7fdyUAX4XRjvYOQEpkNRSOgaMPdfH8+j
+	12XDyRX423hn4hLKaTdg0Cmw9WH5LZcP9/8QvMl9U+k8Uu6Yu43fBLeQ1gBAZOnhXI6+SRCsiPa
+	mfzRJLzzpAjjALjFNtMi/If3vOXecHhwX46SQAKvIenn74x4J5qoi7YqJNRA2BSJd8iMGXhIzYN
+	WrC3DoQIjfGMqpzY+nibKgi4flEi/7TMG8+C93MOKs2dFlY5D/xHlAiRGJ7HsLo44ANUXC1ulSq
+	SBL
+X-Received: by 2002:a05:7300:c8c7:b0:35f:4780:518e with SMTP id 5a478bee46e88-35f478052f2mr547033eec.16.1792028165379;
         Wed, 14 Oct 2026 18:36:05 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:821:261c:74c2:4177])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353810403e9sm58725607eec.2.2026.10.14.18.36.04
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358ee8a3387sm47863101eec.15.2026.10.14.18.36.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 18:36:04 -0700 (PDT)
-Date: Wed, 14 Oct 2026 18:36:04 -0700
-Message-ID: <d5f54636c25e0e60731adc200a63ceb5@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Ion Agorria <ion@agorria.com>,
-	=?utf-8?b?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Florian Krischer <florian.krischer@fkr.dev>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-leds@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v11 2/7] mfd: Add driver for ASUS Transformer embedded controller
-In-Reply-To: <20261013173504.451391-3-clamor95@gmail.com>
-References: <20261013173504.451391-1-clamor95@gmail.com> <20261013173504.451391-3-clamor95@gmail.com>
+        Wed, 14 Oct 2026 18:36:05 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Thu, 15 Oct 2026 09:35:51 +0800
+Subject: [PATCH bpf-next v3 2/3] selftests/bpf: Test freeing a struct_ops
+ map under a running prog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Message-Id: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-2-efe643d4b2a3@gmail.com>
+References: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
+In-Reply-To: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
+To: Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+ Amery Hung <ameryhung@gmail.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-Hi Svyatoslav,
+st_ops_assoc_in_timer_no_uref drops every reference to the struct_ops
+map while a timer callback of its prog calls .test_1 through the
+association, and checks that the callback ends up with no struct_ops.
 
-On Tue, Oct 13, 2026 at 08:34:58PM +0300, Svyatoslav Ryhel wrote:
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/debugfs.h>
+The timer first fires 500ms later and .test_1 returns right away, so the
+callback hardly ever runs .test_1 while the map is freed, and the test
+can't catch a map that is freed under a running .test_1.
 
-Unused include (left over after debugfs support was dropped).
+Add st_ops_assoc_in_timer_free, which starts the timer right away,
+restarts it with no delay until the association is gone, and makes
+.test_1 spin in bpf_loop() when the timer callback calls it. Share the
+steps of st_ops_assoc_in_timer_no_uref with it through a helper.
 
-> +/**
-> + * struct asus_ec_chip_info
-> + *
-> + * @name: prefix associated with the EC
-> + * @variant: id of programming model of EC
-> + * @mode: state of Factory Mode bit in EC control register
-> + * @read_size: size of block to read
-> + * @keyboard_mask: mask of keyboard packets
-> + */
-> +struct asus_ec_chip_info {
-> +	const char *name;
-> +	enum asusec_variant variant;
-> +	enum asusec_mode fmode;
-> +	u8 read_size;
-> +	u8 keyboard_mask;
-> +};
-> +
-> +/**
-> + * struct asus_ec_data
-> + *
-> + * @ec: public part shared with all cells (must be first)
-> + * @ecreq_lock: prevents simultaneous access to EC
-> + * @ecreq_gpio: EC request GPIO
-> + * @client: pointer to EC's i2c_client
-> + * @info: pointer to EC's version description
-> + * @ec_buf: buffer for EC read
-> + * @logging_disabled: flag disabling logging on reset events
-> + */
-> +struct asus_ec_data {
-> +	struct asusec_core ec;
-> +	struct mutex ecreq_lock;
-> +	struct gpio_desc *ecreq_gpio;
-> +	struct i2c_client *client;
-> +	const struct asus_ec_chip_info *info;
-> +	u8 ec_buf[ASUSEC_ENTRY_BUFSIZE];
-> +};
+st_ops_assoc_in_timer_free run in a loop on kernels of the same bpf-next
+commit with KASAN enabled, x86_64 VM with 32 vCPUs, without and with
+the previous fix:
 
-scripts/kernel-doc warns on these two structs:
-- In struct asus_ec_chip_info, the kerneldoc says @mode while the field is
-  named fmode.
-- In struct asus_ec_data, @logging_disabled no longer exists.
+              without the fix           with the fix
+  outcome     Oops (int3) on run 1      100 of 100 passed, 0.27 s each
 
-> +int asus_dockram_access_ctl(struct i2c_client *client, u64 *out, u64 mask,
-> +			    u64 xor)
-> +{
-> +	struct dockram_ec_data *ddata = i2c_get_clientdata(client);
-> +	u8 *buf = ddata->ctl_buf;
-...
-> +static struct i2c_client *devm_asus_dockram_get(struct device *dev)
-> +{
-> +	struct i2c_client *parent = to_i2c_client(dev);
-> +	struct i2c_client *dockram;
-> +	struct dockram_ec_data *ddata;
-> +	int ret;
-> +
-> +	dockram = i2c_new_ancillary_device(parent, "dockram",
-> +					   parent->addr + ASUSEC_DOCKRAM_OFFSET);
-> +	if (IS_ERR(dockram))
-> +		return dockram;
-> +
-> +	ret = devm_add_action_or_reset(dev, asus_ec_release_dockram_dev,
-> +				       dockram);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	ddata = devm_kzalloc(&dockram->dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	i2c_set_clientdata(dockram, ddata);
-> +	mutex_init(&ddata->ctl_lock);
-> +
-> +	return dockram;
-> +}
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ .../bpf/prog_tests/test_struct_ops_assoc.c         | 29 +++++++++++++++++++---
+ .../bpf/progs/struct_ops_assoc_in_timer.c          | 16 ++++++++++++
+ 2 files changed, 41 insertions(+), 4 deletions(-)
 
-Attaching ddata to &dockram->dev via devm_kzalloc() and
-i2c_set_clientdata() is fragile because dockram is bound to the I2C dummy
-driver. If the dummy driver is unbound from dockram via sysfs, the driver
-core frees &dockram->dev devres allocations and clears dockram's
-driver_data to NULL, so the next call to asus_dockram_access_ctl() will
-dereference NULL.
-
-Instead of allocating a separate struct dockram_ec_data on the ancillary
-i2c_client, could ctl_lock and ctl_buf live in struct asus_ec_data (or
-struct asusec_core) and have asus_dockram_access_ctl() take struct
-asusec_core *ec?
-
-Thanks.
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
+index 461ded7223515..987117091c676 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_assoc.c
+@@ -136,7 +136,8 @@ static void test_st_ops_assoc_in_timer(void)
+ 	struct_ops_assoc_in_timer__destroy(skel);
+ }
+ 
+-static void test_st_ops_assoc_in_timer_no_uref(void)
++static void run_st_ops_assoc_in_timer_no_uref(int timer_ns, int wait_map_free,
++					      int spin_loops)
+ {
+ 	struct struct_ops_assoc_in_timer *skel = NULL;
+ 	struct bpf_link *link;
+@@ -157,10 +158,13 @@ static void test_st_ops_assoc_in_timer_no_uref(void)
+ 	/*
+ 	 * Run .test_1 by calling kfunc bpf_kfunc_multi_st_ops_test_1_prog_arg() and checks
+ 	 * the return value. .test_1 will also schedule timer_cb that runs .test_1 again.
+-	 * timer_cb will run 500ms after syscall_prog runs, when the user space no longer
+-	 * holds a reference to st_ops_map.
++	 * timer_cb will run timer_ns after syscall_prog runs and, with wait_map_free, every
++	 * timer_ns after that until the map is freed. With 500ms, it first runs when the
++	 * user space no longer holds a reference to st_ops_map.
+ 	 */
+-	skel->bss->timer_ns = 500000000;
++	skel->bss->timer_ns = timer_ns;
++	skel->bss->wait_map_free = wait_map_free;
++	skel->bss->spin_loops = spin_loops;
+ 	err = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.syscall_prog), NULL);
+ 	ASSERT_OK(err, "bpf_prog_test_run_opts");
+ 
+@@ -178,6 +182,21 @@ static void test_st_ops_assoc_in_timer_no_uref(void)
+ 	struct_ops_assoc_in_timer__destroy(skel);
+ }
+ 
++static void test_st_ops_assoc_in_timer_no_uref(void)
++{
++	run_st_ops_assoc_in_timer_no_uref(500000000, 0, 0);
++}
++
++/*
++ * Keep calling .test_1 through the association from the timer callback, and
++ * stay in it for a while each time, while the map is being freed. The map
++ * must not be freed under a running .test_1.
++ */
++static void test_st_ops_assoc_in_timer_free(void)
++{
++	run_st_ops_assoc_in_timer_no_uref(0, 1, 1 << 20);
++}
++
+ void test_struct_ops_assoc(void)
+ {
+ 	if (test__start_subtest("st_ops_assoc"))
+@@ -188,4 +207,6 @@ void test_struct_ops_assoc(void)
+ 		test_st_ops_assoc_in_timer();
+ 	if (test__start_subtest("st_ops_assoc_in_timer_no_uref"))
+ 		test_st_ops_assoc_in_timer_no_uref();
++	if (test__start_subtest("st_ops_assoc_in_timer_free"))
++		test_st_ops_assoc_in_timer_free();
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c b/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
+index 0bed49e9f2170..47a44c8e8b114 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_assoc_in_timer.c
+@@ -25,6 +25,13 @@ int test_err;
+ int timer_ns;
+ int timer_test_1_ret;
+ int timer_cb_run;
++int wait_map_free;
++int spin_loops;
++
++static int spin(u32 i, void *ctx)
++{
++	return 0;
++}
+ 
+ __noinline static int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ {
+@@ -34,6 +41,12 @@ __noinline static int timer_cb(void *map, int *key, struct bpf_timer *timer)
+ 	timer_test_1_ret = bpf_kfunc_multi_st_ops_test_1_assoc(&args);
+ 	recur--;
+ 
++	/* Try again later until the map is freed */
++	if (wait_map_free && timer_test_1_ret != -1) {
++		bpf_timer_start(timer, timer_ns, 0);
++		return 0;
++	}
++
+ 	timer_cb_run++;
+ 
+ 	return 0;
+@@ -53,6 +66,9 @@ int BPF_PROG(test_1, struct st_ops_args *args)
+ 		bpf_timer_init(timer, &array_map, 1);
+ 		bpf_timer_set_callback(timer, timer_cb);
+ 		bpf_timer_start(timer, timer_ns, 0);
++	} else if (spin_loops) {
++		/* Stay in the trampoline while the map may be freed */
++		bpf_loop(spin_loops, spin, NULL, 0);
+ 	}
+ 
+ 	return MAP_MAGIC;
 
 -- 
-Dmitry
+2.43.0
+
