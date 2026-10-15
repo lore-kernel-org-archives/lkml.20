@@ -1,63 +1,63 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483813BAD9F
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DBB4FD260
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075876; cv=none; b=TudXVW7hryOp39YiP1Ogl4m96XN3j8Lemj0nfxA5rZjgNOr9ZFZaBQuFVkunu871qzDDZ4VbYldvda2NCTBGxIYeM4ukP2l+pg4uoyZLlq42doz1f/uIgztJJJuu1yrAnWimf7iHNGQJPYGI0NWrIUji1oSUzlMFVEOknkbgtlk=
+	t=1792075888; cv=none; b=WLkIjSOoBdBz/wZI8ZcoALE9SXZKnsHrNyOMtE3IjwlBGvVQiQ+L1LPkItOuOc2u9wo9SMeAKdzyfYE2t4Ngv7UoZG5M0sOihT1luwzfoQJCS/dkfdB1KtOWWKz/PslN1B3uJGjUcFp2OzZTVzSD9B1MzJtCIVL4ukKEg1zd0ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075876; c=relaxed/simple;
-	bh=F5r+xnrA4CGvtpaYQfZhqC4H8jARl4t9Ytg/hO1UzPs=;
+	s=arc-20240116; t=1792075888; c=relaxed/simple;
+	bh=VTpo5ZReKi6aUeoYA7BClj2A3JUFHeXh9bZfnZxoBwY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tuWPDhmmb/yPW0ToKUWy/1YSxcatrPTBvMkg4kh8oXHrLQQKcvKSzyxZMch7iuRCcduawQEavJtoF5FIHzFVvsHYLQ4Geh7fKqwR+o50OR7aywJBsfvooVo0w3AJNvK9Rm8c+9MlQDxNLKzeXG7CzIN2ju1l7SNir646umgb7BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=YZFShJeL; arc=none smtp.client-ip=209.85.218.43
+	 MIME-Version; b=cBA0khEECoX7k1jPXb9SYK0I4kzjL8bylNHKJ1739YSd4ZYIyQuNnF4Eqt6BrXt7Zkbz0KI/Fovb73z7YWPooYigsDvPWRxaUG+0MD6BIa9EFwyVTmtLRTd655tVqdKzMQrxnwm7/zH3dhloDSSdmr2N0aCdPNnrTPWs00F5MmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us; spf=none smtp.mailfrom=resnulli.us; dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b=GgWpBPO4; arc=none smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="YZFShJeL"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e5e801487so828101366b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="GgWpBPO4"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso105653266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075870; x=1792680670; darn=vger.kernel.org;
+        d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1792075884; x=1792680684; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EDyYymZBfmY19ILWRWtCUVhEY9kXzhwbJCQOgIxxpWM=;
-        b=YZFShJeLJ3LdWRinTlSSLpA5uOiGgZmFXq0U60N/CY2KDUbOvrVn8F3LQrSBhFbrm0
-         Vs0LggE0Xa/qWPIl1kBmdg2ACZ9FeCAlbRJ/E02E1JP04/x8RYjC1KgjIvMACl7ZzWqR
-         P0hYe//KUVxsQoR+gTfYYafS6XT8up/WoLEJ9sT8A91/3vxh2YegccaJd7zUuJFD5F0C
-         DV3HZfPvYzdGnf3TE6H6Z/wXCaalqZsErMOHNbR5pizeV+JL/NKEqZ7etULZy7Tu5ic6
-         mOr4UieKOR9mVdAk9KNz5v9GYCAvRofucxZJQUvWhPwYlkj6a1Y1An14Lu536ZmzagWa
-         yk2Q==
+        bh=yYfTJ5hv9EMwutjH+FlT+/ZfnsL6STQjw/HcZoZEibo=;
+        b=GgWpBPO4E98j1bU3Las7AMJ1w58CTUUG09/K6io1hSDHtC++JEl+cx+37MHMykOVk6
+         IxflkK8TlvHfdJgdY2JW9SFWxC/WjmchWlknZn4U7EjTa1TEzlaqUaxKhPhtt9hHouUi
+         mAeoCoU9XZ/1XitM4NLcui063oZZ8RJAv1M443doxXAoFj9GuEUaduhgprgKhGze/oE/
+         y4ipmUBth/oVB77P+0AebPy5Wsk+e/JKVKqlXMAC2OQXoZmgqPXNhm/B3iuHT3zSDkr3
+         ejyau32foa00GlxrNcnrebL9et4a7xBSRIzJBvx22JYDvtKON/Idasj0wlzEPedIT7Jw
+         BLkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075870; x=1792680670;
+        d=1e100.net; s=20260707; t=1792075884; x=1792680684;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EDyYymZBfmY19ILWRWtCUVhEY9kXzhwbJCQOgIxxpWM=;
-        b=gO5qU1rv+V9cW0lmtPPqQHY/gXIlevL6nxu7UgHBESdZ2oO7COGmWKlrONX5pQ2wI1
-         Y1OPOchcU3hL+7rG+v46wF3jeQBSPl/tTVXluXg+qonLSnGtov8lpnjqq5FbrTmj3jk0
-         t7sBHDZ03Ili+7JgOL3l4tG5hwakkuEymcutqGaqUMZ/PaVuKhUEOId0TitA9cYg2q36
-         HxvZs4JHdjJnCE3vtUY07l8ep+FDPRmuIgqZdJuyL+lenxTFWmlL7eJWdfXqDfMvXBuf
-         COWA3ILfMhRIQhc1EtP1hBQmGT/ucScocCogVy7qNrp7PKtI8r1q2Id2MYQiGzmX2DTM
-         0liw==
-X-Gm-Message-State: AFq9FYL4ZTge3/R6+2JyN8pAxu0DzsMg207hF418oHn4qywBYW52uky3
-	tJvmerHFc31onwj8XrkE0NyZB+EJniQve1vF0qqqBlg0LTdwc9eZnGLoL7cw12xQfh8=
-X-Gm-Gg: AYBFou2K/ZeNY4/hfokzJyWNXl3tdp8GdOrzRSzLMz/lTFkAzZLu0OhZ9ZACiLUtIPx
-	CZ0jN96uj86x8Yq9oQVltaqlu8UMX28VvVV+MeOfRodeXCWyIyXiRNLKjl1EVL1dsljj+ndrhTS
-	E0BqSg0+8mv4YASEGRHySzlI7XULfXbln+xkqsHSHQHXGReZrxnGjzZN9o6XoWvksAWAT5kDYh7
-	xGklLFQfCI6RZtWeAIq+1Tb4fHOt6pVgFCg3hLCLyfDLDftQspAev2oAGh3TsGRyrjL7BwIrC/Z
-	gcuiTGATSWV/nho+1g5+eKu7F8Qqcj6BFNMkT6o6WPeUVTYB0ZDO1H0TlNcmtplWNDc9ChNr7Xa
-	nnGiG59VwH2bcCSvNaeYYYn7jrwntc4iFAmkAzeBJpwUPbPv84FyNQ8eQ55/Prig0Lx7behzn0H
-	I8VemGQytFWUE4Omrep+JfHSu6U70FDJIagY6R8hk8pIew86VtO2deCkonSYAJ34ANROAZDBCTZ
-	9JR5OsgOA==
-X-Received: by 2002:a17:907:d9e:b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c3fdce338bcmr94256266b.22.1792075870320;
-        Thu, 15 Oct 2026 07:51:10 -0700 (PDT)
+        bh=yYfTJ5hv9EMwutjH+FlT+/ZfnsL6STQjw/HcZoZEibo=;
+        b=YSm0VNtNd/1iOrX70SEBiH1bdVYT5QUNgSerSxe9NBGztcDk0uecOYWn4IxXFG0xg0
+         w2Z2OixuBwkq61wCByHK6qqoRllrrA7RCXWqpEI+2OvJjnH181vSzC/7l1EbBY7/+RWO
+         CspOBqKpXoxV2ikMwusVVRPozTcB9oCr32WnC+//Z361qLAmPvMUKrpKVkSFtJ3kbAfN
+         g1uAafBHhfrgPYpGfguQ/ZgT0CWhJu30X+TnS29SOGJa+vN0WUP/WwbodUQHS+YUkH9y
+         cWZcWB11oKgp3/1G+tqLaUb9Xsg1VQc3in/A623qTNGB10OUcKxrY5f2xUCOqfGUwUrd
+         hqvg==
+X-Gm-Message-State: AFq9FYLs8sHG/YG99eD4TM3qHuzcSma+p1t98NgqT6nB4ayuQxfT/io+
+	Gu8gD4XXD66xxA1JiFn/z1l+Kvq+iVM+Ak22M2oK7Ex6fcj0WjJjd9pmdqbwh9dgIvI=
+X-Gm-Gg: AYBFou0UHpEjure4XW77o7c+Bj4YTSkSnEtWIFt197P0IHKZUHXxAhpWasl5ID5bccD
+	0kzCxcOjivDE8ZhYwyohExX73Hi4Eqq3rieimBQZtHdbNYm9F94Ki+noyrMjJiGS6sfS+PB4lhC
+	Ov8wMta5Dw11BuXKMV3qi6scIPpDjAw38ijn/nzX8X5A07hfFUNyL1tZYzE1Io7Mn7H1KyJ5N2J
+	KvK6QueFa+AOgCrzL1aBS0Qy+NxhWrPZx+cq+bEMxcz3fr0hPvKjkkh6b1oaBbIp1jU95yxkOA9
+	B0iQj0nlSbyJK4T3rq1IzZoRF8N4vZH9tYA45v4/uY7fXArG62b3PPQYUp771Hk3YuTDu/u23tT
+	iqZbfKUU+LGg7+CA5cou6NZI8qQADjwVgHJtXjeNLsDJdzF37mG5N6VNAb/ufyaJNVuQWz8LQFL
+	Fiyuyr4cLKUF18d9qytb8cqbj/UQst7SzfZgylAO2vRgOogx7u0WfERk+cue77PsIP4ZRL+dGHo
+	TQq6iXHhw==
+X-Received: by 2002:a17:907:948f:b0:c35:3880:773b with SMTP id a640c23a62f3a-c3538807e2bmr1079685366b.45.1792075884192;
+        Thu, 15 Oct 2026 07:51:24 -0700 (PDT)
 Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3eda61fa8asm136811066b.67.2026.10.15.07.51.09
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3fd83464a7sm40271366b.76.2026.10.15.07.51.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:51:09 -0700 (PDT)
+        Thu, 15 Oct 2026 07:51:23 -0700 (PDT)
 From: Jiri Pirko <jiri@resnulli.us>
 To: linux-coco@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-kernel@vger.kernel.org,
 	dave.hansen@linux.intel.com,
 	sathyanarayanan.kuppuswamy@linux.intel.com,
 	peter.fang@intel.com
-Subject: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
-Date: Thu, 15 Oct 2026 16:50:35 +0200
-Message-ID: <20261015145053.3664509-3-jiri@resnulli.us>
+Subject: [PATCH RFC 06/20] ctlv: Prepare blob descriptor validation
+Date: Thu, 15 Oct 2026 16:50:39 +0200
+Message-ID: <20261015145053.3664509-7-jiri@resnulli.us>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
 References: <20261015145053.3664509-1-jiri@resnulli.us>
@@ -104,622 +104,175 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Pirko <jiri@nvidia.com>
 
-Define CTLV's common TLV transport, ioctl, event records, identifiers
-and limits. Add the in-kernel API used by family implementations and
-generated code.
+Add parsing and VA checks for blob descriptors shared by schema
+validation and runtime acquisition.
+
+Keep CONFIG_CTLV unwired until dispatch completes the module.
 
 Assisted-by: Cursor: GPT-5.6 Sol
 Assisted-by: Cursor: Claude Opus 5.5
 Signed-off-by: Jiri Pirko <jiri@nvidia.com>
 ---
- .../userspace-api/ioctl/ioctl-number.rst      |   2 +
- MAINTAINERS                                   |   2 +
- include/linux/ctlv.h                          |  55 +++
- include/linux/ctlv_family.h                   | 316 ++++++++++++++++++
- include/uapi/linux/ctlv.h                     | 183 ++++++++++
- 5 files changed, 558 insertions(+)
- create mode 100644 include/linux/ctlv.h
- create mode 100644 include/linux/ctlv_family.h
- create mode 100644 include/uapi/linux/ctlv.h
+ drivers/ctlv/Makefile    |   2 +-
+ drivers/ctlv/blob_desc.c | 102 +++++++++++++++++++++++++++++++++++++++
+ drivers/ctlv/blob_desc.h |  29 +++++++++++
+ 3 files changed, 132 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/ctlv/blob_desc.c
+ create mode 100644 drivers/ctlv/blob_desc.h
 
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 2fc53093752d..e545669c773c 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -386,6 +386,8 @@ Code  Seq#    Include File                                             Comments
-                                                                        <mailto:linux-hyperv@vger.kernel.org>
- 0xBA  00-0F  uapi/linux/liveupdate.h                                   Pasha Tatashin
-                                                                        <mailto:pasha.tatashin@soleen.com>
-+0xBB  00-0F  uapi/linux/ctlv.h                                         CTLV
-+                                                                       <mailto:jiri@resnulli.us>
- 0xC0  00-0F  linux/usb/iowarrior.h
- 0xCA  00-0F  uapi/misc/cxl.h                                           Dead since 6.15
- 0xCA  10-2F  uapi/misc/ocxl.h
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a8508fbae37d..8ab0d6a7a2fd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7006,6 +7006,8 @@ M:	Jiri Pirko <jiri@resnulli.us>
- L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	Documentation/ctlv/
-+F:	include/linux/ctlv*.h
-+F:	include/uapi/linux/ctlv*.h
- F:	tools/ctlv/
+diff --git a/drivers/ctlv/Makefile b/drivers/ctlv/Makefile
+index 4f0fe41bc9e1..5edc0b4b973f 100644
+--- a/drivers/ctlv/Makefile
++++ b/drivers/ctlv/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_CTLV) += ctlv.o
  
- CTU CAN FD DRIVER
-diff --git a/include/linux/ctlv.h b/include/linux/ctlv.h
+-ctlv-y += message.o
++ctlv-y += blob_desc.o message.o
+diff --git a/drivers/ctlv/blob_desc.c b/drivers/ctlv/blob_desc.c
 new file mode 100644
-index 000000000000..addb893f4b8d
+index 000000000000..b84be3d723ab
 --- /dev/null
-+++ b/include/linux/ctlv.h
-@@ -0,0 +1,55 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++++ b/drivers/ctlv/blob_desc.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
 + *
-+ * CTLV family API.
++ * Blob descriptor parsing and validation.
 + */
-+#ifndef _LINUX_CTLV_H
-+#define _LINUX_CTLV_H
++#include <linux/align.h>
++#include <linux/bits.h>
++#include <linux/overflow.h>
++#include <linux/types.h>
 +
++#include <uapi/linux/ctlv.h>
++#include <uapi/linux/ctlv_gen.h>
++
++#include "blob_desc.h"
++#include "message.h"
++
++static int ctlv_blob_member(u64 attr_id)
++{
++	switch (attr_id) {
++	case CTLV_ATTR_BLOB_TYPE:
++		return CTLV_BLOB_MEMBER_TYPE;
++	case CTLV_ATTR_BLOB_ADDRESS:
++		return CTLV_BLOB_MEMBER_ADDRESS;
++	case CTLV_ATTR_BLOB_FD:
++		return CTLV_BLOB_MEMBER_FD;
++	case CTLV_ATTR_BLOB_OFFSET:
++		return CTLV_BLOB_MEMBER_OFFSET;
++	case CTLV_ATTR_BLOB_LENGTH:
++		return CTLV_BLOB_MEMBER_LENGTH;
++	default:
++		return -1;
++	}
++}
++
++u32 ctlv_blob_desc_read(const struct ctlv_attr *blob, struct ctlv_blob_desc *desc,
++			const struct ctlv_attr **bad)
++{
++	const struct ctlv_attr *child = NULL;
++	enum ctlv_message_step step;
++
++	*desc = (struct ctlv_blob_desc){};
++	while ((step = ctlv_message_next(blob, &child)) == CTLV_MESSAGE_STEP_ATTR) {
++		int member = ctlv_blob_member(child->attr_id);
++
++		*bad = child;
++		if (child->flags & ~CTLV_ATTR_F_NESTED)
++			return CTLV_VALIDATION_REASON_UNKNOWN_FLAG;
++		if (child->flags & CTLV_ATTR_F_NESTED)
++			return CTLV_VALIDATION_REASON_MALFORMED_MESSAGE;
++		if (member < 0)
++			return CTLV_VALIDATION_REASON_UNKNOWN_ATTR;
++		if (ctlv_message_attr_payload_len(child) != sizeof(u64))
++			return CTLV_VALIDATION_REASON_BAD_LENGTH;
++		if (desc->present & BIT(member))
++			return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++		desc->present |= BIT(member);
++		desc->member[member] = *(const u64 *)ctlv_message_attr_payload(child);
++	}
++	*bad = NULL;
++	if (step == CTLV_MESSAGE_STEP_BAD)
++		return CTLV_VALIDATION_REASON_MALFORMED_MESSAGE;
++	return 0;
++}
++
++static u32 ctlv_blob_variant(const struct ctlv_blob_desc *desc)
++{
++	u32 required = BIT(CTLV_BLOB_MEMBER_TYPE) | BIT(CTLV_BLOB_MEMBER_LENGTH);
++
++	switch (desc->member[CTLV_BLOB_MEMBER_TYPE]) {
++	case CTLV_BLOB_TYPE_VA:
++		required |= BIT(CTLV_BLOB_MEMBER_ADDRESS);
++		break;
++	default:
++		return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++	}
++	if (desc->present != required)
++		return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++	return 0;
++}
++
++u32 ctlv_blob_desc_check(const struct ctlv_blob_desc *desc, const struct ctlv_node_schema *node)
++{
++	u64 start, length, end;
++	u32 reason;
++
++	reason = ctlv_blob_variant(desc);
++	if (reason)
++		return reason;
++	if (!(node->blob.backings & BIT(desc->member[CTLV_BLOB_MEMBER_TYPE])))
++		return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++
++	length = desc->member[CTLV_BLOB_MEMBER_LENGTH];
++	if (!length || length > node->blob.max_len)
++		return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++	start = desc->member[desc->present & BIT(CTLV_BLOB_MEMBER_ADDRESS) ?
++				     CTLV_BLOB_MEMBER_ADDRESS :
++				     CTLV_BLOB_MEMBER_OFFSET];
++	if (!IS_ALIGNED(start, node->blob.alignment) || check_add_overflow(start, length, &end))
++		return CTLV_VALIDATION_REASON_BAD_BLOB_DESCRIPTOR;
++	return 0;
++}
+diff --git a/drivers/ctlv/blob_desc.h b/drivers/ctlv/blob_desc.h
+new file mode 100644
+index 000000000000..27f77af16f01
+--- /dev/null
++++ b/drivers/ctlv/blob_desc.h
+@@ -0,0 +1,29 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _CTLV_BLOB_DESC_H
++#define _CTLV_BLOB_DESC_H
++
++#include <linux/ctlv_family.h>
 +#include <linux/types.h>
 +
 +#include <uapi/linux/ctlv.h>
 +
-+struct ctlv_device;
-+struct ctlv_family;
-+struct ctlv_msg;
-+struct ctlv_op_ctx;
-+struct ctlv_schema_tree;
-+
-+/**
-+ * struct ctlv_cursor - One attr position in one message.
-+ * @msg: the message this position is in, core-private bookkeeping
-+ * @attr: the attr itself, or NULL when a lookup found nothing
-+ * @parent: reading, the nest containing @attr, NULL at the root
-+ * @up: writing, cursor of the nest containing @attr, NULL at the root. The
-+ *	chain of them is the open-nest stack
-+ * @start: writing, where @attr begins in the message. An append reaches what
-+ *	it lengthens through the buffer rather than through @attr, that buffer
-+ *	being the core's own
-+ * @tree: schema tree the node belongs to, which is a fill's own tree for an
-+ *	attr that arrived through one
-+ * @node: index of the node within @tree
-+ * @depth: nesting levels above this position, the root being zero
-+ * @index_nest_scope: schema scope used to read members of the physical nest
-+ * @index_scope: core-private schema scope containing this attr
-+ *
-+ * Fixed-size, so family code can put a child cursor on the stack. The members
-+ * belong to the core: a family reaches a message through what was generated
-+ * for the op it answers. One direction at a time, a helper of the other
-+ * direction refusing the cursor.
-+ */
-+struct ctlv_cursor {
-+	struct ctlv_msg *msg;
-+	const struct ctlv_attr *attr;
-+	const struct ctlv_attr *parent;
-+	struct ctlv_cursor *up;
-+	size_t start;
-+	const struct ctlv_schema_tree *tree;
-+	u32 node;
-+	u32 depth;
-+	u32 index_nest_scope;
-+	u32 index_scope;
++/* The members of a descriptor, in the order the root family declares them. */
++enum {
++	CTLV_BLOB_MEMBER_TYPE,
++	CTLV_BLOB_MEMBER_ADDRESS,
++	CTLV_BLOB_MEMBER_FD,
++	CTLV_BLOB_MEMBER_OFFSET,
++	CTLV_BLOB_MEMBER_LENGTH,
++	CTLV_BLOB_MEMBERS,
 +};
 +
-+#endif /* _LINUX_CTLV_H */
-diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
-new file mode 100644
-index 000000000000..1ae4d3a536f7
---- /dev/null
-+++ b/include/linux/ctlv_family.h
-@@ -0,0 +1,316 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-+ *
-+ * CTLV family metadata and generated-code support.
-+ */
-+#ifndef _LINUX_CTLV_FAMILY_H
-+#define _LINUX_CTLV_FAMILY_H
-+
-+#include <linux/ctlv.h>
-+#include <linux/gfp_types.h>
-+#include <linux/kobject.h>
-+#include <linux/types.h>
-+
-+#include <uapi/linux/ctlv.h>
-+
-+/* op-schema-get needs one level to describe the declared schema. */
-+#define CTLV_MAX_DECLARED_NEST_DEPTH (CTLV_MAX_NEST_DEPTH - 1)
-+
-+struct ctlv_node_schema {
-+	u64 attr_id;
-+	u8 kind;
-+	u8 unit;
-+	s8 scale;
-+	bool reenters;
-+	u32 max_occurrences;
-+	u32 first_child;
-+	u32 children_count;
-+	u32 required_children_count;
-+	union {
-+		struct {
-+			u64 min;
-+			u64 max;
-+		} range;
-+		u64 flags_mask;
-+		struct {
-+			u32 min_len;
-+			u32 max_len;
-+		} length;
-+		struct {
-+			u64 max_len;
-+			u32 alignment;
-+			u16 backings;
-+			u8 direction;
-+		} blob;
-+	};
++struct ctlv_blob_desc {
++	u64 member[CTLV_BLOB_MEMBERS];
++	u32 present;
 +};
 +
-+#define CTLV_NODE_SCHEMA_UNLIMITED 0
++u32 ctlv_blob_desc_read(const struct ctlv_attr *blob, struct ctlv_blob_desc *desc,
++			const struct ctlv_attr **bad);
++u32 ctlv_blob_desc_check(const struct ctlv_blob_desc *desc, const struct ctlv_node_schema *node);
 +
-+#define __CTLV_NODE_SCHEMA(_attr, _kind, _occurrences, ...)	\
-+	{ .attr_id = (_attr), .kind = (_kind),			\
-+	  .max_occurrences = (_occurrences), __VA_ARGS__ }
-+
-+#define __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required)	\
-+	.first_child = (_first), .children_count = (_count),	\
-+	.required_children_count = (_required)
-+
-+#define CTLV_NODE_SCHEMA_ROOT(_first, _count, _required)	\
-+	__CTLV_NODE_SCHEMA(CTLV_ATTR_ROOT, CTLV_SCHEMA_NEST, 1,	\
-+			   __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required))
-+
-+#define CTLV_NODE_SCHEMA_NEST(_attr, _occurrences, _first, _count, _required) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_NEST, _occurrences,	\
-+			   __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required))
-+
-+#define CTLV_NODE_SCHEMA_NEST_REENTERS(_attr, _occurrences, _first, _count, _required) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_NEST, _occurrences,	\
-+			   .reenters = true,				\
-+			   __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required))
-+
-+#define CTLV_NODE_SCHEMA_UINT(_attr, _occurrences, _min, _max)	\
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_UINT, _occurrences,	\
-+			   .range = { .min = (_min), .max = (_max) })
-+
-+#define CTLV_NODE_SCHEMA_UINT_UNIT(_attr, _occurrences, _min, _max, _unit, _scale) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_UINT, _occurrences,	\
-+			   .range = { .min = (_min), .max = (_max) },	\
-+			   .unit = (_unit), .scale = (_scale))
-+
-+#define CTLV_NODE_SCHEMA_SINT(_attr, _occurrences, _min, _max)	\
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_SINT, _occurrences,	\
-+			   .range = { .min = (_min), .max = (_max) })
-+
-+#define CTLV_NODE_SCHEMA_SINT_UNIT(_attr, _occurrences, _min, _max, _unit, _scale) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_SINT, _occurrences,	\
-+			   .range = { .min = (_min), .max = (_max) },	\
-+			   .unit = (_unit), .scale = (_scale))
-+
-+#define CTLV_NODE_SCHEMA_ENUM(_attr, _occurrences, _max)	\
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_ENUM, _occurrences,	\
-+			   .range = { .min = 1, .max = (_max) })
-+
-+#define CTLV_NODE_SCHEMA_FLAGS(_attr, _occurrences, _mask)	\
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_FLAGS, _occurrences,	\
-+			   .flags_mask = (_mask))
-+
-+#define CTLV_NODE_SCHEMA_BOOL(_attr, _occurrences)		\
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_BOOL, _occurrences)
-+
-+#define CTLV_NODE_SCHEMA_STRING(_attr, _occurrences, _min, _max) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_STRING, _occurrences,	\
-+			   .length = { .min_len = (_min), .max_len = (_max) })
-+
-+#define CTLV_NODE_SCHEMA_BINARY(_attr, _occurrences, _min, _max) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_BINARY, _occurrences,	\
-+			   .length = { .min_len = (_min), .max_len = (_max) })
-+
-+#define CTLV_NODE_SCHEMA_BLOB(_attr, _occurrences, _max, _alignment, _backings, _dir) \
-+	__CTLV_NODE_SCHEMA(_attr, CTLV_SCHEMA_BLOB, _occurrences,	\
-+			   .blob = { .max_len = (_max),			\
-+				     .alignment = (_alignment),		\
-+				     .backings = (_backings),		\
-+				     .direction = (_dir) })
-+
-+struct ctlv_stub_schema {
-+	u16 family_id;
-+	u32 set_id;
-+	u32 node;
-+	bool optional;
-+};
-+
-+#define __CTLV_STUB_SCHEMA(_family, _set, _node, _optional)	\
-+	{ .family_id = (_family), .set_id = (_set),		\
-+	  .node = (_node), .optional = (_optional) }
-+
-+#define CTLV_STUB_SCHEMA(_family, _set, _node)			\
-+	__CTLV_STUB_SCHEMA(_family, _set, _node, false)
-+
-+#define CTLV_STUB_SCHEMA_OPTIONAL(_family, _set, _node)		\
-+	__CTLV_STUB_SCHEMA(_family, _set, _node, true)
-+
-+struct ctlv_schema_tree {
-+	const struct ctlv_node_schema *node_schemas;
-+	u32 node_schemas_count;
-+	const struct ctlv_stub_schema *stub_schemas;
-+	u32 stub_schemas_count;
-+};
-+
-+#define CTLV_SCHEMA_TREE(_name) {				\
-+	.node_schemas = _name##_node_schemas,			\
-+	.node_schemas_count = ARRAY_SIZE(_name##_node_schemas),	\
-+}
-+
-+#define CTLV_SCHEMA_TREE_STUBS(_name) {				\
-+	.node_schemas = _name##_node_schemas,			\
-+	.node_schemas_count = ARRAY_SIZE(_name##_node_schemas),	\
-+	.stub_schemas = _name##_stub_schemas,			\
-+	.stub_schemas_count = ARRAY_SIZE(_name##_stub_schemas),	\
-+}
-+
-+#define CTLV_SCHEMA_TREE_NONE() { }
-+
-+struct ctlv_stub_fill_schema {
-+	u16 family_id;
-+	u32 set_id;
-+	struct ctlv_schema_tree members;
-+};
-+
-+#define CTLV_STUB_FILL_SCHEMA(_family, _set, _name) {		\
-+	.family_id = (_family),					\
-+	.set_id = (_set),					\
-+	.members = CTLV_SCHEMA_TREE(_name##_fill),		\
-+}
-+
-+struct ctlv_op_sizes {
-+	u32 request_max_len;
-+	u32 action_reply_max_len;
-+	u32 query_reply_min_len;
-+	u32 query_reply_suggested_len;
-+	u32 event_record_max_len;
-+};
-+
-+struct ctlv_op_schema {
-+	u64 op_id;
-+	u8 type;
-+	u8 fd_access;
-+	u8 availability;
-+	bool optional;
-+	bool pre_post;
-+	struct ctlv_schema_tree request;
-+	struct ctlv_schema_tree reply;
-+	struct ctlv_op_sizes sizes;
-+};
-+
-+#define __CTLV_OP_SCHEMA(_op, _type, _availability, ...)	\
-+	{ .op_id = (_op), .type = (_type),			\
-+	  .availability = (_availability), __VA_ARGS__ }
-+
-+#define CTLV_OP_SCHEMA_ACTION(_op, _access, _availability, _request_len, _reply_len, \
-+			      _request, _reply, ...)			\
-+	__CTLV_OP_SCHEMA(_op, CTLV_OP_TYPE_ACTION, _availability,	\
-+			 .fd_access = (_access),			\
-+			 .request = _request, .reply = _reply,		\
-+			 .sizes = {					\
-+				.request_max_len = (_request_len),	\
-+				.action_reply_max_len = (_reply_len),	\
-+			 },						\
-+			 __VA_ARGS__)
-+
-+#define CTLV_OP_SCHEMA_QUERY(_op, _access, _availability, _request_len, _reply_min, \
-+			     _reply_suggested, _request, _reply, ...)	\
-+	__CTLV_OP_SCHEMA(_op, CTLV_OP_TYPE_QUERY, _availability,	\
-+			 .fd_access = (_access),			\
-+			 .request = _request, .reply = _reply,		\
-+			 .sizes = {					\
-+				.request_max_len = (_request_len),	\
-+				.query_reply_min_len = (_reply_min),	\
-+				.query_reply_suggested_len =		\
-+					(_reply_suggested),		\
-+			 },						\
-+			 __VA_ARGS__)
-+
-+#define CTLV_OP_SCHEMA_EVENT(_op, _record_len, _reply, ...)	\
-+	__CTLV_OP_SCHEMA(_op, CTLV_OP_TYPE_EVENT,		\
-+			 CTLV_OP_AVAILABILITY_FIXED,			\
-+			 .reply = _reply,				\
-+			 .sizes = {					\
-+				.event_record_max_len = (_record_len),	\
-+			 },						\
-+			 __VA_ARGS__)
-+
-+struct ctlv_family_schema {
-+	const char *name;
-+	u16 family_id;
-+	const struct ctlv_op_schema *ops;
-+	u32 ops_count;
-+	const struct ctlv_stub_fill_schema *stub_fill_schemas;
-+	u32 stub_fill_schemas_count;
-+};
-+
-+/* Leave half of a uevent environment to the device model. */
-+#define CTLV_UEVENT_MAX_LEN (UEVENT_BUFFER_SIZE / 2)
-+#define CTLV_UEVENT_MAX_VARS (UEVENT_NUM_ENVP / 2)
-+
-+struct ctlv_input_ref {
-+	const struct ctlv_schema_tree *tree;
-+	u64 attr_id;
-+	u32 node;
-+	u32 slot;
-+	u8 kind;
-+};
-+
-+typedef int (*ctlv_action_fn)(void *priv, struct ctlv_op_ctx *ctx,
-+			      const struct ctlv_cursor *request,
-+			      struct ctlv_cursor *reply);
-+typedef int (*ctlv_query_fn)(void *priv, struct ctlv_op_ctx *ctx,
-+			     const struct ctlv_cursor *request,
-+			     struct ctlv_cursor *reply);
-+typedef int (*ctlv_op_pre_fn)(void *priv, struct ctlv_op_ctx *ctx);
-+typedef void (*ctlv_op_post_fn)(void *priv, struct ctlv_op_ctx *ctx);
-+
-+struct ctlv_op {
-+	union {
-+		ctlv_action_fn action;
-+		ctlv_query_fn query;
-+	};
-+	ctlv_op_pre_fn pre;
-+	ctlv_op_post_fn post;
-+};
-+
-+#define CTLV_OP_ACTION(_name) { .action = _name##_action }
-+#define CTLV_OP_QUERY(_name) { .query = _name##_query }
-+#define CTLV_OP_ACTION_PRE_POST(_name)				\
-+	{ .action = _name##_action, .pre = _name##_pre,		\
-+	  .post = _name##_post }
-+#define CTLV_OP_QUERY_PRE_POST(_name)				\
-+	{ .query = _name##_query, .pre = _name##_pre,		\
-+	  .post = _name##_post }
-+
-+typedef size_t (*ctlv_family_priv_size_fn)(void);
-+typedef const void *(*ctlv_family_pre_init_fn)(const void *init_info);
-+typedef int (*ctlv_family_init_fn)(struct ctlv_device *ctlvdev,
-+				   const void *init_info, void *priv);
-+typedef int (*ctlv_family_post_init_fn)(struct ctlv_device *ctlvdev,
-+					void *priv);
-+typedef void (*ctlv_family_pre_fini_fn)(struct ctlv_device *ctlvdev,
-+					void *priv);
-+typedef void (*ctlv_family_fini_fn)(struct ctlv_device *ctlvdev, void *priv);
-+
-+typedef int (*ctlv_stub_fill_fn)(void *priv, struct ctlv_op_ctx *ctx,
-+				 const struct ctlv_cursor *request,
-+				 struct ctlv_cursor *nest);
-+
-+struct ctlv_stub_ops {
-+	u16 family_id;
-+	u32 set_id;
-+	ctlv_stub_fill_fn fill;
-+};
-+
-+#define CTLV_STUB_OPS(_family, _set, _name) {			\
-+	.family_id = (_family),					\
-+	.set_id = (_set),					\
-+	.fill = _name##_fill,					\
-+}
-+
-+struct ctlv_family {
-+	const struct ctlv_family_schema *schema;
-+	const struct ctlv_family *parent;
-+	const struct ctlv_op *ops;
-+	u32 ops_count;
-+	ctlv_op_pre_fn pre;
-+	ctlv_op_post_fn post;
-+	ctlv_family_priv_size_fn priv_size;
-+	ctlv_family_pre_init_fn pre_init;
-+	ctlv_family_init_fn init;
-+	ctlv_family_post_init_fn post_init;
-+	ctlv_family_pre_fini_fn pre_fini;
-+	ctlv_family_fini_fn fini;
-+	const struct ctlv_stub_ops *stub_ops;
-+	u32 stub_ops_count;
-+};
-+
-+extern const struct ctlv_family ctlv_family;
-+
-+#endif /* _LINUX_CTLV_FAMILY_H */
-diff --git a/include/uapi/linux/ctlv.h b/include/uapi/linux/ctlv.h
-new file mode 100644
-index 000000000000..6bc0d1a296e6
---- /dev/null
-+++ b/include/uapi/linux/ctlv.h
-@@ -0,0 +1,183 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/*
-+ * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
-+ *
-+ * CTLV transport UAPI: the TLV wire format, the op-execution ioctl, the event
-+ * record header and transport limits. Schema-free; a family's constants
-+ * are generated into <linux/<family>_gen.h>, the root family's into
-+ * <linux/ctlv_gen.h>.
-+ */
-+#ifndef _UAPI_LINUX_CTLV_H
-+#define _UAPI_LINUX_CTLV_H
-+
-+#include <linux/ioctl.h>
-+#include <linux/types.h>
-+
-+/**
-+ * struct ctlv_attr - Attr header.
-+ * @len: this header plus its payload, excluding this attr's trailing padding
-+ * @flags: CTLV_ATTR_F_* bits
-+ * @attr_id: complete attr ID, or CTLV_ATTR_ROOT for a message root
-+ *
-+ * Attrs are aligned to CTLV_ALIGNTO, which is why @attr_id is __aligned_u64: a
-+ * 32-bit ABI would otherwise align this structure to four bytes. A nested
-+ * payload is the concatenation of CTLV_ALIGN(child.len) bytes per child, so
-+ * child padding counts inside the containing attr's @len while a leaf's own
-+ * padding does not. Scalar payloads are native-endian. Within each request
-+ * root or nest, occurrences of one @attr_id are contiguous; different IDs
-+ * otherwise have no required order.
-+ */
-+struct ctlv_attr {
-+	__u32 len;
-+	__u32 flags;
-+	__aligned_u64 attr_id;
-+};
-+
-+#define CTLV_ALIGNTO 8
-+#define CTLV_ALIGN(_len) (((_len) + CTLV_ALIGNTO - 1) & ~(CTLV_ALIGNTO - 1))
-+
-+/* Set exactly on root and nested attrs, clear on scalar attrs. */
-+#define CTLV_ATTR_F_NESTED		(1U << 0)
-+/* Query fragments: set on the root and each nest logically open at the end. */
-+#define CTLV_ATTR_F_FRAG_MORE		(1U << 1)
-+/*
-+ * A request attr, never the root, that a device whose schema does not declare
-+ * its ID skips whole instead of refusing the message. An ID that schema does
-+ * declare is held to it wherever it appears, so this asks to be forgiven what
-+ * this kernel has never heard of and nothing else.
-+ */
-+#define CTLV_ATTR_F_IGNORE_IF_UNKNOWN	(1U << 2)
-+
-+/* Root attr: carries CTLV_ATTR_F_NESTED, valid only at a message start. */
-+#define CTLV_ATTR_ROOT 0ULL
-+
-+/* Complete attr: family in bits 63..48, group in 47..32, attr in 31..0. */
-+#define CTLV_ATTR(_family, _group, _attr)	\
-+	(((__u64)(_family) << 48) |		\
-+	 ((__u64)(_group) << 32) |		\
-+	 (__u64)(_attr))
-+
-+#define CTLV_ATTR_FAMILY(_attr)	((__u16)((_attr) >> 48))
-+#define CTLV_ATTR_GROUP(_attr)	((__u16)((_attr) >> 32))
-+#define CTLV_ATTR_NUMBER(_attr)	((__u32)(_attr))
-+
-+/* Complete op: family in bits 63..48, zero in 47..32, op in 31..0. */
-+#define CTLV_OP(_family, _op)	\
-+	(((__u64)(_family) << 48) | (__u64)(_op))
-+
-+#define CTLV_OP_FAMILY(_op)		((__u16)((_op) >> 48))
-+#define CTLV_OP_NUMBER(_op)		((__u32)(_op))
-+
-+/**
-+ * enum ctlv_unit - CTLV-defined unit of an integer attr payload.
-+ * @CTLV_UNIT_NONE: dimensionless
-+ * @CTLV_UNIT_SECONDS: seconds
-+ * @CTLV_UNIT_HERTZ: hertz
-+ * @CTLV_UNIT_BYTES: bytes
-+ * @CTLV_UNIT_CELSIUS: degrees Celsius
-+ *
-+ * A payload is value * 10^scale of this unit, from the decimal scale the attr
-+ * declares alongside. Changing either is an ABI break.
-+ */
-+enum ctlv_unit {
-+	CTLV_UNIT_NONE = 0,
-+	CTLV_UNIT_SECONDS,
-+	CTLV_UNIT_HERTZ,
-+	CTLV_UNIT_BYTES,
-+	CTLV_UNIT_CELSIUS,
-+};
-+
-+/**
-+ * enum ctlv_schema_kind - CTLV-defined form of one attr payload.
-+ * @CTLV_SCHEMA_UINT: unsigned integer payload bounded by a range
-+ * @CTLV_SCHEMA_SINT: signed integer payload bounded by a range
-+ * @CTLV_SCHEMA_BOOL: one payload byte holding zero or one
-+ * @CTLV_SCHEMA_STRING: NUL-terminated string payload bounded by length
-+ * @CTLV_SCHEMA_BINARY: opaque payload bounded by length
-+ * @CTLV_SCHEMA_ENUM: unsigned integer payload restricted to a range
-+ * @CTLV_SCHEMA_FLAGS: unsigned integer payload restricted to a mask
-+ * @CTLV_SCHEMA_NEST: nested payload described by further nodes
-+ * @CTLV_SCHEMA_BLOB: blob descriptor nest
-+ *
-+ * Exactly one form applies to an attr. These are the values op-schema-get
-+ * reports, and the set is append-only.
-+ */
-+enum ctlv_schema_kind {
-+	CTLV_SCHEMA_UINT,
-+	CTLV_SCHEMA_SINT,
-+	CTLV_SCHEMA_BOOL,
-+	CTLV_SCHEMA_STRING,
-+	CTLV_SCHEMA_BINARY,
-+	CTLV_SCHEMA_ENUM,
-+	CTLV_SCHEMA_FLAGS,
-+	CTLV_SCHEMA_NEST,
-+	CTLV_SCHEMA_BLOB,
-+};
-+
-+/**
-+ * struct ctlv_op_exec - Op-execution ioctl argument.
-+ * @op_id: complete op ID; zero is invalid
-+ * @request: struct ctlv_attr __user *, the mandatory complete request root
-+ * @reply: struct ctlv_attr __user *, the success reply or the error
-+ *	information
-+ * @request_len: readable bytes beginning at @request, at least one root header;
-+ *	the transport copy boundary, which may exceed the root's own length
-+ * @reply_len: writable bytes beginning at @reply; input only, never
-+ *	overwritten by the kernel
-+ * @generation: query only; zero on a first fragment, the previously returned
-+ *	value on continuation, and the query generation on output. Actions must
-+ *	set zero.
-+ * @cursor: query only; zero starts a query and a nonzero value resumes it. On
-+ *	output it is the next cursor when the root carries
-+ *	CTLV_ATTR_F_FRAG_MORE and zero when no further fragment exists. Actions
-+ *	must set zero.
-+ * @reserved: must be zero
-+ *
-+ * No size field: the ioctl number encodes the structure size and @reserved
-+ * covers compatible growth. @request and @reply are fixed-width
-+ * representations of userspace pointers so that the compat layout is identical.
-+ */
-+struct ctlv_op_exec {
-+	__aligned_u64 op_id;
-+	__aligned_u64 request;
-+	__aligned_u64 reply;
-+	__u32 request_len;
-+	__u32 reply_len;
-+	__aligned_u64 generation;
-+	__aligned_u64 cursor;
-+	__aligned_u64 reserved[2];
-+};
-+
-+#define CTLV_IOC_MAGIC 0xBB
-+
-+#define CTLV_IOC_OP_EXEC _IOWR(CTLV_IOC_MAGIC, 0x00, struct ctlv_op_exec)
-+
-+/**
-+ * struct ctlv_event_hdr - Header of one queued event record.
-+ * @length: complete record length, this header plus the aligned root
-+ * @flags: must be zero
-+ * @op_id: complete op ID of the event op that produced the record
-+ * @sequence: per open file description sequence number, assigned to every
-+ *	eligible enqueue attempt including dropped ones
-+ *
-+ * Exactly one root attr follows the header, and one read() returns one record.
-+ */
-+struct ctlv_event_hdr {
-+	__u32 length;
-+	__u32 flags;
-+	__aligned_u64 op_id;
-+	__aligned_u64 sequence;
-+};
-+
-+/* Implementation limits, not wire-field maxima: raising them is compatible. */
-+
-+/* Request roots, action replies, query reply fragments and event roots. */
-+#define CTLV_MAX_INLINE_MESSAGE_LEN	0x100000	/* 1 MiB */
-+/* Includes the error information root. */
-+#define CTLV_MAX_ERROR_LEN		0x4000		/* 16 KiB */
-+/* The root attr is at depth zero. */
-+#define CTLV_MAX_NEST_DEPTH		32
-+#define CTLV_DEFAULT_QUERY_REPLY_LEN	0x10000		/* 64 KiB */
-+#define CTLV_MAX_EVENT_QUEUE_LEN	0x1000000	/* 16 MiB */
-+
-+#endif /* _UAPI_LINUX_CTLV_H */
++#endif /* _CTLV_BLOB_DESC_H */
 -- 
 2.56.0
 
