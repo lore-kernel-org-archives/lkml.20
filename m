@@ -1,117 +1,189 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9890E4AB1D1
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051924; cv=none; b=Bed/LyON72AVmYM8cqDP/RMmCEQ0SnWc7uV5KM+rUcMTyFfkhy1ToWEeN0MSuWoJnR5DbKLjzrxWQ7PQuKd9zWeFto39ZgdP1+0NgjlWw5VeXa8QKbm211NuI7yQGeLipaTQK/ww7a4u9YPijNbEdkaE6FOSnprLE+1D/gyWIFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051924; c=relaxed/simple;
-	bh=HUysfWcwgaCnsXaXq97C5D3DJcHzVD/nOuWhNnFXHNM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=myEwCczaKHkOp3Rl0y+z46QQB+mivdg56hQtkBzRpIy8e0hULDqXONdY7aze/XRi24uNYEo7OIW+ic/v62NCnYKVacUuIbrwYMT+J7hF2siZAcifn9UfXVUidHUjMtLYxhAaC/PkPNIhHut+LXlOoMzfmvhHzGF4qo3QnR1ct2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIi3eAIQ; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7336B475346
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792052019; cv=pass; b=H0/NaRBFD28ZtUlaYtiNaDgoNh+0ynN1zVVBqZ8LTwZLSCZfUREbaRtXJFGgGxzeb35DLbXwJ2BXV/kvVrzlMn+MEoYVny8WOo21oT9MwcTBVvLDC21vo9ZKenUJ6z5DmZRO22LEaiKxs/Xjur4BlRHobaC3thr+uc0n7VItkAg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792052019; c=relaxed/simple;
+	bh=BCYd5zKHIb6pmPgog6YamRVpW3AdTCXLTOKv22hGEBE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PALW3yHN0Wn9EXlZV2DGJcObJBMnYPQFtj2ad+FMgiTwDHTVH9GIdtibT69NGfSlbYQ4mU+gXloIqnhJdHkbvC15sdBlkgo27c+3xmmMxJPDoKvJchTwTzKy4/lfOOyZg9UGSI//MgmOPp++ruKTa/OdLBiKzBaLHVXA/2Gg3GA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cUOuTWyd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DHbiBRZS; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIi3eAIQ"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afe75f055so148950f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:12:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cUOuTWyd";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DHbiBRZS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792052015;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AU0xO7xiIuUh7YL7a7ID/AwdZghoxbnnTVjxgl5m5Bs=;
+	b=cUOuTWydqwcjWyKGt6y4dAeLfJ6ccHL5pAf/NF8Oz/Y4qs1x+437PTd3zjaho+fXM1Q99O
+	SER/QFucjUc6bsWaQaployP+JJcik0cZgKJ4XZF6nYBZ2FO/GJd/YVLQaT/Dv0wBTYIgqj
+	E014tzCEUZ/6rncnTBW47+dbrGgNtrI=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-78-AfmUGWK9MZupZsome0JDgA-1; Thu, 15 Oct 2026 08:13:33 +0000
+X-MC-Unique: AfmUGWK9MZupZsome0JDgA-1
+X-Mimecast-MFC-AGG-ID: AfmUGWK9MZupZsome0JDgA_1792052012
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1b11e7837so19728465e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 01:13:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792052012; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o3kg3BWSqSlIcDoKHJMdgjCGaj68thcTXUAv9lZ9Wv17+cXzfCp84VADwH+nrpvSrt
+         51bH5gs0c5NOiqtsEPMLjn90ISFysAJt5yYIOmOi9gKLA6u9aQ2OYcU4r1zJqUXEe55B
+         EjE1s2102U01fycIxbwluHTxdmLIoskFjzwbz7qOTvA3rGogR9BYi8glm1+XSXDsgSoj
+         cxv4xox31R5SzSFgMTXHZLf90+FY4GLZUL8Z6P+HNb3vEggxKQR9D3nNT+ALVCLRHlkY
+         Emhsrw3+sVQAS5pEcxWmK5MhRWVeZHaMbrHvSqTVrO/OCnrKHCD3/f/XeeiLjZnkSaTX
+         4pQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AU0xO7xiIuUh7YL7a7ID/AwdZghoxbnnTVjxgl5m5Bs=;
+        fh=0AxmfQ/dxWLZQDX8FZGGiGCehWRx33h5JTV7saqYNek=;
+        b=WXWb+3KxGvMRNdVa7O6lvHjTB+Txyti8EZYaIvqP/O+rU3inHiFcF8YCzTLb7IgDwq
+         1w7YFtlbLKyxQ6oCOcLViqni95/sDK9FhZ0fQJXg+39OzEwm4URZwtwC+fnzz5kl+TqT
+         jxZqfzZhXTZYppjpq4agjBnBPMyzhziwzZofXCOGCOm0YJJlInRzBrUEV4BdKJfa8IZM
+         mnFXSWcrB4w5vcuP6ZXeKgq9p1PIBy11eqHW+A/JZiRXKS1uJK0yxCsqjTkke1FOHoXJ
+         ZPwztkgSgS6tLmDthXFMGGKRQIptzejTadi74isy+vXwdBhGuLw2IYvcmRG1l98pdkad
+         qdPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792051921; x=1792656721; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
-        b=QIi3eAIQsTmJiUBBDp7ZKpRl3L/y98j6LExy24z7934D9LKdXUM1B2VRI9PqDrt88w
-         tlPTg5lOVLsxnjvBLAu5a+iIXft7UaI72LELliTmfJjpoOfZ3ICi8M2OzrcdcSjiix0i
-         7lZs6Qy8qx6g0jTIWHV66aXWFQspl4WfXfsrVU6OutWg/gXo55CTWwt2ADGox80qIMy3
-         HKNl4+k8LKt2ATBjW3KHSQdlxB4ggG3fQKf2AxlAWzx+ip4HKgEZqTaR5Urr1TckuDe3
-         ky/NUrBUOI5uuLt1hSJL9cjhSbj1GtgWu8AtrBl+Wm3yCweR2ABMX4/E2LTML9xV+YrT
-         u6DA==
+        d=redhat.com; s=google; t=1792052012; x=1792656812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AU0xO7xiIuUh7YL7a7ID/AwdZghoxbnnTVjxgl5m5Bs=;
+        b=DHbiBRZSPGqzkOaf/JC+AFSi+DjxBp5k4SjCnioQY42SGhkFBfLsIpb/8ki+gSoJ8A
+         EquRJ9l8i9Fsn/3ZLKuFXonbsAnTBorzlgM9UN5zR/+YJ9B00DCuQIHoMhyZXrCD5F2T
+         WBQUndSAMzL+itT1eG01Sj5PV1NDsNLg/JdkOb5psGZtMh1RQ/m8jXVSMCHDmVW/UcYe
+         oiW49q8lUvWAqBojq/cX+J57PCDYBqY1Dk1ti5sfd9sfWY8pt+QpMB/1Fe4VlsEcyZfr
+         J0kzWMwDiY01I0MtHC5T15sPUziqNZnqZFRVW9eblkH6n0Vu7UW2rT3HLaaeXTKLLylH
+         6ZDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792051921; x=1792656721;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GHuAmdmkXZvDWTufmXOc4smtM5tKnn8omClhm1kd2uo=;
-        b=0KJS7ycWUy4g7N7b5a41TYLQ9Q8dEw8MrW8jxZNRWx/Lb31dLUQvFunUwwA1i8qijS
-         LX9x7Sh6CaTGlYRwW0Ap5FxEqmX9u1dQCHjdhqoIBZAwUUe47GHhc2XCA8J4vxSPoeLL
-         64s/d4larH7V0/BYY/XI+xzCu3EvC/TYQtXBeqemuZQlmeYxYhfW4vhelHEdWl05CxaL
-         TbszneUssteiMUhf7XpMB1ewoNWddYgQRrCaQ6INVSEKSPyKvd0iZJp3xneO5hSfCP8e
-         K2NUjdRs51OQ3PB2CzrOxRFePOQPKo6y/OAW6N5GNDSwFyJ2YTBbVCV2gCEPiPFPXflF
-         G+Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1LQGPHzAZuHsSMQNVHpMxSu+MJRLPxhX2LEgneBzahwOYNt6t/cybRvTy96sDPjM1MEUh2vsmy99iqq8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0W0FpKXKpYcIChiYjJD2KIyz4Lt/9t+nclSXHQx/gdkYSMIiL
-	+tFUm1Re7hkv/9eOmwTzxi52qYeWHCAwzFIj3MHkCYsFT4OWbueh4mRU
-X-Gm-Gg: AYBFou3L+07bIOIUna/z8M668NjofJoIEbdXulYXhiBhtXhDxCHEUQkylIe+cMn5AiD
-	UNkZ3FxHzXJ9FMq0TmmIcShlJs6E5LeWaOBorQjKNfHmOYPdKjUXFQ/d8WEo4bGxK+WvLkphZRq
-	ZxueDT1luHWrcT0pve9/Jy0l7tt6iTrdrilYddghkLtYwo+QGNb0PisNsEIIUj3UvlN62Cyht+k
-	ZdJiqdyyhZhYzy8+2R/sdSuix2vFjNYrtqxVCUpE2qhditBv3KDn84ye/Gau6yqYLsDV9D5uPsH
-	ZuXMfc1FKG34EM2Cs4c+sMvJIU+7wuhDVyRo49YMzCk0K3Y9b9rLEQ7+M/BpatFebM8aJl3RalA
-	wTKsobxGhJJkEdkuR5tDKMoj9NLt2B0IlJc7wbr+T+CrKUXVDDzQfxYt/NHZOjoyS+/qXUUGLfS
-	d5bQPOaBw9uUrdTbNyUj3H4NudUSfsz3bfEKBmeQ6fDCzkSQuJvOueSIsethZxsBZZ9wyAD3tfk
-	JW5myXxxU2oRTgbEQTGI182mLZ4jzalyikUWWBGpeaqLrlVWZGq+lX4SHgz+M4OdyY1Ak0sgx3b
-	kTQlAnF078j+6hbg2cezQVHG1oXSmgDP
-X-Received: by 2002:a05:6000:2993:20b0:48c:4442:54e with SMTP id ffacd0b85a97d-48dbaae710dmr26750262f8f.30.1792051920518;
-        Thu, 15 Oct 2026 01:12:00 -0700 (PDT)
-Received: from Lord-Beerus.station ([93.66.71.207])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de3f7f8b8sm16237534f8f.35.2026.10.15.01.11.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:11:59 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx8mn-evk: Pass GPIO_OPEN_DRAIN flag on i2c3 GPIOs
-Date: Thu, 15 Oct 2026 10:11:49 +0200
-Message-ID: <20261015081149.5919-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1792052012; x=1792656812;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AU0xO7xiIuUh7YL7a7ID/AwdZghoxbnnTVjxgl5m5Bs=;
+        b=OT6wheaeMZrpXuZ5yAISD2yyX0HpYV3fOElvN5P3+DgqnxuNdzOlNYCtokr7SRP6A6
+         p1C8aiLseQVpY4R4ORVR5TqnvJrBTGk+IOYdFP4xREtZxsuC5ssy/POAboJvPb4L3mDs
+         SNbCFPWujk1JlXIAJ+dESQbMv0BrAfTLtojbeOFEkHfRVrWBwL+9wqivyd6pbl7qJ582
+         1/EPvabEQVURZQn+o7YMJkp+U9AWbPj67WT0XACOuti3Ee2D5E7BhHyTKrxghBY7ebAX
+         4QzPcGpapFyH3dyF7ZHpdZvVCUSvwa/cRHZGORKBOe8KnuMWqY7WWsmOy0T4ztIBRJ4M
+         NgTg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLI2YGznBswBgNBrNCvEZrzFNId2oIxvhFeBO8f3sUCiVPfu2Q9sZJ/xHWY0b3AsrF2o6rzoyyWdbMNIA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQpNb/pn70x7NA3dH3LOQzlhi0+WeTSMpxn4PrUSkakqbRijXK
+	gk+Z4sTIDe4mV94yQL+dxGT3EY7He/Q2rYFpxTywC9dIPZc2IQ37oMUCbRnqDSbhbA+FRsYHqkc
+	8SFlWHeGQHIWTswSbLQYVocvdBRpMd0PAA3TeMtEGAQ5sL3MlIy/Byv5tITCNyzLG9iplqx6V7H
+	x5x4KSFWjSknY5UURSNQ432MFJXNnKkdat7ywGUlsW
+X-Gm-Gg: AYBFou0dTm9vELGRa60dcgB5FVrefDQXcqIqAVEGhsrCHm4haATEgfV8fhe2AXhSDPV
+	XtQduS7Co/V5Lucbyk6NDS/PY2TEIoSE3YbyCjX4ex5Nl/t8yevBQ23lgbWDwHxDNYYW0Hhg2hm
+	WtOsJXMeLZnQ7RygvkHuYB4mNKeXHS8zwZGf6yqWiaDRlz92VOASpfMCdZhEUrpYc6bPR1CcALR
+	QfrIKJDT6gXVNiN5HQ7svIyBbRGTUh49HnYqOiUrg6bkImYXmqFkdxST/RJTQ==
+X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr370153145e9.19.1792052012082;
+        Thu, 15 Oct 2026 01:13:32 -0700 (PDT)
+X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id
+ 5b1f17b1804b1-4a18e4c05e5mr370152605e9.19.1792052011600; Thu, 15 Oct 2026
+ 01:13:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015064656.1525830-1-chenhuacai@loongson.cn>
+In-Reply-To: <20261015064656.1525830-1-chenhuacai@loongson.cn>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Thu, 15 Oct 2026 10:13:17 +0200
+X-Gm-Features: AclHuK-N6y3qu8Vg7-uaSs-vNc8ppvQ0yoTimFzinJPuSt1vYpru_CK0wq-a7q4
+Message-ID: <CABgObfb1GuJioOC5WEEY+ZJ6zCDH-gXr2Sg+20eF4AAVyE2_NA@mail.gmail.com>
+Subject: Re: [GIT PULL] LoongArch KVM changes for v7.4
+To: Huacai Chen <chenhuacai@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+	Bibo Mao <maobibo@loongson.cn>, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Xuerui Wang <kernel@xen0n.name>, 
+	Jiaxun Yang <jiaxun.yang@flygoat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On Thu, Oct 15, 2026 at 8:47=E2=80=AFAM Huacai Chen <chenhuacai@loongson.cn=
+> wrote:
+>
+> The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c9=
+07:
+>
+>   Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+>
+> are available in the Git repository at:
+>
+>   git://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson=
+.git tags/loongarch-kvm-7.4
+>
+> for you to fetch changes up to 34f4ce22cf25802d8026c60c13c2db81f8c8e3a0:
+>
+>   KVM: LoongArch: selftests: Enable HW PTW by auto detection method (2026=
+-10-13 16:49:05 +0800)
 
-scl-gpios and sda-gpios need GPIO_OPEN_DRAIN flag, otherwise the
-following run-time warning is seen:
+Pulled, thanks.
 
-gpio-146 (scl): enforced open drain please flag it properly in DT/ACPI DSDT/board file
+Paolo
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-index 3e590afa4fab..036afa0f6990 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-@@ -287,8 +287,8 @@ &i2c3 {
- 	pinctrl-names = "default", "gpio";
- 	pinctrl-0 = <&pinctrl_i2c3>;
- 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
--	scl-gpios = <&gpio5 18 GPIO_ACTIVE_HIGH>;
--	sda-gpios = <&gpio5 19 GPIO_ACTIVE_HIGH>;
-+	scl-gpios = <&gpio5 18 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio5 19 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
- 	status = "okay";
- 
- 	pca6416: gpio@20 {
--- 
-2.47.3
+> ----------------------------------------------------------------
+> LoongArch KVM changes for v7.4
+>
+> 1. Add separate vmid support.
+> 2. Simplify MSI intterupt injection.
+> 3. Add hypercall crash support.
+> 4. Allow to set pv_feature until vCPU run.
+> 5. Enable HW PTW automatically in selftests.
+>
+> ----------------------------------------------------------------
+> Bibo Mao (8):
+>       LoongArch: KVM: Add vmid support for stage2 MMU
+>       LoongArch: KVM: Implement vmid updating logic
+>       LoongArch: KVM: Probe & enable separate vmid feature
+>       LoongArch: KVM: Remove parameter "level" when injecting MSI
+>       LoongArch: KVM: Remove duplicated checking with DMSI irq injection
+>       LoongArch: KVM: Add hypercall crash support
+>       LoongArch: KVM: Allow to set pv_feature until vCPU run
+>       KVM: LoongArch: selftests: Enable HW PTW by auto detection method
+>
+> Chaithanya Lagisetty (1):
+>       LoongArch: KVM: Return the actual error code in kvm_ipi_create()
+>
+>  arch/loongarch/include/asm/kvm_dmsintc.h           |  3 +-
+>  arch/loongarch/include/asm/kvm_host.h              | 15 ++++-
+>  arch/loongarch/include/asm/kvm_para.h              |  3 +
+>  arch/loongarch/include/asm/kvm_pch_pic.h           |  2 +-
+>  arch/loongarch/include/asm/loongarch.h             |  5 ++
+>  arch/loongarch/include/uapi/asm/kvm.h              |  1 +
+>  arch/loongarch/include/uapi/asm/kvm_para.h         |  1 +
+>  arch/loongarch/kernel/asm-offsets.c                |  1 +
+>  arch/loongarch/kernel/cpu-probe.c                  |  4 ++
+>  arch/loongarch/kvm/exit.c                          | 11 ++++
+>  arch/loongarch/kvm/intc/dmsintc.c                  | 36 +++--------
+>  arch/loongarch/kvm/intc/ipi.c                      |  7 +--
+>  arch/loongarch/kvm/intc/pch_pic.c                  |  6 +-
+>  arch/loongarch/kvm/irqfd.c                         |  4 +-
+>  arch/loongarch/kvm/main.c                          | 71 ++++++++++++++++=
+++++--
+>  arch/loongarch/kvm/mmu.c                           | 25 +++++++-
+>  arch/loongarch/kvm/switch.S                        |  5 +-
+>  arch/loongarch/kvm/tlb.c                           | 19 +++++-
+>  arch/loongarch/kvm/vcpu.c                          | 15 ++++-
+>  arch/loongarch/kvm/vm.c                            |  2 +
+>  .../selftests/kvm/include/loongarch/processor.h    |  3 +
+>  .../selftests/kvm/lib/loongarch/processor.c        | 16 ++++-
+>  22 files changed, 194 insertions(+), 61 deletions(-)
+>
 
