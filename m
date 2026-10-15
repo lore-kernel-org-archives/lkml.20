@@ -1,134 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA784A7CA7;
-	Thu, 15 Oct 2026 10:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A0D496D4C;
+	Thu, 15 Oct 2026 11:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792061914; cv=none; b=GPD4e+ZCRKhpayaLBmdUDsYo34QPp5nPUIrZJswnTFavP3PJZfGj1BpD74W0dt8DXsD4+89hEVd2BJ8SGQk8fNbJ8TCqFHCb+Cm+lIhtRd4+hLs8gIuYlpeYe0z1ViX7bA3cQz56zFUl+IfhvyT3TXWwXGvMCSGITiADV3QxG9Y=
+	t=1792062011; cv=none; b=mN5TTVLtgmrrM1je8RFlwziUpluorts76WGeIuqLRpqC/7NzTt8E3SrLW1KkeBnUbl6WFOq1BwqFFA39oN2bHM6UmxvVHbZ6+OROPEKhQRH9xER1AQHjHOcBVwjLNAfIjVM2ExbN9TxRQlk7dafZDjwKsjGTIegyQDi9lV1omno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792061914; c=relaxed/simple;
-	bh=YscGmbcN3nNKIyT1JAHk3lBrqqw/zMhCCrWmt7pyH7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HXJwp6Kmsq2s1rHjcD94OC4++P1mbcGyxQwq8dXqPj5SILgBpzoAbI81pia+xbOw1vMYviiIyPK1i6Dz1jzz8W6vFZPWdY9ehq4KiJwapFY2rZ0dJs7tzOqFwfOdm0BXWzdlG517uGVXFG0/5KnMRIUHFomjT3SiE0Rm7cPxOvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4Mki8A7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792062011; c=relaxed/simple;
+	bh=ni+cZ2x3SfxVByDI3e+2C4Xsw/g+GmhxtmKn7cBp4sc=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gUg7jFHM3/kiDTmDcFTRqZdNIFtcO3xqd4HMca9T4jnwxXygZuA48fs4l1Bj5o6LBfqz3IDstY50UVTxy4TOcIvESs+njATures2hBC9+ZPeV49GuFawBHwKVuvgd6Tts/077TlP8802fcH18EFRKJy8IZLlKL8f6Wg3psuuxow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y9/TvslN; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4Mki8A7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BDB1F000C4;
-	Thu, 15 Oct 2026 10:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792061913;
-	bh=525X9fRw3wVF943fAkOiBymkjHE2iaJQ8GGeeoS6trg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J4Mki8A7cHla3ZIiYgF8fE5u9sHRkT45HlWip9lnGlgNnn4wVTMun8me0jvJSt3Gm
-	 cmMhdnHnhLxG8Hp+kbf6qD2N/xQhjoGcoCXYMVjkqPVIovCoZSmtnh9FMpxPguw82D
-	 cJIwae6Y8UpMTjIIOjTSCM+4Etqh7x2Ntt0lA9UzUhwtLJijvutQgn1TO5Qd/zaC3j
-	 wZiHn98w0KxgKp207XFG39bB3wZg385C2LTtbC/zheueFurs2AK4LTea7ZXwZZlxmJ
-	 XEHr1kHcvCS6II70lFvB7x3iXJzc/BWT1YWLg/0GWVJxK7C3Ddk64jWTcGKVBy9Wwy
-	 HVTW4tBN5CmyA==
-Date: Thu, 15 Oct 2026 07:58:29 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v3 1/4] perf symbol: Fix symbol loading from libbfd
-Message-ID: <atCx1cPi4g0hpxRi@x2>
-References: <20261012235938.87912-1-namhyung@kernel.org>
- <as557LTNwiigXk0O@x2>
- <as6cV-cm6dgTtzet@google.com>
- <as__f7LjG4GckkBj@x2>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y9/TvslN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792062010; x=1823598010;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=ni+cZ2x3SfxVByDI3e+2C4Xsw/g+GmhxtmKn7cBp4sc=;
+  b=Y9/TvslNnxeg4jrobNKX6mboWs3vxtWOYS+JlCN+ZIMFanz6+izFsNgI
+   ZWWRgBr9DtED99q7N2cji40mYz5B29Oeiwme6KqC7Wzwj4a+/7AmWyD2o
+   c/LCCMJfGa/05EsNd5m+I20Ug5GB+BWQxSyXfqedeUpYyt9r8POHGm0TW
+   6at7lrqhkIaQpO22n853WoY7CPJ9F15MpiZ3ff7wN0FX2vv2nHyFLUZO/
+   H5zSZ2NK4yIvUlEWr3/mknULAuO8anzbSnZyskBFRzeUgg0hxtEXugxqV
+   vb1OjltgOsQcu2QsuW+osmPwCj2Nw2AhR9tS5p/Jp/34rBSR17ZjwyFts
+   w==;
+X-CSE-ConnectionGUID: OWxTlkZHRISD1uYnwCTFyQ==
+X-CSE-MsgGUID: XPvyiFC8SAGdYNBixjbryQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="848647"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="848647"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 04:00:09 -0700
+X-CSE-ConnectionGUID: wTnngkqfT/K/kEDKjJM6Lg==
+X-CSE-MsgGUID: JVQWppVZRiyXutzmaJG01g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="1629282"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 04:00:06 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 15 Oct 2026 14:00:02 +0300 (EEST)
+To: Armin Wolf <W_Armin@gmx.de>
+cc: Hans de Goede <hansg@kernel.org>, wse@tuxedocomputers.com, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/5] platform/x86: uniwill-laptop: Lightbar fixes
+In-Reply-To: <3a55c989-f16e-40a5-bd2c-201d45c82c85@gmx.de>
+Message-ID: <2a516987-83a4-d703-3226-be216e499b1a@linux.intel.com>
+References: <20261007144101.323289-1-W_Armin@gmx.de> <179148110928.29028.17146158167227573018.b4-ty@b4> <3a55c989-f16e-40a5-bd2c-201d45c82c85@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <as__f7LjG4GckkBj@x2>
+Content-Type: multipart/mixed; BOUNDARY="8323328-1907028847-1791796143=:1222"
+Content-ID: <2a956f0f-55d7-6ffb-862e-370cd5140e0f@linux.intel.com>
 
-On Wed, Oct 14, 2026 at 07:17:39PM -0300, Arnaldo Carvalho de Melo wrote:
-> On Tue, Oct 13, 2026 at 02:02:15PM -0700, Namhyung Kim wrote:
-> > On Tue, Oct 13, 2026 at 03:35:24PM -0300, Arnaldo Carvalho de Melo wrote:
-> > > On Mon, Oct 12, 2026 at 04:59:34PM -0700, Namhyung Kim wrote:
-> > > > The dso__load() should return a positive number (number of symbols
-> > > > loaded) when it succeded to load symbols.  But dso__load_bfd_symbols()
-> > > > only returns 0 and it's hard to check if it actually loaded symbols or
-> > > > not.  Let's return the value of dso__has_symbol() and check it in
-> > > > dso__load() so that it can return 1 for success.
-> > > > 
-> > > > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > > > Closes: https://lore.kernel.org/r/sashiko-outbox-162540@kernel.org
-> > > > Fixes: eac9a4342e5447cad ("perf symbols: Try reading the symbol table with libbfd")
-> > > > Reviewed-by: Ian Rogers <irogers@google.com>
-> > > > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> > > 
-> > > Thanks, applied to perf-tools-next, for v7.4.
-> > 
-> > Thanks Arnaldo!
-> > 
-> > As you may know, this is from my other series on cleaning up symtab and
-> > binary types.  I'd like to land it as well so that I can continue
-> > working on the related issues.  There are some Sashiko feedback left,
-> > but I think they are either pre-existing bugs or known issues.
-> 
-> Right, its now at tmp.perf-tools-next, while I test build in my
-> container set, will push it to perf-tools-next next.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Building it with CC=clang I get:
+--8323328-1907028847-1791796143=:1222
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <275a563a-ddbf-ce35-07f9-295f7d29c5a7@linux.intel.com>
 
-  LD      /tmp/build/perf-tools-next/tests/perf-test-in.o
-util/dso.c:942:7: error: mutex '_dso__data_open_lock' is not held on every path through here [-Werror,-Wthread-safety-analysis]
-  942 |                 if (dso__data_open_cnt) {
-      |                     ^
-util/dso.c:940:4: note: mutex acquired here
-  940 |                         mutex_lock(dso__data_open_lock());
-      |                         ^
-util/dso.c:942:7: error: reading variable 'dso__data_open_cnt' requires holding mutex '_dso__data_open_lock'   CC      /tmp/build/perf-tools-next/util/maps.o
-[-Werror,-Wthread-safety-analysis]
-  942 |                 if (dso__data_open_cnt) {
-      |                     ^
-util/dso.c:943:4: error: calling function 'close_first_dso' requires holding mutex '_dso__data_open_lock' exclusively [-Werror,-Wthread-safety-analysis]
-  943 |                         close_first_dso();
-      |                         ^
-util/dso.c:949:3: error: releasing mutex '_dso__data_open_lock' that was not held [-Werror,-Wthread-safety-analysis]
-  949 |                 mutex_unlock(dso__data_open_lock());
-      |                 ^
-4 errors generated.
-make[4]: *** [/home/acme/git/perf-tools-next/tools/build/Makefile.build:95: /tmp/build/perf-tools-next/util/dso.o] Error 1
-  CC      /tmp/build/perf-tools-next/util/thread.o
+On Sat, 10 Oct 2026, Armin Wolf wrote:
 
-Bisected to:
+> Am 08.10.26 um 19:38 schrieb Ilpo J=E4rvinen:
+>=20
+> > On Wed, 07 Oct 2026 16:38:53 +0200, Armin Wolf wrote:
+> >=20
+> > > This patch series mainly deals with various issues inside the code
+> > > responsible for controlling the lightbar on supported devices.
+> > >=20
+> > > The first patch utilizes the improved multicolor LED API to report
+> > > the correct brightness of the lightbar to userspace. The next two
+> > > patches fix issues discovered inside the code for controlling
+> > > animations, while the fourth patch fixes an issue with the naming
+> > > of the LEDs in general. The last patch also adds support for another
+> > > variant of the Intel NUC x15 laptop kit.
+> > >=20
+> > > [...]
+> > Thank you for your contribution, it has been applied to my local
+> > review-ilpo-next branch. Note it will show up in the public
+> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> > local branch there, which might take a while.
+>=20
+> Thank you :)
+>=20
+> I noticed that the LED next branch contains a commit that requires trigge=
+rs
+> to implement a new callback and prints a warning if this is not the case.
+>=20
+> Should i wait till the next cycle to send a patch implementing said callb=
+ack
+> or do you want to rebase for-next onto LED next?
 
-⬢ [acme@tb-phoenix2-perf perf-tools-next]$ git bisect good
-3759ca226d57d06c4c52a1e64890faf58a29ebf1 is the first 'bad' commit
-commit 3759ca226d57d06c4c52a1e64890faf58a29ebf1
-Author: Namhyung Kim <namhyung@kernel.org>
-Date:   Tue Oct 13 10:21:51 2026 -0700
+=2E..Goes to look at the other repo...
 
-    perf tools: Factor out dso__find_binary_type()
+I don't want to base on top of other maintainers next branches (or pull=20
+them into my for-next).
 
-    Separate out the logic to detect binary type of a DSO.  It checks if
-    the candidate file contains ".text" section.  There could be data-only
-    DSOs but as our use cases focus on the code (perf annotate or intel
-    PT), we can ignore them for now.
+I suppose it might be best to make that addition after -rc1 through=20
+fixes, or if time permits, already during the merge window in a separate=20
+PR after the usual for-next PR.
 
-    But it also can fail due to open file limit.  Handle the case by
-    retrying with _dso__data_open_lock.
+--
+ i.
 
-    Introduce bintype_searched flag and it accessors to prevent repeated
-    (failed) search.
+> Thanks,
+> Armin Wolf
+>=20
+> > FYI [if applicable to your patch], as per Linus' policy change, also
+> > fixes are mostly routed through for-next unless the fix is for a
+> > commit introduced in the most recent cycle or is clearly a regression
+> > fix.
+> >=20
+> > The list of commits applied:
+> > [1/5] platform/x86: uniwill-laptop: Report correct lightbar brightness
+> >        commit: de41d8b4d0dbb81c81cd99c245238d878a3e1951
+> > [2/5] platform/x86: uniwill-laptop: Implement rainbow animation as trig=
+ger
+> >        commit: 59e4e406b6c08ad41f3ad86db6d42b82d8539c12
+> > [3/5] platform/x86: uniwill-laptop: Fix breathing animation on Intel QC
+> >        commit: 969a3bfa474e35828e142d0160f393a97d9bf0ee
+> > [4/5] platform/x86: uniwill-laptop: Label multicolor LEDs correctly
+> >        commit: 42e6b269fc1134a3fcce57539034ee496e2c1344
+> > [5/5] platform/x86: uniwill-laptop: Extend support for the Intel NUC x1=
+5
+> >        commit: 7a159a14ce0f5d5a3c2f835f39986ec5539ae374
+> >=20
+> > --
+> >   i.
+> >=20
+> >=20
+>=20
 
-    Reviewed-by: Ian Rogers <irogers@google.com>
-    Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-    Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-
- tools/perf/util/dso.c | 138 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------
- tools/perf/util/dso.h |  13 +++++++++++++
- 2 files changed, 139 insertions(+), 12 deletions(-)
-⬢ [acme@tb-phoenix2-perf perf-tools-next]$
+--=20
+ i.
+--8323328-1907028847-1791796143=:1222--
