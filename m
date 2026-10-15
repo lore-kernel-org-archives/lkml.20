@@ -1,124 +1,266 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5592E39182C
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BA531F99C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792035931; cv=none; b=QrGHk17+JrVJtiHID/2lkbtkHdL3HxWp2pHJqdavcHtRZkk+CFtIV0NH2J9JOlp/C3P+Jify/6iLAr3F1Q8YPfRtEfJcrj5TYkPWXlZFLWW5BfQHmtmlatTSbJYRVRztxvY3kAGiPNObM+M1hX8bfnP2ln1DKe5uz9ekna285YY=
+	t=1792035951; cv=none; b=aLCvu76OctNVV5Z8PGgOMancrsSbLe7Kx+x9Ikjm4NDYcyzkktWtciR5xFdWShOgFJycU9ksz4l4F6UT0AJI1Pnzgb8crTBNBS/TcnAtTlaEMlkxHa0jSyPVFkkCBMdkrf+MPBebBfURxpabkbR7b9YFuGOlpGGAbNu3/o2SFnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792035931; c=relaxed/simple;
-	bh=9tNs4dqxRFyP90eQFauIOedcWXZRofnOvwz8agHbVaU=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=BWLZiuZ/PIB2CbvORDsfkDX39xnGsOOu1PjG1HmzWJQZ7J453g8FgBHziwX6Ngioj6PkL7oA+F+RuhkwS/J4bcaHmlqOwQJbfxCSW3CycTDDgmPzGTlSGmzPSA3v2Z2azfWcPIlMxk7e9bJdEwv4Ppg5oZTNq2edD0C8E4i4W+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hPLD3TsP; arc=none smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hPLD3TsP"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so3980578c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792035929; x=1792640729; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ekxAbaTw9lcA/repE4rySfHgfzkYuU+ooIR190sGV+c=;
-        b=hPLD3TsPSGMnptvsYH4IuzPpO6zxpFiXTGuNM538iTOXrk6/earv2op6r2zGPbu4Z0
-         6HQXzaMnxQte1gGlLwGJsRP2UzyUMYcS19bd8qrDyexfQDHZz+aEriGRhV2UvOlJ90Z8
-         P6L8u7CPTKO20IPTXLviOxK6l2IVW0c/tlMZ4mD+jGyfz1dWe8MyWbYZ4qQ20LyC0+6s
-         5/7NyqFwCLlezfSgHwWJyzN3ysnSyQABQ84Muf5/Zm6slKw7/iaQrt7ba+3qzN5utG6u
-         MRuOtlJh6W8ydLW8jO6W4hMeXpUn7TX9rx1QbJ/hcOQeZprv+PMEn8PZU/ebh0n6YFK5
-         K1yw==
+	s=arc-20240116; t=1792035951; c=relaxed/simple;
+	bh=iPTfV/w0bH2qLEAQognyuRqxiEnHwgSvJDziKn/eQ5c=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=VMANTJu0qdA0Lnj180XGrR588iNUoaIyDymLeza+kYiYeEeFm0CpwYGKka0ur8SWVgkIqjhZkTb5lFZXNUIyFSbNI9J3x2pcoHAWAghGW/wWxv04jwoflbvC+Q31S8tpRSpiQOp98liciBpuCl5n+FjuZcEnqYG1QxCIw3FJp4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-469debb526fso1188877fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 20:45:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792035929; x=1792640729;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792035948; x=1792640748;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ekxAbaTw9lcA/repE4rySfHgfzkYuU+ooIR190sGV+c=;
-        b=N/s3pUg0xn4tRLc4YAcUZH0OOO3qmhxvjzqdksfvtUojKI0FXdHlbZc0mt57Q/0wBZ
-         jq9rWIBuyeFB/4bybZeeG31Tui06xJJZEbXUKX9fRl+BpjjJ5ETnoIc6KG5TCGYC6e1T
-         cDcGW+EYbjDe6hy7l9DsLDs2e3yqxfcygHpRhzsKxKOENvbUCQrdcfihWlg3ywqHbP9Q
-         omI4n6bMCo42E3qhpUTXu1tCfTPywjyYv8EIUAdsw+8Z4ljiD0U3olinEghq3Zy9kQfR
-         3GV5nyasAWkCGmomuLVnH6IihcwHqGTpAlCux8gndSBtxsrpaj8ckes7QFTRNkbQ+NnK
-         VNCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbVYecR9v+qWYDXr9+I2J8+9qoI9Riad1gSd0K4qFAM2sNqWEkcy1T5x49H2YXX4jDrUYbMwA6IB8e/Xo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDpv9l0wxH6aSk9IdCmxvLdGBKGX1z4L5nK6u+hYpsd0TvqNrQ
-	ToEbfkVIi+PfOxwjP9yjN5TfzUjK9XbrEuV+HuQNAprUvq8k0AsyXQbJ
-X-Gm-Gg: AYBFou0YECBsnGKDC3yyd+eGcZQs8kBPqol4OEcB/C+UieYaSNHwOR6negvCgU9BIGA
-	OD6U5W0f/EK42KNohJYIUJvRRROOTpRWQvhFdJIOjVRcdbi4sSVpM5ZGZjN2Dp64S9/+HtJ6HlA
-	wmNCY6RQIyUv/jSfupUw22opAMMT1rjFCZtrVeF05mM6uoF2ijkcC8RRbYjNzP5sY1/7pAWlYSl
-	Rpan0BFI/KTj/Jdw6WOpYxEKVyhb39XfEPod268y1Eml2Hgc3FqPP92eDbCAqGK2LkiF2G0y+rn
-	hIq/UdJd+WljUQeD8Wdqz7qmErk26LeBQjPLklCGiQ7vJYalB4tEWIoliq6E/qFPkXN+orouvLq
-	iwne/+CR3eLDvjos/Keyek+1mFgQHzqRkw9nEzcR3iGHmuvvZVLW4IrscmcGmwRqQbw51Qfq7on
-	4iiP1vTt4aTjFkRHllhRt2fcXLWNPBECfK0BuLX2sGFrkthxD1KOOjvA9Aa5MwphYrf2n5
-X-Received: by 2002:a05:7022:7e08:b0:144:fa58:95d8 with SMTP id a92af1059eb24-16a61a6ebb0mr33060504c88.27.1792035929111;
-        Wed, 14 Oct 2026 20:45:29 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a5866477sm50853605c88.22.2026.10.14.20.45.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:45:28 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Graf <agraf@suse.de>, Avi Kivity <avi@redhat.com>, kvm-ppc@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, R Nageswara Sastry <rnsastry@linux.ibm.com>, linux-hardening@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
-In-Reply-To: <20261014185215.71832-1-amachhiw@linux.ibm.com>
-Date: Thu, 15 Oct 2026 09:14:32 +0530
-Message-ID: <v773r5jz.ritesh.list@gmail.com>
-References: <20261014185215.71832-1-amachhiw@linux.ibm.com>
+        bh=/LDGSw/XVEaz9C8NJAHSXkAmYPuQKpJmpFf6V9pdZpA=;
+        b=RJNyPJmfijRwOS8UWiBpC1yZqIzroxUkFAaMY6bv3fKx40TlBxejt9y8FIVEtExyNB
+         9NCGQYEsau0gYvxcKIKN4QlAKNzBs8FyKSZyyin79M4rDzPWQASgVO1DV2biGV0DKGOz
+         e9N20YdU/b+GQmW2vTTu4VoDtA5/sDgv8nBWxnppeAY71PRCYudkPpNQQhYi8VX5cPbP
+         6aNL1ZwTIjTrNjPRzFElieQuK1td3/2Oda18C8oPqEviCkIgwFtu0zfl209tTTWB+kAr
+         THzgN+eruptaA6gHmMSFvJNYjveYvaU4O+mhknwK8X4Qyu9B+c0bxBkAjsgbmrhs5aDE
+         u81Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxbZ5mQxZCWiHQ/eiZbwysrM4qYNh/bejpnfDrnAlrbA+m+V8sWkIwMSdoV1CgoD4DlLTyVJ07bM6A4NKI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUGiADKKPVZyYK8BWWxs6xnh59bG+en+8EY+Lp5KiSivwULlmD
+	VNnv5ogiOR5lUQia7W/e0cZc82a/tTI8t96+aVur535aVDuyhRNIIQcmG68ffgc7PP1pqwv5SPz
+	6aVn1I5F8NNZvuesRJQ92Ib8My0h+JpsOBuUqztHUb8lF2hjcRu+FKtMCsTE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:3094:b0:4d6:90d3:e183 with SMTP id
+ 5614622812f47-50c57b67e0emr14242515b6e.44.1792035948521; Wed, 14 Oct 2026
+ 20:45:48 -0700 (PDT)
+Date: Wed, 14 Oct 2026 20:45:48 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad04c6c.a150a118.27e199.006b.GAE@google.com>
+Subject: [syzbot] [bluetooth?] possible deadlock in rfcomm_process_sessions
+From: syzbot <syzbot+c8793045f4776ea20bc6@syzkaller.appspotmail.com>
+To: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	luiz.dentz@gmail.com, marcel@holtmann.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Amit Machhiwal <amachhiw@linux.ibm.com> writes:
+Hello,
 
-> A previous change ("KVM: PPC: Book3S HV: Add preempt_disable() around
-> virtual-mode HPTE bit-lock users") at [1] added preempt_disable() around
-> guest vCPU HPT hcalls and page fault handlers executed in virtual mode.
-> This ensures vCPU threads cannot be preempted while holding
-> HPTE_V_HVLOCK or the reverse-map lock.
->
-> However, several host-side virtual-mode paths in book3s_64_mmu_hv.c also
-> acquire HPTE_V_HVLOCK and lock_rmap() in process context with preemption
-> enabled.  Specifically, kvm_unmap_rmapp() and kvm_age_rmapp() take both
-> locks during MMU notifier callbacks and memslot flushes, while
-> resize_hpt_rehash_hpte() acquires HPTE_V_HVLOCK during HPT resizing.  If
-> a host thread is preempted while holding either bit-lock, any guest vCPU
-> thread scheduled on the same CPU spinning for the same lock with
-> preemption disabled will never yield, resulting in a permanent CPU hang.
->
-> Fix this by disabling preemption across these host-side critical
-> sections.
->
-> For kvm_unmap_rmapp() and kvm_age_rmapp(), place preempt_disable()
-> before lock_rmap() so that both the rmap chain lock and the subsequent
-> HPTE_V_HVLOCK bit-lock are held under a single non-preemptible window.
-> To preserve the ABBA lock ordering between the two locks, re-enable
-> preemption after dropping the rmap lock on any retry or early-exit path
-> before spinning on cpu_relax(), allowing the lock holder to be
-> scheduled.
->
-> For kvm_htab_write(), the HPT migration restore path, replace the direct
-> calls to kvmppc_do_h_remove() with kvmppc_virtmode_do_h_remove(), a thin
-> wrapper that brackets kvmppc_do_h_remove() with preempt_disable() and
-> preempt_enable(), mirroring the existing kvmppc_virtmode_do_h_enter()
-> helper.
->
-> For resize_hpt_rehash_hpte(), place preempt_disable() before the
-> try_lock_hpte() spin loop and preempt_enable() after unlock_hpte() at
-> the function exit.
->
-> [1] https://git.kernel.org/powerpc/c/abbbe5ff83e7c9ed3a4d61b73011f1df7bf87907
->
-> Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
-> Cc: stable@vger.kernel.org # v5.14+
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> ---
-> Changes in this version:
-> - Separated host-side fixes in book3s_64_mmu_hv.c into a standalone patch
->   (guest-side paths were merged from v1 resend).
-> - Previous discussion: https://lore.kernel.org/all/20261007182116.12479-3-amachhiw@linux.ibm.com/
->
+syzbot found the following issue on:
 
-Thanks. Looks good to me. Please feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+HEAD commit:    4eb2586bd40d Add linux-next specific files for 20261012
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1646563e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=76b7c5acaea2288c
+dashboard link: https://syzkaller.appspot.com/bug?extid=c8793045f4776ea20bc6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/9d38ae66aa67/disk-4eb2586b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/033558801021/vmlinux-4eb2586b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/7219b4b1459d/bzImage-4eb2586b.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c8793045f4776ea20bc6@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L      
+------------------------------------------------------
+krfcommd/3206 is trying to acquire lock:
+ffff888037d3d948 ((wq_completion)hci2#2){+.+.}-{0:0}, at: touch_wq_lockdep_map+0xb5/0x180 kernel/workqueue.c:4272
+
+but task is already holding lock:
+ffffffff91825f00 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions+0x2c6/0x9690 net/bluetooth/rfcomm/core.c:2150
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #4 (rfcomm_mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       rfcomm_security_cfm+0x90/0x820 net/bluetooth/rfcomm/core.c:2277
+       hci_auth_cfm include/net/bluetooth/hci_core.h:2250 [inline]
+       hci_auth_complete_evt+0x39f/0xc80 net/bluetooth/hci_event.c:3635
+       hci_event_func net/bluetooth/hci_event.c:8021 [inline]
+       hci_event_packet+0x6cd/0xf10 net/bluetooth/hci_event.c:8072
+       hci_rx_work+0x2b4/0x1110 net/bluetooth/hci_core.c:4124
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (hci_cb_list_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       hci_connect_cfm include/net/bluetooth/hci_core.h:2211 [inline]
+       hci_remote_features_evt+0x53d/0x950 net/bluetooth/hci_event.c:3892
+       hci_event_func net/bluetooth/hci_event.c:8021 [inline]
+       hci_event_packet+0x6cd/0xf10 net/bluetooth/hci_event.c:8072
+       hci_rx_work+0x2b4/0x1110 net/bluetooth/hci_core.c:4124
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #2 (&hdev->lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       hci_send_cmd_sync net/bluetooth/hci_core.c:4163 [inline]
+       hci_cmd_work+0xa0/0x850 net/bluetooth/hci_core.c:4212
+       process_one_work kernel/workqueue.c:3495 [inline]
+       process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 ((work_completion)(&hdev->cmd_work)){+.+.}-{0:0}:
+       process_one_work kernel/workqueue.c:3471 [inline]
+       process_scheduled_works+0xc03/0x1630 kernel/workqueue.c:3578
+       worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 ((wq_completion)hci2#2){+.+.}-{0:0}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       touch_wq_lockdep_map+0xcb/0x180 kernel/workqueue.c:4272
+       __flush_workqueue+0x148/0x10b0 kernel/workqueue.c:4314
+       drain_workqueue+0xce/0x380 kernel/workqueue.c:4478
+       destroy_workqueue+0xbe/0x7b0 kernel/workqueue.c:6372
+       hci_release_dev+0xe3/0x1510 net/bluetooth/hci_core.c:2728
+       bt_host_release+0x93/0xa0 net/bluetooth/hci_sysfs.c:100
+       device_release+0xc4/0x1f0 drivers/base/core.c:-1
+       kobject_cleanup lib/kobject.c:689 [inline]
+       kobject_release lib/kobject.c:720 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       kobject_put+0x222/0x550 lib/kobject.c:737
+       device_release+0xc4/0x1f0 drivers/base/core.c:-1
+       kobject_cleanup lib/kobject.c:689 [inline]
+       kobject_release lib/kobject.c:720 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       kobject_put+0x222/0x550 lib/kobject.c:737
+       hci_conn_put include/net/bluetooth/hci_core.h:1737 [inline]
+       l2cap_conn_free net/bluetooth/l2cap_core.c:1933 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       l2cap_conn_put net/bluetooth/l2cap_core.c:1946 [inline]
+       l2cap_chan_destroy net/bluetooth/l2cap_core.c:495 [inline]
+       kref_put include/linux/kref.h:65 [inline]
+       l2cap_chan_put+0x1fd/0x350 net/bluetooth/l2cap_core.c:522
+       l2cap_sock_release+0x1a2/0x230 net/bluetooth/l2cap_sock.c:1536
+       __sock_release net/socket.c:735 [inline]
+       sock_release+0x85/0x150 net/socket.c:763
+       rfcomm_session_del+0x14b/0x270 net/bluetooth/rfcomm/core.c:782
+       rfcomm_process_sessions+0x7456/0x9690 net/bluetooth/rfcomm/core.c:-1
+       rfcomm_run+0x3f5/0x620 net/bluetooth/rfcomm/core.c:2259
+       kthread+0x38b/0x480 kernel/kthread.c:436
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+Chain exists of:
+  (wq_completion)hci2#2 --> hci_cb_list_lock --> rfcomm_mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(rfcomm_mutex);
+                               lock(hci_cb_list_lock);
+                               lock(rfcomm_mutex);
+  lock((wq_completion)hci2#2);
+
+ *** DEADLOCK ***
+
+locks held by krfcommd/3206: 1, last CPU#1:
+ #0: ffffffff91825f00 (rfcomm_mutex){+.+.}-{4:4}, at: rfcomm_process_sessions+0x2c6/0x9690 net/bluetooth/rfcomm/core.c:2150
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 3206 Comm: krfcommd Tainted: G             L       syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ touch_wq_lockdep_map+0xcb/0x180 kernel/workqueue.c:4272
+ __flush_workqueue+0x148/0x10b0 kernel/workqueue.c:4314
+ drain_workqueue+0xce/0x380 kernel/workqueue.c:4478
+ destroy_workqueue+0xbe/0x7b0 kernel/workqueue.c:6372
+ hci_release_dev+0xe3/0x1510 net/bluetooth/hci_core.c:2728
+ bt_host_release+0x93/0xa0 net/bluetooth/hci_sysfs.c:100
+ device_release+0xc4/0x1f0 drivers/base/core.c:-1
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x222/0x550 lib/kobject.c:737
+ device_release+0xc4/0x1f0 drivers/base/core.c:-1
+ kobject_cleanup lib/kobject.c:689 [inline]
+ kobject_release lib/kobject.c:720 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ kobject_put+0x222/0x550 lib/kobject.c:737
+ hci_conn_put include/net/bluetooth/hci_core.h:1737 [inline]
+ l2cap_conn_free net/bluetooth/l2cap_core.c:1933 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ l2cap_conn_put net/bluetooth/l2cap_core.c:1946 [inline]
+ l2cap_chan_destroy net/bluetooth/l2cap_core.c:495 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ l2cap_chan_put+0x1fd/0x350 net/bluetooth/l2cap_core.c:522
+ l2cap_sock_release+0x1a2/0x230 net/bluetooth/l2cap_sock.c:1536
+ __sock_release net/socket.c:735 [inline]
+ sock_release+0x85/0x150 net/socket.c:763
+ rfcomm_session_del+0x14b/0x270 net/bluetooth/rfcomm/core.c:782
+ rfcomm_process_sessions+0x7456/0x9690 net/bluetooth/rfcomm/core.c:-1
+ rfcomm_run+0x3f5/0x620 net/bluetooth/rfcomm/core.c:2259
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
