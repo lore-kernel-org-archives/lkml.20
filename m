@@ -1,151 +1,109 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011049.outbound.protection.outlook.com [52.101.70.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-79.mta0.migadu.com [91.218.175.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD803C4B79;
-	Thu, 15 Oct 2026 15:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079804; cv=fail; b=DSSDxGhwrH+Qz8PDcn6jbLrh7+XhVu2cLTgkssYhHyC0UDjpWr8GPMEfX+oO55gaFs2PhnNSJUazBOPr7aG0VU3UO65w+XpdSCtjxJysYtIP3hBdYGqFn2m8mYqCiZjziDoMsk9Q9XCspan+oFUsRr8ScaGMhyGM+MFE6hv+Dcw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079804; c=relaxed/simple;
-	bh=HidCZMX3OGHzaATKCU6p3JdFpG4OKteB/e4QVOgwXns=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XQYHD8oGKbs6bjQH6sWuuCtXZXD9EtrU6iUoLmCORRlH8hi7igKCUiopkW4QPLnmp+TwHJzfISEMwoZ8+TQlBCJQ7z6HQr57EtwatrFvsprkY2htBqz17Kok/4YUe83TIkZtE3BAZgAJDvdhaEet7o7T35XfwJIlFC7NS8fSGpM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b2RZ988q; arc=fail smtp.client-ip=52.101.70.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E83239656C
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.79
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792079849; cv=none; b=Wv1fX3GT0WTZuDx6ujCxbwdckepslxdgxutEW1o1TjdGni4fr6X69wKE/gfeE9LeF7/76bu0o3jbPTDxk9DSuf1kVXrWhet6a/mupYu0r7lIgeulolbY64pgXkT4H1gR1e5DUhj/Erqav8hZIG/BgN2ZiTV55HWXS+e+A6r8uYE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792079849; c=relaxed/simple;
+	bh=9XrrRohksxXXsEJa/XTCK+b8gkvPG0g+P/pdu0Eu9A0=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=JiMw02vXUecJFOszZYUE7EvpE4IjLG7BI4SIaBBIhZDKBc8ISTfjaNUAe5G0qPsM0uIbURI8o0iFeeW6GT3pG1oxJ6yIrrkop3iXPB+fcdhS471tikQCpkm1JZ6KGP2rmggpBkw+BQcjBjH7VdhNEw8/5WQyUqj05rb9kEuVi1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d6KEylfW; arc=none smtp.client-ip=91.218.175.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b2RZ988q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=quulgFABB6t2akmLvTCsVmItGyVRQdoY/Z2TG4t9mKQkNtwOP17I5czgrdhyCvIBQ7p+iUVN4wUApBqg7rysrYJKO57rw4U58H9KN/B+c7nvkZqlEoRpX2T5ME5v19VQustaR+AZzYhvsxR15vsiYhj293u6ghjnnwvyztoKgR08878hBJe6kaWoXt5TwjIBb7lHvMTrD/+elfk8FEUNdcSgV3kkq+U/xjzCyfBDtDgadSsBUlDFOVocLdt6BKxqJygkO27nDO6wyOAbn+AzUaRElauwIDoaprec7fUx7xi/b44KYJWCw1CFA5+4dKHT/gamPpktHrc5pzpVYFWBzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cnl1jNJA399D/8IOhVP+kGy4nwuRI/u9I0Krmk72sao=;
- b=ZR+cE8SZ8MRuaUlg/cIGAOWhxBL7RtrMXmmloXkF6Xhl03H3Af6ZlNP+PIQBVTd/CDwSB17nCF3Br7lCxPBe8vjGRqipGvOLTeZSgwfNtCf8sajUTO3vSP+cWB3vgT8xyMmqI1NaHMvbcq6tfGjkH+31RKEHJZ3h1R+Gt32L8iH84FHa7JDi8x1d4YptF0BSvWw8TDAHqIsMcGn3cQj7fzGnGx3brj7cjG9yrhxa6MP4S63ZQ13gGlKZr6ZnPczTrXOwk3oAzINVibFrQCV5vaDGJo1JxpNY/DY2/2xHmZGxmOJVPNg/HJissHGXZiv9QSgvwfHw6c3VWAnNrfYcFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cnl1jNJA399D/8IOhVP+kGy4nwuRI/u9I0Krmk72sao=;
- b=b2RZ988qkDFNss0TCerm7nVVNGfxlhQygcQC/cHkkkdvmfmrPICj9r3NHip9ZeHIlmB3dZ4TZnVk4sEHLjlcnxUNviWO560r9DTkxuM72PiEElja5TcTdsdhhRNbTy/qkAC3z9Mdn8gwdbkRGNzhu3kpk3z4+wCwmnyEWZmZb7UDoK3HQ8jG+goAcfm/X90TTbPWGe8tjTzIkUwo32ZnnW0mzHmLClsh0qB3A4w/6tHraHG+Cit18KAFULxabbCjNzTDkqeehq/ki1pZj0xQm1wv4rbrNzRjbVTGunXFiQ17h5N65+eh0LmILPZDHCvrmwQBUzh3AQu3tMLHJiTW/w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMDPR04MB11652.eurprd04.prod.outlook.com (2603:10a6:20b:718::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 15:56:29 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 15:56:29 +0000
-From: Frank.Li@oss.nxp.com
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	dmaengine@vger.kernel.org (open list:DMA GENERIC OFFLOAD ENGINE SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH v2 1/1] dmaengine: ppc4xx: adma: remove unused async_tx.h include
-Date: Thu, 15 Oct 2026 11:56:14 -0400
-Message-ID: <20261015155616.3068503-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CY8PR10CA0030.namprd10.prod.outlook.com
- (2603:10b6:930:4b::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d6KEylfW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9XrrRohksxXXsEJa/XTCK+b8gkvPG0g+P/pdu0Eu9A0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792079831; v=1; x=1792684631;
+ b=d6KEylfWgLSYicPdKpics+TMKGnPSAUYQo6CSmju1z5O0qHaIlY5+pxAAxXaRhXK1apPg5rG
+ UlL3JfiLhl6LsmvML/+Gp2Y8zFXYVBIlOzulx0ZXrDODxep+nBcpvYYR9NuTM8Lx8QPsnUcwr1d
+ 4wcdeqmnJz8BSaDPA2VmvqcY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e9ad1e8e8c4ad241;
+	Thu, 15 Oct 2026 15:57:11 +0000
+X-Mizu-Trace-ID: e9ad1e8e8c4ad241
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMDPR04MB11652:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ac8def0-a4a8-490f-b499-08df2ad4e052
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|19092799006|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Ol1FM+l7T9pynVN5p9F9wR+dRWRq8NBrK2qX/xzn11eafDoy45Uh3AtBbDcP11q6zuOxhB8uKlPGIHb1Rgi9hjWs39r2rrOTU716RzJQ2fPuHlhsf206LXoeI6BXa8VvqieE9DMDVVZ9T3l56Q7ZCe4RWJb6rMRj6ghd2ke1ls/0/MXc4ka+oBR+s2WqVpoC/8EjIBgHP9gM7iIAMZ2pzqeuOEw7wtVLXqDTyD4a7xQe8wsb6nTz0G2eFKP3uaM5CeMg0kRgr6+UE+PpPvMznN4CVXX/1YsAqqlxvJaFabkmXwOwCPa+0cH8c4NHK0gFKkqRbguw62E2u0T1ouRTzEFIenOD9lJTHrUMYEmyRxF5JmF0JOAbmoz+IfWc+pnz0BQ1GfCBdP6sQivl94XFImxYFXIZCu7Ne6YTmHKIPkIjhnpKgTaQU0aR2tH/MfnD3f2SMq1eopJuB4j1zmU7+IgnVFXR8GJkiYejmGV3bEk8nVnbVePj4JanZ1kYzNWT8voNRGLNoxqw6QJ6K8R8aoOIRmSw4KTQMFo0xg2p+Y9tiDgHuG1W7qS2FLQs9pBGhTiEl4+nvxlkDxwlkv+2S/XX4Yp92Eu3kHKZ/HRpQS33292fqjAmtGiTKwXvON4pesKHrQ7nWOZrOMaU35Fxh2RgVpFtgfLjK+Xj9fqfmtY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(19092799006)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BXzX8+Jzem3+KFfo+RuUi1EwAlfRIffTugiiU5IsvHghdBpPVXVcKRMLyjdL?=
- =?us-ascii?Q?kaFrF0NMe7LqJNrHuGGjg5wKplu3vVzzl3gunXtuAkbzGhIRkaU4ApEQ4O+I?=
- =?us-ascii?Q?lYXdU3J666soNlWBcMGiXVZpTmbLZwtCqaCgA6Fh1upPDllFSBSLXfolntkC?=
- =?us-ascii?Q?2gnz9yi40Z2zRNueoU+f59MFy1eAWufZmp7m0puCBZaaOi1X+tAhSwNFIXcg?=
- =?us-ascii?Q?kGPFOWLNSOB37ph9p2kxW2t11Ng5swdb7VsdUGaHwVF/so6tI0FOwNqihLID?=
- =?us-ascii?Q?SPegRGm6nDYFDgnOv/SjB3bibEhMFXhuM6/7lGzogKuJJzryUX3PKXc0I3oE?=
- =?us-ascii?Q?s3IsFv7HZ7lDv/pxAZv29ME3L7c1fvTRm01nKWbOzxuRP5erhAk0ucrGx9PY?=
- =?us-ascii?Q?QypRCFA5yG9pZz59L5Tio/NDEIMygr0Ob54nr7l1Zo6Erx8nyxRDuB4i9bg/?=
- =?us-ascii?Q?unkJCMWkMhlikfU5sVsABBLeUj9chQQz4UkWpPeiMFHEn/OzOJreQCv34iZl?=
- =?us-ascii?Q?221Mp1ni0qgq6DwU3mm66tbG+PJIr5zVvJZSvay4xK+Jv5XYRckj4oiAyKJ0?=
- =?us-ascii?Q?xMeVlkrUJK+jqQxmGbncOBkQ4/xghVqve/Yt0qi9drYTs7aE+dNOFwi+wGm8?=
- =?us-ascii?Q?GEjltpKhInoYNJIS0FhVZ4DFnTRXyCaTAISEYy4ZNNwhozW7ulN0LAa6lAZH?=
- =?us-ascii?Q?+s5XNts/PnPfTp3DwCTf+xSP5jL4X+Sa5pQeay4KOBwHT+35vE3OupjNoIP/?=
- =?us-ascii?Q?Mrt3xTUpTR1LYBzrZCb5FR4iKu21x9tjRjR99Uo19YtNyHHe+t8brBXv+LXM?=
- =?us-ascii?Q?5ixF72is0DbJXnvE0K9BPH7r3Hy9R+CdsPpVRSubpUkwA+ImcBAinXsZge8g?=
- =?us-ascii?Q?awUtV9M26L55wf9LzEemN9nG5e0Tn5C97C9JoQm9bwtKlq3qzS/feaM6wcCy?=
- =?us-ascii?Q?x02yi3vG3jBDXR9z0HZzRdkbGMg5GpIeu6kY2Pw51fQgbz6i5ikY5c9gInik?=
- =?us-ascii?Q?baBv+CFP66A6Zin8qBz2bYILczJXRR3GJHzzaSXwe+A1lSAFljcLVKlz0Taz?=
- =?us-ascii?Q?8GKj3x+fbL/37w3ZcOGRHGIv/tPUBcMyXgLhV5oSdSLiPw9QJILXsjPLEbr3?=
- =?us-ascii?Q?EW5ks5YL+H82J3dDoxrofmaCHDzJbfRHnJHdf8yiBDbp+iyjsfC9SjN7H1yq?=
- =?us-ascii?Q?eyvdnCkOewk/aiwG6HUcjyltDTWlz9Osk5CSuH0lYA8eh5k3NhAOwfziTtjp?=
- =?us-ascii?Q?GB/CLE7kPKRE/Fy531orTFqQtcd6qYzgdUP9/ACurul0ExiQwGCVlO+zb5dn?=
- =?us-ascii?Q?RBnZQ+5E7HU3dkM47BHYtFv7jqP8uNexw3daMh5BnVAEBxlNFIvxL6/QwvtP?=
- =?us-ascii?Q?StOefVXszYs20c09Y70N21/2z83L/81ol6O6a4gJuE/lLsEHrilr25J7odFA?=
- =?us-ascii?Q?av2RnPBz/OmvxVjJMT27cz7b/n1Cq1Ddalh+DIZT+bgCEThPbJG2+Y0BFT9G?=
- =?us-ascii?Q?aUCIXrfVexsEzXe6US6qB56mXv3YzczUEYDyP6Cf45S5FLIdNUNWeL2s9JPJ?=
- =?us-ascii?Q?mgUumYykU/zK2p9AUOiNk17GfknzeBwBSqNkNRu1+GQzPlG74LUyBmIjOsNu?=
- =?us-ascii?Q?iaBJTvBnKoI9rR/qCWEFz9ZLuB10pFyMnODjhwUQCZ52kBjUCGBy7khEFu5W?=
- =?us-ascii?Q?aqYILRuprTQTZCS1GX+DbfRizPE5+XbGHSwfRbarYItXx8mW8BE9c5lifRHw?=
- =?us-ascii?Q?Sxd/FVOqpCt4QKlauyEuuf/CElM0HgnU9aYMHskY3u8TRBvVEy1E?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ac8def0-a4a8-490f-b499-08df2ad4e052
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:56:29.6491
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sI+UYQM2/K8FLhypjdsNpfVpyGt6DhhiVSQXTTuy7u1Z7eFjY05FBObS/iv/Bk6igqXtrZHDtbh9pmTion3LjcB0CpG2SW3HMCHA7RgUskV2nKQuWT7b/C+lrIx3vCbb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11652
+Date: Thu, 15 Oct 2026 15:57:11 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <5f06793dbe846865b7d86f656d27caa1c65732b5@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] staging: rtl8723bs: remove unnecessary parentheses
+To: "Ethan Tidmore" <ethantidmore06@gmail.com>, pavankumaryalagada@gmail.com,
+ gregkh@linuxfoundation.org, outreachy@lists.linux.dev
+Cc: error27@gmail.com, ethantidmore06@gmail.com, dennylin0707@gmail.com,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
+References: <20261015120634.95218-1-pavankumaryalagada@gmail.com>
+ <5d577cb1b4a91e8cdfda171bc7100105ae90d91e@linux.dev>
+ <DM5IYFCRBE9W.1U3KCU36BUE36@gmail.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+October 15, 2026 at 5:41 PM, "Ethan Tidmore" <ethantidmore06@gmail.com> w=
+rote:
 
-The async_tx.h header is not directly used in adma.c; all required
-types and functions come from dmaengine.h which is already included.
-Remove the redundant include.
 
-Reduce async_tx.h user to prepare deprecate aysnc_tx framework.
+>=20
+>=20On Thu Oct 15, 2026 at 9:11 AM CDT, Luka Gejak wrote:
+>=20
+>=20>=20
+>=20> October 15, 2026 at 2:06 PM, pavankumaryalagada@gmail.com wrote:
+> >=20
+>=20> >=20
+>=20> > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+> > >=20=20
+>=20> >  Remove redundant parentheses around the address-of operator to
+> > >  follow kernel coding style.
+> > >=20=20
+>=20> >  Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.co=
+m>
+> > >  ---
+> > >=20
+>=20>  Hi Yalagada,
+> >=20
+>=20>  I'm just letting you know that this change is no longer needed as =
+the
+> >  entire staging/rtl8723bs driver is being deprecated and removed.
+> >  Support for RTL8723BS has been ported to rtw88 subsystem.
+> >=20
+>=20So rtl8723bs patches aren't being accepted anymore? I saw Dan reviewi=
+ng
+> one earlier, just wondering.
+>
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
-v2: change subject tags to dmaengine
----
- drivers/dma/ppc4xx/adma.c | 1 -
- 1 file changed, 1 deletion(-)
+Hi Ethan,
 
-diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-index bcc54d584e2bf..05041b99581a1 100644
---- a/drivers/dma/ppc4xx/adma.c
-+++ b/drivers/dma/ppc4xx/adma.c
-@@ -17,7 +17,6 @@
- 
- #include <linux/init.h>
- #include <linux/module.h>
--#include <linux/async_tx.h>
- #include <linux/delay.h>
- #include <linux/dma-mapping.h>
- #include <linux/spinlock.h>
--- 
-2.43.0
+I haven't seen Greg's official stance on this matter, however as far
+as I can see this is my view on this topic: the staging driver got
+deleted at one point in time via my patch that goes through netdev
+tree. If after that patch is merged into staging-next which affects a
+file which is removed it will cause a merge conflict when they flow
+into mainline tree, therefore it would be the best to just drop all
+the rtl8723bs related patches which are being sent in order to not
+cause merge conflicts. And on top of that I don't see a point in
+staging driver getting "improved" if it's getting deleted in the same
+cycle. I also forgot to mention that once the patch that removes
+staging driver got merged into wireless-next linux-next had merge
+conflict and its maintainer fixed the conflict by removing those files
+and Greg said feel free to delete it. He also said in conversation
+with Ping-Ke Shih and me that we can delete it, so I believe it would
+be the best just let them get deleted without any further issues.
 
+This email it is dictated by voice, not written by hand because I'm
+currently outside so apologies in advance if something is repeated or
+there's some issues with it.
+
+Best regards,
+Luka Gejak
