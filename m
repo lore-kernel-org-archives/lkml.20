@@ -1,67 +1,67 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011052.outbound.protection.outlook.com [52.101.65.52])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011065.outbound.protection.outlook.com [40.93.194.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8723146EC79;
-	Thu, 15 Oct 2026 18:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6693937FF76;
+	Thu, 15 Oct 2026 18:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.65
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090098; cv=fail; b=VUv7N0a2na0PySU2BBYWzguE0f0tKjYOjPdeoXivQ6G+p+lmXpnzYPmM46CIanM2p/IHWlvs4p3n2Io2yCKxH/8P9JCWedX+2kezdIou8Sy5B3IWqF6ZNGcPgB1FvadXJ/NCQBFAyDEl8lIqFSKEaomOfNBktMr4z/W1rCYdMpc=
+	t=1792090142; cv=fail; b=kcmJ+FwarV5tBpXQ9n+BZQZNDHVgh0CF23/5xyJWwUNtfCC0e4E0nacNfGCKYWE65rgPokc0S/+Fd8b7iBGxdwogBOJwEHJM+wGWAZsGmupPlw5X8wMWMbxKuGIHR4XeUTaDF5apfieuwhTk658JyznICjkDdlRbWFcoY63wSiQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090098; c=relaxed/simple;
-	bh=FkQns/dV3Rx7kE+R9XxEQ92oDsx/EEnv6JY/+OoFRVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=j8du+9fr2h+qKpl5gp5DqawDxhvqZyOteojbsSiFBGKE8c9EtP5hdf76J6Ew44y2xLk1OdQowOeKzWgiFX3g+bPuomxvjuxo/xokx93+eiQtSGw5TqNXNSeGlaNfF3kDX8pwXX4n3odvVjpGJ3MuSSdeDq/YCrfcFwA3npVlrz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=tvPDIQAU; arc=fail smtp.client-ip=52.101.65.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1792090142; c=relaxed/simple;
+	bh=LOJ76hchDW9wIB8UL2hPUb+z0oIJUtMkKRXIihvpfB8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=IQWDon7WTVT8+MzBNLlh4nYmfYxYfz0t4gQbKimsiw2HCwmk7FsHSJOn5wcB+sOdQx7RPX8cH+2gw8hVhDk/+JzhYNT917RdKJouJhykHlR5Kw6cA7UzWuXCFBnG80bq3XxNfdcxWMDCoYlI79F76yobfy6MuKS0RXG5zyEVuqw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=R3cxzK+n; arc=fail smtp.client-ip=40.93.194.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="tvPDIQAU"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="R3cxzK+n"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wDTAZxFaR34hyIqdlI5Xp3b0HQyo5n1jttK14K85KaAwWbp1zfeMAzZuD1Go0y7MUDR74tGnC2lNlQ2eMK8jtMd5CNiEYEVOIpU+NXwG0JCfDaiwQI4BUo/UYGu0Uz4l+ss+bpWo5vZHxnfbYhanWGo52HDwTb58vWH66mKJ1JcaVTSWIyXPqud3A2y12TtqWSXK1c1ppYPFeS0C2o21W7TfviwBPwpZZ4TfvbTm8pW/oJj1MIsXYUWS2KUHH3c7Fq7H+Uy7gl6D78gcF+vBHJIfLLT08x2a/nGPP/Gu8DA0F6n57PZ3MyEAw2+EvQ3nlZVD6AePKEMjZR4FLmK0fw==
+ b=Ugi+PhhI1i+TLKu92/s1/ogfrwm+RNM8vpODDZj9xp8Cz6iRt/4L/8y/1p4UWqzGLNw5rJRFHa8dwdHFAqc4bmScIxJYCdgqRLy8hztdm9SnoXVUp00XRvU4GQeQ0ljRh4IaU1+/sadSYMfTFUTYjmJxkddSWz9oyutSZvAK27efgpirO5yWiUHidle+IqJCJrHO54ZTo/v/5yfxsBIEuOxtD1wQjv9Ei99WCRiZ7rPyaTd6MZz6foaOZ/y/nw4zZ7A8OyH0fv8oNnidIL0y4ZSPZBLoDRycuIRKmdBBMJu5GFMnSvgP3is5kQHrbmgjgtcb/IgJiGXsQ1y8sGiP/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WUd35led9kWfgRiTFtbN8N6taqqk9EkRoA37tXTBc4I=;
- b=tKEMRUeiFGKF6G4z+hRF51/uyyml10ERPRWQOEJwh1olnnNEDWak7iD+EdDjVHEl/P9pqRXYJmYOnknhLKfZxkpNurQ3AxiSVP0OgIrESNbHTeX1jgTmLvI0UVvapg4lag5JXE0n4FyP/5cPj+l1S52+XjVwPowM0ZIswfG3HPSvyiNaFnbXJ43bnKodCIbi3Fa09aJEaUhMAdAyrU7zd1zIcqijTzLYd3UOZAKwHOLuUlTzFEERq7pMGS7crBQ32s/2N1IhIqren7/fDL0zxRYkW0pLym9VM5xMYQKASQVTg5KPO901aIbDD04YPvvUJ974vEPIqpWk2KVv1y5RYQ==
+ bh=dWp3vG3NLWxBLO/NysIiu8taeKci2MVB1xt5hvTDWpk=;
+ b=RgQz3HYGRG5btk8DcM/m8YQvB+/50cNpoTewVG6uKs1lBSpoQig7yCpp2RCzFn7Y/VcurgO+ZegP+ll08QSiTpqWqqUuoEM8jsw3WBKXPQcaRyNTGteUHY4QzNHWpKz54TeR17jT7O+51wA5Z5atHL9E9A1RiCeJ2hh6myd0z45d3Vs9UGVJDpCaEOPKQy97Lx5+rhy6RRyZHm96YCtW26ZszBsHvBofbW5Szsueq4kVEJXVdJGVp33b7YgZGXUkFIRhUaANqL6D0KBnm8byfac3uFhZxkBVUQVK1gGCL48SjTxDCrLTjEM9W4bJewXN1SeXc3JsnSu/vCHWZv0Y9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WUd35led9kWfgRiTFtbN8N6taqqk9EkRoA37tXTBc4I=;
- b=tvPDIQAU9ev951XrIP98G9SuPd9Mo0bFlCDqu63XMf/bmUcoelfst+ICnLcfKHovdPvTS5Aoxf0VcQRgfWiyuSGZs0HdPP1iEpYiDbP58BtO3ZclbgFIFUFSPKftxQkXrb/nIBPEPAMO4Xgcs4lkPKuBBT5fZhOURJwbgg1RpktFxYO0oWxeHUpR7+4VFQpXu09LfN396yuGC4sHj0Av0OpwqyqozWCpfchmCnDbtkSzx7/73NeiYK0h5ymNo9zdyHpI9STV4xHvGYo/LsWtIMU+HHddj1KX8mSrlThahM6GxbJVnjaQjntVFCNxBxHMhOXO0wFGRMMWHRO2ibjtQA==
+ bh=dWp3vG3NLWxBLO/NysIiu8taeKci2MVB1xt5hvTDWpk=;
+ b=R3cxzK+n39O0XrrVWKUonXAZgwP8SY3ywQoL/yFlrw0PSIfDquM3SXqTaJIWCMjytXtvqIxPkDETIF1SEqhaU7mTsCsEo2Kqz0j0eDIgbWtF+55h9Bje/s+1rpquWZA5atO2cusNm3Yw7FD1RrwCJU4i4ysChPn/MpuM005X8fs=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA1PR04MB10913.eurprd04.prod.outlook.com (2603:10a6:102:484::22) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ by SA0PR12MB4352.namprd12.prod.outlook.com (2603:10b6:806:9c::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 18:48:04 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 18:48:04 +0000
-Date: Thu, 15 Oct 2026 14:47:55 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-Cc: peter.ujfalusi@gmail.com, vkoul@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	ssantosh@kernel.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, vigneshr@ti.com,
-	Frank.li@nxp.com, r-sharma3@ti.com, gehariprasath@ti.com
-Subject: Re: [PATCH v12 05/20] dmaengine: ti: k3-udma: move descriptor
- management to k3-udma-common.c
-Message-ID: <atEf2zDyqs8tJRcG@lizhi-Precision-Tower-5810>
-References: <20261007102936.2402427-1-s-adivi@ti.com>
- <20261007102936.2402427-6-s-adivi@ti.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007102936.2402427-6-s-adivi@ti.com>
-X-ClientProxiedBy: DS7PR03CA0258.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 18:48:47 +0000
+Received: from PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
+ ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 18:48:47 +0000
+Message-ID: <51c151fd-31cb-4ebe-8f3b-eb7634e68c31@amd.com>
+Date: Thu, 15 Oct 2026 13:48:44 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: ThinkPad L13 Gen 2 AMD (21AB): Caps Lock LED broken by ACPI GPIO
+ 11 interrupt conflict
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Nikodem Sanecki <nikodemsanecki@gmail.com>,
+ Abduvaliy Abdulazizov <abduvaliy.hbai@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: westeri@kernel.org, linux-gpio@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CAAUQFRPW-rbcZV-=qV1NMjF_358sdJTiGvQuRxRqAsehY+J9Qg@mail.gmail.com>
+ <atEaguJD7dh7xNs0@ashevche-desk.local> <atEb6FN6ZbKI9xgf@ashevche-desk.local>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <atEb6FN6ZbKI9xgf@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::8)
+ To PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,2670 +69,296 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10913:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c5a2b0b-2164-4d91-628f-08df2aecd84c
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SA0PR12MB4352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17be10d9-0bf1-4be9-e43c-08df2aecf1d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|19092799006|23010399003|56012099006|5023799004|4143699003|11063799006|261009221227099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|10063799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|5023799004|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	PBh52hRarxDkCtVWV5Q9iQLyh46N/ReLWYdvhRKlGNYOn96ciu4wIc4OG1a8c+Yai02Kdig8/9vCbGVVPVIHNSkzjmyoazBAMqHQAEQoEszZ/9EwYrFqc16RkqMG0C6s25dY82c8MvPV6S0eAP71utrJWMd5+f8eBwuyBfhRtSTy7J4D0VmHKqcYV41TGgZiaGPnUDbqnInzWW9JiaebEfGmyZjFElpnOX4EcRXH3Qvs4loL+SdB9NwCrToKOfMo2e87NCV6iH0PvF6Epvrx61+ZElLAE8wbKoNGFdjJPfRzVI390btpSXz1QgDlc9yc1rztCL0DAuTBVwCJr3lQJJ2S9Sh6DjqDXiuCyVOekamwtjBlP0RqZIzFvINcYXvQEiBVCIafqyxZ0uZR1zn1cVmlVabXew2Ma754JfvAlYRSwXBvUga+6hqMV8gAKLx8TNiEF4M2NehdWih2SW6W0pwPWUaqJ+yWFCjxQKRFBu9mVUX6GN9hU0GwfvqKcKC2/ruY6pz288gmXlQzAcc5nS+P/QxWZruNlYPsajasSNAVgb/3UpWIwh4inYfCUfQmtXgGBWI5D+bB6B4M483OluZOXa1C2TcoIvPW+VMZj8w=
+	JHFYrv+rcb2yC3HhpTiG+1C79fs8UdR6EuATxo/varIo8ik6T7ceMDt0a5RXn0AU/D0uZvvVbuN/LYA3p1Z5o1bQTL9BU7IVj5I+S/Atql28vYxmFnLBl6+wp4Sf1w/MO49mTgNuygesZoauRiAx80iUXIWSTghVqzEBCytj1I3h6VJs05fDvI7MuC6Wwe68+xb4aQbMxzsMKJ3BpLuRufJaADqM4SUy5iYSE+WloRY6z4r0RD0cspSvCq87bTf+G/9yoXhGEVJWM+vYi9FT6+qQG8fyc+d2cpSslbD1rnv+OkRp2sgubLpVjjDH24Gy0Yp5fXg0UdpGtgThOnaFXX9anbhheWlB6JY2pmtLKI36gSl6N0dfwipS2Zxc6RJF6eObhk213yTzRjPa1PNQQDAAN1SgTJdikK9tBrkBC2ISYRmmvyvWcPUj1TpWGlueyuH5fDC9KgYCXuLHfXw2xgabEwuXk/vuCWzs5W/2iOr8NudlKr8HRP2gmT1Rc8bt1f7nYWZhp+sFsW458dkXDS0J9kT4gGJw5GuCk8UmgiVMrIWbFyUfn0phUXArMyFphld/jDPbb18dVbc7q+PtAawwF+m5BWo5sCeYu+sIQEcY1mNDsxfGLTbkHdMkVkDw
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(19092799006)(23010399003)(56012099006)(5023799004)(4143699003)(11063799006)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(10063799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(5023799004)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bG2yLeSt1+ovdxYLjofHl1fuM34W4ZutRumKc01aBPitxPaz//QJKIx3w/X9?=
- =?us-ascii?Q?0H5k60Xxe1BOXL4b/O2u6LNTozbOg3/V0JQXskRbt0sdWJb2MF67WKGUWf8d?=
- =?us-ascii?Q?ec4ZD88HsQPLiAR2T5VWx1u5REYjKNOmxF9MPaiYw1dW/Uwo5UoaBs+rJhE2?=
- =?us-ascii?Q?E6HWzRmrN5idbcY6dh03nqERh9MLcvRukp/K65d80av5TDXhRQbUHjR07PvS?=
- =?us-ascii?Q?YRQtChvSGmxB34ZaYoTlv6VjGGM7lTIc1zB8N7P8VcZoxU3AVQzSvthnnSBx?=
- =?us-ascii?Q?WfvTiaFDQXmzdIt9yRy0zAb17k3+WvdalELn/jlPdc6Rkhr8kNDNz7K7blAg?=
- =?us-ascii?Q?gyFSdCaz6Y8sTGHL1jVJKLBT2xVUJ5XwMqagHF4gcqzF0iAtw4klMxM8tvvC?=
- =?us-ascii?Q?uoKuUgh1o62pNjXvQpEvKsr8jqfQGt3NwOIPhQshET21hA72Ku2Bx86au1yK?=
- =?us-ascii?Q?Zo/j3ZOduKjGSUcl3j0FiHbi3+Hb8t8fjBAml5pkms/iTT3dJH9ZkNU8j3Nw?=
- =?us-ascii?Q?rhxcO3g7/yzNz6r8bom0Cekc4GPOD8XKkl2GvdPu7m3KHBB8IBnb3JTb6tqO?=
- =?us-ascii?Q?z53hPT6v+TUo52iC7u7MuvM/IlAD1xUeZGeLaKwTBGPUzPHHs4LjZLXWCG11?=
- =?us-ascii?Q?2Cg+ZZWOwupgdlT3iI1E6Zv9nCCDzLWYP2VnkTeX+S6mKo79Jl0x16/xOTmm?=
- =?us-ascii?Q?ZlweBDSgJBPZHSC5v8bPEI/XbhKifgo8nxuo+nrX9GX9+FYadyXHfKDKbebn?=
- =?us-ascii?Q?Jpp/5stOswfTvc0KIndhtkgsi6jc8lW8jCWexnP2Fo89k4f3VP02H9NhdiVZ?=
- =?us-ascii?Q?woy5hw3IsPUuP1+iooE66POyxVR8EJDsJhBWwQbn/CMGjLzH3JJv+nklAXPX?=
- =?us-ascii?Q?pGGu7zbnE+ZjtVpky3S+OKhZjqa0jglu22AooObud4DeQtFHr4pUf9GZLMpJ?=
- =?us-ascii?Q?9LWqrojquvctJXgnMVmSKw4wg4Plwj1QKg17s/bLDG/cFHAzBnw7QBSmNdgD?=
- =?us-ascii?Q?NB4uHUF4R7+IlaHr92hD7HF/BjhgbsstV38ECHZ+jpMYSFLm6ouOghq/YfBZ?=
- =?us-ascii?Q?o3lJkRFSvmpa2TJaH/hKgGc6wnoW9yQgHeIwbFZ2r5tjA3bZiugx+DT7cCrS?=
- =?us-ascii?Q?dZWtl7TRFVYOKyPGKdSOuCz5NehGZB32+DY77rub4genC8XVxbNoVwkUQLAr?=
- =?us-ascii?Q?U0fI7Q0guqqu3VtoaWstenq1pTEX5qQZMB46JzQNw7tCFvW/Ti9D82/4BPgt?=
- =?us-ascii?Q?p0lmHKJcAym+YhMg1FT6Hfzh7fJyLRfoyvrkyEc32KC5IlUCT68sqmuKuplB?=
- =?us-ascii?Q?VsddL+TGTAXEir0s+DHuXCRZnwuHlgxz3mZMMymzhYuC3Ib1CdVJBefC0YFu?=
- =?us-ascii?Q?oQ+54m8AF5Za90QA3465LeBHJYFITBEzsFVjg7eQYy5ZpL4cvaseq9hKzoie?=
- =?us-ascii?Q?uYqN73bwxiIVTkpwhlH4B+fHnudM0/O1VnqUdCNP84GxQzwLLD2cgdBa6Pet?=
- =?us-ascii?Q?Qz4dXI3beE0OeQYA2NwQa684Jk+QRtdlE4HE5yx0ZZtYOEP9/p2aTYTjhAC/?=
- =?us-ascii?Q?gj6kGI3YG1wnhyODaiFjf5ISbdhfeGvw9U81i2SoajkAulSNSdjbygVi3bG0?=
- =?us-ascii?Q?VfIRCjEfPr5um6Nj+FkYg7bizbFEczm2S93yUPWaWbmULoRk2G6cY4+Bprm8?=
- =?us-ascii?Q?3p4sLqzVjVCocpiwNgz2j7O6OZxDLKasUYjPupbc7hEW1JdqnepbZIaRTfh7?=
- =?us-ascii?Q?lI2mbb0h5DpAkDUIb4lu2UXMJz4llSEOjVEGo2/SuaqSLQWOvUQI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c5a2b0b-2164-4d91-628f-08df2aecd84c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+	=?utf-8?B?dk1rYzJ1Z3JkQkVJR25lS1NIeHVhWS90K3c1QWFudEJBd0xDTWh6VHg1eGFQ?=
+ =?utf-8?B?MSs2WHlHUW43QmlxVVJFYmdaTlJBZDJ0bSsxN0drQkFYd1Ztc3EyUUQ3ZHcx?=
+ =?utf-8?B?RHZGTnc5cTRXU2p4aHNOOXh2d09hSDE4STJDZklJeWZGTWZsNkRiZlVHMmZv?=
+ =?utf-8?B?SHZLZWZNa1BMMlJMWXdnTnFwWnJIejNvSlJKazU0clR0SDZCcVNUOS9XZXlD?=
+ =?utf-8?B?MklxcnhOcytIcWUzNEpMK3BOSlpqM0dRYlBuc3BFamoxZ1VkQlBzY3VtbnRG?=
+ =?utf-8?B?RUtYb2tkTnBJejN3S0ZpMnBPOGpjcWdOaGw3dkZWT0NQNFhLWVZXVmx2cEU4?=
+ =?utf-8?B?V0xNQ3FicUU0cHpBZDdCNUJiR2hLb2c4OWxHbGJUZm91dm5HejBGYlBKekRt?=
+ =?utf-8?B?OXMwaVN5VHN6UnZvK0dzT042OFlyUThoMlhSeVNxUUdBUGx0VWwrSy93RXpR?=
+ =?utf-8?B?dFdEd3JJNWdwaXdVcFR5NzVYVHppUmhnOVMwM1JiYWJydDMzUElYL0VUb1pT?=
+ =?utf-8?B?VlBxN1FxUnZFNklsMG9KY1lKRXFLUVk2N0ZTclIxb216cW9leTMxRitveXF2?=
+ =?utf-8?B?czg2Y0d2WTZrWEVtQkJnalVNdjdRS0ZSMjdPeGI5ZGcvTWNnSFV0SnJ4V0Yz?=
+ =?utf-8?B?bHYxMnJnbkErR2R6bndmNDRmcGRCdDBNU2FwU0Z4cHpZZll4aHdIYzhVcEZo?=
+ =?utf-8?B?UHVjVkdXd3dyckxQdWRZSGVjaFd6Rzd5TFBHN1pVdGYzbUtGcFNSMXZtTC9H?=
+ =?utf-8?B?RTNIQ0ZzVG8xNEtKREhvOTZkN1VpRTNhQWpOYVlRZDZZcVVNVjIrVlVxNHBK?=
+ =?utf-8?B?a1UvMkZleVVzY2h0WDFZMzVZYVVJNDEwTWhKRTdsQkFXY0pPcDFYU05wNDlK?=
+ =?utf-8?B?QWNCclJpYk5TUHNOeEFmWk1RQ3FtUnd4a3hya1hDKzVCQmhDNFJoYXppc1Fs?=
+ =?utf-8?B?WnoyQnpLQit1UW5oOUc3S3VFTnMvbEdaeWtlZnZObnhweDlnam4yaTI3QzU0?=
+ =?utf-8?B?dmZUTUNvUkJNV2c3STJ4TUdLY21kd0FSa2FyRHJ5d3Y0eFNaeFFWU0ppOEd3?=
+ =?utf-8?B?ajVUL2kwS242dXBONDVOSlhsazQ4eEluaUpUVTErQzUvT3VmZjRvNjJ0dWpw?=
+ =?utf-8?B?ejdzeUpBMGJBc0paK0JTOEdZb2NRaWRzQjVaN3AwdnBKV05WSUJnUjVpV1dD?=
+ =?utf-8?B?b3NWUkptUVJab3NkN1BsWndqSk1xU2lXU2hyK21MTmVCejZSNEF1OUJLYXQy?=
+ =?utf-8?B?dTJUWnlxOUY5Z2RoVkpKVE81UmFoU1ptbjVTdG9LTHVHTUY0L0pDMjJiOVhh?=
+ =?utf-8?B?SEd0WFZsTDBFeXJiQ29lNytwZUlZMmNOQUNEcUpRR2t4SkM5a2t1UnF0eUJH?=
+ =?utf-8?B?ekthRkJFRzRXUDFlNGVKT2hVbm15TUJDR0V1eVFRUlhmcE5jaVY1ankrTkpo?=
+ =?utf-8?B?Y2xvd283dGZpZ0hjcVk2QThSVGYycGIzVUxWczR0OU9uY0hOTVJ1Tzc0Y3VN?=
+ =?utf-8?B?d3FvaVk3SE5tK0Y0VXVYSzZVenRaODlMdStaV2RqT3VCWENRQUUxNFA1YkZD?=
+ =?utf-8?B?U3ZuL1pqMHZEaHlONndBeUM2S0sxcmQxMWxzZ2t0VUZST2tPaVlLUTArSzk5?=
+ =?utf-8?B?ZU56K0FZVjlzK2FHakRZd2krYytGd3U4bW9nSXdCU2xzVUNJbFMrVGx6WUk4?=
+ =?utf-8?B?TUlmZlJsclg3MEV4WlNPTWlkQ0t1WUZsWGF5OTN1ZHVkS3hMQkovYk9FWUxW?=
+ =?utf-8?B?d3d3UTF5VTFhRzVGazRZY0IwWCtCcXVaOVJsOUp3dkhXMmZhajlKbkNYa0ZK?=
+ =?utf-8?B?SC9ldElTQkY1cjFodlM4eGJ1SUkvQUwwbkhpSXcvT1plR2pEcUYwMlhabDFx?=
+ =?utf-8?B?NUxxWHFjSytrek9MZWoyWlFuMHBGUGdqMktiRVpINFBPTTZXWTlWYjFjNExZ?=
+ =?utf-8?B?S0JZSm84QjZ2QTFiQ0xIcDc2KzBWckJsS3Fvd1JsN1RLNC9BOGZ6MjZUd3Rm?=
+ =?utf-8?B?NmVCNksvaDQvTjh0UzJPRkJiOTZPcGp2SDVHNURZSmFzWGFFcm1hU0hrdzNW?=
+ =?utf-8?B?eVBKb01ONzY0dFVNTkRnUVdyZzgzajZTYXlaTG15YlMyVU1hRnplSU9wT1E5?=
+ =?utf-8?B?bG1IUjliVXpJOXlBZ2llOWpwMUpwdTRSYkVaUm9uRkZZZC9yQU5qTUtaM25y?=
+ =?utf-8?B?TGc0a3hTUWJucjVLa1kvczBaV0pia3JxL0dnd2FZSm1lU09vbFJ6N2FaSnc0?=
+ =?utf-8?B?ajVXdnBGU0hCZFBZdXl3M1BOMmJWTVFwUE5aV2tsYTZDRjh4MHF4ZytCQ1ZB?=
+ =?utf-8?B?Vm0wRUVoRzdqanEwcDFZTC9FTzNRaGwwY3p0aXl6VzBBdHBYdlBjQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17be10d9-0bf1-4be9-e43c-08df2aecf1d9
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 18:48:04.6381
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 18:48:46.9807
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2Gyvob6ME2Lqe/yJVYPCJV9rvnlzsWv638x+NcNxkjMeDthOhSAqLOlFKXwWlYohxU03gEDXVK9iZHO7pXr1gcQVqXtUlbAwX4uurjC8FzEkwR0gPPnTqDHSsLvbL1m+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10913
+X-MS-Exchange-CrossTenant-UserPrincipalName: KiJO6P5CDdHwR3KmxQvoChNvOLzMLw/lygFA2i7VkeTONnl7azKDT+DSOJpU8qofFz8iVyf5Ej9HBkA9MSSsuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4352
 
-On Wed, Oct 07, 2026 at 03:58:46PM +0530, Sai Sree Kartheek Adivi wrote:
-> Refactor the K3 UDMA driver by moving all DMA descriptor handling
-> functions from k3-udma.c to a new common library, k3-udma-common.c.
->
-> This prepares the driver for supporting new K3 UDMA v2 variant
-> (used in AM62L) that can reuse the same descriptor handling logic.
->
-> To ensure this common code works correctly across all build
-> configurations (built-in vs modules), introduce a hidden Kconfig symbol:
-> CONFIG_TI_K3_UDMA_COMMON.
->
-> No functional changes intended.
->
-> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-> ---
->  drivers/dma/ti/Kconfig          |    4 +
->  drivers/dma/ti/Makefile         |    1 +
->  drivers/dma/ti/k3-udma-common.c | 1244 +++++++++++++++++++++++++++++++
->  drivers/dma/ti/k3-udma.c        | 1218 ------------------------------
->  drivers/dma/ti/k3-udma.h        |   28 +
->  5 files changed, 1277 insertions(+), 1218 deletions(-)
->  create mode 100644 drivers/dma/ti/k3-udma-common.c
->
-> diff --git a/drivers/dma/ti/Kconfig b/drivers/dma/ti/Kconfig
-> index cbc30ab627832..a389ae04ec930 100644
-> --- a/drivers/dma/ti/Kconfig
-> +++ b/drivers/dma/ti/Kconfig
-> @@ -42,12 +42,16 @@ config TI_K3_UDMA
->  	select DMA_ENGINE
->  	select DMA_VIRTUAL_CHANNELS
->  	select SOC_TI
-> +	select TI_K3_UDMA_COMMON
 
-Is it possible K3 link K3 v2 to one module. like
-drivers/dma/dw-edma/
 
-EDMA/HDMA link together.
+On 10/15/26 13:31, Andy Shevchenko wrote:
+> On Thu, Oct 15, 2026 at 09:25:10PM +0300, Andy Shevchenko wrote:
+>> +Cc: Dmitry (as it might be related to keyboard configuration), others for
+>> the previously reported same IRQ on the same GPIO controller but for some
+>> camera stuff.
+>>
+>> On Thu, Oct 15, 2026 at 03:13:02PM +0100, Nikodem Sanecki wrote:
+>>> Hello,
+>>>
+>>> I'm reporting a Caps Lock LED issue on my Lenovo ThinkPad L13 Gen 2 AMD
+>>> running Arch Linux. I found a workaround that completely fixes it, and I
+>>> hope the findings might help implement a permanent kernel fix.
+>>>
+>>> *A quick note:* This is my first time using Linux, and I'm a complete
+>>> beginner when it comes to kernel development. I used ChatGPT (GPT-6) to
+>>> guide the troubleshooting process, analyse my laptop's ACPI firmware, and
+>>> interpret the results. I personally ran the diagnostic commands and
+>>> verified the observed behaviour, but the technical explanation below is
+>>> AI-assisted. Please correct me if any of the analysis is inaccurate.
+>>> Problem
+>>>
+>>> Under Linux, the physical Caps Lock indicator LED never illuminates, even
+>>> though the Caps Lock key itself works normally.
+>>>
+>>> The LED works correctly under Windows and during certain stages of boot, so
+>>> the hardware itself is functional.
+>>>
+>>> After investigating, GPT-6 identified what appears to be a conflict
+>>> involving GPIO 11 on the AMD AMDI0030 controller.
+>>>
+>>> Booting Arch Linux with this kernel parameter completely fixes the problem:
+>>>
+>>> gpiolib_acpi.ignore_interrupt=AMDI0030:00@11
+>>>
+>>> The Caps Lock LED now works normally, and I haven't noticed any other
+>>> hardware issues.
+>>> System information
+>>>
+>>>     -
+>>>
+>>>     Device: Lenovo ThinkPad L13 Gen 2 AMD
+>>>     -
+>>>
+>>>     DMI product name: 21AB004LSP
+>>>     -
+>>>
+>>>     DMI product version/family: ThinkPad L13 Gen 2a
+>>>     -
+>>>
+>>>     DMI vendor: LENOVO
+>>>     -
+>>>
+>>>     DMI product SKU: LENOVO_MT_21AB_BU_Think_FM_ThinkPad L13 Gen 2a
+>>>     -
+>>>
+>>>     Kernel: 7.2.9-arch1-1
+>>>     -
+>>>
+>>>     Distribution: Arch Linux
+>>>     -
+>>>
+>>>     BIOS: R1QET54W (1.40)
+>>>     -
+>>>
+>>>     BIOS date: 2026-04-14
+>>>     -
+>>>
+>>>     DSDT OEM ID: LENOVO
+>>>     -
+>>>
+>>>     DSDT OEM Table ID: TP-R1Q
+>>>
+>>> Diagnostic findings
+>>>
+>>> The following is GPT-6's analysis of the diagnostic output and decompiled
+>>> ACPI tables.
+>>>
+>>> *1. Linux sends the correct keyboard LED commands*
+>>>
+>>> Using bpftrace, we observed that atkbd_set_leds() consistently returned 0.
+>>>
+>>> Tracing ps2_command() for command 0x10ED produced:
+>>>
+>>> SETLEDS: value=4, caps=1
+>>> SETLEDS: value=0, caps=0
+>>> SETLEDS: value=4, caps=1
+>>> SETLEDS: value=0, caps=0
+>>>
+>>> The driver reports success and sends the expected Caps Lock states, but the
+>>> physical indicator stays off.
+>>>
+>>> *2. The embedded controller tracks Caps Lock correctly*
+>>>
+>>> The DSDT defines the CPLS field at EC offset 0x0F, bit 7.
+>>>
+>>> Reading that byte through the read-only ec_sys interface showed it changing
+>>> from 0x00 to 0x80 when Caps Lock was toggled.
+>>>
+>>> Enabling dynamic debugging in drivers/acpi/ec.c confirmed that each Caps
+>>> Lock press triggered EC query 0x78, which was scheduled, started and
+>>> stopped successfully.
+>>>
+>>> *3. Lenovo's firmware controls GPIO 11*
+>>>
+>>> The DSDT contains:
+>>>
+>>> Method (_Q78, 0, NotSerialized)
+>>> {
+>>>      If (CPLS)
+>>>      {
+>>>          WFIO (0x0B, 0x00)
+>>>      }
+>>>      Else
+>>>      {
+>>>          WFIO (0x0B, 0x01)
+>>>      }
+>>> }
+>>>
+>>> The WFIO method writes bit 22 using WMEM(), targeting address 0xFED81500 +
+>>> (11 * 4) = 0xFED8152C.
+>>>
+>>> This appears to control the Caps Lock indicator using GPIO 11.
+>>>
+>>> *4. The same GPIO is declared as an ACPI interrupt*
+>>>
+>>> In SSDT12, _SB.GPIO._AEI declares GPIO 11 as an edge-triggered, active-low,
+>>> exclusive wake interrupt.
+>>>
+>>> Its _EVT handler includes:
+>>>
+>>> Case (0x0B)
+>>> {
+>>>      MSTP (0x3911)
+>>>      Notify (\_SB.PCI0.GPP1, 0x00) // Bus Check
+> 
+> This looks like some GPIO related notification. I dunno what Windows driver does.
+> Mario?
+> 
 
-Frank
+Honestly - this sounds like a copy / paste BIOS bug that they copied the 
+SSDT from one system and didn't change it.
 
->  	select TI_K3_RINGACC
->  	select TI_K3_PSIL
->          help
->  	  Enable support for the TI UDMA (Unified DMA) controller. This
->  	  DMA engine is used in AM65x and j721e.
->
-> +config TI_K3_UDMA_COMMON
-> +	tristate
-> +
->  config TI_K3_UDMA_GLUE_LAYER
->  	tristate "Texas Instruments UDMA Glue layer for non DMAengine users"
->  	depends on ARCH_K3 || COMPILE_TEST
-> diff --git a/drivers/dma/ti/Makefile b/drivers/dma/ti/Makefile
-> index d376c117cecf6..3b91c02e55eaf 100644
-> --- a/drivers/dma/ti/Makefile
-> +++ b/drivers/dma/ti/Makefile
-> @@ -3,6 +3,7 @@ obj-$(CONFIG_TI_CPPI41) += cppi41.o
->  obj-$(CONFIG_TI_EDMA) += edma.o
->  obj-$(CONFIG_DMA_OMAP) += omap-dma.o
->  obj-$(CONFIG_TI_K3_UDMA) += k3-udma.o
-> +obj-$(CONFIG_TI_K3_UDMA_COMMON) += k3-udma-common.o
->  obj-$(CONFIG_TI_K3_UDMA_GLUE_LAYER) += k3-udma-glue.o
->  k3-psil-lib-objs := k3-psil.o \
->  		    k3-psil-am654.o \
-> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-common.c
-> new file mode 100644
-> index 0000000000000..f9060bcab8a5a
-> --- /dev/null
-> +++ b/drivers/dma/ti/k3-udma-common.c
-> @@ -0,0 +1,1244 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + *  Copyright (C) 2025 Texas Instruments Incorporated - http://www.ti.com
-> + *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
-> + */
-> +
-> +#include <linux/dmaengine.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/dmapool.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/soc/ti/k3-ringacc.h>
-> +#include <linux/slab.h>
-> +
-> +#include "k3-udma.h"
-> +
-> +static const struct dma_descriptor_metadata_ops metadata_ops = {
-> +	.attach = udma_attach_metadata,
-> +	.get_ptr = udma_get_metadata_ptr,
-> +	.set_len = udma_set_metadata_len,
-> +};
-> +
-> +struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
-> +					    dma_addr_t paddr)
-> +{
-> +	struct udma_desc *d = uc->terminated_desc;
-> +
-> +	if (d) {
-> +		dma_addr_t desc_paddr = udma_curr_cppi5_desc_paddr(d,
-> +								   d->desc_idx);
-> +
-> +		if (desc_paddr != paddr)
-> +			d = NULL;
-> +	}
-> +
-> +	if (!d) {
-> +		d = uc->desc;
-> +		if (d) {
-> +			dma_addr_t desc_paddr = udma_curr_cppi5_desc_paddr(d,
-> +									   d->desc_idx);
-> +
-> +			if (desc_paddr != paddr)
-> +				d = NULL;
-> +		}
-> +	}
-> +
-> +	return d;
-> +}
-> +EXPORT_SYMBOL_GPL(udma_udma_desc_from_paddr);
-> +
-> +static void udma_free_hwdesc(struct udma_chan *uc, struct udma_desc *d)
-> +{
-> +	if (uc->use_dma_pool) {
-> +		int i;
-> +
-> +		for (i = 0; i < d->hwdesc_count; i++) {
-> +			if (!d->hwdesc[i].cppi5_desc_vaddr)
-> +				continue;
-> +
-> +			dma_pool_free(uc->hdesc_pool,
-> +				      d->hwdesc[i].cppi5_desc_vaddr,
-> +				      d->hwdesc[i].cppi5_desc_paddr);
-> +
-> +			d->hwdesc[i].cppi5_desc_vaddr = NULL;
-> +		}
-> +	} else if (d->hwdesc[0].cppi5_desc_vaddr) {
-> +		dma_free_coherent(uc->dma_dev, d->hwdesc[0].cppi5_desc_size,
-> +				  d->hwdesc[0].cppi5_desc_vaddr,
-> +				  d->hwdesc[0].cppi5_desc_paddr);
-> +
-> +		d->hwdesc[0].cppi5_desc_vaddr = NULL;
-> +	}
-> +}
-> +
-> +void udma_purge_desc_work(struct work_struct *work)
-> +{
-> +	struct udma_dev *ud = container_of(work, typeof(*ud), purge_work);
-> +	struct virt_dma_desc *vd, *_vd;
-> +	unsigned long flags;
-> +	LIST_HEAD(head);
-> +
-> +	spin_lock_irqsave(&ud->lock, flags);
-> +	list_splice_tail_init(&ud->desc_to_purge, &head);
-> +	spin_unlock_irqrestore(&ud->lock, flags);
-> +
-> +	list_for_each_entry_safe(vd, _vd, &head, node) {
-> +		struct udma_chan *uc = to_udma_chan(vd->tx.chan);
-> +		struct udma_desc *d = to_udma_desc(&vd->tx);
-> +
-> +		udma_free_hwdesc(uc, d);
-> +		list_del(&vd->node);
-> +		kfree(d);
-> +	}
-> +
-> +	/* If more to purge, schedule the work again */
-> +	if (!list_empty(&ud->desc_to_purge))
-> +		schedule_work(&ud->purge_work);
-> +}
-> +EXPORT_SYMBOL_GPL(udma_purge_desc_work);
-> +
-> +void udma_desc_free(struct virt_dma_desc *vd)
-> +{
-> +	struct udma_dev *ud = to_udma_dev(vd->tx.chan->device);
-> +	struct udma_chan *uc = to_udma_chan(vd->tx.chan);
-> +	struct udma_desc *d = to_udma_desc(&vd->tx);
-> +	unsigned long flags;
-> +
-> +	if (uc->terminated_desc == d)
-> +		uc->terminated_desc = NULL;
-> +
-> +	if (uc->use_dma_pool) {
-> +		udma_free_hwdesc(uc, d);
-> +		kfree(d);
-> +		return;
-> +	}
-> +
-> +	spin_lock_irqsave(&ud->lock, flags);
-> +	list_add_tail(&vd->node, &ud->desc_to_purge);
-> +	spin_unlock_irqrestore(&ud->lock, flags);
-> +
-> +	schedule_work(&ud->purge_work);
-> +}
-> +EXPORT_SYMBOL_GPL(udma_desc_free);
-> +
-> +bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr)
-> +{
-> +	if (uc->config.dir != DMA_DEV_TO_MEM)
-> +		return false;
-> +
-> +	if (addr == udma_get_rx_flush_hwdesc_paddr(uc))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +EXPORT_SYMBOL_GPL(udma_desc_is_rx_flush);
-> +
-> +bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d)
-> +{
-> +	u32 peer_bcnt, bcnt;
-> +
-> +	/*
-> +	 * Only TX towards PDMA is affected.
-> +	 * If DMA_PREP_INTERRUPT is not set by consumer then skip the transfer
-> +	 * completion calculation, consumer must ensure that there is no stale
-> +	 * data in DMA fabric in this case.
-> +	 */
-> +	if (uc->config.ep_type == PSIL_EP_NATIVE ||
-> +	    uc->config.dir != DMA_MEM_TO_DEV || !(uc->config.tx_flags & DMA_PREP_INTERRUPT))
-> +		return true;
-> +
-> +	peer_bcnt = udma_tchanrt_read(uc, UDMA_CHAN_RT_PEER_BCNT_REG);
-> +	bcnt = udma_tchanrt_read(uc, UDMA_CHAN_RT_BCNT_REG);
-> +
-> +	/* Transfer is incomplete, store current residue and time stamp */
-> +	if (peer_bcnt < bcnt) {
-> +		uc->tx_drain.residue = bcnt - peer_bcnt;
-> +		uc->tx_drain.tstamp = ktime_get();
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +EXPORT_SYMBOL_GPL(udma_is_desc_really_done);
-> +
-> +static struct udma_desc *udma_alloc_tr_desc(struct udma_chan *uc,
-> +				     size_t tr_size, int tr_count,
-> +				     enum dma_transfer_direction dir)
-> +{
-> +	struct udma_hwdesc *hwdesc;
-> +	struct cppi5_desc_hdr_t *tr_desc;
-> +	struct udma_desc *d;
-> +	u32 reload_count = 0;
-> +	u32 ring_id;
-> +
-> +	switch (tr_size) {
-> +	case 16:
-> +	case 32:
-> +	case 64:
-> +	case 128:
-> +		break;
-> +	default:
-> +		dev_err(uc->ud->dev, "Unsupported TR size of %zu\n", tr_size);
-> +		return NULL;
-> +	}
-> +
-> +	/* We have only one descriptor containing multiple TRs */
-> +	d = kzalloc(sizeof(*d) + sizeof(d->hwdesc[0]), GFP_NOWAIT);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->sglen = tr_count;
-> +
-> +	d->hwdesc_count = 1;
-> +	hwdesc = &d->hwdesc[0];
-> +
-> +	/* Allocate memory for DMA ring descriptor */
-> +	if (uc->use_dma_pool) {
-> +		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> +		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> +							   GFP_NOWAIT,
-> +							   &hwdesc->cppi5_desc_paddr);
-> +	} else {
-> +		hwdesc->cppi5_desc_size = cppi5_trdesc_calc_size(tr_size,
-> +								 tr_count);
-> +		hwdesc->cppi5_desc_size = ALIGN(hwdesc->cppi5_desc_size,
-> +						uc->ud->desc_align);
-> +		hwdesc->cppi5_desc_vaddr = dma_alloc_coherent(uc->ud->dev,
-> +							      hwdesc->cppi5_desc_size,
-> +							      &hwdesc->cppi5_desc_paddr,
-> +							      GFP_NOWAIT);
-> +	}
-> +
-> +	if (!hwdesc->cppi5_desc_vaddr) {
-> +		kfree(d);
-> +		return NULL;
-> +	}
-> +
-> +	/* Start of the TR req records */
-> +	hwdesc->tr_req_base = hwdesc->cppi5_desc_vaddr + tr_size;
-> +	/* Start address of the TR response array */
-> +	hwdesc->tr_resp_base = hwdesc->tr_req_base + tr_size * tr_count;
-> +
-> +	tr_desc = hwdesc->cppi5_desc_vaddr;
-> +
-> +	if (uc->cyclic)
-> +		reload_count = CPPI5_INFO0_TRDESC_RLDCNT_INFINITE;
-> +
-> +	if (dir == DMA_DEV_TO_MEM)
-> +		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> +	else
-> +		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> +
-> +	cppi5_trdesc_init(tr_desc, tr_count, tr_size, 0, reload_count);
-> +	cppi5_desc_set_pktids(tr_desc, uc->id,
-> +			      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> +	cppi5_desc_set_retpolicy(tr_desc, 0, ring_id);
-> +
-> +	return d;
-> +}
-> +
-> +/**
-> + * udma_get_tr_counters - calculate TR counters for a given length
-> + * @len: Length of the transfer
-> + * @align_to: Preferred alignment
-> + * @tr0_cnt0: First TR icnt0
-> + * @tr0_cnt1: First TR icnt1
-> + * @tr1_cnt0: Second (if used) TR icnt0
-> + *
-> + * For len < SZ_64K only one TR is enough, tr1_cnt0 is not updated
-> + * For len >= SZ_64K two TRs are used in a simple way:
-> + * First TR: SZ_64K-alignment blocks (tr0_cnt0, tr0_cnt1)
-> + * Second TR: the remaining length (tr1_cnt0)
-> + *
-> + * Returns the number of TRs the length needs (1 or 2)
-> + * -EINVAL if the length can not be supported
-> + */
-> +static int udma_get_tr_counters(size_t len, unsigned long align_to,
-> +			 u16 *tr0_cnt0, u16 *tr0_cnt1, u16 *tr1_cnt0)
-> +{
-> +	if (len < SZ_64K) {
-> +		*tr0_cnt0 = len;
-> +		*tr0_cnt1 = 1;
-> +
-> +		return 1;
-> +	}
-> +
-> +	if (align_to > 3)
-> +		align_to = 3;
-> +
-> +realign:
-> +	*tr0_cnt0 = SZ_64K - BIT(align_to);
-> +	if (len / *tr0_cnt0 >= SZ_64K) {
-> +		if (align_to) {
-> +			align_to--;
-> +			goto realign;
-> +		}
-> +		return -EINVAL;
-> +	}
-> +
-> +	*tr0_cnt1 = len / *tr0_cnt0;
-> +	*tr1_cnt0 = len % *tr0_cnt0;
-> +
-> +	return 2;
-> +}
-> +
-> +static struct udma_desc *
-> +udma_prep_slave_sg_tr(struct udma_chan *uc, struct scatterlist *sgl,
-> +		      unsigned int sglen, enum dma_transfer_direction dir,
-> +		      unsigned long tx_flags, void *context)
-> +{
-> +	struct scatterlist *sgent;
-> +	struct udma_desc *d;
-> +	struct cppi5_tr_type1_t *tr_req = NULL;
-> +	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> +	unsigned int i;
-> +	size_t tr_size;
-> +	int num_tr = 0;
-> +	int tr_idx = 0;
-> +	u64 asel;
-> +
-> +	/* estimate the number of TRs we will need */
-> +	for_each_sg(sgl, sgent, sglen, i) {
-> +		if (sg_dma_len(sgent) < SZ_64K)
-> +			num_tr++;
-> +		else
-> +			num_tr += 2;
-> +	}
-> +
-> +	/* Now allocate and setup the descriptor. */
-> +	tr_size = sizeof(struct cppi5_tr_type1_t);
-> +	d = udma_alloc_tr_desc(uc, tr_size, num_tr, dir);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->sglen = sglen;
-> +
-> +	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> +		asel = 0;
-> +	else
-> +		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> +
-> +	tr_req = d->hwdesc[0].tr_req_base;
-> +	for_each_sg(sgl, sgent, sglen, i) {
-> +		dma_addr_t sg_addr = sg_dma_address(sgent);
-> +
-> +		num_tr = udma_get_tr_counters(sg_dma_len(sgent), __ffs(sg_addr),
-> +					      &tr0_cnt0, &tr0_cnt1, &tr1_cnt0);
-> +		if (num_tr < 0) {
-> +			dev_err(uc->ud->dev, "size %u is not supported\n",
-> +				sg_dma_len(sgent));
-> +			udma_free_hwdesc(uc, d);
-> +			kfree(d);
-> +			return NULL;
-> +		}
-> +
-> +		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1, false,
-> +			      false, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +		cppi5_tr_csf_set(&tr_req[tr_idx].flags, CPPI5_TR_CSF_SUPR_EVT);
-> +
-> +		sg_addr |= asel;
-> +		tr_req[tr_idx].addr = sg_addr;
-> +		tr_req[tr_idx].icnt0 = tr0_cnt0;
-> +		tr_req[tr_idx].icnt1 = tr0_cnt1;
-> +		tr_req[tr_idx].dim1 = tr0_cnt0;
-> +		tr_idx++;
-> +
-> +		if (num_tr == 2) {
-> +			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1,
-> +				      false, false,
-> +				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +			cppi5_tr_csf_set(&tr_req[tr_idx].flags,
-> +					 CPPI5_TR_CSF_SUPR_EVT);
-> +
-> +			tr_req[tr_idx].addr = sg_addr + tr0_cnt1 * tr0_cnt0;
-> +			tr_req[tr_idx].icnt0 = tr1_cnt0;
-> +			tr_req[tr_idx].icnt1 = 1;
-> +			tr_req[tr_idx].dim1 = tr1_cnt0;
-> +			tr_idx++;
-> +		}
-> +
-> +		d->residue += sg_dma_len(sgent);
-> +	}
-> +
-> +	cppi5_tr_csf_set(&tr_req[tr_idx - 1].flags,
-> +			 CPPI5_TR_CSF_SUPR_EVT | CPPI5_TR_CSF_EOP);
-> +
-> +	return d;
-> +}
-> +
-> +static struct udma_desc *
-> +udma_prep_slave_sg_triggered_tr(struct udma_chan *uc, struct scatterlist *sgl,
-> +				unsigned int sglen,
-> +				enum dma_transfer_direction dir,
-> +				unsigned long tx_flags, void *context)
-> +{
-> +	struct scatterlist *sgent;
-> +	struct cppi5_tr_type15_t *tr_req = NULL;
-> +	enum dma_slave_buswidth dev_width;
-> +	u32 csf = CPPI5_TR_CSF_SUPR_EVT;
-> +	u16 tr_cnt0, tr_cnt1;
-> +	dma_addr_t dev_addr;
-> +	struct udma_desc *d;
-> +	unsigned int i;
-> +	size_t tr_size, sg_len;
-> +	int num_tr = 0;
-> +	int tr_idx = 0;
-> +	u32 burst, trigger_size, port_window;
-> +	u64 asel;
-> +
-> +	if (dir == DMA_DEV_TO_MEM) {
-> +		dev_addr = uc->cfg.src_addr;
-> +		dev_width = uc->cfg.src_addr_width;
-> +		burst = uc->cfg.src_maxburst;
-> +		port_window = uc->cfg.src_port_window_size;
-> +	} else if (dir == DMA_MEM_TO_DEV) {
-> +		dev_addr = uc->cfg.dst_addr;
-> +		dev_width = uc->cfg.dst_addr_width;
-> +		burst = uc->cfg.dst_maxburst;
-> +		port_window = uc->cfg.dst_port_window_size;
-> +	} else {
-> +		dev_err(uc->ud->dev, "%s: bad direction?\n", __func__);
-> +		return NULL;
-> +	}
-> +
-> +	if (!burst)
-> +		burst = 1;
-> +
-> +	if (port_window) {
-> +		if (port_window != burst) {
-> +			dev_err(uc->ud->dev,
-> +				"The burst must be equal to port_window\n");
-> +			return NULL;
-> +		}
-> +
-> +		tr_cnt0 = dev_width * port_window;
-> +		tr_cnt1 = 1;
-> +	} else {
-> +		tr_cnt0 = dev_width;
-> +		tr_cnt1 = burst;
-> +	}
-> +	trigger_size = tr_cnt0 * tr_cnt1;
-> +
-> +	/* estimate the number of TRs we will need */
-> +	for_each_sg(sgl, sgent, sglen, i) {
-> +		sg_len = sg_dma_len(sgent);
-> +
-> +		if (sg_len % trigger_size) {
-> +			dev_err(uc->ud->dev,
-> +				"Not aligned SG entry (%zu for %u)\n", sg_len,
-> +				trigger_size);
-> +			return NULL;
-> +		}
-> +
-> +		if (sg_len / trigger_size < SZ_64K)
-> +			num_tr++;
-> +		else
-> +			num_tr += 2;
-> +	}
-> +
-> +	/* Now allocate and setup the descriptor. */
-> +	tr_size = sizeof(struct cppi5_tr_type15_t);
-> +	d = udma_alloc_tr_desc(uc, tr_size, num_tr, dir);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->sglen = sglen;
-> +
-> +	if (uc->ud->match_data->type == DMA_TYPE_UDMA) {
-> +		asel = 0;
-> +		csf |= CPPI5_TR_CSF_EOL_ICNT0;
-> +	} else {
-> +		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> +		dev_addr |= asel;
-> +	}
-> +
-> +	tr_req = d->hwdesc[0].tr_req_base;
-> +	for_each_sg(sgl, sgent, sglen, i) {
-> +		u16 tr0_cnt2, tr0_cnt3, tr1_cnt2;
-> +		dma_addr_t sg_addr = sg_dma_address(sgent);
-> +
-> +		sg_len = sg_dma_len(sgent);
-> +		num_tr = udma_get_tr_counters(sg_len / trigger_size, 0,
-> +					      &tr0_cnt2, &tr0_cnt3, &tr1_cnt2);
-> +		if (num_tr < 0) {
-> +			dev_err(uc->ud->dev, "size %zu is not supported\n",
-> +				sg_len);
-> +			udma_free_hwdesc(uc, d);
-> +			kfree(d);
-> +			return NULL;
-> +		}
-> +
-> +		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE15, false,
-> +			      true, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +		cppi5_tr_csf_set(&tr_req[tr_idx].flags, csf);
-> +		cppi5_tr_set_trigger(&tr_req[tr_idx].flags,
-> +				     uc->config.tr_trigger_type,
-> +				     CPPI5_TR_TRIGGER_TYPE_ICNT2_DEC, 0, 0);
-> +
-> +		sg_addr |= asel;
-> +		if (dir == DMA_DEV_TO_MEM) {
-> +			tr_req[tr_idx].addr = dev_addr;
-> +			tr_req[tr_idx].icnt0 = tr_cnt0;
-> +			tr_req[tr_idx].icnt1 = tr_cnt1;
-> +			tr_req[tr_idx].icnt2 = tr0_cnt2;
-> +			tr_req[tr_idx].icnt3 = tr0_cnt3;
-> +			tr_req[tr_idx].dim1 = (-1) * tr_cnt0;
-> +
-> +			tr_req[tr_idx].daddr = sg_addr;
-> +			tr_req[tr_idx].dicnt0 = tr_cnt0;
-> +			tr_req[tr_idx].dicnt1 = tr_cnt1;
-> +			tr_req[tr_idx].dicnt2 = tr0_cnt2;
-> +			tr_req[tr_idx].dicnt3 = tr0_cnt3;
-> +			tr_req[tr_idx].ddim1 = tr_cnt0;
-> +			tr_req[tr_idx].ddim2 = trigger_size;
-> +			tr_req[tr_idx].ddim3 = trigger_size * tr0_cnt2;
-> +		} else {
-> +			tr_req[tr_idx].addr = sg_addr;
-> +			tr_req[tr_idx].icnt0 = tr_cnt0;
-> +			tr_req[tr_idx].icnt1 = tr_cnt1;
-> +			tr_req[tr_idx].icnt2 = tr0_cnt2;
-> +			tr_req[tr_idx].icnt3 = tr0_cnt3;
-> +			tr_req[tr_idx].dim1 = tr_cnt0;
-> +			tr_req[tr_idx].dim2 = trigger_size;
-> +			tr_req[tr_idx].dim3 = trigger_size * tr0_cnt2;
-> +
-> +			tr_req[tr_idx].daddr = dev_addr;
-> +			tr_req[tr_idx].dicnt0 = tr_cnt0;
-> +			tr_req[tr_idx].dicnt1 = tr_cnt1;
-> +			tr_req[tr_idx].dicnt2 = tr0_cnt2;
-> +			tr_req[tr_idx].dicnt3 = tr0_cnt3;
-> +			tr_req[tr_idx].ddim1 = (-1) * tr_cnt0;
-> +		}
-> +
-> +		tr_idx++;
-> +
-> +		if (num_tr == 2) {
-> +			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE15,
-> +				      false, true,
-> +				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +			cppi5_tr_csf_set(&tr_req[tr_idx].flags, csf);
-> +			cppi5_tr_set_trigger(&tr_req[tr_idx].flags,
-> +					     uc->config.tr_trigger_type,
-> +					     CPPI5_TR_TRIGGER_TYPE_ICNT2_DEC,
-> +					     0, 0);
-> +
-> +			sg_addr += trigger_size * tr0_cnt2 * tr0_cnt3;
-> +			if (dir == DMA_DEV_TO_MEM) {
-> +				tr_req[tr_idx].addr = dev_addr;
-> +				tr_req[tr_idx].icnt0 = tr_cnt0;
-> +				tr_req[tr_idx].icnt1 = tr_cnt1;
-> +				tr_req[tr_idx].icnt2 = tr1_cnt2;
-> +				tr_req[tr_idx].icnt3 = 1;
-> +				tr_req[tr_idx].dim1 = (-1) * tr_cnt0;
-> +
-> +				tr_req[tr_idx].daddr = sg_addr;
-> +				tr_req[tr_idx].dicnt0 = tr_cnt0;
-> +				tr_req[tr_idx].dicnt1 = tr_cnt1;
-> +				tr_req[tr_idx].dicnt2 = tr1_cnt2;
-> +				tr_req[tr_idx].dicnt3 = 1;
-> +				tr_req[tr_idx].ddim1 = tr_cnt0;
-> +				tr_req[tr_idx].ddim2 = trigger_size;
-> +			} else {
-> +				tr_req[tr_idx].addr = sg_addr;
-> +				tr_req[tr_idx].icnt0 = tr_cnt0;
-> +				tr_req[tr_idx].icnt1 = tr_cnt1;
-> +				tr_req[tr_idx].icnt2 = tr1_cnt2;
-> +				tr_req[tr_idx].icnt3 = 1;
-> +				tr_req[tr_idx].dim1 = tr_cnt0;
-> +				tr_req[tr_idx].dim2 = trigger_size;
-> +
-> +				tr_req[tr_idx].daddr = dev_addr;
-> +				tr_req[tr_idx].dicnt0 = tr_cnt0;
-> +				tr_req[tr_idx].dicnt1 = tr_cnt1;
-> +				tr_req[tr_idx].dicnt2 = tr1_cnt2;
-> +				tr_req[tr_idx].dicnt3 = 1;
-> +				tr_req[tr_idx].ddim1 = (-1) * tr_cnt0;
-> +			}
-> +			tr_idx++;
-> +		}
-> +
-> +		d->residue += sg_len;
-> +	}
-> +
-> +	cppi5_tr_csf_set(&tr_req[tr_idx - 1].flags, csf | CPPI5_TR_CSF_EOP);
-> +
-> +	return d;
-> +}
-> +
-> +static int udma_configure_statictr(struct udma_chan *uc, struct udma_desc *d,
-> +			    enum dma_slave_buswidth dev_width,
-> +			    u16 elcnt)
-> +{
-> +	if (uc->config.ep_type != PSIL_EP_PDMA_XY)
-> +		return 0;
-> +
-> +	/* Bus width translates to the element size (ES) */
-> +	switch (dev_width) {
-> +	case DMA_SLAVE_BUSWIDTH_1_BYTE:
-> +		d->static_tr.elsize = 0;
-> +		break;
-> +	case DMA_SLAVE_BUSWIDTH_2_BYTES:
-> +		d->static_tr.elsize = 1;
-> +		break;
-> +	case DMA_SLAVE_BUSWIDTH_3_BYTES:
-> +		d->static_tr.elsize = 2;
-> +		break;
-> +	case DMA_SLAVE_BUSWIDTH_4_BYTES:
-> +		d->static_tr.elsize = 3;
-> +		break;
-> +	case DMA_SLAVE_BUSWIDTH_8_BYTES:
-> +		d->static_tr.elsize = 4;
-> +		break;
-> +	default: /* not reached */
-> +		return -EINVAL;
-> +	}
-> +
-> +	d->static_tr.elcnt = elcnt;
-> +
-> +	if (uc->config.pkt_mode || !uc->cyclic) {
-> +		/*
-> +		 * PDMA must close the packet when the channel is in packet mode.
-> +		 * For TR mode when the channel is not cyclic we also need PDMA
-> +		 * to close the packet otherwise the transfer will stall because
-> +		 * PDMA holds on the data it has received from the peripheral.
-> +		 */
-> +		unsigned int div = dev_width * elcnt;
-> +
-> +		if (uc->cyclic)
-> +			d->static_tr.bstcnt = d->residue / d->sglen / div;
-> +		else
-> +			d->static_tr.bstcnt = d->residue / div;
-> +	} else if (uc->ud->match_data->type == DMA_TYPE_BCDMA &&
-> +		   uc->config.dir == DMA_DEV_TO_MEM &&
-> +		   uc->cyclic) {
-> +		/*
-> +		 * For cyclic mode with BCDMA we have to set EOP in each TR to
-> +		 * prevent short packet errors seen on channel teardown. So the
-> +		 * PDMA must close the packet after every TR transfer by setting
-> +		 * burst count equal to the number of bytes transferred.
-> +		 */
-> +		struct cppi5_tr_type1_t *tr_req = d->hwdesc[0].tr_req_base;
-> +
-> +		d->static_tr.bstcnt =
-> +			(tr_req->icnt0 * tr_req->icnt1) / dev_width;
-> +	} else {
-> +		d->static_tr.bstcnt = 0;
-> +	}
-> +
-> +	if (uc->config.dir == DMA_DEV_TO_MEM &&
-> +	    d->static_tr.bstcnt > uc->ud->match_data->statictr_z_mask)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct udma_desc *
-> +udma_prep_slave_sg_pkt(struct udma_chan *uc, struct scatterlist *sgl,
-> +		       unsigned int sglen, enum dma_transfer_direction dir,
-> +		       unsigned long tx_flags, void *context)
-> +{
-> +	struct scatterlist *sgent;
-> +	struct cppi5_host_desc_t *h_desc = NULL;
-> +	struct udma_desc *d;
-> +	u32 ring_id;
-> +	unsigned int i;
-> +	u64 asel;
-> +
-> +	d = kzalloc_flex(*d, hwdesc, sglen, GFP_NOWAIT);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->sglen = sglen;
-> +	d->hwdesc_count = sglen;
-> +
-> +	if (dir == DMA_DEV_TO_MEM)
-> +		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> +	else
-> +		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> +
-> +	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> +		asel = 0;
-> +	else
-> +		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> +
-> +	for_each_sg(sgl, sgent, sglen, i) {
-> +		struct udma_hwdesc *hwdesc = &d->hwdesc[i];
-> +		dma_addr_t sg_addr = sg_dma_address(sgent);
-> +		struct cppi5_host_desc_t *desc;
-> +		size_t sg_len = sg_dma_len(sgent);
-> +
-> +		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> +							   GFP_NOWAIT,
-> +							   &hwdesc->cppi5_desc_paddr);
-> +		if (!hwdesc->cppi5_desc_vaddr) {
-> +			dev_err(uc->ud->dev,
-> +				"descriptor%d allocation failed\n", i);
-> +
-> +			udma_free_hwdesc(uc, d);
-> +			kfree(d);
-> +			return NULL;
-> +		}
-> +
-> +		d->residue += sg_len;
-> +		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> +		desc = hwdesc->cppi5_desc_vaddr;
-> +
-> +		if (i == 0) {
-> +			cppi5_hdesc_init(desc, 0, 0);
-> +			/* Flow and Packed ID */
-> +			cppi5_desc_set_pktids(&desc->hdr, uc->id,
-> +					      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> +			cppi5_desc_set_retpolicy(&desc->hdr, 0, ring_id);
-> +		} else {
-> +			cppi5_hdesc_reset_hbdesc(desc);
-> +			cppi5_desc_set_retpolicy(&desc->hdr, 0, 0xffff);
-> +		}
-> +
-> +		/* attach the sg buffer to the descriptor */
-> +		sg_addr |= asel;
-> +		cppi5_hdesc_attach_buf(desc, sg_addr, sg_len, sg_addr, sg_len);
-> +
-> +		/* Attach link as host buffer descriptor */
-> +		if (h_desc)
-> +			cppi5_hdesc_link_hbdesc(h_desc,
-> +						hwdesc->cppi5_desc_paddr | asel);
-> +
-> +		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA ||
-> +		    dir == DMA_MEM_TO_DEV)
-> +			h_desc = desc;
-> +	}
-> +
-> +	if (d->residue >= SZ_4M) {
-> +		dev_err(uc->ud->dev,
-> +			"%s: Transfer size %u is over the supported 4M range\n",
-> +			__func__, d->residue);
-> +		udma_free_hwdesc(uc, d);
-> +		kfree(d);
-> +		return NULL;
-> +	}
-> +
-> +	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> +	cppi5_hdesc_set_pktlen(h_desc, d->residue);
-> +
-> +	return d;
-> +}
-> +
-> +int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
-> +			 void *data, size_t len)
-> +{
-> +	struct udma_desc *d = to_udma_desc(desc);
-> +	struct udma_chan *uc = to_udma_chan(desc->chan);
-> +	struct cppi5_host_desc_t *h_desc;
-> +	u32 psd_size = len;
-> +	u32 flags = 0;
-> +
-> +	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!data || len > uc->config.metadata_size)
-> +		return -EINVAL;
-> +
-> +	if (uc->config.needs_epib && len < CPPI5_INFO0_HDESC_EPIB_SIZE)
-> +		return -EINVAL;
-> +
-> +	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> +	if (d->dir == DMA_MEM_TO_DEV)
-> +		memcpy(h_desc->epib, data, len);
-> +
-> +	if (uc->config.needs_epib)
-> +		psd_size -= CPPI5_INFO0_HDESC_EPIB_SIZE;
-> +
-> +	d->metadata = data;
-> +	d->metadata_size = len;
-> +	if (uc->config.needs_epib)
-> +		flags |= CPPI5_INFO0_HDESC_EPIB_PRESENT;
-> +
-> +	cppi5_hdesc_update_flags(h_desc, flags);
-> +	cppi5_hdesc_update_psdata_size(h_desc, psd_size);
-> +
-> +	return 0;
-> +}
-> +
-> +void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
-> +			    size_t *payload_len, size_t *max_len)
-> +{
-> +	struct udma_desc *d = to_udma_desc(desc);
-> +	struct udma_chan *uc = to_udma_chan(desc->chan);
-> +	struct cppi5_host_desc_t *h_desc;
-> +
-> +	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> +		return ERR_PTR(-EOPNOTSUPP);
-> +
-> +	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> +
-> +	*max_len = uc->config.metadata_size;
-> +
-> +	*payload_len = cppi5_hdesc_epib_present(&h_desc->hdr) ?
-> +		       CPPI5_INFO0_HDESC_EPIB_SIZE : 0;
-> +	*payload_len += cppi5_hdesc_get_psdata_size(h_desc);
-> +
-> +	return h_desc->epib;
-> +}
-> +
-> +int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
-> +			  size_t payload_len)
-> +{
-> +	struct udma_desc *d = to_udma_desc(desc);
-> +	struct udma_chan *uc = to_udma_chan(desc->chan);
-> +	struct cppi5_host_desc_t *h_desc;
-> +	u32 psd_size = payload_len;
-> +	u32 flags = 0;
-> +
-> +	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (payload_len > uc->config.metadata_size)
-> +		return -EINVAL;
-> +
-> +	if (uc->config.needs_epib && payload_len < CPPI5_INFO0_HDESC_EPIB_SIZE)
-> +		return -EINVAL;
-> +
-> +	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> +
-> +	if (uc->config.needs_epib) {
-> +		psd_size -= CPPI5_INFO0_HDESC_EPIB_SIZE;
-> +		flags |= CPPI5_INFO0_HDESC_EPIB_PRESENT;
-> +	}
-> +
-> +	cppi5_hdesc_update_flags(h_desc, flags);
-> +	cppi5_hdesc_update_psdata_size(h_desc, psd_size);
-> +
-> +	return 0;
-> +}
-> +
-> +struct dma_async_tx_descriptor *
-> +udma_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
-> +		   unsigned int sglen, enum dma_transfer_direction dir,
-> +		   unsigned long tx_flags, void *context)
-> +{
-> +	struct udma_chan *uc = to_udma_chan(chan);
-> +	enum dma_slave_buswidth dev_width;
-> +	struct udma_desc *d;
-> +	u32 burst;
-> +
-> +	if (dir != uc->config.dir &&
-> +	    (uc->config.dir == DMA_MEM_TO_MEM && !uc->config.tr_trigger_type)) {
-> +		dev_err(chan->device->dev,
-> +			"%s: chan%d is for %s, not supporting %s\n",
-> +			__func__, uc->id,
-> +			dmaengine_get_direction_text(uc->config.dir),
-> +			dmaengine_get_direction_text(dir));
-> +		return NULL;
-> +	}
-> +
-> +	if (dir == DMA_DEV_TO_MEM) {
-> +		dev_width = uc->cfg.src_addr_width;
-> +		burst = uc->cfg.src_maxburst;
-> +	} else if (dir == DMA_MEM_TO_DEV) {
-> +		dev_width = uc->cfg.dst_addr_width;
-> +		burst = uc->cfg.dst_maxburst;
-> +	} else {
-> +		dev_err(chan->device->dev, "%s: bad direction?\n", __func__);
-> +		return NULL;
-> +	}
-> +
-> +	if (!burst)
-> +		burst = 1;
-> +
-> +	uc->config.tx_flags = tx_flags;
-> +
-> +	if (uc->config.pkt_mode)
-> +		d = udma_prep_slave_sg_pkt(uc, sgl, sglen, dir, tx_flags,
-> +					   context);
-> +	else if (is_slave_direction(uc->config.dir))
-> +		d = udma_prep_slave_sg_tr(uc, sgl, sglen, dir, tx_flags,
-> +					  context);
-> +	else
-> +		d = udma_prep_slave_sg_triggered_tr(uc, sgl, sglen, dir,
-> +						    tx_flags, context);
-> +
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->dir = dir;
-> +	d->desc_idx = 0;
-> +	d->tr_idx = 0;
-> +
-> +	/* static TR for remote PDMA */
-> +	if (udma_configure_statictr(uc, d, dev_width, burst)) {
-> +		dev_err(uc->ud->dev,
-> +			"%s: StaticTR Z is limited to maximum %u (%u)\n",
-> +			__func__, uc->ud->match_data->statictr_z_mask,
-> +			d->static_tr.bstcnt);
-> +
-> +		udma_free_hwdesc(uc, d);
-> +		kfree(d);
-> +		return NULL;
-> +	}
-> +
-> +	if (uc->config.metadata_size)
-> +		d->vd.tx.metadata_ops = &metadata_ops;
-> +
-> +	return vchan_tx_prep(&uc->vc, &d->vd, tx_flags);
-> +}
-> +EXPORT_SYMBOL_GPL(udma_prep_slave_sg);
-> +
-> +static struct udma_desc *
-> +udma_prep_dma_cyclic_tr(struct udma_chan *uc, dma_addr_t buf_addr,
-> +			size_t buf_len, size_t period_len,
-> +			enum dma_transfer_direction dir, unsigned long flags)
-> +{
-> +	struct udma_desc *d;
-> +	size_t tr_size, period_addr;
-> +	struct cppi5_tr_type1_t *tr_req;
-> +	unsigned int periods = buf_len / period_len;
-> +	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> +	unsigned int i;
-> +	int num_tr;
-> +	u32 period_csf = 0;
-> +
-> +	num_tr = udma_get_tr_counters(period_len, __ffs(buf_addr), &tr0_cnt0,
-> +				      &tr0_cnt1, &tr1_cnt0);
-> +	if (num_tr < 0) {
-> +		dev_err(uc->ud->dev, "size %zu is not supported\n",
-> +			period_len);
-> +		return NULL;
-> +	}
-> +
-> +	/* Now allocate and setup the descriptor. */
-> +	tr_size = sizeof(struct cppi5_tr_type1_t);
-> +	d = udma_alloc_tr_desc(uc, tr_size, periods * num_tr, dir);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	tr_req = d->hwdesc[0].tr_req_base;
-> +	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> +		period_addr = buf_addr;
-> +	else
-> +		period_addr = buf_addr |
-> +			((u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT);
-> +
-> +	/*
-> +	 * For BCDMA <-> PDMA transfers, the EOP flag needs to be set on the
-> +	 * last TR of a descriptor, to mark the packet as complete.
-> +	 * This is required for getting the teardown completion message in case
-> +	 * of TX, and to avoid short-packet error in case of RX.
-> +	 *
-> +	 * As we are in cyclic mode, we do not know which period might be the
-> +	 * last one, so set the flag for each period.
-> +	 */
-> +	if (uc->config.ep_type == PSIL_EP_PDMA_XY &&
-> +	    uc->ud->match_data->type == DMA_TYPE_BCDMA) {
-> +		period_csf = CPPI5_TR_CSF_EOP;
-> +	}
-> +
-> +	for (i = 0; i < periods; i++) {
-> +		int tr_idx = i * num_tr;
-> +
-> +		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1, false,
-> +			      false, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +
-> +		tr_req[tr_idx].addr = period_addr;
-> +		tr_req[tr_idx].icnt0 = tr0_cnt0;
-> +		tr_req[tr_idx].icnt1 = tr0_cnt1;
-> +		tr_req[tr_idx].dim1 = tr0_cnt0;
-> +
-> +		if (num_tr == 2) {
-> +			cppi5_tr_csf_set(&tr_req[tr_idx].flags,
-> +					 CPPI5_TR_CSF_SUPR_EVT);
-> +			tr_idx++;
-> +
-> +			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1,
-> +				      false, false,
-> +				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +
-> +			tr_req[tr_idx].addr = period_addr + tr0_cnt1 * tr0_cnt0;
-> +			tr_req[tr_idx].icnt0 = tr1_cnt0;
-> +			tr_req[tr_idx].icnt1 = 1;
-> +			tr_req[tr_idx].dim1 = tr1_cnt0;
-> +		}
-> +
-> +		if (!(flags & DMA_PREP_INTERRUPT))
-> +			period_csf |= CPPI5_TR_CSF_SUPR_EVT;
-> +
-> +		if (period_csf)
-> +			cppi5_tr_csf_set(&tr_req[tr_idx].flags, period_csf);
-> +
-> +		period_addr += period_len;
-> +	}
-> +
-> +	return d;
-> +}
-> +
-> +static struct udma_desc *
-> +udma_prep_dma_cyclic_pkt(struct udma_chan *uc, dma_addr_t buf_addr,
-> +			 size_t buf_len, size_t period_len,
-> +			 enum dma_transfer_direction dir, unsigned long flags)
-> +{
-> +	struct udma_desc *d;
-> +	u32 ring_id;
-> +	int i;
-> +	int periods = buf_len / period_len;
-> +
-> +	if (periods > (K3_UDMA_DEFAULT_RING_SIZE - 1))
-> +		return NULL;
-> +
-> +	if (period_len >= SZ_4M)
-> +		return NULL;
-> +
-> +	d = kzalloc_flex(*d, hwdesc, periods, GFP_NOWAIT);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->hwdesc_count = periods;
-> +
-> +	/* TODO: re-check this... */
-> +	if (dir == DMA_DEV_TO_MEM)
-> +		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> +	else
-> +		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> +
-> +	if (uc->ud->match_data->type != DMA_TYPE_UDMA)
-> +		buf_addr |= (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> +
-> +	for (i = 0; i < periods; i++) {
-> +		struct udma_hwdesc *hwdesc = &d->hwdesc[i];
-> +		dma_addr_t period_addr = buf_addr + (period_len * i);
-> +		struct cppi5_host_desc_t *h_desc;
-> +
-> +		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> +							   GFP_NOWAIT,
-> +							   &hwdesc->cppi5_desc_paddr);
-> +		if (!hwdesc->cppi5_desc_vaddr) {
-> +			dev_err(uc->ud->dev,
-> +				"descriptor%d allocation failed\n", i);
-> +
-> +			udma_free_hwdesc(uc, d);
-> +			kfree(d);
-> +			return NULL;
-> +		}
-> +
-> +		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> +		h_desc = hwdesc->cppi5_desc_vaddr;
-> +
-> +		cppi5_hdesc_init(h_desc, 0, 0);
-> +		cppi5_hdesc_set_pktlen(h_desc, period_len);
-> +
-> +		/* Flow and Packed ID */
-> +		cppi5_desc_set_pktids(&h_desc->hdr, uc->id,
-> +				      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> +		cppi5_desc_set_retpolicy(&h_desc->hdr, 0, ring_id);
-> +
-> +		/* attach each period to a new descriptor */
-> +		cppi5_hdesc_attach_buf(h_desc,
-> +				       period_addr, period_len,
-> +				       period_addr, period_len);
-> +	}
-> +
-> +	return d;
-> +}
-> +
-> +struct dma_async_tx_descriptor *
-> +udma_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t buf_addr, size_t buf_len,
-> +		     size_t period_len, enum dma_transfer_direction dir,
-> +		     unsigned long flags)
-> +{
-> +	struct udma_chan *uc = to_udma_chan(chan);
-> +	enum dma_slave_buswidth dev_width;
-> +	struct udma_desc *d;
-> +	u32 burst;
-> +
-> +	if (dir != uc->config.dir) {
-> +		dev_err(chan->device->dev,
-> +			"%s: chan%d is for %s, not supporting %s\n",
-> +			__func__, uc->id,
-> +			dmaengine_get_direction_text(uc->config.dir),
-> +			dmaengine_get_direction_text(dir));
-> +		return NULL;
-> +	}
-> +
-> +	uc->cyclic = true;
-> +
-> +	if (dir == DMA_DEV_TO_MEM) {
-> +		dev_width = uc->cfg.src_addr_width;
-> +		burst = uc->cfg.src_maxburst;
-> +	} else if (dir == DMA_MEM_TO_DEV) {
-> +		dev_width = uc->cfg.dst_addr_width;
-> +		burst = uc->cfg.dst_maxburst;
-> +	} else {
-> +		dev_err(uc->ud->dev, "%s: bad direction?\n", __func__);
-> +		return NULL;
-> +	}
-> +
-> +	if (!burst)
-> +		burst = 1;
-> +
-> +	if (uc->config.pkt_mode)
-> +		d = udma_prep_dma_cyclic_pkt(uc, buf_addr, buf_len, period_len,
-> +					     dir, flags);
-> +	else
-> +		d = udma_prep_dma_cyclic_tr(uc, buf_addr, buf_len, period_len,
-> +					    dir, flags);
-> +
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->sglen = buf_len / period_len;
-> +
-> +	d->dir = dir;
-> +	d->residue = buf_len;
-> +
-> +	/* static TR for remote PDMA */
-> +	if (udma_configure_statictr(uc, d, dev_width, burst)) {
-> +		dev_err(uc->ud->dev,
-> +			"%s: StaticTR Z is limited to maximum %u (%u)\n",
-> +			__func__, uc->ud->match_data->statictr_z_mask,
-> +			d->static_tr.bstcnt);
-> +
-> +		udma_free_hwdesc(uc, d);
-> +		kfree(d);
-> +		return NULL;
-> +	}
-> +
-> +	if (uc->config.metadata_size)
-> +		d->vd.tx.metadata_ops = &metadata_ops;
-> +
-> +	return vchan_tx_prep(&uc->vc, &d->vd, flags);
-> +}
-> +EXPORT_SYMBOL_GPL(udma_prep_dma_cyclic);
-> +
-> +struct dma_async_tx_descriptor *
-> +udma_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dest, dma_addr_t src,
-> +		     size_t len, unsigned long tx_flags)
-> +{
-> +	struct udma_chan *uc = to_udma_chan(chan);
-> +	struct udma_desc *d;
-> +	struct cppi5_tr_type15_t *tr_req;
-> +	int num_tr;
-> +	size_t tr_size = sizeof(struct cppi5_tr_type15_t);
-> +	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> +	u32 csf = CPPI5_TR_CSF_SUPR_EVT;
-> +
-> +	if (uc->config.dir != DMA_MEM_TO_MEM) {
-> +		dev_err(chan->device->dev,
-> +			"%s: chan%d is for %s, not supporting %s\n",
-> +			__func__, uc->id,
-> +			dmaengine_get_direction_text(uc->config.dir),
-> +			dmaengine_get_direction_text(DMA_MEM_TO_MEM));
-> +		return NULL;
-> +	}
-> +
-> +	num_tr = udma_get_tr_counters(len, __ffs(src | dest), &tr0_cnt0,
-> +				      &tr0_cnt1, &tr1_cnt0);
-> +	if (num_tr < 0) {
-> +		dev_err(uc->ud->dev, "size %zu is not supported\n",
-> +			len);
-> +		return NULL;
-> +	}
-> +
-> +	d = udma_alloc_tr_desc(uc, tr_size, num_tr, DMA_MEM_TO_MEM);
-> +	if (!d)
-> +		return NULL;
-> +
-> +	d->dir = DMA_MEM_TO_MEM;
-> +	d->desc_idx = 0;
-> +	d->tr_idx = 0;
-> +	d->residue = len;
-> +
-> +	if (uc->ud->match_data->type != DMA_TYPE_UDMA) {
-> +		src |= (u64)uc->ud->asel << K3_ADDRESS_ASEL_SHIFT;
-> +		dest |= (u64)uc->ud->asel << K3_ADDRESS_ASEL_SHIFT;
-> +	} else {
-> +		csf |= CPPI5_TR_CSF_EOL_ICNT0;
-> +	}
-> +
-> +	tr_req = d->hwdesc[0].tr_req_base;
-> +
-> +	cppi5_tr_init(&tr_req[0].flags, CPPI5_TR_TYPE15, false, true,
-> +		      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +	cppi5_tr_csf_set(&tr_req[0].flags, csf);
-> +
-> +	tr_req[0].addr = src;
-> +	tr_req[0].icnt0 = tr0_cnt0;
-> +	tr_req[0].icnt1 = tr0_cnt1;
-> +	tr_req[0].icnt2 = 1;
-> +	tr_req[0].icnt3 = 1;
-> +	tr_req[0].dim1 = tr0_cnt0;
-> +
-> +	tr_req[0].daddr = dest;
-> +	tr_req[0].dicnt0 = tr0_cnt0;
-> +	tr_req[0].dicnt1 = tr0_cnt1;
-> +	tr_req[0].dicnt2 = 1;
-> +	tr_req[0].dicnt3 = 1;
-> +	tr_req[0].ddim1 = tr0_cnt0;
-> +
-> +	if (num_tr == 2) {
-> +		cppi5_tr_init(&tr_req[1].flags, CPPI5_TR_TYPE15, false, true,
-> +			      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> +		cppi5_tr_csf_set(&tr_req[1].flags, csf);
-> +
-> +		tr_req[1].addr = src + tr0_cnt1 * tr0_cnt0;
-> +		tr_req[1].icnt0 = tr1_cnt0;
-> +		tr_req[1].icnt1 = 1;
-> +		tr_req[1].icnt2 = 1;
-> +		tr_req[1].icnt3 = 1;
-> +
-> +		tr_req[1].daddr = dest + tr0_cnt1 * tr0_cnt0;
-> +		tr_req[1].dicnt0 = tr1_cnt0;
-> +		tr_req[1].dicnt1 = 1;
-> +		tr_req[1].dicnt2 = 1;
-> +		tr_req[1].dicnt3 = 1;
-> +	}
-> +
-> +	cppi5_tr_csf_set(&tr_req[num_tr - 1].flags, csf | CPPI5_TR_CSF_EOP);
-> +
-> +	if (uc->config.metadata_size)
-> +		d->vd.tx.metadata_ops = &metadata_ops;
-> +
-> +	return vchan_tx_prep(&uc->vc, &d->vd, tx_flags);
-> +}
-> +EXPORT_SYMBOL_GPL(udma_prep_dma_memcpy);
-> +
-> +void udma_desc_pre_callback(struct virt_dma_chan *vc,
-> +			    struct virt_dma_desc *vd,
-> +			    struct dmaengine_result *result)
-> +{
-> +	struct udma_chan *uc = to_udma_chan(&vc->chan);
-> +	struct udma_desc *d;
-> +	u8 status;
-> +
-> +	if (!vd)
-> +		return;
-> +
-> +	d = to_udma_desc(&vd->tx);
-> +
-> +	if (d->metadata_size)
-> +		udma_fetch_epib(uc, d);
-> +
-> +	if (result) {
-> +		void *desc_vaddr = udma_curr_cppi5_desc_vaddr(d, d->desc_idx);
-> +
-> +		if (cppi5_desc_get_type(desc_vaddr) ==
-> +		    CPPI5_INFO0_DESC_TYPE_VAL_HOST) {
-> +			/* Provide residue information for the client */
-> +			result->residue = d->residue -
-> +					  cppi5_hdesc_get_pktlen(desc_vaddr);
-> +			if (result->residue)
-> +				result->result = DMA_TRANS_ABORTED;
-> +			else
-> +				result->result = DMA_TRANS_NOERROR;
-> +		} else {
-> +			result->residue = 0;
-> +			/* Propagate TR Response errors to the client */
-> +			status = d->hwdesc[0].tr_resp_base->status;
-> +			if (status)
-> +				result->result = DMA_TRANS_ABORTED;
-> +			else
-> +				result->result = DMA_TRANS_NOERROR;
-> +		}
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(udma_desc_pre_callback);
-> +
-> +MODULE_DESCRIPTION("Texas Instruments K3 UDMA Common Library");
-> +MODULE_LICENSE("GPL v2");
-> diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-> index 5336ec9fe79ce..a8fe919f307f6 100644
-> --- a/drivers/dma/ti/k3-udma.c
-> +++ b/drivers/dma/ti/k3-udma.c
-> @@ -131,105 +131,6 @@ static void udma_dump_chan_stdata(struct udma_chan *uc)
->  	}
->  }
->
-> -static struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
-> -						   dma_addr_t paddr)
-> -{
-> -	struct udma_desc *d = uc->terminated_desc;
-> -
-> -	if (d) {
-> -		dma_addr_t desc_paddr = udma_curr_cppi5_desc_paddr(d,
-> -								   d->desc_idx);
-> -
-> -		if (desc_paddr != paddr)
-> -			d = NULL;
-> -	}
-> -
-> -	if (!d) {
-> -		d = uc->desc;
-> -		if (d) {
-> -			dma_addr_t desc_paddr = udma_curr_cppi5_desc_paddr(d,
-> -								d->desc_idx);
-> -
-> -			if (desc_paddr != paddr)
-> -				d = NULL;
-> -		}
-> -	}
-> -
-> -	return d;
-> -}
-> -
-> -static void udma_free_hwdesc(struct udma_chan *uc, struct udma_desc *d)
-> -{
-> -	if (uc->use_dma_pool) {
-> -		int i;
-> -
-> -		for (i = 0; i < d->hwdesc_count; i++) {
-> -			if (!d->hwdesc[i].cppi5_desc_vaddr)
-> -				continue;
-> -
-> -			dma_pool_free(uc->hdesc_pool,
-> -				      d->hwdesc[i].cppi5_desc_vaddr,
-> -				      d->hwdesc[i].cppi5_desc_paddr);
-> -
-> -			d->hwdesc[i].cppi5_desc_vaddr = NULL;
-> -		}
-> -	} else if (d->hwdesc[0].cppi5_desc_vaddr) {
-> -		dma_free_coherent(uc->dma_dev, d->hwdesc[0].cppi5_desc_size,
-> -				  d->hwdesc[0].cppi5_desc_vaddr,
-> -				  d->hwdesc[0].cppi5_desc_paddr);
-> -
-> -		d->hwdesc[0].cppi5_desc_vaddr = NULL;
-> -	}
-> -}
-> -
-> -static void udma_purge_desc_work(struct work_struct *work)
-> -{
-> -	struct udma_dev *ud = container_of(work, typeof(*ud), purge_work);
-> -	struct virt_dma_desc *vd, *_vd;
-> -	unsigned long flags;
-> -	LIST_HEAD(head);
-> -
-> -	spin_lock_irqsave(&ud->lock, flags);
-> -	list_splice_tail_init(&ud->desc_to_purge, &head);
-> -	spin_unlock_irqrestore(&ud->lock, flags);
-> -
-> -	list_for_each_entry_safe(vd, _vd, &head, node) {
-> -		struct udma_chan *uc = to_udma_chan(vd->tx.chan);
-> -		struct udma_desc *d = to_udma_desc(&vd->tx);
-> -
-> -		udma_free_hwdesc(uc, d);
-> -		list_del(&vd->node);
-> -		kfree(d);
-> -	}
-> -
-> -	/* If more to purge, schedule the work again */
-> -	if (!list_empty(&ud->desc_to_purge))
-> -		schedule_work(&ud->purge_work);
-> -}
-> -
-> -static void udma_desc_free(struct virt_dma_desc *vd)
-> -{
-> -	struct udma_dev *ud = to_udma_dev(vd->tx.chan->device);
-> -	struct udma_chan *uc = to_udma_chan(vd->tx.chan);
-> -	struct udma_desc *d = to_udma_desc(&vd->tx);
-> -	unsigned long flags;
-> -
-> -	if (uc->terminated_desc == d)
-> -		uc->terminated_desc = NULL;
-> -
-> -	if (uc->use_dma_pool) {
-> -		udma_free_hwdesc(uc, d);
-> -		kfree(d);
-> -		return;
-> -	}
-> -
-> -	spin_lock_irqsave(&ud->lock, flags);
-> -	list_add_tail(&vd->node, &ud->desc_to_purge);
-> -	spin_unlock_irqrestore(&ud->lock, flags);
-> -
-> -	schedule_work(&ud->purge_work);
-> -}
-> -
->  static bool udma_is_chan_running(struct udma_chan *uc)
->  {
->  	u32 trt_ctl = 0;
-> @@ -303,17 +204,6 @@ static int udma_push_to_ring(struct udma_chan *uc, int idx)
->  	return k3_ringacc_ring_push(ring, &paddr);
->  }
->
-> -static bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr)
-> -{
-> -	if (uc->config.dir != DMA_DEV_TO_MEM)
-> -		return false;
-> -
-> -	if (addr == udma_get_rx_flush_hwdesc_paddr(uc))
-> -		return true;
-> -
-> -	return false;
-> -}
-> -
->  static int udma_pop_from_ring(struct udma_chan *uc, dma_addr_t *addr)
->  {
->  	struct k3_ring *ring = NULL;
-> @@ -674,33 +564,6 @@ static void udma_cyclic_packet_elapsed(struct udma_chan *uc)
->  	d->desc_idx = (d->desc_idx + 1) % d->sglen;
->  }
->
-> -static bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d)
-> -{
-> -	u32 peer_bcnt, bcnt;
-> -
-> -	/*
-> -	 * Only TX towards PDMA is affected.
-> -	 * If DMA_PREP_INTERRUPT is not set by consumer then skip the transfer
-> -	 * completion calculation, consumer must ensure that there is no stale
-> -	 * data in DMA fabric in this case.
-> -	 */
-> -	if (uc->config.ep_type == PSIL_EP_NATIVE ||
-> -	    uc->config.dir != DMA_MEM_TO_DEV || !(uc->config.tx_flags & DMA_PREP_INTERRUPT))
-> -		return true;
-> -
-> -	peer_bcnt = udma_tchanrt_read(uc, UDMA_CHAN_RT_PEER_BCNT_REG);
-> -	bcnt = udma_tchanrt_read(uc, UDMA_CHAN_RT_BCNT_REG);
-> -
-> -	/* Transfer is incomplete, store current residue and time stamp */
-> -	if (peer_bcnt < bcnt) {
-> -		uc->tx_drain.residue = bcnt - peer_bcnt;
-> -		uc->tx_drain.tstamp = ktime_get();
-> -		return false;
-> -	}
-> -
-> -	return true;
-> -}
-> -
->  static void udma_check_tx_completion(struct work_struct *work)
->  {
->  	struct udma_chan *uc = container_of(work, typeof(*uc),
-> @@ -2344,1047 +2207,6 @@ static int udma_slave_config(struct dma_chan *chan,
->  	return 0;
->  }
->
-> -static struct udma_desc *udma_alloc_tr_desc(struct udma_chan *uc,
-> -					    size_t tr_size, int tr_count,
-> -					    enum dma_transfer_direction dir)
-> -{
-> -	struct udma_hwdesc *hwdesc;
-> -	struct cppi5_desc_hdr_t *tr_desc;
-> -	struct udma_desc *d;
-> -	u32 reload_count = 0;
-> -	u32 ring_id;
-> -
-> -	switch (tr_size) {
-> -	case 16:
-> -	case 32:
-> -	case 64:
-> -	case 128:
-> -		break;
-> -	default:
-> -		dev_err(uc->ud->dev, "Unsupported TR size of %zu\n", tr_size);
-> -		return NULL;
-> -	}
-> -
-> -	/* We have only one descriptor containing multiple TRs */
-> -	d = kzalloc(sizeof(*d) + sizeof(d->hwdesc[0]), GFP_NOWAIT);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->sglen = tr_count;
-> -
-> -	d->hwdesc_count = 1;
-> -	hwdesc = &d->hwdesc[0];
-> -
-> -	/* Allocate memory for DMA ring descriptor */
-> -	if (uc->use_dma_pool) {
-> -		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> -		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> -						GFP_NOWAIT,
-> -						&hwdesc->cppi5_desc_paddr);
-> -	} else {
-> -		hwdesc->cppi5_desc_size = cppi5_trdesc_calc_size(tr_size,
-> -								 tr_count);
-> -		hwdesc->cppi5_desc_size = ALIGN(hwdesc->cppi5_desc_size,
-> -						uc->ud->desc_align);
-> -		hwdesc->cppi5_desc_vaddr = dma_alloc_coherent(uc->ud->dev,
-> -						hwdesc->cppi5_desc_size,
-> -						&hwdesc->cppi5_desc_paddr,
-> -						GFP_NOWAIT);
-> -	}
-> -
-> -	if (!hwdesc->cppi5_desc_vaddr) {
-> -		kfree(d);
-> -		return NULL;
-> -	}
-> -
-> -	/* Start of the TR req records */
-> -	hwdesc->tr_req_base = hwdesc->cppi5_desc_vaddr + tr_size;
-> -	/* Start address of the TR response array */
-> -	hwdesc->tr_resp_base = hwdesc->tr_req_base + tr_size * tr_count;
-> -
-> -	tr_desc = hwdesc->cppi5_desc_vaddr;
-> -
-> -	if (uc->cyclic)
-> -		reload_count = CPPI5_INFO0_TRDESC_RLDCNT_INFINITE;
-> -
-> -	if (dir == DMA_DEV_TO_MEM)
-> -		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> -	else
-> -		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> -
-> -	cppi5_trdesc_init(tr_desc, tr_count, tr_size, 0, reload_count);
-> -	cppi5_desc_set_pktids(tr_desc, uc->id,
-> -			      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> -	cppi5_desc_set_retpolicy(tr_desc, 0, ring_id);
-> -
-> -	return d;
-> -}
-> -
-> -/**
-> - * udma_get_tr_counters - calculate TR counters for a given length
-> - * @len: Length of the trasnfer
-> - * @align_to: Preferred alignment
-> - * @tr0_cnt0: First TR icnt0
-> - * @tr0_cnt1: First TR icnt1
-> - * @tr1_cnt0: Second (if used) TR icnt0
-> - *
-> - * For len < SZ_64K only one TR is enough, tr1_cnt0 is not updated
-> - * For len >= SZ_64K two TRs are used in a simple way:
-> - * First TR: SZ_64K-alignment blocks (tr0_cnt0, tr0_cnt1)
-> - * Second TR: the remaining length (tr1_cnt0)
-> - *
-> - * Returns the number of TRs the length needs (1 or 2)
-> - * -EINVAL if the length can not be supported
-> - */
-> -static int udma_get_tr_counters(size_t len, unsigned long align_to,
-> -				u16 *tr0_cnt0, u16 *tr0_cnt1, u16 *tr1_cnt0)
-> -{
-> -	if (len < SZ_64K) {
-> -		*tr0_cnt0 = len;
-> -		*tr0_cnt1 = 1;
-> -
-> -		return 1;
-> -	}
-> -
-> -	if (align_to > 3)
-> -		align_to = 3;
-> -
-> -realign:
-> -	*tr0_cnt0 = SZ_64K - BIT(align_to);
-> -	if (len / *tr0_cnt0 >= SZ_64K) {
-> -		if (align_to) {
-> -			align_to--;
-> -			goto realign;
-> -		}
-> -		return -EINVAL;
-> -	}
-> -
-> -	*tr0_cnt1 = len / *tr0_cnt0;
-> -	*tr1_cnt0 = len % *tr0_cnt0;
-> -
-> -	return 2;
-> -}
-> -
-> -static struct udma_desc *
-> -udma_prep_slave_sg_tr(struct udma_chan *uc, struct scatterlist *sgl,
-> -		      unsigned int sglen, enum dma_transfer_direction dir,
-> -		      unsigned long tx_flags, void *context)
-> -{
-> -	struct scatterlist *sgent;
-> -	struct udma_desc *d;
-> -	struct cppi5_tr_type1_t *tr_req = NULL;
-> -	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> -	unsigned int i;
-> -	size_t tr_size;
-> -	int num_tr = 0;
-> -	int tr_idx = 0;
-> -	u64 asel;
-> -
-> -	/* estimate the number of TRs we will need */
-> -	for_each_sg(sgl, sgent, sglen, i) {
-> -		if (sg_dma_len(sgent) < SZ_64K)
-> -			num_tr++;
-> -		else
-> -			num_tr += 2;
-> -	}
-> -
-> -	/* Now allocate and setup the descriptor. */
-> -	tr_size = sizeof(struct cppi5_tr_type1_t);
-> -	d = udma_alloc_tr_desc(uc, tr_size, num_tr, dir);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->sglen = sglen;
-> -
-> -	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> -		asel = 0;
-> -	else
-> -		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> -
-> -	tr_req = d->hwdesc[0].tr_req_base;
-> -	for_each_sg(sgl, sgent, sglen, i) {
-> -		dma_addr_t sg_addr = sg_dma_address(sgent);
-> -
-> -		num_tr = udma_get_tr_counters(sg_dma_len(sgent), __ffs(sg_addr),
-> -					      &tr0_cnt0, &tr0_cnt1, &tr1_cnt0);
-> -		if (num_tr < 0) {
-> -			dev_err(uc->ud->dev, "size %u is not supported\n",
-> -				sg_dma_len(sgent));
-> -			udma_free_hwdesc(uc, d);
-> -			kfree(d);
-> -			return NULL;
-> -		}
-> -
-> -		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1, false,
-> -			      false, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -		cppi5_tr_csf_set(&tr_req[tr_idx].flags, CPPI5_TR_CSF_SUPR_EVT);
-> -
-> -		sg_addr |= asel;
-> -		tr_req[tr_idx].addr = sg_addr;
-> -		tr_req[tr_idx].icnt0 = tr0_cnt0;
-> -		tr_req[tr_idx].icnt1 = tr0_cnt1;
-> -		tr_req[tr_idx].dim1 = tr0_cnt0;
-> -		tr_idx++;
-> -
-> -		if (num_tr == 2) {
-> -			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1,
-> -				      false, false,
-> -				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -			cppi5_tr_csf_set(&tr_req[tr_idx].flags,
-> -					 CPPI5_TR_CSF_SUPR_EVT);
-> -
-> -			tr_req[tr_idx].addr = sg_addr + tr0_cnt1 * tr0_cnt0;
-> -			tr_req[tr_idx].icnt0 = tr1_cnt0;
-> -			tr_req[tr_idx].icnt1 = 1;
-> -			tr_req[tr_idx].dim1 = tr1_cnt0;
-> -			tr_idx++;
-> -		}
-> -
-> -		d->residue += sg_dma_len(sgent);
-> -	}
-> -
-> -	cppi5_tr_csf_set(&tr_req[tr_idx - 1].flags,
-> -			 CPPI5_TR_CSF_SUPR_EVT | CPPI5_TR_CSF_EOP);
-> -
-> -	return d;
-> -}
-> -
-> -static struct udma_desc *
-> -udma_prep_slave_sg_triggered_tr(struct udma_chan *uc, struct scatterlist *sgl,
-> -				unsigned int sglen,
-> -				enum dma_transfer_direction dir,
-> -				unsigned long tx_flags, void *context)
-> -{
-> -	struct scatterlist *sgent;
-> -	struct cppi5_tr_type15_t *tr_req = NULL;
-> -	enum dma_slave_buswidth dev_width;
-> -	u32 csf = CPPI5_TR_CSF_SUPR_EVT;
-> -	u16 tr_cnt0, tr_cnt1;
-> -	dma_addr_t dev_addr;
-> -	struct udma_desc *d;
-> -	unsigned int i;
-> -	size_t tr_size, sg_len;
-> -	int num_tr = 0;
-> -	int tr_idx = 0;
-> -	u32 burst, trigger_size, port_window;
-> -	u64 asel;
-> -
-> -	if (dir == DMA_DEV_TO_MEM) {
-> -		dev_addr = uc->cfg.src_addr;
-> -		dev_width = uc->cfg.src_addr_width;
-> -		burst = uc->cfg.src_maxburst;
-> -		port_window = uc->cfg.src_port_window_size;
-> -	} else if (dir == DMA_MEM_TO_DEV) {
-> -		dev_addr = uc->cfg.dst_addr;
-> -		dev_width = uc->cfg.dst_addr_width;
-> -		burst = uc->cfg.dst_maxburst;
-> -		port_window = uc->cfg.dst_port_window_size;
-> -	} else {
-> -		dev_err(uc->ud->dev, "%s: bad direction?\n", __func__);
-> -		return NULL;
-> -	}
-> -
-> -	if (!burst)
-> -		burst = 1;
-> -
-> -	if (port_window) {
-> -		if (port_window != burst) {
-> -			dev_err(uc->ud->dev,
-> -				"The burst must be equal to port_window\n");
-> -			return NULL;
-> -		}
-> -
-> -		tr_cnt0 = dev_width * port_window;
-> -		tr_cnt1 = 1;
-> -	} else {
-> -		tr_cnt0 = dev_width;
-> -		tr_cnt1 = burst;
-> -	}
-> -	trigger_size = tr_cnt0 * tr_cnt1;
-> -
-> -	/* estimate the number of TRs we will need */
-> -	for_each_sg(sgl, sgent, sglen, i) {
-> -		sg_len = sg_dma_len(sgent);
-> -
-> -		if (sg_len % trigger_size) {
-> -			dev_err(uc->ud->dev,
-> -				"Not aligned SG entry (%zu for %u)\n", sg_len,
-> -				trigger_size);
-> -			return NULL;
-> -		}
-> -
-> -		if (sg_len / trigger_size < SZ_64K)
-> -			num_tr++;
-> -		else
-> -			num_tr += 2;
-> -	}
-> -
-> -	/* Now allocate and setup the descriptor. */
-> -	tr_size = sizeof(struct cppi5_tr_type15_t);
-> -	d = udma_alloc_tr_desc(uc, tr_size, num_tr, dir);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->sglen = sglen;
-> -
-> -	if (uc->ud->match_data->type == DMA_TYPE_UDMA) {
-> -		asel = 0;
-> -		csf |= CPPI5_TR_CSF_EOL_ICNT0;
-> -	} else {
-> -		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> -		dev_addr |= asel;
-> -	}
-> -
-> -	tr_req = d->hwdesc[0].tr_req_base;
-> -	for_each_sg(sgl, sgent, sglen, i) {
-> -		u16 tr0_cnt2, tr0_cnt3, tr1_cnt2;
-> -		dma_addr_t sg_addr = sg_dma_address(sgent);
-> -
-> -		sg_len = sg_dma_len(sgent);
-> -		num_tr = udma_get_tr_counters(sg_len / trigger_size, 0,
-> -					      &tr0_cnt2, &tr0_cnt3, &tr1_cnt2);
-> -		if (num_tr < 0) {
-> -			dev_err(uc->ud->dev, "size %zu is not supported\n",
-> -				sg_len);
-> -			udma_free_hwdesc(uc, d);
-> -			kfree(d);
-> -			return NULL;
-> -		}
-> -
-> -		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE15, false,
-> -			      true, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -		cppi5_tr_csf_set(&tr_req[tr_idx].flags, csf);
-> -		cppi5_tr_set_trigger(&tr_req[tr_idx].flags,
-> -				     uc->config.tr_trigger_type,
-> -				     CPPI5_TR_TRIGGER_TYPE_ICNT2_DEC, 0, 0);
-> -
-> -		sg_addr |= asel;
-> -		if (dir == DMA_DEV_TO_MEM) {
-> -			tr_req[tr_idx].addr = dev_addr;
-> -			tr_req[tr_idx].icnt0 = tr_cnt0;
-> -			tr_req[tr_idx].icnt1 = tr_cnt1;
-> -			tr_req[tr_idx].icnt2 = tr0_cnt2;
-> -			tr_req[tr_idx].icnt3 = tr0_cnt3;
-> -			tr_req[tr_idx].dim1 = (-1) * tr_cnt0;
-> -
-> -			tr_req[tr_idx].daddr = sg_addr;
-> -			tr_req[tr_idx].dicnt0 = tr_cnt0;
-> -			tr_req[tr_idx].dicnt1 = tr_cnt1;
-> -			tr_req[tr_idx].dicnt2 = tr0_cnt2;
-> -			tr_req[tr_idx].dicnt3 = tr0_cnt3;
-> -			tr_req[tr_idx].ddim1 = tr_cnt0;
-> -			tr_req[tr_idx].ddim2 = trigger_size;
-> -			tr_req[tr_idx].ddim3 = trigger_size * tr0_cnt2;
-> -		} else {
-> -			tr_req[tr_idx].addr = sg_addr;
-> -			tr_req[tr_idx].icnt0 = tr_cnt0;
-> -			tr_req[tr_idx].icnt1 = tr_cnt1;
-> -			tr_req[tr_idx].icnt2 = tr0_cnt2;
-> -			tr_req[tr_idx].icnt3 = tr0_cnt3;
-> -			tr_req[tr_idx].dim1 = tr_cnt0;
-> -			tr_req[tr_idx].dim2 = trigger_size;
-> -			tr_req[tr_idx].dim3 = trigger_size * tr0_cnt2;
-> -
-> -			tr_req[tr_idx].daddr = dev_addr;
-> -			tr_req[tr_idx].dicnt0 = tr_cnt0;
-> -			tr_req[tr_idx].dicnt1 = tr_cnt1;
-> -			tr_req[tr_idx].dicnt2 = tr0_cnt2;
-> -			tr_req[tr_idx].dicnt3 = tr0_cnt3;
-> -			tr_req[tr_idx].ddim1 = (-1) * tr_cnt0;
-> -		}
-> -
-> -		tr_idx++;
-> -
-> -		if (num_tr == 2) {
-> -			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE15,
-> -				      false, true,
-> -				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -			cppi5_tr_csf_set(&tr_req[tr_idx].flags, csf);
-> -			cppi5_tr_set_trigger(&tr_req[tr_idx].flags,
-> -					     uc->config.tr_trigger_type,
-> -					     CPPI5_TR_TRIGGER_TYPE_ICNT2_DEC,
-> -					     0, 0);
-> -
-> -			sg_addr += trigger_size * tr0_cnt2 * tr0_cnt3;
-> -			if (dir == DMA_DEV_TO_MEM) {
-> -				tr_req[tr_idx].addr = dev_addr;
-> -				tr_req[tr_idx].icnt0 = tr_cnt0;
-> -				tr_req[tr_idx].icnt1 = tr_cnt1;
-> -				tr_req[tr_idx].icnt2 = tr1_cnt2;
-> -				tr_req[tr_idx].icnt3 = 1;
-> -				tr_req[tr_idx].dim1 = (-1) * tr_cnt0;
-> -
-> -				tr_req[tr_idx].daddr = sg_addr;
-> -				tr_req[tr_idx].dicnt0 = tr_cnt0;
-> -				tr_req[tr_idx].dicnt1 = tr_cnt1;
-> -				tr_req[tr_idx].dicnt2 = tr1_cnt2;
-> -				tr_req[tr_idx].dicnt3 = 1;
-> -				tr_req[tr_idx].ddim1 = tr_cnt0;
-> -				tr_req[tr_idx].ddim2 = trigger_size;
-> -			} else {
-> -				tr_req[tr_idx].addr = sg_addr;
-> -				tr_req[tr_idx].icnt0 = tr_cnt0;
-> -				tr_req[tr_idx].icnt1 = tr_cnt1;
-> -				tr_req[tr_idx].icnt2 = tr1_cnt2;
-> -				tr_req[tr_idx].icnt3 = 1;
-> -				tr_req[tr_idx].dim1 = tr_cnt0;
-> -				tr_req[tr_idx].dim2 = trigger_size;
-> -
-> -				tr_req[tr_idx].daddr = dev_addr;
-> -				tr_req[tr_idx].dicnt0 = tr_cnt0;
-> -				tr_req[tr_idx].dicnt1 = tr_cnt1;
-> -				tr_req[tr_idx].dicnt2 = tr1_cnt2;
-> -				tr_req[tr_idx].dicnt3 = 1;
-> -				tr_req[tr_idx].ddim1 = (-1) * tr_cnt0;
-> -			}
-> -			tr_idx++;
-> -		}
-> -
-> -		d->residue += sg_len;
-> -	}
-> -
-> -	cppi5_tr_csf_set(&tr_req[tr_idx - 1].flags, csf | CPPI5_TR_CSF_EOP);
-> -
-> -	return d;
-> -}
-> -
-> -static int udma_configure_statictr(struct udma_chan *uc, struct udma_desc *d,
-> -				   enum dma_slave_buswidth dev_width,
-> -				   u16 elcnt)
-> -{
-> -	if (uc->config.ep_type != PSIL_EP_PDMA_XY)
-> -		return 0;
-> -
-> -	/* Bus width translates to the element size (ES) */
-> -	switch (dev_width) {
-> -	case DMA_SLAVE_BUSWIDTH_1_BYTE:
-> -		d->static_tr.elsize = 0;
-> -		break;
-> -	case DMA_SLAVE_BUSWIDTH_2_BYTES:
-> -		d->static_tr.elsize = 1;
-> -		break;
-> -	case DMA_SLAVE_BUSWIDTH_3_BYTES:
-> -		d->static_tr.elsize = 2;
-> -		break;
-> -	case DMA_SLAVE_BUSWIDTH_4_BYTES:
-> -		d->static_tr.elsize = 3;
-> -		break;
-> -	case DMA_SLAVE_BUSWIDTH_8_BYTES:
-> -		d->static_tr.elsize = 4;
-> -		break;
-> -	default: /* not reached */
-> -		return -EINVAL;
-> -	}
-> -
-> -	d->static_tr.elcnt = elcnt;
-> -
-> -	if (uc->config.pkt_mode || !uc->cyclic) {
-> -		/*
-> -		 * PDMA must close the packet when the channel is in packet mode.
-> -		 * For TR mode when the channel is not cyclic we also need PDMA
-> -		 * to close the packet otherwise the transfer will stall because
-> -		 * PDMA holds on the data it has received from the peripheral.
-> -		 */
-> -		unsigned int div = dev_width * elcnt;
-> -
-> -		if (uc->cyclic)
-> -			d->static_tr.bstcnt = d->residue / d->sglen / div;
-> -		else
-> -			d->static_tr.bstcnt = d->residue / div;
-> -	} else if (uc->ud->match_data->type == DMA_TYPE_BCDMA &&
-> -		   uc->config.dir == DMA_DEV_TO_MEM &&
-> -		   uc->cyclic) {
-> -		/*
-> -		 * For cyclic mode with BCDMA we have to set EOP in each TR to
-> -		 * prevent short packet errors seen on channel teardown. So the
-> -		 * PDMA must close the packet after every TR transfer by setting
-> -		 * burst count equal to the number of bytes transferred.
-> -		 */
-> -		struct cppi5_tr_type1_t *tr_req = d->hwdesc[0].tr_req_base;
-> -
-> -		d->static_tr.bstcnt =
-> -			(tr_req->icnt0 * tr_req->icnt1) / dev_width;
-> -	} else {
-> -		d->static_tr.bstcnt = 0;
-> -	}
-> -
-> -	if (uc->config.dir == DMA_DEV_TO_MEM &&
-> -	    d->static_tr.bstcnt > uc->ud->match_data->statictr_z_mask)
-> -		return -EINVAL;
-> -
-> -	return 0;
-> -}
-> -
-> -static struct udma_desc *
-> -udma_prep_slave_sg_pkt(struct udma_chan *uc, struct scatterlist *sgl,
-> -		       unsigned int sglen, enum dma_transfer_direction dir,
-> -		       unsigned long tx_flags, void *context)
-> -{
-> -	struct scatterlist *sgent;
-> -	struct cppi5_host_desc_t *h_desc = NULL;
-> -	struct udma_desc *d;
-> -	u32 ring_id;
-> -	unsigned int i;
-> -	u64 asel;
-> -
-> -	d = kzalloc_flex(*d, hwdesc, sglen, GFP_NOWAIT);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->sglen = sglen;
-> -	d->hwdesc_count = sglen;
-> -
-> -	if (dir == DMA_DEV_TO_MEM)
-> -		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> -	else
-> -		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> -
-> -	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> -		asel = 0;
-> -	else
-> -		asel = (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> -
-> -	for_each_sg(sgl, sgent, sglen, i) {
-> -		struct udma_hwdesc *hwdesc = &d->hwdesc[i];
-> -		dma_addr_t sg_addr = sg_dma_address(sgent);
-> -		struct cppi5_host_desc_t *desc;
-> -		size_t sg_len = sg_dma_len(sgent);
-> -
-> -		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> -						GFP_NOWAIT,
-> -						&hwdesc->cppi5_desc_paddr);
-> -		if (!hwdesc->cppi5_desc_vaddr) {
-> -			dev_err(uc->ud->dev,
-> -				"descriptor%d allocation failed\n", i);
-> -
-> -			udma_free_hwdesc(uc, d);
-> -			kfree(d);
-> -			return NULL;
-> -		}
-> -
-> -		d->residue += sg_len;
-> -		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> -		desc = hwdesc->cppi5_desc_vaddr;
-> -
-> -		if (i == 0) {
-> -			cppi5_hdesc_init(desc, 0, 0);
-> -			/* Flow and Packed ID */
-> -			cppi5_desc_set_pktids(&desc->hdr, uc->id,
-> -					      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> -			cppi5_desc_set_retpolicy(&desc->hdr, 0, ring_id);
-> -		} else {
-> -			cppi5_hdesc_reset_hbdesc(desc);
-> -			cppi5_desc_set_retpolicy(&desc->hdr, 0, 0xffff);
-> -		}
-> -
-> -		/* attach the sg buffer to the descriptor */
-> -		sg_addr |= asel;
-> -		cppi5_hdesc_attach_buf(desc, sg_addr, sg_len, sg_addr, sg_len);
-> -
-> -		/* Attach link as host buffer descriptor */
-> -		if (h_desc)
-> -			cppi5_hdesc_link_hbdesc(h_desc,
-> -						hwdesc->cppi5_desc_paddr | asel);
-> -
-> -		if (uc->ud->match_data->type == DMA_TYPE_PKTDMA ||
-> -		    dir == DMA_MEM_TO_DEV)
-> -			h_desc = desc;
-> -	}
-> -
-> -	if (d->residue >= SZ_4M) {
-> -		dev_err(uc->ud->dev,
-> -			"%s: Transfer size %u is over the supported 4M range\n",
-> -			__func__, d->residue);
-> -		udma_free_hwdesc(uc, d);
-> -		kfree(d);
-> -		return NULL;
-> -	}
-> -
-> -	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> -	cppi5_hdesc_set_pktlen(h_desc, d->residue);
-> -
-> -	return d;
-> -}
-> -
-> -static int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
-> -				void *data, size_t len)
-> -{
-> -	struct udma_desc *d = to_udma_desc(desc);
-> -	struct udma_chan *uc = to_udma_chan(desc->chan);
-> -	struct cppi5_host_desc_t *h_desc;
-> -	u32 psd_size = len;
-> -	u32 flags = 0;
-> -
-> -	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> -		return -ENOTSUPP;
-> -
-> -	if (!data || len > uc->config.metadata_size)
-> -		return -EINVAL;
-> -
-> -	if (uc->config.needs_epib && len < CPPI5_INFO0_HDESC_EPIB_SIZE)
-> -		return -EINVAL;
-> -
-> -	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> -	if (d->dir == DMA_MEM_TO_DEV)
-> -		memcpy(h_desc->epib, data, len);
-> -
-> -	if (uc->config.needs_epib)
-> -		psd_size -= CPPI5_INFO0_HDESC_EPIB_SIZE;
-> -
-> -	d->metadata = data;
-> -	d->metadata_size = len;
-> -	if (uc->config.needs_epib)
-> -		flags |= CPPI5_INFO0_HDESC_EPIB_PRESENT;
-> -
-> -	cppi5_hdesc_update_flags(h_desc, flags);
-> -	cppi5_hdesc_update_psdata_size(h_desc, psd_size);
-> -
-> -	return 0;
-> -}
-> -
-> -static void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
-> -				   size_t *payload_len, size_t *max_len)
-> -{
-> -	struct udma_desc *d = to_udma_desc(desc);
-> -	struct udma_chan *uc = to_udma_chan(desc->chan);
-> -	struct cppi5_host_desc_t *h_desc;
-> -
-> -	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> -		return ERR_PTR(-ENOTSUPP);
-> -
-> -	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> -
-> -	*max_len = uc->config.metadata_size;
-> -
-> -	*payload_len = cppi5_hdesc_epib_present(&h_desc->hdr) ?
-> -		       CPPI5_INFO0_HDESC_EPIB_SIZE : 0;
-> -	*payload_len += cppi5_hdesc_get_psdata_size(h_desc);
-> -
-> -	return h_desc->epib;
-> -}
-> -
-> -static int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
-> -				 size_t payload_len)
-> -{
-> -	struct udma_desc *d = to_udma_desc(desc);
-> -	struct udma_chan *uc = to_udma_chan(desc->chan);
-> -	struct cppi5_host_desc_t *h_desc;
-> -	u32 psd_size = payload_len;
-> -	u32 flags = 0;
-> -
-> -	if (!uc->config.pkt_mode || !uc->config.metadata_size)
-> -		return -ENOTSUPP;
-> -
-> -	if (payload_len > uc->config.metadata_size)
-> -		return -EINVAL;
-> -
-> -	if (uc->config.needs_epib && payload_len < CPPI5_INFO0_HDESC_EPIB_SIZE)
-> -		return -EINVAL;
-> -
-> -	h_desc = d->hwdesc[0].cppi5_desc_vaddr;
-> -
-> -	if (uc->config.needs_epib) {
-> -		psd_size -= CPPI5_INFO0_HDESC_EPIB_SIZE;
-> -		flags |= CPPI5_INFO0_HDESC_EPIB_PRESENT;
-> -	}
-> -
-> -	cppi5_hdesc_update_flags(h_desc, flags);
-> -	cppi5_hdesc_update_psdata_size(h_desc, psd_size);
-> -
-> -	return 0;
-> -}
-> -
-> -static const struct dma_descriptor_metadata_ops metadata_ops = {
-> -	.attach = udma_attach_metadata,
-> -	.get_ptr = udma_get_metadata_ptr,
-> -	.set_len = udma_set_metadata_len,
-> -};
-> -
-> -static struct dma_async_tx_descriptor *
-> -udma_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
-> -		   unsigned int sglen, enum dma_transfer_direction dir,
-> -		   unsigned long tx_flags, void *context)
-> -{
-> -	struct udma_chan *uc = to_udma_chan(chan);
-> -	enum dma_slave_buswidth dev_width;
-> -	struct udma_desc *d;
-> -	u32 burst;
-> -
-> -	if (dir != uc->config.dir &&
-> -	    (uc->config.dir == DMA_MEM_TO_MEM && !uc->config.tr_trigger_type)) {
-> -		dev_err(chan->device->dev,
-> -			"%s: chan%d is for %s, not supporting %s\n",
-> -			__func__, uc->id,
-> -			dmaengine_get_direction_text(uc->config.dir),
-> -			dmaengine_get_direction_text(dir));
-> -		return NULL;
-> -	}
-> -
-> -	if (dir == DMA_DEV_TO_MEM) {
-> -		dev_width = uc->cfg.src_addr_width;
-> -		burst = uc->cfg.src_maxburst;
-> -	} else if (dir == DMA_MEM_TO_DEV) {
-> -		dev_width = uc->cfg.dst_addr_width;
-> -		burst = uc->cfg.dst_maxburst;
-> -	} else {
-> -		dev_err(chan->device->dev, "%s: bad direction?\n", __func__);
-> -		return NULL;
-> -	}
-> -
-> -	if (!burst)
-> -		burst = 1;
-> -
-> -	uc->config.tx_flags = tx_flags;
-> -
-> -	if (uc->config.pkt_mode)
-> -		d = udma_prep_slave_sg_pkt(uc, sgl, sglen, dir, tx_flags,
-> -					   context);
-> -	else if (is_slave_direction(uc->config.dir))
-> -		d = udma_prep_slave_sg_tr(uc, sgl, sglen, dir, tx_flags,
-> -					  context);
-> -	else
-> -		d = udma_prep_slave_sg_triggered_tr(uc, sgl, sglen, dir,
-> -						    tx_flags, context);
-> -
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->dir = dir;
-> -	d->desc_idx = 0;
-> -	d->tr_idx = 0;
-> -
-> -	/* static TR for remote PDMA */
-> -	if (udma_configure_statictr(uc, d, dev_width, burst)) {
-> -		dev_err(uc->ud->dev,
-> -			"%s: StaticTR Z is limited to maximum %u (%u)\n",
-> -			__func__, uc->ud->match_data->statictr_z_mask,
-> -			d->static_tr.bstcnt);
-> -
-> -		udma_free_hwdesc(uc, d);
-> -		kfree(d);
-> -		return NULL;
-> -	}
-> -
-> -	if (uc->config.metadata_size)
-> -		d->vd.tx.metadata_ops = &metadata_ops;
-> -
-> -	return vchan_tx_prep(&uc->vc, &d->vd, tx_flags);
-> -}
-> -
-> -static struct udma_desc *
-> -udma_prep_dma_cyclic_tr(struct udma_chan *uc, dma_addr_t buf_addr,
-> -			size_t buf_len, size_t period_len,
-> -			enum dma_transfer_direction dir, unsigned long flags)
-> -{
-> -	struct udma_desc *d;
-> -	size_t tr_size, period_addr;
-> -	struct cppi5_tr_type1_t *tr_req;
-> -	unsigned int periods = buf_len / period_len;
-> -	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> -	unsigned int i;
-> -	int num_tr;
-> -	u32 period_csf = 0;
-> -
-> -	num_tr = udma_get_tr_counters(period_len, __ffs(buf_addr), &tr0_cnt0,
-> -				      &tr0_cnt1, &tr1_cnt0);
-> -	if (num_tr < 0) {
-> -		dev_err(uc->ud->dev, "size %zu is not supported\n",
-> -			period_len);
-> -		return NULL;
-> -	}
-> -
-> -	/* Now allocate and setup the descriptor. */
-> -	tr_size = sizeof(struct cppi5_tr_type1_t);
-> -	d = udma_alloc_tr_desc(uc, tr_size, periods * num_tr, dir);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	tr_req = d->hwdesc[0].tr_req_base;
-> -	if (uc->ud->match_data->type == DMA_TYPE_UDMA)
-> -		period_addr = buf_addr;
-> -	else
-> -		period_addr = buf_addr |
-> -			((u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT);
-> -
-> -	/*
-> -	 * For BCDMA <-> PDMA transfers, the EOP flag needs to be set on the
-> -	 * last TR of a descriptor, to mark the packet as complete.
-> -	 * This is required for getting the teardown completion message in case
-> -	 * of TX, and to avoid short-packet error in case of RX.
-> -	 *
-> -	 * As we are in cyclic mode, we do not know which period might be the
-> -	 * last one, so set the flag for each period.
-> -	 */
-> -	if (uc->config.ep_type == PSIL_EP_PDMA_XY &&
-> -	    uc->ud->match_data->type == DMA_TYPE_BCDMA) {
-> -		period_csf = CPPI5_TR_CSF_EOP;
-> -	}
-> -
-> -	for (i = 0; i < periods; i++) {
-> -		int tr_idx = i * num_tr;
-> -
-> -		cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1, false,
-> -			      false, CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -
-> -		tr_req[tr_idx].addr = period_addr;
-> -		tr_req[tr_idx].icnt0 = tr0_cnt0;
-> -		tr_req[tr_idx].icnt1 = tr0_cnt1;
-> -		tr_req[tr_idx].dim1 = tr0_cnt0;
-> -
-> -		if (num_tr == 2) {
-> -			cppi5_tr_csf_set(&tr_req[tr_idx].flags,
-> -					 CPPI5_TR_CSF_SUPR_EVT);
-> -			tr_idx++;
-> -
-> -			cppi5_tr_init(&tr_req[tr_idx].flags, CPPI5_TR_TYPE1,
-> -				      false, false,
-> -				      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -
-> -			tr_req[tr_idx].addr = period_addr + tr0_cnt1 * tr0_cnt0;
-> -			tr_req[tr_idx].icnt0 = tr1_cnt0;
-> -			tr_req[tr_idx].icnt1 = 1;
-> -			tr_req[tr_idx].dim1 = tr1_cnt0;
-> -		}
-> -
-> -		if (!(flags & DMA_PREP_INTERRUPT))
-> -			period_csf |= CPPI5_TR_CSF_SUPR_EVT;
-> -
-> -		if (period_csf)
-> -			cppi5_tr_csf_set(&tr_req[tr_idx].flags, period_csf);
-> -
-> -		period_addr += period_len;
-> -	}
-> -
-> -	return d;
-> -}
-> -
-> -static struct udma_desc *
-> -udma_prep_dma_cyclic_pkt(struct udma_chan *uc, dma_addr_t buf_addr,
-> -			 size_t buf_len, size_t period_len,
-> -			 enum dma_transfer_direction dir, unsigned long flags)
-> -{
-> -	struct udma_desc *d;
-> -	u32 ring_id;
-> -	int i;
-> -	int periods = buf_len / period_len;
-> -
-> -	if (periods > (K3_UDMA_DEFAULT_RING_SIZE - 1))
-> -		return NULL;
-> -
-> -	if (period_len >= SZ_4M)
-> -		return NULL;
-> -
-> -	d = kzalloc_flex(*d, hwdesc, periods, GFP_NOWAIT);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->hwdesc_count = periods;
-> -
-> -	/* TODO: re-check this... */
-> -	if (dir == DMA_DEV_TO_MEM)
-> -		ring_id = k3_ringacc_get_ring_id(uc->rflow->r_ring);
-> -	else
-> -		ring_id = k3_ringacc_get_ring_id(uc->tchan->tc_ring);
-> -
-> -	if (uc->ud->match_data->type != DMA_TYPE_UDMA)
-> -		buf_addr |= (u64)uc->config.asel << K3_ADDRESS_ASEL_SHIFT;
-> -
-> -	for (i = 0; i < periods; i++) {
-> -		struct udma_hwdesc *hwdesc = &d->hwdesc[i];
-> -		dma_addr_t period_addr = buf_addr + (period_len * i);
-> -		struct cppi5_host_desc_t *h_desc;
-> -
-> -		hwdesc->cppi5_desc_vaddr = dma_pool_zalloc(uc->hdesc_pool,
-> -						GFP_NOWAIT,
-> -						&hwdesc->cppi5_desc_paddr);
-> -		if (!hwdesc->cppi5_desc_vaddr) {
-> -			dev_err(uc->ud->dev,
-> -				"descriptor%d allocation failed\n", i);
-> -
-> -			udma_free_hwdesc(uc, d);
-> -			kfree(d);
-> -			return NULL;
-> -		}
-> -
-> -		hwdesc->cppi5_desc_size = uc->config.hdesc_size;
-> -		h_desc = hwdesc->cppi5_desc_vaddr;
-> -
-> -		cppi5_hdesc_init(h_desc, 0, 0);
-> -		cppi5_hdesc_set_pktlen(h_desc, period_len);
-> -
-> -		/* Flow and Packed ID */
-> -		cppi5_desc_set_pktids(&h_desc->hdr, uc->id,
-> -				      CPPI5_INFO1_DESC_FLOWID_DEFAULT);
-> -		cppi5_desc_set_retpolicy(&h_desc->hdr, 0, ring_id);
-> -
-> -		/* attach each period to a new descriptor */
-> -		cppi5_hdesc_attach_buf(h_desc,
-> -				       period_addr, period_len,
-> -				       period_addr, period_len);
-> -	}
-> -
-> -	return d;
-> -}
-> -
-> -static struct dma_async_tx_descriptor *
-> -udma_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t buf_addr, size_t buf_len,
-> -		     size_t period_len, enum dma_transfer_direction dir,
-> -		     unsigned long flags)
-> -{
-> -	struct udma_chan *uc = to_udma_chan(chan);
-> -	enum dma_slave_buswidth dev_width;
-> -	struct udma_desc *d;
-> -	u32 burst;
-> -
-> -	if (dir != uc->config.dir) {
-> -		dev_err(chan->device->dev,
-> -			"%s: chan%d is for %s, not supporting %s\n",
-> -			__func__, uc->id,
-> -			dmaengine_get_direction_text(uc->config.dir),
-> -			dmaengine_get_direction_text(dir));
-> -		return NULL;
-> -	}
-> -
-> -	uc->cyclic = true;
-> -
-> -	if (dir == DMA_DEV_TO_MEM) {
-> -		dev_width = uc->cfg.src_addr_width;
-> -		burst = uc->cfg.src_maxburst;
-> -	} else if (dir == DMA_MEM_TO_DEV) {
-> -		dev_width = uc->cfg.dst_addr_width;
-> -		burst = uc->cfg.dst_maxburst;
-> -	} else {
-> -		dev_err(uc->ud->dev, "%s: bad direction?\n", __func__);
-> -		return NULL;
-> -	}
-> -
-> -	if (!burst)
-> -		burst = 1;
-> -
-> -	if (uc->config.pkt_mode)
-> -		d = udma_prep_dma_cyclic_pkt(uc, buf_addr, buf_len, period_len,
-> -					     dir, flags);
-> -	else
-> -		d = udma_prep_dma_cyclic_tr(uc, buf_addr, buf_len, period_len,
-> -					    dir, flags);
-> -
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->sglen = buf_len / period_len;
-> -
-> -	d->dir = dir;
-> -	d->residue = buf_len;
-> -
-> -	/* static TR for remote PDMA */
-> -	if (udma_configure_statictr(uc, d, dev_width, burst)) {
-> -		dev_err(uc->ud->dev,
-> -			"%s: StaticTR Z is limited to maximum %u (%u)\n",
-> -			__func__, uc->ud->match_data->statictr_z_mask,
-> -			d->static_tr.bstcnt);
-> -
-> -		udma_free_hwdesc(uc, d);
-> -		kfree(d);
-> -		return NULL;
-> -	}
-> -
-> -	if (uc->config.metadata_size)
-> -		d->vd.tx.metadata_ops = &metadata_ops;
-> -
-> -	return vchan_tx_prep(&uc->vc, &d->vd, flags);
-> -}
-> -
-> -static struct dma_async_tx_descriptor *
-> -udma_prep_dma_memcpy(struct dma_chan *chan, dma_addr_t dest, dma_addr_t src,
-> -		     size_t len, unsigned long tx_flags)
-> -{
-> -	struct udma_chan *uc = to_udma_chan(chan);
-> -	struct udma_desc *d;
-> -	struct cppi5_tr_type15_t *tr_req;
-> -	int num_tr;
-> -	size_t tr_size = sizeof(struct cppi5_tr_type15_t);
-> -	u16 tr0_cnt0, tr0_cnt1, tr1_cnt0;
-> -	u32 csf = CPPI5_TR_CSF_SUPR_EVT;
-> -
-> -	if (uc->config.dir != DMA_MEM_TO_MEM) {
-> -		dev_err(chan->device->dev,
-> -			"%s: chan%d is for %s, not supporting %s\n",
-> -			__func__, uc->id,
-> -			dmaengine_get_direction_text(uc->config.dir),
-> -			dmaengine_get_direction_text(DMA_MEM_TO_MEM));
-> -		return NULL;
-> -	}
-> -
-> -	num_tr = udma_get_tr_counters(len, __ffs(src | dest), &tr0_cnt0,
-> -				      &tr0_cnt1, &tr1_cnt0);
-> -	if (num_tr < 0) {
-> -		dev_err(uc->ud->dev, "size %zu is not supported\n",
-> -			len);
-> -		return NULL;
-> -	}
-> -
-> -	d = udma_alloc_tr_desc(uc, tr_size, num_tr, DMA_MEM_TO_MEM);
-> -	if (!d)
-> -		return NULL;
-> -
-> -	d->dir = DMA_MEM_TO_MEM;
-> -	d->desc_idx = 0;
-> -	d->tr_idx = 0;
-> -	d->residue = len;
-> -
-> -	if (uc->ud->match_data->type != DMA_TYPE_UDMA) {
-> -		src |= (u64)uc->ud->asel << K3_ADDRESS_ASEL_SHIFT;
-> -		dest |= (u64)uc->ud->asel << K3_ADDRESS_ASEL_SHIFT;
-> -	} else {
-> -		csf |= CPPI5_TR_CSF_EOL_ICNT0;
-> -	}
-> -
-> -	tr_req = d->hwdesc[0].tr_req_base;
-> -
-> -	cppi5_tr_init(&tr_req[0].flags, CPPI5_TR_TYPE15, false, true,
-> -		      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -	cppi5_tr_csf_set(&tr_req[0].flags, csf);
-> -
-> -	tr_req[0].addr = src;
-> -	tr_req[0].icnt0 = tr0_cnt0;
-> -	tr_req[0].icnt1 = tr0_cnt1;
-> -	tr_req[0].icnt2 = 1;
-> -	tr_req[0].icnt3 = 1;
-> -	tr_req[0].dim1 = tr0_cnt0;
-> -
-> -	tr_req[0].daddr = dest;
-> -	tr_req[0].dicnt0 = tr0_cnt0;
-> -	tr_req[0].dicnt1 = tr0_cnt1;
-> -	tr_req[0].dicnt2 = 1;
-> -	tr_req[0].dicnt3 = 1;
-> -	tr_req[0].ddim1 = tr0_cnt0;
-> -
-> -	if (num_tr == 2) {
-> -		cppi5_tr_init(&tr_req[1].flags, CPPI5_TR_TYPE15, false, true,
-> -			      CPPI5_TR_EVENT_SIZE_COMPLETION, 0);
-> -		cppi5_tr_csf_set(&tr_req[1].flags, csf);
-> -
-> -		tr_req[1].addr = src + tr0_cnt1 * tr0_cnt0;
-> -		tr_req[1].icnt0 = tr1_cnt0;
-> -		tr_req[1].icnt1 = 1;
-> -		tr_req[1].icnt2 = 1;
-> -		tr_req[1].icnt3 = 1;
-> -
-> -		tr_req[1].daddr = dest + tr0_cnt1 * tr0_cnt0;
-> -		tr_req[1].dicnt0 = tr1_cnt0;
-> -		tr_req[1].dicnt1 = 1;
-> -		tr_req[1].dicnt2 = 1;
-> -		tr_req[1].dicnt3 = 1;
-> -	}
-> -
-> -	cppi5_tr_csf_set(&tr_req[num_tr - 1].flags, csf | CPPI5_TR_CSF_EOP);
-> -
-> -	if (uc->config.metadata_size)
-> -		d->vd.tx.metadata_ops = &metadata_ops;
-> -
-> -	return vchan_tx_prep(&uc->vc, &d->vd, tx_flags);
-> -}
-> -
->  static void udma_issue_pending(struct dma_chan *chan)
->  {
->  	struct udma_chan *uc = to_udma_chan(chan);
-> @@ -3587,46 +2409,6 @@ static void udma_synchronize(struct dma_chan *chan)
->  	udma_reset_rings(uc);
->  }
->
-> -static void udma_desc_pre_callback(struct virt_dma_chan *vc,
-> -				   struct virt_dma_desc *vd,
-> -				   struct dmaengine_result *result)
-> -{
-> -	struct udma_chan *uc = to_udma_chan(&vc->chan);
-> -	struct udma_desc *d;
-> -	u8 status;
-> -
-> -	if (!vd)
-> -		return;
-> -
-> -	d = to_udma_desc(&vd->tx);
-> -
-> -	if (d->metadata_size)
-> -		udma_fetch_epib(uc, d);
-> -
-> -	if (result) {
-> -		void *desc_vaddr = udma_curr_cppi5_desc_vaddr(d, d->desc_idx);
-> -
-> -		if (cppi5_desc_get_type(desc_vaddr) ==
-> -		    CPPI5_INFO0_DESC_TYPE_VAL_HOST) {
-> -			/* Provide residue information for the client */
-> -			result->residue = d->residue -
-> -					  cppi5_hdesc_get_pktlen(desc_vaddr);
-> -			if (result->residue)
-> -				result->result = DMA_TRANS_ABORTED;
-> -			else
-> -				result->result = DMA_TRANS_NOERROR;
-> -		} else {
-> -			result->residue = 0;
-> -			/* Propagate TR Response errors to the client */
-> -			status = d->hwdesc[0].tr_resp_base->status;
-> -			if (status)
-> -				result->result = DMA_TRANS_ABORTED;
-> -			else
-> -				result->result = DMA_TRANS_NOERROR;
-> -		}
-> -	}
-> -}
-> -
->  /*
->   * This tasklet handles the completion of a DMA descriptor by
->   * calling its callback and freeing it.
-> diff --git a/drivers/dma/ti/k3-udma.h b/drivers/dma/ti/k3-udma.h
-> index e65dacb68c19f..38a54226836a5 100644
-> --- a/drivers/dma/ti/k3-udma.h
-> +++ b/drivers/dma/ti/k3-udma.h
-> @@ -561,6 +561,34 @@ static inline void udma_fetch_epib(struct udma_chan *uc, struct udma_desc *d)
->  	memcpy(d->metadata, h_desc->epib, d->metadata_size);
->  }
->
-> +/* Common functions */
-> +struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
-> +					    dma_addr_t paddr);
-> +void udma_purge_desc_work(struct work_struct *work);
-> +void udma_desc_free(struct virt_dma_desc *vd);
-> +bool udma_desc_is_rx_flush(struct udma_chan *uc, dma_addr_t addr);
-> +bool udma_is_desc_really_done(struct udma_chan *uc, struct udma_desc *d);
-> +int udma_attach_metadata(struct dma_async_tx_descriptor *desc,
-> +			 void *data, size_t len);
-> +void *udma_get_metadata_ptr(struct dma_async_tx_descriptor *desc,
-> +			    size_t *payload_len, size_t *max_len);
-> +int udma_set_metadata_len(struct dma_async_tx_descriptor *desc,
-> +			  size_t payload_len);
-> +struct dma_async_tx_descriptor *udma_prep_slave_sg(struct dma_chan *chan,
-> +						   struct scatterlist *sgl, unsigned int sglen,
-> +						   enum dma_transfer_direction dir,
-> +						   unsigned long tx_flags, void *context);
-> +struct dma_async_tx_descriptor *udma_prep_dma_cyclic(struct dma_chan *chan, dma_addr_t buf_addr,
-> +						     size_t buf_len, size_t period_len,
-> +						     enum dma_transfer_direction dir,
-> +						     unsigned long flags);
-> +struct dma_async_tx_descriptor *udma_prep_dma_memcpy(struct dma_chan *chan,
-> +						     dma_addr_t dest, dma_addr_t src,
-> +						     size_t len, unsigned long tx_flags);
-> +void udma_desc_pre_callback(struct virt_dma_chan *vc,
-> +			    struct virt_dma_desc *vd,
-> +			    struct dmaengine_result *result);
-> +
->  /* Direct access to UDMA low lever resources for the glue layer */
->  int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread);
->  int xudma_navss_psil_unpair(struct udma_dev *ud, u32 src_thread,
-> --
-> 2.55.0
->
+I would think quirking it makes sense if the BIOS isn't going to be fixed.
+
+Before we go much further can you check if this is the latest BIOS? 
+Check Lenovo's website, in case it wasn't brought to LVFS.
+
+Also; Mark can you ask BIOS guys to look this over?
+
+It sure seems like GPIO 11 shouldn't be in _AEI.
+
+>>> }
+>>>
+>>> This appears to conflict with the firmware's use of GPIO 11 as an output.
+>>>
+>>> *5. GPIO registers confirm the suspected conflict*
+>>>
+>>> Without the workaround, /sys/kernel/debug/gpio showed:
+>>>
+>>> #11 ... input ... 0x457a00
+>>> #11 ... input ... 0x057a00
+>>>
+>>> Pressing Caps Lock changed bit 22, but bit 23 (output enable) remained
+>>> cleared.
+>>>
+>>> After booting with:
+>>>
+>>> gpiolib_acpi.ignore_interrupt=AMDI0030:00@11
+>>>
+>>> The result was:
+>>>
+>>> #11 ... output ... 0xc50000
+>>>
+>>> The output-enable bit was now set, and the physical Caps Lock LED worked
+>>> flawlessly.
+>>>
+>>> The system was already using atkbd.reset=1 for a separate
+>>> keyboard-backlight problem. That parameter alone had not fixed the Caps
+>>> Lock LED.
+>>> Possible explanation
+>>>
+>>> GPT-6's interpretation is that Linux's ACPI GPIO handling configures GPIO
+>>> 11 as an interrupt input because of the firmware's _AEI declaration.
+>>>
+>>> That disables the output driver, even though the firmware continues
+>>> updating the GPIO output-value bit when Caps Lock changes.
+>>>
+>>> Ignoring the interrupt allows the pin to remain configured as an output,
+>>> restoring the indicator.
+>>> Related upstream fix
+>>>
+>>> This seems very similar to the Acer Nitro V 16S AI issue addressed by:
+>>>
+>>> 6da1f3437435c82eaa15b121022474bb358ffe20
+>>>
+>>> "gpiolib: acpi: Ignore GPIO 11 interrupt on Acer Nitro V 16S AI"
+>>>
+>>> https://lists.openwall.net/linux-kernel/2026/10/02/1029
+>>>
+>>> However, there is an important difference.
+>>>
+>>> On my ThinkPad, the GPIO 11 _EVT handler issues a PCIe bus-check
+>>> notification. I therefore don't know whether permanently ignoring the
+>>> interrupt could interfere with PCIe-related events, hot-plugging or wake
+>>> behaviour.
+>>>
+>>> So far, normal use with the workaround appears unaffected, but I haven't
+>>> exhaustively tested those scenarios.
+>>> Question
+>>>
+>>> Would a DMI-specific gpiolib ACPI quirk be appropriate for this ThinkPad,
+>>> or should the conflicting GPIO declaration be handled differently because
+>>> of the PCIe notification?
+>>>
+>>> I can provide the relevant decompiled DSDT/SSDT excerpts, additional
+>>> diagnostic logs, or test a proposed fix if that would help.
+> 
+> Please do via some kind of file sharing service and reply with an URL to that.
+
+I'll second this - put all the artifacts in a kernel bugzilla please. 
+ From the current AI analysis I agree a quirk makes sense, but we can 
+double check everything.
+
+> 
+>>> Thanks very much for your time, and apologies if I've misunderstood any of
+>>> the technical details. I'm happy to run further tests with guidance.
+> 
+
