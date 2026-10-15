@@ -1,166 +1,119 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20FE54A7E7
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792081703; cv=none; b=VYSn+8DKtzbXbaDzbyKmJm2GBBGZSlFfRqwlFYEDYjqZEVI3EpYYLSUstm/WqSSaMObwps+iHodLHBgSC+DwlNCO9D+t9rE603+DJ+T7lJDiaen2en4bpH6pzge+F0K2fTZxnAiVnqRTOaVfKxx7T2RiJbj21c11ds4Fy2ywtf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792081703; c=relaxed/simple;
-	bh=VZN2fb2ga+rAimb+At5lfyPZ8DXcR0GMUzzVA+d4nj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EHihGUHBrZQf04rm3zcvnu/cVGoceqPBFrhWz1YuFWGIukK54rYiOhOAvZVIFl33Sn7IDNBFjYbfzm7Ie3dS3JmCQpX2t7O6RceQxa1bJr36UkB3a8TulHNUqIjgsRL4LiidSC/hgX0HWny+ewIattWPNn54HnklRs6VNI5UHXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jiCSaMqW; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB35537CD2E
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792081707; cv=pass; b=keo/P+Cqj0bkjDftSEi1LIMVuKOQM27GHXve0y651xGGxPrGhpyW061xrmRX+H3apC+fBaEkx4W++y7se0SJx14hBU8Up/DydEJrz0DV740prsn7/5EaBcHO+pmVN+/4HjqRkdx1eJ8yL+gvwBUUI5PZpmM3Gio7QIWKDQZrhXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792081707; c=relaxed/simple;
+	bh=vgjMkfB5AFxaee5+Kwz2qMYoZ0igEfUvX5a78hOyGF4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cP29dM9mFy3lIIb81/AQu1XDXziRBzgzXW/9tlTDHw+cxk3taCNUFKPkqEHg6g/aKD5SBSNFlP0zoSqsXrpjnULWUfrPxxTueBxNP7adTpxyVgr3sQpNs8AaGuiF2zLcXyITIp2lp/Tqk8vXJ7f15YBe4OmWoWz24kmsFB97QvQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n6hJA2MR; arc=pass smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jiCSaMqW"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1087301f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:28:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n6hJA2MR"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0ca1ebc8bso18171767b3.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:28:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792081694; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YCNp8qClXJtiQhmZ7qc9I8NfG7KH2yLyj/0nfN1Ps00y4zaDjIQPAKf41DCBiWnST+
+         7mpB1F/DRBdBfEFpP0QEQK8S+ou5qHfePz9G4O9XH6ejToV/82vC1A1lBQQV7aHLRpdm
+         Jk51/j1XkLXWpR/kvN00vdPuQD6nq1pJ4coGEP2Qt38Tg6xBwdMIzsD3QqXpn4BOLmbB
+         q7EVicGyXeQmazJB+kV30w1jxZJeyhvwlBBdYgP99fsrhU51GMdMzik8jaJDeQcscCKH
+         edMVHbDQMOaqllByKZHOSCKH5s1FGC+Uaw8iH8hi8UKryiDQS3SiLES/yIalMsCbJQBg
+         2qEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=n2BZinCZ54N7UvTW1neOvwJj3/H4yG3CbAwjf384cj0=;
+        fh=/3lS3TjFWh0ARLIhu3vpeRrP1nmIRXgafRYD0bL9EeA=;
+        b=CE9IhMtV81cEo2bfbbUvYoaGbHNmN6AvpZS8A4EVUgHpzYr7peFrrcNYeE6YsunlIb
+         G64yhub4R6DisF+I2slxC/ZOs52+0x22pQZYR2t6IvIqWFifuW7ib/TLgcGgw9Kr2Yai
+         CiupxmAlUj6KiG9gUJiCDY1f93L3MuGp8YjieR8kmyDZOq7oDROCx+MEPx3PotyvYrGQ
+         nWnb7UoMPw9XiRuM2TO2cD/fvaBWWZa3XVcTEP1qFnps3DCKWkuQX36QpKSgh/rHKq3Z
+         OrCTYCgRP9kQZGxd0tAPzS2FMIIVoR9/T4RBFTND2DgL/EYBl0IeobA28mEBad4gD2Z9
+         eDgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792081679; x=1792686479; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KR4i4KxOGzdvwjOBg3czI4/01caQ5A7Fc1JHBGRwQTE=;
-        b=jiCSaMqWSm1g8TUDWxYHPti+M55ELsQiQrxtKGP52uFYZYTYxdWuJvy81ogtK4/FYH
-         eYojlAa9dNruOToL9q262x9QBLNiVycTqn3TTSI3JFsAeAb4ODZu+wXQHE3j7ViOo7W6
-         fxtmkQ9pmF9KFAxg/uO2SfrLvQ5tuNw0SciiITkvWBL5V12hqTvAx5EraDBAkCFzvS0N
-         HXtx4kiTdAVQcBTy3QUt9vPheKm0E1hMBujlQiYuDjVvNrYGeXsCYUX4er3OV0xafbPu
-         JazdYEL4mLksOGzfczVxBEMnd/hEQ169hWVoLk9jNZ9OvWW5Knir9hn+dMFIdbnCHG8a
-         T9wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792081679; x=1792686479;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792081694; x=1792686494; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KR4i4KxOGzdvwjOBg3czI4/01caQ5A7Fc1JHBGRwQTE=;
-        b=0SwGpBwNfPz3lM6twejCs1raZGe5QoqVLBy6m5NjGNfc+X3XYM0ySgMpPKsLz5AxwC
-         phGTEo6y/4m3/V+ui1mKfi/7qZ14k4stNfO68EU1wz4FvnPHRr4O0nOcM7mOAePGicMm
-         ccp8u1HCnC/dMuLfpxwSeQ4HRmHZPDr1PkcTpAlXOeVX9K/GZF45+NUfItB9f0CX077/
-         +rjFWOw8ZQEdrS2kJKexGBfLgnAMZ+l4i/af2+OcAC068nbdjUYUvipxvsPtwGzZpwId
-         Tbuc7i7k0xkipt3tqhKymJRAZbJPDLPOlMNbA3i1VAe6AKLIeDm6zMHVK20+zt3sjl7G
-         dpYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRM2IFD9D8bXLRIgqBk3JWwB6ywMcpre9SAXdM5Uzipv9yp3xrlDupIKULqXDo0+O/rp5Gh8WEmEuMrGE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7gO8+Mv/vLYEAkYG3F3QVgr86KVV8qRogcHuTCxQluzGhecUb
-	PrqfZpZC0SK1S0htzFr6oqEQZ3uOfRs8md0yDoSqKpAHfxR+KahcSl8OArZzZjO00so=
-X-Gm-Gg: AYBFou0Q+DYcwEBpm44oxRQgK7ri0SUJvnRZDFCXZBdEpGjPDh4jJ/zh+Kr8yGGTkPR
-	eqV4Iw4LeDayHDwMSn9xY3VeAtORCMOfiMWXWE67r4Z4Zpj/AS8ygBiCWiYFvu9jFxm5amvAK9a
-	xmeP/B6vzls4kFD5r6+zpKOSN1S5tlMllsUlnXIW9SiPpXza6ytolOFsbVQBQKrplOzqAJ1x0nx
-	v85BjKqQO7Ce/XExUKTWxgz/YCDfbxD0Q6NgXaur08F8WLbb/PKWy3Qk7ZFXKEEVAyu01gCl71n
-	cgS47dUl82MzLXiXHbPs0+J5l3nDizniuhsGI+517hxGaBuPxlcV0F6lQ0QB4IkNep+mBwTxGGv
-	LfpoMKSATCnCFafyyQDYehxOBbtR/IYNvJl0Bm9mu8aKUPabGhGSJ1I9AquT68e31gYVCYgOYds
-	GUM/j/RxhTzoOGtuDgrLeSUX+4hySKFJIdZe+rvD6AYFVOd8yCts+qB5HNa/EvDOTD+rdU/t9y+
-	AttYSh+wKsJA05hy3uCzA==
-X-Received: by 2002:adf:f341:0:b0:487:197a:5c1f with SMTP id ffacd0b85a97d-48dbaae84e0mr31568707f8f.49.1792081678765;
-        Thu, 15 Oct 2026 09:27:58 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:7bdc:6c2a:a8d2:6ad3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa34sm19545964f8f.20.2026.10.15.09.27.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:27:58 -0700 (PDT)
-Date: Thu, 15 Oct 2026 18:27:46 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath12k@lists.infradead.org
-Subject: Re: [PATCH RFC 0/5] nvmem: Add a UEFI variable backed NVMEM provider
-Message-ID: <atD_AjZKaF5UtSUB@linaro.org>
-References: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+        bh=n2BZinCZ54N7UvTW1neOvwJj3/H4yG3CbAwjf384cj0=;
+        b=n6hJA2MR2RM9TRYvvc6KZz42TP/2t+clfAo45Yrchi4hcWjnvW93s3viU+Q5i8C933
+         kylZxWrdI2GDr8/8MYRi641o9JEcVPGbQw63MaEGN9sHNh5ROnC8PbHhT3OpavEW6rO6
+         kKusnchev8eeL07HDcckInZyoH046jljLUSEzoyc2ncfVp95sUjIHS8NDMYImTNDVVJJ
+         JbbbFZKHv84Id+ni9Ja5Dfa5sgbk87SmSw1YTyWBrb1WfbT6iWU5qdDF7VwwF6q7LTHo
+         R5bL2e6EkuDvy32h1JftWFIn9GaROwuGv8Qo1kWm7uBwGGEDAr/i2xzVxYrY7GyNvNu8
+         mlbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792081694; x=1792686494;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=n2BZinCZ54N7UvTW1neOvwJj3/H4yG3CbAwjf384cj0=;
+        b=H+Lb5k6WIjKUbl9rCx3Zz3B77kDvwJGQTxLclbztFNrN6SoCOpzaZrvUQqp4Ic1+vn
+         yC1unXj+VqhR4CiilXlucjHdYFS1deDHHYDryK7m95Lm3fHOj10ONa3Liw/6PripnLP+
+         F895Zccq1mkO6ctrqLRCIzUR4bCb0IgPtaAaebqk/mHbC2oC4J0VQ5Vi7T/Fz8NjRz3g
+         wVgM9aDLCUM1NkidlMNEDPuMMo6pnn0zaDdCf8LoS/XdEgLjNpEHCSGVIyrd3FqNZOIt
+         G0yBi8iVPCw1+9PBYSpsUyzJ6N8sXWUYluitAIYOndY78+AK8wanmYo5/PHjh98ZCyiy
+         hU3g==
+X-Forwarded-Encrypted: i=1; AKwUvBz7YCS3+a1eVex36i3Vq1WzTPSwH7S1jHZzJGS2hwsk6U4MObg4vwjS0hZS8WBhRgMpI4RqUyR3Mipn3gA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdlwBwo9RFCa4AoI6Y3KLH1nIcT9njQQwIGQuPtSQuDisezRLO
+	KEDLGWY3gCkmpyAZASTaEbFs5JzhgKRN3BRLksa9DmGKOJ1Pd9d77uLJKmJlvnCjBQMu5grx4Nd
+	hyczzDKggNHYrkYwzgNXerIIbRayx0W8=
+X-Gm-Gg: AYBFou3eZr2Yl2lussPNEHlanDKSWJbMku5dKVcWN/M2EdwJUrDAgm0dFg4uOZD42AQ
+	9efTQ29vsc65uYgfJidB87Oqh8hEfSMeiXHZ5NZysmt+giNyGJ7ytzrlrArhaDu/XKSI/NYae1I
+	EAK0PrHw6i/EZRrgoPFPSfTeOS0gkVOZ1Mv4AuMdBDhmzUzuk+acuIBaenin6lgwu3C+Gd1kfWx
+	eXXZqACHcjinC4vyPWaBIBXVBXGhrPZkTs+xWhrBcNz5P8CSnBQiry75aiQbX/BBpvw/FlOv235
+	KR5f8w59PHBTdfgnh/puIxbBs93KMPqmcOCBgQynVS0jdypzVZsvmJeqxg==
+X-Received: by 2002:a05:690c:e3cd:b0:8b0:ad62:19aa with SMTP id
+ 00721157ae682-8b0ad6230f0mr43580797b3.33.1792081693632; Thu, 15 Oct 2026
+ 09:28:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-b4-nvmem-efivar-v1-0-187c85f65018@oss.qualcomm.com>
+References: <pm-pmb-9c80f858ccc13b3de84d-v7-fcd8c7aa0e837bf0b036@gmail.com>
+ <87zewgcuhy.wl-tiwai@suse.de> <CAFRLqsX6Yz2dv_dV4BvV6_F-16WDWYTAk5ikC9WY7ZySkoJKUQ@mail.gmail.com>
+ <87qzhrmnz3.wl-tiwai@suse.de> <CAFRLqsUY+RhE=CsMHAvcQtUmwE_hd4_WUhJKSJiwdUUE3a--Yg@mail.gmail.com>
+ <87h5in6io5.wl-tiwai@suse.de>
+In-Reply-To: <87h5in6io5.wl-tiwai@suse.de>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Fri, 16 Oct 2026 00:28:02 +0800
+X-Gm-Features: AclHuK-KzJZ7iZD0Ep4aQoIUqULBhdU-oUSqsjVTblhrNorNiC7ItfIWaHV51BI
+Message-ID: <CAFRLqsWAkovmWbd9pf0hbTq=DRZOxK=W0JV0bo0K=L9g0f2zkQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ALSA: pcm: Unlink substreams before releasing them
+To: Takashi Iwai <tiwai@suse.de>
+Cc: perex@perex.cz, tiwai@suse.com, phucduc.bui@gmail.com, 
+	cezary.rojewski@intel.com, cassiogabrielcontato@gmail.com, 
+	kees+treewide@kernel.org, yilinzhang@moonshot.ai, sammiee5311@gmail.com, 
+	kees@kernel.org, thomas.weissschuh@linutronix.de, tglx@kernel.org, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 14, 2026 at 04:02:38PM +0300, Abel Vesa wrote:
-> This is an RFC: I do not expect it to be merged as-is, it is sent to get
-> feedback on the approach.
-> 
-> Some values a platform needs (for example the WLAN and Bluetooth MAC
-> addresses on the Qualcomm laptops) are not always available to the kernel
-> in a convenient form. They may live in firmware-owned SPI-NOR storage
-> (e.g. a DPP partition) for which there is no straightforward, universally
-> working way to read them from the non-secure world.
-> 
-> As an alternative, this series allows such values to be provisioned once
-> into a UEFI variable and consumed in the kernel. It adds a generic NVMEM
-> provider that exposes the contents of a UEFI variable as an NVMEM device,
-> so the data can be consumed through the standard nvmem-cells bindings.
-> MAC addresses are just the motivating use case; the provider itself is
-> generic.
-> 
-> The first two patches are the actual proposal:
-> 
->   - dt-bindings: nvmem: Add UEFI variable NVMEM provider
->   - nvmem: Add UEFI variable NVMEM provider
-> 
-> The remaining three patches are included only to illustrate how a
-> consumer would use the provider; they are not meant for merging as part
-> of this series:
-> 
->   - Bluetooth: hci_qca: consume a "bd-address" nvmem cell
->   - wifi: ath12k: consume a "mac-address" cell
->   - arm64: dts: qcom: glymur-crd: wire both to a "MacAddresses" variable
-> 
-> glymur-crd is used here only as a convenient example for the consumer
-> patches.
-> 
-> Feedback on the provider, and on whether sourcing such values from a UEFI
-> variable is a reasonable approach when they cannot be read from the
-> SPI-NOR directly, is very welcome.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Hi Takashi,
 
-In general, I think the idea to take NVMEM information from a UEFI
-variable is reasonable. However, at the end the usability of this
-approach depends on vendors actually provisioning the UEFI variable.
+>
+> Yes, and it's covered by another patch:
+>   https://lore.kernel.org/20261015112256.3902-1-tiwai@suse.de
+>
+>
+> thanks,
+>
+> Takashi
 
-Is that the case for your "MacAddresses" example on Glymur laptops?
-Is any of these laptops shipping with this UEFI variable provisioned?
+Sorry for missing that. That patch looks good to me. Feel free to add:
 
-I can't really imagine end users manually provisioning this variable.
-We have too much manual setup required already to be able to use these
-laptops with Linux. Ideally, we should take the information from
-wherever Windows is taking it and make it work out of the box.
+Reviewed-by: Cen Zhang <zzzccc427@gmail.com>
 
-For existing Qualcomm laptops with the DPP partition on SPI-NOR, there
-is prior work that could be extended. I would expect you only need:
-
- 1. SCM SPI-NOR storage support from
-    https://lore.kernel.org/linux-arm-msm/20260126-scm-storage-v2-v2-0-fa045c7e7699@radxa.com/
- 2. GPT partition parser (not sure if that exists for MTD but the format
-    is certainly well documented and supported already in Linux for
-    normal block devices)
- 3. DPP parser from
-    https://github.com/TravMurav/dtbloader/blob/main/src/qcom.c
- 4. Some way to hook it up in the device tree
-
-See discussion in
-https://lore.kernel.org/linux-arm-msm/de081bdc-4b10-4cbe-9b09-4652b63bc4b9@packett.cool/
-
-The universal approach implemented here would obviously be cleaner, but
-in my opinion it depends on vendors provisioning this variable before
-shipping devices to customers.
-
-Thanks,
-Stephan
+Best regards,
+Cen Zhang
