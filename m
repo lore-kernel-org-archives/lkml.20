@@ -1,177 +1,136 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C6636C5BB
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1703F4DC7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 22:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792103349; cv=pass; b=Rdih6C++dP3bMvSl58NBopzexMn3cmwsfI1GNOR4B7wEv+6p5bhRO2ocUQovzHFrlU7CmtvI4xmN+3Z9RpYi0xxff5ExMKH4hIEslfIyqPX5E7kkCfe76/5VSS/m437+6/rhJjPu9Drfdz1bV9QWPPci91zXLKyYLdGOqU4r/qs=
+	t=1792103369; cv=pass; b=nUbi+13m+jwbxCZGK/JRAZ6B2A/ZxtW6cvAZl80GLjw//htYwsLWTjmvUIe3zRYsEOtNsMsL8n5mVw/lyTDOkEDo6EsA1bnXFtkbGoBhKiAJ9LJjT1SPf4mSTNYSfeeiJ2CguzVxYPS7eNGEQ169pyAnKL4Gb2QErlNgAJ7ZI6Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792103349; c=relaxed/simple;
-	bh=NiKDaQULsN/FekldlPoSCg9eoNofARkit0zgu4y2lf8=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=izv/R9+uDaEVQ+Zc5RUix7PLqeTHvHKFwsYJA2eXvlV97Sv8Us76JorHrlX9kSVSdMxCP655zkBpFqlTMUk53at0/RVKFAZ2NdckZj8DA82h4BZ2ew4u4Mjg5cZSt7Necsgi/beXxh8OWdQcFbXHCF3yxD5mn2HOs2kcFR9GMsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZWxKcVyV; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792103369; c=relaxed/simple;
+	bh=AXRRS22uutXkOu3guPUe2GbkmsWxR1BXKHyZbsJzLy4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TWT562wexlkLOLVi/xKODlDntsalpRiKfavLz3sM4IHi86jgl0yEZBQoijd4J0SeZOjtkAedGjulrwzZJx9pjAyMsZNbprljsJr1+jKOKsr3W3jmFUcJEh/jDOA8uJYIyLpOnz0DpWSa/4HxyUo2msgImt8dSNQrd3ZE+5lErR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NRVAjXEt; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZWxKcVyV"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67999045530so2202305d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:29:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792103346; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NRVAjXEt"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-535f598d126so53561cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:29:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792103367; cv=none;
         d=google.com; s=arc-20260327;
-        b=C5ICBxJUxdHh6+4qbwfl7DATHmAhEhBI7/KO+dUJZVMCMsgaeiEAxsgGtu/z2JXMDY
-         7ohrH1WLgE4U6gSiVYDVrc2LyYYzDMDVH/yIYrWJF0eAYNJHLOtPykoHDrlkcKGf8JGd
-         WE8cZvDUEwk4PrjioNEP912Me4NfdJwACkqskGUoAU28KPf5nEyJRXqYoZLWzZIMwikr
-         stmP6pzn3DcXEaY8CSKCMCfvP0HQTaS/3bMd+WmTwc4FAY0IfCLoXafMTM/bgSfx5oCC
-         EC5vT5KRH4v04lD8VeTEiVhlhu2ARN+eIgu9o21MVWn31xtEGiz5ObcM7mmQiAl6rHJ4
-         r6OQ==
+        b=rFs+mJDjA4MP1sptV/5CRC2x5xZiYkdthxeldeHmKrbAC2i5tphcOeDPKVP2dGViD1
+         t3v45HRC+g5D/Tb/8VzojwKwe+pk9GzIgih+1p3zQoL/pQzmrrN16KEaGzGsOukik4Cn
+         4LkGWJ1Qpb1Pb+DvLwzH/t5DMWRHIYQlZHcAfJgndb9LrC2ezrKxK1bGE8CNoQgKuteK
+         bmwhMxQr3EW3QKopU3x99zM1eCLpWmeaCslUYvaDoCAKIfOy0JdrxyBtc92Yu7J2KqRw
+         rUBGdpQA8Ca2/BniUmcWgb845u1R3XXiAV4wdSk9lLCDB870gT5XzKJDyIfS50s8yYJ2
+         1kHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
-        fh=BdknfUYpheQN7sB7p9KEKZLleqRtZ3KRY/N4L9ikSME=;
-        b=px64juwoVoJE8vWiMIjs6o2XVEKe+FMedr2WUYHrgKxfKzP7dJTUq+iZNMQXpNudeQ
-         vT994RSheqZ8mkj+inB0PVu107jQKV2xDJog2FH/gTlHz7PDznOKngRRlmb6rq05SBIu
-         25635WycZv/8HGLhkHZtzDf3OOHsmRIvSZ2TSgu/Sz+dvJGZpQJXvXK5gfe2Nyihumo3
-         OoyCoP1FD9gp2cbRO3VFWOczlL+FtORgLGfnQh/OGLdAZIe7Zx8WJNqhq5asOb86HsZG
-         kGqU/yz1cD7DpAGa6apc+viOg9ssde/P7pTrthMeFoPRmWirjE/wnYB6rGH2cbtjWXzA
-         zSrg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
+        fh=dezZwRKMM2I4XL1aOuyabO+bvFDN2BzI37E1KpIy9RQ=;
+        b=OmtQ35JADYAm81ml9ZRTK/bsksHO4UdYpb+e3nUsFXZYbYQGsyeYANWA68ben8ZQ/Q
+         Vjy47M88I/gUSu5iwUuR7V76JWdBjZjTknLbz03bChknuQxkX4FcTiTNspC3J9au5/DN
+         fQDsd2uaKrb5XZaBqtuwaWVosKXgaR1UU6TxxloqIP+36hsLAzz9PUzrazeI9hOJuPO7
+         x85OeH6vKG5ny/5Gr3PF74vb4UZif3lACmqVO8sLPG6NYnfYXLIT2eynb7wjPAfAL7Ma
+         EqIccqZ3eIqSbbIzHnM3Nwncb1gnoIxieD/0b0H5ANZp0PSgNspI1WjwfP0FsZjifa1K
+         VMmg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792103346; x=1792708146; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
-        b=ZWxKcVyVMOWCxxzD7j7MwMFyWKZ7XKmu+WL4trFsmsJPzyhDTyP5Blpe79MtLrp5gr
-         +Bqpx5RwXqRgjfAquT2ApWQ8qqKq9VHM8Cv/O3dnLC+tlfQo7UbRohAc7SzR1r0f8fdL
-         kUFUntNXXn4Rq3nnIiLQaCebjSek7owaVVKTJUA4PLOSFEw4nNzLXf6aV5y0IrkuC9TM
-         nOsELBQCzuB2uysOFRD1cnbGjrXZ4NaY9vt6/AkMXgSnXHunzdC7QQt0691bIDZE3tnY
-         LzitqwGnmjYUXsla2vzPykjzb0oYlhlEeAc1KO22nyBSWmJRe4xrv2dnoIysT/lWNVVI
-         IPyg==
+        d=google.com; s=20251104; t=1792103367; x=1792708167; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
+        b=NRVAjXEt20dCgTC1AdDpGbOXmNtHTqK3ykULgg9QQmKY3yCKHMT8KPw2ao7Ln27DBR
+         Usl+Y3wt2Y7k8Z8uCzEoetaxmOLL0n+g8rrjsfVsJKFzRVYCxZIDLHRTnMkNJtSydYxt
+         fCESTcbCsNXnZ92hd1VUi5dPtA1i8Fz0vcM9tsGzkJ/HKu/4gr7IElT9ybmcdhSFirj8
+         s6Tx+j3LWwMODjwNeKBx2JLnVi3H7JT2FacHoYXd5/jwj8tQyrm5tYxTvrNrs1jFekNI
+         hpHBcfHiXfMf5jqLLoT8gAmtkjsXSHJFXTQWtLz9Mut6QpoYOieEhcyn9fBoN6juG3oL
+         zNZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792103346; x=1792708146;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bj1Epb5FfswhvVZ0TJyzF1qW5a3SYkt7ENfvhFrub7E=;
-        b=t8MsZkTmacf+L36Hfz4+7OKRaQEPLNLcDWvfD7fvnRBOiRltFtzT1A+ILTYnFCLPWJ
-         AgFi+H/gFvaphOpzdzwfjX/MltlgOeu3FUn3vWg/Vggcuc/jzoKw+iNrrFV6exB7rKWW
-         fLFTafCgUXp7bDtTILqPQ6+Uk34DVS0MwOiX8sTlgulQ78fQdww+bsGBZqEvEGGbAElg
-         /AneK7S+oT9WLUlT0PzBqvqySaaTN4YRuEzgxHARYOTmbV6Hkyl9dStk1mm3xAXOqhT9
-         LC7bCDuhZxNLr1Ht3kmjfJV8KgRo7zXKVpbT7MfgUNJf+n9/A2TldKcPOUEQb2nUFeMq
-         Ri8A==
-X-Forwarded-Encrypted: i=1; AKwUvBzFUS3NkQUC2AC/ef5d0dLJGFtI7uE/Vl6wj88FXAUVHW+9hSQ/7Oeh2tJJ+crN3lydfBaokpYJhv5xrrA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRDH/fLqTaRgf+AbgM2dAf69rjatTfCarXlSq9cgIHug25j9Us
-	sJnXocXsQmyaKvuaBUIYhpaySwD1DfOsskcMJwaDySlZM2Mdn2/WbCEzO3uk3rmee59Qez0yh6v
-	JATbzkQSfP0AC8OJ5OwYaoHFEsAMQfXo=
-X-Gm-Gg: AYBFou1MLapFU5FbkrM6WhuLnf0EJ5OMTTrlaiGeLkai6jQ0xxSCrS9xwburIji/Yrt
-	p1OwGZBWXBtKVT5cFZCzLKaKjbSya8Ql8ugTZnhH1kceLNv9mmlhXX1E7hUsyNxeJodq4P6mU1Q
-	sM0QJ69WDeIOSTC6/AuMmfjGtTTMvwkQicfH+HZRixR0E6RJDkTNPp9NIWo9ejfxX3V6W+JuS59
-	wHxAhPqnjjX4KEfdsQpGSIlprNp1W0xvZ2eQTk0TY6El8UOJik8yBNtrooHvoH4/D1yzu5mh+1q
-	uSSknW9pMbQhGoc2893sUKFI8uUrmSg8X0u1eWmQt+wt5bVl4WW27Po6C64Kt8LpwgPjFc9cKt7
-	THtUPbdByuJ18lu68CztDhFNiiDnLrt0Cy4mWLT3NSQhcBw==
-X-Received: by 2002:a05:690e:b85:b0:675:657b:8049 with SMTP id
- 956f58d0204a3-67936a5bc0cmr7401301d50.77.1792103346176; Thu, 15 Oct 2026
- 15:29:06 -0700 (PDT)
-Received: from 595171893313 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 18:29:05 -0400
-Received: from 595171893313 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 18:29:05 -0400
-From: Gemayel Lira <gemayellira@gmail.com>
-In-Reply-To: <000301dd2e36$f0cc5ea0$d2651be0$@opensource.cirrus.com>
-References: <CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
- <CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com> <000301dd2e36$f0cc5ea0$d2651be0$@opensource.cirrus.com>
+        d=1e100.net; s=20260707; t=1792103367; x=1792708167;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fx0meqXkpmqmZ+T0ZUXv6LFbVHDOrz59U8bjk3O4KlE=;
+        b=rDKGhyJ57o/HQJByqfje54AwIaaOswWcv04T9/EtqVgTZGSMIKDBWocKx+kPVDz+Sh
+         CuDhjYyFj4bCmaxKKhMsaAUn6aCJOCVdCytsu82Xypc1s3qjesvMGTgQyvUNFHLiDzGE
+         lyLkWdi1xVzFGBASkXmxZDAAHATqHHm2Im0LepkAw+86QJTPS97w1cx3RUulrcwdm5A5
+         0D0WjAUKblGRYgLsuemtf42HEvf9F/VDj6GnNPnqmiuoK8kiChIFq52/K7+kBDvHngTP
+         PEDc+h+NqyExwp3lpt5wXsaVsnzxwo6rbKrDfyWjkeOMqoH6++yxYZtHeuOAGH0CDnXn
+         WSkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFWulpqzurHdjVWX18ytYqC6CXSNerqIDvom5RBWOBiZdMK1Nb4Ab4+YnmOutuaVZCEgbnkoHUsp7STPI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2sRo0yGHX/UTpGEOJ8JT5fNSW1U4DHPj1BWc/Jfao+d3RRPjE
+	fr3+Dcqd9N5JJDlwxl7DuZUTO0NXcvdD3xkk5xP2LlO0n/upvlDfCNDe6w6nS3NIIP1LQ/cvgVf
+	zYbkkQZU/uGtboqZnFWPN/xhjbuSI/B3saG0Zd6Jl
+X-Gm-Gg: AYBFou3gHZzLjM6d2Xm24F2IJQ24CxKFJM4K9Oa6PTEyvtvTrgfjOOzY4jaHWDMqhfG
+	8AW9WbUIknCdLbo6nphOUAOkvwnA5ISW4/90QN9LKpiOc5jBLHUylHJeUqRh3lXol5RFU37m4k+
+	Pa6113Ymz/vPd244vb3reFU77Kd7u6jrliv5JLL5WA1p/WbDoTwemgcdJpaKpQttgyYSJQQzAym
+	F4qmfVf1CZdY1N5mYBvhCM9XMNeHHf5dMt6TxSAOEsMAXOzbkLImaRUltcitv7XNgScRxzxnjOO
+	nVQRY6Kn5OUJ8vJ/n3XIB1dJg7Jsr8Rzi7FR08+TZ1eWJIXSfYzxUmjrK8jHZ62/gfHJQZwsx6m
+	Pehs69zXCtA==
+X-Received: by 2002:a05:622a:1a89:b0:535:30a:76c7 with SMTP id
+ d75a77b69052e-536297d3336mr5010261cf.3.1792103366183; Thu, 15 Oct 2026
+ 15:29:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 18:29:05 -0400
-X-Gm-Features: AclHuK98rkwv-JrkBYl5rNF6_HbarRJHAp0tGUDDcKLhldq08QqmjhpqYPvCG0k
-Message-ID: <CAD96ZTJFD5pWcZqk1FRRsFS6tmMMiOGduxK+4SGb45jeZvp1OQ@mail.gmail.com>
-Subject: [PATCH v3] ALSA: hda: cs35l41: Enable VSPK on UX3405CA when ACPI
- leaves GPIO1 unused
-To: linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, 
-	Jaroslav Kysela <perex@perex.cz>, David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>, patches@opensource.cirrus.com, 
-	linux-kernel@vger.kernel.org
+References: <20261014225811.i.852-kees@kernel.org> <20261014225818.3457479-2-kees@kernel.org>
+ <2026101517-profane-opponent-4523@gregkh> <CANiq72m_iyquf4Lc8AWvbsBp++ASz4+C_MQ5iYQW-fHd_MNDxA@mail.gmail.com>
+ <C46E97AC-3722-4264-B541-04EBC3091E00@kernel.org> <2026101532-fantastic-deafness-e04c@gregkh>
+ <CANiq72=wS5NJyeKKaYiHKWhDq2Wjk728qkCUNq4xVoHrPEPCRw@mail.gmail.com> <2026101515-oversleep-related-e4dd@gregkh>
+In-Reply-To: <2026101515-oversleep-related-e4dd@gregkh>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 15 Oct 2026 15:29:13 -0700
+X-Gm-Features: AclHuK_bhqpBXC-6cMMrPjeFLsPs6nuRXrMV9IFwDJ4QNHEyGqQj-Q86H0SV0Zk
+Message-ID: <CAP-5=fX72cGXtOVYFK0Fr-XMWtr5nfmdr0y3dwVeUcuAueW3Xg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] seq_file: Require explicit initialization of struct seq_operations
+To: Greg KH <greg@kroah.com>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Kees Cook <kees@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-fsdevel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The ASUS Zenbook 14 UX3405CA (SSID 1043:1A63) already has a valid _DSD
-and uses missing_speaker_id_gpio2. ACPI sets cirrus,gpio1-func to VSPK
-on the left amplifier and unused on the right, so the right channel
-binds with VSPK: 0 and volume drops shortly after playback starts.
+On Thu, Oct 15, 2026 at 1:50=E2=80=AFAM Greg KH <greg@kroah.com> wrote:
+>
+> On Thu, Oct 15, 2026 at 09:47:34AM +0200, Miguel Ojeda wrote:
+> > On Thu, Oct 15, 2026 at 9:11=E2=80=AFAM Greg KH <greg@kroah.com> wrote:
+> > >
+> > > __must_init might be smaller?
+> >
+> > That sounds fine too. I like that it says that something *has* to be
+> > done (like the original name did). Hmm... On the other hand, I guess
+> > "must" could sound like one has to initialize the field "somehow",
+> > i.e. writing:
+> >
+> >   struct S s =3D {};
+> >
+> > definitely initializes it, yet the compiler would warn. Would
+> > "explicit" hint a bit more at the fact that one has to actually
+> > "write" the field, even if it may have been initialized anyway?
+>
+> "explicit" is a description, "must" is an action that tells the reader
+> what they have to do, so maybe "must" is better?
+>
+> Anyway, I don't care, naming is hard, either is fine with me, I'll let
+> the authors of the patch here pick what they want :)
 
-After parsing ACPI, enable VSPK on GPIO1 when it was left unused.
+Fwiw, I like __must_init for being both short and intention revealing.
+I'll hold off sending my v2 for kobject::release to avoid renaming the
+attribute.
 
-Signed-off-by: Gemayel Lira <gemayellira@gmail.com>
----
-Changes in v3:
-- Rebased onto tiwai/sound for-next. missing_speaker_id_gpio2 is still
-  used only by SSID 10431A63, so the GPIO1 change does not touch other
-  laptops.
-- No functional change from v2. Still no generic_dsd_config and no
-  internal-boost override.
-- Test kernel is now Ubuntu 7.0.0-38-generic. The running proof is the
-  out-of-tree module of this hunk (srcversion 955693DEB4FC9A01D9EF0EC):
-  both amps VSPK: 1, SPKID: 1, firmware
-  spk-prot-10431a63-spkid1-{l,r}0.bin. No PM -110 or SPI -16 with that
-  module. One earlier S3 on 7.0.0-27 reloaded both amps with no resume
-  error. Not a multi-cycle S3 claim.
-
-v2 discussion:
-Stefan Binding replied that enabling GPIO1 on the second amp should not
-have an effect and asked for a bugzilla:
-https://bugzilla.kernel.org/show_bug.cgi?id=221896
-On 2026-09-25 (comment #15) he wrote that this unit has no
-CirrusSmartAmpCalibrationData EFI variable and that missing calibration
-is not something the driver can supply; contact the laptop vendor.
-This patch does not invent calibration data. It only sets GPIO1 to
-VSPK_SWITCH when ACPI left the function unused, which is what stops the
-right channel binding with VSPK: 0.
-
-v1: Message-ID:
-<CAD96ZT+SnRnGr4Xd+NJkkVNpj8XrzL3Ete=pRgz05mqxAzbU2w@mail.gmail.com>
-v2: Message-ID:
-<CAD96ZTJzEwiNwJm4ujLS4+X_KChi4+_sD0j-m+aE+_9i+eUGcA@mail.gmail.com>
-
- .../hda/codecs/side-codecs/cs35l41_hda_property.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-index 272421d1b..002771848 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda_property.c
-@@ -479,7 +479,20 @@ static int missing_speaker_id_gpio2(struct
-cs35l41_hda *cs35l41, struct device *
- 		return ret;
- 	}
-
--	return cs35l41_hda_parse_acpi(cs35l41, physdev, id);
-+	ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * ACPI on 10431A63 sets gpio1 to VSPK on the left amp and unused
-+	 * on the right, so the right channel binds with VSPK: 0.
-+	 */
-+	if (cs35l41->hw_cfg.gpio1.func == CS35L41_NOT_USED) {
-+		cs35l41->hw_cfg.gpio1.func = CS35l41_VSPK_SWITCH;
-+		cs35l41->hw_cfg.gpio1.valid = true;
-+	}
-+
-+	return 0;
- }
-
- struct cs35l41_prop_model {
-
-base-commit: 7f21312381fee99f58b383fa07374da3c614aec4
--- 
-2.53.0
+Thanks,
+Ian
