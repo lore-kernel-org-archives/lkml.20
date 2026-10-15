@@ -1,329 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C7B4A5ED0;
-	Thu, 15 Oct 2026 20:15:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B3B1DF736;
+	Thu, 15 Oct 2026 20:15:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095328; cv=none; b=SUyr0PWfVxrB1VcIlQL9daBUWnrbIOsTpLCRZrrTggE7DGBChXHcGIL5J/dk/dPL2guP8M3CBVqhC6p+a0+qYH6te2Ait3CBAnIOlSQj5ZTgJEjX6jXVS1gbwEJ5rEhFFcmAGkD2lrkSEaECQFszHjdm6i5E/3+sDAOweNXDa7s=
+	t=1792095351; cv=none; b=FzKWSZmmxecObMt8wpwwA1MpzSv+hnzpsA7ZlYv90TYezo5hV649Pl5HhEnqOvhytJW4oMfOPeWA6JdbimRwZxRKNdmcEma5zhnyH/bLbw5c6PdoeFS2zoFwzs01nXfIg4VyQ5vc0BHjN84yfXYCwog+P6NWzTYRE3jW+vd+QbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095328; c=relaxed/simple;
-	bh=o/6tC4Iti9jgkzvtQ+oMdQp9J3+vt+1OqpnJZGpvPv0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jB++1fwpJ4BDpXjySNu/tyyAnPtI/6kneEWQHxr9mfeMY7WVci9ONiEKQIdbOgHwAgKEHeZK4ShGoH/J00Atq/uDtPiv9Q9eBYeR7+w+YJiBa56B1IH53S9EKqb31isMY70vLnjSM2a47u1SyH+c1x9WR16X7z9QL0xkYikP1zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEJj5h5q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792095351; c=relaxed/simple;
+	bh=oSltm9idK3HnaWKPb7Wygo/c96CShr/Ox7Wjwpt67Z0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dbp2ie6ml6bKIuJSpKwIu2QInRdVQSKqbcc7t/ZsaJrdY/fmtpGL9nraR/TXvR7M8FCEwx1IWI9/nSV6UzvKdD8Y9TdPyCZp1Wsxc4o7y7k/5TlzSy+qLPGJ9RlI5Y3KY77yp9fQMO4g1A6SQxjYbLLPWHCfjYIPSdY51ZuhBSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWH/FZro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEJj5h5q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68BF1F000C6;
-	Thu, 15 Oct 2026 20:15:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWH/FZro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5DD1F000C4;
+	Thu, 15 Oct 2026 20:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095326;
-	bh=HVseH2fe+YHS4QdNyOTjNRFrabGI0KhJiTZ4qqpyAPE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BEJj5h5q2+AZISYNE1EMj8hWcr2a71cLbzm+luRX+kBH5ZwxxMxAd6auOeB7kKLm2
-	 aHPRJX20MbJ9FvqgnQgUydmHRcj3L1tedG7ALGd9fdUugMwzPS2Ml38Uw9aBGNHdn+
-	 olvGVlhttfRU7N0EtNIvqSowu+9kjYUOQVvWwmBB1OMclji9JgUrxX4ERetM6RII11
-	 Xfwo3Do+7VAHHzp4KR0HUvjfxhCK+Hub/iWY2relq4a1KiaFtKEjBHQK5XU5az8F5q
-	 +XeMVmhanx6Vn/DNlCTTW73VzbkgIrZ1lrRB8YX57KcfHkU1K1hRGTJ0X6t8gNVOvV
-	 CIvGlKWmguMyw==
-Subject: Re: [PATCH net v7 4/4] net/smc: bound the link failover cursor
- advance to the send buffer
-From: netdev-bot+sashiko@kernel.org
-To: hexlabsecurity@proton.me
-Cc: alibuda@linux.alibaba.com, kuba@kernel.org, pabeni@redhat.com,
- edumazet@kernel.org, dust.li@linux.alibaba.com, mjambigi@linux.ibm.com,
- sidraya@linux.ibm.com, davem@davemloft.net, netdev@vger.kernel.org,
- horms@kernel.org, linux-kernel@vger.kernel.org, wenjia@linux.ibm.com,
- tonylu@linux.alibaba.com, linux-s390@vger.kernel.org,
- guangguan.wang@linux.alibaba.com, ubraun@linux.ibm.com,
- linux-rdma@vger.kernel.org, raspl@linux.ibm.com, hidayath@linux.ibm.com,
- guwen@linux.alibaba.com
-Date: Thu, 15 Oct 2026 20:15:24 +0000
-Message-ID: <179209532452.434549.6588379141939967966@kernel.org>
-In-Reply-To: <20261013-b4-disp-f345196c-v7-4-ef3dddfbfa68@proton.me>
-References: <20261013-b4-disp-f345196c-v7-4-ef3dddfbfa68@proton.me>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792095349;
+	bh=6Mf+CP8MgReqGg6hHqGvrbor5AhWhA2wwP193zlZpLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KWH/FZrowMlshoFECXu965UkYoGuoM8nYnAQD4H6jEWBtkOIFEK1h3YuuMzf/LCsJ
+	 P5aMTHCdeBq5gYjJ78xAj2A1BYnbMac/K1vXbzl7oIZSHm3ilLaEKsAsnvvl2m7nmk
+	 CwvEEDqxX68gPJgdAi94McHMuCQHvMnq8ZhIJXwt8W1U5urpBEO7J3lfl2vdpJwDWX
+	 WWo/XmseeEDoe0XiCGrnKvblGyfvOtnE7Z7FM2bQN4zOlKSWwSL5V6acpOZHUu3YWt
+	 lsey81JwnLbk1c2iJwmvkoNDY7p4EtOJsv2iHTLoIw/OON/cuxeCeYuHyp6Dgj6ZkH
+	 Ki97BZgS7t+8w==
+Date: Thu, 15 Oct 2026 15:15:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: wyibo6109@gmail.com
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
+Message-ID: <20261015201547.GA2868930-robh@kernel.org>
+References: <20261014135251.11234-1-wyibo6109@gmail.com>
+ <20261015110859.203989-1-wyibo6109@gmail.com>
+ <20261015110859.203989-2-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015110859.203989-2-wyibo6109@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Oct 15, 2026 at 06:08:58AM -0500, wyibo6109@gmail.com wrote:
+> From: Yibo Wang <wyibo6109@gmail.com>
+> 
+> Binding for the OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin
+> smart keyboards, built around a Tinno keyboard MCU and attached to a
+> tablet UART.  Describes the supply, TX-gate and wake GPIOs, with a
+> MAINTAINERS entry.
+> 
+> The compatible names the tablet project the pogo port belongs to
+> (caihong, erhai or iceland), which pins the keyboard generation and
+> with it the protocol extensions the host may use: the 0x3A general
+> sub-commands grew over time, from the caihong (sm8650 era) keyboards
+> with neither wake notification nor backlight, through erhai (sm8750
+> era, wake notification) to iceland (sm8850 era, keyboard backlight).
+> 
+> The keyboard is a fixed physical device, so the touchpad geometry and
+> the product names are per-project constants and live in the driver;
+> the common touchscreen properties (touchscreen-size-x/y,
+> touchscreen-x-mm/y-mm) remain as an optional override if a variant
+> ever needs one.
+> 
+> Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
+> ---
+>  .../bindings/input/oneplus,pogo-keyboard.yaml | 73 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 79 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> new file mode 100644
+> index 000000000..bab9ff3d3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> @@ -0,0 +1,73 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) 2026 Yibo Wang <wyibo6109@gmail.com>
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/oneplus,pogo-keyboard.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: OnePlus / OPPO Pad pogo-pin smart keyboard
+> +
+> +maintainers:
+> +  - Yibo Wang <wyibo6109@gmail.com>
+> +
+> +description: |
 
-Critical: 0 · High: 1 (2) · Medium: 0 (2) · Low: 1
+Don't need '|'.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> +  The OnePlus Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro pogo-pin smart
+> +  keyboards, built around a Tinno keyboard MCU.  The keyboard is
+> +  attached to a tablet UART and speaks a framed half-duplex protocol
+> +  over a shared single wire; host transmission is gated onto the wire
+> +  by a PMIC GPIO for the duration of a frame.  It provides a keyboard
+> +  matrix, a touchpad and a keyboard backlight.
 
-- [High] The fix stops a forged cursor from moving the RDMA source past
-  the send buffer, but the destination can still run past the peer's RMB…
-- [Low] After the patch, smc_switch_cursor() can leave local_tx_ctrl.prod
-  behind local_rx_ctrl.cons.
+Wrap lines at 80 char.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  smc_switch_cursor() reads and changes tx_curs_fin, local_tx_ctrl_fin…
-- [High] This problem wasn't introduced by this patch, but
-  smcr_tx_rdma_writes() (net/smc/smc_tx.c:421-422) sizes the first…
-- [Medium] This problem wasn't introduced by this patch, but the two
-  consumers of the peer's wire consumer cursor now treat it differently.
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_curs_comp() (net/smc/smc_cdc.h) compares the u16 wrap fields as…
+> +
+> +allOf:
+> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
+> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    description: |
+> +      Names the tablet project the pogo port belongs to, which pins the
+> +      keyboard generation and the protocol extensions the host may
+> +      use: caihong (sm8650 era) supports neither the wake notification
+> +      nor a backlight, erhai (sm8750 era) adds the wake notification,
+> +      iceland (sm8850 era) adds the keyboard backlight.
+> +    enum:
+> +      - oneplus,caihong-pogo-keyboard
+> +      - oneplus,erhai-pogo-keyboard
+> +      - oneplus,iceland-pogo-keyboard
+> +
+> +  power-gpios:
+> +    description: GPIO enabling the keyboard supply, held high while attached.
+> +    maxItems: 1
+> +
+> +  tx-enable-gpios:
+> +    description: GPIO gating host TX onto the shared one-wire bus.
+> +    maxItems: 1
+> +
+> +  wake-gpios:
+> +    description: GPIO signalling attach/detach, also used as the wake line.
+> +    maxItems: 1
+> +
+> +  touchscreen-size-x: true
+> +  touchscreen-size-y: true
+> +  touchscreen-x-mm: true
+> +  touchscreen-y-mm: true
+> +
+> +required:
+> +  - compatible
+> +  - power-gpios
+> +  - tx-enable-gpios
+> +  - wake-gpios
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
 
---
+As this goes under 'serial' nodes:
 
-net/smc: bound the link failover cursor advance to the send buffer
+serial {
 
-This patch hardens smc_switch_cursor() against a forged peer consumer
-cursor during SMC-R link failover. The catch-up advance now runs only when
-cons.count is inside the peer RMB. It is also capped at the amount of data
-between tx_curs_sent and tx_curs_prep.
-
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 8829517299def..36aee89e5f5f7 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-
-[ ... ]
-
-> @@ -1043,12 +1043,18 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
->  	/* set prod cursor to old state, enforce tx_rdma_writes() */
->  	smc_curs_copy(&conn->local_tx_ctrl.prod, &fin, conn);
->  	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
-> +	smc_curs_copy(&prep, &conn->tx_curs_prep, conn);
+> +    keyboard {
+> +        compatible = "oneplus,iceland-pogo-keyboard";
+> +        power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
+> +        tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
+> +        wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8014b9f82..9c29eb961 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20156,6 +20156,12 @@ S:	Maintained
+>  F:	Documentation/ABI/testing/sysfs-bus-platform-onboard-usb-dev
+>  F:	drivers/usb/misc/onboard_usb_dev.c
 >  
-> -	if (smc_curs_comp(conn->peer_rmbe_size, &cons, &fin) < 0) {
-> +	if (cons.count < conn->peer_rmbe_size &&
-
-[Severity: High]
-Does this fully close the destination side of the overrun that the commit
-message describes? The new cons.count check only decides whether the
-catch-up branch runs. The forged cursor is not rejected and stays in
-conn->local_rx_ctrl.cons.
-
-Right after the if-block, smc_switch_cursor() still does:
-
-	/* recalculate, value is used by tx_rdma_writes() */
-	atomic_set(&smc->conn.peer_rmbe_space, smc_write_space(conn));
-
-smc_write_space() computes the window from that same cursor:
-
-	space = buffer_len - smc_curs_diff(buffer_len, &cons, &prod);
-
-Take peer_rmbe_size = 16384, fin/prod = {wrap 2, count 1000} and a forged
-cons = {wrap 3, count 17000}. The branch is skipped because 17000 >= 16384.
-In smc_curs_diff() the wraps differ, so (size - old->count) is computed as
-unsigned and wraps around. The diff comes out as 384, which makes
-peer_rmbe_space 16000.
-
-smc_tx_rdma_writes() then sees prod.wrap != cons.wrap and takes the
-single-chunk path:
-
-		dst_len = len;
-
-This write starts at dst_off = prod.count = 1000, and nothing limits it to
-peer_rmbe_size - prod.count. Wouldn't that RDMA write cover bytes
-1000..17000 of a 16384 byte peer RMB?
-
-The receive path in smc_cdc_msg_recv_action() also credits
-peer_rmbe_space from the same cursor. smcr_cdc_msg_to_host() imports cons
-with max_count == 0:
-
-	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn, 0);
-
-So this looks reachable with or without failover.
-
-Would it be better to validate the consumer cursor once at import (count
-against peer_rmbe_size, plus a sane wrap delta)? Alternatively,
-peer_rmbe_space and dst_len could be clamped to the peer RMB. A check
-inside the catch-up branch alone doesn't seem to cover it.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the two users of the wire
-consumer cursor now handle it differently. smc_switch_cursor() bounds its
-use of local_rx_ctrl.cons. smc_cdc_msg_recv_action() in net/smc/smc_cdc.c
-still credits the window without a limit:
-
-	diff_cons = smc_curs_diff(conn->peer_rmbe_size, &cons_old,
-				  &conn->local_rx_ctrl.cons);
-	if (diff_cons) {
-		...
-		atomic_add(diff_cons, &conn->peer_rmbe_space);
-		/* guarantee 0 <= peer_rmbe_space <= peer_rmbe_size */
-
-A forged cons with the same wrap as prod and a large count pushes
-peer_rmbe_space above peer_rmbe_size. smc_tx_rdma_writes() then uses
-len = min(to_send, rmbespace). That can be larger than peer_rmbe_size when
-the sndbuf is bigger than the peer RMB.
-
-The second destination chunk in smcr_tx_rdma_writes() is then:
-
-		dst_off = 0; /* modulo offset in RMBE ring buffer */
-		dst_len = len - dst_len; /* remainder */
-
-Can that second chunk run past the end of the peer RMB? Should the
-receive path get the same bound as the failover path?
-
-> +	    smc_curs_comp(conn->peer_rmbe_size, &cons, &fin) < 0) {
-
-[Severity: Medium]
-This is a pre-existing issue, but smc_curs_comp() in net/smc/smc_cdc.h
-compares the u16 wrap fields as plain numbers:
-
-	if (old->wrap > new->wrap ||
-	    (old->wrap == new->wrap && old->count > new->count))
-		return -smc_curs_diff(size, new, old);
-	return smc_curs_diff(size, old, new);
-
-smc_cdc_cursor_to_host() and smc_curs_diff_large() handle the 65535 to 0
-wrap rollover explicitly, but smc_curs_comp() does not.
-
-Take peer_rmbe_size = 16384, fin = {wrap 65535, count 12288} and a
-legitimately advanced cons = {wrap 0, count 4096}. Here
-smc_curs_comp(P, &cons, &fin) returns +24576, so the catch-up is skipped
-even though cons is 8192 bytes ahead. smc_write_space() then returns
-16384 - 24576 = -8192.
-
-smc_tx_sndbuf_nonempty() then returns early:
-
-	if (unlikely(atomic_read(&conn->peer_rmbe_space) <= 0)) {
-
-If the peer has nothing left to consume, no new cons update arrives to
-reopen the window. Can the connection stall permanently if failover hits
-this window? Reaching it takes about 65536 wraps of the peer RMB before
-the failover.
-
->  		/* cons cursor advanced more than fin, and prod was set
-> -		 * fin above, so now prod is smaller than cons. Fix that.
-> +		 * fin above, so now prod is smaller than cons. cons comes
-> +		 * off the wire: catch up only for a count inside the peer's
-> +		 * RMB and no further than the data in the send buffer.
->  		 */
-> -		diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
-> +		diff = min(smc_curs_diff(conn->peer_rmbe_size, &fin, &cons),
-> +			   smc_curs_diff(conn->sndbuf_desc->len,
-> +					 &conn->tx_curs_sent, &prep));
-
-[Severity: Low]
-Two cases leave local_tx_ctrl.prod behind local_rx_ctrl.cons: the prep
-term of this min() wins, or the branch is skipped because
-cons.count >= peer_rmbe_size. The comment above still says the catch-up
-fixes prod < cons.
-
-smc_write_space() assumes prod >= cons. Suppose cons is one wrap ahead,
-for example cons = {w + 1, c} and prod = {w, p} with p > c. Then
-smc_curs_diff(buffer_len, &cons, &prod) is larger than buffer_len, and the
-returned space is c - p, which is negative. In the equal-wrap case
-smc_curs_diff() clamps to 0, so space is just peer_rmbe_size.
-
-A negative space breaks the "guarantee 0 <= peer_rmbe_space <=
-peer_rmbe_size" comments in smc_cdc.c and smc_tx.c. Sending on the
-connection also stops while peer_rmbe_space <= 0.
-
-For a conforming peer neither the skip nor the cap should fire. So the
-effect seems limited to a stall of the misbehaving peer's own connection.
-Is this state intended, and should the comment be updated to match?
-
->  		smc_curs_add(conn->sndbuf_desc->len,
->  			     &conn->tx_curs_sent, diff);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the RDMA write takes its
-offsets from these cursors. Is the source side of smcr_tx_rdma_writes() in
-net/smc/smc_tx.c bounded for the second destination chunk?
-
-		dst_off = 0; /* modulo offset in RMBE ring buffer */
-		dst_len = len - dst_len; /* remainder */
-		dst_len_sum += dst_len;
-		src_len = min_t(int, dst_len, conn->sndbuf_desc->len -
-				sent_count);
-
-This uses the original sent_count rather than the current src_off.
-smcd_tx_rdma_writes() uses src_off here:
-
-		src_len = min_t(int, dst_len, conn->sndbuf_desc->len - src_off);
-
-A conforming peer doesn't seem able to reach this. The SMC-R sndbuf and
-RMB sizes are both 1 << (comp + 14), and tx_curs_sent and
-local_tx_ctrl.prod advance together. It does become reachable once the
-unbounded credit in smc_cdc_msg_recv_action() pushes peer_rmbe_space above
-peer_rmbe_size.
-
-Example: peer_rmbe_size = 16384, sndbuf_desc->len = 65536,
-prod.count = sent.count = 4096, a forged same-wrap cons with a large
-count, and to_send = 65536.
-
-The first destination chunk has dst_len = 12288, and src_off becomes
-16384. The second has dst_len = 53248 and
-src_len = min(53248, 65536 - 4096) = 53248.
-
-Wouldn't sge[0] then cover [16384, 69632)? That is 4096 bytes past the
-end of the 65536 byte sndbuf, and sndbuf [0, 4096) is never sent.
-
-For physically contiguous sndbufs without an IOMMU, could this send
-adjacent kernel memory to the peer?
-
->  		smc_curs_add(conn->sndbuf_desc->len,
-
-[Severity: High]
-This is a pre-existing issue, but smc_switch_cursor() reads and updates
-tx_curs_fin, local_tx_ctrl_fin and sndbuf_space while holding only
-conn->send_lock. smc_switch_conns() takes that lock:
-
-			spin_lock_bh(&conn->send_lock);
-			smc_switch_link_and_count(conn, to_lnk);
-			rc = smc_switch_cursor(smc, pend, wr_buf);
-
-smc_cdc_tx_handler() updates the same fields from the send completion
-tasklet. It holds only bh_lock_sock() and never takes send_lock:
-
-	bh_lock_sock(&smc->sk);
-	if (!wc_status && sndbuf_desc) {
-		diff = smc_curs_diff(sndbuf_desc->len,
-				     &cdcpend->conn->tx_curs_fin,
-				     &cdcpend->cursor);
-		...
-		atomic_add(diff, &cdcpend->conn->sndbuf_space);
-		...
-		smc_curs_copy(&conn->tx_curs_fin, &cdcpend->cursor, conn);
-
-smc_llc_delete_asym_link() calls smc_switch_conns() before it waits for
-pending sends on the old link, and the DELETE_LINK path does the same:
-
-	lnk_new = smc_switch_conns(lgr, lnk_asym, false);
-	smc_wr_tx_wait_no_pending_sends(lnk_asym);
-
-So CDC sends already posted on the old link can complete on another CPU
-during the switch. One possible interleaving:
-
-CPU0 smc_switch_cursor()
-  tx_curs_sent = tx_curs_fin = F0
-  fin = L0
-                          CPU1 smc_cdc_tx_handler()
-                            sndbuf_space += F1 - F0
-                            tx_curs_fin = F1
-CPU0
-  tx_curs_fin += diff    /* now F1 + diff */
-  sndbuf_space += diff
-
-Doesn't that leave sndbuf_space overcounted by F1 - F0? Also, an old-link
-completion that lands after the switch can move tx_curs_fin backwards, and
-later completions would then credit the same bytes again.
-
-The earlier patch in this series, "net/smc: bound the send length to the
-send buffer in smc_tx_sendmsg()", clamps writespace to
-sndbuf_desc->len. That keeps the copy inside the buffer.
-
-Even so, can smc_tx_sendmsg() still overwrite unsent or unconfirmed data
-between the real tx_curs_fin and tx_curs_prep?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013-b4-disp-f345196c-v7-0-ef3dddfbfa68%40proton.me
+> +ONEPLUS POGO-PIN KEYBOARD DRIVER
+> +M:	Yibo Wang <wyibo6109@gmail.com>
+> +L:	linux-input@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+> +
+>  ONENAND FLASH DRIVER
+>  M:	Kyungmin Park <kyungmin.park@samsung.com>
+>  L:	linux-mtd@lists.infradead.org
+> -- 
+> 2.53.0
+> 
