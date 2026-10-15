@@ -1,82 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DAC3DAADA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA96385D75;
+	Thu, 15 Oct 2026 08:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053746; cv=none; b=fMRjLKJvU8ix3mDmlKsDqw6MCx8iGOWCiN1MeOPGqzFd9E2aGyI57yOJ99RuPzj0vkF9J7rCjcpGdWfNz3SvN6Q5ZxYIScl78YU+c7F2pZ4Uayf89jSsgo8foBOUdT8Sodz06IHd+kvwZk4AA2sn+53RYl2mfFro2KYlp/vWKTQ=
+	t=1792053777; cv=none; b=E11IAirGxggTYlJ0Saltwpq5FE73GHDy3eMvlJRYC19AQC3YPdjcm9ip7M0uKzHioOUE4SZ3ZJNjtUB+JJeoJTH8FNbT/XNbDlLYcnMlS/MStnTrgAWM+g6097ZAMqvd/Q9BBan4fezwM6/ECYgc0On1YlXpv+Skc15ySL+H0ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053746; c=relaxed/simple;
-	bh=3/exXtAS0wTcuZo/jQLMxhfQp9TH0oipgL7Utw4qJqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LMdYUdS/Go+V9b+J6l9HKyauxiderlkVHnFhibg8sjOilAdlfo16THqpJh7tpK+VwtxeUd7qTyuQWVxBfyuPsBaKvHJ2GUxW2iB3iEp0zC9PH/gRXgSMdljVrSoNGip29IuIg3rNAN/s8xyTFZrGz8rx2mI1owrm/OYoja0/w1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FmT/vhXP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FmT/vhXP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1558F1F000C4;
-	Thu, 15 Oct 2026 08:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792053744;
-	bh=3T+BBYG9njKm84IFi+JsC2GV6JdjgiVsPr6ozUNOJ5I=;
-	h=From:To:Cc:Subject:Date;
-	b=FmT/vhXPIM4BkJdjoZ3nFFJNW/Gki9HL86MTaMeiu496SaTyn2OHTSB9mp4tmUAaa
-	 /8yANjuaRZiAmXRrWUhwy++zaQuXm2GIXH5vK8bMXRTHqsvkX4+1+LZGxcBh3Y2DfR
-	 P9hIjkob44kZu7oGrepfQlIwFFSst7gg9lJNHhGtzCnEOUh3xL/ub5LE7I8x1ceHlq
-	 FSnG+cz8kQibfEeqpWXZFgqpj8N0oMH7a0D/AS3Hf57z2tGvypoWIsYu2pJyATwLoW
-	 Hiha86xyEQfwqaxHRSKvp3IMeg9PFgkX0yw0kLhisyFuk8csstQ+VBgRZcomKrV0Tw
-	 tZxW6Otv5ooMg==
-From: Michael Walle <mwalle@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] mtd: spi-nor: sfdp: fix missing kernel-doc
-Date: Thu, 15 Oct 2026 10:42:14 +0200
-Message-ID: <20261015084219.887963-1-mwalle@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1792053777; c=relaxed/simple;
+	bh=YVvOWWnNTA4Fg6YvjJo0nlknvomj9wPVnCAdZfvzNgM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=bf2S6MWKb5F24oVNFk294I2JrF/ewUqQW60M1L5mCBl02Z99ilbahkqaFNBNtPzmi3DbbAMUbrz25qJJCxr8zFUcHn5jfAPidE0joyWuxu12lp/qLfh5ISlRuDkbeOKK+yfIXPzWLYfdVvyObQ76PM0EH3rCOOSi80XMjq4SHnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
+Received: from huanggaobin23$semi.ac.cn ( [159.226.228.16] ) by
+ ajax-webmail-APP-10 (Coremail) ; Thu, 15 Oct 2026 16:42:38 +0800
+ (GMT+08:00)
+Date: Thu, 15 Oct 2026 16:42:38 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6buE6auY5b2s?= <huanggaobin23@semi.ac.cn>
+To: "Richard Cheng" <icheng@nvidia.com>
+Cc: linux-cxl@vger.kernel.org, "Davidlohr Bueso" <dave@stgolabs.net>, 
+	"Jonathan Cameron" <jic23@kernel.org>, 
+	"Dave Jiang" <dave.jiang@intel.com>, 
+	"Alison Schofield" <alison.schofield@intel.com>, 
+	"Vishal Verma" <vishal.l.verma@intel.com>, 
+	"Dan Williams" <djbw@kernel.org>, "Ira Weiny" <iweiny@kernel.org>, 
+	"Li Ming" <ming.li@zohomail.com>, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] cxl/mbox: Add the CXL 4.0 command return codes
+ 001Fh and 0020h
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
+ 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
+In-Reply-To: <atCLjvE5xJp9jo6L@MWDK4CY14F>
+References: <20261015055048.1765042-1-huanggaobin23@semi.ac.cn>
+ <atCLjvE5xJp9jo6L@MWDK4CY14F>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <31c53d8e.42202.1a13eba4ae8.Coremail.huanggaobin23@semi.ac.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:tACowAAnLaz+kdBqFFYTAA--.31554W
+X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiBwUBDGrQUWHtLgABsH
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Commit 69d9d7dabbeb ("mtd: spi-nor: move spi_nor_post_bfpt_fixups() into
-sfdp") added the kernel-doc but missed one description for bfpt. Fix it.
-
-While at it, also add documentation for the return value.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610040802.yD5XKM5i-lkp@intel.com/
-Fixes: 69d9d7dabbeb ("mtd: spi-nor: move spi_nor_post_bfpt_fixups() into sfdp")
-Signed-off-by: Michael Walle <mwalle@kernel.org>
----
- drivers/mtd/spi-nor/sfdp.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-index beb0f5c66212..818c7d4d69d4 100644
---- a/drivers/mtd/spi-nor/sfdp.c
-+++ b/drivers/mtd/spi-nor/sfdp.c
-@@ -403,9 +403,12 @@ static void spi_nor_regions_sort_erase_types(struct spi_nor_erase_map *map)
-  * @nor:	pointer to a 'struct spi_nor'
-  * @bfpt_header:	pointer to the 'struct sfdp_parameter_header' describing
-  *			the Basic Flash Parameter Table length and version
-+ * @bfpt:	pointer to the 'struct sfdp_bfpt' to be fixed up
-  *
-  * Used to tweak various flash parameters when information provided by the SFDP
-  * tables are wrong.
-+ *
-+ * Return: 0 on success, -errno otherwise.
-  */
- static int spi_nor_post_bfpt_fixups(struct spi_nor *nor,
- 				    const struct sfdp_parameter_header *bfpt_header,
--- 
-2.47.3
-
+SGkgUmljaGFyZCwKCj4gRG8gd2UgaGF2ZSB1c2VycyBmb3IgdGhlbSA/IG9yIHBvdGVudGlhbCB1
+c2VycyA/CgpJIGNoZWNrZWQgdGhlIHJlbGF0ZWQgY29kZSwgYW5kIHRoZSBob25lc3QgYW5zd2Vy
+IGlzIG5vIGZvciBib3RoIHRvZGF5LgoKMDAxRmggaXMgdGhlIGNvZGUgUGVyZm9ybSBNYWludGVu
+YW5jZSAob3Bjb2RlIDA2MDBoKSByZXR1cm5zIHdoZW4gdGhlIGlucHV0CnBhcmFtZXRlcnMgYXJl
+IHRyYW5zZmVycmVkIGluIHBhcnRzIGFuZCB0aGUgcGFydHMgYXJyaXZlIG91dCBvZiBvcmRlciAt
+LQpBY3Rpb24gPSBJbml0aWF0ZSBUcmFuc2ZlciwgQ29udGludWUgVHJhbnNmZXIsIEVuZCBUcmFu
+c2ZlciAoQ1hMIHI0LjAsCjguMi4xMC43KS4gIExpbnV4IGRvZXMgaXNzdWUgUGVyZm9ybSBNYWlu
+dGVuYW5jZTogUFBSIGFuZCB0aGUgc3BhcmluZwpvcGVyYXRpb25zIGluIGVkYWMuYyBib3RoIGdv
+IHRocm91Z2ggY3hsX3BlcmZvcm1fbWFpbnRlbmFuY2UoKS4gIFRoYXQgaGVscGVyCmFsd2F5cyB0
+cmFuc2ZlcnMgdGhlIHBhcmFtZXRlcnMgaW4gYSBzaW5nbGUgY29tbWFuZCB0aG91Z2ggLS0gaXQg
+cmV0dXJucwotRU5PTUVNIHdoZW4gdGhleSBkbyBub3QgZml0IGluIHRoZSBtYWlsYm94IHBheWxv
+YWQgaW5zdGVhZCBvZiBjaHVua2luZyAtLQpzbyB0aGUgb3JkZXJpbmcgY29uZGl0aW9uIGNhbm5v
+dCBhcmlzZSBmcm9tIHRoZSBkcml2ZXIuICBUaGUgbXVsdGktY2h1bmsKZmxvdyBpbiB0aGUgc3Bl
+Y2lmaWNhdGlvbiBpcyBkZXNjcmliZWQgZm9yIHRoZSBCdWlsdC1JbiBTZWxmLVRlc3QgdGVzdApw
+YXJhbWV0ZXJzLCBhbmQgdGhlcmUgaXMgbm8gQklTVCBzdXBwb3J0IGluIHRoZSBkcml2ZXIuCgow
+MDIwaCBpcyBvbmx5IHRoZSByZXR1cm4gY29kZSBvZiBSZXF1ZXN0IEFib3J0IEJhY2tncm91bmQg
+T3BlcmF0aW9uIChvcGNvZGUKMDAwNWgpLiAgTGludXggZG9lcyBub3QgaXNzdWUgdGhhdCBjb21t
+YW5kIGVpdGhlci4KClNvIG5laXRoZXIgY29kZSBoYXMgYSBwcm9kdWNlciBpbiB0aGUgZHJpdmVy
+IHRvZGF5LiAgQm90aCBhcmUgZGVmaW5lZCBpbiB0aGUKY29tbWFuZCByZXR1cm4gY29kZSB0YWJs
+ZSAoQ1hMIHI0LjAgVGFibGUgOC0yMDgpIHRoYXQgQ01EX0NNRF9SQ19UQUJMRQp0cmFuc2NyaWJl
+cywgYW5kIGNhcnJ5aW5nIHRoZW0gY29zdHMgdHdvIGxpbmVzIGFuZCBubyBiZWhhdmlvciBjaGFu
+Z2U6IGEKZGV2aWNlIHRoYXQgcmVwb3J0cyBlaXRoZXIgYWxyZWFkeSBjb21lcyBiYWNrIGFzIC1F
+TlhJTyB0aHJvdWdoIHRoZQp1bmtub3duLWNvZGUgcGF0aCwgc28gd2hhdCB0aGUgZW50cmllcyBi
+dXkgaXMgYSBuYW1lIGluc3RlYWQgb2YgInVua25vd24KcmV0dXJuIGNvZGUiLgoKSWYgdGhlIHBv
+aW50IGlzIHRoYXQgYSBkZWZpbml0aW9uIHNob3VsZCBhcnJpdmUgd2l0aCB0aGUgY29kZSB0aGF0
+IGNhbgpwcm9kdWNlIGl0LCB0aGF0IGlzIGEgZmFpciBwb3NpdGlvbiB0b28uICBJIGNhbiB3aXRo
+ZHJhdyB0aGlzIHBhdGNoIGFuZApyZXNlbmQgaXQgdG9nZXRoZXIgd2l0aCBjaHVua2VkIG1haW50
+ZW5hbmNlIHRyYW5zZmVyIHN1cHBvcnQsIG9yIHdpdGggYWJvcnQKc3VwcG9ydCwgd2hpY2hldmVy
+IGlzIGltcGxlbWVudGVkIGZpcnN0LiAKClRoYW5rcywKR2FvYmlu
