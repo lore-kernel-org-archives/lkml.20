@@ -1,46 +1,79 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157B23D953B
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0675629BD9A
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032712; cv=none; b=j9ChgxLqThiWXGpItsXvKWKRi+JahLJCsDKfY0rf+RD5br/r/YljchVa39wKseNJKCFYzRmJG/aG/7f4tmEe/CJiOY6dBz1qB0e9whXqIkxnecX66cTophDC9ArpNxLFA6TTP3X0Oik6Cq0BVbvUBgydq2fVkoVeSFvDLzdxjhs=
+	t=1792032827; cv=none; b=g5PoErarNylKAAU87zfFXh/zZhdg0W+K0wIvdNjqEZEqfNNjfFYDecsKl4HiZcqzz80ZYqyci164aA/R/NFvW9ofYaDpkxQXNqXTZhZhI6wfqGpEQTvVjQmngBIU07zid2sYtXr5QVg4xLuaTiVBQBMhqrGEtPItvTSSFpn3ldI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032712; c=relaxed/simple;
-	bh=Qi1Hl1ATrZS7rS+yxOdTVGXBRUHQsAyHr4XF0N8iAOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBKrclpb05mwWqVb3Bcg6tK/pHIYxrbBexXMvAT6CINvV4X+7MLTQOdcciI5EfjMHVcKHIaRY+autrqs6QElHiIoXcd5L4Wnl0vewIhOH8giKZnfg9PWMtpykZrTvfU6IkBHGxYGv8Qp29pBI9to4jmHH1a9zsRujM8KzhtYPp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=fA2kpRNs; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792032827; c=relaxed/simple;
+	bh=+goexvJ0rwrjMhmWxwsLRC9mJ3wlevf0fb07kJ0niV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l1hG+5JYZOLV31J8g5TKek5qK2TOVPx5UfL1JYE+DUHX9fAq2TFllDa4cOr43B4/z1luoLrnbryYjKU/WdMaFFgzI/0M9FC1FSQ2zE0+ll4CNtEdt3ZNjAaNS88/AlErQGENRA3KqarXYgDGEStWxOgB0Zf2yVI2H9J4AUZ4kG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tB9v/yjZ; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="fA2kpRNs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Dp
-	kgwh85BOXPAJHQjWppV1CE+brnrcfstCcvjd9xMhM=; b=fA2kpRNs8uEnwT2zge
-	CFzq4jHbtiUMqzs24u1PaatvB7xW9P6FYVzMoQ7285Ur5zuC1d/xUItNiXhENRpO
-	GI41ZoFfFZkvtYpGu56+Bf9XHxSNawhQ+xpJLtPV+fpNfBmkgkrruBBrpQ0+1ls7
-	SpdlKaLfsKOQReegsmULuwX+g=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wA3Tx50P9BqUumUEQ--.27817S2;
-	Thu, 15 Oct 2026 10:50:29 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tB9v/yjZ"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso572063b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:53:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792032825; x=1792637625; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gZigGVShNXb8M9xxdtd/aausWvbyL1B/6pZf5rZeo2w=;
+        b=tB9v/yjZmcH/I1MHTb5y+bFI+7MxChRpzybJPeenrCCVSm7jDvvS48hi0TGYRw71VS
+         jaHu0g64uyww20zrybUtTwhm1PMxHwx7TWZ8WYk+fs5p853IgVM7NnzSPsS5RcMyDII1
+         b+JWZfEyaKgo2ocfkB4UhuZ7AeVasHY00HRnRB1tUHGFJyLpOaMzbxrFu+Ud/RafWGyq
+         BYgwojs5L0zIl+MfD82In8Mf3/vNKTXnBGMMAj5LdUOpKX58drIn0r97OqTyYgI9azfS
+         SsUyqxRiMPAfpc2qig1P987U2rucjZx8PLenI2c1C2GpBeGnXCYzYQNTutd6vKxSHa07
+         Kgaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792032825; x=1792637625;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gZigGVShNXb8M9xxdtd/aausWvbyL1B/6pZf5rZeo2w=;
+        b=YEB+9wumOEL1nKAPshSzDp+TZK89dkOpZgNBWBSCyz5agqxCpHMkA2tRyZvLpClZHY
+         OoDgSquLOYphyMxBMhvbZgKL2NmEoVMVQvHMoQD04n6u9EPIwpRwpSEjakVv6DvRkzxK
+         rS+C9aYqz4iOdpMEQhXUmd9XFrYTFxd+9l8SQ4SznpMvpYz0igdGIx7GmT9PvhdZ6Zna
+         ngb9PGfepe7suOsK1NGeov2XF2FLkvWq1I9sWQEOVO/9N7u9guOyVGU9kjdrq1KBkli7
+         jqHgvV1tXRPW8CcphzdLKFX/7k2YbcufDSz2CrlekH9sWK3BelrIWQ9UTv3/haZIX9Z/
+         9OxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhrQcxn677IuHvszAdFrHidk+In5MGxJhNaEJL+mt7EdRCb14E4UwsxW8t+ZhlmVVv1uDy9b3Ubl6RxbM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDjQ+GUaIsoVSwh8nt6Yj5yOz7pSN284RU2YXX2J5npSTX3i0W
+	UNVi/gnQxGfDcDsRAuTINUulwQAGfEOc9YG1ejvq5A7ka0fS7ThTBQ5a
+X-Gm-Gg: AYBFou1NyUOXjU/o2NxnmRNAQWdrRAq4CI7RRoIeLntw1URA32mwO8UTenlTL9nlfQU
+	vSEIYgfZ5/p87S1/HGcC++cq79grY5NAT3Zs0jI+g71VBDJr7/Yxj8yxnsRn4NAN9ARhrFi/N8F
+	7n6s/a23BjaFk8tu37id+wokiG/vaFmJQ9vHaBtIkcde9Vine60Fl3A0+IbbGHP3bkRVzGeod3+
+	JWadcuRHhvENkSF71Fs4HG16Sl6e2CYPJ6i0PLolrA/tkJSWMZmkWWhuqmNw0XyIYkP93a2Jqjk
+	GE/4cZOMc7DhP/tj1fYFHGn9Q4gj08pBMa2PnITUH9EdaC5oA2yOJjOkDuQb0J8ZfdaceIyzuwI
+	uz3mR+qxA9EYUZYZPd/0ibecUduPvsZX492/fWofCq7uHlk7cLr+F3dlnpsPX86ZrCtEZMVDlhI
+	qHWqslKg5cHhNIRzXML42Y8UEpnZUl9132sNY6ZdmudsoPS8DIghvfXNBDTb756i4Bta5q+nKa5
+	QTcpvSIZHIWFYG8shCBti/zB2/lPTEW+rWLbrpL+jUro/ui4HN1RuP/Dife8Pc=
+X-Received: by 2002:a05:6a00:148b:b0:886:5f48:3fca with SMTP id d2e1a72fcca58-897c76e308bmr15340019b3a.37.1792032825083;
+        Wed, 14 Oct 2026 19:53:45 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802d10besm1706735b3a.28.2026.10.14.19.53.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:53:44 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	fvdl@google.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] sched/idle: Destroy on-stack hrtimer in play_idle_precise()
-Date: Thu, 15 Oct 2026 11:50:28 +0900
-Message-ID: <20261015025029.3356060-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH v2 0/2] mm/cma: fix range selection in cma_declare_contiguous_multi()
+Date: Wed, 14 Oct 2026 20:53:39 -0600
+Message-ID: <cover.1792032699.git.skunkolee@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,50 +81,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3Tx50P9BqUumUEQ--.27817S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyUWF1UWFW5ZrW8Ary3CFg_yoW8JFW3p3
-	90qFy3Kw4UX34qy398AF4kZryUuwsxZa43JFyFgr1rAF4kKr1jqF4jva43Xa1fCr40vw13
-	Aa4Fqwnayr15CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6Ra7G2rQP3aaMwAA3F
 
-play_idle_precise() initializes it.timer with hrtimer_setup_on_stack(),
-but does not call destroy_hrtimer_on_stack() before the stack object
-goes out of scope.
+These two patches fix two independent bugs in the multi-range selection
+of cma_declare_contiguous_multi(), found by code inspection with the
+help of an LLM (both patches carry Assisted-by: LLM).
 
-With CONFIG_DEBUG_OBJECTS_TIMERS, hrtimer_setup_on_stack() registers the
-timer as an on-stack debug object. Such objects must be removed before
-leaving the function which allocated them.
+Patch 1 fixes list_insert_sorted(), which does not actually sort: it
+stops at the wrong entry and, when no entry matches, inserts before the
+last entry instead of appending. The caller assumes the list tail is the
+smallest recorded range and that the list is walked largest first.
 
-Call destroy_hrtimer_on_stack() after the expiry loop to balance the
-on-stack timer lifetime.
+Patch 2 fixes sizesum counting the size of ranges that were skipped
+because the list was full, so the sizesum < total_size check can pass
+when the recorded ranges cannot cover the request, and the function
+returns 0 having reserved less than asked for.
 
-Fixes: c1de45ca831a ("sched/idle: Add support for tasks that inject idle")
-Signed-off-by: Hui Su <sh_def@163.com>
----
-Tested on x86_64 combined candidate tree:
+Each patch fixes a distinct failure and neither depends on the other.
+No kernel-level reproducer was produced and nothing was tested beyond
+compiling; the examples in the commit messages come from a userspace
+copy of the helper and the selection loop, written from the source.
 
-- hrtimer setup/free oracle: PASS (127/127 and 129/129)
+Changes in v2:
+- resend as a series with a cover letter, as requested by Lorenzo
+- commit messages now state how the bugs were found and that they were
+  not tested on hardware or in a booted kernel
+- add Assisted-by: LLM
+- patch 1: correct the sentence about the first inserted range staying
+  at the tail (only until it is evicted)
+- rebased on the current akpm/mm-new
+- no code changes
 
-- bzImage and modules build: PASS
+v1: https://lore.kernel.org/all/20261011003059.169430-1-skunkolee@gmail.com/
 
-- Branch-specific validation after split: NOT RUN
+Ivy Lopez (2):
+  mm/cma: fix list_insert_sorted() ordering
+  mm/cma: do not count skipped ranges in cma_declare_contiguous_multi()
 
- kernel/sched/idle.c | 1 +
- 1 file changed, 1 insertion(+)
+ mm/cma.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index eb73b65ce6c4..96adec3f0a6d 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -436,6 +436,7 @@ void play_idle_precise(u64 duration_ns, u64 latency_ns)
- 
- 	while (!READ_ONCE(it.done))
- 		do_idle();
-+	destroy_hrtimer_on_stack(&it.timer);
- 
- 	cpuidle_use_deepest_state(0);
- 	current->flags &= ~PF_IDLE;
-
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.56.0
 
