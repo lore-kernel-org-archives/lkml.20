@@ -1,75 +1,114 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EE1483819;
-	Thu, 15 Oct 2026 20:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC23598C17
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096458; cv=none; b=gn/tVH2LAbGl0nyOY2Ag9iqU/VWvmNGrL/C3g71/qayJAgmIijjaMmfQIdhOrGIKtEjBGKryYp6j4+1apfpc7WCZIXgG/RTRJl9xfC+Q8SZGlTcmFWaoRfT4MwW3FUJiuOzO4jp7JhAYz9ko3nJG6ea5/+BIBDes2amzpe9ZcFI=
+	t=1792096475; cv=none; b=mZPgjfsS7Bt7wc0vpwn2iaIlfJgSsB/MK4Ieefgjq8kMnuIzjL8pi2wzCRBOCtj9rK7/6SVyW4ZC70Nj/Qp2twABwZgma6+yf69VbIJmaSOEvA1It42QPTSI0qtkcwB3Fxz3AtYmmMo0E8kpTRDRoIvrtaC+a+MoazIzGNZWseM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096458; c=relaxed/simple;
-	bh=gDpQFN++xPwT0x6m8l+Fta4hIRm9lrj7r30nvMaPyW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vpf9SilxY3kjzcP+uJt71iocFvWGyqmlYs81+F+hDqqkfHH8oieD2wFYUpczmi44lsKWBE3C20K9dHD/VRWbwPP4ovTlJrsgV0z4gyPceg9tavesN3Bynk+b5tGihXL+XjxiOjNMCp62bJVie/LmLi3HI5b2Wc6QW4PllKftaew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XS7h2Ylr; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792096475; c=relaxed/simple;
+	bh=qWzTRRFlBrjKxhqo/bIT5/vkMosLcfmvltWqBsG2ARo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=VXhyIUY3A9LvuUsuuZfWvsTy1nMH+HH8hCK7FzEd3Tpvmc3A8q9au5ZNR7skJtfBCB0wVyPowW2i8femN+PbJDGCLyXxov4gVfJfiqx5NctsjUc1d4mpc7tvujig1mpeU3GXfUdpNHf0JsCM6599f2qI9uBMv98WaCu03sfjLBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=wRdyCTqn; arc=none smtp.client-ip=209.85.167.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XS7h2Ylr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=sT57Px4Vg7Js1kzkyVxmNzndr3U3+dmuMx+Xr+DujHo=; b=XS7h2Ylrdx/fLqFAMc3VTKBd0s
-	VzmZ4Vci+QLQFGsd4MDtb+8axLdtxA1loz5sD3UfsGTmMh/0nJQfVNNCFEZY1klml8gN0BrE714PT
-	cvORvzPM3T1r/1OhC0jzZ+qFc0CN84RXXd/FWd+Z/R9AqT2u7fcZVUIWraC5+B5MhTr4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xHS9O-00B1JS-3W; Thu, 15 Oct 2026 22:34:06 +0200
-Date: Thu, 15 Oct 2026 22:34:06 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alex Elder <elder@riscstar.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 0/2] net: pcs: xpcs: fix operating mode selection
-Message-ID: <597dbcf1-8362-408e-a1ba-256b07b99713@lunn.ch>
-References: <20261014223100.304486-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="wRdyCTqn"
+Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-5326cdde017so421265b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:34:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792096472; x=1792701272; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BZVnmfGOWMEQB6LCOpiT/03uLBXyo08m720hSCcSffQ=;
+        b=wRdyCTqnheLsMAiS31O6SPFMMzaOLlU40iJ+4X7qvhemaBh6pnOQvZhFKksnNuvNcS
+         Y1Qhenkkn3cQ//ZfQIJYlAGjnDgj+FUKXiWHNXMzrQZI5YLIX2rLNtD/KeMwLNsu/Ip2
+         qNZ/dsJeRvbvq4z5hI1M+Ps04lAdN5Xbl5Gsc71XypIA1yfcJPXRBfNUMJ/GPt26daRG
+         5XMayzavh3jS+72LkVG/bGFkgqeqYFO8I7lNdexmDoQSQk1sZy+gIMZvngZH6uzf4L4E
+         4TudvkjHdNbtnfaH03tsnApSdds4XVIzfL70nNzeZBRHw5WMKIac+JM9xbNu5hONS4VY
+         ncvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792096472; x=1792701272;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BZVnmfGOWMEQB6LCOpiT/03uLBXyo08m720hSCcSffQ=;
+        b=JFqzjnBOdrdm9h67jjIeaozZ6kL25GIujl206mrtHJ35/HuwayqpZcV92WfeF7w6kG
+         9kA34p+cF/DH98QeQUes3kfOuhXXxQIhn5snRacA3IxEeAYeXMxBaiyPB7jv8HcAPnwx
+         Z+FFP1BsA84iPpCgRot5fPvniEzi0tARyIdDTxZziE2rdaS8yOpcvMsCUYGnowuVvKlW
+         LWN7cYmEGRhFVK3z0eHFOuPO2jnL4/b149N9dnLErHmPjsxuE5qQFfjp+3L91IzX5zE2
+         HDfuUHQNdivJ9cxtjG/Q4BNkNc6k+82dlC372h0i46iemEV9fU/Rny6oAiFaoyYuL9z/
+         XZZg==
+X-Forwarded-Encrypted: i=1; AKwUvByvip0DbyjIe/C5MQ5Amfn4mzlkKwMqmUrWtcK7d8CfAonACqVYrZiHOkv3yHEUTIlTvtdTaBGLvEobZwE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFv8lIByT8d3JFYh8j/iGDFED4qQOBP1K3QAEGo8e0wPib1cSc
+	biQp/wTXGTgD68sjrDOyERsh4fxMgeLVqEIZb/B585g+IQresK3X3jyOXM5oacBlisk=
+X-Gm-Gg: AYBFou0rXsNq+v35Oww6mgR1OW6Hfo37b1cf+gKXUemWgD7joGdeD+n35+rdTHDuMWi
+	D9WRdKQp4zH3M25Fsoc+0ZucxDceUwC7+ONFTANvaRhZwdctufmePB8aqc++VgF8xuha4kD7EZg
+	b8espgXR/M8K2rhpagaolCoCOWhz5/rzyU8SFD0jzxeIEgH1YCyZqMlWdLo+YLfeNAThY/xfJZv
+	ih5PKSx0+is7euSNit3S3F4OaPZdRgjugePPGX55IKuH0YM6MYYKRJhbak9pdrZXKADbkU49570
+	0DEITYApdfG/jov7/BSxGbeyFDdJ0hrLVHksE496PiFA19uvS+K1HNL8b/qgDowNsOwsvYz8Anc
+	G9RWP+MOhU9mY+Q3dnBIvVECufvVGeYliDTxKDNGhuy3jbNsTnLm+9MrlhPY14Yfi3ig+i9AFUO
+	CSlXjGpGOk+QKfdk0gVfPLFzgsd9nNCOUgSHrSv7XCRkUZTOILgqLiHwcNGfQtAnSC2ooKq1i83
+	OmdneZgCmHHKMFnbscxQm/e75h8+eqhyL+3i/kkWHukqNoo4o0qICUZuVPYU7LX/XCo
+X-Received: by 2002:a05:6808:3510:b0:4c4:9f7e:92ce with SMTP id 5614622812f47-50c5464570dmr18523514b6e.38.1792096471991;
+        Thu, 15 Oct 2026 13:34:31 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-537b6f5169csm350539b6e.15.2026.10.15.13.34.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 13:34:29 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Ming Lei <tom.leiming@gmail.com>, 
+ Paolo Bertinetti <paolobertinetti200f4@proton.me>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+b48868c46e62c1c4cb2c@syzkaller.appspotmail.com, 
+ syzkaller-bugs@googlegroups.com
+In-Reply-To: <179010105967.8478.2344875677216734809@proton.me>
+References: <179010105967.8478.2344875677216734809@proton.me>
+Subject: Re: [PATCH] ublk: hold RCU read lock in ublk_try_buf_match()
+Message-Id: <179209646794.1861240.13664201337469739319.b4-ty@b4>
+Date: Thu, 15 Oct 2026 14:34:27 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014223100.304486-1-elder@riscstar.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Oct 14, 2026 at 05:30:57PM -0500, Alex Elder wrote:
-> The XPCS found on Toshiba TC9564 is unable to operate at 2500base-X
-> and slower with a PHY connected using SGMII/2500base-X.  This XPCS
-> supports 10Gbase-R, which is the default operating mode, and this
-> causes mode selection to fail for slower interfaces (SGMII, 1000baseX,
-> and 2500baseX).  Writing a reserved value to the MDIO_CTRL2 register
-> avoids this failure.
+
+On Tue, 22 Sep 2026 18:17:43 +0000, Paolo Bertinetti wrote:
+> syzbot reports a lockdep splat when I/O is dispatched to a ublk device
+> with UBLK_F_SHMEM_ZC enabled:
 > 
-> Wangxun already addresses a similar scenario, but includes custom
-> quirk handling.
+>   WARNING: suspicious RCU usage
+>   lib/maple_tree.c:720 suspicious rcu_dereference_check() usage!
+>   ...
+>   Call Trace:
+>    mas_root lib/maple_tree.c:720 [inline]
+>    mas_start+0x3cc/0x640 lib/maple_tree.c:1250
+>    mas_state_walk lib/maple_tree.c:3006 [inline]
+>    mas_walk+0x1db/0x490 lib/maple_tree.c:4458
+>    ublk_try_buf_match drivers/block/ublk_drv.c:5639 [inline]
+>    ublk_init_iod+0x5d2/0x1120 drivers/block/ublk_drv.c:521
+>    ublk_dispatch_req+0x97/0x9c0 drivers/block/ublk_drv.c:1776
+>    tctx_task_work_run+0x73d/0xa80 io_uring/tw.c:96
 > 
-> This series implements handling for slower rates for an XPCS that
-> supports 10Gbase-R.  The first patch rearranges code that performs
-> soft reset so that it is done *before* the interface mode is
-> switched.  The second adds code to xpcs_switch_interface_mode()
-> to update the MDIO_CTRL2 register for interfaces that support
-> 10Gbase-R so that the desired rate change works as intended.
+> [...]
 
-You Cc: those reported by get_maintainers, but i think a few other
-people should be involved, who have made changes in this area:
+Applied, thanks!
 
-Coia Prant <coiaprant@gmail.com>
-Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Vladimir Oltean <vladimir.oltean@nxp.com>
-Jiawen Wu <jiawenwu@trustnetic.com>
+[1/1] ublk: hold RCU read lock in ublk_try_buf_match()
+      commit: aaf49023041bc1f887a028a164d3bac714b65508
 
-       Andrew
+Best regards,
+-- 
+Jens Axboe
+
+
+
