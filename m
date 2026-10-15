@@ -1,108 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B30A1E260C;
-	Thu, 15 Oct 2026 02:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992DD3DDDCB
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 02:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033145; cv=none; b=GYLqqVuTiVzlTM2KaDDmQiBgBTyBDdMwyZuRmvI8H6evdShNxJJjADVURyVuJzR4TXCVOpW9wh9a2M/FbKakwKsPCzZtAIdhKeCdKqgjJ5HClZzsjW7dIF65t1ZAESyg9RjezPvirAPIbXHYRVwR5LcJQ1cVfKIya34NBXno2h0=
+	t=1792033145; cv=none; b=D+ee5b18EdYHCvsJuJHW6PlHxBLyzEVGkYaBlobOcfSCnTx1kGW/g6XQrJrRBvTSbQDy3kLczXSR4nQZfxO+oH9eSKG5Bo4yoOu3g/G2DGYIp8bquHOi3kmrS4iYm7sjTZ9jzDMzLxja6lJusDhtEpsCDCGk++tpdbimpnT1Hxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792033145; c=relaxed/simple;
-	bh=lT3HKAgCH+dfk9YzW+XsB5qzW/WYD1G8gebHwgzPJEo=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=DsgovtV8hHoaWqVUkOuPxAcduURiRgYk4kr2k9z4A+cMD5qj9TV42v/jfjzpaPVhL17ymE0gwOfH6zg3ZwMX/LjWkHkSdMXTDU9yYWH1wp+SBxG+vIMA7kV2HL/EDYqXM9xdoG7CQXs/3fB1FR9PbtZt31EgNcTH5H/2ain2n0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlA+k60O; arc=none smtp.client-ip=100.103.45.18
+	bh=w9Sx0hMDZcZMhMKDr8/srNZjFfM1ZeiffAxPG99aG84=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tzs0sMdpN7IW3x+ytOUwDz0EFYTi0VMirWEaPebRrLCOfxwhHOcYxOl5Z+xj7ErlZhDQhLUayLi9zjEpK6gWc2FB4aLR7+QdV/YVFhjWbz7zcc7Bm5oYAQJggH2JsZN/drJCkBRZCFOb9uC4guuBFJmKDOvipWZyUuEP7fJSuqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7HcQxqK; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlA+k60O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EF51F000C4;
-	Thu, 15 Oct 2026 02:58:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792033138;
-	bh=bpYRRTqwLo2HWeFqcCqbpPVh6DLjUFtMcKybkXV94SI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=IlA+k60Oq0HnoXlVurZ79XrtX0WclPoBWWRgWMU4d0FzDe3KQGy7nbCPpm09Rp0f1
-	 NBJX7JJBz+pzLr9/QP/4iL+D7KGD9iyhkRP3iPngXQ+7PpmIOkhJbOOYxfjIb/377s
-	 NUQQ2PAj99rde/FOcELCmo7ATdG4wTiSAEXNhV6pAu4B77k8HiVx7sjttOCLrfyq5x
-	 nT39Fx19ZGoGxZFCbF/Of2YGLivBRvB5OkhWqGrnq77hZs2Yqn/8qYyvrS8GjxzPyc
-	 wcrlpOnT9tkRQD2qk7swi0F2XZ9V8/YjCq740BPh2nVA8qo9OjbLo2vXS7WdmdM1cP
-	 qDL7AHVXCN6Ow==
-Content-Type: multipart/mixed; boundary="===============4514555578709208116=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7HcQxqK"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-872024e2b4eso1996312b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 19:59:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792033143; x=1792637943; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lDJNF+I2Vbw9nB1BN+Iq5g2wGAwV9CAQyrrJS3fYQj4=;
+        b=Q7HcQxqK9J3QFpJWw6WzxUVmWPzbWDRA3gaUIjplsDX9G4UOMuxOLHRHyKU4eLyuFX
+         icJbvTS1gbBUe/lLLKUmXAvM6dDjhb8mqlJlVfpNmZvFIj/f1XjGnQt6yvJbLf/Jyt72
+         7R6JcM6w7RIGU64aO7armJ8VeglT7dkZqg1WJVWfhL9BaF5GKb3Bv/aVQDPyHlpzVxUL
+         aO1bSXWTCgSoN4JLjeh3Hfe2HfNUavD4k2hdrjJ0CzW3D+Eg8diN5m63XPBg3BhfMqub
+         0dt0O2v5Rg/9FfayWRAVpmUNL21R2QK4gJrxGLJgTeot8fSDm5ok8sf5d3S10zkMicTa
+         vBkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792033143; x=1792637943;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lDJNF+I2Vbw9nB1BN+Iq5g2wGAwV9CAQyrrJS3fYQj4=;
+        b=kaPre/9eTZBDgMRNk6Rco4QrhO6tLJVeM5PbneVSusy6ZmYSlt+Dsf/BkW8chf+4/c
+         KfEoWluYhjEXeqN4jC/qtjb5YwgWP8zpUQXdBDoC1JcsKwozsDCQPLr0bau695e2/zq4
+         a4/GLWQ5wgbnyz2g+0OeQN4f2vb0CPnbZQJ3GxHAmQTmC6/b5DkBbTO+vj8TxpF8i34N
+         RavAla8EdwDlWDmqhNxcCRJvOVBqHLG8WOayihplLJE70CqflSL9JQTUjrdbatUtthEE
+         L446ugWZf6I0u+HlZMmiLvfed9En+gCjoEG1GeBSXav7XoS2IIgqkp1+Ay83golNZKlg
+         sNJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZNW7psFgHt5Zd2qfMqjP2sLHcPP1kVeYmO+Xooxsx7AFZnUPEMBn9J/DB1AoFQ20b1cSWRiGbXsEVdN0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh+Q5uciw75VVfCDX/N8mTwq0nSkQgxkqDgOKTbWXf6hczxkQA
+	QxA2bp0VXjviTZPUZ8B4vFZjF7ySRneoMES8bMXJldJw9MS3o2raLIih
+X-Gm-Gg: AYBFou18abEfAF9hZFNJMspW+8+brpeE+lcnKhJG7l2pR36KCzX3ErhtD5OjvW/30gc
+	Uq6CsFZV7uH6H23byYkuLbA+jv8D3Q13bTucgb2pdDP3pl3KTB85uZfiQJa4NqdKp0tz77D2l+4
+	OSIw0Vc7kaOYwQrLk4SOCbZwlRE7GcSNLsnfRAiYrmArhL3MdG+BASzVGfbtmXIxs7GV01eTlOO
+	dWCTM93tXtwuqgA9iLR0zltRaU8s74o5nZ2Zy7qF67BZw7P+00ropHfYbfuPZVqm9DhbUfr/1aX
+	Vv6tYwP+of+xn46GL+cs0lnKTHn/IAnOwa8tiw8VEUx/P1oAqAmbroh5O3f1RQe5ITjcFtLjHvW
+	9Jnyc5EfMClQgIhlFHdRY4TXZmuhNSJ+uAlKb/60+GovpTaUhXwU/oh6b5hMx7hIxlvP8Z205qu
+	zKdOycK1f7M6mnTwaB2ZZ2kjVgEM/9IO3uYIhQXaqL1v3N+1CePTYvdSY0+rGRmWbcLS1jbrS9t
+	dglHBnFFO5xz8Z3Bd2+SePfINs0ALI=
+X-Received: by 2002:a05:6a00:3cca:b0:892:66a1:a175 with SMTP id d2e1a72fcca58-897c7fbecc9mr13948652b3a.52.1792033142737;
+        Wed, 14 Oct 2026 19:59:02 -0700 (PDT)
+Received: from rigel.home.arpa (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89e45dcb382sm409747b3a.15.2026.10.14.19.58.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:59:02 -0700 (PDT)
+From: Kent Gibson <warthog618@gmail.com>
+To: brgl@kernel.org,
+	linusw@kernel.org
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ukleinek@kernel.org,
+	aambrozewicz@nvidia.com,
+	Kent Gibson <warthog618@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] gpiolib: fix memory leak in gpiod_set_array_value_complex() on error paths
+Date: Thu, 15 Oct 2026 10:57:49 +0800
+Message-ID: <20261015025749.47039-1-warthog618@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <b96ee2ab6347e86e3da161bcdea1d17fde1acb1c619d3519b7c980daf03b20d5@mail.kernel.org>
-In-Reply-To: <20261015021238.5657-2-cp0613@linux.alibaba.com>
-References: <20261015021238.5657-2-cp0613@linux.alibaba.com>
-Subject: Re: [PATCH bpf-next 1/3] riscv: bpf: Add BPF private stack support
-From: bot+bpf-ci@kernel.org
-To: cp0613@linux.alibaba.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,memxor@gmail.com,bjorn@kernel.org,puranjay@kernel.org
-Cc: eddyz87@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,pulehui@huawei.com,pjw@kernel.org,palmer@dabbelt.com,aou@eecs.berkeley.edu,alex@ghiti.fr,luke.r.nels@gmail.com,xi.wang@gmail.com,shuah@kernel.org,rgbi3307@gmail.com,guoren@kernel.org,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 15 Oct 2026 02:58:55 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============4514555578709208116==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+A drive-by review by Sashiko reports that, after a failed call to
+gpiochip_set_multiple(), gpiod_set_array_value() returns abruptly,
+bypassing the freeing of possibly alloced bitmaps, potentially leaking
+memory. It is an unlikely error path, but is possible.
 
-> riscv: bpf: Add BPF private stack support
+Defer the return code check until after the bitmap_free() block.
 
-TL;DR: Commit message only: it says the guard layout follows x86-64, but
-x86-64 uses an 8 byte single-copy guard, and it may overstate why
-__per_cpu_offset needs absolute moves.
-
-> riscv: bpf: Add BPF private stack support
-
-[ ... ]
-
-> The base is materialized with absolute moves, as on arm64, x86-64 and
-> powerpc64: the dynamic per-CPU area is vmalloc'd, beyond a PC-relative
-> auipc pair from the JIT region, and riscv64 has no segment or register
-> holding the per-CPU offset, so __per_cpu_offset needs materializing the
-> same way. Both constants are fixed before the offset convergence loop,
-> so the prologue length is stable across passes.
->
-> The guard layout and value follow arm64, x86-64 and powerpc64: a 16
-> byte region at each end holding two copies of the pattern. A jited
-> program has them checked when it is freed, reporting the first
-> corrupted CPU only; failure paths release the area unchecked since the
-> image never ran, which also clears priv_stack_ptr for the later
-> bpf_jit_free().
-
-Is the statement that the guard layout follows x86-64 accurate?
-
-arm64 and powerpc64 use a 16 byte guard with two copies of the pattern at
-each end, but x86-64 differs:
-
-arch/x86/net/bpf_jit_comp.c:
-    #define PRIV_STACK_GUARD_SZ    8
-    ...
-    stack_ptr[0] = PRIV_STACK_GUARD_VAL;
-    stack_ptr[underflow_idx] = PRIV_STACK_GUARD_VAL;
-
-It uses an 8 byte guard with a single copy at each end, and it rounds the
-stack depth to 8 rather than 16.  Only the guard value (0xEB9F12345678eb9f)
-is shared by all three.  Could the changelog say that the 16 byte, two-copy
-layout follows arm64 and powerpc64, and that only the guard value follows
-x86-64?
-
-Separately, the changelog says __per_cpu_offset "needs materializing the
-same way", meaning with absolute moves.  The existing BPF_MOV64_PERCPU_REG
-handler in bpf_jit_emit_insn() already loads the same symbol PC-relatively:
-
-    /* Load address of __per_cpu_offset array in T2 */
-    emit_addr(RV_REG_T2, (u64)&__per_cpu_offset, extra_pass, ctx);
-
-Is emit_imm() for __per_cpu_offset in emit_priv_stack_frame() required, or a
-choice made so that the prologue length stays fixed across passes?  The
-changelog could say which.
-
-
+Fixes: 9b407312755f ("gpiolib: rework the wrapper around gpio_chip::set_multiple()")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-gpio/sashiko-outbox-168233@kernel.org/
+Signed-off-by: Kent Gibson <warthog618@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/gpio/gpiolib.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38671177164
---===============4514555578709208116==--
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index 0586fc1f9564..921e411314cd 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -3968,16 +3968,17 @@ int gpiod_set_array_value_complex(bool raw, bool can_sleep,
+ 		} while ((i < array_size) &&
+ 			 gpio_device_chip_cmp(desc_array[i]->gdev, guard.gc));
+ 		/* push collected bits to outputs */
+-		if (count != 0) {
++		ret = 0;
++		if (count != 0)
+ 			ret = gpiochip_set_multiple(guard.gc, mask, bits);
+-			if (ret)
+-				return ret;
+-		}
+ 
+ 		if (mask != fastpath_mask)
+ 			bitmap_free(mask);
+ 		if (bits != fastpath_bits)
+ 			bitmap_free(bits);
++
++		if (ret)
++			return ret;
+ 	}
+ 	return 0;
+ }
+-- 
+2.56.0
+
