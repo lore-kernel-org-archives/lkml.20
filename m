@@ -1,66 +1,65 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE1F399003
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D967730D3FE
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 15:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078433; cv=none; b=fbfTTG1UDGcOXg/zeyE8OiG3PI8ViHTRQwjaRWCuY/kK1GKc7+rXjf+x3Xitpv9RSOI+kLgxldYzdwmJBZOai+W4Iii7T0HsmlBrjdP4UdCVTmyVrRJqCSbpQVnUqlr11KupW1pY47B+gy2AI8orNku0PYfJBcknDuqIcgWzxVs=
+	t=1792078439; cv=none; b=uw3zSTdMCMdzc1BlOcBzSMbK2RoKe82HYrdiApBxfcY9NCxYvRCxOJLl0/B4wwKy56H7SoNG4dRpPmgSY1DkprJ7Q38EUTpXKHlVnfvA7Y8rPQ1hq7ZrIkAB8PZmH3EwfoSF6NC6zUHfh6Slxc75/ZZDu5tgMWCg4pvEHw/0s1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078433; c=relaxed/simple;
-	bh=O55RAvz0if8G1Ax5zhoCLemnqpQwrXQ3r6eLnjofQiI=;
+	s=arc-20240116; t=1792078439; c=relaxed/simple;
+	bh=pInOOQJmC+exJgomtDsmGTSAzIbtk8stOtgVAuykFHo=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=du6IW747Mpi0lrBDg5TUEnZ0OsFUYH1815eH9I8Yfbug2YJOW7yiDt4w77oQYhcQ2cwYVT8GhcX/Eqv7NpkLNyxITnR/a4W8Zr+wN4hKGOi4g4RwJPN9/3eEQgmx6LSz0MaYOpy7QvlIAMDj7UW2Mqrk+xkMnNQgqfFL/f2MZFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=J0S3hBOf; arc=none smtp.client-ip=209.85.217.48
+	 MIME-Version; b=KOYhHIA6fkYbVfjc/NItAdKhiIBCjjeBdXZtUKVJILHUElP8+apCSJhqCEhmlR8LiA7nGCveEL6JrHYElazZkKIvc+l1Oat8xSyWjaDlIBVjUj12Y7x4NwLxrOkrlAiW+l0p1cIR+yss2/nmFAwJ7uaWcdFbJtAL/I3cZHHe3Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=arfBvT7y; arc=none smtp.client-ip=209.85.217.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="J0S3hBOf"
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7ca917f9f52so3032340137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="arfBvT7y"
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7c6e6822b11so564588137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792078419; x=1792683219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j4tKjkoRHQBs/0qfSCONCIuiBtr3cfqRy92h/STkCYg=;
-        b=J0S3hBOf6/D7ATcQ3+g/Aj8W6MDz7BdqdKU64XruqvNuTliWwisSpQTkZDLHcX/4H7
-         N/x7wdxl8l3MRaffLuGAQwOPov3jHUQVqEeAgb8E9XSX600Ov0Y3Sv1N5+HQXCy+PsBG
-         d2R/PEmfwOXlaQ64msnT2V1qWn+f22SG6iaKkl/faXGRWLjs0EDyunJAwH+fgbsjn8fL
-         xTRh0Cu0N9ihBL1WeDfKI7SEkc14fhF3d26Dw9S4YBKrsb7OH50SN1KzJGa5KeCpojXu
-         E7zzgzRPqffb2uagL/RTMqVhWLsRawcyltFpkr0SWqcLKSmj0BrBxUeTRmQn4Wd6a1g/
-         ix3w==
+        d=soleen.com; s=google; t=1792078423; x=1792683223; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=72zF3yLWX3oeYl+y53VRvYROQBmMjAwdTi7nEp+9VUA=;
+        b=arfBvT7yf0Oauqa4m7owwqeUgbXiELvgnoqsScp23YRc5e2hGrN6dmnMb0cieqh5NI
+         3e0aG0sUxPNyYpiMzpVlL7wSgjipjYozuFkZZIH6Tmhr9RSln40oTPRZ72/b4y5RR9QJ
+         FBryxvAHc7fz6G7LLZuveqOd2mZWKIiKaFriwIURcngaoQ6RJAQ7Bl8nSqCd6myTwoEL
+         IHfn1pJDMd5AM+QAZFGFG2bspCJzVGdeMKirjLGZFedWdoV2zZKO8E7MihLZVvdL1Ag5
+         lr1oDkcEzkiED73U1KMWpf+m6w3eR3YqNlzbgNbziCraVO+HrKuWBWBFI2sItjUFBP4o
+         9/qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792078419; x=1792683219;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j4tKjkoRHQBs/0qfSCONCIuiBtr3cfqRy92h/STkCYg=;
-        b=XCDg/A37lN50ym1rm1wNgTp4vndET2TSEpOOymbUB2zILPsEYOQfLwvaDIOTDjubuS
-         6BgKcdCt3cu+HyVynBC7cCYMPhzHttqOTm/uvhyK9IULWvEkJtvo3Z2sHD+94MfUyoJu
-         yECi9WfOXv087F+mXDZCRDhM8MAxOaN5WPfaFTINqSUn7TKmgRqTjEWogKjMfSq3NvW5
-         cqXhMKgmFhuUc1PFG2vqmiHKFjz4GEte+jJ7bz5B8Fv8W78x95dxBuqNnGK7sW0TyfWO
-         xW/FqCizj/mvDhMzJPHon1+bzhW5pgL74eeplD0ZiEr//lhPUcsTxcrspR7NbDCsurpj
-         NxxA==
-X-Forwarded-Encrypted: i=1; AKwUvByEIkM2Fx7ar2w/ptDqrWgdmS0Co9qIrqb25ZKS0GKjf+QVWtGaJEp+/rh6aLpvus2hNlWbZC26nQrfHyE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi9EPl67oydUwvo0bG0YOgDIBlrI45w5i6OJNeYn4aocqjUrIn
-	gudm73X1yBxTTQ7CbOqlB4bx7DsXSo2KUVVxitEqboQb8e0g3IZBIyHiLDMEd11NGF0=
-X-Gm-Gg: AYBFou3vjfGlrHfT7qcE17n5VOxAmpf+X6LyJUuCIch7aTJNMf4ifb+xNbrA9DG8yU1
-	MfMK/Df1vLJergkozcoWn5zgLTU1JWz2IBL/mN1Dhw/+ukczEJyY7f93YgUGF9pie6BVyh73S56
-	PxmbMxsfYgfDlfI7A9LyM1ukcSxnPp9gHlb3fLAg0W/kU0L+bRtfVmGi3Q1wzhobpqsUkA+61mQ
-	RIMH7R4sulK1dPbtPztxFTYPQ4YKplEhhIaUclmr3WwMjwr4RrRYzrgqq6VdKGzzGi3kORRHu4g
-	Lf6G20h6Py8xCYqRX3F2NM9ZpQhz8DeYyn/3sjHOwYRGiFD9tJrU5WBr/G5bXgnFxtogd1zFFrt
-	Zc8PPK0Vo3MlzCdlGVLnnDdsEIWOMVN7O658PTJMttSl2hVm5cPEDJLLu5AplFTzsecn6d5jWIJ
-	eMYN5nHOL4vcnvCYiFkz6FsesCWeAHx+LRVWSOElV1s27LSu/VpTwAT8kKaYTP4qNfP7RlhQ5Pi
-	doP9D/OjO+splCnqzWwJ/LxN9JiFWFua/NVHBvx/NQaH6r7MtJYmIIZsO3I8+DztWFGauSpi6Fg
-	UTKLGvnihaP9w8n8u95MbDaya11iog==
-X-Received: by 2002:a05:6102:5110:b0:7c8:448:5237 with SMTP id ada2fe7eead31-7cb3a0e2580mr5832272137.24.1792078418833;
-        Thu, 15 Oct 2026 08:33:38 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792078423; x=1792683223;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=72zF3yLWX3oeYl+y53VRvYROQBmMjAwdTi7nEp+9VUA=;
+        b=K7jHlM2CJw1XAE5hqplvaqQFiPirMqVTHaa5l9bGC7NyluEIfvNh2Ui4S+ct+Ns08c
+         2ujabTGPrMxs5dLkd9icqGLr8h+kK4xtyuVXeJT1J02Flu/8uKfmVf9KXhPvm3Djl6+d
+         c1nAeyH7wpLyPaOIEl0IgipXBTvysRHgaujZygUxEcaQUOQoQbRsr8OjVOxK4UXCKGS+
+         lJWEEu3jsVxnUj5LBbOLj/cTYTQ3y6XdGy7JeR/Kd5hc6NtY3BhEdTzFV9TB3MY6Kfxf
+         gwlvCq5Z4hZWyEoRJoilCttDyJlihRTeysFv+f4tPwUpNw7toA6DZuDtjWc4qnun482p
+         qekA==
+X-Forwarded-Encrypted: i=1; AKwUvBztSTpaCYQDHWh6PvPqArB20X/vZO0UjsJqE0FPFllNcF1sgz/uYi9di7CEKCI2YjNgrzgQWWx4NqfHZKQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqW1ReAK3GUVpkfXhUFgF+9xQWh3/paLrbVQiV0VLHSyCYf06s
+	YaVbd7DfUdycCrIG1rpsIiz8R5eSFcnrATMXbK4Pn0J+EsOHG0aj4n3jLuREvK18DmU=
+X-Gm-Gg: AYBFou3PI67ng3wLR8Pio0CMK37c9Mg5rk94k/uEUsQe/M0Zi7EgzwsJkJqzv1e/1ab
+	jXnujKosdwBa2Y2PKm+nNrchMCU86EGmNfVntGu21wfUlITOkWYZufq0UTwgCOk00qxq+rEJFv+
+	llsIz29TJzeZkSMYtVgCm0a1QLI2Wgh26G9eoYOV0NDaYcKLHLEnMyboDmTQ1DnsAnmH7PQsJvV
+	okJCCaqY05q9Y4yPBey45cC2aaLrVhlezpe1Ri0RStpvAuvq6JdBhSWdgczwPVkt80VHbuicfIc
+	GO+qv4ggnmvtxN/0L2UjOGR+zn3zEMhppUo3K/+RozyJ2kStItfBpnv/ecKnxbSaO12e9fAGZQd
+	qyOXB6t8cFZSSnhdAPelrwowwxvLyBoSDV3ZcQ2Ij/80E4NL1pf0goAjxEI3MOt2Xoe4AHhHfLB
+	kSqFU6JRulkVW3GjkDh8PuOhwBeWIxhxEAXmOZri6Z3fIjKdSg41WBbxhuDuuQ8xSBQKmRu5iHb
+	/Sa0FrZMK39VU0BCisp5j9DqNrvkxqRaDqL6FrVeTifFkJTdkQJIx5bK99dUlyUzdTsFRG0/Lay
+	74JAyrSun4ZxIhCsw8c=
+X-Received: by 2002:a05:6102:c4a:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7cb37b3015cmr4260402137.37.1792078421907;
+        Thu, 15 Oct 2026 08:33:41 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.37
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003f66ad9sm12986347241.10.2026.10.15.08.33.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:33:38 -0700 (PDT)
+        Thu, 15 Oct 2026 08:33:41 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: kees@kernel.org,
 	rppt@kernel.org,
@@ -107,9 +106,9 @@ To: kees@kernel.org,
 	ridong.chen@linux.dev,
 	longman@redhat.com,
 	bsegall@google.com
-Subject: [PATCH v1 2/8] x86/smp: Remove unnecessary WBINVD from mwait_play_dead()
-Date: Thu, 15 Oct 2026 11:33:25 -0400
-Message-ID: <20261015153331.1872641-3-pasha.tatashin@soleen.com>
+Subject: [PATCH v1 4/8] x86/cacheinfo, mtrr: Skip stop_machine rendezvous in cache_ap_online() when MTRRs match
+Date: Thu, 15 Oct 2026 11:33:27 -0400
+Message-ID: <20261015153331.1872641-5-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
 References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
@@ -119,81 +118,147 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When a logical CPU goes offline via mwait_play_dead(), it executes
-WBINVD before entering the MWAIT loop. On processors with large shared
-last-level caches (such as Intel Xeon 6985P-C with 504 MB L3 per
-socket), each WBINVD takes ~85-115 ms, flushes and invalidates the
-entire socket's shared caches, and stalls the physical core (including
-any online SMT sibling on that core) for the duration of the flush.
+When a single CPU is brought online at runtime
+(cache_aps_delayed_init == false), cache_ap_online() unconditionally
+calls stop_machine_from_inactive_cpu() to rendezvous all online CPUs
+while the incoming AP runs cache_cpu_init() to disable caches
+(CR0.CD = 1, plus wbinvd() when X86_FEATURE_SELFSNOOP is not set),
+reprogram MTRRs via mtrr_generic_set_state(), and re-enable caches.
 
-mwait_play_dead() places the logical processor into an architectural
-MWAIT C-state—the same hardware C-states entered by intel_idle during
-normal idle without executing WBINVD—where hardware maintains cache
-coherency while the package remains powered and automatically flushes
-core-private L1/L2 caches to the coherent LLC on C-state entry.
+During initial boot (cache_aps_init()) and across warm CPU offline/online
+cycles, the AP's hardware MTRR MSRs have already been programmed to match
+the saved mtrr_state. Stopping all online CPUs in stop_machine (and
+flushing caches on the AP) when the AP's MTRRs already match mtrr_state
+is unnecessary.
 
-During system sleep (cpuhp_tasks_frozen), however, power may be removed
-from a non-boot package's caches after all of its CPUs are offlined,
-and the sleep-entry cache flush on the boot CPU only covers the boot
-CPU's own package. Skip WBINVD in mwait_play_dead() during runtime CPU
-offline and only execute it when cpuhp_tasks_frozen is set. Note that
-wbinvd_on_all_cpus() callers (such as cpu_cache_invalidate_memregion())
-only reach online CPUs, so a package whose CPUs are all offlined at
-runtime retains its cached lines while powered.
+Add mtrr_generic_state_matches() to compare the local CPU's
+MSR_MTRRdefType, variable MTRR ranges, and fixed MTRR ranges against
+mtrr_state (including k8_check_syscfg_dram_mod_en() on AMD), and check it
+on the AP in cache_ap_online() before invoking
+stop_machine_from_inactive_cpu(). If the hardware MTRRs already match
+mtrr_state, initialize PAT locally on the AP and return.
 
 2-socket, 480-CPU Intel Xeon 6985P-C (N=479, mean of 10 runs):
-  Offline:  40.46 s -> 11.42 s (-71.8%)
-  Online:   11.14 s -> 11.08 s (-0.5%)
-  Total:    51.60 s -> 22.50 s (-56.4%)
+  Offline:   9.63 s ->  9.85 s
+  Online:   11.11 s ->  8.69 s (-21.8%)
+  Total:    20.74 s -> 18.54 s (-10.6%)
+  cache_ap_online() (cpu479 online):
+    7,704.0 us -> 4.7 us (-99.94%)
+
+2-socket, 512-CPU AMD EPYC 9B45 (N=511, mean of 10 runs):
+  Offline:   4.53 s ->  4.51 s (-0.4%)
+  Online:    3.92 s ->  3.15 s (-19.6%)
+  Total:     8.45 s ->  7.66 s (-9.3%)
+  cache_ap_online() (cpu511 online):
+    1,354.6 us -> 6.4 us (-99.53%)
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- arch/x86/kernel/smpboot.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ arch/x86/include/asm/mtrr.h        |  2 ++
+ arch/x86/kernel/cpu/cacheinfo.c    |  7 +++++
+ arch/x86/kernel/cpu/mtrr/generic.c | 49 ++++++++++++++++++++++++++++++
+ 3 files changed, 58 insertions(+)
 
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index ba01a9e919b78..60a781dac9991 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -1414,10 +1414,6 @@ void play_dead_common(void)
- 	local_irq_disable();
+diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
+index 76b95bd1a4058..0527e216808c4 100644
+--- a/arch/x86/include/asm/mtrr.h
++++ b/arch/x86/include/asm/mtrr.h
+@@ -61,6 +61,7 @@ extern int amd_special_default_mtrr(void);
+ void mtrr_disable(void);
+ void mtrr_enable(void);
+ void mtrr_generic_set_state(void);
++bool mtrr_generic_state_matches(void);
+ #  else
+ static inline void guest_force_mtrr_state(struct mtrr_var_range *var,
+ 					  unsigned int num_var,
+@@ -106,6 +107,7 @@ static inline int mtrr_trim_uncached_memory(unsigned long end_pfn)
+ #define mtrr_disable() do {} while (0)
+ #define mtrr_enable() do {} while (0)
+ #define mtrr_generic_set_state() do {} while (0)
++static inline bool mtrr_generic_state_matches(void) { return true; }
+ #  endif
+ 
+ #ifdef CONFIG_COMPAT
+diff --git a/arch/x86/kernel/cpu/cacheinfo.c b/arch/x86/kernel/cpu/cacheinfo.c
+index 13ed16527905f..64796d5b34fdc 100644
+--- a/arch/x86/kernel/cpu/cacheinfo.c
++++ b/arch/x86/kernel/cpu/cacheinfo.c
+@@ -770,6 +770,13 @@ static int cache_ap_online(unsigned int cpu)
+ 	if (!memory_caching_control || get_cache_aps_delayed_init())
+ 		return 0;
+ 
++	if (!(memory_caching_control & CACHE_MTRR) ||
++	    mtrr_generic_state_matches()) {
++		if (memory_caching_control & CACHE_PAT)
++			pat_cpu_init();
++		return 0;
++	}
++
+ 	/*
+ 	 * Ideally we should hold mtrr_mutex here to avoid MTRR entries
+ 	 * changed, but this routine will be called in CPU boot time,
+diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/mtrr/generic.c
+index 67cf69f24b005..8760a7b4dc38b 100644
+--- a/arch/x86/kernel/cpu/mtrr/generic.c
++++ b/arch/x86/kernel/cpu/mtrr/generic.c
+@@ -981,6 +981,55 @@ void mtrr_generic_set_state(void)
+ 	}
  }
  
--/*
-- * We need to flush the caches before going to sleep, lest we have
-- * dirty data in our caches when we come back up.
-- */
- void __noreturn mwait_play_dead(unsigned int eax_hint)
- {
- 	struct mwait_cpu_dead *md = this_cpu_ptr(&mwait_cpu_dead);
-@@ -1426,15 +1422,21 @@ void __noreturn mwait_play_dead(unsigned int eax_hint)
- 	md->status = CPUDEAD_MWAIT_WAIT;
- 	md->control = CPUDEAD_MWAIT_WAIT;
- 
--	wbinvd();
-+	/*
-+	 * MWAIT C-states keep the caches coherent, so runtime CPU offline
-+	 * does not need to flush them. System sleep, however, may remove
-+	 * power from this package's caches while all of its CPUs are
-+	 * offline, and the flush done by the boot CPU before entering the
-+	 * sleep state only covers the boot CPU's own package.
-+	 */
-+	if (cpuhp_tasks_frozen)
-+		wbinvd();
- 
- 	while (1) {
- 		/*
- 		 * The CLFLUSH is a workaround for erratum AAI65 for
- 		 * the Xeon 7400 series.  It's not clear it is actually
- 		 * needed, but it should be harmless in either case.
--		 * The WBINVD is insufficient due to the spurious-wakeup
--		 * case where we return around the loop.
- 		 */
- 		mb();
- 		clflush(md);
++bool mtrr_generic_state_matches(void)
++{
++	struct msr val;
++	unsigned int i;
++
++	if (!cpu_feature_enabled(X86_FEATURE_MTRR))
++		return true;
++
++	rdmsrq(MSR_MTRRdefType, val.q);
++	if ((val.l & MTRR_DEF_TYPE_TYPE) != mtrr_state.def_type ||
++	    ((val.l & MTRR_DEF_TYPE_ENABLE) >> MTRR_STATE_SHIFT) != mtrr_state.enabled)
++		return false;
++
++	for (i = 0; i < num_var_ranges; i++) {
++		struct mtrr_var_range *vr = &mtrr_state.var_ranges[i];
++
++		rdmsrq(MTRRphysBase_MSR(i), val.q);
++		if ((vr->base_lo & ~MTRR_PHYSBASE_RSVD) != (val.l & ~MTRR_PHYSBASE_RSVD) ||
++		    (vr->base_hi & ~phys_hi_rsvd) != (val.h & ~phys_hi_rsvd))
++			return false;
++
++		rdmsrq(MTRRphysMask_MSR(i), val.q);
++		if ((vr->mask_lo & ~MTRR_PHYSMASK_RSVD) != (val.l & ~MTRR_PHYSMASK_RSVD) ||
++		    (vr->mask_hi & ~phys_hi_rsvd) != (val.h & ~phys_hi_rsvd))
++			return false;
++	}
++
++	if (mtrr_state.have_fixed) {
++		u64 *saved = (u64 *)mtrr_state.fixed_ranges;
++		int block = -1, range;
++
++		/*
++		 * Ensure MtrrFixDramModEn is clear so fixed MTRR reads do not
++		 * expose K8 RdMem/WrMem bits and cause false mismatches.
++		 */
++		k8_check_syscfg_dram_mod_en();
++
++		while (fixed_range_blocks[++block].ranges) {
++			for (range = 0; range < fixed_range_blocks[block].ranges; range++) {
++				rdmsrq(fixed_range_blocks[block].base_msr + range, val.q);
++				if (val.q != *saved++)
++					return false;
++			}
++		}
++	}
++
++	return true;
++}
++
+ /**
+  * generic_set_mtrr - set variable MTRR register on the local CPU.
+  *
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
