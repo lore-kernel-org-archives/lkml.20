@@ -1,91 +1,95 @@
-Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB03EDE60
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAE61A2C0B;
+	Thu, 15 Oct 2026 05:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042774; cv=none; b=Rg8BqAWqpR6YqO/L0F72AiR/o7A11xGBm06mdCFrxM8zpsyva+ivkangzJ4Hq2OUkyGN7r7t97WnztlelagWtRLXuV7KY+losvZ22Leh+8onKf6Xng0CrgWPtY7rwLRTjHvkKOSYVgaGnFHydl9ewXWdJBosu2nygKz7QfcpUp0=
+	t=1792042859; cv=none; b=R7AQ62u2OmvJMdHjBeOM+2OhOLr4p7ZbG0UbErFd8GV26b65qGOKCtjq5qSLiOMH8MMjpUzC1RL3ZSC746Cfnf49Wda72KwB2sn2+9p1vpSU9ZJg7G8QmZTwD+3NebtdnMWQsIBxoS+z1GqdAoCdMaZDE05d7I1gCeFK8K9x8K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042774; c=relaxed/simple;
-	bh=7FbM2+eg5UOfZmuq9hM1PptzWVaYqJbij9uFNK5DEfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Jz2F8KoJMEEH+TCzS8/ZrpyuGM3KfLX8v7+MzYdIDAE0rmZkjV2hvxcsDl/sepfrMXhDAGn6gLLi2l5JzMsCoRjo17mAOqX/C0vW10LOKMMnPsCE6N9spvYCOzGxYiPkX/XVDNpqVB0reGztMD7Zo8rNcSxvitssgpMgKHBF4YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=plnongdN; arc=none smtp.client-ip=95.215.58.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792042859; c=relaxed/simple;
+	bh=60h/AF4kAwJ0nNWfIv00sY6S9PL5kkDZviQScRL1YtE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pNmMSr6Kb7l/XluL4+i2OJ/lyxeaBzX65cui8Zq6myaGNb7BoOOqg+JGrRAQ8HWPMqrM/dzIydCDIL3OX8s40WIb94QUPQPXEIgjZGyJKT4LOhs8VUeheq6u8VNKoxuieruWKKekDD/jGRLmMdvMBfiN7RuUEzmW5MXW96kPkw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTVQal+A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="plnongdN"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7FbM2+eg5UOfZmuq9hM1PptzWVaYqJbij9uFNK5DEfE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792042769; v=1; x=1792647569;
- b=plnongdNlx/ABXxa3ODTNMeAa9/Ne7seuCIHHmuMvF8xSjU91QiUZkvIHCR28Ei+7C3ETtMH
- f7YCkRrt4N3aXa/cmMYrJ/qVmdwgvBKTwLllIxv6/V25nxQCXh/Q7VlF4+z4t30UsN8qU2Uy2q5
- ZXEmzh00Kbkh/ClF0/f6FY5Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d9d6b683631b8ce6;
-	Thu, 15 Oct 2026 05:39:29 +0000
-X-Mizu-Trace-ID: d9d6b683631b8ce6
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: kas@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	jannh@google.com
-Subject: Re: [PATCH v5 8/9] mm/collapse: call collapse_file() from collapse_single_pmd()
-Date: Thu, 15 Oct 2026 13:39:20 +0800
-Message-ID: <20261015053920.64675-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261014171145.3292736-9-kas@kernel.org>
-References: <20261014171145.3292736-9-kas@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTVQal+A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992F71F000C4;
+	Thu, 15 Oct 2026 05:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792042858;
+	bh=e+pp3mKzbb91ORUWGgV2fdgl67WxzZCNNBh+W0iCaXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QTVQal+Aj5xF8kncdNXwZfRocTiXpkK0/mDvgUYW+xoAk7dB0v6zVkOIrf9ks5NVc
+	 YxLg2jbawcsNupRkc1VhMQ7Ne5FfDVMxThYgzuMPWXTPWXhJcPV5q8QmUa6fgsiL3Q
+	 pxeLAg2dCmKBOhQk3A34h+orotkIVRE7S4CmYhp4av89r6lJHElm6yUIiVOVaRZxKN
+	 14FhloM/+nCBEHXM2dXN1ZQn+167MWnupcu8lTn5p6CCTPR0i7aDa++05A8n7cLhFR
+	 Q2bsRhZerjAP5jjItYHmUnxcYXUMEDdVXmdV5llcUmZalsdOGrCpsPoff7d0GZxaQ8
+	 SocuMWG6bROhQ==
+Date: Thu, 15 Oct 2026 11:10:49 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
+ CTRL2 register
+Message-ID: <atBkh5nZEL88Gr6c@debian>
+References: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
+ <20261014192049.GA1654252@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261014192049.GA1654252@bhelgaas>
 
+On Wed, Oct 14, 2026 at 02:20:49PM -0500, Bjorn Helgaas wrote:
+> On Tue, Sep 08, 2026 at 11:48:22AM +0530, Sumit Kumar wrote:
+> > An outbound iATU region matches any local (AXI/application-side)
+> > address that falls within its Base/Limit window and rewrites it to
+> > the PCIe-side address programmed in that region's Target Address
+> > Registers before the transaction goes out on the link. This matching
+> > does not distinguish CPU-initiated transactions from ones issued by
+> > the internal DMA engine (eDMA/HDMA).
+> > 
+> > Example: outbound region 0 is programmed with Base/Limit covering
+> > local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
+> > CPU-initiated accesses. The DMA engine is later given a descriptor
+> > whose destination is the host address 0x8000_0080, which happens to
+> > fall inside region 0's Base/Limit range. The iATU matches the DMA
+> > transaction against region 0 too and rewrites it to 0x1_0000_0080
+> > instead of passing 0x8000_0080 through unchanged. The transaction
+> > then lands on the wrong host address, causing data corruption or an
+> > IOMMU fault when the rewritten address has no valid mapping.
+> > 
+> > Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
+> > programming outbound iATU regions so only CPU/AXI-initiated
+> > transactions are matched against the region; DMA engine transactions
+> > bypass the translation and go out on the PCIe link with their
+> > original address.
+> > 
+> > Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+> 
+> Thanks for the fix.  A data corruption is pretty disastrous.
+> 
+> Is there a Fixes: tag we can add here?
+> 
+> Probably also a stable tag?
+> 
 
-On Wed, Oct 14, 2026 at 06:11:41PM +0100, Kiryl Shutsemau (Meta) wrote:
->collapse_scan_file() reads the page cache to decide whether a table is
->worth collapsing and, when it is, calls collapse_file() itself.  The
->caller cannot get between the decision and the collapse.
->
->Move the collapse_file() call up into collapse_single_pmd(), so the scan
->stops at the decision.
->
->Two things change with it.  The writeback retry re-runs collapse_file()
->alone instead of rescanning first; collapse_file() repeats the scan's
->checks under the page cache lock anyway.  And mm_khugepaged_scan_file
->fires before the collapse, so for an accepted table its status reads
->SCAN_SUCCEED; what the collapse made of the table is for
->mm_khugepaged_collapse_file to report.
->
->Preparation for splitting a collapse into a scan under mmap_lock and a
->run without it.  The file scan has to stop where the anonymous one will.
->
->Assisted-by: LLM
->Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->Reviewed-by: Zi Yan <ziy@nvidia.com>
->Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->---
+Just to clarify, there is no reported data corruption due to kernel. Our
+internal teams saw corruption in the bootloader with overlapped mapping between
+iATU and eDMA and fixed it with this BYPASS flag. So Sumit wanted to do the same
+thing in kenrel to avoid hitting such scenarios. That's why there is no fixes
+or stable tag.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
