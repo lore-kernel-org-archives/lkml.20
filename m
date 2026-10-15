@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD7A38735A;
-	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4F427057D;
+	Thu, 15 Oct 2026 21:48:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100900; cv=none; b=Ns6xddZbplP/AYVOiEV1/VDsJDs23dUwavCnD4gETbxu4Hh1j+HL92qSt01F2ldl6xZs3fQe+LcRaA55x/RAhJEVPNZbsXUUDI/0j/ffk8BvcD2j92k/pBvB3AIA/0OXpA/JdvHKhNwpJapFIJWMtb09CG38qHSaUqtlRLWdtLU=
+	t=1792100900; cv=none; b=tevlYR4SMvXteBUAX0XlL4dfJFibuUJZKVdnXjbe1wDvqsvwrDAXAtUf9t6MDEhX+fusc29w2k95aAlJyp4yUGp9U/7vwQzOyKcptTuQjQ8ta+KExMZYsW0Rzu1/BYzB2Gl8bqv/huKPQxAlRWNdOWMZk70qNrRXa9MurN3oKCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792100900; c=relaxed/simple;
-	bh=uuL/CmNmBs+pWcemax67+AiZhym/WAPAdhBsiayJRHM=;
+	bh=RW9U2SZdFY7DS+5Tb/YAcIDvtIQBs+/tfCRMI8fSSj8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RzYfgzMpRKNkPlmbjn87PjgSQGkfAbTJzaKg8ahw5JKC8cXzkC4cvrZ5aDVvPRBcD2oLmMHk3K3HKZziSHuPc0IoJcQGp0WEpOnEsreDkbcdH0fTy6nIcKgxTjqYkSkQ/fDXL995csCf2qBRvd1MN7wXbFhXpqHaFdxzShAwjeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m29selP7; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=pEd7DkYZ3aJp6VjpVoFNBU/ofGh1b1BOvDSWfj/BTERsfqhTNhQ+H25niw9GbeZncr2UT+y3RWH28wCTIBC7LSqxi4qAc9Igk/msWCSlYqvFTOHF+3cDOyYk743s5tUyr76nqPXlHpu1WpCs/FB4bh/xhs76gRIMIO/YIxuPohs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNv8UNnj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m29selP7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B0426C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNv8UNnj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A08B5C2BCFB;
 	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792100899;
-	bh=uuL/CmNmBs+pWcemax67+AiZhym/WAPAdhBsiayJRHM=;
+	bh=RW9U2SZdFY7DS+5Tb/YAcIDvtIQBs+/tfCRMI8fSSj8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=m29selP7dtddT61bI8NCsp2MSBCYNNsZ6RWb18vQRPDecV1/nE4G1t5Lpqfuvpi24
-	 GEqIyK0TTNI08gilqR4imJuBkIyFCvkM92Re5bF2+z6znaOMgxJakTo7XcKy+/M9XW
-	 llS/RsdN1iATgzhfRXeBet3xGEOEdwUFPWL3Hk8heDWEZI8CgkLK/2EKsDmMLtqWYy
-	 e24AQ08OwWVaP68RiSYUV69uCDMZzeFC85GWxOUqFEtwhq2In4OGMM/l2qJ+H7NoaX
-	 O5hPsV5s2F9oZ2SP0YBGGi2+0IBQDTVbD3P3c9c1gFmcepMa29ChZVEwQDlk+zq6+A
-	 Pe2bdBqI4yBvQ==
+	b=BNv8UNnjO2R/nXOn+r6B85YpQoHYilQtUmGM4txj4+i6Vsl4Wk1ASCaTEN/EvH0mV
+	 x8i9ATYRr8z1uZrytsNa6aJNUFpPyCaOHQuQ+kgy8kb1zB3lHkyfqGhydC0ejvl2rX
+	 WQNyQrvKhbraEINDqSq0Od76BgWuXQ1IhKy+ZDXU2ey1feHCBR0Z3cWQRPVnkIoDZA
+	 kru5tunWSWHttMfLHEvpzjEiLi4oEfsZ7vHAZ6jKEdwVTt6NmpDDtliibLJgKEp/II
+	 U4TFocWS3zvShTunKsYbEZjx2eBtxmYD1PHN3kBZVwDqnmhcQhy7cVIeCwusWQ8g4e
+	 U7K5YWc6G4g4w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90B14CCA465;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80F6BCCA462;
 	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
 From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Thu, 15 Oct 2026 22:48:20 +0100
-Subject: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+Date: Thu, 15 Oct 2026 22:48:19 +0100
+Subject: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+Message-Id: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
 References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
 In-Reply-To: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -52,11 +52,11 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100898; l=3992;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100898; l=4043;
  i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=OUXpTuteW6O6z6fmSZaqFDa8zmph67QuMze6JaQ/PNs=;
- b=YW6OZZ6UCKTH5NC0I/hvoT38dHS1nULqijWt94YmJ33bOvJINTUy6OR+1Qw9RlYL4MUdVFvaY
- 4vH7SFZRq5mAQKx6Yj5pg84i6Jt03rU5knP5vzH4Y+SpoqpLWPrWfBV
+ bh=3FW/YjSDKNEAYkV/4nSih2V8KIzb6+K0p4vWabSPpuA=;
+ b=Hc5JaeeIV80AIOnfkGJtppqVcBdjdBCLmhvhSe07csJBWQEzmaVpmp+BTWnJu9Vz4ftUfJDa2
+ fIbGTbpAK6OAP6slTYnjYjp8F6rC0kkG2dToATGry1t2zVcyeP1plxD
 X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
  pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
 X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
@@ -66,120 +66,152 @@ Reply-To: geocausa@gmail.com
 
 From: George Neacsu <geocausa@gmail.com>
 
-The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
-OV13858 on a four-lane D-PHY link, described in the device tree. Add an
-OF match table.
+The OV13858 is a 13 megapixel sensor with a four-lane MIPI CSI-2 D-PHY
+output. So far its driver has only been probed through ACPI. The
+Microsoft Surface Pro 11 with a Snapdragon X Elite uses it as the rear
+camera, and that machine describes it in the device tree.
 
-Parse the endpoint as other sensor drivers that serve both ACPI and DT
-do. Wait for the endpoint if a bridge driver has not created it yet,
-require four data lanes, and require both link frequencies, since the
-modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
-lists both, so an ACPI machine with that entry probes as before. Without
-the entry the sensor now waits for the bridge instead of probing into an
-empty graph.
-
-Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
-capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
-4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
-and a scene captures.
+The supplies are the three the driver takes, and the reset GPIO drives
+the XSHUTDN pad.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: George Neacsu <geocausa@gmail.com>
 ---
- drivers/media/i2c/ov13858.c | 62 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+ .../bindings/media/i2c/ovti,ov13858.yaml           | 113 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ 2 files changed, 114 insertions(+)
 
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index 83eefba..587ee38 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -1713,6 +1713,57 @@ static int ov13858_power_off(struct device *dev)
- static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
- 				 ov13858_power_on, NULL);
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+new file mode 100644
+index 0000000..a1cbdb1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+@@ -0,0 +1,113 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,ov13858.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OV13858 CMOS Sensor
++
++maintainers:
++  - George Neacsu <geocausa@gmail.com>
++
++description:
++  The OmniVision OV13858 is a 13 megapixel CMOS image sensor with an I2C
++  control interface. It outputs 10-bit Bayer data over a four-lane MIPI
++  CSI-2 D-PHY interface and takes a 19.2 MHz input clock.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ovti,ov13858
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (19.2 MHz)
++    maxItems: 1
++
++  avdd-supply:
++    description: Analogue circuit voltage supply.
++
++  dovdd-supply:
++    description: I/O circuit voltage supply.
++
++  dvdd-supply:
++    description: Digital circuit voltage supply.
++
++  reset-gpios:
++    description: Active low GPIO connected to the XSHUTDN pad of the sensor.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dovdd-supply
++  - dvdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@10 {
++            compatible = "ovti,ov13858";
++            reg = <0x10>;
++
++            clocks = <&cam_mclk>;
++            assigned-clocks = <&cam_mclk>;
++            assigned-clock-rates = <19200000>;
++
++            avdd-supply = <&vreg_cam_2p8>;
++            dovdd-supply = <&vreg_cam_1p8>;
++            dvdd-supply = <&vreg_cam_1p2>;
++
++            reset-gpios = <&tlmm 110 GPIO_ACTIVE_LOW>;
++
++            orientation = <1>;
++            rotation = <0>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&csiphy1_ep>;
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <540000000 270000000>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5d39ec6..0cbb07e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20186,6 +20186,7 @@ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ T:	git git://linuxtv.org/media.git
++F:	Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+ F:	drivers/media/i2c/ov13858.c
  
-+static int ov13858_check_hwcfg(struct device *dev)
-+{
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus_type = V4L2_MBUS_CSI2_DPHY
-+	};
-+	unsigned long link_freq_bitmap;
-+	struct fwnode_handle *ep;
-+	int ret;
-+
-+	/*
-+	 * Sometimes the fwnode graph is initialized by the bridge driver.
-+	 * Bridge drivers doing this also add sensor properties, wait for this.
-+	 */
-+	ep = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
-+	if (!ep)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "waiting for fwnode graph endpoint\n");
-+
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
-+
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "%u data lanes are not supported, only 4\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		goto out;
-+	}
-+
-+	/* The modes use both link frequencies, so both have to be allowed. */
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       link_freq_menu_items,
-+				       ARRAY_SIZE(link_freq_menu_items),
-+				       &link_freq_bitmap);
-+	if (ret)
-+		goto out;
-+
-+	if (link_freq_bitmap != GENMASK(ARRAY_SIZE(link_freq_menu_items) - 1, 0))
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "link frequencies %lld and %lld are both needed\n",
-+				    link_freq_menu_items[0],
-+				    link_freq_menu_items[1]);
-+
-+out:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+
-+	return ret;
-+}
-+
- static int ov13858_probe(struct i2c_client *client)
- {
- 	struct ov13858 *ov13858;
-@@ -1725,6 +1776,10 @@ static int ov13858_probe(struct i2c_client *client)
- 
- 	ov13858->dev = &client->dev;
- 
-+	ret = ov13858_check_hwcfg(ov13858->dev);
-+	if (ret)
-+		return ret;
-+
- 	ov13858->clk = devm_v4l2_sensor_clk_get(ov13858->dev, NULL);
- 	if (IS_ERR(ov13858->clk))
- 		return dev_err_probe(ov13858->dev, PTR_ERR(ov13858->clk),
-@@ -1845,10 +1900,17 @@ static const struct acpi_device_id ov13858_acpi_ids[] = {
- MODULE_DEVICE_TABLE(acpi, ov13858_acpi_ids);
- #endif
- 
-+static const struct of_device_id ov13858_of_match[] = {
-+	{ .compatible = "ovti,ov13858" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ov13858_of_match);
-+
- static struct i2c_driver ov13858_i2c_driver = {
- 	.driver = {
- 		.name = "ov13858",
- 		.acpi_match_table = ACPI_PTR(ov13858_acpi_ids),
-+		.of_match_table = ov13858_of_match,
- 		.pm = pm_ptr(&ov13858_pm_ops),
- 	},
- 	.probe = ov13858_probe,
+ OMNIVISION OV13B10 SENSOR DRIVER
 
 -- 
 2.53.0
