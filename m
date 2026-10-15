@@ -1,239 +1,242 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A5535E950
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67532561A2
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042377; cv=none; b=tJYAD/WWWKR9GjU3NKwK1kt36jdnSPfLImz0aWRdI3+o66bJeWQR9iW8GbyVUgjnnHn6ImIWHnjciFQ5M53teIWyS7CSmhAqKbTLezIbtcblzZqRmgfoQp10UDRXCIgSxVrGEQqoIPnvngIBuSL2Ktx+O/sWHcKjlseM6MOdn0o=
+	t=1792042557; cv=none; b=sPDWWwxg+qRB/AfViFR8cEqqIevJrv+rVd6HCFaeDvCXRtNWIf+vZSt8Gx1V0ErcZVYDBMfazz6rL5M30TaFIpgVuwDo2fhsfoJFiO2Zg2i42nK2ob/nQvDHLgxmOjukbANRm/uOvXfSVe8TTALYsJ+e82eIQVgn2/Q8RLZBITc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042377; c=relaxed/simple;
-	bh=XNC5w7epAUR8vTY+EFc882zdPztNr+QOcezl42tLC0A=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=fShM/jPKli3KPrzCAkvC2EfM5TzEpCWzeNhMpGgRmDE2WK2zqwHYSz/OvWFQBbCSf6zWz57SpFAsnjW+WeEd/LFYzWCuc2hO2n0qkXf3yTQ9JRRNejkJZUv3Wc8PzSrm68vtfTGjhG1YOH3GclftbDELrKbBncqBtdtHZTkvcGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZkj+OPe; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792042557; c=relaxed/simple;
+	bh=JlnNjSNtWElMGhE+dmJjb0q4ZSR5Q07c1c61pWKCCNU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=JpDuPDdBP1Zt8BxYCrRLnhlsqXaPvvOqPGzn+nAdwizSTLc9ei9Y9P8sgBgp8Ba4qllmzyOWVRjCt/2FIxdSnUOTYHjV6cwW/Lcb2AMQW7Aones0GYr16ZcN/8YjFjNK1SrvvfKSpflXWVocoilG3Lo6BPV8VFs6xt23ALms+78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ity1Oq2f; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZkj+OPe"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso8612367eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 22:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792042374; x=1792647174; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GH2n+ldfA9ef99RNFEAwu4ZYJGshxq44G7IMR735/Tw=;
-        b=eZkj+OPeR46Vx+xdLIg6z2qKary5KWxkCXTa2fCLnBN6Zc9afGzUG0uxXe2CIQOanw
-         cvvI0XwQ+sSSYTHHV6XyY99fietD45h0OQE6X6YkRtt6MVF1kiWkHSnJDlhC5zb9lCZ8
-         Jh+9fxOU/MpYf/JAsjcWRXh18hCW2LY4PUK3AECIgEBmIYvl4bVYVbZ1pTldf1V/XO0w
-         t4nD5ly2CiSKFiA0zPeknV4AoxqazXej6R7Ai1FIdDYgQnPOnzzdgl+JRe/7FKrn1ELd
-         KzAD2HNXRz4+Abg7T4NF0ryAoqCHxn0WNjGzS9w62IWoxPWbVVk0kBfQFIwlNrHXLYwo
-         kvVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792042374; x=1792647174;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GH2n+ldfA9ef99RNFEAwu4ZYJGshxq44G7IMR735/Tw=;
-        b=gPvYGsFrA96EZ7HudTPTepLgFGIo0AbIF3VjcDp/cbGqH8C7j8a2JOVABJLYPnR/EX
-         itTg5bKFhsFHT0kYO0DNAILzoQ5AOpr00ahuNA6KzWg1Ln4aulQdmBMrM+3zUuM3T3VU
-         dDLMP+6EZbCygGMScmb3KzYJBFSNTxB07EC9wjGQ/QTqPLW5bKOviwFUQj0bdX2+hbKH
-         ijxtJw7PUy0uF/oruNKJmsZGTrVXfu7+fqfhRUeHO3TpkSYvzvHtTwBXmhOrXRnTKi2M
-         Un3yCjAabxbxlliDtbPBoLptAqvMiEhMyVsbOXi5jF7JHkeSjeu2Ud/rlLH130KHZDKY
-         01nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxi3jVipEr72+osfY2DLYIXVPiMqi63yNZnLr6nEjMuOrl8MZolSdlp4qiectn1+xxjplff8f8NZuFSZYM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUNNuZ88s9LUiH7KsWwO2XwDzQicr0kkoH47NiJZXY4y+MJbeN
-	4+EM9CZOJPo4Yw7LNEz/I9+53B2b3O+2NdsGMAUUL2w7K4fltSsNyZXU
-X-Gm-Gg: AYBFou1BidWTgLwyFRSrWUcUYHLaJxe+iL4lXaTS6bIkiiF+ZKE5nBV+1QpLTT9n0Gk
-	NukVsFEnMZOiV6Xzn88FirO2gsAP/v0Qil26Ce58RJnnSgdNnV595tstt5X3raGsakF9HXWEhu+
-	pDQux/7aO/0bgSTKBZxKiT7MUsGLeXOBo/vtca+wa9t37/ae0QDiuiaXRoE18JucvJhY7K56kXs
-	qzKbfOb1xCfenyuVgn6P74s+F5lqdBmcoSr5oND9pSBtTPXFhhKUdfgUivU/56uaiX16mPLf7Cc
-	46zbH6G3tugEpAFCH8jlR5VeB7Ef+monQ0O8B6076JOB17ufFuPnJczlOb1jcEC+FN9UVsGFIi+
-	jHMJTccJkxIJ/1PcpUZeuIYf03mGtXGSgrOYl9kF9Hmsg4LBjIU0YJzCMNj00m+aFswW9Lw2jZ6
-	F8KofLO1ZegpyhpfrSpPJRbeYNBb+Lx/iMKqXYrtEKwtDBMB1iA2RhPXOgKoOYr9VCAzrGaV6/R
-	BiyRut4Xbt1e9lM0cxdC9B3aS4RG3Jj1w4NHWS5xXgxyPdJ
-X-Received: by 2002:a05:7301:6e98:b0:33c:e74:4624 with SMTP id 5a478bee46e88-3537e112919mr25558252eec.27.1792042374072;
-        Wed, 14 Oct 2026 22:32:54 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:821:261c:74c2:4177])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35c89429484sm22777131eec.23.2026.10.14.22.32.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:32:53 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:32:52 -0700
-Message-ID: <01c8cf7d695261ba8270ff57aa8f2a6f@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Zhengping Jiang <jiangzp@google.com>
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Stephen Boyd <swboyd@chromium.org>,
-	Archie Pusaka <apusaka@google.com>,
-	Shashikirana H K <shashikiranah@chromium.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] HID: vivaldi: avoid redundant feature report reads per usage
-In-Reply-To: <20261013192318.1828453-1-jiangzp@google.com>
-References: <20261012220225.3594376-1-jiangzp@google.com> <20261013192318.1828453-1-jiangzp@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ity1Oq2f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792042555; x=1823578555;
+  h=date:from:to:cc:subject:message-id;
+  bh=JlnNjSNtWElMGhE+dmJjb0q4ZSR5Q07c1c61pWKCCNU=;
+  b=ity1Oq2f68vQdd26JbNJRo1Tnn5myknz3g0WKgYeVQ6GW8ieCcN27iMf
+   qZ+U5cYqYK6I5sk41x+QxZRukH0tqbLTbvFxFI2dOWhLZ4bA/eGrdQ9Vy
+   8dSMuV4RDu6R8LEQ+9qoPe3XDbPmgDMWUHgRPJbndTrfwbkZ83Xasb4iH
+   giTxKVInomnwheO1mEB4IujmYaDLOdDh0wUEGi+CsZbuAswu+JpykxYcS
+   flvhKQPX1So5lRjuNvtt4YPQqHlabQLZKLTVher2VAVRYC4H+T/HgHPn8
+   IPHlCRKoKPp/060bwBoa8vwNAZYMwN7xFqlonWWZ63W41YaFTd4T/68g9
+   g==;
+X-CSE-ConnectionGUID: GOEE5lFQRJei+MQLIEe/dA==
+X-CSE-MsgGUID: BpiRrSORSUuT2R+ed05mHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="689598"
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="689598"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 22:35:55 -0700
+X-CSE-ConnectionGUID: QKDKg9sVTZCk4iqmx+o9zg==
+X-CSE-MsgGUID: Hw/bTB/iQPiML5QUILzRew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="2072235"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 14 Oct 2026 22:35:54 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xHE87-00000000FsN-2elH;
+	Thu, 15 Oct 2026 05:35:51 +0000
+Date: Thu, 15 Oct 2026 13:35:30 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:tip:urgent] BUILD SUCCESS
+ ec37745bb735edd25ab0306a2065a45cebc2105e
+Message-ID: <202610151328.53T82IJy-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Zhengping,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tip/urgent
+branch HEAD: ec37745bb735edd25ab0306a2065a45cebc2105e  Merge branch into tip/master: 'x86/mm'
 
-On Tue, Oct 13, 2026 at 07:23:18PM +0000, Zhengping Jiang wrote:
-> vivaldi_feature_mapping() is invoked by hidinput_configure_usages() in
-> ascending usage_index order for each usage in the top-row physical keymap
-> field. Because fetching the feature report at usage_index == 0 already
-> reads the entire report from hardware and populates field->value[] for all
-> usages in the field, calling hid_hw_raw_request() again for subsequent
-> usages redundantly reads the same report N times (e.g., 12 sequential BLE
-> GATT reads taking ~2s on Vivaldi BLE keyboards).
+elapsed time: 2183m
 
-A minor note on the commit description: drv->feature_mapping() is invoked
-by report_features(), not hidinput_configure_usages().
+configs tested: 165
+configs skipped: 90
 
-> diff --git a/drivers/hid/hid-vivaldi-common.c b/drivers/hid/hid-vivaldi-common.c
-> index c3c9fe9e697b..2d85555289d8 100644
-> --- a/drivers/hid/hid-vivaldi-common.c
-> +++ b/drivers/hid/hid-vivaldi-common.c
-> @@ -33,21 +33,22 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
->  {
->  	struct vivaldi_data *data = hid_get_drvdata(hdev);
->  	struct hid_report *report = field->report;
-> -	u8 *report_data, *buf;
-> +	u8 *report_data, *buf = NULL;
->  	u32 report_len;
->  	unsigned int fn_key;
->  	int ret;
->  
-> -	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP ||
-> -	    (usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
-> +	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP)
->  		return;
->  
-> -	fn_key = usage->hid & HID_USAGE;
-> -	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
-> -		return;
-> -
-> -	if (fn_key > data->num_function_row_keys)
-> -		data->num_function_row_keys = fn_key;
-> +	/*
-> +	 * Read the feature report only at usage_index == 0, as a single read
-> +	 * populates field->value[] for all usages in the field. If the read
-> +	 * fails, subsequent usages will not re-read the report and will rely
-> +	 * on field->value[] being zero-initialized.
-> +	 */
-> +	if (usage->usage_index)
-> +		goto parse_usage;
->  
->  	report_data = buf = hid_alloc_report_buf(report, GFP_KERNEL);
->  	if (!report_data)
-> @@ -72,7 +73,7 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
->  	if (ret < 0) {
->  		dev_warn(&hdev->dev, "failed to fetch feature %d\n",
->  			 field->report->id);
-> -		goto out;
-> +		goto parse_usage;
->  	}
->  
->  	if (!report->id) {
-> @@ -86,11 +87,20 @@ void vivaldi_feature_mapping(struct hid_device *hdev,
->  
->  	ret = __hid_report_raw_event(hdev, HID_FEATURE_REPORT, report_data,
->  				     report_len, report_len, 0);
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-It looks like this patch was generated against a downstream ChromeOS
-tree (__hid_report_raw_event() does not exist upstream; mainline uses
-hid_report_raw_event()), so it does not apply cleanly.
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    clang-24
+arc                                  defconfig    gcc-16.1.0
+arm                                allnoconfig    gcc-16.1.0
+arm                      am200epdkit_defconfig    gcc-16.1.0
+arm                      davinci_all_defconfig    clang-24
+arm                                  defconfig    gcc-16.1.0
+arm                       jornada720_defconfig    clang-24
+arm                          mv78xx0_defconfig    gcc-16.1.0
+arm                              mxs_defconfig    gcc-16.1.0
+arm                          s3c6400_defconfig    clang-24
+arm                          socfpga_defconfig    gcc-16.1.0
+arm                            u8500_defconfig    clang-24
+arm                         vexpress_defconfig    gcc-16.1.0
+arm64                             allmodconfig    clang-24
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20261015    gcc-8.5.0
+arm64                 randconfig-1001-20261015    gcc-8.5.0
+arm64                 randconfig-1002-20261015    gcc-8.5.0
+arm64                 randconfig-1003-20261015    gcc-8.5.0
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20261015    gcc-8.5.0
+csky                  randconfig-1001-20261015    gcc-8.5.0
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20261015    clang-24
+hexagon               randconfig-1001-20261015    clang-24
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20261015    gcc-14
+i386        buildonly-randconfig-1001-20261015    gcc-14
+i386        buildonly-randconfig-1002-20261015    gcc-14
+i386        buildonly-randconfig-1003-20261015    gcc-14
+i386        buildonly-randconfig-1004-20261015    gcc-14
+i386        buildonly-randconfig-1005-20261015    gcc-14
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20261015    gcc-14
+i386                  randconfig-1001-20261015    gcc-14
+i386                  randconfig-1002-20261015    gcc-14
+i386                  randconfig-1003-20261015    gcc-14
+i386                  randconfig-1004-20261015    gcc-14
+i386                  randconfig-1005-20261015    gcc-14
+i386                  randconfig-1006-20261015    gcc-14
+i386                  randconfig-1007-20261015    clang-22
+i386                  randconfig-1008-20261015    clang-22
+i386                  randconfig-1009-20261015    clang-22
+i386                  randconfig-1010-20261015    clang-22
+i386                  randconfig-1011-20261015    clang-22
+i386                  randconfig-1012-20261015    clang-22
+i386                  randconfig-1013-20261015    clang-22
+loongarch                         allmodconfig    clang-24
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch                            defconfig    clang-24
+loongarch                 loongson64_defconfig    clang-24
+loongarch             randconfig-1000-20261015    clang-24
+loongarch             randconfig-1001-20261015    clang-24
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                                 defconfig    clang-24
+m68k                        m5208evb_defconfig    gcc-16.1.0
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze                           defconfig    clang-24
+mips                              allmodconfig    gcc-16.1.0
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                        bmips_be_defconfig    gcc-16.1.0
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                                defconfig    clang-24
+nios2                 randconfig-1000-20261015    clang-24
+nios2                 randconfig-1001-20261015    clang-24
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                randconfig-1000-20261015    gcc-8.5.0
+parisc                randconfig-1001-20261015    gcc-8.5.0
+parisc64                             defconfig    clang-24
+powerpc                           allmodconfig    gcc-16.1.0
+powerpc                            allnoconfig    clang-24
+powerpc                         cell_defconfig    clang-24
+powerpc               randconfig-1000-20261015    gcc-8.5.0
+powerpc               randconfig-1001-20261015    gcc-8.5.0
+powerpc                      tqm8540_defconfig    clang-24
+powerpc64             randconfig-1000-20261015    gcc-8.5.0
+powerpc64             randconfig-1001-20261015    gcc-8.5.0
+riscv                             allmodconfig    clang-24
+riscv                              allnoconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20261015    gcc-11.5.0
+riscv                 randconfig-1001-20261015    gcc-11.5.0
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                              allyesconfig    gcc-16.1.0
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20261015    gcc-11.5.0
+s390                  randconfig-1001-20261015    gcc-11.5.0
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                          ap325rxa_defconfig    clang-24
+sh                                   defconfig    gcc-14
+sh                    randconfig-1000-20261015    gcc-11.5.0
+sh                    randconfig-1001-20261015    gcc-11.5.0
+sh                         sh7763rdp_defconfig    gcc-16.1.0
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20261015    gcc-8.5.0
+sparc                 randconfig-1001-20261015    gcc-8.5.0
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20261015    gcc-8.5.0
+sparc64               randconfig-1001-20261015    gcc-8.5.0
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20261015    gcc-8.5.0
+um                    randconfig-1001-20261015    gcc-8.5.0
+um                            x86_64_defconfig    gcc-14
+x86_64                             allnoconfig    clang-24
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20261015    gcc-14
+x86_64                randconfig-1001-20261015    gcc-14
+x86_64                randconfig-1002-20261015    gcc-14
+x86_64                randconfig-1003-20261015    gcc-14
+x86_64                randconfig-1004-20261015    gcc-14
+x86_64                randconfig-1005-20261015    gcc-14
+x86_64                randconfig-1006-20261015    gcc-14
+x86_64                randconfig-1007-20261015    gcc-14
+x86_64                randconfig-1008-20261015    gcc-14
+x86_64                randconfig-1009-20261015    gcc-14
+x86_64                randconfig-1010-20261015    gcc-14
+x86_64                randconfig-1011-20261015    gcc-14
+x86_64                randconfig-1012-20261015    gcc-13
+x86_64                randconfig-1013-20261015    gcc-13
+x86_64                randconfig-1014-20261015    gcc-13
+x86_64                randconfig-1015-20261015    gcc-13
+x86_64                randconfig-1016-20261015    gcc-13
+x86_64                randconfig-1017-20261015    gcc-13
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20261015    gcc-8.5.0
+xtensa                randconfig-1001-20261015    gcc-8.5.0
 
-> -	if (ret) {
-> +	if (ret)
->  		dev_warn(&hdev->dev, "failed to report feature %d\n",
->  			 field->report->id);
-> +
-> +parse_usage:
-> +	if ((usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
->  		goto out;
-> -	}
-> +
-> +	fn_key = usage->hid & HID_USAGE;
-> +	if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
-> +		goto out;
-> +
-> +	if (fn_key > data->num_function_row_keys)
-> +		data->num_function_row_keys = fn_key;
->  
->  	data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
->  		field->value[usage->usage_index];
-
-If reading or parsing the feature report fails, we should not be
-updating data->num_function_row_keys or populating
-data->function_row_physmap[] with zeros: vivaldi_is_visible() checks
-data->num_function_row_keys to decide whether to expose the
-function_row_physmap sysfs attribute, and on a failed read we do not
-want to expose a bogus all-zero keymap to userspace.
-
-Also, keeping "out: kfree(buf);" at the very end of the function across
-parse_usage makes the control flow and cleanup awkward (having to
-initialize buf to NULL, jumping over the allocation on usage_index > 0,
-and using goto out in parse_usage even though buf is no longer needed
-once the report is processed), and it prevents using __free(kfree) for
-buf.
-
-Since vivaldi_feature_mapping() already has the entire field in hand,
-why don't we bail out immediately when usage->usage_index != 0, fetch
-the report once at usage_index == 0 using __free(kfree), and iterate
-over all usages in the field right there?
-
-Please rebase your patch on top of Shashikirana's patch extracting the
-feature report value directly via hid_field_extract() before
-resubmitting:
-https://lore.kernel.org/r/20261013-upstream-vivaldi-fix-v2-1-ecc20329d24c@chromium.org
-
-With that in place, vivaldi_feature_mapping() can simply become:
-
-	if (field->logical != HID_USAGE_FN_ROW_PHYSMAP || usage->usage_index)
-		return;
-
-	u8 *buf __free(kfree) = hid_alloc_report_buf(report, GFP_KERNEL);
-	if (!buf)
-		return;
-
-	report_len = hid_report_len(report) + !report->id;
-	ret = hid_hw_raw_request(hdev, report->id, buf, report_len,
-				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
-	if (ret != report_len) {
-		dev_warn(&hdev->dev, "failed to fetch feature %d: %d\n",
-			 report->id, ret);
-		return;
-	}
-
-	for (i = 0; i < field->maxusage && i < field->report_count; i++) {
-		usage = &field->usage[i];
-
-		if ((usage->hid & HID_USAGE_PAGE) != HID_UP_ORDINAL)
-			continue;
-
-		fn_key = usage->hid & HID_USAGE;
-		if (fn_key < MIN_FN_ROW_KEY || fn_key > MAX_FN_ROW_KEY)
-			continue;
-
-		if (fn_key > data->num_function_row_keys)
-			data->num_function_row_keys = fn_key;
-
-		offset = field->report_offset + i * field->report_size;
-		data->function_row_physmap[fn_key - MIN_FN_ROW_KEY] =
-			hid_field_extract(hdev, buf + 1, offset,
-					  field->report_size);
-	}
-
-Thanks.
-
--- 
-Dmitry
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
