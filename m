@@ -1,144 +1,188 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D709475
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C88113CF82;
+	Thu, 15 Oct 2026 00:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792023853; cv=none; b=Fn2ZY6tMta9maTbiyeaDpyE7+hZ9TYtrIHNBl15KDKwJlqBKncZDFz5hLx9MiWcchaVcgmNFbSx8eUN51f6pxixyBsTd1HgzmJFkFKsRd6mJt2PJulWAhosTYuEQ1jQ5ilN//3LKh6pHI9CkwM1dYnj4Fkeo+WnBNA5GPB1wsXk=
+	t=1792023904; cv=none; b=LfJBPN/kDCBwinV5QQF1FNg7HlpT9+UOP0wFshi3fbOnGFxGdfv5pr7UtOrT1sS/qqtKXCMOmVNAn4GlC1dyglZTLLkXXTX66TgsJIyiLgd7m/k7td6wWzVw1a9rXLl4shyXQAiiPD/0Pymi6P4wIkzbvJ5WUXjeUrBsNNCE88Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792023853; c=relaxed/simple;
-	bh=1LmviWDsE5UZxD2POuUOSIstW2Vo0o819tiyBUYk/tU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gFpW8n3yinH40+VPMaUGEmDmeKnPARz8k0LJHX0kvLAPJJS41HovpIEl4XARDrP4udN7/O55S/88Kx6hs2gfVxquEDFm3di0wUdAET/QxDIP6lZ80mFL7CZqo/+5Wv/s8fmnzl34iJZlQZPwITBI6E+OVTozook6yAmvyU9JNKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qY28J1+J; arc=none smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792023904; c=relaxed/simple;
+	bh=Z74CIpFqSRRc46W6Aogy0/axOIHTqt2eqDMEYrxKQQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rAIH2F070abBAh95aKjuTPhs5qdDTtusbqCVaYJx/zmoqawkVuHExEHMmKAXzhQ85ESLq19tU4Dw5lZoPXttp8vHaXl9AMy8iRvQCTTpFs9EL8t5zb2tsHtX4ejaWkQtcz2H+MMImwxVPDrBNvJFjh2ApmCniEytnXEdr1VZCu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CCYALGhr; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qY28J1+J"
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-98c6e050c5dso504119241.0
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792023851; x=1792628651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
-        b=qY28J1+JnxqPRyuJjofnQSRhRL6Pxqnh/JvdIkSoYVmxUHsJl23x3QUcOy1+mWs3L+
-         iQCzHWezFRzzMgntTrSFsm8QveNu/L0Z3/h3Pt9JB+cu2DK7fRXjSRfpAKqBG1bu3a/G
-         pIPqljfWKvIiAoySWbqeW/uPLODGELDkCgTzLZbVDuLPWMvkRx0XTjWnTxUnALnld0BA
-         Tll/NOmPLuoGUthJmb1edJqs6DRp6w/l0PtsUyZxQ20Twox+FBGqsDFRsIYwnYPiMBdr
-         kIAjWFN8rUA3W7QVE2TmG5m6ZEBcdgQSrgJgl2E+CRMB6IcIj+gsUIluH4ZPB03RR17W
-         AXGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792023851; x=1792628651;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sRi2ZkH0cqeF76lnycKi5TJ2g+qZsmxD4so7+Rdq55w=;
-        b=YZGuBshCXyy4pgt9fFqUeBgrZiFsfKI9I8CTjmkrr509/lEJOPQsgX+QvkwKiUhZ6E
-         kjKJ8CGkD1MPkj5jugljaXN+6T/wZ1eHn98ZA9oF+PEIgjFMBZ7IulXeUMKoF3pW9Suw
-         nF0DcJECPAXyIXdNHoXGG+pq9HYMUZcym4IumvRlcdXPkgeuxHEF4AeM6jPTIGM/nOlK
-         s6IaRpMO5bQe91RqKI0wVrTlYIWu0bV4fLu3ZCIsjp9pc3+qkt1cl2y0pxhw56dHamfG
-         yOlPoVfcnnRF48sOGX+GBAocKnRk6APZXr9jAQpnbpCJ+uPOuBJxi7pYbrej3hLlcMv+
-         k7uw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqPWTnvjcjuIOkAkvaU1Xg9TA0HX6MbSD7+WGjDQJbbLm0TyEx8mTxfNu//oMsT8hOFITeNs0T03eWkqw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCfQvdCvQD6pHeNf5THaLUlU+kpiVlyRIJB0z46xSvtAwzXoV/
-	TI4TlyufsDVQHgxbFOyLjOIdY52DN2lYHnT4hhBtr2aQTu4hFBPpWvxn
-X-Gm-Gg: AYBFou1jHMwGA1VByesdVlE0S9rAWwcxFY6FuyQpOcm/wJvU3nFCu7Pyc1XgMBBtwfB
-	HRwAJrgEGmjFUdklfbMBwjGgCP4mtLcP80ULqWxy/bynACEFMIjVfwa2Hgq8rUqaZ4coCUiLvv4
-	M1EOv/x0V+BeEsSP0LuVrK+7KpgFHc58kwzXDXbHUiq6alWsEjTafohUt/6wC9X4QZmm9CkrVPa
-	pn+m3yVCT4cnv7oi8yW0G9IOs6TcTGPqNEmhoZKPbzWAimNVFAUzlV9rngd35C8Q7HaOhm0uDjd
-	qwCIxd9oC8y+KwGbd9LDx8a/DNB/kKWAmW9dri7ikE4Zxg6lrEkYAAQRmFLbsqKSf5dXwE8PE52
-	iInfCN3I2Adjwx75uChWH+4Sx+LWIkRAYHHyivcwZhicgQUV46B8aRV8WGpIzn6wvo/6PpDddTi
-	oaE11XaofND0sRlBOF/noan8LmKdvxi7hqwJt+Cz5cQ3K8plC1ClOC5/PTtxHbWF4/yVVDJcwYv
-	wUT1NkTFEZvmhOF7Hv3hcZ0jL2k+Zww8wx6Y50C
-X-Received: by 2002:a05:6102:f9f:b0:7bb:a70:4708 with SMTP id ada2fe7eead31-7cb372f5c52mr5241177137.17.1792023850833;
-        Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-Received: from localhost.localdomain ([2804:5698:10de:1f00:932f:8780:96fa:a0f5])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cbbd178e4csm6445671137.2.2026.10.14.17.24.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 17:24:10 -0700 (PDT)
-From: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-To: alexander.deucher@amd.com
-Cc: christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Willian Oliveira <williandossantosdeoliveira287@gmail.com>
-Subject: [PATCH v2] drm/amdgpu/gfx7,8: remove redundant RLC cleanup
-Date: Wed, 14 Oct 2026 21:23:44 -0300
-Message-ID: <20261015002344.98683-1-williandossantosdeoliveira287@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
-References: <CADnq5_O=kVgSZoqe_ZVQDmVTWNb+OZ2XhmVx=0CPQQfCaf2idg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CCYALGhr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792023903; x=1823559903;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Z74CIpFqSRRc46W6Aogy0/axOIHTqt2eqDMEYrxKQQ4=;
+  b=CCYALGhr0rrgoC0w/iru2zpOLNtdI86bHaGLTS+Pc4vgZSOttCf5iNva
+   b/HZOVvC5jD8iC+JIWZACLUAkkxW9s5vFj527hrvlWYWS1gkA6vd4VJvR
+   R0GvV1OPFhinSXZ2556Y/+qurgS1aoJIYMWVsAbOlT1cEFqM4cqvS+ESr
+   YrRlixwgLcyBRtiHfMsNi7VgNkuuThfu3o+RcP43G5xE3gSgeYQQW1a1N
+   pmHN9EbOtgmXWEQheE7qS5SQe0pbaEMv/eFMwGuMPu/ALpCGBZIjnMNhP
+   tKjxQXDH+8KDT9bLyZlZOgDsEEE456n8P0uxHUnHyvltH3v4OZQ+x1oZg
+   g==;
+X-CSE-ConnectionGUID: wyQFS8k/SNyQQJ2Y+ODIkA==
+X-CSE-MsgGUID: HeUbZsHVRzOvi4hqxiuVxA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="673871"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="673871"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 17:25:02 -0700
+X-CSE-ConnectionGUID: Urepl0S1QyKgdE9VSTATJA==
+X-CSE-MsgGUID: 9mJuBg9mRCCL3pq9CP7fJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1584506"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 14 Oct 2026 17:24:55 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xH9H9-00000000FQl-2kEh;
+	Thu, 15 Oct 2026 00:24:51 +0000
+Date: Thu, 15 Oct 2026 08:24:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Avinash Duduskar <avinash.duduskar@gmail.com>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>, Jordan Rife <jordan@jrife.io>,
+	Rong Tao <rongtao@cestc.cn>, Eyal Birger <eyal.birger@gmail.com>,
+	Pu Lehui <pulehui@huawei.com>, Jingguo Tan <tanjingguo@huawei.com>,
+	Lin Ma <malin89@huawei.com>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf-next v2 14/21] bpf: Add tracing_multi link info
+ support for bpf progs
+Message-ID: <202610151004.s3b0Ih11-lkp@intel.com>
+References: <20261012154024.29423-15-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012154024.29423-15-leon.hwang@linux.dev>
 
-gfx_v7_0_sw_fini() and gfx_v8_0_sw_fini() already call
-amdgpu_gfx_rlc_fini(), which releases the RLC objects used by these
-IP blocks.
+Hi Leon,
 
-Remove the duplicated explicit frees of clear_state_obj and
-cp_table_obj.
+kernel test robot noticed the following build warnings:
 
-Signed-off-by: Willian Oliveira <williandossantosdeoliveira287@gmail.com>
----
-v2:
-- Keep amdgpu_gfx_rlc_fini() and remove the explicit RLC object frees
-  as suggested by Alex Deucher.
-- Apply the same cleanup to gfx7.
+[auto build test WARNING on bpf-next/master]
 
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 8 --------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 9 ---------
- 2 files changed, 17 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Leon-Hwang/bpf-Initialize-ftrace_managed-in-bpf_trampoline_get/20261012-234003
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git master
+patch link:    https://lore.kernel.org/r/20261012154024.29423-15-leon.hwang%40linux.dev
+patch subject: [PATCH bpf-next v2 14/21] bpf: Add tracing_multi link info support for bpf progs
+config: i386-randconfig-1011-20261013 (https://download.01.org/0day-ci/archive/20261015/202610151004.s3b0Ih11-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610151004.s3b0Ih11-lkp@intel.com/reproduce)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 5fc19fefca81..7c56e36665c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4454,14 +4454,6 @@ static int gfx_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 	amdgpu_gfx_mqd_sw_fini(adev, 0);
- 	amdgpu_gfx_rlc_fini(adev);
- 	gfx_v7_0_mec_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if (adev->gfx.rlc.cp_table_size) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v7_0_free_microcode(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 7f91186ef1d1..27fbb5b59645 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -2060,15 +2060,6 @@ static int gfx_v8_0_sw_fini(struct amdgpu_ip_block *ip_block)
- 
- 	gfx_v8_0_mec_fini(adev);
- 	amdgpu_gfx_rlc_fini(adev);
--	amdgpu_bo_free_kernel(&adev->gfx.rlc.clear_state_obj,
--				&adev->gfx.rlc.clear_state_gpu_addr,
--				(void **)&adev->gfx.rlc.cs_ptr);
--	if ((adev->asic_type == CHIP_CARRIZO) ||
--	    (adev->asic_type == CHIP_STONEY)) {
--		amdgpu_bo_free_kernel(&adev->gfx.rlc.cp_table_obj,
--				&adev->gfx.rlc.cp_table_gpu_addr,
--				(void **)&adev->gfx.rlc.cp_table_ptr);
--	}
- 	gfx_v8_0_free_microcode(adev);
- 
- 	return 0;
--- 
-2.47.3
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610151004.s3b0Ih11-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
+
+   kernel/trace/bpf_trace.c: In function 'bpf_tracing_multi_link_fill_link_info':
+>> kernel/trace/bpf_trace.c:3755:32: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    3755 |                         addr = (u64) mnode->trampoline->func.addr;
+         |                                ^
+
+
+vim +3755 kernel/trace/bpf_trace.c
+
+  3708	
+  3709	static int bpf_tracing_multi_link_fill_link_info(const struct bpf_link *link,
+  3710							 struct bpf_link_info *info)
+  3711	{
+  3712		u32 __user *fids = u64_to_user_ptr(info->tracing_multi.func_btf_ids);
+  3713		u64 __user *ucookies = u64_to_user_ptr(info->tracing_multi.cookies);
+  3714		u64 __user *uaddrs = u64_to_user_ptr(info->tracing_multi.addrs);
+  3715		u32 __user *uids = u64_to_user_ptr(info->tracing_multi.ids);
+  3716		struct bpf_tracing_multi_link *tr_link;
+  3717		u32 ucount = info->tracing_multi.count;
+  3718		bool has_cookies, show_addrs, has_progs;
+  3719		int err = 0;
+  3720	
+  3721		if ((uids || ucookies || uaddrs || fids) && !ucount)
+  3722			return -EINVAL;
+  3723	
+  3724		tr_link = container_of(link, struct bpf_tracing_multi_link, link);
+  3725	
+  3726		info->tracing_multi.attach_type = tr_link->link.attach_type;
+  3727		info->tracing_multi.count = tr_link->nodes_cnt;
+  3728		info->tracing_multi.btf_obj_id = btf_obj_id(tr_link->link.prog->aux->attach_btf);
+  3729		has_progs = !!tr_link->tgt_progs;
+  3730		info->tracing_multi.flags = has_progs ? BPF_F_TRACING_MULTI_TGT_PROGS : 0;
+  3731	
+  3732		if (!uids && !ucookies && !uaddrs && !fids)
+  3733			return 0;
+  3734		if (has_progs != !!fids)
+  3735			return -EINVAL;
+  3736	
+  3737		if (ucount < tr_link->nodes_cnt)
+  3738			err = -ENOSPC;
+  3739		else
+  3740			ucount = tr_link->nodes_cnt;
+  3741	
+  3742		has_cookies = !!tr_link->cookies;
+  3743		show_addrs = kallsyms_show_value(current_cred());
+  3744	
+  3745		for (int i = 0; i < ucount; i++) {
+  3746			struct bpf_tracing_multi_node *mnode = &tr_link->nodes[i];
+  3747			u32 prog_id, btf_id;
+  3748			u64 addr, cookie;
+  3749	
+  3750			bpf_trampoline_unpack_key(mnode->trampoline->key, &prog_id, &btf_id);
+  3751	
+  3752			if (!show_addrs)
+  3753				addr = 0;
+  3754			else if (has_progs)
+> 3755				addr = (u64) mnode->trampoline->func.addr;
+  3756			else
+  3757				addr = mnode->trampoline->ip;
+  3758			cookie = has_cookies ? tr_link->cookies[i] : 0;
+  3759	
+  3760			if (uids && put_user(has_progs ? prog_id : btf_id, uids + i))
+  3761				return -EFAULT;
+  3762			if (uaddrs && put_user(addr, uaddrs + i))
+  3763				return -EFAULT;
+  3764			if (ucookies && put_user(cookie, ucookies + i))
+  3765				return -EFAULT;
+  3766			if (has_progs && put_user((u32) mnode->trampoline->key, fids + i))
+  3767				return -EFAULT;
+  3768	
+  3769			cond_resched();
+  3770		}
+  3771	
+  3772		return err;
+  3773	}
+  3774	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
