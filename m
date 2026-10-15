@@ -1,103 +1,76 @@
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FD44A64EF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DAB2EEE60
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 13:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072699; cv=none; b=WeP0CsKwJUwQDIHKL1p4dTS4aFYeed23UzQGU5fZ4vd0MpsN/GWpzGiFERAr4L9nx1aJjhWD8IhoS1uKxdOQtmbHSbkIK5Y0GVApXXhdmSt8ZeeZwrA1EWUiLI0Jol2T8zoBADgVd4CtliqENGxysW3PWaK7n8fQ17+dNQA1ZLU=
+	t=1792072705; cv=none; b=kTLMytM8NCgS30b6QX7i0dCZPBDcXUMOBS1K8ix7J4kPtU6pDq4H1u8NKbS96vasN7TaiwCNHBl9LMbv91o5ZkLnqpn6zlEzac7OC3MsE6rsMIG629wkJjn4z8qgRtZFXM7W/TSkqdO9OLq9B6YMZIkCk4i/IdSGGnhrI1rtHwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072699; c=relaxed/simple;
-	bh=XCLZISSAltF//O6t+IpR0eamKchFx2zNh3GL/j8aZwA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VS3dKoRfjAM/6Ru1pdCiWs6tQCoWDP6x0PyN5C7U/VlxgSWRxroCvIZi5GjD1QAGt7sXcA/2pytS2616wkExtUduTnLdiRNMYtLD8Gow9oTl0O+na64cpUEuAD0seLCPqYu9onvU+6y3d3N8MfCB7/mHoxzBQMsGHqEwOWCWs3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in; spf=pass smtp.mailfrom=s-joshi.in; dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b=K6F5aK+N; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZyFd6SQk; arc=none smtp.client-ip=103.168.172.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=s-joshi.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=s-joshi.in
+	s=arc-20240116; t=1792072705; c=relaxed/simple;
+	bh=Ho9YjB7reTrmZ0D9XSI3KdhGFFfKLwxERh2NVVcc4zg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bmdGcR7RaxXL8BcUD1pPdjMM5o79QUtMmQMJf2JLZqIJkN2SF2mvAAu7dKE6IBZOkyrcG0pUf1MOcwAPz2DqRPkRJIP3Pqhv0HMAoxtLNp+kcS8KSzypa71pW/Ytd1e/WnG/lKd8Rvj52Lgbq51yuyZWoHxLZdSG0jISDMrQ8Eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0jUX2Hy; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=s-joshi.in header.i=@s-joshi.in header.b="K6F5aK+N";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZyFd6SQk"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailflow.phl.internal (Postfix) with ESMTP id 165A11380286
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:58:17 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Thu, 15 Oct 2026 09:58:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=s-joshi.in; h=cc
-	:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1792072697; x=
-	1792076297; bh=CnO8Z6h9zpO/QTub1B+RFdiy6XB7flbUP5VcPsb88+8=; b=K
-	6F5aK+NfLqoqTsZdXarXaIgI2UEHWLUAVRLtF7QjmhL46+nVHdW88jDdLyNjpf94
-	YSo+9nhAzmOkjiGFr0DrKcmmLinWaHtftM1N5XjEWzzQ56bTG6dk20+wCAz/MK8a
-	FqjUQCSHcJLVbl12sNL7JUnw2caMjLl5pOb3QEWRodanu5LXy+Yqm8p5k5UVMcqH
-	aPh8rDxgJ0CqHl69L/ZVs0F015ImkRkG/dcB/Ulm9jOaXOaVVM0KjdcHnXPjK1mz
-	J73phcvEEMVAlt3CuAfwbXzCccXZPHpHc6CsWnyQJnsCeS9SRCqUId2WBcjFyc/k
-	AnzwIWyR9xp10WZL2IuUg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1792072697; x=1792076297; bh=C
-	nO8Z6h9zpO/QTub1B+RFdiy6XB7flbUP5VcPsb88+8=; b=ZyFd6SQkm2PWBGE8L
-	Mh+hzm4BthoRgot8Gg19Buf9wtsKQ4TXySByy+1sLRWgASsD8aZhD8cAHx6uPwtc
-	4M/uDFbfWzpVcS8PHNfHrIq1CI4oGN2Cs3Q96L+3aJR5+AuIWe+IeGKQkasM4KAo
-	Z6pzZo5P2lEcj61TdOe1vXcQ0XGMIMCJvgypj9Jn06Zv5h0DZUqoptDyzDwaiw2V
-	2kVkup1Jy89QcTdbzbtrgYcEiCBDwtZ+JYLyjau2NLz+UXWxqwMNTyXdAJKz7Mxw
-	zoxhfx4sXGyAI4nlA9arzlJwXgkOgHDdzYyNnSX4zQKmPAITHxINBuocNQNp6BSF
-	/sfdQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=s-joshi.in a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792072697; d=s-joshi.in;
-	mf=PHN1aGFhc0BzLWpvc2hpLmluPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:oRb4wXe/iL4aHnvrLaWLvgT/gEwC6Zoz717gh/nd1fZo1q7
-	CYKJnk+ueork6pKl6C7HnE8wHPTi+XCuvSHtvwacxC9qoY00xJNE7bSOepOyIHn1
-	Rt8bbEI6LQ557QkF/NLBKdsZWgVw5wKuvhveRYrJ2h84vQaJexA2HvCHdP0BhFFx
-	frxTzaK6/9DY6d0z1FroLcIJ0QjQ0H+kIjZLYSw47DuHUNpIu+8cnPrnxHM17rww
-	0PG4rkkLnfTJOtycgucVf1msmKSzk+YAT0FOzWJU30mduzEWWlFmst7afziMo4xu
-	kM1Z2HlDPsD2mloqdWsy0vORw6+0xlxVARN4s5A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ki8EbvuJseo+uOuHf5DKuwHpBlH2h/odU2Bm6ibMO4s=:XCLZISSAltF//O6t+IpR0eamKchFx2zNh3GL/j8aZwA=;
-X-ME-Sender: <xms:-NvQarjtjYk26pu96rBeAf5Y6Kd5uT1BJVbRf_AN9v3404waI8ErKQ>
-    <xme:-NvQahX3jq4LoFsdwXUkeXNb1nF0jpauLsqaBCO4-jkt1rm9J5x-DHcoKWN27CYY4
-    Vx1pC-D7o5ntSOlXTw-n9ggcRy1eaymZAGFC-5tExez5Xr2GgTy_w>
-X-ME-Received: <xmr:-NvQaiXhrSiDSpxmszIUkHI0fVPEkKM2_GP6-b6PmGHU2JRLZeXMRiNL9g>
-X-ME-Proxy-Cause: dmFkZTEjMW0FdWGU8vE5FR9XXFJ5ToXQmBEsNYZLPQzkZOcxhgH5+QmoDYPjPP5vf1P5tk
-    kOcza6G+URvZkSkJwB3YDQH7dUAAd0ZqfyynQ+1E1OsJDPUdK8Dt+uHyXhep3EiaQSJOlD
-    o+1BM+m08TR/PRN9ZQlF7oiURKLnSX7EXyfWtjN2YHEnbBobd7MH10qZ7W2ZuArD3zNNlE
-    nmHUnz0iCIoupLsV+aLjo6/JKRnPJMQK2CE8YB/7Dr/g1XtEoeayJBQ2G7RbKsER8qQbOH
-    f/Q+uoMEYrxVTutGmIUoXlCCcH7fCEsxm+CChuG+68dwGDfFwaO7ltAIXC5KOOvtwtTTL6
-    O37Cb5VY/wojXloYrzxPvucWr/OG7C1Gf8KizWJOplNZbi58ppZmMyg6SwJx0n80UPt9SA
-    95qeubFsW8a88vOIWJ91d5waLkDzM63YhJYxAYZhOVJgs3bFIO10B1Cj/dD6rquhNCZlT1
-    asipMEhPo7aKazxpKRzYVcawkEw+PSkzChOmDFxDaSwPzzCbmnFWN3XJxt0J/hPf1NbrMi
-    W3+bY6MGuxPDj7XGS8Y87nX64TZRTeelfT64/w2uCF2Tdopj7oaYOKxzN+xPc6WwPwAomX
-    EMpNhsXrtl42nClgOLgTt0Iy2qzOTpRmWdR9nthyCm+wPyUBRty/5iPfAaTg
-X-ME-Proxy: <xmx:-NvQapg5nL0Cl44MsMhVceea3-Maqn-ANcP289BE8pPm-lxO3nvoXg>
-    <xmx:-NvQalaMaw0jZYgsSvyjA7SZ9a_kKoHyagc7OYuR6-tBfwMj_jRMHA>
-    <xmx:-NvQauoI9khiOpQ7V10oFrcD_eoDfVfKgFTDJIRzQtJYdzfiuDwiyg>
-    <xmx:-NvQaqPjvyuts3pYmP5Dy-UtvTjx2AMaQVNcbzMTTQ_h-FUFJkn1DA>
-    <xmx:-NvQag6HeMn7JSEAbTCnHSit0Lu7HjWeT6w_1WCqY5wn7IWW3XxCUwEV>
-Feedback-ID: ia9504abf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Oct 2026 09:58:15 -0400 (EDT)
-From: Suhaas Joshi <suhaas@s-joshi.in>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0jUX2Hy"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso1001565a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 06:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792072704; x=1792677504; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lPZUBNn4GPGhvhNrbIpHNNxTG5Tr+rGqMQM1UOtv2Wk=;
+        b=j0jUX2Hy3BpBcSejtgENCZEtdEpYk0s0RZwqfHH5ZZKfJAt5KXfG3mVT0jRZFeHMda
+         oP7i6aWr0GN1EdJ3DIuwfB7hHbgFfI7odv6U5oKwmDZFtVjlmqzN9YH7GSZXJuSuV9bb
+         X/21zjlv6gvCGMd74brv61lH+UsquZiabZU9XQ35CIz2UwMfZMqvM+MHdUFDuQIlGxS2
+         S8ittq5h41OfqbKndRYL6ioEdk38Qe7v7SRmsCyZmbhTnQwwf4avqeZBYpaci1/9UWK9
+         wca6saN9ofRpQn/PYcpk85eecV9UvINNHbvHP8l0Z11VE0+lJIQ0fls9veO7cvV0NwkO
+         NFpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072704; x=1792677504;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lPZUBNn4GPGhvhNrbIpHNNxTG5Tr+rGqMQM1UOtv2Wk=;
+        b=E2LLmgUZFKS2OQY7r5Jch4EpE/LLlrT5pD6lQeOZa/fTwWqazwT6vVo0NA1Eq0ewHc
+         l46jgd009Bu0VVrEJD0ed1pQgro5kL9a4ydG86NO6cxrkDY7ZBOTsV8YOkRBT7gGTL+/
+         67gB904oqoVYf4RUFZxQkefn4I0GRzVApFICUpzvWSPJgzMlV8AMHJ2Ly1JNxErvRCMJ
+         qIbx9Z4gGnYNcQNHuCeqJiCspIHsa4pSzwnHL43n+wA7gQQKnOVhluamxZagpIiPr/FQ
+         H1vJ1rU+1MpZ5kbcLTKpfooY48ASf8oVukEHxP+zWKMRCO7EQzSOnnVhXMkz0+Ij9le3
+         Khbw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ49ICZLQkBQ2ZKnjWuFxGba37JYf0WYRUNLSV4+RSDqktgscTbDnTnACBik2Hmyyb19ajX1JV3XLBac4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFuuPhIyqqBbECZ/luA/5xB85qdCCDpd52hZl0Rbkftj7Bx99N
+	J1XgIm7TWTzSMSsydTg7ytT6rPZjF99prg5214H5yaJWPlKUXtjLJKHC
+X-Gm-Gg: AYBFou1uNBhT9s3gFQ65Thrq9AZZGNQLBwD/vOt9wW4/4X3dErvCL1SW4K838eVxzy7
+	qApedK5HtU1NOh1cNzWk7kVZGev3nOoj59XHXH3m6AoHrSvEAvEcphicJ8/Q8JuUsVbg+Mu6j6d
+	KYiHq3tTHAF5Biv0WlI9M0ammERp0jrUYqCrHVrSGa9mZO9PLa4HBS7GETyx26Bvn8NpxHlo/xp
+	ZIinP3wRIj1T4WFy5XoH1HRf3+fpNzSSAs2dEFacHVyja3DQulenWd/LKoLos2rQWg2B3eT+AVe
+	l+T6Ww8lW16i0nDrJwmmrnFlQ0GI9eMRK7RGB8qe5KNdpVdbpVP0udoGGBulS3mJYcwU8B+RM5A
+	JVHvuL6PWZhy7aE0hJYNT7EAd1dGBBfuo7KSSEMvsbu3UGl9ZkCj8/tEpGkuXsVgExqzTO+9qfZ
+	A3oJu2TeOHX1ifUEa7rgE3JC8rkkCmyvdhNurr10e7Klqdq2uDlF9Rq0SJonAq4gm7ru4t67DPY
+	HQVy8wveM2eDnki4+xSe+rsBg==
+X-Received: by 2002:a17:90b:4d88:b0:3ab:189b:6980 with SMTP id 98e67ed59e1d1-3ab3a79cf22mr17057046a91.39.1792072703840;
+        Thu, 15 Oct 2026 06:58:23 -0700 (PDT)
+Received: from localhost.localdomain ([113.165.144.92])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94794dd9sm4566857a91.12.2026.10.15.06.58.20
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 06:58:23 -0700 (PDT)
+From: vngocvan <vngocvan@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: ndesaulniers@google.com,
+	morbo@google.com,
+	justinstitt@google.com,
+	masahiroy@kernel.org,
+	llvm@lists.linux.dev,
+	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/2] mm/damon/core: Use only installed probe in damon_merge_two_regions()
-Date: Thu, 15 Oct 2026 19:27:53 +0530
-Message-ID: <20261015135801.19326-1-suhaas@s-joshi.in>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015135533.18761-1-suhaas@s-joshi.in>
-References: <20261015135533.18761-1-suhaas@s-joshi.in>
+Subject: [PATCH] gen_compile_commands: honor the build directory for modules
+Date: Thu, 15 Oct 2026 20:57:52 +0700
+Message-ID: <20261015135752.17028-1-vngocvan@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,112 +79,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-While merging 2 regions, we iterate over the entire probe_hits[] array,
-whose size is determined by the DAMON_MAX_PROBES macro. However, it is
-possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
-cases, we end up making redundant iterations. Therefore, to remedy this,
-iterate over the list of installed probes instead of iterating over the
-entire array. For doing this, start accepting a struct damon_ctx in
-damon_merge_two_regions(), and update calling functions to pass this
-argument.
+When invoked from outside the build tree with -d and a modules.order
+argument, the script opens .mod files relative to the current directory
+instead of the specified build directory. This can fail with
+FileNotFoundError or collect commands from unrelated artifacts in the
+current directory.
 
-Update the damon_test_merge_two() test to use this new signature for
-damon_merge_two_regions() as well.
+Pass the build directory to cmdfiles_for_modorder() and resolve both
+the .mod files and their associated .cmd files relative to it. Absolute
+paths continue to work, and the output location is unchanged.
 
-Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
+Fixes: ecca4fea1ede ("gen_compile_commands: support *.o, *.a, modules.order in positional argument")
+Signed-off-by: vngocvan <vngocvan@gmail.com>
 ---
- mm/damon/core.c             | 15 ++++++++++-----
- mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
- 2 files changed, 28 insertions(+), 7 deletions(-)
+ scripts/clang-tools/gen_compile_commands.py | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef8990..bebd2889c2c8 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3524,20 +3524,25 @@ static void damon_verify_merge_two_regions(
- /*
-  * Merge two adjacent regions into one region
-  */
--static void damon_merge_two_regions(struct damon_target *t,
--		struct damon_region *l, struct damon_region *r)
-+static void damon_merge_two_regions(struct damon_ctx *ctx,
-+		struct damon_target *t, struct damon_region *l,
-+		struct damon_region *r)
- {
- 	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
- 	int i;
-+	struct damon_probe *p;
+diff --git a/scripts/clang-tools/gen_compile_commands.py b/scripts/clang-tools/gen_compile_commands.py
+index 8d14b81efd73..149135f85f19 100755
+--- a/scripts/clang-tools/gen_compile_commands.py
++++ b/scripts/clang-tools/gen_compile_commands.py
+@@ -124,7 +124,7 @@ def cmdfiles_for_a(archive, ar):
+         yield to_cmdfile(obj)
  
- 	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
- 			(sz_l + sz_r);
- 	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
- 	l->ar.end = r->ar.end;
--	/* todo: do this for only installed probes */
--	for (i = 0; i < DAMON_MAX_PROBES; i++)
-+
-+	i = 0;
-+	damon_for_each_probe(p, ctx) {
- 		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
- 				* sz_r) / (sz_l + sz_r);
-+		++i;
-+	}
- 	damon_verify_merge_two_regions(l, r);
- 	damon_destroy_region(r, t);
- }
-@@ -3590,7 +3595,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
- 			goto set_prev_continue;
- 		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
- 			goto set_prev_continue;
--		damon_merge_two_regions(t, prev, r);
-+		damon_merge_two_regions(ctx, t, prev, r);
- 		continue;
- set_prev_continue:
- 		prev = r;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fa..849cf61cb828 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -182,6 +182,8 @@ static void damon_test_merge_two(struct kunit *test)
- {
- 	struct damon_target *t;
- 	struct damon_region *r, *r2, *r3;
-+	struct damon_probe *p;
-+	struct damon_ctx *ctx;
- 	int i;
  
- 	t = damon_new_target();
-@@ -206,7 +208,21 @@ static void damon_test_merge_two(struct kunit *test)
- 	r2->age = 21;
- 	damon_add_region(r2, t);
+-def cmdfiles_for_modorder(modorder):
++def cmdfiles_for_modorder(modorder, root_directory):
+     """Generate the iterator of .cmd files associated with the modules.order.
  
--	damon_merge_two_regions(t, r, r2);
-+	p = damon_new_probe();
-+	if (!p) {
-+		damon_free_target(t);
-+		kunit_skip(test, "probe alloc fail");
-+	}
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		damon_free_target(t);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
-+	damon_add_target(ctx, t);
-+
-+	damon_merge_two_regions(ctx, t, r, r2);
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
- 	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
-@@ -220,7 +236,7 @@ static void damon_test_merge_two(struct kunit *test)
- 	}
- 	KUNIT_EXPECT_EQ(test, i, 1);
+     Parse the given modules.order, and yield every .cmd file used to build the
+@@ -132,6 +132,7 @@ def cmdfiles_for_modorder(modorder):
  
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
+     Args:
+         modorder: The modules.order file to parse
++        root_directory: The directory where the objects were built
  
- static struct damon_region *__nth_region_of(struct damon_target *t, int idx)
+     Yields:
+         The path to every .cmd file found
+@@ -142,11 +143,11 @@ def cmdfiles_for_modorder(modorder):
+             base, ext = os.path.splitext(obj)
+             if ext != '.o':
+                 sys.exit('{}: module path must end with .o'.format(obj))
+-            mod = base + '.mod'
++            mod = os.path.join(root_directory, base + '.mod')
+             # Read from *.mod, to get a list of objects that compose the module.
+             with open(mod) as m:
+                 for mod_line in m:
+-                    yield to_cmdfile(mod_line.rstrip())
++                    yield os.path.join(root_directory, to_cmdfile(mod_line.rstrip()))
+ 
+ 
+ def process_line(root_directory, command_prefix, file_path):
+@@ -206,7 +207,7 @@ def main():
+         elif path.endswith('.a'):
+             cmdfiles = cmdfiles_for_a(path, ar)
+         elif path.endswith('modules.order'):
+-            cmdfiles = cmdfiles_for_modorder(path)
++            cmdfiles = cmdfiles_for_modorder(path, directory)
+         else:
+             sys.exit('{}: unknown file type'.format(path))
+ 
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
 -- 
-2.55.0
+2.56.0
 
