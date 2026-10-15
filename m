@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E5A4CDA36;
-	Thu, 15 Oct 2026 09:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091502D94B5;
+	Thu, 15 Oct 2026 09:54:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058088; cv=none; b=tM2I9mVFcH90cnLeUrzF8S6JPr+f2kAX+iXmAKM/taMtH7THgoWU88KvsffJ8F5Pw3idqayU43zI5tiV4QyJEDkolI3G1FZnC7UdW/GZhT6jxDOy/bGClu3iRuOLQsQ3tY8tpSWyBiQ4SVtHbsSFHU6Xs3rShGxGQKFIV+52Gn0=
+	t=1792058088; cv=none; b=gtHQlNwn/+dV/g9vpohiFU3VsWenK6u0Q859D0kDvcj9yrEIkBbmrxXAexPc6FtwdaeOAiv+MXzgIso3Drh6NUNYiBn5nzIDbvGNx6hm+m75ysbAYJVN8WLG2Ib5XTxsB1iClEDpKTtomhVIvELyIJ0XWxHir9oaejK4obxkf20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792058088; c=relaxed/simple;
-	bh=mHVmUCiRkn/8UwtnFUBM+YUG9kbHG43rM5PQTdhnxP0=;
+	bh=256ub1+EMI2/yc6hRxi9cF2VnZIJXuNDdePrD9Jmjc8=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=TyvzOGcm6b1egb80a7tAqJmKkW7Ybe2OWGPVWopprhtqCF2RUHR89B6h1y/fCaKUXcatulG+54Dy6OJ4OaNyzfpxhW4L4guvLKlgVjEQ/UuqZEkAv0nL/uyP2EhMG9CayNrcLLVX9+rxhwNYNEk0sUiO+eJjPFwPxXfgQcovFKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=c6Mpfa49; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S+pCIZJB; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=afJHaPFIFl1J/c33LgYwqWhy4CJj0rJc5OQZamDRV9fCSfuUrnev9BfzvI+9/OLPg0Zu9Kp4klCq2CmDSMZYFFNZyAaOjAPyEOzvujXbQMhABvSRjUiDA59mwCtcYCUrJ6mvA9AcbYIl71+aM0x4ZQ52JTa1W686bykYUv0vxtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WRmHLFxy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jfGtl/qe; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="c6Mpfa49";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S+pCIZJB"
-Date: Thu, 15 Oct 2026 09:54:37 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WRmHLFxy";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jfGtl/qe"
+Date: Thu, 15 Oct 2026 09:54:36 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792058079;
+	s=2020; t=1792058078;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=t90Y/THCiR7OWQHMvCDI21o9IGsknu5ZrVah4L/3mq0=;
-	b=c6Mpfa49UqBW/haE3xaamhNC0dnTOD8qCCpRWYylpsH6y0TrFuJa3Ehmv/4Ia3v5j0iSXF
-	V4WoKRgDibPP7KI64vM6kSPkTX5Kj3zf1UzeTfnnpdQ6vaJ0MU2jkvh1VO7new8dbKbebG
-	BJDJjQek1GH7aQEitLYsYsc+40XQYVcnGVMpz0fTKE/CkpqAjtqnLa0TO8RFsVpGeSnYDa
-	cWMrSZw3HuuBI7/sSzNKYrA8Ve0yVRzEI5GMMIIMaGg+OK2ae1T2nue14Ef0s/LrkS5tTC
-	COucDWxDvmCPF5nOeTWxW6Ptaq0sO/Ynht5ylonomyZQKthRO64npYG4uAIbQg==
+	bh=hVyO2KKWOxQz1LRbURStoJK12r9pxMxFILc6L2jgmK4=;
+	b=WRmHLFxyG8YT3mOPGREVM0WvOQOkDdA2by2YPIDUvfIWuo6ccMxz9C3BdHJYkhufDpjIWG
+	WzxsTlCh4vAXfMkVUBJLMcEq869JWuSXHOzQwUxEeZlBRCipwuJLcDlBiS5PZyVbuYMDuq
+	r5c/p/jhSYAJH3PfomrKtu7wy89r7x58Nf8CU8nPGomx2z3k3M8/V0+nDPq/FjqYVg2kT3
+	mUO73WRHyAHhJIibvbAeo5cKULGuhiuQEQFOwASr2hPG0MFkjF1pgmve+7daL84wGoc4VD
+	xoBsaHD3Kq6dEpYc7Q3czCeV2rHd6Ik/cCEcLOOQktMognK0Cu7Z0ZQzrpba2g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792058079;
+	s=2020e; t=1792058078;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=t90Y/THCiR7OWQHMvCDI21o9IGsknu5ZrVah4L/3mq0=;
-	b=S+pCIZJBn/60E+bkeMIw+hTc/I9b2cesdkrYObg++yoHDYmoUOt1RvSwbCLOgZhr0Xblji
-	JpwTsyY7iC9R5xDw==
-From: "tip-bot2 for Fuad Tabba" <tip-bot2@linutronix.de>
+	bh=hVyO2KKWOxQz1LRbURStoJK12r9pxMxFILc6L2jgmK4=;
+	b=jfGtl/qexIRV6oTysxZaMBHb1syQV4/JULw98o9Y7H1qaLnzohnROTw+YBd9FWbZ22MTR8
+	7Jtos4yl7oSAtHCQ==
+From: "tip-bot2 for Zhu Ling" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/gic-v3: Don't register a redistributor
- that was never counted
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
+Subject:
+ [tip: irq/drivers] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC helpers
+Cc: Zhu Ling <zhuling2709@phytium.com.cn>, Thomas Gleixner <tglx@kernel.org>,
+ "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>, Radu Rendec <radu@rendec.net>,
  Marc Zyngier <maz@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260925085000.753400-4-fuad.tabba@linux.dev>
-References: <20260925085000.753400-4-fuad.tabba@linux.dev>
+In-Reply-To: <20260929031050.16988-1-zhuling2709@phytium.com.cn>
+References: <20260929031050.16988-1-zhuling2709@phytium.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205807788.2666988.12115351936867794153.tip-bot2@tip-bot2>
+Message-ID: <179205807620.2666988.658158530960567460.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,66 +68,106 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/drivers branch of tip:
 
-Commit-ID:     7bcd2fa22186587e06c456d1c2e3d336c83136f6
-Gitweb:        https://git.kernel.org/tip/7bcd2fa22186587e06c456d1c2e3d336c83=
-136f6
-Author:        Fuad Tabba <fuad.tabba@linux.dev>
-AuthorDate:    Fri, 25 Sep 2026 09:50:00 +01:00
+Commit-ID:     9ed1a2c62bf21abe8cb7607d7f4fd615d5c6b53c
+Gitweb:        https://git.kernel.org/tip/9ed1a2c62bf21abe8cb7607d7f4fd615d5c=
+6b53c
+Author:        Zhu Ling <zhuling2709@phytium.com.cn>
+AuthorDate:    Tue, 29 Sep 2026 11:10:50 +08:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Thu, 15 Oct 2026 11:50:48 +02:00
 
-irqchip/gic-v3: Don't register a redistributor that was never counted
+irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC helpers
 
-gic_acpi_match_gicc() counts only the enabled GICCs with a non-zero
-gicr_base_address, and that count sizes redist_regs[], but
-gic_acpi_parse_madt_gicc() registers every enabled one. On a MADT with
-no GICR entries, an enabled GICC with a zero GICR base therefore makes
-gic_acpi_register_redist() write a struct redist_region past the end of
-the array.
+When running with UBSAN enabled, enabling a GPIO controller that uses a
+GIC interrupt as its parent triggers several shift-out-of-bounds warnings:
 
-Commit fa2dabe57220e ("irqchip/gic-v3: Don't return errors from
-gic_acpi_match_gicc()") removed the check that kept the two consistent.
-Its message says such entries are still caught by gic_populate_rdist(),
-but that runs from gic_cpu_init(), after the write.
+  shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
+  left shift of 2 by 30 places cannot be represented in type 'int'
 
-Skip the entry instead, and mark the CPU's redistributor broken as the
-online-capable path does, so that gic_check_rdist() rejects the CPU.
-gic_starting_cpu() runs past cpuhp's last failure point, so without the
-mark the CPU would come online with its redistributor and CPU interface
-unconfigured. With an ITS, its_cpu_init() would then dereference a NULL
-rd_base.
+Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
+drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
+same signed-shift pattern. These masks are generated by shifting signed
+integer constants, which invokes undefined behavior when bit 31 is
+selected.
 
-Fixes: fa2dabe57220e ("irqchip/gic-v3: Don't return errors from gic_acpi_matc=
-h_gicc()")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Use BIT() to generate the masks with an unsigned type and make their
+intent explicit.
+
+Fixes: f27ecacc54cc ("[ARM] Add support for ARM GIC")
+Fixes: 5c0c1f08abf0 ("ARM: 6150/1: gic: implement set_type")
+Fixes: 021f653791ad ("irqchip: gic-v3: Initial support for GICv3")
+Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Link: https://patch.msgid.link/20260925085000.753400-4-fuad.tabba@linux.dev
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMbbPhU=
+atLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=3D@proton.me
+Link: https://patch.msgid.link/20260929031050.16988-1-zhuling2709@phytium.com=
+.cn
 ---
- drivers/irqchip/irq-gic-v3.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/irqchip/irq-gic-common.c | 2 +-
+ drivers/irqchip/irq-gic-v3.c     | 4 ++--
+ drivers/irqchip/irq-gic.c        | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-commo=
+n.c
+index c776f91..8bd1eaa 100644
+--- a/drivers/irqchip/irq-gic-common.c
++++ b/drivers/irqchip/irq-gic-common.c
+@@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk *qu=
+irks,
+ int gic_configure_irq(unsigned int irq, unsigned int type,
+ 		       void __iomem *base)
+ {
+-	u32 confmask =3D 0x2 << ((irq % 16) * 2);
++	u32 confmask =3D BIT(((irq % 16) * 2) + 1);
+ 	u32 confoff =3D (irq / 16) * 4;
+ 	u32 val, oldval;
+ 	int ret =3D 0;
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 9231688..32a8ea4 100644
+index 32a8ea4..b9a99f9 100644
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -2344,6 +2344,17 @@ gic_acpi_parse_madt_gicc(union acpi_subtable_headers *=
-header,
- 		return 0;
- 	}
+@@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offset)
+ 	u32 index, mask;
 =20
-+	/* Not counted by gic_acpi_match_gicc(), so there is no slot for it */
-+	if (!gicc->gicr_base_address) {
-+		int cpu =3D get_cpu_for_acpi_id(gicc->uid);
-+
-+		pr_warn(FW_BUG "GICC entry with ACPI UID %u has no GICR base address, CPU =
-kept offline\n",
-+			gicc->uid);
-+		if (cpu >=3D 0)
-+			cpumask_set_cpu(cpu, &broken_rdists);
-+		return 0;
-+	}
-+
- 	redist_base =3D ioremap(gicc->gicr_base_address, size);
- 	if (!redist_base)
- 		return -ENOMEM;
+ 	offset =3D convert_offset_index(d, offset, &index);
+-	mask =3D 1 << (index % 32);
++	mask =3D BIT(index % 32);
+=20
+ 	if (gic_irq_in_rdist(d))
+ 		base =3D gic_data_rdist_sgi_base();
+@@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offset)
+ 	u32 index, mask;
+=20
+ 	offset =3D convert_offset_index(d, offset, &index);
+-	mask =3D 1 << (index % 32);
++	mask =3D BIT(index % 32);
+=20
+ 	if (gic_irq_in_rdist(d))
+ 		base =3D gic_data_rdist_sgi_base();
+diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+index b2926a3..a5ca04e 100644
+--- a/drivers/irqchip/irq-gic.c
++++ b/drivers/irqchip/irq-gic.c
+@@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_data *d)
+  */
+ static void gic_poke_irq(struct irq_data *d, u32 offset)
+ {
+-	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
++	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+=20
+ 	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d) / 32) * =
+4);
+ }
+=20
+ static int gic_peek_irq(struct irq_data *d, u32 offset)
+ {
+-	u32 mask =3D 1 << (irqd_to_hwirq(d) % 32);
++	u32 mask =3D BIT(irqd_to_hwirq(d) % 32);
+=20
+ 	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq(d) / 32)=
+ * 4) & mask);
+ }
