@@ -1,271 +1,602 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE6E52CCED;
-	Thu, 15 Oct 2026 14:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072862; cv=fail; b=Ko5d6az2qNpo86rQuusbe2on9yZf980WH00FldzEhdpIWGBT/z/v509cp3/qgu1SFGFqTk+3NHl3cF1fW6lU9KDDPkF683HA5tJ/PQqPkdO7fg/EPmsh4HAwsGW2pp4yvnCTOWBqw0OSSeMkMKMLoLCE7mf4A5W4ejPvXlqTupY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072862; c=relaxed/simple;
-	bh=nZK/F6agMBufspa812ZVgtrpA47x0cfN3hLKRPWprBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ImNMjOYjeo75TIg4nNll5gzzgW9W4rLxPoihkQmgCD6UKobiXaSwknft0ucjyf7rxKQPYz+vTkfwkWd69w/aINJ3+Iv+mtQzqG48g7NCpiMHbVH1pK8eoUIuKS3xNsuApJWYIetFWm+FxZvetQBMh6j5zDXqacLuiCx6dh1hjJc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Sz3yAe9h; arc=fail smtp.client-ip=52.101.52.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E5452ED38
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792072870; cv=none; b=QI3R6VEg/JmW2rubtOf4a4FZ2ShSTcobxUxxx44Va27f3bKWVbtXWNugTqG75hwRzZNS8XQ6AfY57cCczU53b8XqXop+5UQYMr+dTGjsjeWZDY+E4dSd/LvO8YWsjI9Uq49yhXjbn5WQpnBkv+cRNh1NGXlHyDdQvHumyjF0oSM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792072870; c=relaxed/simple;
+	bh=0hXWrMLPZja53cQwmkCKqj7loKdH3CRsgLcF2CVfs/Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hA4wcFPAOqxd3FJcr6pC8WMQ2QvgXbwCNoh7hOS2me3EWILrakhzeHt335qR3mig7Ylf6vbX4hDXPHc+3n8kwRrWOFrt/IWTvw+NS+bEtdkJMe/YQw9mIG5X5BTyXXK6i/n82dB0RN9Lc2EmFPSR/nsRLX8Vs6RTrSIc7+merZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=syfBrBnX; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sz3yAe9h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XMlAC4d3t7b/xPpJYk6yvUz8YA5TH0W3217I0CGc0+TyGqS+J7Tpgm1X1kGTplGCcyMVfLMU+y3Z5BBRp86HXjKKhjgTlcEGm5VajeZ0F9MIZdrnhw7q5z5W10ol9pz6g6+vwxNXhwiAZ2N3nEE7LGQ95X0CNsU8EFFkmoVLrAU/Bjrl2Tcr0jQaaC7mW3h+g8JCL8I/4mR/Ws0copWd/B+NYef/zzlZeCBgEeYv0csHLzaYCL7aRTndRQl7AUs14UFzS+KiSbijYIQ2qVHnYaU9BODhAPhflh4gC4e/DL9mQBqNohMvw1i/g1U6T4aRU20UduPfoMBtp+S5RSwj1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
- b=NbkJoErdkcYtSGtpq34ESGTG1q69wiMFMt9KYsJq9vGgVTMEIsWVYOXL/PnFc/lJVmfYYSbbzhEdUFnJxmn/EyjwBW0pmqcjVK+rBjeOIwGaTN3wkhWchiTWGL2IFbVdRLelAFico0G+gUhwOxXEjpTbksT77hAVA68CFOMA8uZrbfiOym9v7a0MVlvjM63I2VNzuX30Z8bLH9byqhvLDK94ZD4oR7gMyxrnGQYFpRjuiG5LAXsrsGl3CnzcjMvfIuHrZ3dlii9eYVeeXsnO39hHza2bxltBoeYaciWsWEzfzFvTQIrNsWacJQkLiXIkoUHxoRk3A5HKwbYdexQROA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8aMnWIXVFDYBz1u3BxRds3jCAGhwtv0BAJgMhwlGfso=;
- b=Sz3yAe9hyg9SY4rTV+WPMsZWehczHG1G1BuqkNwV/YT6gAn2IrXufR/t8+ujyJq8auJY5ewhfIIB+p8is+dCxww37kKP96BaZvcKghQp//bmtWgFOr1/kV9zYdgvZKy1v9yLwG/86qnQpxFBsvjcnVvDQ122Hk1x+jqchjKrOsTKv4dvTulIbyodOhOlhKFkUweN7lZoE9Bh7XPAaRTJFg/9mAmEJnCQxHibQ6/cKrXEvyrPV9fNwidArbVmpTLakgPW9eoC0P0DAPjHpU4vAeAdohuhHq5PKY2WOgHCPPMEnydx6JNvhmacZpeqfjeJ4hh0hFJZ2l3DnKCaGvBFJQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:00:56 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0496.015; Thu, 15 Oct 2026
- 14:00:55 +0000
-Date: Thu, 15 Oct 2026 10:00:53 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Eliot Courtney <ecourtney@nvidia.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to
- BitmapVec::MAX_INLINE_LEN
-Message-ID: <atDclcwHGykChUim@yury>
-References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com>
- <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
- <aryYkkB9j14xnWo3@yury>
- <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
- <ase7IBtZjQsPVWSN@yury>
- <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
-X-ClientProxiedBy: SA0PR11CA0165.namprd11.prod.outlook.com
- (2603:10b6:806:1bb::20) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="syfBrBnX"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8455755f3so27972405ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:01:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792072867; x=1792677667; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IYL2Zmm8TTrpEFRYBVPJr6Yj6LDgf8oYTjHjngTpauE=;
+        b=syfBrBnXHoNYGWPMMHiRoUlBI1p9UlNPFhY94AYP1hSW/gIdkFOYF+QOAT9c53doDh
+         MX2QTEIQVxYvKQX8Vs9cWZIR2s0uUfKom20177VrrgYp0pKfyPEOqrbnj2hPO0OjAL4F
+         xWLTb7aaLHadqYxTNroQ/eDUE3ySccZWRLwkhnlSFA70FeE4NuaksS4kSIZPsV2M52D5
+         pzmSJPtLFUZhRcOQavoJ02P1Ef0JStb1nIUSGfnaJXgJbrnYcgr+Z0FqX20kSDYF3is/
+         w9frUo+yD2ZZ9lFBkJZhh3ECYkcquWdwNTNy8xXzFVXhRNNo6ZhX23r5Gx/cMkfItPRV
+         julQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072867; x=1792677667;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYL2Zmm8TTrpEFRYBVPJr6Yj6LDgf8oYTjHjngTpauE=;
+        b=TXUnRWtyNWok2O9dsbyipeZ1ANEpcnY+3gBHHeGVZPtsABSZfyCT7tm4F2BQyksovG
+         X4zD+YQMPc2+12Gdz7vpb/dyD8yxEbecAm6XXjCjkvzV/z64B2jrFwEme5FrM/BaX5uz
+         HVg/O39d1H0nC2KMdYb6xQeHcjWOca8nkqwf3JPqslybpf6cBQzV1wmhyiq6NWy+GeHP
+         ozTDQt3J/hhOYE+WkurdzTeWd0a2hM871JcrdmN6TUilXZ/m96NlWtmWhGIeNpSTh9cu
+         170r2qnyBqEeGDKcHRAvGHnGa+anvr5EfiTklLz2I2p35mCRTrlTQP6A/FJop8o6BgJS
+         ZjJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXv+KvxlnNZbjtwerqTMWImIDSr/Z07NoBSPR3p351n1dhRT8mglbe1RpzhZ3kJme3Rt2Xsn7sZ0qVHy4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8S6ukltE0EntcNAg10y53Kn8QgKNScQ1q7HO6uGRUYnhMiMKn
+	YzKi974Ok1XxH2smD/ac7F9fre8Cq7/YAcKgE5BVbAOKyG9B9HEjIjWA
+X-Gm-Gg: AYBFou2I868pKwG7joKcf3XPXLyiKSvvNhN4YCJ2hd2Sfkmq5gqrDAAz5xloqubyerU
+	fow1ZFXGojlDQXVWhRbvtREYCbDaeddqQ1ZXdpJTacfYfVrz3VLfbd9EL8rpF6NXEzHQc0PpjGb
+	Twiw8bGj0XCQYt8iUXIBCLXlt0Nc8QtIuW0G2cQwssm+1IiEgnMGeF10sqFQxLR5XMGTbKVcAMQ
+	VO03ox19buytYe9Zn2CsPjCo2H0W9QfdXH+Z49Ut4E6ZblEnDKU9HXA0p+1yVBtyeoOadQ92FkR
+	ori9FoOgUo3Gb2J1lnXbPJr60RYporQXdlxnMi5q5iujxtDSg3EHyiY7ImmsA0jlPygHpMlOnZB
+	9BU3hcRXHkYNj0NxpjHelDAS82gR1QUpGbdzzUmCN9L2xPWrs6ovcWP/xx3JJvIMUD/P+ClUkaX
+	3jpKaKZ84s0jcEP7bVFR8ZT08+8nmW1E4R4+Kxwz/KyBCS1JS+sZmgfV+KHkjtFa8P9ST15x/sP
+	xcV+A==
+X-Received: by 2002:a17:902:cccc:b0:2e2:c8a1:ab63 with SMTP id d9443c01a7336-2e8429a96cdmr165651965ad.17.1792072866863;
+        Thu, 15 Oct 2026 07:01:06 -0700 (PDT)
+Received: from ROGZephyrusG16Air ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c4csm82919675ad.56.2026.10.15.07.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:01:06 -0700 (PDT)
+From: Liang Haowen <nbg2974@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: lee@kernel.org,
+	pavel@kernel.org,
+	mkp@kernel.org,
+	linux-scsi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	denis.benato@linux.dev,
+	W_Armin@gmx.de,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	scardracs@disroot.org
+Subject: [RFC v10 1/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures
+Date: Thu, 15 Oct 2026 22:00:51 +0800
+Message-ID: <20261015140051.1159817-2-nbg2974@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015140051.1159817-1-nbg2974@gmail.com>
+References: <20261015140051.1159817-1-nbg2974@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CY8PR12MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|1800799024|7416014|366016|23010399003|56012099006|5023799004|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	8qfUURNJd5Dq8BRtCWBRqf/kl7v+lKs0kSFdECMUu15whFtjuq4G2ET5/hsl81e22iSrqr/kaU+8JUdF69WUiMUj2pz4SBGZ9sfgB/+3OmTKzJfB4mHsUYdTTRoz5vuo3pQhsesTPjFbUyZCYTXT9fgtKvJ3L3lozq2PeQa8oQiudyBySoOq5jVf4YQRdMSww4MTPDjQkFwt0MrJDXWkpL4atI2yAl8+1qNiZCjPnlI/KQI24m36Z9/BRvURu2JyX4yvG27nUfV/tyfV2+ttCcYvuGKpMKeQtYJgakAGKeeSdUQFLtaSm/OHczIxllBhKfvj09GtMr16jlvBa9dCxNgEu1jI9K1O2Mc5hVMR4nI7f6UmGD7OypTKTTHTgzMU2WRjYjmZqorp30a2dcJsAlyWgRNDeLhS3qprQ4AJff+KI8epkeGKLI2c2fH/9U9z01fIBrYvwVJex+MhBNK5tl4N/Iy1Z+a1Eqc95EJeCQM5grPxt5l8iCH0hHCNu/7T7TmLPJ3OIIm0MlU8Kgsp6xfzWBaikzVNnjPVxyQVNixtl2Nfl0sehGMavP4OtEmpMRy3E2Rg55ft9P3/RxvcoBur1SgblsuESpsdVfE0uZw/kjBPFbxJkytl9V6jtxztDODMsi/AATn6VWhHyQMfXFmeNA7gbboI6mfB4WefXg4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(7416014)(366016)(23010399003)(56012099006)(5023799004)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bhcroKCIf0y79Rfa8WKd8Hnb5HMoNkErNtmZSOtC3Mc8aBEP4CJ6ApzMyCfh?=
- =?us-ascii?Q?jhayvJ8tYyDREA5O1zXROS+8cfMCrr/WAeVZihZ3L6B0GsH/vVJ5lxSoNbhX?=
- =?us-ascii?Q?xu1FZab0IF7FBazut1s1FUvYWyem0KdCxN5ZcYxJ/AY9Dm3MFIgJHduUm7GU?=
- =?us-ascii?Q?jn/tPqdoehAFPIBUHdYVcl0vIUogrXwZHaGefibFTnmDhHGQvVvP5uKH/U9i?=
- =?us-ascii?Q?TgD1gspcUis/hd39jdcjF1ZZ4fJOlDaE9ARhzpHgXkpAoWTLlMc2L4Z6zYDO?=
- =?us-ascii?Q?ld9nGJ+9tmWBeOuQQitBCN9NEypZluZn9XuiRtbs4pnoa9ZQweR5QzR0MDlj?=
- =?us-ascii?Q?PLhoMCdbIt2uTl/VusxKYZ6Da8TmlLNB/KYzgsT8iyx8tx33ph1sX+3atPaq?=
- =?us-ascii?Q?xHVq79zFVKRsAH14VnN4GhXyiYpwj0tQ5hpdqzoCi9XiYvdj0kYB4+e5fXf9?=
- =?us-ascii?Q?3imLRYtSDroNFZ8FG9uqdevPjWu9VCIK7jDIHk8AXc7yXijtksHTuJWFZZfk?=
- =?us-ascii?Q?e//COQUToImjswofIZoBYiLbs871AMb2JOBVveJImY4RXNbDnKwPa5wpbECe?=
- =?us-ascii?Q?XF4HyLEVhH7JqHPoXL1JYTiS9DbFXrF4xek9XL3JJkAZvG6a901ZS/YOxY7G?=
- =?us-ascii?Q?ZMjPMyFnIBmbEQOL3qQRweweYjeDuXEDG6LqgZPrk2s8WidMpjOCKvbRmBUd?=
- =?us-ascii?Q?t8eLRRpYjw/OayGdA0p/OgTlhYg9qo3i1CRs1yntQlhyxNiyhunRzFszDitG?=
- =?us-ascii?Q?eP4QJ/uYC+DprWdvY25//1AbjfNcRV6iEFUOlrquhy+w+UwDRXkcYST+KQe3?=
- =?us-ascii?Q?qUFhCSFER1VBw90NrOzwIYmEcQJN5aNsPb3Qq5p6DL/WtMk25I/H5cjItly5?=
- =?us-ascii?Q?boUbromFLwj/N0XgqIsDJj1g+rDzFHMTImgvLJgKcbbm0zFYJcbopHvBsG1U?=
- =?us-ascii?Q?7j2E9SrQLxhBhBceSxKq3YUQ7sLJaOiaF7DnF1sJDem7pI0kpkGcm+p96FG+?=
- =?us-ascii?Q?DXZl09muvr80OHdM2pD7nSgxSky+VpO59Poc0JYwE61CfBbkf5ji/YFc6xhL?=
- =?us-ascii?Q?ey51CxILNO1R/BGbAtL9hwE0V9PcJ7jJMrS3/CygyqnyKqSr2CWSGgK0HU/f?=
- =?us-ascii?Q?zrTqYxytRxG5Oc9yxMM//ddbwz3J4zcU9aE+VSj2iQ8k2jkGUMdWE4vnyD6Z?=
- =?us-ascii?Q?VP04GWjoFv4QFHnHZBPJ3qa0Rs6KG+7hA1shV6jdy2kw4Jy6W8YxFYxbpOy0?=
- =?us-ascii?Q?rBiVSt+SttkHIN7sgzH97U1MytVGO/bdpoacfKdPRqGL88X9+zyEloMI0Gu8?=
- =?us-ascii?Q?SXUH6ylTHoz/KArXauWo4/8jV8KfiiwSqWhrMaYXbaYb/r/Rnmp76hJJvFfV?=
- =?us-ascii?Q?82K1Ej9NKnbRodx+XqbqNUv9U1D9pC5DfKgooB0TfSLCFMEuj0NT2q5GdhQd?=
- =?us-ascii?Q?B9TqS3NQgMADc5GTVYNsqHwpg6I24iG2te6lgyyiPaI93gAHWNGD6kJvmCzc?=
- =?us-ascii?Q?iUrMqSUkVZDLtkTvkNBZZBS31v6M+Mzn8dc3mJo8huS4buIx02KMqlNELguw?=
- =?us-ascii?Q?iFEHJz+o0BX550alaRMzTEMUcrXoILjtAGdIoDRoWfmYvTpIGbBDg1uPSPvT?=
- =?us-ascii?Q?2qXFOJq11OVght2KXJS6QinDf5kFLruVVUPInP3Jr/pZxU/aymWViddMxCmm?=
- =?us-ascii?Q?TEKy9Qd/rmCk2+/DdTh2k71/dY+W6esCrQLjtGmkHVlkNSQrEsjQmUFEQEuO?=
- =?us-ascii?Q?wNsCvIxLauiNYGvnT80TttkuzVFPUjsvf+4itEIKcKNH+KCXwbSe?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11a6dd0f-aff3-4523-f848-08df2ac4bb5f
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:00:55.7538
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3hr5bJ0JEKTNXcV/GcR0lXAFGQaciq+isH2cTOK/olaOW1nqu2Nw9dRfQHtomj4fJdIK57LFgVFXlTDEISp2/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 11:07:51PM +0900, Alexandre Courbot wrote:
-> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
-> > On Thu, Oct 01, 2026 at 03:20:40PM +0900, Alexandre Courbot wrote:
-> >> On Wed Sep 30, 2026 at 2:05 PM JST, Yury Norov wrote:
-> >
-> > ...
-> >
-> >> > Allocating a pool with 0-bit capacity is wrong. Please don't put it
-> >> > in the examples. I recall I pointed that this object would panic the
-> >> > kernel if, for example, you call pool.next_zero_bit(0) immediately
-> >> > after this. Sorry, but NAK.
-> >> >
-> >> > This .with_capacity() should take num_ids: NonZero, after all...
-> >> 
-> >> This panic is not specific to the size zero, any size triggers the same
-> >> behavior when accessed out of bounds.
-> >
-> > In C, malloc(0) is implementation defined behavior, i.e. it can return
-> > a pointer valid for free(), or NULL (which is also valid for free).
-> >
-> > This is a very old legacy coming from K&R implementation, then rejected
-> > in C89, and later this all became an impl-def, mostly for compatibility
-> > reasons. See 7.20.3 in
-> >
-> > https://www.open-std.org/jtc1/sc22/wg14/www/docs/n937.pdf
-> >
-> > Rust adopted C bitmaps, thus creating 0-bit bitmap may go through, and
-> > hit that questionable behavior. You add this example without any
-> > discussion about all that possible complications, and with no
-> > protection for users.
-> >
-> > Interestingly, you're doing it for the reason that has been considered
-> > a bad practice for over 30 years ago - malloc(0) with the immediate
-> > realloc(). See the above link for details.
-> >
-> > To me it looks like pulling legacy with a potential of undefined behavior
-> > into Rust.
-> >
-> > Bitmaps is a way more simple case than the generic malloc(). There's the
-> > only user of bitmaps - the Linux kernel, so we know exactly all users and
-> > their user patterns. I'm not aware of any in-tree user allocating 0-length
-> > bitmap for whatever reason, and such a coding style is highly unwelcome
-> > nowadays (30+ years).
-> >
-> > When it comes to rust, things are even simpler. Rust has much stricter
-> > memory policy - no undefined behavior, no implementation-defined behavior
-> > is allowed, no 50-years old legacy has to be considered.
-> >
-> > Rust community decided to take the existing in-kernel implementation of
-> > bitmaps written in C, for a reason. But with that it pulls all undefined
-> > and poorly defined behavior associate to C language. We did quite well
-> > spotting such places and fencing them with safety checks.
-> >
-> > The 0-length bitmaps is just another case that should be resolved.
-> 
-> As it turns out we would never perform a zero-sized malloc, even for a
-> zero-sized bitmap. `IdPool` is backed by a `BitmapVec`, which up to
-> `usize::BITS` uses an inline member as backing storage. So we would
-> never call `bitmap_zalloc` with a value of 0, making the safety concern
-> moot.
+ASUS ROG external NVMe enclosures (ROG STRIX Arion, USB 0b05:1932) are
+plain USB mass-storage devices with no HID interface: the Aura LEDs
+hang off an ENE controller driven by vendor SCSI commands on the same
+LUN as the disk. The enclosure has 4 independently addressable LEDs,
+verified on hardware.
+
+Register a scsi_device_handler matched by INQUIRY (vendor "ROG",
+model "ESD-S1C"); it does not claim the sdev (sd keeps owning the
+disk) and exposes each LED as a multicolor LED class device,
+/sys/class/leds/asus-arion-0-0-0-0::led-0 through led-3. The
+H:C:T:L part of the sdev name keeps the names unique when more than
+one enclosure is connected, with its colons flattened to dashes. The
+color section stays empty, since multicolor LEDs enumerate their
+palette via multi_intensity, and the four identical zones use the
+function name with a "-N" ordinal, as the naming section in
+Documentation/leds/leds-class.rst asks for.
+
+Protocol: a 16-byte vendor CDB (opcode 0xec, 'A' 'S' signature,
+BE16 register index, argument count in byte 13), modelled by
+struct ene_cdb. MODE 0x8021 (Static) must be written first in every
+sequence or the device ignores it; colours go to 0x8160 + 3 * led
+and 0x8100 + 3 * led (3 bytes, wire order R, B, G; both tables are
+written because firmware revisions pull from one or the other);
+APPLY 0x80a0 takes 0x01 to apply; the controller also accepts 0xaa
+to save the state to its flash, which this driver never sends: the
+LED class interface is runtime state and does not promise persistence
+across power cycles, and a save on every update would wear the
+controller flash. The colour reverts to the stored default on power
+cycle, like any other runtime-only LED.
+
+The CDB cannot go through scsi_execute_cmd(): it sizes the command
+via scsi_command_size(opcode), which maps vendor opcode 0xec to
+10 bytes, so byte 13 is dropped and the device silently ignores the
+write (GOOD status, no error). scsi_execute_cmd() also offers no way
+to override the derived length. The request is therefore built with
+scsi_alloc_request(), which initializes the scsi_cmnd parts a
+passthrough needs, with cmd_len set to the CDB size, mirroring what
+SG_IO does from userspace. A 5 s timeout and a single retry-less
+quiet submission cover the register writes.
+
+The write payload is copied into a per-device buffer before it is
+mapped with blk_rq_map_kern(), so no stack memory is ever mapped for
+DMA (VMAP_STACK).
+
+brightness_set only caches the colour and marks the LED pending
+under a spinlock; led_mc_calc_color_components() runs under that
+lock too, because it writes the shared subled_info array and
+trigger events call led_set_brightness() without the led_access lock
+that serializes sysfs stores. A single work item per enclosure then
+snapshots the pending LEDs and runs one ENE sequence for all of
+them. Funneling every update through one work item keeps the
+sequences from interleaving between concurrent LED updates and
+batches multi-LED updates into a single APPLY. A re-queued run
+with nothing pending returns before touching the device, so it
+cannot wear the flash with a pointless SAVE, and the lock keeps a
+colour write from being reordered after its pending flag on weakly
+ordered architectures.
+
+Signed-off-by: Liang Haowen <nbg2974@gmail.com>
+---
+ drivers/leds/rgb/Kconfig               |  13 +
+ drivers/leds/rgb/Makefile              |   1 +
+ drivers/leds/rgb/leds-asus-aura-scsi.c | 404 +++++++++++++++++++++++++
+ 3 files changed, 418 insertions(+)
+ create mode 100644 drivers/leds/rgb/leds-asus-aura-scsi.c
+
+diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
+index 6e9ab5f..983f50b 100644
+--- a/drivers/leds/rgb/Kconfig
++++ b/drivers/leds/rgb/Kconfig
+@@ -2,6 +2,19 @@
  
-OK. Then please remove the 0-length alloc with the following re-alloc
-example from the patch. use 1-bit allocation, as an extreme value, if
-needed.
-
-> > If you still think that you need 0-length bitmaps in Rust, can you please
-> > give the clear and thorough explanation why rust needs those 0-length
-> > bitmaps. Are there any in-kernel examples? Any language concepts requiring
-> > it? If not, it's still a NAK.
-> 
-> I don't know of an in-kernel example, but please look at the
-> `bitmap_vec_new` test which has been here since the API was initially
-> merged last year: the first thing it does is create a zero-sized bitmap.
-> 
-> It is also easy to imagine a user starting with an empty pool and
-> growing it on-demand. Having the ability to create a zero-sized pool is
-> convenient to avoid special-casing user code, and in this case I'd say
-> expected, just like you can create a zero-sized vector. Again a size of
-> zero does not trigger anything that a larger capacity cannot trigger, so
-> I don't see a reason to forbid it.
+ if LEDS_CLASS_MULTICOLOR
  
-That's a weak argument. We can imagine pretty much everything, it
-doesn't mean we should support every idea in the code.
++config LEDS_ASUS_AURA_SCSI
++	tristate "ASUS Aura RGB LEDs on ROG external NVMe enclosures"
++	depends on SCSI
++	help
++	  Say Y here if you want to control the RGB LEDs of ASUS ROG
++	  external NVMe enclosures such as the ROG STRIX Arion. The LEDs
++	  sit behind an ENE controller on the drive's SCSI LUN and are
++	  programmed with vendor commands; each of the four LED zones is
++	  exposed as a multicolor LED class device.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called leds-asus-aura-scsi.
++
+ config LEDS_GROUP_MULTICOLOR
+ 	tristate "LEDs group multi-color support"
+ 	depends on OF
+diff --git a/drivers/leds/rgb/Makefile b/drivers/leds/rgb/Makefile
+index cc0f2df..a59c133 100644
+--- a/drivers/leds/rgb/Makefile
++++ b/drivers/leds/rgb/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
++obj-$(CONFIG_LEDS_ASUS_AURA_SCSI)	+= leds-asus-aura-scsi.o
+ obj-$(CONFIG_LEDS_GROUP_MULTICOLOR)	+= leds-group-multicolor.o
+ obj-$(CONFIG_LEDS_KTD202X)		+= leds-ktd202x.o
+ obj-$(CONFIG_LEDS_LP5812)		+= leds-lp5812.o
+diff --git a/drivers/leds/rgb/leds-asus-aura-scsi.c b/drivers/leds/rgb/leds-asus-aura-scsi.c
+new file mode 100644
+index 0000000..7b58fce
+--- /dev/null
++++ b/drivers/leds/rgb/leds-asus-aura-scsi.c
+@@ -0,0 +1,404 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * ASUS Aura RGB over SCSI for ROG external NVMe enclosures
++ * (e.g. ROG STRIX Arion, USB 0b05:1932).
++ *
++ * USB mass-storage device, no HID; the ENE LED controller is driven via
++ * vendor SCSI commands on the disk's LUN. Matched by INQUIRY (vendor
++ * "ROG", model "ESD-S1C"); the sdev is not claimed, sd keeps owning the
++ * disk. Attach manually until the SCSI side agrees on an in-tree hook:
++ * echo asus_aura > /sys/block/sdX/device/dh_state
++ *
++ * Each of the 4 LEDs is a multicolor LED class device,
++ * /sys/class/leds/asus-arion-<H-C-T-L>::led-0..led-3. A colour change
++ * writes only that LED's slots in the ENE colour tables, then applies
++ * without saving (runtime state, no flash wear); MODE must precede
++ * every sequence or the device ignores it. The register layout is
++ * described by struct ene_cdb.
++ *
++ * brightness_set (LED core fast path) only caches the colour and marks
++ * the LED pending under a spinlock; a single work item per enclosure
++ * snapshots all pending LEDs and runs one ENE sequence for them. One
++ * work item also serializes the sequences against each other: the
++ * MODE/colour/APPLY chain must never interleave between
++ * concurrent LED updates.
++ */
++
++#include <linux/array_size.h>
++#include <linux/blk-mq.h>
++#include <linux/blk_types.h>
++#include <linux/blkdev.h>
++#include <linux/build_bug.h>
++#include <linux/byteorder/generic.h>
++#include <linux/cache.h>
++#include <linux/compiler.h>
++#include <linux/compiler_attributes.h>
++#include <linux/container_of.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/jiffies.h>
++#include <linux/led-class-multicolor.h>
++#include <linux/leds.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/sprintf.h>
++#include <linux/string.h>
++#include <linux/workqueue.h>
++#include <scsi/scsi.h>
++#include <scsi/scsi_cmnd.h>
++#include <scsi/scsi_device.h>
++#include <scsi/scsi_dh.h>
++
++#define ARION_INQ_VENDOR	"ROG"
++#define ARION_INQ_MODEL		"ESD-S1C"
++
++/* The colour table has 16 slots; 4 of them drive LEDs. */
++#define ARION_NUM_LEDS		4
++
++#define ENE_OPCODE		0xec
++
++/* ENE register map (BE16 on the wire). */
++#define ENE_REG_MODE		0x8021	/* 1 = Static selects the colour tables */
++#define ENE_REG_APPLY		0x80a0	/* 0x01 = apply, 0xaa = apply and save */
++#define ENE_REG_COLORS_EFFECT	0x8160	/* colour table, 3 bytes per LED */
++#define ENE_REG_COLORS_DIRECT	0x8100	/* second table some firmware uses */
++
++#define ENE_MODE_STATIC		1
++#define ENE_APPLY		0x01
++#define ENE_TIMEOUT		(5 * HZ)
++
++/* The colour tables are R, B, G on the wire; the subleds are R, G, B. */
++#define ENE_WIRE_R		0
++#define ENE_WIRE_B		1
++#define ENE_WIRE_G		2
++#define ENE_RGB_LEN		3
++
++/*
++ * Vendor CDB: opcode, 'A''S' signature, register, argument count in
++ * byte 13. scsi_execute_cmd() cannot be used for it, see the commit
++ * message.
++ */
++struct ene_cdb {
++	u8		opcode;
++	u8		sig[2];
++	__be16		reg;
++	u8		reserved[8];
++	u8		arg_count;
++	u8		pad[2];
++} __packed;
++
++static_assert(sizeof(struct ene_cdb) == 16);
++
++struct asus_aura_led {
++	struct led_classdev_mc	mc_cdev;
++	struct mc_subled	subled[ENE_RGB_LEN];
++
++	/* Cached colour, consumed by the work item. */
++	u8			rgb[ENE_RGB_LEN];
++	bool			pending;
++
++	struct asus_aura	*aura;
++};
++
++struct asus_aura {
++	struct scsi_device	*sdev;
++	struct asus_aura_led	leds[ARION_NUM_LEDS];
++
++	/* Serializes the cached colours and pending flags. */
++	spinlock_t		lock;
++	struct work_struct	work;
++
++	/*
++	 * DMA-safe staging buffer, the only memory ever mapped for DMA.
++	 * Cacheline-aligned so that invalidation on non-coherent
++	 * architectures cannot clobber the members above.
++	 */
++	u8			tx[ENE_RGB_LEN] ____cacheline_aligned;
++};
++
++static int ene_write_reg(struct asus_aura *aura, u16 reg,
++			 const u8 *tx, u8 len)
++{
++	struct scsi_device *sdev = aura->sdev;
++	struct request *rq;
++	struct scsi_cmnd *scmd;
++	struct ene_cdb cdb = {
++		.opcode		= ENE_OPCODE,
++		.sig		= { 'A', 'S' },
++		.reg		= cpu_to_be16(reg),
++		.arg_count	= len,
++	};
++	int ret;
++
++	rq = scsi_alloc_request(sdev->request_queue, REQ_OP_DRV_OUT, 0);
++	if (IS_ERR(rq))
++		return PTR_ERR(rq);
++
++	/*
++	 * Stack memory is not DMA-safe (VMAP_STACK), so the payload is
++	 * copied into the per-device buffer first.
++	 */
++	memcpy(aura->tx, tx, len);
++	ret = blk_rq_map_kern(rq, aura->tx, len, GFP_NOIO);
++	if (ret)
++		goto out;
++
++	scmd = blk_mq_rq_to_pdu(rq);
++	scmd->cmd_len = sizeof(cdb);
++	memcpy(scmd->cmnd, &cdb, sizeof(cdb));
++	scmd->allowed = 1;
++	rq->timeout = ENE_TIMEOUT;
++	rq->rq_flags |= RQF_QUIET;
++
++	blk_execute_rq(rq, true);
++
++	/* GOOD status is zero in the fields we care about. */
++	ret = scmd->result ? -EIO : 0;
++out:
++	blk_mq_free_request(rq);
++	return ret;
++}
++
++static void asus_aura_work(struct work_struct *work)
++{
++	struct asus_aura *aura = container_of(work, struct asus_aura, work);
++	u8 rgb[ARION_NUM_LEDS][ENE_RGB_LEN];
++	u8 mode = ENE_MODE_STATIC;
++	u8 apply = ENE_APPLY;
++	bool pending[ARION_NUM_LEDS];
++	bool any = false;
++	unsigned long flags;
++	int ret;
++
++	/*
++	 * Fast path without the lock: if nothing is pending, return
++	 * before touching the device. A colour arriving right after
++	 * the check re-queues this work, so nothing is lost.
++	 */
++	for (int i = 0; i < ARRAY_SIZE(aura->leds); i++) {
++		if (READ_ONCE(aura->leds[i].pending)) {
++			any = true;
++			break;
++		}
++	}
++	if (!any)
++		return;
++
++	/* Snapshot the cached colours and clear the pending flags. */
++	spin_lock_irqsave(&aura->lock, flags);
++	for (int i = 0; i < ARRAY_SIZE(aura->leds); i++) {
++		pending[i] = aura->leds[i].pending;
++		aura->leds[i].pending = false;
++		memcpy(rgb[i], aura->leds[i].rgb, ENE_RGB_LEN);
++	}
++	spin_unlock_irqrestore(&aura->lock, flags);
++
++	if (!scsi_device_online(aura->sdev))
++		return;
++
++	/* Mode first: without it the device ignores the sequence. */
++	ret = ene_write_reg(aura, ENE_REG_MODE, &mode, sizeof(mode));
++	if (ret)
++		goto err;
++
++	for (int i = 0; i < ARRAY_SIZE(aura->leds); i++) {
++		if (!pending[i])
++			continue;
++
++		/*
++		 * Both colour tables are written: firmware revisions
++		 * pull from either of them.
++		 */
++		ret = ene_write_reg(aura,
++				    ENE_REG_COLORS_EFFECT + i * ENE_RGB_LEN,
++				    rgb[i], sizeof(rgb[i]));
++		if (ret)
++			goto err;
++
++		ret = ene_write_reg(aura,
++				    ENE_REG_COLORS_DIRECT + i * ENE_RGB_LEN,
++				    rgb[i], sizeof(rgb[i]));
++		if (ret)
++			goto err;
++	}
++
++	/*
++	 * Apply without save: the LED class interface is runtime state
++	 * and does not promise persistence across power cycles, and a
++	 * save on every update would wear the controller flash.
++	 */
++	ret = ene_write_reg(aura, ENE_REG_APPLY, &apply, sizeof(apply));
++	if (ret)
++		goto err;
++
++	return;
++
++err:
++	/*
++	 * This runs detached from the LED core, which has no error
++	 * channel for brightness_set. The write is dropped and logged
++	 * ratelimited; the LED keeps the last successfully applied
++	 * colour until the next user update.
++	 */
++	dev_err_ratelimited(&aura->sdev->sdev_gendev,
++			    "asus_aura: colour update failed: %d\n", ret);
++}
++
++/* Non-blocking LED callback (LED core fast path). Cache colour, defer SCSI. */
++static void asus_aura_set(struct led_classdev *cdev,
++			  enum led_brightness brightness)
++{
++	struct led_classdev_mc *mc = lcdev_to_mccdev(cdev);
++	struct asus_aura_led *led = container_of(mc, struct asus_aura_led, mc_cdev);
++	struct asus_aura *aura = led->aura;
++	unsigned long flags;
++
++	/*
++	 * led_mc_calc_color_components() writes the shared subled_info
++	 * array. Sysfs stores are serialized by the LED core, but
++	 * trigger events call led_set_brightness() without that lock,
++	 * so compute and cache under the aura lock.
++	 */
++	spin_lock_irqsave(&aura->lock, flags);
++
++	led_mc_calc_color_components(mc, brightness);
++
++	led->rgb[ENE_WIRE_R] = led->subled[0].brightness;
++	led->rgb[ENE_WIRE_B] = led->subled[2].brightness;
++	led->rgb[ENE_WIRE_G] = led->subled[1].brightness;
++	led->pending = true;
++
++	spin_unlock_irqrestore(&aura->lock, flags);
++
++	schedule_work(&aura->work);
++}
++
++static int asus_aura_register_led(struct asus_aura *aura, int index)
++{
++	struct asus_aura_led *led = &aura->leds[index];
++	struct led_classdev *cdev = &led->mc_cdev.led_cdev;
++	char hctl[32];
++	int ret;
++
++	led->aura = aura;
++
++	led->subled[0].color_index = LED_COLOR_ID_RED;
++	led->subled[1].color_index = LED_COLOR_ID_GREEN;
++	led->subled[2].color_index = LED_COLOR_ID_BLUE;
++	led->mc_cdev.num_colors = ENE_RGB_LEN;
++	led->mc_cdev.subled_info = led->subled;
++
++	/*
++	 * The sdev's H:C:T:L keeps the names unique when more than one
++	 * enclosure is connected; with a static name the LED core would
++	 * register a second enclosure's LEDs under renamed nodes
++	 * (asus-arion::led-0_1), the wrong device identity. The colons
++	 * are flattened to dashes, the color section stays empty
++	 * (multicolor, palette via multi_intensity) and the four
++	 * identical zones take a "-N" ordinal, as
++	 * Documentation/leds/leds-class.rst asks for.
++	 */
++	strscpy(hctl, dev_name(&aura->sdev->sdev_gendev), sizeof(hctl));
++	strreplace(hctl, ':', '-');
++	cdev->name = kasprintf(GFP_KERNEL, "asus-arion-%s::led-%d", hctl, index);
++	if (!cdev->name)
++		return -ENOMEM;
++
++	cdev->max_brightness = 255;
++	cdev->brightness_set = asus_aura_set;
++
++	led_mc_calc_color_components(&led->mc_cdev, cdev->brightness);
++
++	/*
++	 * NULL parent: a device reference on the sdev would block its
++	 * final release on unplug, which is what calls detach() to
++	 * unregister the LEDs. The cycle leaked nodes and the module
++	 * refcount on every hot-unplug.
++	 */
++	ret = led_classdev_multicolor_register(NULL, &led->mc_cdev);
++	if (ret)
++		kfree(cdev->name);
++	return ret;
++}
++
++/*
++ * Unregister the LEDs before cancelling the work: unregistering removes
++ * the sysfs attributes, so no new brightness_set can schedule the work
++ * afterwards. Cancelling first would leave a window where a brightness
++ * write requeues the work after cancel_work_sync() returned.
++ */
++static void asus_aura_release(struct asus_aura *aura, int num_leds)
++{
++	for (int i = 0; i < num_leds; i++) {
++		led_classdev_multicolor_unregister(&aura->leds[i].mc_cdev);
++		kfree(aura->leds[i].mc_cdev.led_cdev.name);
++	}
++
++	cancel_work_sync(&aura->work);
++	kfree(aura);
++}
++
++static int asus_aura_attach(struct scsi_device *sdev)
++{
++	struct asus_aura *aura;
++	int ret;
++
++	if (strncmp(sdev->vendor, ARION_INQ_VENDOR, strlen(ARION_INQ_VENDOR)) ||
++	    strncmp(sdev->model, ARION_INQ_MODEL, strlen(ARION_INQ_MODEL)))
++		return SCSI_DH_DEV_UNSUPP;
++
++	aura = kzalloc_obj(*aura, GFP_KERNEL);
++	if (!aura)
++		return SCSI_DH_NOMEM;
++
++	aura->sdev = sdev;
++	spin_lock_init(&aura->lock);
++	INIT_WORK(&aura->work, asus_aura_work);
++
++	for (int i = 0; i < ARRAY_SIZE(aura->leds); i++) {
++		ret = asus_aura_register_led(aura, i);
++		if (ret) {
++			asus_aura_release(aura, i);
++			return SCSI_DH_NOMEM;
++		}
++	}
++
++	sdev->handler_data = aura;
++	return SCSI_DH_OK;
++}
++
++static void asus_aura_detach(struct scsi_device *sdev)
++{
++	struct asus_aura *aura = sdev->handler_data;
++
++	if (!aura)
++		return;
++
++	asus_aura_release(aura, ARION_NUM_LEDS);
++	sdev->handler_data = NULL;
++}
++
++static struct scsi_device_handler asus_aura_dh = {
++	.name	= "asus_aura",
++	.module	= THIS_MODULE,
++	.attach	= asus_aura_attach,
++	.detach	= asus_aura_detach,
++};
++
++static int __init asus_aura_init(void)
++{
++	return scsi_register_device_handler(&asus_aura_dh);
++}
++
++static void __exit asus_aura_exit(void)
++{
++	scsi_unregister_device_handler(&asus_aura_dh);
++}
++
++module_init(asus_aura_init);
++module_exit(asus_aura_exit);
++
++MODULE_DESCRIPTION("ASUS Aura RGB over SCSI for ROG NVMe enclosures");
++MODULE_AUTHOR("Liang Haowen");
++MODULE_LICENSE("GPL");
+-- 
+2.55.0
 
-Supporting 0-sized bitmaps would simply move maintenance burden from
-end user of likely a poorly written logic to the core kernel
-subsystem.
-
-> >> A size of zero has nothing special
-> >> in that respect, so why make an exception and forbid it? We had this
-> >> discussion some time ago [1][2], and I'd recommend instead making e.g.
-> >> `next_zero_bit` return `None` on out-of-bounds accesses, which is
-> >> semantically correct.
-> >
-> > No. out-of-bound access should panic because every caller of bitmap
-> > API knows the length of that bitmap.
-> 
-> Right now out-of-bound accesses are allowed if
-> `CONFIG_RUST_BITMAP_HARDENED` is not set. The Kconfig documentation for
-> that option even says "if unsure, say N", which suggests that not
-> panicking (and thus the behavior I described above for `next_zero_bit`)
-> is the default. If out-of-bound accesses should panic, then the Kconfig
-> does not reflect that.
-
-Whoa? The panic is under config because it has non-zero performance
-impact. If it was completely free, it would be unconditional, like
-some compile-time checks out there. The "N" suggestion is for admins
-and users who build their own kernels. If you're a developer, and
-actively use bitmaps in your rust driver, you'd say "YES PLEASE".
-
-> > But if you make that 0-length bitmap a valid case, we need to revisit
-> > every function and make sure it returns ENOENT or something instead of
-> > panicking. That, again, must be very well explained and justified, and
-> > all this has to be done before adding 0-length bitmap support in code
-> > and examples.
-> 
-> With hardening off, every function already behaves in that way, and
-> existing user code is already written to not trigger that condition
-> anyway (because of the possibility of a panic), so that would be a
-> pretty innocuous change.
-
-The rule of thumb is to enable all the hardening you can during
-development phase to ensure integrity, then disable it in production
-build to maximize performance. For the matter of this discussion, we'd
-consider the hardening enabled, of course.
-
-Thanks,
-Yury
