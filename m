@@ -1,127 +1,80 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874ED241695
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792024163; cv=pass; b=uGTbnHjwtkVU9x+SIOix5mH4gCu+2qxlHjILsHmSIu963LxRrgs5ZmaKPchqAul7AZ6M9k5hyAT4VxMgF1aZv5EG0UkR01OKQb74XpqcTRM3FaosiGy2H/DPPatvsKNDEKVLbycMV6Tysuai8CwJHw8CTlV33z8+sz0QwaBJliU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792024163; c=relaxed/simple;
-	bh=Nw/puDqIaE9dnSoGv3s4kFRu404SPwXvdt4NbHd8boU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WdiUde9x3ELSBmz7WIVAiP0RVVm3BBWU/gjl5KpWzSf8MrVh4Zoo0LFCiXkfLHBcJu1My8pz2lx4T6+VBdIthOTspqVIfAhp/emPUUZzlyYA4nU0ZyIxvx45W+jchtN074QOKSr1StkpN51WKS3EhkOon05h4EhX6hldK6GVPCc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CoIxLAUT; arc=pass smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A1D2874E1
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 00:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792024164; cv=none; b=CuS3Mf93EgvhyORv66Q4kZ6bAkOvbioK9nZR3cQCcawxeY1kfWH6DQkogxZjOy7b2hlzERvXdhYH14ynbCpqNC0yF230BjLn5cswcSPsJqecWYpm+d93zn6hBpfRLXluw163LQWoV1Ty9pc1/KqLcJlF6YnrtNURrt2ljUmbY84=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792024164; c=relaxed/simple;
+	bh=zRhYt0pbScMV28bposaiTxEHHImtpza00QQmWkt84bo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=AABaOQS2BD84KDkpusTH+M2bHwWnud5JBCg23o7XNp+AgoKK0EzY3Pxn+sWG1eQRcLVKEVJ3aEoICMGaY/HJMXhYQKxFTacWtctk49szw8ZB+woFkT1q3sWJ9G9YbwWmLq2LdOuW3eK1tT5quJDyA4KfQCjfhW4uk2zUl+q1YBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u4qK9mvL; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CoIxLAUT"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c315a445752so710899966b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:29:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792024160; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ADD704wkllkh2PtJQh2ywz01Yt9nwAHXQC+9No2Ih9AODOR5emUt6Vw0svmtXc0IhS
-         zLTOingk0KF1jffs/icZaDQQ1JRa+9GxVnv+Z2nnoE1pdZ7iQUGwJvXX+M4l9WP+NWsw
-         7TZZGNZ0qNI2vSEj+RXhEXiybI0Z5BqSuc3ED28rfq7niSigiYVBb4vh5EOu++Eb12lD
-         1FUovJpBkJfNvEW4S32nzGhzFjZZjiSYRj+DJ0r1lnnpAp8Yzz4KPWnpKE2Sk8eIZVy7
-         Ha/T/E32LX+Z5dPCoqqPLmM6XJZZak04Q5V5U1SmOY/3pfE+uAtiV2wdeEC6o4pL7rYf
-         4tfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Nw/puDqIaE9dnSoGv3s4kFRu404SPwXvdt4NbHd8boU=;
-        fh=JRi1HGVvUA0W+f+/GRZbiwKrYO6VRUpHq1POCSe+T4g=;
-        b=ievik5AMxvKHsFXvHezAZXRypuzkz1tXopTKo8Fw71BZWs+2HSxKhfdQOHUiwvm5jA
-         PeJ2fJ+4HI3UPEEgs4+vMDDTt/zChPdjNdAHNnYf4RIZxdai1puo7LTMLu9Ey5CWx9OG
-         ynohmxdIlK21NL3SaEOwi/vTv3nP3h9t/CnwV6jKwzHQkoPRGiQMOdyFq+7V3vLYdYkv
-         mF1c1jzemnGMmVoW4r/U4wvr401fTM6Iio4U3sSxDhCV0S6X+RYBg0j4DUBLSg7eDYKj
-         433chPTLoRzfLhLt9QhsFHUg0BOe83Iz3gIUuKmRyyr2cUcM5fhm82Np3vbj+E8dSnW+
-         Ka4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u4qK9mvL"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-897bfd32c95so3512700b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 14 Oct 2026 17:29:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792024160; x=1792628960; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nw/puDqIaE9dnSoGv3s4kFRu404SPwXvdt4NbHd8boU=;
-        b=CoIxLAUTyAxjjdN33ABnWUuSphNtKyTPPi+ECRRnscb2RgKgLcmkBg8l7VR1S0Nx43
-         En5ftjHFmWxklKCSrSXRudFD/mH3xuNLD4h37T6EMlMci2d1zGfyzGJCsK7RIkE0uHGx
-         S+/g9tF5A0yXpPEmq1zgd68UsDNSC8w/xJPglVkvTJiyEDOX8TrcZkmFi1McVaB41KzH
-         DYBMZIFIWcig2EhbDzytrSnh6xKN8cc1GjwJAdtsxBGCrznKA00VKbo9YHCS1+27aE69
-         MhEana15zzcoYYzX8urDoIHT2PuJcbgPMLBE3rMOhgDKTlrIjosEB5FwVytbK7Sqjnpx
-         FqhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792024160; x=1792628960;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792024162; x=1792628962; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Nw/puDqIaE9dnSoGv3s4kFRu404SPwXvdt4NbHd8boU=;
-        b=WnCK2z8y6lvpuWZXuDCumih/egOtmOFFbFMhprwzxCLk3cKcIfBeVF6uULzwMbKd4v
-         Go2uTCMwPX73JxbUq74oPaZCx9ybajBLVhXW4/N0lQzsvGA/b9PmK6oDtIZJtjAMkehw
-         ehktph+ho0PrlPkzjQNTMEYD+vXDMFzHXw02gfQl4Er+Ko1KR6Iwelc5T3dWs7g85/8A
-         mDTuEzXuDNxUyNS8KNFnOrXTgTO1pwaxQVMxloDWZTwpXIW8TKRa1C7mR06m49YFpDH7
-         CCc3iECBrutIc4O3pvMGdjMP6JVbrBQokDL/TXC3DT7ApCJtuaQNXZInmGU38/eFNRfy
-         zlAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxa0nBbOIfoq/thKrf2G1qeddLLoAxo6TwyY/IrSuhjRxUDTog0hshl1iGxAMLrnZ5hpBNXLVWe5egWA2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK791iuj4uaI4FCHnx/EtbPbXuMMJYEdDQJTkEZrAU8NheoM5HU
-	H8B7uEuiYnqfswug/19Mvhwzu14Cqt5lSce9bf5044tZzj9KKZ8XvPVd8VAGkaKu556GXkj4y4y
-	xr+ldK7mQ7ulPWSKHN94aRAsDHa2D8w==
-X-Gm-Gg: AYBFou14Ys21muDvszf9LN8nnbv6gQgCTtSqvsvoiA8Q4JYgRs68G/8PiUiUUh8Bewk
-	k0X05Vf0L1Je7iC6ytU7+RpIMvfyvWhK72WbLSukwDrH3nnRPHMcp1R7ABtaRk0HqZQ2iR/EIK2
-	9fcV5cH/KMxRLkDEfnHBu0yjoyqOU5LwHWYQ37IgvRZOJwrsQDoYN4mGzwg7rPXwuKNrzUt9kVx
-	AIZySYao4BLOHfGvJEE6zCIIchgJYULP59z3nWSHS5ZCz199enjKr9mjG8uOWA1/CL7SU/gt0lT
-	KWlDfeoYNjP+QNAQlm0p774X0BMNjj5vCXKINgvhrqyYhalvMO7/sAOxb+6HnIZa7T5WChNNQR4
-	dUkHyzv7Aj04ZvUuhlig1Gw1xjoi1paoFjXV6qmroRwosgVP5R8HtK4YJkCcD5mjgweaE
-X-Received: by 2002:a17:906:4fc9:b0:c35:d261:636e with SMTP id
- a640c23a62f3a-c3667073d72mr666787166b.18.1792024159565; Wed, 14 Oct 2026
- 17:29:19 -0700 (PDT)
+        bh=zRhYt0pbScMV28bposaiTxEHHImtpza00QQmWkt84bo=;
+        b=u4qK9mvL6uhLNfWVVafvmOECA5Lmq78SvQWgc5uSi4mx07T6e75vvivJUW8vqdAvb2
+         r8B1JIfFMG1o37rP2cIu4/GTPVQMMMBc85ACMxbO0epxzJYj9J72RPw3qM/z/fsm/vsp
+         r5Q6SV0/YaNIDu81BPYtejAgTuCJ0PkfrNDCs0lu1vMVCy7RXojmMJoBF23pMtCM+iSu
+         4XYmPz883ullBZteoWE9gnxCg62HMwAyThxNvUgIqCOVswf/GdCS5cyup2tEll1dKdBX
+         jO/U0IzO0T7K7goz6t5K2LndGazNmNT9kYi6aQSjVq5xOLez9UDB4kWBgsF42vBha3MU
+         Lytg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792024162; x=1792628962;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zRhYt0pbScMV28bposaiTxEHHImtpza00QQmWkt84bo=;
+        b=i0HMh5uFbAXy8PoT3bN4AbWyYtX1IfG1ZMW+AsIrHuUtJ3P5JqpSL/QrWWHD7U3eNl
+         WQVKsuMn9M519+BBluAYveZDg0+b/2mCSH88rnx7NpgEh1sEIn/YIklk141UIycViJg+
+         HPpTWrxnzZxeywVghMtriiTrYu/eQlkf9U2LXCzNok47Xsh6gAhrH0YIr2yXncqUdS4x
+         G21tWrWgnAoGr+ueeGc9zZ4tycezMbW9vJr4qixhPxXLv5woWlZZw3NTqCFhmTFxsUvd
+         EBnpp9AegWz/hOBaaQ/K4PdANQLksWS+9TxahcrA2c5kIdWDuI+shqGwUJdHOw9mQlCW
+         TMpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEKAsDR34G2BTy9kxfPuisBn1Np3JPnlTTpXr/itmD/wzYLW3XKU/a1RY8xtIYs/xHG3l9pkz7hk3MkB4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIT8UQjUWFikGZEjoieSB6I8jRLeeroHzlUh2mojTf2pWt5Vri
+	aOEHFlHMjQf8W5rQXPovkUY1dJI9UYC6Vjxt7Ly5PNSBFhOHo3T/rAilRtMiQnWaxxc/lF1LMO1
+	0KQJOeOtZ4tG90qhVVxcIzA==
+X-Received: from pfdr2.prod.google.com ([2002:aa7:8b82:0:b0:89d:52d0:c942])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:178f:b0:881:4b47:f305 with SMTP id d2e1a72fcca58-897c49b2b37mr14482551b3a.5.1792024161613;
+ Wed, 14 Oct 2026 17:29:21 -0700 (PDT)
+Date: Thu, 15 Oct 2026 08:29:20 +0800
+In-Reply-To: <sashiko-outbox-169530@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261011160034.93d011b386c2-1-mhun512@gmail.com> <6bb8cb0b-e614-4d7b-9b61-fdea34c2f793@kernel.org>
-In-Reply-To: <6bb8cb0b-e614-4d7b-9b61-fdea34c2f793@kernel.org>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Wed, 14 Oct 2026 20:29:07 -0400
-X-Gm-Features: AclHuK90IW_k2_E5rv1a20GLSR4ciHBFo7t509iO_4hXs2Kz5cZZT7wv7oXQqQU
-Message-ID: <CAGEsz8FAq11cB=7GOvMGmoWQLZSSuaGoFUNhuKzMogMJ7nqHfg@mail.gmail.com>
-Subject: Re: [PATCH] memory: tegra: Shut down Tegra210 EMC timers before teardown
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, ae878000@gmail.com
+Mime-Version: 1.0
+References: <sashiko-outbox-169530@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261015002920.3469178-1-stanleyjhu@google.com>
+Subject: Re: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before
+ peer DME retries
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K. Petersen" <mkp@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-The issue was found using a static analysis tool currently under
-development, which we plan to release publicly in the future.
+On Tue, Oct 13, 2026 at 10:41:55AM +0000, sashiko-bot@kernel.org wrote:
+> Should uic_cmd.argument3 be restored to mib_val before retrying, similar
+> to how argument2 is cleared here?
 
-I will clarify the wording in the next revision.
-
-
-Best regards,
-Myeonghun Pak
-
-2026=EB=85=84 10=EC=9B=94 12=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 1:58, =
-Krzysztof Kozlowski <krzk@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On 11/10/2026 22:00, Myeonghun Pak wrote:
-> > The training and refresh timers can outlive the EMC state on removal
-> > or probe failure after clock attachment, causing use-after-free.
-> >
-> > Shut down both timers before detaching the clock provider and releasing
-> > the timing tables to wait for callbacks and prevent rearming. Initializ=
-e
-> > them before clock attachment, since set_rate() can start training.
-> >
-> > This issue was found by static analysis.
->
-> You are expected to name the tool or be silent. Reading code by LLM is
-> not static analysis. It's statistical guessing, nothing to do with
-> static analysis.
->
-> Best regards,
-> Krzysztof
+Yes, done in v2:
+https://lore.kernel.org/all/20261015001855.3450573-6-stanleyjhu@google.com/
