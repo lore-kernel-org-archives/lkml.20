@@ -1,121 +1,122 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35145505FA
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:54:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273B0549388;
+	Thu, 15 Oct 2026 16:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083309; cv=none; b=aZkHoRaLMMPYc/DzMfXkGgs4E+EUJKJVzHN5oQdw8QNVwsOW32mxm8nfYgeH2XMUXawtNXg9II1B6op5ux8BgMKu0UJRBbM66QM9GW4ucMfORnnk8C41Ut6k80NBdCbxnW6iVGgCZLfhG9QhZApojb638UiBHI7MG2w72zEoxvY=
+	t=1792083311; cv=none; b=Q/mQv0XAJJJJUUt9y6ePS5pOnB76pi9GDRa0lrHw5TPG7otVJ0XazIEYF2S5XZmgvUFKx4sDFx0KHnRdhY1VE6HuIm+knujs0zAQcddcuUPO02yGfkfU6UIU5Kf/9nLA18EAqJpaco1ZuHXRelch0pyti2bmeVTlDkc1Hv8eXrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083309; c=relaxed/simple;
-	bh=2inYdETjS1/0iXkUB93PtZKo6J17s5dPHUL/VIsncwk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EjOQsb1UVrH0kwGTQdVdAgfX+fQZMyiXXUKpubLpAo8IcWAvu1owKEtAlhfci2r+9Xy/PkTbxIXM5tLKrJNs6nTpRH8Smv98VNd86juRiA7WsaHA7LVONge8FfVowYSbxhUm5N1g62NRHqiC36gh7QYV3TrmQv5e3R+j8OK9xEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IGEslRki; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792083311; c=relaxed/simple;
+	bh=f+Ig04id0MJLu6wfKUjMZtA/taon7qsIkTQOthWsVls=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XYVcrSKMQpl3IxfX9UVfEmX5HfuHakP9UCEoOwAoYLnVUvu15Ql34w7eL/NpPKZuffr0HzJ5LM8VnkTFICFX1oo45tbW7CfipJAbBKD0hbVuu9hpoRjTLZierOQTmfEZPEV/6boePcFLRw0QEkvXCpyXF+cmfgIFmyXmj0SgXJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Tbf1tYkg; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IGEslRki"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df8fe8513so644292f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:54:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792083290; x=1792688090; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nOQQ4FV9ljkth31bB4LLMsIJDcvWTQeL1zQqaIAUkSI=;
-        b=IGEslRkigK5qf5tPYJAaK2WsSFRbsNtb8EFl5Py9DCeE/I4VHBTlJAwbh6dvdqy6EM
-         vaBmfY9X5OM6LEUIWk/A79d7DoVtTYSTddmsmfRuqQClXd0Ugh+RA1/Uw4O/nUaLsmdo
-         2ciGx4yqcPMvbf2JOK1jbP9WTT+njoQxSxwEto8Fmw/ZQ/DAwXAOURwTBgLLw9ixnEHR
-         bPqiaSpwUCuQyBSgguhqiVz9sfRWzlRy0IN5qbB43mtR4YpNtDacImnzTB1uw5f7Dgy7
-         vsdyDDsL0hEfeWPqb1xk2NX45AsET2b43bl7BL9aNLH48eYl9fO5smN4g6sWCNxipROr
-         6//A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083290; x=1792688090;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nOQQ4FV9ljkth31bB4LLMsIJDcvWTQeL1zQqaIAUkSI=;
-        b=cZEzFAUMixKARBCrDNz1GcXPKiVqvwChUyTHwVbjQzJaL0I4lp78IxB787vIVF5ApE
-         Nl6HkrMnnJkCagwFx1b/fch4qrifYax70wIPc+wqdyfHWkgeTBPEUpTba/g0Ed1Vn04I
-         ubg5Bj8tT0uus7MHIFdwnY1Q7ttmD1O9ufR5L1n/2cjyz7GaNMA84ghRfGZ53dS3LzNT
-         e3PmN8c4diSfSEFjn1R3ldY3kHXBf/zu/FlSe/4udkRqgVrdvvSUOxuBGQlJZyvURLEG
-         bv7LREexJjDwfgEah/kTWI8TJ9HfE7Z8oMHirzB+/W5bxMPTOLxArclyNyM1t+ig6Qky
-         xPcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUs/4AV/1khtoj/NEeOAlWGB+goZpgbt0N3mxaVF8W2DuL0aJrLnRZpqj65Ma4qmj2z7sFMiZZjS/Cles=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9zEyjA6orS0x0oqmbjjIYZYdvJ/6j1B1JNsETUPTn7bdsRZOw
-	ppC3dATiFt26I5UbocFiX/kkaH4v/IiHU9jt09h3qAoOeko5LOkp8CLcbeIbKvGu6Ok=
-X-Gm-Gg: AYBFou0SaUR4gBBLbm1vXS77mjh2mABDpezDBcGRM70tjTCYIyo17un9WWq3otFXzLF
-	dCLLOjnlHKCBna6Sa6Zftg8EOZfJddyNfGVh4Fi25mBua7wOjNgZseNQHETGmJtnTwmnDXJhioa
-	NQ3lENflQRgE7K70Azl2qNHpCzVB1o6nI0yUrZN0yDiKEGhvpaIm4QQSXU4D0zfPybZXmJ1ALhJ
-	P2iojPrBN45BSMc9OKAh0MqQKNazvdFrje4DMl3NSup+OPpooTOMcQBAd3bcE8/XViVXs8NzZhY
-	vJrmriEvUVqQzhaaHV0mlh29e0FIGdS0ZL5DXaO0z8x2hi045vPkE+kMlPQ0GfJhV6Ql6DEHvWo
-	eEiHdAVcxu6V1hP0bA88HxMrrh9Ici3pGLrAl4BYi+s8rJ8w5vzi0yrjZsvMUB5S3Yxx9u4fdK1
-	3RzHt/1Yi2WisBcoSG6DaiSECdsNUrq2kv3HdldgJHDYJFsIBUyw/jqldS4cMyaxE4O0Jl3ywwW
-	tKv9KZec7i0SptAYBmjmkv/CfiNuK3RojyZsE1u4hpmLWY7wVCiM9k0fXdB7x94vPWtxA==
-X-Received: by 2002:a5d:548e:0:b0:486:fb08:2353 with SMTP id ffacd0b85a97d-48dbaaeda2amr27025205f8f.31.1792083289768;
-        Thu, 15 Oct 2026 09:54:49 -0700 (PDT)
-Received: from z13-ek5.local ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaa5dbsm20775664f8f.12.2026.10.15.09.54.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:54:49 -0700 (PDT)
-From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Thu, 15 Oct 2026 18:54:33 +0200
-Subject: [PATCH 4/4] clk-816x: add sys_ck clock as sys_clkin_ck alias
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Tbf1tYkg"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kF5n667561;
+	Thu, 15 Oct 2026 16:54:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=DfN8XB
+	57AjPfK3wDVJ1HboWsOLfYln//rkSlVO8j668=; b=Tbf1tYkgOoKBW/ObJRVpgY
+	ZAq9xblPa/V2posgm93HjtszRyG4HkmZ6JJWqb5V4g0O8O728Yeyxgzn1HngfOPA
+	S5hsi7CCTS6cba8mcPH/POareDvRxIirVeSDemgqR7/vlRpNKfC8G1Z+xFe5oXkQ
+	qoAgi9SOxj4HEwY8oV6d0nGZWUHEXjPApolItBRpJ6gMwGkK0wMP3rO4MV+hnWJE
+	2y7KYgY/HROeuPQ1O1WM8ThuhXRd4Et2rp/eP8CX54+qkYKO/QNzqmLhHjQJwftT
+	HOQRDYCQyixAE5fuShdbXIx1jabbZmRqHNwdI2u1xBojM5930v8lSLIDS1jzd4cQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugu4yu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 16:54:53 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FF89H62057775;
+	Thu, 15 Oct 2026 16:54:52 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqws7y9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 16:54:52 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FGsmYb31982102
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 16:54:48 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 794B620043;
+	Thu, 15 Oct 2026 16:54:48 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DC9020040;
+	Thu, 15 Oct 2026 16:54:48 +0000 (GMT)
+Received: from [9.111.57.222] (unknown [9.111.57.222])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 16:54:48 +0000 (GMT)
+Message-ID: <0e51ee38-d774-4740-9984-8908fc9307a5@linux.ibm.com>
+Date: Thu, 15 Oct 2026 18:54:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: linux-next: build failure in final build
+To: Mark Brown <broonie@kernel.org>, Gautam Gala <ggala@linux.ibm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <atDyad6Dg3msWmW_@sirena.org.uk>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <atDyad6Dg3msWmW_@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-patch-ektor5-dm8168-clk-v1-4-8b99c5cd5541@linaro.org>
-References: <20261015-patch-ektor5-dm8168-clk-v1-0-8b99c5cd5541@linaro.org>
-In-Reply-To: <20261015-patch-ektor5-dm8168-clk-v1-0-8b99c5cd5541@linaro.org>
-To: Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Tony Lindgren <tony@atomide.com>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Cc: linux-omap@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792083282; l=1025;
- i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=2inYdETjS1/0iXkUB93PtZKo6J17s5dPHUL/VIsncwk=;
- b=1O5ZnXuEuCnMjVuOJ4/eQtTIjxT1rnz127MjHOzITCjBaKT4WFTMzwIdwSnN3JBq7HUuWeMkK
- TtnNlcvtqHgAr67OdDdCYKEthyZ5kv0y+0ALBbuBnHrA6OOgOB7mXzO
-X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
- pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6ad1055d cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=8sW_m4_jY8uPIwVwgnwA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: F11heQXIqe0B6mTKilmCAREWGP_M4fqs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2NiBTYWx0ZWRfXxFUpcviRiUCl
+ O6QjgXL79M2nxHma+s8Ta+FcQ8aUeZl1UGLBPECuLsSFDRWog2Qg1/4n+US8eojKAC4W99nAJDT
+ gcA/fhkWTivny7fifiq0RraVTPS8t3Bv4b3XhdSMC+0QCGZp4pQtE7B4QtP531lqoY9U1jSitiR
+ ip1nMELn4dz+F3Zq+0PGxZHHuujavhvxngb+4brPizyHASgFUaL95QDoMG/MSb3Nuk+gnCE03Oj
+ pN+fpKGb3q9xXTWAmGjVut7WNVhPaym81lteiOsTWYdo8j3OoS1fdfrV+UmTBHa/CvQePgA0a0d
+ 6Y83GuA5MSm9/xe4+uXJECZGTiHmcVJ9uBg8vuD+TOhwIf/4ZAe7PCnfLPQbDjzN6cWFZQJigMU
+ M9e1MhGz4SOdmZf+K0T/FD3oreN9v2FWm37ZY4mDERGPe5iMncr+HBodJPiu+O++KHpcOefU68U
+ TiuS0+APjpFmPcWuLCw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2NiBTYWx0ZWRfX9iTqBNIaGBOH
+ 2AC7IBHuZO7JR0QTJ7AruYR3rh3iBhBnJNfB70TkC54Y50cO/g2ovDYuNOYbxMD53tzWIals5tM
+ 4qXVk01YVaD/eo0nQffExUEEpdls6uU=
+X-Proofpoint-ORIG-GUID: F11heQXIqe0B6mTKilmCAREWGP_M4fqs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150066
 
-This patch adds a new clock alias for the DM816x system, mapping
-'sys_ck' to 'sys_clkin_ck'. This change is necessary because the voltage
-management driver searches for 'sys_ck' in these systems and fails
-without this alias. By including 'sys_ck' as an alias for
-'sys_clkin_ck', we ensure compatibility with existing drivers that may
-reference 'sys_ck'.
+Am 15.10.26 um 17:34 schrieb Mark Brown:
+> Hi all,
+> 
+> In the final build, today's linux-next build (s390 defconfig) failed
+> like this:
+> 
+> /tmp/next/build/arch/s390/kvm/arm64/../gmap/kvm_mmu.c: In function 's390_kvm_mmu_prepare_memory_region':
+> /tmp/next/build/arch/s390/kvm/arm64/../gmap/kvm_mmu.c:83:22: error: 'struct kvm_arch' has no member named 'migration_mode'
+>     83 |         if (kvm->arch.migration_mode) {
+>        |                      ^
+> 
+> 
+> Caused by commit
+> 
+>     325380d8e7893 (KVM: s390: arm64: Integrate arm on s390)
+> 
+> I have reverted that for today.
 
-Tested-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
----
- drivers/clk/ti/clk-816x.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/clk/ti/clk-816x.c b/drivers/clk/ti/clk-816x.c
-index 3b8e483aec92..fe6f66fc5a05 100644
---- a/drivers/clk/ti/clk-816x.c
-+++ b/drivers/clk/ti/clk-816x.c
-@@ -57,6 +57,7 @@ static struct ti_dt_clk dm816x_clks[] = {
- 	DT_CLK(NULL, "timer_sys_ck", "sys_clkin_ck"),
- 	DT_CLK(NULL, "timer_32k_ck", "sysclk18_ck"),
- 	DT_CLK(NULL, "timer_ext_ck", "tclkin_ck"),
-+	DT_CLK(NULL, "sys_ck", "sys_clkin_ck"),
- 	{ .node_name = NULL },
- };
- 
-
--- 
-2.56.0
-
+Should also be fixed tomorrow. Sorry for the hazzle.
