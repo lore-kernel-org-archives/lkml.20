@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D593A541E4E;
-	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3690656E07B;
+	Thu, 15 Oct 2026 18:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088155; cv=none; b=VU7pNkxXcHhjpVqf2ra3rzYhOPsSQv+D43OpoKlZhOnp87lFRsjz3eM8H0Y2+20UH4yraPxTIX4M0p+8/pO2DJvGL0zx81/I0DZG6cwnh022M/epu5juTVV+mO/ZHMPsWWR+j5Lx6sGOqVp1qz1VJFpT000vi6dH8e1WbQJGQ8Q=
+	t=1792088156; cv=none; b=Z1BW/Rjp41oyj0cObB71D4eN7wzuPIrn20lB8DjKZtMgnf6hlQ+gq3ZE4NpTcno5rnW+4sP55Mp/6DhqTp0WAQ7NgoSWC5vtXI/Argkrfi35CICWnbUHA3OK7oGXKA2F2gOaEa/Ifk45zsulSwIdo0JW6cJr2k4OJvDgevrlVZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792088155; c=relaxed/simple;
-	bh=Tgv6BaPO00+S97jAlKTn6xh90zKsXielMTf93zwSMVo=;
+	s=arc-20240116; t=1792088156; c=relaxed/simple;
+	bh=ZzlqwZdbbSmlpiAV59dl01bIvah2RXTPlK1Ztf6kC9w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G0UFu89fDLHaTPDcvL8GPjqM3+FFMHhK+7wwUuf7qGrFXAmzPMO63NQd03OzzzarjZQHEd2kML28BQkDaVALGkGzIyHF7Cpz9odjVvilKRAvYsSCDVmVRztTNad+IA7xHM6xMtoCVjJGVBToFXv5qtGT7PvMG4uxtmb4fHKlQDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMg02pV0; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=f7gEnbdiqha1Z8WRWNLPeQoyZeybYAhU89OzjFwIIpvN28EU/L5vJ+0FE9949yoVVNDrFZlWwB3lsYVsZPEDAXsxGrXb99j5+egqRrpxD7dZPiH/f86YGt1nAgOv5ljr7hIlJM+IMoDfyOy83TU/WwsNmkBBQqMw3DbAvSjTjMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YT7UwdZ2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMg02pV0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 545AAC2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YT7UwdZ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B833BC4AF0B;
 	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792088155;
-	bh=Tgv6BaPO00+S97jAlKTn6xh90zKsXielMTf93zwSMVo=;
+	bh=ZzlqwZdbbSmlpiAV59dl01bIvah2RXTPlK1Ztf6kC9w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=eMg02pV0j2JCWPb5cuVkzKt2xEl4QphaZGbfI/lXaJw8KGG5JF9kkE4cie2WNKuB2
-	 ofMM9t9xZVswRKoTmAlE5gSYjt/feGOAMlzk4KWDxJm3/LFKPMlF0qrNNB4RIGpdGy
-	 +lrd35d8Yp9f03o1mV4dfGhXNBNHkC3wwkVlYJfzL1TWuU2PipcDsrI20lzokMVou1
-	 OcvvHleFUSgFEjXRvr5kLNcPYQAp9RRUmxfkEe7dEPBxsiwZhIh3VzvrbL+9uN7nYH
-	 oPMQlItj9qAkIBXzJpvArrW+JkSsIQ440+7kvd+N8beNa4W0v/MgHAftlWM5C+6/bM
-	 t1Q5JjM/s9WpA==
+	b=YT7UwdZ25W42wsgsFlkTJmaSSoOhzC8oGgl5P7Ac+jDupj+GoMJ5fceCdxdQNxoSc
+	 ncNxxDyyeFbyQTTi6+zi4OHQodqhysvHGFWtMpPqzGE+LQMOdCWHvuSZlxbNR9oW5A
+	 5zY6gy7ue6W1e78Cod15DMMDqm43a8GRyX4Zv9H5ZRM2G4JwwAVyzCsymXiuTaMkl2
+	 99tV0PL+0Wg6cG1w4SfqBZnW1L0t0aoOyJ64rIyRsthrF99oozVBpbK/DiJmTvpnbq
+	 gXaG2hLBTKcf6Y1iUBcRwshERDuNnnrODTI85xGwMSGxlgu3FHDLZ3YYt/Zu/oOV2S
+	 itPNzqwJ1pxRw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36382CCA467;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A4049CCA466;
 	Thu, 15 Oct 2026 18:15:55 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Fri, 16 Oct 2026 02:15:52 +0800
-Subject: [PATCH v4 03/17] mm/memcg: add folio-based lruvec live helper
+Date: Fri, 16 Oct 2026 02:15:57 +0800
+Subject: [PATCH v4 08/17] mm/mglru, smaps: convert to LRU refs based
+ operations for MGLRU
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mglru-fg-v4-3-2106750c0bfa@tencent.com>
+Message-Id: <20261016-mglru-fg-v4-8-2106750c0bfa@tencent.com>
 References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 In-Reply-To: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 To: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, 
@@ -73,11 +74,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
  damon@lists.linux.dev, Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=2034;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792088152; l=3775;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=bqSj6GEUFE1ch4tTEQEPZOkssBWYsWV/WhQc/GCJ0Bs=;
- b=ade8dgVk/QLtMdvzfHEj3EebA82ilil4wqag8aQYk8TBs2jVnr7PYCpkRECMbBvrjTfV5YSLN
- PEO3hnbVTjMAeyNrCoshcrvmZa1ho7dU4F2NiVCiQv+mbLQ0DEfSQ5d
+ bh=1v4LOI4JHk+vBXr1A8j77mCVzkc1JT179HQJTN1nz/8=;
+ b=nJf/e5uxq7wxKBLvgMhdEEpMSQy5vLPa9CaLfszqpF4Jni0dW53W0S1f38toJQy1B0iMhmzeH
+ mMSVOTnvvWeAA1/1zaUtw/+ofRhQp3FH37zeT/yem6PsGVi/QPFzahQ
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -87,69 +88,103 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Add a helper that resolves a stable lruvec for a folio under RCU
-without taking the lruvec lock.  It takes a folio directly so the
-lruvec lookup happens inside the RCU read-side critical section,
-which a lruvec-based interface cannot guarantee.
+PG_referenced is only the lowest bit of the folio LRU refs count
+(LRU_REFS_FLAGS) now, and MGLRU never kept it stable: promotion used to
+clear it, and now it toggles as the count grows. But with the LRU
+referenced count as a stable API now, we can use two helpers to provide
+in-kernel users a stable and sane reading of the referenced status of
+an LRU managed folio.
 
-No functional change.
+Add folio_check_lru_refs() and folio_clear_lru_refs(), which use the refs
+count when MGLRU is enabled and PG_referenced otherwise, and switch the
+smaps paths over to them. The lru_gen_enabled() test stays inside the
+helpers, so its static key is not splattered over the few call sites.
 
-Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
+Convert smaps as the first user of them. MGLRU now reports every folio
+with a nonzero count, so the reading no longer flickers and clearing no
+longer results in an ambiguous status.
+
+The classical LRU case is unchanged.
+
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- include/linux/memcontrol.h | 39 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ fs/proc/task_mmu.c        |  6 +++---
+ include/linux/mm_inline.h | 31 +++++++++++++++++++++++++++++++
+ 2 files changed, 34 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 74110a324f9e..829ab776ab44 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1535,6 +1535,45 @@ static inline void lruvec_lock_irq(struct lruvec *lruvec)
- 	spin_lock_irq(&lruvec->lru_lock);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 81c464139f8f..55f3a35fd3af 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -888,7 +888,7 @@ static void smaps_account(struct mem_size_stats *mss, struct page *page,
+ 
+ 	mss->resident += size;
+ 	/* Accumulate the size in pages that have been accessed. */
+-	if (young || folio_test_young(folio) || folio_test_referenced(folio))
++	if (young || folio_test_young(folio) || folio_check_lru_refs(folio))
+ 		mss->referenced += size;
+ 
+ 	/*
+@@ -1685,7 +1685,7 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+ 		/* Clear accessed and referenced bits. */
+ 		pmdp_test_and_clear_young(vma, addr, pmd);
+ 		folio_test_clear_young(folio);
+-		folio_clear_referenced(folio);
++		folio_clear_lru_refs(folio);
+ out:
+ 		spin_unlock(ptl);
+ 		return 0;
+@@ -1714,7 +1714,7 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+ 		/* Clear accessed and referenced bits. */
+ 		ptep_test_and_clear_young(vma, addr, pte);
+ 		folio_test_clear_young(folio);
+-		folio_clear_referenced(folio);
++		folio_clear_lru_refs(folio);
+ 	}
+ 	pte_unmap_unlock(pte - 1, ptl);
+ 	cond_resched();
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index effa13c63632..6c9510002754 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -479,6 +479,37 @@ static __always_inline void folio_inc_lru_refs_fast(struct folio *folio)
+ 	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
  }
  
 +/**
-+ * folio_lruvec_live_get - get a live lruvec for a folio under RCU
-+ * @folio: the folio
++ * folio_check_lru_refs - Test if an LRU managed folio has been referenced.
++ * @folio: The folio to test.
 + *
-+ * Computes @folio's lruvec and walks up to the nearest live ancestor
-+ * if the folio's memcg is dying.  Paired with folio_lruvec_live_put().
-+ * The result may be stale: RCU keeps it alive but does not pin @folio
-+ * to it.  That is fine as the counters are fixed up on reparenting.
-+ *
-+ * Return: the live lruvec, with rcu_read_lock held.
++ * Returns true if the MGLRU refs count is nonzero, or PG_referenced is set,
++ * which is also correct for the non-MGLRU case. Kept as a separate helper,
++ * to avoid splattering the lru_gen_enabled() static key.
 + */
-+static inline struct lruvec *folio_lruvec_live_get(struct folio *folio)
++static inline bool folio_check_lru_refs(const struct folio *folio)
 +{
-+#ifdef CONFIG_MEMCG
-+	struct lruvec *lruvec;
-+	struct pglist_data *pgdat;
-+	struct mem_cgroup *memcg;
-+
-+	rcu_read_lock();
-+	lruvec = folio_lruvec(folio);
-+	pgdat = lruvec_pgdat(lruvec);
-+	memcg = lruvec_memcg(lruvec);
-+	while (unlikely(memcg && css_is_dying(&memcg->css))) {
-+		memcg = parent_mem_cgroup(memcg);
-+		lruvec = mem_cgroup_lruvec(memcg, pgdat);
-+	}
-+	return lruvec;
-+#else
-+	return folio_lruvec(folio);
-+#endif
++	if (lru_gen_enabled())
++		return folio_lru_refs(folio) > 0;
++	return folio_test_referenced(folio);
 +}
 +
-+static inline void folio_lruvec_live_put(struct lruvec *lruvec)
++/**
++ * folio_clear_lru_refs - Clear the referenced state of an LRU managed folio.
++ * @folio: The folio to clear.
++ *
++ * Reset the MGLRU refs count to zero, or clear PG_referenced, leaving
++ * PG_workingset alone for the non-MGLRU case. Kept as a separate helper
++ * just like folio_check_lru_refs().
++ */
++static inline void folio_clear_lru_refs(struct folio *folio)
 +{
-+#ifdef CONFIG_MEMCG
-+	rcu_read_unlock();
-+#endif
++	if (lru_gen_enabled())
++		folio_set_lru_refs(folio, 0);
++	else
++		folio_clear_referenced(folio);
 +}
 +
- static inline struct lruvec *lruvec_live_lock_irq(struct lruvec *lruvec)
+ static __always_inline
+ void lruvec_add_folio(struct lruvec *lruvec, struct folio *folio)
  {
- #ifdef CONFIG_MEMCG
 
 -- 
 2.56.0
