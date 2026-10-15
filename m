@@ -1,115 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F245502576
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6954EDCA9;
+	Thu, 15 Oct 2026 10:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059025; cv=none; b=U9oPPw/5jpevQN9eAUqQWiBT49ado/K1t7OSMQMxYKQQVAFLmivbx4TCcP8sgIpiMQ1MpCkIW+dwp6jgD75DB0ot/oPTM+Kh7j9WzF0PgBhx/zzcTb1SNQn6OIIB3KwhEBbjbkz3BsmImBUNlZjPAVrGQ/zW20MWFuw0+BjW0ig=
+	t=1792059110; cv=none; b=UUqYRoQx3P5E0p2Gvs0T3Pchx+7YYP4erVNehjOtXdXEYeH3ob/sxv3kXrqNYhTxOtMtR4S9u0NyXBssxehZVk0kpY5IThDwOONew4UHP+r1HBomi6XJf611XcIooOCFtLR84NvGl+IX+PxyjjoK6GQBb1vcBJ1tq8bMGe63mvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059025; c=relaxed/simple;
-	bh=9R6PmOOy2pJcDsKeh20BUb0EVH2cQVGkzfzBC35nZCQ=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J0vY1+DB1it+yVjcymEPJdI52rSyp8A0obqEPKx1WKxA9mc3qTz1XfVYXWvRCEsqaj9JTlQ8/3kyPWL9L4r9lxERGT1Adk7Kit6JAQRyWfFg4af8qaby3yF5KYI6IjKcCiL9XlD9mSpjQ93+HBP/xe3jpoHCHamPYgqVNTUF8ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STR8H/kf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792059110; c=relaxed/simple;
+	bh=b9OcI0YlePHBv1+TtWllODhy2ZFgZpRZ9SMfllA8Ors=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=rWWcmTNBsSGerMjs2Q2URjFfC+Nxb982+XWlqP9tHdOCUnQZ+ojYTNJK0gbLDQiA1HbhPWvOXm+N4v9q8bq3/UW8VCx0orQr8Dpqm3yalDCRZbk2WLT5eU1rCOY9d6PFdlbL4GJjEZK7rXqgJc2sbF8qv9ZcQgopVW11hKqbmPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VBywO9dT; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KZNUdr9w; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STR8H/kf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168EC1F000C5
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792059023;
-	bh=iVD6DVgrrmWtPCKZuLRYBe58wCwR82Aw5cFa3tQXsTU=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=STR8H/kfDMSr+DWDoq48sXSduiYpF29cDZUyK7Fdcw20EHdZ/VWLhPjfrERXtda0k
-	 PXafGPzINOa8Y9a3SPaTqAQWZjdj/31fGC8BnkqNY8TW5IF+P9Wk8dvXTHeedTbeO8
-	 yi5/06I9GkPZ5BjXXSOuLBA0DHupRYFnp2OSgc9Gubb7Vc/yzoNmN0esApKdN1oOFN
-	 qNp/XG0tWLx2SidhXAU/bdihsyyYtM5v+m4cO6i4TmYMF5qQ6gn6meXwLlmZQeIlLL
-	 6QSLQ9iCMlf1isA7F9rVgEurWYpX1rc4MNYPwcasw1Z62JIE8VwDxb7Jj+YRelA+S3
-	 c1Mdl2MNORU8g==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so38304871fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 03:10:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxfjsI3WhJAidoMm4+7nVITTYYtw5eZEqMTEY1JU/Q4W+gTy4FzUdFJR5uEchFNORDRniHLK1kddUA6mNI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkKK3L7zQIzv22sGGwMUOrgQnh6c5MDFsQtrjOtm6HZE3NXSDr
-	/zG0ElubWByJBK/wyg24G9xOHQgfLP9F1l5iJXfSxZU91L518eOtOOrW/B9WD4H2B3ythuTMABj
-	hc545JUiGKZ1D6mklpVx6vNTji6UtuawcHzjCltnv8w==
-X-Received: by 2002:a05:6512:3e24:b0:5bc:b091:ea4f with SMTP id
- 2adb3069b0e04-5bcde8c154cmr6665182e87.38.1792059021797; Thu, 15 Oct 2026
- 03:10:21 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 06:10:20 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 06:10:20 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261014204331.15383-1-jayarajdmit@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VBywO9dT";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KZNUdr9w"
+Date: Thu, 15 Oct 2026 10:11:45 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792059107;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pIHkkHO0jW0iYe7wTKsIofNUJD2tp87VFqJa+vJrDSg=;
+	b=VBywO9dTF+S30328mpl/a8/FxbmT+ZwFjY9UZ/8lj6gUNJlu1kg47WNPcvlkSwyBy/tZwM
+	41GqfKy7a4XfJTJzkareBd9IDh+H5WWph+MMAzKzDSVcJyCfORr/o0zjxq/fJC/D+R3mFa
+	dMtpzUo6JP6YHhcogWWYTZWXSqWjVwjWW8Je34dZLXuJxGK5Al2V3kb8UMq0gcqZjesk9E
+	ECmoxUaSNzktE6QQenS0ViwDbTgLaiU+x9CEbI4XK4xOFY7vQzjS5NPP6PtNSChruvu9XN
+	d3vhhvIv1yUh/PGoQ0/lJcCqJe17plaYxWDXo6gKhj2VBDD6UYgkcHE393HIbg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792059107;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pIHkkHO0jW0iYe7wTKsIofNUJD2tp87VFqJa+vJrDSg=;
+	b=KZNUdr9w7nqvHttkYDw2DrjBRDxQxB4ocugMu5tq1snhXWFsErimVN/Jk8x7IF/rHzofvA
+	zuUZArh7XnSJPVBg==
+From: "tip-bot2 for Igor Velkov" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/meson-gpio: Allow the GPIO interrupts to
+ wake the system
+Cc: Igor Velkov <iav@iav.lv>, Thomas Gleixner <tglx@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
+References: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014204331.15383-1-jayarajdmit@gmail.com>
-Date: Thu, 15 Oct 2026 06:10:20 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mfir4zVZENbq8zJuvo8Acq3ZxUTy5E74ZzqHYVmPH8fog@mail.gmail.com>
-X-Gm-Features: AclHuK-iPK_M1R-OIfN-ytjpEWR5PdRs3K3ZQbAWqipplmC2--vh1bUa1mLFQ3o
-Message-ID: <CAMRc=Mfir4zVZENbq8zJuvo8Acq3ZxUTy5E74ZzqHYVmPH8fog@mail.gmail.com>
-Subject: Re: [PATCH] gpio: lpc32xx: check devm_gpiochip_add_data() return value
-To: Jayaraj Devaraj <jayarajdmit@gmail.com>
-Cc: Vladimir Zapolskiy <vz@mleia.com>, Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <179205910581.2666988.12781833288932853374.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026 22:43:31 +0200, Jayaraj Devaraj
-<jayarajdmit@gmail.com> said:
-> lpc32xx_gpio_probe() registers each gpio chip with
-> devm_gpiochip_add_data() but ignores the return value. If registering
-> a chip fails, probe still returns 0, so the driver binds with a chip
-> missing and no error is reported.
->
-> Check the return value, print an error naming the failing chip and
-> return the error code. Chips registered earlier in the loop are devm
-> managed and are removed automatically on failure.
->
-> Signed-off-by: Jayaraj Devaraj <jayarajdmit@gmail.com>
-> ---
->  drivers/gpio/gpio-lpc32xx.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpio/gpio-lpc32xx.c b/drivers/gpio/gpio-lpc32xx.c
-> index 37fc54fc7385..014eb8bc70da 100644
-> --- a/drivers/gpio/gpio-lpc32xx.c
-> +++ b/drivers/gpio/gpio-lpc32xx.c
-> @@ -510,7 +510,7 @@ static int lpc32xx_of_xlate(struct gpio_chip *gc,
->
->  static int lpc32xx_gpio_probe(struct platform_device *pdev)
->  {
-> -	int i;
-> +	int i, ret;
->  	void __iomem *reg_base;
->
->  	reg_base = devm_platform_ioremap_resource(pdev, 0);
-> @@ -524,8 +524,12 @@ static int lpc32xx_gpio_probe(struct platform_device *pdev)
->  			lpc32xx_gpiochip[i].chip.of_gpio_n_cells = 3;
->  			lpc32xx_gpiochip[i].reg_base = reg_base;
->  		}
-> -		devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
-> -				  &lpc32xx_gpiochip[i]);
-> +		ret = devm_gpiochip_add_data(&pdev->dev, &lpc32xx_gpiochip[i].chip,
-> +					     &lpc32xx_gpiochip[i]);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "failed to register gpio chip %d: %d\n", i, ret);
-> +			return ret;
+The following commit has been merged into the irq/drivers branch of tip:
 
-Please use return dev_err_probe().
+Commit-ID:     5b6e2a46b80ddbc93e72eb4f01519b0c8c3e0ef0
+Gitweb:        https://git.kernel.org/tip/5b6e2a46b80ddbc93e72eb4f01519b0c8c3=
+e0ef0
+Author:        Igor Velkov <iav@iav.lv>
+AuthorDate:    Sat, 10 Oct 2026 18:20:30=20
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Thu, 15 Oct 2026 12:07:02 +02:00
 
-Bart
+irqchip/meson-gpio: Allow the GPIO interrupts to wake the system
 
-> +		}
->  	}
->
->  	return 0;
-> --
-> 2.34.1
->
->
+meson_gpio_irq_chip has neither .irq_set_wake nor IRQCHIP_SKIP_SET_WAKE,
+so enable_irq_wake() fails with -ENXIO for every interrupt routed through
+it, and such an interrupt never gets IRQD_WAKEUP_STATE.
+
+That matters for suspend-to-idle. suspend_device_irqs() keeps only the
+wakeup interrupts enabled; the rest are suspended and masked by the flow
+handler when they first fire. A GPIO interrupt that fires during s2idle
+therefore brings a CPU out of idle once, gets masked, and the system
+sleeps on. For mem the firmware chooses the wakeup sources, and this
+flag changes nothing there.
+
+Set IRQCHIP_SKIP_SET_WAKE, like the other hierarchical irqchips with a
+GIC parent. The GIC sets the same flag, so irq_chip_set_wake_parent()
+would end there anyway.
+
+Tested on ODROID-HC4 with the PCF8563 alarm interrupt routed through this
+controller: with the flag the alarm wakes the board from s2idle 4/4, and
+/sys/power/pm_wakeup_irq names it; without the flag the board stayed in
+s2idle past the alarm until a power cycle (0/5).
+
+Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: LLM
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20261010-meson-gpio-wake-v2-1-790ecc6df792@iav=
+.lv
+---
+ drivers/irqchip/irq-meson-gpio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpi=
+o.c
+index 91a9c33..e0329ef 100644
+--- a/drivers/irqchip/irq-meson-gpio.c
++++ b/drivers/irqchip/irq-meson-gpio.c
+@@ -538,7 +538,7 @@ static struct irq_chip meson_gpio_irq_chip =3D {
+ #ifdef CONFIG_SMP
+ 	.irq_set_affinity	=3D irq_chip_set_affinity_parent,
+ #endif
+-	.flags			=3D IRQCHIP_SET_TYPE_MASKED,
++	.flags			=3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_SKIP_SET_WAKE,
+ };
+=20
+ static int meson_gpio_irq_domain_translate(struct irq_domain *domain,
