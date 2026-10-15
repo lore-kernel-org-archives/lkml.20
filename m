@@ -1,132 +1,119 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1958D56E051
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5485304B4
 	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792088589; cv=none; b=Y7NmsExr4s6ivKxBO/NHrnmHXeR/mMh3v/czJbKTbp3W1Uu5WPhFuzj4E/Bejrh8Gml/tDnzoL0ex6VgCvDi+LVs/kDgnsOS+7Szcy4o/OOsN89wI8hiEGs366X99rqj3LD2vuXzOhz6h6m+4ROMmH+9docgX1WHkwvtpaYCuFk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792088589; cv=pass; b=k+pbtUcpGIlC72GI/UdsfFK8Kfn/ggDhbF6Iv6IkXEgvkwgytYO+ZpqJgOmjmgDemKAK5hurdYHrtB0LzG483ZCCibWQOjEJCrGm7++LXExItUSpwvn78ngXhmPEHXI4KjZPgiuAvkjN2WHOCE152EM1HUn/Z7PJIbI2mJ1qnZI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792088589; c=relaxed/simple;
-	bh=141w4atlYroacLxgjGyINyQC13zsX0zf7Nm5/ty9B/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nkgWnytyAoaTGtVIDe6DeTmRtw97nPNEBKZED8nCpTOdgumm/Kk0D3AB0lPE8Aiz5C/4jA4kXNoOaO1BCE+PBrcWJmLZ1f0OIN+z545nNw16oEXWl7rjqUzCF0++8vosLg2603gGtHvhXH62rWZnooMbQ86l4oBMII1fe8hP+ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BNanEG8K; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	bh=WfeUgxnkv9aSRubswx+ZRJpz/Q3lxEbh608L1APks5M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=u5T9qUd9vLECUKb92/h8wEQhG1PM1XbmJCYHQn9jH19Si3UmxfOylbqSNpuhI3VQaUGszfgS/LLFLe1x06Wxcs6ObhzDPn3av37R6ujc4rRO9U6mHo2JKaghfQgWpxACUf8N4A7c3Gr4B7DzVGw0Z0uYPp9cfmV8X20Pg1xmqbE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=bMLgynZd; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BNanEG8K"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-17bc533fda3so2600236c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 11:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792088584; x=1792693384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DG4aA9TEdH04EQSq+KQevC5W4t18y00GnPull2P8sMI=;
-        b=BNanEG8KIjUIiGEUJJpgAK2k2a5L58o1DTXmAgYCdV7+MuNTpiMbYyGX1B6H1pIVMs
-         W4QP4t2guX5bFp2PKC+eszz+0nPXE/DIIqdZkWmbxfwlUOdp22id3TMeucsz8+ASHDpc
-         vUen6CPlJ96MeL0j5uOCiWFt3ztwLgQOXCnOg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792088584; x=1792693384;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DG4aA9TEdH04EQSq+KQevC5W4t18y00GnPull2P8sMI=;
-        b=tYAx6KxR/4Yamov5JBmr6kZ61RBJ+m/BFf1ScR4kQDWT9JE//425IA2YAy4I+M4Z8a
-         3BvGBJXb8DO99Hu+daBmgWLQTmueKZpGJ4KviA/In/3tgcO6sNpdWeK62LXTVBEREhnV
-         DEmo0m/gnxgwO1hjr0HfXSh5A2NS59GiziA22ybjOLSG7C2E0ApRQMVq+v4O530V1BRF
-         HSIK4OVC9PKHJtnC7u+S6+Fcct8WnfBFM4MN/bXAumiCanDG5G8MUl2J03HygKDrDrrK
-         LGgfvYFEW3AlTjm2p1uy2gd7tM2vmALpDl6US6y38T3rA4QaMickekU9lV812/qo3P3C
-         XC9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwdgRjGa2XbfiseKa7BovBU9YLIhcHYH0XCkq+yXqpcxtjALYXYHT0z+II7/4sTW/4tj6vqRRX4oAQpLYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfyLp0c3m0Ip2C792AmK1i3ckPGb9TqVqe6KIZ+RgwatK3Ox3h
-	YwRZub8TryzkejiOCw/yOHLZ76P3Oaw3UunbRj+WZSy1DkogEyRpn67wRD6NRD+xbA==
-X-Gm-Gg: AYBFou2ggMTiTZQG2imA+02lgnB2tBz43rgfFEqXQM4cp4nmXy3w5CpTc7DwMF7wYmW
-	JlSSOtpXYNQc3SKJzywv61l/f05UQUsXJOkfojVeHDbrACHGKq8wBCUDjdS1b9OslEhoyjSGK8C
-	HoQgDlNegaw1fV5RwpKcBy5ls3c0v4RRVD6DyIhPf1/W3gauw6fdDC/n/N8v384ZoZqa/4ujUxT
-	Qedmw5LVIy4CI1X95TI2emh4o4U2pV+e0iCY0CEDsE+KQ7jhCOPf+HTcmNVbvg1ljn6kZcT8S2j
-	Jsi3Jzm31iszv2CI9R+Q98u3GAWsdsv8QikXhY/woI8pQxP5QwJCw/4vwtAJeoEsKoTjxBfO9mm
-	64n55OarMDnssSMxUfqqWyvJwRnp/jjvwmgnvJvCY1Yh254zgVfUe/wpHwRbfK4FmTL3E5n6Vxi
-	DRU/zZS6I2iwc5DXiXmyKcHuPZFicWq039j0CThDEul5aEUBMCR3aO034Prud0ipgpEHZeeDHsP
-	wHYshLnBAmbqiGAuxEHCsDE0bTUfyHIfavqUYcU4UBcW5yJO7f15WG/fQXW
-X-Received: by 2002:a05:7022:b0c8:b0:147:a685:912d with SMTP id a92af1059eb24-16a60811e7amr22989727c88.29.1792088584004;
-        Thu, 15 Oct 2026 11:23:04 -0700 (PDT)
-Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:9ea0:3a29:323e:5f11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-182a8a4a56bsm727204c88.20.2026.10.15.11.23.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 11:23:03 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	Devicetree@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
-	Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH 1/4] tests: Fix Python test environment setup in meson.build
-Date: Thu, 15 Oct 2026 11:21:34 -0700
-Message-ID: <20261015182221.2931742-2-dianders@chromium.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-In-Reply-To: <20261015182221.2931742-1-dianders@chromium.org>
-References: <20261015182221.2931742-1-dianders@chromium.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="bMLgynZd"
+ARC-Seal: i=1; a=rsa-sha256; t=1792088569; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jQg50vSCfIaYAylteLTvHG51/tTp3k43Xjf36At6I7ajrbVekxCXCnJysHsPey1Rtr0nALQXnPE+8atkqcPXA3qMPiQx0MBhKOqvhLvYy2njbVngYDXu1LjTpse/Fwhux8rurWN8gbBsxpk+xjLCahdypGxKlxB/5UGMjcqZGUw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792088569; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=1xLQGCwRjjzIAUI/7hGQKPW/PzOE6eLoioQdHJEUh7c=; 
+	b=fJjAqXo0VawoL2txzSKB9+ZlMHkA5erN3pvQESLNIG7IRwqKDwVfKlZmN7QDW560wfsqtJySVDfzZbGbjnftVhw7xyk1H5PkZw1nCjyn7QkiuETrMk6fRE4r+OhRK+CHebSK+e0Uy0OshU2USAlRNa/SpS6FK2TceW7+VLY0nDE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792088569;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=1xLQGCwRjjzIAUI/7hGQKPW/PzOE6eLoioQdHJEUh7c=;
+	b=bMLgynZdF4Et8Vncmcx7pSc9WoLiFwL+xqMBhsLsnvCfeAkOl7/+GXXEUzT6xun3
+	wElLA1dUiSFjnonKiA4guzmSHcIhTReMwPUtFVcjWkIoOP/B+XCiriC9LZWodhy3/bK
+	f+COlQIJH62Y//wpxwbFckIp1CNBCQKQhUahxKSQ=
+Received: by smtp.zohomail.com with SMTPS id 1792088566807547.4824790606039;
+	Thu, 15 Oct 2026 11:22:46 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Thu, 15 Oct 2026 19:22:32 +0100
+Subject: [PATCH 2/2] drm/panfrost: Fix race when restoring reset state in
+ perfcnt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261015-panfrost-reset-races-fixes-v1-2-bb74c1786a0b@collabora.com>
+References: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
+In-Reply-To: <20261015-panfrost-reset-races-fixes-v1-0-bb74c1786a0b@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1420;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=WfeUgxnkv9aSRubswx+ZRJpz/Q3lxEbh608L1APks5M=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBq0Rno/ldbu7X8dfP2NJ1OK8sscgRj0Thx5WNp3
+ N5IkoUl4uCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCatEZ6AAKCRAOJn5M7lND
+ PdznC/4lpVluzmmvR35rWilm4+qek0mGJ5a75kK6feyJCJnJXyKcRnwb71bsI9aJ2eXRtWFpn7w
+ GhaWxNHAXq+nQnC7jK7Hv5M5QH1YR3XwLEd0AiNjuAy56rp/zC+lRWqAadrmVO2l1wF7DEU0iGy
+ NFrvVNItoy3tke8sV6KEyOO4BDFwoNkeC3w2mjVwvusJuf55kAYI4R24SohIymI8sICCmeZTbA0
+ Ui8rLgX2DGfwUtnR8HlUr7ZV/QQ/7YyAanYRNZ1vsUWCQsOBb3GYo/0flAQ6WBBCxK72yptohJb
+ nSJ8X12JXoVGWpa3pXDQ+y7qxBHwLT2Q+3X8Q3SB0S7aKZD9mIyG/vXsUZpLXoyyKHphtF6PR9E
+ u9inVm3hxSpNwIKgiR4thxIjh8cCrSIaBCNL1gwDsmpd32lEGl3s5JNelmJ57R2Wob2wS8LXb5n
+ 5P9gzkrY0FSEDKRRiie6L8CukHugzRL1B0Mzcn93rt00fagtrKShxksVZbv9rJ+A6313I=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Commit ecb21febfdd3 ("meson: port python bindings to build natively via
-meson and meson-python") moved the generated `libfdt.py` and `_libfdt`
-extension module into `<build_root>/pylibfdt`, leaving
-`<source_root>/pylibfdt` with only the source files.
+struct panfrost_perfcnt::state should always be updated atomically, both
+in the dump ioctl and the reset sequence.
 
-`tests/meson.build` was still setting `PYTHONPATH` to
-`meson.project_source_root() / 'pylibfdt'`, which only went unnoticed
-because `tests/pylibfdt_tests.py` manually inserts `../pylibfdt` into
-`sys.path`. It also checked `if not py.found()` instead of
-`if not pylibfdt_enabled` when setting `NO_PYTHON`.
-
-Update `tests/meson.build` to check `pylibfdt_enabled` and set
-`PYTHONPATH` to `meson.project_build_root() / 'pylibfdt'` so Python
-tools invoked by `run_tests.sh` can import `libfdt` directly.
-
-Assisted-by: Gemini:gemini-pro-prerelease
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Fixes: 9944dd07f3cf ("drm/panfrost: Fix races between perfcnt and reset sequence")
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
+ drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
- tests/meson.build | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tests/meson.build b/tests/meson.build
-index c6ac2d7f8ec4..c25500606059 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
-@@ -114,12 +114,12 @@ endforeach
- run_tests = find_program('run_tests.sh')
+diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+index b26da057a1a0..d50b6cc2ecfa 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
++++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+@@ -148,18 +148,17 @@ static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *stat
+ 	 */
+ 	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
+ 							msecs_to_jiffies(1000));
+-
+ 	if (!ret)
+ 		ret = -ETIMEDOUT;
  
- env = []
--if not py.found()
-+if not pylibfdt_enabled
-   env += 'NO_PYTHON=1'
- else
-   env += [
-     'PYTHON=' + py.full_path(),
--    'PYTHONPATH=' + meson.project_source_root() / 'pylibfdt',
-+    'PYTHONPATH=' + meson.project_build_root() / 'pylibfdt',
-     'NO_PYTHON=0',
-   ]
- endif
+-	/* We need to restore perfcnt state so the next successful dump can relay it to UM */
+-	if (ret < 0) {
+-		perfcnt->state |= *state;
+-		*state = 0;
+-		return ret;
+-	}
+-
+ 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
++		/* Restore perfcnt state so the next successful dump can relay it to UM */
++		if (ret < 0) {
++			perfcnt->state |= *state;
++			*state = 0;
++			return ret;
++		}
++
+ 		*state |= perfcnt->state;
+ 
+ 		/* UM must re-enable their session before requesting new dumps. */
+
 -- 
-2.56.0.176.g3575e65682-goog
+2.55.0
 
