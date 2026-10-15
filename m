@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589404F4D1B;
-	Thu, 15 Oct 2026 15:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10163C769B;
+	Thu, 15 Oct 2026 15:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078666; cv=none; b=V3QTh0loPQxzvEATp0kDnoBE0xSbxL6t2zx2PG8amrzTTIdVtMdDk41w3DgNbdfkojCQJr6S1X5zXIbEa4a/xeXL1zcEeHdM9LZD6r/2qmw6QRAPVlorqj0CSnDaAyaa9N7F9x4C/t4djWl6hMFEpOhtY1Ud9950qrRzZScTlxs=
+	t=1792078668; cv=none; b=lIsElzKqgPH7AQaAhpjmb5c0gPm04AhID2AE0dNxU3bnIeDgXbkeET79P8w85TAsiwLoJYL96tHzykPshPI0LfBbBjo3D+gDoGuBLeaqV0HWExLRZSHiWKY5mgkSHYb9G6SMaJJwBTqL9xw0ky78ZT+HBvq2JQhNFgjxbKzohc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078666; c=relaxed/simple;
-	bh=QG2hh1RjSc+aLRJAe3Gr5kyCwR/YSs4pwgUSE3oxt4M=;
+	s=arc-20240116; t=1792078668; c=relaxed/simple;
+	bh=KCwLuXxtc5PyQygJSwK2YeWQCp2sPlYiXUe4Nl9shtE=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=LVAJXgo1dEvDes1cL1CR7jItm+ycP81Rju5HPKFOqjNxq9PLiGeSKvX5HHoBYFOwvQs4jSURvmnAKgyONRFdeKcGRUStg9sqsNaJ2ukXbGzXUFmBbWijOXjt1a4eyX0RpPuOVzkV2D9LZ+Yc34IRhwMXxlwO8Im0WanwthMOCXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x45xVg4a; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=QkcaY0mF; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=boBvdpeLDw2A/QAjtotVl+L0lmIhPbYc4/IP1IhqO/2glk+6+byLrb1KlD6jphnzNlRYgFwXyZar8HdEUd3p7y5jM11rvlWxPE+xgZrc1D17pOssU+VXoJlEYEU4rF+HTsCZU2o8BDVQ+GS4x3mwbxNbL2KGYTYOXOr12MTIolQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=cAmbAINt; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=5pzbhBSi; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x45xVg4a";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QkcaY0mF"
-Date: Thu, 15 Oct 2026 15:37:29 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="cAmbAINt";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="5pzbhBSi"
+Date: Thu, 15 Oct 2026 15:37:34 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792078651;
+	s=2020; t=1792078655;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RJIyhkVf4+ncqz2eJCW1onnjjfybPnj+fTOQK98iapM=;
-	b=x45xVg4a54d7UGFg69WwOpdZwsIXv52hOi3fZG6SdOMSFGrLGSFryj8rvjCRHJVOKVDXo4
-	Hyf3+zE1wkENhVBSAdg3V61ALtcDi/ARf9LcHp86b8oeKTWgJK/NYnhZtVkW3D7lDBRqH/
-	yOb/oG2BqhojVedgHA2/rb1wVmsT0KOY/sis9tnlLfTetY81uQTV4SLRqhiBvLjn6t+z8G
-	RzbQyr2ICGS5QcZX0U0eDLzkjLQTTR1M6yiCQcmnyQX1lPCYD7bkYWeGr0h4iC3aewlJQx
-	tjuZYySxzGegkeKZoPMCRtWDGiDwDGS36nQZ4O3ubDuwEtuNqCQdbmZWFxrO0g==
+	bh=PLjPiqL7KXtDjAP06q6wJTwMApoKlr+hNFggeqvVoQA=;
+	b=cAmbAINtCcOW6i7PyNaWFkOkM9TCp6jEsIB5oF8xXq6EilrY9qmva361Kdm/ZqDQYpA/Mn
+	251EwAMxedpUZhphdQgcQ/rm4639x5FkwCNqksjvfnd14aADjtQH/6o5NM9iiqVXrr1lHH
+	6+40k+5+M36E6C9TvTlzCSwk1jBy9f41ihDJGVTf1efdaDogx8GyVZXB3LDbWPiT+jIC3w
+	GJDe7I8W89dQxCP/sbmJbXz5uuLEoayzA+Fea4dOEZLKXRUJLFYw8cI7v4AFTSiPHwAIHA
+	n3ufLhAzTlVLDwY+XakMRyeYHljhMDvCzP/OgC79Vf8d7nAHTstc30hm4S94mg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792078651;
+	s=2020e; t=1792078655;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RJIyhkVf4+ncqz2eJCW1onnjjfybPnj+fTOQK98iapM=;
-	b=QkcaY0mF/Vc7UkjGnpmdOydwsfAOUCdFRZ9Apz0x9yWX5CI4XvGXaFgJEJ07HgRq4+nrwa
-	Ird4uBav0oWTBHBA==
-From: "tip-bot2 for Zhan Xusheng" <tip-bot2@linutronix.de>
+	bh=PLjPiqL7KXtDjAP06q6wJTwMApoKlr+hNFggeqvVoQA=;
+	b=5pzbhBSiszN8Q7NskWE2Dg4uPxpjvxzvp2TojoPPsIisV39NysWX1YVP59AdVztUd8WDwh
+	eFGiEKh46U1MQ1Cw==
+From: tip-bot2 for Thomas =?utf-8?q?Wei=C3=9Fschuh?= <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/vdso] vdso/math64: Add and use __iter_div64_u64_rem()
-Cc: David Laight <david.laight.linux@gmail.com>,
- Zhan Xusheng <zhanxusheng@xiaomi.com>, Thomas Gleixner <tglx@kernel.org>,
- thomas.weissschuh@linutronix.de, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261002153104.1347978-3-zhanxusheng@xiaomi.com>
-References: <20261002153104.1347978-3-zhanxusheng@xiaomi.com>
+Subject: [tip: timers/vdso] vdso: Remove __ASSEMBLER__ guards from vsyscall.h
+Cc: thomas.weissschuh@linutronix.de, Thomas Gleixner <tglx@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To:
+ <20260909-vdso-asm-generic-vsyscall-h-v1-15-63ae856cc659@linutronix.de>
+References:
+ <20260909-vdso-asm-generic-vsyscall-h-v1-15-63ae856cc659@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179207864959.2666988.9385113945974098358.tip-bot2@tip-bot2>
+Message-ID: <179207865410.2666988.3214031288768711393.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,124 +68,85 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the timers/vdso branch of tip:
 
-Commit-ID:     dcd65074e2c593a06bed36178bba6d49d6b6883c
-Gitweb:        https://git.kernel.org/tip/dcd65074e2c593a06bed36178bba6d49d6b=
-6883c
-Author:        Zhan Xusheng <zhanxusheng1024@gmail.com>
-AuthorDate:    Fri, 02 Oct 2026 23:31:00 +08:00
+Commit-ID:     9e61cabcce2bdc14a5e4c0b08b2fbf5515f2ac23
+Gitweb:        https://git.kernel.org/tip/9e61cabcce2bdc14a5e4c0b08b2fbf5515f=
+2ac23
+Author:        Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
+AuthorDate:    Wed, 09 Sep 2026 10:51:28 +02:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
 CommitterDate: Thu, 15 Oct 2026 17:33:20 +02:00
 
-vdso/math64: Add and use __iter_div64_u64_rem()
+vdso: Remove __ASSEMBLER__ guards from vsyscall.h
 
-The vDSO basetimes for CLOCK_MONOTONIC and CLOCK_BOOTTIME are stored in
-the scaled nanoseconds of tkr_mono, so normalising them requires a
-division by NSEC_PER_SEC << shift.  That divisor does not fit the u32
-parameter of __iter_div_u64_rem(), so update_vdso_time_data() open-codes
-the same iterative division twice.
+These headers are only used from regular C code.
 
-Repeated subtraction is the appropriate form at these two sites because
-the quotient never exceeds one.  accumulate_nsecs_to_secs() keeps
-xtime_nsec below one scaled second, and the offset added to it is a
-normalised timespec64 fraction, so the dividend stays below twice the
-divisor.  That bound holds on every architecture, which matters more here
-than the cost of a division on any particular one.
+Remove the unnecessary guards.
 
-Add __iter_div64_u64_rem(), the u64-divisor counterpart of
-__iter_div_u64_rem(), and use it at both sites.  Return the quotient as a
-u32 for consistency with the u32-divisor variant; the bound above leaves
-no use for a wider type.
-
-Store the remainder directly into the basetime, as the coarse clocks
-already do.  The CLOCK_BOOTTIME copy of the CLOCK_MONOTONIC values then
-takes both fields from the same place.
-
-Folding the two open-coded loops into one inlined helper removes 16 bytes
-of vsyscall.o text on x86-64 with gcc 13.
-
-No functional change.
-
-Suggested-by: David Laight <david.laight.linux@gmail.com>
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Signed-off-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
-Link: https://patch.msgid.link/20261002153104.1347978-3-zhanxusheng@xiaomi.com
+Link: https://patch.msgid.link/20260909-vdso-asm-generic-vsyscall-h-v1-15-63a=
+e856cc659@linutronix.de
 ---
- include/vdso/math64.h  | 20 ++++++++++++++++++++
- kernel/time/vsyscall.c | 16 +++++-----------
- 2 files changed, 25 insertions(+), 11 deletions(-)
+ arch/arm/include/asm/vdso/vsyscall.h   | 4 ----
+ arch/arm64/include/asm/vdso/vsyscall.h | 4 ----
+ include/vdso/vsyscall.h                | 4 ----
+ 3 files changed, 12 deletions(-)
 
-diff --git a/include/vdso/math64.h b/include/vdso/math64.h
-index 3c08909..6f1e311 100644
---- a/include/vdso/math64.h
-+++ b/include/vdso/math64.h
-@@ -24,6 +24,26 @@ static __always_inline u32 __iter_div_u64_rem(u64 dividend=
-, u32 divisor, u64 *re
- 	return ret;
- }
+diff --git a/arch/arm/include/asm/vdso/vsyscall.h b/arch/arm/include/asm/vdso=
+/vsyscall.h
+index 14f2ea9..b97dda1 100644
+--- a/arch/arm/include/asm/vdso/vsyscall.h
++++ b/arch/arm/include/asm/vdso/vsyscall.h
+@@ -2,8 +2,6 @@
+ #ifndef __ASM_VDSO_VSYSCALL_H
+ #define __ASM_VDSO_VSYSCALL_H
 =20
-+static __always_inline u32 __iter_div64_u64_rem(u64 dividend, u64 divisor, u=
-64 *remainder)
-+{
-+	u32 ret =3D 0;
-+
-+	while (dividend >=3D divisor) {
-+		/*
-+		 * Prevent the compiler from optimising this loop into a
-+		 * modulo operation.
-+		 */
-+		OPTIMIZER_HIDE_VAR(dividend);
-+
-+		dividend -=3D divisor;
-+		ret++;
-+	}
-+
-+	*remainder =3D dividend;
-+
-+	return ret;
-+}
-+
- #if defined(CONFIG_ARCH_SUPPORTS_INT128) && defined(__SIZEOF_INT128__)
-=20
- #ifndef mul_u64_u32_add_u64_shr
-diff --git a/kernel/time/vsyscall.c b/kernel/time/vsyscall.c
-index b314d6d..bd57c54 100644
---- a/kernel/time/vsyscall.c
-+++ b/kernel/time/vsyscall.c
-@@ -54,14 +54,12 @@ static inline void update_vdso_time_data(struct vdso_time=
-_data *vdata, struct ti
-=20
- 	nsec =3D tk->tkr_mono.xtime_nsec;
- 	nsec +=3D ((u64)tk->wall_to_monotonic.tv_nsec << tk->tkr_mono.shift);
--	while (nsec >=3D (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift)) {
--		nsec -=3D (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift);
--		vdso_ts->sec++;
--	}
--	vdso_ts->nsec	=3D nsec;
-+	vdso_ts->sec	+=3D __iter_div64_u64_rem(nsec, (u64)NSEC_PER_SEC << tk->tkr_m=
-ono.shift,
-+						&vdso_ts->nsec);
-=20
- 	/* Copy MONOTONIC time for BOOTTIME */
- 	sec	=3D vdso_ts->sec;
-+	nsec	=3D vdso_ts->nsec;
- 	/* Add the boot offset */
- 	sec	+=3D tk->monotonic_to_boot.tv_sec;
- 	nsec	+=3D (u64)tk->monotonic_to_boot.tv_nsec << tk->tkr_mono.shift;
-@@ -69,12 +67,8 @@ static inline void update_vdso_time_data(struct vdso_time_=
-data *vdata, struct ti
- 	/* CLOCK_BOOTTIME */
- 	vdso_ts		=3D &vc[CS_HRES_COARSE].basetime[CLOCK_BOOTTIME];
- 	vdso_ts->sec	=3D sec;
+-#ifndef __ASSEMBLY__
 -
--	while (nsec >=3D (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift)) {
--		nsec -=3D (((u64)NSEC_PER_SEC) << tk->tkr_mono.shift);
--		vdso_ts->sec++;
--	}
--	vdso_ts->nsec	=3D nsec;
-+	vdso_ts->sec	+=3D __iter_div64_u64_rem(nsec, (u64)NSEC_PER_SEC << tk->tkr_m=
-ono.shift,
-+						&vdso_ts->nsec);
+ #include <vdso/datapage.h>
+ #include <asm/cacheflush.h>
 =20
- 	/* CLOCK_MONOTONIC_RAW */
- 	vdso_ts		=3D &vc[CS_RAW].basetime[CLOCK_MONOTONIC_RAW];
+@@ -14,6 +12,4 @@ void __arch_sync_vdso_time_data(struct vdso_time_data *vdat=
+a)
+ }
+ #define __arch_sync_vdso_time_data __arch_sync_vdso_time_data
+=20
+-#endif /* !__ASSEMBLY__ */
+-
+ #endif /* __ASM_VDSO_VSYSCALL_H */
+diff --git a/arch/arm64/include/asm/vdso/vsyscall.h b/arch/arm64/include/asm/=
+vdso/vsyscall.h
+index 7d9d6bd..7c46c37 100644
+--- a/arch/arm64/include/asm/vdso/vsyscall.h
++++ b/arch/arm64/include/asm/vdso/vsyscall.h
+@@ -2,8 +2,6 @@
+ #ifndef __ASM_VDSO_VSYSCALL_H
+ #define __ASM_VDSO_VSYSCALL_H
+=20
+-#ifndef __ASSEMBLER__
+-
+ #include <vdso/datapage.h>
+=20
+ #define VDSO_PRECISION_MASK	~(0xFF00ULL<<48)
+@@ -19,6 +17,4 @@ void __arch_update_vdso_clock(struct vdso_clock *vc)
+ }
+ #define __arch_update_vdso_clock __arch_update_vdso_clock
+=20
+-#endif /* !__ASSEMBLER__ */
+-
+ #endif /* __ASM_VDSO_VSYSCALL_H */
+diff --git a/include/vdso/vsyscall.h b/include/vdso/vsyscall.h
+index 29dd4e0..af62bbf 100644
+--- a/include/vdso/vsyscall.h
++++ b/include/vdso/vsyscall.h
+@@ -2,10 +2,6 @@
+ #ifndef __VDSO_VSYSCALL_H
+ #define __VDSO_VSYSCALL_H
+=20
+-#ifndef __ASSEMBLER__
+-
+ #include <asm/vdso/vsyscall.h>
+=20
+-#endif /* !__ASSEMBLER__ */
+-
+ #endif /* __VDSO_VSYSCALL_H */
