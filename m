@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002C8559C8E
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 16:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA9B556BB0;
+	Thu, 15 Oct 2026 16:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080149; cv=none; b=Fbz+rta6r7E98+CW/iS+l40H/7Ipt3+BEN7abuAffnUqOjrn26NayWLrXpRhjQYLByeL3euMOr0iYatkeLIiZThW4yP2gftSyNZYH5UeXzotKp+dgGs5HRcTnIZJBNSKw9LLygILBAi2xETRPCSavBy2vlOA812+ncI41zuFDfk=
+	t=1792080152; cv=none; b=KCbtyr9ScUS9fVdhizt+8G2LRGPBt1Gz/itvi8KnUARwHtXRgnOskQvUvTDj9ltFsm5nkE5kKHj5JeUfEdCQscp7Tzo5z8u97h9s/AkjfiB3Dhxa4iupdDyIP4s4d7QpgXkVy0cShMIdpyOmlJ/kFMYxrY50MAjl29oxfrySSAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080149; c=relaxed/simple;
-	bh=1/BCW9hL/dnqi+MjTOyiCQgen+JFtJ2RNU3tcWIbF0k=;
+	s=arc-20240116; t=1792080152; c=relaxed/simple;
+	bh=Czvt44X6DDysIgSQfM2QO9aBtA+UnKbZ7JYyFYl0fho=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kU/dMB2KqY0nYwHpm3NhCfYcrjIPMNWkVdkabCjCornNBBM0NzONAH10CCAKrYpUIsPuuCHJqQ5npqHcY0mqe0kxIPKipcmYe/vV0DGmpWIwoZnx32049O4wVRz1yPwLYNb5dI3BbIhd1t52nn98/v8xzyEuWxEpTkaxmIPFKZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YbsK4dDk; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=R/+1kAiz5VmFIvROA3jfaq6SOLY7Da8cJxXTx7S09xguRIlerILt+82qthZ7j2UQySl7dkUqM/gMLZqZSgb1oO1R0c1bbWsYCnNCIOfFqy4iUnvEBMHj3RAo5iQOLs2tU9tdD1mw6uEQwB2IywcwoD/dJ+437kSWw9+8VEjeO+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=o7TXHpLL; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YbsK4dDk"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="o7TXHpLL"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 535824E41249;
-	Thu, 15 Oct 2026 16:02:11 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9A95A1A1244;
+	Thu, 15 Oct 2026 16:02:18 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 11E366075C;
-	Thu, 15 Oct 2026 16:02:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3887410328C76;
-	Thu, 15 Oct 2026 18:02:02 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6DA386075C;
+	Thu, 15 Oct 2026 16:02:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C1F410328D09;
+	Thu, 15 Oct 2026 18:02:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080125; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792080132; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=6BO4/TMDN+AnX7zo6BpkAHZoFqQTddTDZMpqSSN1Y88=;
-	b=YbsK4dDkdw8cpJW1uT51lUNexQ/MUagKsifJKYr/Twca5is8nt395izZ79rVefGvY9wT8P
-	B66zV9haE1mrzIcJHRgJF0ZQndGIE4da+tSSgqRuBQBtYiyJDvIeOBnHYq7TEuYsef9nNs
-	SSvbK20HOtepxw3shYudVlXfFEmtZ2YBoI+AqLYiyQ3hqSTHUukmY1K+um5C1c1mehp71g
-	JF1LGkqmKgIori5mBbyX78deBkBJvISkNkK8gkw8LXeNMr+3jrpczOe0KNCEgm5H4KmzQ9
-	yBj9zXHV04QORf3Dk9yyj5gAlb60jo1qYoLlD9snjWSbq/RVMM7pX5OFxw7CmQ==
+	bh=CMFy2QOZK7zANSOk5PDCpb3dFWclqXWbQfTgV5KP3e4=;
+	b=o7TXHpLLorhxrFanhAhVhqads2VpvOYzZruhknmQ/+eTmcIRa8mxXI5ppl/RNrNwdl6v90
+	oOVc/tp9Vq1z+AkWvtgzmCIsLDNQEhPyCo7EIHXY+4iB+7WAjq0rAOeD4dntpQd8cQQZul
+	a4a/ENSgDcAsi7vVHIy6hzUyV95vc7u6YetG05HA5ZODWVam/cCBKqO+9ZZuqhUu982vFi
+	k8fZvnq12LBv6hZPoGLgXycm/nOHwMrqq/eGhnG25TWc8fYQwqQeQED79RJjt8Us1/6oMc
+	qPVCSy/pthXbxlQ0Y+XE3R8sRlfntiOQqUWFY8t3gwmZ3eh7m6QNM0D0O1W+aA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 18:01:18 +0200
-Subject: [PATCH v10 05/10] clk: nuvoton: ma35d1: Use device managed helpers
- for fixed rate clocks
+Date: Thu, 15 Oct 2026 18:01:19 +0200
+Subject: [PATCH v10 06/10] clk: Create
+ devm_clk_hw_register_fixed_rate_parent_hw()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-5-47c97b54a809@bootlin.com>
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-6-47c97b54a809@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
 In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -67,72 +67,43 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Most of the clocks are already registered with device managed helpers,
-except the fixed clocks. Harmonize the driver by using the already
-available managed helper for that.
+clk-provider.h exposes many different helpers to help registering
+clocks. Most of them expose both a 'basic' variant and their 'devm_'
+extension (with just the last parameter of the inner function call
+becoming true instead of false). Do the same with:
+
+     clk_hw_register_fixed_rate_parent_hw() by creating
+devm_clk_hw_register_fixed_rate_parent_hw().
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ include/linux/clk-provider.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 65a2691002a7..8fab3c563316 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -139,9 +139,9 @@ static const struct clk_div_table eadc_div_table[] = {
- 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
- };
- 
--static struct clk_hw *ma35d1_clk_fixed(const char *name, int rate)
-+static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
- {
--	return clk_hw_register_fixed_rate(NULL, name, NULL, 0, rate);
-+	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
- }
- 
- static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
-@@ -280,24 +280,24 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	 * purposes.
- 	 */
- 	if (num_clks == 1) {
--		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
--		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
-+		hws[HXT] = ma35d1_clk_fixed(dev, "hxt", 24000000);
-+		hws[LXT] = ma35d1_clk_fixed(dev, "lxt", 32768);
- 	}
- 
- 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 0);
- 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 1);
--	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
-+	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
- 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
- 					 clk_base + REG_CLK_PWRCTL, 2);
--	hws[LIRC] = ma35d1_clk_fixed("lirc", 32000);
-+	hws[LIRC] = ma35d1_clk_fixed(dev, "lirc", 32000);
- 	hws[LIRC_GATE] = ma35d1_clk_gate(dev, "lirc_gate", "lirc",
- 					 clk_base + REG_CLK_PWRCTL, 3);
- 
- 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
--	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
-+	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
- 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
- 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
-@@ -338,8 +338,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
- 	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
- 
--	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
--	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
-+	hws[USBPHY0] = ma35d1_clk_fixed(dev, "usbphy0", 480000000);
-+	hws[USBPHY1] = ma35d1_clk_fixed(dev, "usbphy1", 480000000);
- 
- 	/* DDR */
- 	hws[DDR0_GATE] = ma35d1_clk_gate(dev, "ddr0_gate", "ddrpll",
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index a355d1ee5189..c2b80cb3ab0b 100644
+--- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -458,6 +458,19 @@ struct clk *clk_register_fixed_rate(struct device *dev, const char *name,
+ 					     fixed_rate)		      \
+ 	__clk_hw_register_fixed_rate((dev), NULL, (name), NULL, (parent_hw),  \
+ 				     NULL, (flags), (fixed_rate), 0, 0, false)
++/**
++ * devm_clk_hw_register_fixed_rate_parent_hw - register fixed-rate clock with
++ * the clock framework
++ * @dev: device that is registering this clock
++ * @name: name of this clock
++ * @parent_hw: pointer to parent clk
++ * @flags: framework-specific flags
++ * @fixed_rate: non-adjustable clock rate
++ */
++#define devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, flags, \
++						  fixed_rate)		       \
++	__clk_hw_register_fixed_rate((dev), NULL, (name), NULL, (parent_hw),   \
++				     NULL, (flags), (fixed_rate), 0, 0, true)
+ /**
+  * clk_hw_register_fixed_rate_parent_data - register fixed-rate clock with
+  * the clock framework
 
 -- 
 2.55.0
