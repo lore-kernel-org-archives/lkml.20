@@ -1,57 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EA3598C0A;
-	Thu, 15 Oct 2026 20:39:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEA256E051;
+	Thu, 15 Oct 2026 20:40:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096750; cv=none; b=Xz2rWp9uFPhSKwxrEnpxST2bIdWPdfbl4WMw1soBXbaichG/8d4KQlFifTz/Ev70sh10VBpAwT9hpJr+fRWqvUMSp7UI91qce592lgUpGIcMUw56HtGOrSC68pr5sUILtNwjrDMC4IIniZoZrwCGhEWDpS+7DNDvT8+/GBahLb4=
+	t=1792096854; cv=none; b=kpboJ2at4AUPGY0iKBv5Cku529CJV/IKK1a1C72+j0MExYLVEqqh2jNTNM4rf/q1PIBZ/aykKy9UkLtWcqCxkfU31KJ51oCvHBCEZ0PEowEAr1bkEu9JyJRt1rcWIuKCj8TBYu8mu4SMo81T9oFdR6BKQD0g9MYcSKC/g4eOZn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096750; c=relaxed/simple;
-	bh=gndoiN0HGGrSX8vXu1lvn7okm6dRgbzBufiibmcRMKY=;
+	s=arc-20240116; t=1792096854; c=relaxed/simple;
+	bh=awhRxtTb59uFrw9BcmOadR/YY1+NLLAGsGfYTgdJp4k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MvrIv65qb8jNsyDw/+JJPOTp6Ua+Y/+07xX+XI2ZTinRkPKHDrnZDFjMIZJdbs4qtBhht6rPraJ2WX75rT2EzSxnyAy8XZFWJ+pkItvalkBmBfPhFNMzpadtO+IcY6igaRPfyvnn8R1hgJUhMz0uS/4O5p0UWIHpImdog/936AI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQpKjQBy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lbNZiZ19DKK/p67fqjEUJ93vlYihNqeQam8Bvov7ZPaOfKC46vlTNfKx727PVqQTD3CgnESOmkkagNjyFf7bSLf49hXX31MkVCmg5Ndf9M5LTc2jLPYs4Lry4VSlSPCyr1LuEfIyEYIecYCmVUTt3KGLqyiM0Q44UVrsvQN8QaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FeSobAKI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQpKjQBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2FA71F000C4;
-	Thu, 15 Oct 2026 20:39:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FeSobAKI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721E81F000C4;
+	Thu, 15 Oct 2026 20:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792096742;
-	bh=d62YmESqtgY8UCW/mdTw/JJnpWt2aagGW+KCVm98MR8=;
+	s=k20260515; t=1792096850;
+	bh=awhRxtTb59uFrw9BcmOadR/YY1+NLLAGsGfYTgdJp4k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kQpKjQByrEICicmMWr+wQGdGKMF2OggpserEgG2Y3YkxkDS+Kx8FVuhFu33Cr78W4
-	 Ax0eh09IllwZT9ANuVLkPdWBh5i49beZz7SZWhkCJBqpQp3yJlLDPzb5fqE/nYF8jv
-	 M48O2eFcvf69MbXCcNE936pHksotcEtR6Gi3R1N0Bn8cGqw6rS3ks7AitnqRjwSLDo
-	 7w9Jk7Ew8dTSNkmpN8zOTfphsvhRBNb53cGlHQ4u9/6z8IVT9O7oooQvWnNmr+PBsE
-	 Zr0Z4BiHv+HjZ6qrBbOQGvAj5g0bk2WjgOqyGhvAMjPLYvqu+Cn8WforgRIy4ZMjri
-	 GXlgNugbXAVJw==
-Date: Thu, 15 Oct 2026 15:39:00 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andrew Lunn <andrew@lunn.ch>, Simon Horman <horms@kernel.org>,
-	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
-	Eric Dumazet <edumazet@kernel.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	Russell King <linux@armlinux.org.uk>,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>
-Subject: Re: [PATCH net-next v3 05/13] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW support
-Message-ID: <179209673997.3126689.17711678980732766735.robh@kernel.org>
-References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261014131906.990077-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	b=FeSobAKIBHtsxNGahwJm3YVst3IQFjTWGtlNOyojnC4A4Fp4N4J5cTYEiE1h91DaU
+	 OsaDc+zbFhl+6ZKDHlpSyTfUrqBj89vMq9bAvgY+CIjVg9cn7ZRTLpdOm99Hqi55Mj
+	 VzT5lUBy2+PqY29fF3sPnlIwL+ZBRctYw7Nx/SGjpn98ZffztBF7d+0/8gK5219gZ/
+	 oXzlXZFgxGnuCN/foPqyif7We/eTR+W8T2+byTpzDTQ0YbXJM9v9P6oFh30lKdf9eB
+	 3fNb3ka6aDBRjT65LsFNLQ6GjScvxyD33SyucdF4Led0g8s5ERzpPhyMyVh25vdzZT
+	 Vt46uaxBjk45w==
+Date: Thu, 15 Oct 2026 22:40:46 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Michal Simek <michal.simek@amd.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8] i2c: xiic: restore non-managed runtime PM to fix clk
+ WARN flood
+Message-ID: <atE6LA8SFpFvZfzZ@zenone.zhora.eu>
+References: <20261014-i2c-xiic-restore-runtime-pm-teardown-v8-1-40668c270069@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,40 +44,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014131906.990077-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261014-i2c-xiic-restore-runtime-pm-teardown-v8-1-40668c270069@nexthop.ai>
 
+Hi Abdurrahman,
 
-On Wed, 14 Oct 2026 14:18:53 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Extend the A5PSW DSA binding to cover the ETHSW variant used on newer
-> Renesas RZ/T2H and RZ/N2H SoCs. ETHSW is derived from the A5PSW switch
-> found on RZ/N1 but differs in register layout, clocking and interrupt
-> topology, and exposes four ports in total (including the CPU/management
-> port) instead of five.
-> 
-> Add a dedicated compatible for RZ/T2H and use it as the fallback
-> compatible for RZ/N2H, since both SoCs integrate the same ETHSW IP.
-> 
-> Also make interrupts and interrupt-names required for all supported
-> variants. The existing RZ/N1 SoC DTSI already provides both properties,
-> so this change does not require updates to existing RZ/N1 device trees.
-> 
-> Add myself as a co-maintainer of the binding to support ongoing work on
-> the ETHSW family across RZ/T2H and RZ/N2H devices.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
-> - Added a restriction to disallow port@4
-> - Updated commit message
-> 
-> v1->v2:
-> - Added full names for SoCs
-> ---
->  .../bindings/net/dsa/renesas,rzn1-a5psw.yaml  | 157 +++++++++++++++---
->  1 file changed, 133 insertions(+), 24 deletions(-)
-> 
+On Wed, Oct 14, 2026 at 04:56:55PM -0700, Abdurrahman Hussain wrote:
+> The devres conversion replaced manual pm_runtime_enable()/disable() with
+> devm_pm_runtime_set_active_enabled() and dropped the remove-time runtime
+> PM teardown. The managed release tears runtime PM down in the wrong
+> order: it calls pm_runtime_dont_use_autosuspend() before
+> pm_runtime_disable(), i.e. while runtime PM is still enabled, and devres
+> is LIFO so the devm_clk_get_enabled() release runs afterwards.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+...
 
+> Fixes: 50c63491ff26 ("i2c: xiic: switch to devres managed APIs")
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
+pushed to i2c/i2c-fixes.
+
+Thanks,
+Andi
