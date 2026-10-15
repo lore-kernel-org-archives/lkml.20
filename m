@@ -1,332 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-237.mta1.migadu.com [95.215.58.237])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2813EDAB5;
-	Thu, 15 Oct 2026 05:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB03EDE60
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.237
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792042754; cv=none; b=u3ePiTqpidKv9xEd45Gcj6ByjVPhCAC9mbDCB1keFPb0BQzF0ImXY6eR9iom3p2evQhPygn5Fs8o6fNUkJ//BRPz2VQOP9UT7dBl+wyM/lwrlrCf9b6aWfi4qZIUiz22JxBkBzKq+rbIuYdg++SsHtFUu+J8pAAsQebL2JRW7nU=
+	t=1792042774; cv=none; b=Rg8BqAWqpR6YqO/L0F72AiR/o7A11xGBm06mdCFrxM8zpsyva+ivkangzJ4Hq2OUkyGN7r7t97WnztlelagWtRLXuV7KY+losvZ22Leh+8onKf6Xng0CrgWPtY7rwLRTjHvkKOSYVgaGnFHydl9ewXWdJBosu2nygKz7QfcpUp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792042754; c=relaxed/simple;
-	bh=o8s5BLCatUstKb3ybbqQFgLz2EmcwEyHrzL0P2+OafI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DVmXEhoNYWVH0ixftoZKu5R2JUb5lwtkSVAFsQbzPov+rl1GdTcAECmyTCQvuhOCrO4DjMP8ym+2t3Xqz+gF7JkAD7GLoyzGrfx2e2VO/hw2FXV7vJHzyuomajYTEhRxItsyfuy9KNa+aEjUwPTBOO+AS/Ad6Sw3z4HmkOYRzVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XlKz2Lza; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792042774; c=relaxed/simple;
+	bh=7FbM2+eg5UOfZmuq9hM1PptzWVaYqJbij9uFNK5DEfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Jz2F8KoJMEEH+TCzS8/ZrpyuGM3KfLX8v7+MzYdIDAE0rmZkjV2hvxcsDl/sepfrMXhDAGn6gLLi2l5JzMsCoRjo17mAOqX/C0vW10LOKMMnPsCE6N9spvYCOzGxYiPkX/XVDNpqVB0reGztMD7Zo8rNcSxvitssgpMgKHBF4YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=plnongdN; arc=none smtp.client-ip=95.215.58.237
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XlKz2Lza"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36B76C2BD04;
-	Thu, 15 Oct 2026 05:39:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792042754;
-	bh=o8s5BLCatUstKb3ybbqQFgLz2EmcwEyHrzL0P2+OafI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=XlKz2Lza8yZDFeak5gSTY6qcAYt2wv+OGOtB6IIl9f4R9MuJoYjsPzrP539xTJrXE
-	 woAzky04IdJbbFDoP30r1yu0Q9Z/OMplN1/KK+C80atekGh2k16SzMaiGbniRr5q7A
-	 pmjuF7ZQqE4GUsvpNclUhIcDJijPNCMMpp9qhpHRdw+pUS8fONyLEJzEKp4BD4iu0C
-	 e6iV15jZvd77kLPUNpE9Rf6LudT8I6ToyicMHqlWgesRS6HY1TygwH9j70bJOt+TAv
-	 R6D+uU+lEddDVrmNjked94weHmkbo9DysYmx+Y4K9cvf3zWSVsUpMdl8qXCd/o1LUW
-	 sAmml9Ofvtoqg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 23C1CCC6B39;
-	Thu, 15 Oct 2026 05:39:14 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Thu, 15 Oct 2026 13:38:59 +0800
-Subject: [PATCH net v4 5/6] can: rockchip_canfd: serialize TX with bus-off
- and restart
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="plnongdN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7FbM2+eg5UOfZmuq9hM1PptzWVaYqJbij9uFNK5DEfE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792042769; v=1; x=1792647569;
+ b=plnongdNlx/ABXxa3ODTNMeAa9/Ne7seuCIHHmuMvF8xSjU91QiUZkvIHCR28Ei+7C3ETtMH
+ f7YCkRrt4N3aXa/cmMYrJ/qVmdwgvBKTwLllIxv6/V25nxQCXh/Q7VlF4+z4t30UsN8qU2Uy2q5
+ ZXEmzh00Kbkh/ClF0/f6FY5Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d9d6b683631b8ce6;
+	Thu, 15 Oct 2026 05:39:29 +0000
+X-Mizu-Trace-ID: d9d6b683631b8ce6
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: kas@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	jannh@google.com
+Subject: Re: [PATCH v5 8/9] mm/collapse: call collapse_file() from collapse_single_pmd()
+Date: Thu, 15 Oct 2026 13:39:20 +0800
+Message-ID: <20261015053920.64675-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261014171145.3292736-9-kas@kernel.org>
+References: <20261014171145.3292736-9-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-rockchip-canfd-restart-close-v4-5-ad149ff79450@qq.com>
-References: <20261015-rockchip-canfd-restart-close-v4-0-ad149ff79450@qq.com>
-In-Reply-To: <20261015-rockchip-canfd-restart-close-v4-0-ad149ff79450@qq.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- "David S. Miller" <davem@davemloft.net>, 
- Wolfgang Grandegger <wg@grandegger.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792042751; l=9578;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=E8RHO+SESSdfNx9kUhsSrlhA9KMHT+XM+HahCJ1rkLo=;
- b=QXeHh6p8PAn0qE7UCamevQ+IoM+G7BDoVykCZek9zvq0esVQtrW/pfIpOIOzkyApUgDOanOex
- VG6MDXzn32GBaUIzDT+FbAfxsF6TH40eJQZxHmTyPf/1QTdxh7u9oU1
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
-
-From: Cunhao Lu <1579567540@qq.com>
-
-The bus-off path resets the controller without waiting for an active
-ndo_start_xmit(). CAN restart flushes the echo ring before calling the
-driver's set_mode(), so disabling TX in that callback is too late.
-A concurrent sender can modify an echo slot during the flush or leave
-an occupied slot for a frame discarded by restart.
-
-Serialize TX submission, RX-side completion and retry with a private
-lock and an enabled flag. Disable TX and drain these users before
-publishing CAN_STATE_BUS_OFF, resetting the controller or scheduling
-recovery. Reject further submissions with NETDEV_TX_BUSY. This also
-protects manual recovery, which is possible once BUS_OFF is visible.
-
-After initialization, restore carrier, enable TX, resume IRQ handling and
-wake the queue under the same lock. Restoring carrier after draining the
-old bus-off IRQ prevents that IRQ's carrier update from leaving a manual
-restart with carrier off. Doing so before resuming IRQ handling lets a
-new bus-off take precedence.
-
-Keep shared IRQ handling suspended during open until initialization is
-complete, and leave TX disabled on close or failed open. Keep resets and
-synchronous IRQ/work draining outside the lock.
-
-Fixes: b6661d73290c ("can: rockchip_canfd: add TX PATH")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
- drivers/net/can/rockchip/rockchip_canfd-core.c | 51 ++++++++++++++++++++++----
- drivers/net/can/rockchip/rockchip_canfd-rx.c   | 22 +++++++----
- drivers/net/can/rockchip/rockchip_canfd-tx.c   | 16 +++++++-
- drivers/net/can/rockchip/rockchip_canfd.h      |  3 ++
- 4 files changed, 75 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
-index 4b3db07242395..150748c0b6845 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-core.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
-@@ -326,6 +326,35 @@ static void rkcanfd_chip_start(struct rkcanfd_priv *priv)
- 		   rkcanfd_read(priv, RKCANFD_REG_MODE));
- }
- 
-+static void rkcanfd_tx_disable(struct rkcanfd_priv *priv)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+	priv->tx_enabled = false;
-+	netif_stop_queue(priv->ndev);
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+}
-+
-+static void rkcanfd_chip_start_finish(struct rkcanfd_priv *priv)
-+{
-+	unsigned long flags;
-+
-+	/* Serialize carrier, IRQ enable and queue wake with a new bus-off. */
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+	/* A manual restart may have raced with the old bus-off IRQ's
-+	 * netif_carrier_off(). That IRQ is now drained; restore carrier
-+	 * before resuming IRQ handling so a new bus-off takes precedence.
-+	 */
-+	netif_carrier_on(priv->ndev);
-+	priv->tx_enabled = true;
-+	/* Publish the initialized state before resuming IRQ handling. */
-+	smp_store_release(&priv->irq_suspended, false);
-+	rkcanfd_chip_interrupts_enable(priv);
-+	netif_wake_queue(priv->ndev);
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+}
-+
- static void __rkcanfd_chip_stop(struct rkcanfd_priv *priv, const enum can_state state)
- {
- 	priv->can.state = state;
-@@ -357,6 +386,7 @@ static int rkcanfd_set_mode(struct net_device *ndev,
- 
- 	switch (mode) {
- 	case CAN_MODE_START:
-+		rkcanfd_tx_disable(priv);
- 		rkcanfd_chip_interrupts_disable(priv);
- 		/* Flush the interrupt mask write before suspending the handler. */
- 		rkcanfd_read(priv, RKCANFD_REG_INT_MASK);
-@@ -367,10 +397,7 @@ static int rkcanfd_set_mode(struct net_device *ndev,
- 		rkcanfd_timestamp_stop_sync(priv);
- 
- 		rkcanfd_chip_start(priv);
--		/* Publish the initialized state before resuming IRQ handling. */
--		smp_store_release(&priv->irq_suspended, false);
--		rkcanfd_chip_interrupts_enable(priv);
--		netif_wake_queue(ndev);
-+		rkcanfd_chip_start_finish(priv);
- 		break;
- 
- 	default:
-@@ -604,6 +631,12 @@ static int rkcanfd_handle_state_error_int(struct rkcanfd_priv *priv)
- 	 * handles cf == NULL.
- 	 */
- 	skb = rkcanfd_alloc_can_err_skb(priv, &cf, &timestamp);
-+	if (new_state == CAN_STATE_BUS_OFF) {
-+		/* Drain TX before publishing BUS_OFF, which permits a manual
-+		 * restart to flush echo SKBs before calling our set_mode().
-+		 */
-+		rkcanfd_tx_disable(priv);
-+	}
- 	can_change_state(ndev, cf, tx_state, rx_state);
- 
- 	if (new_state == CAN_STATE_BUS_OFF) {
-@@ -749,6 +782,8 @@ static int rkcanfd_open(struct net_device *ndev)
- 	if (err)
- 		goto out_close_candev;
- 
-+	/* A shared IRQ may run as soon as request_irq() succeeds. */
-+	WRITE_ONCE(priv->irq_suspended, true);
- 	rkcanfd_chip_start(priv);
- 	can_rx_offload_enable(&priv->offload);
- 
-@@ -756,13 +791,12 @@ static int rkcanfd_open(struct net_device *ndev)
- 	if (err)
- 		goto out_rkcanfd_chip_stop;
- 
--	rkcanfd_chip_interrupts_enable(priv);
--
--	netif_start_queue(ndev);
-+	rkcanfd_chip_start_finish(priv);
- 
- 	return 0;
- 
- out_rkcanfd_chip_stop:
-+	rkcanfd_tx_disable(priv);
- 	can_rx_offload_disable(&priv->offload);
- 	rkcanfd_chip_stop_sync(priv, CAN_STATE_STOPPED);
- 	pm_runtime_put(ndev->dev.parent);
-@@ -776,7 +810,7 @@ static int rkcanfd_stop(struct net_device *ndev)
- 	struct rkcanfd_priv *priv = netdev_priv(ndev);
- 
- 	close_candev_cancel_restart_sync(ndev);
--	netif_stop_queue(ndev);
-+	rkcanfd_tx_disable(priv);
- 
- 	rkcanfd_chip_interrupts_disable(priv);
- 	free_irq(ndev->irq, priv);
-@@ -939,6 +973,7 @@ static int rkcanfd_probe(struct platform_device *pdev)
- 	priv->can.do_set_mode = rkcanfd_set_mode;
- 	priv->can.do_get_berr_counter = rkcanfd_get_berr_counter;
- 	priv->ndev = ndev;
-+	spin_lock_init(&priv->tx_lock);
- 
- 	match = device_get_match_data(&pdev->dev);
- 	if (match) {
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-rx.c b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-index 24e87daa1df00..9b357bb8fc70e 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-rx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-rx.c
-@@ -91,6 +91,7 @@ rkcanfd_fifo_header_to_cfd_header(const struct rkcanfd_priv *priv,
- 	return len + cfd->len;
- }
- 
-+/* Called with tx_lock held and TX enabled. */
- static int rkcanfd_rxstx_filter(struct rkcanfd_priv *priv,
- 				const struct canfd_frame *cfd_rx, const u32 ts,
- 				bool *tx_done)
-@@ -204,7 +205,9 @@ static int rkcanfd_handle_rx_int_one(struct rkcanfd_priv *priv)
- 	struct canfd_frame cfd[1] = { }, *skb_cfd;
- 	struct rkcanfd_fifo_header header[1] = { };
- 	struct sk_buff *skb;
-+	unsigned long flags;
- 	unsigned int len;
-+	bool tx_done = false;
- 	int err;
- 
- 	/* read header into separate struct and convert it later */
-@@ -237,15 +240,18 @@ static int rkcanfd_handle_rx_int_one(struct rkcanfd_priv *priv)
- 		return 0;
- 	}
- 
--	if (rkcanfd_get_tx_pending(priv)) {
--		bool tx_done = false;
--
-+	/* Do not consume echo SKBs, retry TX or wake the queue after bus-off
-+	 * has handed ownership of the echo ring to the CAN restart path.
-+	 */
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+	err = 0;
-+	if (priv->tx_enabled && rkcanfd_get_tx_pending(priv))
- 		err = rkcanfd_rxstx_filter(priv, cfd, header->ts, &tx_done);
--		if (err)
--			return err;
--		if (tx_done && !(priv->can.ctrlmode & CAN_CTRLMODE_LOOPBACK))
--			return 0;
--	}
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+	if (err)
-+		return err;
-+	if (tx_done && !(priv->can.ctrlmode & CAN_CTRLMODE_LOOPBACK))
-+		return 0;
- 
- 	/* Manual handling of CAN Bus Error counters. See
- 	 * rkcanfd_get_corrected_berr_counter() for detailed
-diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-index 12200dcfd3389..f49ed6d2266d9 100644
---- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
-+++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
-@@ -69,12 +69,19 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	u32 reg_frameinfo, reg_id, reg_cmd;
- 	unsigned int tx_head, frame_len;
- 	const struct canfd_frame *cfd;
-+	unsigned long flags;
- 	int err;
- 	u8 i;
- 
- 	if (can_dev_dropped_skb(ndev, skb))
- 		return NETDEV_TX_OK;
- 
-+	spin_lock_irqsave(&priv->tx_lock, flags);
-+	if (unlikely(!priv->tx_enabled)) {
-+		netif_stop_queue(ndev);
-+		goto out_busy;
-+	}
-+
- 	if (!netif_subqueue_maybe_stop(priv->ndev, 0,
- 				       rkcanfd_get_effective_tx_free(priv),
- 				       RKCANFD_TX_STOP_THRESHOLD,
-@@ -85,7 +92,7 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 				    priv->tx_head, priv->tx_tail,
- 				    rkcanfd_get_tx_pending(priv));
- 
--		return NETDEV_TX_BUSY;
-+		goto out_busy;
- 	}
- 
- 	cfd = (struct canfd_frame *)skb->data;
-@@ -137,7 +144,14 @@ netdev_tx_t rkcanfd_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 				  RKCANFD_TX_STOP_THRESHOLD,
- 				  RKCANFD_TX_START_THRESHOLD);
- 
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+
- 	return NETDEV_TX_OK;
-+
-+out_busy:
-+	spin_unlock_irqrestore(&priv->tx_lock, flags);
-+
-+	return NETDEV_TX_BUSY;
- }
- 
- void rkcanfd_handle_tx_done_one(struct rkcanfd_priv *priv, const u32 ts,
-diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
-index 2743c96ed42f0..4a2bdc205296e 100644
---- a/drivers/net/can/rockchip/rockchip_canfd.h
-+++ b/drivers/net/can/rockchip/rockchip_canfd.h
-@@ -476,6 +476,9 @@ struct rkcanfd_priv {
- 	struct net_device *ndev;
- 
- 	void __iomem *regs;
-+	/* Serialize TX submission/completion with bus-off and restart. */
-+	spinlock_t tx_lock;
-+	bool tx_enabled;
- 	unsigned int tx_head;
- 	unsigned int tx_tail;
- 
-
--- 
-2.34.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On Wed, Oct 14, 2026 at 06:11:41PM +0100, Kiryl Shutsemau (Meta) wrote:
+>collapse_scan_file() reads the page cache to decide whether a table is
+>worth collapsing and, when it is, calls collapse_file() itself.  The
+>caller cannot get between the decision and the collapse.
+>
+>Move the collapse_file() call up into collapse_single_pmd(), so the scan
+>stops at the decision.
+>
+>Two things change with it.  The writeback retry re-runs collapse_file()
+>alone instead of rescanning first; collapse_file() repeats the scan's
+>checks under the page cache lock anyway.  And mm_khugepaged_scan_file
+>fires before the collapse, so for an accepted table its status reads
+>SCAN_SUCCEED; what the collapse made of the table is for
+>mm_khugepaged_collapse_file to report.
+>
+>Preparation for splitting a collapse into a scan under mmap_lock and a
+>run without it.  The file scan has to stop where the anonymous one will.
+>
+>Assisted-by: LLM
+>Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>---
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
