@@ -1,106 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BF9352C51;
-	Thu, 15 Oct 2026 07:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763DD3B14D3;
+	Thu, 15 Oct 2026 08:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051198; cv=none; b=X4u7+vbVfj3AFb0NWpbdNH77ubioQY/hJe6mxlCWuouAEiTvVFu+7hYtDw6vU1kkLGKers0bjmQCry3sjrZQOh3mQzm1T7clkK7dET3857HN5KTveOmGVVVZudXG6Qy8uT4PpKFLZvUiu+2e2YQOOz/5Gvrm0THAmiQP8w3MNtk=
+	t=1792051207; cv=none; b=ZFVWiy0oBSpLv2CEY2P03oVJe6bzAsazJg/7N6mz69wCDwzzCg1h461BTmPfS8cReNfRLCdRka73dwIfSUb5WeE8Whn4Hq6Py9eEqtVfFGpOyeRfCqqNnd1mF1A99g4aXtzeyweCUvbn8SMiw4h1QmN3KKHGWeexynp/9wBKCfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051198; c=relaxed/simple;
-	bh=jxI6QxvXaIT6aWHXL86G5QrtdnzVp7YO5sKU25jyUR8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=hCEIjK9nvCJ3mGXqbA8XwuvRb4+Qg0X3IsJ/U1+wW5Y9/Ojpcs9yzWNLQF4Lcg3FnZHn5taluuRsQJQvx1rKcComSDchFcw0qIgkOo9lq8Iejavoui+owFT4xY6Z91xfj3Z1Kjf7vQwJe8FH5ydPOq4qAJGWNeELr0M1U1gP7D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n2T6JPI+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792051207; c=relaxed/simple;
+	bh=7PdqvHamE5qLFi+NsFi5iJXbKerKoqZg6e7sn0Ep4bY=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=P7LnXIGURD3+1YK7MxzW6y/LJrlE1UQ/xo7aqMhiyavt3C//i3DKUxAbYdbRhGSDfSkQrPBmcZvgUFTuGGfA/vMikfiRgSSGASLBDBKsuAZerikKsRkikweJKJwJtRRqyI0c35tO/b0/7L6L3YuIS64JVRq2MD0KpECWKQuHi0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcS8Jq9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n2T6JPI+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163E51F000C4;
-	Thu, 15 Oct 2026 07:59:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcS8Jq9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF011F000C4;
+	Thu, 15 Oct 2026 08:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792051196;
-	bh=bziVElBgO+YjutTT4zmN77auD30OSZiSiTokpmhkB7U=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=n2T6JPI+D8qhrHR0Y/NUg/hrZeAFiwUWtzqmzc6Q8glAkZ6GyQ/QPmZF/vZhZiGo4
-	 pgxqPlfCSCn8vtBsebs53hcUEhUYobUy2Oyb4Bh6LMUsCgYKHK5GUrPSMo3ETQUDEh
-	 wpJsjAKV8C/YVAwm8eysw7IkwsO+UKuGaMAPIlWzdCp3kwCV+rjAHdelXfNfKTrJR/
-	 il7B/DcOsRZmi9u+PxcaRVT38YavBZHZXii2NPeQ2qeFQ7Ox69OjAGaMKFFSTf2cbK
-	 X5ZaUxz+0WY7vLzhM/s1/+X30Yu+TxVQptzZMnTxGiwbwGboZ2getMW3tIZ86qtOSP
-	 ghFZ98QqnUoiw==
-Message-ID: <4e87af7b-22e5-4dd4-8270-aa73e3539feb@kernel.org>
-Date: Thu, 15 Oct 2026 09:59:54 +0200
+	s=k20260515; t=1792051206;
+	bh=Sqzc6qRT22g84Fna4XRE3SKPfBVSv2OUl7BH2NBKTnE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=OcS8Jq9Z4uMYdiugg5oj5U2y96FQySHyHhdJSHi2kpqhRimO05QteTDFijD1bucGu
+	 HCgAXNdR01OPinclmc0VA3oOqb7ILMToSUsulXv/+G/JBRYkGZXzuoX0B5jGR6Ls6J
+	 hsthi7vaPcvH0PVmFIDQ0GGSx1CaHn8FppKpD/VADFwmmXjvthU5mQjyXyAhi3apMR
+	 4x9XNDwJLWMzK/o3VcWa3eClgxhb2mxvTg09Lj6QCdmk8AfDbugdzG9oy3p25cdxP6
+	 XUqi25auaTQ1ag6Wq3DSOiD2sW1h9R6NqaiuVkFVasw6TXoV9fVciZjxQjOMpjY+MP
+	 0Ba0gC8xe9ZSQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1503392E9CE;
+	Thu, 15 Oct 2026 08:00:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ata: libata: preserve sata_spd link cache across
- ata_dev_init
-From: Damien Le Moal <dlemoal@kernel.org>
-To: tongzhiwei <tongzhiwei@cmss.chinamobile.com>, cassel@kernel.org
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261010075457.882-1-tongzhiwei@cmss.chinamobile.com>
- <9c6bafea-7eef-42c8-b514-bdb0777b9372@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <9c6bafea-7eef-42c8-b514-bdb0777b9372@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next] tools/include: Add Linux-syscall-note to
+ uapi/linux/types.h
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179205120452.3257574.2106728768170589694.git-patchwork-notify@kernel.org>
+Date: Thu, 15 Oct 2026 08:00:04 +0000
+References: <20261014194516.3030362-1-marco.vedovati@crowdstrike.com>
+In-Reply-To: <20261014194516.3030362-1-marco.vedovati@crowdstrike.com>
+To: Marco Vedovati <marco.vedovati@crowdstrike.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, yonghong.song@linux.dev, gregkh@linuxfoundation.org,
+ thomas.weissschuh@linutronix.de, linux-spdx@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-open-source@crowdstrike.com
 
-On 2026/10/15 7:30, Damien Le Moal wrote:
-> On 2026/10/10 9:54, tongzhiwei wrote:
->> a hot-unplug goes through
->> ata_eh_schedule_probe() -> ata_dev_init() -> sata_spd = 0.
->> After commit 69f2c9346313 ("ata: libata: Fix sata_down_spd_limit() when no
->> link speed is reported"), when
->> the device is unplugged, every probe lowers sata_spd_limit, which breaks
->> commit 2dc0b46b5ea3 ("libata: sata_down_spd_limit should return if
->> driver has not recorded sstatus speed"). The harm is, when the device
->> is plugged back, it is limited to low speed which will never be recovered.
->>
->> This patch stops zeroing sata_spd in ata_dev_init (sata_spd was
->> introduced in commit 008a78961ec7 ("libata: improve SATA PHY speed down
->> logic")).  sata_spd is then written only on a successful reset.  At
->> struct ata_port's init time the sata_spd field is zeroed by kzalloc.
->>
->> Fixes: 69f2c9346313 ("ata: libata: Fix sata_down_spd_limit() when no link speed is reported")
->> Assisted-by: LLM
->> Signed-off-by: tongzhiwei <tongzhiwei@cmss.chinamobile.com>
->> ---
->>  drivers/ata/libata-core.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
->> index f482c0a6d7e9..2ddad2e6ebd2 100644
->> --- a/drivers/ata/libata-core.c
->> +++ b/drivers/ata/libata-core.c
->> @@ -5659,7 +5659,7 @@ void ata_dev_init(struct ata_device *dev)
->>  
->>  	/* SATA spd limit is bound to the attached device, reset together */
->>  	link->sata_spd_limit = link->hw_sata_spd_limit;
->> -	link->sata_spd = 0;
->> +	/* link->sata_spd caches last negotiated link speed; not zeroed here */
+Hello:
+
+This patch was applied to bpf/bpf-next.git (master)
+by Daniel Borkmann <daniel@iogearbox.net>:
+
+On Wed, 14 Oct 2026 21:45:16 +0200 you wrote:
+> tools/include/uapi/linux/types.h is the only header under
+> tools/include/uapi/linux/ whose SPDX identifier lacks the
+> Linux-syscall-note exception.
 > 
-> This contradicts the previous comment, so let's make this consistent. E.g.
-> something like:
+> The file was originally added as
+> tools/testing/selftests/bpf/include/uapi/linux/types.h by
+> commit 0a5539f66133 ("bpf: Provide a linux/types.h override for bpf
+> selftests.") without any license header. Then
+> commit 579f1d926c66 ("selftests/bpf: fix broken build due to types.h")
+> added type definitions copied from include/uapi/linux/types.h, which
+> is licensed under GPL-2.0 WITH Linux-syscall-note.
 > 
-> 	/*
-> 	 * The SATA speed limit is bound to the attached device, so reset it
-> 	 * but keep the last negotiated speed indicated by link->sata_spd.
-> 	 */
-> 
-> to replace the previous comment.
-> 
->>  
->>  	/* High bits of dev->flags are used to record warm plug
->>  	 * requests which occur asynchronously.  Synchronize using
+> [...]
 
-Looking at the Sashiko comment on this patch, I think it is valid and should be
-addressed as well.
+Here is the summary with links:
+  - [bpf-next] tools/include: Add Linux-syscall-note to uapi/linux/types.h
+    https://git.kernel.org/bpf/bpf-next/c/f5bffe9f098f
 
-
-
+You are awesome, thank you!
 -- 
-Damien Le Moal
-Western Digital Research
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
