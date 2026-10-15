@@ -1,149 +1,181 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1994349BA;
-	Thu, 15 Oct 2026 08:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A02C4A3D40
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 08:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052746; cv=pass; b=PnDyOuRi4TuvEaNmxj/GzdLH1z1GVzAICxtoqBzU7tZqIBEkZVmF6xhRiz3B4uHF3DepIT9MYw1eoJeCY09kvCGpHSgIE4wgPLIPhUBaSnlAMzQBcYJ4r2ZQhrF/azLGLFSp5izu6fH/KjMcJhIekX1TPD6PM4dAApBjzJpRX9M=
+	t=1792052829; cv=fail; b=iMXNB5CdHhXdd4zqBcU44sTV+1tA4rkwaTrUAdaRsQ35i4b9WpXv6Ti7OSNSmJLR9gYu84zOslDc0M/Dj65AymfKDv8aKKInci8IMEA94OGDGsLKMEMVC2d1A3BZjZ8OBsAkuX/5LX+riLcrKrR57MnQeryykq6r+sezMOG3jAU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052746; c=relaxed/simple;
-	bh=BWiRILA9u6x55hHKY43Wo6zyOOW+UbhVhlu+tMVrbGA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=V32wG/5XR5nTgNA6js097ozJjnegYL1XZZgy87zazvTEvm1HOgaIBlwiY+qfuRA6b3px4+NUl7jq+2TpJY4f8DGzGuMIsrrErNLPNiXPodk/6JpSOQSfwgMh7UNutjqGiC4QypTpsn2FvoXHCsLEoM1QF1p/QHLZZ5SdhYqhOdM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=fjAlKxqU; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1792052829; c=relaxed/simple;
+	bh=Sl6OvtA26dGxGSSr3WIC1l649V8NmXrbKqV6wyBqzfw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=vFAn2SG+4KI9cBZMC9be4FeW3COH3+v51NLdpx08mXdF7dtKmCRtzKRwt6AEqKpJp2cCIie3pmrfbYwooJl+qZm2OX3cVE6AXrEVPxlFn2P2YZf9m6gPv511FTaL0/KLFRW3Z91ONShB0PdSNLXIicDnMtmtMMbXIG3tjaEulmI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Alt6//AQ; arc=fail smtp.client-ip=40.107.209.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="fjAlKxqU"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 13CB7202012;
-	Thu, 15 Oct 2026 10:25:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792052741;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wrxfajdvFmJtNiWzGN9eypZ6XVjairWUkY35gVPYWFY=;
-	b=fjAlKxqUKEH8jDMC0qtq5+KAH4+tBauqPTL5mgqFtf1eXTbMOYh493KztS3VNdSIxr6Gpm
-	3OyLym75xe3LmZzhue3ZISgGsWRTdl56TTUB3l/bN5pxSjSObR3Bgb1XV0CCH6ZlsqZxdl
-	Q1vqqEy5saF0FFbI9guNa+CkUj3k5fzmt10wXmwsgx8CZuGVv/7kurXmnv6iUP3i04koZ7
-	pA10xsAN69Csf2p8PQwOLHHjpJMgvnf7TlulDBR+ROUR2yCzFifogTk3+V/S1MVbDhv3cd
-	XTyfKHfG9HVAaZJuHkoHGQuB2DxHMtD/2F78oz/T1AV5hZPsteEffP/E6zpmNQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792052741; a=rsa-sha256;
-	cv=none;
-	b=CT0ayXFWM58Zj9nkLOzhw5fsBgfii9zgnV38JiL/MHcgu5b5GUN0Rb1KK+3920Ffnk4ePs
-	eGJ50jkBCLreOItbCaO5qIfjkh13Jexqo16kWXkxKpEYq0Ft2C5AhTLZGly3pqS3YtB9fc
-	vh4QFalCX2LZphi/XPdpZf/kPF86gfJLkuKuBo29Q3xawIYH/1p+fe299+F3GjsUISVoLd
-	1EeQqsqE6R4AG9HsQhnap03Q06m0oiDdCbBax24eRfTlsVCrzBCYxxwn/DlJmL566O6Cky
-	YXHVNryQonz2XWWog+Il/YcKBBJELPnHOApCghSdFR87nMLoAcq8ShPYJaIB4w==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792052741;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wrxfajdvFmJtNiWzGN9eypZ6XVjairWUkY35gVPYWFY=;
-	b=VHChhYmOypm0trb/T3G7ioVgQB3Gk+9RkxCOM9hSbJmABlyKnlJMMyZLA286oOH02dFZiM
-	MAsPWPd2+Et6AaLPnrNWgnZqHb5Ohsdk5U9avr5zPYn6GJxjHxxmN2+dbpeO7CA4tFVF8l
-	Y70B0Ol3E/3iBb4CjXW8Xje6tITRAsonYInrkW9ZRcMmJX1LGj0iIca/LBkG0K2rMzp7pp
-	ch7IR3aTtYf8GiVhCFrT6Ldw6m3Lzr5nJ4m1/PBcopUBYeHHmmbJQ29/rgURvxl+KLfVyv
-	TxUUA7+qW9x0jA9rnDvti6tAfSG+bAhx6v3kqD3qbjN3gj50L+iLTFt5GjK+fA==
-Message-ID: <20cc437c1e95aca578ac814c2e0f4f0f3ddd71d4.camel@pengutronix.de>
-Subject: Re: [PATCH v6 09/10] PCI: dw-rockchip: Add system PM support
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>, Lorenzo Pieralisi	
- <lpieralisi@kernel.org>, Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?=	
- <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
- Herring	 <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Heiko
- Stuebner	 <heiko@sntech.de>, Jingoo Han <jingoohan1@gmail.com>, Shawn Lin	
- <shawn.lin@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	 <broonie@kernel.org>, "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kernel@collabora.com
-Date: Thu, 15 Oct 2026 10:25:40 +0200
-In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-9-fbabcca9921b@collabora.com>
-References: 
-	<20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
-	 <20260908-rockchip-pcie-system-suspend-v6-9-fbabcca9921b@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Alt6//AQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bAvnUs9iBglYlCONiL0HxY6PwLEaQAZYfswuGEcMdIeIsyLlZNgkwvFdLuqXSapRtF8Emsn69F4Mh9SAdI8lsaP55X7KsI8/pu+LRDgnxcmuxs91cJBfplhp5jEiEjWsJFkcQke9n6Y8FMkk2Q2DCOo+lYv60A9zZvTtPzPVf0Bd0MZP+wWL8HxNuM5jX5r+SB5nrx2GSNp951Ad0Ds/hdV6N7zNVI+h7Yt3RLnhGifha98U7NN1ostdJMZgTzPz1wWEJB2eeDjmn8YbXkEerFdTTcAapEmbY145VizdMz5D3+3nlduwC1av89EArzWQy6GBtGk6TOMwtFuXAMUNXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WJmnOzEXO+vhAe/hGFvli/CIbp57HmZI/zRr+9Owf9w=;
+ b=zSR78Y9yEA4mG9r/GBGEUuKsYGSOoO1S1V7JCespfu1pjVuZdBL+Gei/8qGF5uxGR73kmCxYwGlMAKFq2xZ5HzokWDLhD1qbvbybKk/hZBqcManh6OdXD+9JHQZwpbfEOUmhUaIh15A5aag4T+3g33R2fLAlI6UtIoaEqWIq1dRHe47YGrb89rP58Vqe188A66JVfWSCRCJMDqTRaaGO12QtMC2NBCz5QTmbiqQJorFMhPawt3zYNESYutNuDhpK/NcajhYIo2+OLUs3DCgY9UWacU7yPTINx2vcc2032Hj+8yPjk+77IPvCtV9YaHnA3lnaQycLLp/pqojxsWEszQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WJmnOzEXO+vhAe/hGFvli/CIbp57HmZI/zRr+9Owf9w=;
+ b=Alt6//AQoe8EingjyXyVuoI/DY9r31BcAz8uOb4IQgRw8CpqqSe1jyr6XrH6ebQW6cSt3Ni8ZGVyaAm6p0NRQ2AwotYVOcke9ul60bcnFzVsLMu8JnxRabe/3r/1VXNDLXhVpHRpRi+zkpWlwEUx1kdeWnVtjehe11LbzpJpWY0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB999107.namprd12.prod.outlook.com (2603:10b6:806:4a2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
+ 2026 08:27:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Thu, 15 Oct 2026
+ 08:27:06 +0000
+Message-ID: <b6ce551d-b37c-40a7-a2b0-07eae754a156@amd.com>
+Date: Thu, 15 Oct 2026 10:27:01 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Fix out-of-bounds write in
+ amdgpu_debugfs_gfxoff_count_read()
+To: yaolu@kylinos.cn, alexander.deucher@amd.com
+Cc: andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261015022024.49233-1-yaolu@kylinos.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261015022024.49233-1-yaolu@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0353.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB999107:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb2ad866-a4ef-445d-51f6-08df2a96181a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|6133799003|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HaxDl/c3ObodAKXf7//ur2EmzgCX0rikdtsrki0EcMbTKYoFaTW0ZKs32nYQp0qZLbTGEm88z+MrY45cQvRXpg/kbtrt0rC9uZrHoTx3/t7YCPZtkK18TOvMk3nnv5RqJpzMD/McTqSpdekLE62KFjyHUmeLOfLYQRrJFgvL0vuJhB2i9tJ4SAAXTsftz+qfLTlHOm04arCnarjqkS+FF5+GWgwrNSdfQJ9WS7kCPfpBW6rIOp0lCdoXz5aZLd6sYt1+NWZlp7HFB1EvE7V2ljh3vSpGWL/Utoh1WbLywkTKQr73tPah2W1QQOH/KhJE0b95kYPK3vzphwXyWfr78iQUoWKO37HhAMMigyssLX9OqsJh4CmsV0EZYhLeRPnz9vN5gBPqFHvzoIzYH1ePjhCZcjQpRChh4Bcu4YFnrIOjr5ec0pfKOo4afhaYOflmLolZOpPBs0uAsZ/i8Y6eBtrKwCt6XlCSfFmfahwIHFQ8g/OT1OiU5Mb6ygrTYvKk1UQ3MP9rkhCWN/hQ92mXjfNzv0kvvJTII2uIeUHE059QX6VrTfqYaNVVRrOZckz+Sij0JJ0iYuLP73781b7OaoVhY4G0ps7AkkMBuuT226KnvN0hNUe862dcBGFS/rWfsFpoy3YyU/GP0j0yZzQ4F2AVVB/GnXeJLguA+jl1Gz0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3ZxbElaVndvcCsza2xFMUhKYjlycWpMUDUxRGY5TkxHeEZSMHpWRWJjUWh2?=
+ =?utf-8?B?ZnJqMGFtdkpwSXB1RGhNY0E5VW9tSUVUeEVQVC84alVTN2dVcjhvN3FBQWcy?=
+ =?utf-8?B?djU3b2hQbTBTTHlLRDZuRjFDUW9QOWs4R09BZFI0YXlnZjhvUUlSSUdBenlF?=
+ =?utf-8?B?U0JsTU15MWdaMnYzR0FlajZwV2Evc25lY2x4R0hyOWQ2akd5cjJwWldFZlNU?=
+ =?utf-8?B?cnhKNUlNM0xjQSsvdVNIWHlUYWZrSW9rcXFVUGRVakt1ZnI3ZEFYY1ZERUVB?=
+ =?utf-8?B?T0pvaytGTDFEM0hPZUpMbjR3WWNJdkRVcHF5bTZ6aEJreWp2YTFyNlhCQTNN?=
+ =?utf-8?B?UXloeUxPdERDVG5iZWdpOGtFRmdvMzdqdVRxQStlaXZaRE4yQ3BnM1dRTS9K?=
+ =?utf-8?B?Q01oTUxidlRGRGN1cmgvcHJFWGcvd1o1cUZBcHZKNThJQ2FQVjlmT3FSOXM0?=
+ =?utf-8?B?cVczc0pmMmcrMTVHckFpaDN1emk0Ni9rWE1qWjdrYWxxL3hoYmE5a3BwNlRD?=
+ =?utf-8?B?MlFUdHQwbTNHdU5VQ05vTEJ1QzR4SEUvTStpVjVKSXZpRTR4dlZOK1g0bDBy?=
+ =?utf-8?B?cEE4d2xMVnByU1drVWdCbENjQlNhWWNrcFJsRWpTVTRPWG9DYkFHcExOKzNZ?=
+ =?utf-8?B?RDBlUXQ2elhFNEVRbHFZVHBOajd3Z3NHS1hPaHI3Z3VsdkU4Sk04Yk56ekNt?=
+ =?utf-8?B?Szd6LzlFUzRRa0Rkb3pmekFiNUdKeWZKeWwycTM0akU3cDVzOFk0eUlQczhM?=
+ =?utf-8?B?U0xhWUtzUjhvVDk4ZG5qeS9vTDc4Vm4wdXFtanRKWUd4S2tSZ1VMWUszRy9M?=
+ =?utf-8?B?aHUyWndWeWxBQkFxRHozNEc5eTBIcFFwTXVNYTl1bk56UjNTUzl6QWlTRmhn?=
+ =?utf-8?B?S2lrQnMzTnFBWjF3K3hwNWduejhSbGczcWpGUGlQdkRlYnR4S01UUEJVMDY0?=
+ =?utf-8?B?eEpWRHhFRWErcTRjd1lLWTRqdVU0TUszSmhMWlQxcE1JU3Zad1BGMkhUY1Vz?=
+ =?utf-8?B?MFdHS2xmU3NSM1U3alRxYkRNWlVxV0I5SDBLbUF1Qm5wemtzYXRvWEV5OHJN?=
+ =?utf-8?B?TWxnSW51NnAxOXF6dVYrMmIyM3dVVm8weWM2Q2tQWEVHYnR5akZaK1RweUVh?=
+ =?utf-8?B?V3RpdjZiTFdTeUVaSE9uMERFNi9iZ1lURU1sS0VlLzFpb1FkbWpoUzlhWVhz?=
+ =?utf-8?B?VWkrL3VNS2YrNnlHUm44aCthMDBFQWc4YjlNSWJ4UDZWcG1Rb1RMZm5BOGVv?=
+ =?utf-8?B?QkJsUW16UnZlZm9HNzNOTGFuRC9UUUMrUWxvTDlqUDRBQ3lNeVR3amcwTnJy?=
+ =?utf-8?B?YlhteWZha0hINE5YWFcvSEEveng5M2NnY21tQXBKM0FIZHlOMkRkZ3paU0NG?=
+ =?utf-8?B?T0hSc1M4NXBjdUczR3grbzYrbStORW50RTN2ZlFVWUlHRXVwY0hEV0FwRU1Q?=
+ =?utf-8?B?YSsyQ3hMa24vQzVRTkgveU1LK3YyOEp3MnVwSlI0emhyeVB0ZFJDVk1tQjFG?=
+ =?utf-8?B?RjFlOTBZZGhHQ3RoZUZMRlZOTWZMLzVjbERjT2JKSGt6T2dDcFRDOFI5TStS?=
+ =?utf-8?B?OVlFRWlqbFRmdDh2VzA0MjFBYlZKU3dCSkVjeDdoODBleVhiK3N1YXl6SzRl?=
+ =?utf-8?B?bHRCdktnV1JoNUpFSm55TWlxVDNQV2J3K0E1MHVuc25mZEpEK3hBcUpDRG1C?=
+ =?utf-8?B?VFU4ZmRJRE81QW1VUnhsVVFnbHpydFBsMTdKMmNFa0d2OWZQNWVabWdOY0NU?=
+ =?utf-8?B?ZjFCY3I5eVpjaVlIT1FoZ01RbEFRV1lCeEdDOE45TmwzY25ReGZRU3ZBdUxC?=
+ =?utf-8?B?d1FRT2xGYmZRL1lNUktGWlR4cTJpL0FDeXNFQ1dFMkZvSFdGcjBqWGIyUFo2?=
+ =?utf-8?B?b04wUHNZSjg5OHh2OWFtWWtkQXBib0t0QTh4andhamdBU1NpdGFKVk9oRVo0?=
+ =?utf-8?B?YW5Rck9GaDVnbmxrT015M0cvSFFsQlVOUzBRZzNuV0NobDl2Yjl2SkIrWGNi?=
+ =?utf-8?B?dE8zY2IxRWdNazdZcngyaUNvUDVoZjNoaS9oeHJ2WG54MzJWWHduNzdyd01n?=
+ =?utf-8?B?N3dvaERmSmxGVmZLOTlFY08xRmFUeUMrSTZPQ0ZjZ0hGRklCUG45YzR3cU5D?=
+ =?utf-8?B?aEYyRkdpbDZrWm1kMnJubVAzVFQ3c1lUbm1ubUNUSldkMEpPUWFYL3U0MDdv?=
+ =?utf-8?B?bXdkNU9IZzExTkllVFpNNlJ0ZVUzamVuT2tDMFc3dnhnbWY5TFhER1lmSEVU?=
+ =?utf-8?B?R3AyeTNGZTJzbWpHZEtzZC94MFh6KytjengyWDV4QkZrK2VmZnVEVS9wMmhC?=
+ =?utf-8?Q?pT28wsDoRuVPMTCGHx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb2ad866-a4ef-445d-51f6-08df2a96181a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:27:05.7556
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /AAFGkGPWmUcsngobBxLHNGQYj6V1X5p+tM/60ETynEpQwEX+jsQaB8w8220Kyb5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB999107
 
-On Di, 2026-09-08 at 16:51 +0200, Sebastian Reichel wrote:
-> Add system PM support for Rockchip PCIe Designware Controllers.
->=20
-> I've tested this on the Rockchip RK3576 EVB1, the Radxa ROCK 4D
-> and the ArmSom Sige5 boards.
->=20
-> While I haven't experienced any issues, most of my tests have been done
-> without any devices attached (i.e. default board without any extras), so
-> there _might_ still be some problems. As system suspend does not work at
-> all right now, I think it makes sense to get at least the basic
-> configurations working as soon as possible as it will allow us to catch
-> regressions by enabling system suspend in CI systems like KernelCI.
->=20
-> Co-developed-by: Shawn Lin <shawn.lin@rock-chips.com>
-> Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+On 10/15/26 04:20, yaolu@kylinos.cn wrote:
+> From: Lu Yao <yaolu@kylinos.cn>
+> 
+> amdgpu_debugfs_gfxoff_count_read() stores a 64-bit GFXOFF entry count with
+> put_user(), but advances buf/pos/size by 4 bytes per iteration.
+> 
+> Fixes: 0ad7347a64ac ("drm/amd: Add detailed GFXOFF stats to debugfs")
+> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
 > ---
->  drivers/pci/controller/dwc/pcie-dw-rockchip.c | 100 ++++++++++++++++++++=
-++++++
->  1 file changed, 100 insertions(+)
->=20
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/=
-controller/dwc/pcie-dw-rockchip.c
-> index 47d9cab909bc..e675918ba184 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -120,6 +120,7 @@ struct rockchip_pcie {
-[...]
-> +static int rockchip_pcie_resume(struct device *dev)
-> +{
-> +	struct rockchip_pcie *rockchip =3D dev_get_drvdata(dev);
-> +	struct dw_pcie *pci =3D &rockchip->pci;
-> +	int ret;
-> +
-> +	if (rockchip->data->mode =3D=3D DW_PCIE_EP_TYPE) {
-> +		dev_err(dev, "resume is not supported in EP mode\n");
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	ret =3D clk_bulk_prepare_enable(rockchip->clk_cnt, rockchip->clks);
-> +	if (ret) {
-> +		dev_err(dev, "clock init failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (rockchip->vpcie3v3) {
-> +		ret =3D regulator_enable(rockchip->vpcie3v3);
-> +		if (ret)
-> +			goto err_disable_clk;
-> +	}
-> +
-> +	ret =3D rockchip_pcie_phy_init(rockchip);
-> +	if (ret) {
-> +		dev_err(dev, "phy init failed: %d\n", ret);
-> +		goto err_disable_regulator;
-> +	}
-> +
-> +	reset_control_deassert(rockchip->rst);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index ab7ccfaea22a..aa44a3f0cdc4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1451,7 +1451,7 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
+>  	ssize_t result = 0;
+>  	int r;
+>  
+> -	if (size & 0x3 || *pos & 0x3)
+> +	if (size & 0x7 || *pos & 0x7)
+>  		return -EINVAL;
+>  
+>  	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> @@ -1471,10 +1471,10 @@ static ssize_t amdgpu_debugfs_gfxoff_count_read(struct file *f, char __user *buf
+>  		if (r)
+>  			goto out;
+>  
+> -		result += 4;
+> -		buf += 4;
+> -		*pos += 4;
+> -		size -= 4;
+> +		result += 8;
+> +		buf += 8;
+> +		*pos += 8;
+> +		size -= 8;
 
-Missing error handling. This is inconsistent with the existing calls in
-rockchip_pcie_probe() and rockchip_pcie_rc_reset_root_port().
+That's a good catch, but the code is a bit questionable to begin with.
 
-regards
-Philipp
+Why are we reading the value multiple times and in binary instead of text?
+
+The same is true for the other amdgpu_debugfs_gfxoff_* functions.
+
+Regards,
+Christian.
+
+>  	}
+>  
+>  	r = result;
+
