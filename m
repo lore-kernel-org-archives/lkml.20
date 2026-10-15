@@ -1,62 +1,64 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977755304BF
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45A552ED59
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 14:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072919; cv=none; b=cG3RYqZU8xd09o9x7zdxt7Q5kyf431dRn/kzEkH7YT7yX6r60qaGgAORk9HQyoe4Rcq474oTHuBR35o1XC36QHe4gjDW3Dt9ID3wD1bSgXgCeLrhte/WO1ExDwU4vbOtjZTPpo4YauV/8J75Khbj+O5e4I13v2j+F4Q+ezNyTBE=
+	t=1792072922; cv=none; b=UwaRbSRMEE5IWafKwbEF38LqCw4okHczzUyJ8fj+7GqqfrOhDofHmnVzvYVFhMplLPjuL/tnI8GNUWJ9P3NKaYFgIhxbojhyZpli5JcXAcrRm8j57pJV1i9WSN67PgvTb3T0RsIUIMxB3T/Qp+a9j5ZPbr8RgI+IB8urRNSlp/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072919; c=relaxed/simple;
-	bh=jMGqcQxXkeLK6oDlI1qcZ9EhHxYpED5iTPacXJnniJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y3rjLuB05K/MeRmw0CxRVPbHp0tml/SobxO8eUJW0p3xktG3YvVEjGtAwbuaiuE5ciLKskH1NVF59RCFMayrsJpCym2jjEbhwEQBcrr2MZg83LShrwyVVj+vZhJMQKtEzlRWudEugZfl9RbFKZR2OKuRvt1SNTyVUa6MuZajroA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Cn69xabe; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1792072922; c=relaxed/simple;
+	bh=1ADOci/irXMmZAVINIckyy0iPqmUh1+EOW3piz+yioo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h5cZB8V7dlMkmEGFnRlMHMc3HCxuScqAudW1drHf7LLsxN1c3nyg9xGnaTy9AUqJSuMLKMQEDwiThdgWhedq++u03spJphHZg1o9GSTP5rAJT7tsvYTzmBTvPI3we38xe6nHcGCtRCl1wrzqQADZfgflifvpWMoUFFyj/ZWEQDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MOeG5iah; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Cn69xabe"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso20907365e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:01:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MOeG5iah"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso50398425e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 07:02:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792072916; x=1792677716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bfykzrnE66xERksJpYGI3+c3xpM8bFlEG4AlHLkeq8c=;
-        b=Cn69xabewviIpkJAjS0NAATFactpOvok/kdfS6XdfCNo3FExC5/ehY24lPCAC1IB6q
-         Xj/oA1q2j7nWGsqw4tCwvqrqk2BaLRoFx2b7LNUY8vuMMQgoSvgK8qxgXeAlpwsesgqr
-         MaVFNo91RYmKCym/hP4MdTQLywt/xUnjRoF20STchfAyOU/Xe4SnujoyraltW98EOzlt
-         F9cB70obgiFWshfULjlXtiroC9+BZXhkvgAKKFBzL00Cq4fT9vFZl6S/0Dde/O608zLI
-         aLpNY3OqYz9Qm4i8VKM7bvCIcLCiCddWBtX91X2crDhSogcoXMtYpVRBiVbdTlKUyIKj
-         es9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072916; x=1792677716;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=suse.com; s=google; t=1792072919; x=1792677719; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bfykzrnE66xERksJpYGI3+c3xpM8bFlEG4AlHLkeq8c=;
-        b=qyyucI8T2zlabZd7v++qS3OO3swkI3eZ6iFzC1WWuse9DIR86L/t5eKeLMAyQpOXem
-         sJqWQZQm6aYrwYJK40wlAOs6rKT6cuc+bSHsm321U4o2FMSu1zaG/vjA/PqoHoXD3SP2
-         FI+AWuPu7BLxNz/9e1awfBiylVehOQ1iO8r3C89aY+/XgfQGvhDI6tl5NBkLiQk/Cfek
-         VwcwlCMfJGLhHo8nD36cwv/aAYd5dC24l/3KEpdLqpgorwrHS+q60tsR7TnOVld2mUOM
-         99O3iNw4pl2LCApPoqi+OdaDKuyumWQ/XfTDm9RmpFao04lDSOJIhM8OHnMFVPOajWXw
-         xx/w==
-X-Gm-Message-State: AFq9FYJdf6KGhVTA1SuiHYbD8Epy/WcfATpjIepBmtTWhst8pHa1JMec
-	WwjQ8YTGPqKD/dsnjGBhp8w8gAzpkcG34ggi7rAeaJTQy6mq7/Zr4WCjx30jMXvzmhyvm0traa4
-	R9Nb27Bk=
-X-Gm-Gg: AYBFou1kD6l4/81cETk19AfQWEbQNxm8dk2HkuouZqWKVVd/4QiLOqlQTE6rslCPaho
-	Jad1NkiGqpjvVYnxC/Qh6rYBursFDb3f3e4YaI/rMNFECZ4NVu3OSJjcLiiMMSawQ62YhH8xvz1
-	R5hFfPa9gR+9uR9GSLZhTeokWjGeP/ECF1YhkEavdDsB0bHR5TlRw+ZmPTsJhisjL7YmDTYct5d
-	ftxH7aPk1Sc6FrQl19XvQ6BR55TCKw4uxPLAZYt+hmS0EWg6HN8Hjv5X98iGSq22P4PCl2SQW/Q
-	kSgdNyvDHU4HlbEUz4EvZfT30dtByhTutCYws8HS1s6LiooEV14nLPBXgw7hOjcrYoNS/Dwxb45
-	exVfUW2jPHwcOsLcaxGa9BOqirz8Hm6IfdaG3Wa6tzX3DGeug7gWnMpYaiXsinY/GR1Y/H8aUkU
-	XVfeAldzc7/wjsizcoA8nJO6OM6cnOHgBAPsDN8PB7yrhuaidFLfeFYiJ7xTxyYu1kUOgpitDzq
-	61D6hhIHg7JlKgJV2Xt3g==
-X-Received: by 2002:a05:600c:19cf:b0:4a0:168f:d962 with SMTP id 5b1f17b1804b1-4a18e44363dmr377835405e9.3.1792072915540;
-        Thu, 15 Oct 2026 07:01:55 -0700 (PDT)
+        bh=68U5GGAVdfTItBWwfs4ReS1T7JMDY6WEApnIqOPfIA0=;
+        b=MOeG5iahE55l1uui7ZKMoFuWNMp7kjZYiD4gkhPFXvUvjXSv935FW4AYAATNz0woRC
+         rVqDz+S0byoI+sEP1r6mnChxM7CxUXwTndf5H7ZF4nA7fEv8cXFP/LI8fgIyxguiMP11
+         Hmt6F3orac/gZTuDLeCBgPyi5wb1CaNuy9nA3tuf2ahMqg0slcYD61F6PZ+mVrnq4DPG
+         49IzUwxNHdJBFxtH73rYSKR0ycc4OSgDdI2FWInAGdSDpHVeJkrSq1ck7gmp1PjWpzHU
+         dkzcYoZwwC63fDJ2XjdBqESQso29RXll2CsqbdQfHs4ktkVOiw7V/PZTtUbIVZ2BAOKB
+         2QvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072919; x=1792677719;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=68U5GGAVdfTItBWwfs4ReS1T7JMDY6WEApnIqOPfIA0=;
+        b=tsUhpSDXemrYNFVe8iPImkrbG782VAngiNb8kT96cu8AF2OmnnwhdQwXCUShkOh0aX
+         iLUCqUGh0Z6LwEG2uj7XOU4yqS/OrrD4uKFRQfKKn9SWwsrFtyTNeswRm2PSi6oOaHz3
+         rVbhdbbRTxAgYZcjBoYK0WUxseFptC2259YqWzhNVyziEL+iH2mcJ8F1I0+VUfQyuobZ
+         DKKmg87kKQ4JQtnvs11Ir2F/gvYmsNvONhNFMhq/LyMcgk7EPuDih7g5jpOm+OeLFzWn
+         csC+rXusBI0lgIf4cG5oLHMZABwy3Qq+edjDkQcwDuZKAU7+ziOQH1Q3LZ597Tbjt0i1
+         rZBw==
+X-Gm-Message-State: AFq9FYL/HLPz6e9B75zrrTA+wiOQNw9oBCLaC65Szw1u72lxDZEdEIGU
+	e7gfjt/nxCvhFNg1IVm7VrP1rVK++s2p/1buZXjYess2hu8P4wpMIU0Sgzk16LoKVYV07HH4RFy
+	4nxYaQXs=
+X-Gm-Gg: AYBFou0oOUDHP7LE72mynLoehqqEq7snvh+o6PDzKID+26/MIVkM7zSDJSnv+qhl36f
+	HQ46h1AgcbfaPLgbwpwEp8shm3noEZB14h1KVASRSGLOBZdDaWoIIBxeRUNYXYHx/8gwnS71bFr
+	QQS6DoENMrsnaxWbnS8+Pwgy8rNEVHFkOHN9bp2tCsw7BnTZxZI7sxgzKTbWNR1Yja6fK6TKWA+
+	1SPvTHdF9BY1YDGkHxLkIkd//BQl/GSQfrZP9qajfhydwFRkCFEzQGBxuKibPiOL+K0iMC2Q/lm
+	PbPzrf1oTQTb5YDGwd0YKx6AW3PfplOLCwfR0VdCfPQ52k4YpygBTuYNWlNYt+Ls0qVKNWGQ2B0
+	0qdC9hLoZydHJNaij9xwiVk7pyYQ6EEsGipGMmMwsrG2X9zD4je2JFQASlgvi+IQGDj1MtCP6qi
+	nZrNCyR2OOAyVVi7qxJROsuZA3fYDhEsnrxJyrYBNGrift51pBgOPNgs53KEOy3vSN1AizmiZsg
+	/JR2TOmUwxs/7sEnLvTag==
+X-Received: by 2002:a05:600c:3488:b0:4a1:7690:d878 with SMTP id 5b1f17b1804b1-4a18e4b8028mr396247885e9.17.1792072916336;
+        Thu, 15 Oct 2026 07:01:56 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd7319c6sm85233365e9.0.2026.10.15.07.01.54
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd7319c6sm85233365e9.0.2026.10.15.07.01.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:01:55 -0700 (PDT)
+        Thu, 15 Oct 2026 07:01:56 -0700 (PDT)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org
 Cc: Tejun Heo <tj@kernel.org>,
@@ -66,10 +68,12 @@ Cc: Tejun Heo <tj@kernel.org>,
 	Marco Crivellari <marco.crivellari@suse.com>,
 	Michal Hocko <mhocko@suse.com>,
 	Breno Leitao <leitao@debian.org>
-Subject: [PATCH v4 0/2] workqueue: Make WQ_UNBOUND the default behavior
-Date: Thu, 15 Oct 2026 16:01:46 +0200
-Message-ID: <20261015140148.231126-1-marco.crivellari@suse.com>
+Subject: [PATCH v4 1/2] workqueue: Make alloc_workqueue() unbound by default
+Date: Thu, 15 Oct 2026 16:01:47 +0200
+Message-ID: <20261015140148.231126-2-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015140148.231126-1-marco.crivellari@suse.com>
+References: <20261015140148.231126-1-marco.crivellari@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,53 +82,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Currently alloc_workqueue() ensure that one among WQ_PERCPU or WQ_UNBOUND
+is present. Now every user has one among these two flags.
 
-Currently alloc_workqueue() make sure one among WQ_UNBOUND or WQ_PERCPU is
-present. This is enforced warning and setting WQ_PERCPU as default when
-alloc_workqueue() without WQ_PERCPU or WQ_UNBOUND.
+In order to achive the future goal of removing WQ_UNBOUND from the code,
+start changing the default behavior making alloc_workqueue() act this way:
 
-[ P1 ] change this behavior: if no flags are specified, WQ_UNBOUND is
-set by default, changing the default behavior when flags are not present.
+  - if WQ_PERCPU and WQ_UNBOUND are present: remove WQ_PERCPU (as before)
+  - if neither are present: add WQ_UNBOUND
 
-WQ_BH is always per-CPU, so WQ_PERCPU is forced in case it is not present.
+BH workqueues (WQ_BH) are always per-CPU and can't be unbound, so
+WQ_PERCPU is now unconditionally forced for them before the above
+defaulting logic runs.
 
 The WARN_ONCE() when neither flags are present has been removed and it has
 been replaced by pr_warn_once(): from now on, every alloc_users()
 without WQ_PERCPU will be considered unbound.
 
-Q: I decided to pr_warn_once() just to make sure users are aware of the new
-behavior. It makes sense or we can just drop it directly?
-I don't think the WARN_ONCE() is appropriate now, for this specific path.
+The pr_warn_once() will be removed along with WQ_UNBOUND in the future.
 
-[ P2 ] updates the documentation accordingly.
-
-Thanks!
-
+Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
 ---
-Changes in v4:
-- WQ_BH: add documentation about BH workqueue implying WQ_PERCPU
+ kernel/workqueue.c | 44 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 16 deletions(-)
 
-Link to v3: https://lore.kernel.org/all/20260904141421.287647-1-marco.crivellari@suse.com/
-
-Changes in v3:
-- WQ_BH require WQ_PERCPU
-
-Link to v2: https://lore.kernel.org/all/20260903165251.481362-1-marco.crivellari@suse.com/
-
-Changes in v2:
-- if/else to add/drop WQ_UNBOUND/WQ_PERCPU moved before wq_size assignment
-
-Link to v1: https://lore.kernel.org/all/20260903152204.401638-1-marco.crivellari@suse.com/
-
-Marco Crivellari (2):
-  workqueue: Make alloc_workqueue() unbound by default
-  doc: Update WQ_UNBOUND and WQ_BH documentation
-
- Documentation/core-api/workqueue.rst |  9 ++++--
- kernel/workqueue.c                   | 44 ++++++++++++++++++----------
- 2 files changed, 35 insertions(+), 18 deletions(-)
-
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index c56c042d1c35..aba94a8e0c38 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -5895,12 +5895,33 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 	struct workqueue_struct *wq;
+ 	size_t wq_size;
+ 	int name_len;
++	bool wq_unbound_by_default = false;
++	bool wq_dropped_percpu = false;
+ 
+ 	if (flags & WQ_BH) {
+ 		if (WARN_ON_ONCE(flags & ~__WQ_BH_ALLOWS))
+ 			return NULL;
+ 		if (WARN_ON_ONCE(max_active))
+ 			return NULL;
++		flags |= WQ_PERCPU;
++	}
++
++	/*
++	 * Every caller that doesn't explicitly specify WQ_PERCPU will be
++	 * unbound (WQ_UNBOUND) by default.
++	 *
++	 * If both flags are present at the same time, WQ_PERCPU will be
++	 * removed.
++	 *
++	 * This must happen before wq_size is computed below, since that
++	 * depends on the finalized WQ_UNBOUND flag.
++	 */
++	if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
++		flags |= WQ_UNBOUND;
++		wq_unbound_by_default = true;
++	} else if (unlikely((flags & WQ_PERCPU) && (flags & WQ_UNBOUND))) {
++		flags &= ~WQ_PERCPU;
++		wq_dropped_percpu = true;
+ 	}
+ 
+ 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
+@@ -5927,22 +5948,13 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 		pr_warn_once("workqueue: name exceeds WQ_NAME_LEN. Truncating to: %s\n",
+ 			     wq->name);
+ 
+-	/*
+-	 * One among WQ_PERCPU and WQ_UNBOUND must be set, but not both.
+-	 * - If neither is set, default to WQ_PERCPU
+-	 * - If both are set, default to WQ_UNBOUND
+-	 *
+-	 * This code can be removed after workqueue are unbound by default
+-	 */
+-	if (unlikely(!(flags & (WQ_UNBOUND | WQ_PERCPU)))) {
+-		WARN_ONCE(1, "workqueue: %s is using neither WQ_PERCPU or WQ_UNBOUND. "
+-			  "Setting WQ_PERCPU.\n", wq->name);
+-		flags |= WQ_PERCPU;
+-	} else if (unlikely((flags & WQ_PERCPU) && (flags & WQ_UNBOUND))) {
+-		WARN_ONCE(1, "workqueue: %s uses both WQ_PERCPU and WQ_UNBOUND. "
+-			  "Dropped WQ_PERCPU, keeping WQ_UNBOUND.\n", wq->name);
+-		flags &= ~WQ_PERCPU;
+-	}
++	if (unlikely(wq_unbound_by_default))
++		pr_warn_once("workqueue: %s is using neither WQ_PERCPU or WQ_UNBOUND. "
++			     "Setting WQ_UNBOUND.\n", wq->name);
++
++	WARN_ONCE(wq_dropped_percpu,
++		  "workqueue: %s uses both WQ_PERCPU and WQ_UNBOUND. "
++		  "Dropped WQ_PERCPU, keeping WQ_UNBOUND.\n", wq->name);
+ 
+ 	if (flags & WQ_BH) {
+ 		/*
 -- 
 2.55.0
 
