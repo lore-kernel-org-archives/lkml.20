@@ -1,131 +1,76 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AE1846A
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 09:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840004EBAEE;
+	Thu, 15 Oct 2026 09:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055387; cv=none; b=pdCBDqqt+oBXeja8NbnFiEnc7QF2wAOWmbmm9XirgxhktqmErS/k09Gc7O9W5ZOiq2s8bd2qwbYUaPdAJtcQONWaEAwl66DmwLJcWDzkoGjEIMs5FJd4DX4PxMQ+oWEN1sUTojht85OZY9Fuv5FzykYCptQYZS5+7kn4hm6nRBY=
+	t=1792055394; cv=none; b=KrtN6mFvsQx8Em5eS8wy6jqB8irg4zClmMrI0YrKFl6QIdPP73+boO79P5uOzaS1JsNF0Wc9R9vNbUe27t/duA1ESNfGjvGDoe2AEWEke5vNIhuCkTWkgRrS3z5jPiQZL+Tdichqa8+C/qMd8pVy5oHppotO/l4KD1CocH+eCyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055387; c=relaxed/simple;
-	bh=d9alAxIXvFZM40lTHvWaninJ3uGKww6lRmkHHeBRZ6M=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Dos1fXEBBw1bZz+1rc4H8DwXrcmTFkMwPOpW00D8hF4qP7wTh24POu6jn5ePl2SFHjUg45kolhIS1Ekd2RT360k457Nfg14fr9oI5mxAzmqyJXrm61GXOUnSgsVhJwFtovtQhJefPrriG73qR71p+xOOpbjElIKtkgUAlSy7JVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=D+qa8S8G; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wBgnDK/T; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792055394; c=relaxed/simple;
+	bh=6KLs+0KZ4UBmc3RQZp8/mh7VvZ1/XfDMBVDcqY5fVUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RLLfPQ5qN+2qd2Aa88Xmf4g2DooX43p3gkC8Hw90j3K1xepytzTYU1egVvb+o1IoOhwmHGOpSqcz3Hl3aoG+fMe9Oe8fayVY7kCfgiHkbm+HsXdTmyF2qU1QzLJLK4TLvfYxVh5jenYcDbVzCf5r/qbco9xTyKgqBXL+NSc1MUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOPU3LwG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="D+qa8S8G";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wBgnDK/T"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3A1A51D000E6
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 05:09:43 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 05:09:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792055379;
-	 x=1792141779; bh=VRGmGdH6b6ZroBNEdtOfe+OMOyoDJIYRbWMgS31lg80=; b=
-	D+qa8S8GS2I5k/AAROGYklkPil4cj/ftiCO8HSrPmWbha76piaeoXFyZ7PPtmb/1
-	UcdWfXERBYuzfb2f2McUVkcIjc4fWIIZg/2FDHX4bJDEFVsL56GyBJhPq0QcjdQL
-	GQ4qUziSU1YhcWHyeOIkdGxL/YwoJIudfLnNaU03WWyQIkxstpLH/tUQccAPpl3t
-	CmASQtr4dJPlJ9Wom8rLI23ZdyGRZHCsFEWX2NRxyrZCAacwGkdl5B/+szER19Nc
-	8xPS/KHAha4+cpX6VJqaOhrZdfBgT/9j2+f0wrb/opTTvYVtCt0TsSSXUQxDPxp7
-	08v7SOistG/cVmGABFRnKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792055379; x=
-	1792141779; bh=VRGmGdH6b6ZroBNEdtOfe+OMOyoDJIYRbWMgS31lg80=; b=w
-	BgnDK/TdcefE+xyU/aBCPk3HKwGLdxbuxowpFBlQ4C/6v2XXb7VDse+ETiXVbBXO
-	wkiz7LSJcwbQbmpqqnBOQplpfEq4APpwO0ktr5a/Cvg+i+GUqxe1VVGnUeA4qedV
-	YCny+6SFlC4k7eGx/Kl2iiLQGKWgYuN3+/zmLTJPl4+4BbcNS09LKMHjSjorgkQD
-	nUz278tEPHvBgj4juR4C8nFUfqMp4sphDufB8DMysf+xJQcXXI3ZGFTBSSR96J8X
-	wCIwzaXfZ0RrK1plT9b9/wvC2+fXqmrefY/hc/K9JyfMKq6WiBG77UG/pgXlEUEv
-	4vXFOq57qGCVgkCLZFETA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792055379; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:DK68x0boPQHYpBtCYbfODWCWt0O/svGe6a8s75UyMzAJc2H
-	MVexZz9gZ0/ziBMJt5IkmWdtvX60Kx0lSQrPu2Q7L5ddy7QjZM8zMo8+utyntnNq
-	CqHDtUiWEcS0vZQvDf99FComQSTWqmsxCfdDDZMTR13XJVdmTVkzPAoPOJsJPFBE
-	4L5vnt4mRtB4mnBS9uKzrtTdip5f1ekkGF6S+E3oCponKIrdvJEZxUq2MPZsN3DA
-	0JpdfvNQHKGaP4yLZvitP31tfk7xeBNyWdlhPDtgYpU6wNMZd4oUxkc4vUvKDNAO
-	CY90yez41m6P+8fQoFJGTPiE3wqFSsnKH4Kko9w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:PhAVofAeBeWbvcuAWvb712oJzRWQJZggJ04JJEhL7aI=:d9alAxIXvFZM40lTHvWaninJ3uGKww6lRmkHHeBRZ6M=;
-X-ME-Sender: <xms:TpjQasiUp8G8-6JT--_GppFuXoXwZXu7ahXr4513kPgNfuvPVkZScQ>
-    <xme:TpjQav3c9Hfj23wlGxwJow2wQkKGbMuJiA1ewGHX0wyTSlsooK1Ug8g3a3Ege0rKb
-    jm6GzwWd64iAAYEuh27nCA8n_SMOdLME_8WO3YGX-Z4OelKjmzw2h83>
-X-ME-Proxy-Cause: dmFkZTElMuyMN587ocprs+/zKZPwMudeRGeqblrqozgh9MgO5qIhq+0aFXFVnTRKTxgetS
-    AgyOWIPVaLt6YuoFc56gMMxQ7wQje6NplP9eXUQF74eoc0sLDwhZRL9QUmSdDtXr/V61/v
-    rD0bbQuXbWxPIJaGCv5bYXGiesoRH8kFMICwboMfD/aS8VOjGF0a8AFvOv+z6Z0TJKc2tp
-    rO4sUI1bF8DLFx1qUSvcKuN+SK69d+sumRQJVUMFcBMgGiPIe7Egorp82imBSOh99PEdM4
-    YOS9wSV9T6FaDhGtXwNf82cBd8w3Qr30zKczMBF+pCyiz5Q1SSXcPlfOQt6ppLmqqc4NQv
-    lm1I1e6B633op5n89Dp1F5IDxKyIdZRCQjuMSog0rmL9SV5/p1bTXO5CFncJ6cvtnoiOj4
-    f+CN1hFKoLK9mzrVWSk1Ft0rI9DghuRT2JEv5PbxDMedOz1a4eIUPTaO7sotdUiJh12Q2d
-    x95IW86FsDeTBgXV23pRcwPx6XflZGeVtdaXr9wq+itEMnCx0QNdUdQ0ExpC4kEHmUS7mh
-    d66a1u+HrLfN4eWTu8hHoErBpEAi/Hu5gyDDncpG6htqYF5q8uV4D1ntihEWInGPQIClFq
-    a58hFz5PzNNENdK07nkVmXbSGV/x/0+3uUVKpz8fFE558D25EUcRFPN6TASg
-X-ME-Proxy: <xmx:UJjQalh0F3ScKsCJxRh4vRGalunC4atUNw0RHUvw12wg5IP9YlFG4w>
-    <xmx:UJjQamCXW_JxNONBr0HzO9qFz_cYJJdCeI_3yQ6NqFouf2ZFb5kSpA>
-    <xmx:UJjQanQEQ8r5Zy1S5EU_q-cNnHQqZwhH4fZOsBp6YwifxJ_68ji5rg>
-    <xmx:UJjQarX9LDrWbB-A-VCipFQjYnYAH5IRjeeyL8HnOQ7ahnA6SRdE3A>
-    <xmx:U5jQan7dRTBahe3cDVqezArV0MhLS1KQANLrwuGA1rg8nIa-jiPtyoU9>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 8C29C32A008E; Thu, 15 Oct 2026 05:09:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOPU3LwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 920971F000C4;
+	Thu, 15 Oct 2026 09:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792055391;
+	bh=6KLs+0KZ4UBmc3RQZp8/mh7VvZ1/XfDMBVDcqY5fVUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hOPU3LwGhL92elJpY66RwfdcNEcIc/mZsBiS0ptOvKk+fUAjOwVdiAD3MF2mLhVfT
+	 iOMMMYVCnjyejI5ebsD1KctiBwbQrKt954xW37nDuo6yZemnFSHA7fglqIt1gtOwPv
+	 ZPaVUUzMrQhRruia3Ae//64M+1/3SWMDdPoqAobgRizMcfPiM4FaVhFruEk5R2VflQ
+	 PT/+SoPNwS0lNtDXLwfdrvmVG9Tz9DkPl/KNXI+i8t+UwDb+sQiPp0+mbRLuyhTgfJ
+	 MDTl+e5MVeyxYfFUs3s6bBQLC7NKYIdYJX+bBbSSbf5v9e5LXd+/vdrbZj8+lLZ4Ac
+	 jxm237dNZv4+g==
+Date: Thu, 15 Oct 2026 10:09:43 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	bpf@vger.kernel.org, regressions@lists.linux.dev, Sasha Levin <sashal@kernel.org>, 
+	Alexander Motin <alexander.motin@truenas.com>, Ameer Hamza <ameer.hamza@truenas.com>, 
+	"Caleb St. John" <caleb.stjohn@truenas.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] perf/core: track the perf mlock gift separately
+Message-ID: <atCYFpm63elRyuw7@gremlin>
+References: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
+ <20261015075817.GO2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AQvcS6cpqXYc
-Date: Thu, 15 Oct 2026 11:09:13 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ramin Moussavi" <ramin.moussavi@yacoub.de>,
- "Andreas Larsson" <andreas@gaisler.com>,
- "David S . Miller" <davem@davemloft.net>
-Cc: "Thomas Gleixner" <tglx@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Guenter Roeck" <linux@roeck-us.net>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <26e4d054-c1d6-4422-962c-e123269d36a9@app.fastmail.com>
-In-Reply-To: <20261015085545.3246951-3-ramin.moussavi@yacoub.de>
-References: <20261015085545.3246951-1-ramin.moussavi@yacoub.de>
- <20261015085545.3246951-3-ramin.moussavi@yacoub.de>
-Subject: Re: [PATCH 2/4] sparc32: wait for secondary CPUs by time, not by loop count
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015075817.GO2009045@noisy.programming.kicks-ass.net>
 
-On Thu, Oct 15, 2026, at 10:55, Ramin Moussavi wrote:
-> smp4m_boot_one_cpu(), smp4d_boot_one_cpu() and leon_boot_one_cpu() give
-> a starting CPU 10000 rounds of udelay(200) to show up in cpu_callin_map,
-> which is meant to be two seconds. But udelay() is only as long as
-> loops_per_jiffy says. Under qemu the delay loop calibration varies from
-> boot to boot depending on host load -- on an emulated SPARCstation 20
-> between 4 and 671 BogoMIPS for the same kernel and command line -- and
-> with a low value the wait shrinks to a few milliseconds. The boot CPU
-> then reports
+On Thu, Oct 15, 2026 at 09:58:17AM +0200, Peter Zijlstra wrote:
+> On Sat, Oct 03, 2026 at 05:29:07PM +0100, Lorenzo Stoakes (ARM) wrote:
+
+> > Resolve the issue by simply giving perf its own field separate from the
+> > rest.
 >
+> So I'm a little confused by all this -- perf introduced this field,
+> others jumped on and shit broke, so we fix perf instead of the others?
 
-The patch is not wrong, but having a broken udelay() is still problematic
-in other places, so it may be better to fix that instead.
+Yeah I think the blame really lies with the later users, and that send a trend
+that led to further confusion (including myself, mea culpa!)
 
-On most modern targets, we tend to just use the cycle counter if the
-frequency is known and avoid the delay loop calibration entirely.
-Any reason that sparc32 still needs the calibration?
+> Anyway, patch seems straight forward enough; and you added comment to
+> the fields, which I suppose does clarify things some.
+>
+> I'll take it. Thanks!
 
-     Arnd
+Thanks, much appreciated! :)
+
+--
+Cheers, Lorenzo
