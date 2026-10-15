@@ -1,180 +1,152 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D97A35A397
-	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792086118; cv=pass; b=hLUjRHAILiGEMAbGT5JaQRaNwFkSRkNcPKrRb1/klX6wF9n9yzFXxcpuhASxWXVUhTmQtBmabtVasFlA3gmyyJAFVSz2pSCC+K5R6QyJkV9Z8AxHldAPiZ9ATLdOvFzn8XtQzciR09Fy26q+SJTAX5cOxqQrFmwvxSBs02EJJdw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792086118; c=relaxed/simple;
-	bh=pWvyalycBKMpW/SeEYWiupuyITbO41ulxAjlLOu97oI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Hi13VTybo0Vy/cY5MOR/cf5qk9dP4S1WrV4ekkLO2T5h7x6S3XaxwM68P/25b4uRcHhBLfjY8c2d1AF3vJyVopUhdEUIVQidg3KPZ1dql3AkbXknoQRNf1apDTh3u4uqRwfaLMPmMJhaLa9FPxMCe3Mnyx/DQ/xRsszPvnUy8pM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCqEcuHJ; arc=pass smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEEC5540A7
+	for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792086171; cv=none; b=MtmhlGoepZyUL9d3VBUH2Fa7vX6KspYGoNi6K80hxMD4BL5e3mn7N39OVNL6RTJjWKEFTdV5uAhNgNtizLi+S4Ff+H5MPU2tz5TH9I3EqaF9q0RtaWEGAw9udkbHmYZnlvZHUgoBxVjVnHCAl+or9TrP5oeWjpCyeu7QYG4YPwk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792086171; c=relaxed/simple;
+	bh=NbD8A+LTa8evpXL6/fu3DIrID9xBqKnToFLhfhv7WUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DeRnEtSeeZO7AoHwffrOmIHYqmky/IObBmZRsjAMk3YtJ57Q/0iQST90PG+yaB3RL0KBTV6mcr4ntEGLYBOQ9UBBENEBwszu8ogW3JuNM3vPzAyEvD7BMiSs8+j0Ig2Ha5/EJlV/eOVfWTF7W1ua8a9EFsfIwqxjbMKd2i+uUkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=kMfUd8JL; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCqEcuHJ"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-833e671ee9fso4063456a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:41:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792086109; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VjJtEMG0Lkwns5dAt2YmQgbl0tGOQFa1qsrOv1CeAnhorIDp3f1SM+mDg+5AKXLPQV
-         wvvRURet8xRBbFyjPAZ9l/oRiNhXOKoa1Oc5FMxYvmMKwImdCB6zkhT+aIfvhth324CT
-         brpYyjHmkaD1ElmdBdtrcGqZO22kXtRH1MCuwewgrvyoWI7AavFytC/uf1PRKyCxZA5i
-         WD5gwBImJpVOBVUvnYu59i2bUikonEOUvw4lzgbk/wkJ01+a6xWIigsCttOFVZk9fesH
-         TbhVgpk8sb2Q9mfVD0H1SHR1GPfmRv8mVUXmQvh3r6wIu97jcwWYfrbcteLaihoLI+I1
-         m3fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
-        fh=3rUOPz2gHfRi48n0V7SFSvQkO3p+84lVpEx/xR3GTEs=;
-        b=RDGFQs9lWn29Yn5brsA2Vcj3uM7/vgjWAB570LJfbxLGp9v8W3IPgUa6Dn9OWK8kP8
-         /fMWtuIdV5YpIPr7hfHK4jW4xGMlcwrGdsPs69MIHDK/X8KXt+L2jJrP4cpHF4i3Mfac
-         6ZHeIkZVhakHExicE4Rglo79JSpVqPwjpiK4zT3GZolzTuUX2rAJNHO2Ddu5I6138OkQ
-         NZPLDZKSzyyyFdSrpvXgeSgmppSxYv1R2w7xtwub1HYRRX/2xqE9dhOtqbLpSKn+Rfe6
-         cYUoFAb2nm4rBddx67ecKk4lzFDnOrfLyeq69+xrXDPikMlQsq0u1ZW25uh7wZfaXrkt
-         xfyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="kMfUd8JL"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533972e0cccso62825501cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 10:42:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792086109; x=1792690909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=ziepe.ca; s=google; t=1792086162; x=1792690962; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
-        b=OCqEcuHJFXqRxFp5k9C3qFUlNuwbBbYwckBT8lwwZ1F5c3frwSvwc6BYnzGKdHVJnw
-         Z0Rgs29m5+A0cgLqHwlWCemkPV6hw6sibiojH676LAWoigpqY9v3p2fEy+eLTnlepSf/
-         Zu07kP4pmk4iOqpcHuHtiuiyjznwhAFg7m69TUZpvw+HDQpVeBE5OobSxP57ysFwVp31
-         YtSfmuCVobaRqK58dvreDN/vvF/mxReZrm+RQmgsvTkPsM/+gTUhHzQxIpdlzh8X+/Il
-         QZPwWw3zTFm3eV0X/sDBbsYL//Orvdyts/9U0kcRhWxtMLURxmBWGUearXK3wccgbaVT
-         f4CQ==
+        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
+        b=kMfUd8JLS+aSLkvjG0Y4ZbDYnQQWqiZTZdUQUCpEc60+885nmpDQykgXoe/gJmmYUx
+         dh6pMSkEbWX4E6y0MXzUyFEv/jsFrekR/Y1pyRthMuyyxRkdwrDTloFomaE+NnsPBS5V
+         HgPlUs+kbPH1VRFMGMLGxjVoGeCr/cjHZDWXm75mE+84SgW/N9gW09FkZGCYGOJdLM7m
+         wVsOSEKYxiLa06SO44XlJ+Ooni1B1CIutfJN5x2Qe1gOk2VivWJ4ZVl2UFXlfH6czj9q
+         uP/Q2/gPQ+S6EkLP4z1+9XRGPZcUtCNyEL7teG+fq/cLTOLTOGW7+qr0rz//agxQ1s8x
+         R0cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792086109; x=1792690909;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792086162; x=1792690962;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lj1DQBWy3OXBOduX0L3oQHUHpN/MbkDFzxGdaly9HNg=;
-        b=CrT56PkRK7ncGBsIwOlhNjEBmz4Rh7CECPcAY1R8pcyP+OZmeuH5FR17oFMKWK5lp0
-         bMiC15GCFPVp0TPs+d6E6eKtAD1iBugFFbAD+JpOhmifvOMs04Yrv+errN/756OeMmiF
-         hlxWoEyWjBmMDP4z9u+6zMLhC7xAdpTFAr+UckuX2lXJK9rMfV5UxPNiQ1l/gYySpHx1
-         h0EjEWHFH8LhjiiOUGnJFBEFqfgdYIGIR0Qcyu33oZbgoi3GB5doNlAxbxO3pPynT76B
-         kxzTsPPFyeZl+2XuV0jBzEYRF1T3Ni2aZZeEmFL/0+6T//RR4AiioEuVj0uyqJMzXhdG
-         cwlA==
-X-Forwarded-Encrypted: i=1; AKwUvBw97VFLw9jELaM8muxJesw3sMZPrwWOc48fbY+NGckQRc/tBBcO5thSLaZ1XwdlvPIeCLjmvrRXP0H3NJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7dhbk18M4dh+dPlD+pNbDWX9f8oJG5IjyQnFJh3C6+CfxgJuQ
-	o/5Grzf0AWISpwjP8X79AijkzP+3cs68L5rW61UWGF5H/AFkyvi+VZoxFCLyiDYq91D5CeppkF1
-	uH2QpEILgfcKl7VcuHGL5K4tAsXXbDHo=
-X-Gm-Gg: AYBFou1vJI+4m8fR77IZV+BTGw5jtQSm8zoA/6tCxZb6xJ7bcsO735F6xTTLan8t8Qb
-	jkLdI4Nu63JkniHV9HW+yWaKM+ToKPgFFY43h5BVKFPgQjrZnp+eneSQ6S8MI4IOZtxLIDHPmz3
-	deFqiS+BICNtOlxLpMNuNtLvXLC8IxY0ENn4+BQNIxkUA5ORVscO9wxNFzrc/ynJ+0yeEi2CTK2
-	yNnOIHREAoFCvb4qdOfY0RfvZdYWdSwjKSJBcsYIXzpqFVQH+MhmEVkPVn8BQWpidrUl+PzXxaE
-	bYTmPn3bKk4WE8W+noD8pz5MGYZNh1OxAUiq3CbQvTn/kf11hPVNcA8=
-X-Received: by 2002:a05:6808:23ca:b0:4d6:92b3:5c88 with SMTP id
- 5614622812f47-50c5b27c212mr21580284b6e.64.1792086109195; Thu, 15 Oct 2026
- 10:41:49 -0700 (PDT)
+        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
+        b=TSi6jPrWsVwzuJm/NqYns7t9BbQ65vIMMvtiIppCD1VcqhGoas0JrD5X5av8X94Eo+
+         0i0gcjj2NG3TOg++gNcGQZUnv3XS4n8kSusdXBDx0iSb67pVoU+MjMaaRFjUltHVttqM
+         dw1Zy0YtJsitNTBNsT1yFmQcyZKl2XCPomPm578yqA835aVSEhPuBfD+aVVYt9e43IbE
+         XVETrhTjCfzUz+QxvqtnjtJmJhtUpVrw4FNpcde6sE2Op2H6cgYKSCrrFH17jtYeosom
+         NVRHIYO9ACLtam6Kt3aJQH08Q9GN7J+VZdzxc2qyqxP6cjbCM/wrr1PVQ9z/39aDHYsh
+         FCYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgHdSH1aQ0tOjF1ZX0NmrUDXNG9SL299sIL9n2bjD6SUyUxeuwQtwPEtWVqW0dvH0bShF0SyllmMCsrD8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKR+p6vrZ2y08KfMHydaUByL3skXAiC4jyNjD6R0xpQKv6y6YSf
+	256KnHexfDrClIX8iaNCq/BVJSpZ4NtDBY3GuCJxUvNhVXEcKEIfQAlUUK0E+Bn0ITk=
+X-Gm-Gg: AYBFou3rpq4rmymAioUzRLMLoptLl0xi9M9Aqiuj6u9wq8h74Mny0W/qMxr0D5y6lGE
+	B0ivM9nxvC8klAn49aGZN+7BLdpH88PSpgO+B6H8e0u0DnAsowdrlicOWpWXsnFCejT4CTPEt/Y
+	56bf1qNRCO8FItQpAcijmV9plkGtbDZNQ2vT7TOhh4sP5XRTUQ9AEnt+P+r8VSuefLQuHnPyUA9
+	0EFNgL47ODViIfftnFC05fvYJc13QSqBNJ6rDO70QF1CgkLNmHoDOA/ddeTb2erhDtkIcg4LUsX
+	MIpgGFCu3IGB8yKLpmp6BCZD5jMZ7v/IFIoIM8zZufWkdwoE9NUJ9AAGlWAxJSY6fPKSSerh/TZ
+	jqGBUlWzHcs/EUYZgJuLleepr8iiO+IBxjqw/qEfNS+IPgcG1AcH//0pQMyU0cT94ePnEL1w5Cp
+	sYQfdAA1LcpxAKE9Rp08JWxot4Un8CtFZd7kbA5mNlrJnfUMaK9WdyKfZ0p0Z/sL+PaCA1KhWym
+	1Eyof5UVqnuIDV0aLHkFrRJkKPQK+b8EVvlBGz3z7IppVMC+rP6mv99
+X-Received: by 2002:a05:622a:144a:b0:533:3bf7:49e5 with SMTP id d75a77b69052e-5359facf0e9mr295381921cf.23.1792086162563;
+        Thu, 15 Oct 2026 10:42:42 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba45dffsm1165226d6.12.2026.10.15.10.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:42:41 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xHPTV-0000000H6tQ-0dMP;
+	Thu, 15 Oct 2026 14:42:41 -0300
+Date: Thu, 15 Oct 2026 14:42:41 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kevin Mitchell <kevmitch@arista.com>
+Cc: Vasant Hegde <vasant.hegde@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+	stable@vger.kernel.org, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	"open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] iommu/amd: remove obsolete domain pointer warning on
+ release
+Message-ID: <20261015174241.GW14213@ziepe.ca>
+References: <20261013222402.673852-2-kevmitch@arista.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
-In-Reply-To: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com>
-From: Amery Hung <ameryhung@gmail.com>
-Date: Thu, 15 Oct 2026 10:41:38 -0700
-X-Gm-Features: AclHuK98TOBFifxyiHAjpf6qUBttGLdv2xnCl-ElpsA6_pdX4NyYfKL1VgU_hh8
-Message-ID: <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 0/3] bpf: Fix a struct_ops use-after-free
- behind a flaky assoc_in_timer test
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013222402.673852-2-kevmitch@arista.com>
 
-On Wed, Oct 14, 2026 at 6:35=E2=80=AFPM Qiliang Yuan <odys.yuan@gmail.com> =
-wrote:
->
-> st_ops_assoc_in_timer_no_uref drops every reference to a struct_ops map
-> and expects a timer callback of its prog, 500ms later, to find no
-> struct_ops associated anymore. It fails now and then while test_progs
-> runs other tests in parallel, and v1 [1] made the test wait until the
-> association goes away.
->
-> As the BPF CI bot pointed out on v1, the association goes away late
-> since commit 5db69b0fbdc8 ("bpf: Make struct_ops tasks_rcu grace period
-> optional"), which moved the RCU grace period of a struct_ops map in
-> front of clearing the association, so nothing waits for a prog that
-> reads the association in between. With that window widened, a timer
-> callback returns into a freed trampoline and the kernel hits an int3
-> Oops.
->
-> Patch 1 frees the map only after a grace period that follows clearing
-> the association, and patch 2 adds a test that catches a map freed under
-> a running .test_1. Patch 3 is v1 of the test fix, which can keep calling
-> through the association until it is cleared now that this is safe.
-
-I think this fix is heading in the wrong direction. The struct_ops map
-association was designed as an RCU-protected pointer: asynchronous
-users may outlive the map and observe a NULL association. The existing
-selftest explicitly verifies this behavior.
-
-The problem is that the disassociation now happens after the grace
-period initiated by bpf_map_put(). Could we instead make
-disassociation safe in map_free_pre_rcu(), before that existing grace
-period, rather than adding another deferred-free path?
-
->
-> [1] https://lore.kernel.org/r/20261009-selftests-bpf-struct-ops-assoc-tim=
-er-v1-1-9a97a9b3d1db@gmail.com
->
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+On Tue, Oct 13, 2026 at 03:23:56PM -0700, Kevin Mitchell wrote:
+> A warning is triggered in amd_iommu_release_device() on removal of a
+> device with an IOMMU_RESV_DIRECT region. The warning is based on the
+> false assumption that correct attachment to the release_domain will
+> always result in a NULL dev_data->domain pointer. For devices with
+> IOMMU_RESV_DIRECT (and consequently dev->iommu->require_direct), the
+> release domain is the permanent identity_domain which sets
+> itself to dev_data->domain on attach.
+> 
+> This behaviour was added in commit e94160488e65 ("iommu: Generic support
+> for RMRs during device release"). Commit c21b34762e2f ("iommu/amd: Set
+> release_domain to blocked_domain") caused it to take effect for AMD
+> IOMMU.
+> 
+> Remove the warning as it is no longer strictly an error to have a non-NULL
+> domain pointer. As this leaves amd_iommu_release_device() empty, remove it.
+> 
+> The warning was observed for a device with direct mapped region:
+> 
+> /sys/bus/pci/devices/0000:04:00.0/iommu_group/reserved_regions:
+> 
+>   0x00000000fee00000 0x00000000feefffff msi
+>   0x000000fd00000000 0x000000ffffffffff reserved
+>   0x0000fffd00000000 0x0000ffffffffffff direct
+> 
+> Upon hotunplug:
+> 
+> [   28.715475] pcieport 0000:00:03.1: pciehp: Slot(0-3): Link Down
+> [   28.715482] pcieport 0000:00:03.1: pciehp: Slot(0-3): Card not present
+> [   28.715601] ------------[ cut here ]------------
+> [   28.715603] WARNING: drivers/iommu/amd/iommu.c:2521 at amd_iommu_release_device+0x5d/0x70, CPU#4: irq/29-pciehp/99
+> [   28.715657] RIP: 0010:amd_iommu_release_device+0x5d/0x70
+> [   28.715687] Call Trace:
+> [   28.715689]  <TASK>
+> [   28.715694]  iommu_deinit_device+0x84/0x110
+> [   28.715699]  __iommu_group_remove_device+0xa8/0xd0
+> [   28.715703]  iommu_bus_notifier+0x48/0x70
+> [   28.715707]  notifier_call_chain+0x48/0xe0
+> [   28.715712]  blocking_notifier_call_chain+0x45/0x60
+> [   28.715716]  bus_notify+0x3b/0x60
+> [   28.715720]  device_del+0x259/0x3b0
+> [   28.715730]  pci_remove_bus_device+0x85/0x100
+> [   28.715735]  pciehp_unconfigure_device+0x9d/0x180
+> [   28.715743]  __pciehp_disable_slot+0x47/0xe0
+> [   28.715747]  pciehp_handle_presence_or_link_change+0x80/0x5e0
+> [   28.715753]  pciehp_ist+0x162/0x290
+> 
+> Fixes: c21b34762e2f ("iommu/amd: Set release_domain to blocked_domain")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kevin Mitchell <kevmitch@arista.com>
 > ---
-> V2 -> V3:
-> - Wait for an RCU tasks trace grace period in patch 1 for every map, so
->   that progs reading the association under RCU tasks trace, e.g. from a
->   bpf_wq callback, are waited for too (CI bot)
->
-> V1 -> V2:
-> - Add patch 1, fixing the use-after-free behind the flaky test (CI bot)
-> - Add patch 2, a test for the use-after-free
-> - Point Fixes of patch 3 at 5db69b0fbdc8 (CI bot)
-> - Move the restarting of the timer into patch 2, which needs it too,
->   so patch 3 only turns it on for st_ops_assoc_in_timer_no_uref
-> - Rebase onto current bpf-next
->
-> v2: https://lore.kernel.org/r/20261010-selftests-bpf-struct-ops-assoc-tim=
-er-v2-0-d7a43896dbf1@gmail.com
-> v1: https://lore.kernel.org/r/20261009-selftests-bpf-struct-ops-assoc-tim=
-er-v1-1-9a97a9b3d1db@gmail.com
->
-> ---
-> Qiliang Yuan (3):
->       bpf: Defer freeing a struct_ops map until its progs are done
->       selftests/bpf: Test freeing a struct_ops map under a running prog
->       selftests/bpf: Wait for the struct_ops map to be freed in assoc_in_=
-timer
->
->  kernel/bpf/bpf_struct_ops.c                        | 28 ++++++++++++++++=
-++++-
->  .../bpf/prog_tests/test_struct_ops_assoc.c         | 29 ++++++++++++++++=
-+++---
->  .../bpf/progs/struct_ops_assoc_in_timer.c          | 16 ++++++++++++
->  3 files changed, 68 insertions(+), 5 deletions(-)
-> ---
-> base-commit: 15b578b1715d9a318c804350d98af87c203672bc
-> change-id: 20261009-selftests-bpf-struct-ops-assoc-timer-5eb0295ec300
->
-> Best regards,
-> --
-> Qiliang Yuan <odys.yuan@gmail.com>
->
+> Changes in v2:
+> - Remove the warning alltogether as well as the now-empty
+>   amd_iommu_release_device()
+> - Link to v1: https://lore.kernel.org/r/20261008202530.14501-2-kevmitch@arista.com
+> 
+>  drivers/iommu/amd/iommu.c | 17 ++++-------------
+>  1 file changed, 4 insertions(+), 13 deletions(-)
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+Jason
