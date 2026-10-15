@@ -1,115 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5E80397B09;
-	Thu, 15 Oct 2026 04:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E46B35E950;
+	Thu, 15 Oct 2026 04:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792040163; cv=none; b=DbffaUfEurEfW72bxW7lpb6uu2Cia4aZCjD4FqPxaSwEGbLlcPgbAmAwZeTi1Uy74dnlrNGuzukhZK98RJpiuq6H+gOcmMxJgbl7lG0xFyKtAVBTP3asaBopHo9iTI6Iih+9CzpVaaGgUrwbUDlT6uVWzn13ZUcVtCckX9UwPMc=
+	t=1792040295; cv=none; b=lDMaWbxAxjUg1ojzmOYhpRWYFc7xha5o6XmGQhi3IIiWw45d2Lu9eO7XMC0d2/PZyUd2nnab9iBTsju7jbS+4lUlxJmKmMJ2mQzkjLg0P7Uadhv1D0QD5wX8vcCLnjt65NblWnhBH8m1yJpnb1R0GZV+MSVC0223onYAx/H3w2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792040163; c=relaxed/simple;
-	bh=DYm+etoHR3zNYbhtHG1R4AN3vVGImJ6ZW5Qomh/pmDg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hExixbB6v4SV7NVyY7SB28s5VCUkkNB5DMrxKU+Z9Qd20MMc2EUoi63VSMTKq+YuiInqNI+BPntgbjQoay6nUQaQdR4XW+Yc5FpdQpg/1b+zOHp0CkOpYar23hBWldQ1dLB1C03dAB2Fyyw6gccnsAQ5QxKzCHIvwJ1s7czEmDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=h7HAF7FY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792040295; c=relaxed/simple;
+	bh=clUiAKhLEx4WFMI0PNW0Z8EWPCN3W0nXfiaXiKbBvZc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gjVCPPu8F/fWgOXB9VMNz2Nnd29aZjGEn4BC/NDyK1PluFnq7FMcVRAkghVippAf3Arktlr5eHmB4iBsjXIhw7cMWozP3RKyK8YpHbjVDZ/UiBcrN8ajg7ok7dPKJLNWsb0zrhbxi23dcKBEuPnd/fNiZEv7tpqEQ9jaDsffqfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAZgCBxL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="h7HAF7FY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 679981516;
-	Wed, 14 Oct 2026 21:55:49 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED25A3F871;
-	Wed, 14 Oct 2026 21:55:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792040152; bh=DYm+etoHR3zNYbhtHG1R4AN3vVGImJ6ZW5Qomh/pmDg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h7HAF7FYATg4eCjmDj57DAFLfy1kQnGIC3BWZg/3co7F6JU2g8y8pjOMgelGFqZlE
-	 LBGHqxwBERJhTrUahiwBtYFiRjEfGLd5NVrb0JSkWybp537bI3UXql1Br2Xc3srC7u
-	 iz22Ot6G3DXMOnu23/ii8tkQIKAI6LSf/K2nw03E=
-Date: Thu, 15 Oct 2026 10:25:49 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Iurii Trukhin <yuri@trukhin.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: raise default ARCH_MMAP_RND_BITS for 48-bit and
- 52-bit VA
-Message-ID: <x4iu6sii7fsxksdfur3wcpu4kb63eubsp5d6pzklxuhta7xtj7@rskyoy7ajncj>
-References: <CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAZgCBxL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB101F000C4;
+	Thu, 15 Oct 2026 04:58:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792040293;
+	bh=q158/zsMzI1U2HCglnHVdw7Kf32xTgm9ETONvsqEy24=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kAZgCBxL9eWGCOft6x1B3Pog4zCC7kP68oCE/+IqtiQssfKJzgyecNjIPYVuyDvr3
+	 DapY5jl3T9nCv6zkcahRLR7KNOd3X7bJSca6JbZS+rsmlvq/vwwXJohuBGd1n3iIcs
+	 F5weX3FU8nrEYHDmhrYXyxoXdLfFsH9EGLKlR3F1BalCENigpxBAhDifuQZoFGJkcO
+	 XFIMn0a++kcA/qjozmXaewiefl9OcXSPt/lQKBJM/FhYDLKvO5cxHtdCkAGjBl5bu0
+	 LLzggU2Jgp3lQwFFtMOobLqm9PQm85mW6Nid7G5iCNDUuFmvIYpUkZJXsF68bXBbo6
+	 Z9F6yQQvM/aoA==
+Message-ID: <9e10a74b-a73b-4899-a652-898e21de69a6@kernel.org>
+Date: Thu, 15 Oct 2026 06:58:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOx7e9Jm0N9O_ndL1UApMPrXUN=P4RiptSNibdDP+9prUsNPOw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] powerpc/lib: prefetch ahead in __csum_partial()
+To: Rosen Penev <rosenp@gmail.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Michael Stapelberg <michael@stapelberg.de>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:ETHERNET PHY LIBRARY" <netdev@vger.kernel.org>
+References: <20261014194818.11640-1-rosenp@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20261014194818.11640-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 07:26:48PM -0500, Iurii Trukhin wrote:
-> Since commit f101c5644771 ("arm64: Support ARM64_VA_BITS=52 when
-> setting ARCH_MMAP_RND_BITS_MAX"), arm64 supports up to 33, 31, and 29
-> bits of mmap ASLR entropy on 48-bit and 52-bit virtual address spaces
-> for 4K, 16K, and 64K pages respectively. However, ARCH_MMAP_RND_BITS
-> still defaults to ARCH_MMAP_RND_BITS_MIN (18, 16, and 14 bits), which
-> was set in commit 8f0d3aa9de57 ("arm64: mm: support ARCH_MMAP_RND_BITS")
-> when 39-bit VA was the 4K default.
+
+
+Le 14/10/2026 à 21:48, Rosen Penev a écrit :
+> __csum_partial() walks the buffer linearly and reads each cache line
+> exactly once. On cores without a hardware prefetcher, such as the 464FP
+> in the APM82181, every new line is therefore a demand miss that stalls
+> the loop. Packets received by non-coherent DMA are never in the cache,
+> so this is the common case for GRO checksum validation: when routing
+> TCP with GRO enabled on a Meraki MX60, __csum_partial() takes about 30%
+> of all cycles and is the top entry in the profile.
 > 
-> Set the default ARCH_MMAP_RND_BITS for 48-bit and 52-bit VA to 28 (4K
-> pages), 26 (16K pages), and 24 (64K pages), matching x86_64's 1 TiB
-> randomization range (5 bits below ARCH_MMAP_RND_BITS_MAX) while keeping
-> ARCH_MMAP_RND_BITS_MIN unchanged for smaller VA configurations.
+> Issue a dcbt MAX_COPY_PREFETCH cache lines ahead in the main loop,
+> the same distance csum_partial_copy_generic() already uses. That is
+> 128 bytes on the 44x. dcbt is only a hint and never faults, so
+> prefetching past the end of the buffer is harmless. Lines that are
+> already cached, for example when checksumming data the CPU just wrote,
+> are left untouched.
 > 
-> Closes: https://github.com/KSPP/linux/issues/371
-> Signed-off-by: Iurii Trukhin <yuri@trukhin.com>
+> Measured on a Meraki MX60 (APM82181 at 800 MHz), single TCP stream
+> routed through a qca8k DSA switch, iperf3 median of 5. Only the dcbt
+> was toggled at runtime, in the same boot:
+> 
+>                LAN->WAN               WAN->LAN
+>                Mbit/s  csum cycles    Mbit/s  csum cycles
+>    before      495     30.5%          439     27.2%
+>    after       599     15.3%          520     13.7%
+> 
+> That is 58% less time spent in __csum_partial() per byte.
+> 
+> The prefetch distance was chosen with an earlier, slower driver
+> configuration (median of 3, Mbit/s):
+> 
+>    distance    LAN->WAN   WAN->LAN
+>    none        370        341
+>    64 bytes    430        381
+>    96 bytes    438        397
+>    128 bytes   438        385
+>    160 bytes   434        386
+>    256 bytes   423        383
+> 
+> Prefetching the first lines before entering the loop made no
+> measurable difference and is not done.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+
 > ---
->  arch/arm64/Kconfig | 5 +++++
->  1 file changed, 5 insertions(+)
+>   v3: use MAX_COPY_PREFETCH
+>   v2: reword commit message and retest numbers.
+>   arch/powerpc/lib/checksum_32.S | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index cab741a695f5..59a53d7a75c5 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -313,6 +313,11 @@ config ARCH_MMAP_RND_BITS_MAX
->  	default 16 if ARM64_16K_PAGES
->  	default 18
-> 
-> +config ARCH_MMAP_RND_BITS
-> +	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
-> +	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
-> +	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
-> +
+> diff --git a/arch/powerpc/lib/checksum_32.S b/arch/powerpc/lib/checksum_32.S
+> index cd00b9bdd772..5bb872e9e68f 100644
+> --- a/arch/powerpc/lib/checksum_32.S
+> +++ b/arch/powerpc/lib/checksum_32.S
+> @@ -43,6 +43,7 @@ _GLOBAL(__csum_partial)
+>   	bdnz	2b
+>   21:	srwi.	r6,r4,4		/* # blocks of 4 words to do */
+>   	beq	3f
+> +	li	r9,MAX_COPY_PREFETCH*L1_CACHE_BYTES /* prefetch distance */
+>   	lwz	r0,4(r3)
+>   	mtctr	r6
+>   	lwz	r6,8(r3)
+> @@ -52,7 +53,8 @@ _GLOBAL(__csum_partial)
+>   	lwzu	r8,16(r3)
+>   	adde	r5,r5,r7
+>   	bdz	23f
+> -22:	lwz	r0,4(r3)
+> +22:	dcbt	r3,r9
+> +	lwz	r0,4(r3)
+>   	adde	r5,r5,r8
+>   	lwz	r6,8(r3)
+>   	adde	r5,r5,r0
 
-Overriding ARCH_MMAP_RND_BITS inside the platform effectively makes this config
-look something like the following on arm64.
-
-config ARCH_MMAP_RND_BITS
-	int "Number of bits to use for ASLR of mmap base address" if EXPERT
-	range ARCH_MMAP_RND_BITS_MIN ARCH_MMAP_RND_BITS_MAX
-	-------------
-	default 24 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_64K_PAGES
-	default 26 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52) && ARM64_16K_PAGES
-	default 28 if (ARM64_VA_BITS=48 || ARM64_VA_BITS=52)
-	-------------
-	default ARCH_MMAP_RND_BITS_MIN
-	depends on HAVE_ARCH_MMAP_RND_BITS
-	help
-	  This value can be used to select the number of bits to use to
-	  determine the random offset to the base address of vma regions
-	  resulting from mmap allocations. This value will be bounded
-	  by the architecture's minimum and maximum supported values.
-
-	  This value can be changed after boot using the
-	  /proc/sys/vm/mmap_rnd_bits tunable
-
-ARCH_MMAP_RND_BITS_MIN still gets used when VA_BITS != 48 or 52. But this seems
-like a subtle detail. Just wondering - should a comment explaining this default
-random bits fallback sequence be added here as well ?
-
->  config ARCH_MMAP_RND_COMPAT_BITS_MIN
->  	default 7 if ARM64_64K_PAGES
->  	default 9 if ARM64_16K_PAGES
-> -- 
-> 2.56.0
