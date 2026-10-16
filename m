@@ -1,104 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF552D3727;
-	Fri, 16 Oct 2026 07:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E39A443311;
+	Fri, 16 Oct 2026 07:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137350; cv=none; b=e/xK4MASMIQwIMBdGZqwg0aReXm+WpW+0ssAXVLwisEmAguZZbAQxVxD3SxeT2mSwmzAICzYNN/PI4SK+u5l3NkeHfKuvYOQl16cTxk6ABHICjsc3vNN8DLBCIAY3IT77ZSNA4yYebpjIWY5mQjU7ZCnv0VCBStuLa44QsEeZH8=
+	t=1792137350; cv=none; b=iZWAPS+lE3v1wf6MYfiIn+kwwHtG84Ye2MtohRu6ft/BLwMK3Ev78yBf32RR39/BT/GBlT00UkFaCjFPZQGajgMhXkE/TXDAjMxl4Bl6P46cewcB3fY06EfNspFWizXsK8mImtJ964DEFdDPAleLCNER4TH/g/5T0iGWa28HSuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792137350; c=relaxed/simple;
-	bh=TdniLzRo1hTRlAo1ykO352wpdDwjJ6lcY5QPJBAW4cM=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=k+l0CsmvHFh/1ZVoU01lOdJIoCwngQTbno3Z5M4bZ1B99PsFf/ocfU0Rm9jRVoz76f/U6uG7a5ej1zeAgYTMaBL775vqKtfbNSQ7GCMKWwQowotS0cVgbPuhCjEJdZGsrTA9tV0Z3m/liNym+V/VAVANAXskJJxdB/js9AU4Scg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NanFW6pz; arc=none smtp.client-ip=100.103.45.18
+	bh=nyDo1fz7KIxbMVB6J4llHppN7fEw28mEz2XD1d0nBZQ=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=QJ4YlFWmYNrpPFLuH/nXyCCvOy7wqxSrV3zd1CVhEvIc1Ia3zQFayJuPjXAIKRd4bmMzewViKrY7kqTzH3aZYmM7bepbxvuM49m7pfA0rsrDzXFlK4Y1BKLWfuWl1XBj9ZpF2t4Q484SBS8/3sPcc7do/s/ugV4PirQaXWU+PF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Q9yzE9Nf; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=uE6GJ1Yi; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NanFW6pz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7151F000C4;
-	Fri, 16 Oct 2026 07:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792137345;
-	bh=hYTRtpJK6XoBA3N+dDBXyNLDsg4zg0Esn2LKYeojMqI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=NanFW6pzX2kLYD+V7Lt51tQlQXpvd6zHIpx3Vf9CVJOUxQpcoXbHa5dZBUJ5x/sAu
-	 KCjCrCx44cM6wysD8p4gIpfO9Sfgj8uWx+9dcGnRn9ZQZQRu+jESb5c3x82g87hPoT
-	 0K/3vflM987kHuyUc23miVbLSJ8RNCwhB62J1peEyGcZFH3kkEzzdZdqy9BJ4GxTey
-	 OmQtZz9CqYWeXQx0sDv0WjoV41euHPNTXIT92/qo5i1JTEf/7HzPUTXtarpPuGi2N4
-	 ZweDc/Es9YJ5Ge06EKxCbNp/8bjm/Yrq2lrSrvjU7r6xYLG8vw7RQDeywxWWrw2y/I
-	 rCOj3cf94SFUA==
-Content-Type: multipart/mixed; boundary="===============8446463070818369903=="
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Q9yzE9Nf";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="uE6GJ1Yi"
+Date: Fri, 16 Oct 2026 07:55:42 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792137343;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l7AhbFTQvuq3e3GKt4BzhHvZftzKvjV0A7Rghyr4Tyo=;
+	b=Q9yzE9Nf2UeibYDAz0ENHQWuJlmoB1ubh0EJLVxnBwsysCBJ43XO2EqTKWwDpqhEatxLiK
+	Xz720pTfjDbTF12dMvW2isciqe3Ka4GlaXGlSc6Ue5A9NZotkNZbJEbDn19rBE7pGcLq46
+	svOq1ctkBddcImK9SLB3divmzfdwCr0iRoYBHt4q/XdgYGRf/WjOyneSFmKmqdPT0G328/
+	BIsIsXyVg1Jm35NgJ3dMA+Iloli+ppl1KbedPCNagMQQ9peqfQ3LuQ2oh+VYuGhLHtcpOm
+	iN95gPI17cusYidfd1aPfOp/SUeSKSFrQJdapTdEUNwEZzwVu4JSktVGBGAq2w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792137343;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l7AhbFTQvuq3e3GKt4BzhHvZftzKvjV0A7Rghyr4Tyo=;
+	b=uE6GJ1YiEkqFScF/coftRrGK57OvHqKnxPCBS3m3IikALUM/bfayV+oxEYlaFIXwewNDsi
+	IFl3oJRL24riYiBw==
+From: "tip-bot2 for Hui Su" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/urgent] sched/fair: Avoid overflow in place_entity()
+Cc: Hui Su <sh_def@163.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260928124754.1692077-1-sh_def@163.com>
+References: <20260928124754.1692077-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <ca104b0c215cbcdad7bb204b29ef90911a4e82ea03acc92f05da689a997af950@mail.kernel.org>
-In-Reply-To: <20261016070837.440748-5-ankur.a.arora@oracle.com>
-References: <20261016070837.440748-5-ankur.a.arora@oracle.com>
-Subject: Re: [PATCH v16 04/16] arm64: support WFET in smp_cond_load_relaxed_timeout()
-From: bot+bpf-ci@kernel.org
-To: ankur.a.arora@oracle.com,linux-kernel@vger.kernel.org,linux-arch@vger.kernel.org,linux-arm-kernel@lists.infradead.org,linux-pm@vger.kernel.org,bpf@vger.kernel.org
-Cc: arnd@arndb.de,catalin.marinas@arm.com,will@kernel.org,peterz@infradead.org,akpm@linux-foundation.org,mark.rutland@arm.com,harisokn@amazon.com,cl@gentwo.org,ast@kernel.org,rafael@kernel.org,daniel.lezcano@kernel.org,memxor@gmail.com,zhenglifeng1@huawei.com,xueshuai@linux.alibaba.com,rdunlap@infradead.org,david.laight.linux@gmail.com,broonie@kernel.org,boris.ostrovsky@oracle.com,ashok.bhat@arm.com,ankur.a.arora@oracle.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 16 Oct 2026 07:55:42 +0000 (UTC)
+Message-ID: <179213734207.2666988.8900131874393139062.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============8446463070818369903==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The following commit has been merged into the sched/urgent branch of tip:
 
-> arm64: support WFET in smp_cond_load_relaxed_timeout()
+Commit-ID:     2f93bcb3f9aaf6ceee1aec0a97d4fe386d48e781
+Gitweb:        https://git.kernel.org/tip/2f93bcb3f9aaf6ceee1aec0a97d4fe386d4=
+8e781
+Author:        Hui Su <sh_def@163.com>
+AuthorDate:    Mon, 28 Sep 2026 21:47:54 +09:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Fri, 16 Oct 2026 09:49:00 +02:00
 
-TL;DR: Including asm/delay-const.h from asm/cmpxchg.h may break the arm64
-build of drivers/gpio/gpio-aspeed.c, whose usecs_to_cycles() would conflict
-with the new one; it appears unfixed by the series.
+sched/fair: Avoid overflow in place_entity()
 
-> diff --git a/arch/arm64/include/asm/cmpxchg.h b/arch/arm64/include/asm/cmpxchg.h
-> index 6cf3cd6873f5..30dca19c9a7b 100644
-> --- a/arch/arm64/include/asm/cmpxchg.h
-> +++ b/arch/arm64/include/asm/cmpxchg.h
-> @@ -12,6 +12,7 @@
->
->  #include <asm/barrier.h>
->  #include <asm/lse.h>
-> +#include <asm/delay-const.h>
+place_entity() inflates an entity's virtual lag with
 
-Can this include break the build of drivers/gpio/gpio-aspeed.c?
+    lag * (load + weight) / load
 
-asm/cmpxchg.h is pulled into almost every arm64 translation unit through
-linux/spinlock.h -> linux/atomic.h -> asm/atomic.h -> asm/cmpxchg.h, so the
-static inlines in asm/delay-const.h become visible everywhere.
+Commit 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
+replaced the scaled-down weights used in this calculation with
+avg_vruntime_weight(), removing the arithmetic headroom provided by
+scale_load_down().
 
-gpio-aspeed.c already defines a helper with the same name and a different
-signature:
+The multiplication can overflow s64 before the division even when the
+final quotient is representable. A task's hierarchical effective weight
+can be as small as 2 after avg_vruntime_weight() scaling under group
+scheduling, while entity_lag() bounds |vlag| by
 
-drivers/gpio/gpio-aspeed.c:
-    static int usecs_to_cycles(struct aspeed_gpio *gpio, unsigned long usecs,
-                               u32 *cycles)
+    calc_delta_fair(cfs_rq_max_slice(cfs_rq) + TICK_NSEC, se)
 
-while asm/delay-const.h now provides:
+For example, with HZ=3D1000, NICE_0_LOAD=3D1048576, and the minimum scaled
+hierarchical weight scale_load(2)=3D2048, this bound is 891289600. With 114
+maximum-weight entities, the runqueue load is 10361604096. The
+intermediate product is:
 
-arch/arm64/include/asm/delay-const.h:
-    static inline u64 usecs_to_cycles(u64 time_usecs)
+    891289600 * (10361604096 + 2)
+        =3D 9235189971864780800
+        > S64_MAX
 
-That looks like it would fail with "conflicting types for 'usecs_to_cycles'".
-GPIO_ASPEED depends on ARCH_ASPEED || COMPILE_TEST, and ARCH_ASPEED is an
-arm64 platform, so arm64 allmodconfig/allyesconfig and any config enabling
-CONFIG_GPIO_ASPEED would stop building at this commit.
+The signed overflow corrupts the entity's placement.
 
-The previous patch ("arm64/delay: move, fixup usecs_to_cycles()") renamed the
-rpmh-rsc helpers for the same name clash, but gpio-aspeed.c was not touched.
-No commit in the rest of the series modifies gpio-aspeed.c or delay-const.h,
-so the breakage appears to remain at the end of the series.
+Rewrite
 
-Could the gpio-aspeed helper be renamed, could the delay-const.h helpers get
-an arch-specific prefix, or could the cycle computation be moved out of line
-so that asm/cmpxchg.h doesn't need to include asm/delay-const.h?
+    lag * (load + weight) / load
 
+as
 
+    lag + lag * weight / load
+
+The two expressions are equivalent, but the latter avoids multiplying the
+virtual lag by the total runqueue weight. entity_lag() bounds vlag against
+the entity's effective weight, so the remaining lag * weight product stays
+bounded. rescale_entity() preserves this scale across h_load changes and
+already relies on the same product when rescaling vlag.
+
+Keep the original zero-load warning semantics by multiplying lag by weight
+after replacing the divisor with one.
+
+Fixes: 4823725d9d1d ("sched/fair: Increase weight bits for avg_vruntime")
+Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260928124754.1692077-1-sh_def@163.com
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ kernel/sched/fair.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38867477666
---===============8446463070818369903==--
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5..0f23644 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6463,12 +6463,20 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_enti=
+ty *se, int flags)
+ 		load =3D cfs_rq->sum_weight;
+ 		if (curr && curr->on_rq)
+ 			load +=3D avg_vruntime_weight(cfs_rq, curr->h_load.weight);
+-
+-		weight =3D avg_vruntime_weight(cfs_rq, se->h_load.weight);
+-		lag *=3D load + weight;
+ 		if (WARN_ON_ONCE(!load))
+ 			load =3D 1;
+-		lag =3D div64_long(lag, load);
++
++		weight =3D avg_vruntime_weight(cfs_rq, se->h_load.weight);
++
++		/*
++		 * Rewrite, because the product (W + w_i)*vl'_i might
++		 * overflow s64:
++		 *
++		 *   vl_i =3D (W + w_i)*vl'_i / W
++		 *        =3D (W*vl'_i + w_i*vl'_i) / W
++		 *        =3D vl'_i + w_i*vl'_i/W
++		 */
++		lag +=3D div64_long(lag * weight, load);
+=20
+ 		/*
+ 		 * A heavy entity (relative to the tree) will pull the
