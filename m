@@ -1,430 +1,350 @@
-Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2618D12F585;
-	Fri, 16 Oct 2026 15:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9444E1C9E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164319; cv=none; b=sbiCgAD0t+nBLY1Pr6t5zZbPMNH9sK1GufDudUorf73Bo5HVrisF0BF98ROLGpoAI6LyzWiVwHPjMObVUVpU62s1Z8NOhQvH+FGtjJt0uaFwtKnA4tQzP8GaRiwNhgBRBj9VOkekLoM67EZRiAHwnSbipylEqYuayRTaFHaYsy4=
+	t=1792164341; cv=none; b=Md1NBITAD5m1X7MB6/1vcwtnF+CE/TDPPKoqknONgMXpxn3nQrsOdzOhb6+uLwLs4A2igvTdwy972qzytcRsg+Kf9cR4ne6Yas8ydDEzpnQ/tM8jfDkuwEpZN8XE2Wx4YWVI6BtI3oliAVMbK06wOi2ll20XB7gnY1xAe8cOUoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164319; c=relaxed/simple;
-	bh=YD9ankNAEnj4wRaE2EaUaaAkEgxZDgEeaYRKdPcFMiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GK8NdPFoH+RRd1TQ9YNtovwfoTl5JURpHv/0yXDNrZoxHw8l3YYicKayIY/G+LkE6nD0QsOp6bT1EvPu7Kddl3MlZlpbeLYH1rARIMp97xAOJw3NBH5Oy/1u9j7R8jPYumjV5UkARmJfif8ztz1SxqtMIg7XTDbl3rQ5oiQtKAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=SY5nI6mu; arc=none smtp.client-ip=85.220.189.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	s=arc-20240116; t=1792164341; c=relaxed/simple;
+	bh=0Q2F8eMXPptzTA6CFnPdDDK7WMX88/q6nK1Vu+WDDwY=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=qyAjPkfz9hH1jgARZG4Wt9dp52cWWM+DdLY4c4IQm3UitcNt8lFB2zlqQp02gxQx0fmTI3oI5RF5ey1bK8YLom+dZ/I6EZPo/V2sgMw06qz/m4o+5CZwIcb8lPNrbSkVP5CaetFyxYhR5EDN7yB0z/3RZzJAgERiEz8QwaMWRBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b/mI+PQ0; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="SY5nI6mu"
-Received: from hub1.goneo.de (hub1.goneo.de [85.220.129.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp9.goneo.de (Postfix) with ESMTPS id 0D34E2402EF;
-	Fri, 16 Oct 2026 17:25:12 +0200 (CEST)
-Received: from hub1.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPS id C9B08240453;
-	Fri, 16 Oct 2026 17:25:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1792164309;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FzJ4GTCSHxdL8fO+8bkHTYOQz+yAtL30WnrwK2mAyZU=;
-	b=SY5nI6mudFzEX2M7eGxwEeDVP6hPIxP2mJKeDLSq2T3aZ9SEsR01afC23LTazD9+iqj+dd
-	xVWqERHTLlpHDeKcBjzGQk5CFmvXovvGlqvrMgQm4waEwmF2lFP7J2K7oK4HE+zOmf4pMm
-	3xXHgaMjvKfzbcU07/w6C33Evhj5DQNgJegtHJ+y1WDSuKEKZWSZ8kddFEnxFoYXAO10L6
-	OCrSMVL9uz9FQmpA6UadV3Rs3wVkNxlXJrA+cqn7ICrnBLTLTd3JgfJvbntFfUY25+D/4q
-	hmTokbqEowdhYMOnHI7BT2ZzWorq7zRx9FcrW0fM/583WZhAh3eKxOyPqZF+Jw==
-Received: from CASE (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPSA id 48EAD2403AE;
-	Fri, 16 Oct 2026 17:25:07 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: jie.luo@oss.qualcomm.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	quic_leiwei@quicinc.com,
-	quic_suruchia@quicinc.com,
-	quic_pavir@quicinc.com,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	horms@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH net-next v2 3/3] net: ethernet: qualcomm: ppe: Add IPQ5332 support
-Date: Fri, 16 Oct 2026 17:24:49 +0200
-Message-ID: <20261016152449.934312-4-mail@tk154.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016152449.934312-1-mail@tk154.de>
-References: <20261016152449.934312-1-mail@tk154.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b/mI+PQ0"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e617b5e9b3so46720485ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:25:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792164335; x=1792769135; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iFPRBPV73hLcdeayNzC5abDouETyR83o00x/J8+4uxc=;
+        b=b/mI+PQ0hDBHW+ZQ1eXxNuy43qU5OktSky8Za7V+LexvFwHgyfG3vzZuGRPMFsaj4G
+         d1v16KTZzW/vPbsnpAzurzxt10JXhxPMDMYjQA6TQzqJXcq0ZVOeregCNQ/Uckta0hR9
+         8GNGvHhhpMtAT/qQWWih57xNfXVf4//ZMgKwR1fHGphuaHVh3mVJ53/CtsgO+2BmQZwa
+         mt3GW+ukrAC4RgUztMUlGW+toISUxaVJqcSdmDwJLGOD7HwQWpNz4bUQvcI6fHr7hi7c
+         W8B9MjOC6U+09GtK1cwXB2j1c7F/c1grPwH06V6JTHy/KWOpM/n3diIRW/TSqpVW8zkx
+         KOZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792164335; x=1792769135;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iFPRBPV73hLcdeayNzC5abDouETyR83o00x/J8+4uxc=;
+        b=rxXBR+Pd5RgfiKUTbYEaLyhT4ThfEI4dFa3snxg37o320F2ucNj6Lzglv6EuCB6IOL
+         Mh7DpZsQ0ALpKAbnUrq6K1+U8pjUzy3Aun5pVY1Z0mEQ81hxcxSwWKT96MOzgLDp2Z7u
+         N7Q90d3u7CWMUxWcQ6eloTlHbU3SSKqFmaBx8NfAjFR1N6qXG69z5ucvsEaoEfMTeZUm
+         7I6u6CsaoRF5rs8vrmPsd2qJ7/4cG7356efy7TV6dhlAFmoYE2MJ7IqL08IcxzotN3od
+         bXS2sYGtDaNfHd7qh1TONfBMlrMGZwglhitr+iof//tckdvjD8gwKlMQnpY6EnwBO1pH
+         k/Fw==
+X-Gm-Message-State: AFq9FYJQJfOF3LU65piBRGBAS1J07cbGHUTsQ+of17hQa9e5ljZ/lUjw
+	HJikbx5u8316tU81zf1BZ67FCK+NfBuH0YnMLt26xVKVSX6vAiZcXvui+KxGRHuIicRZlzw0D9X
+	oRstjWg==
+X-Received: from plot22.prod.google.com ([2002:a17:902:8c96:b0:2e5:94eb:e1f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:da48:b0:2e8:1ec2:a8c4
+ with SMTP id d9443c01a7336-2e9a6c1b779mr3046575ad.14.1792164334914; Fri, 16
+ Oct 2026 08:25:34 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:25:34 -0700
+In-Reply-To: <20261016091422.3182216-2-binbin.wu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: c9502c
-X-Rspamd-UID: b900d0
+Mime-Version: 1.0
+References: <20261016091422.3182216-1-binbin.wu@linux.intel.com> <20261016091422.3182216-2-binbin.wu@linux.intel.com>
+Message-ID: <atJB7kDzKsvzrMau@google.com>
+Subject: Re: [PATCH v5 1/5] KVM: TDX: Check unsupported CPUID bits against the
+ TDX module's subleaf
+From: Sean Christopherson <seanjc@google.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
+	dave.hansen@linux.intel.com, andrew.cooper3@citrix.com, nik.borisov@suse.com, 
+	kas@kernel.org, rick.p.edgecombe@intel.com, xiaoyao.li@intel.com, 
+	chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com, 
+	dedekind1@gmail.com, adrian.hunter@intel.com
+Content-Type: multipart/mixed; charset="UTF-8"; boundary="eT79xhp2T0neg3Wb"
 
-IPQ5332 shares the IPQ9574 PPE architecture, but has only two front
-panel ports and uses a different clock rate, interconnect paths, buffer
-limits and scheduler arbitration.
 
-Add match data for qcom,ipq5332-ppe: a 200 MHz PPE clock, four
-interconnect paths and three PPE ports (the CPU port and two front panel
-ports), together with its BM and QM limits and thresholds and its
-scheduler arbitration tables. The values come from Qualcomm's QSDK
-14.0.1595.1665 qca-ssdk revision 48484d531927b070b996685f1570aff3bccb9c32:
-src/init/ssdk_hppe.c and ssdk_appe.c, and src/adpt/hppe/adpt_hppe_qm.c.
+--eT79xhp2T0neg3Wb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Reuse the IPQ9574 scheduler resources for ports 0 (CPU), 1 and 2.
-The queue, flow and DRR node ranges for ports 1 and 2 match the
-IPQ5332 port_scheduler_resource definitions in QSDK ipq5332.dtsi.
-The CPU flow and DRR node ranges also match; retain the IPQ9574 CPU
-and reserved queue partition. QSDK assigns CPU unicast queues 0-95
-and multicast queues 256-263, while this driver uses 0-63 and 256-271.
-The reserved pool is selected from the final resource-table entry
-using port ID 3 on IPQ5332.
+On Fri, Oct 16, 2026, Binbin Wu wrote:
+> Don't reject the mismatch outright, as the ABI allows userspace to provide
+> an arbitrary index when KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared.  It's
+> userspace's responsibility to provide the intended entries; KVM only needs
+> to ensure that the values it validates are the values it applies.
+> 
+> Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+> ---
+> v5:
+> - Split out from "KVM: TDX: Validate userspace CPUID input for
+>   KVM_TDX_INIT_VM" as a standalone fix.  Sashiko reported the issue
+>   against the TDX CPUID validation patch, but it also applies to the
+>   existing code, so split it out to allow backporting to stable
+>   independently of the rest of the series.
+> - Check the userspace values against the subleaf reported by the TDX
+>   module instead of rejecting the request when there is a mismatch.
+> 
+>   A simpler alternative would be to require a zero index when
+>   KVM_CPUID_FLAG_SIGNIFCANT_INDEX is cleared, but that would be an ABI
+>   change.
 
-QSDK uses the same block base addresses and HPPE register offsets
-for the common PPE blocks on IPQ5332 and IPQ9574, so retain the
-existing regmap ranges and offsets for those blocks.
+The even simpler change is to reject the incoming CPUID if userspace doesn't set
+KVM_CPUID_FLAG_SIGNIFCANT_INDEX as expected.  Yes, that's an ABI change.  No, we
+don't care.  The rule isn't "never change the ABI", it's "don't break userspace",
+and there's basically zero chance a TDX guest can function properly if userspace
+doesn't set KVM_CPUID_FLAG_SIGNIFCANT_INDEX as appropriate.
 
-Clarify that the shared parent and rate apply to the NSSCC PPE clocks;
-the optional GCC sleep clock has a separate parent. Document the IPQ5332
-port and UNIPHY counts and add it to the list of supported SoCs.
-
-Signed-off-by: Til Kaiser <mail@tk154.de>
----
- .../ethernet/qualcomm/ppe/ppe.rst             |   9 +-
- drivers/net/ethernet/qualcomm/ppe/ppe.c       |  39 +++++-
- .../net/ethernet/qualcomm/ppe/ppe_config.c    | 127 ++++++++++++++++++
- .../net/ethernet/qualcomm/ppe/ppe_config.h    |   1 +
- 4 files changed, 172 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-index 4ab299a28969..caf8ab1431de 100644
---- a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-+++ b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-@@ -96,6 +96,10 @@ The port wrapper provides connections from the 6 GMAC/XGMACS to UNIPHY (PCS) sup
- various modes such as SGMII/QSGMII/PSGMII/USXGMII/10G-BASER. There are 3 UNIPHY (PCS)
- instances supported on the IPQ9574.
- 
-+IPQ5332 uses the same PPE architecture with two front panel ports and two UNIPHY
-+(PCS) instances. Its Ethernet datapath has a CPU port (port0) and two GMAC/XGMAC
-+ports (port1 and port2).
-+
- Ethernet DMA is used to transmit and receive packets between the Ethernet subsystem
- and ARM host CPU.
- 
-@@ -118,6 +122,8 @@ PPE driver:
-     through the UNIPHY PCS block. Each MAC block includes the GMAC and XGMAC blocks and
-     the switch port can select to use GMAC or XMAC through a MUX selection according to
-     the external PHY's capability.
-+    IPQ5332 has two MACs (MAC0 and MAC1), connected to switch ports port1 and
-+    port2 through two UNIPHY instances.
- - EDMA (Ethernet DMA)
-     The Ethernet DMA is used to transmit and receive Ethernet packets between the PPE
-     ports and the ARM cores.
-@@ -164,8 +170,9 @@ CPU code counters and queue counters.
- PPE Driver Supported SoCs
- =========================
- 
--The PPE driver supports the following IPQ SoC:
-+The PPE driver supports the following IPQ SoCs:
- 
-+- IPQ5332
- - IPQ9574
- 
- 
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe.c b/drivers/net/ethernet/qualcomm/ppe/ppe.c
-index 0ef72c20364b..182c4ad83ffc 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe.c
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe.c
-@@ -26,6 +26,30 @@ struct ppe_plat_data {
- 	unsigned int num_icc, num_ports;
- };
- 
-+/* IPQ5332 interconnect paths. Zero bandwidths use the PPE clock rate. */
-+static const struct icc_bulk_data ipq5332_icc_data[] = {
-+	{
-+		.name = "ppe",
-+		.avg_bw = 0,
-+		.peak_bw = 0,
-+	},
-+	{
-+		.name = "ppe_cfg",
-+		.avg_bw = 0,
-+		.peak_bw = 0,
-+	},
-+	{
-+		.name = "qos_gen",
-+		.avg_bw = 6000,
-+		.peak_bw = 6000,
-+	},
-+	{
-+		.name = "timeout_ref",
-+		.avg_bw = 6000,
-+		.peak_bw = 6000,
-+	},
-+};
-+
- /* IPQ9574 interconnect paths. Zero bandwidths use the PPE clock rate. */
- static const struct icc_bulk_data ipq9574_icc_data[] = {
- 	{
-@@ -65,6 +89,14 @@ static const struct icc_bulk_data ipq9574_icc_data[] = {
- 	},
- };
- 
-+static const struct ppe_plat_data ipq5332_ppe_data = {
-+	.soc_cfg = &ipq5332_soc_config,
-+	.icc_data = ipq5332_icc_data,
-+	.ppe_clk_rate = 200000000,
-+	.num_icc = ARRAY_SIZE(ipq5332_icc_data),
-+	.num_ports = 3,
-+};
-+
- static const struct ppe_plat_data ipq9574_ppe_data = {
- 	.soc_cfg = &ipq9574_soc_config,
- 	.icc_data = ipq9574_icc_data,
-@@ -152,9 +184,9 @@ static int ppe_clock_init_and_reset(struct ppe_device *ppe_dev,
- 	if (ret)
- 		return ret;
- 
--	/* The PPE clocks have a common parent clock. Setting the clock
--	 * rate of "ppe" ensures the clock rate of all PPE clocks is
--	 * configured to the same rate.
-+	/* The NSSCC PPE clocks (ppe, apb, ipe and btq) share a parent.
-+	 * Setting the "ppe" rate also sets the rate of the other NSSCC
-+	 * PPE clocks. The optional GCC sleep clock has a separate parent.
- 	 */
- 	clk = devm_clk_get(dev, "ppe");
- 	if (IS_ERR(clk))
-@@ -237,6 +269,7 @@ static void qcom_ppe_remove(struct platform_device *pdev)
+diff --git arch/x86/kvm/vmx/tdx.c arch/x86/kvm/vmx/tdx.c
+index 75a86d64892a..7e0d81066420 100644
+--- arch/x86/kvm/vmx/tdx.c
++++ arch/x86/kvm/vmx/tdx.c
+@@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
+                clear_waitpkg(entry);
  }
  
- static const struct of_device_id qcom_ppe_of_match[] = {
-+	{ .compatible = "qcom,ipq5332-ppe", .data = &ipq5332_ppe_data },
- 	{ .compatible = "qcom,ipq9574-ppe", .data = &ipq9574_ppe_data },
- 	{}
- };
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-index 65ac6c0841d5..91e6ee9524a6 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-@@ -174,6 +174,9 @@ struct ppe_port_schedule_resource {
-  */
- static const int ipq9574_ppe_bm_group_config = 1550;
- 
-+/* IPQ5332 BM group0 shared buffer limit. */
-+static const int ipq5332_ppe_bm_group_config = 360;
+-static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
++static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
+ {
++       if (cpuid_function_is_indexed(entry->function) !=
++           !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
++               return true;
 +
- /* The buffer configurations per PPE port. There are 15 BM ports and
-  * 4 BM groups supported by PPE. BM port (0-7) is for EDMA port 0,
-  * BM port (8-13) is for PPE physical port 1-6 and BM port 14 is for
-@@ -230,6 +233,34 @@ static const struct ppe_bm_port_config ipq9574_ppe_bm_port_config[] = {
- 	},
- };
+        return has_tsx(entry) || has_waitpkg(entry);
+ }
  
-+/* IPQ5332: BM ports 0-7 serve EDMA, ports 8-9 serve ports 1-2. */
-+static const struct ppe_bm_port_config ipq5332_ppe_bm_port_config[] = {
-+	{
-+		/* Buffer configuration for the BM port ID 0-7 of EDMA. */
-+		.port_id_start	= 0,
-+		.port_id_end	= 7,
-+		.pre_alloc	= 12,
-+		.in_fly_buf	= 40,
-+		.ceil		= 30,
-+		.weight		= 7,
-+		.resume_offset	= 5,
-+		.resume_ceil	= 20,
-+		.dynamic	= true,
-+	},
-+	{
-+		/* Buffer configuration for the BM port ID 8-9 of PPE ports. */
-+		.port_id_start	= 8,
-+		.port_id_end	= 9,
-+		.pre_alloc	= 12,
-+		.in_fly_buf	= 128,
-+		.ceil		= 48,
-+		.weight		= 7,
-+		.resume_offset	= 5,
-+		.resume_ceil	= 20,
-+		.dynamic	= true,
-+	},
-+};
-+
- /* QM fetches the packet from PPE buffer management for transmitting the
-  * packet out. The QM group configuration limits the total number of buffers
-  * enqueued by all PPE hardware queues.
-@@ -240,6 +271,9 @@ static const struct ppe_bm_port_config ipq9574_ppe_bm_port_config[] = {
-  */
- static const int ipq9574_ppe_qm_group_config = 2000;
+@@ -2386,7 +2390,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+                if (!entry)
+                        continue;
  
-+/* IPQ5332 QM group0 buffer limit. */
-+static const int ipq5332_ppe_qm_group_config = 500;
-+
- /* Default QM settings for unicast and multicast queues for IPQ9754. */
- static const struct ppe_qm_queue_config ipq9574_ppe_qm_queue_config[] = {
- 	{
-@@ -264,6 +298,30 @@ static const struct ppe_qm_queue_config ipq9574_ppe_qm_queue_config[] = {
- 	},
- };
+-               if (tdx_unsupported_cpuid(entry))
++               if (tdx_is_unsupported_cpuid_entry(entry))
+                        return -EINVAL;
  
-+/* IPQ5332 unicast and multicast queue thresholds. */
-+static const struct ppe_qm_queue_config ipq5332_ppe_qm_queue_config[] = {
-+	{
-+		/* QM settings for unicast queues 0 to 255. */
-+		.queue_start	= 0,
-+		.queue_end	= 255,
-+		.prealloc_buf	= 0,
-+		.ceil		= 300,
-+		.weight		= 7,
-+		.resume_offset	= 18,
-+		.dynamic	= true,
-+	},
-+	{
-+		/* QM settings for multicast queues 256 to 299. */
-+		.queue_start	= 256,
-+		.queue_end	= 299,
-+		.prealloc_buf	= 0,
-+		.ceil		= 50,
-+		.weight		= 0,
-+		.resume_offset	= 18,
-+		.dynamic	= false,
-+	},
-+};
-+
- /* PPE scheduler configuration for BM includes multiple entries. Each entry
-  * indicates the primary port to be assigned the buffers for the ingress or
-  * to release the buffers for the egress. Backup port ID will be used when
-@@ -372,6 +430,44 @@ static const struct ppe_scheduler_bm_config ipq9574_ppe_sch_bm_config[] = {
- 	{true, PPE_SCH_EGRESS,  7, false, 0},
- };
- 
-+/* IPQ5332 BM arbitration. The invalid final slot is included in the
-+ * 32-slot scheduler depth.
-+ */
-+static const struct ppe_scheduler_bm_config ipq5332_ppe_sch_bm_config[] = {
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 2, false, 0},
-+	{true,  PPE_SCH_EGRESS,  0, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{true,  PPE_SCH_EGRESS,  1, false, 0},
-+	{true,  PPE_SCH_INGRESS, 0, false, 0},
-+	{true,  PPE_SCH_EGRESS,  2, false, 0},
-+	{true,  PPE_SCH_INGRESS, 1, false, 0},
-+	{false, PPE_SCH_INGRESS, 0, false, 0},
-+};
-+
- /* PPE scheduler configuration for QM includes multiple entries. Each entry
-  * contains ports to be dispatched for enqueueing and dequeueing. The backup
-  * port for dequeueing is supported to be used when the primary port for
-@@ -439,6 +535,22 @@ static const struct ppe_scheduler_qm_config ipq9574_ppe_sch_qm_config[] = {
- 	{0x98, 6, 5, true, 2},
- };
- 
-+/* IPQ5332 QM arbitration. The enqueue bitmap is zero in every slot;
-+ * ensch_port identifies the enqueue port. Backup dequeue ports are disabled.
-+ */
-+static const struct ppe_scheduler_qm_config ipq5332_ppe_sch_qm_config[] = {
-+	{0x0, 0x2, 0, false, 0x0},
-+	{0x0, 0x1, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x1, 0, false, 0x0},
-+	{0x0, 0x2, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+	{0x0, 0x0, 2, false, 0x0},
-+	{0x0, 0x0, 1, false, 0x0},
-+};
-+
- static const struct ppe_scheduler_port_config ppe_port_sch_config[] = {
- 	{
- 		.port		= 0,
-@@ -732,6 +844,8 @@ static const struct ppe_scheduler_port_config ppe_port_sch_config[] = {
- 
- /* The scheduler resource is applied to each PPE port, The resource
-  * includes the unicast & multicast queues, flow nodes and DRR nodes.
-+ * Entries 1 and 2 serve ports 1 and 2 on both IPQ5332 and IPQ9574.
-+ * The reserved pool is the last entry.
-  */
- static const struct ppe_port_schedule_resource ppe_scheduler_res[] = {
- 	{	.ucastq_start	= 0,
-@@ -835,6 +949,19 @@ static const struct ppe_port_schedule_resource ppe_scheduler_res[] = {
- 	},
- };
- 
-+const struct ppe_soc_config ipq5332_soc_config = {
-+	.bm_group_config = ipq5332_ppe_bm_group_config,
-+	.bm_port_config = ipq5332_ppe_bm_port_config,
-+	.bm_port_config_cnt = ARRAY_SIZE(ipq5332_ppe_bm_port_config),
-+	.qm_group_config = ipq5332_ppe_qm_group_config,
-+	.qm_queue_config = ipq5332_ppe_qm_queue_config,
-+	.qm_queue_config_cnt = ARRAY_SIZE(ipq5332_ppe_qm_queue_config),
-+	.sch_bm_config = ipq5332_ppe_sch_bm_config,
-+	.sch_bm_config_cnt = ARRAY_SIZE(ipq5332_ppe_sch_bm_config),
-+	.sch_qm_config = ipq5332_ppe_sch_qm_config,
-+	.sch_qm_config_cnt = ARRAY_SIZE(ipq5332_ppe_sch_qm_config),
-+};
-+
- const struct ppe_soc_config ipq9574_soc_config = {
- 	.bm_group_config = ipq9574_ppe_bm_group_config,
- 	.bm_port_config = ipq9574_ppe_bm_port_config,
-diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.h b/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-index 0dafab264743..b42731aa3e7e 100644
---- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-+++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.h
-@@ -316,6 +316,7 @@ struct ppe_soc_config {
- 	unsigned int sch_qm_config_cnt;
- };
- 
-+extern const struct ppe_soc_config ipq5332_soc_config;
- extern const struct ppe_soc_config ipq9574_soc_config;
- 
- int ppe_hw_config(struct ppe_device *ppe_dev,
--- 
-2.56.0
+                copy_cnt++;
 
+Can you test the attached patches?  If they boot TDX with QEMU, I'll go ahead
+and post.
+
+--eT79xhp2T0neg3Wb
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0001-x86-cpuid-Mark-CPUID-function-0x23-as-being-index.patch
+
+From 73ab6386bac6625333526ab6b137c445d22ab5db Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 15 Oct 2026 18:34:12 -0700
+Subject: [PATCH 1/4] x86/cpuid: Mark CPUID function 0x23 as being index
+
+Add function 0x23 to the set of CPUID functions that are index, as per the
+SDM and the many sub-leafs defined in leaf_types.h.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/include/asm/cpuid/api.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
+index 82eddfa2347b..25b22b173f2a 100644
+--- a/arch/x86/include/asm/cpuid/api.h
++++ b/arch/x86/include/asm/cpuid/api.h
+@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
+ 	case 0x1d:
+ 	case 0x1e:
+ 	case 0x1f:
++	case 0x23:
+ 	case 0x24:
+ 	case 0x8000001d:
+ 		return true;
+
+base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
+-- 
+2.56.0.176.g3575e65682-goog
+
+
+--eT79xhp2T0neg3Wb
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0002-KVM-TDX-Set-SIGNIFCANT_INDEX-flag-as-appropriate-whe.patch
+
+From 90bd7cecc21de49fc30eda93de1d9f59d0c9a428 Mon Sep 17 00:00:00 2001
+From: Changyuan Lyu <changyuanl@google.com>
+Date: Thu, 15 Oct 2026 18:39:30 -0700
+Subject: [PATCH 2/4] KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate when
+ filling CPUID entries
+
+Set the KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag in the kvm_cpuid_entry2
+structures returned by KVM_TDX_CAPABILITIES if the CPUID is indexed,
+otherwise KVM could confuse userspace and induce a configuration error.
+This also ensures consistency with the CPUID entries returned by
+KVM_GET_SUPPORTED_CPUID.
+
+Fixes: 61bb28279623 ("KVM: TDX: Get system-wide info about TDX module on initialization")
+Cc: stable@vger.kernel.org
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Changyuan Lyu <changyuanl@google.com>
+[sean: keep the WARN, don't key off KVM_TDX_CPUID_NO_SUBLEAF]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/tdx.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index ee1d412b0ee6..bcfecd2b1f31 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2,6 +2,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/cpu.h>
+ #include <asm/cpufeature.h>
++#include <asm/cpuid/api.h>
+ #include <asm/fpu/xcr.h>
+ #include <linux/misc_cgroup.h>
+ #include <linux/mmu_context.h>
+@@ -163,11 +164,18 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+ 
+ 	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
+ 	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
++	entry->flags = 0;
+ 	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
+ 	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
+ 	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
+ 	entry->edx = td_conf->cpuid_config_values[idx][1] >> 32;
+ 
++	if (cpuid_function_is_indexed(entry->function))
++		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
++
++	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
++		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
++
+ 	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
+ 		entry->index = 0;
+ 
+-- 
+2.56.0.176.g3575e65682-goog
+
+
+--eT79xhp2T0neg3Wb
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0003-KVM-TDX-Don-t-zero-non-significant-CPUID-entry-indic.patch
+
+From c5cb713d03fa7cc41b999db8b014da6aa3d2a424 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 15 Oct 2026 18:42:36 -0700
+Subject: [PATCH 3/4] KVM: TDX: Don't zero non-significant CPUID entry indices
+
+Now that KVM sets KVM_CPUID_FLAG_SIGNIFCANT_INDEX when filling CPUID
+entries based on output from the TDX Module, don't zero the index for
+entries without a signficant index, as doing so incorrectly suggests that
+zero is somehow special, which it is not.  The critical piece of info is
+the SIGNIFCANT_INDEX flag, which tells KVM (and userspace) to simply ignore
+the index.
+
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/tdx.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index bcfecd2b1f31..75a86d64892a 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -176,9 +176,6 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+ 	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
+ 		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
+ 
+-	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
+-		entry->index = 0;
+-
+ 	/*
+ 	 * The TDX module doesn't allow configuring the guest phys addr bits
+ 	 * (EAX[23:16]).  However, KVM uses it as an interface to the userspace
+-- 
+2.56.0.176.g3575e65682-goog
+
+
+--eT79xhp2T0neg3Wb
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename=0004-KVM-TDX-Reject-KVM_TDX_INIT_VM-if-indexed-CPUID-func.patch
+
+From c38351fecf16d9bbb694f3a08127ab90ae64484b Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Fri, 16 Oct 2026 07:41:34 -0700
+Subject: [PATCH 4/4] KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID
+ functions don't match
+
+Reject KVM_TDX_INIT_VM if userspace doesn't configure the canonical CPUID
+entries correctly with respect to KVM_CPUID_FLAG_SIGNIFCANT_INDEX to fix a
+bug where userspace could bypass the TSX and WAITPKG checks by simply not
+marking a CPUID.0x7 entry as being indexed.  This also sets the stage for
+more in-depth validation of the incoming CPUID configuration.
+
+This is obviously an ABI change and diverges from KVM's general approach of
+"let userspace do what it wants".  In practice, no "real" VMM that supports
+TDX misconfigures a TD's CPUID entries in this way, i.e. the probability of
+actually breaking userspace is basically nil.  And unlike normal VMs, where
+KVM has full control and thus can deal with bizarre CPUID input without too
+much fuss, TDX VMs require extra care due to the TDX Module also reacting
+to the CPUID configuration, i.e. KVM_TDX_INIT_VM needs to be more strict
+than KVM_SET_CPUID{,2} to avoid creating potentially dangerous-to-the-host
+setups.
+
+Opportunistically rename the helper to make it more obvious that it's
+checking if the passed in @entry is unsupported, as opposed to returning a
+set of unsupported entries or something.
+
+Fixes: 6d415778f106 ("KVM: TDX: Disable support for TSX and WAITPKG")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/kvm/20260604024927.E22311F00893@smtp.kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/tdx.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 75a86d64892a..7e0d81066420 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -151,8 +151,12 @@ static void tdx_clear_unsupported_cpuid(struct kvm_cpuid_entry2 *entry)
+ 		clear_waitpkg(entry);
+ }
+ 
+-static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
++static bool tdx_is_unsupported_cpuid_entry(const struct kvm_cpuid_entry2 *entry)
+ {
++	if (cpuid_function_is_indexed(entry->function) !=
++	    !!(entry->flags & KVM_CPUID_FLAG_SIGNIFCANT_INDEX))
++		return true;
++
+ 	return has_tsx(entry) || has_waitpkg(entry);
+ }
+ 
+@@ -2386,7 +2390,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+ 		if (!entry)
+ 			continue;
+ 
+-		if (tdx_unsupported_cpuid(entry))
++		if (tdx_is_unsupported_cpuid_entry(entry))
+ 			return -EINVAL;
+ 
+ 		copy_cnt++;
+-- 
+2.56.0.176.g3575e65682-goog
+
+
+--eT79xhp2T0neg3Wb--
