@@ -1,124 +1,156 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A26AA1E9B37;
-	Fri, 16 Oct 2026 01:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2CE3BB57
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792114246; cv=none; b=dfPtT0Wvr8Id67vlSw+Hn1dV/i53fK0t/rGJLw3Ex3sTRExqbwD7N261/yd4X/IYEXSuGyB97rclHeZJcXfiqqRaE6ByhJPpnOdMdf3aF4h1wPRxVHo6zFTrT3IVdYQnMM34ZrsjGCgUPva1W//PKs9a94WUtqDrIXqxyQ70B1U=
+	t=1792114763; cv=none; b=o57I5Y1liB+/XYdubxJoWcVx8XFHOhrLN2bh57gEJB9c35HGncQuFPfq5DBFYMVS6DZd1xxn2Dk7pXT6U9E15K+wq4+dnx3dxqWS2uFrBIpCU37qeIKuHlAMfyY3+1Ogtu8o7BGtk4p/2UvTdHi51Ceps/6ZNMBbwK+LuiLZpYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792114246; c=relaxed/simple;
-	bh=NHjPVffI4vaUZO+Vsx8dzVQOq3E63OHQvnKtyn4jZqo=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=AKdhAaVMMcfo/YOWSPdZ5JBXTrS/7P0ReyPBxKo02gnTHn1lCWF+SWlaNR8x0ROj+Y8RZFsszFyhe+o+62XxY0o8DRMLRfhEuDYnm6ou0JK8TEycxI1mQW6TqYXiLuz5iWH7MeDqtx6VbhwI6iEMnJs2GrBFvomaYUgjE2TdJwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8CxfdI8ftFqpFoWAA--.65034S3;
-	Fri, 16 Oct 2026 09:30:36 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJDxRs07ftFqI_AsAA--.15901S2;
-	Fri, 16 Oct 2026 09:30:35 +0800 (CST)
-Subject: Re: [PATCH v4 3/3] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-To: Tao Cui <cui.tao@linux.dev>, chenhuacai@kernel.org,
- zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@xen0n.name,
- nagachaithanya9911@gmail.com, Tao Cui <cuitao@kylinos.cn>
-References: <20261015234638.1077815-1-cui.tao@linux.dev>
- <20261015234638.1077815-4-cui.tao@linux.dev>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <bd455df4-49e8-c80c-a5cc-b0feabeb3262@loongson.cn>
-Date: Fri, 16 Oct 2026 09:31:57 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1792114763; c=relaxed/simple;
+	bh=VH/sJji9MaAJtXetVMAL0kmvwh0rIDcGnsVGqynD0Ng=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TMJDAemblYfOgCVVKpir86RMRreQ0vQGYA+rJxS94KRy8ruHYBN579RKMRxHTtLrLA/ksW8ElScpnu7pWkq40gvQ+fa354O0QhRugxJDHm4aEHhUlQB2edkK0i7Vz9WoT2TnmKm13y5Tkny+Pvbq65Q8NuEEANcvhCB9TIpcc28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bz6kM4r7; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bz6kM4r7"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5361e313e63so12607501cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792114761; x=1792719561; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z1IfMfNgxmNnTVwhoMZ/I9bCV5F2hA5W5b2zHBAEC4U=;
+        b=bz6kM4r7FE0HPFIExfW8r+d0G8ZTHTXtumYV0CnPGG2d3/oBQCDVB/2L6TCmAtaUmU
+         ymuiZErxr1xdT97L8/fqb4Hzi4VUymyP6JC6EXtfdZbnIY09S9f+gLrdXCyOsnZS5pXY
+         Q1lm9yGmvDXX9iRUzOOHGNQI1zTIsXj5YGLNkrAmOtnH3y2Vfm9AjI4vxDio3jT9tLdh
+         /C87VsyK7jsNjNGYGkuIIuvpK1GR57XEQi24rOalHYe+iGsAb2d8S27E2v2c+A9aQN4f
+         T3J+5hdkvp16zApI2jijXymXyMVwa7qV0iYlFgLwUDaRjgDTYEXqt5hBWen7A/cnMm9B
+         Ctkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792114761; x=1792719561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z1IfMfNgxmNnTVwhoMZ/I9bCV5F2hA5W5b2zHBAEC4U=;
+        b=2x2yTmFifaAd5+QpF5/pFshrnYZL/IDageEMXGI4KN8ihrgmGBDGCy1yQ0mGoedDJt
+         7esXPfZXNixXhAZfaSHwPv97BFlH8osqrfzRxn77zZukhAsTO11NeT4tgoS+Yzv3ZQfp
+         pFTe4n+3QMkxY5zFSIBxXZ6+JC1ojekRK6XhvTeFL1/DBrgq58SILCE91UfZODOz+FG3
+         QSQDuiK5Q11iLAS4Qd+vn74/HOsBs2ytN/hRuPqUvERmISVinuio2hfkaJEK0Ige0TDl
+         byPo+Dtnf9yxzZndNOddkHOVEGfeprmKWROjm0spDu3Bp/fPbaD0+E65biL9A3YfyCH+
+         H1ew==
+X-Gm-Message-State: AFq9FYImvO+MVGhzVsITSoXPvid0Rv5KXKKOBq88HKWViiA+uTfxzys4
+	n0nxc6uNZDHbDNNefgflfBZB3PrX5HFcRy4lOZYjoQHdKP96NnJtSUc=
+X-Gm-Gg: AYBFou09idcNoNWs7vyEv3e+yNT2JwQ3T+RsEG37iXQRPJVcU+BxzlCmas2r7Fe6qGi
+	ZoBOU2NWeHIq+dogwat/uXnRu9vG2B5LA//jxKIAqcPKpunyWS2rdOUJ8rXBzZZFuQCd9+MuvNT
+	VYEN1Wqfs9mJMIFl9H8awbQD1sHvJqwhRsB+3QrNv2WDk4O7o2EZNHUKXT5Vxfl8hq4IrV/6uHH
+	ItBxZy5hu9W4NuBFixE95PQRlM4cwQX23glvSr4Zlf3CNTcEA7ns6W+ZHXadIch7W6HgA/F8uRm
+	t7eO79BfLrPaXEjH8E5Pc6QoNv69WsLGyMoRKJYiQTKYGpZvp7nZpfgYmvGO8jN5L8d/74+Ztxh
+	w9b7ctChPgZwO+XvjDwA+a3mCEBz1VTCBwF6lWnWIfxwlnXjE+cBU5GSM7KxVe2klmE8GIfqS4e
+	+VXSwKRPRlMquBzJeqbSY+rx6GQdtA0plMlIKT3lMbmVWRbwUz/3oQyOiScJuipFKU9+fWrjrt5
+	bEB99AcPp1fLC9FcEc1YOtbhVC4w1RP8XltOGMgU/QpjOXEP4FAames1aMVugg4XcbhGVP3ELj4
+	KcJrPAOSzLniUNzXDH6SiBiM8BrJvQ==
+X-Received: by 2002:a05:622a:1441:b0:535:864d:b821 with SMTP id d75a77b69052e-5359fac48aamr342803671cf.17.1792114761291;
+        Thu, 15 Oct 2026 18:39:21 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a9c273esm8981861cf.20.2026.10.15.18.39.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 18:39:20 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	soc@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] platform: cznic: turris-omnia-mcu: stop button emulation producers
+Date: Thu, 15 Oct 2026 21:39:18 -0400
+Message-ID: <20261016013918.3492835-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261015234638.1077815-4-cui.tao@linux.dev>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxRs07ftFqI_AsAA--.15901S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZFykJr4xCFyDGr4DAF4fWFX_yoW8tFW5pr
-	W8Ca9xCrW8Wr1I9Fs7Zwn7XFyI9a1I9w4F9F1YyFy2kr15tr9YqFyFya15X3WDJ3y8AFyI
-	qFs8G34Fva1UAabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
-	AwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
-	Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
-	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
-	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
-	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4s2-UUUUU
 
+The legacy MCU IRQ thread can requeue button-release emulation work
+after its managed cleanup has canceled it. Since the IRQ is still active
+at that point, the newly queued work can outlive device teardown and
+access freed MCU state.
 
+Use disable_delayed_work_sync() to prevent further queueing and drain
+the worker before the IRQ action is released. Keep the parent IRQ active
+while the worker completes. devm_add_action_or_reset() also drains the
+work if action registration fails.
 
-On 2026/10/16 上午7:46, Tao Cui wrote:
-> From: Tao Cui <cuitao@kylinos.cn>
-> 
-> KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-> invocation: every call overwrites pch_pic_base and registers the same
-> kvm_io_device on the MMIO bus at the new address, while
-> kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
-> init, MMIO to the stale ranges computes its register offset against the
-> new base and silently reads 0 / drops writes, and the leftover bus
-> entries persist until the VM is destroyed.
-> 
-> Reject repeated initialization with -EEXIST, using the initialized
-> state of the kvm_io_device as the indicator.  The check, the MMIO base
-> update and the bus registration are serialized by slots_lock, and the
-> real registration error is propagated instead of being replaced with
-> -EFAULT.
-> 
-> Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->   arch/loongarch/kvm/intc/pch_pic.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-> index 51e4a6a39dc0..a4c35ed704be 100644
-> --- a/arch/loongarch/kvm/intc/pch_pic.c
-> +++ b/arch/loongarch/kvm/intc/pch_pic.c
-> @@ -281,16 +281,21 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
->   	struct kvm_io_device *device;
->   	struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
->   
-> -	s->pch_pic_base = addr;
->   	device = &s->device;
-> +	mutex_lock(&kvm->slots_lock);
-> +	if (s->device.ops) {
-> +		ret = -EEXIST;
-> +		goto out;
-> +	}
-> +	s->pch_pic_base = addr;
->   	/* init device by pch pic writing and reading ops */
->   	kvm_iodevice_init(device, &kvm_pch_pic_ops);
-> -	mutex_lock(&kvm->slots_lock);
->   	/* register pch pic device */
->   	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
-> +out:
->   	mutex_unlock(&kvm->slots_lock);
-one small nit, what to do if there is failure with 
-kvm_io_bus_register_dev()?  clear s->pch_pic_base and  s->device.ops?
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-Regards
-Bibo Mao
->   
-> -	return (ret < 0) ? -EFAULT : 0;
-> +	return ret;
->   }
->   
->   /* used by user space to get or set pch pic registers */
-> 
+Fixes: dfa556e45ae9 ("platform: cznic: turris-omnia-mcu: Add support for MCU connected GPIOs")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ .../platform/cznic/turris-omnia-mcu-gpio.c    | 31 +++++++++----------
+ 1 file changed, 15 insertions(+), 16 deletions(-)
 
+diff --git a/drivers/platform/cznic/turris-omnia-mcu-gpio.c b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
+index 4e430d6c3fc4..8f43bfa92373 100644
+--- a/drivers/platform/cznic/turris-omnia-mcu-gpio.c
++++ b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
+@@ -11,7 +11,6 @@
+ #include <linux/bug.h>
+ #include <linux/cleanup.h>
+ #include <linux/device.h>
+-#include <linux/devm-helpers.h>
+ #include <linux/errno.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/gpio/driver.h>
+@@ -841,6 +840,18 @@ static void button_release_emul_fn(struct work_struct *work)
+ 	generic_handle_irq_safe(mcu->client->irq);
+ }
+ 
++static void omnia_disable_button_release_work(void *data)
++{
++	struct delayed_work *work = data;
++
++	/*
++	 * The IRQ thread may requeue this work while the IRQ remains active.
++	 * Disable and drain it before releasing the IRQ action and the MCU
++	 * state used by the worker.
++	 */
++	disable_delayed_work_sync(work);
++}
++
+ static void
+ fill_int_from_sts(unsigned long *rising, unsigned long *falling,
+ 		  unsigned long rising_sts, unsigned long falling_sts,
+@@ -1082,21 +1093,9 @@ int omnia_mcu_register_gpiochip(struct omnia_mcu *mcu)
+ 		return dev_err_probe(dev, err, "Cannot request IRQ\n");
+ 
+ 	if (!new_api) {
+-		/*
+-		 * The button_release_emul_work has to be initialized before the
+-		 * thread is requested, and on driver remove it needs to be
+-		 * canceled before the thread is freed. Therefore we can't use
+-		 * devm_delayed_work_autocancel() directly, because the order
+-		 *   devm_delayed_work_autocancel();
+-		 *   devm_request_threaded_irq();
+-		 * would cause improper release order:
+-		 *   free_irq();
+-		 *   cancel_delayed_work_sync();
+-		 * Instead we first initialize the work above, and only now
+-		 * after IRQ is requested we add the work devm action.
+-		 */
+-		err = devm_add_action(dev, devm_delayed_work_drop,
+-				      &mcu->button_release_emul_work);
++		err = devm_add_action_or_reset(dev,
++					       omnia_disable_button_release_work,
++					       &mcu->button_release_emul_work);
+ 		if (err)
+ 			return err;
+ 	}
