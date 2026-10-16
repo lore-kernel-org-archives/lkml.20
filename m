@@ -1,95 +1,96 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABB3C10A9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352533CAE93
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179269; cv=pass; b=mQXFhzRIoA5EfPX4Z8J88btVFEYP5UKj6kgU5oCRY3e3nCQTrwFum7t3z/PqnCs/S+Vo8AHGEu1qjziBwyoP9OQs+RDEV2m4McRsNFQdRz4YY5fHuiVXzPStsNAnTZQBd58i5/pjrRK0j9wOSSGsmitf9hVv44VmZ6W9an0qibE=
+	t=1792179437; cv=pass; b=kLddrUMpohmdlpuFXpT0H0jpyIVCz5+XgpoKZA8II13RiyOWZss2YqrD5gW3ooQmcGrFnrw/dsM3pcuhyoXaJe80hzQ4iXg2WlC3lBuhrdS+woUiglspVA8oU75Ijl5D8ImW3oyi+rwf+oBP2+YSmIGcWh7PZ86jmhnIalhUbMs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179269; c=relaxed/simple;
-	bh=uJFGFLzirY/vHBGqV0yRgabUC6JrYut6ZFglfLhuyZo=;
+	s=arc-20240116; t=1792179437; c=relaxed/simple;
+	bh=T24EBAmmRXB3PyxMRw5x/uGX9vSuVj8AHohfJzGwWRg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X6wsDasvVDHgTMY2BKArT+QHwZG3K0r4S/l63hboh0S4i9UOMsJ+cnf2w7PThHIQyxQjG/E7P+buq3pZilcD08mv7IYAGCZLlNUtJJQQ+qsf3LFNoEzlstuELRS/JtSYHYOTHU5yXo1jao226X6y9qSEtImzGAhpYZm9FPO1RdY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sLe0fX1R; arc=pass smtp.client-ip=209.85.208.49
+	 To:Cc:Content-Type; b=izWzzRKw7em+UwOHX7fRStTOL9+wyoZWwa2A9ZxewbqV13wl0X+rmn2eYzyXH9SMv9oR8xNylz1cu/vZLkzb+nOcrOg8R15pjwhLBe0s6oVJpEJF882R4ShQ5EjF9QDgxspK9rHNnKvOoFS2AUvgDJ4xnEn4QJiy/Q6Gd+MDvP8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NXnHxUpL; arc=pass smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sLe0fX1R"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso48a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:34:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792179265; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NXnHxUpL"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-533202fe429so60041cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:37:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792179434; cv=none;
         d=google.com; s=arc-20260327;
-        b=dKh7rATNTK1ob5n5yWL4rj9FguMR/TD3cuENiVqcxD8iCA1/RpfhxrepqZKJt6BtEt
-         IXfFCqJxkDBTBrynN4ZO22vvAnA90TDzv3rAFAr2pJXDcfNX+QpUZCjgZ23YtTMnKvSe
-         4azHwC8/KJpss8YcVmRHHJdG4ZQbtgOK96zT/z3RWsE20NsPG15yhKmEEY2WyV2Bv4I/
-         it97gKQ0V427/7PJzUEbs1L5DkrdMcM2QTkp4efn83HpM+7Ft9xLB3mj0uD6qsESuoE5
-         oOyX3OBfKVfKBCNJLBgixhhQKO5owfdWy65x/3EbXqvk3PU7hAvDRYm4z35WjewOUQOC
-         MQHQ==
+        b=Dhl6YzwWlEgy6/mlEId/kQ0ZyNC4aKy9IKY1sEWrKsZ/F1JTJCMdkqpmeYuApzrVMb
+         ikxXoVmCArmp5BNHW9KRqEhA1nOY8aLMnC9ifnUmCHW6h8Z9q2Z92Thp1cCRNZF3ybkz
+         Romzis31jxF2BMNV3YWESp0sshgY+sfksUpkGJywbBrxs8eYPI9FbF6DVZOc5iVhHxwm
+         mmhcq3S8gfk6rdZceftVvs/fe0vsm9rKPkWCtesn2HdzpHXzXKMWEmxOMblMfmAgg4jB
+         irnm8k7wK0e5ixkzGtdrJIW6r0AorXEbSsUPEQ6ifoI6QbwEWI+vjV/Dcarim2yY0C39
+         PSPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=XyqDYqvsBK9DCe2WChAIDKhJNBGuOpHFCMCEbXTik+E=;
-        fh=bD9DuYIji7vEjMHA32Mit1XGTY9vTUyONh2kvGvh9y8=;
-        b=OPLB1/XduHHD+oAj61lzxKLYbzGCaja6b0JUilbkaR1Icz77I/29Nd1sng7XAKnjh1
-         wb7bQVmp42I1bFKsIeIK0OjcoBw4ZaQb6+slgyiT5gInVyXhQiYmG9bxLgu0dbv86wDb
-         iGMtRGljo44HrhOshw9oPG+SW5Du6bjKHCB7wbIPBDDlwzOZHLA0BtFnD9IFhLLXy32P
-         9ItFTATcFF8sYwpV65Ua2/fXR5sBeKccxyI0feARzy7/WwIGC0xLaWr2ijCnybPPyYAj
-         bhiyWIOmsaD+HALlz5nJRKQ59cZKqvdCkmYLzde9IjRgLj0Zm2bSQAn9Dibo0H4S1fCQ
-         Oqbw==;
+        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
+        fh=GlSGCIo4umV210WkzGvDFjFGhRf/lqQLiAwUUPAx4d0=;
+        b=oCyHSNxCReq8Zl6bv+8QwOBCNVdccXCXUhsl718Was/eQ/aZaqOgtocP77cB8S4OEC
+         9ucxvYqNF08oLnGnrbfOYDnyDxK/09uH/Hs4PN7OlJTOU4HvdO7kPkXXMA7UI5C/lQ8U
+         4yZbnZR4YX9devzZMsmunRnsHapBjCrgDcltd4DLPU71WGNXKmSD9NT4iW6D+2lg72xQ
+         JneeTbKP+3H6WW/WDwlpIxY3+so3I+tFJ5E/GaMycLcDPot8jQxKUZ1QOtZKdfCcYjOc
+         O3T37X/qIKyx7mR/iVTtRiBAqanhO9IqoEJZZzO3/L1v6KOoxl7d4NwvtQMufgrxYtzk
+         1/pA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792179265; x=1792784065; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792179434; x=1792784234; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XyqDYqvsBK9DCe2WChAIDKhJNBGuOpHFCMCEbXTik+E=;
-        b=sLe0fX1RT/tcPZmVprvWumTfrdWQvITCTBhFAsRB7d79PMqf7v4MQ/tU/Le+fVx6Px
-         K0kj42Rqf8G3mtgaWGgycV11KkjkUieG/CUtnd2gvF1uXHySKrxxQqMH9FCeEleBKmYA
-         mB2KVmRtLY7GJAa7sWyR+rAzBuQQI0EBe+sZtAaW+TkQ/cs+ow7eH2u2zPqFYuJS4cMN
-         t9tlFgEiLeLN7qHM6XAUvXgDomgBjEzeFiUbkgjJLkafUQJwkCVpQrPhpV9EP5Mlcd4m
-         vwUpB5zRL/xdfZFC0uC3TrS5OrzKztMuGrGb+Fhf4qay3XgpAEu5YVgWYYG0ixi1DNH0
-         egoA==
+        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
+        b=NXnHxUpLf9ZHs2Q9xRKz2TCK3RLgb23vin75BINP5G0fCtS0JnsAGs9EjLbZDDKSZ5
+         9nBtWIh1Mn06jqoZUfXHHhlBFyR/0AWCXJUJj4J798dmxlcsyjPP7OZkt2oW3vCwHz7A
+         VgEbGEYbg9FfB2aHBBRxrUmbXFvKFl2DN32yuKBfGo4qsMyAGBmAhaOExxCai+bRGYgk
+         ZcQyrrTnf1UxGpLKQMvnLeyZx1BBinid4w/KEym0q+qOcH1uevYFJlh90mkmXaqzhMkz
+         Mmf9UOyaz0Jvh3FCLDe8DD6HQx2ufeD+MH+/at8nhPt7Tbk7YpjJ9fYCPLeNdWr4iLuM
+         9bcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179265; x=1792784065;
+        d=1e100.net; s=20260707; t=1792179434; x=1792784234;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XyqDYqvsBK9DCe2WChAIDKhJNBGuOpHFCMCEbXTik+E=;
-        b=20b1/g6ZVYRxEnbBx8Ix7PON5tcgPURf8BAVeuRI6+2D7sfJm/ROmNBadFsiKMIFmf
-         0MEp0jX2R5cxUQ2TkbQL6eUqPZqlSbIro9o0Xm73/c7nilz9lwkLlqhTr5KTeOeFTl2g
-         zucjO22AKkW47hUJ+x4JnGCd86r9ovNvf8mAizOS+RqWKHxVqrind8z6X/DFFi+cmHnY
-         l8kkSa06B6+WUnnqsOtSpQdnSKN6v0BjLi1i86JTU5+qA3fvgLhAR+FV2a84Vb1DQoiZ
-         pP1IKYuVatgn02vUuj30T3lmA5B4ysF4YqhszUs8uh4KEyaYGXBD9FBGgqb3xTyaLKU3
-         1P5A==
-X-Forwarded-Encrypted: i=1; AKwUvBxPjp/E/PtntjQBwjEhK5ZnCeK/l2lBfAJ8EIbgIu2618eBJYuSbii899IHjhy2Hk25bCPgzmQeGvt0XXA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL55tbFzMv1tc5x9Yze23cQWVmJQmWGhAuErtGAy+PUkTxq+beZ
-	EIrXWKFUdLKNVGIWX2Y4g3NiDDJRFtvUYULasV0jFpEJ4wW/dn72aJU/Z4G4Vrs4x2LSpa5HSeK
-	CpMxEtgIQN/zgXqB6RPh5DrLQpqX09exGsSeeknMh
-X-Gm-Gg: AYBFou2HVaFf5gFUd0P3SLtbX8Sw8BLVFZ4RAfoBerTx2lNz3ZyP9mDfCKbO8Ihp4Aj
-	M2zgxFdXqEz6sY+fRKC8X0qc5e6TfgOS+Gscmpwc2hks5jbB7VlSMPbiT24oB/o6uSr4cskvHh/
-	K040hV33d2Q0OWktRr7CMjtoj3lPadbuQFrmQfseayipk4CzjxrFgRZeUHq+h6/JYWG3SSG45Oy
-	WebPwHnJQoswAKPlooqnIJOwXWgnqQaCWE1n9MmND9uQXBirJAXqhTh4D84edhzfG7Wdtmk0s6T
-	lsEbP0rGMn5nSEeXCFJurjXtymyRfdTqhdkGHN8Gro56JtB+hxWoAgU=
-X-Received: by 2002:a05:6402:5177:b0:6b1:bce6:1220 with SMTP id
- 4fb4d7f45d1cf-6b3a8c0a97dmr7268a12.12.1792179264501; Fri, 16 Oct 2026
- 12:34:24 -0700 (PDT)
+        bh=Um6BosUUMDxetnqhnpCeanhIvXYZRN4p7ISZfy18W6o=;
+        b=2FKToLynIldZtvTPYtHbg4wIrgMewYcLbdbqS0tLbEHcmSiccafBx63IAH7oMqphtD
+         Zr4Q8edoVGucCic3Bgz3ztyXg/LWOUBwVNitRKJsyKFRJsaVSGUFP/06jVRCsivlhQkE
+         OEHVxhPHQr/jLywoeTbauHuHCDedadtHwCtiJscSovCkfBOfXeumsbYHL9ZAaS5KsrUD
+         BaodCICQVk8xjPNZS6Y4OIJdc598bBTYH+Bf34jU1Ke+W2hMhV4nv/mML72GYPYeYK5L
+         Wvps84NpiSS3lvz/rPdepmsyA9JRIostsZdAjXaiU2AVrOAlht6l5zs9Se5EEg2FWlKF
+         BwrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwaBV+WUQrN3QfyZK4nidrNrUAmPg5rmDsAA+LQnPYlgfP6frMHZgRNdXPO8mFP88hGlmeP+FqvSCQyZyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3saIONatqiZCh8QUePYeV2Pf9QjRkYWB9ogBJXibZcDFxxh64
+	9wpVGvs9vZOyp/ut8DrFkhlWcVfUggvp5dIigf3xX2m9PV/SjjiSCrMzVC5Wtnp3p827AmXHncd
+	xIs8dQqeGyYIcCqOS+Q86/dOb3jDzUfKRF0nWfarD
+X-Gm-Gg: AYBFou16Z/uucDek0FK24fxL1mVNxmXGAJQB+/BH7d+sz+ABB1KuSrUdf4JgK8HhcI2
+	J/Eht+VwPRvMhPA68AsIAgJoyQeZ9z1lmCGoJi3rKXrFjw4jtXn/aD/PWkroKEKA2/eKAtGWaiv
+	panUmHLBXZ3OsZN0rPEyKePlY7fdTaSFe9yqJyBDhRLgDifyE/sKG/VPVl0n+PzD5baiQFPXmN7
+	d/ltEvMTTXxMStwLp42GHI6pMBMOIYxf6X5erMIVAaWxHoSk4CuHmmiedGevM+Eu5+WApJ3Du6z
+	pUeiCv7W3XaNqEYxh8sbt/YgDn6t6fC4XC1bIYLsVLLJ3QXfIC9hMlqH
+X-Received: by 2002:a05:622a:598f:b0:536:3d22:fb83 with SMTP id
+ d75a77b69052e-536465eabddmr3092751cf.13.1792179433180; Fri, 16 Oct 2026
+ 12:37:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-4-yosry@kernel.org>
- <CALMp9eT9xOFKSFnOg5OeXgmXV0pr-4-yJdBFFMORPx22BgHnHw@mail.gmail.com> <CAO9r8zMtrxJYN83_ht1wLfNrRvc_suLm7LyDhxZABQTBt-fN-w@mail.gmail.com>
-In-Reply-To: <CAO9r8zMtrxJYN83_ht1wLfNrRvc_suLm7LyDhxZABQTBt-fN-w@mail.gmail.com>
+References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-12-yosry@kernel.org>
+ <CALMp9eThakVB_zqPQX=fQLrKh13BR33jmGg__rncOLDa2ZkXWw@mail.gmail.com> <CAO9r8zPHA2Xbwqm5sL1uymCy+T65LKLWDh6CKvV83euHhxPWTg@mail.gmail.com>
+In-Reply-To: <CAO9r8zPHA2Xbwqm5sL1uymCy+T65LKLWDh6CKvV83euHhxPWTg@mail.gmail.com>
 From: Jim Mattson <jmattson@google.com>
-Date: Fri, 16 Oct 2026 12:34:12 -0700
-X-Gm-Features: AclHuK8DdKpSponPWc_KxEn5sY4A6TFNT8lBSzHedmtJI_CHuTEi-RSJOFcs3_k
-Message-ID: <CALMp9eTm1oR=uwoZfgHUF1d7rhH9PVJMZnmqxnNVA4t_bmpUyQ@mail.gmail.com>
-Subject: Re: [PATCH v3 03/27] KVM: VMX: Generalize VPID allocation to be vendor-neutral
+Date: Fri, 16 Oct 2026 12:36:59 -0700
+X-Gm-Features: AclHuK92jepxWuUtFmMlKXO_5v4ZdybtV_AOdjCsjdE0ksCnXN8ts3BnKwKo--A
+Message-ID: <CALMp9eR7MLnZNWFgDWBuux6uuqWOwB0CrDs9UyYouSPHbZYbqg@mail.gmail.com>
+Subject: Re: [PATCH v3 11/27] KVM: SVM: Only flush the fallback ASID when used
+ by a different vCPU
 To: Yosry Ahmed <yosry@kernel.org>
 Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
@@ -97,28 +98,56 @@ Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 1:38=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+On Thu, Oct 15, 2026 at 3:03=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
 e:
 >
-> On Wed, Oct 14, 2026 at 11:23=E2=80=AFAM Jim Mattson <jmattson@google.com=
-> wrote:
+> On Thu, Oct 15, 2026 at 2:44=E2=80=AFPM Jim Mattson <jmattson@google.com>=
+ wrote:
 > >
 > > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
 wrote:
-> > > +static struct {
-> > > +       spinlock_t      lock;
-> > > +       unsigned long   *bitmap;
-> > > +       unsigned int    nr;
-> > > +} tlb_tags;
+> > >
+> > > Instead of always flushing the fallback ASID on every vCPU run, only
+> > > flush it if the last vCPU that used it on the pCPU changes. This avoi=
+ds
+> > > constant TLB flushing on a vCPU using the fallback ASID if no other
+> > > vCPUs that use the same ASID ran on the same pCPU.
+> > >
+> > > Note that checking (and flushing) the current ASID on vCPU load is no=
+t
+> > > sufficient, as it is possible that a vCPU is using the fallback ASID
+> > > only for L1 or only for L2. To do this correctly on vCPU load, both L=
+1
+> > > and L2 ASIDs would need to be checked, and the respective VMCB would
+> > > need to be flushed. This would not be much simpler, and would perform
+> > > unnecessary flushes in some cases (e.g.  loading a vCPU that uses the
+> > > fallback ASID for L2, but L2 doesn't actually run until the vCPU is
+> > > unloaded).
+> > >
+> > > Another alternative is always flushing on vCPU load if the current AS=
+ID
+> > > is the fallback ASID, and flushing on nested transitions if the new A=
+SID
+> > > is the fallback ASID. Again, this is not much simpler and also incurs
+> > > unnecessary flushes in some cases.
+> > >
+> > > Do the logical thing and track the vCPU using the fallback ASID inste=
+ad.
 > >
-> > Can we statically initialize this to avoid the call to spin_lock_init()=
-?
-> >
-> > ... tlb_tags =3D {
-> >         .lock =3D __SPIN_LOCK_UNLOCKED(tlb_tags.lock),
-> > };
+> > Wouldn't it be simpler to track the VMCB associated with the fallback
+> > ASID on each pCPU? Then, you avoid any confusion regarding whether L1,
+> > L2, or both have been assigned the fallback ASID.
 >
-> The call to spin_lock_init() is less code, but I can make the change.
-> I don't have a preference.
+> It would be if we went with checking the ASID on vCPU and nested
+> transitions. But since we're checking in pre_svm_run(), I don't think
+> it simplifies things. Oh, I guess it doesn't simplify this specific
+> patch, but we don't need to check if both L1 and L2 use the fallback
+> ASID on nested transitions.. but we have to check if they both use the
+> same ASID anyway for SEV.
+>
+> OTOH, it would make cleanup more complicated, as we'd need to do it in
+> both vCPU freeing and nested freeing.
+>
+> Did I miss something?
 
-Your call.
+I trust your judgment.
