@@ -1,150 +1,175 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1414A0F11;
-	Fri, 16 Oct 2026 12:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B93F488D9C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154039; cv=none; b=lV2cL5b/0BIYpWkHNSjIvI9a5vHTIrnlpJZbG2sOjXxes07oQVleE45ItDh+g5V96Pwuudv60tbftibgnC51eURJ7DQYN/auXVQG8zSs8AH5Kh8Z7EOiv7MDylgVIgXfjwh1kxJ4eI8ovU9o2Omm5M+3ghb3H1BwpmOAqQj0no8=
+	t=1792154044; cv=none; b=heXVFJq1E4bI439+7dn0PPrh0LHLooo+3kXdjlGb+x17797WlLm+o3FATkKW8vTZ3R0n/DBYjZr6UDaM45+aTDK8Nv4apQMyDTDnDnQ5Kl8/KJm+vGPtRU/yJk237obyCfTZcaai2pkBKc9ZEsr93h3FI3kepIw5kTXQ62IYiu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154039; c=relaxed/simple;
-	bh=wHpgJ12qsqOceZTMy6v8+WhnPVqpiFP/V++jZdD/x9I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fZ3j/v23pP/YuB2AEcjOGkMoctQyO60cOpCKwe4RBuiaKxvKV+hL/bA0+AR0SoOEjOubPOsdkxUxPP6XPqQnQsuoywSBINaQELrPOxky8DLhYk5XXw6MbD+YN1UuhWRfzuwX//ymC0pG51SABKSRw/MKZOR8OGlILVspIqLAFws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=psUbeXq+; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1792154044; c=relaxed/simple;
+	bh=1vU3NCxLFVHdnJywnJQnG9sCBBB2oPGI2MFppoXSbZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JWZtq6MVOOeb/RCpbkYqbYmL09j8kPD+lusZtZfvxQfyG490+NsfH+Lr1eK/brxVuAF7JflWBNHL4MHfel69lkpIyxLx93bJkHVuMmVVToleYt/KPwwa403Y2UwZ2GXeWKCsT6ChQ1VQM82cc97nd0K3WZnqVDRjIGw4o8BgCXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CbMAiZwt; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="psUbeXq+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792154036;
-	bh=wHpgJ12qsqOceZTMy6v8+WhnPVqpiFP/V++jZdD/x9I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=psUbeXq+xijo2sJ3u0F6sGRMbqiU50ThTw0VQ4dnq06Qaj9gYuOi51/3jZICEU2Cn
-	 JwGfa5LjlIRBv3dz1FcvSUl7jIFXEwiYLuibSEAcRKG0jP36N6N3iaAF09QEXDiKD7
-	 6WKL6/0eb/qgnJA4lICMfu3hkac2KR5f4iJnjDnrBPEXrzKazk2786NLnvQTlYRs/r
-	 8o0bZsyYPnmFm8NFS8m+o82X18VtrAd0BxY94txKcr9T04lnuA5ZwsqqUKFfMK33St
-	 PmFUMheTbdLTV/ozM2sYUpFyt8ZeBgU1igtiO9H9/1v2rhphgw2w6Vn+YzkLLrLgZA
-	 QcJ3pMN+Osmmw==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 20A9A17E1509;
-	Fri, 16 Oct 2026 14:33:55 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 16 Oct 2026 14:33:15 +0200
-Subject: [PATCH v14 23/23] scsi: ufs: mediatek: Add MT8196 compatible,
- update copyright
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CbMAiZwt"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e977109392so7519855ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:34:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792154041; x=1792758841; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eTy4IXuSvKSJKpenSSv/dDuZ3Ab3mm4pLG3Vp1dvcio=;
+        b=CbMAiZwt2qZ/kFiAfH8MATg5kBZNGjVbYTBuixuTHvY6LCnJu6UQYiHDspjyDFg2re
+         6C3gEbkub3FwW/6SRSbi/IogaOzi10965TJ+Nibg7Pd1M1pddQX5Zkhpc47jqA6brpXg
+         fBY0r5pH8SnNJP4cLYeboAnNpBfVpQACTyGFs6SZaJrsSixfqaSEwhacc7VLgUE6QrwL
+         RQI2TfjJgzCeefd4xbG/1tWeuViY9gqRLCQUE4fjTQAlGbZfO/b6FIfuBD+2n5vXRlAW
+         tMahX79MmC8jRPfizRpv5r7npUgdvxvSGUiXDot/BAQjuNoJ7NOqy79Rd26uct3Cltw6
+         1d7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792154041; x=1792758841;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eTy4IXuSvKSJKpenSSv/dDuZ3Ab3mm4pLG3Vp1dvcio=;
+        b=pfhyhJWvU38yidG0qc9HgCS88gKQdDgR8QcM/wXI/X1oI7QF2ydSJwP9zFpyPiD03K
+         tyV5bD5nv4KhT46miAM/8UHk0odJT3RBfyRhrHt+w022gy33Ca2TR7KPyChLfXTBqw4p
+         P31SykSCJliotnqmq/FYLC95TEvJ/HC2XtK3QnOpMADYBb7IFdTujJQPiSkkx8x3o9us
+         yPQ2P55uwb0EpO16bIVFwgz01ZhPGQHbQddJlWPl25MtId27Ho9D5i4Ysci3uLjc+8gH
+         gp7h9pO3Y4ECYSPl8psxTKG4ubTli6Rv0MU6sYjcWI9WNo5gs2SqXN0yxdJSEV7Qz8Qf
+         oUMw==
+X-Forwarded-Encrypted: i=1; AKwUvBym7wN04x+Y6MOSP/LUguLuZnFpaoHE1270v+UDIDYiB2Xwxu63K5xqFTe5XX8xB6SJJf5xiR2EDgpHWF8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc5fNHOK4zQosw+6TEc9n4X47Xcis/hTWk7ZRTQogwpA53fl++
+	Q9aVaqG1tUhVURRhBLHR/qzfkEkNoRSSq1TPLg6tWZJgfGCdT56/MU+2
+X-Gm-Gg: AYBFou1G3ZFKuh/9Y2XAYx9RhWpBCifS+nZY6XLFK9QjXcY5D0jGKJFbpr55AzKz9NQ
+	iaSEUkMRTyJXTv09Os2agC7mVovp2r1q78xKEKjpIQUDcHrXOFkzOBjBSmvLuVzrjliIigBsCud
+	xZv965L+SXQyse3txogKgfJXRGlwln2r8oMWdp7bP13fYKr/5hOsOXfPZhkaMlr/HBsrBO3UlsR
+	kQg3Fn/At4ARR6J/R7/ZFDJBABl9hQ11r7RGwPaRiMAsFQNVdHNMhx7KwyQNnqtRSMH8Q1sLag4
+	xySroqvubJSh9lyS90KkyRc/EPZa3rDPP9smhFieGvAK7I0d+Ts78eT8MLNAi/mRs/XDZ9NJpH/
+	i7FvnlhvXmIKzS2mklU0AscM1Fbc6NGtLj0Pg2J1XBwvlSgfZvM/Ew9Y1ufv+fhrhoWl3sQ3aut
+	2njAjsTTiuLEtQRHXAgSNehncxNla1SrpsFY/ppb5b66zbjvUf0N6AfgLRLjIZhowXjKg=
+X-Received: by 2002:a17:902:e801:b0:2e9:99cc:154d with SMTP id d9443c01a7336-2e999cc18cfmr9568805ad.41.1792154040732;
+        Fri, 16 Oct 2026 05:34:00 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87993esm9286735ad.59.2026.10.16.05.33.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 05:34:00 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>
+Subject: [PATCH v5 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
+Date: Fri, 16 Oct 2026 07:33:32 -0500
+Message-ID: <20261016123334.1019257-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015110859.203989-1-wyibo6109@gmail.com>
+References: <20261015110859.203989-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mt8196-ufs-v14-23-e8d565e0cd45@collabora.com>
-References: <20261016-mt8196-ufs-v14-0-e8d565e0cd45@collabora.com>
-In-Reply-To: <20261016-mt8196-ufs-v14-0-e8d565e0cd45@collabora.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Peter Wang <peter.wang@mediatek.com>, 
- Chaotian Jing <chaotian.jing@mediatek.com>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
- Stanley Jhu <chu.stanley@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-scsi@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792154009; l=2479;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=F+xJD4NokUgugq0lpphacZHCauVezznIgj/cPkDIZyg=;
- b=Qem980F3Qk2pcP7/bBgVxgEhNwXq2anlQDq+zd0sy8p0K6XuuT9t2AjQp4zHYkU8I70QbeKHM
- EPZ2qbZZI6wCoeNk0HOGKE+xP4PpU+CSXLEz9MrDHPp2q4Vb7CltOlk
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Transfer-Encoding: 8bit
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+From: Yibo Wang <wyibo6109@gmail.com>
 
-The MT8196's UFS controller has a new compatible. Add the necessary
-struct definitions to support it.
+This series adds support for the magnetic pogo-pin smart keyboards of
+the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
+built around a Tinno MCU attached to a tablet UART.  Both sides share a
+single data wire, so the host gates its transmission onto the bus with a
+PMIC GPIO for the duration of a frame, and every host frame is echoed
+back on RX.
 
-Also update the copyrights and authors, without tabs following spaces to
-avoid checkpatch errors, to list myself as having contributed to this
-driver after the preceding rework patches.
+The MCU speaks a framed "one wire bus" protocol over the half-duplex
+921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
+length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
+The protocol was reverse engineered from the vendor kernel driver; this
+is a clean-room serdev reimplementation that replaces the downstream
+platform driver, which depends on a private msm_geni_serial callback and
+a user-space held tty fd.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/ufs/host/ufs-mediatek.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+The core protocol (framing, keys, touchpad, sync/heartbeat) has been
+carried unchanged across four SoC generations of these keyboards, from
+the sm8550 era to the sm8850 ones covered here; only the 0x3A general
+sub-commands grew over time.  Patch 1 adds the DT binding, patch 2 the
+driver.
 
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 0ffd377ca395..c4ff74eff617 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1,9 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (C) 2019 MediaTek Inc.
-+ * Copyright (C) 2026 Collabora Ltd.
-  * Authors:
-- *	Stanley Chu <stanley.chu@mediatek.com>
-- *	Peter Wang <peter.wang@mediatek.com>
-+ *      Stanley Chu <stanley.chu@mediatek.com>
-+ *      Peter Wang <peter.wang@mediatek.com>
-+ *      Nicolas Frattaroli <nicolas.frattaroli@collabora.com> (Major cleanups)
-  */
- 
- #include <linux/arm-smccc.h>
-@@ -2278,6 +2280,10 @@ static const char *const ufs_mtk_regs_avdd12_ckbuf_avdd18[] = {
- 	"avdd12", "avdd12-ckbuf", "avdd18"
- };
- 
-+static const char *const ufs_mtk_regs_avdd12_ckbuf[] = {
-+	"avdd12", "avdd12-ckbuf"
-+};
-+
- static const struct ufs_mtk_soc_data mt8183_data = {
- 	.has_avdd09 = true,
- 	.reg_names = ufs_mtk_regs_avdd12_avdd18,
-@@ -2290,10 +2296,18 @@ static const struct ufs_mtk_soc_data mt8192_8195_data = {
- 	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf_avdd18),
- };
- 
-+static const struct ufs_mtk_soc_data mt8196_data = {
-+	.has_avdd09 = true,
-+	.has_avdd09_1 = true,
-+	.reg_names = ufs_mtk_regs_avdd12_ckbuf,
-+	.num_reg_names = ARRAY_SIZE(ufs_mtk_regs_avdd12_ckbuf),
-+};
-+
- static const struct of_device_id ufs_mtk_of_match[] = {
- 	{ .compatible = "mediatek,mt8183-ufshci", .data = &mt8183_data },
- 	{ .compatible = "mediatek,mt8192-ufshci", .data = &mt8192_8195_data },
- 	{ .compatible = "mediatek,mt8195-ufshci", .data = &mt8192_8195_data },
-+	{ .compatible = "mediatek,mt8196-ufshci", .data = &mt8196_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, ufs_mtk_of_match);
+Changes in v5, addressing Rob Herring's comments on the binding:
+
+- dropped the block scalar from the top-level description;
+
+- rewrapped the descriptions to stay within 75 columns;
+
+- restored the serial parent node in the example.
+
+Changes in v4, after Krzysztof Kozlowski's comment that the binding
+describes the keyboard rather than the MCU (wording only, no functional
+change):
+
+- the binding description and the commit messages now describe the
+  keyboard (built around the Tinno MCU) instead of the MCU itself, and
+  spell out that a keyboard is a fixed physical device, so the touchpad
+  geometry and the product names are per-compatible constants in the
+  driver.
+
+Changes in v3:
+
+- the compatible names the tablet project the pogo port belongs to
+  (oneplus,caihong- / erhai- / iceland-pogo-keyboard, the codenames
+  used by the vendor trees), and the driver carries a per-project
+  description in the OF match data: feature flags gate each 0x3A
+  general sub-command (caihong, sm8650 era, has no wake notification
+  and no backlight; erhai, sm8750 era, adds the wake notification;
+  iceland, sm8850 era, adds the keyboard backlight), while the touchpad
+  geometry and the per-brand product names are per-project constants -
+  the wake notification is skipped and the backlight LED only
+  registered where supported;
+
+- the touchpad geometry and product names are no longer DT properties:
+  they are fixed per project and live in the driver; the common
+  touchscreen properties (touchscreen-size-x/y, touchscreen-x-mm/y-mm)
+  remain as an optional override, parsed with
+  touchscreen_parse_properties(), for the unlikely case of a variant.
+
+Changes in v2:
+
+- dropped the redundant "binding" from the dt-bindings subject;
+
+- replaced the custom oneplus,touchpad-xy-max/-resolution properties
+  with the common touchscreen properties;
+
+- dropped the serial wrapper node from the binding example;
+
+- the MAINTAINERS entry added with the binding references only the
+  binding file; the driver F: line is added together with the driver
+  patch.
+
+Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
+(v7.2-based iceland tree).
+
+Yibo Wang (2):
+  dt-bindings: input: add OnePlus pogo-pin keyboard
+  Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+
+ .../bindings/input/oneplus,pogo-keyboard.yaml |   76 +
+ MAINTAINERS                                   |    7 +
+ drivers/input/keyboard/Kconfig                |   13 +
+ drivers/input/keyboard/Makefile               |    1 +
+ drivers/input/keyboard/oneplus-pogo-kbd.c     | 1263 +++++++++++++++++
+ 5 files changed, 1360 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+ create mode 100644 drivers/input/keyboard/oneplus-pogo-kbd.c
 
 -- 
-2.56.0
+2.53.0
 
