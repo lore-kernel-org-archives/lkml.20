@@ -1,73 +1,60 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from mta1.migadu.com (out-55.mta1.migadu.com [95.215.58.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B927D26C385
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB49D26C385
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133919; cv=none; b=SbI9+kgnmPTHuTphbscJKAnZO68FWPdsV9ngJpWoXHxUK5M24ZQM40rk760vvgiFv2mX9GEaZUpkUTSfHci6EChqZqv+G4ZJYe0icdhTTFiz1DKNYBEg6IicVQ56Sfpe2Uelkimu1B5QmonHEnYYUBaw3zlQaTj2uHJqUK+iFuM=
+	t=1792133974; cv=none; b=qvhpMBDS3HrXWj025BQ1zDaHr7fACmc5ZLLDIlqj9AY+/hhivCdhDiysD+0i0HNEuN0f7eZ1sDuN6EYTSN2oOAunTVwkUYgAemFnIZUlZqlDOiv7320ChMMZzjqpwVUT72QOS7j0c6Dh7RtXh62vErDXgcmlF96BPun8cz+8iTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133919; c=relaxed/simple;
-	bh=/QmjDIzxFxv7B9+RJHIJIap4aC0fYrOEg6LTg47Ow6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M5WN8YfOmfxZtKumP8ed0Hw5u46FL4Q5TsfIP0UxmMm8OwozEolb+XFnUHTq7HYc3uOwtv5OgxwLFV7TEm5k4wSRvJ5dxS6PuVlKf6wT+1uDpKm/UWGB6tCuTNiY4sVsfoBqbjmimAZ3POqxER6+xFrtHGMKfBIcM2aymnuVgcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=wwO0yVDM; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792133974; c=relaxed/simple;
+	bh=YBk76f/Ysfi12pI6VBVZpEi5qvewc/wR/esNF7jDIek=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=klTh80msqtmpJ/ZHTa7dV2UYQyAGixs+nt/wxXBVZyQpUU48/DVY/7pGPr4VVuoh/QELDgf4T8nTFXbFCl8LHlc3LTZ4Y4PWa/qKXvYwDJVzF49rlegMb6m13GkRuKOKSXqnNFS27Byjj4rv1tU6qW5/QVcejE5AO7UYEP1vHOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PJIEvhgd; arc=none smtp.client-ip=95.215.58.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="wwO0yVDM"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-89a595332c7so3352931b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792133917; x=1792738717; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DBflvqmY4i8z8xnUcTVk+s1WaJsD4jRg6K85yIIY1Zg=;
-        b=wwO0yVDMLD+aQGTF4kG24zfTTHBW7yaFB0CAxhDEcBllX2D+lCNW5cHHr02xFWvjpV
-         6EX5Y8f7KFkOkzgyYG0HtELRNcbxTAhgi1vpK0e/mOnEQS5UUZ6GwuYevV5KocB2156T
-         eqdWQ7aXHCJ+unrgXPV5CWDO4tKntpbEiCKyzcTEfkkSEpxKCFccCUifyxG64pNqehwH
-         QGbaiLwWjhBA3Uqz1ycbG0Gsfo5gLzhaxjf0IVx/1JBO2OF06y1KYbcsQJeQdo1p8JRG
-         +RaOlKtUoQdJ7nvJ95rkaPaLxvCB7sEIImY0Gtgx/BRKD7n4mTI/f1E8R9dr43yDnGZS
-         nvHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792133917; x=1792738717;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DBflvqmY4i8z8xnUcTVk+s1WaJsD4jRg6K85yIIY1Zg=;
-        b=ZMhSTHA1pgCWgecXizxRU3kIIh+nQTEcfLu58z7wlrZyiiDntMgdXOIHSN68biZeoi
-         /5+2xooNOosDZEQEI/I1sQ2EHcj9xNMAHHmKUbZWXRBAJAb2ygHTmnzdvOCd1cCwetOV
-         wV6SvFnZBFIr3uAoQ05TuikQRRE4mpT7tNaQGx/DUbl9kWTtj9nFwVPNT6vArWVIMtQP
-         6XRCgWbulsiYo+Jw7nDRzM7wnBj3ikN2tv4S70hpx4zeRi0bz9ic+ko3DEy859K4UxKT
-         7pJoT8kRNkLTv+YBJk2wRlw/p+4PlT+PLdKa36nREWwnEZ3erJSDBF9t8iatDBxDgWw9
-         5QRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKLPmhtkxZtAfnJzgdH0UgsgyxEK/QWpXrDG1BRJtSqLiWV26dB01o8GTE23FgIzdwz8AuOyeTN3w/AdA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeczKTrgtSn6i62lLj2Oa0sj1k4UgtODEcQozjbEIZivRqEC2B
-	fx1AG7e9HoYJ5ICGgZt3RwHeWiIYEFAYhE1c2eCnWiGKMGNG0gETMp3m5Ki+5jKFp/wnPxdnAZ/
-	YQAjy
-X-Gm-Gg: AYBFou1NyVEokZtiOVACLAnEMWa3bMyZHU5wrMrynz8VeJoISkTRYYTqA1U6fJdke7P
-	iZ1bmo9a1rgJvyGbbq0E3g2Ly4XE9fa7VxgfjXWHvo7xZptuTMkOWAlIjtjC5OJ/MPXkYYRGjmq
-	h44GW7kB8pF5hNMhEMQNkOKMCutg5ixYg93M+a1sQUOdzdLaLUEg8VlP2E7VsmrN1s8I4EGXiL7
-	9VmB3h3hA+s3Z9TmLB6qntIFXOHaBGNwXgVKdV/+7sM8rGMV0ObDAvgFbzwOA/BkIq5zn4grI8O
-	BsKM7JFTJIziDbmZLSL51PQe9KZEuIm15NtGyzSxixB84HLQKWvTaRfbIMdTmbrkyAtzxLvoQRd
-	urA5HftTuwyjGSL3BLF0RUH3uPJa9sfFJNkfIY9Z7HLUmcZ5ijRIDPpPlnpSZhvpYRAbCN+AFMR
-	P6pHMzy/XBp8g+qMFWwAYDzFlo/GJPPHE82oicR0yXG8sh1IHWSvDEEH9XM+SlHLLlYabbr7LwQ
-	SWAfg==
-X-Received: by 2002:a05:6a00:178f:b0:88b:72d6:b80e with SMTP id d2e1a72fcca58-897c5d55bc4mr18421605b3a.13.1792133917035;
-        Thu, 15 Oct 2026 23:58:37 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5735e513sm636642b3a.27.2026.10.15.23.58.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 23:58:36 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PJIEvhgd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YBk76f/Ysfi12pI6VBVZpEi5qvewc/wR/esNF7jDIek=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792133969; v=1; x=1792738769;
+ b=PJIEvhgdnZ0e7C84i83ESLZLLPkWdSIND9qyqkOJz7Z+T7Yf9+cgAP9qohOAKm/cOdEKacAP
+ FY73ShLvzZf6gqjzguDaWodXkl5GEqM4VUhLudHSoQl6gT1J9R4GBbvjsCtnF+mO0hEsbRc6NGz
+ R0Y6mm7+DfPpVptzQ0kE0i9o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1616bc7e3c73b510;
+	Fri, 16 Oct 2026 06:59:29 +0000
+X-Mizu-Trace-ID: 1616bc7e3c73b510
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	jack@suse.cz,
+	djwong@kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2] scsi: bfa: bound the RSCN event list by the received frame length
-Date: Fri, 16 Oct 2026 15:58:27 +0900
-Message-ID: <20261016065827.1011210-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	hch@lst.de,
+	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+	ngocthang2710.1999@gmail.com,
+	willy@infradead.org,
+	rppt@kernel.org,
+	ljs@kernel.org,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Fri, 16 Oct 2026 14:59:20 +0800
+Message-ID: <20261016065920.4153-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,92 +63,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bfa_fcs_lport_scn_process_rscn() is given the length of the frame it has
-to parse and never looks at it. The number of events it walks comes only
-from the payload length the peer put in the frame:
+collapse_file() can end up calling page_cache_sync_readahead() with
+source folios from earlier in the range still locked. If truncate already
+holds mapping->invalidate_lock exclusively and is waiting for one of
+those folios, readahead blocks on the same invalidate_lock and neither
+side can make progress.
 
-	num_entries =
-		(be16_to_cpu(rscn->payldlen) -
-		 sizeof(u32)) / sizeof(rscn->event[0]);
+Do readahead in a separate pass before we start holding source folios
+locked for collapse. Keep page_cache_sync_readahead() and its existing
+policy, and drop each folio's lock and reference after checking that it
+is uptodate. If truncate or reclaim removes a folio between the two
+passes, roll back instead of doing readahead again with source folios
+locked.
 
-	for (i = 0; i < num_entries; i++) {
-		rscn_pid = rscn->event[i].portid;
+Shmem handles swapin and fallocated folios through shmem_get_folio()
+without taking mapping->invalidate_lock, so it isn't affected by this
+lock inversion.
 
-payldlen is a 16-bit field, so num_entries can be 16382 while the frame
-sits in an unsolicited frame buffer that holds 569 events after the
-fchs_s and the RSCN header. The loop reads up to 63 kB past the frame it
-was handed, and the duplicate scan nested inside it is quadratic in
-num_entries, so one frame can also take the receive path through more
-than a hundred million iterations.
-
-The length that bounds this is already here. bfa_fcs_uf_recv() takes it
-from the completion with bfa_uf_get_frmlen() and it reaches this function
-through bfa_fcs_fabric_uf_recv() and bfa_fcs_lport_uf_recv(). Work out
-how many events the received frame can hold and take the smaller of that
-and what the payload claims. A frame whose payload fits is parsed exactly
-as before; one that claims more is parsed only as far as it goes, which
-also caps the duplicate scan.
-
-Reject a payload length below the four-byte RSCN header it is measured
-from as well, instead of subtracting past it.
-
-The same shape is in lpfc_els.c, where lpfc_els_rcv_rscn() and
-lpfc_rscn_payload_check() walk the payload length without comparing it to
-the frame either.
-
-I have no Brocade hardware; this is from the code, with the arithmetic and
-the loop bounds modelled against an unsolicited frame buffer under KASAN.
-
-Fixes: 7725ccfda597 ("[SCSI] bfa: Brocade BFA FC SCSI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
 ---
-v2: bound by the received frame length only (drop the buffer-capacity
-term, which did not account for the VFT header offset); reject payloads
-shorter than the RSCN header.  Addresses review feedback.
+Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
+happy to take this over.
 
- drivers/scsi/bfa/bfa_fcs_lport.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+Some older stable trees lack the folio infrastructure used here, and the
+code will differ for each stable tree, so each backport will need quite a
+bit of rework and its own review. I'm not sure whether to Cc stable here.
+Once we agree on the fix, I'll send a separate backport for each maintained
+stable tree except 5.10, which isn't affected.
 
-diff --git a/drivers/scsi/bfa/bfa_fcs_lport.c b/drivers/scsi/bfa/bfa_fcs_lport.c
-index 8c9d423129c07..49bcb76c118b6 100644
---- a/drivers/scsi/bfa/bfa_fcs_lport.c
-+++ b/drivers/scsi/bfa/bfa_fcs_lport.c
-@@ -5533,17 +5533,28 @@ bfa_fcs_lport_scn_process_rscn(struct bfa_fcs_lport_s *port,
- 			struct fchs_s *fchs, u32 len)
- {
- 	struct fc_rscn_pl_s *rscn = (struct fc_rscn_pl_s *) (fchs + 1);
--	int             num_entries;
-+	int             num_entries = 0, max_entries = 0;
- 	u32        rscn_pid;
- 	bfa_boolean_t   nsquery = BFA_FALSE, found;
- 	int             i = 0, j;
-+	u32             pl_off = sizeof(struct fchs_s) + sizeof(*rscn);
-+	u16             payldlen = be16_to_cpu(rscn->payldlen);
- 
--	num_entries =
--		(be16_to_cpu(rscn->payldlen) -
--		 sizeof(u32)) / sizeof(rscn->event[0]);
-+	/* payldlen spans a four-byte header and the event list */
-+	if (payldlen >= sizeof(u32))
-+		num_entries = (payldlen - sizeof(u32)) / sizeof(rscn->event[0]);
- 
- 	bfa_trc(port->fcs, num_entries);
- 
-+	/* the event list cannot run past the frame that was received */
-+	if (len > pl_off)
-+		max_entries = (len - pl_off) / sizeof(rscn->event[0]);
-+
-+	if (num_entries > max_entries)
-+		num_entries = max_entries;
-+
-+	bfa_trc(port->fcs, max_entries);
-+
- 	port->stats.num_rscn++;
- 
- 	bfa_fcs_lport_scn_send_ls_acc(port, fchs);
+v2 -> v3:
+ - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
+   a preparation pass using page_cache_sync_readahead().
+ - Roll back on a new page cache miss during collapse.
+ - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
 
-base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+ mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 11 deletions(-)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index ef5cd6fda34f..b3f67617caf0 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	new_folio->index = start;
+ 	new_folio->mapping = mapping;
+ 
++	if (!is_shmem) {
++		/*
++		 * Populate the range before accumulating locked source folios:
++		 * readahead may block on invalidate_lock.
++		 */
++		for (index = start; index < end;) {
++			folio = filemap_lock_folio(mapping, index);
++			if (IS_ERR(folio)) {
++				page_cache_sync_readahead(mapping, &file->f_ra,
++							  file, index, end - index);
++				folio = filemap_lock_folio(mapping, index);
++				if (IS_ERR(folio)) {
++					result = SCAN_FAIL;
++					goto rollback;
++				}
++			}
++			if (!folio_test_uptodate(folio))
++				result = SCAN_FAIL;
++			index = folio_next_index(folio);
++			folio_unlock(folio);
++			folio_put(folio);
++			if (result != SCAN_SUCCEED)
++				goto rollback;
++		}
++		/* drain lru cache to help folio_isolate_lru() */
++		lru_add_drain();
++	}
++
+ 	/*
+ 	 * Ensure we have slots for all the pages in the range.  This is
+ 	 * almost certainly a no-op because most of the pages must be present
+@@ -2320,17 +2348,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!folio || xa_is_value(folio)) {
+-				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+-				folio = filemap_lock_folio(mapping, index);
+-				if (IS_ERR(folio)) {
+-					result = SCAN_FAIL;
+-					goto xa_unlocked;
+-				}
++				/* The range changed after the preparation pass. */
++				result = SCAN_PAGE_LOCK;
++				goto xa_locked;
+ 			} else if (folio_test_dirty(folio)) {
+ 				/*
+ 				 * This page is dirty because it hasn't
 -- 
-2.43.0
+2.49.0
 
