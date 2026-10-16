@@ -1,117 +1,146 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A874744E66B
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9373459ACB
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141046; cv=none; b=B0nG1hjiq9grO8M+01uiFQCJSpW3qF7Op/e4z5o+xdVtUpqqgUb7QDd6qTUxVQFI0ZeUeRUSSQk1jJ2ybIw+oZeoJaWKPjGIT7N29lzuWT/e9hzzT8yjb5EP852ADxdpgsIKt/YS6IEUabTP9NmAjKYew/EdBntRA8/ineXwYcw=
+	t=1792141049; cv=none; b=sJsTYr1UvoV9TE2DK9ALmUrIt5s/NOgkNkCnR0vxgoeUF+LZ3Up493ZUqTmiSKdG8vhzUE6iqtJFl7Imn9d6lRyYHYHdGIf+4NGf4Qo55PMQVvlyHojhgUrbVGh5RT4K981DLEIQTrN/Dbvxbkrx6daqSwyawIwd6dtxJJbBeLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141046; c=relaxed/simple;
-	bh=uL1w8BEtt8Np/I2lqGqbLuXM7I9yviHkRH0NnWW0ons=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K5XZjyjJiXNYfIayeqFmRzgQXkGjqeLi/cpqAztM4G6TwWxw74BYGlRgVnI1HvZnO5YLbs4RkZzN9asAS5js9EDywK1+qU4lCe10lDJ/Hk8OqBesBXFd7IfTwdVxlVj7vDi/WCBTMuwIU1vND8s4H4UoWdCF4lM/KOQC3/KppEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OdledJKk; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792141049; c=relaxed/simple;
+	bh=voVWteIAMcvsWoD6mSPSofIc9qX+e1A01al1D32H/J0=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=S8wAu1dnuIZQwrWJmIJCrbuG7VpanFsGaxM87BN1s+AgeCwr0bApjbCYyKPNAKcnbN98vjjzvn50AftQBHIqZqu5IKkrYCLByi+cbDMB1XUF3hZOB+jrgjieVnYIVw/7JhtHB2kAQKcpE7B3RF8T8b5tzqo+KVgOJAlyxminlCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzUbN9Wa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OdledJKk"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e00eee27dso171395f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:57:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141043; x=1792745843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
-        b=OdledJKkHyKkUe6e5iBmeFLKmwU4PVSsxli3jDVGIf+o2l8l/lL/Q+j1oJ2S+OFZkZ
-         vu1HLC3kzj3iQ81Du7bUKzkjPOXU6kzbKOss+TygfuoNDqCJpX9bnLZh6HATnZ6gFEpC
-         2cFzzS5HTqFarzB0Fe4uaW/n83p3wxocH21RfEM02yq6NBTJPhuaJGU6P5yDl7K7GC28
-         FT219PpULEJ93e3nq047QIiZ+xObxIw7LApAj16ai6Y+1iFPmVjW4L9m+gs40+k/R5TJ
-         Nd7sfxW0mU3wypTvpiiXEuSj7lDUbSD75uz0m9WjqXnxtRDLLaRAnsGaS4TErlGrUrtY
-         b+gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141043; x=1792745843;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x/q2L7BS45aTpoyNh7m1QrG5eRubgbrBzhsyuMzS0/Y=;
-        b=Zux5dlYKd8QknQPKp/ZQ0wJnz2evF7ir6lynuUKEI2KpPPaHfiBDXyESipEbBa5cpz
-         b7pmzt4+9fimuL3UaXoy0nWXa2MY+Ya+wIPZygiRxSQKHiz5HsQcDZILFx9e1l44uMVP
-         1Bpp5qP1IJRu8/KAPmhgwVqH31JWZO4kz1zipZdA9w29SoxwlOFNN22jPJLZgYzscoJq
-         eN0Dehu41xeHFySCMiHui5uw4m+vTlMhawVgYEH/nsjbQon5Pp8Ru6hkZyMcbMuwWDh3
-         VQb4iyWdcEWbYo7pu4RqEgNazkAtBiWXUX0Uu9slEOcVhrMZbvr73XeXM1qFURkvGnFu
-         CyEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwCvdNu9aGN+DLTmishHamm+88kHTgb38Di4SY+ejV6GQ141L+14+1o5FJb0ZWOT1GKCBVd7SqLaY7/rZ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhzC227VvVJf3wtgplXBu6WcIIqtGMl9nFI0jNFE2gw96wz7ON
-	J0n1foAsPdV+FjE8xAPbRtbNhYA6nE5WtIObxg72WinVKqyLRku9Re83
-X-Gm-Gg: AYBFou3McAF23hjkjyjJYz7bZ27Ro/Gho8P2rJPWv9s8TvfxL4e78Gqq5GumIxbSO2m
-	hgVGh8qC6dCyzmsMZdKh2G9t7M4gby00AYS3O+SAaGWEGvbg2LVjVvnKAxiV8tDQUw1dcr6MSVP
-	m6qla133NYSPnXLKL4TbN89+ZKfjIo1sfv68GHPtVkPJmRR4fD7MCYcXE663PEhe6iz5aCVhVRe
-	aeBdyYYshYrErJ7VrRD/TAOLel6JNoDXWHxZpJF+7orn3scC6iFZlVjuZXYxtJJNJ3i8zBuK3px
-	+tgfFHVL9uvT/6fD6YtAXGNKnYBR+tYEiSlgW+QzSoy6rvxI7GLaVDs2EPGCsmXMGXw7W3RuSER
-	L3lgpIQXqMDuI0dd9VU4kx322Sh8Co9ln3bQIubABCEIVoCdeJRoFdxylpyL071H3tTD1HyRkLw
-	zK+kWBJTEXqXt8pSw5CBdxUjsZn3QDJC7pbvq+KCXSKSL2Nm84uV6f6XWw+bAM+jHGtIV3MDPgP
-	FM614ych/z3e2+qsRzg/Ehy7ZNY3zkVv+9i2rD78R1UzNHpPJ4=
-X-Received: by 2002:a5d:5e8d:0:b0:48d:f7ef:721f with SMTP id ffacd0b85a97d-48df7ef72e4mr8636884f8f.11.1792141042620;
-        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
-Received: from [192.168.1.18] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfdcc0f20sm3509146f8f.11.2026.10.16.01.57.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 01:57:22 -0700 (PDT)
-Message-ID: <eaeeaecd-f51a-4c2e-8439-36c7b8f6721b@gmail.com>
-Date: Fri, 16 Oct 2026 10:57:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzUbN9Wa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65CE41F000CA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792141047;
+	bh=3Rbs8zVcRHXRrELHto1MGOKdswB/81BGLddudHF8cN4=;
+	h=From:Date:Subject:To:Cc;
+	b=bzUbN9WaULpsj5q2WiIFX0YbeSEtxF76GBymNckoMfC38CODR3KOg5Aag8a6UYL7j
+	 5Oo+TopBEQFe86wuqp3/vSSWv7p/URmxkh/5aebAF+dlZBAs80ADKx9LG9oAXRLgNo
+	 8qRqrN7S15oqovOSZEB4QmU4pIYa/wVAQ/GprfYZPUFWRyV//vB4TFfpcJLQ1bgmfb
+	 R9UOpJtmTn2bUoUx9E+K6ZaO2VWEpeQG8OfYChLmL8NQkMJZsb32b0hbzEBRvHhzLQ
+	 745RymeD52E0hPBbLEZRUYduzb7rvnJfRoSxIP0q7cGhPSVbsBDYhkO8P2A7rYbE8z
+	 jlaqLUgK7zQVg==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso835985e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:57:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxheBABWq/0FeAq4LQVjFAUsjY20HVin8CxPcUtH6tAGT3fkWE9ynI8lINrYIhUweGU22es6bDu34PRNjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJexle+q1osB1KRQ1LiNM+I3FuWyWzbjYludUgcARXl9cE1Z+lR
+	PV+sUuOkZoixwiOdvCP1U0wy1bi+qlbXLSYA5r6+lFVSCVnNzs1guofGEOjdr1RbKDRTJSXyc5u
+	UtY0GItWZlJOzn00c9FoB6luqyN6aLlk=
+X-Received: by 2002:a05:6512:3b83:b0:5be:428e:2be7 with SMTP id
+ 2adb3069b0e04-5be428e2c87mr1589216e87.11.1792141046106; Fri, 16 Oct 2026
+ 01:57:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
- overflows
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
-References: <20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org>
- <f5548d05-5aec-42d0-b9d9-c14fb575dec9@gmail.com> <atHa3-KlMPg6oy8v@gremlin>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <atHa3-KlMPg6oy8v@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 10:57:13 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=ZDuXfj8GCCapkF3vxo55pzuEcU_98GkbALDpCcRdGSQ@mail.gmail.com>
+X-Gm-Features: AclHuK-Lp0xhea3l8g1Ub5v6bM83ymjT8wfav2HZ4-MRr0Df3GxU50r4xPVAH6U
+Message-ID: <CAD++jL=ZDuXfj8GCCapkF3vxo55pzuEcU_98GkbALDpCcRdGSQ@mail.gmail.com>
+Subject: [GIT PULL] pin control fixes for v7.3
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux pin control <linux-gpio@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/16/26 10:19 AM, Lorenzo Stoakes (ARM) wrote:
-> It seems likely that you're using AI to generate these review points. Please do
-> say if you're doing that, thanks.
+Hi Linus,
 
-yes, I used an LLM to find the commits I pointed out and check if my
-reasoning was correct. my bad for not mentioning it. anyway, I reviewed
-everything and checked that it was correct.
+some late fixes for the v7.3 kernel.
 
-[snip]
+This should have been sent earlier but I have too much to do.
 
->>> Cc: stable@vger.kernel.org
->>
->> the parity check relies on e5e7fb278e59. before that, mm_lock_seq only
->> increments on unlock, so locked values can be odd or even. should this
->> be limited to 6.14+, with a note that older trees need a different fix?
->> a straight backport of the odd check would ignore write locks taken on
->> even cycles.
-> 
-> I have a plan for older kernels (just make the value 64 bit...)
+The AMD fix is really important for users of AMD equipment I think,
+the Qualcomm fixes are many because they have a large team and
+support many differentiated SoCs.
 
-okay, I didn't know.
+Please pull it in!
 
--- 
-cheers,
-jose a. p-a
+Yours,
+Linus Walleij
+
+
+The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
+
+  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git
+tags/pinctrl-v7.3-3
+
+for you to fetch changes up to c5895eadf287116434b7b01d67b92e8146f7ff61:
+
+  pinctrl: sunxi: dt: do not accumulate npins across probe attempts
+(2026-10-12 11:30:12 +0200)
+
+----------------------------------------------------------------
+Pin control fixes for v7.3:
+
+- AMD: Clear S4 wake bits when firmware has _AEI, this is
+  important for some AMD systems.
+
+- Do not accumulate sunxi npins across probe() attempts with
+  deferred probe. (desc->npins just went ++ and ++...)
+
+- Qualcomm patch galore: split QUP functions on the Nord pin
+  controller, fix an OF module alias on IPQ5210 so the module
+  modprobes, fix two groups on the IPQ5018, make direction
+  changes exclusive on the SPMI-GPIO, and fix the interrupt
+  target width on four different SoCs.
+
+----------------------------------------------------------------
+Adriel Santos (1):
+      pinctrl: qcom: ipq5018: replace gcc_plltest with pwm2 on gpio12
+
+Bartosz Golaszewski (1):
+      Merge tag 'v7.3-rc5' of
+git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux into
+pinctrl-qcom/for-current
+
+George Moussalem (1):
+      pinctrl: qcom: ipq5018: update PWM groups and corresponding pin functions
+
+Gilberto Conde (1):
+      pinctrl: qcom: ipq5018: add missing pwm3 function on gpio13
+
+Konrad Dybcio (3):
+      pinctrl: qcom: hawi: Fix intr_target_width
+      pinctrl: qcom: maili: Fix intr_target_width
+      pinctrl: qcom: qcs8300: Fix intr_target_width
+
+Linus Walleij (1):
+      Merge tag 'pinctrl-qcom-fixes-for-v7.3-rc7' of
+git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux into fixes
+
+Mario Limonciello (1):
+      pinctrl: amd: Clear S4 wake bits when firmware has _AEI
+
+Pablo Mazzini (1):
+      pinctrl: sunxi: dt: do not accumulate npins across probe attempts
+
+Shawn Guo (2):
+      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
+      pinctrl: qcom: spmi-gpio: make direction changes exclusive
+
+Zhangfei Gao (1):
+      pinctrl: qcom: nord: fix GPIO interrupt target width
+
+hpp.iscas (1):
+      pinctrl: qcom: ipq5210: Publish the OF module alias
+
+ drivers/pinctrl/pinctrl-amd.c            |  9 ++++++++
+ drivers/pinctrl/qcom/pinctrl-hawi.c      |  1 +
+ drivers/pinctrl/qcom/pinctrl-ipq5018.c   | 20 ++++++++---------
+ drivers/pinctrl/qcom/pinctrl-maili.c     |  1 +
+ drivers/pinctrl/qcom/pinctrl-nord.c      |  1 +
+ drivers/pinctrl/qcom/pinctrl-qcs8300.c   |  1 +
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 37 +++++++++++++++++++++++++-------
+ drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c |  1 +
+ 8 files changed, 53 insertions(+), 18 deletions(-)
