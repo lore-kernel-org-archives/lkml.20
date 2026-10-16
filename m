@@ -1,142 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9D34C9DFF;
-	Fri, 16 Oct 2026 13:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529B04CA78B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158854; cv=none; b=aqnK8PHLXUL8Jh7/CyoJxDryt81tiEE1ynoxiDaqEErK+TomSBLl+ezhIHb9fl772O1r0azuLhuAeQttNVktTpsl7OchinPbbtmezajBQ3+DYyjiEcDysUY2FcsNTpop8Q55ThNZ9JsXivb8tNsG2o7sjV9wc6Gu3ntE5+rzssw=
+	t=1792158883; cv=none; b=nqKyItwtDbO9ymxpZhKqsr9iGUF/jS1G78u/zlnu2OhsMNO2FJGXXjY/SDYMzCWBIkav51a+QoVQh2Z8Eh1Iajbsxzbmt2emInKVslKoFzBhbXUcIFAd1PvqAt7FIyBTywnIkmxAjws3rQqCCXyra50FHMDscPDHxpcjqz9XYbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158854; c=relaxed/simple;
-	bh=6kG+pF2HuQmMTYJB21gFk7rSTC3Fb6zafxp8L/YZp7Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P0euK7U3ywsHFcEOAeUPB9VpeXoGWYocM68/t16GoMtWHMbFSvSNLCtm7sWPI0iV3VEwJFyIphIP4aJn7r+o5Kh/apS0275AgGPiQY9BgtthTosDQklSTPgJBBawMdpcYiLEXcRK9w7eUchOdLYYeMOp98QqR3g1E5052f1Z9Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDvVlEj1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792158883; c=relaxed/simple;
+	bh=pJ6+d3a1HLi/s62noKNGIdAvZy/I9ZvUQt5ijvaKBoQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=BEQcS/AjWHdqra1kMUJYxzwhYJIPxaeTa+8JJgbKW6FOhEKPh6wbmQxu5TFKh4vzfhLpZJJjodCWkayOFZ35f8jMNA0diEa08FzP9sDGHo727B3x+KXlfbcy641EsZkHmJnBMUeOXVRhgHAdMH+1VZ4NW1wWJWZ/9BZK4dPvO+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IKCZygrW; arc=none smtp.client-ip=209.85.221.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDvVlEj1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD051F000C4;
-	Fri, 16 Oct 2026 13:54:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792158853;
-	bh=UHZ/SHeI8w1oYO+zDsaR5bIADkRvUH7sd5yA2nNqtU8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BDvVlEj18Fklfc/VqD+6Eum/IA/ddvxz+BekUEvaIyeg4vLk93kPYxzBlPFKgYea5
-	 EqSexdKDxu+7fHF+Lyw1CYqMlzgBhzlMEE9i6uOZRVoKecxXGXIDuKtX1w1s8iXlVY
-	 DbL6IeqsY9MkmdpH+Kpg37t5I5RGJ98OAk90pyIgrjs0+jE5pm5M/xLfK4aHBRSXqr
-	 vNmh3UruVyOBPtXs88qxmzU9EP5j5OGctddYRtYD8kmNfBLHkueVTqaF92c23jgOyz
-	 DC2n8hnxZ0FKF1t8yNvipuQS6dPcgEYpXiu2KKlc3K98p3OIIkFXZsD2kEr482gJNF
-	 WjNJ149Cf70aw==
-Message-ID: <f052b1b3-87fe-48e6-aa02-df47517ef8d0@kernel.org>
-Date: Fri, 16 Oct 2026 15:54:07 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IKCZygrW"
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48dfa054f26so1122994f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:54:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792158880; x=1792763680; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mwy80ECHA03ZxNI6fxFklBBGHCRE1D2wF/JjDhNvW1s=;
+        b=IKCZygrWBcsu688eZOBBAwgdhQzcmYidi/mvQPVTxZ6X51PbhIUoEVYkCrARG8Gr5i
+         lgPPnOWVZzymp0T9dnNS202hzM1rs44dht91K2yamIrjDsJ6f6JiIA0aWs/STxFM/Oct
+         0GBY8UoDD2W3I8bgfSrlF6FHuI4hsNIBY5JlE9TfWHMppMblpM5n6GGrqEt/npL1shQN
+         aXf2eQNHInLJK5etPQsgvdbbSuzezyy2w+Mk56p2V5Li+ivHUuJLr0h2p39VCPpfDoK5
+         zj7lohskoU+UFaw8sB1C9o5Y7JhD3OQ7iSAaPao1u1vEdBPlYhywTrGQXV02gfN4Uw56
+         ydiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792158880; x=1792763680;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mwy80ECHA03ZxNI6fxFklBBGHCRE1D2wF/JjDhNvW1s=;
+        b=0VLS5G07P5mFeW9GGMADcRJidfhuViQWFvP0HXoV5/k0zccr3hFum/QZFIGAXlvvBo
+         YdZirprbglhEwDmcf+7qKXGPp0hGohg4O/ypcV0fVMZHmc4vOsmJhgfWpvi3XyZPKQLf
+         yZ1uassV4+fqyBKIWLey0bvw4n/bzMW4qQM1FB9VUCn3rgTH2chpMYKm7EY0IrmkwVK6
+         2Ssrb3alLTqzFXq6jUylObrpSMKMHEgo5w7U/gNX4rNoU1tAqd+PIgzWV59v2j2cT1tA
+         zR+BNWj7N0jr4jwQXtimYx3h7ChHW2g2QRX0Uv93mRqGRaW9BRPgpYgzbrCXlScoHEjP
+         Tu1w==
+X-Forwarded-Encrypted: i=1; AKwUvByKNeCO0U6CozWW6OmpHEcb0pzDGPtO8OlhPu1e1bJ5VXLmTmNfywbL5te84Ok6gn20LmCSuSzBK4u4JAo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjaPH9iQAYv5g03TgRiYet6Ww6A35kaHa8u4YcNhM9o1FJTSQN
+	te8mTGrbe5x8csKHKi2UTjFHIP7KXOIkne8dJ1qiWJdFnvT5OaUVUPbPm1iZwPuyp+lTFUeUpg1
+	532RZkU9jhmIn/pf3pg==
+X-Received: from wmph24.prod.google.com ([2002:a05:600c:4998:b0:4a1:9c0f:883d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:c049:b0:4a1:9a97:c88 with SMTP id 5b1f17b1804b1-4a19a971118mr271601125e9.5.1792158880287;
+ Fri, 16 Oct 2026 06:54:40 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:54:33 +0000
+In-Reply-To: <20260814230923.1292966-2-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 1/2] dt-bindings: pwm: opencores: Update compatibles,
- examples and maintainers
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Hal Feng <hal.feng@starfivetech.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261014110429.52762-1-hal.feng@starfivetech.com>
- <20261014110429.52762-2-hal.feng@starfivetech.com>
- <9c0737d8-455d-4025-8482-950b64029f35@kernel.org>
- <atCos9UIaZoRs4N8@monoceros> <20261015-poised-modest-leech-4decf5@quoll>
- <atH4DnTWVZPkaO2C@monoceros>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <atH4DnTWVZPkaO2C@monoceros>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260814230923.1292966-1-dakr@kernel.org> <20260814230923.1292966-2-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016135439.44716-1-aliceryhl@google.com>
+Subject: Re: [PATCH 1/7] rust: drm: rename Ioctl device context to Userspace
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, acourbot@nvidia.com, daniel.almeida@collabora.com, 
+	ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu, tamird@kernel.org, work@onurozkan.dev, brauner@kernel.org, 
+	lyude@redhat.com, j@jananu.net, alvin.sun@linux.dev, 
+	deborah.brouwer@collabora.com, laura.nao@collabora.com, 
+	beata.michalska@arm.com, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 16/10/2026 14:55, Uwe Kleine-König wrote:
-> Hello Krzysztof,
+On Sat, Aug 15, 2026 at 01:08:59AM +0200, Danilo Krummrich wrote:
+> The Ioctl DeviceContext typestate represents a device that has been
+> registered with userspace at some point. This context is not specific to
+> ioctl dispatch; it applies equally to GEM handle callbacks, mmap,
+> fdinfo, and any other operation triggered by userspace on a registered
+> device.
 > 
-> On Thu, Oct 15, 2026 at 12:27:16PM +0200, Krzysztof Kozlowski wrote:
->> On Thu, Oct 15, 2026 at 12:20:54PM +0200, Uwe Kleine-König wrote:
->>> Hello Krzysztof,
->>>
->>> On Thu, Oct 15, 2026 at 11:01:29AM +0200, Krzysztof Kozlowski wrote:
->>>> On 14/10/2026 13:04, Hal Feng wrote:
->>>>> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
->>>>> will not be released.
->>>>>
->>>>> Change the register size in examples to 0x10, since an OpenCores PTC IP
->>>>> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
->>>>>
->>>>> I will maintain this pwm module in place of William.
->>>>>
->>>>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
->>>>
->>>> Drop, did not happen. Is it so tricky to respond to the one patch here,
->>>> where the tag would be applicable, instead of replying to cover letter?
->>>
->>> I don't know what Maud did, but if they checked that the various dt
->>> linters are still happy, that doesn't deserve a Tested-by:?
->>
->> No. Why would compilation be called testing?
+> Rename it to Userspace to accurately reflect its semantics.
 > 
-> I'd call the task of checking if anything breaks with the proposed
-> changes testing. For changes to .c files that most likely requires
-> complilation and running the resulting code on a machine. For dt binding
-> changes it means "testing" if all the existing device trees still
-> conform to the new binding because you cannot compile and run the
-> binding specifications. So in my mind this is still testing and a
-> Tested-by trailer is ok and welcome for me.
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Running standard build process tools, like checkpatch, sparse,
-gcc/clang, dt-validate is not testing.
-
-Best regards,
-Krzysztof
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
