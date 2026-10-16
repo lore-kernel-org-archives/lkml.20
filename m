@@ -1,100 +1,80 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B622931C4
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5BB24DCF9;
+	Fri, 16 Oct 2026 02:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118765; cv=none; b=EFZFlTULszthN64XGrUowJapjan11YIMtDcMBX3/sDizh3NeZFiuK3E/wdVywcGUL4FQuicl1F6YoECvdPIvYqfGUvHfXj4SPrYxnNjN/fmgC3yrtqkyy7Nlca2kpKBcWDJzA15n8jFKmHPy2u1eigw0AA0XNG0J5ftOkWxWWM8=
+	t=1792118783; cv=none; b=DauFHCFsVeGwLPbYIuqwGCoGehusFcdbZ2fHfkhGJmMfm0UrERHpfmF1zmlt3aamsu5+eVZm4GXVA51IbyNsy+B+kQSOC0eED0PEiKqjWFrLY3MzI/08kRCKfLPoug0mILvA2Is0NF3EjKV7zdB7/9azybWXo0zsPczXhQikd2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792118765; c=relaxed/simple;
-	bh=pk62lL0eHeta5EpnmZZ+VcUHyNyaxooZtjYjsf5Tp58=;
-	h=Cc:Subject:Mime-Version:Content-Type:From:Date:To:Message-Id; b=HKTy6iUnIXB+Iun1t6si21xMWB4AU7QmdPBN3rgvKdQPb9WYsPKUMDgqCFuZXpZ3N5dnGIwdR1aAwZK9/fbsthEgNFuJhHhZh9ARmznQaq1xqeedR1bkAKWb5irOn+wi0hUk4QNFiBXXOkUh+aMfdmlotkwXr1AeA08znftU44k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=LuJFmvRX; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792118783; c=relaxed/simple;
+	bh=MZY+7SazQs9GXNv9EElMy4rFDKkGdkmElPmNkGrAcxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sVxI9ojSf/HktM3Eb/38DIZ5b9lO551q8J7qFAkUZUBg6fwka0QLrQy7Cwwj1b8auHyxs1QfwQVtt5D2NXPCmVIf1QEosISYtqeApmoKnrhNR3SfIcqIHyxHPoBrC8sV2uHYcaRcgTuY7XFGakW2m6gLFIxUH5OwrsG4CV7jdxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSTBRA4p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="LuJFmvRX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792118757; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=EHWYhLDF9KZVqmcXGvPXYbi3zpzyWgW4t7XAlVQffwA=;
- b=LuJFmvRXI/5dxGOd6zoj6GWvpG6Ih8qTQ1170a/zLRP+9BodrI+6jcfc5+H4d/656l5xnN
- iFw8fRHcMzXMnoDiYOUmnqH+DFgkVgkMVCFtKntUTsB6Sq0Upx9a9EQpVEFDQyZ+i9fGM2
- uPPfKF11MthlSVbqc1cqn/7rxA/KbERp6HE9M00QN5BeUdS8B+n+QSaqKSqFBOSbuQj49r
- OCfOHwfnAF3faC1cNxWXOWRDq0TL/VkaEfUMrhEyroIoMkgIwmErT6KyTXk6hZaOMPS9kh
- YjWMzI0VJzJmq9SezCOv0SGNHm4xfk44k6evTP9aaUwCITMXQ1bgF05yBUlPVw==
-Cc: <mark.rutland@arm.com>, <oleg@redhat.com>, <ruanjinjie@huawei.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>, <stable@vger.kernel.org>
-Subject: [PATCH] arm64: ptrace: don't warn on missing siginfo in a group-stop
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSTBRA4p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0B71F000C4;
+	Fri, 16 Oct 2026 02:46:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792118782;
+	bh=NY+s7zT7aa1GPal19vg7xWY4xP210y5n0JCG656QxoM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eSTBRA4pGxs3xUltikXcnzgiv1wqu+h/H1/eWdNf7El3f8O2o8rb/jzNF87jc0qLd
+	 KH7Y751ivX8muae9RrP6EpDgttgjSPck1TngBm19aURwjVBvZOM9QjpoRmMu0llzNs
+	 yYlAgoYsHT9iguAMP8hEGevI7MKjuuJisjWsoRITn6xDuyYM03FNOn6W4c159zGnZx
+	 5VAo0mH174lU7QLqLOhhaGRigs7jQWKbRbqEzf/Y31DN86IncraARtGnHPTLYX12YZ
+	 zarwoRBE3Cqr9tIQEZbTlOwjzDL/p2GQRGVPAUHWL9lbf1+wip81edFY/idNm0Fjcb
+	 HrIA9BHilG4NQ==
+Date: Thu, 15 Oct 2026 22:46:21 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/6] tools: build kernel selftests in tools_build
+Message-ID: <atGP_fJItPeF4WAk@laps>
+References: <20261011233647.2454648-1-sashal@kernel.org>
+ <20261011233647.2454648-5-sashal@kernel.org>
+ <08e8e221-4e46-41a1-baa5-bade8ee20730@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad18fe3+2186ad+vger.kernel.org+zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Type: text/plain; charset=UTF-8
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Date: Fri, 16 Oct 2026 10:45:36 +0800
-To: <catalin.marinas@arm.com>, <will@kernel.org>
-Message-Id: <20261016024536.18938-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <08e8e221-4e46-41a1-baa5-bade8ee20730@linuxfoundation.org>
 
-PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
-which calls ptrace_stop() without siginfo. PTRACE_GETSIGINFO then
-returns -EINVAL, as expected. If the tracer writes NT_ARM_SYSTEM_CALL,
-system_call_set() stores the new syscallno before calling
-update_syscall_orig_x0_after_ptrace(). Its NO_SYSCALL guard no longer
-applies, so WARN_ON_ONCE(!info) fires. A tracer can trigger this on its
-own child.
+On Tue, Oct 13, 2026 at 01:29:22PM -0600, Shuah Khan wrote:
+>On 10/11/26 17:36, Sasha Levin wrote:
+>>Add a "Kernel selftests" sub-menu with one entry per selftests directory
+>>that builds with only a C library and does not write into the source
+>>tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+>>pointing at the UAPI headers installed in the object tree, but by its own
+>>make, so the selected ones build in parallel. Selftests whose Makefile
+>>does not use KHDR_INCLUDES still build against the C library's copy of
+>>the UAPI headers.
+>>
+>>The selftests do not track header dependencies, so a selftest is built
+>>again from scratch when its own directory, a header or makefile any
+>>selftest may share, or a kernel source it includes directly (the vDSO
+>>test includes the architecture's vDSO code) is newer than its last
+>>build.
+>
+>Is there a way you can fold in kselftest_deps.sh run into this
+>so users know why some tests didn't build. Also we want to make
+>sure kselftest build doesn't fail if a test fails to build to
+>keep the current kselftest build behavior.
 
-do_jobctl_trap() omits siginfo only for non-seized group-stops. Seized,
-syscall-entry and seccomp stops supply it. Skip orig_x0 synchronization
-for the non-seized group-stop: el0_svc_common() sets orig_x0 on the next
-system call. Keep the warning if a seized stop unexpectedly lacks
-siginfo.
+Sure. In the next version a selftest that fails to build prints a warning and
+the build carries on, as with kselftest-all. FORCE_TARGETS=1 makes it fatal, as
+it does for kselftest-all, for CI that wants that.
 
-Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
-Tested on arm64 KVM at af32da41b032. The unpatched kernel reproduced
-the WARN. An initial fix that returned on every missing siginfo ran
-without warnings.
-
-The final fix was built on the same test baseline. At a group-stop,
-PTRACE_GETSIGINFO returned -EINVAL and an NT_ARM_SYSTEM_CALL write
-succeeded without a warning. An ordinary PTRACE_SYSCALL entry/exit
-round trip completed normally. Changing x0 at syscall-entry and seccomp
-stops produced the expected exit status. No kernel warnings occurred.
-
- arch/arm64/kernel/ptrace.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-index f743cbec1..e12b04b8f 100644
---- a/arch/arm64/kernel/ptrace.c
-+++ b/arch/arm64/kernel/ptrace.c
-@@ -573,9 +573,11 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
- 	if (regs->syscallno == NO_SYSCALL)
- 		return;
- 
--	/* We should only be called when target is in a ptrace stop */
--	if (WARN_ON_ONCE(!info))
-+	/* Only non-seized group-stops lack siginfo (see do_jobctl_trap()). */
-+	if (!info) {
-+		WARN_ON_ONCE(target->ptrace & PT_SEIZED);
- 		return;
-+	}
- 
- 	/*
- 	 * For compat tasks, orig_r0 is provided directly through GPR index
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.39.5 (Apple Git-154)
+Thanks,
+Sasha
