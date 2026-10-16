@@ -1,122 +1,70 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCF0447237;
-	Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9CE30CD81;
+	Fri, 16 Oct 2026 23:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191848; cv=none; b=It5Dh/PxY6y0U4D6vlrzeCEIQC4jFkHMKZFuK62dxA+FEg/37/jTAB8o5UeK303vwVRI2gIBXyjajiY/fdvVor/Df3a2s2NKLtN3ChZ6Hv5e7aXhhoQ52gGUvtqDziAQ4m14YCdDKSExb/JTGKv6RlnHQoKcDU0lQmpx/h0pTcQ=
+	t=1792192265; cv=none; b=gDO412l9PA1808DZvkG1zKx/ND8GOH4psJVDM+6o1J4/e9/KLemnbXmB/Nb84aP0PC19UPMHYJIvXjTxeimHdoVV2R3fn3HvzPKyydajzwf2PZFpcSlkh9ZHcZrQ+qlyLAcM8u8GE+NNizqIfPggskk9FpAhvtM60qPpgaygHaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191848; c=relaxed/simple;
-	bh=4hzHIB0Y5JPlhprW+J1idLrj1nO22R2E8VcKkQJMrDE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OiX26FuKaTqMQYEuYDf6LigNWh1B3uWzT0vAXa2bTiwxxxZwxH1QyY6luNScrgQwUOfnnLcsit/yiglLr8f5Q0RysZI1K7BpFP6+ixIQ59Gn0Xk1uCwihZ06DMjqRlS336umXHwQ/rBWeCKGzqjWnmq60h1vAhuZ6evsjbbBE7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=UJJyq1RO; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1792192265; c=relaxed/simple;
+	bh=RyAJ0e0U+Cf17qyn3E9P05x9ivfs8oTxhiBSAoU9TaQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=XQRfaM/IZYwzWRB0sWKupt7hDCuuwXg43gjFMdEmDs8QDxbXR1iEOgnozVM+ESsh+H7KDOJ1aKOBQO6pMzVP2XmGNbXykhN/KQIUDTgMnCt47Jp+889PvU8BbL07aJiWkOOH1ADR8c8vAsV1tgYBMYYSfsV1nQxwC41o/8d7qZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1cpPaJ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="UJJyq1RO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792191846; x=1823727846;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=N+HMwtYomXTCU6APfdeFwp0AAr9WthCoGnVUMU/qw5o=;
-  b=UJJyq1ROJz09KPFHrW0RQQauGEK+FvBzv35nWYS9VCwagv/rvvR5C+rG
-   i/Fj26g20Qw2lxaavHItzh4LTDw2QMTPouV/Xd7cW3/kFw0Xc4h3KMaJK
-   CudiE7w0QoGrqo3Pp38xjNtWihduySQGPQGD8kUWI8Sf6IEm23kJQsKkH
-   jgWJ6xT87RaITQJ5l1e6vzZj3mTsZZTDRhHDOZ9qMSk0M7xMm2SBVraTB
-   7gqCBmDx6r5xHCzmu2gTmeCAPzbVSLGvWDdibPh2ixvLHuNK2fxyIplkl
-   dJrLx/wDqmYGmYK5Gr4SnuCy0mkZM3KWt0+EcTxEK2Prus4/HVDrt9Sri
-   A==;
-X-CSE-ConnectionGUID: F+PGbVPKT32QkFZLKUD5yA==
-X-CSE-MsgGUID: KLTRFuNBQQW9sgbw8K6hGA==
-X-IronPort-AV: E=Sophos;i="6.27,162,1787011200"; 
-   d="scan'208";a="31289766"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 23:04:05 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:26478]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
- id 7051b923-aa5f-4e2a-8f20-94827baa4d21; Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
-X-Farcaster-Flow-ID: 7051b923-aa5f-4e2a-8f20-94827baa4d21
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 16 Oct 2026 23:04:04 +0000
-Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
- (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Fri, 16 Oct 2026
- 23:04:04 +0000
-From: Aaron Ahmed <aarnahmd@amazon.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
-	<mhiramat@kernel.org>
-CC: Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, <linux-trace-kernel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Gavin Inglis
-	<giinglis@amazon.com>
-Subject: [PATCH] ftrace: Initialize modname and offset in print_rec()
-Date: Fri, 16 Oct 2026 23:04:03 +0000
-Message-ID: <20261016230403.4916-1-aarnahmd@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1cpPaJ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504121F000C4;
+	Fri, 16 Oct 2026 23:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792192263;
+	bh=RyAJ0e0U+Cf17qyn3E9P05x9ivfs8oTxhiBSAoU9TaQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=X1cpPaJ5diezWOSDB96Z3yaCIQja0d091uSpZipHrpCr9lOM7SZrUaAxqPmQ7sz5x
+	 9UcGiuLaUWHukY+/7vRdmvB/0L2jeeXgtwTOj/FAn+G9VStyr5IbqLHEiBm17GRsAx
+	 16WnqaZGzVUxR5HI0oa+YDFRROPdUWDTo42KyBMIC2mFnPMinWhwUiuXtOXGD3FnmD
+	 NMNZwRAZ4IQ8LTbeZhcDjaF9Yw1gZ95MbiEbDg4IHQJKp1ViXBjCPf1sSMriEYW1ei
+	 aE7ok9IEjy92L0E6Nq45Zmm761C1B0QcIMbPAdrUU4vqN7Rf+mMesgGQVfhwqXKWr6
+	 CgIZckiHQ2K2A==
+Date: Sat, 17 Oct 2026 01:09:58 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Lee Jones <lee@kernel.org>, linux-rtc@vger.kernel.org
+Subject: Re: [PATCH v2 30/53] rtc: m48t35: support the SGI IP35 timekeeper's
+ 1968 year base
+In-Reply-To: <2026101314285588f70d85@mail.local>
+Message-ID: <afff29f4-c16f-beec-9f59-9a7baa9c7355@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org> <271bf55b479fbfd9b934e93a13eb8e96eb64e9fb.1791890466.git.kaloz@kernel.org> <2026101314285588f70d85@mail.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-print_rec() leaves 'modname' and 'offset' uninitialized and
-kallsyms_lookup() only sets them on success. When the lookup fails like
-when a module is being loaded or unloaded, 'modname' holds a garbage
-value, passes the 'if (modname)' check, and is dereferenced by
-seq_printf().
+Hello Alexandre,
 
-  Oops: general protection fault
-  RIP: 0010:string+0x48/0xe0
-  Call Trace:
-   vsnprintf+0x1f5/0x650
-   seq_printf+0x8e/0xb0
-   print_rec+0x6c/0xc0
-   t_show+0x4c/0x440
-   seq_read_iter+0x119/0x480
+On Tue, 13 Oct 2026, Alexandre Belloni wrote:
 
-This can be triggered by reading available_filter_functions while a
-module is being loaded or unloaded.
+<snip>
 
-Initialize both variables so a failed lookup skips the module name.
+> Instead of open coding, you should use start_secs after setting the rtc
+> range in probe(). attached i a patch I refreshed for the
+> devm_rtc_allocate_device/devm_rtc_register_device conversion that you
+> can include in this series. drivers/rtc/rtc-mt6397.c is an example that
+> should be working for you.
+>
+> I never sent the patch because it is not clear from the datasheet how
+> well leap year calculation works. My guess is that it worked in 2000 but
+> fails in 2100.
 
-Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
-Cc: stable@vger.kernel.org
-Tested-by: Gavin Inglis <giinglis@amazon.com>
-Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
----
-Reproducer: https://gist.github.com/ginglis13/dd3f64426767cd48df55dfe5d26c2299
+Thanks, that is cleaner. In the next posting I'll take your devm
+conversion first and set range_min/range_max and start_secs in probe
+instead of open-coding the epoch.
 
- kernel/trace/ftrace.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 673a54fdf3929..164fbc07bce05 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -4426,9 +4426,9 @@ subsys_initcall(ftrace_check_for_weak_functions);
- 
- static int print_rec(struct seq_file *m, unsigned long ip)
- {
--	unsigned long offset;
-+	unsigned long offset = 0;
- 	char str[KSYM_SYMBOL_LEN];
--	char *modname;
-+	char *modname = NULL;
- 	const char *ret;
- 
- 	ret = kallsyms_lookup(ip, NULL, &offset, &modname, str);
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.47.3
-
+Thanks,
+Imre
