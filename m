@@ -1,77 +1,84 @@
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0B3331A66
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.95.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8A0361DB5;
+	Fri, 16 Oct 2026 08:08:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792137946; cv=none; b=cH3A/tEact67W52dgkKimsRAd1PfC3HEpzNVlpA217l9Aw1EYzO2BoIhnxRzSd/jRrIu9QFKrA9S5/SAqhh37Kay6C4NZc8QvFKhi1HRAQyR4Ig+AayJOyNtDJArfeNyfYcGc086+FaIJ94r5A/ER0/Cui59rbSDcoj9tOglNiI=
+	t=1792138130; cv=none; b=C/13js4jJM4ngbvJ8S7a1+j6kICwn78C0BkusPMwJQXNUsXFQlGRiUCZVox+O3nmpwaJKAlN2v9dt1UeuEXxD8FHve7PaKqn89O0wuwCbqFy3dE1crQZTrIY3+rRFcpbdoXyjuK4xliEt/ikXpEJDGI5k3UQ90q8trZ3BAjpWvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792137946; c=relaxed/simple;
-	bh=PppMbN7JrlN2WIYjBSNxEEfQHQ518ojauiEB1n1zhLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=twQR/dHmEYpJEb4sf025P+N9YzXGdbVhcEB+riqazFsxMJYXWrXmfabF/xYlnTGyQBkIfsSfR62uPhN5SojiAWv423StHMAbAuOP68R46rI1LMYy6eEF2NjlBd/6SQO2JYnSjkGJSJD7agXJ6ZdqMXuo6uMpIrE8Z8IotrLO8b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.95.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout1.hostsharing.net (Postfix) with ESMTPS id 6AF53378;
-	Fri, 16 Oct 2026 10:05:40 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 46A94602EBBF; Fri, 16 Oct 2026 10:05:40 +0200 (CEST)
-Date: Fri, 16 Oct 2026 10:05:40 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: vasilij.kernel@tototo.si
-Cc: Aun-Ali Zaidi <admin@kodeit.net>, Aditya Garg <aditya.garg@linux.dev>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	Kerem Karabay <kekrby@gmail.com>,
-	Atharva Tiwari <evepolonium@gmail.com>,
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Subject: Re: [PATCH v3] drm/appletbdrm: Add suspend and resume support
-Message-ID: <atHa1KHess5QUpXW@wunner.de>
-References: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
+	s=arc-20240116; t=1792138130; c=relaxed/simple;
+	bh=lEpwuaX0Ci6Ee9vsBeMTJ0UH/QnY3kFlC+gFViDxbWo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=jWGtgcQkp4eH4PKkUhK8yt65fvDM5MpXakBl3yE2VZ9Ly+qf7O+m9ELn/CW4xrHXkO1oDbszhpllLdWkushbE1c48dQloaa0BmYEZUR8sUG8+yYVD6TcpY2E1ZQxosx29f8oKR0vEOLaBrTigDrPgwy5OtpKx3+84WZQ72146cU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSiAd3Z4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSiAd3Z4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0301F000C4;
+	Fri, 16 Oct 2026 08:08:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792138129;
+	bh=mev3U1oPp/L8s7h2r+2qfDXdc7rE7INUHXcIrFOc/lQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hSiAd3Z4S+TBiC4Yy8HKV5xsK8u5Hhgbdg0csGJ7LKsVgtt9YEI5B9BvSRjetYMxH
+	 dps0t1Bx4yrSs76yyk+wL1HrbizohGXnMoVXStSOuBvJaVVzWIIVpvDCUOMa/S/UdI
+	 nYqedB8Qgpfo/AU512vODT+1g5RG/TVPQgPRafMXHJEAR/cT1tjAFQY8YYIubFq/1F
+	 s3r0g+b8Qy0su9EC0jU6Vg9V6ktd+gW9/VB0aicVR71wbBO49b+HkxmG5G8tXtsb/8
+	 0XfWDJ4IK60zirCHUuvuvZgtm6+szZOrTGYwMegM42XjmTmFNmpp/8xOPmmRyFWz18
+	 +8yW/xsXgLzRg==
+From: Christian Brauner <brauner@kernel.org>
+To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>, 
+ NeilBrown <neilb@ownmail.net>
+Cc: Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-unionfs@vger.kernel.org
+In-Reply-To: <20261002223746.3248726-1-neilb@ownmail.net>
+References: <20261002223746.3248726-1-neilb@ownmail.net>
+Subject: Re: [PATCH 0/3] Fixes for dentry lockdep tracking on stacking
+ filesystems
+Message-Id: <20261016-fanal-sitzheizung-wohlhabend-c087ed4bfe34@brauner>
+Date: Fri, 16 Oct 2026 10:08:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-On Thu, Oct 15, 2026 at 11:47:36PM +0200, Vasilij Markin via B4 Relay wrote:
-> The driver has no USB power management callbacks, so the USB core
-> unbinds it before system suspend and binds it again on resume. The DRM
-> device is unregistered and registered again on every suspend and resume
-> cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
-> loses its device, and the Touch Bar stays dark after resume.
+On Sat, 03 Oct 2026 08:35:41 +1000, NeilBrown wrote:
+> The recent addition of lockdep tracking for in-lookup dentries didn't
+> take into account the needs of stacking filesystems.  For this we need
+> different lock keys for different filesystems in the stack.
 > 
-> Implement suspend and resume with drm_mode_config_helper_suspend() and
-> drm_mode_config_helper_resume(), so the device stays registered and the
-> last committed state is restored on resume. If the device was reset
-> while suspended, repeat the probe-time handshake first.
+> Thanks,
+> NeilBrown
 > 
-> Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+> [...]
 
-Applied to drm-misc-next, thanks.  Note that we're at the tail end
-of the cyce and the drm subsystem has an rc6 cut-off.  So this is
-v7.5 material.
+Applied to the vfs-7.4.lookup branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.lookup branch should appear in linux-next soon.
 
-The Fixes tag could be argued against because this isn't really a fix,
-it's more like a missing feature.  But I can see how this is useful for
-people on older LTS kernels, so I let it slide.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Thanks,
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Lukas
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.lookup
+
+[1/3] VFS: per-fs-type lockdep key for dentry in-lookup locking
+      https://git.kernel.org/vfs/vfs/c/9f611778a273
+[2/3] VFS: rename lookup_map to dep_map
+      https://git.kernel.org/vfs/vfs/c/11f6be214ba3
+[3/3] ovl: provide private lockdep class for dentry->dep_map
+      https://git.kernel.org/vfs/vfs/c/a5478f5c226b
+
