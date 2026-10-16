@@ -1,161 +1,149 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47864A5ED0
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7AA4C8C48;
+	Fri, 16 Oct 2026 13:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158525; cv=none; b=c5eZn6eOaFEsHEQgFsRazjM0nbPSpETpRB0CYQEp8/Hh/pljWgyAMU907CGkHxvylnSP4Ev/0fsttsX5A5MELO3nn29/XVtJAvx9+lwiTHn59ZMCB3aTD9fBozeyaZFj+fBLM3rMr85UhFpLdvQxgez+3En5RJo0f1iz4bRUBwc=
+	t=1792158529; cv=none; b=R/TelbzK2zkUt5nfd9pgyokpOI7pQbwdi955sQJRBklMfU00fqgZHpxBlKyvW6Y871ZQ1fCtOpdzBiGpGzlwaYBEG4OpaTWMElQH9D0SkPuD/OeZK+Lj3GoHZa6IX82fEmG/+Z/vgghoTyYbuU1KheXeCVLexQ2NyyuJaun3Zqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158525; c=relaxed/simple;
-	bh=42BAW3sjeH2A6QDTyTHzsJuEqTfgp3lMvIVXW4J5Bxs=;
+	s=arc-20240116; t=1792158529; c=relaxed/simple;
+	bh=zlQWcttho1vyPbsQg0Xn2LU8NAcWx23gixdtx0PGqHU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fEioJB8GZciCvKYp+JIytyUf6oKt6ERQjqELugwI7eRM+ylg8ktk2Ulg0qbWwKkFxJ0eEqv9hAYLOExNxCGN6c2BugpC8caf0FzvxcrbAMi5zoOwsQ+JBVtIChIkzRFtAbQHforrLUj8YbStv5JH1RnaXmsOBlogGQk/RA0MeVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=mZcM2XEy; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=gHn775xdSpKgJXzbK04kCdxZpUaFhL+HiFm4sKdwfK8riNC7SkNekiPNARfxrnunfmKaRmR39GsAcNDKY7YQGtDUPROErDOrhTiPI5yXuWLShDRsRUfZNG5sj6v/k/jKMC9OQ/LchY+ZuIWzhykTfHdcZHZvsl5OBKbiPTZ7fPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=FfWVDKYA; arc=none smtp.client-ip=212.42.244.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="mZcM2XEy"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91791ec1b83so97636d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:48:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792158523; x=1792763323; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0/H2zWOxTS0O6iCKkUCp+Yb9Q6oHYUrnCIj0DP3Fsx0=;
-        b=mZcM2XEyMEqjHm/Hv6Sc3rx3CbgpiCQDPd81GjfsH/cYXmvEYGLPTWe6HCICjrOrpt
-         8JHgONAVgrHop4cB2CEDIpmqgWZtM9V61TE8SiOff1cqiSvGyswYUbh1aU6HHHYWrsF8
-         uSzFOhQVgxC8nTr87e+HwfBI02VUJmV0cOPi4a5Ge39B+XJOcE7alVcgl5vBEwdZMGo9
-         xNM1Ym+vE4n2oFdyEXX9DBxwO447bT8Davx6NvkFtPw/vwCUwZ2qxiNlmQRQVOQqZ1ap
-         ISl9cI5qOx2Fnw3QBhPGFJts9/obvS/zTtcnCJN8aXwwySu02c0XPSzDyvIbZvdFkmSs
-         oSXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158523; x=1792763323;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0/H2zWOxTS0O6iCKkUCp+Yb9Q6oHYUrnCIj0DP3Fsx0=;
-        b=sV7yZOB5x8NutpIMhOwKHhkmegHqKtvvfQ81wUvlmaBZOu6+RBrPT9TFVg9OhbLvef
-         c/MkrxMJnDwA2RfRpuPGwE9MwB1kxStBpzQvk/aXAvC9/+BFngGR87Qs4FHpE1cEY2XW
-         d9oupYAzt+U5mCe2fuunPu0iQQ+bAqYwRiVG8yHURPxInRrFhNWOT6daSpYmxtOjSrYD
-         0YvxolWlht7H6GNbCUkQWJkkSp7Sm8Xu0N7ijhCJMAIK9NH2RGLgaz3xGza8TS/5xNwi
-         hXisHH8IwZJWg4KkoXXrJ+rsQFL4GcNaDxHaXdo+0PPdW+hb6CpNrICnj5E/bsxYwCRl
-         gRKw==
-X-Forwarded-Encrypted: i=1; AKwUvByO4XKRGFLuhn6AntEWoKO69/EQWu0n3cvbhHjJ8rnSlAWmN8MCAbbSMsRWy9NgGU/ZRlXi/2ToPAXE0Xs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKo3k7bNk16Vpp8Q2Hvh1fUo5y9eaCp7/AsZDqOFchlfV2Ln0ys
-	gQvs9/ZH/oE/zoV6w49fz6b9u0cdw2gES+LbB4DyxxquVHAcyLB7RbHj1tN3BFq9AUA=
-X-Gm-Gg: AYBFou3QHP2ig0mwb4iM/Kd7+gYsrf4GRKyF47QztyxWUjTRqPmkLGKg/l6mDr/4Wr9
-	aBX+dKDdYeLzR8/mJdKOWIvxoXeyhpc3gHPmDnuRPIqIfWHkMCxb53mT2rsfHuZTyjtzz4XhTSc
-	Aw+CV8xOhqSUhXamcF/auT457WZZF3w0tF78eKo3+ygzbnFEFFn5GykfXhmprjw/sPSkBUdw9yr
-	G+dz3VTxDaM+HlNgC473Oj4UacUDw+cq+D7rF0EcRP7Olop21w/9gDd5cHpT4OpxpODPUYwcwWP
-	43RI3Yy7ij2ZdrgRe5aiT/okBTWrdHsfsPYKRLp0n7OhJ9mLkigDOc1qNPtcPoTEFTEgM2K9aco
-	IdDAvlfGZPMwiLI7Fjsq4bCQohSdrIxqHFExjJDtLyBrVuMt4woKrrOB1JqgzWEeGSKPLpzZTgK
-	iixYX5tB5MW3nOWUdRJ5XLa6R/urm/fnqcovyuaxDqvQ4auBUXHkUyzp5JZQ8zcm9Y+6JEQcNiI
-	ccIfvwIQeG63+4CHwD5EKUnKhNEU8BKaPadbuc5YuYWjWyAR9BstW8=
-X-Received: by 2002:a05:6214:3013:b0:919:b4fb:eec with SMTP id 6a1803df08f44-91b5578517bmr396695716d6.36.1792158522383;
-        Fri, 16 Oct 2026 06:48:42 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbaae645sm23369576d6.21.2026.10.16.06.48.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:48:41 -0700 (PDT)
-Date: Fri, 16 Oct 2026 09:48:40 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org
-Subject: Re: [PATCH 7/8] selftests/mm: check MADV_PAGEOUT file permissions
-Message-ID: <atImwW1ONQQ9Hv7p@gourry-fedora-PF4VCD3F>
-References: <20261014175756.2035176-1-gourry@gourry.net>
- <20261014175756.2035176-8-gourry@gourry.net>
- <cba2a01d-630c-42d3-b6e4-b498f10c4b45@arm.com>
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="FfWVDKYA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1792158167; bh=zlQWcttho1vyPbsQg0Xn2LU8NAcWx23gixdtx0PGqHU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FfWVDKYAiOIYpMdsxizgJ8SripUI215Sy5onHIqmI32OzRHKt/Q0Z4y7qZcFEoDcy
+	 usNqeelRXIwcsAy+AU0OKgqQEU8eiszqresIFhFFHUCVkl9+ho6u5CxmuNTJ17TCmJ
+	 wTE1z2EFcSHLJOl5tdTt8APo3I7+RBUw4jiwEdA/sr8E7dr+W+8DcwagYjU1o+nOMl
+	 QOScddDUQyl2mBtV+TCj+bOU9V2AUdSHn8a/0Pci1Z6hv+lLPqelIGW7J3JxeAfPwl
+	 0xDmSBvN33ZNR8bnG++Bz0449Xux1s8oHr8LInwL8yqyDehH0QiDC+DFnJpgN354EH
+	 ZQb0pl92Eg9AA==
+Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6ad229d7-c83a-7f0000032729-7f000001ea90-1
+	for <multiple-recipients>; Fri, 16 Oct 2026 15:42:47 +0200
+Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri, 16 Oct 2026 15:42:47 +0200 (CEST)
+Date: Fri, 16 Oct 2026 15:42:46 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Van Vo <vngocvan@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, ndesaulniers@google.com,
+	morbo@google.com, justinstitt@google.com, masahiroy@kernel.org,
+	llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gen_compile_commands: honor the build directory for
+ modules
+Message-ID: <20261016-fast-lyrical-frigatebird-dcd303@l-nschier-aarch64>
+References: <20261015135752.17028-1-vngocvan@gmail.com>
+ <20261016012148.GD3329673@ax162>
+ <CAJavoFk+zgySyNps5tuKmntmvuAyev=kKL640TFrfCc-njeWBw@mail.gmail.com>
+ <CAJavoFkpO29P_oD_YLBkkp6_k080mN-ctRPXSvB+oj_-vpcR0w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <cba2a01d-630c-42d3-b6e4-b498f10c4b45@arm.com>
+In-Reply-To: <CAJavoFkpO29P_oD_YLBkkp6_k080mN-ctRPXSvB+oj_-vpcR0w@mail.gmail.com>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1792158167-3CFFB515-A91D54D9/0/0
+X-purgate-type: clean
+X-purgate-size: 3158
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-02  mail-id: 52EEDA03FD  external: no
 
-On Fri, Oct 16, 2026 at 05:48:11PM +0530, Sarthak Sharma wrote:
-> > +/*
-> > + * The owner of a file may page out its clean page-cache pages. Run as an
-> > + * unprivileged owner, so that capabilities cannot stand in for ownership.
-> > + */
-> > +TEST_F(madvise, pageout_evicts_owned_file_page)
-> > +{
-> > +   char *mapping, *control;
-> > +
-> > +   if (!geteuid() && !drop_privileges())
-> > +      SKIP(return, "could not drop privileges");
-> > +   pin_to_current_cpu(_metadata);
+On Fri, Oct 16, 2026 at 01:25:33PM +0700, Van Vo wrote:
+> Hi Nathan,
 > 
-> Is there a reason why we are pinning to the current CPU here and not in
-> the next two tests?
-
-Oversight on my part.  I added it where i got a failure, but didn't
-carry it forward to the other tests.
-
-> > +   ASSERT_EQ(mapping[0], 0);
-> > +   ASSERT_EQ(mapping[page_size], 0);
-> > +   mapping[0] = 1;
+> > How was this discovered?
 > 
-> If both pages are on CPU 1's per CPU LRU batch here and then hte task
-> migrates to CPU 2 here
+> This came from code inspection of standalone use of -d with an explicit
+> modules.order argument, followed initially by a constructed reproducer.
+> It was not a failure encountered through Kbuild's compile_commands.json
+> target.
 > 
-> > +
-> > +   ASSERT_EQ(madvise(mapping, 2 * page_size, MADV_PAGEOUT), 0);
+> I have now reproduced it using real Kbuild-generated artifacts from
+> 0fcb05b72344f40806cbe810de8872f1698bf053 on Linux/aarch64, with Python
+> 3.11.13 and GCC 12.2.0. This was a partial lib/ build with CONFIG_TEST_LKM=m.
 > 
-> Then this can cause lru_add_drain() on CPU 2, and therefore both pages
-> do not reach the main LRU list. Thus they won't be reclaimed and the
-> test can skip here since the CoW page wasn't swapped.
-
-I think there are other corner cases here as well. So yes i'll set up
-thei pinning - probably worth it to just pin the entire suite of tests.
-
-My original set had a bunch of this tested more explicitly, but this is
-really implementation details that are not worth the additional test
-complexity.  I think we can just rid ourselves of that and just pin
-every test and make sure it does what we expect in that case.
-
+> The following uses a disposable source tree at that base. The guards
+> prevent overwriting an existing output directory or result file:
 > 
-> > +   ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
-> > +                mapping + page_size));
-> > +   swapped = pagemap_is_swapped(self->pagemap_fd, mapping);
-> > +   ASSERT_EQ(mapping[0], 1);
-> > +   ASSERT_EQ(mapping[page_size], 0);
-> > +   if (!swapped)
-> > +      SKIP(return, "MADV_PAGEOUT did not swap the COW page");
+>     (
+>         set -eu
+>         test ! -e out
+>         test ! -e outside.json
+>         test ! -e inside.json
+>         make O=out -j1 allnoconfig
+>         bash scripts/config --file out/.config --enable MODULES \
+>             --enable RUNTIME_TESTING_MENU --module TEST_LKM
+>         make O=out -j1 olddefconfig
+>         make O=out -j1 V=1 lib/
 > 
-> Also, here we skip if we couldn't swap out the CoW page. Won't it make
-> more sense to check with pageout_until_swapped() first if pages can be
-> skipped, and then fail here if the CoW page wasn't skipped after all the
-> retries, similar to how some other tests implement it?
+>         outside_exit=0
+>         python3 -B scripts/clang-tools/gen_compile_commands.py -a ar \
+>             -d out -o outside.json out/lib/modules.order ||
+>             outside_exit=$?
+>         printf 'outside_exit=%s\n' "$outside_exit"
 > 
+>         inside_exit=0
+>         (cd out &&
+>          python3 -B ../scripts/clang-tools/gen_compile_commands.py -a ar \
+>              -o ../inside.json lib/modules.order) ||
+>             inside_exit=$?
+>         printf 'inside_exit=%s\n' "$inside_exit"
+>         test "$outside_exit" -eq 1
+>         test "$inside_exit" -eq 0
+>         python3 -c \
+>             'import json; assert len(json.load(open("inside.json"))) == 1'
+>     )
+> 
+> Kbuild generated lib/test_module.o, lib/test_module.mod,
+> lib/.test_module.o.cmd and lib/modules.order under out/. Both .mod and
+> modules.order contain lib/test_module.o.
+> 
+> The old script's invocation from the source directory fails with:
+> 
+>     FileNotFoundError: [Errno 2] No such file or directory:
+> 'lib/test_module.mod'
+>     outside_exit=1
+> 
+> The same artifacts work when the old script is invoked from out/:
+> 
+>     inside_exit=0
+> 
+> The successful invocation produces one JSON entry for lib/test_module.c.
+> The patched script succeeds from the source directory and produces an
+> identical entry. The old script also fails with absolute paths for -d
+> and modules.order; the patched script succeeds with those paths too.
+> 
+> Only the standalone generator invocation is outside the build directory;
+> compilation itself runs under out/. This is not a full kernel build or
+> a boot/runtime test.
 
-Ah yeah good catch.  I'll adjust like this:
+Thanks for the detailed reproducer.
 
-   /* Ensure pageout-swap actually works first with a control page */
-   control[0] = 1;
-   if (!pageout_until_swapped(_metadata, control, page_size,
-                              self->pagemap_fd))
-      SKIP(return, "MADV_PAGEOUT did not swap the control page");
+Quoting from Nathan:
+| How was this discovered? This cannot happen within Kbuild because this
+| script is always invoked from within the build folder, so was it a
+| manual invocation or something else?
 
-   /* Run the actual test */
-   ASSERT_EQ(mapping[0], 0);  
-   ASSERT_EQ(mapping[page_size], 0);
-   mapping[0] = 1;
+So, if I get youre reply correctly, the issue this was not discovered 
+"in the wild" but can only be reproduced by manual use of 
+gen_compile_commands.py.
 
-   ASSERT_TRUE(pageout_until_swapped(_metadata, mapping, 2 * page_size,
-                                     self->pagemap_fd));
-   ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
-                                    mapping + page_size));
-   ASSERT_EQ(mapping[0], 1);         
-   ASSERT_EQ(mapping[page_size], 0);
-
-~Gregory
+-- 
+Nicolas
