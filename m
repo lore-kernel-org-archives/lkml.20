@@ -1,437 +1,216 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A3046EF93
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A47246E008
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152607; cv=none; b=qa6FAd4cJdLezMhg49rUVfcaL3R/Qv6N5MV5WuXONWunmwqn2nesbzGfQV+UnDUNEldMUTXdnCNgEF1xsRFfEDoxXeQXa6GoM7Q8kRvl6Wbu1T8jhVO1pMQffoL27JwQNDOW8SU4NdNk/GsHbrTobfBs2fo9E0KV7E2wvfwEJuw=
+	t=1792152618; cv=none; b=HgJ6rBHbEAGZ1u4thvIiXI3uwiDpJcRYYoC768ivOlvPsuWRpWGC9WrRGZt0xaH3hWI3k1FZVAJqg5wTPK0EJNr0yxJL604C99x1xV8jX8GKB+B9pTVTWD9JTYKppq3Q2kZWdHHW/q6k+fKsApm47JqnqYZRIiQ4kA87VlZUhsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152607; c=relaxed/simple;
-	bh=OO/CgimJeS//PNAiuvFScdjA7H5LsP/0X7yItHI+emg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=erE6nnB+bd+/QQraO4bmfWLoKmiVU9Uccs3w9OOvMFMdZtSwnnyvlmW/JnSX9ZqouVLDckTymY+PElpBh0ydbKtH5s3Moxk7eIra7Ppx5cmuVGhogrAR0CiDx3pki+Uhtpw9VmFzG9HVPNMYZOwcm4OUX4K1t5QnrtaO5xDmU2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQ6AxVmP; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792152618; c=relaxed/simple;
+	bh=jQ/FSLrIkJtB17z8bh109FKYvGJkqaPWH/ZwQG3vnNg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G1sH2bs44ZpUkjCXc6V3HZQPfKlZHBrvfoW11pcrsW/NKG126sV2QH9YBAZKtvvkBX4NXaULuokz26lg9UaWNDpK4qPUhocyeIag42fdPlQHBkK/ymILj82Xy1w5eIuliH3SgvErl+qVBFVaVrcH3Eq7JbHZa+sBXjd5IKHjI+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L3n3T5Bv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IAN//r90; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQ6AxVmP"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so694646a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:10:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L3n3T5Bv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAN//r90"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAAN3V2496906
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:10:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gd1U7p+R5ZYI8dKfgvksJKbmgdW/OkpWP6JFK8vbi64=; b=L3n3T5BvyxHfcau6
+	4a9x7SZJTotMFQGR0dy1xGiqjPL0hRis1NWitHrn4y7qtpwCdp75bgDBrOdIJrMx
+	e2EyJEVUVUqGjKjU4+nJ7v3rsfiiBlDfS+NoiaepY4tUbFeMyLZUSOJc2pduh3SH
+	0+DsMllgEm9wzDVL056OKMKDP2NGGTVGFZcempYNpJhhvUlvXF2l3ZOPNkO5T/1p
+	NR5PMcY0MLwsfr9Ox0tLUBgDSU4sXcxbmD/BvEDpeO/mi/ZXOiZUY+77+KqYRrIu
+	b7UPQg8oRO8aPJIxnWBVnajo96+//hC/sGwl2sWWQHcUfZEw5Wh4QoISUfW/RN+H
+	U7ukFA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3sa3mhd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:10:15 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e85f74c21aso9531135ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 05:10:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792152605; x=1792757405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qX4T5VNEZDCvos4GslZo2eKv8+vc1OatU8zENizVPSM=;
-        b=FQ6AxVmPc2dHpb5Stm7SojG6mbighVco8cK0IEccLe1lGL4s0ZC93A0Yp5X4XuWPZ/
-         Q2wfAqf613c1lB43szdhUP0IlxeM+BwftWPw0mcZMykrkj4vARJrr04qd2YjoE3HQrcv
-         2CM18tmUc6aDrhSY/OF7Ok229QGZqCJPGrM53aQcJQf+/OorZkbBA8T7znSOcdCoheFy
-         hk8+fSSL91xpuQORMgYvSUc/hH3HxNGlp2K+RfLgppjSOYiukp9J1BmwmeMYY92XPlua
-         3ZU2h6qoum6EEU7qswx4LVo2XJbUZdMahi436tI6JSHrG7CSAn72LEmL5sMfcuf8lU4g
-         TxPQ==
+        d=oss.qualcomm.com; s=google; t=1792152615; x=1792757415; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gd1U7p+R5ZYI8dKfgvksJKbmgdW/OkpWP6JFK8vbi64=;
+        b=IAN//r90woLi3ZUrgSzM6lZxP3xvr1MkhfLade5F/JdeCcw8dcBVWteaSoW5kxDduA
+         aU0cLaZWHaWMI9WS72feNjfB8/UdHydWA7ARD15sPSBhlXyHHNRhJ4LkQzxjnl2kSaLC
+         +oklPzvfwQ7XCx3lG8aWg7BUun7oJXCKyzRagxEp+M02VZzyDG0EHuKEIoZMgHUit5e8
+         lm0OQZr0hkoN5ZPbcOt0QVr+CKsO78tZveOUXEsBl3KvulCQ/nr9Nj8jYV359B9/wuj8
+         a+HkztixVOWVwQN3ZxvOj9aJnfSQRO2UXsIA/YXbRnIQ1cjKS/EMZzzLpDKb2SXk6Ord
+         fA0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792152605; x=1792757405;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qX4T5VNEZDCvos4GslZo2eKv8+vc1OatU8zENizVPSM=;
-        b=CZjA/ZkCx7SrXXYrbTZkDL88v2QzhitFQJkpfz2eXGVfVs3igtH94fwJcBMGawPDrL
-         avCPGajdoZNx0PDeNUTEU4zJUqm9Hvd7S7H74kU1ZUrntlHIfQ9b8clIobqHRtdLDMuB
-         4EiD4XmgSi2afEWCUtOUi/qhO/907Arir9TjRPQab2Q3mUV5JMAzPSQKNIwBvFcuem7P
-         Np+HN/X4Dk29s3ozNaOE7/L9O+d6aQd/uhTyVF4asnSllsnNPq4vL9fIRDdff0msBBXE
-         U2IzLYJ32cLyGn+leMJAgr6zAXKtaZWf9GIYTIvNl5XasOFB5z5uYJPgTwuHGWv+3/oo
-         ZlYg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRlFamxd1vDiqhF/emmh9o41cU5r54bjxvq6TxXPMRiPBa2ZNd+w7DapF3S+LvDrSxxUh021aTAHWvUzk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJp8oY+GN3/QUwfHzhHQDPpPkd3X4DweiuKnuXFEYCNJlqL/2G7
-	wFb84USdql+Y4OHrFV2KHyzuCqamwP/Pvmf5Ldinlyy1LghMcRBEvjvw
-X-Gm-Gg: AYBFou2OUckXtRK68JALdjgqvESfb8XHJv3obXe+brWbXcBbr86D4+k9jmOYRXKDRjT
-	sC2JFMLBPmj0lZrUKwjZQcQtbYdgtrKISQ+/D8oqEh++/bt/DFsFKYo1VsVE7Mu7/O4ZywgsRuo
-	H7pGu3ypYMsLvX4iNCKbU/Fv5gqiNO6q43tNGrinpuPyEQAo7c4oeCFHNXbbWlL/aeRWTaqwkJe
-	qA/NhO5FIAVB9stVaJm2b4J1nCsQGKJyobSNQO62g8wusjnk+jPTjLe/SjPDOnxWC8JLKOglk00
-	nRO/f3STFBgiVn7pgo+3S6AO7y+iOSnm1jKwHd8u+aOubDyEvmMbmxIlBeC1qAzg2P/6Vl3O37g
-	5B0LstOn39eF5GXB8Ohm3nQN+catGDm3hpCRqgtxXdwzXCuBUYgZEpRWRRxTXDRZQ7ebSotIhuV
-	l0Y0awQHJoKDa1JMZP7TU4U1XKIDs3S5rrW89Q3pvNX5gzS+JekRRbVYjecgap+XBggyRKz5b9M
-	HPMnu/rjYE=
-X-Received: by 2002:a17:90a:2cc4:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3acbb86e111mr1340061a91.28.1792152604741;
-        Fri, 16 Oct 2026 05:10:04 -0700 (PDT)
-Received: from hongfeng.mioffice.cn ([43.224.245.240])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f4cadsm3908912a91.12.2026.10.16.05.10.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:10:04 -0700 (PDT)
-From: Hongfeng Chen <chenhongfeng0212@gmail.com>
-X-Google-Original-From: Hongfeng Chen <hongfengchen@xiaomi.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Barry Song <baohua@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Minchan Kim <minchan@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Wenchao Hao <haowenchao@xiaomi.com>,
-	Wenchao Hao <haowenchao22@gmail.com>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	Hongfeng Chen <hongfengchen@xiaomi.com>
-Subject: [RFC PATCH v4 1/2] mm/zsmalloc: defer object free to per-cpu batches and a drain worker
-Date: Fri, 16 Oct 2026 20:09:26 +0800
-Message-ID: <20261016120927.3191690-2-hongfengchen@xiaomi.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
-References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
+        d=1e100.net; s=20260707; t=1792152615; x=1792757415;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gd1U7p+R5ZYI8dKfgvksJKbmgdW/OkpWP6JFK8vbi64=;
+        b=g3NVvvzc19sFP3W4As6cCgnIhUNq9arFVqPcwP/6AyXHVtjJkpZVu62lAgJH7AGrFI
+         /AFydCkkiT2f1mDqPvTkfodSJvh0JpOz4lvMUnVHtRKyR87ROxd6B/gQBaghL1Rc09ob
+         m2k7HwvOth3oetQJ3oBAzUiZrUguPmsziZL8OTjm6lrESPpgWG54g09g9QBHntfk4iZR
+         6jbgeoOalH05iQXeKu6am/WYNHVqrmlRgcDdGIR6V3ZaAKODltL4mnWZbXita9zM+HEN
+         GqrDUlDY68Bk8ZwsGrtQkcFRoq41Fedje0evzx0gGjEb/ttfqG8sUes3ttRlLhHw5d/g
+         wz0A==
+X-Forwarded-Encrypted: i=1; AKwUvBxNTgEb6lMfwSJF5NSVuaUJOxJBu58k1Yzha+SfuzI4qhxQSGvw+uqdTvvrPf0urJ5eWHAQ7OHB4jHljnE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTHAdkoqFJw0LFZ+N462SS/jJ0U4pFxC6CjYAySOCBSqcF/H6x
+	tcimyVVNBKd0UoVdK+Dv1q8f1TfM/3mz+5PE2hcqLX92TkQlElb6ppp0B+tuTC7Xf+zT/WWjl60
+	x9Eet89taoeDejHSnpq1lR3ClyfDLQfqKAiBIu2NRkJNzj9es9rptOfV8i0UbEYnnqqst59OxXp
+	E=
+X-Gm-Gg: AYBFou0my6csZfe2anWUnxMmNxHDiNmNlJOADAc60toLQ2KS5x3LReVFyAf9GYz0Frk
+	/XL4y5FZyKwygRyxgdNml1MsvYHMEjPscJjASkw4dOZPC8X9pRz88yQrG/sr7jGfKw5sH7G7mAb
+	lJWCelVMJbvjNuq9AL77K6WxctgdWqhilazcNtY6zbtha4BTkrUoWEIZRNVAAoBWEZ+x2zR7xNa
+	uK80FNPuMOLhjyZC8kMUOAZoIeXBOtgepTdEZ4FuffdB9NCUanJ0htGBaOOsXgpHi8W14G3MnfP
+	Jy8IrgvBPCE0Dj0t6btF6/2iMJFQOgpz09i2diGdVtzboit4xLpInTLHbtApNydo11BU5LS5D7X
+	kn+K7L7AQeS61BOTmbH9tAqtvEcOLfPY=
+X-Received: by 2002:a17:903:1a08:b0:2e9:57bb:72df with SMTP id d9443c01a7336-2e977568618mr21986965ad.28.1792152614751;
+        Fri, 16 Oct 2026 05:10:14 -0700 (PDT)
+X-Received: by 2002:a17:903:1a08:b0:2e9:57bb:72df with SMTP id d9443c01a7336-2e977568618mr21986735ad.28.1792152614236;
+        Fri, 16 Oct 2026 05:10:14 -0700 (PDT)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804ea9sm8953685ad.13.2026.10.16.05.10.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 05:10:13 -0700 (PDT)
+Message-ID: <c6aea30e-337a-4747-93be-cbaeeaa933dc@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 17:40:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: crypto: Adjust Shikra compatible
+ hierarchy
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261006-shikra_qce_fix-v1-0-8ac54d81edb4@oss.qualcomm.com>
+ <20261006-shikra_qce_fix-v1-1-8ac54d81edb4@oss.qualcomm.com>
+ <20261013-pastoral-magic-perch-1a2e5a@quoll>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <20261013-pastoral-magic-perch-1a2e5a@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfXwQZCdNS8S9Sk
+ VvZi9egMrSaCBAaxEsRevXBIY86g3aKUMeFQV652rRX4+pQOYy8hC4xsoQp6nAr1vu9SRTB769T
+ PsFKTa8ZQebS1ekVCNDpRIkvL89sG2w=
+X-Proofpoint-ORIG-GUID: AQqaOvqex5T01UJCpHZLpi8VUqsuvIKN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0OCBTYWx0ZWRfX+kcKAelH4a81
+ aoWUAWisDs5hieTK6u1VEgh8MgIgDfMBaCpO458MO1Ev8gvyliXAB1nbFve0s3aX6HvUIn/FkFs
+ WPjzSLON4Ks8u0PooaeEbnQLQ6ghjpfVmePabdSDhwNEqr4EtBcpdR7A4y54u40KDEn+155q7Qf
+ XXvmwOhXSfKs0NkwwXNGYvg5SJUg0AXR5SXV8+C68lh+CvwRlto3GolXyTCnaMsx/bjgLPfNGlM
+ uU2u8k5+OGdCTB5CdVY2veMM+BCh/tDwxnd6coZ4Jp2Ep//u/nufD5XVqxX4/d1wV8qS9baIMt8
+ Z41gZdnQO+0DLkdhBbHJvIX1N58SsyWM9Xgo4F7tdmhJ52n1IkEgRAGMh5PAc9dTa9l4r1BPyaa
+ aQUzViFQB3+Eq0D2pSID7QqrGPTgq1WCvYAgbkP4bGskUI35wMbZxbXcanyAqwQo7JJ3vqy03Nq
+ sqL6/NSww3kO1aiiuWA==
+X-Proofpoint-GUID: AQqaOvqex5T01UJCpHZLpi8VUqsuvIKN
+X-Authority-Analysis: v=2.4 cv=AN0XGc5Z c=1 sm=1 tr=0 ts=6ad21427 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9AdMxfjQAAAA:20 a=xNk55bQaariEeO8a7gcA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160048
 
-Unmapping a VMA full of swap entries makes the unmapping task free every
-compressed object itself, one zs_free() call per page. On Android this
-slows down the exit of a task killed to reclaim memory.
+On 13-10-2026 12:14, Krzysztof Kozlowski wrote:
+> On Tue, Oct 06, 2026 at 04:44:03PM +0530, Kuldeep Singh wrote:
+>> Shikra reuses the same QCE integration as Agatti and should follow the
+> 
+> `git grep Agatti` gives zero.
 
-Instead of freeing the object right away, zs_free() appends its handle to
-a per-cpu batch of 64 handles. A full batch goes to an unbound drain worker
-through a lockless list, and the worker frees the objects. This batches the
-release and moves it off the unmapping path, and the change stays within
-zsmalloc.
+Agatti is chipset name and compatible name is "qcom,qcm2290-qce".
+Maybe I'll mention both next time.
 
-Freeing empty zspages is left to the worker too: it does that directly when
-it can take the page locks, and reuses kick_deferred_free() to free them
-asynchronously when it cannot.
+> 
+>> corresponding binding requirements too.
+>>
+>> Move the Shikra compatible to the appropriate binding hierarchy
+>> (matching qcom,qcm2290-qce) to reflect the underlying hardware
+>> description.
+> 
+> You do not change any binding hierarchy. You are changing fallback
+> compatible which is ABI break without any reason.
 
-Failing to allocate the per-cpu state is not fatal: pool->defer stays NULL
-and zs_free() keeps its old path.
+Agatti and shikra both consume RPMCC managed clocks and clk-smd-rpm.c
+does proxy clocks voting as of now even when no consumer is voting for
+it. The required consumer i.e QCE need to vote for it explicitly as
+proxy voting being dropped now in patch [1].
 
-Signed-off-by: Hongfeng Chen <hongfengchen@xiaomi.com>
----
- mm/zsmalloc.c | 182 ++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 154 insertions(+), 28 deletions(-)
+As agatti(qcom,qcm2290-qce) specifies explicit clock entry as per the
+spec[2] and shikra is derivative of agatti hence, follow the same
+convention.
 
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 7ef80e0da626..eacd771bd542 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -43,6 +43,7 @@
- #include <linux/zsmalloc.h>
- #include <linux/fs.h>
- #include <linux/workqueue.h>
-+#include <linux/llist.h>
- #include "zpdesc.h"
- 
- #define ZSPAGE_MAGIC	0x58
-@@ -267,6 +268,21 @@ struct link_free {
- static struct kmem_cache *handle_cachep;
- static struct kmem_cache *zspage_cachep;
- 
-+#define ZS_DEFER_BATCH	64
-+
-+struct zs_defer_batch {
-+	struct llist_node node;
-+	unsigned int count;
-+	unsigned long handles[ZS_DEFER_BATCH];
-+};
-+
-+struct zs_defer_percpu {
-+	struct zs_defer_batch *active;
-+	struct llist_head pending;
-+	struct work_struct drain_work;
-+	struct zs_pool *pool;
-+};
-+
- struct zs_pool {
- 	const char *name;
- 
-@@ -282,12 +298,12 @@ struct zs_pool {
- #ifdef CONFIG_ZSMALLOC_STAT
- 	struct dentry *stat_dentry;
- #endif
--#ifdef CONFIG_COMPACTION
- 	struct work_struct free_work;
--#endif
- 	/* protect zspage migration/compaction */
- 	rwlock_t lock;
- 	atomic_t compaction_in_progress;
-+
-+	struct zs_defer_percpu __percpu *defer;
- };
- 
- static inline void zpdesc_inc_zone_page_state(struct zpdesc *zpdesc)
-@@ -428,13 +444,11 @@ static bool ZsHugePage(struct zspage *zspage)
- 	return zspage->huge;
- }
- 
--#ifdef CONFIG_COMPACTION
- static void kick_deferred_free(struct zs_pool *pool);
- static void init_deferred_free(struct zs_pool *pool);
-+#ifdef CONFIG_COMPACTION
- static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage);
- #else
--static void kick_deferred_free(struct zs_pool *pool) {}
--static void init_deferred_free(struct zs_pool *pool) {}
- static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage) {}
- #endif
- 
-@@ -684,7 +698,6 @@ static inline void zs_pool_stat_destroy(struct zs_pool *pool)
- }
- #endif
- 
--
- /*
-  * For each size class, zspages are divided into different groups
-  * depending on their usage ratio. This function returns fullness
-@@ -1293,7 +1306,6 @@ static unsigned long obj_malloc(struct zs_pool *pool,
- 	return obj;
- }
- 
--
- /**
-  * zs_malloc - Allocate block of given size from pool.
-  * @pool: pool to allocate from
-@@ -1371,7 +1383,6 @@ static void obj_free(int class_size, unsigned long obj)
- 	unsigned int f_objidx;
- 	void *vaddr;
- 
--
- 	obj_to_location(obj, &f_zpdesc, &f_objidx);
- 	f_offset = offset_in_page(class_size * f_objidx);
- 	zspage = get_zspage(f_zpdesc);
-@@ -1447,7 +1458,7 @@ static inline void obj_class_get_and_lock(struct zs_pool *pool, unsigned long ha
- }
- #endif
- 
--void zs_free(struct zs_pool *pool, unsigned long handle)
-+static void __zs_free_one(struct zs_pool *pool, unsigned long handle)
- {
- 	struct zspage *zspage;
- 	unsigned long obj;
-@@ -1455,9 +1466,6 @@ void zs_free(struct zs_pool *pool, unsigned long handle)
- 	int fullness;
- 	struct zspage *zspage_to_free = NULL;
- 
--	if (IS_ERR_OR_NULL((void *)handle))
--		return;
--
- 	obj_class_get_and_lock(pool, handle, &obj, &zspage, &class);
- 
- 	class_stat_sub(class, ZS_OBJS_INUSE, 1);
-@@ -1483,6 +1491,78 @@ void zs_free(struct zs_pool *pool, unsigned long handle)
- 	}
- 	cache_free_handle(handle);
- }
-+
-+static void zs_defer_drain(struct zs_defer_percpu *defer)
-+{
-+	struct zs_pool *pool = defer->pool;
-+	struct zs_defer_batch *batch, *n;
-+	struct llist_node *first;
-+
-+	first = llist_del_all(&defer->pending);
-+	llist_for_each_entry_safe(batch, n, first, node) {
-+		unsigned int i;
-+
-+		for (i = 0; i < batch->count; i++)
-+			__zs_free_one(pool, batch->handles[i]);
-+		kfree(batch);
-+		cond_resched();
-+	}
-+}
-+
-+static void zs_defer_drain_work(struct work_struct *work)
-+{
-+	zs_defer_drain(container_of(work, struct zs_defer_percpu, drain_work));
-+}
-+
-+static bool zs_defer_push(struct zs_pool *pool, unsigned long handle)
-+{
-+	struct zs_defer_batch *new_batch = NULL, *batch;
-+	struct zs_defer_percpu *defer;
-+	bool queue = false;
-+
-+	if (!pool->defer)
-+		return false;
-+
-+	defer = get_cpu_ptr(pool->defer);
-+	if (!defer->active) {
-+		put_cpu_ptr(pool->defer);
-+		new_batch = kmalloc_obj(*new_batch, GFP_NOWAIT | __GFP_NOWARN);
-+		if (!new_batch)
-+			return false;
-+		new_batch->count = 0;
-+
-+		defer = get_cpu_ptr(pool->defer);
-+		if (!defer->active) {
-+			defer->active = new_batch;
-+			new_batch = NULL;
-+		}
-+	}
-+
-+	batch = defer->active;
-+	batch->handles[batch->count++] = handle;
-+	if (batch->count == ZS_DEFER_BATCH) {
-+		llist_add(&batch->node, &defer->pending);
-+		defer->active = NULL;
-+		queue = true;
-+	}
-+	put_cpu_ptr(pool->defer);
-+
-+	if (unlikely(new_batch))
-+		kfree(new_batch);
-+
-+	if (queue)
-+		queue_work(system_dfl_wq, &defer->drain_work);
-+	return true;
-+}
-+
-+void zs_free(struct zs_pool *pool, unsigned long handle)
-+{
-+	if (IS_ERR_OR_NULL((void *)handle))
-+		return;
-+
-+	if (!zs_defer_push(pool, handle))
-+		__zs_free_one(pool, handle);
-+}
- EXPORT_SYMBOL_GPL(zs_free);
- 
- static void zs_object_copy(struct size_class *class, unsigned long dst,
-@@ -1671,7 +1751,6 @@ static int putback_zspage(struct size_class *class, struct zspage *zspage)
- 	return fullness;
- }
- 
--#ifdef CONFIG_COMPACTION
- /*
-  * To prevent zspage destroy during migration, zspage freeing should
-  * hold locks of all pages in the zspage.
-@@ -1714,6 +1793,8 @@ static void lock_zspage(struct zspage *zspage)
- 	zspage_read_unlock(zspage);
- }
- 
-+#ifdef CONFIG_COMPACTION
-+
- static void replace_sub_page(struct size_class *class, struct zspage *zspage,
- 				struct zpdesc *newzpdesc, struct zpdesc *oldzpdesc)
- {
-@@ -1866,6 +1947,18 @@ const struct movable_operations zsmalloc_mops = {
- 	.putback_page = zs_page_putback,
- };
- 
-+static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage)
-+{
-+	struct zpdesc *zpdesc = get_first_zpdesc(zspage);
-+
-+	do {
-+		WARN_ON(!zpdesc_trylock(zpdesc));
-+		__zpdesc_set_movable(zpdesc);
-+		zpdesc_unlock(zpdesc);
-+	} while ((zpdesc = get_next_zpdesc(zpdesc)) != NULL);
-+}
-+#endif /* CONFIG_COMPACTION */
-+
- /*
-  * Caller should hold page_lock of all pages in the zspage
-  * In here, we cannot use zspage meta data.
-@@ -1904,7 +1997,7 @@ static void async_free_zspage(struct work_struct *work)
- 
- static void kick_deferred_free(struct zs_pool *pool)
- {
--	schedule_work(&pool->free_work);
-+	queue_work(system_dfl_wq, &pool->free_work);
- }
- 
- static void zs_flush_migration(struct zs_pool *pool)
-@@ -1917,20 +2010,6 @@ static void init_deferred_free(struct zs_pool *pool)
- 	INIT_WORK(&pool->free_work, async_free_zspage);
- }
- 
--static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage)
--{
--	struct zpdesc *zpdesc = get_first_zpdesc(zspage);
--
--	do {
--		WARN_ON(!zpdesc_trylock(zpdesc));
--		__zpdesc_set_movable(zpdesc);
--		zpdesc_unlock(zpdesc);
--	} while ((zpdesc = get_next_zpdesc(zpdesc)) != NULL);
--}
--#else
--static inline void zs_flush_migration(struct zs_pool *pool) { }
--#endif
--
- /*
-  *
-  * Based on the number of unused allocated objects calculate
-@@ -2127,6 +2206,48 @@ static int calculate_zspage_chain_size(int class_size)
- 	return chain_size;
- }
- 
-+static void zs_defer_destroy(struct zs_pool *pool)
-+{
-+	struct zs_defer_percpu __percpu *defer_pcp = pool->defer;
-+	int cpu;
-+
-+	if (!defer_pcp)
-+		return;
-+
-+	pool->defer = NULL;
-+	for_each_possible_cpu(cpu) {
-+		struct zs_defer_percpu *defer = per_cpu_ptr(defer_pcp, cpu);
-+
-+		cancel_work_sync(&defer->drain_work);
-+		if (defer->active) {
-+			llist_add(&defer->active->node, &defer->pending);
-+			defer->active = NULL;
-+		}
-+		zs_defer_drain(defer);
-+	}
-+	free_percpu(defer_pcp);
-+}
-+
-+static int zs_defer_init(struct zs_pool *pool)
-+{
-+	int cpu;
-+
-+	pool->defer = alloc_percpu(struct zs_defer_percpu);
-+	if (!pool->defer)
-+		return -ENOMEM;
-+
-+	for_each_possible_cpu(cpu) {
-+		struct zs_defer_percpu *defer = per_cpu_ptr(pool->defer, cpu);
-+
-+		defer->active = NULL;
-+		init_llist_head(&defer->pending);
-+		defer->pool = pool;
-+		INIT_WORK(&defer->drain_work, zs_defer_drain_work);
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * zs_create_pool - Creates an allocation pool to work from.
-  * @name: pool name to be created
-@@ -2151,6 +2272,10 @@ struct zs_pool *zs_create_pool(const char *name)
- 	rwlock_init(&pool->lock);
- 	atomic_set(&pool->compaction_in_progress, 0);
- 
-+	if (zs_defer_init(pool))
-+		pr_info("deferred free unavailable for <%s>, freeing synchronously\n",
-+			name);
-+
- 	pool->name = kstrdup(name, GFP_KERNEL);
- 	if (!pool->name)
- 		goto err;
-@@ -2253,6 +2378,7 @@ void zs_destroy_pool(struct zs_pool *pool)
- 	int i;
- 
- 	zs_unregister_shrinker(pool);
-+	zs_defer_destroy(pool);
- 	zs_flush_migration(pool);
- 	zs_pool_stat_destroy(pool);
- 
+Coming to updating fallback compatible introducing ABI break,
+"qcom,shikra-qce" compatible in bindings got accepted in v7.3[3] but not
+the corresponding DTS change[4](which consume this compatible), the DTS
+change is queued for v7.4[5].
+
+So we can straightaway update the hierarchy then?
+> 
+>>
+>> Fixes: 45834ff95a6f ("dt-bindings: crypto: qcom-qce: Document the Shikra crypto engine")
+>> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Drop, that's v1, so this likely did not happen. Anyway, your SoB is
+> supposed to be last.
+
+Kindly check cover letter for more details, it's respin after receiving
+feedback on previous series.
+Quoting here again:
+"
+The previous patch-series[1] was sent to an older thread and with feedback
+received, submitting a new series.
+
+[1]
+https://lore.kernel.org/lkml/20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com/
+"
+
+Seems using b4 shazam automatically add tags below SoB.
+Let me fix it next time.
+
 -- 
-2.54.0
+Regards
+Kuldeep
 
+[1]
+https://lore.kernel.org/linux-arm-msm/20260910-clk-smd-rpm-skip-proxy-v1-1-1cb5694a99d9@oss.qualcomm.com/
+[2]
+https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/crypto/qcom-qce.yaml#L130
+[3]
+https://github.com/torvalds/linux/blob/v7.3-rc7/Documentation/devicetree/bindings/crypto/qcom-qce.yaml#L57
+[4]
+https://github.com/torvalds/linux/blob/v7.3-rc7/arch/arm64/boot/dts/qcom/shikra.dtsi
+[5]
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/arch/arm64/boot/dts/qcom/shikra.dtsi?id=099cd05d200ba241bcc7497c4384b8d657a5632e
