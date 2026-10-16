@@ -1,175 +1,114 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799B248DB22
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D396948DB24;
+	Fri, 16 Oct 2026 18:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174896; cv=none; b=XuZ3bXtB4SX4VRNRT6/lqflwwGfQY7AErbgB54bxpTErKSHJdbtUg60nt7RR2bB2a76kGXjK2VqCrlP/64cOc7VOSwXNEbTaDxXnNZIznqPg2dDWJD9xeNUGJhGVpnmv5uR6FSKkZ09z4SNGSzSDl87jtNX3TUpevPiqEUis5IE=
+	t=1792174992; cv=none; b=Lp+Q4HXCG8zIRw7mfBT8iTulQgU8on2PSurTd/SwdfGT+35G+HiXkGc+2FsSiKJFwt7lT9z7ICrsGYjX9cjPjudoQWAgqyjDbKOY/F4WSV7RAKvKcimlpAS+RW7EdUmYxmRMzluj4I71uOzG4OLws0rgMvuKldTEl5Zpy6T9WBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174896; c=relaxed/simple;
-	bh=P7O79ZLj5F0GGvTc/f2daAdUTh2Yqj6MHo++HqedS2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UIxrL9Tn/OMVavGa7nFQrqrsN2+WEz1750DSkpNInWfj7I0R8KmpIMWykHrVkjbJqVXjYRMAxHW2aofNGqcB2X8zvJeKsGIX0gBmogU4OMX0/8xkvgv6zWm/G25hvem6SWDEAOpRu4N3RiyyCT0MuClfKHGknAYK2634Mx6SaWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UzKDmLGo; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792174992; c=relaxed/simple;
+	bh=V4kTvb8KxENuXTDXUZnUppPHUtA6VPzAYLoRLYt4mM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N2mzWBj4vWtKKGSrsln3W3yPCifxnCIq5XtwxDiTP9owDVzcTfC+8jARwbJLrUf+41TPgxlkmvbRyoojTDgTcFcyh/HGVXDbUw0CuQfkvg0pu6KdYFs2PZOFNZU6SZimAJhY9nkJqJeXMyyVbV3cfbdoWoj3HGVoymP0s83YgLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TtWh3LLt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UzKDmLGo"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38759bcd877so218890a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792174895; x=1792779695; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cREHVSgVpsX1N2sYltHm34md8NvEm7EO4it+8u2tj/M=;
-        b=UzKDmLGotnT2Rl3S0/CS3JqjQnQjkp+T8J+zN8QBdXuavTNlj4gP6yQNruDiigja4t
-         kqGuwUNwQyXCymTyPZOtF/T3Cp5PW/5SBzS3zFydCkzCW6a0K01/0OfOfCWhAGHdCWnr
-         MWC7fzxpuv/Mh3kQOlrfsKwhqINwqG7/yfZ6jFYXB5XTfKYTyxIQT9SlhCoJ1eh2Nv6F
-         amRKr2QJL1Wcl9Q1Brcg6hm4NwtRB5UYxqoo/THlhNba2RtxXQzKxvRoW/ERO8ocHmQ9
-         iHddyfQxh6GiWky48K+h6zcBXkiUSUsgnotttv+AOa9Ljrt4q4qTpCMOTaI7UDJ9kpU+
-         VCvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792174895; x=1792779695;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cREHVSgVpsX1N2sYltHm34md8NvEm7EO4it+8u2tj/M=;
-        b=neGkEUvcNrQEXEOaYrq58PIrCkSVnuJsmJtfK1OwJzYj2NjkzkNr0lUgQqdfPOVbW8
-         cj2nUiEfsGt6swk8UWXy8bLAzILT98suxIyHNEGEBlS1vR9bXRdXvvbn2cU2KQ3eSHRE
-         t359hzPZvjbnGRTOQLwLZSTgyrWftKW8MYjeSIzTMVYQlSuKC7f/SebeH29a2sMvhl4F
-         Wn/Ieoj3ajvt6OjNT0dBMXnbe/3fdm3pr8ePn9ietQQOI3CO/FFj2+8PN4qfWo+n68vw
-         QQYgPcFa5fT2i6W85FySmU/6ehGxlkKKi4Po6+/NJXNvDLMIowGvX42eBmeNIBtxRYPr
-         8JEA==
-X-Forwarded-Encrypted: i=1; AKwUvBw58iFjPi0AmfycbL40D9U1cuglqAR8Ec9xqLe3UnTpLWZTQUO9H28WYjxqIRw5/UW4EdJv+yjhXe4kcUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrUqZiKOk7cKymMwxEUOu0BXel+Ol6gw+FsYI3/al6qIpf4jQl
-	Bil0DQp49i45GiOtT5dqoQhgas18gDRK3zBoku9cMkH6j4Rf9u+NocaLfwtWJQ==
-X-Gm-Gg: AYBFou1m1ALe0vskf3N5+7JFmu/3qbTWh5kciSst9Wg//mSBUniCFET4UV7C5AixDtK
-	MKl7YIrn7L6IhgNUmOJ6I5pByqX8nwRx75BbWf4C4y5WjSGzuBhuSS7+dwSx9YPESorHMMRgRxB
-	I1IQEhVrVzL59CX0Mi5XC73knmRsgHNu3mzk7BezwEw7kxFrAbSV6R443Gc3MLeqGJUDp32mdzs
-	RfZyNnL78kT+Ki4Yae2cw4AsQxsPSBdD8b2y1bUSQXxaUbrURBsrTViVyh+7TjhD5RNZvdJnHSz
-	WwQhlnMNxyY8Vv0XdL7ywaEbxJyN0uRGtHUFNOcURGurgqWDH+8aRd4hHztWp4gaQM1gvyRLjOG
-	XE5r24vb91pPXyg7TRNepu0zfhBjz/Jw3yFqXoPcw4Pb7Q3ETd3YGk3G9J65BFK/82GvmXQUour
-	RVjc/clpNc6RH4F8PsV58ToO6U+jcKGyZGLu3NB9AzPPzjFyXPbi1DUs8daIrSJPhxIsuW48yX4
-	ZCa5UDWc/6s1q3G7B4tvKlx7YrhJg4FCTWAvQyOWsHfg7Nr
-X-Received: by 2002:a17:90b:1805:b0:3ab:c6d:2bf9 with SMTP id 98e67ed59e1d1-3acef5b0dd5mr547132a91.57.1792174894838;
-        Fri, 16 Oct 2026 11:21:34 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm5616457a91.7.2026.10.16.11.21.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 11:21:34 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
-Date: Fri, 16 Oct 2026 11:21:32 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TtWh3LLt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A1C1F000C4;
+	Fri, 16 Oct 2026 18:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792174991;
+	bh=NCuBVyLGp46SfyUfhIc5HTTXXjg7uyN/3+5PL1A1ACs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TtWh3LLtDhjYZYa6x+9WtVqe+rptuZYVD85fcIZYMvBxttK+w1LZ42vd/G9wgp1sC
+	 M+mhBYc3ZqZF3xL9bZG4Hp1GhK9EZR8kUIm3M28z1aEOqZtahimCI89+tXRH44gC1r
+	 X4kyer4h9BJ43D+FhnAuRjQg+oiT1T8h5AsKAf6CS+0EUCOGJIMDwOhmut4eMV3Xl9
+	 O6I0xsCHP/MmAaZ4tmOZ9JeJ1anpaa8GfQ02TZRD/yX4ZyMVQjOQo6gkJ1R2Ydt9mY
+	 mDx620hiWHCAa/aZV5nXLbJp+Ns8Wpyh64BMsQQUQOBDfNx5dEMSoky9zpEhm66DcM
+	 4J8wulQU664dQ==
+Date: Fri, 16 Oct 2026 19:23:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Richard Cheng <icheng@nvidia.com>
+Cc: dave@stgolabs.net, dave.jiang@intel.com, alison.schofield@intel.com,
+ vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
+ gourry@gourry.net, rrichter@amd.com, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] cxl/region: Calculate peer distance only for reused
+ targets
+Message-ID: <20261016192305.1d1e01c5@jic23-hlaptop>
+In-Reply-To: <20261015094059.46818-1-icheng@nvidia.com>
+References: <20261015094059.46818-1-icheng@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
-To: Dmitry Voytik <voytikd@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261004213755.554191-1-voytikd@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261004213755.554191-1-voytikd@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/4/26 14:37, Dmitry Voytik wrote:
-> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y,
-> and always is =m.
-> 
-> The issues can be reproduced with the following steps:
-> 	make mrproper
-> 	make defconfig
-> 	./scripts/config \
-> 	  -e WATCHDOG_CORE \
-> 	  -e WATCHDOG_PRETIMEOUT_GOV \
-> 	  -e WATCHDOG_PRETIMEOUT_GOV_SEL \
-> 	  --refresh
-> 	make olddefconfig
-> 	make mod2yesconfig
-> 
-> 	grep '=m$' .config
-> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
-> 	CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=m
-> 
-> "make menuconfig" doesn't let it to be switched from =m to =y either.
-> 
+On Thu, 15 Oct 2026 17:40:59 +0800
+Richard Cheng <icheng@nvidia.com> wrote:
 
-This does not explain what the problem actually is that is supposed
-to be solved with this patch. Since this is just a selector used to
-enable other configurations, and the configuration option does not
-result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
-set to =y" on its own is not a problem.
+> This patch depends on Alison Schofield's v3 "cxl/region: Refactor
+> cxl_port_setup_targets()" series [1], this is inspired from that serie
 
-Guenter
+series is a an odd word in English. Singular and plural are the same.
 
-> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
+> as well, since her serie contains no functional change, I pull this one
+> out as a standalone patch.
+> 
+> cxl_switch_port_setup_targets() calculates peer distance before
+> searching the existing targets. When the endpoint needs a new target,
+> the calculated distance is never used.
+> 
+> Move cxl_port_peer_distance() into the matching-target branch,
+> immediately before check_last_peer(). This avoids unnecessary ancestor
+> walks and per-port region lookups when adding distinct targets.
+> 
+> [1]:
+> https://lore.kernel.org/linux-cxl/cover.1791860305.git.alison.schofield@intel.com/
+
+Use a link tag.
+
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
 > ---
->   drivers/watchdog/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> I don't have available HW for multi-way interleaving setup, so I can't
+> exercise the case optimized here. I would appreciate if someone is
+> williing to validate the actual benefit of this.
+
+Maybe give it a spin on qemu.  But it looks like it's just a code reorder
+effectively so It would be very odd if it is a problem.
+
+I'd just put this as a comment on Alison's series as I don't think
+that has merged yet.
+
+Seems like a nice little optimization.
+
+
 > 
-> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> index f7d0a0c2c0ef..712ebfa1c99c 100644
-> --- a/drivers/watchdog/Kconfig
-> +++ b/drivers/watchdog/Kconfig
-> @@ -92,7 +92,7 @@ config WATCHDOG_PRETIMEOUT_GOV
->   config WATCHDOG_PRETIMEOUT_GOV_SEL
->   	tristate
->   	depends on WATCHDOG_PRETIMEOUT_GOV
-> -	default m
-> +	default WATCHDOG_CORE
->   	select WATCHDOG_PRETIMEOUT_GOV_PANIC if \
->   		WATCHDOG_PRETIMEOUT_GOV_NOOP=n && WATCHDOG_PRETIMEOUT_GOV_DUMP=n
->   
+> Best regards,
+> Richard Cheng.
+> ---
+>  drivers/cxl/core/region.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
+> index 50f4830c225d..efd173c57dad 100644
+> --- a/drivers/cxl/core/region.c
+> +++ b/drivers/cxl/core/region.c
+> @@ -1666,10 +1666,10 @@ static int cxl_switch_port_setup_targets(struct cxl_port *port, struct cxl_regio
+>  
+>  	cxlsd = to_cxl_switch_decoder(&cxld->dev);
+>  	if (cxl_rr->nr_targets_set) {
+> -		int distance = cxl_port_peer_distance(port, cxlr);
+> -
+>  		for (int i = 0; i < cxl_rr->nr_targets_set; i++)
+>  			if (ep->dport == cxlsd->target[i]) {
+> +				int distance = cxl_port_peer_distance(port, cxlr);
+> +
+>  				rc = check_last_peer(cxled, ep, cxl_rr,
+>  						     distance);
+>  				if (rc)
 
