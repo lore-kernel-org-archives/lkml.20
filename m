@@ -1,181 +1,131 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1299C4FC8FC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243CC3812D2;
+	Fri, 16 Oct 2026 16:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167178; cv=none; b=rgAknRbWrRwGHY4qmModSn+2h4eGl6BNB/sP3abe/ai6svzEf7nZXjTFXGqG1GFo2hD8UM5fRtMSDn8+N446/1m8ILm4oTmlig/Ucu+5ieNyUbfu/eioRJeJPsyaW6D1QYiHS/FlXygbmTjm3OY3srBNSYJ+s5Conf3V0+W1tcc=
+	t=1792167253; cv=none; b=h6dk6idBH50IWGplW4XPhhDqbifRRrfvI9YqxylefMNvoefDPwiP3anYNp4anRoBAmlaSOpF/Qq8s7mf3HOCEb57/sIew4Mlb1+6vPPts81OkTT8wwJ+JSLyGYEWoETajU3hcxWkNRz6SRjpifpvrJw/vd3Pie8xUii33EEW7So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167178; c=relaxed/simple;
-	bh=vIQC0iNEPinyADJNR1IjyEaSuazGFNiYyGhSMhUZOHE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ws2/Dt4WLwwBWUEHP9d53ipPRYZ5t1SUWFh9QEIE8lQTvIuc0Y8zgMY13qcwCBYLqil+Py0qxHwDZYZ3eK46srT0K+Rx1dz4+snlARjm099NJ/YJ45JQktlC8gElsSth5KUyAuWgjDMLo3WMTS+3LYQQf1/7fjeLWAV2mQ6+LgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=enDCAlY7; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792167253; c=relaxed/simple;
+	bh=T/M3FgE2S0gHydqo2K66Min/mGnFLCTuCoxxmE69db8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qH/hP66kISiWJRgoWLuWjQfMzuuMUpzBySJMCNl7DHzoHCV6m5IMPvAXz1F/MNpzgRwOricmAEiVoBhWdsz/+6ymVsRj45CCAyWk10CkWw1xxkyGBLaWkURLT9251Ra1TOpRWd8HuFfZVG0HC1pH8RuDVlS172x0//8OXAhVj5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otWvrSJX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="enDCAlY7"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e00eee27dso10168f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:12:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167162; x=1792771962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OlkwSWzoA5MLDYVrt4WEMA112MFvqLN16uXgQLSqhvM=;
-        b=enDCAlY7zVfQ8o16wMUYS6gJeoFVnxyO6uKw/Kq7u3kbHnQXnE9tWIfmJQ4A8VoJtu
-         OOWjCr0r5eXnCCUWlT1AoLxZ7iajMwuil9vza0uNKRCgwxDemVHlZHdXP5ujaLw4F9nu
-         OgtUWi1ZsEAQOFET+oy1eE9wNxBAtrBkNSu/rYcUCUFl/hqtFyMg2xIRixSl70RJywp0
-         OuJK8lXg3AvloJO4AtDQzivaQUgdMVSN6t3OSUhZo+Ls/N25bLjDrcDaHsSwiJDhM/pj
-         YRtNohlKd4tscZO53tCg339FcMx4Ux29VG9Kp5gvjGuhNFqJQFh7CtusZ1lGBelkPnpF
-         iVcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167162; x=1792771962;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OlkwSWzoA5MLDYVrt4WEMA112MFvqLN16uXgQLSqhvM=;
-        b=j2d1fz+9voQpdHGWE3+I5xLTtrDcHuhJBOyolVidIIyc9Z08ZyG8Hkh1cTAPm/KVQ6
-         XApjfmB+8MBQE7VGzKqYCVj28tGhn9Wlv7CVFKV3NlUfDRQHElSiNMcqMXistcisNkC9
-         I3Rfm54rFsUnTsi4AeZZDYxZxTzjArwlvQdGTXE65Sh6ORoasD6RvLafrIJQrQDnbs/a
-         QvWoMdd/mgu6at605por1WSRmKNB8aT0v77R62kZnESSapFzZbkgECzWuS3dE2eiQjji
-         1HuFL5ym9Epr1jk5laB8oA8XQoxl8z2YGFkgsfA6DzomzluPVG9R/CKs44zRJBv+JMh3
-         sE0g==
-X-Forwarded-Encrypted: i=1; AKwUvBx0YcuBme8wZB7ka69MznkND81GzDzUPlmQqEgmY4G1gdRhJvqD9sb03pxq20DesLaCBY4OeirIpnHldig=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpAjYeCWKylXeIKTSbJAgN3CpvBHaLslfGZTm+P9oPlm7WqpDE
-	Fro+3WjDxlVcSfwOlCzkmSIGP2ZwpqM6ikcOqUNGNL7o0abvpTAAKkbW
-X-Gm-Gg: AYBFou1XKcC6YtvYhCceSYkRPlid6GNcocm+bp0lhyGt9uZNVs4o7UrxGo5IU6xaazw
-	Ce8we1T50PotBbmjeiB3DzHZzb45Xht1ZphDpfNdLILmzD4qBBLrwP35HnxNH/zHMDrSLpSafAs
-	I6Cv0KJ2HPplSUogv2bGZHYnGbBzFUxhFEhTO0MX5uouHqw+onILOGAPDnKrkdT8eANdFbF9vyS
-	3XioPhcXPwJVwftwuer78uRRJrhZSIr7efDtFEx4S4rsPE9O2/7fRmEV8H41IHVbpP7SpMrtkwx
-	tgB4OmltiUUc9fFmT5xv+oSfwvY+qmDsKuyn+ZnZQSQ28kxKf0zsbJ50z3m6hJipPcqHHe616D+
-	UB1ISYfzK6CxWt+ifFnh/A/msdbsVr+VR8qXljmUCySCQyHk6dHEsD6DmD4Sq0ewsyNLlRGvQ32
-	emkpgp9IuRsuvlLhG/CLdtiMY5WQT/fKlDrRDt+tFf2/gSMg8X7IDg0J+QMLlINtc0vZJDZXO8Q
-	ujIrBv8I1T+0VCHWTHiyFQGTw3iKYgn69Tg2W+sEAam3ZgbZo/HGooNqvyeI5nctKxxD7TsRpUB
-	fQ5eRZdCRX8zM5Rt8ARbTCzYHwVNi5ku3WeCIFaAuKCuEnEchPhFLZCHJRlzR2DUma14Jyw5Hx/
-	nZw==
-X-Received: by 2002:a05:6000:4eb:b0:48d:f02c:eb68 with SMTP id ffacd0b85a97d-48e07bc4e8emr74849f8f.10.1792167161609;
-        Fri, 16 Oct 2026 09:12:41 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de. [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f9c41sm6366339f8f.38.2026.10.16.09.12.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 09:12:41 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-pwm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] pwm: atmel: Fix prescaler for periods of 2^32 clock cycles or more
-Date: Fri, 16 Oct 2026 18:12:21 +0200
-Message-Id: <20261016161221.16553-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otWvrSJX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB081F000C4;
+	Fri, 16 Oct 2026 16:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792167250;
+	bh=T/M3FgE2S0gHydqo2K66Min/mGnFLCTuCoxxmE69db8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=otWvrSJXHsurzGaHAbePB5oAHNk2uAGwd9jUZ02mYctQnhDhmb/6YJAXD4d4fmCrm
+	 UWe6tw4FryKYSAjr5rqrvV3DH6z+2TXBQrZtMg+2uUwBTE4I1xw7pQEEcaicRTLd02
+	 AZ1wsLsPQ/BJ5IqWTooQuIZHAiqK0fLGzU6tzE+bDd3fDYb+lhcvu5OVHTtS5u8ncS
+	 Eu04OKEwg1gHlgQ/kp4mo3NFzv0sMqanDyCBKOqedE5GeXchXn7T+OgBbOsFl902Uk
+	 QM8GDIGOZfgn14EtKmFyuxz6KCf1q5tw9tqon36TjpZ64EEF1ClKNjVlPKfgEHb5bG
+	 CQPJBVWXRVnpg==
+Date: Fri, 16 Oct 2026 17:14:02 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>, 
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com, workflows@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Justin Stitt <justinstitt@google.com>, Carlos Maiolino <cem@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+	Brian Foster <bfoster@redhat.com>, Christoph Hellwig <hch@infradead.org>, 
+	David Disseldorp <ddiss@suse.de>, Mark Brown <broonie@kernel.org>, 
+	Jani Nikula <jani.nikula@intel.com>, Jens Axboe <axboe@kernel.dk>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH] docs: remove Assisted-by references
+Message-ID: <atI_TSQXzAQFWBfx@gremlin>
+References: <20261009083137.3-1-sashal@kernel.org>
+ <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
+ <asz9AeFe3CutP73z@gremlin>
+ <20261013123132.GC4214@killaraus.ideasonboard.com>
+ <as4pAEnLd4H68W4W@gremlin>
+ <20261013131243.GM56180@killaraus.ideasonboard.com>
+ <as4xMnT8a75pIw9v@gremlin>
+ <20261013173240.GK4214@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013173240.GK4214@killaraus.ideasonboard.com>
 
-atmel_pwm_calculate_cprd_and_pres() keeps the period in clock cycles in
-an unsigned long long but derives the prescaler from fls(cycles). fls()
-takes an unsigned int, so the upper 32 bits are ignored.
+On Tue, Oct 13, 2026 at 07:32:40PM +0200, Laurent Pinchart wrote:
+> > Yes there will be collateral damage, but it's that or no more open source (we're
+> > not the only ones going through this!)
+>
+> Think how you will feel the day you will be treated as collateral
+> damage.
 
-On controllers that the driver configures with a 32-bit period register
-(SAM9X60, SAM9X7) a request of 2^32 clock cycles or more therefore gets
-prescaler 0 and a truncated CPRD. The request succeeds and sysfs
-reports the requested period.
+I'm already working evenings and weekends to deal with AI slop to the point
+of burnout (finished work at 9pm last night, for instance), so I already
+feel like I'm collateral damage.
 
-On a SAM9X75 (PWM clock 266.67 MHz) this affects periods from about
-16.1 s on. Requesting 20 s with a 10 s duty cycle
+And it's utterly thankless work. You get negativity no matter what you do
+with this stuff.
 
-  # echo 2 > /sys/class/pwm/pwmchip0/export
-  # echo 20000000000 > /sys/class/pwm/pwmchip0/pwm2/period
-  # echo 10000000000 > /sys/class/pwm/pwmchip0/pwm2/duty_cycle
-  # echo 1 > /sys/class/pwm/pwmchip0/pwm2/enable
+I accept all that, I do it because I care. So you take it on the chin. But
+the AI slop wave has changed everything.
 
-programs CPRE=0, CPRD=0x3de4355c and CDTY=0x9ef21aae. The channel runs
-with a period of 3.9 s, measured from the period end flag in PWM_ISR.
-With this duty cycle CDTY is above CPRD, so the output stays inactive
-and an LED on it stays dark.
+What was already an unsustainable review load has now doubled, or tripled,
+and there's every reason to believe it's only the beginning.
 
-Use fls64() so that the prescaler is derived from the full 64-bit
-value. The driver then programs CPRE=1, CPRD=0x9ef21aae and
-CDTY=0x4f790d57. The measured period is 20.0 s and the LED is on for
-10 s of every 20 s.
+So now maintainership and review is thankless at an unprecedented scale,
+which leads to only one thing - burnout. Possibly even the medical variety,
+where you don't come back for a long while, if ever.
 
-Controllers configured with a 16-bit period register are unaffected
-for all representable periods. Some oversized requests of 2^32 clock
-cycles or more now fail with -EINVAL instead of being programmed with
-truncated values. Clamping such requests to the maximum possible
-configuration is a pre-existing issue best addressed when converting
-the driver to the waveform API.
+The project simply cannot function like this, it can't. And nothing that
+requires per-submitter effort scales.
 
-The truncation was not reachable when it was introduced. The period
-was an unsigned int in nanoseconds then, which limits it to about
-4.29 s. Commit a9d887dc1c60 ("pwm: Convert period and duty cycle to
-u64") made longer periods possible.
+There are people sending 500 patches in 2 hours already, for instance.
 
-Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Keep only the Fixes tag for the commit that exposed the bug (Uwe).
-- Clarify the pre-existing handling of oversized requests (Uwe).
-- Add Microchip's confirmation of the data sheet error.
-- Rebase onto v7.3-rc7.
-- No code changes from v1.
+The only solution that can possibly work is large-scale ignoring, because
+the number of submissions can grow exponentially, and even small
+effort-per-submission is vastly beyond available resource.
 
-v1: https://lore.kernel.org/r/20261003083036.21584-1-kmehltretter@gmail.com/
+The alternative is maintainers quitting en masse and the project dies at that
+point. So it's a choice between two bad options, but one of them is 'linux
+dies'. So the other one seems better.
 
-Notes:
-    Found while testing a Rust port of this driver on a SAM9X75 Curiosity
-    board. The port uses a 64-bit fls. Its registers differed from the C
-    driver for long periods.
+>
+> I find this mail thread it taking an almost cynical and violent turn.
+> Are people rejoicing at the prospect of actively discriminating against
+> sincere contributors, or am I misreading it ? The kernel community needs
+> more care.
 
-    Tested on that board with a v7.3-rc5-based kernel built with clang
-    22.1.8. PC20 was routed to PWM2 (peripheral function C) in a local
-    device tree. The blue LED is on that pin.
+You're misreading it.
 
-    - Without the patch there are 23 period ends in 90 s, 3.88 s to 3.93 s
-      apart. The LED stays dark.
-    - With the patch the period ends are 19.98 s to 20.01 s apart. The LED
-      is on for 10 s of every 20 s.
+I feel _terrible_ for newcomers. Really. It hurts me that this situation
+exists.
 
-    The SAM9X60 and SAM9X7 data sheets describe the channel counter as
-    16 bit. That does not match the hardware.
+I came up as a hobbyist from nowhere. I wrote a book thinking nobody would
+care, part-time, while doing a busy non-kernel job.
 
-    - The 20.0 s result needs CPRD=0x9ef21aae. All 32 bits are used.
-    - Commit 0285827d546d ("pwm: atmel: Add support for controllers with
-      32 bit counters") says 32 bit.
-    - Microchip's Harmony PWM example for this board programs
-      CPRD=133333333.
+And the kernel being what it is let me get where I am, for which I'm
+eternally grateful.
 
-    Microchip support has confirmed that the data sheets are incorrect and
-    will be corrected.
+I want to encourage talented newcomers. They are rare, and are the future
+of the kernel.
 
- drivers/pwm/pwm-atmel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I explicitly spent time at LPC encouraging newer people, in person, for
+instance. I have (often behind the scenes) encouraged young, talented
+developers. So in general, I've _actively_ worked on this.
 
-diff --git a/drivers/pwm/pwm-atmel.c b/drivers/pwm/pwm-atmel.c
-index 86918523d821..574020d90a3b 100644
---- a/drivers/pwm/pwm-atmel.c
-+++ b/drivers/pwm/pwm-atmel.c
-@@ -195,7 +195,7 @@ static int atmel_pwm_calculate_cprd_and_pres(struct pwm_chip *chip,
- 	 * So for each bit the number of clock cycles is wider divide the input
- 	 * clock frequency by two using pres and shift cprd accordingly.
- 	 */
--	shift = fls(cycles) - atmel_pwm->data->cfg.period_bits;
-+	shift = fls64(cycles) - atmel_pwm->data->cfg.period_bits;
- 
- 	if (shift > PWM_MAX_PRES) {
- 		dev_err(pwmchip_parent(chip), "pres exceeds the maximum value\n");
+And new people sending small, sensible, non-slopped patches/series will
+still most likely get their stuff merged in mm.
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.39.5 (Apple Git-154)
+So it's very far from the case of 'oh wow now I can just ignore everybody'.
+
+--
+Cheers, Lorenzo
