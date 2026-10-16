@@ -1,63 +1,64 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BC934FF62
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A1139A071
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117217; cv=none; b=FpHfJCrYRA5ChG5BZHaEDr4qR7cftkbHQ+hSik90jhJaaMq8phsjt9ncNMEQZnfpctR/igciszNPB+Y/ZoqlEPClB/DU5t6iJrD6M6s4lKw7w6E2fgbLAaVynYeSfb5mcWt7F4zDgvhKARytAWuWWWebWrqVdtr2H9IxhTeXnlU=
+	t=1792117219; cv=none; b=TkayXQbpTWeg3pKInxRpn+iIbMm8UY0JQ9vim/dCQD56i2O3LfesPNkBxJoD8e9HQtsq73DZeTvsoPwe914E9U/0evUl9QkEvdMAD7dZRQJALkF3tZGGHFmOPveLWbKtnrv8E5EBk2/ui5oTEV7wqQAPD2au6XCoizrTUrNIweM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117217; c=relaxed/simple;
-	bh=uMNUe9ZHkRV/QimzWs1Y3lfx283d+iaVib+qDCbrxJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=awPKZuWFg4BRMt9GXfKz+BENMiVC7zBchTJFG8KoO08KAhHf/tpWlQPbDGL6EjfFg13//zUaCzjiugC2nX3ElwNkmFPB5zNOzWhZ6p94MOtbAAx01OmPld8Ug9mArX2VgPY8iRirqO48/vT3WJqrxZm07Q8mu22nLJLugqtirYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=P7kyhPA/; arc=none smtp.client-ip=74.125.82.48
+	s=arc-20240116; t=1792117219; c=relaxed/simple;
+	bh=t4G+rp3o3QQb0uixe/zF+RppGjXCWGxNuVviYuy97f8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TVOmxOCrUFqfly95ccGCX5/pbnm8lCYCeiHde5StcmLFClchjvxM8pfB6V4hKkYpPdEVs3JJnFiX/aho9admbSaEN/EBeq/eCL0CrWzjFarGmGRniAYl4VJ6fYfG+3ZxDEY7PNqdFPdPe+NjZwa39We2ODD6eUMlij2atkP2hvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=E30JFyar; arc=none smtp.client-ip=74.125.82.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="P7kyhPA/"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-141395927feso11463081c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:20:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="E30JFyar"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15354aa70e8so1695592c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792117216; x=1792722016; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uMNUe9ZHkRV/QimzWs1Y3lfx283d+iaVib+qDCbrxJs=;
-        b=P7kyhPA/SUbcMqTpYArePGIOW6HzrdqGoTTNVr2hHY8hgq+5uOyx2zaDXZLQKYvUtc
-         hkRD0NVK8FiCu6G89YkM5DDSCz1DVSIEDXWv6izB3RNA+thMrNhDNKM1kiniwDwK5Gig
-         1tboQPOFqMAz/A8CKbxLK6OlB1aPh/jKhugoe5In0E1HXTfkXIUj9VjLH9dDW2hvBT4r
-         U2ebC0uVCVu287AzDV54tWaKGzjUeufAaKQAva0zkrI44iiNYNgjGq7IPszdR1s1b7sq
-         fgy1h9SKtUHhmoS0+D3UET9BPyHs8i/wsTglOpJdz0hnKxGA8KJjwZImDk9AFXGmmJsJ
-         ZeEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117216; x=1792722016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1792117217; x=1792722017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uMNUe9ZHkRV/QimzWs1Y3lfx283d+iaVib+qDCbrxJs=;
-        b=tTZB4j/ELnB5Ett7EH0suN9Wvn4a+lmVTlAxHYHKaJyYsOUYzhu4HxnTlOsEDToDXj
-         vnPKQ3+Eg9v30pGFKNAVby/w0f4ehCXeFt6sA4SkGNbGhyJ+hEuaaCKvwbRPvGlslIIC
-         Z2er0pd8AlHGzRoIF8XRMU8g0CKgZP4zZaoMKeVlaMXWl5/EFl5CvvjyAG5g68oVUoLa
-         3mAdUL16uZVxs4oVhuX6K9EbugjV+BVQdIrfeRqTC7gxqOTGpfpmry2BLtneAKX4puT/
-         w1ebPjNJurqs2cPDZxVf+oqzhZSYbiVDN3jsA1wveaUjwisnSSjCREvomgh0U1Fya7kd
-         e+Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJyjs4QbLe3S6T1mdOQ2LMlRn7RJHwOsMkmRV5AKyylzL+ueO+dzICCN6G/WN7Rt+2vS9JEzoIKbnngPg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5cnQlb/4PM97jCm6LFGLSITrpEt8cGyzEXiCSqRltxbIaNFVK
-	11UjS6LW+pnD2b8Lq4rdYct/Z3dZItgf7dgvRNcROsMiz0DewYZBk1lPg346nryr/pENsUG5/d7
-	8q2bdPZM5hQ==
-X-Gm-Gg: AYBFou1T2cjHj3CMDzd/R+vy4EODCQQv9KArQ21bVsjWDoyBKhqlaE54Um3lJVozL29
-	/DFdS3wt6XZ2Nth6ymJKTnx62ZI3AkOLTxTzUjTg36LqzvD8cCIXSDKFmw4cxT4HC1uFraF3RXH
-	7fDJEqDQyikyLmF8VHe/BHjfp11qO1IfebpPMgThR9/e0T5maabUfmuCGfPVMS+LLdGVnlOGw2i
-	eyqeHlY4GmW3eLuFz1sASXvNAAZxS5oKio7CgzKhppy2Wp6ouGnRllQoQCsxDRRvoQfWK8m8r3X
-	+vlL9YzAIXVhlx6rolE2KzqadJAXanpQDBf6TuK/Gbf4IN2BGAkCzXR0TYiRyVASzjikiQxNS09
-	ammDPUolegz1g1QPd/P9xK3enyHzKqglST6fRTk51ngN/KJLtsMOmUcKlxlyiG1x2AfOd/a5drw
-	mYfZp82PCJaFsJbptkguiL9ZPCO3WCUUN4CJQ+XOn8CZCYByhha40eWyVDq4DHaODkWGPzocXvR
-	junND9Hq2FyABJuboRLpfw2Lq/QHcHin0O2cwgyB7cc2tsW/Pjz/STGdHVgkNdRCYbfvQ==
-X-Received: by 2002:a05:701b:42c2:10b0:146:85b9:970b with SMTP id a92af1059eb24-16a610c9bc8mr34000984c88.39.1792117215179;
-        Thu, 15 Oct 2026 19:20:15 -0700 (PDT)
+        bh=IneB9ql9cZEWl0m4euLYZmuBKXti4FNDOTwpu2ynGco=;
+        b=E30JFyarG3ZFQt7vYsXRaEgR2ZnXO7iBnzIZhyzf/4sV/12WQTrsZsWK9kFoVyHpBq
+         XbJ8Bmkz8zgYdNtFYYOFi8/lIXWKRzBQqGkUOuJWztMWJi3d6Q74NxYg2z/13KWBhmTm
+         atoalqzaVboObs8gCGfOVaN7IvI5px7O2BD2smQh/lSg5rBSk/TxXKGDNIPcSt/6pBv2
+         z+oMuqbG4XYor6HMV8cgw4lbB+RNf5l9s3d3NVA0XAAfrteysBAOY8umWk85ZWOuGbPZ
+         z3ZH7wmWbN21+kssrgPALfOLsK/SXrosz7VXTtHWAOFa1onulZ9RPlHYMIjlWG8JK507
+         +BUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792117217; x=1792722017;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IneB9ql9cZEWl0m4euLYZmuBKXti4FNDOTwpu2ynGco=;
+        b=h2nlnCZDwmjsaTS089lOPbt0NV9+beZlM6nepY4TTqeN2K8xMRI90JF84saw21Gu9h
+         uq3R4UcTRYTgdt/5QLubNv1ado/R2AZ/7DGyhtutI9j8TOXyDfSDk97dTOUesG8X/3/D
+         vGsT6Cbf7tqtBxKScwjx7bT5z8x3YH5v8YEUaazEZNO5K7l2jsYrP2QgTGcLsXEtZaqf
+         UF9hwdc6nVhze+XziBjjJtde5P58n3T+Bpjy87/ydiabtx3wegChioshrlyqDTDN3omR
+         uuLfCgZ+xZBY2X+bDHT0URmCbymhzq8vLDXJwXzsYgtRaAiEY7ZCkBenBlui3jRL6Cc6
+         JyOg==
+X-Forwarded-Encrypted: i=1; AKwUvByxBbUL9z00ZUVJi4sH6lKJ2VospY4rhmCl1YP58Irv1sO8l7bf5MRbTmFjp7zY/Qm4+H5iQtVnUgauOUo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9TqgGORxzba2NSx8FFHtpmA0qk+Qo7XMqvKhDUKTk7u8fr8Dx
+	2hBlOKXx3icD5o1e97ft3nyqRmJcJMlknfJEai2wn8WvYdyi2HeT+MXcwODYxW+z4CI=
+X-Gm-Gg: AYBFou3RBL3Lcrlb/7T/ctuhV5dII3YlWn9JL0e/khKBmQMDaGaNsP8OseHixYwKWDI
+	EfUkzcEkUKpNY9m9aHnAVun6kRa233DnrbZuDEEWU1XyK/Foy5J15re+AGhbP9N0t/DWDtwGagH
+	Nuy8paETQUaivDIDFQUWcxdka6T4Sjfatoqcj1yB/6KeZLiGBAqagh35dA7DgaDEdNi+t5rD8BR
+	dqqJOSCIQeaM4KIe+5N8OtBYc+cV2Vm42WBAfw5bYLEFrcx37trbfnKniO5F2PxxF1dhJ7n92wK
+	xNPZTwGL2nGmyZ9CTalJM0yZILMtF58EXwoBJ4fPd+1q2ve5C+6a1E/W22dj56XlBeX1szwhrJu
+	HlvktTQ+vXVBzghTn8/xpgsIIsaO4lzWu4dSoI+iHWXGART16/+eFpHtczD4AXBQLTaDeNQZf+C
+	bmXOZX9rYK37HtujmUkaU/VXEYY9+mMmSiVsiDIzC0zkA/tMY2kWAEJkQBFuWQg5tAelMETxK83
+	a4+q7Lg/mHEuaUMytmSB8qMH6xKKJi7o8umR0MjT1WpbxH+c8aLc4mrJi60IyJpKmLbmw==
+X-Received: by 2002:a05:701b:280d:b0:16b:fdbf:4a9d with SMTP id a92af1059eb24-16bfdbf4ff5mr29140509c88.27.1792117216849;
+        Thu, 15 Oct 2026 19:20:16 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c5cb39esm1434734c88.22.2026.10.15.19.20.13
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c5cb39esm1434734c88.22.2026.10.15.19.20.15
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:20:14 -0700 (PDT)
+        Thu, 15 Oct 2026 19:20:16 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: andrii@kernel.org,
@@ -74,10 +75,12 @@ Cc: andrii@kernel.org,
 	memxor@gmail.com,
 	song@kernel.org,
 	yonghong.song@linux.dev
-Subject: [PATCH 6.6.y 0/2] CVE-2025-38060: backport fix series
-Date: Thu, 15 Oct 2026 22:20:09 -0400
-Message-ID: <20261016022011.16938-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 1/2] bpf: copy_verifier_state() should copy 'loop_entry' field
+Date: Thu, 15 Oct 2026 22:20:10 -0400
+Message-ID: <20261016022011.16938-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016022011.16938-1-artem@trailofbits.com>
+References: <20261016022011.16938-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,27 +89,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+From: Eduard Zingerman <eddyz87@gmail.com>
+
+[ Upstream commit bbbc02b7445ebfda13e4847f4f1413c6480a85a9 ]
+
+The bpf_verifier_state.loop_entry state should be copied by
+copy_verifier_state(). Otherwise, .loop_entry values from unrelated
+states would poison env->cur_state.
+
+Additionally, env->stack should not contain any states with
+.loop_entry != NULL. The states in env->stack are yet to be verified,
+while .loop_entry is set for states that reached an equivalent state.
+This means that env->cur_state->loop_entry should always be NULL after
+pop_stack().
+
+See the selftest in the next commit for an example of the program that
+is not safe yet is accepted by verifier w/o this fix.
+
+This change has some verification performance impact for selftests:
+
+File                                Program                       Insns (A)  Insns (B)  Insns   (DIFF)  States (A)  States (B)  States (DIFF)
+----------------------------------  ----------------------------  ---------  ---------  --------------  ----------  ----------  -------------
+arena_htab.bpf.o                    arena_htab_llvm                     717        426  -291 (-40.59%)          57          37  -20 (-35.09%)
+arena_htab_asm.bpf.o                arena_htab_asm                      597        445  -152 (-25.46%)          47          37  -10 (-21.28%)
+arena_list.bpf.o                    arena_list_del                      309        279    -30 (-9.71%)          23          14   -9 (-39.13%)
+iters.bpf.o                         iter_subprog_check_stacksafe        155        141    -14 (-9.03%)          15          14    -1 (-6.67%)
+iters.bpf.o                         iter_subprog_iters                 1094       1003    -91 (-8.32%)          88          83    -5 (-5.68%)
+iters.bpf.o                         loop_state_deps2                    479        725  +246 (+51.36%)          46          63  +17 (+36.96%)
+kmem_cache_iter.bpf.o               open_coded_iter                      63         59     -4 (-6.35%)           7           6   -1 (-14.29%)
+verifier_bits_iter.bpf.o            max_words                            92         84     -8 (-8.70%)           8           7   -1 (-12.50%)
+verifier_iterating_callbacks.bpf.o  cond_break2                         113        107     -6 (-5.31%)          12          12    +0 (+0.00%)
+
+And significant negative impact for sched_ext:
+
+File               Program                 Insns (A)  Insns (B)  Insns         (DIFF)  States (A)  States (B)  States      (DIFF)
+-----------------  ----------------------  ---------  ---------  --------------------  ----------  ----------  ------------------
+bpf.bpf.o          lavd_init                    7039      14723      +7684 (+109.16%)         490        1139     +649 (+132.45%)
+bpf.bpf.o          layered_dispatch            11485      10548         -937 (-8.16%)         848         762       -86 (-10.14%)
+bpf.bpf.o          layered_dump                 7422    1000001  +992579 (+13373.47%)         681       31178  +30497 (+4478.27%)
+bpf.bpf.o          layered_enqueue             16854      71127     +54273 (+322.02%)        1611        6450    +4839 (+300.37%)
+bpf.bpf.o          p2dq_dispatch                 665        791        +126 (+18.95%)          68          78       +10 (+14.71%)
+bpf.bpf.o          p2dq_init                    2343       2980        +637 (+27.19%)         201         237       +36 (+17.91%)
+bpf.bpf.o          refresh_layer_cpumasks      16487     674760   +658273 (+3992.68%)        1770       65370  +63600 (+3593.22%)
+bpf.bpf.o          rusty_select_cpu             1937      40872    +38935 (+2010.07%)         177        3210   +3033 (+1713.56%)
+scx_central.bpf.o  central_dispatch              636       2687      +2051 (+322.48%)          63         227     +164 (+260.32%)
+scx_nest.bpf.o     nest_init                     636        815        +179 (+28.14%)          60          73       +13 (+21.67%)
+scx_qmap.bpf.o     qmap_dispatch                2393       3580       +1187 (+49.60%)         196         253       +57 (+29.08%)
+scx_qmap.bpf.o     qmap_dump                     233        318         +85 (+36.48%)          22          30        +8 (+36.36%)
+scx_qmap.bpf.o     qmap_init                   16367      17436        +1069 (+6.53%)         603         669       +66 (+10.95%)
+
+Note 'layered_dump' program, which now hits 1M instructions limit.
+This impact would be mitigated in the next patch.
+
+Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
+Link: https://lore.kernel.org/r/20250215110411.3236773-2-eddyz87@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
 Hi,
 
-Please consider this backport series for CVE-2025-38060 to 6.6.y.
+Please consider this backport of the fix for CVE-2025-38060 to 6.6.y.
 
-Apply the patches in this order:
-1. bpf: copy_verifier_state() should copy 'loop_entry' field (fix)
-2. bpf: abort verification if env->cur_state->loop_entry != NULL (correction)
-
-Patch 1 preserves loop_entry when copying verifier state, keeping cloned
-loop states consistent with their originals.
-
-Patch 2 aborts verification with -EFAULT when loop_entry is unexpectedly
-set instead of clearing the pointer and continuing with corrupted state.
-The code changes in both patches are identical to upstream.
+The code changes are identical to upstream.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
 Build-tested only as part of a cumulative 6.6.y series on x86_64
 (allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
-An LLM assisted with preparing these backports.
-
 Thanks,
 Artem Dinaburg
+
+ kernel/bpf/verifier.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 778a68bfb91dd4e765252cfb1bacb4b658d1381b..c00113e691955a6c9c6caa56007ccf90ce9b87d8 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -1804,6 +1804,7 @@ static int copy_verifier_state(struct bpf_verifier_state *dst_state,
+ 	dst_state->dfs_depth = src->dfs_depth;
+ 	dst_state->callback_unroll_depth = src->callback_unroll_depth;
+ 	dst_state->used_as_loop_entry = src->used_as_loop_entry;
++	dst_state->loop_entry = src->loop_entry;
+ 	for (i = 0; i <= src->curframe; i++) {
+ 		dst = dst_state->frame[i];
+ 		if (!dst) {
+@@ -17561,6 +17562,8 @@ process_bpf_exit:
+ 						return err;
+ 					break;
+ 				} else {
++					if (WARN_ON_ONCE(env->cur_state->loop_entry))
++						env->cur_state->loop_entry = NULL;
+ 					do_print_state = true;
+ 					continue;
+ 				}
