@@ -1,91 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57D3BE17E;
-	Fri, 16 Oct 2026 09:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887873BE17E;
+	Fri, 16 Oct 2026 09:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142331; cv=none; b=Fme7GK7M08HkphvN7XM8aVPLdZq6DKCH/sMuzp6CBi7BrO0uTllWNBXLmEoemlgDod/77AoMfJncyTpoe7fmEoHLLVVsxi4KAqfYPX5UOVPe4zX3U7OHa+BINp/u48fDQRQPSuwYSwNQmOiVEFgnwDz7ZoInLlWUwpN+jkF9F6I=
+	t=1792142351; cv=none; b=MDcynYq8obqf+PgdJI5q7xajApZ8SQql4QDS0QD9wWm7Uc79azuxsoAtyX46FszEQSIp5AiOQqIofDYIDv6IaiXF7kSlgDC7mf+JMbAbdZCt+dZwgtLfWoatFnmZvACEAhdPnEWBSKKw6+foHSpOjWwuofndoveqAOjRy/eUmT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142331; c=relaxed/simple;
-	bh=LpcnSE0E+7ybEGxdq6lj0tZQcudIz5g+B8Aya3Z++xU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dMnJYuOOVdTyHPba/+BHoIX8hvI2OWpNbfiGwEYHUYGwuJZfQ31dfwNyHf273BxXdeGRktYmxgmPGmtYeBDMQflXXWWNaI/KKbCvpiGr1s49n9hAvX85ckxd6FJQx/V7PU+rqKM6CMfD1gf7YZdtKKJCdlYqy1YkuPvQA9kfevk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hugg/Ish; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792142351; c=relaxed/simple;
+	bh=zvpmhm+BAUlfIVJ/6Kp9ShG7pA3G2q65FWBMzuTisWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n/LCmWw3iBoqsDKjVTyPE6ERM68qNS2UdTOhApacMNUNRFk5YWQIcR2TKUESW+JOq59j9w0fDU9OPj3eXaFC+Au0An9tlpxsMPAtQFRopHG8ww+J73KmhwfYwESb6/Z2zvnUYhmvElBvtlaEBYor4jCtOvcg+l69Ye6bSSyetOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7mT5XDP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hugg/Ish"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A981F000C4;
-	Fri, 16 Oct 2026 09:18:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7mT5XDP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179381F000C4;
+	Fri, 16 Oct 2026 09:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792142330;
-	bh=NbWDxILIwfiHLalvlI7KJfx446gCQIB/Sm6F+YT4cfw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hugg/Ish40Lnnw/N9fkNWC988BB4oOQTGY24+sFzpc820WNIb/vVn4IGYunPiwC6F
-	 J+MynlRIV+0ITU2Xq1RNMA/prXJz7DCucnneAzJ9n2/XFSXnaVM8gCl80fFNxXP1/W
-	 XJYWwjFfNCpHIReZEhd8tqgPBtySlEoyBVDss5Ms5m7RCaG9YWyhddftCzzzHAB9Yu
-	 QazlSc5iyoos1/YE/s2WyxdQYI3eXCBoVDkn0EYb4iE5qwwh9hrZi/t/zGK+dPrxh5
-	 8ZS5nDU0sABQaaBm+J5Ih0Ih7f7oT17tnzH1sCDxOcunBSyz4Nt3kBpbezRmqlT+tG
-	 2E3Toy7qWOzHA==
-Message-ID: <3683fce4-8700-4e6b-9a1d-86826348a5dc@kernel.org>
-Date: Fri, 16 Oct 2026 10:18:46 +0100
+	s=k20260515; t=1792142349;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=R7mT5XDP+2oPGJhvdpCOK/511QiGEeN7bLMU3Bip4mljZXwdc3HKRiTwWMfFBmVz2
+	 9vtGszLeSkIP/MK3fmyTqmi9cKVNnR2QRVx9DbbTAMadPNqehqRznEwf6+9Sp+IJVg
+	 MpWw6qZ6dXuE8EBoHojDeqR5oZ27QVLUq3W+KuTxMJxenDFAx0PqyETroc4qYnxmwA
+	 GY1Xm+55yGbsADcEO4rubxIdYoEpU60CAaSyMnJV0Df1ApkkyJpak2t1mmfrr8EGdf
+	 At5nB8yiKDM+y9VEX9Hd6sAZwMqyXD2lsDLGrDSAtQU9mws+pJVi3bRKbJjxqKely6
+	 tbfGRUPorGlGw==
+From: netdev-bot+sinfo@kernel.org
+To: Zhi-Jun You <hujy652@gmail.com>
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sujuan Chen <sujuan.chen@mediatek.com>, Rex Lu <rex.lu@mediatek.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net v5 0/5] net: ethernet: mtk_wed: misc fixes
+Date: Fri, 16 Oct 2026 09:19:08 +0000
+Message-ID: <179214234859.408196.13768026652794039093@kernel.org>
+In-Reply-To: <20261016-wedfix-v5-0-8b02e78fd34f@gmail.com>
+References: <20261016-wedfix-v5-0-8b02e78fd34f@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARC: Strip libgcc debug information when generating BTF
-To: Sasha Levin <sashal@kernel.org>, Vineet Gupta <vgupta@kernel.org>,
- linux-snps-arc@lists.infradead.org
-Cc: Andrii Nakryiko <andrii@kernel.org>, Ilya Leoshkevich
- <iii@linux.ibm.com>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015154044.4058618-1-sashal@kernel.org>
-Content-Language: en-GB
-From: Alan Maguire <almagui@kernel.org>
-In-Reply-To: <20261015154044.4058618-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/15/26 4:40 PM, Sasha Levin wrote:
-> ARC links against the compiler's libgcc archive. The ARC GNU 2023.03
-> toolchain ships this library with debug information, including complex
-> floating-point types in integer arithmetic helpers such as __udivdi3.
-> These types reach vmlinux even though the kernel does not use complex
-> floating-point arithmetic.
-> 
-> When floating-point BTF encoding is enabled, pahole rejects those types:
-> 
->   Complex, interval and imaginary float types are not supported
->   Error while encoding BTF.
->   FAILED: load BTF from .tmp_vmlinux1.BTF.1: No such file or directory
-> 
-> KernelCI's upgrade to pahole 1.31 exposed this long-standing problem as
-> failed ARC builds. As of 1.32, pahole still rejects these types, and
-> older versions will stay in use, so the kernel build has to keep them
-> out of vmlinux. Commit f122668ddcce ("ARC: Add eBPF JIT support")
-> documented the same failure along with a workaround of disabling
-> floating-point BTF encoding, but that also discards supported
-> floating-point types from kernel BTF.
-> 
-> For CONFIG_DEBUG_INFO_BTF, generate a debug-stripped copy of the selected
-> libgcc archive in the output tree and link that copy. Preserve the archive
-> structure so that only needed helpers are linked, and use the normal
-> Kbuild objcopy rule to track input and command changes. The trade-off is
-> that vmlinux in BTF-enabled builds no longer carries DWARF for the libgcc
-> helpers. Debug information for kernel code, the installed toolchain and
-> non-BTF builds stay unchanged.
-> 
-> Reproduced and tested with ARC GCC 12.2.1 and pahole 1.31 and 1.32 using
-> an ARCv2 tinyconfig with BPF_SYSCALL and DWARF4/BTF enabled. Before and
-> after vmlinux.o files are identical after stripping debug information.
-> 
-> Fixes: db16c1fe92d7 ("bpf: Generate BTF_KIND_FLOAT when linking vmlinux")
-> Link: https://github.com/kernelci/kernelci-core/commit/e71b8c9f42253180596e734c18965a5aad80c8c5
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Hi!
 
-Acked-by: Alan Maguire (Oracle) <almagui@kernel.org>
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Thanks for the fix Sasha! More complete floating point representations for BTF
-should definitely be on the to-do list..
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
