@@ -1,112 +1,326 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66F14A4F1F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB95D2931CC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158415; cv=none; b=ToMXrINvzi6lwCA6wRC3bqxBJoPmE0b+298EyTs+8DzZRqdTOdEgiTmN3YBahQOVCK4pX3YupjH0nPv0FBLwxJFuk6Myth9IlpJGKkT+Mh69h4Sg7ZAA+VTAXy6g91Ay5k+p/CQWX5oxyJVIEc1cMVrnD5X4t97wXggsFgHO9JY=
+	t=1792158464; cv=none; b=iOm7Ab9KuVBXphVZDJU5s96vNTw+lcsi7IpKM+5WOa1IQrCrdUzRYO7Ka4QHy5FKVm5eIhHN8Z6K/X7u6P4Ihfmd5qM+iOAwjRhy2ihDncW9msM/klov/VmXq1Fd/OfzxLWGw9gUAlELMn/TWA9D9c/bO6fZoECJ/aSdxOIIFPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158415; c=relaxed/simple;
-	bh=VZm/E86dEnTEbDrP8Tc8qD8DejCMeBMrGyBczaa/+S4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eYTrfYapFKuEzYF/4r9p/FuX/CSQP3OZPNMps66j+IhuYgvJ9cyT3XXvYZ1vQ7PG5YS3gzLjC2Btiwf3DweVaNnGOlC69Tl5t7ToTV8t+m+OgPHDSLT9i8VN2cblOhsxifUdLitsqxUCzS5pyizvnhLTcsArLjGtr4D5sDnPnxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i0HCQa8l; arc=none smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792158464; c=relaxed/simple;
+	bh=CU3/MfdDC5CCAi2IBjM7GBTNHGS8rDLFUgIS668OelY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r93D/bsbYwGHIa5P/4DkTUgEKHu0tb+HQfqFUfOJfmDHwIcjnqZC6zaDKd/3uXC226Dcel9faUmThQNESeCRDtc1QKNIRVRWFQzfGXV3KjLNMS37x5hAu1DZwFbC8vUVWZGxv5fBpks0jeGYhNlWD5bP9P+AewxwlMaIAFfzkNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QBTjKotH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rsIkOg/d; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i0HCQa8l"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a5d24ae3ddso984530a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:46:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QBTjKotH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rsIkOg/d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792158461;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5SSnXLe6871QixsCS+2sjMCeMY5DVo6y3bWbHQzmraY=;
+	b=QBTjKotHUqRx9XmD8ira7IIRLc200+i0h1VyNilrAwXmB8bVoQChyRE6xMoRfUxOlhUyAy
+	TEnxE7XrKia8tSMorNWKCAC02EPkJSs3n4stb+iKCZ0bnCwznvfNdJEDY0XBTsMyzWwseb
+	HdcMOFZGaynhiuYEcQvIM7jwvJOiaM4=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-644-Rbza7lf-OW2lwGGG7rCoxw-1; Fri, 16 Oct 2026 13:47:40 +0000
+X-MC-Unique: Rbza7lf-OW2lwGGG7rCoxw-1
+X-Mimecast-MFC-AGG-ID: Rbza7lf-OW2lwGGG7rCoxw_1792158459
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dfdc0f491so376961f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:47:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792158412; x=1792763212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NlNceBhNGGeImb9EhUU1eWWHmVe+LlkK2oIgSPXYbKY=;
-        b=i0HCQa8lO83s86MhZ5kDqKZ1rdNR+J5LJWK+zf6WjuqlAmNcLmu4Np7+RnY+kIjP99
-         yO4rOjBSLYuTybO9gTxaKVJAFqQq4BnHU3WCYMAlFzsrz6pshqdPjdXLpd/3Gj9gl+zO
-         M0bljjgVR+WMiFfYLRNO6xjWN2Am0sECi3LuPJ62fCJ5qAvStR+4GiRdLRBLTtDDat9J
-         D0HgEWTF4GgDftytFtlDJ1gVsAXBD46PATxiwWT+TTQhyXkFImz85YfVzbLVa0UGMUE5
-         wT4D5vsr96Aiv9D4XUa/oe4AyrqQWJvXsEMhsO6Lz7sFZMRPEAtmtSUMcSY20IytyA25
-         oBgw==
+        d=redhat.com; s=google; t=1792158459; x=1792763259; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5SSnXLe6871QixsCS+2sjMCeMY5DVo6y3bWbHQzmraY=;
+        b=rsIkOg/d94mc+KJIfXAR8AG7rwcVjb4D8q5hXIG+tty2kIu4x7v481BPbKmMSRH2/n
+         1fhbWoPHaMNfcVqT+AQ6inKgOlah3LtnjOoCHb+l52j2eOmqza1Eu7tc3SXwzWOdd5jw
+         rXcjw4p24kvbmGninrHCwxBzrXvZ8nNL5BomDRWHzkbVDci5u/SenxYeasLOzU09uU/h
+         aZoO+TQYEEBSFHmJ7q/9i2UWVPF9N9rOCHBIuFK65kI+gb6tS4/KpkXahgYa7s7DLI7Y
+         pDduKP3FZeMwGNrURpLVgraFEJAiY7NhjWcszXMwqC/MUQIiuKhHxlXx+sg5O6wp6yWa
+         Im/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158412; x=1792763212;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NlNceBhNGGeImb9EhUU1eWWHmVe+LlkK2oIgSPXYbKY=;
-        b=frVy0zvxsdyxlXZs1CVjvsCiJ2dChWz/85J1iBtw9Cxyt2BAQPbZdCETCiKIC147OW
-         XWFYtDkqXkgRYLAFIWxUDtFlUitMTehc3DoSj0nB7VctJmjL/QbaDFvzrGFIGr3aKJ8z
-         U7Tp9nQZidXHe81KJ5jnhUwT87oNDo0CKrQc/hXymPIWKroFG+lCpYN1ak0ZDbNtRGy/
-         fm3u7ZCllI/sYKkd+htLHuV9TJcT8nbYEe6gce3Fr/V9oRIJOFM5DhqFTrO+SmMoAmBY
-         d4TSdsHLbFSFwgQIPS2pyOXWR+ywL5gSgfhbjRGa1S9w8YeyUAkLeLq4cCKMuBhEsrGM
-         4RmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytJBWH8pVapjUzfkE6oscrARVfTZeFQkvG5waPhYY/ijpoZMX5AOPvJDxfbVHeNwlBvtcDOtv3kaqsjRk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7oc9+WK4TbqNu8ZSvx87fR2/74H7hGDGJb2mfzNAOFbDudbdq
-	Dlh7JA8iAM9VVYZxOXXDIVpLrLpJqHKyiJB4ISWrSOxfUngz+kWhFjdg
-X-Gm-Gg: AYBFou0sVlLDnVQg+NrfkIlFYI5jxHXYOz1VEr4NJSf6yoeswFFpH8kIGELLlikiL3q
-	TrOvb7A92myDob8B2gRF2cnWA3xrl8HjByUOV5l7rReL31ufpWTb7S779MDHlRFvLsSaJqRVvpN
-	IN3YaArcCW2ZJ5ZT37+QLaiFdkpmE1QVRVaLv0Hoh4dfi4AQQUs29tgfC7N6X5NiIrIGDIBTAjt
-	ZCdGBQWHnvg4oE/Xwg8+uYZhTy4JGjAE5aQNK6DDha8De44mygGNyi2dD7PBUJKey5agT27Kozr
-	jePLEBqamq+i0GnOiWk3V+GDgXX0QNnj72YayhDQCsOC8oe9I03qelktNonRh1Aix+axeGVtGtn
-	G1Ri/cXWIbv5tIAJDS9SDMlcIooD9BfZ84k5DdovfJMyWru9ltSDRpYhxqbxsOiBP8mR84RodnB
-	r4kvbd/zSKUEHckw7sf0+HMkPvJ2xBqIme7xgFRKvDgL+7GCCjco0vlqHWbJeMUR+CgLYa9JmyC
-	KrQwLnua2JirazzqzlZVZArzsyihp6ldHnPXRv3+0ClMAJAfjVTn58pLO483TD03h4=
-X-Received: by 2002:a17:907:86a4:b0:c34:db91:aa1e with SMTP id a640c23a62f3a-c34db91c6e1mr1507691266b.4.1792158411627;
-        Fri, 16 Oct 2026 06:46:51 -0700 (PDT)
-Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm5347093f8f.35.2026.10.16.06.46.51
+        d=1e100.net; s=20260707; t=1792158459; x=1792763259;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5SSnXLe6871QixsCS+2sjMCeMY5DVo6y3bWbHQzmraY=;
+        b=rpxf32t8GMHoeMUR5EcVyCjqxLs92H5z+YKSc21owGx/C1Vo6SgLa5k0v0ZkLUNsXb
+         JKOdjk68DYpbuogCALDxOwLVgKXEK1GWqfylIeerc1QDzLwUu85sQ79Xf1lrvZHAz+r2
+         8uGjm2r+tv9oH7FjTTXZFrnVNiL7B07CFHea/yvA38fhTAoInEyvCM7U4RGE0pwffLoC
+         cnN4GJlYhFGcsk2ojzKmUmdHqhF3M32QrRkd6I20TgovibSKtgQjFlYo8zsNkkjX/3Zv
+         ceQ9tSyT3iYu41ueaQhfNfaAafl+fOf23Twtz2QNCygx8CBgWl+UqYxrphoMzksXIlX4
+         tZCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/1wenRpeYjd11hmKLWrogHFY1hc+yKTIGQ5eEAjP9TQTmNHOoWAmCowTFx3mDS0tkGnklcdr7mjidEdc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxm5srIlA7+bTHVIlatBaYZgmo6PW7q5Tdr0PnXDmX/mwUFZTK
+	YO1HfSKQCu4dYmhiHVAdMvwZ+jvixywfJRHS+VEgWf6fhaR0PTDpO74/iMDRk+4YDNLuwMd7Ra+
+	2dbO38IJFssarNOZm1pTX3hDgQ/ZDIaBqzhSGjaPLTsjjrNQjPTMkeiXxPN7u5R2rEg==
+X-Gm-Gg: AYBFou0HgGv/76Y5rqHIQlDfVUGOMox3qIxBrIrH7AEL9ltW02+w3e/lB5BjV0cJTru
+	n/Lq4oZBHKiqyo8LlCrGK9Pml+UbDSwfkarUp57OkcAf3oG4zAzb5O66W8Ul7wGi6TBSz9oNscW
+	UOyKbUTrtw+fluK53lSIyaWbYdw3kvVU8ocII4e69UDV2kOnSIhdj5LO0gMQzLGUo5U2PorgF4X
+	2jpd9QoSsiDHzlB2jB4ZtpZD9ABM4wzteElcVwdiNpWdUYv8JrPeH+tAShH1A9Bsb+oDcXOIp7L
+	qAsHRq+GMHdB1b/AdxCm9XXYscNEWHIstg06EqJJWSPeaN9JrufNbvTxBAU+hecJGQovD5u9o+e
+	mH8v0
+X-Received: by 2002:a05:6000:200c:b0:48c:55c1:fb50 with SMTP id ffacd0b85a97d-48dbace6841mr41485219f8f.40.1792158458852;
+        Fri, 16 Oct 2026 06:47:38 -0700 (PDT)
+X-Received: by 2002:a05:6000:200c:b0:48c:55c1:fb50 with SMTP id ffacd0b85a97d-48dbace6841mr41485142f8f.40.1792158458102;
+        Fri, 16 Oct 2026 06:47:38 -0700 (PDT)
+Received: from sgarzare-redhat ([80.116.137.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4d4dddsm5276537f8f.22.2026.10.16.06.47.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:46:51 -0700 (PDT)
-From: Thomas Fourier <fourier.thomas@gmail.com>
-To: 
-Cc: Thomas Fourier <fourier.thomas@gmail.com>,
-	Igor Mitsyanko <imitsyanko@quantenna.com>,
-	Sergey Matyukevich <geomatsi@gmail.com>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Kalle Valo <kvalo@kernel.org>,
-	Andrey Shevchenko <ashevchenko@quantenna.com>,
-	linux-wireless@vger.kernel.org (open list:QUANTENNA QTNFMAC WIRELESS DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net-next] wifi: qtnfmac: topaz: Fix dma_unmap_single() size
-Date: Fri, 16 Oct 2026 15:45:32 +0200
-Message-ID: <20261016134538.42940-2-fourier.thomas@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 16 Oct 2026 06:47:35 -0700 (PDT)
+Date: Fri, 16 Oct 2026 15:47:33 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: stefanha@redhat.com, mst@redhat.com, jasowangio@gmail.com, 
+	eperezma@redhat.com, xuanzhuo@linux.alibaba.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bobbyeshleman@gmail.com
+Subject: Re: [PATCH net-next v4 1/4] vsock/virtio: split socket lookup from
+ locked RX processing
+Message-ID: <atImp74JbTbEb0d_@sgarzare-redhat>
+References: <20261014115640.184286-1-physicalmtea@gmail.com>
+ <20261014115640.184286-2-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261014115640.184286-2-physicalmtea@gmail.com>
 
-In qtnf_pcie_data_tx(), the SKB is mapped with size skb->len, but it is
-unmapped in qtnf_topaz_free_xfer_buffers() with size SKB_BUF_SIZE. This
-could leave parts of the buffer mapped, and thus leave memory exposed
-to the device.
+On Wed, Oct 14, 2026 at 07:56:37PM +0800, Jia Jia wrote:
+>Split virtio_transport_recv_pkt() so socket lookup is separate from
+>receive state machine processing under the socket lock. This prepares the
+>receive path to keep a looked-up socket across multiple packets in a later
+>change.
+>
+>Keep virtio_transport_recv_pkt() on its existing per-packet locking path.
+>The locked helper obtains packet-specific addresses from the skb and uses
+>the matched socket namespace for reset replies. Preserve source validation
+>and failure handling.
+>
+>No functional change intended.
+>
+>Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+>---
+> net/vmw_vsock/virtio_transport_common.c | 128 ++++++++++++++----------
+> 1 file changed, 75 insertions(+), 53 deletions(-)
+>
+>diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+>index f225f53ed4bab..61ee3bc205d5d 100644
+>--- a/net/vmw_vsock/virtio_transport_common.c
+>+++ b/net/vmw_vsock/virtio_transport_common.c
+>@@ -1774,81 +1774,60 @@ static bool virtio_transport_valid_type(u16 type)
+> 	       (type == VIRTIO_VSOCK_TYPE_SEQPACKET);
+> }
+>
+>-/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
+>- * lock.
+>- */
+>-void virtio_transport_recv_pkt(struct virtio_transport *t,
+>-			       struct sk_buff *skb, struct net *net)
+>+static struct sock *
+>+virtio_transport_find_socket(struct sk_buff *skb, struct sockaddr_vm *src,
+>+			     struct sockaddr_vm *dst, struct net *net)
+> {
+> 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+>-	struct sockaddr_vm src, dst;
+>-	struct vsock_sock *vsk;
+> 	struct sock *sk;
+>-	bool space_available;
+>-
+>-	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
+>-			le32_to_cpu(hdr->src_port));
+>-	vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
+>-			le32_to_cpu(hdr->dst_port));
+>-
+>-	trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
+>-					dst.svm_cid, dst.svm_port,
+>-					le32_to_cpu(hdr->len),
+>-					le16_to_cpu(hdr->type),
+>-					le16_to_cpu(hdr->op),
+>-					le32_to_cpu(hdr->flags),
+>-					le32_to_cpu(hdr->buf_alloc),
+>-					le32_to_cpu(hdr->fwd_cnt));
+>
+>-	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type))) {
+>-		(void)virtio_transport_reset_no_sock(t, skb, net);
+>-		goto free_pkt;
+>-	}
+>+	if (!virtio_transport_valid_type(le16_to_cpu(hdr->type)))
+>+		return NULL;
+>
+>-	/* The socket must be in connected or bound table
+>-	 * otherwise send reset back
+>-	 */
+>-	sk = vsock_find_connected_socket_net(&src, &dst, net);
+>-	if (!sk) {
+>-		sk = vsock_find_bound_socket_net(&dst, net);
+>-		if (!sk) {
+>-			(void)virtio_transport_reset_no_sock(t, skb, net);
+>-			goto free_pkt;
+>-		}
+>-	}
+>+	sk = vsock_find_connected_socket_net(src, dst, net);
+>+	if (!sk)
+>+		sk = vsock_find_bound_socket_net(dst, net);
+>+	if (!sk)
+>+		return NULL;
+>
+> 	if (virtio_transport_get_type(sk) != le16_to_cpu(hdr->type)) {
+>-		(void)virtio_transport_reset_no_sock(t, skb, net);
+> 		sock_put(sk);
+>-		goto free_pkt;
+>+		return NULL;
+> 	}
+>
+>-	if (!skb_set_owner_sk_safe(skb, sk)) {
+>-		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+>-		goto free_pkt;
+>-	}
+>+	return sk;
+>+}
+>
+>-	vsk = vsock_sk(sk);
+>+/*
+>+ * The caller holds sk's socket lock and must free skb if this returns true.
 
-Change the size of the unmap to skb->len.
+Why the skb must be freed by the caller and not by this function itself?
 
-This bug was statically found and compile-tested only.
+>+ */
+>+static bool
+>+virtio_transport_recv_pkt_locked(struct virtio_transport *t,
+>+				 struct sk_buff *skb, struct sock *sk)
+>+{
+>+	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+>+	struct sockaddr_vm src;
+>+	struct vsock_sock *vsk = vsock_sk(sk);
+>+	bool space_available;
 
-Fixes: e401fa25cfa2 ("qtnfmac: add support for Topaz chipsets")
-Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
----
- drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please, follow the netdev convection for ordering local variables: 
+https://www.kernel.org/doc/html/v7.2/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
 
-diff --git a/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c b/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-index a3a285f17dca..2e00bf68d001 100644
---- a/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-+++ b/drivers/net/wireless/quantenna/qtnfmac/pcie/topaz_pcie.c
-@@ -322,7 +322,7 @@ static void qtnf_topaz_free_xfer_buffers(struct qtnf_pcie_topaz_state *ts)
- 			skb = priv->tx_skb[i];
- 			paddr = QTN_HOST_ADDR(0x0, le32_to_cpu(txbd->addr));
- 			dma_unmap_single(&priv->pdev->dev, paddr,
--					 SKB_BUF_SIZE, DMA_TO_DEVICE);
-+					 skb->len, DMA_TO_DEVICE);
- 			dev_kfree_skb_any(skb);
- 			priv->tx_skb[i] = NULL;
- 			txbd->addr = 0;
--- 
-2.53.0
+>
+>-	lock_sock(sk);
+>+	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
+>+			le32_to_cpu(hdr->src_port));
+>
+>-	/* Check if sk has been closed or assigned to another transport before
+>-	 * lock_sock (note: listener sockets are not assigned to any transport)
+>+	/* Listener sockets accept packets from any source and are not assigned to
+>+	 * a transport.
+> 	 */
+
+Why changing this comment in this commit?
+
+Oh because we moved out lock_sock, right?
+
+I think we should keep in some way the old info that was much more 
+informative that the current comment that just say what the check is 
+doing and not why.
+
+> 	if (sock_flag(sk, SOCK_DONE) ||
+> 	    (sk->sk_state != TCP_LISTEN &&
+> 	     !vsock_check_source(vsk, &t->transport, &src))) {
+>-		(void)virtio_transport_reset_no_sock(t, skb, net);
+>-		release_sock(sk);
+>-		sock_put(sk);
+>-		goto free_pkt;
+>+		(void)virtio_transport_reset_no_sock(t, skb, sock_net(sk));
+
+We need to be careful here, IIRC Bobby used the net from the caller for 
+a reason.
+
+Are you sure it's fine this change? Why not passing net as parameter and 
+minimize changes?
+
+>+		return true;
+> 	}
+>
+> 	space_available = virtio_transport_space_update(sk, skb);
+>
+> 	/* Update CID in case it has changed after a transport reset event */
+> 	if (vsk->local_addr.svm_cid != VMADDR_CID_ANY)
+>-		vsk->local_addr.svm_cid = dst.svm_cid;
+>+		vsk->local_addr.svm_cid = le64_to_cpu(hdr->dst_cid);
+>
+> 	if (space_available)
+> 		sk->sk_write_space(sk);
+>@@ -1870,17 +1849,60 @@ void virtio_transport_recv_pkt(struct virtio_transport *t,
+> 		kfree_skb(skb);
+> 		break;
+> 	default:
+>-		(void)virtio_transport_reset_no_sock(t, skb, net);
+>+		(void)virtio_transport_reset_no_sock(t, skb, sock_net(sk));
+> 		kfree_skb(skb);
+> 		break;
+> 	}
+>
+>+	return false;
+>+}
+>+
+>+/* We are under the virtio-vsock's vsock->rx_lock or vhost-vsock's vq->mutex
+>+ * lock.
+>+ */
+>+void virtio_transport_recv_pkt(struct virtio_transport *t,
+>+			       struct sk_buff *skb, struct net *net)
+>+{
+>+	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
+>+	struct sockaddr_vm src, dst;
+>+	struct sock *sk;
+>+	bool free_pkt;
+>+
+>+	vsock_addr_init(&src, le64_to_cpu(hdr->src_cid),
+>+			le32_to_cpu(hdr->src_port));
+>+	vsock_addr_init(&dst, le64_to_cpu(hdr->dst_cid),
+>+			le32_to_cpu(hdr->dst_port));
+>+
+>+	trace_virtio_transport_recv_pkt(src.svm_cid, src.svm_port,
+>+					dst.svm_cid, dst.svm_port,
+>+					le32_to_cpu(hdr->len),
+>+					le16_to_cpu(hdr->type),
+>+					le16_to_cpu(hdr->op),
+>+					le32_to_cpu(hdr->flags),
+>+					le32_to_cpu(hdr->buf_alloc),
+>+					le32_to_cpu(hdr->fwd_cnt));
+>+
+>+	sk = virtio_transport_find_socket(skb, &src, &dst, net);
+>+	if (!sk) {
+>+		(void)virtio_transport_reset_no_sock(t, skb, net);
+>+		goto free_pkt;
+>+	}
+>+
+>+	if (!skb_set_owner_sk_safe(skb, sk)) {
+>+		WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
+>+		goto free_pkt;
+>+	}
+>+
+>+	lock_sock(sk);
+>+	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk);
+> 	release_sock(sk);
+>
+> 	/* Release refcnt obtained when we fetched this socket out of the
+> 	 * bound or connected list.
+> 	 */
+> 	sock_put(sk);
+>+	if (free_pkt)
+>+		kfree_skb(skb);
+> 	return;
+>
+> free_pkt:
+>-- 
+>2.53.0
+>
 
