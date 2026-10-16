@@ -1,280 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEBD55C328;
-	Fri, 16 Oct 2026 17:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8362D55C1B7;
+	Fri, 16 Oct 2026 17:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171014; cv=none; b=n0TImcTfpAp2K2PjCgIz9xQAbey4y97x317wzDETEfn+RwPZE4Dz+SFEalTwN7MxM+6q7sP50PxgVo8Mm7QaveYSoSMwJ/61t2PBWRcr7K0wkYObB0vnnC5j300FLvkFhVhop8VBd+cP260frx4/InlVXoSE9+PDepLS5ABN9iE=
+	t=1792171025; cv=none; b=KmwWHuaFvQw0oNyx+x1z7FoiNnUJi6IeYtVj7wuSU0WlfWicHzh5Qu+IUVbNqAl3/rlhn0+lxQz6uU6vNeFKVgBUISaXIkWDPXw/9IMUumuNujgb8Om7ruoB6OaBXKQlKU5BR73UAO2Ee9aFX3gY3p3W0s4RBeFCZ5oYNHRT4DE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171014; c=relaxed/simple;
-	bh=j5PGiHN8MxOx6b2HlHbfR/xFaJPKZMsv4wXCLcjvvas=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j1Jai4EyRFnXHxnaZs4NBynN0dypd/yOfraYX0sKHoVX+D2aZytgLrUbFVxqoW3QFNi/ZwpTJuZjYxbpPuZLRL4fcctvon9LDI4EF9uicVljsg2b7drCjCywSB9IwrXnOade/eKlFgSiCad2wEjR73+L7hDtp4OI2Cda3bsFl4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KoO4b2rB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792171025; c=relaxed/simple;
+	bh=nNGa9TvDgrAMBdKEfvIUXfA4nRo0oRAC/z1sorIw6w0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=OzUwqtzGfEWhiC5YiLKflMAGOO/Ggb2gdYoEwPyoRohmpe3UnCuyFByPnmdEDTOdr2u/IBSUpLkuRgCsWYnYvIMHt8d521vXXg3gdDU+z1d30gu1F7a2WsF2JF9EWXSKlQEPXYTxR8MhKqqYQwE/F+xZrX574oUOGkXeGLJPjSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=Y5jyN7+6; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KoO4b2rB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EC8B9C2BD00;
-	Fri, 16 Oct 2026 17:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792171014;
-	bh=j5PGiHN8MxOx6b2HlHbfR/xFaJPKZMsv4wXCLcjvvas=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KoO4b2rBwtijMrAX0mj1df/DJ0qQtegIfs6I81wa6Y3NTS0tbruAOpeF14beD6kdO
-	 cMj1bpibMVy3Cu3+7vaf0vKPiZUN/HuYmgNrcEDkiu/XMf6kLIrNiV2Kt7wGsnHkco
-	 +Q5EKaM11IcGypafrOIog+YEjDWIt2tjuPOdZOIhw7JqRDWe+vc37kMIQH1xvfsbdN
-	 v8srCdaHQjtexwNmODjujJDdWGNMmj4Xezo3sFrrAzpGEN88u94Oh2vLFJZvTZOIKP
-	 ouY0tegWUYrvH1sqSVvW3ivKYnLzZBK5C+HRKhiQztsDDidm/s7Jlq8yufsAH8gA+m
-	 TGa4McARf/7AQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4B13CCF2C2;
-	Fri, 16 Oct 2026 17:16:53 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Fri, 16 Oct 2026 19:16:09 +0200
-Subject: [PATCH v7 3/4] arm64: dts: amlogic: t7: Add thermal zones
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="Y5jyN7+6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=4ZUoUIhvbfC88KaoKHqYu/qRtIDZmc0/E3twtrLwIIw=; b=Y5jyN7+6fkrqvRGCCNcN/Vv9PN
+	/YKyPjNLZhH3ACLt6EV0NMevlYRKfyhgXmwj+071FePYm88/hsCj3z6hvDwiysuu27EKKu27xroek
+	WeC+SSVAzvq/W9ZPJD+AMVMNx4PyQG5hR+/WKB1L/Ox3ZVDxFkTouOOE4/KnOwAV8s0s=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xHlYF-000000006as-28rg;
+	Fri, 16 Oct 2026 13:17:01 -0400
+Date: Fri, 16 Oct 2026 13:17:00 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Arnd Bergmann" <arnd@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Jiri Slaby" <jirislaby@kernel.org>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>, Uwe
+ =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+ "Hugo Villeneuve" <hvilleneuve@dimonoff.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev
+Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
+Message-Id: <20261016131700.b93fa4f7e31f3d2355d4a132@hugovil.com>
+In-Reply-To: <5743b352-ffa2-4d38-9abb-a06085dea56d@app.fastmail.com>
+References: <20261016130328.1037616-1-arnd@kernel.org>
+	<20261016115604.a89ef44986bb3620c327feaf@hugovil.com>
+	<5743b352-ffa2-4d38-9abb-a06085dea56d@app.fastmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-add-thermal-t7-vim4-v7-3-6eede5450fd4@aliel.fr>
-References: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
-In-Reply-To: <20261016-add-thermal-t7-vim4-v7-0-6eede5450fd4@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5125;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=52I+VOEdRiSnUkjtrqlQ7dMwblwo8ibc7BbApDWcABI=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9alGIYlxmmLDD/+nPtxdX9A1N65M0REq3dt3nT27qyZX
- muyTWcf6ShlYRDjYpAVU2Tpn2t54t3lo2e+7lFPgZnDygQyhIGLUwAmcuskw/985T2sRz2uxCtP
- fpHeLtbOcjzQn93LwDhjYsP+U2IWLkkM/6zObhZ1vfFCc+nu5oWlx37OdX9YvSnnSPKXcsULm2P
- mfGcFAA==
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Arnd,
 
-Add thermal zones for all six sensors: a53, a73, gpu, nna, vpu, and hevc.
+On Fri, 16 Oct 2026 18:16:20 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 179 ++++++++++++++++++++++++++++
- 1 file changed, 179 insertions(+)
+> On Fri, Oct 16, 2026, at 17:56, Hugo Villeneuve wrote:
+> > On Fri, 16 Oct 2026 14:59:47 +0200
+> 
+> >>  	retinfo->custom_divisor  = uport->custom_divisor;
+> >> -	retinfo->hub6	    = uport->hub6;
+> >> +	retinfo->hub6		 = 0;
+> >
+> > Would a comment here help?
+> >
+> > 	retinfo->hub6		 = 0; /* No longer supported */
+> 
+> Good idea, added.
+> 
+> >> @@ -924,7 +921,6 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+> >>  	change_port = !(uport->flags & UPF_FIXED_PORT)
+> >>  		&& (new_port != uport->iobase ||
+> >>  		    (unsigned long)new_info->iomem_base != uport->mapbase ||
+> >> -		    new_info->hub6 != uport->hub6 ||
+> >
+> > Maybe keep this so that change_port is true if someone sets hub6 to a
+> > value other than zero (see below)?
+> 
+> Right, this would be fairly harmless as nothing looks at the field
+> afterwards but it makes sense for consistency.
+> 
+> I've moved the hub6 check up before change_port now to behave the
+> same way for regular users and root:
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index c81632d3984e8..52e106d931db0 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -9,6 +9,7 @@
- #include <dt-bindings/clock/amlogic,t7-scmi.h>
- #include <dt-bindings/clock/amlogic,t7-pll-clkc.h>
- #include <dt-bindings/clock/amlogic,t7-peripherals-clkc.h>
-+#include <dt-bindings/thermal/thermal.h>
- 
- / {
- 	interrupt-parent = <&gic>;
-@@ -885,6 +886,184 @@ hevc_tsensor: temperature-sensor@9a000 {
- 				amlogic,secure-monitor = <&sm 5>;
- 			};
- 		};
-+	};
-+
-+	thermal-zones {
-+		a53_thermal: a53-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&a53_tsensor>;
-+
-+			trips {
-+				a53_passive: a53-passive {
-+					temperature = <85000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "passive";
-+				};
-+
-+				a53_hot: a53-hot {
-+					temperature = <95000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "hot";
-+				};
-+
-+				a53_critical: a53-critical {
-+					temperature = <110000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map-a53 {
-+					trip = <&a53_passive>;
-+					cooling-device =
-+						<&cpu100 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu101 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu102 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						<&cpu103 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		a73_thermal: a73-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&a73_tsensor>;
-+
-+			trips {
-+				a73_passive: a73-passive {
-+					temperature = <85000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "passive";
-+				};
- 
-+				a73_hot: a73-hot {
-+					temperature = <95000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "hot";
-+				};
-+
-+				a73_critical: a73-critical {
-+					temperature = <110000>; /* millicelsius */
-+					hysteresis = <2000>; /* millicelsius */
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map-a73 {
-+					trip = <&a73_passive>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+
-+		gpu_thermal: gpu-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&gpu_tsensor>;
-+
-+			trips {
-+				gpu_passive: gpu-passive {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				gpu_hot: gpu-hot {
-+					temperature = <105000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				gpu_critical: gpu-critical {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		hevc_thermal: hevc-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&hevc_tsensor>;
-+
-+			trips {
-+				hevc_passive: hevc-passive {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				hevc_hot: hevc-hot {
-+					temperature = <105000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				hevc_critical: hevc-critical {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		nna_thermal: nna-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&nna_tsensor>;
-+
-+			trips {
-+				nna_passive: nna-passive {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				nna_hot: nna-hot {
-+					temperature = <105000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				nna_critical: nna-critical {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		vpu_thermal: vpu-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <100>;
-+			thermal-sensors = <&vpu_tsensor>;
-+
-+			trips {
-+				vpu_passive: vpu-passive {
-+					temperature = <95000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				vpu_hot: vpu-hot {
-+					temperature = <105000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
-+
-+				vpu_critical: vpu-critical {
-+					temperature = <115000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
- 	};
- };
+Yes that works too.
+
+Reviewed-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+
+
+> 
+> @@ -935,6 +935,11 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>                 if (uartclk == 0)
+>                         return -EINVAL;
+>         }
+> +
+> +       /* hub6 is no longer supported */
+> +       if (new_info->hub6 != 0)
+> +               return -EINVAL;
+> +
+>         if (!capable(CAP_SYS_ADMIN)) {
+>                 if (change_irq || change_port ||
+>                     (new_info->baud_base != uport->uartclk / 16) ||
+> @@ -950,10 +955,6 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>                 goto check_and_exit;
+>         }
+>  
+> -       /* hub6 is no longer supported */
+> -       if (new_info->hub6 != 0)
+> -               return -EINVAL;
+> -
+>         if (change_irq || change_port) {
+>                 retval = security_locked_down(LOCKDOWN_TIOCSSERIAL);
+>                 if (retval)
+> 
+> Thanks for taking a look!
+> 
+>      Arnd
+> 
+
 
 -- 
-2.49.0
-
-
+Hugo Villeneuve
