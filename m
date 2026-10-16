@@ -1,138 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5203B5AA69A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDA748DB4B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792174448; cv=none; b=FfsTYSY2IRQtZf83PKQOfXepNPJbI2Ai+LIj0aOUazaMxNMFdEWlIQxp7xWJGLtCzZHbYbJZe2hxNL2F+2+QHNQ1zdn91HlFbtdTpyVccQRdpK1HBJ9CzgDZsnr+OzlEXHirRCOkTWU5tHXJMDg3nmxz2OGnpIefaOlV6OVyUeE=
+	t=1792174607; cv=none; b=Gqx9CSNRlhQj/KEj09BVbh40GslhNP6iXr8yqJgikcuGaM+dMlpJLtON6PDeFNYjVbs1ygM3tYM8WjnqeqtVPEqZyu3gk29Q9/4PaC3GYY8eumQF1Hr3T+EIkA8lAtqCAYJdNr3vPcJwvH1j80P6rEM6W+VywL5/ZJ8qLsaFaPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792174448; c=relaxed/simple;
-	bh=zk5f7rYUCgAujA4xNfzK1tOFfboCm/vc3PI6IsXp2bc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Igjwwxy+0OzDj8LlNr55/1VVrTeGpAQsUM3l+9Kc3dKUKk0VnRE/ZNnFbZVLEfO0LI54Xj4no4qePfAmU4SgghF4CqAumyox2IYKotEdzjqDH33o9KnDXibn5c04lHDf/EzfhngTgFi1ro+QFDBeSb74hw9iyStf2//ACWnewLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=og9i1Yby; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792174607; c=relaxed/simple;
+	bh=DqflcV/RqFAj/t2vSgmqfLJY75Mk5JB6YjJ7FP4DcN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iJ7iLWcv/0Iw6ZaIb7x8TSrKHChIKt9JCjbb/lOySaI1vrCs7ICx/kwlEtHwBa0aanTWXewo5i2o286WqufydH+OV7L9hufGvXjhWKl5D1BxcSfoAuom0fV/E9TLCgUBKX+gbqbwoq1IzMsolMgXTV7yMumBXu5ar8d07FaGq4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gEbQLhPw; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="og9i1Yby"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3498B1F000C9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:14:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792174447;
-	bh=zk5f7rYUCgAujA4xNfzK1tOFfboCm/vc3PI6IsXp2bc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=og9i1YbyMvkGWE31YYjLLlCmx4TNbMU11jRMhoYA064UuP80DCTn1SgCFPDfND7dM
-	 vph7ADqxASybnVV2dd20KG5mIXXUmlQGFgazScs5eIwaJ5uzIIsHapeW0PIwP3gSAL
-	 RsDQRRwOvgktBxnMMKzW3PdXQxO14J+IcrNKoSW982fXTrT2vnVf8RnODIPy6A5lyw
-	 09vPv3CfwmHqLsDIjkRobsOrhGyuO/x1mniIBLyPLz95U2oXLWlYlzP8eFJ/H9U7tz
-	 lmkHYv+2dhx1+hvhozO8z1TBDXOpdU3hS2p4OJgcAlNS87QKvl5VpZnBOx7HyjRv0N
-	 J4HyQdkWLU4LQ==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso205670e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:14:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByfWWAbsGYPpSa2Hx2zimtpI2beQ6H9019MWJHQSomnp64Qmr0Yb4h/JdQ5nrcS+R5OBqpUxuCj/AfLjMo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoUt2I9Wd0QIHgb+dtzGX89mHAGT9IPohOrQFzQ+XXxPTLtiEe
-	lN6KX+uboejtmAFDvTdYkac5q8GmzcMFRzPvNy1+XwMRgoEFyQoFzk7J42IyitVLSk4XEXk4tY4
-	EW8uO7D8QYmVfmIpdzKv5qd6FtZvHr7I=
-X-Received: by 2002:a05:6512:318b:b0:5be:428e:2be7 with SMTP id
- 2adb3069b0e04-5be50a4eedfmr94462e87.11.1792174445585; Fri, 16 Oct 2026
- 11:14:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gEbQLhPw"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35f1f76ea84so278625eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:16:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792174603; x=1792779403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q6dRr/6E4CWwavS8NI37Pzp4k4CwPuNJ3xuBxfSy/XU=;
+        b=gEbQLhPwDo3lq2pRyC3ShIi9C+DKmcH3qtndN51fE1sswQS+1J4s5eAO0WY3+qqoH9
+         c7tTS+kBXobd1cWL1ik2Ttt0R2SWU3vdGNSUjDJEJXvON+L3Os5p/VVjHanHfRPVme1h
+         8SL7ibAbZc5FnIbxqq2ljdEgqJKFj2hbsJAB8Rob6RJTqmOKusETinkvCEF9dR01MBSO
+         2DkJO4RwLayuT0iXUyaiKKmRxwm3N1RKLgkuCBlgy5vnKh9euq0k9zS6a5GAl0hAQVnL
+         eQLeC7yKj3owjzbDNBFM2t3t9ASFCJuWR1InspXmhK1ufnoiiTb6hCtALAnQ3xV/P1LU
+         FhBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792174603; x=1792779403;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q6dRr/6E4CWwavS8NI37Pzp4k4CwPuNJ3xuBxfSy/XU=;
+        b=nScS3R0GCiC2/YlZliRrnmV+lpLr6+9fCo5pDV3EXGlZO9NuRChF8ZNmaALNuKI+K8
+         yFWsfqhu9IDmb3n4xEyxb4F/8F53TYi/7PS1gZTZSSlEAo0hR3v8riGamoqFak34X6p9
+         qFFTLbGsEbJzRDGjHvYwn6kYuvPd4kpF5JIDIks1ripggnYvyzu5omi/wYqhfz9GcZKh
+         eE/hLVo5vbuLJfBeRrSps2oMH0HgorgBvoAFX8IZVXP3ZMYUlcHeHZAqf81ABo+/L5GJ
+         1qRldGMUBtUPPKWzWsJPsYskjsoEeqAiT54t+2Kg5ElK/HAv2HILP4DREZUgG5FhKh3t
+         Iq1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBythZYZzYXaWE4mVNF6QOXTExImli0KwgA8HM4lrfXYgVorz4ct+Pb6NGUvyXZnvIKnbExVNVF7tNTVrUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPWGHRnm2Z/qw/pGWtKQueFF3niKNDrdr2CBb/7fFM3ViHBl+s
+	0Q5EmR0zpgHIdVKmtTMz1caZ4KhquJbEMddciO3leMmKkSo3VQ2bZrMS
+X-Gm-Gg: AYBFou1H20YVZ4v4ydm4c9iUyNEgXIIie9iECzThlD5U8g6rY2x8jJ2sOQh4GPbat4j
+	vibA38d74V+H+g4HBxKhKxCGrp6yCpNCiG7zpzEQqUqagkPuMHoN2soDffaI54/mPRyGuZ6brjS
+	0GaUz0CESQshT178dBW/RobINzRPoBUHJDncupNu94YVRE+3rNYyJVgNGtAoCi6zyaiiCSiBgi2
+	eaebDLfQQj+iGwXQpiRxcASJ7fodoT8j0KugBvIxS1qzI4vLU2vHRjE3SY1oNGH8HfBemA3LHcE
+	xhZBcEwsSn2IowxnazljGABa4OsNz5qO/lXwkSpJwdj8/5dVeHnV/kkgyi7Dx74CTlPiOJcJhfh
+	9FxkZvdgHTCp63TH5w1PP/oBlD55U82KMoDkn+nnH+vQIqIsb4StVpgifdv5EaTxBSXmkDjCrec
+	2EcvsnUY+ZmCnJMDj5HQmK90YuBHhhWM1udunJ6fvbgY5mrNY8OZsbKgOIRusHBf6XnDsC6DPuM
+	bDEN634M2X1qmLNHy8SxljP
+X-Received: by 2002:a05:7022:170d:b0:143:3617:c595 with SMTP id a92af1059eb24-1850c223bb9mr852508c88.1.1792174603289;
+        Fri, 16 Oct 2026 11:16:43 -0700 (PDT)
+Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm11570790c88.11.2026.10.16.11.16.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 11:16:42 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: manuel.lauss@gmail.com,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thierry Reding <treding@nvidia.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Dmitry Ilvokhin <d@ilvokhin.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] MIPS: Alchemy: Register interrupt chips with the IRQ core
+Date: Fri, 16 Oct 2026 11:15:59 -0700
+Message-ID: <20261016181602.2152632-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001155118.1750028-1-briannorris@chromium.org>
- <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
- <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
- <as_i5MEz3WfnDQmf@google.com> <CAJZ5v0i+77gt-KmMYdxxzS4uGzxFArrYGpoDnjrfknpPOkAuHg@mail.gmail.com>
- <atE9urIHXAJZXu6k@google.com> <CAJZ5v0g56J9e9qdiR8W+BfmEbbedvpD8hop4+n9=rkFEsDG_Jw@mail.gmail.com>
- <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
-In-Reply-To: <CAJZ5v0gNQqffxcdzWff=z3hi0BXzJBOV6WKgf6RXuOydzQJQMw@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 16 Oct 2026 20:11:54 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iQ35Xm0r8UcRVYq=ZBGyPcfkp5Dtbk5etnyMsEm9wjAA@mail.gmail.com>
-X-Gm-Features: AclHuK-KnhYRgSCe8hzWRnOOPWPOm-JRlMsjeyojKk-1gcbbUhfQ7VLWB9vTpQQ
-Message-ID: <CAJZ5v0iQ35Xm0r8UcRVYq=ZBGyPcfkp5Dtbk5etnyMsEm9wjAA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
-To: Brian Norris <briannorris@chromium.org>
-Cc: linux-doc@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Doug Anderson <dianders@chromium.org>, 
-	Ulf Hansson <ulfh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 8:05=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
->
-> On Fri, Oct 16, 2026 at 7:42=E2=80=AFPM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> > On Thu, Oct 15, 2026 at 10:55=E2=80=AFPM Brian Norris <briannorris@chro=
-mium.org> wrote:
-> > > On Thu, Oct 15, 2026 at 10:11:04PM +0200, Rafael J. Wysocki (Intel) w=
-rote:
-> > > > On Wed, Oct 14, 2026 at 10:15=E2=80=AFPM Brian Norris <briannorris@=
-chromium.org> wrote:
-> > > > > On Wed, Oct 14, 2026 at 09:07:54PM +0200, Rafael J. Wysocki (Inte=
-l) wrote:
-> > > > > > On Thu, Oct 1, 2026 at 5:51=E2=80=AFPM Brian Norris <briannorri=
-s@chromium.org> wrote:
-> > > > > > >
->
-> [cut]
->
-> > >
-> > > I kinda think the point of most of this power domain architecture is
-> > > that a typical driver just doesn't have to worry about it at all (in
-> > > probe(), and if you use runtime PM properly), so I'd prefer not
-> > > mentioning it in the Basic example. But sure.
-> >
-> > Well, your basic example needs to be put in a certain context because
-> > it may not be generally applicable everywhere.
-> >
-> > I think that you should make it clear what the driver's expectations
-> > regarding the physical state of the device at the probe time are and
-> > the general rule is that it is better to leave the device in the same
-> > state in which it is expected to be found next time.
->
-> To be somewhat more precise, if the driver expects to find the device
-> completely off and the runtime PM callbacks are set up to make it
-> operational, runtime PM can be used to power it up in probe:
->
-> /* Assume the runtime PM status to be "suspended". */
-> pm_runtime_enable(dev);
-> pm_runtime_get_sync(dev);
->
-> but then in remove or on probe errors the "power off" state needs to
-> be restored manually:
->
-> pm_runtime_disable(dev);
-> /* Allow the parent and suppliers (if any) to suspend. */
-> pm_runtime_set_suspended(dev);
-> device_specific_power_off(dev);
->
-> However, if the driver expects to find the device operational (for
-> example, because it assumes the ACPI PM domain to be there), it may
-> just update the runtime PM status before enabling runtime PM:
->
-> /* Assume the runtime PM status to be "suspended". */
-> pm_runtime_set_active(dev);
+Alchemy initializes its interrupt chips through the set-type callbacks,
+which use irq_set_chip_handler_name_locked() to assign the chip and flow
+handler. This bypasses irq_set_chip() and its descriptor registration.
 
-And I forgot to add
+Since /proc/interrupts switched to iterating the IRQ descriptor maple tree,
+the statically allocated Alchemy descriptors are no longer found. On an
+MTX-1, the file contains only the CPU header and ERR counter even though
+the timer, serial, Ethernet and PCI wireless interrupts work.
 
-pm_runtime_get_noresume(dev);
+Register each IC0/IC1 interrupt chip through irq_set_chip() before setting
+the initial trigger type. Do the same for the Au1300 GPIC. Keep the locked
+set-type callbacks for later trigger changes.
 
-here (to prevent runtime suspend from being triggered by toggling the
-"control" sysfs attribute from "on" to "auto" at this point).
+Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+ arch/mips/alchemy/common/irq.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-> pm_runtime_enable(dev);
->
-> but then in remove or on probe errors it may just leave the device in
-> its current physical state (whatever it is) and assume somebody else
-> to take care of turning it off subsequently:
->
-> pm_runtime_disable(dev);
-> /* Allow the parent and suppliers (if any) to suspend. */
-> pm_runtime_set_suspended(dev);
->
-> These are two distinct cases that are rather hard to cover in one
-> simple example.
+diff --git a/arch/mips/alchemy/common/irq.c b/arch/mips/alchemy/common/irq.c
+index 2403afcd2fb9..d2fa8731fb3c 100644
+--- a/arch/mips/alchemy/common/irq.c
++++ b/arch/mips/alchemy/common/irq.c
+@@ -892,15 +892,21 @@ static void __init au1000_init_irq(struct alchemy_irqmap *map)
+ 	mips_cpu_irq_init();
+ 
+ 	/* register all 64 possible IC0+IC1 irq sources as type "none".
++	 * Register each chip with the IRQ core before setting its type so
++	 * the descriptors are included in interrupt enumeration.
+ 	 * Use set_irq_type() to set edge/level behaviour at runtime.
+ 	 */
+ 	for (irq_nr = AU1000_INTC0_INT_BASE;
+-	     (irq_nr < AU1000_INTC0_INT_BASE + 32); irq_nr++)
++	     (irq_nr < AU1000_INTC0_INT_BASE + 32); irq_nr++) {
++		irq_set_chip(irq_nr, &au1x_ic0_chip);
+ 		au1x_ic_settype(irq_get_irq_data(irq_nr), IRQ_TYPE_NONE);
++	}
+ 
+ 	for (irq_nr = AU1000_INTC1_INT_BASE;
+-	     (irq_nr < AU1000_INTC1_INT_BASE + 32); irq_nr++)
++	     (irq_nr < AU1000_INTC1_INT_BASE + 32); irq_nr++) {
++		irq_set_chip(irq_nr, &au1x_ic1_chip);
+ 		au1x_ic_settype(irq_get_irq_data(irq_nr), IRQ_TYPE_NONE);
++	}
+ 
+ 	/*
+ 	 * Initialize IC0, which is fixed per processor.
+@@ -947,6 +953,7 @@ static void __init alchemy_gpic_init_irq(const struct alchemy_irqmap *dints)
+ 
+ 	/* register an irq_chip for them, with 2nd highest priority */
+ 	for (i = ALCHEMY_GPIC_INT_BASE; i <= ALCHEMY_GPIC_INT_LAST; i++) {
++		irq_set_chip(i, &au1300_gpic);
+ 		au1300_set_irq_priority(i, 1);
+ 		au1300_gpic_settype(irq_get_irq_data(i), IRQ_TYPE_NONE);
+ 	}
+-- 
+2.53.0
+
