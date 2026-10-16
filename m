@@ -1,84 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E13441DE0A;
-	Fri, 16 Oct 2026 23:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCC6379EF0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792194040; cv=none; b=Lij43iaFgYkxZsjJDs/2Jjj7/fJUlGNhqYNDpM51vrO6rOv6gvDNhbmMgpm9vIJ1qj7u5X062Bo4y1L0eSl3f5nZlbpxbp/hiMXdcq8VFCzJavigQhYvw1Wwvh8S+tRUvcUTODNMbEDLWPsgE+vM56PdjIp2lwyCykGKKuy8tHk=
+	t=1792194065; cv=none; b=OKwOx+No5ygQHQNSUfy9zn6VrYv+4k958RSJ6qwbiiYgd97Q4fFXLINr1OF8a1qBe4RuHfMW2/uHsUF7+ImxbcKOcE5WfvXxkjiobJGnkQ9FkI3INxBBRyk7Xjff/YXoizQyRn9EWDit+G24LL+/uE30YwFK9UcEvQfpdnfqdeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792194040; c=relaxed/simple;
-	bh=s0iunntDN0XEq2X9Nv4lZuldL3wNpmLyYQqgLUfAlU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d8dr3tbtBFb1x7eeavO+krkXPOLa8s/70LbbeVAa8XnyjCGrUV4N7FoIR3DznvT9eAk3mJebo/m9+5BkuHY3ZfaKk7wqDg3EtzquW+bVV0mL+Bk5YaPruepT3aU9M65MfVQppNJguhFdGINEARGD5u/SLr/KTdGp49/56mqLsaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTLKjrPl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792194065; c=relaxed/simple;
+	bh=P2oJEjK48YxbmXcf07T3CDj8eQed/6ihYVaubh19t6s=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=LMcx9PSgRPwmychHFV+j0HNZg7ltArpDvYkVNE+xIdpHezF6W+0isMLRPIc+st00uD0U7dM0W8jIQHPZQ/V8T8znT1vE+TLeojeJcPT+wjcUqs1V+7JYIMzLENH95C/zG2oMEQYH29697whQgdyrx/ALHxabYVbP4lqwwavawvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TGHsoODJ; arc=none smtp.client-ip=95.215.58.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTLKjrPl"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2BCDA1F000C4;
-	Fri, 16 Oct 2026 23:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792194038;
-	bh=tDHuuTvJquMWwJ2tkqi+ArsBHnlPtm/XZaOoe9H1IcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CTLKjrPlWRQyy+kNSUUqEyfVPUsB6aGQXPy1coQsGu2uRe4wnFBQk8mTg9jSnIGK8
-	 Qf6AS8+sF7G3LDFx5VY1sGLT2x3ZWvlfg6IKo48+POWv/qWiRAPRP2almoynukLQ1O
-	 B77+sI/aMlKKanxunEYqma89zbJGl4cLUDxkbpoCmRu569AAbtMOCTorkKpMYqlS7L
-	 pe7eov2QZUhBu/cYSQ6hdtB9Kepgyu4mk3d6Yk/q6NuVbQNCJwBFwvZ2YRucBQ1fVj
-	 3SdSehcGRSBLU8tAZoQ2mS9NEQdOJJ5DYP2vhrHDCTiP9Xl0yOb3p3IPak5kk2xE3m
-	 68KBoxNHyXxLg==
-Date: Sat, 17 Oct 2026 02:40:35 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] keys: big_key: Reserve the final quota before destroying
- the payload
-Message-ID: <atK186hMPBhYyPCN@kernel.org>
-References: <20261016040004.324286-1-4ncienth@gmail.com>
- <atK0MnGM2h9IH6FD@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TGHsoODJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=P2oJEjK48YxbmXcf07T3CDj8eQed/6ihYVaubh19t6s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792194060; v=1; x=1792798860;
+ b=TGHsoODJiIEVmw947/krKdrqm7KCpfBCsj0g+NgdJtk8eJZatyn12goqPFuxSc9aIoA5zkdT
+ 19H966DH8piCL0D5rX1tqNube0djtjFwaAmat5wrhom2o33fDrAeLPW0DFKDEXtH/nXvA3NH2SC
+ a6wxY8NKXfx0DWBz/51sjF7M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 134b307fc00d8967;
+	Fri, 16 Oct 2026 23:41:00 +0000
+X-Mizu-Trace-ID: 134b307fc00d8967
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atK0MnGM2h9IH6FD@kernel.org>
+Date: Fri, 16 Oct 2026 23:41:00 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+To: "Bradley Morgan" <brads@mainlining.org>
+Cc: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
+ paulmck@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
+In-Reply-To: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
 
-On Sat, Oct 17, 2026 at 02:33:10AM +0300, Jarkko Sakkinen wrote:
-> On Fri, Oct 16, 2026 at 01:00:04PM +0900, Daehyeon Ko wrote:
-> > A big_key is charged a fixed 16 bytes of key quota, regardless of the
-> > actual payload size.  big_key_update() currently reserves the actual new
-> > payload length before destroying the old payload, while the subsequent
-> > generic_key_instantiate() reserves the fixed quota length.
-> > 
-> > For an update to a payload shorter than 16 bytes, the first reservation
-> > temporarily returns quota.  Another key operation by the same user can
-> > consume that quota before generic_key_instantiate() tries to reserve it
-> > again.  If that second reservation fails, the key remains instantiated but
-> > its old big_key payload has already been destroyed.  Reading a
-> > buffer-backed key or revoking a shmem-backed key then dereferences a NULL
-> > payload pointer.
-> 
-> Even at the risk that I'm saying something stupid, makes me
-> wonder why the call exists in big_key.c? I.e. why not remove
-> the call instead of doing what the patch does?
-> 
-> If I'm now missing something out, that's cool, just correct
-> me.
+>=20
+>=20On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev> wrote=
+:
+>=20
+>=20>=20
+>=20> The RCU Tasks Rude grace period is implemented by invoking the
+> > schedule_on_each_cpu() with an empty work function, which forces
+> > a context switch on every online CPU and guarantees that all
+> > rude-tasks read-side critical sections have completed. However,
+> > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+> > -ENOMEM) and returns immediately, in which case those context
+> > switches never happen, too-short grace period happen.
+> >=20
+>=20> This commit therefore wraps the schedule_on_each_cpu() call in
+> > WARN_ONCE() so that this failure is reported as a "Too-short
+> > grace period" warning.
+> >=20
+>=20NAK, this seems like a edge case, and potentially panicking the syste=
+m
+> with panic on oops doesn't seem right to me, because we would reserve t=
+hat
+> for when something definitely goes really wrong and we need to notify
+> the user.
+>=20
+>=20I don't believe this patch should go in for this reason, it's a heavy=
+ edge
+> case, that doesn't *have* nessesarily need to be accounted for.
 
-So the way I see it this patch has the right bug and a wrong fix.
+Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the WARN_O=
+NCE()
+not panicking system unless you set warn_on_oops true, this can help us t=
+roubleshoot
+UAF issues caused by a too short tasks-rude grace period.
 
-I.e. if you still want to move forward with this fix, explain
-why two repeated calls are still a necessity. Then we can ensure
-that the fix addressing the root cause.
+or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to repl=
+ace
+alloc_percpu(struct work_struct) queue to all online CPUs.
 
-Alternatively rewrite the patch so that it makes the call path have
-only a single call site for key_payload_reserve().
+Anyway, Thank you for your reply. I would also like to hear the opinions =
+of others.
 
-Br. Jarkko
+Thanks
+Zqiang
+
+
+>=20
+>=20Zqiang, have you reproduced this OOM on your own system, if so, could=
+ you
+> tell me more details, you may turn my frown into a smiley face ;)
+>=20
+>=20>=20
+>=20> Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> > ---
+> >  kernel/rcu/tasks.h | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >=20
+>=20> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> > index fcac7361ec51..91c25717402e 100644
+> > --- a/kernel/rcu/tasks.h
+> > +++ b/kernel/rcu/tasks.h
+> > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct work_struc=
+t *work)
+> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+> >  {
+> >  rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
+> > - schedule_on_each_cpu(rcu_tasks_be_rude);
+> > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+> > + "%s: Too-short grace period, OOM is now expected behavior!!!\n", rt=
+p->name);
+> >=20
+>=20Good message, makes sense. But I don't think this is right, see above=
+.
+>=20
+>=20>=20
+>=20> }
+> >=20=20
+>=20>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback=
+_t
+> >  func);
+> >=20
+>=20--- Thanks!
+> "I'm not a very positive person" - Linus torvalds
+>
