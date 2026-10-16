@@ -1,132 +1,177 @@
-Received: from mail-m205210164250.xmail.ntesmail.com (mail-m205210164250.xmail.ntesmail.com [205.210.164.250])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8250E1397;
-	Fri, 16 Oct 2026 00:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.210.164.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F3B27281E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792110825; cv=none; b=tb2ev5WhqQoKH1jhWe/gs1uxZgSVVgifzqSXl7l0K1fWP2K1EdvT2Fj7idqwxfTDxiRo9RMtaKui3oGac3HZuizFK7i2B11nxIucEJ4ZUSscb36JTlgTYuYA7LBleDg90L95DuQZkO45frHN2HzaBuc9DRBGdyOeeQh0GJKMGMs=
+	t=1792110853; cv=none; b=rb2PW8dvv0Q/To+Bq2Atzu3sBmGhiNv5EScFxwpUzyqDBKKBH5l4gluA5qEhERsuu/6ATDRPzYgFWxCF+nGr5YpwyvD5QgCE3ePYWfYPnR9OnddMChVjeHRvTW8qM7lEP4buJJM+Y96b8Hbv497iLgubygnoMerdK2YGLVbM07g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792110825; c=relaxed/simple;
-	bh=WPu+l6nh0kJ+lGMFRxPLZd6gvYfw7HXZAULcSvrEci8=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Y9Iph0Vvl1pZTKqx6HepvFVwa+MYF+uLovSxeE6jmHvBFKC7J0lLuJEp/LI8XtdUImQ4Xy6U42SUbHwiFIyxK8Kho12h3qPiR4kBEvYhTIqOuatjSdmKZV1Cdaje2SuuWIuNPW84+//8znIpYidU+dlRiwY/bHPx1ef1JqdIsO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=HCvp4J3B; arc=none smtp.client-ip=205.210.164.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792110853; c=relaxed/simple;
+	bh=O5J0vYzDS7A+/iIa4EdklVFws50tlMNiHPs02QGGc3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z1ZQ2IbE+iL45XwID1p1B1Jy+nCh2HbvZArQJPtL8Tce+dafDxp5RhjSaA/x7vRyotgBlvhqOBYzQVadabN2dG6S168CLOfcu6fVA6cTt0/ZhkeZMc3DGlFLTQucoGcVFJuL5R1gWw99X4KnmCOX1K/3jF+e514TgZwtvPxktvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IT7oxRAZ; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="HCvp4J3B"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 51398676d;
-	Fri, 16 Oct 2026 08:33:33 +0800 (GMT+08:00)
-Message-ID: <bfe8baa4-e740-4908-9d2a-4defc5240a82@rock-chips.com>
-Date: Fri, 16 Oct 2026 08:33:29 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IT7oxRAZ"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8ac4806e210so43566397b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 17:34:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792110851; x=1792715651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gfgwBh8XWxGCsSck4UIs9y6r8K229wZcXz7rxtjthGQ=;
+        b=IT7oxRAZGPvMteQEIJvLCQeq42tHPkMiDpnamv+hvBZL0spXtpHKbh5aSGfwvb1IA0
+         uGGE/POaj3gf+xzNP2vSDteSp4hwuHlUeG+NkmPjrN+W8JPN36L3CGsL68v3L96NC9ML
+         ifjJD1FEVXKWvuJfx5yJvQG914R7dROmH24rJzY0JfThcv3Hxrlwk7PSoR2fECt9N8w7
+         Ko6AfRMyB8M42IbkKliGYm6ZB8oEjANkpGx5YeWoKz4cBoRlcvvaGSbHII6r2PvDSyt6
+         yJHaZAO9p3wp3SOhKRILq5heO1IZROOdiGFh8IC/rl8Y62Wc1O+ef/xdlqr42QF0Et/e
+         ULFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792110851; x=1792715651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gfgwBh8XWxGCsSck4UIs9y6r8K229wZcXz7rxtjthGQ=;
+        b=Zew7ogUDUQYWwZzjD9donY/AhpcUYXydpA3sLENex2A458gDvWJvWKsSpzmR4NTnpo
+         b1MkPfPSJRLfwL0Krg8brIQB6Ry41viJA0zZX1Amog6EaeLRnhSxKCPTP750eMfLofgR
+         wFj21mOLmcdqdIsZyXRI9zj4kl3/jm12kBFhoc6MJevCL/dfvvg/A1RMd7lRp0nmsxGa
+         uA3dKgmeDQqS90NbivGbW+nft4qjVTEfj+MNirWPMNCJyVZNZuEOP5yTXeQJE/JlCR6x
+         n1sKW/mT8KGpiOUAGh8i+RFP0fzIlB2pcV72nSNZgJE4hcbAsLLouqAjv9q3rBDfKHcO
+         RQNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwF/A1gaqnd+Xt2GN/Scf9L3Lp7nE6Ie5LNKpv11bVAlT6Tal0hQpI1wZv5Zt0rsSG3xredixTuntqtfMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfEYe1gBRS6peRpE1pHWAGH2ezB7wO76v7lcs7MwJfuOOiWwrU
+	MhXI4rkvYj0SOfdSlXH9V5TnnbazPzYnAHOgAU7BBaUlotzsqityi3gd
+X-Gm-Gg: AYBFou2r2HHU6bsIsew7C2cMm7MD9PqXlms8mLUkidyPSk8miqdjG8LXyVXBrRY6Bw3
+	06GK9BJhCjbYqm2ypSoEfVFULA0a66ybY8WSOQ5lCu7Bfcq1YEMJQgLTpyQU9pQsrfC4tuzv0s/
+	Xtxuzc3VbOybxXm5IMonewTBMg4SrEZPzY5loOQ7MJYHW8G3KeZz6/XxXsYxiAUpMr+zcyTCx0V
+	u+yecPuhEi/rHvaBSdLIaxFapHqQVILXzgQrx1O3lxr96FjrIGeP+WHd2C1qpgU26Bdbcbw/qfJ
+	C77gEyM8OsMN6cjdARpGjyzkGJgTduMfFX/wI5m0fPB1zLvazCEdJfNjR0NYaM/9NoRaCBMcN5H
+	rhUOIS2r7FcScuKVu93BShJd2Do1B/fQZbKmMhVLWRh/s/8YAjhiA+Z60BdFDRlOVNSNc4+KMxN
+	W6Hpuehw4dDAUwJwOx0lpoH7LMlph8Y7n9tqxxOAq5Ec95LvshX4Q=
+X-Received: by 2002:a05:690c:39d:b0:873:5c0f:283 with SMTP id 00721157ae682-8b07eda095bmr83218097b3.45.1792110850855;
+        Thu, 15 Oct 2026 17:34:10 -0700 (PDT)
+Received: from corey ([2600:1702:5081:b900::49])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58892cfsm2982937b3.10.2026.10.15.17.34.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 17:34:09 -0700 (PDT)
+From: Igor Malovitsa <igor.malovitsa@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	martin.lau@linux.dev,
+	eddyz87@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	memxor@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Igor Malovitsa <igor.malovitsa@gmail.com>
+Subject: [PATCH bpf 0/2] bpf: Fix ring buffer checks on 32-bit position wrap
+Date: Fri, 16 Oct 2026 00:33:16 +0000
+Message-ID: <20261016003318.529860-1-igor.malovitsa@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-i2c@vger.kernel.org,
- Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org,
- Heiko Stuebner <heiko@sntech.de>, "david.wu" <david.wu@rock-chips.com>
-Subject: Re: [PATCH] i2c: rk3x: Disable the controller between transfers
-To: Alexey Charkov <alchark@flipper.net>
-References: <20261015-i2c-rk3x-disable-v1-1-81625845c175@flipper.net>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261015-i2c-rk3x-disable-v1-1-81625845c175@flipper.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa14220df3303a4kunm31bb4bf9443a31
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhlLVhhMHh4aHUgYS0NNTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=HCvp4J3BqeW8tRqo6dqlhjxVhHgXindjIk9oimTtEj3E5SxwUCPWKXY2qPa/QlX7fedQWmi+NehpzYlQhIjTeohfO7GNITLnqNzecvfolBOsHQ/R/qUndYVWSMaKtnkYXdsgf01DZyKSl80XMKqkbbyRCpamHG37O4QclElLkSM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Ctt3HFSEzRTcfY1DycVxiEiuhDGVs7yfYDgMipksSOQ=;
-	h=date:mime-version:subject:message-id:from;
 
-Cc: + David
+Two more places where ring buffer positions are compared in a way that
+breaks once they wrap on a 32-bit kernel. Two earlier fixes of the same
+kind are commit 6ff5b56a50c5
+("bpf: Fix pending_pos walk on 32-bit ring position wrap") and
+commit 3f611e9b820e
+("bpf: Fix available-data accounting on 32-bit wrap in overwrite mode").
+The remaining two:
 
-在 2026/10/15 星期四 22:00, Alexey Charkov 写道:
-> The driver leaves the controller enabled once a transfer completes, and
-> an enabled controller keeps tracking the bus. If the lines collapse under
-> it while idle, as happens when a target's supply is switched off while
-> its bus pull-ups stay powered, its state machine wedges driving SDA low.
-> Every later transfer then times out, since the timeout path only requests
-> a STOP and never disables the controller, and the stuck state even
-> survives a kexec.
-> 
-> Clear the enable bit once each transfer is done, successful or not, so
-> that the controller does not watch an idle bus and starts every transfer
-> from a clean state.
-> 
+- __bpf_ringbuf_reserve() reads consumer_pos before taking the lock, so
+  a reservation that stalls long enough can pass the space check with a
+  value about 2^32 bytes stale and overwrite records the consumer has
+  not read.
 
-I checked the vendor kernel tree and saw another case that you perhaps
-need to fold something similar below into your patch, along with your
-disabling controller?
+- __bpf_user_ringbuf_peek() widens the positions to u64 and compares
+  them, so once producer_pos wraps and consumer_pos has not, the ring
+  reads as empty from then on and the user-space producer gets -ENOSPC.
 
-     In some case，log like this:
+Both need about 4 GiB of ring traffic on a 32-bit kernel. Neither
+changes anything on 64-bit.
 
-     [   12.393926] rk3x-i2c ff150000.i2c: irq in STATE_IDLE, ipd = 0x51
-     [   12.416592] rk3x-i2c ff150000.i2c: irq in STATE_IDLE, ipd = 0x51
+How they were found and tested: a formal model of the ring buffer
+protocol, written in Lean on the ORC11 memory model with the help of an
+LLM coding assistant, showed both executions. Each was then confirmed on
+32-bit QEMU guests (i386, arm and riscv32) by a test-only initcall (not
+part of this series) that puts the positions in the wrapped state and
+calls the real __bpf_ringbuf_reserve() and __bpf_user_ringbuf_peek():
+without the patches it reports both bugs, with them both cases behave
+correctly. With each patch, kernel/bpf/ringbuf.c builds without warnings
+with W=1 on x86_64 and i386.
 
-     The i2c clock is disabled, so the pending irq clean is not
-     worked. Disable the interrupt after the i2c jobs were done,
-     the error log would not happen.
+No selftest is added: reaching the states needs about 4 GiB of traffic
+or instrumentation that only a test build can have.
+
+The ring buffer selftests pass with the series applied on x86_64,
+aarch64 and riscv64 (vmtest.sh, test_progs -t ringbuf: ringbuf,
+ringbuf_multi, user_ringbuf and verifier_ringbuf, 33 subtests), and on
+x86_64 without it. On riscv64 QEMU ran with -cpu max: the cross-compiled
+test_progs uses Zbb/Zcb instructions that the CPU vmtest.sh picks lacks.
+
+Reproducer (test-only, not for merging): a late_initcall in ringbuf.c,
+built for i386 (tinyconfig), arm and riscv32 (their defconfigs), each
+with BPF_SYSCALL, and booted in QEMU. For the first bug, a hook between
+the consumer_pos load and the lock in __bpf_ringbuf_reserve() stands in
+for the stalled reservation: it moves the positions to where 4 GiB of
+traffic would leave them, so the load before the lock still holds the
+old 0. Condensed, without the message prefix:
+
+  /* hook, called just before raw_res_spin_lock_irqsave() */
+  WRITE_ONCE(rb->consumer_pos, ULONG_MAX - PAGE_SIZE + 1);
+  WRITE_ONCE(rb->producer_pos, ULONG_MAX - 7);
+  WRITE_ONCE(rb->pending_pos, ULONG_MAX - 7);
+
+  /* initcall: the ring is full, so the reservation must fail */
+  rb = bpf_ringbuf_alloc(PAGE_SIZE, NUMA_NO_NODE, false);
+  if (__bpf_ringbuf_reserve(rb, 0))
+      pr_emerg("cons-under-lock: BUG reproduced (reservation accepted)\n");
+  else
+      pr_emerg("cons-under-lock: fixed (reservation rejected)\n");
+
+  /* one empty sample at consumer_pos, producer_pos just past the wrap */
+  rb = bpf_ringbuf_alloc(PAGE_SIZE, NUMA_NO_NODE, false);
+  rb->consumer_pos = ULONG_MAX - 7;
+  rb->producer_pos = 0;
+  hdr = (void *)rb->data + (rb->consumer_pos & rb->mask);
+  hdr->len = 0;
+  hdr->pg_off = 0;
+  err = __bpf_user_ringbuf_peek(rb, &sample, &size);
+  if (err == -ENODATA)
+      pr_emerg("user-ringbuf-wrap: BUG reproduced (false empty)\n");
+  else if (!err && size == 0)
+      pr_emerg("user-ringbuf-wrap: fixed (sample found)\n");
+
+Output without this series:
+
+  BPF_RINGBUF_REPRO: cons-under-lock: BUG reproduced (reservation accepted)
+  BPF_RINGBUF_REPRO: user-ringbuf-wrap: BUG reproduced (false empty)
+
+and with it:
+
+  BPF_RINGBUF_REPRO: cons-under-lock: fixed (reservation rejected)
+  BPF_RINGBUF_REPRO: user-ringbuf-wrap: fixed (sample found)
+
+Igor Malovitsa (2):
+  bpf: Load ringbuf consumer_pos under the spinlock
+  bpf: Fix user ringbuf empty check on 32-bit position wrap
+
+ kernel/bpf/ringbuf.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 
-/* Disable i2c all irqs */
-#define IEN_ALL_DISABLE   0
-
-i2c_writel(i2c, IEN_ALL_DISABLE, REG_IEN);i2c_writel(i2c, 
-IEN_ALL_DISABLE, REG_IEN);
-
-
-
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
->   drivers/i2c/busses/i2c-rk3x.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
-> index fcede9f6ed54..dbf1ed30fda6 100644
-> --- a/drivers/i2c/busses/i2c-rk3x.c
-> +++ b/drivers/i2c/busses/i2c-rk3x.c
-> @@ -1125,6 +1125,16 @@ static int rk3x_i2c_xfer_common(struct i2c_adapter *adap,
->   		}
->   	}
->   
-> +	/*
-> +	 * Do not leave the controller enabled between transfers. It keeps
-> +	 * tracking the bus while enabled, and if the lines collapse under it,
-> +	 * e.g. as an unpowered target clamps them, its state machine wedges
-> +	 * driving SDA low until it is disabled. This also gets it out of
-> +	 * whatever state it was stuck in when a transfer timed out.
-> +	 */
-> +	val = i2c_readl(i2c, REG_CON) & REG_CON_TUNING_MASK;
-> +	i2c_writel(i2c, val, REG_CON);
-> +
->   	clk_disable(i2c->pclk);
->   	clk_disable(i2c->clk);
->   
-> 
-> ---
-> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
-> change-id: 20261015-i2c-rk3x-disable-24672d4f38bb
-> 
-> Best regards,
-> --
-> Alexey Charkov <alchark@flipper.net>
-> 
-> 
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-> 
+base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
+-- 
+2.53.0
 
