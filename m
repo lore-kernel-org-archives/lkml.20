@@ -1,71 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA576369208
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD10309EF9;
+	Fri, 16 Oct 2026 04:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792126492; cv=none; b=XCfT2E8pCQJHWYG8JcP8khuKNeoUZh4KXOGkKTPUTtv7/4J3Apr/RdTcHDPk+EFkiMWHKFqrqZzaVZMloLYOpxthSuI55rnvhDu8f4Ey/1PB0fiwpOJWDn3LlhhToF6iZsaV5MHxUM5Ux1REbbxsaTslfQEfGWPVkwotJ1qhh5g=
+	t=1792126500; cv=none; b=mcuNrCoNseXL7sw6X3UhvP3pZKc6WGwVVKWfkXP1h18IEu9cZ0Tm3e9zgTFWzndnxm3AGWjzRnIxXEw26DDyk5OZl5CciGVjF2MDuIxAAiCZ+JkBYN3LvzuWy2m2uWNl7C7lU9mphQXFSeupfoI4bQyws4map1hAytSO8+1B7fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792126492; c=relaxed/simple;
-	bh=vMokfa1+hvgywCpz3ofj3oYp/nbYqpRWvALkC8ki2hY=;
+	s=arc-20240116; t=1792126500; c=relaxed/simple;
+	bh=wjRxoxkSzlPizCOIbpyTZ+uVRedy32KRAxYS8NUJjao=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r/AkG0zfWqnmGjjwncxG0mp+1n/z/OIhcJTkU1UU9PO3pb7/+G5PSnIQrIMO+wshT4iHCxLDV5kMYT/pg0BcbU+557CuhkHt1mBd/I6eDgJQ9Jv1V0anglO8XDL9wFgLa0VBD4En1syfmjeSmV3GMJrcX0CsoIrVWVaD3ilwPOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LVaaiXQ6; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=m9CsOEchBo2f0jREYcdloHSJlCBrQigg/JlhLqqcEgZsao86GyPgMkMJlM4AYf1gCuBPejtAxB3NYjH8rBVKcBAWRCmtiNMfZWkQFykrq6t+KyZsKZTJPc8fZWNLXClfV7jtw0JsxW4k0UuA8lJKmHb+/LjKFnWuapolZby1LtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GAoUdjOv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LVaaiXQ6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792126491; x=1823662491;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vMokfa1+hvgywCpz3ofj3oYp/nbYqpRWvALkC8ki2hY=;
-  b=LVaaiXQ6Ok63teiWoK89dyz6Tl5OPgTmjRHI2+UMqAR48ZeYMfypeoZR
-   A/EBtGNi1cgEwYf/FkN8aGlbl7JJyLO8MVav41RJf0H60TjhbKEdAhHvE
-   URheyWQ6CLGT1LcqxOvExV6Mm+O3uGjM7bw0ipNsdL2AWI3pdfW8MkxRK
-   stId/yioIXnbhv1aHwQyUhzlZ60gth0Z939Y1HdpeZk5I80LOAyidIh7N
-   JKXiXzlSQNGt5QXe3O2D8AsVElmk9gQIQdpTAaeSG6U3lxCbAmZSyFHmF
-   0pQ2uR5sjv0lkhOD0nKQ86dvo6bkAzRrNIP2wskYczSNOVEpvxNKFcNJt
-   w==;
-X-CSE-ConnectionGUID: TC8XFTGFT0Spv5Cpv6c8uA==
-X-CSE-MsgGUID: SoVq2R6lQE2wkIVRowRn7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="918822"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="918822"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 21:54:50 -0700
-X-CSE-ConnectionGUID: REJ6z22YRraItSUsrmmjZQ==
-X-CSE-MsgGUID: F81ihg6QT2itneTire3loQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1843240"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 15 Oct 2026 21:54:47 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xHZxs-00000000Hcs-078R;
-	Fri, 16 Oct 2026 04:54:44 +0000
-Date: Fri, 16 Oct 2026 12:54:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GAoUdjOv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630751F000C4;
+	Fri, 16 Oct 2026 04:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792126498;
+	bh=RqtK5nQZlDPiIkEWsrh4UjcsPe8SRCMcr4buHlMrTH0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GAoUdjOv94X+8g8LoWzGuigb2lJLHbN/IIpX1KeywPkMBRhcMR87fYoj0qIZ8tfYt
+	 sfwAwWI+TNrnBhYmOyyuFZJt8yLA9NciUtM55xrBG61UluX3UrsA4kryRQ7TkadS7J
+	 ysg9jFzrJjOma02IqQJr+gNkJ5Fr7uN16Hm+g+aw=
+Date: Fri, 16 Oct 2026 06:55:02 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Okhuomon Ajayi <okhuomonajayi54@gmail.com>, outreachy@lists.linux.dev,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: Re: [PATCH v3 2/2] kallsyms: Don't leak pointers for unresolved
- symbols
-Message-ID: <202610161209.43Dqkd4l-lkp@intel.com>
-References: <20261015-vsprintf_kallsym-v3-2-c175c27f38b7@linutronix.de>
+Subject: Re: [PATCH] staging: greybus: add blank lines after struct
+ definitions in gbphy.h
+Message-ID: <2026101653-repeal-deploy-2aa5@gregkh>
+References: <20261015222735.89251-1-okhuomonajayi54@gmail.com>
+ <fcdee571-d94c-a5ae-5ae5-b41977f22073@inria.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,34 +43,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-vsprintf_kallsym-v3-2-c175c27f38b7@linutronix.de>
+In-Reply-To: <fcdee571-d94c-a5ae-5ae5-b41977f22073@inria.fr>
 
-Hi Sebastian,
+On Thu, Oct 15, 2026 at 10:17:35PM -0400, Julia Lawall wrote:
+> 
+> 
+> On Thu, 15 Oct 2026, Okhuomon Ajayi wrote:
+> 
+> > Add blank lines between the structure definitions and the
+> > to_gbphy_dev() and to_gbphy_driver() macros to improve
+> > readability. This fixes the following checkpatch warning:
+> 
+> Thanks for the patch.  But I suspect that the lack of a newline was
+> intentional, to show that the #define is closely associated with the
+> previous structure declaration.
 
-kernel test robot noticed the following build warnings:
+That is correct.
 
-[auto build test WARNING on ec8bf8280261294a9b9b4520414b42704c7f9f6b]
+thanks,
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Sebastian-Andrzej-Siewior/vsprintf-Don-t-leak-pointers-for-ps-without-KALLSYMS-enabled/20261015-180648
-base:   ec8bf8280261294a9b9b4520414b42704c7f9f6b
-patch link:    https://lore.kernel.org/r/20261015-vsprintf_kallsym-v3-2-c175c27f38b7%40linutronix.de
-patch subject: [PATCH v3 2/2] kallsyms: Don't leak pointers for unresolved symbols
-config: openrisc-defconfig (https://download.01.org/0day-ci/archive/20261016/202610161209.43Dqkd4l-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261016/202610161209.43Dqkd4l-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610161209.43Dqkd4l-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: lib/vsprintf.c:863 function parameter 'len' not described in 'snprintf_default_pointer'
->> Warning: lib/vsprintf.c:863 Excess function parameter 'size' description in 'snprintf_default_pointer'
->> Warning: lib/vsprintf.c:863 function parameter 'len' not described in 'snprintf_default_pointer'
->> Warning: lib/vsprintf.c:863 Excess function parameter 'size' description in 'snprintf_default_pointer'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+greg k-h
