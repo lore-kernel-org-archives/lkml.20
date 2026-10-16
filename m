@@ -1,230 +1,203 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010011.outbound.protection.outlook.com [52.101.61.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA16B399890
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792118448; cv=none; b=XIwFm6vhuAIAvT3ZOyyDdHLUi0XaSlqYgiHcoqKidafHerhevluBdrflaeEvMuKvASxW2C3ovhCnxwX1sZEb//pKcFi92H6aImlytywOGbj6V58+L6ThhaRfmVHn2hSJg2l//juubkLXAEKQbn9rOY8kcp0qPf6/pHQhoGo0x1s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792118448; c=relaxed/simple;
-	bh=gRW0CdjdsemactFwR3AGo+8wfuwlCISA/LqSdtKqkJM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z2PVSyShNDPrm5hIg7E3XAS71YiCiNPpZ0e4bxIwqhHjZjU3XvCvunlRzvyGACuvdDKl1ursgbdZXe616/cEE5aJfm+GVJ9NtL3z3uOQS6kRwc+b8EXzFEVP8yMYkA2y434I6uowg4eUlUbadFCGNlqknG1JPojYkLTppvu9KAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IzVy0qPX; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABC12D29C8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792118515; cv=fail; b=bm2uQIbvyRhSRTfHd7uPJQJFbJTk2ZBAIHXKzjJ/VEHI2B4uqMEf4uW+5v66g1q+q67oZHPtqSX548EpFup2u/uT64UabCfBxJiPA1ljKeoFwJiAudGzCkdo9pvWyPRH6V1QHyGNw43fVOtSQYdhAx+li7lQ7j+hPinRvfj/wtw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792118515; c=relaxed/simple;
+	bh=TpdIx8rKAqFjs/BG8XxayrZuOMwB4w9kKTQxHMZFrYg=;
+	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:References:
+	 In-Reply-To:MIME-Version; b=p/VA5rXxiIbLtF/9T3SwAxaCCnjNJ9jjzRGka3E2qscW2Bg6A1R/s5BSpgqO5d02YJIKcoshqbgg2pYnDsSPymsok/RPf5fcy/Cf6N0/DXsyNh3S0/zPLQ7Z7zWB6GB8A8QxTxRQxjrkQIu5w5W5zukF31KIfN8jEJlvVZDyLzg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V1OB2prG; arc=fail smtp.client-ip=52.101.61.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IzVy0qPX"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso26570795ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792118446; x=1792723246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KXXcWB8W/TzI98uT3k5P5pneThN/kTNcoObGZm/mG3c=;
-        b=IzVy0qPX8DVeU9Eb8hGI0aR5d1UJxcwftCz6FPsBTLyKn9eu36BiKne9qYss3jJnHc
-         jTQTaabqmbDpLXCmq6HIrfUCENVFb35qpwHQUTcwaxdS/T0ylMD8q8CcFJGyoaNqWV6l
-         HU50KwQnw5SGyd8QgRym2HYR3IHsTqIZSv26aXDPVSP/rq55w8yHjOCDvFk6YcFTEUFR
-         uo2quhW7UbFsl6T9ooHpPMBKw0QJ0lvqK0aGbgt5t19IdUzL69hmGy74jKfNPXzulgIn
-         DRZf8/oLmnlG7EtbbLB1iK8hRsEkgDhzq1B4jFYMBz/SpcF8ElBZ5AhU5UkiyBheKvf1
-         kFZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792118446; x=1792723246;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KXXcWB8W/TzI98uT3k5P5pneThN/kTNcoObGZm/mG3c=;
-        b=NwdRrm3DDli7ajgkFDBKKw0CfVB/fveydCnHyaeejseTTI4mApJtbfJgKA6NxDc1o5
-         9cRWubhhiG7hvkBQdR2oF2zGX3kAAfblcEY1wCaGF3JZhswYuCDtni+G2K3ZETzqBGZX
-         Jr5/zZgeDsLnY8vg8FLcPesc7FFrkvfTsT2MahIlgVhq0meHcaw/xOjzYduYUQFSluKF
-         pf/pLi8eQXTEToYHtOlE0ey+osPl1B4xIAY/q+YdA7KR/OPja+G49sPrnNrrwfc2Xgtj
-         nlxP3EhM+JoXXNucR9zMwYIKtDEQrdYiMiMABaWme51t/KPDdX9I2lUovz3thCeDF5nG
-         cOkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwddkylRcywcy5I7KkevNPIGY8a2+0JO0qg/DLtXA9hy4GUh3zuCIf5VZc+ibvxUiISOrf12sG1xW3mEng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRsjDh8BuYESakYqK6XDcAzScwq/e+2aYPTyJvlq5+TickuzT1
-	zPjA+QfbRKcDaNm1ST8G7RZJpYLIts7OotsKg4UVqsdq/1q2rqC7Oqzb
-X-Gm-Gg: AYBFou2FrY092ScCHG1YxS8ytXczDUVhQZQprDfV6XhDN0E6OxTas/PhRfaZZ/NjeYi
-	xaqlcYsWF/feLaApoMEN5EcMnRqDfvSkMDusY0TSorGoSDt481/BmySfSxFcdyvZpDsXclS/K5k
-	/QPxUKIgLTG8jdmnx5QfoNgoTwynAUIJr6EUWPKvcw55KcHv6PVFfXqPuuLKRfPEZrLuP7AAkRh
-	brUMTLW60YMWePQNFadXQdRSw/UwRe9AkJD2PJcMF+A0GPckzFul2qy61XD57uLRykHqrs2Q2LV
-	os5m5+xlFKAU7/SYvsyeNpzTXrN/qLlrU1pwrAwYoJLh+ms+C9hcAniaRDfNkoB40REAInKSP1p
-	acKiXI6GHrZP1nKz3jYiNMob16or3PR5mR55Z8XfG1JihRlFCl5XlVUXwtC0UDi5G8bVEyQeAaV
-	ns/ZQqa38n0nwIJHNxV4fqKzvEjTjMt3FKLqNQV16LMwAUSdW0Crgz7T/fYXKv89zYCyzpCtP/D
-	fgVj6MDOF+TEJs4uovr0hFePn/R6uI/fN+/bZO8CFL3jQ==
-X-Received: by 2002:a17:902:fd8c:b0:2d6:f6ba:263d with SMTP id d9443c01a7336-2e948deee77mr57925175ad.7.1792118445794;
-        Thu, 15 Oct 2026 19:40:45 -0700 (PDT)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d2dsm3246715ad.17.2026.10.15.19.40.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 19:40:43 -0700 (PDT)
-Message-ID: <17bf5ca0-c071-4ba8-b168-3ffbdae629ad@gmail.com>
-Date: Fri, 16 Oct 2026 10:40:39 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V1OB2prG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=os/v/geUsNzeDD/1XqAHi7lhNPvKTj/+FMCF6w4YtDeCGj3FfoPq0dnDlYyNllwOXw4tlkrl9Xar+AoligZFwYcH9mlDSqDWgF3mxHEV8xSE10yOhMosYZGGslD+ByCWmnOoZBNXnfZklaKigAA+fsAn3k6zpJeM7EGtWMoeHrUU668hbdE0HZb3TndjQ6lsgREsYphja3e83s7xA/f3580xH59CXI+pjcZ6hEY9JR4IlRgqcEnAFt0D/c+bLb2q6NlvbulhpYUP0Z1Jj867r5JWUYpLWEIopgHpnz4Til1yeXlGqzP7L2WakyVz8NhwoUolywmMtqvYMQnV+4SjTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OtMmLhBeLqirt0Q7kXqfUO5ffFx3ulqdNIKghKUnZj8=;
+ b=KAkXh9gHuG2cHE9O+q0g4Y+8s0zAOqe0t3ilrtk8rjOgr2oxlv7rmuv9e8RXt5t7PQpk2hFZeYITw/0sokkzymupzbIVtV8rnF4d62IkWdqguipXSdvZPBxwLo78BUweIrEaTCJOVD6yKohvSQwLW0dJGldhUqy+p8aVJwynQMR2CBoKoKtYkZp1qjs5JBwiKtzUVPe7wFBPr/iSsXTNL0TNkr/C8cVSmyC4+LtstNBALrIZnAtqfj4Nqaat8kPZydNRB9WvNXG2PJXNTF9F5Xw2QLOWjt+tQ528Zfj7iHi+Ujljluq5uh1ZIAQ9ArfQwfVGD9FWY+fHl/UxdOsZYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OtMmLhBeLqirt0Q7kXqfUO5ffFx3ulqdNIKghKUnZj8=;
+ b=V1OB2prGU2FVQ2nMa1QLiq5NqsLupjuVSea+75Ku2p/TmpqE99HeX3Hbd+14YVeENi5XxRDiV6PFG8+6l4xUS6g6evApHWCEBjTjJA2xfN3TdYdOB2bT7mZX1Zr7Byt3sySgmDyVrYlpFpFLSyM8rG4d2pfpIE9awPiCU44Zl/Tx5hLOqmB/Q89vNXBresGO7rCxjxvKkKBTMSwO5NuHFi4rHsRCG7+rHp94ZjMLYiXl0eAN5SvuAUrzcfsBi/gLKhD9IB2qKpNRW3JSY5GRPd4qDd13nvFpVXKGoqDmK4iwcvAjIRukwzgqWMpx99Hvb4YyPXtrsv8FY8wurOXRNg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SA1PR12MB8141.namprd12.prod.outlook.com (2603:10b6:806:339::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 16 Oct
+ 2026 02:41:44 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Fri, 16 Oct 2026
+ 02:41:43 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 22:41:41 -0400
+Message-Id: <DM5WZM70OU86.3K6UFWD42G217@nvidia.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH for 7.4-rc2+ 2/7] riscv: mm: don't let GUP-fast follow
+ invalidated THP PMDs
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Zi Yan"
+ <ziy@nvidia.com>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
+ <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>, "John Hubbard" <jhubbard@nvidia.com>, "Peter Xu"
+ <peterx@redhat.com>, <linux-riscv@lists.infradead.org>, "Jason Gunthorpe"
+ <jgg@ziepe.ca>
+To: "David Hildenbrand" <david@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
+ "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
+ "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
+ Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
+ Shutsemau" <kas@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Rik van
+ Riel" <riel@surriel.com>, "Vlastimil Babka" <vbabka@kernel.org>, "Harry
+ Yoo" <harry@kernel.org>, "Jann Horn" <jannh@google.com>, "Kyle Zeng"
+ <kylebot@openai.com>, "Andrew Morton" <akpm@linux-foundation.org>
+X-Mailer: aerc 0.22.0
+References: <20261015-anon_vma_uaf_fix-v1-0-7b977303b42b@nvidia.com>
+ <20261015-anon_vma_uaf_fix-v1-2-7b977303b42b@nvidia.com>
+In-Reply-To: <20261015-anon_vma_uaf_fix-v1-2-7b977303b42b@nvidia.com>
+X-ClientProxiedBy: BL1PR13CA0322.namprd13.prod.outlook.com
+ (2603:10b6:208:2c1::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 0/3] i2c: ma35d1: Add support for MA35D1 I2C
- controller
-To: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-References: <20261016010448.324856-1-zychennvt@gmail.com>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <20261016010448.324856-1-zychennvt@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA1PR12MB8141:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5047d656-b5e6-4a9f-c87f-08df2b2f0398
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|56012099006|261009223027099003|11063799006|921020|4143699003|18002099003|22082099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	tAEXEF23cak4xMrmUmaeU5qrIcIVvLXxI3PKQkEd2kT4i8/HLCxOBc5THIYrak+83aOCatgPsmWGvQH9A4nHWqOuNftqXiiMp5+QYyv+Vqyhs5WcFCilB0W3EOlZ3czP9VeR2HyDk2h6JsLZoSmf6P1eQJ3ISQlQrnk6LU54Y3OUtJS+zSn+zQLP4m3k6U811UBUDXvmWlZw5M/t0t2zPc0CCt9S8SAWTSUHPj4zSEjKFzYHyIPBz9ZHWUAJUQA4XMoMS+whJXWHI7mZG49m9VLMtH2IIFqkMywHPugMg0BCQX/aawSTr30Ir4rptEAD2ozEK2JYwutuxxsd1VbA/q5o8zQ+kc20b1vgFd4WTY1GA4f8EXj+Zuf00+he7QJ5tqRKVN8IsG3sUJYgZ5v9tXrXz97P2AN4RXwvU+MxAzQfDu6goMwE6svwF434Du1VVuMDOhSgKq+P7IgogS8yrPqBg3poRdelxm+Ux+kQvfd5RLl4xy6Xsptr7u3k8lgCaKiIOtAqwxkQzAZQXpnWzAtdMrmt0K5OuWM+8SK1FXNyGI3O1jKLgt30z+0TDjL/pHsoPOWNVTMoSgx91Rnbf1aiVSH66AchyO0p3xIsog/0b7TMHXaHwXrg3XYJBZT746FuFOSmBmssVT6zSvOWF+QuTT/8miLg+o4noKYsa9YltFtOaNe9iEioz1hQcqHmiqjmTaDJ097I/I8i4eLMgA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(56012099006)(261009223027099003)(11063799006)(921020)(4143699003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QW1QN3VBRUpJaFRvVklReGsrTDVZOFRRbVdCMkFndXNYMitibWNKSXVjTjVk?=
+ =?utf-8?B?R00rZ2xOYXo3UGFsK0hZWVcrY0VITEg5VFNiMmpYeTVGZ2hobkxtMDhnL1Nx?=
+ =?utf-8?B?OEU0Ung3S0hKYjFrdXFMMnBxSUloNmVSNGpjK0xKbzMrb2hzcnRjYnUrYnlm?=
+ =?utf-8?B?OERic281SHBDZnh5citZRDVlTGJpQlBQeUlTQ3ZDb05hdWxiTTMwRWl1SjZ1?=
+ =?utf-8?B?SXhjTm5LL3NySngvTUJPYVJWeEJJT0JZbTVML1ZRcU4veG4vNzZuQlRTWkp5?=
+ =?utf-8?B?SmcxOWM0L2dVdmU2azRlektBQjhKdjdCSVBGeHFNcEJHdGY2RjM4Z1ZLTTFi?=
+ =?utf-8?B?d3lhQm90SzlvM1NUaWZqazFlUGVRNzUyZS9DbVQ5YzNyL2h1b2psVjRqSnpD?=
+ =?utf-8?B?ZTVidXZaN0ZPZGRjNXAyZWwzMXpPVUJzYTdPSUtZQUh4RWxhQ1AweHh5bmVB?=
+ =?utf-8?B?OWZqejBuZ3o0UlFoUTBrcUlqcVdSQ28yUVYxQ2t6bjVTNEV3aHpjZy94QUo0?=
+ =?utf-8?B?OHZYbm9QR2gvRytPVytTakxxZzRncHhCMGsrcjgvODJqSzNQTnMyMTZaQnBH?=
+ =?utf-8?B?cDlKQXRFczFlSnpYR3B5a0FjZ0k0SDRGWlZDMGMxTW5sdThmUnM3YTgxK1Fj?=
+ =?utf-8?B?Ny9JdjFFU2UzM0FvZXR2eUtWUGlDWVMwcDNOcUxFVWc5UjNYZHpoaVlYTnI1?=
+ =?utf-8?B?dUZ4TlRTQUtBRUlVSWdBT1dINkF0dDk4L3NieDFGY05hQUJ6U2V6TEhrTVJO?=
+ =?utf-8?B?QTg5NzFNSFJnRzdNaVZadzBxWTBod2Q4UXdjTkZzUFVxWlVnUDFWZXZjdVNz?=
+ =?utf-8?B?RzV2ZmhtOXRka2xyUHVyNWVpNlduamFLaG9lZ1RpL1pWQUpXVVFzdFBOWC85?=
+ =?utf-8?B?ZXdHOVZKMzNjSUZXTnZWY25pa2tQWEZsVUd5am5CNERWTTFIUXd5eDAxekJQ?=
+ =?utf-8?B?WFF2bFJUUDQ2SFQxN3NoNUd1Z1dNaUVieWhXMTY3bTAxWjdXbzRSUE80YndC?=
+ =?utf-8?B?Sm44NUNiRU9ybkU2emRMK0RqdHFSUlVzL3kwbGhwNlI4ZEpVTWZsYmo4cTYy?=
+ =?utf-8?B?cEpBcXFUa0duN21qV3V3MlZtTi80QlB2UmMyUWtSeHN5OVRyckxucTdSbUlm?=
+ =?utf-8?B?ZDM4dUJacXMzSWdaSlNUUkRUeU1WeDAydGpTbXJpUlNvM3dNYmxJMHE5K09w?=
+ =?utf-8?B?RFo3R2NGaVo4eTlsMzBZR3FmS0NZeXhPV0VITDBONUNZQm54bXBSalZScG01?=
+ =?utf-8?B?SlJxbUEyOXRvbit2Si9remtzY3NjUXM0TlcwblJEdkMrSDVnMzMxd0Z0bEZN?=
+ =?utf-8?B?dEtKM2Y3SWlTQlZydEczb255M1pjSFNIRFlmRVdVNEQra01tdkU1eG9HdW14?=
+ =?utf-8?B?MTBTWmJXTVV1MzYvbVRSN0F2QVJHU0d6MUh0cjhqWTFySVpyaDFnNG5EMEt6?=
+ =?utf-8?B?VlBMckw3eFEzS0g0cjBnSXlMclFiZ0NwcDVlenhLZUhrWEUvTXZ6V2pQK1Nk?=
+ =?utf-8?B?T3pIS1JhSXZ3VFZ3OTBuYkQzaUxHczVXR3hIRUhIRXRWL0Z1Z1E3a2tWUE5D?=
+ =?utf-8?B?dFJGamNVVDVicVRUbGtyb1NtaWFqd1p3anpCalh0WGFLcjlRN3NPNEZSQVR1?=
+ =?utf-8?B?QWpLOUtQZDIxaS9jbFVBVEtnYXFVQ3NXc2FrSFRkZXREemJteGF2ZlBGQ01a?=
+ =?utf-8?B?T011eWxxT0ZWbDhlSEQ1T1lycTM3aldvK2Y5Z0FkTE9hWGEvL1lVWStPWEFn?=
+ =?utf-8?B?T2VtNWc5NVhKeTU0RWorRlE4ZTZXZnBsOXJORUJOVjJhU3lXNTlLcGlWbnAr?=
+ =?utf-8?B?ZkNaV215L0x5WEtacW0yMUZhWVd4WFU1ZnZMTzFISVBLOGpGc0hiNitWUjFh?=
+ =?utf-8?B?eFRJczZXUHFsOWViWnI0T0NDSndPSnZ6M0hOQmg3RVE3ellLMFhuTzY5M0Fz?=
+ =?utf-8?B?UUtFR29iYlhmdjl5RktocFBIMitYR2pPUmZTMnE1dGRXeFFKTnJBWk9XZW01?=
+ =?utf-8?B?MUlBTVlUcEFkMXFUY3g1Z1A0WFNEdlB0Uk5TZWEzL0ljK3BwQVlGN09IUC96?=
+ =?utf-8?B?YndGSEw4OWR5VjV1NTRpclZwRHZxcVBwTk9MVzBNWjRtd2o4ODVGSnoxVXY4?=
+ =?utf-8?B?d214MmxZMjFpY01FeURyOE1wbGd0R1BmRkVvYXpEZExLOGszVGRBQWg1YytB?=
+ =?utf-8?B?UXFXSDN6aW4rSGFwWkl6RFFqakN0ZVNUSlM4K1pQVnJHMmtWSkNkMlFISGNo?=
+ =?utf-8?B?MFBqNWNmTVcyRkZTdnVSRWxqbEo3R3lEWHpYMUYraGt1VXR4ZjJuQWVCWmRT?=
+ =?utf-8?Q?U4IAWwKcN8tXhakhiJ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5047d656-b5e6-4a9f-c87f-08df2b2f0398
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 02:41:43.6505
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z5/jMt5QB+fJdLt49q4t+8or4h4mjQ3ni7fl/mg9JS2Je938HVbwvaI8/Mhmb0aX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8141
 
-Hi all,
-
-Sorry, the cover letter subject contains a typo: it should be [PATCH v12 0/3], not [PATCH v11 0/3].
-
-The cover letter content and all three patches are from v12.
-
-Sorry for the confusion.
-
-Best regards,
-Zi-Yu
-
-Zi-Yu Chen 於 2026/10/16 上午 09:04 寫道:
-> This series adds support for the I2C controller found in the Nuvoton
-> MA35D1 SoC. The driver supports controller and optional target mode
-> and runtime power management.
-> 
-> The implementation has been tested on the Nuvoton MA35D1 SOM board.
-> 
-> Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+On Thu Oct 15, 2026 at 2:13 PM EDT, Zi Yan wrote:
+> pmdp_invalidate() leaves a PMD whose pmd_present() is still true, so the
+> generic pmd_access_permitted() returns true for an invalidated PMD. Then
+> GUP-fast can grab a reference on the folio and, as the PMD value doesn't
+> change until the caller finishes, the recheck after taking the reference
+> passes too.
+>
+> Code that invalidates a PMD and then decides, from the folio refcount,
+> whether it may drop the mapping relies on GUP-fast backing off from an
+> invalidated PMD, like it does from a cleared one. x86, arm64 and powerpc
+> already reject invalidated PMDs in pmd_access_permitted().
+>
+> Provide a riscv pmd_access_permitted() that requires _PAGE_PRESENT, so
+> invalidated (and PROT_NONE) PMDs are not followed by GUP-fast.
+>
+> Assisted-by: LLM
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> To: Paul Walmsley <pjw@kernel.org>
+> To: Palmer Dabbelt <palmer@dabbelt.com>
+> To: Albert Ou <aou@eecs.berkeley.edu>
+> Cc: Alexandre Ghiti <alex@ghiti.fr>
+> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: John Hubbard <jhubbard@nvidia.com>
+> Cc: Peter Xu <peterx@redhat.com>
+> Cc: linux-riscv@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
 > ---
-> Changes in v12:
-> 	- Synchronize IRQs while initializing transfer state and issuing START.
-> 	- Clear wake-up control if enabling IRQ wake fails.
-> 	v11: https://lore.kernel.org/all/20261001075101.489660-1-zychennvt@gmail.com/
-> 
-> Changes in v11:
-> 	According to Andi's comments:
-> 	- Prefix the remaining timeout macros with `MA35_`.
-> 	- Handle errors returned by `i2c_slave_event()` by sending NACK when the
-> 		target driver rejects a request.
-> 	- Use `dev_err_probe()` consistently in probe error paths.
-> 	v10: https://lore.kernel.org/r/20260921083753.1109826-1-zychennvt@gmail.com/
-> 
-> Changes in v10:
-> 	- Handle enable_irq_wake() return value in suspend.
-> 	- Correct clock divider mask and maximum limit to 10-bit.
-> 	v9: https://lore.kernel.org/r/20260807060400.2047517-1-zychennvt@gmail.com/
-> 
-> Changes in v9:
-> 	- Centralize SI handling in the interrupt handler.
-> 	- Fix target mode comments.
-> 	- Initialize the target transmit byte.
-> 	- Add reset_control_deassert() during probe.
-> 	v8: https://lore.kernel.org/r/20260804084806.1846570-1-zychennvt@gmail.com/
-> 
-> Changes in v8:
-> 	- Remove rpm_put avoid duplicate processing.
-> 	- Add synchronize_irq wait for interrupt to finish before i2c->target = NULL.
-> 	- Add ma35d1_i2c_restore_idle() to handle bus errors or spurious interrupts.
-> 	- Change return types of TRX helper functions to irqreturn_t, returning
-> 		IRQ_NONE for unhandled status codes.
-> 	v7: https://lore.kernel.org/r/20260727081859.1737223-1-zychennvt@gmail.com/
-> 
-> Changes in v7:
-> 	- Disable IRQ before clearing i2c->msg.
-> 	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
-> 	- Remove redundant register access in runtime suspend/resume callbacks.
-> 	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
-> 	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
->   v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
-> 
-> Changes in v6:
->   - Patch 2 (driver):
-> 		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
-> 		Based on Sashiko AI Feedback:
-> 		- Added zero-length read quirk.
-> 		- Set i2c->msg to NULL on timeout to avoid use-after-free.
-> 		- Cleared hardware registers on target unregistration to release the bus.
-> 		- Protected suspend-path register writes with a spinlock.
-> 		- Validated clock-frequency to prevent division-by-zero.
-> 		- Removed incorrect I2C_M_IGNORE_NAK handling.
-> 		- Corrected a comment typo in the receive data path.		
->   - Patch 3 (dts):
->     - use a generic functional name audio-codec@1a
->   v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
-> 
-> Changes in v5:
->   - Patch 2 (driver):
->     - Add spinlock protection for MA35_CTL0 register access.
->     - Add NULL pointer check for i2c->msg in the ISR.
->     - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
->     - Use pm_runtime_force_suspend/resume() for Controller mode 
->       system sleep.
->     - Control I2CEN bit enabling/disabling via runtime PM.
->     - Refactor arbitration lost handling in state machines.
->     - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
->     - Clean up readl_poll_timeout() parameters, retry loop, and
->       unused macros.
->   v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
-> 
-> Changes in v4:
->   - Patch 1 (dt-bindings):
->     - Update example interrupt number.
->   - Patch 2 (driver):
->     - Remove redundant spinlocks and fix 'irq' type to signed.
->     - Fix target address recovery in ma35d1_i2c_reset().
->     - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
->     - Fix timeout UAF via explicit IRQ disabling during recovery.
->     - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
->     - Limit suspend/resume wakeup logic to target mode only.
->   - Patch 3 (dts):
->     - Add missing i2c0 node to dtsi.
->     - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
->     - Add nau8822 audio codec node under i2c2 on the SoM board.
->     - Drop redundant i2c0 alias and clean up dtsi property ordering.
->   v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
-> 
-> Changes in v3:
->   - Fix minor DTS formatting issues (whitespace, missing newline)  
->   v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
-> 
-> Changes in v2:
->   - Overall:
->     - Rebase on linux-i2c/i2c-next
->     - Switched terminology from "master/slave" to "controller/target".  
->   - Patch 1 (dt-bindings):
->     - Simplified description and fixed 'reg' size in example.
->   - Patch 2 (driver):
->     - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
->     - Optimized power management by moving clock control to runtime PM.
->     - Simplified code by removing redundant .remove(), .owner, and inlines.
->     - Added dev_err_probe() and default bus frequency handling.
->   - Patch 3 (dts):
->     - Moved i2c aliases to board dts and reordered nodes alphabetically.
->   v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
-> 
-> Zi-Yu Chen (3):
->   dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
->   i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
->   arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
-> 
->  .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
->  .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
->  arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
->  drivers/i2c/busses/Kconfig                    |  13 +
->  drivers/i2c/busses/Makefile                   |   1 +
->  drivers/i2c/busses/i2c-ma35d1.c               | 800 ++++++++++++++++++
->  6 files changed, 969 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
->  create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
-> 
+>  arch/riscv/include/asm/pgtable.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pg=
+table.h
+> index d48f90140841e..66aac56631f0c 100644
+> --- a/arch/riscv/include/asm/pgtable.h
+> +++ b/arch/riscv/include/asm/pgtable.h
+> @@ -816,6 +816,12 @@ static inline int pmd_write(pmd_t pmd)
+>  	return pte_write(pmd_pte(pmd));
+>  }
+> =20
+> +#define pmd_access_permitted pmd_access_permitted
+> +static inline bool pmd_access_permitted(pmd_t pmd, bool write)
+> +{
+> +	return (pmd_val(pmd) & _PAGE_PRESENT) && (!write || pmd_write(pmd));
+> +}
+> +
+
+Sashiko asked if this function allows GUP-fast to follow execute-only
+pages so that the page can be read.
+
+Answer:
+
+yes, and the new patch is at[1] and fixes both issues.
+
+[1] https://lore.kernel.org/all/20261015-riscv-gup-read-fix-v1-1-8cf7f25040=
+29@nvidia.com/
+
+--=20
+Best Regards,
+Yan, Zi
 
