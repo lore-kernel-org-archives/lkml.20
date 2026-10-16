@@ -1,149 +1,66 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7AA4C8C48;
-	Fri, 16 Oct 2026 13:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40E54CB8C8;
+	Fri, 16 Oct 2026 13:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158529; cv=none; b=R/TelbzK2zkUt5nfd9pgyokpOI7pQbwdi955sQJRBklMfU00fqgZHpxBlKyvW6Y871ZQ1fCtOpdzBiGpGzlwaYBEG4OpaTWMElQH9D0SkPuD/OeZK+Lj3GoHZa6IX82fEmG/+Z/vgghoTyYbuU1KheXeCVLexQ2NyyuJaun3Zqc=
+	t=1792158529; cv=none; b=A8DrGe/lWjaRdr+Dlsl/S6zBRwD6EUARUv+FzZ607h3IyEoWZN8dysTQkq0j0wRC0p6nzyEpwsiTZgI6fJP8MQFtdrEj+qR3fUOHgBXkyTyJGja3KXU1J2SVc9PeeXii5BmFQvQK/Faj930Z89o7j12/Em5ifDnKofy3ueZJoWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792158529; c=relaxed/simple;
-	bh=zlQWcttho1vyPbsQg0Xn2LU8NAcWx23gixdtx0PGqHU=;
+	bh=7gxo/iT76oZhySouvBbrgt+pR5i7xcFoimOaqQbJ8M0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gHn775xdSpKgJXzbK04kCdxZpUaFhL+HiFm4sKdwfK8riNC7SkNekiPNARfxrnunfmKaRmR39GsAcNDKY7YQGtDUPROErDOrhTiPI5yXuWLShDRsRUfZNG5sj6v/k/jKMC9OQ/LchY+ZuIWzhykTfHdcZHZvsl5OBKbiPTZ7fPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=FfWVDKYA; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=omJanZh+73xVrdiupfecmKl8DAk3EgOL3VLHEuEDxItOgdnHkpw39Zbk79gXfi9y/RUwNDU5Ab+L47w0LOayI1KTnuE41LRHla86w3S37yeK+vKqzrE6Gzr2H316eGqcPsLXs42hae4iDuSmy/6/SrhAdOPQLm1+l5Mu9b4x6BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUgVfdH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="FfWVDKYA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1792158167; bh=zlQWcttho1vyPbsQg0Xn2LU8NAcWx23gixdtx0PGqHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FfWVDKYAiOIYpMdsxizgJ8SripUI215Sy5onHIqmI32OzRHKt/Q0Z4y7qZcFEoDcy
-	 usNqeelRXIwcsAy+AU0OKgqQEU8eiszqresIFhFFHUCVkl9+ho6u5CxmuNTJ17TCmJ
-	 wTE1z2EFcSHLJOl5tdTt8APo3I7+RBUw4jiwEdA/sr8E7dr+W+8DcwagYjU1o+nOMl
-	 QOScddDUQyl2mBtV+TCj+bOU9V2AUdSHn8a/0Pci1Z6hv+lLPqelIGW7J3JxeAfPwl
-	 0xDmSBvN33ZNR8bnG++Bz0449Xux1s8oHr8LInwL8yqyDehH0QiDC+DFnJpgN354EH
-	 ZQb0pl92Eg9AA==
-Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6ad229d7-c83a-7f0000032729-7f000001ea90-1
-	for <multiple-recipients>; Fri, 16 Oct 2026 15:42:47 +0200
-Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 15:42:47 +0200 (CEST)
-Date: Fri, 16 Oct 2026 15:42:46 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: Van Vo <vngocvan@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, ndesaulniers@google.com,
-	morbo@google.com, justinstitt@google.com, masahiroy@kernel.org,
-	llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gen_compile_commands: honor the build directory for
- modules
-Message-ID: <20261016-fast-lyrical-frigatebird-dcd303@l-nschier-aarch64>
-References: <20261015135752.17028-1-vngocvan@gmail.com>
- <20261016012148.GD3329673@ax162>
- <CAJavoFk+zgySyNps5tuKmntmvuAyev=kKL640TFrfCc-njeWBw@mail.gmail.com>
- <CAJavoFkpO29P_oD_YLBkkp6_k080mN-ctRPXSvB+oj_-vpcR0w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUgVfdH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC6A1F000C5;
+	Fri, 16 Oct 2026 13:48:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792158528;
+	bh=loFbvd1xN1XfodqPeTILaYkCCxa30uKsn0WRXfEjV1g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eUgVfdH7G2DW78S0UHTfZeoclR1Dq+Rnp2VwsqyZ/5nNqJzLJbQhLjOzSEONJtjfQ
+	 YUNQF9VBuNb0Luzuhnjm6+XfLhLuY56G1Piadyb71q6XLyZ73I7oQBvg00VDiT5UrJ
+	 w0/tPDEb3ipwwiuidg7m9mTiV8pkl0tUin3ez2WGNZ+itsvIXJtkXNA+vB8XvZhEIw
+	 VmTo8JSU9j1klI1kzzxVdH9V3ttVJvTLOYOZggFrEOfPmc3ihNLwe2b7sS01p7xGh8
+	 pSWhvhlJ36cfGDcFIiEP5Vi5wXLNaLFb20pW1oHxQMZiGF3ZlkDoO59omLdB5lqMR6
+	 dn3S9nlxp3TEw==
+Date: Fri, 16 Oct 2026 08:48:47 -0500
+From: Rob Herring <robh@kernel.org>
+To: Lachlan Michael <lachlan.michael@sony.com>
+Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com,
+	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Message-ID: <20261016134847.GA1743231-robh@kernel.org>
+References: <20261016075918.19345-1-lachlan.michael@sony.com>
+ <20261016075918.19345-2-lachlan.michael@sony.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJavoFkpO29P_oD_YLBkkp6_k080mN-ctRPXSvB+oj_-vpcR0w@mail.gmail.com>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1792158167-3CFFB515-A91D54D9/0/0
-X-purgate-type: clean
-X-purgate-size: 3158
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 52EEDA03FD  external: no
+In-Reply-To: <20261016075918.19345-2-lachlan.michael@sony.com>
 
-On Fri, Oct 16, 2026 at 01:25:33PM +0700, Van Vo wrote:
-> Hi Nathan,
+On Fri, Oct 16, 2026 at 04:59:17PM +0900, Lachlan Michael wrote:
+> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+> over 2 or 4 data lanes.
 > 
-> > How was this discovered?
+> Add device tree bindings for the sensor.
 > 
-> This came from code inspection of standalone use of -d with an explicit
-> modules.order argument, followed initially by a constructed reproducer.
-> It was not a failure encountered through Kbuild's compile_commands.json
-> target.
-> 
-> I have now reproduced it using real Kbuild-generated artifacts from
-> 0fcb05b72344f40806cbe810de8872f1698bf053 on Linux/aarch64, with Python
-> 3.11.13 and GCC 12.2.0. This was a partial lib/ build with CONFIG_TEST_LKM=m.
-> 
-> The following uses a disposable source tree at that base. The guards
-> prevent overwriting an existing output directory or result file:
-> 
->     (
->         set -eu
->         test ! -e out
->         test ! -e outside.json
->         test ! -e inside.json
->         make O=out -j1 allnoconfig
->         bash scripts/config --file out/.config --enable MODULES \
->             --enable RUNTIME_TESTING_MENU --module TEST_LKM
->         make O=out -j1 olddefconfig
->         make O=out -j1 V=1 lib/
-> 
->         outside_exit=0
->         python3 -B scripts/clang-tools/gen_compile_commands.py -a ar \
->             -d out -o outside.json out/lib/modules.order ||
->             outside_exit=$?
->         printf 'outside_exit=%s\n' "$outside_exit"
-> 
->         inside_exit=0
->         (cd out &&
->          python3 -B ../scripts/clang-tools/gen_compile_commands.py -a ar \
->              -o ../inside.json lib/modules.order) ||
->             inside_exit=$?
->         printf 'inside_exit=%s\n' "$inside_exit"
->         test "$outside_exit" -eq 1
->         test "$inside_exit" -eq 0
->         python3 -c \
->             'import json; assert len(json.load(open("inside.json"))) == 1'
->     )
-> 
-> Kbuild generated lib/test_module.o, lib/test_module.mod,
-> lib/.test_module.o.cmd and lib/modules.order under out/. Both .mod and
-> modules.order contain lib/test_module.o.
-> 
-> The old script's invocation from the source directory fails with:
-> 
->     FileNotFoundError: [Errno 2] No such file or directory:
-> 'lib/test_module.mod'
->     outside_exit=1
-> 
-> The same artifacts work when the old script is invoked from out/:
-> 
->     inside_exit=0
-> 
-> The successful invocation produces one JSON entry for lib/test_module.c.
-> The patched script succeeds from the source directory and produces an
-> identical entry. The old script also fails with absolute paths for -d
-> and modules.order; the patched script succeeds with those paths too.
-> 
-> Only the standalone generator invocation is outside the build directory;
-> compilation itself runs under out/. This is not a full kernel build or
-> a boot/runtime test.
+> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 
-Thanks for the detailed reproducer.
+Missing Conor's and Laurent's tags. It is your responsibility to add 
+them when sending new versions.
 
-Quoting from Nathan:
-| How was this discovered? This cannot happen within Kbuild because this
-| script is always invoked from within the build folder, so was it a
-| manual invocation or something else?
-
-So, if I get youre reply correctly, the issue this was not discovered 
-"in the wild" but can only be reproduced by manual use of 
-gen_compile_commands.py.
-
--- 
-Nicolas
+Rob
