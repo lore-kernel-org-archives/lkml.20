@@ -1,98 +1,93 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A07837F735
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D9D450917
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141349; cv=none; b=s41uGqGAPEtDF2v2vA7SsQVzZI+eT32nF+aL3CxKULwfSafg6w0Jnhy8VswI9F8P8yV8rbFBliL1I7pUhdG9DqAYcBPHMxRC7difM2I9vYNNLx95RwCLuzgZKuoZb8S3CqbCSt7mhvyvJYenNNjgTDNP8kfHRwvwvqnHJSI6C7E=
+	t=1792141355; cv=none; b=hk6fiaCC3RebQhECCTsxBwScGoNidovbUStaJjvVmspMw5xrLPTvArZdRRdPJCaRIQmXyzF9v0lf/FPwoKz2/wrprY4n2Gnz7duFEzdgFts4Wjl23oEkbF7qnPpTh8viY0Gfin5c88X+Zlc3wfrE90deJLvPFtLwQINNIqU2R1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141349; c=relaxed/simple;
-	bh=03wvLy0zJqzb5h8XKCWjaaV3LCQE8VtzzTV3cdu3yrI=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=NDl72Zc3tCpg119Jg/T3D8maXTpynlotBeQ4hkeAnFAp9k4zpob2/5Uuivioz8DwF+QyqELsvSUsK1UhIqLeggA/9DkqMNthoede2+aENnrEedX6yniyZwS9pxRuA/40O70Pc0dm0dgSu1uBA7t9FxMqlx/xwpHOxQSBcbtZ0ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b597558c4cso10434320b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:02:27 -0700 (PDT)
+	s=arc-20240116; t=1792141355; c=relaxed/simple;
+	bh=EAL0w1drlk9iRFR44y1KTfcczLiGqgrQS+sQXndKFGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q6WNC0+UemWFbxD6DO1Kgb4GWQ9ZW5xYZRrdCVzn4XzWnQzE908mqCgXQbKR9aqSuf0uAKsrsQkW66p8uoU6SRajFoVXO1D2+c1UQ9ncUX3kiKHTmC7jr/BX6hZ9b4Fq3t7uiwFCEJsSuux1AZUIdDB5Q1BRh6nfxhE1HX7lTp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/xS1Har; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/xS1Har"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso3453415e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141352; x=1792746152; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j0+d5JuI7cYWqs6zSvGD292VqwhHrlteYqsYUHwcriY=;
+        b=E/xS1HarJM/1VjZk6VVExV4VjrIjxI7zxPYbwTlA166+kCdMwWdyE+RYgG5UALv/xg
+         MYNmnlQdBFTEVsJxooSR21XC6p1YlIFXLWXM3403qSeLtsYazUG/be6Oy5UPqWBPTruJ
+         IgNL/6l7+IQRbnB3iRvIWLWirXgHl169CY36SbGwF4i5A+qZozIg04xePRX+t0K28LGO
+         zz0wTHPNTNGgbT40shis3KLbPOhT9vOoDv0T7fae9J4d44m40JzuPGttSmLrAsMca2E6
+         Z4ZatE8038/DQIamSWd8N4XmbQ5t/0+ooiKg7VZjLjSO74JYmeh3qXl2YDea2pzbWZ+F
+         +P2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141347; x=1792746147;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PGC5rRKkWGHaBncrXQxSGxuRZhZw/YbcZjKWDeEG3to=;
-        b=1R6c0PsQgXyX76qAxU/RwSzsZdOsRcqwhAUgzWzwKdGrt5NHlwFziFxnZy8z6F76pM
-         M6cYhWh7M2KXyW3twnm921qNqjLQoyaPFQXTIFwKYrIzsvOY7JOic5EIUoXQwCuKYWT0
-         Gycg2z2KhZIUjuiNyAUtjxtwgXcEGkf30o9S0vubJF4XWVSwUFfrSL5TyFcSw8Dwlqr/
-         T3XvqjMHUbPNhBGWdx74EwCC3ajOe6lc43is1l6gP0F8lzzL3RYOJmHT58A1CKihau6w
-         GUdznDUiDS9k9Tqe98Lz7ptAHwX17Ydrg5wGWAFf5lvDEdq67M55WLt/VtPSJF7U8y/w
-         TE0w==
-X-Gm-Message-State: AFq9FYJAaqBIEwLSfZiokEjd1ORIEcFFiojcJSYQktHhYVezXaNuIPCR
-	qHte17nbRfTPigoZXOEV0OkSj2FkgAPEJRQYHoBdlfqiMBc6sgDmXWi7sX+p+SoWtxxMSdTNYRe
-	RYvvahi8oK3MHr6dEpXoPTGUfaO9y9rN4QVUTttEXDlJU4V/8+MtI8CuOqOE=
+        d=1e100.net; s=20260707; t=1792141352; x=1792746152;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j0+d5JuI7cYWqs6zSvGD292VqwhHrlteYqsYUHwcriY=;
+        b=XpF9JysXXNsfdFDq0QoCuQ7jCQMzHAvdJBvuzvvis95aYt/3sZL/WRetZwPPbAq8UV
+         oh/o1WyCa0IR8l+LNmxb+1LYbUvpwnP3TTaxBBwSeh8vKj+Wrn0I1sP9SwX/z8sEkZv5
+         //uL4xzAy+sJRnAC8gboGXSuVwzbaOFBIqIKiEI0pspIXX/ZDqAomDopF+3TVxzzkDFX
+         yeVcKmFL8GXvhQRKpHYwIumTf4IR/infoMQPCtH3CdHUwVIkuXASytYPN5i9uHCgWdre
+         Nox8ydic0vLQdF95oMxiFko0xzINPhqA8oux5fAqnBbrNUDV0kdH4NlnjdPXurYWSh4d
+         5AyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy31rmRlhxI1TTcH8gOsqnMN/he1fq21UEbDqCOP9fsqCaD35+WcB/dXY1Myi0cO4q6oPpvjRXUM1lAjvw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb20sTM1x09V94fRXzYUeDsDsoasdwTQdjcbzrEZdQflK81vTd
+	uGSi4ILL2I1aoSa8JZj53fciTUht+UQvu92iE0/ICr5IMmDZDgKViWw1
+X-Gm-Gg: AYBFou3t/Vi7hWmCeskdhgL4I/wnkxjKCHK1vIB/lb7Ny1W3viHVMK1sgB2LcRy1Nlt
+	MHS4TZFm9v/VKvzu9dTaxoqsmfUcEYa5jPl7t1DOPDouWYJIHHQEin0Fp5DUiH7tLaIRWHlSK9k
+	Hd3OdkOM85waZZCunnGdqnMCJu+Fx2jONPkpZEWWO5DJ0dd8FLhqQYW+jkU6zw11XtmEi60xM8b
+	9wP8F9KDHMLgEcathQfSnJAtTn1hnyJactEBRCV0otO8S2aRFT38i6WPrETDE/WP680MeEWVdMT
+	SstSjcg/jm5QQxhgErPxWJbJLl0+w5bioMn7p9XL7Eto5MV7xCVM8KKEGC92Rw/Ojw80PSsZ9x+
+	WP6pac4d/S7hgE1aOoF88svlfPGsnttY+72pmUi6ODq/d9GGhQZ5NiNA40M7PXzG21lz2/tBR7r
+	ActggJ9m1HRGuDOPPF0qCRLrIdW6xBKwaLYzEFcpsrS07SdJYHaEraudrYP9IAuqTiVOsyCik2K
+	1pzXhIsrL2TV5z/gBOaaiVoDZtDJWlppClBD2Yy8xK0Tg==
+X-Received: by 2002:a05:600c:46cc:b0:4a1:688d:a41c with SMTP id 5b1f17b1804b1-4a18e4c06a8mr416698625e9.25.1792141352107;
+        Fri, 16 Oct 2026 02:02:32 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca30aa4sm16138995e9.2.2026.10.16.02.02.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:02:31 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	iommu@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iommufd/selftest: Check dmabuf MMIO mappings filled from another domain
+Date: Fri, 16 Oct 2026 11:02:24 +0200
+Message-ID: <20261016090225.3824-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015172243.GE13920@nvidia.com>
+References: <20261008125206.11990-1-parri.andrea@gmail.com> <20261008125206.11990-3-parri.andrea@gmail.com> <179200036595.15213.9864724554843977359.b4-review@b4> <20261014211608.291608-1-parri.andrea@gmail.com> <20261015172243.GE13920@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1923:b0:4c3:95d:91f1 with SMTP id
- 5614622812f47-50c408514d4mr21867600b6e.1.1792141346978; Fri, 16 Oct 2026
- 02:02:26 -0700 (PDT)
-Date: Fri, 16 Oct 2026 02:02:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad1e822.7952420f.283480.0228.GAE@google.com>
-Subject: [syzbot] INFO: The task syz.NUM.NUM:LINE has been waiting for
- writeback completion for more than NUM seconds. (2)
-From: syzbot <syzbot+e1f1982d3a90ea3e8cd6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Thu, Oct 15, 2026 at 02:22:43PM -0300, Jason Gunthorpe wrote:
+> This sounds better, but I don't know if we need all this code just for
+> a selftest.
 
-syzbot found the following issue on:
+Fair enough, I'll drop the selftest.  Thanks for picking up patch 1.
 
-HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=11016fd1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=e1f1982d3a90ea3e8cd6
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f0cc.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e1f1982d3a90ea3e8cd6@syzkaller.appspotmail.com
-
-INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 190 seconds.
-INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 190 seconds.
-INFO: The task syz.7.17472:13261 has been waiting for writeback completion for more than 191 seconds.
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Andrea
