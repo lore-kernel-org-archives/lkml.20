@@ -1,35 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E96415349CD
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8EA8C52FE49
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169725; cv=none; b=nmxDY3Q2nvVnw4e7zpWPxxRoLqHalI3N0qNipN1fhqyPjkpXTJSCQjkwJPqK6AT67kNGsn27/54Bq3Kj2jcyluRJKvWOcBTSkwzW8iBT/teawoXAB2V5ttzx5Xbt4dGby7d3yahdwZqkiP3lq1AtW4djgExShfL4rtDGzonX9u4=
+	t=1792169727; cv=none; b=N88o73DRvauAx9/RQVKs0ZwplepzUkCwlqNIi8Nwuqp0iqK/e0aVktAAzTXkWaWVRXlnZM/y35G9e43pYaBM58LfJwGX44xtRtR7Om2yIDET2EHNckhjOXWyp7NdJcYusos4xFr5Lh91fFTTJ77g4Z3N8rUhRBdpJ/SFHwG85hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169725; c=relaxed/simple;
-	bh=BQnVzx45dLwktCWppCQITl2/9OmBRkvh1ThhzFT93O0=;
+	s=arc-20240116; t=1792169727; c=relaxed/simple;
+	bh=Nph8rVqtGI3EDRlPDWoX+ktitTsVVlbL02jWjnR1dNA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e8IYJ3CZBvkHd53tzRNWvb4zXzY8YzW0e/i6oIIhLdXSC28y5cwIA9AOFCz4nTeuCFcrl5nmBzXFdlEg8nH1bZzk/heYrEGKQWcrhugdHUCwCB0xSSADoI/bXPZVN9W9rkU0nEUIdJVtrF8TmBF6GhXzp9l3trRclcj41pUvUQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=MN7Yxs8+; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=aXajVVz2wTai6P18QWXansolhbqXrwmsQMsbm7c/aN0XZ9r4T4rCpBNa0i3RyGsDXDsnDFz0RtRkDlxL16tHR08Wj6sV0XYkQdHKCeQe+rNUaEHlecPT5jtGc80/MZlo5z3vHEzSl3xn06rf98KLVktiFdS28sqb31nu/2K+ZoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=W9gYqHGC; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="MN7Yxs8+"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="W9gYqHGC"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14E9D1477;
-	Fri, 16 Oct 2026 09:55:16 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 936FB1516;
+	Fri, 16 Oct 2026 09:55:21 -0700 (PDT)
 Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C40933F7B4;
-	Fri, 16 Oct 2026 09:55:17 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4CFC63F7B4;
+	Fri, 16 Oct 2026 09:55:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169719; bh=BQnVzx45dLwktCWppCQITl2/9OmBRkvh1ThhzFT93O0=;
+	t=1792169724; bh=Nph8rVqtGI3EDRlPDWoX+ktitTsVVlbL02jWjnR1dNA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=MN7Yxs8+MvNwV9LH6ztqB5TqK2dPaw/993Q+acsgtKYMlIy6qusDbZ6iIBYGgPlm9
-	 8xUZTdPdKfXLY1DMnyqCIl1lS0uO/0VKRmrS1SoBayZyXiyzy+xoiPAiNCWN/584UC
-	 KLMVciWr8Dt9EgMisZ2bISkv1C8A7Urd5CimOqXk=
+	b=W9gYqHGCXwgMoJjKwGAAzbghiIKUIZh2sRTxoSgbcOs2+y0wCArV0nHjshjNR2nyg
+	 YhA+xg+dc9DZh2mWqN5FXxd8vx4xdM1sGPCzDq8uY8DoTD1mm2OS5HvHZRAjL5S4yC
+	 IIs16Tqr8jaaop7UmwRs1nVN+HLIx2lAe/kpZyZA=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:02 +0100
-Subject: [PATCH v2 04/23] coresight: trbe: Check the buffer association
- before IRQ validation
+Date: Fri, 16 Oct 2026 17:55:05 +0100
+Subject: [PATCH v2 07/23] coresight: trbe: Publish the session after
+ successful enable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-4-3f57cf3199b1@arm.com>
+Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-7-3f57cf3199b1@arm.com>
 References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -50,51 +50,80 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=1534;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=2521;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=BQnVzx45dLwktCWppCQITl2/9OmBRkvh1ThhzFT93O0=;
- b=59eZUh7H+BmqdJco1rMWNKh0LUP5VH2FLq6f5rtq0E0JBoPE/c0V86QEeHBOek+EzKXMuuj7k
- VtsCXQUuembDslgdY4xavgJybWW1ABVOF6DA//LMWklaD2HVXHjMkv0
+ bh=Nph8rVqtGI3EDRlPDWoX+ktitTsVVlbL02jWjnR1dNA=;
+ b=V+vG3b4fwpgP+lSYbv31bGij4E8lKBJP9R1e0trH06hG9NssqXsGsqfriqky2OTcj+5E3aZ+L
+ 8wioiHOnznuDrKEGikEK2i1MNlJ5v0venoxTJ7PLALQqgckd1lVno9u
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-is_perf_trbe() obtains the sink buffer from the output handle and
-dereferences buf->cpudata before validating either pointer. A live AUX
-transaction does not guarantee that the selected buffer has a CPU
-association.
+arm_trbe_enable() records the session buffer and perf mode before
+__arm_trbe_enable() can fail. CoreSight skips the sink disable callback
+when sink enable fails, leaving that session state published even though
+tracing did not start.
 
-Reject a missing buffer or CPU association before reading CPU driver
-data or checking the hardware buffer addresses. Treat these configurations
-as an invalid perf TRBE session.
+Install buf->cpudata temporarily for the buffer setup helpers, then call
+__arm_trbe_enable() before assigning cpudata->buf and cpudata->mode.
+Clear the temporary buffer association if setup fails; the inner helper
+still truncates and ends the AUX transaction.
+
+After successful enable, retain the buffer association across AUX
+transactions and clear it in arm_trbe_disable().
 
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-trbe.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/hwtracing/coresight/coresight-trbe.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index 8ec0b4c4987f25d10ee0b2f80c27e10f76357387..91fbdbad3676ffae399df0b4d4ddcd603a40e86c 100644
+index 979d0fa84c1c7b448c1ce5cd7a37dff8845795ef..9dfc6bb7afb4c42dfdec643ee7e4f2f193e2b70c 100644
 --- a/drivers/hwtracing/coresight/coresight-trbe.c
 +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -1111,10 +1111,16 @@ static int trbe_handle_overflow(struct perf_output_handle *handle)
- static bool is_perf_trbe(struct perf_output_handle *handle)
- {
+@@ -69,6 +69,7 @@ struct trbe_buf {
+ 	int nr_pages;
+ 	void **pages;
+ 	bool snapshot;
++	/* CPU used to configure this buffer. */
+ 	struct trbe_cpudata *cpudata;
+ };
+ 
+@@ -137,6 +138,7 @@ struct trbe_save_state {
+  * @trbe_align		- Software alignment used for the TRBPTR_EL1.
+  * @cpu			- CPU this TRBE belongs to.
+  * @mode		- Mode of current operation. (perf/disabled)
++ * @buf			- Buffer configuration retained for the enabled session.
+  * @drvdata		- TRBE specific drvdata
+  * @errata		- Bit map for the errata on this TRBE.
+  */
+@@ -1033,17 +1035,24 @@ static int arm_trbe_enable(struct coresight_device *csdev, enum cs_mode mode,
+ 	struct trbe_cpudata *cpudata = dev_get_drvdata(&csdev->dev);
+ 	struct perf_output_handle *handle = path->handle;
  	struct trbe_buf *buf = etm_perf_sink_config(handle);
--	struct trbe_cpudata *cpudata = buf->cpudata;
--	struct trbe_drvdata *drvdata = cpudata->drvdata;
-+	struct trbe_cpudata *cpudata;
-+	struct trbe_drvdata *drvdata;
- 	int cpu = smp_processor_id();
++	int ret;
  
-+	if (!buf || !buf->cpudata)
-+		return false;
-+
-+	cpudata = buf->cpudata;
-+	drvdata = cpudata->drvdata;
-+
- 	WARN_ON(buf->trbe_hw_base != get_trbe_base_pointer());
- 	WARN_ON(buf->trbe_limit != get_trbe_limit_pointer());
+ 	WARN_ON(cpudata->cpu != smp_processor_id());
+ 	WARN_ON(cpudata->drvdata != drvdata);
+ 	if (mode != CS_MODE_PERF)
+ 		return -EINVAL;
  
+-	cpudata->buf = buf;
+-	cpudata->mode = mode;
++	/* Buffer helpers need the CPU association while setting up tracing. */
+ 	buf->cpudata = cpudata;
++	ret = __arm_trbe_enable(buf, handle);
++	if (ret) {
++		buf->cpudata = NULL;
++		return ret;
++	}
+ 
+-	return __arm_trbe_enable(buf, handle);
++	cpudata->buf = buf;
++	cpudata->mode = mode;
++	return 0;
+ }
+ 
+ static int arm_trbe_disable(struct coresight_device *csdev)
 
 -- 
 2.34.1
