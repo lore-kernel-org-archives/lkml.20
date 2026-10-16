@@ -1,100 +1,118 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8B034EF05;
-	Fri, 16 Oct 2026 14:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF4B47206E;
+	Fri, 16 Oct 2026 14:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162012; cv=none; b=vFn2FWeNq6Dj8nRIlNenkXXd0M2YCdET50Yry+7/Ub3mOjTUpC01kc74x3jn3KGtsu4Ieu0tpo8ntA5F1ubmARjoU+oxsNIaMql9WqWZLoWHhiwIXYs7zGsxHikrvZT66OqTjixqrcSVCfRF2Cq4EFsFHa22OPvhr9YWfYKOwgc=
+	t=1792162058; cv=none; b=kZs0nx6RCU3i3pIvpA8/BGXrEOmTsuxR5JZ7oZRxfiCco1MXlbuJ1D344NLh+qLP60Lq2F24X/lv0MG2liahFXFyTrExj6qFwIbeNRP+PMVgkiYtCGZ1ss9feDrRe+/oMbS6otJJFgTHxJhPXZn1I94DUTfMs0YDA59i0dTS6Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162012; c=relaxed/simple;
-	bh=eXJ3xKLCZxlKqKZKNob+04rGEdx4IpyxWqc+ruQwW90=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qsBPqTPsvrUXpgR7saG2AowzWwIWJAJga8Q62qYYY17krxKisrSSGoYTK9er57ISbOPpnWq1fgZYl44hHtdqnLXyM1wzE0zaEmXYwYAKL7xcJNRmLw7ttPbkhcn9ZcFTxWjDLAEQcutWXfIKZsDHLh/n0qIcKDT8Jg0x+uAhYgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=I0Zb1xQD; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1792162058; c=relaxed/simple;
+	bh=0eYAq26iIVtciEHX2DSVOJjAkKPQK9qaG5mIUMKR55U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=jMuqRwpD0f64ZlY42hkNwul4K4VStX3+34L3wdZ4ln09CLKuInKc0iwGY5nhDvuIQDDhMf/fWdk5tJ8vcTezH4uJXpeIoZRd3SByxNw/9E7Sso3ATKTn22ZTMurRiltlqz1zoccGhauFKRRbXOtVaKM14nkD6+eSEvoHNcKefPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=aRTNrOzV; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="I0Zb1xQD"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 8B29C82B6A;
-	Fri, 16 Oct 2026 16:46:48 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id ejefj459Rafv; Fri, 16 Oct 2026 16:46:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792162007; bh=eXJ3xKLCZxlKqKZKNob+04rGEdx4IpyxWqc+ruQwW90=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=I0Zb1xQDXSOmVX9Kt6UYmVl8ebI547S78TXhZBSV1FE7eNu+tB0FCaGnlInm11Z1h
-	 F8QWwm3ED0X7b1heqwXB1Ytv1boXBy9zFSvrFzdCSI9VvMKaVTawQg13BiPDv3oYWZ
-	 A2ujhLwCN4Z559Kahxu6OUszf2eWMtLq2ZsTw5/Atu3KIT7AnoAc+7AbALOpR+ytX2
-	 QWrSKZZ2xsZxWMIjafD6FC/iC2bzomAXD/56GGGVEO+ZwSd7e7ZFQwZZgSzttUQD2Z
-	 vLX+T9OS94T+yYmu+QC/Zo2+toLAIazwGplBvhjNd6OsGkGZqv6/xiT7v+UmK5ZSUV
-	 P/RmXLGHPMizQ==
-Message-ID: <87c6cc21-dc1d-4d76-95e5-7cca12ce0930@disroot.org>
-Date: Fri, 16 Oct 2026 16:46:47 +0200
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="aRTNrOzV"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id 979AC1D1B;
+	Fri, 16 Oct 2026 14:48:17 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=aRTNrOzV;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id B864C1D4B;
+	Fri, 16 Oct 2026 14:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1792162047;
+	bh=DvjT2Gj2UIKbNYOGUZeX2UqIeeYbC4C0qDY5UdUlqP0=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=aRTNrOzVYa3gengcQq1AdEoI1O4YsAXrEYGybzGZnjnLZH1LO2sDHsoR26/fiNvfE
+	 Zq+D+h2ed6dcVt65M6AQ27hxMOY653LLi9TT1YGbn3+zULHc2lpDQeK1wkuFXG3Akn
+	 Tj4EvhbEBFEyXEnUKlRjoVoaTqxNYcXcC2MaMHZk=
+Received: from [192.168.95.128] (172.30.20.132) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Fri, 16 Oct 2026 17:47:25 +0300
+Message-ID: <b271b809-b310-40f5-aaca-c4f43927cd68@paragon-software.com>
+Date: Fri, 16 Oct 2026 16:47:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Support HP OmniBook 7 Laptop
- 16-bh0xxx
-From: Sven Jans <skbotnl@disroot.org>
-To: Takashi Iwai <tiwai@suse.de>, Jon Harrison <jonerickharrison@gmail.com>
-Cc: david.rhodes@cirrus.com, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, perex@perex.cz,
- rf@opensource.cirrus.com, tiwai@suse.com
-References: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
- <87a4od3f4f.wl-tiwai@suse.de>
- <b474edba-33db-4892-b490-cd767211e4ad@disroot.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] ntfs3: add tracepoints for core filesystem paths
+To: Baolin Liu <liubaolin12138@163.com>, <rostedt@goodmis.org>,
+	<mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>
+CC: <linux-kernel@vger.kernel.org>, <ntfs3@lists.linux.dev>,
+	<linux-trace-kernel@vger.kernel.org>, <liubaolin12138@gmail.com>, Baolin Liu
+	<liubaolin@kylinos.cn>
+References: <20260820090504.950475-1-liubaolin12138@163.com>
 Content-Language: en-US
-In-Reply-To: <b474edba-33db-4892-b490-cd767211e4ad@disroot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <20260820090504.950475-1-liubaolin12138@163.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 16/10/2026 16:42, Sven wrote:
-> On 16/10/2026 16:16, Takashi Iwai wrote:
->> On Fri, 16 Oct 2026 00:15:24 +0200,
->> Jon Harrison wrote:
->>>
->>> On Mon, 24 Aug 2026, Stefan Binding wrote:
->>>> We are currently awaiting confirmation of the correct settings 
->>>> before we do
->>>> so.
->>>
->>> I have another HP OmniBook 7 Laptop 16-bh0xxx, SKU D2KR6UA#ABA,
->>> BIOS F.12, subsystem 103c:8e60, running Linux 7.2.5. Both CS35L41
->>> amplifiers still fail to probe:
->>>
->>>    cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed property
->>> cirrus,dev-index: -22
->>>    cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform
->>> not supported
->>>
->>> The speakers only play through the Realtek fallback and are very quiet.
->>> Has that settings confirmation arrived, and is there an expected time
->>> for the quirk?
->>
->> OK, we've waited enough long, so I take the patch to for-next branch
->> now (for 7.4-rc1).
->>
->> If this is really breaking something, let me know.  We'll fix up again
->> before 7.4 release.
->>
->>
->> thanks,
->>
->> Takashi
-> 
-> Hello,
-> I saw the commit in tiwai/sound. I noticed that 3900 was used for the 
-> boost_peak_milliamp value. I just wanted to note that as far as I can 
-> remember that is the value that the Windows driver uses, while the 
-> malformed but readable _DSD specifies 4500 (at least mine does). I don't 
-> know which one is correct, but 3900 is probably on the safer side I guess.
+On 8/20/26 11:04, Baolin Liu wrote:
 
-Small correction, 3850 mA to be precise.
+> From: Baolin Liu <liubaolin@kylinos.cn>
+>
+> This series adds an initial set of tracepoints for ntfs3 core paths.
+>
+> The tracepoints cover:
+>     - mount and log replay
+>     - namei operations
+>     - directory index operations
+>     - allocation and block mapping
+>     - iomap operations
+>     - file I/O entry points
+>
+> Changes in v4 (both addressing review comments on patch 5):
+>     - ntfs3_attr_data_get_block: pass the "new" pointer to the trace
+>       event directly and move the "new != NULL" check into
+>       TP_fast_assign(), keeping that logic out of the call site and only
+>       executed when the event is enabled
+>     - ntfs3_attr_set_size_ex: stop sampling the old size with
+>       i_size_read() in TP_fast_assign() - on the truncate path
+>       truncate_setsize() has already updated i_size to the new value, so
+>       the recorded old_size always equaled new_size. Read the actual old
+>       size from the on-disk attribute record and pass it as an explicit
+>       parameter; move the call site after the attribute lookup so both
+>       resident and non-resident attributes are covered
+>
+> Baolin Liu (7):
+>    ntfs3: add mount and log replay tracepoints
+>    ntfs3: add namei tracepoints
+>    ntfs3: add create inode tracepoint
+>    ntfs3: add directory index tracepoints
+>    ntfs3: add allocation tracepoints
+>    ntfs3: add iomap tracepoints
+>    ntfs3: add file I/O tracepoints
+>
+>   MAINTAINERS                  |   1 +
+>   fs/ntfs3/attrib.c            |  12 ++
+>   fs/ntfs3/dir.c               |   3 +
+>   fs/ntfs3/file.c              |   5 +
+>   fs/ntfs3/fslog.c             |   3 +
+>   fs/ntfs3/index.c             |   8 +
+>   fs/ntfs3/inode.c             |   7 +
+>   fs/ntfs3/namei.c             |   5 +
+>   fs/ntfs3/super.c             |  11 +-
+>   include/trace/events/ntfs3.h | 389 +++++++++++++++++++++++++++++++++++
+>   10 files changed, 443 insertions(+), 1 deletion(-)
+>   create mode 100644 include/trace/events/ntfs3.h
+
+Hello,
+
+Your patches were applied, thank you.
+
+Regards,
+Konstantin
+
