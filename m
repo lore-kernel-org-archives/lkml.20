@@ -1,154 +1,124 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD3A3BB67F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792178674; cv=pass; b=OnycWeHmki+jpJHCH8vEWU22g9kyquBnwMisxScEJRYRn/cvUJ9Lpk3ZtO04MIEytvpSd1Ean6PHV6AIBnfHmTp5ziPst4bxTaLmILMfhgGAivGi8OEiDvSr/yynlV8LdIty9w45Ax6VZKz3ptzymcn2WvTFMjaOfv9XE/A0C+o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792178674; c=relaxed/simple;
-	bh=d5o2v0NGUWbRJN1f/BoF/CoGKfRWIDyZQTL0ydZSSo4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C2E5Y7uycLyjOkB84C3ajn8+/uwVSUuPRSxO+ZwosFgMwm3v8HPWLPEF+6LDGWCcEF0+9t7ios1Rf/tlPCMzCf65vQYoQgIbc0COEbkMTdoMW+q6ZLCu8rxKCMGGsQwWR582C1/txR2S/kO2iuaGDQWxfjiRNSb91RV90KKAChg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GxnpEy+w; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59AC54CF474;
+	Fri, 16 Oct 2026 19:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792178830; cv=none; b=n+T+wzs3FD7uBcE7tOtejfcGnhZE9pOM51Sy1OmjF/QhrV9WPvKdGuNeHQV0SpU1ydCr2b9nTNajo6BN52kqZfuI4/YninptpISd7KQ3N6/ahs/OUD/K1Ji75nEnMLnbQotMoMI7vmgHM04kxH1kMH/mZZd63etixAVNRufRYl4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792178830; c=relaxed/simple;
+	bh=pQ2KlFLAqS8GA73BM5u7PDPk/2wMh7phIbaGdBXCYhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cozwv7hBni7/ov+NRkTRcQ1+6lTpi8X5tsvIntKwohoj+PQ1GX2mX2LFkT6q4ClAcps41BhPFajUP1hcTZ8Jbz0Q8KR09lCLEL3WzqL1w9sEaPaUri5PPkB9U9LdfWSSzaLMRQnMtMkZoQOnmsJuN9OagIgyBlpRKioiL4ax5eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eavl7/um; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GxnpEy+w"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso2351a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 12:24:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792178672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bCsMgnmUTMwZNWyG5aaNIFZkkbIC+wxS+qLtT9IIaV8TFpQh7eINhBkd/Mlyt2/vg4
-         Mi4kaJK33218kJsr9ISqIGOkEUgYf7OlQajYtH15NiGUlHZeCCUXNFeU1bBfeLrPgT84
-         MRyXfGWEDhDxCTvH4nbRL6YhER8JR8lbh73J0VlE+9gBtJeKUxv9wYjajv+oxZZkveMA
-         Dusr1QKv8VhRYRCle4JQ6BQZ3ktS8c892Lx1FuB5yRXAekI+y4tdjPS+LoWDe6EuSfyr
-         D1AfFKdexS2Ml8FeOcfA2ZXZaqPJjcQYxjiU/WzhuD54GxEpVHR/2bcGl1VNUZms7cXh
-         UhkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
-        fh=vLqYRl5ZoYbGuDhTStFcRyXdVjNi9vAVs21K4AJnOTQ=;
-        b=VH/yt6FjRrPefY7+PZcbFBoJerDX6HsEAFdCuuZd/Ov+5UcvVU3FGKzK/kTxC3H3fW
-         0jJU5Jefuc69xE9ka/DclCo1eNKuO7jqmZiPLHfVUzU8C+Y5sfbx9TQ21D6D3PUX5itq
-         jAdq88OUkqUG0ZbW7fjqY7fD7FYz1Sz83K7UXsaymd83f/XwlGlU0z6Rtr+z4EQ3p9om
-         7510iJ9O2tAOE5bd9xfJcZRh5kaBEafB8julj7w8CcYBhsHRMSI3UkIeFy0egQac0aFi
-         9sa7uExM9CovjzSULiSg0NwBdwPJTojQI3rgF0Qc2Rk6WqLZj4ILlvY4AE3Nh6D2AgDl
-         /JgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792178672; x=1792783472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
-        b=GxnpEy+wqXUWZlSBTaXQg7FehcHHrB7eto7QrfunRv/PqUEbQZIHsBGJrPkBhv1a9p
-         4+6Pqk6YQAuwzXlwVoPXwtqE/1jy2naUr/PEmcjQOfC8Q80LtIDm4bkpyA4P265r2zzb
-         skvXAVStWFgEPjkwz8A51Ynpt+0lpIiz+W7Xtb5p8PC/8w4+q25fgZzkQ5TEJMBxN3lF
-         cJGYwp2d6DgSL80UGMUHpIsatfSlx3yW+TP3bALW7Iw+o3Imc//cO4B8A0aVuKsufmKo
-         MCCVcQ58/5GbDAeoAJaFBgCUXCm2Zofx4vLLMNxq3l7g1AMiCXvtNImaWM6CW5EnEzCQ
-         FqdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792178672; x=1792783472;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0AUHybqnK5COco/Ujbmue1fB/qGf6BnUtW0x4jmlSGs=;
-        b=QjrCJxRqzDYrUu/DB3Q0B8nzRs0mMCIdh4crN+UtHbJysf/8QD7+Y5xPrsC3ClQLZS
-         5mZggpr6GehSYrXrCLsV5wU9EIuV199jmSggbPzQrB05DIHniqAdqGTbwhB5nXNeFZNt
-         Xz93y/0umrfhF00viTNQCySxEzV4FZmmDBpUWSwXrca7K4b8/VHdRfKMwemQFcFkL5UX
-         oXrPy0oQX6Snt4zHa7LSrMxWLsOXZ7IvX0O7jR601uxfVRDtUJCxAqZ/+shzVMtElTrz
-         BRHRdq9EWwb+98tvj5BbUTBAHpEm0U5hlNfIZUnibAgXmSDTE8nKEeDn4FCkQm1ZS7yf
-         tOVA==
-X-Forwarded-Encrypted: i=1; AKwUvBycR2IBIuUbZvdwm5zxdRSUJNLxkmkZPOe+r2C88J4fRVhl7aAuI/rWmuU2h9hegnZRxPfumYg+5hg/8/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJY3MNxxcMFw3+CBCOXMPHtLBSRZ0K3vTFblFszSgWg2R+RtSdQ
-	r7qILVCMH+kOx/r7la3BOPndjhyIlxgr+YQZl3Wc8+bhwH0PrijTuEgh/hRu27Phh+PlvxkkKif
-	Aye0wGy0QO1ujhqn1Fp8B9gsaQusVODLmdDe13Z2h
-X-Gm-Gg: AYBFou0KBwKikfuvUUHOqKISa25prLfnfFOLJBkmWa+da9LW09nFyk0EBBbF22v20m8
-	PxSfyfj8Z/EOLBQstB8/gueiA2PLIulYNuam8dHGt6swnRD9K2UB0fjGs7F7ackYLpoUBL2dw9q
-	6/eYswawmUFEmbN0mp7SnfaX3v6jJ1aBVX9l5+HPpN4/DBk3Du1gMLXe/kP2SY5t3iNbfgeFi7V
-	zgfKcI12ACOyjwLVPt93s/KqtFQ8aTEpP+Yhyy7oTCabB9Sbkj3EwADumrcc6UxipBd2zu3dFt+
-	WegR291BYoDuPMtlKyau3blETEgMdJa12oearjsGkcWmXbcmkOU08MbDhlaPwgYWMPTJmSXApBW
-	QiJX3BrG0OWuKrncOXwb/7hF0T2v7YayqULU7
-X-Received: by 2002:a05:6402:5177:b0:6b1:bce6:1220 with SMTP id
- 4fb4d7f45d1cf-6b3a8c0a97dmr6753a12.12.1792178671324; Fri, 16 Oct 2026
- 12:24:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eavl7/um"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7761F000C4;
+	Fri, 16 Oct 2026 19:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792178829;
+	bh=u9zVdZ+60UPJ7jM3vWMuHHt67z2QYJr3Ac8P9XHs1+M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Eavl7/umDyhp+rfXD0qTHvLLemfRf4zYdG6nBp6UbrEXrxDNAOpfUBtzXyfCAmadw
+	 4g/FLa2uilQMhD2/P46Fj3ZHyIxQBaMmPj+/4qjtaCRNSlVSFjOH6t1QpKNwWPkMBc
+	 t3uAdqfvw7q9apekFqD+85XuV5fSMDyA7YhGprwTA/zmNiiBiegVzJZwon+UEdXyj8
+	 HULUQLlrxS/RTNJazNZBPelCvOr/bReNbpgUieRbnNHAvQvw9fzP+MHILK3TVJBwB+
+	 TC+5K1yjTpIn31Ohgmrjrp/Q8uKmvN+d5gpCIYadVyVgeTcILVyZdNzj+QvGfzJ+Ub
+	 IwJDBGWIp5aDw==
+Date: Fri, 16 Oct 2026 14:27:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-phy@lists.infradead.org, Pankaj Dev <pankaj.dev@st.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Rahul Kumar <rahul.kumar05@st.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	=?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Rosen Penev <rosenp@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+	devicetree@vger.kernel.org, kernel@dh-electronics.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: phy: Document ST STM32MP25
+ USB2-FEMTO PHY
+Message-ID: <20261016192708.GA138068-robh@kernel.org>
+References: <20260902141312.649406-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-23-yosry@kernel.org>
- <CALMp9eSv9a23si8rtWd_XGRJxVWE96aWdSzE_Ram5Bu6G_pb+w@mail.gmail.com>
- <CAO9r8zMkRADNhRCBoxKCPNM90H0uqB5Jyt7oB4RDmbhgY_UM-g@mail.gmail.com>
- <CALMp9eTM23iFdrbZE8qw9kuJ2va+Mahv5wZDmgs1TZrAREh=gw@mail.gmail.com> <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
-In-Reply-To: <CAO9r8zNFYNR904b0NahKj=vwoc1tRZdr2wwUYpTVwUdwvYAtpg@mail.gmail.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 16 Oct 2026 12:24:19 -0700
-X-Gm-Features: AclHuK_uq-6OVpi-FVRpkc7oAce-IC9tDELOgFS6cf7jgJLt2-ErHr0_9UIrtVM
-Message-ID: <CALMp9eSTHi+Y+opUpu5ihH92ULKqFA2D5hucrgNgSd25NZUktA@mail.gmail.com>
-Subject: Re: [PATCH v3 22/27] KVM: nSVM: Flush the TLB if L1 changes L2's ASID
- in vmcb12
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902141312.649406-1-marex@nabladev.com>
 
-On Thu, Oct 15, 2026 at 4:56=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> > > > > @@ -691,23 +689,35 @@ static void nested_save_pending_event_to_vm=
-cb12(struct vcpu_svm *svm,
-> > > > >  static void nested_svm_entry_tlb_flush(struct kvm_vcpu *vcpu)
-> > > > >  {
-> > > > >         struct vcpu_svm *svm =3D to_svm(vcpu);
-> > > > > +       bool new_asid =3D false;
-> > > > >
-> > > > >         /* Handle pending Hyper-V TLB flush requests */
-> > > > >         kvm_hv_nested_transtion_tlb_flush(vcpu, npt_enabled);
-> > > > >
-> > > > > +       if (svm->nested.ctl.asid !=3D svm->nested.last_asid) {
-> > > > > +               svm->nested.last_asid =3D svm->nested.ctl.asid;
-> > > > > +               new_asid =3D true;
-> > > > > +       }
-> > > >
-> > > > To make sure we don't miss a flush after restore, do we need to cle=
-ar
-> > > > last_asid in svm_set_nested_state()?
-> > >
-> > > In [1], we set svm->nested.vmcb02.cpu =3D -1 in svm_allocate_nested()=
-,
-> > > which should be called when EFER.SVME is set on restore, and should
-> > > force a TLB flush on the first vCPU run. That being said, if EFER.SVM=
-E
-> > > was already set (not a fresh vCPU), we won't necessarily flush the
-> > > TLB. KVM_SET_SREGS will _probably_ flush the TLB, but I don't think
-> > > it's guaranteed.
-> >
-> > I'm pretty sure that restoring nested state on an existing vCPU with
-> > the same asid12 and no TLB_CONTROL skips the flush.
->
-> I can clear last_asid in svm_set_nested_state() to make sure we don't
-> break this.
->
-> >
-> > > But wouldn't this also affect non-nested? Are we guaranteed to flush
-> > > L1's ASID after restore?
-> >
-> > That may be a bug too.
->
-> It's tricky. KVM_SET_SREGS will only flush (with 64-bit vCPUs) if
-> CR0/CR3/CR4/EFER are changed apparently. But it's not just the TLB
-> flush, the entire MMU context wouldn't be reset?
->
-> I am not sure if there is a practical use case for restoring on an
-> existing vCPU tho.
+On Wed, Sep 02, 2026 at 04:13:02PM +0200, Marek Vasut wrote:
+> From: Pankaj Dev <pankaj.dev@st.com>
+> 
+> Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
+> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+> Two such PHYs in total are present in STM32MP25 SoC, they both are
+> slightly different, therefore they use different compatible string
+> to discern them.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
+> Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
+> Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
+> Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Co-developed-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
+> Co-developed-by: Marek Vasut <marex@nabladev.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christian Bruel <christian.bruel@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Pankaj Dev <pankaj.dev@st.com>
+> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+> Cc: Rahul Kumar <rahul.kumar05@st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Rosen Penev <rosenp@gmail.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+> V2: - Fix up Sob/Cdb lines
+>     - Fix up compatible string in example
+>     - Use additionalProperties: false
+>     - Expand description:
+>     - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
+> V3: - Move clock-cells next to PHY cells
+>     - Fix the bindings
+>     - Fix up Sob/Cdb lines further
+> V4: - Reorder the properties: list, put #...cells at the end, reg after compatible
+>     - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
+>       https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
+> V5: Add RB from Krzysztof
+> ---
+>  .../bindings/phy/st,stm32-usb2phy.yaml        | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
 
-KVM APIs make me want to kill myself.
+Applied because the schema depending on this one is already applied.
+
+Rob
