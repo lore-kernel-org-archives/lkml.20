@@ -1,95 +1,147 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D5A331A43
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BA92853FD;
+	Fri, 16 Oct 2026 03:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121599; cv=none; b=mosk1kQVrMwcyA/e8oJpFQ2c2n4z61jAbA/gJuMkINVslAv0BSvHmkRkUykbeM5SK/VvX3L9B4EG7DSHsvHDPI8Okfx4tfX5TTBgRYFjs+foa4oeWoePc4jHey3FnS025fsSQIhteUSbNngQBZ9JTp/HcKFB+DtqRmBHzD00CaU=
+	t=1792121694; cv=none; b=Cb4uvXHTW1JT0YjAgawNF0AXdOXdJV9EGqBLXM0IZUIyJ93nth3d6UIg/9wCylqDzl/zU2eGr9sgHIAz+/wL3TljZ4AonR2WXXzva++o0izb8CZhI8tRYXOjuNSCK3H42q+JFUfxrrHhLeYj/g+X/bomatiFd/Dy//rr2sNwkFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121599; c=relaxed/simple;
-	bh=DHdWukh4h7IvkZHXqIQiUR/IkL+1dqHZgnn7QdLDFkI=;
-	h=Message-ID:Content-Type:MIME-Version:From:To:Cc:Date:Subject; b=rTMqE9cJSTVXv4YvtgqMu5EbBJboDQLRy4XV0fFiA10HH0sIVDN0t7EPzkLxCmCatGjiKtzVvBQZxg66URsrqslyfx/24YxuFiLTNB9tjIVeiMuUZDPiCtEfW1b+r7gH5VWYKOMWpsFhx/WurAtbc5IKnbJ1gkDhQM3mpOmbXFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GADB8XMY; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792121694; c=relaxed/simple;
+	bh=NJRSVpzPhzcTg0Y/35VFjaITL2kD5Un1ASMtT1q/2ic=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QJV03hI0OdTUxmJcoNHa9abunf3xVnRcyLqjjVceAWPwHTWfkKt1YP/J0EWyqbjU2/2++AVBCvfcTF8oL9njOWMr5UmXJjPAXl/u6QtMHhY+n5SjvrWMYA6iMhIfBBTh1w0cQCYvUoA66CMEbd1k9GTzCB9Tl/baR2Qkvf9p/4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H4Pa2apm; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GADB8XMY"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso3387196a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:33:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792121598; x=1792726398; darn=vger.kernel.org;
-        h=subject:date:cc:to:from:content-transfer-encoding:mime-version
-         :content-type:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DHdWukh4h7IvkZHXqIQiUR/IkL+1dqHZgnn7QdLDFkI=;
-        b=GADB8XMYA5/1SyF+O0r6Lk7t5UNsnS9UNnfvtbODPgLIWQ6Caf0HBV9v7RhCYsg+Wu
-         UxB5jOSj3F8nSouUe7fZZ4gIFSsGhG+qfEUE07TveKwJwkIZk6RN1/W3E7cWRY9LarLi
-         /37fXvBSr220wX/8sxA7ISTH8fPiqqHUG9tNO/fCMF5JeLKNzYBixOIS7tZiA1e+XG1e
-         9UTyFZdAlWlfVvSpBCUCH1Hwr/DaGhn4zPkjNrQzX7CD5bHBnpPKbbpr/saGmEHSQBPQ
-         MRDB2Tt+LMgGDAJ408bZchDTHWRapp4A9zB4ApGiXTYYer/wCJB8slA4N/3lkT/iUO/F
-         pQuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792121598; x=1792726398;
-        h=subject:date:cc:to:from:content-transfer-encoding:mime-version
-         :content-type:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DHdWukh4h7IvkZHXqIQiUR/IkL+1dqHZgnn7QdLDFkI=;
-        b=zdZxdXisa0pJ1QpGf4M09C9VDdA+Fo6EMVY5pwG1KpQXylQbmrmdp5oxflz6+j6CpG
-         tgNNUjWr4xiz8th4/A1hhj7GyMI0E9HKoWQK57MqsisKK4ohjLu9L4zSas9ChEU34wWa
-         Y5h5YdljuTmr8eFFE41Yqg6rlGPr0AaAXxzKEPQdPTAaErRRDBfvIY5m4SZZCPZElwoQ
-         7zwV7kocTFDd+4bYQAOr+4O8yqZbd0LF/AhB3Ayhgv9fpy9cxjWv/m2Oq5fvz7KpT82A
-         guFw1sYUN2eo4IOjHotIXn2n1ioiUvBFhDuDcXXNd9HvIFlzO9T+EmsKnWMF41owrMNA
-         02sw==
-X-Gm-Message-State: AFq9FYK12hK1vQ/TED3diwcOB/OkvHJDimeaywrJ9PnNpPZHJZsWZZqb
-	3Wz5f+N3Z2tkI7jaIwd8n1piu7/GXn87CpuneFYoSQeesIrgGWOYnIhb
-X-Gm-Gg: AYBFou16MHNCdvjSZt4QFKISpxFusgOh/5exu2iSI+Al1b6sxWyLS23QKcMF3nDx6ON
-	W14/AvpYoQJz44+At4nW8I0Dwwcr6qGRkRHPvV7fQ1cfSFaXhcbnIgv33lt0tDaisrfukUZat3D
-	EiOSGmMd9Fmj8xGCiCk5ZJXhrmh7d442G8CYtH9aU7MrtcBHOhgapOlwXWxYTtzcKj9doyR3VEx
-	sMNj0j3FatCj4gzXloxr3+cJ5bip1A5EkP8eMXUX1wul4s4DZSNrE3hCE30LuPUXx9tlM5hoBMh
-	L0zEuNKsr7QxdcrbGWVA1rTOlOMFKT6a8706E9YABLCETd08GoYaAfBbt+GFCW46/Cj3ZBWYhQ7
-	FrpAyBMN18dzKkiCKqpxO6L80GUwWoref4daQKSFbi13kU2avysj9SgW4ObO7QQ7SeLiRph3RdL
-	vAkKD6zpKSFWyMMuxwHL4up01QYxiFcSZumG/Gv3rAfxV+yvRVnyKCbBJTVchQe6GXnzCbOWB1w
-	IdZYw==
-X-Received: by 2002:a17:90b:2ecc:b0:3ac:b3e5:426a with SMTP id 98e67ed59e1d1-3acb3e54485mr2244561a91.4.1792121597779;
-        Thu, 15 Oct 2026 20:33:17 -0700 (PDT)
-Received: from [58.206.202.11] ([104.28.215.69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm1950630a91.8.2026.10.15.20.33.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:33:17 -0700 (PDT)
-Message-ID: <6ad19afd.a938ce27.16851e.3440@mx.google.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H4Pa2apm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=BB
+	34cO0wxpI677RNqzl1i49aSu0q44HexQs1CzbIlE0=; b=H4Pa2apmmv9dQKO32W
+	BxfY09amvrcAxSpHXj/YS9JDz7qkezQShG/CMlaUDyB6S3TkGpOi4SbGPN5ujFIp
+	mH4Bi3OQi0GtVDCcZPSYtGELkyKA7ZJdlqrL1EbDY4cCKGNRecKKVP2YJe7BMrzd
+	M3FPeGs+EZ486BMC4GZP1rGxg=
+Received: from czl-pc (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDnU5c7m9Fqw1V+AA--.15038S8;
+	Fri, 16 Oct 2026 11:34:23 +0800 (CST)
+From: Chi Zhiling <chizhiling@163.com>
+To: linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	exfat@lists.linux.dev
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Yuezhang Mo <yuezhang.mo@sony.com>,
+	Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Chi Zhiling <chizhiling@kylinos.cn>
+Subject: [PATCH v3 6/8] exfat: drop i_rwsem from exfat_page_mkwrite
+Date: Fri, 16 Oct 2026 11:33:47 +0800
+Message-ID: <20261016033349.3104509-7-chizhiling@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016033349.3104509-1-chizhiling@163.com>
+References: <20261016033349.3104509-1-chizhiling@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Haoran Wang <haoranwangsec@gmail.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com, haoranwangsec@gmail.com
-Date: Fri, 16 Oct 2026 11:33:13 +0800
-Subject: [PATCH] tracing/syscalls: use copy_from_user for the faultable syscall buffer
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDnU5c7m9Fqw1V+AA--.15038S8
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAFyxtw4rAF4ftr4UKr1rJFb_yoW5Aw4Upr
+	W3Gws5GwsxX3y5Wrn29F1ku3WYk3WSqrWUury5u3WvvwsrAw1Iyay8KFWkWFW5tw1kXa1j
+	qF4YyrW8uwsFgaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHyIUUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC9x8FomrRmz-gGAAA3o
 
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBIYW9yYW4gV2FuZyA8aGFvcmFud2FuZ3NlY0BnbWFpbC5jb20+
-CkRhdGU6IFRodSwgMTYgT2N0IDIwMjYgMTA6MDA6MDAgKzA4MDAKU3ViamVjdDogW1BBVENIXSB0
-cmFjaW5nL3N5c2NhbGxzOiB1c2UgY29weV9mcm9tX3VzZXIgZm9yIHRoZSBmYXVsdGFibGUgc3lz
-Y2FsbCBidWZmZXIKCnN5c2NhbGxfY29weV91c2VyX2FycmF5KCkgY29waWVzIHRoZSBidWZmZXIg
-YXJndW1lbnQgb2YgZmF1bHRhYmxlCnN5c2NhbGxzICh3cml0ZSwgcHdyaXRlNjQsIC4uLikgd2l0
-aCBfX2NvcHlfZnJvbV91c2VyKCksIHdoaWNoIHNraXBzCmFjY2Vzc19vaygpLiBVc2UgY29weV9m
-cm9tX3VzZXIoKSBpbnN0ZWFkIHNvIGEgbm9uLXVzZXIgYWRkcmVzcyBpcwpyZWplY3RlZCBhbmQg
-dGhlIGVudHJ5IGlzIHJlY29yZGVkIGFzIGZhdWx0ZWQuCgpJdCBjb3VsZCBiZSBhIHNlY3VyaXR5
-IGNvbmNlcm4gZm9yIG1hY2hpbmVzIHRoYXQgdHJ1c3QgcGVyZiBhIGJpdCB0b28KbXVjaC4KClNp
-Z25lZC1vZmYtYnk6IEhhb3JhbiBXYW5nIDxoYW9yYW53YW5nc2VjQGdtYWlsLmNvbT4KLS0tCiBr
-ZXJuZWwvdHJhY2UvdHJhY2Vfc3lzY2FsbHMuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
-c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2tlcm5lbC90cmFjZS90cmFj
-ZV9zeXNjYWxscy5jIGIva2VybmVsL3RyYWNlL3RyYWNlX3N5c2NhbGxzLmMKLS0tIGEva2VybmVs
-L3RyYWNlL3RyYWNlX3N5c2NhbGxzLmMKKysrIGIva2VybmVsL3RyYWNlL3RyYWNlX3N5c2NhbGxz
-LmMKQEAgLTY4Miw3ICs2ODIsNyBAQAogCiAJZm9yIChpbnQgaSA9IDA7IGkgPCBhcmdzLT51YXJn
-czsgaSsrLCBidWYgKz0gU1lTQ0FMTF9GQVVMVF9BUkdfU1opIHsKIAkJcHRyID0gKGNoYXIgX191
-c2VyICopYXJncy0+cHRyX2FycmF5W2ldOwotCQlyZXQgPSBfX2NvcHlfZnJvbV91c2VyKGJ1Ziwg
-cHRyLCBzaXplKTsKKwkJcmV0ID0gY29weV9mcm9tX3VzZXIoYnVmLCBwdHIsIHNpemUpOwogCQlh
-cmdzLT5yZWFkW2ldID0gcmV0ID8gLTEgOiBzaXplOwogCX0KIAlyZXR1cm4gMDsKLS0gCjIuNDMu
-MAo=
+From: Chi Zhiling <chizhiling@kylinos.cn>
+
+exfat_page_mkwrite() takes i_rwsem with inode_trylock() and returns
+VM_FAULT_RETRY when that fails.  The MM subsystem does not propagate
+VM_FAULT_RETRY from ->page_mkwrite(), so the fault still completes and
+the page becomes writable without exfat_page_mkwrite() ever advancing
+valid_size.
+
+Blocking on i_rwsem is not an option either: ->page_mkwrite() runs under
+mmap_lock, so waiting for i_rwsem would create an mmap_lock -> i_rwsem
+ordering that can deadlock.
+
+Now that valid_size is advanced under the folio lock, i_rwsem is no
+longer needed here.  Take mapping->invalidate_lock shared instead, which
+serializes the fault against truncate.
+
+Without i_rwsem, i_size can shrink between the read fault and
+->page_mkwrite(), so re-check that the faulting page still starts within
+i_size before preparing the range below it; a truncate that slipped in
+between would otherwise let the helper populate and dirty folios beyond
+EOF and advance valid_size past i_size.
+
+Fixes: 6630ea49103c ("exfat: move extend valid_size into ->page_mkwrite()")
+Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+---
+ fs/exfat/file.c | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
+
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 6d4f50795332..23b8a36acaf7 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -989,26 +989,25 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
+ 	loff_t new_valid_size, mmap_valid_size, fault_page_start;
+ 	int err;
+ 
+-	if (!inode_trylock(inode))
+-		return VM_FAULT_RETRY;
++	sb_start_pagefault(inode->i_sb);
++	file_update_time(vmf->vma->vm_file);
++	filemap_invalidate_lock_shared(inode->i_mapping);
+ 
+ 	fault_page_start = ((loff_t)vmf->pgoff) << PAGE_SHIFT;
+ 
+-	/*
+-	 * Zero only the gap below the faulting page. The read
+-	 * fault populated its folio and iomap_page_mkwrite()
+-	 * will dirty it.
+-	 */
+-	err = exfat_prepare_valid_range(inode, fault_page_start);
+-	if (err < 0) {
+-		inode_unlock(inode);
+-		return vmf_fs_error(err);
++	if (i_size_read(inode) > fault_page_start) {
++		/*
++		 * Zero only the gap below the faulting page. The read
++		 * fault populated its folio and iomap_page_mkwrite()
++		 * will dirty it.
++		 */
++		err = exfat_prepare_valid_range(inode, fault_page_start);
++		if (err < 0) {
++			ret = vmf_fs_error(err);
++			goto out;
++		}
+ 	}
+ 
+-	sb_start_pagefault(inode->i_sb);
+-	file_update_time(vmf->vma->vm_file);
+-
+-	filemap_invalidate_lock_shared(inode->i_mapping);
+ 	ret = iomap_page_mkwrite(vmf, &exfat_iomap_ops, NULL);
+ 
+ 	if (ret == VM_FAULT_LOCKED) {
+@@ -1021,10 +1020,9 @@ static vm_fault_t exfat_page_mkwrite(struct vm_fault *vmf)
+ 		exfat_advance_zeroed_size(ei,
+ 				round_up(new_valid_size, i_blocksize(inode)));
+ 	}
+-
++out:
+ 	filemap_invalidate_unlock_shared(inode->i_mapping);
+ 	sb_end_pagefault(inode->i_sb);
+-	inode_unlock(inode);
+ 
+ 	return ret;
+ }
+-- 
+2.53.0
+
