@@ -1,151 +1,94 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C341457E5F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587DA34EF05
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162121; cv=none; b=VIBhL36aM2B7p4xZs0RCuDKtyb5OP+Eq33A2Q6SWJ74bg1hr9uTxOdo1PsNFyW04tbm17MqPrDCPhnE9QTsbYxSZRDSpPIBd1aP2KxI0p507pNp2Ov1NNq8GulefQUTjcsEu+Gyb7mVZorFB14rPdqieluFcV6FmrK2XUQP1Ysw=
+	t=1792162137; cv=none; b=Hcdvs23cPJhqBierX+7wWo1hmPFLC2upIvm2bmStkJAQYHnTgakfmqth9jZsMI2BMG0eAS8QWcf+5u/6eR8QRdMu+BL3SPCUXriJhuFOQZQ8rMDWaf1+x71i7pLtkCPvLCzssLdtiKYFUtObUzxpWsHs8FN5wxReVg65diOU+r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162121; c=relaxed/simple;
-	bh=zWjxExpRcmXnfH4W0/a3kgCxI30Kz06xgdyZ+mBp8Mg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=blxFcVOCp8nMUAxjkh71GhMl3Z8rVT2vDPCl88lbW3/xDTdLZ06jPFcJ4lOXqXk49dvyBmhYGnYa8xC+pECL1f9Mir9CpMCSWJSHL5NEpyYrN/nB1gNbhI3gGDOi5e2UPOb4dTM+OOYMxhWfNqvPY9TphcnO9b3u/ahlSrv8DSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=PI//JPS9; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1792162137; c=relaxed/simple;
+	bh=gj3wE3tKC5/eIlP+bFvEKPBktyUQp6ShnPK82oCwDFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nG34+rM3o7tH7YX3sJK38Cyv1CrXALLDwZLmvl7L+KE5l+1s34mn0avORf8HU6qlZWhtxxxv3ArM4HXH+gSj9WzgXu0tusas0lPotxNp/nq7V7vDFUj9XN5jM3L6ZTfOdmQrTnMDz7gLiYq4s9fAYNOdF2A1ZBScLE19ZeaNuPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lT/kzjbN; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="PI//JPS9"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id C053D1D1B;
-	Fri, 16 Oct 2026 14:49:26 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=PI//JPS9;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E62131D4B;
-	Fri, 16 Oct 2026 14:48:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lT/kzjbN"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8917c712f32so3113253b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1792162116;
-	bh=pZzLhAcgOU7x0UIdjwGa81ZV1jpNBedjJU1lz6UUG4k=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=PI//JPS9qdw6k3zCbizg5ceTvuKxV2Ff1Drk7nPRupXgb/iTllBVPm7FyLCQGdrG4
-	 OjXKegoyj1GnC4VWeRJJgAoxyI74p6dnrDvvi9ZMC4QSCHfdjpM5m7QRL771wSWnWn
-	 EmK2wlBeH+Bm6q8o/fHJIJ7AoFZ7FTjp/YTNtWzw=
-Received: from [192.168.95.128] (172.30.20.132) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 16 Oct 2026 17:48:35 +0300
-Message-ID: <d3279695-9c86-44c8-870d-dd71393a68ff@paragon-software.com>
-Date: Fri, 16 Oct 2026 16:48:32 +0200
+        d=linaro.org; s=google; t=1792162136; x=1792766936; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=euwyB0Hu9EKnWTfQGDAfCyg2u8gsMszPEB2wlSrIzaU=;
+        b=lT/kzjbN2ELM3ANZrQKeajMvfT9aGBEfMwbyQ0KfK3TwX156iwB6Ju0/PJcb8li3ux
+         SRUwzrxIXjdL62WGQlxCFwsqFajXoXjZyiW70AD53UOStiJ08paqZYSDYn8G+7yyTNpY
+         4UKb3XorvPxp0KiBw1nsFLDgs279/e5GYi5MwYFK/Yzen7rBET98cRWmj/kew7SnyMI+
+         kgmeucauOodhoxPuKAcSoac5ekyrqHwOF6YIbdhfeJ3MROpE3Ez/PPAAsszNC6hBrLKa
+         OO+YgiGaZVO5IS3232m2f+h3XbHhK7K8zeuYVUFlM4qwGZ90VfrqjCkEtuggW5faqLPy
+         mAqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792162136; x=1792766936;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=euwyB0Hu9EKnWTfQGDAfCyg2u8gsMszPEB2wlSrIzaU=;
+        b=aGvbpQaSE1934dxJ72UJ99pNK2ZVRzVuLPwZ2iLBmLgW4vNQHQBhXmTAA3waZvY5MG
+         IG/CX609FJ63f6yr+xurBn3wqvhYWq+7qnjgaUdIhE5zxBwn1ZgAbRfFkMzi5rQRQAld
+         Ak2p4i22syA6UjxvVi7gI/mi2ZSZrzUpwthiC6fBfnPzCqlwmzJuEQQ/nNCAd37d/rzf
+         JHKGwHYBTcsyLRp1oY2qN1VbdHmFetZ+TZvoDTckrtFZhi6exkx9206Cv+GI6p0C/ehe
+         XPvXYojiSmhskpOnC11TxXovEOyM9lof1VumcOSB7cScV/9fHl0HfrSwxCnRE3KfI2sq
+         jQTw==
+X-Forwarded-Encrypted: i=1; AKwUvBztRl6PKbQz07qsvysnzMYQ9tUzI34EhovScBKfC5ghkDoAtkDCo1K/WFs4zOfhfN+Dif6inoe/c/LjPGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmJ/7xibplKdeUKnWY14QD2c6+EhJqbEAQop1lh2iNnXt9wslM
+	8ARGd06tYDPiomdHKR83XucJrea8aFZGVdHf0YtMg4v2RRsgXa3PHUPue0TcD+21AyxhqT27ZaW
+	3POFO
+X-Gm-Gg: AYBFou36SAYqfnK1XW3vsMtbtJbfOC3VBEKXsI0A2tZLFmIhjaq2BKuQ3WLf0Jf88yY
+	ny/BaV+WV1LetiOcnas90X37B2etr4cvfpL2tup12mtcA9+cUU7SXgQ2tZyC4n/QOSUJ8W7Tp/4
+	9j1dh5eyj07E2f1KbD1rQjkXhs8vq++TTipjShqkieE0tZFTpMetiVBFx5yMRuPEXbuEERsAXze
+	IJvlRAGI1gT/gvn7bjLi4l7uxT9JfBv5F+ANxX0zq1Wg5XwtKCVByZ5DwRdEh380J+RdI8IJR8M
+	U9/cvR9ijexEIH3zz7I6hQMO291+TTeV+sQL7kxlydcNQRE7S1/dqIPYSjT2xUbu8G/NMqVzOnU
+	6Gr+/2VkpGpsfZF0GgGL73ZIG6Pl90O6BlO0443lehepPS2TRj5ft5cZi43yQxM0bYIPiRtxiFX
+	aXmu3DE3MXCTWg2kUAyOD377VI95hJfs6L4BShObd69+meqnecBOlUncO1dV1wNHLEMPpCdUGww
+	w==
+X-Received: by 2002:a05:6a20:eec4:20b0:3e1:bb25:126b with SMTP id adf61e73a8af0-3e1bb2515f5mr8280336637.36.1792162135553;
+        Fri, 16 Oct 2026 07:48:55 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:ff2f:8a9c:5623:f753])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654850c61sm1273911a12.1.2026.10.16.07.48.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:48:55 -0700 (PDT)
+Date: Fri, 16 Oct 2026 08:48:52 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Atul Akella <atul.akella@gmail.com>
+Cc: bjorn.andersson@linaro.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] remoteproc: mtk_scp: fix da_to_va() bounds checks
+Message-ID: <atI5VLH_CiIBu0tq@p14s>
+References: <cover.1791198233.git.atul.akella@gmail.com>
+ <20261015151938.1331-1-atul.akella@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ntfs3: release ni_lock before dir_emit in
- ntfs_readdir to fix deadlocks
-To: Yun Zhou <yun.zhou@windriver.com>
-CC: <ntfs3@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-References: <20260701013049.3141386-1-yun.zhou@windriver.com>
- <20260701013049.3141386-3-yun.zhou@windriver.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260701013049.3141386-3-yun.zhou@windriver.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015151938.1331-1-atul.akella@gmail.com>
 
-On 7/1/26 03:30, Yun Zhou wrote:
-
-> ntfs_readdir() holds ni_lock while calling ntfs_read_hdr(), which calls
-> dir_emit() to copy directory entries to userspace.  If the user buffer
-> triggers a page fault, the fault handler may need mmap_lock or
-> mapping->invalidate_lock, creating lock-order inversions with paths
-> that acquire those locks before ni_lock (e.g. ntfs_fallocate, mmap).
+On Thu, Oct 15, 2026 at 08:49:38PM +0530, Atul Akella wrote:
+> Hi,
+> 
+> Just following up on this series. Both patches are compile-tested only (arm64 defconfig, W=1).
+> I haven't tested them on actual mt8183/mt8192 hardware, but I'd be happy to help with hardware testing if someone has access to a suitable board. I'm also open to addressing any review feedback.
 >
-> Fix by releasing ni_lock before calling ntfs_read_hdr():
->
-> - For non-root index nodes, indx_read_ra() returns data in a kmalloc'd
->    buffer (node->index) that remains valid after ni_unlock.
->
-> - For the root index header, the data lives in the main MFT record
->    whose lifetime is bound to the inode.  i_rwsem shared prevents
->    concurrent directory modifications, so it is safe to access after
->    ni_unlock.
->
-> Reported-by: syzbot+7736960b837908f3a81d@syzkaller.appspotmail.com
-> Reported-by: syzbot+262a71e9d2faf8747085@syzkaller.appspotmail.com
-> Reported-by: syzbot+cfc6e8106bec1c524f7d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=7736960b837908f3a81d
-> Closes: https://syzkaller.appspot.com/bug?extid=262a71e9d2faf8747085
-> Closes: https://syzkaller.appspot.com/bug?extid=cfc6e8106bec1c524f7d
-> Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
-> Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-> ---
->   fs/ntfs3/dir.c | 22 ++++++++++++++++++++--
->   1 file changed, 20 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-> index 07de564a2c47..65883409689a 100644
-> --- a/fs/ntfs3/dir.c
-> +++ b/fs/ntfs3/dir.c
-> @@ -491,12 +491,22 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
->   	if (pos >= sbi->record_size) {
->   		bit = (pos - sbi->record_size) >> index_bits;
->   	} else {
-> +		/*
-> +		 * Release ni_lock before dir_emit (which may fault into
-> +		 * user pages).  root->ihdr lives in the main MFT record
-> +		 * whose lifetime is bound to the inode, and i_rwsem shared
-> +		 * prevents concurrent directory modifications.
-> +		 */
-> +		ni_unlock(ni);
-> +
->   		/*
->   		 * Add each name from root in 'ctx'.
->   		 */
->   		err = ntfs_read_hdr(sbi, ni, &root->ihdr, 0, pos, name, ctx);
->   		if (err)
-> -			goto out_unlock;
-> +			goto out;
-> +
-> +		ni_lock(ni);
->   		bit = 0;
->   	}
->   
-> @@ -525,6 +535,12 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
->   		if (err)
->   			goto out_unlock;
->   
-> +		/*
-> +		 * node->index is a kmalloc'd buffer, safe after ni_unlock.
-> +		 * Release lock before dir_emit to avoid lock-order issues.
-> +		 */
-> +		ni_unlock(ni);
-> +
->   		/*
->   		 * Add each name from index in 'ctx'.
->   		 */
-> @@ -532,7 +548,9 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
->   				    ((u64)bit << index_bits) + sbi->record_size,
->   				    pos, name, ctx);
->   		if (err)
-> -			goto out_unlock;
-> +			goto out;
-> +
-> +		ni_lock(ni);
->   	}
->   
->   out_unlock:
 
-Hello,
-
-The patch was applied, thanks.
-
-Regards,
-Konstantin
-
+That patchset did not show up on my radar because it did not include the people
+listed by "get_maintainer.pl".  Please resend with the correct recipient list.
+ 
+> Thanks,
+> Atul
