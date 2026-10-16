@@ -1,88 +1,40 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21E34DD3D4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE414DD3D5
 	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161896; cv=none; b=tNJGlEE9vHzsr6rtcBgtCMUIdUjTsiIT2UOMMMgnpqu0ga5UZoZBWjyGuLNczUkTi0NFfGk/Sv2M73TRAK2DUPlhk2rXZVbUhenuNg/puHwy5e47zkJxRf398Uk3UHiHk82Ha3QX8vIzPAlbKCGzPPmSxPpPLZkytAuyC2pyTB8=
+	t=1792161898; cv=none; b=RbC8AMi7pQjyR01EmwbD2cXz/8C0MrLgd4fY3w0Q8HNoe76QpxztGNPhwlxRsvUK+0J9Oz6yT8NT1Eoebe2m8qgt5cxy9S9lzQPx/NcWsdCMtAcVSsLhCp6YrBHZV9QfV2xEfhy5UIMnYi2c6KFVlcQb+8VzUFNvo+zVp8VwxjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792161896; c=relaxed/simple;
-	bh=OGC3IYwILLkT+uEr6oJ215xWaR18kxfFl9HJvcg4MwY=;
+	s=arc-20240116; t=1792161898; c=relaxed/simple;
+	bh=Ds0Uw0OiTjtR17u9nCfSLFbFVc0eIQMHdq4FyNrTqyI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bDkfVw/Cxu7ZiVjZKSG5doTXuSz2eMqi7GjDM2lrpNOl5oTBIUECmOc8i66jY/WFJl+rGVAe2eINNkdlwfxd+PfcjL7aIaxTWSW2qJdrohKph7dlILTDPLvevc+oSHUdO2paIrdHt/fmNFre7SQuifww2uHo4rRSk2KZMu3/I2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J1+nN9Oa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NpXfnuzu; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=KAZ9zTh5qeAJNJgJEu65tPVPG4QaWFzKNaTAdLWBL+B/KLsRrKTpYHlaxBjid47Dz9l/NlcqTGGj78ik16zVILswR5LrVLy4okopQAhg+wSxHDr3RvjPXtEiCAMFfYfJmDwvX+vSAiP/yebezxmYHv4oPVWKttNf3ho9K4At8Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FlcfR7Q9; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J1+nN9Oa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NpXfnuzu"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GE5i1X1910950
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:44:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gREwBdjjGcEQUAz+C6L2Ma1LTmDk/ySKUCabLFICV/Y=; b=J1+nN9OaVp8yKhKw
-	US+sTmJiW9iKBlHLVmyDlgp+bO/AThZe/4zvrb7yX4C3mOBwCsqBGs5ZrzjZdryt
-	Zbmpj45oQvsN53hNRpuhJlqDhfbGE+blL/b4+FW8/RqwcyPG808BWxGat0I8KEi6
-	qD8+rOeHY/ihlJ38Dl42O/JtEqcOL8oAtzRXTPyOYPa+Cj4TcHNxH+eZ+IuZv9PQ
-	vNhylw7PetmsZ2HiG2M6XL94XzMauiWBoz4FjcxkkPFvim4FwGVqt+0E4xHganIC
-	75elFWsrLNYKu2Jn0tp7GqkyALCiNDoi3pZ4mf1OTd05kdk9YPk3qwLYxhvdDJhF
-	H++XmA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbjmf8tf1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:44:54 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9179d9bc964so140046d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:44:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792161893; x=1792766693; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gREwBdjjGcEQUAz+C6L2Ma1LTmDk/ySKUCabLFICV/Y=;
-        b=NpXfnuzuha7FL4R1462b7+gUUhCFpLXFC7RLw+XK5NeEIFa36IbsSur8134L8dzvqF
-         96u/Eqy7qsJMGQn9nm3V7PWZfTKJwZCo2zR/t78dK34y35FlKio36FLVDJ5KXC0idxF7
-         JLRiy5zqb8LJXaVugJ42Kcp1LiwtLpAE3FBswZTD4pjoUNOC0xLnEjjtAklN67ZeUQ3N
-         KT6gfWtmGW4Hive2r0xHspJWxKNS7n6RjmsQg3dDOxNhbBxP4Xof/B+a3n1i1avpqPqu
-         orcD6+kcZOv6zG2pl5+lWHpjWkJBa7lf2cOJpdo7kYgOaptMTCqbp1Nr9mGiOSGj7paX
-         5law==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161893; x=1792766693;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gREwBdjjGcEQUAz+C6L2Ma1LTmDk/ySKUCabLFICV/Y=;
-        b=V8++DAarQcR9jS20zz0R1MamQYIB8vi9fmGAZQ//zC6htg9daA8VbJvpCVMBRQB9kX
-         jmIHrnEOEA6m4Nx+0cvHsD5hUM0q+1H/jNBATclCdKLJWt5KWNXbNirwLkQ14h7QjSnL
-         w2fEEN6C457sD00NIPxyKAKJikJhHnHI7/UxsncWXROsf5mnicduoU5WiaYGi0DpTXmO
-         Ccjk7pnyPR9UDqSyA40t2udbSN0NLZyDV6QAzn8Z6exekITjJPs4MqjnVTzu/A4l6Ut9
-         g4hZ+ziPa2xAY85nPHPWSddovoqQZotkgl+D5KcDjtH9yacrOrBzY7bOZBVcmYK2KV1A
-         3nYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHtAliOS2Uv6pjYW5IIi00eYZnK3fmqerq0dVISPn7Gd8FvPYBPLSwDt3M4a7CVOvwI/CyuliiG1M1N7A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKsn6+CNlHgj/t7CVVHDm/AMRjXqkbRbnfg3Kme4X+4Dj30kdw+
-	9WIKLVsfLkNzpBVTxCaXNNbumWTEwRwP7k0NPNpjVVx7usip1uXjiQOZU6dsR+6NiTNQkX8TwEG
-	Tg81+dX+2Te9ZSuaLjoAg6YRAwbWONDqE5J0/+A7iXNu34VqQd5+9lDT2Dt+OCSUXbT6b+wW8lS
-	o=
-X-Gm-Gg: AYBFou3QQr8w9eWcclCLG6sRBvfxo7UMA8fO1b0LF/bq80Psm4uihILvQjDHFgoNElx
-	Ur7jNXdiHhxDqnkFCWn8CT6kHHv5C4WRxBblayNKG7muqU8TcIDcH7/zmH3gDKOP8kw+wRzCb0d
-	l0RT807ADoQPBCwhSHn2X+b7YKiOvMybszEsOWj2VhYgtrNkR8YUyVOLPI2CBCCOvGNeTfaz3F4
-	CcuwsKFRES6nMRyDzKhjuJ8CyYx1xskIoAx1fLBOcpJc2laFc8IjcO1dvigr2RG0LtbvjmH9WRa
-	gPLSqt3jD/o+6kRPjqMI213Y/fc6K+5SlLwABTtukV64uhTyZjEjpo9NBv7eKmFAiFRxQcp6m7D
-	GQjU7Jb15KwD+/LotcSUyTw==
-X-Received: by 2002:a05:620a:4624:b0:93e:70cd:e420 with SMTP id af79cd13be357-93f29d54268mr3744485a.5.1792161893042;
-        Fri, 16 Oct 2026 07:44:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:4624:b0:93e:70cd:e420 with SMTP id af79cd13be357-93f29d54268mr3739485a.5.1792161892511;
-        Fri, 16 Oct 2026 07:44:52 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1337d2sm1009944a12.1.2026.10.16.07.44.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 07:44:51 -0700 (PDT)
-Message-ID: <ae1c2f22-f753-4d42-9abb-642d8a135305@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 16:44:49 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FlcfR7Q9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7D8E2C62215;
+	Fri, 16 Oct 2026 14:45:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 961C56075D;
+	Fri, 16 Oct 2026 14:44:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD5F610328BE6;
+	Fri, 16 Oct 2026 16:44:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792161887; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+0AXPlFze0BOG/sBmlCYKyCygdQcae/LGncpPghnnwQ=;
+	b=FlcfR7Q91vBQss0fvH4P2vn74rnf/dSWcAk19bc1YL+ZzYIqTNd+sTzpsadrwo1YMBZwc1
+	KFo7GSvZlkhHgiM6SmUy5UtIf/UTf3ibwwID6IXU8/40PopfES4v+kZvSeoOaNTH+Qftdg
+	zWKsoi8qvy/ZOa2NLg7FyIJwNfxCUxqYTvP6Tutft6rskOT+LYTfDBKBt9lgbvSHqjz0QM
+	1qjCc2sRqtRFL+YFOONbQVLaIhaxvoyirkmOFHisS5QIKEvwshEM9WQFY1VAQhiWvTrFob
+	Tmsw0D6TnzrikjJGbdaOn3cbI/zDNM+puNaPFzjjsUNV9DHSdC6SuMl+l+035g==
+Message-ID: <12b18559-3e8e-4a09-94a1-0d303ad7c2c6@bootlin.com>
+Date: Fri, 16 Oct 2026 16:44:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,87 +42,420 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 35/38] arm: dts: qcom: msm8974: Add newline between
- subnodes
-To: Waqar Hameed <waqar.hameed@axis.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, kernel@axis.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <cover.1790892852.git.waqar.hameed@axis.com>
- <fba7a99d988200d102d88c7f644ea8cef7047d65.1790892852.git.waqar.hameed@axis.com>
- <8b22f94f-4091-46cd-aa4d-d45c05aad13a@oss.qualcomm.com>
- <pnd7bjhn33e.a.out@axis.com>
+Subject: Re: [PATCH net v5] net: stmmac: fix error path cleanup in DMA
+ descriptor ring allocation
+To: Ding Hui <dinghui1111@163.com>, netdev-bot+sashiko@kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
+ liuxuanjun@lixiang.com
+References: <20261012142458.2845385-1-dinghui1111@163.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <pnd7bjhn33e.a.out@axis.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261012142458.2845385-1-dinghui1111@163.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: y0gpVyyoagim9-6UNf6sH8XDUBknsAAZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfX7KpvadAqMgNy
- M5jiLW2RKVUWTcIwXOFgkbGG4YVeJV4kOBY7ba+qBF3le7e8OXEB+lb7csqy1wsJSnnazPjusMU
- 4QDSMWwopYpiZFfNlOoH0/szwc0Re7I=
-X-Authority-Analysis: v=2.4 cv=SrAFe/O0 c=1 sm=1 tr=0 ts=6ad23866 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=ORyyYoCyCzIJxacVLkIA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: y0gpVyyoagim9-6UNf6sH8XDUBknsAAZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1OCBTYWx0ZWRfXxvOh+n6i0nEo
- b1IseZ4I2PCwfVSEbdcDZHGI/E9PUr9SxJulUIMEPa6ULYnuevEGixQNltAw0s2McmMtUpeGTlX
- 4pvcvsegxw+jF+w4WTeE2SmckPmEpOwe5k2j2dbITatTrm+Zv0HWpI7wZXJq3j7qVYND7T1tck7
- X9/Eg9tO+7UbesJ7ax5WytF/sYt+DBsEZp7N4BB2hRQVzUMaypQV7pKEkEhjqcHhsC4QLxTzEIH
- 05AC1VzOM/e4AOSzT8j7b/B0IqfLHFWxgs5zKuPsy6LHs8G2p6K8Dm2GvbJgNpB3tQNs91Hm13/
- g+utTPw+cIwNhGATbX6kKzWEfJpzlcfBZHDeLbAqZ48J+BOSvASi8LBtmECROdJcV0SNcmnJIvP
- VgU8K+tRYV87CruLxsOi5I/+xeVmERhDt+4tQrIJDhmIOfubpfkhWokyNQ0H/l/dF+VSEr+IQZj
- OqrtlJiGwjyvpLOq1Vw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160058
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/16/26 4:15 PM, Waqar Hameed wrote:
-> On Mon, Oct 12, 2026 at 17:51 +0200 Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
-> 
->> On 10/2/26 12:36 AM, Waqar Hameed wrote:
-> 
-> [...]
-> 
->>>  arch/arm/boot/dts/qcom/qcom-msm8974.dtsi | 12 ++++++++++++
->>>  1 file changed, 12 insertions(+)
->>>
->>> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
->>> index 4c2730b34cd1d..1a2f0cc9f8a03 100644
->>> --- a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
->>> +++ b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
->>> @@ -960,6 +960,7 @@ replicator_out0: endpoint {
->>>  						remote-endpoint = <&etr_in>;
->>>  					};
->>>  				};
->>> +
->>>  				port@1 {
->>>  					reg = <1>;
->>>  					replicator_out1: endpoint {
->>
->> P.S. ^^ we should also have a \n between the last property and the
->> following subnode
-> 
-> From `Documentation/devicetree/bindings/dts-coding-style.rst` I read
-> 
->   8. Child nodes, where each node is preceded with a blank line
-> 
-> I guess that also applies to the first subnode after the properties
-> then, as you say? If so, let's update dtfmt to add a blank line there as
-> well then. Thanks for pointing that out Konrad!
-Yeah, thanks!
+Hi,
 
-Konrad
+On 10/12/26 16:24, Ding Hui wrote:
+> From: Ding Hui <dinghui@lixiang.com>
+> 
+> __alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
+> allocate resources in multiple steps but return early on failure
+> without cleaning up what they have already allocated. The outer
+> error paths then call the free helpers on partially-initialized
+> queues, which dereference pointers that were never allocated:
+> 
+>   - dma_free_rx_skbufs() and dma_free_rx_xskbufs() dereference
+>     rx_q->buf_pool[i] via stmmac_free_rx_buffer(), but buf_pool
+>     may be NULL if its kzalloc_objs() failed.
+> 
+>   - dma_free_tx_skbufs() dereferences tx_q->tx_skbuff_dma[i] via
+>     stmmac_free_tx_buffer(), but tx_skbuff_dma may be NULL if its
+>     kzalloc_objs() failed.
+> 
+>   - stmmac_free_tx_buffer() dereferences tx_q->xdpf[i] and
+>     tx_q->tx_skbuff[i] (aliased through a union), but tx_skbuff
+>     may be NULL if its allocation failed while tx_skbuff_dma
+>     succeeded.
+> 
+> Fix this by making each allocation function responsible for undoing
+> its own allocations on error, following the standard kernel error
+> handling pattern of cleaning up in reverse order. Also add NULL
+> checks in the free helpers as a defensive measure, since they may
+> be called on partially-initialized queues.
+> Additionally, make __free_dma_rx_desc_resources() and
+> __free_dma_tx_desc_resources() clear the pointers they free, so that
+> the NULL guards in the free helpers hold reliably when the long-lived
+> priv->dma_conf is reused across XDP open/release cycles.
+> Free the RX resources in alloc_dma_desc_resources() when the TX
+> allocation fails, as the callers only free dma_conf itself on
+> that path.
+> After __stmmac_open() copies a temporary dma_conf into priv->dma_conf,
+> release the descriptor resources through priv->dma_conf on an open
+> failure. This keeps the long-lived configuration consistent with the
+> resource cleanup while callers only free the temporary container.
+> Finally, hold RTNL while descriptors_status inspects the descriptor
+> rings. This serializes the debugfs reader with control-plane resource
+> teardown paths and allows it to safely report queues whose descriptor
+> rings are not allocated. Skip queues whose descriptor rings are not
+> allocated in stmmac_rings_status_show() to avoid dereferencing a NULL
+> pointer.
+> 
+> Signed-off-by: Ding Hui <dinghui@lixiang.com>
+
+In V1 Andrew requested that this targets net-next yet this series kept
+targetting the "net" tree since then.
+
+I think this is an omission on your side as you replied to the bots that
+you removed the Fixes: tag on purpose :) You need to have "net-next" in
+the patch topic : [PATCH net-next v5]
+
+This is starting to look good, but as you need to respin, is it possible
+that you split that patch down into simpler patches ? There are multiple
+classes of problems being addressed here :
+ - Error paths being reworked
+ - Null checks being added
+ - Some pointers being Nulled
+
+It would make it easier to digest during review.
+
+Thanks,
+
+Maxime
+
+> 
+> ---
+> Changes in v5:
+>   - Release copied descriptor resources through priv->dma_conf when
+>     __stmmac_open() fails, avoiding stale pointers in the long-lived
+>     configuration.
+>   - Hold RTNL while descriptors_status reads descriptor rings.
+>   - Correct the commit message to refer to descriptors_status as a
+>     debugfs entry rather than a sysfs entry.
+>   - Link to v4:
+>     https://lore.kernel.org/netdev/20261001035045.3305816-1-dinghui1111@163.com/
+> Changes in v4:
+>   - Free the RX resources in alloc_dma_desc_resources() when the TX
+>     allocation fails.
+>   - Skip queues whose descriptor rings are not allocated in
+>     stmmac_rings_status_show() and print a hint instead.
+>   - Link to v3:
+>     https://lore.kernel.org/netdev/20260919121436.1642724-1-dinghui1111@163.com/
+> Changes in v3:
+>   - Use addr directly in __alloc_dma_rx_desc_resources() error path
+>     instead of the if/else block on rx_q->dma_erx/dma_rx.
+>   - Clear the freed pointers in __free_dma_rx_desc_resources() and
+>     __free_dma_tx_desc_resources().
+>   - Link to v2:
+>     https://lore.kernel.org/netdev/20260905154654.1725313-1-dinghui1111@163.com/
+> Changes in v2:
+>   - Instead of only adding NULL checks in the free helpers, also fix
+>     __alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources()
+>     to clean up their own allocations on error, as suggested by Andrew.
+>   - Update commit message.
+>   - Link to v1:
+>     https://lore.kernel.org/netdev/20260830040610.1156008-1-dinghui1111@163.com/
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 112 +++++++++++++++---
+>  1 file changed, 96 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index f2fc89176654..852a8b103c45 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1728,7 +1728,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
+>  					 DMA_TO_DEVICE);
+>  	}
+>  
+> -	if (tx_q->xdpf[i] &&
+> +	if (tx_q->xdpf && tx_q->xdpf[i] &&
+>  	    (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX ||
+>  	     tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_NDO)) {
+>  		xdp_return_frame(tx_q->xdpf[i]);
+> @@ -1738,7 +1738,7 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv,
+>  	if (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XSK_TX)
+>  		tx_q->xsk_frames_done++;
+>  
+> -	if (tx_q->tx_skbuff[i] &&
+> +	if (tx_q->tx_skbuff && tx_q->tx_skbuff[i] &&
+>  	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_SKB) {
+>  		dev_kfree_skb_any(tx_q->tx_skbuff[i]);
+>  		tx_q->tx_skbuff[i] = NULL;
+> @@ -1761,6 +1761,10 @@ static void dma_free_rx_skbufs(struct stmmac_priv *priv,
+>  	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
+>  	int i;
+>  
+> +	/* buf_pool may not be allocated if alloc failed early */
+> +	if (!rx_q->buf_pool)
+> +		return;
+> +
+>  	for (i = 0; i < dma_conf->dma_rx_size; i++)
+>  		stmmac_free_rx_buffer(priv, rx_q, i);
+>  }
+> @@ -1802,6 +1806,10 @@ static void dma_free_rx_xskbufs(struct stmmac_priv *priv,
+>  	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
+>  	int i;
+>  
+> +	/* buf_pool may not be allocated if alloc failed early */
+> +	if (!rx_q->buf_pool)
+> +		return;
+> +
+>  	for (i = 0; i < dma_conf->dma_rx_size; i++) {
+>  		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
+>  
+> @@ -2097,6 +2105,10 @@ static void dma_free_tx_skbufs(struct stmmac_priv *priv,
+>  	struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[queue];
+>  	int i;
+>  
+> +	/* tx_skbuff_dma may not be allocated if alloc failed early */
+> +	if (!tx_q->tx_skbuff_dma)
+> +		return;
+> +
+>  	tx_q->xsk_frames_done = 0;
+>  
+>  	for (i = 0; i < dma_conf->dma_tx_size; i++)
+> @@ -2154,13 +2166,20 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+>  	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+>  
+>  	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
+> +	rx_q->dma_erx = NULL;
+> +	rx_q->dma_rx = NULL;
+> +	rx_q->dma_rx_phy = 0;
+>  
+>  	if (xdp_rxq_info_is_reg(&rx_q->xdp_rxq))
+>  		xdp_rxq_info_unreg(&rx_q->xdp_rxq);
+>  
+>  	kfree(rx_q->buf_pool);
+> -	if (rx_q->page_pool)
+> +	rx_q->buf_pool = NULL;
+> +
+> +	if (rx_q->page_pool) {
+>  		page_pool_destroy(rx_q->page_pool);
+> +		rx_q->page_pool = NULL;
+> +	}
+>  }
+>  
+>  static void free_dma_rx_desc_resources(struct stmmac_priv *priv,
+> @@ -2202,9 +2221,16 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
+>  	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+>  
+>  	dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
+> +	tx_q->dma_etx = NULL;
+> +	tx_q->dma_entx = NULL;
+> +	tx_q->dma_tx = NULL;
+> +	tx_q->dma_tx_phy = 0;
+>  
+>  	kfree(tx_q->tx_skbuff_dma);
+> +	tx_q->tx_skbuff_dma = NULL;
+> +
+>  	kfree(tx_q->tx_skbuff);
+> +	tx_q->tx_skbuff = NULL;
+>  }
+>  
+>  static void free_dma_tx_desc_resources(struct stmmac_priv *priv,
+> @@ -2272,15 +2298,19 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+>  	}
+>  
+>  	rx_q->buf_pool = kzalloc_objs(*rx_q->buf_pool, dma_conf->dma_rx_size);
+> -	if (!rx_q->buf_pool)
+> -		return -ENOMEM;
+> +	if (!rx_q->buf_pool) {
+> +		ret = -ENOMEM;
+> +		goto err_destroy_pool;
+> +	}
+>  
+>  	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
+>  
+>  	addr = dma_alloc_coherent(priv->device, size, &rx_q->dma_rx_phy,
+>  				  GFP_KERNEL);
+> -	if (!addr)
+> -		return -ENOMEM;
+> +	if (!addr) {
+> +		ret = -ENOMEM;
+> +		goto err_free_buf_pool;
+> +	}
+>  
+>  	if (priv->extend_desc)
+>  		rx_q->dma_erx = addr;
+> @@ -2296,10 +2326,22 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+>  	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
+>  	if (ret) {
+>  		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
+> -		return -EINVAL;
+> +		goto err_free_dma;
+>  	}
+>  
+>  	return 0;
+> +
+> +err_free_dma:
+> +	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
+> +	rx_q->dma_erx = NULL;
+> +	rx_q->dma_rx = NULL;
+> +err_free_buf_pool:
+> +	kfree(rx_q->buf_pool);
+> +	rx_q->buf_pool = NULL;
+> +err_destroy_pool:
+> +	page_pool_destroy(rx_q->page_pool);
+> +	rx_q->page_pool = NULL;
+> +	return ret;
+>  }
+>  
+>  static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+> @@ -2352,14 +2394,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+>  
+>  	tx_q->tx_skbuff = kzalloc_objs(struct sk_buff *, dma_conf->dma_tx_size);
+>  	if (!tx_q->tx_skbuff)
+> -		return -ENOMEM;
+> +		goto err_free_skbuff_dma;
+>  
+>  	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
+>  
+>  	addr = dma_alloc_coherent(priv->device, size,
+>  				  &tx_q->dma_tx_phy, GFP_KERNEL);
+>  	if (!addr)
+> -		return -ENOMEM;
+> +		goto err_free_skbuff;
+>  
+>  	if (priv->extend_desc)
+>  		tx_q->dma_etx = addr;
+> @@ -2369,6 +2411,14 @@ static int __alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+>  		tx_q->dma_tx = addr;
+>  
+>  	return 0;
+> +
+> +err_free_skbuff:
+> +	kfree(tx_q->tx_skbuff);
+> +	tx_q->tx_skbuff = NULL;
+> +err_free_skbuff_dma:
+> +	kfree(tx_q->tx_skbuff_dma);
+> +	tx_q->tx_skbuff_dma = NULL;
+> +	return -ENOMEM;
+>  }
+>  
+>  static int alloc_dma_tx_desc_resources(struct stmmac_priv *priv,
+> @@ -2411,6 +2461,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
+>  		return ret;
+>  
+>  	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
+> +	if (ret)
+> +		free_dma_rx_desc_resources(priv, dma_conf);
+>  
+>  	return ret;
+>  }
+> @@ -4182,6 +4234,7 @@ static int __stmmac_open(struct net_device *dev,
+>  
+>  	stmmac_release_ptp(priv);
+>  init_error:
+> +	free_dma_desc_resources(priv, &priv->dma_conf);
+>  	return ret;
+>  }
+>  
+> @@ -4214,8 +4267,13 @@ static int stmmac_open(struct net_device *dev)
+>  	}
+>  
+>  	ret = __stmmac_open(dev, dma_conf);
+> -	if (ret)
+> -		goto err_serdes;
+> +	if (ret) {
+> +		stmmac_legacy_serdes_power_down(priv);
+> +		phylink_disconnect_phy(priv->phylink);
+> +		pm_runtime_put(priv->device);
+> +		kfree(dma_conf);
+> +		return ret;
+> +	}
+>  
+>  	kfree(dma_conf);
+>  
+> @@ -4224,8 +4282,6 @@ static int stmmac_open(struct net_device *dev)
+>  
+>  	return ret;
+>  
+> -err_serdes:
+> -	stmmac_legacy_serdes_power_down(priv);
+>  err_disconnect_phy:
+>  	phylink_disconnect_phy(priv->phylink);
+>  err_runtime_pm:
+> @@ -6130,7 +6186,6 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+>  
+>  		ret = __stmmac_open(dev, dma_conf);
+>  		if (ret) {
+> -			free_dma_desc_resources(priv, dma_conf);
+>  			kfree(dma_conf);
+>  			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+>  			return ret;
+> @@ -6501,8 +6556,10 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+>  	u8 tx_count = priv->plat->tx_queues_to_use;
+>  	u8 queue;
+>  
+> +	rtnl_lock();
+> +
+>  	if ((dev->flags & IFF_UP) == 0)
+> -		return 0;
+> +		goto out;
+>  
+>  	for (queue = 0; queue < rx_count; queue++) {
+>  		struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+> @@ -6510,10 +6567,20 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+>  		seq_printf(seq, "RX Queue %d:\n", queue);
+>  
+>  		if (priv->extend_desc) {
+> +			if (!rx_q->dma_erx) {
+> +				seq_puts(seq, "Extended descriptor ring not allocated\n");
+> +				continue;
+> +			}
+> +
+>  			seq_printf(seq, "Extended descriptor ring:\n");
+>  			sysfs_display_ring((void *)rx_q->dma_erx,
+>  					   priv->dma_conf.dma_rx_size, 1, seq, rx_q->dma_rx_phy);
+>  		} else {
+> +			if (!rx_q->dma_rx) {
+> +				seq_puts(seq, "Descriptor ring not allocated\n");
+> +				continue;
+> +			}
+> +
+>  			seq_printf(seq, "Descriptor ring:\n");
+>  			sysfs_display_ring((void *)rx_q->dma_rx,
+>  					   priv->dma_conf.dma_rx_size, 0, seq, rx_q->dma_rx_phy);
+> @@ -6526,16 +6593,29 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+>  		seq_printf(seq, "TX Queue %d:\n", queue);
+>  
+>  		if (priv->extend_desc) {
+> +			if (!tx_q->dma_etx) {
+> +				seq_puts(seq, "Extended descriptor ring not allocated\n");
+> +				continue;
+> +			}
+> +
+>  			seq_printf(seq, "Extended descriptor ring:\n");
+>  			sysfs_display_ring((void *)tx_q->dma_etx,
+>  					   priv->dma_conf.dma_tx_size, 1, seq, tx_q->dma_tx_phy);
+>  		} else if (!(tx_q->tbs & STMMAC_TBS_AVAIL)) {
+> +			if (!tx_q->dma_tx) {
+> +				seq_puts(seq, "Descriptor ring not allocated\n");
+> +				continue;
+> +			}
+> +
+>  			seq_printf(seq, "Descriptor ring:\n");
+>  			sysfs_display_ring((void *)tx_q->dma_tx,
+>  					   priv->dma_conf.dma_tx_size, 0, seq, tx_q->dma_tx_phy);
+>  		}
+>  	}
+>  
+> +out:
+> +	rtnl_unlock();
+> +
+>  	return 0;
+>  }
+>  DEFINE_SHOW_ATTRIBUTE(stmmac_rings_status);
+
