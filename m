@@ -1,106 +1,97 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5720C545D85
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1BF535FA7;
+	Fri, 16 Oct 2026 16:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169750; cv=none; b=rd3Uh97SkfILbrZwesR8ohXh3+4PnHD0U6dhRgdVPvCJ9Dh+pnIHGeSEjxAregc1K4C96Gtg9DDkEPtgRsYFPh3OUwqa37ooUb3xLj21Thmiryfg/AY+KrBdpUQEJkD3wQEnJ0eUk2p8DPCBhcYMZbknO9501JENDxWGOKB9Eew=
+	t=1792169752; cv=none; b=R4vliFwH/VBWGEjSyEiffNvnyagvs8q/kGpGC+z1r42O+TcpyVsnFPgAG8SeEejTOh2pfzao/Zh/kwgDc38WeIdegJCeXqYJqDhlvmiajnWAsZWs/BwLtGAZ4u4aTHH7GWBXqAhOX7vng4CJwt4YywzJ1FlV3KWKNoOLFAoWVCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169750; c=relaxed/simple;
-	bh=GQRU9DFvAxcogjfhIENbBt6INOxd1HytQUmpWyWEfRE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=joVCJpR4VVAu70On+8E33gN7mdsQF/L6B2BF3Ch0YvXLVz4kHy6ne78Nn9S+OcBf/mzJNPQbn+Ghg8FY6ojUeINsNsQBmyZaIJ/xjWR23d60v3Q365G7vwLjvpBIxsESCl7e8fqNcrAAiZPtYDCMDCIWnunP0VUqC3Cl1yIwjdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bEM8qECs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792169752; c=relaxed/simple;
+	bh=WdVTmqhBYC4t9n1b9l4GQNldtQOStvXosyzwEd76Gy8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kFrX8VKOYUT+ndRMkFWpsumwNLGEq6U2yPJDPH4tyI75COwgF3eWgfccDzKmHTSZdi36uf3NRaQSSm3XV4gJ3q4q1eoHPsnbJPdmbWsBtcOiAECZCFXiLAXq9Kl1S5smvDPq+5u7Qm94daJ79Pf/y3Q2fasCPzSFfVgarVe4X+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=i8ALknZK; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bEM8qECs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 731CD1691;
-	Fri, 16 Oct 2026 09:55:45 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2DA293F7B4;
-	Fri, 16 Oct 2026 09:55:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792169748; bh=GQRU9DFvAxcogjfhIENbBt6INOxd1HytQUmpWyWEfRE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bEM8qECskA4mbmm+3PxnZ7rrV8bNyLdf/0L5uUfgn93fEdpUixwvYjklB9qLZuad8
-	 fxazEPugZ5NPUKKK5jxXFTW6KfGrOk7caEcEsPek5LEaYtvl95l8b/m2EGlTEigvoN
-	 VwXc8doira51QgRChYgmiwc5cklzJLiLgfjcLshg=
-From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 17:55:18 +0100
-Subject: [PATCH v2 20/23] coresight: trbe: Add fault action argument to
- trbe_handle_overflow()
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="i8ALknZK"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j5rft32yrzlfvpN;
+	Fri, 16 Oct 2026 16:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792169746; x=1794761747; bh=y/2NJaVkhwoOKchO7UYsTKHz
+	BXwFe1IAXZbHOgIJVkc=; b=i8ALknZK6kTeQIodRg8trwffXFVXnOC/o1UcHkuR
+	4buhqRzvrXhy/1Srt6cFWwdfXoRMZqHan+mhSgIHvIENUZSnYkG8ErAfOHYUrM+s
+	RMia1BvdHIE9/KUsqo+v/cBpoibCJZ8x7bMYe6bI2vsr9LpoeDuzzQYPBAv7+nrw
+	ZqNXbvYi7Jv42ogg34YOl8tsLmiEKK9gufoBRIOcSMwvIj0VCCZxJtXslJWxflLA
+	tjxhbcly3bBbbwuk3uFsMusSNidZ6W096j2yMciqPu8HKhALCpNHwoXbf3iap+aB
+	8BvLMGOk7YFAWuo9noSBRYdMrPmM+D3EOJt9uXwO1Y3ShQ==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id WKmg-u42vpim; Fri, 16 Oct 2026 16:55:46 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j5rfn4cv6zlfvpH;
+	Fri, 16 Oct 2026 16:55:45 +0000 (UTC)
+Message-ID: <3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org>
+Date: Fri, 16 Oct 2026 09:55:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: ufs: core: Fix double completion in
+ ufshcd_clear_lu_cmds()
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261016085403.1711740-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261016085403.1711740-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_enable_disable_irq_handle_refactor-v2-20-3f57cf3199b1@arm.com>
-References: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
-In-Reply-To: <20261016-trbe_enable_disable_irq_handle_refactor-v2-0-3f57cf3199b1@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Anshuman Khandual <anshuman.khandual@arm.com>, 
- Tamas Petz <tamas.petz@arm.com>, Tamas Zsoldos <tamas.zsoldos@arm.com>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792169710; l=1741;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=GQRU9DFvAxcogjfhIENbBt6INOxd1HytQUmpWyWEfRE=;
- b=GRFWx5MtpRGZ6KTGxd6mRZGFkmMpkY23N0YTyZHahDGJnGJtTyN2XyZuxMQlO9UGo+M8YQOuH
- uS8KEHffl16ABa39VbAKDsEUeIEowkjGLck7OM8cMMnj2FvZOwWfbrR
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Add a new argument to trbe_handle_overflow() for the fault action, which
-is used to compare the wrap event for trace size calculation.
+On 10/16/26 1:54 AM, Stanley Jhu wrote:
+> +	spin_lock_irqsave(&hba->outstanding_lock, flags);
+> +	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
+> +	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+> +
+> +	if (outstanding)
+> +		ufshcd_compl_one_cqe(hba, tag, NULL);
+The above code is identical to a code block in ufshcd_abort().
+Additionally, a more generic version of this code is present in
+ufshcd_poll(). Maybe this is a good time to move the code below into
+a new helper function such that code duplication is avoided?
 
-No functional change intended; this is preparation for a later update.
+	spin_lock_irqsave(&hba->outstanding_lock, flags);
+	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+	WARN_ONCE(completed_reqs & ~hba->outstanding_reqs,
+		  "completed: %#lx; outstanding: %#lx\n", completed_reqs,
+		  hba->outstanding_reqs);
+	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+		/* Do not complete polled requests from interrupt context. */
+		ufshcd_clear_polled(hba, &completed_reqs);
+	}
+	hba->outstanding_reqs &= ~completed_reqs;
+	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
 
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- drivers/hwtracing/coresight/coresight-trbe.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-index f1f102df6c387f53feaa12b89d3df89f734afcdb..c83c440d4ac13c346bc2a7f9093951c186c90157 100644
---- a/drivers/hwtracing/coresight/coresight-trbe.c
-+++ b/drivers/hwtracing/coresight/coresight-trbe.c
-@@ -1132,7 +1132,8 @@ static void trbe_handle_spurious(struct trbe_cpudata *cpudata)
- 	set_trbe_enabled(cpudata, trblimitr);
- }
- 
--static int trbe_handle_overflow(struct trbe_cpudata *cpudata)
-+static int trbe_handle_overflow(struct trbe_cpudata *cpudata,
-+				enum trbe_fault_action act)
- {
- 	struct perf_output_handle *handle = cpudata->handle;
- 	struct perf_event *event = handle->event;
-@@ -1147,7 +1148,7 @@ static int trbe_handle_overflow(struct trbe_cpudata *cpudata)
- 	 */
- 	clr_trbe_status();
- 
--	size = trbe_get_trace_size(handle, buf, true);
-+	size = trbe_get_trace_size(handle, buf, act == TRBE_FAULT_ACT_WRAP);
- 	if (buf->snapshot)
- 		handle->head += size;
- 
-@@ -1253,7 +1254,7 @@ static irqreturn_t arm_trbe_irq_handler(int irq, void *dev)
- 	act = trbe_get_fault_act(handle, status);
- 	switch (act) {
- 	case TRBE_FAULT_ACT_WRAP:
--		truncated = !!trbe_handle_overflow(cpudata);
-+		truncated = !!trbe_handle_overflow(cpudata, act);
- 		break;
- 	case TRBE_FAULT_ACT_SPURIOUS:
- 		trbe_handle_spurious(cpudata);
+Bart.
 
--- 
-2.34.1
 
