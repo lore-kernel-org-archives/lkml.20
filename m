@@ -1,221 +1,250 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AF7399D0C;
-	Fri, 16 Oct 2026 04:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792125906; cv=fail; b=hyc+g1V5H6tIiQWaE8wN4hsUKKII3ThxuUmrWqqk77tTDOBUJpE/oGdvxu2L2RPcnh2QcR5qGaFQxWcvV8z0hmzIL6LvK9PfeorzeivjL1xgJEGWJ7/etkrzsKIzHNpb+7qQoT7xa86GPeAXG/8Qo9k6vz61yPz3JnNq1D1pcWE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792125906; c=relaxed/simple;
-	bh=VwooJkquW5BlS+D27MWnAG2anRqkrWE9Bdi5G0tkfVU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eaWTBmx5chzR5iqeYJl++FCftUB0n6WNdI4pyDvl9Bp8aTRNWbRmPbNINNWeW/yGnPH83+yl10hRoVvwe8InLGfezWMR2er6mYtHnhybdf0WDeMUxBSAP4VYiN+djDz11ZK3yemrsSD/2yN6jC/DCBN/huH5Qp7U6HGByPKC6XE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=aOxSmSvU; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=ldKNojHb; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482FC39A06A
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792125908; cv=none; b=MazKs1ctn+16MtLPpyNA5pXxbxOkk4CJJk8C5pWxLJ/KWCJs308wsCdZdD5vtAs//JVsT4NYOCHe8drjvugmIpj5fk/6mIz1haAfnGAspKXnPd5sPuxdr+Ap0O/LHc4P7D+pm1DWnQkaX0KVO46ZCmVVOyNi51KvZpk25g0XZA0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792125908; c=relaxed/simple;
+	bh=hG/79XL2NC5bednR016FXnLEa+4PbsgFbKY27XArRFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MRwIq/RTk2h3UWxmM9JMkw6F8fpv0af0/gbhR9XBVqTGya+zd/cJaKVR95momBcxCQGfb10DNoKGnf37RDN41RL+m8moPwdH9U2f1dqQrZ8GD+ktHgm45Movo/rNGXudE81oPvAC83TIOMYedmsPXXz4e5YINKDbssr/Iz/OTAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=j97Jz6oC; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="aOxSmSvU";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="ldKNojHb"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69G2kUm82062711;
-	Thu, 15 Oct 2026 23:45:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=UxKoXCeSgif6oXZU2rxl5z8b6veBmZWCVI/0ziTOU
-	cU=; b=aOxSmSvUPiSPYBL7OuobtdqK9DFWAtIjkA4li8USq1VrRvcEmbu6KzMta
-	Ja98giudo/RfP9csPR42BpkTTBx7QDoCcKU5OLuexynLT227X1NBAQq+KhbLQe6P
-	3SJd7cs49x364iKyziH+TwO5nv6NR/2Coum1Qwf7xYKwtxDpHqbiVKqUUpkIInyS
-	alT9dYcPCdEy3WeLw3+gcCgOOQj2drEfAtPOzuitQ57Nfj1LFz+kMXlHw6mRTMcn
-	uj+TW0VkoWBhSZ7tXXrw3ojZmUomJXiItD1WE3vo+xOgFqSOW8DVDM52KNidO0F7
-	eR/zetAlWEOeRcIj2arMBUmmLAf8w==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011010.outbound.protection.outlook.com [52.101.57.10])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hauwke3t8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 15 Oct 2026 23:45:03 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XDJOcS0UPovfq7cgCoHbORDNJhZJRCTeUV/VF9W+TTOENSLwVhdBYvS9u4InZ8jqd2p+5q6wMzMv2ArPXwMd4A7movPts4LDJwzWIIIcH7QVOV985wRnG3hUts6tIBzIs7DxoWZ5t/FuqEg8iLqQf/FnJ624Ilim7nMQTlPO7qT86Mao/qml80KliJiMlTBf73z5IQ5/xq7dgFavdJ+eRBO8D9zzCfw7+LmfKtIA7gDMgagR6T3W8JR+/ddmPMwIh4HjIk/kcoIvj32faS090lJlUGW0P9dXlV+T5vP7lmwUUkGQy6Oufc+/XxFHH7vXkw0NxltKt+yvN2MbYzFIKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UxKoXCeSgif6oXZU2rxl5z8b6veBmZWCVI/0ziTOUcU=;
- b=I3NXzoatiAgieFhTwa3OHUNjAT1/LOMWmBwwcaTEeaDZUPhnMgdV6mQMc9Szoc1IwQ5Ael3R+aptcpvXjsA0wGAxdECDhqrl5HZD6oCGmzyVKq7TeUY6DqzG/P32gnsITXkkOTsZILH+FPm9cpFXLKw7VTJN8tzya+ni60Laglrn+8RRcumU8ihf4CG0EBzWuF/OeLAayE04ycEp5xX2J/eFB0D0tZKw91HyHw1yT6kDCsbsSMbJgj9bcmh5jN9k/cSxj4xjWYbf4aLQJn2tmTSBJAG53Mc9Y0QhuPZ6VqghTZyjM/nocAF+5Kh3YcfEQUsm3yN2jk8dt0eBdFN3VA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="j97Jz6oC"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so36091735ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:45:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UxKoXCeSgif6oXZU2rxl5z8b6veBmZWCVI/0ziTOUcU=;
- b=ldKNojHbtbhQRpIunU52GrmDrGTJJlfm1U8YqgxT8m9b5zzOIbR3qEoujYIGrGOvukee/UXxg/5VJw6WYgFGicEX46k6hbx0LENPtPlngm44o2xxEQQsenZsXwAIh0abTCUmtc4o8xwL4c0y5IIFTeA3mPaQAmwo9GkWj+44pR0=
-Received: from BN0PR10CA0020.namprd10.prod.outlook.com (2603:10b6:408:143::11)
- by IA6PR10MB997610.namprd10.prod.outlook.com (2603:10b6:208:5dd::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Fri, 16 Oct
- 2026 04:45:00 +0000
-Received: from BN2PEPF0000A993.namprd04.prod.outlook.com
- (2603:10b6:408:143:cafe::7a) by BN0PR10CA0020.outlook.office365.com
- (2603:10b6:408:143::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 04:45:00 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF0000A993.mail.protection.outlook.com (10.167.248.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 04:45:00 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 15 Oct
- 2026 23:44:59 -0500
-Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 15 Oct
- 2026 23:44:59 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE208.ent.ti.com
- (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 15 Oct 2026 23:44:59 -0500
-Received: from [10.24.51.24] (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69G4itOq611695;
-	Thu, 15 Oct 2026 23:44:56 -0500
-Message-ID: <3c443e92-f552-4e04-b408-bd3a6cfbf4c6@ti.com>
-Date: Fri, 16 Oct 2026 10:14:55 +0530
+        d=chromium.org; s=google; t=1792125907; x=1792730707; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0i3/GM+C7HIQ+51vxL/QdBH6G/WwpNAIZ4e9TPzcXVA=;
+        b=j97Jz6oCINAd0g/BXjPOhjtuZi/6qoBdnNNMh+48VPqzYoXwzt4MbBq05OYGD0QbFv
+         ccMnh1Ubli6wTGA0R/xZBeU5dg6t6A6E/Tb+f12f0S3qTQjoFKGIZQ/OIBDEjJWFKWxT
+         +uABnC3kU/+sRDjq0/xILIlou6NAoKqBaGHs0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792125907; x=1792730707;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0i3/GM+C7HIQ+51vxL/QdBH6G/WwpNAIZ4e9TPzcXVA=;
+        b=q9FO2iSiTRHPgziga0IxW+cootDpyJ9akVUdtvI68jWQhDNI5z4qBZ0G/v68jw+kKW
+         DtjtpE7lPHp29CkOS7p9HqL7zkU6JMCcxFYkQVdmWYzW6L8TeT+Ul5BPKNv3sz/lIz5N
+         BhGNSk8NseEhkavE7vGoUeSxEOA1W7KKa0UuerjqFzT8zOn9dyMz6P+DP+wXsZL/ObXj
+         +vYrobX1I/WGGRCA+9hlKwyhDoWCGrE4GFN6I7KdKX67ew+ezV9cR0Hxsk0EXTD6Kh4Y
+         Q4/HA46qPmgBzzlLKrNmFR/Fv5WWw9r0L6M5lorlMzAWuf6925C5p3DEgKHTPuB7gfH7
+         eJLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWZbDxOie29RL0Lk5GZbnWgNQzeLk8ADTbEXbW0BzTEi1CaSAvlMXX3ibvdz2ydp15V8HZnRlYvYGAX4E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcYW9NEalwtjhIZSQgkyVBkwGbvEs49tvu2p9rImKIrtgJolNj
+	Or1GWoIqolKz4Yy6MzWQ6hKBhjr7PBOzLSItWF4sDrI0hpM71FDUBqgVLQ5bSHlSxQ==
+X-Gm-Gg: AYBFou2ctWmaRcv2BLqhTHIT8iOD3cqC5NQ7ecl7SRfL682+3CAs0r0tbFYsTT/Du/T
+	V7wUBI1ZF99gd3WgTGXcDRU4u2BqlSpWb27q5k0vLHzmiGYu2TQ/dqcRcgQ5+aQ7vlJGZ9OKmYx
+	M8bxK/RQXo6bH/DiKE8Cu3iyeej9uwrJY18Cz79GAzUqjDNciOC+O8gk+2EzKxJRpmZXwYaww+e
+	NuHvNdxOBm+Nz45PqZ/z3TGW22uOOI2CdnYysaw6XHr4pPD7wlfKx+E7W8oRKtCNepFL4j7DzeQ
+	md3SsSdA8Wi0PCRsNtUm4pNjMJcDJ0z/GuUx/eUm8jvFLUFWgpY5CGlqvRp7UhM9MycVOiaulva
+	Fpg1ylJe5J5+4KNAjeZIXbUMRq+R0wWdgLvaU7rw69bw33H2OmfKunc/kLCbAHwPC5txZ1VWDhD
+	BZsGso7WSV0WpbRhmlUe7yvrHBVxD/iRO0veL+jk2hO10CzkT4qrvkJaybvyKCTuda24cgLMgpH
+	iiLFhUrBNs8h+n3bsJ3DTxp+1s3Kl7bjnSamaaE9AGIKN3819S7rMMqVDFuXtq/3ZM1S/eePRFG
+	wDWssWitZlrjUoNUL5AWC7qxrF3IBgTDO7ipsIiixTrz
+X-Received: by 2002:a17:902:dac1:b0:2e5:f62e:2eaa with SMTP id d9443c01a7336-2e842cd5165mr192173705ad.43.1792125906642;
+        Thu, 15 Oct 2026 21:45:06 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:a579:8b87:8304:7ac2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b1b5esm4137235ad.67.2026.10.15.21.45.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 21:45:06 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Brian Geffon <bgeffon@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Bo Zhang <zhangbo0325@gmail.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Richard Chang <richardycc@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v4 11/12] zram: allocate bounce buffer for spanning objects
+Date: Fri, 16 Oct 2026 13:44:16 +0900
+Message-ID: <20261016044429.1304561-12-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+In-Reply-To: <20261016044429.1304561-1-senozhatsky@chromium.org>
+References: <20261016044429.1304561-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: gpio-davinci: Add the tda54
- support
-To: Bartosz Golaszewski <brgl@kernel.org>
-CC: Keerthy <j-keerthy@ti.com>, Linus Walleij <linusw@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>, <vigneshr@ti.com>,
-        <u-kumar1@ti.com>, <nm@ti.com>, <linux-gpio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260923-upstream-tda54-gpio-v1-0-d1a0a199c836@ti.com>
- <20260923-upstream-tda54-gpio-v1-1-d1a0a199c836@ti.com>
- <CAMRc=MezO+9L9mepev-ALuk4qjqTOPTGj+odn-8=MbN_9osVzQ@mail.gmail.com>
-Content-Language: en-US
-From: Aniket Limaye <a-limaye@ti.com>
-In-Reply-To: <CAMRc=MezO+9L9mepev-ALuk4qjqTOPTGj+odn-8=MbN_9osVzQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A993:EE_|IA6PR10MB997610:EE_
-X-MS-Office365-Filtering-Correlation-Id: df9a70d4-40c6-4811-cfa9-08df2b403c7f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|261009223027099003|56012099006|4143699003|18002099003|22082099003|6133799003|10067099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	WULMzGhPxhflJGqXdeqMV65nG3JJuc7WNAH+01yUt4yYtffkZkxowsPDelrDzZHlAaXjPxyJAiVqOQQkhkC8oJbKYfWqlCHuzP3ZZ5fUa5XgNv1oP2goaYaA0vg0oVUjDc3qPIKpai1bL1TKbiAUIm4VAUSh7d2tMJRJAoo6FeoiDlOU67EWHN17ICP1X4Z8lED5Xc9Dk90IwZ8gvQXP0XHj2Lv9G88sszqOhCSMYS021QMkA+CVaKpIfNJr0bBKwxCAdmOg2xt7tVFPWdrE99z/JC0b6YZQa8jr6FDtb7bbWe97u7t8/qwyvx6a9KDr+PCcUlJteUHcaxb7CIqqL6XjpctUEjv1bBCUygCWLkZtkmg2Ym9sjuz1RWA5NOkXInMj3sxp/nus+/KJmydrIRquLQ6gJYc5fUG8VCbHV4ZddFObUAuxi33aEQfG7jDc91D5VFEn4Un/yM6ETuONkn2Xrt9HFKCUBgHr4kMqfHgnDassB/0MmbXqcGrq+Rdz3mfnPCpCLMNc3w5iVbMPigKxZKRFCSRMGk/Yv/vow1BrufE3dnb8plDPXzNXndU0inYoeSowMNsOvplWWgZreIGgZuDgsIVrCSj0f0i2nmC1qX5XrRe/+azs/ZTuF1s2FKBBjIHitxNUkiznavyHyocrGnPi4MCVuCpxLr8gDKE=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(261009223027099003)(56012099006)(4143699003)(18002099003)(22082099003)(6133799003)(10067099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hbhUnAdXmy5F+gbA3TQEScAIa9vdiumv2Cs0KyScvI+xJJNqvc6oFTYLeiALjOgwBzqvXcKrxLcrvWtw9e5vIU2TC302yFCOZ1RkZtEaoPDtN4YEZZxHHtMXMwBjn8m9Dw48/m272Mu6iBmxmR4U5J2nMY6cletREl9at99YJrvuxvtJ9UZnMTsKppIEVezpTiYRUcWkSoBSWKPcDcWOumePvDUT4wLRNaMxSqqFBS45a7bBzxZ90ZaRnN+0aBPMs0XrKC5a5d30Na6CX0AJWq5UN2wulmPWTJ7TGL0SXk+utqOtygbGYKoOTzxG2PMFbJa34L1Jqcyk72gLzXp2KjqR9SDSHBSaioTB2T8DPz9/g8o6ljsHOCSiYhPbZiBSYywkIQg/RA7lXKAs3H5WU9xkKJeLTKXbVREMpT1wvlHW+M3VTfCaVoeUZYeOP2qG
-X-Exchange-RoutingPolicyChecked:
-	ZFo7RrHg84fOLEv812RWIwec0P17u0R9PAYY+KOv2zTJr4ynOdkiqe1QYd+FpzWOEvuzTWi98UjDqFQvgRDqGcTNMMUUgwqBN98yP8Wk3KqJjsCHfU7Oib6IfdFBdWW/l5y2bPeJl95k9TKPh5FMkoTh15OMjF0W4Jd+FuHqB899RI8E7aB0fowZgBcIL5BvPr3aEHrem1bzTDARSA3SS8j6jRAK5Maglb4BsWuvxBi0zo1nj8Hd/vlWe/109sXysOyGTkxsa305u/p32Vz/IiM74KO1v8vVN/DIYp+cgqrbMJkPZ5L6i9ehDUPl90USB+hT37InY7/lMipbHVvDNw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 04:45:00.1591
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df9a70d4-40c6-4811-cfa9-08df2b403c7f
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A993.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR10MB997610
-X-Proofpoint-GUID: spmtg8o1ndGU39j2m4zOcXIQF00u0wuZ
-X-Proofpoint-ORIG-GUID: spmtg8o1ndGU39j2m4zOcXIQF00u0wuZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAxOCBTYWx0ZWRfX5l/3uVLF+GQ1
- CjpnH5yoEZr51Ggkdr1o9jikseIb/JzE+jrIUVCJpke1k4bEQ5/RPwdnHYvFsozd3WJ2Qkwpase
- M9FDjI3/3hNkzPW74JlLizdnDvtUKFc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAxOCBTYWx0ZWRfXwqxo5CmeAr+0
- JQiNFgGuW/pMuxBRXJpNGGVIQRUxknWMjZaboCoO38UAlNCp+0U0mHzGWeQHv5id9SMvDECqBoM
- xJ8ICqc2Lj8Q1MeWtR0+eqg0nWPD2mj3rdEi0JBZvJdw3fBryFnkrg28247XHxCb7L/wppgnm2F
- SSi3KlTXN2ChCT57hLgEMO72KJMz9/aHG+hHZ88pQ7yPb4DBDM14Iug9GgEiwUAAy4PL2CdkKAH
- YNtqi1X4TaSm/XjhJXXCf66ukDuJvpAFn1hoxXT5sWg3HGNVzN4fB74zovlk4WuvIdtsHR+9Bs5
- JDTmfEwM/H1NnSyMrdKHNhbwwxTRRz6bX0s9UZoIezshK+qoKUhGPFdV7mZz0BgBEpOpTBykcTz
- FgJeepe8AJ1DLohDHReOWSGKmwP4IjDs+2QXdZtphq2Fv1ByL0Tv6L4TFSz4ljSQWuxbt2iw8AT
- s4KYICXbudTunYjHBtQ==
-X-Authority-Analysis: v=2.4 cv=DOsacCNb c=1 sm=1 tr=0 ts=6ad1abcf cx=c_pps
- a=0NfeuCspy0HP0/thZ1bhnQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=pOWtCY_feEBuUAqurrYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 phishscore=0
- impostorscore=0 clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160018
+Content-Transfer-Encoding: 8bit
 
-Hi Bartosz,
+zsmalloc objects that span two physical pages need to be linearized
+before decompression, which zcomp does using stream's ->local_copy
+buffer.  That buffer cannot be used concurrently, so such reads take
+the stream in exclusive mode, even when the backend has stateless
+decompression.  And spanning objects are not rare: Bo Zhang [1]
+measured 23.3% of reads on lzo-rle going through the exclusive path,
+causing contention on ->excl_lock of up to 72-96 ms:
 
+                      baseline   patched w/o kmalloc bounce
+  read contended      24,749     1,959
+  read wait_ns total  239.8 s    ~12 s
+  read wait_ns max    757 ms     72-96 ms
+  read acquire        3,948,150  3,510,610
 
-On 28/09/26 17:58, Bartosz Golaszewski wrote:
-> On Wed, 23 Sep 2026 14:56:44 +0200, Aniket Limaye <a-limaye@ti.com> said:
->> New version of GPIO IP used in TDA54 SoCs adds support for level-triggered
->> interrupts via extended registers.
->> Add the device binding for ti,tda54-gpio.
->>
-> 
-> Nit: Does the new feature really matter for the binding if it doesn't warrant
-> any changes in properties?
-> 
-> Bart
-> 
+Allocate a temporary bounce buffer for spanning objects instead, so
+that backends with stateless decompression can always use shared mode.
+If the allocation fails we fall back to ->local_copy under ->excl_lock.
 
-I have sent v2 with no changes, sorry I missed this comment.
-https://lore.kernel.org/all/20261016-upstream-tda54-gpio-v2-0-5c4f8b10cdbc@ti.com/
+Per-request bounce buffer fixes the remaining tail latency, as was
+measured by Bo Zhang [2]:
 
-How would you like me to add the extended registers/level-triggered 
-interrupts in dt-bindings? The compatible doesn't really need any new 
-properties, but does tell the driver that extended register sets for 
-level-triggered interrupts are supported by the IP.
+                 baseline   patched   patched w/ kmalloc bounce
+  read contended 24,749     ~1,959    0
+  shared         0%         76.7%     100%
 
-Thanks,
-Aniket
+A quick synthetic fio test for Reader vs Reader inversion on 24 CPUs
+(lz4, 48 low priority (nice 19) readers, 24 normal priority CPU hogs
+ and 24 high priority readers), average of 3 runs:
 
->> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
->> ---
->>   Documentation/devicetree/bindings/gpio/gpio-davinci.yaml | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
->> index 1434d08f8b74..02b6b9a436a6 100644
->> --- a/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
->> +++ b/Documentation/devicetree/bindings/gpio/gpio-davinci.yaml
->> @@ -18,6 +18,7 @@ properties:
->>                 - ti,am654-gpio
->>                 - ti,j721e-gpio
->>                 - ti,am64-gpio
->> +              - ti,tda54-gpio
->>             - const: ti,keystone-gpio
->>
->>         - items:
->>
->> --
->> 2.53.0
->>
->>
+  Metric           Base               Patched
+  ----------------------------------------------------------
+  Read IOPS        1,452k             1,466k        (+1.0%)
+  Read clat avg    3.46 us            3.30 us       (-4.9%)
+  Read clat stdev  165.37 us          15.69 us      (-10.5x)
+  Read clat max    306,679 us         7,060 us      (-43.4x)
+
+An alternative approach is to vm_map_ram() scattered objects
+(two pages), which fixes the tail latency in the same way,
+but deferred TLB flushes add more cost, so it was rejected.
+
+[1] https://lore.kernel.org/linux-kernel/20261014153603.1365617-1-zhangbo56@xiaomi.com
+[2] https://lore.kernel.org/linux-kernel/20261015112440.1491168-1-zhangbo56@xiaomi.com
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/block/zram/zcomp.c    | 47 +++++++++++++++++++++++++----------
+ drivers/block/zram/zcomp.h    |  2 +-
+ drivers/block/zram/zram_drv.c |  2 +-
+ 3 files changed, 36 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/block/zram/zcomp.c b/drivers/block/zram/zcomp.c
+index da122bf4dd15..4fda13aac896 100644
+--- a/drivers/block/zram/zcomp.c
++++ b/drivers/block/zram/zcomp.c
+@@ -176,14 +176,13 @@ void zcomp_cstrm_put(struct zcomp_cstrm *zstrm)
+ 	mutex_unlock(&zstrm->lock);
+ }
+ 
+-bool zcomp_shared_decomp(struct zcomp *comp, struct scatterlist *sg)
++bool zcomp_shared_decomp(struct zcomp *comp)
+ {
+ 	/*
+ 	 * Shared decompression is only safe when the backend has no
+-	 * mutable per-stream decompression context and the object is
+-	 * contained within a single page (no ->local_copy bounce needed).
++	 * mutable per-stream decompression context.
+ 	 */
+-	return !comp->ops->create_dctx && sg_is_last(sg);
++	return !comp->ops->create_dctx;
+ }
+ 
+ struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
+@@ -239,6 +238,15 @@ int zcomp_compress(struct zcomp *comp, struct zcomp_cstrm *zstrm,
+ 	return ret;
+ }
+ 
++static int zcomp_decompress_buf(struct zcomp *comp, struct zcomp_dstrm *zstrm,
++				struct scatterlist *sg, void *buf,
++				struct zcomp_req *req)
++{
++	sg_copy_to_buffer(sg, 2, buf, req->src_len);
++	req->src = buf;
++	return comp->ops->decompress(comp->params, &zstrm->ctx, req);
++}
++
+ int zcomp_decompress(struct zcomp *comp, struct zcomp_dstrm *zstrm,
+ 		     struct scatterlist *sg, unsigned int src_len, void *dst)
+ {
+@@ -247,27 +255,40 @@ int zcomp_decompress(struct zcomp *comp, struct zcomp_dstrm *zstrm,
+ 		.src_len = src_len,
+ 		.dst_len = PAGE_SIZE,
+ 	};
+-	void *src = NULL;
++	void *src;
+ 	int ret;
+ 
+ 	might_sleep();
+ 	lockdep_assert_held(&zstrm->lock);
+-	if (!zcomp_shared_decomp(comp, sg))
++	if (!zcomp_shared_decomp(comp))
+ 		lockdep_assert_held(&zstrm->excl_lock);
+ 
+ 	if (sg_is_last(sg)) {
+ 		/* the object is contained within one page, read it in-place */
+ 		src = kmap_local_page(sg_page(sg));
+ 		req.src = src + sg->offset;
+-	} else {
+-		/* the object spans two pages, linearize it into local copy */
+-		sg_copy_to_buffer(sg, 2, zstrm->local_copy, src_len);
+-		req.src = zstrm->local_copy;
++		ret = comp->ops->decompress(comp->params, &zstrm->ctx, &req);
++		kunmap_local(src);
++		return ret;
+ 	}
+ 
+-	ret = comp->ops->decompress(comp->params, &zstrm->ctx, &req);
+-	if (src)
+-		kunmap_local(src);
++	/* exclusive mode already holds ->excl_lock */
++	if (!zcomp_shared_decomp(comp))
++		return zcomp_decompress_buf(comp, zstrm, sg, zstrm->local_copy,
++					    &req);
++
++	/* shared mode: try a per-request bounce buffer first */
++	src = kmalloc(src_len, GFP_NOWAIT | __GFP_NOWARN);
++	if (src) {
++		ret = zcomp_decompress_buf(comp, zstrm, sg, src, &req);
++		kfree(src);
++		return ret;
++	}
++
++	/* fall back to ->local_copy serialized by ->excl_lock */
++	mutex_lock(&zstrm->excl_lock);
++	ret = zcomp_decompress_buf(comp, zstrm, sg, zstrm->local_copy, &req);
++	mutex_unlock(&zstrm->excl_lock);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/block/zram/zcomp.h b/drivers/block/zram/zcomp.h
+index bf41b27958c4..362a6da014aa 100644
+--- a/drivers/block/zram/zcomp.h
++++ b/drivers/block/zram/zcomp.h
+@@ -112,7 +112,7 @@ void zcomp_destroy(struct zcomp *comp);
+ struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp);
+ void zcomp_cstrm_put(struct zcomp_cstrm *zstrm);
+ 
+-bool zcomp_shared_decomp(struct zcomp *comp, struct scatterlist *sg);
++bool zcomp_shared_decomp(struct zcomp *comp);
+ struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
+ 				    enum zcomp_dstrm_mode mode);
+ void zcomp_dstrm_put(struct zcomp_dstrm *zstrm, enum zcomp_dstrm_mode mode);
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index a34859ff0461..b429c52cb37d 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -2128,7 +2128,7 @@ static int read_compressed_page(struct zram *zram, struct page *page,
+ 	prio = get_slot_comp_priority(zram, index);
+ 
+ 	zs_obj_read_sg_begin(zram->mem_pool, handle, sg, size);
+-	if (zcomp_shared_decomp(zram->comps[prio], sg))
++	if (zcomp_shared_decomp(zram->comps[prio]))
+ 		mode = ZCOMP_DSTRM_SHARED;
+ 
+ 	zstrm = zcomp_dstrm_get(zram->comps[prio], mode);
+-- 
+2.56.0.176.g3575e65682-goog
 
