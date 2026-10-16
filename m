@@ -1,160 +1,235 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DDB23C8AE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D03325483
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115035; cv=none; b=q0cYSf9/Fx/dSUuXNkooQzxE9O486ypj9txo0/t4x3x8AKCo9GK3s6XABYuRrr1KLwppgFYx5kx1abzpglfvFhE5mCthNwuSHtmp/jYJve9j9Dd4sqMYbgza8K4hRk/a5bPVNnIbXUamtR1DX80ett4q0I9cgG4nGn71BRqqaJY=
+	t=1792115068; cv=none; b=ApkTXTjmBV0EFWx97wKblpkBi/nMMfPOdf4kMPre8S3kqJJa25YcVTRbEcARldJognGSts+j3WKlAQVwzDHlK1cfHFc11N1HNz9Nnd4dRl44LFUq7QM4Tjt/wOq2Ya+/wMS4zVqwuLTemd1t9skZ14i1GT0U3YYnkczdguO3NAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115035; c=relaxed/simple;
-	bh=kQkjlsIrQcHp2Nsx17GlvS9gPFBsPnNLRmimpEElKy0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mMhqwxnVv+mr93ErpXJg99IleJGARdQYT3w+iCzj9dXDazq/WQZ+lx7HcjsCK8Lap7UWQK416nXBo4wvp4m6XuHIfs2NRZhRTBAMVywfAC8JPzahKp0c96RnwZQjwAgMEmUoUpmQjOt8cKQKZ1ocMDPrH0XRQTADvn6gNJRGxFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QL6IvYB9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bO9pe9MR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792115068; c=relaxed/simple;
+	bh=T52N405yvi/KiAwa9HNn6EVFkI4PXsuRjuaPvn/ceeo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mBrhaGaHCcwhpjpEuZHrILDa01dlM9pX+RwY25hk0/Imwnvk8b1qpkiJLyQUhP05+QfbycJM+zjBhmYot+pA45lbt5xZ41Imm+l4cY+vUtGWEH1u59TSKlOzlLFfgYC1x2sVAP+i2EIjfSB7cd/qu4htN6YYxBKfWRqteHdaX7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=eVlMA8LB; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QL6IvYB9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bO9pe9MR"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FNg9VB1635468
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=; b=QL6IvYB9Pb1vVLzF
-	IXjkvxRV9jcqbQQ/dczG8OCsZqgZTtLmqPFKo7MEEsmtIYUS5mxCwuAZM6UbOUD6
-	JlPCHhp0piwaz07IGMiohubcoMP8VkWm1sDmT+lEchO1PzoR0L+J2lzKgKYa1wtw
-	zFUbRUPuJfoKFVtbd7brLJnWKDx6RiGrwl597g11T+YwCUqHu9DKuCKVo33bg1wb
-	Nx5ymk383xgIYrsCTX84a+IledBVnWqd+GApJ6MtDVcTurcd+lK7Mxe9EEIqWWVI
-	y6WezmyliYkzcpF0fyum8d70JNnAoE1LcevN5/LUNqLQr8w02x/yChdaIRp6BZK2
-	NsJCRQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r10a8f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:43:53 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89f2846ab57so656720b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:43:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="eVlMA8LB"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5339381b46eso58105651cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792115033; x=1792719833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=;
-        b=bO9pe9MRUhbqpltc0Th8nBQBavQam+KsdfIpBY8Tb+jiJCvYodDFLUgoqfAmW4WZNW
-         JO+7Q0jMRpIZKcsUzQuwwS4uofsSZYkdv3PXbT1eWURdmK6Ed4SvuykDcBjvu0EjXIbK
-         7tG+gb4J9KnEpcsRv3gw67WNOUwqd1bVURkFECH5kqEB05hjrCCSlXCKmJYC46Kigg/n
-         3vTs/vaMcm6ZBpIHTQBtt9AA8qLVUij244ED2caMdT27XXOUr+KAW8oAGoM4BKt4gR3O
-         9Taefjd04kxAgZlqFuVy+karRHLn8fFFzCp/XVIvAAgD7duN2QTINVq7/yNzRskpdQF6
-         3IYA==
+        d=cs.unc.edu; s=google; t=1792115065; x=1792719865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X7du5FcQla5Wc6+gmnjVbAOsmIOTMVLfgIeT70bTejk=;
+        b=eVlMA8LBFAg3ITUzJgLzUpgZBFgZLW3GNIpPKj7CJJZNDOv247RktUCrp23ZkrrBgX
+         PX9hYoPPZEJfINPU0ciTV2K1UJumaUTPyFyb4FrU+gt7W2I5gNSCvVbuGx5eS2HyPuom
+         CTDl67a8xWYmAg/UVXL5hz4CKD44DXlCs3VmDFYqHW2vEeYr8yt6JMacocfYgnxLJqMQ
+         6VAHk/1pTCIBM+brx1aKRL3aUG2r8JMCRAGD4ZWZRAhInj3JVVbMznDHITz06xYZetah
+         nuBnJ2tGtvKuQPzl6bIka2Z8cveokMC+rMaCqFuDT0dRXaIvQiEvgt3QckUQoxTrWawX
+         tRXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792115033; x=1792719833;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792115065; x=1792719865;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d2AdVVW/1VpGBm6jZek+loZ/L/qPi3e0KDm+GCFxSGY=;
-        b=GxeH+knzYxJZg2/XF4xo3Poqh+9LRNMv84pvYPPJw4ySf3XZyeXqye5s4UdIThyjRL
-         rEmhFhgT3A8yMdMWYJKnn7vtG5BllTSXleRaRCciM8uB3aRr0f2zTMTAyY4hb7jHkqUK
-         w0EHC2gWVdg9HHLf6AfJJ8vvUs0e972KItAQb7V2uXPfouK6ncHEUwMKjZjkAkpC/owU
-         TSB1HK/txJI1PSIsSLowPIgrUjW9i/zPhg2msRmAK1+w7OVl1JbxeqxtCqPV32CgNIIn
-         BywkLTUXEibn5WuNWYbkxHzRG5qJ2Xr2T/cQGcMC7myQVPq7bac3SYhux3Hb5bTv55tz
-         7r7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzACRvcgVPaYDTjUD/ALXi4g+FQNA4D4tvMnTDcX9DpHXujqRz590ifljog0U3Oq3t07bS+tfyd+vjh0Hw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5nadmI5OD+/719ULsgjTnlZAXuBEUpeDDrFaDsCdEK3PwiG32
-	GN9iHUJcqZ+TTjQNTKaPq4TSbWuBTem/Afxut23cMY7imXegJ5Kd1n6F9NlnVmGtiBmB8vNfAyP
-	l0qJ7e8WaLytYgLYAYarmpuLfjiOh7PPqblRZ0rqwbiD1zw6V30FlEd7pZh7d5pFch6JUKbsbhd
-	M=
-X-Gm-Gg: AYBFou0ElLCIPNBIokkJJJZVaJbrRaJJbxSICLzUoY+aycqXVQfbgLy07hJ8iVHCNK0
-	PKY0u1gkkdLmLRckJoWipB4OZo07oel8jrnmfWzp0M/btZAiBQqNueEcCE+fQzMJVxsv+zsgEav
-	f42Q78FoYJbzpV3T8HWyidjvt+N1cgO7FtemJtwvAst5Q1U141YIv4mFRsFrOeL6bcEgkg2XpD4
-	mLZPWte1omgRu4mT2dOnoVQX0JJbCS9qI7qVlq6Sl2l64Q65Omavn6AiIzxYQW3zJtkGFSaSVLe
-	Lsv4b5FH6T858bocmbyWuTzdB0fYEBr5/otrMQ0skD62Gu5r0l09abOi9/vxy1pW3GUm7UawmvN
-	Fej8AbhxO/M881ruREJ+vSE1CHT37riLEDXIjTA+g3PctFUBfTwthE9lzKiuv+u2j/9afrsM=
-X-Received: by 2002:a05:6a00:2c85:b0:887:17f3:94f7 with SMTP id d2e1a72fcca58-897c3ef90dcmr17799427b3a.1.1792115032724;
-        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2c85:b0:887:17f3:94f7 with SMTP id d2e1a72fcca58-897c3ef90dcmr17799413b3a.1.1792115032341;
-        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
-Received: from [10.133.33.32] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f579456a1sm326500b3a.35.2026.10.15.18.43.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 18:43:52 -0700 (PDT)
-Message-ID: <55cd74fd-cab2-497d-83c2-82e485b1dae5@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 09:43:48 +0800
+        bh=X7du5FcQla5Wc6+gmnjVbAOsmIOTMVLfgIeT70bTejk=;
+        b=BJmltF4StORvrlB2tBrqDEXaj8eKsft/KmL4A0WBB7Y+MW8zqnmrdD6wltWkVe+OMt
+         yhle/SMSR+G368CvHC/6odsFk/rYsr4+/E7aG2qgN2JyjOurpRF4uKA8+XBUanL3zrsH
+         tfUAyRlHV1JdEInB4M9emj9R6XwUXjy0I4SUIW9X13MVeux74ePdkOLePRQZrWt3uvKe
+         BRtmNnZetIG/xiawfyiE74xGbLXYsRJ2F1sEd/wkD4zVlLBdKoCItx24CpuJM4YKmAwq
+         rFv38alawSdLcrYcIdUr5itXwoNR1clYn7PmsjuVK1ebHRGXdRNOCcthxvPsiLryl57t
+         w+Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOox7GBCQZBJKbnAgOvMOSLmN5F9S1Gwj/IGqafnyRUWWdH6nqPyeqOvmVNvkFnWqLURhGQLqbjEw2MJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUqGat5p8uTc3UTun+XjrXgJYp0HQPPte6nbCJbztQKU4k5fNa
+	112tqyn/NRV2Mylum/h2h+PdhcppTp5S9wsa3pmVhR45Q5mxerwgu8RxAAw48n2GeVUeMVHG82b
+	RPppKkw==
+X-Gm-Gg: AYBFou16TjHe7hszOCEq8sMGAKi8H1JcWSEhqJxgKuv5qJiX2OVBL+i2pq2afIqXkmz
+	ap5J0gbJ1WMn9Ty0P0a3sLvjl5BHRKNyFqQR/0NtTwLErIVqgrfY+AdSMHIMcHD7awAt87EoX51
+	eXxFbOerJFFAUq2TJkz949506hD3iaO0BPvFUaM026JB36js1iiaV4XOaARoZ4HtBIyhH5SKcEs
+	NnWPC6dTVGvCvDIIBnfhKKTvLLSDiDrSGYU3PQIm/9jMHVPNNHA530Z1HbNd9XCN+LFDqcT6LFw
+	e2vJa2X6wcB01pp7LB1D1frf5Ij5KwCcT0zKwXoCnNr6xy/JEC2rbKBDLNg2513do6wShQBWmpn
+	7knxB6vuJMXt3VFFvHHl/TOm+CqvdTIM3zwBehsE/1s24NIWrB0lJurAmTv9TaKskINQ0p0MWAq
+	RdmF2eBGO0qFyikJmwJGBPXmrkN+7Z24Y5v1i41lmfnvXVnbJj+YSSDhGqyv3u2kcK3Y4zujwp3
+	efJuKsiJfbJijo/VibarA==
+X-Received: by 2002:a05:622a:906:b0:530:b2e4:d598 with SMTP id d75a77b69052e-5359fdd8736mr351907691cf.51.1792115064669;
+        Thu, 15 Oct 2026 18:44:24 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e5831sm9074711cf.10.2026.10.15.18.44.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 18:44:24 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: do not leave the file extended after a short write
+Date: Thu, 15 Oct 2026 21:44:23 -0400
+Message-ID: <20261016014423.2236260-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-current] wifi: ath12k: Fix failure to create
- ath12k_dp_peer on MLO reconnect
-To: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>, jjohnson@kernel.org
-Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260915080053.918500-1-miaoqing.pan@oss.qualcomm.com>
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260915080053.918500-1-miaoqing.pan@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: yy8PgaMEmorURz8IirqBsUhxdmEr7dN5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAwNiBTYWx0ZWRfX6/AsnSqU1DUc
- NRsUn8GPntvcl9PsBqvaW4qXSPiYLIDnTukU2DS76t+493XnqwMgXw6CXeAmNSiT/0qy4Rg8l7L
- CY4sT7KIxXqW3QyK9yyC4O8dOQ4iHIQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAwNiBTYWx0ZWRfX00p/Tn4Gdv+m
- RyGyza6zIbGET7pxBYeZLXx7/4S3xRESA80/IlB3D3jPlOEdmYPBVjMIfz/tFvxq/98/0K5ljKw
- dDC1Y3XzrdLBlg4Y+867+6EnKF73G2wFaylU3H5VeED025Rh77ou/muWYPTb9sgrG44R+GbcTRf
- 5prHXEH6zsa7dO4eE/DUd5PMCCrvQY03sDk9272iZIwqQFF5RIEmH6/bAW6v9KRHoycOzifBvlv
- sdNOcUizQglg97E2/Map6Y3NFI8yhboTT3RDtnGD4jkmevBNSb8zp1YE+JBe1VBTd627DAtd7bd
- cQ66hq9yAruN9akRyFNLwAAWhS7R/sK2hyvPOz3ffxl1YbvGAQRAVkWPGhacmJWMnUxKJBI5M6c
- bfkSQGuijKsMClzRWzxCuVGr0OLzvtIhLOeQXLryvzEOEGZBHDEMMBDbj4OLxkyCxlseEuGcsGm
- 1MATmZ/kDenxmuz5jYw==
-X-Proofpoint-GUID: yy8PgaMEmorURz8IirqBsUhxdmEr7dN5
-X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad18159 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=FeBjiSnNOcrKIJN5QMIA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160006
+Content-Transfer-Encoding: 8bit
 
+ntfs_file_write_iter() sets the file size to the end of the request
+with ntfs_set_size() before it copies the data.
 
+However, when fewer bytes are written, the function returns without
+putting the size back. As of now, a write() that runs out of space on a
+sparse file, or that stops at an unreadable part of the buffer, leaves
+the file as long as the whole request. The part that was not written
+reads as zeros.
 
-On 9/15/2026 4:00 PM, Miaoqing Pan wrote:
-> In ath12k_mac_op_sta_state(), when transitioning an MLO station from
-> IEEE80211_STA_NOTEXIST to IEEE80211_STA_NONE, after ath12k_dp_peer_create()
-> succeeds, on is_sta_assoc_link verification failure, it takes the
-> 'goto exit' path instead of 'goto peer_delete', leaving a stale dp_peer on
-> the dp_peers_list.
-> 
-> On the next connection attempt, ath12k_dp_peer_create() finds the stale
-> entry and returns -EEXIST (-17):
-> 
->     wlP4p1s0: failed to insert STA entry for the AP (error -17)
-> 
-> Fix it by changing 'goto exit' to 'goto free_unassign_link'.
-> 
-> Also, there is another error path in ath12k_mac_op_sta_state() that
-> jumps to peer_delete after ath12k_mac_assign_link_sta() succeeds, without
-> undoing the assignment through ath12k_mac_free_unassign_link_sta().
-> As a result, the link RCU pointer remains assigned and a stale bit is
-> left in ahsta->links_map, which can trigger the same -EEXIST failure
-> on subsequent reconnect attempts. Fix this by redirecting that error
-> path to free_unassign_link instead.
-> 
-> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
-> 
-> Fixes: 0cd46d1f36ce ("wifi: ath12k: identify assoc link vif in station mode")
-> Fixes: ee16dcf573d5 ("wifi: ath12k: Define ath12k_dp_peer structure & APIs for create & delete")
-> Signed-off-by: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+The issue can be reproduced on a volume mounted with the sparse option:
+
+    truncate -s 16M img
+    mkntfs -F -q img
+    mount -t ntfs3 -o loop,sparse img /mnt
+    dd if=/dev/zero of=/mnt/hole bs=512k count=1
+    dd if=/dev/zero of=/mnt/fill bs=4k
+    sync
+    rm /mnt/hole
+    sync
+    dd if=/dev/zero of=/mnt/f bs=1M count=1
+    ls -l /mnt/f
+
+The last dd command fails with "No space left on device". Before this
+patch, /mnt/f is then 1048576 bytes long, although only 524288 bytes
+were written. After this patch, /mnt/f is 524288 bytes long.
+
+For non-compressed files, trim back to the end of the written data without
+shrinking below the old size, and restore the old size if no data was
+written. Reuse ntfs_setattr()'s shrink sequence and i_size rollback,
+recording cleanup errors for fsync while preserving the write result.
+
+Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Tested in KVM guests with KASAN enabled:
+- Short/failed writes and ENOSPC, including unmount/remount checks.
+- 78 focused cases across default, sparse, delalloc and prealloc=0
+  combinations, covering buffered/direct I/O, append and O_DSYNC.
+- 15 model runs (21,600 operations), with readback after remount.
+- 32 ENOMEM/EIO cases each with and without the new error handling,
+  using a test-only injection annotation at ntfs_set_size() entry.
+  Checked size rollback, data preservation and fsync/O_DSYNC errors.
+
+Compressed files and alternate data streams were not tested.
+
+ fs/ntfs3/file.c | 42 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
+
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index 95dfe6878860..bf9b39d00458 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -1236,6 +1236,33 @@ static int check_write_restriction(struct inode *inode)
+ 	return 0;
+ }
+ 
++/*
++ * ntfs_write_trim - Cut the file back after a write that was not completed.
++ *
++ * ntfs_file_write_iter() sets the file size to the end of the request before
++ * the data is copied. Keep what was written, or the old size if nothing was.
++ */
++static void ntfs_write_trim(struct kiocb *iocb, loff_t pos, loff_t oldsize)
++{
++	struct inode *inode = file_inode(iocb->ki_filp);
++	loff_t isize = i_size_read(inode);
++	loff_t newsize = oldsize;
++	int err;
++
++	if (iocb->ki_pos > pos)
++		newsize = max(newsize, iocb->ki_pos);
++
++	if (newsize < isize) {
++		truncate_setsize(inode, newsize);
++		err = ntfs_set_size(inode, newsize);
++		if (err) {
++			i_size_write(inode, isize);
++			/* Preserve the write result; report the error on fsync. */
++			mapping_set_error(inode->i_mapping, err);
++		}
++	}
++}
++
+ /*
+  * ntfs_file_write_iter - file_operations::write_iter
+  */
+@@ -1244,7 +1271,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct ntfs_inode *ni = ntfs_i(inode);
+-	loff_t vbo, endbyte;
++	loff_t vbo, endbyte, pos, oldsize;
+ 	ssize_t ret, err;
+ 
+ 	if (!inode_trylock(inode)) {
+@@ -1281,6 +1308,8 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 
+ 	vbo = iocb->ki_pos;
+ 	endbyte = vbo + ret;
++	pos = vbo;
++	oldsize = inode->i_size;
+ 
+ 	if (endbyte > inode->i_size) {
+ 		/*
+@@ -1300,7 +1329,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	if (vbo > ni->i_valid) {
+ 		ret = ntfs_extend_initialized_size(file, ni, vbo);
+ 		if (ret)
+-			goto out;
++			goto trim;
+ 	}
+ 
+ 	/* Fallback to buffered I/O if the inode does not support direct I/O. */
+@@ -1310,6 +1339,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 
+ 		ret = iomap_file_buffered_write(iocb, from, &ntfs_iomap_ops,
+ 						&ntfs_iomap_folio_ops, NULL);
++		ntfs_write_trim(iocb, pos, oldsize);
+ 		inode_unlock(inode);
+ 
+ 		if (likely(ret > 0))
+@@ -1322,7 +1352,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		/* Direct I/O is not compatible with delalloc. */
+ 		ret = ni_allocate_da_blocks(ni);
+ 		if (ret)
+-			goto out;
++			goto trim;
+ 	}
+ 
+ 	ret = iomap_dio_rw(iocb, from, &ntfs_iomap_ops, NULL,
+@@ -1342,7 +1372,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 						&ntfs_iomap_folio_ops, NULL);
+ 		if (err < 0) {
+ 			ret = err;
+-			goto out;
++			goto trim;
+ 		}
+ 
+ 		/*
+@@ -1358,13 +1388,15 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 						   endbyte);
+ 		if (err) {
+ 			ret = err;
+-			goto out;
++			goto trim;
+ 		}
+ 
+ 		invalidate_mapping_pages(inode->i_mapping, vbo >> PAGE_SHIFT,
+ 					 endbyte >> PAGE_SHIFT);
+ 	}
+ 
++trim:
++	ntfs_write_trim(iocb, pos, oldsize);
+ out:
+ 	inode_unlock(inode);
+ 
+-- 
+2.53.0
+
