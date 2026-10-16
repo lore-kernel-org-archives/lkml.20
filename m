@@ -1,47 +1,49 @@
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+Received: from mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FA34611C2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AF6498E13
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792193086; cv=none; b=TtThbNLaGGXPmC4RW2otYJHYhRp6Th7kcXhV5lOVP6gaa5tGEkuq+qq1jtXSuI15taYlZkXHITVFUYLGRe3T5MJV3BkNucNdw4jl/HGJPETk0z/Y18F3wDtsEZWQ26s1mWgFVFbL7FK/x+OqvYxRQfkS4rkWGZUPaUVvJC68dIo=
+	t=1792193093; cv=none; b=l1dQQGJ3vaMMNLMGqZJd0cKtqiORF3ZhTLHmPNbLnRpPDlnYwIMOp9WjeR5rISp0gYVQ/kRa2cXgZwfPhbaxZWElzxYoTZkyo41VzR6O3ih9U2BC/vGUtt8Mwjt0gV5l0RvQOo6SMAlxrRsXeZUZYnt/68W/x1aID9ShR9KJ0dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792193086; c=relaxed/simple;
-	bh=ZIdfjHz+0OLDjF331M8Isw8fnj3PbEuIrC0pvuG1d94=;
+	s=arc-20240116; t=1792193093; c=relaxed/simple;
+	bh=qXfS154Z4JVvTvxDfKsOgpe1Dj/eBwroixxp03SQtjk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e4n5Ml8ai2aMk6NLS2DfMJgPAkduX2f4aOyRRRXqjHrw2+Tq81t90FGk7i/HOiamcBognlK5Yf83lLAYtwf+ZFLZ+k+UvaUCTBb3SbpcdXocUzWBfefH4jgcf610CMNMCHhGaUkVbUSYfRbjISYlddew4Fu8lTlmOPbuTWtMgeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=phjWY8wC; arc=none smtp.client-ip=91.218.175.124
+	 MIME-Version; b=kgq0gBCiGKmlx9n+fzQWkchpua8HBM5VH4dtxAEtD3sodHTOjaYDsqOBgEdnz3zS2BoKtZETWgNyqXGA1NH14psqugGYXhINQM/L3A9k9uPxYI3ePEkbit4zE7E4bx29GUtVzRC/w4JtD9VhgSnDJAgzu2lEXeJpNUUaNshu+VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Te1CssUV; arc=none smtp.client-ip=95.215.58.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="phjWY8wC"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Te1CssUV"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZIdfjHz+0OLDjF331M8Isw8fnj3PbEuIrC0pvuG1d94=;
+DKIM-Signature: a=rsa-sha256; bh=qXfS154Z4JVvTvxDfKsOgpe1Dj/eBwroixxp03SQtjk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792193081; v=1; x=1792797881;
- b=phjWY8wCDAxthw4d/E/C205JlilGwEgp9Owc9dqTjWZzQsb8+0x6uGMjSVWg5SgDBa4rQgvq
- Im7kgTqafd+b+aIqTpdYB9fVZBGGyZmqCOZnTX9RyjHVrz6ASDrcBlsqvn88KvuPUGE/mraAlLb
- E88YGIYTGJbFZEjX7W1ZQ3Ek=
+ t=1792193088; v=1; x=1792797888;
+ b=Te1CssUV4/fGgl/N3Wvjg1qPXWPRpvS2OXPcAKzvogTbjBsvYRuXi2m6tJIQoQmrT3CGJb7E
+ 2Ln/vPoGGuQWnYV5UiUvXAzqbQNj1biYdRsSBwaRLhfco8vPwvJdkCzwP+asORjvqPwUC32Xy03
+ rT3Y8u8MeQKXszqM1sNNAh2o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7910d0187f47b065;
-	Fri, 16 Oct 2026 23:24:41 +0000
-X-Mizu-Trace-ID: 7910d0187f47b065
+Received: by smtp.migadu.com with ESMTPS id 4bbbaa2158be8365;
+	Fri, 16 Oct 2026 23:24:48 +0000
+X-Mizu-Trace-ID: 4bbbaa2158be8365
 X-Migadu-Flow: FLOW_OUT
 From: Matthew Schwartz <matthew.schwartz@linux.dev>
 To: broonie@kernel.org
 Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/5] ASoC: amd: acp: add ACP70 SoundWire machine entry for ASUS RC74XA
-Date: Fri, 16 Oct 2026 16:24:12 -0700
-Message-ID: <20261016232416.2628603-3-matthew.schwartz@linux.dev>
+Subject: [PATCH 3/5] ASoC: tas2783-sdw: use the BIOS speaker ID in the firmware name
+Date: Fri, 16 Oct 2026 16:24:13 -0700
+Message-ID: <20261016232416.2628603-4-matthew.schwartz@linux.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261016232416.2628603-1-matthew.schwartz@linux.dev>
 References: <20261016232416.2628603-1-matthew.schwartz@linux.dev>
@@ -53,81 +55,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ROG Xbox Ally X20 (RC74XA) has two TAS2783 amps on link 0 with
-unique IDs 0x8 and 0xB and an RT721 on link 1. No table entry describes
-that layout, so machine selection falls through to acp70_rt721_only and
-routes speaker playback to the unused RT721 amp endpoint.
+Some boards have TAS2783 firmware in linux-firmware named
+SSID-SPKID-LINK-0xUID.bin, with a speaker ID ahead of the link ID (the
+HP 8EA1 has its amps on link 0 and ships 8EA1-{0,1}-0-0x*.bin). The
+driver only builds the three-field SSID-LINK-0xUID name, so these boards
+never load firmware. On the ASUS ROG Xbox Ally X20 (SSID 1954) the BIOS
+provides the speaker ID in a 4-byte SPEAKER_ID EFI variable, and only
+the four-field 1954-*-*-0x*.bin files exist.
 
-Add a two-link entry ahead of acp70_rt721_only with the RT721 limited
-to its jack and DMIC endpoints.
+Read SPEAKER_ID once and request the four-field name first when it is
+present. Boards without the variable keep the current names, and the
+unprefixed three-field name is still tried if the four-field file is
+missing.
 
 Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 ---
- sound/soc/amd/acp/amd-acp70-acpi-match.c | 44 ++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ sound/soc/codecs/tas2783-sdw.c | 42 +++++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-index c2f0479301ebd..0c1a7a70ce146 100644
---- a/sound/soc/amd/acp/amd-acp70-acpi-match.c
-+++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
-@@ -739,6 +739,45 @@ static const struct snd_soc_acpi_link_adr acp70_tas2783x2_l0u9c_rt712_vb_l1u0[]
- 	{}
+diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
+index a57230e01f755..db234c54aa2ac 100644
+--- a/sound/soc/codecs/tas2783-sdw.c
++++ b/sound/soc/codecs/tas2783-sdw.c
+@@ -46,6 +46,8 @@
+ #define TAS2783_PROBE_TIMEOUT 5000
+ #define TAS2783_CALI_GUID EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc, \
+ 				   0x09, 0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92)
++#define TAS2783_SPKID_GUID EFI_GUID(0xaa61eaaf, 0x6e83, 0x7523, 0xb0, \
++				    0xd0, 0x7d, 0xf7, 0x4b, 0xb2, 0x4a, 0x81)
+ 
+ static const u32 tas2783_cali_reg[] = {
+ 	TAS2783_CAL_R0,
+@@ -104,6 +106,11 @@ struct tas2783_prv {
+ 	bool fw_dl_success;
+ 	/* use fallback fw name */
+ 	bool fw_use_fallback;
++#if IS_ENABLED(CONFIG_PCI)
++	/* UEFI speaker ID, read once */
++	int spk_id;
++	bool spk_id_read;
++#endif
  };
  
-+static const struct snd_soc_acpi_adr_device tas2783x2_l0u8b_adr[] = {
-+	{
-+		.adr = 0x0000380102000001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+		.name_prefix = "tas2783-1",
-+	},
-+	{
-+		.adr = 0x00003B0102000001ull,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+		.name_prefix = "tas2783-2",
-+	},
-+};
+ static const struct reg_default tas2783_reg_default[] = {
+@@ -1156,6 +1163,26 @@ static const struct dev_pm_ops tas2783_sdca_pm = {
+ 	RUNTIME_PM_OPS(tas2783_sdca_dev_suspend, tas2783_sdca_dev_resume, NULL)
+ };
+ 
++#if IS_ENABLED(CONFIG_PCI)
++/* BIOS speaker ID that selects the SSID-SPKID-LINK-UID firmware name */
++static int tas2783_get_spk_id(void)
++{
++	efi_guid_t guid = TAS2783_SPKID_GUID;
++	unsigned long size = sizeof(u32);
++	efi_status_t status;
++	u32 spk_id = 0;
 +
-+static const struct snd_soc_acpi_adr_device rt721_l1u0_jack_dmic_adr[] = {
-+	{
-+		.adr = 0x000130025D072101ull,
-+		.num_endpoints = ARRAY_SIZE(jack_dmic_endpoints),
-+		.endpoints = jack_dmic_endpoints,
-+		.name_prefix = "rt721",
-+	}
-+};
++	if (!efi_rt_services_supported(EFI_RT_SUPPORTED_GET_VARIABLE))
++		return -ENOENT;
 +
-+/* ASUS ROG Xbox Ally X20 (RC74XA) */
-+static const struct snd_soc_acpi_link_adr acp70_tas2783x2_l0u8b_rt721_l1u0[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(tas2783x2_l0u8b_adr),
-+		.adr_d = tas2783x2_l0u8b_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt721_l1u0_jack_dmic_adr),
-+		.adr_d = rt721_l1u0_jack_dmic_adr,
-+	},
-+	{}
-+};
++	status = efi.get_variable(L"SPEAKER_ID", &guid, NULL, &size, &spk_id);
++	if (status != EFI_SUCCESS)
++		return -ENOENT;
 +
- static const struct snd_soc_acpi_endpoint rt721_endpoints[] = {
- 	{ /* Jack Playback/Capture Endpoint (AIF1) */
- 		.num = 0,
-@@ -906,6 +945,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
- 		.links = acp70_rt721_l1u0_tas2783x2_l1u8b,
- 		.drv_name = "amd_sdw",
- 	},
-+	{
-+		.link_mask = BIT(0) | BIT(1),
-+		.links = acp70_tas2783x2_l0u8b_rt721_l1u0,
-+		.drv_name = "amd_sdw",
-+	},
- 	{
- 		.link_mask = BIT(1),
- 		.links = acp70_rt721_only,
++	return spk_id;
++}
++#endif
++
+ static void tas_generate_fw_name(struct sdw_slave *slave, char *name, size_t size)
+ {
+ 	struct sdw_bus *bus = slave->bus;
+@@ -1170,9 +1197,18 @@ static void tas_generate_fw_name(struct sdw_slave *slave, char *name, size_t siz
+ 	for (; dev; dev = dev->parent) {
+ 		if (dev->bus == &pci_bus_type) {
+ 			pci = to_pci_dev(dev);
+-			scnprintf(name, size, "%04X-%1X-%s%1X.bin",
+-				  pci->subsystem_device, bus->link_id,
+-				  fw_uid_prefix, unique_id);
++			if (!tas_dev->spk_id_read) {
++				tas_dev->spk_id = tas2783_get_spk_id();
++				tas_dev->spk_id_read = true;
++			}
++			if (tas_dev->spk_id >= 0 && !tas_dev->fw_use_fallback)
++				scnprintf(name, size, "%04X-%X-%1X-0x%1X.bin",
++					  pci->subsystem_device, tas_dev->spk_id,
++					  bus->link_id, unique_id);
++			else
++				scnprintf(name, size, "%04X-%1X-%s%1X.bin",
++					  pci->subsystem_device, bus->link_id,
++					  fw_uid_prefix, unique_id);
+ 			pci_found = true;
+ 			break;
+ 		}
 -- 
 2.56.0
 
