@@ -1,72 +1,76 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18FF3D1CB5
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C3B396B9D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792139313; cv=none; b=rrGPEoc86iYJbxwMwgPPtoXQTbb0yl/+IULV6tyZax1x9H8gFHQMPP9unaKag0Y3pXs2Qm6b25rWMgmqG40Wj9sKLzGI9xxo1QdcffMMxDFOGdUIHrYW5pCPKmEK2tC2GqfKR39WvgSbEqLQZZXq3KP9PMhKkdnMK/q9lu+lmYk=
+	t=1792139314; cv=none; b=M44qVghRK09nW4CWtlOW4KW9H5gKph0mY6kD5fuDe0Yblwr8ffatdbQ5+MX4kXjYW/QhOZNXZntHzQg3dV44YC7/ZH+iY2ziY9+et0xyBmdK1fjDQLXqokS3cFvoR8jFAaWouW1Jw8VShLb1caRlVLBNN0DRjfRQY/epsEiN5A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792139313; c=relaxed/simple;
-	bh=vUD/VtXc8LvpGGNYrkLmiyoc+tB0xhGq5Xw/a49h3Kk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LQ/2oL/KqL7shiHQyydZdU4QOatA8bvU6OZlFq7IUCCuiDYC6BSZ/rjFVkTnI0+RhE22zx4/CkQ/RA5XUL+Fqd+zjVUyNdGRowY+rHYZ2WalN8sw0oaRgp2u534RprADO0SraEN1FBHVU4o8U5AkLIT87XfMBdzkyRouJ83k7Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LBOTHCSu; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1792139314; c=relaxed/simple;
+	bh=3FHL8H8WmJo3KmMRdVqq/3MRZml1VzjOBDNGQ7/pIfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iGixfyFMSQpoxEJeON53uhxSAjr8Z1j/ZUVeHSYsZbDVQ+KJDIvymvzejES+q9B7jPDLU436DQETA8tQY1Zdb6W/NWmZHFa6/ccmSd1Jtm1NnzbVRnC3mlTkhyETowVXKbWD+NfOIXF+HXPJLfciCWO04uyDLfZC4Fol6PIOgvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ILv0tAgJ; arc=none smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LBOTHCSu"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc502d509c0so1357558a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:28:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ILv0tAgJ"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1531169a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792139309; x=1792744109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rkLQQcE2uJE3UhEZB2zlpp3KdaEDgDInSe3fSPmJbzs=;
-        b=LBOTHCSuEWrtqhydmFmJjtV1vWrswCmUgkypiZ2pPgeZAGAIp2+PwAXyHdarhkNpAm
-         NG7O3tzpXrnCpfr87K5oos0ra9Jck3rS6Wmp3I5jAGOVfYbHPAPFZlKEjS0PXFn1xIhT
-         M2AwSgl84N61tCcTQrTrt5SF2ms23omi536gYbzGfNAC3NDkhDn/8+IA1U97XQz/fR3v
-         4jBW65kMlsBupxtzVe+leowomLjMwDynfitbvosXpu9lDjmffzDAz76payLxzbMOQhCg
-         RnVp65Ho/oVvCq6egx8qWNVZDZCTCxvFIKvhLLLdDCXrqovw98Ot5F7OZzNeLO376pY9
-         JTzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792139309; x=1792744109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792139311; x=1792744111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rkLQQcE2uJE3UhEZB2zlpp3KdaEDgDInSe3fSPmJbzs=;
-        b=gqOXK6JB294nZRkQINN3BN79wL3xF2W61wxydpVZ1z/6hk0gPJ0fV1sn7v+Ab571G3
-         01HNmCuLAIc7Mx6bQ2Qf5Fw7j0fcP4194Vq5H16pFok2OWe0I+B2QvV8Edr2xXpl06fn
-         C9JGcz9VhCFWqup27NZwfOZ3Q7OB9DXMVDRTppXOAuMxR0e3/vNxLlKVrtbxBeR6KvKP
-         RKadh+rGXYslgRbF+gas1YtvmattQBRxPFf1NjCOo4eWL+8cBfc4/bXuxm8+odVk31Hm
-         u+3PSZivFVGlbO3DVOzL0/53/532weDLUNy4M2I+LRCP753Cps9GiHShjDMiDjtp0Umd
-         UfXA==
-X-Forwarded-Encrypted: i=1; AKwUvByGJp+Oy48yMvEov9iZMhvJcF6//I6cDaqQbeTGZYkqGjETo23z2J+fCHyPVc2SRAinxMIHtiuOb+lAEzg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAVGZrY+6JTi56DS6rAbX61UO3WZ5kPHtPOCF9CY15NFJ0dVTw
-	j9XguU76zOX2q5zKQIaHihkfn3oA845fLRu3yzu0Gbp3wW4U0Ou1LX4Mn/3bDKO5CAo=
-X-Gm-Gg: AYBFou1ERSyksm1UOiXVn2yxqnDve58UI/YsqgoSC0fDJ4lHWG1lGiTPIyvrZyk2fHt
-	FugcKzM/Z9GlOIzw1J58fQ93JPJ+FJpFuqyGg+95oLMGSv4baeOn/On3byTHnBgnSQssBcDKLIF
-	23Vc/hQomg5IAbL2JgB7ro3rIkR0Pd0OwR4Ku1Z2+J7ovrD8W5XExkPNpCdWIEAPB7ZgTjTb+NK
-	xl+qL8qdJ6pjr7igQhcwu9RsikJHdFBOOtmJK72guy4DGOmFZM9iLjE3qiBd/CLDg2mEHo/wMaC
-	ApJhxV3jBVrl2I3dBmvqDeeX+8Xd/2B7uvpcz46G/k1i3KcbvFkGECiKJrZmbECYzjlN7F9e+gB
-	mF636/oW/wL+0NYjciNG1JQFVipoNgMeYODODmmmHUpcabaTegEoVJpHjzbZ7N/Rv3WQkYzAMv6
-	N9GH25cJjxiVmPEOwdsaqt/dtqIPdEKISv/3BYIxIvsGnwqFjsWlE5oILI6Y5Q/ko8wv+nEpgR2
-	jv3hS3FffAyLSTP
-X-Received: by 2002:a17:90b:2f4b:b0:3ac:a7ee:6772 with SMTP id 98e67ed59e1d1-3aca7ef2df5mr3692992a91.63.1792139308776;
-        Fri, 16 Oct 2026 01:28:28 -0700 (PDT)
+        bh=J2LRXjRZMsgsI6TbLIpT8JXpII70C8p2ozsHbUGAzqE=;
+        b=ILv0tAgJyNFEqIqGMhEu9tF6o1Tt6aWKNBtFOzb3JqwZ34PUGsZp13wuf9fD3Nh8CK
+         HnV7xIHCbGOaOFm/xfGX/kKrKbROssYb3bWr3GhaQkB6lD1Ty9LHrLwNxCzRuauAsUzh
+         3+jMSbxxX8cISnvOVFv694kOrV8SOVI7FSeAN2OHX+fXUUQppUSeuMyB38aGwusBadF7
+         j9Uqf7Yp5Q/3K9o7dsrmJGVHqQ+GHPmXqDcfYdIhzFQxMYQChhnUUGQlqep7yM8O4kGk
+         6Rx/Pl8bLIn03D0LSjQXfmNpZnlWZkVnvPjcFgx30PLnYuUpu8N+Nk+3Ss/A14REhd8b
+         QBkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792139311; x=1792744111;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J2LRXjRZMsgsI6TbLIpT8JXpII70C8p2ozsHbUGAzqE=;
+        b=AYlg2keakS5qkL0QVte1w8shflHxQM5N8Ir1tHK988CG/sDEXn1uSzQXuRCUCARPsY
+         3VVQy3syU+yVkJgUbElZsV5dFr6hOijPW+Hu0w98VUPleUzNnBl0IzRdSDs/01B7y18J
+         TOs69y1FxWyXvr9lMy3+EasYbY/YvS8Tin/Y4+2chzXf4GMpq0WEB6b+ch+HPoS2Qehs
+         BvdI/AQjq7eTXAzGQ6SE/4Qr0JrxZ8mUWiDffz2rqrQznJ6lLK9Ajkv3xIHo4J0qCvJ/
+         U3M6iMRmaavVMyCS1WON+/suj55MILz4vA1WlaZ+nOucVl1LvBfI7OdQPymqN/tBUecV
+         U76A==
+X-Forwarded-Encrypted: i=1; AKwUvBwZUaUOeHX8zXfuG8+JGJh/ZWBFsaCgPdo4RkTIhvKbfHWqE95ND67ASTIIM+3laFLopJOWVJKtyGc6AMI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLL+xk3iqM9+FNRqvmzfJpnVlA1BGT5FigG8Rmo+0xEszUXFKOi
+	nPRKuklIytgY51P/Bz0vchE+zQSIl5mPvtCZRkL1XRqzzkCa0s4rugiot3KdZQLXEYU=
+X-Gm-Gg: AYBFou1M0x5B87XIza2xVSTFj82LEBOev+oSRXwJo6WqylYqa/rMscA3K4mvqUP8kyG
+	IZqR/NF97Q9KfosnNv6y0YNPQFyFuH9XemCSeOBO24FTqszYpGwSWwWKwu3tYQ6o+y+kQOktpJ4
+	Of0aX2PKNZgIFk1WfxbzGtwH7o5alvtqGvdBMZn4k99kKnmizDXrtc6KeZM5ssppEr9Y+LDjNo2
+	0+PAhEtpcbBPo18rGp9ETU+v8rlWV4xXMHD/rX3TUs0/5zy1HF4yv4SMh+amRP5r1jR+9edx91Y
+	MtOezYR69BhzOSO+raW8TIFhx12MX+Ddcfny8zZOAoTGupJopJN9BF1cOo8FQg6Qb1/qox32aem
+	MTh17dpuX8rPOctogDsX20vd2K2jX+OKvrH/6t8pRFS6mcTR3uqjRqTOf6avAuIa+NG4R8vzDGd
+	q3GQxBD9LO40akaepu035kzKuM5g1qbVUK/L4EiqJ3cZMmfx/DReoAnBTkq7nwGM++CEg31x5Bq
+	RPLAw==
+X-Received: by 2002:a17:90b:518d:b0:3ac:9c37:9429 with SMTP id 98e67ed59e1d1-3ac9c379aa3mr4790623a91.52.1792139310414;
+        Fri, 16 Oct 2026 01:28:30 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm3088933a91.11.2026.10.16.01.28.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm3088933a91.11.2026.10.16.01.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 01:28:28 -0700 (PDT)
+        Fri, 16 Oct 2026 01:28:30 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: "Martin K . Petersen" <mkp@kernel.org>,
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
 Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v4 0/3] scsi: bfa: bound the unsolicited frame receive path
-Date: Fri, 16 Oct 2026 17:28:15 +0900
-Message-ID: <20261016082818.1237059-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v4 1/3] scsi: bfa: clamp the received unsolicited frame length to the buffer
+Date: Fri, 16 Oct 2026 17:28:16 +0900
+Message-ID: <20261016082818.1237059-2-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016082818.1237059-1-yhlee@isslab.korea.ac.kr>
+References: <20261016082818.1237059-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,64 +79,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Three fixes in the bfa unsolicited frame receive path. Together they close
-the length the path trusts, from where it enters to where it is used.
+uf_recv() takes the received length of an unsolicited frame straight from
+the firmware's completion message:
 
- 1  uf_recv() takes the received length straight from the firmware's
-    completion message and only warns if it is below sizeof(struct
-    fchs_s). It is a 16-bit field and nothing caps it at the buffer that
-    was posted, so every consumer below can be handed a length larger
-    than the frame. The worst of them is bfa_fcs_lport_echo(), which uses
-    it as a memcpy size into the fcxp request payload buffer, so that one
-    is an out-of-bounds write and not just a read. Cap the length at the
-    buffer that was posted.
- 2  bfa_fcs_uf_recv() steps over a virtual fabric tagging header without
-    checking that the frame is long enough to hold it. The length is a
-    u16, so a frame too short for its own VFT header wraps it. Drop such
-    a frame, the way the block above it drops a frame with an unknown
-    virtual fabric id.
- 3  bfa_fcs_lport_scn_process_rscn() is handed that length and ignores it,
-    taking the number of RSCN events to walk from the peer's payload
-    length field alone. Bound the walk by the received frame length, and
-    reject a payload length below the RSCN header it is measured from.
+	uf->data_len = m->xfr_len;
 
-Patch 1 is the source and patches 2 and 3 are two of the sinks; each
-stands on its own, and 1 is first because it is the one that makes the
-length the others use meaningful.
+	WARN_ON(uf->data_len < sizeof(struct fchs_s));
 
-None of this is tested on hardware; I have no Brocade adapter. All three
-were driven through a KUnit harness on a KASAN kernel that injects a frame
-completion into uf_recv(), a frame into bfa_fcs_uf_recv(), and frames into
-the RSCN and ECHO handlers directly. Without patch 1 a reported length of
-2400 reaches bfa_fcs_lport_echo() and its memcpy runs 72 bytes past the
-2304-byte request buffer; with it the length is capped at the posted
-buffer and a normal frame of FC_MAX_PDUSZ passes through untouched.
-Without patch 2 a six-byte VFT-tagged frame hands the FCS a length of
-65534. Without patch 3 an RSCN whose payload length exceeds the frame
-reads past the frame buffer. With all three, a legitimate RSCN, including
-one that fills the frame exactly, parses unchanged.
+The only check is that lower bound, and it only warns. xfr_len is 16 bits,
+so a length of up to 65535 is accepted for a frame that was DMAed into a
+buffer of sizeof(struct bfa_uf_buf_s), which is what claim_uf_post_msgs()
+posted to the firmware in the first place:
 
-v4: adds the missing cap on the frame length itself in uf_recv(); v3
-    bounded the RSCN walk and the VFT underflow but still trusted a
-    firmware-reported length that bfa_fcs_lport_echo() uses to drive an
-    out-of-bounds memcpy.
-v3: added the VFT-header length underflow guard.
-v2: bound the RSCN walk by the received frame length only (dropped a
-    buffer-capacity term that did not account for the VFT header offset);
-    reject payloads shorter than the RSCN header.
+	buf_len = sizeof(struct bfa_uf_buf_s);
+	uf_bp_msg->buf_len = cpu_to_be16(buf_len);
+	bfa_alen_set(&uf_bp_msg->alen, buf_len, ufm_pbs_pa(ufm, i));
 
-Yehyeong Lee (3):
-  scsi: bfa: clamp the received unsolicited frame length to the buffer
-  scsi: bfa: drop unsolicited frames shorter than their VFT header
-  scsi: bfa: bound the RSCN event list by the received frame length
+bfa_uf_get_frmlen() hands that length to the FCS, which passes it down to
+every unsolicited frame consumer, and they believe it. The worst of them
+is bfa_fcs_lport_echo(), which takes the length as a memcpy size:
 
- drivers/scsi/bfa/bfa_fcs.c       |  5 +++++
- drivers/scsi/bfa/bfa_fcs_lport.c | 19 +++++++++++++++----
- drivers/scsi/bfa/bfa_svc.c       |  2 +-
- 3 files changed, 21 insertions(+), 5 deletions(-)
+	pyld_len = rx_len - sizeof(struct fchs_s);
+	if (pyld_len > len)
+		memcpy(((u8 *) bfa_fcxp_get_reqbuf(fcxp)) +
+			sizeof(struct fc_echo_s), (echo + 1),
+			(pyld_len - sizeof(struct fc_echo_s)));
 
+The destination is the fcxp request payload buffer, which is
+BFA_FCXP_MAX_IBUF_SZ, and the response payload buffer for the same fcxp
+sits immediately after it. A reported length above 2328 makes that copy
+run past the request buffer, so this is a write, not a read.
 
-base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+Cap the length at the buffer that was posted. A normal frame is not
+affected: FC_MAX_PDUSZ is 2112 and the posted buffer is larger than that,
+so the cap only takes effect for a length the buffer could never have
+held.
+
+Fixes: 7725ccfda597 ("[SCSI] bfa: Brocade BFA FC SCSI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/bfa/bfa_svc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/bfa/bfa_svc.c b/drivers/scsi/bfa/bfa_svc.c
+index df33afaaa6735..1ccf2e994a671 100644
+--- a/drivers/scsi/bfa/bfa_svc.c
++++ b/drivers/scsi/bfa/bfa_svc.c
+@@ -5453,7 +5453,7 @@ uf_recv(struct bfa_s *bfa, struct bfi_uf_frm_rcvd_s *m)
+ 	list_del(&uf->qe);	/* dequeue from posted queue */
+ 
+ 	uf->data_ptr = buf;
+-	uf->data_len = m->xfr_len;
++	uf->data_len = min_t(u16, m->xfr_len, sizeof(struct bfa_uf_buf_s));
+ 
+ 	WARN_ON(uf->data_len < sizeof(struct fchs_s));
+ 
 -- 
 2.43.0
 
