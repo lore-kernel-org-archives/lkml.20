@@ -1,156 +1,87 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3D54BB5C7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158587; cv=pass; b=UAP5MUrZjId9kNCc8wqIzgync/3YvG914QLvYp9k6ePtc4E+xBV+3sQQYHfZvdRsz+vUIQ/eJV/a9xyVd55JYsMySxOwz8krPnlfcztxWEvQ+3S0lmAMT6ytNJ7M3NwN2iMPtDfpaIWtMVcirDsmxHqG5ELIel12iYijztgmz5A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158587; c=relaxed/simple;
-	bh=7gGpZqR+5f7jpt5A2HKWswoMs+I7vk84D0Zuc9LHtrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=faJJupQRJWX2DD0XC1UQTo2rgu+E94P4MZeoj1EouQ8Ta6+lfFKwgWiFew9EbcgS2PqhSSN1iaUuGuhM4GMBDLGWpoGmKizXYWWCHrC07RjxK4RR3f/0btak02vtR0wkUxaHx6o6c5G1fZvFiQtlK9coecdiBJRucVJ/FISzruw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=FsXPqBPD; arc=pass smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0788D2E266C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792158611; cv=none; b=JoHFutNRa8pBVOSYH5co5kFONae3pFlXnDCW1Y3cA0T9//aC5ZgrQR0GegNpTKFbC0se20mOPzGvZUCLvIJBTtiRT9vUDd4D21wUtdCdqKjBomvNSyddIvye0KBrNvBbeLPsF8Vujpmfyl0cvQrQNfacBlDzuaz9fISl0gE8MaU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792158611; c=relaxed/simple;
+	bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KX13hvAASDkDdCJw/8e1gBolrE/FZojgQ1BU3nW7aHzVitRIzRSHlztyOOje5+9A6pgs7yWRkMqOEhoO0TL0lITRAAYPSBpRNauyh4dUi/3rtgjsad3ztFLntg9GMdnQ0yUlNYhBJK1oF06EL13AojOoqSC0uHZ8vTG11iXtnSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sCZPubhC; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="FsXPqBPD"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e5fb79ce82so37223315ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:49:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792158585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l6BtYZ8n8S8i6M0CPeyVxJiWLH4ez73Rra4OVr2ySdnvSwkCsz/EXefmHLUABsXzi9
-         74Gtakk2vPImDdT4OnbkwOLFiiXGSbezOm7dKf/E+IR4kuCG4Y2Nm2HZkLvZI/hG8wP8
-         pMUF4zzOoR6CEcoWHxdfem919pIBrlZ+MdRH5/izwTsrBEth7tBfRdiwgE1o+AizvlmL
-         8t6msE2MSePWMmelcxDPWZ2Vv8lHy3NWwYksF+G9xCq+DY8Lj5ySFSphSvrmbOC++g3d
-         Qluu9e8MSPY/gFipW+ErVjhhHMmfaMEjd98BWo5LyyZxTBF9wb6NhYFqA0D9M90yQV+6
-         jMWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lkv906NsPe7KqHaTR7GsBWN1HrpWTEAB99z9qnvuWdA=;
-        fh=NxobSF3je6t0ucrxwn2LJLcsJnqgOoVuNV/ptFZx9dI=;
-        b=ll/4GMChP3iy7CUCJX1sJ+HTEOFqxl2UQY0QmuAUl20iJPvqKUEZcgJ142NJjfs8HN
-         lw/QK2bCErRliyxrGlI5Sg/GsKMgtnTkxx34nx4fu/wjsOwQPzm3bluIZZXCa8rCx9J0
-         TzJMH06P8zobW7PFT49tH93VAG+QFn+wypV8vB8fKEUDcOljW0rrQ8VSCqyBYC2oqLSE
-         uzyH49053Khwr7nazaDBLGP5vzj60s4uP2ynuRbhQrctKrbIojqckTHI25ocm0OANPNw
-         F+yvmhR2v5Q30dDN+rYjnZ1i7BfGRESUp0+K54obDVm8E4hsHMwqpi1hanuFRy7GSYoi
-         2XVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sCZPubhC"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cd623dfe420so2507886a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:50:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1792158585; x=1792763385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lkv906NsPe7KqHaTR7GsBWN1HrpWTEAB99z9qnvuWdA=;
-        b=FsXPqBPDszhT7Q97oV0L9scaRd/jSAeGh8pSYCGFL21H0wbFU3PSaOx2puZuFm0rKD
-         Q4WJYFfcY5/ORgoVOhX5Qpy7EEaQKCJ8SF//XUAONvrDqDEdmt2IHn77JUdJJ44RcgCH
-         NZfmncqMhklJ+hRB9NXjtBpcjksUGQ4eGIZAe/3ppM3pUAKc/cUg5Nv9vcww2KrvM9X7
-         BpYRrc4rpIm8q6c11T0HZ4RorWY+ZzGDCYI7urV99XyrxzJZbzmy4EGRA5Ie7TloZ9qJ
-         gTc72BVgxqfSEsnsT28WW2NtxT0GxJhNYqcejScSXD3rdCMqcWS8tQGLry1wg+hIoyns
-         QxrQ==
+        d=gmail.com; s=20251104; t=1792158609; x=1792763409; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
+        b=sCZPubhCeOlv/2DS7gdZSmF21zPP7UFQ/DWzqGypU/ZJc6n4MNrLVK+MbKMC7AEVB0
+         lfirfod0qavHSpmCh8V2DIJ2LLpl0o6Xke8rBdnnNpbnk3Hq9/jfa5593wmGsjlk+u3F
+         36ckpoFeIWLj8Z1CMv+QmvoXGWAlxgLvUXBFn1ngFsoDKMWcJr11szevXa5nqsIG6HfZ
+         avIw8ehCmjeMOnUb7Cx6nxc3f2xZh0reYpDYU24Hbc9kjF8460tv0uQ7A6GkCmVVeFqR
+         nPoeFkEnRyIZgJ9e/v9OzTEyJj558iHHGdivOmekOrvXvpLTpFNcoBfEErqruObIrFaq
+         4DbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792158585; x=1792763385;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lkv906NsPe7KqHaTR7GsBWN1HrpWTEAB99z9qnvuWdA=;
-        b=VuJFj7Rv4rYCWqN14E1T4bipoAKL4DtpxwBrQp7XfDR3t+Dtyp8uMZqvKKx2wIHidd
-         1JMgQs4MLIYvPTfdfrtiWAaGcgyP4sUf0/gDTeOFpgfwcvsDf0OarT6OEx7U7LQKOkJw
-         aJi966QIfq3Cno+2oqC66Dz4TnLFY+PFh8FUlp9C/C4E1qC//7Zo4brtykljGyAQ7VPO
-         R/Zz1tWeu30jaNhLOjgRohc3yDwwHmro9uUPIgXpUSyOkuJsnRxJ/DwBjKBj3dMKdVoh
-         ybjkbu73Ha3PuizRS+bzC2MCQd8c+3W+oPwEaphdIvnd6LE2mxNelF+2gW26JKc2g4YT
-         Qk2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxGGz1+xGwWDHORJKdsY/sf91oV0fLqmjnCGiJgWgRPheY+uARPTvQpzo1fPsF2Aw677k9K/h4xWe4dTxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEIWlkms+/gTuP+JPCmQU36/mZDYHyhApL2NsIw+J61fO9qS4m
-	JQolr8terzyWztsw4a7FyfNq2ONlJwc52W+TMomdmzTlOViFAb+AHNgZw5079mSgaVECcFb5d6R
-	AtnAaysOJtsg66PQuYFUPH5X6qIfdqQeixKTnlbtM
-X-Gm-Gg: AYBFou1QAOjaus156BTBRuyQTj2XI+bTrzIV+6WZZE4VtnjF1NSrIg6vg4l2B0NBKVs
-	AvoDThfZw2Tu+9qgpt84EbjUvTSk6bxMK7f1stHMCHk/C9/Vrnquz6lm6fNBjeIQ/4jVegcj1sV
-	fiLDV/Z4fKB4bSdjAy/M7JWQPmK4EI09xYAUCfHcs/mizrOSrEbvIoIHcoKcdofXNsnXybrw5la
-	rFyL/JM/gwOWRRc7cXYHuFAXZ4izZT6tJNFfD3rLhEKak8a5ZzGYgw/71RhcuscjsetGm1ThJoF
-	Vw/N2Fqq7mKkik4kVdXfOC2BY8Bg28rQvp/fjdq4VXWMH9uqZodtHNez7dTwq9hIqfPuUBu6oB8
-	QqxwjCgq2mRE=
-X-Received: by 2002:a17:903:9cc:b0:2e9:4b32:fc66 with SMTP id
- d9443c01a7336-2e9a68da443mr231625ad.10.1792158584887; Fri, 16 Oct 2026
- 06:49:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792158609; x=1792763409;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g7n5KSyB9dHuwa9DCb0qOHcMvX3fr1aRdEPuf9O8HZw=;
+        b=qmjflyHu/sMzuRzbsrBbjbVYVepo+AXgzltr2wV2YY2C5koljrsc49K6Z5aDsAri5B
+         /FpukCU+meNVUM7C9Rx8LZ868Di0G+F/+1mA4vEOIeAMRDPmyZ9zYzgrA7XH8NfJU+H0
+         jvIW9etV5v7d0JqaZ2/7m09Ze+0PrGIhqjW/3Sr7aKbP4qtKIPRQZbfTPTJDysadT/xh
+         ETqlQYL1/XFJYzVM3ogsy24rYZK3WhEqdC/FoFNTJP/7TMHu9hEQreM6LHZn28cFC60M
+         aDeCvrWKzlt1ZOwrFDlrvMKq8AYj2A/HAyL1nMfEKCWQyLgxu90QX3zBsQoCp48SKwbS
+         pRog==
+X-Forwarded-Encrypted: i=1; AKwUvBwkAMdQyatpUarE0zjYrRAl19MpBv+cmPqwjrlH+oilfmbgwRg0EsGfB1ewfhwRYBNsUX++rDZ/IJrtHJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjo6pNF5O//ksWqqUh/IrhG4KGhvhkmVEzozSuY2IBu1Yzjbyj
+	afbyBWi7IepRWjZiJRVUvyvE+zbPkp5m7YjOxKP9l4QyMDDQ+NQTz9H9
+X-Gm-Gg: AYBFou2O+FG2imtL/jhlh+Lkpgs9v9WiI8fGuKQiQYmUBeRFkET1LrFXjXzhAO20bKd
+	p+/MqYQpEAKb4D8V3fIVhDlUSHweh2mBFwgNLB4m6590mtPEOUXEtGTd70zAtr+AGHldAj4Usbv
+	YArbCQ+uspnavHsd8OaV1goqVEa7vy58tW5VXo+/mFS0HrW15/lNSDGMClSn1CNpuhkPs4hHpAU
+	94voQuZ4AfS40IPg6o1+jsFZDviNw7enJQxlqpKSWXxjhTyouwNo/P3gUcX6j6OOUsPyPk1nFLZ
+	4ntn4iOuduPcy9a+iJnZOmUImzdiFwBDH3qnH9QF1jCBBedeC1+MaDPM5lKXm71uV1w2X7FvSWM
+	DbilsursR8ij13ex9e4YWeXBKE42XMi0zODSdll3t7rvTpvLzGYZNjcXvyJ4gB5PucZU80P9SO6
+	xaTDkbrKUv/eAH/QtpLvW4BfI3aEPAtc2wFFZhqjPltKVNgrhMPvsxq0h1xu2p3g8x8QO4+mM98
+	/F4T3UeZpJbb5d4rWwAAl+GMm72YImUP+xzjLvT84SESOoolUw6PhSqmfXla285emIpe8Tu
+X-Received: by 2002:a05:6a21:7d0c:b0:3e2:ea7:618 with SMTP id adf61e73a8af0-3e20ea744ebmr1597797637.18.1792158609291;
+        Fri, 16 Oct 2026 06:50:09 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65484fe24sm1161715a12.3.2026.10.16.06.50.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 06:50:08 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] power: supply: sgm41542: Use secs_to_jiffies()
+Date: Fri, 16 Oct 2026 19:19:42 +0530
+Message-ID: <20261016135002.35172-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20261016101521.14140-1-sinha.aryan03@gmail.com>
+References: <20261016101521.14140-1-sinha.aryan03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <atIYdNSykms3dLCk@sirena.org.uk>
-In-Reply-To: <atIYdNSykms3dLCk@sirena.org.uk>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 16 Oct 2026 09:49:32 -0400
-X-Gm-Features: AclHuK_w9SiD-VgMm_QLlGq4MB_4pyYu-bBCTr_SAWZiC70KuhukPBoX1XwM-Ow
-Message-ID: <CAHC9VhQzLLTFwVG+7BjVDqj-uazN+CAxzbP5WMfk2k4qNEw-9A@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the audit tree with the origin tree
-To: Mark Brown <broonie@kernel.org>
-Cc: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>, Stanislav Kinsburskii <skinsburskii@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 8:28=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> Hi all,
->
-> Today's linux-next merge of the audit tree got a conflict in:
->
->   kernel/audit_tree.c
->
-> between commit:
->
->   aa650d87a4988 ("audit: fix exe mark UAF in kill_rules()")
->
-> from the origin tree and commit:
->
->   ca12826b4aac8 ("audit: Fix filter rule accounting after automatic remov=
-al")
->
-> from the audit tree.  I'm really unsure about this merge, it's not clear
-> to me if the unaccounting should go in the initial loop or the RCU free
-> loop.
->
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+This is an accidental resend of a patch I already posted on 12 Oct, with
+nothing changed between the two:
 
-Hi Mark,
+https://lore.kernel.org/all/20261012154614.42203-1-sinha.aryan03@gmail.com/
 
-My apologies, I was preparing the audit branches for the upcoming
-merge window and it looks like I pushed an experiment to the next
-branch and never corrected it.  I'm sorry about that.  It should be
-fixed now, but of course if you see any additional problems please let
-me know.
+Please drop this copy and use the original. Sorry for the duplication.
 
-In case anyone is curious, this is the merge fixup that was in the
-audit/next branch previously, and what is in there once again:
-
-diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
-index f2e81be8265e..e83b9fef048f 100644
---- a/kernel/audit_tree.c
-+++ b/kernel/audit_tree.c
-@@ -558,6 +558,7 @@ static void kill_rules(struct audit_context *context, s=
-truct
-audit_tree *tree)
-                       list_del(&entry->rule.list);
-                       if (entry->rule.exe)
-                               need_sync =3D true;
-+                       audit_rule_unaccount(rule);
-               } else {
-                       list_del_init(&rule->rlist);
-               }
-
---=20
-paul-moore.com
+Aryan
