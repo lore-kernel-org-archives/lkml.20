@@ -1,144 +1,153 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FBAE480324;
-	Fri, 16 Oct 2026 12:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D444C3148D2;
+	Fri, 16 Oct 2026 12:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792153100; cv=none; b=B3rz71dP/HpYOvpxXkiRyTtQF0k8piVh8U3V6DkupTGRq93p67N5qRuX//vFUL96GWBFHKaq5Q1nIgdqivasJC1jkvfqsIJc6SoOjAiXy3yqndFAg5uS6fC3bBplaRCmY5LHK5RCL9de7lA8kWeOH36YdyQ3I8O7wuMz+MrL8Oo=
+	t=1792153165; cv=none; b=fe8Cx0gL+cL5LJVW0+xNAuXYzs8MRqE8l4uIOdwqgzVS88RhkloingaNL8zaCzG3OaEi+N637PJMrbk7Q5VT8uH/RcVjgw6v4YVRf2BmKZ1/PjuYlui3ycmioZxiBuSD3jK3tsPpc1EKqr4+wR2dhe5L54F0WYI6HWioRECaHhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792153100; c=relaxed/simple;
-	bh=ZPRm3vIADOJpy/rrCOlBV/kbvkGxmDZcH+9P05dhEgw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vc08oxoWMOvT2jwISa9zxiVHllrwZ4TUakIUwHCKb6UD0Ka8Dn0oMz2qo+7NVdNHqLGoPiNHRjaIbL/+8YgolkL7SwrYwICqbFBYjLaB+7KPdWSoE8seK1a0FDKE7x+L+u7cHQMAUckb45aFgmiLelA85Ns6YhJA+mgz33ta2KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tvRxeJc0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792153165; c=relaxed/simple;
+	bh=DSH+AvFSx4rSB2I3L8SguVd7gi22r4ADmAr9vYB5kcU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lT4ydttBOZarS91LYJZexYH0g0X3baK5F/aB9XVpL/s+4373wcd/hhcckSto6CAEeL2bI2Z92TnjUa/c07coiNQnkSjvQu+kuhfcPg6SL0bDq5J2fTSXjoDpIjHHKL+euu/Nn1Yp1ccUAuMJdP3Cic7BJD4FpSwmbxSQmecE7kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ekWjNZ3o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tvRxeJc0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23CF314BF;
-	Fri, 16 Oct 2026 05:18:14 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE0253F871;
-	Fri, 16 Oct 2026 05:18:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792153097; bh=ZPRm3vIADOJpy/rrCOlBV/kbvkGxmDZcH+9P05dhEgw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tvRxeJc0WPXmr8vAecRZi/jQXP16d5zuGeWuWmsGKUx0tmCcCpOMKvCLZwuhFCV4f
-	 M2SqNl4WkSo5J2cxXuNBoGVNEvPpTbGwcwbtMDQmrUAZDqmeEW+6naA3O6YRfODPVa
-	 VkJCfMXnQiCAd2zXgAzdOSpGSmQb/PkyqSxcDU+0=
-Message-ID: <cba2a01d-630c-42d3-b6e4-b498f10c4b45@arm.com>
-Date: Fri, 16 Oct 2026 17:48:11 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ekWjNZ3o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8B31F000C4;
+	Fri, 16 Oct 2026 12:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792153163;
+	bh=ez3WTV3wXyvA2qsEtDAAQhPoUgCZjt1BQZubvtpWNZk=;
+	h=From:Date:Subject:To:Cc;
+	b=ekWjNZ3oSUYSugEFRILIitc33dot8jDfMAsAu3L7ZxBrfGUkTXBND8H8f3sHfaeB5
+	 YhuhBLru0j1fax7LCg2S+n4m5DoAF1j3s50gEkd9f1SlcKg0tgoUPWj8GO1I2az//v
+	 mTngxnRLSentOqEJb/9148sDZz0+e782qQAzbC4TEhtSARDbvIph8DcAXTX+DO+JZS
+	 AflpWonu+iXo1y8Qtld7zpLvvJ4o7hhjQgRc1s89xZl7cp01bKpr04RpGpijqwnyt0
+	 8VtB7PEh7uLoisupMcQgCbXVQXG5L14/+XiI3O+nhLZz+G4TWzT3LlwYChvJFBOJki
+	 qe+0FtkLPrVLw==
+From: Eugen Hristev <ehristev@kernel.org>
+Date: Fri, 16 Oct 2026 15:18:53 +0300
+Subject: [PATCH] PCI: iproc-msi: Bound events handled per IRQ
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] selftests/mm: check MADV_PAGEOUT file permissions
-To: "Gregory Price (Meta)" <gourry@gourry.net>,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org
-References: <20261014175756.2035176-1-gourry@gourry.net>
- <20261014175756.2035176-8-gourry@gourry.net>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <20261014175756.2035176-8-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-iproc-irq-v1-1-ebaaf027f29e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIACwW0moC/yXMTQ5AMBBA4avIrDVpiQZXEQvGYCz8TBFJ4+6K5
+ Ze8PA+OhMlBGXkQOtnxMgeYOAIcm3kgxV0wJDqxRhureJUFFcumCsxy7CktTJZD6Fehnq/vVdW
+ /3dFOhPs7gPt+ANvf8extAAAA
+X-Change-ID: 20261016-iproc-irq-9c58cfe39158
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Eugen Hristev <ehristev@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3668; i=ehristev@kernel.org;
+ h=from:subject:message-id; bh=DSH+AvFSx4rSB2I3L8SguVd7gi22r4ADmAr9vYB5kcU=;
+ b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLIuiTmaH81mvvydS+xJknra+zdi0Ruqila8a7yUvfF2m
+ dR+i7DJHaUsDGJcDLJiiizVJv9qhft3uJ90tVSBmcPKBDKEgYtTACZi+o3hf8qOixl2CeGVK1tu
+ v10b+czn3r+ne3dVzQ5ccmdmfKGqfSwjw4PkKO2mFPW/bzwzV2Usuil/qUwvm3c790/hgw+q40/
+ 3swEA
+X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
+ fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
 
-Hi Gregory!
+Limit each iProc MSI parent IRQ to 16 event-queue entries.
 
-On 10/14/26 11:27 PM, Gregory Price (Meta) wrote:
-> MADV_PAGEOUT only pages out file pages for a caller that owns the file or
-> could open it for writing, per can_do_file_pageout(). Any other caller
-> gets nothing from a shared file mapping, and only the anonymous COW pages
-> from a private one.
-> 
-> Check that the owner of a read-only file can evict a clean page of it,
-> once a writable file page shows that file pages can be paged out at all.
-> That test runs as an unprivileged owner even when started as root, so
-> that capabilities cannot stand in for ownership.
-> 
-> Also check that an unauthorized caller leaves a shared file page resident,
-> and that it pages out the COW page of a private mapping but not the file
-> page next to it. These need root to change credentials, and skip if that
-> fails.
-> 
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
+A continuously fed queue could otherwise keep the chained handler running
+and starve other work. The budget still drains pending events and lets the
+next parent interrupt continue processing, improving fairness and bounding
+interrupt-handler latency.
 
-[...]
->  
-> +/*
-> + * The owner of a file may page out its clean page-cache pages. Run as an
-> + * unprivileged owner, so that capabilities cannot stand in for ownership.
-> + */
-> +TEST_F(madvise, pageout_evicts_owned_file_page)
-> +{
-> +	char *mapping, *control;
-> +
-> +	if (!geteuid() && !drop_privileges())
-> +		SKIP(return, "could not drop privileges");
-> +	pin_to_current_cpu(_metadata);
+Without this starvation avoidance, one CPU can stall indefinitely
+in the loop and not serve other interrupts, timers, etc.
 
-Is there a reason why we are pinning to the current CPU here and not in
-the next two tests?
+While testing it with an Ethernet NIC,  when too many MSI interrupts
+come in, CPU might get starved:
 
-IIUC (please let me know if I am wrong here), without pinning, say in
-the test pageout_private_file_reclaims_only_cow:
+Connecting to host 192.168.30.1, port 5201
+[  5] local 192.168.30.2 port 52586 connected to 192.168.30.1 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec   240 MBytes  2.01 Gbits/sec    2    334 KBytes
+[  5]   1.00-2.00   sec  63.2 MBytes   531 Mbits/sec    1   1.41 KBytes
+[  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   5.00-6.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   6.00-7.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   7.00-8.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  5]   8.00-9.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes
+[  177.568497] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+[  177.568913] rcu:     0-...!: (1 GPs behind) idle=28ac/1/0x4000000000000002 softirq=28922/28930 fqs=1
+[  177.569457] rcu:     (detected by 1, t=5256 jiffies, g=21629, q=819 ncpus=4)
+[  177.569870] Sending NMI from CPU 1 to CPUs 0:
 
-[...]
+With this bounded approach, IRQ handler will complete and continue
+to serve MSI events on the next handler invocation.
 
-> + * A caller that neither owns nor may write a file may page out the anonymous
-> + * COW pages of a private mapping of it, but must leave the file pages
-> + * resident.
-> + */
-> +TEST_F(madvise, pageout_private_file_reclaims_only_cow)
-> +{
-> +	char *mapping;
-> +	bool swapped;
-> +
-> +	if (geteuid())
-> +		SKIP(return, "requires root to change credentials");
-> +	mapping = map_temp_file(_metadata, 2 * page_size, MAP_PRIVATE,
-> +				0400);
-> +	if (!drop_privileges())
-> +		SKIP(return, "could not drop privileges");
-> +
-> +	ASSERT_EQ(mapping[0], 0);
-> +	ASSERT_EQ(mapping[page_size], 0);
-> +	mapping[0] = 1;
+Assisted-by: Github Copilot
+Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+---
+ drivers/pci/controller/pcie-iproc-msi.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-If both pages are on CPU 1's per CPU LRU batch here and then hte task
-migrates to CPU 2 here
+diff --git a/drivers/pci/controller/pcie-iproc-msi.c b/drivers/pci/controller/pcie-iproc-msi.c
+index 9ba242ab9596..6649807822d2 100644
+--- a/drivers/pci/controller/pcie-iproc-msi.c
++++ b/drivers/pci/controller/pcie-iproc-msi.c
+@@ -29,6 +29,9 @@
+ /* Number of entries in each event queue */
+ #define EQ_LEN                         64
+ 
++/* Bound parent interrupt handler such that a queue cannot starve CPU. */
++#define IPROC_MSI_MAX_EVENTS_PER_IRQ   16
++
+ /* Size of each event queue memory region */
+ #define EQ_MEM_REGION_SIZE             SZ_4K
+ 
+@@ -326,6 +329,7 @@ static void iproc_msi_handler(struct irq_desc *desc)
+ 	struct iproc_msi_grp *grp;
+ 	struct iproc_msi *msi;
+ 	u32 eq, head, tail, nr_events;
++	unsigned int event_budget = IPROC_MSI_MAX_EVENTS_PER_IRQ;
+ 	unsigned long hwirq;
+ 
+ 	chained_irq_enter(chip, desc);
+@@ -360,9 +364,11 @@ static void iproc_msi_handler(struct irq_desc *desc)
+ 			break;
+ 
+ 		/* process all outstanding events */
+-		while (nr_events--) {
++		while (nr_events && event_budget) {
+ 			hwirq = decode_msi_hwirq(msi, eq, head);
+ 			generic_handle_domain_irq(msi->inner_domain, hwirq);
++			nr_events--;
++			event_budget--;
+ 
+ 			head++;
+ 			head %= EQ_LEN;
+@@ -373,6 +379,8 @@ static void iproc_msi_handler(struct irq_desc *desc)
+ 		 * head pointer.
+ 		 */
+ 		iproc_msi_write_reg(msi, IPROC_MSI_EQ_HEAD, eq, head);
++		if (!event_budget)
++			break;
+ 
+ 		/*
+ 		 * Now go read the tail pointer again to see if there are new
 
-> +
-> +	ASSERT_EQ(madvise(mapping, 2 * page_size, MADV_PAGEOUT), 0);
+---
+base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
+change-id: 20261016-iproc-irq-9c58cfe39158
 
-Then this can cause lru_add_drain() on CPU 2, and therefore both pages
-do not reach the main LRU list. Thus they won't be reclaimed and the
-test can skip here since the CoW page wasn't swapped.
-
-> +	ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
-> +					 mapping + page_size));
-> +	swapped = pagemap_is_swapped(self->pagemap_fd, mapping);
-> +	ASSERT_EQ(mapping[0], 1);
-> +	ASSERT_EQ(mapping[page_size], 0);
-> +	if (!swapped)
-> +		SKIP(return, "MADV_PAGEOUT did not swap the COW page");
-
-Also, here we skip if we couldn't swap out the CoW page. Won't it make
-more sense to check with pageout_until_swapped() first if pages can be
-skipped, and then fail here if the CoW page wasn't skipped after all the
-retries, similar to how some other tests implement it?
-
-> +
-> +	ASSERT_EQ(munmap(mapping, 2 * page_size), 0);
-> +}
-> +
->  TEST_HARNESS_MAIN
+Best regards,
+--  
+Eugen Hristev <ehristev@kernel.org>
 
