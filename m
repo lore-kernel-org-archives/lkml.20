@@ -1,160 +1,117 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981F836E470;
-	Fri, 16 Oct 2026 11:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D21E260C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150919; cv=none; b=OWtSvQErwwNnlDtxTvL6uxyC25y7y2RezG9YDA4wu/gJYmxnjHhxaBniPJWsIDg2jEIVSVrOq8RgrbdWVc0XxOxEbnLyGYuL1+Ee3NhxLaqyjI7ERP0tbqj5KKVejQu795XpWLsIScBvC2Pg6NmR3dWMMw44CCUgszZ0r6qrWCI=
+	t=1792151035; cv=none; b=J5wjzp3l9+h3m0e/sosFF4pgDLV0db33wfPkNfAOZdcWUDIuNfud/GbjYAnua4ZFHVcn+NRywmHjaim6AkY7XasZJ7XFQBeJgbHVqLWO5/aB+Jmt0foyDsXdRZnt3M+XAXPxXj1kUlwBkfAV3I+zXYqsIPC0ovaHKhkOjdV+XH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150919; c=relaxed/simple;
-	bh=EFwob/W2pAfLqQXUwIN8VgnV11Dl4LNwQ4HTGLe/0EI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oTNB/lLRGTObYgu/AzrklqbND7+6cCX4gdtIwANEiTOSY0hLGfjwctU9tPYmiIPnqECZCAMXO5XbF6AlbDp35LGmJZdhCzJRtQYepwo7IWEpM2FRskcRTKiu0OyXp7qgkp+1ocCmakgMorF/hyKoMyGpazHFMvssQSBG97G6dXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0Cn16zag; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792151035; c=relaxed/simple;
+	bh=F0lN5jNXo1HR/IXIt1s5qsnfRbMoIHmvZzGoYNgvGw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bH7XP0KXh4Q3ueDKuOjZpog/VVaGy/T9ypjSSSiUSm5pO2nyRk4OGY2ikCZPuZJnwEeB6uFpgwMYVZ1OTMtGjz+8WRttudXknezU5w2OdentniPhmRNOuKZJ3bAAHyrb1IjL/zC1f6nRBXreWIkkyMV0cNRKmUr+rIewR9gufLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pADzAER7; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0Cn16zag"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E67A91A1254;
-	Fri, 16 Oct 2026 11:41:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B9E296075D;
-	Fri, 16 Oct 2026 11:41:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A664410328113;
-	Fri, 16 Oct 2026 13:41:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792150909; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=hGJBgDI14BOObFhSGsJ3MZ62g06s99V+45xcOlRDFXQ=;
-	b=0Cn16zagvyaapyOS8DxB4yFsLERkVp/A1bg0W/VH+IKndZS55hQwICWuMc30/BLkk2Td+3
-	3x875LnXJtmhNRtwkc/wxxeYlYJT+urW/LyVl68vs15cMS542/Km3VIH/SEJShSEEPhklM
-	jlIQ5R+Wrnz9cn7MLpIbD+i5QGya49JzXvFcUqG1AFZsoVoAtJtUWWVaHrXtijRE5cu9it
-	zovNo1RbdAHTjJnJXMO7HtwNEk7jNUXqsBgqSAAeMwBrGciU9OhuElYXmDHzcFRvRP43jV
-	eiJUiK3YfkcsC6CxbwOwfmVky+OFQWEVfdrqqGmCbXttaDgMeB2l9Kj6qQQS9Q==
-Message-ID: <eabe305d-bb0f-4927-919a-21b025ec145d@bootlin.com>
-Date: Fri, 16 Oct 2026 13:41:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pADzAER7"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ac7a053626so340006a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:43:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792151033; x=1792755833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S+td6jQ9eFxr+J3I9/ZGxjpxAlBZ9KrGIzgJ7io9vyc=;
+        b=pADzAER7VsYf6rl0PBo/iKht+nB23rRfE2m18xeRcSdxTunPtcRxSrAkuFnxca928A
+         k2sJpaHdXzpXkSmVX7L6SpnSqb8omugUOliOKhrlxkxGwDKuMULN1KpQgZ61WlePdPFx
+         BPmQKIehy7MxTK0+G822TfRLVJgihnh1BXuCoWcP72Og1jumcdABRIB/tnYJcqbC5rGw
+         llx8V6adFTedHkxZHJacEeoXWJspxkfNJGYjaxgJ9KqVzczUXWoP0zagsauVgcWgVSBx
+         2FlTLELVj3wTKi3AkwG8QJjDFgoan+Hq1e1tAsjaah74N0SOPLgm7iajxXuVZRNfGg+W
+         TsgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792151033; x=1792755833;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S+td6jQ9eFxr+J3I9/ZGxjpxAlBZ9KrGIzgJ7io9vyc=;
+        b=xAtnaeTODIP7AzFvV0Yhm1eIjQqep0Yh7ziTLVrR9XRXS4jH/OQrBKxc3cCDKVnqE4
+         zgchgt/ZTknC9hG2T5GrS+ublqFHs9OQYBpNvsI7IJId/Mw6SKiUuFTS8NpqcZWHny27
+         3H7Rx5N3CLHj1Dq9ndkARYuv2UMBRuyIgaMn2oNLW4wqLQdvyB9kdeCEa+9lRA3klB68
+         Dfch4751P1XD9xTr25o1Q7wQBCx9RRGTCS/wChwtXZ54gW/Ga/yAVXV4GSv7FwxpNDlL
+         OAeSWZN+q/p6fFwmy8j9Eg5M+yhqZsHPtfynAhp8JtyUbbNfv9WWc3K3jFJe6pusBoIc
+         iJ9A==
+X-Forwarded-Encrypted: i=1; AKwUvBzp4lAUPFOoNlWjHTKD71VC6AZEeVD87xKmXsHIxtmgMGfK9WyKOljPr581QMuOLdeKX9G4U9yG8tNfDh0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJBLPzWzOQPNdfMhSWzvMXKeAOsvbHUUBarusJgkU6JJBFzpzV
+	Uh+lhNDsuQexCiittXWj8Kjzp6N/I/a7XPmUT9Cl6aZLua/0iMWyd1Ds
+X-Gm-Gg: AYBFou0BpxXS+b2ooqJyHxpPK8pWx115YFUW2k+FjuSxjAtnZxNjtvMln224ScC6wsW
+	JEOgGGDO4smd1QUkVmhu62kv5ZeZ0PF0IVY7uK50MGfelSpsyTkBynsr/lpb7FVZFUz/G6DIIb4
+	s/LJwuhvKmcmMfMHmPvbTWvEdMMdqhGXAL1PQmgH65+370M4WhPES0ey81kJkTpNMb2yBld8Q5A
+	VDd/7swJmNQyMG50UTmrxp2oYDWNFy7BD/V6XTFyLIS46wMaxHQofacF4b/kaTjZFlJDKJWQzQs
+	2yLhzWRG+gCGA9WMUc7bndsrqJqo0HgOExpmIGPQjrAuZGf+EEzXeBTub8VBPy5Vzu0OpK5YXOq
+	3oK/tPn93j2CNHUe0nTd0+WcibQ9tGwWNhv3HRxR8EwN45x8Taoc9JpvSqJQ2HXQs5NHoj2taXQ
+	NFff0P8RkSR/x6ruIo2AgourqgZtqfxqi6njBa9UcOxJFDXJi1boWsxO/MUKzW4fViL/+4XsRvd
+	JJt8ewJJn+LUFC6rE4p/PIz4FmA5zd4+RgyfgCC4I975U69+X8LJld3P04sllex8og10rpuF54v
+	4xGuJxCZtNtHtIc0xw==
+X-Received: by 2002:a17:90b:1d4f:b0:3a8:736e:c19b with SMTP id 98e67ed59e1d1-3ab3ab31007mr31561330a91.4.1792151032639;
+        Fri, 16 Oct 2026 04:43:52 -0700 (PDT)
+Received: from cachyos-aura ([45.112.151.35])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm7108349eec.0.2026.10.16.04.43.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 04:43:52 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC] mfd: intel-lpss: Set d3hot_delay to 0
+Date: Fri, 16 Oct 2026 17:13:47 +0530
+Message-ID: <20261016114347.23633-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 7/9] net: stmmac: mediatek: use TX clock phase
- shift in RGMII mode with 1Gbps speed
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Biao Huang <biao.huang@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Eric Dumazet <edumazet@kernel.org>
-Cc: kernel@collabora.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
- <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261016-dwmac-mediatek-mt8189-v3-7-25daf2bbcf35@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi,
+intel-lpss-pci already clears d3cold_delay, but every runtime resume of an
+LPSS controller still sleeps the default 10 ms d3hot_delay in
+pci_power_up().
 
-On 10/16/26 12:31, Louis-Alexis Eyraud wrote:
-> Currently, if the devicetree of a board based on MT8195 (or compatible)
-> configures the use of RGMII PHY mode and insert at MAC level additional
-> delay on TX clock at MAC (with "mediatek,tx-delay-ps" vendor property
-> presence), the driver inserts this delay by setting TX coarse delay
-> bits (bit 0 to 5) of the Ethernet control 0 register from the
-> peripheral configuration (pericfg) at probe time.
-> 
-> The HW delay macro circuit, that these bits enable, can be affected by
-> external factors such as environment temperature or vcore voltage and
-> thus applied delay value can change. For 10/100M link speed cases the
-> variations are not problematic, but it can be for 1G link speed cases,
-> that require much precise and stable timings (around 2ns).
-> 
-> The Ethernet control 0 register of MT8195 SoC has another bit (bit 22:
-> MT8195_RGMII_TXC_PHASE_CTR) to enable the TX clock phase shift and
-> insert a 2ns clock delay in a more consistence way, as it is not
-> affected like the HW delay macro circuit under the same conditions.
-> This only works though for 1G speed cases so it cannot be set
-> unconditionally at probe time, thus needs to be set after link speed
-> negotiation.
-> 
-> In order to allow the TX clock phase shift use in the driver, add in
-> the variant platform data and probe sequence the support of
-> fix_mac_speed callback, provided by dwmac core. This callback allows
-> driver configuration update when the link speed has been negotiated.
-> Implement it for MT8195 so that, when a delay needs to be inserted
-> for TX clock (due to the devicetree configuration), it enables the
-> TX clock phase shift in Ethernet control 0 register only and only if
-> the PHY mode allows it and negotiated link speed is 1G, and fallback
-> to the HW delay macro circuit otherwise.
-> 
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 62 ++++++++++++++++++++++
->  1 file changed, 62 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 7dd46cd5a49e..4b2d5280f703 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -104,6 +104,9 @@ struct mediatek_dwmac_variant {
->  				       u8 phy_intf_sel);
->  	int (*dwmac_set_delay)(struct mediatek_dwmac_plat_data *plat);
->  
-> +	void (*dwmac_fix_mac_speed)(void *priv, phy_interface_t interface,
-> +				    int speed, unsigned int mode);
-> +
->  	/* clock ids to be requested */
->  	const char * const *clk_list;
->  	int num_clks;
-> @@ -430,9 +433,65 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
->  	return 0;
->  }
->  
-> +static void mt8195_fix_mac_speed(void *priv, phy_interface_t interface,
-> +				 int speed, unsigned int mode)
-> +{
-> +	struct mediatek_dwmac_plat_data *priv_plat = priv;
-> +	const struct mediatek_dwmac_variant *variant;
-> +	struct mac_delay_struct *mac_delay;
-> +	u32 tx_delay_stage_val, reg_offset;
-> +	u32 reg_val = 0;
-> +
-> +	if (!priv_plat)
-> +		return;
-> +
-> +	mac_delay = &priv_plat->mac_delay;
-> +	variant = priv_plat->variant;
-> +
-> +	if (!mac_delay->tx_delay ||
-> +	    (interface != PHY_INTERFACE_MODE_RGMII &&
-> +	     interface != PHY_INTERFACE_MODE_RGMII_RXID))
-> +		return;
+On Arrow Lake-H (Lenovo Yoga Pro 7 14IAH10) the delay costs 8-16 ms per
+resume of the touchpad's I2C controller, which lands on the first
+touchpad report after each 1 s autosuspend. With d3hot_delay set to 0 the
+power-up takes 64-256 us and the I2C transfers that follow complete
+without errors.
 
-I don't think this is right. PHY_INTERFACE_MODE_RGMII in that context comes
-from the devicetree, and therefore means "RGMII delays are implemented through
-traces on the PCB", the MAC isn't supposed to insert any. RXID means "TX delays
-are on PCB, RX delays are internal).
+Commit 815b4448198f ("i3c: mipi-i3c-hci-pci: Set d3hot_delay to 0 for Intel
+controllers") does the same for the Intel I3C controllers.
 
-I'd expect the condition here to be:
+Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+---
 
-> +	if (!mac_delay->tx_delay ||
-> +	    (interface != PHY_INTERFACE_MODE_RGMII_ID &&
-> +	     interface != PHY_INTERFACE_MODE_RGMII_TXID))
-> +		return;
+Notes:
+    RFC because I could only test Arrow Lake-H, and this applies to every LPSS
+    generation the driver handles, back to Sunrise Point. Andy, do any of the
+    older ones need the D3hot->D0 delay? If so I can limit it to newer IDs
+    through the driver data.
 
-Maxime
+ drivers/mfd/intel-lpss-pci.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/mfd/intel-lpss-pci.c b/drivers/mfd/intel-lpss-pci.c
+index 63a3fb58566..5672f033e5c 100644
+--- a/drivers/mfd/intel-lpss-pci.c
++++ b/drivers/mfd/intel-lpss-pci.c
+@@ -70,6 +70,7 @@ static int intel_lpss_pci_probe(struct pci_dev *pdev,
+ 		info->quirks = quirk_pci_info->driver_data;
+ 
+ 	pdev->d3cold_delay = 0;
++	pdev->d3hot_delay = 0;
+ 
+ 	/* Probably it is enough to set this for iDMA capable devices only */
+ 	pci_set_master(pdev);
+-- 
+2.56.0
+
