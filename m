@@ -1,150 +1,186 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89193DCDBF;
-	Fri, 16 Oct 2026 07:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE76B443E2F;
+	Fri, 16 Oct 2026 07:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136618; cv=none; b=Hluwjz0kZCxp88Nu5Btgt9SY1HRZY/NM1uMYKXgqG/Ry5gJgObAYRZSiHE0dhSrGgzr8VIRiYpaczaZHSD/KTQteov8MMo4RAkLE2YWVJJMqoaGrb+KlsbLX7VAS2MrGs2lHaMeiHSCNuuIy26MCFgshFO95GA0XhzvHZzWeOqA=
+	t=1792136623; cv=none; b=P5LsgGBoLqEZR05+huJTNMIt313b8baQqw2Hwth0MUaCLvC0YAnB1n84fJYT4XUJee2yGGWtRb/TV+lK2IEMTZ9UkyaVQHZ1E3u8umJOdd/PUvu3J60XQ425+YpFh1eoH3TCAeppal7M5ZEiSS7dTjR1ae/NbFIF1xcTUAWN+gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136618; c=relaxed/simple;
-	bh=FGGPjqRCeeV74Cjl9VTeHKOGCZ5V86IQl1cesp1fthU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JTsfR6SE0DuIUwOdPw/CgQjYOIFVMLYdxxnSVR398dD9Zz1y5bEE2VqDojZ29vM7VmQ3Qz4QwGelDzQ+aYFTWE5hY3KIndtNUNN+WR+4ZRv5d82NtPkHlbwdId2ehH8GJgucLWyQcuO7mMevabDqQ1b+0IL5UbzkcfbIqqs4Lq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QJO4JtoY; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792136623; c=relaxed/simple;
+	bh=ZbJcutHy3x4GvXyVBwyZjp6E+0OsKMimbzeuwxsHg7s=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=ohvTXA7KP2K67K87tJJcOgO+7xzqn2qwiCdRAAjm+DtjQVMD94NJxfQAIhvkn2ZXydDwb6QJNhvvIidaUUmP0yuQHZtsaFB9wqpDd6yyd3vYs8bF1YidHXhS+yoEfydwboW7Ks9tlEpvkNssfrP4pTBzz95twxm02hmNrbp/pX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=rwQOFadM; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QJO4JtoY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792136615; x=1823672615;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FGGPjqRCeeV74Cjl9VTeHKOGCZ5V86IQl1cesp1fthU=;
-  b=QJO4JtoY7fgjFxpyRsryousbtvzA8hjAOwRvMUbE8y/FYq48GJ8CXfUZ
-   Fcfxo/rcpbNXF/IkdnM3CXsd0TSyixOeXPbJsPh9CTHO5+vCnlQ183t2C
-   lxnBn/u5Mdh7Gn8ObghBPd3fky2/c7D1CSFZ2joWfgwOa7ILGj/l4B9Ku
-   CfLg1isoOdlklC9JbbtRMyP9rUjIYNm2/Ze3SPCMjvTMBGOA4cjcTevgp
-   NQ6n1GIyEu33tOrKj45L8rLsJCkO917e8L6VCXHsDPkdXa38r2d+yxNRN
-   Bb1phR5ePzrqkm0qxaKQgxNKly85b1Q2hZvcEjBArM1phuhMRFryW6LhY
-   Q==;
-X-CSE-ConnectionGUID: m/TrTbvhSkiMw0S/yLoVWw==
-X-CSE-MsgGUID: 7JFCBIuoSVelwRlLBI8UQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="820309"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="820309"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 00:43:34 -0700
-X-CSE-ConnectionGUID: D+A0irt3RiKFM0rd4f0kIg==
-X-CSE-MsgGUID: aYmDwfO1QqKmpeIa8ntcJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="2247453"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by fmviesa009.fm.intel.com with ESMTP; 16 Oct 2026 00:43:31 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xHcbA-00000000C7n-2LQc;
-	Fri, 16 Oct 2026 07:43:28 +0000
-Date: Fri, 16 Oct 2026 09:43:01 +0200
-From: kernel test robot <lkp@intel.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Donald Shannon <donalds@nvidia.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>
-Subject: Re: [PATCH 10/11] tty: Add NVIDIA LSTP UART driver
-Message-ID: <202610160913.yN6dyp5f-lkp@intel.com>
-References: <20261012-lstp-usb-adapter-v1-10-aambrozewicz@nvidia.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="rwQOFadM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792136613; bh=h8HvQyIX57qBISjJasw1hsyChRsReBVt6kvOdPCGiEg=;
+	h=From:To:Cc:Subject:Date;
+	b=rwQOFadMeWF8RS7hbtOZhISkPVW2RoKii9ZDfrxrPWQsyjJTmQ60BFE/HKmkoRz1/
+	 Vb9dvrwKOF2td/h+FcqNf5AZoBnfYug472WWZWc8RSUVsv+czvyCGe9iPHkpZfE250
+	 SJLSNNzG6q0kCTf+yglLEPCel3R143HRiL4TXn7w=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id A07860BD; Fri, 16 Oct 2026 15:40:07 +0800
+X-QQ-mid: xmsmtpt1792136407tvps9yzhi
+Message-ID: <tencent_AC9ADF8723B74E37A6BC51DC3EDA5132A908@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb5nDvw11v3BD312iz/N/ux8huwZ5GXpIy+aB4pjVYNmjZ5/7NZXf
+	 PBfDsUc7+imOilFAeBUFQ3oJVgsSiKfVn9sNiKZRAn+lHpaDNEzkHDTVc+exTQ8tj0d5UCz2d+re
+	 EoiZNbgq7DplQKZMeUWlqmnREnl8zMrPzYoh/MI3DP+kUKS5G4iTEiH7y5zyntmOD70nV5HFZ9me
+	 nxL8OFOvXG2f2n/INJYkuTSfocHEjnTbNNTt0ntG5LfBR70yp8F73fQZQF1xGKZ0JeuDlT8MqFXO
+	 k9gLDfrXWoOcXuGWR2bSLBEl0liildwmeVlRus8g6ruUOom1CCXdZU2gNaojkSTyW6PpsXOWXWrs
+	 Hn4wBnGlP0jFigazm3JjtqzYqhkYBS+50BLFlr2fY3ym6U4w4Sg0b/mVDa+aDlE7Fr/vz2OdPTAP
+	 KO3dDGdhTmMgBrO6h36cMIdv9rd1AW6aXNDeLZ+k40q7WGd7RV8FoFnGmlmkShKkVeoEDOTyI4FA
+	 ii0PtKUfos+eVtXCM3kJWbt/UaR+cjnOloU7B0Mp3Cy4MLRhMQKLynNUdYXNl+lH2MamtRDmdXw6
+	 T4NNh8+vi+QvshiBo8nZ7uS8u3MaR8J+xFWKsY9usZ6woPT4yDdPMjGB8/OmLFGlKXpsrXM60FRW
+	 fyb11W/mQ69KoQJfXJRlHmssF0uGKXTUMal/koPAweH6SvbBYDXgORy62I+mPSyWOcEGDNYODBdF
+	 hosV+Yj/NMgZatrXsLe721a7eSa4NUO55ofmLZMfTSy2SMU0a36ALq8Li7P1jQZGT4Q0NSE9bo9N
+	 OeJ4Fqre6qjo+lh8U4Oke79lO++Qmk/Jt/GhfDmfs09UgkksFFEraURZ6VcQOVq2TvE3Eujxudw4
+	 OekFASDZgJL8YF4/HsINwuIsiUBhcExKLFBscLDxh52PgM8tl9hXIzk6e520aQuWawYMMLysgQlp
+	 j3xXBqB2pvHt0yoVQzu3E4Ou6OxGRgHPV2t37T/ravzTUIklAhg1W2Yo/TQwsGsjFdokGyFnoZg5
+	 Ph+RAhIuReb/MVfDG8sPzG5Lm0no6fWOuDvwumnnq6ga+obProOxTaJSUIBsZEkRTQihC5p9pCcq
+	 RtIbWpTKIIdI8pv3lmaq5GlL7EDPhxMoNo10sf
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: yangguikun <yangguikun19@qq.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+ linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [BUG] jfs: unvalidated log superblock fields in lmLogInit() panic the kernel on mount
+Date: Fri, 16 Oct 2026 15:40:07 +0800
+X-OQ-MSGID: <20261016154007.85464-jfs-yangguikun19@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-lstp-usb-adapter-v1-10-aambrozewicz@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Adrian,
+Hello Dave,
 
-kernel test robot noticed the following build errors:
+Mounting a crafted jfs image that uses an external log makes lmLogInit()
+trust three on-disk fields in the log superblock without any range check,
+which ends in a kernel panic.  It is deterministic: 3 out of 3 runs on
+7.3-rc7, mount crashes, no write needed.  The fields are size, l2bsize
+and end; l2bsize is the one that reaches the crash here.
 
-[auto build test ERROR on bbf6b99a57b2479bf51c3c8ad0946f4b8c33ed69]
+Trigger
+-------
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Adrian-Ambrozewicz/dt-bindings-gpio-Add-NVIDIA-LSTP-GPIO/20261012-203559
-base:   bbf6b99a57b2479bf51c3c8ad0946f4b8c33ed69
-patch link:    https://lore.kernel.org/r/20261012-lstp-usb-adapter-v1-10-aambrozewicz%40nvidia.com
-patch subject: [PATCH 10/11] tty: Add NVIDIA LSTP UART driver
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20261016/202610160913.yN6dyp5f-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261016/202610160913.yN6dyp5f-lkp@intel.com/reproduce)
+    mount -t jfs -o loop crafted.img /mnt/x
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610160913.yN6dyp5f-lkp@intel.com/
+The image has to be one whose log lives on a separate device (the usual
+"external log" layout), and the log's superblock in block 1 carries an
+out-of-range l2bsize.  Mounting a block device needs CAP_SYS_ADMIN, as
+with any filesystem image; nothing else is required.  A control image
+that differs only in l2bsize = 12 mounts and runs normally.
 
-All errors (new ones prefixed by >>):
+Root cause
+----------
 
-   drivers/tty/lstp_tty.c: In function 'lstp_baud_to_speed':
->> drivers/tty/lstp_tty.c:167:74: error: 'B2500000' undeclared (first use in this function); did you mean 'B1500000'?
-     167 |                 { 1500000, B1500000 }, { 2000000, B2000000 }, { 2500000, B2500000 },
-         |                                                                          ^~~~~~~~
-         |                                                                          B1500000
-   drivers/tty/lstp_tty.c:167:74: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/tty/lstp_tty.c:168:28: error: 'B3000000' undeclared (first use in this function); did you mean 'B1000000'?
-     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
-         |                            ^~~~~~~~
-         |                            B1000000
->> drivers/tty/lstp_tty.c:168:51: error: 'B3500000' undeclared (first use in this function); did you mean 'B1500000'?
-     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
-         |                                                   ^~~~~~~~
-         |                                                   B1500000
->> drivers/tty/lstp_tty.c:168:74: error: 'B4000000' undeclared (first use in this function); did you mean 'B1000000'?
-     168 |                 { 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
-         |                                                                          ^~~~~~~~
-         |                                                                          B1000000
+lmLogInit() reads the log superblock and validates only magic, state and
+uuid:
 
+    fs/jfs/jfs_logmgr.c:1287-1314
+            if ((rc = lbmRead(log, 1, &bpsuper)))
+                    ...
+            logsuper = (struct logsuper *) bpsuper->l_ldata;
+            if (logsuper->magic != cpu_to_le32(LOGMAGIC)) { ... }
+            if (logsuper->state != cpu_to_le32(LOGREDONE)) { ... }
+            } else {
+                    if (!uuid_equal(&logsuper->uuid, &log->uuid)) { ... }
+                    log->size    = le32_to_cpu(logsuper->size);
+                    log->l2bsize = le32_to_cpu(logsuper->l2bsize);
+                    ...
+                    log->page    = le32_to_cpu(logsuper->end) / LOGPSIZE;
+                    log->eor     = le32_to_cpu(logsuper->end) -
+                                   (LOGPSIZE * log->page);
 
-vim +167 drivers/tty/lstp_tty.c
+Neither size nor l2bsize nor end is range-checked, and l2bsize here
+overwrites the sane value that lmLogInit() had just set
+(jfs_logmgr.c:1269 sets log->l2bsize = L2LOGPSIZE for external logs).  It
+is then used directly as a shift count:
 
-   151	
-   152	/* clang-format off */
-   153	static speed_t lstp_baud_to_speed(u32 baud)
-   154	{
-   155		static const struct {
-   156			u32     baud;
-   157			speed_t speed;
-   158		} map[] = {
-   159			{      50, B50      }, {      75, B75      }, {     110, B110     },
-   160			{     134, B134     }, {     150, B150     }, {     200, B200     },
-   161			{     300, B300     }, {     600, B600     }, {    1200, B1200    },
-   162			{    1800, B1800    }, {    2400, B2400    }, {    4800, B4800    },
-   163			{    9600, B9600    }, {   19200, B19200   }, {   38400, B38400   },
-   164			{   57600, B57600   }, {  115200, B115200  }, {  230400, B230400  },
-   165			{  460800, B460800  }, {  500000, B500000  }, {  576000, B576000  },
-   166			{  921600, B921600  }, { 1000000, B1000000 }, { 1152000, B1152000 },
- > 167			{ 1500000, B1500000 }, { 2000000, B2000000 }, { 2500000, B2500000 },
- > 168			{ 3000000, B3000000 }, { 3500000, B3500000 }, { 4000000, B4000000 },
-   169		};
-   170	
-   171		for (size_t i = 0; i < ARRAY_SIZE(map); i++)
-   172			if (map[i].baud == baud)
-   173				return map[i].speed;
-   174	
-   175		return B0;
-   176	}
-   177	
+    fs/jfs/jfs_logmgr.c:1892
+            bp->l_blkno = log->base + (pn << (L2LOGPSIZE - log->l2bsize));
+    fs/jfs/jfs_logmgr.c:2018
+    fs/jfs/jfs_logmgr.c:2088
+            ... << (log->l2bsize - 9);
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+With l2bsize = 13, "L2LOGPSIZE - l2bsize" is negative and "l2bsize - 9"
+is 4, so the computed block number / sector is garbage; the bogus I/O
+that follows trips a use-after-free in the same function and the mount
+dies.
+
+Note the asymmetry inside the same function: the inline-log branch
+(jfs_logmgr.c:1306-1308) does check the on-disk size against the
+in-memory one and rejects a mismatch, while the external-log branch only
+compares the uuid.  The size field is unchecked there too, so
+log->logsize = (log->size - 2) << L2LOGPSIZE (jfs_logmgr.c:1385) can go
+negative as well; I reproduced the l2bsize case.
+
+Crash
+-----
+
+    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:1892:32
+    shift exponent -1 is negative
+    ...
+    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:2018:28
+    UBSAN: shift-out-of-bounds in fs/jfs/jfs_logmgr.c:2088:28
+    ...
+    BUG: KASAN: slab-use-after-free in lmLogInit+0x16dd/0x1a90
+    Read of size 8 at addr ff110000413e4218 by task mount/8208
+    Call Trace:
+     <TASK>
+     kasan_report+0xca/0x100
+     lmLogInit+0x16dd/0x1a90
+     lmLogOpen+0x...
+     jfs_mount_rw+0x...
+     jfs_fill_super+0x...
+     ...
+    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+    RIP: 0010:___free_pages+0x15b/0x190
+    Kernel panic - not syncing: Fatal exception
+
+Three runs on three fresh VMs, all with l2bsize = 13, all panicked; the
+control (l2bsize = 12, same image otherwise) mounted with no UBSAN and no
+KASAN.
+
+Suggested fix
+-------------
+
+Validate the three fields before using them, the way the inline branch
+already validates size.  For example, require l2bsize to match
+L2LOGPSIZE for external logs (or at least bound it), and reject size < 2
+and an out-of-range end:
+
+    --- a/fs/jfs/jfs_logmgr.c
+    +++ b/fs/jfs/jfs_logmgr.c
+    @@ ... (in the external-log branch of lmLogInit, after the uuid check)
+    +       if (le32_to_cpu(logsuper->l2bsize) != L2LOGPSIZE ||
+    +           le32_to_cpu(logsuper->size) < 2) {
+    +               rc = -EINVAL;
+    +               goto ...;   /* existing error path */
+    +       }
+            log->size    = le32_to_cpu(logsuper->size);
+            log->l2bsize = le32_to_cpu(logsuper->l2bsize);
+
+(The exact placement and the error label depend on how you prefer to
+structure it; the existing "free logsuper and return rc" path is fine.)
+
+Versions
+--------
+
+Reproduced on 7.3-rc7.  The external-log branch in the 7.2 tree I checked
+reads and uses the same three fields the same way, with the same missing
+check.  I could not produce a Fixes: tag: the kernel trees available to
+me are not git repositories, so I have no verifiable commit to point at
+and did not want to guess.
+
+Thanks,
+yangguikun <yangguikun19@qq.com>
+
