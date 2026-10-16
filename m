@@ -1,20 +1,20 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63C4DD3B5;
-	Fri, 16 Oct 2026 16:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBA04EB866;
+	Fri, 16 Oct 2026 16:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166592; cv=none; b=KI+f11UWBFnsDKhwFZ0DxIV3c0ArrNHF7YeZCHbAvaM5Z2vnZ3tJZo8S0tAnCMwA7r+WLeaTh2EC8542lX5fiz2lwhJHORwyyHbINmRDkF7/mX4UdMj1eS065ztuLvts5h0pUw8S5esTAICZIax4bFAOs4R/jiUXYPV3DXp2qLc=
+	t=1792166635; cv=none; b=UbS/UIT0m5xCip0N1lps7P75EhRqeVdKP6LbR8LSQHulpLCx6FjqLF9ZdblTYexCIvTFSRLd6GTrLLP6EJXPEEy3i7HaKt29YlNY5XkBKequV2RL/auCSjaol82nCRiv05q4kVD9rvx58PKMnW99rrkH+HaQ5hpGogoZk5r/hr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166592; c=relaxed/simple;
-	bh=GWU8JC0CI4KdDSq95d7Xww/72cmBcIdGZOCTJqdPaNk=;
+	s=arc-20240116; t=1792166635; c=relaxed/simple;
+	bh=YuJNtPFMJf1ZlLospzoFwG7XMO8l8ZaCzUAO0iew8uc=;
 	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=hwxOifo94iJFdt7uL5MjEFJcchqsa9o/OEVzE0we8fQbxPWWaaQgqpkOCKo1GSNEROO0PRw62GP/N7oRyU6MVaAn+bvYVY8vCeTd/BTJsA1ghc81A5tKjcqgwV3yFxNRVeDXO2ej+Tduk4ewvcDGo77LaCm9dhhHUl2pthJLQ0Y=
+	 Content-Type; b=RwlCiZyrByPNXqwj0rsQ1WCKbDfhKD/tZkgwzSrExreq8stRV8yogfjiCOEkxApJaGMFCagGQjUTQX6LM3KD0FyddkPHT85xWctGPuQ8PjuzPmNoKEMtxcndY67g7nSlW/77U/uFW4OwTu3y5tbIxgznDpvaxr6ZLGE3wfVjDzA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Fri, 16 Oct 2026 17:02:58 +0100
+Date: Fri, 16 Oct 2026 17:03:35 +0100
 From: Bradley Morgan <brads@mainlining.org>
 To: sashal@kernel.org
 CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
@@ -23,9 +23,10 @@ CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux@leemhuis.info,
  mst@redhat.com, ojeda@kernel.org, rdunlap@infradead.org,
  skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] agents: add infrastructure for agent resources
-In-Reply-To: <20261016152828.3765695-2-sashal@kernel.org>
-Message-ID: <348BB89E-AD34-4B22-A7DD-A91E9657D566@mainlining.org>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_2/7=5D_docs=3A_submitting-pat?=
+ =?US-ASCII?Q?ches=3A_say_which_commit_a_Fixes_tag_names?=
+In-Reply-To: <20261016152828.3765695-3-sashal@kernel.org>
+Message-ID: <BEF3ABD8-B94B-4EA6-BB1D-40B702DDFF84@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,69 +37,54 @@ Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 16 October 2026 16:28:21 BST, Sasha Levin <sashal@kernel.org> wrote:
->Add agents/ as a home for skills and other resources for
->coding assistants. Describe the skill layout in coding-assistants.rst,
->together with the rule that skills only inspect and report, and add a
->MAINTAINERS entry covering the directory.
+On 16 October 2026 16:28:22 BST, Sasha Levin <sashal@kernel.org> wrote:
+>The description of the Fixes: tag does not say which commit to name when
+>a later commit made an older bug reachable, or when more than one commit
+>introduced the same bug, and both questions come up regularly. The
+>commit that blame points at is also often one that only moved the code.
+>
+>Say that the tag names the commit that introduced the bug, that the
+>commit that exposed it may get a second tag, and that each commit that
+>introduced the bug gets its own tag. Say that the tags tell the stable
+>team which trees need the fix, and that trees without any of the tagged
+>commits do not.
 
-I feel this "agents" would be ok, make sure not to let it conflict with the
-
-base agents.md file.
+Hi, this would make finding fixes tags better.
 
 Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
 
 >
+>Link: https://lore.kernel.org/r/c3ce794d-1ac2-4ef3-9e5c-1e171bd77a89@leemhuis.info
+>Link: https://lore.kernel.org/r/20261013003535-mutt-send-email-mst@kernel.org
+>Link: https://lore.kernel.org/r/atCI4q2HvqVXOag1@stanley.mountain
 >Assisted-by: LLM
 >Signed-off-by: Sasha Levin <sashal@kernel.org>
 >---
-> Documentation/process/coding-assistants.rst | 14 ++++++++++++++
-> MAINTAINERS                                 |  6 ++++++
-> 2 files changed, 20 insertions(+)
+> Documentation/process/submitting-patches.rst | 9 +++++++++
+> 1 file changed, 9 insertions(+)
 >
->diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
->index 051f0d819f68e..1efc7b08f09f8 100644
->--- a/Documentation/process/coding-assistants.rst
->+++ b/Documentation/process/coding-assistants.rst
->@@ -19,6 +19,20 @@ For guidelines on content generated by AI coding assistants see:
+>diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
+>index 7ae79452e1b46..7c4e3c8272d2a 100644
+>--- a/Documentation/process/submitting-patches.rst
+>+++ b/Documentation/process/submitting-patches.rst
+>@@ -608,6 +608,15 @@ which stable kernel versions should receive your fix. This is the preferred
+> method for indicating a bug fixed by the patch. See
+> :ref:`describe_changes`
+> for more details.
 > 
-> * Documentation/process/generated-content.rst
-> 
->+Agent resources
->+===============
+>+Name the commit that introduced the bug. ``git blame`` and ``git bisect`` can
+>+point at a commit that only moved the code, or that made an older bug
+>+reachable. If a later commit made an older bug reachable, name the commit that
+>+introduced the bug; a second Fixes: tag for the later commit is fine. If the
+>+same bug was introduced separately by more than one commit, add a Fixes: tag
+>+for each, but do not add tags for commits that are only suspected. The Fixes:
+>+tags tell the stable team which trees need the fix: those that contain one of
+>+the tagged commits. Trees that contain none of them do not need it.
 >+
->+Skills for coding assistants live under ``agents/skills/``, one directory per
->+skill with a ``SKILL.md`` entry point in the `Agent Skills format
->+<https://agentskills.io/specification>`_. Each skill points at the process
->+documents that apply to its task and adds only what assistants tend to get
->+wrong.
->+
->+Skills inspect and report. They do not change files, create commits or tags,
->+or send mail. A skill returns its result with the evidence for it, or says what
->+is missing. Do not fill a missing result with a guess or a placeholder, and do
->+not finalize the work until it is resolved.
->+
-> Licensing and Legal Requirements
-> ================================
-> 
->diff --git a/MAINTAINERS b/MAINTAINERS
->index f53047aa8d3c1..9e522cda56f1b 100644
->--- a/MAINTAINERS
->+++ b/MAINTAINERS
->@@ -713,6 +713,12 @@ F:	Documentation/filesystems/afs.rst
-> F:	fs/afs/
-> F:	include/trace/events/afs.h
-> 
->+AGENT RESOURCES
->+M:	Sasha Levin <sashal@kernel.org>
->+L:	workflows@vger.kernel.org
->+S:	Maintained
->+F:	agents/
->+
-> AGPGART DRIVER
-> M:	David Airlie <airlied@redhat.com>
-> L:	dri-devel@lists.freedesktop.org
+> Note: Attaching a Fixes: tag does not subvert the stable kernel rules
+> process nor the requirement to Cc: stable@vger.kernel.org on all stable
+> patch candidates. For more information, please read
 >
 
 --- Thanks!
