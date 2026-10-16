@@ -1,135 +1,251 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702BD372B3C;
-	Fri, 16 Oct 2026 10:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206EF375ACB;
+	Fri, 16 Oct 2026 10:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146465; cv=none; b=nA5WUYmkMR4X6BH8mBu2krGK1UUWEtMN7gbXJFv+KVlwjcoDXlsZLOl8M6IzwBQs4sfJIALEIBO7zFXRwqTDHGim/EvAndrTZZIiPu5aNLFpcsEf/zGvqwSDzS1im2rw1AQ/JiXSOLBLyZ0lnZg1hZhYbxsDuhHfS0UfSJ1zUMM=
+	t=1792146476; cv=none; b=QiqHWzD1AkhbNsonn4iVD4J0yDnHBO0ZvqdhY6PyWLgBssjqShcU90HtOnnsgePmRRVho3bUvP4uYUdyuJd9igWx0x52X8iS79uAL+LJauZwvIm2EwimRQSJDkV+joM8mEStri74QJ6fMJRUb8+JARVfz+cCU7D+aLYKR86wQBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146465; c=relaxed/simple;
-	bh=limMFJbcwwduTpzFLcDiK/5fNhxrgEYq52T7UWtvs0Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H+JY18hiQLw2lSKJYiJJskbqzA4AyHFicCpPd0QQ3UxPVYtwby21aovg2g7wXKljszWc+S9+0jg/yU9ATf/DgD64mtnmDZ9x+aVEYtV7qrtlQ8rl2ado3s0SbSALJ4Y+5ewlSRfzJ78rB4kPlmLstIKhHpPTZUD+mSxXO5SpOvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHEL6kP6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146476; c=relaxed/simple;
+	bh=EgTKb5AMVHJ+BR5EyeBgRqL1TqgF1IHocQPi6ygcHK0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=So5c+e74jFLmmve26T5YUHOr9CZTpOdVpJh58Fm0nO1zdES6M0Gyo8L1eZ1ZBNGvyI/nJvCaWBnQqY1A2YtELBtamVJSHq9oAJYBmBxdzCmRFznytky09BVed+vfsPIKXgzvOyT8M8S0ieOBIK+OWrSKyVetCD18nvWc11j4U/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BgTb/ALU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHEL6kP6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2AE71F000C4;
-	Fri, 16 Oct 2026 10:27:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BgTb/ALU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E024C1F000C4;
+	Fri, 16 Oct 2026 10:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146462;
-	bh=U0J00jo5OiHeBPxzEIa6F1DcCXv2U6x9A+gpdOvbR5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fHEL6kP6IS5s8belsewK7AeFU5zIrffBszsKo3//zeOY4pQ+UIumG35dxnULGf/3d
-	 EGt29felUqNf9Ch2QvIQZsnCqtVy/W+u/st4lU4MN3C/Dcl/dTc7W/ZbbvESn7cHBc
-	 eqi6D1ok1vbZ5mqfq+W0prdxLrbNmI58Lp7Jtrx5vsHRjUFxpjvTNcwCLCMNZlw8vx
-	 dAmhzmT4L+uzQJ81JqVTU1ciXGN2fNgY0dXoFx6rvI5v5OP64DuDhSesR7W4ptJl6o
-	 pR2pL8DNGR8LlR9297+A5XzUqMTod1ALxmn/eUISmu/nTdZ7t3YKh25BYzSomJDpfx
-	 LCuJ//VjMWTGA==
-Date: Fri, 16 Oct 2026 11:27:29 +0100
-From: Mark Brown <broonie@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	povik+lin@cutebit.org, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Heiko Stuebner <heiko@sntech.de>, Kees Cook <kees@kernel.org>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	wangdicheng <wangdicheng@kylinos.cn>,
-	Chris Bainbridge <chris.bainbridge@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Neo Chang <YLCHANG2@nuvoton.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	Md Shofiqul Islam <shofiqtest@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Zain Aboobacker <zainaboobacker33@gmail.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Bo Shen <voice.shen@atmel.com>, Vinod Koul <vkoul@kernel.org>,
-	linux-sound@vger.kernel.org, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
-	linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev,
-	linux-rockchip@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 25/25] ASoC: rockchip: rockchip_max98090: Mark the
- link as started on success
-Message-ID: <46a96bc8-2ee7-4c6f-ad8e-94321f8b9630@sirena.org.uk>
-References: <20261015014324.5569-1-phucduc.bui@gmail.com>
- <20261016040048.506531-1-phucduc.bui@gmail.com>
+	s=k20260515; t=1792146475;
+	bh=RxdbxU6xVAPUHbvfbqgDHbHG2mvTfQPnDG1dpU7wbSM=;
+	h=From:To:Cc:Subject:Date;
+	b=BgTb/ALUfRrxMW7fBCcThtsk90GNT9Vh2tjmi2tLMf++heQtAYV3hUQ5TQ+tK68yR
+	 qtp0YWh6bAAVrabsRsySO74Q1X5McfIKVoA6uf82DWrGb2pMyhuhVYFXoiKuGYDh+O
+	 1+l+5NFOSGK4N8GyLqo1Bw8+gmoHSXJIAm7adRyu+5b56Gkfv00/p5eBR7Qji6eNEW
+	 mIV4wmY1s5sINQS1MkFXH/io3+GIUsMgNNBuzoS9GLq34ij4Na9ydExTo05VvTHMVV
+	 joDu+BAn6oi/ZNrgyz2RbYwJdvkalyopyO79MqH6db+4baV5dmWD9C2gTEUIjNyE8b
+	 D2trD3nUKGDoA==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL for v7.3] vfs fixes
+Date: Fri, 16 Oct 2026 12:27:37 +0200
+Message-ID: <20261016-vfs-7.3-rc8.fixes-c224354747ab@brauner>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tqlzx0giHWNwlE1k"
-Content-Disposition: inline
-In-Reply-To: <20261016040048.506531-1-phucduc.bui@gmail.com>
-X-Cookie: <<<<< EVACUATION ROUTE <<<<<
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9296; i=brauner@kernel.org; h=from:subject:message-id; bh=EgTKb5AMVHJ+BR5EyeBgRqL1TqgF1IHocQPi6ygcHK0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/CMrHT6jYUr9vDNLMqeWuAs46PRF3XPTkpwrp9ven 1EdtmN5RykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwERs7zH84XYLEWeMOWEZyTyF e8uMZNkUg5Bz6ZJVr+tOxZ62nHblLCPDnS+LHlvabHJ9Vy2V+c03z5q1lqsl++VMH8PfWnumcZe wAQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
+Hey Linus,
 
---tqlzx0giHWNwlE1k
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+/* Summary */
 
-On Fri, Oct 16, 2026 at 11:00:48AM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
->=20
-> snd_pcm_hw_constraint_minmax() may return 1, which is then returned
-> from rk_aif1_startup(). ASoC only marks the DAI link as started
-> when .startup() returns 0.
+This contains last fixes for the current development cycle:
 
-Can you please resubmit this as a separate patch as a new thread without
-the series numbering?  This is really going to mess with the tooling :(
+- Fix a range of use-after-frees during rcu pathwalk caused by non-rcu
+  frees. Whatever ->permission(), ->d_revalidate(), ->get_link(),
+  ->d_hash() and ->d_compare() read in rcu mode has to be freed after a
+  grace period. umount(2) hides most of it because namespace_unlock()
+  waits for one, but a chdir() out of a lazily unmounted directory or
+  the close() of the last file on it drops the last reference without.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+  * ext4_get_link() reads the sbi and the extent status counters for a
+    symlink stored in a data block. Both are freed after a grace period
+    now.
 
-Series numbering only makes sense within a series for ordering, if
-you're sending something separately to a series or a new series then
-preserving the ordering of the series just causes confusion.
+  * The unicode map of casefolded ext4, f2fs and tmpfs was freed under
+    generic_ci_d_hash() and generic_ci_d_compare().
 
---tqlzx0giHWNwlE1k
-Content-Type: application/pgp-signature; name="signature.asc"
+  * ntfs3 with nocase freed its sbi and mount options under its dentry
+    hash and compare. A remount freed the old options right away too.
 
------BEGIN PGP SIGNATURE-----
+  * eventfs freed an eventfs_inode after an SRCU grace period only
+    while tracefs_d_revalidate() reads it under rcu_read_lock().
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrR/BAACgkQJNaLcl1U
-h9AosQf/VknJyrGXrKz1JvZbJBxS2f4nWntI49PwwvAzQ6a4SD3xfvD3bg/M7LAZ
-J5+AHHz3VAcAYPq1gkxEy4pCm8MVao9XTc3Ujwu5jluXqeXIubKVaZnzHh+J84Ux
-cjBkHDIed/T5gVNU5Q+CpctZcDl1jrOFs3dUiUzMw9T3JTDLH3NN8u10CbKzFsaO
-n7SWoLoUuganF2oSbR0LpA9qfDv+AVTwzA0kxeNZA0Uu75kwlJ7nmFxDmpw857/8
-BHCXxOUkS3ASKZ05NU5uuVGM2XAfSRzRAS/AY1SCT45ujPw9O9lhufB70UDqLW7a
-SnN5ueA4U9Y+tWt2D0rrEe/M9oXKtw==
-=No3u
------END PGP SIGNATURE-----
+  * afs and 9p are only saved by the grace period their private bdi
+    gets in bdi_unregister(). They stop depending on it.
 
---tqlzx0giHWNwlE1k--
+  * create_ipc_ns() leaked the mqueue mount and its superblock on a
+    late failure. A long-term mount needs kern_unmount().
+
+- Don't let idle threads pin the initramfs. The idle threads of the
+  secondary cpus are forked from PID 1 with a private copy of its
+  fs_struct, aren't on the task list so pivot_root() never moves them
+  and never exit. So the initramfs stayed pinned forever on every
+  machine with more than one cpu, 70 to 150 MB in the reports. They
+  share init_fs now like init_task does.
+
+- A mount that copy_tree() leaves out can't take over a lock.
+  copy_tree() drops mounts of mount namespace files from the copies it
+  makes for unshare(CLONE_NEWNS) and propagation without looking at
+  MNT_LOCKED. So root in a user namespace could bind a child's
+  /proc/<pid>/ns/mnt beneath a locked cover, let it take the lock over,
+  unshare(CLONE_NEWNS) and read the file. copy_tree() refuses with
+  EPERM now and the move beneath a locked mount is refused up front.
+
+- Revert "namei: don't reveal overmounted entries in refwalk" from the
+  rc7 fixes. The bug class is bigger than that patch.
+
+- namei: lookup_fast_for_open() checked ->d_inode while
+  traverse_mounts() checks the type in d_flags, which is set second, so
+  a refwalk racing the instantiation could fail an O_CREAT open with
+  ENOENT. Use d_is_negative() in both places.
+
+- Drop the smp_mb()s in mntput_no_expire_slowpath() and do_umount()
+  that mnt_get_count()'s own barrier made redundant.
+
+- fsnotify: a mark added while fsnotify_destroy_marks() walks the
+  connector could be missed and the connector detached, so an fdinfo
+  read called igrab(NULL). New marks are refused during teardown.
+
+- pipe: a failed second fasync enable on an O_RDWR FIFO removed the
+  existing reader entry and cleared FASYNC while the writer entry
+  stayed, a use-after-free in send_sigio() later.
+
+- watch_queue: post_one_notification() could see nr_notes before the
+  note pool behind it and dereference a NULL array. An unprivileged
+  user can trigger that with a key watch. Publish nr_notes last.
+
+- pid_namespace: zap_pid_ns_processes() waits without bound for a
+  tracer outside the namespace to reap its zombies and neither wait
+  was freezable, so every suspend attempt failed.
+
+- exit: is_child_subreaper and has_child_subreaper shared a word with
+  other bitfields written without a common lock, so racing prctl()s
+  lost a bit. They are separate bools now.
+
+- autofs: a notification write that failed on a pipe the daemon had
+  already replaced put the superblock into catatonic mode again and
+  closed the replacement. Only do that for the current pipe.
+
+- ovl: reject a lowerdir ending with an unescaped backslash with EINVAL
+  instead of a confusing ENOENT later.
+
+- ocfs2/dlm: take dlm_reco_state_lock when the debugfs state file walks
+  the recovery participant list.
+
+- samples/pidfd: fix the userprogs typo that kept pidfd-metadata from
+  being built.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.3-rc8.fixes
+
+for you to fetch changes up to 214897acc8c2e5d6b63189d23ccaed6fa2af45a9:
+
+  Revert "namei: don't reveal overmounted entries in refwalk" (2026-10-16 10:50:57 +0200)
+
+----------------------------------------------------------------
+vfs-7.3-rc8.fixes
+
+Please consider pulling these changes from the signed vfs-7.3-rc8.fixes tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Aviv Vaknin (1):
+      pid_namespace: make zap_pid_ns_processes() freezable
+
+Cen Zhang (1):
+      ocfs2/dlm: Protect the recovery list during debugfs reads
+
+Cen Zhang (Microsoft) (1):
+      watch_queue: Fix note pool publication race in watch_queue_set_size()
+
+Christian Brauner (19):
+      ext4: free the sbi after a grace period
+      afs: free the super info after a grace period
+      9p: free the session after a grace period
+      eventfs: free the eventfs_inode after an rcu grace period too
+      ipc: drop the mqueue mount with kern_unmount() on setup failure
+      unicode: free the map after a grace period
+      ntfs3: free the sbi after a grace period
+      ntfs3: free replaced mount options after a grace period
+      Merge patch series "fs: fix a range of UAFs during rcu pathwalk caused by non-rcu frees"
+      fs: drop the smp_mb()s that mnt_get_count() made redundant
+      Merge patch series "fs: drop the smp_mb()s that mnt_get_count() made redundant"
+      fs: pass flags to copy_fs()
+      namei: test for a negative dentry the way traverse_mounts() does
+      namespace: a mount that copy_tree() leaves out can't take over a lock
+      fs: let idle threads share init_fs
+      selftests/filesystems: test that a mntns file can't take over a lock
+      Merge patch series "fs: don't let idle threads pin the initramfs"
+      Merge patch series "namespace: a mount that copy_tree() leaves out can't take over a lock"
+      Revert "namei: don't reveal overmounted entries in refwalk"
+
+Guanglei Zhu (1):
+      ovl: reject lowerdir ending with unescaped backslash
+
+Kyle Zeng (2):
+      pipe: preserve existing fasync readers on writer setup failure
+      fsnotify: prevent mark additions during connector teardown
+
+Nickolai Zeldovich (1):
+      exit: fix lost-update race on the child_subreaper bitfields
+
+Sasha Levin (1):
+      samples: pidfd: fix userprogs typo
+
+Sung Byeongchan (1):
+      autofs: ignore notification errors from a replaced pipe
+
+ fs/9p/v9fs.h                                       |   1 +
+ fs/9p/vfs_super.c                                  |   4 +-
+ fs/afs/internal.h                                  |   2 +
+ fs/afs/super.c                                     |   2 +-
+ fs/autofs/waitq.c                                  |  25 ++++-
+ fs/ext4/ext4.h                                     |   2 +
+ fs/ext4/extents-test.c                             |   2 +
+ fs/ext4/extents.c                                  |   1 +
+ fs/ext4/extents_status.c                           |   7 +-
+ fs/ext4/extents_status.h                           |   1 +
+ fs/ext4/super.c                                    |  13 ++-
+ fs/namei.c                                         |  32 +-----
+ fs/namespace.c                                     |  33 ++++--
+ fs/notify/mark.c                                   |  11 ++
+ fs/ntfs3/dir.c                                     |  13 ++-
+ fs/ntfs3/ntfs_fs.h                                 |   3 +
+ fs/ntfs3/super.c                                   |  49 ++++++---
+ fs/ocfs2/dlm/dlmcommon.h                           |   2 +
+ fs/ocfs2/dlm/dlmdebug.c                            |   5 +-
+ fs/ocfs2/dlm/dlmrecovery.c                         |   2 +-
+ fs/overlayfs/params.c                              |   3 +
+ fs/pipe.c                                          |   6 +-
+ fs/tracefs/event_inode.c                           |  10 +-
+ fs/unicode/utf8-core.c                             |  21 +++-
+ include/linux/fsnotify_backend.h                   |   1 +
+ include/linux/sched/signal.h                       |   4 +-
+ include/linux/unicode.h                            |   1 +
+ ipc/namespace.c                                    |   2 +-
+ kernel/exit.c                                      |   2 +-
+ kernel/fork.c                                      |  20 +++-
+ kernel/pid_namespace.c                             |   2 +-
+ kernel/watch_queue.c                               |  11 +-
+ samples/pidfd/Makefile                             |   2 +-
+ .../umount_propagation/locked_mount_test.c         | 122 +++++++++++++++++++++
+ 34 files changed, 325 insertions(+), 92 deletions(-)
