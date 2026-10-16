@@ -1,121 +1,164 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7763E49E2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C835B329E5A;
+	Fri, 16 Oct 2026 10:19:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145928; cv=none; b=RPJbJbMO/H+TdhdtGZucJ8jknkt1d5AzsFzsh7/NY+cEhOk3mSkpO7Szc5Xwo9VjI0Un2DGV3eAEGMSZPRHjXi7r83ocimG+4Wv9jldrYE4atjVigZHYwwiydG+VIo1uA8aGAEKuICFRiUTyTAE0XK04n5cqSK+qzb+Bj50wbQE=
+	t=1792145947; cv=none; b=p0WEYSS8C6wJK6CrT1/JtmUFuG9dfURvkbX/gwqOE1YzEct7C80Xkc8KSc4Y7RJQ2DZeWgElMW5AgzwotCemXdoK/DJ00oGbvjGWTxMUUMGR8qHLB+aeJtcUwOdKkUVDArYzKBnVjFleoGEQ7jpdcWEl0IMwChzoM9U5l6zASfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145928; c=relaxed/simple;
-	bh=6onorTA5PXcJrAXKR3Hn6zgV+Bfs5ZKHKp1+lfVDF7M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XX+Lncy0FuGFk39WyQ+QZPC5hSATmuMpEkPqV6dqlosLycqXoTcDBrciF9v6mn3QND6kApJaBEHJebEOThEn6ujxXJU9G9gIMKfJZu9V7YcB1PC+jWhRZLy76kxyHEDV58in0mgI3CemSkuPWulZx9wf4XzdwospdjuiY7aocBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SKyfp8iR; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792145947; c=relaxed/simple;
+	bh=e0dOSOnxeOXOfd2/l7kHXL6TVBEKuXRUS7i3/87Z8S0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Tvd4bmM4i+ht3ADzTK6yAYpUpK9BQjLuZLttlbABZ9EY5kjwrMW2qgW64o0gtj1AYueQdyjJC5nkEqayztzhsdd3uewokHK5RLEzVcE1S3ygcxGJylTThFaJ/03nsb8RPTu/tnadtoI0GXVjYuf8wX48VfTGOKkfx844ObbOt44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGG45cPd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SKyfp8iR"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so599031f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:18:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792145925; x=1792750725; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+P33/sA4gGKMdrtPonMZZt7DDO16tTuj+Ea0EHreBIs=;
-        b=SKyfp8iRYFSTgUUM+8FTFeiF9Dmp1OCI/z7Du0xtozwkPQz6r/cNwWnblugjdoPsBF
-         eaNlr6UQci/ZPlQk3or9XlQeJGKM0ehopAr+88xljdDeIRtT3CPuyAYkyQceUTycK9pY
-         CU/jB9E5gHOMBHGSbaWhmqBZnYkgWGKpohCY+2u8zjGlVdtVlEAHOQV1BWo8q6Rbfi2I
-         H/IffGmIcXoGKrcgWg7IT4cgL22kb60XQLRMP3JqxwNoXstBFe4SKDJZpS+M31Rr23dW
-         wa4m7vIX9rFzzMQTW7zqTFnkDIBw+BFgZwZeuM1NaiErLavZ+sl6M3EpGdTp8ZkXb4ip
-         HEpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145925; x=1792750725;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+P33/sA4gGKMdrtPonMZZt7DDO16tTuj+Ea0EHreBIs=;
-        b=G8bo9fdk14EYSO11GbnBWHSN6JS5wLOGNCbImrxoAcJ6PDYumnD1lk1QsfY2MnaqxI
-         DKWc3RAPFAXwxPH3I54Fw7W/3C60/EAX64NYNRGBMCw3Qx2SJ9qAnItz6JhIIb1+ve7v
-         HeSA/f4WBsth4XHfT+a8RAkqicL8LoYoVj/pd0aXM50XzaKTPuDWAiivv4oOLjFFQJ3k
-         NvBifQTq65WFjNUad46FT38Lnyw9UYjYAqvafeOjEB/FMhZZh3sd/Qkm2Lww/i1QDkze
-         9fd7nNLpyzkfFw6CAtCvu/m2dDV75AL0KOI1XiPd5aEQbGGQD7DeFCSi5ZlpCTZD6/ov
-         Z5qg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfWG4rcCZqE8d3EckRKnwZs0U4D8FWbIs2mgfQJTi09bt3aN2OEv7HtQbsMoar1H4OoA8PrTg7z2Ipv3Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPOFUJsJMoGmmyNn2ZuZMN3oWKk1IMSaig5gwsesZ7N/mRO05M
-	KFBn2dQwdR+PjLv5DykZCN5/milv8UoNdy6mRqExBKQS9hnWdj4SAuKySuiGecMQJK0=
-X-Gm-Gg: AYBFou2Utyr8nmUdrmlqp3QtsAzn5iHN8qN1lpHZsi82sQtWqMETumimazR/poFmy6N
-	KC2TExqJ0uZZYJHZJo0RhYPhnXySJJNXZ5Adblo4OD8ffTsyzzb5ThyVi6xJ70SoFoW0ail+67h
-	QzluY3fokbPkzozL7dll3C87kba5ssMBGUXjoEs1o6LhNvU7vzBFluojZVdC6kbPniAhiAH9lpA
-	1oOWg39l4er5bsfPpVZME9zkNGoy7g+jsyBHwzSa0wVyuyEDLBQVjUs9tF+ZI+NeBseCqMYbvJJ
-	Tp0mQjxUoDzRCVg/ZyuBtPupDQSu2lgLnvs047tR8rcHJetPzmcnvdGBWFgGC3r+2Vt/arElsHq
-	Dn/f76SwQF3d5q8FhkiYLhbpgqO25FrOe2GAVeDVli4IfoeTWPZXBRIgJjHqwBVC70OgJ4tBdxb
-	LvAkKgBqVeEVJwDA9SnsAAbLpTXdW9dUBXvNI5oH2a+Jiah8V562iQHXFRYJVhoCb2c119QccNo
-	64=
-X-Received: by 2002:adf:e195:0:b0:48b:123e:2f5c with SMTP id ffacd0b85a97d-48dbaaed96dmr43622879f8f.29.1792145925501;
-        Fri, 16 Oct 2026 03:18:45 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfe4d2321sm3840867f8f.19.2026.10.16.03.18.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:18:45 -0700 (PDT)
-Message-ID: <53999f08-bbfb-462e-8521-383aba65f2a9@linaro.org>
-Date: Fri, 16 Oct 2026 11:18:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGG45cPd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F6D1F000C4;
+	Fri, 16 Oct 2026 10:19:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145946;
+	bh=2V6okvCUtN5rt6q4iwvHYcjDTyJ1f2JdZMB0YT/CC0Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eGG45cPdOFYdd4IGkJPX7+5IGVlAUjZv12fk3I4/6LB24K3wpTVWZfd26RgV8SNM+
+	 ZKIIQiR3aecQQB/+JqY0GZquuEmTV+iDCGDOfiuwyf3g/IcZ7Aq7oWjLXtMz3tpy7X
+	 uYif9cqekJnIvLr6h51Cjxf1YzLart2eqdp82wwfL3W6SnsIJ6yQ/mBIY72CLc9tmu
+	 YkZ58/t2rZ0STMiI4/g8n2P09qK3X0jNURSli/9x+mWmnC8UjkSB3VcjsYwWH19aPn
+	 prMVpHPsCqv+v6MV4lP7EvgpwDPdtOn3530oTTN/YNU3N/sMgjuRMIDBJBWJOVMGg7
+	 GVO99ND1hBbLg==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL 09/19 for v7.4] vfs file
+Date: Fri, 16 Oct 2026 12:18:45 +0200
+Message-ID: <20261016-vfs-7.4-rc1.file-c45175e298c8@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] perf: Order SPE and TRBE padding before publishing
- AUX head
-To: Leo Yan <leo.yan@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20261015-add_barriers_for_perf_aux_output_skip-v1-0-5847d0578859@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261015-add_barriers_for_perf_aux_output_skip-v1-0-5847d0578859@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4484; i=brauner@kernel.org; h=from:subject:message-id; bh=e0dOSOnxeOXOfd2/l7kHXL6TVBEKuXRUS7i3/87Z8S0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/MX3n82l8sUZq1uRRfOl38SeXryvQpt/yVG3LYc+T 54bkCnn0VHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjARR2tGhpt7z+w4nvGg6HC8 SQpL7y+Pmc462nM+CMhu2i6S+23tIWaG/4UPCtddU0h/wKd6RJjz93xz04iV+/6KZb275MwZFMl gwgEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
+Hey Linus,
 
+/* Summary */
 
-On 15/10/2026 16:51, Leo Yan wrote:
-> SPE and TRBE write padding into their AUX buffers before advancing
-> aux_head. Add the missing write barriers so that a userspace reader on
-> another CPU cannot observe the new head before the padding stores
-> become visible.
-> 
-> AUX producers must make their data visible before publishing aux_head.
-> The required synchronization depends on the trace hardware and CPU
-> memory model, so the barriers belong in the drivers rather than in
-> perf_aux_output_skip() or perf_aux_output_end(). The TRBE change also
-> covers padding inserted by the overwrite erratum workaround before
-> perf_aux_output_end().
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
-> Leo Yan (2):
->        perf: arm_spe: Order padding before publishing AUX head
->        coresight: trbe: Order padding before publishing AUX head
-> 
->   drivers/hwtracing/coresight/coresight-trbe.c | 2 ++
->   drivers/perf/arm_spe_pmu.c                   | 5 ++++-
->   2 files changed, 6 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> change-id: 20261015-add_barriers_for_perf_aux_output_skip-70356815b2bd
-> 
-> Best regards,
+This annotates struct fdtable's fd array with __counted_by_ptr so KASAN
+and the fortified functions can bounds check it against max_fds and
+adds a KUnit suite for fdtable. A follow-up uses __struct_size() in the
+test since sparse doesn't know __builtin_dynamic_object_size().
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+FD_PREPARE() is simplified. It was built as an ACQUIRE-style guard on
+infrastructure that was never needed. The ACQUIRE machinery and
+CLASS_INIT() go away, the variable is declared with __cleanup()
+directly, struct fd_prepare loses its err field since the fd either
+holds the descriptor or the error, and callers get a const pointer to
+the guard behind a UNIQUE_ID() name so they can't shadow it. Code
+generation is identical.
 
+/* Testing */
+
+No build failures or warnings were observed.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+This conflicts with mainline in fs/namespace.c between commit
+7253a6ff640df ("namespace: drop the file's reference first in
+dissolve_on_fput()") in mainline and commit 64cbb36448ff2 ("file: make
+struct fd_prepare const and kill its err field") from this tree:
+
+diff --cc fs/namespace.c
+index 59fb227df39f,0f5c00816775..000000000000
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@@ -4701,9 -4544,9 +4701,9 @@@ SYSCALL_DEFINE3(fsmount, int, fs_fd, un
+  
+  	FD_PREPARE(fdf, (flags & FSMOUNT_CLOEXEC) ? O_CLOEXEC : 0,
+  		   dentry_open(&new_path, O_PATH, fc->cred));
+- 	if (fdf.err) {
++ 	if (fdf->fd < 0) {
+ -		dissolve_on_fput(new_path.mnt);
+ +		dissolve_on_fput(no_free_ptr(new_path.mnt));
+- 		return fdf.err;
++ 		return fdf->fd;
+  	}
+  
+  	/*
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.file
+
+for you to fetch changes up to fae37d5e3c4e94aef334825ab89f66efcfe489b2:
+
+  Merge patch series "file: simplify and harden cleanup handling" (2026-09-23 09:28:02 +0200)
+
+----------------------------------------------------------------
+vfs-7.4-rc1.file
+
+Please consider pulling these changes from the signed vfs-7.4-rc1.file tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Bill Wendling (2):
+      vfs: Annotate struct fdtable's fd field with __counted_by_ptr
+      vfs: Add KUnit tests for fdtable
+
+Christian Brauner (7):
+      Merge patch series "vfs: Annotate struct fdtable's fd field with __counted_by_ptr"
+      vfs: use __struct_size() in the fdtable KUnit test
+      file: simplify FD_PREPARE()
+      file: declare the FD_PREPARE() variable with __cleanup() directly
+      cleanup: remove CLASS_INIT()
+      file: make struct fd_prepare const and kill its err field
+      Merge patch series "file: simplify and harden cleanup handling"
+
+ arch/powerpc/platforms/cell/spufs/inode.c |  12 +--
+ drivers/gpio/gpiolib-cdev.c               |  18 ++---
+ drivers/gpu/drm/msm/msm_perfcntr.c        |   4 +-
+ drivers/media/mc/mc-request.c             |   8 +-
+ drivers/misc/ntsync.c                     |   6 +-
+ fs/Kconfig                                |   8 ++
+ fs/eventfd.c                              |   4 +-
+ fs/eventpoll.c                            |   6 +-
+ fs/file.c                                 |  12 ++-
+ fs/namespace.c                            |  12 +--
+ fs/nsfs.c                                 |   4 +-
+ fs/tests/.kunitconfig                     |   2 +
+ fs/tests/fdtable_kunit.c                  |  72 +++++++++++++++++
+ fs/xfs/xfs_handle.c                       |   6 +-
+ include/linux/cleanup.h                   |   7 --
+ include/linux/fdtable.h                   |   2 +-
+ include/linux/file.h                      | 130 +++++++++++-------------------
+ io_uring/mock_file.c                      |   8 +-
+ kernel/bpf/bpf_iter.c                     |   6 +-
+ kernel/bpf/token.c                        |   6 +-
+ mm/userfaultfd.c                          |   6 +-
+ net/core/scm.c                            |   8 +-
+ net/handshake/netlink.c                   |   8 +-
+ net/kcm/kcmsock.c                         |   6 +-
+ 24 files changed, 204 insertions(+), 157 deletions(-)
+ create mode 100644 fs/tests/.kunitconfig
+ create mode 100644 fs/tests/fdtable_kunit.c
