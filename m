@@ -1,188 +1,168 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4D94F30C1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167028; cv=none; b=cAfZk1Sr83P/iQJPpdrc3mWVfSTsu3fPJOX8a9QXAZNS3g2J9HV5uDq+uZqDThNqwKJ8fw99HPVEPPlpxSbWUf0EjxSNpYxZ440k9Ws1LIoq9jNuVOGTQFPPRXDexuxx7gWxXcPlmeipBM3Un0wcoYtCyvq1Mu/rQgTwXUYPh1Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167028; c=relaxed/simple;
-	bh=Z1cqtisYX6gOlcbJiiMBLdLFeDVcLISg5aP0QdLPLFs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EOyp4WMmqTeRxPETHw5WxBLn/zKuD+TPCBwi2WI054zI0cPss+IQHNpBzdSUfKhv7o8ilDqRwBoGIZfpnA9rjFD8YnC/2JNmiNgC2Wsnh9hbzbUQlovgelcJtNeAZ2VwL6sr2SrM2wyO56cseH0PjFw0uxwo1JJ27jw5fexkXH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=B8f3itCi; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758104E50AA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792167046; cv=fail; b=GsfpLRkRs3SQwdH0VqLUq2MmAyOfKdHfjdXdl5uvu4Wj82o22eDzptCyptYGFswZh7p5kOQPqlvktIHyl8CAstSZCu1ijLvwcZrLXViqR0T3Tt8mBsHzfX0oRT9QcBhDpQ4bi01S2FI/N+v7IN/LAQptfq4ErFhmuwCp8INvLQY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792167046; c=relaxed/simple;
+	bh=c+ujkinfvYDQKJH2h0XXdmfb0+B+hYiqMbaZVXdUrX0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=MptoADNtxWaw54Ssn//TJ8yr2AAJ2bTs2q+6Uiz8EjaE15Ff3qWFfKSBUz6jLTj8QnAjSxlB9lQNAO3Kkn/r8qItNsMG6B71JVVF9S7+8d2oc9POdW84mQfgmEG619N/Qq38O0e+K4FsMIMwT47w2eB1z7dc0T2WX3po3sTPij0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IrFpBpIZ; arc=fail smtp.client-ip=52.101.57.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="B8f3itCi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=7Ne54ApzWtKcjZmsIH0xxINmhG2VcxhXAgHz6gJ0SdI=; b=B8f3itCi/Pi0gVLvfWlDPqImwg
-	l6UMLH4ZkeRNnv6Q7cMEzYoT9nfa8O4lxhq8YlKgrJMyZDuT1bh751FFwGZU19whQhf54z9o8mMgW
-	iva2zoDygswl8EmyeSSfcXZx00490erp8x8hX93nJUeFhfXBFE2nleMyZffv8IQpJ2/WMcm4UI0FX
-	7M/OsE5QZ/kbNGNfzDSB1nvWcUUJDStgeQdcMl4ql5SJiw61g4K9jyY62HLil6z/rdvDjBAR80MVc
-	rJKL6gncAKJhhan05tJMK7tSTjf4gKZ3VtX6ip9/s+YH1bvf8nRnxJkm3qwK4UPvPlfMQjwwibKCq
-	J11QTzNw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHkVZ-0065QZ-2U;
-	Fri, 16 Oct 2026 16:10:14 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 16 Oct 2026 09:07:24 -0700
-Subject: [PATCH] mm: kmemleak: scan modified objects as soon as they are
- grayed
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IrFpBpIZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wMnLiWMe4c99ExxRMwA9aQALzc6mixawihfvSOfieVTw72bUfbPoxvrHPdAXYrA1Ock+Hh0wLjljZHX0Qaj6AVvfVpL/Ets8NTMrQsNZL7HO/S1paEqmk7CRofG3aFQ+KlaPhPq2w0J3w8H1mUEjoRdI3gCaoGbF7K33th1nE8erCwOkBWN/M91sjdMXByrBSeGLkIPYTej2yaaJmEBpntnmVuscG0L/ZKF/9Ra5efJ9oaB5MLtJ6WFL7Xaqlha34xlX54QSRmEA8SgOg6fYEPKP4uOjdFWDCJldjffHu8gElvtoZpIaaIpYDYdUFzRmJMgi6HrjI1gobNPqJR5asg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=irui3gbhJY9Ye3T55Qd5RXUki/6FJbqt8Mpaw/STXT0=;
+ b=KkdpgeM4M4usme/JkHblf2sjIedSqnEFQ0x9ijJKrrgcOUmSgetqfaKHEgUaqZcW9XFb5YXE/Aglj5KsCOwWTAHNCJKz/A6W4mqxwstlwW0OQfQSyzoV9IPyng2T1rpegKbtLZ1Giss0p/ETo03AaB4aMLEt6FeiRSYD8r+Gn005XZr2wDflj3+niLMKOcDoLCfj+Jmx2LbOS5JLMIUNAuLi6TxFeHqd50OuUarjQYXPaancp/5mhA21tz6eAI3LV5wfq2x2YSFrXjnS9NQfE2XSt6K+mdMVE6XhIEYBDEOgG+HPpMdxYCpOEnj06Lv5RXOBPqMdgOBL5np9lFDZLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linutronix.de smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=irui3gbhJY9Ye3T55Qd5RXUki/6FJbqt8Mpaw/STXT0=;
+ b=IrFpBpIZBHXpmiRmpQCZ/2P5sovf8OxSuVjYwFXFwyVC2n5bh/OvI3V58EfZgZnsi0jzhbdfqy7xQ30fc8xavIf4PU4TIIiuu3kISGFwWqeTSxyGD3BC+dyz9G/s7v3pGI4J/7Vnhf/M5e9XgH/1BPNLy1lSGzU6ZKN7wkDvOb8=
+Received: from MN0PR03CA0017.namprd03.prod.outlook.com (2603:10b6:208:52f::11)
+ by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
+ 2026 16:10:37 +0000
+Received: from MN7PEPF00000150.namprd04.prod.outlook.com
+ (2603:10b6:208:52f:cafe::4a) by MN0PR03CA0017.outlook.office365.com
+ (2603:10b6:208:52f::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 16:10:37 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MN7PEPF00000150.mail.protection.outlook.com (10.167.254.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 16:10:36 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 11:10:30 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 11:10:30 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 11:10:29 -0500
+Message-ID: <1ee3f542-e0b2-41d4-bf6a-b103dabf50cd@amd.com>
+Date: Fri, 16 Oct 2026 11:10:29 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [Q] zynqmp-ipi-mailbox and SGI interrupts
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: Jassi Brar <jassisinghbrar@gmail.com>, Michal Simek
+	<michal.simek@amd.com>, Harini T <harini.t@amd.com>, Tanmay Shah
+	<tanmay.shah@amd.com>, Saeed Nowshadi <saeed.nowshadi@amd.com>
+References: <20261015083937.8SDbdK8P@linutronix.de>
+Content-Language: en-US
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <20261015083937.8SDbdK8P@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-kmemleak-gray-drain-v1-1-3270256fdc8e@debian.org>
-X-B4-Tracking: v=1; b=H4sIALtL0moC/yXMQQqDMBBA0avIrB1IxIbqVcRFaiZ2qkaZWGkR7
- 95ol2/x/w6RhClCne0gtHHkOSToPIPuaUNPyC4ZClUYrfQNh4mmkeyAvdgvOrEc0Lu70kZ5V5U
- GUrkIef5c16b9O74fL+rWcwXH8QPfxje7dwAAAA==
-X-Change-ID: 20261015-kmemleak-gray-drain-fd80160fd946
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4234; i=leitao@debian.org;
- h=from:subject:message-id; bh=Z1cqtisYX6gOlcbJiiMBLdLFeDVcLISg5aP0QdLPLFs=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq0kxieXIBMRG2C8FoRD+dfhGLD59VRKYz1Wwx3
- kdsAEk1m9eJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCatJMYgAKCRA1o5Of/Hh3
- bTvED/wJr0gBmtXSoX7kSl0kTe3SR1UmPv3y0OCX3Nfb9KG2dUT6w8jCOZG5+USu4Uuln8i9+Bw
- 0AEIZOym4nJXAOI5OKzWLfw2eMfqZmbrpuVpkKyhtfqreotlPuDwZMKjK5n5ZSV5Cxww4jhI7Ke
- 7okmbfnlJvg4taMIEFmYMRwBkrPRvJcaqoH+gPqy3G89Jffb7u/2JQb2pzK+2qyQZUKe5NyYnGW
- 0uuzsuPzxRB50LHrG0mSYta/q5GHqp/eCj3sevdeUhrYicKVC2pHkGxK/0eYEXe3MZM08g0I7O6
- GYzmPyeOw4Ok57mQFr7JZVGoFq0E67gGViOsbcIqDJFj651KE5cfuijyluIugyxgRXzsz0ofba8
- DmjkeNY62XdR9ilqAeCs1UbEkx0OYFXW6bMPlMRJDJP1nw3Lyx54D4aLaZdCYt/uOEJMx7TGy11
- Vni8bc7b/G/wD3gp0aM6zuJsSe2hP4BJXBoDjoNfsRcU9gYW1JlAFBoB0Ni2oFBuk1UJ7oneajp
- 4MUg+l8kextpUOdH0FxschMStFSQz5tC6Kwl8yrw3KJegqSatgbWvK74Bq3ee5XHVx9oLkMZh3d
- nmaHNJQHUJf3DyLL5kiJ4Xl9/XwwnexchWNeiJQCCiR9hvGg31N1rmFjg1xsVVVi05wD+5W2p2m
- qZWlaYB0lDXgxRw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN7PEPF00000150:EE_|CH2PR12MB4325:EE_
+X-MS-Office365-Filtering-Correlation-Id: a812218b-57ce-4a8b-9ce9-08df2ba003e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|22082099003|10067099003|13003099007|261009223027099003|11063799006|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	cYKzPr3M6wVHneguciJZv8HnQ63lhwtyp3YRO5XhR8f3AT032XiNvxz6OUHFT2sUNjRV4IZYpqzetX5lekGPBAll6vea4qjFK+cMylLUWOD07WR05YMHDfhgAbv0qF3OHKSplXRIcrvFLvTycN8Nv1Xdpg+eH2NHGH0jEuN9JDARNHnEYu4M71gLiq6rFlN9Wszy45hk5hfptdkGBMKoaHrF1KuVPGU7w7aObFtJLc/ik1rbkDhEn2ekLLsYHrYwIzDXGlCtOAxivd79NM4iXl3SS0EmyBq17hsj+SC4FGc8W5iNophorC3XjgQ+txUIv20WJQiQmZebhNSslvYnmtkcBP/I6jDfCSL6H4bFuE5UglSjcRJeAwvTiVvAgkBLlrfveZqVnQkWMklZ9aMFy2HCRPsnq6sVe+8NDR7LNYPT7kLNp9g1cunzoynImE6Kn3Cw90gYJ4GkPvXbv6n/PRLnlHyEE/kGKgzCFpNjNevE1lV2D+TI1LwNhBPRtxMMhFHC7Ulo+Qz3dRM8/Vio7m5xFanesewZK68uB9XPW7cDABOeleQEnwFrxSAYC9VFVxPPEwBmAoe6NzXLaus5jZ16ABQMjif6vM+Xc1JjLdNLs+NjpVQL2dmOoztv5kOvZbd6M3mXAvJcImYubU/GvqpXFHBu1ZoFtJ6cDImDCA+PKRMoyUQcYoG6OvgkLJC1DEqUlv2nooe/K94Oy935/Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(10067099003)(13003099007)(261009223027099003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Q1R0fg1+IjM/tkEKLEhd1aaFi0Vfxanm7MKpx/8Ez+cPzt8HnMDYM+Inez4WDiIZYx6VvTNGUH2CTxvIArpWJuYsfElVDXm4s89pIPxeQ7P6AiuqnNRvN6ISkO6Q9MDf+PQTgZ3RCww4jK/xNXItJtA8rjR1EWPV2kPHwqZlSYPHpu6XS/EA+JGqBOTzU95DMlMYc63igKTVQAcjupFx4BrY3wIdpoBgIpJaOkz9V5YoC0UOmCAE+ujzhMvJ5q0OnBnFo659U1wjIqLyWyR8MpbX7+cC+ca2Ram5w0v477nDiQOokNjcLIc1yFJH4KhYDgbZR85+pzoxAa0zLWMuftki5vr0m6dBWN8+Q+iK5pa0vIVpf6rUKJSsZqv4aByQgSX/nY6ey9/PgU2BVnzx0gj9iJuPPdvNKTnztSxCm9vFLFhzgTIHVcWeso//lxXU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 16:10:36.9525
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a812218b-57ce-4a8b-9ce9-08df2ba003e4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN7PEPF00000150.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
 
-kmemleak keeps reporting the guard page of a systemd-journald thread
-stack on Meta's debug kernels, even with min_unref_scans set:
+Hello,
 
-  unreferenced object 0xffff88829a30ae40 (size 256):
-    comm "systemd-journal", pid 961, jiffies 4294814590
-    backtrace (crc 49b3881c):
-      kmem_cache_alloc_noprof+0x2ee/0x630
-      vm_area_dup+0x36/0x750
-      __split_vma+0xef/0x7d0
-      vma_modify+0x11c3/0x18a0
-      vma_modify_flags+0x1ea/0x2a0
-      mprotect_fixup+0x249/0x630
-      do_mprotect_pkey+0x531/0x820
-      __x64_sys_mprotect+0x7c/0x90
+Thank you for your email, please find my response below:
 
-The VMA is still mapped. It was never faulted in, so it has no anon_vma
-and no file, and the only pointer to it is a slot in a maple tree leaf.
-The mm tree runs in RCU mode: every write replaces the leaf with a copy
-and frees the old one after a grace period. journald rewrites its tree
-every couple of seconds, while a scan on a large debug host takes many
-minutes, so the leaf kmemleak queued is freed before its turn, and the
-copy that replaced it was linked after its parent had been scanned.
+On 10/15/2026 3:39 AM, Sebastian Andrzej Siewior wrote:
+> Hi,
+> 
+> The ZynqMP IPI Mailbox driver supports two bindings of which
+> xlnx,versal-ipi-mailbox is not present in any kernel dts file and
 
-The pass over modified objects is meant to catch such moved references,
-and the new leaf, being a new white object, does get grayed there.
+This new bindings are for Versal and later SoCs which has buffer-less
+IPI. It supports only notification to the other core without any data
+transfer. The device-tree nodes may not be available in the upstream
+kernel yet, but it is used by other consumers. Here is an example:
 
-But the gray list is only scanned after the whole object_list walk, and
-by then that copy has been replaced and freed as well. The confirmation
-scan has no such pass, so the miss repeats round after round no matter
-how many consecutive scans are required.
+https://github.com/Xilinx/u-boot-xlnx/blob/master/arch/arm/dts/versal-net-vn-x-b2197-01-revA.dts#L100
 
-Scan the gray list as soon as an object is grayed, from
-kmemleak_cond_resched(), which already pins the current object while the
-RCU read lock is dropped. The live leaf is then read right after the
-walk reaches it, before it can be freed.
 
-I was able to come up with a reproducer that reproduce these false
-positives most of the time:
+> xlnx,zynqmp-ipi-mailbox is used in two .dtsi files.
+> For the per-CPU interrupts the irq-type should be 2 (which would
+> correspond with GIC_ESPI in the dts, no?) which I can't find.
+> Before the IPI_IRQ_TYPE_SGI it used to check for the value less than 16
+> I also can't find this in the two available dts file.
+> I did browse over the "AMD Versal Virt" but it also looks not present.
+> 
+> My question is whether this is used or just a development step that
+> never got somewhere. 
 
-https://github.com/leitao/linux/commit/1291579c487303c5ffbea2cf532649d26329c8a9
+No, it is the actual use case supported by the driver. Just the
+device-tree node is not in the upstream kernel, because it is usually
+project/vendor/consumer specific.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- mm/kmemleak.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+> My guess is that the device tree here is preconfigured from the boot
+> firmware.
 
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 8fa409a4f9fb26..6e12bcd95312d2 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -1696,8 +1696,10 @@ static void scan_gray_list(void)
-  * Conditionally call resched() in an object iteration loop while making sure
-  * that the given object won't go away without RCU read lock by performing a
-  * get_object() if necessaary.
-+ * If @scan_gray is set, also scan the gray list while the RCU lock is dropped.
-  */
--static void kmemleak_cond_resched(struct kmemleak_object *object)
-+static void kmemleak_cond_resched(struct kmemleak_object *object,
-+				  bool scan_gray)
- {
- 	if (!get_object(object))
- 		return;	/* Try next object */
-@@ -1709,6 +1711,8 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
- 	raw_spin_unlock_irq(&kmemleak_lock);
- 
- 	rcu_read_unlock();
-+	if (scan_gray)
-+		scan_gray_list();
- 	cond_resched_tasks_rcu_qs();
- 	rcu_read_lock();
- 
-@@ -1910,7 +1914,7 @@ static int __kmemleak_scan(bool full)
- 		raw_spin_unlock_irq(&object->lock);
- 
- 		if (need_resched())
--			kmemleak_cond_resched(object);
-+			kmemleak_cond_resched(object, false);
- 	}
- 	rcu_read_unlock();
- 
-@@ -1981,8 +1985,13 @@ static int __kmemleak_scan(bool full)
- 	 */
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(object, &object_list, object_list) {
--		if (need_resched())
--			kmemleak_cond_resched(object);
-+		/*
-+		 * Scan newly grayed objects now, not after the walk: one may
-+		 * hold the only reference to another and be freed by then,
-+		 * like a maple tree node that keeps being replaced.
-+		 */
-+		if (need_resched() || !list_empty(&gray_list))
-+			kmemleak_cond_resched(object, true);
- 
- 		/*
- 		 * This is racy but we can save the overhead of lock/unlock
-@@ -2082,7 +2091,7 @@ static void kmemleak_scan(void)
- 		bool dedup_print;
- 
- 		if (need_resched())
--			kmemleak_cond_resched(object);
-+			kmemleak_cond_resched(object, false);
- 
- 		/*
- 		 * This is racy but we can save the overhead of lock/unlock
+Yes.
 
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20261015-kmemleak-gray-drain-fd80160fd946
+> So is this SGI-IPI a thing or not?
+> 
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+Yes it is. Ideally, TF-A and Linux can share the IPI. If the IPI
+interrupt is used by the TF-A and the expectation is that Linux mailbox
+work on the same IPI (because all other IPIs are busy) then the work
+around is, TF-A will generate SGI for the linux mbox driver, and the
+mbox driver will use that SGI via device-tree.
+
+It is a vendor specific use case. So the dt-node for this use case, may
+not be available in the usptream kernel, but can be enabled if correct
+SGI is configured via the device-tree.
+
+Thank you,
+Tanmay
+
+> Sebastian
 
