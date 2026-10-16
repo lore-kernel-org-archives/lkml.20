@@ -1,174 +1,464 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013002.outbound.protection.outlook.com [40.107.162.2])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013058.outbound.protection.outlook.com [40.93.196.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37398364052;
-	Fri, 16 Oct 2026 07:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A431A2EC0A4;
+	Fri, 16 Oct 2026 07:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136484; cv=fail; b=bko2zKAn6gIAthkaq91ysRY+vh3Q43u7hUTwkJZPCxsc4F9LoCHQYfDR3ZbvINiH4E6jGbBjfdm4YkexqS2tVxMtBcezr7/8vJASifkoZ9O8WXWT7d302xpoHxoKnOMrhM7DKZ10KWG0wqY1uXn5PIOT8DymY9HF9AIL8uch5rU=
+	t=1792136483; cv=fail; b=nLPFf7bIlIly1QsgI/zRu2jeXKPcITHnwSST/7y0mBZ5T59EBCNSnu6t6jdxjJdWYq95nVcERRsTC9HVoh6Q6taoOzqgJqkVS5igf0yJERBjiYMkAkAjkvpeBaPxQJFQLXenbkLIfA4Ch1f1xOwbYKD9QyGUz8z3YFlUDI7350g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136484; c=relaxed/simple;
-	bh=IA9a4+EjF4kDB7uTnmBirAW78pVCQ4wJFVZH/JnuUIk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aTW15sSQGi+n0FtAbXhINHFslruLfTR9xYfgv/2jT0NuwLDoqbsMbCd8paGWk0MTCmxmvu8kTwrU7pQfYd03Mfw/eYKqL/w1ok34awEk/rqeik/0+N/U6uG6VYFs/ydOBmy3t4q8xk2TQmKrKhdxlO1ynQns07hQsNhXVg/lFeE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=AkCFxIIE; arc=fail smtp.client-ip=40.107.162.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	s=arc-20240116; t=1792136483; c=relaxed/simple;
+	bh=RA+qZzyzJ3RvaTbhd9RfxQW7itpF6gI27NSuZgzjlI0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lu+uuNH2EowKQM0TqGI5/X1W7xEnpouSob7+tFfUhZiqaUNrjqcaKAzWzG2CySJoL9kpeX22U/vVbn3PEt346yOo8n+uDL/cxoGGn1DLKf2gAF7OvHrXL7cO/DqOPiYBDfjTHmdAIVQveCT3nZIqc91Vt6aoOBQHNnn5+rE83Q8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XcTw8043; arc=fail smtp.client-ip=40.93.196.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="AkCFxIIE"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XcTw8043"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jPxxGza1gjV6y5D4CdFxd0i0fVcWpBNM66O+uBV1zaZhALsSDuae9Xuc7NIC9ou02uqeKcCtYr8mKIU7tcnfn57I49jRDisDXbszPjnoXzXo6Ww/lRvNlCgtVYDTuBYfSDV4T7EizKLW3mLTxwHJMu/I69ZKLoK9uZbYe5PbCUX+HcjumP1+lg9imh0fm5uefVY0rRKh1YVKG8lJZL+TZaFiy22JRRbCxSJQ4uo1OR8mpgYAx+L8c8e0GvmQ3ZYjbBZsLQqwOr1MvKYio526YRq8n7Fk7FBSHOyiZ4Yd+6CNeMQwQNcIUooJlya9SkeZinHVx/eRm3FMVvya/wkqug==
+ b=gDYDT+JWW8fhw4eF9uA6Wf/0sZEX3FnVrTkLU50ia8uUwhYyTIgO0fnzz2+AXc3KYPUaDRtQiPYfShb15OqEqeHBKd1FE+V9FI1TZD4hLBd6McAaPbGlfTER9T0Ij98WKoFfnj7E3SwgcrfO99BLCZWk5qeVB5Pi8GEIyUaAfgFykGJJtAQq+XXJCkBYj9270EA4WO4gjd2erQ+Bs335IhFGEbuQQDYvpJSTE20rgV1ieG5d+GU5tDw5QR2g7WQMU4UZdIfreTFMOEG9Cs/9dQY2O/vrsU/LDcGFlCPnmi+DRE3wcGF+8fHJLN5cXjUbf9vLXDMRLj35KTQHxvcduQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dltc9RZsbtEym76LXISFCmx5CHXnHKsrh6hrIgb3ao0=;
- b=QKd2GiqHDYQUeBGgFta9n5pjvU8stNKS0pG5/qCg+7khXPYCGYa3mXvN+uV03BOaBZVV3Rv2ocxq5JMAPypGWKrjl/V3ZRzfSMEuhvk/1AYwCpcoejSzcG9r3vtaByoZqHQdVhiaL1chouqu9its+WMWwr8zFwHXDSTe8WSt3pxNhgfNX4BSiXsTOTYsH5qdBdNI+SZfa1yKGf10/3hn52SXOsH+QxIk02F0f3pP7nJZljvDlRv4B3zIifZQ56A257opkz73jd1cHz4rp4fgipxU/fmlR95LZvP/We6mEbR/OJ1k1obT8dT4GiODB5hn44wzxscjYaBCTYS1cHPseA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ bh=Tgn6mUMIcSPwTfA5dhzCEeu5UqBer9S4qxlmTleUWbA=;
+ b=hM/nWRz6KbB1w+Kil/Pgb1NiYke3YAJatA30m9Z7zKLbM+bUeZnow9ZIUIpwAzbP+7g/tTKtcoRlDAY6OMXnF9CpvElNRGMSxK6GUc+KDsmrTIdkuk1md09y7TIajCliGv+WjsGyw83eaNWPxb6tZtMn+dshL1cSXaXsSoosrYMQBD6pBLUUdYWAOhevLcr75kmzKbssm3dXHA2Q2/AIwlnOQSpK/9Yty14Dzrrk1CjXLe0ckOH72WfQYo0HqLSV9fh9fW5naZvVjMTtkRcB1m9UGdL66uzW4O8atavBpWT4WjBW1uk/8bfv7xlgmCB68SmLxrz8BIPPulamHBOeOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dltc9RZsbtEym76LXISFCmx5CHXnHKsrh6hrIgb3ao0=;
- b=AkCFxIIEouZoTjlZQlCt/ttfubq+iNv48+vx8an1SO+hnacmusEmxwggirAtgh7cLUUe4IUbd71gY09kfj5oQ8EcuFRidRY01v927eKxYeBOnK/I7QSwN7YkYuKhq3k/A+uQaZLjgLreu3yO6aqCusrNTWrq4Pibba4jYbyxxCg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com (2603:10a6:102:1c7::8)
- by GV2PR02MB9590.eurprd02.prod.outlook.com (2603:10a6:150:da::22) with
+ bh=Tgn6mUMIcSPwTfA5dhzCEeu5UqBer9S4qxlmTleUWbA=;
+ b=XcTw8043qS91azuqHIIe2jvMauVVkAVIZFRhpJFTCZUpp4FsFDddBHk9ayoUT3ZgmYtVCLmBzy4Y5AW/kTl654DQYQSSu9+g7Mb7rzTpcp+vFH1VW81EVqsZPW4zZQVQGez1bKphUYKkSAptqUtEmfy6zvPLXT5fkGl2AvSnJIPc56sy+XuyGQ2EF2z1j5F8qyEhSv9xiHjnG+5DRCDFRBlbpfKKWrXAEU4GkWbWNDVgvXvTG78B26Rt/YGtrB8/nuuJbRiYRtHRjgMB11HQfEilCLGIjacq6YPQlbU3AaoZj8LnqfJIdTXYdYXyMsNxFrstgo1Um5NzXZwuRRdsaw==
+Received: from CH0PR03CA0102.namprd03.prod.outlook.com (2603:10b6:610:cd::17)
+ by BL1PR12MB5948.namprd12.prod.outlook.com (2603:10b6:208:39b::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Fri, 16 Oct
- 2026 07:41:17 +0000
-Received: from PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d]) by PAXPR02MB7344.eurprd02.prod.outlook.com
- ([fe80::f0f2:8c3c:c869:c51d%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 07:41:16 +0000
-Message-ID: <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
-Date: Fri, 16 Oct 2026 09:41:14 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
-To: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@axis.com
-References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
-Content-Language: en-US
-From: Fredrik M Olsson <fredriol@axis.com>
-In-Reply-To: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MM0P280CA0063.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:8::27) To PAXPR02MB7344.eurprd02.prod.outlook.com
- (2603:10a6:102:1c7::8)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 07:41:13 +0000
+Received: from CH2PEPF00000144.namprd02.prod.outlook.com
+ (2603:10b6:610:cd:cafe::79) by CH0PR03CA0102.outlook.office365.com
+ (2603:10b6:610:cd::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.17 via Frontend Transport; Fri,
+ 16 Oct 2026 07:41:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 07:41:13 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 16 Oct
+ 2026 00:40:55 -0700
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 16 Oct 2026 00:40:50 -0700
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: <jingoohan1@gmail.com>, <mani@kernel.org>, <lpieralisi@kernel.org>,
+	<kwilczynski@kernel.org>, <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
+	<vidyas@nvidia.com>, <cassel@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <mmaddireddy@nvidia.com>
+Subject: [PATCH v2 2/5] PCI: tegra194: Use FIELD_*() for register fields
+Date: Fri, 16 Oct 2026 13:10:23 +0530
+Message-ID: <20261016074026.564302-3-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261016074026.564302-1-mmaddireddy@nvidia.com>
+References: <20261016074026.564302-1-mmaddireddy@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR02MB7344:EE_|GV2PR02MB9590:EE_
-X-MS-Office365-Filtering-Correlation-Id: f046ee3c-62c8-4dd9-b200-08df2b58dbd4
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|BL1PR12MB5948:EE_
+X-MS-Office365-Filtering-Correlation-Id: a530bd61-30aa-497d-61ae-08df2b58dac8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|10067099003|22082099003|18002099003|3023799007|11063799006|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|7416014|376014|11063799006|6133799003|18002099003|3023799007|10067099003|22082099003|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	ygO5a2a51IhXeX3diXULS49iLX1fuiQkpzVY3nNL4i83jiUv+X0pRVy0fPbdcvrjAGPni/ShWQw/N1KN2f0RVhTt7y+jeH76Z46j7XFEowj8cwhRs7RDczesU/yJRceIRAVsmM4JAVNKWiBkCQtyal/f36UPRnjWEfvU/PXM/ft0gjDxUlCgzQFzKDJ93eW0O9okvuPOLTUyYBEd4Rti9wHexUH8vysnhDsqITvh7/kpjuYh7aW5V+hY3NqEPIdKsTMOlVPSdxIsXRzelGJk+qv7AqTAUGEZvo2y2GhWENJdFRsp+zBocS/UGPIKDjL3OUQGDSoNBoXSiNYLeiMe24rGMN4Oxn4eYDiA413h4LHTWMSamuZ8XzwsLmeC3lU6IwrHFeEBWYT7EY/ohoH8P3J87rlZxiBvOgpNJ913LAAfbOwfgw45aCW84R10r6NhlIXRzzGo2mj4FYpO0Sc7l2vjtydl7nZzuTxIpphz//M/dRxQJqo18FbQgn3K1crDzeVDEyaTVRRZdnzF5n/Z8xYqQI5pOUm4MRXuFy80NYacsOoR+UZmPqJqkW4C9V/uM/lr2tknH2jPmNHBG4M/PkpHhkrpslZZkIl0eDWBKOxjOjo8OZJLyUd8A8zJBUht
+	l++EZ1T7hZ601u8cIV1nZrurd3XoJbpVuajwfu70/wp4YA2xSZtrnhPj5V4sphI0SJYQPqd6fvciixeUg4jMcXf16cpkP5dYVEqHnCHdiyDMZ8MjCp/rKwBocJx/1sDvvhzB2fNPqSlmtLRv7mj5lxqIZOIprP98z34KldLKGAJCZV0okbfuTKI6dCn/o/PpRzXX5WNPFdrV9i6S2IHC5pJ+k2nXD9ZgfbHUpiWWR6bXb8i2wKBqfCmOPZc9SX5Kg3u2ATMw+vTlToR4dCmNZRqNGCg6vTkNDCq5ieb01n28/KeS9Ii2aQTk7ay1cecXPYRL0yo1ZzLgb8qYxHdJJd+iOLYa0MC79IgcGu9WHWoH2Fc5eH6sd5IblRlk54NevuczxFaOO8G1+z+pjV2Q6xglJyqALxKhjuCoVaa1ysstKIJNEdsK1Z9A3a2XJVUCABseO7h/c8s3c7K+2wGzBRVnj63wh4kOJgccKxpKMb+J3e0/NOGTDQzwhckPH047WfJ94HS+8h9HHDkeNDUE3WBRVrHDoEpe3R83O2sI9YXkdS4QA8hwFbCxn0zucr2ZrlDUcegI3lAJsPwh+lJGvSzK9GTTJ+3keQvnK4z2TyI0LZeLPWrd3uKe28BufHy3M1Gkiwmy3OxxWKfMepthg1HQVn3ZCvcAX8Cv9x83xgA5K0ff8ONKV/uoLhbaxbz9Naa98/U7Htlm1rwxD+WvyQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR02MB7344.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(7416014)(376014)(11063799006)(6133799003)(18002099003)(3023799007)(10067099003)(22082099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0ZnSml6UnZTREpEU0prTE9hN1ZFOWxRYytyYUcyeldLVDVqV3BacGhOYW1n?=
- =?utf-8?B?My9wSVl1QkJ6OVMyeHNZTVJuQWorR205U2N0NmJhZjh5VUt3bURYbEN2N3p5?=
- =?utf-8?B?MkZsUkphMjB4akhzV0lmblNqRnNzeXMvZmwrdFpKQ3VOcHdPSnRyL0d5L0R6?=
- =?utf-8?B?UTRtbzJqdExQSW4xUGVHMC9BZEplR2k0ZnZlV3ltZXJsZE1wLys3ejhyWkc0?=
- =?utf-8?B?RkdWMFd3SWRWdGFpZlZUWktGMVk5aWhXcGxEcEJqN3dXWnFwdWJUbmdpTFZF?=
- =?utf-8?B?OEtCRzlucHhvRklDSXVFREY4bzNBcG8rVG5oWi8vZXFWVmFiUGFIZ3libmht?=
- =?utf-8?B?bHNjRUdxVzVySWZVdkZHSlJCRU9mbytYSXVBQkFpWDFISjJPaTdIQXpwenR3?=
- =?utf-8?B?aHJaWDdYVHFCK1hQWmFhanFSM0lQWVFwQlFUUXVFNVpZL0VZUGpKSFZmTUVy?=
- =?utf-8?B?ZVRMMXlSSnNpc0xUczRuVDl6VTdnTjBqZDJCQm1hL1pNdENxRWJySkM4eEhN?=
- =?utf-8?B?M2g5UlNoN3Y2K0hybjVTZlh3V3FGbDJkUmVkWVAyZCtBMHZ2UzBVVWlhRWlY?=
- =?utf-8?B?aUpTMlorWk9saHhRRTJDZ0hremJScFVVR3BxMkdwTmd4cXh1cXI0Y3dyWDJq?=
- =?utf-8?B?ck9QaEhZSjNmeXU1dDdLNnQ4bVBCcjArbTZCaXVoYk5ZS1kyTnNqMllWUGxE?=
- =?utf-8?B?L0FXQ1QyMHJzbVVKOXlLK0p2SHYraVFaZnFMQ0V3OUczbmt5MFp4Z3VlRmhk?=
- =?utf-8?B?b1BZU3NEcEtDZmNuR0tFV1MzZXIvMU5kRXFsamsyMFhONjNxWDRkWjZqNm5B?=
- =?utf-8?B?RDJTcWU1MEhhUExUR2hUWVVUL29oV081OGI3NVNvR3RuMFA0ZUdmTUFicVNE?=
- =?utf-8?B?V0Jlc2pLUS9CeFdwd0EwcmszRFl0WTZhNGpNZ2JCaS8xUDg4YjFNUjJxV3dy?=
- =?utf-8?B?STFYd2xRVWFyWWVMejdUUG4rcHVJZGNxRTFXakpyYm5saDU4TkhhbTBxRG1a?=
- =?utf-8?B?ZzAxcENaQ2JJNzVxWXY0WEdVV0EwVDFYQkV6Uis5QUhQMXBJQzFSRlg4dHNU?=
- =?utf-8?B?M2dWM2tGT1BmYmtxME5ZNXEyZ1RhQnBxQ1JFR25PYXNwM3NtMExhUE9jQUkz?=
- =?utf-8?B?SG9OWlQ5WWhCNmQwWGJnT0FIZmdWWis5SU1VWktoTHNZREN6Zk5MM21Nb0tM?=
- =?utf-8?B?VU5kL0lXWGJoRE1nV3lLRk9LZ1BnZ0Q3VDlidmRuRzEvRmxuRWxhTmhPN1I2?=
- =?utf-8?B?WFRIUnFGSGVkcTRjUnhBU0pmK2pBS2dJYU9wWVJzbVpWRzNOSis3enlXall6?=
- =?utf-8?B?YU4vekxjR0toVWc3SndLTlJTZ0svRkQ4bkgrUGl2ZW90ZjRlbTNCUVVjeTNi?=
- =?utf-8?B?N0VsZC9RVm92dys1UVBOYzZSLytVK3ZFQmxYZy9ydVhpUzFUWXV4UXpmT2VE?=
- =?utf-8?B?aEFZYVVPUVRxbmlJUjRmb1AvY3Q1NDNnSDF6SHZ3a2FKU1RIeGxQOEJ0Vkhn?=
- =?utf-8?B?ejJ1L2p2YjcxeGNoVkFaNWNhcWorODcvZUk2SjdZMERtMmN5SHJ1V0NtZm03?=
- =?utf-8?B?OVdWWXhpYXNJNW9aL2pvSlJOaHZxRmlXWG1jRXFKUTQ2NExWSEt3c281YWJN?=
- =?utf-8?B?QkRyZm9zdjZsYi9JVEo0UGdRQzBuK1d4clQ4dk1oTVhSOVZleGJ0QlpXa1k5?=
- =?utf-8?B?cFhpR05UamQ0YStjVFZrUTdSQ01TTUhVNGRzVVJSS3lNRzdwZjRaVW5SMDdn?=
- =?utf-8?B?amVwQ3ErUkFoUXU5R1dHdEF4b2RSZ2JBVmx5WEs3bUlwbkpabTErUk1sWXBL?=
- =?utf-8?B?aGRFcmRNd2RoQkVLQkRuc1lHOEJzTUp0Z1hVMTRmTTZIRjAzbUg0TGxxVmg4?=
- =?utf-8?B?azFPQzYrL3VCZE83VnBXaENmMkFIMnV5bmZGU1RpOTVjYk56d3RPNlpRMTdp?=
- =?utf-8?B?NjZEVmVrSCtqTHExOFk1alo3cnI1MFp1U0MzTFc2ZVdYdnNzWnhJSzBZMFZO?=
- =?utf-8?B?K3JjckM2bXBzL0d4SXhiMVN2QXRsSFJPSWc3Q1MwelMyeWNKVUc5RDF5bXVE?=
- =?utf-8?B?TGNleXl0aXBMaGVIUUU0dlovZjBxT2E0UmFKM3dnUGhicGdZbWkxRzBpUGlP?=
- =?utf-8?B?U2FQdVFTaXlOTjVoeUp6Qkp1aHBJVi9hS05KVTIyV0p0NEJjTWo0UEQ1NVVL?=
- =?utf-8?B?UmJJZU9aL1k2WHpTZks1M0ozMU5MbjYyMmgzaGoxUHVNNHk4dW1MZ29qdkZY?=
- =?utf-8?B?bG9sRXA1Z1A2OUsrM0NGeSs3RGRnVGVsWWRRdG00WXIzaE5UOHovd0lSdmFn?=
- =?utf-8?Q?1G8jYcafsVd3VMEXLH?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f046ee3c-62c8-4dd9-b200-08df2b58dbd4
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR02MB7344.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:41:16.1342
+	rGJzp1srFPbyVGfNjyJijtCfS8NhKzu3XMQvEzN+VDAxMgQaEe8HL6eSsYnSYlYPPyJGbK7M5jdvh5B1hFTieOMVPLpr8PQNfuoPjSZOXuE4iIC9+ObuZrXPnbBZ2TwX8AYM667xd0RXTI3gEf4Cz73H0PIJRyR2ytLjtHsl2SiDsj//OzHUsdtT+E6i/op0KmHLxwvIaXrIamQ3EplE60eAPHkYLCvRMGTTKcVRgkY1/VhlI6ESDWbVc6XKK+MMJ+ha77EZy/jUOWKA/w7mq+Ypma6Yq7OLBHhPBuS7/RUxudAFp7+bGhynGbse9VX4myMRFUvP1f79nzBUHnEAAamksVw6E6AjfSzM/GmvLK6DsOg0EfsDN53hYqgwUTI/ZFz4BbHVI+UFRrzGBTuWle6CIiKgoZDVqPPmIG9Pv6AZIDrHn03rZpOQ+UbIIym5
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 07:41:13.6019
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: frVHtk5jAap8uwrVsk8nR45u3RtDKj37UeMtgcSLsTgn64B+2sqH3jjsgN5T7benKT888nD4Ze0nRc+Z8AC/iw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB9590
+X-MS-Exchange-CrossTenant-Network-Message-Id: a530bd61-30aa-497d-61ae-08df2b58dac8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000144.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5948
 
-On 6/29/26 17:13, Fredrik M Olsson wrote:
-> Adds support for:
-> - Reading and writing time to/from the RTC.
-> - Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
->    RTC_PARAM_SET ioctl.
-> - Optionally enabling battery charging.
-> - Reading the battery voltage low status using the RTC_VL_READ ioctl
->    (only supported in LEVEL BSM), which also reports invalid time
->    information if the VLF flag is set.
-> 
-> Signed-off-by: Fredrik M Olsson<fredrik.m.olsson@axis.com>
-> ---
-> Add basic support for the Epson RX8901CE RTC.
-> Datasheet:https://download.epsondevice.com/td/pdf/app/RX8901CE_en.pdf
-> 
-> Also includes a bug fix for an issue with reading the weekday from the
-> RTC which affects both the existing rx8130 and this rx8901 driver.
-> ---
-> Changes in v3:
-> - Clear CHGEN when trickle battery charging is disabled.
-> - Link to v2:https://lore.kernel.org/r/20260520-ds1307-rx8901-add-v2-0- 
-> e069ea32e1db@axis.com
-> 
-> Changes in v2:
-> - Squashed the Voltage Low status patch into the driver patch
-> - Switch from dev_err to dev_dbg
-> - Implement Backup Switch Mode (BSM) ioctl instead of hard coding
->    switching mode.
-> - Change the prototype for the do_trickle_setup function pointer in
->    order to make it possible to propagate error codes from the added
->    PWSW_CFG register read operation. This read operation is added so not
->    to override previously set register fields.
-> - Link to v1:https://lore.kernel.org/r/20251219-ds1307-rx8901-add-v1-0- 
-> b13f346ebe93@axis.com
+Several Tegra194 APPL and DesignWare register fields are programmed
+with open-coded shifts, which makes the register programming more
+verbose than necessary.
 
-[...]
+Use FIELD_PREP(), FIELD_MODIFY() and FIELD_GET() at the Tegra call
+sites where values are shifted into fields. The LTSSM state constants
+are converted from pre-shifted register values to unshifted field
+values for FIELD_GET().
 
-Friendly ping.
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Link: https://lore.kernel.org/r/20260515070753.3852840-2-mmaddireddy@nvidia.com
+Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+---
+ drivers/pci/controller/dwc/pcie-tegra194.c | 145 ++++++++++-----------
+ 1 file changed, 71 insertions(+), 74 deletions(-)
 
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 8c610212a180..8e1cddced595 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -50,8 +50,7 @@
+ #define APPL_CTRL_SYS_PRE_DET_STATE		BIT(6)
+ #define APPL_CTRL_LTSSM_EN			BIT(7)
+ #define APPL_CTRL_HW_HOT_RST_EN			BIT(20)
+-#define APPL_CTRL_HW_HOT_RST_MODE_MASK		GENMASK(1, 0)
+-#define APPL_CTRL_HW_HOT_RST_MODE_SHIFT		22
++#define APPL_CTRL_HW_HOT_RST_MODE_MASK		GENMASK(23, 22)
+ #define APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST	0x1
+ #define APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST_LTSSM_EN	0x2
+ 
+@@ -136,14 +135,13 @@
+ 
+ #define APPL_DEBUG				0xD0
+ #define APPL_DEBUG_PM_LINKST_IN_L2_LAT		BIT(21)
+-#define APPL_DEBUG_PM_LINKST_IN_L0		0x11
+ #define APPL_DEBUG_LTSSM_STATE_MASK		GENMASK(8, 3)
+-#define APPL_DEBUG_LTSSM_STATE_SHIFT		3
+-#define LTSSM_STATE_DETECT_QUIET		0x00
+-#define LTSSM_STATE_DETECT_ACT			0x08
+-#define LTSSM_STATE_PRE_DETECT_QUIET		0x28
+-#define LTSSM_STATE_DETECT_WAIT			0x30
+-#define LTSSM_STATE_L2_IDLE			0xa8
++#define LTSSM_STATE_DETECT_QUIET		0x0
++#define LTSSM_STATE_DETECT_ACT			0x1
++#define LTSSM_STATE_PRE_DETECT_QUIET		0x5
++#define LTSSM_STATE_DETECT_WAIT			0x6
++#define LTSSM_STATE_L0				0x11
++#define LTSSM_STATE_L2_IDLE			0x15
+ 
+ #define APPL_RADM_STATUS			0xE4
+ #define APPL_PM_XMT_TURNOFF_STATE		BIT(0)
+@@ -162,7 +160,6 @@
+ #define APPL_CFG_MISC				0x110
+ #define APPL_CFG_MISC_SLV_EP_MODE		BIT(14)
+ #define APPL_CFG_MISC_ARCACHE_MASK		GENMASK(13, 10)
+-#define APPL_CFG_MISC_ARCACHE_SHIFT		10
+ #define APPL_CFG_MISC_ARCACHE_VAL		3
+ 
+ #define APPL_CFG_SLCG_OVERRIDE			0x114
+@@ -178,14 +175,14 @@
+ #define CFG_PREF_MEM_LIMIT_BASE_MEM_LIMIT_DECODE	BIT(16)
+ 
+ #define CFG_TIMER_CTRL_MAX_FUNC_NUM_OFF	0x718
+-#define CFG_TIMER_CTRL_ACK_NAK_SHIFT	(19)
++#define CFG_TIMER_CTRL_ACK_NAK_MASK		GENMASK(23, 19)
++#define CFG_TIMER_CTRL_ACK_NAK_VAL		1
+ 
+ #define N_FTS_VAL					52
+ #define FTS_VAL						52
+ 
+ #define PORT_LOGIC_AMBA_ERROR_RESPONSE_DEFAULT	0x8D0
+-#define AMBA_ERROR_RESPONSE_RRS_SHIFT		3
+-#define AMBA_ERROR_RESPONSE_RRS_MASK		GENMASK(1, 0)
++#define AMBA_ERROR_RESPONSE_RRS_MASK		GENMASK(4, 3)
+ #define AMBA_ERROR_RESPONSE_RRS_OKAY		0
+ #define AMBA_ERROR_RESPONSE_RRS_OKAY_FFFFFFFF	1
+ #define AMBA_ERROR_RESPONSE_RRS_OKAY_FFFF0001	2
+@@ -202,7 +199,6 @@
+ #define CAP_SPCIE_CAP_OFF			0x154
+ #define CAP_SPCIE_CAP_OFF_DSP_TX_PRESET0_MASK	GENMASK(3, 0)
+ #define CAP_SPCIE_CAP_OFF_USP_TX_PRESET0_MASK	GENMASK(11, 8)
+-#define CAP_SPCIE_CAP_OFF_USP_TX_PRESET0_SHIFT	8
+ 
+ #define LTSSM_DELAY_US		10000	/* 10 ms */
+ #define LTSSM_TIMEOUT_US	120000	/* 120 ms */
+@@ -348,8 +344,8 @@ static void apply_bad_link_workaround(struct dw_pcie_rp *pp)
+ 			dev_warn(pci->dev, "PCIe link is bad, width reduced\n");
+ 			val = dw_pcie_readw_dbi(pci, pcie->pcie_cap_base +
+ 						PCI_EXP_LNKCTL2);
+-			val &= ~PCI_EXP_LNKCTL2_TLS;
+-			val |= PCI_EXP_LNKCTL2_TLS_2_5GT;
++			FIELD_MODIFY(PCI_EXP_LNKCTL2_TLS, &val,
++				     PCI_EXP_LNKCTL2_TLS_2_5GT);
+ 			dw_pcie_writew_dbi(pci, pcie->pcie_cap_base +
+ 					   PCI_EXP_LNKCTL2, val);
+ 
+@@ -622,10 +618,9 @@ static inline u32 event_counter_prog(struct tegra_pcie_dw *pcie, u32 event)
+ 
+ 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+ 				RAS_DES_EVENT_COUNTER_CONTROL);
+-	val &= ~(EVENT_COUNTER_EVENT_SEL_MASK << EVENT_COUNTER_EVENT_SEL_SHIFT);
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
+-	val |= event << EVENT_COUNTER_EVENT_SEL_SHIFT;
+-	val |= EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
++	FIELD_MODIFY(EVENT_COUNTER_EVENT_SEL_FIELD_MASK, &val, event);
++	FIELD_MODIFY(EVENT_COUNTER_GROUP_SEL_MASK, &val, EVENT_COUNTER_GROUP_5);
++	FIELD_MODIFY(EVENT_COUNTER_ENABLE_MASK, &val, EVENT_COUNTER_ENABLE_ALL);
+ 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 	val = dw_pcie_readl_dbi(&pcie->pci, pcie->ras_des_cap +
+@@ -661,8 +656,8 @@ static int aspm_state_cnt(struct seq_file *s, void *data)
+ 			   EVENT_COUNTER_ALL_CLEAR);
+ 
+ 	/* Re-enable counting */
+-	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
++	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
++	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+ 	dw_pcie_writel_dbi(&pcie->pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 
+@@ -680,16 +675,15 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+ 							PCI_EXT_CAP_ID_VNDR);
+ 
+ 	/* Enable ASPM counters */
+-	val = EVENT_COUNTER_ENABLE_ALL << EVENT_COUNTER_ENABLE_SHIFT;
+-	val |= EVENT_COUNTER_GROUP_5 << EVENT_COUNTER_GROUP_SEL_SHIFT;
++	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
++	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+ 	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
+ 			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+ 
+ 	/* Program T_cmrt and T_pwr_on values */
+ 	val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
+-	val &= ~(PCI_L1SS_CAP_CM_RESTORE_TIME | PCI_L1SS_CAP_P_PWR_ON_VALUE);
+-	val |= (pcie->aspm_cmrt << 8);
+-	val |= (pcie->aspm_pwr_on_t << 19);
++	FIELD_MODIFY(PCI_L1SS_CAP_CM_RESTORE_TIME, &val, pcie->aspm_cmrt);
++	FIELD_MODIFY(PCI_L1SS_CAP_P_PWR_ON_VALUE, &val, pcie->aspm_pwr_on_t);
+ 	dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
+ 
+ 	if (pcie->supports_clkreq)
+@@ -714,10 +708,10 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
+ 
+ 	/* Program L0s and L1 entrance latencies */
+ 	val = dw_pcie_readl_dbi(pci, PORT_AFAC);
+-	val &= ~PORT_AFAC_L0S_ELM;
+-	val |= (pcie->aspm_l0s_enter_lat << PORT_AFAC_L0S_ELS);
+-	val &= ~PORT_AFAC_L1_ELM;
+-	val |= (pcie->aspm_l1_enter_lat << PORT_AFAC_L1_ELS);
++	FIELD_MODIFY(PORT_AFAC_L0S_ELM, &val,
++		     pcie->aspm_l0s_enter_lat);
++	FIELD_MODIFY(PORT_AFAC_L1_ELM, &val,
++		     pcie->aspm_l1_enter_lat);
+ 	val |= PORT_AFAC_ENTER_ASPM;
+ 	dw_pcie_writel_dbi(pci, PORT_AFAC, val);
+ }
+@@ -851,22 +845,20 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
+ 	/* Program init preset */
+ 	for (i = 0; i < pcie->num_lanes; i++) {
+ 		val = dw_pcie_readw_dbi(pci, CAP_SPCIE_CAP_OFF + (i * 2));
+-		val &= ~CAP_SPCIE_CAP_OFF_DSP_TX_PRESET0_MASK;
+-		val |= GEN3_GEN4_EQ_PRESET_INIT;
+-		val &= ~CAP_SPCIE_CAP_OFF_USP_TX_PRESET0_MASK;
+-		val |= (GEN3_GEN4_EQ_PRESET_INIT <<
+-			   CAP_SPCIE_CAP_OFF_USP_TX_PRESET0_SHIFT);
++		FIELD_MODIFY(CAP_SPCIE_CAP_OFF_DSP_TX_PRESET0_MASK, &val,
++			     GEN3_GEN4_EQ_PRESET_INIT);
++		FIELD_MODIFY(CAP_SPCIE_CAP_OFF_USP_TX_PRESET0_MASK, &val,
++			     GEN3_GEN4_EQ_PRESET_INIT);
+ 		dw_pcie_writew_dbi(pci, CAP_SPCIE_CAP_OFF + (i * 2), val);
+ 
+ 		offset = dw_pcie_find_ext_capability(pci,
+ 						     PCI_EXT_CAP_ID_PL_16GT) +
+ 				PCI_PL_16GT_LE_CTRL;
+ 		val = dw_pcie_readb_dbi(pci, offset + i);
+-		val &= ~PCI_PL_16GT_LE_CTRL_DSP_TX_PRESET_MASK;
+-		val |= GEN3_GEN4_EQ_PRESET_INIT;
+-		val &= ~PCI_PL_16GT_LE_CTRL_USP_TX_PRESET_MASK;
+-		val |= (GEN3_GEN4_EQ_PRESET_INIT <<
+-			PCI_PL_16GT_LE_CTRL_USP_TX_PRESET_SHIFT);
++		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_DSP_TX_PRESET_MASK, &val,
++			     GEN3_GEN4_EQ_PRESET_INIT);
++		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_USP_TX_PRESET_MASK, &val,
++			     GEN3_GEN4_EQ_PRESET_INIT);
+ 		dw_pcie_writeb_dbi(pci, offset + i, val);
+ 	}
+ 
+@@ -880,8 +872,7 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
+ 	dw_pcie_writel_dbi(pci, GEN3_EQ_CTRL, val);
+ 
+ 	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
+-	val &= ~GEN3_CTRL_RATE_SHADOW_SEL_MASK;
+-	val |= (0x1 << GEN3_CTRL_RATE_SHADOW_SEL_SHIFT);
++	FIELD_MODIFY(GEN3_CTRL_RATE_SHADOW_SEL_MASK, &val, 0x1);
+ 	dw_pcie_writel_dbi(pci, GEN3_CTRL, val);
+ 
+ 	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CTRL);
+@@ -921,9 +912,8 @@ static int tegra_pcie_dw_host_init(struct dw_pcie_rp *pp)
+ 
+ 	/* Enable as 0xFFFF0001 response for RRS */
+ 	val = dw_pcie_readl_dbi(pci, PORT_LOGIC_AMBA_ERROR_RESPONSE_DEFAULT);
+-	val &= ~(AMBA_ERROR_RESPONSE_RRS_MASK << AMBA_ERROR_RESPONSE_RRS_SHIFT);
+-	val |= (AMBA_ERROR_RESPONSE_RRS_OKAY_FFFF0001 <<
+-		AMBA_ERROR_RESPONSE_RRS_SHIFT);
++	FIELD_MODIFY(AMBA_ERROR_RESPONSE_RRS_MASK, &val,
++		     AMBA_ERROR_RESPONSE_RRS_OKAY_FFFF0001);
+ 	dw_pcie_writel_dbi(pci, PORT_LOGIC_AMBA_ERROR_RESPONSE_DEFAULT, val);
+ 
+ 	/* Clear Slot Clock Configuration bit if SRNS configuration */
+@@ -947,7 +937,8 @@ static int tegra_pcie_dw_host_init(struct dw_pcie_rp *pp)
+ 
+ 	if (pcie->update_fc_fixup) {
+ 		val = dw_pcie_readl_dbi(pci, CFG_TIMER_CTRL_MAX_FUNC_NUM_OFF);
+-		val |= 0x1 << CFG_TIMER_CTRL_ACK_NAK_SHIFT;
++		FIELD_MODIFY(CFG_TIMER_CTRL_ACK_NAK_MASK, &val,
++			     CFG_TIMER_CTRL_ACK_NAK_VAL);
+ 		dw_pcie_writel_dbi(pci, CFG_TIMER_CTRL_MAX_FUNC_NUM_OFF, val);
+ 	}
+ 
+@@ -1002,11 +993,10 @@ static int tegra_pcie_dw_start_link(struct dw_pcie *pci)
+ 		 * link up once again with DLF disabled.
+ 		 */
+ 		val = appl_readl(pcie, APPL_DEBUG);
+-		val &= APPL_DEBUG_LTSSM_STATE_MASK;
+-		val >>= APPL_DEBUG_LTSSM_STATE_SHIFT;
++		val = FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val);
+ 		tmp = appl_readl(pcie, APPL_LINK_STATUS);
+ 		tmp &= APPL_LINK_STATUS_RDLH_LINK_UP;
+-		if (!(val == 0x11 && !tmp)) {
++		if (!(val == LTSSM_STATE_L0 && !tmp)) {
+ 			/* Link is down for all good reasons */
+ 			return 0;
+ 		}
+@@ -1419,10 +1409,8 @@ static int tegra_pcie_config_controller(struct tegra_pcie_dw *pcie,
+ 	if (en_hw_hot_rst || pcie->of_data->has_sbr_reset_fix) {
+ 		/* Enable HW_HOT_RST mode */
+ 		val = appl_readl(pcie, APPL_CTRL);
+-		val &= ~(APPL_CTRL_HW_HOT_RST_MODE_MASK <<
+-			 APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
+-		val |= (APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST_LTSSM_EN <<
+-			APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
++		FIELD_MODIFY(APPL_CTRL_HW_HOT_RST_MODE_MASK, &val,
++			     APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST_LTSSM_EN);
+ 		val |= APPL_CTRL_HW_HOT_RST_EN;
+ 		appl_writel(pcie, val, APPL_CTRL);
+ 	}
+@@ -1446,7 +1434,8 @@ static int tegra_pcie_config_controller(struct tegra_pcie_dw *pcie,
+ 	appl_writel(pcie, val | APPL_CTRL_SYS_PRE_DET_STATE, APPL_CTRL);
+ 
+ 	val = appl_readl(pcie, APPL_CFG_MISC);
+-	val |= (APPL_CFG_MISC_ARCACHE_VAL << APPL_CFG_MISC_ARCACHE_SHIFT);
++	FIELD_MODIFY(APPL_CFG_MISC_ARCACHE_MASK, &val,
++		     APPL_CFG_MISC_ARCACHE_VAL);
+ 	appl_writel(pcie, val, APPL_CFG_MISC);
+ 
+ 	if (pcie->enable_srns || pcie->enable_ext_refclk) {
+@@ -1605,10 +1594,14 @@ static void tegra_pcie_dw_pme_turnoff(struct tegra_pcie_dw *pcie)
+ 		appl_writel(pcie, data, APPL_PINMUX);
+ 
+ 		err = readl_poll_timeout(pcie->appl_base + APPL_DEBUG, data,
+-			((data & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_QUIET) ||
+-			((data & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_ACT) ||
+-			((data & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_PRE_DETECT_QUIET) ||
+-			((data & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_WAIT),
++			(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, data) ==
++			 LTSSM_STATE_DETECT_QUIET) ||
++			(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, data) ==
++			 LTSSM_STATE_DETECT_ACT) ||
++			(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, data) ==
++			 LTSSM_STATE_PRE_DETECT_QUIET) ||
++			(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, data) ==
++			 LTSSM_STATE_DETECT_WAIT),
+ 			LTSSM_DELAY_US, LTSSM_TIMEOUT_US);
+ 		if (err)
+ 			dev_info(pcie->dev, "LTSSM state: 0x%x detect timeout: %d\n", data, err);
+@@ -1694,11 +1687,16 @@ static void pex_ep_event_pex_rst_assert(struct tegra_pcie_dw *pcie)
+ 		return;
+ 
+ 	ret = readl_poll_timeout(pcie->appl_base + APPL_DEBUG, val,
+-		((val & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_QUIET) ||
+-		((val & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_ACT) ||
+-		((val & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_PRE_DETECT_QUIET) ||
+-		((val & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_DETECT_WAIT) ||
+-		((val & APPL_DEBUG_LTSSM_STATE_MASK) == LTSSM_STATE_L2_IDLE),
++		(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val) ==
++		 LTSSM_STATE_DETECT_QUIET) ||
++		(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val) ==
++		 LTSSM_STATE_DETECT_ACT) ||
++		(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val) ==
++		 LTSSM_STATE_PRE_DETECT_QUIET) ||
++		(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val) ==
++		 LTSSM_STATE_DETECT_WAIT) ||
++		(FIELD_GET(APPL_DEBUG_LTSSM_STATE_MASK, val) ==
++		 LTSSM_STATE_L2_IDLE),
+ 		LTSSM_DELAY_US, LTSSM_TIMEOUT_US);
+ 	if (ret)
+ 		dev_info(pcie->dev, "LTSSM state: 0x%x detect timeout: %d\n", val, ret);
+@@ -1817,13 +1815,14 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
+ 	val = appl_readl(pcie, APPL_CTRL);
+ 	val |= APPL_CTRL_SYS_PRE_DET_STATE;
+ 	val |= APPL_CTRL_HW_HOT_RST_EN;
+-	val &= ~(APPL_CTRL_HW_HOT_RST_MODE_MASK << APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
+-	val |= (APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST_LTSSM_EN << APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
++	FIELD_MODIFY(APPL_CTRL_HW_HOT_RST_MODE_MASK, &val,
++		     APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST_LTSSM_EN);
+ 	appl_writel(pcie, val, APPL_CTRL);
+ 
+ 	val = appl_readl(pcie, APPL_CFG_MISC);
+ 	val |= APPL_CFG_MISC_SLV_EP_MODE;
+-	val |= (APPL_CFG_MISC_ARCACHE_VAL << APPL_CFG_MISC_ARCACHE_SHIFT);
++	FIELD_MODIFY(APPL_CFG_MISC_ARCACHE_MASK, &val,
++		     APPL_CFG_MISC_ARCACHE_VAL);
+ 	appl_writel(pcie, val, APPL_CFG_MISC);
+ 
+ 	val = appl_readl(pcie, APPL_PINMUX);
+@@ -1875,7 +1874,8 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
+ 
+ 	if (pcie->update_fc_fixup) {
+ 		val = dw_pcie_readl_dbi(pci, CFG_TIMER_CTRL_MAX_FUNC_NUM_OFF);
+-		val |= 0x1 << CFG_TIMER_CTRL_ACK_NAK_SHIFT;
++		FIELD_MODIFY(CFG_TIMER_CTRL_ACK_NAK_MASK, &val,
++			     CFG_TIMER_CTRL_ACK_NAK_VAL);
+ 		dw_pcie_writel_dbi(pci, CFG_TIMER_CTRL_MAX_FUNC_NUM_OFF, val);
+ 	}
+ 
+@@ -2390,8 +2390,7 @@ static int tegra_pcie_dw_suspend_late(struct device *dev)
+ 	/* Enable HW_HOT_RST mode */
+ 	if (!pcie->of_data->has_sbr_reset_fix) {
+ 		val = appl_readl(pcie, APPL_CTRL);
+-		val &= ~(APPL_CTRL_HW_HOT_RST_MODE_MASK <<
+-			 APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
++		FIELD_MODIFY(APPL_CTRL_HW_HOT_RST_MODE_MASK, &val, 0);
+ 		val |= APPL_CTRL_HW_HOT_RST_EN;
+ 		appl_writel(pcie, val, APPL_CTRL);
+ 	}
+@@ -2466,10 +2465,8 @@ static int tegra_pcie_dw_resume_early(struct device *dev)
+ 	/* Disable HW_HOT_RST mode */
+ 	if (!pcie->of_data->has_sbr_reset_fix) {
+ 		val = appl_readl(pcie, APPL_CTRL);
+-		val &= ~(APPL_CTRL_HW_HOT_RST_MODE_MASK <<
+-			 APPL_CTRL_HW_HOT_RST_MODE_SHIFT);
+-		val |= APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST <<
+-		       APPL_CTRL_HW_HOT_RST_MODE_SHIFT;
++		FIELD_MODIFY(APPL_CTRL_HW_HOT_RST_MODE_MASK, &val,
++			     APPL_CTRL_HW_HOT_RST_MODE_IMDT_RST);
+ 		val &= ~APPL_CTRL_HW_HOT_RST_EN;
+ 		appl_writel(pcie, val, APPL_CTRL);
+ 	}
 -- 
-/Fredrik
+2.34.1
+
