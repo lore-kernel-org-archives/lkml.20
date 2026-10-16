@@ -1,78 +1,176 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F3730C179;
-	Fri, 16 Oct 2026 03:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119825; cv=none; b=ExRJ0oO+2hIQvj+/Qk6WDKGYKe5/cT6kahgkd4TwTiVPrXlRtzfYxb9S6VVwkTQz34Afa0R/WTBB03R2Jk6fwQVsMaccq/aJRtuHcn+bbBUbgJyhCNjuI5MZIDzUuhXO9UKkFn3bHvM3dzlLjdXYBA5fqegk7TnT94hf56vtGCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119825; c=relaxed/simple;
-	bh=Xi7EsVYX6CAbM8V/DzljJmJMYKLfTwIB0IZ/ZNYSC9g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VqMh8T+xjEgM3wRmQ6aBYLQl9fNCXXW1fhwqy2g1fxBA0McgsqyX9koqyqq/N8muuJZeVuTT+TpxeXyx/3LUlgFcHnFhZYEGMlSElQiesy3CEuuMOhN0LcT3biW79LyCi0os03K0BQfpNwtPWTtCfSljp7OzormvqOFK/zhGyuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CQyA4HKz; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C016377566
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792119983; cv=pass; b=WVQw42IrBx79wWrHgSyv8yYlzyrnSyrHBIbWuG2YPGTAuzVjMt31kgwOkCj754IIiOQLmFpXC+NU2+CG2juV+sPUAa/xJDpKNeJTyWqfy5wytcfGBkC+F/vnYpBq87KkS0fLX4asfV8mIGKkO1drGZWXvUg86x1FOjMfhWWdks4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792119983; c=relaxed/simple;
+	bh=DkWUdIZpNQ1WbOuCWAb9UPk9QMWrcczYalIqDZLDuxg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ppMfaeDjYH9s03v1zVNkh6BcyIoiEtO2I2NFlYGdu6gjZQ5M/pjOOjNiHZqSFsSz7AEfpXe4DWbkhoB6x+ilyvpc4aaelw8HaxGUMOyotbbCsClKP049NDYROLz163sG50//AqQkniiUYbh6sNJ+xmEQ7VKH4yK1a5317H/sldM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VqRH48B0; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CQyA4HKz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Tw
-	zUKFVYGVP8yWb+Kf9SURXQL/PTz0WDDgmonnrsu3U=; b=CQyA4HKzzzkTlNgVXB
-	qBIKh7lW8EZZaT4Zl9edYW+TCcquyGABUDNYL65OjYPFVcSazl5ppy6vrwH24Xlk
-	S5xd2s11klR3qOpP4r5vNRz0hyI5DcpbFZF59/dhnRrvzmgkXrmDRZDxg81T+rPR
-	9M12WY01bGT/hXtF9fBTJ5bR0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnfybzk9FqNkeeAQ--.46746S4;
-	Fri, 16 Oct 2026 11:03:20 +0800 (CST)
-From: Slark Xiao <slark_xiao@163.com>
-To: mani@kernel.org,
-	jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com
-Cc: mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Slark Xiao <slark_xiao@163.com>
-Subject: [PATCH v2 2/2] bus: mhi: host: pci_generic: Update DW5934e autosuspend_delay as 5000ms
-Date: Fri, 16 Oct 2026 11:03:04 +0800
-Message-Id: <20261016030304.13677-3-slark_xiao@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261016030304.13677-1-slark_xiao@163.com>
-References: <20261016030304.13677-1-slark_xiao@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VqRH48B0"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e8c710847so746218566b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:06:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792119980; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TUPiGK0jc9Sfdcbdn6lOks998mVIDlAatWcaOZvgEDT351zeYxPz984rVFMyymTI0Y
+         mOUXjxLGFyYHyidMyxApozELqK1C1OX8XZLWh7CwXHEYmiaWJ56v79eMeWHOD3Ss3orf
+         IYtCKDoFikPZ2i1iHqBFBQNHcEflD1fENznwiBn0XT4wQl8xoBdollorR3SbG4l1Kf1o
+         5GJ3+8eWuikQh45e4eNxyTHVfUo8vfxHfuwLAAjCMpnToFF3R+8Q8uYmOag+K8TwY7GD
+         KMN6wfZ3oTkEz0b8VEIQAIa9Xt/ZpTYwHDyFrF3NQDCliM2Wa3608Q/cqWIzItES22Es
+         oehA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
+        fh=1fZo3ccnwC2jSCzxs27F620cm73WSg1gcMjc8b85bvQ=;
+        b=F962TFqwd/Bl7k6bY/TkPCtVGxNgJZSsNY7q+dpKaet4NUdYxHxGj6lyG7s74cey0u
+         ZzRqZKsq8Bv9stK73raMzBCSi1Eeuc+2KjtpZp3luCLiw1NecrkC7QDGLW5iytiNpVTH
+         YBCVj8toKYec2+9aEhLreukduCjcQgrFmiLlER982E4RY+QumCunt339fT0BLz+tRm4z
+         95wm0+Nm1EqK03sHAw573msVaHJWYdPB5/fPWlR6cUInDBosuH68SGQir2I6CCoDfkYp
+         NLO3WnEkck4L7fJLgsIF/1BzB1Q4Cttglb+Ioug83CUh2Wo63r9bNG8vi8661Jw9coVt
+         nR7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792119980; x=1792724780; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
+        b=VqRH48B0tW+12IPi5bI7zJaP8BTp8YyhqkJyVmN5/KBGg8wB3hDRdsoVsRrzp0sJau
+         3qjCg6Dt5j2OXKKZzfRz+nX51XCqZWgFdpLkx+XbWiP+q6dMyYMn/iPlwctb8RiKL9cB
+         ntDqcSR3ARTcJ0vK+gvT1SRPtkYalyvvpmUL8/l0jW9/FtJ5P1v8bckaNoaSs8vTsQO+
+         CTmLtxzNnKtC7kP4w+6Sc7i/ReOOrdw5MqSzCpf+30HKZUj8Tw4h2SP46V0AcYlHpPij
+         4rfQ2kc7ycuxl+FFNUy+9EFtOoy0HH7RGns7+tN/VU7pdcXA/+tF+TbHRAdKVjSwwnxY
+         J0/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792119980; x=1792724780;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oJ5h2DXsBgi+drliVf0SasZjdtc6E51DgIAS0CDk42Q=;
+        b=1fPoWqn9jauBo/wiywTdhFSKe0qSrk0Y45oXQm7WTwM5X+PsL/mcsZNG2WggRlCPEk
+         XZu+Yl4wvFHAAl7SipbYje/0VKzOOyQkgYfhOJD+i+VtW2dlI+eyTNG/jVn+2V+ZCQFS
+         JD8mb50alljgCT0H7n8oFAb1j+furx+9Q3A975MTbFQqnjVblriAVw/vjkrQuNqXUqi/
+         154mkUU6fWJe/3TYtGdWoaXzhEbtaocit1DOMlSlbP+eVz1bKdynTnLS3SjjhXpiopHn
+         lJ+lMoWNprAoL2lizJQvfwQdgJu3Cx6AllPqHVvJzUgXp4KnkmiWCx4tDzs1a2XqjUvQ
+         IaeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwLy0BNAPsXjIZbzfWzJ8dcOYTYxsTJEu5JxhQyMPJQaY15fWTXYr8FlDxEQudYGmmUlKvatLeGEMDg+c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIU76h4N42RxITX5X30rOzNKnHlixIBL7HljtOZxRCGJViaaTFp
+	VhhUXyx4wf1fcjg+OFeiL0sV6W8kR3MPPpxkbhxMKG1yNr+YAuLlXM+zeDD6W/nNSWmEJXdUyS/
+	IruXs/F2W4XtNoKPk7XTak24UeR+yrU8=
+X-Gm-Gg: AYBFou1D1QsyDWSrogKiH33/uH79f3FPdc5RH/D4FI4mFbdHp/h1jYUP754qqGCzkoU
+	N6eyW29a+AgOcRZHajK9lPjgPLM1jnXnSJh8a0scgl1PXdZ7ratI10UgsdJkKQ9r7wTPnTR8DR0
+	TJi2igCtPfRBcMOZ1lX/Hf/wng+flJ5WebVu8FLOip02is8M4UiPs0ZAsVsjYfnBlqZe0HcWNM2
+	yMbx9uYAlLrQE/Rn26zuZ/+5ATmST1m8TKlew9OXQnu7icVhTHgSn1qZPPBkIWa5E+VCJ6S7kUH
+	F0WKB4lSAvbWlv9S1GsAFqPrTb1K4CYE+qS/NS7OOhjOMcTxAExyzeEFRQkbwG8MYxn/EbN7mrd
+	+9HAm/9sV66Eq
+X-Received: by 2002:a17:907:9801:b0:c29:4fcb:2886 with SMTP id
+ a640c23a62f3a-c31a9fd831emr1921004966b.39.1792119980088; Thu, 15 Oct 2026
+ 20:06:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnfybzk9FqNkeeAQ--.46746S4
-X-Coremail-Antispam: 1Uf129KBjvdXoWruryxtw45Cw1kAw47tr47urg_yoW3Arb_Cr
-	Z3GFy7Gw45Wr92gwnaq3ZxA3yrK3W5Ww1vqFs7tF95J39Fq34kXw1kZr95Ar9IgFWYkF9r
-	Cwna9ryfAwnIyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRk9NztUUUUU==
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6BgylmrRk-iQjgAA3a
+References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20261014090821.227366-1-jiayuan.chen@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 16 Oct 2026 11:05:43 +0800
+X-Gm-Features: AclHuK_e-lCNsmM0w1PY2ZD39crP8DWlyZW3Ur3Jggt8rHloT5AJAjERE4NO-1M
+Message-ID: <CAMgjq7D50X47JFsTnF2-jYGv7i-Nd3WhQLK-TJGy4XkhMQU4OQ@mail.gmail.com>
+Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
+ up on
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: linux-mm@kvack.org, Jiayuan Chen <jiayuan.chen@shopee.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Based on user request and Qualcomm's recommendations, we need to
-set the autosuspend_delay_ms for DW5934e product to 5000ms.
+On Wed, Oct 14, 2026 at 5:10=E2=80=AFPM Jiayuan Chen <jiayuan.chen@linux.de=
+v> wrote:
+>
+> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+>
+> On our production hosts we saw swap cache only pages keep growing for day=
+s:
+> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
+> swap slots were held by folios that no process mapped any more, charged
+> to cgroups whose workloads had long exited. The only way to get them
+> back was swapoff, and with other services actively swapping on the
+> same host that is not an option.
 
-Signed-off-by: Slark Xiao <slark_xiao@163.com>
----
- drivers/bus/mhi/host/pci_generic.c | 1 +
- 1 file changed, 1 insertion(+)
+Hi, thanks for the report.
 
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 680a63eeedbb..123efbd56db4 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -672,6 +672,7 @@ static const struct mhi_pci_dev_info mhi_foxconn_dw5934e_info = {
- 	.dma_data_width = 32,
- 	.mru_default = 32768,
- 	.sideband_wake = false,
-+	.autosuspend_delay = 5000,
- };
- 
- static const struct mhi_pci_dev_info mhi_foxconn_t99w696_info = {
--- 
-2.25.1
+> Such a slot has swap count 0 and an unmapped folio pinned in the swap
+> cache, left there after a process exited or did MADV_DONTNEED. No page
+> table holds its swap entry any more, so nothing comes back for the
+> slot; LRU reclaim drops it eventually, and the allocator only reclaims
+> such slots once swap is half full. The growth stopped exactly there:
+> at 50% of the device, where vm_swap_full() becomes true.
 
+Hmm, I think this indicates a much cleaner fix is available.
+vm_swap_full is inherited from the old allocator, we can instead just
+let the allocator reclaim the slot if the slot have a count of 0 and
+ignore vm_swap_full at that point.
+
+Will this work? (Just a minimal implementation for reference, will be
+even better if we can avoid the overhead).
+
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index c3288910b3e3..94670fe82f31 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -212,6 +212,9 @@ static int __try_to_reclaim_swap(struct
+swap_info_struct *si,
+        nr_pages =3D folio_nr_pages(folio);
+        ret =3D -nr_pages;
+
++       if (folio_mapped(folio) && !vm_swap_full())
++               goto out;
++
+        /*
+         * We hold a folio lock here. We have to use trylock for
+         * avoiding deadlock. This is a special case and you should
+@@ -903,8 +906,6 @@ static bool cluster_scan_range(struct swap_info_struct =
+*si,
+                if (swp_tb_is_null(swp_tb))
+                        continue;
+                if (swp_tb_is_folio(swp_tb) && !__swp_tb_get_count(swp_tb))=
+ {
+-                       if (!vm_swap_full())
+-                               return false;
+                        *need_reclaim =3D true;
+                        continue;
+                }
+
+
+Or, from the LRU's side, put swap readahead folios at the tail. I'm
+actually trying to do that and it's not very easily doable at the
+moment but will soon be easy to do.
+
+> Options considered:
+>
+> 1. Fix it on the readahead side: after the read, check the swap count
+>    and free the slot. Covers the lock, not writeback, and the
+>    asynchronous read path unlocks in the bio completion where the slot
+>    cannot be freed. Two places to patch, neither clean.
+
+In fact, readahead checks the count before starts the read. It should
+prevent some of the problems but seems not enough.
+
+And another idea, what if we just add dropbehind flag or rotate the
+folio, if folio_try_lock failed in __try_to_reclaim_swap?
