@@ -1,118 +1,141 @@
-Received: from mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774B846E017
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06FE43C7C2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144333; cv=none; b=BpfwpoIhAzl5U/9/1bB+D4BZduBVNj7LgfNSVbHMxWaJZDOq14YMZ2379hHd0JuHcLpRc3UKKzBE245njEss/M8lhHybO4BjdyLP4qZMoUvO7L8UinRBtZJpmvdBaLJlJyc1SoZFo+4oa1jawQDpOx8bdk3cZjCXMs4rnr+4vnM=
+	t=1792144346; cv=none; b=hSNn38bcKynTZ5SqOPzPUpf+8BljapJSvUyOIWN9/FeA9ApLa4y8RIlzcowUyn+485h6/hDFdZcNz3Gn8nZh3oYsn/1+YCwDUDaLv5BGtqIo3lMl0rzi/Q6JTED8sFlT3+5dk9PXjhyvbXcS6iqFG4XoKSqzRws+kor9ec+xfa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144333; c=relaxed/simple;
-	bh=Rf3CMQb2KEte/BbSHsUqY7LbOQ7Ver+Ulr3VtzWdFMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ss88TAv3oB+NIoPHucDOamRDOE2Ef9eP17off+fow2Be8cI4pc++EjplZGVKqdG6EhbzGJDB63FhEnA3RaKp+bedR41dR1tBtoPLlEHTohuGh3HdAXADliqloMuzqsNpLUySTRkqVfNRJwchA3/liFO8KG+jGaLPsr6E+wyA1sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h/CTNynt; arc=none smtp.client-ip=91.218.175.185
+	s=arc-20240116; t=1792144346; c=relaxed/simple;
+	bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=LR2U0GDnBNR0Jwzw6zsAfkeY7FabWB8QHzag7aEOuwQjbjbRGg4tBsoQeRr9RlDZPed/+Jf9nPBRf7e0JAwqn9l/B1SgyLuBnz1+I6VSK9HwdSqYzbdOKCNQPND3zFlDDYWmuEedVcLxEzKvre0yB6IZOQY4zq/srYIQifGNO3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xB1w8S3z; arc=none smtp.client-ip=95.215.58.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h/CTNynt"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xB1w8S3z"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Rf3CMQb2KEte/BbSHsUqY7LbOQ7Ver+Ulr3VtzWdFMk=;
+DKIM-Signature: a=rsa-sha256; bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792144328; v=1; x=1792749128;
- b=h/CTNyntiCIZ/no26sMKMbii8PE6hEkgrCicX93LyEbMZfwsnGMLYYQk3NbXEkJ/IGhComn6
- EXV8E3eUfKOfzsCbfTMo88y6+Pnrb3om4XdDlopsC4aqwrq9lQoOXtaIb6xhocbyL10ugn4dlH1
- Znl1Pj/CxTfVYjZYrkoupzug=
+ t=1792144342; v=1; x=1792749142;
+ b=xB1w8S3zBSgF2SQ7hQW2j9zrs6T4Rn9vpXhT5nPI1tgerR4OAToFbei3+msLxVTpPkaJTCTe
+ iLeCfqpa9KihhS2EFrkV9JaPzMUsfpv5vkdntsCBTweJtnh3n9KEn6qUptxLwL447hv3Gfn4Bcs
+ mpvSb0+3iWXmexUxpMphehC0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 374f79ebbe3a2c0d;
-	Fri, 16 Oct 2026 09:52:08 +0000
-X-Mizu-Trace-ID: 374f79ebbe3a2c0d
+Received: by mta11.migadu.com with ESMTPS id be15a02e218a3bac;
+	Fri, 16 Oct 2026 09:52:22 +0000
+X-Mizu-Trace-ID: be15a02e218a3bac
 X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: chenhuacai@kernel.org,
-	maobibo@loongson.cn,
-	gaosong@loongson.cn,
-	zhaotianrui@loongson.cn
-Cc: loongarch@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel@xen0n.name,
-	nagachaithanya9911@gmail.com,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v5 3/3] LoongArch: KVM: Reject repeated PCH-PIC CTRL_INIT
-Date: Fri, 16 Oct 2026 17:51:51 +0800
-Message-ID: <20261016095151.1155049-4-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016095151.1155049-1-cui.tao@linux.dev>
-References: <20261016095151.1155049-1-cui.tao@linux.dev>
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 05/10] mm/hugetlb: don't clear the resv_map of a VMA whose
+ lock is held
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 17:52:04 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Oscar Salvador <osalvador@suse.de>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Adam Litke <agl@us.ibm.com>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Rik van Riel <riel@surriel.com>,
+ Peter Xu <peterx@redhat.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <92E58ED4-A09C-41CB-A3B8-12F6F834FD87@linux.dev>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-From: Tao Cui <cuitao@kylinos.cn>
 
-KVM_DEV_LOONGARCH_PCH_PIC_CTRL_INIT has no guard against repeated
-invocation: every call overwrites pch_pic_base and registers the same
-kvm_io_device on the MMIO bus at the new address, while
-kvm_pch_pic_destroy() unregisters only one bus range.  After a repeated
-init, MMIO to the stale ranges computes its register offset against the
-new base and silently reads 0 / drops writes, and the leftover bus
-entries persist until the VM is destroyed.
 
-Reject repeated initialization with -EEXIST, using the initialized
-state of the kvm_io_device as the indicator.  The check, the MMIO base
-update and the bus registration are serialized by slots_lock, and the
-real registration error is propagated instead of being replaced with
--EFAULT.  On a registration failure the base and the device state are
-rolled back so that a retry can start over.
+> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to =
+private
+> VMAs") the lock of a private hugetlb VMA that owns a reservation is =
+the
+> rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it =
+through
+> vma->vm_private_data, anew for every lock and every unlock.
+>=20
+> At the end of mremap() the old VMA has to let go of the resv_map, =
+which
+> now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL =
+into
+> vm_private_data.  mremap() holds mmap_lock for writing and has write
+> locked the VMA, which keeps away everybody who comes through the mm.  =
+It
+> does not keep away those who find the VMA through the file.  For hole
+> punch and truncation hugetlb_vmdelete_list() does
+>=20
+> hugetlb_vma_trylock_write(vma); locks resv_map->rw_sema
+> unmap_hugepage_range(vma, ...);
+> vm_private_data =3D NULL
+> hugetlb_vma_unlock_write(vma); no resv_map: does nothing
+>=20
+> and the rw_sema stays write locked for ever:
+>=20
+>  WARNING: lock held when returning to user space!
+>  mremap_punch/116 is leaving the kernel with locks still held!
+>  locks held by mremap_punch/116: 1, last CPU#1:
+>   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
+>                                       hugetlb_vmdelete_list+0x46/0x160
+>=20
+> The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
+> uninterruptibly, and it holds its entry of =
+hugetlb_fault_mutex_table[].
+> That table is global, so a fault of any other process on a page that
+> hashes to the same entry sleeps uninterruptibly as well.
+>=20
+> All those who take the lock of a private VMA without taking the =
+mmap/vma
+> lock are affected: rmap walks. So hold i_mmap_rwsem around the =
+clearing
+> of the resv_map.
+>=20
+> No change of behaviour, other than that mremap() of a hugetlb VMA =
+takes
+> i_mmap_rwsem once more.
+>=20
+> Original fix generated by an LLM and sent in private by Josef.
+>=20
+> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private =
+VMAs")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: avoid local variable, move and refine comment, description =
+cleanups+simplifications ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Fixes: d206d9514873 ("LoongArch: KVM: Add PCHPIC user mode read and write functions")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
----
- arch/loongarch/kvm/intc/pch_pic.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index 51e4a6a39dc0..ee06bdfd6547 100644
---- a/arch/loongarch/kvm/intc/pch_pic.c
-+++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -281,16 +281,26 @@ static int kvm_pch_pic_init(struct kvm_device *dev, u64 addr)
- 	struct kvm_io_device *device;
- 	struct loongarch_pch_pic *s = dev->kvm->arch.pch_pic;
- 
--	s->pch_pic_base = addr;
- 	device = &s->device;
-+	mutex_lock(&kvm->slots_lock);
-+	if (s->device.ops) {
-+		ret = -EEXIST;
-+		goto out;
-+	}
-+	s->pch_pic_base = addr;
- 	/* init device by pch pic writing and reading ops */
- 	kvm_iodevice_init(device, &kvm_pch_pic_ops);
--	mutex_lock(&kvm->slots_lock);
- 	/* register pch pic device */
- 	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, addr, PCH_PIC_SIZE, device);
-+	if (ret) {
-+		/* undo the state so that a retry can start over */
-+		s->pch_pic_base = 0;
-+		s->device.ops = NULL;
-+	}
-+out:
- 	mutex_unlock(&kvm->slots_lock);
- 
--	return (ret < 0) ? -EFAULT : 0;
-+	return ret;
- }
- 
- /* used by user space to get or set pch pic registers */
--- 
-2.43.0
+Thanks.
 
