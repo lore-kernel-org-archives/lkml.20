@@ -1,132 +1,110 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DE030E0F2
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98131317166;
+	Fri, 16 Oct 2026 07:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135520; cv=none; b=ILMHiU3JLDJPjpDmqXTAStmz23RD7ZHdFyU2EqBwT4UMV8F3sgqLiEaL/X0/W/0w79h8dclwfbthtljL71tNoYbJTXIz08rfgkNo2njuJjHIFF6nthFYik0gPUe1Z616LFEjW26H9mASL9EoUGhzakU8scfTZi+GkI1v3QCVLls=
+	t=1792135520; cv=none; b=NJ80JFdjsGvfkiBjvMTGxG6VLVA4d9PWw1AW9GGI75lDoaVCwEIqggoOZx9UDAscjXCA8oea5YrnPgAQt61/CQqjEVwO+MC1eJoSt0MuAR4dq/mN9XNDKmJKxE6q19RVBsKccTbue9y7/DobPzS+JtGyRuCPLjDf9PiycG7HCsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792135520; c=relaxed/simple;
-	bh=V+gqkneyMbnTJWfQKrVZzngzKiTmgzZaUwEDLk2IM7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ChvBgPW0KhkDKtWaiO7/3LSg5a0pxHdd9J/5OaW2su+5h5tBnR38aTdz6nA4wJYzlTzQhJ1JsvrxlA0RJ5pFvxtbt/XlsdeaognqVEH1IEqV7BgyAc2bi3N4/1hZ/Y53t9WWNgAoqw49p7UkqBIa0LeSsS5QKc58GLWM8pZ3cbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V1GYmajC; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=WQ7A6YV1X5rtoOgXLneHcDdEPkWAi8eOIa8D6Hucz+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ozuh7tUZB9FP/Ut5ZGITIkmj3plxkjQ0HXsHs+LVD950/+8e0hcHGQjlHqtDZ8qllrV2lEjewfYDfF0eudI4lsrpA8h5bo/pTYui2zzn3Uv4AUTD1+3Xz5FLyxHtswzUCovLNTOgFAcbb7SBzCqEvJfJ1gm4eUWbquMebXfbnyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FGf5Ae24; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V1GYmajC"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e946155442so21931435ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:25:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792135517; x=1792740317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZeTOkyvsFAq6IDsBYCsxTY31J5PpJnBjyNYspX0Us+A=;
-        b=V1GYmajCSrW7g2S1en4WKaACVX0qAFz286Jk3jcFiQS9J2tCQ/nKOcIpQOA0GR8dv+
-         IGmabyhyUI45wNbnx6cX3FCXxX4gd1Hh+Yqk7zAzmUOIcJUOcGkF+hEKqKUQ2kPOdQcP
-         EqdLVt24Zhjw1LQqvTI7ikvb2x3+Fq0XNXIsu7wJ03Fm/V/xqOvf8flGHDIjiORrKd5C
-         PLIkT5SGQabUEFpO8ycd0MbvVCFwvuiM7uU15Xsk8OgoPdqFDrTfo91wwttROPFFAKbW
-         dJk7aVQTb3o57Tel7iXCLqvtk/EcbAkc48w4w3KPTRevgPrMncEtRNbYyaxcgHMJc8Vj
-         CF0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792135517; x=1792740317;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZeTOkyvsFAq6IDsBYCsxTY31J5PpJnBjyNYspX0Us+A=;
-        b=fqTVCWVUN/RgOQWZ+2o0FBjH3JVpdTUqsMSk1nhKm/PjII6gYju6KHjb3quqAYrP6N
-         CA4vNgxLyEyaySnSq6KXPPTHlYys+w4LordcC4efnOAwOCpeFUl8H+hRWVnoRbr3yfdj
-         78HJLtwRN2iFVPAJPf0w+P/yDUvK3/ipHtb74HzZFubLvNloX4oHH9+EpYJU0M4pVxLs
-         Y4MySeB2da+evcW/NDvkX8ySafhSLIsCv4ciThe2Ab9GffGE+aqkGj2D0xoFVCuagKd0
-         /Ubdc0F/3fSjqu7cM8b2mWc2fkZa4u2La+23Xbbx9WhsaE+gdxUaFHi0kZ3d1hqi2YyB
-         QOUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzgwEuxVYhlMK7+sEatMS1Q57OYAopN7ulpAOKyc9vNbCkjCwdntS7EWS1qZ4x3Hq5SoRetgmfAwQGRio=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkzIJpSZ/GbuVU5ZYmhyd9fo+7X2rlhitYrzxTvPidBgMCUbqu
-	Wh0IUwFZT1tfaTKeLlqM8MFTce1iQ7+rh7RAQm+FyB/IbziAPXmBjck+
-X-Gm-Gg: AYBFou3R/eWPZ9cmVNh88BJUnRmNCCQecjfnvv+5HlJlacRQLVVUSqFdM1u3xMpafFR
-	1k/LCp6UjX7CeNfwT6F0ptDUuP5edzLUZKP36LLtOcdfbaNfsnTrWFgPhqArQSFkJLRnA7xf4pc
-	ySNDOsJiu2q4yomS45riZDl1+m819T3IqDfgePr3e9vk2OCN2lvfs+dlhN+2lPktMHcbb6BCAJe
-	GoidkUdbRb4Ry8E9cc8fJrDMeII+qTt+dJGR2n5aGrgJ6S21HXlMENUaSPKMpeXkmSpljGPXryo
-	doIWggscTNN9RxGNdSRV7Uuu2ALzEW8TUKyNbjLtT6ZuwknGSEntFvjbR8rxqZwmB3WaMJ2Ygcw
-	NL2SVrWD17LuYf1XzKgojYah+7gkdFHbC6/s3NLfCO55sE6kyKr+QJ1GUzhrrPICa3h27K7eFlj
-	NdZLlwPkyP30IscJNq/lIInAL9lSrBn0Pyv6o+qmW0CMC2Sy7jE9doB6fOZStRGilx
-X-Received: by 2002:a17:903:2a85:b0:2e8:b5b2:a9f9 with SMTP id d9443c01a7336-2e8b5b2ad3amr145465665ad.37.1792135517104;
-        Fri, 16 Oct 2026 00:25:17 -0700 (PDT)
-Received: from oslab.. ([140.120.15.183])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e878bf6sm5941625ad.57.2026.10.16.00.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 00:25:16 -0700 (PDT)
-From: Wei-Shuo Chen <tavhadia@gmail.com>
-To: mst@redhat.com
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Wei-Shuo Chen <tavhadia@gmail.com>
-Subject: [PATCH] virtio: use consistent virtqueue terminology
-Date: Fri, 16 Oct 2026 15:23:18 +0800
-Message-ID: <20261016072318.24015-1-tavhadia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FGf5Ae24"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=MV+/6u1JVk3GRqSO5E1FrxLlCsGxVSGy9Af+ZhLfD9U=; b=FGf5Ae24hhb9zfjAZw1KNjdgUa
+	xmUh4Q8Ua3vygWewRMjrXKyL99ZyDy5RZF/+kTIqmRD+F9OeN4jc8q0z0NTfWJD/+AK6n0iv+gaoy
+	MtIuadwhNGfQBSBGLQtDl1nSz9ipxJX+Csh6UXgVDJEL/j92BhzqzJxhfojvnZl/EUfj15ipUi27a
+	0mXEtDegxnkKCjmmK7SZ2SzQsSPM5s7pHxEIm4Jxn+Kkxlc5SHdBRv5F5tJ6BFMsB4+KLzQQSW2A0
+	6DSa3twsVQzj/Lf7hHpQriivxPv5d/LxCypIspxLqGjLIg8NUKUtSF2maWTX/oZfmm2jDtJ1HivaH
+	vL921QJA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xHcJJ-00000001CxA-3bdx;
+	Fri, 16 Oct 2026 07:25:03 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 5AD68300178; Fri, 16 Oct 2026 09:25:00 +0200 (CEST)
+Date: Fri, 16 Oct 2026 09:25:00 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: paulmck@kernel.org, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	kernel-team@meta.com
+Subject: Re: Mapping from preempted task to running task on same CPU
+Message-ID: <20261016072500.GX4120091@noisy.programming.kicks-ass.net>
+References: <e8b6b372-d16b-4939-aa7a-755b7149e0fb@paulmck-laptop>
+ <a92f4a71-614f-44e4-b4f1-38e92deffae2@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a92f4a71-614f-44e4-b4f1-38e92deffae2@amd.com>
 
-Use virtqueue consistently in the notify function comments
-across the MMIO and PCI transports.
+On Fri, Oct 16, 2026 at 10:14:27AM +0530, K Prateek Nayak wrote:
 
-Assisted-by: LLM
+> > @@ -372,17 +381,24 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
+> >  	raw_spin_unlock_irqrestore_rcu_node(rnp, flags);
+> >  	while (i) {
+> >  		t = ts[--i];
+> > -		if (task_call_func(t, check_slow_task, &rscr))
+> > +		if (task_call_func(t, check_slow_task, &rscr)) {
+> >  			pr_cont(" P%d", t->pid);
+> > -		else
+> > -			pr_cont(" P%d/%d:%c%c%c%c%c%c",
+> > +		} else {
+> > +			tc = rscr.rcu_rdr_cpu_task;
+> > +			pr_cont(" P%d/%d:%c%c%c%c%c%c CPU %d%s %s (%d)%s",
+> >  				t->pid, rscr.nesting,
+> >  				".b"[rscr.rs.b.blocked],
+> >  				".q"[rscr.rs.b.need_qs],
+> >  				".e"[rscr.rs.b.exp_hint],
+> >  				".l"[rscr.on_blkd_list],
+> >  				".R"[rscr.rcu_rdr_running],
+> > -				".B?"[rscr.rcu_rdr_boosted]);
+> > +				".B?"[rscr.rcu_rdr_boosted],
+> > +				rscr.rcu_rdr_cpu,
+> > +				rscr.rcu_rdr_cpu_offline ? "!" : "",
+> > +				tc ? tc->comm : "???",
+> > +				tc ? tc->pid : -1,
+> > +				tc ? (is_idle_task(tc) ? " (idle!)" : "") : " (no task)");
+> > +		}
+> >  		lockdep_assert_irqs_disabled();
+> 
+> ... since you are IRQs disabled, it should be fine to use it here.
+> 
+> If you don't want to take the overhead of rq_lock() + barrier,
+> you can perhaps define a cpu_curr_snapshot_rcu() like:
+> 
+>     struct task_struct *cpu_curr_snapshot_rcu(int cpu)
+>     {
+>         return rcu_dereference_all(cpu_curr(cpu));
+>     }
+> 
+> in kernel/sched/core.c and expose it similar to
+> cpu_curr_snapshot().
+> 
+> I'll let Peter comment if he hates it or not ;-)
 
-Signed-off-by: Wei-Shuo Chen <tavhadia@gmail.com>
----
- drivers/virtio/virtio_mmio.c       | 2 +-
- drivers/virtio/virtio_pci_common.c | 2 +-
- drivers/virtio/virtio_pci_common.h | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
-index faae58e3401a..e2ec0ec01d67 100644
---- a/drivers/virtio/virtio_mmio.c
-+++ b/drivers/virtio/virtio_mmio.c
-@@ -270,7 +270,7 @@ static void vm_reset(struct virtio_device *vdev)
- 
- /* Transport interface */
- 
--/* the notify function used when creating a virt queue */
-+/* the notify function used when creating a virtqueue */
- static bool vm_notify(struct virtqueue *vq)
- {
- 	struct virtio_mmio_device *vm_dev = to_virtio_mmio_device(vq->vdev);
-diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
-index b90c174450b2..60d9b73d74b9 100644
---- a/drivers/virtio/virtio_pci_common.c
-+++ b/drivers/virtio/virtio_pci_common.c
-@@ -47,7 +47,7 @@ void vp_synchronize_vectors(struct virtio_device *vdev)
- 		synchronize_irq(pci_irq_vector(vp_dev->pci_dev, i));
- }
- 
--/* the notify function used when creating a virt queue */
-+/* the notify function used when creating a virtqueue */
- bool vp_notify(struct virtqueue *vq)
- {
- 	/* we write the queue's selector into the notification register to
-diff --git a/drivers/virtio/virtio_pci_common.h b/drivers/virtio/virtio_pci_common.h
-index 8cd01de27baf..18b6dbdfd1e5 100644
---- a/drivers/virtio/virtio_pci_common.h
-+++ b/drivers/virtio/virtio_pci_common.h
-@@ -127,7 +127,7 @@ static struct virtio_pci_device *to_vp_device(struct virtio_device *vdev)
- 
- /* wait for pending irq handlers */
- void vp_synchronize_vectors(struct virtio_device *vdev);
--/* the notify function used when creating a virt queue */
-+/* the notify function used when creating a virtqueue */
- bool vp_notify(struct virtqueue *vq);
- /* the config->del_vqs() implementation */
- void vp_del_vqs(struct virtio_device *vdev);
--- 
-2.43.0
+I would much rather do this than expose rq_lock().
 
