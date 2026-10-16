@@ -1,300 +1,249 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C0546C821;
-	Fri, 16 Oct 2026 09:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C162442589D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:25:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142658; cv=fail; b=sbnxdquXXX96cfDG6AF73nx7woYxAc5bZaRQEgHmBHlzIseWXaKEIIg+uNM3mlRW8ZtskA6D8iJrRZvrISZ/05VxrEyZHjANyR6fLF51/bOsmjYVP/lAQKyOpab/zLIp5qZVe+lCHkaGg+SErJxky6pwCGCG5Mzq5OdcalFQCIc=
+	t=1792142704; cv=pass; b=U8elBFrgEC+Azzt3nFf70bQCTHT58XmB7PbyiKvRMJBBhDiIOJqVLJiykSRd3i5UaZdxm6Qze5OputEzj4F3hkYpICJP0YvE4c6RgK2qC7ZIc3zDO+jyeMwa4twehXfYqy3wmp2X/UTwMX5ZHicUZshMAkobLHD5nrgkZY3wYXI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142658; c=relaxed/simple;
-	bh=Hnoxjh5Jvz2aEUEaeXuawAsPsrsMxA0b6AC+BnrMcnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HhNpsoGlhoCRk85oGmp540wSI0KvH6ciOID/ar5DrqJfu4aHnvArR/ArE63uvWPXDv2vG+eBeBD7hlWGZjDSEYlUutiRlzeetjjVlvpE8mMQlOVw29N6dBjaaQQDOAh82qM3P9wdPu3yr5jCcOn9rk2UwnDyB9vO3s34CcfX54M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=h4pI4xrW; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=OijhBrek; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1792142704; c=relaxed/simple;
+	bh=cZ0g1QHy33tqktTNojuGxJHnpB/JfMGacXKXYC6XWjc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MnhAqUKGjs8yA8IXjh99BkIFZ4LsljbYcZdO2QxmlHkcRqcMENiuRcnzhXJ0szFjAhb7XqAshUpjxJOcUckI9Q/OS8J9rldVGR7bOQkCp6qMzpTATJbzM7fs/RymWXBrSCqNgDaGW2Kh4RKNXxV/H1pwxGZF/1y+DTdjLUJ/7bg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SnQoSHIN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bNBlMVH/; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="h4pI4xrW";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="OijhBrek"
-Received: from pps.filterd (m0516786.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G7I8EV928936;
-	Fri, 16 Oct 2026 05:24:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=VEbmIG55HBzNToHg2Zb4PEEbmXg8dOB/S8sM66h+HhI=; b=h4pI4xr
-	W6MVziSR04UpFSSTLz+enyqU1jaejRBH/dNlcey4I/tUjaKMhE4G5Ge9A8oAd2X+
-	QiO7PEnBfgm+z4mZT8I5NKpslI+IMmCYNMpjJQf3nTzpdRr4ggtca6fuR2dQWDom
-	di3h0FpSdpQ3qrP2dBSgYe5rP+RDxyx1iY/XNRaF5vRv6iDZbuS/zhaPKuGzqTwt
-	BACP9ZAVyUd+Xk/fvAVpTU3pByHyjRVK0QIopvB4vVAFCXfUy0/5YTgs5knYYdfQ
-	n09POpseAsl17w4XAlSB2nXCKWIEeTgDb1uTEOugZliSdP6wkshR/k730Kakxa6k
-	yZj1pX9ZUsTS/ZA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=VEbmI
-	G55HBzNToHg2Zb4PEEbmXg8dOB/S8sM66h+HhI=; b=OijhBrek5qyj+L7hSxQ1+
-	zn7AgfpXS5GIpajRi7LZFov5NlIN5fGkuKVE+gph7vZl4nnoyRN63LqkoLHlwrmy
-	APk5DVrlgRVTOHeuClrkd/8GSPPn7Oblb/JSkhU3dLfWTQIsKqChGA1xHrtUirm4
-	A5OeNlvI8XfjAkVPsTPbBFSxdXMcYMWMkNR130MCqL54dgABgsJ/AngXwXlcJdU4
-	FU6Kut3mwXoHjcxywTfqCylgL6H1YAd8fw5xE1+miAESgoqmuR7BrfUbfPSgH3fG
-	ddLBiizDzryJhYh4t5sm4EKliIyHckdt4FmOyBQxdNyOXhuYFwwDgo8GM7AazmtL
-	g==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013060.outbound.protection.outlook.com [40.93.201.60])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hbfdu0hv2-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 05:24:13 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t8qj9rkP26km9z38KlVvJiX7ggBzM7LIfIn57ZOz0R4QrbIGfdPGCgwev/6X4HlhYYBTPygzWbkkwnDTch+hCLKKjQaw5DLemWRojVYmrGKb08zMfVg/t/IcMbOpYu6o478rdMdV1AjBB1hQz4JCQYyg1ZXpN7iZePtwryTXw03w58WLxp3GuM9Wq3Ox5OincRdWMXM5E0AaZyAeI6/wCaQVdit3pWr3lUJ0ELj23Z3OCKo2+8rHaryGoOtxu/+pCU64wNfnAB72GN2jTf/inaz6jgwbb/lBmY2YYcj6U+GBUo1r29QklQbaQFXY6oE60OamkkOX7wmGBNJzYIz7Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VEbmIG55HBzNToHg2Zb4PEEbmXg8dOB/S8sM66h+HhI=;
- b=d6qLnhQAS4y4wlG2akU4tGitmTix78hqgFKBJZX6Omjq4dEfQfvBxj5d0lf9Hsy85PTOdkbdFy+f6+adgnInlfNsOIoBdwlTXfXDdhhfA6850obuewPLv0nUojdQvB3fQpLnZcn+K48UuFPSIAxHSe3BtIclvlxMsVjqKqcC4jQ3unYHQqrzSohk+m/OSdywFsKuCVaWCaYzsuOz6gcBqE4CTPHm1+s62ieT4cPG1IxB2FLZX/CpzZ/BGigwbC7vO8Pw9TDnnR/Il27wjhWHhMe+zVfr9/OVgzp/RlNnoQj5wl9qBSZqXiFL+nBNpnnhJRk1wj8XxYFlfGwd15lmHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by LV8PR03MB8138.namprd03.prod.outlook.com (2603:10b6:408:296::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 09:24:09 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 09:24:09 +0000
-Date: Fri, 16 Oct 2026 10:25:29 +0100
-From: Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: jic23@kernel.org, linux-iio@vger.kernel.org, Michael.Hennerich@analog.com,
-        dlechner@baylibre.com, andy@kernel.org, linux@analog.com,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: ad7606: use EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS()
- and pm_sleep_ptr()
-Message-ID: <atHtenc-1IRYSRGU@nsa>
-References: <20261015151903.13613-1-abdelnasserhussein11@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015151903.13613-1-abdelnasserhussein11@gmail.com>
-X-ClientProxiedBy: MR1P264CA0009.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::14) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SnQoSHIN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bNBlMVH/"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lWxT2815470
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:25:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FKP0tJkam5kj2GJAsnG13d60zYJ4DWwGMGMYlZXLSHw=; b=SnQoSHINw964US21
+	OVW2Sy0HL7V50xhigmfopOh401MJBi1vKG3DCffiZ2LD7R6Db35S2kQXo1otQp2o
+	9hB5f2WYeY3BxSMEa5TwHY9up79W832vaVyccyROngTWNmrY1XPQkPjSXkXtgcKW
+	2+J6nrO0D5uMZocIeA3lKLkW/GPnf17PAZZQMsF4MfTzPsJ8RMeSsZZWmFeO0a7o
+	ETjN/PfavaWb6MRs1hurHRgoowXZ1ACZuvbghDvWx4fUjl6+Sui+z4y4xzowuyRy
+	oxNqBrZtb9VYRS9NiwtBbhNeiqIyQ7SsYRLLhWzTkJFHFcqqz67rt190vxbfBPzs
+	t+QmAA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb8r11vum-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:25:03 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1de6d5c3so1382608385a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:25:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792142702; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JaSiQFM8a06VOHsynrswvrPXth+GY44qHOIMP3UIwA5D5UEm46j2grweFyKn6/mHsA
+         +bC24osIr6RB4sPgEIgCHRp4F+3bvVAFB9s3a2JF/JqjPJRiDZtkKwDsHEvuUImyrAJE
+         MEaXwVEuyfJJYVar1o8+lw/25RwdVZnnJJULPs2J6wNiD8X0R/w9tnJOd+qSExk5Iglo
+         RNZ5yp9LLCJjzgkAX7ZSFlhsIY5NxZ8KZSVSgtc4+O2cVtJLo7ohd2v/JltBh7U/bFu3
+         g1ISAdWXVowvGpiC+YH4DtxC5fY+kBjtE2TiLU3Vd89cRz5V4AmY0kYyjbwsWy0P8hNv
+         egVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FKP0tJkam5kj2GJAsnG13d60zYJ4DWwGMGMYlZXLSHw=;
+        fh=raiy0Cf1S2xksQSs+q49aCq15J3QjuthcYiBljSf0Z8=;
+        b=K/IkuRP5UL8LsnFuo9vchIgUo/XKL4ePS6ilY3zBep7OCdfoxjC5aaW/GA4nyBEutN
+         EwlZPrrW7zNQfBZRGhYCHhxCFYE894sw5izmzdaclWrc1CGDveKl1nmf7938KsCAlwaW
+         uuXJHKIcFE4iC9N9PaRPw3gcFfLns0e8avLJxEW+vFdlvsfXjgFgcjKxuRNpzG/LZkci
+         CbgBdpsHZ6+3LXyU4CALrqLB/ix5z2bYvZYvfZ4Gdk0AhhIHaauoqsFL1H32YKn8Loxy
+         Qq/rTFKzJ9IChzLEEUUmSuyWSUUMSyOCxpMtxYKzJYQq0Y7TO+CAhXfGum7zdCeCNcU9
+         Vdtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792142702; x=1792747502; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FKP0tJkam5kj2GJAsnG13d60zYJ4DWwGMGMYlZXLSHw=;
+        b=bNBlMVH/J4wpVGjBxTxTPdzZkxsNXB0tSRDyRK3+85VSkWCPGnMQtZ2Ajos+bop6WC
+         FFZ9zNozUzRhWHB8QmfgWFsh+76uLnDshjvkMEwCN6oIFSvOyL/7XC7/v1b+wJunUp9P
+         1LwxXr8jCwCKxA/IFI9s0fnn432HkHGYJJ5B/F1/YdvlqyHVBAtvaodUFbIczpvkA2gU
+         tgh079k6P8h7Wog7XoAy6wwUOmhgA5XcZ98w2VGJh4KAy9wMeWyDmn13ZiUZEZtaMWV3
+         q3POlaLx+of75IaH8A87LdjM8RIeewSHoB621Vm9TD5+37EsGoSQWp7WSDNu5eJIg5Dy
+         tqrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792142702; x=1792747502;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FKP0tJkam5kj2GJAsnG13d60zYJ4DWwGMGMYlZXLSHw=;
+        b=jYLfy4d+Rh5ZPdUEBfn9ZSWWvZa9fbWZnGW+OkAvS8jA03aZd2r7I9Oj8wD12/dcKi
+         2KVwTC3NtBxZmZnS8nEMl9hUXGyGRbP2KHafN/7aoWko/ubVAkygCS/WqFcRQI6wQlWQ
+         NvJBtNyq5Dp60k+NkXc03zTEYN4yFwMWUXMU2yj7kKJRFTQV3L7hW8010Rdu5RXr7TgO
+         jHa9L3NiEV5xhekZH/TRg529twh+1gcbuZmvhhvgXRLklLwZwWLUBhKRd6ksBoqO2wqR
+         4R5peVVtMDQKKPXdszUW8C9TdTRJMmTJt3nitcXnxka9Dmm5AuIdA1W1ob3sJmBtF5e9
+         SWCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoV9arfqMa4U2nhxSQ7rurMRQWA0FULDEo3JCx4lstVIxVMrZLiSTAFDNtyV9rnyGDd5S37cfEUmu0m4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEk0O/WnoE9YtlhnxwQd0ODGAAddM1iAOwDKHsp6vgmSfRXSnF
+	1frKoT8U+X7WgIB7R7azoekhJwS/+n7WCgzcVPmBhuM6WmufpiSof6+Paw1vby0NxDdHlCEwQHx
+	XH3qPm9FThiSkASpUwFR11Vm43xrJP5XpEEhu+rq0WH/Fic8UFm8VC0lx4rIZIx/9au1o6p6dnq
+	dcaZrDYj+Y4RwwRFIXbD9ajO4S3CSqFcOoPtNLWgndIw==
+X-Gm-Gg: AYBFou084LBL66hkXhZWkIH8z83Re3vvP5ANhngDVHfQqEUfHFWqBk1lQDwfNfnXJNE
+	tyv5zcdh+6QwcafMKPNhlpf6M+GIIK5c1mG990/It/b9tlU2jZoAbSrpG8taIIer1dodSgZKnas
+	xeYi6iQg8BoqZ7KjYkBHaE2VPGTSolx28BrSvzjaIyTMdpBUxHNTCJc8kZeYdKXZa0ADjTEs3y2
+	gDwc995GK8fw2mEo6u46uihV4Pj6KjJVgrUTUqgQVAfZlFdc0ez7X/oVJR5+6+dtfkPp5vozpVk
+X-Received: by 2002:a05:620a:27cb:b0:93e:dcb4:c73e with SMTP id af79cd13be357-93edcb4cd6emr2647967485a.5.1792142701869;
+        Fri, 16 Oct 2026 02:25:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:27cb:b0:93e:dcb4:c73e with SMTP id
+ af79cd13be357-93edcb4cd6emr2647964685a.5.1792142701369; Fri, 16 Oct 2026
+ 02:25:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|LV8PR03MB8138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42ba94cd-6ab3-4eca-ede5-08df2b673b60
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- uzEKKiVEhGL4DSumEtvyytJYG+Ph/MhgG8L7BeAx4f3HwhXLVn26ozokkOCuqzN4dqWnNUczbWKqDwhzMr0zCN3QuYahnOYfwC7ZDFe2QIuIiuW34nb0ntA6p0vZNYEuBQOLLv8LTbN3RR+R90M3r03bjh+A43YBaR5KszmraISqC3nH3x4in3dQse8gsXLkNB/cx7w5R80aHJkLE7V+VskiN+lFm5ew0PHnQ2IIn48aFkSo9d+E2EJmoTGeuj+hz4fU7Z9vS9Aw9ERYx5ymsHtC0tRo+2UfB615/RDzdYIgjAiBV7Ivy3XltJ6FRw2eiSQnfZkcYyFJ2RG8RRvxoDx5wc3lhKhaYoCuNEKyWGmkXYlh9FNqOCSRuTLtVHYNjSGqhSLvxYxE8X1rC3jTpYvfxfDKOGl/yPfBDLvPIEVuxSzpymqUh4ufPyLwbEMbvNF5oBPflXNgi59uWGKlBhXa+x/ZeraxNdYOb6E4lTohulJhzm0DN47j5uwBbBHFtY29HoEbaIeJOAclYzfseyZ17i9ZwQSNo3kW/mNOVlaGMVSl0WFNiKr7NRsejY7Yb+rNtTxJnWCF01MxytEz36LYYfDpQXDRoqePCnY21XyZJ2SZKioiri8vj8iM3wmIf9/M4Qq3tgmED6aWT9+sQgr8JATcmfsMnhurxmPQJ4U=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?dk90MjJYZlFpQXlKdWNLamNSYmxSR1Y1TmV3dzh6U0FuczZxU2U2aTVJSjVz?=
- =?utf-8?B?S2t1eHlqZ08vUFFlbk4xbjYzajNQVWI3eHBNdnUxVDA5MENGcHZxZTdFUTZ6?=
- =?utf-8?B?SUkwR3djSXRTQ3Vvc0dMTlVhUmUrRWQwY2J4dm1nZXE0WDBIWjlVY0hQSEgr?=
- =?utf-8?B?b3Bad25CZEJzRE9GallPTlBkaVhsdDloOHY4a0lXY2R2bUJyTzNMU29hVkls?=
- =?utf-8?B?b2w2Wkl4R29ZTGVndkVLQ053QVdNZml0cmVsMnVoWVNUTU0rUDlIdURUTDds?=
- =?utf-8?B?bVV2cHFycFM0R2t4Ynp1NTd3enFlenVCNmNWenp0QjFtQmtQemoxSFg4K3Jr?=
- =?utf-8?B?bmg3cWF5QUtzTFgwUVc1YU81TGs4U2VKUmxrUEVBY3R1RmF0WUFLcENjVlVG?=
- =?utf-8?B?eTE4VTBiUmRtaDdtNEk4Q2hocHR0K25vRjFsWmJCVXJnRHNET3JQWnZRWWpD?=
- =?utf-8?B?ZTRLcVorSzhqaFBaNXZRV3h4OWN3MklOZnFwV01nWEF1VitsTVU0bmVJRU9I?=
- =?utf-8?B?RVhyc3daVEs2MC9iazZtcllkV1dVYXI5RGRlNXRhVExxbHVIQzdoRzEwQjhm?=
- =?utf-8?B?UDIvZ05WWWlOU1A2aHNGKzZjVlhwL3YxbTJQWG1HclJOaW01T2FWTTJzRjd6?=
- =?utf-8?B?Tk1SRkxNQjZPTDRqRTJOTXlDOHEySVRYZkdIT2xxOG84R1k4dGJxeEpGRjly?=
- =?utf-8?B?RWxJM0RQenNXTmt0SWsyd1E4cEQ1UE96WFBaTWlyOWNkOHVPaE5TN3FkTGFj?=
- =?utf-8?B?SU1XdnUxOVUvT3g2OFo3cDZ0R29vb0djSDVSUC9VUFJyK00xNlBqWDBSU2Fv?=
- =?utf-8?B?bWY2alBkQnUzRVFQMnpDUCtCVUdES3o1Q3pXY1UwKytzUUlNVExpNXJ4Yk9m?=
- =?utf-8?B?ekQzVlp4dlAzM0F1TXBReW5yaVN2aXUrT0l5b1Rnb3BBOEVYZTNDUEdyWXcz?=
- =?utf-8?B?R3pXZFM1TG4zejdPTGpEYmsybDlTZWlWWThJTGpvbWlEYVlTWWpYLytFekVo?=
- =?utf-8?B?bk42cng2eURud0U3bExKWmlKdjVRamNWWnNxSE93bkl1U2w3dk80MWVnRm1s?=
- =?utf-8?B?RlIvUUpOU29TeVNRaXkvNjQ0d2twOUxLd1VBUG9FNTJEeXplZnRmYUxHYmxI?=
- =?utf-8?B?QmlxV1MrSjlWRDZHWDVYTlFsbmUyZFJ6Uzh1dHA2cWc1dVhJT3owRWdKNVJ3?=
- =?utf-8?B?VUJ2bDhadDU4eWozRUdSckpIUk16Zmg1OHExM2FkM0s0WnVOZHhvRmVzYlJ1?=
- =?utf-8?B?anJFeHFDOXpkaUx4S201VmQ1WkNTbGJSbTQwU2pldDRwcG1iQ3VyWll6NlI0?=
- =?utf-8?B?M2RKR3VXTXZUTmhqd0UwejFMMjBySHVYeFRVbCt3bmdNNmxDaTBPcklYcmtF?=
- =?utf-8?B?NE1yQTZCQk5taTNJTnBtOEQySmhGb3I4bXFPQTVrNFlaV0d1K0dUaFV4UWRM?=
- =?utf-8?B?WElFY0trWmRmZjdlczduNlJ4WERZNHVYSDQrRWFrZlpKd1hkaTJpQ3FCb3Er?=
- =?utf-8?B?RnViOGtmUnVoVk1jTzk1cmxMMHVTM01xb1RhV3RDRVA5SWxqM2kzSXlqTDQ3?=
- =?utf-8?B?dXVPR1laN0Qrc05lNmxreE5xUVJmcmlrQXJvQkFkY0NsNkRGQ0dhWmt5Szl0?=
- =?utf-8?B?enlYVHljcWU0d1dUTC9ubFd0OThDaHp4TEN3SXdaL1FPOXorbURZRHNBVm1C?=
- =?utf-8?B?bXNIZXlseVFKRGpCRjNKa0FqT1J6MisyaFBFOW1jaytsU3BoZlVPdk9vY1ZV?=
- =?utf-8?B?c2dsYld3RW9wYktYQjAvQzFmQ3FpK0FZS2dxd043YTVNc1Roa2ZJV1hzQ3Fa?=
- =?utf-8?B?bXl2UVNscWRTSDljT0U3Nkg0M0ZoVFhTOTRtVlhMR1BGOWFiNFFGdUQvS0xY?=
- =?utf-8?B?Z3JrT3RZNTZ1M0RVbUVMS2tFOE9wZDRuYnozNk4xaWo5QVBiTWtaaTV4czAv?=
- =?utf-8?B?dlJEc3JQYWp4eFYxK2ZGdFlDZGFldmxLNy82NUppdnBYeEU3YUJBTWVjOFI4?=
- =?utf-8?B?Um9wQmtiNFJZZ280K09uRjVaNHUrd3E3cVd6aG8vdEhxR01mRnU4d1hCMXIy?=
- =?utf-8?B?OWFCSklGWWovbllmQ1B0OHNHd1c5NmI3aVFEb2l1U0JsdEtNT0FiYmtlemNo?=
- =?utf-8?B?SmYvcUUyek5SOHlMSkRiOVlIcTBYSTFLaWlvUHhteE5RdWtRNUlyNTQzTFh2?=
- =?utf-8?B?MzVWVThmcFFJTC9MYnFQcXZhd2JUVDcwZWtDRFdneWZ5amtvcjUrbllZTEo5?=
- =?utf-8?B?ZFlMNzI0ZFlUMEJvM3JzSHZiNVdFRlNPakpKNGtuV1pBNGhsUnZHR2Z5S1o0?=
- =?utf-8?B?VmJiNGtIYjA1OFQ4bDJjOG9XY3pLRzFtUkI0a3RlbHFBZWVjTGV5UT09?=
-X-Exchange-RoutingPolicyChecked:
-	pnhMl9B607/0p1Yh655qv++BaU9XN9dMLEX28KN2Lts9+AU33bWQYs03HDztGem1no2egij6I1WuYQBlLsM7oOydoU9nNKYM1wQFO6Ml9R6kkW+glTFyWtzYK3DwAqqqRHDIQlVgS14KGRNfmx5+v2Z+tvxkLwtUlnrjiLJ89Dt9BdFUOkAyStu55RQUU4J2lDYVth9wPBrifhL5zvIEakW3VoAjGiO3LSK1lETBgA+ZsH2BCMbXK61Ecc4hNvs8MFKLsUNA8TzDeddmHFtkCzzZD3XyFhCHmTkxsiGP5rrxwo0RCfEkbI2rrOrUM7Yq8+GizG93mu2ag7Koz395KQ==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42ba94cd-6ab3-4eca-ede5-08df2b673b60
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:24:09.2626
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Vs9OXwDJlLMebTrVkaz13tOiFhV0Z47ufxxx8nsRzAoh/lyVNJsMOQxn1pqBiyqa6dRjQ9SvCGGa6bXfyjPRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR03MB8138
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNyBTYWx0ZWRfX2tkqtD2BNSLa
- oY38SPAr18m328CJJBKu+AaA8PSBLqlvtTqd/jH5NVD06GYlywIVkG8GVIWazlXApziW60V7kyE
- sSI7dtQkoupvEDQDTNO47yXVoVrB9o7zxNoSEbSb0JGKoRPwOOm3xDJpusLKbO9jbjkJnvSytJk
- 9HAu7uQQT7d5ZyN5LDLKMp7BL0EhvHT8TG2M/TJ15Pn30K/GaNSLXBlIClCik7G3q+fQKbHuOjx
- GMUbegk55UTw2wmmZECkLgrxKfmPlkTBobrhcuZUJkMBB+f0CSTq2g4BD369gQuPmBdN6g8s8zw
- VseK2jsdZCBvvz7xxvi+4H7mjX2edViNTFwlQLP3pjvqiPc6DHnqxmkhqt0jBJO4x8haehjYHbO
- +su9CWiKLpee8X8dj4CNp2zV1NojS4DyBSz2Rm7FmZRdtO3k/C7LMrFnPnkC6NmOI1xQFcDl7AA
- O87k6M8+uYjmCFuJ3Nw==
-X-Proofpoint-ORIG-GUID: 3goiw0YjeCg9QxgCdaBS_8LBuBIghSiS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNyBTYWx0ZWRfXwvJb3enfZ8Rm
- bDQdetE3kDQcRezgbeahzXqbHGtxdOjizVgNJyJQQmjiFsInn0nb2sckl47dOKYPpN8w/dvjg3L
- xJZ11T/aF5PBnX/lvLPwPLNOvP38PINxJ+mF53YRlHBHk1k/dWJs
-X-Proofpoint-GUID: 3goiw0YjeCg9QxgCdaBS_8LBuBIghSiS
-X-Authority-Analysis: v=2.4 cv=PvAG/AM3 c=1 sm=1 tr=0 ts=6ad1ed3d cx=c_pps
- a=7wCTOXyfr6KSlQaUtw4X3A==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=ZQxX5BWu6Z8IJBb2zLX7:22
- a=pGLkceISAAAA:8 a=gAnH3GRIAAAA:8 a=kV4nuC8mnj45vidqhlYA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com> <20261015-x1e-cphy-rfc-v1-1-1f3fa9af940a@gmail.com>
+In-Reply-To: <20261015-x1e-cphy-rfc-v1-1-1f3fa9af940a@gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 11:24:49 +0200
+X-Gm-Features: AclHuK8qYB9tixXQ7z206A9ZSBusHJPBuW_pxlm9dxF7pbKhpd-u_hOovixXQ8E
+Message-ID: <CAFEp6-3N1gBZzQ7peHZ5gPt58dv_Xb4SVwoacQuij_Of1ObE+w@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration options
+To: geocausa@gmail.com
+Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        David Heidelberg <david@ixit.cz>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: c_XNcb439A2MENK54pGtfT3YF6mrcDcE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNyBTYWx0ZWRfX1LDwsbpko8sl
+ zrnpiIaKQzcrTQL0qCCzrr1dpZ00NxM6H9c8BxhENSXqHhI0UdhLzwxzEL3lTAlMSMGZ3HrHg+7
+ 6dMjZEcnYWxBnaOwgvbrux4FdJkSyKA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNyBTYWx0ZWRfX1tL9h1CQC5gE
+ jGH2+kCw4UX9kKB/Elg8XGKzU9ymA1glrngcfHlp3xfIPXZpolxKT1xEwqos5Rq/1w87eYHavDY
+ ZRz4i3yLu5aiIk+Psgo2rdkmz2cBNBtzEZnEyMnpZpF56YO1g5GgpNP2asOyaoD2SMJATZCzdVE
+ nZSr57XCWj3Onj7ZKXsbTgRMCFKX3kz0PxBIyTmKNwIOlBgPV1/K4lFSgH+fGNUfxqE95Uja2lF
+ 3Y8WRucbFcjR0Qd5ZoGWwlUSqEa7XfXFqK3qbHRK/sP48KWmMufWazMdGGUn7mjQxNvrr/yYyB6
+ V9wsROyxSRTSMTtjaWoPepUH8lDr8tJ+wr5328RlRviFiNN6dMkYGUbqJ+2ew7SmpqMu01KvN3K
+ n3JYshW6nttH7upjuvSf2GxA/GL6FceLgdHdm0hhImAfHHYhlRDLg6hepGF6clNdaHiJadiStdR
+ 6pokpzA2makY+57/3lA==
+X-Proofpoint-GUID: c_XNcb439A2MENK54pGtfT3YF6mrcDcE
+X-Authority-Analysis: v=2.4 cv=L/CI0OT8 c=1 sm=1 tr=0 ts=6ad1ed6f cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=veGBgP7MCKqIqI38Ms8A:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 clxscore=1011 phishscore=0 suspectscore=0
+ bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160037
 
-On Thu, Oct 15, 2026 at 06:19:03PM +0300, Abdelnasser Hussein wrote:
-> Replace SIMPLE_DEV_PM_OPS() with EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS()
-> and use pm_sleep_ptr() to wire up the power management operations.
-> 
-> This allows dropping the #ifdef CONFIG_PM_SLEEP guards, simplifying the
-> code and improving compile test coverage of the suspend/resume callbacks
-> while still allowing the compiler to optimize them out when
-> CONFIG_PM_SLEEP is disabled.
-> 
-> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+On Fri, Oct 16, 2026 at 12:20=E2=80=AFAM George Neacsu via B4 Relay
+<devnull+geocausa.gmail.com@kernel.org> wrote:
+>
+> From: George Neacsu <geocausa@gmail.com>
+>
+> The generic PHY framework has a mode and configuration options for MIPI
+> D-PHY but none for C-PHY, so a CSI-2 receiver has no way to ask a PHY
+> that does both for C-PHY. Add PHY_MODE_MIPI_CPHY and struct
+> phy_configure_opts_mipi_cphy. The options are the two values a receiver
+> knows: the symbol rate on each trio and the number of trios.
+>
+> The first user is the Qualcomm CSI2 PHY, whose X1E80100 instances carry
+> the C-PHY front camera of the Surface Pro 11.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
 > ---
+>  include/linux/phy/phy-mipi-cphy.h | 27 +++++++++++++++++++++++++++
+>  include/linux/phy/phy.h           |  5 +++++
+>  2 files changed, 32 insertions(+)
+>
+> diff --git a/include/linux/phy/phy-mipi-cphy.h b/include/linux/phy/phy-mi=
+pi-cphy.h
+> new file mode 100644
+> index 000000000..e3f0a8257
+> --- /dev/null
+> +++ b/include/linux/phy/phy-mipi-cphy.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __PHY_MIPI_CPHY_H_
+> +#define __PHY_MIPI_CPHY_H_
+> +
+> +/**
+> + * struct phy_configure_opts_mipi_cphy - MIPI C-PHY configuration set
+> + *
+> + * This structure is used to represent the configuration state of a
+> + * MIPI C-PHY phy.
+> + */
+> +struct phy_configure_opts_mipi_cphy {
+> +       /**
+> +        * @symbol_rate:
+> +        *
+> +        * Symbol rate on each trio, in symbols per second.
+> +        */
+> +       unsigned long           symbol_rate;
+> +
+> +       /**
+> +        * @lanes:
+> +        *
+> +        * Number of active trios.
+> +        */
+> +       unsigned char           lanes;
 
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+So, wouldn't 'trios' be a more accurate and specific name for this variable=
+?
 
->  drivers/iio/adc/ad7606.c     | 9 +++------
->  drivers/iio/adc/ad7606.h     | 5 -----
->  drivers/iio/adc/ad7606_par.c | 3 ++-
->  drivers/iio/adc/ad7606_spi.c | 3 ++-
->  4 files changed, 7 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ad7606.c b/drivers/iio/adc/ad7606.c
-> index cebb8ed8dcb1..e71ff8d38e4c 100644
-> --- a/drivers/iio/adc/ad7606.c
-> +++ b/drivers/iio/adc/ad7606.c
-> @@ -14,6 +14,7 @@
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> +#include <linux/pm.h>
->  #include <linux/property.h>
->  #include <linux/pwm.h>
->  #include <linux/regulator/consumer.h>
-> @@ -1673,8 +1674,6 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
->  }
->  EXPORT_SYMBOL_NS_GPL(ad7606_probe, "IIO_AD7606");
->  
-> -#ifdef CONFIG_PM_SLEEP
-> -
->  static int ad7606_suspend(struct device *dev)
->  {
->  	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> @@ -1702,10 +1701,8 @@ static int ad7606_resume(struct device *dev)
->  	return 0;
->  }
->  
-> -SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume);
-> -EXPORT_SYMBOL_NS_GPL(ad7606_pm_ops, "IIO_AD7606");
-> -
-> -#endif
-> +EXPORT_NS_GPL_SIMPLE_DEV_PM_OPS(ad7606_pm_ops, ad7606_suspend, ad7606_resume,
-> +				IIO_AD7606);
->  
->  MODULE_AUTHOR("Michael Hennerich <michael.hennerich@analog.com>");
->  MODULE_DESCRIPTION("Analog Devices AD7606 ADC");
-> diff --git a/drivers/iio/adc/ad7606.h b/drivers/iio/adc/ad7606.h
-> index 2951bb731354..c60f71a38883 100644
-> --- a/drivers/iio/adc/ad7606.h
-> +++ b/drivers/iio/adc/ad7606.h
-> @@ -241,11 +241,6 @@ extern const struct ad7606_chip_info ad7608_info;
->  extern const struct ad7606_chip_info ad7609_info;
->  extern const struct ad7606_chip_info ad7616_info;
->  
-> -#ifdef CONFIG_PM_SLEEP
->  extern const struct dev_pm_ops ad7606_pm_ops;
-> -#define AD7606_PM_OPS (&ad7606_pm_ops)
-> -#else
-> -#define AD7606_PM_OPS NULL
-> -#endif
->  
->  #endif /* IIO_ADC_AD7606_H_ */
-> diff --git a/drivers/iio/adc/ad7606_par.c b/drivers/iio/adc/ad7606_par.c
-> index 5b137e947f0b..986c15db90c7 100644
-> --- a/drivers/iio/adc/ad7606_par.c
-> +++ b/drivers/iio/adc/ad7606_par.c
-> @@ -11,6 +11,7 @@
->  #include <linux/io.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm.h>
->  #include <linux/property.h>
->  #include <linux/types.h>
->  
-> @@ -251,7 +252,7 @@ static struct platform_driver ad7606_driver = {
->  	.id_table = ad7606_driver_ids,
->  	.driver = {
->  		.name = "ad7606",
-> -		.pm = AD7606_PM_OPS,
-> +		.pm = pm_sleep_ptr(&ad7606_pm_ops),
->  		.of_match_table = ad7606_of_match,
->  	},
->  };
-> diff --git a/drivers/iio/adc/ad7606_spi.c b/drivers/iio/adc/ad7606_spi.c
-> index 8c479fa50a23..10df12311561 100644
-> --- a/drivers/iio/adc/ad7606_spi.c
-> +++ b/drivers/iio/adc/ad7606_spi.c
-> @@ -9,6 +9,7 @@
->  #include <linux/err.h>
->  #include <linux/math.h>
->  #include <linux/module.h>
-> +#include <linux/pm.h>
->  #include <linux/pwm.h>
->  #include <linux/spi/offload/consumer.h>
->  #include <linux/spi/offload/provider.h>
-> @@ -502,7 +503,7 @@ static struct spi_driver ad7606_driver = {
->  	.driver = {
->  		.name = "ad7606",
->  		.of_match_table = ad7606_of_match,
-> -		.pm = AD7606_PM_OPS,
-> +		.pm = pm_sleep_ptr(&ad7606_pm_ops),
->  	},
->  	.probe = ad7606_spi_probe,
->  	.id_table = ad7606_id_table,
-> -- 
-> 2.54.0
-> 
+> +
+> +#endif /* __PHY_MIPI_CPHY_H_ */
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index c480d6cb4..f12337834 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -19,6 +19,7 @@
+>  #include <linux/phy/phy-dp.h>
+>  #include <linux/phy/phy-hdmi.h>
+>  #include <linux/phy/phy-lvds.h>
+> +#include <linux/phy/phy-mipi-cphy.h>
+>  #include <linux/phy/phy-mipi-dphy.h>
+>  #include <linux/phy/phy-thunderbolt.h>
+>
+> @@ -42,6 +43,7 @@ enum phy_mode {
+>         PHY_MODE_PCIE,
+>         PHY_MODE_ETHERNET,
+>         PHY_MODE_MIPI_DPHY,
+> +       PHY_MODE_MIPI_CPHY,
+>         PHY_MODE_SATA,
+>         PHY_MODE_LVDS,
+>         PHY_MODE_DP,
+> @@ -69,6 +71,8 @@ union phy_notify {
+>   *
+>   * @mipi_dphy: Configuration set applicable for phys supporting
+>   *             the MIPI_DPHY phy mode.
+> + * @mipi_cphy: Configuration set applicable for phys supporting
+> + *             the MIPI_CPHY phy mode.
+>   * @dp:                Configuration set applicable for phys supporting
+>   *             the DisplayPort protocol.
+>   * @lvds:      Configuration set applicable for phys supporting
+> @@ -78,6 +82,7 @@ union phy_notify {
+>   */
+>  union phy_configure_opts {
+>         struct phy_configure_opts_mipi_dphy     mipi_dphy;
+> +       struct phy_configure_opts_mipi_cphy     mipi_cphy;
+>         struct phy_configure_opts_dp            dp;
+>         struct phy_configure_opts_lvds          lvds;
+>         struct phy_configure_opts_hdmi          hdmi;
+>
+> --
+> 2.53.0
+>
+>
