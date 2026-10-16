@@ -1,72 +1,84 @@
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84C3257845;
-	Fri, 16 Oct 2026 13:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A044DD3C5;
+	Fri, 16 Oct 2026 13:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157677; cv=none; b=n/YoP2O7wCRUUX9eYUZvMQdTbVLw0sLwwv6mP1nQ7Yuu+xuCatiXpSS5Zn2VTpCi6Uh0ReP0IiWs9g0m6RncgppOgyphxEj7Qc1MKA+P8DD+/DhsJ6Lgu3jjKKrRaFSdY96Smcd4sAPlMaWlnmDeBTEkcKG/MFFXoYCfMgnIWoA=
+	t=1792157699; cv=none; b=NxuNO9yA0ULBkFRkNR/awTEMwxCKtSjWJiPHxG0VnzY2+wiwmy4bavnaiw0WHl5X785ZoOxUJZnRKIHOziuQY8jdrS2/Ab059v0S4LHe0lnMt4D6QjlHdWY4+vABYQCPSDXCAVr9asR+I236UoIkZdPqFst/+17IY5EymGvwdIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157677; c=relaxed/simple;
-	bh=XW42QnhWDic8dS551hKWNpt+vNwC58Qk9xk8pYcU3ks=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BTQmyKwZxn7aI3HaU/uBDJe6VPcwTZ7t7q9YtbjWvkwCfN49fhrI7aliepC8oyhgBuJ+09JGb+32cUJMHADPQtpM8RhJYvHqCaq0prBdFKPNXdBz5qpH8aig0/LNBcBF37W013z9+LlqLg2ShkhVP5efGnrmZ0IkjHtWIlglP5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=i8OEiZ1H; arc=none smtp.client-ip=213.133.104.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	s=arc-20240116; t=1792157699; c=relaxed/simple;
+	bh=S1A05S73ADJaQSvm/UP/khLV1SiJNFFE4BN1Ob706d4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FJ/hyLX2LBn9nq9OIn01UUmGiQPoYN0RTIOExJxxXeGQi+R7oNUshKXiN3swH+jpFQ6/xII/uO5p3VplX+RtGR/fwPzJI2XXMtsjki+w4TF84+f3gLCmO512HiCAmCiPwG1GTI1vWxxnmOoHgvsX6Fa57iCFjBVehHGeDGB0+Jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sd/lRglK; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="i8OEiZ1H"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=rnVFGLMLcNNuhIR8pXHMwYYFl55NqqSkqiJxhHwRBQU=; b=i8OEiZ1HA2HUIX30MbfZljb8EO
-	ErRkl2o0t8/OLm4cyAthkyhB3jDtBnT8hDp8KVxLY8x8YUsK1Ij5AY/NDhps4Eu0eyXKF0549jzIl
-	2LZrhElezia8dX2CHj6p/UyoJyqBEZGbI/0q58RUiPs2/JdOkAGsKr8OXcVUTU1/O1wLadSgMbRq4
-	/SCVNP65wDo+BJWER8fJ3A018ve1JUZ+Q0D1tSpy1C7XhcCcRe38wNCV0UejDQvvj2ctJXI3DrPxN
-	gIOo9FpgOcZRljqW0xe4dQ8BAGgGjAuzwLw81i5SjsUVIv/ZskLCZ3RjxddgqYsuCF99M2QCj68Hu
-	cdMyfLWQ==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xHi4u-0004CY-1O;
-	Fri, 16 Oct 2026 15:34:32 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1xHi4t-000EMZ-2M;
-	Fri, 16 Oct 2026 15:34:31 +0200
-Message-ID: <471a5989-721a-480c-8b48-4aeb6ec6aa62@iogearbox.net>
-Date: Fri, 16 Oct 2026 15:34:30 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sd/lRglK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792157697; x=1823693697;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=S1A05S73ADJaQSvm/UP/khLV1SiJNFFE4BN1Ob706d4=;
+  b=Sd/lRglK/SuYXXIR1wwSa89o3MQE35Lw4UMk3MQwFykdanhFLvBFw2MY
+   SfEDtohHFUfdTlT5QDl2boryoT3RogldfI8gUBfq2/oc4hu+nlb6w0ucf
+   lZo+/oKv5gUAfjlEqp1xlZspHT5b2YDOv9Y91GYUMjsOGNs9PoSadjhLt
+   U7esMi8Z5BhQtC/qQjfEWaPeuhijJ5Q3oOJ4hjzPRCc1a9zWiJx6OJofE
+   j7U5sAOEHw5riyqVhZY5VYHc+b9/eXpH+xxfU9+aZnvCHhrBfc/8Pueah
+   4TZH/R7MNDpSgLv2SR3V236X3bOMGLeMY36ufea6of7UQ9HZ5avSLycvU
+   A==;
+X-CSE-ConnectionGUID: 90fgvJsESDqbIJpiz6C/ng==
+X-CSE-MsgGUID: jFIWzyIISGuuDVtKsZjHcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="951237"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="951237"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:34:56 -0700
+X-CSE-ConnectionGUID: XtG2S+i7RiaSDd1fbp1rIQ==
+X-CSE-MsgGUID: zSFJHXqiRruZ1+h/qcFX9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="3736595"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:34:31 -0700
+Date: Fri, 16 Oct 2026 16:34:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] iio: accel: adis16209: add missing SPI and OF
+ matching table
+Message-ID: <atIn5M6l__WKsjyv@ashevche-desk.local>
+References: <20261016114527.128364-1-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/bpf: remove unused duration variable from
- cgroup_attach_multi
-To: pdsj2807@gmail.com, andrii@kernel.org, eddyz87@gmail.com
-Cc: ast@kernel.org, memxor@gmail.com, bpf@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015175022.1370503-1-pdsj2807@gmail.com>
-Content-Language: en-US
-From: Daniel Borkmann <daniel@iogearbox.net>
-In-Reply-To: <20261015175022.1370503-1-pdsj2807@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28155/Fri Oct 16 08:24:17 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016114527.128364-1-shehryar.amd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/15/26 7:50 PM, pdsj2807@gmail.com wrote:
-> From: Palak Raval <pdsj2807@gmail.com>
-> 
-> The duration variable is not referenced anywhere in the file.
-> 
-> Remove the unused variable.
-> 
-> Signed-off-by: Palak Raval <pdsj2807@gmail.com>
-Stop sending untested noise...
+On Fri, Oct 16, 2026 at 04:45:25PM +0500, Shehryar Ahmad wrote:
+> Replaced old manual matching via MODULE_ALIAS to modern SPI matching
+> table.  Also added missing OF match table for DT based probe. Compatible
+> adi,adis16209 is already enumerated in
+> Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
+
+Both LGTM,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
