@@ -1,238 +1,217 @@
-Received: from sonic310-25.consmr.mail.ne1.yahoo.com (sonic310-25.consmr.mail.ne1.yahoo.com [66.163.186.206])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76F530C168
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.186.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F362F8EAA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792112636; cv=none; b=VuGp5Bv+gR2HBVMLHcCbRWy1FyBFXVWfI12jpuWd8WChBYm0M+/zwO2PKPJecR0Icim05c7Obi6aC+nUjItCcvUu3xQppZLBLdmW0D08zl6CgsUU4RabmTKXReTVBhhN3LYVnv77KUBze8tKGYpsW+mdqDYA+KW10aZc2Kh0GS8=
+	t=1792112704; cv=none; b=DBNcy18ywxnHWqyQWgELSZYebNucLc3sjgJJuvk3dEJkMSfi0SreBeLL7N/tv4dZvRyOk1tqIu3hbvt2WE39epPmflz9SeT8qQ8PfaQO2Gw7KAh7GvhmKp/r3PNILqAN5BD5KqqSZv2zS7j+Td5Erk5DJGiR3Sa/G/l0N+bIAFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792112636; c=relaxed/simple;
-	bh=Pk7Fb1AZzeW7M7FKRbqjC0DzgTCdNOOOuZDBDnmkuPI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=nzbPZdrOaJbem7ysSxWkN50Y1eqro722ROBacAzaJnJ387gxrYuBwpI3VFvv1bH+7KQf1wUb7ZhaIauTb7U9mor5yho/OTkGvZwkDB2C9Bd9aYPJGzRTDu4Fi98KajIz6c7Ms20P8i0zkNZ1ILOG/QaFXIQMlqMCbZDBwKFQxNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=eo9wLN/P; arc=none smtp.client-ip=66.163.186.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1792112704; c=relaxed/simple;
+	bh=ymnukeKylAcZafqsNYiiO2UX3W6zv2Eym51b82sqPow=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=njZVnlkNCdyZuUK3eAKT/yhPfLg457HCan6rn/g2Pk1xKnlYm0LzKYMgXyBUc+1pg+Iy8w3U+nZIjMkZCBAfJMJ8tmwG88L5G1hXv6wPRNNEFc6CvhrpMQusiCclRyNa4ob5K/nKI6O2EiuZVoBssqtvpi1I9jsTTIqatyacS74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KDkM7zee; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="eo9wLN/P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112628; bh=lMXy7NS+CViVo/GJ9mjOwveWeUgRdmhWsoy0QjbGr0M=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=eo9wLN/P5ZideK5ErJTjjA0e5CqjwpMvz0BKDEgSSdV9U5icndLDNJInGajucWFLdlNDTVcUO7D1Nh3E1fa3Oik1hJz7Gr63QDF4Xa/7NtllZqWKeWbFzen4ff1OkhjIxNOm5ft1o6igkbGwohM99lwim6P3TYhBD03fD0Ps20ciunoytNe+LfGMyqGhEL0zAneol5F6TLhnu0rgQ+541AsiJmcfqlfICpUtMu2nkb5YcOU4lbaFq05HS658eOMjfjoJ+ebuNY68zYj6HnzmfZpWq6SU2U5+9gb1vTGFSi1saaqexxe2qzKfoNKDj/uws4m/wRYLu2eoemfESB9vWA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792112628; bh=ny7nGMiC/vd2BeQe0r1/rVQz37M/j8RW7cZmm1zI94p=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=bK5lJY8WgDMARGJ7Wgn/OL9K67KuW01GMoItC4+X0LcuaWlL9/qjucFZDKuY7I4ulbo0GfdWMF4+M54oKFHjCj3dfhwSZncxoGuom3Y2K9IfIV8rXSBiTNLdIQT8JKNnHWOX1RWsgZhUlv9wRaqO42v1Fr8YsiKdfkhK3NOiK6MaOkWcK5IsKfDpBl5bLZyCaiganDtjxszBLhOV7FTptz6e7qzb7BYwZp6uwfqCF7Ya1inRquHOvip+Z0+t0eivJQ/lIBDK1iGH3CD/legwWuUC1bOLoBe+nhoZJUIHo9FV49W7ERt7LSQmqRD7RqgRxIpJP0keXQ3s9qAVjDq8iw==
-X-YMail-OSG: gHd6ZXIVM1m719x_fS_Ka2keIVDqonz9uLxOLGd2pJHFEtgWmrDKVhymgx.AzzT
- inutMyWBgBd4MubF.ct4Ue_U8xURIXWT5GpgUKL2azIYNiVqMT9uMKoL8TAOHyYrvSTlQF7tt88e
- 0ISOPMCB97m1C3Kj1NxEcji3IKMyQLDI6z8svWgATL27YLs_IWEyg0rCmCBi2nWYu5E_Uqsv0tta
- XZy_N0mcPFFS8WPPEIjxqL17TJjEISGzy33YaSxslXaTP8Lb7JmTL1VLBHI14vFaxONAso4gu1TR
- FPcIaskQGB8sUFRqhzwMiJRnNjFrsUFwRj.RVgCiaG3zr6PkUYsQ9ZYjMJmH5bNzfrBmIP5PCbkl
- Ztn6Ln7xXwgFQ.HRs06qON5ZDFz.aLQFEQWp9QCcXBz8d5hclarAp4loEQBgXPBiIx3M7mwHTH42
- T.e.y89cWQVogDa.m1fB4j9Xac9BZXncM3k.IGZEjxenE3p_xYfpu6wolnmJ5Cos4jUGPSAm4p5o
- vtAZVqPjs8U4MNFKcuFt8ULsxa5Zq.gWw8s_SDmicxl1mNHj72k7vqi95oSeD0e0K9N7oDn0zFxk
- If1s48GX2bW7K49M5pezHMpYKpWdv_dXGsTNZc_H7IgJ4_Q3dEwADY7kdz.tBkbXsB7qq5ugQ_k8
- 3mR2eIw.ihC6GFuXp8syKGEn1SWQSlMYWmUkL3rRzv4QweS0O7ojRuKkOzXvifADbKXfD06Qfxoq
- C4t63cGJJGSLDihHfOqH8NszztY_EEjtbQR21ynoP0.jKhOl3F8NoIy8x6DKOWr2oCRBtQVEnjzr
- obdRc1.tNxTcC37M8YOG2E_JmzEOsnZJImE8dSC07dNXdhYatgz7Fqhw0e5RhJMiz732eU8jL1gv
- 5hCwk87Sd8IqrKa8mCXm2jJa884a3roYTMMjLixHQxI.GE8hOu9qTvW4Cyf.KOXes2yyg_dX7eCY
- HebCJX.TP9ZlCOLaE8Ke2yMQxdkjni.nEPx2XaVXCnP1nW0Q5he0FOi3tw.LyxTjnGURPcs89Ztl
- rzEdAFiVgHBgQ0EYY5_8NRFgsGvrFnayrhFnzPNk29xB.2UN0JS.rRh8LKpI9sRPEZOh8QYXCpCn
- FxYjiHRI_LsSmEdAE0F1ImKCRWSquRb_GAam4jGGz2jK79RHyYCCoDgbNaSRDkVauVnri4or8OZH
- ArxANquSCzJC6Pt3m.IXvDO2IOj81tdWU1OY6unH2ZR94AXcm.EeRs4IPmEgKyFEXBDyHZ1t7Xit
- dAcspfXiaiGYOSY3cDU_MzbUy1RhlYe42f3F7pd_Oz_96X644HpI5AdOv9VrOZulM32uM1IMeUrz
- JlW8574r_xP8XWC44Wgl2NrjsrUdYNAya7L7VA2rpMqEkLexM4aXI02_TfMX28X1Lsg0NTxxZJKE
- 4aLpDTsbQTQ.6pCUoKhduXYFSN1tDg3FIK.wGxe.zc_4e0aIe0quaitV7ZprqKpxiCzH5qp9R80.
- 69GOGFTz_KPdOMDh_Qr_LIQo9uUGVldvjj2L0yJi1V9P6nDIVJVZP3X2UmYVKgUWaeTwfOfghpzf
- d2j8DnuMskVYHXFrIC9uIL24gWHWJdy2JX35LKKnrbuun_7_oKhovb6S.ZLcb6kTykxpQI0AXHSS
- Cd2e45gm_CT7QNccQ2l6kzQ0zr0rCTvrj7rjwzsCaX98XjVzRMnUsT52I3tXhHyNitTLb3FRj5YP
- ISo5_zV8hXDD8vDnFTIdEaf0i.LDf0LBIw3IX44v6e3WNbctG0Vc_p_u9TT44e9WYSVm3NclyS6D
- BxOm0_xWF2Lu0c7brXyI9m7Z.m5XDLcgE14_qtqu3ArWPOFcA2icY6yR4WqayY3Pljb7f_YfCFcK
- apjUlP.l3LIQEmUUPWghilNRty2DnaeQNFG.1Hui.aHLpBjlOoQVxyNlGkxful7jbtqkRnmvbgGt
- 4fxS.x7lif7P0JHdRr1JqIZ0cpMQSzLrErayPRnLJO.M9TpT0BIW7.dK6fz42eKHNQ3bYJdFLowG
- CaxQCIF5VbT14A.jeFEMHFFomUwLVl4dgnB3_PtFt5Z2tDwJaRvGmtlrPI.aSbXXV8wekkTf.LLT
- 6qIbD7RTggmqlp2sOEiUu0jbvrwQEgAX3GXt2eyR2jdfj__w6uB1PTQsqmzJSDbP7370Ey6wi_4T
- Hd27tLCyCcvfzRVhHWHiRm6HTECv7IHolH7nkHDbV9ocUOWaB6aaBST9AEzqFILgRnDu.zeJihyQ
- BuPNIUzm9xEi3xpO0kpiroN6BQb9kGb_vK3.ffnfZdys3Vn.hLirIf5aVdwnjXGNvXYnhxUxUoXJ
- yWWcGuzhlr633NDH8bwzHNom0OVCMiOnWiA--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 9f451eab-13a9-4717-a3e5-b56c054b9512
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.ne1.yahoo.com with HTTP; Fri, 16 Oct 2026 01:03:48 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bgsl4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0c66292a91fe4d79b04ecec5a6cfaf87;
-          Fri, 16 Oct 2026 01:03:46 +0000 (UTC)
-Message-ID: <75829f0c-69d4-4c16-8300-142023f840d7@yahoo.com>
-Date: Fri, 16 Oct 2026 03:03:41 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KDkM7zee"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-892734ce7e6so1176317b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:05:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792112701; x=1792717501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=syAHkvAn4YNYIcaHBObgsW1JOoqD1UVZ48XNPLhl2Qw=;
+        b=KDkM7zeeCssHdMJOlC0EvMCOP0AFhJbGDyzsZZmnZ/SsnfJB7ZLgfrEZmdpQCM9O0y
+         Ud/XOtqWp49ALfGbnHM95AUh7zcz75KstMVV5zOJLUc28k3yYj14jfkDPgV081F11/g7
+         1MaSj3RivUT7hjzBATuRmWiec60z6aVCSA0Rwg0FsqwCfRbrBdU/THEW61VRPbxAwTK0
+         xxA+jJ83vQbTOBsZXDriZ/TJ+Xg772+HRrNGhODR4GnwbGHCIK9DqsDy2mDFYCnLgum1
+         hE70cmS+ZJ6yBGLbjs/DTbqfdn12/CzmMCb66+LOucu//bfLGQwyQfJZd9Kl6GUoHXIV
+         /cMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792112701; x=1792717501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=syAHkvAn4YNYIcaHBObgsW1JOoqD1UVZ48XNPLhl2Qw=;
+        b=HYea8YHr3ZwwTe81ET/MReJA/nbVlWG8+d7r/QeIkuIkBqKXHfquBHS8b+g4/AEpdv
+         kgNIVEMvBe3sjJEqYZwTYpxopOHETSU6srt7VS/rzka0mVqUlL+lRMBB5WYPNMC5fqqt
+         qUSMj+XGDTTb7+udI7BwtmbYywMM3Z+FvJinpKf+ZAN6/4PzdcHUfSUMoJbNMXQcWD0R
+         tNGQ4TumQfjjhxNMyXpTagBbiPkvCfnzrCxFL5zWmll4EXLPvbfb1gaLmhftDEcJhnjd
+         27l0kmuQL/fNnY2a5NOLYabAcof8rNXU9kg9XtWSyRww6unedMtaafPylBbE8zYMhcc/
+         IrPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwgSSdjrkkwPcbfddd8oalypjJ8eUXfDWuj7FhtYESuoLERJgrFsy+ljOjeo9quwJxLRnyoLn+DPemsGXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvl3mFQ61Lu700Kn2axM1RNNWOLAcGWVviUz1tLFIWuHYDILfj
+	oGuY2nl1fwJujNz3H3+2AbNSIDbLauc8tK/a9aKnDIsN0XoPqbttN3Z3
+X-Gm-Gg: AYBFou04R6OpeLQpjIE3hyPeRj4Q1de1EPZXhquWISa/98UkEGU0/wOd1au/ng9cJj1
+	bdza99kLoyyFq5YnZBUggK4MqtxphMprxhek59JX4GxCWRoEpcdBbRHbyOXoyX2nvvUzXBc/2iZ
+	Up96QdAlzHcYxMj9haL0AeaFs08TjslQX75R6DtmUmOholRUx5ER90N/zoYO7nwKvmwdKZq/5JU
+	C/rK3IY2s0LGz/PRB7yAqYxjRWWy5NYh5S5Rc5OITdfmAdXzwiZwbrs5xbJnQ12Lvo96HNxNk5Z
+	ZdmEcZf74izd8q9U7UP+HnROvzn+fSPvmQvYrQ7x5ozfOEFBRDOsbquHBA81vVfnEpGHNSgIUfn
+	rmmwXI9+0fq2yjr0ksDMrblw8tU4ojDDwa3ZV55vPZp9FYbpCodxECEAk85/R24jBkd1hAEOtKF
+	F3stnm+pmmNnjpYkQpTETZ04O13EO0Pjo/bvk/WjwX+alqdB2CZcfWbg73s5d4j8Nh0qslKJ+R/
+	N+3FUxWOeAtyVjFP3Rlp+qctQt5DJSRn5V+lURwb2x50vsqzIPOAZgk
+X-Received: by 2002:a05:6a00:2e95:b0:874:708d:b620 with SMTP id d2e1a72fcca58-897c6e1be95mr18132833b3a.30.1792112700968;
+        Thu, 15 Oct 2026 18:05:00 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5735e513sm302821b3a.27.2026.10.15.18.04.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 18:05:00 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH v11 0/3] i2c: ma35d1: Add support for MA35D1 I2C controller
+Date: Fri, 16 Oct 2026 09:04:45 +0800
+Message-Id: <20261016010448.324856-1-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v6 3/9] net: dsa: realtek: rtl8365mb: set speed for
- family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-Content-Language: pl
-In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-On family C hardware, forcing a 2.5 Gbps link speed requires relying
-strictly on the HSGMII SerDes configuration block, while forcing a dummy
-1 Gbps value inside the standard digital interface register. Family D
-introduces a dedicated hardware link speed value (5) for 2500M. The speed
-bitfield width has been expanded to 3 bits, splitting the most significant
-bit into a new separate register field (FORCE_SPEED2), which maps directly
-to a distinct per-port digital interface force layout.
+This series adds support for the I2C controller found in the Nuvoton
+MA35D1 SoC. The driver supports controller and optional target mode
+and runtime power management.
 
-On family D the forced-mode configuration (link, duplex, pause, speed)
-is written to a per-port register at 0x12c0 + port instead of the
-per-extint register. The bit positions of TXPAUSE, RXPAUSE, LINK, DUPLEX
-and the low two speed bits are the same as on family C; the upper speed
-bits go to bits 13:12 (FORCE_SPEED2), so FORCE_EN (bit 12 on family C)
-is not set. A second per-port register at 0x12c8 + port enables the
-forced mode: the vendor RTL8367D API writes 0xFFFF there when the MAC
-is forced and 0 otherwise. This driver always forces the MAC, as on
-family C, so it writes 0xFFFF on every call, including link down.
+The implementation has been tested on the Nuvoton MA35D1 SOM board.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 82 ++++++++++++++++++++----
- 1 file changed, 69 insertions(+), 13 deletions(-)
+Changes in v12:
+	- Synchronize IRQs while initializing transfer state and issuing START.
+	- Clear wake-up control if enabling IRQ wake fails.
+	v11: https://lore.kernel.org/all/20261001075101.489660-1-zychennvt@gmail.com/
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 840db5a..2dabc4d 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -344,6 +344,7 @@
- #define RTL8365MB_PORT_SPEED_10M	0
- #define RTL8365MB_PORT_SPEED_100M	1
- #define RTL8365MB_PORT_SPEED_1000M	2
-+#define RTL8365MB_D_PORT_SPEED_2500M	5
- 
- /* External interface force configuration registers 0~2 */
- #define RTL8365MB_DIGITAL_INTERFACE_FORCE_REG0		0x1310 /* EXT0 */
-@@ -361,6 +362,28 @@
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK		BIT(4)
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK		BIT(2)
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK		GENMASK(1, 0)
-+/* Width of the FORCE_SPEED field, bits[1:0] */
-+#define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH		2
-+
-+/* bits[13:12]; bit 13 reserved, no defined speed value uses it yet */
-+#define   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK	GENMASK(13, 12)
-+
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE		0x12c0
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(_port) \
-+		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE + (_port))
-+
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE		0x12c8
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(_port) \
-+		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE + (_port))
-+
-+/* Per-port force-mode enable. The vendor RTL8367D API
-+ * (dal_rtl8367d_port_macForceLink_set()) treats it as an on/off switch for
-+ * the whole forced configuration: all bits set when the MAC is forced, zero
-+ * when it is not. The meaning of the individual bits is not documented.
-+ * This driver always forces the MAC, as on family C, so all bits are set
-+ * on every call, including link down.
-+ */
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK	GENMASK(15, 0)
- 
- /* CPU port mask register - controls which ports are treated as CPU ports */
- #define RTL8365MB_CPU_PORT_MASK_REG	0x1219
-@@ -1646,23 +1669,32 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
- 	u32 r_duplex;
- 	u32 r_speed;
- 	u32 r_link;
-+	bool is_d;
- 	int val;
- 	int ret;
- 
- 	if (!extint)
- 		return -ENODEV;
- 
-+	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
- 	if (link) {
- 		/* Force the link up with the desired configuration */
- 		r_link = 1;
- 		r_rx_pause = rx_pause ? 1 : 0;
- 		r_tx_pause = tx_pause ? 1 : 0;
- 
--		/* The speed field has no value for 2.5 Gbps: the rate is
--		 * determined by the HSGMII SerDes configuration, and the
--		 * vendor driver programs the 1 Gbps value here.
--		 */
--		if (speed == SPEED_2500 || speed == SPEED_1000) {
-+		if (speed == SPEED_2500) {
-+			if (is_d) {
-+				r_speed = RTL8365MB_D_PORT_SPEED_2500M;
-+			} else {
-+				/* The speed field has no value for 2.5 Gbps:
-+				 * the rate is determined by the HSGMII SerDes
-+				 * configuration, and the vendor driver programs
-+				 * the 1 Gbps value here.
-+				 */
-+				r_speed = RTL8365MB_PORT_SPEED_1000M;
-+			}
-+		} else if (speed == SPEED_1000) {
- 			r_speed = RTL8365MB_PORT_SPEED_1000M;
- 		} else if (speed == SPEED_100) {
- 			r_speed = RTL8365MB_PORT_SPEED_100M;
-@@ -1692,20 +1724,44 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
- 		r_duplex = 0;
- 	}
- 
--	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1) |
--	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
-+	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
- 			 r_tx_pause) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_RXPAUSE_MASK,
- 			 r_rx_pause) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK, r_link) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK,
- 			 r_duplex) |
--	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK, r_speed);
--	ret = regmap_write(priv->map,
--			   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
--			   val);
--	if (ret)
--		return ret;
-+	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK,
-+			 r_speed &
-+			 RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK);
-+
-+	if (is_d) {
-+		/* Speed is 3 bits on family D: bits[1:0] go into FORCE_SPEED,
-+		 * bit[2] goes into FORCE_SPEED2 (bit 12); only 2500M sets it,
-+		 * bit 13 of the field is unused.
-+		 */
-+		val |= FIELD_PREP(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK,
-+				  r_speed >>
-+				  RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH);
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(port),
-+				   val);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(port),
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK);
-+		if (ret)
-+			return ret;
-+	} else {
-+		val |= FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1);
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
-+				   val);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	return 0;
- }
+Changes in v11:
+	According to Andi's comments:
+	- Prefix the remaining timeout macros with `MA35_`.
+	- Handle errors returned by `i2c_slave_event()` by sending NACK when the
+		target driver rejects a request.
+	- Use `dev_err_probe()` consistently in probe error paths.
+	v10: https://lore.kernel.org/r/20260921083753.1109826-1-zychennvt@gmail.com/
+
+Changes in v10:
+	- Handle enable_irq_wake() return value in suspend.
+	- Correct clock divider mask and maximum limit to 10-bit.
+	v9: https://lore.kernel.org/r/20260807060400.2047517-1-zychennvt@gmail.com/
+
+Changes in v9:
+	- Centralize SI handling in the interrupt handler.
+	- Fix target mode comments.
+	- Initialize the target transmit byte.
+	- Add reset_control_deassert() during probe.
+	v8: https://lore.kernel.org/r/20260804084806.1846570-1-zychennvt@gmail.com/
+
+Changes in v8:
+	- Remove rpm_put avoid duplicate processing.
+	- Add synchronize_irq wait for interrupt to finish before i2c->target = NULL.
+	- Add ma35d1_i2c_restore_idle() to handle bus errors or spurious interrupts.
+	- Change return types of TRX helper functions to irqreturn_t, returning
+		IRQ_NONE for unhandled status codes.
+	v7: https://lore.kernel.org/r/20260727081859.1737223-1-zychennvt@gmail.com/
+
+Changes in v7:
+	- Disable IRQ before clearing i2c->msg.
+	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
+	- Remove redundant register access in runtime suspend/resume callbacks.
+	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
+	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
+  v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
+
+Changes in v6:
+  - Patch 2 (driver):
+		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
+		Based on Sashiko AI Feedback:
+		- Added zero-length read quirk.
+		- Set i2c->msg to NULL on timeout to avoid use-after-free.
+		- Cleared hardware registers on target unregistration to release the bus.
+		- Protected suspend-path register writes with a spinlock.
+		- Validated clock-frequency to prevent division-by-zero.
+		- Removed incorrect I2C_M_IGNORE_NAK handling.
+		- Corrected a comment typo in the receive data path.		
+  - Patch 3 (dts):
+    - use a generic functional name audio-codec@1a
+  v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
+
+Changes in v5:
+  - Patch 2 (driver):
+    - Add spinlock protection for MA35_CTL0 register access.
+    - Add NULL pointer check for i2c->msg in the ISR.
+    - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
+    - Use pm_runtime_force_suspend/resume() for Controller mode 
+      system sleep.
+    - Control I2CEN bit enabling/disabling via runtime PM.
+    - Refactor arbitration lost handling in state machines.
+    - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
+    - Clean up readl_poll_timeout() parameters, retry loop, and
+      unused macros.
+  v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
+
+Changes in v4:
+  - Patch 1 (dt-bindings):
+    - Update example interrupt number.
+  - Patch 2 (driver):
+    - Remove redundant spinlocks and fix 'irq' type to signed.
+    - Fix target address recovery in ma35d1_i2c_reset().
+    - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
+    - Fix timeout UAF via explicit IRQ disabling during recovery.
+    - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
+    - Limit suspend/resume wakeup logic to target mode only.
+  - Patch 3 (dts):
+    - Add missing i2c0 node to dtsi.
+    - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
+    - Add nau8822 audio codec node under i2c2 on the SoM board.
+    - Drop redundant i2c0 alias and clean up dtsi property ordering.
+  v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
+
+Changes in v3:
+  - Fix minor DTS formatting issues (whitespace, missing newline)  
+  v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
+
+Changes in v2:
+  - Overall:
+    - Rebase on linux-i2c/i2c-next
+    - Switched terminology from "master/slave" to "controller/target".  
+  - Patch 1 (dt-bindings):
+    - Simplified description and fixed 'reg' size in example.
+  - Patch 2 (driver):
+    - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
+    - Optimized power management by moving clock control to runtime PM.
+    - Simplified code by removing redundant .remove(), .owner, and inlines.
+    - Added dev_err_probe() and default bus frequency handling.
+  - Patch 3 (dts):
+    - Moved i2c aliases to board dts and reordered nodes alphabetically.
+  v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
+
+Zi-Yu Chen (3):
+  dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+  i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+  arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
+
+ .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
+ drivers/i2c/busses/Kconfig                    |  13 +
+ drivers/i2c/busses/Makefile                   |   1 +
+ drivers/i2c/busses/i2c-ma35d1.c               | 800 ++++++++++++++++++
+ 6 files changed, 969 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+ create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
+
 -- 
-2.53.0
+2.34.1
 
