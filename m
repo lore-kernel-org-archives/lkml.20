@@ -1,131 +1,155 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6134DE728
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7370501F3B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167389; cv=none; b=WUtSXZiWTIJOkIeII73zD+eO9OUPhCAlEzCpxGubdcsHAiptJ5FQY2bgxf2z3/6PhwIz1BqhhpK1MBPk8kWSKIwBGzYK63eGKAukbYJJdOWoVDydaHRWYSJQd4Thr4JJhx1pcyE/SQxgV0hlhbpl59PHUG64GOqAhe9EL9jElBg=
+	t=1792167398; cv=none; b=En6EyZohJvYYBjSENF3qGRcokw+jbegfxtFNpWWBVjenVOfQf4uzPLgv6mxSJdacg36BYR3YSTE8hUF8Qx0mHnrx3Ai4D3Bwpc6ye8jHcCaVHbWI2gL1Lu2rfs9meLbAJ37hsWSA8Tz/vIwTkkM9yCvUIod8nyqaUVnCOyq6poc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167389; c=relaxed/simple;
-	bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pBQnHP84Z+8VuQVBGdmM9LGsxVFsiO0rzrZNdMPPOwUBivRV38ki3KmrBGfPwGSfk4Wa+aNsIS43/uAWXvySQgT66VLlVjCQ5g0/+NYbIrA9EzCO95Fpx7tFxwBopNZ3Yilk29Tq2x8lwxVP/UvSyILa7KeVsCrFQDpExz6/7I4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceTiwjUX; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1792167398; c=relaxed/simple;
+	bh=SnxQm2OWqBd/MnGlhTYEtXgeUhrXi+JwGOdsFKiHwlA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q/Crso1jmDqTCd/OgmBb/YWBn/GW62P1BSc3FMSnhUGJspWEPqDuJRpv+M2LpQKV+linA0coWVwlqpg6p5ZO5S32cZRkDTDhu/O8sBzt1F8WaMKy404iKvgSD0J7OpKDA4mnXgJDL0J93OgDLE0Hd9hMNYxzS3DlKK9hnJnQHmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iZdrd36z; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceTiwjUX"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so1250755e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:16:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iZdrd36z"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so137238a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167381; x=1792772181; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-        b=ceTiwjUXQ8TOjcRuS1jy7GEudy2wieSR+3fN8U5c4uDIeK/skbgVstU1CHOSoeoGh3
-         Y9Q72hY3UtxRukdGjUlFbJSPZqciwPFSfZxmUEXm5umscXZX0vNN+2Q/uz2aQ57WmzUv
-         OlKZvzdzytjNZhtOncAmZeoPeOtXmm/QhO+dpEryUmgefRQ8SSLrupe0uGFSDXZErQTd
-         CP1jaHNQ2iHz6CNSq5rLgb5akpDSYxvF+HPH/o8hStyq2j87ghOf0HTc3hF6JeDivAPV
-         NQK/AuD+Vqy8soXfzt6MFA9C54JVdVXD7U0RYDxM5loBnsAE+nEOFTYc7zq0Xg+ViyYx
-         XhAQ==
+        d=gmail.com; s=20251104; t=1792167392; x=1792772192; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bV426IXemjCo0tARnAuCDYkrcxzdrOKgQiA5hnmvVlM=;
+        b=iZdrd36zqi3z2d90QZXYvQ+CfwjBKTGkbChvM/W2lb8b72ZCuK89bqFggHB9PUUptP
+         hs5RZbHcA/cCQwxI5od64b2x3RvN5op5GtCSdV6RJUT/23dVvlj6Un8aZxy+Ikt9HH07
+         Qi6fQ+qu4eRJRWBxMutx/EGArcd+FS2XY7PJcQFs73PInu0SS30pSFg5dI74+YmhY5pN
+         +uz967gj3dJSnzdGffzYyAckiXsGCnGSinWe2a+kX0CMthsCs8RQIN6YrOiDX2n9aBp4
+         BLCo30Ayn5BFqPoGNgzpDTZ25eUQIJPgfUH+ORjTllSa2SCpiDsNeZZNxpQ7XgTAe3f/
+         P6PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167381; x=1792772181;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
-        b=jTivlKSy8+1NGwuI/m9e0lgxMryNXTWrsiSIIEcvh65SDjC4SsHjxLQww9Kto5x5JW
-         9X73N5mX5PlMbx68rvFxWyDkfcpVg/A4xcw5jXMG/bgBmyFn4HxSHRY37lu8Krq8eRmy
-         LdI27Ktf/pRJiTLaMnKXuLfBX1nB39Bbx/FPR/UPsRb10RvmtKkIp3ncsc+vPSJd6vuS
-         iBGRCQzAt4AKuFrBPBqy2ihzzRUBXM4GXGX9mTxI/Hg0c8si8hSWnBrHWk1OCqlac1jn
-         wLVVJ/UV3G3+C81wZxHTqksMBuZT4mRVSk8sN0b2n1QX5ps6uAwk4v7xHpAQRS9QAg/B
-         TgzA==
-X-Forwarded-Encrypted: i=1; AKwUvBwV1DIref8LZSmUE9PFfKdhbOVOtz7KYtA4oQ5RelvqxDbDfvPc5cPe6DGqwR4d4MJnx0AoHRFQejp63RE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ0PqRii/r8FQ+pAYH+6HuEpJ3sew3OsWwTtdX0yOQOSPbTdjT
-	xA30pzvP44GvWjwipRxu6GKh2iVKjKqN/GOJWHG1nZbJTnyQ6uj/CN8ob69bRRa0
-X-Gm-Gg: AYBFou1DqX408bslrAhCfAoOmi8wbzc9jiGInsY6DIRjEOdc7Vl252bg1QMib0yS7Xb
-	QJatus2jso82CNCtV4uNYGwwDqLQI/xTiXPgE/GQNlsGS5qVqsVYb1ADajR8VIU1fa2aTFw3Wds
-	4M/fAyQOd1LFbcMdd8y+SGZdNP79IlQbYHSVo/q3NXcbgj4zjlV8inF2LVd9ZfUqcZWd27C/aka
-	uU7YdJqtTQk8GwEvna/X8w1t7RD/OGgRz7NQUgfb4JnJvLEKS32jgwEKb+DFV7J/GgenkYYfPQj
-	ym7ZCz7YsMMaZZsCQwUxd44BUQHOCMMvQBCfu5quUs80HV1ej8c5Umy9d6u4zW0Hv8uE0FB/H3w
-	eey3i1il0tG0zMh/uavyRZvgsVnk6oJA3HhAzn/u7UIlWgL4sJt32AeCE0KBj4ZooF4Y05RgmT4
-	0VcJCkcQuuQJlNGIeNl2OnEaYI3YCOWAb8TMYD8jabhSqo7u5Ov5Z5MyRTWy3bg23tCDsImzLan
-	UWbvTTP7hJ/bv29JfvpVwaTejgqLsRTydSl6DUCD5ey7/JAEYPXY3zUNVCTBQU1r6IJjNyx
-X-Received: by 2002:a05:600c:1c07:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a1d7613a0emr6883345e9.14.1792167380631;
-        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm32622125e9.5.2026.10.16.09.16.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sergey Lebedev <lsa.uz@pm.me>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-Date: Fri, 16 Oct 2026 17:16:18 +0100
-Message-ID: <20261016161618.209290-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+        d=1e100.net; s=20260707; t=1792167392; x=1792772192;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bV426IXemjCo0tARnAuCDYkrcxzdrOKgQiA5hnmvVlM=;
+        b=BvxrkG2lr072pWYUCRi0gzWwGwjlgyk72o9DCXZCI6vmxwI7aJaDi8VIVv5uwcoqbm
+         PFpa/Z8RcyN1SIxgDiKNJS9tA/atnlWtWZo2G5ZT86GN5/UUvz66q1sBbovcfm4lnSDX
+         3t3yUl+qT4auRibfYegG5jwG4JSt4v49LEVYC4SoCFYf2H602geSkctQMYTfcLY5uyG1
+         P64klFGeLECgEJqoyaJTtOZfZFzFeuvWfV6tqpBzCInQJ3tyBLn4SUE7amqIZFCLVzlS
+         efZyKVfLHHx1jAqU3wx+YUITsvSMpKx5UtGhc7BCt2+5wdK5qENi9DnkG2mn6fZOEmpq
+         987Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzJL/akeF1RI4DRMF/90ONUsaGoNhqWA3gU1bUV3Odnu0DKvTdBoPFcuFL1zWt8KWQ3KbwwXrw9pazJcXI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6IyfPIKQVdYV+H9N6mmj9aspd3fx8rXxT0w7AvLiqtgpnI4sV
+	JELbl8hzylKu2pUhfEFXeKHI01wvrLE1JqNMu2cxojHkd5aAMMSfoeFg
+X-Gm-Gg: AYBFou3gck9NfITRug5wi3n/ElFLu5uWle3XC3eURuk65AZczrDCq4lEysqRkkEJl4V
+	oiKrtWtImiU+/HWIghRc6TWSyQw8DKJfFB++joueN5wibxL8BrbbgfEZACMXhSom+04nwJqehu3
+	M4Uufc6Sq7ajsB6Jvvm1uEWh9HL/5q+cu17Mix11rIvlgADxrpV7uijP57BneKFnDRFN/PIuWAm
+	XOvLgmlmIg0n/Ik2IYlYM4YJNBvXaFGDiXYhASJCGR6jeyCifvPmcctqSK+qtW7dIXnSbquDOLs
+	nS3zm3JorGUmfTyUpPtU2j90ztwrAf5U4W9DvGeza2B6ZKo5kRgIFZ04R3yfryXIDPkqaIbYz1p
+	XHa6OGvgO4XvI1TQU4QfgQEYYuAH9nqahRgPOkxOHLDPuVA+HDENv5XBqYGV69ZLJhdLylDkv9d
+	vsRY5ng49RZXeNQtaYoYbeEQeRnsFOIhw6B0LtycfkXsr07fgNr1ewWCLYJvG172TYJ9U/Q9TAH
+	ZZZFn6r94twVhS4VB/1tO+z0TrmzgU/Oxm8nRqRTWaxpNT4
+X-Received: by 2002:a17:90b:4d0a:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-3acef293029mr284201a91.24.1792167391616;
+        Fri, 16 Oct 2026 09:16:31 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947d2706sm9807829a91.16.2026.10.16.09.16.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 09:16:31 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <818d5dd7-4b8f-488d-ad99-3ce114027262@roeck-us.net>
+Date: Fri, 16 Oct 2026 09:16:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] rust: hwmon: rework hwmon abstractions, add TMP108
+ driver
+To: skxby <2374604267@qq.com>
+Cc: Donjuanplatinum <donplat@barrensea.org>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260512155747.10136-1-donplat@barrensea.org>
+ <9c2fa543-525a-4e43-9f73-7caf13b98039@roeck-us.net>
+ <tencent_576573331343805F032731492D63C12D7E08@qq.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <tencent_576573331343805F032731492D63C12D7E08@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Bryan,
+On 10/16/26 00:24, skxby wrote:
+> Hi Guenter,
+> 
+> [1] Positioning
+> 
+> This series follows up on Donjuanplatinum's RFC [1], which proposed basic
+> Rust abstractions for the hwmon subsystem. Your reply [2] noted that Rust
+> support in hwmon would have to wait for someone else to pick up
+> maintainership, and the thread has been quiet since. I am not re-litigating
+> that decision here. I have taken the proposed abstractions, reworked them
+> against the current rust tree, and written a real driver on top of them
+> (TMP108, mirroring drivers/hwmon/tmp108.c). I am posting the result so the
+> work itself - the shape of the abstraction and the driver built on it - can
+> be looked at on its own merits, whenever and by whoever takes the
+> maintainership question up.
+> 
 
-On 16/10/2026 17:06, Bryan O'Donoghue wrote:
-> You describe regulators, clocks and resets in the yaml file which then
-> don't appear to be supported in this result code ?
->
-> - regulator_bulk_;
-> - clock_bulk_
-> - reset gpio optional
->
-> I don't think this driver would survive suspend/resume.
+By now I add a new concern: Much of the Rust code I have seen as been written
+by or heavily guided by AI. I even heard the argument that Rust code written
+that way would not have tho be runtime tested since its inherent support
+for self-tests and the ability of AI code review would already ensure its
+quality. I do not believe that hype. Others will have to accept it.
 
-The power handling comes from a prerequisite: this series applies on
-top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
-GPIO handling" v3, as the cover letter says, but that is easy to miss
-from 2/2 alone:
-https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
+Guenter
 
-With it, the driver gets the three supplies with
-devm_regulator_bulk_get(), enables and disables the clock it already
-takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
-GPIO. Power on and power off are the runtime PM callbacks through
-DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
-pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
-describes what the driver handles once both are applied. On its own,
-2/2 only adds the OF match and the endpoint checks.
-
-I cannot claim it survives system suspend on the Snapdragon model,
-though. System suspend is still an open problem on the Surface Pro 11
-under Linux and has not been validated, so I cannot exercise that path
-here yet. What I can test is the
-runtime PM path, which is where the supplies, clock and reset are
-switched: the sensor powering off between sessions and back on for the
-next stream. I will run repeated open, stream, close cycles and report
-the result. Sergey, if suspend works on the Intel model, a suspend and
-resume test there would cover the rest.
-
-To make the dependency visible, I can carry Sergey's patch as 1/3 of
-the next version, with his authorship. Sergey, would that be all right
-with you, or would you rather post v4 yourself?
-
-Thanks,
-George
