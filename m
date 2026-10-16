@@ -1,102 +1,99 @@
-Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8238348C7D;
-	Fri, 16 Oct 2026 05:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86075391505;
+	Fri, 16 Oct 2026 05:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129103; cv=none; b=iwKPL/nA3Xntt6NLbOyB6kj/3Nlq9AJbQKj8bcUIdx3a/pvCgl82S6sWo6L9Qj6+lQPOmPQpzCOW8f9b9TDoMJh4uqY7zbO9PXMzVApPub6EBdQUCYwKMOffje3w5hAttg4lfh/SsXwOTzfTe9J9S6EanL6A7zlyP3ImKt80IwQ=
+	t=1792129111; cv=none; b=C7i89AGLjX01nEnZW6FLjUryWbfpLfkpxL09jpMgKjXwjT7IvBnYKiV7dB5Z99oKA/y3atMRuiMSL5T3ljZdGpjIx2mqJFmdQN3WDGafg1+IqfoJ/t4Pp4rKQqOiIfUNdcm1hWI3B70RfYm2X2L2a2oQ0rjo4YTjJhzC6keGFT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129103; c=relaxed/simple;
-	bh=I9S/3scpv8TmDMpc3q9HAsNyW70EViJX64k08LJms7E=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=Dwo1e/l0B4O6b0YS++xUxKy4KuMo5SKFXCHEBLVGxG2Etf0FuS5lRpU4z/2C4CumiMC9ix4L3sIUaQ86oZkONuSsDvH7a+gUAAa3Y70hkzGhl2xGk/E4mwv0hxgN05MHlpb3JDA6LAhpFmpycaMz8Eek8t2CjlseZPGOjhz7A94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=cxP/9htK; arc=none smtp.client-ip=203.205.221.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792129111; c=relaxed/simple;
+	bh=nEMDcs4Zs8kI1gClc9kpOz3v9gplPFjZYGvHidHei8E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JB9PkaqRwJ9RPHn2Z+Xg5TdHQhK3K73mAWJWKhYwjjs+mSjNE+yLXwHMajZvDCqXlexlRVOO1kJQ337F/b1/GwQfKaaV4BS4Q+6AjCQEj9GK8WW0CzR8WOwzWm9Prr9q31F4/5VEwHsAJERxeJU7mPCWTPBoE5Z9bjYxfPWvEAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KnKCKQA2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="cxP/9htK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792129097; bh=I9S/3scpv8TmDMpc3q9HAsNyW70EViJX64k08LJms7E=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=cxP/9htKshkcGlqtR4PvqVrttAC60cxFdU3CFwAtVdMna9nJUCuGcFYHgqj0JYOM7
-	 590j5kv3z7felF+xg7pg5NzW5a8zyCK9qQQhIUZt+8XgiSZKnvFMghRzF0EHYe7FXm
-	 8ij3wmlTIst7OSxdj2lX8dSYrycWjL67PIJ5hT9I=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: MYbC+rXBLyObodfQCA4D7TaoC77kH8yp+juHBOTeycoxYspZxP8BMQM5plRqXp
-	 zbvO/D7gGuVDNON12sGweqj9HkecQI4fZdeQtgAf1H6bnhUZfr8LRxHn5k8b0uE8Wo2TLq75I38VY
-	 0ebyvfRz6/Zi7lyNeEk7JwBPtXFp8/m6nTP/SXbxRGJFon3KvSxWFVCgKj/6pPp41Z/qbPqohN2fX
-	 XPn6RlPVn/woGfgLwefe588P4RvHw0q5J78CFmV6tijn2hlCNhwMm5eDZzd+PWGVWUWkGF+doB7gJ
-	 rpvnLW87wnglxDOV3aSGqiOL8cfxlW86STqrxcyTcqDYjsMtOHJj2uj97DGLNUyTKS4NWRPCDwKYg
-	 7L7CKTFFkWbQyOzkvIrHekv94DixLNKaUZc/mZ1rZglKBJL8YO2s/kHiVSxFlciinot5mMnk+98Bh
-	 eNBspZUi2qlD5d+8wfWmwjU1Tmi1f1ZkI5Bq+vjWg38iE5kD7/zF0dWF0cifVX6dn257A4A2oTNdq
-	 sbc9rm4fO6RyAHoBe4MZ6LpA4p5r4xHPDwrTFkD0C7rOV0pNuoT44E+LluRhECc5PR0AXcfvJtuow
-	 c3PQNqJLzLL4b/SlNICw8piy5WMwbDG/9bFKVP0vnJuKpEOBXC5W0/Ny3UKWgzNgLhWFDvSjAzMx1
-	 gAcWME4YV6xUkumRdI4ai0eG+xLxS3iNQMDZ3q+H7TapI5wLcfRzhJMo2ssLaVdkjzpKmAn/Z40BX
-	 dRWsFCoVgYKeRVn9JQ1hA0a6YBeEIRJX9TGK4f+AX/XXWbraDLdX65RPfygGvWTjzslM2IL9KjTIp
-	 BniCtuPJi/F6r418IHXaw9rTQlSzCN9AbIG9R7PQrwjU88rb68DvwqACQaC3ydKS57IDP7GtNh1Wq
-	 GAYT7PnwxekubUkpk0SFywKN5wWvGoExUeDr+Ltwb+kVBvfu/xoNM8cQcU1B77baOackPJuT7dZSi
-	 UJ7IlCp43FxSDPrYerbSF9vQPpPZupFEm7VdaBjs3oSi8eaZwYK3HU1ye7Zm5ENVtl1GI70Y0QHj2
-	 E5aFPDjlYbhyLT77QicDd4corlf6N9UQCPwZ1
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
-Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>
-Subject: Re: [PATCH net v3 1/5] can: dev: prevent bus-off recovery when the interface is not running
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KnKCKQA2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0151F000C4;
+	Fri, 16 Oct 2026 05:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792129110;
+	bh=JGEVfYNl18koKRIAFfTstQnQp506IaOOikYiWUvbgK4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KnKCKQA2k1CY0Z0NEIwBSOycF6RUAKt/oJPwSFVEcLte52letL/itoSwjyF+jprjw
+	 rd3dWH7Qa8YisUuKAkzJxXTHwyAHiDv0lzdB+DLBFLdrC/qVeb22XO4MWUUgnE6sU+
+	 TiU00JqwnMi49dg8v6FwkbUbKMawjOAEfT0TzBWA=
+Date: Fri, 16 Oct 2026 07:38:27 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	linux-input@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: Re: [PATCH] Input: sysrq - reset the per-device key state when
+ reparsing reset_seq
+Message-ID: <2026101652-estimator-mutate-98a8@gregkh>
+References: <20261016032732.2328852-1-zhanxusheng@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 16 Oct 2026 13:38:15 +0800
-X-Priority: 3
-Message-ID: <tencent_F6326E09D62380013188767E4F4D66345808@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261014-rockchip-canfd-restart-close-v3-1-f0eb41090242@qq.com>
-	<179212694915.1406898.5096495212984871051@kernel.org>
-In-Reply-To: <179212694915.1406898.5096495212984871051@kernel.org>
-X-QQ-mid: xmsezb41-0t1792129095tq0zz4chp
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016032732.2328852-1-zhanxusheng@xiaomi.com>
 
-SGksCgo+IFtTZXZlcml0eTogTWVkaXVtXQo+IElzIHRoaXMgY2hlY2sgZW5vdWdoIHRvIHBy
-ZXZlbnQgdGhlIGZhaWx1cmUgZGVzY3JpYmVkIGluIHRoZSBjb21taXQKPiBtZXNzYWdlLCAi
-cG90ZW50aWFsbHkgcmUtZW5hYmxpbmcgaGFyZHdhcmUgd2hpbGUgdGhlIGRyaXZlciBpcyB0
-ZWFyaW5nIGl0Cj4gZG93biI/CgpObywgbmV0aWZfcnVubmluZygpIGFsb25lIGRvZXMgbm90
-IHNlcmlhbGl6ZSByZXN0YXJ0IHdpdGggbmRvX3N0b3AoKS4gQQpyZXN0YXJ0IHRoYXQgaGFz
-IGFscmVhZHkgcGFzc2VkIHRoZSBjaGVjayBjYW4gc3RpbGwgb3ZlcmxhcCB3aXRoIGhhcmR3
-YXJlCnRlYXJkb3duLiBUaGUgY29tbWl0IG1lc3NhZ2UgZXhwbGljaXRseSBkb2N1bWVudHMg
-dGhpcyBsaW1pdGF0aW9uIGFuZCB0aGUKbmVlZCBmb3IgZHJpdmVycyB0byBjYW5jZWwgcmVz
-dGFydCB3b3JrIGJlZm9yZSB0ZWFyaW5nIGRvd24gcmVzb3VyY2VzLgoKRm9yIFJvY2tjaGlw
-LCB0aGUgc2VyaWVzIGFscmVhZHkgY2FsbHMgY2xvc2VfY2FuZGV2X2NhbmNlbF9yZXN0YXJ0
-X3N5bmMoKQphdCB0aGUgc3RhcnQgb2YgcmtjYW5mZF9zdG9wKCkuIFRoaXMgY2FuY2VscyBw
-ZW5kaW5nIHdvcmsgYW5kIHdhaXRzIGZvciBhbnkKcmVzdGFydCBhbHJlYWR5IGluIHByb2dy
-ZXNzIGJlZm9yZSBkaXNhYmxpbmcgaW50ZXJydXB0cywgZnJlZWluZyB0aGUgSVJRCm9yIHN0
-b3BwaW5nIHRoZSBjb250cm9sbGVyLiBUaGUgZmluYWwgY2xvc2VfY2FuZGV2KCkgcmVtYWlu
-cyBhZnRlciBJUlEKdGVhcmRvd24gZm9yIGZpbmFsIGNhbmNlbGxhdGlvbiBhbmQgZWNobyBj
-bGVhbnVwLgoKQXMgZGlzY3Vzc2VkIGVhcmxpZXIsIHRoaXMgc2VyaWVzIGxpbWl0cyB0aGUg
-ZHJpdmVyLXNpZGUgZml4IHRvIFJvY2tjaGlwLgpZb3UgYXJlIHJpZ2h0IHRoYXQgc2phMTAw
-MCBhbmQgZmxleGNhbiBzdGlsbCBoYXZlIHRoZSB3aW5kb3cgeW91IGRlc2NyaWJlLgpUaG9z
-ZSBwcmUtZXhpc3RpbmcgcmFjZXMgbmVlZCBzZXBhcmF0ZSBkcml2ZXIgZml4ZXM7IHRoZSBj
-b3JlIGNoZWNrcyBkbwpub3QgcmVzb2x2ZSB0aGVtLiBGb3IgUm9ja2NoaXAsIHRoZSBzZXJp
-ZXMgdXNlcyB0aGUgZWFybHktY2FuY2VsbGF0aW9uCmFwcHJvYWNoIHlvdSBzdWdnZXN0IHJh
-dGhlciB0aGFuIGFkZGluZyBSVE5MIGxvY2tpbmcgdG8gdGhlIHdvcmtlci4KCj4gW1NldmVy
-aXR5OiBMb3ddCj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IHRoZSBjb21tZW50IGFib3ZlIGNh
-bl9idXNfb2ZmKCkgc3RpbGwgZGVzY3JpYmVzIHRoZQo+IG9sZCBjb25kaXRpb246Cj4KPiAv
-KiBDQU4gYnVzLW9mZgo+ICAqCj4gICogVGhpcyBmdW5jdGlvbnMgc2hvdWxkIGJlIGNhbGxl
-ZCB3aGVuIHRoZSBkZXZpY2UgZ29lcyBidXMtb2ZmIHRvCj4gICogdGVsbCB0aGUgbmV0aWYg
-bGF5ZXIgdGhhdCBubyBtb3JlIHBhY2tldHMgY2FuIGJlIHNlbnQgb3IgcmVjZWl2ZWQuCj4g
-ICogSWYgZW5hYmxlZCwgYSB0aW1lciBpcyBzdGFydGVkIHRvIHRyaWdnZXIgYnVzLW9mZiBy
-ZWNvdmVyeS4KPiAgKi8KPgo+IENvdWxkIGl0IG1lbnRpb24gdGhhdCByZWNvdmVyeSBpcyBu
-b3cgb25seSBzY2hlZHVsZWQgd2hlbiB0aGUgaW50ZXJmYWNlCj4gaXMgcnVubmluZz8KCkFn
-cmVlZC4gSSB3aWxsIHVwZGF0ZSB0aGUgY29tbWVudCB0byByZWZlciB0byBkZWxheWVkIHdv
-cmsgYW5kIHN0YXRlIHRoYXQKcmVjb3ZlcnkgaXMgc2NoZWR1bGVkIG9ubHkgd2hlbiBhdXRv
-bWF0aWMgcmVjb3ZlcnkgaXMgZW5hYmxlZCBhbmQgdGhlCmludGVyZmFjZSBpcyBydW5uaW5n
-LiBJIHdpbGwgYWxzbyBjbGFyaWZ5IHRoZSBydW5uaW5nLWludGVyZmFjZSBjb25kaXRpb24K
-aW4gdGhlIHJlc3RhcnQtbXMgZG9jdW1lbnRhdGlvbi4gSWYgdjUgaXMgYWNjZXB0ZWQsIEkg
-d2lsbCBzZW5kIGEKc2VwYXJhdGUgZG9jdW1lbnRhdGlvbiBjbGVhbnVwIHBhdGNoIGxhdGVy
-LgoKUmVnYXJkcywKQ3VuaGFvIEx1Cg==
+On Fri, Oct 16, 2026 at 11:27:32AM +0800, Zhan Xusheng wrote:
+> sysrq_parse_reset_sequence() rebuilds a device's view of the reset
+> sequence, but only clears reset_seq_cnt.  reset_keybit is only ever
+> __set_bit() and reset_seq_len is only ever incremented, and nothing else
+> in the file clears either.  The struct sysrq_state holding them is
+> allocated once per input device in sysrq_connect() and lives until the
+> device goes away, so both accumulate across calls.
+> 
+> The function is called from sysrq_filter() whenever
+> sysrq_reset_seq_version has moved on, which happens when the reset_seq
+> module parameter is written.  It is mode 0644, so this is reachable at
+> runtime:
+> 
+>   # echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq
+>   # echo 59,60     > /sys/module/sysrq/parameters/reset_seq
+> 
+> After the second write reset_seq_len is 5 rather than 2, and
+> reset_keybit has five keys set rather than two.  The trigger in
+> sysrq_detect_reset_sequence() is
+> 
+> 	if (++state->reset_seq_cnt == state->reset_seq_len &&
+> 	    !state->reset_canceled)
+> 
+> and reset_seq_cnt cannot exceed the number of keys actually in the
+> sequence, so holding the whole new sequence no longer resets the machine.
+> The stale bits also make keys that were dropped from the sequence still
+> test positive, so pressing one takes the increment path instead of
+> cancelling, and releasing one decrements reset_seq_cnt, which can take it
+> negative.
+> 
+> The boot path is not affected: both the command line and
+> sysrq_of_get_keyreset_config() leave sysrq_reset_seq_version at its
+> initial 1, so a freshly kzalloc'd state parses exactly once with both
+> fields already zero.
+> 
+> Clear them along with reset_seq_cnt.
+> 
+> Note the error direction is towards not resetting, as reset_seq_len only
+> grows, so this costs an emergency reset on systems that reconfigure the
+> sequence rather than causing an unwanted one.
+> 
+> Fixes: 154b7a489a5b ("Input: sysrq - allow specifying alternate reset sequence")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+>  drivers/tty/sysrq.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
+Why is a tty patch prefix "Input:"?
+
+thanks,
+
+greg k-h
