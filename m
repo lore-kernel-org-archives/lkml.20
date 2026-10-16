@@ -1,90 +1,130 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34273E0C6F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D626C44470C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 23:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792193161; cv=none; b=rSV68ra8636wCVH/ve+YwsrURhrn/ymJGijY6GUzRqBUw8OYoUBhTlASqXR4hDJQ8ztE4lLEO/xJ2x61ggFvsgK903QvGVDGxNZqyv8nl8kZnmISeoBtVHloGL6fl0G0DL0u3Qsfl1m4fJdmh5C6VIXjDaz1pZK1WrmPKWjQU4c=
+	t=1792193195; cv=none; b=RS1HRLpqhkTKgebVnrfcw34tgBbFfMA6hD1vCODq0HR2N/nqcEsJKCWlBoEzZE4yaL8kubUoZO5mNICjbQU3qplyh4UHRzUBHECIZ7886ueMyVCjNDF7Cyma77CaCt/oZf2YpNvMdN2XZ03AqbPCu4YasGmD6+PXKyvVkiO54y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792193161; c=relaxed/simple;
-	bh=/vM1Nm+a2vuJuTUZBQiHZJxDGDFOOoTuzqMw5VRoU70=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CIJRSEcJKkYa+bco3/IeiN9nOpud2Np9QyJ+2ACwJV7NysjTi/2wVkY+eZfz0M3RuywU7qQPfF0n2Om2hT/T5hL54y/Hj2Q0zuzZCamnZ8zEI0uwfk+XTMHLywovRtGt70OaOV5RcrBJiYj2VJT5cdahfIg/FohljFDWxyTGwJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phorex.org; spf=pass smtp.mailfrom=phorex.org; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phorex.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phorex.org
-X-Pm-Submission-Id: 4j61Jq41QHz1DDrC
-From: Luke Macken <luke@phorex.org>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	srinivas.kandagatla@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luke Macken <luke@phorex.org>
-Subject: [PATCH] arm64: dts: qcom: mahua-t14s: store the RTC offset in SDAM
-Date: Fri, 16 Oct 2026 17:25:28 -0600
-Message-ID: <20261016232528.4012876-1-luke@phorex.org>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1792193195; c=relaxed/simple;
+	bh=iabWN3oL0XkeyL00qg44hU829wpjFAZwwywLXjRCDSk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=DsKqcry4qDoYk9z1+OEO1Wx+LUJ6llRfcfe+Rc+CmjBVt7wKqSvRtF4tRd9V0nNMwpbcROif2TKCMCHrDyHC9fB0E4m80XnBeHiaP0kKp49V2+ucMTE180WuSXSYsy/W52jChTgqpcAgwsDevpfd9boeTBJrQh7wgMlrh49acUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rElXsDPf; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rElXsDPf"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac0ae43900so451862a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:26:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792193190; x=1792797990; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vdrF8tneK2f5AV7WlOd7orm0K4PAGpMBHCQ0RAeUzXs=;
+        b=rElXsDPfM5eWEzSBNtKE51kACOaGOETK1Wh2AWm+VWXSRSVIjOybJgd04qxDr4uks8
+         bA3vVXoUcD3mJh6WZvowKXatZyAXs13ew5ec3DKffpTVVCGaeWL+fE2X0jt2qJvcRtZS
+         X/jBNa3Qiao661wJfdpJdVwnL9neUR0PdtmVS8WcCiRjUVNCQkijDybfRPQQY7FgzlyJ
+         rWLwmKf7zUKOdk7e30te91h0fGOzzGPerjNZOG8T4rqLxnu8yXr+YF92OBC+wFEPXG88
+         5ImUfMoIqS6oF+qINg51ts3p6lBxcW2WBUt8VQCkJimbtfOP5CTQnNpdHUC0NCBvmT97
+         REyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792193190; x=1792797990;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vdrF8tneK2f5AV7WlOd7orm0K4PAGpMBHCQ0RAeUzXs=;
+        b=wnJxRB6k58GxxgJGR2SKoSmvofkjnUviFgIBLCGTtS5IRQSS5hwwtwz7Oe1iiJxifk
+         OVWtyTDgaCQt4XsnfgQLMVN2GKPo8j3jQ+k+j33Wm8o9nJezNlhKOC7og1NL5vS0J791
+         ojT1OMC8J3tY2Zbg1dKZMPxXUWdOf02hv+2rgWrmc3tB7HoVDHPOHS1KwQ9GbtlCHNEk
+         w6AwJIKUfp9o8c96Ecmkq+bhG0vaIfYOAMBppeobZ1g5JcOmjbOEREM9deTDq1iwi5iX
+         9lGFo0xGkj1DK+aZ3UWZAJcX5p5UhjMVB03qLkRNfrc373Zjn1p7NAMI724Ztj+PEMtY
+         iJkw==
+X-Gm-Message-State: AFq9FYLpC99pWqkCUkBNln6RdYU1csBFz0tQwSAvmuULExDnCfqHHDew
+	Yr59bj2b8CjRufLQflBwTB1h0tS7lh+NUYV4yeZvhtR973TMwDVIwtSCeLTsYoZmYh8DF1tsjXe
+	wxPOkGQ==
+X-Received: from pgjo8.prod.google.com ([2002:a63:e348:0:b0:cd6:24a5:fd])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5745:b0:3ac:9706:7735
+ with SMTP id 98e67ed59e1d1-3acee277174mr1186652a91.5.1792193189278; Fri, 16
+ Oct 2026 16:26:29 -0700 (PDT)
+Date: Fri, 16 Oct 2026 16:26:28 -0700
+In-Reply-To: <e1553e03-7ca8-4507-b608-d9d663759c1f@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
+ <20261016091422.3182216-2-binbin.wu@linux.intel.com> <atJB7kDzKsvzrMau@google.com>
+ <e1553e03-7ca8-4507-b608-d9d663759c1f@linux.intel.com>
+Message-ID: <atKypOb2h87evCY5@google.com>
+Subject: Re: [PATCH v5 1/5] KVM: TDX: Check unsupported CPUID bits against the
+ TDX module's subleaf
+From: Sean Christopherson <seanjc@google.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com, 
+	dave.hansen@linux.intel.com, andrew.cooper3@citrix.com, nik.borisov@suse.com, 
+	kas@kernel.org, rick.p.edgecombe@intel.com, xiaoyao.li@intel.com, 
+	chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com, 
+	dedekind1@gmail.com, adrian.hunter@intel.com
+Content-Type: text/plain; charset="us-ascii"
 
-The PMIC RTC registers on the Lenovo ThinkPad T14s Gen 7 are read-only,
-so an offset needs to be stored in machine-specific non-volatile memory
-which the RTC driver can take into account when reading or updating the
-time.
+On Sat, Oct 17, 2026, Binbin Wu wrote:
+> On 10/16/2026 11:25 PM, Sean Christopherson wrote:
+> > On Fri, Oct 16, 2026, Binbin Wu wrote:
+> > @@ -2386,7 +2390,7 @@ static int setup_tdparams_cpuids(struct kvm_cpuid2 *cpuid,
+> >                 if (!entry)
+> >                         continue;
+> >  
+> > -               if (tdx_unsupported_cpuid(entry))
+> > +               if (tdx_is_unsupported_cpuid_entry(entry))
+> >                         return -EINVAL;
+> >  
+> >                 copy_cnt++;
+> > 
+> > Can you test the attached patches?  If they boot TDX with QEMU, I'll go ahead
+> > and post.
+> 
+> Patch 3 "KVM: TDX: Don't zero non-significant CPUID entry indices" breaks QEMU.
+> 
+> QEMU uses zero as index for cpuid entries when index is not significant.
 
-The firmware on this machine does not provide the RTCInfo UEFI variable
-that other Glymur based machines use for this purpose, so, as on
-sc8280xp-crd and the QCS8550 boards, reserve four bytes in one of the
-PMIC SDAM blocks to hold the RTC offset. SDAM 2 on PMK8850 is 128 bytes
-and its last word is not used by the firmware.
+Drat.  __do_cpuid_func() => do_host_cpuid() also zeros the index for
+KVM_GET_SUPPORTED_CPUID, so the ABI is definitely baked at this point. 
 
-Without this the RTC reports the time elapsed since the PMIC was first
-powered, setting the time fails and the system clock starts in 1970 on
-every boot until it is corrected from the network.
+> And in QEMU, the lookup function doesn't consult the flags at all.
+> 
+> struct kvm_cpuid_entry2 *cpuid_find_entry(struct kvm_cpuid2 *cpuid,
+>                                           uint32_t function,
+>                                           uint32_t index)
+> {
+>     int i;
+>     for (i = 0; i < cpuid->nent; ++i) {
+>         if (cpuid->entries[i].function == function &&
+>             cpuid->entries[i].index == index) {
 
-Assisted-by: LLM
-Signed-off-by: Luke Macken <luke@phorex.org>
----
-Note for reviewers: Qualcomm's "rtc: Add Qualcomm PMIC RTC-GLINK support
-for Glymur" (August 2026) would move the RTC behind the charger firmware
-on these machines, but it has not been resubmitted and needs firmware
-that at least the ThinkPad does not ship yet. This patch uses the
-existing rtc-pm8xxx nvmem offset mechanism in the meantime and does not
-conflict with that work.
+Bad QEMU, bad!  :-)
 
- .../boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+>             return &cpuid->entries[i];
+>         }
+>     }
+>     /* not found: */
+>     return NULL;
+> }
+> 
+> If KVM doesn't zero the index for the non-significant, QEMU cannot find
+> any entry for non-significant entries returned by KVM_TDX_CAPABILITIES.
 
-diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-index 35afcb5ae..28c2da5d9 100644
---- a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-+++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-@@ -941,9 +941,17 @@ &pmk8850_pwm {
- };
- 
- &pmk8850_rtc {
-+	nvmem-cells = <&rtc_offset>;
-+	nvmem-cell-names = "offset";
- 	qcom,no-alarm;
- };
- 
-+&pmk8850_sdam_2 {
-+	rtc_offset: rtc-offset@bc {
-+		reg = <0xbc 0x4>;
-+	};
-+};
-+
- &remoteproc_adsp {
- 	firmware-name = "qcom/glymur/LENOVO/22A8/qcadsp8480.mbn",
- 			"qcom/glymur/LENOVO/22A8/adsp_dtbs.elf";
+I'll opportunistically add a comment to call out that even though the index
+should be meaningless, it has become ABI that userspace relies on.
+
+> And 0x80000008 is used to pass GPAW, and KVM_TDX_INIT_VM fails when QEMU
+> doesn't pass it.
+> 
+> After dropping patch 3, QEMU can boot TD.
+> Also our internal TDX CI cases passed.
+
+Thanks much!
