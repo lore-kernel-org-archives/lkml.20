@@ -1,64 +1,64 @@
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245E7377566
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1316837DABD
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 04:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792124877; cv=none; b=TeGQ/cDMaOJUCby54fWgM+bTs4zfM1Qk/3jfYeZJpoVCJId4cY5xo+V5Kr4hcVAUW1jvWU1xcyA2pzIl8HYi9bOvEkCj14i8ib2qdbSBBcS+sy6j0w181R+eACpONqcyCHJYEzF9Oq6+luzDeBUOj27BftqqvHGOx+vlNL15e5w=
+	t=1792124887; cv=none; b=MLaaGXyL8NFmMpHUuEYv3Vypxooq9z1l2IHfylPBkqs0R1jPiOWGVDiK59mjyzEaXsr1L3urZ5+YP36zw1h85YSLvoCuS6pxCzlZwq53r+1nRSV1QQNCFTL5UHzFgv8kf4iPdQxZ0/Np4TPAWIxodQwsUnfaSFDGvadO2QyRu6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792124877; c=relaxed/simple;
-	bh=0S9ZiRaNeD0ONuhBWck3LZ15qfVQqVd9GHb68v++sEM=;
+	s=arc-20240116; t=1792124887; c=relaxed/simple;
+	bh=omTUUTAowhGhfkGHRKI06S6BOTzLG5wZwbvRWZmw2h8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gYTdUnt8b2QOgwhyaBJn2tJZcAprAGfzDdMJ/9k/Gq+AQ3qfwVIjgxEM8Aibd9wyqo04Gn+v1lut43E50dYnwzeXkQdgwqy9f4uSwVP9NIKf4NEfI8KiXDbHbvdrRVFpitBQd2b0e0thQbtYt5uFNeRqJdF+3z+by3EvJUdODg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TRiRWugd; arc=none smtp.client-ip=74.125.82.54
+	 MIME-Version; b=nh2B1vi0fcC4Acbr3aXwFkcirFfHVdphhHZbZcDCzecyZQtg5e6RMYnMfmAZQcOWXkGb9oxIyNOvp80CAXkLgLgobxjzgodOZo+2WwTv9skfqxPeFZU0+GokNdOnJbbCDmPbTmOHnjwxGGYeVaTfEF7ue5LdTMOaTE/0hpX2McA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pooA4xuB; arc=none smtp.client-ip=74.125.82.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRiRWugd"
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so3978912c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pooA4xuB"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1419d3416ceso4912013c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 21:28:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792124874; x=1792729674; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792124883; x=1792729683; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=soaPR79MMoowv6/4e0ZCsyZJkdHPPam+XR34R/7HHt4=;
-        b=TRiRWugd03HK68YGIOm6hyiVi/PjVf8wnrBkLIXB2TR+7DT0Z+wTQOsYquKPT7j0Ai
-         xELXqywbzK5VnBe15X0qtvrcdt+PzFfyFgbkaqSsTjOWNCsf57XsByX4YJoFdOj3fKvp
-         A31z1O9DXfPfgUTvyTZ4cfpHkL+N5wAW0Uu01DbnBSLNtKjFh9l2AR1UfwRBFljhrqZr
-         DQIxdwhquy/cAbuMH7EDQbg5wXXdOQnYIaK9Gez0QluWOiNLKn8PfFbd+7dNUkht2fI9
-         9oqoH6Za81Xmv8XP+hQdoM9NIst2DTGVyEfbmbFbldI4xpNeKpOTXbXVgfxr0mmb2kKM
-         Gxhw==
+        bh=icIYTLAJwZUHunq5OF9oQIZnNmh7Jr65mjbVyEYcdC8=;
+        b=pooA4xuB6Fkqbmcyx/jBZLBY61GWn2L4DrqwowNgKuPsqF8tQHLde5ISGlwG9EphLI
+         pFGKR8eny/F7+QaE4JY74mU1E2zTKjPer+vtbakT9jNHiZZcQl+w3Sg3qo5/vsIrtBjC
+         lkMe/NDxPk/faJfxmNrNRRwBUtzY3aU12DL+Ma0abGwP0i0RcsNC1BzIoGC14E/4LthJ
+         R5sfQiaTMTnpZ7L/ltM1HSDEfAD5M43QH5YqiuBmnuEOTe3E62zMxtRIywI0WhLqPzFE
+         X8jPHBCP95Np5wyEeG391ZhaclNDQ07c6vHQ8KngeVO6mPSsermPpu6whmmkbE8Pf9b1
+         I7ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792124874; x=1792729674;
+        d=1e100.net; s=20260707; t=1792124883; x=1792729683;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=soaPR79MMoowv6/4e0ZCsyZJkdHPPam+XR34R/7HHt4=;
-        b=N89UO06Z1BS32/bEKhfCNPBiONQFlnm24FKKP6cJXrQWjvTjPlda32ydUgnO+XQvxf
-         UIp6O5UnLS2gqlGs4sesp0Nlb8HA+QgUeRF8qJTCaivUR9lQ8vNMQ30BhKkTDEkZfM8D
-         AJ/dNi5vc/mx1U1u2WnxiqH4bImutOU0rhX+BNlv9U33kJLn0VxXzMSi7eSqBRa429AR
-         qLJROy306nzH7KX5rHjpKjDk4vWuO/V2URb+0wLna7s52ETO7eaa4CEtN2k/GTtEUfkK
-         uzBUPFcDoqI8mo//Xk36qF4Lhjx0L+C9V/Qnue3A6wqh374baPQGpZhhH2KvPHZpKK1A
-         3Jxg==
-X-Forwarded-Encrypted: i=1; AKwUvBx96O6afKv9nDdHEN+YtQ/ai50yjkRsrtSVTcz8oNIx4OneWXzEa8E2cswfjIiz6NePJ//8f/8Sg+prAE0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1bFqdHrdBgNts1/PUEzxonu7S0qQ+0POCoCYjS4fcDaE2iI7r
-	tSKF49nAwbm4AEZHbPNmlz8GLtZxCKHwsN2zbyIRQnOZDbcQc+PZY9jK
-X-Gm-Gg: AYBFou2l55pce4uqciTpCPGE+wuRHrnoIYmzUZIbwktzlzZBxpW31d/mSlzT+qtRfD0
-	vA1KLdetDZPCYE/302ydgPgKR9eUSMxkhULcywaqOoPAM05xQQSzkivpVTV1UxJf5eQ4hTcn8a5
-	/Lg2kfJh0fijvfs3BX9NuyJmNVXnbFnirDRXuuDwnUR+hopJ3xuvc1ZFV89H2zLMJIy7JvNtnHF
-	oZevdNSqfSx/JIkS89KHzwKIm7/xikOSrmj78TkJJRFcrcLGiYM4GE0b0IqSzhNMFwC5VKNSGSr
-	zbpehXmocLMLuXP7O30qtozgeyjYolHxbECdEgtGLVccMwEkXACNB/Qw5icPyaY+pf7LGs3xo/1
-	5bT4tsq974Gdt7JyMS6JcIpV49nH+SedTbf/6mEdznBF3v3Wjtfj3tLaI7ZIzOuWq6oJ8KFJs7h
-	Gb379UnGGDPJBH8RPG+grX71V8qmdJVnkFO0IjX+NGJMfkf+jWDAzqel6Cw36dlIN6Qv8RTVn4b
-	XMtV2Mj+kP0DYn6nkh3fJtWfcymWC/wyMic9F73tTKW1Y7gNNH4zZpsUfHaE0ytXg==
-X-Received: by 2002:a05:701b:2605:b0:144:fa57:c617 with SMTP id a92af1059eb24-16a60a02625mr30091887c88.34.1792124874051;
-        Thu, 15 Oct 2026 21:27:54 -0700 (PDT)
+        bh=icIYTLAJwZUHunq5OF9oQIZnNmh7Jr65mjbVyEYcdC8=;
+        b=SrIVsw1uYG4auRquN2fJh2mMUXnbCZA3x0eNlQfB2hO7nNXIXGtv7J8canJS2bq193
+         NXV5Cgb/KmtbKpIGggRnLU0jw6f+ccxT60YyUCGjau2XrONG7dp8X8VXJlcGg+sna91k
+         XG5jd7zdAU6aRNpV7kBo4NgiTw8EqIc3zYDQqSa7IVKoCf0+kI6twJbXu4fiwojvay3b
+         D6CvogzcHJ/94lEWHsL0DoSeod3Wc+8gPsh1SilSvFWhmTdBGG6CufzhZHWPl3IYYL47
+         41OTrMFYXfK+P5T3+zorPvYspbUH7i0RqHx9e5cAIrellgeiRSw63dNdZgLpi2xXj6Re
+         ho2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzO4z3ynBMX1LwXZ3im8wWjyDvhn2nLpHH/itZY8s8a69eHA/58xFoZvI7EmE3Ue+h185kDUlVe0sTZUTY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLymLLndtFBUiO7Yhw4bWBx0odGeV0plsg3AsU97ck7W4sQt9cO
+	BlLVGFd8Fmwvl2j4/aaxIbpf/TRq8zJDVOx7SyAJ8zdravqzm+QXTmHb
+X-Gm-Gg: AYBFou2/bKJl8klKqVyZDoM58P6OWkZRgIFnT7wabjdI5Dzcqji9eKOvz2pL/elu+2+
+	xXtN46J6gSaHW95mHIBmYy9Skwt9APJhdqGzY4Oa6M3Jpmjmf+MtaMsAMkhPAgRZAj1cjCJ3Cdw
+	4ICcVmis1bynCwiQR300Lm0Mve4QT+kT2EeA3fXFyPhHBO+BfwsDmZdv2bSF8Ijgwn3V5L1mIYC
+	taA5w77P/03vN0FMLlRMmcPCmlxSEyCt8S5gI3hVUnZi7p99tqj5MwrFJ5YNv8IZbTrJDLiEuo9
+	3flkGY+GYW60/WdKbGrTGTSFt8WYiAulCM6QvikeZG/MKSxYC5VChSJAoiV5kCT3sdzMmPsn+cT
+	ZFiMcOVtEVvd9MPgqQO7WO1lI74JKvBNPwYYINGsFnAySA3NOxmY9b/2jPM0G+5QwhZepDRptra
+	SMGmbjvzI514p4MsE3cF+AsyAeORn2mZGXg+O/bELZAthEr3E0n1y+uIpffsmF08aMN6cK36SPa
+	wMST+TMF60LS7zoFAh+LXxLH9jTRKqv2Hxvy2z/eu2CwTD1Uim9wQ==
+X-Received: by 2002:a05:7022:b9c:b0:144:fb42:52 with SMTP id a92af1059eb24-16a61d5bd24mr43930049c88.28.1792124882884;
+        Thu, 15 Oct 2026 21:28:02 -0700 (PDT)
 Received: from localhost.localdomain ([152.58.201.32])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm2644712c88.16.2026.10.15.21.27.45
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm2644712c88.16.2026.10.15.21.27.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 21:27:53 -0700 (PDT)
+        Thu, 15 Oct 2026 21:28:01 -0700 (PDT)
 From: Sreeshankar K <sreeshankar0910@gmail.com>
 To: andersson@kernel.org,
 	sboyd@kernel.org,
@@ -80,11 +80,10 @@ Cc: danila@mainlining.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	Sreeshankar K <sreeshankar0910@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v11 4/5] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
-Date: Fri, 16 Oct 2026 04:24:31 +0000
-Message-ID: <20261016042432.824-5-sreeshankar0910@gmail.com>
+	Sreeshankar K <sreeshankar0910@gmail.com>
+Subject: [PATCH v11 5/5] arm64: dts: qcom: Add SM7250 devicetree file
+Date: Fri, 16 Oct 2026 04:24:32 +0000
+Message-ID: <20261016042432.824-6-sreeshankar0910@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261016042432.824-1-sreeshankar0910@gmail.com>
 References: <20261016042432.824-1-sreeshankar0910@gmail.com>
@@ -96,27 +95,793 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the cpufreq hardware on the SM7250 SoC.
+Add base devicetree file for SM7250 SoC.
+This file adds the basic nodes like cpu, psci and other required
+configuration for booting up to the serial console.
 
 Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/qcom/sm7250.dtsi | 771 +++++++++++++++++++++++++++
+ 1 file changed, 771 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7250.dtsi
 
-diff --git a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-index 98eb36bff..2dc2c265c 100644
---- a/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-+++ b/Documentation/devicetree/bindings/cpufreq/cpufreq-qcom-hw.yaml
-@@ -29,6 +29,7 @@ properties:
-               - qcom,sdm845-cpufreq-hw
-               - qcom,sm6115-cpufreq-hw
-               - qcom,sm6350-cpufreq-hw
-+              - qcom,sm7250-cpufreq-hw
-               - qcom,sm8150-cpufreq-hw
-           - const: qcom,cpufreq-hw
- 
+diff --git a/arch/arm64/boot/dts/qcom/sm7250.dtsi b/arch/arm64/boot/dts/qcom/sm7250.dtsi
+new file mode 100644
+index 000000000..48480e685
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm7250.dtsi
+@@ -0,0 +1,771 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
++ */
++
++#include <dt-bindings/clock/qcom,rpmh.h>
++#include <dt-bindings/clock/qcom,sm7250-gcc.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/power/qcom,rpmhpd.h>
++#include <dt-bindings/power/qcom-rpmpd.h>
++#include <dt-bindings/soc/qcom,rpmh-rsc.h>
++
++/ {
++	interrupt-parent = <&intc>;
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32764>;
++			#clock-cells = <0>;
++		};
++	};
++
++	cpus {
++		#address-cells = <2>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x0>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_0>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd0>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_0: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++
++				l3_0: l3-cache {
++					compatible = "cache";
++					cache-level = <3>;
++					cache-size = <0x200000>;
++					cache-unified;
++				};
++			};
++		};
++
++		cpu1: cpu@100 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x100>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_100>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd1>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_100: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu2: cpu@200 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x200>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_200>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd2>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_200: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu3: cpu@300 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x300>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_300>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd3>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_300: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu4: cpu@400 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x400>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_400>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd4>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_400: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu5: cpu@500 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x500>;
++			clocks = <&cpufreq_hw 0>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1024>;
++			dynamic-power-coefficient = <100>;
++			next-level-cache = <&l2_500>;
++			qcom,freq-domain = <&cpufreq_hw 0>;
++			power-domains = <&cpu_pd5>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_500: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x20000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu6: cpu@600 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x600>;
++			clocks = <&cpufreq_hw 1>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1740>;
++			dynamic-power-coefficient = <341>;
++			next-level-cache = <&l2_600>;
++			qcom,freq-domain = <&cpufreq_hw 1>;
++			power-domains = <&cpu_pd6>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_600: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x40000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu7: cpu@700 {
++			device_type = "cpu";
++			compatible = "qcom,kryo475";
++			reg = <0x0 0x700>;
++			clocks = <&cpufreq_hw 2>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <1740>;
++			dynamic-power-coefficient = <375>;
++			next-level-cache = <&l2_700>;
++			qcom,freq-domain = <&cpufreq_hw 2>;
++			power-domains = <&cpu_pd7>;
++			power-domain-names = "psci";
++			#cooling-cells = <2>;
++
++			l2_700: l2-cache {
++				compatible = "cache";
++				cache-level = <2>;
++				cache-size = <0x80000>;
++				cache-unified;
++				next-level-cache = <&l3_0>;
++			};
++		};
++
++		cpu-map {
++			cluster0 {
++				core0 {
++					cpu = <&cpu0>;
++				};
++
++				core1 {
++					cpu = <&cpu1>;
++				};
++
++				core2 {
++					cpu = <&cpu2>;
++				};
++
++				core3 {
++					cpu = <&cpu3>;
++				};
++
++				core4 {
++					cpu = <&cpu4>;
++				};
++
++				core5 {
++					cpu = <&cpu5>;
++				};
++			};
++
++			cluster1 {
++				core6 {
++					cpu = <&cpu6>;
++				};
++			};
++
++			cluster2 {
++				core7 {
++					cpu = <&cpu7>;
++				};
++			};
++		};
++
++		domain-idle-states {
++			cluster_sleep_pc: cluster-sleep-0 {
++				compatible = "domain-idle-state";
++				arm,psci-suspend-param = <0x41000044>;
++				entry-latency-us = <2752>;
++				exit-latency-us = <3048>;
++				min-residency-us = <6118>;
++			};
++
++			cluster_sleep_cx: cluster-sleep-1 {
++				compatible = "domain-idle-state";
++				arm,psci-suspend-param = <0x41001244>;
++				entry-latency-us = <3638>;
++				exit-latency-us = <4562>;
++				min-residency-us = <8467>;
++			};
++
++			cluster_sleep_aoss: cluster-sleep-2 {
++				compatible = "domain-idle-state";
++				arm,psci-suspend-param = <0x4100b244>;
++				entry-latency-us = <3263>;
++				exit-latency-us = <6562>;
++				min-residency-us = <9826>;
++			};
++		};
++
++		idle-states {
++			entry-method = "psci";
++
++			little_cpu_sleep_0: cpu-sleep-0-0 {
++				compatible = "arm,idle-state";
++				idle-state-name = "little-power-collapse";
++				arm,psci-suspend-param = <0x40000003>;
++				entry-latency-us = <549>;
++				exit-latency-us = <901>;
++				min-residency-us = <1774>;
++				local-timer-stop;
++			};
++
++			little_cpu_sleep_1: cpu-sleep-0-1 {
++				compatible = "arm,idle-state";
++				idle-state-name = "little-rail-power-collapse";
++				arm,psci-suspend-param = <0x40000004>;
++				entry-latency-us = <702>;
++				exit-latency-us = <915>;
++				min-residency-us = <4001>;
++				local-timer-stop;
++			};
++
++			big_cpu_sleep_0: cpu-sleep-1-0 {
++				compatible = "arm,idle-state";
++				idle-state-name = "big-power-collapse";
++				arm,psci-suspend-param = <0x40000003>;
++				entry-latency-us = <523>;
++				exit-latency-us = <1244>;
++				min-residency-us = <2207>;
++				local-timer-stop;
++			};
++
++			big_cpu_sleep_1: cpu-sleep-1-1 {
++				compatible = "arm,idle-state";
++				idle-state-name = "big-rail-power-collapse";
++				arm,psci-suspend-param = <0x40000004>;
++				entry-latency-us = <526>;
++				exit-latency-us = <1854>;
++				min-residency-us = <5555>;
++				local-timer-stop;
++			};
++		};
++	};
++
++	firmware {
++		scm: scm {
++			compatible = "qcom,scm-sm7250", "qcom,scm";
++			#reset-cells = <1>;
++		};
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		/* We expect the bootloader to fill in the size */
++		reg = <0x0 0x80000000 0x0 0x0>;
++	};
++
++	pmu {
++		compatible = "arm,armv8-pmuv3";
++		interrupts = <GIC_PPI 5 IRQ_TYPE_LEVEL_HIGH>;
++	};
++
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++
++		cpu_pd0: power-domain-cpu0 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd1: power-domain-cpu1 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd2: power-domain-cpu2 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd3: power-domain-cpu3 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd4: power-domain-cpu4 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd5: power-domain-cpu5 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&little_cpu_sleep_0>,
++					     <&little_cpu_sleep_1>;
++		};
++
++		cpu_pd6: power-domain-cpu6 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&big_cpu_sleep_0>,
++					     <&big_cpu_sleep_1>;
++		};
++
++		cpu_pd7: power-domain-cpu7 {
++			#power-domain-cells = <0>;
++			power-domains = <&cluster_pd>;
++			domain-idle-states = <&big_cpu_sleep_0>,
++					     <&big_cpu_sleep_1>;
++		};
++
++		cluster_pd: power-domain-cpu-cluster0 {
++			#power-domain-cells = <0>;
++			domain-idle-states = <&cluster_sleep_pc>,
++					     <&cluster_sleep_cx>,
++					     <&cluster_sleep_aoss>;
++		};
++	};
++
++	reserved_memory: reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		hyp_mem: hyp@80000000 {
++			reg = <0x0 0x80000000 0x0 0x600000>;
++			no-map;
++		};
++
++		xbl_aop_mem: xbl-aop@80700000 {
++			reg = <0x0 0x80700000 0x0 0x160000>;
++			no-map;
++		};
++
++		cmd_db: cmd-db@80860000 {
++			compatible = "qcom,cmd-db";
++			reg = <0x0 0x80860000 0x0 0x20000>;
++			no-map;
++		};
++
++		xbl_uefi_mem: xbl-uefi@80880000 {
++			reg = <0 0x80880000 0 0x14000>;
++			no-map;
++		};
++
++		smem_mem: smem@80900000 {
++			compatible = "qcom,smem";
++			reg = <0x0 0x80900000 0x0 0x200000>;
++			no-map;
++			hwlocks = <&tcsr_mutex 3>;
++		};
++
++		removed_mem: removed@80b00000 {
++			reg = <0x0 0x80b00000 0x0 0x1300000>;
++			no-map;
++		};
++
++		camera_mem: camera@86000000 {
++			reg = <0x0 0x86000000 0x0 0x500000>;
++			no-map;
++		};
++
++		npu_mem: npu@86500000 {
++			reg = <0x0 0x86500000 0x0 0x500000>;
++			no-map;
++		};
++
++		video_mem: video@86a00000 {
++			reg = <0x0 0x86a00000 0x0 0x500000>;
++			no-map;
++		};
++
++		cdsp_mem: cdsp@87400000 {
++			reg = <0x0 0x87400000 0x0 0x1e00000>;
++			no-map;
++		};
++
++		adsp_mem: adsp@89200000 {
++			reg = <0x0 0x89200000 0x0 0x2800000>;
++			no-map;
++		};
++
++		wlan_fw_mem: wlan-fw@8ba00000 {
++			reg = <0x0 0x8ba00000 0x0 0x200000>;
++			no-map;
++		};
++
++		ipa_fw_mem: ipa-fw@8bc00000 {
++			reg = <0x0 0x8bc00000 0x0 0x10000>;
++			no-map;
++		};
++
++		ipa_gsi_mem: ipa-gsi@8bc10000 {
++			reg = <0x0 0x8bc10000 0x0 0x5400>;
++			no-map;
++		};
++
++		gpu_mem: gpu@8bc15400 {
++			reg = <0x0 0x8bc15400 0x0 0x2000>;
++			no-map;
++		};
++
++		modem_wlan_mem: modem-wlan@8c000000 {
++			reg = <0x0 0x8c000000 0x0 0xf800000>;
++			no-map;
++		};
++
++		cdsp_sec_mem: cdsp-sec@9f400000 {
++			reg = <0x0 0x9f400000 0x0 0xc00000>;
++			no-map;
++		};
++	};
++
++	soc: soc@0 {
++		compatible = "simple-bus";
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges = <0 0 0 0 0x10 0>;
++		dma-ranges = <0 0 0 0 0x10 0>;
++
++		gcc: clock-controller@100000 {
++			compatible = "qcom,sm7250-gcc";
++			reg = <0x0 0x00100000 0x0 0x1f0000>;
++			clock-names = "bi_tcxo",
++				      "bi_tcxo_ao",
++				      "sleep_clk";
++			clocks = <&rpmhcc RPMH_CXO_CLK>,
++				 <&rpmhcc RPMH_CXO_CLK_A>,
++				 <&sleep_clk>;
++			power-domains = <&rpmhpd RPMHPD_CX>;
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
++		qupv3_id_1: geniqup@9c0000 {
++			compatible = "qcom,geni-se-qup";
++			reg = <0x0 0x009c0000 0x0 0x6000>;
++			clock-names = "m-ahb", "s-ahb";
++			clocks = <&gcc GCC_QUPV3_WRAP_1_M_AHB_CLK>,
++				 <&gcc GCC_QUPV3_WRAP_1_S_AHB_CLK>;
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ranges;
++
++			uart2: serial@988000 {
++				compatible = "qcom,geni-debug-uart";
++				reg = <0 0x00988000 0 0x4000>;
++				clock-names = "se";
++				clocks = <&gcc GCC_QUPV3_WRAP1_S2_CLK>;
++				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
++				status = "disabled";
++			};
++		};
++
++		intc: interrupt-controller@17a00000 {
++			compatible = "arm,gic-v3";
++			reg = <0x0 0x17a00000 0x0 0x10000>,     /* GICD */
++			      <0x0 0x17a60000 0x0 0x100000>;    /* GICR * 8 */
++			#interrupt-cells = <3>;
++			interrupt-controller;
++			interrupts = <GIC_PPI 8 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		pdc: interrupt-controller@b220000 {
++			compatible = "qcom,sm7250-pdc", "qcom,pdc";
++			reg = <0 0xb220000 0 0x30000>, <0 0x17c000f0 0 0x60>;
++			qcom,pdc-ranges = <0 480 42>,
++					  <42 612 28>,
++					  <70 63 1>,
++					  <71 640 15>,
++					  <86 522 52>;
++			#interrupt-cells = <2>;
++			interrupt-parent = <&intc>;
++			interrupt-controller;
++		};
++
++		spmi_bus: spmi@c440000 {
++			compatible = "qcom,spmi-pmic-arb";
++			reg = <0x0 0x0c440000 0x0 0x0001100>,
++			      <0x0 0x0c600000 0x0 0x2000000>,
++			      <0x0 0x0e600000 0x0 0x0100000>,
++			      <0x0 0x0e700000 0x0 0x00a0000>,
++			      <0x0 0x0c40a000 0x0 0x0026000>;
++			reg-names = "core",
++				    "chnls",
++				    "obsrvr",
++				    "intr",
++				    "cnfg";
++			interrupt-names = "periph_irq";
++			interrupts-extended = <&pdc 1 IRQ_TYPE_LEVEL_HIGH>;
++			qcom,ee = <0>;
++			qcom,channel = <0>;
++			#address-cells = <2>;
++			#size-cells = <0>;
++			interrupt-controller;
++			#interrupt-cells = <4>;
++		};
++
++		apps_rsc: rsc@18200000 {
++			compatible = "qcom,rpmh-rsc";
++			reg = <0x0 0x18200000 0x0 0x10000>,
++			      <0x0 0x18210000 0x0 0x10000>,
++			      <0x0 0x18220000 0x0 0x10000>;
++			reg-names = "drv-0",
++				    "drv-1",
++				    "drv-2";
++			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
++			label = "apps_rsc";
++			qcom,tcs-offset = <0xd00>;
++			qcom,drv-id = <2>;
++			qcom,tcs-config = <ACTIVE_TCS  2>, <SLEEP_TCS   3>,
++					  <WAKE_TCS    3>, <CONTROL_TCS 1>;
++			power-domains = <&cluster_pd>;
++
++			rpmhcc: clock-controller {
++				compatible = "qcom,sm7250-rpmh-clk";
++				#clock-cells = <1>;
++				clock-names = "xo";
++				clocks = <&xo_board>;
++			};
++
++			rpmhpd: power-controller {
++				compatible = "qcom,sm7250-rpmhpd";
++				#power-domain-cells = <1>;
++				operating-points-v2 = <&rpmhpd_opp_table>;
++
++				rpmhpd_opp_table: opp-table {
++					compatible = "operating-points-v2";
++
++					rpmhpd_opp_ret: opp1 {
++						opp-level = <RPMH_REGULATOR_LEVEL_RETENTION>;
++					};
++
++					rpmhpd_opp_min_svs: opp2 {
++						opp-level = <RPMH_REGULATOR_LEVEL_MIN_SVS>;
++					};
++
++					rpmhpd_opp_low_svs: opp3 {
++						opp-level = <RPMH_REGULATOR_LEVEL_LOW_SVS>;
++					};
++
++					rpmhpd_opp_svs: opp4 {
++						opp-level = <RPMH_REGULATOR_LEVEL_SVS>;
++					};
++
++					rpmhpd_opp_svs_l1: opp5 {
++						opp-level = <RPMH_REGULATOR_LEVEL_SVS_L1>;
++					};
++
++					rpmhpd_opp_nom: opp6 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM>;
++					};
++
++					rpmhpd_opp_nom_l1: opp7 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L1>;
++					};
++
++					rpmhpd_opp_nom_l2: opp8 {
++						opp-level = <RPMH_REGULATOR_LEVEL_NOM_L2>;
++					};
++
++					rpmhpd_opp_turbo: opp9 {
++						opp-level = <RPMH_REGULATOR_LEVEL_TURBO>;
++					};
++
++					rpmhpd_opp_turbo_l1: opp10 {
++						opp-level = <RPMH_REGULATOR_LEVEL_TURBO_L1>;
++					};
++				};
++			};
++
++			apps_bcm_voter: bcm-voter {
++				compatible = "qcom,bcm-voter";
++			};
++		};
++
++		cpufreq_hw: cpufreq@18323000 {
++			compatible = "qcom,sm7250-cpufreq-hw", "qcom,cpufreq-hw";
++			reg = <0 0x18323000 0 0x1000>,
++			      <0 0x18325800 0 0x1000>,
++			      <0 0x18327800 0 0x1000>;
++			reg-names = "freq-domain0",
++				    "freq-domain1",
++				    "freq-domain2";
++			clocks = <&rpmhcc RPMH_CXO_CLK>, <&gcc GPLL0>;
++			clock-names = "xo", "alternate";
++			#freq-domain-cells = <1>;
++			#clock-cells = <1>;
++		};
++
++		tcsr_mutex: hwlock@1f40000 {
++			compatible = "qcom,tcsr-mutex";
++			reg = <0x0 0x01f40000 0x0 0x40000>;
++			#hwlock-cells = <1>;
++		};
++
++		timer@17c20000 {
++			compatible = "arm,armv7-timer-mem";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++			reg = <0x0 0x17c20000 0x0 0x1000>;
++
++			frame@17c21000 {
++				frame-number = <0>;
++				interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
++					     <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c21000 0x1000>,
++				      <0x17c22000 0x1000>;
++			};
++
++			frame@17c23000 {
++				frame-number = <1>;
++				interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c23000 0x1000>;
++				status = "disabled";
++			};
++
++			frame@17c25000 {
++				frame-number = <2>;
++				interrupts = <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c25000 0x1000>;
++				status = "disabled";
++			};
++
++			frame@17c27000 {
++				frame-number = <3>;
++				interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c27000 0x1000>;
++				status = "disabled";
++			};
++
++			frame@17c29000 {
++				frame-number = <4>;
++				interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c29000 0x1000>;
++				status = "disabled";
++			};
++
++			frame@17c2b000 {
++				frame-number = <5>;
++				interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c2b000 0x1000>;
++				status = "disabled";
++			};
++
++			frame@17c2d000 {
++				frame-number = <6>;
++				interrupts = <GIC_SPI 14 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x17c2d000 0x1000>;
++				status = "disabled";
++			};
++		};
++
++	};
++
++	timer {
++		compatible = "arm,armv8-timer";
++		interrupts = <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
++			     <GIC_PPI 2 IRQ_TYPE_LEVEL_LOW>,
++			     <GIC_PPI 3 IRQ_TYPE_LEVEL_LOW>,
++			     <GIC_PPI 0 IRQ_TYPE_LEVEL_LOW>;
++	};
++};
 -- 
 2.43.0
 
