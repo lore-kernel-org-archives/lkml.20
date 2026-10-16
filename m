@@ -1,131 +1,67 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4E6599A5A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0B3599A52
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792173249; cv=none; b=cpTY37Vwm/M3BlI5oo9IWOXB7onRMbMezaufncA38qXcgWQhAQ0GEtLp5GEH6c4nPPRxT7HNbl0KRfWCLP6/44W0kTSGW/fCQrg4J7MQKF6OS9p7NRnG+fYOj7FyJvpAtG0XUO2XuhxbW/7aTx/Qb7NqsuvFRpLbtu672+dgGjU=
+	t=1792173314; cv=none; b=Oi5F7m55hbqtO5549mK2jdMnc9B5oRfpiA0W9oKoFBYwPXlPEmOJ2epfOEEExUEOCw7NFQSe0Z+rM4kg+WXwMXy/IC9POwNUUka2AE90/mKQElCvN2jdFbMsecKBCpl+2kge1dFNthtw308yJWZsb+LnymlwXVLLE0frAwhidTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792173249; c=relaxed/simple;
-	bh=sHCYLZ9xSWBkQr8pzpR13/VT/tve1OJw7QUbTZd0epU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YlkNkhrikqgYcK/ma8nboVA3y2DPLS0tN/XFUHdelP+VoXdH27T/lEdPO4/pHSZ8xmrwkxfJqOHtNb/wHGlUv2oQ18i7MN4LMM6jc2oW3N8E4RknYqYrfF3I5RQ8qmmDbqe1jDWhw142vip6BXP8ZXRJs3y2GbFVMPDLrVuSh1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=USy9NRyU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792173314; c=relaxed/simple;
+	bh=mPAPoWpMnWCgERM6/03DlQ93cyR83ZzdetBkwnMCxoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LD38gGDH/XzykoC+LR1WAOg/9xQPutdFM1UBQiTMaEz9lknswLga87iBVekN9gyX+IjdyPgBtSi3+5lH39KbrOZWPEDgfR27f+f6+4ip8R5jRvJL7D9qqSA5Q/7sJNqkrX00cEkuO3FsFIdfXP/d8+LztIIG8drBOt4WBggTu6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1+96Y+M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="USy9NRyU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792173245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0lXIRMscvUJxsAZizeQ/QDc99J746n3E9R59eq54yNw=;
-	b=USy9NRyUh8ZVdR8EtLkZUjD2eeajTKVdzahJtw7Yjes76Ync6Z3OkrtXHZeJPIQ15pc9tn
-	/Wsgb3rpWd2VyzmKmjW3ICHRpepzlZwZP8OAoQdntlJO1X0dfJsARO7iE1UUGIrbbIy5w1
-	TeuH4NfV23nK+55spKg/Xcvq2sCm7Go=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-Ad8lKG5IP_Oz_A_jwI7iLQ-1; Fri,
- 16 Oct 2026 17:54:01 +0000
-X-MC-Unique: Ad8lKG5IP_Oz_A_jwI7iLQ-1
-X-Mimecast-MFC-AGG-ID: Ad8lKG5IP_Oz_A_jwI7iLQ_1792173240
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 945711800473;
-	Fri, 16 Oct 2026 17:54:00 +0000 (UTC)
-Received: from loberman-thinkpadp1gen5.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6CC821800257;
-	Fri, 16 Oct 2026 17:53:59 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	mlombard@redhat.com,
-	michael.christie@oracle.com,
-	linux-kernel@vger.kernel.org,
-	Laurence Oberman <loberman@redhat.com>
-Subject: [PATCH v2 2/2] scsi: target: iscsi: Complete an aborted WRITE when a new R2T would be sent
-Date: Fri, 16 Oct 2026 13:53:35 -0400
-Message-ID: <20261016175351.126373-3-loberman@redhat.com>
-In-Reply-To: <20261016175351.126373-1-loberman@redhat.com>
-References: <20261016175351.126373-1-loberman@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1+96Y+M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE6D1F000C4;
+	Fri, 16 Oct 2026 17:55:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792173313;
+	bh=mPAPoWpMnWCgERM6/03DlQ93cyR83ZzdetBkwnMCxoU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T1+96Y+Mqeok+XmzPCMqvuWtVWUenQmiTw+1ry/2++I2V3Vra9Dgi+RKvemBYDXsV
+	 NKRfwBfUycnt/D2MqENH9ZEEOI7/zy/X7JapPxITQ/SkT2973yajxBa62hGFFcgpOE
+	 qZX81q4jMv6jKKfFbRXnwrX1v9Qj/rcqhPzKQlD1ufpsk9VANorhbrGKmqSBJZNj9w
+	 GjXi1WsbHw5zRNWNybKjeLMk3W5lmA1VvbYlbhjExpbQZk1RJRblmgJgT/ice6gmW7
+	 QKoEmAFldQm9+lVOqPMDCqOzyuhmY/B9M6xg71JIXr5Md3WOin1S+rQUpVQRvPBOHn
+	 scoEgzZ+9AxQg==
+Date: Fri, 16 Oct 2026 11:55:11 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Erwan Velu <erwanaliasr1@gmail.com>
+Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
+	sagi@grimberg.me, linux-kernel@vger.kernel.org,
+	Erwan Velu <e.velu@criteo.com>
+Subject: Re: [PATCH] nvme: honor the volatile write cache enable state
+Message-ID: <atJk_2FmzjUZYO_Z@kbusch-mbp>
+References: <20261016141208.2641974-1-e.velu@criteo.com>
+ <atJXYHJa4jkUWJmP@kbusch-mbp>
+ <CAL2Jzuz1qFwLSA=iivp5qLCTL6-4rvKmvFzJbOQzjPu6j_7Y2A@mail.gmail.com>
+ <atJeazM_rJ0uj3vt@kbusch-mbp>
+ <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAL2Jzux8v6zCxfcdd=MY5n0zQMVSa-_8Lki9z-fz7bFShNf7vw@mail.gmail.com>
 
-iscsit_check_dataout_payload() hands a command to iscsit_get_dataout() to
-request the next burst whenever iscsit_check_post_dataout() returns
-DATAOUT_SEND_R2T, without checking CMD_T_ABORTED first.
+On Fri, Oct 16, 2026 at 07:43:24PM +0200, Erwan Velu wrote:
+> This disk is configured by default with VWC_PRESENT enabled, but the
+> Volatile Write Cache is disabled (NVME_FEAT_VWC_ENABLE=0), so the
+> device has a Volatile Write Cache, but it's disabled.
 
-If a TMR aborted the command while the burst that just finished was in
-flight, no further DataOut will arrive: the initiator is about to be told
-the command was aborted. The CMD_T_ABORTED handling in
-__iscsit_check_dataout_hdr() does not cover this, because it only runs
-for DataOut PDUs belonging to R2Ts that were already issued, and
-outstanding_r2ts has already been decremented to zero for the burst that
-completed. The command is left in TRANSPORT_WRITE_PENDING with nothing to
-complete it.
+...
 
-Complete it here instead, through iscsit_complete_aborted_cmd() so that
-the completion is claimed. target_complete_cmd() on a command that
-already has CMD_T_ABORTED set goes to target_cmd_interrupted(), which
-queues target_abort_work and returns without setting CMD_T_COMPLETE or
-changing t_state. The command therefore stays in TRANSPORT_WRITE_PENDING
-and on conn_cmd_list until target_abort_work reaches
-iscsit_aborted_task(), and a connection drop in that window would let
-iscsit_release_commands_from_conn() complete it a second time. Guard on
-outstanding_r2ts so that with MaxOutstandingR2T > 1 the completion is
-still left to the last R2T to drain in __iscsit_check_dataout_hdr().
+> In this table, with my patch, I've enabled and disabled the volatile
+> write cache using nvme set-feature -f 6; this only affects
+> NVME_FEAT_VWC_ENABLE, and VWC_PRESENT is still reported as present.
 
-Unlike patch 1 of this series, this window was never observed in the
-field: instrumented kernels on two hosts recorded no completions at this
-site across 300 reset cycles, and the reproducer that triggered the other
-one never reached it. It is closed by code inspection, for symmetry with
-the other paths that can leave an aborted WRITE_PENDING command stranded.
+...
 
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
- drivers/target/iscsi/iscsi_target.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+> Hope that's make it more clear,
 
-diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
-index aab9237a6776..3dad7f69f3ba 100644
---- a/drivers/target/iscsi/iscsi_target.c
-+++ b/drivers/target/iscsi/iscsi_target.c
-@@ -1669,6 +1669,22 @@ iscsit_check_dataout_payload(struct iscsit_cmd *cmd, struct iscsi_data *hdr,
- 	if ((rc == DATAOUT_NORMAL) || (rc == DATAOUT_WITHIN_COMMAND_RECOVERY))
- 		return 0;
- 	else if (rc == DATAOUT_SEND_R2T) {
-+		/*
-+		 * A new R2T would never be answered for an aborted command.
-+		 * The CMD_T_ABORTED handling in __iscsit_check_dataout_hdr()
-+		 * does not cover this: it only runs for DataOut PDUs
-+		 * belonging to R2Ts that were already issued, and
-+		 * iscsit_dataout_update_r2t() has already decremented
-+		 * outstanding_r2ts for the burst that just finished.  Guard
-+		 * on outstanding_r2ts so that with MaxOutstandingR2T > 1 the
-+		 * completion is still left to the last R2T to drain.
-+		 */
-+		if (cmd->se_cmd.transport_state & CMD_T_ABORTED) {
-+			if (cmd->outstanding_r2ts < 1)
-+				iscsit_complete_aborted_cmd(cmd);
-+			return 0;
-+		}
-+
- 		iscsit_set_dataout_sequence_values(cmd);
- 		conn->conn_transport->iscsit_get_dataout(conn, cmd, false);
- 	} else if (rc == DATAOUT_SEND_TO_TRANSPORT) {
--- 
-2.52.0
-
+Unfortunately, no: there are contradicting statements here.
