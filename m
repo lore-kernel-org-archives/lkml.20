@@ -1,250 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DF7582B9A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172187; cv=none; b=fq1MSoEFoXhcr9J3Q6eekD/STdL0t5pLlhVeYAVTCHoPBlHf8x9SUFSipIN//4yoXTRsz/TpGJxDNPRPo13nnwH/oewkDvFrAgng+mfzgqaEFQUHzMmFilajZ+n3QweUPAFWmTgLPecMvKh1SVdV2AONYYOCjVybdxXFFx0+K2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172187; c=relaxed/simple;
-	bh=3K5sGWL0wtNoZk9FhEe/EuWylgGORTg+X0FAmVSMFhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKVEyWKP6FUuK4LMYC5md8jCPTEkMrqRoAlxMNtCZXSZOTzWvWrWy2X4JCa9z0sF0FPSbaAzn+ljy2K34ZHLrRDPI5Cbl4VLDIwBML63sayFJoRCseeonA46l6bBVHD/gVRfAVqHndSVHPFlqEUWazVI7iDhyIPCiAew565xHsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgnED+Me; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5C1539793
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792172268; cv=pass; b=VJdBYjTw4NBmuRdnMH9syQu42+w7+Y8LnAP+7DbzSuwHPJUFA9lGQN82zxVXSlm0ytreI1cMK09Tf9YMzwS5ad6sx5ulYq70pKrvWPRfXxEbp9TSjgfieeIeK7+ey8qVxaCN9snaUmMci10PjCcw1/vQw7LN403GZfuiuO3sMmY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792172268; c=relaxed/simple;
+	bh=mc6ggexvMnt2aOuyzwqlMy2bKU0FblkWbAUTLCGHSAU=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TxWyjXgQ0QAu1cAmtZPoWm7Fy57xBnxyG1aEDTKu97JF0SW8ol0JEqGFEB+hYn5Mo6nUAMgCfFe5/j71tnJ6wswuvf8bCBfpuu8giH8ZpuQGGpqhV9riKaQnxs0WYDYa6NfZ3ttOkdbBh474cdVD1Pte2G1513Hz6PKjRo4zZrA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlPEQnn8; arc=pass smtp.client-ip=74.125.228.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgnED+Me"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277BA1F000C4;
-	Fri, 16 Oct 2026 17:36:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792172186;
-	bh=YMbJwCRP8ZZxt3NEiXPg55lY8UcPeUjTprnohFKVbL0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cgnED+MeE+BVnu7FMkB11A2u5LnsuWVHRNtqiFCCMnmKPvj8sMTGZjS0v+3mPwCSI
-	 niostZ9UZKpPxZKiwSvov01qUzA051EHLue12Qaz9nnjlodsaXO0GhIWvf+tabHYZ7
-	 fKNytXo1Ce9IzWEvHcsQS0WKjt7T1D2WXOgmDLTMIckEmYPHNiVEXZGgg2QF9zoUqt
-	 e3PhTFI/cQYx/ApyBEMCqyGsbXmlXz/x0cZT68S2ReUvo1athbOrAZMTK0tp4KDG5Y
-	 y8qDdfJx/rzehmzWSVOFXti9Ri1uSjcz7bqubQ3FuVgxomyIQU0/ojQ9GqlISbchR1
-	 rU4l3ipSOs8Uw==
-Date: Fri, 16 Oct 2026 18:36:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	qi.zheng@linux.dev, jack@suse.cz, pfalcato@suse.de, ayushr@modal.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: memory: fix truncation removing mapped folios
-Message-ID: <atIsNGVDcWtznMKi@gremlin>
-References: <e2f76ed117b0c22a26b7688fd46a38c9d035336e.1792114445.git.baolin.wang@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlPEQnn8"
+Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cc7c286026aso108627a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:37:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792172266; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SEpgMGr6O2DBUzkygcqnGaz1yie8I5m9FOOKTFpD59JFVX5gsPi8ST0AYtZfJigywA
+         +2KWN4G8DkskGLmNsRTTLLek1VqXLe9g6wIfTH33x/Vq3ZPYtlEzkrijQahpZ/DWOsrW
+         6MdXeePc1ULfqmc//NVEgoiQu9eb5Ca+v+bRmgLIELkm7deR3JaBxzbYAkTDwhzjkJDr
+         7o6R1eRlP0xx800FC6gjaQ2tbdQbtIH6CjNSpGSfu/SP/B5x/Bgt7R8KpGyS7w3BnyaX
+         3ROvYI/TpFgndz2sfDn6Y3biJnPhlmoYd7XCHYpls2on3TsI0JphQrmmNCoc4YG1FSJP
+         Sgeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+        fh=u1e9une1BlZZWeC4vW97eS9uEeeP8AWftZuyvAf36bs=;
+        b=OmiElI2AJTESjGjUJaIo+yqfHYnjFqoU/b8N5akr/VziqZSWYz7rTsVtpMsyVBkBkh
+         LT8FGu1Bwpvx20+nQV/r3aDwCusBJQ+SfDQp7vftGBkoZJTDs1FFXcu/J+I6XMxPzTVw
+         mWo5/g7nlE2e0JwfXKkCa5sWPZJEn96ug2JCokf/E/SM5HjhTadN7tsk3/WVfdwzaUO7
+         WeGPRtpiXc6oWOS3IrGotIgEWzuZNGE8TtyKprGDPE/8ZcO1P0F4zhHDGg0F18estKtn
+         T5nGKdvNTJHgSVMGBybSYI+wZMhmvsL9ZABEneJPoDyY1GGHWao0vNPUjOwGI1WqJb49
+         papA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792172266; x=1792777066; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+        b=SlPEQnn8gsNIJNRFBQVi1N97rUQKz+ygh6TN5A95a/RiBxj3dDC5dUZPslxd0w56Ci
+         YcIDNUTRFaZfgWMzJjoRKHZmPwvLwn5ox947YjCjucbtXbaOGTYEWBCb4rgjHEZTkq4x
+         jsk4E9VKN/2ZdunZ5HNiCIm2k3pN8buqH51Lr47I03oxJ9TceR95WbUOBePuUjSNi2rb
+         uEs5P+USGf3g9doCIXdOv98oJLLf5OBEBADtKur/tu3WblZ8a1DbUnrKr0avzbdvC+Ow
+         uz9F4U8Ni6/C6j2kNIwTCIhzcgsNzAzFuZTicKTxbMyVBmuyZz+lGny+0E3t/4cQabG2
+         TktA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792172266; x=1792777066;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
+        b=XfbOJMOTeI5DznrJ6ZuOY1yVF/6cXKwfZcT2RiNab7sNzkZtvHJnDM5sHMjWSzX0sm
+         sDsLksxrdNlGed1WMjzkfJT13e/P9VJBjC8XtNCzdTJZGLtQk1ZicurEbAG0cawpw1eW
+         0eIy0wzOUWH5fMJBCcAxf8Q8hiGrHsORluNj5n2E1vCdQmz1fskrJNEJiMg6hMs+2Y+6
+         R1xKSg+qiCtElPCtPOfN+TH0+QNblpXBDjzPOKkTwpIdPOB13f+/CAY81nyvbcPv6sZk
+         S+4CkoWpCxfovF7MGuE1VbafOKL4pIrsvapqkefuT83v+D7nSDkI83wMh8WZUqebftno
+         S3Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxycWHTcKEpDq94qD3Ov+ZYYni06HbzUGYsz5GAOoOW3fRPr9hdpem/Qy0BusJhcNJM4UTKWyHSuiFMlO0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcxztKQHqgh/FTR1z7He2s05XzYjIFQ3RKgXnNkiXvVOXhmEGo
+	wqPaDa4RWD5et5ZTcsLix9usrniNbo3bx3RPQEA7dIQDTsPpX1lKYQ+uzIDOn6sHhNeWvIc0lMy
+	3mDh8KkS78LyzwJi6UHLE/eNXKrHEdo0=
+X-Gm-Gg: AYBFou0x1CZ0q0ObViQmXUQjfybIeTUupcJPiaFmvT+DRq7SUgXX3L2wn9z9bO70PC7
+	aKdvlQsM2hjt7xm9o3dInmbMBorH35zVlg89gYJY0Ahf3tTuZ26fWl/2Y0uHFrZIlIcx+YtGabm
+	9MedjFqUpR3R5MirqYyKbZUdgz0++ldTikTpwXjRVQitNsZtt77pK3Xfk5H+b9tOQdxVCnUoKZY
+	UTSV7/gVoxqLjV5L4IaxTUtnpW5Hr+hlE30ZLtktSvJz0/X+NFQKDSjfYyW2ONRj5YOBF591jbs
+	QEBrqvFXn/VmSza7Ysy4NAId8HM6A8jZ00l0SyH+45LjFWyuQxOw8A==
+X-Received: by 2002:a05:6a00:3008:b0:89e:fc47:2c17 with SMTP id
+ d2e1a72fcca58-8a04be6a27bmr262049b3a.19.1792172266196; Fri, 16 Oct 2026
+ 10:37:46 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 10:37:44 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 10:37:44 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e2f76ed117b0c22a26b7688fd46a38c9d035336e.1792114445.git.baolin.wang@linux.alibaba.com>
+From: Yibiao Li <biaobiao2233@gmail.com>
+In-Reply-To: <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
+References: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
+ <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
+Date: Fri, 16 Oct 2026 10:37:44 -0700
+X-Gm-Features: AclHuK_NcSTXBwBpql1smct-MaIzZ_7A3iNYOrIiqYl5afbkmOt6bPkRbY4aer8
+Message-ID: <CAG1agfwZF0j71YofDWVqrxX5v-gtSYbM2OQiw+Kbd1zGPTaT3g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Use separate iterator for preferred mode lookup
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 16, 2026 at 09:48:08AM +0800, Baolin Wang wrote:
-> Ayush reported an issue that shmem/tmpfs folios are still mapped when
-> truncating them on production:
-> "
-> BUG: Bad page cache in process ...  pfn:...
-> page dumped because: still mapped when deleted
-> "
+On Fri, Oct 16, 2026 at 09:50:44AM -0600, Alex Hung wrote:
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+
+Thanks for the review, Alex!
+
+Best regards,
+Yibiao
+
+
+On Fri, 16 Oct 2026 09:50:44 -0600, Alex Hung <alex.hung@amd.com> wrote:
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
 >
-> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
-> branch, and I got the following crash info. From the dump message, we can
-> see that truncate_inode_folio() is really trying to remove mapped folios,
-> which is incorrect.
->
-> "
-> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-> index:0x3880 pfn:0x191647
-> [  189.171995] memcg:ffff0000cc073d40
-> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-> .......
-> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-> [  189.172026] ------------[ cut here ]------------
-> [  189.172027] kernel BUG at mm/filemap.c:155!
-> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-> .......
-> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-> 7.3.0-rc4+ #277 PREEMPT(lazy)
-> .......
-> [  189.183986] Call trace:
-> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-> [  189.184391]  __filemap_remove_folio+0x34/0x160
-> [  189.184633]  filemap_remove_folio+0x4c/0xb0
-> [  189.184859]  truncate_inode_folio+0x34/0x58
-> [  189.185087]  shmem_undo_range+0x220/0x658
-> [  189.185308]  shmem_fallocate+0x2f0/0x470
-> [  189.185527]  vfs_fallocate+0x128/0x328
-> ......
-> [  189.187078]  el0t_64_sync+0x184/0x188
-> "
->
-> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
-> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
-> MADV_DONTNEED synchronously releases the pagetable page before calling
-> tlb_flush_rmaps(), this could cause another thread's truncation to skip
-> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
-> as non-zero. A possible race scenario is as follows:
->
-> CPU 0                           CPU 1
-> shmem_fallocate                 madvise_dontneed_single_vma
->   unmap_mapping_range            .......
->   ......
->   (filemap_map_pages() remap folios)
-> 				  zap_pte_range
->   truncate_inode_folio		    zap_empty_pte_table(pmd clear)
->     unmap_mapping_folio
->     ......
->       zap_pmd_range (saw pmd none, skip)
->
->   filemap_remove_folio
->     BUG_ON(folio_mapped)
->                                     tlb_flush_rmaps(remove rmaps)
->
-> To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
-> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
-> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
-> without holding the PTL, the folio's mappings are guaranteed to have been
-> removed via tlb_flush_rmaps().
->
-> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
-> Reported-by: Ayush Ranjan <ayushr@modal.com>
-> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-
-With nits addressed LGTM, so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
-> Changes from v2:
->  - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
-> Changes from v1:
->  - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
-> ---
->  mm/internal.h |  9 +++++----
->  mm/memory.c   | 25 ++++++++++++-------------
->  2 files changed, 17 insertions(+), 17 deletions(-)
->
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 0434dfcfc36f..6d8f494296a4 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -585,14 +585,15 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
->  void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->
->  /**
-> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->   * @mm: The mm_struct.
->   * @pmdp: Pointer to the pmd that was found to be pmd_none().
->   *
->   * When we find a pmd_none() while unmapping a folio without holding the PTL,
-> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-> - * indicate that it's unmapped. Skipping the PMD without synchronization could
-> - * make folio unmapping code assume that unmapping failed.
-> + * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
-> + * yet modified the mapped folios to indicate they are unmapped. Skipping the
-> + * PMD without synchronization could make folio unmapping code assume that
-> + * unmapping failed.
-
-'zap_empty_pte_table() may have cleared the PMD but not yet modified the mapped
-folios'
-
-Is that accurate after the patch?
-
-You run tlb_flush_rmaps() before zap_empty_pte_table() now, and thus
-folio_remove_rmap_ptes() ran for every folio by then.
-
-Maybe something like:
-
-	"zap_huge_pmd() may have cleared the PMD but not yet updated the
-	 folio mapcount, and zap_empty_pte_table() clears the PMD only
-	 after the rmaps for the table have been removed, but nothing
-	 orders the pmd_none() read against later mapcount
-	 reads. Skipping... <etc.>"
-
->   *
->   * Wait for concurrent zapping to complete by grabbing the PTL.
->   */
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 6a8e7772b8d6..8f7ba427371b 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
->  		}
->  	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
->
-> +	add_mm_rss_vec(mm, rss);
-> +	lazy_mmu_mode_disable();
-> +
-> +	/* Do the actual TLB flush before dropping ptl */
-> +	if (force_flush) {
-> +		tlb_flush_mmu_tlbonly(tlb);
-> +		tlb_flush_rmaps(tlb, vma);
-> +	}
-> +
-
-Maybe worth a comment here about ordering?
-
->  	/*
->  	 * Fast path: try to hold the pmd lock and unmap the PTE page.
->  	 *
-> @@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
->  	 */
->  	if (can_reclaim_pt && direct_reclaim && addr == end)
->  		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
-> -
-> -	add_mm_rss_vec(mm, rss);
-> -	lazy_mmu_mode_disable();
-> -
-> -	/* Do the actual TLB flush before dropping ptl */
-> -	if (force_flush) {
-> -		tlb_flush_mmu_tlbonly(tlb);
-> -		tlb_flush_rmaps(tlb, vma);
-> -	}
->  	pte_unmap_unlock(start_pte, ptl);
->
->  	/*
-> @@ -2102,12 +2102,11 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
->  				continue;
->  			}
->  			/* fall through */
-> -		} else if (details && details->single_folio &&
-> -			   folio_test_pmd_mappable(details->single_folio) &&
-> -			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
-> -			sync_with_folio_pmd_zap(tlb->mm, pmd);
->  		}
-
-I think David's getting at (correct me if I'm wrong) doing:
-
-	} else if (details && details->single_folio && pmd_none(*pmd)) {
-		sync_with_folio_pmd_zap(tlb->mm, pmd);
-	}
-
-Here, rather than folding into the below?
-
-I think that's neater also.
-
-> +
->  		if (pmd_none(*pmd)) {
-> +			if (details && details->single_folio)
-> +				sync_with_folio_pmd_zap(tlb->mm, pmd);
->  			addr = next;
->  			continue;
->  		}
-> --
-> 2.47.3
->
-
---
-Cheers, Lorenzo
+> On 10/7/26 23:17, Yibiao Li wrote:
+> > [Some people who received this message don't often get email from biaobiao2233@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > From: Yibiao Li <biaobiao2233@gmail.com>
+> >
+> > create_stream_for_sink() uses preferred_mode both as the list iterator
+> > and as the selected mode. This triggers a false positive from
+> > scripts/coccinelle/iterators/use_after_iter.cocci: native_mode_found
+> > already ensures that an exhausted iterator is replaced before use.
+> >
+> > Use a separate iterator and assign preferred_mode only when a preferred
+> > entry is found. This keeps the selected mode separate from the iterator
+> > state and makes native_mode_found unnecessary. Preserve the fallback to
+> > the first entry, or NULL when the list is empty.
+> >
+> > No functional change intended.
+> >
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Link: https://lore.kernel.org/oe-kbuild-all/202609190901.yKTzhsGz-lkp@intel.com/
+> > Assisted-by: LLM coccinelle
+> > Signed-off-by: Yibiao Li <biaobiao2233@gmail.com>
+> > ---
+> >   .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 10 +++++-----
+> >   1 file changed, 5 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > index d386bb1475..ceea8fe481 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> > @@ -1453,12 +1453,12 @@ create_stream_for_sink(struct drm_connector *connector,
+> >          struct drm_device *dev = connector->dev;
+> >          struct amdgpu_dm_connector *aconnector = NULL;
+> >          struct drm_display_mode *preferred_mode = NULL;
+> > +       struct drm_display_mode *connector_mode;
+> >          const struct drm_connector_state *con_state = &dm_state->base;
+> >          struct dc_stream_state *stream = NULL;
+> >          struct drm_display_mode mode;
+> >          struct drm_display_mode saved_mode;
+> >          struct drm_display_mode *freesync_mode = NULL;
+> > -       bool native_mode_found = false;
+> >          bool recalculate_timing = false;
+> >          bool scale = dm_state->scaling != RMX_OFF;
+> >          int mode_refresh;
+> > @@ -1509,14 +1509,14 @@ create_stream_for_sink(struct drm_connector *connector,
+> >          stream->timing.flags.LTE_340MCSC_SCRAMBLE =
+> >                  connector->display_info.hdmi.scdc.scrambling.low_rates;
+> >
+> > -       list_for_each_entry(preferred_mode, &connector->modes, head) {
+> > +       list_for_each_entry(connector_mode, &connector->modes, head) {
+> >                  /* Search for preferred mode */
+> > -               if (preferred_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> > -                       native_mode_found = true;
+> > +               if (connector_mode->type & DRM_MODE_TYPE_PREFERRED) {
+> > +                       preferred_mode = connector_mode;
+> >                          break;
+> >                  }
+> >          }
+> > -       if (!native_mode_found)
+> > +       if (!preferred_mode)
+> >                  preferred_mode = list_first_entry_or_null(
+> >                                  &connector->modes,
+> >                                  struct drm_display_mode,
+> > --
+> > 2.43.0
