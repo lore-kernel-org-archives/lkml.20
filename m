@@ -1,141 +1,74 @@
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BAEB27A907
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BEA2F3622;
+	Fri, 16 Oct 2026 03:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119794; cv=none; b=kQCfhRcOuE/L+2+D+10sYwX50sBezgYgaIV+VYfhCwLouOvwYF24i4KzdBgmsJUId8K4LGb8kHyoGJtpz3ViT6tKT+/mpBEhJGRUTkhNXfCrkcYKg64To8/E3ydsJTtl9Z4R4qJxKVmJLZdbin0kC33pFHYtNJozFSO6K1exOYk=
+	t=1792119820; cv=none; b=R9wVxvrqNKzgD0HM/dtfxI2cv1yFaalQTonEBe9mNB4UO3KxAf+GDAn3NSYnvTnwNhMBpbTrLoqPTo/lxZr+eJnMfQ6nTHD1b9PHzP66kvyOovWBSRi8ySu834q2B7T1UVvCnQ6fZ1Aym+wkLMJpEEk5AhgrNyJUBXiEEINuvFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119794; c=relaxed/simple;
-	bh=4wygRKFSnqgr6PR5rOi3tKEHsDx4IhZAfPvVtWyXV6w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iUtRxL/0ejINvVqLdrWBd1f4vng1ekgnxplj5o0hDfQpxciGu1U6FanTeAwC79/h5bh409GIFBfwzKgsDXIxTblE2jXY+iAsrP+SfWnsKP5UcDGoCzsw7SH7CBbtu9D+OMEg8m5nNigrus/hB+OJhdq+UuaC/RgcAceyJMykFEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=UyVu8LvV; arc=none smtp.client-ip=91.218.175.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792119820; c=relaxed/simple;
+	bh=zo/8fZ8YUb8HdVmiLECNZ1HxadSLSUU2Sd/FMDYGWZ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mxf2XMw7ncHwcX7+K8ncKzRk1W0kEAdt87BM9c2/jGy9sw0G2bdUBwXbge6qKrXZsEQCgg8kWsm3e8cJb6M10H4EA7HnQRDByMFY8+t1+7tIoYGwxNd94M6dSzK+/SQg/f4tLk8OW3ijckGpy2FHAY8oPGgkDuRRajyNQ/bnQJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YgQMSyMM; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="UyVu8LvV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4wygRKFSnqgr6PR5rOi3tKEHsDx4IhZAfPvVtWyXV6w=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792119790; v=1; x=1792724590;
- b=UyVu8LvVi9FBljEix6kcgd/o2rQR7UMjRVbX86NR/5frH/B+RQnMOIeVAAFC1C1tfkxjm0pM
- N/juytQyF1fOgcpLwROY20Axskw4x0X9FW/F0TN56cGiGX8BzcTgH9KGVOFqiE4PTWb/Iq/XV74
- 1qbaB7f5c/B0sMOITmxB+MCPKScKAbuviCVQPXaE2po5+tpX5UPlTuPhXPajaqi97N0NVcX6sgd
- m0tcNrvfjRIPysFyRrSDBbMdi3ES3HYxT7tKjj3K6lJY9mR2pLQp4QGkdEN128pvde/pDWFqh+N
- yODkxwWde/gcZukmtFykyj9I/kxgwkQDd110+SlLzNh3A==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0d9d1dbd2876dfe1;
-	Fri, 16 Oct 2026 03:03:09 +0000
-X-Mizu-Trace-ID: 0d9d1dbd2876dfe1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5f0ee2bd-1b2b-4745-a547-83708b977544@packett.cool>
-Date: Fri, 16 Oct 2026 00:03:02 -0300
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YgQMSyMM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yt
+	48yg41mZP+7By2lPNPF2WGa0fxb7xQs+Ysyz2ekig=; b=YgQMSyMMokdlnbH31n
+	Ynq8d2rWH9KcUNi2OO8LO+tC3pZIFVYgXVT1qG5jsfHjA5iC9z3bquLTzqE/8omA
+	CHz92CfJcx2fyCEuQ4utOkDEp4JhQOo0XcBcBKDkuDn3yMebM1YyfQTeoKV89HLL
+	axBlp2+ZDFfqCSbv/ZPUv1XZQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnfybzk9FqNkeeAQ--.46746S2;
+	Fri, 16 Oct 2026 11:03:17 +0800 (CST)
+From: Slark Xiao <slark_xiao@163.com>
+To: mani@kernel.org,
+	jeff.hugo@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com
+Cc: mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Slark Xiao <slark_xiao@163.com>
+Subject: [PATCH v2 0/2] bus: mhi: host: pci_generic: Customizing autosuspend_delay_ms for MHI device
+Date: Fri, 16 Oct 2026 11:03:02 +0800
+Message-Id: <20261016030304.13677-1-slark_xiao@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/8] PCI/ASPM: Add pci_force_enable_link_state() API
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bjorn Helgaas <helgaas@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Nirmal Patel <nirmal.patel@linux.intel.com>,
- Jonathan Derrick <jonathan.derrick@linux.dev>,
- Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- ath11k@lists.infradead.org, ath10k@lists.infradead.org,
- Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Qiang Yu <qiang.yu@oss.qualcomm.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-References: <20261013163107.GA1522779@bhelgaas>
- <2517d322-9e5d-5b81-aa67-56705879be74@linux.intel.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <2517d322-9e5d-5b81-aa67-56705879be74@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnfybzk9FqNkeeAQ--.46746S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrCFWUXF4kXF4rXF4ktFyUAwb_yoWxXFb_u3
+	sakF93K3yUXFn8tasrtF15Cry5Krs7WrnFvF48tF9rXw1Dtr4DZ3ZavrWDtr93WFZ0yF9r
+	Cwn8CryrArnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRE-eO3UUUUU==
+X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5xUxlWrRk-WRXgAA3E
 
+For some devices in some specific scenario, it may need more time to
+process last wake event to avoid a new suspend event. The default
+2000ms may not be enough.
 
-On 10/13/26 2:42 PM, Ilpo Järvinen wrote:
-> On Tue, 13 Oct 2026, Bjorn Helgaas wrote:
->> On Tue, Oct 13, 2026 at 02:41:32PM +0300, Ilpo Järvinen wrote:
->>> On Mon, 12 Oct 2026, Bjorn Helgaas wrote:
->>>> On Wed, Jul 08, 2026 at 04:30:16PM +0200, Manivannan Sadhasivam wrote:
->>>>> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->>>>>
->>>>> pci_enable_link_state() and pci_enable_link_state_locked() APIs only enable
->>>>> the ASPM states that were not previously disabled via
->>>>> pci_disable_link_state*() API or blacklisted during init (e.g. the pre-1.1
->>>>> device blacklist, which is only meant to be overridden with
->>>>> 'pcie_aspm=force'). This is an intentional behavior as these APIs must not
->>>>> silently re-enable states that were deliberately disabled, since doing so
->>>>> could enable ASPM on a link where it is known to be unsafe.
->>>> I think this is saying that many uses of pci_disable_link_state() are
->>>> to avoid hardware errata, i.e., these are basically quirks, and we
->>>> should *never* enable those ASPM states.
->>>>
->>>>> However, some drivers (e.g. the atheros WLAN drivers) save the currently
->>>>> enabled ASPM states, disable all ASPM states before firmware download, and
->>>>> then try to restore exactly the states that were enabled before. Restoring
->>>>> those states requires re-enabling states that were just disabled via
->>>>> pci_disable_link_state() API. But, this cannot be achieved using the
->>>>> existing APIs.
->>>> This sounds like it's also for hardware errata: if ASPM works
->>>> correctly, there's no need to disable it during firmware download.  I
->>>> think this is *only* the atheros drivers, isn't it?  I didn't see any
->>>> others.
->>> There are more that should use disable/enable API. In addition ath*, I had
->>> also these in my unfinished series:
->>>
->>>    brcmfmac
->>>    ib-hfi1
->>>    rtlwifi
->>>    rtsx
->>>    r8169
-> [..]
->>>> Instead of adding pci_force_enable_link_state(), I think we should add
->>>> a new interface for the *quirk* behavior that permanently disables
->>>> states.  Then pci_enable_link_state() and pci_disable_link_state()
->>>> could be made symmetric.
->>> My suggestion is to make the disables/enables counted per state which
->>> would allow parallel sources of disables to function without clashing.
->> By parallel sources, are you thinking of sysfs and driver calls?  If
->> locking would be sufficient I think that would end up being simpler.
->>
->> But maybe the issue is these devices where we think ASPM breakage only
->> happens in certain circumstances, e.g., firmware download, so we want
->> to keep states disabled for that period.  Then I guess locking inside
->> the enable/disable doesn't prevent sysfs from enabling those states
->> during that period.
-> There are (at least) these sources:
->
-> - quirks (disable only)
-> - hw has ASPM related problem at certain phase of operation
-> [..]
+To meet this requirement without affecting the settings of other
+products that should remain unchanged, I have added this seriries
+to achieve it.
 
-FWIW, one not-yet-merged user is this patch that disables ASPM around 
-link retraining for bwctrl on host controllers that do require that:
+Updates:
+  v2: Add update for DW5934e
 
-https://lore.kernel.org/all/20260819-bwscale-v5-1-6dea79786b37@oss.qualcomm.com/
+Slark Xiao (2):
+  bus: mhi: host: pci_generic: Add autosuspend_delay customized support
+  bus: mhi: host: pci_generic: Update DW5934e autosuspend_delay as
+    5000ms
 
-That particular version of the patch was already written assuming 
-symmetric enable/disable and I hit that when testing it, so here's an 
-example of the potential trouble :)
+ drivers/bus/mhi/host/pci_generic.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-
-Naming suggestion: if it ends up being that counter thing, it should use 
-the verb "inhibit", like idle inhibitors in userspace. Those are 
-commonly understood to be counter-based ("as long as there's at least 
-one inhibitor, the state is disabled") and temporary.
-
-~val
+-- 
+2.25.1
 
