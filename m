@@ -1,152 +1,143 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B930B4EB853
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:19:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167580; cv=pass; b=ExkVFgfrOmsSJ2sT5WTI1U7ihEIfHBLdS1DHRPNBCqyYC+wEMkE/up6MU3jb+PMFma3iC16R6/sYRQv6JGGhJucZmfOc4rrEuLtc0o+o7x7SfWEHGkGOv+31Yuw+PJ412+FF31OmGWON2/OLtQeLX9fgsJCK34b0OcHfXhGIskY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167580; c=relaxed/simple;
-	bh=1IVZ3C+nJEr3Wn1A2hkwI/Co5KZ7cTS+XVJV/vRJaT4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wix5ijU+OmOWeHjAvCPeUO/WnBhOny+DgIV01Nafss5BjQgX3lg4wbnJRkYMRsAPf1lWeQWbcUdkPpKiOjATVb4zK8onVyjqpp4/5u3duDIv/sLBoFIIc79cCYk2x+pKTNYuByshgqwAOfP6F0JsSKKZ2dhurCZE+mxKHBO9N7I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KGnov/6+; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D671C50C29D;
+	Fri, 16 Oct 2026 16:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792167591; cv=none; b=QQJ0SguTuA1itw+8ZBwiCDCqTv6x9Bxl/AxAbabmpuwzpmQSVEEkU8myNTTXEgULE2g/Xw5IAXWFPegnFZfxuB+u4yvlchcquO52IxKRlH+udaCMAIXEXXcERJI7/JP8qso1WQAroNg1Zr0ApU2uAWZjAlqCQKr+VXJYRMMbHeI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792167591; c=relaxed/simple;
+	bh=ENFZgHtxdvF4pI9iefiApJtXu8xO78IX1WmmevgYHZc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qmhFt+cl4dFxIVSNJli6bf6uUBH/KN+3dHT/Tgf2ciIOHE/Z59mSRcVuBZ4a3L/1/y3/PdzbGkPxLoKjjQQm6shzBlE61Wa+2ZhNSyi8cCayF1Za6LZKpiZsOn3pBHoh7OgdeNUysLOcN7Zlr+YxcZFPk9CZiw3BTOhuJvcaERY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=UKTdQzBT reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KGnov/6+"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so1147265e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:19:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792167576; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RmmR3WAv1hEfBR39XJ77T2YqE+W/cmyDECyJchF8Kvuedu52XnOZr/E/5DeiRBVtdl
-         LnuCQMuFOHHMJ3MIPRMpugwn5OVlSCoYZ2N8An/Mw4LKuDym8Ldrx+Hk/0QAFnun4+Ud
-         tKK+XP14iZD8JbHQm9ODRz5xNJGKSpK7h5jbOMTE/i63tngutfssr3NuNM9iyNFPz1L2
-         qrhKu4gAyKW0ojo5Y/yW4h9+gz7MzlSXFFl9yzuT0L0bXgo1O0MaQ00aIgfZ0ALNeUzT
-         mF1Q43kydnDigmw8wUP1swooNmQSRal8Qk6mPlOYK1VAtXDfxKwS+baQk5WJPYwDcfuw
-         rFsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sknvcXuzW07rbGsF6fwWjmew1+2afMy70Rv4vHSfSpA=;
-        fh=GG4DA/LjWIt1MKG6i+AA/ecSVo9j2KcM5N1TrrSs6WI=;
-        b=VEl7x5HbUR2vlbs9QwWzdALGmqv1Z4vZstnKs8zlaONPnrJI9nieygEuPHXcMjT/ke
-         QoeZkE+2bAayM2DjEQ9ygmbvSkIvi4photUiwdJzW/d/itLoTF+suoaG54vDhlkBxrtM
-         Uvw39SFsBnRKHw+Ab9rPTFZalaQQDRznT0UuFaeaACqeVMK3BioAJcqbAl1v0ht8FKh6
-         xV9CqUyc9RCVH9pJ2n5wiWA+zg+e8XezYLcQ3Xbtvoo2u+ZZVmmmcY9hu/dCOHLcN1gn
-         DIUy/pGULSm/0fEW6O0cOTA4PSW3htcKxWYk5ehKDg6iodeUS86SdfV8WpanXOeMDx3Y
-         DuTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="UKTdQzBT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167576; x=1792772376; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sknvcXuzW07rbGsF6fwWjmew1+2afMy70Rv4vHSfSpA=;
-        b=KGnov/6+qBeoTtZpr2lkpBLF48Shdek1ckJ/Nade/U4GSZ/2RFa0Tm7EUeZTjEuzlo
-         ITvku5nQ8MCS2O0jq/AR6NtNwzEcy9zL+zr/Tsc/a1sXNw9YqE0tn0pyWkM9Dw5nCV9l
-         t/LksnpzxUOGJR2nfGwCL1tGPykMRPTxIAh2vRtgqnpFJf+q913jGRLQMl1EFjwdSLhM
-         RuNpf7Ifgl/+YgjFs7Y8DQGCtAS9f8wwM5+GNLgV5iVsM3NBNKnAGPn8KWpWlosGdY+d
-         OZCSIVwr5TojSe3Oo1h99OU/I57hCH0pbPaXLaRZhXJU8ZD3qt6s+jaZe4xjDLomXD3J
-         pX2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167576; x=1792772376;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sknvcXuzW07rbGsF6fwWjmew1+2afMy70Rv4vHSfSpA=;
-        b=Kk9sT38/1v/PJeffipjm0FWfvmWI5qN6OmV3AoJgCwTN2/4i95+Qd3W7PmZg/pWLUq
-         Sc5lSjqprpcsMK4XcGU5JLBt7J3lUn4AfuihnjzFh9Y5MpsKMSVkjtrmj2djFCP0sihC
-         w14wI6jptdLiT/bEfLq5EmkiPrN2vIAJ/LW7TormQ3eX1Eem8Fc7XCTR6Y6LWSrUlUiP
-         RRCupZFzCjdu7ux28ryNQ/j8VqfEZ+vj48cktJR2zNYn06LNO97b5Sgry1mWf2hk4T2c
-         1WsjdeBVZczfZjaDPDIADVjlMH8gBZ+2IsJ7O0brEVqH2iQZWEtPanoTj5WQt4FSPxGR
-         PbEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAmbDjgN0GWjE3UCjlgYZ500eYY9m70sKqTaKlrKoKpn53/rlzer9RslrK6a10SXUWgkghEjOkVHIGuwg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLC+Y57rhVmdfVfhuaT3ymtiTZMWsb3lnynJiWTOVTbdYTMHDM6
-	k03JZ0Px3OtYgvS2ar9EItPs4UFN5qthnHcNAJ/m0YBm5wrUfLyIZNp3GNZ4F3oXgt+mq9+1iah
-	j4Iq2ac+icocDG9zD5sizSG/h1A7kYjvCe/wAUDg=
-X-Gm-Gg: AYBFou0zhAPMW/dFAHB6kaCowWtqkhhXzuzh9x1fzTXTz5mtfy09KYgaDG60Hwk2aIy
-	lE69QdStpaWfw+NqvnhmCaOuHw+RYxTeDpIpb7H4gydVrp9wSkEUDOVWqSrJGw4kh7RtxgWLq21
-	PoldMuMGFU01cPODmdhv2RnlekIFK0IP88Gx+lTOMnA1xmmSTmj0Eo3T++d6zkN04TVJ+wqqZlQ
-	zCfja89eJtQgem2evZ1/bRPzVJ/4IuHDNTQCMyrS+Od6UEXLWmQis5IWDtm6Ltw8C/cx+61D3LV
-	hB3aawjrIjUb2ArqNDTE21I1a7O0QwbLVLTVwfrXypB5Hb4a4wzcyNZeb3zL/0aUOzSGnNiDa8v
-	n8whXg/SRnXJBBylgY8BsyRrd0RjBDj5yNZQJp0SfD2Hy9zZbV4AcZeWymQLUMOcezYRLVA4=
-X-Received: by 2002:a05:600c:8219:b0:4a0:108:3b48 with SMTP id
- 5b1f17b1804b1-4a1d760746amr7046915e9.7.1792167575523; Fri, 16 Oct 2026
- 09:19:35 -0700 (PDT)
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=3SI2PYB4A4
+	I6Xf6xw/bHHDGscaxuo07tsHr29BUxlDg=; b=UKTdQzBTSoxeovbnd7wka+ES1Q
+	aTENkin+kyTYL/zxpqM0MLMRQJjsM7X22TC6/fW8k3PQLFhvyCW1QvbE55gWYkt6
+	DsJ2aiB7ZC5ZkJVmMXw92ymxzFH5aDrDhB8+dzeZ4qdzMdXUaLbAvkvRF9Osfb2n
+	jQB15rftgZlrroQ9I=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.96])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2uv2TTtJqAPOrAA--.62184S2;
+	Sat, 17 Oct 2026 00:19:33 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] wifi: rtw88: usb: drop RX frames received before the device is started
+Date: Sat, 17 Oct 2026 00:19:31 +0800
+Message-Id: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007153915.53429-1-alex@ghiti.fr>
-In-Reply-To: <20261007153915.53429-1-alex@ghiti.fr>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 16 Oct 2026 09:19:24 -0700
-X-Gm-Features: AclHuK_qydqamMBdCBeNyLTJ-3vLIcUmGK3v6Myyg5hV89s6EoTGIQhr4IJjhWo
-Message-ID: <CAKEwX=M6G3NPOrGJg7Sz68BDSjzrF4R-tTjcX07L9oZ0GK4Upw@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, yosry@kernel.org, 
-	shikemeng@huaweicloud.com, baoquan.he@linux.dev, youngjun.park@lge.com, 
-	chengming.zhou@linux.dev, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, kasong@tencent.com, ryncsn@gmail.com, chrisl@kernel.org, 
-	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkC2uv2TTtJqAPOrAA--.62184S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF4UGF4UuF1xWw45Kry8Zrb_yoW5Zw4DpF
+	WrJayYkF93GF1jvF1fWF1xJFyrZws7AryxuFWrKa48ZFn8XF1SkFyFgFW2vryDAFWkAFy3
+	CF1DtryUGan8CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
+	ZEXa7IU59TmPUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rSPdEJEgABsN
 
-On Wed, Oct 7, 2026 at 8:39=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wrot=
-e:
->
-> Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronous
-> device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahead.
->
-> zswap is the same kind of in-memory, synchronous backend as zram, not a
-> swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
-> swapin_readahead().
->
-> Here are the results from bypassing readahead for zswap too: it was
-> measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, shrink=
-er
-> off, on Sapphire Rapids and 3 iterations.
+rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
+after rtw_register_hw(). A device can already have data queued on that
+endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
+rtwusb->rx_queue before any interface has been brought up. Submitting
+the URBs late does not close that window: the frame can arrive as soon
+as they are submitted, which is still before the device is started.
 
-Would there be regression with shrinker on, when we have mixed zswap
-and disk swap backends?
+rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
+checking whether the device is running, so ieee80211_rx_irqsafe() runs
+while local->started is still false. mac80211 treats that as a driver
+bug and warns in ieee80211_rx_list():
 
->
->   768M memcg (sustained swap thrash):
->     metric                 mm-new    + bypass    delta
->     build time (s)          405.0       341.7    -15.6%
->     zswap-in (GB)            79.5        53.0     -33%
->     zswap-out (GB)          144.8       115.6     -20%
->     swap readahead (pages)  6.79M       0.45M     -93%
->     swap_ra hit (%)          72.1        89.9     +18pp
->
->   1G memcg (light pressure, build not memory-bound):
->     metric                 mm-new    + bypass    delta
->     build time (s)          177.7       176.0    ~same (no regression)
->     zswap-in (GB)            10.2         7.5     -26%
->     zswap-out (GB)           27.7        25.1      -9%
->     swap readahead (pages)  1.07M       0.08M     -93%
->     swap_ra hit (%)          68.6        87.2     +19pp
->
-> Similar gains were observed on an AMD EPYC 7D13 host.
->
-> The gain is from no longer prefetching pages that are pointless for an
-> in-memory backend: readahead inflates anon residency and thrashes the
-> page cache (file pages get evicted and re-read), lengthens each fault by
-> synchronously (de)compressing a cluster of neighbours, and adds
-> compression traffic when those extra pages are reclaimed.
->
-> Bypassing swap readahead for zswap therefore makes sense.
->
-> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+  WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
+   Call Trace:
+    <IRQ>
+    ieee80211_rx_napi
+    ieee80211_rx
+    ieee80211_handle_queued_frames
+    <TASK>
+    rtw_usb_rx_resubmit
+    rtw_usb_setup_rx
+    rtw_usb_probe
 
-Code looks solid to me otherwise! Nice job.
+The frame is dropped by mac80211 anyway, and because the URB is
+resubmitted from its completion handler, every further frame repeats the
+warning, which floods the log until an interface is actually started.
+
+rtw_ops_tx() already drops frames outside of start/stop by checking
+RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
+rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
+the same check in the RX path and free the frame while the device is not
+running. This also covers the opposite ordering, where a frame that is
+still queued in rtwusb->rx_queue is handed over after the device has
+been stopped again.
+
+C2H packets are left untouched: they go to the firmware event queue
+handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
+
+Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/net/wireless/realtek/rtw88/usb.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
+index 64e1c3420e0a..12fb669015d1 100644
+--- a/drivers/net/wireless/realtek/rtw88/usb.c
++++ b/drivers/net/wireless/realtek/rtw88/usb.c
+@@ -664,7 +664,7 @@ static void rtw_usb_rx_handler(struct work_struct *work)
+ 
+ 			if (pkt_stat.is_c2h) {
+ 				rtw_fw_c2h_cmd_rx_irqsafe(rtwdev, pkt_offset, skb);
+-			} else {
++			} else if (test_bit(RTW_FLAG_RUNNING, rtwdev->flags)) {
+ 				skb_pull(skb, pkt_offset);
+ 				rtw_update_rx_freq_for_invalid(rtwdev, skb,
+ 							       &rx_status,
+@@ -672,6 +672,14 @@ static void rtw_usb_rx_handler(struct work_struct *work)
+ 				rtw_rx_stats(rtwdev, pkt_stat.vif, skb);
+ 				memcpy(skb->cb, &rx_status, sizeof(rx_status));
+ 				ieee80211_rx_irqsafe(rtwdev->hw, skb);
++			} else {
++				/*
++				 * RX URBs are submitted at the end of probe,
++				 * so frames can arrive before the device has
++				 * been started. mac80211 does not accept
++				 * frames in that state, so drop them here.
++				 */
++				dev_kfree_skb_any(skb);
+ 			}
+ 
+ skip_packet:
+-- 
+2.34.1
+
