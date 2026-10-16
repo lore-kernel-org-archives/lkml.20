@@ -1,292 +1,168 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F8CC4D09FB;
-	Fri, 16 Oct 2026 13:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818514D37C3;
+	Fri, 16 Oct 2026 13:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157540; cv=none; b=AADb0k0m5ITMh6ibsvUJgie4REJb6GRcjNhkm3oSYtaIXljPPzDJA5qGwuE37LtXti/R2ZMIZB1oIbfdGhEsfUnLoFpr0LpGQc3KYoEJJIczpZXRdTPx7lQy9Mn3LwvRIogwSJ+cxYzBrvfb1j9LFqzAiKC3PrOii9GV38vxCp8=
+	t=1792157546; cv=none; b=rVaySuhhXL9RH3IfBRDCMrLXmurg9a+sLcNG4t2HYApOXur42LD6V8x9FHS0ugx02HSczFj0AA7wbLojSXycWL5HX3GybkAkSUZsFpuLGbzQyBobWLSEsI+RtgEUaofXwy2pkcwxPl7G3pyxJ/KdYSxCh+qWd9Ko9uvPtVyZwiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157540; c=relaxed/simple;
-	bh=Ks0USjugD7SuRhWKVfn4U8BL6MvP82+P9txCurG7QKs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r0ArJp47Rj9RtBT1JsvD+aMfu5F2xUejhln0xEn4CKsN4qmcEUziCutscFaRUeRSsEA9Ly0JufHUm7wnPY9oxVSlGePgqtatLnMs9v3UwOTDpDLXQ0HAgyhf7IXZvchJ6kveLVWPvY7cf4Oo60SaXUXsOkFWfCFvrKwG06wyIvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZE1wwLUL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792157546; c=relaxed/simple;
+	bh=UQbBLAHKHfKWk2mrVtwJoGoMxewnjZ0/1KvxuaUCINg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ialM0mIrFYOPrNgm0d5bLelSbgoBI35wfxlVGYO94/Hsp8n6neeW2QWH0kmEL12iGLVOHpd9M5NEfLAh0Db6YnWjkDBjgiwOzCjwooRQQuDeryUu/l1Zufq3FtQFzcvazloZQ5Zn7Oe/cjWPsRz/qCnJNHeqSfpteZUKCQGLobU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=C4GBTh7G; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZE1wwLUL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C67E814BF;
-	Fri, 16 Oct 2026 06:32:13 -0700 (PDT)
-Received: from [10.57.84.235] (unknown [10.57.84.235])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 703DF3F673;
-	Fri, 16 Oct 2026 06:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792157537; bh=Ks0USjugD7SuRhWKVfn4U8BL6MvP82+P9txCurG7QKs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZE1wwLULw9k3L5q79FDNXYmyFkwf/21565zyniXsKaWTLWKLZuECGqu6QX7WnTj4j
-	 IVtSodNs3104ey4DzsHBOLdIB06rq8Ok5t2kNs4TtgCHQu2pKMLo7ytc429se6Ns3k
-	 Uk46SgTROoJdkDuBtsI38UfswX9i6ZnN4xns+g8k=
-Message-ID: <81963d52-0d49-4fb5-b9c8-e1199999aeb4@arm.com>
-Date: Fri, 16 Oct 2026 14:32:13 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="C4GBTh7G"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E074E1A1255;
+	Fri, 16 Oct 2026 13:32:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B41176075D;
+	Fri, 16 Oct 2026 13:32:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EE781103287B0;
+	Fri, 16 Oct 2026 15:32:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792157538; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zblOC9xXqP5DtjJA1Moz5rtGU3Fpp3xs5XsYOsmb4mI=;
+	b=C4GBTh7GkiK9AzKi6nNHxvGox4THaadjime6GMmnQZdVfu7GfSv8Er/pc+EpRUwXaKllQs
+	6XNMiWMuHRPsIEYjpOtGaDdQCUr4KPSbOzt8ralLpwBlc8CLqqPEHWWp834lYN8Cw+ox1p
+	ESVeKEA3JpvPbx30ec8OZVtmd/t59I5GC96rUhR5wVtnuMpoob4HSUU6BTYVE5HO9GlPX9
+	TK78sztzIF7XCZ5t7TEplQs7Sf+Qz0AAQNnBYLbnqiEV1wHA10EVQ1cd7ZK8sBSq18OnfY
+	RbpoXVX85YXGSKAhx+2Sbl+x8godXd3itu35r2w6yxqnqgp/rqex7dgYhcyzug==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	=?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Nicol=C3=B2=20Veronese?= <nicveronese@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	mwojtas@chromium.org,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+	Frank Wunderlich <frank.wunderlich@linux.dev>,
+	Pietro Ameruoso <p.ameruoso@live.it>,
+	Aleksei Sviridkin <f@lex.la>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: [PATCH net-next v19 07/10] net: phy: phy_link_topology: Add a helper to retrieve ports
+Date: Fri, 16 Oct 2026 15:31:02 +0200
+Message-ID: <20261016133107.54054-8-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
+References: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] cpuidle: runtime exit latency prediction and timer
- compensation
-To: Cong Zhang <cong.zhang@oss.qualcomm.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Aiqun Yu (Maria)" <aiqun.yu@oss.qualcomm.com>, kernel@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com
-References: <2a5dd3fd-a03f-4ffb-827c-2937bf664c75@oss.qualcomm.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <2a5dd3fd-a03f-4ffb-827c-2937bf664c75@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/16/26 11:41, Cong Zhang wrote:
-> Hi all,
-> 
-> 1. Abstract
-> -----------
-> 
-> This RFC proposes a way to measure and predict CPU idle exit latency at run
-> time in the kernel. It also discusses how to use the prediction to reduce the
-> delay between the expected hrtimer expiry time, called hrtimer rooster timer
-> solution.
-> 
-> This idea was presented at the 2026 Linux Plumbers Conference [1]:
-> [1]https://lpc.events/event/20/contributions/2595/
-> We would like to continue the discussion of this approach here in this RFC.
-> 
-> 2. Background
-> ------------
-> 
-> An hrtimer callback can run later than hrtimer next event, the expected expiry
-> time. This is a known behavior in the kernel. Hrtimer expiry only means that
-> the IRQ will be generated at the corresponding time. The callback still waits
-> for wakeup, resume, and the rest of the timer IRQ handling path. This can
-> delay its execution.
-> 
-> When an hrtimer expires while a CPU is idle, the timer IRQ starts waking the
-> CPU. The hardware resumes first. The firmware resumes next. The kernel can
-> start running after that. We call the period start from receiving the IRQ to
-> the entry of kernel execution as idle exit latency. Different CPU
-> architectures and platforms have this kind of idle exit latency.
-> 
-> The kernel currently uses a static idle exit latency from the device tree.
-> This value describes the worst case. It does not directly show the idle exit
-> latency under current conditions. A more accurate idle exit latency estimation
-> will cause less confusion and less power impact in real use cases. A similar
-> upstream discussion also points out that using a static worst-case value to
-> estimate typical latency can cause errors [2]:
-> [2]https://lore.kernel.org/all/44c4ee5a-34ec-4b23-b06b-05bd0fda6585@arm.com/
-> 
-> Other related upstream discussions cover genpd CPU latency QoS [3]:
-> [3]https://lore.kernel.org/all/20250709-pmdomain_qos-v2-1-976b12257899@oss.qualcomm.com/
-> and IRQ timing infrastructure removal [4]:
-> [4]https://lore.kernel.org/all/20251210082242.360936-2-maz@kernel.org/
-> 
-> This RFC therefore discusses how to measure and predict idle exit latency in
-> the Kernel context, and how the prediction may be used for hrtimer handle
-> latency accommodation and other kernel Decisions needed to consider the idle
-> exit latency.
-> 
-> 3. Runtime measurement and prediction
-> -------------------------------------
-> 
-> Different than other interrupts, timer interrupts will have the info of
-> expected time to be triggered. So, We assume the hrtimer expire time and it’s
-> handle latency can be used for specific idle exit latency runtime measurement.
-> We identify the cpu idle level, different cpu, cluster idle level is the key
-> difference of the idle exit latency variation. This section describes how the
-> kernel collects runtime samples and gets a typical exit latency under current
-> conditions. The collection step records valid samples. Prediction uses a
-> sample window to make a dynamic estimate for each condition.
-> 
-> 3.1 CPU sample collection
-> -------------------------
-> 
-> When the CPU enters idle, record the CPU idle level it actually enters and the
-> current programmed hrtimer next event. The idle exit path records when the CPU
-> is awake and running again. This point is before any IRQ handler or hrtimer
-> handler.
-> 
-> In this RFC, observed exit latency is defined as the time when the CPU is exit
-> from idle in kernel idle driver minus the programmed hrtimer expire time:
-> 
->     cpu idle exit time stamp - programmed hrtimer expired time
-> 
-> Keep separate records for each CPU ID and idle level.
-> 
-> There is much noise that will affect this period, for example other
-> unpredicted interrupt coming at the same time. We only take the measured and
-> expected time into consideration. A sample is valid only when all these
-> conditions are held:
-> 
->   - The target CPU entered the target idle level.
->   - The target hrtimer has expired.
->   - The target CPU had only the target timer IRQ pending.
-> 
-> These conditions make sure that the recorded resume time belongs to the target
-> hrtimer, not to an early wakeup caused by another interrupt. Samples that fail
-> these conditions are marked invalid and excluded from exit latency statistics.
-> 
-> 3.2 Cluster exit latency
-> ------------------------
-> 
-> A single CPU chooses the CPU idle level, while multiple CPUs choose the
-> cluster idle level together. When the first CPU wakes, the resume process
-> includes the resume time for the whole cluster. We use the exit latency of the
-> first woken CPU as the cluster exit latency.
-> 
-> The cluster case uses the same measurement method as the CPU case. The last
-> CPU that makes the cluster enter sleep records the cluster ID and cluster idle
-> level for this entry. At exit, the first CPU in the cluster resumes after
-> wakeup represents the sample.
-> 
-> The validity conditions for a cluster sample are similar to those for a CPU
-> sample:
-> 
->   - The cluster entered the recorded idle level.
->   - The target hrtimer has expired.
->   - The target CPU had only the target timer IRQ pending.
->   - Other CPUs in the cluster had no pending IRQ except timer IRQ.
-> 
-> Mark samples that fail these conditions as invalid. Exclude them from cluster
-> exit latency statistics and prediction.
-> 
-> 3.3 Why measure in the kernel
-> -----------------------------
-> 
-> A user-space program can use a periodic timer to measure the time from hrtimer
-> next event until the thread runs again. This time does not accurately
-> represent CPU exit latency for these reasons:
-> 
->   - The time when the thread runs again includes scheduler and user-space path
->     overhead. It cannot show the exact time when the CPU resumed after wakeup.
->   - User space usually does not know which CPU idle level the CPU entered, or
->     which cluster idle level the whole cluster entered.
->   - User space cannot reliably tell whether the target hrtimer, an IPI, a
->     device
->     IRQ, or another pending interrupt woke the CPU.
->   - To send test results back to the kernel in real time, user space would
->     need
->     an extra user-to-kernel interface. The results cannot then be sent
->     directly and continuously to a running cpuidle governor, or used directly
->     for hardware timer programming and compensation.
-> 
-> 3.4 Prediction from historical samples
-> ---------------------------------------
-> 
-> For current experiment, we use a simple way to do the prediction to the valid
-> history samples. The predictor keeps a separate fixed-length window of recent
-> samples for every CPU and idle level. It keeps another window for every
-> cluster and cluster idle level. The current prediction is the average of the
-> samples in the window.
-> 
-> 4. Possible use cases
-> --------------------
-> The “more accurate” idle exit latency can be used in different areas. It can
-> replace the current static idle exit latency used in current kernel
-> components. And One another possible use is hrtimer compensation. We will take
-> this as a specific example.
-> 
-> 4.1 hrtimer compensation
-> ------------------------
-> 
-> Idle Exit latency is one important part of the delay before an hrtimer
-> callback. When cpu is about to go to idle, we can predict the possible current
-> idle exit latency and do compensate. the prediction can set the hardware
-> wakeup time before hrtimer next event. This can compensate for the delay
-> caused by idle exit latency.
-> 
-> We call this early wakeup interrupt Rooster IRQ. Its lead time covers the time
-> needed for hardware and firmware to resume. Rooster IRQ fires before the
-> original hrtimer expiry time, so the CPU can resume close to the expected
-> time. It does not change the software hrtimer expiry time or run the hrtimer
-> callback early.
-> 
-> Rooster IRQ only adds a new hardware timer used for wakeup. This can use The
-> cpu local arch timer and a global/broadcast timer. The rooster timer is set
-> before hrtimer next expire time.
-> 
-> In the CPU case, use the prediction for the CPU and idle level to set that
-> CPU's Local timer. The local timer wakes the CPU early.
-> 
-> In the cluster case, a platform may have several global timer frames. A
-> separate frame can be assigned to each cluster that needs an early wakeup. The
-> last CPU that makes the cluster enter sleep sets a rooster cluser timer. It
-> uses the prediction for the cluster idle level to set the rooster wakeup time.
-> The rooster cluster timer directly wakes the first CPU in the target cluster
-> that needs to resume.
-> 
-> If the platform has only one global timer, or if the local timer stops at the
-> target idle level, a global/broadcast timer can wake an intermediate CPU
-> first. That CPU then sends the wakeup interrupt to the target CPU through an
-> IPI. The rooster timer lead time must cover the exit latency of the
-> intermediate CPU's cluster and the target CPU or cluster.
-> 
-> 5. Prototype status and results
-> ------------------------------
-> 
-> The measurement and prediction mechanism has been validated with real hardware
-> on Qualcomm's platform.
-> 
-> The LPC slides show sample results over a period. The sampled exit latency
-> stays fairly stable during that period. A prediction based on recent sample
-> averages also follows changes in the samples reasonably well.
-> 
-> On device, we enabled compensation with one global timer and broadcast. We
-> measured the difference between the actual CPU resume time and the expected
-> hrtimer expiry time. t1 is the time when the CPU resumes kernel execution. t0
-> is the original hrtimer expiry time. In the table, "Before compensation" is
-> the reference with the same definition. "After compensation" is the result
-> with this compensation path enabled. The unit is us:
-> 
->     Metric: mean absolute value of t1 - t0, us
->     State               | CPU C4 | Cluster CL4 | Cluster CL5
->     -------------------+--------+-------------+------------
->     Before compensation | 19.824 | 61.991      | 1929.767
->     After compensation  |  0.073 |  0.191      |   10.738
-> 
-> 6. Discussion
-> -------------
-> 
-> The prototype code is still being cleaned up. We would like to discuss the
-> design and get community feedback before we finalize the code. The feedback
-> will guide the next implementation direction.
-> 
+In order to allow netlink access to phy_ports, let's add a helper to
+retrieve them. When handling a port coming from phy_link_topology, the
+caller must hold rtnl until it's done with it.
 
-So a few thoughts that are still in my head from the LPC talk:
+We don't really support PHY and phy_port operation on ops-locked devices
+yet, warn when we try to do so on such an interface.
 
-1. Existing hardware mitigations.
-For example Intel accomplishes this with a hardware feature called
-C-state pre-wake, how will these co-exist?
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Tested-by: Aleksei Sviridkin <f@lex.la>
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Tested-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ drivers/net/phy/phy_link_topology.c |  8 ++++++++
+ include/linux/phy_link_topology.h   | 25 +++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+)
 
-2. What about platforms without OS-coordinated cluster states?
-What about the platform influencing idle states more generally?
-(In particular with platform-coordinated cluster-off you should
-see two range of latencies, one which was true cluster-off and
-the other was unrealised cluster-off that is really just CPU off).
+diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
+index 28c5bf3a8849..214ccce23cf6 100644
+--- a/drivers/net/phy/phy_link_topology.c
++++ b/drivers/net/phy/phy_link_topology.c
+@@ -65,6 +65,14 @@ int phy_link_topo_add_port(struct net_device *dev, struct phy_port *port)
+ 	struct phy_link_topology *topo;
+ 	int ret;
+ 
++	/* Ports can now be queried without rtnl for ops-locked devices, which
++	 * we don't support now as port retrieval is done under rtnl.
++	 * We don't have phy_port enabled devices yet, let's make sure
++	 * we are loudly warned about that when it happens.
++	 */
++	if (WARN_ON_ONCE(dev->netdev_ops && netdev_need_ops_lock(dev)))
++		return -EOPNOTSUPP;
++
+ 	topo = phy_link_topo_get_or_alloc(dev);
+ 	if (IS_ERR(topo))
+ 		return PTR_ERR(topo);
+diff --git a/include/linux/phy_link_topology.h b/include/linux/phy_link_topology.h
+index 296ee514ba46..f2e493c433ff 100644
+--- a/include/linux/phy_link_topology.h
++++ b/include/linux/phy_link_topology.h
+@@ -13,6 +13,7 @@
+ 
+ #include <linux/ethtool.h>
+ #include <linux/netdevice.h>
++#include <linux/rtnetlink.h>
+ 
+ struct xarray;
+ struct phy_device;
+@@ -71,6 +72,24 @@ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
+ 	return NULL;
+ }
+ 
++static inline struct phy_port *
++phy_link_topo_get_port(struct net_device *dev, u32 port_id)
++{
++	struct phy_link_topology *topo = dev->link_topo;
++
++	if (!topo)
++		return NULL;
++
++	/* ports in the topo are RTNL protected, but may be accessed under
++	 * netdev_lock for ops-locked devices. For now keep them under rtnl
++	 * protection, as no ops-locked devices have phy_port capabilities
++	 * yet.
++	 */
++	ASSERT_RTNL();
++
++	return xa_load(&topo->ports, port_id);
++}
++
+ #else
+ static inline int phy_link_topo_add_phy(struct net_device *dev,
+ 					struct phy_device *phy,
+@@ -100,6 +119,12 @@ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
+ {
+ 	return NULL;
+ }
++
++static inline struct phy_port *
++phy_link_topo_get_port(struct net_device *dev, u32 port_id)
++{
++	return NULL;
++}
+ #endif
+ 
+ #endif /* __PHY_LINK_TOPOLOGY_H */
+-- 
+2.56.0
 
-3. Does any workload actually care? What's the performance improvement?
-How does it affect power? Especially w.r.t existing latency constaints
-
-I have a bunch of methodological questions about the sampling, but
-presumably they would all be answered by the code.
-(Are we still sampling while the mitigation is applied? If so how is
-exit latency observed distinguished from prediction error? What if the
-first waking CPU is not the cluster-wake-initiating? What if the
-CPU wakes up too early because of the mitigation? (if this enters the
-idle loop again, this influences the governor massively of course).)
-
-Also if "replace the current static idle exit latency" actually means
-for the QoS constaints too, then I think we shouldn't do this, it's
-deliberately a worst-case.
