@@ -1,139 +1,125 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DB33D9048
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792136557; cv=pass; b=RnAuA/ULkDk95UG+3zyEpVsisMdnG5PQ4sdtPSyXDoKC9CQlYRyXXh/NWm6T0Mm25EfogAyLBY/tertczdK3bQC/TztceXYpPa3v2o3kZeCy7eI7aIACC3G+ESYiZrhypzJ8oteEIU8kEasAYGgHoTttIHj8oKqDzaw5PQo3ObI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792136557; c=relaxed/simple;
-	bh=VX0h5Bm2UY47Tt2z8myprdx9WcuYmLn5gM77krDjH6A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TWf7rNWXHjfs1/EJ1kUgDAe3BqiznOdzmQEZU42tyCJhh9e+FmTKArJaP3Q9mmPuL+ZEeiV58PFmxNQ+lbzw19v+fkICQAk1OKprAT1BO4Fno5YReX8+nH2m82jAH8MjKogK1y8bHrCQDEwc43t6sIe/e49IyTZkHg+02CDkXEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QBzDCDG3; arc=pass smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DC64279F9;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792136603; cv=none; b=NZVz1nIC7/LjTkzOTZYs9OmOtv/X/bls6QfBSZI2Fv4S4fspXkDhoVh1HBz0Uq58yxn0pAkmPetD//ntEW968aBWuxzHzARskniB/sV0DhQx3G5n/yoSkAAtV2cTcbm7xp45geDuh3hgSApSUwWXpn4gQewFgno4Auz5hoMq98o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792136603; c=relaxed/simple;
+	bh=noP7SLtTy6bRV7+vDOu0XXWL530DjmB63o88p0NEPPI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mJEsBOCH1wNqXquhrNFQDli+m4j1y9PpyH18oxSp8H1JTXT4cDgi0ViJk1Rw33JfHzN4yx/vnK5V6MCrPSltBfF2anfjBumOV5aYEg6jEuR04fM1j4wdUE9+KgBoJkJj9LG5cz6S90Imt4ekibGQYA5H7fqsX3iDhZnFeDfz+Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVJiNCM/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QBzDCDG3"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15354aa70e8so2271262c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:42:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792136555; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qhMBUI5M9WJ/p4PJZnslbr2Wzv0qV46bVEq0mBglKGo6qZrFq5NU0q/nZ6qptTFbUz
-         KdHTPiX0Jas0IpX3tcaI2/TMWI1cXanpfDVD5fsuLXYUl7z8jKEXe6sC5aso7xII52es
-         aQpmbx1i7ENNivS3tpS6tg01G/Ogc0Dl67GGcu8OcznuKqFb2dPCOVOyLcBFTrR7mzfh
-         BvJziJQ2/H9ne9mRBKcCV26o1l31YF/rakx6290nAbaYHZYv2VnYI5roJgcPNc4e8JXn
-         N89dH06Fb8gNZbpPxKthKThoq0+P9lDAnbmRW9yzoBulhTatjOlNKRnP1hbSJ35Mx4BJ
-         xvrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VX0h5Bm2UY47Tt2z8myprdx9WcuYmLn5gM77krDjH6A=;
-        fh=BzuhiNBbIujiRF5ZAyvr36+psQel+Bw9c7zGptDmkYw=;
-        b=jvXa9Z2yvXBJ0rIaPwVZPLP7SvHLDHsVpbaV5g6+e3Qsj1FC1PPJoqNDi2pbvNsAIB
-         9jEglKZ2iSrqTw70BUi7AkYHuiygKPYJpyXdZhzay/gE+XDqrQKP31ui2oBs5QvBKdK5
-         jNxxtpzdAx/MWdpRaWH4XJ2atjIdoG5KmmVsU3ygRkB3nHtc3CuvwajXJ9t5ULyfqDv0
-         naR7vYY5RswQx79z71LpANnxZ8+jDJbfmDED9KXtGOPMBSYC6Wf2nZpjDvCxYjwvEUiR
-         izptn3TZjSBL3IhhvaLINiPu9PkGbqsFkqESiXQXcL50qo66s47JcKybeFnQYMfdGC1E
-         RfWA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792136555; x=1792741355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VX0h5Bm2UY47Tt2z8myprdx9WcuYmLn5gM77krDjH6A=;
-        b=QBzDCDG3El9nnvMxpifvH7SBsJiKvYtDrWLShE+su9ih/U+GvGYJ+S6yM+rptayoy9
-         C6VzxcQWUCXQldIxfKhu8Xz557igSOD0OJ2A1ZI5yC7/EM1Q2QqeArj+lPCxPER25QOd
-         Ux7gvSCopIgoY5BGcUZnFu0KOcOtY+rbSbiJ+SSnq6Vqk5yDY48zrTlExQOkczy+MHze
-         IL8VKzhG1nC0UcakoQdsX9PqXVQk+NnNiQ0wrggR3dYTh1RVnt/5mGW+GuO7saQOloED
-         /56lrDh+jz78wWtH29orfm3Kziwd7axNYuD8hGZtUk05nrrArxzTTYEcwyyZ8DAmWVW9
-         PDhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792136555; x=1792741355;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VX0h5Bm2UY47Tt2z8myprdx9WcuYmLn5gM77krDjH6A=;
-        b=PwuYUL1/U4HxwIQVUxmsh/86B9279Q7keeU+1Jd02BBGh752ldTN7V6s1E6XOaiTAK
-         lUAt4PNbZl7tGfXjPC5AxCIDdSUTkNye6oSBH4gEd61M0Q/Obel+CMF5uaY7DqFwyCfy
-         vjQTHOca/PlSdUMQnlkapMAN3854n+zCcKenhF7689P2qAk2Gj1QkHU4XBAnvbx7Wj/N
-         ywLH+n4VBxvUuIq5Q2cR9gDApmfaZWe4N6tIUbniFst7gWkPlkngqoCOC5z4A2WGA2VG
-         qM/niS948n/qIuV//+c+vb42dVZdDJ+IwNOJdI41z61+4mIDOFAJfA9rEyBvc9oH2nfa
-         iA0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxTUu+yxGZZLHd8g3LtnXXi876DLOxlokkBhu3hWiA/Ac0jOQZ/ZdkM4F0yNiVT+JUOmvLgkGSfT/4amsE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/9amqCGKbNFyfaqK43wKNDsqiR3xpSLH0dvymNS2QFyMT4V/Z
-	sQw1yEy880nLcx3qzrwQf/CotyTxKClWdHfUp8OXtUYe7yyzrX9R/f6+lJAzbkc+riB+i/mzFMg
-	TUdPmQkUrxopR7aGp6KxC22KwM0RcNeczPBjZj1To
-X-Gm-Gg: AYBFou2eAIWb8FUzQF73vv6HQeteRn0PBGT1996leeKE8h23TFFZJZgrB7eUa++dGY3
-	QY99B/1Ne9aY/kAtWRduHEhN0sg4LsFKK7HNN1WnHgaa99F1VAFQPAZUeKV3REIf7i9/7NMVpOt
-	HasyFfNFOrQYbAAQ4Iw/7lQ6yAhCKnZd+lX/RluXhw4U7Nvz9+ZC9u7yVDaGa1qNuEuW7nITczx
-	4hvsu2sUD28WicYbk/YuGwnlabWxOtM/iKNYndPQ1IZN0Ul83s88h2lIfnHO75FOdgIWc2cUgdm
-	UNAQOiyvgBwb2X24iRTvOGeYykPqHC+wr8V2TAgTKcwK0+cbY2ESua0dZJqDlvdqX+/IsU+SHaQ
-	fz5/9/cFJLaE1odTUctf6o3KXftD+YazbzfFZqGd710UDscMVm/j0h33rs2SDZw+X6RM=
-X-Received: by 2002:a05:7022:3f0c:b0:151:2e62:fe8d with SMTP id
- a92af1059eb24-16a5dcf817bmr31361642c88.9.1792136554133; Fri, 16 Oct 2026
- 00:42:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVJiNCM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D922C2BCFC;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792136602;
+	bh=noP7SLtTy6bRV7+vDOu0XXWL530DjmB63o88p0NEPPI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=HVJiNCM/quOAbTCBag8x7KJRCIuuuh7euAHOmLlzzRK3GhvOB2+F22QQDE7AaxP3H
+	 68frG/FO4VLCqISCwZyv+Ael7Ysyi2VE/i75m/64YEKcR3dM+XajkpgeXvLf4z4kbk
+	 69VHTBpewteBk9Ub7hQBjLGxGYyfKDoXuI64q2x1/Srf4ZT5bkNRePx9wvhJyOt/d1
+	 YfgL1fGD+rtcOa3rzsFxq71MorCuBwelLyV0PDC9y8CzZLWhZXxMOsxJWowxP5cFd8
+	 aCdRTEHXd7m9Q7pWqIFWju0QGgMaAXKNGwDMAjA4hbgV9sKG5ctfWaYX5DLzVvVUeY
+	 UAxMLG0HA+v3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C360CC6B38;
+	Fri, 16 Oct 2026 07:43:22 +0000 (UTC)
+From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
+Date: Fri, 16 Oct 2026 15:43:18 +0800
+Subject: [PATCH RESEND v11 1/3] dt-bindings: thermal: imx: Document
+ calibration offset property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015073736.2944215-1-tavip@google.com> <20261015073736.2944215-2-tavip@google.com>
-In-Reply-To: <20261015073736.2944215-2-tavip@google.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Fri, 16 Oct 2026 00:42:22 -0700
-X-Gm-Features: AclHuK_wCNAhqJf4c__nZlElCjEEiY8MOOLk1kNiLFXSjiYnruSv8DQvpSl-nBM
-Message-ID: <CAAVpQUAnURtwVgKmRYXTZBjEyb58mxXkeJoMkh7Mc6+ESb1Sfg@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] tcp: clamp return value of tcp_wmem_schedule() to non-negative
-To: Octavian Purdila <tavip@google.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Soheil Hassas Yeganeh <soheil@google.com>, Wei Wang <weiwan@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261016-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-1-b80952ad27d6@cn.bosch.com>
+References: <20261016-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-0-b80952ad27d6@cn.bosch.com>
+In-Reply-To: <20261016-b4-symana21-11221-imx-thermal-support-upstream-6-18-v11-0-b80952ad27d6@cn.bosch.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792136598; l=2030;
+ i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
+ bh=Ue37UPF1teuZxiSxC/xhzQKQfZyk1Yq+nuequgJPOG4=;
+ b=xymH7t4a1lMCFtRIptL4P675z9HocSCjT4Je85l5feu6a3I94FBxrk73jF9oTG50XXBKLa8Uu
+ 3WLscEKcsvoAX4JoXCEah7CICWNDagpFnWHoAuQbb8NJCcY1/9wqOlq
+X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
+ pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
+X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
+ with auth_id=860
+X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Reply-To: Haoning.CHENG@cn.bosch.com
 
-On Thu, Oct 15, 2026 at 12:37=E2=80=AFAM Octavian Purdila <tavip@google.com=
-> wrote:
->
-> When sk_wmem_schedule(sk, copy) fails under TCP memory pressure and
-> sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0],
-> tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc).
->
-> However, sk->sk_forward_alloc is a signed int that can transiently
-> become negative when tcp_collapse() re-packs partially read or high
-> payload-to-truesize SKBs in the receive queue and charges newly
-> allocated SKBs via sk_mem_charge() before freeing the original SKB.
->
-> If tcp_wmem_schedule() returns a negative value, tcp_sendmsg_locked()
-> passes that negative copy length to skb_copy_to_page_nocache() ->
-> copy_from_iter_full() -> check_copy_size(), where it is converted to an
-> unsigned size_t > INT_MAX, triggering a WARN_ON_ONCE(bytes > INT_MAX)
-> and returning -EFAULT instead of waiting for memory or returning
-> -EAGAIN.
->
-> Clamp the return value of tcp_wmem_schedule() to [0, copy] so callers
-> treat negative sk_forward_alloc as 0 available bytes.
->
-> Fixes: 849b425cd091 ("tcp: fix possible freeze in tx path under memory pr=
-essure")
-> Assisted-by: LLM
-> Signed-off-by: Octavian Purdila <tavip@google.com>
+From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+The TEMPMON sensor reading may deviate from the theoretical SoC
+junction temperature. Document the optional
+fsl,temp-calibration-offset-millicelsius property, a signed offset
+in millicelsius applied to correct the sensor reading toward the
+theoretical junction temperature.
 
-Basically sk->sk_forward_alloc should not be negative, and
-I was able to avoid that by refactoring tcp_collapse(), but it was
-a bit invasive for stable and late in rc8, so I'll post it in the next cycl=
-e.
+The offset is determined through thermal characterization by
+comparing the sensor output against the calculated junction
+temperature. When absent, the offset is zero.
 
-$ git diff --stat HEAD~4
- net/ipv4/tcp_input.c | 158 ...
- 1 file changed, 109 insertions(+), 49 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+---
+ Documentation/devicetree/bindings/thermal/imx-thermal.yaml | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+index 949b154856c5..503a6e7a2c68 100644
+--- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+@@ -59,6 +59,17 @@ properties:
+   clocks:
+     maxItems: 1
+ 
++  fsl,temp-calibration-offset-millicelsius:
++    minimum: -20000
++    maximum: 20000
++    description:
++      A signed offset, in millicelsius, applied to the TEMPMON
++      sensor reading to correct it toward the theoretical SoC
++      junction temperature. The offset is determined through
++      thermal characterization by comparing the sensor output
++      against the calculated junction temperature. The range is
++      limited to ±20 °C. When absent, no offset is applied.
++
+   "#thermal-sensor-cells":
+     const: 0
+ 
+@@ -109,6 +120,7 @@ examples:
+             nvmem-cells = <&tempmon_calib>, <&tempmon_temp_grade>;
+             nvmem-cell-names = "calib", "temp_grade";
+             clocks = <&clks IMX6SX_CLK_PLL3_USB_OTG>;
++            fsl,temp-calibration-offset-millicelsius = <(-6400)>;
+             #thermal-sensor-cells = <0>;
+         };
+     };
+
+-- 
+2.43.0
+
+
