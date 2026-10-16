@@ -1,132 +1,330 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AD640F724;
-	Fri, 16 Oct 2026 08:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D24446855;
+	Fri, 16 Oct 2026 08:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140175; cv=none; b=MdLHYQi7OTw4K4Ho8NCcjHy4QHrBFllZFWfGfP4Iclz6elBBm9QViubwuiiDCQ8Hawjh0T3eUouleRxchzLAVYGxxPm2ap8Tt6Eh4AGiFB8mSSwOv1HkQIHqHWbHnXSfxL6e8Q5ZmXYwIMrQf3rdOsLVj913RmhpcJtKu3p9gZc=
+	t=1792140195; cv=none; b=Egq1tFujplLpga5cF1w3cSY+VQi5aAWF/dQ1B8ghzpIGs3gr2Zd7YprL3G0CszSn1952IlsLVeKa7Pmb/356M+BEvjl2GEwink4pUAeCx4aTeyQpicAAYgotT9mtOblIswA+mtCzXo8xbKi37/gBE8jb1RMtIMKU0jKakviMXR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140175; c=relaxed/simple;
-	bh=3rbOJU1iFVVApKsSPtz/G7fuEZPLRtV/KP/+IGlxAIs=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m06kyny+OU1ypDnZIEPtINAmGBJN22MEk/CsoF2sAvtjjmoXLvt+rT0psHmuAfRf27lGcX39eZUl5bTzK38KCzuIAfGsygu3Poq2/3gbkhXYk+rWVi/8xjWHlS0Ao3W7mJL/W+6sMnD0TjV2kI8PQCwP0/RfyqAPHnAjgY0pj/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=faR1OGUI; arc=none smtp.client-ip=43.163.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792140195; c=relaxed/simple;
+	bh=JPSACOaMlTfpve9+sZEgKufMkhYE6UnAah6afFDSS3M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c3TEdNDuPyuC/qaOk8P/v9j69RE4QUaKveGwg3bLjD+xRcVTGJp+5Gfee+XjM0OErlhihjvTvJIzUQG2yS6Dgp3Mk0uZ/kl8swz1HYsSbCfXMEQjob/VOsQkzF3MRo5xhumWD4KausIOKzbkx0KS9Pd0c77W9zJMbb/diODGJiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mK5F7RTu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="faR1OGUI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792140168; bh=3rbOJU1iFVVApKsSPtz/G7fuEZPLRtV/KP/+IGlxAIs=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mK5F7RTu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31DE1F000C4;
+	Fri, 16 Oct 2026 08:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792140188;
+	bh=uuyYLjc88NlqPqUJ8TG17oI3ayh7MbBbcx6eKptcvgM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=faR1OGUIEXqyudze+/rlXhjJOm9SouE9CAzMUCOfVVYQfrJ+HeCID4Ymx2wwJwuyc
-	 o+k4gXNkD08P9h2gFOLZ2SganIhqtwrA2DOTo+tKQhk8ucGH5IwNPlT4/Ej1lxb8ea
-	 K9W94jSj+Rq/18omhjCcXJYfPqXq/pqfWiSn+THg=
-Received: from [172.24.48.1] ([2409:8951:a22:b25:d1a1:62d3:eb69:e679])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id AAD22012; Fri, 16 Oct 2026 16:42:45 +0800
-X-QQ-mid: xmsmtpt1792140165tdx1v56y9
-Message-ID: <tencent_4F803EA6BD452898DAAF75EE74A20EF07F05@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJfwZITd6fr7SnRvjrd9me4hJGfU0DLueOQ9LmSLDg7GZv8O25uU
-	 XfbwJ2nYms+kEoWJEgpBC9XaxzNW5canrgt4aJ4hXBJP0ZJL6iHW9xRb/PPg29Ng+8U6luqTb9Py
-	 kTE8+OOly1DlVzfrojmzjkYOk7TtukcP3XjkRXf8ScxLQkUFG2miyWQY5/ZgH6/CL6ki9JAy7qSi
-	 Y5NOsw0l3U/xICoQACUfnwLTyCLUXIBZrJqBaNtOPBzdUWqQKq9M6+AhzAa2LqWJ6s42zM538EUh
-	 62S08zXFLmYD+nmf3/73MVoQRwEVMNnhB3UWfdEP5FV8viFrRBj/rSEkD+bAG3MsXKphOofgTE8J
-	 zOqR8auNeNNyTAKXjT+ueUstpd3V1/ctOJMhAWBGlUi9bQdf9cigac+8ZwSzdQdNssqr8Dyapgrm
-	 xLCtFGivbqKOfs+3PrAdeaXYpG89FxJCartwGYh0AWbQDZzNhb4vIYV2HPn8ba4jwATNoJRxFiFr
-	 w2yGM8vOiunNwgIdGX3SVZKvUCCcDOTEQvRdvbIfBWwLLQA9FOcVIWVEXAg6nsrABxsHpoZxzfY6
-	 Jc4j5hBAEVpmqO7d5WyPO6e3nfvK1z/9XnJuigM4HBrAO6uXf7iKCCl8DqUQChGWof1L9P2n0Ioz
-	 fBQvGkse4Js+MXPpuyvE1OnyPpht3lK/G5dnmb4XANqiZOfnfVOFYgApj7L5+BjLE7l61uv3S/NU
-	 I+1uxs0MPvGFaci0KF5XnJi96WxrwX+bHnVA2qOd7cVD2ErVXKyGDLeJ9VNXCZD65u0IsPebvHKI
-	 uoeAZle2eSi+tyTOwxAVeLtEiHXByHej68h1dOBit1xLrCvbRn2NHLJ7xJ9WoveSgP6NV31ldZp4
-	 RDtqDUgDBZ0nMXw/JbcKduNRmTMzAomEgpsQfsuMi6uIh0YxHQl33+WRVOUlCKTFZBUbXkfoQxwo
-	 iflH+sv/7qsRinDjWfRcTVMiBTjQ17M1zaKjlqvq/0jdY1iUZ15X+rOaIEjCuxp/sRaRYr9jRO0X
-	 w6NmviBKi+rItApyjqgSznb+ot8xY=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: skxby <2374604267@qq.com>
-To: Donjuanplatinum <donplat@barrensea.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject:
- Re: [PATCH 0/2] rust: hwmon: rework hwmon abstractions, add TMP108 driver
-Date: Fri, 16 Oct 2026 16:42:45 +0800
-X-OQ-MSGID: <179214016501.15268.642738678844764524@qq.com>
-In-Reply-To: <87se26dpzf.fsf@barrensea.org>
-References: <20260512155747.10136-1-donplat@barrensea.org>
- <9c2fa543-525a-4e43-9f73-7caf13b98039@roeck-us.net>
- <tencent_576573331343805F032731492D63C12D7E08@qq.com>
- <87se26dpzf.fsf@barrensea.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	b=mK5F7RTuDashr/9tLlHIbBsWn89AqnBSS/stQsnZFK0udCKKJwwx0mXZQaQ6y0/mL
+	 v7mGlbkHWvwzlsaxzGgTYFMZenluZzn+ThpKvxfT1FQwf36UkwlkhVENj2wBZxT6cs
+	 Oa73yOwEZyWaWTtUMKIkWXdzfEtYmHJhKqUn83wmEv5Y9Nr09h6UQgTdLpZXLBsi7T
+	 BcJoBYPrSNER1hYyvdrJ3OG1NANEuudau4hCEy8QMvdL5eSFm1HA0gqGHf6uV6haqE
+	 H7kcsX+z4rgxil/LicfKzRXo4ZkbGiIH/R/Cu4kTDkLTAUpEZrSf+0BJA/cTdijfKW
+	 IT70BEsYqnSLA==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: devnull+kasong.tencent.com@kernel.org
+Cc: akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	cgroups@vger.kernel.org,
+	chenridong@xiaomi.com,
+	chrisl@kernel.org,
+	damon@lists.linux.dev,
+	david@kernel.org,
+	dev.jain@arm.com,
+	ehab.ababneh@intel.com,
+	gourry@gourry.net,
+	hannes@cmpxchg.org,
+	hughd@google.com,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	liuxiang.277@bytedance.com,
+	ljs@kernel.org,
+	mhocko@kernel.org,
+	muchun.song@linux.dev,
+	nico.pache@linux.dev,
+	nphamcs@gmail.com,
+	qi.zheng@linux.dev,
+	rientjes@google.com,
+	roman.gushchin@linux.dev,
+	ryan.roberts@arm.com,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	shikemeng@huaweicloud.com,
+	sj@kernel.org,
+	surenb@google.com,
+	tz2294@columbia.edu,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	vernon2gm@gmail.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	willy@infradead.org,
+	ying.huang@linux.alibaba.com,
+	youngjun.park@lge.com,
+	yuanchu@google.com,
+	yuzhao@google.com,
+	zhaozhengzhuo@uniontech.com,
+	ziy@nvidia.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 00/17] mm/mglru: frequency guided promotion (MGLRU-FG) and flag cleanup
+Date: Fri, 16 Oct 2026 16:42:56 +0800
+Message-Id: <20261016084256.12955-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Donjuanplatinum,
+On Fri, Oct 16, 2026 at 2:15 AM Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org> wrote:
+[...]
+>
+> LevelDB Scan/Get
+> ================
+> I also retested the LevelDB benchmark from the cache_ext paper [5].
+> Interestingly, mainline MGLRU already beats CLRU on this one after a
+> recent change in lru_gen_folio_seq that bumps new folios with refs == 1
+> to the second-oldest generation as discussed. That change accidentally
+> gave random reads a higher hotness level while making sequential reads
+> much colder as described before [14]. However it's unreliable and
+> incorrect because it depends on LRU drain timing, and hurts some workloads
+> as reported, or where the sequential part is actually hotter (any workload
+> involving hotter large file and many small cold files will be affected)
+> which is reproduced below.
+>
+> This series improves it while covering ordinary workloads too and should
+> fix regressions:
+>
+> LevelDB Scan / Get, Throughput Total:
+> CLRU:         4708.3 ops/s
+> MGLRU:        5026.9 ops/s (faster than CLRU, but hurts other workloads)
+> MGLRU After:  5179.2 ops/s (even better in all cases, and no regression)
+>
+> The hot-sequential and cold-random workload can be easily reproduced with
+> SQLite and grep. SQLite continuously scans and looks up a small hot
+> portion of a DB file, while grep iterates over a set of small files much
+> larger than RAM [6]:
+>
+>          SQLite scan & lookup time:       Grep iterate time:
+> CLRU:                       14.51ms               13281.37ms
+> MGLRU mainline:            567.05ms               13694.47ms
+> MGLRU After this series:    10.58ms               12930.43ms
+>
 
-Thank you for taking the time to look at this - and for replying at all.
-Let me answer each point.
+Thanks, Kairui. I'll do a thorough review of the whole patchset over
+the next two weeks.
 
-1. AI involvement
+BTW, do you think we need a quick fix patch like the one below
+for the above problem before this patchset, so that it can be
+backported to stable? I assume your patchset is too large to
+backport?
 
-Fair question, and I should have stated it up front. The work was
-developed with AI assistance: I run a multi-agent setup (a scheduler
-plus several model-backed agents) that produced code drafts, ran the
-build/regression/stress-test cycles and drafted the commit messages and
-cover letter. Every patch was reviewed by me, and I built and tested
-each change myself; the two bugs we found during this round (an i2c
-client leak on the registration error path, and a missing null
-terminator in chip_config) were both found by the lifecycle stress tests
-I ran and reproduced before fixing. I signed off on the series and I
-take responsibility for it.
+From f9683205d2ab6e3b185022d7d5af3496dfe5f35f Mon Sep 17 00:00:00 2001
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Date: Fri, 16 Oct 2026 11:48:06 +0800
+Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace
+ folio_set_active
 
-For v2 I will add an "Assisted-by: LLM" tag as described in
-Documentation/process/coding-assistants.html. Please tell me if you want
-the tool names listed there as well.
+Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
+replace folio_set_active") tried to avoid over-protecting
+fault-around read-ahead file folios by placing them in the
+second-oldest generation instead of the youngest generations.
 
-2. Cc Rust-for-Linux
+However, it abuses `PG_referenced` on read-ahead file folios
+for this purpose, potentially coupling their handling with
+normal syscall-based file accesses that also use
+`PG_referenced`.
 
-Agreed - I did not Cc rust-for-linux on v1, and I should have. v2 will
-Cc rust-for-linux@vger.kernel.org.
+This could regress some workloads, as reported by Kairui Song[1]
+and Ehab Ababneh[2]. Many thanks to both for reporting these
+issues!
 
-3. "?"
+The long-term fix is Kairui's MGLRU-FG, but in the meantime,
+we also need a quick fix that can be backported to stable.
 
-I am not sure what this referred to - could you say a little more about
-what you were questioning there? I would rather ask than guess.
+This patch reverts all of the original commit's behavior that
+abuses `PG_referenced`, while preserving the semantics of
+avoiding over-protection of fault-around read-ahead file
+folios by adjusting only `lru_gen_folio_seq()`.
+Specifically, fault-around read-ahead file folios with
+`PG_active` set but `PG_workingset` clear are placed in the
+second-oldest generation.
+Activated file folios and refaulted workingset file folios
+are still placed in the youngest generations.
 
-4. Legal name in sign-off
+Build kernel cases in a memcg shows it not only perserve
+the benefit of original patch, but also even improve
+performance further.
 
-You are right that "skxby <2374604267@qq.com>" is not a legal name.
-The series will be re-signed with my real name and address in v2.
+w/o fix:
 
-5. Maintainership and interest
+real    1m49.094s
+user    25m31.484s
+sys     3m40.959s
+pswpin: 662112
+pswpout: 2504415
+pgpgin: 4424336
+pgpgout: 10355273
+refault_file: 359626
+refault_anon: 670724
 
-I am not asking anyone to take this over, and I am not claiming
-maintainership. The point of posting was to have the shape of the
-abstraction and one real driver on top of it looked at, and to find out
-whether that shape is the right one at all - which your reply and the
-review have already started to do.
+w/ fix:
 
-On that note: Sashiko's review of patch 1 found issues that are real,
-and I agree with the ones I have checked so far. In particular it
-flagged the missing null terminator in chip_config - which we had
-already found and fixed ourselves through stress testing, and which is a
-good sign the review is looking at the right things - and it flagged
-that chip_read/chip_write are called unconditionally in the read/write
-callbacks, which would break any driver that does not implement those
-optional methods. That second one is a genuine design flaw in the
-abstraction, not in the driver, and I am fixing it in v2 along with the
-name lifetime issue and the locking documentation.
+real	1m48.913s
+user	25m31.639s
+sys	3m30.875s
+pswpin: 689815
+pswpout: 2689894
+pgpgin: 4422659
+pgpgout: 11043464
+refault_file: 326566
+refault_anon: 697138
 
-So: is there enough interest to keep going? That is exactly what I am
-trying to establish too, and your answer - either way - is the most
-useful input available. If the answer is "not yet", I would rather hear
-it now than keep posting revisions.
+Revert original patch:
 
-Thanks again for looking.
+real	1m50.044s
+user	25m37.137s
+sys	4m4.493s
+pswpin: 1349087
+pswpout: 4317933
+pgpgin: 7083597
+pgpgout: 17602735
+refault_file: 337676
+refault_anon: 1368542
 
-<SENDER REAL NAME>
+[1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/
+[2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/
+Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+---
+ include/linux/mm_inline.h |  8 +++++---
+ mm/folio.c                | 16 +++-------------
+ mm/vmscan.c               |  9 ++-------
+ mm/workingset.c           | 10 ++++------
+ 4 files changed, 14 insertions(+), 29 deletions(-)
+
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index ab69b9930893..7aaff4e06e80 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -311,7 +311,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 	 * | Accessed through page tables and  | Accessed through file descriptors |
+ 	 * | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
+ 	 * +-----------------------------------+-----------------------------------+
+-	 * | PG_active (set while isolated)    |                                   |
++	 * | PG_active (set while isolated)    | PG_active (files|                 |
++	 * |                                   | fault-readahead)|                 |
+ 	 * +-----------------+-----------------+-----------------+-----------------+
+ 	 * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_REFS_FLAGS |
+ 	 * +-----------------------------------+-----------------------------------+
+@@ -319,7 +320,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
+ 	 */
+ 	if (folio_test_active(folio))
+-		gen = MIN_NR_GENS - folio_test_workingset(folio);
++		gen = MIN_NR_GENS - folio_test_workingset(folio) +
++		      (type ? !folio_test_workingset(folio) : 0);
+ 	else if (reclaiming)
+ 		gen = MAX_NR_GENS;
+ 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
+@@ -327,7 +329,7 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
+ 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
+ 		gen = MIN_NR_GENS;
+ 	else
+-		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
++		gen = MAX_NR_GENS - folio_test_workingset(folio);
+
+ 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
+ }
+diff --git a/mm/folio.c b/mm/folio.c
+index 35e242b48870..2af724cecb31 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
+ 			folio_test_unevictable(folio), folio);
+ 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+
+-	/*
+-	 * For refaulted workingset folios, set PG_active so they
+-	 * can be added to active generations.
+-	 * For prefaulted file folios, folio_mark_accessed() sets
+-	 * PG_referenced so lru_gen_folio_seq() places them into
+-	 * the second oldest generation.
+-	 */
++	/* see the comment in lru_gen_folio_seq() */
+ 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
+-	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
+-		if (folio_test_workingset(folio))
+-			folio_set_active(folio);
+-		else if (!folio_test_referenced(folio))
+-			folio_mark_accessed(folio);
+-	}
++	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
++		folio_set_active(folio);
+
+ 	folio_batch_add_and_move(folio, lru_add);
+ }
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index daa7e37c2236..e82ba737c028 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
+ 		return false;
+ 	}
+
+-	/* Promote on second access */
+-	if (folio_lru_refs(folio) > 1) {
+-		folio_set_workingset(folio);
+-		folio_set_lru_refs(folio, 0);
+-	} else {
+-		folio_mark_accessed(folio);
+-	}
++	folio_set_workingset(folio);
++	folio_set_lru_refs(folio, 0);
+ 	return true;
+ }
+ #else
+diff --git a/mm/workingset.c b/mm/workingset.c
+index 1504f91cdca5..10d4ce202cca 100644
+--- a/mm/workingset.c
++++ b/mm/workingset.c
+@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, void *shadow)
+
+ 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
+
++	/* see folio_add_lru() where folio_set_active() will be called */
++	if (lru_gen_in_fault())
++		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
++
+ 	if (workingset) {
+-		/*
+-		 * see folio_add_lru(), where folio_set_active() is
+-		 * called for workingset folios
+-		 */
+-		if (lru_gen_in_fault())
+-			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
+ 		folio_set_workingset(folio);
+ 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
+ 	} else
+--
+2.34.1
 
