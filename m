@@ -1,127 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F4E45D1AB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E4F45A28E
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141519; cv=none; b=lCpTjk4C55CMJZEuETYuhAkGAd368rKKJnc9A0bZOsoSa8UJ9l2KxduZ7HdhoBygvs9glu4aoI9K+4Q9FsCVlV3rYS+YYHC6OY3dIlJOu6cC7Z62yHqW7dsppf1lk3b4jR7zXmWZStg/gSPbtxzUSM1FtqYgLDzMcL1OvJe/RdQ=
+	t=1792141528; cv=none; b=fvpo3jaPjiapZKQiGcDNnS1i8+Z8iFWNmv7Ps/08GuF31UkVCmX3S0s1uChr6ouu4uzP+A+jDQcwxJWhA9vpMmWKZdtxdK2Ztg3Rc016QgC25lVtzalWv014gn3SqR+CCvuxwLxrs5yxKoZoYZOSugsmDsXA4ZhBxvU8axu7qRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141519; c=relaxed/simple;
-	bh=vEGMl3vWS7YqWv+/SAK1qk8sCJ+KZP/QF7gDiUB4sjM=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eyb54jUxGLGBg+FBhGi4mt4pBfCmr4AQErOjNcmQqs8fnDQj6dWxUeKZpbrIrt9bnqcFur/TgI3HLmsp9dBIJWwHvW1sRKFR+Fv2LFCJc9YthtHJrK93cqf1jqSlRSSlVgi3l49vZGPTOXMQaKmYFiKzSAeGeJc7Bs9Ajc/4wGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVXfaLtx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141528; c=relaxed/simple;
+	bh=Eo9WwXqvDCM49chcBfGJpbXusjDoU1ewi49ePAmjZdM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=desoJyhhEcKa7aI9jr5MtHYVC2o6MO8fpGclaBqOVjs4VBBCD2ODHMQhCFETzwHugZuGaJ+aqmq4/uRjQFXEkXSyQKbhW8uvAS6n6CT3mg8mpt/2nEMi3DRiLwYyzzQOyMedftvE9CIRLbLIKzSv7tmtzXlOqco23T46S6wB/Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JvNL4I1G; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVXfaLtx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9D51F000CC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141518;
-	bh=QtJ99FtC3c5ilcolvo6lgAp0tWItLTBL1Qi4H9LrN20=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=OVXfaLtxQnkjibJstFuXz85wJ6CHRh16rk1otJF7sI2diU73xtTu8PtSJTIVvwzZA
-	 ntLM8c3JFRx1msFW7ogzgPfhIu+ASwsEK4oWTKUjz/avPdk5CV+59atHtVoPdV+bxO
-	 +qN+vBXQH6XuEak75FWCULsu42wpQdvWkHKiB489mA+UKZTcpQPd7zhCDDhfnz/sou
-	 +/geGVOVjIapMBj9KUqUz3CsnsGn+goP1A8wbKcV10PrhwRXakNSUPtGIMHWOLvUww
-	 kJWt9ke0Q5Duz5Qq/iAxeUyhUSyV+peoEs7mJnD0N1D7UlOWvbEMHKeefu8s/7x4Pn
-	 mKCasnKW2f59Q==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3aaf078704fso6932541fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:05:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwP4U1koa599GcGgzziy14EanjFofdfmXpCLYbfZ4zbQeamA525BDikSTViaKbic8W4QqjWpmPeRFTl8Hk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoJQa+z4jlb8FxK5pNhzsx7U1zgCE45CL1Fd65hhB8YHOCqyeo
-	QXwdcN3f3Aft9wTV3j1k18i7dDyvN/r9hY2/z93uQGrmg+OkW2V9SHHSm+ihdBbX20HCcrrnCks
-	II1iyzYxtwXo4RZqnDY5vowltmVKNYDKahxlTNbx+Ww==
-X-Received: by 2002:a05:651c:19a2:b0:3a9:829e:1def with SMTP id
- 38308e7fff4ca-3ab1480f550mr5516331fa.21.1792141516715; Fri, 16 Oct 2026
- 02:05:16 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 09:05:15 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 16 Oct 2026 09:05:15 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261016022302.4003647-1-shuai.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JvNL4I1G"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7517FC6220F;
+	Fri, 16 Oct 2026 09:06:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 991A16075D;
+	Fri, 16 Oct 2026 09:05:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 351DD103281F4;
+	Fri, 16 Oct 2026 11:05:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792141516; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=jCdlTsgAIWlVV/nbciw4oCCYrsIamAoo02qs3IUr8ls=;
+	b=JvNL4I1GFqj1N6rLJYaDTiAX1o1PQkUdS4oGWRv5kj7C/UAGbv3VABGAMLSyIstQUFrO2A
+	QOS/iSZ8T6R2tQkG8HcSN74yew58DcQiq2XsBCxIVz0Xxi2KvI3KQ5GbhmmcpfaILw+idO
+	lsiUoMmfEg9Kv7FwRdYLYXRJbj02o17TxE/boDZtk2qf+QNTLjMCd8aKczzDp3ZNHZJSWi
+	yYNxb+q1dabTu60SX84PI9KjUY8KTXK11qt4Rk9OI4y0cxt7eWDhf2J4mKKTy0/okZR2km
+	rCEK2VU+wvSkA7kQyXgLZ+UwNZqtXNrEH3G+qNb8qO8eEUGSWfSTkniXrPdcSw==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andy Yan <andy.yan@rock-chips.com>, Liu Ying <victor.liu@nxp.com>, 
+ Phong LE <ple@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
+References: <20261001-bridge-advert-hdmi-caps-v1-0-f8806570e243@collabora.com>
+Subject: Re: [PATCH 0/8] drm: Advertise supported HDMI version in HDMI
+ drivers
+Message-Id: <179214150460.3306936.7520883316826804246.b4-ty@b4>
+Date: Fri, 16 Oct 2026 11:05:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016022302.4003647-1-shuai.zhang@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 09:05:15 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Mc_8kt5aU8L_qOxuKCOzVAf5iCQBT8TKG5LYjT0QwaE9Q@mail.gmail.com>
-X-Gm-Features: AclHuK8rF1-rFIUpz4M37e5t7rBB3B0mWa9BGVfa4zog3QLx-x9WTle5uStpESs
-Message-ID: <CAMRc=Mc_8kt5aU8L_qOxuKCOzVAf5iCQBT8TKG5LYjT0QwaE9Q@mail.gmail.com>
-Subject: Re: [PATCH v2] Bluetooth: hci_qca: Reopen port after power on for QCA2066
-To: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, chejiang@qti.qualcomm.com, 
-	quic_chezhou@quicinc.com, wei.deng@oss.qualcomm.com, 
-	jinwang.li@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 16 Oct 2026 04:23:02 +0200, Shuai Zhang
-<shuai.zhang@oss.qualcomm.com> said:
-> QCA2066 needs the serial port reopened after the controller is powered
-> on, otherwise the host and the device run into RTS/CTS synchronization
-> issues.
->
-> Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-> ---
-> Changes for V2
->  - Use a separate case for clearer logic.
->  - V1 link
->    https://lore.kernel.org/all/20261015092224.262158-1-shuai.zhang@oss.qualcomm.com/
-> ---
->  drivers/bluetooth/hci_qca.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> index 7089e9b63..ee3ccb59e 100644
-> --- a/drivers/bluetooth/hci_qca.c
-> +++ b/drivers/bluetooth/hci_qca.c
-> @@ -1867,6 +1867,19 @@ static int qca_power_on(struct hci_dev *hdev)
->  		ret = qca_regulator_init(hu);
->  		break;
->
-> +	case QCA_QCA2066:
-> +		qcadev = serdev_device_get_drvdata(hu->serdev);
-> +		if (qcadev->bt_en) {
-> +			gpiod_set_value_cansleep(qcadev->bt_en, 0);
-> +			msleep(50);
-> +			gpiod_set_value_cansleep(qcadev->bt_en, 1);
-> +			/* Controller needs time to bootup. */
-> +			msleep(50);
-> +		}
-> +
-> +		ret = qca_port_reopen(hu);
-> +		break;
-> +
->  	default:
->  		qcadev = serdev_device_get_drvdata(hu->serdev);
->  		if (qcadev->bt_en) {
-> --
-> 2.34.1
->
->
 
-From sashiko:
+On Thu, 01 Oct 2026 04:14:31 +0300, Cristian Ciocaltea wrote:
+> This series consists of patches 50-57 from "[PATCH v11 00/74] Add HDMI
+> 2.0 support to DW HDMI QP TX" [1], to set the supported HDMI version for
+> the HDMI connector/bridge drivers that currently leave it unset - except
+> the MediaTek HDMI driver (for now), as it requires non-trivial changes:
+> there is a core library shared between two variants, one being HDMI 2.0
+> compliant.
+> 
+> [...]
 
-If qca_port_reopen() fails to open the device, it returns an error but leaves
-the port closed.
-Does this returned error propagate back to qca_setup(), causing it to execute
-its retry loop and unconditionally call serdev_device_close() again?
-Looking at ttyport_close() in drivers/tty/serdev/serdev-ttyport.c, it appears
-to lack idempotency checks and does not clear serport->tty after freeing it
-via tty_release_struct().
-If serdev_device_close() is called twice, could it cause a use-after-free or
-double-free by dereferencing the freed tty pointer?
-Furthermore, since serdev_device_close() unconditionally calls
-pm_runtime_put(), could calling it again trigger a PM runtime usage count
-underflow?
+Applied, thanks!
 
-I think it's correct.
+[1/8] drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
+      commit: 1f132660fb27da37327fed3d4fdc617f95c1431e
+[2/8] drm/bridge: inno-hdmi: Advertise HDMI 1.2 capabilities
+      commit: c132910e9d13a0c4c3476f55ad7562070d96c19a
+[3/8] drm/bridge: ite-it6263: Drop redundant .mode_valid hook
+      commit: 31112c84ca79576b8c62316b40272106ac39511f
+[4/8] drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
+      commit: bd66cb40383b43cd4ed4b3ea1a39779161fface5
+[5/8] drm/bridge: ite-it66121: Advertise HDMI 1.2 capabilities
+      commit: 3af64ea1229dab57233531feda8908486cf9dcc6
+[6/8] drm/bridge: lontium-lt9611: Advertise HDMI 1.4 capabilities
+      commit: 3c5e687fdb8cff644c700b145289a36400d1b04d
+[7/8] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4 capabilities
+      commit: 9283faedfc5fab0a47ca41ee6ac7b2a556da7081
+[8/8] drm/sun4i: hdmi: Convert to drmm_connector_hdmi_init()
+      commit: 101bd6d1d0aa2770129b47d03791a7120ba0cad8
 
-Bart
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
