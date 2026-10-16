@@ -1,121 +1,199 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57E34CA78B;
-	Fri, 16 Oct 2026 13:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC2A4CB8C8
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158648; cv=none; b=ljj4qzFqhOTZkIVWVTrgw8IkNEmG3T7C6kUk/FEH9bsieA03+VKBe9Vk1mOKjaymYlW9a7HmHqjtT2GFkI4l8mNYhRk8C5hauIem0IQxqD4qI06gIdiGVbzLtaL/rwJW4Bcblz7d9KdnKDoqzcY4NWtgq9B9QObNFNtmXmLlFlc=
+	t=1792158667; cv=none; b=aC+WhabsYrdtE1Jx+isOYhVbmRBphSgrU4YrbFLFq/RY+OdtFzYcHDCTg8CrtNT5mEn6zDrtRNsnyFT8kEvP15OoXkRThJFq/XjqPnWL0vMSzFmkmQ0yNl+pstkSxYJJQJEv4Ai7yVx8k1X3BHN+QmQZxuNJyi88yWgD6R0SHEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158648; c=relaxed/simple;
-	bh=n4/VRt6W4WN2nnymbTJWd/zO+oyjr+nQVB8vwqngF/I=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QDwnrfvifoaWjHZEHOE3yIMPj+EBLBgbeMiD44hYZVTgIwyAKTqDjL0abevKaoBWFHMS1GLHVlDNgR5Z6wrtMLpkV4FZXx6Iz764A3oI2Ss2QYboWWky4VsdKZN5z3jbMbP5X5Hks3s6l86397THcKwIH2l+y+pbc1AiV862itU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=Mbr1Wsx/; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1792158667; c=relaxed/simple;
+	bh=Cg7Wzu6dZp3KYVFnjaN6WmNCUV7dQ8wSyfbkDpoovas=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ts40MHqsOduzTzySBgBR0nG/GBsBiFaNMKNQKkbPOsIWQ7eOZqsrWyOqEUSOtESB1GStkP6P036gGyhmJe6QxnsNGy+oCVB3M6SK3dfdtYcl/XrG636SPecafIkEU5dDS9qSn8tXmSbpZ2LShFnnRS7t8myuku+UajCZX+r9OyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ONpnz0ol; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="Mbr1Wsx/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=Q4UsDgRYaanQzQK3Wt/yZkiQ+b6Z8NemUZLB73f4xbU=; t=1792158644;
-	x=1792763444; b=Mbr1Wsx/mkjPj3hIcufZhig5q+yesxLDTZs79XXltKU2HXkthSHUGjQXCC3bf
-	0FlE/n7ay9wocb385gU3F//AsLztJVXd4AAOU8ICpWaGj5AJWG1do4QWOYrZQKBSV1Qri6BV6p9M5
-	88yjgWOp1bdJ3eQSD/upOwynnjetRWp2rCL3INhJLHG31FVep0thXCQE/qUdIWHCzQcozBBuTOG9h
-	Rd4UsMooR6OzmVnFCsAWrctT8081/VH1qSv9QUZ4qB0uvfkyEvTBxXuWMdnhiTlYsPw4mcmoC/xXC
-	2Q5CgDFfekaBGQtXjcv7qgCpQfhxcqiW3IXbm4cfr3IiKm1gGg==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xHiKR-00000001YOp-1y6g; Fri, 16 Oct 2026 15:50:35 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xHiKR-00000003zsT-0zJB; Fri, 16 Oct 2026 15:50:35 +0200
-Message-ID: <f46a2ef98217b3cb6bd374b9bdf0bcb2e3227940.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: mm: fix double mmap_lock release on SIGBUS and
- SIGSEGV faults
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <yoshinori.sato@nifty.com>, Rich Felker <dalias@libc.org>
-Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- 	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 16 Oct 2026 15:50:34 +0200
-In-Reply-To: <atHwnaEUDihOsGUQ@gmail.com>
-References: <20260928001937.12793-1-kmehltretter@gmail.com>
-	 <atHwnaEUDihOsGUQ@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ONpnz0ol"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso6459755e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:51:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792158663; x=1792763463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q1Ejug8D4zQ8KB1tRStJYJdlaIVOQFSEH869zeCaYNA=;
+        b=ONpnz0olmW9FJI4tI/btYaN8+/FqVvQoZcuzmaPMBEHraltVvvqtFad5768YlDMR5I
+         FIOyssclrYXQJaLKbKxEzWgjk0wTECvCmV4P2f78O4PJtguoN1hwEzdfVuLIh11Qtg7U
+         4U7Z16pAEr26Gi5lERpj+O7yMSdaxyf9tHMaV3n77rQ6anBBYAXFwINxnftkuATNEXbG
+         aFocyyaB4Oc5igUQxJmaP0fMIY/ze1QQLbk20yzGmi9GI45+SXq9+FiXAU4RtzM0lAmy
+         8L4Y+lfUyv6SCqSRWOs+fz62Me09JenpwYAbvzbKfRF8GZxm16WOpXbv5jgpqgiFLzyH
+         IBvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792158663; x=1792763463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q1Ejug8D4zQ8KB1tRStJYJdlaIVOQFSEH869zeCaYNA=;
+        b=JMyYcCfBPoqTSbOCT8Xwfj0o+hFWIa9m/ma/V+tGiSc1pYcO/TiQlL3g94flrY928Q
+         wxTyEE58N+SzCBC4GE/hAgLnCX9xvzxHAMCQmIv45N11VxvGgwcb75LlYNHWmULO83yz
+         YteBKEugkyyWMyQplZScyQuINGq29/279Z7VI6Q+r2TaewCVh6sKu/Z/b8fVcWIYW7fT
+         hoF15BaZyis1RG9N1+qEvt5o4p9CONBmjAlegDVXg2LKu5b0BUvmyDhmSKCqE+BXCo7r
+         25d1Ao1smfcVgOPox4qa83O873no+MFXC8hjnZ3f8FJuMYjzh1jZK06EJjL99fNGxJLY
+         pwPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhqVn/mKR1qiRzqR9iPpDBfMyuDpKSSNJLfVMLR2hyNr9mmuNkmDvbjPYji7ysHMTkXBj0r7ihz8UDBQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIfQA+LutrbBfYsgl1CDXpGsZVkPmPUC4qQoFLOEXWFhBTl5EX
+	lwU7w+lJRA+OXOKnxeK0W1A1KpDBgaTF0DkHfl+uS3utZTbGvOSx5pjv
+X-Gm-Gg: AYBFou3H86nP/TDz3C70Rw9q1JnAU6VLdI4I2Tr2MUeKXDhWHFqE5MYGM+ouyj9kQlD
+	X7NWzAHVnAuTeZaOjGzfRH99vjpt7VxOvipVn3Pxz28HPj6hXt4Dm0tlJlzpS2zVGWGIcnwweAn
+	am4123gipimrOA5iDSXG44PTTANtf0yut9aYuToaBt5Sf6MGiloQgQd3idDmMazmGISOTTtHkWM
+	zhLztrwSjxOlp47InML4iZO0mM1vD209xu4x/6drzJ0xAiV1iVxmu/Jjf5saef4DoIAQE5S9cv1
+	PT5U/Tg6kPNRoVD2UjNqCZPX1PPcmPAANuiNLtBz/bbgUGEY0C/1Q+j2v2C4rER3ZI7DzVwZ729
+	6943uK+BK2zu42VI8i/VHpkZCe+2gLYKYU+ro7a0UM79H23WkGecy0FgkNusyTL6hcKG15G0EDw
+	WOpfMDLm4vCiVZuY/7tq2knTf1R4NCncwW7EfYDBizOdLM6f/425+2NJo3u5Abag5gXTUyVWA94
+	PYLuYh7qVq+UIoKor/NvJk=
+X-Received: by 2002:a05:600d:82e4:b0:4a1:a49e:a925 with SMTP id 5b1f17b1804b1-4a1a49ea94bmr310744565e9.35.1792158662480;
+        Fri, 16 Oct 2026 06:51:02 -0700 (PDT)
+Received: from localhost.localdomain ([2001:818:dc1d:c500:21cd:8ec9:48da:59ee])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d2e93a01sm27190725e9.0.2026.10.16.06.51.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 06:51:01 -0700 (PDT)
+From: Diogo Sousa <diogogsousa@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Cc: Diogo Sousa <diogogsousa@gmail.com>,
+	Mario Limonciello <superm1@kernel.org>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	David Glushkov <david.glushkov@sntiq.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: Disable async suspend for AMD rev 0x62 ACP and HD Audio
+Date: Fri, 16 Oct 2026 14:50:35 +0100
+Message-ID: <20261016135042.44914-1-diogogsousa@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
 
-Hi Karl,
+On AMD platforms with a revision 0x62 ACP, such as Dragon Range and Fire
+Range laptops, the HD Audio controller usually stops responding after
+resume from suspend:
 
-On Fri, 2026-10-16 at 11:46 +0200, Karl Mehltretter wrote:
-> On Mon, Sep 28, 2026 at 02:19:37AM +0100, Karl Mehltretter wrote:
-> > A process that survives the signal keeps an mm with a corrupted
-> > mmap_lock. With CONFIG_DEBUG_RWSEMS and lockdep, stress-ng --msync
-> > (which catches SIGBUS) reports within a minute:
-> >=20
-> >   WARNING: bad unlock balance detected!
-> >   stress-ng-msync/54 is trying to release lock (&mm->mmap_lock) at:
-> >   mm_fault_error+0xd0/0x16c
-> >   ...
-> >   DEBUG_RWSEMS_WARN_ON(tmp < 0): count =3D 0xffffff00, ...
-> >=20
-> > and without them, find_vma() warns that mmap_lock is not held right
-> > after it was taken. Seen on a custom QEMU model of the SH7785LCR, in
-> > both 29-bit and 32-bit mode.
-> >=20
-> > Drop the release from do_sigbus(), whose only caller is
-> > mm_fault_error(), and use bad_area_nosemaphore() for VM_FAULT_SIGSEGV.
-> > bad_area() has no users left and goes away.
-> >=20
-> > Fixes: fb027ada051a ("sh/mm: use helper fault_signal_pending()")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > ---
-> >=20
-> > Notes:
-> >     Tested in QEMU on a custom SH7785LCR model, not on hardware.
-> >     Reproducer: Debian sh4 stress-ng 0.22.01 --msync
-> >=20
->=20
-> A friendly ping on this fix.
->=20
-> I have now also reproduced it with stock QEMU 11.0.2 on the upstream
-> r2d machine (SH7751R): the unpatched kernel warns after a caught SIGBUS,
-> while the patched kernel does not.
->=20
-> Also, the stress-ng command in the review notes is incorrect. Use:
->=20
->   stress-ng --msync 1 --timeout 60s
+  snd_hda_intel 0000:69:00.6: CORB reset timeout#2, CORBRP = 65535
 
-I'm trying to get this reviewed in the weekend. I'm not forgetting about
-patches as I'll always check what's on patchwork and pick everything up
-that I haven't taken yet [1].
+Audio playback then stalls.
 
-Adrian
+The ACP (function 5) and the HD Audio controller (function 6) share an
+audio block whose power is gated by the firmware.  In the AMD CPMACPV4
+SSDT, the _PS0 method of each function marks the function as present
+and then calls a common method that powers the block up only if exactly
+one function is present:
 
-> [1] https://patchwork.kernel.org/project/linux-sh/list/
+  Method (_PS0, 0, NotSerialized)  // ACP; AZAL sets M279 instead
+  {
+      M278 = One
+      M276 ()
+  }
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+  Method (M276, 0, Serialized)
+  {
+      Acquire (M27E, 0xFFFF)
+      If (!(M278 ^ M279))
+      {
+          Release (M27E)
+          Return (Zero)
+      }
+
+      // Power up the audio block.
+      ...
+  }
+
+The presence flags are set outside the lock, and M276 calls a debug
+print method before the check, during which the AML interpreter can run
+other threads.  So when the PM core resumes both functions in parallel,
+both flags can be set before either _PS0 reaches the check.  Both _PS0
+methods then skip the power up, each assuming that the other function
+did it.  An ACPICA trace of a failing resume shows exactly that: the
+M276 call of the ACP sees both flags set and returns early.
+
+Disable async suspend for both functions, so that the PM core never
+suspends or resumes them at the same time.
+
+This started with v7.1, which moved these ACPs from the RPL driver to
+the YC driver.  With the ACP bound to the RPL driver, test resumes
+worked, but it isn't clear why the YC driver makes the race so much
+more likely.
+
+Fixes: df4148a5a3cf ("ASoC: Add DMIC support for the AMD RPL platform")
+Link: https://github.com/CachyOS/linux-cachyos/issues/950
+Assisted-by: LLM
+Signed-off-by: Diogo Sousa <diogogsousa@gmail.com>
+---
+Tested on an ASUS ROG Strix G16 G614FR (Ryzen 9 9955HX3D, BIOS G614FR.317):
+without this patch (v7.2.9), every resume from s2idle broke audio; with it,
+on top of v7.3-rc7, three resumes in a row worked.
+
+This also covers the MSI Raider A18 HX A9WJG, for which a quirk matching its
+subsystem ID was posted:
+https://lore.kernel.org/r/20260606204547.11945-1-david.glushkov@sntiq.com
+
+ drivers/pci/quirks.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21f..d4e4ab3c332e 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -1901,12 +1901,44 @@ static void quirk_jmicron_async_suspend(struct pci_dev *dev)
+ }
+ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE, 8, quirk_jmicron_async_suspend);
+ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_JMICRON, PCI_ANY_ID, PCI_CLASS_STORAGE_SATA_AHCI, 0, quirk_jmicron_async_suspend);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x2362, quirk_jmicron_async_suspend);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_JMICRON, 0x236f, quirk_jmicron_async_suspend);
+ 
++/*
++ * On AMD platforms with the revision 0x62 ACP (e.g. Dragon Range and Fire
++ * Range), the firmware power gates the ACP (function 5) and HD Audio
++ * (function 6) together.  The _PS0 method of each function marks it as
++ * present and then powers up the shared audio hardware only if the other
++ * function isn't present yet.  The marking isn't done under the lock that
++ * serializes the power up, so if both _PS0 methods run concurrently, they can
++ * both conclude that the hardware is already powered up.  The HD Audio
++ * controller is then left unpowered, with all its registers reading ~0.
++ *
++ * Suspend and resume both functions synchronously, so that the PM core never
++ * transitions them at the same time.
++ */
++static void quirk_amd_acp_hda_async_suspend(struct pci_dev *pdev)
++{
++	struct pci_dev *acp;
++
++	acp = pci_get_slot(pdev->bus, PCI_DEVFN(PCI_SLOT(pdev->devfn), 5));
++	if (!acp)
++		return;
++
++	if (acp->vendor == PCI_VENDOR_ID_AMD && acp->device == 0x15e2 &&
++	    acp->revision == 0x62) {
++		device_disable_async_suspend(&pdev->dev);
++		pci_info(pdev, "async suspend disabled to avoid ACP/HD Audio power up race\n");
++	}
++
++	pci_dev_put(acp);
++}
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e2, quirk_amd_acp_hda_async_suspend);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15e3, quirk_amd_acp_hda_async_suspend);
++
+ #ifdef CONFIG_X86_IO_APIC
+ static void quirk_alder_ioapic(struct pci_dev *pdev)
+ {
+ 	int i;
+ 
+ 	if ((pdev->class >> 8) != 0xff00)
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+-- 
+2.56.0
+
