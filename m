@@ -1,107 +1,118 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2067637F002;
-	Fri, 16 Oct 2026 14:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481A3876A0
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162410; cv=none; b=XhELY8CNhJEmFHMK0UnSZUE9YwWnqRlklV41571/t5FYH3NtaOmUhkfwZ7t6E5V8FeMrVi1pwzncP2AF8mHFuFOxESRYZNAcnozk63vefFtzV20dYCNhzSn2Wt8VBracUpjYi1VEZ3CPWLWDDLYIvMeOgv9l8P74dm8N1cGs6KE=
+	t=1792162487; cv=none; b=i04LQsptCkgKUBT9ADEyPhzHySZXTmXihnrHLi7/aK5WKKnpoT0dzejcU8q7KEXGO1RhQ+D9ARDsdZ+cLB2uZneZhj6V258FqpuByKu081WtwcRSynXViRDXOtPFAhQAt3C8EF6+33XR3fhI0fdJpWHJ6ERGw3XnD4PQxNTQhDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162410; c=relaxed/simple;
-	bh=5+syxV+kAKG2BXfu43WwEpuMJZ0d/iGlRb3AymjAKgI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=f0kboYYYKOv+hcc/55cYaxPoBhJwnIsgXb6JMXCTkd7QfRShS0dprcOD4cQkywwmY4qspK12Ntz/V2zmFOx0ukNrDFzf/9+qbAn0hZtNXus0quoeRgSV2p1YphGjNcyXkRO1ZWRM+9qwasplOCusHukM0qTgErnhVnKRZDtTY3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=iBI+sZeg; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1792162487; c=relaxed/simple;
+	bh=C24Y8pYzO/aPrLA9AMl8TvcQHVpbwYHJDkWQ8XX3CzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f3CgkHzuRuANHnRBnynBKdAUVZay3f4XwDVpVy0/IEPVw+xtdlL7Fr6xe+xRDQQGECEpPjBHMY7YlAAvJv4H1yILLTCmgazX/1Xe5nXy0my6tAxgVMnciUYaZeueqFoHDKHGy5fWNavpqBoeKCJHEH118nfnxekhx9xVi/qIzV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2Ftfp5J; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="iBI+sZeg"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 5285882A3D;
-	Fri, 16 Oct 2026 16:53:26 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id OJ74UUGFSUnK; Fri, 16 Oct 2026 16:53:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1792162405; bh=5+syxV+kAKG2BXfu43WwEpuMJZ0d/iGlRb3AymjAKgI=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=iBI+sZegmE/3AnA4mD0F0ETBk4KavmQwJIMFsMPaNER4WVLqrMQB5uzDZz5nTu8AW
-	 1mA82JxscZdkeIYtB/VKPwuNBQu+fCgX9OIDo2MxaRC73ZhjVXR/7/ooOUMlHF16Wy
-	 S84vFYV+7GyJEakTzO8uvofFfjpCuGDBEOIPAl3C7/UbWpg2CIGPLzdZOBpvCAI+88
-	 xgWMT4kzTpfRYkp454WsPoIdNIlUQ/1aVCAs/H43VK3OuyotWKvrMAAEOOHmDlPbH4
-	 Jud131KTjTeH9rQ6nz+WtcV6kYPoeKxv527UuGZV1F/jFFRwwRL7qatwGUtkIM3q/U
-	 vOOqPv9ylYNEA==
-Message-ID: <0ee5b63e-47c5-4749-826c-57508ed6aca3@disroot.org>
-Date: Fri, 16 Oct 2026 16:53:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2Ftfp5J"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b09c273caso1015028f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792162484; x=1792767284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8hZGPnwDEfX+nqOzBQskZPmMNJTIRqNPt8gbd4kOL/U=;
+        b=i2Ftfp5JcX3Ok7EEeo+AU5BbuhXJs/sdV5zRXlENELgCFXkWhMaFm1wY6GsuL3YDEX
+         A006cAW1cY8diJj08KNFzY88NVhhFbMs9LEmLhv9GSqF8xudFxWovM29tV+KiNstx88e
+         sck7UqVpq/6n8wCWm+3nsA7/ifiFXdX5HnimGXivO4sZIEqbjHx4CGje29iIH+7QDf9h
+         6lD7m405LKGfp8rShNGBPblhz8nffET0KL6JbDV+SjL239VvEzVlpoVjPPIX7iZU41X+
+         4Y459Gjq1iXqCqZkW7Q8XllGh5G8I5AQiFQUT2KXZ257Af3/uZb0BSoFGvBD/Qw7TPul
+         aDOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792162484; x=1792767284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8hZGPnwDEfX+nqOzBQskZPmMNJTIRqNPt8gbd4kOL/U=;
+        b=IRES7u5MhuqGYNphyhCq93OOgHbccmRdHOmERaoJnTDLqyHHKMcmlTvs5n8siu0OR1
+         OEA7RO8aMt3yOeCH2t23Wry95hNvRivtNnO9bAR5RnyCci449mZNcaeUK+dIUzQQLMtb
+         pU1Zb1rQorkSxBgcGb3baayEqZ3HIB/9NxkcX0AeoXPgREfD0AxCYOxEB0p6Aho1xIx3
+         rBWOPET1GPKrAMEvpLNWPRuVj7gX3bBOfex5rrlUzjKBNvFLUA+lJArjZAp7DOvW0uR1
+         csWscwjmxESSVNVvusUiXI5ZnVnC7HFx8wU+AT0XxDOQoHqBY87cw3/9ry9bsdClwNMF
+         jq/A==
+X-Forwarded-Encrypted: i=1; AKwUvBw6zs2d4btYtsk88lqstqmtlJVTYPcPINGEOYJQaocDkjBiZLMVa9j7iKm8fSN6BgjN7Dd4lK8n7QixiLo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI071wNR3UOvbLS41BPAw/I3SbmWdBR4Pn0S1/8vs+ifA3ASWQn
+	1BKcPnvH9fZEudaWEWD16bC0gGPaKNQifLatwGq29mz9REdLe46emDks
+X-Gm-Gg: AYBFou2vdUEdlowkCtu9xPiRlwReS2CfPFTofdXpbBjG7rgy2egp8T2s+mjl6+rjRNL
+	oQIWBJWJFKfEvCojX14PrdntsCbua2PCUspgsU/UdE7knvNCfVPmvM7YeOaBFrK/wJNJFTfcGNS
+	iEE1RDXX14rYkqsb4G3+T5g5tZBJnVf6AJo6QOyRIQF3TARptOcS5XRVEnUTxsy14iRaahNLk0I
+	q5wBvym8RuziIssv5U5GSPeTOgAvDrmx2sW7Vej1mJgYWrbwPVuZ7gy/Du1InWmRvDl5PFW/0Ry
+	LgUa7xu29jL6a1Jw4n9WfY50uGG53behjm+BmIP0RxXD1ThfwdZbu0GSw/0qe2MMHvCpOiv0DPO
+	TI0RWxDSPCPS0zXSNDuVnA/7w33ZtsdyN8zU1QrxYftNXMsKw0b0a2TN0uji//KQko50CJXVh6j
+	HeAsk9faE+8B1vDwhia9VzOV5ucF1nuixjaBQsuYmAVTaztCreyAE4WzfBgcH73sPTOQvm8ZzMN
+	qR+bf12sGKR8dCdcsXxF/SxEbm3ArsD94gXXN0DIHQPK6gEl4kDphOG27kM+CVUUmM=
+X-Received: by 2002:a05:600c:37cf:b0:4a1:7dcf:be1f with SMTP id 5b1f17b1804b1-4a1d75dd618mr1120995e9.1.1792162484113;
+        Fri, 16 Oct 2026 07:54:44 -0700 (PDT)
+Received: from thomas-precision3591.paris.inria.fr (wifi-pro-83-149.paris.inria.fr. [128.93.83.149])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a9ea3bsm50046305e9.0.2026.10.16.07.54.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:54:43 -0700 (PDT)
+From: Thomas Fourier <fourier.thomas@gmail.com>
+To: 
+Cc: Thomas Fourier <fourier.thomas@gmail.com>,
+	Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	David Carroll <David.Carroll@microsemi.com>,
+	Raghava Aditya Renukunta <RaghavaAditya.Renukunta@microsemi.com>,
+	Johannes Thumshirn <jthumshirn@suse.de>,
+	linux-scsi@vger.kernel.org (open list:AACRAID SCSI RAID DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] scsi: aacraid: fix dma_free_coherent() size
+Date: Fri, 16 Oct 2026 16:54:12 +0200
+Message-ID: <20261016145420.50870-2-fourier.thomas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Support HP OmniBook 7 Laptop
- 16-bh0xxx
-From: Sven Jans <skbotnl@disroot.org>
-To: Takashi Iwai <tiwai@suse.de>, Jon Harrison <jonerickharrison@gmail.com>
-Cc: david.rhodes@cirrus.com, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, perex@perex.cz,
- rf@opensource.cirrus.com, tiwai@suse.com
-References: <CAEG=48+jRv7wHgd-yPTHEf9YFO++XusKQgT+WJz60hgCE8pGww@mail.gmail.com>
- <87a4od3f4f.wl-tiwai@suse.de>
- <b474edba-33db-4892-b490-cd767211e4ad@disroot.org>
- <87c6cc21-dc1d-4d76-95e5-7cca12ce0930@disroot.org>
-Content-Language: en-US
-In-Reply-To: <87c6cc21-dc1d-4d76-95e5-7cca12ce0930@disroot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 16/10/2026 16:46, Sven Jans wrote:
-> On 16/10/2026 16:42, Sven wrote:
->> On 16/10/2026 16:16, Takashi Iwai wrote:
->>> On Fri, 16 Oct 2026 00:15:24 +0200,
->>> Jon Harrison wrote:
->>>>
->>>> On Mon, 24 Aug 2026, Stefan Binding wrote:
->>>>> We are currently awaiting confirmation of the correct settings 
->>>>> before we do
->>>>> so.
->>>>
->>>> I have another HP OmniBook 7 Laptop 16-bh0xxx, SKU D2KR6UA#ABA,
->>>> BIOS F.12, subsystem 103c:8e60, running Linux 7.2.5. Both CS35L41
->>>> amplifiers still fail to probe:
->>>>
->>>>    cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Failed property
->>>> cirrus,dev-index: -22
->>>>    cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform
->>>> not supported
->>>>
->>>> The speakers only play through the Realtek fallback and are very quiet.
->>>> Has that settings confirmation arrived, and is there an expected time
->>>> for the quirk?
->>>
->>> OK, we've waited enough long, so I take the patch to for-next branch
->>> now (for 7.4-rc1).
->>>
->>> If this is really breaking something, let me know.  We'll fix up again
->>> before 7.4 release.
->>>
->>>
->>> thanks,
->>>
->>> Takashi
->>
->> Hello,
->> I saw the commit in tiwai/sound. I noticed that 3900 was used for the 
->> boost_peak_milliamp value. I just wanted to note that as far as I can 
->> remember that is the value that the Windows driver uses, while the 
->> malformed but readable _DSD specifies 4500 (at least mine does). I 
->> don't know which one is correct, but 3900 is probably on the safer 
->> side I guess.
-> 
-> Small correction, 3850 mA to be precise.
+In fib_map_alloc(), dev->hw_fib_va is allocated with
+dma_alloc_coherent() with size
+    (dev->max_cmd_size + sizeof(struct aac_fib_xporthdr))
+    * (dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB) + (ALIGN32 - 1)
+but in aac_fib_map_free(), the same buffer is freed with size
+    (dev->max_fib_size + sizeof(struct aac_fib_xporthdr))
+    * (dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB) + (ALIGN32 - 1)
 
-Apologies for the multiple emails, but after re-reading I thought I 
-should specify that in my last email (about the 3850 mA) I was talking 
-about the Windows driver. Just in case.
+This could leave parts of the freed memory mapped to the device.
+
+Change the dma_free_coherent() size to match the unmap.
+
+This was found with static analysis and only compile tested.
+
+Fixes: 1bff5abca65d ("scsi: aacraid: Fix memory leak in fib init path")
+Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+---
+ drivers/scsi/aacraid/commsup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/aacraid/commsup.c b/drivers/scsi/aacraid/commsup.c
+index c4485629f792..cf0ae251e43b 100644
+--- a/drivers/scsi/aacraid/commsup.c
++++ b/drivers/scsi/aacraid/commsup.c
+@@ -81,7 +81,7 @@ void aac_fib_map_free(struct aac_dev *dev)
+ 		return;
+ 
+ 	num_fibs = dev->scsi_host_ptr->can_queue + AAC_NUM_MGT_FIB;
+-	fib_size = dev->max_fib_size + sizeof(struct aac_fib_xporthdr);
++	fib_size = dev->max_cmd_size + sizeof(struct aac_fib_xporthdr);
+ 	alloc_size = fib_size * num_fibs + ALIGN32 - 1;
+ 
+ 	dma_free_coherent(&dev->pdev->dev, alloc_size, dev->hw_fib_va,
+-- 
+2.53.0
+
