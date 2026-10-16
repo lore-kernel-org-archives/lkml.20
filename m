@@ -1,251 +1,155 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010064.outbound.protection.outlook.com [52.101.193.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF22045D91D;
-	Fri, 16 Oct 2026 09:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141575; cv=fail; b=acFYn1doIQipZy4hSuyOcLqu6YnVet9Yue6Ni5e8/YINIAXnRmZQqGB9gsh3PyeboK2p1e4oGzrgDI7dD4iADDsrA4AKXpcJyKyQCYrj6J2KGIND1PSRKDZ+HAMlGmCWNmNelDmWYbdcAbMoh+PAeke5e9Hdr3cxy/ewQMRLBZQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141575; c=relaxed/simple;
-	bh=eM8+fqbID1EXC4fEyOMHZJ08C09rhqGwqPw+jf8cxGA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X0wphBi00V/k/h+YyVFFIbgN5f6PuMP4qcuCqwuyU1n9SiqUwXV5k2tqVUgQ7JlyMo0LhWa7aF1xHAKluCUC4AO7YxXGtozLRtpuFvxTIJYzVyvcSMIsZ/KzCNm99vKTd23nWhUyHchlaVmOPcsUEK8D5RAqf0TFJ058HIGzE4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=i7Ow1nwQ; arc=fail smtp.client-ip=52.101.193.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0537245D5F6
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141587; cv=none; b=egMWAGGJp1q0TLRAiMFPEnwGNyPS1aV87Uearr1Brp0D3T3armTALsbMziIND47gNVVJCjE3cZXi8fq+tSemI8vvo0tTtNK7pCiPIt/SymoxiE2wVrRSvdN1DrzQLMXfO9ca1SfoCos6D649CqTRp1Ofsn84UvGqamS8kEskkus=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141587; c=relaxed/simple;
+	bh=LEjiLApMQqTHDDtk9CHKJXxbNV7MEotxA1g5DsDCPLg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nPZR7NoDLiW9K/jsltoQP1y5bX2sRE77HfmFA9qqzROx7irq8411281RXDXIzxpR0NGSpdNyhPyFSFoQAv8Co35hSwprLcAyMRVyzOVTfoD4DhJNzHZj6sza2Ms+xVJVtNEL3GzyFgftV+SzgqQnuwUtSXaeV4N6llDp7PJkpJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cC2HB+hA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HqO6HD8C; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="i7Ow1nwQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CPNFHTihy/TJxAB8rVOILlAhGOJFAgn898sZdLXAQ95rU5TSDoui/2ouvSLSAQhhsygqQysmpNRlGEt9Zp934X7Ae/0gHnRiaXEu3kXT/Lam32tUXCTtKqJOqrxU4O4DVFoDXqdxFYEMvITVlcrZOQP2p3wZnqyGu1T+6ql32owBf48CgJ1/SMnF1V89Fj4fSsGD9u3I9X2yO/OaD0Q5c3HTTZ8WocwZTJrKdyhLv3J95o80vJbxvNSuQT1+BkTGUN5sxk1vgjv4OmugoCFR2eMdJqj7dE7Ydr9l7VWlg4tNdX3NDJdP0UmWttWDkhWM9+dNb+meyJHu7wVOg5Zotw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xs6mxZa40BsJX3ZXEvWdFHxLaAKU1HWGNgkzPn7rVpw=;
- b=UFevS2q6zxViJZRE8G8hBltza1ASgyTS1ZoyjoMMVnO0S7hdNZz8WqQEDbABILMAWm2QtM90E1jUmAlvquP9HAtP61maOjMntcKrs+xnftAxyGTlKo8rfAj5PgzhuMgDm3KxdIv/S7HJ7UoY7ygmRlP2q+kmo/t3WK12rzhEsSa37jVkTvAABte80Jo05yBiIX44iV6gHelh8Q3y8geGr8isFptPHQ1r8eSzHWvsb+6Qw+0Jxx0MJRxxxmvPdvudtI+HH6/hqPeZ7HukoaYQOhwUONm+dG/3xZ+j+ASWZ0pWZXekdGNMroTzjPFzW4BiF0Qc/VMQyMWE2OThqNiYrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xs6mxZa40BsJX3ZXEvWdFHxLaAKU1HWGNgkzPn7rVpw=;
- b=i7Ow1nwQNDlCz48nA7fs/+TKSY8Yic0m1JZHDXriJfA7zTWZrpehvMvo/snD3d6b/vloaU9GvoYbItQj0fYg30OPgwemtglwTj2zKI9w7y2xa4wBvX0XqfnnUo41BHzZh41VQiavhZXz84OLrJN085X1dm9N8/cQrM5kNHQBtAQ=
-Received: from LV3P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::31)
- by IA4PR12MB461082.namprd12.prod.outlook.com (2603:10b6:207:10f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Fri, 16 Oct
- 2026 09:06:10 +0000
-Received: from BN3PEPF00022BC9.namprd05.prod.outlook.com
- (2603:10b6:408:234:cafe::23) by LV3P220CA0008.outlook.office365.com
- (2603:10b6:408:234::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
- 16 Oct 2026 09:06:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BC9.mail.protection.outlook.com (10.167.248.218) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 09:06:10 +0000
-Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
- (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Fri, 16 Oct 2026 04:06:01 -0500
-From: Daniel Huang <danielhu@amd.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
-CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
-	<danielhu@amd.com>
-Subject: [PATCH v2 1/2] drm/amdkfd: disable SVM when the GPUVM cannot cover CPU addresses
-Date: Sat, 17 Oct 2026 01:05:45 +0800
-Message-ID: <20261016170546.88570-2-danielhu@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016170546.88570-1-danielhu@amd.com>
-References: <20261016170546.88570-1-danielhu@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cC2HB+hA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HqO6HD8C"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lvR31611516
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:06:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MiRPL2ULAV5NkriOUKUnMN3bqwjMHXjIke9axrwz75I=; b=cC2HB+hALCM8sxdt
+	RXlFasSkFUqTXT8xluv1dXjSH1LHhiGvCQzZ1Gp9W7cKmuG28jiU77b5LvB6IM0n
+	yOfgoztJbOwJQ6oAfOcEhrDaGXMn6MBfbmbhi+d7OxcblTRWhVsMbWYnDh4PemIj
+	ztC+csKZtcxniNpqVIYyC0OEpEDKNAvNOTclXi/fwvL2YT6wrb4gQwAEwsqjw1U/
+	FXVzF4Bp/YOAnJEdMdJi4mP0t5+q78STQCLTmR/kxLmbnE8dfxkMg+Wl46imYQLJ
+	oFg2vk7veheO7PboBWCPrmBdJ2zQLSQIacotPBjFl58XaeAx9sabSISENXC/e2Yu
+	3WQRnw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb3sety6u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:06:24 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917aacb7abcso15993056d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792141584; x=1792746384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MiRPL2ULAV5NkriOUKUnMN3bqwjMHXjIke9axrwz75I=;
+        b=HqO6HD8C9FO/YHTIq33bQPSLqlWpe0bXbw0agPHsGcHpTNZOldFh+gqmWvht9P6XSs
+         SuDbkrmYzXScZk7TKY6PYA7/Rgx50xjSIOcwaiyyveSUNJSOZYPApY5VRp54Q24L9aye
+         scAsndDxo/zNu4QEvLOdg/FiuT26IEhSqV/pPNQQEj/z2efdcGAnwi9WMBtL4gnTNfps
+         PIEmOpDX86SV6dyGKUu3o8zd/JGkufHKO6+/Z/5j06wi9CeGtSEW1up1uvlQo7SPGhC1
+         F+jqP1W1L/PU0I/waLiwkfljyCa+2ilURw7KS2bfGq8fQjxOPl9ySFVFYxkMz4i2uDUX
+         ZIOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141584; x=1792746384;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MiRPL2ULAV5NkriOUKUnMN3bqwjMHXjIke9axrwz75I=;
+        b=ACxoOtTp+JNLTIFbsr1c8aYusAeYOePZ2hc3//Rf4vVxCYZz8Au3pqcxA9Xi63vKF8
+         R/tIMseCKqBlhSE1S7PpNvsMWA2TAB9Hx7kAAV7XEGQVSXnxewv1dE9ROAMHuagqSEz9
+         DiA1lirYC8S/jTsht2QUb4d5/vzLwxGGYsoOX5iNpOkYC1j8yPoRvnqIj6YYkCjWZf3r
+         9FEqoYRhoDtFD/WtrkziWvDF/W52j6g0JtuvGklRvp3Ead/mVYjxTsgDtUslY/3cWRuw
+         HxAfdCVQxZAx82P+w2Y1iKU8kCu8SmawHQN2lk+ZnGiKovmhqUO7KloSRmodHU7LQW3X
+         w0Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLo1pCqPfuqNFxjgNcpBAMjRHsvBHZCpC0weReUiOp9BsLTNbXHJojo3B/5oX11EfVIofy/Vf1Bq6a7Ho=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJOXZKJupGzzPCSBnioLORw3JunqsRcyHRdHaPlpzxGAHKse20
+	dXSexuFswgplNjd+EoWdNRlw8h/CnlQAQRLlPmUwKmVsRY1K3mmLezKKYd/pNax4VSveXTIFtOJ
+	xa22SvaFrGSXruLB5EpGv6U7iWHp7qdEBAG3Zcyx2tWo2u49zdiKBtca+x77835WSNqQ=
+X-Gm-Gg: AYBFou3jR0lu5w5fgAMlQtKaHyreRELYwkLpu0BM26RvOM7gEgiNsuPXXhQz46LVWaK
+	Fb4QuzCP1i9HlOD6T2yOzeR9lO0vFVNRbHkgzJsRUk45u6OlgQxTzZxJSZfmQpvfO9K5WVcR3ta
+	jE4zbsrmIazvxik9qPtF0BqADo2W8ZuQHxA5KsxEolalW1r3mV184S652m+ghCnr2OzSCX9GSDS
+	vitCsiwaiYCeP8AhLeS6399Cnck+mP3kppggMQnoZfYxely9YfYkWFjkIweP8dhUZibPgvMzOmd
+	i3+ww5uJiCFu+kBca/hcCfnkX0Xch/7JRtnkJ0QBxWpIM0YRQ6NyhzA78Y3WWIq40mPF7bco4xY
+	56fVQ/iOw7P1B7hI5yTcOqw==
+X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr3711720685a.0.1792141584221;
+        Fri, 16 Oct 2026 02:06:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:8017:b0:93e:5a3f:ac13 with SMTP id af79cd13be357-93ebcd2bc8fmr3711717485a.0.1792141583729;
+        Fri, 16 Oct 2026 02:06:23 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912cefd4sm52320466b.35.2026.10.16.02.06.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 02:06:22 -0700 (PDT)
+Message-ID: <d6c92920-6258-4740-a151-e6512ee8c610@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 11:06:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC9:EE_|IA4PR12MB461082:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec502769-7902-42b5-376c-08df2b64b894
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|6133799003|10067099003|22082099003|18002099003|13003099007|3023799007|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	CZnEzBSecPFpl7+MZAlrxnJoJPUZPH1VhaNJEYiwvL/gFbrci500Yu75ISiXu5z3bXGqhNXy8YRWkPgrVA0d/tK10QVxjfrtW61hiOTigoU8/UpXs7lQ8+yZFNm3WdduMOwjQOa3QcPOmMFQPoRPfA3dKCrOpeHMr8noyOM3K2LzFDzMSc37KUUbscVZQqgu/+hE2otvXkfIz/Ir/Kh0xOG7htcC/eB2gs8weD5QPEv5fipV9/vgGTFxEUCIPTECu4X4fOSoPF1aWMXhMTa2SxQJYHIllWk2S8phmWrDWpiM9oatgXrFL/ySIe4s144wuEeGA1lLb9mcNVWkw1VN9l7CpS2H074CP4rTH2Y6HzbpkPKK44g7V4XIWzwcwXRD6z4l4k+QMb1PKG6C8voM5T07X/fxuaK8YIdkkVVw4q5V8vlLhrYN0NsQ5WGChcs6W/zRd0X0b/AYKVhYvwieS9CtoeR4zi/r3p61VvnWqO+U5EYaEF1AAxYLK73Dg3ex2Qi50TaVa6wEdo5CuKsvkmlEE+po7nvrZvYcTcJ+XsriXdBSVt/S4oxqGld5ajH1YGF2FJHt5WIUgePzG1d1RjQHActP2N15Utcd7JnswMAMheJJL+7hT2EUj8n/Sij+kq1C/cDLi6w9zdz/bEGrwEn2A6dSy22nQd3v8xrfEm0=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(13003099007)(3023799007)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	GJUPFX9jGWFPKhXK0EeehpTIpBqzulC3j/Og9fD3/l0ex4Pf0SoXEI46TG+KDuYSNbQureD157YRU5NaeTuoclLt2sHP+dtizdR0377IrCrjLKg8uOYQkGy5DJ24DwXyp06NW5rER3xpjKMOd0luSrf0ifEXeBQ6ONw2WLvAJWP2xeagsqOtV13ooA+rpg5x9UvS/hSBHFRTnwW6CcJfCXhtHThiYUCWwsUQSZKQ6F+BS8XRmgZVwjFZABj931bQ1fYAnYYfaah3hg8zEtBUZWQ49AOojyKIKuqBV8zRqCnBduQ/mCdnBHNeiDBaC2f+I6FmgWW2Q2FRtIYebQc6uda2PcQhUwK/aNd8tzQLCj4j41gE4IgASQWJf5/C8w+OTewDMm0fBNHqJoTMVUGNFEOX35MV2i7Cbq+Gq38217Aof1m1tHhLAkh+6rsm72gr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:06:10.2951
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec502769-7902-42b5-376c-08df2b64b894
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB461082
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] clk: qcom: gcc-ipq5018: drop CLK_SET_RATE_PARENT from
+ UBI0 NoC branches
+To: Andrei-Alexandru Bleortu <me@andrei-z.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261002121920.994608-1-me@andrei-z.com>
+ <20261002121920.994608-3-me@andrei-z.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261002121920.994608-3-me@andrei-z.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: apB5SE1YhZK1HAt5dOYrQC9Ilze6dOn6
+X-Proofpoint-GUID: apB5SE1YhZK1HAt5dOYrQC9Ilze6dOn6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfX1KY4IJKetbJv
+ o6SLhj8U646EzX9s2x4mURpt8GoeggPTi+6gdVuKBXErNgOOLCzX4NOvoL8N1kx563HsR6zB+s9
+ XXt2R7ErMym8lXbumUULWBkd9xfbSjQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzNiBTYWx0ZWRfXwWxmSatIMb7X
+ DZLswQAxcrn02STl3xEi/kyRtIFJLY+wXrQ4Ni7a/nMVQsll4G/AW4pXNxLl/+u4tPOyHhM8TDQ
+ owOwr7zSk3idiIFQ1EHsXsNwH+By2PNlMg7B2an9T35azC5yfLxoOrXF5MRuciTB0zJpKKsm93E
+ uxQc9bpdR7afyJ3epHLacgcfhR7fIpptjCSqxAMgoGSlSswpEz7vveuCzl7tIJGkbObLw+DrBRk
+ hUb3+ua69B2Xc9QFpS+k4Yc/FaViEJ4EJXP7LprR9wFmUXz25mkD/QhCE+fk3WQmUKK5MddUcv3
+ ULbhPO/Cn1kv6vF3gnZOcWyXQ14vOw3U/7v7R87h5JvTj4/yBaJoRpUuLZ2EfVznBE9YLvDgyUx
+ gXIfr6mrTlYBI1QEHTrAhn1hleLIzD9xaWK68fLg3SrULsuT66uKyXd1YgpedzpZ5BRisLVRAmy
+ R7N/iLo/iPF6mjuA7tQ==
+X-Authority-Analysis: v=2.4 cv=Se1i5fRu c=1 sm=1 tr=0 ts=6ad1e910 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=J72pobsmAAAA:8 a=EUspDBNiAAAA:8 a=KYwysSycBQfcZMiHb78A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=CEj32ImPKXYnrW9rpEIO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160036
 
-KFD SVM maps memory in GPUVM at the same virtual address used by
-the CPU. However, svm_range_map_to_gpu() passes the corresponding
-PFNs to amdgpu_vm_update_range() without checking them against
-vm_manager.max_pfn.
+On 10/2/26 2:19 PM, Andrei-Alexandru Bleortu wrote:
+> gcc_ubi0_cfg_clk is a child of pcnoc_clk_src, and gcc_ubi0_utcm_clk and
+> gcc_ubi0_nc_axi_clk are children of system_noc_clk_src. All three have
+> CLK_SET_RATE_PARENT, so a rate request on one of these leaf gates
+> reprograms the live NoC clock sources that every other peripheral on
+> the bus runs from.
+> 
+> Each NoC has a single rate anyway, so drop the flag and let these gates
+> follow the bus instead of setting it.
+> 
+> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
+> 
+> Assisted-by: LLM
+> Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+> ---
 
-If the GPUVM address range is smaller than the CPU address range,
-the page-table walker can index beyond the allocated root page-table
-entries. Unlike the SVM path, the BO mapping path validates the
-address range through amdgpu_vm_verify_parameters().
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-An explicit amdgpu.vm_size override can trigger this condition by
-configuring a smaller GPUVM than the driver would normally select.
-
-Reproduced on a Radeon 780M (gfx1103) with amdgpu.vm_size=64.
-Repeated hipMallocManaged() allocations attempted to map CPU
-address 0x74bd48000000, well beyond the 64 GiB GPUVM limit.
-The out-of-bounds root entry contained SLUB poison with
-slub_debug=FZPU and recycled heap data without it, resulting in
-a general protection fault:
-
-  RIP: 0010:amdgpu_vm_cpu_update+0x2f/0x140 [amdgpu]
-   amdgpu_vm_pte_update_flags+0xfa/0x1e0 [amdgpu]
-   amdgpu_vm_ptes_update+0x38b/0xa00 [amdgpu]
-   amdgpu_vm_update_range+0x279/0x930 [amdgpu]
-   svm_range_map_to_gpu+0x13d/0x400 [amdgpu]
-   svm_range_validate_and_map+0x8d3/0xaa0 [amdgpu]
-   svm_ioctl+0x66/0x80 [amdgpu]
-   kfd_ioctl+0x40a/0x650 [amdgpu]
-
-As discussed in [1], rejecting out-of-range PFNs in
-amdgpu_vm_update_range() is too late. SVM must not be initialized
-when the GPUVM cannot represent the required CPU addresses.
-
-Prevent this by disabling KFD SVM support when the GPUVM address
-range is smaller than AMDGPU_GMC_HOLE_START. This prevents
-affected devices from advertising SVM support and excludes them
-from SVM mappings. Warn from kfd_update_svm_support_properties(),
-which runs after the device memory pgmap is registered, so that
-only devices that would otherwise have advertised SVM report the
-loss of the capability.
-
-[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
-
-Fixes: f80fe9d3c114 ("drm/amdkfd: map svm range to GPUs")
-Closes: https://github.com/ROCm/legacy-rocm-build/issues/6691
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Daniel Huang <danielhu@amd.com>
----
-
-Tested on a Radeon 780M (gfx1103, PCI 1002:15bf), kernel
-7.0.0-38-generic, and ROCm 7.13.0-2.
-
-The reproducer performs 24 iterations of hipMallocManaged(1 GiB),
-hipMemset(), and hipFree() per run, with 40 runs per attempt.
-
-With amdgpu.vm_size=64:
-- Stock module: kernel Oops within approximately 2 seconds on
-  every attempt.
-- Patched module: completed 40/40 runs in two attempts, with
-  stock and patched modules tested alternately on the same kernel.
-
-With the default GPUVM size, the patched module preserved SVM
-support, emitted no warning, and completed the same test.
-
-Two questions for maintainers:
-
-1. I interpreted "SVM must fail to initialize" as disabling
-   the SVM capability for affected devices rather than failing
-   KFD initialization or rejecting the vm_size override.
-   Would a different approach be preferable?
-
-2. This check also affects GMC v6/v7/v8, whose GPUVM address
-   ranges cannot reach AMDGPU_GMC_HOLE_START. Although these
-   devices do not register device-private memory, an APU with
-   apu_prefer_gtt can currently advertise SVM support.
-
-   Should the check apply to these devices as well, or should
-   it be limited to explicitly configured amdgpu.vm_size
-   overrides?
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 18 ++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 +++++++++++++-
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index c7d7adae4476..6235ce0f988e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -203,11 +203,25 @@ struct kfd_process_device *
- svm_range_get_pdd_by_node(struct svm_range *prange, struct kfd_node *node);
- void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_struct *mm);
- 
-+/*
-+ * SVM uses CPU virtual addresses for GPU mappings. Disable SVM if the GPUVM
-+ * address range cannot cover the required CPU address range.
-+ *
-+ * The parameter must be named adev since AMDGPU_GMC_HOLE_START references
-+ * adev->vm_manager.max_level.
-+ */
-+static inline bool kfd_svm_vm_covers_user_va(struct amdgpu_device *adev)
-+{
-+	return (adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT) >=
-+		AMDGPU_GMC_HOLE_START;
-+}
-+
- /* SVM API and HMM page migration work together, device memory type
-  * is initialized to not 0 when page migration register device memory.
-  */
--#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
--					((adev)->apu_prefer_gtt))
-+#define KFD_IS_SVM_API_SUPPORTED(adev)					\
-+	(((adev)->kfd.pgmap.type != 0 || (adev)->apu_prefer_gtt) &&	\
-+	 kfd_svm_vm_covers_user_va(adev))
- 
- void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 35b3abe57b80..5de19fa27d12 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2471,8 +2471,20 @@ void kfd_update_svm_support_properties(struct amdgpu_device *adev)
- 				sys_props.generation_count++;
- 			else
- 				dev_err(adev->dev, "Failed to update SVM support properties. ret=%d\n", ret);
--		} else
-+		} else {
-+#if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-+			/* Report it rather than letting the capability
-+			 * silently vanish from the KFD topology.
-+			 */
-+			if ((adev->kfd.pgmap.type || adev->apu_prefer_gtt) &&
-+			    !kfd_svm_vm_covers_user_va(adev))
-+				dev_warn_once(adev->dev,
-+					      "GPUVM size 0x%llx is too small for KFD SVM; SVM disabled (amdgpu.vm_size=%d)\n",
-+					      adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIFT,
-+					      amdgpu_vm_size);
-+#endif
- 			dev->node_props.capability &= ~HSA_CAP_SVMAPI_SUPPORTED;
-+		}
- 	}
- 	up_write(&topology_lock);
- }
--- 
-2.53.0
-
+Konrad
