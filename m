@@ -1,73 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2286A49BB5A;
-	Fri, 16 Oct 2026 22:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC7530567F;
+	Fri, 16 Oct 2026 22:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189662; cv=none; b=flNFFWqKw2j0AlN9xZ29g4DT0MkDdcgPG4Q7pdz5gYGg+QMevkXjLVEXsPhqNmwUsM8+mljIyld8/i8NcxCXfGAzmD6jEsjlsQRHBMBHwW5JevBxQ7ElgoWjxpE51kATnXnPrZXUueAwHkKbjFeADoNrSdsGGMSv4o/DNh5p9/w=
+	t=1792190047; cv=none; b=VEVpwONNA6mnTs7St9O0p/sf/+tHdt35vXmCQtYmoSsOue3z6YiRGT6Ktps1QeKD9acaJZUvRwvTtiQ+C4XeQ3Y88GRTvZKVUcIPuA8MNNRzlH9VIbhVdVV6n/rVQiu/cc39j4+cYztze0vtGUMQU5ibD2rHRLgjyeSL0t2T3iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189662; c=relaxed/simple;
-	bh=KvRqbGiJODWvSveA75SM9Tl0ng2HLqgKBo81fFBl4bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ciCroabb306GIY2ZCYC7X7PMCP+wZfsRd/yFsl8JtHknnKR+LHnhTdseDJo+pKcXp49rbZXNrvwdc1XkACwYr3dJpYRsyCNcT0VD5mpI5QxX/jQtZ54GqWBTYDMG6+qN3YA2e12Y24TDH6f1/iGJ1usb/sNQHlfaVF2baZ0lQMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gifN0ONY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792190047; c=relaxed/simple;
+	bh=Mxb6wqWlv0WnnJOs2re86WJp343rLPat+VsK8u6sAgM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PbwWvv+BEirv1WZ8xlf0SJkD8RCsszLgDd8XPQQQCQe67opwlTre9Et7qSXZQu0EtneshgGsz0YcHPjCIeMaqRc83HrKW2WepZ4dkWEMA1jeifhtx3fsWZswMvjmFLRbviwukLLDVTNw924gaTIWCyaKR2RHGiU4Zp5rn5TOgYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pdf2iLiF; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gifN0ONY"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BCBFF1F000C4;
-	Fri, 16 Oct 2026 22:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792189660;
-	bh=e2syvwN5/w2tvL/mGWWR3p7LIcfvkVdT3OK7zkpB4Zo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gifN0ONYg06fLbh6AmrU5rEfTaQaoZjrMi4ifkGsKz0AZIlWE/QNf1dU7xHjSUErf
-	 OmL8J7M8n7NHxcJAO2+hm6mvfzmpUwjXIo+ox4LJTaL8gFgTZB0skCNBaYC62vx9F+
-	 ajNkTqLNkFMo0gkDMueVi7a3ep38G2+02ZSsbCixE4SQhIMSKMLRsZeD5yao0rF0wW
-	 behvI57AsklbI0KEQaH5gxvZzNBX7LBzS130AtiMCtwwmK9WeP5tBRH+ZCWy/Ey+/b
-	 EGuC/xKD1Kuj5uH8+3cr4+dED4HKTTYj7Rr4N3QKTeUeymJ9s5mYPszgM794bTQvcT
-	 eigSQxx62p3fQ==
-Date: Sat, 17 Oct 2026 01:27:36 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
- keyring_index
-Message-ID: <atKk2IZxEQh3AEtP@kernel.org>
-References: <20261016215326.4110064-1-jarkko@kernel.org>
- <20261016215326.4110064-6-jarkko@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pdf2iLiF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792190045; x=1823726045;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Mxb6wqWlv0WnnJOs2re86WJp343rLPat+VsK8u6sAgM=;
+  b=Pdf2iLiFuKJNOMZ2nA/1USYg98L7gmgeXR4FfRrDapRg+icsJWI/O2O1
+   yt2r4otrVwfikKnr7vG/hvdi6yhFPa7gYIzF92SYQZWRB2zLbPANFLSrN
+   OVHBAGui2e/2G2D+3P03W6e7Qc3dtjpX7m5ucxrxeqicbastpx5IHl+2s
+   h9RSjU1neAb4i3JOlumE59s/56sKX6kTWAvNCkYml1aAb3dovjc8FpBsk
+   mU5pPZafy2NdcYDXTeH2lOzOsYlREcTiSUF3ffDLkOuLbWWURQ6DjYY7H
+   GAncmaGLsSXmAMlSs+eTGvGllDJr1jZeW/6LE0PMjcVFm4tU3y6p4H/b0
+   Q==;
+X-CSE-ConnectionGUID: qIT87T6BRgqSAJL3+DykkQ==
+X-CSE-MsgGUID: DY9LRgrlRKaL5KmYBEEw6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="990183"
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="990183"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 15:34:04 -0700
+X-CSE-ConnectionGUID: rhFrZNNET3Oumb4D9wK9Jg==
+X-CSE-MsgGUID: aLrTlDjMRReIoSVNUS/uog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
+   d="scan'208";a="2025030"
+Received: from pavel-dev.sc.intel.com (HELO pepopov-mobl2.intel.com) ([10.3.206.11])
+  by orviesa009.jf.intel.com with ESMTP; 16 Oct 2026 15:34:03 -0700
+From: Pavel Popov <pavel.e.popov@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>
+Cc: pavel.e.popov@intel.com,
+	Jim Chow <jim.chow@broadcom.com>,
+	Radu Rugina <radu.rugina@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	virtualization@lists.linux.dev,
+	linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] PCI/P2PDMA: Allow P2PDMA in VMware and Hyper-V guests on Intel hosts
+Date: Fri, 16 Oct 2026 15:34:00 -0700
+Message-ID: <20261016223402.19991-1-pavel.e.popov@intel.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016215326.4110064-6-jarkko@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 12:53:03AM +0300, Jarkko Sakkinen wrote:
-> -/*
-> - * Finish unlinking a key from to a keyring.
-> - */
-> -static void __key_unlink_end(struct key *keyring,
-> -			     struct key *key,
-> -			     struct assoc_array_edit *edit)
-> -	__releases(&keyring->sem)
-> -{
-> -	if (edit)
-> -		assoc_array_cancel_edit(edit);
-> -	up_write(&keyring->sem);
-> -}
-> -
+VMware and Hyper-V expose passthrough devices to guest VMs without an
+explicit host bridge device. Consequently, host_bridge_whitelist()
+cannot automatically identify the underlying host bridge structure,
+causing Peer-to-Peer DMA (P2PDMA) requests to be rejected unless the
+device IDs are explicitly listed in pci_p2pdma_whitelist[]. To enable
+P2PDMA support in virtualized environments on Intel hosts, this series
+introduces hypervisor_supports_p2pdma().
 
-This is the part that I'm particularly happy about because it would be
-nice if teardown type of operations would not allocate new resources.
-And it is also incompatible with OOM handler expectations, if not 
-formal, at least intuitive.
+Although alternative P2PDMA mechanisms are in development [1], their
+adoption timeline in hypervisors remains uncertain. This solution
+addresses the immediate need to support both new and existing
+hypervisor deployments.
 
-Br, Jarkko
+The patches are organized by hypervisor for clarity. While the primary
+focus is VMware, a corresponding Hyper-V patch addresses the same
+pattern and is included for maintainer consideration.
+
+[1] https://lore.kernel.org/r/20260812-hmat-p2p-v1-0-75ac41380585@nvidia.com
+
+Changes in v2:
+- Replace the Skylake-and-newer threshold with an explicit list of Intel
+  Xeon server generations, from Skylake-SP to Diamond Rapids (Logan
+  Gunthorpe)
+- Move the CONFIG_X86 #ifdef out of hypervisor_supports_p2pdma()
+  (Logan Gunthorpe)
+- Rebased on current mainline
+
+v1: https://lore.kernel.org/r/20261009154034.82321-1-pavel.e.popov@intel.com
+
+Pavel Popov (2):
+  PCI/P2PDMA: Allow P2PDMA in VMware guests on Intel hosts
+  PCI/P2PDMA: Allow P2PDMA in Hyper-V guests on Intel hosts
+
+ drivers/pci/p2pdma.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.53.0
+
