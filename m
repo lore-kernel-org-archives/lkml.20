@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5573C1D63;
-	Fri, 16 Oct 2026 08:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6AC42378F;
+	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138470; cv=none; b=p4B7bsAWwFN2ccI0WVSLe+Zg74Z5S1jv3JdxhDq7EQsMKkoYJ+VXjXub5SDh56S8ZTZA7Rfu1O4/qGbAgafpCrxM64F/A5suNwL6Yx30hBI1G3MR4t6xZzN1eapRACRPlVEbo7F2Pho/uelCtqXS2UX/tr+GibmJqlhsuf4bVgc=
+	t=1792138470; cv=none; b=kR/MRbqH9a2CKQhLAE4uus7deTmvGMB6qTwWXt5lX+I2vdRLprc/dMkw/nYj0HiOz1QnfcwxbfrrKTu/V5A30amYmATJmlzqQTqqxzDhmY+G94q//BdbFrs98iOPGDaTvdDpeFOu4CkUMkOJthmZNSSmbuwlxI0HZbduHzuf3MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792138470; c=relaxed/simple;
-	bh=6MzXY6URcuyZMGe9mH9bcydnzkC4AGYAyCDj4+DY9rE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yj1nvi+6NYomaQVUQj+0lkY7jq6z5pAT6qiGOPdzGsvZErncZpHXK8TOKVetsiZ6ChZ8WJzbGJimuvewaaV2bMDyNhyOzjH+eaTg9UbYsh3zMoueidMkFNVE0oOiKxSgHxArT6rRx2DLKLpIuikQbt4GZHmrMNRFdLLtKJ9A2kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMCA8c7+; arc=none smtp.client-ip=10.30.226.201
+	bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IgYgoGg+3+wDk8uhHnOUWtTHjJGS8MHHg853HsKH1h2kDPF5fkBewNhqjpg8wrPbsM2/2ZSIrf1UKUZgH5mXMqPFremm8kDW/SgiQH98rwmLaI1j8OeaYb6VFLwzQmo5Jd4v0BEWft/v/jvLdcFVhYEh953AhEhUnqIuZqX/4ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2ENNNE9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMCA8c7+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CFB05C2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2ENNNE9"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B700FC2BCF4;
 	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792138469;
-	bh=6MzXY6URcuyZMGe9mH9bcydnzkC4AGYAyCDj4+DY9rE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mMCA8c7+7OQUi9TopRTWXNRVcMFFZ+I8byPWFUaWakF503vQHPhFeDaDzrBm1TZFI
-	 hCSaBoSfuaI1zqVATP0dgJKLwmtwOg6wgZfxwVoKq3qbDcusZZxGCcuvhb23ck31Jm
-	 zc7nk0jdFEcu9eZdHIxuYi1YxpcBlx/ruD9hiqFqYo3kJwONHdmxDQZfyk5wJA+i0F
-	 CEmelynrJbNP7JQLnVnejxlfuIJ6xpnoxTg8S5MW1RQJKygvlzKWLAXwqjzIlFfdfl
-	 I1yM/y9vhjefoR8OYgfwgp7D3byF3KgoEnc2R1dUa9JBWxqfxY9EJobDH0YIm/1KfG
-	 YbG8lhgZTWazA==
+	bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=a2ENNNE9zHptB0vZm6GiiH8pBP4NFrnCeacgqhgWFfZPYeyCjew3310uBW17aPoG9
+	 xPrv/hg3w4G4pZjAsb8TYIEX0kbqDcKmh24t8Crdxp9w2wDsZUv6oY00PFlHCB/oo+
+	 PEUrUNFswfEfX7YHZr3kAdvLZ02ZEeX2nq6Ko3J74vGeFBrbUANahNPdcq3XM6Myvi
+	 1mQnO3vR2pcjJ6+YAmtkSVK14kydPrgJ7CfuFkynS5TfGxybYQjQihhhbItbDRtfIU
+	 TW6KX96CUQ+ecI37eXfdybC+gTOMwcJqNG4Dsfl2kcHmtMOmczfSnPZpocBxLGmf+I
+	 hbz82jMoONHPg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3361CCA462;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 922C7CCA464;
 	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
 From: HuskerMinion via B4 Relay <devnull+mocker-mug-unwoven.duck.com@kernel.org>
-Date: Fri, 16 Oct 2026 02:14:02 -0600
-Subject: [PATCH 2/2] ASoC: mediatek: mt8183: Fix UL1_CH2 I2S0_CH2 routing
- register
+Subject: [PATCH 0/2] ASoC: mediatek: mt8183: Two AFE fixes
+Date: Fri, 16 Oct 2026 02:14:00 -0600
+Message-Id: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,22 +40,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-mt8183-afe-fixes-v1-2-f0db51e0c073@duck.com>
-References: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
-In-Reply-To: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
+X-B4-Tracking: v=1; b=H4sIAMjc0WoC/yXM0QqCQBCF4VeRuW5gR7fQXiW60PVsjaDFjkUg+
+ +5udflx+M9GhqQwOlcbJbzV9LEUyKGicO+XG1jHYqpdfRInR57XVtqG+wiO+oFx54HOS2ji6Kh
+ kz4TfUKrL9W97DRPC+v2hnHfmLnv1dAAAAA==
+X-Change-ID: 20261015-mt8183-afe-fixes-94ee941c3fd0
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
 Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
  Matthias Brugger <matthias.bgg@gmail.com>, 
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
  linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- HuskerMinion <mocker-mug-unwoven@duck.com>
+ stable@vger.kernel.org, HuskerMinion <mocker-mug-unwoven@duck.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138468; l=1450;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138468; l=1641;
  i=mocker-mug-unwoven@duck.com; s=20261016; h=from:subject:message-id;
- bh=mEWhlclh4rsOZ/4zrF6u9RE5QWi0z/CRm0Rz/ciL1HE=;
- b=6YXlyoF5BZSa8qalNwQEhwPQZX15OAoWl6Cwl3SmMzWojxGvBMbRuyUf4ivpDoMJbSHk0bkXW
- k1493RQj8XmBmDpzzjLmThkLYOaOUD56lijYARzfS8X/I4voQADCpZL
+ bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
+ b=0srufWCkTX4PIs/durVAuh0yWhA93Eqq1o4UAZfY1ZVUtyTvHkL7wVZY/k4qH8l0xfn9SYVb9
+ NpxhO4RuS75DMgdhPCeNsf7obXTWW2LoPgWcmwSro8JxE2AezOxRG+u
 X-Developer-Key: i=mocker-mug-unwoven@duck.com; a=ed25519;
  pk=Q7l9BnP4XnFimCK28K+NVowcECqTaJNXicdBAInot0k=
 X-Endpoint-Received: by B4 Relay for mocker-mug-unwoven@duck.com/20261016
@@ -64,43 +64,44 @@ X-Endpoint-Received: by B4 Relay for mocker-mug-unwoven@duck.com/20261016
 X-Original-From: HuskerMinion <mocker-mug-unwoven@duck.com>
 Reply-To: mocker-mug-unwoven@duck.com
 
-From: HuskerMinion <mocker-mug-unwoven@duck.com>
+These two fixes came up while bringing up mainline Linux on the Amazon
+Echo Show 8 (2nd gen), an MT8183 board.
 
-The "I2S0_CH2" switch of the UL1_CH2 mixer writes AFE_CONN21. That is
-the interconnect register for UL1 channel 1 (O21). Channel 2 is O22,
-which is AFE_CONN22, as the "ADDA_UL_CH2" switch of the same mixer
-already uses.
+Patch 1 is the important one. On this board the AFE never ran. Runtime
+resume enabled the audiosys clock gates while the regmap was still
+cache-only, so the gate writes were dropped. With the fix, playback and
+capture work on the device.
 
-So enabling the switch routes I2S0 channel 2 into UL1 channel 1, mixed
-with channel 1, and UL1 channel 2 gets nothing from I2S0.
+Patch 2 fixes a wrong register in the UL1_CH2 mixer. I found it while
+adding capture routes for the device's microphones. The Echo Show does
+not use I2S0, so that path is compile tested only.
 
-Use AFE_CONN22.
+I do not know why MT8183 Chromebooks do not seem to hit this. I have no
+Chromebook to test on. My guess is that something else keeps the gates
+open there, but I have not confirmed it.
 
-Found while adding UL1 capture routes for the four microphones of the
-Amazon Echo Show 8 (2nd gen). That board captures from I2S2, so the
-I2S0 path itself is only compile tested.
+Patch 1 was tested on the device with a 6.18 based kernel. Both were
+then rebased onto for-next and build tested there.
 
-Fixes: d232591c9482 ("ASoC: Mediatek: MT8183: add I2S2 control path from UL2 and UL3")
-Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>
+Runtime suspend has the mirror problem. It goes cache-only before
+mt8183_afe_disable_clock(), so those gate writes are dropped as well
+and the gates stay open after the first use. I left that alone because
+I have not tested a change there. I can send a patch if you want it
+handled the same way.
+
 ---
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+HuskerMinion (2):
+      ASoC: mediatek: mt8183: Leave cache-only mode before enabling clocks
+      ASoC: mediatek: mt8183: Fix UL1_CH2 I2S0_CH2 routing register
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index d6175da3b..2b2ee0575 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -301,7 +301,7 @@ static const struct snd_kcontrol_new memif_ul1_ch1_mix[] = {
- static const struct snd_kcontrol_new memif_ul1_ch2_mix[] = {
- 	SOC_DAPM_SINGLE_AUTODISABLE("ADDA_UL_CH2", AFE_CONN22,
- 				    I_ADDA_UL_CH2, 1, 0),
--	SOC_DAPM_SINGLE_AUTODISABLE("I2S0_CH2", AFE_CONN21,
-+	SOC_DAPM_SINGLE_AUTODISABLE("I2S0_CH2", AFE_CONN22,
- 				    I_I2S0_CH2, 1, 0),
- };
- 
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+---
+base-commit: 764db7a068919c9e3d4618731dd854df43070399
+change-id: 20261015-mt8183-afe-fixes-94ee941c3fd0
 
--- 
-2.43.0
+Best regards,
+--  
+HuskerMinion <mocker-mug-unwoven@duck.com>
 
 
