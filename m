@@ -1,131 +1,151 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C8F4734C7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145748; cv=pass; b=pEPWLXiTdFJSHDF9y68rT1YJb5yUXid0slH4jh/GJDOKCx6X9F1RShzqeXHqd2BFcys92pAtrGUOXDueyrwKxVnUwxXf7aJFfxXcWQmYuwqBFlBdvuM8ZkNrilz73o7WO/RPXxP3cxx9mYaV+SCAxyNSz4eTEB4iR3QXludBlso=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145748; c=relaxed/simple;
-	bh=m+EcWpb5wUHZA4l/YIOJiWupQfQ1DWz+cRbbdR81dXc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p38MzgsfxiSxhtFeOBgmRIaNdFRwgiMhpFOuBQ048ZkR8mgNr76dTPy8LZqzx1Juf2vlXPgAfMBiZIj3RMit2H2uU94XB/A375Xqj3RAGYgODc//ST+hjciehgE0JFR3EpUhQzKtKlJ49ecuvXS3509bRZmdcEOmn03kBEj5ZAQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ddnIV5G+; arc=pass smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E79A4756D7;
+	Fri, 16 Oct 2026 10:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792145756; cv=none; b=EMBNi4nxzL1qdy6CpuRlvXzgW0NN2nFvnYhtrqaNDpymuj2ZdVOFmglmAF6C4s79ygcZvrllQjW+9e0+0g7j0X7DzDwc7qydX8rqqa8sU0oWWxphmnBlsK+o4pGWTRzTjkBG1jTfEcd6SA5QsPeNOvkWq1ey/bnJLk1oUvEj2oM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792145756; c=relaxed/simple;
+	bh=YJi8/8S4+y0IrtyS+NCcF3w6fFahhSvuxnOzfc3OwMg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q6tkx4Eic1EkHj00DrkuoZe+XC4k170WEUjgUpaBDvLpJsI+eAcZbkvklLEzefjOywDXYCSeuMIMPEMN8p72zYTuUlv6hrkQVRL8P38EUTNW1ydo6NI3ZmljG0Y4P9ZfPNwIxkI6F9R1SkdN2MYjD/aV8ogRiMj9jWHJDyhVaYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPcKKIjo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ddnIV5G+"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6cfed5dd071so4755739eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:15:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792145746; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nIvC+CqrYSzvvBrd/cWNPuSYbm32U1bowfTPAj4+uXu+iwP0LbV+CPEhj4+RIQOrIo
-         Bj/ZIdyE21uTbA9WiNvuQyugzZ2cZHYEF8y1ULMM3vv72lPvtS4nyX+ZETRW0lAugCMc
-         2kWWfLogdgwhrQ+rPZxhbqwCOuHPyS5k4O5vGnkXAR2GTdfsQwI5WeGAsXkwMaKibGmG
-         sEiWKZWJLc5Z8iRJESDutjB0T7YfzjBISIT7/FXWCGRH9IbL2VBRiyaX/3gzKN3VMPlY
-         vSMBX29DoUHzB8kdjFHfoiU8kQDKqPR/sQqylSnQy5fqymcoz7r7/fjDywiOIpcaUct/
-         l7aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ixHThCS1DziF7jaaEn+F+nAUwwMRbRLnCSspBqixcY0=;
-        fh=BstGhfCC73/jHfb372mEQ2AXubd8WUiHvMKjQDiPl64=;
-        b=DmX84MA+tIpJnL5AeAH2L0dE7QcpZCOtfWjBX7UY4H9PxSFXiB3ALeADNqI/7DpZL9
-         Ly3RXOkLH59X6Z5w8H2NqKrujEgA/ornxAH/+F6+jhNoqGekvYcWeNrPJwtjfBPCxCOF
-         Gc+coN5ZQS82tb+RJElkrWuPbdsWAgFvcYFvCAtN66RiH0faYpDuYxUKxPLwtK7IT11B
-         Ok8BM8mwzBrPuB/5OGz7uMosJ6STAayOwe4aolqHpVPGjCHTOkkV79Li/3bw56F+cH2f
-         CIIFNWNQVz9p4Fp8Mv1rjj9I6bQF5visSJ8LrqAT0GYjgusnVap6Oa1zuKqGjfije82x
-         DYkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145746; x=1792750546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ixHThCS1DziF7jaaEn+F+nAUwwMRbRLnCSspBqixcY0=;
-        b=ddnIV5G+MPUuwl28rB68ANwYcwzAr7ZMB9Y4bpeNDcP37X6s5Ko+mbFVUA+LlPVhAl
-         gng60D798KVW1mCeyC8PiMiVgLXZH0IvBWhqc5O+6Jbi82wfjJZ69uSwbb+tJD2bbqth
-         DgzjnQEUVy6ZihuNUdjyaphal9JXOdrfq6vzMRwlJvMfH5YD8Xar8ecBdvnfNjOVZ96L
-         wNgRPv6PQz4Sajx5JE9KALU9/UyyZhrlUUM1RySIug0vH+EsfXWj2Kj/O87CzOTBa6D6
-         2ipOGU+2LRk3DUIe9uyd7YG1R1lxNpbIYx/Au4/SvRQNBXD14pSAAC6/ZKAlaJ5zD3Ar
-         VKFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145746; x=1792750546;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ixHThCS1DziF7jaaEn+F+nAUwwMRbRLnCSspBqixcY0=;
-        b=P0cs2CPh6BOoioOg7OCtsVb9c1hJwJ4nbVd/VTpZTRpk0WoINBdwFTDgjD3FWZNv8U
-         ujvWXmXL6Nf1cKbqmUnQxI3m/G0ibUHwAXzqm8Fy2ZR01VBc2NhCxhsds8mBT+k3U+MJ
-         nW2TOR5bVyysuVTB9HIuLQnvCayp/zSQEpDcOsuijUaPBS5EJW4hcFJ0NTQTv75HA36W
-         P8n1tWaZbmN1fSMMYQc8DojvOtL6J89gPAO4E4uUSKyf4JNwkSzeNYeoyhf0JAKQNCMV
-         TcR+lJCX/Wyf6Pnn4c7ofWzlg+UTlWFoaT2bDgo/3D19ISbp44K+DE9AZup5M2RjR/5k
-         Lb0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByCCHHX5xZnPyOX6WWcOlMYGLn9QhtGw3calA4w/V/fO9zf9OpQbJOE/TJVd8w5KFwCdeIGsLJi8rcZMY0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/xSSAmFmuzlu+8FBljsCiuKIPU4RUlWyJmR5H8sS+kh9jJCbq
-	/DcJ+ZQvT2yLw/IvF1b5dZJeakhx61dAza050LFjHExbdP/CgpRhbQymLksN1zke/li2+lZJPhE
-	vbZGR31tgU/a6cbTi78hDPgO63zsAegw=
-X-Gm-Gg: AYBFou12NjSJZowHXX0VBdWyuUqki+aP72kNUh5Yb0jmFunk2e+Ho0YcO2MuTvQGMMQ
-	cuy7jtzglpaC++5ghMYo6znNUyZCxLYJegVEjFQr+NTymTgSz0pS0LkHjYsdLaAMy5ONZWSM8KQ
-	s9fg3//KhICcgiXAbRyjDYlCH2PJ9eMlqjJelWP5TfkXdfs0JFAnf19FR36F1up68Sytjca45EM
-	gnSZXGIJx8gLA7uSRyQR2cT1DqOR4qtJ4oxM1S8BB8SbB31U0I85E+6etGBP0nmIxwYlvWyHG3k
-	4qsbblkOlFGExccxxpGzo8Oa4O2V5jtd39075z+swbbCfyFN3T5iTTEof52vroed9MaM0yQ7Qeh
-	sPFRNbs868/DvIKW6Yo8ailaYC21uFvnpSu85gaQjEQ==
-X-Received: by 2002:a05:6820:1382:b0:702:af73:be5e with SMTP id
- 006d021491bc7-702af73bee0mr327002eaf.37.1792145745743; Fri, 16 Oct 2026
- 03:15:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPcKKIjo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B9B1F000C4;
+	Fri, 16 Oct 2026 10:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145753;
+	bh=EKDd6Ld3IyrP9SslcudXHOzIvY3lYnIqSUyA3ThIG7c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oPcKKIjo4mOPvYgiuPbWrKUCIA4VaqESVAick6iZ6PPdpLMP4dC9fCnXwVZw958Sa
+	 bzL5AoeM4om3eBgdDAtARKRkWCCDgyxjhOAEMvsypjzAOVbVHk3HYlUrtO1cb1WezA
+	 uWO6r5NNBaPIX/MCGY1cpG1jjz0wbcfwaEa4iZVP31AOoDe7Hx7ScgDc7K3aWuwcO4
+	 PFCbF1xGYfKnG64aHfIGsxN3oM7iu/JQok6OSLGbpzEQQYjRNdD1FMZO/4TxzVmZhU
+	 M2oUead7VHZIZatu5PHe24g3xgtFgfBDyvkA4CvLjqiL1tglwWHrLre/sa9eijzoz7
+	 qHZ0npZB91XWw==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL 03/19 for v7.4] namespace misc
+Date: Fri, 16 Oct 2026 12:15:36 +0200
+Message-ID: <20261016-namespace-7.4-rc1.misc-3a56b9fd31a9@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003184217.34671-1-mikhail.v.gavrilov@gmail.com> <65584p23-91oo-r3o9-84po-7r7679278pn8@xreary.bet>
-In-Reply-To: <65584p23-91oo-r3o9-84po-7r7679278pn8@xreary.bet>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Fri, 16 Oct 2026 15:15:33 +0500
-X-Gm-Features: AclHuK_jxLyvBoyWgfXad4Q9KbjUS7aENODGbRm3o0iIJWM09iFwu7vz4AngPWA
-Message-ID: <CABXGCsNRqYPtKFMtmcREH+Dti_wSRCBb9iCSEg86zVBJO5acyA@mail.gmail.com>
-Subject: Re: [PATCH v8 0/2] the Topping M62's vendor controls, on the
- component framework
-To: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, tiwai@suse.de, tiwai@suse.com, perex@perex.cz, 
-	linux-input@vger.kernel.org, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4107; i=brauner@kernel.org; h=from:subject:message-id; bh=YJi8/8S4+y0IrtyS+NCcF3w6fFahhSvuxnOzfc3OwMg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/OmTwLF/wy2Tw7rTHy3oz1sk33LCvMDJMl5k+2HJq zzWDS1KHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABM5Is7wT+fgqznbDygdMq+r /5bzW8lhyxMWL/nPmTfbItb91H0RNIHhv6+uicWGozv6U2UufP1XaHLtxTselels9frWFsuLO2Y kcwEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 2:50=E2=80=AFPM Jiri Kosina <jikos@kernel.org> wrot=
-e:
->
-> Acked-by: Jiri Kosina <jkosina@suse.com>
->
-> Takashi, will you take the whole lot through alsa tree?
->
+Hey Linus,
 
-Thank you, Jiri.
+/* Summary */
 
-Takashi, please hold off on v8: v9 goes out tomorrow and replaces it.
-Its 1/8 is v8's 1/2 unchanged and carries Jiri's ack. Its 2/8 is v8's
-2/2 with changes a user would see:
+- Reject uid_map, gid_map and projid_map values that don't fit in a
+  u32. map_write() parsed with simple_strtoul() and truncated modulo
+  2^32 on 64-bit so "4294967301 1000 1" was installed as "5 1000 1"
+  without an error. Each field is parsed with kstrtou32() now and
+  selftests cover the out-of-range, negative and in-range cases. This
+  isn't a security fix. The truncated values were valid ids and every
+  later check still applied to them.
 
-  - v8 treats the M62's Mobile Mode as Pro Audio Mode and writes, at
-    the first bind, two output selectors that Mobile Mode does not
-    have; v9 reads the mode from bcdDevice;
-  - in v8 an input gain the card has not reported reads 0, which
-    alsactl stores and writes back at the next connect, muting AUX, BT
-    and OTG IN; v9 writes every input gain at the first bind;
-  - "Mic-1" and "Mic-2" become "Mic1" and "Mic2", as every other
-    control name in the tree has it and as the M62's UCM profile
-    already uses them.
+- Annotate struct uid_gid_map's forward and reverse pointers with
+  __counted_by_ptr and add a KUnit suite for inserting and sorting
+  extents. insert_extent() wrote to forward[nr_extents] before bumping
+  the count which the annotation flags, so it bumps first now. Two
+  follow-up fixes rename the now global helpers to
+  uid_gid_map_insert_extent() and uid_gid_map_sort(), since the btrfs
+  self-tests have their own insert_extent(), and guard the declarations
+  on CONFIG_KUNIT.
 
-The other six add the E2x2 OTG, the M62's battery level and port power
-settings, and both cards' MUTEs. Two of them, 3/8 and 5/8, are HID, so
-they will need your look as well, Jiri.
+- Drop the BUG_ON() NULL checks in copy_mnt_ns() and copy_utsname().
+  create_new_namespaces() always passes a valid pointer and the other
+  copy_*_ns() helpers don't check either.
 
---=20
-Thanks,
-Mikhail.
+- Remove a dead key_put() on the create_user_ns() error path.
+
+/* Testing */
+
+No build failures or warnings were observed.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/namespace-7.4-rc1.misc
+
+for you to fetch changes up to fbc59bc7f05c62b0c1607b92eaf8175e75ef755d:
+
+  Merge patch series "userns: reject out-of-range uid_map/gid_map values" (2026-10-12 11:01:24 +0200)
+
+----------------------------------------------------------------
+namespace-7.4-rc1.misc
+
+Please consider pulling these changes from the signed namespace-7.4-rc1.misc tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Bill Wendling (2):
+      userns: Add __counted_by_ptr attribute to struct uid_gid_map
+      userns: Add KUnit test suite for uid_gid_map
+
+Christian Brauner (6):
+      Merge patch series "drop BUG_ON() NULL checks in namespace copy helpers"
+      Merge patch series "userns: Add __counted_by_ptr attribute to struct uid_gid_map"
+      userns: rename insert_extent() and sort_idmaps()
+      userns: declare the KUnit-visible helpers whenever KUnit is enabled
+      Merge patch series "Minor bugfixes for kunit userns tests"
+      Merge patch series "userns: reject out-of-range uid_map/gid_map values"
+
+Natasha Klaus (2):
+      userns: reject uid_map/gid_map values that do not fit in u32
+      selftests/namespaces: add uid_map/gid_map range tests
+
+Shaojie Sun (2):
+      uts: drop BUG_ON() in copy_utsname()
+      fs: namespace: drop BUG_ON() in copy_mnt_ns()
+
+Tao Cui (1):
+      userns: remove dead key_put() on the create_user_ns() error path
+
+ fs/namespace.c                                     |   2 -
+ include/linux/user_namespace.h                     |  11 +-
+ init/Kconfig                                       |  11 +
+ kernel/Makefile                                    |   1 +
+ kernel/tests/.kunitconfig                          |   4 +
+ kernel/tests/user_ns_map_kunit.c                   |  98 +++++++
+ kernel/user_namespace.c                            |  61 +++--
+ kernel/utsname.c                                   |   1 -
+ tools/testing/selftests/namespaces/.gitignore      |   1 +
+ tools/testing/selftests/namespaces/Makefile        |   3 +-
+ .../selftests/namespaces/uid_map_range_test.c      | 299 +++++++++++++++++++++
+ 11 files changed, 470 insertions(+), 22 deletions(-)
+ create mode 100644 kernel/tests/.kunitconfig
+ create mode 100644 kernel/tests/user_ns_map_kunit.c
+ create mode 100644 tools/testing/selftests/namespaces/uid_map_range_test.c
