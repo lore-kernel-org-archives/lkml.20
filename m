@@ -1,48 +1,48 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958803B058E;
-	Fri, 16 Oct 2026 03:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4423328DB55
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121729; cv=none; b=Pu3rJRKuTye6npOfFPWxGCD5QdCI2O1ipSR1TtmhmY9Yg1SDW+B5GMenmrOJSuWnKOgcJ6F2q/59iSel/U0aeDwUoLPZaA97D9cnTtXD/hlZy/ZsQp2i+ZAd1aACcWOIcoZyGb0uKWbPx97KCNXoXyy1oc20EhvZwnsXwZoyM2U=
+	t=1792121987; cv=none; b=g4/wNinYj+qNbImjjolkAWWrv906dSoiUuv1TmjYMwam9fAvc72eGmJzMJEF/kYCHuuFWTcjbZXv1OL9zc+kxExgIYtcfzLgLko7sDk8R+9sWiH9zE8Cs1C4sLnVj8wcNHSM3kf9gYCUPIpbqbwurnZLlJwLJWFXuLBgRKA5i9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121729; c=relaxed/simple;
-	bh=/ucqjeq4Z0X43h5QZ/ZnaMgMaJuX2GyffTaSmQeXXas=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dbMeVsD0ndOhTgN7hCe2zwf7Ig8koehGqSOR0TAeHuw3RMCnoFOd1I7AZ18ZiaHNb5FcwJX2d35eM6PU5k8LMMcUSsI0TzyMCV0EHpjiiOp2UUIc7BPp5EV6DEQZk60wkv3+BGvANb4V7ooFl6kCT+SLKK59tjLXAqPDqiJnchA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TZ7bMrxh; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792121987; c=relaxed/simple;
+	bh=c4gDC4uqz+E6v38Bfsis2mfHEo1PgDwdkadNbKU9XdU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A1SOWEbS1np0KFCdK42ZaNdEOsavRuhDqE2f6UJjz5GqEwAlIPwOune0M42gH6iTTgwHgYLVqg9WwY1xlrjS4zfO0SsRrY0Pkb8WHVS7Z0QHV9HViF7LPvxElEGcVea1E+r+9zjd/GsyNkGwZywVzvYojILNJWHVnaAWGuLrE8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Z1owmv3v; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TZ7bMrxh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=KB
-	QsnqfgMVbXbgh//cAiUhOPNT731GlXPIwXwXR6P+Q=; b=TZ7bMrxhNL7m/rwnaX
-	+6k9JtMvdLlbVd/xc922Begs0IRLxNNriLOyDNU6MABAEIennsEIPhsRmGGvFvKs
-	1v2MtG02YYptU4bExm7p1Wztvgx0cl8SuR3uTcy0FIWZ0AibWlrD5Yr00Zhvja/b
-	UOM58bz7RcGMEs63WjfypK7rc=
-Received: from czl-pc (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDnU5c7m9Fqw1V+AA--.15038S10;
-	Fri, 16 Oct 2026 11:34:24 +0800 (CST)
-From: Chi Zhiling <chizhiling@163.com>
-To: linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	exfat@lists.linux.dev
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Chi Zhiling <chizhiling@kylinos.cn>
-Subject: [PATCH v3 8/8] exfat: publish i_size and valid_size on direct I/O completion
-Date: Fri, 16 Oct 2026 11:33:49 +0800
-Message-ID: <20261016033349.3104509-9-chizhiling@163.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016033349.3104509-1-chizhiling@163.com>
-References: <20261016033349.3104509-1-chizhiling@163.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Z1owmv3v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792121904;
+	bh=AGDNv6DXYCdi1YpS0B//tI0y8MWeq3h9UmAnwKtKtAw=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=Z1owmv3v9aNByffY6gO1tgZkgHNFKRfL1T36LUi5sJunuG4vmCDCoFAl+bsfeaYLW
+	 jzdSZBlS7jpi+kY15Ua8IMMX2UvD8RuqfjgtVYB5b3cPz9AormoDTo4uKazl3Eq3/2
+	 gD257y1u2IOW6hYp7yW8ODXtP51LHJQUjvoFgykA=
+X-QQ-mid: esmtpsz16t1792121888tf237f946
+X-QQ-Originating-IP: 6fQ2S3TEPi2t6gERGoZkbAJ10M1tt2OG07DsHcpNjxU=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 16 Oct 2026 11:38:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5942305316129943371
+EX-QQ-RecipientCnt: 7
+From: Kun An <ankun@uniontech.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	hch@lst.de,
+	axboe@kernel.dk,
+	sagi@grimberg.me,
+	linux-kernel@vger.kernel.org,
+	Kun An <ankun@uniontech.com>
+Subject: [PATCH] nvme-pci: force simple suspend on Inspur NF50
+Date: Fri, 16 Oct 2026 11:38:05 +0800
+Message-Id: <20261016033805.9978-1-ankun@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,145 +50,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDnU5c7m9Fqw1V+AA--.15038S10
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF17Aw1xtry5GFW7ZF1xuFg_yoWrtFykpr
-	Z0g3Z3GrWDJ347Wr1kKFyUXa4Fka1fKay7GryFkr45Zr90ywn3KFyjqFyF9ay3J392yw1j
-	qF4qgrWrur9rC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHuWLUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+AAGo2rRm0DibwAA3w
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: MzMRvi13BjTiLT99NtVfTyXxOBdKLH2ZtaZpEXdas8RSs8ZJtw6UHfzA
+	33idxN7xHPJ9p0cj4UMPd8FhUzWF7JuCOIfNuEYGHkfZ/ZJMDcGJ+4zeVndvB+n4KJreram
+	CEC5zTbAgwMrAyMDeE84IeB4WuLuvqvx1zumbg/XYBSl9gsvHiB8lUnqep4xcRyQZoknRkD
+	8VXpPe7uKypg72uHA5TQHGUqz3W/uLEih6uJ2ZHMEAO8pXQquft4VmJTTBbX1xUzxvpRl1i
+	CRmdj8ihXfXG2p5Xo/z+1EhQMzywcFI7EJEjlrBZpydTIbaotNX5kL5S8hI2DLKPjy2xKtk
+	Ath18Ueih4/RVHOUcoqHnrQ+wIcjTyEMGq4ZPs59km6r/EhypOGcRBX/cTZnjvl60Xkqvtb
+	j45Y+rjqGjaHqcJrb4dac8h50NGOJ6NXWFX7xrMQl7HgUWZ73RUu0krmpA3pzaCEg0baWzp
+	c7v7H/Qpbl2ELvMyJCElrcc8ot83QxjW3O8xn3smbA7cL81ORjbc/76A4xzFFpOoAwVG5hD
+	qFhAtC1T/OU65lSQz253Ww8SpoWWtPWZM3tXWG5N/eIcpUPRYazH4uiGalwc/Q8/SLb6KO9
+	kVWe3cSm2fclzelsGvAzvWdt8brky8prM/HMXoQXIuSTRFSEr1ZlcOBhKXix5T+ptROIQdg
+	G6j88ZdKj3EVF6cJjH/02f4TpZUYlxzTtpNveA3usZW5fyqAxM61oBqxo6VgDwxy0RSHTRU
+	9zELDDgbjBZEU55I0H7dW9uPclLdGkSaBRcoyITRbxqEEKff+xSQtoPXjpUcIczBP3mfkno
+	UWJb0efyJMz3DULpPCFNlgAhEi+ggA0WgxRpP2LzBtz/d6N4tSr5R5F7oMKw1o2UbSA8hBJ
+	orc7OZ3CMFTgD5G5/EjiIZb22JaHLy2lKcwurnJoWOH1DmAUzSeDsLBd5jGLnFKOSFEsaa2
+	QLtHa/TKZEDrrZ+G5t2mWa3jxpsgesN5NPtzA0+8qVZNSwLVGbMI1gwZUou5sbuCg0VgDrD
+	LTJOfxYE7l1Bc340p9Vyk0WinuRkpoabPnovv+2bIpiTlFDazmPVd83GIsMim7Q+DSkRNrC
+	Q==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-From: Chi Zhiling <chizhiling@kylinos.cn>
+The Inspur CP300F3 / NF50 platform loses the PCIe link across S3 and
+NVMe resume fails.  Force the simple suspend path for this board.
 
-exfat_write_iomap_end() advances valid_size from the submission path.
-A direct write that later fails or completes short has therefore already
-marked its range valid, and __exfat_write_inode() records
-max(i_size, valid_size) as DataLength, growing the file on disk even
-though no data was written.
-
-Advancing valid_size early also lets a racing mmap fault map the range
-and pull the not-yet-overwritten contents of the recycled cluster into
-the page cache.
-
-Publish both fields from ->end_io() instead, once the transfer has
-completed successfully, and stop advancing valid_size from ->iomap_end();
-buffered writes still publish valid_size under the folio lock via
-->put_folio().
-
-Note the trade-off: clusters for an extending direct write are allocated
-in ->iomap_begin() while i_size is published only at completion.  An
-inode writeback racing with an in-flight direct write, or a crash before
-it completes, can therefore temporarily leave DataLength smaller than
-the allocated cluster chain, which fsck reports as "more clusters are
-allocated".
-
-Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
-Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Signed-off-by: Kun An <ankun@uniontech.com>
 ---
- fs/exfat/inode.c |  9 +++------
- fs/exfat/iomap.c | 34 +++++++++++++++++++---------------
- 2 files changed, 22 insertions(+), 21 deletions(-)
+ drivers/nvme/host/pci.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/fs/exfat/inode.c b/fs/exfat/inode.c
-index 5129df1e79b4..f627b53eb3ca 100644
---- a/fs/exfat/inode.c
-+++ b/fs/exfat/inode.c
-@@ -74,12 +74,9 @@ int __exfat_write_inode(struct inode *inode, int sync)
- 			     NULL);
- 
- 	/*
--	 * During a DIO write, valid_size is updated eagerly in iomap_end (so
--	 * that concurrent buffered reads see IOMAP_MAPPED) while i_size is
--	 * updated asynchronously in end_io.  The FAT chain was already
--	 * extended to cover ceil(valid_size/cluster_size) clusters.  Use the
--	 * maximum so the on-disk size field always covers the FAT chain,
--	 * preventing fsck from reporting "more clusters are allocated".
-+	 * TODO: DIO allocates clusters in ->iomap_begin() but updates i_size
-+	 * only at completion.  A crash after the inode was written back in
-+	 * that window makes fsck report "more clusters are allocated".
- 	 */
- 	on_disk_size = max_t(unsigned long long, i_size_read(inode),
- 			valid_size);
-diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
-index b25d149f8004..46bf057efcdc 100644
---- a/fs/exfat/iomap.c
-+++ b/fs/exfat/iomap.c
-@@ -15,22 +15,31 @@
- /*
-  * exfat_file_write_dio_end_io - Direct I/O write completion handler
-  *
-- * Updates i_size if the write extended the file. Called from the dio layer
-- * after I/O completion.
-+ * Updates i_size and valid_size after the transfer has completed
-+ * successfully. Whenever metadata is published, this runs in process
-+ * context and under i_rwsem.
-  */
- static int exfat_file_write_dio_end_io(struct kiocb *iocb, ssize_t size,
- 		int error, unsigned int flags)
- {
- 	struct inode *inode = file_inode(iocb->ki_filp);
-+	loff_t end = iocb->ki_pos + size;
-+	bool dirtied = false;
- 
--	if (error)
-+	if (error || !size)
- 		return error;
- 
--	if (size && i_size_read(inode) < iocb->ki_pos + size) {
--		i_size_write(inode, iocb->ki_pos + size);
--		mark_inode_dirty(inode);
-+	if (i_size_read(inode) < end) {
-+		i_size_write(inode, end);
-+		dirtied = true;
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 77317e5d00f9..c24214c92e82 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -3664,6 +3664,20 @@ static unsigned long check_vendor_combination_bug(struct pci_dev *pdev)
+ 			return NVME_QUIRK_FORCE_NO_SIMPLE_SUSPEND;
  	}
  
-+	if (exfat_advance_valid_size(EXFAT_I(inode), end))
-+		dirtied = true;
++	/*
++	 * On the Inspur CP300F3 / NF50 (Phytium) platform the SoC root complex
++	 * does not keep the PCIe link alive across an S3 (deep) suspend, so an
++	 * NVMe controller that the host-managed suspend path leaves in a
++	 * non-operational power state never comes back after resume (I/O
++	 * timeouts, reset failure, filesystem abort).  The firmware does not
++	 * advertise firmware-managed suspend and the failure reproduces with
++	 * SSDs from different vendors, so key off the board instead of a
++	 * specific device and always take the full shutdown path there.
++	 */
++	if (dmi_match(DMI_BOARD_VENDOR, "Inspur") &&
++	    dmi_match(DMI_BOARD_NAME, "NF50"))
++		return NVME_QUIRK_SIMPLE_SUSPEND;
 +
-+	if (dirtied)
-+		mark_inode_dirty(inode);
-+
- 	return 0;
- }
- 
-@@ -193,15 +202,11 @@ static const struct iomap_ops exfat_swap_iomap_ops = {
- 
- /*
-  * exfat_write_iomap_end - Update the state after write
-- *
-- * Extends ->valid_size to cover the newly written range.
-- * Marks the inode dirty if metadata was changed.
-  */
- static int exfat_write_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 		ssize_t written, unsigned int flags, struct iomap *iomap)
- {
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
--	bool dirtied = false;
- 	loff_t end;
- 
- 	if (!written)
-@@ -209,18 +214,17 @@ static int exfat_write_iomap_end(struct inode *inode, loff_t pos, loff_t length,
- 
- 	end = pos + written;
- 
--	if (exfat_advance_valid_size(ei, end))
--		dirtied = true;
--
  	/*
- 	 * IOMAP_F_ZERO_TAIL zeroes the remainder of the last block. Track that
- 	 * block as zeroed so later valid_size extensions do not zero it again.
- 	 */
- 	if (iomap->flags & IOMAP_F_ZERO_TAIL)
- 		end = round_up(end, i_blocksize(inode));
--	exfat_advance_zeroed_size(ei, end);
- 
--	if (dirtied || iomap->flags & IOMAP_F_SIZE_CHANGED)
-+	if (!(flags & IOMAP_DIRECT))
-+		exfat_advance_zeroed_size(ei, end);
-+
-+	if (iomap->flags & IOMAP_F_SIZE_CHANGED)
- 		mark_inode_dirty(inode);
- 
- 	return written;
+ 	 * NVMe SSD drops off the PCIe bus after system idle
+ 	 * for 10 hours on a Lenovo N60z board.
 -- 
-2.53.0
+2.20.1
 
