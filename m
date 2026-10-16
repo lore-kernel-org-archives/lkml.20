@@ -1,234 +1,247 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16E8598BFE
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17E35AA66C;
+	Fri, 16 Oct 2026 18:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792173347; cv=none; b=W9smL3y5Si0j/1Yz7xOLKfy3UMDgzhEncbMgk8AyRtBdf2/U/ZDMb7eFO91PkG4f5N4Eokx6Y8vAkK+w2WT/dvflK+9nx8ACX37Eaa9O39Yy4vlGMkDTeDFyDKx9ZPc83sJz1AX+jS8VwX5OXXkbKMe6uwDr8bC4CKcKdn1xtOo=
+	t=1792173625; cv=none; b=tMkXHT+gD6RBC4thXr7mio+1HLX6xIAjEl2xwW0Ql36t5nzu1hKKTvXiULrhfw5kNtU4FIlWikt5xu3E9sWB2Fgnc9dz5ZYZ4HGQsGQFva/CWu9l8I8PM59CyA2BDqovO8kdtfmgtaVT405/9mIJJ2CxRswmwquX2MAyiJsOYQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792173347; c=relaxed/simple;
-	bh=5DybD1Tbpk1GikeDoJ8i2R2iG8V80RyWmQDskHZlcnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhKt5X1bGRH9PQu4JvfcPenEbShu7iEKF69OeM5nXP4f6gYvFsgtIBBSHIFhnjoG8eZKi6QLZQ0PZ1/d2ok9rIw6RpNnWqbqzkS4pbTYGjycN4aC1MFMX5iHTJdgqHIuFPq8M4tG6R3sdV+wb2s2xUhBVjFQnjaNupCFCc1/67M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MWI9mIVh; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=o44WU3w7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792173625; c=relaxed/simple;
+	bh=sZXnSuIwIppbM1aqwnBdMic0pTtpB9emzmkp0qukc8g=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Q6wBRhaLVL8NCbRr52mCm3pLLzF8J0tf2Is7yPXYOb+256arBqnafalx/qvhCVWYEA8V6s6dIxUOf56dUDa+mR3I5JLHRNUQ28VSXLNirNTuYqloDmBRXlbf3Hla66PyfmsH3sMTHuvoo2sVFt2l99AtJkZVykchuUiC7OievCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=nrcqtG49; arc=none smtp.client-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MWI9mIVh";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="o44WU3w7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792173345;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lHt5KpPRaIkz6Iofzx7O/ncMQH6iA1GowXt5Lm3sQMQ=;
-	b=MWI9mIVhq7GNF6/BB0g+dCmt6YoJ9eKHUfX8MdQaRS6NBeNsU06VHakBdl5azrBBZWmxoO
-	WKaKiktjqjr3x+mddgFWYFnVJETuTdv0JC0I80NpJvJ4tVbm//3lHQBPPS5b4pWTH/qaqN
-	cQAQDA7FyRnY2yTsIe0T3Q3dQAoMAF8=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-245-R15iGZbvP4aUeNOqOGciJQ-1; Fri, 16 Oct 2026 17:55:43 +0000
-X-MC-Unique: R15iGZbvP4aUeNOqOGciJQ-1
-X-Mimecast-MFC-AGG-ID: R15iGZbvP4aUeNOqOGciJQ_1792173343
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dee35b50aso66713f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:55:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="nrcqtG49"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792173343; x=1792778143; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lHt5KpPRaIkz6Iofzx7O/ncMQH6iA1GowXt5Lm3sQMQ=;
-        b=o44WU3w7Fp72QS85NkjqWfoLHJEY61ub2KUz4Fb1NrBM4tYv0vttKEQgNKn+4NEJU6
-         CNmOoyoQPMNV/ZxgjT6ES00q//uOWyYSrL1zs0ktkDiR5VvuzcI1iDfmeXzSGyfdUXj0
-         Vuup2XsFA3h4vS+yh1ID1LaVK4UVTUSbvV18rY3zRo1OrCSscEK7a1L8l4dF+L3qQRTc
-         mXO8Xpge9GleH8Xkv+tMi8fVxp6kQivWhsEawhgKmZjzXrJyrYzXnLZsM9HXoOAaWR2k
-         xsZAEF3TmM2qcc3mPOAORd9y0z3zKLkGhyiKYEBhSaVybZbGMLrZsiCYDOKafaDPFewv
-         q6/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792173343; x=1792778143;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lHt5KpPRaIkz6Iofzx7O/ncMQH6iA1GowXt5Lm3sQMQ=;
-        b=obNHKlcTuio/fWY4bN6b1KooNrYNDtUauNtrxtLsoQBdvu8o51UiOwZAOqgjfuJRJs
-         HVRNGX4oB78iJtJSIzKBbEUXp/QSCGSgIGPKQcsYg2aPKK0ngwurAzkhfsRXWI9af6KM
-         QYooyKMa0CGismxjAd4PPzP8PLnpT7i1FpMTlajTgu7uwmc/yggA8v4sqoRTqiMCqyCK
-         EmSBglwB3hQdhSGzy4iiEwCeNbLCBLvM8usLtez1RSxnN5G5dfnS8iPMBBdx4C/4mg80
-         Ph6cMp1wfMCbSnSCT1S/xjv19lGf8hr5yN/SidAdwDKCV498OlpIrCVzN7iy7vztZUWD
-         7BnQ==
-X-Gm-Message-State: AFq9FYKNT7i+OgVNJR/OmkC8AJgq4pjT/jkjokLEsOQYw7A50ko42+0B
-	IjxRI6aRxpVX9yX5CFTkpOheW4ugO76OQSQ9EQA6fMK75OFidMdtJXeXP4NtSYxZ+HuZHpu/wr8
-	UAJi/49O+9j+mgxIKlffccfaYsMi6FN55mAhpoNgefz4ZLhoZKkmsBaG4QK02UBFlGQ==
-X-Gm-Gg: AYBFou2AvgYm7JMe4ODqSZhAzXU3QVZYaE8EJLBys3rEgt5W4jF/ZywHHx3nLnqrjbH
-	+7CNOikY0mT+Bhjt4iCTMYEQ2/kkF3g8cgCNUlwU6pDVvaL13/FqnanrolzvHcBhhqzjF5QQZS4
-	CDdSF6DdevfII8KezXhmBbVehIiMGqdwDSXudvimRfquJEhGS4sZB/Du3HbcGJpSRzf7AZNlDFD
-	6AMaXnWVUifAsqaF1/68FvB0aLda5pF+PJ9NXXPh6ipXwmwhbyAh2JVy4FuPNlmM56onFOTgkGO
-	NRAdAexCCBQTS3cJpIqP08hNZzZOQ2/HkmKMikXukKcbXoHCdXq4ypfCO1VI4PrxUOaHOgA=
-X-Received: by 2002:a05:600c:19cd:b0:4a1:96cd:2f67 with SMTP id 5b1f17b1804b1-4a1d75ce2damr12964395e9.4.1792173342612;
-        Fri, 16 Oct 2026 10:55:42 -0700 (PDT)
-X-Received: by 2002:a05:600c:19cd:b0:4a1:96cd:2f67 with SMTP id 5b1f17b1804b1-4a1d75ce2damr12963785e9.4.1792173342046;
-        Fri, 16 Oct 2026 10:55:42 -0700 (PDT)
-Received: from redhat.com ([2a06:c701:73fb:d100:601d:d7d4:d03f:527b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm7072454f8f.27.2026.10.16.10.55.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 10:55:41 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:55:36 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Simon Horman <horms@kernel.org>, linux-doc@vger.kernel.org
-Subject: Re: [PATCH net-next v2 5/7] net: add a sysctl to opt out of virtio
- net hdr checksum validation
-Message-ID: <20261016135328-mutt-send-email-mst@kernel.org>
-References: <cover.1792067836.git.mst@redhat.com>
- <ad05a40681719a579691a1da6413f0dd7064f2a0.1792067836.git.mst@redhat.com>
- <willemdebruijn.kernel.3a7d04e1c306e@gmail.com>
- <20261016051827-mutt-send-email-mst@kernel.org>
- <willemdebruijn.kernel.1d7ce6b64753a@gmail.com>
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=lRBxtdH2PUaUeo2Vjem9KpwWjfHm2fZaH3Sjwg7NnMU=;
+  b=nrcqtG49xJZS+h5ZM+bFdvT7DENbKpjESpC87iqvWyiX8M6+mB/GdeRY
+   Sf/a74Uf5qUTd1gjK4tFwyElANGtmA+ArZQCgOPDfQkJNNEXYGFg4rD7S
+   xtZ6Jhy2y3yXXNrfbRdN1suWYryhOxFDSijYvJ4Ful0/8oOdMMfbq1G64
+   M=;
+X-CSE-ConnectionGUID: 4UCOJhGNRZm0COodBSB9Fg==
+X-CSE-MsgGUID: 4KygORgDRbWy08ujCVEewQ==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,162,1787004000"; 
+   d="scan'208";a="300627534"
+Received: from static.host-68-71-1-178.nrbn.ca (HELO hadrien) ([68.71.18.178])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 20:00:17 +0200
+Date: Fri, 16 Oct 2026 14:00:15 -0400 (EDT)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Sasha Levin <sashal@kernel.org>
+cc: workflows@vger.kernel.org, ksummit@lists.linux.dev, 
+    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, Mark Brown <broonie@kernel.org>, 
+    Theodore Ts'o <tytso@mit.edu>, 
+    Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Leon Romanovsky <leon@kernel.org>, 
+    Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
+    Thorsten Leemhuis <linux@leemhuis.info>, 
+    "Michael S. Tsirkin" <mst@redhat.com>, Kees Cook <kees@kernel.org>, 
+    Geert Uytterhoeven <geert@linux-m68k.org>, 
+    Dan Carpenter <error27@gmail.com>, Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH v3 6/7] agents: add a skill to find other instances of
+ a fixed bug
+In-Reply-To: <20261016152828.3765695-7-sashal@kernel.org>
+Message-ID: <957f530-7954-3e2c-9975-d369af37270@inria.fr>
+References: <20261016152828.3765695-1-sashal@kernel.org> <20261016152828.3765695-7-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <willemdebruijn.kernel.1d7ce6b64753a@gmail.com>
-
-On Fri, Oct 16, 2026 at 11:30:17AM -0400, Willem de Bruijn wrote:
-> Michael S. Tsirkin wrote:
-> > On Thu, Oct 15, 2026 at 01:50:54PM -0400, Willem de Bruijn wrote:
-> > > Michael S. Tsirkin wrote:
-> > > > The ingress validation as implemented by the previous
-> > > > patch is stricter than what it replaced: GSO
-> > > > packets whose checksum metadata matches no transport header are
-> > > > dropped, and non-GSO ones get their checksum completed in place.
-> > > > Such packets used to pass with the metadata unvalidated,
-> > > > and with no overhead.
-> > > > 
-> > > > I judge that this should not affect any deployments, but there is still
-> > > > some risk that it does.  In case a deployment depends on them anyway,
-> > > > provide a per-netns switch to get the old behavior back:
-> > > > 
-> > > > echo 0 > /proc/sys/net/core/virtio_net_hdr_csum_check
-> > > > 
-> > > > The default is validating.
-> > > > 
-> > > > Assisted-by: LLM
-> > > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > > > ---
-> > > >  Documentation/admin-guide/sysctl/net.rst | 15 +++++++
-> > > >  include/linux/virtio_net.h               | 23 ++++++++++
-> > > >  include/net/netns/core.h                 |  1 +
-> > > >  net/core/dev.c                           |  6 +++
-> > > >  net/core/net_namespace.c                 |  1 +
-> > > >  net/core/sysctl_net_core.c               | 54 ++++++++++++++++++++++++
-> > > >  6 files changed, 100 insertions(+)
-> > > > 
-> > > > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
-> > > > index e586e17fc7a5..7f230929c37e 100644
-> > > > --- a/Documentation/admin-guide/sysctl/net.rst
-> > > > +++ b/Documentation/admin-guide/sysctl/net.rst
-> > > > @@ -246,6 +246,21 @@ processes are dropped unless socket option SOF_TIMESTAMPING_OPT_TSONLY is set.
-> > > >  Default: 1 (on)
-> > > >  
-> > > >  
-> > > > +virtio_net_hdr_csum_check
-> > > > +-------------------------
-> > > 
-> > > Make more generic, virtio_net_hdr_validate?
-> > > 
-> > > In case we add more validation in the future (as we have in the past),
-> > > without having to introduce multiple such knobs.
-> > 
-> > But it's uapi, are you sure we'll be able to change the meaning
-> > of an existing knob, even if we keep the name vague?
-> > 
-> > > > +
-> > > > +When processing packets with a virtio net header (through tun, tap, a
-> > > > +packet socket or a virtio network device) that request checksum offload
-> > > > +(VIRTIO_NET_HDR_F_NEEDS_CSUM), validate the packet: complete the checksum
-> > > > +in software, or drop the packet where the header does not match it.
-> > > > +
-> > > > +When disabled, the header is trusted not to corrupt the packet, and the
-> > > > +checksum is offloaded to hardware (or not verified if it never reaches
-> > > > +hardware). This is only safe if no protocol is processing the packets.
-> > > > +
-> > > > +Default: 1 (on)
-> > > > +
-> > > > +
-> > > >  wmem_default
-> > > >  ------------
-> > > >  
-> > > > diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> > > > index 357115ff0ec2..aa2f8ac4657c 100644
-> > > > --- a/include/linux/virtio_net.h
-> > > > +++ b/include/linux/virtio_net.h
-> > > > @@ -5,6 +5,7 @@
-> > > >  #include <linux/if_vlan.h>
-> > > >  #include <linux/ip.h>
-> > > >  #include <linux/ipv6.h>
-> > > > +#include <linux/jump_label.h>
-> > > >  #include <linux/netdevice.h>
-> > > >  #include <linux/udp.h>
-> > > >  #include <net/gso.h>
-> > > > @@ -78,6 +79,19 @@ static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
-> > > >  	*thoff = nhoff + iph->ihl * sizeof(u32);
-> > > >  	return iph;
-> > > >  }
-> > > > +/* Defined in net/core/dev.c, enabled while any network namespace
-> > > > + * has net.core.virtio_net_hdr_csum_check set to 0.
-> > > > + */
-> > > 
-> > > Should this be a global sysctl, rather than per netns?
-> > 
-> > 
-> > For customers I work with, it would be much less useful.
-> 
-> Third option: make it an integer rather than a boolean.
-> 
-> 0: no validation
-> 1: current level of validation
-> 2 and beyond: if we have to extend it later
+Content-Type: text/plain; charset=US-ASCII
 
 
-Oh that's an interesting idea. Issue: userspace learns about 1, then
-someone sets it to 1 thinking this is the highest level and in fact
-disables some security.
+
+On Fri, 16 Oct 2026, Sasha Levin wrote:
+
+> A bug fixed in one place often exists elsewhere, in copied code, sibling
+> drivers, or other users of the same interface, and reviewers routinely
+> ask whether that was checked. Left alone, agents tend to audit the whole
+> tree by reading it. Add a skill that states the defect as a rule,
+> searches for it through shared interfaces, copied code, the introducing
+> series and earlier fixes, and verifies each candidate before reporting
+> it.
+>
+> When Coccinelle is available, the skill searches with a semantic patch:
+> it looks for an existing one under scripts/coccinelle/, checks that the
+> rule marks the fixed site in the code before the fix, runs it over the
+> whole tree with coccicheck, and checks which code spatch could not
+> parse. These steps live in references/coccinelle.md, which the agent
+> reads only when it uses Coccinelle.
+
+Could I get some feedback from this?  I would be interested to know about
+code that it can't parse.  Maybe AI could write a semantic patch and try
+it?
+
+julia
 
 
-> Not pretty, I'll admit. So fine to keep as is too if you prefer.
-> But I do foresee more changes in this area, if history is a guide.
->  
-> > 
-> > > Even if per-netns, most likely do not want it writable by netns root
-> > > with user namespaces.
-> > >
-> > > That is the equivalent of ns_capable(CAP_NET_RAW), which is the cause
-> > > of many crashes due to bad packets ingested by, e.g., a packet socket.
-> > 
-> > Hmm, yes i get that. Two knobs? a. verify b. the per netns value ro? Both
-> > on by default?
-> 
-> A single system wide field is simplest.
-> 
-> Is there a benefit to making this configurable on a per netns basis?
-> 
-> If so, that's fine too. As long as root-in-namespace cannot modify it,
-> so readonly indeed.
-
+>
+> Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
+> mismatched alloc/free for kvmalloc()"): both the existing
+> api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
+> that commit fixed, and a whole-tree run found the same bug in four other
+> drivers that were later fixed separately.
+>
+> The sites found are reported, not fixed; each needs its own fix, Fixes
+> tag and stable decision. Point the bug-fix procedure in
+> coding-assistants.rst at the skill.
+>
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  Documentation/process/coding-assistants.rst   |  5 +-
+>  agents/skills/find-siblings/SKILL.md          | 31 +++++++++
+>  .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
+>  3 files changed, 101 insertions(+), 1 deletion(-)
+>  create mode 100644 agents/skills/find-siblings/SKILL.md
+>  create mode 100644 agents/skills/find-siblings/references/coccinelle.md
+>
+> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+> index fc4e98fd96e11..a89a33980c41f 100644
+> --- a/Documentation/process/coding-assistants.rst
+> +++ b/Documentation/process/coding-assistants.rst
+> @@ -39,6 +39,8 @@ The following skills are available:
+>    checks an existing one.
+>  * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable and
+>    returns its stable tag, or checks an existing one.
+> +* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
+> +  tree.
+>
+>  Licensing and Legal Requirements
+>  ================================
+> @@ -101,7 +103,8 @@ these steps:
+>  5. Build and verify that the fix works either using the reproducer or by
+>     re-running a complete analysis; drop any fix that doesn't work and try
+>     another one. The fix must not add build warnings and must pass the
+> -   checkpatch.pl checks (see submitting-patches.rst).
+> +   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
+> +   bug elsewhere with the find-siblings skill.
+>  6. Commit the working fix with a detailed message describing the problem, the
+>     solution, a Fixes tag determined with the find-fixes skill, and a stable tag
+>     if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
+> diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
+> new file mode 100644
+> index 0000000000000..471ce8d9c0bd6
+> --- /dev/null
+> +++ b/agents/skills/find-siblings/SKILL.md
+> @@ -0,0 +1,31 @@
+> +---
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +name: find-siblings
+> +description: >-
+> +  Find other places in the Linux kernel tree that have the same defect as a
+> +  bug being fixed, and verify each candidate. Use after fixing or reviewing
+> +  a bug fix, or when asked whether the same bug exists elsewhere.
+> +---
+> +
+> +# Find other instances of a bug
+> +
+> +Follow the rules for skills in Documentation/process/coding-assistants.rst.
+> +
+> +- State the defect as a rule that does not depend on local names, such as
+> +  "memory from kvmalloc() is released with kfree()".
+> +- Search the tree as it was before the fix, not the working tree. Look at
+> +  other users of the same interface, field or lock, code copied from the same
+> +  origin, the rest of the series that introduced the bug, and earlier fixes
+> +  for the same defect. Limit history searches to the relevant directories.
+> +- If Coccinelle is available (`spatch --version` works), search for the
+> +  defect with a semantic patch as
+> +  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
+> +  use text searches and report that limit.
+> +- A match is a lead. Read each candidate with its callers, locking and object
+> +  lifetimes, and classify it as confirmed, safe or undetermined, with the
+> +  reason. Check whether a confirmed site is already fixed in the current tree
+> +  or in a pending tree such as linux-next.
+> +
+> +Return the searches you ran and their scope, and the classified sites with
+> +their maintainers. Do not fix the sites: each confirmed one is a separate bug
+> +that needs its own fix, Fixes tag and stable decision.
+> diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
+> new file mode 100644
+> index 0000000000000..6b09ce9d04c8c
+> --- /dev/null
+> +++ b/agents/skills/find-siblings/references/coccinelle.md
+> @@ -0,0 +1,66 @@
+> +<!-- SPDX-License-Identifier: GPL-2.0-only -->
+> +
+> +# Searching for a bug pattern with Coccinelle
+> +
+> +Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
+> +options. The semantic patch language is documented at
+> +https://coccinelle.gitlabpages.inria.fr/website/docs/.
+> +
+> +1. Look under `scripts/coccinelle/` for a semantic patch that already covers
+> +   the defect. Read its rules rather than its name: `kfree()` of memory from
+> +   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
+> +   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
+> +
+> +2. Otherwise, write a semantic patch outside the repository. Match only what
+> +   the defect needs, not names or statements specific to the fixed site. Mark
+> +   the lines of interest with `*`, and declare `virtual context`: coccicheck
+> +   passes `-D context`, and spatch rejects a mode the file does not declare.
+> +   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
+> +   case that `api/kfree_mismatch.cocci` covers more completely:
+> +
+> +       virtual context
+> +
+> +       @@
+> +       expression E;
+> +       @@
+> +       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
+> +       ...
+> +       * kfree(E);
+> +
+> +3. Check that it finds the site you fixed. Coccinelle reads the files on
+> +   disk, where the fix is usually already applied, so copy the file as it was
+> +   before the fix to a directory outside the repository and run
+> +   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
+> +   rule declares on a `virtual` line, such as `context` or `report`. Without
+> +   `-D`, rules that depend on a mode do not run and nothing is reported. The
+> +   rule must mark the fixed site in that copy, and nothing in the fixed
+> +   version. If it misses the site, correct the rule before searching further.
+> +
+> +4. Search the whole tree:
+> +
+> +       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
+> +
+> +   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
+> +   - In context mode the output is a diff, and each line starting with `-`
+> +     is a line the rule marked; report mode prints one warning per site.
+> +     coccicheck searches the files on disk, so a site you already fixed
+> +     there is not marked; step 3 covers it.
+> +   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
+> +     the rule's identifiers, so a whole-tree search is usually quick when the
+> +     rule names distinctive functions. Add `M=<dir>/` only if it is not.
+> +   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
+> +     runs from that directory.
+> +   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
+> +     broken rule shows only as "coccicheck failed". coccicheck refuses to
+> +     reuse an existing log file.
+> +   - Header files are searched only with `SPFLAGS=--include-headers`, or with
+> +     a `// Options: --include-headers` line at the top of the rule.
+> +
+> +5. Check what was not searched. Coccinelle skips code it cannot parse without
+> +   saying so. Run `spatch --parse-c` on the searched files or directories: a
+> +   nonzero `nb bad` count means part of them was skipped. Search those files
+> +   another way and report the gap.
+> +
+> +If the rule marks many sites that turn out to be safe, tighten it, for example
+> +with `when !=` constraints, and run it again rather than discarding candidates
+> +by hand.
+> --
+> 2.53.0
+>
+>
+>
