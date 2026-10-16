@@ -1,430 +1,110 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417E13D411A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183453; cv=none; b=pS5+N4P90GM+FkVJwTvm3juKVUjE9celNfBLPtw56uH9pGI9U2I93+2VvVVvLmIy3+wkOyt6/KyZv/pCptPK86zfkXLNgq28RoF6JSEG7IjTpcsviQo4V2VGzh9ZjjnqvDXMCqTEoEpXjaDm1BxhRAALqRHHQiWlJ7Y5d75U4Sw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183453; c=relaxed/simple;
-	bh=HkzCWUaXCSiZSlDOZOV2MoIIwhun+7kLsYQliY/CDLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dcsst9llqhU3pjhZx9YtkU7pz+Mb7oascC+edgDbI5Hl9kJQNecTBhbOkaLoyaSBf0HQrVcAf2l5NcKvvsR9WD4SWFpvfJgXOlJ0HA+IOl+wEdnnXK2gEqp3SqhE8xqP43vxiz0cQ85YLUplczXyOCNNeoKE4lqUtvg8XTa2Eeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sBYSUEtu; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B027A3CDBA4;
+	Fri, 16 Oct 2026 20:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792183493; cv=pass; b=UJ2sanD3Ndklj9AnZfciPWAbm8VOWoNaVQdgEm14JUfgk3g2belMoWCthbf+1t6zYZ/WiqR0gQx8lL9D32wdgeDt8sy/3wYh7GI+szpust6fZ9xuy1CbwyMChsm0VLUkPZEPvT38ErJS9rTj7W/yLtHvsnn31BJiCHSRqbcnBmI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792183493; c=relaxed/simple;
+	bh=kFT4NF//LSmUCweo9QjRiRugC7PHPBQASljM8FU2LYs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V2g5CjKWn84rFRWKUmasPNMzubEpnsC1HUy/cMxG4Gl4lsJc4331oyiAGEbtPqeLp2bhOk66a6hU1CseYRGTR705NtHnsa4lhKoju1zGg9iNuoWZghJwgpqcxkMOom5Fi8i5Hbbf90Jhle1V6wYGEvhlOqtpCJXN41ow80oMmrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=kOanLhrx; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sBYSUEtu"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f7ccf4so32671f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:44:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792183449; x=1792788249; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=haHwrcUAVioW0k4WW0rn4ICUkA35L0lW3cPQKSkeq6k=;
-        b=sBYSUEtuE/hdsM8PG7CDinbQEyM6PxK89H/RDqpMGjozeKEGBYvKWMIw8hR4TCTMtV
-         V1AkjQZ63Nbc1wC1RuNJRQxXms28Kh6S1mg+AHzLz/5eM6hCgdRtLVqPZj0L8kfllFoe
-         9Xmr6Y5P3jhNJYolCgEVDPAGQd1aYeYibpEzF66KHIgDeJFI7Lp0hvchEP4Xx0E/MDU6
-         lVjfBJEVeVN5xWcz1EXfA1Pk2aiAGTB3D2zAx4/kU01WJExPfzASyfjNFQFYlKXVnAKi
-         fiBlRSSu2THG0EBxhbseiam0ZbkGQX4aFRHyAJO9DIiab6TWEv0NTkeu3s5rmdjW/c4b
-         QJIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792183449; x=1792788249;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=haHwrcUAVioW0k4WW0rn4ICUkA35L0lW3cPQKSkeq6k=;
-        b=qb9/fvLL+RTCehgb881wiRCVJ9ouJJBm1OKZUM8HON7IH9VfweMkY60couVlhW5H2W
-         HODMld5anoO9+0ldYrbtalj0uqK/iZnQFg1loXy5rtXFGh45/lhkG5BDd1rlpUtpjJ08
-         OSBGpdQ3PBtZIVghJrS2G+j9xFgYtPRIyeoCR8tisUe9kjt9f9zHZEbbgICvUQzHRzdf
-         FVGVgboO6mcwwdvpGtsnvZk8uMKHix23Akav1tmBYMU0Iz1FW7uhxZvlc6rSWc1ZO/dg
-         5th5XIguYLyhNdqb2EEUBZOmFKV6x5rQBGUWUmFJw5lGYG7TEcy4fSJ2QANA85YsVBgl
-         Zm6A==
-X-Gm-Message-State: AFq9FYI1FxuzAFULXjnUI+bIeHv5fDAL/kk9D6sNHIx4tx0yYaAACois
-	OWKuIIUcPx6gVh9faGk4srC1bEaHVFDrCvWqA8kHNy/mDFUSGXOcTamW
-X-Gm-Gg: AYBFou1OkSvwrzi9reo8N5mApRkAX5P4CidsU2HCBUEpH516GR8L5zHsrs938eq6MT7
-	ZTXy7HPddIbnJaqC64P7S/ZCU/pqHZ0wmPFbKRBdtWi2DOp4B1GN9qqH8yO5o23R7jRU1iY2xbd
-	CN+FpS9JAbbZundUdnfeP46NsWNa4NNc/lCNnejNQG7OxxDl+/OGj9RRUBog/kel6rP4WalFm3A
-	D4Sc0kD3i2AWSfxA3wHAdOhCvjrHXdDex3l9UdwXgSnqR6njlW5LoCZgPriL+0bpnkArs/a2es2
-	ymXXsbT8qabfzNZI/pLuso4Ak1r5Ud3wArjdC8LTXXC5hpJZCLErFd9IQ1ECt+fleM+pqYc3g1k
-	1bV0jqLtXVEzFYpgs6N77GlDTNJgTxYDql11VwHAmBVkuwvv5rn0YEzWAtxDBPP8E/uPqsZLYi3
-	dM7UOaJ/uSJFc9mMC2Gv+tHKrrmM+D/H5hHBDDbD3YUT5mI2CiQjZVszFWq6PpADM297cPiiB6H
-	gLUxLaTcUBeu4sSmSGZbmdXiDS6hjNSvOaW4R2t
-X-Received: by 2002:a05:600c:8506:b0:4a1:c7f3:218e with SMTP id 5b1f17b1804b1-4a1d75dc193mr19946235e9.1.1792183449276;
-        Fri, 16 Oct 2026 13:44:09 -0700 (PDT)
-Received: from Nuel20.localdomain ([105.118.76.209])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f576asm7502077f8f.32.2026.10.16.13.44.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 13:44:08 -0700 (PDT)
-From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	mchehab@kernel.org,
-	paulmck@kernel.org,
-	linusw@kernel.org,
-	Julia.Lawall@inria.fr,
-	gary@garyguo.net,
-	rmk+kernel@armlinux.org.uk,
-	hemanth.selam@gmail.com,
-	Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-Subject: [PATCH] docs: kdoc: handle TRACE_EVENT_FN() family in tracepoint parser
-Date: Fri, 16 Oct 2026 21:43:35 +0100
-Message-ID: <20261016204335.46241-1-emmaonana18@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015190639.7b722dd7@foz.lan>
-References: <20261015190639.7b722dd7@foz.lan>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="kOanLhrx"
+ARC-Seal: i=1; a=rsa-sha256; t=1792183465; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EZREJ6kgt2bdfNT6PdIWbjX4EjZjPSFXAmOgsk8Ram4d1Y8EjOICJbmp9fJKgw3cJRJHIG+aW3aVIMoKlOvMKETAvxNS0cE4twHH4lHxb7PZOGwVimh5IIzCN3xNH2aG8b6TvLdDzMj6wu6lvkR+o7RKv2yYDy+uVsvSgTZZIao=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792183465; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=HbKEi7ISZYZXhJNW8VJgY93KLj1zenEqwESNR1eollU=; 
+	b=cCqp3xaTmz52NNPklgIPGG7PJOr+KYBSJttTa8kcmanotpWE0lGiq80vV9TzVfFH1lPQy8JrBgtc61IJ/1GC+CpvzWYscc9frZxeVJmVsty+9PbOHSDzZ5d4N9J+aXdLhbgl/hbC9hsTmvhnHTF4r0eSI73yetxxrzG5qwn8lFM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792183465;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=HbKEi7ISZYZXhJNW8VJgY93KLj1zenEqwESNR1eollU=;
+	b=kOanLhrxsbg/dtfaNrOBlqEb9HpxKVx/d7HX6x+ZAUXY79yFWpbE5GfXi0pxtWOl
+	DHt+0EFc/eVQjFIYaTVeEUIICR2vDrYqHekPXx65touRLdJ3lX8GhbjrUlyS1wKBadg
+	ZQBkROVpqQAE0aTBhtn8NfkDbIpnnTzVEOjl1oWo=
+Received: by smtp.zohomail.com with SMTPS id 1792183463309421.0668362086856;
+	Fri, 16 Oct 2026 13:44:23 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH v3 0/2] drm/tyr: allow mismatched buffers for dev_query
+Date: Fri, 16 Oct 2026 13:44:19 -0700
+Message-Id: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQrCMBAF0KuUrI1MpmmlrryHSEnS0QZqo4kGS
+ 8ndTbsSEZf/D//NzAJ5S4Hti5l5ijZYN+ZQbgpmejVeiNsuZ4aAtQAhuZa8o9jen+Sn9mxfFLg
+ kUBpQYiMVy8Obp/WQd8dTzr0ND+en9UcUS/uXi4IDbxBkKQC03OHBuGFQ2nm1Ne7KFjLiJ1P9Z
+ DAzVFLdYQUVGP3NpJTeDlPvk/8AAAA=
+X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1149;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=kFT4NF//LSmUCweo9QjRiRugC7PHPBQASljM8FU2LYs=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFmXepYlvjq1T55f8Iy+R9G9A+uYJL90Ws3ymTDdxyTzn
+ /vqqtcGHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzkkDUjQ+ep/uJ+uelRigav
+ 1j9/GSq/PqhxQ8C1bl+GgEjBEPeIpwz/DJgb16duXNnM5938fcfyOVfe+D7982jRusduczI2zBd
+ pYAMA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-kernel-doc fails to parse tracepoint declarations that use
-TRACE_EVENT_FN(), e.g. gpu_power_status:
+Panthor UAPI for DRM_IOCTL_TYR_DEV_QUERY allows userspace to provide
+a smaller or larger buffer than the kernel needs. Revise Tyr's
+implementation to match the expected UAPI behaviour.
 
-  drivers/gpu/drm/panthor/panthor_trace.h:28 ... Unrecognized
-  tracepoint format ...
-  ... expecting prototype for gpu_power_status(). Prototype was for
-  TRACE_EVENT_FN() instead
-
-tracepoint_munge() only matches TRACE_EVENT(), so the macro name is
-kept as the prototype and the TP_PROTO() arguments leak into the
-parameter list as garbage.
-
-Match TRACE_EVENT_FN(), TRACE_EVENT_FN_COND(),
-TRACE_EVENT_CONDITION() and TRACE_EVENT_SYSCALL() the same way as
-TRACE_EVENT()
-
-Add a regression test for the gpu_power_status declaration.
-
-Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
-Move tracepoint handling to xforms_lists, together with SYSCALL_DEFINE
-as requested by Mauro.
+Changes in v3:
+- replace "as" cast with lossless u32_as_usize()
+- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
 
-Question for Mauro: is adding syscall_munge() and
-tracepoint_munge() in apply() what you meant, or
-did you want a pure CMatch? A pure CMatch looks
-like it would need a tokenizer fix for nested
-commas, so I'd prefer to keep it this way unless
-you want the pure CMatch rework.
+Changes in v2:
+- Added #[inline] to UserSliceWriter::clear()
+- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
 
- tools/lib/python/kdoc/kdoc_parser.py  | 110 ++++++--------------------
- tools/lib/python/kdoc/xforms_lists.py | 109 +++++++++++++++++++++++++
- tools/unittests/test_kdoc_parser.py   |  28 +++++++
- 3 files changed, 159 insertions(+), 88 deletions(-)
+---
+Deborah Brouwer (2):
+      rust: uaccess: add UserSliceWriter::clear()
+      drm/tyr: allow userspace buffers to be mismatched
 
-diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
-index 80d4245acd17..a274e06b9f23 100644
---- a/tools/lib/python/kdoc/kdoc_parser.py
-+++ b/tools/lib/python/kdoc/kdoc_parser.py
-@@ -1059,8 +1059,27 @@ class KernelDoc:
-             #
-             # Apply the initial transformations.
-             #
-+            # This also handles SYSCALL_DEFINE*() and TRACE_EVENT*()/
-+            # DEFINE_EVENT*() via CTransforms (see xforms_lists.py).
-+            #
-             prototype = self.xforms.apply("func", prototype)
- 
-+            #
-+            # Tracepoints are documented with their short name, e.g.
-+            # gpu_power_status for trace_gpu_power_status().
-+            # Accept the short name and store the full trace_ name.
-+            #
-+            r = KernRe(r'\btrace_(\w+)')
-+            if r.search(prototype):
-+                if self.entry.identifier == r.group(1):
-+                    self.entry.identifier = f"trace_{self.entry.identifier}"
-+
-+
-+            r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-+            if r.search(prototype):
-+                self.emit_msg(ln,
-+                              f"Unrecognized tracepoint format:\n{prototype}\n")
-+
-         # Yes, this truly is vile.  We are looking for:
-         # 1. Return type (may be nothing if we're looking at a macro)
-         # 2. Function name
-@@ -1493,82 +1512,6 @@ class KernelDoc:
-             self.entry.add_text(doc_content.group(1))
-         # else ... ??
- 
--    def syscall_munge(self, ln, proto):         # pylint: disable=W0613
--        """
--        Handle syscall definitions.
--        """
--
--        is_void = False
--
--        # Strip newlines/CR's
--        proto = re.sub(r'[\r\n]+', ' ', proto)
--
--        # Check if it's a SYSCALL_DEFINE0
--        if 'SYSCALL_DEFINE0' in proto:
--            is_void = True
--
--        # Replace SYSCALL_DEFINE with correct return type & function name
--        proto = KernRe(r'SYSCALL_DEFINE.*\(').sub('long sys_', proto)
--
--        r = KernRe(r'long\s+(sys_.*?),')
--        if r.search(proto):
--            proto = KernRe(',').sub('(', proto, count=1)
--        elif is_void:
--            proto = KernRe(r'\)').sub('(void)', proto, count=1)
--
--        # Now delete all of the odd-numbered commas in the proto
--        # so that argument types & names don't have a comma between them
--        count = 0
--        length = len(proto)
--
--        if is_void:
--            length = 0  # skip the loop if is_void
--
--        for ix in range(length):
--            if proto[ix] == ',':
--                count += 1
--                if count % 2 == 1:
--                    proto = proto[:ix] + ' ' + proto[ix + 1:]
--
--        return proto
--
--    def tracepoint_munge(self, ln, proto):
--        """
--        Handle tracepoint definitions.
--        """
--
--        tracepointname = None
--        tracepointargs = None
--
--        # Match tracepoint name based on different patterns
--        r = KernRe(r'TRACE_EVENT\((.*?),')
--        if r.search(proto):
--            tracepointname = r.group(1)
--
--        r = KernRe(r'DEFINE_SINGLE_EVENT\((.*?),')
--        if r.search(proto):
--            tracepointname = r.group(1)
--
--        r = KernRe(r'DEFINE_EVENT\((.*?),(.*?),')
--        if r.search(proto):
--            tracepointname = r.group(2)
--
--        if tracepointname:
--            tracepointname = tracepointname.lstrip()
--
--        r = KernRe(r'TP_PROTO\((.*?)\)')
--        if r.search(proto):
--            tracepointargs = r.group(1)
--
--        if not tracepointname or not tracepointargs:
--            self.emit_msg(ln,
--                          f"Unrecognized tracepoint format:\n{proto}\n")
--        else:
--            proto = f"static inline void trace_{tracepointname}({tracepointargs})"
--            self.entry.identifier = f"trace_{self.entry.identifier}"
--
--        return proto
--
-     def process_proto_function(self, ln, line, source):
-         """Ancillary routine to process a function prototype."""
- 
-@@ -1598,18 +1541,9 @@ class KernelDoc:
-             r = KernRe(r'^(\S+\s+)\(\s*\*(\S+)\)')
-             self.entry.prototype = r.sub(r'\1\2', self.entry.prototype)
-             #
--            # Handle special declaration syntaxes
--            #
--            if 'SYSCALL_DEFINE' in self.entry.prototype:
--                self.entry.prototype = self.syscall_munge(ln,
--                                                          self.entry.prototype)
--            else:
--                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
--                if r.search(self.entry.prototype):
--                    self.entry.prototype = self.tracepoint_munge(ln,
--                                                                 self.entry.prototype)
--            #
--            # ... and we're done
-+            # ... and we're done. SYSCALL_DEFINE*() and TRACE_EVENT*()/
-+            # DEFINE_EVENT*() are handled via xforms_lists.CTransforms
-+            # inside dump_function().
-             #
-             self.dump_function(ln, self.entry.prototype, source)
-             self.reset_state(ln)
-diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-index 15f6f21c7a9e..aa82dc927ef1 100644
---- a/tools/lib/python/kdoc/xforms_lists.py
-+++ b/tools/lib/python/kdoc/xforms_lists.py
-@@ -17,6 +17,98 @@ class CTransforms:
-     into something we can parse and generate kdoc for.
-     """
- 
-+    @staticmethod
-+    def syscall_munge(proto):
-+        """
-+        Handle syscall definitions.
-+
-+        Turns SYSCALL_DEFINE*() into a plain C prototype, e.g.::
-+
-+            SYSCALL_DEFINE3(setpriority, int, which, int, who, int, niceval)
-+            -> long sys_setpriority(int which, int who, int niceval)
-+        """
-+
-+        is_void = False
-+
-+        # Strip newlines/CR's
-+        proto = re.sub(r'[\r\n]+', ' ', proto)
-+
-+        # Check if it's a SYSCALL_DEFINE0
-+        if 'SYSCALL_DEFINE0' in proto:
-+            is_void = True
-+
-+        # Replace SYSCALL_DEFINE with correct return type & function name
-+        proto = KernRe(r'SYSCALL_DEFINE.*\(').sub('long sys_', proto)
-+
-+        r = KernRe(r'long\s+(sys_.*?),')
-+        if r.search(proto):
-+            proto = KernRe(',').sub('(', proto, count=1)
-+        elif is_void:
-+            proto = KernRe(r'\)').sub('(void)', proto, count=1)
-+
-+        # Now delete all of the odd-numbered commas in the proto
-+        # so that argument types & names don't have a comma between them
-+        count = 0
-+        length = len(proto)
-+
-+        if is_void:
-+            length = 0  # skip the loop if is_void
-+
-+        for ix in range(length):
-+            if proto[ix] == ',':
-+                count += 1
-+                if count % 2 == 1:
-+                    proto = proto[:ix] + ' ' + proto[ix + 1:]
-+
-+        return proto
-+
-+    @staticmethod
-+    def tracepoint_munge(proto):
-+        """
-+        Handle tracepoint definitions.
-+
-+        Turns TRACE_EVENT*()/DEFINE_EVENT*() into a plain C prototype,
-+        e.g.::
-+
-+            TRACE_EVENT_FN(gpu_power_status, TP_PROTO(...), ...)
-+            -> static inline void trace_gpu_power_status(...)
-+
-+        Returns the original string if the tracepoint format is not
-+        recognized, letting the caller emit a warning.
-+        """
-+
-+        tracepointname = None
-+        tracepointargs = None
-+
-+        # Match tracepoint name based on different patterns.
-+        # NOTE: DEFINE_EVENT*() takes a template name first, so the
-+        # event name is the second argument.
-+        for pattern, group in [
-+            (r'TRACE_EVENT\((.*?),', 1),
-+            (r'TRACE_EVENT_FN\((.*?),', 1),
-+            (r'TRACE_EVENT_FN_COND\((.*?),', 1),
-+            (r'TRACE_EVENT_CONDITION\((.*?),', 1),
-+            (r'TRACE_EVENT_SYSCALL\((.*?),', 1),
-+            (r'DEFINE_SINGLE_EVENT\((.*?),', 1),
-+            (r'DEFINE_EVENT\((.*?),(.*?),', 2),
-+        ]:
-+            r = KernRe(pattern)
-+            if r.search(proto):
-+                tracepointname = r.group(group)
-+
-+        if tracepointname:
-+            tracepointname = tracepointname.lstrip()
-+
-+        r = KernRe(r'TP_PROTO\((.*?)\)')
-+        if r.search(proto):
-+            tracepointargs = r.group(1)
-+
-+        if not tracepointname or not tracepointargs:
-+            return proto
-+
-+        return f"static inline void trace_{tracepointname}({tracepointargs})"
-+
-+
-     #
-     # NOTE:
-     #      Due to performance reasons, place CMatch rules before KernRe,
-@@ -147,6 +239,23 @@ class CTransforms:
-         if xforms_type not in self.xforms:
-             return source
- 
-+        #
-+        # Handle special declaration syntaxes first, so that the
-+        # declarative transforms below see plain C prototypes.
-+        #
-+        if xforms_type == "func":
-+            source_str = str(source)
-+            if 'SYSCALL_DEFINE' in source_str:
-+                source_str = self.syscall_munge(source_str)
-+                source = source_str
-+            else:
-+                r = KernRe(r'TRACE_EVENT|DEFINE_EVENT|DEFINE_SINGLE_EVENT')
-+                if r.search(source_str):
-+                    munged = self.tracepoint_munge(source_str)
-+                    # tracepoint_munge() returns the input unchanged
-+                    # when the format is not recognized.
-+                    source = munged
-+
-         if isinstance(source, str):
-             source = CTokenizer(source)
- 
-diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-index 4baa78ca02b3..04dafae412e4 100755
---- a/tools/unittests/test_kdoc_parser.py
-+++ b/tools/unittests/test_kdoc_parser.py
-@@ -444,6 +444,34 @@ class TestContextLockStruct(GenerateKdocItem):
-         self.assertEqual(entries[0].name, "debugfs_cancellation")
-         self.assertEqual(entries[0].warnings, [])
- 
-+class TestTraceEventFn(GenerateKdocItem):
-+    def test_trace_event_fn_declaration(self):
-+        source = """
-+            /**
-+             * gpu_power_status - called when hardware turns on or off
-+             * @dev: pointer to device
-+             * @shader_bitmap: bitmap
-+             */
-+            TRACE_EVENT_FN(gpu_power_status,
-+                TP_PROTO(const struct device *dev, u64 shader_bitmap),
-+                TP_ARGS(dev, shader_bitmap),
-+                TP_STRUCT__entry(__field(u64, shader_bitmap)),
-+                TP_fast_assign(__entry->shader_bitmap = shader_bitmap;),
-+                TP_printk("%s", __get_str(dev_name)),
-+                my_register, my_unregister
-+            );
-+        """
-+
-+        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-+        patcher = patch('builtins.open', new_callable=mock_open,
-+                        read_data=dedent(source))
-+        with patcher:
-+            _, entries = kernel_doc.parse_kdoc()
-+
-+        self.assertEqual(len(entries), 1)
-+        self.assertEqual(entries[0].name, "trace_gpu_power_status")
-+        self.assertEqual(entries[0].warnings, [])
-+
- #
- # Class and logic to create dynamic tests from YAML
- #
+ drivers/gpu/drm/tyr/file.rs | 47 +++++++++++++++++++++++++++++++++++++--------
+ rust/helpers/uaccess.c      |  6 ++++++
+ rust/kernel/uaccess.rs      | 24 +++++++++++++++++++++++
+ 3 files changed, 69 insertions(+), 8 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
+
+Best regards,
 -- 
-2.43.0
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
