@@ -1,125 +1,101 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFE744AB68;
-	Fri, 16 Oct 2026 10:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9DC448CF6;
+	Fri, 16 Oct 2026 10:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145992; cv=none; b=H3WYVtX4D8+d3SHxg46uD7NwAQ7Mcc5L9GbRUHyMDF+Vz61Ui22GzD+UZOnVtKgzN7ndQsdTsizw5rxve4KeAyAxZmLTnX8tqcyxxFbUeS1fOfwLPak9Now1VQGl4ph4i0SYWsqrwQxWLoaMYnJJTvIj94A8WRn7j0O1l9HjCC8=
+	t=1792146057; cv=none; b=VewoJUG+CycKn6fmqPS0z36mi86WPF7OEBHp1s5E4p7f8zZeZhuKhnQAI2ed96PIu50XvKgemRwV4Kq2DOE2GGX026Qzd5BcCMYGM2ThVJERVviZiaqMiRzQlEN1ZZpCK0Drbx7AfLBN3q0ghZv5bnOJT0etnA9INxgqPr6W0KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145992; c=relaxed/simple;
-	bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCmWKcKI/9HhnyCKmZBEd/tN/3DjT0sNwjfSPm8mm692Oxw7ZtYWk7rfiUyNb2swPCVQFtDFVnTHisZGAjgcMcgHezrZ9CksE/q262rzruThCK2SkPzFjcY9LIsKnQGKQMBhjbPlYkjR7oSIUsV28uRahDaZvUoIki4wMtEY8B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ry7CRrD9; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792146057; c=relaxed/simple;
+	bh=DO69BOUhTUmLdhrln5SbJj0SO2wXNePAqPT4Vx7OXOU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bfJwLnfN7rXMMt4FTCg//ZDoC4VuqoNNjVuLan3c/vHgqhAPBv5NKm679Qty7WZkqRlRRaTlt82cI+SKa3Zk+A6UPAdoIc7l4eDgAdL6TyFtZLmtNUT6DPcsSt/697RFKGdbuylXEy2JIWc9pfy/0dgxqRUDpekSsafB1eA0jlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hMUE4/nt; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ry7CRrD9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792145991; x=1823681991;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mV7apZJqXyrvkEGiIS0ISDfMrDM5bR6Fa2lY+w1Z2RU=;
-  b=Ry7CRrD9TpQ+m7XYL6cGXe1Nos35A+mdQZesw8bnAnE9eHjkX/1U0k6L
-   fOPBJgG1mqRHQfaDL6RajyLjNH0W9C2YXCew2cDu88Dxy2mh3VH604FwG
-   au0VqKExa/G95TyvA3y9SMkR3+ba+/2ixhjgdTwgadRBFjK4HoKcaN2MB
-   ZLM5QQs0JksYL5qb/5hcbbjDzvitBrv0UZ5x8g2gz25fDus7OhxGTcJPk
-   Ku3dNPsMsvhzr0aAHFcp1yqWrcfgYVFsbk4ZbvNxSHvv2YFkzshV78ZvC
-   SeFMUy6EKHs0gqxwfh0sH6r23W//I0SpXn/9ta4xq1tseKI3TBz2sfUoR
-   A==;
-X-CSE-ConnectionGUID: /Jc/6u0WRF2b2buHB45Unw==
-X-CSE-MsgGUID: HmztS/E+QHmZ3YEquonuwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="818260"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="818260"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:51 -0700
-X-CSE-ConnectionGUID: VwgXEHenSZanZL/0PWwHRg==
-X-CSE-MsgGUID: qfMmHcJEQR6A6fktOcfTRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="1795965"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:19:48 -0700
-Date: Fri, 16 Oct 2026 13:19:45 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: jean-baptiste.maneyrol@tdk.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_icm42600: fix parsing of all FIFO frames
- for odr change
-Message-ID: <atH6QdvvmEPzkGE2@ashevche-desk.local>
-References: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hMUE4/nt"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j5gv20vJ4zKp1n;
+	Fri, 16 Oct 2026 12:20:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792146046;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7sINR0KxDzfyw0t1SbAYRVQXRRT2UCK0z6obmqsIzao=;
+	b=hMUE4/ntKGtfCKQc++NzVjAvbRp7mchy2Iz46iBZ3WnwoSOI1zXvYWyzn/yxBBUVZNjW3q
+	QiLygnzlXPi57Z1zmZQGRkCYA3nIypzQ7ltCw0m92yEX5VNAnQolg+CCgHOIF06MpZjHfi
+	r7fBZD18ajh4WCvdTPN6cTjYMjD+2Rcz15YYkvXOPfcQzcLdEKNJ9BEzC8XUKdrhThSLE/
+	KjttsBPb8VK7ZKdBvmzc+z/7rc7TUWBzdsrHWm0JGfPl7mOU3nA1fBQY8qdTpWft7YtNbb
+	Fef3j+XBPc1dxJ+fE7mtC84ze7XuGLbaNLs71hlwRm4/igqcImB1LSAa3nBX9w==
+From: Alexander Gruhlke <gruhlke@mailbox.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>,
+	Alex Williamson <alex@shazbot.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Alexander Gruhlke <gruhlke@mailbox.org>
+Subject: [PATCH] PCI: Ignore Immediate Readiness on Samsung 990 EVO Plus NVMe
+Date: Fri, 16 Oct 2026 12:20:42 +0200
+Message-ID: <20261016102042.641801-1-gruhlke@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 5d24d3f49fd0275b8c8
+X-MBO-RS-META: zmj6z9tp9xr3c1188fkx5dcnyn41u8ug
 
-On Fri, Oct 16, 2026 at 11:28:10AM +0200, Jean-Baptiste Maneyrol via B4 Relay wrote:
+Like the 990 PRO, the Samsung 990 EVO Plus [144d:a80d] advertises
+Immediate Readiness, and VFIO passthrough of it fails since commit
+10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs").
+Using a bus reset instead of FLR works around it, and the latest
+firmware, 2B2QKXG7, is still affected.
 
-> For getting all odr change events, we need to parse all FIFO frames
-> in each iio device. Fix this correctly by sending effectively all
-> frames to all iio devices.
-> 
-> Previously only batches of frames containing a matching sensor event
-> were sent to the corresponding iio device.
+Ignore Immediate Readiness on this device, too.
 
-...
+Fixes: 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs")
+Link: https://bbs.archlinux.org/viewtopic.php?pid=2312085#p2312085
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Alexander Gruhlke <gruhlke@mailbox.org>
+---
+This adds the 990 EVO Plus to e6111fbf0c ("PCI: Ignore Immediate
+Readiness on Samsung 990 PRO NVMe") in pci/for-linus, and could also
+be folded into it.  I couldn't test it on this drive; the reporter
+confirmed Status 0x0011 and that reset_method=bus fixes it.
 
-> -		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-> -		if (ret)
-> -			return ret;
->  	}
+ drivers/pci/quirks.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-+ Blank line.
-
-> +	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
-> +	if (ret)
-> +		return ret;
->  
->  	/* handle accelerometer timestamp and FIFO data parsing */
->  	if (st->fifo.nb.accel > 0) {
->  		ts = &accel_st->ts;
->  		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
->  						st->timestamp.accel);
-> -		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
-> -		if (ret)
-> -			return ret;
->  	}
-
-+ blank line.
-
-> +	ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
-> +	if (ret)
-> +		return ret;
->  
->  	return 0;
->  }
-
-	return inv_icm42600_accel_parse_fifo(st->indio_accel);
-
-?
-
-...
-
-Similar comments to the inv_icm42600_buffer_hwfifo_flush() changes.
-
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 15f083b6b1..0d8c47a46c 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -5623,7 +5623,7 @@ static void quirk_no_flr_snet(struct pci_dev *dev)
+ }
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_SOLIDRUN, 0x1000, quirk_no_flr_snet);
+ 
+-/* Samsung 990 PRO advertises Immediate Readiness, but isn't ready after FLR */
++/* Some Samsung SSDs advertise Immediate Readiness but aren't ready after FLR */
+ static void quirk_no_imm_ready(struct pci_dev *dev)
+ {
+ 	if (!dev->imm_ready)
+@@ -5633,6 +5633,7 @@ static void quirk_no_imm_ready(struct pci_dev *dev)
+ 	dev->imm_ready = 0;
+ }
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80c, quirk_no_imm_ready);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80d, quirk_no_imm_ready);
+ 
+ static void quirk_no_ext_tags(struct pci_dev *pdev)
+ {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
