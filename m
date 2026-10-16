@@ -1,148 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp2.iinet.com (smtp2.iinet.com [52.129.46.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C7E52D2BC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9355304C1;
+	Fri, 16 Oct 2026 16:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.129.46.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792169526; cv=none; b=KkuVcjhe/Ix6d2e1bc1cEZhkCltQjnDrG2Kg6B/WSGTkx7X9ll6UK3yvzTGQ1p8rlFDsGOjIMJVW4G8B6gj0VqGijrtzrRDqn+v+TQZ2xdnm9lyXUr8IemJG4iDQRjax8OcLVXepua6GUgNYkN0wwH6GsGKKMOOzjgyAFu29JwY=
+	t=1792169615; cv=none; b=PWnJUjdTf8JPxzh7NWC1NYEKejdsEiQidV04wxRrGuR8FjlnPo0iUWyN1dGeWL5m1FD1ryoO7/amjcW5TWLUAz+Ptn9pq4cEv6BYnDnXCX2V5fW5pGBiBJHL/U8D6xAfns5CjDzor8mo7EobNBwN1FuSApsfw7avYz2DqhgivGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792169526; c=relaxed/simple;
-	bh=W5A5RR0SuYkUxR2wxua/CkYjZk4Cl2M9yT2itezgmRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KplmUoprvyky7Pjv1OaXm3dCHodk+FEBI6ijNvemLSpSmCObGrLe5ZvMTfAf6JAvZKYFZ42nlYat+db5D1+bgh7LpE4BZUx1d2yZPxYNQWwYQMiamJrz3p3uHxYF0QykLzZHX5DrD5zbwWxuNMVEJSyPMvxvOvQwKersHL+DpcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RWu+iHWq; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792169615; c=relaxed/simple;
+	bh=PSLhlbYW2qK2RwomUjA/BeVgbXRaS3hNStMRN2N3MFU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pMBB4yj6ntjsfnjKEKuU3WVmKevj2diOt7Koq2S3vpzpQUhpWfdrLvATkCQpTxmhbc6hnnLPbQYd/nEKI+7kOMTTjoHYQcNj6gccQBX+DI8r4peK1k6FU0ZAkzxpWu2ArjgL+pIikoWy06LYVVumHum56wgnt9nnhTbPmLUiteo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com; spf=pass smtp.mailfrom=nwlink.com; dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b=TdRTCb3Z; arc=none smtp.client-ip=52.129.46.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nwlink.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nwlink.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RWu+iHWq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792169521;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=9h659B2RptcGt42FBHhwLceGi5uTr95VBygMYb+FdvI=;
-	b=RWu+iHWqqKq9k0tTOdentLcZ7/Sx2R8n28TxZthoW7M+Dt746D5s7BYWvAQrktVpjVmBzQ
-	ViKM/8PfNVjSUSEKROCfV4JyzU9gZ15vCri/yqY0Xcoaw2GdZBkhAJMjInZhm5YlWFKVPo
-	kIIso/hOsiUHNzcGtAmPbz+aNlqDZjU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-209-kqL7C2OrPAWEclzwXyBbdg-1; Fri,
- 16 Oct 2026 16:51:55 +0000
-X-MC-Unique: kqL7C2OrPAWEclzwXyBbdg-1
-X-Mimecast-MFC-AGG-ID: kqL7C2OrPAWEclzwXyBbdg_1792169514
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	dkim=pass (2048-bit key) header.d=nwlink.com header.i=@nwlink.com header.b="TdRTCb3Z"
+Received: from porter.hsd1.wa.comcast.net (c-98-203-133-45.hsd1.wa.comcast.net [98.203.133.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3A6B619560BD;
-	Fri, 16 Oct 2026 16:51:54 +0000 (UTC)
-Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B4E857D9;
-	Fri, 16 Oct 2026 16:51:53 +0000 (UTC)
-Date: Fri, 16 Oct 2026 12:51:52 -0400
-From: Derek Barbosa <debarbos@redhat.com>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH printk v2] printk: Postpone kthread startup
-Message-ID: <atJMSFPnU4cjoE7a@debarbos-thinkpadt14gen5.rmtusma.csb>
-Reply-To: debarbos@redhat.com
-References: <20261016085441.857695-1-john.ogness@linutronix.de>
- <atIndeV-NzO0eIz2@debarbos-thinkpadt14gen5.rmtusma.csb>
- <atI9c_kFhntodl68@pathway.suse.cz>
+	(Authenticated sender: kaf@nwlink.com)
+	by smtp2.iinet.com (Postfix) with ESMTPSA id 0BACDB41D33;
+	Fri, 16 Oct 2026 09:25:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nwlink.com; s=mail;
+	t=1792167941; bh=2BZ98HwYSo1UgBK3WrlTvHiZ09UnPmRe9Dvr5OYSn9c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=TdRTCb3Z6UOFQL8BJSRQUXeU+aK/Ougk+jV7+hCV2dvXeqTsWp0lXQaI0BhO3IaHc
+	 4riBf7qcIdC6IY7UYnuRBHKBpgbJQjJJ2YbTRC8KhgKrZZ/Zdh+hct5JKAz7Xffgkc
+	 qXP3PupkMPxKWwbSd8ULrXela5ciMkxEPqE2jl4BrDJgq7OVcfDFIjyBs607b4pJ3u
+	 0UQtlWpPP06ReTQSG26ll2gHj1fi3+hL1qR9tGyCUMeZQd5WtOfhClHYrxkiERCFlF
+	 tP4mUCWtXnaJvw8slqYe6X4K4pnAMW3pGe0wViQ+gqbRO3qg0NoQIMavbPTSDFvzmb
+	 FxAOAbT0ZCnJQ==
+From: Kyle Farrell <kaf@nwlink.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Kyle Farrell <kaf@nwlink.com>
+Subject: [PATCH v2 0/2 RESEND] usb: gadget: uac2: support explicit channel counts
+Date: Fri, 16 Oct 2026 09:25:32 -0700
+Message-Id: <20261016162534.384844-1-kaf@nwlink.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atI9c_kFhntodl68@pathway.suse.cz>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 05:06:27PM +0200, Petr Mladek wrote:
-> On Fri 2026-10-16 09:36:41, Derek Barbosa wrote:
-> > On Fri, Oct 16, 2026 at 11:00:34AM +0206, John Ogness wrote:
-> > > There have been various bug reports related to SMP systems hanging
-> > > on boot. The reports vary but seem to have some overlap with regard
-> > > to missed IPI's during SMP setup. The reports also show that
-> > > reverting NBCON console usage allows the bugs to disappear.
-> > > 
-> > > The NBCON kthreads for console printing are started very early
-> > > during boot using early_initcall(). Since these kthreads are
-> > > asynchronously enabling/disabling interrupts during early boot, they
-> > > may be interfering with early SMP setup on some hardware platforms.
-> > > 
-> > > Starting the console printing kthreads later has shown to avoid the
-> > > hanging on systems that could previously reproduce the issue.
-> > > 
-> > > Postpone kthread starting until after all arch initcalls have
-> > > completed.
-> > 
-> > In the v1 thread, I mentioned that I would leave the reproducer spinning in the
-> > test environment for a few more hours. It has been well over 9 hours. No signs
-> > of the existing issue popping up.
-> > 
-> > Tested-by: Derek Barbosa <debarbos@redhat.com>
-> 
-> Thanks a lot for testing this. It is good to know that it helped.
-> 
-> I am a bit nervous that we do not know what is the culprit.
-> For example, I wonder if the same problem might happen during
-> CPU hot-plug at runtime.
+USB Audio Class 2.0 permits up to 255 channels in an audio channel cluster
+via bNrChannels. Independently, a channel-location bitmap is specified via
+bmChannelConfig for up to 27 predefined spatial locations. Setting
+bmChannelConfig to zero indicates that the channels have no predefined
+spatial positions.
 
-FWIW, this fixes a corner-case that seems to affect older platforms that had
-been noted to have "issues" with some workloads on older firmware/microcode.
+The current UAC2 gadget driver derives bNrChannels from the number of set
+bits in bmChannelConfig. Since bmChannelConfig provides 27 predefined
+spatial locations this limits playback and capture streams to 27 channels.
 
-For the cpu hot-plug example, I am unsure of how to properly stress/test that
-condition to quell these concerns. I could run a modified version of John's old
-console_blast script and take some CPUs on/off-line in a loop with:
+This series allows channel counts up to the UAC2 limit of 255 without
+requiring predefined spatial channel locations in bmChannelConfig.
+Existing ConfigFS channel-mask configuration continues to work unchanged.
+New optional playback and capture count attributes allow the number of
+channels to be specified separately from the channel-location bitmap.
 
-    $ echo 1 > /sys/devices/system/cpu/cpu$N/online
-    # do some delay here
-    $ echo 0 > /sys/devices/system/cpu/cpu$N/online
+The series is split so that the shared u_audio infrastructure is updated
+first without changing behavior, followed by the UAC2 functional change.
 
-but I don't think that does a good job of emulating the original bug, where
-kicking on the console-printing-kthreads very early in the init process (prior
-to smp's secondary cpu bringup) could interfere with SMP setup. I could always
-give it a shot.
+Patch 1:
+  Pass resolved playback and capture channel counts explicitly into
+  the UAC1/UAC2 shared u_audio implementation instead of deriving them
+  from channel masks.
 
-> 
-> Anyway, I had a brain storming session with John and we were not able
-> to find any hole in the nbcon API design. We did not find any location
-> where it could cause deadlock. All busy loops are under
-> con->device_lock(), aka port->lock. And the port lock is taken with
-> IRQs disabled. And neither the con->device_lock() nor the busy loop
-> is done in NMI.
-> 
-> So, this rather looks like an existing problem. And the parallel
-> handling of the serial console just made it more likely to happen.
+Patch 2:
+  Add ConfigFS playback/capture channel-count attributes to the UAC2
+  function driver and use them when generating descriptors and stream
+  configuration, allowing counts beyond the 27 predefined channel
+  locations.
 
-I also hold this to be true. Considering I haven't seen anything quite like this
-(up until this point) even with older versions of the code, I am chalking it up
-to some sort perfect-storm of bad interactions.
+Testing
 
-> 
-> The converted uart 8250 is being used on many production systems
-> which are running the RT kernel and got this change from the external
-> RT patchset. And I have heard about this problem for the first time just
-> a few weeks ago. This makes me believe that it affects only small
-> amount of HW.
-> 
-> This change clearly helped. Which makes me even more confident
-> that we could keep the uart 8250 driver converted in 7.3.
-> I am going to commit this patch and create a pull request...
-> 
-> Best Regards,
-> Petr
-> 
+Testing was performed using a Raspberry Pi Zero 2 W configured as a USB
+UAC2 gadget. Streaming and descriptor validation were performed against
+both Linux and macOS hosts.  Windows hosts were not tested.
 
-Cheers,
+UAC1
+  - Verified playback/capture operation via alsaloop.
+  - No descriptor or behavioral changes observed.
 
+UAC2
+  - Verified legacy channel-mask configuration (1-27 channels).
+  - Verified explicit channel-count mode with 2, 28, 61, 62, 96 channels.
+  - Verified invalid channel-count/channel-mask combinations are rejected.
+  - Verified Feature Unit descriptor size limits at 61/62 channel boundary.
+  - Verified descriptors including:
+      * bNrChannels
+      * bmChannelConfig
+      * Feature Unit presence and bLength
+      * AudioControl wTotalLength
+      * endpoint wMaxPacketSize
+  - Verified ALSA-reported playback and capture channel counts.
+  - Verified streaming using alsaloop.
+
+Changes in v2:
+  - Edit commit messages for clarity and brevity.
+  - Add Assisted-by: LLM attribution.
+  - No code changes.
+
+v1: https://lore.kernel.org/linux-usb/20260729054115.889174-1-kaf@nwlink.com/
+
+Kyle Farrell (2):
+  usb: gadget: u_audio: pass channel counts explicitly
+  usb: gadget: f_uac2: allow explicit channel count independent of
+    channel mask
+
+ .../ABI/testing/configfs-usb-gadget-uac2      | 18 ++++-
+ Documentation/usb/gadget-testing.rst          | 18 ++++-
+ drivers/usb/gadget/function/f_uac1.c          |  2 +
+ drivers/usb/gadget/function/f_uac2.c          | 69 ++++++++++++++-----
+ drivers/usb/gadget/function/u_audio.c         | 32 ++++-----
+ drivers/usb/gadget/function/u_audio.h         |  2 +
+ drivers/usb/gadget/function/u_uac2.h          |  4 ++
+ 7 files changed, 105 insertions(+), 40 deletions(-)
+
+
+base-commit: d58dffe9ee2c8883193959ff4ef995ec07932874
 -- 
-Derek <debarbos@redhat.com>
+2.34.1
 
