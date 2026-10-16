@@ -1,166 +1,350 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6A443F4C2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB4149BB65
 	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189117; cv=none; b=nW1aWDfcvNxa3oa9FyKIjjkjvRC2J/mzCt2mQkACJ8gDNPSYd20XAxKdqE8GqahMTo4vPogyNI8M0oeYw+QzIdNCQfCut/MoXwsfrLf1b0yqknxMeqwMC8IBn/xHnu0HZ6BK9RRC4dNOweGdxHb9p6NBDd1vow5MryrdJJo7w/A=
+	t=1792189116; cv=none; b=AdmPJRfZqUe4J/MtAFxDCreMbo4FZlcjA//97J5Q6jCSIBArrZYqYg/Cx/NTTWSVU5M13EDvHAVcuzmbzUvtyfqGPKYC08fmFTut9PrnsbcbQfTJPN/0Oc5PWYxG2y3Qr44AJsS4jxf0+7JhsPuBgUAckaLMZtLVFl5ckx5wKKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189117; c=relaxed/simple;
-	bh=eAkAvT+yBRUe0s9630zTQSOh0+HXy+SMp+QNlLmXu6k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CcfzosiAnEjg3IZuRRvQ40+Yq4TUVCnqFqVToTB5PwgqiLjzQ7NHn3LmLIGxyqlIs5Xf4FOimCHhYTCBrUUwp4rdPnmcJqY6ITXrN98Uy7f7Sq4hjtjMBNS0j+LgwTZnqiyxWWM1MnwmTghG86JHQQXyPB91LzB4eBZWQn952ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RrPBOcpt; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792189116; c=relaxed/simple;
+	bh=yvJtqhI/9d/q34H3RICcBHm5LlIhdwGTqRFIDwkADkA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=DQD3tM4gko5hTxjcrgUkpIxGirikzZ8ZHU2Iam3VRXmNFW9YtNvsrQ8Gq44l0yxJCXg3uo4KXJ3CP01huYByqyO8GsYVwTnaP83Yp85/8cGFoo249iT5hkYVRvYsI7XYymQfISwPTIQgoxcU69QN3YjKi61Lp1p4Zn/sZJxVaMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rNfoZ3xb; arc=none smtp.client-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RrPBOcpt"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535a54bed9so479355eec.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rNfoZ3xb"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso516384eec.0
         for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:18:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792189115; x=1792793915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IlYhVNhZnOfgJKBXKw6X3C15lzRF5IoCPz9Nzq/4EgQ=;
-        b=RrPBOcpt0Bfc++ENSWtLA73WJnYLrknL2kaDHIS/KvZXRbSawZzeedPhO03HY3xENZ
-         OxYl+GimkGzJim3DfZMRtfunKqaF53AUVlELkpSzOl/8Lfoi6cZ5PkudY6y/b5LpOwC5
-         4ib4JHk/f9E7elkc7y/VZK595Hj8okeRME4skOW1QzhkAqwkxcvKz/11L1EDeB5IDD4i
-         Ll39JLFhfInCztjXtqRhamZMOS09bhvUZhCGZHLy+Y8ieqKqI3t/gsC9QdzQXVq5U4r9
-         2zfM6l2mx4QczbTrGS1+tatZuG7utVROtIfZHU7rfJLglax/pL3KkPmiwI/yjqg3HyHp
-         zWmQ==
+        d=google.com; s=20251104; t=1792189114; x=1792793914; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3mxM05Ni0M2UlqzYItHva6zjMOsFxpKbe1J+CpnJE0I=;
+        b=rNfoZ3xbhb0GMUCsdi+7QeXyKMtCBB5WHxJQe7fjHAbJ/TOxLHF/tNNbBiiXYFg5pc
+         F05SmRgnLu9gXmVQ/tlXZxHbzNLyjVJFWYUPwMhuZJ1CQo1ktWFf0sSD2UZCyHrPBdzg
+         /isdtS2I5/nSzBU6yKPtDkTKQqpP57w6cz4ZrtdLTY+5HicTgBnnssD/B5wyheHttq0U
+         XdqRk/1FerQJZPcR4WVoY4nsjFakO8yWCyGpz0Y4GWaqKADHDHXrOGm+za0j8NHAjQnC
+         udjoT0FWjDytgYbWBpfrUHpddF0XQOZoftoafRI3PTC1zWUmGmJ4SULXuVDUWSeKO4RH
+         eFCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792189115; x=1792793915;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792189114; x=1792793914;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IlYhVNhZnOfgJKBXKw6X3C15lzRF5IoCPz9Nzq/4EgQ=;
-        b=HTwJsgfB57C6WYmZ6fbNv4iBppA8yJ7wO90db29RhctAOO+Vq7TwoKCZXym2RFbsTR
-         6btFN9nXUTlTv2YswiN09j6+ib931WfZJvpOtp7kPsMCc+NOI3NI+0T0pFzz9zk+7x/Q
-         iDpXE+u5Jtqr3PpVhR1EL7L2RetQLPjv09JgP0Dvfrn20sjmAc2CNMPRf6nfQ+ctB4aj
-         X0dZ2oVavAKqdE5sgATpm5+6Ogdk42aN12jifDGfrCXg9mqaPenTm6CS+Jp8BA187d2G
-         e5+/ba0gun8QFFwquYyrCSqlCY7iL4F/ZbE4XPEMqwDkmACHfWISwbm2Igf4kYQ5ifL8
-         Nwdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzO8CYm+MD8xKEj9GYu+KkY2ZFQFQbFYpIuF8zYm95IIjz8W5AfIQpuP83OAUDwKlNvmiQeR4RckJYidwE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGJSqzi8NSMC2TrTyhqM+uFDCDvXdV8cos7q7JWv5pgmEcoJwo
-	C5QDQBkCU1E9sKv2MZ7R2+WSrZIJMX5IPTWT+dykiOmxyvG/aba15vZg
-X-Gm-Gg: AYBFou0N6O2EZLzqBswtfB3DFDzUHxPM7cWFhDfJG5E8+p4bVxm9MKfMm/FGM/FAWZa
-	ShKa96CYJKjGdyF+BCxKTugPZbROYMCt2r/dZvuq876fooE8Y3LV4ADHxIdnmIJ6+w29Xh9vd6u
-	MRJKmir15KYPwjdozmx55ivF8k6V39QbJOl0GME33d+wMQa9nuIlIkM7Mu4jbs5CT0Yy0Xv9AhV
-	bdkLjFYhmdvSyzkveXTeQKwe/BqwDiIqHwOD6l39wQ0eCn4wf5HDMD0G+T4Z0eqgB3N8HCuN+wY
-	buCwAdh0xGB///taHYNN7WCi35MioJ1GdB7S1S2MixMpLqhB/9nrlDdMfgXPn1LshinAatal+o4
-	c4/EthAn7gVNGI6KsGuGyjZAaCSpgZ0B6b3mQ4QXqO3cajK/c7+9ONktPhXlpfmlQaH0xJCG/S/
-	eQO+8gHQcMmfIqw7bIx6CRKrD9EQ2QvACzpoYbVPp7rCR/zjwgb71lnMVk1odjG5TLTd/3yWH6R
-	hrtyFsv
-X-Received: by 2002:a05:7300:d58d:b0:35e:d9ac:77f1 with SMTP id 5a478bee46e88-3619ed0f96bmr1421666eec.2.1792189115227;
-        Fri, 16 Oct 2026 15:18:35 -0700 (PDT)
-Received: from eldorado ([2600:8802:b00:1f84:d294:66ff:fe95:a98e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082b8573dsm9242531eec.25.2026.10.16.15.18.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 15:18:32 -0700 (PDT)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Paul Burton <paulburton@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] MIPS: Alchemy: Save the Ethernet address before reusing PROM memory
-Date: Fri, 16 Oct 2026 15:18:26 -0700
-Message-ID: <20261016221828.2223162-1-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=3mxM05Ni0M2UlqzYItHva6zjMOsFxpKbe1J+CpnJE0I=;
+        b=yTO5IX7WsmDCagMAUgqcXVm6fTckmzpAQv1tI1h6TGUjGhZNxAWyLXY8Lb71ghPNBi
+         SHpX12pjq4IxfaWHLhYwLAcLZAJhZrM7a6kf3e79zxp+X3mh7iAd8C8Vjvtsqq/bghKy
+         tQNH7mCkDD/BnYw9tRafsG+CnpjT5G5S5PbUxtzN4i5Wga9bStQqw0Ih7KriAsWac4+j
+         NuLMIT3RxmbgZHrpyblfM1AQ+l9hHQiP5VmB11v3NzPkqZoHZDjC/slgz3zoatGhtsjx
+         RzkTdRt5PoGPS/uhkkv2z+2TLnlJuLyDE72Mk3V3G3KcrL9IrSQl7r4Y+5ef3ozo/oKF
+         F70g==
+X-Forwarded-Encrypted: i=1; AKwUvBwReBlV78Bk0IuPDYyAsaloX6JmQVqyvrSvBFNLuF4Fxqg/KpVap4UiokZFIpredMy0fgyWJSZu1K1ietI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlYEfzK0jRpiXKJp0uf6+G/xYt4o09uSq23eJytxlGA6r40R4E
+	E1OJ5bO7NvCdds6AX7Wb88pRGVDgLOb0HD773/fMFjFzgC1ysftTujODlMIBhZmlBGNYjs1qqPB
+	GiKYVFlfX2A==
+X-Received: from dldyq20-n2.prod.google.com ([2002:a05:701b:4554:20b0:17f:c757:3afd])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:454c:20b0:168:e942:4e62
+ with SMTP id a92af1059eb24-18515691e7amr1319527c88.40.1792189113884; Fri, 16
+ Oct 2026 15:18:33 -0700 (PDT)
+Date: Fri, 16 Oct 2026 15:16:52 -0700
+In-Reply-To: <20261016221700.1282659-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261016173106.679725-1-irogers@google.com> <20261016221700.1282659-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016221700.1282659-10-irogers@google.com>
+Subject: [PATCH v4 09/17] perf dso: Use DEFINE_MUTEX for dso__data_open_lock
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Alchemy keeps pointers into the firmware environment and looks up ethaddr
-when initializing the Ethernet devices. By that point, memory allocation
-can have overwritten the environment, causing prom_getenv() to pass an
-invalid pointer to strchr() and panic during boot.
+Replace _dso__data_open_lock and its pthread_once() initialization
+wrapper dso__data_open_lock() with DEFINE_MUTEX(dso__data_open_lock).
 
-On the MTX-1, the struct page layout change in 9ddb3c14afba reduces struct
-page from 40 to 32 bytes and exposes this unreserved firmware memory.
-Bisection and boot tests confirmed that the parent boots while the change
-reproduces the panic.
-
-Parse the Ethernet address during prom_init(), before registering RAM
-with memblock, and keep the six bytes in kernel-owned init data. Return
-the saved address during device initialization, preserving the existing
-YAMON formats and command-line fallback without reserving a fixed
-low-memory region.
-
-Fixes: b93ddc4f9156 ("mips: Reserve memory for the kernel image resources")
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-Changes in v2:
+ tools/perf/util/dso.c | 68 +++++++++++++++++--------------------------
+ tools/perf/util/dso.h | 10 +++----
+ 2 files changed, 32 insertions(+), 46 deletions(-)
 
-- corrected Fixes tag to a more appropriate one
-
- arch/mips/alchemy/common/prom.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
-
-diff --git a/arch/mips/alchemy/common/prom.c b/arch/mips/alchemy/common/prom.c
-index 20d30f6265cd..c4aefeb78871 100644
---- a/arch/mips/alchemy/common/prom.c
-+++ b/arch/mips/alchemy/common/prom.c
-@@ -46,6 +46,11 @@ int prom_argc;
- char **prom_argv;
- char **prom_envp;
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index cbc4f30e7f23..f0e02062c09c 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -524,25 +524,11 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
+ /*
+  * Global list of open DSOs and the counter.
+  */
+-struct mutex _dso__data_open_lock;
++DEFINE_MUTEX(dso__data_open_lock);
+ static LIST_HEAD(dso__data_open);
+-static long dso__data_open_cnt __guarded_by(&_dso__data_open_lock);
++static long dso__data_open_cnt __guarded_by(&dso__data_open_lock);
  
-+static char prom_ethaddr[6] __initdata;
-+static bool prom_ethaddr_valid __initdata;
-+
-+static void __init prom_init_ethernet_addr(void);
-+
- void __init prom_init_cmdline(void)
+-static void dso__data_open_lock_init(void)
+-{
+-	mutex_init(&_dso__data_open_lock);
+-}
+-
+-static struct mutex *dso__data_open_lock(void) __returns_ctx_lock(&_dso__data_open_lock)
+-{
+-	static pthread_once_t data_open_lock_once = PTHREAD_ONCE_INIT;
+-
+-	pthread_once(&data_open_lock_once, dso__data_open_lock_init);
+-
+-	return &_dso__data_open_lock;
+-}
+-
+-static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void dso__list_add(struct dso *dso) __must_hold(&dso__data_open_lock)
  {
- 	int i;
-@@ -95,6 +100,9 @@ void __init prom_init(void)
- 	if (!memsize_str || kstrtoul(memsize_str, 0, &memsize))
- 		memsize = SZ_64M; /* minimum memsize is 64MB RAM */
- 
-+	/* Save the MAC before the allocator can reuse the PROM environment. */
-+	prom_init_ethernet_addr();
-+
- 	memblock_add(0, memsize);
+ 	list_add_tail(&dso__data(dso)->open_entry, &dso__data_open);
+ 	/* Assume the dso is part of dsos, holding it live while on dso__data_open. */
+@@ -550,7 +536,7 @@ static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ 	dso__data_open_cnt++;
  }
  
-@@ -125,7 +133,7 @@ static inline void str2eaddr(unsigned char *ea, unsigned char *str)
- 	}
- }
- 
--int __init prom_get_ethernet_addr(char *ethernet_addr)
-+static void __init prom_init_ethernet_addr(void)
+-static void dso__list_del(struct dso_data *dso_data) __must_hold(&_dso__data_open_lock)
++static void dso__list_del(struct dso_data *dso_data) __must_hold(&dso__data_open_lock)
  {
- 	char *ethaddr_str;
+ 	list_del_init(&dso_data->open_entry);
+ 	WARN_ONCE(dso__data_open_cnt <= 0,
+@@ -560,7 +546,7 @@ static void dso__list_del(struct dso_data *dso_data) __must_hold(&_dso__data_ope
  
-@@ -135,12 +143,21 @@ int __init prom_get_ethernet_addr(char *ethernet_addr)
- 		/* Check command line */
- 		ethaddr_str = strstr(arcs_cmdline, "ethaddr=");
- 		if (!ethaddr_str)
--			return -1;
-+			return;
+ static void close_first_dso(void);
  
- 		ethaddr_str += strlen("ethaddr=");
+-static int do_open(char *name) __must_hold(&_dso__data_open_lock)
++static int do_open(char *name) __must_hold(&dso__data_open_lock)
+ {
+ 	do {
+ 		int fd = open(name, O_RDONLY|O_CLOEXEC);
+@@ -663,7 +649,7 @@ void dso__put_filename(struct dso *dso __maybe_unused, char *filename, bool deco
+ }
+ 
+ static int __open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	int fd = -EINVAL;
+ 	char *name;
+@@ -696,7 +682,7 @@ static void check_data_close(void);
+  * list/count of open DSO objects.
+  */
+ static int open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	int fd;
+ 	struct nscookie nsc;
+@@ -722,7 +708,7 @@ static int open_dso(struct dso *dso, struct machine *machine)
+ 	return fd;
+ }
+ 
+-static void close_data_fd(struct dso_data *dso_data) __must_hold(&_dso__data_open_lock)
++static void close_data_fd(struct dso_data *dso_data) __must_hold(&dso__data_open_lock)
+ {
+ 	if (dso_data->fd >= 0) {
+ 		close(dso_data->fd);
+@@ -739,12 +725,12 @@ static void close_data_fd(struct dso_data *dso_data) __must_hold(&_dso__data_ope
+  * Close @dso's data file descriptor and updates
+  * list/count of open DSO objects.
+  */
+-static void close_dso(struct dso *dso) __must_hold(&_dso__data_open_lock)
++static void close_dso(struct dso *dso) __must_hold(&dso__data_open_lock)
+ {
+ 	close_data_fd(dso__data(dso));
+ }
+ 
+-static void close_first_dso(void) __must_hold(&_dso__data_open_lock)
++static void close_first_dso(void) __must_hold(&dso__data_open_lock)
+ {
+ 	struct dso_data *dso_data;
+ 
+@@ -783,7 +769,7 @@ void reset_fd_limit(void)
+ 	fd_limit = 0;
+ }
+ 
+-static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
++static bool may_cache_fd(void) __must_hold(&dso__data_open_lock)
+ {
+ 	if (!fd_limit)
+ 		fd_limit = get_fd_limit();
+@@ -799,7 +785,7 @@ static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
+  * for opened dso file descriptors. The limit is half
+  * of the RLIMIT_NOFILE files opened.
+ */
+-static void check_data_close(void) __must_hold(&_dso__data_open_lock)
++static void check_data_close(void) __must_hold(&dso__data_open_lock)
+ {
+ 	bool cache_fd = may_cache_fd();
+ 
+@@ -815,9 +801,9 @@ static void check_data_close(void) __must_hold(&_dso__data_open_lock)
+  */
+ void dso__data_close(struct dso *dso)
+ {
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 	close_dso(dso);
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ }
+ 
+ static int dso__find_binary_type_locked(struct dso *dso)
+@@ -913,7 +899,7 @@ static int dso__find_binary_type_locked(struct dso *dso)
+ 
+ #define FIND_MAX_RETRY  3
+ static int __dso__find_binary_type(struct dso *dso)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	int ret;
+ 	int retry = 0;
+@@ -945,15 +931,15 @@ enum dso_binary_type dso__find_binary_type(struct dso *dso)
+ {
+ 	int ret;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 	ret = __dso__find_binary_type(dso);
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 
+ 	return ret;
+ }
+ 
+ static void try_to_open_dso(struct dso *dso, struct machine *machine)
+-	__must_hold(&_dso__data_open_lock)
++	__must_hold(&dso__data_open_lock)
+ {
+ 	struct dso_data *dso_data = dso__data(dso);
+ 
+@@ -984,7 +970,7 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+ 	if (dso__data(dso)->status == DSO_DATA_STATUS_ERROR)
+ 		return false;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	try_to_open_dso(dso, machine);
+ 
+@@ -992,13 +978,13 @@ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+ 	if (*fd >= 0)
+ 		return true;
+ 
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return false;
+ }
+ 
+ void dso__data_put_fd(struct dso *dso __maybe_unused)
+ {
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ }
+ 
+ bool dso__data_status_seen(struct dso *dso, enum dso_data_status_seen by)
+@@ -1169,7 +1155,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
+ {
+ 	ssize_t ret;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1185,7 +1171,7 @@ static ssize_t file_read(struct dso *dso, struct machine *machine,
+ 
+ 	ret = pread(dso__data(dso)->fd, data, DSO__DATA_CACHE_SIZE, offset);
+ out:
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return ret;
+ }
+ 
+@@ -1292,7 +1278,7 @@ static int file_size(struct dso *dso, struct machine *machine)
+ 	int ret = 0;
+ 	struct stat st;
+ 
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
+ 
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1315,7 +1301,7 @@ static int file_size(struct dso *dso, struct machine *machine)
+ 	dso__data(dso)->file_size = st.st_size;
+ 
+ out:
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return ret;
+ }
+ 
+@@ -1520,7 +1506,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 		return EM_NONE;
  	}
  
--	str2eaddr(ethernet_addr, ethaddr_str);
-+	str2eaddr(prom_ethaddr, ethaddr_str);
-+	prom_ethaddr_valid = true;
-+}
-+
-+int __init prom_get_ethernet_addr(char *ethernet_addr)
-+{
-+	if (!prom_ethaddr_valid)
-+		return -1;
-+
-+	memcpy(ethernet_addr, prom_ethaddr, sizeof(prom_ethaddr));
+-	mutex_lock(dso__data_open_lock());
++	mutex_lock(&dso__data_open_lock);
  
- 	return 0;
+ 	/*
+ 	 * dso__data(dso)->fd might be closed if other thread opened another
+@@ -1533,7 +1519,7 @@ uint16_t dso__e_machine_endian(struct dso *dso, struct machine *machine, uint32_
+ 	else if (e_flags)
+ 		*e_flags = 0;
+ 
+-	mutex_unlock(dso__data_open_lock());
++	mutex_unlock(&dso__data_open_lock);
+ 	return e_machine;
  }
+ 
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index d6b0a1a4dac9..9f026ccb0eb6 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -354,7 +354,7 @@ DECLARE_RC_STRUCT(dso) {
+ 	char		 name[];
+ };
+ 
+-extern struct mutex _dso__data_open_lock;
++extern struct mutex dso__data_open_lock;
+ extern const struct dso_id dso_id_empty;
+ 
+ int dso_id__cmp(const struct dso_id *a, const struct dso_id *b);
+@@ -807,7 +807,7 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id);
+ int dso__name_len(const struct dso *dso);
+ 
+ struct dso *dso__get(struct dso *dso);
+-void dso__put(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
++void dso__put(struct dso *dso) __must_not_hold(&dso__data_open_lock);
+ 
+ static inline void __dso__zput(struct dso **dso)
+ {
+@@ -917,9 +917,9 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
+  * TODO
+ */
+ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+-	__cond_acquires(true, &_dso__data_open_lock);
+-void dso__data_put_fd(struct dso *dso) __releases(&_dso__data_open_lock);
+-void dso__data_close(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
++	__cond_acquires(true, &dso__data_open_lock);
++void dso__data_put_fd(struct dso *dso) __releases(&dso__data_open_lock);
++void dso__data_close(struct dso *dso) __must_not_hold(&dso__data_open_lock);
+ 
+ int dso__data_file_size(struct dso *dso, struct machine *machine);
+ off_t dso__data_size(struct dso *dso, struct machine *machine);
 -- 
-2.53.0
+2.56.0.212.g129ede20d9-goog
 
