@@ -1,86 +1,122 @@
-Received: from outbound.pv.icloud.com (pv-2002i-snip4-1.eps.apple.com [57.103.64.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398A64FE2D3
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.64.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D214FD781
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167465; cv=none; b=eb4F6fsA4QjBN/+UnI0NSCbYTgZnN9PYmXXKa379EPMWbeNfzLJ8VTGpVupZE9d8i58RXxS8S0r1lhoR61PgaH4WCgttfxaJ+0qeMBG+p6xa+jo6JJM+ZBtAg04POr7tfHVN9m5nNUWqoUyLxZ0m23zUKe4SQ7KiBMWgVuTrYWg=
+	t=1792167489; cv=none; b=LJpr6zgyggOpiamJ90n19ngftGCBI/RkQmhvHDJWzBIX0KeRpwU5IMLeDqY6YZBfwP2z8VECB7sMdBP4ZlkaZVtrmwiYWrKU8qeOpWkGPEHuU0kguL1UapBFVcavuiE53fNDyKCfklSaRbgc+/++RVlBhzWwtRr45Gn9quLMgI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167465; c=relaxed/simple;
-	bh=3B8aiqdinxgzAT0VpumssvkM/xdQmuYpEQ5Im0EHJVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fbTVK0UmA2EvXSAgKvSUctQG+sFhARWp0js8v+UdkBdTuc2bixn5jPcbkumjV/tC64BGEZ7o2OOewi6M3iZhmSDPuLo1AxkoJ/oPT8FZ2yan41vd2CozHUMidt5Zgql07HG1WyfO9x5UsEe8FhXiFqlTsdy+oIMx+2XybnOqZxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me; spf=pass smtp.mailfrom=matias.me; dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b=k80mpNdL; arc=none smtp.client-ip=57.103.64.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=matias.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matias.me
+	s=arc-20240116; t=1792167489; c=relaxed/simple;
+	bh=nZWtbApWt3kV026dkoDNspJsmQaxaHBVELtY6w2UgGg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E5CalBqeE+huHu9GzdpxiSM06igs/fPfiE00wmy2TSOoQOsmh3Jfw/BEFXk7WXT5t4WC8PdrH5fZ3WlCkL7AQJG4HDdZYsPmWYe9tjuETV8nKN7N5l9St0UEnVIJDFxAENxKjkak+YEn3sflahQ/GHKOG2a8/1hGWug3AnzZitY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M3CpNeiv; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matias.me header.i=@matias.me header.b="k80mpNdL"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-100-percent-5 (Postfix) with ESMTPS id 1999A180100A;
-	Fri, 16 Oct 2026 16:17:37 +0000 (UTC)
-X-ICL-RepId: 01a14581-34a7-7e4b-8042-d837683a4627
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhAAkMDWBxBDUAdVQFLVxQEEFYBWwRyHVgMWgxERV8VGR5XUFoKRhlYCx0AUktAEwRJA01fDl4fBBdGGVUERx5dVkMbGQJRHFYNV0NUBF9QSQxBUGxaAEcXSB1dGVlvUF0cDgBWH1sRSlZeCBcGWxQERAFdBV0DQAhOAlsGXAFBF0kAVQ5cH0EUEFYBWwRyHVgMWgxERV8VB1hHFEcODxNMC0cCWjRWH1QZWgM=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matias.me; s=sig1; t=1792167459; x=1823703459; bh=3B8aiqdinxgzAT0VpumssvkM/xdQmuYpEQ5Im0EHJVk=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=k80mpNdLisjSd+1ij8YHVHpwKrtISuOCVJ72kqkJTotUDcBYcmBYgcv3lANKCV0hyAYU2WDKgS2L143UDTxr8sVv8RTQAX1ixu96VfA7EKeogVpuCt0Dvm64UrTj5Ql5wwP+IGJRMbZWAkZTLNCCabrobeDrV4RAe77l4bE+duehEcBolRrgbk02nFmAC5qKMmt+GqRDRIifSI2bMFyO+ivSsSoRZr60Zs1qwpToaUyV7X8tsH40gBlLZvjdaoTCn3qpx4DyFtQxepUg3uumb/ivjyLtS5u0YgLtrqyTic46bP1eqTFJZ8Cag6JQnfBooYDI8ZXab/FttXl723lmig==
-mail-alias-created-date: 1705102286191
-Received: from localhost.localdomain (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-100-percent-5 (Postfix) with ESMTPSA id 482EE180101E;
-	Fri, 16 Oct 2026 16:17:35 +0000 (UTC)
-From: =?UTF-8?q?Mat=C3=ADas=20Mart=C3=ADnez?= <hello@matias.me>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Subject: Re: [PATCH v4] HID: ayaneo: Add AYANEO 3 detachable controller driver
-Date: Fri, 16 Oct 2026 13:17:31 -0300
-Message-ID: <20261016161731.13897-1-hello@matias.me>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260925061941.75121-1-hello@matias.me>
-References: <20260925061941.75121-1-hello@matias.me>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M3CpNeiv"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-82478760557so2453053a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:18:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1792167479; x=1792772279; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/aqB/Mmx2mmYZsJMDrgp07ogosIeUVeJwoNnZHzHvsY=;
+        b=M3CpNeivZfD2Yrd3gUdREx/HDMNqlNOpX4xlFZRopPaDnqpqK9FF4rNZG9bBbxuPtx
+         rVUaIiM31BfaYxDtDVTibXZ2LufgGbCGDw0tKWMYG18+sYEZTrZDwXQW6qN8wvLackjD
+         3eA1+y1A60rnAfmqUeg3bK8FhHqvKWEQDU5u8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792167479; x=1792772279;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/aqB/Mmx2mmYZsJMDrgp07ogosIeUVeJwoNnZHzHvsY=;
+        b=viD/Xy3BY3jKEubExTnUy67NM8A2MYcBY/9SqmctOX9fDPjiFiZIq+R8XZT3nYjUyP
+         zXJCXxtZ08jF8AwTYClDlusNOxn2N0Z9CLsfRHsUeCtmDaDtOuQRyVJbUteUv8i23XSH
+         F2MRlgHK7mWZUQHL9pZKQBTHXtxYl78bUx/tVwrrJQDHZNfpeS7bECJmB7M2lFo85Pp/
+         1zYZ1gjRl/r/2REBvt1Tk3kyhZ2GcZKXaNQVVPpHaSvyOtkKFDk2x8tMslRpIe89+1Vq
+         jkT3OcDY9GmyRL7GMU9u+Lu4CQ0uaFfjs7xdiAYvGQmHd5QGaKAgvad43r9BxmFsh79d
+         +WYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYauFuDvS8IkmXb4VBXfZ7TFFeZVpzB+WWr51X+Gw4wAal5EKm3pFkJeAD2uxNNhOC4SVCBnYyk5XU29U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJij0RVgA7D6X1JlEhHPZ/OtZEyAYQpa9PdQm8AKltEUVwgeCfc
+	nErO0adrmCX69Xcr0Bbwq1gR4k+dD8okXUTsjp/Ys5ExUFA9vNwheF/z6TvG3SlWUKg=
+X-Gm-Gg: AYBFou13LgAfPGXGM7FCR++PLiG7RWBJ99KmActHnuDfmrZ7f5D43tr8ZhE7opjwIQI
+	V4Qsupv/7Tn10fcCFIWZs0AtD4BSDddBDtZOlxv7xbyEFp+EEowv/vNITR1uIQyzwA9sOAsoaiW
+	bu1AgX4s0WRMIyQUBkO2j/MmWOnR0KaIqKxrUacth8KhvqHDc2naxgB3E2BJsAmvrMpAE/9lX07
+	t19WhjOl+Kamb/eZMGiHVNRbxhYYhZ/6XWEEEX9iBHNGTUVlHs/4ACaRlYUtSK7KKmeu5pI1GMx
+	jxY4LJIfoPwbXagk4Zh+AYoo7WaWYYn76XZEq9E55BWAH19kVLuI//BLNhxzhyTVE0hnIq8X2wo
+	U7lC1CFsPgRZassLHeAB+tqcvLFnJ8UaYEeyTZq2uKmfo6RxH5t5Fsa827t0Z3lLGSHH46hQwci
+	T0RKJ2pN2ZsaR3zU8xtb4L55OREmEFdAfTSb5mfwDenafLpzmLsha3Zu2oZ/LQazWPROI0C9KvH
+	OuVzWQBx4ZQR6EyA+E=
+X-Received: by 2002:a05:6830:828f:b0:81d:c548:292f with SMTP id 46e09a7af769-830959380b5mr21128096a34.12.1792167479094;
+        Fri, 16 Oct 2026 09:17:59 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a6f0a55csm2327426a34.25.2026.10.16.09.17.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 09:17:58 -0700 (PDT)
+Message-ID: <93d5f73d-0126-4727-9014-836e195a3eac@linuxfoundation.org>
+Date: Fri, 16 Oct 2026 10:17:54 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: L_aj4fqf-Zfi25pLJBDpiQMfVbzFS0Z4
-X-Authority-Info-Out: v=2.4 cv=QtJTHFyd c=1 sm=1 tr=0 ts=6ad24e22
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=CS8cKMFXB7MW6LiegxgA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA2NCBTYWx0ZWRfXzNAt7GR9F5ig
- 8qLZTxlEm660fAHi4sx+hoz+Sj6WLbZnprt7dn7ROISvm3uitf/Kz+PFNbc7ESOPLq7rdaAOIwp
- IuHMiLEO3q9NUOJGhgzLptlrIHzrX6uuip0pGkjSlBM1Ij61+3Wlcra9d7GvOgPu2SkydK17tac
- s5WipUgGha/G0dNlU6ij+hlAjRN4Yzm8w7eXzj8DieTuRdr1VUPQLwYuc6bz+3rLgyzj7IMjiUp
- bTEAPrb7z5YYqVeNiK7T5ZZlgXfeQEvr0+vCiYwsd1hiWfksv/rd5j8OrQKt8QgmKP5LaHpnJCd
- aZ76TKxX8hICCGTT0KENTbD0hq4VcBdhioC9JiAmvoDOGqrO1B9+rJQdguvku8=
-X-Proofpoint-GUID: L_aj4fqf-Zfi25pLJBDpiQMfVbzFS0Z4
-X-JNJ: AAAAAAABGW6LBT02nfum/oaLVmwYxM/ieK8GDy7Axve1/9Z33wouSG3smsJ6hn9L1tUBCO64i9v+xumQLu8LSTnlQ/vsZLoC3gxmJjNj2ZIckMhvsVsjJv7hIiETDzVvNXIRx50rdSn3KPV4rUdFE+mgDNPQMYSbIkgx2lfw/m9nqKGYXd2P2U7FvdpzGwuW9UlZxb+ZuORtSNhz3SwlVdnxNbs9FG9viagG1p1H1/cjndfJBYetfjed0Ol7gMSBJhfXnQuzEmaz7BHlQB441JtcvXR2ER3LTLeWzxe/zG4Ivg6xnrBjiWyRBdVPcxQBQ36Ml0/DDfYzHBZWohTLF2VxT0tFL0B1sdBsc/I/YQSBofVs1+CgSSHhpi9w90EHI/yoGBy8oCrHtRuj8pco78xdZilzNYKENUuvgkGhQZakhS+8gF2LlTi/dy2uasjed+ntJXHUNv2tTtVolJqWaf+1YiSaPYqpPt+nYf6H8e4VtE/nYeSda4mD+6lxGUfb/WBr3/2p0hYG8vCbRH12+9FDI8SFySwJhsaqr8iPjHF66FZdL4YCn+n4U+H3mgjWv65pFfMATTn6BwSjY7CIAuUs04wdHdZeV2DjewFC2lUIg4GvxOpzWd8kFgHNPMr+ZYwMYqAxKiRq2mrRJToa/jpr6/o6/XHpsmbCt6f5tFBxM5M6zPVHsm+lds/Y6M2pjPqStarU0W4AtZ7RTKHpvIGEEPufoQUBTvzsx/VH1yTq0rDDGDKsXVaiOE3o7F+mUlvlyQ0iFrTRo0rpEE7f7at6WJr2wSFjcuRpNpYsLaiVwH5CJxFNt7NI8hx1fsylg7U+4QtgFzfTdMKRVXCvyhF8llxPNeKB7/GQmbR77Z5c1N5tYDy14GmSD4ab2oJcATA0egIdTNXwSP21omOXYOpETuQBtmbc522bgFuGYboXOx5E2yV+Q2BXxJvu1t3x9SV48KbLbqbjuDIxyN4J2JRILA8ICSS
- iUHurDtuPfVSQjTlMW0sQGknPepsCiIFA6JCP5RFDIcWiO146kiiKxawCM9ms0fEkVA9UrQYRvBixpR4qcgT7uOMKJBBWCRTQUB9fBWxNtErgavrxRyzMP0xmNN5eyR6wjOD/Wx5UM5MNP1LjCNttp8haNh3FQafLoKPcBhn9hd9nekfsNRAwAWlMKQ19BE2djB2W01auTOeNqw9YbZYA2cpQs01bx7/C65mq2Sw6MFrrtNUvkRf66FzZjJhXnVXULwz8luuUjzc5m8gFm556LIJFlRXZkgNwnXARHTNUqbSJpG7Zb/PHsh1U+pBs7P+Cp3IPDyuPHYG6sd7v5Jj/QxiRJJZu8b0DPlmd0yN+uFmJrhrtyuIIr8eG65I4g74pnEs7okU/VDId4g==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 5/7] tools: build kernel selftests in tools_build
+To: Sasha Levin <sashal@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, linux-perf-users@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261016143143.3613501-1-sashal@kernel.org>
+ <20261016143143.3613501-6-sashal@kernel.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261016143143.3613501-6-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jiri, Benjamin,
+On 10/16/26 08:31, Sasha Levin wrote:
+> Add a "Kernel selftests" sub-menu with one entry per selftests directory
+> that builds with only a C library and does not write into the source
+> tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+> pointing at the UAPI headers installed in the object tree, but by its own
+> make, so the selected ones build in parallel. Selftests whose Makefile
+> does not use KHDR_INCLUDES still build against the C library's copy of
+> the UAPI headers.
+> 
+> As with "make kselftest-all", a selftest that fails to build does not
+> fail the build unless FORCE_TARGETS is set. kselftest_deps.sh then lists
+> the libraries the selftest needs that the compiler cannot link with.
+> 
+> The selftests do not track header dependencies, so a selftest is built
+> again from scratch when its own directory, a header or makefile any
+> selftest may share, or the kernel sources and headers it includes (the
+> vDSO test includes the architecture's vDSO code) are newer than its last
+> build.
+> 
+> Selftests that need libraries beyond the C library, a vmlinux with BTF,
+> or a sanitizer runtime are left out for now.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Gentle ping on this one — v4 went out three weeks ago (Sep 25) and I
-haven't seen any maintainer feedback yet.
+Thank you.
 
-I re-checked today and the patch still applies cleanly to hid.git
-for-next (tip ae6927c53). Antheas, who reverse-engineered the protocol,
-has followed the series across revisions and was happy with the final
-shape. The driver has also been running in the OpenGamingCollective and
-Bazzite kernels since late September with no regressions reported.
+Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Is there anything blocking it, or anything you'd like changed? Happy to
-respin if needed.
-
-Thanks,
-Matías
+thanks,
+-- Shuah
