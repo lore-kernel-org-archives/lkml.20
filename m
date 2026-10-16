@@ -1,69 +1,87 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2AA3BE146
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63C835CB6B;
+	Fri, 16 Oct 2026 11:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.254.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150094; cv=none; b=nHAAyq+BZGFBdYE+R+fWlGNHdbWntjdxhY7Ci0lIlm/xptuBqvkV8ChNxr/Emi6edp46tQ8CUgSfJVASM3DPqXO49yjG2+fdudjw1SM20JevUatirdhTxjiUs9ZV1gfI5LIXSsfZD3C1eYw2PNW+AYDTZH2G/GDcgFLPtXHqH9c=
+	t=1792150118; cv=none; b=C3u8U30v1qgWQEumDXteH7UhGInkxZiNyN1qcrWRb7oeriI/lrp1iz38QF/4H2octpH6qJKRGFjHSYp/gJL6sTA9CdIDaT+0XszpvZDmKFXWfjl6dUvP3LXodV5qG9bdBgQ7YelctvQzHMQa7yHzVstQ7keujLoYvTMGZ4s2d6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150094; c=relaxed/simple;
-	bh=5DFAb0p1QI16M+Im7teM/V0ggs8P5vmQ07oO/6EG6lU=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=F0vfIECZPkPtP5DKsdMm6UyhdqbmlWQIYL9C7rtuFEu1QM78TODDmYaH7cEn2GAQN/tqyi1hAlQgbdBCL7u4Tu6YYAEajNEz/Slm+iuakoVhdYS1yH8dELQBc683N6RGzqExyvWb5tn9/i+QtkpsTBkTJcyxm7tcYLURJItDpJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=SliMkUhi; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1792150118; c=relaxed/simple;
+	bh=Ur1oPaD8LRczsarB1wT8feo/Dghof+BJ3vmBEhzAEl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mWczBb+sZUeuGpIku9HjKDMruqCo0IFjKtMMxIVZAXq1dXfhpfQRsH2K3zZ0sRVvjRHTYFH4165/FlVZAKt5guGQ9rKA9TwFCdheZ9158Ia2gRSrnZAVX1yhtONCl+FrPHimRp0jQ3WOiM33sNnau4+ntHVclc9eaTwD4SRBGRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com; spf=pass smtp.mailfrom=ilvokhin.com; dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b=EYCUaFKo; arc=none smtp.client-ip=178.62.254.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ilvokhin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ilvokhin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="SliMkUhi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792150090; x=1792409290;
-	bh=5DFAb0p1QI16M+Im7teM/V0ggs8P5vmQ07oO/6EG6lU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SliMkUhiHmnhi0O9oQKAPKfT/ruLWfGssi004e01Y5evYFcr1LkD7heVSoF5StPXZ
-	 y/LO2T/l9xfQueUtID++Wl4tH/mkoxy7Q28wHXp63bAVJebqrtR4GUlDh0pBUMdAbk
-	 qnxbCw5J0UDs10DlXu3wmMqQcluICHfKlWwQRyVeOJ4EQw0l2No4mYJEtkj5OKccCz
-	 4QmeO1F694XI2+h0TAmcUeteyiX4TTTNT5EYHgBEXFfJ3CKVw4H7RBDNhThxPGpV/t
-	 us4KRp7HcX/phV0RLf8senTIM4gWGK/9gii85iVkx3xyyoDZkjh+91NkSbIvruKLA0
-	 6C8I/iubCe5JQ==
-Date: Fri, 16 Oct 2026 11:28:02 +0000
-To: Hao Yao <hao.yao@intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: int3472: Use actual clock frequency for DSM method
-Message-ID: <20261016112744.39905-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d3e3c2e49dec7b70a116e6d09278d73495caef78
+	dkim=pass (1024-bit key) header.d=ilvokhin.com header.i=@ilvokhin.com header.b="EYCUaFKo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
+	s=mail; t=1792149662;
+	bh=eBxHgvw1bnsluoyWzXeY/eOCvQ6gAdG+35WYGC0Ze7c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EYCUaFKoTMp0TvU3zfDhqCONxeK7m9S/MlyX0epIq2OOvQUuqldhSECiLInTGmnX7
+	 Jt0mSNTy4PhFUezlKwW/EmUSnCJNMsfQnmPa/KxrDdqnd7vv8vsvl2QGat2He0Pl7+
+	 /DJ7VCnt78xxH4A97H2Ge0fzyMx758GtZSk4ozP4=
+Received: from shell.ilvokhin.com (shell.ilvokhin.com [138.68.190.75])
+	(Authenticated sender: d@ilvokhin.com)
+	by mail.ilvokhin.com (Postfix) with ESMTPSA id 9B7E5FB63C;
+	Fri, 16 Oct 2026 11:21:02 +0000 (UTC)
+Date: Fri, 16 Oct 2026 11:20:58 +0000
+From: Dmitry Ilvokhin <d@ilvokhin.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v2] perf c2c: Fix memory leaks on output fields
+Message-ID: <atIImjxxXKUO2os8@shell.ilvokhin.com>
+References: <20261015233237.542258-1-namhyung@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015233237.542258-1-namhyung@kernel.org>
 
-Hi Hao,
+On Thu, Oct 15, 2026 at 04:32:37PM -0700, Namhyung Kim wrote:
+> The perf_hpp_list was not freed after use.  Let's add it for the main
+> c2c hists list in perf c2c report and a local list in print_pareto().
+> 
+> Previously it was detected by ASAN like below.
+> 
+>   =================================================================
+>   ==42183==ERROR: LeakSanitizer: detected memory leaks
+> 
+>   Indirect leak of 1064 byte(s) in 7 object(s) allocated from:
+>       #0 0x7f17334ef24f in calloc (/lib64/libasan.so.8+0xef24f) (BuildId: 61e8165ca90f7a4f06b73f064a938c76deaae079)
+>       #1 0x0000005fa099 in zalloc  ../../lib/zalloc.c:8
+>       #2 0x0000004faf6d in get_format  tools/perf/builtin-c2c.c:1978
+>       #3 0x0000004fb45e in c2c_hists__init_output  tools/perf/builtin-c2c.c:2004
+>       #4 0x0000004fb7de in __hpp_list__parse  tools/perf/builtin-c2c.c:2047
+>       #5 0x0000004fbae9 in hpp_list__parse  tools/perf/builtin-c2c.c:2085
+>       #6 0x0000004fee13 in print_pareto  tools/perf/builtin-c2c.c:2563
+>       #7 0x0000004ffcd7 in perf_c2c__hists_fprintf  tools/perf/builtin-c2c.c:2708
+>       #8 0x000000500ab5 in perf_c2c_display  tools/perf/builtin-c2c.c:2949
+>       #9 0x0000005045c3 in perf_c2c__report  tools/perf/builtin-c2c.c:3522
+>       #10 0x000000505caa in cmd_c2c  tools/perf/builtin-c2c.c:3676
+>       #11 0x0000005df50e in run_builtin  tools/perf/perf.c:383
+>       #12 0x0000005df9b1 in handle_internal_command  tools/perf/perf.c:436
+>       #13 0x0000005dfd7f in run_argv  tools/perf/perf.c:480
+>       #14 0x0000005e02d6 in main  tools/perf/perf.c:581
+>       #15 0x7f1729450680 in __libc_start_call_main (/lib64/libc.so.6+0x3680) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+>       #16 0x7f1729450797 in __libc_start_main@GLIBC_2.2.5 (/lib64/libc.so.6+0x3797) (BuildId: 85075e2ae2e13352a1413d41c327dacf6461526c)
+>       #17 0x000000409c34 in _start (tools/perf/perf+0x409c34) (BuildId: 36a64600776d92e4ab7dfd5ca20c92280d72a645)
+> 
+>   SUMMARY: AddressSanitizer: 1064 byte(s) leaked in 7 allocation(s).
+> 
+> Fixes: c75540e3160f ("perf c2c report: Add dimension support")
+> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
 
-This fixes a camera on the Surface Pro 11 with Intel (Lunar Lake), for
-your v2:
-https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
-
-Its infrared sensor, an ST VD55G0 (SMO55F0), has 24 MHz in its SSDB,
-and INT3472 turns its clock on through the _DSM with 1, 19.2 MHz. The
-sensor driver sets the sensor up for 24 MHz, so everything the sensor
-derives runs at four fifths: it streamed at 47.31 fps where its
-configuration gives 59.14, which also puts its MIPI output at 633.6
-Mbps, below the sensor's minimum of 750. With your v2 on media next and
-my vd55g0 driver, the sensor runs at 59.14 fps in every mode, as computed.
-A value of 0 did not change the clock here either, as you saw on the
-oscilloscope.
-
-Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel), VD55G0
-
-Would you send a v3 with the Fixes tag and the note on 0 and 2 that Ilpo
-asked for? I will repeat the Tested-by on it. If you are busy, I can
-resend it with your authorship.
-
-Sergey
-
+Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
