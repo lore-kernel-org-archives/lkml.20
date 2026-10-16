@@ -1,164 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013087.outbound.protection.outlook.com [52.103.35.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817D75625E1;
-	Fri, 16 Oct 2026 17:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172315; cv=none; b=d/aufqVSEw4XC+n5bUOa7himtjEhLN2zy24XoaoS199iX1gkcxI49Wzv71WuvdLgPDaqCe1LxBSUdPeXtaJjajAfqEAmRXiEIG79xrizJLGPYX//sYfB1SX+a+UgBB54HKO/iHmDvgKGurFHRGaYxx8E3FCgVh3bbaLitcawH7g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172315; c=relaxed/simple;
-	bh=5H1QB9WYNnigf90mqDI+c2B6y+uJDPLiS/IlgQY/w5o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZDzOd2PovzNiDPp1CFU4Q8hEF5OcfGQ5GWDVB2A1ppKMIrUkTFeaUX3UT3wi80+az5ueiSAs7XXxP7RNHNLAfVd1VF9LOM0e3jqlzhHQZjgwHfJclzw8AQ53wLzhnczV9TvAoJysYJq/YoCvRehP2Cm8Nrqx/mhAnWQcjqP0OE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYch+d98; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0101D34750F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792172527; cv=fail; b=m8ilM4bVRuOwIOU+zFHRg09/JuXchk5wKKqxSwaOQZ3uya8o/qz8bKDC4xKHn7Qwcfb/p3bPCOpuuWby5yXy2AaMjVerb0znc61AC/I91aKZ/dxz5uwQbA88TIgABpcNy7ERS/VUSHuZd4Q2gqJGVBACTQDQJmVb1cnNyvOKtyM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792172527; c=relaxed/simple;
+	bh=4uPLiFEDak7l3KC196i8EUpqzl05LCNMoNsQWhilA/4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=MdXNJ7lQZcRcWEcRfLAWfELdH9nh8dfcUykq8hO9RVPWNfvrh0F0r4JSS+B5EMOyDiI6dDjNgYTjW57Q+Q669gtYGdCWMEf8rJ7md023tO4R8sfM59cZXEky7CjwKhpR/E40UQGwLvsdJz1QOJnPWKkDdaZ/oqlnmvvcA/qoUmU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=FAy5ZWoo; arc=fail smtp.client-ip=52.103.35.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYch+d98"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1AABAC2BCF4;
-	Fri, 16 Oct 2026 17:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792172315;
-	bh=5H1QB9WYNnigf90mqDI+c2B6y+uJDPLiS/IlgQY/w5o=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=SYch+d98j65EPAX9SR5bCD8KXRQhUPDXzgO75TF0rBdqyDCF0b361HLGrH5GAHTL2
-	 P3gc/AXvq3gKX+kvpHwq6BuxQcUUofgW8PQiy37Sn+xzORT0bRaz/M06gH4vzHEK0Q
-	 h3Gkc2gThsHmHa0pdqul88G6rwF0V74slEkhfLaazEiWyQCxKQbySyU4HqjGpWWVEA
-	 nZr2BE/O8AHWnKCRS/fWoGPtipcr8Edn6ZGMk4mAScaCbqW6ceaNk+O/IAe+vlYj7f
-	 EGMbSAhchmQr6JEsBmaAXJ86H3knHBNzwZs7rJP7qVKTgWx+QZW5rj9Pwei/DFLI3B
-	 m+Vc3DfR7Ew/A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E74EACCF2C2;
-	Fri, 16 Oct 2026 17:38:34 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v6 0/3] Enable DW9714V camera focus coils on SHIFT 6MQ
-Date: Fri, 16 Oct 2026 19:38:32 +0200
-Message-Id: <20261016-dw9714v-v6-0-ae730c77bfb1@ixit.cz>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="FAy5ZWoo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DjKgBsZQfLjFb7sdxk8+1mxvIL2h9BWAT+0JlEVYjyqF+Og2DYOSSUC6RlY3Yw+lyE/IcRdlzabWsv97hRA4WOqUtjtpI9Z7abRYiX2T8L9NoaWPRC9CNN8M+AKDLPUO96VXGPexSGxUVtzN+mk0CsjlWdpwSCz+aX6mOqzMEgjYWWRDDdjK433+sirCcrHVa+HWTTSgvThcpuRpqXr0OWdirQ9w26g6FA/NrnPRE8Zbnpy5AUHet0B67F2HhAWtJLOWSFseezxxOV5bI+8DhhOzr5f77aleMZNTG30QRoqOZ6R0TqChGepD90XgT2JNCMQxZ/q800+wH+fzwCPXAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Evwl+5NQHxk//KyO0zIhrywe0skRjuwPp5+iWl8+vqs=;
+ b=aBJ5LoM4583ZzAe/w7Ckou6LN9+OY8rYDcvDZDgW9a2qapNenMfNCMjMMGWyja40P9sxKTNQnZQE9OKbsZ31QGQgT6DIoCescoidnYKtUAIcL8A+N99fAN211eJZUfNGSCHMUiNWTgWlQO3SM8yIcX2QI39+wdXg084x0YsAitLbNUEDWlGyWb+TQ78yDstb2Alqn2vnlbNmpuDr8MYEtY0aWl+jFE+zgWrj950hYfSn1yEg44zAYtvhLYFpU6LtyKNFG7LJ5KU//RHaAtLB6ncBg2XP24ffv/Wx+Q9wVWrl8n9+ZDe7tJjFZAOg75woQkd3YX7LmCNCjZwQMG8pug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Evwl+5NQHxk//KyO0zIhrywe0skRjuwPp5+iWl8+vqs=;
+ b=FAy5ZWooKhRw2C1+krQoT3j5sydhEknATy9eyD7KrTVGHVCb9OwUlV7GyUORDpq5ncE5Qb9y41YZ28j7wY/lGiLiZLG9BvzLJsK/vVXGIabPt/qtGvLL6ixMDv2GIFR3bkfTp4luVD1IqJyGzKs//+OPFcaPTMLMPR6E4BISPVwOqFRs2hJ+PvbCEULS63oQn3BpBeLZl85q6e7hhVJ/cpDfo2tiW+vfh/+niPqSgZP1/ohpI3IVKvYJi4627YndrOHc4UbIIE8g96HYC2DeNS7YbAPXgxvtk3CLxTv91H9VD/7XsFTwuzGPs9Nw7iOsTRdv0hTfknrYb84DMy9ECQ==
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com (2603:10a6:10:223::18)
+ by AS8PR03MB7781.eurprd03.prod.outlook.com (2603:10a6:20b:405::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Fri, 16 Oct
+ 2026 17:42:01 +0000
+Received: from DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48]) by DB9PR03MB7388.eurprd03.prod.outlook.com
+ ([fe80::2ce4:f394:cc5e:6d48%4]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 17:42:01 +0000
+From: Arthur Liberman <arthur_liberman@hotmail.com>
+To: Alex Hung <alex.hung@amd.com>, "amd-gfx@lists.freedesktop.org"
+	<amd-gfx@lists.freedesktop.org>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
+	<sunpeng.li@amd.com>, "siqueira@igalia.com" <siqueira@igalia.com>,
+	"alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+	"christian.koenig@amd.com" <christian.koenig@amd.com>, "airlied@gmail.com"
+	<airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed DDC
+Thread-Topic: [PATCH] drm/amd/display: fix NULL deref when opening a closed
+ DDC
+Thread-Index: AQHdVoN3m8ngRWIFC0yB4TViupGfHrcAbKoAgAAOvLQ=
+Date: Fri, 16 Oct 2026 17:42:01 +0000
+Message-ID:
+ <DB9PR03MB73885E0CE92C33AEC9E31A7E8A9B2@DB9PR03MB7388.eurprd03.prod.outlook.com>
+References:
+ <DB9PR03MB73881C96FE86D964037ABEDB8A942@DB9PR03MB7388.eurprd03.prod.outlook.com>
+ <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
+In-Reply-To: <38cc515d-ae4b-4031-a061-224d492826e1@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9PR03MB7388:EE_|AS8PR03MB7781:EE_
+x-ms-office365-filtering-correlation-id: c2d7c433-8870-4273-a201-08df2bacc8b9
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24021099003|8062599012|31061999003|8060799015|12121999013|25010399006|41001999006|19110799012|37011999003|51005399006|15080799012|15030799006|40105399003|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?E2mREqKlSSSaCiYJ8FIWNLmo76IZSNcr119lagmAOyJ+A2I1+85OC3Eld6?=
+ =?iso-8859-1?Q?qSHFn2KVmRH0D6YIi20r3KvFrTOhjtcNYUeHzuzXMVUxBubg1ay7f5Z3fj?=
+ =?iso-8859-1?Q?GZieV/sace4SKzrlTquOX6nfCGYU1BQRp0CP11bPgW9vdudOtNmqdwDj8v?=
+ =?iso-8859-1?Q?ZtposKnDp3+AvSRnB/+HGLfw76h8PVREBGuUt0Qb1n8SYIagyNSxvtJDfv?=
+ =?iso-8859-1?Q?eXx3iWtupUveA/WhrE7D0CY0Ys9as6GfdI3kbt03rWddg7zhKNbGuUeZFe?=
+ =?iso-8859-1?Q?6e0VQuMQgMKj6GmZSDeeaZUkZB6q6sZtH5AaeadLhw2nAHUFuBjIJCeZaD?=
+ =?iso-8859-1?Q?iBP83aBtlJcNSyyKmfs64ZnqJ8aoxAqGXbdhJL4lm01HbgnQN3qzQdvNJA?=
+ =?iso-8859-1?Q?iJ55ciDomRz0RNgC0kspbLe2vvQZIcT0ZChT/HXd5d5XYtgDatgdc2xYhm?=
+ =?iso-8859-1?Q?QBi2VvXbE9OAhfcCN5kI1wc6vmmAPbKelwtIgW1CTX9M3trGNcgz6R63+a?=
+ =?iso-8859-1?Q?bu9GWfm2Uk24xKFO/PTqma/OUY8AB5pPN2wgJDij9YNQCRJjZ/Cc5/hf5G?=
+ =?iso-8859-1?Q?zlgRkecRgWjCr3t0Ih1yLx1XJwPD5zTf2fPdocNaYXtP1eCTyMT09hJ8Rc?=
+ =?iso-8859-1?Q?Bf0og9nNc7vL14cl2PSk/EX5jrCUOxXnYdEYZ7nQNRzQkRMYWnUCzlKy6y?=
+ =?iso-8859-1?Q?lOdlp4ujMJsB4i43a4IVUvjypK3UE0q8eZE1b0DwrCeMpGMeB5Xw9PuCdy?=
+ =?iso-8859-1?Q?kwoTwlP8+NRSnBoo275LnhgMlsBRQy1Mpcf3EHrDwfmiNpWra+jSWXVHp/?=
+ =?iso-8859-1?Q?1DxZZI61f6KVNTsWihluHd7i/Sp//QdmeG9eLtJv5qww32OIHA/7CAKAJI?=
+ =?iso-8859-1?Q?Plfe4H+8L8TyhV6J1maVz76zeAdzmFOdnSrWEOz2p9xbBvmw4ti6r/5W6X?=
+ =?iso-8859-1?Q?FfDuNxg+WJb7fqDh/B0iQaUHmzlAYF65RmGeQCAxVgvuNObNces4p448tW?=
+ =?iso-8859-1?Q?Fg6LH1YUG6Ijc6og9ZzAGcGCPlfP+B3VkYh3r5vAByZCCNG+d3v2/C7mYS?=
+ =?iso-8859-1?Q?qsMdUYpdeg2fRXVbvoynDY1iffMCwf3rF5soyks0MFVz?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?h3a3MpsqbOXqVw11xTz/DgIsYO8JYYs+pm6Wu3OO46vSfpnyQGMEgMIckM?=
+ =?iso-8859-1?Q?URP94RGHkfZGphj2iAzNpcbubbFEo5sfEmRm0z9HamBnKwuEVDdArmn+lt?=
+ =?iso-8859-1?Q?3x8MbrHhaIV0Pzqz2nfzeJeBXU+Upp1vqx2Dpnc6fFJN/47Buvfiq3+XQV?=
+ =?iso-8859-1?Q?Ou+M+x8OSVw/uB3dGsRCVifsmm4AhAr5g5BSt9hVMkErow0clyHXK0imtr?=
+ =?iso-8859-1?Q?f7QW4UrdwB4rOrgFi8BRWF95j2cQ6k5/Kep9pe0leEAKv5lVKsszrinrgp?=
+ =?iso-8859-1?Q?5vB3HRywe9c1eDPX9GmoM9JusMZxfZbCPAXHWPtHGB8pJt7PvQvI2BvQFx?=
+ =?iso-8859-1?Q?/SyT5AfhLLgu6Lt+Vewf+s/OMYfjjmM9uFXBVU4CucCEJ+cyNolpIaG0/h?=
+ =?iso-8859-1?Q?RRVobdXZZBQsLA6dvGsw/SyMvFW3DgiKaFPegjbolMuSkP+CfG5Lhz/sTN?=
+ =?iso-8859-1?Q?nmM8XzOsnOwBoYtEV62/Dpz8A0FnWxvofGO40kbXcPAC3tJb9SZ6X/AOMS?=
+ =?iso-8859-1?Q?LWVRJr0UkpG4K/+0TssKaqNvarcb0oxLhlh5XIZHHXgCbpjTCSwTyXVEiS?=
+ =?iso-8859-1?Q?R1Qmqun4ECYQGJ4yI+/1GDIH2tQ50BHDNBi/Gur6vsD3VWsMhlYa//RC+3?=
+ =?iso-8859-1?Q?rN9ja4MGaFkphpbO5uONbDJWgCuX9fj9xWP6h6VZmk43RDDvkAB2JsIQHJ?=
+ =?iso-8859-1?Q?N1Z7kOlwe2YlyltMMZFGcXEEVNw8GfsMrU52BBWQIcIeBmKGt9rEnlZYnE?=
+ =?iso-8859-1?Q?3h+yttZWn156DYad0ZD66hMfmXUBY2rGFeYBniG68P0bw7pPNw8s5L3mJw?=
+ =?iso-8859-1?Q?kFjWbYvCNLRbMFueWNE+2RRSpJpmj9lfJ6vgr8cHE4vY1+Vk0n2H5iaJZs?=
+ =?iso-8859-1?Q?+yyGbFEIHFAL30niIHjpdTVfZxvf4fhGLaMdiu243W+PVdPYr23ECydtMk?=
+ =?iso-8859-1?Q?/Ljswv8lQ8QOXWxmpXjcdJ/CakbyvqiIN5d9uCy5opVJJledMq6PRCVCeN?=
+ =?iso-8859-1?Q?DglIJGo9GvisS5kBprxgNhR0Dl+HA6vnvlYc4xSaLD20ek6qj+mTpStp3I?=
+ =?iso-8859-1?Q?hRnNqN9gvdB8tZWsYpnIsZPlVwSsqg5OTkOJYGg4IScpZ3pVdoRkvlgUOQ?=
+ =?iso-8859-1?Q?6LOqaZtab3WREWACSX/ctTLQAJAwmN43xpkWx4l2QLYaGnWUAIjRObC+YQ?=
+ =?iso-8859-1?Q?/S+ThTHna1aR3zzcqUl6zcuXsvlfHaKrt70hJYL1X+Rt/jNC/fBGMfJy5B?=
+ =?iso-8859-1?Q?V7NKkSwVbzRBs1qxcDztgjreuXtMJ54KMCD8Z9ePHtHcTtGBazQGO4cGgj?=
+ =?iso-8859-1?Q?1flmFpP8j2bTwuGx/3d/1Tbn7OJMvbYOLqKeWunGelvAktXCGTSPtIQ6P7?=
+ =?iso-8859-1?Q?oDjcFClZjS4zC/eGvJ9LF7naaOAGSwwZmEEmTkU9OynHyQQrSHrwNPEVMW?=
+ =?iso-8859-1?Q?dARqrKN9CSDQ2T2R?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13NTW7CMBCG4asgr2s0Hv+z6j0qFvGMU7yBKkEuB
- eXuNVTCoctv5Of1Tcx5KnkWu81NTLmWuZyObbi3jaDDcPzMsnDbAgEdGOUkf0evTJXGOmeczSl
- 7Fu3115THcnmUPvZtH8p8Pk0/j3BV9+tfw2N8NqqSIDUZH5OmMRC8l0s5b+kq7oWKK6WhK2yKL
- Q8qZkcO0qvSXQXQXemmQlaAPjAx8KsyK6VWf5mmBkRPSTHG9E/ZlULsyjZlARP50egUxq6WZfk
- FlYHCU3QBAAA=
-X-Change-ID: 20260416-dw9714v-4566465ebe7d
-To: Alexander Martinz <amartinz@shiftphones.com>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3525; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=5H1QB9WYNnigf90mqDI+c2B6y+uJDPLiS/IlgQY/w5o=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0mEZ8UQ+4RL2AikkjWdXtquhcBnRaJnKgalWS
- QCsqMfRkOGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJhGQAKCRBgAj/E00kg
- cnIUD/4y8iHJrDyCNg70PhzEudvGq7lWcxnCbBywUdLMouQbfTdO6ThVHYyZfoBX2SXYinnPdmF
- vYzOXtV3TAvU81SxwCnSChHYR78yH/WDORFjqHhztCK2e1xbm7ehpRJZKhAoEoXFKWwupdbBtzc
- ctJZ8HT7O8PacF42xqp8C4m/dYikPhSV8zM7dxlHRgi33F0RYfM0RSIcbyfSm09Thp1re1xXjwo
- 3tWndzoabLQF3wgss9KJvis2VU6k914OW1HMd7TZIBIwQjCEVZPYTdlqJnYuTXYy6OMDxZlp3Jn
- Gr3zdNWgQ29+19MAnA4hLsSCwZW7rAdaxlzmQTHStOf+YukWVEkaTBXky+1cyDIsFtgVkfo7pwY
- tIUh1c4BmiZQXnwKLpFYA+F+/E6ParcYIa64R71Nh8qNIVuNF+t6NE/thxXwUQxBYwFFO8hpJOw
- I2+NZdeyR9prM99JzolG9s71CxD36XxJC4OWSQO24Np6B1kut0QzNIq3gjnJhESS+ZME+pbBdRc
- r1wyRMikXYu0AZAAcnwJm3/2eKeZHsB3fObMAg52j7VjYZyzPOGtdtIc7i4vqMDJxMRv//M34a4
- YbtIgHMwUV/eds8BPYrTaKgb7ioe6qS8hhT0wlG7fFxuiGk/FOPiDGPpOvGaYnEAO6/EKwiTVVP
- KU3H6UBrqDBpdnw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-24844.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7388.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2d7c433-8870-4273-a201-08df2bacc8b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 17:42:01.1742
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7781
 
-Implements wiring for:
- - SGM2036 linear regulator used to turn on the focus coils [1]
- - Dongwoon 9714V focus coil used by IMX519 camera sensor [2]
- - Dongwoon 9714V focus coil used by S5K2X7SP camera sensor
-
-[1] https://www.sg-micro.com/rect/assets/efa85993-263c-41aa-9274-b488f59f85d5/SGM2036.pdf
-[2] https://datasheet4u.com/pdf/1247146/DW9714V.pdf
-
-Open question for future work: modeling the I2C bus supply.
-
-Like many similar chips, the DW9714 has a single VDD supply, but its I2C
-lines go through a level shifter to a 1.8V rail, and there is currently no
-place in DT to describe that rail so it gets enabled during I2C access to
-the device. As a stopgap, this series models it as an always-on, see the
-comment in the vreg_lvs1a_1p8 node).
-
-Direction agreed with Rob Herring and Mark Brown on IRC:
-
- - Modeling the level shifter itself is overkill as long as it is just a
-   supply; modeling the connector would come first if needed.
- - Since each side of the shifter has its own supply, the proper solution
-   is a generic 'bus-supply' property valid in both the I2C controller and
-   device nodes.
- - Defining it per-device-schema would ideally use an I2C equivalent of
-   spi-peripheral-props.yaml, which does not exist yet. The pragmatic
-   interim is to define bus-supply in i2c-controller.yaml for both places
-   and add 'bus-supply: true' to schemas that need it now (dw9714),
-   deferring the peripheral-props question until more shared device
-   properties accumulate.
-
-Once bus-supply exists, the regulator-always-on workaround in this DTS can
-be dropped.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v6:
-- Mostly resend, rebased against next-20261016.
-- Link to v5: https://patch.msgid.link/20260822-dw9714v-v5-0-502bc7f43b8f@ixit.cz
-
-Changes in v5:
-- There is secondary rear camera with the same AF. Tested with the
-  camera (not upstreamed yet).
-- Verified the both rear cameras i2c addresses, added comment about it.
-- Link to v4: https://patch.msgid.link/20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz
-
-Changes in v4:
-- Updated DT bindings commit description. (Sakari)
-- Link to v3: https://patch.msgid.link/20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz
-
-Changes in v3:
-- Multiline compatible. (Konrad)
-- Dropped output-low from avdd_cam pinctrl. (Konrad)
-- Then dropped whole sleep pinctrl state, as it's same as default.
-- Reworded the TODO. (Konrad)
-- Dropped camss node. (claude)
-- Moved before cdsp_pas (sort)
-- Dropped unused regulator label.
-- Switched the i2c bus shifter with the regulator VDD, as previously it
-  was incorrectly wired and keep always-on on the i2c bus shifter.
-- Link to v2: https://patch.msgid.link/20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz
-
-Changes in v2:
-- Address Sashiko findings.
-- Link to v1: https://patch.msgid.link/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz
-
----
-David Heidelberg (3):
-      dt-bindings: media: i2c: dongwoon,dw9714: Document DW9714A and V variant
-      arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for main rear camera
-      arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for second rear camera
-
- .../bindings/media/i2c/dongwoon,dw9714.yaml        | 14 +++-
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  | 89 ++++++++++++++++++++++
- 2 files changed, 100 insertions(+), 3 deletions(-)
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20260416-dw9714v-4566465ebe7d
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+Hi Alex,=0A=
+=0A=
+I've only had this problem happen once so far, when I turned on my monitor =
+after it was off for a day.=0A=
+Unfortunately, I don't have a reliable way of reproducing this problem to s=
+ee if your proposed patch fixes the issue.=0A=
+I'm not sure whether this helps, but here's my setup:=0A=
+Ryzen 9 9950X on a X870 board, no dedicated GPU.=0A=
+Using the on-board USB-C output in DP alt-mode to connect my Dell UP2516D, =
+daisy chaining a second display to it.=0A=
+This setup has had a few other amdgpu related issues, for which I submitted=
+ patches, they also appear to be additional guards.=0A=
+=0A=
+- Arthur=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+=0A=
+________________________________________=0A=
+From: Alex Hung <alex.hung@amd.com>=0A=
+Sent: Friday, October 16, 2026 7:39 PM=0A=
+To: Arthur Liberman; amd-gfx@lists.freedesktop.org=0A=
+Cc: dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; harry.we=
+ntland@amd.com; sunpeng.li@amd.com; siqueira@igalia.com; alexander.deucher@=
+amd.com; christian.koenig@amd.com; airlied@gmail.com; simona@ffwll.ch=0A=
+Subject: Re: [PATCH] drm/amd/display: fix NULL deref when opening a closed =
+DDC=0A=
+=0A=
+Hi Arthur,=0A=
+=0A=
+When AUX already holds the DDC, dal_ddc_open() fails with=0A=
+GPIO_RESULT_ALREADY_OPENED, and the HPD path then calls dal_ddc_close()=0A=
+on pins it does not own.=0A=
+=0A=
+Please try whether the following solution fix your KWin issue?=0A=
+=0A=
+=0A=
+diff --git=0A=
+drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
+drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
+index ad1a499b0d9d..1f53b33fc875 100644=0A=
+--- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
++++ drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c=0A=
+@@ -2604,8 +2604,6 @@ bool dp_is_sink_present(struct dc_link *link)=0A=
+=0A=
+        if (dal_ddc_open(ddc, GPIO_MODE_INPUT,=0A=
+                         GPIO_DDC_CONFIG_TYPE_MODE_I2C) !=3D GPIO_RESULT_OK=
+) {=0A=
+-               dal_ddc_close(ddc);=0A=
+-=0A=
+                return present;=0A=
+        }=0A=
+=0A=
+=0A=
+=0A=
+On 10/7/26 11:47, Arthur Liberman wrote:=0A=
+> dal_ddc_open() uses gpio->pin after dal_gpio_service_open() installs=0A=
+> it. Close clears that pointer. HPD sink detection and a KWin atomic=0A=
+> check can both open the same DDC: the check reads DPCD for DSC while=0A=
+> the HPD worker closes the pin. The load of hw_gpio.store.en then=0A=
+> oopses at offset 0x28 and kwin_wayland exits with IRQs disabled.=0A=
+>=0A=
+> If either pin is gone after open, close what this call holds and=0A=
+> return GPIO_RESULT_NULL_HANDLE so the AUX transfer fails instead.=0A=
+> This does not serialize the two threads.=0A=
+>=0A=
+> Cc: stable@vger.kernel.org=0A=
+> Assisted-by: Cursor:xai-grok-4.7=0A=
+> Signed-off-by: Arthur Liberman <arthur_liberman@hotmail.com>=0A=
+> ---=0A=
+>   drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 11 +++++++++++=0A=
+>   1 file changed, 11 insertions(+)=0A=
+>=0A=
+> diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers=
+/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
+> index 95f8b7c7d657..a3145cd82d8b 100644=0A=
+> --- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
+> +++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c=0A=
+> @@ -577,6 +577,17 @@ enum gpio_result dal_ddc_open(=0A=
+>               goto failure;=0A=
+>       }=0A=
+>=0A=
+> +     /*=0A=
+> +      * dal_gpio_service_open() installs gpio->pin, and close clears it.=
+=0A=
+> +      * MST bring-up can AUX-read for DSC while HPD teardown closes the=
+=0A=
+> +      * same DDC. pin is NULL again in that window; do not dereference i=
+t.=0A=
+> +      */=0A=
+> +     if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {=0A=
+> +             dal_gpio_close(ddc->pin_clock);=0A=
+> +             dal_gpio_close(ddc->pin_data);=0A=
+> +             return GPIO_RESULT_NULL_HANDLE;=0A=
+> +     }=0A=
+> +=0A=
+>       /* DDC clock and data pins should belong=0A=
+>        * to the same DDC block id,=0A=
+>        * we use the data pin to set the pad mode. */=0A=
+>=0A=
+> base-commit: 41505ac433cc4c5179deee8860d197b04f6d1c1d=0A=
+=0A=
