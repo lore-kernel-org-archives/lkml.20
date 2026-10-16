@@ -1,246 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11342443E2F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67149213E9C
 	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792135967; cv=none; b=nfFr2dKB+hi92xbOCW1f4SWDL0koNLpqhv5k8dlfIgtv6eeeh+K2jzgQ8rDqthOOohNO21ejHBgECf+TremSt+w/gCvZVhxfGEYa5ODVL0oiNcU/GnafVjxdWiVT3kVU6QdGBpFsFHrZCgfsChkp1+re26Fkjw2vFOu8UHgqQoI=
+	t=1792135970; cv=none; b=Y3gFeNAJoy/YQz1H5WrIDsU/4n6cxZE1G5XWrL2q3pEzJTYq0jF3p9rVaVpiKCN7IHFJw0exGbaRxTEnr0UbBuC918QmOmj42/j6W8VYkHD0LRUTUhs7ADprgjjAioxKFFaLffYxLd1tVxGqPkZ7BR3aiOMc4UVdq6OSAIKurxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792135967; c=relaxed/simple;
-	bh=lSSbo17GwTKi0HPe8dSl3Q7vpbqWzmF8ZCg4N7OVwqc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gp8SrzzLC4qGDEqaMgh3EIIIHLP2GNPRi6I+HI9yTxi91YLFZLvJsAHnx5F742RMxsv2HdNu49W/hsgIEsStdrKZ1Ku1pLuSx/JqqhfJi0YKg9aG5UUWTSIjgQ3ZivczylDR2r7PyVXSLUlX112o7k8sIXbvN0Z30KYF8SKEcVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCTAosZK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792135970; c=relaxed/simple;
+	bh=h4iQMDwculI35BN+CaCK0/O9tu5VYhaUA1qiA1U2urM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WvgeBqRmgwqFItqr1kP3t9GOOAiimIXLLsXLVengkvA7JtMhC1u2DcpuHikGGq3YEEZPfVDT/p3kULQb7+jDtp5hcAOeCtMwwvAfoGUnYbkykNFxh2QH+VJ/87SFvp3KshM0Va0CXb88BAYB+q9ANaJ14IDfazbpZdUR7vj/pTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=R6TDZH4u; arc=none smtp.client-ip=91.218.175.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCTAosZK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB461F000C4;
-	Fri, 16 Oct 2026 07:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792135966;
-	bh=hJ748OJD4EGGOP8kHF6eaGLRYK9VW49NzKuXO/Q9eUk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lCTAosZKSdg049scKKG8AtetjtAIpyzZ6nwZrupbjYxcfOVioq8g38y5aFRulzytn
-	 gMUMjoYreNG/LRSImDxpvF1614I0uwtjrmy9yV7gbotFE9+76L45DNzIAxuALZz9BU
-	 iIZXq4hpkwcfKT+awvTNgwwKnaGB7HcVh7gCDAtn4NiGlyulaXgtXg141cIAaVDAYv
-	 CFwV7gKUQEhp2LljTKw4UPIQOHeGTY38z3uGJAs77yfQfGbtHc+ijai4JtgX4eauvi
-	 2bryf9vJ9tVy2ceTPpn/xpXl4G2J7OFCISgGPoqwqh8C2Tk6DYAcAAxdwmi8/GRmPt
-	 MYPFuO0bPH/Ig==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 16 Oct 2026 09:31:44 +0200
-Subject: [PATCH v5 12/14] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="R6TDZH4u"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h4iQMDwculI35BN+CaCK0/O9tu5VYhaUA1qiA1U2urM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135964; v=1; x=1792740764;
+ b=R6TDZH4ufGC7yzzou84+p5kCxMO2nPvFjhPSm+HcYRnua+1vv7GsfWpqoy/nR9/dkb8UXvz4
+ zmH8asAy08i9x2HXQI1zJmXe6oiaEbSRfV1ki8R4XxiOn7U0H55UyMNFELtaiieEebe9cUyeDTb
+ 2GuidxlumJL9qGToz5WdBc5cgcwAvoFBzyo3lLSh4Kutwfze7q64nWsFIoWtY/Nr1ZpMu46mG5O
+ urxvYPyE8OJklvMEehA2d3jK8Tl2Qp+EGty7kpYUDycFYQrXLTXQrstofDC5BNdjZltBL+S/ZGk
+ g360KnFTY30/WWoJvMBP2pUnp298JRI5DHbm6rm/8m4Uw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 26581679077c411a;
+	Fri, 16 Oct 2026 07:32:44 +0000
+X-Mizu-Trace-ID: 26581679077c411a
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>,
+	Mark Brown <broonie@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/5] arm64: dts: qcom: motorola-dubai: Add sound card with aw88261 speakers
+Date: Fri, 16 Oct 2026 04:31:53 -0300
+Message-ID: <20261016073157.611956-6-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016073157.611956-1-val@packett.cool>
+References: <20261016073157.611956-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-drm-reset-state-flag-v5-12-dad2d64b693b@kernel.org>
-References: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-In-Reply-To: <20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6328; i=mripard@kernel.org;
- h=from:subject:message-id; bh=YlkfrruRPUUGnfBvwlLBJBqXQf46kNIOtByY30vX/Yk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkXLz176mXM5Zib/X6H9+H7LU6TBOb8unvp4If5b7f/M
- F/pODFApWMqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5IoOY8PmZTuYN8bOFzpQ
- EFN65uBsod9b+arVn014UyCi/+T5SqNrvX4n9kottP7KvTjd8cI97RbGhg8Tr7zvndG9/uzLhkk
- qQYsr+TJylzI8ceSeUvf+1OIgy30VJ9Nfai+Y9VA7ffvSeW0ptwA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-From: Sebastian Wick <sebastian.wick@redhat.com>
+Enable the sndcard node with three MultiMedia frontends, a USB offload
+RX link, and two Awinic AW88261 speaker amps on senary MI2S.
 
-Userspace currently has no atomic way to reset all KMS object states
-to their defaults. To bring a display pipeline to a known state, a
-compositor must explicitly set every property on every object, which
-requires tracking which properties exist and what their defaults are.
+While here, use the correct compatible for audiocc for this phone,
+and remove references to power-domains from a 'reserved' node.
 
-Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
-atomic ioctl, fills the commit with default states for all KMS
-objects before applying the properties supplied in the request.
-Properties not explicitly included in the commit remain at their
-defaults (CRTCs inactive, planes disabled, connectors unbound, and
-so on).
-
-The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
-full state reset is incompatible with an async flip.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
-Co-developed-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Val Packett <val@packett.cool>
 ---
- drivers/gpu/drm/drm_atomic.c      |  3 +++
- drivers/gpu/drm/drm_atomic_uapi.c | 18 ++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c       |  3 +++
- include/uapi/drm/drm.h            | 10 ++++++++++
- include/uapi/drm/drm_mode.h       | 14 +++++++++++++-
- 5 files changed, 47 insertions(+), 1 deletion(-)
+ .../qcom/sm7325-motorola-dubai-common.dtsi    | 119 ++++++++++++++++++
+ 1 file changed, 119 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b65116e97e39..871dbd6eb14a 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1611,10 +1611,13 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
-  * the current state.
-  *
-  * Color operations are not checked because they always use
-  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-  *
-+ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
-+ * and as a precondition in drm_atomic_commit_fill_with_defaults().
-+ *
-  * Returns:
-  * True if all objects implement atomic_create_state, false otherwise.
-  */
- bool drm_atomic_implements_create_state(struct drm_device *dev)
- {
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05..237c7ff82352 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1671,10 +1671,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 		drm_dbg_atomic(dev,
- 			       "commit failed: page-flip event requested with test-only commit\n");
- 		return -EINVAL;
- 	}
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
+index 3860ab8508a0..1e1c195de1af 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
+@@ -16,6 +16,8 @@
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
  
-+	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
-+			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
-+		drm_dbg_atomic(dev,
-+			       "commit failed: reset cannot be combined with async flip\n");
-+		return -EINVAL;
-+	}
-+
- 	state = drm_atomic_commit_alloc(dev);
- 	if (!state)
- 		return -ENOMEM;
- 
- 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
-@@ -1686,10 +1693,21 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	copied_objs = 0;
- 	copied_props = 0;
- 	fence_state = NULL;
- 	num_fences = 0;
- 
-+	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-+		if (!drm_atomic_implements_create_state(dev)) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		ret = drm_atomic_commit_fill_with_defaults(state);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	for (i = 0; i < arg->count_objs; i++) {
- 		uint32_t obj_id, count_props;
- 		struct drm_mode_object *obj;
- 
- 		if (get_user(obj_id, objs_ptr + copied_objs)) {
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 0dbf04d4aa9e..e589d93871e2 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -303,10 +303,13 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 		break;
- 	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
- 		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
- 			     dev->mode_config.async_page_flip;
- 		break;
-+	case DRM_CAP_ATOMIC_RESET:
-+		req->value = drm_atomic_implements_create_state(dev);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
- 	return 0;
- }
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index bc7ef7684099..b6e2f2edd122 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -793,10 +793,20 @@ struct drm_gem_change_handle {
-  * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
-  * commits.
-  */
- #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
- 
-+/**
-+ * DRM_CAP_ATOMIC_RESET
-+ *
-+ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
-+ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
-+ * flag to reset all KMS object states to their defaults before applying
-+ * property changes.
-+ */
-+#define DRM_CAP_ATOMIC_RESET	0x16
-+
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
- 	__u64 capability;
- 	__u64 value;
+ #include "sm7325.dtsi"
+ #include "pm7325.dtsi"
+@@ -699,6 +701,40 @@ &gpu_zap_shader {
+ 	firmware-name = "qcom/sm7325/motorola/dubai/a660_zap.mbn";
  };
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index ed1a660a3dfd..32eb3f650d7a 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -1326,10 +1326,21 @@ struct drm_mode_destroy_dumb {
-  * To the best of the driver's knowledge, visual artifacts are guaranteed to
-  * not appear when this flag is not set. Some sinks might display visual
-  * artifacts outside of the driver's control.
-  */
- #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
-+/**
-+ * DRM_MODE_ATOMIC_RESET
-+ *
-+ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
-+ * to their default values before applying the properties in this commit.
-+ * Properties not explicitly included in the commit will remain at their
-+ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
-+ *
-+ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
-+ */
-+#define DRM_MODE_ATOMIC_RESET 0x0800
  
- /**
-  * DRM_MODE_ATOMIC_FLAGS
-  *
-  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
-@@ -1338,11 +1349,12 @@ struct drm_mode_destroy_dumb {
- #define DRM_MODE_ATOMIC_FLAGS (\
- 		DRM_MODE_PAGE_FLIP_EVENT |\
- 		DRM_MODE_PAGE_FLIP_ASYNC |\
- 		DRM_MODE_ATOMIC_TEST_ONLY |\
- 		DRM_MODE_ATOMIC_NONBLOCK |\
--		DRM_MODE_ATOMIC_ALLOW_MODESET)
-+		DRM_MODE_ATOMIC_ALLOW_MODESET |\
-+		DRM_MODE_ATOMIC_RESET)
++&i2c1 {
++	clock-frequency = <100000>;
++
++	status = "okay";
++
++	/* Bottom speaker */
++	aw88261_r: audio-codec@34 {
++		compatible = "awinic,aw88261";
++		reg = <0x34>;
++
++		dvdd-supply = <&vreg_l18b_1p8>;
++		sound-name-prefix = "Amplifier R";
++		firmware-name = "qcom/sm7325/motorola/dubai/aw88261_acf.bin";
++
++		awinic,audio-channel = <0>;
++
++		#sound-dai-cells = <0>;
++	};
++
++	/* Top speaker / ear speaker */
++	aw88261_l: audio-codec@35 {
++		compatible = "awinic,aw88261";
++		reg = <0x35>;
++
++		dvdd-supply = <&vreg_l18b_1p8>;
++		sound-name-prefix = "Amplifier L";
++		firmware-name = "qcom/sm7325/motorola/dubai/aw88261_acf.bin";
++
++		awinic,audio-channel = <1>;
++
++		#sound-dai-cells = <0>;
++	};
++};
++
+ &i2c4 {
+ 	clock-frequency = <100000>;
  
- struct drm_mode_atomic {
- 	__u32 flags;
- 	__u32 count_objs;
- 	__u64 objs_ptr;
-
+@@ -732,6 +768,11 @@ &ipa {
+ 	status = "okay";
+ };
+ 
++&lpass_audiocc {
++	compatible = "qcom,qcm6490-lpassaudiocc";
++	/delete-property/ power-domains;
++};
++
+ &pm7250b_adc {
+ 	channel@4e {
+ 		reg = <ADC5_AMUX_THM2_100K_PU>;
+@@ -972,10 +1013,22 @@ &pon_resin {
+ 	status = "okay";
+ };
+ 
++&q6afedai {
++	dai@147 {
++		reg = <SENARY_MI2S_RX>;
++		qcom,sd-lines = <0>;
++	};
++};
++
+ &qfprom {
+ 	vcc-supply = <&vdd_qfprom>;
+ };
+ 
++&qup_i2c1_data_clk {
++	drive-strength = <2>;
++	bias-pull-up;
++};
++
+ &qup_spi13_cs {
+ 	drive-strength = <6>;
+ 	bias-pull-down;
+@@ -1066,6 +1119,72 @@ &rmtfs_mem {
+ 		    <QCOM_SCM_VMID_NAV>;
+ };
+ 
++&sound {
++	compatible = "motorola,dubai-sndcard";
++	model = "Motorola-dubai";
++
++	pinctrl-0 = <&lpass_i2s2_active>;
++	pinctrl-1 = <&lpass_i2s2_sleep>;
++	pinctrl-names = "default",
++			"sleep";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	mm2-dai-link {
++		link-name = "MultiMedia2";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA2>;
++		};
++	};
++
++	mm3-dai-link {
++		link-name = "MultiMedia3";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA3>;
++		};
++	};
++
++	i2s-dai-link {
++		link-name = "Senary MI2S Playback";
++
++		codec {
++			sound-dai = <&aw88261_l>, <&aw88261_r>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai SENARY_MI2S_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++
++	usb-dai-link {
++		link-name = "USB Playback";
++
++		codec {
++			sound-dai = <&q6usbdai USB_RX>;
++		};
++
++		cpu {
++			sound-dai = <&q6afedai USB_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++	};
++};
++
+ &spi13 {
+ 	status = "okay";
+ 
 -- 
 2.55.0
 
