@@ -1,211 +1,112 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011005.outbound.protection.outlook.com [52.101.57.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E003BF68F
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792189373; cv=fail; b=oerpwMXnV+1UtZECpC1mZIbtsCwJstXlpSUnvtPaSEz807E55n55VLU56Obt4maNPzrszh5rb/kcSPF7bdLCKu+8rWIcUIpcxlDNohvO9exF9SI/q/A9UoGkDdvexkT2eCiGAsNQnYC6sO30WSZxtI4kCJ0tNjILNjvMzsmgbe4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792189373; c=relaxed/simple;
-	bh=Es/z4QJruhyZvdUQvjSMtOAJ+KMFfQ0JP+SIi+NgzQ4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FZs6fowlL88suKzHSKVK/XXwHikWzVi7/bZnSxD9xjpFYTgRsIQTnb/Wx6ZdhEXD4yOce4Xhr0XZ0WyO2KInhBo2Wb3k4lJcrxo1UMPC/HP6kdPt54d5rGJU7a6Ba/gXV0p1YSbY8Hdy3aEBFzTfcNV0N4mb6tSgFNoHzZWqXxw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jGX7W0nq; arc=fail smtp.client-ip=52.101.57.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C09448382
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:25:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792189521; cv=none; b=klXZ77CxOjv4F11tXpTCj6AqISHBEGIYVfPxf2+18PUwi7vLiqPmNKJtXZRMrQoVcpaFKtDnwVXRUYfLVAVbZt4BR6P5+WCWptQSaLBBKk1+DT0+k0S3sZs15PjFf6bSjquFZ1Oueir2tqL8KKnzILWRBw7R+xd7C3Qt/tUWSy4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792189521; c=relaxed/simple;
+	bh=wr8nKQRVMvFmNlpalpzhVjt9cczrfUGnQQrpEM2oFRo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gSrmsjuA1gOocAERW9yZU7ISsbszKlEUs5dXYe9c7y7WEoMDgPfUPF/Nc2h3u7Kvu/3hC5TWMlzSw/RPVVOPamDK1zvcacnBexaf35UEYqCTdewtKzRvUenrk0b1lJkNepj6ID35ePIDvPJGjq+tFEbVuEPvpj0XowL4+RGTqRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qr2hZr1W; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jGX7W0nq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xN9KGG4LIuaK7FJD97A1VyCAlfZqi+fmHb2PDt0Edff3WLoPQOlZpB/cCsMmfXWiPI9ifrO+no4YUZHW77QhzW3yKfw/jtbdbosZYnmETkead3MJlHhHBNnH+62EPilTgk++xr3ehWJTPl9PEh+rHRBGv2SS0bC8cZ+euawMmDeH8NYLdwH3bLX1KJqfAJTyyaWoN2ei3BGtc8hctaC24to031lpSqPrfZeBFqSGtimIcGtC1uDdahUwZDVMcjQkAGiJuoULgZCxhkTwlhX7qyzv0bg822G+tU6Qo6USqRwjyakLYTbsbsYmrfvbjnMkEbldczHSv1KoRNkj7cmCAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PuPsrGYyPDgitny67OH4/4EX74lW9uRDtyOwoVgc/bA=;
- b=YML6viBwQyMjCrxOqCTEf+GoFggGzoSjwkkHO9HeQZUxBYtsk8b1l+FIoWt/ZdQPoRb92lyfig4TTvfRb+XG8+2rtKwzvRccDk3mMwDCN6I7M/kgP7s1X48JzhUKecGVJF70qKe2xIMJdnBvAGI1NhJ4tc+NJGLdDo3rQN0IOiBXxgjhLs98Kr4yUtYKH3jieIg7Qpqq+8G7Kj4Wy3B5TCUfGloARgasjnTO1hLe82Lm+xC5zx58rdJpaX1T+s32L1oYUMJ7YaVpWWyuet+vNZPUuSSlEp7gEXPOIQrTrZ1KTHo34R4TGeu0Xr9utI0YZTICaux3tfoMVd7OuI2Zxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PuPsrGYyPDgitny67OH4/4EX74lW9uRDtyOwoVgc/bA=;
- b=jGX7W0nq4KdUFG+h0lfM9i6XoTlqP0gjTBX2Ff0BVeGH1ZTONUneBAXUVDRYHJ7cqh8jL9vl509oT86X3YEkekEbrr/7WlNVI5+b5BdXBruiOyUFIU6mdWN0vi/zS6U6gkEf17rSVGARWHa/CT4A50cGranp5MjC6WbzFxHwnRY=
-Received: from DSWPR12MB999127.namprd12.prod.outlook.com (2603:10b6:8:36c::7)
- by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
- 2026 22:22:47 +0000
-Received: from DSWPR12MB999127.namprd12.prod.outlook.com
- ([fe80::54e1:5b6e:4c39:d7b2]) by DSWPR12MB999127.namprd12.prod.outlook.com
- ([fe80::54e1:5b6e:4c39:d7b2%5]) with mapi id 15.21.0522.016; Fri, 16 Oct 2026
- 22:22:46 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: Keita Morisaki <kmta1236@gmail.com>, "Zheng, Austin"
-	<Austin.Zheng@amd.com>, "Lei, Jun" <Jun.Lei@amd.com>, "Wentland, Harry"
-	<Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>
-CC: Rodrigo Siqueira <siqueira@igalia.com>, "Koenig, Christian"
-	<Christian.Koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
-	<amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate
- control
-Thread-Topic: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate
- control
-Thread-Index: AQHdSzD9l0gm6vSB7ke8TQ8uIq7iRLcA4Jag
-Date: Fri, 16 Oct 2026 22:22:46 +0000
-Message-ID:
- <DSWPR12MB999127DAEC0E7657E3B3134151899B2@DSWPR12MB999127.namprd12.prod.outlook.com>
-References: <20260923022451.3346675-1-kmta1236@gmail.com>
-In-Reply-To: <20260923022451.3346675-1-kmta1236@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-16T22:13:03.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DSWPR12MB999127:EE_|CY5PR12MB6057:EE_
-x-ms-office365-filtering-correlation-id: 6669331e-6e45-471d-d6a6-08df2bd40126
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|261009223027099003|6133799003|22082099003|18002099003|10067099003|921020|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info:
- j9z8FRsab87xjGLAIhlFpcW2AtKXd87tdHfRuY94KTSN2GBbtedhv77X5cbZp29Xc62OSu/F+HtzOBdb+orCxJDsJTGHyDZSWllQhF9VEWFT2iQiVkDyG6fN5qxbH28/fvroPXHmhbHZSQu3mxgeKwGosHx6pEuMw7QvgHmZM0NMoaeNOr/Qy6RuOFbkxgjvnVgazKjAArJpvZnF8PWxbCSYDvw58Ke5RKVNcaA//bzVoX9e14Ou7Z5KlwovNIPkV/XE4kavgguJ2aPPtCHXt6P4g4ZKv5z3wyC5Fh4RqlloPfuTEOlA4p3tZaEGwrSpjttK4T9AmEP0G3EN3U3VuDSNWi4gvRJcM+ZvTS8h9LDdcxEq0iqOGjgs9hO4xMZyZjlgLTsXxTIVbHkyHterFweZGQXZ9/pMBdlnHfdWgZIogLgzYtvSRUcJFCDP2AMNnhKivuNrQP4oZ3Hj446pA5EKj2c7oGGMrWCvqCXgCx4p8iaYMhkhB96oe5Aa/sSXe6MgYQgjmKw0/ML3y3IDDlcfCP1vI4fHtPmSo0m+ShBr+lx1cuQ2vxwpen/IXcuTrBAnWChkb1sBYALcp9H1ks6YpDZ/Y+78Oa7S9G+k0EiNZGdwjfWIfhL3veoOb6Au1m4ENlf+HsHEfY8FKKWVYJkzrDQdkthztN/3wgqmuyY3qV+MUiSPztZKUjKPOuG2tPlZVWGxta3pUjEGHrzUiwcFSBDdCNoQ7ofI8Cdwgnlcn03xZIcDb1Qv8gFv5lqR
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSWPR12MB999127.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(261009223027099003)(6133799003)(22082099003)(18002099003)(10067099003)(921020)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ZlEEZF+0e2scKVhQCeKYg1P1ZwknxgKeXLvGLye46THcg0mhWgtL31baNHdf?=
- =?us-ascii?Q?tvkDCAoEMdn6CQu2R62In6OOCqDbWGqaOgUAgptPDJxwF4Wyu/kmz9DPOVk1?=
- =?us-ascii?Q?o7Y6NeDvpLNYpgRTGv0EbEz/mEO79aJlOmlp8c1RvP89errT5B7cNF5H0Ejf?=
- =?us-ascii?Q?VXGCLBnnQsgmvzSyhH3m6gQrdyO7HOdSpUVHegyiWFXEeIm95it5ltUVORKg?=
- =?us-ascii?Q?UGsnv8HOuZFjxTIdqsrOc9RfmhNncLzgnz8H7ZbAz3ZNR055gjc8wZP/eviz?=
- =?us-ascii?Q?naiDG7J5czVj8ih9xhq66wW5KCKzFU1Y/ZStneMCBhcczyZYXVH6mk+G/bxI?=
- =?us-ascii?Q?5RiAp5jIZGzO1WX/LwnOcZH4ByKRZmf1kojjmtI/fe10ABss7huqcIep1G2F?=
- =?us-ascii?Q?UffMMyXGAFGpOQ9YxCK1LveAT5g/nJ8gXOhZxxfllddx9eyWVUCHJOvWpbnT?=
- =?us-ascii?Q?jQ9L3JThuPuPUrlfCisKBnHzxkuJNzfpFs90IB36VmOUCyCtpRnDblQ9pgNs?=
- =?us-ascii?Q?EKalgu9FUElMu1UI0PDGLfAqjCdTaM4kRSi1arPHNdH3D3ebhXZnydXBxFd+?=
- =?us-ascii?Q?3aQOLyf14aNTszkXkK2hvP7HW0FviQMLIx8wsDZXbzl/+Zro7KWUiqX1fexe?=
- =?us-ascii?Q?BlqEQ0Dgr+lsiZVzfF8rbRCnpjDRIBsUjtIHd/JpVDHYx8Hf635AT3Fe0tPn?=
- =?us-ascii?Q?Frsk7oG0VDNRJrfwpU+mREWGTLlrXDaO9iK7HTwyGbtTOZHAdBs+RtPRQ0//?=
- =?us-ascii?Q?bW2OYYVzawb034UE529hYc7TUPMsC7lJ0cQZwSjtGoGch59vdn6Pbaiso8df?=
- =?us-ascii?Q?bdvBPXeQ6X5OYrrUoJpyTyMQE3yqlrkmAGxuca8LQxuGiCpDvoe9ewUHQpAT?=
- =?us-ascii?Q?gPRc0Kn/U99KbnfNIgLfaJ1cJY6si+IpC5mbQZv3sCNPBxtavkBKiTbJbP0m?=
- =?us-ascii?Q?AcWYGS1lDW6ebXxt4a/1uIYfHBOasJkAaZ4XOQXCrat7b+r1KJj4g0B6DZXm?=
- =?us-ascii?Q?L5N/abML+WM9a+j/bpS0lfYxbn3lidvu+ZokH8daxCOMOySlTobF7yQ+zGN7?=
- =?us-ascii?Q?OFEDrW1mnEQbv0poSvfGsFlAmRo6WpHiSW4pu/17OUw37rjwPY9lv+i2q5Cs?=
- =?us-ascii?Q?LDybEjntbjEqWcmOkYG6FiSgtn138prbAhVNHJDDQ9u9oQ7LDcaBqN5Jnjao?=
- =?us-ascii?Q?9Y138N18V7pezRvaHalaIevH/idKrmEcxL36PdmA3+csOCCdCozk4MfeRS6b?=
- =?us-ascii?Q?W7w89Y5WFe9Y8/c8KAK8XYiexQpS52Nc9S/5AXt4qfgCSeoH6f5qxetaHVsF?=
- =?us-ascii?Q?k13GKG5Tp8fX6erCKKqsl/c6qjn9CktSmJSosd2dOzrWi9HQ0ru1VGFGtNzp?=
- =?us-ascii?Q?HBwB/dkncBBRWkSEeH9Jfmi9bxG7ECPjumrMVPVpwswIihNErfRmIB92Yj7I?=
- =?us-ascii?Q?VofScOj3T+VQpE77aRO3GIUpO4qfqfK+mlHx+7EVSXDVcAysRVQB5Irxblg7?=
- =?us-ascii?Q?GbXj6I2/xyU1HZNKo2GsPh9UY4ad3+Ef0IBUDOX3XLLChK/zmOc2wOE1TzDR?=
- =?us-ascii?Q?IawwF6CejbYlv5tjsW/PcE6Fhxh5c3ZJINeDFxGVRVmfhn9ebAayJQJvRkIJ?=
- =?us-ascii?Q?Pq3HrLWLEZEEdpvyCWOyvQ4ACJ2oRo777wbOZI8D/h8NYnaAk43it4kAxlFm?=
- =?us-ascii?Q?JPoseI1MGIN4lnzMpQDqLnXTMhHDlrXXZc8aZzLQHT2RGaqI?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qr2hZr1W"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so3816795e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 15:25:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792189518; x=1792794318; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H0gV+4463GGhxnl9k0VDkO8zdfsUzpizNELkAcN9qFo=;
+        b=qr2hZr1WF/DP6wPL+hw+wF0r2KgciwrvMX7JpoPPRXhlBza/77KO0U0AIrQ2chLOzb
+         3/H/vTbhphBptrxbdoPTCjNWJeeC+7u/bYIzk/2UvpRr4gXvFBgxhxqQ2gRI+jY2WW1A
+         QN9VstdCGxjKclFme4TEqoCpskxWZprwcR9Vh0BZF3WH+65w8Wyd2py3EWqWyPYtNGWg
+         a1IjF4D5qj4XNjwsB/SKv5eqa1HN5j2BIyEz+zrEclGwxH220N8R9V4BGvbWedkjY1JB
+         LZ8wITZ9FjYNgp8McKJyuhWJz2ep3xSr0BFmXGVn4B5nR3cOoUvqJEOs3scFS/WJBqIx
+         ePWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792189518; x=1792794318;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H0gV+4463GGhxnl9k0VDkO8zdfsUzpizNELkAcN9qFo=;
+        b=OpOUb/qdlFOVJF63WWjYXrYie3LJyMEsfR/VzeSMEBfUYbU2PD+EPvWw7tJezenU3q
+         mO18x2tupLyR8CrYfW+7xUMskBcbOLAJUtkLnms+bwnVJx6vvWhqgkeKf4TSV0wT5vPM
+         9UQCis2o6xUCDJi5rDqTnXtt22jR6RqLuxfYrnSliReRqR3Tzu1IV4T4vYh63hFGvl3h
+         TncJQ+viA0Ph/VxqB+/m6b+ydvcQp0Sw3Idw8gh9LSfk9CXzyN2kyIb2e+rIzwSrh5Fk
+         2jOok+v4t+2hYHP2PpsdHGx5aHCHcLkVBLb76/lGYIGgWw9whnvCLwRu0gNQQ9MW13VN
+         iW9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwVmi1XOpaCKF2Ewld5TF5dngJB5H53JiPbdrjEN4TIFpxzFoI515YB1mcqCAIFT1PYJtQuzMGmYcn8WSU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfrIfybnmDz1jqct4bilciFeoR01FKTH76cn95jRXm/SW/MMwa
+	ZNmr9sJCb7v5ivClr0a+5Xhj3Pg8Czcm1Kp0XtKfv5A3riO6q/4I8frE
+X-Gm-Gg: AYBFou0CNmq2xUrGEXBGH5vSB47UuCQ2CL+MdPUERNmHqfSmQzdU7+m/q0EFDdZQoQH
+	myoSV3D1q7vZwtL9nGaOIK5Qpzyx3CXHMhG6kTXpemvOpck3YdeKpQfl6bfvuHOFVZN4J7XW/gr
+	iaZlweseGy8b9T98pmfDG/7ZfuLEsvJTdJY7GMPJZxTVfwpwmLg4lsz5UOeYT/GnFiaFO8k28Lc
+	Pe8oXA3ln+3q2Chxn81Ygqj261XJ5A+b1u6I9pZmBzTGCP25893J4riDrFj5LpcDqYaKO3aILDa
+	wm1u1+Ki4IEiHNQPFbfWKB6EkuHEaK88OjyGxvhXBXpjKHhiqpRUTyDqkKiaDG+D5HpRqDduv56
+	kJg8FFSiUqnn2kvdDqbFjbrYoX/M7mmx8guPkNCPGuDurVkhhJCuSXxf6mLnz5RCrCcQvqU2gOX
+	c7K87QfS2aWfcJ7y785HdNljFp4Nx1C2aGUHhfSRiBelZOrjAJM6Z7k7cpMnzae2IfYZoxkURBC
+	l6gFcmUcB09P3kPbzaM0kVGWZVq4WYqN0cyY/4460Ium42K6EY17iW3LZklN9TeTP8ZHa1r
+X-Received: by 2002:a05:600c:e54a:10b0:4a1:a475:d885 with SMTP id 5b1f17b1804b1-4a1d7634d26mr15613985e9.34.1792189517741;
+        Fri, 16 Oct 2026 15:25:17 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4feb6bsm8149752f8f.41.2026.10.16.15.25.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 15:25:16 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Sergey Lebedev <lsa.uz@pm.me>,
+	Bryan O'Donoghue <bod@kernel.org>
+Cc: Andre Gilerson <andre.gilerson@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/2] media: i2c: imx681: Add C-PHY support
+Date: Fri, 16 Oct 2026 23:25:13 +0100
+Message-ID: <20261016222513.23355-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016211450.62994-1-lsa.uz@pm.me>
+References: <20261015-imx681-x1e-v1-0-fd22f5f3b0c5@gmail.com> <20261015-imx681-x1e-v1-2-fd22f5f3b0c5@gmail.com> <11f1a19d-7d57-497f-826e-901f9f88b99b@kernel.org> <20261016160853.193378-1-geocausa@gmail.com> <20261016211450.62994-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DSWPR12MB999127.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6669331e-6e45-471d-d6a6-08df2bd40126
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2026 22:22:46.1907
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gxGEyKYguARejBaZFOd9G1hGs0RacIRN7SV058nAAu/zPQB6+ZYOhmI6qYwkRpk4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
+Content-Transfer-Encoding: 8bit
 
-Public
+Hi Sergey,
 
-Reviewed-by: Roman Li <roman.li@amd.com>
+On 16/10/2026 22:14, Sergey Lebedev wrote:
+> Either way it does not show C-PHY here; your reading on the Snapdragon
+> model will tell whether the two differ.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Keita
-> Morisaki
-> Sent: Tuesday, September 22, 2026 10:25 PM
-> To: Zheng, Austin <Austin.Zheng@amd.com>; Lei, Jun <Jun.Lei@amd.com>;
-> Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Cc: Rodrigo Siqueira <siqueira@igalia.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vett=
-er
-> <simona@ffwll.ch>; amd-gfx@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Keita Morisaki
-> <kmta1236@gmail.com>
-> Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate cont=
-rol
->
-> [Some people who received this message don't often get email from
-> kmta1236@gmail.com. Learn why this is important at
-> https://aka.ms/LearnAboutSenderIdentification ]
->
-> median3() is meant to return the median of three values, but its last com=
-pare-and-
-> swap step swaps b and c instead of a and b. When c is smaller than both a=
- and b, it
-> returns max(a, b) instead of min(a, b).
-> For example, median3(2, 3, 1) returns 3 instead of 2.
->
-> _do_calc_rc_params() always passes 0 as the first argument, and the secon=
-d
-> argument is never below 12. So whenever the third argument is negative,
-> first_line_bpg_offset (and second_line_bpg_offset for 4:2:0) is set to th=
-e second
-> argument instead of 0.
->
-> Fix this by swapping a and b in the last step, as intended.
->
-> Note that this change does not affect valid DSC configurations. The third=
- argument
-> is negative only when bits per pixel exceeds the uncompressed rate of the=
- colour
-> format:
->
->  - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
->
->  - 2 * bpc for 4:2:2
->
->  - 1.5 * bpc for 4:2:0
->
-> Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-> Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> index b8fc27a5361e..657173d8081c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-> @@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
->         if (b > c)
->                 swap(b, c);
->         if (a > b)
-> -               swap(b, c);
-> +               swap(a, b);
->
->         return b;
->  }
->
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> --
-> 2.43.0
+They do not. Read on the Snapdragon model while the sensor streamed
+3844x2640 at 30 fps over one C-PHY trio (linux-next with the PHY
+series):
 
+  0x0016/0x0017 = 0x06 0x81 (model 0x0681)
+  0x0111 = 0x03   (CSI_SIGNALING_MODE, as written)
+  0x0114 = 0x00   (CSI_LANE_MODE, as written)
+  0x1600 = 0xff, 0x1601 = 0x03, 0x1602 = 0x04, 0x1603 = 0x01
+
+So 0x1602 reports D-PHY only even while the part is transmitting C-PHY,
+the same values as on the Intel model. The capability block cannot
+confirm the mode on this sensor either way, so I will leave it out of
+the evidence in the commit message and say why.
+
+Thanks for reading it on your side.
+
+George
