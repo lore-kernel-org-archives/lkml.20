@@ -1,238 +1,131 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0E4339375
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157692FDC20
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119395; cv=none; b=F2fbpvWypgvsq6rqP6d1DFZ1VT0SB1+CsseO1yBnxr//x0htTXD+hLUdmUA4AFPyCFc0FNhIemf/lmcj4NYXxPhTwiea2Mge7AJKgojvpyLR1LcekvpTqa1zEvby06TmYMx+lKQLqKZhGk7dKPPBkBl1wXJ+GMXNkb9GTvWgWok=
+	t=1792119405; cv=none; b=M6qOn0F205Ic05s+cXsumm0Jtwhkdi7lVy5rmVI3pPwNlX4oKb7ne0aDbcsMOp2TrcFO6OMWUX+6jMIHF9l2HiD1LWcay7U3f4sz4d7kD2El0ll818GaISYjXzHJzU1QVzVqFX4L8QlZ1nmzFGO9dQfM1Jtz69m50o+0wU4gRBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119395; c=relaxed/simple;
-	bh=ly9Gp1edPrykZwMrtTjoN923qXipFzVP+nvyEDSatSw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hmA35Yf0M+0oCBwo48D+E/Qu3a+qD7JbsOPnIX6GL9Fkj/jMZKsb0/wNERlJnRDYtBYa5Mh2dk9yIpLGt609k+Pfft29VMoNcUZXYmxvuxK946HiHxWHi1AiYg1zPTWAwa7rwVe7M2x3Yaofz4RsMv1jbc2bv9fVlAHihG1s7RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bc1vbril; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792119405; c=relaxed/simple;
+	bh=mtxB1OwQH2CyH4ORbA6Epab3sPneNPWVVjItMLtc0ps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BX+MRtjXAZfWST54pT2Uc1pgoKejAzw21ftFMrnGOy9mFDygKsxis5uR2FSXAEmgyOc/f0DTJV29o6C+oNmc+9POk3rUcoVLFHx3IfCKv14asb+1n7XW8ZWP7NsoPhAUmAdurSODv8Ex/nw2fBFi6n3592fP7/f7+fJW0M0F2+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=LU4rTv8f; arc=none smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bc1vbril"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so2717837a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:56:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="LU4rTv8f"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-49e1251674cso880327fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 19:56:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792119393; x=1792724193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YBCbS2lucYXeU4DN4VBsPd4Qhjg270QLVoP9SuEmw6w=;
-        b=bc1vbrilynUwrpnwHhAOjwbc6ov+/8dohY9r/UYwxeELQhlJyWtoV70fxOGtyf6hwE
-         KJa7k3xIFj8ovIfOgLaVDsTqUCQQcjY9qmtjxWImkFinp9N4nslBYC9dnyaFwxgmQlSK
-         SpftShmeta+hoKIY9NMwTZ3vDH6oD1eQmTglGC+/DrJ4VA6z3iMSmTRC1vY3R4qBe2FL
-         AJ4BAXtSrws1TxGHS4ZJAc46HKJPjl03Mt/b6AIYorZUGN36RvpHeRItLEHf5ExlFGnK
-         bsUoqV05FkZ4+1VYt9kBnzxUqIgpYYc+TTroO9uFvESc3ZbwniUFg2zIMd8idpBz7ZIj
-         tC+Q==
+        d=openai.com; s=google; t=1792119403; x=1792724203; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KoU7NlRc2WHo1VRPn8/Lg64nT3xPfPjPfg5kvwFTx1I=;
+        b=LU4rTv8fYJHDgSUUXQfyb9ZSq742mZu40njPSSAk5QJ2dhCOVui20sLPixqnc8IKUu
+         4MxYX4UIILmKWvpk9pJjEdEyiX5it9nFlhMmYBzGmzzquj7Cxd45y0yec0jGgjwycsbU
+         ukVksPfsUx710HybB2vjUp2VIcXMlt2FJkNF8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792119393; x=1792724193;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YBCbS2lucYXeU4DN4VBsPd4Qhjg270QLVoP9SuEmw6w=;
-        b=rm+A56n+JI6o3Hvw4SGFneHjtJAO2jNiwqVMv0DDRIwAMnsm+gchAob7Y3fMwuvPZ3
-         bCKiKYO8eUO7x18/m1Lgyo+87W9VaoOytsiufxVCAhh2OuyAL9sZgj1nOxh2FDp4qUPj
-         0k45YHo8lnHrLWnBhrJL2kUdQ4Wr27Yn3+XKXkAICvkkXEOfP0p600ZbvgDIwDEsvIPc
-         sFGDJVOoCqB9dH96Nh0XYc0x9eJ7Zjufrr9N/2YlNMXDY0XPGlY6pLpq+XNVS/ldg4Fr
-         8bc+HYs6l5lFAqE838E3uQLlvn8EBToOl+OWZdGfulhh7IcZwIwGuRRStuQXYI308Aiv
-         Y22w==
-X-Forwarded-Encrypted: i=1; AKwUvBzu07F0TSTbyy5NBrLAqXI1AGyJSTNwP1BodqZlPvoJsuYi6cn8LOgWL3BDXveumnA8Ns3naV24TZ8G6WM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK173NkWnp4wucUgvXrKrAwnXq3wD07PFD/QO2HDmkEMxKBLaF5
-	5mHyVZlu7cn0nmDqCwN6lw540MYRTeW0mZrMum8j2RRfgOR6JdNDhMO8
-X-Gm-Gg: AYBFou2Tu3oKwpL+jLDkyX5nJf++lmtvc43mB5IY2W8Rzm6njL7f0lTxgIq3CgVDBxu
-	nah/3oyaFR6M32CBaRt/KR5RaWeXCUu8qQ+HI5fSnQRIZ8kB+qfdMwjuw0Ac73iQ3BwzXrRLFBj
-	a3cPXFS9GtaP2PLSzkC1OYvS0y+ZQTuJ5o3QNFzqmFSP4+daozV/JiuwwtL/E9JyjzGrJRvyYsF
-	u03lPEtJTxrCJ6IFeNd/ZKgbf0LN65O4TRvt7+ZHPaYN/D3zvvxemkskReMR2gx2SBC8nCjebip
-	3rPsowNLv3cIqweysFuKURwWHsbhYrzsRMoZvoXHC3QfvvEVO1Q3AWjEFR6ME2RioUyCaKPJb8F
-	YLMO5su0mpjAVh2zhEZjhRxDlNTaG8DWBm8BBED22ejtXOtq1iJgGoRbeZbazDWD3mVTIlx/GAG
-	RzdCak6NOxQV2NVFij3U/LJnFBQ3JmYJh0lWVnJr9h9KjhEkCkdYCM/XUb5o27QGMDlReRx0PPi
-	CB+29q8euxJLw==
-X-Received: by 2002:a17:90b:4d0f:b0:3ac:97e3:73a3 with SMTP id 98e67ed59e1d1-3ac97e3ca4bmr3748539a91.6.1792119393174;
-        Thu, 15 Oct 2026 19:56:33 -0700 (PDT)
-Received: from arm-a100.. ([140.112.28.118])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1e1esm1917554a91.1.2026.10.15.19.56.30
+        d=1e100.net; s=20260707; t=1792119403; x=1792724203;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KoU7NlRc2WHo1VRPn8/Lg64nT3xPfPjPfg5kvwFTx1I=;
+        b=tyjAbE/qRR8x0qqztEsjZCpLV3zEC6Dp6LP5y2m6PhBvLWq05V/5oQumFGr5vOxwER
+         rKTgTG8OkCytFyC/htGiJnP5vDQVivheURn58eZpIQ0CBrgsc2sJfg5VwtDIozwJVVUl
+         dwhYLzbCOqT3VEfbRXFjTpndn+x1VbCx5b7LUwQToxVyXUPt+zaeAnTQ2TsZASY8J4x6
+         szm4/uLfxHBkLRW7gMlayBY1n1aIX26eyG7mb9z+NvpKgyTGSs/QfDL0HajrgjMTIOFa
+         xqwrfvfJ1byWnFkREl6O8N+WWRqBh/WOFiVO6zeDeZ/NYJcjhVX0DhOsbjnK5ph627AI
+         IW4g==
+X-Forwarded-Encrypted: i=1; AKwUvByA6V2/WOaJK/ATx6TmGOo8CL41k3CQw64SJt66ug+Vdz9Hpy1ysNX2f0DED1CksRc0+znTQUhn9iWDV1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbZrBVa0hHIL0Yfapn65xCu9K3rNzsrUbjKmMELEvXxOG+vGo5
+	FEPtgYSOBP2Hy5kqa3oBlCZXPX1f9OcP11JkAQ5MaLnRAvH/me9qJJTUqlv9bRs4lMo=
+X-Gm-Gg: AYBFou3Kh7YHBlEa+yhNaC5Eosv0Z1vgdggxLUIJiniEzkn+ku1rVR/imsW4/Ai9LoP
+	xWWNYcSM1BbTX5rvn0wHnF0k8q5gud4F6L/h49N9iGpBJyZfBx1JR/2HfjNhdzmTRznoVW92NFJ
+	EqRQM1GXRjlYYfkhD0H0FOytG6JdyRYtKT6IyN7cNDYXr5UejdhcED75azN2DzzY4OUs6V5aknS
+	oo92yQ4DhigqMzMjxCWYtx+PrDGVmio3c0gX7mbErtYZLfCTSmJ8NvJyjNeCnfprdGoNWrk1ev4
+	kqhiYtt5IiB4Q8/9fb3wieRXIMzOEaktS+lHjOgMXCSBvGmQgtyCYm8b3RE3vEtWAshmBUXvNAJ
+	1MSKCXbJIXdMTPYUM5+X6OO1pLBQDmSlmBSYOXdmGRCR50PkzDFaWl4SVPekAwkJCEyN4q7BziE
+	i7scdrVC0fFvCF/4gLUxYihe+Ooob7XCgCw1Ec3g2EiZuOpqfHqupllxKFaiy1whKS7GaWD4Gjt
+	b4x3Y0+y04FcDVOVP56Lsfz4uUvgssRQjQ9fBY2jTTebodHjC2v+P3mcrTHh27tRQGJeWQxi7WS
+	ipktJQVOSBtLWARIY4L8yIsTS/I56YClQd07cl7HLK7iiSqlx/VUe81J
+X-Received: by 2002:a05:6808:4f24:b0:4bc:be93:3506 with SMTP id 5614622812f47-50c415e0b76mr18984605b6e.3.1792119402912;
+        Thu, 15 Oct 2026 19:56:42 -0700 (PDT)
+Received: from com-75606 ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5388c16d862sm537575b6e.9.2026.10.15.19.56.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 19:56:32 -0700 (PDT)
-From: Tzu-Ching Yang <shingekinocore@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Alexander Lobakin <aleksander.lobakin@intel.com>,
-	"Jose E. Marchesi" <jose.marchesi@oracle.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Simon Horman <horms@kernel.org>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] unroll: Make unrolled, unrolled_full and unrolled_none function-like
-Date: Fri, 16 Oct 2026 10:56:13 +0800
-Message-Id: <20261016025613.2690485-1-shingekinocore@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 15 Oct 2026 19:56:42 -0700 (PDT)
+Date: Thu, 15 Oct 2026 19:56:38 -0700
+From: Kyle Zeng <kylebot@openai.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Message-ID: <atGSZkBHtsnJ4k1A@com-75606>
+References: <20261016011549.61146-1-kylebot@openai.com>
+ <20261015192020.5336a49bc516219e8254dfdf@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015192020.5336a49bc516219e8254dfdf@linux-foundation.org>
 
-unrolled, unrolled_full and unrolled_none are object-like macros with
-lower-case names, so in a file that includes <linux/unroll.h> every
-later identifier with one of these names is replaced with a _Pragma()
-operator. A local variable or struct member with one of these names
-fails to build. A function parameter named "unrolled" is worse: GCC
-expands "unrolled" to an empty pragma, which leaves the parameter
-unnamed and removes the name from the expressions that use it, and
-GCC 11 and later accept that with only -Wunknown-pragmas warnings.
-For example, GCC compiles
+On Thu, Oct 15, 2026 at 07:20:20PM -0700, Andrew Morton wrote:
+> On Thu, 15 Oct 2026 18:15:49 -0700 Kyle Zeng <kylebot@openai.com> wrote:
+> 
+> > A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+> > mremap().  If the first part is discarded and replaced with an unrelated
+> > huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
+> > of the folio in subsequent PMDs.
+> > 
+> > This also affects migration entries.  A walk that stops at an unrelated
+> > huge PMD can leave migration PTEs behind when migration or an anonymous
+> > folio split restores the mappings.  Those entries do not hold mapping
+> > references and can outlive the source folio.
+> > 
+> > Skip the current PMD rather than ending the walk on a flag or PFN
+> > mismatch.  Do the same if the PMD became nonpresent before the locked
+> > recheck.  Release the PMD lock, clear the per-PMD state and advance with
+> > step_forward(), so the existing range limit controls termination.
+> > This covers present, migration and device-private huge PMDs while
+> > preserving the matching-PMD and split-to-PTE paths.
+> 
+> As always, when fixing a bug please describe the worst-case
+> userspace-visible effects of the bug.
+> 
+> I asked $LLM and was told
+> 
+> : The worst credible effects are permanent application hangs, kernel
+> : crashes, and potentially system-wide denial of service.  Stale
+> : migration entries can refer to freed and reused physical pages, causing
+> : page faults to access unrelated folio metadata.  Memory corruption is
+> : possible but unproven; cross-process information disclosure has not
+> : been established.
+> 
+> But you have an LLM too!  So please never again send a bugfix without
+> this info.
+> 
+> Also please explain whether there's a reproducer and if so, at least
+> describe it and confirm the before-and-after results.
+> 
+> Thanks.
+> 
 
-	static int add(int unrolled, int x)
-	{
-		return unrolled + x;
-	}
+Hi Andrew,
 
-as "return +x;".
+This issue can lead to memory corruption and I have a reproducer for it.
+I can update the description and send in a v2 if you think it is proper.
 
-No variable, member or parameter in the tree uses these names yet, but
-the header is already pulled in by <linux/lsm_hooks.h>, the vhost and
-libeth headers and a few .c files, and every new includer exposes more
-code to the clash.
-
-Make the three macros function-like, as unrolled_count() and UNROLL()
-already are. A function-like macro is expanded only where its name is
-followed by '(', so variables, struct members and parameters with the
-same names are left alone. Convert the only users, lib/crypto/blake2b.c
-and lib/crypto/blake2s.c, to unrolled_full(), and explain the empty
-argument list in the header comment.
-
-No functional change: blake2b.c and blake2s.c preprocess to the same
-output as before, and every object that depends on <linux/unroll.h> is
-byte-identical in x86_64 (GCC 13, Clang 18), riscv64 (GCC 13) and arm64
-(Clang 18) builds, apart from the DWARF 5 checksum of the two edited
-source files in the arm64 debug info.
-
-Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
----
-unroll.h has no MAINTAINERS entry (hence Andrew on Cc), and the only
-users of these three macros are in lib/crypto/, so I think this fits
-the libcrypto tree best.
-
-Testing: x86_64, riscv64 and arm64 defconfig plus the includers of
-<linux/unroll.h> (all LSMs, IMA/EVM, BPF LSM, vhost, i40e/ice/idpf),
-built without the patch and then rebuilt with it in the same source and
-output directories. Make rebuilt exactly the 135 objects that depend on
-<linux/unroll.h> or blake2{b,s}.c, plus the composite objects that
-contain them, so those are the objects compared. lib/crypto/,
-security/, drivers/vhost/ and idpf give the same result with riscv64
-GCC 8.1 and 16.2, x86_64 Clang 17.0.1 and arm64 Clang 23.1.1. GCC and
-Clang still report the BLAKE2 round loops as completely unrolled.
-
-Stand-alone, with only <linux/unroll.h>: GCC 11.5, 12.5, 13.3, 14.2 and
-16.2 build the add() example from the changelog, and it returns x; GCC
-8.1, 9.5, 10.5 and Clang 17, 18 and 23 reject it. With this patch, a
-variable, struct member or parameter with any of the three names builds
-without warnings and gives the right result with all of these
-compilers.
-
-The patch applies as is to next-20261014, libcrypto-next (40f47fa10a1d)
-and net-next (518bf436318e), and none of them has other users of these
-names. A user added elsewhere with the old spelling (unrolled_full
-without parentheses) fails to build rather than silently losing the
-hint.
-
-Not addressed: a use followed by '(' is still expanded, so a function
-or function pointer with one of these names still clashes when it is
-called. With arguments, that fails to build. Without arguments, GCC
-still turns unrolled() into an empty pragma, so a call to a
-zero-argument function unrolled() declared before the header is
-included is dropped with only warnings (Clang rejects it).
-
-unrolled and unrolled_none still have no users. If preferred, I can
-instead remove them, as Simon and Maciej suggested when they were
-added, and convert only unrolled_full; that also removes the case
-above.
-
- include/linux/unroll.h | 12 ++++++++----
- lib/crypto/blake2b.c   |  2 +-
- lib/crypto/blake2s.c   |  2 +-
- 3 files changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/include/linux/unroll.h b/include/linux/unroll.h
-index 186b71de74..8fde8006eb 100644
---- a/include/linux/unroll.h
-+++ b/include/linux/unroll.h
-@@ -16,7 +16,7 @@
- #endif
- 
- /**
-- * unrolled - loop attributes to ask the compiler to unroll it
-+ * unrolled() - loop attributes to ask the compiler to unroll it
-  *
-  * Usage:
-  *
-@@ -33,10 +33,14 @@
-  * on what iter x will do with variables) is not a strict requirement, but
-  * provides best performance and object code size.
-  * Available only on Clang and GCC 8.x onwards.
-+ *
-+ * unrolled(), unrolled_full() and unrolled_none() take an empty argument
-+ * list so that only a use followed by '(' is expanded: variables, struct
-+ * members and function parameters with these names are left alone.
-  */
- 
- /* Ask the compiler to pick an optimal unroll count, Clang only */
--#define unrolled							\
-+#define unrolled()							\
- 	__pick_unrolled(clang loop unroll(enable), /* nothing */)
- 
- /* Unroll each @n iterations of the loop */
-@@ -44,11 +48,11 @@
- 	__pick_unrolled(clang loop unroll_count(n), GCC unroll n)
- 
- /* Unroll the whole loop */
--#define unrolled_full							\
-+#define unrolled_full()							\
- 	__pick_unrolled(clang loop unroll(full), GCC unroll 65534)
- 
- /* Never unroll the loop */
--#define unrolled_none							\
-+#define unrolled_none()							\
- 	__pick_unrolled(clang loop unroll(disable), GCC unroll 1)
- 
- #define UNROLL(N, MACRO, args...) CONCATENATE(__UNROLL_, N)(MACRO, args)
-diff --git a/lib/crypto/blake2b.c b/lib/crypto/blake2b.c
-index 55d6c437f3..1f885b1f83 100644
---- a/lib/crypto/blake2b.c
-+++ b/lib/crypto/blake2b.c
-@@ -81,7 +81,7 @@ blake2b_compress_generic(struct blake2b_ctx *ctx,
- 		 * Not worthwhile on 32-bit kernels because the code size is
- 		 * already so large there due to BLAKE2b using 64-bit words.
- 		 */
--		unrolled_full
-+		unrolled_full()
- #endif
- 		for (int r = 0; r < 12; r++) {
- 			G(r, 0, v[0], v[4], v[8], v[12]);
-diff --git a/lib/crypto/blake2s.c b/lib/crypto/blake2s.c
-index 24f7f34334..2260ed9a3d 100644
---- a/lib/crypto/blake2s.c
-+++ b/lib/crypto/blake2s.c
-@@ -76,7 +76,7 @@ blake2s_compress_generic(struct blake2s_ctx *ctx,
- 		 * Unroll the rounds loop to enable constant-folding of the
- 		 * blake2s_sigma values.
- 		 */
--		unrolled_full
-+		unrolled_full()
- 		for (int r = 0; r < 10; r++) {
- 			G(r, 0, v[0], v[4], v[8], v[12]);
- 			G(r, 1, v[1], v[5], v[9], v[13]);
-
-base-commit: 40f47fa10a1d19c74f48a13d97b2eb19d5fb938d
--- 
-2.34.1
-
+Best,
+Kyle
