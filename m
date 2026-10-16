@@ -1,51 +1,44 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D79C4508E9;
-	Fri, 16 Oct 2026 10:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18962475340
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145205; cv=none; b=c6pAC2VTkIQc1x+4dVge0ZAYa0PcA77Wus2MsXeP/LYF8flswrSfvV/53IOQt+lrydq2zOlCAR5Kg/AeDVkQIR/LV4EJ0Q88Yq96uqKG7XJs92nOYG372dB+7D2RYZ3fmgtmb20JD4H0OUXP5RbNtvPzxr39KTX0mucXMDYosnw=
+	t=1792145216; cv=none; b=ZekDM9fvtx4uHy3MB89yQswhz7bx01phnWKJzQMgdg6JxHItbHN4rgi4iXWE96b9wN92pLaDlVjJaQq59YzR2WSseqEng2PYzSCu1xeqmPmhiz/+aXqPJ3vVQUiVkICh4lOwrI/fzz6LsiY2RWf6KFmMfqiwhSZEAbrj/AVDAds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145205; c=relaxed/simple;
-	bh=SfMBzgk7p25AwDDti/OcTTOxuYfNAEw7WDRimDYYnl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ANa1GAWeFRQKNym4UpgpnLL3Dpt+HPZPoAAVdDuZudg4HOHeplH/iU5Jjy3fFiwDwJNiXBZ4MARnmIHZ8eoXM140vnwA0Z0x3XD9/Lj0Tz19Ise8IiRj+p406T/Pyy+eKjiLutqN2zgnjbnESop7KxbzBGl0PIYoB+VD2lnx71w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j5gYZ66ZmzYQvcG;
-	Fri, 16 Oct 2026 18:05:38 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 1432840B70;
-	Fri, 16 Oct 2026 18:06:35 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAnZPMj99Fq7MSZAg--.19410S4;
-	Fri, 16 Oct 2026 18:06:34 +0800 (CST)
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-To: linux-ext4@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	error27@gmail.com,
-	yi.zhang@huawei.com,
-	yi.zhang@huaweicloud.com,
-	yizhang089@gmail.com,
-	chengzhihao1@huawei.com,
-	yangerkun@huawei.com,
-	yukuai@fnnas.com
-Subject: [PATCH] ext4: return 0 instead of stale ret in ext4_iomap_writepages()
-Date: Fri, 16 Oct 2026 17:59:26 +0800
-Message-ID: <20261016095927.1762656-1-yi.zhang@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <atHZN9YIl8T2E0tK@stanley.mountain>
-References: <atHZN9YIl8T2E0tK@stanley.mountain>
+	s=arc-20240116; t=1792145216; c=relaxed/simple;
+	bh=r2bLbUjuxFexn4kPzsGf0ppztOX6KrI80BnkCZHrHYc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VqAayx+E9bf2aQNkLO+rYoJkGcO8f/p/Ie5Wj6J+RBITYClhes9SV/CM5VuwUn65ovr7TuZnS/ce5C589u4c8M9hqpHVPEtfsKP+W36HjKI/kokFytlHJ9JA3ev4u4I+vEELurxBlQ6W98M+J/s+LPhsRMq8MIpQAULNxrB65Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com (unknown [127.0.0.1])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5gZx5ZZkzb0pbD;
+	Fri, 16 Oct 2026 18:06:49 +0800 (CST)
+Received: from zhaoxin.com (unknown [10.28.140.201])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5gZv0S0Hzb0pbD;
+	Fri, 16 Oct 2026 18:06:47 +0800 (CST)
+Received: from l440.zhaoxin.com (l440.zhaoxin.com [10.29.8.13])
+	by zhaoxin.com (8.30) with ESMTP6baf75efb22ff6935abe15cff4495106
+	Fri, 16 Oct 2026 18:06:46 +0800
+X-Eyou-Smtpauth: weitaowangoc@zhaoxin.com
+X-Eyou-EnvelopeSender: WeitaoWang-oc@zhaoxin.com
+X-Eyou-From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
+From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <WeitaoWang-oc@zhaoxin.com>
+To: tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	den@valinux.co.jp,
+	linux-kernel@vger.kernel.org
+Cc: WeitaoWang@zhaoxin.com,
+	wwt8723@163.com,
+	CobeChen@zhaoxin.com
+Subject: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
+Date: Sat, 17 Oct 2026 02:06:44 +0800
+Message-Id: <20261016180644.3528-1-WeitaoWang-oc@zhaoxin.com>
+X-Mailer: git-send-email 2.32.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,63 +46,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgAnZPMj99Fq7MSZAg--.19410S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1kuw1rKF1UtryDGrWkCrg_yoW8Xw18pF
-	W3G34kGr1kWrykua1vga43Zw10yayrGr4UWF15CFn8Z39xXFWFgF40gF12vF47ArWUC3ya
-	qF4F9F18uw1jvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU1773PUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
 
-From: Zhang Yi <yi.zhang@huawei.com>
+The two step update sequence in msi_set_affinity() is required for MSI
+interrupts which cannot be migrated atomically, i.e. devices which do not
+provide MSI masking. The MSI message update writes address and data
+registers separately, so such a device can raise an interrupt in between,
+which results in a message built from half updated state: A stray
+interrupt on a stale vector and a possibly lost device interrupt.
 
-smatch reports a "missing error code" warning:
+The update sequence is selected by a per interrupt quirk flag, which is
+set for interrupts which cannot use reservation mode. Reservation mode is
+only enabled for maskable interrupts, i.e. devices which provide MSI-X or
+mask support, so the quirk flag is the inverse of the reservation mode
+bit.
 
-  fs/ext4/inode.c:4518 ext4_iomap_writepages() warn: missing error code? 'ret'
+The removal of the quirk flag replaced the flag check with a reservation
+mode check, but dropped the negation of the removed condition:
 
-The 'ret' variable has already been consumed by the ext4_emergency_state()
-check at the beginning of the function, so its value is always zero at this
-point.  Returning it is equivalent to returning 0, but it is misleading
-because it looks like an error code is being propagated.
+    - if (!irqd_msi_nomask_quirk(irqd) || ...)
+    + if (!irqd_can_reserve(irqd) || ...)
 
-This branch handles the race with ext4_change_inode_journal_flag(), which
-flushes the dirty data and drops the page cache before switching the inode
-to the buffer_head path, so there is genuinely nothing to write back here.
-Return 0 explicitly to make the intent clear.
+As the quirk flag is the inverse of the reservation mode bit, the
+replacement inverted the condition and selects the wrong update path for
+every interrupt: Non-maskable interrupts take the direct update path
+again, which reopens the race, while maskable interrupts needlessly go
+through the two step update.
 
-Fixes: bdcbb0f19e92 ("ext4: partially enable iomap for the buffered I/O path of regular files")
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/202610160314.PLMEXaOJ-lkp@intel.com/
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+Restore the original condition so that the direct update path is selected
+when reservation mode is enabled, which also matches the comment above the
+check: Direct update is possible when the MSI is maskable, which is the
+case when the reservation mode bit is set.
+
+Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
+Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
 ---
- fs/ext4/inode.c | 2 +-
+ arch/x86/kernel/apic/msi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 1853fbdc2a5af..fb0fdfc43566b 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -4515,7 +4515,7 @@ static int ext4_iomap_writepages(struct address_space *mapping,
+diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
+index 66bc5d3e79db..da5f44a80313 100644
+--- a/arch/x86/kernel/apic/msi.c
++++ b/arch/x86/kernel/apic/msi.c
+@@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
+ 	 * - The interrupt is not yet started up
+ 	 * - The new destination CPU is the same as the old destination CPU
  	 */
- 	if (!ext4_inode_buffered_iomap(inode)) {
- 		ext4_writepages_up_read(sb, alloc_ctx);
--		return ret;
-+		return 0;
- 	}
- 
- 	trace_ext4_writepages(inode, wbc);
+-	if (!irqd_can_reserve(irqd) ||
++	if (irqd_can_reserve(irqd) ||
+ 	    cfg->vector == old_cfg.vector ||
+ 	    old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
+ 	    !irqd_is_started(irqd) ||
 -- 
-2.52.0
+2.32.0
+
 
