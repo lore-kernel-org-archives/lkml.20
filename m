@@ -1,88 +1,88 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312D2547076
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393D5547040
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792175499; cv=none; b=Rf6t68Ch58EUeAVJDo6PvyGsaCCtUAkkOnDMWRPUepQdXQRws0H8eqt/Yr4fsixvhSbxHuR/WtX1DN30yiuyKQ0d32PDoII3pK8XBZS6nZZCj2yDTSL4pftHZijwMTGEeyhqyO8PWX1azrWisC3yHTcPmVvzJPnN80DIQ4h8E/4=
+	t=1792175502; cv=none; b=NoVcOMgjvdSBUBZUpdLwxlwkxADWtLYJeAPjbvHJHaml059uyJ2eIkAo3v0Q2d5TVgJGZpODR4Pa6+1hq7uvRbnsdA2qJ79A3wr9ow9GZccA78ODd+kN5Uyks/UTtyzRUZemkMiCxCP7IZmUDwBD0Kf8s4f7ZTPW7Yl0jwQhQEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792175499; c=relaxed/simple;
-	bh=x8vvF5qS8YMr2iEJTC+QZyR/N21tB0QY5FgJ/RCzKxw=;
+	s=arc-20240116; t=1792175502; c=relaxed/simple;
+	bh=XTm4Qvoor35FUd7u0ZYHFCtCOMIvIwCMsY0IIsQzD0k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MKyIOq/UeV6tgH/LdtftFrBwJMDiVh/ZtoL2gKe3RzXjbc216UGJ/I8GvduqWHpKxAPDYzY1zrSZnuuTpSUhq28Ddwa/y5KPCSvC5iv0TL7L11eFhAgt1ctkqbpiZyogl/0ioGB7+iMjYT3bKpJ2jmiA6uSbd3+SjTNV/aTZO9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=jp7yFhpm; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=31IoIEmL; arc=none smtp.client-ip=148.163.139.74
+	 In-Reply-To:To:Cc; b=uys1QJPCsDbU8TVBl4sEIikxb69uins8parNxxvyhBfHiDqHFxP8nC/r5NP7mt6aVFIrb7wg1xDiz8ENumpfN7BxoAqidaQiN5q8vgVA429isTKiYY1xdfPD85mxSdVWhrXOS+FeGyp+5OD/Gx0JtbppfPu04UiGFOxBD2Tc8q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=b+xbGtwv; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Q1aCKXrU; arc=none smtp.client-ip=148.163.135.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="jp7yFhpm";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="31IoIEmL"
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GGXx9l1375564
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:37 -0400
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="b+xbGtwv";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Q1aCKXrU"
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GGXuUL1471216
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=XIiA
-	j0L1SuTmikxb99uSi4FdXmLmG93cHg4VqspIFQM=; b=jp7yFhpmpzE7wvYpFb20
-	64XHZXBPcBnzdMqPqOr7eVpzsOOE/zHakYpECbVlQ4Fu4bXRGtLUOUICjRIQUKZN
-	Cwk3qgEX2gf9zw/WFpyooaR6Baeg8WLYBuZbAhqRU09QqQaVK+zWxrKY5GtnC3up
-	wBIVcivN356Kd4nJ6ZgG8jDSasqA8IRv/3Dp63gW3q7eKGMpYipykUlyxAeIMQm3
-	3ExTeuVLZ1lPo/Al5jnU3x0jRXb+D7cDlVo7cdci5D31skNd8VUVPto/2WzGg0A1
-	MFNTsxA5lZI6SuY2TTXCLLVw728aHnRZcB9pfptu5EkrSQlOVNjV73KezRm+IPFO
-	kQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hbpkq9hn9-1
+	:message-id:mime-version:references:subject:to; s=pps01; bh=O8eL
+	C8DAH1u/wzn7V277vG0eEMWSE8tpiIZ8joadYhU=; b=b+xbGtwv3JbekXUySiWx
+	AGkKgYse6CxobVwBFmZjXuoXjZmV2QKoxTTjo514IOTb7EYpf6lG64xDUmJzcgiG
+	Rq/z8ke+bnUUewPWFHrUQ3hmKYCWHL6QSPkkdwGEHIseK94vQl/OoB953CLrAqNN
+	n0hf+bDuqsMnmpkK+S8jh8mQKrw8LfwtRkF97L0QSRNSCRmkkCB1JDeX9u4aOyzM
+	3EpJpYDry/MhdoARibp8lzhommFoXfCIt/y9Q5GLlrK1ggL0ndfSRpzCaiVdpFc0
+	Fa9wc9yDKiX7J4sa8jPlPPDELdL6U6qjyKrxwciavLaiSqtrYC4gYTBGh+IM/jNh
+	Lw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hbg72m661-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:37 -0400 (EDT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9179a556c43so4963806d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:31:36 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:31:38 -0400 (EDT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-534f3fe0236so3395171cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:31:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1792175496; x=1792780296; darn=vger.kernel.org;
+        d=columbia.edu; s=lionmail; t=1792175497; x=1792780297; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XIiAj0L1SuTmikxb99uSi4FdXmLmG93cHg4VqspIFQM=;
-        b=31IoIEmLZuwKlRNjwQXrxJeTguedXuOXQFNDfww/5+D/RnQV7lZKxSPHMxckKHchJR
-         oALL+1K5PFAYYJVUcFfe8kQ0OuvyQYElbe3CNbZLJyzPcnHWJazSVXwIO37VBPC3dYci
-         bZKuUrNoJc+UWITZkL5AoSKt5tDJuMU0fjvR3UxVZ6RuNkGoGu6F/Upe6Dfzc16WRmMi
-         5ZwwHYug2c8C5kdmWH9y94+mSz2jwhUdBog/oXn8qU+6EVhefNP7SYM95GhWpDKgr3Xj
-         5pZGqFC0yVxxKnOPEw4EsWxTjxi6vYjlQ/85RWOwqlwyGNTU7nBz+1zj1ZBEiunursxR
-         D53Q==
+        bh=O8eLC8DAH1u/wzn7V277vG0eEMWSE8tpiIZ8joadYhU=;
+        b=Q1aCKXrUgSz3vIPtuWjQ4tpOxkIJobA5hsoEfm13lVpzJl5lTn03TjpX3Vjzp9fFGn
+         vSq82Jwr5r8MyGUd1b3MWg997tKypuDGlbIUrpHOC227mt04hoNaK1fQrg37x2Wg38sk
+         0pSKDRXkY6wyqXewLlvMbA0+d4RpTQ/1LHuaaAkK6y78OfyqdV9fFTxJwHBELRIK+DKI
+         4h7Jos+ZUohAg/rJK435Fw6qvNLeg3Xx6IuUqwEApCgKGTZ5FJC5lKBZAZeyV3o6aa3S
+         W4e5EpjfnbsTFlrFoobI+u17ig14g2lo7FsiOIh/ddTxkO60kqABJZ2TAehjWEFLKY81
+         a76Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792175496; x=1792780296;
+        d=1e100.net; s=20260707; t=1792175497; x=1792780297;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XIiAj0L1SuTmikxb99uSi4FdXmLmG93cHg4VqspIFQM=;
-        b=uHI9WaYYZESJbhcgpz6JzNpOW270eYRHzUiP9MdChj/5j5+/Hdjcu0dHFG27qxaQac
-         N9XbRigdrunqkXJ9YIEGrLohVgZYBXja7G2Ie+czgdJTW3gahm5GMnMo04K2h6R+Ser5
-         VbAyg8H0dtiIFZzhVOTKVQb3TLU1GGUXI5YR40cPhcO4IdoILOLRYdKFgBFETDIMLg2Y
-         jNNB7t2Mk5ct02ctaxHyTYjUo192TwtO7A8yI7hQ1JdExxZt5TSPpBwz1/LR0pjj2f1X
-         TSm0tF9I+UzyFRSPqvRE4ueGTjVV3kL2ZqNPRFySg8ebgZLqXGcq5pGGcH2DLuYl6Le8
-         R1ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwHO/X1ZxUiWU/8tY90h2tgDIcxYCqMeyvXLJ8N48U80TjIcqvQlfi3aGglTrUVBqUY8GmKAjY86tCVCPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD1RT7GwteiKYcV2RZv6j1umvg0bdUnby4Pxggu1qYQcXw1v+0
-	NmkGZ0zWWF7JQz5qKn5dR7/9VcSjLEPFc+0xPy6ltFVwTfyBbQkAABCkXXAVaHGI60+fNVeHidv
-	rpMNEFyelKFe2/GU7WRDtvz7YpTyOcG0So4UreUOqqCPiN2EHyXEJ198e7H3q1AVKjBgIuw==
-X-Gm-Gg: AYBFou069/9BPzORoZU11OW2/6twybDaPyt9kkOOtaAtVrf7APZCzll5zpuQfkbWWcN
-	eORAA6qLUheUD8Wpk2obbinp3kyp/tpPV+LGwtfsUKSIMreFj+134PdEf54+7tBK8bPDIES7iSb
-	g1eUIPWywodHk99/NHQlNx3E67yAUUam/qasWjwnPx/9SyLSMmjuleGkb80LXo2bDHnwZyd9yu1
-	r+Y5Ny0HcdsZjqYG51ioScFThXg6d0wlcUeXCiekJDINIWsqVC9EZCnlxIpKDH1Kn8gLC0Tl9Eb
-	DJswEArINFHTl+vRqlW/PNjAthbIh4anwqx0rTG7qXOMYUv7yL2z0NeFk9Ciho753ch0I2F6v/t
-	Gk+LxyMs3sQtyTezPJdNR6854ClIwLznPnoGJJOxzrrWFcrc=
-X-Received: by 2002:a05:622a:2293:b0:535:20cf:96a5 with SMTP id d75a77b69052e-53645c4106amr5449291cf.7.1792175496471;
+        bh=O8eLC8DAH1u/wzn7V277vG0eEMWSE8tpiIZ8joadYhU=;
+        b=E2V4ospnvAvUkTVLD8/Hh2HsTp24Mo65HMaFLPMasH8poh3+Db4E5ue+f8hoyaGXL/
+         8Sj27cMg/+GKzZpouA3rOIQ2zoZ/VmPw/YfUeDQ3eEtUMwzFJU790kjPOJtxZ04FiScj
+         JnKVMRXdSIkj6FNQU0eEqMlNmRkXRgevUk4Z5Q758fFAE7rh42a6lXzbf44x9yWBAyrr
+         KuoY8PmKExFmtGVeQTblPvQsaZGOdAf0qhknpYd9HBeBkOk+VZnLc05ckj0gj/reO98B
+         AwqucOQvVXfEgd6Mb2TgXFvNWVHfdPrevamABL1D70Ul0cqC8O2+aKmh6XUOxYbkZ8q6
+         tU1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz70/aVW99B8RZ/yHYJ4ZZXMpBQca1LqV4MZhzd4nCyOy4yL3hGzwjGZRaFT6voYv6nnHhphx+/N2OoFnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKs8ZaN7eP56N3xjUlZSexIswsm9qxj19AZdCqT5OaNF55KG60d
+	DQEFU2qfB2zrWR6WpekaCyg6c3NVejol3e7r1ffQ09SO6GRGGs+W17jVML3AMrTQiTPLq6ueXM3
+	2Gb2VayOAZY7CrFn3K8AedGwvwszRT8loz9mrQDDdxpJ0u1+qHE9es0lREeWdzw==
+X-Gm-Gg: AYBFou2FSE4ORjcWxwowz8qguqdLg774POAcd63oqtGLei8j5eejW/xmSKTK4nDNN2m
+	Is4IC3fo9ce1FbceRxRakOlq72EbL3//X1ro0m4yPDLygJqeW37zeyjs11F/UyvjGDcOG0gVBSR
+	Mk2PY/n66mz08KW6kNiwTXeOOJeMNB1+yTDRmqxw4IV6YoOZbeFTJnEUqqu9RsiySQceEZN2QE/
+	vjmsplPrW/ddb4VTmPEX2qhBLwYoq+yBKmkOZvyZ+VN2pl3pNvUK7e+QTq4NHfAoEn4Z9lmtZfe
+	DkZGO0dlmvLS71vN5xvz+rSS0+q/1DGnBxac6I38x6QLsAMaphmt2tVzkshF75tdvzJvVwk7/jv
+	ZiPih6osoNLM6ysU5VXXUbifTWFLcUs5T3f6vhcwpcKFD32o=
+X-Received: by 2002:a05:622a:c85:b0:535:a5fb:644b with SMTP id d75a77b69052e-536460f7150mr5637141cf.69.1792175497139;
+        Fri, 16 Oct 2026 11:31:37 -0700 (PDT)
+X-Received: by 2002:a05:622a:c85:b0:535:a5fb:644b with SMTP id d75a77b69052e-536460f7150mr5636471cf.69.1792175496631;
         Fri, 16 Oct 2026 11:31:36 -0700 (PDT)
-X-Received: by 2002:a05:622a:2293:b0:535:20cf:96a5 with SMTP id d75a77b69052e-53645c4106amr5448831cf.7.1792175495905;
-        Fri, 16 Oct 2026 11:31:35 -0700 (PDT)
 Received: from [127.0.1.1] (nat-128-59-178-241.net.columbia.edu. [128.59.178.241])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb30509sm29187696d6.36.2026.10.16.11.31.35
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb30509sm29187696d6.36.2026.10.16.11.31.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 11:31:35 -0700 (PDT)
+        Fri, 16 Oct 2026 11:31:36 -0700 (PDT)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Fri, 16 Oct 2026 14:31:19 -0400
-Subject: [PATCH v2 1/2] mtd: rawnand: nandsim: use a NOIO scope for cache
- file I/O
+Date: Fri, 16 Oct 2026 14:31:20 -0400
+Subject: [PATCH v2 2/2] mtd: rawnand: nandsim: stop pre-populating the
+ cache file's page cache
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-nandsim-nofs-v2-1-f705c8819d11@columbia.edu>
+Message-Id: <20261016-nandsim-nofs-v2-2-f705c8819d11@columbia.edu>
 References: <20261016-nandsim-nofs-v2-0-f705c8819d11@columbia.edu>
 In-Reply-To: <20261016-nandsim-nofs-v2-0-f705c8819d11@columbia.edu>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -101,93 +101,204 @@ Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
         linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792175493; l=1940;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792175493; l=5558;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=x8vvF5qS8YMr2iEJTC+QZyR/N21tB0QY5FgJ/RCzKxw=;
- b=/fZ6YuNI9nC+fDTLTqHaqFZ+n68DizBKtmZjXDMAb07/IisxLEovqXWlWX/A9KHSE3/O8+e4a
- O4OBsNTS87FC+hPA+hasmbmBALLwr/6l6R1wYxJ/y5/4wLRXvIrhV9a
+ bh=XTm4Qvoor35FUd7u0ZYHFCtCOMIvIwCMsY0IIsQzD0k=;
+ b=nhAk4Hp+snp2ongccKLDRV9YzotpC2vYEwTYWbMVB0XTreCHbsmDqIO0FgAQtr+UE3hpUzEwp
+ 2Xm8MB9yNZZBsPRqM4RFXrPhtOcnyYa4fRObTomUMrx7s2U9u47JERz
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA3MyBTYWx0ZWRfXzFsFg2E2hjK6
- E88IteWFtccNsQAnfzBLoqoozIShtdqxhV5BXOe6wf31QtgfCFkr/5Sreowm2jagnHwHwQhfJqw
- 8Gmt6MmccYritdk0FTnzVA00CyIFwsrgg5O062887g9hDZPOhpc2
-X-Authority-Analysis: v=2.4 cv=bv7Zl0ai c=1 sm=1 tr=0 ts=6ad26d89 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=4lNGE6/ihKpdiDSMgFMHRw==:17
+X-Proofpoint-GUID: SdGkWLsjY4UyYNotCE4xOYNlJOyBTZq4
+X-Authority-Analysis: v=2.4 cv=W/StxhWk c=1 sm=1 tr=0 ts=6ad26d8a cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=4lNGE6/ihKpdiDSMgFMHRw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=xz0OrRJCyJRxHT_uhz4A:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: I4E61_HVJuXLcLUc6IokcI7JXwfjlsdG
-X-Proofpoint-ORIG-GUID: I4E61_HVJuXLcLUc6IokcI7JXwfjlsdG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA3MyBTYWx0ZWRfX/RTP+BHwXKS6
- wa0tNdb+uTtdDF/kpo6ts5/OLT4bAY7zULZ+ftR17L10kUThK8XvXOhUUt1hqs4E5PRlpI75uOY
- 0NwIb501Y2kf8CrKfVQkB+Hrxvtzh/eYPcG9HBkwgTmRG4zVpoRPFmWLJim3n9WrsU3Q1OkmgVK
- /M+CumeCBSBw8pL4VcjkJDg9+tG0PnYzg+MPZDuzO/S8aEiXaHKqi1ubapTsgVjlhUyKgzJ5DuT
- 3Qjn8mGYDhV4Yvp2PPxCDAF8LAlLefjx7yOMmORTW9Q4AlnPLpG+1TxqQF9S8LEZYAAd3AVcCZu
- peKg5GJnImPmGkrMTmgNIa4e/HVil/AVSxkSI6n547ITYb+VdKsYyzqIrmKy7O5CmDpbRdP7myD
- uuGq0O+kfWV/rCZxJVgNp8vzebLqpb/9FxSSzU0w+gnza75EvbXX5wntuo8WgGRO8kSaRBbKRJN
- C0AvfujoU/ghNcHdS9Q==
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
+ a=CwNomYb1yIFRST93nhMA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: SdGkWLsjY4UyYNotCE4xOYNlJOyBTZq4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA3MyBTYWx0ZWRfXytZR84cnSniP
+ bMtWrqpkqDG55PBI0SA1AI7N5umyTcss5Neba0v93tumvpMsD78v75IQpsBDLAe2u2OF/mNZet1
+ O2Lc8SlNwfMVilI8mtEg+lIXv8I0SdPKocNmlAPI4M6iYQ4wYiqu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA3MyBTYWx0ZWRfX2Sm77Cn77Oe6
+ UVYthHb9wc5fEqBum0XDWEjnFkm/+yzAsQn790UU6kkjDzIxUkopqBubwxyV1aigx80+OTEWPCs
+ p1XOEoIbKn6II9XNnpVmxg8Oq98ym+31ynjIyVpWbS9mYCgkd22kRbJIO0y3eK3QYkr34xxJ25G
+ HBLA5LbxqBZbsmXPx3B6UlZgOggXqcPrtpJPCfkuw07HeVIrP/13NxkMHtzahGl/MZiZoUfWHfw
+ U0GMBGNgNFYU95rlzPzQiNjYJi+xXxkufdLeg/BxRRuBYnP/pclpSR9DIgdfNcthIt3INVcIbtr
+ BHvLSF268kHg/+lQtj2PH1skLxHDg61pk4CW5L8iYmyvW38ajdLuygSwvochNWT/ht5q3CWeEwr
+ d7UDr2qxNadLNqAnSY3vUZh1vfoZxgofMY8ox/l8R8v562fTZmy7Y0auPhC1JBY52fHMlNENBSc
+ nvUs5yeUpcfTc9mKcZw==
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11937
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=10
- impostorscore=10 phishscore=0 lowpriorityscore=10 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160073
+ impostorscore=10 phishscore=0 spamscore=0 bulkscore=10 adultscore=0
+ lowpriorityscore=10 priorityscore=1501 malwarescore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610160073
 
-nandsim reads and writes its cache file from inside MTD operations,
-with the chip lock held. Reclaim from an allocation in that path must
-not issue I/O that can come back to this MTD, whether the superblock
-shrinker evicting an inode of the filesystem on top of it or swap on
-an mtdblock device over it, since either would take the chip lock
-again on the same thread. The driver ensures that by running
-kernel_read() and kernel_write() under PF_MEMALLOC, which is more than
-it needs. Use memalloc_noio_save() instead.
+ns_get_pages() grabs the page cache pages for a cache file access
+ahead of the read or write so that kernel_read() and kernel_write()
+find them and don't allocate on their own. Now that the I/O runs under
+memalloc_noio_save(), the pre-population no longer buys anything.
+
+Remove it, and the nandsim parameter of the two helpers that only it
+needed. This removes the last struct page usage in the driver, and its
+last callers of find_get_page() and find_or_create_page().
 
 Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- drivers/mtd/nand/raw/nandsim.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/mtd/nand/raw/nandsim.c | 73 +++++-------------------------------------
+ 1 file changed, 8 insertions(+), 65 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index fe968037f75a..586f4622b59e 100644
+index 586f4622b59e..0a2a37619389 100644
 --- a/drivers/mtd/nand/raw/nandsim.c
 +++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -1342,14 +1342,14 @@ static ssize_t ns_read_file(struct nandsim *ns, struct file *file, void *buf,
+@@ -30,7 +30,6 @@
+ #include <linux/sched.h>
+ #include <linux/sched/mm.h>
+ #include <linux/fs.h>
+-#include <linux/pagemap.h>
+ #include <linux/seq_file.h>
+ #include <linux/debugfs.h>
+ 
+@@ -272,9 +271,6 @@ MODULE_PARM_DESC(bch,		 "Enable BCH ecc and set how many bits should "
+  */
+ #define NS_MAX_PREVSTATES 1
+ 
+-/* Maximum page cache pages needed to read or write a NAND page to the cache_file */
+-#define NS_MAX_HELD_PAGES 16
+-
+ /*
+  * A union to represent flash memory contents and flash buffer.
+  */
+@@ -353,8 +349,6 @@ struct nandsim {
+ 	struct file *cfile; /* Open file */
+ 	unsigned long *pages_written; /* Which pages have been written */
+ 	void *file_buf;
+-	struct page *held_pages[NS_MAX_HELD_PAGES];
+-	int held_cnt;
+ 
+ 	/* debugfs entry */
+ 	struct dentry *dent;
+@@ -1297,77 +1291,27 @@ static int ns_find_operation(struct nandsim *ns, uint32_t flag)
+ 	return -1;
+ }
+ 
+-static void ns_put_pages(struct nandsim *ns)
+-{
+-	int i;
+-
+-	for (i = 0; i < ns->held_cnt; i++)
+-		put_page(ns->held_pages[i]);
+-}
+-
+-/* Get page cache pages in advance to provide NOFS memory allocation */
+-static int ns_get_pages(struct nandsim *ns, struct file *file, size_t count,
+-			loff_t pos)
+-{
+-	pgoff_t index, start_index, end_index;
+-	struct page *page;
+-	struct address_space *mapping = file->f_mapping;
+-
+-	start_index = pos >> PAGE_SHIFT;
+-	end_index = (pos + count - 1) >> PAGE_SHIFT;
+-	if (end_index - start_index + 1 > NS_MAX_HELD_PAGES)
+-		return -EINVAL;
+-	ns->held_cnt = 0;
+-	for (index = start_index; index <= end_index; index++) {
+-		page = find_get_page(mapping, index);
+-		if (page == NULL) {
+-			page = find_or_create_page(mapping, index, GFP_NOFS);
+-			if (page == NULL) {
+-				write_inode_now(mapping->host, 1);
+-				page = find_or_create_page(mapping, index, GFP_NOFS);
+-			}
+-			if (page == NULL) {
+-				ns_put_pages(ns);
+-				return -ENOMEM;
+-			}
+-			unlock_page(page);
+-		}
+-		ns->held_pages[ns->held_cnt++] = page;
+-	}
+-	return 0;
+-}
+-
+-static ssize_t ns_read_file(struct nandsim *ns, struct file *file, void *buf,
+-			    size_t count, loff_t pos)
++static ssize_t ns_read_file(struct file *file, void *buf, size_t count,
++			    loff_t pos)
  {
  	ssize_t tx;
- 	int err;
--	unsigned int noreclaim_flag;
-+	unsigned int noio_flag;
+-	int err;
+ 	unsigned int noio_flag;
  
- 	err = ns_get_pages(ns, file, count, pos);
- 	if (err)
- 		return err;
--	noreclaim_flag = memalloc_noreclaim_save();
-+	noio_flag = memalloc_noio_save();
+-	err = ns_get_pages(ns, file, count, pos);
+-	if (err)
+-		return err;
+ 	noio_flag = memalloc_noio_save();
  	tx = kernel_read(file, buf, count, &pos);
--	memalloc_noreclaim_restore(noreclaim_flag);
-+	memalloc_noio_restore(noio_flag);
- 	ns_put_pages(ns);
+ 	memalloc_noio_restore(noio_flag);
+-	ns_put_pages(ns);
  	return tx;
  }
-@@ -1359,14 +1359,14 @@ static ssize_t ns_write_file(struct nandsim *ns, struct file *file, void *buf,
+ 
+-static ssize_t ns_write_file(struct nandsim *ns, struct file *file, void *buf,
+-			     size_t count, loff_t pos)
++static ssize_t ns_write_file(struct file *file, void *buf, size_t count,
++			     loff_t pos)
  {
  	ssize_t tx;
- 	int err;
--	unsigned int noreclaim_flag;
-+	unsigned int noio_flag;
+-	int err;
+ 	unsigned int noio_flag;
  
- 	err = ns_get_pages(ns, file, count, pos);
- 	if (err)
- 		return err;
--	noreclaim_flag = memalloc_noreclaim_save();
-+	noio_flag = memalloc_noio_save();
+-	err = ns_get_pages(ns, file, count, pos);
+-	if (err)
+-		return err;
+ 	noio_flag = memalloc_noio_save();
  	tx = kernel_write(file, buf, count, &pos);
--	memalloc_noreclaim_restore(noreclaim_flag);
-+	memalloc_noio_restore(noio_flag);
- 	ns_put_pages(ns);
+ 	memalloc_noio_restore(noio_flag);
+-	ns_put_pages(ns);
  	return tx;
  }
+ 
+@@ -1436,8 +1380,7 @@ static void ns_read_page(struct nandsim *ns, int num)
+ 			if (ns_do_read_error(ns, num))
+ 				return;
+ 			pos = (loff_t)NS_RAW_OFFSET(ns) + ns->regs.off;
+-			tx = ns_read_file(ns, ns->cfile, ns->buf.byte, num,
+-					  pos);
++			tx = ns_read_file(ns->cfile, ns->buf.byte, num, pos);
+ 			if (tx != num) {
+ 				NS_ERR("read_page: read error for page %d ret %ld\n", ns->regs.row, (long)tx);
+ 				return;
+@@ -1511,7 +1454,7 @@ static int ns_prog_page(struct nandsim *ns, int num)
+ 			memset(ns->file_buf, 0xff, ns->geom.pgszoob);
+ 		} else {
+ 			all = 0;
+-			tx = ns_read_file(ns, ns->cfile, pg_off, num, off);
++			tx = ns_read_file(ns->cfile, pg_off, num, off);
+ 			if (tx != num) {
+ 				NS_ERR("prog_page: read error for page %d ret %ld\n", ns->regs.row, (long)tx);
+ 				return -1;
+@@ -1521,7 +1464,7 @@ static int ns_prog_page(struct nandsim *ns, int num)
+ 			pg_off[i] &= ns->buf.byte[i];
+ 		if (all) {
+ 			loff_t pos = (loff_t)ns->regs.row * ns->geom.pgszoob;
+-			tx = ns_write_file(ns, ns->cfile, ns->file_buf,
++			tx = ns_write_file(ns->cfile, ns->file_buf,
+ 					   ns->geom.pgszoob, pos);
+ 			if (tx != ns->geom.pgszoob) {
+ 				NS_ERR("prog_page: write error for page %d ret %ld\n", ns->regs.row, (long)tx);
+@@ -1529,7 +1472,7 @@ static int ns_prog_page(struct nandsim *ns, int num)
+ 			}
+ 			__set_bit(ns->regs.row, ns->pages_written);
+ 		} else {
+-			tx = ns_write_file(ns, ns->cfile, pg_off, num, off);
++			tx = ns_write_file(ns->cfile, pg_off, num, off);
+ 			if (tx != num) {
+ 				NS_ERR("prog_page: write error for page %d ret %ld\n", ns->regs.row, (long)tx);
+ 				return -1;
 
 -- 
 2.39.5
