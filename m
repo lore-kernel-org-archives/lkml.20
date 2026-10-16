@@ -1,91 +1,497 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBA04EB866;
-	Fri, 16 Oct 2026 16:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BA74F7CCC
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 16:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166635; cv=none; b=UbS/UIT0m5xCip0N1lps7P75EhRqeVdKP6LbR8LSQHulpLCx6FjqLF9ZdblTYexCIvTFSRLd6GTrLLP6EJXPEEy3i7HaKt29YlNY5XkBKequV2RL/auCSjaol82nCRiv05q4kVD9rvx58PKMnW99rrkH+HaQ5hpGogoZk5r/hr4=
+	t=1792166660; cv=none; b=Z5tnobI7dEvMACXeT7mJlWhutl6csCfOiXzUiXyFn1NfUnbdByKl7gVTceZMjdvNyhuZk11SEwBKgZW7zL7HNphQhLn5NGx91r2p8VkbcDxelsoesXaDYNDhIRAmALAk3oSCoiGqB8HI4LtAopvJF1MSy9UvuiE966GgiPfSEHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166635; c=relaxed/simple;
-	bh=YuJNtPFMJf1ZlLospzoFwG7XMO8l8ZaCzUAO0iew8uc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=RwlCiZyrByPNXqwj0rsQ1WCKbDfhKD/tZkgwzSrExreq8stRV8yogfjiCOEkxApJaGMFCagGQjUTQX6LM3KD0FyddkPHT85xWctGPuQ8PjuzPmNoKEMtxcndY67g7nSlW/77U/uFW4OwTu3y5tbIxgznDpvaxr6ZLGE3wfVjDzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Fri, 16 Oct 2026 17:03:35 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: sashal@kernel.org
-CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
- gregkh@linuxfoundation.org, kees@kernel.org, konstantin@linuxfoundation.org,
- ksummit@lists.linux.dev, laurent.pinchart@ideasonboard.com, leon@kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux@leemhuis.info,
- mst@redhat.com, ojeda@kernel.org, rdunlap@infradead.org,
- skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_2/7=5D_docs=3A_submitting-pat?=
- =?US-ASCII?Q?ches=3A_say_which_commit_a_Fixes_tag_names?=
-In-Reply-To: <20261016152828.3765695-3-sashal@kernel.org>
-Message-ID: <BEF3ABD8-B94B-4EA6-BB1D-40B702DDFF84@mainlining.org>
+	s=arc-20240116; t=1792166660; c=relaxed/simple;
+	bh=zbshw0QgbWZyjy86oRX8gqnG03XMKssm8pekenS86bY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qh213RSjHKC+OWzYWEkuNC4HMwNaudJv0k5WudiKJR2f62HXrjY5ouQO0QwaXycAwDyY0eaTANYg1FB1LQ6veQ6PiyWz3bhyyVqmQ+mZxcRfs6iz+wvRy7TzETNm2LvJHlfxtU48ntgTqZSPJtX5fe9UKNLLZTHypmMHcsZ8eRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jDXUhk6D; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jDXUhk6D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C833B1F000C4;
+	Fri, 16 Oct 2026 16:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166651;
+	bh=LbolQFV635W1ZqivcUBmMdYH4n77126dVqWSyIDVnGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jDXUhk6DxOiLw2I243GTa2pmPMcx/z6fy07zUgGL6yT0mFpvd16V+CSlPT2r4OODy
+	 ttocCSQdRF6ODwHsn8YbeXk4/jrESvHM9O7u24udvzM5fmWKrY0/aPr35ZylAl8DDJ
+	 5W+5n0PFPYJtkiluR0vfE3j2eG5voFmLyLu6GMNFuFvfmDV+j81FVKLPV5R+vIUa3R
+	 dRLdRIySDOrsRuW34Zv7dWg1auYOCr7ofsBBcRD2tEU/jyyPVWtydDx4n8z5C1PkDJ
+	 Jb1JLSh85r22qKS+Tiv0EyBAgI/nAB+gFcgfXlUjsdsXMyxha0z2Tqj02WmTjGOfJo
+	 rDsJGijGwnhJg==
+Date: Fri, 16 Oct 2026 16:04:09 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Daeho Jeong <daeho43@gmail.com>
+Cc: Daeho Jeong <daehojeong@google.com>, kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [f2fs-dev] [PATCH v2 2/2] f2fs: introduce reserve_shrink mount
+ option for filesystem shrinkage
+Message-ID: <atJK-WKRxVOkdymu@google.com>
+References: <20260911143549.909867-2-daeho43@gmail.com>
+ <3e5f2bd4-f0e6-4f79-b182-6cb8ac331580@kernel.org>
+ <CACOAw_zJGF5GnJoxMWSAH2yXYFKBmo6mXCamdTixyN+pDp+5Hg@mail.gmail.com>
+ <ad98fde8-0480-4585-806f-31c65bb623ab@kernel.org>
+ <CACOAw_xcio8ermirrAUOAb3AHsYJXtu13t36O3CwMntMtjgzbQ@mail.gmail.com>
+ <CACOAw_zYTiF2kPnZWDZTidAA4mg1ozZoB-emFGozJjc7f=UzcQ@mail.gmail.com>
+ <CACOAw_yvwehaFqh-7ufKcZRjfT7AGPEB+aR-ajutLXYE=EX+Jw@mail.gmail.com>
+ <0aedc5af-1273-4510-a8fa-5ddf2281b699@kernel.org>
+ <atJHn7SZ-gMf_alX@google.com>
+ <CACOAw_xPgPbPYotMFUFvkQtofvs1Yz+74tk8JHmhN5LRabwTjg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACOAw_xPgPbPYotMFUFvkQtofvs1Yz+74tk8JHmhN5LRabwTjg@mail.gmail.com>
 
-On 16 October 2026 16:28:22 BST, Sasha Levin <sashal@kernel.org> wrote:
->The description of the Fixes: tag does not say which commit to name when
->a later commit made an older bug reachable, or when more than one commit
->introduced the same bug, and both questions come up regularly. The
->commit that blame points at is also often one that only moved the code.
->
->Say that the tag names the commit that introduced the bug, that the
->commit that exposed it may get a second tag, and that each commit that
->introduced the bug gets its own tag. Say that the tags tell the stable
->team which trees need the fix, and that trees without any of the tagged
->commits do not.
-
-Hi, this would make finding fixes tags better.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->
->Link: https://lore.kernel.org/r/c3ce794d-1ac2-4ef3-9e5c-1e171bd77a89@leemhuis.info
->Link: https://lore.kernel.org/r/20261013003535-mutt-send-email-mst@kernel.org
->Link: https://lore.kernel.org/r/atCI4q2HvqVXOag1@stanley.mountain
->Assisted-by: LLM
->Signed-off-by: Sasha Levin <sashal@kernel.org>
->---
-> Documentation/process/submitting-patches.rst | 9 +++++++++
-> 1 file changed, 9 insertions(+)
->
->diff --git a/Documentation/process/submitting-patches.rst b/Documentation/process/submitting-patches.rst
->index 7ae79452e1b46..7c4e3c8272d2a 100644
->--- a/Documentation/process/submitting-patches.rst
->+++ b/Documentation/process/submitting-patches.rst
->@@ -608,6 +608,15 @@ which stable kernel versions should receive your fix. This is the preferred
-> method for indicating a bug fixed by the patch. See
-> :ref:`describe_changes`
-> for more details.
+On 10/16, Daeho Jeong wrote:
+> On Fri, Oct 16, 2026 at 8:49 AM Jaegeuk Kim <jaegeuk@kernel.org> wrote:
+> >
+> > Are we waiting for v3 along with sysfs's feature flag, right?
 > 
->+Name the commit that introduced the bug. ``git blame`` and ``git bisect`` can
->+point at a commit that only moved the code, or that made an older bug
->+reachable. If a later commit made an older bug reachable, name the commit that
->+introduced the bug; a second Fixes: tag for the later commit is fine. If the
->+same bug was introduced separately by more than one commit, add a Fixes: tag
->+for each, but do not add tags for commits that are only suspected. The Fixes:
->+tags tell the stable team which trees need the fix: those that contain one of
->+the tagged commits. Trees that contain none of them do not need it.
->+
-> Note: Attaching a Fixes: tag does not subvert the stable kernel rules
-> process nor the requirement to Cc: stable@vger.kernel.org on all stable
-> patch candidates. For more information, please read
->
+> Hi Jaegeuk,
+> 
+> These two are for that.
+> 
+> [PATCH] f2fs: reserve space to be shrunk during resize_fs
+> [PATCH] f2fs: expose resizable_tail feature via sysfs
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Please check the list of patches below.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/commit/?h=dev-test&id=e77a210415848b2f8b1e76173f9689b0ae889ea4
+
+
+> 
+> Thanks,
+> 
+> 
+> >
+> > On 10/14, Chao Yu wrote:
+> > > On 10/14/26 07:27, Daeho Jeong wrote:
+> > > > On Tue, Oct 13, 2026 at 8:36 AM Daeho Jeong <daeho43@gmail.com> wrote:
+> > > >>
+> > > >> On Mon, Oct 12, 2026 at 7:15 PM Daeho Jeong <daeho43@gmail.com> wrote:
+> > > >>>
+> > > >>> On Mon, Oct 12, 2026 at 6:27 PM Chao Yu <chao@kernel.org> wrote:
+> > > >>>>
+> > > >>>> On 9/15/26 00:24, Daeho Jeong wrote:
+> > > >>>>> On Mon, Sep 14, 2026 at 12:15 AM Chao Yu <chao@kernel.org> wrote:
+> > > >>>>>>
+> > > >>>>>> On 9/11/26 22:35, Daeho Jeong wrote:
+> > > >>>>>>> From: Daeho Jeong <daehojeong@google.com>
+> > > >>>>>>>
+> > > >>>>>>> When preparing for subsequent online filesystem shrinkage (e.g., during
+> > > >>>>>>> partition resizing or FOTA updates), sufficient free space must be
+> > > >>>>>>> preserved so that valid data blocks can be evacuated and the filesystem
+> > > >>>>>>> can safely shrink.
+> > > >>>>>>>
+> > > >>>>>>> Existing reserve_root cannot prevent space exhaustion by privileged root
+> > > >>>>>>> processes (such as OTA updaters, package managers, and system daemons
+> > > >>>>>>> running with CAP_SYS_RESOURCE), which can allocate blocks from the root
+> > > >>>>>>> reserve and lead to resize failures due to lack of space. Moreover,
+> > > >>>>>>
+> > > >>>>>> I'm thinking about reusing existing mount option AMAP, is there any problem
+> > > >>>>>> to use "reserve_root=" w/ 128mb+shrunk_size_mb when we execute online filesyste
+> > > >>>>>> shrinkage? once it is done, recover w/ reserve_root=128mb.
+> > > >>>>>>
+> > > >>>>>>> runtime configurable reserved_blocks represents permanent GC and metadata
+> > > >>>>>>> headroom that must persist after resize, which would cause double-counting
+> > > >>>>>>> if inflated for shrinkage.
+> > > >>>>>>
+> > > >>>>>> I didn't get it, can you please explain a bit more about this issue?
+> > > >>>>>>
+> > > >>>>>> Thanks,
+> > > >>>>>
+> > > >>>>> Hi Chao,
+> > > >>>>>
+> > > >>>>> There are three main reasons why reserve_root cannot be reused:
+> > > >>>>>
+> > > >>>>> 1. Double-counting in f2fs_resize_fs():
+> > > >>>>> f2fs_resize_fs() checks:
+> > > >>>>>    shrunk_blocks + valid_user_blocks + root_reserved_blocks + ... >
+> > > >>>>> user_block_count
+> > > >>>>> Since root_reserved_blocks must persist after
+> > > >>>>> resize, inflating it by shrunk_size causes shrunk_size to be counted twice,
+> > > >>>>> requiring 2x free space and triggering false -ENOSPC. Resetting it right before
+> > > >>>>> resize also introduces a race window where concurrent writes can
+> > > >>>>> consume the space.
+> > > >>>>> 2. Root can allocate from reserve_root:
+> > > >>>>> reserve_root allows root/CAP_SYS_RESOURCE processes to allocate. During OTA,
+> > > >>>>> system daemons and updaters can eat into the reserved blocks.
+> > > >>>>> reserve_shrink strictly blocks all callers, including root.
+> > > >>>>
+> > > >>>> Daeho, sorry for the delay.
+> > > >>>>
+> > > >>>> Thanks for the explanation, I see, it's not appropriate to reuse
+> > > >>>> "reserve_root=" option for your requirement.
+> > > >>>>
+> > > >>>> May I ask that do you need to keep the reservation for a long time before resize,
+> > > >>>> e.g. from OTA starts till shrink happens? or is it enough to make it reserved
+> > > >>>> during f2fs_resize_fs()?
+> > > >>>>
+> > > >>>> If the latter, can we just reserve shrunk_blocks in f2fs_resize_fs()
+> > > >>>> directly, w/ the same way we did for f2fs_ioc_reserve_dev_alias()? Then
+> > > >>>> we don't need a new mount option. Something like:
+> > > >>>>
+> > > >>>> f2fs_resize_fs()
+> > > >>>>          spin_lock(&sbi->stat_lock);
+> > > >>>>          if (shrunk_blocks + valid_user_blocks(sbi) + ... > sbi->user_block_count)
+> > > >>>>              err = -ENOSPC;
+> > > >>>>          else
+> > > >>>>              sbi->resize_reserved_blocks += shrunk_blocks;
+> > > >>>>          spin_unlock(&sbi->stat_lock);
+> > > >>>>
+> > > >>>>          free_segment_range(sbi, secs, true);
+> > > >>>>          ...
+> > > >>>>          freeze_super();
+> > > >>>>          ...
+> > > >>>>          spin_lock(&sbi->stat_lock);
+> > > >>>>          sbi->user_block_count -= shrunk_blocks;
+> > > >>>>          sbi->resize_reserved_blocks -= shrunk_blocks;
+> > > >>>>          spin_unlock(&sbi->stat_lock);
+> > > >>>>          ...
+> > > >>>>          /* error path: sbi->resize_reserved_blocks -= shrunk_blocks */
+> > > >>>>
+> > > >>>> and in get_available_block_count(), deduct resize_reserved_blocks as we did for
+> > > >>>> alias_reserved_blocks, so that no one, including root, can allocate from the
+> > > >>>> reserved space during resize.
+> > > >>>>
+> > > >>>> Thanks,
+> > > >>>
+> > > >>> Hi Chao,
+> > > >>>
+> > > >>> Thanks for the suggestion.
+> > > >>>
+> > > >>> Unfortunately, reserving only inside f2fs_resize_fs() is not enough for
+> > > >>> our use case. We need the reservation to be in place for a long time
+> > > >>> before the resize, i.e. from the moment we decide to shrink (mount time)
+> > > >>> until F2FS_IOC_RESIZE_FS is actually issued. During that window,
+> > > >>> privileged processes (OTA updater, package manager, system daemons) keep
+> > > >>> writing to the filesystem. If they consume the free space, the ENOSPC
+> > > >>> check at the entry of f2fs_resize_fs() fails right away, so there is no
+> > > >>> chance to reserve anything inside the ioctl. Also, statfs would keep
+> > > >>> reporting space that is going to be cut off.
+> > > >>>
+> > > >>> That's why it's a mount option: the reservation is applied before any
+> > > >>> userspace write can happen, it's honored for all callers including root,
+> > > >>> it's reflected in statfs, and it's released automatically once the
+> > > >>> shrink succeeds.
+> > > >>>
+> > > >>> Thanks,
+> > > >>
+> > > >> Plus,
+> > > >>
+> > > >> Please think about the FOTA scenario below:
+> > > >>
+> > > >> 1) The device downloads the FOTA image. At this point, we check that
+> > > >>    there is enough free space for the shrink.
+> > > >> 2) The device reboots to apply the update.
+> > > >> 3) After the reboot, /data is mounted and F2FS_IOC_RESIZE_FS is issued
+> > > >>    to shrink the filesystem.
+> > > >>
+> > > >> Between 1) and 3), there is a long window that also spans a reboot.
+> > > >>
+> > > >> Thanks,
+> > > >
+> > > > Hi Chao,
+> > > >
+> > > > Sorry for the confusion. Our scenario has recently changed.
+> > > >
+> > > > Now the shrink is triggered at OTA install time, before the reboot: the
+> > > > updater figures out how much space the new partitions need, and issues
+> > > > F2FS_IOC_RESIZE_FS on the mounted /data right away. So we don't need to
+> > > > keep the reservation for a long time before the resize anymore. What we
+> > > > need is to protect the space during f2fs_resize_fs(), between the
+> > > > dry-run GC and freeze_super(), where other processes (including root)
+> > > > can consume it.
+> > > >
+> > > > So your suggestion fits the new scenario better. I'll drop the
+> > > > reserve_shrink mount option, and send a new patch that reserves
+> > > > shrunk_blocks inside f2fs_resize_fs() and deducts it in
+> > > > get_available_block_count() for all callers.
+> > >
+> > > Hi Daeho,
+> > >
+> > > I see, thanks for the sync-up.
+> > >
+> > > BTW, could you please add above background information into commit message?
+> > > I think it can help developer/reviewer to know more background info.
+> > >
+> > > Thanks,
+> > >
+> > > >
+> > > > Thanks for the review,
+> > > >
+> > > >>
+> > > >>>
+> > > >>>>
+> > > >>>>>
+> > > >>>>> Thanks,
+> > > >>>>> Daeho
+> > > >>>>>
+> > > >>>>>>
+> > > >>>>>>>
+> > > >>>>>>> To resolve this, introduce a dedicated reserve_shrink=<blocks>
+> > > >>>>>>> mount option:
+> > > >>>>>>> 1. Symmetrically mirrors reserve_root=<blocks> in block units to
+> > > >>>>>>>      pre-reserve space specifically for subsequent filesystem shrinkage.
+> > > >>>>>>> 2. In get_available_block_count(), unconditionally deducts
+> > > >>>>>>>      reserve_shrink_blocks for all callers, strictly rejecting all
+> > > >>>>>>>      allocations (including root / CAP_SYS_RESOURCE) once available blocks
+> > > >>>>>>>      are exhausted.
+> > > >>>>>>> 3. In f2fs_statfs(), deducts reserve_shrink_blocks from f_bfree (and
+> > > >>>>>>>      f_bavail) so that filesystem statistics accurately reflect usable space.
+> > > >>>>>>> 4. In f2fs_resize_fs(), automatically resets reserve_shrink_blocks to 0
+> > > >>>>>>>      and clears F2FS_MOUNT_RESERVE_SHRINK upon successful shrink completion,
+> > > >>>>>>>      releasing any remaining reservation.
+> > > >>>>>>> 5. In sysfs: reserved_blocks, subtracts reserve_shrink_blocks when
+> > > >>>>>>>      validating the upper limit of configurable reserved blocks.
+> > > >>>>>>>
+> > > >>>>>>> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> > > >>>>>>> ---
+> > > >>>>>>> v2:
+> > > >>>>>>>    - Split out mount option bitmask expansion (BIT_ULL) into a separate
+> > > >>>>>>>      prerequisite patch (Patch 1/2).
+> > > >>>>>>> ---
+> > > >>>>>>>    Documentation/filesystems/f2fs.rst |  7 +++++
+> > > >>>>>>>    fs/f2fs/f2fs.h                     |  9 ++++++
+> > > >>>>>>>    fs/f2fs/gc.c                       |  5 ++++
+> > > >>>>>>>    fs/f2fs/super.c                    | 47 ++++++++++++++++++++++++++++++
+> > > >>>>>>>    fs/f2fs/sysfs.c                    | 13 +++++++--
+> > > >>>>>>>    5 files changed, 79 insertions(+), 2 deletions(-)
+> > > >>>>>>>
+> > > >>>>>>> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+> > > >>>>>>> index 771216f45207..dbdc5d5a83ad 100644
+> > > >>>>>>> --- a/Documentation/filesystems/f2fs.rst
+> > > >>>>>>> +++ b/Documentation/filesystems/f2fs.rst
+> > > >>>>>>> @@ -191,6 +191,13 @@ reserve_node=%d           Support configuring reserved nodes which are used for
+> > > >>>>>>>                         gid, the default limit is 12.5% of all nodes.
+> > > >>>>>>>    resuid=%d            The user ID which may use the reserved blocks and nodes.
+> > > >>>>>>>    resgid=%d            The group ID which may use the reserved blocks and nodes.
+> > > >>>>>>> +reserve_shrink=%d     Support pre-reserving space for subsequent filesystem
+> > > >>>>>>> +                      shrinkage (e.g. during partition resizing or FOTA),
+> > > >>>>>>> +                      unit: blocks. Unlike reserve_root, allocations from
+> > > >>>>>>> +                      this reserved space strictly reject all callers
+> > > >>>>>>> +                      (including root / CAP_SYS_RESOURCE). Once the
+> > > >>>>>>> +                      filesystem is successfully shrunk via resize, this
+> > > >>>>>>> +                      value is automatically reset to 0.
+> > > >>>>>>>    fault_injection=%d   Enable fault injection in all supported types with
+> > > >>>>>>>                         specified injection rate.
+> > > >>>>>>>    fault_type=%d                Support configuring fault injection type, should be
+> > > >>>>>>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> > > >>>>>>> index 4aaf29de3f6f..48a91771be95 100644
+> > > >>>>>>> --- a/fs/f2fs/f2fs.h
+> > > >>>>>>> +++ b/fs/f2fs/f2fs.h
+> > > >>>>>>> @@ -145,6 +145,7 @@ enum f2fs_mount_opt {
+> > > >>>>>>>         */
+> > > >>>>>>>        F2FS_MOUNT_LAZYTIME,
+> > > >>>>>>>        F2FS_MOUNT_RESERVE_NODE,
+> > > >>>>>>> +     F2FS_MOUNT_RESERVE_SHRINK,
+> > > >>>>>>>    };
+> > > >>>>>>>
+> > > >>>>>>>    #define F2FS_OPTION(sbi)    ((sbi)->mount_opt)
+> > > >>>>>>> @@ -226,6 +227,7 @@ struct f2fs_mount_info {
+> > > >>>>>>>        unsigned long long opt;
+> > > >>>>>>>        block_t root_reserved_blocks;   /* root reserved blocks */
+> > > >>>>>>>        block_t root_reserved_nodes;    /* root reserved nodes */
+> > > >>>>>>> +     block_t reserve_shrink_blocks;  /* reserve blocks for shrink */
+> > > >>>>>>>        kuid_t s_resuid;                /* reserved blocks for uid */
+> > > >>>>>>>        kgid_t s_resgid;                /* reserved blocks for gid */
+> > > >>>>>>>        int active_logs;                /* # of active logs */
+> > > >>>>>>> @@ -2658,6 +2660,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+> > > >>>>>>>        if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+> > > >>>>>>>                avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
+> > > >>>>>>>
+> > > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK)) {
+> > > >>>>>>> +             if (avail_user_block_count > F2FS_OPTION(sbi).reserve_shrink_blocks)
+> > > >>>>>>> +                     avail_user_block_count -= F2FS_OPTION(sbi).reserve_shrink_blocks;
+> > > >>>>>>> +             else
+> > > >>>>>>> +                     avail_user_block_count = 0;
+> > > >>>>>>> +     }
+> > > >>>>>>> +
+> > > >>>>>>>        if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+> > > >>>>>>>                if (avail_user_block_count > sbi->unusable_block_count)
+> > > >>>>>>>                        avail_user_block_count -= sbi->unusable_block_count;
+> > > >>>>>>> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> > > >>>>>>> index bc22dde1cb30..556c4793478d 100644
+> > > >>>>>>> --- a/fs/f2fs/gc.c
+> > > >>>>>>> +++ b/fs/f2fs/gc.c
+> > > >>>>>>> @@ -2492,6 +2492,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+> > > >>>>>>>                spin_lock(&sbi->stat_lock);
+> > > >>>>>>>                sbi->user_block_count += shrunk_blocks;
+> > > >>>>>>>                spin_unlock(&sbi->stat_lock);
+> > > >>>>>>> +     } else if (test_opt(sbi, RESERVE_SHRINK)) {
+> > > >>>>>>> +             spin_lock(&sbi->stat_lock);
+> > > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks = 0;
+> > > >>>>>>> +             clear_opt(sbi, RESERVE_SHRINK);
+> > > >>>>>>> +             spin_unlock(&sbi->stat_lock);
+> > > >>>>>>>        }
+> > > >>>>>>>    out_err:
+> > > >>>>>>>        f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
+> > > >>>>>>> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> > > >>>>>>> index a5e109bdcebc..58f33750b2a8 100644
+> > > >>>>>>> --- a/fs/f2fs/super.c
+> > > >>>>>>> +++ b/fs/f2fs/super.c
+> > > >>>>>>> @@ -196,6 +196,7 @@ enum {
+> > > >>>>>>>        Opt_data_flush,
+> > > >>>>>>>        Opt_reserve_root,
+> > > >>>>>>>        Opt_reserve_node,
+> > > >>>>>>> +     Opt_reserve_shrink,
+> > > >>>>>>>        Opt_resgid,
+> > > >>>>>>>        Opt_resuid,
+> > > >>>>>>>        Opt_mode,
+> > > >>>>>>> @@ -328,6 +329,7 @@ static const struct fs_parameter_spec f2fs_param_specs[] = {
+> > > >>>>>>>        fsparam_flag("data_flush", Opt_data_flush),
+> > > >>>>>>>        fsparam_u32("reserve_root", Opt_reserve_root),
+> > > >>>>>>>        fsparam_u32("reserve_node", Opt_reserve_node),
+> > > >>>>>>> +     fsparam_u32("reserve_shrink", Opt_reserve_shrink),
+> > > >>>>>>>        fsparam_gid("resgid", Opt_resgid),
+> > > >>>>>>>        fsparam_uid("resuid", Opt_resuid),
+> > > >>>>>>>        fsparam_enum("mode", Opt_mode, f2fs_param_mode),
+> > > >>>>>>> @@ -407,6 +409,7 @@ static match_table_t f2fs_checkpoint_tokens = {
+> > > >>>>>>>    #define F2FS_SPEC_lookup_mode                       (1 << 24)
+> > > >>>>>>>    #define F2FS_SPEC_reserve_node                      (1 << 25)
+> > > >>>>>>>    #define F2FS_SPEC_resizable_tail_secno              (1 << 26)
+> > > >>>>>>> +#define F2FS_SPEC_reserve_shrink             (1 << 27)
+> > > >>>>>>>
+> > > >>>>>>>    struct f2fs_fs_context {
+> > > >>>>>>>        struct f2fs_mount_info info;
+> > > >>>>>>> @@ -550,6 +553,27 @@ static inline void limit_reserve_root(struct f2fs_sb_info *sbi)
+> > > >>>>>>>                                           F2FS_OPTION(sbi).s_resgid));
+> > > >>>>>>>    }
+> > > >>>>>>>
+> > > >>>>>>> +static inline void limit_reserve_shrink(struct f2fs_sb_info *sbi)
+> > > >>>>>>> +{
+> > > >>>>>>> +     block_t block_limit;
+> > > >>>>>>> +
+> > > >>>>>>> +     if (!test_opt(sbi, RESERVE_SHRINK))
+> > > >>>>>>> +             return;
+> > > >>>>>>> +
+> > > >>>>>>> +     block_limit = sbi->user_block_count - sbi->reserved_blocks;
+> > > >>>>>>> +     if (test_opt(sbi, RESERVE_ROOT)) {
+> > > >>>>>>> +             if (block_limit > F2FS_OPTION(sbi).root_reserved_blocks)
+> > > >>>>>>> +                     block_limit -= F2FS_OPTION(sbi).root_reserved_blocks;
+> > > >>>>>>> +             else
+> > > >>>>>>> +                     block_limit = 0;
+> > > >>>>>>> +     }
+> > > >>>>>>> +     if (F2FS_OPTION(sbi).reserve_shrink_blocks > block_limit) {
+> > > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks = block_limit;
+> > > >>>>>>> +             f2fs_info(sbi, "Reduce reserved blocks for shrink = %u",
+> > > >>>>>>> +                       F2FS_OPTION(sbi).reserve_shrink_blocks);
+> > > >>>>>>> +     }
+> > > >>>>>>> +}
+> > > >>>>>>> +
+> > > >>>>>>>    static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
+> > > >>>>>>>    {
+> > > >>>>>>>        if (!F2FS_OPTION(sbi).unusable_cap_perc)
+> > > >>>>>>> @@ -953,6 +977,14 @@ static int f2fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+> > > >>>>>>>                F2FS_CTX_INFO(ctx).root_reserved_nodes = result.uint_32;
+> > > >>>>>>>                ctx->spec_mask |= F2FS_SPEC_reserve_node;
+> > > >>>>>>>                break;
+> > > >>>>>>> +     case Opt_reserve_shrink:
+> > > >>>>>>> +             if (result.uint_32)
+> > > >>>>>>> +                     ctx_set_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
+> > > >>>>>>> +             else
+> > > >>>>>>> +                     ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
+> > > >>>>>>> +             F2FS_CTX_INFO(ctx).reserve_shrink_blocks = result.uint_32;
+> > > >>>>>>> +             ctx->spec_mask |= F2FS_SPEC_reserve_shrink;
+> > > >>>>>>> +             break;
+> > > >>>>>>>        case Opt_resuid:
+> > > >>>>>>>                F2FS_CTX_INFO(ctx).s_resuid = result.uid;
+> > > >>>>>>>                ctx->spec_mask |= F2FS_SPEC_resuid;
+> > > >>>>>>> @@ -1775,6 +1807,9 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
+> > > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_reserve_node)
+> > > >>>>>>>                F2FS_OPTION(sbi).root_reserved_nodes =
+> > > >>>>>>>                                        F2FS_CTX_INFO(ctx).root_reserved_nodes;
+> > > >>>>>>> +     if (ctx->spec_mask & F2FS_SPEC_reserve_shrink)
+> > > >>>>>>> +             F2FS_OPTION(sbi).reserve_shrink_blocks =
+> > > >>>>>>> +                                     F2FS_CTX_INFO(ctx).reserve_shrink_blocks;
+> > > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_resgid)
+> > > >>>>>>>                F2FS_OPTION(sbi).s_resgid = F2FS_CTX_INFO(ctx).s_resgid;
+> > > >>>>>>>        if (ctx->spec_mask & F2FS_SPEC_resuid)
+> > > >>>>>>> @@ -2300,6 +2335,13 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
+> > > >>>>>>>        buf->f_bfree = user_block_count - valid_user_blocks(sbi) -
+> > > >>>>>>>                                                sbi->current_reserved_blocks;
+> > > >>>>>>>
+> > > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK)) {
+> > > >>>>>>> +             if (buf->f_bfree > F2FS_OPTION(sbi).reserve_shrink_blocks)
+> > > >>>>>>> +                     buf->f_bfree -= F2FS_OPTION(sbi).reserve_shrink_blocks;
+> > > >>>>>>> +             else
+> > > >>>>>>> +                     buf->f_bfree = 0;
+> > > >>>>>>> +     }
+> > > >>>>>>> +
+> > > >>>>>>>        if (unlikely(buf->f_bfree <= sbi->unusable_block_count))
+> > > >>>>>>>                buf->f_bfree = 0;
+> > > >>>>>>>        else
+> > > >>>>>>> @@ -2524,6 +2566,9 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+> > > >>>>>>>                                        F2FS_OPTION(sbi).s_resuid),
+> > > >>>>>>>                                from_kgid_munged(&init_user_ns,
+> > > >>>>>>>                                        F2FS_OPTION(sbi).s_resgid));
+> > > >>>>>>> +     if (test_opt(sbi, RESERVE_SHRINK))
+> > > >>>>>>> +             seq_printf(seq, ",reserve_shrink=%u",
+> > > >>>>>>> +                             F2FS_OPTION(sbi).reserve_shrink_blocks);
+> > > >>>>>>>    #ifdef CONFIG_F2FS_FAULT_INJECTION
+> > > >>>>>>>        if (test_opt(sbi, FAULT_INJECTION)) {
+> > > >>>>>>>                seq_printf(seq, ",fault_injection=%u",
+> > > >>>>>>> @@ -3105,6 +3150,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+> > > >>>>>>>
+> > > >>>>>>>        adjust_pinned_area_boundary(sbi);
+> > > >>>>>>>        limit_reserve_root(sbi);
+> > > >>>>>>> +     limit_reserve_shrink(sbi);
+> > > >>>>>>>        fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
+> > > >>>>>>>
+> > > >>>>>>>        sbi->umount_lock_holder = NULL;
+> > > >>>>>>> @@ -5322,6 +5368,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+> > > >>>>>>>        sbi->current_reserved_blocks = 0;
+> > > >>>>>>>        sbi->alias_reserved_blocks = 0;
+> > > >>>>>>>        limit_reserve_root(sbi);
+> > > >>>>>>> +     limit_reserve_shrink(sbi);
+> > > >>>>>>>        adjust_unusable_cap_perc(sbi);
+> > > >>>>>>>
+> > > >>>>>>>        f2fs_init_extent_cache_info(sbi);
+> > > >>>>>>> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> > > >>>>>>> index aaca9ed9b169..d61940d095b4 100644
+> > > >>>>>>> --- a/fs/f2fs/sysfs.c
+> > > >>>>>>> +++ b/fs/f2fs/sysfs.c
+> > > >>>>>>> @@ -591,9 +591,18 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+> > > >>>>>>>        }
+> > > >>>>>>>    #endif
+> > > >>>>>>>        if (a->struct_type == RESERVED_BLOCKS) {
+> > > >>>>>>> +             unsigned long limit;
+> > > >>>>>>> +
+> > > >>>>>>>                spin_lock(&sbi->stat_lock);
+> > > >>>>>>> -             if (t > (unsigned long)(sbi->user_block_count -
+> > > >>>>>>> -                             F2FS_OPTION(sbi).root_reserved_blocks)) {
+> > > >>>>>>> +             limit = sbi->user_block_count -
+> > > >>>>>>> +                             F2FS_OPTION(sbi).root_reserved_blocks;
+> > > >>>>>>> +             if (test_opt(sbi, RESERVE_SHRINK)) {
+> > > >>>>>>> +                     if (limit > F2FS_OPTION(sbi).reserve_shrink_blocks)
+> > > >>>>>>> +                             limit -= F2FS_OPTION(sbi).reserve_shrink_blocks;
+> > > >>>>>>> +                     else
+> > > >>>>>>> +                             limit = 0;
+> > > >>>>>>> +             }
+> > > >>>>>>> +             if (t > limit) {
+> > > >>>>>>>                        spin_unlock(&sbi->stat_lock);
+> > > >>>>>>>                        return -EINVAL;
+> > > >>>>>>>                }
+> > > >>>>>>
+> > > >>>>
+> > >
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
