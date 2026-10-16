@@ -1,64 +1,64 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4622C21ED
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC3E395AEA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792120218; cv=none; b=Ne32/qF4xry1BkUPPiIQb/JNaa1aBz+ME/MSrl+mJG4YI5cC5SB/j4eCWESGdMVjHJ2d7yV5NKM448irjOD1BDb33U3NKmUdbfiAvH7Wrd9zooA/jmPIGlBIhF8oR8kgWbh1zaOhN7tcjULcphWiaf2j7WE2+NYenOLo0719pVA=
+	t=1792120229; cv=none; b=gcHKgSV2DjQQvSKXZ3t+TlEi6osO1aWfo5v0EnD3N8M+vdRRMOXfEDB+DQ+hd3+djVkDLBCD8NW8/H6bszIdktKNLUqrbiUg/Ftohcg7py2Br3vRXQFaJpUmG5721XI792Ie9UMUxCFx0PgRVRoEPpPlWCj4Gb/nHr5kIhhES78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792120218; c=relaxed/simple;
-	bh=xaYAGKNR5teVXSTbMIqN33NUXwD6fmITNKM3gCe5N4g=;
+	s=arc-20240116; t=1792120229; c=relaxed/simple;
+	bh=KS2Sad4txxYAPU7Ulhsill0lGwhrig2221eGQ+9zjh4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G0ECGhsb9XWPs7J7lekERi98R70CXAgfn7MyWmiqgORFXu3ShFL4UeAVChTmIshXCTFc9SNjkJZCB7AR++zpFY3mkh6TDr092NGu+MIZpSphkHVUv0ZJSzeCIfsc4ObOCVP77MynXSlUco/ovOvd41INaXxVDvUQOx3scLWFs3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B6msrrvw; arc=none smtp.client-ip=74.125.227.136
+	 MIME-Version; b=h9yVFLP7kaJEzYKoevUSUvmsymk4crt0MmWUGEOasZK8X+CjKK7HZjWfhkPdZIthHn9CDtVjaGZCgh95nZmDFwkNOQyG+A1F5t8ulGwLXueFibtoRxbd3tDBzEtoY+e2WR8euPSnKRZHEgvcAgeN2NTL6fD95orud5WbiTX+YDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IV2Ytxcg; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B6msrrvw"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so1533515a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:10:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IV2Ytxcg"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1779506a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:10:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792120216; x=1792725016; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792120228; x=1792725028; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6w2trImMBsUXcJxF+8CP2LmtHij/l89KoLcRCpS0ni8=;
-        b=B6msrrvwl0YdPSjxOcclkjYeKLnL52JsBNDA3HIrecDpoDsMFnWUrpA7WOa69x3SEw
-         J8rqHOKacO/aucqLC9zMSabnE6rzhcSLBk2YalaUKprLGpM4FlWbTRF3qZbtxtgNIgta
-         +8pRNVf+yFdJWP6QLgcMm8FOupUSkgAOEoyZnY1BuRgsUqL/iUdinbUYvEs7xtrmGLnN
-         808/g2+Bhqfo/pmna3YWDVT5lZLwR0GDCUYGGTK4BKWPU6VrEYGLZz2GgHDqoFVAg6Tz
-         y1/CSOFo1xZx6y6EfLbFN22b2E93TlRd+QffYhidwwmzptI2zLopSysW2+BNK/ywXwSm
-         zlDw==
+        bh=EXuyqgfiF9x7HO7+fbFxeGIrd5nFUV6QECR0sZa4nrg=;
+        b=IV2YtxcgOAoslEI82SjyNA8PfCAR1TnlJ+VuscCAUCNz0Z0oQfDszOQsHtHLEDKw7c
+         Ipss62GbmLPgat1FPw6rUuN1UjWCrOX1xceGrvDiOuVGNubEPTHDp9lvykxGGZext7JH
+         fhzVM4hhjtlWlnhHSZJiWZhGjgK0aUrJXymVyhTrh/lOoQFPdYVwtU/dHPayhtf1xZ5d
+         P94FhMjVPxIIMAjiw7znSVoh7ptxkximV9wmtFw6BdQETgMK09Mp3sRKc7qQnKRk6bFK
+         lCR/KSWGcbgdpvmFxKK8RfZx7sC0w3Ua/Cz9cC+C7AJ2CxhRLrBKBMxPXj4gvE4OruJZ
+         vwVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792120216; x=1792725016;
+        d=1e100.net; s=20260707; t=1792120228; x=1792725028;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6w2trImMBsUXcJxF+8CP2LmtHij/l89KoLcRCpS0ni8=;
-        b=xTlTcPEe7jhI5n8LUIKfTYV71J5i4D/D0kGFXftHQBkvXJ2NSDN0ywig4Cq5O2IOZj
-         eo+R7R8UOkG/Y/nnyJToWcKwS1FGl4s4Dyu75jLElhpKmntlOhz9hIHCXZgmw/zNkGPh
-         aJQsJ6E4EZXhSgynIDeBn6RHDJ3XLyrTuTeApeu66mmTj9dA7FOHg4H8dcSB1aQ9bX0u
-         hKFwullHI7//RegLpzz4gbx9+7Lvriw9+31pKyrNfPwKiaWS3iwLMhBRuB1frm3ABoXi
-         F9RhL+HN1x8h4IUOhZMST8CS5hZ3F8VwCYfmBzDjUi1/1DnG9HXVnz/fZTTgST1UZnhe
-         soUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+iIPQgcDCZVcbZ7d6EAAEyQ/lfM1TkYRZxdy1KI0C1FEsMomEYUvgHtjFJW6yW6UhjbAG892sqJphha4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB32YQAEi3pefaNCcIJQNmaF3Fs4dxElU/TAKewaAodep/5p5N
-	y5WAjYjaco8ue/jhm6XrmOUE8CS7sU4FKaS3TfpHnq0Fhz74jKTxJ4DV
-X-Gm-Gg: AYBFou35jvhTjjPmF5uKltw1tPAc3wzwWKQg5OogGHFQLVNr8E60tXBZBbknUcNGs3Y
-	P14rv4eOeYQFCEci4kValvJgeavYqP19KtASRu6ro8ejcQ4iuKeHbxfVoa6i4Qor9hohsAKteYZ
-	2cpiUuBYHjxsZ/5dYWdnHqzXbII4UvuzMtTIYg+UOchnqRNf6fOwQImhV1C6Snu3AmGJHNQsxD2
-	oHovjqfaUZb2acIdxl71rd8ealX1pJacQQB/Btpx3bdcAaF3sDP9kyG475xrfo4unBsswT4bmFZ
-	3M/15BNgN+M8L9tX5x7MMPuUdjQrb8Eg7YsiaBTUgrGB98URH98gy0VQu+rah9c484+5k+++LSn
-	ODJd0VbP1Ji9ZzbY37NPops3DkIvGJWiXkz5ZjMbxCYP42+Ykxu2g+OgjZ6Lq3UwfXajLaFdhSD
-	qgbYqJdbVbdQodKIcgmvhgV/aJDVXXwvik0SuAaZyrkYHFY0bJtAwM9nk3LSkxWbIlZ8/BbYswZ
-	7dkmsgSaGs=
-X-Received: by 2002:a17:90b:224c:b0:3a8:bbc2:5551 with SMTP id 98e67ed59e1d1-3ab3a0f0a1dmr21861671a91.0.1792120216184;
-        Thu, 15 Oct 2026 20:10:16 -0700 (PDT)
+        bh=EXuyqgfiF9x7HO7+fbFxeGIrd5nFUV6QECR0sZa4nrg=;
+        b=AoBuHSbRVhjpP+TZOD7xB6yLjLH6aWf6LyVhcTHf4BUYR4D5a6V/n4sn2zZhOGKXZL
+         FGgO3BRfQfPh2+UGCudbFATtGznKt4WOrg4O3mcEm/m1xzj1rD4QwQ6XNB3tJljHwHNk
+         nzSa9VUyl451xZPc+bMPY+EhpjJyemQxeUvAI7Sk3Vhqbmf4HOegGdl4niGe4vq2wWzY
+         zUVdQ8tgWSU2KdK96wOdMzoRwwf8K6XhFJoWKNyfCAN2FTowsJTHXSfmoaNNIQ87P6hK
+         Ksz6/+vOamHo7VRHKRJcHp85pD3mqxoWxsUN5+h2oDfZcKS5twijvL5c9j8WVj79AHJb
+         2nUg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8KEjZ2krPsXouSyVWZABw/swu16dVs0mvQNX+tTihpORaVSi2LnLkboQxVqyZGYbA42QHAEEZmzjjZgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEU7sfqXpgiHPvnw0QjPv5XCE7sQe7hYYTNwZjNgbjQ+/T82ci
+	+JHM7qt+g2eKRFwcxs58iY9xMmm3/2B7b+YbkiPDSzDmR+kuDyPVbbkF
+X-Gm-Gg: AYBFou3/89mdPD2oNcGiwjyeIuRPBztNj/6E3gsa+WCEQgBmLR9bjrav6s3tIRIezQc
+	RwMRg+mr7Hm3DYkVnHHJPJFNkc4azytZmW4/5AMG+/mVRedzoFq5tmifzaDdFq1fvG7M1HTTd60
+	fxuyYSrikq7zr+YLQTg0Wa2u1Crg5jV8MNc1HEuWOtp8WrXoiUooG4ogBn9qB0S7nlE5oHziGsi
+	i4j38mbKqXm/w4YuLha0tdpP9Jfj3cXHKtLwGURSzmgEprY0kY2Tb67EA2iOtq1HKB80U/3Itp9
+	IkEqBqnttd9/jTuYuQvqLYsZXcsy9ucE3bVwDgXye2+zzead7CMA/KkwJ1R1Sz54KK2B87TRRv9
+	3yu4ms24BjWv3bATcw47VNVGuiVzZQmPLb9xIAPYgbweMisHVNzMSQgM19x43lLwpStTt0xW0hH
+	jTaGGM3uANdYvVp5Mp9lu2mIQJIUZiP3RGxCduun0mFnatemxpbCDN3NXoIAG8A7bxPOdSzfrBT
+	LPNScOkQbygKuTJwHfJXA==
+X-Received: by 2002:a17:90b:2d86:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3ab3a60d1eamr16967413a91.20.1792120228159;
+        Thu, 15 Oct 2026 20:10:28 -0700 (PDT)
 Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm370085a91.4.2026.10.15.20.10.03
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3cc73c7sm370085a91.4.2026.10.15.20.10.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:10:15 -0700 (PDT)
+        Thu, 15 Oct 2026 20:10:27 -0700 (PDT)
 From: Wandun Chen <chenwandun1@gmail.com>
 To: robh@kernel.org,
 	baoquan.he@linux.dev,
@@ -93,9 +93,9 @@ Cc: catalin.marinas@arm.com,
 	kexec@lists.infradead.org,
 	linux-mm@kvack.org,
 	iommu@lists.linux.dev
-Subject: [PATCH v8 5/8] memblock: introduce MEMBLOCK_NODUMP flag
-Date: Fri, 16 Oct 2026 11:08:52 +0800
-Message-ID: <20261016030855.4062882-6-chenwandun1@gmail.com>
+Subject: [PATCH v8 6/8] of: reserved_mem: add dumpable flag to opt-in vmcore
+Date: Fri, 16 Oct 2026 11:08:53 +0800
+Message-ID: <20261016030855.4062882-7-chenwandun1@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261016030855.4062882-1-chenwandun1@gmail.com>
 References: <20261016030855.4062882-1-chenwandun1@gmail.com>
@@ -109,98 +109,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Wandun Chen <chenwandun@lixiang.com>
 
-Add MEMBLOCK_NODUMP to mark regions that should be excluded from
-kdump vmcores.
+Add a 'dumpable' flag to struct reserved_mem to decide whether a
+reserved area should be included in the kdump vmcore. Non-dumpable
+regions are later marked MEMBLOCK_NODUMP; the filtering itself happens
+in memblock, keeping the arch kdump code independent of the DT API.
 
-The flag is meant for reserved memory that carries no data useful for
-crash analysis. Reusable reserved regions such as CMA may hold useful
-data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
-patches wire this up for /reserved-memory entries.
+Most reserved regions are owned by devices and do not contain data
+useful for kernel crash analysis, so dumpable default to false.
+Reusable CMA regions are different: their pages are handed back to the
+buddy allocator and may contain key data for crash analysis, so set
+dumpable to true in rmem_cma_setup().
 
 Suggested-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
 Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- include/linux/memblock.h |  9 +++++++++
- mm/memblock.c            | 16 ++++++++++++++++
- 2 files changed, 25 insertions(+)
+ include/linux/of_reserved_mem.h | 1 +
+ kernel/dma/contiguous.c         | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index ea288cf21400..04fbdff2b808 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -52,6 +52,8 @@ extern unsigned long long max_possible_pfn;
-  * know is good to use. It is the only memory that allocations may happen from
-  * in this phase.
-  * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
-+ * @MEMBLOCK_NODUMP: exclude from kdump vmcore. It carries no data useful
-+ * for crash analysis (e.g. firmware carveouts).
-  */
- enum memblock_flags {
- 	MEMBLOCK_NONE		= 0x0,	/* No special request */
-@@ -63,6 +65,7 @@ enum memblock_flags {
- 	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
- 	MEMBLOCK_KHO_NOPRSRV	= 0x40,	/* memory with no KHO preservations */
- 	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
-+	MEMBLOCK_NODUMP		= 0x100,/* exclude from kdump vmcore */
+diff --git a/include/linux/of_reserved_mem.h b/include/linux/of_reserved_mem.h
+index 49da515859f2..99c0f3ccc297 100644
+--- a/include/linux/of_reserved_mem.h
++++ b/include/linux/of_reserved_mem.h
+@@ -15,6 +15,7 @@ struct reserved_mem {
+ 	phys_addr_t			base;
+ 	phys_addr_t			size;
+ 	void				*priv;
++	bool				dumpable;
  };
  
- /**
-@@ -160,6 +163,7 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
- int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
- int memblock_mark_kho_noprsrv(phys_addr_t base, phys_addr_t size);
- int memblock_clear_kho_noprsrv(phys_addr_t base, phys_addr_t size);
-+int memblock_mark_nodump(phys_addr_t base, phys_addr_t size);
+ struct reserved_mem_ops {
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index 90937dc7c627..d7bfc38ac762 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -567,6 +567,7 @@ static int __init rmem_cma_setup(unsigned long node, struct reserved_mem *rmem)
+ 		dma_contiguous_default_area = cma;
  
- void memblock_free(void *ptr, size_t size);
+ 	rmem->priv = cma;
++	rmem->dumpable = true;
  
-@@ -305,6 +309,11 @@ static inline bool memblock_is_kho_noprsrv(struct memblock_region *m)
- 	return m->flags & MEMBLOCK_KHO_NOPRSRV;
- }
- 
-+static inline bool memblock_is_nodump(struct memblock_region *m)
-+{
-+	return m->flags & MEMBLOCK_NODUMP;
-+}
-+
- int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
- 			    unsigned long  *end_pfn);
- void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
-diff --git a/mm/memblock.c b/mm/memblock.c
-index cbb172fbf06a..31c89bd64036 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_noprsrv(phys_addr_t base, phys_addr_t size)
- 				    MEMBLOCK_KHO_NOPRSRV);
- }
- 
-+/**
-+ * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
-+ * @base: the base phys addr of the region
-+ * @size: the size of the region
-+ *
-+ * Mark the region as not to be included in crash dumps.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
-+{
-+	return memblock_setclr_flag(&memblock.memory, base, size, 1,
-+				    MEMBLOCK_NODUMP);
-+}
-+
- static bool should_skip_region(struct memblock_type *type,
- 			       struct memblock_region *m,
- 			       int nid, int flags)
-@@ -2880,6 +2895,7 @@ static const char * const flagname[] = {
- 	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
- 	[ilog2(MEMBLOCK_KHO_NOPRSRV)] = "KHO_NOPRSRV",
- 	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
-+	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
- };
- 
- static int memblock_debug_show(struct seq_file *m, void *private)
+ 	pr_info("Reserved memory: created CMA memory pool at %pa, size %ld MiB\n",
+ 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
 -- 
 2.43.0
 
