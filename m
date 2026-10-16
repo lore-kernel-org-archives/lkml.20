@@ -1,181 +1,217 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255A03019A9
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36F12DEA8F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156723; cv=none; b=pZ0NpbKQbAUBSUI5M73/fTIgkHzqku4dE7CPf0ZxkS03TYoUDcTAoKk9KG5jKxv3B2uLj/ZcGgIyIENjP+ojnx+Ex5U3iPYCr52vFx7P4Kd/1edmOjHSgyUJvc/VcHgASymcOWH50jGs51oWwy7jFHhgcFzXQLP9aWidbWKaU+8=
+	t=1792156731; cv=none; b=NL8Y86J6C8DZwaouSdpcI+rJUUChf6kg21DqwS002Or9E+OaGot8Q91j9EFjP7cBjaF9bTG2WlmouHGqVO8Ui5OxRY5D6CODiAL2JIgYWS1oLf1wXDU+/yaiJmEbMTno3fSRudPN/ntl1cl1cLPSbgIYk3qc9MQ2J1GygAiGXH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156723; c=relaxed/simple;
-	bh=QL8io3hFYe/v8PWzmMCFcoQk6f8JTOuZ0YD1MSHt3Ok=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LoO6mR6Yp6HHj/FbSJNkMW/ybD3ldW4greW/f5aNCmeAd85LFKiWMmxTnzcNZB4e49JkxBBIBTQtie0jI27srgDr8sCKYRyvow1NjVLDJu1KijTv+FfU7u0eNOzbuCZKJa6XmDZmCAQiy7hg3nzsKgGRkm2xCyo1iwyqSh6k9rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org; spf=none smtp.mailfrom=okonski.org; dkim=pass (2048-bit key) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.b=jJJ4uC6O; arc=none smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=okonski.org
+	s=arc-20240116; t=1792156731; c=relaxed/simple;
+	bh=1MfDaovX0Rxo7uc1tcX7jscOcFmXuxrnuU575oK7onA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gd3CuMfuI8M3cNUpCZ+xOYTryfTUXPz9AGJFGXLvloi1TAqZgodIDW7DEYR8TrU2wyykvvCNRPBEej+oaBZkBfpPGFHGgNTA784fuqEYS41+0qfNWNCBwtwho587DjczupxbykcZKPJdMqUeQ+sjKRxIc8VP4mC0FpL/QisOjqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=UnmfVm1t; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ev1VyZ7c; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=w5tKgH8+; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4eNxa2jk; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.b="jJJ4uC6O"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so2542184a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:18:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=okonski-org.20251104.gappssmtp.com; s=20251104; t=1792156720; x=1792761520; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fWhFq5kg3woqxSUvm+Zp+h0Q0CYXygiXnJMyVN/bSws=;
-        b=jJJ4uC6O2JMRJv7OeWKJwsY3POZY8fsv6V49MFD5oelnrD8R6cccslXjFUFDzMyll+
-         kJr9M8Tpw3TFo2g0WTm1sY3d05x3fwmEm0O6A349xPBCyvxHsiR0AMFJ8Kf0l7nO8M3r
-         9HGD42hVmCL3z0YxrUZfHt+7mx0rNCFYHLDX/zgE3E0zsHLkiuj0WTM1+zshaRC9dPtk
-         jVBin+mv40C0ytRte8E4f1EyY9a+YYVapQyTnpVmesfxBQ8Q60JTgwjqVwK3FHASNeVp
-         K0tY/3Wz2dSrKvg+E34XULxCWYQRwkLCGNawpDtjoPyJlcWOwC4WU8rpOtdF67naTNu2
-         RcyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156720; x=1792761520;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fWhFq5kg3woqxSUvm+Zp+h0Q0CYXygiXnJMyVN/bSws=;
-        b=O54MedNTabk3R7eLc+2UdqlyAI6UHean98dpr2vdNtMeNqqeCcvvJABDQLFDp0sA57
-         qKUnIt27qE21jXT4T5095wjNjBwT4L6FEX5EPxh4qK+QBQSAviQF4rTsmB4ZGWL+6ftE
-         BH/o3kCVXLkM37w8xuOKkEJ5ASOPyg4nUWjoEmOvoF0zBoW3YpoHnqBpWgrII+v0HeWt
-         tDbCiWIMct782juCXViN91JfzXA+iYuplemMjv168pDPwLCgarVD8mEPkZ9cCSwBJnXr
-         fOMk0F8H4puUOUcyKmrHpxJyQ75ly5Ro964wwQ4IX1MST7SMwhl1aLB7iKpIs3ZYcYy6
-         OdHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxjlVGxcfyoALqxfBc8/3as0iE/gaRQfNxG9c+yRuNA96Pyvt7oO9iGeF96ow88uTzF3HBONWSEVddlC38=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOJTZRDb9ifgAlac4sHnPec61QYLMk++fyTkjAd3jtB1x2qF9F
-	nxtcTovuUXpWwbZtKUyMLSdPNEt69NVoTV9w8JITtYtGGxPHc0U0HuRTwg3h0fdfKh8=
-X-Gm-Gg: AYBFou3Emx5zBBdD/iwOLJKJnhjAlwHAt1A83Z7yDzRDPMa5NwoGuOy03Hnh1YfycAO
-	AZr+feuCWGoXvcw1yvqCQCRxzZCfqHw0xXfkD7YxMSAapYETZFiurm3zGNgO+fjF+DeXxnKO8U7
-	G2ewB7PP9l4wfvUP3HD/D9S/Yz8PRKw6bOVlSCewolsp/gRdNvg/gxH244oGpRpeY4eV8y5J2cl
-	2MFuXS/nCd04hLvqvXPcFP3+9DKK2CfeetKCGjiAZHNxsUVkIDdqoen6d5OBrOkgYiajuCFEB1L
-	vcqDM2xQt9rMqPjFOgG/U0wiSfqwcsPpJu9eFUuAJz5KujtU8QQw+AS7AixqANN09cn/yVLAaNY
-	tV2GQ3YNc4hI2DWD2MkEXMY+IgsghS9J5XUZ4urbHLreIo6r5vRpQ2fLsOnjCTIJdLY9fgMvmIr
-	VXODCzXrDW9bysUgr4Lbnh6Nfk+eXRLPe6LkLA2wsQbTE3jZIhwanXWOOEiXWmiMSvZTs57VRoB
-	Oz7qHGk89h4lfisJlS29o1aI8hW2Eac/AUeFkmI+YaLUqYc5YJijdu/cIWFpinSwIeWVKFMvYJ4
-	Q0sEDz17fkrcyNNSMfFpjDeSniN9Z2cEe2s9/7bla1IYvhdoVCoQYg==
-X-Received: by 2002:a17:907:72cc:b0:c2e:3ed7:7d94 with SMTP id a640c23a62f3a-c31aa0d364emr2098881066b.37.1792156720081;
-        Fri, 16 Oct 2026 06:18:40 -0700 (PDT)
-Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40918c6e6asm68799166b.53.2026.10.16.06.18.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 06:18:38 -0700 (PDT)
-Message-ID: <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
-Date: Fri, 16 Oct 2026 15:18:36 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="UnmfVm1t";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ev1VyZ7c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="w5tKgH8+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4eNxa2jk"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 92BE921C64;
+	Fri, 16 Oct 2026 13:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792156727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
+	b=UnmfVm1tqwplPFdONtyFvTQ1AS5VP5cTD3qAq7xlctd+CFRVtHCsgbhkCMx9uSzccqMWsN
+	3q4cKvYz4btr6MgHhN7ES/xZ1Q7FEzw60UOuYHFuWX1O2iBY1g7ZVXTwc0kgnR2/sx3dBB
+	XBctDAKpjnkQLXYobhahIMgRTICUFYg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792156727;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
+	b=ev1VyZ7cv3eveqXi+jJAUUTkN9NMMWx5zYAdiOWV4c6zddfHkO0DgBV9/Tt8SL/eGsPU6Q
+	IE+x/Fg39ceYm+Dg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792156726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
+	b=w5tKgH8+hN6tM6f+SHj3du8Q1iln5C1HSTlEC76yTb/PPnf6Ntbd67FFRlPvNuzWQGJifd
+	vvonu/hW2hUYbfTfWV819LHbEAsv9Bs9RXv3k1NNmpBCE8IbWqFvVXbQAl3czQrJdrGNd/
+	N+H87JUNigQsOnP/0AhRsOa1tQxLYTc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792156726;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mvOXCsd43Usn/ts9ZeDzJEb232W8k5UHTWzvCgsNFXk=;
+	b=4eNxa2jkwB9wPUj6ps1INqFC8cCFqBjjGltQCxyfJ6ZCOSlq2/OSdWhNviZc8iz/lFt9na
+	RQ4TsTKuYa1RHNCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 189E11339F;
+	Fri, 16 Oct 2026 13:18:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mn7RNTQk0mqLAQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 16 Oct 2026 13:18:45 +0000
+Date: Fri, 16 Oct 2026 14:18:43 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org, 
+	david@kernel.org, ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
+	kas@kernel.org, jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, hch@lst.de, 
+	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, ngocthang2710.1999@gmail.com, willy@infradead.org, 
+	rppt@kernel.org, ljs@kernel.org
+Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
+ collapse_file()
+Message-ID: <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
+References: <20261016065920.4153-1-lance.yang@linux.dev>
+ <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+ <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-To: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org
-Cc: longman@redhat.com, chenridong@huaweicloud.com, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, jstultz@google.com, kprateek.nayak@amd.com,
- qyousef@layalina.io
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
-Content-Language: en-US
-In-Reply-To: <20260605124052.227463677@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[16bf7cd0ebeb1de93aa5];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.dev,linux-foundation.org,kernel.org,nvidia.com,infradead.org,arm.com,suse.cz,kvack.org,vger.kernel.org,lst.de,syzkaller.appspotmail.com,gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[appspotmail.com:email,imap1.dmz-prg2.suse.org:helo,linux.dev:email,syzkaller.appspot.com:url]
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-Hi Peter,
+On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
+> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
+> > 
+> > 
+> > On 10/16/26 2:59 PM, Lance Yang wrote:
+> > > collapse_file() can end up calling page_cache_sync_readahead() with
+> > > source folios from earlier in the range still locked. If truncate already
+> > > holds mapping->invalidate_lock exclusively and is waiting for one of
+> > > those folios, readahead blocks on the same invalidate_lock and neither
+> > > side can make progress.
+> > > 
+> > > Do readahead in a separate pass before we start holding source folios
+> > > locked for collapse. Keep page_cache_sync_readahead() and its existing
+> > > policy, and drop each folio's lock and reference after checking that it
+> > > is uptodate. If truncate or reclaim removes a folio between the two
+> > > passes, roll back instead of doing readahead again with source folios
+> > > locked.
+> > > 
+> > > Shmem handles swapin and fallocated folios through shmem_get_folio()
+> > > without taking mapping->invalidate_lock, so it isn't affected by this
+> > > lock inversion.
+> > > 
+> > > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> > > Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+> > > Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> > > ---
+> > 
+> > Thanks for the fix.
+> > 
+> > > Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
+> > > happy to take this over.
+> > > 
+> > > Some older stable trees lack the folio infrastructure used here, and the
+> > > code will differ for each stable tree, so each backport will need quite a
+> > > bit of rework and its own review. I'm not sure whether to Cc stable here.
+> > > Once we agree on the fix, I'll send a separate backport for each maintained
+> > > stable tree except 5.10, which isn't affected.
+> > > 
+> > > v2 -> v3:
+> > >   - Replace the scan-wide invalidate_lock and page_cache_ra_unbounded() with
+> > >     a preparation pass using page_cache_sync_readahead().
+> > >   - Roll back on a new page cache miss during collapse.
+> > >   - https://lore.kernel.org/all/20260913163644.122133-1-ngocthang2710.1999@gmail.com/
+> > > 
+> > >   mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
+> > >   1 file changed, 31 insertions(+), 11 deletions(-)
+> > > 
+> > > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > > index ef5cd6fda34f..b3f67617caf0 100644
+> > > --- a/mm/khugepaged.c
+> > > +++ b/mm/khugepaged.c
+> > > @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> > >   	new_folio->index = start;
+> > >   	new_folio->mapping = mapping;
+> > > +	if (!is_shmem) {
+> > > +		/*
+> > > +		 * Populate the range before accumulating locked source folios:
+> > > +		 * readahead may block on invalidate_lock.
+> > > +		 */
+> > > +		for (index = start; index < end;) {
+> > 
+> > why drop xas_unlock_irq()?
+> > 
+> > > +			folio = filemap_lock_folio(mapping, index);
+> > > +			if (IS_ERR(folio)) {
+> > > +				page_cache_sync_readahead(mapping, &file->f_ra,
+> > > +							  file, index, end - index);
+> > > +				folio = filemap_lock_folio(mapping, index);
+> > > +				if (IS_ERR(folio)) {
+> > > +					result = SCAN_FAIL;
+> > > +					goto rollback;
+> > > +				}
+> > > +			}
+> > > +			if (!folio_test_uptodate(folio))
+> > > +				result = SCAN_FAIL;
+> > 
+> > Do we need to check PG_uptodate after locking the folio? If we successfully
+> > lock the folio, doesn't that mean the read I/O has completed? The following
+> 
+> Yes, you do; a read can "complete" without the IO having completed successfully,
+> and in those cases PG_uptodate is not set, but the folio is unlocked.
+> 
+> Either way, why are we checking for uptodate here? We only care for starting readahead.
+> Anyway, I would possibly recommend we do this as post-processing, not pre-processing.
+> The current loop is a little overhead-happy.
 
-On 6/5/26 14:40, Peter Zijlstra wrote:
+To clarify: I would do this kind of RA as an error path if isolation failed.
+Namely, at the end of rollback, after unlocking folios. It doesn't make sense
+to me to do this kind of checking upfront. I don't think it's particularly
+realistic that, starting RA upfront, you'd see uptodate completed folio reads
+when doing the actual isolation.
 
-> Change fair/cgroup to a single runqueue.
->
-> [...]
->
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -9916,7 +9837,6 @@ static void wakeup_preempt_fair(struct r
->  	if (!sched_feat(WAKEUP_PREEMPTION))
->  		return;
->  
-> -	find_matching_se(&se, &pse);
->  	WARN_ON_ONCE(!pse);
->  
->  	cse_is_idle = se_is_idle(se);
-
-I think this changes how cpu.idle affects wakeup preemption.
-
-With the single runqueue, find_matching_se() is gone and se_is_idle()
-reduces to task_has_idle_policy(). Wouldn't this mean that SCHED_NORMAL
-tasks in a cpu.idle cgroup are no longer treated as idle for
-wakeup_preempt_fair()?
-
-I tested my existing 7.2.9 desktop against 7.3-rc6 with the setup below.
-cyclictest doesn't reproduce it because it just sleeps and wakes, no CPU
-burn and therefore its accrued EEVDF lag keeps the latency low?
-
-cc -O2 -o wakelat wakelat.c
-systemd-run --user --collect --unit=spin -p AllowedCPUs=7 -p CPUWeight=idle sh -c 'while :; do :; done'
-systemd-run --user --collect --wait --pipe --same-dir -p AllowedCPUs=7 ./wakelat 1000 15 200 |
-  mlr --inidx --ifs space --opprint --barred --right label lat \
-    then stats1 -a count,p50,p90,p99,max -f lat then rename -r '^lat_,' \
-    then put -q 'emit mapsum({"kernel": system("uname -r")}, $*)'
-systemctl --user stop spin
-
-wakelat wakes on a fixed 1 ms schedule, records how late each wakeup
-was, then busy-loops for 200 micros (wall clock).
-
-+-----------+-------+-----+-----+------+------+
-|    kernel | count | p50 | p90 |  p99 |  max |
-+-----------+-------+-----+-----+------+------+
-|     7.2.9 | 14998 |  11 |  11 |   12 | 1869 |
-| 7.3.0-rc6 | 13853 |  11 |  12 | 2029 | 2116 |
-+-----------+-------+-----+-----+------+------+
-
-count is out of 15000 periods. rc6 had 1147 wakeups delayed by over 1 ms.
-
-
-wakelat.c:
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/prctl.h>
-#include <time.h>
-
-static long long now_ns(void)
-{
-	struct timespec t;
-	clock_gettime(CLOCK_MONOTONIC, &t);
-	return t.tv_sec * 1000000000LL + t.tv_nsec;
-}
-
-int main(int argc, char **argv)
-{
-	if (argc != 4)
-		return 2;
-	long long interval = atoll(argv[1]) * 1000, dur = atoll(argv[2]) * 1000000000LL;
-	long long work = atoll(argv[3]) * 1000;
-	long max = dur / interval + 1, n = 0;
-	long *lat = malloc(max * sizeof(*lat));
-
-	prctl(PR_SET_TIMERSLACK, 1UL);
-	long long start = now_ns(), next = start + interval;
-	while (next - start < dur && n < max) {
-		struct timespec ts = { next / 1000000000LL, next % 1000000000LL };
-		clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL);
-		long long now = now_ns();
-		lat[n++] = (now - next) / 1000;
-		while (now_ns() - now < work)
-			;
-		do next += interval; while (next <= now);
-	}
-	for (long i = 0; i < n; i++)
-		printf("%ld\n", lat[i]);
-	return 0;
-}
-
-Regards,
-Jakub
+-- 
+Pedro
