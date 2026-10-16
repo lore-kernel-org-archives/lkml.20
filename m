@@ -1,71 +1,74 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CF53B95E4
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3356239656D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:38:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792182906; cv=none; b=LLTsR8MGm5TXrN59DBkJBplRggaQfHzmo+zSqLo5yY4GqUH5CA8PTg1XVzbGLo2BlYggK0UYEbru2rbTgTIlaGZ4rkmKojpZMXw5Ihi9u3YkBTXN+tU9fgJUbca7+zOTM3yY9UJIf+2EuPcTVMxGFHK15pfXKiS4oQi22c5YrwQ=
+	t=1792183087; cv=none; b=E2SZiw2pcQF112E3Ozum0c9wKqYvCbGapRTnmbdtce8TDEv4l1g6blsemz+lekAtuccDF2TgigtNuNFN4v5rxRkJ8VN4w0D0oLAreJfOmp/9oZOsS4LL5MMJ+Cm1ce463p7NDKBpT7oo6R3k68o+A9AiMftwe6VcLjxEKYy2jL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792182906; c=relaxed/simple;
-	bh=aylVOV9Iwng3B7wnW94lanr5gkCVlxuFNjmk9Xt4jDY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=RQFpPtIvncN8picV34+sVekbazI4rlw+EVM2/WsNa8ZVckM+mNq0ETTTMYudenCrNPjhV0pXAfUmEJHURHUn9xCTXYScbYdtb+K0ppfWXTWqIu1aeyCzXG+iKa3dFwYMSQxevofs3D0x/OhbZt4RIby8sOe9AGeft9bY+KUs15U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e937c5bd4fso473454b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:35:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792182904; x=1792787704;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tBAdxDAPRq/mqSvKWY8PdfrDRm+BxIg9D152QKXzvJ8=;
-        b=xX9Fq50ppV3hGdtQR7br2znuCTFaJrP2jua8dxrZa5iQuiFocR0EBxjsLQj0V8FXFo
-         cNoHHh87FDHNT47CEOahxNKsv2XhEyEPBTloHQr8GpQLfmPXzMfuGNyNQiWgxkuHky4a
-         xYBTYY4RpkvMd3r9ajLLUuQ0n7OjYJGo9qbvKYlNj1wbvEo0VVgqWXQmlVXH0ggT6B1/
-         2kAigQsslrIxTXc4Ey+TBHFqXtDxi7O6F1kr99tDhzxnDbZDmlCYSH74uFciTj3TviX5
-         v2JjAx3cJ+ElVM3aWg0JoqLLt4RWbsedR6d+zGXNUcFRg6YvmSl9BhRNQ+o6mAmtGVaz
-         T1Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+M6q6sPaGh+8WnnjV7HB2O1s0xiYpLjP29mezNoONgrspPFNw2MaMt71eeG9ZY5IoOTdnCx6iau8xk3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEwQhJBVAlRS9jVJeFUA8eZj75zC8D3wuSN7kT9Yhz85GpNjXq
-	bVCkApn25a9/OH0enEr577pTdpAzoeOPd4rO8U/tyctkRG3jne75bw+HTIvQPYFluwtB1uQ6E/o
-	uKLE46XeVqSd9Bt5+0gU1AXqksXZ88VAPwKFAzD+Gh6jZZRLuvi+fbdu2uyk=
+	s=arc-20240116; t=1792183087; c=relaxed/simple;
+	bh=9/y4BMdNoOHqyIChKtMnQhTq9V3Z4NfopyZ2EReyz8o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mPs/OTpefRNUtCQzfsUc7Q4WH2X9UYEnYc2oY5NxHjuUFj1wIVEbsZQQoG01FxZ8w3G/GUVnBcdIy32yt7mYASZGm5HVwKHphKZXMwR8TgNqfMe+aqySfipCW/dH6u85f77y59+4FHG2A/BwVoDjjPVP6RwWEHRMju8dgPN7y7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdyQOwI0; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdyQOwI0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D351F000C9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792183085;
+	bh=9/y4BMdNoOHqyIChKtMnQhTq9V3Z4NfopyZ2EReyz8o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UdyQOwI00BNVaK8zpEyfVU0R9pANc2aLphd2sKSfg4VOaHvQJxB+ufYywzyU/rDLV
+	 TXZYXO7tnHdQIjxu/8EnqJWx9zm+wiHNulhAvIz42D9r9TTJFDb8IE1TI2Gga46NMP
+	 6GMS84tC9Rlp0umc3mVPLkP4Ohhp3Vt1Wv4epyfOVXm1QYz06L9BYGv1elUZdd/aHz
+	 YGIMgk2A6RP5eW2YvOKNMYhrvjnyHyLPvxN5/uTihwYuUbznieQA9BDvOIYUhCCblD
+	 /GMun/X0iP00hwcTiX6xgYn0SlyhrXkV1yr2wVXsbewkabBUYQQEkH8QmW3nwBAlk3
+	 wqqjd8yeeuoKQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bce4e278baso450051e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 13:38:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxY3PyV7KLTsLSD/blkDzVcuDKaPCFDwP4S0gb6q3XRBRwpdBPQNkmZ+8HYNfow+If3VQEDuuII2os+H3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG8cARO3RwDrwwSI2oQXEQd7ZmTB/F9W8MrLPo8MxNLHzlj9K2
+	AUSKHHSUbPz9fZPKV/cmvcVhh/E2oVLwgttjw0A3tQUJ/DKPdkjV2a0XkkwZ+tw/PtZDu5A0+Fi
+	AInX8AFCefKdUmv1WE+9a1k6OZHqRkn4=
+X-Received: by 2002:a05:6512:4011:b0:5be:409b:9456 with SMTP id
+ 2adb3069b0e04-5be4792d63cmr1449387e87.34.1792183084660; Fri, 16 Oct 2026
+ 13:38:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:11cd:b0:4e4:86b1:f7a0 with SMTP id
- 5614622812f47-53cd2581f9cmr687604b6e.53.1792182903817; Fri, 16 Oct 2026
- 13:35:03 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:35:03 -0700
-In-Reply-To: <20261016145701.105414-1-gservice341@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad28a77.7514cce4.1ece07.0156.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] WARNING in hci_connect_sco
-From: syzbot <syzbot+5897b3c764f5989ea942@syzkaller.appspotmail.com>
-To: gservice341@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20261016-cgbc-gpio-valid-mask-v1-1-938202276e26@bootlin.com>
+In-Reply-To: <20261016-cgbc-gpio-valid-mask-v1-1-938202276e26@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 22:37:52 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmrV97V5NKmdM=7Fk0wh8LEryDYEvkf7vQ4oxuTU07TWQ@mail.gmail.com>
+X-Gm-Features: AclHuK-mDzl7GkIijDMv3CPRStcJneZuEg2L22g53JRLaFWKnXUdSjKw-gE8VrY
+Message-ID: <CAD++jLmrV97V5NKmdM=7Fk0wh8LEryDYEvkf7vQ4oxuTU07TWQ@mail.gmail.com>
+Subject: Re: [PATCH] gpio: cgbc: Add init_valid_mask() operation
+To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Werner Gartner <Werner.Gartner@congatec.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Oct 16, 2026 at 7:13=E2=80=AFPM Thomas Richard (congatec GmbH)
+<thomas.richard@bootlin.com> wrote:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-lost connection to test machine
+> Some pins can be reconfigured from the BIOS as alternate functions,
+> which makes the corresponding GPIO lines unusable. Add the
+> init_valid_mask() operation to mark as valid only the GPIOs which are
+> usable.
+>
+> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com=
+>
 
+Sashiko's review looks like nonsense, this is good to go.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-
-Tested on:
-
-commit:         70dd4ee7 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15250031580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1422747690f83bc1
-dashboard link: https://syzkaller.appspot.com/bug?extid=5897b3c764f5989ea942
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=16d1bbd1580000
-
+Yours,
+Linus Walleij
