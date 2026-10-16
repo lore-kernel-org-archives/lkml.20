@@ -1,180 +1,266 @@
-Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010067.outbound.protection.outlook.com [52.101.193.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5C1539793
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C8753C3C7
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172268; cv=pass; b=VJdBYjTw4NBmuRdnMH9syQu42+w7+Y8LnAP+7DbzSuwHPJUFA9lGQN82zxVXSlm0ytreI1cMK09Tf9YMzwS5ad6sx5ulYq70pKrvWPRfXxEbp9TSjgfieeIeK7+ey8qVxaCN9snaUmMci10PjCcw1/vQw7LN403GZfuiuO3sMmY=
+	t=1792172283; cv=fail; b=Yxh6N/80WJ++JaAFkm88RtI9Dp6sBm3BaGvgyGE8qfUN2Lf7dspnM4FSjAi+vj3Ltou74eZwk7SdLCZNIw9j+w6zhNeBcpuS9gd7CoxQ1mOWs8O0XH2T8p/uW3la8CVUbRPhYjDol0nzfrto8QSc2ISj+7pQV0GkzDd9mKliMCQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172268; c=relaxed/simple;
-	bh=mc6ggexvMnt2aOuyzwqlMy2bKU0FblkWbAUTLCGHSAU=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TxWyjXgQ0QAu1cAmtZPoWm7Fy57xBnxyG1aEDTKu97JF0SW8ol0JEqGFEB+hYn5Mo6nUAMgCfFe5/j71tnJ6wswuvf8bCBfpuu8giH8ZpuQGGpqhV9riKaQnxs0WYDYa6NfZ3ttOkdbBh474cdVD1Pte2G1513Hz6PKjRo4zZrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlPEQnn8; arc=pass smtp.client-ip=74.125.228.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792172283; c=relaxed/simple;
+	bh=FX45kt2p8SHMUqHpXoDwXOI7U+a/dD85N+M1O3WJkR4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=hOIYs28OE3iP7WOngNlBu+tqWB/zX3mzgLWndUtZZ2FJkHbHefblvQlJO2AZsvswQtwH2LEVFtSjqs6+aD03P5FeoM0Rys0PTLWe+xXwhgu+u1TViDYrTGHdglAIKL0uKsw/V+tqOEehBZxxLwXwH8leN1pIM3lq57LqSrXsjSU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=12yHWhje; arc=fail smtp.client-ip=52.101.193.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlPEQnn8"
-Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cc7c286026aso108627a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:37:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792172266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SEpgMGr6O2DBUzkygcqnGaz1yie8I5m9FOOKTFpD59JFVX5gsPi8ST0AYtZfJigywA
-         +2KWN4G8DkskGLmNsRTTLLek1VqXLe9g6wIfTH33x/Vq3ZPYtlEzkrijQahpZ/DWOsrW
-         6MdXeePc1ULfqmc//NVEgoiQu9eb5Ca+v+bRmgLIELkm7deR3JaBxzbYAkTDwhzjkJDr
-         7o6R1eRlP0xx800FC6gjaQ2tbdQbtIH6CjNSpGSfu/SP/B5x/Bgt7R8KpGyS7w3BnyaX
-         3ROvYI/TpFgndz2sfDn6Y3biJnPhlmoYd7XCHYpls2on3TsI0JphQrmmNCoc4YG1FSJP
-         Sgeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
-        fh=u1e9une1BlZZWeC4vW97eS9uEeeP8AWftZuyvAf36bs=;
-        b=OmiElI2AJTESjGjUJaIo+yqfHYnjFqoU/b8N5akr/VziqZSWYz7rTsVtpMsyVBkBkh
-         LT8FGu1Bwpvx20+nQV/r3aDwCusBJQ+SfDQp7vftGBkoZJTDs1FFXcu/J+I6XMxPzTVw
-         mWo5/g7nlE2e0JwfXKkCa5sWPZJEn96ug2JCokf/E/SM5HjhTadN7tsk3/WVfdwzaUO7
-         WeGPRtpiXc6oWOS3IrGotIgEWzuZNGE8TtyKprGDPE/8ZcO1P0F4zhHDGg0F18estKtn
-         T5nGKdvNTJHgSVMGBybSYI+wZMhmvsL9ZABEneJPoDyY1GGHWao0vNPUjOwGI1WqJb49
-         papA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792172266; x=1792777066; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
-        b=SlPEQnn8gsNIJNRFBQVi1N97rUQKz+ygh6TN5A95a/RiBxj3dDC5dUZPslxd0w56Ci
-         YcIDNUTRFaZfgWMzJjoRKHZmPwvLwn5ox947YjCjucbtXbaOGTYEWBCb4rgjHEZTkq4x
-         jsk4E9VKN/2ZdunZ5HNiCIm2k3pN8buqH51Lr47I03oxJ9TceR95WbUOBePuUjSNi2rb
-         uEs5P+USGf3g9doCIXdOv98oJLLf5OBEBADtKur/tu3WblZ8a1DbUnrKr0avzbdvC+Ow
-         uz9F4U8Ni6/C6j2kNIwTCIhzcgsNzAzFuZTicKTxbMyVBmuyZz+lGny+0E3t/4cQabG2
-         TktA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792172266; x=1792777066;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cSBeL18Hzr+0k6iOggYBFAtCAyebrXp5vaXSKHdHnjg=;
-        b=XfbOJMOTeI5DznrJ6ZuOY1yVF/6cXKwfZcT2RiNab7sNzkZtvHJnDM5sHMjWSzX0sm
-         sDsLksxrdNlGed1WMjzkfJT13e/P9VJBjC8XtNCzdTJZGLtQk1ZicurEbAG0cawpw1eW
-         0eIy0wzOUWH5fMJBCcAxf8Q8hiGrHsORluNj5n2E1vCdQmz1fskrJNEJiMg6hMs+2Y+6
-         R1xKSg+qiCtElPCtPOfN+TH0+QNblpXBDjzPOKkTwpIdPOB13f+/CAY81nyvbcPv6sZk
-         S+4CkoWpCxfovF7MGuE1VbafOKL4pIrsvapqkefuT83v+D7nSDkI83wMh8WZUqebftno
-         S3Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBxycWHTcKEpDq94qD3Ov+ZYYni06HbzUGYsz5GAOoOW3fRPr9hdpem/Qy0BusJhcNJM4UTKWyHSuiFMlO0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcxztKQHqgh/FTR1z7He2s05XzYjIFQ3RKgXnNkiXvVOXhmEGo
-	wqPaDa4RWD5et5ZTcsLix9usrniNbo3bx3RPQEA7dIQDTsPpX1lKYQ+uzIDOn6sHhNeWvIc0lMy
-	3mDh8KkS78LyzwJi6UHLE/eNXKrHEdo0=
-X-Gm-Gg: AYBFou0x1CZ0q0ObViQmXUQjfybIeTUupcJPiaFmvT+DRq7SUgXX3L2wn9z9bO70PC7
-	aKdvlQsM2hjt7xm9o3dInmbMBorH35zVlg89gYJY0Ahf3tTuZ26fWl/2Y0uHFrZIlIcx+YtGabm
-	9MedjFqUpR3R5MirqYyKbZUdgz0++ldTikTpwXjRVQitNsZtt77pK3Xfk5H+b9tOQdxVCnUoKZY
-	UTSV7/gVoxqLjV5L4IaxTUtnpW5Hr+hlE30ZLtktSvJz0/X+NFQKDSjfYyW2ONRj5YOBF591jbs
-	QEBrqvFXn/VmSza7Ysy4NAId8HM6A8jZ00l0SyH+45LjFWyuQxOw8A==
-X-Received: by 2002:a05:6a00:3008:b0:89e:fc47:2c17 with SMTP id
- d2e1a72fcca58-8a04be6a27bmr262049b3a.19.1792172266196; Fri, 16 Oct 2026
- 10:37:46 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 16 Oct 2026 10:37:44 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Fri, 16 Oct 2026 10:37:44 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="12yHWhje"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gPYloYA3AXTV5m2vqcD+a71WBlu0Rg+lRS0MW8rU+6PsHojd1i0iemZ5zc7LO/AMdF/h8+rycPYErO/2ChGjDzjiYwhCIbd4W5gfKoqXvqRcB4UEm8MkFfY4AFwVCmpuMr9eOCtHquSX+uEQS2+8ur7mXHjXBP5FkVx94k/d9GQxmgeV9VseLBbyuLkDMxIoO50hma8hs2Xp59klCYaSjCk+WlbcB5uYKnz6SUr0ThxE9KLOblqgUd7GcRbSWXX/QZbY5yPzUkcqGPUs+N774ndrtUCDl5wnoAOIWUyJFsT4Gv2drZyDTMXfoHmTL5bwqx9LFSDzIMkuG7sS4rS1ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YyKRZt0eHCsTUaYaAL7O0wbBtRRBKcHwkx5/yBgmJoM=;
+ b=xyfND3J1Vd0cQCkhiS+MmWzGx9h8+ryvzvxkqagQA7D7EuQkTgLf+HG9P7mmTsPuIFRmDKqXNgfLMIEiS8nIIgb6zbasFWsDEtBEsRMvEZtsWdC43jl1CzuMKTBpdQvXj9nsEq765KxAVBYf0MXH77CTRuCjCEPXIy5OGP26ImVW1qZPsBwRUzFm27TT3kGT84NuGhczIrM/iKZnzsObvgPd/AkDlm5bxVxHxpQGiO6jELKg/8Wbhe5YroB808KYFTJsM/QbiMOrKaF+qw2oajxvD3kYIinEQquCYDX4qoTCBjFPiRO83EWmwLxxf1fpIadu5u6XH42mYf/UTyBMFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YyKRZt0eHCsTUaYaAL7O0wbBtRRBKcHwkx5/yBgmJoM=;
+ b=12yHWhjeUfbalrtBaDxZYg1YDLgsapVpcT/grpZwUEZdKuw/2DFHwyLBXY21CwJJ8TNRmExH1dMKDEI7UmDpY59lKID6pxRMzqvWshxgELOqTRf30mi5N1vJiqxuMYfJbArtLjuom7rDCMveSNS9hwDZfPo/lm9yeVC61fmoi1U=
+Received: from MW3PR06CA0010.namprd06.prod.outlook.com (2603:10b6:303:2a::15)
+ by IA3PR12MB482642.namprd12.prod.outlook.com (2603:10b6:208:712::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 17:37:57 +0000
+Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
+ (2603:10b6:303:2a:cafe::86) by MW3PR06CA0010.outlook.office365.com
+ (2603:10b6:303:2a::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
+ Oct 2026 17:37:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 17:37:57 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
+ 2026 12:37:49 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 16 Oct 2026 12:37:49 -0500
+Message-ID: <0e18b9e5-35a8-621b-7b28-387b5eef2244@amd.com>
+Date: Fri, 16 Oct 2026 10:37:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Yibiao Li <biaobiao2233@gmail.com>
-In-Reply-To: <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
-References: <CAG1agfwtnjmb8RVLmZvY9W-zrR1onhK6urJA3Lqai82tAXn2Cg@mail.gmail.com>
- <f4dcee55-8cc6-4287-a25a-1ace385f092b@amd.com>
-Date: Fri, 16 Oct 2026 10:37:44 -0700
-X-Gm-Features: AclHuK_NcSTXBwBpql1smct-MaIzZ_7A3iNYOrIiqYl5afbkmOt6bPkRbY4aer8
-Message-ID: <CAG1agfwZF0j71YofDWVqrxX5v-gtSYbM2OQiw+Kbd1zGPTaT3g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Use separate iterator for preferred mode lookup
-To: Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
+Content-Language: en-US
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: Matthew Brost <matthew.brost@intel.com>, Max Zhen <max.zhen@amd.com>
+CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+References: <20261012203139.2573687-1-lizhi.hou@amd.com>
+ <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
+ <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
+ <75d7c27a-66f1-80cf-1aec-895828592e66@amd.com>
+In-Reply-To: <75d7c27a-66f1-80cf-1aec-895828592e66@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|IA3PR12MB482642:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1a930f3-2e08-401d-a7b0-08df2bac3754
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261009223027099003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	rQSEXampZCzdYt975ViSqHNwvWzoXI+ISGwEFdWsomUgBy7F6iRbPBLVxhrA6keUjVkWfGRiyRmPxUfqcVgtlEdS9mWq1qpH8uzK0KBYP7uqD1lNAL0n4aSt4f+Lm69cabh9pnUBQ7PQ9uGFxUJlvJxzEuYNLNb4B8fhW1guZsrBIJxc4jhuaUGXwgfjBj+irY41HRlmuLgOHx6u7KbSTCYky4kuqOCxc87h9I1jFjAJ088rjujs32hfi/0lXMxXVIg5nn3pSYul5UYYBgABsbA+Q/jEzL+4MhsT0hHpVgmQn21YZM3u3CKWkBqPhiWRvioB+N1PE45BjFybC/DI5/UocFuu2r6+ymvUdV0g7+lBixDzIvqsVtvKjEUUNcWYE6cHPqCqcKnn9rLtCKFlJz+Qa0VnEof0XMFw8KSzRXoUlRRC7SbFrQ/AH1oxe6nzMTKa3805o2egAtfAKZk3qtdvRR6KKqa4UsX39cqXxtsk+Ap5ef79C+ywMUdmDCeQxxSATvAsAtcy+u6P1ZaJLbvYZ6ACX8dFfJKDhEhMysaDntC5l8fh74fTvhptWsgL1CqnqNzyUPn2371PyIgDctYT4tQngRJi/xTYxjpFb8liHQj+UQxGKVyJryRScFCkMyZcQhN2ZMquLL4MJdarPQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261009223027099003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	l21MlnBveheXhEPKLkF33mpP139aV6nQlPnWUvCtG91LhNQMHX5waMOsN9SYZdWSCSMeRBVj62EulUHgXk1Hu5P31z9FgU8WyL6+KqJdlNcTaVilxssCASGN/TEil9rLwabVzckgc5I8ctRxRa6G71RxD9sbFM/rrD4rIOvJh63MCZzoHKH6/K7tPaV9w8BQi9z9I4bfFHLEULI4lNU581PaHFDyVDcNTGOJegPlGgxuyn8HrUT/55OJ7hOKo4zpacnZibiZditl1JVDvkcZxTKG+V99uabjFMozPgG5qHAcZ3XMGsGEK2YSyuijZksvLQGAveP3s0P8N7YdvCB0QSZc1CNASoMDN3mGbyggYZ2z65/p84cL2LqecwvIHNK2sOyhSSZM1qXnoZ2ogxswIkDw37hC4hO0J1bTFeujDve68jmGAVaBsIDbR36Rz9BC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 17:37:57.1301
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1a930f3-2e08-401d-a7b0-08df2bac3754
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037A9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB482642
 
-On Fri, Oct 16, 2026 at 09:50:44AM -0600, Alex Hung wrote:
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
+Applied to drm-misc-next for a quick fix.
 
-Thanks for the review, Alex!
-
-Best regards,
-Yibiao
+And I will converge it to gpusvm after aie4 changes.
 
 
-On Fri, 16 Oct 2026 09:50:44 -0600, Alex Hung <alex.hung@amd.com> wrote:
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
+Thanks,
+
+Lizhi
+
+On 10/13/26 09:36, Lizhi Hou wrote:
 >
-> On 10/7/26 23:17, Yibiao Li wrote:
-> > [Some people who received this message don't often get email from biaobiao2233@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > From: Yibiao Li <biaobiao2233@gmail.com>
-> >
-> > create_stream_for_sink() uses preferred_mode both as the list iterator
-> > and as the selected mode. This triggers a false positive from
-> > scripts/coccinelle/iterators/use_after_iter.cocci: native_mode_found
-> > already ensures that an exhausted iterator is replaced before use.
-> >
-> > Use a separate iterator and assign preferred_mode only when a preferred
-> > entry is found. This keeps the selected mode separate from the iterator
-> > state and makes native_mode_found unnecessary. Preserve the fallback to
-> > the first entry, or NULL when the list is empty.
-> >
-> > No functional change intended.
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Link: https://lore.kernel.org/oe-kbuild-all/202609190901.yKTzhsGz-lkp@intel.com/
-> > Assisted-by: LLM coccinelle
-> > Signed-off-by: Yibiao Li <biaobiao2233@gmail.com>
-> > ---
-> >   .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 10 +++++-----
-> >   1 file changed, 5 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> > index d386bb1475..ceea8fe481 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> > @@ -1453,12 +1453,12 @@ create_stream_for_sink(struct drm_connector *connector,
-> >          struct drm_device *dev = connector->dev;
-> >          struct amdgpu_dm_connector *aconnector = NULL;
-> >          struct drm_display_mode *preferred_mode = NULL;
-> > +       struct drm_display_mode *connector_mode;
-> >          const struct drm_connector_state *con_state = &dm_state->base;
-> >          struct dc_stream_state *stream = NULL;
-> >          struct drm_display_mode mode;
-> >          struct drm_display_mode saved_mode;
-> >          struct drm_display_mode *freesync_mode = NULL;
-> > -       bool native_mode_found = false;
-> >          bool recalculate_timing = false;
-> >          bool scale = dm_state->scaling != RMX_OFF;
-> >          int mode_refresh;
-> > @@ -1509,14 +1509,14 @@ create_stream_for_sink(struct drm_connector *connector,
-> >          stream->timing.flags.LTE_340MCSC_SCRAMBLE =
-> >                  connector->display_info.hdmi.scdc.scrambling.low_rates;
-> >
-> > -       list_for_each_entry(preferred_mode, &connector->modes, head) {
-> > +       list_for_each_entry(connector_mode, &connector->modes, head) {
-> >                  /* Search for preferred mode */
-> > -               if (preferred_mode->type & DRM_MODE_TYPE_PREFERRED) {
-> > -                       native_mode_found = true;
-> > +               if (connector_mode->type & DRM_MODE_TYPE_PREFERRED) {
-> > +                       preferred_mode = connector_mode;
-> >                          break;
-> >                  }
-> >          }
-> > -       if (!native_mode_found)
-> > +       if (!preferred_mode)
-> >                  preferred_mode = list_first_entry_or_null(
-> >                                  &connector->modes,
-> >                                  struct drm_display_mode,
-> > --
-> > 2.43.0
+> On 10/12/26 21:38, Matthew Brost wrote:
+>> On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
+>>>
+>>> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
+>>>> Two hardware contexts can submit jobs that use the same GEM object 
+>>>> while
+>>>> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
+>>>> notifier_lock before aie2_populate_range(), and that function takes a
+>>>> reference on the first invalid umap without clearing invalid until the
+>>>> fault returns. Both submissions then call
+>>>> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
+>>>> structure is not safe for concurrent callers. The calls write
+>>>> notifier_seq and hmm_pfns[] at the same time, so 
+>>>> mmu_interval_read_retry()
+>>>> can see the other call's sequence, miss an invalidation, and clear
+>>>> invalid. The job is then pushed while the pages may already be gone.
+>>>> Give each umap its own mutex and hold it from the fault through the 
+>>>> retry
+>>>> check and the store that clears invalid. notifier_lock is dropped 
+>>>> before
+>>>> this mutex is taken, and the fault drops mmap_lock before 
+>>>> notifier_lock
+>>>> is taken again.
+>>>>
+>>>> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
+>>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>>> Reviewed-by: Max Zhen <max.zhen@amd.com>
+>> I was browsing dri-devel and this hmm interaction annoyed me enough to
+>> ask my AI to fix this and converge properly on a DRM framework:
+>>
+>> https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup 
+>>
+>>
+>> Improper HMM or abuse affects the entire kernel, hence we should
+>> converge.
+>>
+>> Please consider the AI suggestions (last 3 patches) instead of open
+>> coding this.
+>
+> Sure. Using gpusvm interfaces would be great. I will patch these on my 
+> system and see how it works.
+>
+> In the meanwhile, for back porting, will it still worth to merge this 
+> patch?
+>
+>
+> Also, we are working on aie4 hardware support which also relies on 
+> hmm. Thus, aie2_populate_range() will be renamed to 
+> amdxdna_populate_range() and moved to amdxdna_gem.c.
+>
+> https://lore.kernel.org/dri-devel/20261009225343.3079074-16-yidong.zhang@amd.com/ 
+>
+>
+> As a great enhancement, would it be ok to put your last patch on top 
+> of aie4 patches?
+>
+>
+> And this patch in aie4 series tried to fix the same issue been pointed 
+> out by your second patch.
+>
+> https://lore.kernel.org/dri-devel/20261009225343.3079074-15-yidong.zhang@amd.com/ 
+>
+>
+> Does it look ok to you? ("Fixes" tag needs to be added).
+>
+>
+> Thanks a lot,
+>
+> Lizhi
+>
+>>
+>> Matt
+>>
+>>>> ---
+>>>>    drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
+>>>>    drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+>>>>    drivers/accel/amdxdna/amdxdna_gem.h | 1 +
+>>>>    3 files changed, 9 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>>>> b/drivers/accel/amdxdna/aie2_ctx.c
+>>>> index d927c8c9d557..4db67a789c34 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>>>> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct 
+>>>> amdxdna_gem_obj *abo)
+>>>>            return -EFAULT;
+>>>>        }
+>>>> +    mutex_lock(&mapp->lock);
+>>>>        ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
+>>>> -    if (ret)
+>>>> +    if (ret) {
+>>>> +        mutex_unlock(&mapp->lock);
+>>>>            goto put_mm;
+>>>> +    }
+>>>>        down_write(&xdna->notifier_lock);
+>>>>        if (mmu_interval_read_retry(&mapp->notifier, 
+>>>> mapp->range.notifier_seq)) {
+>>>>            up_write(&xdna->notifier_lock);
+>>>> +        mutex_unlock(&mapp->lock);
+>>>>            amdxdna_umap_put(mapp);
+>>>>            mmput(mm);
+>>>>            goto again;
+>>>>        }
+>>>>        mapp->invalid = false;
+>>>>        up_write(&xdna->notifier_lock);
+>>>> +    mutex_unlock(&mapp->lock);
+>>>>        amdxdna_umap_put(mapp);
+>>>>        mmput(mm);
+>>>>        goto again;
+>>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>>>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> index f14484bc31ec..37bfa5058095 100644
+>>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>>>> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
+>>>>        struct amdxdna_umap *mapp = container_of(ref, struct 
+>>>> amdxdna_umap, refcnt);
+>>>>        mmu_interval_notifier_remove(&mapp->notifier);
+>>>> +    mutex_destroy(&mapp->lock);
+>>>>        kvfree(mapp->range.hmm_pfns);
+>>>>        kfree(mapp);
+>>>>    }
+>>>> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct 
+>>>> amdxdna_gem_obj *abo,
+>>>>            goto free_pfns;
+>>>>        }
+>>>> +    mutex_init(&mapp->lock);
+>>>>        down_write(&xdna->notifier_lock);
+>>>>        if (list_empty(&abo->mem.umap_list))
+>>>>            abo->mem.uva = addr;
+>>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h 
+>>>> b/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> index 9b4aa21a37c9..456a537eb68c 100644
+>>>> --- a/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
+>>>> @@ -19,6 +19,7 @@ struct amdxdna_umap {
+>>>>        struct kref            refcnt;
+>>>>        bool                invalid;
+>>>>        bool                unmapped;
+>>>> +    struct mutex            lock; /* protect range */
+>>>>    };
+>>>>    struct amdxdna_mem {
