@@ -1,174 +1,100 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5295396B76;
-	Fri, 16 Oct 2026 14:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CBA457E5F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162084; cv=none; b=d5gGm3pVefOeKWt8cBU8Fk5GNttAwEs9bQZUWjv8pdpjKWj1sDotdcYyaliXakjknRWESfoYzsq5Lp4nZXQHCJaoei1My+Xkr91CKA2f39dXlvlaiMssQ6aZNwF6klaTYWv2/dYjWdO6kEpNTwr7U03L+vaMtkdJV4EriqQXnbI=
+	t=1792162092; cv=none; b=sj/aqEhrpUAqu1TJVuO/aTNfxN7yjOAjE5Ct6sgXn+EJzuomFh8Hvle5TC5TWANYZM6Kw8L0LbXGfbmPUUalnWX5eeBjniPnzhny0Rvs00Nba17q6iYMlTGu7sWjwRr2k755BJU81e4WdeAd1jVoFzj+toveP0ZbAC0TKFFItWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162084; c=relaxed/simple;
-	bh=AVfe8Mm5q2VVmCo8KEYkC0UPNhmmY/SXODvv1Glw114=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VjQ+McbPg1ulY1hXurFvogXofkEZmybFFl7XeVClA43VO5v0Jwg5tfJle2OWoQiIwDkRibuux4/C4bd1FrEjapqYLEBWn5bW2YsxMuS9VKCYmPN5T0YNI+Nw+X51FvrMkAZCezHniNmmBX1jGOXtHYyh6fO6T0N4qQJSuqMKZpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=bbfGVrNZ; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	s=arc-20240116; t=1792162092; c=relaxed/simple;
+	bh=BS5NUD8B7TDnufIoVAw2G3kS1xuEK39PCTVYiKoCO8g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UOOMqbQ4kH9R4bF9wECR2dbw6kTlCd7WlKUaCpaoqeRla0TQPfVg/JZLVRMgXNHh2oNuprAbq4h0B1eZ9NVKYl3/gJqUjJEKuCdctMnOEhlMi4pkH+UkGwGzdaCLkqN7T1zwktPcO+nEO2DWnyGTVCSvEFyuL8vUMgJ+CALL8pA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=TRjjXcTe; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="bbfGVrNZ"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id C152B1D5D;
-	Fri, 16 Oct 2026 14:48:49 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=bbfGVrNZ;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id E0ADD2269;
-	Fri, 16 Oct 2026 14:47:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="TRjjXcTe"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso322069866b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:48:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1792162079;
-	bh=DH6KUdMhhaLtiVKtHdzYz5Fr0kqhafTH3n1AYYvoUTo=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=bbfGVrNZKSOJkOHNxBkEi85vXDxENY1snS6Fa7mQJUNnhD7v/WHAT0Fz75ikXaL2R
-	 9VyP0dsXGfqHCVtj/jTkyrWmTbVTCL7+iAQbel7D5Wo+iBttuKo/Cob9zYuM+hhenB
-	 gK9JQa2wHAOhOV3NRkCAB/L58RRtbHllEiRvodJQ=
-Received: from [192.168.95.128] (172.30.20.132) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 16 Oct 2026 17:47:58 +0300
-Message-ID: <2cb5b61a-f16b-4dcb-b7f2-73409da192df@paragon-software.com>
-Date: Fri, 16 Oct 2026 16:47:55 +0200
+        d=linux-foundation.org; s=google; t=1792162086; x=1792766886; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7M0vWm7aULNLgXxZt4UuGQxMmmFksGw7QzD0jlXsto=;
+        b=TRjjXcTescFL15dJAwi3hXX3kBNPLzu4jWE1R/hsHhcMMGse20WD8Ob1uCcAHfHP4B
+         Xo/K5zMKGBD3fi4Yt0KiueFwIyyeI9Jw7n86OrqOiCqqRayGMvoALGgk1/vvo8zXZUVj
+         rm73LfHEBRwc6jf0GchWkGLs0m1/XUXoYZQtk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792162086; x=1792766886;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F7M0vWm7aULNLgXxZt4UuGQxMmmFksGw7QzD0jlXsto=;
+        b=S0v6e6GZI++v3GVMEHY0gnzM94DNEF8Yz95s/8dtKFoWfoWJV2CudIPURTtod9RdVu
+         jViL6k2gBJwRzqL//sHZGFmCUYtjCV99crfASNzOuL1YRiYbsUMA1fZe+az6ghl4byqa
+         F3CwN9kdIuwwX+hSjHOrUQM4lYYWaKWWR0ttt2kAM53I+LTElarn3KaFyzVfF+zbk6pz
+         LjhcwtK1O5vaZwfpuobYVmaWPTdYEy68X+MPn3cG9z9UDYDYcN1KOMmd7WOvMYjk7CxH
+         ENIxrFg+6IOBl59ALJMWyOPHtH8hXLY1ltWluKpufABBa63thuuIJ3xx1Doh5QmD3/lE
+         oDcg==
+X-Forwarded-Encrypted: i=1; AKwUvByeMVQyoHIMBrgfyLX5ihPXBy85Yx1JRMVrvKDNpHhuZXyYaaU0NZDCCjdAA/5/agiCgzqiFwPGrJMe99I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOrYOZwX7RDd49xONhuBF9dZpNIdrc1R+N38CDh2/FEtI9vQtP
+	rY5ikYWezct2bVIVd/p5nvTYjtHD5vGDqXoqhsE2QOuSKewKYjFoM/MXIyP25eZ7En38nkPTbxD
+	y+xD8+kk=
+X-Gm-Gg: AYBFou2BB1NV0Ufeu3rMbiaianMEGyBbftR9MjmKvoR+kOJvOkSubq4m9ZIAU2vEUtI
+	zghr9sN5KTjihUWhmxOEvRtLkCquoOPUTl4jtUMPxhb890k8g9hAvXOIUIbQXkJ2xLBHa9aPVKl
+	cZb9r4fEImV5GDwhrZ68felzzL2duzveFuDJeM+rNt6dc5xqBTp+oveUaYT56H0c9WoOoWCnvKh
+	pmILg0X7blw5iGrzb5uZ1KbFups66sVMx41wHEH3TCGZa3bGSn10j4m458kGuJVosAnwCzVudS9
+	zhLCZYqp0kmzqnM+lBA3Ks2hfJAZWoyAAqKOHYtxfLPAnuswWrngQKBYILzhntoy6lpQfObuG1l
+	hfWMSNoQvQZenwQNaQ09AAxKFKgOcx14Ko4kjtLSCL6e2OybfrJqWr7RMjhjpqaIKcc1URp1eSF
+	j9zFEhuLyWAg08P9oPW3C7isC/vw+1tZlKux0ReM+yArCd28jfbRP8fo3ZfYgDjpT2t1OZ+U8vY
+	+UqtOc2qfq+9hUSwV3Uhps18dCAJX0O8wOHfqjcoG/SRKJ2
+X-Received: by 2002:a17:907:7b85:b0:c21:1b58:fa96 with SMTP id a640c23a62f3a-c419a93bd77mr5482366b.3.1792162085840;
+        Fri, 16 Oct 2026 07:48:05 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com. [209.85.218.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb39a3sm78261666b.81.2026.10.16.07.48.05
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 07:48:05 -0700 (PDT)
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3156e7705cso555481866b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:48:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx/4thObJYR50apbXpwflGF9M1AbwpxBZmUYLBhfa6TvlpWTUwX/KEZ8ctN6t6OowQTnMsd6rwIUammcfg=@vger.kernel.org
+X-Received: by 2002:a17:907:2d2b:b0:c33:dbe8:291c with SMTP id
+ a640c23a62f3a-c419e93b378mr2200366b.20.1792162084848; Fri, 16 Oct 2026
+ 07:48:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/ntfs3: bound CreateAttribute asize against record_size
- in do_action
-To: Hyeontae Lee <wonju345@naver.com>, <ntfs3@lists.linux.dev>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20260731141440.52168-1-wonju345@naver.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <20260731141440.52168-1-wonju345@naver.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+References: <CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com>
+ <atI0edrmeiRuRtNQ@thinkstation>
+In-Reply-To: <atI0edrmeiRuRtNQ@thinkstation>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 16 Oct 2026 07:47:48 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wha6UNEv+7nVi9zSxa4p=4K-HNMZqxMR-RcspjPTxYp6g@mail.gmail.com>
+X-Gm-Features: AclHuK94Cpn1Jujqx5J8oKvkM5v_riGLMBL7QC5OrYhuF36dOCmhroOGOljhXgE
+Message-ID: <CAHk-=wha6UNEv+7nVi9zSxa4p=4K-HNMZqxMR-RcspjPTxYp6g@mail.gmail.com>
+Subject: Re: Improve page refcount scalability
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: David Hildenbrand <david@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
+	Matthew Wilcox <willy@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux-MM <linux-mm@kvack.org>, 
+	"Paul E. McKenney" <paulmck@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/31/26 16:14, Hyeontae Lee wrote:
+On Fri, 16 Oct 2026 at 07:40, Kiryl Shutsemau <kirill@shutemov.name> wrote:
+>
+> I've added a cutoff to the lockless path: if the folio is large and the
+> read covers more than four of its pages, leave it to the slow path,
+> where one reference covers all of them.
+>
+> Sounds reasonable?
 
-> In do_action()'s CreateAttribute case (fslog.c:3286), attr2 points into
-> the on-disk log record and asize = le32_to_cpu(attr2->size) is therefore
-> attacker-controlled on mount.  The guard bounds asize only against the
-> log record itself,
->
->          Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len)
->
-> where rec_len is the client data length, and separately bounds dlen
-> against the MFT record.  Nothing bounds asize against record_size, but
-> all three writes that follow are into rec, a kmalloc(sbi->record_size)
-> buffer allocated by mi_init() (record.c:105):
->
->          memmove(Add2Ptr(attr, asize), attr, used - roff);
->          memcpy(attr, attr2, asize);
->          rec->used = cpu_to_le32(used + asize);
->
-> With record_size 0x400, roff 0x38, used 0x160 and asize 0x800 the memcpy
-> writes 2048 bytes at rec + 0x38, 0x438 bytes past the allocation, and
-> rec->used is left at 0x960.  dlen is 0x18 here, so the existing
-> dlen check passes: dlen bounds nothing about the size of the copy.
->
-> The equivalent non-replay path already refuses this.  mi_insert_attr()
-> performs the same insert and starts with (record.c:488):
->
->          if (used + asize > sbi->record_size)
->                  return NULL;
->
-> Apply the same bound, spelled as a subtraction to match the neighbouring
-> clause.  used <= record_size holds here because check_file_record()
-> validates it (fslog.c:2826) and is called on this record at fslog.c:3172;
-> roff <= used - 4 follows from check_if_attr() together with the ATTR_END
-> check at fslog.c:2844, so bounding used + asize bounds both copies.
->
-> The sibling WriteEndOfFileRecordSegment case does the equivalent check
-> against record_size at fslog.c:3277.
->
-> Reproduced by mounting a crafted image on v7.2-rc5 under KASAN:
->
->    BUG: KASAN: slab-out-of-bounds in do_action.isra.0+0x41f6/0x83a0
->    Write of size 2048 at addr ffff888005c74838 by task mount/69
->
->    CPU: 0 UID: 0 PID: 69 Comm: mount Not tainted 7.2.0-rc5-00300-g8ba098e6b6ff #2
->    Call Trace:
->     kasan_report+0xce/0x100
->     kasan_check_range+0x105/0x1b0
->     __asan_memcpy+0x3c/0x60
->     do_action.isra.0+0x41f6/0x83a0
->     log_replay+0x920a/0xd300
->     ntfs_loadlog_and_replay+0x3ef/0x510
->     ntfs_fill_super+0x1d23/0x4550
->     get_tree_bdev_flags+0x2ef/0x550
->     vfs_get_tree+0x82/0x2f0
->     fc_mount+0x10/0x1b0
->     path_mount+0x517/0x1df0
->     __x64_sys_mount+0x20b/0x270
->     do_syscall_64+0xf9/0x540
->     entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
->    Allocated by task 69:
->     __kasan_kmalloc+0x8f/0xa0
->     __kmalloc_noprof+0x1b4/0x460
->     mi_init+0x81/0x110
->     mi_get+0x6a/0x220
->     do_action.isra.0+0x1db4/0x83a0
->     log_replay+0x920a/0xd300
->     ntfs_loadlog_and_replay+0x3ef/0x510
->     ntfs_fill_super+0x1d23/0x4550
->
->    The buggy address belongs to the object at ffff888005c74800
->     which belongs to the cache kmalloc-1k of size 1024
->    The buggy address is located 56 bytes inside of
->     allocated 1024-byte region [ffff888005c74800, ffff888005c74c00)
->
-> Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Hyeontae Lee <wonju345@naver.com>
-> ---
->   fs/ntfs3/fslog.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-> index f038c799e7ac..2230a4a77872 100644
-> --- a/fs/ntfs3/fslog.c
-> +++ b/fs/ntfs3/fslog.c
-> @@ -3288,10 +3288,15 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
->                  asize = le32_to_cpu(attr2->size);
->                  used = le32_to_cpu(rec->used);
->
-> +               /*
-> +                * attr2->size is taken from the log record and is bounded only
-> +                * by the log record length, not by the MFT record.  Refuse an
-> +                * attribute that does not fit, as mi_insert_attr() does.
-> +                */
->                  if (!check_if_attr(rec, lrh) || dlen < SIZEOF_RESIDENT ||
->                      !IS_ALIGNED(asize, 8) ||
->                      Add2Ptr(attr2, asize) > Add2Ptr(lrh, rec_len) ||
-> -                   dlen > record_size - used) {
-> +                   dlen > record_size - used || asize > record_size - used) {
->                          goto dirty_vol;
->                  }
->
-> --
-> 2.43.0
+Sounds eminently reasonable to me.
 
-Hello,
-
-Your patch was applied, thanks.
-
-Regards,
-Konstantin
-
+              Linus
