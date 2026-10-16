@@ -1,82 +1,107 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697E93B71C6;
-	Fri, 16 Oct 2026 09:49:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929983FFF9D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 09:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144167; cv=none; b=RBwVDV9n6iuu/GrR75zO36vflKrG3e7evV4u0sI/qZrYmaRy0EpDfPmZmz0lIYDblnZaLcWTaazNBTIfRKKJstrm5450SsygZ1StEz7RxjAlNYRgquEJoF6Pq6Sx7VsPMRpf9GAlQwrY/Xc9oFCzO9BSXdGg8CzCn/LfC2MPvbA=
+	t=1792144179; cv=none; b=Ozf/y5VD+Zp1eHmRflLWJ3cLM6m2fs0uWh4Ok7knfNNu/nkCb+dIMNPr85HGNDL8Bmc6AVc6cUEWvK6bhl/cua9m2FO5bfuE+3Aj5XxGDCpIbQ6tk+8oCPXFhkcWC8JbYmW6AelyKJeoQeSXdnXae/9EpjOWZAso5XZobWHrmXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144167; c=relaxed/simple;
-	bh=gKAEMOgSpCC5WNfMnsDV7LsCcJsKMz8C9HIBbCyHHMs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LYp+l3MpEW2m5r+yBE7H2Dnhh7UfvJaoCt3OGiLuID9xnuBC/YiVjm82scNrbgsta6C0smS8UHDflevB/Ij0POuaD2X09OWcfjX9q8m/c8vQVgMhh9ZqRwPj7C+LMMUZvJPPEArahIvnKAIpS96iUU5Q5y3BO8oBha2wvIcyrOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=hxfMOLaM; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1792144179; c=relaxed/simple;
+	bh=YitoetwPdH+i14xIu2SyRoM0jmdCM8cc+bzFzb4tpkQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=fMA3uiVU/84jkzTcAA3OsmheLmjidxmbTNs+DNDQrycHRluC6xjGnLkge67y2247dJbj6j89HXNZ1dDfNfUDR5HVNxsUXaYQh5vWPLEMCvTyA8XhXcmaI8VhLC2zzI/eAh5wNZphHlH9e7Iu9dwrskYG3kF8RcMKtWmPZM2ZOAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j9/WvJ6T; arc=none smtp.client-ip=209.85.221.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="hxfMOLaM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=gKAEMOgSpCC5WNfMnsDV7LsCcJsKMz8C9HIBbCyHHMs=;
-	t=1792144165; x=1793353765; b=hxfMOLaMEq1IhbldJgVR3G/pQNvW2BY4lFm7ZCAUaR3cXLm
-	ZJ/HNreF9GaKMhnI5sZhf95JskNMSJVQehWt+DkJozky8v7utSHVqb7HlkalcdXU1D09vV67ZRT3P
-	ktDyzn2U68pZaP6c+32N0unRPgxHUT+0vO1ka67IebGeo5nNxMdEbgGYlXx0Df6IIX/fWwqGPEJPL
-	LLhT9sf9uFCKjLMEjl1tZFlAIbHKpbibXKHiq7yzC1M4fDhLY0Bn7aEuJhZHNFk375dzXOdFb9hC4
-	s1nXYqcgR6ApgY6swDM1m7ydmlyn2HgNx5T04AoeQ7yPg+EvGA70G62j9LQCOGSQ==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xHeYu-00000005fFz-1IMS;
-	Fri, 16 Oct 2026 11:49:16 +0200
-Message-ID: <77e9eb61d0e81ead5d5840abb95ffbd695a4e513.camel@sipsolutions.net>
-Subject: Re: [PATCH net-next v2 2/7] um: vector: honor virtio net hdr
- conversion failures
-From: Johannes Berg <johannes@sipsolutions.net>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Willem de Bruijn	
- <willemdebruijn.kernel@gmail.com>, Jason Wang <jasowangio@gmail.com>, 
- Eugenio =?ISO-8859-1?Q?P=E9rez?=	 <eperezma@redhat.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Andrew Lunn	 <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet	 <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni	 <pabeni@redhat.com>,
- netdev@vger.kernel.org, virtualization@lists.linux.dev,  Rusty Russell
- <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>, Richard
- Weinberger <richard@nod.at>,  Anton Ivanov
- <anton.ivanov@cambridgegreys.com>, linux-um@lists.infradead.org
-Date: Fri, 16 Oct 2026 11:49:14 +0200
-In-Reply-To: <20261016054558-mutt-send-email-mst@kernel.org>
-References: <cover.1792067836.git.mst@redhat.com>
-	 <6716834884238de0ab1ab313004044122aa2adbf.1792067836.git.mst@redhat.com>
-	 <8420ba1fe84fc7d105825026802d4ad10d44af71.camel@sipsolutions.net>
-	 <20261015085119-mutt-send-email-mst@kernel.org>
-	 <64ee40b97fc447bbf3abb80250ad0d9f3cf3c6fa.camel@sipsolutions.net>
-	 <20261016054142-mutt-send-email-mst@kernel.org>
-	 <18ba10ec7aa6659ee4711f8dd3f3138e314e4af6.camel@sipsolutions.net>
-	 <20261016054558-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j9/WvJ6T"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dfa054f26so920146f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 02:49:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792144176; x=1792748976; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ixy6hNcTUuWFgZUOYyQDAsnRCW5sJejSxzxn5qXltrA=;
+        b=j9/WvJ6Tk3IO0RQS+GS+Gq3I/2FrBaVGzmhCQk1bLFmrH04Lv+5mpJ058SwRBpnHBB
+         xFHpysTa3+Ndhu4pYQC0C92+Vzsqw0+m7G0DIPvZkcF/DurOruzK3tf+iLZvrSRK9U9y
+         R/HXqEMcT7gg+APl9fYcVBbPoHuBQ8F8rw0USm3hOGHs0JFpNy38haGtXaSZSU2EC4hd
+         59TG9/TaA6HR7YCtbWZUBE6o/pxspuXDoC+/u+NbJFEROapC+Iijm2KkEP32k8EXTdtF
+         cSQXe5sepLx9M5z4IY9cbVD3NetqxUK19NEcz+j1vhHMd5D7jwAAiW0KF6gzojR6dMFz
+         si6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792144176; x=1792748976;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ixy6hNcTUuWFgZUOYyQDAsnRCW5sJejSxzxn5qXltrA=;
+        b=2Ay61dcQBrVqMggdEiK1rvxv6mZAo+Hzqc3H9X203sHW94Sw+GEPyT/+gH8N+I0uB8
+         7G1KCx9Nb+ugBU4Ji6qmTbBObzn+hBuubU8GN16fy1xEi5WWsBdjLYiA2KV2aewCRZ/s
+         aFygzDfhcoEhab2UTRj3+IK0kXgFzI1y8b8Q4S5EmhtEyb2AsB8uU3zMHMxZwWOTnn+W
+         y5hCSs05uvpb8xyqRnT9UKZb4cfYYxZelnN9EaDxJ+cuRqBfXCvNOe4Hqz+O7LJYTOc1
+         gqVaRZAwZY6Bnd3lSG8t5lDhzFj28jdjjvDq8/LBI15pZVyMdv5TeNrzLv5HN4Mk3vQJ
+         BqwA==
+X-Forwarded-Encrypted: i=1; AKwUvBztgeu28QB0Vy3XrDWMkKiZfYwZW7rXbtmhU6TayD5JCfrXlLrUUP6h4fjxJmgPP8ZvQgEGguibG+hskuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGifcNl7kfnVllbdSidxKN7LCrM40SL3L5o4czUpu5lLSFSFqx
+	a/NdPe74x/MQgpjRx1cx0N1qttIG3N0X+cauD0gHfMQu5OBG0hXkzUWed/ZHNU9SZ76cAJRmdLP
+	0gafZPT1+rb6PwLolcg==
+X-Received: from wrhm28.prod.google.com ([2002:a05:6000:181c:b0:48b:1194:3d3d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:46da:b0:48b:68:594a with SMTP id ffacd0b85a97d-48dbaadc11amr31197776f8f.12.1792144175630;
+ Fri, 16 Oct 2026 02:49:35 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:49:34 +0000
+In-Reply-To: <20261016085724.1031766-5-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Mime-Version: 1.0
+References: <20261016085724.1031766-2-phasta@kernel.org> <20261016085724.1031766-5-phasta@kernel.org>
+Message-ID: <atHzLshg2bMc2-78@google.com>
+Subject: Re: [RFC PATCH v6 3/5] rust: DmaFence: Don't drop on signal
+From: Alice Ryhl <aliceryhl@google.com>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	"Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, John.harrison@igalia.com, 
+	da.gomez@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, 2026-10-16 at 05:47 -0400, Michael S. Tsirkin wrote:
-> > >=20
-> > Right, but virtio_net_hdr_to_skb() cannot return 1, only 0 on success
-> > and -ERROR on failure?
->=20
-> After this patchset, it can, to signal slow path software checksum.
-> I'm changing callers first so that changing the function itself
-> does not break bisect. I should mention this in the commit log.
+On Fri, Oct 16, 2026 at 10:57:22AM +0200, Philipp Stanner wrote:
+> The original design for DmaFence intended to comply as strictly as
+> possible with the "dma_fence contract", which, according to some, says
+> that a fence must only be signaled once. Thus, the implementation was
+> made so that a DriverFence drops on signal.
+> 
+> While extending JobQueue's capabilities, it was discovered that this
+> characteristic causes - unnecessary - trouble: fence-data must be
+> dropped in an RCU-deferred manner because the C backend demands that.
+> However, fences are often signaled in atomic context (e.g., interrupt
+> handler) where you don't want to drop, but signal as quickly as
+> possible.
+> 
+> Actually, there is no real hard reason to enforce that a fence can only
+> get signaled once, because the C backend is robust against multiple
+> signal attempts.
+> 
+> What is decisive is that a) all fences signal and b) they only drop no
+> earlier than 1 RCU grace period after signaling.
+> 
+> Don't drop a DriverFence on signal().
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Oh, OK, that I clearly missed, but also was only CC'ed on patches 2 and
-3 :)
+This seems reasonable to me, though sashiko makes a good point about
+being more careful when updating the fence counter.
 
-johannes
+Alice
