@@ -1,238 +1,96 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73414D0A01;
-	Fri, 16 Oct 2026 13:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0C84CEE4D;
+	Fri, 16 Oct 2026 13:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157539; cv=none; b=jQh80WqXFwCaXcuZxc1BKGxb+WX5idPGdY5TszLnxzMHgvYdvP1fJjLeC5HqrqILxbI5JFGqDqvfCDffphRVV3YurgFHJKte2vASTjNq/6Lw57MfMLs8953K2vKm6gbITkeK0nw7fgHVqLIAui13yYNn3H7BA57Zi2WzJ7JlMN8=
+	t=1792157540; cv=none; b=YeC1oZ1DpIJnr5JZJ2kLmWFbgkXKFjqPrmd9ljvl4ker6LdKPTOswlc7xbxou5RpEiwwdBt4++iPUxFXKvZsKKD3tWoEHjBApvstkX8wTQLKahHmceh2PLxCcQ6EtoHlApMa11SG7/8n2mGhZXRcIAjLFIk5FLfVJ7ktcs/QaJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157539; c=relaxed/simple;
-	bh=jsvMzBCBXyqkUSGRq7+2fgSmbUZT005OIU0pvbTs55Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SpYH1aE2cDgCWi6CEx6FQCQDB5GWTtYJFzjkTn/9GBfVLhcmDlPjfch/YNOcxOGG5XszVGp7YscU/YeCc7psvBW14R7B6ClvlQe/htFaIzGCgLsVpex9hWvKMDJtitpUhVOQkqWesV4Qx1dZav1R3MKYKckjcuUHruSJpvhdL/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Cxc3JdK+; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792157540; c=relaxed/simple;
+	bh=4tww+20O5RpFk7JwnGATK7P/ns2O8SLs2ij/rA77nLQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qo/ARt5jQk8Nfw8c63Wtx9a0z3r1Hy+jBSWJDNvKScmUJBku3YNVLtKSTmM3C6jclUAX8k/cgFUR5Zx9ytYi89hXXbFHaT0b1r0+XcIIPUFtYgoTNvN5cuoYSFlYwI+AamrK4CxUWw9DAaPZ1324i2AeLxeEGvZzLac7RfkI5/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E5Lc81/i; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Cxc3JdK+"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 39CD31A1255;
-	Fri, 16 Oct 2026 13:32:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0D0956075D;
-	Fri, 16 Oct 2026 13:32:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7F18C103281F4;
-	Fri, 16 Oct 2026 15:32:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792157530; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=q2RrzNPeel7Fhve5W4GrP7/mTo877MyTSdl5iy4yhVw=;
-	b=Cxc3JdK+BeentvUwekaVZnCfs5ee6nqxzElbFllZlkG9A+rdWO92NxDA0jCoPyW6lGKtoP
-	k7XPjTDjIamdJ3AG267pqnYXQXhxunFb18lzzuvUf3M+sTjAIPBOweo9g39m7UsSFOvqIz
-	SdQuYZAmIXdoCvcS6AOOLQVTKeMUl4Qb3ZQBCQGP1M1b5Oy+rlrzNWVVPqt6HKxjuXzuwD
-	wLkCYItBke7lC5ldJNiiwRb1qXYVXkhu2kdaySt8TveHQe2W3Qje/MQ0qKZahgNpeTESCk
-	+PMy0LthfLW3/CoWh6GGRZSuEdaVSzeDBlDWTR/KquwC5SZRnYX+kTdWPtMCFA==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: davem@davemloft.net,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	=?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	=?UTF-8?q?Nicol=C3=B2=20Veronese?= <nicveronese@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	mwojtas@chromium.org,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
-	Frank Wunderlich <frank.wunderlich@linux.dev>,
-	Pietro Ameruoso <p.ameruoso@live.it>,
-	Aleksei Sviridkin <f@lex.la>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Subject: [PATCH net-next v19 06/10] net: phy: phy_port: Store information about a port's upstream
-Date: Fri, 16 Oct 2026 15:31:01 +0200
-Message-ID: <20261016133107.54054-7-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
-References: <20261016133107.54054-1-maxime.chevallier@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E5Lc81/i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792157539; x=1823693539;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4tww+20O5RpFk7JwnGATK7P/ns2O8SLs2ij/rA77nLQ=;
+  b=E5Lc81/iL0aEidFkxFagpCZPRxmBM3fxETztnED8BLc17E1c1lzdvT51
+   0MMNLntGy36vy6TLu/Nzt+J5S3uYu3L28XLxEFso/9Atjdam5Yeq4555h
+   vlBPDhtyf0XvUz5CLeH5LE/utd8ukdflSHtvNnr/kJFdy3m9U47GPyVsW
+   MQxQfy2BLE42F2QL3gWYi88DGzfsS+je2qsj7GMVBbOKDV/55gn8qjIZ+
+   CScvisVwkppkVnnnKsjF2wazy1/N2FIXV1OwQb3PpFZVEIf86Jq9i0MOu
+   1lTkIZ0S6G/ytpzm+XbKOEpnw1quHDBYyJzvbuU9Dd6CDdBum638sMflL
+   Q==;
+X-CSE-ConnectionGUID: YYwTmP7FRSKmAt6U//tM2A==
+X-CSE-MsgGUID: hNy5S0p8SKOZjNwtRD0Y5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="842672"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="842672"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:32:19 -0700
+X-CSE-ConnectionGUID: NVBJKEN4SGaQqu0Yi8G49w==
+X-CSE-MsgGUID: F+NQ+lOaROKub8UktRSdOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="3695412"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:32:16 -0700
+Date: Fri, 16 Oct 2026 16:32:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
+Message-ID: <atInXRlI1L9JXjMd@ashevche-desk.local>
+References: <20261016130328.1037616-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016130328.1037616-1-arnd@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-MII phy_ports are not meant to be connected directly to a link partner.
-They are meant to feed into some media converter devices that will
-expose an MDI phy_port, so far we only support SFP modules for that.
+On Fri, Oct 16, 2026 at 02:59:47PM +0200, Arnd Bergmann wrote:
 
-In the case an MDI phy_port is backed by an MII port (e.g. a SFP
-module's port, backed by the SFP cage port), let's keep track of the
-port id of the MII port backing it.
+> hub6 support was added in linux-0.99 and the hardware was already old at
+> the time, being discontinued in 1990. The code for it has always been a
+> mess since it adds another dimension to the I/O addressing in the driver
+> that has leaked into many individual files.
+> 
+> Hugo and Uwe have attempted several times this year alone to isolate
+> the hub6 handling into the 8250_hub6.c file, but I feel that none of
+> this has been a real improvement over the original standalone loadable
+> module support.
+> 
+> Any machine that would have used this ISA card in practice is likely
+> 30 to 40 years old, and with i486 support now removed, it is clearly
+> safe to just kill this all off. The only bit that has to remain
+> is the ioctl interface, to ensure the serial_struct field is always
+> zero.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Tested-by: Aleksei Sviridkin <f@lex.la>
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Tested-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- drivers/net/phy/phy_device.c | 24 ++++++++++++++++++++++++
- drivers/net/phy/phylink.c    |  5 +++++
- include/linux/phy.h          |  4 ++++
- include/linux/phy_port.h     |  3 +++
- 4 files changed, 36 insertions(+)
+After reading patch 2/2 I noticed also a SERIAL_IO_HUB6 leftover. Most likely
+it should stay as is until the user space gets rid of the use.
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 13eb1d40badb..e9da6767faaf 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1403,6 +1403,7 @@ static int phy_sfp_connect_phy(void *upstream, struct phy_device *phy)
- 	int ret;
- 
- 	phydev->has_sfp_mod_phy = true;
-+	phy_set_upstream_port(phy, phydev->sfp_cage_port);
- 
- 	/* If we aren't attached to a netdev, we can't add the SFP PHY to its
- 	 * topology.
-@@ -1436,6 +1437,8 @@ static void phy_sfp_disconnect_phy(void *upstream, struct phy_device *phy)
- 
- 	if (dev)
- 		phy_link_topo_del_phy(dev, phy);
-+
-+	phy_set_upstream_port(phy, NULL);
- }
- 
- /**
-@@ -1574,6 +1577,8 @@ static int phy_add_sfp_mod_port(struct phy_device *phydev)
- 	 */
- 	phydev->mod_port = port;
- 
-+	port->upstream_port = phydev->sfp_cage_port;
-+
- 	return 0;
- }
- 
-@@ -3698,6 +3703,25 @@ struct phy_port *phy_get_sfp_port(struct phy_device *phydev)
- }
- EXPORT_SYMBOL_GPL(phy_get_sfp_port);
- 
-+/**
-+ * phy_set_upstream_port() - Sets the phy_port controlling the MII this PHY is
-+ *			     attached to.
-+ * @phydev: pointer to the PHY device we set the upstream of.
-+ * @port: The phy_port upstream of this PHY, can be NULL.
-+ */
-+void phy_set_upstream_port(struct phy_device *phydev, struct phy_port *port)
-+{
-+	struct phy_port *local_port;
-+
-+	ASSERT_RTNL();
-+
-+	phydev->upstream_port = port;
-+
-+	phy_for_each_port(phydev, local_port)
-+		local_port->upstream_port = port;
-+}
-+EXPORT_SYMBOL_GPL(phy_set_upstream_port);
-+
- /**
-  * fwnode_mdio_find_device - Given a fwnode, find the mdio_device
-  * @fwnode: pointer to the mdio_device's fwnode
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 667f00ddfa5e..e885da1c2831 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -4052,6 +4052,8 @@ static int phylink_add_sfp_mod_port(struct phylink *pl)
- 		}
- 	}
- 
-+	port->upstream_port = pl->sfp_cage_port;
-+
- 	pl->mod_port = port;
- 
- 	return 0;
-@@ -4155,6 +4157,8 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
- 	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
- 			  pl->config->supported_interfaces);
- 
-+	phy_set_upstream_port(phy, pl->sfp_cage_port);
-+
- 	/* Do the initial configuration */
- 	return phylink_sfp_config_phy(pl, phy);
- }
-@@ -4163,6 +4167,7 @@ static void phylink_sfp_disconnect_phy(void *upstream,
- 				       struct phy_device *phydev)
- {
- 	phylink_disconnect_phy(upstream);
-+	phy_set_upstream_port(phydev, NULL);
- }
- 
- static const struct sfp_upstream_ops sfp_phylink_ops = {
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index dbd6ed5864f2..1fb87d12367b 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -615,6 +615,7 @@ struct phy_oatc14_sqi_capability {
-  * @sfp_bus: SFP bus attached to this PHY's fiber port
-  * @sfp_cage_port: The phy_port connected to the downstream SFP cage
-  * @mod_port: phy_port representing the SFP module, if it is phy-less
-+ * @upstream_port: phy_port this PHY's MII attaches to, if any
-  * @attached_dev: The attached enet driver's device instance ptr
-  * @adjust_link: Callback for the enet controller to respond to changes: in the
-  *               link state.
-@@ -809,6 +810,7 @@ struct phy_device {
- 	struct sfp_bus *sfp_bus;
- 	struct phy_port *sfp_cage_port;
- 	struct phy_port *mod_port;
-+	struct phy_port *upstream_port;
- 	struct phylink *phylink;
- 	struct net_device *attached_dev;
- 	struct mii_timestamper *mii_ts;
-@@ -2493,6 +2495,8 @@ int __phy_hwtstamp_set(struct phy_device *phydev,
- 
- struct phy_port *phy_get_sfp_port(struct phy_device *phydev);
- 
-+void phy_set_upstream_port(struct phy_device *phydev, struct phy_port *port);
-+
- /**
-  * phy_module_driver() - Helper macro for registering PHY drivers
-  * @__phy_drivers: array of PHY drivers to register
-diff --git a/include/linux/phy_port.h b/include/linux/phy_port.h
-index 4e2a3fdd2f2e..8f45c031cbc1 100644
---- a/include/linux/phy_port.h
-+++ b/include/linux/phy_port.h
-@@ -40,6 +40,8 @@ struct phy_port_ops {
-  * @head: Used by the port's parent to list ports
-  * @parent_type: The type of device this port is directly connected to
-  * @phy: If the parent is PHY_PORT_PHYDEV, the PHY controlling that port
-+ * @upstream_port: Indicates the MII port that feeds this port, if any,
-+ *		   e.g. the SFP cage port for a SFP module port.
-  * @ops: Callback ops implemented by the port controller
-  * @pairs: The number of  pairs this port has, 0 if not applicable
-  * @mediums: Bitmask of the physical mediums this port provides access to
-@@ -59,6 +61,7 @@ struct phy_port {
- 	union {
- 		struct phy_device *phy;
- 	};
-+	struct phy_port *upstream_port;
- 
- 	const struct phy_port_ops *ops;
- 
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
