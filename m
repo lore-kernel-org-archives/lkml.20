@@ -1,147 +1,243 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8BD3B14BC
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338673C3449
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146556; cv=none; b=eT7kQCcNIHcO9NBEZiPHRH8qyIZ5EqMgZS/zK6DNtC6bk767WZkI25Sxfyr1v715G5qdkWW1JsHJAtu2IyQ3a5zypQNlZ493REpnd5CaJX7RgdLxR366rElXXqb0Sq3rNY4IVOvlLXY9X+jOGjsZzsJIdWY4jGTaKrgf1wTUGwc=
+	t=1792146591; cv=none; b=LfUyuuCwpRkm7P1ylJ6LWC8CzHJJuNjDynTWNzosZlyvnRbOnH6ftdRxEWBZ5XQJJ+6+BYgMlvNhGs3ho132e6+a2zVmKJUbingIJa6sMPneN+WnjxQSlekLmbHKKPDOPEK4+M1owQq5Rk1nPMBAjvIPBcBw91iyibd32DQRqCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146556; c=relaxed/simple;
-	bh=ky8tbCpPvao+mkrMxdXaQUfmuiVlu+rOqwSCcj+wrX4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Ysra9h8RcSwB32Er+RFcoNr9WzUBc6jCLTTiFrknytqwZCHxvMNSxtBCaDphAchAFvkO4kMKFcYCr3alZxmmPhXIBoGOR0WBdx7xO8q/kg8RijU536b+25qTs247zuRTcqaylqI3QivV6uE8YPPcqMsK0LB5TBjQfc2AUKaZebo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbtDsfpw; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1792146591; c=relaxed/simple;
+	bh=BJa52UcGpHydezQrvMRTYS4LZALlcRs58n+/XGz/+Ps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u6+yLNSd599hv4U1aTtdiUmQUzU6E5DZhX0o7RRoCxW/r8zpYHj14U0URmPqzl6EYa3j1xzX/R2fhUbORrA/eenoiWYAlX1IcDf/2vHfDdMUof/poCrToKZybrthE62rsKmGUST/JqbBmrb6a6ctlrZPjV6AfA2WkSepNDQZCLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R14ZVvHR; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbtDsfpw"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so649910f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:29:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R14ZVvHR"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e011d370dso289312f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792146553; x=1792751353; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=opHOuUGGTALSPReuuheLADgvOm4sgED9zbXGqnbAz2g=;
-        b=bbtDsfpwGdX31Yo753LvbOJhboMLz8iCgSuQMlmHwk8EscuIvIKDmShxkIBD9RSADU
-         P/t4kJJ54/Y+BFhPG49Y+t5JHt6001nWbPAAm2cJsuij0iqd4er7Aylu7YASdC8YM6LZ
-         o2zKSq05VxE4Non4yRwS38X2XnEEKuWMGZ3BxKYwbTHAdEOOZ5mkqkhbH1YpCYzrF5xO
-         /dZftP4Q9jo3nZ/3aL4Ya2/PG+/X9jFrDWxLyXPloxcwK3fSZDftqTvPQEXggX1+DVI9
-         EX81JawETYsPLNALyw/woq3cGgHgxw3Tv4JbvQeTQAXknq65PmJDJSf1RfujKaRCWZCu
-         aDiA==
+        d=gmail.com; s=20251104; t=1792146587; x=1792751387; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RQnN3qNvWgUvgCtj7xlWr+dFJba801MekrCsHnx2s00=;
+        b=R14ZVvHRDiIoZ0hzog+d/DD/4z/qPZOxnTirzFOB1NUSjVXbA97h1jOpGnoYEpZFtO
+         QAVqTuavpMdV5qI8oUmx0Hp5NWKn+fOsdJfE3znAGZlaI4nllrv3hL+ENKmb7v3nFX1e
+         aa/E2lkrAQa35vOSrWI0iaNATE77vSItx4Qj6AHNWQR4SRAW8wbwFeISg3AEhDIVpye1
+         wwz83cSyBZp4L6emQUQatKAvy3Dl30VtPWQLTU76xL7TMceyX6UiRifAMTlld9d/c9UU
+         if7lPBTlS6h4rYbRGQ3qXgTjzzFDyjsGeiZhGZAfzEIBK8lHRWBfXpVA8/CBq0rSFAk3
+         L9fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792146553; x=1792751353;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=opHOuUGGTALSPReuuheLADgvOm4sgED9zbXGqnbAz2g=;
-        b=kMGzIJRfcz3sbb3WKlds61KDeeRSmMViISYD1GHREHVI/Y8lCLBr7SoZ+GX+xu4Y71
-         ZqkhuHwKJUz5YN7ES+y6Rtbwh8f+jRgJZVR41FC6RtSzT+tBPq8nbXNLwJ3JmSvON1/m
-         6h7vZvYcd+j9Pj9+76QKMT5U+9tweDWGeO36bYsELAOt85lR0FDaztzKJx1Gs5s3Its2
-         MFMksPVihe7Nb/D6t9D7JphkLVSiurPJkzNtpY0Cs2ic79kmgd73Ej0NUoR9BMYlqjCq
-         /XjSysWXXmzuZRIxAzXg7ZIzXGY7fNtjMA4lTAIaOBuiUl8EisyN07Z8quZ8udPUjEpl
-         /yWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxb+Kwdba8Sy9ggPD4S9DtqHsiTeOGONVU8wcb+wPPIRXwLKmaaWIRJO1sqHJDfigjf0n51B7jUyiMkDmM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1J83GzsppVSOJ08R+GaXwqhSj5Q0bJtH9V/E7SgbRgNPZqUm9
-	LN0hn5Ond4VYiMW1K1JoTfkr0Nhb7ByXIKy6kIz2klMcXEWZmTSPI3ee
-X-Gm-Gg: AYBFou1jl5E1CLhbf2tnGKqVtJBoXuWY75JqI4tvuvmZmjpHZk4p80BRwEaz45tmH2c
-	MWZGwQhk5rMI2XLfX33cVEHHEgtT2NTi4jrbzx71Z8ZYfHX3nXFJkEWYX+qkI+gfYKWxyYW5d+M
-	qmaPH8YKH03WIbIl2n28fOua6evbUU0u6JVPmsZ+AI314YGXk7/1ypehCVnHXL8UOH7MfJYihkD
-	uYLrV4osHYr7h/jcyC4XtIECcyNuU7OblQXBmzkLSDe+v8o1bynz/eH/WF6w9ZWWH7C1bB71mYA
-	pQ+tOTJbx0RCdjSvuQ4ENJZMtzpSMbKS/nBgBRAd0OWR/SBa2V1A3phANCmL5tg2bmK+MLjIenn
-	uTO/AASawB993YubKr0AyhWGrhxmA4GYNoPUp+dHg21Fo0dpuMDXG/10ePzGyEw3NFjUfU9TRzb
-	uRMJRFUdYztDgGK3AIu1PGfedLXIKMnmCgrpNY3lWdd3jIDKUEZwRUXB0QTdTEZcNQi4tFXXAY8
-	T+SN5bs++LidepwqFkZKAccdeIk5fleHho9BfTdD1dDK6MBeFIiQTdkhgnk6K/F5/1RPfaZ2Z6S
-	YRX3djC8/ctspKZZ/TtSrQNXXPp3Mv2XBJ02yTr9VB15lvXO09HRAfyPZlGkqUFEvO8ZLyssxzd
-	OjOY=
-X-Received: by 2002:a5d:5f92:0:b0:48d:efcb:1fea with SMTP id ffacd0b85a97d-48dfaca41d1mr6649319f8f.0.1792146552674;
-        Fri, 16 Oct 2026 03:29:12 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de. [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4e7889sm4059906f8f.24.2026.10.16.03.29.11
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 03:29:12 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Mike Rapoport <rppt@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] riscv: mm: Pre-allocate module page tables for execmem
-Date: Fri, 16 Oct 2026 12:28:47 +0200
-Message-Id: <20261016102847.96530-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1792146587; x=1792751387;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RQnN3qNvWgUvgCtj7xlWr+dFJba801MekrCsHnx2s00=;
+        b=hQk3JA6Q64G52hU9DTyAahIcyDjVzkiZUPE0+xX4k6ulkLxijxoGCdj4OwAE9QLb6f
+         5U/FeGxF9gGeqp5J7LrMclA0muJ9IHHNXZjQXDTfs6wG2odivTJif+npHnLP8LPOmSP0
+         jubIf4xSDdvFghYqIC81aXpR7d7pgIThskLVygL1eqaXKsjIDRpUHYducBz8nbfRfOZ9
+         TR+hxT+qm2VL4NRhnI05Zdr7tMzSwvI0cTkg1jrpCpHriskbv2dEOaPwgQk45Dhga3/Q
+         r05Q/f1iHCjvfBx6+laJUK2DsLznaF4UW3Rg3AG91ccnCMB+zqtFb73fVk39R7DGOZMD
+         GHrw==
+X-Forwarded-Encrypted: i=1; AKwUvByDQRKtpgIwAgIWUIj8ymOtk2u55nhzXaUsIUIcpv/7zZDv8e8/GlZ5v4lPAUvcDfqhoUyPjLImof48jas=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIbXbJ+0lcRXgzwYP+IwzJEW8KablByEZUaArKe1AndzJgnJ3k
+	yIRkkKVL0xQjAMXkvJpjpVg8navkbTUlwYSqZ7pgmtq8M5wGet+iQPKa
+X-Gm-Gg: AYBFou2oLX1EWsubys4GCyt77tdnE851oNs9oRGysh6DeZLUxRE5LgFi3CmsxeILWm4
+	11vWCkwnRASfPkfkqnfQ3ru4IXdf5pdgGazENn4i4Z9gdxIwfmoIe0sWBvw2TZRqNDN+Ov2gxnv
+	BtBu2k2Ytp6v9FioIeZlKl5hwp0wOSReTiwZn42voi0+lpkvn9NWeEV7HPtoIv3ajBm3qS3/yYZ
+	FtAM0MdeYlDRU6YSYq97FPy44aT7oKJMBat0I41m0R0/Vklrf1R56MbDQFmwRg8QDS62mQuevEE
+	F0eWRgSslhHYlg0Zr2DseSAI0SQMhL6H4B/MOXQMHSdg2UADi48+mzrlGcuU6LeGlb1eWxG0IYF
+	DTSnbMGeEB/kjAsifUEG6fIrHrChVtzbhM7Qh5GR9iBW5NjON+UcWbFfFBJFjgeYrgfAkMfGI7T
+	2x+a/EzHD/kv2GokYqCaCpWsXXByInZzhKsYmfdTUWqqFUDlNwM1EeEqcgEXfr4Sk6c69PXAgKy
+	0lBsig/h7frJ26L0jKlJRLbIsnUO4RPONQAQoYxgGpPbcFbf/ZQIzNtoPhEs8Gk6MckI0wuTNTX
+	6n0MTKv+xRpZx8Y8ro3G6h9MhuWkZ30UXStvgnVsqoQN5dKYbyRMU/YDI7hkLeYB
+X-Received: by 2002:a05:6000:11d2:b0:487:169f:d341 with SMTP id ffacd0b85a97d-48dbaaddbbemr29617033f8f.12.1792146587298;
+        Fri, 16 Oct 2026 03:29:47 -0700 (PDT)
+Received: from px13.tail3a7e86.ts.net (91-201-160-110.ip4.as24916.net. [91.201.160.110])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a24sm4143035f8f.49.2026.10.16.03.29.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 03:29:46 -0700 (PDT)
+From: Lee Mann <leepaulmann@gmail.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	linux-sound@vger.kernel.org
+Cc: shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	sen@ti.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	andrey.golovko@gmail.com,
+	antoine@montane.tech,
+	linux-kernel@vger.kernel.org,
+	Lee Mann <leepaulmann@gmail.com>
+Subject: [PATCH] ASoC: tas2783-sdw: restore the volume controls after re-initialisation
+Date: Fri, 16 Oct 2026 11:28:46 +0100
+Message-ID: <20261016102846.22908-1-leepaulmann@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-RV64 pre-allocates page-table levels for late kernel mappings. The module
-range is guarded by CONFIG_MODULES, although execmem can use it without
-modules. BPF_JIT_REGION_START..BPF_JIT_REGION_END lies within
-MODULES_VADDR..MODULES_END.
+When the SoundWire controller is power-gated during system suspend, the
+amplifier loses its register state and tas_update_status() re-runs
+tas_io_init() on re-attach, which resets the device and reloads the
+firmware. Since commit b627da430357 ("ASoC: tas2783-sdw: drop stale
+regcache on uninitialized re-attach") the cache is dropped first, and
+that commit notes that cached user settings then fall back to hardware
+defaults. Before it, the cache was synced back before the reset, which
+wiped the values again, so they were lost either way.
 
-With CONFIG_BPF_JIT=y and CONFIG_MODULES=n, execmem adds a mapping to
-init_mm while the current process retains an empty PGD entry. Initializing
-a BPF program pack then faults:
+For the two volume controls this is audible: the digital volume comes
+back at its default, full scale (0 dB), while userspace still holds the
+level it set before suspend and does not write it again. The first
+sound after resume plays at maximum volume until the user changes the
+volume. On an ASUS ProArt PX13 with PipeWire at 48% the "Speaker Volume"
+control reads 200 after resume instead of 162.
 
-  Unable to handle kernel paging request ...
-  [ffffffff78000000] pgd=0000000000000000
-  ...
-  bpf_jit_fill_hole_with_zero
-  bpf_prog_pack_alloc
+Remember the register values written through the "Amp Volume" and
+"Speaker Volume" controls and write them back once the init sequence
+has completed. Only values userspace has set are restored, so the
+first initialisation is unchanged.
 
-Use CONFIG_EXECMEM for the module-range pre-allocation, as powerpc does
-for its execmem page-table setup. Both CONFIG_MODULES and CONFIG_BPF_JIT
-select it.
-
-Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_MODULES of")
-Cc: stable@vger.kernel.org
+Fixes: 4cc9bd8d7b32 ("ASoc: tas2783A: Add soundwire based codec driver")
 Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Björn Töpel <bjorn@kernel.org>
+Signed-off-by: Lee Mann <leepaulmann@gmail.com>
 ---
-Changes in v2:
-- State that the BPF JIT region lies inside the module region (Mike).
-- Add Acked-by tags from Mike Rapoport and Björn Töpel.
-- No code changes from v1.
+Notes (not for the changelog):
 
-v1: https://lore.kernel.org/r/20261015033643.84972-1-kmehltretter@gmail.com/
+AI assistance: I worked on this with Claude Code, as I don't normally
+get this low level.
 
-Notes:
-    Tested on a BeagleV Ahead with matched LLVM 18.1.3 builds based on
-    v7.3-rc7:
+It drafted the code and the changelog from my measurements of the problem;
+I reviewed the change, built it and tested it on my machine as described
+below.
 
-    - unpatched: a native XDP attach triggered the Oops above
-    - patched: native XDP attach and detach completed without an Oops
+Testing: ASUS ProArt PX13 HN7306EA (two TAS2783 on SoundWire link 1, AMD
+ACP), v7.3-rc6 with this patch applied to the in-tree driver, PipeWire at
+48%. After s2idle, "tas2783-N Speaker Volume" read 200 without the patch
+and 162 with it (the value set before suspend), with nothing done in
+userspace; stereo playback is unaffected. checkpatch --strict is clean
+apart from the Fixes/commit references checkpatch cannot resolve in my
+tree.
 
- arch/riscv/mm/init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This posting is rebased onto broonie/sound for-next (686b3eff60). The only
+conflict was the new "Re-active AMP after resume" write in tas_io_init(),
+which the restore now follows. The rebased driver (for-next's
+tas2783-sdw.c with this patch, W=1 clean) was also run on the same
+machine: after ~60 s of s2idle both amps read 162 again, matching
+PipeWire. for-next does not have 173cb3147ba2 ("ASoC: tas2783-sdw: split a
+stereo stream across the two mono amps") yet, so only the left speaker
+played on that build; the volume check covered both amps.
 
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index fb37b0b67efe..d92342c162e2 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -1437,7 +1437,7 @@ static void __init preallocate_pgd_pages_range(unsigned long start, unsigned lon
- void __init pgtable_cache_init(void)
+ sound/soc/codecs/tas2783-sdw.c | 60 +++++++++++++++++++++++++++++++---
+ 1 file changed, 56 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
+index a57230e01f..5235a7ddc4 100644
+--- a/sound/soc/codecs/tas2783-sdw.c
++++ b/sound/soc/codecs/tas2783-sdw.c
+@@ -84,6 +84,14 @@ struct tas2783_prv {
+ 	struct calibration_data cali_data;
+ 	struct sdw_slave *sdw_peripheral;
+ 	struct sdca_function_data *sa_func_data;
++	/*
++	 * Last values userspace wrote to the two volume controls. Re-applied
++	 * after tas_io_init(), which resets the device and drops the cache.
++	 */
++	unsigned int user_amp_lvl;
++	unsigned int user_dvc_lvl;
++	bool user_amp_set;
++	bool user_dvc_set;
+ 	enum sdw_slave_status status;
+ 	/* calibration */
+ 	struct mutex calib_lock;
+@@ -536,10 +544,25 @@ static s32 tas2783_digital_getvol(struct snd_kcontrol *kcontrol,
+ 	return snd_soc_get_volsw(kcontrol, ucontrol);
+ }
+ 
++static void tas2783_save_vol(struct tas2783_prv *tas_dev, unsigned int reg,
++			     unsigned int *val, bool *set)
++{
++	if (!regmap_read(tas_dev->regmap, reg, val))
++		*set = true;
++}
++
+ static s32 tas2783_digital_putvol(struct snd_kcontrol *kcontrol,
+ 				  struct snd_ctl_elem_value *ucontrol)
  {
- 	preallocate_pgd_pages_range(VMALLOC_START, VMALLOC_END, "vmalloc");
--	if (IS_ENABLED(CONFIG_MODULES))
-+	if (IS_ENABLED(CONFIG_EXECMEM))
- 		preallocate_pgd_pages_range(MODULES_VADDR, MODULES_END, "bpf/modules");
- 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG)) {
- 		preallocate_pgd_pages_range(VMEMMAP_START, VMEMMAP_END, "vmemmap");
+-	return snd_soc_put_volsw(kcontrol, ucontrol);
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
++	s32 ret = snd_soc_put_volsw(kcontrol, ucontrol);
++
++	if (ret >= 0)
++		tas2783_save_vol(tas_dev, TAS2783_DVC_LVL,
++				 &tas_dev->user_dvc_lvl, &tas_dev->user_dvc_set);
++
++	return ret;
+ }
+ 
+ static s32 tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
+@@ -551,7 +574,34 @@ static s32 tas2783_amp_getvol(struct snd_kcontrol *kcontrol,
+ static s32 tas2783_amp_putvol(struct snd_kcontrol *kcontrol,
+ 			      struct snd_ctl_elem_value *ucontrol)
+ {
+-	return snd_soc_put_volsw(kcontrol, ucontrol);
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
++	s32 ret = snd_soc_put_volsw(kcontrol, ucontrol);
++
++	if (ret >= 0)
++		tas2783_save_vol(tas_dev, TAS2783_AMP_LEVEL,
++				 &tas_dev->user_amp_lvl, &tas_dev->user_amp_set);
++
++	return ret;
++}
++
++static void tas2783_restore_vol(struct tas2783_prv *tas_dev)
++{
++	int ret;
++
++	if (tas_dev->user_amp_set) {
++		ret = regmap_write(tas_dev->regmap, TAS2783_AMP_LEVEL,
++				   tas_dev->user_amp_lvl);
++		if (ret)
++			dev_warn(tas_dev->dev, "amp level restore failed: %d\n", ret);
++	}
++
++	if (tas_dev->user_dvc_set) {
++		ret = regmap_write(tas_dev->regmap, TAS2783_DVC_LVL,
++				   tas_dev->user_dvc_lvl);
++		if (ret)
++			dev_warn(tas_dev->dev, "volume restore failed: %d\n", ret);
++	}
+ }
+ 
+ static const struct snd_kcontrol_new tas2783_snd_controls[] = {
+@@ -1245,11 +1295,13 @@ static s32 tas_io_init(struct device *dev, struct sdw_slave *slave)
+ 
+ 		/* Re-active AMP after resume. */
+ 		regmap_write(tas_dev->regmap, TASDEV_REG_SDW(0, 0, 2), 0);
+-		if (ret)
++		if (ret) {
+ 			dev_err(tas_dev->dev,
+ 				"init writes failed, err=%d", ret);
+-		else
++		} else {
+ 			tas_dev->hw_init = true;
++			tas2783_restore_vol(tas_dev);
++		}
+ 	}
+ 
+ 	return ret;
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+base-commit: 686b3eff603871bd500434e00ff15394a0c782bc
 -- 
-2.39.5 (Apple Git-154)
+2.55.0
+
