@@ -1,127 +1,126 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582302EC0A4
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D9A345ED3
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792119745; cv=none; b=aYNPrlfwVHc8ECLDWJ8bQsEZm0hrxskaGzX8bJj+G65uHS9luUfXt1BSDSJG7BYOcgUJPWIfpp9fSNm+/96eW3Tcjb9anx+g/ids7pSApVkuIIYBt4V7VanK2iiWXyImkMNus3pKaRihsi/EvyffcUVSdg8RZJ1COHySCsIvSlc=
+	t=1792119762; cv=none; b=qO159J8+dwdDYdD2L2mfByxrdhswcaLMTSLHMuOAKm7Z1c/iHDvGjPCcxd9bDiM9kYE2xKNmvZBrpc/lzJ5xwWlc7Fiz37x0MEyt/RSurdEDEqZh1ykS1058M8l6qbP5K2UTu1ii0Sovr3L0lUXJVdVoO+eABp5BgkoR48xp5KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792119745; c=relaxed/simple;
-	bh=k34bmAM328BmjAmGoXRDZojOtLNo+D8QFUlnQYlS+/w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MwYGi5mud8BN6EtlDkAWQdi+Uj/djpkp7Juzwt+v8FvSxkUFqge+XPUjt1uK/yCdNEQeCqbgJexz3A8hPNA/dFPU1t8+kQH80BnCmBJ4ePWUQRISXiDl+FTFb4Ri8hcdgrG8T71Ks5tuzLD8oc4bRvSK+vx/z6gHyOm/GZoOQp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rdq+YOEW; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1792119762; c=relaxed/simple;
+	bh=Ncfi737IhfgoTSXedrzzjI4FEr50ydWxAOSaf860uDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cCMDoUJMMC25RHTaX9ja8zhNmxVcnFv3malssPeX659cFXINEKe0pp2z+Vb+ishWCse20sA3/YNA7CEfg0Ri4x6jvYb40hbJpShDV7mQzrHlEJvTfKNJtbgZN77IhsKF8/2aqMTfPLMWQnGnPG85euKPLnuOTBKf4F8YQUwBzaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3Bcc94Z; arc=none smtp.client-ip=74.125.82.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rdq+YOEW"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so303995a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:02:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3Bcc94Z"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15943c9c005so3009205c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 20:02:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792119744; x=1792724544; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WGUCMs28DpPSn+ppcL59RwrFtWtuthKTRyw8zNLj4Wg=;
-        b=Rdq+YOEWURF66dDC/ycVbZBUHmqBHxYDWORvSWNpS9cbFSk61KtRdz0TKawgKPJvwd
-         dJ0/CZ8YyUT2oDzb4PB0VKkJt0RYcDtkUv1L1pcVoPHgzfytHPOaTSe8tP8dHaheKcHR
-         i/OBn8WpIh1msKCyyekf4bbIENNLyNJfjcQtxoeHrWEh2R4B334JJ15+3ccS2fH3l+6N
-         YCW4taAgyrsmxoE8kB6FOttSqHIdxCenoh35RmwSCsUkdP4rpCFqFlq6bxICW6jR1gws
-         NBR/yDU+8L1ZNyILGYSXAGUe2FXyX0U0QGdrmS1ySfv6VtM4UE6TEopgJP7ZykiYe4tk
-         C0pQ==
+        d=gmail.com; s=20251104; t=1792119760; x=1792724560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mg4v7BHfqkhi7Mtq+V05hYnu3rpb+ZBoFup4gff0eTY=;
+        b=J3Bcc94ZZTdoPuZwv2gg4GhhisTH8hbOfLhU+PFZ3VNUR/cmHWpfZGN5Ipsoecge7Z
+         hWQxlfza7KnnYkWXSHUSbIV3Ssg0jzFduamygASLv7HylbY4aCtWbGpWrsZ1t2dtLI6w
+         7KZXX149JGPqBA1L8faJ6Lgn6N0qCuv1KsGmvquU0kn2Es+anjzBikCyE0ofmNxZyW0c
+         qU8G1l4uHbvUwxSoM+7mvRY1AR8BXsYEoQ3op5etGn+fKcLAmHaGY8NgsSYiWG+3I+4M
+         5lKAL41fPFBtu6/Vud54Csc0HAJvPHhnz2+6sh7qn3CQpyMMG9KCSlT26NQG3JAqqTou
+         MYMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792119744; x=1792724544;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WGUCMs28DpPSn+ppcL59RwrFtWtuthKTRyw8zNLj4Wg=;
-        b=cB4eivB3t6X/ISfw+Qos1i4WKm0QVTJxJ98YGBDkY/yUnT71jFiKGwTP1QnGFWSt04
-         adZdjC7XPRikh9LWooVl/c5cD/IKcceLIWh3dDHwS8yjpQj1oeGs67UqQTWiDtevcQXQ
-         wzAStXczEW2AZdaUV5TOYdEoHwd9raKFOU+1hEi8zzMI3bqCe0TkN303GyVnd2ORmkoO
-         Y/iWd5SlOheVeINSAKjyLAaxz3XoPryVAxBb9Lg+u29+yIrYdiqLHmV+pYosJJrm5mG/
-         MdVSxPnFg1/lZ6ZQX90KlMHja+p4KEqF+5vUWvps4LPLYJQWfPpV0G9DcMKoKBiAWm5k
-         fdzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwc1eELmyP0tm2Ib4kQOIkDFIxzeS+dmP1+JKDJlatVEzOJlsn540ur/BK9/SSuSiL0D9ppsxlIvYux2IQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUyg00VNv2rSLRTmN/inbggExmOD8pTHiiBBvTGfyKluiyFG/D
-	SJxv0Gfw6GcJIjX6QTiVlBhJqbfQijp1SXe6Dw0sZL6oDIfOPcvfop76
-X-Gm-Gg: AYBFou2vAGnMFLAFKtva9ldkc+eYMnOjyqNCUl8EoQICPjdHDiE1OmyWZn3BYYBcqfM
-	SgNp5y7pnT9cj0KDDFj182BNQbsjam5jdllEKc5ZTq3e7yOdYnTU/bOukq7UGS+dWC+E3g2Dv5h
-	GrU3Xd/3bzNUYQ5WQe8b7Chbbm/m9/M1h/chqQ8/LhNOtzAPtnip2Gwt5lRjj2nwXZyTVACdgmP
-	KREARQLhiNIsnKXhS+6RIhcHLmCwXsrEyF4FCFWaaf2bkFNLpl1enCZZWCr02NzhvQCwaeYZYVu
-	Q6LbPCVhPeyxTUMS8HKNsvSq1GNXBRJwyU01YH/DhtenRD0Y1/b8qScjST2CEPrem+NQ0kM32Up
-	8y2vDsg0FKtQ+WaOm8itChb9IoS9H5TKM7eYtGDNJR9IRaLPtvj4elJPqCVq4hOSZZzB7xySNDZ
-	eGyaRhtPRCKaWaW/tFL1oqUT7TmZukd6yT1FybPZLgRKom2cLaCEisGgNLXcpfG/xK0H5HDHk+4
-	JfdwheVXGTBr8/+ewWbnWuYBnlbTE23SIftjNFIJ/8i
-X-Received: by 2002:a17:90b:4e8f:b0:3ac:9ad9:6afe with SMTP id 98e67ed59e1d1-3acbb8d5b8amr1095002a91.39.1792119743425;
-        Thu, 15 Oct 2026 20:02:23 -0700 (PDT)
-Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1e1esm1937126a91.1.2026.10.15.20.02.22
+        d=1e100.net; s=20260707; t=1792119760; x=1792724560;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mg4v7BHfqkhi7Mtq+V05hYnu3rpb+ZBoFup4gff0eTY=;
+        b=op8xH9o8znFwp4/DsNR34LqJd0vBCx4LfYHosQQC+9ItbITs0l44+1ji9wcb/uxtug
+         B2fKkE6FHVScZp2LNtk0bukgjH8GQQm8A2PW/UWesW745JsrTJbpdsZJaOXefAqJz7sF
+         uuKSa+Q+2TwgQleHKHqLFrCNgo5bOKyc+ei+8dBzMSwqCXp4pk66QYmLRgagIOoXwBDq
+         uqd1fITNnY2cXdWu6bSjcm3q/qPcmorVwx1vI0e2zwiz3vGI1+QkWOY1cy624buNomYE
+         ve3vW/50lsI+YretmYdxaGu/yt4F/XSlPM1oLD+jTzC63AlV6heXmaU44QoKVvpwYoQ+
+         kN5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzKtfGvdSAhCyuAApKS2oQJrpMKhyi2bjP1Jk5wRFphWfEQ2VcJpWJoAShDvr0cVoV3c1YfnIAQXB6bAKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOweNV2cwTKbKU1EN2xxVl3UCqQJMecZNCt/wpPs31uZp1dXoo
+	xi4IMoxECYJBuiso2cgdmj1Xt5wthUq741bJX7FUHQbCcE52sOVYldiv
+X-Gm-Gg: AYBFou2YmdY+KlijpV/chhc/9I4H7lXeKkoxc84hOTmc8hhXrlhmShJYVa//iM665TE
+	IG7qvWCIF5tQ2OyCmKyu4huvdMqWWgDODbpWzuqlPjJTPJmwzQgEYbYPFgLWOzz2+HWAcIyvO8f
+	eL+REEUtXqIKHNwZ9YxUlg9nAbQz2mIoP5ypG1Pw/INcesKSJi6d9YTrqfAR5+vEDmh0DHwo3ay
+	Ywy67R4phYoZWj8aGigAsQrwqEg7Cbnjv24EU1x7ZbxvCVNAuGKBTQaiz/kIeDC6hw9KYRJw6BV
+	q9KcpVMSuhdfOFHDjAChHdv9LYuJMRAByoKUulC1i73LLdagmyI5n6t6pXltUNX+kpFbdsfMqPp
+	AwKXC4Ea3rZzYfV2sFyk+qehbXTl03UufjJyvmEPMEUaDR1aCVuKI3Huba5XnOHUlUuprV235Mm
+	hbjNlU97nKsc2qrYFPEYgRkrFWNLJLDwTxr6OP7Yr+J/wkWbQ0bCB4Js88iIKOY4E=
+X-Received: by 2002:a05:7022:3b86:b0:143:5266:48ee with SMTP id a92af1059eb24-16a6535ab09mr30808175c88.42.1792119760148;
+        Thu, 15 Oct 2026 20:02:40 -0700 (PDT)
+Received: from ubuntu.. ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1830f213ba7sm1913846c88.0.2026.10.15.20.02.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 20:02:22 -0700 (PDT)
-Date: Fri, 16 Oct 2026 12:02:20 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Xiaolin Zhang <xiaolin.zhang@intel.com>,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	zhiw@nvidia.com
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-Message-ID: <atGTvA2zocXGWmbp@dell-wzy>
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
- <asm4DV84UitLCbve@dell-wzy>
- <CAGG=RgApzG=MeZ9xbpeBzqE0i0Q6RCPXtnyS-30JfEDPDKNN0Q@mail.gmail.com>
- <as4fKufR2O21NWk5@dell-wzy>
- <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
+        Thu, 15 Oct 2026 20:02:39 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+To: Amery Hung <ameryhung@gmail.com>
+Cc: Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 0/3] bpf: Fix a struct_ops use-after-free behind a flaky assoc_in_timer test
+Date: Fri, 16 Oct 2026 11:02:33 +0800
+Message-ID: <20261016030233.3429038-1-odys.yuan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
+References: <20261015-selftests-bpf-struct-ops-assoc-timer-v3-0-efe643d4b2a3@gmail.com> <CAMB2axPRjfe=ROzA0rMR1_FPyv1mA-jaH3bHQHZje=Q1PjoEVA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGG=RgDVsPHjLMTEgoqjh17hfnBUg3WUeca93VrDS7NTshHsOg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 03:25:33PM -0400, Yuho Choi wrote:
-> On Tue, 13 Oct 2026 at 08:08, Zhenyu Wang <zhenyuw.linux@gmail.com> wrote:
-> >
-> > > You know this code much better than I do, and I can't test it without
-> > > GVT-g hardware, so I may well be missing something.
-> >
-> > I can understand that but I think for any non-trivial change or
-> > for sensitive part, testing is a must...
-> 
-> Understood. I'll hold this patch until I can test it on GVT-g hardware.
-> 
-> > > The case I had in mind is the guest mapping the same page at both sizes
-> > > and keeping both, e.g. 2M in the PPGTT of one context and 4K in the GGTT
-> > > or in another context's PPGTT. If the second request replaces the entry,
-> > > the first shadow entry seems to keep the old DMA address, as
-> > > shadow_ppgtt_mm() reuses a PPGTT that is already shadowed. Is that ruled
-> > > out somewhere? Please let me know if so.
-> >
-> > Shadow ppgtt is created by a PV interface, so each context would have
-> > separate shadow ppgtt or shadow mm. GVT handles guest page's dma
-> > mapping per-vgpu as for per-VM. But GVT handles context submission in
-> > order, shadow ppgtt is populated for each submission. I think even in
-> > your example that possible one page mapped in different context as 4K
-> > or 2M, it would be remapped as size doesn't match for each submission,
-> > so no invalide dma address access.
-> >
-> > I doubt if i915 could possibly have such case in reality..
-> 
-> It does seem to happen: 7366aeb77cd8 was written after the same gfn was
-> requested at both 4K and 2M during an OpenCL conformance test.
+On Thu, Oct 15, 2026 at 10:41 AM Amery Hung <ameryhung@gmail.com> wrote:
+> I think this fix is heading in the wrong direction. The struct_ops map
+> association was designed as an RCU-protected pointer: asynchronous
+> users may outlive the map and observe a NULL association. The existing
+> selftest explicitly verifies this behavior.
+>
+> The problem is that the disassociation now happens after the grace
+> period initiated by bpf_map_put(). Could we instead make
+> disassociation safe in map_free_pre_rcu(), before that existing grace
+> period, rather than adding another deferred-free path?
 
-ok..so that was actually a fix to remap guest page when populate
-shadow ppgtt, it's a little hacky but as for gvt procedure, it works.
-Your change might also work but have a penalty to an extra 2M split
-with extra dma mapping effort..
+Agreed, that is simpler. v4 [1] does it in two steps:
+
+1. Replace st_ops_assoc_mutex with a spinlock taken with irqs disabled,
+   and put the map of a non-struct_ops prog after dropping it.
+   map_free_pre_rcu() runs wherever the last reference is dropped,
+   which can be softirq, e.g. bpf_struct_ops_put() from
+   tcp_cleanup_congestion_control().
+
+2. Call bpf_struct_ops_map_dissoc_progs() from
+   bpf_struct_ops_map_free_pre_rcu() instead of
+   bpf_struct_ops_map_free().
+
+One thing to confirm: bpf_map_put() waits only for a regular RCU grace
+period unless free_after_mult_rcu_gp is set, and no struct_ops sets it
+today. bpf_wq_work() runs the callback of a struct_ops prog under
+rcu_read_lock_trace(), and that callback can read the association too,
+so v4 sets free_after_mult_rcu_gp for every struct_ops map. Would you
+rather leave that to each struct_ops?
+
+On a KASAN kernel with v4, st_ops_assoc_in_timer_free passes 100 of 100
+runs, where it hits the int3 Oops on run 1 without the fix, and lockdep
+reports nothing over the struct_ops and tcp_ca selftests.
+
+[1] https://lore.kernel.org/r/20261016-selftests-bpf-struct-ops-assoc-timer-v4-0-9ad31c21220c@gmail.com
