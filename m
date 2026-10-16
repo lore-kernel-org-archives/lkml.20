@@ -1,266 +1,145 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010067.outbound.protection.outlook.com [52.101.193.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C8753C3C7
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172283; cv=fail; b=Yxh6N/80WJ++JaAFkm88RtI9Dp6sBm3BaGvgyGE8qfUN2Lf7dspnM4FSjAi+vj3Ltou74eZwk7SdLCZNIw9j+w6zhNeBcpuS9gd7CoxQ1mOWs8O0XH2T8p/uW3la8CVUbRPhYjDol0nzfrto8QSc2ISj+7pQV0GkzDd9mKliMCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172283; c=relaxed/simple;
-	bh=FX45kt2p8SHMUqHpXoDwXOI7U+a/dD85N+M1O3WJkR4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=hOIYs28OE3iP7WOngNlBu+tqWB/zX3mzgLWndUtZZ2FJkHbHefblvQlJO2AZsvswQtwH2LEVFtSjqs6+aD03P5FeoM0Rys0PTLWe+xXwhgu+u1TViDYrTGHdglAIKL0uKsw/V+tqOEehBZxxLwXwH8leN1pIM3lq57LqSrXsjSU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=12yHWhje; arc=fail smtp.client-ip=52.101.193.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9784F582BAC;
+	Fri, 16 Oct 2026 17:38:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792172315; cv=none; b=SYdlitMsOwiuQjVdqhFU0HfocrRCYkcbctE1lwP+dYAdPwOz8DHMm0tEtMML6X5F6HhA73beIf7ou9l14n4qZBVzgCBeRLhAwd7Oe8so8t1LBfDP7unl7OXnjoXPkqpbvPwuJgUMDlo+N1LIY/IARCXkjZSWSUtqRl6K02lxiqg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792172315; c=relaxed/simple;
+	bh=TrdLOVS+kkSe+xLM9w5zf9ng53kF2srwRIVlxkVKxM0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h1tbS4lQLxjl3gkUfALXDv1K3eKaXAR4ROE4T921dtl9rnYu5O3GtsHY5WGEXINAiLhLBX/cMKdqFMEN1Mm737F1mTRR0GmMjwITAjGEGFgvaFPos6EOXU5E4i6xTFX9Ha1gQjIK4DVdfnZvxrwGQJxFXtVWTi4drbDClBsu0cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fG/csMht; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="12yHWhje"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gPYloYA3AXTV5m2vqcD+a71WBlu0Rg+lRS0MW8rU+6PsHojd1i0iemZ5zc7LO/AMdF/h8+rycPYErO/2ChGjDzjiYwhCIbd4W5gfKoqXvqRcB4UEm8MkFfY4AFwVCmpuMr9eOCtHquSX+uEQS2+8ur7mXHjXBP5FkVx94k/d9GQxmgeV9VseLBbyuLkDMxIoO50hma8hs2Xp59klCYaSjCk+WlbcB5uYKnz6SUr0ThxE9KLOblqgUd7GcRbSWXX/QZbY5yPzUkcqGPUs+N774ndrtUCDl5wnoAOIWUyJFsT4Gv2drZyDTMXfoHmTL5bwqx9LFSDzIMkuG7sS4rS1ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YyKRZt0eHCsTUaYaAL7O0wbBtRRBKcHwkx5/yBgmJoM=;
- b=xyfND3J1Vd0cQCkhiS+MmWzGx9h8+ryvzvxkqagQA7D7EuQkTgLf+HG9P7mmTsPuIFRmDKqXNgfLMIEiS8nIIgb6zbasFWsDEtBEsRMvEZtsWdC43jl1CzuMKTBpdQvXj9nsEq765KxAVBYf0MXH77CTRuCjCEPXIy5OGP26ImVW1qZPsBwRUzFm27TT3kGT84NuGhczIrM/iKZnzsObvgPd/AkDlm5bxVxHxpQGiO6jELKg/8Wbhe5YroB808KYFTJsM/QbiMOrKaF+qw2oajxvD3kYIinEQquCYDX4qoTCBjFPiRO83EWmwLxxf1fpIadu5u6XH42mYf/UTyBMFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YyKRZt0eHCsTUaYaAL7O0wbBtRRBKcHwkx5/yBgmJoM=;
- b=12yHWhjeUfbalrtBaDxZYg1YDLgsapVpcT/grpZwUEZdKuw/2DFHwyLBXY21CwJJ8TNRmExH1dMKDEI7UmDpY59lKID6pxRMzqvWshxgELOqTRf30mi5N1vJiqxuMYfJbArtLjuom7rDCMveSNS9hwDZfPo/lm9yeVC61fmoi1U=
-Received: from MW3PR06CA0010.namprd06.prod.outlook.com (2603:10b6:303:2a::15)
- by IA3PR12MB482642.namprd12.prod.outlook.com (2603:10b6:208:712::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 17:37:57 +0000
-Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
- (2603:10b6:303:2a:cafe::86) by MW3PR06CA0010.outlook.office365.com
- (2603:10b6:303:2a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 17:37:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 17:37:57 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
- 2026 12:37:49 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 16 Oct 2026 12:37:49 -0500
-Message-ID: <0e18b9e5-35a8-621b-7b28-387b5eef2244@amd.com>
-Date: Fri, 16 Oct 2026 10:37:50 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fG/csMht"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2AB4CC2BCF5;
+	Fri, 16 Oct 2026 17:38:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792172315;
+	bh=TrdLOVS+kkSe+xLM9w5zf9ng53kF2srwRIVlxkVKxM0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fG/csMhtlu4aqlfvGeqRKZY08vqqbldFtip+rbr6sVETFg7hXjViEhqo+/gbeiH2L
+	 l3jTFsp8fnwIFBr5qbm0wVg6E9F9FgnryW3xI7gEPSRY9mMkjW6Hw1/3UAC3dRXISv
+	 HCN7NoKNfMoYofMN+kyvyBZn7pmIWqbhgo8UKftsR9h71UuppOfr9CUF2jedLEctJp
+	 TTkqWxFwE62uBJmbAW1gF2bwcDwhX+yN4ghT2SLgOxpiDQFkbChcVZEFl3EVo3nHb3
+	 dh8SX0Rmm2tZi6ZDMxUqVm+LZ1j9Tiltjxaj0Xuqntb3uRsoFPHDKbyKkMyLbQSOjJ
+	 2oQFmcjccDjWg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07CEACCF2C0;
+	Fri, 16 Oct 2026 17:38:35 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 16 Oct 2026 19:38:33 +0200
+Subject: [PATCH v6 1/3] dt-bindings: media: i2c: dongwoon,dw9714: Document
+ DW9714A and V variant
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Serialize HMM range faults on one umap
-Content-Language: en-US
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: Matthew Brost <matthew.brost@intel.com>, Max Zhen <max.zhen@amd.com>
-CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>
-References: <20261012203139.2573687-1-lizhi.hou@amd.com>
- <7a29937c-b591-40fc-95cf-021799ea52a7@amd.com>
- <as21qsFsf9HepYok@gsse-cloud1.jf.intel.com>
- <75d7c27a-66f1-80cf-1aec-895828592e66@amd.com>
-In-Reply-To: <75d7c27a-66f1-80cf-1aec-895828592e66@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|IA3PR12MB482642:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1a930f3-2e08-401d-a7b0-08df2bac3754
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|261009223027099003|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	rQSEXampZCzdYt975ViSqHNwvWzoXI+ISGwEFdWsomUgBy7F6iRbPBLVxhrA6keUjVkWfGRiyRmPxUfqcVgtlEdS9mWq1qpH8uzK0KBYP7uqD1lNAL0n4aSt4f+Lm69cabh9pnUBQ7PQ9uGFxUJlvJxzEuYNLNb4B8fhW1guZsrBIJxc4jhuaUGXwgfjBj+irY41HRlmuLgOHx6u7KbSTCYky4kuqOCxc87h9I1jFjAJ088rjujs32hfi/0lXMxXVIg5nn3pSYul5UYYBgABsbA+Q/jEzL+4MhsT0hHpVgmQn21YZM3u3CKWkBqPhiWRvioB+N1PE45BjFybC/DI5/UocFuu2r6+ymvUdV0g7+lBixDzIvqsVtvKjEUUNcWYE6cHPqCqcKnn9rLtCKFlJz+Qa0VnEof0XMFw8KSzRXoUlRRC7SbFrQ/AH1oxe6nzMTKa3805o2egAtfAKZk3qtdvRR6KKqa4UsX39cqXxtsk+Ap5ef79C+ywMUdmDCeQxxSATvAsAtcy+u6P1ZaJLbvYZ6ACX8dFfJKDhEhMysaDntC5l8fh74fTvhptWsgL1CqnqNzyUPn2371PyIgDctYT4tQngRJi/xTYxjpFb8liHQj+UQxGKVyJryRScFCkMyZcQhN2ZMquLL4MJdarPQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(261009223027099003)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	l21MlnBveheXhEPKLkF33mpP139aV6nQlPnWUvCtG91LhNQMHX5waMOsN9SYZdWSCSMeRBVj62EulUHgXk1Hu5P31z9FgU8WyL6+KqJdlNcTaVilxssCASGN/TEil9rLwabVzckgc5I8ctRxRa6G71RxD9sbFM/rrD4rIOvJh63MCZzoHKH6/K7tPaV9w8BQi9z9I4bfFHLEULI4lNU581PaHFDyVDcNTGOJegPlGgxuyn8HrUT/55OJ7hOKo4zpacnZibiZditl1JVDvkcZxTKG+V99uabjFMozPgG5qHAcZ3XMGsGEK2YSyuijZksvLQGAveP3s0P8N7YdvCB0QSZc1CNASoMDN3mGbyggYZ2z65/p84cL2LqecwvIHNK2sOyhSSZM1qXnoZ2ogxswIkDw37hC4hO0J1bTFeujDve68jmGAVaBsIDbR36Rz9BC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 17:37:57.1301
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1a930f3-2e08-401d-a7b0-08df2bac3754
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB482642
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-dw9714v-v6-1-ae730c77bfb1@ixit.cz>
+References: <20261016-dw9714v-v6-0-ae730c77bfb1@ixit.cz>
+In-Reply-To: <20261016-dw9714v-v6-0-ae730c77bfb1@ixit.cz>
+To: Alexander Martinz <amartinz@shiftphones.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2393; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=MctnB/YBUlKBkfY6HkmVWzrj67EeGRulizfUpQ/8RY4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq0mEZGjzQWm7pugnXYSI5t0cbILpmJn+9vJA3W
+ R63z150G0uJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCatJhGQAKCRBgAj/E00kg
+ cmWfEACTrD1sgz/x20f4cXVOD3STWfIkCm9s5xY0nI37DBv3FzXuyc5S/UNE3ZALSxd/roBdQ0Q
+ c+r6fZwSD2riug2apE77jEvd45JSGybE3foTFqNa5rlhyQFqA2syY3z5wv++Rst4LdBEvHYOUZW
+ aQEq7i0esNHlhqp1t65jVUz9Qk/PCw8zDB8HNq6z5++yrXkrx4W07/Z4501CajECA/yAExLAXfG
+ QE9DauqxDkKTjjlBTUYWHl8LeINukM1ZUcSKG7O1ss7ta9/7pSYVmdzrk4MBE1J8Ik7Ude8hWPk
+ xKokM0Ejt3Ma7WYkF6ctNH8tFAZOoMoeNgQXl0YexV247oslIoNBjnDPlk7LwDdca6Ztx73Duvo
+ m5Y4GMKFIlgkjgsUNDwd1XUTb8ShFU7u2AuexVH+DUgMlubQWQrvK3GhdVYGWYBeR0FmjW5PFm9
+ vZNL/dzycDNnlBgNJnUuu4Y8SNMDuv8L3ddhyZQ8nMw56rewz7wLUCWFVefXtIZKhxh/CPxYcY/
+ 97euTOFzJk7BwTWZWgMIBAn+vdrqUi+bJL2UMZzbRXHvj3Y5aSJG/6vHdKRNv/o4HIFHiiVHCHl
+ 88nxJG3Y1PHWP9mp7ytLcFL3ofzFLTIOMk5/aQlu7JQ7FwzlBSuAQ/U78yQzXMQT6mIRkydBzqM
+ LgCDmvrGcgZGxyA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Applied to drm-misc-next for a quick fix.
+From: David Heidelberg <david@ixit.cz>
 
-And I will converge it to gpusvm after aie4 changes.
+DW9714A is a successor of DW9714 and DW9714V is a successor of DW9714A.
+
+All three are compatible in their normal mode: a 10-bit DAC with the same
+Direct/LSC/DLC slew rate control. DW9714V additionally has an "advanced
+mode", which exposes Smart Actuator Control (SAC2/SAC3/SAC3.5/SLSC) and
+soft start/landing. Out of reset the DW9714V comes up in normal mode
+with ringing control disabled, i.e. behaving as a plain DW9714,
+so nothing has to be configured for it to work today.
+
+Should SAC support be added later, it is board data rather than a userspace
+knob: the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
+the mechanical tVIB of the actuator and lens assembly of the given camera
+module. Those properties are left out until there is driver support and
+measured values.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+index 66229a3dc05d6..7c2769e6c4880 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+@@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: Dongwoon Anatech DW9714 camera voice coil lens driver
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+ 
+ description:
+-  DW9174 is a 10-bit DAC with current sink capability. It is intended for
+-  driving voice coil lenses in camera modules.
++  10-bit DAC with current sink capability. It is intended for driving
++  voice coil lenses in camera modules.
+ 
+ properties:
+   compatible:
+-    const: dongwoon,dw9714
++    oneOf:
++      - items:
++          - const: dongwoon,dw9714v
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - items:
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - const: dongwoon,dw9714
+ 
+   reg:
+     maxItems: 1
+ 
+   powerdown-gpios:
+     description:
+       XSD pin for shutdown (active low)
+ 
+
+-- 
+2.55.0
 
 
-Thanks,
-
-Lizhi
-
-On 10/13/26 09:36, Lizhi Hou wrote:
->
-> On 10/12/26 21:38, Matthew Brost wrote:
->> On Mon, Oct 12, 2026 at 09:10:15PM -0700, Max Zhen wrote:
->>>
->>> On 10/12/2026 Mon 13:31, Lizhi Hou wrote:
->>>> Two hardware contexts can submit jobs that use the same GEM object 
->>>> while
->>>> a user mapping is invalid. aie2_cmd_submit() drops the reservation and
->>>> notifier_lock before aie2_populate_range(), and that function takes a
->>>> reference on the first invalid umap without clearing invalid until the
->>>> fault returns. Both submissions then call
->>>> hmm_range_fault_unlocked_timeout() on the same struct hmm_range. That
->>>> structure is not safe for concurrent callers. The calls write
->>>> notifier_seq and hmm_pfns[] at the same time, so 
->>>> mmu_interval_read_retry()
->>>> can see the other call's sequence, miss an invalidation, and clear
->>>> invalid. The job is then pushed while the pages may already be gone.
->>>> Give each umap its own mutex and hold it from the fault through the 
->>>> retry
->>>> check and the store that clears invalid. notifier_lock is dropped 
->>>> before
->>>> this mutex is taken, and the fault drops mmap_lock before 
->>>> notifier_lock
->>>> is taken again.
->>>>
->>>> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
->>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->>> Reviewed-by: Max Zhen <max.zhen@amd.com>
->> I was browsing dri-devel and this hmm interaction annoyed me enough to
->> ask my AI to fix this and converge properly on a DRM framework:
->>
->> https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/local_dev/amd_hmm_cleanup 
->>
->>
->> Improper HMM or abuse affects the entire kernel, hence we should
->> converge.
->>
->> Please consider the AI suggestions (last 3 patches) instead of open
->> coding this.
->
-> Sure. Using gpusvm interfaces would be great. I will patch these on my 
-> system and see how it works.
->
-> In the meanwhile, for back porting, will it still worth to merge this 
-> patch?
->
->
-> Also, we are working on aie4 hardware support which also relies on 
-> hmm. Thus, aie2_populate_range() will be renamed to 
-> amdxdna_populate_range() and moved to amdxdna_gem.c.
->
-> https://lore.kernel.org/dri-devel/20261009225343.3079074-16-yidong.zhang@amd.com/ 
->
->
-> As a great enhancement, would it be ok to put your last patch on top 
-> of aie4 patches?
->
->
-> And this patch in aie4 series tried to fix the same issue been pointed 
-> out by your second patch.
->
-> https://lore.kernel.org/dri-devel/20261009225343.3079074-15-yidong.zhang@amd.com/ 
->
->
-> Does it look ok to you? ("Fixes" tag needs to be added).
->
->
-> Thanks a lot,
->
-> Lizhi
->
->>
->> Matt
->>
->>>> ---
->>>>    drivers/accel/amdxdna/aie2_ctx.c    | 7 ++++++-
->>>>    drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
->>>>    drivers/accel/amdxdna/amdxdna_gem.h | 1 +
->>>>    3 files changed, 9 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
->>>> b/drivers/accel/amdxdna/aie2_ctx.c
->>>> index d927c8c9d557..4db67a789c34 100644
->>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
->>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->>>> @@ -1155,19 +1155,24 @@ static int aie2_populate_range(struct 
->>>> amdxdna_gem_obj *abo)
->>>>            return -EFAULT;
->>>>        }
->>>> +    mutex_lock(&mapp->lock);
->>>>        ret = hmm_range_fault_unlocked_timeout(&mapp->range, timeout);
->>>> -    if (ret)
->>>> +    if (ret) {
->>>> +        mutex_unlock(&mapp->lock);
->>>>            goto put_mm;
->>>> +    }
->>>>        down_write(&xdna->notifier_lock);
->>>>        if (mmu_interval_read_retry(&mapp->notifier, 
->>>> mapp->range.notifier_seq)) {
->>>>            up_write(&xdna->notifier_lock);
->>>> +        mutex_unlock(&mapp->lock);
->>>>            amdxdna_umap_put(mapp);
->>>>            mmput(mm);
->>>>            goto again;
->>>>        }
->>>>        mapp->invalid = false;
->>>>        up_write(&xdna->notifier_lock);
->>>> +    mutex_unlock(&mapp->lock);
->>>>        amdxdna_umap_put(mapp);
->>>>        mmput(mm);
->>>>        goto again;
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->>>> b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> index f14484bc31ec..37bfa5058095 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> @@ -318,6 +318,7 @@ static void amdxdna_umap_release(struct kref *ref)
->>>>        struct amdxdna_umap *mapp = container_of(ref, struct 
->>>> amdxdna_umap, refcnt);
->>>>        mmu_interval_notifier_remove(&mapp->notifier);
->>>> +    mutex_destroy(&mapp->lock);
->>>>        kvfree(mapp->range.hmm_pfns);
->>>>        kfree(mapp);
->>>>    }
->>>> @@ -402,6 +403,7 @@ static int amdxdna_hmm_register(struct 
->>>> amdxdna_gem_obj *abo,
->>>>            goto free_pfns;
->>>>        }
->>>> +    mutex_init(&mapp->lock);
->>>>        down_write(&xdna->notifier_lock);
->>>>        if (list_empty(&abo->mem.umap_list))
->>>>            abo->mem.uva = addr;
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.h 
->>>> b/drivers/accel/amdxdna/amdxdna_gem.h
->>>> index 9b4aa21a37c9..456a537eb68c 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_gem.h
->>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.h
->>>> @@ -19,6 +19,7 @@ struct amdxdna_umap {
->>>>        struct kref            refcnt;
->>>>        bool                invalid;
->>>>        bool                unmapped;
->>>> +    struct mutex            lock; /* protect range */
->>>>    };
->>>>    struct amdxdna_mem {
