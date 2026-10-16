@@ -1,169 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30523AB5C3;
-	Fri, 16 Oct 2026 08:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFC74C6D
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138510; cv=none; b=JDg0Vag80EW8jrdV97GQzDwq80H7vheFGLGxHHw+07LgLFIvaaqznnhFPOn0oKksyEkxrlMyP1b8wcAa08mBdXBb7bsLWXqIXNxSGplm6xOgKGJGnbb10T7V9gbYn184BWiXlGbqLCn3bOrmN5oZYoGbUi/cUzB7wgQQDDUXz4w=
+	t=1792138541; cv=none; b=mCwF0NPo38tAz1ySQGe5cczrxU0G/pbitNwmwxQddj3PRlCBsGflFFcid8+DAK+RxhJrruyUo/WMiA8o9Bbyu1I2mq6Vi09S4avFoFqf6AiVxmqGXRYvya34T0SoIw5yvwSGhUeRL5jJoldBM5kPDBIEVehrL89B7USTCiW1VqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138510; c=relaxed/simple;
-	bh=C781Q9Dpg4mhX4EJwmvCbFOVmZC/834VPOpP602oOSo=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=goaX2XY488yWvBowRON0dDNJ3QSLra6Sh6oL6njzJgS/0SOnAFPWmokuv/3FBA8FGUWQGIPVSc0N5dNgltNGbgh5Nd3WgiEOKx8Nw4AtA1A60Yg1jpMJg8AloKHafiMKYBBdhZ9Bp49Lwp0BnkjUxLrD1g+jSqA2UyXMk/oMtpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3HoR69N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792138541; c=relaxed/simple;
+	bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NmQYsfE1/yew74yIHdPOhJBcQlFNLMBMeWprGuiU6FYzzZtiKVBOe3+WbSptja/kwj+INlTb9M1sGlnlxcM1EsghJxG0UahtWuheFvrlU1pfaiSfAAFkPv8lcebCwM6uYbw45htMjP5WIeTtN5BS1WnrBGJP6zWUs06nXhHjjGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TahC5Cqf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=A9rkJ+tS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3HoR69N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86FD1F000C4;
-	Fri, 16 Oct 2026 08:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792138508;
-	bh=7iX2LduCj2QBORGgOA5qAc9wAVGmHeDDqzdxNNO5lH0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=P3HoR69NWQas+DSDi7cf+UPAc/WEcIr8qnViw6w0PzcvNZepHzdJvNz2bStuyxx6t
-	 ZIg3/SSkaX4VQ5jbmMggkZkpWNjO8583q+TlmzsUb49+AAtzN5RM0OgYsu6uxeOT2C
-	 nlxjaeYwV0F9tZsAqiyLkExhxgf8GufIPBKl7lslKQn0MEP1EQByfFlU5Ga9juaBot
-	 khS4N2GMVR3+ZguhpKv1vv2vzWOLf6Ip4GSrPDruPs2R+v8giRDrxRH+MVFfUKDv4I
-	 9eNcOVuhjnYaxRvnQA9xwztyokRksQJqf/XHRFBg3tcSiuFlSTo1NsyEyLjBklyASo
-	 Ho01VSgi0k8Tg==
-Subject: Re: [PATCH net-next v2 5/5] PCI: Create OF node for NXP ENETC
- pseudo-MAC functions
-From: netdev-bot+sashiko@kernel.org
-To: claudiu.manoil@nxp.com
-Cc: netdev@vger.kernel.org, s32@nxp.com, linux-kernel@vger.kernel.org,
- bhelgaas@google.com, linux-pci@vger.kernel.org, kuba@kernel.org
-Date: Fri, 16 Oct 2026 08:15:07 +0000
-Message-ID: <179213850739.434549.5377140925132800234@kernel.org>
-In-Reply-To: =?utf-8?q?=3C2a24aaa96c6a0204e3ff293f2a1d22b58cf2171f=2E1791908?=
- =?utf-8?q?694=2Egit=2Eclaudiu=2Emanoil=40nxp=2Ecom=3E?=
-References: =?utf-8?q?=3C2a24aaa96c6a0204e3ff293f2a1d22b58cf2171f=2E17919086?=
- =?utf-8?q?94=2Egit=2Eclaudiu=2Emanoil=40nxp=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TahC5Cqf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="A9rkJ+tS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792138535;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
+	b=TahC5Cqf9xrXKFqeJMaPvV9SRptx5BEvfCluqaVb356mLfcJ33ZblYBPEdGuM8CIUPOIU1
+	98za6Y089QZhKnGfwxKH1T5ttbtiAOOCi7UDjuDdyzqZ19cQm2XO3BpljEazPbt8SScWo3
+	vBdjKavseSe2kl5pnhe+/lh8zSixo48=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-568-TZM9SaAnOzuzsSq5hDJ-Ug-1; Fri, 16 Oct 2026 08:15:32 +0000
+X-MC-Unique: TZM9SaAnOzuzsSq5hDJ-Ug-1
+X-Mimecast-MFC-AGG-ID: TZM9SaAnOzuzsSq5hDJ-Ug_1792138531
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e00f3929bso131613f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792138531; x=1792743331; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
+        b=A9rkJ+tSYKGpUFvPNTmhlzORUFAlukNM0r8SR7NtoSYCBe8+5LLOPnrLix4Id536va
+         NrS9dGQCMVQW3E+upW2sK39arNviDa6RAFCP9tQg9XLfwTiOi62VvPs2dTCYf50ksNqy
+         lZArJqDz24yWhIeOxBAQQOWNosNdV4hCQXdkyaDW1JUNQr09gskSSr+IxELu1869ekJF
+         ajeYWW9Z8M2VfawKLFIDlRHBEvYVZpRGCUuK+liJRisSj/5MhWfnsXwkRAu0nkb3CqP9
+         mmWrsu/6orC8+RPVbDF0epYU4xgzyIXPTtUYddC3wsk/klKXcXovUJDA1It6uuAHMnhm
+         NODQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792138531; x=1792743331;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y549rUx82KGZkIt3qwDBp9IS8fAoR7mGvTJsFiDdNL0=;
+        b=Ctr95F0PXT+WJqF7ZHelQIfRCVzvJXKpBPeY/R3ZZpt7do0zPyd6uPicC90G0qLdtR
+         z3/kt/hmbeUDDtWWqmdi9QaiIFjvjbv+fBkbQ6wm1VRVGIgWhKPfsj6Y4AtFdHnrtflL
+         a95IcWZgVyl22nvXh4qhaj8KTyHkY8yguRB3HZkDJcYk1g6IIMRdiBHA8eLqagitLc1D
+         k4ez7awBk6bho4JKqWzO4/YNy7EUi13h0ShYYMDRhcGhrNxfyIka3d5xz7UfPktJFGoc
+         YQBkF5xspdKihhV1u1JzHDGs7HXBTMXfUUxtGXqBy7mV7IuCQsOmD1E85ChA/5WY38NX
+         bMlA==
+X-Forwarded-Encrypted: i=1; AKwUvByH4wI2z3ykSnQ+e3kqiwxhPxSNR4b9wEiAVlMD/GmXPBAMEfTNjW0tttDGlx9EpEaCdrO6XYz5MBG56AM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk8Td7PuCn1t6O2CaqMZDAlqLo6+reG0cmHB/FtEOJWr7znPCm
+	v/lIj9KHxpz4A7ONwj44XMjZQK0bvIbfdm/1jyXs/l+P7CKpELMPteYVVIs+TaSnwuCg92CrDCV
+	12f2/D1gdWNKc4mQFQsfPgyypb7Zx2V3YDhev4fIF4CEsxLHvQoc5vrxtCBTgCTat0w==
+X-Gm-Gg: AYBFou0nbz5F1tckh63xHLVdI1KeAfp+PRaoxeIlCUbdTQag+65KEGHj8uMFReGf1Y0
+	fgrD74DxSUpM+z+7K90o++nbt+DYQgO2bAvbxSA6ApCr++7o5wDROLlvVkDHVPgDY8OJvtEl/E8
+	xGn6YglhwBouPKz7sxigJlQAOtIPh8wZkSjOhn/CGkmVt9bogqCdbxj3DpMBzzx2sz33ri7kEJ2
+	5VdDhBoU3qmihDRzyACKMf3ygkoboCeSc7C5LsjVsxk8DCpgeM/Dqmx/cYKhfekoDh37C9TqxQm
+	boDz0wa9h3H6k22FT45shoks+rby4ioL2E9f/zDI1IOi7WgVu7XoJMafy/OKyfHEXIzUESKgasG
+	zF/WM
+X-Received: by 2002:a05:6000:4549:b0:48d:ed0e:6bb4 with SMTP id ffacd0b85a97d-48dfadf34c1mr4227588f8f.4.1792138531285;
+        Fri, 16 Oct 2026 01:15:31 -0700 (PDT)
+X-Received: by 2002:a05:6000:4549:b0:48d:ed0e:6bb4 with SMTP id ffacd0b85a97d-48dfadf34c1mr4227528f8f.4.1792138530803;
+        Fri, 16 Oct 2026 01:15:30 -0700 (PDT)
+Received: from sgarzare-redhat ([80.116.137.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c0894sm3190609f8f.12.2026.10.16.01.15.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:15:29 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:15:27 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: netdev@vger.kernel.org, bobbyeshleman@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 2/2] vsock/test: cover SO_INQ
+Message-ID: <atHdAlIdUqNIoDNn@sgarzare-redhat>
+References: <20261015154334.3217358-1-devnexen@gmail.com>
+ <20261015154334.3217358-3-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261015154334.3217358-3-devnexen@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Thu, Oct 15, 2026 at 04:43:34PM +0100, David Carlier wrote:
+>Check the SCM_INQ value after a partial receive, after draining the
+>queue and at EOF, that no cmsg is sent while the option is off, that
+>accepted sockets inherit it from the listener, and that out of range
+>values and SOCK_SEQPACKET are rejected.
+>
+>Signed-off-by: David Carlier <devnexen@gmail.com>
+>---
+> tools/testing/vsock/vsock_test.c | 279 +++++++++++++++++++++++++++++++
+> 1 file changed, 279 insertions(+)
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] On the in-tree arm64 defconfig, the ENETCv4 pseudo-MAC (PPM)
-  ports this series adds still fail to probe.
-- [Low] `enetc4_add_ppm_fixed_link()` and its teardown helper in
-  drivers/net/ethernet/freescale/enetc/enetc4_pf.c call these changeset…
-
---
-
-PCI: Create OF node for NXP ENETC pseudo-MAC functions
-
-This patch registers of_pci_make_dev_node() as a final fixup for the two
-ENETC4 PCI device IDs (0xe101 and 0xe110). The PCI core can then
-synthesize an OF node for ENETCv4 pseudo-MAC ports that have no static
-DT node. The ENETC4 driver needs that node so it can attach a fixed-link
-child to it.
-
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda21fd..86f0a182224b2 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6391,6 +6391,8 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe101, of_pci_make_dev_node);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PHILIPS, 0xe110, of_pci_make_dev_node);
-
-[Severity: Medium]
-With the in-tree arm64 defconfig, will the pseudo-MAC ports on
-S32N79-RDB still fail to probe?
-
-When CONFIG_PCI_DYNAMIC_OF_NODES is not set, these fixups end up calling
-the empty stub in drivers/pci/pci.h:
-
-    static inline void of_pci_make_dev_node(struct pci_dev *pdev) { }
-
-PCI_DYNAMIC_OF_NODES is a plain bool with no default, and nothing in the
-tree selects it:
-
-    config PCI_DYNAMIC_OF_NODES
-    	bool "Create Device tree nodes for PCI devices"
-    	depends on OF_IRQ
-    	select OF_DYNAMIC
-
-NXP_ENETC4 neither selects nor implies it. arch/arm64/configs/defconfig
-does not set it, but it does set CONFIG_ARCH_S32=y and
-CONFIG_NXP_ENETC4=m.
-
-The series enables &netc_iep18 in s32n79-rdb.dts. The
-netc_iep18: pcie@241200000 node in s32n79.dtsi has no child function
-nodes, so on that config each PPM PF enumerates with no OF node.
-enetc4_link_init() then calls enetc4_add_ppm_fixed_link(), which returns
-early:
-
-    if (!np)
-    	return dev_err_probe(priv->dev, -ENODEV,
-    			     "Missing of_node for Pseudo-MAC port\n");
-
-The commit message notes that the quirk "only takes effect when
-CONFIG_PCI_DYNAMIC_OF_NODES is enabled". The driver patch in this series
-also deliberately avoids a hard Kconfig dependency.
-
-Should the series also enable CONFIG_PCI_DYNAMIC_OF_NODES for this
-board? That could be a defconfig update, or a select/imply that does not
-break ports described by static DT.
-
-[Severity: Low]
-This one is in a related patch from the same series ("net: enetc: Add
-pseudo-MAC support for ENETCv4 Ports via a fixed-link node"), which the
-OF node created here is meant to serve. Can enetc4_pf.c fail to build
-when CONFIG_OF_DYNAMIC is disabled?
-
-enetc4_add_ppm_fixed_link() and its teardown helper call the changeset
-API unconditionally:
-
-    of_changeset_init(ocs);
-
-    fixed_link = of_changeset_create_node(ocs, np, "fixed-link");
-
-The same applies to of_changeset_add_prop_u32(),
-of_changeset_add_prop_bool(), of_changeset_apply(),
-of_changeset_revert() and of_changeset_destroy().
-
-In include/linux/of.h, all of these are declared only under
-#ifdef CONFIG_OF_DYNAMIC. The #else branch only stubs the of_reconfig_*
-helpers.
-
-OF_DYNAMIC has no default and is only enabled through select (for
-example by OF_OVERLAY or PCI_DYNAMIC_OF_NODES). NXP_ENETC4 only depends
-on PTP_1588_CLOCK_OPTIONAL and PCI_MSI, and NET_VENDOR_FREESCALE allows
-COMPILE_TEST.
-
-In that case, NXP_ENETC4=y/m with OF_DYNAMIC=n looks like a valid
-config. Examples are arm64 ARCH_S32 with OF_OVERLAY=n, or a COMPILE_TEST
-build with OF=n. Both would hit implicit declaration errors.
-
-arm64 defconfig hides this because it sets CONFIG_OF_OVERLAY=y. No later
-patch in the series seems to add a select OF_DYNAMIC or an IS_ENABLED()
-guard.
-
-Would a select OF_DYNAMIC on NXP_ENETC4, or an equivalent guard, be
-needed here?
-
->  
->  /*
->   * Devices known to require a longer delay before first config space access
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791908694.git.claudiu.manoil%40nxp.com
