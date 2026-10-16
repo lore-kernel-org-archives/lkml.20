@@ -1,87 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2B33B19DB;
-	Fri, 16 Oct 2026 09:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7D20937F337;
+	Fri, 16 Oct 2026 09:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142863; cv=none; b=YBFT1zjWo3zaBobnkbW1xbCB58SHb240SVddrSOt83IBsE6Qvq2GyHOeWgJoMuNM0YNJf3TQ9t/o4ejmvIT2I5iDQISUN3Si9s/tu4FA/4t0a9RPNtB2GNYnHSvpqObVsI7HR+h7S801SI7mp8hJ/282OHLiQxLa79ixnn7ZNGg=
+	t=1792142869; cv=none; b=B5UFH2cg3gpxjFTAQYZ7sV0vtRFiS5uKJ6yVhmKEL1pK8mJ6XqRTWT8Sbwky9qKSmkOl5K5bLnn+X8dh6OcOWF5y+/pBwrwa87NGeZVs6RGVXow23Q9Rkygag5JC9ddN2lVx0M42N6kUiZELQEASHJTKrr0SpSc1caQEDoX8e5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142863; c=relaxed/simple;
-	bh=2GcCkbDtjmJmTyvjuqfSQkMp+rO2qm9Cayw7Zd8Iny8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZEj3qbC6MKizdGnthkcBST/EkOjsmxVVWAAgw7qPTCcsBl18m38e8CPPLziThEbUSK5nxU5N1fVVtAETelSAUJwLcxx1XC2uyMv2h4f1Lkld2tvFpLtZt0ggKNbhepRUWNK0yHyB/7Q9Zzf6yF3+Y7csh3CgjBIcyGooi2MJGg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpW2MS1I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792142869; c=relaxed/simple;
+	bh=rz69uRgiNAeoZ5OdOTX4VEkIT4UqBR0eCnCPDwkcXa8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QN3WEb112cmFDPJQMPbehI2loUn2EU/rWK/1gTRO6j6R0X5epMgdoCaA2frV45jhGDEc68E+b7/4zDL15i6nobC+YTCiAyxEzrPqxA8QUPXOILrRZCBbCJZAbN7xFdJvnZX0j8FMYU52EbOYjdCh6Pz2KGflQub0Bl1CDcM3KRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JhDRptFs; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpW2MS1I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F4E1F000C4;
-	Fri, 16 Oct 2026 09:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792142862;
-	bh=t5j0CRAvq/NI8o02TRYMRZeQXMG1lexbhlVmNwP3IlM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WpW2MS1IcYZ812L9mpZpxlHfW6ezLfsP2Gb8pSVDWkVBvyVDA/cYBPsRHK/dq71BU
-	 f3TMS3sVjgZVdyFp1iii22SxQOAom3PGpdsxPAYMOdFiMQzVlYW3D3DK6OP7AP3Odr
-	 FzdEoSB06pXt829WYvAALEFED1R4o8goCoqJLAUPPEUmOFiYqqB0ICmPqePt3BzlQk
-	 dHqpk+Nf77kESB8zJAwXTJa0vNDCNKindUftyL8MgdJuJOUr4GMlisqMArSSrG0p2M
-	 Nv79EhWMaJ4Gqf6wypEWuCmGdQV3dRH5CKB4PJ4c7W5pN6qOqnZg/QZrqbY855dvgJ
-	 PZSU1ZE8EGeDQ==
-From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, Raju.Rangoju@amd.com, 
- krishnamoorthi.m@amd.com, Weibin Liu <liuwb@xiaopeng.com>
-Cc: linux-kernel@vger.kernel.org, sanju.mehta@amd.com, 
- stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>
-In-Reply-To: <20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com>
-References: <20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com>
-Subject: Re: [PATCH] spi: amd: fix len==0 underflow and FIFO overflow
-Message-Id: <179210311701.134795.14035717437104935583.b4-ty@b4>
-Date: Thu, 15 Oct 2026 23:25:17 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JhDRptFs"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D27914BF;
+	Fri, 16 Oct 2026 02:27:42 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F3A353F673;
+	Fri, 16 Oct 2026 02:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792142865; bh=rz69uRgiNAeoZ5OdOTX4VEkIT4UqBR0eCnCPDwkcXa8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JhDRptFsJgCt0n0l/pYLbpT/xgXvLsk1RooJ/SVvS+JIOCwsWdYo7yISXq8iaU4KV
+	 Q4kwO8MCm1w2Cl8vor8+UEEKKW5BY6SULxguqF5IOeMj+t8GpiXVOQZsfHnsBTWwvQ
+	 RLM/jvCbGe3N5MBxzniwuyou/TkJChJEFSRZ+Klo=
+Date: Fri, 16 Oct 2026 10:27:42 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Michal Simek <michal.simek@amd.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Wei Xu <xuwei5@hisilicon.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: coresight: Limit static replicator
+ to atclk
+Message-ID: <20261016092742.GD26205@e132581.arm.com>
+References: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-0-c3edca1c480b@arm.com>
+ <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-1-c3edca1c480b@arm.com>
+ <1128f456-ed6e-47ee-8dda-157af99cc404@amd.com>
+ <20261012162851.GB26205@e132581.arm.com>
+ <e64a1339-f66b-4f29-b95f-01578223f1a4@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1108; i=broonie@kernel.org;
- h=from:subject:message-id; bh=2GcCkbDtjmJmTyvjuqfSQkMp+rO2qm9Cayw7Zd8Iny8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuvuNmZYq80CJ2PyPk+N1HF5SN/eVb9HLi1Ewcjvd6C
- MVMVz/ZUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgIm8z2H4xfT2p76oBWN3xQIe
- hmC5aL2Cqx3PJZzZetaEqfrumu14n5HhdW7rTpNdjjZ2Cebtsk8TzLWPfqtgmsiS0b+/sut/yDt
- uAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e64a1339-f66b-4f29-b95f-01578223f1a4@amd.com>
 
-On Wed, 14 Oct 2026 20:39:13 +0800, Weibin Liu wrote:
-> spi: amd: fix len==0 underflow and FIFO overflow
+On Tue, Oct 13, 2026 at 07:53:20AM +0200, Michal Simek wrote:
+> 
+> 
+> On 10/12/26 18:28, Leo Yan wrote:
+> > On Mon, Oct 12, 2026 at 02:35:37PM +0200, Michal Simek wrote:
+> > > 
+> > > 
+> > > On 10/2/26 17:07, Leo Yan wrote:
+> > > > Static replicators have no programmable registers and need no APB
+> > > > programming clock.
+> > > > 
+> > > > The Zynq clock controller registers dbg_trc and dbg_apb and calls
+> > > > clk_prepare_enable() for each gate the bootloader left on.
+> > > 
+> > > That's one bootloader behavior. If there is another bootloader that clocks
+> > > can be simply disabled. I don't think there is any reason to depends on
+> > > bootloader behavior. If there are clocks which has to be ON I can't see any
+> > > reason not to drive them.
+> > 
+> > My reference to zynq_clk_setup() was to explain that this patch leaves
+> > the existing management of dbg_trc and dbg_apb unchanged.
+> > 
+> > The CoreSight drivers do not request clocks named "dbg_trc" or "dbg_apb".
+> 
+> And this is the point. DT binding is not describing what Linux driver handles.
+> Binding describes HW itself.
 
-Applied to
+I agreed that "Binding describes HW itself".
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+The question is which hardware clock connections the DT properties
+describe. Arm DDI 0314H, Table B-1 [1], lists ATCLK for the replicator,
+and ATCLK and PCLKDBG for the trace funnel. The static modules have no
+APB programming interface.
 
-Thanks!
+> And for proper functionality these 2 clocks need to be handled.
 
-[1/1] spi: amd: fix len==0 underflow and FIFO overflow
-      https://git.kernel.org/broonie/spi/c/e2f4edfc061e
+Please point to the Zynq TRM section or clock diagram showing how
+dbg_trc and dbg_apb supply the replicator and funnel.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> That Linux driver is not doing it that's different issue.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+My understanding is the CoreSight drivers have already followed spec to
+support clocks.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+[1] https://support.arm.com/documentation/ddi0314/h/CoreSight-Components-and-Clock-Domains/CoreSight-components-and-clock-domains
