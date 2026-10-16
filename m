@@ -1,67 +1,68 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA3B502565
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3D057F737
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171876; cv=none; b=dGa40yETnOJi5e/eqXQIMbnLec5ydSi3lx/65bLAu1ur9LPmvT4sIOetkevXIPwRpPcjWdopkxLVwlXYfqlHza+pef58xhcZtb8Js4ATmt6ZWkcXxGxjuVxkssvbhwIIkTviqln2GvCMSHs/uCyeEsQRFSPveDLVj59PDT+5HFg=
+	t=1792171879; cv=none; b=WeBNKAwfviE6hou+18Xo/KwyYR4BOlZHm3ZSyOaAu288QqU4OTa9QCeo0ZOcITt0zlxL5R7VolaTUI5bnx9iSPcWtuaeb+yLiWbMj4PXPZsPw+Ia6RIX8uSDiAkFYHTF8zeXOIObFE6O9L6eGG1ofusnQeWbBvXkXP4tm2NVCzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171876; c=relaxed/simple;
-	bh=CFQ5jrx/u6vw66XOyYC58LB1oD8ERnPk3m8rwkYRKZ0=;
+	s=arc-20240116; t=1792171879; c=relaxed/simple;
+	bh=wrvIrrRxxCxbjC5y19PcJbeqSjug7uXwZUzwZWAtOzg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=V7SIhtAnRJVWlxHpkDUoTvDbT+tc1AR3ls0DJQoj9JZt28lfKX77vbpuG/yEN8aXx27hJLZ4S6DAi5i64fs2++O6TO07yLHv7mxNa/KFjaCh+/ZNBzCWS3LAamHBn0CyOR5wSSAsGY2dmgnOAG+2eJIAAdeZk+L/8lbBZB6APdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Lfxug5bW; arc=none smtp.client-ip=74.125.82.198
+	 To:Cc:Content-Type; b=XMLQ91k8nu6s7f0hF0eZf4dU7+7dupNuiR5W5+/Uf9cbgqGKWG+2gFVp8R2MJWwaFv2Zmi3S+zxpuy1jloUe28Vccf1ydKG42rRdaeM4JjowalpFc92WT8JPRjYZ7efqaEuZN6SoVGPTQ3nSkZ4WRWS2ilzEaFxEeHAzAzrUXoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I9FOVSIY; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Lfxug5bW"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3580c07911eso264734eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:31:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I9FOVSIY"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-152d1363a29so320448c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:31:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792171873; x=1792776673; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792171875; x=1792776675; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NA++Fw4E9Z7IMDY/xneFvYBRbHMUxJ8a3G6LvbVZpwA=;
-        b=Lfxug5bWVCBpRTM0ViJrbFv9HccQedMttBeqzLpOcmBKeBgkXISq9QB/Y8Sl/kotVu
-         1lpSbcryvO+9+iqK//wBhvTdImg4lQ/lTZ1G9LAne/cr+8yqrjJiBUft6ClTaZIecUSc
-         GQH9uVIxEe++fdLnlk6v/YrKvwN0thawYcFzHBDxCY28uJeviM4Nnv5xCtvXqGmPUuPD
-         ZDKonf7hHO/tRebfNXTBB/mFECJ2PIQ4Pm81gAy5lveo211RRwaPLpADHz3qN7oQCElA
-         7FbNhrpUJlbSfqWTF2hMc2FYUh7tGZn9CmHz9VE9NSNr1At2yFEFp0CIjCT5NC5r2kbK
-         85Zg==
+        bh=viOIzDo9krKszOCmVOjeW9f2aQpRArqmnQIoNv00KM8=;
+        b=I9FOVSIYQUT00SaPdUhzRmq1rK4SEHUUF/leIAiajrrORfFAvVMJhIcDqgRbvGRJ4o
+         lfEUOrdCMQnB2xtEJJ5UGStiT0SfTirfpjWM2a02p+hq0Dz8kyFrzcVGh36m2pEX0LwG
+         N5vnzbj5tz7B4pKRjmyYaETMKOcX1cYdTzYn4iLeIECNOXdLpWEG3LsvF+L06xJhctwQ
+         NUiWzBq7x2br+Q7wWKx63XWMm52bdHz5QYOE3G7GfjEgK15zsz7iXrNRtDcMEBu5qsM3
+         jVPGI/zssV8Jm8H7gkm4zVBL0fdXoe3uCaH13hUD4eokK8mVj0lYCvRjx1dvOSzeXJb5
+         w8Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792171873; x=1792776673;
+        d=1e100.net; s=20260707; t=1792171875; x=1792776675;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NA++Fw4E9Z7IMDY/xneFvYBRbHMUxJ8a3G6LvbVZpwA=;
-        b=jGsze64ubfDcLc4Pg3UFXpjAQaAPHDi86bZ2KZQ34wfCWaINxcO5qVV3CycZkDXDOc
-         bHpUwiGkRkD/zs/dIdEw0xZC58xI/6NhaZPrawQFkCHtO/LB0NgbdoRpoBxA9yHbYZTc
-         GR32BH+MiFXpCSk8BkGuHi0nPwxnGQM7M3gkZnk6slGGWEKrMmDMt4kEempACL/j6UMm
-         L7K6lPoNl81Cqu21Z4WIQUCaFTEdp+BLY9yGl1tMjlRnZ3NcDuePdyL0n+YX/Yw16ZW0
-         m4AbsuNxcKCT6M0V30tbw1Ea/8RbbMdgOxWNkkiUTLki3vlHgl4edJLxnzaHgQjSZlrv
-         5AJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2yKGQY3yiO2PX9QLgMtzllxO7cKeT2/veWW0x3eDYycrVf5FblYhK+Tl0+2HdzxOkAFsE2MSmI9u8sAg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa+XTZj4mKiSFDW2rtJgR6g1EK4iaqMIcLAprqYE1HtUMk6szK
-	AZjN7iXj2Su4P4DbbMOnyagfmvP7vBeVKD95KSwRdYBM7B84u9oAExMpsCM8/AlU8x4dEti4aFa
-	/UqiKeQD6IA==
-X-Received: from dlbqc13.prod.google.com ([2002:a05:7023:a8d:b0:161:df69:3983])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:170d:b0:149:cfa4:9b3b
- with SMTP id a92af1059eb24-1850cda6f5cmr781129c88.3.1792171870846; Fri, 16
- Oct 2026 10:31:10 -0700 (PDT)
-Date: Fri, 16 Oct 2026 10:30:49 -0700
-In-Reply-To: <20261013222622.1822619-1-irogers@google.com>
+        bh=viOIzDo9krKszOCmVOjeW9f2aQpRArqmnQIoNv00KM8=;
+        b=XIyJOnLRcvAVTHZc0i2uIsDc40dzQsV0BsNfDitOL5iQyngYcyncwDumq7A7+n0/jQ
+         0S5GyspLAWKfWSp1xsbLJE023c4/rsNDB88aQz3AmOSwsQR9eTh19QtBC+ki5tYt1DqT
+         OqYgYRHY/bPQRcn5z4eKcKnBbQ8oPKrFT2VPngCkPlwk44qWxWk49+uhnpDhfdy8TWPN
+         x/1wkZ/RPbZ1ODFeeUYOIjA8BonuFLJRlNkvTFypksQWJ3mjISOrh1I23YDR/66sadKa
+         ReVbT93h0ciCM4gvEvdZ2Zv92B0xopck1xegrtA5gsU0teWBi1MGU1PuL8qmP3kWGk9t
+         0SbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxaspFeB1RVfB+zBxshLfOVEx0YmiYvpdae/WmPvhJ+KnIWOxMcc+eETNLbWv055pWbHhE08NPyqEgV8SI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7yEmaCFwJXvTkWegelaa6OGQZsRnEv50+uyMP2X9AuGu0WL3z
+	qDeKxdIv1+HlNG1bFepHSCx4xfZHQ6mqgdR+GN9aEUXyWOyFj6OPoKB8NlCFf//nqUGqQydDW43
+	QQDlZ/sst1A==
+X-Received: from dlbtp9.prod.google.com ([2002:a05:7022:3b89:b0:16c:8019:50cb])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:2097:b0:14d:c9e:a356
+ with SMTP id a92af1059eb24-18511ad8b0emr658014c88.12.1792171874071; Fri, 16
+ Oct 2026 10:31:14 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:30:50 -0700
+In-Reply-To: <20261016173106.679725-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20261013222622.1822619-1-irogers@google.com>
+References: <20261013222622.1822619-1-irogers@google.com> <20261016173106.679725-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261016173106.679725-1-irogers@google.com>
-Subject: [PATCH v3 00/17] tools/perf: Adopt kernel compiler-context-analysis.h annotations
+Message-ID: <20261016173106.679725-2-irogers@google.com>
+Subject: [PATCH v3 01/17] compiler-context-analysis: Avoid unused parameter
+ warning in _context_unsafe_alias()
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -71,138 +72,31 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-The perf tool previously added Clang thread-safety annotations in
-tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
-UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
-unified set of static context analysis macros and attributes in
-include/linux/compiler-context-analysis.h (context_lock_struct,
-__guarded_by, __acquires, __releases, __must_hold, etc.).
+_context_unsafe_alias() does not use its parameter 'p', which triggers
+-Wunused-parameter when building code that enables -Wextra (such as
+tools/perf, tools/lib/perf, tools/lib/subcmd, and tools/lib/symbol).
+Explicitly cast 'p' to void to silence the warning, matching
+__assume_ctx_lock() and __assume_shared_ctx_lock().
 
-This series makes tools/include/linux/compiler-context-analysis.h
-functional by synchronizing it and the required compiler_types.h helpers
-with the kernel headers, converts tools/perf from its custom mutex.h
-macros to the kernel-style compiler-context-analysis.h annotations, and
-expands context analysis coverage across comm, dso/dsos, thread/threads,
-config, intel-tpebs, env, and maps. Along the way, separate preparatory
-patches fix an unlocked __dsos__add() call and TOCTOU race in
-__machine__addnew_vdso(), avoid dropping _dso__data_open_lock in
-dso__list_del() under REFCNT_CHECKING, switch dso__data_open_lock and
-tpebs_mtx to DEFINE_MUTEX(), add a read-lock fast path to
-dsos__findnew_id(), fix an unlocked read of tpebs_reader_thread and
-double-close of tpebs_cmd.out in intel-tpebs, and avoid a potential
-read-to-write deadlock in maps__load_first() and out-of-bounds access in
-__maps__remove().
+Reviewed-by: Marco Elver <elver@google.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ include/linux/compiler-context-analysis.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This series was developed and reviewed with assistance from an AI coding
-agent (Gemini 3.1 Pro) and reviewed with Sashiko.
-
-v3:
-  - Rebase onto perf-tools-next (converting the newly added
-    dso__find_binary_type() lock annotations in util/dso.c).
-  - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
-    dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
-    tpebs_mtx, maps) from the annotation patches.
-  - Move AI coding assistant attribution to the cover letter and drop
-    per-commit Assisted-by tags per linux-next
-    Documentation/process/coding-assistants.rst.
-  - Add Marco Elver's Reviewed-by to patch 1.
-  - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
-    ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h
-    (patch 2).
-  - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
-    Makefile.config (patch 5).
-  - Pass write_locked to __dsos__find() (patch 7).
-  - Pass struct dso_data * to close_data_fd() and dso__list_del() to
-    remove the REFCNT_CHECKING dso pointer from struct dso_data and
-    avoid dropping dso__data_open_lock in dso__list_del(), and include
-    <assert.h> in util/dso.c (patch 8).
-  - Re-validate DSO lookup under the write lock in dsos__findnew_id()
-    via __dsos__findnew_id(), and handle NULL dso_id in
-    dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp()
-    (patch 10).
-  - Reset tpebs_cmd.out = -1 if start_command() fails and include
-    <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
-    util/intel-tpebs.c (patch 13).
-  - Bounds-check the index in __maps__remove() (freeing maps_by_name if
-    out of bounds) (patch 16).
-
-v2:
-  - Use -c rather than -E when probing for
-    -fexperimental-late-parse-attributes in Makefile.config to avoid
-    -Werror,-Wunused-command-line-argument.
-  - Acquire machine->dsos.lock in write mode across duplicate checking,
-    dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
-  - Avoid dropping dso__data_open_lock in dso__list_del() under
-    REFCNT_CHECKING.
-  - Pass tpebs_cmd.out directly to __sample_reader() and set
-    tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
-    tpebs_stop(), and clarify the config_set_mutex comment.
-  - Drop maps__lock before calling map__load() in maps__load_first() to
-    avoid a read-to-write self-deadlock when loading kernel maps inserts
-    additional trampoline maps.
-
-Ian Rogers (17):
-  compiler-context-analysis: Avoid unused parameter warning in
-    _context_unsafe_alias()
-  tools headers compiler: Synchronize compiler_types.h with the kernel
-    sources
-  tools headers: Synchronize linux/compiler-context-analysis.h with the
-    kernel sources
-  perf mutex: Use kernel style compiler-context-analysis.h annotations
-  perf build: Enable additional Clang thread-safety flags
-  perf comm: Add __guarded_by annotations to struct comm_strs
-  perf vdso: Fix unlocked __dsos__add() and race in
-    __machine__addnew_vdso()
-  perf dso: Pass dso_data to close_data_fd() and dso__list_del()
-  perf dso: Use DEFINE_MUTEX for dso__data_open_lock
-  perf dsos: Use read lock fast path in dsos__findnew_id()
-  perf dso: Expand context analysis annotations
-  perf thread: Expand context analysis annotations to threads and
-    namespaces_lock
-  perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
-    handling
-  perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
-  perf config, intel-tpebs, env: Add __guarded_by and __must_hold
-    annotations
-  perf maps: Fix lock inversion in maps__load_first() and bounds check
-    in __maps__remove()
-  perf maps: Add context analysis annotations
-
- include/linux/compiler-context-analysis.h     |   2 +-
- .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
- tools/include/linux/compiler-gcc.h            |  72 ++-
- tools/include/linux/compiler.h                |  50 +-
- tools/include/linux/compiler_types.h          | 206 ++++++-
- tools/perf/Makefile.config                    |   8 +-
- tools/perf/builtin-sched.c                    |  16 +-
- tools/perf/builtin-top.c                      |   4 +-
- tools/perf/check-headers.sh                   |   1 +
- tools/perf/tests/dso-data.c                   |   4 +
- tools/perf/util/annotate.c                    |   4 +-
- tools/perf/util/annotate.h                    |   8 +-
- tools/perf/util/bpf-event.h                   |   5 +-
- tools/perf/util/comm.c                        |  10 +-
- tools/perf/util/config.c                      |  43 +-
- tools/perf/util/dso.c                         | 140 +++--
- tools/perf/util/dso.h                         |  15 +-
- tools/perf/util/dsos.c                        |  31 +-
- tools/perf/util/dsos.h                        |  12 +-
- tools/perf/util/env.c                         |   1 +
- tools/perf/util/env.h                         |  19 +-
- tools/perf/util/intel-tpebs.c                 | 104 ++--
- tools/perf/util/libbfd.c                      |   4 +-
- tools/perf/util/maps.c                        | 147 +++--
- tools/perf/util/mutex.c                       |   4 +-
- tools/perf/util/mutex.h                       |  90 +--
- tools/perf/util/rwsem.c                       |   8 +-
- tools/perf/util/rwsem.h                       |  10 +-
- tools/perf/util/thread.c                      |  10 +-
- tools/perf/util/thread.h                      |  30 +-
- tools/perf/util/threads.c                     |   4 +
- tools/perf/util/threads.h                     |   6 +-
- tools/perf/util/vdso.c                        |  17 +-
- 33 files changed, 1144 insertions(+), 459 deletions(-)
-
+diff --git a/include/linux/compiler-context-analysis.h b/include/linux/compiler-context-analysis.h
+index 8302ebc2ea8c..024e303188ad 100644
+--- a/include/linux/compiler-context-analysis.h
++++ b/include/linux/compiler-context-analysis.h
+@@ -243,7 +243,7 @@
+  * alias as a function argument).
+  */
+ #define context_unsafe_alias(p) _context_unsafe_alias((void **)&(p))
+-static inline void _context_unsafe_alias(void **p) { }
++static inline void _context_unsafe_alias(void **p) { (void)p; }
+ 
+ /**
+  * token_context_lock() - declare an abstract global context lock instance
 -- 
 2.56.0.212.g129ede20d9-goog
 
