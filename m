@@ -1,365 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EC83EE1FD;
-	Fri, 16 Oct 2026 10:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFDE3E49E2
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146259; cv=none; b=g31fPNcJU3LLEbedNGVZoT204mNxtCFWBdVfo0r1BIjdXy+D8gI5n/fukoXo2FA4m5icwq+SMpBYgVVlkECdrli/eSrjY2WH7rD8vlDdAbdfBMtNrczWPyJIXDqSSdwAiGv17vmrIzNi6hBZrUTuDTVu98jsLHwW2lEnIVt9GBc=
+	t=1792146303; cv=none; b=YrDORCAgOGIH8U0MtcNnW59O1zDu4MG56yF9O57zogauFpTjasuXui2G9bfmPMxfFS+E8exjjv3EoCNhR/t1q9IuYTxLOexAVx+OIGRU2D1CF1b/0GdIE2aWvbi7kuQS/tJSmE2a52gqpcvX6JVcMqfvA7EJpUjuZ0c80duRR4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146259; c=relaxed/simple;
-	bh=OOLQTFgRbWSGzbbrsLXuxrdKToo0E9T353rxPlPRxng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VG3AMdE29HybATWMhRcBS1aV2lRaaDhzCmfGj/2rpHF05INdooG7dMeC1fIr03N+9Zr+lG+3rr0Wy44hqcfI0JLuLXyUiMROyLl0x+Z0LAimbdUZQvnOfA6nepXbTfcPFYWEr5Z87FhfkPlN6PBsriWwC419hIAg/uEKUtZDzZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IA+6o2Qp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792146303; c=relaxed/simple;
+	bh=i4Z1zdQOmksCm4c7UuNxZfLkKScOhca8kGgZ8QgQm30=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aTs4ZCY6WtL4Nt6HxBoxKhw81t3oMLc/imp3cp2zpG5keurEnZqxjcIJnb5sASMs5tT33PhjuIGs2p/bglrBHzsHF2pwK3tE6lBg8ttYFK2HJbc5O/AtTrZqME7iE5ls7Yh5a5NzhmcUB21p3jKtAY9Jkt91znbfGsBWdGj9prI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VecxJ3Sa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cg3GOHXa; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IA+6o2Qp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B101F000C4;
-	Fri, 16 Oct 2026 10:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792146257;
-	bh=Y2vZApD0hFg9CWPibYCTBIK60BbhdtEDwCq4bfOYBLg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IA+6o2QphWvTUOvT8CP1zIbu/746OIi/FQcSGWOsCdJ+nncM6pwNJKVeex3eRpT9i
-	 qVdHQA+5HvOv0MqJxk8rDir64mjUF6UixFAP7maRI1qXttc7tVeOCNsdl34Y2Y7SmT
-	 /CzY/Ohjgd3oIAILhkO3RVIMbhAdD4sx3Idrk1J09avnYxYg6+vPJrMs9/tC+uxkp6
-	 HdLmWySe3heeV7DSmdwV2cVovqBjSa/2KK37L45TbsKdGfVRiOA6d7no2e9Pnnx2vY
-	 Vb2Bq4xIyE4j2L86wMn0M95X5BD83Q5XfBNFsP3voO2NX+YXDTx8732/Poim1QNHbU
-	 uMpJpFWH9xMYg==
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 14/19 for v7.4] vfs misc
-Date: Fri, 16 Oct 2026 12:23:48 +0200
-Message-ID: <20261016-vfs-7.4-rc1.misc-4e00f3bd0c83@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VecxJ3Sa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cg3GOHXa"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAA9CT1647587
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:25:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kAlSZDNs3K6ft0MeWMellUDE8pbYaYQVgrb3o5m3fuU=; b=VecxJ3SalVX8847m
+	gVJPDFKsO2vvc1aSyVNPYY5N9n5BLJoHtQ5Fh1QdYpKvV2qFQ5vFg8aaeB1HNXwJ
+	FQp7l8bDbiAgaToofZdKHO5u0UvLmYpeGcHmRA+7UZwyQLNn8nAd2FUbhF2C4f4t
+	Lc0yOeANHTcbRTlAZf2OGoWuC+3uX2aGu4e7DbW1w4jdNQGVfbwWOny4NRKzXi9Q
+	dkWuGNGvpE9c2GdMChJmVhtDnjdG5tzjOOncCkUUU2btJS+yfHTK/NS1aCvEMCPi
+	ASf8u0aq3xRavcaFKKy/k/513mbHbAAXdBu68Ral7zEvZwNWAehKI5+1RAuSsLxV
+	6S18AQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbhumr2gw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:25:00 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5338bd59032so15318961cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:25:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792146295; x=1792751095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kAlSZDNs3K6ft0MeWMellUDE8pbYaYQVgrb3o5m3fuU=;
+        b=Cg3GOHXaADK2eozOrfZNC8EmskylM7qyMYcQ0j49U2xgwEwgv7MMpXR3MDreLmjftQ
+         awg5Px7pr0UoDPBBZRz8VXdSi31H/oLpqYro/PRFRSDp/U5Ys9l8UYj5n7SndqOHZFHR
+         S1l44Qk2Q2l03gudEpfUYgn7MVPRQFbukJ8uzUdhFKotzNXGPXyleEL3CABZGLaGgAh3
+         mzkzPX6z15nwUIyp3h/e/fHalI4oKrbECyTsFRa69ipNfUdFShuXSwSktqcQz9aeVsLy
+         9duBQV0EWjX2qtkC0X5FX/hBaeykm14tFdqI0IO5lz2MzUScbqcNqEWN5fFvd9XvU0vX
+         ICnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792146295; x=1792751095;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kAlSZDNs3K6ft0MeWMellUDE8pbYaYQVgrb3o5m3fuU=;
+        b=c89MaTRyXnA6wf219ngup99fZTqpnekW4221YuRrmg8YcX6lGA4Ocj1vA8cMIOXsmY
+         DCIP94hGWG07rbuQi3FFrej49s80ypIOQYFYI6aoax02xG+yGQNm7VVnS3NzK2l+LqDR
+         +ir2kMFYSAva7kc+B995e4Aj9Ni8tXuf7y36/Sv1PdOBGV6t+kgDzlBEJWFrR2PPZJl3
+         /PSlWDXwyiuzlbOOOmt1UOm3FWy5Ez6O7sN6wmgRKlIV5F4HmGhvOou+6uknmEVcTQr0
+         jojmTicHxGMNG4I6O6eNyJMQxUEFI+DzwDDTHVUZ6l0SunIsugzo3Ef98zVvxduEJAIs
+         TafQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHbAvyXTTxmXe4f/Zle+ny4YJYpPYqYRhjRRUYK5CD1NmBI0Vb02wS/x5wEOnpJzGsKMsmTArlqGGen7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbMZkZ1o3iRDgR1mLAEc7IrLttig2vC5J7wmHdI6WIUVK2P9CK
+	fjyh0LjJfwhapoKIghJMZYeuaB7NskRWc1bt7uH21YQjXmTYAoylSJZ5FnPhnAHHRgPSjIzqqq5
+	5L4cpWmTFxqrc/uqmmdmHFlMw1eU0twlNAoBTBrq4mllFh4wv+S/PwniPoKkyfYLSV5s=
+X-Gm-Gg: AYBFou11tl2HnTD9Q8HzPxfNgZXKZnjdROi9cNA0tY1R4VCHJtNOxd6KSK9RUlT7qi5
+	O9EztRTCZzBlsjNy6/oQoOqL6+nPBbCyZguwNcsn8All1Pq1Y0LcYcFEP0ChFeWdoX8MrRRMOl3
+	m648pO8vZCXHQB5ZEwSMM6uEbGOM1jUTVxeZln1rP+Xabc/2+Fd0mY/3LjuPiauzIiIpJv4WfVA
+	FdvMqn5Qy1KSyAov198PG4pehiUN5uw53FOJlTDFdO5QLxk0jaDupZcnjQsMgDloiNtuc5i4Vd3
+	MtP7ENeZzZUnOcJiTOBYlkA0lf8TGhO80E8GWT0ZndDswLRDE76VVeJtn5PhwZ8qWDtcfvW9sgn
+	PXQWbOomGbkdndfRMO8JTxw==
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id af79cd13be357-93ebd0d7987mr3686937885a.2.1792146294536;
+        Fri, 16 Oct 2026 03:24:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:2855:b0:939:8148:1e3d with SMTP id af79cd13be357-93ebd0d7987mr3686935685a.2.1792146294032;
+        Fri, 16 Oct 2026 03:24:54 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1c633asm749378a12.16.2026.10.16.03.24.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 03:24:53 -0700 (PDT)
+Message-ID: <7cda0970-2ccb-41d1-985c-958bc9fb2a73@oss.qualcomm.com>
+Date: Fri, 16 Oct 2026 12:24:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13427; i=brauner@kernel.org; h=from:subject:message-id; bh=OOLQTFgRbWSGzbbrsLXuxrdKToo0E9T353rxPlPRxng=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/O3i1c3wVnGhqGt98N2js24tObPc5UjZ34UV/p6dv a/Drwdpd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExkeTIjw5bZ6aK/3He67RZY +d686GVUr/XhSLVJyWbFSw/Gbf+8+Asjw/l7GfKf2GRXBtne/9iw60P+Ps6PTg/sFEqmTwzS4Wh dzQIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] arm64: dts: qcom: glymur: Set
+ snps,resume-hs-terminations for USB controllers
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+        Udipto Goswami <udipto.goswami@oss.qualcomm.com>,
+        Jack Pham <jack.pham@oss.qualcomm.com>,
+        Pratham Pratap <pratham.pratap@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016091336.2715717-1-peter.chen@oss.qualcomm.com>
+ <f28d3582-37d5-4443-935b-615a7e194767@oss.qualcomm.com>
+ <atHvDcClXC3smt5U@hu-petche-lv.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <atHvDcClXC3smt5U@hu-petche-lv.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Hey Linus,
-
-/* Summary */
-
-Fixes
-
-- aio: a keyed poll completion on an epoll instance could recurse into
-  the same epoll waitqueue lock when the result eventfd is watched by
-  that very instance. An unprivileged process could make a CPU spin on
-  the recursive lock. eventfd-backed poll completions are always
-  deferred now.
-
-- fsnotify_inoderemove() is only called once the inode is really dead,
-  no nlink and no aliases, and open_by_handle_at() can't add an alias
-  to a dead inode anymore. The race could crash fsnotify or lose inode
-  mark notifications.
-
-- devtmpfs: the conversion of the public instance to ->get_tree() broke
-  reconfiguring the shared superblock's options on later mounts which
-  made the boot time defaults permanent. A reconfigure context is kept
-  in fc->fs_private so the parse ops can forward options to the
-  underlying filesystem.
-
-- ufs truncated the 64-bit directory size to an unsigned int in
-  ufs_last_byte(). A crafted image with a 4 GiB directory produced an
-  out-of-folio read in ufs_find_entry() and, with CONFIG_UFS_FS_WRITE,
-  a write into an adjacent page.
-
-- devpts rejects max=0 instead of silently lifting the per-instance pty
-  limit. The value wrapped into ida_alloc_max() and became unlimited.
-
-- fs_pin publishes pins with the rcu list helpers so the kill paths
-  reading the lists under rcu see the initialization.
-
-- dentry_kill() reports a Tasks-RCU quiescent state. Its cond_resched()
-  is the only reschedule point on the dentry teardown path and
-  cond_resched() isn't a quiescent state for Tasks-RCU, so Meta kept
-  seeing rcu_tasks stalls in btrfs subvolume deletion.
-
-- writeback sizes foreign flushes by the target wb's dirty pages instead
-  of the memcg-wide count which over or undersized a single bdi flush.
-
-- nfsd READ emitted two fsnotify access events on the iterator path
-  since vfs_iocb_iter_read() already sends one. A READ on a krb5i or
-  krb5p mount showed up twice in inotify.
-
-- pipe and splice pass a poll key when waking readers and writers so
-  epoll, poll() and select() waiters only wake for the event they asked
-  for.
-
-- the iso8859-14 Unicode to charset tables had page01 duplicated as
-  page1e so 29 code points mapped to the wrong bytes and 22 that aren't
-  in the charset were accepted.
-
-- orangefs doesn't wait for an unmount service operation that never
-  returns on system shutdown and uses ssize_t for strscpy() errors.
-
-- __register_chrdev() checks the kobject_set_name() return value.
-
-- selftest fixes: the openat2 tests hardcoded O_LARGEFILE to 0x8000
-  which is O_NOFOLLOW on powerpc, resolve_test makes /tmp a mountpoint
-  so RESOLVE_NO_XDEV has a boundary to trip over, file_stressor moves
-  into its own directory with a 30 minute timeout, the kernfs listxattr
-  test skips when SELinux exposes security.selinux, the namespaces
-  active reference tests wait for the thread via a PIDFD_THREAD pidfd
-  since pthread_join() returns before exit_nsproxy_namespaces(), the
-  idmapped_tmpfile test chowns its directory into the mapped range, the
-  clone3 CLONE_CLEAR_SIGHAND test adds CLONE_VM so it fails for the
-  intended reason, the pidfd PPID error message prints the values it
-  compares and fscontext_ns gets a .gitignore.
-
-Cleanups
-
-- vmcore prints the release of the crashed kernel from the VMCOREINFO
-  note so a kdump that dies before the dump lands still says which
-  kernel it was for.
-
-- initramfs allocates hardlink hash entries with the validated cpio
-  name length instead of PATH_MAX, which put every entry in kmalloc-8k.
-
-- the unused dax_layout_busy_page() is removed,
-  dax_layout_busy_page_range() becomes static and dax_folio_init()
-  drops a redundant list initialization.
-
-- vfs_empty_path() is removed, it has had no callers since
-  getname_maybe_null().
-
-- comment and documentation fixes in aio, bpf_fs_kfuncs, fs-writeback,
-  inode, read_write, squashfs and the vfs.rst copy of struct
-  file_system_type.
-
-/* Testing */
-
-No build failures or warnings were observed.
-
-/* Conflicts */
-
-Merge conflicts with mainline
-=============================
-
-This conflicts with mainline in tools/testing/selftests/Makefile and
-tools/testing/selftests/filesystems/Makefile between commits
-d59ac79915daa ("selftests/filesystems: fix missing and stale TARGETS
-entries") and 66cda7ec9abec ("selftests/filesystems: check that an
-immutable inode takes no write hint") in mainline and commit
-5550456dad376 ("selftests/filesystems: Move file_stressor to dedicated
-subdirectory") from this tree:
-
-diff --cc tools/testing/selftests/Makefile
-index bc4fdb6f5337,08f228765a93..000000000000
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@@ -35,11 -35,9 +35,12 @@@ TARGETS += fchmodat
-  TARGETS += filesystems
-  TARGETS += filesystems/binderfs
-  TARGETS += filesystems/epoll
- +TARGETS += filesystems/eventfd
-  TARGETS += filesystems/failfs
-  TARGETS += filesystems/fat
-+ TARGETS += filesystems/file_stressor
- +TARGETS += filesystems/openat2
- +TARGETS += filesystems/open_tree_ns
-  TARGETS += filesystems/overlayfs
-  TARGETS += filesystems/statmount
-  TARGETS += filesystems/mount-notify
-diff --cc tools/testing/selftests/filesystems/Makefile
-index 93e2cc9123b0,bc4bfb677589..000000000000
---- a/tools/testing/selftests/filesystems/Makefile
-+++ b/tools/testing/selftests/filesystems/Makefile
-@@@ -1,7 -1,7 +1,7 @@@
-  # SPDX-License-Identifier: GPL-2.0
-  
-  CFLAGS += $(KHDR_INCLUDES)
-- TEST_GEN_PROGS := devpts_pts file_stressor anon_inode_test kernfs_test fclog ustat_test rw_hint_test
- -TEST_GEN_PROGS := devpts_pts anon_inode_test kernfs_test fclog ustat_test
-++TEST_GEN_PROGS := devpts_pts anon_inode_test kernfs_test fclog ustat_test rw_hint_test
-  TEST_GEN_PROGS += idmapped_tmpfile
-  TEST_GEN_PROGS_EXTENDED := dnotify_test
-  
-
-It also conflicts with the vfs-7.4-rc1.coredump tag in fs/coredump.c
-between commit 3aa5ebec7895c ("coredump: describe the holes when
-COREDUMP_SPARSE is negotiated") from that tag and commit 21a62663d4734
-("fs: fix typos in comments") from this tag. The coredump tag is merged
-before this one. The typo fix touches a comment the coredump tag
-rewrites, so the coredump tag's version of the comment wins.
-
-Merge conflicts with other trees
-================================
-
-No known conflicts.
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.misc
-
-for you to fetch changes up to 9ba6627ef6b12debd1c54443939718db63234274:
-
-  selftests/filesystems: Fix idmapped_tmpfile layer dir ownership (2026-10-12 11:24:28 +0200)
-
-----------------------------------------------------------------
-vfs-7.4-rc1.misc
-
-Please consider pulling these changes from the signed vfs-7.4-rc1.misc tag.
-
-Thanks!
-Christian
-
-----------------------------------------------------------------
-Ali Ahmet Memiş (1):
-      nls: fix the Unicode to charset tables of iso8859-14
-
-Amir Goldstein (1):
-      fs: make sure to call fsnotify_inoderemove() only once when inode is dead
-
-Bjoern Doebel (1):
-      selftests/filesystems: Fix idmapped_tmpfile layer dir ownership
-
-Breno Leitao (4):
-      pipe: pass a poll key when waking writers after a resize
-      splice: pass a poll key when waking pipe readers and writers
-      vmcore: report the release of the crashed kernel
-      dcache: report a Tasks-RCU quiescent state in dentry_kill()
-
-Christian Brauner (3):
-      Merge patch series "selftests/filesystems: selftest fixes"
-      Merge patch series "fs/dax: Clean up busy page lookup helpers"
-      Merge patch series "selftests/filesystems/openat2: fix O_LARGEFILE definitions for non-arm64 architectures"
-
-Chuck Lever (1):
-      splice: emit a single fsnotify access event per NFSD READ
-
-Daehyeon Ko (1):
-      aio: prevent eventfd/epoll recursion on poll
-
-Disha Goel (4):
-      selftests/filesystems: Move file_stressor to dedicated subdirectory
-      selftests/filesystems: skip listxattr kernfs test if xattrs are present
-      selftests/filesystems/openat2: fix O_LARGEFILE definitions for non-arm64 architectures
-      selftests/filesystems/openat2: make /tmp a mountpoint inside private namespace
-
-Eric Sandeen (1):
-      devtmpfs: restore mount option reconfiguration on get_tree
-
-Hemanth Selam (1):
-      fs: fix typos in comments
-
-Kaitao Cheng (3):
-      fs/dax: Remove redundant deferred list initialization
-      fs/dax: Remove unused dax_layout_busy_page()
-      fs/dax: Make dax_layout_busy_page_range() static
-
-Karl Mehltretter (2):
-      fs_pin: publish pins with RCU list helpers
-      docs/vfs: Fix the struct file_system_type copy
-
-Mahad Ibrahim (1):
-      selftests/filesystems: Add .gitignore for fscontext_ns_test
-
-Manush Prajwal (3):
-      fs: fix comment typo in bpf_fs_kfuncs.c
-      fs: fix comment typo in fs-writeback.c
-      fs: fix comment typo in inode.c
-
-Mark Sercombe (1):
-      fs/aio: fix comment typos
-
-Mike Marshall (2):
-      orangefs_super: don't wait on service operation on system shutdown.
-      orangefs: use ssize_t instead of size_t for error codes...
-
-Paul Dolan (2):
-      selftests/clone3: tighten CLONE_CLEAR_SIGHAND conflict test
-      selftests/pidfd: fix PPID values in error message
-
-Ray Lee (1):
-      squashfs: fix inode number description in documentation
-
-Ricardo B. Marlière (SUSE) (1):
-      selftests/namespaces: Wait for thread exit via pidfd in active-ref tests
-
-Sang-Heon Jeon (1):
-      fs: remove unused vfs_empty_path()
-
-Tao Cui (1):
-      devpts: reject max=0 instead of silently lifting the limit
-
-Thorsten Blum (1):
-      initramfs: Reduce hardlink hash allocation sizes
-
-Xin Yin (1):
-      writeback: size foreign flushes by target wb dirty pages
-
-YANXIN LI (1):
-      ufs: use u64 for directory size in ufs_last_byte
-
-Yingchao Deng (1):
-      fs: fix misleading comments in read_write.c
-
-bui duc phuc (1):
-      chardev: check return value of kobject_set_name() in __register_chrdev()
-
- Documentation/filesystems/squashfs.rst             |   6 +-
- Documentation/filesystems/vfs.rst                  |   2 +-
- drivers/base/devtmpfs.c                            | 108 ++++++++++++---------
- fs/aio.c                                           |  11 ++-
- fs/bpf_fs_kfuncs.c                                 |   4 +-
- fs/char_dev.c                                      |   4 +-
- fs/coredump.c                                      |   2 +-
- fs/dax.c                                           |  26 ++---
- fs/dcache.c                                        |  29 +++++-
- fs/devpts/inode.c                                  |   2 +
- fs/fs-writeback.c                                  |  23 ++---
- fs/fs_pin.c                                        |   9 +-
- fs/inode.c                                         |   2 +-
- fs/namespace.c                                     |   2 +-
- fs/nfsd/vfs.c                                      |  13 +--
- fs/nls/nls_iso8859-14.c                            |  26 +++--
- fs/orangefs/orangefs-debugfs.c                     |  10 +-
- fs/orangefs/super.c                                |  18 ++++
- fs/pipe.c                                          |   2 +-
- fs/proc/vmcore.c                                   |  20 ++++
- fs/read_write.c                                    |   8 +-
- fs/splice.c                                        |  70 +++++++++----
- fs/ufs/dir.c                                       |   2 +-
- include/linux/dax.h                                |  12 ---
- include/linux/fs.h                                 |  19 +---
- include/linux/splice.h                             |   4 +-
- include/uapi/linux/fs.h                            |   2 +-
- init/initramfs.c                                   |  11 ++-
- tools/testing/selftests/Makefile                   |   1 +
- .../selftests/clone3/clone3_clear_sighand.c        |   6 +-
- tools/testing/selftests/filesystems/.gitignore     |   1 -
- tools/testing/selftests/filesystems/Makefile       |   2 +-
- .../selftests/filesystems/file_stressor/.gitignore |   2 +
- .../selftests/filesystems/file_stressor/Makefile   |   6 ++
- .../{ => file_stressor}/file_stressor.c            |   0
- .../selftests/filesystems/file_stressor/settings   |   3 +
- .../selftests/filesystems/fscontext_ns/.gitignore  |   2 +
- .../selftests/filesystems/idmapped_tmpfile.c       |   7 ++
- tools/testing/selftests/filesystems/kernfs_test.c  |  16 ++-
- .../selftests/filesystems/openat2/openat2_test.c   |  10 +-
- .../selftests/filesystems/openat2/resolve_test.c   |   7 +-
- .../selftests/namespaces/ns_active_ref_test.c      |  29 ++++++
- tools/testing/selftests/pidfd/pidfd_open_test.c    |   2 +-
- 43 files changed, 340 insertions(+), 201 deletions(-)
- create mode 100644 tools/testing/selftests/filesystems/file_stressor/.gitignore
- create mode 100644 tools/testing/selftests/filesystems/file_stressor/Makefile
- rename tools/testing/selftests/filesystems/{ => file_stressor}/file_stressor.c (100%)
- create mode 100644 tools/testing/selftests/filesystems/file_stressor/settings
- create mode 100644 tools/testing/selftests/filesystems/fscontext_ns/.gitignore
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA0MSBTYWx0ZWRfX2baFev5x2kaK
+ iRPNIMRfh9fMFPTVR4TF2cXkOZmsPybUQ+m6LDcesgdtfbmo4XLdxVXodZm8GYUqRbUaLEIvJ57
+ 6kYcbj86SjvXFaBAVBVhfu8APWmJzbw=
+X-Authority-Analysis: v=2.4 cv=H+BOUOYi c=1 sm=1 tr=0 ts=6ad1fb7c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=TzX8eDZg1TTv6Nxa36EA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: FA9gOK1YomE-GBfNH-0OKXO6_40kZtMC
+X-Proofpoint-ORIG-GUID: FA9gOK1YomE-GBfNH-0OKXO6_40kZtMC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA0MSBTYWx0ZWRfX1L1tql3BzhD0
+ dXGXoPrFQjBqqdx2X2CNS2X1Y10jAfrJnRau3kO24ftufgjBA2NFwg9uqcBYF74+guBnvT6A48b
+ Cz230FZ719wvo+nSeuG9tNoO8sScmgPCeLfw9QB4oKFMxCJZYQ70k5SUURPDYcBCe4bRGK/bsCJ
+ qyeI+d5XmK0Ms0jXjKPKLaVotQ+159ZkpWAOc4jC8H06hrYgXZa+SRu1Bc1WT4IT1oYTmUrdX7z
+ FIYmk43TP57Jm2QmvS96qM/plb+YhR3o2dF82yCzE+GydDV3jU4y+JZIqBjyYKUDt814Ncnby0r
+ fstYlfxhea58XP2C7aBeufZC9NNmkKZkF9cnTc2gFA+ULgY8K7MpauSHIp/QCLfg62IPEpsrHXO
+ fMMigYTdDOAkqvfrL6Kfkn5mdjeZbBpPthdAniy7nccJd1JpZarTZva/yQCs8r/fHeJjTruGPr7
+ G8R0G+qrC2HKlYGi/lg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160041
+
+On 10/16/26 11:31 AM, Peter Chen wrote:
+> On 26-10-16 11:24:05, Konrad Dybcio wrote:
+>> On 10/16/26 11:13 AM, Peter Chen wrote:
+>>> The DWC3 controllers on Glymur are paired with the M31 eUSB2 PHY.
+>>> According to HPG, host-mode USB2 L2/L1 resume with this PHY, GUCTL1[10]
+>>> (RESUME_OPMODE_HS_HOST) must be set.
+>>
+>> $ rg -i m31-eusb2 arch -l
+>> arch/arm64/boot/dts/qcom/glymur.dtsi
+>> arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> arch/arm64/boot/dts/qcom/hawi.dtsi
+>> arch/arm64/boot/dts/qcom/sm8750.dtsi
+>>
+>> Can you send a fixup for all of these?
+>>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Sure, but I only have Glymur CRD, can't test this change on all hardware,
+> is it okay?
+
+The hardware programming guide says this is a necessity due to
+the hw specifics. This is enough evidence - you can then ask some
+of our colleagues who recently submitted support for these
+SoCs to test it out.
+
+Konrad
