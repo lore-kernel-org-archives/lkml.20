@@ -1,104 +1,85 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57126379ED6
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 08:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141171; cv=pass; b=HNKDgi0BuwCRDHUZmYXFJ0d49Xg/5TUG+f18aHgE4V0BBlKHVqWS7byXGy9Xfas52d1kFL7JebTE5KD+JCb6g58U+A5d7b1wRyedQGOM30YMMxzhs6BKXit2mzUcGvitgsK3KeF8YTW5LiG/9VNopTiY6uGbu69eUI7nPVUcAqE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141171; c=relaxed/simple;
-	bh=yT4fNRH28Sk1sBZ6mVlpHgBhbu2LgeUp5plOLVqVqCU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Am+5Mdh7jKRNdAwvrA3ra/vALEMCgLwjAC8MVr8HdgYsxEVjbOPdwUcbdsqEDQF9uWyGejuiq6Q/sz0d6nJ3sJa9a2jA9oK1wFmkTzB5v3Ew5ZncDFXS3KDWYjua82BndDScxreRzJB1SsfEOnrrZoPceEDUXQfdgTAvEvdc4ZE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=AP9mRmfB; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31467377EAC;
+	Fri, 16 Oct 2026 08:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141181; cv=none; b=kgToQ4Z6mo5nB2HWKkXyBzaqS7c9rKuVXD+rY3wFfR7JjR0jgPYu9tsNAFEfUoFTLfJtqDJ07u7hIlDYvY5il6UAubmSU0NHD89CGRIBcOG3rbL+5os5p/lIXtlHc8KaGzxYxa8nAarXXKF3YCdHOa9raf6JiCeX8PJP1Y3xSEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141181; c=relaxed/simple;
+	bh=NeGmjayS22zWnD1WnDqIK44ygvIXtCwzs8PUMbdojAk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=nNicKicZKUP2WzPS3XliYkPreONopI4l0ecpEEU5oDzFE7EQC8l4GNqunWoVQD6w2xc5g3y0CZoUkjUpgsINxQLL2LH83ckO28AvGA671oEHc0aY7Preo/nYKo9STnFpWGB8G54wM0PRxN2jUtWFBpjRBr35JAMRWwna3w8ifHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7bZ4agY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="AP9mRmfB"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5350d9ea106so75646951cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:59:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792141169; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j3/ADbsJYt5YSF3d8o+x0P+tjUoDtQUZStOsK2ADdL1sE1hSKYJ/+lQT3i30OPb2gz
-         7tglR3E/p3N7fAO9QJV/y5a0PnvnLuRE0ykUgND7I//4/2A1wjoX4DQDsZVtSA78+C75
-         xbJm6iN7sjaO1FROuupdijKUzJSfoMhW4+L3u8pTKTPlRDG/+7UaybomgvUPOVjrpi17
-         Yyj0iNqnuypanXurKMVe+SvpFRyQY1Sz70ZpZELAXdEi89pQLnwgv9KqJUEg4wOfju5r
-         6zGK4wAFcjoiOo+VcQfzUkYB1ffOr41JTtto+WnYdWl3A9gtruX6lUtYlYrJmvf7hQJD
-         uTqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yT4fNRH28Sk1sBZ6mVlpHgBhbu2LgeUp5plOLVqVqCU=;
-        fh=wuhJK1IQU9pbMd+ghdrUjAzEJCIfHH/c11L1XcwzKdI=;
-        b=AdPvctEZEzxnMnI58+PDkuivxoPpd+XaQeqlfZkFy/EKqwl98mQLoCJwJ6A6S/AS4y
-         Vn+oLs0CT8tAXaocjTur7t9y4IRuXIurGsWxbd5t6dUi2eUVvaZ3BsjAKMQ4rhAni0va
-         50U0QlGMo9es6B++z1uD50Yx+feopHUbjVG//+liVBOmlMXKGK/y6vg2zsPiD8MAcuee
-         WluCDlzx/+BmzwepWlfMqzYId8fB05TeevgLDX2bOpzsE+xZytfVSd89mi/jZJ5ZRAsp
-         MrJscF11n0QLehYZmlqHbo98mpSj+74FkE/s0JP2JZTrITCIJWEcOZ5sCu9GTUCoiBnw
-         oU5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1792141169; x=1792745969; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yT4fNRH28Sk1sBZ6mVlpHgBhbu2LgeUp5plOLVqVqCU=;
-        b=AP9mRmfB0tN2vqd3ND9tkHgdtm17ibVX9xAsFmSGAqbyLxAd6cNsav3AkeIr7xsC4y
-         Wl/dO3qALT9/4qaw2XDi6C7jayAbGJR4vqEF61AGPcoYgEhe1u+ED6/GtdHZ9xwM+g5H
-         6em9wWPVeDj/3Nrqs3POqLd5GnuUlC+y9F/6U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141169; x=1792745969;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yT4fNRH28Sk1sBZ6mVlpHgBhbu2LgeUp5plOLVqVqCU=;
-        b=WwOs/PhahtwVjmR4Wma2z5HwsHsNLLmVFDSpqUADyebmPbqhw+RNAch/Ap7XzgAdiY
-         ekIxz6bMYqllnsA4bLYZydTX7wmI4sxmShO2iFEDAPpFaDEa54KGIaKUQV+2PbzjF/9H
-         2GBm7AcfylkUlLriYS4pa8Cj7D6jD2Lz/9M0M3MdgjfBdoERPqN/Q48fGrOqT8SlGRD8
-         1yRrf3dhAJBZzUgicgcx14OEKoP/Jwn/ql35DBHGuPQWxx4nHvSTMihRRS34/nsV/7T6
-         Y/BK9HSCkb3idG4y3o0TUXtkwSETiZDcqfh/nnbDhr426RMQKHidYtkp9vbH0eRfNP2F
-         d5EA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQB8zx2/pvE+FDp8kVVKNsvXTXaZz3J9OLgkdCjrUJnfJwRhWtnIHwBqezUcguOyFSq0Lyii5IwYJRGRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrHmnBtsX67yYRnrBPqvSQllzS85AyZoq02hS3/mK+hJNCcwGr
-	9MBojgHRG2cPy6ATx6kJ371S7oq2pMdTX5so4ZUBfldK/JEAdTqNhBAG1smeYLh5SaFNxyYLGhC
-	zqzqqiU9ezvsrN6ixDNtJSEkg7f8Oyx6btZbhi1X7fuEhh6MTgxfP
-X-Gm-Gg: AYBFou2ekLgBYOXEzan5C0HcFmS4sOi612KMELpzeWvMHk0EZ4zKxACIkkUePEtMjAX
-	L27Zu69PPnyXF9rraEyKT+ky7bKMgjsqcxcpXeiuEQ98GYE3qX7XgJgt49V7N/fecyRFWqMgrds
-	JL3FaLLyPyR2/MbukotT1fEqLmYXKhtjbe1wMZzrOFQ3e6ARg7Zcyu0pPe3s4rmBJmqkAUApBQH
-	VV2dp2p+irV4u5+feoK3NRZ4hnKSd1t99Fb9W4CFT4n0Y590ZC3eISVjqx+PZFQf+mn+8vDqBKj
-	2yxR1iO8G+80YQWZm3SdZ+PycU5+PwzeBoVXCmQT4v/JGqXczC6zl0JHR14NO/AjlPOGh5HkGO8
-	VLykw24M=
-X-Received: by 2002:a05:622a:1804:b0:535:a5f8:a5c4 with SMTP id
- d75a77b69052e-535a5f8b53amr352445591cf.68.1792141169297; Fri, 16 Oct 2026
- 01:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7bZ4agY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C93F1F000C4;
+	Fri, 16 Oct 2026 08:59:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792141179;
+	bh=ygPqvTu0MZgnk+/Kb6/16DzoVjrOgynRG8deEIsJd64=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=m7bZ4agYIMispujf5L370KG15bRIqUoeSyxTGdIctuS2r7xWF36CBfEBhe9KRGvVq
+	 i/Pv8f67AF5QF/yIhkhjPFuMyYWqPZOtOW9/hgwjsIKcNxyy9/MIJ46hEscejW7i/g
+	 FDHBsAOfkUeSG0jZzaRWjachh22tG3vqK1hpudZDN0lp52jNh4uyHss03SDLh43pN3
+	 N/9YwfIuhX29rz19vcMa8fMOhFmeU2h3CyJRAKAj6bAubZuwx/ioHZ2rgvNo7ND80c
+	 GTZYkYcJgzeKFgNOrIpHChbdnx8Xj9/ewFHY1Pgl4RP0A6gNUBcPpDW/PD83pamUsF
+	 wMyTg7y8fW3xA==
+From: Christian Brauner <brauner@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Marc Dionne <marc.dionne@auristor.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Matthew Wilcox <willy@infradead.org>, v9fs@lists.linux.dev, 
+ linux-afs@lists.infradead.org, ceph-devel@vger.kernel.org, 
+ linux-cifs@vger.kernel.org, netfs@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <1091807.1791483394@warthog.procyon.org.uk>
+References: <1091807.1791483394@warthog.procyon.org.uk>
+Subject: Re: [PATCH v3] fscache, cachefiles: Fix resize handling
+Message-Id: <20261016-betagten-raspel-gepunktet-718b691298d2@brauner>
+Date: Fri, 16 Oct 2026 10:59:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820130158.254808-3-jamz@amazon.com> <20261014200112.1363344-1-sashal@kernel.org>
-In-Reply-To: <20261014200112.1363344-1-sashal@kernel.org>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Fri, 16 Oct 2026 10:59:17 +0200
-X-Gm-Features: AclHuK8plkUWG0caIufFg1j5DIBTkx_nzXhY5cYIKKqxQ1cPSAaRX-yvQIYuAck
-Message-ID: <CAJfpegvGBZaEw_tS-EpOKMyzb-AG3CYBG7DwbQQa3280fRNQRg@mail.gmail.com>
-Subject: Re: [PATCH] selftests/fuse: add the missing FUSE_HAS_SYNCFS privilege test
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jimmy Zuber <jamz@amazon.com>, Shuah Khan <shuah@kernel.org>, fuse-devel@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-On Wed, 14 Oct 2026 at 22:01, Sasha Levin <sashal@kernel.org> wrote:
+On Thu, 08 Oct 2026 19:16:34 +0100, David Howells wrote:
+> Fix the resize handling in fscache and cachefiles by passing down a flag to
+> indicate if the file is being shrunk as the cache's idea of how big the
+> file should be may be stale and thus not useful in comparison to the
+> object's size.
+> 
+> The issue is that netfs_perform_write() updates the network filesystem's
+> file's i_size as it adds data to the pagecache, but the cache isn't updated
+> until writeback flushes that data.  A truncation may then scrap that data
+> and so the cache never sees it and doesn't update before it is told to
+> resize.  In the resize, cachefiles was comparing the new size against the
+> current cache size and then thinking the file was being expanded.
+> 
+> [...]
 
-> Add test_syncfs.c as posted in Jimmy Zuber's v3 submission. The test
-> talks the raw FUSE protocol over /dev/fuse, so it can choose whether to
-> advertise FUSE_HAS_SYNCFS and directly observe whether the kernel
-> forwards a FUSE_SYNCFS request.
+Applied to the vfs-7.4.netfs branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.netfs branch should appear in linux-next soon.
 
-Applied, thanks.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Miklos
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.netfs
+
+[1/1] fscache, cachefiles: Fix resize handling
+      https://git.kernel.org/vfs/vfs/c/f65f6269cd37
+
