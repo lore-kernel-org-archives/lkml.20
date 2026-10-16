@@ -1,107 +1,140 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465B345EA9;
-	Fri, 16 Oct 2026 01:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115521; cv=none; b=ejoj2vvztAJL0FYNhvmoQ4vxto43sBJs4dcj4fgKfhXFs6lJdO8IzNx4JHHlenEDNc5bPxAZLhHe8i9h1aDDpTaV9Tz+fJVXykU8a3Y0f6drwvVXPLigpaMQtG+/o/O5orUyy49mHrfzf4pCREZK55OV1rP/K41Oy731Gq8wIE4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115521; c=relaxed/simple;
-	bh=ZT0I/kFBxVwxCCueKs5V2RHNnh1kbf7ID6w/rJbNKmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QDvDgJRLChqtseqlm1Ols2cSiW6kykfn9lWdzyd0RzPqY5gz+60ctUhnl0YN5ZpQ/PebMiv136YjLpY8p+okkbwGQ5vIg2Di1Y2Cc9ykklGzKjno+oGNkugRjzwi8E6gudJZ4vQc090zFjppZydXMEDXmmS/tzyQ93X3edhBsbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bogusta.com; spf=pass smtp.mailfrom=bogusta.com; dkim=pass (2048-bit key) header.d=bogusta.com header.i=@bogusta.com header.b=PnFjcZKl; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bogusta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bogusta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6317A1E9B37
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792115583; cv=pass; b=V/TvRg/PIkT8s4Kp5WsdCKAjE8xsoXHnC2jM7nVkf9//t8nc+lxz2Hm7ucDto5bqJ8EOUdqJbjU16RWpK1hF4F5zLFBVXraffkgfWXm268jG+6/uA7spVd9So+KWhcN7RoGLEZsEuq2BiAGGvXMbBgw8nK0JyoPcKWEyGHJogcE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792115583; c=relaxed/simple;
+	bh=Ia+9qnQFXuT7Qa703XqyFy/Lx1I20mduDC3TrKVaE04=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tkQ2kvSQNd30IGgcnW1r95gxOqZ75xRLcePxqOSdKatwA24Cnnnqcah9UzTDLyanXV7aJjCLPTEpxbxYyDGiuDfP3Y0gFvsLMuIdEtcRmhArsT/etPpcs9XSf7ZPGXJJSBWIjMaJzbvuwIr0hdS9BKWNLllIE2zP5YleyYHy2OI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Op0eyiit; arc=pass smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bogusta.com header.i=@bogusta.com header.b="PnFjcZKl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bogusta.com;
-	s=protonmail3; t=1792115515; x=1792374715;
-	bh=AenpXWAYrKA7cxjqocTZK68lgeROxEPztY5XibpKiXY=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=PnFjcZKlyeUPwE4iFpfAS1CumHb4lYRtmhpo5t4pDcA+wpv5//+1HsPMW38R+EsG9
-	 8fmDuBQGZesSUY8x3tMla125ks32pOr/9XMtOy1BBlPWkMY8JzadiveCg0K65isjmu
-	 eF6BE9fF/OYnkTMjk1plp4GGBqKgF6A+EjBuhL779XXtB4K66ByLJ4qOpF3wrRyQ1d
-	 8Vp2uKv7gUp//QeJRWZbxtFa20aQCsCvg8C3XMX0xYKpiqjiIYDvbi7ipHJ6dRjfx2
-	 BsZFw+bP0gqygzPynhfN7ZRQ4Re9DUZKC5FVJeVpfPwoBgta9q34ilSDrK/UGryKvw
-	 tTLfnGOdUREuQ==
-X-Pm-Submission-Id: 4j5Sbp4tBPz1DDXm
-From: Alex Bogusta <alex@bogusta.com>
-To: Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Antheas Kapenekakis <lkml@antheas.dev>
-Cc: Alex Bogusta <alex@bogusta.com>,
-	Denis Benato <benato.denis96@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: asus-wmi: Clamp keyboard backlight level from hotkeys
-Date: Thu, 15 Oct 2026 21:51:16 -0400
-Message-ID: <20261016015117.32174-1-alex@bogusta.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Op0eyiit"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e987a2ba0cso1272175ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:53:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792115582; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JnYlEUzfjyKOZpx+5lvq227oIQBU38DDoT0EmXtEdUfok23C5TSlzAGrG73l6Ea4Vl
+         VU4YZXVCSsvxJvuFvcZhXthEyzAm24M1HUj7PTqRcyDEzLSus5rK5Yblj34mT1IP6u2x
+         Noinheydc/X8lo5QrOG0EdCimDv74xPcKfU6J2cLCwXVnKOOwZsdvy+gxC0I2Ux1DP6n
+         oRpDKMJv/dIWsHz6iPAIvZADAfikdpPHH3E9+d6SmNtT7wksfvbRmrRagLDG9+XNW1fY
+         SOll46vlKwOoPkbDs0m+vF62vez5WpwZwofLtYISGbHv5QivTMZJifnqBuAOIxxwqk4Y
+         tifA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=QzWh/mXf6G5Fr5INTJvXRytqPL/zBujlCdMkS18GyKQ=;
+        fh=Nqer1m5vhYXh/686MB2mgylTweVuSJgbVhbxNosj0z8=;
+        b=Xf3zuIdO6+XzDvzRK05jncKae4/LD9wrYHt1IyrLzAlkmDN8g2KwI9n1CEsLyfJ2zI
+         pF+nMUFw85mo1cK4lT68Xw2TwFhPtaDWx/hab2yE4Txn1xfent6IW9JHcXXFmilIdZ61
+         hijAKqEonUEUqpMTh+14OY4A5xl19f2G4UdvQYVi50Qo9xAgR5ySnQhdHRG1FEg0oejN
+         Ls0JusTRzFK0sNSLkvHrvHBc0Z96zFBWIld1DOth/g0ZBjivDc+kmUTY+WEnbKVR52Mz
+         rWcd7i0vWumL6mPxt0jDxE4OvWD3ew9H1V+CwkYmalQi4uDdRMwii2gzdM9UOmndo3n7
+         JNuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792115582; x=1792720382; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QzWh/mXf6G5Fr5INTJvXRytqPL/zBujlCdMkS18GyKQ=;
+        b=Op0eyiitNEQ9ES47jArbONvej3eRBF5KjtydwZxPxVl1mc+bOWWPhdC05xKTeFLMmz
+         q99SeUeotiGXJ8mNibarU/ufZeGdSwlcRc46/KvgrJUTPnns6FJhMcnUi/mI8AUDS1c4
+         7HHqvb97Td8c1ys25ubxhuq8k0LNuGKCrYp6lyV2KkdlRu1k961YEQHQ3rGiowy9n3J3
+         yxfMN8tAlTxVfrjuU7vIpsM8AxMPL0+iJfGuhxGrNgYBjZR2K9IqKYbCa8d4Oh+Duz0d
+         IuU+lz6A5Gasr8oJ1NZInlII5/H8q4exLKfSXBg1A8r3Z23hqJtffW2lWJSVt1tU30XU
+         vjyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792115582; x=1792720382;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QzWh/mXf6G5Fr5INTJvXRytqPL/zBujlCdMkS18GyKQ=;
+        b=etbDpfALAsnvoGHrmk3MmkG/VV2/BHRhLpb96LDTZZGDMaxb8ovvMC0Vc554m940Ky
+         O1NFOf8/fQpI0dDDxf6C5uUXnnpuxzvv34pyZdwdGzNB5ygk0Dt49yooyCjqKkKgwJlL
+         H3YeTFQ/ypMRIDrmh9WNa3cHr4/B4eSW4ltI20Px4afaX8HFCTm0AgZbM1vLCr/7WRG/
+         EMfiit90OmliTLul9337o+SjTq62+5qtAN3812Pgu22ORBf8VRIDsayb50o7wTufJAxc
+         p+sexW4ElyZ7iXXojNripvqWXGaNUx0gbD0H8FmEA1ZfQg7BjfElkJrFxe5/Fw3x++7Y
+         RNCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ0MdjdCaDT7uz7Y5tpHwJ49/TqeJXFm6bcViKl+SWu+N/G07y/pVNfO3csmXVHfCByR9r6LyKvZ+Ss3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/HSfmYGAwS1q7izLLA9A271RVu9O5J6QRVbqMkLqJhhPTW6J2
+	dobI0OmIgFohntWBwQyrsQmWDr8V2zfe7wDfGxdBfsvVLRhjcv4Z37eAoFrVJr5S6/RpJzHBHM3
+	zmnPtF0EJn0iue23+0Gcca++10zJudog=
+X-Gm-Gg: AYBFou0W5jZzLEagU8559ZdfHyjXFMdTIEpf8cULeuden7bfOXOLyBA30E1UAnPpYf6
+	I+Cg1zCKmW3/CDSCycWt22AkTTch3XyosTfZwEIKs2394asRabUj68/tQcz0wE+UKMm3wCzijua
+	xJTKvqtEXTcZTrnpDxSVlMNQiaJ3Q8+rgfPVpVhgCtAMDsQFiA/qC9aqwJsXVknUuxD5CfGUQYu
+	GAX0J4GFHPUHBz4C6eAUyC8cUQgSJwZH+NWMCoVtD0HGGwnt0hpVLv17ITj20JShnBa3kdSor9J
+	2lvv2RMQw6C6H78WSSQ6xKwk5yY1iqKBFU5hPBBZmXMavAhwHc1RT4hmRly0SaPeaj/skiKQpex
+	Jqmvrqks197ejbqyNNsI7eN/7fcG1ZQp3WLNjM8ZY023Ai39g4k4jnlcnQHQkDCd9m/E=
+X-Received: by 2002:a17:902:f641:b0:2e9:5714:608e with SMTP id
+ d9443c01a7336-2e957148bb7mr48721225ad.49.1792115581670; Thu, 15 Oct 2026
+ 18:53:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015014324.5569-1-phucduc.bui@gmail.com> <ad722297-5ca5-42c5-a07e-59fa958387c1@sirena.org.uk>
+In-Reply-To: <ad722297-5ca5-42c5-a07e-59fa958387c1@sirena.org.uk>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Fri, 16 Oct 2026 08:52:48 +0700
+X-Gm-Features: AclHuK85_RuY5Eq4148HpcAJND7CX_R3cPSTmudMqJuFIrc_MXHUz5ZN3dyw0W4
+Message-ID: <CAABR9nGU0qW6iMadffrXw86a=ty=FVhw_Ypoa4rQtwOCbepVWg@mail.gmail.com>
+Subject: Re: [PATCH v2 00/25] ASoC: Fix constraint return value handling
+To: Mark Brown <broonie@kernel.org>
+Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, povik+lin@cutebit.org, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrei Simion <andrei.simion@microchip.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+	Nicolin Chen <nicoleotsuka@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>, 
+	wangdicheng <wangdicheng@kylinos.cn>, Chris Bainbridge <chris.bainbridge@gmail.com>, 
+	Linus Walleij <linusw@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
+	Neo Chang <YLCHANG2@nuvoton.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, u.kleine-koenig@baylibre.com, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
+	Md Shofiqul Islam <shofiqtest@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Zain Aboobacker <zainaboobacker33@gmail.com>, Sang-Heon Jeon <ekffu200098@gmail.com>, 
+	Bo Shen <voice.shen@atmel.com>, Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org, 
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	patches@opensource.cirrus.com, linuxppc-dev@lists.ozlabs.org, 
+	imx@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Pressing the keyboard backlight down key at level 0 drives the cached
-level negative, so the backlight then needs one extra up press per
-extra down press before it turns back on. brightness_hw_changed also
-reports out-of-range values: 4 after pressing up at the maximum level,
-and ENODATA or values like 4294967294 below 0.
+Hi Mark,
 
-kbd_led_set_by_kbd() stores the new level without clamping it, and
-kbd_led_update_all() skips do_kbd_led_set() for negative levels and
-notifies userspace with the unclamped value. The level is computed in
-enum led_brightness, which is unsigned, so the subtraction at level 0
-wraps around.
+> > Changes in v2:
+> >  - Add Reviewed-by tags from Vijendar Mukunda and Chancel Liu.
+> >  - Remove redundant integer constraints already applied by
+> >    snd_dmaengine_pcm_open().
+>
+> v1 was applied, please send incremental changes for the differences.
 
-Compute the level as int and clamp it in kbd_led_set_by_kbd(), which
-covers every hotkey path.
+Thank you for applying v1.
+I'll prepare and send the incremental changes soon.
 
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
-Signed-off-by: Alex Bogusta <alex@bogusta.com>
----
- drivers/platform/x86/asus-wmi.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 9fb3fe4b161c..599a73862903 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -1949,10 +1949,10 @@ static int kbd_led_set(struct led_classdev *led_cdev, enum led_brightness value)
- 	return 0;
- }
- 
--static void kbd_led_set_by_kbd(struct asus_wmi *asus, enum led_brightness value)
-+static void kbd_led_set_by_kbd(struct asus_wmi *asus, int value)
- {
- 	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
--		asus->kbd_led_wk = value;
-+		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
- 		asus->kbd_led_notify = true;
- 	}
- 	queue_work(asus->led_workqueue, &asus->kbd_led_work);
-@@ -4668,9 +4668,9 @@ static int asus_wmi_get_event_code(union acpi_object *obj)
- 
- static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
- {
--	enum led_brightness led_value;
- 	unsigned int key_value = 1;
- 	bool autorelease = 1;
-+	int led_value;
- 
- 	if (asus->driver->key_filter) {
- 		asus->driver->key_filter(asus->driver, &code, &key_value,
-
-base-commit: 98f039265e580291d5e76a11b2072541fbb1c393
--- 
-2.56.0
-
+Best regards,
+Phuc
