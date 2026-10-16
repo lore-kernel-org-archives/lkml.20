@@ -1,103 +1,126 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104F046A61A
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE6427144B;
+	Fri, 16 Oct 2026 10:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145765; cv=none; b=WvxeBuuYXev85KphE7xeVJAkNlILBH1ay/HBGOU5iwukWIT+qKw/CKGu8NozJZCTeZvzMa2U5bZPwNpvsKdRe5tmJbqZKc07HYuKMDX2NURrcheQd/FNJ5YkzdCmjlB1rw42Ba/BeiAAG099syG1LhrKAnb/X4mcvstdle1GMck=
+	t=1792145780; cv=none; b=VBWLSlWXLY81aToqpLQYmHCV6Gd/ARXasNCpT8/510g3SGyihv6q6IXxQ0XOa8bCZWE1CwsF+yfv1G+kdXR3SYJZVj/lpKi0ehsC05KixJ+gKCdtfHjwFE/CkuAWH288KEPMmYSiACo01BFE/sRZbtlvM94rT8WO4t1VOZgV3lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145765; c=relaxed/simple;
-	bh=G2XY5mbE08vqUsJiWbswLBTOR5Dwtz7xnSrdAI1wj3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jYWjWvFVxDgykrEpEIAkCi45FyD8nZrMZFoCAIvbpvCQr1fSCz7VrwFlgQToP3ZCmvTyis+Gu8JV46iqq3vzslV6by24l7tqyxOfT/nOdpXbVLfcjlkuS7o97ceUusQwf0JBZX5OTemWIdf+Jgku39L0Vs5JJrMPnQHxdFtNIO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bDd7ko8L; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792145780; c=relaxed/simple;
+	bh=t29Z3cm4CE7VYXiwvVuhzjFZdSMn0RKjNhJI5lWETBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uOxCBV9jWG3U3uKWBBAa1WANOPAfm074OC7w2b1Z3qNjaL4Mn2sZBTPxsnCoP1jWh0OQYvLmQvXvHwNizWhKhEBWPhBZhF3TcORAVuON8VzlUT6EYMAuD6XPna+6272MiS50AF4/HTzlLY4D7T9lw96KNyUd3vQqxtcdFKrtEZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glkp9Qhl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bDd7ko8L"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35ef6b49813so3901534eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145763; x=1792750563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EkQ2fSP0Uv8z7vsyAAy4/OpXnLsDXMhIw27wTwsr6Bc=;
-        b=bDd7ko8LszPmSRnu3zDnTEN8Pl/VrbOqtnDGuoANevPiRGYZJLWZ+jDqwmalQiViZQ
-         D02wl144dYWfeOAuk4dYoAFW3W2Mc0YM17rjfIs0q/qoeCA2D//chMATs6qi84JqqwVX
-         S7OP5qrR3jC6lPqfgRyyXlZ9GLK4/Ejh+cMirddRvD3nWN7ojIRLPKDb0QUHr+DaPbw4
-         TAsrVt8s6aNTCCvDzG93xZ81Uzq9rD8YmmCIqNmZ1QXURjQEgE+qgTAJsfZ/vPjZgs9O
-         eOAqr4HnfUrrS4J6eEcWdirFnzswUoiAHz45gjQY2l+ec4J2g5SLkgmPTABxwGsS3Znk
-         V+4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145763; x=1792750563;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EkQ2fSP0Uv8z7vsyAAy4/OpXnLsDXMhIw27wTwsr6Bc=;
-        b=NLDJncqECDwNmo1QLXg47Zh/FBttxL1ok30J0d66Br23mpoeyEWS34EpZN8UkEGN+4
-         FOMTY4oa4SMsUvy+VE/3YLNvQO3kTKpPqDcmDAC976ZK8nwtvpwrdUT3mj+fn33Z6FdK
-         r+MatDD0V1p58/qaAfRbrXgB+EOVaQQttZDIhH/2M6Uouj76BI43PPhm9acbAsrtPECW
-         VbxH/PkPzwm41S57o64+iQAfZXXwmScEF/zj6zddEoZPdB7IiPNgWPmFLCXwPedfrXsB
-         SOIdPDuHqAeNuEG56Dl04tKrwBeLjWceqvuJnYkohBa3vmI1gO8rfM7t4PKzwq9B0Hb/
-         AhuA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkgoTdPgu5+JkngYVneHxxHpvZ9+GogvdjAKbuOlJ8xOk6ZxAYa+AG94zsRBfwfA+B3oZtjGGbbk4Km6Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzx0hK+HVvISeQrDW9/q/SxRaJMecUwVs6USnY+4Gl+2TLbcyR
-	btQrKppCaPcQpMQ/+pXUhC7A/+frZutPj5Nnai0mQNKy3OD5Hf3NyZAN
-X-Gm-Gg: AYBFou1LSF6+VX7I8/MNyI7PCO7MjjWmF8jcNXM7Z8VbGj3SX5/pGzzMBdi2KtgwkF+
-	/AWiK+k6yTTvKoihmCkZZD6CnABMKlXInq0pYvD/WsSPca5XO7Hyyfj58oSui3T+D+0+/lyq6uQ
-	so7HPCfSjJ6dhQIjO8h2I2sEDOHZGQtymEGUCrSCTbnrimy4FzqNWWD+FYxizT7RR+9XjyUwZGH
-	kXldUVH1Xu8HRzRQMwntibX+vRsqAWt7rOigpV5AfMlxXjb18HSR4f5XSUC35AbdENaaV+OINFx
-	R/31TEOJhR6FpGyfPV8APFSHzJZBU/X/OvYfuh+LiFmEhnOWmjs/J36aUAXzvms6wcTovIJgWP/
-	yLnTuQh6GZOrnkSSJYUs36JTWraTvCetKiyac6s6TXO63xZWM+8IfD/CLgNY3w1Ic3d3BxaCec4
-	DXGZ/E3tAv5UNTq7GqEkYGrtX5REG5KRDOpDEHeK/YF/XH0hFyE0Uep/N4DfEQu0erg/xnZRfUt
-	Lz7aFof/TD7objb1bgrYYBmRApeq5wCn5vwY0OuDorVuwLf9mvGMl4nycmwLkcLfYlpeJUA
-X-Received: by 2002:a05:693c:60d4:b0:359:2f0b:aa89 with SMTP id 5a478bee46e88-3592f0bc083mr26553110eec.10.1792145761800;
-        Fri, 16 Oct 2026 03:16:01 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:301c:f8cd:1467:1666:71b7:b993])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm9389619eec.28.2026.10.16.03.15.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 03:16:01 -0700 (PDT)
-From: Aryan Sinha <sinha.aryan03@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Oded Gabbay <ogabbay@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Aryan Sinha <sinha.aryan03@gmail.com>
-Subject: [PATCH] accel: ethosu: Fix kernel-doc for ethosu_gem_cmdstream_create()
-Date: Fri, 16 Oct 2026 15:45:49 +0530
-Message-ID: <20261016101554.14231-1-sinha.aryan03@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glkp9Qhl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250C41F000C4;
+	Fri, 16 Oct 2026 10:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145779;
+	bh=pzyhVOVUnINL+9JvPO4azhX2+slP+CF67hs+dpaZ1Xs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=glkp9Qhlt9cK3pfQEx1kagPr+jMOJfb/TNnbOL5c73PROlBO144OWeh+vlIV2Gz1W
+	 MiMIgsl2y19ni0xGWUjOMZN1WhqddMge9m7LrPC9/TQkmgR7TBZPnHX3YuOMZrO+zY
+	 sb9ddrxpZBBxTDCH98/aYgKPbgFopGjnZUAKsTvRKbJt8zD8i8B0oVZtQtpm30GLBB
+	 J2Hj8piKDJWTxgCjZK2mwDx68+xsYdon8NbcJBxf5LEpBJpUsSYmXHJ6nOeZ6QbYzw
+	 old2ZGiuO2pDqIYjMT5n2PnmrOrFTHIbyaPeZ4OveINEGaMl/jzASADnJLI4jKYZ23
+	 1mTyP4uFYDXCw==
+From: Christian Brauner <brauner@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL 04/19 for v7.4] vfs bfs
+Date: Fri, 16 Oct 2026 12:16:04 +0200
+Message-ID: <20261016-vfs-7.4-rc1.bfs-c543fd325191@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016-vfs-v74-41eaf6c4712c@brauner>
+References: <20261016-vfs-v74-41eaf6c4712c@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2871; i=brauner@kernel.org; h=from:subject:message-id; bh=t29Z3cm4CE7VYXiwvVuhzjFZdSMn0RKjNhJI5lWETBE=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRd/JleHeu8++6frrIzfu/US/wZi5Q838rMffHH3/Pd0 mMqITvSOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACayIoDhf7DP34O64kd5Jlv0 X+HO3ZZhn7Onfd+Ru1J/lDyOfrLLO8XIMLtpunjsP6ObK65I+NjzuEjaWPy0qCvc+qoirFX+IZs fKwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-The comment documents an exclusive_vm argument the function never had, and
-leaves out data. Swap the two so the list matches the signature.
+Hey Linus,
 
-Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
----
- drivers/accel/ethosu/ethosu_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+/* Summary */
 
-diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 9afe2549e..2b89f70f4 100644
---- a/drivers/accel/ethosu/ethosu_gem.c
-+++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -712,8 +712,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
-  * ethosu_gem_cmdstream_create() - Create a GEM object and attach it to a handle.
-  * @file: DRM file.
-  * @ddev: DRM device.
-- * @exclusive_vm: Exclusive VM. Not NULL if the GEM object can't be shared.
-  * @size: Size of the GEM object to allocate.
-+ * @data: User pointer to the command stream contents.
-  * @flags: Combination of drm_ethosu_bo_flags flags.
-  * @handle: Pointer holding the handle pointing to the new GEM object.
-  *
--- 
-2.46.0
+This removes bfs, the filesystem UnixWare uses for its boot partition.
+It only supports contiguous files and has no subdirectories. The only
+data on such a partition are kernels and bootloader settings so there
+is no reason to access it from Linux anymore. The uapi header stays.
 
+/* Testing */
+
+No build failures or warnings were observed.
+
+/* Conflicts */
+
+Merge conflicts with mainline
+=============================
+
+No known conflicts.
+
+Merge conflicts with other trees
+================================
+
+No known conflicts.
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git@gitolite.kernel.org:pub/scm/linux/kernel/git/vfs/vfs tags/vfs-7.4-rc1.bfs
+
+for you to fetch changes up to e36781a626b2708d42a188f6274f1c7897251f1f:
+
+  bfs: remove the filesystem (2026-09-04 12:43:07 +0200)
+
+----------------------------------------------------------------
+vfs-7.4-rc1.bfs
+
+Please consider pulling these changes from the signed vfs-7.4-rc1.bfs tag.
+
+Thanks!
+Christian
+
+----------------------------------------------------------------
+Ethan Nelson-Moore (1):
+      bfs: remove the filesystem
+
+ CREDITS                                            |   2 +-
+ Documentation/filesystems/befs.rst                 |   4 +-
+ Documentation/filesystems/bfs.rst                  |  60 ---
+ Documentation/filesystems/index.rst                |   1 -
+ MAINTAINERS                                        |   7 -
+ arch/mips/configs/malta_defconfig                  |   1 -
+ arch/mips/configs/malta_kvm_defconfig              |   1 -
+ arch/mips/configs/maltaup_xpa_defconfig            |   1 -
+ arch/mips/configs/rm200_defconfig                  |   1 -
+ arch/powerpc/configs/fsl-emb-nonhw.config          |   1 -
+ arch/powerpc/configs/ppc6xx_defconfig              |   1 -
+ fs/Kconfig                                         |   1 -
+ fs/Makefile                                        |   1 -
+ fs/bfs/Kconfig                                     |  21 -
+ fs/bfs/Makefile                                    |   8 -
+ fs/bfs/bfs.h                                       |  69 ---
+ fs/bfs/dir.c                                       | 356 --------------
+ fs/bfs/file.c                                      | 203 --------
+ fs/bfs/inode.c                                     | 538 ---------------------
+ .../filesystems/statmount/statmount_test.c         |   2 +-
+ 20 files changed, 4 insertions(+), 1275 deletions(-)
+ delete mode 100644 Documentation/filesystems/bfs.rst
+ delete mode 100644 fs/bfs/Kconfig
+ delete mode 100644 fs/bfs/Makefile
+ delete mode 100644 fs/bfs/bfs.h
+ delete mode 100644 fs/bfs/dir.c
+ delete mode 100644 fs/bfs/file.c
+ delete mode 100644 fs/bfs/inode.c
