@@ -1,202 +1,232 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 768F1471D1E
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F32943E49B
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144998; cv=none; b=nDqYxHCovLIZBAeDPdLNV6O2NsogiXE1lYXY+BYwAnIsc4eHDREB+mfSE7M+opguqnPWvBx25L8C1AfpMXW0kQTmMFZ58pnWwJzWHsVCgsuuH0Y4wOaGVpUbQG7YrDLp9LIqiW8LgH+dXFMdHo9Pu1VDhQplwqCmNm/0E+mmsjw=
+	t=1792145067; cv=none; b=TqHC6jrssZnxrbOeWx2GxbN03uJcNKYndRdRoqo2nINctjPEg4LSCULRO8BIQy4b8uXas9UysTv9wsIV7nb9z/XJVOjOiWdcA3N9EZMoUJMisLM+ewxgXzmwPek0hL4Yw/OHI5Id49ahmTAj7+XOGcOSLvKhRgt9fW7rmZwL9+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144998; c=relaxed/simple;
-	bh=P7x50y2utm76U0n+hMlHkQ5LOab9FHOLiRJBxiQp1MY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KSrrcuTGNTHVl6su7I6FCeqEBf2fdKIU0M2PWrx2bRYsaQCjkfGu39HbyW6RidCR/zsgnNqfMJo2NN+zymNjia4/aohI1wXEGAdE14H6PgUIvDipQwV1XDU960Lj004tCPfneYK44rfSAwxiGWarYggUbLt3j2jUaS3ca7zKrWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oALA3otZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QFlnW8yD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792145067; c=relaxed/simple;
+	bh=6v7SbVBPbHvuWoMOBe6FaMRmIs3WIREG30fp+deFYpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dueR8E8V/zLWABAeXjiwZ7zbWpiDOba9cnO0DqRB97xaSTVAmvhiW2imlyE2VfFcSaJNZdaXK7XJ9VOeFxlpc7Fwhlw3FnWIyoeS4YdrOnEQExAtpL0/VFe9KlzNxXDZDqC4yaMetRI1OJcPRLW1T2P9GGJKplHNrbOv7OeglBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Srdof7GX; arc=none smtp.client-ip=74.125.228.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oALA3otZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QFlnW8yD"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8lWkc2885550
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:03:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jFbHLAE9BiJ1N0vyGL3ie1gpBbVjTxSTc+KSkAOv1XM=; b=oALA3otZmDAlZdx4
-	8iiKqi2IGmCVYLfr8WUIKUQhfvfm/S62TJlLEvGuMQY56ktIXK3X59POI3RyHroN
-	6mha4cdVlbf2tIWM1FoxKSPcXMuuiPDMRDmUgz5FUQRjqJ5YKxN47WQ8ERJD9Cl8
-	QMAlyfiKlvlDC2JvNbi35AXI8GwIPnyHIf65bDoVpRAFl+/dr5TlPdPApiqJlCep
-	iEbJ1+GY7T9SuZpV+giKV7fkJ5V9tb+g1uKg9dx9cw4EPdcEqaIQDHPNz7aVChKh
-	oFuB7M/Fa55EKDudMwhL1BBYQVFPsD8yU60K71kguD3A+jZOGWVjQm4j5Ik/mMBm
-	5wuthw==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hba261sad-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:03:14 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-17188d538c7so11455368c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:03:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Srdof7GX"
+Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a406d7afa8so1411679a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 03:04:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792144994; x=1792749794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jFbHLAE9BiJ1N0vyGL3ie1gpBbVjTxSTc+KSkAOv1XM=;
-        b=QFlnW8yDIfe/OGuRWxk9cYI2aN7Z+hOwizTRz2DQohOPF9L0122n1gwzZIeqFThfUE
-         JyHFXj16dTi5xxCDY4DDwqbggkNd8M2Q5o2XK97V+Dm8G2nO8pxkCBhUtGschA6XYaoI
-         l7yeJx86fCiBnVCpwq9tw8YHFSylFO/B1rKxvtWQJ4z3G70lBTPCQNQL1hk0n3KCfdac
-         p5mcIbzTGLkhsDzB87LP5jPkV4nLqXjPPT6EZjUIrGJM1795mFhmalc9qQHQ51an0BEY
-         dI91Ut/HkisjCMPJlOREmjnw67y18YdF2m3wwtG82IKoUdWo5JLll82x+HOrfX/4Wm0W
-         23Ww==
+        d=gmail.com; s=20251104; t=1792145057; x=1792749857; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6Du4B17GN+QveKazUySHoKkQedCMgGeIDGXNO9kfFt8=;
+        b=Srdof7GXuGtm9Dihuj0/avuufz9dZYOpcEopU9FVIduTI9u4EaP9AxDS8d3bNZgmDV
+         1v/p7sIyzC3htjozlIDoF5rn47ghPBhRcyAsYLgGmyRMQ8KfhJygBABfVqB9U48PwEcc
+         ljCx8Zz8YqhagGhsbeMxA2eutTHmIQOSiWcRpy7aaz3Kwn5ii2U/JwIAjeAI/UP4G5OL
+         GohOP/nVn/8QaiKn3cDwJgZtgHY+uUgqv9RCqH+t45yDy72FAMelyyDkA2TXX2VEgo2M
+         Vn8514RlxT8/cleH9fvaF/JALMtDnrCU3qHrXJtrYgs6XIkX15qaZNCaJoNF7YpOxFyR
+         96ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792144994; x=1792749794;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jFbHLAE9BiJ1N0vyGL3ie1gpBbVjTxSTc+KSkAOv1XM=;
-        b=pNL0V8Rp0BpNNvPNGEI0XIIC7kanMzKRt1LbVjO5SiovtWvNSlETobYkRGs+50TdqC
-         oyiNunlJ/NR8hkQNtJgtv8tH/GW9WIwtnJcW8GmOAysEj4SVXA941F5bauv1qmq5P1XY
-         P7C8zcHYEyTvrdkpVuXSXaEJzT9VJ4QEgiXA/EGAHKG5KeH2c4a0OC0lMTZ1cVPSs/KH
-         HgCuIn+yIRzd+S8liFMRH2HN23TLlFL9/iPVBRXov1je9guaQTYhe/iE9ce5jBrP64d0
-         WPK6iskbLIYLDeMV+lCmmzG/FBvOSCH25u2IFL5cVpe96PxXgY8N0wNUSnfP49/PFgt0
-         GcEw==
-X-Forwarded-Encrypted: i=1; AKwUvByTB65hWziiIOjp4q/hMYd36/E/+OGkTb+JbcxFWbTAHJt2MS0bjBvhpCiLFsU6RNbcE7ysV2M620HJx9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvQFN0LELDqF+jaUkk4j2JJN5VybqnZQyTmALF9/7ZLp8uHGf6
-	sQUL6uREG+V1YCbN3ihd0Enkqj72GwMRaHmFsrPdH3PMX2mSE0ipyMifrvDXe2OjB42QeVtzUIq
-	h5SwNWa09Lz+Bam8pn+f1z7fpnjPBPoIGpVEm9CIs77Ia9+cKrT47GrHT1GPPBXnf6fo=
-X-Gm-Gg: AYBFou29V2Fcwb2lmvSjbDPrf6sJ6u2TVQ+TAAlj3NsjjOdcHcb5yMbfaWKsDYxt1cP
-	DZI3NIgSrO2qBS06J/eWNd2cOP0MW2sFnnOik+hMo9LpKE/6stwBF6A2FzMBV+xzEoBsW8sc3Ok
-	hts+xxFAlwDbGOs15LavfU/BtemVsdEgwTOvNwFHQlkKDdoVCbLYYtO8jX2cI9UQNwX/rF2lXn4
-	xFrSl8neSWKxp6f+3NrbXSsxU9heqXzPPnomoDxYkkUqSv9FfaCrA9Jqm47IQ3JI/IR453Ku5ui
-	6kdDGYDXpLD/VHoWJQouKyLCVy2CTID3Dti3FTGdM20FB1HnxKxpGpd5f8ZTY66/01VXuEGIGJa
-	akviqnca9rhExafVTG0Z46WYBxq8e
-X-Received: by 2002:a05:701b:451c:20b0:14a:5d07:9b with SMTP id a92af1059eb24-16a5ea5d851mr27453572c88.28.1792144993585;
-        Fri, 16 Oct 2026 03:03:13 -0700 (PDT)
-X-Received: by 2002:a05:701b:451c:20b0:14a:5d07:9b with SMTP id a92af1059eb24-16a5ea5d851mr27453539c88.28.1792144992946;
-        Fri, 16 Oct 2026 03:03:12 -0700 (PDT)
-Received: from [10.219.56.188] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm6054155c88.6.2026.10.16.03.03.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 03:03:12 -0700 (PDT)
-Message-ID: <9043efbb-7883-43cd-a09e-28fc5304457b@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 15:33:06 +0530
+        d=1e100.net; s=20260707; t=1792145057; x=1792749857;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Du4B17GN+QveKazUySHoKkQedCMgGeIDGXNO9kfFt8=;
+        b=N5lu36RGjFrVt+c6tg75B4LBpubM1fN/6eZn5460DOMMqeUJ1zabsYZicHuR6XJOfN
+         aIU+Wtm4ChFWQlDOdDYxWqRxp0puSx4EKoYvTiz5w+wXwLw4wu64A8+1oCbBYY/AMF99
+         oMpiZqaRu+sRGVup7uxVqeLOYxiMlrdXQcG+k6k/jtU+QhSSxX/zeXp+dtMf7GhJH2/p
+         QUns7th0XyKXs2DsTdCKnQjvSZpgDXfoVJoWs2BwFn6vElV+XMvsoVwkB8kkiRlWWNNA
+         AUv6DECW/Ka1aO++7APRlDphU2GsCnPiBLi/JMafBkIU9EOyShliqXibgQE5YZuArgxv
+         fCPw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4iIKZVEaQ9bdC2WPDcGm8/najE7pkyioaV9kJF4BQMDSoOu8VHoE0uhyXXm0SwUnC3cfy/Is9YVkhj40=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKxu0t2+kBHGOGOxk74OrnkpjesmQ16fVixQL+vaHllSjMNHiO
+	1uPnmc7aKi+G/QvoxzS4KBFG/cfAwXptUiBgCvVVFb33UQcXrzVlKyhs
+X-Gm-Gg: AYBFou2dqbcWG80EzbrKNSkCovKM5fsHDZCx5qHZjGyGWMPLA5L97dgz2OkZpYEmlm+
+	y/BPkxpkFbknh2kaZKx0UjWLqrqm8RvcCf2/5L0kG5f38mfTQGwbcqgOi99hN9M1QTlwmkVY+Mw
+	c5B5ZTgC63K9e2HkLbLVmxqhG5qCi5+26++ZYoevqFrRgEzrWeMgEvUIuN90dNg4yYxG2j1QL2A
+	KDBg3JHrAfcbr5xETfB8Keu0W4lfqk2PHR+6ainxOBaa4J0C7gyExOU3qQ2UykS5P31uWlbilFe
+	8APX+blT+OhxXw/VODqtee7r1YJ2X3dwX7zajoQC2TNx4IiAT4x3GEiYfT2eT4eEqzuCncEYD7F
+	EW7QmN300BCs1GfgNpWNT1Fiz1BOnIjjh4rsL/OphdUWGI8Fkm3Qi0lJQE5dbo6GMdjoji79u1f
+	THY9Yt8SuWUOprQBtkurh75iWW1tbaHOcNd0Lgh23jE2OwUclqPYAYrKhBWcCXNLylC2+4m4tsO
+	fT8QvKtRH6kOZo6uUPsnbLO24NaaV56cRh3YWBYLezY/0ZX8/96mQ4AE8W28tDI459ASU2gifa2
+	Xt0fJ53P877TkCBVZ5DMptl4iA==
+X-Received: by 2002:a17:907:3d0f:b0:c2e:40a0:7978 with SMTP id a640c23a62f3a-c31a9ff4c22mr1864689766b.9.1792145057089;
+        Fri, 16 Oct 2026 03:04:17 -0700 (PDT)
+Received: from thi-server.fritz.box (dslb-092-076-089-226.092.076.pools.vodafone-ip.de. [92.76.89.226])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bcae3sm57098966b.57.2026.10.16.03.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 03:04:16 -0700 (PDT)
+Date: Fri, 16 Oct 2026 12:04:14 +0200
+From: Thilo Zirnstein <thi.zirnstein@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] i2c: i2c-xiic: fix clearing of bnb irq
+Message-ID: <atH2njvkxHjq_75E@thi-server.fritz.box>
+References: <20261015081127.1566244-1-thi.zirnstein@gmail.com>
+ <20261015081127.1566244-2-thi.zirnstein@gmail.com>
+ <atFf1ZbNi29Lbdbb@zenone.zhora.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: Remove FastRPC compute CB9 entries
-To: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>,
-        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
-        linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
-        dri-devel@lists.freedesktop.org, arnd@arndb.de
-References: <20261016052042.3755352-1-abhinav.parihar@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20261016052042.3755352-1-abhinav.parihar@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=bsHZl0ai c=1 sm=1 tr=0 ts=6ad1f662 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=vC5WxkcjHSV_sht6c60A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzOSBTYWx0ZWRfX5gN1CVoicPT7
- JpTgFemueTYwjkyChHAskn1J2bgKPn8bfSM7vwLE1hjo2fMg032/I02L985wR7pS+uHJDYKsRvq
- rkZZu0bB5CWOl81wtWAVzl8nGqfy+CGrceslQCseGcLKlkjYBYtcfPFmZ3VkGgZF9gsjZ3HxEK0
- MzK01H/Ol/o8bV6rJj0EngpyyXgJo5xGJ/esv0fcJWs2JNTFyOehq1/A90o17CKCOleEpKna+wH
- j4RcqfbFmtm3G/RB3HEGm+8NjMiw3qWgTon1Eej2Mir5dchAR4JT7NOud+84pjPsZIt1+dP7Kxl
- JwV+oTUZE8J+k7+mGBaydZMuQmE50Ujsk9NOfBOFSIT7Z2VJ6ApY4E5rygoooflAZk4mak0FgU3
- VHSUegTKG+6e9Jjn3VcPuYq5n2ph0Je+IWcuzKPlLBt2u1cIuyMIhUqTaX3aute4OrZk76jK567
- S/IJ2vVRu8MnSuvHSzA==
-X-Proofpoint-ORIG-GUID: oq1AgD2GaL1c_mrP-QjtlVHuchF-rXsB
-X-Proofpoint-GUID: oq1AgD2GaL1c_mrP-QjtlVHuchF-rXsB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzOSBTYWx0ZWRfX+cq7WXiVa7LI
- 34jhVRwy9I0beiov26kGrF35mOuFrzbtgCZj84gYpQ8hwHkOfstGjZ7i3wmnJZ1Nvj5gNYxEKbm
- TkTvG5/bUSY2opdwBth4oCBvQGIh1TY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- suspectscore=0 phishscore=0 spamscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610160039
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atFf1ZbNi29Lbdbb@zenone.zhora.eu>
 
-On 16-10-2026 10:50, Abhinav Parihar wrote:
-> Context bank 9 is reserved for secure use cases and must not be exposed
-> as a FastRPC compute context bank for non-secure offloading.
->  
-> Remove the compute-cb@9 nodes from the Lemans and Monaco device trees to
-> prevent clients from selecting a secure context bank for normal FastRPC
-> workloads.
+Hi Andi, 
+
+Thanks for your review and feedback.
+
+On Fri, Oct 16, 2026 at 01:51:35AM +0200, Andi Shyti wrote:
+> Hi Thilo,
 > 
-> Secure use case support is not currently implemented upstream.
+> On Thu, Oct 15, 2026 at 10:11:27AM +0200, Thilo Zirnstein wrote:
+> > Add a function for clearing the bnb bit,
+> > It waits for all preconditions before clearing the bnb bit or times out.
+> > 
+> > Tested on Zynqmp dev board with some custom logic.
+> > Tested-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
+> > 
 > 
-can you add Fixes: tag as well?> Signed-off-by: Abhinav Parihar
-<abhinav.parihar@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/lemans.dtsi | 16 ----------------
->  arch/arm64/boot/dts/qcom/monaco.dtsi |  7 -------
-separate the patch both different platforms, also please include other
-applicable platforms in your next spin>  2 files changed, 23 deletions(-)
+> Please, don't leave blank lines between tags. Moreover in this
+> case I don't need your Tested-by, I believe you tested your patch
+> before sending.
+
+Ack
+
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> index 695eae1b7256..5481dfb73454 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -7861,14 +7861,6 @@ compute-cb@8 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@9 {
-> -						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <9>;
-> -						iommus = <&apps_smmu 0x2149 0x04a0>,
-> -							 <&apps_smmu 0x2189 0x0400>;
-> -						dma-coherent;
-> -					};
-> -
->  					compute-cb@11 {
->  						compatible = "qcom,fastrpc-compute-cb";
->  						reg = <11>;
-> @@ -8000,14 +7992,6 @@ compute-cb@8 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@9 {
-> -						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <9>;
-> -						iommus = <&apps_smmu 0x2949 0x04a0>,
-> -							 <&apps_smmu 0x2989 0x0400>;
-> -						dma-coherent;
-> -					};
-> -
->  					compute-cb@10 {
->  						compatible = "qcom,fastrpc-compute-cb";
->  						reg = <10>;
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> index cfe39f923224..e73a735f2f13 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -7822,13 +7822,6 @@ compute-cb@8 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@9 {
-> -						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <9>;
-> -						iommus = <&apps_smmu 0x19c9 0x0400>;
-> -						dma-coherent;
-> -					};
-> -
->  					compute-cb@11 {
->  						compatible = "qcom,fastrpc-compute-cb";
->  						reg = <0xb>;
+> > Signed-off-by: Thilo Zirnstein <thi.zirnstein@gmail.com>
+> 
+> I'd need here an ack from Michal.
+
+Ok, but this is nothing i can steer somehow - right ? 
+
+> 
+> > ---
+> >  drivers/i2c/busses/i2c-xiic.c | 42 +++++++++++++++++++++++++++--------
+> >  1 file changed, 33 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
+> > index 5e397a7e63f6..da9cedb86f94 100644
+> > --- a/drivers/i2c/busses/i2c-xiic.c
+> > +++ b/drivers/i2c/busses/i2c-xiic.c
+> > @@ -230,7 +230,9 @@ static const struct timing_regs timing_reg_values[] = {
+> >  
+> >  #define XIIC_RESET_MASK             0xAUL
+> >  
+> > -#define XIIC_PM_TIMEOUT		1000	/* ms */
+> > +#define XIIC_PM_TIMEOUT 1000 /* ms */
+> 
+> Why this change?
+
+Unintentionally, :/ 
+
+> 
+> > +/* timeout waiting for bus busy */
+> > +#define XIIC_BB_TIMEOUT		(msecs_to_jiffies(1))
+> 
+> I don't see much benefit from this define as it's used only once.
+> It just makes it more difficult to read.
+
+I think it is a question of personal preference,  
+I prefer to read a meaningfull name instead of a "magical" number. 
+The driver code has some other defines which are just used one time
+( XIIC_PM_TIMEOUT, XIIC_XFER_TIMEOUT_US ), so it fits to the code base too. 
+
+If you not insist, i keep it.
+
+> 
+> >  /* timeout waiting for the controller to respond */
+> >  #define XIIC_I2C_TIMEOUT	(msecs_to_jiffies(1000))
+> >  /* timeout waiting for the controller finish transfers */
+> > @@ -392,6 +394,30 @@ static int xiic_wait_tx_empty(struct xiic_i2c *i2c)
+> >  	return 0;
+> >  }
+> >  
+> > +static int xiic_clear_en_bnb(struct xiic_i2c *i2c)
+> 
+> Why do you need to return an error value if you ignore it
+> everywhere?
+> 
+> > +{
+> > +	u8 sr = 0, isr = 0;
+> > +	unsigned long timeout;
+> > +
+> > +	timeout = jiffies + XIIC_BB_TIMEOUT;
+> > +	for (isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET);
+> > +		(isr & XIIC_INTR_BNB_MASK);
+> > +		isr = xiic_getreg8(i2c, XIIC_IISR_OFFSET)) {
+> 
+> this for loop is quite ugly. I believe that with a do...while()
+> you can write a clearer code.
+
+Ack, I can get rid of this whole loop if using 
+read_poll_timeout_atomic()
+A readback after clearing the bit is not needed.
+
+> 
+> > +
+> > +		sr = xiic_getreg8(i2c, XIIC_SR_REG_OFFSET);
+> > +		if (sr & XIIC_SR_BUS_BUSY_MASK)
+> > +			xiic_setreg8(i2c, XIIC_IISR_OFFSET, XIIC_INTR_BNB_MASK);
+> > +
+> > +		if (time_after(jiffies, timeout)) {
+> 
+> If this is called in a context where interrupts are disabled,
+> jiffies might not be incremented and you end up looping forever.
+> How about using read_poll_timeout_atomic() instead?
+
+Ack, good catch, i will fix that.
+
+> 
+> > +			dev_err(i2c->dev, "Failed to clear bnb\n");
+> > +			return -ETIMEDOUT;
+> > +		}
+> > +	}
+> > +
+> > +	xiic_irq_en(i2c, XIIC_INTR_BNB_MASK);
+> > +	return 0;
+> > +}
+> > +
+> >  /**
+> >   * xiic_setclk - Sets the configured clock rate
+> >   * @i2c: Pointer to the xiic device structure
+> 
+> ...
+> 
+> > @@ -1225,8 +1248,9 @@ static void xiic_start_send(struct xiic_i2c *i2c)
+> >  
+> >  		/* Clear any pending Tx empty, Tx Error and then enable them */
+> >  		xiic_irq_clr_en(i2c, XIIC_INTR_TX_EMPTY_MASK |
+> > -				XIIC_INTR_TX_ERROR_MASK |
+> > -				XIIC_INTR_BNB_MASK);
+> > +						XIIC_INTR_TX_ERROR_MASK);
+> > +
+> 
+> this needs to be aligned properly.
+
+Ack
+
+> 
+> Andi
+> 
+> > +		xiic_clear_en_bnb(i2c);
+> >  	}
+> >  
+> >  	i2c->prev_msg_tx = true;
+> > -- 
+> > 2.43.0
+> >
+
+Kind regards,
+
+Thilo
 
