@@ -1,91 +1,89 @@
-Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9546C3B95F8
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 06:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBB13BB10E;
+	Fri, 16 Oct 2026 06:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792133225; cv=none; b=V1rG7wd19tLlT1I4y+aqkQsFLXTilEzLSq5aejYOK4DjX1WWQqHP3JT9yPXOcYhlHZQxk0RFK6pe2m0ay31hr0Yl/SgPtln++QcbZEhvClzOMUwz/q71Fi6Jjpm09sKa2RLBxovBa8t+QNTzlq78b7L6wXJTqQlDB0bUZOYWGEw=
+	t=1792133244; cv=none; b=txAY+X1Lj2EinPYdDYiqc1hhDhW9ry8SGL7YY31b20DzTX03BypsQBVSne27RVRLAWdnazUbzjMtJb5Qno3lNXYD6CCyD80A5UsxXlDeuQqmjduM4QJqQLjdeovykJIuoXqrNPI8OxW0WSmGEQKeX7CMar5ygUYRED21VIsiW5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792133225; c=relaxed/simple;
-	bh=Fq2kJAt2D35K+AljUwJE/9dkfpEho8mR0jX5LFexqKI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HnS0iQJ5YFis6yl8HezNO7ygbQ7ii+PLYmC7meNfPXW+J8SHCxNgqygbEeNwjxNxg4EbdNdngclkNBmcXdZjQevzdKelr+RSs3eu8UCrnzZGO6ERWo7JS3q/1KPbSr2cKwThF97NF6z3K6zb6bCma/S7rxzN4DOPI4vw7Dqmcss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wikj2tQE; arc=none smtp.client-ip=95.215.58.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792133244; c=relaxed/simple;
+	bh=lUBOPOqYVqA2KUc9t/yGZ1UCIud8rvDfmuZTz6cXgj0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SLLbsNkrtnZA+QdpxailV0emuJ77FMSMC09OPMMaqw9d+awwFPMSldwSODhqWMtu/vbYynDlI98L6wSa3HiwRrQvb7yUV8wk8cdEvS09uIIL1wOIFAURTtRw8JiAmQiTMB5aq82YSLBqAKjuIJ/8eRd4LI5eL3Sy4S+htG2qZJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgSha+D2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wikj2tQE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Fq2kJAt2D35K+AljUwJE/9dkfpEho8mR0jX5LFexqKI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792133206; v=1; x=1792738006;
- b=wikj2tQE6QNa7GbUEnBAgm5aZYrEylAwrGbFbYpnVFKIo7T9CNT7Zbcn8XMqXtarhfwi1OhJ
- mr5AU+rCPz7dFMwpzH3QSJoJr4bcHfeI2yP+wkf8Ux4q1qo919QrtKoqjATcvfVA5Z5skVFPvdX
- aEeAoynq3+dKQYLsyzJtPaPw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6cc5102f79aecafd;
-	Fri, 16 Oct 2026 06:46:46 +0000
-X-Mizu-Trace-ID: 6cc5102f79aecafd
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so5664e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 23:46:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwBdmqZ0HYc7Xr/vph4rPG51s+9P0qBoqD5W4mvfNihYzKtxdZ77eju9NQsQYFzKRs9deDg8lCrHUDjfIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLj96ESh2wzvAzVGM5kDP9kl0ijNggFA5KfP5yuRay38bP3TVr
-	FFtEeVesu5uXY9PIDpmQ9UeeTcjCPD3QIKjmNAhybcbfEpEBcVM3obsXCKhPoGKyaW1/C2Seuib
-	LTjeBtodi4h5teb5kvTf9M4iMApTNCHVHrliTH2ok
-X-Received: by 2002:a05:6512:6816:b0:5bc:ed54:d5b1 with SMTP id
- 2adb3069b0e04-5be403b66a5mr223821e87.14.1792133202280; Thu, 15 Oct 2026
- 23:46:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgSha+D2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD011F000C4;
+	Fri, 16 Oct 2026 06:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792133235;
+	bh=1ISyRmIUziV4tIbthI/qB5MryCB1FdZ8qcOmMUPgfcU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZgSha+D2nx3Q9XmvmY/CRaFx0LnRNkdnE/4t3ItrDULGtAk4cwSbpnSg4LLDO8sbK
+	 FvJPawmVo+DJpJHndZPdPMwJKEY2es6q3UYDhRkSZxsB2c3QrDZfFeb/vQRmCD09/c
+	 ITsLNFsCB9R+imBV418vfuVTl/4Ngut/H4M/kYDoPMncS4x8faLH8aGCPFvQ+R46BJ
+	 8QbFfIn0rcU750n4OuwWJ8Azw88QXiFptSm8HBhQp+0QPXV+pBpBQTj7OE3SQUo3bo
+	 paUiJg1Z4HHzKNdfrIcpC1L1F0xsYuYlhdPUNbWdbJ4FKXO32P9U08ImT9vGq4Jqmr
+	 NSHt/ZA+VOtTg==
+Date: Fri, 16 Oct 2026 07:47:10 +0100
+From: Lee Jones <lee@kernel.org>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH v4 4/9] mfd: cgbc: Use PLATFORM_DEVID_AUTO for child
+ device registration
+Message-ID: <20261016064710.GA2093461@google.com>
+References: <20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com>
+ <20261002-cgbc-i2c-storage-devices-support-v4-4-eb42e0f1df59@bootlin.com>
+ <20261015152741.GB2048969@google.com>
+ <a873afcf-ba8b-479d-bb0d-d022895d18d4@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015153041.3770032-1-fuad.tabba@linux.dev> <86h5im29xv.wl-maz@kernel.org>
-In-Reply-To: <86h5im29xv.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 16 Oct 2026 07:46:05 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwZCkfj8V4x-VJhB09x4V=R84Zky8fU=ffyWAJNrJYyCw@mail.gmail.com>
-X-Gm-Features: AclHuK-Mh0opfYvOg-0ZXaKxljR9jjbWCLN44NxLHz-5KGKDM7ZO10cIFATr3tM
-Message-ID: <CA+EHjTwZCkfj8V4x-VJhB09x4V=R84Zky8fU=ffyWAJNrJYyCw@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: Only enable S1PIE and S1POE for a guest with
- TCR2 and ATS1A
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a873afcf-ba8b-479d-bb0d-d022895d18d4@bootlin.com>
 
-Hi Marc,
+On Thu, 15 Oct 2026, Thomas Richard wrote:
 
-On Thu, 15 Oct 2026 17:41:16 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-[...]
-> > +static bool feat_s1poe(struct kvm *kvm)
-> > +{
-> > +        return (kvm_has_feat(kvm, FEAT_S1POE) &&
-> > +                kvm_has_feat(kvm, FEAT_TCR2) &&
-> > +                kvm_has_feat(kvm, FEAT_ATS1A));
->
-> Where's what the relevant bits of the JSON say:
->
-> (FEAT_S1POE ==> FEAT_TCR2)
-> (FEAT_S1POE ==> FEAT_ATS1A)
-> (FEAT_S1POE ==> FEAT_HPDS)
->
-> So this is missing an additional check on FEAT_HPDS, which is advertised
-> as:
->
-> (FEAT_AA64EL1 ==> (FEAT_HPDS <=> (UInt(ID_AA64MMFR1_EL1.HPDS) >= 1)))
+> On 10/15/26 5:27 PM, Lee Jones wrote:
+> > On Fri, 02 Oct 2026, Thomas Richard (congatec GmbH) wrote:
+> > 
+> >> Since parameters are now passed to the i2c-cgbc driver via platform
+> >> data, the I2C driver no longer depends on the platform device ID to probe
+> >> the correct I2C buses. Drop the hardcoded cell ID in favor of
+> >> PLATFORM_DEVID_AUTO.
+> >>
+> >> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+> >> ---
+> >>  drivers/mfd/cgbc-core.c | 6 ++----
+> >>  1 file changed, 2 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+> >> index 0cd9e6f888cb..8522df882509 100644
+> >> --- a/drivers/mfd/cgbc-core.c
+> >> +++ b/drivers/mfd/cgbc-core.c
+> >> @@ -71,13 +71,11 @@ static const struct mfd_cell cgbc_devs[] = {
+> >>  	MFD_CELL_NAME("cgbc-hwmon"),
+> >>  	{
+> >>  		.name = "cgbc-i2c",
+> >> -		.id = 1,
+> > 
+> > If you shuffled the patches around a bit, you shouldn't have to hack
+> > your own new additions in and out, no?
+> For I2C bus names I got it, but not for id.
+> I need i2c_platform_data to be able to drop cell id and use
+> PLATFORM_DEVID_AUTO, so I don't see how I could reorder the patches.
+> And cell ids are there from the beginning, not really a new addition.
+> Maybe I misunderstood your comment, or I miss something.
 
-Thanks, I'll add the FEAT_HPDS check to feat_s1poe() and respin.
+Okay, just the names then.
 
-Cheers,
-/fuad
+-- 
+Lee Jones
