@@ -1,66 +1,130 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0A03161A1
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C17C1EB1AA
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 11:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792151139; cv=none; b=LK390cc3f4Op7t7d6BTq+440ncKgof5PXmTTS7tvKWyBLyHnfVEwnsAaeJ7S6P1i1Os7BcYaBlVgPCYCVG9TeJGOD6etrKVCqQQcQuPxBtSaOU51LsbJ7LboCY5Ss2Y8fp1neXawsMt1U3HBOAftloiiqmPJcimnnMXbB8KhUcE=
+	t=1792151175; cv=none; b=olrVdbcwKprPbWddfgi/UpNLJ0pOfAYyRQZv8NPom7lD649hgXClmDiPUU1yhDTrp6YvQkJZEMSsuIBW7IDkxyOrHC9ViMCKqu9IIqCcU6radNpD/ElyQ4AAHp+7Ls6NcCfq2J/3fKVCUsVlhlFjETQWMxoo75L1Z/qmj8NhlgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792151139; c=relaxed/simple;
-	bh=2MumfEk8W8CTdu+O2msQMf5k6pDvS5u68jVIFNqP2IM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XjRu8AAWaKkMMByGTB9QNOvc5E4Wt0A/FSQmic9t20wXj3Ezs1Y1VG1ypIgg5Ar/jrZuD9ss3OuD+mX/SieJqvDPcn31XFMyKYkAa79c/jIe6oD2wuMfwAyKXKc1mQ6XrLw54w5cWIcyyPpq9ax1qoPfLj6bBaAkmlvuB0UR8BA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=OhdJsb5x; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1792151175; c=relaxed/simple;
+	bh=wu2UeKTAXm3fQ9OLi+D1lQ6DTKkBUPeE+9k4alE4tTA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UeF5MDn+v1JWIODKS7xQdwuCSGswDBLEXC57DspKN7g+OD7I6Bp+ONi5vsb/theCvi7ztq2oPHAWYFUx2IeaAnXxRMMOf11PINAWKQRws66yIDBeHIxTLNEc9KJGd9ZPQSMV7ftSyfJcxa7ZjhMeeDt7jiai22CSGOB5+7H7jpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wwlo6iHZ; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="OhdJsb5x"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=QYqbefmWdjRF0eyXJkV6gfjuy2+CHVTcw8iBcm47t4o=; b=OhdJsb5xMAIh6BQVX+DeCByfdW
-	HPFs0Bo2RdnyVb/MhR4HC+5dpQbbWBr2oWvfTMoyFNenaJUKsFZm3b2gmN6HtfF8J1iHVTjpWGfS3
-	+Uxj/JH7+KXPlnq/KzSx3y6ToUAtYSsRNiCwpMNBaxe3HvSkjB5J4CeiIgNuXH2S0X43nK7p9Wz+9
-	H53O5Q+15/sVI5xNbAQMLCOqk98OON0gucdIKVKZ4l1pgoJMP05UHXVINRuCJ55eA3yjq0lkN5329
-	83WXkpxAbtpOTYOc9wOH/Ra5X0yaeIhO5dD53o8SoN6nvGZcS3T3Af1xS9akjd7vmugSCTcoKIYB9
-	ZsSHWRPw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xHgNM-005wTQ-2n;
-	Fri, 16 Oct 2026 11:45:29 +0000
-Date: Fri, 16 Oct 2026 04:45:23 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Marco Crivellari <marco.crivellari@suse.com>
-Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Frederic Weisbecker <frederic@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH v4 1/2] workqueue: Make alloc_workqueue() unbound by
- default
-Message-ID: <atICTHEvXbR2S-5v@gmail.com>
-References: <20261015140148.231126-1-marco.crivellari@suse.com>
- <20261015140148.231126-2-marco.crivellari@suse.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wwlo6iHZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=0xf9aqDEB2ABb/PUaNcWQ+D8Pgss+XS8jNScelABQvc=; b=wwlo6iHZCJAUeOFDpzHHQ37CHT
+	utNFt53Nbnz0vB2LQNSwuV/fzBTLIPmlwPr27mVmZtCgNk7RFhO0D04ecYNRAm4kzay40ZdjONpWT
+	dmczjPfCoRQyFOgQOAjBKBvLS1rfmbGDeNBoCKDdXO1gpKgJi37q10cwwDM+PbdTpCUu2t0ZBc88d
+	UFEVQH2YhPy6Bh5NiHTKoYk2HYdfMpLozrAewFwbOIrP1AOih195/PUXsiX/MJxkQWV06igSTa0o5
+	eVkaYULwETuyawXTNcJx8nErl6dbn1xtJBjy+kmj97tO9cA+gKq7URZWaEPjtjP6UV/Z2uvowyXt/
+	KtMysznQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Huseyin BIYIK <boogiepop@gmx.com>, Johan Jonker <jbx6244@yandex.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] drm: devm_drm_bridge_alloc() conversion and cleanup
+Date: Fri, 16 Oct 2026 13:45:22 +0200
+Message-ID: <2372538.iZASKD2KPV@diego>
+In-Reply-To: <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
+References:
+ <20261001-bridge-alloc-conv-v1-0-f0a1fe040a86@collabora.com>
+ <179213353665.3058528.14437637653539699061.b4-ty@b4>
+ <d1f0369c-ff43-4b76-9092-5c638b132f15@yandex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015140148.231126-2-marco.crivellari@suse.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Oct 15, 2026 at 04:01:47PM +0200, Marco Crivellari wrote:
-> +	if (unlikely(wq_unbound_by_default))
-> +		pr_warn_once("workqueue: %s is using neither WQ_PERCPU or WQ_UNBOUND. "
-> +			     "Setting WQ_UNBOUND.\n", wq->name);
+Hi Johan,
 
-Why do we need to warn here? With this new approach, shouldn't users be
-able to rely on WQ_UNBOUND being the default and leave it out?
+Am Freitag, 16. Oktober 2026, 10:11:19 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb Johan Jonker:
+> If any decency or Code of Conduct left in the DRM group then also credit =
+the original author.
+> Also remove driver_private.
 
-Thanks,
---breno
+after letting that stew in my mind over a lunch break:
+
+=2D yes, your patch was earlier
+=2D yes, I should've gotten around to it earlier - I am sorry about that
+=2D so yes, this got mishandled
+
+Nevertheless, this in no way justifies attacking the "drm-group", which
+consists of a big number of individuals (most of which had no contact with
+either variant of the patch at all) on a personal level :-( .
+
+The change itself of moving to devm_drm_bridge_alloc, also is somewhat
+straight-forward  that two different people could easily just create the
+same change separately, as we saw here.
+
+
+Heiko
+
+
+> =3D=3D=3D
+>=20
+> [PATCH v3] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
+API
+> https://lore.kernel.org/linux-rockchip/20260904-drm-v3-1-5b36532a3b72@gma=
+il.com/ =20
+>=20
+> [PATCH v2] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
+API
+> https://lore.kernel.org/linux-rockchip/20260824-drm-v2-1-7f9273c6020b@gma=
+il.com/
+>=20
+> https://lore.kernel.org/linux-rockchip/dea8a038-577b-45da-bff3-703e9099b7=
+e1@gmail.com/
+> [PATCH v1] drm/rockchip: rk3066_hdmi: convert to devm_drm_bridge_alloc() =
+API
+>=20
+> On 10/16/26 08:52, Luca Ceresoli wrote:
+> >=20
+> > On Thu, 01 Oct 2026 11:25:10 +0300, Cristian Ciocaltea wrote:
+> >> Bridge drivers are expected to allocate their private data via
+> >> devm_drm_bridge_alloc(), which also initializes the embedded struct
+> >> drm_bridge, including its funcs pointer.  Most drivers were converted =
+by
+> >> commit 9c399719cfb9 ("drm: convert many bridge drivers from
+> >> devm_kzalloc() to devm_drm_bridge_alloc() API"), but a couple of
+> >> leftovers remain.
+> >>
+> >> [...]
+> >=20
+> > Applied, thanks!
+> >=20
+> > [1/2] drm/rockchip: rk3066_hdmi: Convert to devm_drm_bridge_alloc() API
+> >       commit: 5c0cdbee4fa4a621f871d6dc825e759db08a1a4a
+> > [2/2] drm/bridge: lontium-lt8713sx: Drop redundant bridge funcs assignm=
+ent
+> >       commit: 382c1e8ba409d1611cd256dccebdfa828c832bb1
+> >=20
+> > Best regards,
+>=20
+>=20
+
+
+
+
