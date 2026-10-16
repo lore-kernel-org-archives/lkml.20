@@ -1,34 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30D9A448B9D
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 539DB44724F
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 21:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792185131; cv=none; b=Cqhm/jJaaWZcOcDNVOKjRrRJXcb0RAWNsZdBuvRnyMcB1F8Wm+DmFz3RWwl0dAF4BqmKZMfDd/qgVJaOTp6JPhp3c+V7fKZgg6s1MEd3BIvjbXWjduomL7TrBYp9brLElSIdWvL3665iO2/4CV3GrWQotWUZG5tqwLy1867RsEY=
+	t=1792185133; cv=none; b=Fo/JEmwwacgPRyZRlDU1pZHJw0oJbmaghDO/ilnLxdK4vTDJ8qy8wqIa2/Zkw3oJC/Jx5OFNjootCZZjmjlFNLL5kdeDi9AiWU3SiHlMavfQfDATHvfjdN4n7TfzrMewRkv836aUd5PTYODFfqO81bJMZ2st3UQKBtpqo6uEoT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792185131; c=relaxed/simple;
-	bh=v1LAhb2I0+3CyA4TRLYHmPRAnmRqKBFBaITXlBKMXvw=;
+	s=arc-20240116; t=1792185133; c=relaxed/simple;
+	bh=WinRZcQJ2thC4qrPCAsf4pxVvrWRPdI5x9Ud16MKKJ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A2iuLRtRa3iNKkLVyAVUo43BTWKvGSZHW9iBwO4sLbNx7O7XUEXtcNS55JXXxXOCn7u9lU4IqPkx5GOaGzZSD3G00UA+yaPWmiejy5WIgZweA7kHQIYTPYGYY7XorE18CNB+86J6w+sjhIJ7MK48bb/7LSUsxOBx89bhmjuqe+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=f2CPc+79; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:To:Cc; b=QIz2gTIrMdIRWoH93rVYenNUwC6ZoKmOQQ+DbCBXy8gmt2pJvvsxWRoKZ91dBpAQbwiGvLAv7Ku0lfgU/fr6G+I43iKIB3vqDN53x4J5HXDfJOqZC7TDotG1HyC1gR0RbLWx3Fgh6XFSq7y/nZXYOog0htEm01KMM/K0WbFkyp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WAIk804g; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="f2CPc+79"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WAIk804g"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9EC6C16F3;
-	Fri, 16 Oct 2026 14:12:05 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B7513F673;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74F2E1762;
 	Fri, 16 Oct 2026 14:12:07 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 334E03F673;
+	Fri, 16 Oct 2026 14:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792185128; bh=v1LAhb2I0+3CyA4TRLYHmPRAnmRqKBFBaITXlBKMXvw=;
+	t=1792185130; bh=WinRZcQJ2thC4qrPCAsf4pxVvrWRPdI5x9Ud16MKKJ4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=f2CPc+79kObMka5QjflCmP5zLp/Dr97mFK+PaWOgXTI/BfTKn9YTvt3yMaMYyV1za
-	 ziuXLBNtwselu6D1xTK+TpR4Osn2gF93KOTg6Y2cVuE/o++tUSabtA4lbWkR4F030d
-	 2dih7R59FpqaMyC+G+peFwjPMif363881cMRDNM4=
+	b=WAIk804gq6YpDzW40p2RJT2iwnlgZCwKR9VkC9YbUjhuzMOMc7ouOSeZ9PEBHKQ7R
+	 PQFlu2FyGQiI05YBA5rTg38vVzmGMeOgpDM9+hn7sZb49yC2GSatTmSn1+jgGMx/5m
+	 4GqE95DuupSGmAAea3foFcM1apcSMcKlicJRfMFo=
 From: Leo Yan <leo.yan@arm.com>
-Date: Fri, 16 Oct 2026 22:11:46 +0100
-Subject: [PATCH v2 08/11] perf cs-etm: Reset decoder on COLLISION flag
+Date: Fri, 16 Oct 2026 22:11:47 +0100
+Subject: [PATCH v2 09/11] perf cs-etm: Reset per-thread decoder on CPU
+ migration
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-trbe_buffer_refactor_v2-v2-8-383ac26382fa@arm.com>
+Message-Id: <20261016-trbe_buffer_refactor_v2-v2-9-383ac26382fa@arm.com>
 References: <20261016-trbe_buffer_refactor_v2-v2-0-383ac26382fa@arm.com>
 In-Reply-To: <20261016-trbe_buffer_refactor_v2-v2-0-383ac26382fa@arm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -49,168 +50,102 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  coresight@lists.linaro.org, Leo Yan <leo.yan@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792185112; l=6438;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792185112; l=3810;
  i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=v1LAhb2I0+3CyA4TRLYHmPRAnmRqKBFBaITXlBKMXvw=;
- b=cBXrjgRyUeaptbN5lHxtB6Gf0hoWBYLOasi+72DzbPpb2NAzzI28CLV6AM6u5JiKkQYBMWUbt
- +1wV5GhkezaBUaE+LZDFjCcpOK1s2Xwqn7+A0KKzEpXbm6Xf2ptw5aq
+ bh=WinRZcQJ2thC4qrPCAsf4pxVvrWRPdI5x9Ud16MKKJ4=;
+ b=E06a9BXdgsu4XZGeU2DFfO/qhH5ny03CnBjr0YDj0GJI+FHSjfVEySfflZHEnH1YQJS+D09j4
+ A6EP5ytlyhmBO1NC49EZn6m+C671dZ3MfXfIg0Noc8dLyr8IMd6JKhC
 X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
  pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Resetting the decoder at every AUX fragment boundary can discard pending
-decode state even when the trace stream is continuous.
+In per-thread mode all AUX fragments for a thread are decoded by a
+single decoder, even if the task migrates between CPUs. If independent
+fragments come from different CPUs, the trace stream may not be
+contiguous for that decoder context.
 
-Store AUX flags when queuing indexed fragments. Preserve decoder state
-across their boundaries and request an explicit reset for the next block
-when the current fragment reports PERF_AUX_FLAG_COLLISION. Source restarts
-with in-band synchronization are handled by the decoder. Keep resetting
-between blocks queued without AUX records, where the flags are unavailable.
+Retain the CPU from each AUX sample in its queued fragment. Compare the
+preceding and fetched buffer CPUs in cs_etm__get_trace() and request a
+reset when either CPU is unknown or their CPU IDs differ. Indexed files
+can omit PERF_SAMPLE_CPU and hardware-ID records while remaining
+decodable through TID matching and the legacy metadata mapping. An
+unknown CPU therefore cannot establish trace continuity.
 
-Keep setting and clearing the queue reset flag in cs_etm__get_trace(),
-where the preceding fragment is available. Clear a request after its
-nonempty block has been consumed and derive collision resets from that
-fragment. Preserve deferred requests through empty buffers.
-cs_etm__get_data_block() only performs the requested reset before
-processing the fetched block.
+On 32-bit hosts, queuing a large AUX fragment can split it into several
+buffers while returning only the final piece. Save the queue tail
+before queuing and tag every newly added piece with the AUX sample CPU.
+Do this after queuing to preserve CPU filtering based on the original
+AUXTRACE record. Per-CPU fragments already match the sample CPU, so use
+the same assignment in both modes.
 
-Keep flushing retained context-ID thread stacks at every data block
-boundary. AUX records do not distinguish buffer maintenance from normal
-event disable/re-enable. In-band restart packets synchronize the decoder,
-but only the current thread's stack is flushed when processing a
-discontinuity. Another thread may have changed its stack while tracing was
-disabled, and its first instruction sample after restart can otherwise
-contain stale return addresses before branch bookkeeping clears the stack.
+Skip CPU comparisons for internally split continuation buffers, which
+belong to the same AUX fragment. Keep AUX flags on the final piece so a
+collision applies after the whole fragment.
 
-Flush those stacks before decoding the new block. This conservatively
-limits callchains and branch history to each chunk while preserving decoder
-continuity. Improving stack continuity can be handled separately.
+Check CPU metadata even for empty fragments. Preserve any reset request
+until the next nonempty block is decoded.
 
 Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- tools/perf/util/auxtrace.h |  2 ++
- tools/perf/util/cs-etm.c   | 46 +++++++++++++++++++++++++++++++++-------------
- 2 files changed, 35 insertions(+), 13 deletions(-)
+ tools/perf/util/cs-etm.c | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/tools/perf/util/auxtrace.h b/tools/perf/util/auxtrace.h
-index 6947f3f284c029286837e4e1dd9f535a5f0b6334..6ea212802e418ebd6536e3ea5456bab7530eeb26 100644
---- a/tools/perf/util/auxtrace.h
-+++ b/tools/perf/util/auxtrace.h
-@@ -243,6 +243,7 @@ struct auxtrace {
-  * @buffer_nr: used to number each buffer
-  * @use_size: implementation actually only uses this number of bytes
-  * @use_data: implementation actually only uses data starting at this address
-+ * @aux_flags: AUX event flags
-  */
- struct auxtrace_buffer {
- 	struct list_head	list;
-@@ -261,6 +262,7 @@ struct auxtrace_buffer {
- 	u64			buffer_nr;
- 	size_t			use_size;
- 	void			*use_data;
-+	u64			aux_flags;
- };
- 
- /**
 diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 114b3cd2da495e54e78df8fbd707898312f95079..6f95730fe3b94ae3f534eee505132a2efbc4ff96 100644
+index 6f95730fe3b94ae3f534eee505132a2efbc4ff96..8f04d7ceddd9d1f7ff22af234b19400efe27ba2b 100644
 --- a/tools/perf/util/cs-etm.c
 +++ b/tools/perf/util/cs-etm.c
-@@ -136,6 +136,9 @@ struct cs_etm_queue {
- 	 */
- 	struct intlist *own_traceid_list;
- 	u32 sink_id;
-+
-+	/* Reset decoder before processing the fetched data block. */
-+	bool reset_decoder;
- };
- 
- static int cs_etm__process_timestamped_queues(struct cs_etm_auxtrace *etm);
-@@ -1436,6 +1439,13 @@ cs_etm__get_trace(struct cs_etm_queue *etmq)
- 	struct auxtrace_buffer *old_buffer = aux_buffer;
- 	struct auxtrace_queue *queue;
+@@ -1486,6 +1486,16 @@ cs_etm__get_trace(struct cs_etm_queue *etmq)
+ 			   (old_buffer->aux_flags & PERF_AUX_FLAG_COLLISION)))
+ 		etmq->reset_decoder = true;
  
 +	/*
-+	 * Clear the reset request for the consumed block. Empty buffers have
-+	 * no decoded bytes, so preserve requests deferred through them.
++	 * Unknown or different CPUs cannot establish per-thread continuity.
++	 * Internally split buffers still belong to the same AUX fragment.
 +	 */
-+	if (etmq->buf_used)
-+		etmq->reset_decoder = false;
-+
- 	queue = &etmq->etm->queues.queue_array[etmq->queue_nr];
- 
- 	aux_buffer = auxtrace_buffer__next(queue, aux_buffer);
-@@ -1467,6 +1477,15 @@ cs_etm__get_trace(struct cs_etm_queue *etmq)
- 	etmq->buf_used = 0;
- 	etmq->buf_len = aux_buffer->size;
- 	etmq->buf = aux_buffer->data;
-+
-+	/*
-+	 * A collision requires a reset after its fragment. Without AUX flags,
-+	 * reset between all blocks.
-+	 */
-+	if (old_buffer && (!etmq->etm->data_queued ||
-+			   (old_buffer->aux_flags & PERF_AUX_FLAG_COLLISION)))
++	if (etmq->etm->per_thread_decoding && old_buffer &&
++	    !aux_buffer->consecutive &&
++	    (old_buffer->cpu.cpu == -1 || aux_buffer->cpu.cpu == -1 ||
++	     old_buffer->cpu.cpu != aux_buffer->cpu.cpu))
 +		etmq->reset_decoder = true;
 +
  	return 0;
  }
  
-@@ -2162,17 +2181,15 @@ static int cs_etm__get_data_block(struct cs_etm_queue *etmq)
- 	if (!etmq->buf_len)
- 		return 0;
+@@ -3251,10 +3261,15 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
+ 	if (aux_offset >= auxtrace_event->offset &&
+ 	    aux_offset + aux_size <= auxtrace_event->offset + auxtrace_event->size) {
+ 		struct cs_etm_queue *etmq = cs_etm__get_queue(etm, auxtrace_event->cpu);
++		struct auxtrace_buffer *pos;
++		struct list_head *head;
  
--	/*
--	 * We cannot assume consecutive blocks in the data file
--	 * are contiguous, reset the decoder to force re-sync.
--	 */
--	ret = cs_etm_decoder__reset(etmq->decoder);
--	if (ret)
--		return ret;
-+	if (etmq->reset_decoder) {
-+		ret = cs_etm_decoder__reset(etmq->decoder);
-+		if (ret)
-+			return ret;
-+	}
+ 		if (!etmq)
+ 			return -EINVAL;
  
- 	/*
--	 * Since the decoder is reset, this causes a global trace
--	 * discontinuity. Flush all thread stacks.
-+	 * AUX records do not distinguish buffer maintenance from a source
-+	 * restart. Flush all thread stacks before sampling the new block.
- 	 */
- 	cs_etm__flush_all_stack(etmq);
- 
-@@ -3154,9 +3171,8 @@ static u64 *cs_etm__create_meta_blk(u64 *buff_in, int *buff_in_offset,
-  * file_offset.
-  *
-  * Normally, whole auxtrace buffers would be added to the queue. But we
-- * want to reset the decoder for every PERF_RECORD_AUX event, and the decoder
-- * is reset across each buffer, so splitting the buffers up in advance has
-- * the same effect.
-+ * want to check every PERF_RECORD_AUX event to decide if need to reset
-+ * decoder across each buffer, so splitting the buffers up in advance.
-  */
- static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_offset, size_t sz,
- 				      struct perf_record_aux *aux_event, struct perf_sample *sample)
-@@ -3168,6 +3184,7 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 	union perf_event auxtrace_fragment;
- 	__u64 aux_offset, aux_size;
- 	enum cs_etm_format format;
-+	struct auxtrace_buffer *buffer = NULL;
- 
- 	struct cs_etm_auxtrace *etm = container_of(session->auxtrace,
- 						   struct cs_etm_auxtrace,
-@@ -3251,10 +3268,13 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
- 		pr_debug3("CS ETM: Queue buffer size: %#"PRI_lx64" offset: %#"PRI_lx64
- 			  " tid: %d cpu: %d\n", aux_size, aux_offset, sample->tid, sample->cpu);
- 		err = auxtrace_queues__add_event(&etm->queues, session, &auxtrace_fragment,
--						 file_offset, NULL);
-+						 file_offset, &buffer);
++		head = &etm->queues.queue_array[etmq->queue_nr].head;
++		pos = list_last_entry_or_null(head, struct auxtrace_buffer, list);
++
+ 		/*
+ 		 * If this AUX event was inside this buffer somewhere, create a new auxtrace event
+ 		 * based on the sizes of the aux event, and queue that fragment.
+@@ -3272,9 +3287,22 @@ static int cs_etm__queue_aux_fragment(struct perf_session *session, off_t file_o
  		if (err)
  			return err;
  
-+		if (buffer)
-+			buffer->aux_flags = aux_event->flags;
+-		if (buffer)
++		if (buffer) {
+ 			buffer->aux_flags = aux_event->flags;
+ 
++			/*
++			 * Preserve queue-time CPU filtering and tag every split
++			 * piece added after the previous tail, up to the returned
++			 * buffer, for migration detection.
++			 */
++			pos = list_prepare_entry(pos, head, list);
++			list_for_each_entry_continue(pos, head, list) {
++				pos->cpu.cpu = sample->cpu;
++				if (pos == buffer)
++					break;
++			}
++		}
 +
  		format = (aux_event->flags & PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW) ?
  				UNFORMATTED : FORMATTED;
