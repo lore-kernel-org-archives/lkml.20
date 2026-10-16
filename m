@@ -1,161 +1,211 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5B949A3AB
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 14:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161690; cv=none; b=oErEtfr2S5YOy+KyAp6lfJpmrBpNBVhiVIfbUJ9uhj27HMCIiAyFcNId+Mt+L6tBIJ1SYgScY9njFJXcWNrRrTLsYtDybDwr1VqmH5HBC+z+pVqfucrrNU0qpRUPSeDckC35F6Dk1UEirNUPVgj1EIZ0KQLcJ5vjgcMVg5gl5rw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7385481A9C;
+	Fri, 16 Oct 2026 14:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792161690; cv=fail; b=Z94iUn837RuT4hj2cXN+34ZYeQK1zlS2r8rLyPuUfL8GipSQDaDMj8ys8PmSg67ZZWabiFx/50LFwbQCBheVxQG4jwFkwWTiJi140IX7zl0UacCNbaV7wHLg10P5rELVSj5K84tVSNh9Uc446GvZ65MPqVIv8UWfga3KG0m+F4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792161690; c=relaxed/simple;
-	bh=Ypdv4ck2LmDWhfMcxtTVZOnd/mxsjho3hvj/YRy/7wE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mIpDGUuxHss5jiClJ6vBBPdDZyIn+OBREUuo0k02VvRtnO40mg1XU3y5aNpoU21wWsUdhRr9lOyVfe3LZVFb/H4iUpRLJA+ZWGbFE2VnxiAhk/nf0k1BhilXZ0vufwKoLXdMhR5cirrzofG6UXiqQ+LSHr2Nzsrh+WKtXMcQ7v4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TjqKy8/T; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=FhV2ej/otmwUqKRPhLMTyDcnK2BwdRqKzTzpgwWH32s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JGZYGrM21arhZgVTog6ZkRwRmaLMzKLU1lsZaZWC5Z2S10JilpFfIqNHmp0vVKKjExpYzKT3dL+TzkKB0AKzacwTSkptzn+g3ASEtnBYzy3fQnRsz5YOpY4ijaVb0sIhiVyW3bz2Kyn1EK36fPR3+r+krvw9dzcSvcWehbj8Ufo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=adC7d//y; arc=fail smtp.client-ip=40.107.209.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TjqKy8/T"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b042c0759so4747584f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:41:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792161687; x=1792766487; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I93wz8CKpgQy+526q8lOXNd9GCplSJUpEI+oY95QMxs=;
-        b=TjqKy8/TTa1ZXXbMDqtp/8nZuESfGIdb+kkj2J/BGHjMgPGZYcYzL42RTZmthue+Qt
-         Uj1lA8aBQjgAjzMaU2alYMy6puB63Ik//XCmEHIOlk3vdnq4zQNU9AFWWW4BiwW1/iZ3
-         2VxWgB5qJntN9gDb/ZyXMdrcLb860FAvWBmNG09Ewh3HNzsOv5ltcJ6XdmgphyDkydXy
-         dlsur8cVljCZlNhf+ecl2wG4QuPzhq2essp5ov3Yonz466d0dHcqv3f0BcnqmGPsCEA3
-         tm50lDxOWUt2Xq3ceRqxVGutKJxFiKisn5YpmqqxWV55RDt6cJoY9SwDjRh52cQ+hZZd
-         gGxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792161687; x=1792766487;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I93wz8CKpgQy+526q8lOXNd9GCplSJUpEI+oY95QMxs=;
-        b=SCTr09HzWaFCSyTcFawL0NGNx7/Rjd6SE+c7/OvSuT1lWi6dm80QsISJcuAvB6ChDb
-         4j9Qdfm9D9VDplpKr/C0Lv2OHjmH9gUSBbLZSkttfdX9UynsOjuJ1ENb7ptUvfS1nNzz
-         CobcsnzMNAD9guUHOyP+7xApZYTXLlc+1e+7OIwkxCfG0tLmD4VuNP4c4wPEoYFyZddJ
-         CmZXWRcOU68zNZFT3jQJrIOZUIyX38bWb5jJGZmgDDdxoGupLDdowlVJ1bYE0/X6/kqX
-         eI1NsMeyyaXL/MaWdIHB+7YpkKCkXfkTMyUfxfjOsQQ4/JUUkmeOBSVg4mr2iThmNEJn
-         cJqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZuhD3uCqZ8nemM6uKSt2djt4swt6cTkEMjc3AMBuzL40eaC9mO2zUZUWf2COPDbpyuG+lkhXHCQvju2Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbvP0uLwBSr/Rf7mYYGji0liwy/wx7j4cXKtuoX6Me+fe+Dywf
-	oyBWmcke5hHT7CpC75CFRI2Ex5xkboRyPFZrq9vqqg0aNUQRpQYJOB8Ijd2h8gO7TkU=
-X-Gm-Gg: AYBFou3dIrxB/sgYWxLexHIqgVGY2IBfoq8UaaX8R00+7NxecphA7Y9ISzyNov28mqw
-	GfJwFzBVSlQHqZj1YrwBGv68QRR0B4a2kyZrYfTukgrarsATCwy55lESnPz2ROBNmWl7H1/abX3
-	6Z5avxEgmnI1D93q+hBMRYSFpB4KPzlCihQQODqhfi9c4XVGI4MMHklvEmYbBtPlsJ1ajC/z/4t
-	iK3J3SM/t7UgLLPFpm9QVXQJbFBcoC1xr3qkqq8+iolC1pOPPfjivEucCECQl24y35X83jxQ924
-	i/wloz38uIeIovQsLPgLUX3kiAo2Rn1vMLkWkXQj9T+Ns2gs1jVb/m9ymNYWvHNfqWSaiOkGZRj
-	QIVr3CbQYQjd5bLtCH7enDG2U/fNYQ1nTSPMVckCx9rFQaC367doMk19w1jJLRDnyhzegAkxviM
-	O1UdlUBnda3Bf0M2lQNEF8J/0Km87qfb4cqSELP6KzYpGbNjKUhvMiJC/vq5s9Vtk9j0kXtSnrK
-	tc4WviJtndP4uwlzqHPy/giIj6qI5icOhFCa1cvgbfkmzxwG3n4F6M3YyzL1fKLCNRF1csNEr3T
-	07mt
-X-Received: by 2002:a05:6000:400d:b0:48b:10c8:2183 with SMTP id ffacd0b85a97d-48dbacdd2afmr41397725f8f.32.1792161687267;
-        Fri, 16 Oct 2026 07:41:27 -0700 (PDT)
-Received: from z13-ek5.local ([151.41.28.233])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4ecac3sm5949648f8f.27.2026.10.16.07.41.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:41:27 -0700 (PDT)
-From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Fri, 16 Oct 2026 16:41:20 +0200
-Subject: [PATCH 05/10] ARM: dts: omap: dm816x: refactor and align MMC node
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="adC7d//y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jHYISTBLRJ6EfinJnTw1xkvu53vwgZa44wmqKAQ12oVj8CWnOECFHFPzOoufOctudVLzY59E+RS2soQdNXo61JoSzdOy2eQY9udbT83tTDdtSpQY2QfhOsZaLMy8CtmsCnppyeHVCVo3oqCU4JqYhcgGxqhO/13mXco3TDwr2s4oL19OsRprRfbwlAwjSoV8iiv0ZLbWjmC3hDTMTdGDpU2IH8LmCMywCk3X+Oeg4/nwxJ3u72fVf64SdLdcIRP/vvAT2MzAzZcRTaZg/RK1AXoHUDr0CGyZ0u8xAAKCNJYUd8Hj9I2Rw8beFSEbIfjx00ofVgXTy9zMu0WHe2MRDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I5lMH9rYNUp70Wp2Bd3SyIU5Dc6ty3PWbEheraIsOsw=;
+ b=lzlhurncn97dl0Tt63Q9pP0rpEkUMnVMa7caoPi0nEemruhz3hD9aEVxtaCYow2fP6RwSVkhdO32tPb2wY6wgEGBzl3fk4CB+quz5MeZGQEsTEp3AwxMI9AVD8E83GV3nBfOS3eD7/8gftauouXN94Qkc8tBwTiYs+xanqRbgrHuWg6BjpZTbrGWnpWOKAKWLIr+SVvxYmK+VUgpTOC8njlnkf0jQiNLEh9BmsUZ1JEUnj2DMBwehk7MAeoM8qvWhV0qlKQk4t7r/zfGgQkkImMCKaeSSWuZWc9I2BhdKdmwRYwRmLr1cfsycxa4/76T0VoOMfndYsNsav3k/q/Eow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I5lMH9rYNUp70Wp2Bd3SyIU5Dc6ty3PWbEheraIsOsw=;
+ b=adC7d//yg9G5R7/bLxzeD9d4xyAaMu0/SrGwu8fqY1OnX4D72+JfMtlB08aGOmtzV3RrplDjv5W39c6nz/6SylX/VPZMr37KuTPnoC5QXAMx/Sky1+phbALxLSrl1nyfmmDUjDsF85OfY1/ljKq+KFFq0vVT6ecQjWAzBPDyyyI/CqgG+KS1B7pZkf/Q/yK7VgmhAfKSs2k/Y9L+Z1fbclVZvp8lE457+A8e/b66poeom5mS3Pxt0XWn85MSHT+vXFS9j7jvqfULqAIWQsrIy3LnwJYjYsPLLge7GJ/GDPchvMDq8f7YeziKB5ffiFJh4liWlUJ/I0E8fqrNoemcNg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by PH0PR12MB8151.namprd12.prod.outlook.com
+ (2603:10b6:510:299::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 14:41:23 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
+ 14:41:22 +0000
+Date: Fri, 16 Oct 2026 11:41:21 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Ard Biesheuvel <ardb@kernel.org>,
+	Abhishek Shinde <abhshinde@nvidia.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Simon Horman <horms@kernel.org>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Philipp Rudo <prudo@redhat.com>, Viktor Malik <vmalik@redhat.com>,
+	Jan Hendrik Farr <kernel@jfarr.cc>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	kexec@lists.infradead.org, bpf@vger.kernel.org,
+	systemd-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE
+ format boot image
+Message-ID: <20261016144121.GA439341@nvidia.com>
+References: <20260322014402.8815-1-piliu@redhat.com>
+ <20261011201325.GA918242@nvidia.com>
+ <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
+ <20261014000227.GV13920@nvidia.com>
+ <8fb05f13-e770-41a4-af66-d239b4c95201@app.fastmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8fb05f13-e770-41a4-af66-d239b4c95201@app.fastmail.com>
+X-ClientProxiedBy: YT1PR01CA0055.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::24) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-patch-ektor5-dm8168-dts-v1-5-b4ce30217028@linaro.org>
-References: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
-In-Reply-To: <20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org>
-To: Paul Walmsley <paul@pwsan.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christopher Obbard <chris.obbard@oss.qualcomm.com>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792161680; l=1896;
- i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=bQlaSmVrxWRh3eFexaKgbJh5U7ftQwzZnbqVJPILtpg=;
- b=GdQ58uqjcnmGPDtcijnfZlLk3LVb6f9YJJVOwK6BFvPD1G8Wv2rOQyByMakkeuOpx0A87+uRk
- rR2R/Cr5fBcA9PSdu0Th6HGErC8ZzGFOUPpHQrBKzemmH4cIfOEq2mP
-X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
- pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH0PR12MB8151:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb009909-ae20-4d6e-1cb0-08df2b938c31
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|1800799024|376014|22082099003|18002099003|10067099003|4143699003|11063799006|5023799004|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	jKuxXePb2nWtdDarAqze/H5ri+ymT23COIAtShYOHcHwJINrY5z5mEfN9zl8XA7h2V74L7pM0YP2xVtkyKOPIksPJdCliMcZcXw7hPX2YDSWvMpMcybLAXRKkgLje/N04fzCKartUpGo2kavK/b5xZ/3m+qKVwpzq5/WyFsXRk6wUsH424RF1FCJwt+30r7tkFhO4T4HWPBD/UkP3VmwhQSl/mrh8ucsF2/7/hdb8sQUbiGjjpVDAs8x9eUmNSTjO+g6FyPif2l9uLthwrr2CiOdIvj2TRl/zJcvIITSoiYFqCqtFxe7sicv0HHdoijjKOCVfwKTZLD2eQOx6mm/S9FneFukUuEaDwKSLrNZdeuTZh7fy+/0v99JlVdc4KrMUYJFXv0oRChxjJkO/+++dCYrnvNYhEYh4yTuQ12RCj4KhdjoeRLWStJnizc8vy1916DtVqGTSls3StTwktUkG8oZ8IdAvxVuAgM0epi4u86etCxd4TI+3bI7KnsTHS37/Sd0JgckCMb73dZB2mN75Xv4oQifhHdQ/LQqUpA1Z9CGn3Bg2ec9EETb8AJOyjI2GNvdogF0NCG5wxwt7cnt7JYySNXJUthslYIa3gimtJ6Pterrq/KGDWoyiMU2n6/gXaJUaqyskvdg8GyD+3yJAzyiFb/Sdz6xReZJlhw4Qng=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(5023799004)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OSAUION8X2/zsDSlNcMJpEWiYa0bAWtuiREK9+O/sp3QZ6yheGh4N39B5Kjw?=
+ =?us-ascii?Q?QH695/QykccATgcc5aVHDbh/Z1DH+KOQvlWQHo8igeis4nE/iv3mOMDTm/a1?=
+ =?us-ascii?Q?fMhbaHZumHfAfudW44AEEUHqapLl3g1XqHYFBglZaENvXO/5zlLGj9X5JQl7?=
+ =?us-ascii?Q?JfvMnEA+Qa2yhRv0zaAiXyzy/wZApaYQuvpTbxZWs+8TRdbwbHEqcAt2W+4r?=
+ =?us-ascii?Q?ffIPDYzf3RA52Q9vOaEmD/y6oTo4/wbwNJFhRuyWGXJFnKhV1CsQzrMKjqWy?=
+ =?us-ascii?Q?wb4YhWa6stOECvbb/pPZ5K7bcM+nZ9Jfoyb8aiQCpOGvo4KVtzIVACgaGpWC?=
+ =?us-ascii?Q?tRe3B+r1l67hJMhJnfFACySJvPMJ9e3viT/68cuO4AIjW7IOy0HDE7hyM5ec?=
+ =?us-ascii?Q?Qzi1AQpeEPKEvKTPE9CmJr91drD5gH8sGUoqlwPwlh1cgJropTmTKWgmssQ1?=
+ =?us-ascii?Q?AObTlEDoQSIZniW7IDIouUa9yZs+b3SVBDXhe9XwOEgDNiAOhcQbpL2kjTFs?=
+ =?us-ascii?Q?Xjbod6fpaoxy8zCj5tBPoCvAbo55IpmF1lGHjEB7ILZ15Y2q+zqRGnA5OZ+l?=
+ =?us-ascii?Q?+FcKNAS1Pcrg9mx8cEH2KuOepfscPyl+poZYZzVU0UGjxxPaN1Cd9G8gBu/B?=
+ =?us-ascii?Q?jHTOF54P6W/ZDdNdMPOToRFfZF3E7luwViEAUe5qyhCpAGY6GpxOlMvjn1sU?=
+ =?us-ascii?Q?tpYlHhUEBtYGPw1A1yv/zKbzLo8F5Fna6PRM2mELEBAaDtzSEKxdzzovowJQ?=
+ =?us-ascii?Q?FSIATOGMbIf+omAZr2Sz6OQE6EMILeDnAwNOzPA13R9DKNX+oIUHGL05t0vi?=
+ =?us-ascii?Q?EfxNIEsE3er97tGqjBBNMlisBVHqMOTfT5J/lC4UWdT2WDLBBbKXmz41ldtJ?=
+ =?us-ascii?Q?u+X62AglMBPJ7HJqOgCwu+oJ4zsIij2JBpz0lCAEqwO0h2U3vqIi9SLXaiJo?=
+ =?us-ascii?Q?XRbVg53nR1+0UJtANcP1SjFNvtb44NrhguJDnHC3kEBSUI9f3NRwnMSSAQ9Y?=
+ =?us-ascii?Q?xYlx2A4j+nNQv1sKHSSEvE2WfPEMW5urEP3/Jdgb/LVK4CW2S4MTfygx/S3k?=
+ =?us-ascii?Q?mYR95R6cso6rNde36wrKI0Rvp52kWVtxTx6UwVkn2Gja22k0v5gDogmWw7Ni?=
+ =?us-ascii?Q?1AC6NQqrUm1I02tvkj1cAnNkpCUYsCNrTao7UImk4YHXErBRCefwcderOXTx?=
+ =?us-ascii?Q?jtzgcBL8wVXNyj6vgwAbJc+j5sRHgZ6y2Ae1sBVPPi7ASMwUgr9/irVx6DNr?=
+ =?us-ascii?Q?AjOrGBXGTqT4gJ81Sa29RFKgpwdxBJN4JBr80sojaTDbPULEBjJ1TFtPS1nf?=
+ =?us-ascii?Q?gDfpTiyXLIl3P2vz3PJAaC13V46opiOihbqaFaeRDog+hXzuFdKhIFFPgIX4?=
+ =?us-ascii?Q?q0pfTz7tg+LWLAIvYTyGZ1c54wsrLVL+xQ1sji8L4GoF65rIOnx9qVuHCDjc?=
+ =?us-ascii?Q?eUUs9Vu2SAkp2+uo65CEuKW65HkdcPMhhjlgSX/v6AIfQcKK7VH6Yf6OQtmc?=
+ =?us-ascii?Q?xb6wI2r9PX4FXAIWYyUEgRYTybE85bO+nnQxGR+yt/A6ilVlvliAXmNN8nCA?=
+ =?us-ascii?Q?W/H+byl6qw617BtsF7Pze7ocr5EgjA6F4jO5YPtqsxKvGPbHVPlYz5CuQJzW?=
+ =?us-ascii?Q?yk5iFMxvQgH1n33DbTpYFsKcD+r46e9RpxnJm7jgzcPgA36G77LB0Eu8s1wX?=
+ =?us-ascii?Q?AnZW4djUkvhlgGmxwuDjbK4MRxO5VJbuFqT8oxV8IBSXhzXn?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb009909-ae20-4d6e-1cb0-08df2b938c31
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 14:41:22.3671
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2hRMo+LDGwuCGVGlICGltyTeKjtASd+43zlMLWws7rCIqDK1Hjg6l9ePAI1DH65F
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8151
 
-From: Andrew Goodbody <andrew.goodbody@linaro.org>
+On Wed, Oct 14, 2026 at 06:39:14AM +0200, Ard Biesheuvel wrote:
 
-Update the MMC node in the TI Sitara DM816x device tree to align with
-the structure used in other similar SoCs. The changes include
-refactoring the node to better describe the target module and its
-sub-nodes.
+> > I've asked some folks here to take a look and try to test this with
+> > real DRTM capable HW. It seems very promising that it will work to me,
+> > and I surmize this is also close to boot a UKI?
+> 
+> It already works for UKIs as well.
+> 
+> The next step is to run it deprivileged - I think the arm64 stub code
+> is already very close to being runnable in that manner.
 
-Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
----
- arch/arm/boot/dts/ti/omap/dm816x.dtsi | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+Abhishek was able to test it on some Grace hardware, and investigate
+the DRTM. He was able to show it works, using some FW debugging to the
+serial port and the post-kexec dmesg:
 
-diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-index 9c9d5e296e90..7f3ef3a00ab8 100644
---- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-@@ -423,13 +423,34 @@ &edma 20 0 &edma 21 0
- 				    "tx2", "rx2", "tx3", "rx3";
- 		};
- 
--		mmc1: mmc@48060000 {
--			compatible = "ti,omap4-hsmmc";
--			reg = <0x48060000 0x11000>;
-+		mmc1_target: target-module@48060000 {
-+			compatible = "ti,sysc-omap2", "ti,sysc";
- 			ti,hwmods = "mmc1";
--			interrupts = <64>;
--			dmas = <&edma 24 0 &edma 25 0>;
--			dma-names = "tx", "rx";
-+			reg = <0x48060000 0x4>,
-+			      <0x48060110 0x4>,
-+			      <0x48060114 0x4>;
-+			reg-names = "rev", "sysc", "syss";
-+			ti,sysc-mask = <(SYSC_OMAP2_CLOCKACTIVITY |
-+					 SYSC_OMAP2_ENAWAKEUP |
-+					 SYSC_OMAP2_SOFTRESET |
-+					 SYSC_OMAP2_AUTOIDLE)>;
-+			ti,sysc-sidle = <SYSC_IDLE_FORCE>,
-+					<SYSC_IDLE_NO>,
-+					<SYSC_IDLE_SMART>;
-+			ti,syss-mask = <1>;
-+			clocks = <&alwon_clkctrl DM816_MMC1_CLKCTRL 0>;
-+			clock-names = "fck";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0x0 0x48060000 0x11000>;
-+
-+			mmc1: mmc@0 {
-+				compatible = "ti,omap4-hsmmc";
-+				reg = <0x0 0x11000>;
-+				interrupts = <64>;
-+				dmas = <&edma 24 0 &edma 25 0>;
-+				dma-names = "tx", "rx";
-+			};
- 		};
- 
- 		timer1_target: target-module@4802e000 {
+ <kexec>
+   INFO:    DRTM service handler: version
+   INFO:    DRTM service handler: get error
+   INFO:    ++ DRTM service handler: TPM features
+   INFO:    ++ DRTM service handler: Min. mem. requirement features
+   INFO:    ++ DRTM service handler: DMA protection features
+   INFO:    ++ DRTM service handler: Boot PE ID features
+   INFO:    DRTM service handler: dynamic launch
 
--- 
-2.56.0
+   [..]
 
+   [  10.655030] DRTM: launch completed
+
+So this solution is absolutely viable for DRTM kexec. Great!
+
+He had a couple of issues, I will try to summarize them as I
+understood them.
+
+1) ARM DRTM requires that the executing CPU be the boot CPU when
+   launching the kernel. My patches enforced this in the EFI stub
+   assuming that the EFI stub will be the same CPU as after exit boot
+   services. Since the kthread has no CPU assignment it picks
+   something random and fails these checks:
+
+   [ 3219.695710] kexec_efi: EFI stub: ERROR: DRTM: boot PE 0x20000 does not match current PE 0x430000
+   [ 3219.695726] kexec_efi: EFI stub: WARNING: DRTM: preparation failed, continuing without DRTM
+   [ 3219.732742] kexec_efi: EFI image suspended at ExitBootServices(), system table @ 0x1001bff00090
+
+   The kthread this runs in picks a random CPU so it doesn't
+   work. Abhishek was able to put a kthread_bind() in to always use
+   the boot CPU
+
+2) Most of our systems use 64K page size, so the restriction in the
+   series is not great. Abhishek used a 4k predecessor kernel and
+   confirmed he could boot a 64k successor
+
+3) Some compile glitches:
+
+   1. arch/arm64/kernel/kexec_efi.c:175:35: error: 'PTE_ADDR_HIGH'
+   undeclared (first use in this function); did you mean 'PTE_ADDR_LOW'?
+
+   2. KEXEC_EFI_STUB declares depends on ARM64_4K_PAGES but nothing about
+   PA_BITS, so a 4K + 48-bit-PA config does not compile.
+
+   3. With rustc 1.85.0, which is what scripts/min-tool-version.sh asks
+   for on arm64, the link fails:
+
+     ld: arch/arm64/kernel/kexec_efi_glue.o: undefined reference to
+     `__rust_no_alloc_shim_is_unstable'
+
+     ld: rust/alloc.o: undefined reference to `__rust_alloc_error_handler_should_panic'
+
+   He used rustc 1.96.0 instead and it builds fine.
+
+Thanks,
+Jason
