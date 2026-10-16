@@ -1,177 +1,518 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013039.outbound.protection.outlook.com [40.93.201.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616FF582B8F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A19A582B8E
 	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171881; cv=fail; b=sJvKeEtqMMbC2Ugkcqr5plS+3ZTIMV5Tnw6ZKz8KTpvV+BpSkAiVYpjx1zJj6QH050oACrHLRjCV3yFZ8Z0wAegHfCctnTbVGjhfO5NUFEej22Ysm7sPzzwj3HZ+Hgnt+fdlHA+02s65TO5uZiWMbcoI/RdKtzRRIhdf/mtYjks=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171881; c=relaxed/simple;
-	bh=kI06AsZfg38f880kyEuUHnlioCj/oX2QbL89+T86Eu4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=IzzyGpPeKlOTMbi5Elss2ATFjuXG+Y7dTzVoI3QK9xiXd9v+2zVcahjuEKuwwH6ov/z1e+51sUTBVq4jbvA3M9/108Wj7Vn9mPzuuFeXtdqDM6P6ACXHBXZabUFffK0CIJv3GAbUibfzQJoQWumvXw+++7BdxIIMtuwEWb/0Dwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1lihawgw; arc=fail smtp.client-ip=40.93.201.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792171883; cv=none; b=BR5FZiIhr64uld7DLyfRbs2gqOrTjsV0kqceESua0RXMS8VOAcMUX82C6e6DfOYCtdRGxFVmgWOjhEVj2jY2Gm50gCQZzzDaBb/wvlydCCekSL3czE95LgP2VmKnGW4yH38wcRRbLFqwLirDS8XKnfnahdxYaMAmXfJHWFZAJVs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792171883; c=relaxed/simple;
+	bh=W38yxL3XH6m1pinwtdQiYf9QBZg5f3aOsuerd3MBQZw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=fJQrrMNmBCZzMocdk+Yl6V7EjmQo1IXev93FE/lv+BA5yzc9Iw1ld4e6o/sbAZtAEVA/HOoKoMbZ4JGyrhSvJCpEUffkf3LSGRcDZEML0Wr742VZFdJXM5vh4p3DntgAqM/ZZnCjWZP9BBeAAAQv1JRJJZ+TunDG5h9ErmwsJXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C5BXHvVm; arc=none smtp.client-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1lihawgw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rv1PEdKkJT6aWsWRPR8HN5kAxTh42srxXE5JcJPNptpIcgwAqFJxWIZicB+HJz+gWDlZNrGewrflIPlIV31MMilHGH1e7KuGC9BvHsivU52sXvKHq5R0/ViCpCUnMdd8xeupmxcL7TK1ZsBn5/OCa3DCFep1f1DE3ioh69sptdlXFFMIOUYnfF7fwqPUlB9tLHZa5QNUIirtsSdg83zfN1YC7pjZHSBC8Vv1LNEkNO/deCHCIJq8UGlnALD1k+yeliKLXW5lt5/Fy5C6VOJWGXIGCmA8q417+nEO4SHPn8AjbpUDa9ReVMtwOHJZW95lagHz97u5odFbFfVZMSUNEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zHFBa41LGusqjAcfDcnqGnTiMscvXPssA2NvSGX5gEA=;
- b=disdB0EKsu8MOelIWcWkh3lnC1s9I8Op4GgR5WLUYIXroKXE3DfOPo/d8dv9dueP0TqE6vZ2OgxzEt0LWJvx40cs3WiMYpdafmB/4cIn7AMtsGL+L5TGhh6JCnUuKG6iNIK662m2IcMmHzvqPwAZNbbak+SM+gmkdDlLJ/WPYsSV6N5pESSP3HMCy1cYr8rneeSAYUk7K0SfnV4mzzGeIzkBv+FSH7YAxzLmzczpZ1lY4jrH7tRVAFSw3F6xUiJm+njX7gUZU/4dVNGH+jtTKVreizVefYEI7A05fEJmgdeVO1KN8Zf8seXZh7kiO54hnEDkKe6b964klpllKO9J7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linutronix.de smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zHFBa41LGusqjAcfDcnqGnTiMscvXPssA2NvSGX5gEA=;
- b=1lihawgwWlvEVJs4jCPoQrqxtzA4yZsv4k6rM3wHO8g1M9Dyg8NBmY+0JDKou+oQka5hhwLqdI2Dt58ghe/j5vBvgaTRmxXsB5BBQTnimsBSRRBRIr9EcG/MDWuM3+aKZmx7AU/KGf0HsGOl5e4YcNaRHnWXSZT0kJTdSU/U/Wk=
-Received: from CH2PR16CA0011.namprd16.prod.outlook.com (2603:10b6:610:50::21)
- by DM4PR12MB5842.namprd12.prod.outlook.com (2603:10b6:8:65::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
- 2026 17:31:13 +0000
-Received: from LV8PEPF0000005D.namprd02.prod.outlook.com
- (2603:10b6:610:50:cafe::93) by CH2PR16CA0011.outlook.office365.com
- (2603:10b6:610:50::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 17:31:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF0000005D.mail.protection.outlook.com (10.167.245.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 17:31:12 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 16 Oct
- 2026 12:31:05 -0500
-Received: from [192.168.1.205] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 16 Oct 2026 12:31:02 -0500
-Message-ID: <cf779b51-0124-4fde-956e-ddce76ae7dc4@amd.com>
-Date: Fri, 16 Oct 2026 12:30:57 -0500
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C5BXHvVm"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35c5aef2a74so587613eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 10:31:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792171878; x=1792776678; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FZFVgzevG6E/XhGXC/H6ZYrOS9hDFR4deC3ZhhgSR1A=;
+        b=C5BXHvVmez9zKmXVpAVMjg83GDXmZGg7h2auY+GW0csdQOZdc1JDo/cCNCAbyORyym
+         L9EnKw6mC5WFNnb6fuvT5PZlBUbU8ICoL7PUI1A/ZXNRMHRirR4iN7MdU5g8PukwDuNR
+         +daZ/q1gdjtkuPlyAtEFwOOdls4zcYpGqw2mbBVz07WA/ljvnuBODTbAHAL0RWknUfib
+         RON8JOpqJwfHXBl8wvYZgt0yqwFbD7nmQkqLM45DqBK+o1/jWHYsj1OLYEqvXMs2wvDj
+         NfWYEKTmvFVHJfgO6BVdAzFdM1M5NiqHrE4oB+O0z3ouWe/3D0odkXupBeZ8wS0oLt1d
+         g7iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792171878; x=1792776678;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FZFVgzevG6E/XhGXC/H6ZYrOS9hDFR4deC3ZhhgSR1A=;
+        b=ynxY9o3FIFnKnE3fREeRmjCa/WvaleYksX0Zin0w787hzYzSG9qBNGSk/Bn0b9KEHo
+         7dShWyNUPCKrwzwNRAeJn4q8SZVbCwUzMYzTNz+7EIFil1HyNEu2iqeTxligZQXzNTtt
+         NheTFWByw9rVI5KtVTMoJo/0uxYloFU+KPZaP6+DXNFwCdb51gz2gALhMiIJ90cmq23F
+         ssq/jEbZRioCkqw5sPZbFVXa3BKeHUYmI1SivQrhqSqIKhDU7l4PbjzqfGc2SZV2TiC1
+         0Te6PBjNJ4xYy/bAWtE+nJTyqSZHC57v1xfEsIOaZvr3ZGInpD+BrLSohusEuNnfXh/u
+         sxYg==
+X-Forwarded-Encrypted: i=1; AKwUvByuqa9fAW3b6msuAbjNHqnOZLIKBFK+eBy/KeCs79wbbtPEb08A5kWRWoUOInJvfJSAxU+e4Q920iIYMJs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoZKlujCClX+iuG6ZzmfmzZUCrlwznL4Qd4FOxx3toqstRuueW
+	qY87yCJpn26bZTQcqT/MSq+W3Cv5gI2n3CfXw1ovofPMUW+bNY8TkEfWUybS9ng/xGLzgbZSRsH
+	Gc4un5fh5rA==
+X-Received: from dlbps8.prod.google.com ([2002:a05:7023:888:b0:157:8b19:354f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7023:88d:b0:13b:2f26:6881
+ with SMTP id a92af1059eb24-1850c8da5d9mr812813c88.4.1792171876880; Fri, 16
+ Oct 2026 10:31:16 -0700 (PDT)
+Date: Fri, 16 Oct 2026 10:30:51 -0700
+In-Reply-To: <20261016173106.679725-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: <tanmay.shah@amd.com>
-Subject: Re: [Q] zynqmp-ipi-mailbox and SGI interrupts
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, <tanmay.shah@amd.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Jassi Brar <jassisinghbrar@gmail.com>, Michal Simek <michal.simek@amd.com>,
-	Harini T <harini.t@amd.com>, Saeed Nowshadi <saeed.nowshadi@amd.com>
-References: <20261015083937.8SDbdK8P@linutronix.de>
- <1ee3f542-e0b2-41d4-bf6a-b103dabf50cd@amd.com>
- <20261016162356.m2X9jbCa@linutronix.de>
- <4c9b533f-251a-4569-bc78-fd7af664c831@amd.com>
- <20261016171029.wSftndCb@linutronix.de>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <20261016171029.wSftndCb@linutronix.de>
+Mime-Version: 1.0
+References: <20261013222622.1822619-1-irogers@google.com> <20261016173106.679725-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261016173106.679725-3-irogers@google.com>
+Subject: [PATCH v3 02/17] tools headers compiler: Synchronize compiler_types.h
+ with the kernel sources
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005D:EE_|DM4PR12MB5842:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90a1c67b-8ca2-4971-b8bd-08df2bab463b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|6133799003|22082099003|18002099003|10067099003|11063799006|5023799004|261009223027099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gbKvSEnH1ta4AoFl5XMyO+/rvM2cNsrAm8WEy3c+x9DxOgiCKx4HtdMRsOeXUQZ6aURkhfK2Eb6GShKh6fDBekcXRw7VHIHy/RsUiVlieWbd9MWepuCYtMPc5n00a8Xqc29qG7Gcktvw/roC/JgrxuEqnP9tWkNpU8Na1QL9WOxov1tRA6rKHPhcvKXOyCOwDxh1iezgrxzkeisa7FypLeLVioeb0AMD4TG8i5F/cNFdozWHpdS+jQZbS/dQugTbDabECamBUFeIDD3ry/vkAEBDnnjBKX/pRSW6fuP4QkYxX4NNd5RJfi8N2odvvd77uAqTWAVhlEMfcJSh1IYk9UyXXoUhz5+e8Q4GDxqDQO2abCttXMC0sFjPpz+XjFThUoUC6j4AqFZj5ZoK9DdSHe5c9ZcDkQVlK2pwenlSTvfJcp1mk1YLBty10ZSnsVxGq+72UTHDrwaPg4SJ3dcNsltqSUJU7Ds+bBfHp5z3HHcNt72oFRPEqStJqXF4TS+fM0vdRMPHVfuXHZnrphijXymjuaXKTdAIbJrZR3ndyDW8mqtVHrrKYGvDNUmSfDT7E2TiQJd4dDBQ2ZXY3BwQ3Yotiyox1bvdcrUVdcd5fjsRh1C3pkSIaDsjbj7uZ8HqOQQylc5Rh5lB6oKQuo+64XCleHm4f6FTarT5KDCK8N7IPXa3aiT0Nqoi6AbIJnaZyebBV3S3hSUQYfz1OmMPvw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(5023799004)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	a1AJz1ev+1kNWPRAB+lQ2s8p3yup8WTRgBBnF1pEXHU5SsOlF4P7j40qJ9ayumuI2Ds/Ku1dW+eM5/D7HckL7JoGWLOwyxlUI7htUma/NqYBo1b8CryA9BhRzF+eYQgDuGIDds4iouBZrxH9lA9BoNohvBReXl/IFmNBio749sQyPO9SPrG2saJbBpIc7pfDzw4l+TvEdTqyKmCLMOMNWeySYglBFR9PERG5J1sBJ+9yTbW5yL0T7+UTz9gU6UKCasP4wbCkO8FCANzw5QAzAfKZSmeSvetGEsK6FG4sH85c2OKH61feb1e+ME3WDikaBrc4LpJ2QJ3xBYMQC9m9E2O7WBqI/DguIFj4zhu6rkLcDDlQHkTls3/V75dBO1E9Na70huuDeSFohPxVrz8lbF+mI3uLE1G6aLBTbB9mpR7xPpK/cz22aBBD5heiqAoA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 17:31:12.7136
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90a1c67b-8ca2-4971-b8bd-08df2bab463b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5842
 
+Synchronize the non-__KERNEL__ sections of
+tools/include/linux/compiler_types.h and
+tools/include/linux/compiler-gcc.h with the kernel sources (including
+___PASTE/__PASTE, BTF_TYPE_TAG, object-size helpers, asm_goto_output,
+ASM_INPUT_*, asm_inline, __typeof_unqual__/__unqual_scalar_typeof,
+__signed_scalar_typeof, __native_word, compiletime_assert, and the
+__diag pragma helpers required by compiler-context-analysis.h), and
+remove the duplicated definitions from tools/include/linux/compiler.h.
 
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/include/linux/compiler-gcc.h   |  72 +++++++++-
+ tools/include/linux/compiler.h       |  50 +------
+ tools/include/linux/compiler_types.h | 206 ++++++++++++++++++++++++++-
+ 3 files changed, 275 insertions(+), 53 deletions(-)
 
-On 10/16/2026 12:10 PM, Sebastian Andrzej Siewior wrote:
-> On 2026-10-16 11:44:07 [-0500], Shah, Tanmay wrote:
->>> And it has to be a per-CPU interrupt? It can't become a regular
->>> interrupt which is not per-CPU? Does the driver at some point access
->>> per-CPU registers?
->>>
->>
->> As per my understanding, it has to be a per-CPU interrupt.
-> 
-> I see.
-> 
->> Driver access those registers via percpu APIs, for example:
->> xlnx_mbox_cpuhp_start() uses enable_percpu_irq(). It is called for each CPU.
-> 
-> Yes I know that part but this is not the question.
-> 
-> I meant _why_ the interrupt has to be per-CPU. I'm not sure if this is
-> internal wired as such or just configured.
-> 
-
-I think the SGI is configured that way in the driver. Probably at the
-implementation time couldn't find the better way.
-
-> For instance a timer is using a per-CPU interrupt. While the timer is
-> programmed for the next expiry it uses per-CPU registers. So the timer
-> accessed from CPU0 is different than the one accessed from CPU1. Once
-> the interrupt fires, the processing that follows is different on both
-> CPUs.
-> 
-> Looking through zynqmp_sgi_interrupt() which just invokes
-> zynqmp_ipi_interrupt() I don't see the difference. The OP-TEE firmware
-> is invoked at least the bits I saw, it just masks the source and moves
-> on. So I am not sure what is the difference between the interrupt on
-> CPU0 vs CPU1. Both could fire at the same time and handle the same
-> request unless the firmware returns a different
-> IPI_MB_STATUS_RECV_PENDING bit. I don't see how the remote side would
-> make a difference between those two CPUs.
-> 
-
-There is no difference between the interrupt on CPU0 vs CPU1. The CPU
-affinity is decided by the TF-A when configuring the SGI. The driver has
-just lazy implementation where it doesn't check for the SGI's CPU
-affinity before configuring it and will assume that SGI can happen for
-any CPU. The driver can be improved to find out SGI's CPU affinity and
-request SGI only for that particular CPU. But current implementation is
-not optimized that way.
-
-I am not expert in the GIC interrupt handling of SGI, but I think your
-question is valid. The answer IMHO is the driver's implementation might
-not be the most optimized.
-
-Thank you,
-Tanmay
-
-> So this is what I am wondering about. Based on your response so far this
-> has to be that way.
-> 
-
->>>> Thank you,
->>>> Tanmay
-> 
-> Sebastian
+diff --git a/tools/include/linux/compiler-gcc.h b/tools/include/linux/compiler-gcc.h
+index e20f98e14e81..e005e8d5dfda 100644
+--- a/tools/include/linux/compiler-gcc.h
++++ b/tools/include/linux/compiler-gcc.h
+@@ -1,7 +1,7 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _TOOLS_LINUX_COMPILER_H_
++#ifndef __LINUX_COMPILER_TYPES_H
+ #error "Please do not include <linux/compiler-gcc.h> directly, include <linux/compiler.h> instead."
+-#endif
++#endif /* __LINUX_COMPILER_TYPES_H */
+ 
+ /*
+  * Common definitions for all gcc versions go here.
+@@ -33,10 +33,76 @@
+ #define __packed	__attribute__((packed))
+ #endif
+ #ifndef __noreturn
+-#define __noreturn	__attribute__((noreturn))
++#define __noreturn	__attribute__((__noreturn__))
+ #endif
+ #ifndef __aligned
+ #define __aligned(x)	__attribute__((aligned(x)))
+ #endif
+ #define __printf(a, b)	__attribute__((format(printf, a, b)))
+ #define __scanf(a, b)	__attribute__((format(scanf, a, b)))
++
++/*
++ * Turn individual warnings and errors on and off locally, depending
++ * on version.
++ */
++#define __diag_str1(s)		#s
++#define __diag_str(s)		__diag_str1(s)
++
++#ifdef __clang__
++#define __diag_clang(version, severity, s) \
++	__diag_clang_ ## version(__diag_clang_ ## severity s)
++
++/* Severity used in pragma directives */
++#define __diag_clang_ignore	ignored
++#define __diag_clang_warn	warning
++#define __diag_clang_error	error
++
++#define __diag(s)		_Pragma(__diag_str(clang diagnostic s))
++
++#if __clang_major__ >= 23
++#define __diag_clang_23(s)	__diag(s)
++#else
++#define __diag_clang_23(s)
++#endif
++
++#define __diag_clang_all(s)	__diag(s)
++
++#define __diag_ignore_all(option, comment) \
++	__diag_clang(all, ignore, option)
++
++/*
++ * clang has horrible behavior with "g" or "rm" constraints for asm
++ * inputs, turning them into something worse than "m". Avoid using
++ * constraints with multiple possible uses (but "ir" seems to be ok):
++ *
++ *	https://github.com/llvm/llvm-project/issues/20571
++ */
++#define ASM_INPUT_G "ir"
++#define ASM_INPUT_RM "r"
++#define ASM_OUTPUT_RM "=r"
++
++#define CC_HAS_TYPEOF_UNQUAL (__clang_major__ > 19 || (__clang_major__ == 19 && __clang_minor__ > 0))
++#else /* !__clang__ */
++#define __diag_GCC(version, severity, s) \
++	__diag_GCC_ ## version(__diag_GCC_ ## severity s)
++
++/* Severity used in pragma directives */
++#define __diag_GCC_ignore	ignored
++#define __diag_GCC_warn		warning
++#define __diag_GCC_error	error
++
++#define __diag(s)		_Pragma(__diag_str(GCC diagnostic s))
++
++#if GCC_VERSION >= 80000
++#define __diag_GCC_8(s)		__diag(s)
++#else
++#define __diag_GCC_8(s)
++#endif
++
++#define __diag_GCC_all(s)	__diag(s)
++
++#define __diag_ignore_all(option, comment) \
++	__diag(__diag_GCC_ignore option)
++
++#define CC_HAS_TYPEOF_UNQUAL (__GNUC__ >= 14)
++#endif /* __clang__ */
+diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
+index f2f54b038168..86d628ba8d60 100644
+--- a/tools/include/linux/compiler.h
++++ b/tools/include/linux/compiler.h
+@@ -1,41 +1,11 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _TOOLS_LINUX_COMPILER_H_
+-#define _TOOLS_LINUX_COMPILER_H_
++#ifndef __LINUX_COMPILER_H
++#define __LINUX_COMPILER_H
+ 
+ #ifndef __ASSEMBLY__
+ 
+ #include <linux/compiler_types.h>
+ 
+-#ifndef __compiletime_error
+-# define __compiletime_error(message)
+-#endif
+-
+-#ifdef __OPTIMIZE__
+-# define __compiletime_assert(condition, msg, prefix, suffix)		\
+-	do {								\
+-		extern void prefix ## suffix(void) __compiletime_error(msg); \
+-		if (!(condition))					\
+-			prefix ## suffix();				\
+-	} while (0)
+-#else
+-# define __compiletime_assert(condition, msg, prefix, suffix) do { } while (0)
+-#endif
+-
+-#define _compiletime_assert(condition, msg, prefix, suffix) \
+-	__compiletime_assert(condition, msg, prefix, suffix)
+-
+-/**
+- * compiletime_assert - break build and emit msg if condition is false
+- * @condition: a compile-time constant condition to check
+- * @msg:       a message to emit if condition is false
+- *
+- * In tradition of POSIX assert, this macro will break the build if the
+- * supplied condition is *false*, emitting the supplied error message if the
+- * compiler has support to do so.
+- */
+-#define compiletime_assert(condition, msg) \
+-	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+-
+ /* Optimization barrier */
+ /* The "volatile" is due to gcc bugs */
+ #define barrier() __asm__ __volatile__("": : :"memory")
+@@ -48,10 +18,6 @@
+ #define __always_unused __attribute__((__unused__))
+ #endif
+ 
+-#ifndef __noreturn
+-#define __noreturn __attribute__((__noreturn__))
+-#endif
+-
+ #ifndef unreachable
+ #define unreachable() __builtin_unreachable()
+ #endif
+@@ -68,11 +34,6 @@
+ #define __naked __attribute__((__naked__))
+ #endif
+ 
+-/* Are two types/vars the same type (ignoring qualifiers)? */
+-#ifndef __same_type
+-# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+-#endif
+-
+ /*
+  * This returns a constant expression while determining if an argument is
+  * a constant expression, most importantly without evaluating the argument.
+@@ -237,11 +198,6 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
+ 	__u.__val;					\
+ })
+ 
+-
+-/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
+-#define ___PASTE(a, b) a##b
+-#define __PASTE(a, b) ___PASTE(a, b)
+-
+ #ifndef OPTIMIZER_HIDE_VAR
+ /* Make the optimizer believe the variable can be manipulated arbitrarily. */
+ #define OPTIMIZER_HIDE_VAR(var)						\
+@@ -258,4 +214,4 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
+ 
+ #endif /* __ASSEMBLY__ */
+ 
+-#endif /* _TOOLS_LINUX_COMPILER_H */
++#endif /* __LINUX_COMPILER_H */
+diff --git a/tools/include/linux/compiler_types.h b/tools/include/linux/compiler_types.h
+index b3adbf5682f0..31e9f7d2a466 100644
+--- a/tools/include/linux/compiler_types.h
++++ b/tools/include/linux/compiler_types.h
+@@ -2,8 +2,6 @@
+ #ifndef __LINUX_COMPILER_TYPES_H
+ #define __LINUX_COMPILER_TYPES_H
+ 
+-/* Builtins */
+-
+ /*
+  * __has_builtin is supported on gcc >= 10, clang >= 3 and icc >= 21.
+  * In the meantime, to support gcc < 10, we implement __has_builtin
+@@ -13,6 +11,23 @@
+ #define __has_builtin(x) (0)
+ #endif
+ 
++/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
++#define ___PASTE(a, b) a##b
++#define __PASTE(a, b) ___PASTE(a, b)
++
++#ifndef __ASSEMBLY__
++
++/*
++ * Skipped when running bindgen due to a libclang issue;
++ * see https://github.com/rust-lang/rust-bindgen/issues/2244.
++ */
++#if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
++	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
++# define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
++#else
++# define BTF_TYPE_TAG(value) /* nothing */
++#endif
++
+ #include <linux/compiler-context-analysis.h>
+ 
+ /* Compiler specific macros. */
+@@ -20,14 +35,101 @@
+ #include <linux/compiler-gcc.h>
+ #endif
+ 
++#ifndef __compiletime_error
++# define __compiletime_error(message)
++#endif
++
++#ifndef __noreturn
++# define __noreturn __attribute__((__noreturn__))
++#endif
++
++#endif /* __ASSEMBLY__ */
++
++/*
++ * When the size of an allocated object is needed, use the best available
++ * mechanism to find it. (For cases where sizeof() cannot be used.)
++ *
++ * Optional: only supported since gcc >= 12
++ *
++ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html
++ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#evaluating-object-size
++ */
++#if __has_builtin(__builtin_dynamic_object_size)
++#define __struct_size(p)	__builtin_dynamic_object_size(p, 0)
++#define __member_size(p)	__builtin_dynamic_object_size(p, 1)
++#else
++#define __struct_size(p)	__builtin_object_size(p, 0)
++#define __member_size(p)	__builtin_object_size(p, 1)
++#endif
++
++/*
++ * Determine if an attribute has been applied to a variable.
++ * Using __annotated needs to check for __annotated being available,
++ * or negative tests may fail when annotation cannot be checked. For
++ * example, see the definition of __is_cstr().
++ */
++#if __has_builtin(__builtin_has_attribute)
++#define __annotated(var, attr)	__builtin_has_attribute(var, attr)
++#endif
++
++/*
++ * Optional: only supported since gcc >= 15, clang >= 19
++ *
++ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#index-_005f_005fbuiltin_005fcounted_005fby_005fref
++ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-counted-by-ref
++ */
++#if __has_builtin(__builtin_counted_by_ref) && \
++    !defined(CONFIG_CC_HAS_BROKEN_COUNTED_BY_REF)
++#define __flex_counter(FAM)	__builtin_counted_by_ref(FAM)
++#else
++#define __flex_counter(FAM)	((void *)NULL)
++#endif
++
++/*
++ * Some versions of gcc do not mark 'asm goto' volatile:
++ *
++ *  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103979
++ *
++ * We do it here by hand, because it doesn't hurt.
++ */
+ #ifndef asm_goto_output
+-#define asm_goto_output(x...) asm goto(x)
++#define asm_goto_output(x...) asm volatile goto(x)
++#endif
++
++/*
++ * Clang has trouble with constraints with multiple
++ * alternative behaviors ("g" , "rm" and "=rm").
++ */
++#ifndef ASM_INPUT_G
++  #define ASM_INPUT_G "g"
++  #define ASM_INPUT_RM "rm"
++  #define ASM_OUTPUT_RM "=rm"
++#endif
++
++#ifdef CONFIG_CC_HAS_ASM_INLINE
++#define asm_inline asm __inline
++#else
++#define asm_inline asm
++#endif
++
++#ifndef __ASSEMBLY__
++/*
++ * Use __typeof_unqual__() when available.
++ */
++#if (defined(CC_HAS_TYPEOF_UNQUAL) && CC_HAS_TYPEOF_UNQUAL) || defined(__CHECKER__)
++# define USE_TYPEOF_UNQUAL 1
++#endif
++
++/* Are two types/vars the same type (ignoring qualifiers)? */
++#ifndef __same_type
++# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+ #endif
+ 
+ /*
+  * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
+  *			       non-scalar types unchanged.
+  */
++#ifndef USE_TYPEOF_UNQUAL
+ /*
+  * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
+  * is not type-compatible with 'signed char', and we define a separate case.
+@@ -45,5 +147,103 @@
+ 			 __scalar_type_to_expr_cases(long),		\
+ 			 __scalar_type_to_expr_cases(long long),	\
+ 			 default: (x)))
++#else
++#define __unqual_scalar_typeof(x) __typeof_unqual__(x)
++#endif
++
++#endif /* !__ASSEMBLY__ */
++
++/*
++ * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
++ *			       non-scalar types unchanged.
++ */
++
++#define __scalar_type_to_signed_cases(type)				\
++		unsigned type:	(signed type)0,				\
++		signed type:	(signed type)0
++
++#define __signed_scalar_typeof(x) typeof(				\
++		_Generic((x),						\
++			 char:	(signed char)0,				\
++			 __scalar_type_to_signed_cases(char),		\
++			 __scalar_type_to_signed_cases(short),		\
++			 __scalar_type_to_signed_cases(int),		\
++			 __scalar_type_to_signed_cases(long),		\
++			 __scalar_type_to_signed_cases(long long),	\
++			 default: (x)))
++
++/* Is this type a native word size -- useful for atomic operations */
++#define __native_word(t) \
++	(sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
++	 sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
++
++#ifdef __OPTIMIZE__
++/*
++ * #ifdef __OPTIMIZE__ is only a good approximation; for instance "make
++ * CFLAGS_foo.o=-Og" defines __OPTIMIZE__, does not elide the conditional code
++ * and can break compilation with wrong error message(s). Combine with
++ * -U__OPTIMIZE__ when needed.
++ */
++# define __compiletime_assert(condition, msg, prefix, suffix)		\
++	do {								\
++		/*							\
++		 * __noreturn is needed to give the compiler enough	\
++		 * information to avoid certain possibly-uninitialized	\
++		 * warnings (regardless of the build failing).		\
++		 */							\
++		__noreturn extern void prefix ## suffix(void)		\
++			__compiletime_error(msg);			\
++		if (!(condition))					\
++			prefix ## suffix();				\
++	} while (0)
++#else
++# define __compiletime_assert(condition, msg, prefix, suffix) ((void)(condition))
++#endif
++
++#define _compiletime_assert(condition, msg, prefix, suffix) \
++	__compiletime_assert(condition, msg, prefix, suffix)
++
++/**
++ * compiletime_assert - break build and emit msg if condition is false
++ * @condition: a compile-time constant condition to check
++ * @msg:       a message to emit if condition is false
++ *
++ * In tradition of POSIX assert, this macro will break the build if the
++ * supplied condition is *false*, emitting the supplied error message if the
++ * compiler has support to do so.
++ */
++#define compiletime_assert(condition, msg) \
++	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
++
++#define compiletime_assert_atomic_type(t)				\
++	compiletime_assert(__native_word(t),				\
++		"Need native word sized stores/loads for atomicity.")
++
++/* Helpers for emitting diagnostics in pragmas. */
++#ifndef __diag
++#define __diag(string)
++#endif
++
++#ifndef __diag_GCC
++#define __diag_GCC(version, severity, string)
++#endif
++
++#ifndef __diag_clang
++#define __diag_clang(version, severity, string)
++#endif
++
++#define __diag_push()	__diag(push)
++#define __diag_pop()	__diag(pop)
++
++#define __diag_ignore(compiler, version, option, comment) \
++	__diag_ ## compiler(version, ignore, option)
++#define __diag_warn(compiler, version, option, comment) \
++	__diag_ ## compiler(version, warn, option)
++#define __diag_error(compiler, version, option, comment) \
++	__diag_ ## compiler(version, error, option)
++
++#ifndef __diag_ignore_all
++#define __diag_ignore_all(option, comment)
++#endif
+ 
+ #endif /* __LINUX_COMPILER_TYPES_H */
+-- 
+2.56.0.212.g129ede20d9-goog
 
