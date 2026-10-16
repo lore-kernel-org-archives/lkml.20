@@ -1,218 +1,132 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421EA47DD64;
-	Fri, 16 Oct 2026 16:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B624EF152;
+	Fri, 16 Oct 2026 16:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166758; cv=none; b=SuJHCejq9MLG1PfAVF4tGJxY9IKGXsFVVdJWOZ5fttTGgECMd60Vfkwyf4ZPv1Hz/xFYJ/P6BZzibC6XV7X10lgRVhs/fIV4R0r657p3X1gjkYLTWOBVrcjukTzfONLfW3w5SLJc5eE/SE/Etbbu97kGubBh6pjoSvPeAOiQvqM=
+	t=1792166791; cv=none; b=TpQ16YTEIVBuaUMjG0SW4okK+n8W/83n615fKkpV1v32NOJTyPPablIDS2DxKoRPkpqtMO6nnGe0uo0sl9GNC21Oqc21h6bnIDaqT5gdNC5lw/6r03xB+iPLVqxSb/xVOGxOg6mbekoZmKD8yVAwDti86HuOzytDRXMUiyXv03A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166758; c=relaxed/simple;
-	bh=q40smDtmPauw3XyuJaBngvbdPAlg2s1tZfo+nrb/MZY=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=GyFfmemh5IZKNQfl543fMEP/88PNvYUwHbWeZryCm3BlFLCNqEMW5VakS+gY60Z25tKs+uwLkbNZ8Bi4Jixbyn6BPz1XM3g7ESpIUNIqTWJLX/p+AvGZGR67YjXKFIC8vLkFSu0ksTwp+/6kuGLQ5mMFV2yXPhEGAInzVp3mW74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Fri, 16 Oct 2026 17:05:20 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: sashal@kernel.org
-CC: broonie@kernel.org, corbet@lwn.net, error27@gmail.com, geert@linux-m68k.org,
- gregkh@linuxfoundation.org, kees@kernel.org, konstantin@linuxfoundation.org,
- ksummit@lists.linux.dev, laurent.pinchart@ideasonboard.com, leon@kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux@leemhuis.info,
- mst@redhat.com, ojeda@kernel.org, rdunlap@infradead.org,
- skhan@linuxfoundation.org, tytso@mit.edu, workflows@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_6/7=5D_agents=3A_add_a_skill?=
- =?US-ASCII?Q?_to_find_other_instances_of_a_fixed_bug?=
-In-Reply-To: <20261016152828.3765695-7-sashal@kernel.org>
-Message-ID: <4E908158-BDDC-4C01-8368-CACBD0FAE3DF@mainlining.org>
+	s=arc-20240116; t=1792166791; c=relaxed/simple;
+	bh=xGAH/cBFGhXa7Lo7BHAcXeIsp2PMt608yLehmEm2dVg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J1+CqmZxqxqwBOyIQ6j1RrMZevZgvzp+9i70RYnAzAjWU7qUZn05d1Ei4D1E7i4+5dImvnFfd8562WehGKvA4qXNpi/utN/E3VsTMqssGhOgiBS///4xusvZ2whelPkTPsmVFGjlDap2jXv2rVWRpb6cB+7ZG3DaPjGspyJYMXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+2IcMch; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+2IcMch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9A61F000C4;
+	Fri, 16 Oct 2026 16:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792166787;
+	bh=eV5kQsVdLEe1z5kkE8u0zgGSCke4UboN4QIxLDplCdQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f+2IcMchxGrh7hS3ThU9LLLZ9FZrSPqq/uCsdJM/HfJZu582ZheF4CosqLgJVuwpw
+	 5IEorjD4p74ztBkk7Aaq9AIb6lMTuyTyCIwp0GUTSVr42npOf6IeEkfeYuwzdcN3Zx
+	 ypLkcv1u4+UcHJylPNKpdRmzSHFYLSU9iPOrLg48WcCvXubK+aqP/6iD2rkKV/i9B4
+	 EVZzwp+2Su2BBOLwmbF0zJ6/OaOhouOgDC9/w6ewG2uiHTfF4djn/SSkgUv3JD39OM
+	 4wd5KqAbcvJcZhoCHkuWcmUFt5H5+FuIZD0iO/RvdDvSAtQrmWzZn/kMQSwLuWIwCK
+	 4nEoVV72ecmTg==
+Message-ID: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+Date: Fri, 16 Oct 2026 17:06:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <H_YflrQ_O6i59HAUsnzTG5J8wp_NNMC_tndzgzlbVRUtakJahIzRBeAoMDmm5Uunqwb63UcX4TgUrnSN-rMJOg==@protonmail.internalid>
+ <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 16 October 2026 16:28:26 BST, Sasha Levin <sashal@kernel.org> wrote:
->A bug fixed in one place often exists elsewhere, in copied code, sibling
->drivers, or other users of the same interface, and reviewers routinely
->ask whether that was checked. Left alone, agents tend to audit the whole
->tree by reading it. Add a skill that states the defect as a rule,
->searches for it through shared interfaces, copied code, the introducing
->series and earlier fixes, and verifies each candidate before reporting
->it.
->
->When Coccinelle is available, the skill searches with a semantic patch:
->it looks for an existing one under scripts/coccinelle/, checks that the
->rule marks the fixed site in the code before the fix, runs it over the
->whole tree with coccicheck, and checks which code spatch could not
->parse. These steps live in references/coccinelle.md, which the agent
->reads only when it uses Coccinelle.
->
->Tested on the parent of commit 989fe6771266 ("drm/nouveau/gsp: fix
->mismatched alloc/free for kvmalloc()"): both the existing
->api/kfree_mismatch.cocci and the example rule mark the two kfree() calls
->that commit fixed, and a whole-tree run found the same bug in four other
->drivers that were later fixed separately.
->
->The sites found are reported, not fixed; each needs its own fix, Fixes
->tag and stable decision. Point the bug-fix procedure in
->coding-assistants.rst at the skill.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
-
->
->Assisted-by: LLM
->Signed-off-by: Sasha Levin <sashal@kernel.org>
->---
-> Documentation/process/coding-assistants.rst   |  5 +-
-> agents/skills/find-siblings/SKILL.md          | 31 +++++++++
-> .../find-siblings/references/coccinelle.md    | 66 +++++++++++++++++++
-> 3 files changed, 101 insertions(+), 1 deletion(-)
-> create mode 100644 agents/skills/find-siblings/SKILL.md
-> create mode 100644 agents/skills/find-siblings/references/coccinelle.md
->
->diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
->index fc4e98fd96e11..a89a33980c41f 100644
->--- a/Documentation/process/coding-assistants.rst
->+++ b/Documentation/process/coding-assistants.rst
->@@ -39,6 +39,8 @@ The following skills are available:
->   checks an existing one.
-> * agents/skills/stable-tag/SKILL.md decides whether a fix goes to stable
-> and
->   returns its stable tag, or checks an existing one.
->+* agents/skills/find-siblings/SKILL.md looks for the same bug elsewhere in the
->+  tree.
+On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
 > 
-> Licensing and Legal Requirements
-> ================================
->@@ -101,7 +103,8 @@ these steps:
-> 5. Build and verify that the fix works either using the reproducer or by
->    re-running a complete analysis; drop any fix that doesn't work and try
->    another one. The fix must not add build warnings and must pass the
->-   checkpatch.pl checks (see submitting-patches.rst).
->+   checkpatch.pl checks (see submitting-patches.rst). Then look for the same
->+   bug elsewhere with the find-siblings skill.
-> 6. Commit the working fix with a detailed message describing the problem,
-> the
->    solution, a Fixes tag determined with the find-fixes skill, and a stable tag
->    if the stable-tag skill calls for one. Do not add a Signed-off-by tag, and
->diff --git a/agents/skills/find-siblings/SKILL.md b/agents/skills/find-siblings/SKILL.md
->new file mode 100644
->index 0000000000000..471ce8d9c0bd6
->--- /dev/null
->+++ b/agents/skills/find-siblings/SKILL.md
->@@ -0,0 +1,31 @@
->+---
->+# SPDX-License-Identifier: GPL-2.0-only
->+name: find-siblings
->+description: >-
->+  Find other places in the Linux kernel tree that have the same defect as a
->+  bug being fixed, and verify each candidate. Use after fixing or reviewing
->+  a bug fix, or when asked whether the same bug exists elsewhere.
->+---
->+
->+# Find other instances of a bug
->+
->+Follow the rules for skills in Documentation/process/coding-assistants.rst.
->+
->+- State the defect as a rule that does not depend on local names, such as
->+  "memory from kvmalloc() is released with kfree()".
->+- Search the tree as it was before the fix, not the working tree. Look at
->+  other users of the same interface, field or lock, code copied from the same
->+  origin, the rest of the series that introduced the bug, and earlier fixes
->+  for the same defect. Limit history searches to the relevant directories.
->+- If Coccinelle is available (`spatch --version` works), search for the
->+  defect with a semantic patch as
->+  [references/coccinelle.md](references/coccinelle.md) describes. Otherwise
->+  use text searches and report that limit.
->+- A match is a lead. Read each candidate with its callers, locking and object
->+  lifetimes, and classify it as confirmed, safe or undetermined, with the
->+  reason. Check whether a confirmed site is already fixed in the current tree
->+  or in a pending tree such as linux-next.
->+
->+Return the searches you ran and their scope, and the classified sites with
->+their maintainers. Do not fix the sites: each confirmed one is a separate bug
->+that needs its own fix, Fixes tag and stable decision.
->diff --git a/agents/skills/find-siblings/references/coccinelle.md b/agents/skills/find-siblings/references/coccinelle.md
->new file mode 100644
->index 0000000000000..6b09ce9d04c8c
->--- /dev/null
->+++ b/agents/skills/find-siblings/references/coccinelle.md
->@@ -0,0 +1,66 @@
->+<!-- SPDX-License-Identifier: GPL-2.0-only -->
->+
->+# Searching for a bug pattern with Coccinelle
->+
->+Documentation/dev-tools/coccinelle.rst describes `make coccicheck` and its
->+options. The semantic patch language is documented at
->+https://coccinelle.gitlabpages.inria.fr/website/docs/.
->+
->+1. Look under `scripts/coccinelle/` for a semantic patch that already covers
->+   the defect. Read its rules rather than its name: `kfree()` of memory from
->+   `kvmalloc()` is covered by `api/kfree_mismatch.cocci`, while
->+   `api/kvmalloc.cocci` only flags an open-coded `is_vmalloc_addr()` test.
->+
->+2. Otherwise, write a semantic patch outside the repository. Match only what
->+   the defect needs, not names or statements specific to the fixed site. Mark
->+   the lines of interest with `*`, and declare `virtual context`: coccicheck
->+   passes `-D context`, and spatch rejects a mode the file does not declare.
->+   A minimal rule for memory from `kvmalloc()` released with `kfree()`, a
->+   case that `api/kfree_mismatch.cocci` covers more completely:
->+
->+       virtual context
->+
->+       @@
->+       expression E;
->+       @@
->+       E = \(kvmalloc\|kvzalloc\|kvcalloc\|kvmalloc_array\)(...);
->+       ...
->+       * kfree(E);
->+
->+3. Check that it finds the site you fixed. Coccinelle reads the files on
->+   disk, where the fix is usually already applied, so copy the file as it was
->+   before the fix to a directory outside the repository and run
->+   `spatch -D <mode> --very-quiet --sp-file <rule> <copy>`, with a mode the
->+   rule declares on a `virtual` line, such as `context` or `report`. Without
->+   `-D`, rules that depend on a mode do not run and nothing is reported. The
->+   rule must mark the fixed site in that copy, and nothing in the fixed
->+   version. If it misses the site, correct the rule before searching further.
->+
->+4. Search the whole tree:
->+
->+       make coccicheck MODE=context COCCI=<rule> DEBUG_FILE=<new log file>
->+
->+   - Use a `MODE` the rule declares on a `virtual` line, as in step 3.
->+   - In context mode the output is a diff, and each line starting with `-`
->+     is a line the rule marked; report mode prints one warning per site.
->+     coccicheck searches the files on disk, so a site you already fixed
->+     there is not marked; step 3 covers it.
->+   - The kernel's `.cocciconfig` makes spatch skip files that do not contain
->+     the rule's identifiers, so a whole-tree search is usually quick when the
->+     rule names distinctive functions. Add `M=<dir>/` only if it is not.
->+   - Give `COCCI` and `DEBUG_FILE` as absolute paths. With `M=`, coccicheck
->+     runs from that directory.
->+   - Read the log. Without `DEBUG_FILE`, spatch errors are discarded and a
->+     broken rule shows only as "coccicheck failed". coccicheck refuses to
->+     reuse an existing log file.
->+   - Header files are searched only with `SPFLAGS=--include-headers`, or with
->+     a `// Options: --include-headers` line at the top of the rule.
->+
->+5. Check what was not searched. Coccinelle skips code it cannot parse without
->+   saying so. Run `spatch --parse-c` on the searched files or directories: a
->+   nonzero `nb bad` count means part of them was skipped. Search those files
->+   another way and report the gap.
->+
->+If the rule marks many sites that turn out to be safe, tighten it, for example
->+with `when !=` constraints, and run it again rather than discarding candidates
->+by hand.
->
+> The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
+> OV13858 on a four-lane D-PHY link, described in the device tree. Add an
+> OF match table.
+> 
+> Parse the endpoint as other sensor drivers that serve both ACPI and DT
+> do. Wait for the endpoint if a bridge driver has not created it yet,
+> require four data lanes, and require both link frequencies, since the
+> modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
+> lists both, so an ACPI machine with that entry probes as before. Without
+> the entry the sensor now waits for the bridge instead of probing into an
+> empty graph.
+> 
+> Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
+> capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
+> 4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
+> and a scene captures.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+This is a weird change.
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+You describe regulators, clocks and resets in the yaml file which then 
+don't appear to be supported in this result code ?
+
+- regulator_bulk_;
+- clock_bulk_
+- reset gpio optional
+
+I don't think this driver would survive suspend/resume.
+
+---
+bod
