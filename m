@@ -1,235 +1,238 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D03325483
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1DD2AD0C
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 01:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792115068; cv=none; b=ApkTXTjmBV0EFWx97wKblpkBi/nMMfPOdf4kMPre8S3kqJJa25YcVTRbEcARldJognGSts+j3WKlAQVwzDHlK1cfHFc11N1HNz9Nnd4dRl44LFUq7QM4Tjt/wOq2Ya+/wMS4zVqwuLTemd1t9skZ14i1GT0U3YYnkczdguO3NAw=
+	t=1792115247; cv=none; b=JKr9IyGaBD9UVmt4J+sA6UPZ9kERE7DtT5fmP2VhgdnJgeKecUBFZOhPtBc+R1+ocOWsSvTNH39Hz3Tq8SttcYkrSEhtLIQwrTBuLdlw2EQtfNE1oXB5jWH4cCZb/q1VLbA8x81gLYIR/GvPvqoLYGjL7Fa9KVhQ+hOdKdGRrvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792115068; c=relaxed/simple;
-	bh=T52N405yvi/KiAwa9HNn6EVFkI4PXsuRjuaPvn/ceeo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mBrhaGaHCcwhpjpEuZHrILDa01dlM9pX+RwY25hk0/Imwnvk8b1qpkiJLyQUhP05+QfbycJM+zjBhmYot+pA45lbt5xZ41Imm+l4cY+vUtGWEH1u59TSKlOzlLFfgYC1x2sVAP+i2EIjfSB7cd/qu4htN6YYxBKfWRqteHdaX7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=eVlMA8LB; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1792115247; c=relaxed/simple;
+	bh=eJtOKk7P/HGCOr6BwwUa3gt5Ip2aig0MLqeS1fSHCf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R8BG0qqjAhCn3aGQVYhqxt/1E4peQorGJ1KUIIC4/XsZQ0cVKW7w+Gte8DnP6QAw5W2vsrti7oCF8gonC1n6QTvYnRafICGoCv+Re1YGI6c5SmfIWVlqxH6jkcSd5WM0vHJLy8GUiPr4MxTjgfoosrvUBuE/FH0zVOfiBwgusSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GD/Tpsky; arc=none smtp.client-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="eVlMA8LB"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5339381b46eso58105651cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 15 Oct 2026 18:44:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792115065; x=1792719865; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X7du5FcQla5Wc6+gmnjVbAOsmIOTMVLfgIeT70bTejk=;
-        b=eVlMA8LBFAg3ITUzJgLzUpgZBFgZLW3GNIpPKj7CJJZNDOv247RktUCrp23ZkrrBgX
-         PX9hYoPPZEJfINPU0ciTV2K1UJumaUTPyFyb4FrU+gt7W2I5gNSCvVbuGx5eS2HyPuom
-         CTDl67a8xWYmAg/UVXL5hz4CKD44DXlCs3VmDFYqHW2vEeYr8yt6JMacocfYgnxLJqMQ
-         6VAHk/1pTCIBM+brx1aKRL3aUG2r8JMCRAGD4ZWZRAhInj3JVVbMznDHITz06xYZetah
-         nuBnJ2tGtvKuQPzl6bIka2Z8cveokMC+rMaCqFuDT0dRXaIvQiEvgt3QckUQoxTrWawX
-         tRXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792115065; x=1792719865;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X7du5FcQla5Wc6+gmnjVbAOsmIOTMVLfgIeT70bTejk=;
-        b=BJmltF4StORvrlB2tBrqDEXaj8eKsft/KmL4A0WBB7Y+MW8zqnmrdD6wltWkVe+OMt
-         yhle/SMSR+G368CvHC/6odsFk/rYsr4+/E7aG2qgN2JyjOurpRF4uKA8+XBUanL3zrsH
-         tfUAyRlHV1JdEInB4M9emj9R6XwUXjy0I4SUIW9X13MVeux74ePdkOLePRQZrWt3uvKe
-         BRtmNnZetIG/xiawfyiE74xGbLXYsRJ2F1sEd/wkD4zVlLBdKoCItx24CpuJM4YKmAwq
-         rFv38alawSdLcrYcIdUr5itXwoNR1clYn7PmsjuVK1ebHRGXdRNOCcthxvPsiLryl57t
-         w+Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOox7GBCQZBJKbnAgOvMOSLmN5F9S1Gwj/IGqafnyRUWWdH6nqPyeqOvmVNvkFnWqLURhGQLqbjEw2MJ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUqGat5p8uTc3UTun+XjrXgJYp0HQPPte6nbCJbztQKU4k5fNa
-	112tqyn/NRV2Mylum/h2h+PdhcppTp5S9wsa3pmVhR45Q5mxerwgu8RxAAw48n2GeVUeMVHG82b
-	RPppKkw==
-X-Gm-Gg: AYBFou16TjHe7hszOCEq8sMGAKi8H1JcWSEhqJxgKuv5qJiX2OVBL+i2pq2afIqXkmz
-	ap5J0gbJ1WMn9Ty0P0a3sLvjl5BHRKNyFqQR/0NtTwLErIVqgrfY+AdSMHIMcHD7awAt87EoX51
-	eXxFbOerJFFAUq2TJkz949506hD3iaO0BPvFUaM026JB36js1iiaV4XOaARoZ4HtBIyhH5SKcEs
-	NnWPC6dTVGvCvDIIBnfhKKTvLLSDiDrSGYU3PQIm/9jMHVPNNHA530Z1HbNd9XCN+LFDqcT6LFw
-	e2vJa2X6wcB01pp7LB1D1frf5Ij5KwCcT0zKwXoCnNr6xy/JEC2rbKBDLNg2513do6wShQBWmpn
-	7knxB6vuJMXt3VFFvHHl/TOm+CqvdTIM3zwBehsE/1s24NIWrB0lJurAmTv9TaKskINQ0p0MWAq
-	RdmF2eBGO0qFyikJmwJGBPXmrkN+7Z24Y5v1i41lmfnvXVnbJj+YSSDhGqyv3u2kcK3Y4zujwp3
-	efJuKsiJfbJijo/VibarA==
-X-Received: by 2002:a05:622a:906:b0:530:b2e4:d598 with SMTP id d75a77b69052e-5359fdd8736mr351907691cf.51.1792115064669;
-        Thu, 15 Oct 2026 18:44:24 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e5831sm9074711cf.10.2026.10.15.18.44.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 18:44:24 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: do not leave the file extended after a short write
-Date: Thu, 15 Oct 2026 21:44:23 -0400
-Message-ID: <20261016014423.2236260-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GD/Tpsky"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792115241; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=dfUIw3nBCJ2Tb9sCItT56mvQgYidiqFThC9FCi7zIMI=;
+	b=GD/TpskyDMUuwDqy2PreHSaG5knX5fgqORrKK45wunB+3JAWYid7E54ScfvmA6/5NqsvV0gQqo7n8S6fhQRIq1iIJB958yxB9zyr0+i8C7g5J/WTbpBQbmaADYDKpIwCSTuB2SA1wJ+1Fe3Q2q5l8o5UQxCPR9lNo59BLyg0fP8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCt4VcS_1792115238;
+Received: from 30.74.144.163(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCt4VcS_1792115238 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 16 Oct 2026 09:47:19 +0800
+Message-ID: <b1a9b500-0ddc-4791-9e1f-00087e367426@linux.alibaba.com>
+Date: Fri, 16 Oct 2026 09:47:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: memory: fix truncation removing mapped folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <542c97482eae84f86704bcee56482633d1b32321.1791616645.git.baolin.wang@linux.alibaba.com>
+ <8245424a-f068-4be5-9e58-713cbff1f8ae@kernel.org>
+ <405811f5-ee36-4b3c-80d0-7dc6827ab5d4@linux.alibaba.com>
+ <6660d3bb-3485-4c34-8734-3ea99df920f1@kernel.org>
+ <02c9a968-92e2-49e2-bffc-74d264a5c911@linux.alibaba.com>
+ <f7735584-e020-4ee1-8afb-2b5d580cfa49@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <f7735584-e020-4ee1-8afb-2b5d580cfa49@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-ntfs_file_write_iter() sets the file size to the end of the request
-with ntfs_set_size() before it copies the data.
 
-However, when fewer bytes are written, the function returns without
-putting the size back. As of now, a write() that runs out of space on a
-sparse file, or that stops at an unreadable part of the buffer, leaves
-the file as long as the whole request. The part that was not written
-reads as zeros.
 
-The issue can be reproduced on a volume mounted with the sparse option:
+On 10/16/26 3:00 AM, David Hildenbrand (Arm) wrote:
+> On 10/15/26 08:41, Baolin Wang wrote:
+>>
+>>
+>> On 10/14/26 9:25 PM, David Hildenbrand (Arm) wrote:
+>>> On 10/13/26 11:36, Baolin Wang wrote:
+>>>>
+>>>>
+>>>>
+>>>> I had considered this approach before, but it is not feasible. IIUC, the
+>>>> sync_with_folio_pmd_zap() is used to address the race with zap_huge_pmd(), and
+>>>> both the PMD clear and the folio mapcount decrement are performed under the PMD
+>>>> lock in zap_huge_pmd().
+>>>
+>>> Just to be clear, I am thinking about something like the following on the
+>>> zap_pmd_range() side:
+>>>
+>>> diff --git a/mm/internal.h b/mm/internal.h
+>>> index 38b1165212c94..a8820ad7e2f21 100644
+>>> --- a/mm/internal.h
+>>> +++ b/mm/internal.h
+>>> @@ -584,14 +584,15 @@ void free_pgtables(struct mmu_gather *tlb, struct
+>>> unmap_desc *desc);
+>>>    void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>>
+>>>    /**
+>>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+>>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>>>     * @mm: The mm_struct.
+>>>     * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>>>     *
+>>>     * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+>>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+>>> - * make folio unmapping code assume that unmapping failed.
+>>> + * zap_huge_pmd() or zap_empty_pte_table() may have cleared the PMD but not
+>>> + * yet modified the mapped folios to indicate they are unmapped. Skipping the
+>>> + * PMD without synchronization could make folio unmapping code assume that
+>>> + * unmapping failed.
+>>>     *
+>>>     * Wait for concurrent zapping to complete by grabbing the PTL.
+>>>     */
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index 8b0c2c735d3de..c585f5eb255c9 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2139,9 +2139,7 @@ static inline unsigned long zap_pmd_range(struct
+>>> mmu_gather *tlb,
+>>>                                   continue;
+>>>                           }
+>>>                           /* fall through */
+>>> -               } else if (details && details->single_folio &&
+>>> -                          folio_test_pmd_mappable(details->single_folio) &&
+>>> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>>> +               } else if (details && details->single_folio && pmd_none(*pmd)) {
+>>>                           sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>>                   }
+>>>                   if (pmd_none(*pmd)) {
+>>>
+>>
+>> Yes, I've considered that. However, implicit memory barriers give me a headache,
+>> so I ended up going with explicit memory barriers (suggested by Pedro).
+>>
+>> If you don't like memory barriers, let me re-check whether the implicit memory
+>> barriers here can ensure race safety with sync_with_folio_pmd_zap(). A
+>> simplified logic is as follows:
+>>
+>> CPU 0 (truncation)                        CPU 1 (zapping)
+>> down_read() ->Acquire A1.                pte spin_lock() ->Acquire A4
+>>                                           clear mapcount
+>>
+>>                                           pmd spin_lock() ->Acquire A5
+>>                                           clear pmd
+>>                                           pmd spin_unlock() ->Release R5
+>>
+>> if (pmd_none()) { //read pmd
+>>                                           pte spin_unlock() ->Release R4
+>>      pmd spin_lock() ->Acquire A2
+>>      pmd spin_unlock() ->Release R2
+>> }
+>> up_read() -> Release R1
+>>
+>> spin_lock(y) ->Acquire A3
+>> folio_mapped() // read mapcount
+>> spin_unlock(y) ->Release R3
+>>
+>> CPU 0 constraints:
+>> 1. R2 is a release, so "read pmd" completes before R2.
+>> 2. A2 completes before A3 (ACQUIRE vs ACQUIRE).
+>> 3. "read mapcount" completes after A3, hence after A2.
+>>
+>> CPU 1 constraints:
+>> 1. R5 is a release. Both "clear mapcount" and "clear pmd" complete before R5.
+>>
+>> According to above constraints, if CPU0 sees pmd_none() caused by CPU1's clear
+>> pmd, and CPU0 then acquires the same pmd lock released by CPU1 at R5, then
+>> CPU1's clear mapcount happens before CPU0's later folio_mapped().
+>>
+>> Therefore folio_mapped() is guaranteed not to read the old mapcount in this
+>> case. So I think sync_with_folio_pmd_zap() can work, but needs a small change to
+>> avoid the double pmd_none() check.
+> 
+> 
+> I'd be okay with some (follow-up?) memory barrier handling inside
+> sync_with_folio_pmd_zap(), for example, based on the folio size and with proper
+> documentation why we need the PT lock in one case and why the memory barrier is
+> ok in the other case.
 
-    truncate -s 16M img
-    mkntfs -F -q img
-    mount -t ntfs3 -o loop,sparse img /mnt
-    dd if=/dev/zero of=/mnt/hole bs=512k count=1
-    dd if=/dev/zero of=/mnt/fill bs=4k
-    sync
-    rm /mnt/hole
-    sync
-    dd if=/dev/zero of=/mnt/f bs=1M count=1
-    ls -l /mnt/f
+I'm afraid that we can't fit all the memory barriers into 
+sync_with_folio_pmd_zap(). As the current patch does, we need memory 
+barriers on both the writer and reader sides.
 
-The last dd command fails with "No space left on device". Before this
-patch, /mnt/f is then 1048576 bytes long, although only 524288 bytes
-were written. After this patch, /mnt/f is 524288 bytes long.
+>> David, does the following diff look good to you?
+> 
+> I think we should extend the sync_with_folio_pmd_zap() doc as suggested.
 
-For non-compressed files, trim back to the end of the written data without
-shrinking below the old size, and restore the old size if no data was
-written. Reuse ntfs_setattr()'s shrink sequence and i_size rollback,
-recording cleanup errors for fsync while preserving the write result.
+Ack.
 
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Tested in KVM guests with KASAN enabled:
-- Short/failed writes and ENOSPC, including unmount/remount checks.
-- 78 focused cases across default, sparse, delalloc and prealloc=0
-  combinations, covering buffered/direct I/O, append and O_DSYNC.
-- 15 model runs (21,600 operations), with readback after remount.
-- 32 ENOMEM/EIO cases each with and without the new error handling,
-  using a test-only injection annotation at ntfs_set_size() entry.
-  Checked size rollback, data preservation and fsync/O_DSYNC errors.
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index 6a8e7772b8d6..c0aadab1b59e 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>                  }
+>>          } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>>
+>> +       add_mm_rss_vec(mm, rss);
+>> +       lazy_mmu_mode_disable();
+>> +
+>> +       /* Do the actual TLB flush before dropping ptl */
+>> +       if (force_flush) {
+>> +               tlb_flush_mmu_tlbonly(tlb);
+>> +               tlb_flush_rmaps(tlb, vma);
+>> +       }
+>> +
+>>          /*
+>>           * Fast path: try to hold the pmd lock and unmap the PTE page.
+>>           *
+>> @@ -2044,16 +2053,8 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>           * to ensure they are still none, thereby preventing the pte entries
+>>           * from being repopulated by another thread.
+>>           */
+>> -       if (can_reclaim_pt && direct_reclaim && addr == end)
+>> +       if (can_reclaim_pt && direct_reclaim && addr == end) {
+>>                  direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+>> -
+>> -       add_mm_rss_vec(mm, rss);
+>> -       lazy_mmu_mode_disable();
+>> -
+>> -       /* Do the actual TLB flush before dropping ptl */
+>> -       if (force_flush) {
+>> -               tlb_flush_mmu_tlbonly(tlb);
+>> -               tlb_flush_rmaps(tlb, vma);
+>>          }
+>>          pte_unmap_unlock(start_pte, ptl);
+>>
+>> @@ -2102,12 +2103,11 @@ static inline unsigned long zap_pmd_range(struct
+>> mmu_gather *tlb,
+>>                                  continue;
+>>                          }
+>>                          /* fall through */
+>> -               } else if (details && details->single_folio &&
+>> -                          folio_test_pmd_mappable(details->single_folio) &&
+>> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>> -                       sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>                  }
+>> +
+>>                  if (pmd_none(*pmd)) {
+>> +                       if (details && details->single_folio)
+>> +                               sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>                          addr = next;
+>>                          continue;
+>>                  }
+> 
+> We do have another sync_with_folio_pmd_zap() user in page_vma_mapped_walk(),
+> does that one need care as well?
 
-Compressed files and alternate data streams were not tested.
+Good point. But I don't want to add page_vma_mapped_walk() changes into 
+this fix patch. I need to analyze all callers of page_vma_mapped_walk() 
+and the potential races. I'll look into whether it should be changed in 
+a follow-up patch.
 
- fs/ntfs3/file.c | 42 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index 95dfe6878860..bf9b39d00458 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -1236,6 +1236,33 @@ static int check_write_restriction(struct inode *inode)
- 	return 0;
- }
- 
-+/*
-+ * ntfs_write_trim - Cut the file back after a write that was not completed.
-+ *
-+ * ntfs_file_write_iter() sets the file size to the end of the request before
-+ * the data is copied. Keep what was written, or the old size if nothing was.
-+ */
-+static void ntfs_write_trim(struct kiocb *iocb, loff_t pos, loff_t oldsize)
-+{
-+	struct inode *inode = file_inode(iocb->ki_filp);
-+	loff_t isize = i_size_read(inode);
-+	loff_t newsize = oldsize;
-+	int err;
-+
-+	if (iocb->ki_pos > pos)
-+		newsize = max(newsize, iocb->ki_pos);
-+
-+	if (newsize < isize) {
-+		truncate_setsize(inode, newsize);
-+		err = ntfs_set_size(inode, newsize);
-+		if (err) {
-+			i_size_write(inode, isize);
-+			/* Preserve the write result; report the error on fsync. */
-+			mapping_set_error(inode->i_mapping, err);
-+		}
-+	}
-+}
-+
- /*
-  * ntfs_file_write_iter - file_operations::write_iter
-  */
-@@ -1244,7 +1271,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
- 	struct ntfs_inode *ni = ntfs_i(inode);
--	loff_t vbo, endbyte;
-+	loff_t vbo, endbyte, pos, oldsize;
- 	ssize_t ret, err;
- 
- 	if (!inode_trylock(inode)) {
-@@ -1281,6 +1308,8 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 
- 	vbo = iocb->ki_pos;
- 	endbyte = vbo + ret;
-+	pos = vbo;
-+	oldsize = inode->i_size;
- 
- 	if (endbyte > inode->i_size) {
- 		/*
-@@ -1300,7 +1329,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	if (vbo > ni->i_valid) {
- 		ret = ntfs_extend_initialized_size(file, ni, vbo);
- 		if (ret)
--			goto out;
-+			goto trim;
- 	}
- 
- 	/* Fallback to buffered I/O if the inode does not support direct I/O. */
-@@ -1310,6 +1339,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_iomap_ops,
- 						&ntfs_iomap_folio_ops, NULL);
-+		ntfs_write_trim(iocb, pos, oldsize);
- 		inode_unlock(inode);
- 
- 		if (likely(ret > 0))
-@@ -1322,7 +1352,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		/* Direct I/O is not compatible with delalloc. */
- 		ret = ni_allocate_da_blocks(ni);
- 		if (ret)
--			goto out;
-+			goto trim;
- 	}
- 
- 	ret = iomap_dio_rw(iocb, from, &ntfs_iomap_ops, NULL,
-@@ -1342,7 +1372,7 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 						&ntfs_iomap_folio_ops, NULL);
- 		if (err < 0) {
- 			ret = err;
--			goto out;
-+			goto trim;
- 		}
- 
- 		/*
-@@ -1358,13 +1388,15 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 						   endbyte);
- 		if (err) {
- 			ret = err;
--			goto out;
-+			goto trim;
- 		}
- 
- 		invalidate_mapping_pages(inode->i_mapping, vbo >> PAGE_SHIFT,
- 					 endbyte >> PAGE_SHIFT);
- 	}
- 
-+trim:
-+	ntfs_write_trim(iocb, pos, oldsize);
- out:
- 	inode_unlock(inode);
- 
--- 
-2.53.0
-
+Thanks for your comments.
