@@ -1,63 +1,65 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E193418373
-	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E133BBFD9
+	for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 07:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792134756; cv=none; b=qbctm9WngFBSn22wpTBEp3xiIzwuJF58zOcRjjncie9wA17X7OQNApyzb+10CBU3aPppFN3ySmZyVj7Tr2CFaPCfjCzylQTK+DqBgvhP0TaIZJ8AtWzc/ZIpZuRFUfhMf5RFKZDFtISmarMPXTnxqSb6Ox7AIq5Qh49itVnqCTs=
+	t=1792134759; cv=none; b=GA8sFljAmuRECaM7ng4prumNFqlkuG6OPWXiD40VurfThPiRYJ5WI7uNeJfk1TuwbtSlAqMBSc4VGmXVvIDSbaQoUCjzhGhdrwUk6oGjspSFttB885xSYqu73uJkKLytQYFUAJBSQbndnd2uTdKxCfjY+5xbo5cDT94eXKI0F3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792134756; c=relaxed/simple;
-	bh=nUBV428k6cb1/zyNyUDW1FBpsf0H9Yc45aYCz8u//xw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=aqHszoLEND+AhIOIKE8eXHvSn0dSCiucR1oRJ8YLY4991xaiL0Ro4cSdlFW/u1BGXG7FxpKo2Ebl8OAnDI1wryUwLB8ui7qm+KgGFWxkoeHi74TqDVlYyIJmvB8wi0qBmRKh6ePedREYvsuwZmxm1bvZY1xbkywXvmC9UKFvcwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQQSG1wt; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1792134759; c=relaxed/simple;
+	bh=tEX39GDnTod+NDjDLHnBKvhQxnCaMXJywpN07WIYxfc=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HhXFsK9PrfPB4+S7Bvwf/G2gur3dpsDhsNYnUpCTwTdz6EJPgbDpQFmB1+tc0ysQzXiKIehGmSM3PP+NhQsfIBPbOVteP6zAaZ35zdZC3QQb50ezENTXkrKq1tgeZ1bch9LbxaH4xrojrmpVEypTVdVkdLlO7gdWe/kDrdfz1B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfFX2634; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQQSG1wt"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d05d51553so18868585e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:12:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfFX2634"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso23200075e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 00:12:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792134752; x=1792739552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0i4EWzFPDrCBGPxvUTW0hZsml2U+08zpz7E33Xi4YAg=;
-        b=eQQSG1wtUIXTCkjwMHlwAdziWliClkLoVDpHtsONEI+DjWnTHMe/dkaY/s84fxvjI+
-         /d7CC2ELrS0UXa+3eiVDzk3fdhwUHXwUSsO2YOki3VP1n0d8SCyNf52eBbFugGenoNi5
-         QpyCbfYr4EPlvjZsJvuU4fqDok2sTXikfjtJPY2VKTzNsEkRY/8rOxyWmcTWSperF/xF
-         ZZpOQ4heUZITNUq2y6Q3VAim4v0agzt8JdFv315UhobDoEQBDoZ7q9Yg+WH6dAT9USu3
-         EnAXp5/S9Rz7rwpW2/FsGP+rr1tHq09cYf9QOUc4y/0xfjoj7zAxHqeAIPoamqUZ4YYh
-         1cCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792134752; x=1792739552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1792134755; x=1792739555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=0i4EWzFPDrCBGPxvUTW0hZsml2U+08zpz7E33Xi4YAg=;
-        b=KmjUIF+dXYrm+gg1pdx6PDI2DxAdCpQ54kT2xkxy+LqNI+EhVr8STXCfp3zO9g3fQC
-         2R1xnecUWs1VtyJJWvH9ge1BHhz35VWaCKYj+ZTxCzyhbYa3hM5T5KbMHoebTT6saaji
-         E5zOfwZIenWStjGwzsJLuw9Wwtg5z1KR0RJITehmMJF+Z/bDXJNS4qxGgihovJtxPaZs
-         OuM7Rac03L5ObWgR03ioGVbVikR7vFy1asxuYr901tDMKr0lPkW0jJrDhED0roC7CFln
-         aZ0UVmQoT7jgqJhsZtZ7bBU0XP5C00j/QvRMzygnyxxHeVO/8H09xkwi9rY9oqI8tkTX
-         NRYA==
-X-Forwarded-Encrypted: i=1; AKwUvByF1OcL9j3tVIBzdQvNtRrOCiTozNv2Rlm9HNS2GfsZsAb0hHWJ74mpWNi0GWIPdgD97G7zYpgdoZeD+po=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/ouLzRrJAXzXjhy8zh5gdc1r8LRRxgnuW7J40G2JOu9Q5MW9q
-	hyGawm8hBs+ne8uKW9Hm46LBRnQpMq6WIoVkMNR8Bg2SfduB7PezIoZ/
-X-Gm-Gg: AYBFou2bEP3aR080RVp3X6618tydwF8jdqkUrZRVorZiEw35BVYdMbkJryPn/Ocdf+7
-	LumBqtfJoa5sLpvOABUL8EtKTfqDuYwUmIajWURnYOSuMBJLfBUUyvYJQfgKCL7fSJ56x0CIpBT
-	esUCCs5DwTKNY3a7k6G7j1ulHMx+BIncv5+MajkuGg7tDJ1T0wPlqFNV8PjzULyiVZP5ziiMPzm
-	aRYeIYPkL6DD4Q2tqP4/rW1PWj9w4vvq8AcazRumg/9jKDyX7Is6+MToQZGwC0YdMsQcqqPiLPs
-	ySCpzdWyizLQdf1WiS6p8EgXCPC8wmqLKlKIDQHV6mPhMA3AJ917qInbx+N/049C09fyjsBES5a
-	gqCyWt4OPQhnZ87xEaeT5Jxi+T43GIwSYxKp/7hhmEmiCnb33dq8Fv3b3Rv9tTUnVctPNyHPfdQ
-	X6hZ2nu6tVtN+nKnMnMW3w/80t9ZX/BCChm6SYDAmGt9HAnazxEd6b1GCuF1b8traTS3YB+PysX
-	8Zhy+Inz9EyaAKme45feQ72BxMav0BMnbTpLHCB+9kj0Ymq2Z/IxRPr7JJKVZf1jU1HqbO1zItM
-	TBr4biUwLAxiJNIfJ7NkO4Ck
-X-Received: by 2002:a05:600c:4504:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-4a18e4a7839mr459117355e9.25.1792134752197;
-        Fri, 16 Oct 2026 00:12:32 -0700 (PDT)
+        bh=J5xMolcA2jijade3hq2GliWPHkN3pbidlI2m81QLD6M=;
+        b=QfFX2634rWRJPoheoW5LmAnw2t4VvMYsnaP4ZcUDiLM8MhcIniJDMFh0d7buF7U3IG
+         CLsm0xpif/sat3YRHz5kOTAsiwcM5z9FRAy+hDlp3Eu/YL5mVtFL7TXSTmMHrrvOzdTT
+         4pxZ5z5WXrqrsojOAU2cpTFBly2hUujP0cZEv5R+O5/eInrWcs+Im63rhee/epnL8SI4
+         cTHiW4TNc/Py71M5wBJrZt1XO3H7fZuG6M2/2bLZj8aZ5i6gmnfKcZbxXC2tguxgZkqe
+         q4Iqfc78GyDQkTE2YvNZVZScBeSu3xVJOXqvMo+wQbpbe98uZaV+VKiC1fClGigqy2Ov
+         /JJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792134755; x=1792739555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=J5xMolcA2jijade3hq2GliWPHkN3pbidlI2m81QLD6M=;
+        b=oMRw6hFjr+FAZ4oFOk7Z23y/RJE49kHgSRvFdqjYCA5G6rPn6GWRM+0ycQ4Y9lnwPl
+         WAY//BXQwkvjwGO93H1STWNArNhl1MC76hGYqImtJXi9hAWgejJUDq2Pk5rm7w3HuHP+
+         TajqORh1l2V5o7/jJ7AVInuVGGVQnxoVX6GAtzkAtcV594npi9Z+0g9AdBMUkxxyXCuV
+         NlHB6c3M1ML2MfMNuIoJ1S9al85s6ToAgvVZSunz78q7NjGs7I67zhy3muKS3uXQGXJv
+         R6SXjbg1v1276r4L+hNPM4xKRiY0Cjqkoo4QvKSttGfskVPEras2UrMEuaKV2ksG9vcF
+         2P8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzvLt9BPP/18D9CEbIl0bmtrUM6RJzwNda7yRUjgepUIj/r/dr16E5cs3SWmyCv0VpnEbS6+7JHBv6mO1g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJigcCKdla61T3vbcp4ULq8WsK94lPr+AyQbw3lS/jzg10OCYJt
+	2wS/vdAzx8g5B+KloO4BfETGG0AvLUCnyjtQ7wYcpu2egeHnakje8U5b
+X-Gm-Gg: AYBFou3j6/igRAMsh+0hVtf1T3C23QuLWm1lGhtpVyHQoBYuZjOnSU6G3MxmafyAnqw
+	P97bJQPeiXIQPqao4lOV9pf2PTEkV1cl0nIvTHWuS1LQOf5IzOBQPUYVNN3qhKGUO42v30uGo4M
+	ruzYb6asDaSJ2GJ904qeYpYjnIWoI0/7/IzIWu7ldYpCYXUg+/4BF0R8oG3e+CFvI0sD5K9NjZ8
+	8TKNhoFS3JKeodmDVOMP6MPcwNRtMnNsdSJwLNEOdjh5UyX5XNzmhSdy0lIsd2Vm5mwGnssjhWu
+	Xr0G+qrcldnz5cmY/LC4SJJA3L2OArBch91PliMtINYI7bXzFoh4pNrT1erx/CYm07+ulqJeHNF
+	Ntr6+SOC87Azw44R89i7Gyz4jqxlo5hBTDfwQbpJ9HU8BMXAQ7LF8FhciIBBM4iz7OosfVpbl/+
+	XsOcvCUhEWtgNC0s0xuiPc5rEPERkYg8DTXzY7X174miTdhBxpsJSIOmYvl6PrSa5WC5Yw7Lo99
+	rZMnMQiUTXhx4sk28Uf6oSc0U/t1I7Nd0O+GKina6TUXkH5bHDJjDdH9buIgAv6bdnzaxAPP+32
+	eABLP7F6mUvTWGqWlvN7VzmSjYrT5xPl3A==
+X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id 5b1f17b1804b1-4a18e4487ccmr433992205e9.3.1792134754909;
+        Fri, 16 Oct 2026 00:12:34 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a1b377sm61802015e9.0.2026.10.16.00.12.30
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a1b377sm61802015e9.0.2026.10.16.00.12.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 00:12:30 -0700 (PDT)
+        Fri, 16 Oct 2026 00:12:33 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Christian Marangi <ansuelsmth@gmail.com>,
 	Vinod Koul <vkoul@kernel.org>,
@@ -70,10 +72,12 @@ To: Christian Marangi <ansuelsmth@gmail.com>,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] phy: airoha: add support for AN7583 PCIe PHY driver
-Date: Fri, 16 Oct 2026 09:12:22 +0200
-Message-ID: <20261016071225.2092-1-ansuelsmth@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: phy: airoha: Document support for AN7583 Gen3 PCIe PHY
+Date: Fri, 16 Oct 2026 09:12:23 +0200
+Message-ID: <20261016071225.2092-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016071225.2092-1-ansuelsmth@gmail.com>
+References: <20261016071225.2092-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,54 +86,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This small series introduce support for Airoha AN7583 Gen3 PCIe PHY.
+Document support for AN7583 PCIe PHY used to make the Gen3 PCIe port
+work. Add the required register to configure the PCIe PHY and provide an
+example for it.
 
-It's not possible to reuse the EN7581 code as the register changed between
-the 2 SoC and also the setup method changed (different calibration logic)
+The PHY link to another PHY (the QPHY as described in the YAML) to
+correctly handle Gen2 speed and mode. It's mandatory to have this PHY
+configured for correct functionality of PCIe. The QPHY is a unified PHY
+that both handle USB and PCIe PHY.
 
-Putting the PHY in a dedicated directory is also needed for other series
-current pending that will add USB PHY support.
+It's also mondatory that the QPHY setup is done in the PCIe PHY setup and
+calibration phase or calibration might fail.
 
-Also a dedicated schema is added as the register names is entirely
-different compared to EN7581.
-
-Changes v4:
-- Add REGMAP_MMIO to kconfig
-- Better handle exit
-- Add additional info on QPHY usage
-
-Changes v3:
-- Improve example for Documentation patch
-- Deinit G3 PHY on QPHY error
-
-Changes v2:
-- Drop move patch (handled in different series)
-- Rework to regmap implementation
-- Rename files to more specific name
-- Add .exit logic
-- Drop QPHY in favor of external PHY handling
-- Update schema with new requirement and improve example
-  Link: https://lore.kernel.org/all/20260827122127.18874-1-ansuelsmth@gmail.com/
-
-Christian Marangi (2):
-  dt-bindings: phy: airoha: Document support for AN7583 Gen3 PCIe PHY
-  phy: airoha: add support for AN7583 Gen3 PCIe PHY driver
-
- .../phy/airoha,an7583-pcie-gen3-phy.yaml      |  65 ++
- MAINTAINERS                                   |   8 +
- drivers/phy/Kconfig                           |   1 +
- drivers/phy/Makefile                          |   3 +-
- drivers/phy/airoha/Kconfig                    |  14 +
- drivers/phy/airoha/Makefile                   |   2 +
- drivers/phy/airoha/phy-an7583-pcie-regs.h     | 377 ++++++++
- drivers/phy/airoha/phy-an7583-pcie.c          | 823 ++++++++++++++++++
- 8 files changed, 1292 insertions(+), 1 deletion(-)
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../phy/airoha,an7583-pcie-gen3-phy.yaml      | 65 +++++++++++++++++++
+ 1 file changed, 65 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
- create mode 100644 drivers/phy/airoha/Kconfig
- create mode 100644 drivers/phy/airoha/Makefile
- create mode 100644 drivers/phy/airoha/phy-an7583-pcie-regs.h
- create mode 100644 drivers/phy/airoha/phy-an7583-pcie.c
 
+diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
+new file mode 100644
+index 000000000000..a8ec5ac781cc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/airoha,an7583-pcie-gen3-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN7583 PCI-Express PHY
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description:
++  The PCIe PHY supports physical layer functionality for PCIe Gen2/Gen3 port.
++
++properties:
++  compatible:
++    const: airoha,an7583-pcie-gen3-phy
++
++  reg:
++    items:
++      - description: PCIE G3 analog base address
++      - description: PCIE G3 PMA base address
++      - description: PCIE detection time base address
++      - description: PCIE Rx AEQ base address
++
++  reg-names:
++    items:
++      - const: g3-ana
++      - const: g3-pma
++      - const: xr-dtime
++      - const: rx-aeq
++
++  phys:
++    items:
++      - description: phandle to QPHY phy for Gen2 support
++
++  "#phy-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - phys
++  - "#phy-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/phy/phy.h>
++
++    phy@1fc7f000 {
++        compatible = "airoha,an7583-pcie-gen3-phy";
++        reg = <0x1fc7f000 0x1000>,
++              <0x1fc7e000 0x1000>,
++              <0x1fc30044 0x4>,
++              <0x1fc35030 0x4>;
++        reg-names = "g3-ana", "g3-pma",
++                    "xr-dtime", "rx-aeq";
++
++        phys = <&pcie1_phy PHY_TYPE_PCIE>;
++
++        #phy-cells = <0>;
++    };
 -- 
 2.55.0
 
